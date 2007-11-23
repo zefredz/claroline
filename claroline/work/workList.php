@@ -53,13 +53,21 @@ claro_set_display_mode_available(true);
 $fileAllowedSize = get_conf('max_file_size_per_works') ;    //file size in bytes (from config file)
 $maxFilledSpace  = get_conf('maxFilledSpace', 100000000);
 
+// initialise dialog box to an empty string, all dialog will be concat to it
+$dialogBox = new DialogBox();
+
 /*============================================================================
 	Clean informations sent by user
   ============================================================================*/
 unset ($req);
 
-// Probably deletable line
-// $req['cmd'] = ( isset($_REQUEST['cmd']) )?$_REQUEST['cmd']:'';
+$acceptedCmdList = array( 'rqDownload', 'exDownload' );
+
+if( isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'], $acceptedCmdList) )   $cmd = $_REQUEST['cmd'];
+else                                                                            $cmd = null;
+
+if( isset($_REQUEST['downloadMode']) )  $downloadMode = $_REQUEST['downloadMode'];
+else                                                                    $downloadMode = 'all';
 
 $req['assignmentId'] = ( isset($_REQUEST['assigId'])
                     && !empty($_REQUEST['assigId'])
@@ -122,6 +130,140 @@ if( !$assignmentIsVisible && !$is_allowedToEditAll )
 // upload or update is allowed between start and end date or after end date if late upload is allowed
 $uploadDateIsOk      = $assignment->isUploadDateOk();
 
+/*============================================================================
+                DOWNLOAD SUBMISSIONS UJM
+  =============================================================================*/
+if( $cmd == 'exDownload' && $is_allowedToEditAll && get_conf('allow_download_all_submissions') ) // UJM
+{
+	require_once('lib/zip.lib.php');
+
+	$zipfile = new zipfile();
+
+	if( $downloadMode == 'from')
+	{
+		if( isset($_REQUEST['hour']) && is_numeric($_REQUEST['hour']) )   	$hour = (int) $_REQUEST['hour'];
+		else                                                              	$hour = 0;
+		if( isset($_REQUEST['minute']) && is_numeric($_REQUEST['minute']) ) $minute = (int) $_REQUEST['minute'];
+		else                                                              	$minute = 0;
+
+		if( isset($_REQUEST['month']) && is_numeric($_REQUEST['month']) )   $month = (int) $_REQUEST['month'];
+		else                                                              	$month = 0;
+		if( isset($_REQUEST['day']) && is_numeric($_REQUEST['day']) )   	$day = (int) $_REQUEST['day'];
+		else                                                              	$day = 0;
+		if( isset($_REQUEST['year']) && is_numeric($_REQUEST['year']) )   	$year = (int) $_REQUEST['year'];
+		else                                                              	$year = 0;
+
+		$unixRequestDate = mktime( $hour, $minute, '00', $month, $day, $year );
+
+		if( $unixRequestDate >= time() )
+		{
+			$dialogBox->erro(get_lang('Warning : chosen date is in the future'));
+		}
+
+		$downloadRequestDate = date('Y-m-d G:i:s', $unixRequestDate);
+
+		$wanted = '_' . replace_dangerous_char(get_lang('From')) . '_' . date('Y_m_d', $unixRequestDate) . '_'
+		. replace_dangerous_char(get_lang('To')) . '_' . date('Y_m_d')
+		;
+		$sqlDateCondition = " AND `last_edit_date` >= '" . $downloadRequestDate . "' ";
+	}
+	else // download all
+	{
+		$wanted = '';
+
+		$sqlDateCondition = '';
+	}
+
+    $sql = "SELECT `id`,
+    		`assignment_id`,
+	 		`authors`,
+	 		`submitted_text`,
+	 		`submitted_doc_path`,
+	 		`title`,
+	 		`creation_date`,
+	 		`last_edit_date`
+	        FROM  `" . $tbl_wrk_submission . "`
+            WHERE `assignment_id` = " . (int) $req['assignmentId'] . "
+            AND `parent_id` IS NULL
+            " . $sqlDateCondition . "
+            ORDER BY `creation_date`";
+
+
+	$path = $coursesRepositorySys . $_course['path'] . '/work/assig_' . $req['assignmentId'] . '/';
+
+	$workDir = replace_dangerous_char($_cid) . '_' . replace_dangerous_char($assignment->getTitle(), 'strict')
+	. $wanted
+	;
+
+
+	$results = claro_sql_query_fetch_all($sql);
+
+	if( is_array($results) && !empty($results) )
+	{
+		$previousAuthors = '';
+		$i = 1;
+
+		foreach($results as $row => $result)
+		{
+			//  count author's submissions for the name of directory
+			if( $result['authors'] != $previousAuthors )
+			{
+				$i = 1;
+				$previousAuthors = $result['authors'];
+			}
+			else
+			{
+				$i++;
+			}
+
+			$authorsDir = replace_dangerous_char($result['authors']) . '/';
+
+			$submissionPrefix = $authorsDir . replace_dangerous_char(get_lang('Submission')) . '_' . $i . '_';
+
+			// attached file
+			if(!empty($result['submitted_doc_path']))
+			{
+				if(file_exists($path . $result['submitted_doc_path']))
+					$zipfile->addFile(file_get_contents($path . $result['submitted_doc_path']),
+									$workDir . '/' . $submissionPrefix . $result['submitted_doc_path']);
+			}
+
+			// description file
+			$txtFileName = replace_dangerous_char(get_lang('Description')) . '.html';
+
+			$htmlContent = '<html><head></head><body>' . "\n"
+			.	 get_lang('Title') . ' : ' . $result['title'] . '<br />' . "\n"
+			.	 get_lang('First submission date') . ' : ' . $result['creation_date']. '<br />' . "\n"
+			.	 get_lang('Last edit date') . ' : ' . $result['last_edit_date'] . '<br />' . "\n"
+			;
+
+			if( !empty($result['submitted_doc_path']) )
+			{
+				$htmlContent .= get_lang('Attached file') . ' : ' . $submissionPrefix . $result['submitted_doc_path']. '<br />' . "\n";
+			}
+
+			$htmlContent .= '<div>' . "\n"
+			.	 '<h3>' . get_lang('Description') . '</h3>' . "\n"
+			.	 $result['submitted_text']
+			.	 '</div>' . "\n"
+			.	 '</body></html>';
+
+			$zipfile->addFile($htmlContent,
+							$workDir . '/' . $submissionPrefix . $txtFileName);
+		}
+
+		// send zip file
+		header('Content-type: application/octet-stream');
+		header('Content-Disposition: attachment; filename=' . $workDir . '.zip');
+		echo $zipfile->file();
+
+		exit;
+	}
+	else
+	{
+		$dialogBox->error(get_lang('There is no submission available for download with these settings.'));
+	}
+}
 
 
 if( $assignment->getAssignmentType() == 'INDIVIDUAL' )
@@ -192,7 +334,8 @@ if( $assignment->getAssignmentType() == 'INDIVIDUAL' )
                    `S`.`title`,
                    COUNT(`S`.`id`)                      AS `submissionCount`,
                    COUNT(`FB`.`id`)                     AS `feedbackCount`,
-                   MAX(`FB`.`score`)                   AS `maxScore`
+                   MAX(`FB`.`score`)                   AS `maxScore`,
+                   MAX(`S`.`last_edit_date`)         AS `last_edit_date`
 
             #GET USER LIST
             FROM  `" . $tbl_user . "` AS `U`
@@ -233,12 +376,13 @@ if( $assignment->getAssignmentType() == 'INDIVIDUAL' )
     $sortKeyList['U.prenom']  = SORT_ASC;
 
     // get last submission titles
-    $sql2 = "SELECT `S`.`user_id` as `authId`, `S`.`title`
+    $sql2 = "SELECT `S`.`user_id` as `authId`, `S`.`title`, DATE(`S`.`last_edit_date`) as date
     			FROM `" . $tbl_wrk_submission . "` AS `S`
             LEFT JOIN `" . $tbl_wrk_submission . "` AS `S2`
             	ON `S`.`user_id` = `S2`.`user_id`
             	AND `S2`.`assignment_id` = ". (int) $req['assignmentId']."
             	AND `S`.`last_edit_date` < `S2`.`last_edit_date`
+            	AND `S2`.`parent_id` IS NULL
             WHERE `S2`.`user_id` IS NULL
                 AND `S`.`original_id` IS NULL
                 AND `S`.`assignment_id` = ". (int) $req['assignmentId']."
@@ -255,7 +399,8 @@ else  // $assignment->getAssignmentType() == 'GROUP'
                    `S`.`title`,
                    COUNT(`S`.`id`)     AS `submissionCount`,
                    COUNT(`FB`.`id`)    AS `feedbackCount`,
-				   max(`FB`.`score`)   AS `maxScore`
+				   MAX(`FB`.`score`)   AS `maxScore`,
+				   MAX(`S`.`last_edit_date`)         AS `last_edit_date`
 
         FROM `" . $tbl_group_team . "` AS `G`
 
@@ -286,7 +431,7 @@ else  // $assignment->getAssignmentType() == 'GROUP'
     $sortKeyList['G.name'] = SORT_ASC;
 
     // get last submission titles
-    $sql2 = "SELECT `S`.`group_id` as `authId`, `S`.`title`
+    $sql2 = "SELECT `S`.`group_id` as `authId`, `S`.`title`, DATE(`S`.`last_edit_date`) as date
     			FROM `" . $tbl_wrk_submission . "` AS `S`
             LEFT JOIN `" . $tbl_wrk_submission . "` AS `S2`
             	ON `S`.`group_id` = `S2`.`group_id`
@@ -317,9 +462,13 @@ $workList = $workPager->get_result_list();
 // add the title of the last submission in each displayed line
 $results = claro_sql_query_fetch_all($sql2);
 
+$lastWorkTitleList = array();
+$last_edit_date_list = array();
+
 foreach( $results as $result )
 {
 	$lastWorkTitleList[$result['authId']] = $result['title'];
+	$last_edit_date_list[$result['authId']] = $result['date'];
 }
 
 if( !empty($lastWorkTitleList) )
@@ -328,6 +477,9 @@ if( !empty($lastWorkTitleList) )
 	{
 		if( isset($lastWorkTitleList[$workList[$i]['authId']]) )
 			$workList[$i]['title'] = $lastWorkTitleList[$workList[$i]['authId']];
+
+		if( isset($last_edit_date_list[$workList[$i]['authId']]) )
+			$workList[$i]['last_edit_date'] = $last_edit_date_list[$workList[$i]['authId']];
 	}
 }
 
@@ -506,12 +658,44 @@ if ( $is_allowedToSubmit && $assignment->getAssignmentType() != 'GROUP' )
 
 if ( $is_allowedToEditAll )
 {
+	// Submission download requested
+	if( $cmd == 'rqDownload' ) // UJM
+	{
+		include($includePath . '/lib/form.lib.php');
+
+	 	$downloadForm = '<strong>' . get_lang('Download').'</strong>' . "\n"
+	 	.        '<form action="' . $_SERVER['PHP_SELF'] . '?assigId=' . $req['assignmentId'] . '" method="POST">' . "\n"
+	 	.    claro_form_relay_context()
+	 	.    '<input type="hidden" name="cmd" value="exDownload" />' . "\n"
+	 	.        '<input type="radio" name="downloadMode" id="downloadMode_from" value="from" checked /><label for="downloadMode_from">' . get_lang('Submissions posted or modified after date :') . '</label><br />' . "\n"
+	 	.        claro_html_date_form('day', 'month', 'year', time(), 'long') . ' '
+	 	.        claro_html_time_form('hour', 'minute', time() - fmod(time(), 86400) - 3600) . '<small>' . get_lang('(d/m/y hh:mm)') . '</small>' . '<br /><br />' . "\n"
+	 	.        '<input type="radio" name="downloadMode" id="downloadMode_all" value="all" /><label for="downloadMode_all">' . get_lang('All submissions') . '</label><br /><br />' . "\n"
+	 	.        '<input type="submit" value="'.get_lang('OK').'" />&nbsp;' . "\n"
+	 	.    claro_html_button('workList.php?assigId='.$req['assignmentId'], get_lang('Cancel'))
+	 	.        '</form>'."\n"
+	    ;
+
+	    echo $dialogBox->form($downloadForm);
+	}
+
     $cmdMenu[] = claro_html_cmd_link( 'feedback.php?cmd=rqEditFeedback'
                                     . '&amp;assigId=' . $req['assignmentId']
                                     . claro_url_relay_context('&amp;')
                                     , get_lang('Edit automatic feedback')
                                     );
+
+	$cmdMenu[] = claro_html_cmd_link( $_SERVER['PHP_SELF'] . '?cmd=rqDownload&amp;assigId=' . $req['assignmentId'] . claro_url_relay_context('&amp;')
+									, '<img src="' . $imgRepositoryWeb . 'save.gif" />' . get_lang('Download submissions')
+									);
+
 }
+
+/*--------------------------------------------------------------------
+                        DIALOG BOX SECTION
+  --------------------------------------------------------------------*/
+
+echo $dialogBox->render();
 
 if( !empty($cmdMenu) ) echo '<p>' . claro_html_menu_horizontal($cmdMenu) . '</p>' . "\n";
 
@@ -532,7 +716,9 @@ echo $workPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?assigId=".$req['assi
 .    '</a>'
 .    '</th>' . "\n"
 .    '<th>'
+.    '<a href="' . $headerUrl['last_edit_date'] . '">'
 .    get_lang('Last submission')
+.	 '</a>'
 .    '</th>' . "\n"
 .    '<th>'
 .    '<a href="' . $headerUrl['submissionCount'] . '">'
@@ -549,7 +735,7 @@ if( $is_allowedToEditAll )
 {
 	echo '<th>'
 	.    '<a href="' . $headerUrl['maxScore'] . '">'
-	.    get_lang('Score')
+	.    get_lang('Best score')
 	.    '</a>'
 	.    '</th>' . "\n";
 }
@@ -568,7 +754,7 @@ foreach ( $workList as $thisWrk )
     .     $thisWrk['name']
     .    '</td>' . "\n"
     .    '<td>'
-    .    ( !empty($thisWrk['title']) ? $thisWrk['title'] : '&nbsp;' )
+    .    ( !empty($thisWrk['title']) ? $thisWrk['title'] . '<small> ( ' . $thisWrk['last_edit_date'] . ' )</small>'  : '&nbsp;' )
     .    '</td>' . "\n"
     .    '<td>'
     .    $thisWrk['submissionCount']
@@ -580,7 +766,7 @@ foreach ( $workList as $thisWrk )
 	if( $is_allowedToEditAll )
 	{
 	    echo '<td>'
-		.    ( ( !is_null($thisWrk['maxScore']) && $thisWrk['maxScore'] > -1 )? $thisWrk['maxScore'] : '-' )
+		.    ( ( !empty($thisWrk['maxScore']) && $thisWrk['maxScore'] > -1 )? $thisWrk['maxScore'] : get_lang('No score') )
 		.    '</td>' . "\n";
 	}
 
