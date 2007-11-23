@@ -78,6 +78,9 @@ $assignmentId = ( isset($_REQUEST['assigId'])
 
 $authId = isset($_REQUEST['authId'])?(int)$_REQUEST['authId']:'';
 
+if( !empty($_REQUEST['submitGroupWorkUrl']) )   $submitGroupWorkUrl = urldecode($_REQUEST['submitGroupWorkUrl']);
+else                                            $submitGroupWorkUrl = null;
+
 /*============================================================================
                           PREREQUISITES
   =============================================================================*/
@@ -511,11 +514,11 @@ if( isset($_REQUEST['submitWrk']) )
                 // if there was already a file and nothing was provided to replace it, reuse it
                 $wrkForm['filename'] = $_REQUEST['currentWrkUrl'];
             }
-            elseif( isset($_REQUEST['submitGroupWorkUrl']) )
+            elseif( !is_null($submitGroupWorkUrl) )
             {
-                $wrkForm['filename'] = $assignment->createUniqueFilename(basename($_REQUEST['submitGroupWorkUrl'])) ;
+                $wrkForm['filename'] = $assignment->createUniqueFilename(basename($submitGroupWorkUrl)) ;
 
-                $groupWorkFile = get_path('coursesRepositorySys') . '/' . claro_get_course_path() . '/group/' . claro_get_current_group_data('directory') . '/' . $_REQUEST['submitGroupWorkUrl'];
+                $groupWorkFile = get_path('coursesRepositorySys') . '/' . claro_get_course_path() . '/group/' . claro_get_current_group_data('directory') . '/' . $submitGroupWorkUrl;
 
                 $groupWorkFile = secure_file_path($groupWorkFile) ;
 
@@ -526,7 +529,7 @@ if( isset($_REQUEST['submitWrk']) )
                 else
                 {
                     // if the main thing to provide is a file and that no file was sent
-                    $dialogBox->error( get_lang('Unable to copy file : %filename', array('%filename' => basename($_REQUEST['submitGroupWorkUrl']))) );
+                    $dialogBox->error( get_lang('Unable to copy file : %filename', array('%filename' => basename($submitGroupWorkUrl))) );
                     $formCorrectlySent = false;
                 }
             }
@@ -541,11 +544,11 @@ if( isset($_REQUEST['submitWrk']) )
         {
             // attached file is optionnal if work type is TEXT AND FILE
             // so the attached file can be deleted only in this mode
-            if( isset($_REQUEST['submitGroupWorkUrl']) )
+            if( !is_null($submitGroupWorkUrl) )
             {
-                $wrkForm['filename'] = $assignment->createUniqueFilename(basename($_REQUEST['submitGroupWorkUrl'])) . '.url';
+                $wrkForm['filename'] = $assignment->createUniqueFilename(basename($submitGroupWorkUrl) . '.url');
 
-                create_link_file($assignment->getAssigDirSys().$wrkForm['filename'], get_path('coursesRepositoryWeb') . claro_get_course_path() . '/' . $_REQUEST['submitGroupWorkUrl']);
+                create_link_file($assignment->getAssigDirSys().$wrkForm['filename'], get_path('coursesRepositoryWeb') . claro_get_course_path() . '/' . $submitGroupWorkUrl);
             }
 
             // if delete of the file is required
@@ -643,6 +646,7 @@ if($is_allowedToEditAll)
                             WHERE `team` = ".(int)$_REQUEST['authId'];
 
                     $userIdList = claro_sql_query_fetch_all($sql);
+                    $userIdList = $userIdList['user'];
                 }
                 else
                 {
@@ -848,6 +852,7 @@ if( $is_allowedToSubmit )
                         AND `U`.`email` IS NOT NULL";
 
                 $userIdList = claro_sql_query_fetch_all($sql);
+                $userIdList = $userIdList['user_id'];
 
                 if( is_array($userIdList) )
                 {
@@ -1178,10 +1183,10 @@ if( $is_allowedToSubmit )
                     echo get_lang('Upload document').'&nbsp;*';
                 }
                 echo '&nbsp;:</label></td>'."\n";
-                if( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) )
+                if( !empty($submitGroupWorkUrl) )
                 {
                     // Secure download
-                    $file = $_REQUEST['submitGroupWorkUrl'];
+                    $file = $submitGroupWorkUrl;
 
                     if ( $GLOBALS['is_Apache'] && get_conf('secureDocumentDownload') )
                     {
@@ -1193,7 +1198,7 @@ if( $is_allowedToSubmit )
                     }
 
                     echo '<td>'
-                        .'<input type="hidden" name="submitGroupWorkUrl" value="'.$_REQUEST['submitGroupWorkUrl'].'" />'
+                        .'<input type="hidden" name="submitGroupWorkUrl" value="'.htmlspecialchars($submitGroupWorkUrl).'" />'
                         .'<a href="' . get_conf('urlAppend')  . '/claroline/document/'. $groupWorkUrl .'">'.basename($file).'</a>'
                         .'</td>'."\n";
                 }
