@@ -125,7 +125,7 @@ class Assignment
 	    $this->submissionType = 'FILE';
 	    $this->allowLateUpload = 'YES';
 	    $this->startDate = time(); // now as unix timestamp
-	    $this->endDate = time() + 31536000; // one year later
+	    $this->endDate = strtotime("+1 year"); // one year later
 	    $this->autoFeedbackText = '';
 	    $this->autoFeedbackFilename = '';
 	    $this->autoFeedbackSubmitMethod = 'ENDDATE';
