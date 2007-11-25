@@ -32,7 +32,6 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__bb_posts`(
     nom varchar(30),
     prenom varchar(30),
     PRIMARY KEY (post_id),
-    KEY post_id (post_id),
     KEY forum_id (forum_id),
     KEY topic_id (topic_id),
     KEY poster_id (poster_id)
@@ -53,7 +52,6 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__bb_priv_msgs` (
     msg_status int(10) DEFAULT '0',
     msg_text text,
     PRIMARY KEY (msg_id),
-    KEY msg_id (msg_id),
     KEY to_userid (to_userid)
 ) TYPE=MyISAM;
 
@@ -71,7 +69,6 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__bb_topics` (
     nom varchar(30),
     prenom varchar(30),
     PRIMARY KEY (topic_id),
-    KEY topic_id (topic_id),
     KEY forum_id (forum_id),
     KEY topic_last_post_id (topic_last_post_id)
 ) TYPE=MyISAM;
