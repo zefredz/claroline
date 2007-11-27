@@ -212,6 +212,13 @@ function check_module_repositories()
 
 // MODULE INSTALLATION AND ACTIVATION
 
+
+/**
+ * 
+ * This function would be split
+ * 
+ * 
+ */
 function get_and_unzip_uploaded_package()
 {
     $backlog_message = array();
@@ -223,9 +230,6 @@ function get_and_unzip_uploaded_package()
     {
         $backlog_message[] = get_lang('Upload failed');
     }
-
-    //1- Unzip folder in a new repository in claroline/module
-
     require_once get_path('incRepositorySys') . '/lib/pclzip/pclzip.lib.php';
 
     if (!function_exists('gzopen'))
@@ -235,6 +239,62 @@ function get_and_unzip_uploaded_package()
     }
 
     //unzip files
+    
+    
+    // $moduleRepositorySys is the place where go the installed module
+    // $uploadDirFullPath is a temporary name of the dir in $moduleRepositorySys the module is unpack
+    // $uploadDirFullPath would be renamed to $modulePath when install is done.
+    
+    $moduleRepositorySys = get_path('rootSys') . 'module/';
+    //create temp dir for upload
+    claro_mkdir($moduleRepositorySys, CLARO_FILE_PERMISSIONS, true);
+    $uploadDirFullPath = claro_mkdir_tmp($moduleRepositorySys);
+    $uploadDir         = str_replace(realpath($moduleRepositorySys),'',realpath($uploadDirFullPath));
+    $modulePath        = realpath($moduleRepositorySys.$uploadDir.'/');
+
+    //1- Unzip folder in a new repository in claroline/module
+
+    // treat_uploaded_file : Executes all the necessary operation to upload the file in the document tool
+    // TODO this function would be splited.
+    
+    if ( preg_match('/.zip$/i', $_FILES['uploadedModule']['name']) 
+      && treat_uploaded_file( $_FILES['uploadedModule']
+                            , $moduleRepositorySys
+                            , $uploadDir
+                            , get_conf('maxFilledSpaceForModule' , 10000000)
+                            , 'unzip'
+                            , true)
+                            )
+    {
+        $backlog_message[] = get_lang('Files dezipped sucessfully in %path', array ('%path' => $modulePath )) ;
+    }
+    else
+    {   
+        $backlog_message[] = get_lang('Impossible to unzip file');
+        claro_delete_file($modulePath);
+        return claro_failure::set_failure($backlog_message);
+    }
+    
+    return $modulePath;
+}
+
+/**
+ * 
+ * 
+ */
+function unzip_package($packageFileName )
+{
+    $backlog_message = array();
+
+    //1- Unzip folder in a new repository in claroline/module
+    require_once get_path('incRepositorySys') . '/lib/pclzip/pclzip.lib.php';
+    if (!function_exists('gzopen'))
+    {
+        $backlog_message[] = get_lang('Error : no zlib extension found');
+        return claro_failure::set_failure($backlog_message);
+    }
+
+        //unzip files
 
     $moduleRepositorySys = get_path('rootSys') . 'module/';
     //create temp dir for upload
@@ -242,8 +302,9 @@ function get_and_unzip_uploaded_package()
     $uploadDirFullPath = claro_mkdir_tmp($moduleRepositorySys);
     $uploadDir         = str_replace($moduleRepositorySys,'',$uploadDirFullPath);
     $modulePath        = $moduleRepositorySys.$uploadDir.'/';
-
-    if ( preg_match('/.zip$/i', $_FILES['uploadedModule']['name']) && treat_uploaded_file($_FILES['uploadedModule'],$moduleRepositorySys, $uploadDir, get_conf('maxFilledSpaceForModule' , 10000000),'unzip',true))
+    
+    if ( preg_match('/.zip$/i', $packageFileName) 
+      && treat_secure_file_unzip($packageFileName, $uploadDir, $moduleRepositorySys, get_conf('maxFilledSpaceForModule' , 10000000),true))
     {
         $backlog_message[] = get_lang('Files dezipped sucessfully in %path', array ('%path' => $modulePath )) ;
     }
@@ -253,7 +314,6 @@ function get_and_unzip_uploaded_package()
         claro_delete_file($modulePath);
         return claro_failure::set_failure($backlog_message);
     }
-
     return $modulePath;
 }
 
@@ -386,10 +446,10 @@ function install_module($modulePath, $skipCheckDir = false)
                 }
 
                 //4- Rename the module repository with label
-
+                
                 if (!rename( $modulePath, get_module_path($module_info['LABEL']) . '/'))
                 {
-                    $backlog->failure(get_lang("Error while renaming module folder"));
+                   $backlog->failure(get_lang("Error while renaming module folder"));
                 }
                 else
                 {
@@ -847,8 +907,9 @@ function unregister_module_from_courses( $moduleId )
     $moduleInfo =  get_module_info($moduleId);
     $tbl = claro_sql_get_main_tbl();
 
-    $sql = "SELECT id as tool_id FROM `" . $tbl['tool']."`
-            WHERE claro_label = '".$moduleInfo['label']."'";
+    $sql = "SELECT id AS tool_id 
+              FROM `" . $tbl['tool']."`
+             WHERE claro_label = '".$moduleInfo['label']."'";
     $tool_to_delete = claro_sql_query_get_single_row($sql);
     $tool_id = $tool_to_delete['tool_id'];
 
@@ -950,7 +1011,7 @@ function set_module_visibility_in_course( $tool_id, $courseCode, $visibility )
 {
     $currentCourseDbNameGlu = claro_get_course_db_name_glued( $courseCode );
     $course_tbl = claro_sql_get_course_tbl($currentCourseDbNameGlu);
-    $default_visibility = false;
+    //$default_visibility = false;
 
     $sql = "UPDATE `" . $course_tbl['tool'] . "`
             SET visibility   = '" . ( $visibility ? 1 : 0 ) . "'
@@ -976,10 +1037,7 @@ function set_module_visibility_in_course( $tool_id, $courseCode, $visibility )
  */
 function register_module($modulePath)
 {
-    // TODO use Backlog
-    global $regLog;
-
-    $regLog = array();
+    $backlog = new Backlog;
     if (file_exists($modulePath))
     {
         $parser = new ModuleManifestParser;
@@ -987,22 +1045,24 @@ function register_module($modulePath)
         
         if ( false === $module_info )
         {
-            $regLog['error'][] = get_lang('Cannot parse module manifest');
+            $backlog->failure(get_lang( 'Cannot parse module manifest'));
+            
             $moduleId = false;
         }
         elseif (is_array($module_info) && false !== ($moduleId = register_module_core($module_info)))
         {
-            $regLog['info'][] = get_lang('Module %claroLabel registered', array('%claroLabel'=>$module_info['LABEL']));
-
+            $backlog->failure(get_lang('Module %claroLabel registered', array('%claroLabel'=>$module_info['LABEL'])));
+            
             if('TOOL' == strtoupper($module_info['TYPE']))
             {
                 if (false !== ($toolId   = register_module_tool($moduleId,$module_info)))
                 {
-                    $regLog['info'][] = get_lang('Module %label registered as tool', array('%claroLabel'=>$module_info['LABEL']));
+                    $backlog->failure(get_lang('Module %label registered as tool', array('%claroLabel'=>$module_info['LABEL'])));
+            
                 }
                 else
                 {
-                    $regLog['error'][] = get_lang('Cannot register tool %label', array('%label' => $module_info['LABEL']));
+                    $backlog->failure( get_lang('Cannot register tool %label', array('%label' => $module_info['LABEL'])));
                 }
             }
             elseif('APPLET' == $module_info['TYPE'])
@@ -1012,24 +1072,24 @@ function register_module($modulePath)
                     foreach($module_info['DEFAULT_DOCK'] as $dock)
                     {
                         add_module_in_dock($moduleId, $dock);
-                        $regLog['info'][] = get_lang('Module %label added in dock : %dock'
-                            , array('%label' => $module_info['LABEL'], '%dock' => $dock));
+                            $backlog->failure(get_lang('Module %label added in dock : %dock'
+                            , array('%label' => $module_info['LABEL'], '%dock' => $dock)));
+                        
                     }
                 }
             }
         }
         else
         {
-            $regLog['error'][] = get_lang('Cannot register module %label', array('%label' => $module_info['LABEL']));
+            $backlog->failure(get_lang('Cannot register module %label', array('%label' => $module_info['LABEL'])));
         }
     }
     else
     {
-        $regLog['error'][] = get_lang('Cannot find module');
+        $backlog->failure(get_lang('Cannot find module'));
     }
 
     return $moduleId;
-    //return $regLog;
 }
 
 /**
@@ -1513,6 +1573,7 @@ function move_module_tool($toolId, $sense)
         }
         break;
    }
+   return true;
 }
 
 /**
@@ -1594,6 +1655,22 @@ function get_course_tool_min_rank()
 
     $sql = "SELECT MIN(def_rank) as minrank FROM `" . $tbl ['tool'] . "`";
     return claro_sql_query_get_single_value($sql);
+}
+
+/**
+ * Check  if the  given  file path point on a claroline package file
+ *
+ * @param string $packagePath
+ * @return boolean 
+ */
+function is_package_file($packagePath)
+{
+	 $packagePath= realpath($packagePath);
+	 if (!file_exists($packagePath)) return false;
+     if (!is_file($packagePath)) return false;
+     if (is_dir($packagePath)) return false;
+     if ('.zip' == strtolower(substr($packagePath,-4,4))) return true;
+     return false;
 }
 
 ?>

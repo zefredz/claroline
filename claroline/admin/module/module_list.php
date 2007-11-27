@@ -12,26 +12,26 @@
  * @author claro team <cvs@claroline.net>
  */
 
-$cidReset=true;$gidReset=true;
-require '../../inc/claro_init_global.inc.php';
+$cidReset = true ;
+$gidReset = true ;
+require '../../inc/claro_init_global.inc.php' ;
 
 //SECURITY CHECK
-
 if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
 //DECLARE NEEDED LIBRARIES
-
-require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
-require_once get_path('incRepositorySys') . '/lib/sqlxtra.lib.php';
-require_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
-require_once get_path('incRepositorySys') . '/lib/fileUpload.lib.php';
-require_once get_path('incRepositorySys') . '/lib/file.lib.php';
-require_once get_path('incRepositorySys') . '/lib/html.lib.php';
-require_once get_path('incRepositorySys') . '/lib/module.manage.lib.php';
-require_once get_path('incRepositorySys') . '/lib/backlog.class.php';
+require_once get_path ( 'incRepositorySys' ) . '/lib/pager.lib.php' ;
+require_once get_path ( 'incRepositorySys' ) . '/lib/sqlxtra.lib.php' ;
+require_once get_path ( 'incRepositorySys' ) . '/lib/fileManage.lib.php' ;
+require_once get_path ( 'incRepositorySys' ) . '/lib/fileUpload.lib.php' ;
+require_once get_path ( 'incRepositorySys' ) . '/lib/file.lib.php' ;
+require_once get_path ( 'incRepositorySys' ) . '/lib/html.lib.php' ;
+require_once get_path ( 'incRepositorySys' ) . '/lib/module.manage.lib.php' ;
+require_once get_path ( 'incRepositorySys' ) . '/lib/backlog.class.php' ;
 
 //OLD TOOLS ;
+
 
 $old_tool_array = array('CLANN',
                         'CLCAL',
@@ -94,7 +94,7 @@ function confirmation (name)
     else
         {return false;}
 }
-</script>";
+</script>" ;
 
 //CONFIG and DEVMOD vars :
 
@@ -166,11 +166,11 @@ switch ( $cmd )
             $details = $backlog->output();
             if ( $success )
             {
-                $summary  = get_lang('Module deactivation succeeded');
+                $summary  = get_lang('Module desactivation succeeded');
             }
             else
             {
-                $summary  = get_lang('Module deactivation failed');
+                $summary  = get_lang('Module desactivation failed');
             }
             $msgList[][] = Backlog_Reporter::report( $summary, $details );
             break;
@@ -181,180 +181,402 @@ switch ( $cmd )
             if(!is_null($courseToolId)) move_module_tool($courseToolId, 'down');
             break;
     case 'exUninstall' :
+        $moduleInfo = get_module_info ( $module_id ) ;
+        if (in_array ( $moduleInfo [ 'label' ], $old_tool_array ))
         {
-            $moduleInfo = get_module_info($module_id);
-            if (in_array($moduleInfo['label'], $old_tool_array))
+            $msgList [ 'error' ] [] = get_lang ( 'This tool can not be uninstalled.' ) ;
+        } 
+        else
+        {
+            list ( $backlog, $success ) = uninstall_module ( $module_id, $deleteModuleDatabase ) ;
+            $details = $backlog->output () ;
+            if ($success)
             {
-                $msgList['error'][]  = get_lang('This tool can not be uninstalled.');
-            }
+                $summary = get_lang ( 'Module uninstallation succeeded' ) ;
+            } 
             else
             {
-                list( $backlog, $success ) = uninstall_module($module_id, $deleteModuleDatabase);
-                $details = $backlog->output();
-                if ( $success )
-                {
-                    $summary  = get_lang('Module uninstallation succeeded');
-                }
-                else
-                {
-                    $summary  = get_lang('Module uninstallation failed');
-                }
-                $msgList[][] = Backlog_Reporter::report( $summary, $details );
+                $summary = get_lang ( 'Module uninstallation failed' ) ;
             }
-            break;
+            $msgList [] [] = Backlog_Reporter::report ( $summary, $details ) ;
         }
+    break ;
     case 'rqUninstall' :
-        {
-            $moduleInfo = get_module_info($module_id);
-            
-            $msgList['form'][] = '<p>'
-            .            get_lang ( 'Are you sure you want to delete module %module% ?'
-                            , array( '%module%' => $moduleInfo['module_name'] ) )
-            .            '</p>'
+        $moduleInfo = get_module_info ( $module_id ) ;
+        
+        $msgList [ 'form' ] [] = '<p>' . get_lang ( 'Are you sure you want to delete module %module% ?', array ( '%module%' => $moduleInfo [ 'module_name' ] ) ) . '</p>' ;
+        
+        $msgList [ 'form' ] [] 
+            = '<form enctype="multipart/form-data" action="' . $_SERVER [ 'PHP_SELF' ] . '" method="post">' . "\n" 
+            . '<input type="hidden" name="claroFormId" value="' . uniqid ( '' ) . '" />' 
+            . '<input type="hidden" name="module_id" value="' . $module_id . '" />' 
+            . '<input name="cmd" type="hidden" value="exUninstall" />' . "\n" 
+            . '<input name="deleteModuleDatabase" id="deleteModuleDatabase" type="checkbox" checked="checked" />' 
+            . '<label for="deleteModuleDatabase">' . get_lang ( 'Also delete module main database' ) . '</label>'
+            . '<br />' . "\n" 
+            . '<br />' . "\n" 
+            . '<input value="' . get_lang ( 'Continue' ) . '" type="submit" onclick="return confirmation(\'' . $moduleInfo [ 'module_name' ] . '\');" />'  
+            . '&nbsp;' . "\n" 
+            . claro_html_button ( $_SERVER [ 'PHP_SELF' ], get_lang ( 'Cancel' ) ) . '</form>' . "\n" 
             ;
-            
-            $msgList['form'][] = '<form enctype="multipart/form-data" action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
-            .            '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'
-            .            '<input type="hidden" name="module_id" value="' . $module_id . '" />'
-            .            '<input name="cmd" type="hidden" value="exUninstall" />' . "\n"
-            .            '<input name="deleteModuleDatabase" type="checkbox" checked="checked" />'.get_lang('Also delete module main database').'<br />'
-            .            '<br /><input value="' . get_lang('Continue') . '" type="submit" onclick="return confirmation(\'' . $moduleInfo['module_name'].'\');" />&nbsp;' . "\n"
-            .            claro_html_button( $_SERVER['PHP_SELF'], get_lang('Cancel'))
-            .            '</form>' . "\n"
-            ;
-            break;
-        }
+    break ;
     case 'exInstall' :
+        
+        // call by rqInstall 
+        //1° GET THE FILE
+        //2° UNZIP IF ZIPPED
+        //3° INSTALL
+        
+
+        $moduleInstallable = false ;
+        
+        //include needed librabries for treatment
+        //1° GET THE FILE
+        // File can be an uploaded package file
+        // or a local package file
+        // or a local unpackaged file
+        // later: an url to a package file)
+        // later: a local repository of many packages
+        // Actually interface display two input, and only one must be filed. If the user give both , the uploaded package win.
+        
+
+        // If it's a zip file, it would be place into package repositorys.
+        
+        
+        pushClaroMessage(__LINE__ . '<pre>$_FILES ='.var_export($_FILES,1).'</pre>','dbg');
+        if (array_key_exists ( 'uploadedModule', $_FILES ) || array_key_exists ( 'packageCandidatePath', $_REQUEST ))
         {
-            //include needed librabries for treatment
-            if ( array_key_exists( 'uploadedModule', $_FILES ) )
+            
+            pushClaroMessage ( __LINE__ . '<pre>$_REQUEST =' . var_export ( $_REQUEST, 1 ) . '</pre>', 'dbg' ) ;
+            // Thread uploaded file
+            if (array_key_exists ( 'uploadedModule', $_FILES ))
             {
-                if ( file_upload_failed( $_FILES['uploadedModule'] ) )
+                
+                pushClaroMessage ( __LINE__ . 'files founds', 'dbg' ) ;
+                
+                if (file_upload_failed ( $_FILES [ 'uploadedModule' ] ))
                 {
-                    $summary = get_lang('Module upload failed');
-                    $details = get_file_upload_error_message( $_FILES['uploadedModule'] );
-
-                    $msgList['error'][] = Backlog_Reporter::report( $summary, $details );
-                }
-                else
+                    $summary = get_lang ( 'Module upload failed' ) ;
+                    $details = get_file_upload_error_message ( $_FILES [ 'uploadedModule' ] ) ;
+                    
+                    $msgList [ 'error' ] [] = Backlog_Reporter::report ( $summary, $details ) ;
+                } else
                 {
-                    if( false !== ($modulePath = get_and_unzip_uploaded_package()) )
+                    
+                    // move uploadefile to package repository, and unzip them 
+                    // actually it's done in function wich must be splited.
+                    if (false !== ($modulePath = get_and_unzip_uploaded_package ()))
                     {
-                        list( $backlog, $module_id ) = install_module($modulePath);
-                        $details = $backlog->output();
                         
-                        if ( false !== $module_id )
+                        $moduleInstallable = true ;
+                    } else
+                    {
+                        $summary = get_lang ( 'Module unpackaging failed' ) ;
+                        $details = implode ( "<br />\n", claro_failure::get_last_failure () ) ;
+                        $msgList [ 'error' ] [] = Backlog_Reporter::report ( $summary, $details ) ;
+                    }
+                }
+            } 
+            elseif (array_key_exists ( 'packageCandidatePath', $_REQUEST ))
+            {
+                
+                
+                // If the target is a zip file, it must be unpack
+                // If it's a unziped package, We copye the content
+                if (is_package_file ( $_REQUEST [ 'packageCandidatePath' ] ))
+                {
+                    pushClaroMessage ( __LINE__ . 'packageCandidatePath is a package', 'dbg' ) ;
+                    $modulePath = unzip_package ( $_REQUEST [ 'packageCandidatePath' ] ) ;
+                    pushClaroMessage ( __LINE__ . '<pre>$modulePath =' . var_export ( $modulePath, 1 ) . '</pre>', 'dbg' ) ;
+                    ;
+                } elseif (file_exists ( $_REQUEST [ 'packageCandidatePath' ] ))
+                {
+                    // COPY THE FILE TO WORK REPOSITORY
+                    pushClaroMessage ( __LINE__ . 'packageCandidatePath is a path', 'dbg' ) ;
+                    claro_mkdir ( get_package_path () ) ;
+                    
+                    $modulePath = create_unexisting_directory ( get_package_path () . basename ( $_REQUEST [ 'packageCandidatePath' ] ) ) ;
+                    claro_mkdir ( $modulePath ) ;
+                    pushClaroMessage ( __LINE__ . 'create target' . $modulePath, 'dbg' ) ;
+                    
+                    if (claro_copy_file ( $_REQUEST [ 'packageCandidatePath' ], $modulePath . '/' ))
+                    {
+                        $modulePath .= '/' . basename ( $_REQUEST [ 'packageCandidatePath' ] ) ;
+                        
+                        $moduleInstallable = true ;
+                    } else
+                    {
+                        $summary = get_lang ( 'Module catching failed. Check your path' ) ;
+                        //    $details = implode( "<br />\n", claro_failure::get_last_failure() );
+                        $msgList [ 'error' ] [] = Backlog_Reporter::report ( $summary, $details ) ;
+                        $moduleInstallable = false ;
+                    }
+                }
+            }
+            
+            pushClaroMessage ( __LINE__ . '<pre>$modulePath =' . var_export ( $modulePath, 1 ) . '</pre>', 'dbg' ) ;
+            // OK TO TRY TO INSTALL ?
+            if ($moduleInstallable)
+            {
+                
+                list ( $backlog, $module_id ) = install_module ( $modulePath ) ;
+                $details = $backlog->output () ;
+                if (false !== $module_id)
+                {
+                    
+                    $summary = get_lang ( 'Module installation succeeded' ) ;
+                    $moduleInfo = get_module_info ( $module_id ) ;
+                    $typeReq = $moduleInfo [ 'type' ] ;
+                    
+                    $msgList [] [] = Backlog_Reporter::report ( $summary, $details ) ;
+                    
+                    if ($activateOnInstall)
+                    {
+                        
+                        list ( $backlogActivation, $successActivation ) = activate_module ( $module_id ) ;
+                        $detailsActivation = $backlogActivation->output () ;
+                        
+                        if ($successActivation)
                         {
-                            $summary  = get_lang('Module installation succeeded');
-                            $moduleInfo = get_module_info($module_id);
-                            $typeReq = $moduleInfo['type'];
+                            $summaryActivation = get_lang ( 'Module activation succeeded' ) ;
+                            $msgList [] [] = Backlog_Reporter::report ( $summaryActivation, $detailsActivation ) ;
                             
-                            $msgList[][] = Backlog_Reporter::report( $summary, $details );
-                            
-                            if ( $activateOnInstall )
+                            if ($visibleOnInstall && $typeReq == 'tool')
                             {
-                                list( $backlogActivation, $successActivation ) = activate_module($module_id);
-                                $detailsActivation = $backlogActivation->output();
                                 
-                                if ( $successActivation )
-                                {
-                                    $summaryActivation  = get_lang('Module activation succeeded');
-                                    $msgList[][] = Backlog_Reporter::report( $summaryActivation, $detailsActivation );
-                                    
-                                    if ( $visibleOnInstall && $typeReq == 'tool' )
-                                    {
-                                        list ( $backlogVisibility, $successVisibility ) = set_module_visibility( $module_id, true );
-                                        $detailsVisibility = $backlogVisibility->output();
-
-                                        if ( $successVisibility )
-                                        {
-                                            $summaryVisibility = get_lang('Module visibility updated');
-                                            $msgList[][] = Backlog_Reporter::report( $summaryVisibility, $detailsVisibility );
-                                        }
-                                        else
-                                        {
-                                            $summaryVisibility = get_lang('Failed to update module visibility');
-                                            $msgList['error'][] = Backlog_Reporter::report( $summaryVisibility, $detailsVisibility );
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    $summaryActivation  = get_lang('Module activation failed');
-                                    $msgList['error'][] = Backlog_Reporter::report( $summaryActivation, $detailsActivation );
-                                }
+                                list ( $backlogVisibility, $successVisibility ) = set_module_visibility ( $module_id, true ) ;
+                                $detailsVisibility = $backlogVisibility->output () ;
                                 
-
+                                if ($successVisibility)
+                                {
+                                    $summaryVisibility = get_lang ( 'Module visibility updated' ) ;
+                                    $msgList [] [] = Backlog_Reporter::report ( $summaryVisibility, $detailsVisibility ) ;
+                                } else
+                                {
+                                    $summaryVisibility = get_lang ( 'Failed to update module visibility' ) ;
+                                    $msgList [ 'error' ] [] = Backlog_Reporter::report ( $summaryVisibility, $detailsVisibility ) ;
+                                }
                             }
-                        }
+                        } 
                         else
                         {
-                            $summary  = get_lang('Module installation failed');
+                            
+                            $summaryActivation = get_lang ( 'Module activation failed' ) ;
+                            $msgList [ 'error' ] [] = Backlog_Reporter::report ( $summaryActivation, $detailsActivation ) ;
                         }
+                    
                     }
-                    else
-                    {
-                        $summary = get_lang('Module unpackaging failed');
-                        $details = implode( "<br />\n", claro_failure::get_last_failure() );
-                        $msgList['error'][] = Backlog_Reporter::report( $summary, $details );
-                    }
+                } 
+                else
+                {
+                    $summary = get_lang ( 'Module installation failed' ) ;
                 }
             }
-            else
-            {
-                $summary = get_lang('Module upload failed');
-                $details = 'No file uploaded';
-                claro_die( Backlog_Reporter::report( $summary, $details ) );
-            }
-
-            break;
-        }
-    case 'rqInstall' :
+        
+        } 
+        else 
         {
-            $msgList['warn'][] = '<p>' . "\n"
-            .            get_lang('Imported modules must consist of a zip file and be compatible with your Claroline version.') . '<br />' . "\n"
-            .            get_lang('Find more available modules on <a href="http://www.claroline.net/">Claroline.net</a>.')
-            .            '</p>' . "\n\n"
-            ;
-            $msgList['form'][] = '<form enctype="multipart/form-data" action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
-            .            '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'
-            .            '<input name="cmd" type="hidden" value="exInstall" />' . "\n"
-            .            '<input name="uploadedModule" type="file" /><br />' . "\n"
-            .            '<input name="activateOnInstall" type="checkbox" />'.get_lang('Activate module on install').'<br />'
-            .            '<input name="visibleOnInstall" type="checkbox" />'.get_lang('Visible on  each course on install <small>(tool only)</small>').'<br />'
-            .            '<br /><input value="' . get_lang('Install module') . '" type="submit" />&nbsp;' . "\n"
-            .            claro_html_button( $_SERVER['PHP_SELF'], get_lang('Cancel'))
-            .            '</form>' . "\n"
-            ;
-            break;
+            $summary = get_lang ( 'Module upload failed' ) ;
+            $details = 'No file uploaded' ;
+            claro_die ( Backlog_Reporter::report ( $summary, $details ) ) ;
         }
+    
+    break ;
+    case 'rqInstall' :
+        /**
+         * Check input possibilities
+         *  
+         * 
+         */
+        $inputPackage = array ( ) ;
+        if (get_conf ( 'can_install_local_module', true ))
+            $inputPackage [] = 'local' ;
+        if (get_conf ( 'can_install_upload_module', true ))
+            $inputPackage [] = 'upload' ;
+        if (get_conf ( 'can_install_curl_module', false ))
+            $inputPackage [] = 'curl' ;
+
+        if ( in_array($_REQUEST['selectInput'],$inputPackage))
+        {
+            $selectInput = $_REQUEST['selectInput'];
+        }
+        else 
+        {
+            switch ( count ( $inputPackage ))
+            {
+                case 0 :
+                    pushClaroMessage(__LINE__ . '@' . time(),'profile');
+                    // You can't add packages
+                     $msgList [ 'warning' ] [] 
+                          = get_lang("You cannot add module. Change this in configuration.") . '<br />'
+                          //TODO CHeck if it's the good place : config_code=CLMAIN&section=ADVANCED
+                          . claro_html_button('../tool/config_edit.php?config_code=CLMAIN&section=ADVANCED', get_lang('Go to config')) 
+                          ;
+                break ;
+                case 1 : //Direct display
+                    pushClaroMessage(__LINE__ . '@' . time(),'profile');
+                    $selectInput = $inputPackage [ 0 ]; 
+                break ;
+                default : // SELECT ONE
+                    pushClaroMessage(__LINE__ . '@' . time(),'profile');
+                     $msgList [ 'form' ] [] 
+    	                        = '<form action="' . $_SERVER [ 'PHP_SELF' ] . '" method="GET">' . "\n" 
+    	                        . '<input type="hidden" name="claroFormId" value="' . uniqid ( '' ) . '" />' 
+    	                        . '<input name="cmd" type="hidden" value="rqInstall" />' . "\n" 
+    	                        . get_lang('Where is your package ?')  . '<br />' . "\n"
+    	                        . (get_conf ( 'can_install_local_module', true ) ?  
+    	                        
+    	                          '<input name="selectInput"  value="local" id="packageOnServer" type="radio" />' 
+                                . '<label for="packageOnServer" >' . get_lang ( 'Package on server (zipped or not)' ) . '</label>' . '<br />'
+                                :'') 
+    	                        . (get_conf ( 'can_install_upload_module', true ) ?  
+    	                        
+    	                          '<input name="selectInput" value="upload"  id="zipOnYouComputerServer" type="radio" />' 
+                                . '<label for="zipOnYouComputerServer" >' . get_lang ( 'Package on your computer (zip only)' ) . '</label>' . '<br />' 
+                                :'')
+                                . (get_conf ( 'can_install_curl_module', false ) ?  
+    	                        
+    	                          '<input name="selectInput" value="curl" id="zipOnThirdServer" type="radio" />' 
+                                . '<label for="zipOnThirdServer" >' . get_lang ( 'Package on the net (zip only)' ) . '</label>' . '<br />' 
+                                :'')
+    	                        . '<br />' . "\n"
+    	                        . '<br />' . "\n"
+    	                        . '<input value="' . get_lang ( 'Next' ) . '" type="submit" />&nbsp;' . "\n" 
+    	                        . claro_html_button ( $_SERVER [ 'PHP_SELF' ], get_lang ( 'Cancel' ) ) 
+    	                        . '</form>' . "\n" 
+    	                        ;
+
+            }
+        }
+        
+        switch ( $selectInput)
+        {
+            case 'upload' :
+                $msgList [ 'warn' ] [] 
+                    = '<p>' . "\n" 
+                    . get_lang ( 'Imported modules must consist of a zip file and be compatible with your Claroline version.' ) . '<br />' . "\n" 
+                    . get_lang ( 'Find more available modules on <a href="http://www.claroline.net/">Claroline.net</a>.' ) . '</p>' . "\n\n" 
+                    ;
+                
+                $msgList [ 'form' ] [] 
+                    = '<form enctype="multipart/form-data" action="' . $_SERVER [ 'PHP_SELF' ] . '" method="POST">' . "\n" 
+                    . '<input type="hidden" name="claroFormId" value="' . uniqid ( '' ) . '" />'  . "\n" 
+                    . '<input name="cmd" type="hidden" value="exInstall" />' . "\n" 
+                    . '<input name="uploadedModule" type="file" /><br />' . "\n" 
+                    . '<input name="activateOnInstall" id="activateOnInstall" type="checkbox" />'  . "\n" 
+                    . '<label for="activateOnInstall" >' . get_lang ( 'Activate module on install' ) . '</label>' . '<br />' . "\n" 
+                    . '<input name="visibleOnInstall" id="visibleOnInstall" type="checkbox" />'  . "\n" 
+                    . '<label for="visibleOnInstall" >' . get_lang ( 'Visible on  each course on install <small>(tool only)</small>' ) . '</label>' 
+                    . '<br />' . "\n" 
+                    . '<br />' . "\n" 
+                    . '<input value="' . get_lang ( 'Upload and Install module' ) . '" type="submit" />&nbsp;' . "\n" 
+                    .  claro_html_button ( $_SERVER [ 'PHP_SELF' ], get_lang ( 'Cancel' ) ) . '</form>' . "\n" 
+                    ;
+            
+            break ;
+            case 'local' :
+                $msgList [ 'warn' ] [] 
+                    = '<p>' . "\n" 
+                    . get_lang ( 'Imported modules must be compatible with your Claroline version.' ) . '<br />' . "\n" 
+                    . get_lang ( 'Find more available modules on <a href="http://www.claroline.net/">Claroline.net</a>.' ) . '</p>' . "\n\n" 
+                    ;
+                $msgList [ 'form' ] [] 
+                    = '<form enctype="multipart/form-data" action="' . $_SERVER [ 'PHP_SELF' ] . '" method="GET">' . "\n" 
+                    . '<input type="hidden" name="claroFormId" value="' . uniqid ( '' ) . '" />' 
+                    . '<input name="cmd" type="hidden" value="exInstall" />' . "\n" 
+                    . get_lang ( 'Path to zip file or package directory on server' ) 
+                    . ': <br />' . "\n" 
+                    // TODO ADD A SERVER FILE BROWSER
+                    . '<input size="80" name="packageCandidatePath" type="text" /><br />' . "\n" 
+                    . '<input name="activateOnInstall"  id="activateOnInstall" type="checkbox" />' 
+                    . '<label for="activateOnInstall" >' . get_lang ( 'Activate module on install' ) . '</label>' . '<br />' 
+                    . '<input name="visibleOnInstall"  id="visibleOnInstall" type="checkbox" />' 
+                    . '<label for="visibleOnInstall" >' . get_lang ( 'Visible on  each course on install <small>(tool only)</small>' ) . '</label>' 
+                    . '<br />' . "\n"
+                    . '<br />' . "\n"
+                    . '<br /><input value="' . get_lang ( 'Install module' ) . '" type="submit" />&nbsp;' . "\n" 
+                    . claro_html_button ( $_SERVER [ 'PHP_SELF' ], get_lang ( 'Cancel' ) ) . '</form>' . "\n" 
+                    ;
+            break ;
+            case 'curl' :
+                $msgList [ 'error' ] [] 
+                    = '<p>' . "\n" 
+                    . get_lang ( 'This feature is not ready.' ) . '</p>' . "\n\n" 
+                    ;
+                $msgList [ 'warn' ] [] 
+                    = '<p>' . "\n" 
+                    . get_lang ( 'Imported modules must consist of a zip file and be compatible with your Claroline version.' ) . '<br />' . "\n" 
+                    . get_lang ( 'Find more available modules on <a href="http://www.claroline.net/">Claroline.net</a>.' ) . '</p>' . "\n\n" 
+                    ;
+                    
+                $msgList [ 'form' ] [] 
+                    = '<form action="' . $_SERVER [ 'PHP_SELF' ] . '" method="GET">' . "\n" 
+                    . '<input type="hidden" name="claroFormId" value="' . uniqid ( '' ) . '" />' 
+                    . '<input name="cmd" type="hidden" value="exInstall" />' . "\n" 
+                    . get_lang ( 'Url of package' ) . '<br />' . "\n" 
+                    . '<input name="packageCandidateUrl" size="80" type="text" /><br />' . "\n" 
+                    . '<input name="activateOnInstall"  id="activateOnInstall" type="checkbox" />' 
+                    . '<label for="activateOnInstall" >' . get_lang ( 'Activate module on install' ) . '</label>' . '<br />' 
+                    . '<input name="visibleOnInstall"  id="visibleOnInstall" type="checkbox" />' 
+                    . '<label for="visibleOnInstall" >' . get_lang ( 'Visible on  each course on install <small>(tool only)</small>' ) . '</label>' 
+                    . '<br />' . "\n"
+                    . '<br />' . "\n"
+                    . '<input value="' . get_lang ( 'Fetch and Install module' ) . '" type="submit" />&nbsp;' . "\n" 
+                    . claro_html_button ( $_SERVER [ 'PHP_SELF' ], get_lang ( 'Cancel' ) ) 
+                    . '</form>' . "\n" 
+                    ;
+            break ;
+        }        
+        /*
+        $msgList [ 'form' ] [] 
+            = '<form enctype="multipart/form-data" action="' . $_SERVER [ 'PHP_SELF' ] . '" method="GET">' . "\n" 
+            . '<input type="hidden" name="claroFormId" value="' . uniqid ( '' ) . '" />' 
+            . '<input name="cmd" type="hidden" value="exInstall" />' . "\n" 
+            . '<input name="uploadedModule" type="file" /><br />' . "\n" 
+            . (get_conf ( 'can_install_local_module', true ) 
+              ? 'or <br />' . "\n" 
+              . get_lang ( 'zip on server' ) . ' or ' . "\n" . get_lang ( 'unzipped on server' ) . ': <br />' . "\n" 
+              . '<input name="packageCandidatePath" type="text" /><br />' . "\n" 
+              : '') 
+            . '<input name="activateOnInstall"  id="activateOnInstall" type="checkbox" />' 
+            . '<label for="activateOnInstall" >' . get_lang ( 'Activate module on install' ) . '</label>' . '<br />' 
+            . '<input name="visibleOnInstall"  id="visibleOnInstall" type="checkbox" />' 
+            . '<label for="visibleOnInstall" >' . get_lang ( 'Visible on  each course on install <small>(tool only)</small>' ) . '</label>' 
+            . '<br />' . "\n"
+            . '<br />' . "\n"
+            . '<br /><input value="' . get_lang ( 'Install module' ) . '" type="submit" />&nbsp;' . "\n" 
+            . claro_html_button ( $_SERVER [ 'PHP_SELF' ], get_lang ( 'Cancel' ) ) . '</form>' . "\n" 
+            ;
+*/
+        pushClaroMessage(__LINE__ . '<pre>$msgList ='.var_export($msgList,1).'</pre>','dbg');
+            
+    break ;
     case 'exLocalInstall' :
         {
             if ( isset( $_REQUEST['moduleDir'] ) )
             {
-                $moduleDir = str_replace ( '../', '', $_REQUEST['moduleDir']);
-                $moduleRepositorySys = get_path('rootSys') . 'module/';
-                $modulePath = $moduleRepositorySys.$moduleDir.'/';
-
-                if ( file_exists( $modulePath ) )
+                $moduleDir = str_replace ( '../', '', $_REQUEST [ 'moduleDir' ] ) ;
+                $moduleRepositorySys = get_path ( 'rootSys' ) . 'module/' ;
+                $modulePath = $moduleRepositorySys . $moduleDir . '/' ;
+                
+                if (file_exists ( $modulePath ))
                 {
-                    list( $backlog, $module_id ) = install_module($modulePath, true);
-                    $details = $backlog->output();
-                    if ( false !== $module_id )
+                    list ( $backlog, $module_id ) = install_module ( $modulePath, true ) ;
+                    $details = $backlog->output () ;
+                    if (false !== $module_id)
                     {
-                        $summary  = get_lang('Module installation succeeded');
-                        $moduleInfo = get_module_info($module_id);
-                        $typeReq = $moduleInfo['type'];
-                    }
-                    else
+                        $summary = get_lang ( 'Module installation succeeded' ) ;
+                        $moduleInfo = get_module_info ( $module_id ) ;
+                        $typeReq = $moduleInfo [ 'type' ] ;
+                    } else
                     {
                         $summary  = get_lang('Module installation failed');
                     }
                 }
                 else
                 {
-                    $summary  = get_lang('Module installation failed');
-                    $details = get_lang('Module directory not found');
+                    $summary = get_lang ( 'Module installation failed' ) ;
+                    $details = get_lang ( 'Module directory not found' ) ;
                 }
 
             }
@@ -407,22 +629,26 @@ switch($typeReq)
         ;
         $orderType = "ORDER BY `def_rank` \n";
         break;
-    default       : $sqlSelectType=""; $sqlJoinType = ""; $orderType = "";
+     default :
+        $sqlSelectType = "" ;
+        $sqlJoinType = "" ;
+        $orderType = "" ;
 
 }
 
-$sql = "SELECT M.`id`              AS `id`,         \n"
-.      "       M.`label`           AS `label`,      \n"
-.      "       M.`name`            AS `name`,       \n"
-.      "       M.`activation`      AS `activation`, \n"
-.      $sqlSelectType
-.      "       M.`type`            AS `type`        \n"
-.      "FROM `" . $tbl_module . "` AS M             \n"
-.      $sqlJoinType . "\n "
-.      "WHERE M.`type` = '" . addslashes($typeReq) . "' \n"
-.      "GROUP BY `id` \n"
-.      $orderType . "\n "
-;
+$sql = "
+    SELECT M.`id`     AS `id`,
+           M.`label`  AS `label`,     
+           M.`name`            AS `name`,
+           M.`activation`      AS `activation`,
+           " . $sqlSelectType . "       
+           M.`type`            AS `type`
+      FROM `" . $tbl_module . "` AS M
+            " . $sqlJoinType . "
+     WHERE M.`type` = '" . addslashes ( $typeReq ) . "' 
+  GROUP BY `id` 
+  " . $orderType . "
+  " ;
 
 //pager creation
 
@@ -471,17 +697,18 @@ $moduleMenu[] = claro_html_cmd_link('module_list.php?cmd=rqInstall', get_lang('I
 // DISPLAY
 //----------------------------------
 
-$noQUERY_STRING = true;
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+
+$noQUERY_STRING = true ;
+include get_path ( 'incRepositorySys' ) . '/claro_init_header.inc.php' ;
 
 //display title
 
-echo claro_html_tool_title($nameTools)
+
+echo claro_html_tool_title ( $nameTools )  
 
 //Display Forms or dialog box(if needed)
-
-.    claro_html_msg_list($msgList)
-.    claro_html_menu_horizontal($moduleMenu)
+.    claro_html_msg_list ( $msgList ) 
+.    claro_html_menu_horizontal ( $moduleMenu ) 
 
 //display tabbed navbar
 
@@ -503,8 +730,9 @@ foreach ($moduleTypeList as $type)
     }
 }
 
-echo '</ul>' . "\n"
-.    '</div>' . "\n";
+echo '</ul>' . "\n" 
+.    '</div>' . "\n" 
+;
 
 //Display list
 
@@ -591,9 +819,9 @@ foreach($moduleList as $module)
         }
         else
         {
-            foreach ($module_dock[$module['id']] as $dock)
+            foreach ( $module_dock [ $module [ 'id' ] ] as $dock )
             {
-                echo '<a href="module_dock.php?dock=' . $dock['dockname'] . '">' . $dockList[$dock['dockname']] . '</a> <br/>';
+                echo '<a href="module_dock.php?dock=' . $dock [ 'dockname' ] . '">' . $dockList [ $dock [ 'dockname' ] ] . '</a> <br/>' ;
             }
         }
 
@@ -602,7 +830,7 @@ foreach($moduleList as $module)
     else
     {
         //up command
-        if ($course_tool_min_rank!=$module['rank'])
+        if ($course_tool_min_rank != $module [ 'rank' ])
         {
             echo '<td align="center">'
             .    '<a href="module_list.php?courseToolId='.$module['courseToolId'].'&amp;cmd=mvUp">'
@@ -612,11 +840,11 @@ foreach($moduleList as $module)
         }
         else
         {
-            echo '<td>&nbsp;</td>' . "\n";
+            echo '<td>&nbsp;</td>' . "\n" ;
         }
-
+        
         //down command
-        if ($course_tool_max_rank!=$module['rank'])
+        if ($course_tool_max_rank != $module [ 'rank' ])
         {
             echo '<td align="center">'
             .    '<a href="module_list.php?courseToolId='.$module['courseToolId'].'&amp;cmd=mvDown">'
@@ -626,7 +854,7 @@ foreach($moduleList as $module)
         }
         else
         {
-            echo '<td>&nbsp;</td>' . "\n";
+            echo '<td>&nbsp;</td>' . "\n" ;
         }
     }
 
@@ -653,14 +881,15 @@ foreach($moduleList as $module)
     }
     else
     {
-        echo '<td align="center">-</td>' . "\n";
+        echo '<td align="center">-</td>' . "\n" ;
     }
-
+    
     //activation link
+    
 
-    echo '<td align="center" >';
-
-    if (in_array($module['label'],$undeactivable_tool_array))
+    echo '<td align="center" >' ;
+    
+    if (in_array ( $module [ 'label' ], $undeactivable_tool_array ))
     {
         echo '-';
     }
@@ -684,21 +913,23 @@ foreach($moduleList as $module)
             . 'block.gif" border="0" alt="'. get_lang('Deactivated') . '"/></a>';
         }
     }
-    echo '</td>' . "\n";
-
+    echo '</td>' . "\n" 
+    
     //end table line
-
-    echo '</tr>' . "\n\n";
+    
+    .    '</tr>' . "\n\n" 
+    ;
 }
 
 //end table...
 echo '</tbody>' . "\n"
-.    '</table>' . "\n\n";
+.    '</table>' . "\n\n"
+;
 
 //Display BOTTOM Pager list
 
-echo $myPager->disp_pager_tool_bar('module_list.php?typeReq='.$typeReq);
+echo $myPager->disp_pager_tool_bar ( 'module_list.php?typeReq=' . $typeReq ) ;
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include get_path ( 'incRepositorySys' ) . '/claro_init_footer.inc.php' ;
 
 ?>
