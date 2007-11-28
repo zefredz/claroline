@@ -527,29 +527,46 @@ switch ( $cmd )
                     ;
             break ;
         }        
-        /*
-        $msgList [ 'form' ] [] 
-            = '<form enctype="multipart/form-data" action="' . $_SERVER [ 'PHP_SELF' ] . '" method="GET">' . "\n" 
-            . '<input type="hidden" name="claroFormId" value="' . uniqid ( '' ) . '" />' 
-            . '<input name="cmd" type="hidden" value="exInstall" />' . "\n" 
-            . '<input name="uploadedModule" type="file" /><br />' . "\n" 
-            . (get_conf ( 'can_install_local_module', true ) 
-              ? 'or <br />' . "\n" 
-              . get_lang ( 'zip on server' ) . ' or ' . "\n" . get_lang ( 'unzipped on server' ) . ': <br />' . "\n" 
-              . '<input name="packageCandidatePath" type="text" /><br />' . "\n" 
-              : '') 
-            . '<input name="activateOnInstall"  id="activateOnInstall" type="checkbox" />' 
-            . '<label for="activateOnInstall" >' . get_lang ( 'Activate module on install' ) . '</label>' . '<br />' 
-            . '<input name="visibleOnInstall"  id="visibleOnInstall" type="checkbox" />' 
-            . '<label for="visibleOnInstall" >' . get_lang ( 'Visible on  each course on install <small>(tool only)</small>' ) . '</label>' 
-            . '<br />' . "\n"
-            . '<br />' . "\n"
-            . '<br /><input value="' . get_lang ( 'Install module' ) . '" type="submit" />&nbsp;' . "\n" 
-            . claro_html_button ( $_SERVER [ 'PHP_SELF' ], get_lang ( 'Cancel' ) ) . '</form>' . "\n" 
-            ;
-*/
-        pushClaroMessage(__LINE__ . '<pre>$msgList ='.var_export($msgList,1).'</pre>','dbg');
-            
+        
+    break ;
+    case 'exLocalRemove' :
+    {
+        if ( isset( $_REQUEST['moduleDir'] ) )
+        {
+            $moduleDir = str_replace ( '../', '', $_REQUEST [ 'moduleDir' ] ) ;
+            $moduleRepositorySys = get_path ( 'rootSys' ) . 'module/' ;
+            $modulePath = $moduleRepositorySys . $moduleDir . '/' ;
+
+            if ( file_exists($modulePath) )
+            {
+                if(claro_delete_file($modulePath))
+                {
+                     $msgList [ 'success' ] [] 
+                    = '<p>' . "\n" 
+                    . get_lang('Delete scripts of the module')
+                    . '</p>' . "\n" 
+                    ;
+                }
+                else
+                {
+                    $msgList [ 'error' ] [] 
+                    = '<p>' . "\n" 
+                    . get_lang('Error while deleting the scripts of the module')
+                    . '</p>' . "\n" 
+                    ;
+                    $success = false;
+                }
+            }
+                
+        }
+        else
+        {
+            $summary  = get_lang('Module installation failed');
+            $details = get_lang('Missing module directory');
+        }
+
+            $msgList[][] = Backlog_Reporter::report( $summary, $details );
+        }
     break ;
     case 'exLocalInstall' :
         {
@@ -587,7 +604,7 @@ switch ( $cmd )
             }
 
             $msgList[][] = Backlog_Reporter::report( $summary, $details );
-        }
+        }        
 }
 
 if ( empty( $typeReq ) && $module_id )
@@ -679,9 +696,17 @@ $modules_found = check_module_repositories();
 
 foreach ($modules_found['folder'] as $module_folder)
 {
-    $url = $_SERVER['PHP_SELF'] . '?cmd=exLocalInstall&amp;moduleDir=' . rawurlencode($module_folder);
+    $urlTryInstall = $_SERVER['PHP_SELF'] . '?cmd=exLocalInstall&amp;moduleDir=' . rawurlencode($module_folder);
+    $urlDelete = $_SERVER['PHP_SELF'] . '?cmd=exLocalRemove&amp;moduleDir=' . rawurlencode($module_folder);
     $msgList['warn'][] = get_lang('There is a folder called <b><i>%module_name</i></b> for which there is no module installed.', array('%module_name'=>$module_folder))
-    . get_lang( 'To install this module click <a href="%url">here</a>.', array('%url' => $url ) )
+    . '<ul>' . "\n"
+    . '<li>' . "\n"
+    . get_lang( 'To install this module click <a href="%url">here</a>.', array('%url' => $urlTryInstall ) )
+    . '</li>' . "\n"
+    . '<li>' . "\n"
+    . get_lang( 'To remove this directory module click <a href="%url">here</a>.', array('%url' => $urlDelete ) )
+    . '</li>' . "\n"
+    . '</ul>' . "\n"
     . '<br/>' . "\n"
     ;
 }
