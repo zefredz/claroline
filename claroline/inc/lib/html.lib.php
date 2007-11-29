@@ -624,28 +624,30 @@ DEFINE('DG_ORDER_COLS_BY_TITLE','DG_ORDER_COLS_BY_TITLE'.__FILE__.__LINE__);
  * set_colAttributeList(array('colName'=> array('attribName'=>'attribValue'))
  * set_caption(string 'caption');
  * set_counterLine(bool 'dispCounter')
- *
+ * set_colDecoration(string columnName,string pattern, array param)
+ * 
  * @package HTML
+ * @author Christophe Gesché <moosh@claroline.net>
  *
  */
 class claro_datagrid
 {
-    var $datagrid;
+    private $datagrid;
 
-    var $idLineType =  'numeric';
-    var $idLineShift = 1;
-    var $colTitleList =null;
-    var $colAttributeList = array();
-    var $caption = '';
-    var $counterLine;
-    var $dispCounter = false;
-    var $colHead =null;
-    var $htmlNoRowMessage = null;
-    var $hideColsWithoutTitle = false;
-    var $orderCols=DG_ORDER_COLS_BY_GRID;
-
-    var $dispIdCol = true;
-    var $internalKey = 0;
+    private $idLineType =  'numeric';
+    private $idLineShift = 1;
+    private $colTitleList =null;
+    private $colAttributeList = array();
+    private $caption = '';
+    private $counterLine;
+    private $dispCounter = false;
+    private $colHead =null;
+    private $htmlNoRowMessage = null;
+    private $hideColsWithoutTitle = false;
+    private $orderCols=DG_ORDER_COLS_BY_GRID;
+    private $decorationList = array();
+    private $dispIdCol = true;
+    private $internalKey = 0;
 
     function claro_datagrid($datagrid = null)
     {
@@ -831,6 +833,35 @@ class claro_datagrid
         $this->dispCounter = true;
     }
 
+    /**
+     * Add a decoration on a column
+     * 
+     * add, or overide a column by a content build from a template and where 
+     * tags are replace by data from each lines
+     *
+     * $myDataList[]=array('id'=>1,'pid'=>'foo',);
+     * $dg = new claro_datagrid($myDataList);
+     * $dg->set_colDecoration('edit','<a href="?cmd=edit&amp;id=%id&amp;pid=%pid">edit</a>', array('id','pid'));
+     * $dg->set_colDecoration('foo','<strong>%foo</strong>', array('foo'));
+     * 
+     * The first decoration add a third column called edit. and  using id and pid from line to fill %id and %pid;
+     * The second decoration overite the existing column 'foo' by the same content between <strong> tags 
+     *  
+     *
+     * @param string $colName
+     * @param string $decorationPattern
+     * @param array $tag
+     * 
+     * @since 1.9
+     * @return the current list
+     */
+    function set_colDecoration($colName,$decorationPattern, $tag)
+    {
+        $this->decorationList[$colName] = array( 'decorationPattern' => $decorationPattern
+                                         , 'tagList' => $tag);
+        return $this->decorationList;            
+    }
+    
     function render()
     {
         $stream = '';
@@ -916,19 +947,29 @@ class claro_datagrid
                     $i=0;
                     if($this->orderCols == DG_ORDER_COLS_BY_TITLE)
                     {
-                        $keyOrder=array_keys(array_merge($this->colTitleList,$dataLine));
+                        $keyOrder=array_keys(array_merge($this->colTitleList,$dataLine,$this->decorationList));
                     }
                     else
                     {
-                        $keyOrder=array_keys($dataLine);
+                        $keyOrder=array_keys(array_merge($dataLine,$this->decorationList));
                     }
-
+                    
                     foreach ($keyOrder as $colId)
                     {
                         // a protection if there is no cell for the current col
                         if(array_key_exists($colId,$dataLine)) $dataCell= $dataLine[$colId];
                         else                                   $dataCell = '';
 
+                        if(array_key_exists($colId,$this->decorationList))
+                        {
+                            // Decore content
+                            $dataCell = $this->decorationList[$colId]['decorationPattern'];
+                            foreach ($this->decorationList[$colId]['tagList'] as $tagName) 
+                            {
+                                $dataCell = str_replace('%'.$tagName,$dataLine[$tagName],$dataCell);
+                            }
+                        }
+                        
 
                         if ( !$this->hideColsWithoutTitle
                              || (    is_array($this->colTitleList)
