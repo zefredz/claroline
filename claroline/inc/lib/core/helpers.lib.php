@@ -15,7 +15,7 @@
      * @author      Claroline Team <info@claroline.net>
      * @author      Frederic Minne <zefredz@claroline.net>
      * @license     http://www.gnu.org/copyleft/gpl.html
-     *              GNU GENERAL PUBLIC LICENSE version 2.0
+     *              GNU GENERAL PUBLIC LICENSE version 2 or later
      * @package     CORE
      */
 
