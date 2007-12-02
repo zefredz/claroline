@@ -362,6 +362,25 @@
          */
         protected function parseMultipleQuery( $sql )
         {
+            // make something usable...
+            
+            $ret = $this->pmaParse( $sql );
+            
+            $queries = array();
+        
+            foreach ( $ret as $item )
+            {
+                if ( ! $item['empty'] )
+                {
+                    $queries[] = $item['query'];
+                }
+            }
+            
+            return $queries;
+        }
+        
+        protected function pmaParse( $sql )
+        {
             $ret = array();
             
             $sql          = rtrim($sql, "\n\r");
@@ -474,19 +493,7 @@
                 $ret[] = array('query' => $sql, 'empty' => $nothing);
             }
             
-            // make something usable...
-            
-            $queries = array();
-        
-            foreach ( $ret as $item )
-            {
-                if ( ! $item['empty'] )
-                {
-                    $queries[] = $item['query'];
-                }
-            }
-            
-            return $queries;
+            return $ret;
         }
         
         // Prepared queries
