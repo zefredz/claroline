@@ -72,14 +72,14 @@
             return $out;
         }
         
-        public function append( $name, $url = null )
+        public function append( $name, $url = null, $icon = null )
         {
-            $this->breadCrumbs[] = new BreadCrumbsNode( $name, $url );
+            $this->breadCrumbs[] = new BreadCrumbsNode( $name, $url, $icon );
         }
 
-        public function prepend( $name, $url = null )
+        public function prepend( $name, $url = null, $icon = null )
         {
-            array_unshift ( $this->breadCrumbs, new BreadCrumbsNode( $name, $url ) );
+            array_unshift ( $this->breadCrumbs, new BreadCrumbsNode( $name, $url, $icon ) );
         }
 
         public function appendNode( $node )
