@@ -71,24 +71,33 @@
                         pushClaroMessage(__Class__."::Use ".$tryPath.'/' .$lib.'.js', 'debug');
                     }
                     
-                    if ( ! file_exists( $tryPath . '/' . $lib . '.bin.js' ) )
-            		{
-            			$this->_compressFile( $tryPath . '/' . $lib . '.js'
-            				, $tryPath . '/' . $lib . '.bin.js' );
-            		}
-            		else
-            		{
-            			$jsStat = stat( $tryPath . '/' . $lib . '.js' );
-            			$cachedStat = stat( $tryPath . '/' . $lib . '.bin.js' );
-            			
-            			if ( $jsStat['mtime'] > $cachedStat['mtime'] )
-            			{
-            				$this->_compressFile( $tryPath . '/' . $lib . '.js'
-            				, $tryPath . '/' . $lib . '.bin.js' );
-            			}
-            		}
-
-                    $this->libraries[$lib] = $tryUrl . '/' . $lib . '.bin.js';
+                    if ( !claro_debug_mode() )
+                    {
+                        if ( !file_exists( $tryPath . '/' . $lib . '.bin.js' ) )
+                		{
+                			$this->_compressFile( $tryPath . '/' . $lib . '.js'
+                				, $tryPath . '/' . $lib . '.bin.js' );
+                		}
+                		else
+                		{
+                			$jsStat = stat( $tryPath . '/' . $lib . '.js' );
+                			$cachedStat = stat( $tryPath . '/' . $lib . '.bin.js' );
+                			
+                			if ( $jsStat['mtime'] > $cachedStat['mtime'] )
+                			{
+                				$this->_compressFile( $tryPath . '/' . $lib . '.js'
+                				, $tryPath . '/' . $lib . '.bin.js' );
+                			}
+                		}
+    
+                        $this->libraries[$lib] = $tryUrl . '/' . $lib . '.bin.js';
+                    }
+                    // do not compress js in debug mode
+                    else
+                    {
+                        $this->libraries[$lib] = $tryUrl . '/' . $lib . '.js';
+                    }
+                    
                     return true;
                     // break;
                 }
