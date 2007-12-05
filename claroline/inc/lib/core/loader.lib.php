@@ -71,7 +71,7 @@
                         pushClaroMessage(__Class__."::Use ".$tryPath.'/' .$lib.'.js', 'debug');
                     }
                     
-                    if ( !claro_debug_mode() )
+                    if ( get_conf('javascriptCompression', true) )
                     {
                         if ( !file_exists( $tryPath . '/' . $lib . '.bin.js' ) )
                 		{
@@ -92,7 +92,6 @@
     
                         $this->libraries[$lib] = $tryUrl . '/' . $lib . '.bin.js';
                     }
-                    // do not compress js in debug mode
                     else
                     {
                         $this->libraries[$lib] = $tryUrl . '/' . $lib . '.js';
