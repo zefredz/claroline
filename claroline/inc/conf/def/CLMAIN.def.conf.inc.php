@@ -121,6 +121,7 @@ array ( 'userPasswordCrypted'
       , 'DEVEL_MODE'
       , 'warnSessionLost'
       , 'claro_brailleViewMode'
+      , 'javascriptCompression'
       // , 'secureDocumentDownload'
       );
 
@@ -583,6 +584,16 @@ array ('label'       => 'Profile SQL'
 $conf_def_property_list['warnSessionLost'] =
 array ('label'       => 'Session lost warning'
       ,'description' => 'Warn users when they loose their session on the platform'
+      ,'type'        => 'boolean'
+      ,'default'     => TRUE
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
+      , 'acceptedValue' => array('TRUE' => 'On', 'FALSE' => 'Off')
+      );
+      
+$conf_def_property_list['javascriptCompression'] =
+array ('label'       => 'Javascript compression'
+      ,'description' => 'Compress javascript files. This option should be set to off only for debugging.'
       ,'type'        => 'boolean'
       ,'default'     => TRUE
       ,'display'     => TRUE
