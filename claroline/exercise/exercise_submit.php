@@ -210,7 +210,7 @@ if( isset($_REQUEST['cmdOk']) && $_REQUEST['cmdOk'] && $exerciseIsAvailable )
         {
             $showAnswers = true;
         }
-        elseif ( $exercise->getShowAnswers() == 'LASTTRY' && $exercise->getAttempts() == $userAttemptCount )
+        elseif ( $exercise->getShowAnswers() == 'LASTTRY' && $userAttemptCount >= $exercise->getAttempts() )
         {
             $showAnswers = true;
         }
