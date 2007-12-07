@@ -2,93 +2,45 @@
 if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  *
- * @version CLAROLINE 1.8 $Revision$
- *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @version 0.1 $Revision$
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @author Christophe Gesché <moosh@claroline.net>
  *
- * @since 1.8.1
- *
- * @package CLKERNEL
+ * @package CLTXTZON
  *
  */
 
-
-class claro_text_zone
+if (!class_exists('claro_text_zone'))
 {
 
-    /**
-     * Build the file path of a textzone in a given context
-     *
-     * @param string $key
-     * @param array $context specify the context to build the path.
-     * @param array $right specify an array of right to specify the file
-     * @return file path
-     */
-    function get_textzone_file_path($key, $context = null, $right= null)
+    // TODO MOVE THIS NEW CLASS TO A DEDICATED LIB.
+    class claro_text_zone
     {
-        $textZoneFile = null;
-        $key .= '.';
-        if(!is_null($right) && is_array($right))
+        function get_content($key, $context=null)
         {
-            foreach ($right as $context => $rightInContext)
+            $textZoneFile = null;
+            if (is_array($context) && array_key_exists('course',$context))
             {
-                if(is_array($rightInContext))
+                if (is_array($context) && array_key_exists('group',$context))
                 {
-                    $key .= $context.'_';
-                    foreach ($rightInContext as $rightName => $rightValue)
-        {
-                        if(is_bool($rightValue))
-                        {
-                            $key .= ($rightValue) ? $rightName :'not_' .$rightName;
-                        }
-                        else
-                        {
-                            $key .= $rightName.'_'. $rightValue;
-                        }
-                        $key .= '.';
-
-                    }
-
+                    $textZoneFile =  get_conf('coursesRepositorySys') . claro_get_course_path($context['course']) . claro_get_course_group_path($context) . '/textzone/' . $key . '.inc.html';
                 }
+                $textZoneFile =  get_conf('coursesRepositorySys') . claro_get_course_path($context['course']) . '/textzone/' . $key . '.inc.html';
+
             }
+            if(is_null($textZoneFile) || !file_exists($textZoneFile)) $textZoneFile = get_conf('rootSys') . 'platform/textzone/' . $key . '.inc.html';
+
+            if(file_exists($textZoneFile)) $content = file_get_contents($textZoneFile);
+            else                           $content = '' ;
+            ;
+            return $content;
         }
-        if (is_array($context) && array_key_exists(CLARO_CONTEXT_COURSE,$context))
-        {
-            if (is_array($context) && array_key_exists(CLARO_CONTEXT_GROUP,$context))
-            {
-                // TODO  use : claro_get_data_path
-                $textZoneFile =  get_conf('coursesRepositorySys') . claro_get_course_group_path($context) . '/textzone/' . $key . 'inc.html';
-            }
-            else
-            {
-                $textZoneFile =  get_conf('coursesRepositorySys') . claro_get_course_path($context[CLARO_CONTEXT_COURSE]) . '/textzone/' . $key . 'inc.html';
-            }
-        }
-        if(is_null($textZoneFile)) $textZoneFile = get_path('rootSys') . 'platform/textzone/' . $key . 'inc.html';
-
-        return $textZoneFile;
     }
-
-    /**
-     * return the content
-     *
-     * @param coursecode $key
-     * @param array $context
-     * @return string : html content
-     */
-
-    function get_content($key, $context=null, $right=null)
-    {
-        $textZoneFile = claro_text_zone::get_textzone_file_path($key, $context,$right);
-
-        if(file_exists($textZoneFile)) $content = file_get_contents($textZoneFile);
-        else                           $content = '' ;
-        ;
-        return $content;
-    }
+}
+function claro_get_course_group_path()
+{
+    return '';
 }
 ?>

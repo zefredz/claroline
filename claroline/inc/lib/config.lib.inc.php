@@ -118,7 +118,7 @@ function trueFalse($booleanState)
 function claro_get_conf_def_file($configCode)
 {
     $centralizedDef = array('CLCRS','CLAUTH', 'CLSSO',  'CLCAS', 'CLHOME', 'CLKCACHE','CLLINKER','CLMAIN','CLPROFIL' ,'CLRSS','CLICAL','CLGRP');
-    if(in_array($configCode,$centralizedDef)) return realpath(get_path('incRepositorySys') . '/conf/def/') . '/' ;
+    if(in_array($configCode,$centralizedDef)) return realpath($GLOBALS['includePath'] . '/conf/def/') ;
     else                                      return get_module_path($configCode) . '/conf/def/';
 }
 
@@ -172,7 +172,7 @@ function generate_conf(&$config,$properties = null)
     }
 }
 
-/**
+/** 
  * Return list of folder where we can retrieve definition configuration file
  */
 
@@ -180,10 +180,10 @@ function get_def_folder_list ( $type = 'all' )
 {
     $folderList = array();
 
-    require_once get_path('incRepositorySys') . '/lib/module.manage.lib.php';
+    require_once $GLOBALS['includePath'] . '/lib/module.manage.lib.php';
 
     // Kernel folder configuration folder
-    if ( $type == 'kernel' || $type == 'all') $folderList[] = get_path('incRepositorySys') . '/conf/def';
+    if ( $type == 'kernel' || $type == 'all') $folderList[] = $GLOBALS['includePath'] . '/conf/def';
 
     // Module folder configuration folder
     if ($type == 'module' || $type == 'all')

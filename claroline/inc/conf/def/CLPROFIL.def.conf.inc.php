@@ -37,12 +37,12 @@ array ( 'show_agreement_panel'
       );
 
 $conf_def_property_list['show_agreement_panel'] =
-array ( 'label'         => 'Display an agreement page before the "create user account" form'
+array ( 'label'         => 'Show the agreement panel before creating a new account'
       ,'description'   => 'The content of this panel is editable in administration '
       , 'default'       => FALSE
       , 'type'          => 'boolean'
-      , 'acceptedValue' => array ('TRUE'  => 'Yes'
-                                 ,'FALSE' => 'No'
+      , 'acceptedValue' => array ('TRUE'  => 'Show'
+                                 ,'FALSE' => 'Hide'
                                  )
       );
 
@@ -110,9 +110,9 @@ array (
       );
 
 $conf_def_property_list['SECURE_PASSWORD_REQUIRED'] =
-array ('label'         => 'Password security check'
+array ('label'         => 'Check password strength'
       ,'description'   => 'Check if the password is not too easy to find'
-      ,'default'       => FALSE
+      ,'default'       => TRUE
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
                                 ,'FALSE' => 'No'
@@ -140,20 +140,21 @@ array ( 'allowSelfRegProf'
       );
 
 $conf_def_property_list['can_request_course_creator_status'] =
-array ( 'label'         => 'Display "Request a Course Creator status"'
+array ( 'label'         => '"Request a Course Creator status" command ?'
       , 'description'   => 'This option insert a command in the user profile form to request a status of course creator. This request is sent by e-mail to platform administrator.'
       , 'display'       => true
       , 'default'       => FALSE
       , 'type'          => 'boolean'
-      , 'acceptedValue' => array ('TRUE'  => 'Yes'
-                                ,'FALSE' => 'No'
+      , 'acceptedValue' => array ('TRUE'  => 'Displayed'
+                                ,'FALSE' => 'Hidden'
                                 )
       );
 
 $conf_def_property_list['can_request_revoquation'] =
-array ( 'label'         => 'Display "Request to be deleted from the platform"'
-      , 'description'   => 'This option insert a command in the user profile form to request the removal of the user from the platform.  This request is sent by e-mail to platform administrator.'."\n"
-                         .'This option allow only to request it, and don\'t prework the answer'."\n"
+array ( 'label'         => 'Is user allowed to request to be deleted from platform ?'
+      , 'description'   => 'If yes, the user have access to a request system. '."\n"
+                         .'This option allow only to request it, '."\n"
+                         .'and don\'t prework the answer'."\n"
       , 'display'       => true
       , 'default'       => FALSE
       , 'type'          => 'boolean'
@@ -168,8 +169,8 @@ array ('label'       => 'Creation of Course Creator account'
        ,'description' => 'Are users allowed to create themselves a Course Creator account ?'
       ,'default'     => TRUE
       ,'type'        => 'boolean'
-      ,'acceptedValue' => array ('TRUE'  => 'On'
-                                ,'FALSE' => 'Off'
+      ,'acceptedValue' => array ('TRUE'  => 'Allowed'
+                                ,'FALSE' => 'Denied'
                                 )
       ,'display'     => TRUE
       ,'readonly'    => FALSE

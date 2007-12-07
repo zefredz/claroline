@@ -328,6 +328,7 @@ $_lang['You left some required fields empty'] = 'Du udfyldte ikke alle felter. B
 $_lang['Your message has been deleted'] = 'Dit Indlæg er blevet slettet.';
 $_lang['Your message has been entered'] = 'Din besked er blevet gemt i databasen.';
 $_lang['Zip file uploaded and uncompressed'] = ' Zip fil er lagt ud og dekomprimeret';
+$_lang['[British people] live in [United Kingdom].'] = '[British people] live in [United Kingdom].';
 $_lang['archive'] = 'arkiv';
 $_lang['blockClaroMainHelp'] = 'Her kan undervisere og assistenter oprette og administrere
 kursushjemmesider. De studerende læser (dokumenter, kalender, informationer) og sommetider 

@@ -21,7 +21,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 // TOOL
 $conf_def['config_code'] = 'CLWIKI';
 $conf_def['config_file'] = 'CLWIKI.conf.php';
-$conf_def['config_name'] = 'Wiki';
+$conf_def['config_name'] = 'Wiki tool';
 $conf_def['config_class']='tool';
 
 
@@ -36,7 +36,7 @@ array ( 'showWikiEditorToolbar'
 //PROPERTIES
 
 $conf_def_property_list['showWikiEditorToolbar'] =
-array ('label'         => 'Show wiki syntax toolbar'
+array ('label'         => 'Show wiki syntax toolbar in wiki editor'
  //     ,'description'   => '...'
       ,'default'       => TRUE
       ,'type'          => 'boolean'
@@ -46,7 +46,7 @@ array ('label'         => 'Show wiki syntax toolbar'
       );
 
 $conf_def_property_list['forcePreviewBeforeSaving'] =
-array ('label'         => 'Force text preview before saving it'
+array ('label'         => 'Force preview before saving in wiki editor'
     //  ,'description'   => '...'
       ,'default'       => FALSE
       ,'type'          => 'boolean'

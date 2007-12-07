@@ -15,9 +15,6 @@
 $iso639_1_code = "ca"; 
 $iso639_2_code = "cat";
 
-unset($langNameOfLang);
-unset($langDay_of_weekNames);
-unset($langMonthNames);
 $langNameOfLang['brazilian'] = "brasileny";
 $langNameOfLang['english'  ]="anglès";
 $langNameOfLang['finnish'  ]="finlandès";

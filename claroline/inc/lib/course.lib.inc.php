@@ -83,7 +83,8 @@ function create_select_box_language($selected=NULL)
   */
 function language_exists()
 {
-    $dirname = get_path('clarolineRepositorySys') . 'lang/';
+    global $clarolineRepositorySys;
+    $dirname = $clarolineRepositorySys . 'lang/';
 
     if($dirname[strlen($dirname)-1]!='/')
         $dirname.='/';
@@ -256,8 +257,7 @@ function get_full_path($categories, $catcode = NULL, $separator = ' > ')
         if (($currentCat['code'] == $parent))
         {
 
-            if ($currentCat['treePos'] >= $childTreePos ) return claro_failure::set_failure('loop_in_structure');
-            if ($parent == $catcode ) return claro_failure::set_failure('loop_in_structure');
+            if ($currentCat['treePos'] > $childTreePos ) return claro_failure::set_failure('loop_in_structure');
 
             return get_full_path($categories, $parent, $separator)
             .      $separator

@@ -7,9 +7,8 @@
  * Build new conf file content with these settings
  * write it.
  *
- * @version 1.9 $Revision$
- *
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
+ * @version 1.8 $Revision$
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -38,7 +37,10 @@ if ( ! file_exists('../../inc/currentVersion.inc.php') )
 require 'upgrade_init_global.inc.php';
 
 // Security Check
-if (!claro_is_platform_admin()) upgrade_disp_auth_form();
+if (!$is_platformAdmin) upgrade_disp_auth_form();
+
+// Include library
+include ($includePath.'/lib/fileManage.lib.php');
 
 // Define display
 DEFINE ('DISPLAY_WELCOME_PANEL', __LINE__);
@@ -60,13 +62,13 @@ $cmd = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : '';
 if ( $cmd == 'run' )
 {
     // Create module, platform, tmp folders
-    if ( !file_exists(get_path('rootSys') . 'module/') )        claro_mkdir(get_path('rootSys') . 'module/', CLARO_FILE_PERMISSIONS, true);
-    if ( !file_exists(get_path('rootSys') . 'platform/') )      claro_mkdir(get_path('rootSys') . 'platform/', CLARO_FILE_PERMISSIONS, true);
-    if ( !file_exists(get_path('rootSys') . 'platform/conf/') ) claro_mkdir(get_path('rootSys') . 'platform/conf/', CLARO_FILE_PERMISSIONS, true);
-    if ( !file_exists(get_path('rootSys') . 'tmp/') )           claro_mkdir(get_path('rootSys') . 'tmp/', CLARO_FILE_PERMISSIONS, true);
+    if ( !file_exists($rootSys . 'module/') ) claro_mkdir($rootSys . 'module/', CLARO_FILE_PERMISSIONS, true);
+    if ( !file_exists($rootSys . 'platform/') ) claro_mkdir($rootSys . 'platform/', CLARO_FILE_PERMISSIONS, true);
+    if ( !file_exists($rootSys . 'platform/conf/') ) claro_mkdir($rootSys . 'platform/conf/', CLARO_FILE_PERMISSIONS, true);
+    if ( !file_exists($rootSys . 'tmp/') ) claro_mkdir($rootSys . 'tmp/', CLARO_FILE_PERMISSIONS, true);
 
     // Create folder to backup configuration files
-    $backupRepositorySys = get_path('rootSys') .'platform/bak.'.date('Y-z-B').'/';
+    $backupRepositorySys = $rootSys .'platform/bak.'.date('Y-z-B').'/';
     claro_mkdir($backupRepositorySys, CLARO_FILE_PERMISSIONS, true);
 
     $output = '<h3>Configuration file</h3>' . "\n" ;
@@ -84,13 +86,13 @@ if ( $cmd == 'run' )
     {
         // Build table with current values in configuration files
         $current_property_list = array();
-
+        
         foreach ( $config_code_list as $config_code )
         {
             // new config object
             $config = new ConfigUpgrade($config_code);
             $config->load();
-            $this_property_list = $config->get_property_list();
+            $this_property_list = $config->get_property_list();            
             $current_property_list = array_merge($current_property_list, $this_property_list);
             unset($config);
         }
@@ -116,19 +118,6 @@ if ( $cmd == 'run' )
             $current_property_list['institution_url'] = $current_property_list['institution']['url'];
         }
 
-
-        // UPDATE for  1.9
-        // split defaultVisibilityForANewCourse in 2 new var
-        // 'acceptedValue' => array ('0'=>'Private&nbsp;+ New registration denied'
-        //                          ,'1'=>'Private&nbsp+ New Registration allowed'
-        //                          ,'2'=>'Public&nbsp;&nbsp;+ New Registration allowed'
-        //                          ,'3'=>'Public&nbsp;&nbsp;+ New Registration denied'
-        if ( isset($current_property_list['defaultVisibilityForANewCourse']) )
-        {
-            $current_property_list['defaultAccessOnCourseCreation']    = (bool) ( $current_property_list['defaultVisibilityForANewCourse'] == 2 or $current_property_list['defaultVisibilityForANewCourse'] == 3 );
-            $current_property_list['defaultRegistrationOnCourseCreation'] = (bool) ( $current_property_list['defaultVisibilityForANewCourse'] == 1 or $current_property_list['defaultVisibilityForANewCourse'] == 2 );
-        }
-
         // Browse definition file and build them
 
         reset( $config_code_list );
@@ -136,7 +125,7 @@ if ( $cmd == 'run' )
         foreach ( $config_code_list as $config_code )
         {
             $config = new ConfigUpgrade($config_code);
-
+            
             // load and initialise the config
             if ( $config->load() )
             {
@@ -144,14 +133,14 @@ if ( $cmd == 'run' )
 
                 $output .= '<li>'. htmlspecialchars(basename($config_filename))
                         .  '<ul >' . "\n";
-
+                        
                 // Backup current file
                 $output .= '<li>Validate property : ' ;
 
                 if ( $config->validate($current_property_list) )
                 {
                     $output .= '<span class="success">Succeeded</span></li>';
-
+ 
                     if ( !file_exists($config_filename) )
                     {
                         // Create a file empty if not exists
@@ -173,7 +162,7 @@ if ( $cmd == 'run' )
                             $output .= '<span class="success">Succeeded</span>';
                         }
                         $output .= '</li>' . "\n" ;
-
+    
                         // Change permission of the backup file
                         @chmod( $fileBackup, CLARO_FILE_PERMISSIONS );
                         @chmod( $fileBackup, CLARO_FILE_PERMISSIONS );
@@ -212,7 +201,7 @@ if ( $cmd == 'run' )
      * Config file to undist
      */
 
-    $arr_file_to_undist = array ( get_path('incRepositorySys').'/../auth/extauth/drivers/auth.drivers.conf.php' => get_path('rootSys').'platform/conf' );
+    $arr_file_to_undist = array ( $includePath.'/../auth/extauth/drivers/auth.drivers.conf.php' => $rootSys.'platform/conf' );
 
     foreach ( $arr_file_to_undist as $undistFile => $undistPath )
     {

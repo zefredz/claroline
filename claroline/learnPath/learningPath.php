@@ -1,6 +1,6 @@
 <?php // $Id$
 /**
- * CLAROLINE
+ * CLAROLINE 
  *
  * @version 1.8 $Revision$
  *
@@ -21,22 +21,24 @@
 $tlabelReq = 'CLLNP';
 require '../inc/claro_init_global.inc.php';
 
-if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
+if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 
 $interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
 
 $nameTools = get_lang('Learning path');
 
 // tables names
+$TABLELEARNPATH         = $_course['dbNameGlu']."lp_learnPath";
+$TABLEMODULE            = $_course['dbNameGlu']."lp_module";
+$TABLELEARNPATHMODULE   = $_course['dbNameGlu']."lp_rel_learnPath_module";
+$TABLEASSET             = $_course['dbNameGlu']."lp_asset";
+$TABLEUSERMODULEPROGRESS= $_course['dbNameGlu']."lp_user_module_progress";
 
-$TABLELEARNPATH         = claro_get_current_course_data('dbNameGlu') . "lp_learnPath";
-$TABLEMODULE            = claro_get_current_course_data('dbNameGlu') . "lp_module";
-$TABLELEARNPATHMODULE   = claro_get_current_course_data('dbNameGlu') . "lp_rel_learnPath_module";
-$TABLEASSET             = claro_get_current_course_data('dbNameGlu') . "lp_asset";
-$TABLEUSERMODULEPROGRESS= claro_get_current_course_data('dbNameGlu') . "lp_user_module_progress";
+//lib of this tool
+include($includePath."/lib/learnPath.lib.inc.php");
 
-include_once get_path('incRepositorySys') . '/lib/learnPath.lib.inc.php';
-include_once get_path('incRepositorySys') . '/lib/fileDisplay.lib.php';
+//lib of document tool
+include($includePath."/lib/fileDisplay.lib.php");
 
 // $_SESSION
 if ( isset($_GET['path_id']) && $_GET['path_id'] > 0)
@@ -44,9 +46,9 @@ if ( isset($_GET['path_id']) && $_GET['path_id'] > 0)
     $_SESSION['path_id'] = (int) $_GET['path_id'];
 }
 elseif( (!isset($_SESSION['path_id']) || $_SESSION['path_id'] == "") )
-{
+{ 
     // if path id not set, redirect user to the home page of learning path
-    claro_redirect( get_module_url('CLLNP') . '/learningPathList.php');
+    claro_redirect($clarolineRepositoryWeb."learnPath/learningPathList.php");
     exit();
 }
 
@@ -57,20 +59,18 @@ claro_set_display_mode_available(true);
 if ( claro_is_allowed_to_edit() )
 {
     // if the fct return true it means that user is a course manager and than view mode is set to COURSE_ADMIN
-    $pathId = (int) $_SESSION['path_id'];
-
-    claro_redirect( get_module_url('CLLNP') . '/learningPathAdmin.php?path_id=' . $pathId );
+    claro_redirect($clarolineRepositoryWeb."learnPath/learningPathAdmin.php?path_id=".$_SESSION['path_id']);
     exit();
 }
 
 // main page
 //####################################################################################\\
-//############################## MODULE TABLE LIST PREPARATION #######################\\
+//############################## MODULE TABLE LIST PREPARATION ###############################\\
 //####################################################################################\\
 
-if(claro_is_user_authenticated())
+if($_uid)
 {
-    $uidCheckString = "AND UMP.`user_id` = " . (int) claro_get_current_user_id();
+    $uidCheckString = "AND UMP.`user_id` = ".$_uid;
 }
 else // anonymous
 {
@@ -102,15 +102,15 @@ $sql = "SELECT LPM.`learnPath_module_id`,
 
 $extendedList = claro_sql_query_fetch_all($sql);
 
-// build the array of modules
+// build the array of modules     
 // build_element_list return a multi-level array, where children is an array with all nested modules
 // build_display_element_list return an 1-level array where children is the deep of the module
 $flatElementList = build_display_element_list(build_element_list($extendedList, 'parent', 'learnPath_module_id'));
-
+ 
 $is_blocked = false;
 $atleastOne = false;
 $moduleNb = 0;
-
+ 
 // look for maxDeep
 $maxDeep = 1; // used to compute colspan of <td> cells
 for( $i = 0 ; $i < sizeof($flatElementList) ; $i++ )
@@ -120,10 +120,10 @@ for( $i = 0 ; $i < sizeof($flatElementList) ; $i++ )
 
 /*================================================================
                       OUTPUT STARTS HERE
- ================================================================*/
-
+ ================================================================*/  
+  
 //header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include($includePath."/claro_init_header.inc.php");
 
 // display title
 echo claro_html_tool_title($nameTools);
@@ -139,14 +139,13 @@ commentBox(LEARNINGPATH_, DISPLAY_);
 //############################## MODULE TABLE HEADER #################################\\
 //####################################################################################\\
 
-echo '<br />' . "\n"
-.    '<table class="claroTable" width="100%" border="0" cellspacing="2">'."\n"
-.    '<tr class="headerX" align="center" valign="top">'."\n"
-.    '<th colspan="'.($maxDeep+1).'">' . get_lang('Module') . '</th>'."\n"
-;
+echo "\n".'<br />'."\n"
+      .'<table class="claroTable" width="100%" border="0" cellspacing="2">'."\n"
+    .'<tr class="headerX" align="center" valign="top">'."\n"
+    .'<th colspan="'.($maxDeep+1).'">'.get_lang('Module').'</th>'."\n";
 
 
-if ( claro_is_user_authenticated() )
+if ( $_uid )
 {
     // show only progress column for authenticated users
     echo '<th colspan="2">'.get_lang('Progress').'</th>'."\n";
@@ -155,7 +154,7 @@ if ( claro_is_user_authenticated() )
 echo '</tr>'."\n\n"
     .'<tbody>'."\n\n";
 
-
+   
   //####################################################################################\\
   //############################## MODULE TABLE LIST DISPLAY ###########################\\
   //####################################################################################\\
@@ -163,17 +162,16 @@ echo '</tr>'."\n\n"
 if (!isset($globalProg)) $globalProg = 0;
 
 foreach ($flatElementList as $module)
-{ 
+{
     if( $module['scoreMax'] > 0 && $module['raw'] > 0 )
     {
-        $raw = min($module['raw'],$module['scoreMax']); // fix when raw is > than scoreMax (it can be ...) 
-        $progress = round($raw/$module['scoreMax']*100);
+        $progress = round($module['raw']/$module['scoreMax']*100);
     }
     else
     {
         $progress = 0;
     }
-
+      
     if ( $module['contentType'] == CTEXERCISE_ )
     {
         $passExercise = ($module['credit'] == "CREDIT");
@@ -182,7 +180,7 @@ foreach ($flatElementList as $module)
     {
         $passExercise = false;
     }
-
+      
     if ( $module['contentType'] == CTSCORM_ && $module['scoreMax'] <= 0)
     {
         if ( $module['lesson_status'] == 'COMPLETED' || $module['lesson_status'] == 'PASSED')
@@ -198,28 +196,28 @@ foreach ($flatElementList as $module)
     }
 
     // display the current module name (and link if allowed)
-
+      
     $spacingString = "";
     for($i = 0; $i < $module['children']; $i++)
     {
         $spacingString .= '<td width="5">&nbsp;</td>'."\n";
     }
-
+    
     $colspan = $maxDeep - $module['children']+1;
-
+      
     echo '<tr align="center">'."\n"
         .$spacingString
         .'<td colspan="'.$colspan.'" align="left">'."\n";
-
+    
     //-- if chapter head
     if ( $module['contentType'] == CTLABEL_ )
     {
         echo '<b>'.htmlspecialchars($module['name']).'</b>'."\n";
-    }
+    }        
     //-- if user can access module
     elseif ( !$is_blocked )
     {
-        if($module['contentType'] == CTEXERCISE_ )
+        if($module['contentType'] == CTEXERCISE_ ) 
         {
             $moduleImg = 'quiz.gif';
         }
@@ -227,22 +225,22 @@ foreach ($flatElementList as $module)
         {
             $moduleImg = choose_image(basename($module['path']));
         }
-
+            
         $contentType_alt = selectAlt($module['contentType']);
         echo '<a href="module.php?module_id='.$module['module_id'].'">'
-            .'<img src="' . get_path('imgRepositoryWeb') . $moduleImg.'" alt="'.$contentType_alt.'" border="0" />'
+            .'<img src="'.$imgRepositoryWeb.$moduleImg.'" alt="'.$contentType_alt.'" border="0" />'
             .htmlspecialchars($module['name']).'</a>'."\n";
         // a module ALLOW access to the following modules if
         // document module : credit == CREDIT || lesson_status == 'completed'
         // exercise module : credit == CREDIT || lesson_status == 'passed'
         // scorm module : credit == CREDIT || lesson_status == 'passed'|'completed'
 
-        if( $module['lock'] == 'CLOSE' && $module['credit'] != 'CREDIT'
-            && $module['lesson_status'] != 'COMPLETED' && $module['lesson_status'] != 'PASSED'
-            && !$passExercise
+        if( $module['lock'] == 'CLOSE' && $module['credit'] != 'CREDIT' 
+            && $module['lesson_status'] != 'COMPLETED' && $module['lesson_status'] != 'PASSED' 
+            && !$passExercise 
           )
         {
-            if(claro_is_user_authenticated())
+            if($_uid)
             {
                 $is_blocked = true; // following modules will be unlinked
             }
@@ -256,7 +254,7 @@ foreach ($flatElementList as $module)
     //-- user is blocked by previous module, don't display link
     else
     {
-        if($module['contentType'] == CTEXERCISE_ )
+        if($module['contentType'] == CTEXERCISE_ ) 
         {
             $moduleImg = 'quiz.gif';
         }
@@ -265,12 +263,12 @@ foreach ($flatElementList as $module)
             $moduleImg = choose_image(basename($module['path']));
         }
 
-        echo '<img src="' . get_path('imgRepositoryWeb') . $moduleImg.'" alt="'.$contentType_alt.'" border="0" />'."\n"
+        echo '<img src="'.$imgRepositoryWeb.$moduleImg.'" alt="'.$contentType_alt.'" border="0" />'."\n"
              .htmlspecialchars($module['name']);
     }
     echo '</td>'."\n";
 
-    if( claro_is_user_authenticated() && ($module['contentType'] != CTLABEL_) )
+    if( $_uid && ($module['contentType'] != CTLABEL_) )
     {
         // display the progress value for current module
         echo '<td align="right">'.claro_html_progress_bar ($progress, 1).'</td>'."\n"
@@ -279,23 +277,23 @@ foreach ($flatElementList as $module)
         .    '</td>' . "\n"
         ;
     }
-    elseif( claro_is_user_authenticated() && $module['contentType'] == CTLABEL_ )
+    elseif( $_uid && $module['contentType'] == CTLABEL_ )
     {
         echo '<td colspan="2">&nbsp;</td>'."\n";
     }
-
+  
     if ($progress > 0)
     {
         $globalProg =  $globalProg+$progress;
     }
-
-    if($module['contentType'] != CTLABEL_)
+      
+    if($module['contentType'] != CTLABEL_) 
         $moduleNb++; // increment number of modules used to compute global progression except if the module is a title
-
+       
     echo '</tr>' . "\n\n";
     $atleastOne = true;
 }
-
+  
 echo '</tbody>' . "\n\n";
 
 if ($atleastOne == false)
@@ -307,7 +305,7 @@ if ($atleastOne == false)
     .    '</tfoot>'."\n\n"
     ;
 }
-elseif(claro_is_user_authenticated() && $moduleNb > 0)
+elseif($_uid && $moduleNb > 0)
 {
     // add a blank line between module progression and global progression
     echo '<tfoot>'."\n\n"
@@ -331,6 +329,6 @@ echo '</table>'."\n\n";
 //####################################################################################\\
 //################################### FOOTER #########################################\\
 //####################################################################################\\
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include($includePath."/claro_init_footer.inc.php");
 
 ?>

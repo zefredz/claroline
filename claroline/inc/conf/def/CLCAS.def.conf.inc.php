@@ -21,7 +21,7 @@
 $conf_def['config_code'] = 'CLAUTH';
 $conf_def['config_file'] = 'auth.cas.conf.php';
 $conf_def['config_name'] = 'Central Authentication System';
-$conf_def['config_class']= 'auth';
+$conf_def['config_class']='auth';
 
 
 $conf_def['section']['CAS']['label']='Cas settings';
@@ -30,31 +30,29 @@ $conf_def['section']['CAS']['properties'] =
 array ( 'claro_CasEnabled'
       , 'claro_CasServerHostUrl'
       , 'claro_CasServerHostPort'
-      , 'claro_CasServerRoot'
       , 'claro_CasLoginString'
-      , 'claro_CasGlobalLogout'
       );
 
 //PROPERTIES
 $conf_def_property_list['claro_CasEnabled'] =
-array ('label'         => 'Enable CAS system'
-      ,'description'   => 'If false, other field are optional'
+array ('label'         => 'Enable Cas system'
+      ,'description'   => 'if false, other field are optional'
       ,'default'       => FALSE
       ,'type'          => 'boolean'
-      ,'acceptedValue' => array ('TRUE'  => 'Yes'
-                                ,'FALSE' => 'No'
+      ,'acceptedValue' => array ('TRUE'  => 'Enabled'
+                                ,'FALSE' => 'Disabled'
                                 )
       );
 
 $conf_def_property_list['claro_CasServerHostUrl'] =
-array ('label'         => 'Host of CAS server'
+array ('label'         => 'Url host of CAS server'
       //,'description'   => ''
       ,'default'       => 'my.cas.server.domain.com'
       ,'type'          => 'string'
       );
 
 $conf_def_property_list['claro_CasLoginString'] =
-array ('label'         => 'Label of the login url to CAS'
+array ('label'         => 'Label of link to cas login'
       //,'description'   => ''
       ,'default'       => 'Magic Login'
       ,'type'          => 'string'
@@ -62,27 +60,10 @@ array ('label'         => 'Label of the login url to CAS'
 
 
 $conf_def_property_list['claro_CasServerHostPort'] =
-array ('label'         => 'Port of CAS server'
+array ('label'         => 'port of CAS server'
       //,'description'   => ''
       ,'default'       => '443'
       ,'type'          => 'integer'
       );
-
-$conf_def_property_list['claro_CasServerRoot'] =
-array ('label'         => 'Root of CAS server'
-      ,'description'   => 'Root folder of CAS (example : \'esup-cas/\')'
-      ,'default'       => ''
-      ,'type'          => 'string'
-      );
-      
-$conf_def_property_list['claro_CasGlobalLogout'] =
-array ('label'         => 'Logout user from CAS server when user logout from Claroline'
-      ,'description'   => ''
-      ,'default'       => FALSE
-      ,'type'          => 'boolean'
-      ,'acceptedValue' => array ('TRUE'  => 'Yes'
-                                ,'FALSE' => 'No'
-                                )
-      );      
 
 ?>

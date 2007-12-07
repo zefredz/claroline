@@ -9,6 +9,7 @@ $_lang['(none)'] = '(geen)';
 $_lang['(optional)'] = '(facultatief)';
 $_lang['(version of %1\$s modified by %2\$s)'] = '(versie van %1$s gewijzigt door %2$s)';
 $_lang['- none -'] = '- geen -';
+$_lang['<b>Notice :</b> The directory containing your Claroline installation process (<code>claroline/install/</code>) is still browsable by the web. It means anyone can reinstall Claroline and crush your previous installation. We highly recommend to protect'] = '<b>Opmerking:</b> De map die Claroline instal script bevat <code>claroline/install/</code>) IS nog steeds aanwezig en bereikbaar via het web. Wat wil zeggen dat iedereen Claroline kan herinstalleren en jouw vorige installatie vernietiggen.We raden ten stelligste aan om deze map van je server te verwijderen , of ze onbereikbaar te maken voor bezoekers.';
 $_lang['<span class=\"required\">*</span> denotes required field'] = '<span class="required">*</span> Moeten ingevuld zijn';
 $_lang['<strong>Approved</strong><p>Your campus registration has been approved by the Claroline.net team.</p>'] = '<strong>Goedgekeurd</strong><p>uw campus registratie is goedgekeurd door het Claroline.net team.<br />Een link naar uw campus is te zien op de Worldwide page van Claroline.net.</p>';
 $_lang['<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our website) if you think this is an error.</p>'] = '<strong>verwijderd</strong><p>uw campus registratie is gedeactiveerd, contacteer ons (zie onze website) als U denkt dat dit een fout is.</p>';
@@ -111,8 +112,7 @@ $_lang['Attach an existing resource'] = 'voeg een al bestaande bron toe';
 $_lang['Attached Resources : Add / Delete attachement'] = 'Voeg bron toe : voeg /verwijder een bestand (toe)';
 $_lang['Attached file'] = 'Toegevoegd bestand';
 $_lang['Attached resources'] = 'toegevoegt bron';
-$_lang['Attempt %attemptCount'] = 'Poging %attemptCount';
-$_lang['Attempt %attemptCount on %attempts'] = 'Poging %attemptCount op %attempts';
+$_lang['Attempt'] = 'Poging';
 $_lang['Attempts'] = 'Pogingen';
 $_lang['Attempts allowed'] = 'pogingen toegestaan';
 $_lang['Authentication'] = 'Authenticatie';
@@ -122,6 +122,7 @@ $_lang['Author(s)'] = 'Auteur(s)';
 $_lang['Author(s) is(are) required'] = 'Auteur(s) is(zijn) vereist';
 $_lang['Automatically, after each submission'] = 'Automatisch, na indienen';
 $_lang['Automatically, after end date'] = 'Automatisch, na einddatum';
+$_lang['Available from'] = 'Beschikbaar van';
 $_lang['Average Time'] = 'Gemiddelde tijd (s.)';
 $_lang['Average score'] = 'Gemiddelde';
 $_lang['Back'] = 'Terug naar cursuseigenschappen';
@@ -309,7 +310,6 @@ $_lang['Edit properties'] = 'wijzig eigenschappen';
 $_lang['Edit question'] = 'Vraag bewerken';
 $_lang['Edit settings'] = 'Voorkeurinstellingen bewerken';
 $_lang['Edit text zone'] = 'Wijzig tekst zone';
-$_lang['Edit text zones'] = 'Wijzig tekst zones';
 $_lang['Edit this group'] = 'Deze groep wijzigen';
 $_lang['Edit this page'] = 'wijzig deze pagina';
 $_lang['Element list'] = 'Elementen lijst';
@@ -350,7 +350,7 @@ $_lang['ErrorInvalidParms'] = 'Fout: ongeldige parameter (gebruik alleen getalle
 $_lang['Event added to the agenda'] = 'Gebeurtenis toegevoegd aan de agenda.';
 $_lang['Event deleted from the agenda'] = 'Gebeurtenis verwijderd uit de agenda.';
 $_lang['Event updated into the agenda'] = 'Gebeurtenis aangepast in de agenda.';
-$_lang['Exercise'] = 'Exercise';
+$_lang['Exercise'] = 'Claroline exercise';
 $_lang['Exercise cancelled, choose a module in the list to continue.'] = 'Oefening geannuleerd, kies een module in de lijst om door te gaan.';
 $_lang['Exercise done, choose a module in the list to continue.'] = 'Uw vooruitgang is genoteerd, kies een module uit de lijst om verder te gaan.';
 $_lang['Exercise in module'] = 'Oefening in module';
@@ -431,6 +431,7 @@ $_lang['Help'] = 'Help';
 $_lang['Here you can modify the content of the text zones displayed on the platform home page.'] = 'Hier kan U de inhoud van de tekst zones op de home pagina van het platform bewerken.';
 $_lang['Hits'] = 'Hits';
 $_lang['Home page help'] = 'Hulp startpagina';
+$_lang['Home page text zones'] = 'Home pagina tekst zones';
 $_lang['Hour'] = 'Uur';
 $_lang['Identical content<br />no modification saved'] = 'Geen veranderingen gevonden <br />geen wijzigingen aangebracht';
 $_lang['If you wish to enrol on this course'] = 'Indien U wil inschrijven in deze cursus';
@@ -621,7 +622,7 @@ $_lang['Number of users'] = 'Aantal gebruikers';
 $_lang['Number of users by course'] = 'Aantal gebruikers per cursus';
 $_lang['Number of users by faculty'] = 'Aantal gebruikers per faculteit';
 $_lang['Number of users by status'] = 'Aantal gebruikers per status';
-$_lang['Number proposed exceeds max. that you allowed (you can modify it below). Group composition has not been modified'] = 'Het aantal deelnemers overschrijdt het maximum aantal dat U bepaald had.
+$_lang['Number proposed exceeds max. that you allowed (you can modify it below). Group composition has not been modified'] = 'Het aantal deelnemers overschrijdt het maximum aantal dat U bepaald had. 
 	De samenstelling van de groep werd niet gewijzigd. U mag het maximum aantal hieronder wijzigen';
 $_lang['Numero'] = 'Nr.';
 $_lang['Ok'] = 'Ok';
@@ -995,15 +996,16 @@ $_lang['Your request to remove your account has been sent'] = 'Uw verzoek uw acc
 $_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'Uw gebruikersprofiel is niet gekoppeld aan deze cursus';
 $_lang['Zip file uploaded and uncompressed'] = ' ZIP bestand werd opgestuurd en gedecomprimeerd';
 $_lang['Zlib php extension is required to use this tool. Please contact your platform administrator.'] = 'De Zlib php uitbreiding is vereist om deze tool te gebruiken.  Contacteer de platform beheerder.';
+$_lang['[British people] live in [United Kingdom].'] = 'Van alle [Galli&euml;rs] zijn de [Belgen] het dapperst.';
 $_lang['archive'] = 'archief';
 $_lang['blockAssignmentsHelp'] = '<p>
-Het taak gereedschap is een publicatiegebied voor studenten.
+Het taak gereedschap is een publicatiegebied voor studenten. 
 De cursusbeheerder maakt een of meerdere taken aan (verschillende publicatie mogelijkheden) waar
 de studenten hun werkjes kunnen publiceren.
 <br /><br />
 
 Elke taak kan meerdere doelen of vereisten hebben:
-Een publicatie moet een bestand en/of tekst zijn, en een publicatie kan in naam van een
+Een publicatie moet een bestand en/of tekst zijn, en een publicatie kan in naam van een 
 groep worden aangeboden.
  <br /><br />
 
@@ -1021,8 +1023,8 @@ aanklikken.
 <ul><li> Een titel &nbsp;: De naam van de taak.
 </li><li> Een omschrijving&nbsp;: Wat de taak inhoudt, hetgeen van de studenten verwacht wordt.
 </li><li> Wat dient ingediend:&nbsp;:
-<ul><li> Bestand&nbsp;: elk uploadbaar type bestand. Wees voorzichtig, er is een grens op de grootte van
-de bestanden die men kan uploaden. Er kan een korte omschrijving van het bestand worden meegegegeven bij
+<ul><li> Bestand&nbsp;: elk uploadbaar type bestand. Wees voorzichtig, er is een grens op de grootte van 
+de bestanden die men kan uploaden. Er kan een korte omschrijving van het bestand worden meegegegeven bij 
 het uploaden.
 
 </li><li> Alleen tekst&nbsp;: Een tekst (mogelijk met opmaak).
@@ -1030,7 +1032,7 @@ het uploaden.
 </li></ul>
 </li><li> Een begindatum&nbsp;: Datum vanaf wanneer de gebruikers hun werk mogen indienen.
 </li><li> Een einddatum&nbsp;: Datum tot wanneer de gebruikers hun werk mogen indienen.
-</li><li> Standaard zichtbaarheid van de werken&nbsp;: Duid aan of de werken zichtbaar
+</li><li> Standaard zichtbaarheid van de werken&nbsp;: Duid aan of de werken zichtbaar 
 zullen zijn voor andere gebruikers of niet.
 </li><li> Type taak&nbsp;:
 
@@ -1052,9 +1054,9 @@ Na de einddatum van de taak, of nadat het werk werd ingediend.
 <hr />
 <h4>Werken</h4>
 <p>Werken zijn de publicaties/teksten die de gebruikers uploaden.</p>
-<p>Voor elke taak toont de gereedschapsset een lijst van alle gebruikes in de cursus, en voor elke
-gebruiker de titel van het eerste werk dat hij heeft ingediend, het aantal ingediende werkjes en
-het aantal commentaren. De lijst van werkjes van een gebruiker kan opgevraagd worden door op de
+<p>Voor elke taak toont de gereedschapsset een lijst van alle gebruikes in de cursus, en voor elke 
+gebruiker de titel van het eerste werk dat hij heeft ingediend, het aantal ingediende werkjes en 
+het aantal commentaren. De lijst van werkjes van een gebruiker kan opgevraagd worden door op de 
 gebruikersnaam te klikken.
 </p>
 <p><strong>Een werk indienen</strong></p>
@@ -1065,7 +1067,7 @@ gebruikersnaam te klikken.
 Hij kan ook commentaar leveren op werkjes.
 </p>
 <ul>
-<li> <strong>Wijzigen</strong>&nbsp;: Indien dit pictogram verschijnt kan de gebruiker de inhoud van het werk kan wijzige,
+<li> <strong>Wijzigen</strong>&nbsp;: Indien dit pictogram verschijnt kan de gebruiker de inhoud van het werk kan wijzige, 
 dit is het geval voor de cursusbeheerder, of als de gebruiker naar zijn werkjes kijkt, of de werkjes van een groep waar hij in zit.
 
 </li>
@@ -1079,7 +1081,7 @@ dit is het geval voor de cursusbeheerder, of als de gebruiker naar zijn werkjes 
 
 </li>
 <li> <strong>Commentaar toevoegen</strong>&nbsp;: Via deze link kan de cursusbeheerder commentaar toevoegen
-aan een werkje. Dit kan een tekst en/of een bestand zijn, en kan een prive commentaar zijn, zodat enkel
+aan een werkje. Dit kan een tekst en/of een bestand zijn, en kan een prive commentaar zijn, zodat enkel 
 de cursusbeheerder de commentaar kan zien.
 </li>
 </ul>';
@@ -1137,7 +1139,7 @@ $_lang['blockDocumentsHelp'] = '<p>De module voor het beheer van documenten (cur
 <ul>
 <p>Als u een commentaar wenst uit te verwijderen, klik op <img
  src=../document/../document/img/comment.gif width=20 height=20>.</li>
-  <li>Wis het oud commentaar uit het kader, dat bovenaan links op het scherm verschijnt, en klik op \'OK\'; <input type=submit value=OK name=submit22>.</hr />
+  <li>Wis het oud commentaar uit het kader, dat bovenaan links op het scherm verschijnt, en klik op \'OK\'; <input type=submit value=OK name=submit22>.</hr>
 <p>U kunt ook de inhoud organiseren door de documenten in maps te zetten:</p>
 <h4><b>Maak een map aan:</b></h4>
 <ul>
@@ -1350,7 +1352,7 @@ $_lang['blockWikiHelpSyntaxContent'] = '<h3>Wiki2xhtml syntax</h3>
 <dd><ul>
 <li><strong>Wiki woorden</strong> : Wiki woorden zijn woorden als <em>WikiWord</em>.
  Wiki2xhtml herkent deze meteen en zet een link. Om een pagina of link te maken in Wiki, wijzig een bestaant en verander de titel in een WikiWord syntax, bijvoorbeeld <em>Mijnpagina</em>, bewaar dan de pagina. Wiki2xhtml zal meteen het Wiki Word veranderen <em>Mijnpagina</em> met een link naar <em>MijnPagina</em>&nbsp;;</li>
-<li><strong>Wiki links</strong> : Wiki links zijn net Hyperlinks (zie onderaan) verwacht niet dat ze een protocol bevatten (zoals <em>http://</em> of <em>ftp://</em>)
+<li><strong>Wiki links</strong> : Wiki links zijn net Hyperlinks (zie onderaan) verwacht niet dat ze een protocol bevatten (zoals <em>http://</em> of <em>ftp://</em>) 
 and thatthey are automaticaly recognise as links to Wiki pages. Om een nieuwe pagina te maken of een link te maken in een bestaand Wiki,wijzig een pagina en voeg toe <code>[page title]</code> of <code>[page title|link text]</code> in deze inhoud.
 om een text te veranderen in een link kunt u ook : <code>[WikiWord|text]</code>.</li>
 </ul></dd>

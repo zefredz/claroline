@@ -40,9 +40,12 @@ DEFINE('DISP_GROUP_SELECT_FOR_ACTION', __LINE__);
 $gidReq=null;
 $gidReset=true;
 require '../inc/claro_init_global.inc.php';
-if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
-require_once get_path('incRepositorySys') . '/lib/group.lib.inc.php' ;
-require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
+if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+require_once $includePath . '/lib/group.lib.inc.php' ;
+require_once $includePath . '/lib/pager.lib.php';
+
+//stats
+event_access_tool($_tid, $_courseTool['label']);
 
 // use viewMode
 claro_set_display_mode_available(TRUE);
@@ -70,14 +73,13 @@ $tbl_Forums            = $tbl_cdb_names['bb_forums'          ];
  * MAIN SETTINGS INIT
  */
 
-$currentCourseRepository = claro_get_course_path();
-$currentCourseId         = claro_get_current_course_id();
-$_groupProperties = claro_get_current_group_properties_data();
+$currentCourseRepository = $_course['path'];
+$currentCourseId         = $_course['sysCode'];
 $is_allowedToManage      = claro_is_allowed_to_edit();
 
-$isGroupRegAllowed       =     claro_get_current_group_properties_data('registrationAllowed')
-                           && (  !claro_is_course_tutor()
-                               || (  claro_is_course_tutor()
+$isGroupRegAllowed       =     $_groupProperties ['registrationAllowed']
+                           && (  !$is_courseTutor
+                               || (  $is_courseTutor
                                    && get_conf('tutorCanBeSimpleMemberOfOthersGroupsAsStudent')
                          )
                                );
@@ -158,9 +160,8 @@ if ( $is_allowedToManage )
 
 
         .          '<form method="post" action="group.php">'                         ."\n"
-        .          claro_form_relay_context()
-        .          '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />' ."\n"
-        .          '<input type="hidden" name="cmd" value="exMkGroup" />'
+        .          '<input type="hidden" name="claroFormId" value="'.uniqid('').'">' ."\n"
+        .          '<input type="hidden" name="cmd" value="exMkGroup">'
 
         .          '<table>'                                                         ."\n"
 
@@ -169,7 +170,7 @@ if ( $is_allowedToManage )
         .          '<label for="group_quantity">' . get_lang("Create") . '</label>'
         .          '</td>'
         .          '<td>'
-        .          '<input type="text" name="group_quantity" id="group_quantity" size="3" value="1" /> '
+        .          '<input type="text" name="group_quantity" id="group_quantity" size="3" value="1"> '
         .          '<label for="group_quantity">' . get_lang("new group(s)") . '</label>'
         .          '</td>'                                                           ."\n"
         .          '</tr>'                                                           ."\n"
@@ -179,7 +180,7 @@ if ( $is_allowedToManage )
         .          '<label for="group_max">' . get_lang("Max.") . '</label>'
         .          '</td>'                                                           ."\n"
         .          '<td>'                                                            ."\n"
-        .          '<input type="text" name="group_max" id="group_max" size="3" value="8" /> '
+        .          '<input type="text" name="group_max" id="group_max" size="3" value="8"> '
         .          get_lang("seats by groups (optional)")
         .          '</td>'                                                           ."\n"
         .          '</tr>'                                                           ."\n"
@@ -191,7 +192,7 @@ if ( $is_allowedToManage )
         .          '</label>'
         .          '</td>'                                                           ."\n"
         .          '<td>'                                                            ."\n"
-        .          '<input type="submit" value="'.get_lang("Ok").'" name="creation" id="creation" /> '
+        .          '<input type="submit" value="'.get_lang("Ok").'" name="creation" id="creation"> '
         .          claro_html_button($_SERVER['HTTP_REFERER'], get_lang("Cancel"))
         .          '</td>'                                                           ."\n"
         .          '</tr>'                                                           ."\n"
@@ -218,9 +219,9 @@ if ( $is_allowedToManage )
         }
         elseif(0 < (int)$_REQUEST['id'])
         {
-            /* ----------------
-             * DELETE ONE GROUP
-             * ---------------- */
+            /*----------------------
+            DELETE ONE GROUP
+            ----------------------*/
 
             $nbGroupDeleted = delete_groups( (int) $_REQUEST['id']);
 
@@ -229,9 +230,9 @@ if ( $is_allowedToManage )
             else                            $message = get_lang("No group deleted") . ' !';
         }
         $cidReset = TRUE;
-        $cidReq   = claro_get_current_course_id();
+        $cidReq   = $_cid;
 
-        include(get_path('incRepositorySys') . '/claro_init_local.inc.php');
+        include($includePath . '/claro_init_local.inc.php');
         $noQUERY_STRING = true;
     }
 
@@ -261,7 +262,7 @@ if ( $is_allowedToManage )
 
     elseif ( 'exFillGroup' == $cmd  )
     {
-        fill_in_groups($nbGroupPerUser, claro_get_current_course_id());
+        fill_in_groups($nbGroupPerUser, $_cid);
         event_default('GROUPMANAGING',array ('FILL_GROUP' => TRUE));
 
         $message = get_lang("Groups have been filled (or completed) by students present in the 'Users' list.");
@@ -274,10 +275,9 @@ if ( $is_allowedToManage )
 
     // This is called by the form in group_properties.php
     // set common properties for all groups
+
     if ( isset($_REQUEST['properties']) )
     {
-        if (!array_key_exists('limitNbGroupPerUser',$_REQUEST))$_REQUEST['limitNbGroupPerUser'] = 1;
-
         if ( 'ALL' == $_REQUEST['limitNbGroupPerUser'] )
         {
             $newPropertyList['nbGroupPerUser'] = null;
@@ -350,15 +350,15 @@ if ( $is_allowedToManage )
         event_default('GROUPMANAGING',array ('CONFIG_GROUP' => TRUE));
 
         $cidReset = TRUE;
-        $cidReq   = claro_get_current_course_id();
+        $cidReq   = $_cid;
 
-        include get_path('incRepositorySys') . '/claro_init_local.inc.php';
+        include $includePath . '/claro_init_local.inc.php';
 
         $isGroupRegAllowed = $_groupProperties['registrationAllowed']
         && (
-        !claro_is_course_tutor()
+        !$is_courseTutor
         || (
-        claro_is_course_tutor()
+        $is_courseTutor
         &&
         get_conf('tutorCanBeSimpleMemberOfOthersGroupsAsStudent')
         )
@@ -373,39 +373,31 @@ if ( $is_allowedToManage )
     }    // end if $submit
 
     // Create new groups
-    $groupadmin_manager_menu[] =  claro_html_cmd_link( $_SERVER['PHP_SELF']
-                                                     . '?cmd=rqMkGroup' . claro_url_relay_context('&amp;')
-                                                     , '<img src="' . get_path('imgRepositoryWeb') . 'group.gif" alt="" />'
+    $groupadmin_manager_menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqMkGroup">'
+    .                            '<img src="' . $imgRepositoryWeb . 'group.gif" alt="" />'
     .                            get_lang("Create new group(s)")
-                                                     );
+    .                            '</a>'
+    ;
     // Delete all groups
-    $groupadmin_manager_menu[] =  claro_html_cmd_link( $_SERVER['PHP_SELF']
-                                                     . '?cmd=exDelGroup&id=ALL'
-                                                     . claro_url_relay_context('&amp;')
-                                                     , '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="" />'
+    $groupadmin_manager_menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelGroup&id=ALL" onClick="return confirmationDelete();">'
+    .                            '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
     .                            get_lang("Delete all groups")
-                                                     , array('onclick'=>'return confirmationDelete();')
-                                                     );
+    .                            '</a>';
     // Fill groups
-    $groupadmin_manager_menu[] = claro_html_cmd_link( $_SERVER['PHP_SELF']
-                                                    . '?cmd=exFillGroup'
-                                                    . claro_url_relay_context('&amp;')
-                                                    , '<img src="' . get_path('imgRepositoryWeb') . 'fill.gif" alt="" />'
+    $groupadmin_manager_menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exFillGroup" onClick="return confirmationFill();">'
+    .                            '<img src="' . $imgRepositoryWeb . 'fill.gif" alt="" />'
     .                            get_lang("Fill groups (automatically)")
-                                                    , array('onclick'=>'return confirmationFill()')
-                                                    );
+    .                            '</a>';
     // Empty all groups
-    $groupadmin_manager_menu[] = claro_html_cmd_link( $_SERVER['PHP_SELF']
-                                                     . '?cmd=exEmptyGroup'
-                                                     . claro_url_relay_context('&amp;')
-                                                     , '<img src="' . get_path('imgRepositoryWeb') . 'sweep.gif" alt="" />'
+    $groupadmin_manager_menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exEmptyGroup"  onClick="return confirmationEmpty();">'
+    .                            '<img src="' . $imgRepositoryWeb . 'sweep.gif" alt="" />'
     .                            get_lang("Empty all groups")
-                                                     , array('onclick' => 'return confirmationEmpty();')
-                                                     );
+    .                            '</a>';
     // Main group settings
-    $groupadmin_manager_menu[] =  claro_html_cmd_link( 'group_properties.php' . claro_url_relay_context('?')
-                                                      , '<img src="' . get_path('imgRepositoryWeb') . 'settings.gif" alt="" />'
-                                                      . get_lang("Main Group Settings"));
+    $groupadmin_manager_menu[] = '<a class="claroCmd" href="group_properties.php">'
+    .                            '<img src="' . $imgRepositoryWeb . 'settings.gif" alt="" />'
+    .                            get_lang("Main Group Settings")
+    .                            '</a>';
 
 
 } // end if is_allowedToManage
@@ -434,7 +426,7 @@ if (DISP_GROUP_LIST == $display )
 
           # retrieve the user group(s)
           LEFT JOIN `" . $tbl_GroupsUsers . "` AS `ug`
-          ON `ug`.`team` = `g`.`id` AND `ug`.`user` = " . (int) claro_get_current_user_id() . "
+          ON `ug`.`team` = `g`.`id` AND `ug`.`user` = " . (int) $_uid . "
 
           # count the registered users in each group
           LEFT JOIN `" . $tbl_GroupsUsers . "` `ug2`
@@ -516,7 +508,7 @@ $htmlHeadXtra[] =
 -->
 </style>'."\n";
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include $includePath . '/claro_init_header.inc.php';
 
 echo claro_html_tool_title($nameTools);
 
@@ -545,9 +537,9 @@ if ( $display_groupadmin_manager ) echo '<p>' . claro_html_menu_horizontal($grou
 * is actually registered to the course...
 */
 
-if ( $isGroupRegAllowed && claro_is_user_authenticated() )
+if ( $isGroupRegAllowed && isset($_uid) )
 {
-    if ( ! claro_is_course_member()) $isGroupRegAllowed = FALSE;
+    if ( ! $is_courseMember) $isGroupRegAllowed = FALSE;
 }
 
 /*
@@ -558,7 +550,7 @@ if ( ! is_null($nbGroupPerUser) ) $nbGroupPerUser = (int) $nbGroupPerUser;
 
 if ( is_integer($nbGroupPerUser) )
 {
-    $countTeamUser = group_count_group_of_a_user(claro_get_current_user_id());
+    $countTeamUser = group_count_group_of_a_user($_uid);
     if ( $countTeamUser >= $nbGroupPerUser ) $isGroupRegAllowed = FALSE;
 }
 
@@ -603,10 +595,10 @@ echo '</tr>' . "\n"
 $totalRegistered = 0;
 // get group id where new events have been recorded since last login of the user
 
-if (claro_is_user_authenticated())
+if (isset($_uid))
 {
-    $date = $claro_notifier->get_notification_date(claro_get_current_user_id());
-    $modified_groups = $claro_notifier->get_notified_groups(claro_get_current_course_id(), $date);
+    $date = $claro_notifier->get_notification_date($_uid);
+    $modified_groups = $claro_notifier->get_notified_groups($_cid, $date);
 }
 else $modified_groups = array();
 
@@ -627,8 +619,8 @@ foreach ($groupList as $thisGroup)
          * Tutors are allowed to enter in any groups, they
          * are also able to notice whose groups they are responsible
          */
-    if( claro_is_user_authenticated() && ( $is_allowedToManage
-    ||   $thisGroup['id_tutor'] == claro_get_current_user_id()
+    if( $_uid && ( $is_allowedToManage
+    ||   $thisGroup['id_tutor'] == $_uid
     ||   $thisGroup['is_member']
     || ! $_groupProperties['private']) )
     {
@@ -643,22 +635,19 @@ foreach ($groupList as $thisGroup)
             $classItem = '<div class="item">';
         }
 
-        echo $classItem . '<img src="' . get_path('imgRepositoryWeb') . 'group.gif" alt="" /> '
-        .    '<a href="group_space.php?gidReq=' . $thisGroup['id'] . claro_url_relay_context('&amp;') . '">'
+        echo $classItem . '<img src="' . $imgRepositoryWeb . 'group.gif" alt="" /> '
+        .    '<a href="group_space.php?gidReq=' . $thisGroup['id'] . '">'
         .    $thisGroup['name']
         .    '</a>'
         .    '</div>'
         ;
 
-        if     (claro_is_user_authenticated() && (claro_get_current_user_id() == $thisGroup['id_tutor'] )) echo ' (' . get_lang("my supervision") . ')';
-        elseif ($thisGroup['is_member'])
-        {
-            echo ' (' . get_lang("my group") . ')';
-        }
+        if     ($_uid && $_uid == $thisGroup['id_tutor']) echo ' (' . get_lang("my supervision") . ')';
+        elseif ($thisGroup['is_member'])                  echo ' (' . get_lang("my group") . ')';
     }
     else
     {
-        echo '<img src="' . get_path('imgRepositoryWeb') . 'group.gif" alt="" /> '
+        echo '<img src="' . $imgRepositoryWeb . 'group.gif" alt="" /> '
         .    $thisGroup['name']
         ;
     }
@@ -675,9 +664,9 @@ foreach ($groupList as $thisGroup)
         {
             echo '<td align="center">';
 
-            if( (! claro_is_user_authenticated())
+            if( (! $_uid)
             OR ( $thisGroup['is_member'])
-            OR ( claro_get_current_user_id() == $thisGroup['id_tutor'])
+            OR ( $_uid == $thisGroup['id_tutor'])
             OR (!is_null($thisGroup['maxStudent']) //unlimited
             AND ($thisGroup['nbMember'] >= $thisGroup['maxStudent']) // still free place
             ))
@@ -687,8 +676,8 @@ foreach ($groupList as $thisGroup)
             else
             {
                 echo '&nbsp;'
-                .    '<a href="group_space.php?registration=1&amp;selfReg=1&amp;gidReq=' . $thisGroup['id']  . claro_url_relay_context('&amp;') . '">'
-                .    '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" alt="' . get_lang("register") . '" />'
+                .    '<a href="group_space.php?registration=1&selfReg=1&amp;gidReq=' . $thisGroup['id'] . '">'
+                .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" alt="' . get_lang("register") . '">'
                 .    '</a>'
                 ;
             }
@@ -712,14 +701,14 @@ foreach ($groupList as $thisGroup)
     if ($is_allowedToManage)
     {
         echo '<td>'
-        .    '<a href="group_edit.php?gidReq=' . $thisGroup['id']  . claro_url_relay_context('&amp;') . '">'
-        .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="' . get_lang("Edit") . '" />'
+        .    '<a href="group_edit.php?gidReq=' . $thisGroup['id'] . '">'
+        .    '<img src="' . $imgRepositoryWeb . 'edit.gif" border="0" alt="' . get_lang("Edit") . '">'
         .    '</a>'
         .    '</td>' . "\n"
         .    '<td>'
-        .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelGroup&amp;id=' . $thisGroup['id']  . claro_url_relay_context('&amp;') . '" '
-        .    ' onclick="return confirmationDeleteThisGroup(\'' . clean_str_for_javascript($thisGroup['name']) . '\');">'
-        .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="' . get_lang("Delete") . '" />'
+        .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelGroup&amp;id=' . $thisGroup['id'] . '" '
+        .    ' onClick="return confirmationDeleteThisGroup(\'' . clean_str_for_javascript($thisGroup['name']) . '\');">'
+        .    '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="' . get_lang("Delete") . '">'
         .    '</a>'
         .    '</td>' . "\n"
         ;
@@ -749,6 +738,6 @@ echo '</tbody>' . "\n"
 .     '</table>' . "\n"
 ;
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 
 ?>

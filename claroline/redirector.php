@@ -1,19 +1,16 @@
 <?php // $Id$
-/**
- * CLAROLINE
- *
- * @version 1.8 $Revision$
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/index.php/CLUSR
- *
- * @package CLKERNEL
- *
- * @author Claro Team <cvs@claroline.net>
- *
- */
+
+//----------------------------------------------------------------------
+// CLAROLINE 1.7
+//----------------------------------------------------------------------
+// Copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+//----------------------------------------------------------------------
+// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+// as published by the FREE SOFTWARE FOUNDATION. The GPL is available 
+// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+//----------------------------------------------------------------------
+// Authors: see 'credits' file
+//----------------------------------------------------------------------
 
 // duplicated from claro_main.lib.php to avoid loading unwanted functions.
 function http_response_splitting_workaround( $str )

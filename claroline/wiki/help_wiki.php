@@ -25,7 +25,7 @@
             dt{font-weight:bold;margin-top:5px;}
         </style>';
     
-    require_once get_path('incRepositorySys')."/claro_init_header.inc.php";
+    require_once $includePath."/claro_init_header.inc.php";
     
     $help = ( isset( $_REQUEST['help'] ) ) ? $_REQUEST['help'] : 'syntax';
     
@@ -52,6 +52,6 @@
     echo '<center><a href="#" onclick="window.close()">'.get_lang("Close window").'</a></center>' . "\n";
     
     $hide_footer = true;
-    require_once get_path('incRepositorySys')."/claro_init_footer.inc.php";
+    require_once $includePath."/claro_init_footer.inc.php";
     
 ?>

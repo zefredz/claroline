@@ -5,9 +5,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * SQL Statement to create table of central database
  *
- * @version 1.9 $Revision$
+ * @version 1.8 $Revision$
  *
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -25,21 +25,18 @@ $creationStatementList[] ="
 CREATE TABLE `".$mainTblPrefixForm."cours` (
   `cours_id` int(11) NOT NULL auto_increment,
   `code` varchar(40) default NULL,
-  `administrativeNumber` varchar(40) default NULL,
+  `fake_code` varchar(40) default NULL,
   `directory` varchar(20) default NULL,
   `dbName` varchar(40) default NULL,
-  `language` varchar(15) default NULL,
+  `languageCourse` varchar(15) default NULL,
   `intitule` varchar(250) default NULL,
   `faculte` varchar(12) default NULL,
+  `visible` tinyint(4) default NULL,
+  `enrollment_key` varchar(255) default NULL,
   `titulaires` varchar(255) default NULL,
   `email` varchar(255) default NULL,
-  `extLinkName` varchar(30) default NULL,
-  `extLinkUrl` varchar(180) default NULL,
-# `visibility` ENUM ('show','hidden') DEFAULT 'show' NOT NULL,
-  `visibility` ENUM ('visible','invisible') DEFAULT 'visible' NOT NULL,
-  `access`     ENUM ('public','private') DEFAULT 'public' NOT NULL,
-  `registration` ENUM ('open','close') DEFAULT 'open' NOT NULL,
-  `registrationKey` varchar(255) default NULL,
+  `departmentUrlName` varchar(30) default NULL,
+  `departmentUrl` varchar(180) default NULL,
   `diskQuota` int(10) unsigned default NULL,
   `versionDb` varchar(250) NOT NULL default 'NEVER SET',
   `versionClaro` varchar(250) NOT NULL default 'NEVER SET',
@@ -49,7 +46,7 @@ CREATE TABLE `".$mainTblPrefixForm."cours` (
   `expirationDate` datetime default NULL,
   `defaultProfileId` int(11) NOT NULL,
   PRIMARY KEY  (`cours_id`),
-  KEY `administrativeNumber` (`administrativeNumber`),
+  KEY `fake_code` (`fake_code`),
   KEY `faculte` (`faculte`)
 ) TYPE=MyISAM COMMENT='data of courses'";
 
@@ -85,7 +82,7 @@ $creationStatementList[] ="CREATE TABLE `".$mainTblPrefixForm."faculte` (
 ) TYPE=MyISAM;";
 
     $creationStatementList[] ="
-CREATE TABLE `".$mainTblPrefixForm . "user` (
+CREATE TABLE `".$mainTblPrefixForm."user` (
   `user_id` int(11)  unsigned NOT NULL auto_increment,
   `nom` varchar(60) default NULL,
   `prenom` varchar(60) default NULL,
@@ -180,30 +177,7 @@ $creationStatementList[] = "CREATE TABLE `".$mainTblPrefixForm."notify` (
   KEY `course_id` (`course_code`)
 ) TYPE=MyISAM";
 
-$creationStatementList[] = "CREATE TABLE `".$mainTblPrefixForm."tracking_event` (
-  `id` int(11) NOT NULL auto_increment,
-  `course_code` varchar(40) NULL DEFAULT NULL,
-  `tool_id` int(11) NULL DEFAULT NULL,
-  `user_id` int(11) NULL DEFAULT NULL,
-  `date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `type` varchar(60) NOT NULL DEFAULT '',
-  `data` text NOT NULL DEFAULT '',
-  PRIMARY KEY  (`id`),
-  KEY `course_id` (`course_code`)
-) TYPE=MyISAM";
 
-$creationStatementList[] = "CREATE TABLE `".$mainTblPrefixForm."log` (
-  `id` int(11) NOT NULL auto_increment,
-  `course_code` varchar(40) NULL DEFAULT NULL,
-  `tool_id` int(11) NULL DEFAULT NULL,
-  `user_id` int(11) NULL DEFAULT NULL,
-  `ip` varchar(15) NULL DEFAULT NULL,
-  `date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `type` varchar(60) NOT NULL DEFAULT '',
-  `data` text NOT NULL DEFAULT '',
-  PRIMARY KEY  (`id`),
-  KEY `course_id` (`course_code`)
-) TYPE=MyISAM";
 
 // table used for upgrading tools
 
@@ -224,8 +198,7 @@ $creationStatementList[] = "CREATE TABLE `" . $mainTblPrefixForm . "module` (
   `label`      char(8)                          NOT NULL default '',
   `name`       char(100)                        NOT NULL default '',
   `activation` enum('activated','desactivated') NOT NULL default 'desactivated',
- # `type`       enum('tool','applet')            NOT NULL default 'applet',
-  `type`       varchar(10)                      NOT NULL default 'applet',
+  `type`       enum('tool','applet')            NOT NULL default 'applet',
   `script_url` char(255)                        NOT NULL default 'entry.php',
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM";
@@ -332,7 +305,7 @@ $creationStatementList[]= "CREATE TABLE
   `required` tinyint(1) NOT NULL default '0',
   `rank` int(10) unsigned NOT NULL default '0',
   `acceptedValue` text NOT NULL,
-  PRIMARY KEY  (`contextScope`,`propertyId`),
+  PRIMARY KEY  (`contextScope`(2),`propertyId`),
   KEY `rank` (`rank`)
 ) TYPE=MyISAM ";
 
@@ -342,7 +315,7 @@ CREATE TABLE  `" . $mainTblPrefixForm . "user_property` (
   `propertyId`    varchar(255) NOT NULL default '',
   `propertyValue` varchar(255) NOT NULL default '',
   `scope`         varchar(45) NOT NULL default '',
-  PRIMARY KEY  (`scope`,`propertyId`,`userId`)
+  PRIMARY KEY  (`scope`(2),`propertyId`,`userId`)
 ) TYPE=MyISAM" ;
 
 ?>

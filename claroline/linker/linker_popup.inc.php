@@ -36,7 +36,7 @@ require_once('linker_popup.lib.php');
 require_once('linker_popup_display.lib.php');
 
 $htmlHeadXtra[] = '<script type="text/javascript">'
-.                 'var coursecrl = \'' . CRLTool::createCRL(get_conf('platform_id'),claro_get_current_course_id()) . '\';</script>' . "\n";
+.                 'var coursecrl = \'' . CRLTool::createCRL($platform_id,$_course['sysCode']) . '\';</script>' . "\n";
 
 $htmlHeadXtra[] = '<script type="text/javascript">'
 .                 'var lang_linker_prompt_for_url = \'' . addslashes(get_lang("Enter link url")) . '\';</script>' . "\n";
@@ -105,15 +105,15 @@ if ($isToolAllowed)
     // END OF FIX E_ALL
 
     // init the variable
-    $baseServDir = get_path('coursesRepositorySys');
-    $baseServUrl = get_path('rootWeb');
-    $sysCode = claro_get_current_course_id();
+    $baseServDir = $coursesRepositorySys;
+    $baseServUrl = get_conf('rootWeb');
+    $sysCode = $_course['sysCode'];
     $cmd = 'browse';
     $crl = '';
-    $current_crl = CRLTool::createCRL(get_conf('platform_id'),$sysCode);
+    $current_crl = CRLTool::createCRL($platform_id,$sysCode);
     $caddy = new AttachmentList();
 
-    //--------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------------------------------------------
     // init the caddy
     if ( !isset ($_REQUEST['cmd']) )
     {

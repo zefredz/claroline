@@ -28,7 +28,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
     function create_wiki( $gid = false, $wikiName = 'New wiki' )
     {
-        $creatorId = claro_get_current_user_id();
+        global $_uid;
+
+        $creatorId = $_uid;
 
         $tblList = claro_sql_get_course_tbl();
 

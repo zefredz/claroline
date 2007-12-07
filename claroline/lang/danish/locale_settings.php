@@ -6,8 +6,6 @@
  *
  * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
  * @author: Helle Meldgaard <helle@iktlab.au.dk>
  * @author: claro team <cvs@claroline.net>
  *

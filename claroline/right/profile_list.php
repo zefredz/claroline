@@ -22,20 +22,21 @@ $nameTools = get_lang('Course profile list');
 $dialogBox = '';
 $tidReset = true;
 
-if ( ! claro_is_in_a_course() || ! claro_is_user_authenticated()) claro_disp_auth_form(true);
+if ( ! $_cid || ! $_uid) claro_disp_auth_form(true);
 
-$is_allowedToEdit = claro_is_course_manager();
+$is_allowedToEdit = $is_courseAdmin;
 
 if ( ! $is_allowedToEdit )
 {
     claro_die(get_lang('Not allowed'));
 }
 
-require_once get_path('incRepositorySys') . '/lib/right/profile.class.php' ;
-require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
+require_once $includePath . '/lib/right/profile.class.php' ;
+require_once $includePath . '/lib/pager.lib.php';
 
 // Main section
 
+$cmd = isset($_REQUYEST['cmd'])?$_REQUYEST['cmd']:null;
 
 // Build profile list
 
@@ -54,7 +55,7 @@ $profileList = $profilePager->get_result_list();
 
 // Display section
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include $includePath . '/claro_init_header.inc.php';
 
 echo claro_html_tool_title($nameTools);
 
@@ -72,27 +73,21 @@ echo '<table class="claroTable emphaseLine" >' . "\n"
 foreach ( $profileList as $thisProfile )
 {
     echo '<tr align="center">' . "\n"
-        . '<td align="left">' . get_lang($thisProfile['name']) ;
+        . '<td align="left">' . $thisProfile['name'] ;
 
     if ( $thisProfile['locked'] == '1' )
     {
-        echo '&nbsp;<img src="' . get_path('imgRepositoryWeb') . 'locked.gif" alt="' . get_lang('Lock') . '" />';
+        echo '&nbsp;<img src="' . $imgRepositoryWeb . 'locked.gif" alt="' . get_lang('Lock') . '" />';
     }
 
-    echo '<br />' . "\n"
-    .    '<em>' . get_lang($thisProfile['description']) . '</em>' . "\n"
-    .    '<td>' . "\n"
-    .    '<a href="profile.php?cmd=rqEdit&display_profile='. $thisProfile['id'].'">' 
-    .    '<img src="' .  get_path('imgRepositoryWeb') . 'settings.gif" alt="' . get_lang('Rights') . '" />' . "\n"
-    .    '</a>' . "\n" 
-    .    '</td>' . "\n" 
-    .    '</tr>' . "\n\n"
-    ;
+    echo '<br /><em>' . $thisProfile['description'] . '</em>' . "\n"
+        . '<td><a href="profile.php?cmd=rqEdit&display_profile='. $thisProfile['id'].'"><img src="' .  $imgRepositoryWeb . 'settings.gif" alt="' . get_lang('Rights') . '" /></td>' . "\n" ;
+    echo '</tr>' . "\n\n";
 }
 
 echo '</tbody></table>';
 
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 
 ?>

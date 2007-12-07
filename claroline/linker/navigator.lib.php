@@ -1,27 +1,23 @@
 <?php // $Id$
 if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
+ *
  * CLAROLINE
- *
- * @version 1.9 $Revision$
- *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @package CLLINKER
- *
- * @author Claro Team <cvs@claroline.net>
- *
- * @author: see 'credits' file
- *
+ /----------------------------------------------------------------------
+// Copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+//----------------------------------------------------------------------
+// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
+// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+//----------------------------------------------------------------------
+ * </h2> Authors: see 'credits' file
  */
-    require_once('CRLTool.php');
-    require_once('linker.lib.php');
-    require_once('resolver.lib.php');
-    require_once dirname(__FILE__) . '/../inc/lib/course_utils.lib.php';
+    require_once("CRLTool.php");
+    require_once("linker.lib.php");
+    require_once("resolver.lib.php");
+    require_once dirname(__FILE__) . "/../inc/lib/course_utils.lib.php";
 
-    define('NOT_RESOURCE', -1);
+    define("NOT_RESOURCE", -1);
 
     /**
     * Class Navigator
@@ -53,11 +49,15 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         */
         function Navigator( $basePath , $node = FALSE)
         {
+            global $platform_id;
+            global $_course;
+
             $this->_basePath = $basePath;
 
             if( !$node )
             {
-                $node = CRLTool::createCRL(get_conf('platform_id'),claro_get_current_course_id());
+                $sysCode = $_course['sysCode'];
+                $node = CRLTool::createCRL($platform_id,$sysCode);
             }
 
             $this->_node = $node;
@@ -72,17 +72,17 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         */
         function getResource()
         {
-            if ( isset( $this->_elementCRLArray['tool_name'] ) )
+            if ( isset( $this->_elementCRLArray["tool_name"] ) )
             {
-                $tool = str_pad( $this->_elementCRLArray['tool_name'], 8, '_' ).'Navigator';
-                require_once($tool.'.php');
+                $tool = str_pad( $this->_elementCRLArray["tool_name"], 8, '_' )."Navigator";
+                require_once($tool.".php");
                 $navigator = new $tool($this->_basePath);
 
                 return $navigator->getResource($this->_node);
             }
             else
             {
-                if ( isset( $this->_elementCRLArray['team'])  )
+                if ( isset( $this->_elementCRLArray["team"])  )
                 {
                     return $this->_getGroupRoot();
                 }
@@ -98,38 +98,40 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         *
         * @return string  parent crl  of the current node
         *         or FALSE if there is not a parent crl  of the current node
+        * @global $platform_id
         */
         function getParent ()
         {
+            global $platform_id;
 
             // if current node has got a parent return its crl
-             if( isset($this->_elementCRLArray['course_sys_code'])
-              && ( isset($this->_elementCRLArray['team'])
-                  || isset($this->_elementCRLArray['tool_name'])
-                  || isset($this->_elementCRLArray['resource_id'])))
+             if( isset($this->_elementCRLArray["course_sys_code"])
+              && ( isset($this->_elementCRLArray["team"])
+                  || isset($this->_elementCRLArray["tool_name"])
+                  || isset($this->_elementCRLArray["resource_id"])))
             {
-                $currentDir = '/';
+                $currentDir = "/";
 
-                if( isset($this->_elementCRLArray['team']) )
+                if( isset($this->_elementCRLArray["team"]) )
                 {
-                    $currentDir .= 'groups/'.$this->_elementCRLArray['team'].'/';
+                    $currentDir .= "groups/".$this->_elementCRLArray["team"]."/";
                 }
 
-                if( isset($this->_elementCRLArray['tool_name']) )
+                if( isset($this->_elementCRLArray["tool_name"]) )
                 {
-                    $currentDir .= str_pad( $this->_elementCRLArray['tool_name'], 8, '_' );
+                    $currentDir .= str_pad( $this->_elementCRLArray["tool_name"], 8, '_' );
 
-                    if( isset($this->_elementCRLArray['resource_id']))
+                    if( isset($this->_elementCRLArray["resource_id"]))
                     {
-                        $currentDir .= '/'.$this->_elementCRLArray['resource_id'];
+                        $currentDir .= "/".$this->_elementCRLArray["resource_id"];
                     }
                 }
 
-                $currentDir = preg_replace( '~^/~', '', $currentDir );
-                $currentDir = preg_replace( '~/$~', '', $currentDir );
+                $currentDir = preg_replace( '~^/~', "", $currentDir );
+                $currentDir = preg_replace( '~/$~', "", $currentDir );
 
-                $dirParts = explode( '/', $currentDir );
-                $crl = CRLTool::createCRL(get_conf('platform_id'),$this->_elementCRLArray['course_sys_code']) ;
+                $dirParts = explode( "/", $currentDir );
+                $crl = CRLTool::createCRL($platform_id,$this->_elementCRLArray["course_sys_code"]) ;
 
                 if( count( $dirParts ) == 1 )
                 {
@@ -138,8 +140,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 else
                 {
                     // remove last part of ressource id to get parent
-                    $parent = implode( '/', array_slice( $dirParts, 0, -1) );
-                    return  $crl.'/'. $parent;
+                    $parent = implode( "/", array_slice( $dirParts, 0, -1) );
+                    return  $crl."/". $parent;
                 }
             }
             // no parent then return false
@@ -150,23 +152,22 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         }
 
         /**
-         * Get the list of other courses from a teacher
-         *
-         * @return array a a assosiatif array with info of courses
-         */
+        *  get the list of other courses from a teacher
+        *
+        * @return array a a assosiatif array with info of courses
+        * @global $_course, $_uid
+        */
         function getOtherCoursesList()
         {
+            global $_course,$_uid;
 
             $mainTbl = claro_sql_get_main_tbl();
-            $otherCourseInfo = array();
+            $publicCourseInfo = array();
 
-            $sql = "SELECT `code` ,
-                           `intitule` ,
-                           `administrativeNumber`
-                      FROM `" . $mainTbl['rel_course_user'] . "` AS CU
-                         , `" . $mainTbl['course'] . "` AS C
-                     WHERE `C`.`code` =`CU`.`code_cours`
-                       AND `CU`.`user_id` = " . (int) claro_get_current_user_id();
+            $sql = 'SELECT `code` , `intitule` , `fake_code`
+                    FROM `'.$mainTbl['rel_course_user'].'`, `'.$mainTbl["course"].'`
+                    WHERE `'.$mainTbl["course"].'`.`code` =`'.$mainTbl['rel_course_user'].'`.`code_cours`
+                    AND `'.$mainTbl['rel_course_user'].'`.`user_id` = '. (int)$_uid;
 
 
             $otherCourseInfo = claro_sql_query_fetch_all($sql);
@@ -178,17 +179,18 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         /**
         *  get the list of public courses
         *
-        * @return array an assosiative array with info of courses
+        * @return array a a assosiatif array with info of courses
+        * @global $_course a assosiatif array with info of course
         */
         function getPublicCoursesList()
         {
+            global $_course;
+
             $mainTbl = claro_sql_get_main_tbl();
 
-            $sql = "
-                SELECT `code` , `intitule` , `administrativeNumber`
-                  FROM `" . $mainTbl["course"] . "`
-                 WHERE `visibility` = 'VISIBLE'
-                   AND `access` = 'public'";
+            $sql = "SELECT `code` , `intitule` , `fake_code`
+                    FROM `".$mainTbl["course"]."`
+                    WHERE  `visible` = 2 or `visible` = 3";
             $publicCoursesInfo = claro_sql_query_fetch_all($sql);
 
             return $publicCoursesInfo;
@@ -196,14 +198,15 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         }
 
         /**
-         * Get the title of a course
-         *
-         * @return string the title of a course
-         */
+        *  get the title of a course
+        *
+        * @return string the title of a course
+        * @global $_course a assosiatif array with info of course
+        */
         function getCourseTitle()
-        {
-            return get_course_title($this->_elementCRLArray['course_sys_code']);
-        }
+           {
+               return get_course_title($this->_elementCRLArray["course_sys_code"]);
+           }
 
 //------------------------------------------------------------------------------------------------------------------
 
@@ -219,7 +222,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         {
             global $baseServUrl;
 
-            $baseServUrl = get_path('rootWeb');
+            $baseServUrl = get_conf('rootWeb');
             $resourceArray = array();
             $passed = FALSE;
 
@@ -238,31 +241,31 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                /*---------------------------------*
                 *      TODO use htmlentities
                 *---------------------------------*/
-               $elementResource['name'] =  stripslashes(htmlentities($object->getName()));
-               $elementResource['crl'] = urlencode($object->getCRL());
+               $elementResource["name"] =  stripslashes(htmlentities($object->getName()));
+               $elementResource["crl"] = urlencode($object->getCRL());
 
                if ( $object->isContainer() )
                {
-                   $elementResource['container'] = TRUE;
+                   $elementResource["container"] = TRUE;
                }
                else
                {
-                   $elementResource['container'] = FALSE;
+                   $elementResource["container"] = FALSE;
                }
 
-               $elementResource['linkable'] = TRUE;
+               $elementResource["linkable"] = TRUE;
 
                if( $object->isLinkable() && $object->isVisible() )
                {
-                   $elementResource['visible'] = TRUE;
+                   $elementResource["visible"] = TRUE;
                }
                else if( $object->isLinkable() && !$object->isVisible() )
                {
-                   $elementResource['visible'] = FALSE;
+                   $elementResource["visible"] = FALSE;
                }
                else
                {
-                   $elementResource['linkable'] = FALSE;
+                   $elementResource["linkable"] = FALSE;
                }
 
                $res = new Resolver($baseServUrl);
@@ -270,7 +273,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                /*---------------------------------*
                 *      TODO use htmlentities
                 *---------------------------------*/
-               $elementResource['title'] = addslashes(htmlentities($title));
+               $elementResource["title"] = addslashes(htmlentities($title));
 
                $resourceArray[] = $elementResource;
             }
@@ -278,12 +281,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
            if(!$passed)
            {
                $elementResource = array();
-               $elementResource['name'] = '&lt;&lt;&nbsp;'.get_lang('Empty').'&nbsp;&gt;&gt;';
-               $elementResource['crl'] = $this->_node;
-               $elementResource['container'] = FALSE;
-               $elementResource['linkable'] = FALSE;
-               $elementResource['visible'] = FALSE;
-               $elementResource['title'] = FALSE;
+               $elementResource["name"] = "&lt;&lt;&nbsp;".get_lang("Empty")."&nbsp;&gt;&gt;";
+               $elementResource["crl"] = $this->_node;
+               $elementResource["container"] = FALSE;
+               $elementResource["linkable"] = FALSE;
+               $elementResource["visible"] = FALSE;
+               $elementResource["title"] = FALSE;
 
                $resourceArray[] = $elementResource;
            }
@@ -307,7 +310,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             if( is_array($otherCoursesList) )
             {
                 $otherCoursesArray = $this->fillCoursesList( $otherCoursesList );
-                //$otherCoursesArray = array_map('urlencode',$otherCoursesArray);
+                //$otherCoursesArray = array_map("urlencode",$otherCoursesArray);
             }
 
             return $otherCoursesArray;
@@ -328,7 +331,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             if( is_array($publicCoursesList) )
             {
                 $publicCoursesArray = $this->fillCoursesList( $publicCoursesList );
-                //$publicCoursesArray = array_map('urlencode',$publicCoursesArray);
+                //$publicCoursesArray = array_map("urlencode",$publicCoursesArray);
             }
 
             return $publicCoursesArray;
@@ -340,27 +343,29 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         * @param (array) a list of courses
         * @return array jpspan formated course info (name,title and crl)
                 or an empty array if courseList is not an array
+        * @global $platform_id
         */
         function fillCoursesList( $coursesList )
         {
+            global $platform_id;
 
-            $baseServUrl = get_path('rootWeb');
+            $baseServUrl = get_conf('rootWeb');
             $fileCoursesList = array();
 
             foreach( $coursesList as  $courseInfo )
             {
                    $processedCoursesInfo = array();
 
-                $crl = CRLTool::createCRL(get_conf('platform_id'),$courseInfo['code']);
+                $crl = CRLTool::createCRL($platform_id,$courseInfo["code"]);
                 $res = new Resolver($baseServUrl);
                    $title = $res->getResourceName($crl);
 
                    /*---------------------------------*
                 *      TODO use htmlentities
                 *---------------------------------*/
-                $processedCoursesInfo['name'] = $courseInfo['administrativeNumber'].' : '.htmlentities($courseInfo['intitule']);
-                $processedCoursesInfo['crl'] = urlencode($crl); ;
-                $processedCoursesInfo['title'] = addslashes(htmlentities($title));
+                $processedCoursesInfo["name"] = $courseInfo["fake_code"]." : ".htmlentities($courseInfo["intitule"]);
+                $processedCoursesInfo["crl"] = urlencode($crl); ;
+                $processedCoursesInfo["title"] = addslashes(htmlentities($title));
                 $fileCoursesList[] = $processedCoursesInfo;
             }
 
@@ -379,29 +384,29 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         */
         function _getRoot()
         {
-            $courseToolList = get_course_tool_list($this->_elementCRLArray['course_sys_code']);
+            $courseToolList = get_course_tool_list($this->_elementCRLArray["course_sys_code"]);
 
             $elementList = array();
 
             foreach($courseToolList as $toolTbl)
             {
-                $name = $toolTbl['name'];
-                $label = str_pad( $toolTbl['label'], 8, '_' );
+                $name = $toolTbl["name"];
+                $label = str_pad( $toolTbl["label"], 8, '_' );
 
                     if(  is_null($label) || '________' === $label )
                     {
-                        $node = $this->_node . '/CLEXT___/' . $toolTbl['url'];
+                        $node = $this->_node."/CLEXT___/".$toolTbl["url"];
                     }
                     else
                     {
-                        $node = $this->_node . '/' . $label;
+                        $node = $this->_node."/".$label;
                     }
 
                     if ( $toolTbl['visibility'] ) $isVisible = true;
                     else                          $isVisible = false;
 
-                    if(  is_NULL($label) || !file_exists(dirname(__FILE__).'/'.$label.'Navigator.php')
-                        || ( $label == 'CLGRP___' && get_conf('groupAllowed') == FALSE) )
+                    if(  is_NULL($label) || !file_exists($label."Navigator.php")
+                        || ( $label == "CLGRP___" && get_conf('groupAllowed') == FALSE) )
                     {
                         $toolContainer = new ClaroObject($name, $node , TRUE , FALSE , $isVisible);
                     }
@@ -414,7 +419,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
             }
 
-            $name = '';
+            $name = "";
             $container = new ClaroContainer($name, $this->_node, $elementList);
 
             return $container;
@@ -428,24 +433,24 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         function _getGroupRoot()
         {
 
-            $courseToolList = get_course_tool_list($this->_elementCRLArray['course_sys_code']);
+            $courseToolList = get_course_tool_list($this->_elementCRLArray["course_sys_code"]);
             $infoGroup = $this->_infoGroup();
 
             // list of groups tool
-            $toolGroupList = array('CLCHT___','CLDOC___','CLFRM___','CLWIKI__');
+            $toolGroupList = array("CLCHT___","CLDOC___","CLFRM___","CLWIKI__");
             $elementList = array();
 
             foreach($courseToolList as $toolTbl)
             {
-                $name = $toolTbl['name'];
-                $label = str_pad( $toolTbl['label'], 8, '_' );
+                $name = $toolTbl["name"];
+                $label = str_pad( $toolTbl["label"], 8, '_' );
 
                 if( in_array($label,$toolGroupList) )
                 {
-                    $node = $this->_node.'/'.$label;
+                    $node = $this->_node."/".$label;
                     $isVisible = true;
 
-                    if( !file_exists($label.'Navigator.php') || get_conf('toolGroupAllowed') == FALSE )
+                    if( !file_exists($label."Navigator.php") || get_conf('toolGroupAllowed') == FALSE )
                     {
                         $toolGroupContainer = new ClaroObject($name, $node , TRUE , FALSE , $isVisible);
                     }
@@ -458,7 +463,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 }
             }
 
-            $name = '';
+            $name = "";
             $container = new ClaroContainer($name, $this->_node, $elementList);
 
             return $container;

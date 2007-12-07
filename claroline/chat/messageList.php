@@ -10,7 +10,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -28,7 +28,7 @@
 $tlabelReq = 'CLCHT'; // required
 require '../inc/claro_init_global.inc.php';
 
-if ( ! claro_is_in_a_course() || ( ! claro_is_course_allowed() && ! claro_is_user_authenticated() ) )
+if ( ! $_cid || ( ! $is_courseAllowed && !$_uid ) )
 {
 die ('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">'."\n"
     .'<html>'."\n"
@@ -49,17 +49,14 @@ die ('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www
         CONNECTION BLOC
 ============================================================================*/
 
-$coursePath  = get_path('coursesRepositorySys') . claro_get_course_path();
-$courseId    = claro_get_current_course_id();
-$groupId     = claro_get_current_group_id();
-$_user       = claro_get_current_user_data()
-;
-$_course     = claro_get_current_course_data();
-$_group      = claro_get_current_group_data();
 
-$is_allowedToManage = claro_is_course_manager();
-$is_allowedToStore  = claro_is_course_manager();
-$is_allowedToReset  = claro_is_course_manager();
+$coursePath  = $coursesRepositorySys.$_course['path'];
+$courseId    = $_cid;
+$groupId     = $_gid;
+
+$is_allowedToManage = $is_courseAdmin;
+$is_allowedToStore  = $is_courseAdmin;
+$is_allowedToReset  = $is_courseAdmin;
 
 
 if ( $_user['firstName'] == '' && $_user['lastName'] == '')
@@ -94,20 +91,20 @@ if ( ! is_dir($curChatRep) ) mkdir($curChatRep, CLARO_FILE_PERMISSIONS);
 // DETERMINE IF THE CHAT SYSTEM WILL WORK
 // EITHER AT THE COURSE LEVEL OR THE GROUP LEVEL
 
-if (claro_is_in_a_group())
+if ($_gid)
 {
-    if (claro_is_group_allowed())
+    if ($is_groupAllowed)
     {
         $groupContext  = TRUE;
         $courseContext = FALSE;
 
-        $is_allowedToManage = $is_allowedToManage||  claro_is_group_tutor();
-        $is_allowedToStore  = $is_allowedToStore ||  claro_is_group_tutor();
-        $is_allowedToReset  = $is_allowedToReset ||  claro_is_group_tutor();
+        $is_allowedToManage = $is_allowedToManage|| $is_groupTutor ;
+        $is_allowedToStore  = $is_allowedToStore || $is_groupTutor;
+        $is_allowedToReset  = $is_allowedToReset || $is_groupTutor;
 
         $activeChatFile = $curChatRep.$courseId.'.'.$groupId.'.chat.html';
         $onflySaveFile  = $curChatRep.$courseId.'.'.$groupId.'.tmpChatArchive.html';
-        $exportFile     = $coursePath.'/group/'.claro_get_current_group_data('directory').'/';
+        $exportFile     = $coursePath.'/group/'.$_group['directory'].'/';
     }
     else
     {
@@ -125,8 +122,8 @@ else
 }
 
 
-$dateNow = claro_html_localised_date(get_locale('dateTimeFormatLong'));
-$timeNow = claro_html_localised_date('[%d/%m/%y %H:%M]');
+$dateNow = claro_disp_localised_date($dateTimeFormatLong);
+$timeNow = claro_disp_localised_date('[%d/%m/%y %H:%M]');
 
 if ( ! file_exists($activeChatFile))
 {
@@ -138,13 +135,24 @@ if ( ! file_exists($activeChatFile))
     $dateLastWrite = get_lang('New chat');
 }
 
+
+
+
+
+
+
+
 /*============================================================================
         COMMANDS
 ============================================================================*/
 
+
+
+
 /*----------------------------------------------------------------------------
         RESET COMMAND
 ----------------------------------------------------------------------------*/
+
 
 if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'reset' && $is_allowedToReset)
 {
@@ -154,6 +162,9 @@ if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'reset' && $is_allowedToRese
 
     @unlink($onflySaveFile);
 }
+
+
+
 
 /*----------------------------------------------------------------------------
         STORE COMMAND
@@ -194,6 +205,9 @@ if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'store' && $is_allowedToStor
     }
 }
 
+
+
+
 /*----------------------------------------------------------------------------
     'ADD NEW LINE' COMMAND
 ----------------------------------------------------------------------------*/
@@ -210,6 +224,13 @@ if ( isset($_REQUEST['chatLine']) && trim($_REQUEST['chatLine']) != "" )
     fclose($fchat);
 }
 
+
+
+
+
+
+
+
 /*============================================================================
 DISPLAY MESSAGE LIST
 ============================================================================*/
@@ -217,11 +238,13 @@ DISPLAY MESSAGE LIST
 if ( !isset($dateLastWrite) )
 {
     $dateLastWrite = get_lang('Last message was on') . ' : '
-    .                strftime( get_locale('dateTimeFormatLong') , filemtime($activeChatFile) );
+    .                strftime( $dateTimeFormatLong , filemtime($activeChatFile) );
 }
+
 
 // WE DON'T SHOW THE COMPLETE MESSAGE LIST.
 // WE TAIL THE LAST LINES
+
 
 $activeLineList  = file($activeChatFile);
 $activeLineCount = count($activeLineList);
@@ -230,6 +253,8 @@ $excessLineCount = $activeLineCount - get_conf('max_line_to_display');
 if ($excessLineCount < 0) $excessLineCount = 0;
 $excessLineList = array_splice($activeLineList, 0 , $excessLineCount);
 $curDisplayLineList = $activeLineList;
+
+
 
 // DISPLAY
 
@@ -245,7 +270,7 @@ else
 }
 
 // set http charset
-if (! is_null(get_locale('charset'))) header('Content-Type: text/html; charset='. get_locale('charset'));
+if (isset($charset)) header('Content-Type: text/html; charset='. $charset);
 
 // page header with meta to refresh the page
 echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">'."\n"
@@ -253,7 +278,7 @@ echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www
     .'<head>'."\n"
     .'<title>'.get_lang('Chat').'</title>'
     .'<meta http-equiv="refresh" content="' . $refresh_display_rate . ';url=./messageList.php?x='.$x.'#final">'."\n"
-    .'<link rel="stylesheet" type="text/css" href="'.get_path('clarolineRepositoryWeb').'css/' . get_conf('claro_stylesheet') . '" >'."\n"
+    .'<link rel="stylesheet" type="text/css" href="'.$clarolineRepositoryWeb.'css/'.$claro_stylesheet.'" >'."\n"
     .'</head>'."\n"
     .'<body>'."\n"."\n"
     ;

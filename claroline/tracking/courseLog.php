@@ -5,7 +5,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -20,10 +20,10 @@
 
 require '../inc/claro_init_global.inc.php';
 
-if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
-if ( ! claro_is_course_manager() ) claro_die(get_lang('Not allowed'));
+if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+if ( ! $is_courseAdmin ) claro_die(get_lang('Not allowed'));
 
-include_once get_path('incRepositorySys') . '/lib/statsUtils.lib.inc.php';
+include_once $includePath . '/lib/statsUtils.lib.inc.php';
 
 
 $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -43,11 +43,11 @@ $tbl_bb_posts                = $tbl_cdb_names['bb_posts'                ];
 // regroup table names for maintenance purpose
 
 $nameTools = get_lang('Statistics');
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include($includePath . '/claro_init_header.inc.php');
 echo claro_html_tool_title(
     array(
         'mainTitle' => $nameTools,
-        'subTitle'  => get_lang('Statistics of course : %courseCode', array('%courseCode' => claro_get_current_course_data('officialCode')))
+        'subTitle'  => get_lang('Statistics of course : %courseCode', array('%courseCode' => $_course['officialCode']))
     )
 );
 
@@ -84,7 +84,7 @@ if( get_conf('is_trackingEnabled'))
         //-- total number of user in the course
         $sql = "SELECT count(*)
                     FROM `".$tbl_rel_course_user."`
-                    WHERE code_cours = '".claro_get_current_course_id()."'";
+                    WHERE code_cours = '".$_cid."'";
         $count = claro_sql_query_get_single_value($sql);
         echo '&nbsp;&nbsp;&nbsp;'.get_lang('Number of users').' : '.$count.'<br />'."\n";
 
@@ -94,10 +94,10 @@ if( get_conf('is_trackingEnabled'))
             LEFT JOIN `".$tbl_track_e_access."` AS A
             ON A.`access_user_id` = CU.`user_id`
             WHERE U.`user_id` = CU.`user_id`
-            AND CU.`code_cours` = '" . addslashes(claro_get_current_course_id()) . "'
+            AND CU.`code_cours` = '".$_cid."'
             AND A.`access_user_id` IS NULL
             ";
-        echo '&nbsp;&nbsp;&nbsp;'.get_lang('Never connected students :');
+        echo '&nbsp;&nbsp;&nbsp;'.get_lang('Never connected students : ');
 
         $results = claro_sql_query_fetch_all($sql);
 
@@ -120,13 +120,13 @@ if( get_conf('is_trackingEnabled'))
         $sql = "SELECT U.`user_id`, U.`nom` AS `lastname`, U.`prenom` AS `firstname`, MAX(A.`access_date`) AS `max_access_date`
             FROM `".$tbl_user."` AS U, `".$tbl_rel_course_user."` AS CU, `".$tbl_track_e_access."` AS A
             WHERE U.`user_id` = CU.`user_id`
-            AND CU.`code_cours` = '".addslashes (claro_get_current_course_id())."'
+            AND CU.`code_cours` = '".$_cid."'
             AND U.`user_id` = A.`access_user_id`
             GROUP BY A.`access_user_id`
             HAVING `max_access_date` < ( NOW() - INTERVAL 15 DAY )
             ORDER BY A.`access_date` ASC
             ";
-        echo '&nbsp;&nbsp;&nbsp;'.get_lang('Not recently connected students :');
+        echo '&nbsp;&nbsp;&nbsp;'.get_lang('Not recently connected students : ');
 
         $results = claro_sql_query_fetch_all($sql);
         if( !empty($results) && is_array($results) )
@@ -549,40 +549,32 @@ if( get_conf('is_trackingEnabled'))
         $results = claro_sql_query_fetch_all($sql);
 
         echo '<li>'.get_lang('Last active topics').'<br />'
-        .'<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
-        .'<tr class="headerX">'."\n"
-        .'<th>'.get_lang('Topic').'</th>'."\n"
-        .'<th>'.get_lang('Last message').'</th>'."\n"
-        .'</tr>'."\n";
+            .'<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
+                .'<tr class="headerX">'."\n"
+                .'<th>'.get_lang('Topic').'</th>'."\n"
+                .'<th>'.get_lang('Last message').'</th>'."\n"
+                .'</tr>'."\n";
         if (is_array($results))
         {
             echo '<tbody>'."\n";
             foreach( $results as $result )
             {
-                echo '<tr>'."\n"
-                .    '<td>'
-                .    '<a href="../phpbb/viewtopic.php?topic=' . $result['topic_id'].'">' . $result['topic_title'] . '</a>'
-                .    '</td>' . "\n"
-                .    '<td>' . $result['last_message'] . '</td>' . "\n"
-                .    '</tr>' . "\n"
-                ;
+                    echo '<tr>'."\n"
+                            .'<td><a href="../phpbb/viewtopic.php?topic='.$result['topic_id'].'">'.$result['topic_title'].'</a></td>'."\n"
+                            .'<td>'.$result['last_message'].'</td>'."\n"
+                            .'</tr>'."\n";
             }
             echo '</tbody>'."\n";
 
         }
         else
         {
-            echo '<tfoot>' . "\n"
-            .    '<tr>' . "\n"
-            .    '<td align="center">'
-            .    get_lang('No result')
-            .    '</td>' . "\n"
-            .    '</tr>' . "\n"
-            .    '</tfoot>' . "\n"
-            ;
+            echo '<tfoot>'."\n".'<tr>'."\n"
+                    .'<td align="center">'.get_lang('No result').'</td>'."\n"
+                    .'</tr>'."\n".'</tfoot>'."\n";
         }
         echo '</table>'."\n"
-        .'</li>';
+            .'</li>';
 
         echo '</ul>';
     }
@@ -591,17 +583,13 @@ if( get_conf('is_trackingEnabled'))
         $tempView[$viewLevel] = '1';
         echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('Forum usage').'</a>';
     }
-    echo '<br />'
-    .    '</p>'."\n\n"
-    ;
+    echo '<br /></p>'."\n\n";
 
     // display link to delete all course stats
     echo '<hr />'."\n"
-    .    '<a class="claroButton" href="delete_course_stats.php">'
-    .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="" />'
-    .    get_lang('Delete all course statistics')
-    .    '</a>'."\n"
-    ;
+        .'<a class="claroButton" href="delete_course_stats.php">'
+        .'<img src="'.$imgRepositoryWeb.'delete.gif" alt="">'.get_lang('Delete all course statistics')
+        .'</a>'."\n";
 }
 // not allowed
 else
@@ -609,5 +597,5 @@ else
     echo get_lang('Tracking has been disabled by system administrator.');
 }
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include($includePath."/claro_init_footer.inc.php");
 ?>

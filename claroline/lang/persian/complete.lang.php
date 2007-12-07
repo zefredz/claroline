@@ -109,6 +109,7 @@ $_lang['Attach an existing resource'] = 'پیوست منبع موجود';
 $_lang['Attached Resources : Add / Delete attachement'] = 'منابع پیوست شده : اضافه کردن / حذف پیوست';
 $_lang['Attached file'] = 'پرونده پیوست شد';
 $_lang['Attached resources'] = 'منابع پیوست شده';
+$_lang['Attempt'] = 'تلاش';
 $_lang['Attempts'] = 'تلاش‌ها';
 $_lang['Attempts allowed'] = 'تلاش‌های مجاز';
 $_lang['Authentication'] = 'تشخیص هویت';
@@ -117,6 +118,7 @@ $_lang['Author(s)'] = 'مؤلف(ها)';
 $_lang['Author(s) is(are) required'] = 'مؤلف لازم است';
 $_lang['Automatically, after each submission'] = 'به طور خودکار، بعد از هر فرستادن';
 $_lang['Automatically, after end date'] = 'به طور خودکار، بعد از تاریخ پایان';
+$_lang['Available from'] = 'موجود از';
 $_lang['Average Time'] = 'زمان متوسط';
 $_lang['Average score'] = 'نمره‌ی متوسط';
 $_lang['Back'] = 'برگشت';
@@ -401,6 +403,7 @@ $_lang['He or she will receive email confirmation with login and password'] = '�
 $_lang['Heading'] = 'سرصفحه';
 $_lang['Help'] = 'راهنما';
 $_lang['Home page help'] = 'راهنمای صفحه‌ی آغازه‌';
+$_lang['Home page text zones'] = 'قسمت‌های متنی صفحه‌ی اصلی';
 $_lang['Hour'] = 'ساعت';
 $_lang['Identical content<br />no modification saved'] = 'محتوای یکسان<br />هیچ تغییری ذخیره نشد';
 $_lang['If you wish to enrol on this course'] = 'اگر مایلید در این درس ثبت نام کنید';

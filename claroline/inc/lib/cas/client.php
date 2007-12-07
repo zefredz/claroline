@@ -108,8 +108,8 @@ class CASClient
   function printHTMLFooter()
     {
       $this->HTMLFilterOutput(empty($this->_output_footer)
-      ?('<hr /><address>phpCAS __PHPCAS_VERSION__ '.$this->getString(CAS_STR_USING_SERVER).' <a href="__SERVER_BASE_URL__">__SERVER_BASE_URL__</a> (CAS __CAS_VERSION__)</a></address></body></html>')
-      :$this->_output_footer);
+			      ?('<hr><address>phpCAS __PHPCAS_VERSION__ '.$this->getString(CAS_STR_USING_SERVER).' <a href="__SERVER_BASE_URL__">__SERVER_BASE_URL__</a> (CAS __CAS_VERSION__)</a></address></body></html>')
+			      :$this->_output_footer);
     }
 
   /**
@@ -166,7 +166,7 @@ class CASClient
   function getLang()
     {
       if ( empty($this->_lang) )
-    $this->setLang(PHPCAS_LANG_DEFAULT);
+	$this->setLang(PHPCAS_LANG_DEFAULT);
       return $this->_lang;
     }
 

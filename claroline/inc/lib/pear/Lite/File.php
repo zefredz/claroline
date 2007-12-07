@@ -15,7 +15,7 @@
 * @author Fabien MARTY <fab@php.net>
 */
  
-require_once( PEAR_LIB_PATH . '/Cache/Lite.php');
+require_once('Cache/Lite.php');
 
 class Cache_Lite_File extends Cache_Lite
 {

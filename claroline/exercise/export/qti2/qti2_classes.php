@@ -12,15 +12,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @author Claro Team <cvs@claroline.net>
  *
  */
-$path = dirname(__FILE__);
+$path = dirname(__FILE__); 
 include_once $path . '/../../lib/answer_multiplechoice.class.php';
 include_once $path . '/../../lib/answer_truefalse.class.php';
 include_once $path . '/../../lib/answer_fib.class.php';
 include_once $path . '/../../lib/answer_matching.class.php';
 
-include_once get_path('incRepositorySys') . '/lib/xml.lib.php';
-
-class Qti2Question extends Question
+class Ims2Question extends Question
 {
     /**
      * Include the correct answer class and create answer
@@ -30,19 +28,19 @@ class Qti2Question extends Question
         switch($this->type)
         {
             case 'MCUA' :
-                $this->answer = new Qti2AnswerMultipleChoice($this->id, false);
-                break;
+                $this->answer = new ImsAnswerMultipleChoice($this->id, false);
+                break; 
             case 'MCMA' :
-                $this->answer = new Qti2AnswerMultipleChoice($this->id, true);
+                $this->answer = new ImsAnswerMultipleChoice($this->id, true);   
                 break;
             case 'TF' :
-                $this->answer = new Qti2AnswerTrueFalse($this->id, false);
+                $this->answer = new ImsAnswerTrueFalse($this->id, false); 
                 break;
             case 'FIB' :
-                $this->answer = new Qti2AnswerFillInBlanks($this->id);
+                $this->answer = new ImsAnswerFillInBlanks($this->id); 
                 break;
             case 'MATCHING' :
-                $this->answer = new Qti2AnswerMatching($this->id);
+                $this->answer = new ImsAnswerMatching($this->id); 
                 break;
             default :
                 $this->answer = null;
@@ -55,79 +53,51 @@ class Qti2Question extends Question
      * allow to import the question
      *
      * @param questionArray is an array that must contain all the information needed to build the question
+     * @author Guillaume Lederer <guillaume@claroline.net>
      */
 
-    function import($questionInfo)
+    function import($questionArray, $exerciseTempPath)
     {
-        if( is_array($questionInfo) )
-        {
-            if( isset($questionInfo['title']) )       $this->setTitle($questionInfo['title']);
-            if( isset($questionInfo['statement']) )   $this->setDescription($questionInfo['statement']."\n".'<!-- content: imsqti -->');
-            $this->setType($questionInfo['type']);
+        //import answers
 
-            if( !empty($questionInfo['attached_file_url']) )
-            {
-                $this->importAttachment($questionInfo['tempdir'].$questionInfo['attached_file_url']);
-            }
-        }
-        else
-        {
-            return false;
-        }
-    }
+        $this->answer->import($questionArray);
 
-    function importAttachment($importedFilePath)
-    {
-        // copy file in a tmp directory known by object,
-        // attached file will be copied to its final destination when saving question
-        $dir = $this->tmpQuestionDirSys;
-        $filename = basename($importedFilePath);
+        //import attached file, if any
 
-		if( !is_dir( $dir ) )
-		{
-			// create it
-			if( !claro_mkdir($dir, CLARO_FILE_PERMISSIONS) )
-			{
-				claro_failure::set_failure('cannot_create_tmp_dir');
-	        	return false;
-			}
-		}
+        if (isset($questionArray['attached_file_url']))
+        {
+            $file= array();
+            $file['name'] = $questionArray['attached_file_url'];
+            $file['tmp_name'] = $exerciseTempPath.$file['name'];
 
-        if( claro_move_file($importedFilePath, $dir.$filename) )
-        {
-            $this->attachment = $filename;
-            return true;
+            $this->setAttachment($file);
         }
-        else
-        {
-            return false;
-        }
-    }
+    } 
 }
-
-class Qti2AnswerMultipleChoice extends answerMultipleChoice
+	
+class ImsAnswerMultipleChoice extends answerMultipleChoice
 {
     /**
-     * Return the XML flow for the possible answers.
+     * Return the XML flow for the possible answers. 
      *
      */
-    function qti2ExportResponses($questionIdent, $questionStatment)
+    function imsExportResponses($questionIdent, $questionStatment)
     {
-        $out = "\n" . '    <![CDATA[' . $questionStatment . ']]>' . "\n";
-        $out .= '    <choiceInteraction responseIdentifier="' . $questionIdent . '" >' . "\n";
+
+        $out  = '    <choiceInteraction responseIdentifier="' . $questionIdent . '" >' . "\n";
+        $out .= '      <prompt> ' . $questionStatment . ' </prompt>'. "\n";
 
         foreach ($this->answerList as $current_answer)
         {
-            $out .= '      <simpleChoice identifier="answer_' . $current_answer['id'] . '" fixed="false"><![CDATA[' . $current_answer['answer'] . ']]>';
+            $out .= '      <simpleChoice identifier="answer_' . $current_answer['id'] . '" fixed="false">' . $current_answer['answer'];
             if (isset($current_answer['comment']) && $current_answer['comment'] != '')
             {
-                $out .= '<feedbackInline identifier="answer_' . $current_answer['id'] . '"><![CDATA[' . $current_answer['comment'] . ']]></feedbackInline>';
+                $out .= '<feedbackInline identifier="answer_' . $current_answer['id'] . '">' . $current_answer['comment'] . '</feedbackInline>';
             }
             $out .= '</simpleChoice>'. "\n";
         }
 
-        $out .= '    </choiceInteraction>'. "\n";
-
+        $out .= '    </choiceInteraction>'. "\n"; 
         return $out;
     }
 
@@ -135,7 +105,7 @@ class Qti2AnswerMultipleChoice extends answerMultipleChoice
      * Return the XML flow of answer ResponsesDeclaration
      *
      */
-    function qti2ExportResponsesDeclaration($questionIdent)
+    function imsExportResponsesDeclaration($questionIdent)
     {
 
         if ($this->multipleAnswer == 'MCMA')  $cardinality = 'multiple'; else $cardinality = 'single';
@@ -172,28 +142,30 @@ class Qti2AnswerMultipleChoice extends answerMultipleChoice
 
         return $out;
     }
-
+	
 	/**
      * allow to import the answers, feedbacks, and grades of a question
      * @param questionArray is an array that must contain all the information needed to build the question
-
+     * @author Guillaume Lederer <guillaume@claroline.net>
      */
 
     function import($questionArray)
     {
+
         $answerArray = $questionArray['answer'];
 
         $this->answerList = array(); //re-initialize answer object content
 
+        
+
         foreach ($answerArray as $key => $answer)
         {
             if (!isset($answer['feedback'])) $answer['feedback'] = "";
-
             if (!isset($questionArray['weighting'][$key]))
             {
                 if (isset($questionArray['default_weighting']))
                 {
-                    $grade = castToFloat($questionArray['default_weighting']);
+                    $grade = $questionArray['default_weighting'];
                 }
                 else
                 {
@@ -202,12 +174,10 @@ class Qti2AnswerMultipleChoice extends answerMultipleChoice
             }
             else
             {
-                $grade = castToFloat($questionArray['weighting'][$key]);
+                $grade = $questionArray['weighting'][$key];
             }
-
-            if (in_array($key,$questionArray['correct_answers'])) $is_correct = 1; else $is_correct = 0;
-
-            $addedAnswer = array(
+            if (in_array($key,$questionArray['correct_answers'])) $is_correct = true; else $is_correct = false;
+            $addedAnswer = array( 
                             'answer' => $answer['value'],
                             'correct' => $is_correct,
                             'grade' => $grade,
@@ -219,42 +189,42 @@ class Qti2AnswerMultipleChoice extends answerMultipleChoice
     }
 }
 
-class Qti2AnswerTrueFalse extends AnswerTrueFalse
+class ImsAnswerTrueFalse extends AnswerTrueFalse
 {
 	/**
-     * Return the XML flow for the possible answers.
+     * Return the XML flow for the possible answers. 
      *
      */
-    function qti2ExportResponses($questionIdent, $questionStatment)
+    function imsExportResponses($questionIdent, $questionStatment)
     {
-        $out = "\n" . '    <![CDATA[' . $questionStatment . ']]>'. "\n";
-		$out .= '    <choiceInteraction responseIdentifier="' . $questionIdent . '" >' . "\n";
+		$out  = '    <choiceInteraction responseIdentifier="' . $questionIdent . '" >' . "\n";
+        $out .= '      <prompt> ' . $questionStatment . ' </prompt>'. "\n";
 
 		//set true answer
-
-		$out .= '      <simpleChoice identifier="answer_true" fixed="false"><![CDATA[' . get_lang('True') . ']]>' . "\n";
+		
+		$out .= '      <simpleChoice identifier="answer_true" fixed="false">' . get_lang('True'). "\n";
         if (isset($this->trueFeedback) && $this->trueFeedback != '')
         {
-            $out .= '<feedbackInline identifier="answer_true"><![CDATA[' . $this->trueFeedback . ']]></feedbackInline>'. "\n";
+            $out .= '<feedbackInline identifier="answer_true">' . $this->trueFeedback . '</feedbackInline>'. "\n";
         }
         $out .= '</simpleChoice>'. "\n";
-
-		//set false answer
-
-		$out .= '      <simpleChoice identifier="answer_false" fixed="false"><![CDATA[' . get_lang('False') . ']]>' . "\n";
+			
+		//set false answer	
+			
+		$out .= '      <simpleChoice identifier="answer_false" fixed="false">' . get_lang('False'). "\n";
         if (isset($this->falseFeedback) && $this->falseFeedback != '')
         {
-            $out .= '<feedbackInline identifier="answer_false"><![CDATA[' . $this->falseFeedback . ']]></feedbackInline>'. "\n";
+            $out .= '<feedbackInline identifier="answer_false">' . $this->falseFeedback . '</feedbackInline>'. "\n";
         }
-        $out .= '</simpleChoice>'. "\n";
-
-
-        $out .= '    </choiceInteraction>'. "\n";
+        $out .= '</simpleChoice>'. "\n";	
+		
+		
+        $out .= '    </choiceInteraction>'. "\n"; 
         return $out;
 	}
-
-	function qti2ExportResponsesDeclaration($questionIdent)
-    {
+	
+	function imsExportResponsesDeclaration($questionIdent)
+    {	
         $out = '  <responseDeclaration identifier="' . $questionIdent . '" cardinality="single" baseType="identifier">' . "\n";
 
         //Match the correct answers
@@ -281,35 +251,33 @@ class Qti2AnswerTrueFalse extends AnswerTrueFalse
         {
             $out .= '      <mapEntry mapKey="answer_true" mappedValue="'.$this->trueGrade.'" />'. "\n";
         }
-
+		
 		if (isset($this->falseGrade))
         {
             $out .= '      <mapEntry mapKey="answer_false" mappedValue="'.$this->falseGrade.'" />'. "\n";
-        }
-
+        }	
+		
         $out .= '    </mapping>'. "\n";
 
         $out .= '  </responseDeclaration>'. "\n";
 
-        return $out;
-
+        return $out;	
+		
 	}
 }
 
 
 
-class Qti2AnswerFillInBlanks extends answerFillInBlanks
+class ImsAnswerFillInBlanks extends answerFillInBlanks 
 {
     /**
      * Export the text with missing words.
      *
      *
      */
-    function qti2ExportResponses($questionIdent, $questionStatment)
+    function imsExportResponses($questionIdent, $questionStatment)
     {
-        $out = '';
-
-        $out .= '<prompt><![CDATA[' . $questionStatment . ']]></prompt>'. "\n";
+        global $charset;
 
         switch ($this->type)
         {
@@ -321,57 +289,58 @@ class Qti2AnswerFillInBlanks extends answerFillInBlanks
                 {
                     $text = str_replace('['.$answer.']','<textEntryInteraction responseIdentifier="fill_'.$key.'" expectedLength="'.strlen($answer).'"/>', $text);
                 }
-                $out .= $text;
+                $out = $text;
             }
             break;
 
             case LISTBOX_FILL :
             {
-                $replacementList = array();
-
-                foreach ($this->answerList as $answerKey => $answer)
+                $text = $this->answerText;
+ 
+                foreach ($this->answerList as $answerKey=>$answer)
                 {
+
                     //build inlinechoice list
 
                     $inlineChoiceList = '';
 
-                    //1-start interaction tag
+                    //1-start interaction tag 
 
                     $inlineChoiceList .= '<inlineChoiceInteraction responseIdentifier="fill_'.$answerKey.'" >'. "\n";
 
                     //2- add wrong answer array
 
-                    foreach ($this->wrongAnswerList as $choiceKey => $wrongAnswer)
+                    foreach ($this->wrongAnswerList as $choiceKey=>$wrongAnswer)
                     {
-                        $inlineChoiceList .= '  <inlineChoice identifier="choice_w_'.$answerKey.'_'.$choiceKey.'"><![CDATA['.$wrongAnswer.']]></inlineChoice>'. "\n";
+                        $inlineChoiceList .= '  <inlineChoice identifier="choice_w_'.$answerKey.'_'.$choiceKey.'">'.$wrongAnswer.'</inlineChoice>'. "\n";
                     }
 
                     //3- add correct answers array
-                    foreach ($this->answerList as $choiceKey => $correctAnswer)
+                    foreach ($this->answerList as $choiceKey=>$correctAnswer)
                     {
-                        $inlineChoiceList .= '  <inlineChoice identifier="choice_c_'.$answerKey.'_'.$choiceKey.'"><![CDATA['.$correctAnswer.']]></inlineChoice>'. "\n";
+                        $inlineChoiceList .= '  <inlineChoice identifier="choice_c_'.$answerKey.'_'.$choiceKey.'">'.$correctAnswer.'</inlineChoice>'. "\n";
                     }
 
                     //4- finish interaction tag
 
                     $inlineChoiceList .= '</inlineChoiceInteraction>';
 
-                    $replacementList['['.$answer.']'] =  $inlineChoiceList;
+                    $text = str_replace('['.$answer.']',$inlineChoiceList, $text);
                 }
+                $out = $text;
 
-                $out .= strtr($this->answerText, $replacementList);
             }
             break;
         }
 
         return $out;
-
+        
     }
 
     /**
      *
      */
-    function qti2ExportResponsesDeclaration($questionIdent)
+    function imsExportResponsesDeclaration($questionIdent)
     {
 
         $out = '';
@@ -381,14 +350,14 @@ class Qti2AnswerFillInBlanks extends answerFillInBlanks
             $out .= '  <responseDeclaration identifier="fill_' . $answerKey . '" cardinality="single" baseType="identifier">' . "\n";
             $out .= '    <correctResponse>'. "\n";
 
-            if ($this->type == TEXTFIELD_FILL)
+            if ($this->type==TEXTFIELD_FILL)
             {
-                $out .= '      <value><![CDATA['.$answer.']]></value>'. "\n";
+                $out .= '      <value>'.$answer.'</value>'. "\n";
             }
             else
             {
                 //find correct answer key to apply in manifest and output it
-
+               
                 foreach ($this->answerList as $choiceKey=>$correctAnswer)
                 {
                     if ($correctAnswer==$answer)
@@ -397,9 +366,9 @@ class Qti2AnswerFillInBlanks extends answerFillInBlanks
                     }
                 }
             }
-
+            
             $out .= '    </correctResponse>'. "\n";
-
+    
             if (isset($this->gradeList[$answerKey]))
             {
                 $out .= '    <mapping>'. "\n";
@@ -412,20 +381,19 @@ class Qti2AnswerFillInBlanks extends answerFillInBlanks
 
        return $out;
     }
-
+	
 	/**
      * allow to import the answers, feedbacks, and grades of a question
      *
      * @param questionArray is an array that must contain all the information needed to build the question
-
+     * @author Guillaume Lederer <guillaume@claroline.net>
      */
 
     function import($questionArray)
     {
-        // $questionArray['answer'] should be empty for this question type
-        $this->answerText = $questionArray['response_text'];
-
-        if ($questionArray['subtype'] == "TEXTFIELD_FILL")
+        $answerArray = $questionArray['answer'];
+        $this->answerText = str_replace ("\n","",$questionArray['response_text']);
+        if ($questionArray['subtype'] == "TEXTFIELD_FILL") 
 		{
 			$this->type = TEXTFIELD_FILL;
         }
@@ -436,30 +404,27 @@ class Qti2AnswerFillInBlanks extends answerFillInBlanks
         }
 
         //build correct_answsers array
-        if( isset($questionArray['weighting']) && is_array($questionArray['weighting']) )
+        
+        if (isset($questionArray['weighting']))
         {
-            $this->gradeList = array();
-            foreach( $questionArray['weighting'] as $key => $value )
-            {
-                $this->gradeList[$key] = castToFloat($value);
-            }
+            $this->gradeList = $questionArray['weighting'];
         }
     }
 }
 
-class Qti2AnswerMatching extends answerMatching
+class ImsAnswerMatching extends answerMatching
 {
     /**
      * Export the question part as a matrix-choice, with only one possible answer per line.
      */
-    function qti2ExportResponses($questionIdent, $questionStatment)
+    function imsExportResponses($questionIdent, $questionStatment)
     {
         $maxAssociation = max(count($this->leftList), count($this->rightList));
 
         $out = "";
 
         $out .= '<matchInteraction responseIdentifier="' . $questionIdent . '" maxAssociations="'. $maxAssociation .'">'. "\n";
-        $out .= '<prompt><![CDATA[' . $questionStatment . ']]></prompt>'. "\n";
+        $out .= $questionStatment;
 
         //add left column
 
@@ -467,7 +432,7 @@ class Qti2AnswerMatching extends answerMatching
 
         foreach ($this->leftList as $leftKey=>$leftElement)
         {
-            $out .= '    <simpleAssociableChoice identifier="left_'.$leftKey.'" ><![CDATA['. $leftElement['answer'] .']]></simpleAssociableChoice>'. "\n";
+            $out .= '    <simpleAssociableChoice identifier="left_'.$leftKey.'" >'. $leftElement['answer'] .'</simpleAssociableChoice>'. "\n";
         }
 
         $out .= '  </simpleMatchSet>'. "\n";
@@ -480,7 +445,7 @@ class Qti2AnswerMatching extends answerMatching
 
         foreach($this->rightList as $rightKey=>$rightElement)
         {
-            $out .= '    <simpleAssociableChoice identifier="right_'.$i.'" ><![CDATA['. $rightElement['answer'] .']]></simpleAssociableChoice>'. "\n";
+            $out .= '    <simpleAssociableChoice identifier="right_'.$i.'" >'. $rightElement['answer'] .'</simpleAssociableChoice>'. "\n";
             $i++;
         }
 
@@ -488,13 +453,13 @@ class Qti2AnswerMatching extends answerMatching
 
         $out .= '</matchInteraction>'. "\n";
 
-        return $out;
+        return $out; 
     }
 
     /**
      *
      */
-    function qti2ExportResponsesDeclaration($questionIdent)
+    function imsExportResponsesDeclaration($questionIdent)
     {
         $out =  '  <responseDeclaration identifier="' . $questionIdent . '" cardinality="multiple" baseType="identifier">' . "\n";
         $out .= '    <correctResponse>' . "\n";
@@ -526,12 +491,12 @@ class Qti2AnswerMatching extends answerMatching
 
         return $out;
     }
-
+	
 	/**
      * allow to import the answers, feedbacks, and grades of a question
      *
      * @param questionArray is an array that must contain all the information needed to build the question
-
+     * @author Guillaume Lederer <guillaume@claroline.net>
      */
 
     function import($questionArray)
@@ -541,8 +506,9 @@ class Qti2AnswerMatching extends answerMatching
         //This tick to remove examples in the answers!!!!
         $this->leftList = array();
         $this->rightList = array();
-
+        
         //find right and left column
+
         $right_column = array_pop($answerArray);
         $left_column  = array_pop($answerArray);
 
@@ -561,7 +527,7 @@ class Qti2AnswerMatching extends answerMatching
                 {
 					if (isset($questionArray['weighting'][$matched_pattern]))
                     {
-                        $grade = castToFloat($questionArray['weighting'][$matched_pattern]);
+                        $grade = $questionArray['weighting'][$matched_pattern];
                     }
                     else
                     {
@@ -571,8 +537,8 @@ class Qti2AnswerMatching extends answerMatching
                 }
             }
         }
-
+		
 		$this->save();
     }
-}
+} 
 ?>

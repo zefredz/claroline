@@ -36,17 +36,17 @@ array ( 'claro_authUsernameCaseSensitive'
 //PROPERTIES
 
 $conf_def_property_list['claro_authUsernameCaseSensitive'] =
-array ( 'label'         => 'The username is case sensitive'
-      , 'description'   => 'Choose "No" if you use microsoft active directory (by default this authentication system is case-insensitive)'
-      , 'default'       => TRUE
-      , 'type'          => 'boolean'
-      , 'acceptedValue' => array ('TRUE'  => 'Yes'
+array ( 'label'         => 'Auth username is Case Sensitive'
+      //'description'   => ''
+      ,'default'       => TRUE
+      ,'type'          => 'boolean'
+      ,'acceptedValue' => array ('TRUE'  => 'Yes'
                                 ,'FALSE' => 'No'
                                 )
       );
 
 $conf_def_property_list['claro_displayLocalAuthForm'] =
-array ('label'         => 'Display authentication login form'
+array ('label'         => 'Display Local Auth Form'
       ,'description'   => ''
       ,'default'       => TRUE
       ,'type'          => 'boolean'

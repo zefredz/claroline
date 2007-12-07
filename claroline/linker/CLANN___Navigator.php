@@ -75,7 +75,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                          foreach ($annonce as $itemAnnonce )
                          {
                              $crl = $node . '/' . $itemAnnonce['id'];
-                             $res = new CLANN___Resolver(get_path('rootWeb'));
+                             $res = new CLANN___Resolver(get_conf('rootWeb'));
                              $title = $res->getTitle($elementCRLArray['course_sys_code'], $itemAnnonce['id']);
                              $isVisible = ( $itemAnnonce['visibility'] == 'SHOW');
                              $container = new ClaroObject( $title , $crl , TRUE , FALSE , $isVisible );

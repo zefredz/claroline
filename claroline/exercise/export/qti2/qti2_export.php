@@ -17,14 +17,14 @@ include dirname(__FILE__) . '/qti2_classes.php';
 /*--------------------------------------------------------
       Classes
   --------------------------------------------------------*/
-
+  
 /**
- * An IMS/QTI item. It corresponds to a single question.
+ * An IMS/QTI item. It corresponds to a single question. 
  * This class allows export from Claroline to IMS/QTI2.0 XML format of a single question.
  * It is not usable as-is, but must be subclassed, to support different kinds of questions.
  *
  * Every start_*() and corresponding end_*(), as well as export_*() methods return a string.
- *
+ * 
  * @warning Attached files are NOT exported.
  */
 class ImsAssessmentItem
@@ -42,9 +42,9 @@ class ImsAssessmentItem
      {
         $this->question = $question;
         $this->answer = $question->answer;
-        $this->questionIdent = "QST_" . (int) $question->getId() ;
+        $this->questionIdent = "QST_" . $question->getId() ;
      }
-
+     
      /**
       * Start the XML flow.
       *
@@ -57,9 +57,9 @@ class ImsAssessmentItem
                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                     xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p0 imsqti_v2p0.xsd"
                     identifier="'.$this->questionIdent.'"
-                    title="'.xmlentities($this->question->getTitle()).'">'."\n";
+                    title="'.htmlspecialchars($this->question->getTitle()).'">'."\n";
       }
-
+      
       /**
        * End the XML flow, closing the </item> tag.
        *
@@ -71,28 +71,13 @@ class ImsAssessmentItem
 
      /**
       * Start the itemBody
-      *
+      * 
       */
      function start_item_body()
      {
         return '  <itemBody>' . "\n";
      }
-
-     /**
-      * Add oject container for attached file
-      *
-      */
-     function object_attached_file()
-     {
-        $attachment = $this->question->getAttachment();
-
-        if( !empty($attachment) )
-        {
-            $mimeType = get_mime_on_ext($attachment);
-            return '    <object type="'.$mimeType.'" data="'.xmlentities($attachment).'" />' . "\n";
-        }
-        return '';
-     }
+     
      /**
       * End the itemBody part.
       *
@@ -111,8 +96,8 @@ class ImsAssessmentItem
       {
           return '  <responseProcessing template="http://www.imsglobal.org/question/qti_v2p0/rptemplates/map_response"/>' . "\n";
       }
-
-
+  
+ 
      /**
       * Export the question as an IMS/QTI Item.
       *
@@ -123,28 +108,27 @@ class ImsAssessmentItem
       */
      function export($standalone = False)
      {
-
+        global $charset;
         $head = $foot = "";
-
+        
         if( $standalone )
         {
-            $head = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>' . "\n";
+            $head = '<?xml version="1.0" encoding="'.$charset.'" standalone="no"?>' . "\n";
         }
-
-        $out = $head
-               . $this->start_item()
-                 .$this->answer->qti2ExportResponsesDeclaration($this->questionIdent)
+        
+        return $head
+               . $this->start_item() 
+                 .$this->answer->imsExportResponsesDeclaration($this->questionIdent)
                  . $this->start_item_body()
-                   . $this->object_attached_file()
-                   . $this->answer->qti2ExportResponses($this->questionIdent, $this->question->description)
+                   . $this->answer->imsExportResponses($this->questionIdent, $this->question->description)
                  . $this->end_item_body()
                . $this->add_response_processing()
                . $this->end_item()
              . $foot;
-
-     	return claro_utf8_encode($out);
-     }
+     }     
 }
+
+
 
 
 /*--------------------------------------------------------
@@ -158,7 +142,7 @@ class ImsAssessmentItem
  * @param boolean $standalone Wether it should include XML tag and DTD line.
  * @return The XML as a string, or an empty string if there's no exercise with given ID.
  */
-function export_exercise($exerciseId, $standalone = true)
+function export_exercise($exerciseId, $standalone=True)
 {
     $exercise = new Exercise();
     if (! $exercise->load($exerciseId))
@@ -172,66 +156,22 @@ function export_exercise($exerciseId, $standalone = true)
 
 /**
  * Returns the XML flow corresponding to one question
- *
+ * 
  * @param int The question ID
  * @param bool standalone (ie including XML tag, DTD declaration, etc)
  */
-function export_question($questionId, $standalone = true)
+function export_question($questionId, $standalone=True)
 {
-    $question = new Qti2Question();
+    $question = new Ims2Question();
     if( !$question->load($questionId) )
     {
         return '';
     }
-
+    
     $ims = new ImsAssessmentItem($question);
-
+    
     return $ims->export($standalone);
 
-}
-
-/**
- * Send a zip file for download,
- *
- * @param string name of the downloaded file (without extension)
- * @param
- *
- * @return boolean result of operation
- */
-function sendZip($archiveName, $archiveContent, $removedPath)
-{
-    // TODO find a better solution for removedPath
-    if( !is_array($archiveContent) || empty($archiveContent) )
-    {
-        return false;
-    }
-
-    $downloadPlace = get_path('rootSys') . get_conf('tmpPathSys');
-    $downloadArchivePath = $downloadPlace.''.uniqid('').'.zip';
-    $downloadArchiveName = empty($archiveName) ? 'archive.zip' : $archiveName . '.zip';
-    $downloadArchiveName = str_replace(',', '_', replace_dangerous_char($downloadArchiveName));
-
-    $downloadArchive     = new PclZip($downloadArchivePath);
-
-    $downloadArchive->add($archiveContent, PCLZIP_OPT_REMOVE_PATH, $removedPath);
-
-    if( file_exists($downloadArchivePath) )
-    {
-        if( claro_send_file($downloadArchivePath, $downloadArchiveName) )
-        {
-            unlink($downloadArchivePath);
-            return true;
-        }
-        else
-        {
-            unlink($downloadArchivePath);
-            return false;
-        }
-    }
-    else
-    {
-        return false;
-    }
 }
 
 ?>

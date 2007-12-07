@@ -109,7 +109,7 @@
 
         function append( $other )
         {
-            if ( is_a( $other, 'Backlog' ) )
+            if ( 'Backlog' == get_class($other) )
             {
                 $this->_backlog = array_merge( $this->_backlog, $other->_backlog );
                 return true;
@@ -133,32 +133,25 @@
             var_dump( $bl->_size );
             echo '</pre>';
 
-            echo '<pre>';
             echo $bl->output();
-            echo '</pre>';
-            
-            echo 'Append';
-            echo '<pre>';
             $bl->append( $bl );
             echo $bl->output();
-            echo '</pre>';
         }
     }
 
     class Backlog_Reporter
     {
-        function report( $summary, $details, $label = '', $focus = false )
+        function report( $summary, $details )
         {
             $id = uniqid('details');
 
             if ( empty( $details ) )
             {
-                $display = '<span class="backlogSummary">'.$summary.'</span>';
+                $display = '<p class="backlogSummary">'.$summary.'</p>';
             }
             else
             {
-                $linkName = ( $focus ) ? "#lnk_$id" : "#";
-                $labeldetails = empty( $label ) ? get_lang('details') : $label;
+                $labeldetails = get_lang('details');
                 $display = <<<__ERRDISP__
 <script type="text/javascript">
 function toggleDetails( id )
@@ -175,10 +168,9 @@ function toggleDetails( id )
     }
 }
 </script>
-<a name="lnk_$id"></a>
-<span class="backlogSummary">$summary
-[<a href="$linkName" onclick="toggleDetails('$id');return false;">$labeldetails</a>]
-</span>
+<p class="backlogSummary">$summary
+[<a href="javascript:toggleDetails('$id')">$labeldetails</a>]
+</p>
 <div id="$id" style="display: none;" class="backlogDetails">
 $details
 </div>

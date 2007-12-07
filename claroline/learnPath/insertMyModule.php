@@ -1,6 +1,6 @@
 <?php // $Id$
 /**
- * CLAROLINE
+ * CLAROLINE 
  *
  * @version 1.8 $Revision$
  *
@@ -21,31 +21,30 @@
 $tlabelReq = 'CLLNP';
 require '../inc/claro_init_global.inc.php';
 
-$is_allowedToEdit = claro_is_course_manager();
-if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
-if ( ! $is_allowedToEdit ) claro_die(get_lang('Not allowed'));
+$is_AllowedToEdit = $is_courseAdmin;
+if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+if ( ! $is_AllowedToEdit ) claro_die(get_lang('Not allowed'));
 
-$interbredcrump[]= array ("url"=>get_module_url('CLLNP') . '/learningPathList.php', "name"=> get_lang('Learning path list'));
-$interbredcrump[]= array ("url"=>get_module_url('CLLNP') . '/learningPathAdmin.php', "name"=> get_lang('Learning path admin'));
+$interbredcrump[]= array ("url"=>$clarolineRepositoryWeb."learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
+$interbredcrump[]= array ("url"=>$clarolineRepositoryWeb."learnPath/learningPathAdmin.php", "name"=> get_lang('Learning path admin'));
 
 $nameTools = get_lang('Add a module of this course');
 
 //header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include($includePath."/claro_init_header.inc.php");
 
 // tables names
-
-$TABLELEARNPATH         = claro_get_current_course_data('dbNameGlu') . "lp_learnPath";
-$TABLEMODULE            = claro_get_current_course_data('dbNameGlu') . "lp_module";
-$TABLELEARNPATHMODULE   = claro_get_current_course_data('dbNameGlu') . "lp_rel_learnPath_module";
-$TABLEASSET             = claro_get_current_course_data('dbNameGlu') . "lp_asset";
-$TABLEUSERMODULEPROGRESS= claro_get_current_course_data('dbNameGlu') . "lp_user_module_progress";
+$TABLELEARNPATH         = $_course['dbNameGlu']."lp_learnPath";
+$TABLEMODULE            = $_course['dbNameGlu']."lp_module";
+$TABLELEARNPATHMODULE   = $_course['dbNameGlu']."lp_rel_learnPath_module";
+$TABLEASSET             = $_course['dbNameGlu']."lp_asset";
+$TABLEUSERMODULEPROGRESS= $_course['dbNameGlu']."lp_user_module_progress";
 
 //lib of this tool
-include(get_path('incRepositorySys')."/lib/learnPath.lib.inc.php");
+include($includePath."/lib/learnPath.lib.inc.php");
 
 //lib of document tool
-include(get_path('incRepositorySys')."/lib/fileDisplay.lib.php");
+include($includePath."/lib/fileDisplay.lib.php");
 
 // $_SESSION
 if ( !isset($_SESSION['path_id']) )
@@ -87,7 +86,7 @@ function buildRequestModules()
  {
     $sql .=" AND M.`module_id` != ". (int)$list['module_id'];
  }
-
+ 
  //$sql .= " AND M.`contentType` != \"".CTSCORM_."\"";
 
  /** To find which module must displayed we can also proceed  with only one query.
@@ -98,7 +97,7 @@ function buildRequestModules()
   $query = "SELECT *
              FROM `".$TABLEMODULE."` AS M
              WHERE NOT EXISTS(SELECT * FROM `".$TABLELEARNPATHMODULE."` AS TLPM
-             WHERE TLPM.`module_id` = M.`module_id`)";
+             WHERE TLPM.`module_id` = M.`module_id`)"; 
  */
 
   return $sql;
@@ -111,7 +110,7 @@ echo claro_html_tool_title($nameTools);
 
 //COMMAND ADD SELECTED MODULE(S):
 
-if (isset($_REQUEST['cmdglobal']) && ($_REQUEST['cmdglobal'] == 'add'))
+if (isset($_REQUEST['cmdglobal']) && ($_REQUEST['cmdglobal'] == 'add')) 
 {
 
     // select all 'addable' modules of this course for this learning path
@@ -122,7 +121,7 @@ if (isset($_REQUEST['cmdglobal']) && ($_REQUEST['cmdglobal'] == 'add'))
     while ($list = mysql_fetch_array($result))
     {
         // see if check box was checked
-        if (isset($_REQUEST['check_'.$list['module_id']]) && $_REQUEST['check_'.$list['module_id']])
+        if (isset($_REQUEST['check_'.$list['module_id']]) && $_REQUEST['check_'.$list['module_id']]) 
         {
             // find the order place where the module has to be put in the learning path
             $sql = "SELECT MAX(`rank`)
@@ -172,31 +171,26 @@ echo '<table class="claroTable" width="100%">'."\n"
        .'<tbody>'."\n\n";
 
 // Display available modules
-echo '<form name="addmodule" action="'.$_SERVER['PHP_SELF'].'?cmdglobal=add">'."\n"
-.    claro_form_relay_context()
-;
+echo '<form name="addmodule" action="'.$_SERVER['PHP_SELF'].'?cmdglobal=add">'."\n";
 
 $atleastOne = FALSE;
 
 while ($list=mysql_fetch_array($result))
 {
     //CHECKBOX, NAME, RENAME, COMMENT
-    if($list['contentType'] == CTEXERCISE_ )
+    if($list['contentType'] == CTEXERCISE_ ) 
         $moduleImg = "quiz.gif";
     else
         $moduleImg = choose_image(basename($list['path']));
-
+        
     $contentType_alt = selectAlt($list['contentType']);
-
+    
     echo '<tr>'."\n"
         .'<td align="center">'."\n"
-        .'<input type="checkbox" name="check_'.$list['module_id'].'" id="check_'.$list['module_id'].'" />'."\n"
+        .'<input type="checkbox" name="check_'.$list['module_id'].'" id="check_'.$list['module_id'].'">'."\n"
         .'</td>'."\n"
         .'<td align="left">'."\n"
-        .'<label for="check_' . $list['module_id'] . '" >'
-        .'<img src="' . get_path('imgRepositoryWeb') . $moduleImg.'" alt="' . $contentType_alt . '" />'
-        . $list['name']
-        . '</label>' . "\n"
+        .'<label for="check_'.$list['module_id'].'" ><img src="'.$imgRepositoryWeb.$moduleImg.'" alt="'.$contentType_alt.'" />'.$list['name'].'</label>'."\n"
         .'</td>'."\n"
         .'</tr>'."\n\n";
 
@@ -236,15 +230,12 @@ if ( $atleastOne )
     echo '<tr>'."\n"
         .'<td colspan="2">'."\n"
         .'<input type="submit" value="'.get_lang('Add module(s)').'" />'."\n"
-        .'<input type="hidden" name="cmdglobal" value="add" />'."\n"
+        .'<input type="hidden" name="cmdglobal" value="add">'."\n"
         .'</td>'."\n"
         .'</tr>'."\n";
 }
 
-echo "\n" . '</tfoot>' . "\n\n"
-.    '</form>' . "\n"
-.    '</table>'
-;
+echo "\n".'</tfoot>'."\n\n".'</form>'."\n".'</table>';
 
 //####################################################################################\\
 //################################## MODULES LIST ####################################\\
@@ -254,12 +245,12 @@ echo "\n" . '</tfoot>' . "\n\n"
 echo claro_html_tool_title(get_lang('Learning path content'));
 
 // display back link to return to the LP administration
-echo '<a href="learningPathAdmin.php">&lt;&lt;&nbsp;' . get_lang('Back to learning path administration') . '</a>';
+echo '<a href="learningPathAdmin.php">&lt;&lt;&nbsp;'.get_lang('Back to learning path administration').'</a>';
 
 // display list of modules used by this learning path
 display_path_content();
 
 // footer
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include($includePath."/claro_init_footer.inc.php");
 
 ?>

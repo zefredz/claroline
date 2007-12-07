@@ -41,6 +41,10 @@ function get_course_title($cid)
  */
 function get_info_course($cid)
 {
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_course    = $tbl_mdb_names['course'   ];
+    $tbl_category  = $tbl_mdb_names['category' ];
+
     if ($cid)
     {
         $_course = claro_get_course_data($cid);
@@ -74,7 +78,7 @@ function get_info_course($cid)
  * @param  string $course_id (optionnal)  If not set, it use the current course
  *         will be taken.
  * @return string path
- * @author Christophe Geschï¿½ <moosh@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  * @since 1.7
  */
 function claro_get_course_name($cid=NULL)
@@ -91,7 +95,7 @@ function claro_get_course_name($cid=NULL)
  * @param  string $course_id (optionnal)  If not set, it use the current course
  *         will be taken.
  * @return string path
- * @author Christophe Geschï¿½ <moosh@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  * @since 1.7
  */
 function claro_get_course_officialCode($cid=NULL)
@@ -106,11 +110,11 @@ function claro_get_course_officialCode($cid=NULL)
     *
     * @param $cid the id of a course
     * @return array (array) an associative array containing all info of tool for a course
-
+    * @global $clarolineRepositoryWeb
     */
 function get_course_tool_list($cid)
 {
-
+    global $clarolineRepositoryWeb;
 
     $toolNameList = claro_get_tool_name_list();
 
@@ -131,7 +135,7 @@ function get_course_tool_list($cid)
                         pct.access_manager access_manager,
 
                         IF(pct.script_url IS NULL ,
-                           ctl.script_url,CONCAT('".get_path('clarolineRepositoryWeb')."',
+                           ctl.script_url,CONCAT('".$clarolineRepositoryWeb."',
                            pct.script_url)) url
 
                            FROM `".$_course['dbNameGlu']."tool_list` ctl

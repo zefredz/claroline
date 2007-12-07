@@ -23,27 +23,25 @@
        CLAROLINE MAIN
   ======================================*/
 
-require '../../inc/claro_init_global.inc.php';
+  require '../../inc/claro_init_global.inc.php';
 
-$interbredcrump[]= array ("url"=>"../learningPathList.php", "name"=> get_lang('Learning path list'));
-if ( claro_is_course_manager() && (!isset($_SESSION['asStudent']) || $_SESSION['asStudent'] == 0 ) )
-{
+  $interbredcrump[]= array ("url"=>"../learningPathList.php", "name"=> get_lang('Learning path list'));
+  if ( $is_courseAdmin && (!isset($_SESSION['asStudent']) || $_SESSION['asStudent'] == 0 ) )
+  {
        $interbredcrump[]= array ("url"=>"../learningPathAdmin.php", "name"=> get_lang('Learning path admin'));
-}
-else
-{
+  }
+  else
+  {
        $interbredcrump[]= array ("url"=>"../learningPath.php", "name"=> get_lang('Learning path'));
-}
-$interbredcrump[]= array ("url"=>"../module.php", "name"=> get_lang('Module'));
-//$htmlHeadXtra[] = "<script src=\"APIAdapter.js\" type=\"text/javascript\" language=\"JavaScript\">";
-//header
-$hide_body = true;
+  }
+  $interbredcrump[]= array ("url"=>"../module.php", "name"=> get_lang('Module'));
+  //$htmlHeadXtra[] = "<script src=\"APIAdapter.js\" type=\"text/javascript\" language=\"JavaScript\">";
+  //header
+  $hide_body = true;
+  include($includePath."/claro_init_header.inc.php");
+  // footer
+  $hide_footer = true;
+  include($includePath."/claro_init_footer.inc.php");
 
-// Turn off session lost
-$warnSessionLost = false ;
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-// footer
-$hide_footer = true;
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>

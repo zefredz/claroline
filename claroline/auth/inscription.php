@@ -4,7 +4,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -21,7 +21,7 @@ define('DISP_REGISTRATION_NOT_ALLOWED',__LINE__);
 require '../inc/claro_init_global.inc.php';
 
 // Already logged
-if ( claro_is_user_authenticated() )
+if ( isset($_uid) )
 {
     claro_redirect(get_conf('urlAppend') . '/index.php');
     exit;
@@ -29,11 +29,12 @@ if ( claro_is_user_authenticated() )
 
 // include profile library
 include claro_get_conf_repository() . 'user_profile.conf.php';
-include_once get_path('incRepositorySys') . '/lib/user.lib.php';
-include_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
+include_once $includePath . '/lib/user.lib.php';
+include_once $includePath . '/lib/sendmail.lib.php';
 
-$agreementText = claro_text_zone::get_content('textzone_inscription');
-if ( '' == $agreementText && file_exists('./textzone_inscription.inc.html'))
+
+$agreementText  ='';
+if (file_exists('./textzone_inscription.inc.html'))
 {
     $agreementText = file_get_contents('./textzone_inscription.inc.html'); // Introduction message if needed
     if ( '' == trim(strip_tags($agreementText,'<img><embed><object>'))) $agreementText = '';
@@ -85,30 +86,32 @@ if ( get_conf('allowSelfReg',false) )
 
             $_uid = user_create($user_data);
 
-            if ( claro_is_user_authenticated() )
+            if ( $_uid )
             {
 
                 // add value in session
-                $_user = user_get_properties(claro_get_current_user_id());
-                $_user['firstName'] = $_user['firstname'];
-                $_user['lastName' ] = $_user['lastname'];
-                $_user['mail'     ] = $_user['email'];
-                $_user['lastLogin'] = claro_time() - (24 * 60 * 60); // DATE_SUB(CURDATE(), INTERVAL 1 DAY)
+                $_user = user_get_properties($_uid);
+                $_user['firstName'    ] = $_user['firstname'];
+                $_user['lastName'     ] = $_user['lastname'];
+                $_user['mail'         ] = $_user['email'];
+                $_user['lastLogin'    ] = time() - (24 * 60 * 60); // DATE_SUB(CURDATE(), INTERVAL 1 DAY)
                 $is_allowedCreateCourse = ($user_data['isCourseCreator'] == 1) ? TRUE : FALSE ;
 
-                $_SESSION['_uid'] = claro_get_current_user_id();
+                $_SESSION['_uid'] = $_uid;
                 $_SESSION['_user'] = $_user;
                 $_SESSION['is_allowedCreateCourse'] = $is_allowedCreateCourse;
 
                 // track user login
-                $claroline->notifier->event( 'user_login', array('data' => array('ip' => $_SERVER['REMOTE_ADDR']) ) );
+
+                $eventNotifier->notifyEvent('user_login', array('uid' => $_uid));
+                event_login();
 
                 // last user login date is now
                 $user_last_login_datetime = 0; // used as a unix timestamp it will correspond to : 1 1 1970
                 $_SESSION['user_last_login_datetime'] = $user_last_login_datetime;
 
                 // send info to user by email
-                $mailSent = user_send_registration_mail(claro_get_current_user_id(), $user_data);
+                $mailSent = user_send_registration_mail($_uid, $user_data);
 
             } // if _uid
             else
@@ -143,8 +146,6 @@ if ( get_conf('allowSelfReg',false) )
         || '' == $agreementText)
     {
         $display = DISP_REGISTRATION_FORM;
-        $subscriptionText = claro_text_zone::get_content('textzone_inscription_form');
-
     }
     else
     {
@@ -153,14 +154,15 @@ if ( get_conf('allowSelfReg',false) )
 }
 elseif (! get_conf('show_agreement_panel'))
 {
-    // This  section is not use actually.
-    // it's only when selfReg =false so  It's need another textZoneContent
     $display = DISP_REGISTRATION_AGREEMENT;
 }
 else
 {
     $display = DISP_REGISTRATION_NOT_ALLOWED;
 }
+
+
+
 
 /*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 Display Section
@@ -170,7 +172,7 @@ $interbredcrump[]= array ('url' => 'inscription.php', 'name' => get_lang('Create
 
 // Display Header
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include $includePath . '/claro_init_header.inc.php';
 
 // Display Title
 
@@ -188,8 +190,8 @@ if ( DISP_REGISTRATION_SUCCEED == $display )
     if ( $mailSent ) echo '<br />' . "\n" . get_lang('An email has been sent to help you remember your user name and password.');
     echo '</p>' . "\n";
 
-    if ( claro_is_allowed_to_create_course() ) echo '<p>' . get_lang('You can now create your  course') . '</p>' . "\n";
-    else                                       echo '<p>' . get_lang('You can now select, in the list, the courses you want to access') . '</p>' . "\n";
+    if ( $is_allowedCreateCourse ) echo '<p>' . get_lang('You can now create your  course') . '</p>' . "\n";
+    else                           echo '<p>' . get_lang('You can now select, in the list, the courses you want to access') . '</p>' . "\n";
 
     echo '<form action="../../index.php?cidReset=1" >'
     .    '<input type="submit" name="next" value="' . get_lang('Next') . '" />' . "\n"
@@ -199,8 +201,7 @@ if ( DISP_REGISTRATION_SUCCEED == $display )
 elseif ( DISP_REGISTRATION_AGREEMENT == $display )
 {
 
-
-    if ( trim ($agreementText) != '')
+    if (file_exists('./textzone_inscription.inc.html'))
     {
         echo '<div class="info">'
         .    $agreementText
@@ -236,14 +237,6 @@ elseif ( DISP_REGISTRATION_FORM == $display  )
         echo claro_html_message_box( implode('<br />', $messageList) );
     }
 
-    if ( trim ($subscriptionText) != '')
-    {
-        echo '<div class="info subscribe">'
-        .    $subscriptionText
-        .    '</div>'
-        ;
-    }
-
     echo user_html_form_registration($user_data);
 }
 else
@@ -253,6 +246,6 @@ else
 
 // Display Footer
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 
 ?>

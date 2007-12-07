@@ -5,8 +5,8 @@
   * This tool edit status of user in a course
  * Strangly, the is nothing to edit role and courseTutor status
  *
- * @version 1.9 $Revision$
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
+ * @version 1.8 $Revision$
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -24,10 +24,10 @@ $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 require '../inc/claro_init_global.inc.php';
 
 // Security check
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
-require_once get_path('incRepositorySys') . '/lib/course_user.lib.php';
+require_once $includePath . '/lib/course_user.lib.php';
 
 include claro_get_conf_repository() . 'user_profile.conf.php'; // find this file to modify values.
 
@@ -39,7 +39,7 @@ unset($_SESSION['userEdit']);
 
 $nameTools=get_lang('User course settings');
 
-$interbredcrump[]= array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
+$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 
 
 // see which user we are working with ...
@@ -74,7 +74,7 @@ switch ($cmd)
         {
             $properties['profileId'] = $_REQUEST['profileId'];
 
-            if ( claro_get_profile_label($properties['profileId']) == 'manager' )
+            if ( claro_get_profile_name($properties['profileId']) == 'Manager' )
             {
                 $dialogBox = get_lang('User is now course manager');
             }
@@ -149,7 +149,7 @@ $cmd_menu[] = '<a class="claroCmd" href="adminuserunregistered.php'
 .             '?cidToEdit=' . $cidToEdit
 .             '&amp;cmd=UnReg'
 .             '&amp;uidToEdit=' . $uidToEdit . '" '
-.             ' onclick="return confirmationUnReg(\'' . clean_str_for_javascript(htmlspecialchars($courseUserProperties['firstName']) . ' ' . htmlspecialchars($courseUserProperties['lastName'])) . '\');">'
+.             ' onClick="return confirmationUnReg(\'' . clean_str_for_javascript(htmlspecialchars($courseUserProperties['firstName']) . ' ' . htmlspecialchars($courseUserProperties['lastName'])) . '\');">'
 .             get_lang('Unsubscribe')
 .             '</a>'
 ;
@@ -183,7 +183,7 @@ elseif ( $displayBackToUC )//coming from usercourse list
 // DISPLAY
 //------------------------------------
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include $includePath . '/claro_init_header.inc.php';
 
 // Display tool title
 
@@ -216,5 +216,5 @@ echo course_user_html_form ( $courseUserProperties, $cidToEdit, $uidToEdit, $hid
 .    '</p>'
 ;
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 ?>

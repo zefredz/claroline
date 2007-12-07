@@ -18,13 +18,13 @@
 
 require '../../inc/claro_init_global.inc.php';
 
-include_once get_path('incRepositorySys') . '/lib/right/profile.class.php';
-include_once get_path('incRepositorySys') . '/lib/pager.lib.php';
+include_once $includePath . '/lib/right/profile.class.php';
+include_once $includePath . '/lib/pager.lib.php';
 
 // Security check
 
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 $error_list = array();
 
@@ -117,12 +117,12 @@ $profileList = $profilePager->get_result_list();
 // Display
 
 // define breadcrumb
-$interbredcrump[]   = array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
+$interbredcrump[]   = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 $nameTools          = get_lang('Course profile list');
 $noQUERY_STRING     = TRUE;
 
 // Display header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include $includePath . '/claro_init_header.inc.php';
 
 switch ( $display )
 {
@@ -175,14 +175,14 @@ switch ( $display )
         foreach ( $profileList as $thisProfile )
         {
             echo '<tr align="center">' . "\n"
-                . '<td align="left">' . get_lang($thisProfile['name']) . '</td>' . "\n"
-                . '<td align="left">' . get_lang($thisProfile['description']) . '</td>' . "\n"
-                . '<td><a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&profile_id='. $thisProfile['id'].'"><img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="' . get_lang('Edit') . '" /></td>' . "\n"
-                . '<td><a href="profile.php?display_profile='. $thisProfile['id'].'"><img src="' .  get_path('imgRepositoryWeb') . 'settings.gif" alt="' . get_lang('Edit') . '" /></td>' . "\n" ;
+                . '<td align="left">' . $thisProfile['name'] . '</td>' . "\n"
+                . '<td align="left">' . $thisProfile['description'] . '</td>' . "\n"
+                . '<td><a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&profile_id='. $thisProfile['id'].'"><img src="' . $imgRepositoryWeb . 'edit.gif" alt="' . get_lang('Edit') . '" /></td>' . "\n"
+                . '<td><a href="profile.php?display_profile='. $thisProfile['id'].'"><img src="' .  $imgRepositoryWeb . 'settings.gif" alt="' . get_lang('Edit') . '" /></td>' . "\n" ;
 
             if ( $thisProfile['required'] == '0' )
             {
-                echo '<td><a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&profile_id='. $thisProfile['id'].'&amp;offset='.$offset.'"><img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="' . get_lang('Delete') . '" /></td>' . "\n";
+                echo '<td><a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&profile_id='. $thisProfile['id'].'&amp;offset='.$offset.'"><img src="' . $imgRepositoryWeb . 'delete.gif" alt="' . get_lang('Delete') . '" /></td>' . "\n";
             }
             else
             {
@@ -191,11 +191,11 @@ switch ( $display )
 
             if ( $thisProfile['locked'] == '0' )
             {
-                echo '<td><a href="' . $_SERVER['PHP_SELF'] . '?cmd=exLock&profile_id='. $thisProfile['id'].'&amp;offset='.$offset.'"><img src="' . get_path('imgRepositoryWeb') . 'unlock.gif" alt="' . get_lang('Lock') . '" /></td>' . "\n";
+                echo '<td><a href="' . $_SERVER['PHP_SELF'] . '?cmd=exLock&profile_id='. $thisProfile['id'].'&amp;offset='.$offset.'"><img src="' . $imgRepositoryWeb . 'unlock.gif" alt="' . get_lang('Lock') . '" /></td>' . "\n";
             }
             else
             {
-                echo '<td><a href="' . $_SERVER['PHP_SELF'] . '?cmd=exUnlock&profile_id='. $thisProfile['id'].'&amp;offset='.$offset.'"><img src="' . get_path('imgRepositoryWeb') . 'locked.gif" alt="' . get_lang('Unlock') . '" /></td>' . "\n";
+                echo '<td><a href="' . $_SERVER['PHP_SELF'] . '?cmd=exUnlock&profile_id='. $thisProfile['id'].'&amp;offset='.$offset.'"><img src="' . $imgRepositoryWeb . 'locked.gif" alt="' . get_lang('Unlock') . '" /></td>' . "\n";
             }
             echo '</tr>' . "\n\n";
         }
@@ -207,6 +207,6 @@ switch ( $display )
 } // end switch display
 
 // Display footer
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 
 ?>

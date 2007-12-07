@@ -16,9 +16,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 function CLWRK_write_ical( & $iCal, $context)
 {
-    if (is_array($context) && count($context) > 0)
+    if (is_array($context) && count($context)>0)
     {
-        $courseCode = (array_key_exists(CLARO_CONTEXT_COURSE,$context)) ? $context[CLARO_CONTEXT_COURSE] : $courseCode = claro_get_current_course_id();
+        $courseCode = (array_key_exists(CLARO_CONTEXT_COURSE,$context)) ? $context[CLARO_CONTEXT_COURSE] : $courseCode = $GLOBALS['_cid'];
 
         $courseData = claro_get_course_data($courseCode);
         $toolNameList = claro_get_tool_name_list();
@@ -59,8 +59,8 @@ function CLWRK_write_ical( & $iCal, $context)
                 array(), // Array with the number of the days the event accures (example: array(0,1,5) = Sunday, Monday, Friday
                 1, // Startday of the Week ( 0 = Sunday - 6 = Saturday)
                 '', // exeption dates: Array with timestamps of dates that should not be includes in the recurring event
-                get_path('rootWeb') .'work/workList.php?cidReq=' . $courseCode.'&amp;assigId=' . $thisAssignment['id'], // optional URL for that event
-                get_locale('iso639_1_code'), // Language of the Strings
+                get_conf('rootWeb') .'work/workList.php?cidReq=' . $courseCode.'&amp;assigId=' . $thisAssignment['id'], // optional URL for that event
+                get_conf('iso639_1_code'), // Language of the Strings
                 '' // Optional UID for this ToDo
                 );
             }

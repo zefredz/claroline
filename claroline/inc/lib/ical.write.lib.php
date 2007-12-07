@@ -20,7 +20,6 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * * icalendar/class.iCal.inc.php
  *
  */
-require_once claro_get_conf_repository() . 'rss.conf.php';
 require_once claro_get_conf_repository() . 'ical.conf.php';
 require_once dirname(__FILE__) . '/icalendar/class.iCal.inc.php';
 
@@ -54,7 +53,7 @@ function buildICal($context, $calType='ics')
 {
     if (is_array($context) && count($context) > 0)
     {
-        $iCalRepositorySys =  get_path('rootSys') . get_conf('iCalRepositoryCache','tmp/cache/iCal/');
+        $iCalRepositorySys =  get_conf('rootSys') . get_conf('iCalRepositoryCache','tmp/cache/iCal/');
         if (!file_exists($iCalRepositorySys))
         {
             require_once dirname(__FILE__) . '/fileManage.lib.php';
@@ -150,14 +149,14 @@ function ical_get_tool_compatible_list()
     if (is_null($iCalToolList))
     {
         $iCalToolList = array();
-        if(get_conf('iCalUseCache',true))
+        if(get_conf('icalUseCache',true))
         {
             include_once dirname(__FILE__) . '/pear/Lite.php';
 
             // Cache_lite setting & init
             $cache_options = array(
-            'cacheDir' => get_path('rootSys') . 'tmp/cache/ical/sources/',
-            'lifeTime' => get_conf('iCalCacheLifeTime',get_conf('cache_lifeTime',10)),
+            'cacheDir' => get_conf('rootSys') . 'tmp/cache/ical/sources/',
+            'lifeTime' => get_conf('cache_lifeTime', get_conf('iCalCacheLifeTime'), 600000), // 600.000 little less than a week
             'automaticCleaningFactor' => 500,
             );
             if (get_conf('CLARO_DEBUG_MODE',false) )

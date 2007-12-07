@@ -39,11 +39,11 @@ require_once dirname(__FILE__) . '/config.class.php';
 class ConfigHtml extends Config
 {
     var $back_url = null;
-
+    
     function ConfigHtml($config_code, $back_url)
     {
         parent::Config($config_code);
-
+        
         $this->backUrl = $back_url;
     }
     /**
@@ -70,15 +70,13 @@ class ConfigHtml extends Config
             }
 
             // display start form
-            $form .= '<form method="post" action="' . $_SERVER['PHP_SELF'] . '?config_code=' . $this->config_code .htmlspecialchars($url_params). '" name="editConfClass" >' . "\n"
-            .        claro_form_relay_context()
-            .        '<input type="hidden" name="config_code" value="' . htmlspecialchars($this->config_code) . '" />' . "\n"
-            .        '<input type="hidden" name="section" value="' . htmlspecialchars($section_selected) . '" />' . "\n"
-            .        '<input type="hidden" name="cmd" value="save" />' . "\n"
-            ;
+            $form .= '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '?config_code=' . $this->config_code .htmlspecialchars($url_params). '" name="editConfClass" >' . "\n"
+            . '<input type="hidden" name="config_code" value="' . htmlspecialchars($this->config_code) . '" />' . "\n"
+            . '<input type="hidden" name="section" value="' . htmlspecialchars($section_selected) . '" />' . "\n"
+            . '<input type="hidden" name="cmd" value="save" />' . "\n";
 
             $form .= '<table border="0" cellpadding="5" width="100%">' . "\n";
-            if ($section_selected!='viewall') $section_list = array($section_selected);
+            if ($section_selected!='viewall') $section_list = $section_list= array($section_selected);
 
             foreach ($section_list as $thisSection)
             {
@@ -91,14 +89,14 @@ class ConfigHtml extends Config
                 {
                     $form .= '<tr><td colspan="3">' . "\n";
                     $form .= '<ul class="tabTitle">' . "\n";
-                    $form .= '<li><a href="#">' . htmlspecialchars( get_lang($this->conf_def['section'][$thisSection]['label'])) . '</a></li>' . "\n";
+                    $form .= '<li><a href="#">' . htmlspecialchars($this->conf_def['section'][$thisSection]['label']) . '</a></li>' . "\n";
                     $form .= '</ul>' . "\n";
                     $form .= '</td></tr>' . "\n";
 
                 }
 
                 // display description of the section
-                if ( !empty($section['description']) ) $form .= '<tr><td colspan="3"><p class="configSectionDesc" ><em>' . get_lang($section['description']) . '</em></p></td></tr>';
+                if ( !empty($section['description']) ) $form .= '<tr><td colspan="3"><p class="configSectionDesc" ><em>' . $section['description'] . '</em></p></td></tr>';
 
                 // display each property of the section
                 if ( is_array($section['properties']) )
@@ -153,6 +151,7 @@ class ConfigHtml extends Config
 
     function display_form_elt($name,$value)
     {
+        global $rootSys;
 
         $elt_form = '';
 
@@ -174,19 +173,19 @@ class ConfigHtml extends Config
         $input_name = 'property['.$name.']';
 
         // label of property
-        $html['label'] = !empty($property_def['label'])?htmlspecialchars( get_lang($property_def['label'])):htmlspecialchars(get_lang($name));
+        $html['label'] = !empty($property_def['label'])?htmlspecialchars($property_def['label']):htmlspecialchars($name);
 
         // value of property
         if ( ! is_array($value) ) $html['value'] = htmlspecialchars($value);
 
         // description of property
-        $html['description'] = !empty($property_def['description'])?nl2br(htmlspecialchars( get_lang($property_def['description']))):'';
+        $html['description'] = !empty($property_def['description'])?nl2br(htmlspecialchars($property_def['description'])):'';
 
         // unit of property
-        $html['unit'] = !empty($property_def['unit'])?htmlspecialchars( get_lang($property_def['unit'])):'';
+        $html['unit'] = !empty($property_def['unit'])?htmlspecialchars($property_def['unit']):'';
 
         // type of property
-        $html['type'] = !empty($property_def['type'])?' <small>('.htmlspecialchars (get_lang($property_def['type'])).')</small>':'';
+        $html['type'] = !empty($property_def['type'])?' <small>('.htmlspecialchars($property_def['type']).')</small>':'';
 
         // evaluate the size of input box
         if(!is_array($value))
@@ -235,14 +234,13 @@ class ConfigHtml extends Config
                             $value_list = array();;
                             foreach ( $value as $value_item )
                             {
-                                $value_list[] = htmlspecialchars(get_lang($property_def['acceptedValue'][$value_item]));
+                                $value_list[] = htmlspecialchars($property_def['acceptedValue'][$value_item]);
                             }
                             $form_value = implode(', ',$value_list);
                         }
                         break;
                     case 'integer' :
                     case 'string' :
-                    case 'text' :
                     default :
                         {
                             // probably a string or integer
@@ -265,16 +263,16 @@ class ConfigHtml extends Config
                     switch ( $property_def['acceptedValueType'] )
                     {
                         case 'css' :
-                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder(get_path('rootSys') . 'claroline/css','file','.css',array('print.css','rss.css','compatible.css'));
+                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder($rootSys . 'claroline/css','file','.css',array('print.css','rss.css','compatible.css'));
                             break;
                         case 'lang' :
-                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder(get_path('rootSys') . 'claroline/lang','folder');
+                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder($rootSys . 'claroline/lang','folder');
                             break;
                         case 'auth':
-                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder(get_path('rootSys') . 'claroline/auth/extauth/drivers','file','.php');
+                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder($rootSys . 'claroline/auth/extauth/drivers','file','.php');
                             break;
                         case 'editor' :
-                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder(get_path('rootSys') . 'claroline/editor','folder');
+                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder($rootSys . 'claroline/editor','folder');
                             break;
                     }
                 }
@@ -289,15 +287,15 @@ class ConfigHtml extends Config
 
                         // display true/false radio button
                         $form_value = '<input id="label_'. $name .'_TRUE"  type="radio" name="'. $input_name.'" value="TRUE"  '
-                        . ( $value=='TRUE'?' checked="checked" ':' ') . '  />'
+                        . ( $value=='TRUE'?' checked="checked" ':' ') . ' >'
                         . '<label for="label_'. $name .'_TRUE"  >'
-                        . ($property_def['acceptedValue']['TRUE']?get_lang($property_def['acceptedValue']['TRUE' ]):'TRUE')
+                        . ($property_def['acceptedValue']['TRUE']?$property_def['acceptedValue']['TRUE' ]:'TRUE')
                         . '</label>'
                         . '<br />'
                         . '<input id="label_'. $name .'_FALSE" type="radio" name="'. $input_name.'" value="FALSE" '
-                        . ($value=='FALSE'?' checked="checked" ': ' ') . '  />'
+                        . ($value=='FALSE'?' checked="checked" ': ' ') . ' >'
                         . '<label for="label_'. $name.'_FALSE" >'
-                        . ($property_def['acceptedValue']['FALSE']?get_lang($property_def['acceptedValue']['FALSE']):'FALSE')
+                        . ($property_def['acceptedValue']['FALSE']?$property_def['acceptedValue']['FALSE']:'FALSE')
                         . '</label>';
 
                         break;
@@ -334,16 +332,16 @@ class ConfigHtml extends Config
                             foreach ( $property_def['acceptedValue'] as  $keyVal => $labelVal)
                             {
                                 $form_value .= '<input id="label_'.$name.'_'.$keyVal.'"  type="radio" name="'.$input_name.'" value="'.$keyVal.'"  '
-                                . ($value==$keyVal?' checked="checked" ':' ').'  />'
-                                . '<label for="label_'.$name.'_'.$keyVal.'"  >'.get_lang(($labelVal?$labelVal:$keyVal )).'</label>'
-                                . '<span class="propUnit">'.get_lang($html['unit']).'</span>'
+                                . ($value==$keyVal?' checked="checked" ':' ').' >'
+                                . '<label for="label_'.$name.'_'.$keyVal.'"  >'.($labelVal?$labelVal:$keyVal ).'</label>'
+                                . '<span class="propUnit">'.$html['unit'].'</span>'
                                 . '<br />'."\n";
                             }
                         }
                         elseif ( $total_accepted_value > 2 )
                         {
                             // display label
-                            $form_title = '<label for="label_'.$name.'"  >'.get_lang($html['label']).'</label>' ;
+                            $form_title = '<label for="label_'.$name.'"  >'.$html['label'].'</label>' ;
 
                             // display select box with accepted value
                             $form_value = '<select id="label_' . $name . '" name="'.$input_name.'">' . "\n";
@@ -352,11 +350,11 @@ class ConfigHtml extends Config
                             {
                                 if ( $keyVal == $value )
                                 {
-                                    $form_value .= '<option value="'. htmlspecialchars($keyVal) .'" selected="selected">' . get_lang(($labelVal?$labelVal:$keyVal )).get_lang( $html['unit']) .'</option>' . "\n";
+                                    $form_value .= '<option value="'. htmlspecialchars($keyVal) .'" selected="selected">' . ($labelVal?$labelVal:$keyVal ). $html['unit'] .'</option>' . "\n";
                                 }
                                 else
                                 {
-                                    $form_value .= '<option value="'. htmlspecialchars($keyVal) .'">' .get_lang( ($labelVal?$labelVal:$keyVal )). get_lang($html['unit']) .'</option>' . "\n";
+                                    $form_value .= '<option value="'. htmlspecialchars($keyVal) .'">' . ($labelVal?$labelVal:$keyVal ). $html['unit'] .'</option>' . "\n";
                                 }
                             } // end foreach
 
@@ -369,14 +367,14 @@ class ConfigHtml extends Config
 
                         $form_title = $html['label'] ;
 
-                        $form_value = '<input type="hidden" name="'.$input_name.'" value="" />' . "\n";
+                        $form_value = '<input type="hidden" name="'.$input_name.'" value="">' . "\n";
 
                         foreach ( $property_def['acceptedValue'] as  $keyVal => $labelVal)
                         {
                             $form_value .= '<input id="label_'.$name.'_'.$keyVal.'"  type="checkbox" name="'.$input_name.'[]" value="'.$keyVal.'"  '
-                            . (is_array($value)&&in_array($keyVal,$value)?' checked="checked" ':' ').'  />'
-                            . '<label for="label_'.$name.'_'.$keyVal.'"  >'.get_lang(($labelVal?$labelVal:$keyVal )).'</label>'
-                            . '<span class="propUnit">'.get_lang($html['unit']).'</span>'
+                            . (is_array($value)&&in_array($keyVal,$value)?' checked="checked" ':' ').' >'
+                            . '<label for="label_'.$name.'_'.$keyVal.'"  >'.($labelVal?$labelVal:$keyVal ).'</label>'
+                            . '<span class="propUnit">'.$html['unit'].'</span>'
                             . '<br />'."\n";
                         }
 
@@ -387,17 +385,9 @@ class ConfigHtml extends Config
                         $form_title = '<label for="label_'.$name.'"  >'.$html['label'].'</label>';
 
                         $form_value = '<input size="'.$input_size.'" align="right" id="label_'.$name.'" '
-                        . ' type="text" name="'.$input_name.'" value="'. $html['value'] .'" /> '."\n"
+                        . ' type="text" name="'.$input_name.'" value="'. $html['value'] .'"> '."\n"
                         . '<span class="propUnit">'.$html['unit'].'</span>'
                         . '<span class="propType">'.$html['type'].'</span>';
-
-                        break;
-
-                    case 'text' :
-
-                        $form_title = '<label for="label_'.$name.'"  >' . $html['label'] . '</label>' ;
-
-                        $form_value = '<textarea cols="40" rows="5" id="label_'.$name.'" name="'.$input_name.'">'. $html['value'] .'</textarea>';
 
                         break;
 
@@ -405,13 +395,13 @@ class ConfigHtml extends Config
                         // by default is a string
                         $form_title = '<label for="label_'.$name.'"  >' . $html['label'] . '</label>' ;
 
-                        $form_value = '<input size="'.$input_size.'" id="label_'.$name.'" type="text" name="' . $input_name . '" value="' . $html['value'] . '" /> '
+                        $form_value = '<input size="'.$input_size.'" id="label_'.$name.'" type="text" name="'.$input_name.'" value="'.$html['value'].'"> '
                         . '<span class="propUnit">'.$html['unit'].'</span>'
                         . '<span class="propType">'.$html['type'].'</span>'. "\n" ;
 
                 } // end switch on property type
             }
-
+            
             // display elt
             $elt_form = '<tr style="vertical-align: top">' . "\n"
                 . '<td style="text-align: right" width="25%">' . $form_title . '&nbsp;:</td>' . "\n"
@@ -471,13 +461,11 @@ class ConfigHtml extends Config
 
             foreach ( $section_list as $section )
             {
-                $section_name = $this->conf_def['section'][$section]['label'];
-
                 $menu .=  '<li>'
                 . '<a ' . ( $section == $section_selected ? 'class="current"' : '' )
                 . ' href="' . $_SERVER['PHP_SELF'] . '?config_code=' . htmlspecialchars($this->config_code)
                 . '&amp;section=' . htmlspecialchars($section) . htmlspecialchars($url_params). '">'
-                . get_lang($section_name) . '</a></li>' . "\n";
+                . htmlspecialchars($this->conf_def['section'][$section]['label']) . '</a></li>' . "\n";
 
             }
             $menu .= '</ul>' . "\n";

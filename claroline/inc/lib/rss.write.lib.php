@@ -30,9 +30,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die('---');
 
 define('RSS_FILE_EXT', 'xml');
-
-include_once claro_get_conf_repository() . 'CLKCACHE.conf.php';
-include_once claro_get_conf_repository() . 'rss.conf.php';
+include claro_get_conf_repository() . 'rss.conf.php';
 
 function build_rss($context)
 {
@@ -40,7 +38,7 @@ function build_rss($context)
     {
         include_once dirname(__FILE__) . '/pear/XML/Serializer.php';
 
-        $rssRepositoryCacheSys = get_path('rootSys') . get_conf('rssRepositoryCache','tmp/cache/rss/');
+        $rssRepositoryCacheSys = get_conf('rootSys') . get_conf('rssRepositoryCache','tmp/cache/rss/');
         if (!file_exists($rssRepositoryCacheSys))
         {
             require_once dirname(__FILE__) . '/fileManage.lib.php';
@@ -48,16 +46,13 @@ function build_rss($context)
             if (!file_exists($rssRepositoryCacheSys))
             return claro_failure::set_failure('CANT_CREATE_RSS_DIR');
         }
-        
-        $outEnc = 'utf-8';
-        $inEnc = get_conf('charset');
 
         $options = array(
         'indent'    => '    ',
         'linebreak' => "\n",
         'typeHints' => FALSE,
         'addDecl'   => TRUE,
-        'encoding'  => $outEnc,
+        'encoding'  => get_conf('charset'),
         'rootName'  => 'rss',
         'defaultTagName' => 'item',
         'rootAttributes' => array('version' => '2.0', 'xmlns:dc'=>'http://purl.org/dc/elements/1.1/')
@@ -72,7 +67,7 @@ function build_rss($context)
             $rssTitle = '[' . get_conf('siteName') . '] '.$_course['officialCode'];
             $rssDescription = $_course['name'];
             $rssEmail = $_course['email'] == '' ? get_conf('administrator_email') : $_course['email'];
-            $rssLink = get_path('rootWeb') .  get_path('coursesRepositoryAppend') . claro_get_course_path();
+            $rssLink = get_conf('coursesRepositoryWeb') . $_course['path'];
             if (array_key_exists(CLARO_CONTEXT_GROUP,$context))
             {
                 $rssFilePath .= 'g'.$context[CLARO_CONTEXT_GROUP] . '.';
@@ -95,7 +90,7 @@ function build_rss($context)
         'generator'      => 'Claroline-PEARSerializer',
         'webMaster'      => get_conf('administrator_email'),
         'managingEditor' => $rssEmail,
-        'language'       => get_locale('iso639_1_code'),
+        'language'       => get_conf('iso639_1_code'),
         'docs'           => 'http://blogs.law.harvard.edu/tech/rss',
         'pubDate'        => date("r",time())
         );
@@ -128,12 +123,14 @@ function build_rss($context)
 
         if ($serializer->serialize($data))
         {
-            if( is_writable($rssFilePath)
-                || (!file_exists($rssFilePath) && is_writable(dirname($rssFilePath))))
+            if(is_writable($rssFilePath) || (!file_exists($rssFilePath) && is_writable(dirname($rssFilePath))))
             {
-                $contents = iconv( $inEnc, $outEnc, $serializer->getSerializedData() );
-                
-                if ( false === file_put_contents( $rssFilePath, $contents ) )
+                if( false !== $fprss = fopen($rssFilePath, 'w'))
+                {
+                    fwrite($fprss, $serializer->getSerializedData());
+                    fclose($fprss);
+                }
+                else
                 {
                     return claro_failure::set_failure('CANT_OPEN_RSS_FILE');
                 }
@@ -168,12 +165,12 @@ function rss_get_tool_compatible_list()
     {
         if(get_conf('rssUseCache',true))
         {
-            include_once  PEAR_LIB_PATH . '/Lite.php';
+            include_once dirname(__FILE__) . '/pear/Lite.php';
 
             // Cache_lite setting & init
             $cache_options = array(
-            'cacheDir' => get_path('rootSys') . get_conf('rssRepositoryCache','tmp/cache/rss/') . 'sources/',
-            'lifeTime' => get_conf('rssCacheLifeTime', get_conf('cache_lifeTime', 10)),
+            'cacheDir' => get_conf('rootSys') . get_conf('rssRepositoryCache','tmp/cache/rss/') . 'sources/',
+            'lifeTime' => get_conf('cache_lifeTime', get_conf('rssCacheLifeTime'), 600000), // 600.000 little less than a week
             'automaticCleaningFactor' => 500,
             );
             if (get_conf('CLARO_DEBUG_MODE',false) )

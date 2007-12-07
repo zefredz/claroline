@@ -1,10 +1,10 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
+ * @version 1.8 $Revision$
  *
- * @version 1.9 $Revision$
- *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -18,12 +18,12 @@ require '../../inc/claro_init_global.inc.php';
 
 //SECURITY CHECK
 
-if ( ! claro_is_user_authenticated() )
+if ( ! $_uid )
 {
     claro_disp_auth_form();
 }
 
-if ( ! claro_is_platform_admin() )
+if ( ! $is_platformAdmin )
 {
     claro_die(get_lang('Not allowed'));
 }
@@ -39,14 +39,16 @@ $tbl_dock        = $tbl_name['dock'];
 
 //NEEDED LIBRAIRIES
 
-require_once get_path('incRepositorySys') . '/lib/module.manage.lib.php';
-require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
+require_once $includePath . '/lib/module.manage.lib.php';
+require_once $includePath . '/lib/admin.lib.inc.php';
 
-$interbredcrump[]= array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
+$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+$interbredcrump[]= array ('url' => 'module_list.php', 'name' => get_lang('Module list'));
 
+$nameTools = get_lang('Module settings');
 $undeactivable_tool_array = array('CLDOC',
-                                  'CLGRP'
-                                 );
+								  'CLGRP'
+								 );	
 
 $htmlHeadXtra[] =
 "<script type=\"text/javascript\">
@@ -76,10 +78,6 @@ $section_selected = (isset($_REQUEST['section'])? $_REQUEST['section'] : null);
 $moduleId = (isset($_REQUEST['module_id'])? $_REQUEST['module_id'] : null);
 $module = get_module_info($moduleId);
 $dockList = get_dock_list($module['type']);
-$interbredcrump[]= array ('url' => 'module_list.php?typeReq=' . $module['type'], 'name' => get_lang('Module list'));
-$interbredcrump[]= array ('url' =>'','name' => get_lang($module['module_name']));
-$nameTools = get_lang('Module settings');
-$noPHP_SELF=true;
 
 //----------------------------------
 // EXECUTE COMMAND
@@ -104,7 +102,7 @@ switch ( $cmd )
     {
         if (deactivate_module($moduleId))
         {
-            $dialogBox = get_lang('Module deactivation succeeded');
+            $dialogBox = get_lang('Module deactivation failed');
             $module['activation']  = 'deactivated';
         }
         else
@@ -141,9 +139,9 @@ switch ( $cmd )
     case 'makeInvisible':
     {
         $visibility = ( 'makeVisible' == $cmd ) ? true : false;
-
+        
         list ( $log, $success ) = set_module_visibility( $moduleId, $visibility );
-
+        
         if ( $success )
         {
             $dialogBox = get_lang('Module visibility updated');
@@ -152,7 +150,7 @@ switch ( $cmd )
         {
             $dialogBox = get_lang('Failed to update module visibility');
         }
-
+        
         break;
     }
 }
@@ -176,11 +174,11 @@ foreach($module_dock as $thedock)
 // DISPLAY
 //----------------------------------
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include $includePath . '/claro_init_header.inc.php';
 
 // find module icon, if any
 
-if (array_key_exists('icon',$module) && !empty($module['icon'])  && file_exists(get_module_path($module['label']) . '/' .$module['icon']))
+if (array_key_exists('icon',$module) && file_exists(get_module_path($module['label']) . '/' .$module['icon']))
 {
     $icon = '<img src="' . get_module_url($module['label']) . '/' . $module['icon'] . '" />';
 }
@@ -199,7 +197,7 @@ else
 
 //display title
 
-echo claro_html_tool_title($nameTools . ' : ' . get_lang($module['module_name']));
+echo claro_html_tool_title($nameTools . ' : ' . $module['module_name']);
 
 //Display Forms or dialog box(if needed)
 
@@ -227,50 +225,49 @@ if ($item == 'GLOBAL')
 }
 else
 {
-    echo '<li>'
-    .    '<a href="module.php?module_id='.$moduleId.'&amp;item=GLOBAL">'
-    .    get_lang('Global settings').'</a>'
-    .    '</li>' . "\n"
-    ;
+    echo '<li><a href="module.php?module_id='.$moduleId.'&amp;item=GLOBAL">'
+        . get_lang('Global settings').'</a></li>'
+        . "\n"
+        ;
 }
 
 $config_code = $module['label'];
 
 // new config object
-require_once get_path('incRepositorySys') . '/lib/configHtml.class.php';
+require_once $includePath . '/lib/configHtml.class.php';
 
 $config = new ConfigHtml($config_code, $_SERVER['HTTP_REFERER']);
-
+    	
 if ( $config->load() )
 {
-    if ($item == 'LOCAL')
+	if ($item == 'LOCAL')
     {
-        echo '<li><a href="module.php?module_id='.$moduleId
+		echo '<li><a href="module.php?module_id='.$moduleId
             . '&amp;item=LOCAL" class="current">'
             . get_lang('Local settings').'</a></li>'
             . "\n"
             ;
     }
-    else
+	else
     {
-        echo '<li><a href="module.php?module_id='.$moduleId.'&amp;item=LOCAL">'
+		echo '<li><a href="module.php?module_id='.$moduleId.'&amp;item=LOCAL">'
             . get_lang('Local settings').'</a></li>'
             . "\n"
             ;
     }
 }
 
-if ($item == 'About' || is_null($item))
+if ($item == 'GENERAL' || is_null($item))
 {
-    echo '<li><a href="module.php?module_id='.$moduleId
-        . '&amp;item=About" class="current">'
+	echo '<li><a href="module.php?module_id='.$moduleId
+        . '&amp;item=GENERAL" class="current">'
         . get_lang('About').'</a></li>'
         . "\n"
         ;
 }
 else
 {
-    echo '<li><a href="module.php?module_id='.$moduleId.'&amp;item=About">'
+	echo '<li><a href="module.php?module_id='.$moduleId.'&amp;item=GENERAL">'
         . get_lang('About').'</a></li>'
         . "\n"
         ;
@@ -283,41 +280,41 @@ echo '</ul>'. "\n"
 
 switch ($item)
 {
-    case 'GLOBAL':
+	case 'GLOBAL':
     {
         echo claro_html_tool_title(array('subTitle' => get_lang('Platform Settings')));
 
-        echo '<form action="' . $_SERVER['PHP_SELF'] . '?module_id=' . $module['module_id'] . '&amp;item='.$item.'" method="post">';
-
+        echo '<form action="' . $_SERVER['PHP_SELF'] . '?module_id=' . $module['module_id'] . '&amp;item='.$item.'" method="POST">';
+        
         echo '<table>' . "\n";
-
+    
         //Activation form
         if (in_array($module['label'],$undeactivable_tool_array))
         {
             $action_link = get_lang('This module cannot be deactivated');
-        }
+	    }
         elseif ( 'activated' == $module['activation'] )
-        {
+    	{
             $activ_form  = 'deactiv';
-            $action_link = '<a href="' . $_SERVER['PHP_SELF']
+        	$action_link = '<a href="' . $_SERVER['PHP_SELF'] 
                 . '?cmd='.$activ_form.'&module_id='.$module['module_id']
                 . '&item=GLOBAL" title="'
-                . get_lang('Activated - Click to deactivate').'">'
-                . '<img src="' . get_path('imgRepositoryWeb')
+                . get_lang('Activated - Click to deactivate').'">' 
+                . '<img src="' . $imgRepositoryWeb 
                 . 'mark.gif" border="0" alt="'. get_lang('Activated') . '" /></a>'
                 ;
-        }
-        else
-        {
-            $activ_form  = 'activ';
-            $action_link = '<a href="' . $_SERVER['PHP_SELF']
-                . '?cmd='.$activ_form.'&module_id='
+    	}
+    	else
+    	{
+        	$activ_form  = 'activ';
+            $action_link = '<a href="' . $_SERVER['PHP_SELF'] 
+                . '?cmd='.$activ_form.'&module_id=' 
                 . $module['module_id'].'&item=GLOBAL" '
-                . 'title="'.get_lang('Deactivated - Click to activate').'">'
-                . '<img src="' . get_path('imgRepositoryWeb')
+                . 'title="'.get_lang('Deactivated - Click to activate').'">' 
+                . '<img src="' . $imgRepositoryWeb 
                 . 'block.gif" border="0" alt="'. get_lang('Deactivated') . '"/></a>';
-        }
-
+    	}
+          
         echo '<td align="right" valign="top">'
           .    get_lang('Activation')
           .    ' : ' . "\n"
@@ -330,10 +327,10 @@ switch ($item)
           .    '<td colspan="2">&nbsp;</td>' . "\n"
           .    '</tr>' . "\n"
           ;
-
+          
         if ($module['type'] == 'tool')
         {
-            echo '<tr><td>'
+            echo '<tr><td>' 
                 . get_lang( 'Visibility' )
                 . ' : '
                 .    '</td>' . "\n"
@@ -342,7 +339,7 @@ switch ($item)
                 . $_SERVER['PHP_SELF'] . '?module_id=' . $module['module_id'].'&amp;cmd=makeVisible&amp;item=GLOBAL"'
                 . 'title="'.get_lang( 'Make module visible in all courses' ).'"'
                 . ' onclick="return confirmMakeVisible();">'
-                . '<img src="' . get_path('imgRepositoryWeb')
+                . '<img src="' . $imgRepositoryWeb 
                 . 'visible.gif" border="0" alt="'. get_lang('Visible') . '"/> '
                 . get_lang( 'Make visible' )
                 . '</a></small>'
@@ -351,7 +348,7 @@ switch ($item)
                 . $_SERVER['PHP_SELF'] . '?module_id=' . $module['module_id'].'&amp;cmd=makeInvisible&amp;item=GLOBAL"'
                 . 'title="'.get_lang( 'Make module invisible in all courses' ).'"'
                 . ' onclick="return confirmMakeInVisible();">'
-                . '<img src="' . get_path('imgRepositoryWeb')
+                . '<img src="' . $imgRepositoryWeb 
                 . 'invisible.gif" border="0" alt="'. get_lang('Invisible') . '"/> '
                 . get_lang( 'Make invisible' )
                 . '</a></small>'
@@ -374,7 +371,7 @@ switch ($item)
                 foreach ($dockList as $dockId => $dockName)
                 {
                     if (in_array($dockId,$dock_checked)) $is_checked = 'checked="checked"'; else $is_checked = "";
-
+        
                     echo '<tr>' ."\n"
                     .    '<td>&nbsp;</td>' ."\n"
                     .    '<td>' ."\n"
@@ -387,7 +384,7 @@ switch ($item)
                     $i++;
                 }
             }
-
+    
             // display submit button
             echo '<tr><td colspan="2">&nbsp;</td></tr>' . "\n"
             .    '<tr>' ."\n"
@@ -404,7 +401,7 @@ switch ($item)
         {
             // nothing to do at the moment
         }
-
+    
         echo '</table>' . "\n"
         .    '</td>' . "\n"
         .    '</tr>' . "\n"
@@ -412,24 +409,24 @@ switch ($item)
         ;
         break;
     }
-    case 'LOCAL':
+	case 'LOCAL':
     {
-        $form = '';
+		$form = '';
 
-        $url_params = '&module_id='. $moduleId .'&item='. htmlspecialchars($item);
-
-        $form = $config->display_section_menu($section_selected,$url_params);
-
-           // init config name
-        $config_name = $config->config_code;
-
-        if ( isset($_REQUEST['cmd']) && isset($_REQUEST['property']) )
+    	$url_params = '&module_id='. $moduleId .'&item='. htmlspecialchars($item); 
+    	
+    	$form = $config->display_section_menu($section_selected,$url_params);
+    	
+       	// init config name
+    	$config_name = $config->config_code;
+    	   
+    	if ( isset($_REQUEST['cmd']) && isset($_REQUEST['property']) )
         {
             if ( 'save' == $_REQUEST['cmd'] )
             {
                 if ( ! empty($_REQUEST['property']) )
                 {
-                    list($message, $error) = generate_conf($config,$_REQUEST['property']);
+                    list ($message, $error) = generate_conf($config,$_REQUEST['property']);
                 }
             }
             // display form
@@ -440,80 +437,80 @@ switch ($item)
             // display form
             $form .= $config->display_form(null,$section_selected,$url_params);
         }
-
-        echo '<div style=padding-left:1em;padding-right:1em;>';
+    	
+    	echo '<div style=padding-left:1em;padding-right:1em;>';
 
         if ( ! empty($message) )
         {
-            echo claro_html_message_box($message);
+            echo claro_html_message_box(implode('<br />',$message));
         }
 
-        echo $form . '</div>';
+    	echo $form.'</div>';
 
         break;
     }
-    default:
+	default:
     {
         $moduleDescription = trim( $module['description'] );
-
+        
         $moduleDescription = (empty( $moduleDescription ) )
             ? get_lang('No description given')
             : $moduleDescription
             ;
-
-        echo claro_html_tool_title(array('subTitle' => get_lang('Description')))
-        .    '<p>'
-        .    htmlspecialchars( $moduleDescription )
-        .    '</p>' . "\n"
+            
+		echo claro_html_tool_title(array('subTitle' => get_lang('Description')))
+		.    '<p>'
+		.    htmlspecialchars( $moduleDescription )
+		.    '</p>' . "\n"
         ;
-
+        
         echo claro_html_tool_title(array('subTitle' => get_lang('General Informations'))) . "\n"
-        .    '<table>' . "\n"
-        .    '<tr>' . "\n"
-        .    '<td colspan="2">' . "\n"
-        .    '</td>' . "\n"
-        .    '</tr>' . "\n"
-        .    '<tr>' . "\n"
-        .    '<td align="right">'
-        .    get_lang('Icon')
-        .    ' : </td>' . "\n"
-        .    '<td>' . "\n"
-        .    $icon . "\n"
-        .    '</td>' . "\n"
-        .    '</tr>' . "\n"
-        .    '<tr>' . "\n"
-        .    '<td align="right">' . get_lang('Module name') . ' : </td>' . "\n"
-        .    '<td >' . $module['module_name'] . '</td>' . "\n"
-        .    '</tr>' . "\n"
-        .    '<tr>' . "\n"
-        .    '<td align="right">' . get_lang('Type') . ' : </td>' . "\n"
-        .    '<td>' . $module['type'] . '</td>' . "\n"
-        .    '</tr>' . "\n"
-        .    '<tr>' . "\n"
-        .    '<td align="right">' . get_lang('Version') . ' : </td>' . "\n"
-        .    '<td >' . $module['version'] . '</td>' . "\n"
-        .    '</tr>' . "\n"
-        .    '<tr>' . "\n"
-        .    '<td align="right">' . get_lang('License') . ' : </td>' . "\n"
-        .    '<td >General Public License</td>' . "\n"
-        .    '</tr>' . "\n"
-        .    '<tr>' . "\n"
-        .    '<td align="right">' . get_lang('Author') . ' : </td>' . "\n"
-        .    '<td >' . $module['author'] . '</td>' . "\n"
-        .    '</tr>' . "\n"
-        .    '<tr>' . "\n"
-        .    '<td align="right">' . get_lang('Contact') . ' : </td>' . "\n"
-        .    '<td >' . $module['author_email'] . '</td>' . "\n"
-        .    '</tr>' . "\n"
-        .    '<tr>' . "\n"
-        .    '<td align="right">' . get_lang('Website') . ' : </td>' . "\n"
-        .    '<td><a href="' . $module['website'] . '">' . $module['website'] . '</a></td>' . "\n"
-        .    '</tr>' . "\n"
-        .    '</table>' . "\n"
-        .    '</td>' . "\n"
-        .    '<td>' . "\n"
-        .    '<table>' . "\n"
-        ;
+		.    '<table>' . "\n"
+		.    '<tr>' . "\n"
+		.    '<td colspan="2">' . "\n"
+		.    '</td>' . "\n"
+		.    '</tr>' . "\n"
+		.    '<tr>' . "\n"
+		.    '<td align="right">'
+		.    get_lang('Icon')
+		.    ' : </td>' . "\n"
+		.    '<td>' . "\n"
+		.    $icon . "\n"
+		.    '</td>' . "\n"
+		.    '</tr>' . "\n"
+		.    '<tr>' . "\n"
+		.    '<td align="right">' . get_lang('Module name') . ' : </td>' . "\n"
+		.    '<td >' . $module['module_name'] . '</td>' . "\n"
+		.    '</tr>' . "\n"
+		.    '<tr>' . "\n"
+		.    '<td align="right">' . get_lang('Type') . ' : </td>' . "\n"
+		.    '<td>' . $module['type'] . '</td>' . "\n"
+		.    '</tr>' . "\n"
+		.    '<tr>' . "\n"
+		.    '<td align="right">' . get_lang('Version') . ' : </td>' . "\n"
+		.    '<td >' . $module['version'] . '</td>' . "\n"
+		.    '</tr>' . "\n"
+		.    '<tr>' . "\n"
+		.    '<td align="right">' . get_lang('License') . ' : </td>' . "\n"
+		.    '<td >General Public License</td>' . "\n"
+		.    '</tr>' . "\n"
+		.    '<tr>' . "\n"
+		.    '<td align="right">' . get_lang('Author') . ' : </td>' . "\n"
+		.    '<td >' . $module['author'] . '</td>' . "\n"
+		.    '</tr>' . "\n"
+		.    '<tr>' . "\n"
+		.    '<td align="right">' . get_lang('Contact') . ' : </td>' . "\n"
+		.    '<td >' . $module['author_email'] . '</td>' . "\n"
+		.    '</tr>' . "\n"
+		.    '<tr>' . "\n"
+		.    '<td align="right">' . get_lang('Website') . ' : </td>' . "\n"
+		.    '<td><a href="' . $module['website'] . '">' . $module['website'] . '</a></td>' . "\n"
+		.    '</tr>' . "\n"
+		.    '</table>' . "\n"
+		.    '</td>' . "\n"
+		.    '<td>' . "\n"
+		.    '<table>' . "\n"
+		;
     }
 }
 
@@ -523,6 +520,6 @@ echo '</table>' . "\n"
 .    '</table>' . "\n"
 ;
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 
 ?>

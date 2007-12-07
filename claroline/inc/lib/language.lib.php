@@ -6,7 +6,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * language library
  * contains function to manage l10n
  *
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see http://www.claroline.net/wiki/CLUSR
  * @package CLUSR
@@ -122,39 +122,6 @@ function get_block ($name,$var_to_replace=null)
     }
 }
 
-
-function get_locale($localeInfoName)
-{
-    static $initValueList = array('englishLangName',
-                                  'localLangName',
-                                  'iso639_1_code',
-                                  'iso639_2_code',
-                                  'langNameOfLang',
-                                  'charset',
-                                  'text_dir',
-                                  'left_font_family',
-                                  'right_font_family',
-                                  'number_thousands_separator',
-                                  'number_decimal_separator',
-                                  'byteUnits',
-                                  'langDay_of_weekNames',
-                                  'langMonthNames',
-                                  'dateFormatShort', // not used
-                                  'dateFormatLong', // used
-                                  'dateTimeFormatLong', // used
-                                  'dateTimeFormatShort',
-                                  'timeNoSecFormat');
-
-    if(!in_array($localeInfoName, $initValueList )) trigger_error( htmlentities($localeInfoName) . ' is not a know locale value name ', E_USER_NOTICE);
-                                 //TODO create a real auth function to eval this state
-
-                                 if ( array_key_exists($localeInfoName,$GLOBALS) )  return $GLOBALS[$localeInfoName];
-                                 elseif ( defined($localeInfoName)         )        return constant($localeInfoName);
-                                 return null;
-
-}
-
-
 class language
 {
     /**
@@ -168,7 +135,7 @@ class language
     function load_translation ($language=null,$mode=null)
     {
         global $_lang ;
-        global $urlAppend ;
+        global $includePath, $urlAppend ;
 
         /*----------------------------------------------------------------------
           Initialise language array
@@ -185,22 +152,17 @@ class language
 
         // FIXME : force translation mode
 
-        $mode = 'TRANSLATION';
+        $mode = 'TRANSLATION'; 
 
         if ( $mode == 'TRANSLATION' )
         {
             // TRANSLATION MODE : include the language file with all language variables
 
-            include(get_path('incRepositorySys') . '/../lang/english/complete.lang.php');
+            include($includePath . '/../lang/english/complete.lang.php');
 
-            if ($language != 'english') // Avoid useless include as English lang is preloaded
+            if ($language  != 'english') // Avoid useless include as English lang is preloaded
             {
-                $language_file = realpath(get_path('incRepositorySys') . '/../lang/' . $language . '/complete.lang.php');
-
-                if ( file_exists($language_file) )
-                {
-                    include($language_file);
-                }
+                include($includePath . '/../lang/' . $language . '/complete.lang.php');
             }
 
         }
@@ -231,13 +193,13 @@ class language
             // add extension to file
             $languageFile = $languageFilename . '.lang.php';
 
-            if ( ! file_exists(get_path('incRepositorySys') . '/../lang/english/' . $languageFile) )
+            if ( ! file_exists($includePath . '/../lang/english/' . $languageFile) )
             {
-                include(get_path('incRepositorySys') . '/../lang/english/complete.lang.php');
+                include($includePath . '/../lang/english/complete.lang.php');
             }
             else
             {
-                include(get_path('incRepositorySys') . '/../lang/english/' . $languageFile);
+                include($includePath . '/../lang/english/' . $languageFile);
             }
 
             // load previously english file to be sure every get_lang('variable')
@@ -245,7 +207,7 @@ class language
 
             if ( $language != 'english' )
             {
-                @include(get_path('incRepositorySys') . '/../lang/' . $language . '/' . $languageFile);
+                @include($includePath . '/../lang/' . $language . '/' . $languageFile);
             }
 
         }
@@ -254,8 +216,9 @@ class language
 
     function load_locale_settings($language=null)
     {
+        global $includePath;
+
         global $iso639_1_code, $iso639_2_code, $charset,
-               $_locale,
                $langNameOfLang , $langDay_of_weekNames, $langMonthNames, $byteUnits,
                $text_dir, $left_font_family, $right_font_family,
                $number_thousands_separator, $number_decimal_separator,
@@ -264,18 +227,14 @@ class language
         /*
         * tool specific language translation
         */
-
         if ( is_null($language) ) $language = language::current_language();
 
         // include the locale settings language
-        include(get_path('incRepositorySys').'/../lang/english/locale_settings.php');
+        include($includePath.'/../lang/english/locale_settings.php');
+
         if ( $language != 'english' ) // Avoid useless include as English lang is preloaded
         {
-            $locale_settings_file = realpath(get_path('incRepositorySys') . '/../lang/' . $language . '/locale_settings.php');
-            if ( file_exists($locale_settings_file) )
-            {
-                include($locale_settings_file);
-            }
+            include($includePath.'/../lang/'.$language.'/locale_settings.php');
         }
 
         $GLOBALS['langNameOfLang'] = $langNameOfLang;
@@ -286,24 +245,23 @@ class language
 
     function current_language()
     {
-        global $_course, $_user, $platformLanguage;
+        global $_course, $_user, $platformLanguage, $_cid, $_uid ;
 
-        if ( claro_is_in_a_course() && isset($_course['language']) )
+        if ( isset($_cid) && isset($_course['language']) )
         {
             // course language
             return $_course['language'];
         }
         else
         {
-            if ( claro_is_user_authenticated() && !empty($_user['language']) )
+            if ( isset($_uid) && !empty($_user['language']) )
             {
                 // user language
                 return $_user['language'];
             }
             else
             {
-                if ( isset($_REQUEST['language'])
-                    && in_array($_REQUEST['language'], array_keys(get_language_list())) )
+                if ( isset($_REQUEST['language']) )
                 {
                     // selected language
                     $_SESSION['language'] = $_REQUEST['language'];
@@ -338,7 +296,7 @@ language
 function get_language_list()
 {
     // language path
-    $language_dirname = get_path('rootSys') . 'claroline/lang/' ;
+    $language_dirname = get_conf('rootSys') . 'claroline/lang/' ;
 
     // init accepted_values list
     $language_list = array();
@@ -352,7 +310,7 @@ function get_language_list()
             if ( $elt == '.' || $elt == '..' || $elt == 'CVS' ) continue;
 
             // skip if not a dir
-            if ( is_dir($language_dirname.$elt) )
+            if ( ! is_dir($language_dirname.$elt) )
             {
                 $elt_key = $elt;
                 $elt_value = get_translation_of_language($elt_key);
@@ -504,7 +462,7 @@ function get_lang_weekday_name_list($size='long')
 
 /**
  * Display a date at localized format
- * @author Christophe Geschï¿½ <gesche@ipm.ucl.ac.be>
+ * @author Christophe Gesché <gesche@ipm.ucl.ac.be>
  * @param formatOfDate
          see http://www.php.net/manual/en/function.strftime.php
          for syntax to use for this string
@@ -512,18 +470,7 @@ function get_lang_weekday_name_list($size='long')
  * @param timestamp timestamp of date to format
  */
 
-function claro_disp_localised_date($formatOfDate,$timestamp = -1)
-{
-    pushClaroMessage( (function_exists('claro_html_debug_backtrace')
-             ? claro_html_debug_backtrace()
-             : 'claro_html_debug_backtrace() not defined'
-             )
-             .'claro_ disp _localised_date() is deprecated , use claro_ html _localised_date()','error');
-
-    return claro_html_localised_date($formatOfDate,$timestamp);
-}
-
-function claro_html_localised_date($formatOfDate,$timestamp = -1) //PMAInspiration :)
+function claro_disp_localised_date($formatOfDate,$timestamp = -1) //PMAInspiration :)
 {
     $langDay_of_weekNames['long'] = get_lang_weekday_name_list('long');
     $langDay_of_weekNames['short'] = get_lang_weekday_name_list('short');
@@ -533,7 +480,7 @@ function claro_html_localised_date($formatOfDate,$timestamp = -1) //PMAInspirati
 
     if ($timestamp == -1) $timestamp = claro_time();
 
-    // avec un ereg on fait nous mï¿½me le replace des jours et des mois
+    // avec un ereg on fait nous même le replace des jours et des mois
     // with the ereg  we  replace %aAbB of date format
     //(they can be done by the system when  locale date aren't aivailable
 
@@ -570,42 +517,19 @@ function seems_utf8($str)
 }
 
 /**
- * Returns utf-8 encoded $str. No changes are made if it was already utf-8
- *
+ * decode $str if $str is utf8 encoded
  */
-function claro_utf8_encode($str, $toCharset = '' )
+function utf8_decode_if_is_utf8($str)
 {
-	if( $toCharset != '' )	$charset = $toCharset;
-	else					$charset = $GLOBALS['charset'];
-
-
-	if( strtoupper($charset) == 'UTF-8' || seems_utf8($str) )
+    if( $GLOBALS['charset'] == 'utf-8' || !seems_utf8($str) )
     {
         return $str;
     }
     else
     {
-    	return iconv( $charset, 'UTF-8//TRANSLIT', $str );
+    	return utf8_decode($str);
     }
 }
 
-/**
- * Returns decoded utf-8 $str. No changes are made if it was not utf-8
- *
- */
-function claro_utf8_decode($str, $fromCharset = '')
-{
-	if( $fromCharset != '' )$charset = $fromCharset;
-	else					$charset = $GLOBALS['charset'];
-
-	if( strtoupper($charset) == 'UTF-8' || !seems_utf8($str) )
-    {
-        return $str;
-    }
-    else
-    {
-    	return iconv( 'UTF-8', $charset.'//TRANSLIT', $str );
-    }
-}
 
 ?>

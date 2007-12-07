@@ -1,6 +1,6 @@
 <?php // $Id$
 /**
- * CLAROLINE
+ * CLAROLINE 
  *
  * @version 1.8 $Revision$
  *
@@ -20,21 +20,22 @@
 
 $tlabelReq = 'CLLNP';
 require '../inc/claro_init_global.inc.php';
-$msgList = array();
 
 // main page
-$is_allowedToEdit = claro_is_course_manager();
-if (! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
-if (! $is_allowedToEdit ) claro_die(get_lang('Not allowed'));
+$is_AllowedToEdit = $is_courseAdmin;
+if (! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+if (! $is_AllowedToEdit ) claro_die(get_lang('Not allowed'));
 
-$interbredcrump[]= array ("url"=>get_module_url('CLLNP') . '/learningPathList.php', "name"=> get_lang('Learning path list'));
-$interbredcrump[]= array ("url"=>get_module_url('CLLNP') . '/learningPathAdmin.php', "name"=> get_lang('Learning path admin'));
+$interbredcrump[]= array ("url"=>$clarolineRepositoryWeb."learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
+$interbredcrump[]= array ("url"=>$clarolineRepositoryWeb."learnPath/learningPathAdmin.php", "name"=> get_lang('Learning path admin'));
 
 $nameTools = get_lang('Add an exercise');
 
 //header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-include get_path('incRepositorySys') . '/lib/fileDisplay.lib.php';
+@include($includePath."/claro_init_header.inc.php");
+
+//lib of document tool
+@include($includePath."/lib/fileDisplay.lib.php");
 
 // tables names
 $tbl_cdb_names = claro_sql_get_course_tbl();
@@ -51,7 +52,7 @@ $tbl_quiz_exercise = $tbl_cdb_names['qwz_exercise'];
 if (!isset($dialogBox)) $dialogBox = "";
 
 //lib of this tool
-include(get_path('incRepositorySys')."/lib/learnPath.lib.inc.php");
+include($includePath."/lib/learnPath.lib.inc.php");
 
 // $_SESSION
 if ( !isset($_SESSION['path_id']) )
@@ -87,7 +88,7 @@ foreach( $exerciseList as $exercise )
 
 
 		$existingModule = claro_sql_query_get_single_row($sql);
-
+	
 		// no module exists using this exercise
         if( !$existingModule )
         {
@@ -95,7 +96,7 @@ foreach( $exerciseList as $exercise )
             $sql = "INSERT INTO `".$TABLEMODULE."`
                     (`name` , `comment`, `contentType`, `launch_data`)
                     VALUES ('".addslashes($exercise['title'])."' , '".addslashes(get_block('blockDefaultModuleComment'))."', '".CTEXERCISE_."', '')";
-
+                    
             $moduleId = claro_sql_query_insert_id($sql);
 
 
@@ -103,31 +104,31 @@ foreach( $exerciseList as $exercise )
             $sql = "INSERT INTO `".$TABLEASSET."`
                     (`path` , `module_id` , `comment`)
                     VALUES ('". (int)$exercise['id']."', ". (int)$moduleId ." , '')";
-
+                    
             $assetId = claro_sql_query_insert_id($sql);
 
 			// update start asset id in module
             $sql = "UPDATE `".$TABLEMODULE."`
                        SET `startAsset_id` = ". (int)$assetId."
                      WHERE `module_id` = ". (int)$moduleId;
-
+                     
             claro_sql_query($sql);
 
             // determine the default order of this Learning path
             $sql = "SELECT MAX(`rank`)
 					FROM `".$TABLELEARNPATHMODULE."`";
-
+					
             $orderMax = claro_sql_query_get_single_value($sql);
-
+            
             $order = $orderMax + 1;
-
+            
             // finally : insert in learning path
             $sql = "INSERT INTO `".$TABLELEARNPATHMODULE."`
                     (`learnPath_id`, `module_id`, `specificComment`, `rank`, `lock`)
                     VALUES ('". (int)$_SESSION['path_id']."', '".(int)$moduleId."','".addslashes(get_block('blockDefaultModuleAddedComment'))."', ".$order.",'OPEN')";
             claro_sql_query($sql);
 
-            $msgList['info'][] = get_lang("%moduleName has been added as module", array('%moduleName' => $exercise['title'])).'<br />' . "\n";
+            $dialogBox .= get_lang("%moduleName has been added as module", array('%moduleName' => $exercise['title'])).'<br />' . "\n";
         }
         else    // exercise is already used as a module in another learning path , so reuse its reference
         {
@@ -148,7 +149,7 @@ foreach( $exerciseList as $exercise )
                 // determine the default order of this Learning path
                 $sql = "SELECT MAX(`rank`)
                         FROM `".$TABLELEARNPATHMODULE."`";
-
+                        
                 $orderMax = claro_sql_query_get_single_value($sql);
 
                 $order = $orderMax + 1;
@@ -158,19 +159,18 @@ foreach( $exerciseList as $exercise )
                         (`learnPath_id`, `module_id`, `specificComment`, `rank`, `lock`)
                         VALUES (".(int)$_SESSION['path_id'].", ".(int)$existingModule['module_id'].",'".addslashes(get_block('blockDefaultModuleAddedComment'))."', ".$order.", 'OPEN')";
                 $query = claro_sql_query($sql);
-
-                $msgList['info'][] = get_lang("%moduleName has been added as module", array('%moduleName' => $exercise['title'])).'<br />' . "\n";
+                
+                $dialogBox .= get_lang("%moduleName has been added as module", array('%moduleName' => $exercise['title'])).'<br />' . "\n";
             }
             else
             {
-                $msgList['info'][] = get_lang("%moduleName is already used as a module in this learning path", array('%moduleName' => $exercise['title'])).'<br />' . "\n";
+				$dialogBox .= get_lang("%moduleName is already used as a module in this learning path", array('%moduleName' => $exercise['title'])).'<br />' . "\n";
             }
         }
     }
 } //end while
 
 //STEP ONE : display form to add an exercise
-echo claro_html_msg_list($msgList);
 display_my_exercises($dialogBox);
 
 //STEP TWO : display learning path content
@@ -181,5 +181,6 @@ echo '<a href="learningPathAdmin.php">&lt;&lt;&nbsp;'.get_lang('Back to learning
 display_path_content();
 
 // footer
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+@include($includePath."/claro_init_footer.inc.php");
+
 ?>

@@ -120,7 +120,7 @@ class JPSpan_Server_PostOffice extends JPSpan_Server {
 
             } else {
 
-                trigger_error('Invalid handle for: ' . $this->calledClass,E_USER_ERROR);
+                trigger_error('Invalid handle for: '.$this->calledClass,E_USER_ERROR);
                 return FALSE;
 
             }
@@ -328,6 +328,7 @@ if ( $this->RequestEncoding == 'xml' ) {
 
         ob_start();
 ?>
+
 function <?php echo $Description->Class; ?>() {
 
     var oParent = new JPSpan_RemoteObject();
@@ -354,6 +355,7 @@ if ( $this->RequestEncoding == 'xml' ) {
 
 foreach ( $Description->methods as $method ) {
 ?>
+
     // @access public
     oParent.<?php echo $method; ?> = function() {
         var url = this.__serverurl+'&method=<?php echo $method; ?>';
@@ -362,6 +364,7 @@ foreach ( $Description->methods as $method ) {
 <?php
 }
 ?>
+
     return oParent;
 }
 

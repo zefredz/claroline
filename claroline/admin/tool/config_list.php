@@ -28,15 +28,15 @@ $gidReset=TRUE;
 require '../../inc/claro_init_global.inc.php';
 
 // Security check
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
-//require_once get_path('incRepositorySys') . '/lib/course.lib.inc.php';
-require_once get_path('incRepositorySys') . '/lib/config.lib.inc.php';
+//require_once $includePath . '/lib/course.lib.inc.php';
+require_once $includePath . '/lib/config.lib.inc.php';
 
 // define
 $nameTools          = get_lang('Configuration');
-$interbredcrump[]   = array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
+$interbredcrump[]   = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 $noQUERY_STRING     = TRUE;
 
 /* ************************************************************************** */
@@ -49,14 +49,11 @@ $urlEditConf = 'config_edit.php';
 // Each one corresponding to a config file.
 
 // Set  order of some know class and  set an name
-$def_class_list['platform']['name'] = get_lang('Platform');
-$def_class_list['course']['name']   = get_lang('Courses');
-$def_class_list['user']['name']     = get_lang('Users');
-$def_class_list['tool']['name']     = get_lang('Course tools');
-$def_class_list['auth']['name']     = get_lang('Authentication');
-$def_class_list['groups']['name']   = get_lang('Groups');
-$def_class_list['kernel']['name']   = get_lang('Kernel');
-$def_class_list['others']['name']   = get_lang('Others');
+$def_class_list['platform']['name'] = 'Platform';
+$def_class_list['course']['name']   = 'Course';
+$def_class_list['user']['name']     = 'User';
+$def_class_list['tool']['name']     = 'Tool';
+$def_class_list['others']['name']   = 'Others';
 
 $def_list = get_config_code_class_list();
 
@@ -88,7 +85,7 @@ foreach (array_keys($def_class_list) as $def_class )
  * Display
  */
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include $includePath . '/claro_init_header.inc.php';
 
 // display tool title
 
@@ -100,9 +97,7 @@ if ( is_array($def_class_list) )
     {
         if ( isset($class_def_list['conf']) && is_array($class_def_list['conf']) )
         {
-            $sectionName = $class_def_list['name'];
-
-            echo '<h4>' . $sectionName . '</h4>' . "\n";
+            echo '<h4>' . $class_def_list['name'] . '</h4>' . "\n";
 
             asort($class_def_list['conf']);
 
@@ -111,7 +106,7 @@ if ( is_array($def_class_list) )
             {
                 echo '<li>'
                 .    '<a href="' . $urlEditConf . '?config_code=' . $code .'">'
-                .    get_lang($name)
+                .    $name
                 .    '</a>'
                 .    '</li>' . "\n"
                 ;
@@ -122,6 +117,6 @@ if ( is_array($def_class_list) )
 }
 
 // Display footer
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 
 ?>

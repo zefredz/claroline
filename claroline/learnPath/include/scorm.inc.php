@@ -49,7 +49,7 @@ if( isset($learningPath_module[0]['lock'])
     && isset($learningPath_module[0]['raw_to_pass']) ) // this module blocks the user if he doesn't complete
 {
     echo "\n\n" . '<hr noshade="noshade" size="1" />' . "\n"
-    .    '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
+    .    '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
     .    '<label for="newRaw">' . get_lang('Change minimum raw mark to pass this module (percentage) : ') . '</label>'."\n"
     .    '<input type="text" value="' . htmlspecialchars($learningPath_module[0]['raw_to_pass']) . '" name="newRaw" id="newRaw" size="3" maxlength="3" /> % ' . "\n"
     .    '<input type="submit" value="' . get_lang('Ok') . '" />'."\n"

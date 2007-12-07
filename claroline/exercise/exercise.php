@@ -13,10 +13,10 @@
  */
 
 $tlabelReq = 'CLQWZ';
-
+ 
 require '../inc/claro_init_global.inc.php';
 
-if ( !claro_is_in_a_course() || !claro_is_course_allowed() ) claro_disp_auth_form(true);
+if ( !$_cid || !$is_courseAllowed ) claro_disp_auth_form(true);
 
 claro_set_display_mode_available(true);
 
@@ -24,112 +24,53 @@ $is_allowedToEdit = claro_is_allowed_to_edit();
 $is_allowedToTrack = claro_is_allowed_to_edit() && get_conf('is_trackingEnabled');
 
 // tool libraries
-include_once './lib/exercise.class.php';
-include_once './lib/exercise.lib.php';
+include_once './lib/exercise.class.php'; 
 
 // claroline libraries
-include_once get_path('incRepositorySys').'/lib/pager.lib.php';
+include_once $includePath.'/lib/pager.lib.php';
 
 /*
  * DB tables definition
  */
-
+ 
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_quiz_exercise = $tbl_cdb_names['qwz_exercise'];
 
 $tbl_lp_module = $tbl_cdb_names['lp_module'];
 $tbl_lp_asset = $tbl_cdb_names['lp_asset'];
 
-// session cleaning to prevent sessions clashes
+event_access_tool($_tid, $_courseTool['label']);
+
+
+/*
+ * Execute commands
+ */
 unset($_SESSION['serializedExercise']);
 unset($_SESSION['serializedQuestionList']);
 unset($_SESSION['exeStartTime']);
 
+// prevent inPathMode to be used when browsing an exercise in the exercise tool
 $_SESSION['inPathMode'] = false;
 
-// init request vars
+
 if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
 else                           $cmd = null;
 
-if( isset($_REQUEST['exId']) && is_numeric($_REQUEST['exId']) ) $exId = (int) $_REQUEST['exId'];
-else                                                            $exId = null;
-
-// init other vars
-$maxFilledSpace = 100000000;
-$courseDir = get_path('coursesRepositorySys') . claro_get_current_course_data('path');
-
-$dialogBox = new DialogBox();
-
-if( $is_allowedToEdit && !is_null($cmd) )
+// each command require exId
+if( $is_allowedToEdit && !is_null($cmd) && isset($_REQUEST['exId']) && is_numeric($_REQUEST['exId']) )
 {
-    //-- import
-    if( $cmd == 'exImport')
-    {
-        require_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
-        require_once get_path('incRepositorySys') . '/lib/fileDisplay.lib.php';
-        require_once get_path('incRepositorySys') . '/lib/fileUpload.lib.php';
-        require_once get_path('incRepositorySys') . '/lib/file.lib.php';
-
-        require_once './export/exercise_import.inc.php';
-        require_once './lib/question.class.php';
-        require_once './export/qti2/qti2_classes.php';
-        require_once get_path('incRepositorySys') . '/lib/backlog.class.php';
-
-        if ( !isset($_FILES['uploadedExercise']['name']) )
-        {
-            $dialogBox->error( get_lang('Error : no file uploaded') );
-        }
-        else
-        {
-            $backlog = new Backlog();
-            $importedExId = import_exercise($_FILES['uploadedExercise']['name'], $backlog);
-
-            if( $importedExId )
-            {
-                $dialogBox->success( '<strong>' . get_lang('Import done') . '</strong>' );
-            }
-            else
-            {
-                $dialogBox->error( '<strong>' . get_lang('Import failed') . '</strong>' );
-                $cmd = 'rqImport';
-            }
-            $dialogBox->info( $backlog->output() );
-        }
-    }
-
-    if( $cmd == 'rqImport' )
-    {
-        require_once get_path('incRepositorySys') . '/lib/fileDisplay.lib.php';
-        require_once get_path('incRepositorySys') . '/lib/fileUpload.lib.php';
-
-        $dialogBox->form("\n"
-        .            '<strong>' . get_lang('Import exercise') . '</strong><br />' . "\n"
-        .            get_lang('Imported exercises must be an ims-qti zip file.') . '<br />' . "\n"
-        .            '<form enctype="multipart/form-data" action="./exercise.php" method="post">' . "\n"
-        .            '<input type="hidden" name="claroFormId" value="'.uniqid('').'">'."\n"
-        .            '<input name="cmd" type="hidden" value="exImport" />' . "\n"
-        .            '<input name="uploadedExercise" type="file" /><br />' . "\n"
-        .            '<small>' . get_lang('Max file size') .  ' : ' . format_file_size( get_max_upload_size($maxFilledSpace,$courseDir) ) . '</small>' . "\n"
-        .            '<p>' . "\n"
-        .            '<input value="' . get_lang('Import exercise') . '" type="submit" /> ' . "\n"
-        .            claro_html_button( './exercise.php', get_lang('Cancel'))
-        .            '</p>' . "\n"
-        .            '</form>' );
-    }
-
-    //-- export
-    if( $cmd == 'exExport' && get_conf('enableExerciseExportQTI') && $exId )
-    {
-        include_once './lib/question.class.php';
-
-        require_once './export/qti2/qti2_export.php';
-        require_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
-        require_once get_path('incRepositorySys') . '/lib/file.lib.php';
+	//-- export
+	if( $_REQUEST['cmd'] == 'exExport' && get_conf('enableExerciseExportQTI') )
+	{
+		include_once './lib/question.class.php';
+		 
+		include('./export/qti2/qti2_export.php');
+        include_once $includePath.'/lib/fileManage.lib.php';
 
         //find exercise informations
-
+        
         $exercise= new Exercise();
-        $exercise->load($exId);
+        $exercise->load($_REQUEST['exId']);
         $questionList = $exercise->getQuestionList();
 
         $filePathList = array();
@@ -145,115 +86,139 @@ if( $is_allowedToEdit && !is_null($cmd) )
             // contruction of XML flow
             $xml = export_question($quId);
 
-            // remove trailing slash
-            if( substr($questionObj->questionDirSys, -1) == '/' )
-            {
-                $questionObj->questionDirSys = substr($questionObj->questionDirSys, 0, -1);
-            }
-
             //save question xml file
-            if( !file_exists($questionObj->questionDirSys) )
+            if (!file_exists($questionObj->questionDirSys))
             {
-                claro_mkdir($questionObj->questionDirSys,CLARO_FILE_PERMISSIONS);
+                claro_mkdir($questionObj->questionDirSys);
+            }
+            $handle = fopen($questionObj->questionDirSys."question_".$quId.".xml", 'w');
+            fwrite($handle, $xml);
+            fclose($handle);
+
+            // prepare list of file to put in archive
+
+            // do not take the last char if it is a '/'
+
+            $lastChar = $questionObj->questionDirSys{(strlen($questionObj->questionDirSys)-1)};
+            if ($lastChar == "/")
+            {
+                $questionObj->questionDirSys = substr($questionObj->questionDirSys,0,-1);
             }
 
-            if( $fp = @fopen($questionObj->questionDirSys."/question_".$quId.".xml", 'w') )
-            {
-                fwrite($fp, $xml);
-                fclose($fp);
-            }
-            else
-            {
-                // interrupt process
-            }
-
-            // list of dirs to add in archive
-            $filePathList[] = $questionObj->questionDirSys;
+            $array_file_question = array($questionObj->questionDirSys);
+            $filePathList = array_merge($filePathList, $array_file_question);
         }
 
-        if( !empty($filePathList) )
+        /*
+         * BUILD THE ZIP ARCHIVE
+         */
+
+        require_once $includePath . '/lib/pclzip/pclzip.lib.php';
+
+        //prepare zip
+
+        $downloadPlace = claro_get_data_path(array(CLARO_CONTEXT_COURSE=>$_cid, CLARO_CONTEXT_TOOLLABEL=>'CLQWZ' ));
+        $downloadArchivePath = $downloadPlace.'/'.uniqid(true).'.zip';
+        $downloadArchiveName = basename($exercise->title).'.zip';
+        $downloadArchiveName = str_replace('/', '', $downloadArchiveName);
+        
+        $downloadArchive     = new PclZip($downloadArchivePath);
+        $downloadArchive->add($filePathList,
+                          PCLZIP_OPT_REMOVE_PATH,
+                          $downloadPlace);
+
+        if ( file_exists($downloadArchivePath) )
         {
-            require_once get_path('incRepositorySys') . '/lib/pclzip/pclzip.lib.php';
 
-            // build and send the zip
-            // TODO use $courseDir ?
-
-            if( sendZip($exercise->title, $filePathList, get_conf('coursesRepositorySys').claro_get_current_course_data('path') . '/exercise/' ) )
-            {
-                exit();
-            }
-            else
-            {
-                $dialogBox->error( get_lang("Unable to create zip file") );
-            }
+            $downloadArchiveSize = filesize($downloadArchivePath);
+    
+            /*
+            * SEND THE ZIP ARCHIVE FOR DOWNLOAD
+            */
+            
+            header('Expires: Wed, 01 Jan 1990 00:00:00 GMT');
+            header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
+            header('Cache-Control: no-cache, must-revalidate');
+            header('Pragma: no-cache');
+            header('Content-type: application/zip');
+            header('Content-Length: '.$downloadArchiveSize);
+            header('Content-Disposition: attachment; filename="'.$downloadArchiveName.'";');
+            readfile($downloadArchivePath);
+            unlink($downloadArchivePath);
+            exit();
         }
-    }
+        else
+        {
+            $dialogBox .= get_lang("Unable to create zip file");
+        }
 
-    //-- delete
-    if( $cmd == 'exDel' && $exId )
-    {
-        $exercise = new Exercise();
-        $exercise->load($exId);
-
-        $exercise->delete();
+	}
+	
+	//-- delete
+	if( $_REQUEST['cmd'] == 'exDel' )
+	{
+		$exercise = new Exercise();
+		$exercise->load($_REQUEST['exId']);
+		
+		$exercise->delete();
 
         //notify manager that the exercise is deleted
+                                
+        $eventNotifier->notifyCourseEvent("exercise_deleted",$_cid, $_tid, $_REQUEST['exId'], $_gid, "0");
 
-        $eventNotifier->notifyCourseEvent("exercise_deleted",claro_get_current_course_id(), claro_get_current_tool_id(), $exId, claro_get_current_group_id(), "0");
-
-    }
-
-    //-- change visibility
-    if( $cmd == 'exMkVis' && $exId )
-    {
-        Exercise::updateExerciseVisibility($exId,'VISIBLE');
-        $eventNotifier->notifyCourseEvent("exercise_visible",claro_get_current_course_id(), claro_get_current_tool_id(), $exId, claro_get_current_group_id(), "0");
-    }
-
-    if( $cmd == 'exMkInvis' && $exId )
-    {
-        Exercise::updateExerciseVisibility($exId,'INVISIBLE');
-        $eventNotifier->notifyCourseEvent("exercise_invisible",claro_get_current_course_id(), claro_get_current_tool_id(), $exId, claro_get_current_group_id(), "0");
-    }
+	}
+		
+	//-- change visibility
+	if( $_REQUEST['cmd'] == 'exMkVis' )
+	{
+		Exercise::updateExerciseVisibility($_REQUEST['exId'],'VISIBLE');
+        $eventNotifier->notifyCourseEvent("exercise_visible",$_cid, $_tid, $_REQUEST['exId'], $_gid, "0");
+	}
+	
+	if( $_REQUEST['cmd'] == 'exMkInvis' )
+	{
+		Exercise::updateExerciseVisibility($_REQUEST['exId'],'INVISIBLE');
+        $eventNotifier->notifyCourseEvent("exercise_invisible",$_cid, $_tid, $_REQUEST['exId'], $_gid, "0");
+	}
 }
 
 /*
  * Get list
  */
 // pager initialisation
-if( !isset($_REQUEST['offset']) )    $offset = 0;
-else                                $offset = $_REQUEST['offset'];
+if( !isset($_REQUEST['offset']) )	$offset = 0;
+else								$offset = $_REQUEST['offset'];
 
 // prepare query
 if($is_allowedToEdit)
 {
-    // we need to check if exercise is used as a module in a learning path
-    // to display a more complete confirm message for delete aciton
-    $sql = "SELECT E.`id`, E.`title`, E.`visibility`, M.`module_id`
-              FROM `".$tbl_quiz_exercise."` AS E
-             LEFT JOIN `".$tbl_lp_asset."` AS A
-             ON (A.`path` = E.`id` OR A.`path` IS NULL)
-             LEFT JOIN `".$tbl_lp_module."` AS M
-             ON A.`module_id` = M.`module_id`
-                 AND M.`contentType` = 'EXERCISE'
-             ORDER BY `id`";
+	// we need to check if exercise is used as a module in a learning path
+	// to display a more complete confirm message for delete aciton
+	$sql = "SELECT E.`id`, E.`title`, E.`visibility`, M.`module_id` 
+			  FROM `".$tbl_quiz_exercise."` AS E
+			 LEFT JOIN `".$tbl_lp_asset."` AS A
+			 ON (A.`path` = E.`id` OR A.`path` IS NULL)
+			 LEFT JOIN `".$tbl_lp_module."` AS M 
+			 ON A.`module_id` = M.`module_id`
+			 	AND M.`contentType` = 'EXERCISE'                   
+			 ORDER BY `id`";
 }
 // only for students
 else
 {
-  if (claro_is_user_authenticated())
+  if ($_uid)
   {
-    $sql = "SELECT `id`, `title`
-              FROM `".$tbl_quiz_exercise."`
+    $sql = "SELECT `id`, `title` 
+              FROM `".$tbl_quiz_exercise."` 
               WHERE `visibility` = 'VISIBLE'
               ORDER BY `id`";
   }
   else // anonymous user
   {
-    $sql = "SELECT `id`, `title`
-              FROM `".$tbl_quiz_exercise."`
+    $sql = "SELECT `id`, `title` 
+              FROM `".$tbl_quiz_exercise."` 
               WHERE `visibility` = 'VISIBLE'
-                AND `anonymousAttempts` = 'ALLOWED'
+                AND `anonymousAttempts` = 'ALLOWED' 
               ORDER BY `id`";
   }
 }
@@ -268,172 +233,169 @@ $exerciseList = $myPager->get_result_list();
 
 $nameTools = get_lang('Exercises');
 
-$noQUERY_STRING = true;
-include(get_path('incRepositorySys').'/claro_init_header.inc.php');
-
+include($includePath.'/claro_init_header.inc.php');
+ 
 echo claro_html_tool_title($nameTools, $is_allowedToEdit ? 'help_exercise.php' : false);
-
-//-- dialogBox
-echo $dialogBox->render();
 
 //-- claroCmd
 $cmd_menu = array();
-if(get_conf('is_trackingEnabled') && claro_is_user_authenticated())
+if(get_conf('is_trackingEnabled') && $_uid)
 {
-   $cmd_menu[] = '<a class="claroCmd" href="../tracking/userLog.php?uInfo='.claro_get_current_user_id().'&amp;view=0100000">'.get_lang('My results').'</a>';
+   $cmd_menu[] = '<a class="claroCmd" href="../tracking/userLog.php?uInfo='.$_uid.'&amp;view=0100000">'.get_lang('My results').'</a>';
 }
 
 if($is_allowedToEdit)
 {
     $cmd_menu[] = '<a class="claroCmd" href="admin/edit_exercise.php?cmd=rqEdit">'.get_lang('New exercise').'</a>';
     $cmd_menu[] = '<a class="claroCmd" href="admin/question_pool.php">'.get_lang('Question pool').'</a>';
-    $cmd_menu[] = '<a class="claroCmd" href="exercise.php?cmd=rqImport">'.get_lang('Import exercise').'</a>';
+    $cmd_menu[] = '<a class="claroCmd" href="export/exercise_import.php">'.get_lang('Import exercise').'</a>';
 }
 
-echo '<p>' . claro_html_menu_horizontal($cmd_menu) . '</p>' . "\n";
+echo claro_html_menu_horizontal($cmd_menu);
 
 //-- pager
 echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
-//-- list
+//-- list 
 
 echo '<table class="claroTable emphaseLine" border="0" align="center" cellpadding="2" cellspacing="2" width="100%">' . "\n\n"
-.     '<thead>' . "\n"
-.     '<tr class="headerX">' . "\n"
-.     '<th>' . get_lang('Exercise title') . '</th>' . "\n";
+.	 '<thead>' . "\n"
+.	 '<tr class="headerX">' . "\n"
+.	 '<th>' . get_lang('Exercise title') . '</th>' . "\n";
 
 $colspan = 1;
 
 if( $is_allowedToEdit )
 {
-    echo '<th>' . get_lang('Modify') . '</th>' . "\n"
-    .     '<th>' . get_lang('Delete') . '</th>' . "\n"
-    .     '<th>' . get_lang('Visibility') . '</th>' . "\n";
-    $colspan = 4;
-
-    if( get_conf('enableExerciseExportQTI') )
+	echo '<th>' . get_lang('Modify') . '</th>' . "\n"
+	.	 '<th>' . get_lang('Delete') . '</th>' . "\n"
+	.	 '<th>' . get_lang('Visibility') . '</th>' . "\n";
+	$colspan = 4;
+		
+	if( get_conf('enableExerciseExportQTI') )
     {
-        echo '<th>' . get_lang('Export') . '</th>' . "\n";
-        $colspan++;
+		echo '<th>' . get_lang('Export') . '</th>' . "\n";
+		$colspan++;
     }
-
+    
     if( $is_allowedToTrack )
     {
-        echo '<th>' . get_lang('Statistics') . '</th>' . "\n";
-        $colspan++;
+    	echo '<th>' . get_lang('Statistics') . '</th>' . "\n";
+    	$colspan++;
     }
 }
 
 echo '</tr>' . "\n"
-.     '</thead>' . "\n\n"
-.     '<tbody>' . "\n\n";
+.	 '</thead>' . "\n\n"
+.	 '<tbody>' . "\n\n";
 
-if( claro_is_user_authenticated() ) $notificationDate = $claro_notifier->get_notification_date(claro_get_current_user_id());
+if( isset($_uid) ) $notificationDate = $claro_notifier->get_notification_date($_uid);
 
 if( !empty($exerciseList) )
 {
-    foreach( $exerciseList as $anExercise )
-    {
-        if( $is_allowedToEdit && $anExercise['visibility'] == 'INVISIBLE' )
-        {
-            $invisibleClass = ' class="invisible"';
-        }
-        else
-        {
-            $invisibleClass = '';
-        }
-
-        //modify style if the file is recently added since last login
-        if( claro_is_user_authenticated() && $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $notificationDate, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $anExercise['id']) )
-        {
-            $appendToStyle = ' hot';
-        }
-        else
-        {
-            $appendToStyle = '';
-        }
-
-        echo '<tr'.$invisibleClass.'>' . "\n"
-        .     '<td>'
-        .     '<a href="exercise_submit.php?exId='.$anExercise['id'].'" class="item'.$appendToStyle.'">'
-        .     '<img src="' . get_path('imgRepositoryWeb') . '/quiz.gif" alt="" />'
-        .     $anExercise['title']
-        .     '</a>'
-        .     '</td>' . "\n";
-
-        if( $is_allowedToEdit )
-        {
-            echo '<td align="center">'
-            .     '<a href="admin/edit_exercise.php?exId='.$anExercise['id'].'">'
-            .     '<img src="'. get_path('imgRepositoryWeb') . '/edit.gif" border="0" alt="'.get_lang('Modify').'" />'
-            .     '</a>'
-            .     '</td>' . "\n";
-
-            $confirmString = '';
-            if( !is_null($anExercise['module_id']) )
-            {
-                $confirmString .= get_block('blockUsedInSeveralPath') . " ";
-            }
-            $confirmString .= get_lang('Are you sure you want to delete this exercise ?');
-
-            echo '<td align="center">'
-            .     '<a href="exercise.php?exId='.$anExercise['id'].'&amp;cmd=exDel" onclick="javascript:if(!confirm(\''.clean_str_for_javascript($confirmString).'\')) return false;">'
-            .     '<img src="' . get_path('imgRepositoryWeb') . '/delete.gif" border="0" alt="'.get_lang('Delete').'" />'
-            .     '</a>'
-            .     '</td>' . "\n";
-
-            if( $anExercise['visibility'] == 'VISIBLE' )
-            {
-                echo '<td align="center">'
-                .     '<a href="exercise.php?exId='.$anExercise['id'].'&amp;cmd=exMkInvis">'
-                .     '<img src="' . get_path('imgRepositoryWeb') . '/visible.gif" border="0" alt="'.get_lang('Make invisible').'" />'
-                .     '</a>'
-                .     '</td>' . "\n";
-            }
-            else
-            {
-                echo '<td align="center">'
-                .     '<a href="exercise.php?exId='.$anExercise['id'].'&amp;cmd=exMkVis">'
-                .     '<img src="' . get_path('imgRepositoryWeb') . '/invisible.gif" border="0" alt="'.get_lang('Make visible').'" />'
-                .     '</a>'
-                .     '</td>' . "\n";
-            }
-
-            if( get_conf('enableExerciseExportQTI') )
-            {
-                echo '<td align="center">'
-                .     '<a href="exercise.php?exId='.$anExercise['id'].'&amp;cmd=exExport">'
-                .     '<img src="' . get_path('imgRepositoryWeb') . '/export.gif" border="0" alt="'.get_lang('Export').'" />'
-                .     '</a>'
-                .     '</td>' . "\n";
-            }
-
-            if( $is_allowedToTrack )
-            {
-                echo '<td align="center">'
-                .     '<a href="../tracking/exercises_details.php?exId='.$anExercise['id'].'&amp;src=ex">'
-                .     '<img src="' . get_path('imgRepositoryWeb') . '/statistics.gif" border="0" alt="'.get_lang('Statistics').'" />'
-                .     '</a>'
-                .     '</td>' . "\n";
-            }
-        }
-
-        echo '</tr>' . "\n\n";
-    }
+	foreach( $exerciseList as $anExercise )
+	{
+		if( $is_allowedToEdit && $anExercise['visibility'] == 'INVISIBLE' )
+		{
+			$invisibleClass = ' class="invisible"'; 
+		}
+		else
+		{
+			$invisibleClass = '';	
+		}
+		
+		//modify style if the file is recently added since last login
+	    if( isset($_uid) && $claro_notifier->is_a_notified_ressource($_cid, $notificationDate, $_uid, $_gid, $_tid, $anExercise['id']) )
+	    {
+	        $appendToStyle = ' hot';
+	    }
+	    else
+	    {
+	        $appendToStyle = '';
+	    }
+	    
+		echo '<tr'.$invisibleClass.'>' . "\n"
+		.	 '<td>'
+		.	 '<a href="exercise_submit.php?exId='.$anExercise['id'].'" class="item'.$appendToStyle.'">'
+		.	 '<img src="'.$imgRepositoryWeb.'quiz.gif" alt="" />'
+		.	 $anExercise['title'] 
+		.	 '</a>'
+		.	 '</td>' . "\n";
+		
+		if( $is_allowedToEdit )
+		{
+			echo '<td align="center">'
+			.	 '<a href="admin/edit_exercise.php?exId='.$anExercise['id'].'">'
+			.	 '<img src="'.$clarolineRepositoryWeb.'img/edit.gif" border="0" alt="'.get_lang('Modify').'" />'
+			.	 '</a>'
+			.	 '</td>' . "\n";
+			
+			$confirmString = '';
+			if( !is_null($anExercise['module_id']) )
+			{
+				$confirmString .= get_block('blockUsedInSeveralPath') . " ";
+			}
+			$confirmString .= get_lang('Are you sure you want to delete this exercise ?');
+			
+			echo '<td align="center">'
+			.	 '<a href="exercise.php?exId='.$anExercise['id'].'&amp;cmd=exDel" onclick="javascript:if(!confirm(\''.clean_str_for_javascript($confirmString).'\')) return false;">'
+			.	 '<img src="'.$clarolineRepositoryWeb.'img/delete.gif" border="0" alt="'.get_lang('Delete').'" />'
+			.	 '</a>'
+			.	 '</td>' . "\n";
+			
+			if( $anExercise['visibility'] == 'VISIBLE' )
+			{
+				echo '<td align="center">'
+				.	 '<a href="exercise.php?exId='.$anExercise['id'].'&amp;cmd=exMkInvis">'
+				.	 '<img src="'.$clarolineRepositoryWeb.'img/visible.gif" border="0" alt="'.get_lang('Make invisible').'" />'
+				.	 '</a>'
+				.	 '</td>' . "\n";
+			}
+			else
+			{
+				echo '<td align="center">'
+				.	 '<a href="exercise.php?exId='.$anExercise['id'].'&amp;cmd=exMkVis">'
+				.	 '<img src="'.$clarolineRepositoryWeb.'img/invisible.gif" border="0" alt="'.get_lang('Make visible').'" />'
+				.	 '</a>'
+				.	 '</td>' . "\n";
+			}
+			
+			if( get_conf('enableExerciseExportQTI') )
+		    {
+				echo '<td align="center">'
+				.	 '<a href="exercise.php?exId='.$anExercise['id'].'&amp;cmd=exExport">'
+				.	 '<img src="'.$clarolineRepositoryWeb.'img/export.gif" border="0" alt="'.get_lang('Export').'" />'
+				.	 '</a>'
+				.	 '</td>' . "\n";				
+		    }
+		    
+		    if( $is_allowedToTrack )
+		    {
+		    	echo '<td align="center">'
+				.	 '<a href="../tracking/exercises_details.php?exId='.$anExercise['id'].'&amp;src=ex">'
+				.	 '<img src="'.$clarolineRepositoryWeb.'img/statistics.gif" border="0" alt="'.get_lang('Statistics').'" />'
+				.	 '</a>'
+				.	 '</td>' . "\n";
+		    }
+		}
+		
+		echo '</tr>' . "\n\n";
+	}
 }
 else
 {
-    echo '<tr>' . "\n"
-    .     '<td colspan="'.$colspan.'">' . get_lang('Empty') . '</td>' . "\n"
-    .     '</tr>' . "\n\n";
+	echo '<tr>' . "\n"
+	.	 '<td colspan="'.$colspan.'">' . get_lang('Empty') . '</td>' . "\n"
+	.	 '</tr>' . "\n\n";	
 }
 
 echo '</tbody>' . "\n\n"
-.     '</table>' . "\n\n";
+.	 '</table>' . "\n\n";
 
 //-- pager
 echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 
-include(get_path('incRepositorySys').'/claro_init_footer.inc.php');
+include($includePath.'/claro_init_footer.inc.php');
 ?>
+

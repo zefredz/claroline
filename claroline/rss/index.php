@@ -6,7 +6,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -17,11 +17,10 @@
  * @author Claro Team <cvs@claroline.net>
  * @author Christophe Gesché <moosh@claroline.net>
  */
- 
-die("rss/index.php is deprecated, use backends/rss.php instead");
 
 $_course = array();
 $siteName ='';
+$is_courseAllowed = false;
 require '../inc/claro_init_global.inc.php';
 include claro_get_conf_repository() . 'rss.conf.php';
 
@@ -33,22 +32,19 @@ if ( ! get_conf('enableRssInCourse') )
     exit;
 }
 
-// need to be in a course
-if( ! claro_is_in_a_course() )
+if(!$_cid)
 {
-    echo '<form >cidReq = <input name="cidReq" type="text" /><input type="submit" /></form>';
-    exit;
+    die( '<form >cidReq = <input name="cidReq" type="text" ><input type="submit"></form>');
 }
-else
-{
-if ( !$_course['visibility'] && !claro_is_course_allowed() )
+
+if ( !$_course['visibility'] && !$is_courseAllowed )
 {
     if (!isset($_SERVER['PHP_AUTH_USER']))
     {
         header('WWW-Authenticate: Basic realm="'. get_lang('Rss feed for %course', array('%course' => $_course['name']) ) . '"');
         header('HTTP/1.0 401 Unauthorized');
         echo '<h2>' . get_lang('You need to be authenticated with your %sitename account', array('%sitename'=>$siteName) ) . '</h2>'
-        .    '<a href="index.php?cidReq=' . claro_get_current_course_id() . '">' . get_lang('Retry') . '</a>'
+        .    '<a href="index.php?cidReq=' . $_cid . '">' . get_lang('Retry') . '</a>'
         ;
         exit;
     }
@@ -65,12 +61,12 @@ if ( !$_course['visibility'] && !claro_is_course_allowed() )
             $_REQUEST['password'] = $_SERVER['PHP_AUTH_PW'] ;
         }
         require '../inc/claro_init_local.inc.php';
-        if (!$_course['visibility'] && !claro_is_course_allowed())
+        if (!$_course['visibility'] && !$is_courseAllowed)
         {
             header('WWW-Authenticate: Basic realm="'. get_lang('Rss feed for %course', array('%course' => $_course['name']) ) .'"');
             header('HTTP/1.0 401 Unauthorized');
             echo '<h2>' . get_lang('You need to be authenticated with your %sitename account', array('%sitename'=>$siteName) ) . '</h2>'
-            .    '<a href="index.php?cidReq=' . claro_get_current_course_id() . '">' . get_lang('Retry') . '</a>'
+            .    '<a href="index.php?cidReq=' . $_cid . '">' . get_lang('Retry') . '</a>'
             ;
             exit;
         }
@@ -78,9 +74,9 @@ if ( !$_course['visibility'] && !claro_is_course_allowed() )
 }
 
 // OK TO SEND FEED
-include get_path('incRepositorySys') . '/lib/rss.write.lib.php';
+include $includePath . '/lib/rss.write.lib.php';
 
-header('Content-type: text/xml; charset=utf-8');
-readfile (build_rss(array('course' => claro_get_current_course_id())));
-}
+header('Content-type: text/xml;');
+readfile (build_rss(array('course' => $_cid)));
+
 ?>

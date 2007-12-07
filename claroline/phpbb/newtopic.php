@@ -25,22 +25,28 @@ $tlabelReq = 'CLFRM';
 
 require '../inc/claro_init_global.inc.php';
 
-if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
+if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 
 claro_set_display_mode_available(true);
+
+/*-----------------------------------------------------------------
+  Stats
+ -----------------------------------------------------------------*/
+
+event_access_tool($_tid, $_courseTool['label']);
 
 /*-----------------------------------------------------------------
   Library
  -----------------------------------------------------------------*/
 
-include_once get_path('incRepositorySys') . '/lib/forum.lib.php';
+include_once $includePath . '/lib/forum.lib.php';
 
 // variables
 
 $allowed = TRUE;
 $error = FALSE;
 
-$dialogBox = new DialogBox();
+$error_message = '';
 $pagetype =  'newtopic';
 
 /*=================================================================
@@ -71,13 +77,13 @@ $message = preg_replace( '/<script[^\>]*>|<\/script>|(onabort|onblur|onchange|on
 $forumSettingList = get_forum_settings($forum_id);
 
 $is_allowedToEdit = claro_is_allowed_to_edit()
-                    || (  claro_is_group_tutor() && !claro_is_course_manager());
-                    // (  claro_is_group_tutor()
+                    || ( $is_groupTutor && !$is_courseAdmin);
+                    // ( $is_groupTutor
                     //  is added to give admin status to tutor
-                    // && !claro_is_course_manager())
+                    // && !$is_courseAdmin)
                     // is added  to let course admin, tutor of current group, use student mode
 
-if ( ! claro_is_user_authenticated() || ! claro_is_in_a_course() )
+if ( ! $_uid || ! $_cid )
 {
     claro_disp_auth_form(true);
 }
@@ -95,15 +101,15 @@ elseif ( $forumSettingList )
      */
 
     if ( ! $forum_post_allowed
-        || ( ! is_null($forumSettingList['idGroup'])
-            && ( !claro_is_in_a_group() || ! claro_is_group_allowed() || $forumSettingList['idGroup'] != claro_get_current_group_id() ) ) )
+        || (    ! is_null($forumSettingList['idGroup'])
+            && ( $forumSettingList['idGroup'] != $_gid || ! $is_groupAllowed) ) )
     {
-        // NOTE : $forumSettingList['idGroup'] != claro_get_current_group_id() is necessary to prevent any hacking
+        // NOTE : $forumSettingList['idGroup'] != $_gid is necessary to prevent any hacking
         // attempt like rewriting the request without $cidReq. If we are in group
         // forum and the group of the concerned forum isn't the same as the session
         // one, something weird is happening, indeed ...
         $allowed = FALSE;
-        $dialogBox->error( get_lang('Not allowed') );
+        $error_message = get_lang('Not allowed') ;
     }
     else
     {
@@ -124,8 +130,8 @@ elseif ( $forumSettingList )
             $message = trim($message);
 
             // USER
-            $userLastname  = claro_get_current_user_data('lastName');
-            $userFirstname = claro_get_current_user_data('firstName');
+            $userLastname  = $_user['lastName'];
+            $userFirstname = $_user['firstName'];
             $poster_ip     = $_SERVER['REMOTE_ADDR'];
 
             $time = date('Y-m-d H:i');
@@ -133,21 +139,21 @@ elseif ( $forumSettingList )
             // prevent to go further if the fields are actually empty
             if ( strip_tags($message) == '' || $subject == '' )
             {
-                $dialogBox->error( get_lang('You cannot post an empty message') );
+                $error_message = get_lang('You cannot post an empty message');
                 $error = TRUE;
             }
 
             if ( !$error )
             {
                 // record new topic
-                $topic_id = create_new_topic($subject, $time, $forum_id, claro_get_current_user_id(), $userFirstname, $userLastname);
+                $topic_id = create_new_topic($subject, $time, $forum_id, $_uid, $userFirstname, $userLastname);
                 if ( $topic_id )
                 {
-                    create_new_post($topic_id, $forum_id, claro_get_current_user_id(), $time, $poster_ip, $userLastname, $userFirstname, $message);
+                    create_new_post($topic_id, $forum_id, $_uid, $time, $poster_ip, $userLastname, $userFirstname, $message);
                 }
                 // notify eventmanager that a new message has been posted
 
-                $eventNotifier->notifyCourseEvent('forum_new_topic',claro_get_current_course_id(), claro_get_current_tool_id(), $forum_id."-".$topic_id, claro_get_current_group_id(), 0);
+                $eventNotifier->notifyCourseEvent('forum_new_topic',$_cid, $_tid, $forum_id."-".$topic_id, $_gid, 0);
 
             }
 
@@ -158,7 +164,7 @@ else
 {
     // forum doesn't exists
     $allowed = false;
-    $dialogBox->error( get_lang('Not allowed') );
+    $error_message = get_lang('Not allowed');
 }
 
 /*=================================================================
@@ -168,14 +174,15 @@ else
 $interbredcrump[] = array ('url' => 'index.php', 'name' => get_lang('Forums'));
 $noPHP_SELF       = true;
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include $includePath . '/claro_init_header.inc.php';
 
 // display tool title
 echo claro_html_tool_title(get_lang('Forums'), $is_allowedToEdit ? 'help_forum.php' : false);
 
 if ( ! $allowed )
 {
-	echo $dialogBox->render();
+    // not allowed
+    echo claro_html_message_box($error_message);
 }
 else
 {
@@ -192,24 +199,24 @@ else
         if ( $error )
         {
             // display error message
-            echo $dialogBox->render();
+            echo claro_html_message_box($error_message);
         }
+        
+        echo disp_forum_breadcrumb($pagetype, $forum_id, $forum_name);
 
-        echo disp_forum_breadcrumb($pagetype, $forum_id, $forum_name)
-        .    claro_html_menu_horizontal(disp_forum_toolbar($pagetype, $forum_id, 0, 0))
+        echo disp_forum_toolbar($pagetype, $forum_id, 0, 0);
 
+        echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
+         . '<input type="hidden" name="forum" value="' . $forum_id . '" />' . "\n"
 
-        .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
-        .    '<input type="hidden" name="forum" value="' . $forum_id . '" />' . "\n"
+         . '<table border="0">' . "\n"
+         . '<tr valign="top">' . "\n"
+         . '<td align="right"><label for="subject">' . get_lang('Subject') . '</label> : </td>'
+         . '<td><input type="text" name="subject" id="subject" size="50" maxlength="100" value="' . htmlspecialchars($subject) . '" /></td>'
+         . '<tr  valign="top">' . "\n"
+         . '<td align="right"><br />' . get_lang('Message body') . ' :</td>';
 
-        .    '<table border="0" width="100%">' . "\n"
-        .    '<tr valign="top">' . "\n"
-        .    '<td align="right"><label for="subject">' . get_lang('Subject') . '</label> : </td>'
-        .    '<td><input type="text" name="subject" id="subject" size="50" maxlength="100" value="' . htmlspecialchars($subject) . '" /></td>'
-        .    '<tr  valign="top">' . "\n"
-        .    '<td align="right"><br />' . get_lang('Message body') . ' :</td>';
-
-        if ( !empty($message) ) $content = $message;
+        if ( !empty($message) ) $content = htmlspecialchars($message);
         else                    $content = '';
 
         echo '<td>'
@@ -229,5 +236,6 @@ else
   Display Forum Footer
  -----------------------------------------------------------------*/
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
+
 ?>

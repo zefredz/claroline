@@ -25,7 +25,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 $conf_def['config_code'] = 'CLDOC';
 $conf_def['config_file'] = 'CLDOC.conf.php';
-$conf_def['config_name'] = 'Documents and Links';
+$conf_def['config_name'] = 'Documents and Links tool';
 $conf_def['config_class']= 'tool';
 
 // CONFIG SECTIONS
@@ -87,7 +87,7 @@ $conf_def_property_list['thumbnailWidth']
 
 $conf_def_property_list['numberOfRows']
 = array ('label'     => 'Number of rows'
-        ,'description' => 'Number of rows displayed per page'
+        ,'description' => 'Number of rows displayed per pages'
         ,'default'   => '3'
         ,'unit'      => 'rows'
         ,'type'      => 'integer'
@@ -97,7 +97,7 @@ $conf_def_property_list['numberOfRows']
 
 $conf_def_property_list['numberOfCols']
 = array ('label'     => 'Number of columns'
-        ,'description' => 'Number of columns displayed per page'
+        ,'description' => 'Number of columns displayed per pages'
         ,'default'   => '4'
         ,'unit'      => 'columns'
         ,'type'      => 'integer'

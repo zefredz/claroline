@@ -125,7 +125,7 @@ class Assignment
 	    $this->submissionType = 'FILE';
 	    $this->allowLateUpload = 'YES';
 	    $this->startDate = time(); // now as unix timestamp
-	    $this->endDate = strtotime("+1 year"); // one year later
+	    $this->endDate = time() + 31536000; // one year later
 	    $this->autoFeedbackText = '';
 	    $this->autoFeedbackFilename = '';
 	    $this->autoFeedbackSubmitMethod = 'ENDDATE';
@@ -431,7 +431,7 @@ class Assignment
      * @return array
      * @TODO get the full list is authId is not specified (submissions and feedback for all authors)
      */
-    function getSubmissionList($authId)
+    function getSubmissionList($authId, $course_id = null)
     {
     	if( $this->assignmentType == 'GROUP' )
     		$authCondition = '`group_id` = '.(int) $authId;
@@ -453,8 +453,10 @@ class Assignment
      */
 	function buildDirPaths()
 	{
-        $this->assigDirSys = get_conf('coursesRepositorySys').claro_get_course_path().'/'.'work/assig_'.$this->id.'/';
-        $this->assigDirWeb = get_conf('coursesRepositoryWeb').claro_get_course_path().'/'.'work/assig_'.$this->id.'/';
+		global $_course;
+
+		$this->assigDirSys = get_conf('coursesRepositorySys').$_course['path'].'/'.'work/assig_'.$this->id.'/';
+		$this->assigDirWeb = get_conf('coursesRepositoryWeb').$_course['path'].'/'.'work/assig_'.$this->id.'/';
 	}
 
 	/**
@@ -746,7 +748,7 @@ class Assignment
 	{
 		return $this->assigDirWeb;
 	}
-
+	
 	/**
 	 * check if the user can upload a submission at this date
 	 *
@@ -756,11 +758,11 @@ class Assignment
 	function isUploadDateOk()
 	{
 		$now = time();
-
+		
 		$assignmentStarted = (bool) ( $this->startDate <= $now );
 		$assignmentNotFinished = (bool) ( $now < $this->endDate );
-		$canUploadAfterEnd = (bool) ( $this->allowLateUpload == 'YES' );
-
+		$canUploadAfterEnd = (bool) $this->allowLateUpload == 'YES';
+		
 		return (bool) $assignmentStarted && ( $assignmentNotFinished || $canUploadAfterEnd );
 	}
 }

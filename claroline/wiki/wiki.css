@@ -1,23 +1,12 @@
-.wiki2xhtml{
-    margin-left: 5px;
-}
-/* .wiki2xhtml h1{
+.wikiTitle h1{
     color: Black;
     background: none;
     font-size: 200%;
     font-weight: bold;
     border-bottom: 2px solid #aaaaaa;
-}*/
-.wiki2xhtml h1 {
-    margin: 10px 0 10px 10px;
-    padding: 0;
-    font-size: 0.9em;
-    border-bottom: 1px solid #DEDEDE;
-    color: #666666;
-    text-indent: 15px;
-    background-image: url(../css/default/arrow_blue.gif);
-    background-position: left;
-    background-repeat: no-repeat;
+}
+.wiki2xhtml{
+    margin-left: 5px;
 }
 .wiki2xhtml h2,h3,h4{
     color: Black;
@@ -42,22 +31,10 @@
     color: red;
 }
 
-.wiki2xhtml a[hreflang]:after
-{
-	content: "\0000a0[" attr(hreflang) "]"; 
-	color:#999; 
-	background:transparent;
-}
-
-.wiki2xhtml table {
+.wikiTable {
 	border: black outset 1px;
 }
-
-.wiki2xhtml table caption {
-	border: black outset 1px;
-}
-
-.wiki2xhtml table td, .wiki2xhtml table th {
+.wikiTable td {
 	border: black inset 1px;
 }
 

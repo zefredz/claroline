@@ -6,71 +6,58 @@
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-Web at http://www.gnu.org/copyleft/gpl.html
+// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
 //----------------------------------------------------------------------
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
 // This page is used to launch an event when a user click to download a document
 
-die("document/goto is deprecated, use claro_get_file_download_url( $file ) function instead");
-
 $tlabelReq = 'CLDOC';
 
 require '../../inc/claro_init_global.inc.php';
 
-require_once get_path('incRepositorySys') . '/lib/url.lib.php';
-require_once get_path('incRepositorySys') . '/lib/file.lib.php';
+require_once $includePath . '/lib/url.lib.php';
+require_once $includePath . '/lib/file.lib.php';
 
-$nameTools = get_lang('Display file');
-
-$noPHP_SELF=true;
-
-$interbredcrump[]= array ('url' => '../document.php', 'name' => get_lang('Documents and Links'));
-
-$isDownloadable = true ;
-
-if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
-
-$_course = claro_get_current_course_data();
-$_group  = claro_get_current_group_data();
-
-if ( isset($_REQUEST['url']) )
+if (isset($_REQUEST['url']) )
 {
     $requestUrl = $_REQUEST['url'];
 }
 else
 {
-    $requestUrl = get_path_info();
+    $requestUrl = stripslashes( urldecode (get_slashed_argument( get_request_uri(), 
+                                           'document/goto/index.php' ) ) );
 }
 
-if ( empty($requestUrl) )
+if ( ! $_cid) claro_disp_auth_form(true);
+
+if ($_gid)
 {
-    $isDownloadable = false ;
-    $message = get_lang('Missing parameters');
+    $groupContext  = true;
+    $courseContext = false;
+    $is_allowedToEdit = $is_groupMember || $is_groupTutor|| $is_courseAdmin;
 }
 else
 {
-    if (claro_is_in_a_group())
-    {
-        $groupContext  = true;
-        $courseContext = false;
-        $is_allowedToEdit = claro_is_group_member() ||  claro_is_group_tutor() || claro_is_course_manager();
-    }
-    else
-    {
-        $groupContext  = false;
-        $courseContext = true;
-        $is_allowedToEdit = claro_is_course_manager();
-    }
+    $groupContext  = false;
+    $courseContext = true;
+    $is_allowedToEdit = $is_courseAdmin;
+}
+
+if ( empty($requestUrl) )
+{ 
+    header('HTTP/1.1 404 Not Found'); exit; 
+}
+else
+{
 
     if ($courseContext)
     {
         $courseTblList = claro_sql_get_course_tbl();
         $tbl_document =  $courseTblList['document'];
 
-        $sql = 'SELECT visibility
-                FROM `'.$tbl_document.'`
+        $sql = 'SELECT visibility FROM `'.$tbl_document.'`
                 WHERE path = "'.addslashes($requestUrl).'"';
 
         $docVisibilityStatus = claro_sql_query_get_single_value($sql);
@@ -79,75 +66,63 @@ else
              && $docVisibilityStatus == 'i'
              && ( ! $is_allowedToEdit ) )
         {
-            $isDownloadable = false ;
-            $message = get_lang('Not allowed');
+           // header('Status: 404 Not Found'); exit; 
+           header('HTTP/1.1 404 Not Found'); exit; 
         }
-    }
-
-    if (claro_is_in_a_group() && claro_is_group_allowed())
-    {
-        $intermediatePath = claro_get_course_path(). '/group/'.claro_get_current_group_data('directory');
-    }
-    else
-    {
-        $intermediatePath = claro_get_course_path(). '/document';
-    }
-
-    if ( get_conf('secureDocumentDownload') && $GLOBALS['is_Apache'] )
-    {
-        // pretty url
-        $pathInfo = realpath(get_path('coursesRepositorySys') . $intermediatePath . '/' . $requestUrl);
-        $pathInfo = str_replace('\\', '/', $pathInfo); // OS harmonize ...
-    }
-    else
-    {
-        // TODO check if we can remove rawurldecode
-        $pathInfo = get_path('coursesRepositorySys'). $intermediatePath
-                    . implode ( '/',
-                            array_map('rawurldecode', explode('/',$requestUrl)));
-    }
-
-    if (get_conf('CLARO_DEBUG_MODE'))
-    {
-        pushClaroMessage('<p>File path : ' . $pathInfo . '</p>','pathInfo');
-    }
-
-    $pathInfo = secure_file_path( $pathInfo );
-
-    // Check if path exists in course folder
-    if ( ! file_exists($pathInfo) || is_dir($pathInfo) )
-    {
-        $isDownloadable = false ;
-
-        $message = '<h1>' . get_lang('Not found') . '</h1>' . "\n"
-            . '<p>' . get_lang('The requested file <strong>%file</strong> was not found on the platform.',
-                                array('%file' => basename($pathInfo) ) ) . '</p>' ;
     }
 }
 
-// Output section
 
-if ( $isDownloadable )
+// event_download($requestUrl);
+
+if ($_gid && $is_groupAllowed)
 {
-    if( claro_send_file( $pathInfo )  > 0 )
+    $intermediatePath = $_course['path']. '/group/'.$_group['directory'];
+}
+else
+{
+    $intermediatePath = $_course['path']. '/document';
+}
+
+if ( get_conf('secureDocumentDownload') && $GLOBALS['is_Apache'] )
+{
+    $pathInfo = realpath($coursesRepositorySys . $intermediatePath . '/' . $requestUrl);
+    $pathInfo = str_replace('\\', '/', $pathInfo); // OS harmonize ...
+}
+else
+{
+    $pathInfo = $coursesRepositorySys. $intermediatePath 
+                . implode ( '/',   
+                            array_map('rawurlencode', explode('/',$requestUrl)));
+}
+
+// Check if path exists in course folder
+
+if ( preg_match('|^'.$coursesRepositorySys . $intermediatePath.'|', $pathInfo) )
+{
+    if (file_exists($pathInfo) && ! is_dir($pathInfo) )
     {
-        event_download( $requestUrl );
+        $mimeType = get_mime_on_ext($pathInfo);
+        if ( ! is_null($mimeType) ) header('Content-Type: '.$mimeType);
+        
+        // IE no-cache bug
+        // TODO move $lifetime to config
+        $lifetime = 60;
+        header('Cache-Control: max-age='.$lifetime);
+        header('Expires: '. gmdate('D, d M Y H:i:s', time() + $lifetime) .' GMT');
+        header('Pragma: ');
+        
+        header('Content-Disposition: inline; filename="' . basename($pathInfo) . '"');
+        if( readfile($pathInfo)  > 0) event_download($requestUrl);
+    }
+    else
+    {
+        header('HTTP/1.1 404 Not Found'); exit;
     }
 }
 else
 {
-    header('HTTP/1.1 404 Not Found');
-
-    include get_path('incRepositorySys')  . '/claro_init_header.inc.php';
-
-    if ( ! empty($message) )
-    {
-        echo claro_html_message_box($message);
-    }
-
-    include get_path('incRepositorySys')  . '/claro_init_footer.inc.php';
-
-    exit;
+    header('HTTP/1.1 404 Not Found'); exit;
 }
 
 die();

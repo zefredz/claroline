@@ -9,7 +9,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -19,7 +19,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @author Christophe Gesché <moosh@claroline.net>
  */
 
-defined ( 'PRINT_DEBUG_INFO' ) || define ( 'PRINT_DEBUG_INFO', false ) ;
+defined('PRINT_DEBUG_INFO') || define('PRINT_DEBUG_INFO', false);
 /**
  * Print out  content of session's variable
  *
@@ -29,75 +29,75 @@ defined ( 'PRINT_DEBUG_INFO' ) || define ( 'PRINT_DEBUG_INFO', false ) ;
  */
 function echo_session_value()
 {
-	$infoResult = "" ;
-	GLOBAL $statuts, $statut, $status, $is_admin ;
-	if (! isset ( $is_admin ) || ! $is_admin)
-	{
-		exit ( 'not aivailable' ) ;
-	}
-	
-	$infoResult .= '
+    $infoResult = "";
+    GLOBAL $statuts,$statut,$status, $is_admin;
+    if (!isset($is_admin) || !$is_admin)
+    {
+        exit("not aivailable");
+    }
+
+    $infoResult .= '
     <hr />
     <a href="../claroline/admin/phpInfo.php">phpInfo Claroline</a>
-    <PRE><strong>PHP Version</strong> : ' . phpversion () . '
-    <strong>nivo d\'err</strong> : ' . error_reporting ( 2039 ) ;
-	if (isset ( $statuts ))
-	{
-		$infoResult .= '
+    <PRE><strong>PHP Version</strong> : ' . phpversion() . '
+    <strong>nivo d\'err</strong> : ' . error_reporting(2039);
+    if (isset($statuts))
+    {
+        $infoResult .= '
     <strong>statut</strong> : ';
         print_r($statuts);
-	}
+    }
     if (isset($statut))
-	{
-		$infoResult .= '
+    {
+        $infoResult .= '
     <strong>statut</strong> : ';
         print_r($statut);
-	}
+    }
     if (isset($status))
-	{
-		$infoResult .= "
+    {
+        $infoResult .= "
     <strong>status</strong> : ";
         print_r($status);
-	}
-	
+    }
+
     if ('' != trim(get_conf('dbHost')) || '' != trim(get_conf('dbLogin')))
-	{
-		$infoResult .= '
+    {
+        $infoResult .= '
     <strong>mysql param</strong> :
-     Serveur : ' . get_conf ( 'dbHost' ) . '
-     User    : ' . get_conf ( 'dbLogin' ) ;
-	}
+     Serveur : ' . get_conf('dbHost') . '
+     User    : ' . get_conf('dbLogin');
+    }
     if (isset($_SESSION))
-	{
-		$infoResult .= "
+    {
+        $infoResult .= "
     <strong>session</strong> : ";
         print_r($_SESSION);
-	}
+    }
     if (isset($_POST))
-	{
-		$infoResult .= "
+    {
+        $infoResult .= "
     <strong>Post</strong> : ";
         print_r($_POST);
-	}
+    }
     if (isset($_GET))
-	{
-		$infoResult .= "
+    {
+        $infoResult .= "
     <strong>GET</strong> : ";
         print_r($_GET);
-	}
-	
-	$infoResult .= "
+    }
+
+    $infoResult .= "
     <strong>Contantes</strong> : ";
     print_r(get_defined_constants());
     get_current_user();
-	$infoResult .= "
+    $infoResult .= "
     <strong>Fichiers inclus</strong> : ";
     print_r(get_included_files());
-	$infoResult .= "
-    <strong>Magic quote gpc</strong> : " . get_magic_quotes_gpc () . "
-    <strong>Magig quote runtime</strong> : " . get_magic_quotes_runtime () . "
-    <strong>date de dernière modification de la page</strong> : " . date ( "j-m-Y", getlastmod () ) ;
-	/*
+    $infoResult .= "
+    <strong>Magic quote gpc</strong> : ".get_magic_quotes_gpc()."
+    <strong>Magig quote runtime</strong> : ".get_magic_quotes_runtime()."
+    <strong>date de dernière modification de la page</strong> : ".date("j-m-Y",getlastmod());
+    /*
     get_cfg_var -- Retourne la valeur d'une option de PHP
     getenv -- Retourne la valeur de la variable d'environnement.
     ini_alter -- Change la valeur d'une option de configuration
@@ -109,49 +109,48 @@ function echo_session_value()
     set_magic_quotes_runtime --  Active/désactive l'option magic_quotes_runtime.
     set_time_limit -- Fixe le temps maximum d'exécution d'un script.
     */
-	$infoResult .= "
-    <strong>Type d'interface utilisé entre le serveur web et PHP</strong> : " . php_sapi_name () . "
-    <strong>informations OS</strong> : " . php_uname () . "
-    <strong>Version courante du moteur Zend</strong> : " . zend_version () . "
-    <strong>GID du propriétaire du script</strong> : " . getmygid () . "
-    <strong>inode du script</strong> : " . getmyinode () . "
-    <strong>numéro de processus courant</strong> : " . getmypid () . "
-    <strong>UID du propriétaire du script actuel</strong> : " . getmyuid () . "
-    <strong>niveau d'utilisation des ressources</strong> : " ;
-	print_r ( @getrusage () ) ;
-	
-	$infoResult .= "
+    $infoResult .= "
+    <strong>Type d'interface utilisé entre le serveur web et PHP</strong> : ".php_sapi_name()."
+    <strong>informations OS</strong> : ".php_uname()."
+    <strong>Version courante du moteur Zend</strong> : ".zend_version()."
+    <strong>GID du propriétaire du script</strong> : ".getmygid()."
+    <strong>inode du script</strong> : ".getmyinode()."
+    <strong>numéro de processus courant</strong> : ".getmypid()."
+    <strong>UID du propriétaire du script actuel</strong> : ".getmyuid()."
+    <strong>niveau d'utilisation des ressources</strong> : ";
+    print_r(@getrusage());
+
+    $infoResult .= "
     </PRE>
     <hr />
         ";
-	if (PRINT_DEBUG_INFO)
-	{
-		echo $infoResult ;
-    }
-	return $infoResult ;
+    if (PRINT_DEBUG_INFO)
+    echo $infoResult;
+    return $infoResult;
 }
 
 /**
- * Return an  info from system if  function is not dislabed
+ * Return an  info from systesm   if  function is not dislabed
  *
  * @param string $info
  * @param array $paramList
  * @return string
  */
-function claro_call_function( $info, $paramList = null )
+function claro_call_function($info, $paramList=null)
 {
     static $disabled_function = null;
     if (is_null($disabled_function)) $disabled_function = ini_get('disable_functions');
-	
+
     if(false===strpos($disabled_function,$info))
-	{
+    {
         if (function_exists($info))
         if (is_null($paramList)) return call_user_func($info);
         else                     return call_user_func($info,$paramList);
-	}
-	
+    }
+
     return '';
 }
+
 
 /**
  * get verbose version of file right
@@ -216,34 +215,34 @@ function debug_IO($file = '')
     if ( claro_call_function('is_executable', $file ) ) $infoResult .=  '-X-';
     if ( is_readable(   $file ) ) $infoResult .=  '-R-';
     if ( is_writeable(  $file ) ) $infoResult .=  '-W-';
-	
-	if (PRINT_DEBUG_INFO)
-		echo $infoResult ;
-	return $infoResult ;
+
+    if (PRINT_DEBUG_INFO)
+    echo $infoResult;
+    return $infoResult;
 
 }
 
 function display_perms( $mode )
 {
-	/* Determine Type */
-	if ($mode & 0x1000)
-		$type = 'p' ; /* FIFO pipe */
-    elseif ($mode & 0x2000)
-		$type = 'c' ; /* Character special */
-    elseif ($mode & 0x4000)
-		$type = 'd' ; /* Directory */
-    elseif ($mode & 0x6000)
-		$type = 'b' ; /* Block special */
-    elseif ($mode & 0x8000)
-		$type = '-' ; /* Regular */
-    elseif ($mode & 0xA000)
-		$type = 'l' ; /* Symbolic Link */
-    elseif ($mode & 0xC000)
-		$type = 's' ; /* Socket */
+    /* Determine Type */
+    if( $mode & 0x1000 )
+    $type = 'p'; /* FIFO pipe */
+    else if( $mode & 0x2000 )
+    $type = 'c'; /* Character special */
+    else if( $mode & 0x4000 )
+    $type = 'd'; /* Directory */
+    else if( $mode & 0x6000 )
+    $type = 'b'; /* Block special */
+    else if( $mode & 0x8000 )
+    $type = '-'; /* Regular */
+    else if( $mode & 0xA000 )
+    $type = 'l'; /* Symbolic Link */
+    else if( $mode & 0xC000 )
+    $type = 's'; /* Socket */
     else
     $type='u'; /* UNKNOWN */
-	
-	/* Determine permissions */
+
+    /* Determine permissions */
     $owner['read'   ] = ($mode & 00400) ? 'r' : '-';
     $owner['write'  ] = ($mode & 00200) ? 'w' : '-';
     $owner['execute'] = ($mode & 00100) ? 'x' : '-';
@@ -253,8 +252,8 @@ function display_perms( $mode )
     $world['read'   ] = ($mode & 00004) ? 'r' : '-';
     $world['write'  ] = ($mode & 00002) ? 'w' : '-';
     $world['execute'] = ($mode & 00001) ? 'x' : '-';
-	
-	/* Adjust for SUID, SGID and sticky bit */
+
+    /* Adjust for SUID, SGID and sticky bit */
     if( $mode & 0x800 )
     $owner['execute'] = ($owner[execute]=='x') ? 's' : 'S';
     if( $mode & 0x400 )
@@ -273,8 +272,8 @@ function display_perms( $mode )
 function printVar($var, $varName="@")
 {
     GLOBAL $DEBUG;
-	if ($DEBUG)
-	{
+    if ($DEBUG)
+    {
         echo '<blockquote>' . "\n"
         .    '<b>[' . $varName . ']</b>' . "\n"
         .    '<hr noshade="noshade" size="1" style="color:blue">' . "\n"
@@ -286,11 +285,11 @@ function printVar($var, $varName="@")
         ;
     }
     else
-	{
+    {
         echo '<!-- DEBUG is OFF -->' . "\n"
         .    'DEBUG is OFF'
         ;
-	}
+    }
 }
 
 function printInit($selection="*")
@@ -298,43 +297,56 @@ function printInit($selection="*")
     GLOBAL
     $uidReset,    $cidReset,    $gidReset, $tidReset,
     $uidReq,    $cidReq,     $gidReq,   $tidReq, $tlabelReq,
-    $_user,        $_course,
+    $_uid,       $_cid,       $_gid,       $_tid,
+    $_user,        $_course,    $_group,
+    $_groupProperties,
     $_groupUser,
     $_courseTool,
+    $is_platformAdmin,
+    $is_allowedCreateCourse,
+    $is_courseMember,
+    $is_courseAdmin,
+    $is_courseAllowed,
+    $is_courseTutor,
+    $is_toolAllowed,
     $_SESSION,
-    $_claro_local_run;
-	
-	if ($_claro_local_run)
-	{
+    $_claro_local_run,
+
+    $is_groupMember,
+    $is_groupTutor,
+    $is_groupAllowed;
+
+    if ($_claro_local_run)
+    {
         echo "local init runned";
     }
     else
-	{
+    {
         echo '<font color="red"> local init never runned during this script </font>';
-	}
-	echo '
+    }
+    echo '
 <table width="100%" border="1" cellspacing="4" cellpadding="1" bordercolor="#808080" bgcolor="#C0C0C0" lang="en">
     <TR>';
     if($selection == "*" or strstr($selection,"u"))
-	{
-		echo '
+    {
+        echo '
         <TD valign="top" >
             <strong>User</strong> :
-            (_uid)             : '.var_export(claro_get_current_user_id(),1).' |
+            (_uid)             : '.var_export($_uid,1).' |
             (session[_uid]) : '.var_export($_SESSION["_uid"],1).'
             <br />
             reset = '.var_export($uidReset,1).' |
             req = '.var_export($uidReq,1).'<br />
             _user : <pre>'.var_export($_user,1).'</pre>
-            <br />is_platformAdmin            :'.var_export(claro_is_platform_admin(),1).'
-            <br />is_allowedCreateCourse    :'.var_export(claro_is_allowed_to_create_course(),1).'
+            <br />is_platformAdmin            :'.var_export($is_platformAdmin,1).'
+            <br />is_allowedCreateCourse    :'.var_export($is_allowedCreateCourse,1).'
         </TD>';
-	}
+    }
     if($selection == "*" or strstr($selection,"c"))
-	{
-		echo "
+    {
+        echo "
         <TD valign=\"top\" >
-            <strong>Course</strong> : (_cid)".var_export(claro_get_current_course_id(),1)."
+            <strong>Course</strong> : (_cid)".var_export($_cid,1)."
             <br />
             reset = ".var_export($cidReset,1)." | req = ".var_export($cidReq,1)."
             <br />
@@ -342,43 +354,43 @@ function printInit($selection="*")
             <br />
             _groupProperties :
             <PRE>
-                ".var_export(claro_get_current_group_properties_data(),1)."
+                ".var_export($_groupProperties,1)."
             </PRE>
         </TD>";
-	}
-	echo '
+    }
+    echo '
     </TR>
     <TR>';
     if($selection == "*" or strstr($selection,"g"))
-	{
+    {
         echo '<TD valign="top" ><strong>Group</strong> : (_gid) '
-        .    var_export(claro_get_current_group_id(),1) . '<br />
+        .    var_export(get_init('_gid'),1) . '<br />
         reset = ' . var_export($GLOBALS['gidReset'],1) . ' | req = ' . var_export($gidReq,1)."<br />
-        _group :<pre>".var_export(claro_get_current_group_data(),1).
+        _group :<pre>".var_export(get_init('_group'),1).
         "</pre></TD>";
     }
     if($selection == "*" or strstr($selection,"t"))
     {
-        echo '<TD valign="top" ><strong>Tool</strong> : (_tid)'.var_export(claro_get_current_tool_id(),1).'<br />
+        echo '<TD valign="top" ><strong>Tool</strong> : (_tid)'.var_export($_tid,1).'<br />
         reset = ' . var_export($tidReset,1).' |
         req = ' .   var_export($tidReq,1).'|
         req = ' .   var_export($tlabelReq,1).'
         <br />
         _tool :' . var_export(get_init('_tool'),1).
         "</TD>";
-	}
+    }
     echo "</TR>";
     if($selection == "*" or (strstr($selection,"u")&&strstr($selection,"c")))
-	{
+    {
         echo '<TR><TD valign="top" colspan="2"><strong>Course-User</strong>';
-        if (claro_is_user_authenticated()) echo '<br /><strong>User</strong> :'.var_export(claro_is_in_a_course(),1);
-        if (claro_is_in_a_course()) echo ' in '.var_export(claro_get_current_course_id(),1).'<br />';
-        if ( claro_is_user_authenticated()  && claro_get_current_course_id())
+        if ($_uid) echo '<br /><strong>User</strong> :'.var_export($_uid,1);
+        if ($_cid) echo ' in '.var_export($_cid,1).'<br />';
+        if ($_uid && $_cid)
         echo '_courseUser            : <pre>'.var_export(getInit('_courseUser'),1).'</pre>';
-        echo '<br />is_courseMember    : '.var_export(claro_is_course_member(),1);
-        echo '<br />is_courseAdmin    : '.var_export(claro_is_course_manager(),1);
-        echo '<br />is_courseAllowed    : '.var_export(claro_is_course_allowed(),1);
-        echo '<br />is_courseTutor    : '.var_export(claro_is_course_tutor(),1);
+        echo '<br />is_courseMember    : '.var_export($is_courseMember,1);
+        echo '<br />is_courseAdmin    : '.var_export($is_courseAdmin,1);
+        echo '<br />is_courseAllowed    : '.var_export($is_courseAllowed,1);
+        echo '<br />is_courseTutor    : '.var_export($is_courseTutor,1);
         echo '</TD></TR>';
     }
     echo "";
@@ -387,35 +399,35 @@ function printInit($selection="*")
 
         echo '<TR><TD valign="top"  colspan="2">'
         .    '<strong>Course-Group-User</strong>';
-        if ( claro_is_user_authenticated() ) echo '<br /><strong>User</strong> :'.var_export(claro_is_in_a_course(),1);
-        if ( claro_is_in_a_group() ) echo ' in '.var_export(claro_get_current_group_id(),1);
-        if ( claro_is_in_a_group() ) echo '<br />_groupUser:' . var_export(get_init('_groupUser'),1);
-        echo '<br />is_groupMember:' . var_export(claro_is_group_member(),1)
-        .    '<br />is_groupTutor: ' . var_export( claro_is_group_tutor(),1)
-        .    '<br />is_groupAllowed:' . var_export(claro_is_group_allowed(),1)
+        if (get_init('_uid')) echo '<br /><strong>User</strong> :'.var_export(get_init('_uid'),1);
+        if (get_init('_gid')) echo ' in '.var_export(get_init('$_gid'),1);
+        if (get_init('_gid')) echo '<br />_groupUser:' . var_export(get_init('_groupUser'),1);
+        echo '<br />is_groupMember:' . var_export(get_init('is_groupMember'),1)
+        .    '<br />is_groupTutor: ' . var_export(get_init('is_groupTutor'),1)
+        .    '<br />is_groupAllowed:' . var_export(get_init('is_groupAllowed'),1)
         .    '</TD>'
         .    '</tr>';
-	}
+    }
     if($selection == "*" or (strstr($selection,"c")&&strstr($selection,"t")))
-	{
-		
-		echo '<tr>
-        <TD valign="top" colspan="2" ><strong>Course-Tool</strong><br />';
-        if (claro_get_current_tool_id()) echo 'Tool :'.claro_get_current_tool_id();
-        if ( claro_is_in_a_course() ) echo ' in '.claro_get_current_course_id().'<br />';
+    {
 
-        if (claro_get_current_tool_id()) echo "_courseTool    : <pre>".var_export($_courseTool,1).'</pre><br />';
-        echo 'is_toolAllowed : '.var_export(claro_is_tool_allowed(),1);
+        echo '<tr>
+        <TD valign="top" colspan="2" ><strong>Course-Tool</strong><br />';
+        if ($_tid) echo 'Tool :'.$_tid;
+        if ($_cid) echo ' in '.$_cid.'<br />';
+
+        if ($_tid) echo "_courseTool    : <pre>".var_export($_courseTool,1).'</pre><br />';
+        echo 'is_toolAllowed : '.var_export($is_toolAllowed,1);
         echo "</TD>";
-	}
+    }
     echo "</TR></TABLE>";
 }
 
 function printConfig()
 {
-    GLOBAL $clarolineVersion, $versionDb, $urlAppend, $serverAddress, $checkEmailByHAshSent             , $ShowEmailnotcheckedToStudent     , $userPasswordCrypted             , $userPasswordCrypted            , $platformLanguage     , $siteName                   , $clarolineRepositoryAppend;
+    GLOBAL $clarolineVersion, $versionDb, $urlAppend, $serverAddress, $checkEmailByHAshSent             , $ShowEmailnotcheckedToStudent     , $userPasswordCrypted             , $userPasswordCrypted            , $platformLanguage     , $siteName                   , $clarolineRepositoryAppend  , $coursesRepositoryAppend    , $rootAdminAppend            , $clarolineRepositoryWeb     , $clarolineRepositorySys        , $coursesRepositoryWeb        , $coursesRepositorySys        , $rootAdminSys                , $rootAdminWeb;
     echo "<table width=\"100%\" border=\"1\" cellspacing=\"1\" cellpadding=\"1\" bordercolor=\"#808080\" bgcolor=\"#C0C0C0\" lang=\"en\"><TR>";
-	echo "
+    echo "
     <tr><td colspan=2><strong>Mysql</strong></td></tr>
     <tr><td>dbHost</TD><TD>" . get_conf('dbHost') . "</td></tr>
     <tr><td>get_conf('dbLogin')     </TD><TD>" . get_conf('dbLogin') . "</td></tr>
@@ -423,7 +435,7 @@ function printConfig()
     <tr><td>mainDbName        </TD><TD>" . get_conf('mainDbName') . "</td></tr>
     <tr><td>clarolineVersion    </TD><TD>$clarolineVersion</td></tr>
     <tr><td>versionDb             </TD><TD>$versionDb </td></tr>
-    <tr><td>rootWeb</TD><TD>" . get_path('rootWeb'). "</td></tr>
+    <tr><td>rootWeb</TD><TD>" . get_conf('rootWeb'). "</td></tr>
     <tr><td>urlAppend </TD><TD>$urlAppend</td></tr>
     <tr><td>serverAddress </TD><TD>$serverAddress</td></tr>
     <tr><td colspan=2><hr /></td></tr>
@@ -433,72 +445,24 @@ function printConfig()
     <tr><td>userMailCanBeEmpty             </TD><TD>" . get_conf('userMailCanBeEmpty') . "</td></tr>
     <tr><td>userPasswordCrypted             </TD><TD>$userPasswordCrypted             </td></tr>
     <tr><td colspan=2></td></tr>
-    <tr><td>platformLanguage     </TD><TD>". get_conf('platformLanguage') ."</td></tr>
-    <tr><td>siteName            </TD><TD>". get_conf('siteName') ."</td></tr>
-    <tr><td>rootWeb            </TD><TD>" . get_path('rootWeb'). "</td></tr>
-    <tr><td>rootSys            </TD><TD>" . get_path('rootSys') . "</td></tr>
+    <tr><td>platformLanguage     </TD><TD>$platformLanguage     </td></tr>
+    <tr><td>siteName            </TD><TD>$siteName            </td></tr>
+    <tr><td>rootWeb            </TD><TD>" . get_conf('rootWeb'). "</td></tr>
+    <tr><td>rootSys            </TD><TD>" . get_conf('rootSys') . "</td></tr>
     <tr><td colspan=2></td></tr>
-    <tr><td>clarolineRepository<strong>Append</strong>      </TD><TD>". get_path('clarolineRepositoryAppend') ."</td></tr>
-    <tr><td>coursesRepository<strong>Append</strong>        </TD><TD>". get_path('coursesRepositoryAppend') ."</td></tr>
-    <tr><td>rootAdmin<strong>Append</strong>                </TD><TD>". get_path('rootAdminAppend') ."</td></tr>
+    <tr><td>clarolineRepository<strong>Append</strong>      </TD><TD>$clarolineRepositoryAppend </td></tr>
+    <tr><td>coursesRepository<strong>Append</strong>        </TD><TD>$coursesRepositoryAppend    </td></tr>
+    <tr><td>rootAdmin<strong>Append</strong>                </TD><TD>$rootAdminAppend            </td></tr>
     <tr><td colspan=2></td></tr>
-    <tr><td>clarolineRepository<strong>Web</strong>    </TD><TD>".get_path('clarolineRepositoryWeb')." </td></tr>
-    <tr><td>clarolineRepository<strong>Sys</strong>    </TD><TD>" . get_path('clarolineRepositorySys') ."</td></tr>
-    <tr><td>coursesRepository<strong>Web</strong>    </TD><TD>" . get_path('coursesRepositoryWeb') . "</td></tr>
-    <tr><td>coursesRepository<strong>Sys</strong>    </TD><TD>" . get_path('coursesRepositorySys')."</td></tr>
-    <tr><td>rootAdmin<strong>Sys</strong>            </TD><TD>". get_path('rootAdminSys') ."</td></tr>
-    <tr><td>rootAdmin<strong>Web</strong>            </TD><TD>" . get_path('rootAdminWeb') . "                 </td></tr>
+    <tr><td>clarolineRepository<strong>Web</strong>    </TD><TD>$clarolineRepositoryWeb     </td></tr>
+    <tr><td>clarolineRepository<strong>Sys</strong>    </TD><TD>$clarolineRepositorySys        </td></tr>
+    <tr><td>coursesRepository<strong>Web</strong>    </TD><TD>$coursesRepositoryWeb        </td></tr>
+    <tr><td>coursesRepository<strong>Sys</strong>    </TD><TD>$coursesRepositorySys        </td></tr>
+    <tr><td>rootAdmin<strong>Sys</strong>            </TD><TD>$rootAdminSys                </td></tr>
+    <tr><td>rootAdmin<strong>Web</strong>            </TD><TD>$rootAdminWeb                </td></tr>
                 ";
     echo "</TABLE>";
 }
 
-/**
- * Return an html list of function called until this.
- *
- * @return html stream
- */
 
-function claro_html_debug_backtrace()
-{
-    $bt = debug_backtrace();
-    $cbt = '<pre style="color:gray">' . "\n";
-    $bt = array_reverse($bt);
-    foreach ($bt as $btLevel)
-	{
-        if ($btLevel['function'] == __FUNCTION__) continue;
-		
-        $cbt .= 'L'.str_pad($btLevel['line'],5,' ',STR_PAD_LEFT) . ':'  ;
-        $cbt .= '<a href="'.$btLevel['file'].'">#</a> ' ;
-        $cbt .= str_pad(basename($btLevel['file']),30,' ', STR_PAD_BOTH) . '| ';
-        $cbt .= '<b>' . $btLevel['function'] . '()</b>' . "\n";
-	
-	}
-    return $cbt . '</pre>';
-}
-
-function profilePoint()
-{
-	static $start = null ;
-	$bt = debug_backtrace () ;
-	
-	$line = '<tt>L' . str_pad ( $bt [ 0 ] [ 'line' ], 5, ' ', STR_PAD_LEFT ) . ':' ;
-	$line .= '<abbr title="'.$bt [ 0 ] [ 'file' ].'">' . str_pad (  substr(basename ($bt [ 0 ] [ 'file' ]),0,30), 30, ' ', STR_PAD_BOTH ) . '</abbr>:' ;
-	if (isset($bt [ 1 ]))
-	{
-    	$line .= '<abbr title="' . str_pad ( $bt [ 1 ] [ 'line' ], 5, ' ', STR_PAD_LEFT ) . ':'.$bt [ 1 ] [ 'function' ].'() in '.$bt [ 1 ] [ 'file' ].'">-1</abbr>:' ;
-	}
-	if (isset($bt [ 2 ]))
-	{
-    	$line .= '<abbr title="' . str_pad ( $bt [ 2 ] [ 'line' ], 5, ' ', STR_PAD_LEFT ) . ':'.$bt [ 1 ] [ 'function' ].'() in '.$bt [ 2 ] [ 'file' ].'">-2</abbr>:' ;
-	}
-	if (is_null ( $start ))
-	{ 
-		$start = microtime();
-		pushClaroMessage ( $line . '</tt>@' . date('H:i:s'), 'profile' ) ;
-	} 
-	else
-	{
-		pushClaroMessage ( $line . '</tt>@ (+ ' . (sprintf('%01.4f',microtime() -$start )) . 'ms)', 'profile' ) ;
-	}
-}
 ?>

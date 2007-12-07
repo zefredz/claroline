@@ -4,27 +4,27 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  */
 
 require '../inc/claro_init_global.inc.php';
 
 // Security check
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
-require_once get_path('incRepositorySys') . '/lib/statsUtils.lib.inc.php';
+require_once $includePath . '/lib/statsUtils.lib.inc.php';
 $tbl_mdb_names    = claro_sql_get_main_tbl();
 $tbl_track_e_open = $tbl_mdb_names['track_e_open'];
 
-$is_allowedToTrack = claro_is_platform_admin();
+$is_allowedToTrack = $is_platformAdmin;
 
 $interbredcrump[]= array ('url' => "index.php", 'name' => get_lang('Administration'));
 $interbredcrump[]= array ('url' => "campusLog.php", 'name' => get_lang('Platform statistics'));
 
 $nameTools = get_lang('Traffic Details');
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include $includePath . '/claro_init_header.inc.php';
 echo claro_html_tool_title($nameTools)
 .    '<table width="100%" cellpadding="2" cellspacing="3" border="0">'
 ;
@@ -53,7 +53,7 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled'))
         }   break;
         case 'month' :
         {
-            echo claro_html_localised_date('%B %Y',$reqdate);
+            echo claro_disp_localised_date('%B %Y',$reqdate);
         }   break;
         default :
         {
@@ -61,7 +61,7 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled'))
         }
         case 'day' :
         {
-            echo claro_html_localised_date('%A %d %B %Y',$reqdate);
+            echo claro_disp_localised_date('%A %d %B %Y',$reqdate);
         }   break;
     }
 
@@ -211,5 +211,5 @@ else // not allowed to track
 
 
 echo '</table>';
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 ?>

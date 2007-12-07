@@ -7,7 +7,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.8 $Revision$
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)c
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -19,7 +19,6 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 /**
  * Get class data on the platform
- *
  * @param integer $classId
  *
  * @return  array( `id`, `name`, `class_parent_id`, `class_level`)
@@ -27,13 +26,14 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 function class_get_properties ( $classId )
 {
-    $tbl = claro_sql_get_main_tbl();
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_class     = $tbl_mdb_names['class'];
 
     $sql = "SELECT id,
                    name,
                    class_parent_id,
                    class_level
-            FROM `" . $tbl['class'] . "`
+            FROM `" . $tbl_class . "`
             WHERE `id`= ". (int) $classId ;
 
     $result = claro_sql_query_get_single_row($sql);
@@ -52,12 +52,13 @@ function class_get_properties ( $classId )
 
 function class_create ( $className, $parentId )
 {
-    $tbl = claro_sql_get_main_tbl();
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_class     = $tbl_mdb_names['class'];
 
     $className = trim($className);
     $parentId = (int) $parentId;
 
-    $sql = "INSERT INTO `" . $tbl['class'] . "`
+    $sql = "INSERT INTO `" . $tbl_class . "`
             SET `name`='". addslashes($className) ."'";
 
     if ( $parentId != 0 )
@@ -107,7 +108,7 @@ function class_set_properties ( $classId, $className, $parentId = 0 )
 
 function delete_class($class_id)
 {
-    require_once get_path('incRepositorySys') . '/lib/course_user.lib.php' ;
+    require_once $GLOBALS['includePath'] . '/lib/course_user.lib.php' ;
 
     $tbl_mdb_names      = claro_sql_get_main_tbl();
     $tbl_user           = $tbl_mdb_names['user'];
@@ -153,7 +154,7 @@ function delete_class($class_id)
         // 4 - Get the list of course
         $sql = "SELECT *
             FROM `".$tbl_course_class."` `rel_c_c`, `".$tbl_course."` `c`
-            WHERE `rel_c_c`.`classId`='". (int) $class_id ."'
+            WHERE `rel_c_c`.`class_id`='". (int) $class_id ."'
             AND `rel_c_c`.`courseId` = `c`.`code`";
 
         $courseList = claro_sql_query_fetch_all($sql);
@@ -277,27 +278,27 @@ function move_class($class_id, $class_id_towards)
 
 function register_class_to_course($class_id, $course_code)
 {
-    require_once get_path('incRepositorySys') . '/lib/course_user.lib.php' ;
+    require_once $GLOBALS['includePath'] . '/lib/course_user.lib.php' ;
 
     $tbl_mdb_names  = claro_sql_get_main_tbl();
     $tbl_class        = $tbl_mdb_names['class'];
     $tbl_class_user   = $tbl_mdb_names['rel_class_user'];
     $tbl_course_class = $tbl_mdb_names['rel_course_class'];
-      $tbl_course       = $tbl_mdb_names['course'];
+  	$tbl_course       = $tbl_mdb_names['course'];
     $tbl_user         = $tbl_mdb_names['user'];
 
     // 1.get cours_id with cours_code in cl_cours and check course
 
-    $sql = "SELECT `code`
-                FROM `".$tbl_course."`
-                WHERE `code` = '". addslashes($course_code) ."'";
+	$sql = "SELECT `code`
+				FROM `".$tbl_course."`
+				WHERE `code` = '". addslashes($course_code) ."'";
 
-    $course_identifier = claro_sql_query_fetch_all($sql);
+	$course_identifier = claro_sql_query_fetch_all($sql);
 
     if ( !isset($course_identifier[0]['code']))
     {
         return claro_failure::set_failure('course_not_found');
-        //TODO : aéméliorer la détection d'erreur
+		//TODO : aéméliorer la détection d'erreur
     }
 
     // 2. See if there is a class with such ID in the main DB
@@ -344,22 +345,22 @@ function register_class_to_course($class_id, $course_code)
 
     // 5 - Record link between class and course
 
-    // check if link already exist
-    $sql = "SELECT `courseId`
-                FROM `".$tbl_course_class."`
-                WHERE `courseId` = '". addslashes($course_code) ."'
-                AND `classId` = ".$class_id;
+	// check if link already exist
+	$sql = "SELECT `courseId`
+				FROM `".$tbl_course_class."`
+				WHERE `courseId` = '". addslashes($course_code) ."'
+				AND `classId` = ".$class_id;
 
-    $result = claro_sql_query_fetch_all($sql);
+	$result = claro_sql_query_fetch_all($sql);
 
-    if ( count($result) == 0 )
-    {
-        // Insert value in table if not exist
-        $sql = "INSERT INTO `".$tbl_course_class."` (`courseId`,`classId`)
-        VALUES ('".addslashes($course_code)."', '".$class_id."')";
+	if ( count($result) == 0 )
+	{
+		// Insert value in table if not exist
+		$sql = "INSERT INTO `".$tbl_course_class."` (`courseId`,`classId`)
+		VALUES ('".addslashes($course_code)."', '".$class_id."')";
 
-        claro_sql_query($sql);
-    }
+		claro_sql_query($sql);
+	}
 
     // Find subclasses of current class
 
@@ -399,22 +400,22 @@ function register_class_to_course($class_id, $course_code)
 
 function unregister_class_to_course($class_id, $course_code)
 {
-    require_once get_path('incRepositorySys') . '/lib/course_user.lib.php' ;
+    require_once $GLOBALS['includePath'] . '/lib/course_user.lib.php' ;
 
-    $tbl_mdb_names      = claro_sql_get_main_tbl();
-    $tbl_user           = $tbl_mdb_names['user'];
-    $tbl_class_user     = $tbl_mdb_names['rel_class_user'];
-    $tbl_course_class     = $tbl_mdb_names['rel_course_class'];
-    $tbl_class          = $tbl_mdb_names['class'];
-    $tbl_course            = $tbl_mdb_names['course'];
+	$tbl_mdb_names  	= claro_sql_get_main_tbl();
+    $tbl_user       	= $tbl_mdb_names['user'];
+    $tbl_class_user 	= $tbl_mdb_names['rel_class_user'];
+	$tbl_course_class 	= $tbl_mdb_names['rel_course_class'];
+    $tbl_class      	= $tbl_mdb_names['class'];
+	$tbl_course			= $tbl_mdb_names['course'];
 
     // 1 - check class in cl_class
 
-    $sql = "SELECT `name`
-                FROM `".$tbl_class."`
-                WHERE `id` = '".$class_id."'";
+	$sql = "SELECT `name`
+				FROM `".$tbl_class."`
+				WHERE `id` = '".$class_id."'";
 
-    $class_name = claro_sql_query_get_single_value($sql);
+	$class_name = claro_sql_query_get_single_value($sql);
 
     if ( is_null($class_name) || !isset($class_name))
     {
@@ -423,11 +424,11 @@ function unregister_class_to_course($class_id, $course_code)
 
     // 2 - Check course and get course_id
 
-    $sql = "SELECT `cours_id`
-                FROM `".$tbl_course."`
-                WHERE `code` = '". addslashes($course_code) ."'";
+	$sql = "SELECT `cours_id`
+				FROM `".$tbl_course."`
+				WHERE `code` = '". addslashes($course_code) ."'";
 
-    $course_id = claro_sql_query_get_single_value($sql);
+	$course_id = claro_sql_query_get_single_value($sql);
 
     if ( is_null($course_id) || !isset($course_id) )
     {
@@ -437,7 +438,7 @@ function unregister_class_to_course($class_id, $course_code)
     //3 - get the list of users in this class
 
     $sql = "SELECT *
-            FROM `".$tbl_class_user."` `rel_c_u`, `".$tbl_user."` `u`
+			FROM `".$tbl_class_user."` `rel_c_u`, `".$tbl_user."` `u`
             WHERE `class_id`='". (int)$class_id."'
             AND `rel_c_u`.`user_id` = `u`.`user_id`";
 
@@ -462,11 +463,11 @@ function unregister_class_to_course($class_id, $course_code)
 
     // 5 - Remove link between class and course in rel_course_class
 
-    $sql = "DELETE FROM `".$tbl_course_class."`
-            WHERE `courseId` = '". addslashes($course_code) ."'
-            AND `classId` = '".$class_id."'";
+	$sql = "DELETE FROM `".$tbl_course_class."`
+			WHERE `courseId` = '". addslashes($course_code) ."'
+			AND `classId` = '".$class_id."'";
 
-    claro_sql_query($sql);
+	claro_sql_query($sql);
 
     return $resultLog;
 
@@ -486,7 +487,7 @@ function unregister_class_to_course($class_id, $course_code)
 
 function user_add_to_class($user_id,$class_id)
 {
-    require_once get_path('incRepositorySys') . '/lib/course_user.lib.php' ;
+    require_once $GLOBALS['includePath'] . '/lib/course_user.lib.php' ;
 
     $user_id  = (int)$user_id;
     $class_id = (int)$class_id;
@@ -519,6 +520,10 @@ function user_add_to_class($user_id,$class_id)
     {
         return claro_failure::set_failure('CLASS_NOT_FOUND'); // the class doesn't exist
     }
+
+    // Get class parent id
+
+    $class_parent_id = $result['class_parent_id'];
 
     // 3. See if user is not already in class
 
@@ -559,7 +564,7 @@ function user_add_to_class($user_id,$class_id)
         }
     }
 
-      return true;
+  	return true;
 }
 
 /**
@@ -576,85 +581,85 @@ function user_add_to_class($user_id,$class_id)
 
 function user_remove_to_class($user_id,$class_id)
 {
-    require_once get_path('incRepositorySys') . '/lib/user.lib.php' ;
-    require_once get_path('incRepositorySys') . '/lib/course_user.lib.php' ;
+    require_once $GLOBALS['includePath'] . '/lib/user.lib.php' ;
+    require_once $GLOBALS['includePath'] . '/lib/course_user.lib.php' ;
 
     $user_id  = (int)$user_id;
-      $class_id = (int)$class_id;
+  	$class_id = (int)$class_id;
 
-      $tbl_mdb_names     = claro_sql_get_main_tbl();
-      $tbl_class         = $tbl_mdb_names['class'];
-      $tbl_course_class  = $tbl_mdb_names['rel_course_class'];
-      $tbl_course        = $tbl_mdb_names['course'];
-      $tbl_class_user    = $tbl_mdb_names['rel_class_user'];
+  	$tbl_mdb_names     = claro_sql_get_main_tbl();
+  	$tbl_class         = $tbl_mdb_names['class'];
+  	$tbl_course_class  = $tbl_mdb_names['rel_course_class'];
+  	$tbl_course        = $tbl_mdb_names['course'];
+  	$tbl_class_user    = $tbl_mdb_names['rel_class_user'];
 
-      // 1. See if there is a user with such ID in the main database
+  	// 1. See if there is a user with such ID in the main database
 
     $user_data = user_get_properties($user_id);
 
-      if ( !$user_data )
-      {
-          return claro_failure::get_last_failure('USER_NOT_FOUND');
-      }
+  	if ( !$user_data )
+  	{
+  	    return claro_failure::get_last_failure('USER_NOT_FOUND');
+  	}
 
-      // 2. See if there is a class with such ID in the main DB
+  	// 2. See if there is a class with such ID in the main DB
 
-      $sql = "SELECT `id`
-              FROM `" . $tbl_class . "`
-              WHERE `id` = '" . $class_id . "' ";
-      $result = claro_sql_query_fetch_all($sql);
+  	$sql = "SELECT `id`
+  	        FROM `" . $tbl_class . "`
+  	        WHERE `id` = '" . $class_id . "' ";
+  	$result = claro_sql_query_fetch_all($sql);
 
-      if ( !isset($result[0]['id']))
-      {
-          return claro_failure::set_failure('CLASS_NOT_FOUND'); // the class doesn't exist
-      }
+  	if ( !isset($result[0]['id']))
+  	{
+  	    return claro_failure::set_failure('CLASS_NOT_FOUND'); // the class doesn't exist
+  	}
 
-      // 3 - Check if user is subscribe to class and if class exist
+  	// 3 - Check if user is subscribe to class and if class exist
 
     $sql = "SELECT  cu.id
-              FROM `".$tbl_class_user."` cu, `".$tbl_class."` c
-              WHERE cu.`class_id` = c.`id`
-              AND cu.`class_id` = ". (int)$class_id."
-              AND cu.`user_id` = ". (int)$user_id;
+  	        FROM `".$tbl_class_user."` cu, `".$tbl_class."` c
+  	        WHERE cu.`class_id` = c.`id`
+  	        AND cu.`class_id` = ". (int)$class_id."
+  	        AND cu.`user_id` = ". (int)$user_id;
 
-      if ( is_null(claro_sql_query_get_single_value($sql)))
-      {
-          return claro_failure::set_failure('USER_NOT_SUSCRIBE_TO_CLASS');
-      }
+  	if ( is_null(claro_sql_query_get_single_value($sql)))
+  	{
+  	    return claro_failure::set_failure('USER_NOT_SUSCRIBE_TO_CLASS');
+  	}
 
-      // 4 - Get the child class from this class and call the fonction recursively
+  	// 4 - Get the child class from this class and call the fonction recursively
 
     $sql =" SELECT `id`
-              FROM `".$tbl_class."`
-              WHERE `class_parent_id` = ". $class_id;
+  	        FROM `".$tbl_class."`
+  	        WHERE `class_parent_id` = ". $class_id;
 
-      $classList = claro_sql_query_fetch_all($sql);
+  	$classList = claro_sql_query_fetch_all($sql);
 
-      foreach ($classList as $class)
-      {
-          if ( isset($class['id']) )
-          {
-              user_remove_to_class($user_id, $class['id']);
-              //TODO Bug tracking ? !
-          }
-      }
+  	foreach ($classList as $class)
+  	{
+  	    if ( isset($class['id']) )
+  	    {
+  	        user_remove_to_class($user_id, $class['id']);
+  	        //TODO Bug tracking ? !
+  	    }
+  	}
 
-      //3 - remove user to class in rel_class_user
+  	//3 - remove user to class in rel_class_user
 
-      $sql = "DELETE FROM `".$tbl_class_user."`
-              WHERE `user_id` = ". (int) $user_id."
-              AND `class_id` = ". (int) $class_id;
+  	$sql = "DELETE FROM `".$tbl_class_user."`
+  	        WHERE `user_id` = ". (int) $user_id."
+  	        AND `class_id` = ". (int) $class_id;
 
-      claro_sql_query($sql);
+  	claro_sql_query($sql);
 
-      //4 - Get the list of course whose link with class and unsubscribe user for each
+  	//4 - Get the list of course whose link with class and unsubscribe user for each
 
     $sql = "SELECT c.`code`
-              FROM `".$tbl_course_class."` cc, `".$tbl_course."` c
-              WHERE cc.`courseId` = c.`code`
-              AND cc.`classId` = ".$class_id;
+  	        FROM `".$tbl_course_class."` cc, `".$tbl_course."` c
+  	        WHERE cc.`courseId` = c.`code`
+  	        AND cc.`classId` = ".$class_id;
 
-      $courseList = claro_sql_query_fetch_all($sql);
+  	$courseList = claro_sql_query_fetch_all($sql);
 
     foreach ($courseList as $course)
     {
@@ -684,8 +689,8 @@ function user_remove_to_class($user_id,$class_id)
 
 function class_remove_all_users ($classId)
 {
-      $tbl_mdb_names     = claro_sql_get_main_tbl();
-      $tbl_class_user    = $tbl_mdb_names['rel_class_user'];
+  	$tbl_mdb_names     = claro_sql_get_main_tbl();
+  	$tbl_class_user    = $tbl_mdb_names['rel_class_user'];
 
     $sql = "SELECT user_id
             FROM `" . $tbl_class_user . "` AS `rel_c_u`
@@ -715,6 +720,8 @@ function display_tree_class_in_admin ($class_list, $parent_class = null, $deep =
 {
     // Global variables needed
 
+    global $clarolineRepositoryWeb;
+    global $imgRepositoryWeb;
 
     $html_form = '';
 
@@ -753,14 +760,14 @@ function display_tree_class_in_admin ($class_list, $parent_class = null, $deep =
                 if (isset($_SESSION['admin_visible_class'][$cur_class['id']]) && $_SESSION['admin_visible_class'][$cur_class['id']]=="open")
                 {
                     $open_close_link = '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exClose&amp;class_id=' . $cur_class['id'] . '">' . "\n"
-                    .                  '<img src="' . get_path('imgRepositoryWeb') . 'minus.gif" border="0" />' . "\n"
+                    .                  '<img src="' . $imgRepositoryWeb . 'minus.gif" border="0" />' . "\n"
                     .                  '</a>' . "\n"
                     ;
                 }
                 else
                 {
                     $open_close_link = '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exOpen&amp;class_id=' . $cur_class['id'] . '">' . "\n"
-                    .                  '<img src="' . get_path('imgRepositoryWeb') . 'plus.gif" border="0" />' . "\n"
+                    .                  '<img src="' . $imgRepositoryWeb . 'plus.gif" border="0" />' . "\n"
                     .                  '</a>' . "\n"
                     ;
                 }
@@ -781,31 +788,31 @@ function display_tree_class_in_admin ($class_list, $parent_class = null, $deep =
                 .    '    ' . $blankspace . $open_close_link . ' ' . $cur_class['name']
                 .    '</td>' . "\n"
                 .    '<td align="center">' . "\n"
-                .    '<a href="' . get_path('clarolineRepositoryWeb') . 'admin/admin_class_user.php?class_id=' . $cur_class['id'] . '">' . "\n"
-                .    '<img src="' . get_path('imgRepositoryWeb') . 'user.gif" border="0" />' . "\n"
+                .    '<a href="' . $clarolineRepositoryWeb . 'admin/admin_class_user.php?class_id=' . $cur_class['id'] . '">' . "\n"
+                .    '<img src="' . $imgRepositoryWeb . 'user.gif" border="0" />' . "\n"
                 .    '(' . $qty_user . '  ' . get_lang('UsersMin') . ')' . "\n"
                 .    '</a>' . "\n"
                 .    '</td>' . "\n"
                 .    '<td align="center">' . "\n"
-                  .    '<a href="'.get_path('clarolineRepositoryWeb').'admin/admin_class_cours.php?class_id='.$cur_class['id'].'">' . "\n"
-                  .    '<img src="' . get_path('imgRepositoryWeb') . 'course.gif" border="0"> '
-                  .    '('.$qty_cours.'  '.get_lang('Course').') ' . "\n"
-                  .    '</a>' . "\n"
-                  .    '</td>' . "\n"
+  	            .    '<a href="'.$clarolineRepositoryWeb.'admin/admin_class_cours.php?class_id='.$cur_class['id'].'">' . "\n"
+      	        .    '<img src="'.$imgRepositoryWeb.'course.gif" border="0"> '
+  	            .    '('.$qty_cours.'  '.get_lang('Course').') ' . "\n"
+      	        .    '</a>' . "\n"
+  	            .    '</td>' . "\n"
                 .    '<td align="center">' . "\n"
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;class_id=' . $cur_class['id'] . '">' . "\n"
-                .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" />' . "\n"
+                .    '<img src="' . $imgRepositoryWeb . 'edit.gif" border="0" />' . "\n"
                 .    '</a>' . "\n"
                 .    '</td>' . "\n"
                 .    '<td align="center">' . "\n"
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqMove&amp;class_id=' . $cur_class['id'] . '&class_name=' . $cur_class['name'] . '">' . "\n"
-                .    '<img src="' . get_path('imgRepositoryWeb') . 'move.gif" border="0" />' . "\n"
+                .    '<img src="' . $imgRepositoryWeb . 'move.gif" border="0" />' . "\n"
                 .    '</a>' . "\n"
                 .    '</td>' . "\n"
                 .    '<td align="center">' . "\n"
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;class_id=' . $cur_class['id'] . '"'
-                .    ' onclick="return confirmation(\'' . clean_str_for_javascript($cur_class['name']) . '\');">' . "\n"
-                .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" />' . "\n"
+                .    ' onClick="return confirmation(\'' . clean_str_for_javascript($cur_class['name']) . '\');">' . "\n"
+                .    '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" />' . "\n"
                 .    '</a>' . "\n"
                 .    '</td>' . "\n"
                 .    '</tr>' . "\n"
@@ -907,18 +914,22 @@ function get_class_cours_number($class_id)
 function display_tree_class_in_user($class_list, $course_code, $parent_class = null, $deep = 0)
 {
 
+    global $clarolineRepositoryWeb;
+    global $imgRepositoryWeb;
+
     $tbl_mdb_names  = claro_sql_get_main_tbl();
 
-    $tbl_course       = $tbl_mdb_names['course'];
+	$tbl_course_class 	= $tbl_mdb_names['rel_course_class'];
+	$tbl_course			= $tbl_mdb_names['course'];
 
     $html_form = '';
 
-    // Get the course id with cours code
-    $sql = "SELECT `C`.`cours_id`
-            FROM `" . $tbl_course . "` as C
-            WHERE `code` = '".$course_code."'";
+	// Get the course id with cours code
+	$sql = "SELECT `C`.`cours_id`
+	    	FROM `".$tbl_course."` as C
+			WHERE `code` = '".$course_code."'";
 
-    claro_sql_query_get_single_value($sql);
+	$cours_id = claro_sql_query_get_single_value($sql);
 
     foreach ($class_list as $cur_class)
     {
@@ -952,14 +963,14 @@ function display_tree_class_in_user($class_list, $course_code, $parent_class = n
                 {
                     $open_close_link = '<a href="' . $_SERVER['PHP_SELF']
                     .                  '?cmd=exClose&amp;class_id=' . $cur_class['id'] . '">' . "\n"
-                    .                  '<img src="' . get_path('imgRepositoryWeb') . 'minus.gif" border="0" />' . "\n"
+                    .                  '<img src="' . $imgRepositoryWeb . 'minus.gif" border="0" />' . "\n"
                     .                  '</a>' . "\n"
                     ;
                 }
                 else
                 {
                     $open_close_link = '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exOpen&amp;class_id=' . $cur_class['id'] . '">' . "\n"
-                    .                  '<img src="' . get_path('imgRepositoryWeb') . 'plus.gif" border="0" />' . "\n"
+                    .                  '<img src="' . $imgRepositoryWeb . 'plus.gif" border="0" />' . "\n"
                     .                  '</a>' . "\n"
                     ;
                 }
@@ -985,15 +996,15 @@ function display_tree_class_in_user($class_list, $course_code, $parent_class = n
             if ( empty($cur_class['course_id']) )
             {
                 $html_form .= '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exEnrol&amp;class_id=' . $cur_class['id'] . '"'
-                .    ' onclick="return confirmation_enrol(\'' . clean_str_for_javascript($cur_class['name']) . '\');">'
-                .    '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" border="0" alt="' . get_lang('Enrol to course') . '" />' . "\n"
+                .    ' onClick="return confirmation_enrol(\'' . clean_str_for_javascript($cur_class['name']) . '\');">'
+                .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . get_lang('Enrol to course') . '" />' . "\n"
                 .    '</a>' . "\n";
             }
             else
             {
                 $html_form .= '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exUnenrol&amp;class_id=' . $cur_class['id'] . '"'
-                .    ' onclick="return confirmation_unenrol(\'' . clean_str_for_javascript($cur_class['name']) . '\');">'
-                .    '<img src="' . get_path('imgRepositoryWeb') . 'unenroll.gif" border="0" alt="' . get_lang('Unenrol from course') . '" />' . "\n"
+                .    ' onClick="return confirmation_unenrol(\'' . clean_str_for_javascript($cur_class['name']) . '\');">'
+                .    '<img src="' . $imgRepositoryWeb . 'unenroll.gif" border="0" alt="' . get_lang('Unenrol from course') . '" />' . "\n"
                 .    '</a>' . "\n";
             }
 
@@ -1074,22 +1085,15 @@ function buildSelectClass($classes,$selected,$father=null,$space="&nbsp;&nbsp;&n
     return $result;
 }
 
-/**
- * return subClass of a given class
- *
- * @param unknown_type $class_id
- * @return unknown
- *
- * @since 1.8.0
- */
 function getSubClasses($class_id)
 {
-    $tbl = claro_sql_get_main_tbl();
+    $tbl_mdb_names  = claro_sql_get_main_tbl();
+    $tbl_class      = $tbl_mdb_names['class'];
 
     $sub_classes_list = array();
 
     $sql = "SELECT `id`
-            FROM `" . $tbl['class'] . "`
+            FROM `" . $tbl_class . "`
             WHERE `class_parent_id`=" . (int) $class_id;
 
     $query_result = claro_sql_query($sql);
@@ -1105,33 +1109,5 @@ function getSubClasses($class_id)
 
     return $sub_classes_list;
 }
-
-
-
-/**
- * return list of class subscribed to a given course.
- *
- * @param string $courseId
- * @since 1.8.1
- * @return array(`id`,`name`,`class_parent_id`,`course_id`)
- */
-
-function get_class_list_by_course($courseId)
-{
-    $tbl = claro_sql_get_main_tbl();
-
-    $sql = "
-        SELECT C.id              AS `id`,
-               C.name            AS `name`,
-               C.class_parent_id AS `class_parent_id`,
-               CC.courseId       AS `course_id`
-        FROM `" . $tbl['class'] . "` C
-        LEFT JOIN `" . $tbl['rel_course_class'] . "` CC
-               ON CC.`classId` = C.`id`
-              AND CC.`courseId` = '" . addslashes($courseId) . "'
-        ORDER BY C.`name`";
-    return claro_sql_query_fetch_all($sql);
-}
-
 
 ?>

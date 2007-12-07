@@ -579,19 +579,19 @@ function trig_topic_notification($topicId)
     $notifyResult = claro_sql_query($sql);
     $subject      = get_lang('A reply to your topic has been posted');
 
-    $url_topic = get_path('rootWeb') . 'claroline/phpbb/viewtopic.php?topic=' .  $topicId . '&cidReq=' . $_course['sysCode'];
-    $url_forum = get_path('rootWeb') . 'claroline/phpbb/index.php?cidReq=' . claro_get_current_course_id();
+    $url_topic = get_conf('rootWeb') . 'claroline/phpbb/viewtopic.php?topic=' .  $topicId . '&cidReq=' . $_course['sysCode'];
+    $url_forum = get_conf('rootWeb') . 'claroline/phpbb/index.php?cidReq=' . $_course['sysCode'];
 
     // send mail to registered user for notification
 
     while ( ( $list = mysql_fetch_array($notifyResult) ) )
     {
-        $message = get_block('blockForumNotificationEmailMessage',array('%firstname' => $list['firstname'],
-                                  '%lastname' => $list['lastname'],
+    	$message = get_block('blockForumNotificationEmailMessage',array('%firstname' => $list['firstname'],
+								  '%lastname' => $list['lastname'],
                                   '%url_topic' => $url_topic,
                                   '%url_forum' => $url_forum ) );
 
-           claro_mail_user($list['user_id'], $message, $subject);
+       	claro_mail_user($list['user_id'], $message, $subject);
     }
 }
 
@@ -609,7 +609,7 @@ function trig_topic_notification($topicId)
 function disp_confirmation_message ($message, $forumId = false, $topicId = false)
 {
 
-    echo '<table border="0" align="center" >' . "\n"
+    echo '<table border="0" align="center" ">' . "\n"
        . '<tr>' . "\n"
        . '<td>' . "\n"
        . '<center>' . "\n"
@@ -829,33 +829,21 @@ class postLister
     {
         echo $this->sqlPager->disp_pager_tool_bar($pagerUrl);
     }
-
-        /**
-     * return count of post of the current topic
-     *
-     * @author Christophe Gesché <moosh@claroline.net>
-     * @return array post list
-     */
-
-    function get_total_post_count()
-    {
-        return $this->sqlPager->get_total_item_count();
-    }
-
 }
 
 /**
- * Display a pager tool bar
+ * display a pager tool bar
  *
  * @author Mathieu Laurent <mla@claroline.net>
  * @return void
  */
 
+
 function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 {
-    global $forum_name, $topic_title;
+    global $_gid, $forum_name, $topic_title, $imgRepositoryWeb;
 
-    $toolList = array();
+    $toolBar = array();
 
     $html = '';
 
@@ -874,21 +862,18 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 
         case 'viewforum':
 
-            $toolList[] =
-            claro_html_cmd_link( 'newtopic.php?forum=' . $forum_id . claro_url_relay_context('&amp;')
-                               , '<img src="' . get_path('imgRepositoryWeb') . 'topic.gif" /> '
-                               . get_lang('New topic')
-                               );
+            $toolBar[] = '<a class="claroCmd" href="newtopic.php?forum=' . $forum_id . '&amp;gidReq=' . $_gid . '">'
+                        . '<img src="' . $imgRepositoryWeb . 'topic.gif"> ' . get_lang('New topic') . '</a>';
+
             break;
 
         case 'viewtopic':
 
+            $toolBar[] = '<a class="claroCmd" href="newtopic.php?forum=' . $forum_id . '&amp;gidReq=' . $_gid . '">'
+                         . '<img src="' . $imgRepositoryWeb . 'topic.gif"> ' . get_lang('New topic') . '</a>';
 
-            $toolList[] =
-            claro_html_cmd_link( 'reply.php?topic=' . $topic_id . '&amp;forum=' . $forum_id . claro_url_relay_context('&amp;')
-                               , '<img src="' . get_path('imgRepositoryWeb') . 'reply.gif" alt="' . get_lang('Reply') . '" /> '
-                               . get_lang('Reply')
-                               );
+            $toolBar[] = '<a class="claroCmd" href="reply.php?topic=' . $topic_id . '&amp;forum=' . $forum_id . '&amp;gidReq='.$_gid.'">'
+                         . '<img src="' . $imgRepositoryWeb . 'reply.gif" /> ' . get_lang('Reply') . '</a>' ."\n";
 
             break;
 
@@ -899,30 +884,31 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
             if ( claro_is_allowed_to_edit() )
             {
 
-                $toolList[] =
-                claro_html_cmd_link( $_SERVER['PHP_SELF']
-                                   . '?cmd=rqMkCat'
-                                   . claro_url_relay_context('&amp;')
-                                   , get_lang('Create category')
-                                   );
+                $toolBar[] = '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=rqMkCat">'
+                          .  get_lang('Create category')
+                          .  '</a>';
 
-                $toolList[] =
-                claro_html_cmd_link( $_SERVER['PHP_SELF']
-                                   . '?cmd=rqMkForum'
-                                   . claro_url_relay_context('&amp;')
-                                   , '<img src="' . get_path('imgRepositoryWeb') . 'forum.gif" /> '
+                $toolBar[] = '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=rqMkForum">'
+                          .  '<img src="' . $imgRepositoryWeb . 'forum.gif" /> '
                           .  get_lang('Create forum')
-                                   );
+                          .  '</a>';
             }
             break;
     }
 
     if ( ! in_array($pagetype, array('newtopic', 'reply','editpost') ) )
-        $toolList[] = claro_html_cmd_link( 'index.php?cmd=rqSearch'
-                                         , '<img src="' . get_path('imgRepositoryWeb') . 'search.gif" />'
+        $toolBar[] = '<a class="claroCmd" href="index.php?cmd=rqSearch">'
+        .            '<img src="' . $imgRepositoryWeb . 'search.gif" /> '
         .            get_lang('Search')
-                                         );
-    return $toolList;
+        .            '</a>'
+        ;
+
+    if ( count($toolBar) )
+    {
+        $html = '<p>' . claro_html_menu_horizontal($toolBar) . '</p>';
+    }
+
+    return $html;
 }
 
 function disp_search_box()
@@ -931,9 +917,8 @@ function disp_search_box()
     {
         return claro_html_message_box(
         '<form action="viewsearch.php" method="post">'
-        .    claro_form_relay_context()
         .            get_lang('Search') . ' : <br />'
-        .            '<input type="text" name="searchPattern" /><br />'
+        .            '<input type="text" name="searchPattern"><br />'
         .            '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp; '
         .            claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
         .            '</form>'
@@ -947,18 +932,15 @@ function disp_search_box()
 
 function disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_id=0, $topic_name='')
 {
-    $bc = new BreadCrumbs;
+    global $_gid;
 
-    $bc->appendNode( new BreadCrumbsNode( 'Forum Index'
-        , get_module_entry_url('CLFRM') ) );
+    $breadCrumbNameList   = array ('Forum Index');
+    $breadCrumbUrlList    = array ('index.php');
 
     if ( in_array($pagetype, array('viewforum', 'viewtopic', 'editpost', 'reply', 'newtopic') ) )
     {
-        $bc->appendNode( new BreadCrumbsNode( $forum_name
-            , get_module_url('CLFRM') . '/viewforum.php?forum=' . $forum_id
-                . (claro_is_in_a_group()
-                    ? '&amp;gidReq=' . claro_get_current_group_id()
-                    : '') ) );
+        $breadCrumbNameList[] = $forum_name;
+        $breadCrumbUrlList[]  = 'viewforum.php?forum=' . $forum_id . ($_gid ? '&amp;gidReq=' . $_gid : '');
 
         switch ( $pagetype )
         {
@@ -966,38 +948,37 @@ function disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_id=0, $
                 break;
 
             case 'viewtopic' :
-                $bc->appendNode( new BreadCrumbsNode( $topic_name ) );
+                $breadCrumbNameList[] = $topic_name;
+                $breadCrumbNameUrl[] = '';
                 break;
 
-            case 'newtopic' :
-                $bc->appendNode( new BreadCrumbsNode( get_lang('New topic') ) );
+            case 'newtopic' : 
+                $breadCrumbNameList[] = get_lang('New topic');
+                $breadCrumbUrlList[]  = null;
                 break ;
 
             case 'editpost' :
-                $bc->appendNode( new BreadCrumbsNode( $topic_name,
-                    get_module_url('CLFRM') . '/viewtopic.php?topic=' . $topic_id
-                        . (claro_is_in_a_group()
-                            ? '&amp;gidReq=' . claro_get_current_group_id()
-                            : '') ) );
-                $bc->appendNode( new BreadCrumbsNode( get_lang('Edit post') ) );
+                $breadCrumbNameList[] = $topic_name;
+                $breadCrumbUrlList[]  = 'viewtopic.php?topic=' . $topic_id . ($_gid ? '&amp;gidReq=' . $_gid : '');
+                $breadCrumbNameList[] = get_lang('Edit post');
+                $breadCrumbUrlList[]  = null;
                 break ;
 
             case 'reply' :
-                $bc->appendNode( new BreadCrumbsNode( $topic_name,
-                    get_module_url('CLFRM') . '/viewtopic.php?topic=' . $topic_id
-                        . (claro_is_in_a_group() ? '&amp;gidReq=' . claro_get_current_group_id() : '') ) );
-
-                $bc->appendNode( new BreadCrumbsNode( get_lang('Reply') ) );
+                $breadCrumbNameList[] = $topic_name;
+                $breadCrumbUrlList[]  = 'viewtopic.php?topic=' . $topic_id . ($_gid ? '&amp;gidReq=' . $_gid : '');
+                $breadCrumbNameList[] = get_lang('Reply');
+                $breadCrumbUrlList[]  = null;
                 break ;
         }
     }
     elseif ($pagetype == 'viewsearch')
     {
-            $bc->appendNode( new BreadCrumbsNode( get_lang('Search result'), null ) );
+            $breadCrumbNameList[] = get_lang('Search result');
+            $breadCrumbUrlList[]  = null;
     }
 
-    // return claro_html_breadcrumbtrail($breadCrumbNameList, $breadCrumbUrlList, ' > ') . '<br />' ;
-    return '<div class="breadcrumbTrails">' . $bc->render().'</div>' . "\n";
+    return claro_html_breadcrumbtrail($breadCrumbNameList, $breadCrumbUrlList, ' > ') . '<br />' ;
 }
 
 /**
@@ -1007,52 +988,49 @@ function disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_id=0, $
 
 function forum_group_tool_list($gid, $active = true)
 {
-    $courseId = claro_get_current_course_id();
+    global $imgRepositoryWeb, $_groupProperties, $is_courseAdmin, $is_groupTutor, $is_groupMember;
+    $courseId = $GLOBALS['_cid'];
     include_once(dirname(__FILE__) . '/group.lib.inc.php');
     $groupToolList = get_group_tool_list($courseId,$active);
 
-    $is_allowedToDocAccess      = (bool) (   claro_is_course_manager()
-                                      || claro_is_group_member()
-                                      ||  claro_is_group_tutor());
+    $is_allowedToDocAccess      = (bool) (   $is_courseAdmin
+                                      || $is_groupMember
+                                      || $is_groupTutor);
 
-    $is_allowedToChatAccess     = (bool) (     claro_is_course_manager()
-                                       || claro_is_group_member()
-                                       ||  claro_is_group_tutor() );
+    $is_allowedToChatAccess     = (bool) (     $is_courseAdmin
+                                       || $is_groupMember
+                                       || $is_groupTutor );
+
 
     // group space links
 
-    $toolList[] =
-    claro_html_cmd_link( '../group/group_space.php?gidReq=' . (int) $gid
-                       , '<img src="' . get_path('imgRepositoryWeb') . 'group.gif" />&nbsp;'
+    $toolList[] = '<a class="claroCmd" href="../group/group_space.php?gidReq=' .(int) $gid . '">'
+        . '<img src="' . $imgRepositoryWeb . 'group.gif" />&nbsp;'
         . get_lang('Group area')
-                       );
-
+        . '</a>'
+        ;
 
     foreach ($groupToolList as $groupTool)
     {
         if ('CLFRM' !== $groupTool['label'])
-        $toolList[] =
-        claro_html_cmd_link( get_module_url($groupTool['label'])
-                           . '/' . $groupTool['url']
-                           . claro_url_relay_context('&amp;')
-                           . '?gidReq=' . (int) $gid
-                           , '<img src="' . get_path('imgRepositoryWeb') . $groupTool['icon'] . '" />'
-                           . '&nbsp;'
-                           . claro_get_tool_name ($groupTool['label'])
-                           , array('class' => $groupTool['visibility'] ? 'visible':'invisible')
-                           );
+        $toolList[] = '<a href="' . get_module_url($groupTool['label']) . '/' . $groupTool['url']. '?gidReq=' . (int) $gid  . '" '
+        .             ' class="claroCmd '.($groupTool['visibility'] ? 'visible':'invisible').'">'
+        .             '<img src="' . $imgRepositoryWeb . $groupTool['icon'] . '" />'
+        .             '&nbsp;'
+        .             claro_get_tool_name ($groupTool['label'])
+        .             '</a>'
+        ;
     }
 
     return $toolList;
 }
 
 /**
- * Delete all post and topics from a sepcific forum
- *
- * @param int $forumId forum id
- * @return boolean - true if it succeed, flase otherwise
+ * delete all post and topics from a sepcific forum
  *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param int - forum id
+ * @return boolean - true if it succeed, flase otherwise
  */
 
 function delete_all_post_in_forum($forumId)
@@ -1062,69 +1040,64 @@ function delete_all_post_in_forum($forumId)
     $tbl_topics                  = $tbl_cdb_names['bb_topics'                 ];
     $tbl_posts                   = $tbl_cdb_names['bb_posts'                  ];
     $tbl_posts_text              = $tbl_cdb_names['bb_posts_text'             ];
+    $tbl_rel_topic_userstonotify = $tbl_cdb_names['bb_rel_topic_userstonotify'];
 
-    $sql = "SELECT post_id FROM `" . $tbl_cdb_names['bb_posts'] . "`
+    $sql = "SELECT post_id FROM `".$tbl_posts."`
             WHERE forum_id = " . (int) $forumId;
 
     $postIdList = claro_sql_query_fetch_all_cols($sql);
     $postIdList = $postIdList['post_id'];
 
-    $sql = "SELECT topic_id FROM `" . $tbl_cdb_names['bb_topics'] . "`
-            WHERE forum_id = " . (int) $forumId;
+    $sql = "SELECT topic_id FROM `".$tbl_topics."`
+            WHERE forum_id = " .(int) $forumId;
 
     $topicIdList = claro_sql_query_fetch_all_cols($sql);
     $topicIdList = $topicIdList['topic_id'];
 
     if ( count($topicIdList) > 0)
     {
-        $sql = "DELETE FROM `" . $tbl_cdb_names['bb_rel_topic_userstonotify'] . "`
-                WHERE  topic_id IN (" . implode(', ', $topicIdList) . ")";
+        $sql = "DELETE FROM `".$tbl_rel_topic_userstonotify."`
+                WHERE  topic_id IN (".implode(', ', $topicIdList).")";
         if (claro_sql_query($sql) == false) return false;
     }
 
-    $sql = "DELETE FROM `" . $tbl_cdb_names['bb_topics'] . "`
+    $sql = "DELETE FROM `".$tbl_topics."`
             WHERE forum_id = ".(int) $forumId;
 
     if (claro_sql_query($sql) == false) return false;
 
-    $sql = "DELETE FROM `" . $tbl_cdb_names['bb_posts'] . "`
+    $sql = "DELETE FROM `" . $tbl_posts . "`
             WHERE forum_id = " . (int) $forumId . "";
 
     if (claro_sql_query($sql) == false) return false;
 
     if ( count($postIdList) > 0 )
     {
-        $sql = "DELETE FROM `" . $tbl_cdb_names['bb_posts_text'] . "`
-                WHERE post_id IN (" . implode(', ', $postIdList) . ")";
+        $sql = "DELETE FROM `".$tbl_posts_text."`
+                WHERE post_id IN (".implode(', ', $postIdList).")";
 
         if (claro_sql_query($sql) == false) return false;
     }
 
-    $sql = "UPDATE `" . $tbl_cdb_names['bb_forums'] . "`
+    $sql = "UPDATE `".$tbl_forums."`
             SET  forum_topics = 0,
                  forum_posts  = 0
-            WHERE forum_id = " . (int) $forumId;
+            WHERE forum_id = ".(int)$forumId;
 
     if ( claro_sql_query($sql) == false ) return false;
 
     return true;
 }
 
-/**
- * Change title of a category
- *
- * @param integer $catId
- * @param string $catTitle new title
- * @return boolean true if ok
- */
 function update_category_title( $catId, $catTitle )
 {
-    $tbl = claro_sql_get_course_tbl();
+    $tbl_cdb_names        = claro_sql_get_course_tbl();
+    $tbl_forum_categories = $tbl_cdb_names['bb_categories'];
 
     if ( !empty($catTitle) )
     {
-        $sql = "UPDATE `" . $tbl['bb_categories'] . "`
-            SET   cat_title = '". addslashes($catTitle) . "'
+        $sql = "UPDATE `".$tbl_forum_categories."`
+            SET   cat_title = '". addslashes($catTitle) ."'
             WHERE cat_id    = ".(int) $catId;
 
         if (claro_sql_query($sql) != false) return true;
@@ -1132,17 +1105,6 @@ function update_category_title( $catId, $catTitle )
 
     return false;
 }
-
-/**
- * Set properties of a forum
- *
- * @param integer $forum_id
- * @param string  $forum_name
- * @param string  $forum_desc
- * @param boolean $forum_post_allowed
- * @param integer $cat_id
- * @return boolean true if set.
- */
 
 function update_forum_settings($forum_id, $forum_name, $forum_desc, $forum_post_allowed, $cat_id)
 {
@@ -1161,13 +1123,6 @@ function update_forum_settings($forum_id, $forum_name, $forum_desc, $forum_post_
     else                                return false;
 }
 
-/**
- * create a new forum category
- *
- * @param string            $cat_title
- * @param context course id $course_id
- * @return integer catgory id.
- */
 function create_category($cat_title, $course_id=NULL)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
@@ -1191,12 +1146,6 @@ function create_category($cat_title, $course_id=NULL)
 
 }
 
-/**
- * Delete the given category
- *
- * @param integer $cat_id
- * @return boolean wheter success
- */
 function delete_category($cat_id)
 {
     if ($cat_id == GROUP_FORUMS_CATEGORY)
@@ -1208,8 +1157,8 @@ function delete_category($cat_id)
     $tbl_forum_topics     = $tbl_cdb_names['bb_topics'    ];
 
     $sql = 'SELECT `forum_id`, `group_id`
-            FROM `' . $tbl_forum_forums . '`
-            WHERE `cat_id` = "' . $cat_id . '"';
+            FROM `'.$tbl_forum_forums.'`
+            WHERE `cat_id` = "'.$cat_id.'"';
 
     $result = claro_sql_query_fetch_all_cols($sql);
 
@@ -1305,13 +1254,7 @@ function create_forum($forum_name, $forum_desc, $forum_post_allowed, $cat_id, $g
 
     return claro_sql_query_insert_id($sql);
 }
-/**
- * swap rank of a forum in a category with his neiborgth
- *
- * @param integer $currForumId
- * @param string $direction (UP|DOWN)
- * @return boolean true whether success else claro_failure result
- */
+
 function move_forum_rank($currForumId, $direction)
 {
     if ( strtoupper($direction) == 'UP')
@@ -1330,17 +1273,17 @@ function move_forum_rank($currForumId, $direction)
     }
 
     $tbl_cdb_names    = claro_sql_get_course_tbl();
+    $tbl_forum_forums = $tbl_cdb_names['bb_forums'];
 
     $forumSettingList = get_forum_settings($currForumId);
     $cat_id           = $forumSettingList['cat_id'];
     $currForumRank       = $forumSettingList['forum_rank'];
 
-    $sql = "SELECT forum_id    AS id,
-                   forum_order AS rank
-            FROM  `" . $tbl_cdb_names['bb_forums'] . "`
-            WHERE cat_id      = " . (int) $cat_id     . "
-            AND   forum_order "  . $operator . " " . (int) $currForumRank . "
-            ORDER BY forum_order " . $orderDirection . " LIMIT 1";
+    $sql = 'SELECT forum_id AS id, forum_order AS rank
+            FROM  `'.$tbl_forum_forums.'`
+            WHERE cat_id      = ' . (int) $cat_id     . '
+            AND   forum_order '  . $operator . ' ' . (int) $currForumRank . '
+            ORDER BY forum_order ' . $orderDirection . ' LIMIT 1';
 
     $adjacentForum = claro_sql_query_get_single_row($sql);
 
@@ -1348,15 +1291,15 @@ function move_forum_rank($currForumId, $direction)
     {
         // SWAP BOTH FORUM RANKS
 
-        $sql = "UPDATE `" . $tbl_cdb_names['bb_forums'] . "`
-                SET `forum_order` = " . (int) $currForumRank . "
-                WHERE `forum_id` =  " . (int) $adjacentForum['id'] ;
+        $sql = 'UPDATE `'.$tbl_forum_forums.'`
+                SET `forum_order` = '. (int) $currForumRank. '
+                WHERE `forum_id` =  '. (int) $adjacentForum['id'] ;
 
         if ( claro_sql_query($sql) == false ) return false;
 
-        $sql = "UPDATE `" . $tbl_cdb_names['bb_forums'] . "`
-                SET   `forum_order` = " . (int) $adjacentForum['rank'] . "
-                WHERE `forum_id`    = " . (int) $currForumId ;
+        $sql = 'UPDATE `'.$tbl_forum_forums.'`
+                SET   `forum_order` = '. (int) $adjacentForum['rank'] . '
+                WHERE `forum_id`    = '. (int) $currForumId ;
 
         if ( claro_sql_query($sql) == false ) return false;
     }
@@ -1368,45 +1311,23 @@ function move_forum_rank($currForumId, $direction)
     return true;
 }
 
-/**
- * Move up a forum in his category
- * This function is a helper for move_forum_rank()
- *
- * @param integer $forum_id id of  forum to uprank
- * @see move_forum_rank()
- * @return boolean true whether success else claro_failure result
- */
 function move_up_forum($forum_id)
 {
-    return move_forum_rank($forum_id, 'UP');
+    move_forum_rank($forum_id, 'UP');
 }
 
-/**
- * Move down a forum in his category
- * This function is a helper for move_forum_rank()
- *
- * @param integer $forum_id id of  forum to downrank
- * @see move_forum_rank()
- * @return boolean true whether success else claro_failure result
- */
 function move_down_forum($forum_id)
 {
-    return move_forum_rank($forum_id, 'DOWN');
+    move_forum_rank($forum_id, 'DOWN');
 }
 
-/**
- * get setting of a given category
- *
- * @param integer $cat_id
- * @return array : `cat_id`, `cat_title`, `cat_order`
- */
 function get_category_settings($cat_id)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_forum_categories = $tbl_cdb_names['bb_categories'];
 
     $sql = 'SELECT `cat_id`, `cat_title`, `cat_order`
-            FROM `' . $tbl_forum_categories . '` f
+            FROM `'.$tbl_forum_categories.'` f
             WHERE f.`cat_id` = ' . (int) $cat_id;
 
     $resultList = claro_sql_query_fetch_all($sql);
@@ -1416,13 +1337,6 @@ function get_category_settings($cat_id)
 }
 
 
-/**
- * Change change rank of a category
- *
- * @param integer $currCatId id  of category
- * @param string $direction (UP|DOWN)
- * @return boolean true wheater success
- */
 function move_category_rank($currCatId, $direction)
 {
     if ( strtoupper($direction) == 'UP')
@@ -1474,42 +1388,65 @@ function move_category_rank($currCatId, $direction)
     }
     else
     {
-        return false;
+    	return false;
     }
 
     return true;
 }
 
-/**
- * Increase the rank of the given category
- *
- * @param integer $cat_id
- * @return boolean
- */
+
 function move_up_category($cat_id)
 {
-    return move_category_rank($cat_id, 'UP');
+    move_category_rank($cat_id, 'UP');
 }
 
-
-/**
- * Decrease the rank of the given category
- *
- * @param integer $cat_id
- * @return boolean true whether success
- */
 function move_down_category($cat_id)
 {
-    return move_category_rank($cat_id, 'DOWN');
+    move_category_rank($cat_id, 'DOWN');
 }
 
 /**
- * Return the full list of forum
+ * List of a group for a given user
  *
- * @return array(forum_id, forum_name, forum_desc, forum_access, forum_moderator,
-                 forum_topics, forum_posts, forum_last_post_id, cat_id,
-                 forum_type, forum_order, poster_id, post_time, group_id)
+ * @param integer $uid
+ * @return array of integer
  */
+function get_user_group_list($uid)
+{
+    $tbl_cdb_names     = claro_sql_get_course_tbl();
+    $tbl_student_group = $tbl_cdb_names['group_team'         ];
+    $tbl_user_group    = $tbl_cdb_names['group_rel_team_user'];
+
+    $sql = "SELECT `g`.`id` AS `group_id`
+            FROM `" . $tbl_student_group . "` AS `g`,
+                 `" . $tbl_user_group    . "` AS `gu`
+            WHERE `g`.`id`    = `gu`.`team`
+              AND `gu`.`user` = " . (int) $uid ;
+
+    $groupList = claro_sql_query_fetch_all_cols($sql);
+    $groupList = $groupList['group_id'];
+    return $groupList;
+}
+
+/**
+ * return list of groups id where a given user (userId) is tutor
+ *
+ * @param integer $uid uid to find groups where he's tutor
+ * @return array of integer : group list
+ */
+function get_tutor_group_list($uid)
+{
+    $tbl_cdb_names     = claro_sql_get_course_tbl();
+    $tbl_student_group = $tbl_cdb_names['group_team'];
+
+    $sql = "SELECT `id` `group_id`
+            FROM `" . $tbl_student_group . "`
+            WHERE tutor = " . (int) $uid ;
+
+    $groupList = claro_sql_query_fetch_all_cols($sql);
+    $groupList = $groupList['group_id'];
+    return $groupList;
+}
 
 function get_forum_list()
 {
@@ -1531,12 +1468,6 @@ function get_forum_list()
      return claro_sql_query_fetch_all($sql);
 }
 
-/**
- * Get the list of not empty categories.
- * The query return category only if there is forums inside
- *
- * @return array (cat_id, cat_title, cat_order);
- */
 function get_category_list()
 {
     $tbl_cdb_names  = claro_sql_get_course_tbl();
@@ -1558,12 +1489,6 @@ function get_category_list()
     return claro_sql_query_fetch_all($sql);
 }
 
-/**
- * Function to increase the counter of view a topic
- *
- * @param integer $topicId
- * @return Success true whether false
- */
 function increase_topic_view_count($topicId)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl();
@@ -1577,14 +1502,6 @@ function increase_topic_view_count($topicId)
     else                                 return true;
 }
 
-/**
- * Deletes forums for ALL or a given group
- *
- * @param integer $groupId or ALL
- *        If param is 'ALL', all groups forums are returned
- *        otherwise the param is use as group id to filter result.
- * @return true whether false if  a  forum deletion failed
- */
 function delete_group_forums ($groupId)
 {
     $forum_list = get_group_forum_list($groupId);
@@ -1597,14 +1514,6 @@ function delete_group_forums ($groupId)
     return true;
 }
 
-/**
- * Get list of forums linked to ALL or a specific group.
- *
- * @param integer $groupId or ALL
- *        If param is 'ALL', all groups forums are returned
- *        otherwise the param is use as group id to filter result.
- * @return array of integer. Each integer is a forum id.
- */
 function get_group_forum_list ($groupId)
 {
     $tbl_cdb_names  = claro_sql_get_course_tbl();
@@ -1612,13 +1521,13 @@ function get_group_forum_list ($groupId)
 
     if ( $groupId == 'ALL' )
     {
-        $sql = " SELECT forum_id
+        $sql = " SELECT forum_id 
                 FROM `" . $tbl_forums . "`
                 where group_id IS NOT NULL";
     }
     else
     {
-        $sql = " SELECT forum_id
+        $sql = " SELECT forum_id 
                 FROM `" . $tbl_forums . "`
                 where group_id = " . (int) $groupId ;
     }
@@ -1626,4 +1535,5 @@ function get_group_forum_list ($groupId)
     return claro_sql_query_fetch_all_rows($sql);
 
 }
+
 ?>

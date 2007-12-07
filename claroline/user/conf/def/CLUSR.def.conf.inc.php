@@ -33,14 +33,15 @@ $conf_def['section']['main']['label']='Main settings';
 $conf_def['section']['main']['properties'] =
 array ( 'linkToUserInfo'
       , 'user_email_hidden_to_anonymous'
+      , 'is_coursemanager_allowed_to_add_user'
       , 'nbUsersPerPage'
       );
 
 //PROPERTIES
 
 $conf_def_property_list['linkToUserInfo'] =
-array ('label'         => 'Show user profile page'
-      ,'description'   => 'Allow users to see detailed informations about other users'
+array ('label'         => 'Show user profile'
+      ,'description'   => 'Allow user to see detail informations of other users'
       ,'default'       => TRUE
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
@@ -49,8 +50,8 @@ array ('label'         => 'Show user profile page'
       );
 
 $conf_def_property_list['user_email_hidden_to_anonymous'] =
-array ('label'         => 'Hide email address to anonymous user'
-      ,'description'   => 'Don\'t display email of the users to anonymous (to avoid spam)'
+array ('label'         => 'Hidden email address to anonymous user'
+      ,'description'   => 'Don\'t display email of user to anonymous (to avoid spam)'
       ,'default'       => FALSE
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
@@ -66,21 +67,8 @@ array ( 'label'   => 'Number of user per page'
       ,'acceptedValue' => array ('Min'=>'5')
       );
 
-
-// section
-
-$conf_def['section']['add_user']['label'] = 'Add user';
-$conf_def['section']['add_user']['description'] = '';
-$conf_def['section']['add_user']['properties'] =
-array ( 'is_coursemanager_allowed_to_add_single_user'
-      , 'allowSearchInAddUser'
-      , 'is_coursemanager_allowed_to_import_user_list'
-      , 'is_coursemanager_allowed_to_import_user_class'
-
-);
-
-$conf_def_property_list['is_coursemanager_allowed_to_add_single_user'] =
-array('label'         => 'Teacher can add a user in his course'
+$conf_def_property_list['is_coursemanager_allowed_to_add_user'] =
+array('label'         => 'Teacher can add user in his course'
      ,'default'       => TRUE
      ,'type'          => 'boolean'
      ,'display'       => TRUE
@@ -89,6 +77,11 @@ array('label'         => 'Teacher can add a user in his course'
                               ,'FALSE'=>'No'
                               )
      );
+
+$conf_def['section']['add_user']['label'] = 'Add user';
+$conf_def['section']['add_user']['description'] = '';
+$conf_def['section']['add_user']['properties'] =
+array ( 'allowSearchInAddUser' );
 
 $conf_def_property_list['allowSearchInAddUser'] =
 array ('label'         => 'Allow search in the add user option'
@@ -102,78 +95,4 @@ array ('label'         => 'Allow search in the add user option'
                                 )
       );
 
-$conf_def_property_list['is_coursemanager_allowed_to_import_user_list'] =
-array('label'         => 'Teacher can import user list in his course'
-     ,'default'       => TRUE
-     ,'type'          => 'boolean'
-     ,'display'       => TRUE
-     ,'readonly'      => FALSE
-     ,'acceptedValue' => array ('TRUE'=>'Yes'
-                              ,'FALSE'=>'No'
-                              )
-     );
-
-$conf_def_property_list['is_coursemanager_allowed_to_import_user_class'] =
-array('label'         => 'Teacher can import an existing class course'
-     ,'default'       => TRUE
-     ,'type'          => 'boolean'
-     ,'display'       => TRUE
-     ,'readonly'      => FALSE
-     ,'acceptedValue' => array ('TRUE'=>'Yes'
-                              ,'FALSE'=>'No'
-                              )
-     );
-
-$conf_def['section']['export']['label'] = 'Export';
-$conf_def['section']['export']['description'] = '';
-$conf_def['section']['export']['properties'] =
-array ( 'is_coursemanager_allowed_to_export_user_list'
-      , 'export_user_username'
-      , 'export_user_password'
-      , 'export_user_password_encrypted'
-);
-
-$conf_def_property_list['is_coursemanager_allowed_to_export_user_list'] =
-array('label'         => 'Teacher can export user list from his course'
-     ,'default'       => TRUE
-     ,'type'          => 'boolean'
-     ,'display'       => TRUE
-     ,'readonly'      => FALSE
-     ,'acceptedValue' => array ('TRUE'=>'Yes'
-                              ,'FALSE'=>'No'
-                              )
-     );
-
-$conf_def_property_list['export_user_username'] =
-array('label'         => 'Export username'
-     ,'default'       => FALSE
-     ,'type'          => 'boolean'
-     ,'display'       => TRUE
-     ,'readonly'      => FALSE
-     ,'acceptedValue' => array ('TRUE'=>'Yes'
-                              ,'FALSE'=>'No'
-                              )
-);
-     
-$conf_def_property_list['export_user_password'] =
-array('label'         => 'Export password'
-     ,'default'       => FALSE
-     ,'type'          => 'boolean'
-     ,'display'       => TRUE
-     ,'readonly'      => FALSE
-     ,'acceptedValue' => array ('TRUE'=>'Yes'
-                              ,'FALSE'=>'No'
-                              )
-);     
-
-$conf_def_property_list['export_user_password_encrypted'] =
-array('label'         => 'Encrypt exported password using md5 algorithm'
-     ,'default'       => TRUE
-     ,'type'          => 'boolean'
-     ,'display'       => TRUE
-     ,'readonly'      => FALSE
-     ,'acceptedValue' => array ('TRUE'=>'Yes'
-                              ,'FALSE'=>'No'
-                              )
-); 
 ?>

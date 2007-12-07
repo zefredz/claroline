@@ -5,7 +5,7 @@ if ( get_conf('claro_CasEnabled') ) // CAS is a special case of external authent
 {
     echo '<!-- CAS login hyperlink -->' . "\n"
     .    '<div align="center">' . "\n"
-    .    '<a href="' . get_path('clarolineRepositoryWeb') . 'auth/login.php?authModeReq=CAS">' . "\n"
+    .    '<a href="' . $clarolineRepositoryWeb . 'auth/login.php?authModeReq=CAS">' . "\n"
     .    get_conf('claro_CasLoginString')  . "\n"
     .    '</a>' . "\n"
     .    '</div>' . "\n"
@@ -15,7 +15,7 @@ if ( get_conf('claro_CasEnabled') ) // CAS is a special case of external authent
 if( get_conf('claro_displayLocalAuthForm') )
 {
     echo '<!-- Authentication Form -->' . "\n"
-    .    '<form class="claroLoginForm" action ="' . get_path('clarolineRepositoryWeb') . 'auth/login.php' . '" method="post">' . "\n"
+    .    '<form class="claroLoginForm" action ="' . $clarolineRepositoryWeb . 'auth/login.php' . '" method="post">' . "\n"
     .    '<fieldset style="padding: 7px;">' . "\n"
     .    '<legend>' . get_lang('Authentication') . ' : </legend>' . "\n"
     .    '<label for="login">' . "\n"
@@ -36,7 +36,7 @@ if( get_conf('claro_displayLocalAuthForm') )
     ;
 
 
-if( get_conf('allowSelfReg') )
+if( $allowSelfReg )
 {
     echo '<!-- "Create user Account" -->' . "\n"
     .    '<p>' . "\n"

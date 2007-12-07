@@ -14,15 +14,16 @@
 
 
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
+$includePath = null;
 
 require '../inc/claro_init_global.inc.php';
 
 // Security check
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
+if ( ! get_init('_uid') ) claro_disp_auth_form();
+if ( ! get_init('is_platformAdmin') ) claro_die(get_lang('Not allowed'));
 
 // Include libraries
-require_once get_path('incRepositorySys') . '/lib/user.lib.php';
+require_once $includePath . '/lib/user.lib.php';
 
 
 // Initialise variables
@@ -72,11 +73,11 @@ foreach ($platformAdminUidList as $k => $platformAdminUid )
     $userDataGrid[$k]['firstname'] = $userData['firstname'];
     $userDataGrid[$k]['email'] = $userData['email'];
     $userDataGrid[$k]['authsource'] = $userData['authsource'];
-    //$userDataGrid[$k]['contact_switch'] = '<input name="contactList[]" type="checkbox" value="' . $platformAdminUid . '" ' . ((bool) in_array($platformAdminUid,$contactUidList)  ? 'checked="checked"  />' : '>');
+    //$userDataGrid[$k]['contact_switch'] = '<input name="contactList[]" type="checkbox" value="' . $platformAdminUid . '" ' . ((bool) in_array($platformAdminUid,$contactUidList)  ? 'checked="checked" >' : '>');
     $userDataGrid[$k]['request_switch'] = '<input name="requestList[]" type="checkbox" value="' . $platformAdminUid . '" '
-    .    ((bool) in_array($platformAdminUid,$requestUidList)  ? 'checked="checked"  /> ' : '> ');
+    .    ((bool) in_array($platformAdminUid,$requestUidList)  ? 'checked="checked" > ' : '> ');
     $userDataGrid[$k]['notification_switch'] = '<input name="notifiedList[]" type="checkbox" value="' . $platformAdminUid . '" '
-    .    ((bool) in_array($platformAdminUid,$notifiedUidList)  ? 'checked="checked"  /> ' : '> ');
+    .    ((bool) in_array($platformAdminUid,$notifiedUidList)  ? 'checked="checked" > ' : '> ');
 
 }
 $adminDataGrid = new claro_datagrid($userDataGrid);
@@ -103,7 +104,7 @@ $adminDataGrid->set_colAttributeList( array (  'request_switch' => array ('align
  */
 
 // Disdplay header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include $includePath . '/claro_init_header.inc.php';
 
 // Display tool title
 echo claro_html_tool_title($nameTools)
@@ -111,11 +112,12 @@ echo claro_html_tool_title($nameTools)
 .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
 .    '<input type="hidden" name="cmd" value="setRecipient" />' . "\n"
 .    $adminDataGrid->render()
-.    '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp;' . "\n"
+.    '<input type="submit" value="' . get_lang('Ok') . '">&nbsp;' . "\n"
 .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
 .    '</form>' . "\n"
 ;
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+
+include $includePath . '/claro_init_footer.inc.php';
 
 ?>

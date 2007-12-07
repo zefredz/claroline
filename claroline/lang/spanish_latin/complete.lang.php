@@ -11,6 +11,7 @@ $_lang['(none)'] = '(ninguna)';
 $_lang['(optional)'] = '(opcional)';
 $_lang['(version of %1\$s modified by %2\$s)'] = '(versión %1$s modificado por %2$s)';
 $_lang['- none -'] = '- nada -';
+$_lang['<b>Notice :</b> The directory containing your Claroline installation process (<code>claroline/install/</code>) is still browsable by the web. It means anyone can reinstall Claroline and crush your previous installation. We highly recommend to protect'] = '<b>Atención :</b> El directorio conteniendo su proceso de instalación de Claroline (<code>claroline/install/</code>) sigue estando visible en la web. Esto significa que cualquiera puede reinstalar Claroline y corromper su instalación previa. Recommend to protect este directorio o to quitar it desde su servidor';
 $_lang['<span class=\"required\">*</span> denotes required field'] = '<span clase="required">*</span> significa que es un campo obligatorio';
 $_lang['<strong>Approved</strong><p>Your campus registration has been approved by the Claroline.net team.</p>'] = '<strong>Aprobado</strong><p>La registración de su campus ha sido aprobada por el equipo Claroline.net.<br />Un enlace a su campus se muestra la página Worldwide de Claroline.net.</p>';
 $_lang['<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our website) if you think this is an error.</p>'] = '<strong>Borrado</strong><p>La registración de su campus ha sido desactivada, si piensa que esto es un error, contáctenos (Vea nuestro sitio web).</p>';
@@ -113,8 +114,7 @@ $_lang['Attach an existing resource'] = 'Agregar nuevo archivo adjunto';
 $_lang['Attached Resources : Add / Delete attachement'] = 'Recursos Adjuntos : Agregar / borrar adjunto';
 $_lang['Attached file'] = 'Archivo adjunto';
 $_lang['Attached resources'] = 'Adjunto';
-$_lang['Attempt %attemptCount'] = 'Intento %attemptCount';
-$_lang['Attempt %attemptCount on %attempts'] = 'Intento %attemptCount en %attempts';
+$_lang['Attempt'] = 'Intento';
 $_lang['Attempts'] = 'Intentos';
 $_lang['Attempts allowed'] = 'Intentos permitidos';
 $_lang['Authentication'] = 'Autenticación';
@@ -124,6 +124,7 @@ $_lang['Author(s)'] = 'Autor(es)';
 $_lang['Author(s) is(are) required'] = 'Es obligatorio completar el/los Autor(es)';
 $_lang['Automatically, after each submission'] = 'Automáticamente, después de cada entrega';
 $_lang['Automatically, after end date'] = 'Automáticamente, después la fecha final';
+$_lang['Available from'] = 'Disponible desde';
 $_lang['Average Time'] = 'Tiempo promedio';
 $_lang['Average score'] = 'Puntaje promedio';
 $_lang['Back'] = 'Volver';
@@ -353,7 +354,7 @@ $_lang['ErrorInvalidParms'] = 'Error :  parámetro inválido (use solamente núumer
 $_lang['Event added to the agenda'] = 'Evento agregado a la agenda.';
 $_lang['Event deleted from the agenda'] = 'Evento borrado de la agenda.';
 $_lang['Event updated into the agenda'] = 'Evento actualizado en la agenda.';
-$_lang['Exercise'] = 'Ejercicio';
+$_lang['Exercise'] = 'Ejercicio Claroline';
 $_lang['Exercise cancelled, choose a module in the list to continue.'] = 'Ejercicio cancelado, elija un módulo en la lista para continuar.';
 $_lang['Exercise done, choose a module in the list to continue.'] = 'Ejercicio completado, elija un módulo en la lista para continuar.';
 $_lang['Exercise in module'] = 'Ejercicio en módulo';
@@ -435,6 +436,7 @@ $_lang['Help'] = 'Ayuda ';
 $_lang['Here you can modify the content of the text zones displayed on the platform home page.'] = 'Aquí usted puede modificar el contenido de las zonas de texto visualizadas en la Página de Inicio de la Plataforma.';
 $_lang['Hits'] = 'Vistas';
 $_lang['Home page help'] = 'Ayuda  Página de Inicio';
+$_lang['Home page text zones'] = 'Zonas de texto de la Página de Inicio';
 $_lang['Hour'] = 'Hora';
 $_lang['Identical content<br />no modification saved'] = 'Contendo idéntico<br />no se grabaron modificaciones';
 $_lang['If you wish to enrol on this course'] = 'Si usted desea inscribirse en este curso';
@@ -1002,6 +1004,7 @@ $_lang['Your request to remove your account has been sent'] = 'Su solicitud to b
 $_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'Su perfil de usuario no parece estar inscripto en este curso';
 $_lang['Zip file uploaded and uncompressed'] = ' archivo Zip levantado y descomprimido';
 $_lang['Zlib php extension is required to use this tool. Please contact your platform administrator.'] = 'Para usar esta herramienta se requiere la extensión Zlib php.  Por favor contacte con su administrador de la Plataforma .';
+$_lang['[British people] live in [United Kingdom].'] = '[Los británicos] viven en [Reino Unido].';
 $_lang['archive'] = 'archivo';
 $_lang['blockAccountCreationNotification'] = '
 Estimado/a %firstname %lastname,
@@ -1444,14 +1447,14 @@ Cuando usted crear este tipo de pregunta&nbsp;:
 $_lang['blockFeedbackHelp'] = 'La Contestación es opcional. Es las versión correcta de la tarea. Si no la borra ésta será mostrada a los usuarios de acuerdo a la configuración de \'enviar contastación\'.';
 $_lang['blockForumNotificationEmailMessage'] = 'Estimado/a %firstname %lastname,
 
-Está recibiendo este correo porque se ha colocado un mensaje nuevo en su tema preferido en los foros,
+Está recibiendo este correo porque se ha colocado un mensaje nuevo en su tema preferido en los foros, 
 y Usted indicó que se le notofique de este evento.
 
 Puede visualizar el tema en :
 
 %url_topic
 
-O ver el índice del foro en
+O ver el índice del foro en 
 
 %url_forum
 

@@ -9,6 +9,9 @@ $_lang['(none)'] = '(tidak ada)';
 $_lang['(optional)'] = '(opsional)';
 $_lang['(version of %1\$s modified by %2\$s)'] = '(version  %1$s diubah oleh %2$s)';
 $_lang['- none -'] = '- tidak ada -';
+$_lang['<b>Notice :</b> The directory containing your Claroline installation process (<code>claroline/install/</code>) is still browsable by the web. It means anyone can reinstall Claroline and crush your previous installation. We highly recommend to protect'] = '<b>Perhatian :</b> Direktori yang berisi proses instalasi Claroline (<code>claroline/install/</code>) 
+masih dapat dilihat oleh jaringan. Artinya seseorang dapat menginstal ulang Claroline dan menghancurkan instalasi Anda sebelumnya. 
+Sangat kami sarankan untuk melindungi direktori tersebut atau memindahkannya dari server Anda';
 $_lang['<span class=\"required\">*</span> denotes required field'] = '<span class="required">*</span> menandakan bidang-bidang yang wajib diisi';
 $_lang['<strong>Approved</strong><p>Your campus registration has been approved by the Claroline.net team.</p>'] = '<strong>Disetujui</strong><p>Pendaftaran kampus Anda telah disetujui oleh tim Claroline.net team.<br />Link kepada kampus Anda telah ditampilkan pada halaman Worldwide page dari Claroline.net.</p>';
 $_lang['<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our website) if you think this is an error.</p>'] = '<strong>Sudah dihapus</strong><p>Pendaftaran kampus Anda telah dinonaktifkan, hubungi kami (lihat situs web kami) jika menurut Anda hal ini merupakan kekeliruan.</p>';
@@ -111,8 +114,7 @@ $_lang['Attach an existing resource'] = 'Lampirkan sumberdaya yang ada';
 $_lang['Attached Resources : Add / Delete attachement'] = 'Sumberdaya terlampir : Tambah / Hapus lampiran';
 $_lang['Attached file'] = 'File terlampir';
 $_lang['Attached resources'] = 'Sumberdaya terlampir';
-$_lang['Attempt %attemptCount'] = 'Upaya %attemptCount';
-$_lang['Attempt %attemptCount on %attempts'] = 'Upaya %attemptCount tampil %attempts';
+$_lang['Attempt'] = 'Upaya';
 $_lang['Attempts'] = 'Pengulangan';
 $_lang['Attempts allowed'] = 'pengulangan diijinkan';
 $_lang['Authentication'] = 'Otentikasi';
@@ -121,6 +123,7 @@ $_lang['Author(s)'] = 'Pengarang';
 $_lang['Author(s) is(are) required'] = 'Pengarang wajib diisi';
 $_lang['Automatically, after each submission'] = 'Otomatis, setelah setiap pengumpulan tugas';
 $_lang['Automatically, after end date'] = 'Otomatis, setelah tanggal berakhir';
+$_lang['Available from'] = 'Disediakan oleh';
 $_lang['Average Time'] = 'Waktu rata-rata';
 $_lang['Average score'] = 'Nilai rata-rata';
 $_lang['Back'] = 'Kembali';
@@ -148,9 +151,9 @@ $_lang['Can have courses'] = 'Dapat memiliki mata kuliah : ';
 $_lang['Cancel'] = 'Batal';
 $_lang['Cannot copy the file'] = 'Tidak dapat menyalin file.';
 $_lang['Cannot extract manifest from zip file (corrupted file ? ).'] = 'Tidak dapat mengekstrak daftar dari file zip (file terkorupsi? ).';
-$_lang['Cannot find <i>manifest</i> file in the package.<br /> File not found : imsmanifest.xml'] = 'Tidak dapat menemukan daftar file dalam paket.<br />
+$_lang['Cannot find <i>manifest</i> file in the package.<br /> File not found : imsmanifest.xml'] = 'Tidak dapat menemukan daftar file dalam paket.<br /> 
 Filte yang tidak ditemukan : imsmanifest.xml';
-$_lang['Cannot find secondary initialisation file in the package.<br /> File not found :'] = 'Tidak dapat menemukan insialisasi file sekunder
+$_lang['Cannot find secondary initialisation file in the package.<br /> File not found :'] = 'Tidak dapat menemukan insialisasi file sekunder 
 di dalam paket.<br /> File not found : ';
 $_lang['Categories'] = 'Kategori-kategori';
 $_lang['Category'] = 'Kategori';
@@ -351,7 +354,7 @@ $_lang['ErrorInvalidParms'] = 'Error : Parameter tidak benar (gunakan angka saja
 $_lang['Event added to the agenda'] = 'Event telah ditambahkan ke agenda.';
 $_lang['Event deleted from the agenda'] = 'Event telah dihapus dari agenda.';
 $_lang['Event updated into the agenda'] = 'Event telah diperbaharui ke agenda.';
-$_lang['Exercise'] = 'Latihan';
+$_lang['Exercise'] = 'Latihan Claroline';
 $_lang['Exercise cancelled, choose a module in the list to continue.'] = 'Latihan dibatalkan, pilih modul di dalam daftar untuk melanjutkan.';
 $_lang['Exercise done, choose a module in the list to continue.'] = 'Latihan selesai, pilih modul di dalam daftar untuk melanjutkan.';
 $_lang['Exercise in module'] = 'Latihan di dalam modul';
@@ -434,6 +437,7 @@ $_lang['Here you can modify the content of the text zones displayed on the platf
 yang ditampilkan ole halaman utama situs elearning.';
 $_lang['Hits'] = 'Hits';
 $_lang['Home page help'] = 'Home Page Pertolongan';
+$_lang['Home page text zones'] = 'Zona teks halaman utama situs elearning';
 $_lang['Hour'] = 'Jam';
 $_lang['Identical content<br />no modification saved'] = 'Isi identik<br />tidak ada perubahan yang disimpan';
 $_lang['If you wish to enrol on this course'] = 'Jika ingin ikut serta dalam mata kuliah ini';
@@ -623,7 +627,7 @@ $_lang['Number of users'] = 'Jumlah user';
 $_lang['Number of users by course'] = 'Jumlah user berdasarkan mata kuliah';
 $_lang['Number of users by faculty'] = 'Jumlah user berdasarkan kategori';
 $_lang['Number of users by status'] = 'Jumlah user berdasarkan status';
-$_lang['Number proposed exceeds max. that you allowed (you can modify it below). Group composition has not been modified'] = 'Jumlah yang diusulkan melebihi jumlah maksimum yang anda ijinkan (anda dapat mengubahnya di bawah ini).
+$_lang['Number proposed exceeds max. that you allowed (you can modify it below). Group composition has not been modified'] = 'Jumlah yang diusulkan melebihi jumlah maksimum yang anda ijinkan (anda dapat mengubahnya di bawah ini). 
 				Komoposisi Group belum diubah';
 $_lang['Numero'] = 'Nomor';
 $_lang['Ok'] = 'Ok';
@@ -930,7 +934,7 @@ $_lang['Visibility modified'] = 'Kenampakan diubah';
 $_lang['Visible'] = 'Tampak';
 $_lang['Visits'] = 'kunjungan';
 $_lang['WARNING : you are going to delete this wiki and all its pages. Are you sure to want to continue ?'] = 'Perinngatan : Anda akan menghapus wiki dan semua halamannya. Lanjut ?';
-$_lang['WARNING: this page is a preview. Your modifications to the wiki has not been saved yet ! To save them do not forget to click on the \'save\' button at the bottom of the page.'] = 'PERINGATAN: ini hanya preview. Modifikasi yang anda buat pada wiki belum
+$_lang['WARNING: this page is a preview. Your modifications to the wiki has not been saved yet ! To save them do not forget to click on the \'save\' button at the bottom of the page.'] = 'PERINGATAN: ini hanya preview. Modifikasi yang anda buat pada wiki belum 
 disimpan ! Untuk menyimpannya jangan lupa klik tombol \'simpan\' di bawah halaman.';
 $_lang['Week'] = 'Minggu';
 $_lang['Weighting'] = 'Bobot';
@@ -992,23 +996,24 @@ $_lang['Your progression in this module'] = 'Kemajuan Anda pada modul ini';
 $_lang['Your request to become a course creator has been sent to platform administrator(s).'] = 'Permintaan Anda untuk menjadi pembuat mata kuliah telah dikirim ke
  administrator elearning.';
 $_lang['Your request to remove your account has been sent'] = 'Permintaan anda untuk menghapus account telah dikirim';
-$_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'Profil user Anda tampaknya tidak
+$_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'Profil user Anda tampaknya tidak 
 ikut serta pada mata kuliah ini';
 $_lang['Zip file uploaded and uncompressed'] = ' file Zip di-upload dan di-didekoompres';
 $_lang['Zlib php extension is required to use this tool. Please contact your platform administrator.'] = 'Dibutuhkan ekstensi php Zlib untuk menggunkan tool ini.
  Silahkan hubungi administrator platform.';
+$_lang['[British people] live in [United Kingdom].'] = '[Orang Britania] tinggal di [Kerajaan Inggris].';
 $_lang['archive'] = 'arsip';
 $_lang['blockAssignmentsHelp'] = '<p>
 Bagi mahasiswa, tool tugas adalah tempat untuk mengumpulkan publikasi. Pengelola mata kuliah membuat satu atau beberapa tugas
 ( zona publikasi yang berbeda ) tempat mahasiswa dapat memasukkan pekerjaan mereka.<br /><br />
 Setiap tugas dapat memiliki tujuan dan prasyarat yang berbeda : publikasi harus berupa file, atau teks,
 atau teks disertai file, publikasi dapat dapat dibuat oleh group selain oleh seorang mahasiswa,...<br /><br />
-Mahasiswa memiliki kemampuan untuk mengubah pekerjaan mereka setelah pengumpulan dan pengelola mata kuliah
+Mahasiswa memiliki kemampuan untuk mengubah pekerjaan mereka setelah pengumpulan dan pengelola mata kuliah 
 dapat memberikan umpan balik kepada para mahasiswa tentang pekerjaan yang sudah dikumpulkan.
 </p>
 <hr />
 <h4>Buat tugas</h4>
-<p>Untuk membuat tugas baru pengelola mata kuliah harus masuk ke tool tugas dan klik pada
+<p>Untuk membuat tugas baru pengelola mata kuliah harus masuk ke tool tugas dan klik pada 
 link "Buat tugas baru".
 </p>
 <p>Formulir ini meminta pengelola mata kuliah untuk menetapkan&nbsp;:
@@ -1016,7 +1021,7 @@ link "Buat tugas baru".
 <ul><li> judul&nbsp;: judul tugas
 </li><li> deskripsi&nbsp;: pernyataan tentang tugas, apa yang harus dilakukan oleh mahasiswa
 </li><li> tipe tugas yang dikumpulkan&nbsp;:
-<ul><li> File&nbsp;: setiap jenis file yang dapat dikirim (upload), perlu diingat bahwa ada batasan ukuran yang
+<ul><li> File&nbsp;: setiap jenis file yang dapat dikirim (upload), perlu diingat bahwa ada batasan ukuran yang 
 tergantung pada platform, teks dapat disertakan untuk menjelaskan tentang file
 </li><li> Hanya teks&nbsp;: teks yang diformat dengan editor wysiwyg atau format html
 </li><li> Teks yang disertai dengan lampiran file&nbsp;: teks yang diformat dengan editor wysiwyg (atau format html)
@@ -1027,7 +1032,7 @@ tergantung pada platform, teks dapat disertakan untuk menjelaskan tentang file
 </li><li> seting awal keterbukaan publikasi&nbsp;: pilihan untuk menentukan apakah publikasi hanya tersedia bagi user atau tidak
 </li><li> tipe tugas&nbsp;:
 <ul><li> modus individu&nbsp;: setiap user yang sudah login dapat mengumpulkan tugas
-</li><li> modus group&nbsp;: user harus menjadi anggota pada group sekurang-kurangnya satu mata kuliah
+</li><li> modus group&nbsp;: user harus menjadi anggota pada group sekurang-kurangnya satu mata kuliah 
 dan tugas akan dikumpul atas nama kelompok
 </li></ul>
 </li><li> ijin untuk mengumpulkan tugas setelah tanggal akhir
@@ -1035,7 +1040,7 @@ dan tugas akan dikumpul atas nama kelompok
 <p><br />
 <strong>Tambah umpan balik otomatis</strong>
 </p>
-<p>Umpan balik adalah tugas yang seharusnya dibuat oleh mahasiswa.  Untuk menambah umpan balik
+<p>Umpan balik adalah tugas yang seharusnya dibuat oleh mahasiswa.  Untuk menambah umpan balik 
 otomatis pada tugas, masuk ke tugas dan klik pada link "Edit umpan balik otomatis".  </p>
 <p>Umpan balik dapat berupa teks atau file atau keduanya.  Pengelola mata kuliah dapat menentukan kapan umpan balik akan ditampilkan kepada mahasiswa ( setelah tanggal akhir pengumpulan tugas atau setelah pengumpulan tugas pertama kalinya)
 </p>
@@ -1063,8 +1068,8 @@ pada . Seting ini dapat diubah dengan melakukan klik pada ikon ini.
 <li> <strong>Tak tampak</strong>&nbsp;: Jika ikon ini tampil, berarti tugas tidak tampak bagi mahasiswa. Hal ini seperti tool dokumen Claroline.
   Seting dapat dirubah dengan melakukan klik pada ikon ini.
 </li>
-<li> <strong>Tambah umpan balik</strong>&nbsp;: ijinkan pengelola untuk memasukkan umpan balik tentang tugas yang telah dikerjakan
-oleh mahasiswa.  Umpan balik dapat berupa file, atau teks, atau keduanya dengan komentar pribadi yang
+<li> <strong>Tambah umpan balik</strong>&nbsp;: ijinkan pengelola untuk memasukkan umpan balik tentang tugas yang telah dikerjakan 
+oleh mahasiswa.  Umpan balik dapat berupa file, atau teks, atau keduanya dengan komentar pribadi yang 
 hanya dapat dilihat dan diberi nilai oleh pengelola mata kuliah.
 </li>
 </ul>
@@ -1074,7 +1079,7 @@ $_lang['blockClaroMainHelp'] = 'Di sini pengajar dan asisten membuat dan mengelo
  Hal-hal yang dapat di-posting-kan misalnya terjadinya error dan saran-saran pengembangan. Daftar \'To do\' terhubung ke situs Home Page kampus (begitu
  log in).</p>
 <p>Forum dukungan berbeda fungsinya yaitu menghubungkan pengguna Claroline di seluruh dunia.
-Jika anda tidak menemukan jawaban dari pertanyaan anda dalam lingkungan kampus anda,
+Jika anda tidak menemukan jawaban dari pertanyaan anda dalam lingkungan kampus anda, 
 kirimkankan pesan kesini.</p>
 <p>Link ke Pendaftaran (jika ada) ada pada Home Page (bagian kanan atas).</p><b>Login</b><p>Pada kunjungan berikutnya, ketik login/password
  dan Ok untuk mengakses mata kuliah anda. URL situsnya ';
@@ -1099,35 +1104,35 @@ $_lang['blockCourseDescriptionDescriptionComment1'] = 'Bagaimana posisi mata kul
  Apakah ada prasyarat untuk mata kuliah ini?  Bagaimana hubungan dengan mata kuliah ini?';
 $_lang['blockCourseDescriptionDescriptionComment2'] = 'Keterangan yang menggambarkan mata kuliah (singkatan, nama, jumlah jam, hand-out, dll)
  dan pengajar (nama lengkap, nama depan, kantor, telepon, email, dll).  Gambaran umum mengenai mata kuliah.';
-$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment1'] = 'Sumberdaya manusia dan fisik apa yang tersedia?  Bagaimana kerangkanya?
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment1'] = 'Sumberdaya manusia dan fisik apa yang tersedia?  Bagaimana kerangkanya?  
 Apa yang dapat diharapkan oleh mahasiswa dari tim pengajar?';
-$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment2'] = 'Uraian tentang keterlibatan pengajar lain yang akan mengorganisasi mata kuliah (asisten, peneliti, pemantau mahasiswa...),
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment2'] = 'Uraian tentang keterlibatan pengajar lain yang akan mengorganisasi mata kuliah (asisten, peneliti, pemantau mahasiswa...),  
 bangunan dan peralatan atau perangkat komputer yang tersedia.';
 $_lang['blockCourseDescriptionHumanAndPhysicalRessources'] = 'Sumberdaya manusia dan fisik';
 $_lang['blockCourseDescriptionMethodsOfEvaluation'] = 'Metode evalusi';
-$_lang['blockCourseDescriptionMethodsOfEvaluationComment1'] = 'Rincian pasti tentang cara evaluasi (ujian tulis, lisan, projek, tugas yang akan diberikan...),
-tanggal ujian formatif, tanggal kadaluarsa pengumpulan tugas, dengan kriteria evaluasi, mungkin pembobotan kriteria
+$_lang['blockCourseDescriptionMethodsOfEvaluationComment1'] = 'Rincian pasti tentang cara evaluasi (ujian tulis, lisan, projek, tugas yang akan diberikan...), 
+tanggal ujian formatif, tanggal kadaluarsa pengumpulan tugas, dengan kriteria evaluasi, mungkin pembobotan kriteria 
 atau kategori-kategori kriteria.';
 $_lang['blockCourseDescriptionQualificationsAndGoals'] = 'Kualifikasi dan Tujuan';
 $_lang['blockCourseDescriptionQualificationsAndGoalsComment1'] = 'Apa sasaran pembelajaran?  Pada akhir perkuliahan, kualifikasi, kemampuan apa dan pengetahuan yang bagaimana
  yang dapat dikendalikan atau dimobilisasi oleh mahasiswa??';
-$_lang['blockCourseDescriptionQualificationsAndGoalsComment2'] = 'Uraiann tentang tujuan umum dan khusus mata kuliah,
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment2'] = 'Uraiann tentang tujuan umum dan khusus mata kuliah, 
 tentang kualifikasi yang pengendaliannya hendak dijadikan sebagai arah dari tujuan ini.';
 $_lang['blockCourseDescriptionSupports'] = ' Dukungan ';
 $_lang['blockCourseDescriptionSupportsComment1'] = 'Apakah ada dukungan untuk mata kuliah?  Dukungan seperti apa yang akan kuberikan?  Terbuka?  Tertutup?';
 $_lang['blockCourseDescriptionSupportsComment2'] = 'Uraian tentang dukungan terhadap mata kuliah.  Uraian tentang bibliografi, sehimpunan dokumen atau
  bibliografi pelengkap.';
 $_lang['blockCourseDescriptionTeachingTrainingActivities'] = 'Kegiatan pembelajaran-pelatihan';
-$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment1'] = 'Metode dan aktifitas apa yang akan mendukung tujuan yang telah ditetapkan untuk mata kuliah ini?
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment1'] = 'Metode dan aktifitas apa yang akan mendukung tujuan yang telah ditetapkan untuk mata kuliah ini?  
 Bagaimana kalender kegiatan?';
 $_lang['blockCourseDescriptionTeachingTrainingActivitiesComment2'] = 'Uraian tentang kegiatan yang akan dilaksanakan (telaah otoritatif, partisipasi yang diharapkan
  dari mahasiswa, tugas praktek, pertemuan laboratorium, kunjungan, kumpulan informasi menurut...).';
-$_lang['blockCourseHomePageIntroduction'] = 'Pilih tool yang Anda ingin tampilkan kepada mahasiswa Anda.
+$_lang['blockCourseHomePageIntroduction'] = 'Pilih tool yang Anda ingin tampilkan kepada mahasiswa Anda. 
 Tool yang tidak tampil akan tampil lebih redup di antar muka pribadi Anda';
 $_lang['blockCourseSettingsTip'] = 'Bawaannya, mata kuliah anda hanya dapat diakses hanya oleh anda sebagai satu-satunya user yang terdaftar.   Jika anda ingin kerahasiaan, cara terpraktis adalah dengan membuka pendaftaran selama seminggu, perintahkan mahamahasiswa untuk mendaftar sendiri, kemudian tutup pendaftaran dan periksa kemungkinan adanya penyusup dalam daftar user.';
 $_lang['blockDefaultLearningPathComment'] = 'Ini uraian pengantar untuk alur pembelajaran ini. Untuk mengubahnya dengan uraian anda, klik di <b>ubah</b> di bawah ini.';
-$_lang['blockDefaultModuleAddedComment'] = 'Ini adalah teks perkenalan tambahan tentang keberadaan modul ini
-secara khusus dalam alur pembelajaran. Untuk menggantinya dengan teks Anda sendiri,
+$_lang['blockDefaultModuleAddedComment'] = 'Ini adalah teks perkenalan tambahan tentang keberadaan modul ini 
+secara khusus dalam alur pembelajaran. Untuk menggantinya dengan teks Anda sendiri, 
 klik <b>ubah</b> di bawah ini.';
 $_lang['blockDefaultModuleComment'] = 'Ini adalah teks perkenalan dari modul ini, yang akan tampil
 pada setiap jalur pembelajaran yang mengandung modul ini. Untuk menggantinya dengan teks Anda sendiri,
@@ -1350,7 +1355,7 @@ daftar anggota.</li>
 $_lang['blockHomepageHelp'] = 'Untuk kemudahan, tool claroline berisi setting default.
  Terdapat contoh kecil pada tiap tool untuk membantu anda mencerna bagaimana hal tsb bekerja. Terserah anda untuk mengubahnya atau menghapusnya.</p><p>Contohnya, pada Home Page mata kuliah ini, terdapat teks pendahuluan berisi \'Ini teks pendahuluan mata kuliah anda. Untuk menggantinya dengan teks anda, klik di bawah ini pada \'ubah\' untuk mengubahnya, editlah teks tsb dan OK. Sesederhana itulah modelnya. Tiap tool memiliki logika yang sama:
  tambah, hapus, ubah, yang merupakan logika ditus dinamis.</p><p>Pada saat pertamabanda membuat situs, hampir semua tool aktif. Kembali terserah anda untuk me-nonaktifkan poin-poin yang tidak anda butuhkan. Andan hanya perlu untuk meng-klik \'nonaktifkan\'. Maka item tsb akan berubah menjadi bagian kelabu dari situs anda dan menjadi tidak tampak untuk mahasiswa anda.  Namun anda mengaktifkannya jika anda butuhkan, membuatnya nampak untuk mahasiswa anda.</p>
-<p>Anda dapat menambahkan halaman ke situs anda.  Halaman tsb mesti dalam format HTML (yang dapat dibuat menggunakan
+<p>Anda dapat menambahkan halaman ke situs anda.  Halaman tsb mesti dalam format HTML (yang dapat dibuat menggunakan 
  Word Processor atau Web Composer). Gunakan \'Upload halaman dan  link-kan ke Situs\' untuk mengirim halaman anda ke server. Header standar situs anda secara otomatis akan bergabung dengan dumen baru tsb, jadi anda hanya perlu berkonsentrasi ke isi saja. Jika anda ingin me-link situs anda ke situs/dokumen lain di web (bahkan ke dalam situs anda sendiri), gunaksn \'Tambahkan link ke Situs\'.  Halaman yang anda tambahkan tsb dapat di-nonaktifkan kemudian dihapus, dimana tool standar dapat me-nonaktifkan tetapi tidak menghapus.</p><p>Begitu situs anda siap, browse ke \'Ubah info mata kuliah\' dan tentukan tingkat kerahasiaan yang diinginkan.
  Secara default, mata kuliah anda tersrmbunyi (karena anda sedang bekerja disitu).</p>';
 $_lang['blockIntroCourse'] = 'Anda berada pada halaman utama.<br /><br />Pada halaman ini, Anda dapat :
@@ -1362,12 +1367,12 @@ Sekarang, untuk menambah uraian pengantar yang memperkenalkan mata kuliah Anda k
 $_lang['blockIntroLearningPath'] = 'Gunakan tool ini untuk memberikan alur yang berurutan antara dokumen, latihan, halaman-halaman HTML, link,...<br /><br />If you want to present your learning path to students, click on the button below.<br />';
 $_lang['blockModulePoolHelp'] = 'Halaman ini memungkinkan Anda melihat semua modul yang tersedia dalam mata kuliah ini. <br />
                      Setiap latihan atau dokumen yang telah ditambahkan ke alur pembelajaran juga akan tampak pada daftar ini.';
-$_lang['blockRegisterLocalUrl'] = 'URL kampus Anda tampaknya merupakan url lokal.
+$_lang['blockRegisterLocalUrl'] = 'URL kampus Anda tampaknya merupakan url lokal. 
 Dibutuhan url yang dapat diakses untuk mendaftarkan situs anda ke Claroline.net.<br /><br />
 Periksa nilai \'Web base\' dalam konfigurasi Claroline Anda.';
 $_lang['blockUsedInSeveralPath'] = 'Latihan ini digunakan pada lebih dari satu alur pembelajaran. Jika dihapus, tidak dapat tersedia lagi pada alur pembelajaran.';
 $_lang['blockUsersHelp'] = '<b>Peran</b><p>Peran tidak ada hubungannya dengan komputer.
- Peran tidak memberi hak pada sistem operasi, tetapi hanya menunjukkan kepada kita siapa user. Anda dapat mengubahnya dengan meng-klik \'ubah\' dalam
+ Peran tidak memberi hak pada sistem operasi, tetapi hanya menunjukkan kepada kita siapa user. Anda dapat mengubahnya dengan meng-klik \'ubah\' dalam 
  \'peran\', kemudian ketikkan apa yang anda inginkan: pengajar, asisten, mahasiswa,
  pengunjung, pakar ...</P><hr />
 <b>Hak Admin</b>
@@ -1380,7 +1385,7 @@ $_lang['blockUsersHelp'] = '<b>Peran</b><p>Peran tidak ada hubungannya dengan ko
 <p>Untuk menambah seorang user ke mata kuliah anda, isi field-field dan validasi. User tersebut akan menerima email berisi bahwa user tsb telah terdaftar dan informasi login dan passwordnya.</p>';
 $_lang['blockWikiConflictHowTo'] = '<p><strong>Konflik edit</strong> : Halaman yang akan disimpan tampaknya telah berubah sejak Anda mengubahnya.<br /><br />
 Bagaimana selanjutnya ?<ul>
-<li>Anda dapat copy/paste perubahan Anda ke editor teks (seperti notepad) dan klik di \'edit versi terakhir\' untuk mencoba menambah
+<li>Anda dapat copy/paste perubahan Anda ke editor teks (seperti notepad) dan klik di \'edit versi terakhir\' untuk mencoba menambah 
 modifikasi Anda ke dalam halaman dari versi baru.</li>
 <li>Anda dapat juga klik batal untuk membatalkan perubahan.</li>
 </ul></p>';
@@ -1399,7 +1404,7 @@ $_lang['blockWikiHelpAdminContent'] = '<h3>Bantuan adminisrasi wiki</h3>
 <dt>Bagaimana mengubah property dari Wiki ?</dt>
 <dd>Klik pada kolom ikon \'Property\' dalam daftar Wiki untuk masuk ke formulia property Wiki.</dd>
 <dt>Bagaimana menggunakan pilihan manajemen pengendalian Akses?</dt>
-<dd>Hak akses untuk user dapat diatur dengan memberi atau menghilangkan tanda cek pada bagian \'Manajemen pengendalian
+<dd>Hak akses untuk user dapat diatur dengan memberi atau menghilangkan tanda cek pada bagian \'Manajemen pengendalian 
 akses\' pada property Wiki.
  Ada tiga hak akses bagi user yang dapat diberikan/dibatalkan :<ul>
 <li><b>Anggota mata kuliah</b> : user terlibat pada mata kuliah (kecuali pengelola mata kuliah)</li>
@@ -1424,50 +1429,50 @@ $_lang['blockWikiHelpSyntaxContent'] = '<h3>Wiki2xhtml syntax</h3>
 <dl class="wikiHelp">
 <dt>Buat halaman wiki dan link antar halaman wiki</dt>
 <dd><ul>
-<li><strong>Kata-kata Wiki</strong> : kata-kata Wiki adalah kata-kata yang ditulis seperti <em>KataWiki</em>.
-Wiki2xhtml secara otomatis akan mengenalinya sebagai link halaman Wiki. Untuk membuat halaman wiki atau
- untuk membuat link ke suatu halaman wiki, edit linjk yang ada dan tambahkan judul halaman dalam syntax WikiWord,
- misalnya <em>HalamanKu</em>, kemudian simpan halaman. Wiki2xhtml secara otomatis akan mengganti Wiki Word
+<li><strong>Kata-kata Wiki</strong> : kata-kata Wiki adalah kata-kata yang ditulis seperti <em>KataWiki</em>. 
+Wiki2xhtml secara otomatis akan mengenalinya sebagai link halaman Wiki. Untuk membuat halaman wiki atau 
+ untuk membuat link ke suatu halaman wiki, edit linjk yang ada dan tambahkan judul halaman dalam syntax WikiWord, 
+ misalnya <em>HalamanKu</em>, kemudian simpan halaman. Wiki2xhtml secara otomatis akan mengganti Wiki Word 
  <em>HalamanKu</em> dengan link ke suatu halaman Wiki <em>HalamanKu</em>&nbsp;;</li>
 <li><strong>Link Wiki</strong> : Link Wiki adalah seperti Hyperlinks (lihat di bawah) kecuali bahwa link wiki
  tidak mengandung skema protokol apapun (seperti <em>http://</em> atau <em>ftp://</em>) dan link wiki
   secara otomatis mengenalinya sebagai link ke suatu halaman wiki lain. Untuk membuat halaman baru atau membuat
-   link ke suatu halaman yang sudah ada dengan menggunakan link wiki, edit halaman dan tambahkan
-   <code>[judul halaman]</code> atau <code>[judul halaman|teks link]</code> ke dalam isinya.
-   Syntax tersebut juga dapat digunakan untuk mengubah teks di dalam link KataWiki :
+   link ke suatu halaman yang sudah ada dengan menggunakan link wiki, edit halaman dan tambahkan 
+   <code>[judul halaman]</code> atau <code>[judul halaman|teks link]</code> ke dalam isinya. 
+   Syntax tersebut juga dapat digunakan untuk mengubah teks di dalam link KataWiki : 
    <code>[KataWiki|teks]</code>.</li>
 </ul></dd>
 <dt>Unsur-unsur Blok</dt>
 <dd><ul><li>Tambahkan baris baru antara setiap baris dari <em>tipe yang sama</em>.&nbsp;;</li>
 <li><strong>Paragraf</strong> : ketik sejumlah teks dan baris baru&nbsp;;</li>
-<li><strong>Judul</strong> : <code>!!!</code>, <code>!!</code>, <code>!</code> masing-masing untuk judul,
+<li><strong>Judul</strong> : <code>!!!</code>, <code>!!</code>, <code>!</code> masing-masing untuk judul, 
 , sub-judul dan sub-sub-judul&nbsp;;</li>
 <li><strong>Baris horisontal</strong> : <code>----</code>&nbsp;;</li>
-<li><strong>Daftar</strong> : baris dimulai dengan <code>*</code> atau <code>#</code>.
+<li><strong>Daftar</strong> : baris dimulai dengan <code>*</code> atau <code>#</code>. 
 Daftar (<code>*#*</code>) dapat dipadukan untuk membuat daftar berjenjang.&nbsp;;</li>
 <li><strong>Teks praformat</strong> : tambahykan spasi sebelum setiap baris untuk teks praformat&nbsp;;</li>
 <li><strong>Blok kutipan</strong> : <code>&gt;</code> ou <code>;:</code> sebelum setiap baris.</li>
 </ul></dd>
 <dt>Unsur-unsur dalam baris</dt>
-<dd><ul><li>Koreksi otomatis tanda baca aktif : Ruang yangt tak terpisahkan akan mendahului setiap symbol berikut
+<dd><ul><li>Koreksi otomatis tanda baca aktif : Ruang yangt tak terpisahkan akan mendahului setiap symbol berikut 
 ";","?",":" dan "!".&nbsp;;</li>
 <li><strong>Penekanan</strong> : di sekitar teks dengan dua tanda petik tunggal <code>\'\'teks\'\'</code>&nbsp;;</li>
 <li><strong>Penekanan tegas</strong> : di sekitar teks dengan tiga tanda petik tunggal <code>\'\'\'teks\'\'\'</code>&nbsp;;</li>
 <li><strong>Buat baris baru</strong> : <code>%%%</code>&nbsp;;</li>
 <li><strong>Garis bawah</strong> : di sekitar tek dengan dua garis bawah <code>__teks__</code>&nbsp;;</li>
 <li><strong>Arsir</strong> : di sekitar teks dengan dua simbol minus <code>--teks--</code>&nbsp;;</li>
-<li><strong>Hyperlink</strong> : <code>[url]</code>, <code>[nama|url]</code>, <code>[nama|url|bahasa]</code>
+<li><strong>Hyperlink</strong> : <code>[url]</code>, <code>[nama|url]</code>, <code>[nama|url|bahasa]</code> 
 atau <code>[nama|url|bahasa|judul]</code>.&nbsp;;</li>
-<li><strong>Gambar</strong> : sama seperti Hyperlink<br />Letakkan sebuah 0 di akhir argumen untuk menghindarkan
-pengenalan gambar dan mangambil to ke sebuah gambar. Misalnya <code>[gambar|gambar.gif||0]</code>
+<li><strong>Gambar</strong> : sama seperti Hyperlink<br />Letakkan sebuah 0 di akhir argumen untuk menghindarkan 
+pengenalan gambar dan mangambil to ke sebuah gambar. Misalnya <code>[gambar|gambar.gif||0]</code> 
 akan menampilkan link ke sebuah gambar gambar.gif dan bukannya menampilkan gambar itu sendiri.
 <br />Sintax digugurkan, pertimbangkan untuk menggunakan cara berikut&nbsp;;</li>
-<li><strong>Gambar</strong> (new syntax) : <code>((url|teks alternatif))</code>, <code>((url|teks alternatif|posisi))</code> ou
-<code>((url|teks alternatif|posisi|deskripsi panjang lebar))</code>.
+<li><strong>Gambar</strong> (new syntax) : <code>((url|teks alternatif))</code>, <code>((url|teks alternatif|posisi))</code> ou 
+<code>((url|teks alternatif|posisi|deskripsi panjang lebar))</code>. 
 <br />Posisi argumen dapat berupa nilai-nilai berikut : L (kiri), R (kanan) atau C (tengah).&nbsp;;</li>
 <li><strong>Jangkar bernama</strong> : <code>~jangkar~</code>&nbsp;;</li>
 <li><strong>Singkatan</strong> : <code>??singkatan??</code> atau <code>??singkatan|definisi??</code>&nbsp;;</li>
-<li><strong>Kutipan</strong> : <code>{{kutipan}}</code>, <code>{{kutipan|bahasa}}</code> atau
+<li><strong>Kutipan</strong> : <code>{{kutipan}}</code>, <code>{{kutipan|bahasa}}</code> atau 
 <code>{{kutipan|bahasa|url}}</code>&nbsp;;</li>
 <li><strong>Kode</strong> : <code>@@kode di sini@@</code>&nbsp;;</li>
 <li><strong>Catatan kaki</strong> : <code>$$teks catatan kaki$$</code>.</li>
@@ -1480,7 +1485,7 @@ $_lang['denotes new items'] = 'menandakan ada informasi baru';
 $_lang['differences between version of %1\$s modified by %2\$s and version of %3\$s modified by %4\$s'] = 'perbedaan antara versi %1$s yang diubah oleh %2$s dengan versi %3$s yang diubah oleh %4$s';
 $_lang['e.g. <em>History of Literature</em>'] = 'misal <i>Dasar-dasar Ilmu Tanah</i>';
 $_lang['good looking'] = 'keren';
-$_lang['if you choose to continue, lines with errors will simply be ignored'] = 'jika memilih lanjut, baris yang mengalami
+$_lang['if you choose to continue, lines with errors will simply be ignored'] = 'jika memilih lanjut, baris yang mengalami 
  error akan diabaikan';
 $_lang['line'] = 'baris';
 $_lang['lines'] = 'baris';
@@ -1498,7 +1503,7 @@ $_lang['sampleForumMainCategory'] = 'Utama';
 $_lang['sampleForumMessage'] = 'Jika anda menghapus forum test, semua pesan di dalam forum tersebut akan dihapus juga.';
 $_lang['sampleForumTitle'] = 'Forum Test';
 $_lang['sampleForumTopicTitle'] = 'Contoh Pesan';
-$_lang['sampleLearnPathDescription'] = 'Ini adalah contoh alur pembelajaran, alur ini menggunakan contoh latihan dan contoh dokumen pada tool
+$_lang['sampleLearnPathDescription'] = 'Ini adalah contoh alur pembelajaran, alur ini menggunakan contoh latihan dan contoh dokumen pada tool 
 latihan dan tool dokumen. Klik di
                             <b>Ubah</b> untuk mengubah teks ini.';
 $_lang['sampleLearnPathDocumentDescription'] = 'Dokumen manapun yang ada dalam tool dokumen pada mata kuliah ini dapat digunakan.';
@@ -1523,8 +1528,8 @@ $_lang['seats (optional)'] = 'tempat (optional)';
 $_lang['seats by groups (optional)'] = 'tempat menurut group (optional)';
 $_lang['to'] = 'Kepada';
 $_lang['uncompress zipped (.zip) file on the server'] = 'Dekompres file zip(.zip) di server';
-$_lang['warning : Installation cannot find the description of the learning path and has set a default comment.  You should change it'] = 'peringatan : Instalasi tidak menemukan deskripsi alur pembelajaran dan telah menetapkan komentar bawaan.
+$_lang['warning : Installation cannot find the description of the learning path and has set a default comment.  You should change it'] = 'peringatan : Instalasi tidak menemukan deskripsi alur pembelajaran dan telah menetapkan komentar bawaan.  
 Anda dapat mengubahnya';
-$_lang['warning : Installation cannot find the name of the learning path and has set a default name.  You should change it.'] = 'peringatan : Instalasi tidak menemukan nama alur pembelajaran dan telah menetapkan nama bawaan.
+$_lang['warning : Installation cannot find the name of the learning path and has set a default name.  You should change it.'] = 'peringatan : Instalasi tidak menemukan nama alur pembelajaran dan telah menetapkan nama bawaan.  
 Anda dapat mengubahnya.';
 ?>

@@ -16,13 +16,13 @@ require '../../inc/claro_init_global.inc.php';
 
 //SECURITY CHECK
 
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 //DECLARE NEEDED LIBRARIES
 
-require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
-require_once get_path('incRepositorySys') . '/lib/module.manage.lib.php';
+require_once $includePath . '/lib/pager.lib.php';
+require_once $includePath . '/lib/module.manage.lib.php';
 
 //SQL table name
 
@@ -33,8 +33,8 @@ $tbl_dock        = $tbl_name['dock'];
 
 if ( isset($_REQUEST['dock']) )
 {
-    $dockList = get_dock_list('applet');
-    $dock = $_REQUEST['dock'];
+	$dockList = get_dock_list('applet');
+	$dock = $_REQUEST['dock'];
     $dockName = isset($dockList[$dock]) ? $dockList[$dock] : $dock ;
     $nameTools = get_lang('Dock') . ' : ' . $dockName;
 }
@@ -45,7 +45,7 @@ else
     $nameTools = get_lang('Dock');
 }
 
-$interbredcrump[]= array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
+$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 $interbredcrump[]= array ('url' => 'module_list.php','name' => get_lang('Module list'));
 
 //CONFIG and DEVMOD vars :
@@ -112,7 +112,7 @@ if ( !empty($dock))
 // DISPLAY
 //----------------------------------
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include $includePath . '/claro_init_header.inc.php';
 
 //display title
 
@@ -186,13 +186,13 @@ if ( !empty($dock) )
         if (!($iteration==1))
         {
             echo '<a href="module_dock.php?cmd=up&amp;module_id=' . $module['id'] . '&amp;dock='.urlencode($dock).'">'
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'up.gif" border="0" alt="' . get_lang('Up') . '" />'
+            .    '<img src="' . $imgRepositoryWeb . 'up.gif" border="0" alt="' . get_lang('Up') . '" />'
             .    '</a>' . "\n"
             ;
         }
         else
         {
-            echo '&nbsp;';
+        	echo '&nbsp;';
         }
         echo '</td>' . "\n";
 
@@ -202,13 +202,13 @@ if ( !empty($dock) )
         if ($iteration != $enditeration)
         {
             echo '<a href="module_dock.php?cmd=down&amp;module_id=' . $module['id'] . '&amp;dock=' . urlencode($dock) . '">'
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'down.gif" border="0" alt="' . get_lang('Down') . '" />'
+            .    '<img src="' . $imgRepositoryWeb . 'down.gif" border="0" alt="' . get_lang('Down') . '" />'
             .    '</a>'
             ;
         }        
         else
         {
-            echo '&nbsp;';
+        	echo '&nbsp;';
         }
         echo '</td>' . "\n";
 
@@ -216,7 +216,7 @@ if ( !empty($dock) )
 
         echo '<td align="center">' . "\n"
         .    '<a href="module_dock.php?cmd=remove&amp;module_id=' . $module['id'] . '&amp;dock=' . urlencode($dock) . '">'
-        .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />'
+        .    '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />'
         .    '</a>'
         .    '</td>' . "\n";
 
@@ -235,5 +235,5 @@ if ( !empty($dock) )
 
 }
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 ?>

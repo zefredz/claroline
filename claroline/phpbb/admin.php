@@ -7,7 +7,7 @@ $htmlHeadXtra[] =
           "<script type=\"text/javascript\">
            function confirm_delete(name)
            {
-               if (confirm('". clean_str_for_javascript(get_lang('Are you sure to delete')) . " ' + name + ' ?'))
+               if (confirm('". clean_str_for_javascript(get_lang('Are you sure to delete')) . "' + name + ' ?'))
                {return true;}
                else
                {return false;}
@@ -15,7 +15,7 @@ $htmlHeadXtra[] =
 
            function confirm_empty(name)
            {
-               if (confirm('". clean_str_for_javascript(get_lang('Delete all messages of')) . " ' + name + ' ?'))
+               if (confirm('". clean_str_for_javascript(get_lang('Delete all messages of')) . "' + name + ' ?'))
                {return true;}
                else
                {return false;}
@@ -33,17 +33,17 @@ if ( $cmd == 'exMkCat' )
     {
         if ( create_category( trim($_REQUEST['catName']) ) )
         {
-           $dialogBox->success( get_lang('The new category has been created.') );
+           $dialogBox .= '<p>'. get_lang('The new category has been created.') .'</p>'."\n";
         }
         else
         {
-            $dialogBox->error( get_lang('Unable to create category') );
+            $dialogBox .= '<p>'.get_lang('Unable to create category').'</p>'."\n";
             $cmd = 'rqMkCat';
         }
     }
     else
     {
-         $dialogBox->error( get_lang('Missing field(s)') );
+         $dialogBox .= '<p>'.get_lang('Missing field(s)').'</p>'."\n";
          $cmd = 'rqMkCat';
     }
 }
@@ -53,8 +53,8 @@ if ( $cmd == 'rqMkCat' )
     if ( isset($_REQUEST['catName']) ) $catName = $_REQUEST['catName'];
     else                               $catName = '';
 
-    $htmlAddCat = '<strong>'.get_lang('Add a category').'</strong>'
-               .  '<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
+    $dialogBox .= '<strong>'.get_lang('Add a category').'</strong>'
+               .  '<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
                .  '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
                .  '<input type="hidden" name="cmd" value="exMkCat" />'."\n"
                .  '<label for="catName">'.get_lang('Name').' : </label><br />'."\n"
@@ -64,8 +64,6 @@ if ( $cmd == 'rqMkCat' )
                .  claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
                .  '</form>'
                .  "\n";
-
-	$dialogBox->form($htmlAddCat);
 }
 
 if ( $cmd == 'exMkForum' )
@@ -80,17 +78,17 @@ if ( $cmd == 'exMkForum' )
                               $forumPostAllowed,
                               (int) $_REQUEST['forumCatId'] ) )
             {
-               $dialogBox->success( get_lang('Forum created') );
+               $dialogBox .= '<p>'.get_lang('Forum created').'</p>'."\n";
             }
             else
             {
-               $dialogBox->error( get_lang('Unable to create forum') );
+               $dialogBox .= '<p>'.get_lang('Unable to create forum').'</p>'."\n";
                $cmd        = 'rqMkForum';
             }
     }
     else
     {
-        $dialogBox->error( get_lang('Missing field(s)') );
+        $dialogBox .= '<p>'.get_lang('Missing field(s)').'</p>'."\n";
         $cmd        = 'rqMkForum';
     }
 }
@@ -125,8 +123,8 @@ if ( $cmd == 'rqMkForum' )
                                   ' checked ' : '';
 
 
-    $htmlAddForum = '<strong>'.get_lang('Add forum').'</strong>'
-               .'<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
+    $dialogBox .= '<strong>'.get_lang('Add forum').'</strong>'
+               .'<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
                .'<input type="hidden" name="cmd" value="exMkForum" />'."\n"
                .'<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
                .'<label for="forumName">'.get_lang('Name').': </label><br />'."\n"
@@ -144,8 +142,6 @@ if ( $cmd == 'rqMkForum' )
                .'<input type="submit" value="'.get_lang('Ok').'" />&nbsp; '
                . claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
                .'</form>'."\n\n";
-
-	$dialogBox->form($htmlAddForum);
 }
 
 if ( $cmd == 'exEdCat' )
@@ -154,16 +150,16 @@ if ( $cmd == 'exEdCat' )
     {
         if ( update_category_title( $_REQUEST['catId'], $_REQUEST['catName'] ) )
         {
-            $dialogBox->success( get_lang('Category updated') );
+            $dialogBox .= '<p>'.get_lang('Category updated').'</p>'."\n";
         }
         else
         {
-            $dialogBox->error( get_lang('Unable to update category') );
+            $dialogBox .= '<p>'.get_lang('Unable to update category').'</p>'."\n";
         }
     }
     else
     {
-        $dialogBox->error( get_lang('Missing field(s)') );
+        $dialogBox .= '<p>'.get_lang('Missing field(s)').'</p>'."\n";
         $cmd        = 'rqEdCat';
     }
 }
@@ -174,8 +170,8 @@ if ( $cmd == 'rqEdCat' )
 
     if ( $categorySettingList )
     {
-        $htmlEditCat = '<strong>'.get_lang('Edit category').'</strong>'."\n"
-               .  '<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
+        $dialogBox .= '<strong>'.get_lang('Edit category').'</strong>'."\n"
+               .  '<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
                .  '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
                .  '<input type="hidden" name="catId" value="'.$categorySettingList['cat_id'].'" />'."\n"
                .  '<input type="hidden" name="cmd" value="exEdCat" />'."\n"
@@ -186,8 +182,6 @@ if ( $cmd == 'rqEdCat' )
                .  claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
                .  '</form>'."\n"
                .  "\n";
-
-		$dialogBox->form($htmlEditCat);
     }
 }
 
@@ -201,16 +195,16 @@ if ( $cmd == 'exEdForum' )
                                    $_REQUEST['forumDesc' ], $forumPostAllowed,
                                    $_REQUEST['forumCatId']) )
         {
-            $dialogBox->success( get_lang('Forum updated') );
+            $dialogBox .= '<p>'.get_lang('Forum updated').'</p>'."\n";
         }
         else
         {
-            $dialogBox->error( get_lang('Unable to update forum') );
+            $dialogBox .= '<p>'.get_lang('Unable to update forum').'</p>'."\n";
         }
     }
     else
     {
-        $dialogBox->error( get_lang('Missing field(s)') );
+        $dialogBox .= '<p>'.get_lang('Missing field(s)').'</p>'."\n";
         $cmd        = 'rqEdForum';
     }
 }
@@ -256,12 +250,12 @@ if ( $cmd == 'rqEdForum' )
                                  $_REQUEST['forumDesc'] : $forumSettingList['forum_desc'];
 
     $formForumPostUnallowedState = $_REQUEST['cmd'] == 'exEdForum' ?
-                                    ( isset($_REQUEST['forumPostUnallowed']) ? ' checked="checked" ' : '' )
+                                    ( isset($_REQUEST['forumPostUnallowed']) ? ' checked ' : '' )
                                    :
-                                    ( $forumSettingList['forum_access'] == 0 ? '  checked="checked" ' : '' );
+                                    ( $forumSettingList['forum_access'] == 0 ? ' checked ' : '' );
 
-    $htmlEditForum = '<strong>'.get_lang('Edit forum').'</strong>'."\n"
-               .'<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
+    $dialogBox .= '<strong>'.get_lang('Add forum').'</strong>'."\n"
+               .'<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
                .'<input type="hidden" name="cmd" value="exEdForum" />'."\n"
                .'<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
                .'<input type="hidden" name="forumId" value="'.$forumSettingList['forum_id'].'" />'."\n"
@@ -281,27 +275,25 @@ if ( $cmd == 'rqEdForum' )
                . claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
                .'</form>'."\n\n";
 
-	$dialogBox->form($htmlEditForum);
-
 }
 
 if ( $cmd == 'exDelCat' )
 {
     if ( delete_category($_REQUEST['catId']) )
     {
-        $dialogBox->success( get_lang('Category deleted') );
+        $dialogBox .= '<p>'.get_lang('Category deleted').'</p>'."\n";
     }
     else
     {
-        $dialogBox->error( get_lang('Unable to delete category') );
+        $dialogBox .= '<p>'.get_lang('Unable to delete category').'</p>'."\n";
 
         if ( claro_failure::get_last_failure() == 'GROUP_FORUMS_CATEGORY_REMOVALE_FORBIDDEN' )
         {
-            $dialogBox->error( get_lang('Group forums category can\'t be deleted') );
+            $dialogBox .= '<p>'.get_lang('Group forums category can\'t be deleted').'</p>'."\n";
         }
         elseif(claro_failure::get_last_failure() == 'GROUP_FORUM_REMOVALE_FORBIDDEN')
         {
-            $dialogBox->error( get_lang('You can not remove a group forum. You have to remove the group first') );
+            $dialogBox .= '<p>'.get_lang('You can not remove a group forum. You have to remove the group first').'</p>' ;
         }
 
     }
@@ -315,16 +307,16 @@ if ( $cmd == 'exDelForum' )
     {
         if ( delete_forum ($_REQUEST['forumId']) )
         {
-            $dialogBox->success( get_lang('Forum deleted') );
+            $dialogBox .= '<p>'.get_lang('Forum deleted').'</p>'."\n";
         }
         else
         {
-            $dialogBox->error( get_lang('Unable to delete Forum') );
+            $dialogBox .= '<p>'.get_lang('Unable to delete Forum').'</p>'."\n";
         }
     }
     else
     {
-            $dialogBox->error( get_lang('You can\'t remove a group forum. You have to remove the group first') );
+            $dialogBox .= '<p>'.get_lang('You can\'t remove a group forum. You have to remove the group first').'</p>'."\n";
     }
 }
 
@@ -332,11 +324,11 @@ if ( $cmd == 'exEmptyForum' )
 {
     if ( delete_all_post_in_forum($_REQUEST['forumId']) )
     {
-        $dialogBox->success( get_lang('Forum emptied') );
+        $dialogBox .= '<p>'.get_lang('Forum emptied').'</p>'."\n";
     }
     else
     {
-        $dialogBox->error( get_lang('Unable to empty forum') );
+        $dialogBox .= '<p>'.get_lang('Unable to empty forum').'</p>'."\n";
     }
 }
 

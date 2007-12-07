@@ -195,7 +195,7 @@ class Submission
 						`parent_id` = ".(is_null($this->parentId)?'NULL':$this->parentId).",
 						`original_id` = ".(is_null($this->originalId)?'NULL':$this->originalId).",
 						`private_feedback` = '".addslashes($this->privateFeedback)."',
-						`score` = ".(is_null($this->score)?'NULL':$this->score);
+						`score` = '".addslashes($this->score)."'";
 
 		    // execute the creation query and get id of inserted assignment
 		    $insertedId = claro_sql_query_insert_id($sql);
@@ -227,7 +227,7 @@ class Submission
 						`parent_id` = ".(is_null($this->parentId)?'NULL':$this->parentId).",
 						`original_id` = ".(is_null($this->originalId)?'NULL':$this->originalId).",
 						`private_feedback` = '".addslashes($this->privateFeedback)."',
-						`score` = ".(is_null($this->score)?'NULL':$this->score)."
+						`score` = '".addslashes($this->score)."'
 		            WHERE `id` = '".$this->id."'";
 
 		    // execute and return main query
@@ -329,7 +329,7 @@ class Submission
      */
 	function setUserId($value)
 	{
-		$this->userId = (int) $value;
+		$this->userId = $value;
 	}
 
 	/**
@@ -340,7 +340,7 @@ class Submission
      */
 	function getGroupId()
 	{
-		return (int) $this->groupId;
+		return $this->groupId;
 	}
 
 	/**
@@ -351,7 +351,7 @@ class Submission
      */
 	function setGroupId($value)
 	{
-		$this->groupId = (int) $value;
+		$this->groupId = $value;
 	}
 
 	/**
@@ -407,7 +407,7 @@ class Submission
      */
 	function getCreationDate()
 	{
-		return (int) $this->creationDate;
+		return $this->creationDate;
 	}
 
 	/**
@@ -418,7 +418,7 @@ class Submission
      */
 	function setCreationDate($value)
 	{
-		$this->creationDate = (int) $value;
+		$this->creationDate = $value;
 	}
 
     /**
@@ -429,7 +429,7 @@ class Submission
      */
 	function getLastEditDate()
 	{
-		return (int) $this->lastEditDate;
+		return $this->lastEditDate;
 	}
 
 	/**
@@ -440,7 +440,7 @@ class Submission
      */
 	function setLastEditDate($value)
 	{
-		$this->lastEditDate = (int) $value;
+		$this->lastEditDate = $value;
 	}
 
 	/**
@@ -518,7 +518,7 @@ class Submission
      */
 	function getParentId()
 	{
-		return (int) $this->parentId;
+		return $this->parentId;
 	}
 
 	/**
@@ -529,7 +529,7 @@ class Submission
      */
 	function setParentId($value)
 	{
-		$this->parentId = (int) $value;
+		$this->parentId = $value;
 	}
 
 	/**
@@ -540,7 +540,7 @@ class Submission
      */
 	function getOriginalId()
 	{
-		return (int) $this->originalId;
+		return $this->originalId;
 	}
 
 	/**
@@ -551,7 +551,7 @@ class Submission
      */
 	function setOriginalId($value)
 	{
-		$this->originalId = (int) $value;
+		$this->originalId = $value;
 	}
 
 	/**
@@ -584,7 +584,7 @@ class Submission
      */
 	function getScore()
 	{
-		return (int) $this->score;
+		return $this->score;
 	}
 
 	/**
@@ -595,7 +595,7 @@ class Submission
      */
 	function setScore($value)
 	{
-		$this->score = (int) $value;
+		$this->score = $value;
 	}
 }
 ?>
