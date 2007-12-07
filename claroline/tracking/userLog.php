@@ -1,877 +1,767 @@
 <?php // $Id$
-/**
- * CLAROLINE
- *
- * @version 1.9 $Revision$
- *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
- *
- * @author Sebastien Piraux <piraux_seb@hotmail.com>
- *
- * @package CLSTAT
- */
-
-require_once dirname( __FILE__ ) . '../../inc/claro_init_global.inc.php';
-
-
 /*
- * Init request vars
+      +----------------------------------------------------------------------+
+      | CLAROLINE version 1.4.1 $Revision$                            |
+      +----------------------------------------------------------------------+
+      | Copyright (c) 2001, 2003 Universite catholique de Louvain (UCL)      |
+      +----------------------------------------------------------------------+
+      |   This program is free software; you can redistribute it and/or      |
+      |   modify it under the terms of the GNU General Public License        |
+      |   as published by the Free Software Foundation; either version 2     |
+      |   of the License, or (at your option) any later version.             |
+      |                                                                      |
+      |   This program is distributed in the hope that it will be useful,    |
+      |   but WITHOUT ANY WARRANTY; without even the implied warranty of     |
+      |   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the      |
+      |   GNU General Public License for more details.                       |
+      |                                                                      |
+      |   You should have received a copy of the GNU General Public License  |
+      |   along with this program; if not, write to the Free Software        |
+      |   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA          |
+      |   02111-1307, USA. The GNU GPL license is also available through     |
+      |   the world-wide-web at http://www.gnu.org/copyleft/gpl.html         |
+      +----------------------------------------------------------------------+
+      | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
+      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
+      |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
+      |          Sebastien Piraux  <piraux_seb@hotmail.com>
+      +----------------------------------------------------------------------+
  */
-
-if( isset($_REQUEST['userId']) && is_numeric($_REQUEST['userId']) )   $userId = (int) $_REQUEST['userId'];
-else                                                                  $userId = null;
-
-if( isset($_REQUEST['courseId']) && !empty($_REQUEST['courseId']) )
-{
-	$courseId = $_REQUEST['courseId'];
-}
-else
-{
-	if( claro_is_in_a_course() ) $courseId = claro_get_current_course_id();
-	else						 $courseId = null;
-}
-
-if( isset($_REQUEST['exId']) && is_numeric($_REQUEST['exId']) )   $exId = (int) $_REQUEST['exId'];
-else                                                              $exId = null;
-
-uses( 'core/claroline.lib', 'courselist.lib', 'user.lib', 'course_utils.lib');
-$claroline = Claroline::getInstance();
-
+ 
+$langFile = "tracking";
+require '../inc/claro_init_global.inc.php';
 /*
- * Permissions
- */
-$is_allowedToTrack = false;
-$canSwitchCourses = false;
+$interbredcrump[]= array ("url"=>"../group/group.php", "name"=> $langBredCrumpGroups);
+$interbredcrump[]= array ("url"=>"../group/group_space.php?gidReq=$_gid", "name"=> $langBredCrumpGroupSpace);
+*/
+$interbredcrump[]= array ("url"=>"../user/userInfo.php?uInfo=".$_GET['uInfo'], "name"=> $langBredCrumpUsers);
 
-if( !is_null($userId) && claro_is_user_authenticated() )
+$nameTools = $langToolName;
+
+$htmlHeadXtra[] = "<style type='text/css'>
+<!--
+.secLine {background-color : #E6E6E6;}
+.content {padding-left : 15px;padding-right : 15px; }
+.specialLink{color : #0000FF;}
+-->
+</style>
+<STYLE media='print' type='text/css'>
+<!--
+TD {border-bottom: thin dashed Gray;}
+-->
+</STYLE>";
+
+// regroup table names for maintenance purpose
+$TABLECOURSUSER	        = $mainDbName."`.`cours_user";
+$TABLEUSER	        = $mainDbName."`.`user";
+
+$TABLETRACK_LOGIN       = $statsDbName."`.`track_e_login";
+
+$TABLETRACK_ACCESS      = $_course['dbNameGlu']."track_e_access";
+$TABLETRACK_LINKS       = $_course['dbNameGlu']."track_e_links";
+$TABLETRACK_DOWNLOADS   = $_course['dbNameGlu']."track_e_downloads";
+$TABLETRACK_UPLOADS     = $_course['dbNameGlu']."track_e_uploads";
+$TABLETRACK_EXERCISES   = $_course['dbNameGlu']."track_e_exercices";
+
+$TABLECOURSE_LINKS      = $_course['dbNameGlu']."link";
+$TABLECOURSE_WORK       = $_course['dbNameGlu']."assignment_doc";
+$TABLECOURSE_DOCUMENTS  = $_course['dbNameGlu']."document";
+$TABLECOURSE_GROUPS     = $_course['dbNameGlu']."group_team";
+$TABLECOURSE_GROUPSPROP = $_course['dbNameGlu']."group_property";
+$TABLECOURSE_GROUPSUSER = $_course['dbNameGlu']."group_rel_team_user";
+$TABLECOURSE_EXERCICES = $_course['dbNameGlu']."quiz_test";
+
+// for learning paths section
+$TABLELEARNPATH         = $_course['dbNameGlu']."lp_learnPath";
+$TABLEMODULE            = $_course['dbNameGlu']."lp_module";
+$TABLELEARNPATHMODULE   = $_course['dbNameGlu']."lp_rel_learnPath_module";
+$TABLEASSET             = $_course['dbNameGlu']."lp_asset";
+$TABLEUSERMODULEPROGRESS= $_course['dbNameGlu']."lp_user_module_progress";
+
+
+@include($includePath."/claro_init_header.inc.php");
+@include($includePath."/lib/statsUtils.lib.inc.php");
+
+
+$is_allowedToTrack = $is_groupTutor; // allowed to track only user of one group
+if (isset($uInfo) && isset($_uid)) $is_allowedToTrack = $is_allowedToTrack || ($uInfo == $_uid); //added by RH to allow user to see its own course stats 
+$is_allowedToTrackEverybodyInCourse = $is_courseAdmin; // allowed to track all student in course
+?>
+<h3>
+    <?php echo $nameTools ?>
+</h3>
+<h4>
+    <?php echo $langStatsOfUser ?>
+</h4>
+<table width="100%" cellpadding="2" cellspacing="3" border="0">
+<?
+// check if uid is tutor of this group
+
+if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && $is_trackingEnabled )
 {
-	if(  $userId == claro_get_current_user_id() )
-	{
-		$is_allowedToTrack = true;
-		$canSwitchCourses = true;
-	}
-}
-
-if( claro_is_course_manager() || claro_is_platform_admin() )
-{
-	$is_allowedToTrack = true;
-
-	if( claro_is_platform_admin() )
-	{
-		$canSwitchCourses = true;
-	}
-}
-
-if( claro_is_in_a_course() )
-{
-	$canSwitchCourses = false;
-}
-
-/*
- * Init some other vars
- */
-
-$dialogBox = '';
-
-// user's course list
-if( $canSwitchCourses )
-{
-	// get all
-	$userCourseList = get_user_course_list($userId, true);
-
-	if( !is_array($userCourseList) )
-	{
-		$userCourseList = array();
-	}
-}
-
-// user's data
-$userData = user_get_properties($userId);
-
-if( !is_array($userData) )
-{
-	$dialogBox .= get_lang('Cannot find user.') ;
-}
-
-
-
-/*
- * Output
- */
-// initialize output
-$claroline->setDisplayType( CL_PAGE );
-
-//-- Content
-$nameTools = get_lang('User statistics');
-
-/*
- * Part zero : prepare to fight
- */
-$html = '';
-
-$styles = '<style type="text/css">
- #userCart #picture
- {
-  float: left;
-  width: 200px;
-  margin: 0;
-  padding: 0.3em 1em 0.3em 1em;
-  text-align: center;
- }
-
- #userCart #details
- {
-  margin-left: 240px;
-  padding: 0 1em 1em 1em;
-  max-width: 36em;
-  border-left: 1px solid #ccc;
- }
-
- #userCart #details span
- {
-  font-size: small;
-  font-weight: bold;
- }
-
- .statBlock
- {
- 	width: 100%;
- 	margin-bottom: 1em;
- }
-
- .statBlock .blockHeader
- {
- 	text-align: left;
- 	border-bottom: 1px #ccc solid;
- 	padding: 3px;
- 	font-weight: bold;
- }
-
- .statBlock .blockContent
- {
- 	padding: 3px;
- }
-
- .statBlock .blockContent table
- {
- 	width: 100%;
- }
-
- .statBlock .blockFooter
- {
- 	text-align: right;
- 	font-size: small;
- 	padding: 3px;
- }
-
-
-
-
-
-</style>' . "\n";
-
-$claroline->display->header->addHtmlHeader($styles);
-
-/*
- * Part one : user information
- */
-$html .= '<div id="userCart">' . "\n"
-.	 ' <div id="picture"><div style="border: 1px solid #AAA; background-color: #DDD; width: 100px; height: 125px; margin: auto;font-size: small; color: #AAA;"><br /><br /><br />No picture</div></div>' . "\n"
-.	 ' <div id="details">'
-.	 '  <p><span>' . get_lang('Last name') . '</span><br /> ' . htmlspecialchars($userData['lastname']) . '</p>'
-.	 '  <p><span>' . get_lang('First name') . '</span><br /> ' . htmlspecialchars($userData['firstname']) . '</p>'
-.	 '  <p><span>' . get_lang('Email') . '</span><br /> ' . htmlspecialchars($userData['email']) . '</p>'
-.	 ' </div>' . " \n"
-.	 '</div>' . "\n"
-.	 '<div class="spacer"></div>' . "\n";
-
-/*
- * Part two : course list if needed
- */
-if( $canSwitchCourses )
-{
-	$html .= '<ul id="navlist">' . "\n"
-	.	 ' <li><a '.(empty($courseId)?'class="current"':'').' href="userLog.php?userId='.$userId.'">'.get_lang('Platform').'</a></li>' . "\n";
-
-
-	foreach( $userCourseList as $course )
-	{
-		if( $course['sysCode'] == $courseId ) 	$class = 'class="current"';
-		else										$class = '';
-
-		$html .= ' <li>'
-		.	 '<a '.$class.' href=userLog.php?userId='.$userId.'&amp;courseId='.$course['sysCode'].'>'.$course['title'].'</a>'
-		.	 '</li>' . "\n";
-	}
-
-	$html .= '</ul>' . "\n\n";
-}
-else
-{
-	$html .= '<p>'
-	.	 '<a href="'.get_path('url').'/claroline/user/user.php' . claro_url_relay_context('?') . '"><small>'
-	.    '&lt;&lt;&nbsp;'
-	.    get_lang('Back to user list')
-	.    '</small></a>' . "\n"
-	.	 '</p>' . "\n";
-}
-
-/*
- * Part three : output of tracking
- * A is when we have a courseId, B when we have to show platform
- */
-if( !empty($courseId) )
-{
-	/*
-	 * Part three - One : access to course
-	 */
-
-
-	$courseAccess = getUserCourseAccess($userId, $courseId);
-
-	$header = get_lang('Access to course and tools');
-
-	$content = '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center">' . "\n"
-	.    '<tr class="headerX">' . "\n"
-	.    '<th>' . get_lang('Month') . '</th>' . "\n"
-	.    '<th>' . get_lang('Number of access') . '</th>' . "\n"
-	.    '</tr>' . "\n"
-	.    '<tbody>' . "\n"
-	;
-
-	$total = 0;
-	if( !empty($courseAccess) && is_array($courseAccess) )
-	{
-	    $langLongMonthNames = get_lang_month_name_list('long');
-	    foreach( $courseAccess as $access )
-	    {
-	        $content .= '<tr>' . "\n"
-	        .    '<td>' . "\n"
-	        .    '<a href="logins_details.php?uInfo='.$userId . '&amp;reqdate='.$access['unix_date'].'">' . $langLongMonthNames[date('n', $access['unix_date'])-1].' '.date('Y', $access['unix_date']).'</a>' . "\n"
-	        .    '</td>' . "\n"
-	        .    '<td valign="top" align="right">'
-	        .    $access['nbr_access']
-	        .    '</td>' . "\n"
-	        .    '</tr>' . "\n";
-
-	        $total = $total + $access['nbr_access'];
-	    }
-	    $content .= '</tbody>' . "\n"
-	    .    '<tfoot>' . "\n"
-	    .    '<tr>' . "\n"
-	    .    '<td>'
-	    .    get_lang('Total')
-	    .    '</td>' . "\n"
-	    .    '<td align="right">'
-	    .    $total
-	    .    '</td>' . "\n"
-	    .    '</tr>' . "\n"
-	    .    '</tfoot>' . "\n";
-	}
-	else
-	{
-	    $content .= '<tfoot>' . "\n"
-	    .    '<tr>' . "\n"
-	    .    '<td colspan="2">' . "\n"
-	    .    '<center>'
-	    .    get_lang('No result')
-	    .    '</center>' . "\n"
-	    .    '</td>' . "\n"
-	    .    '</tr>' . "\n"
-	    .    '</tfoot>' . "\n";
-	}
-	$content .= '</table>' . "\n"
-	.    '</td></tr>' . "\n";
-
-	$footer = get_lang('Click on the month name for more details');
-
-	$html .= renderStatBlock($header, $content, $footer);
-
-	/*
-	 * Part three - Two : exercise results
-	 */
-	$exerciseResults = getUserExerciseResults($userId, $courseId);
-
-	$header = get_lang('Exercises results');
-
-	$content = '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center">' . "\n"
-	.    '<tr class="headerX">' . "\n"
-	.    '<th>' . get_lang('Exercises').'</th>' . "\n"
-	.    '<th>' . get_lang('Worst score').'</th>' . "\n"
-	.    '<th>' . get_lang('Best score').'</th>' . "\n"
-	.    '<th>' . get_lang('Average score').'</th>' . "\n"
-	.    '<th>' . get_lang('Average Time').'</th>' . "\n"
-	.    '<th>' . get_lang('Attempts').'</th>' . "\n"
-	.    '<th>' . get_lang('Last attempt').'</th>' . "\n"
-	.    '</tr>';
-
-	if( !empty($exerciseResults) && is_array($exerciseResults) )
-	{
-	    $content .= '<tbody>' . "\n";
-	    foreach( $exerciseResults as $result )
-	    {
-	        $content .= '<tr>' . "\n"
-	        .    '<td><a href="userLog.php?userId='.$userId.'&amp;cidReq='.$courseId.'&amp;exId='.$result['id'].'">'.$result['title'].'</td>' . "\n"
-	        .    '<td>'.$result['minimum'].'</td>' . "\n"
-	        .    '<td>'.$result['maximum'].'</td>' . "\n"
-	        .    '<td>'.(round($result['average']*10)/10).'</td>' . "\n"
-	        .    '<td>'.claro_html_duration(floor($result['avgTime'])).'</td>' . "\n"
-	        .    '<td>'.$result['attempts'].'</td>' . "\n"
-	        .    '<td>'.$result['lastAttempt'].'</td>' . "\n"
-	        .    '</tr>' . "\n";
-
-	        // display details of the exercise, all attempts
-	        if ( isset($exId) && $exId == $result['id'])
-	        {
-				$exerciseDetails = getUserExerciceDetails($userId, $exId);
-
-	            $content .= '<tr>'
-	            .    '<td class="noHover">&nbsp;</td>' . "\n"
-	            .    '<td colspan="6" class="noHover">' . "\n"
-	            .    '<table class="claroTable emphaseLine" cellspacing="1" cellpadding="2" border="0" width="100%">' . "\n"
-	            .    '<tr class="headerX">' . "\n"
-	            .    '<th><small>' . get_lang('Date').'</small></th>' . "\n"
-	            .    '<th><small>' . get_lang('Score').'</small></th>' . "\n"
-	            .    '<th><small>' . get_lang('Time').'</small></th>' . "\n"
-	            .    '</tr>' . "\n"
-	            .    '<tbody>' . "\n";
-
-	            foreach ( $exerciseDetails as $details )
-	            {
-	                $content .= '<tr>' . "\n"
-	                .    '<td><small><a href="user_exercise_details.php?trackedExId='.$details['exe_id'].'">'.$details['exe_date'].'</a></small></td>' . "\n"
-	                .    '<td><small>'.$details['exe_result'].'/'.$details['exe_weighting'].'</small></td>' . "\n"
-	                .    '<td><small>'.claro_html_duration($details['exe_time']).'</small></td>' . "\n"
-	                .    '</tr>' . "\n";
-	            }
-	            $content .= '</tbody>' . "\n"
-	            .    '</table>' . "\n\n"
-	            .    '</td>' . "\n"
-	            .    '</tr>' . "\n";
-
-	        }
-
-	    }
-	    $content .= '</tbody>' . "\n";
-	}
-	else
-	{
-	    $content .= '<tfoot>' . "\n"
-	    .    '<tr>' . "\n"
-	    .    '<td colspan="7" align="center">' . get_lang('No result').'</td>' . "\n"
-	    .    '</tr>' . "\n"
-	    .    '</tfoot>' . "\n";
-	}
-	$content .= '</table>' . "\n\n";
-
-	$footer = get_lang('Click on exercise title for more details');
-
-	$html .= renderStatBlock($header, $content, $footer);
-
-
-	/*
-	 * Part three - Three : learning paths
-	 */
-
-	// TODO display LP progression
-
-	/*
-	 * Part three - Four : Works
-	 */
-
-	$submittedWorks = getUserWorks($userId, $courseId);
-
-	$header = get_lang('Submissions');
-
-	$content = '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center">' . "\n"
-	.    '<tr class="headerX">' . "\n"
-	.    '<th>' . get_lang('Assignment').'</th>' . "\n"
-	.    '<th>' . get_lang('Work title').'</th>' . "\n"
-	.    '<th>' . get_lang('Author(s)').'</th>' . "\n"
-	.    '<th>' . get_lang('Score').'</th>' . "\n"
-	.    '<th>' . get_lang('Date').'</th>' . "\n"
-	.    '</tr>' . "\n";
-
-	if( !empty($submittedWorks) && is_array($submittedWorks) )
-	{
-	    $content .= '<tbody>' . "\n";
-
-	    $prevAssignmentTitle = "";
-	    foreach($submittedWorks as $work)
-	    {
-	        if( $work['a_title'] == $prevAssignmentTitle )
-	        {
-	            $assignmentTitle = "&nbsp;";
-	        }
-	        else
-	        {
-	            $assignmentTitle = $work['a_title'];
-	            $prevAssignmentTitle = $work['a_title'];
-	        }
-
-	        if( $work['score'] != 0 )
-	        {
-	            $displayedScore = $work['score']." %";
-	        }
-	        else
-	        {
-	            $displayedScore  = get_lang('No score');
-	        }
-
-	        if( isset($work['g_name']) )
-	        {
-	            $authors = $work['authors']."( ".$work['g_name']." )";
-	        }
-	        else
-	        {
-	            $authors = $work['authors'];
-	        }
-
-	        $timestamp = strtotime($work['last_edit_date']);
-	        $beautifulDate = claro_html_localised_date(get_locale('dateTimeFormatLong'),$timestamp);
-
-
-	        $content .= '<tr>' . "\n"
-	        .    '<td>'.$assignmentTitle.'</td>' . "\n"
-	        .    '<td>'.$work['s_title'].'</td>' . "\n"
-	        .    '<td>'.$authors.'</td>' . "\n"
-	        .    '<td>'.$displayedScore.'</td>' . "\n"
-	        .    '<td><small>'.$beautifulDate.'</small></td>' . "\n"
-	        .    '</tr>' . "\n";
-	    }
-	    $content .= '</tbody>' . "\n";
-
-	}
-	else
-	{
-	    $content .= '<tfoot><tr>' . "\n"
-	    .    '<td colspan="5" align="center">' . get_lang('No result').'</td>' . "\n"
-	    .    '</tr></tfoot>' . "\n";
-	}
-	$content .= '</table>' . "\n";
-
-
-	$footer = get_lang('Works uploaded by the student in the name of \'Authors\'');
-
-	$html .= renderStatBlock($header, $content, $footer);
-
-	/*
-	 * Part three - Five : Downloads
-	 */
-	$documentDownloads = getUserDocumentDownloads($userId, $courseId);
-
-	$header = get_lang('Documents');
-
-	$content = '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center">' . "\n"
-	.    '<tr class="headerX">' . "\n"
-	.    '<th>' . get_lang('Document').'</th>' . "\n"
-	.    '<th>' . get_lang('Last download').'</th>' . "\n"
-	.    '<th>' . get_lang('Downloads').'</th>' . "\n"
-	.    '</tr>';
-
-	if( !empty($documentDownloads) && is_array($documentDownloads) )
-	{
-	    $content .= '<tbody>' . "\n";
-	    foreach( $documentDownloads as $download )
-	    {
-	    	// make document path shorter if needed
-	        $content .= '<tr>' . "\n"
-	        .    '<td>'.$download['document'].'</td>' . "\n"
-	        .    '<td>'.claro_html_localised_date( get_locale('dateFormatLong'), $download['unix_date']).'</td>' . "\n"
-	        .    '<td>'.$download['downloads'].'</td>' . "\n"
-	        .    '</tr>' . "\n";
-	    }
-	    $content .= '</tbody>' . "\n";
-	}
-	else
-	{
-	    $content .= '<tfoot>' . "\n"
-	    .    '<tr>' . "\n"
-	    .    '<td colspan="3" align="center">' . get_lang('No result').'</td>' . "\n"
-	    .    '</tr>' . "\n"
-	    .    '</tfoot>' . "\n";
-	}
-	$content .= '</table>' . "\n\n";
-
-	$footer = get_lang('Documents downloaded by the student');
-
-	$html .= renderStatBlock($header, $content, $footer);
-
-
-
-
-	/*
-	 * Part three - six : Forum
-	 */
-	$lastUserPosts = getUserLastTenPosts($userId, $courseId);
-
-	$header = get_lang('Forums activity');
-
-	$content = '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center">' . "\n"
-	.    '<tr class="headerX">' . "\n"
-	.    '<th>' . get_lang('Topic').'</th>' . "\n"
-	.    '<th>' . get_lang('Last message').'</th>' . "\n"
-	.    '</tr>' . "\n";
-
-	if( !empty($lastUserPosts) && is_array($lastUserPosts) )
-	{
-	    $content .= '<tbody>' . "\n";
-	    foreach( $lastUserPosts as $result )
-	    {
-	        $content .= '<tr>' . "\n"
-	        .    '<td><a href="../phpbb/viewtopic.php?topic='.$result['topic_id'].'">'.$result['topic_title'].'</a></td>' . "\n"
-	        .    '<td>'.$result['last_message'].'</td>' . "\n"
-	        .    '</tr>' . "\n";
-	    }
-	    $content .= '</tbody>' . "\n";
-
-	}
-	else
-	{
-	    $content .= '<tfoot>' . "\n"
-	    .    '<tr>' . "\n"
-	    .    '<td align="center" colspan="2">' . get_lang('No result').'</td>' . "\n"
-	    .    '</tr>' . "\n"
-	    .    '</tfoot>' . "\n";
-	}
-	$content .= '</table>' . "\n";
-
-	$footer = get_lang('Messages posted') . ' : ' . getUserTotalForumPost($userId, $courseId) . '<br />' . "\n"
-	.	 get_lang('Topics started') . ' : ' . getUserTotalForumTopics($userId, $courseId) . '<br />' . "\n";
-
-	$html .= renderStatBlock($header, $content, $footer);
-}
-else // no courseId so we show platform stats
-{
-	/*
-	 * Part three B - Logins
-	 */
-	$userLogins = getUserLogins($userId);
-
-	$header = get_lang('Access to platform');
-
-    $content = '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center">' . "\n"
-    .    '<tr class="headerX">' . "\n"
-    .    '<th>' . get_lang('Month') . '</th>' . "\n"
-    .    '<th>' . get_lang('Number of logins') . '</th>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tbody>' . "\n";
-
-    $total = 0;
-    if( !empty($userLogins) && is_array($userLogins) )
+    if(!$uInfo && !isset($uInfo) )
     {
-        $langLongMonthNames = get_lang_month_name_list('long');
-        foreach( $userLogins as $result )
+        /***************************************************************************
+         *              
+         *		Display list of user of this group
+         *
+         ***************************************************************************/
+        echo "<h4>$langListStudents</h4>";
+        if( $is_allowedToTrackEverybodyInCourse )
         {
-            $content .= '<tr>' . "\n"
-            .    '<td>' . "\n"
-            .    '<a href="logins_details.php?uInfo='.$userId . '&amp;reqdate='.$result['unix_date'].'">' . $langLongMonthNames[date('n', $result['unix_date'])-1].' '.date('Y', $result['unix_date']).'</a>' . "\n"
-            .    '</td>' . "\n"
-            .    '<td valign="top" align="right">'
-            .    $result['nbr_login']
-            .    '</td>' . "\n"
-            .    '</tr>' . "\n";
-
-            $total = $total + $result['nbr_login'];
+            // if user can track everybody : list user of course
+            $sql = "SELECT count(user_id)
+                        FROM `$TABLECOURSUSER` 
+                        WHERE `code_cours` = '$_cid'";
         }
-        $content .=  '</tbody>' . "\n"
-        .    '<tfoot>' . "\n"
-        .    '<tr>' . "\n"
-        .    '<td>'
-        .    get_lang('Total')
-        .    '</td>' . "\n"
-        .    '<td align="right">'
-        .    $total
-        .    '</td>' . "\n"
-        .    '</tr>' . "\n"
-        .    '</tfoot>' . "\n";
+        else
+        {
+            // if user can only track one group : list users of this group
+            $sql = "SELECT count(user)
+                        FROM `$TABLECOURSE_GROUPSUSER`
+                        WHERE `team` = '$_gid'";
+        }
+        $userGroupNb = getOneResult($sql);
+        $step = 25; // number of student per page
+        if ($userGroupNb > $step)
+        {
+            if(!isset($offset))
+            {
+                    $offset=0;
+            }
+    
+            $next     = $offset + $step;
+            $previous = $offset - $step;
+    
+            $navLink = "<table width='100%' border='0'>\n"
+                      ."<tr>\n"
+                              ."<th align='left'>";
+    
+            if ($previous >= 0)
+            {
+                    $navLink .= "<small><a href='$PHP_SELF?offset=$previous'>&lt;&lt; $langPreviousPage</a></small>";
+            }
+    
+            $navLink .= "</td>\n"
+                       ."<td align='right'>";
+    
+            if ($next < $userGroupNb)
+            {
+                    $navLink .= "<small><a href='$PHP_SELF?offset=$next'>$langNextPage &gt;&gt;</a></small>";
+            }
+    
+            $navLink .= "</td>\n"
+                       ."</tr>\n"
+                       ."</table>\n";
+        }
+        else
+        {
+            $offset = 0;
+        }
+        
+        echo $navLink;
+        
+        if( $is_allowedToTrackEverybodyInCourse )
+        {
+            // list of users in this course
+            $sql = "SELECT `u`.`user_id`, `u`.`prenom`,`u`.`nom`
+                        FROM `$TABLECOURSUSER` cu , `$TABLEUSER` u 
+                        WHERE `cu`.`user_id` = `u`.`user_id`
+                            AND `cu`.`code_cours` = '$_cid'
+                        LIMIT $offset,$step";
+        }
+        else
+        {
+            // list of users of this group
+            $sql = "SELECT `u`.`user_id`, `u`.`prenom`,`u`.`nom`
+                        FROM `$TABLECOURSE_GROUPSUSER` gu , `$TABLEUSER` u 
+                        WHERE `gu`.`user` = `u`.`user_id`
+                            AND `gu`.`team` = '$_gid'
+                        LIMIT $offset,$step";
+        }
+        $list_users = getManyResults3Col($sql);
+        echo 	"<table class=\"claroTable\" width='100%' cellpadding='2' cellspacing='1' border='0'>\n"
+                    ."<tr class=\"headerX\" align='center' valign='top'>\n"
+                    ."<th align='left'>",$langUserName,"</th>\n"
+                    ."</tr>\n";
+        for($i = 0 ; $i < sizeof($list_users) ; $i++)
+        {
+            echo    "<tr valign='top' align='center'>\n"
+                    ."<td align='left'>"
+                    ."<a href='$PHP_SELF?uInfo=",$list_users[$i][0],"'>"
+                    .$list_users[$i][1]," ",$list_users[$i][2]
+                    ."</a>".
+                    "</td>\n";
+        }
+        echo        "</table>\n";
+    
+        echo $navLink;
+    }
+    else // if uInfo is set
+    {
+        /***************************************************************************
+         *              
+         *		Informations about student uInfo
+         *
+         ***************************************************************************/
+        // these checks exists for security reasons, neither a prof nor a tutor can see statistics of an user from 
+        // another course, or group
+        //if( $is_allowedToTrackEverybodyInCourse ) 
+        if( $is_allowedToTrackEverybodyInCourse || ($uInfo == $_uid) )
+        {
+            // check if user is in this course
+            $sql = "SELECT `u`.`prenom`,`u`.`nom`, `u`.`email`
+                        FROM `$TABLECOURSUSER` cu , `$TABLEUSER` u
+                        WHERE `cu`.`user_id` = `u`.`user_id`
+                            AND `cu`.`code_cours` = '$_cid'
+                            AND `u`.`user_id` = '$uInfo'";
+        }
+        else
+        {
+            // check if user is in the group of this tutor
+            $sql = "SELECT `u`.`prenom`,`u`.`nom`, `u`.`email`
+                        FROM `$TABLECOURSE_GROUPSUSER` gu , `$TABLEUSER` u 
+                        WHERE `gu`.`user` = `u`.`user_id`
+                            AND `gu`.`team` = '$_gid'
+                            AND `u`.`user_id` = '$uInfo'";
+        }
+        $query = @mysql_query($sql);
+        $res = @mysql_fetch_array($query);
+        if(is_array($res))
+        {
+            $res[2] == "" ? $res2 = $langNoEmail : $res2 = $res[2];
+                
+            echo "<tr><td>";
+            echo $informationsAbout." : <br>";
+            echo "<ul>\n"
+                    ."<li>".$langFirstName." : ".$res[1]."</li>\n"
+                    ."<li>".$langLastName." : ".$res[0]."</li>\n"
+                    ."<li>".$langEmail." : ".$res2."</li>\n"
+                    ."</ul>";
+            echo "</td></tr>";
+            
+            // show all : number of 1 is equal to or bigger than number of categories
+            // show none : number of 0 is equal to or bigger than number of categories
+            echo "<tr>
+                    <td>
+                    <small>
+                    [<a href='$PHP_SELF?uInfo=$uInfo&view=1111111'>".$langShowAll."</a>] 
+                    [<a href='$PHP_SELF?uInfo=$uInfo&view=0000000'>".$langShowNone."</a>]".
+                    //"||[<a href='$PHP_SELF'>".$langBackToList."</a>]".
+                    
+                    "</small>
+                    </td>
+                </tr>
+            ";
+                    
+            if(!isset($view)) $view ="0000000";
+            $viewLevel = -1; //  position of the flag of the view in the $view array/string
+            /***************************************************************************
+             *              
+             *		Logins
+             *
+             ***************************************************************************/
+            $tempView = $view;
+            $viewLevel++;
+            if($view[$viewLevel] == '1')
+            {
+                $tempView[$viewLevel] = '0';
+                echo "
+                    <tr>
+                            <td valign='top'>
+                            -&nbsp;&nbsp;&nbsp;<b>".$langLoginsAndAccessTools."</b>&nbsp;&nbsp;&nbsp;<small>[<a href='$PHP_SELF?uInfo=$uInfo&view=".$tempView."'>".$langClose."</a>]</small>
+                            </td>
+                    </tr>
+                ";
+                echo "<tr><td style='padding-left : 40px;' valign='top'>$langLoginsDetails<br>"; 
+                
+                $sql = "SELECT UNIX_TIMESTAMP(`login_date`), count(`login_date`)
+                            FROM `$TABLETRACK_LOGIN`
+                            WHERE `login_user_id` = '$uInfo'
+                            GROUP BY MONTH(`login_date`)
+                            ORDER BY `login_date` ASC";
+                echo "<tr><td style='padding-left : 40px;padding-right : 40px;'>";  
+                $results = getManyResults2Col($sql);
+                echo "<table class=\"claroTable\" cellpadding='2' cellspacing='1' border='0' align=center>";
+                echo "<tr class=\"headerX\">
+                        <th>
+                        $langLoginsTitleMonthColumn
+                        </th>
+                        <th>
+                        $langLoginsTitleCountColumn
+                        </th>
+                    </tr>
+                    <tbody>";
+                $total = 0;
+                if (is_array($results))
+                { 
+                    for($j = 0 ; $j < count($results) ; $j++)
+                    { 
+                        echo "<tr>"; 
+                        echo "<td><a href='logins_details.php?uInfo=$uInfo&reqdate=".$results[$j][0]."'>".$langMonthNames['long'][date("n", $results[$j][0])-1]." ".date("Y", $results[$j][0])."</a></td>";
+                        echo "<td valign='top' align='right'>".$results[$j][1]."</td>";
+                        echo"</tr>";
+                        $total = $total + $results[$j][1];
+                    }
+                    echo "</tbody><tfoot><tr>"; 
+                    echo "<td>".$langTotal."</td>";
+                    echo "<td align='right'>".$total."</td>";
+                    echo"</tr></tfoot>";
+                }
+                else
+                {
+                    echo "<tfoot><tr>"; 
+                    echo "<td colspan='2'><center>".$langNoResult."</center></td>";
+                    echo"</tr></tfoot>";
+                }
+                echo "</table>";
+                echo "</td></tr>";   
+            }
+            else
+            {
+                $tempView[$viewLevel] = '1';
+                echo "
+                    <tr>
+                            <td valign='top'>
+                            +&nbsp;&nbsp;<a href='$PHP_SELF?uInfo=$uInfo&view=".$tempView."' class='specialLink'>$langLoginsAndAccessTools</a>
+                            </td>
+                    </tr>
+                ";
+            }
+            
+            /***************************************************************************
+             *              
+             *		Exercices
+             *
+             ***************************************************************************/
+            $tempView = $view;
+            $viewLevel++;
+            if($view[$viewLevel] == '1')
+            {
+                $tempView[$viewLevel] = '0';
+                echo "
+                    <tr>
+                            <td valign='top'>
+                            -&nbsp;&nbsp;&nbsp;<b>".$langExercicesResults."</b>&nbsp;&nbsp;&nbsp;<small>[<a href='$PHP_SELF?uInfo=$uInfo&view=".$tempView."'>".$langClose."</a>]</small>
+                            </td>
+                    </tr>
+                ";
+                //-- scores stats for each exercise : min / max / avg scores
+                echo "<tr><td style='padding-left : 40px;' valign='top'>$langExercicesDetails<br>";
+                $sql = "SELECT `E`.`titre`, `E`.`id`,
+                        MIN(`TEX`.`exe_result`) AS minimum,
+                        MAX(`TEX`.`exe_result`) AS maximum,
+                        AVG(`TEX`.`exe_result`) AS average,
+                        MAX(`TEX`.`exe_weighting`) AS weighting,
+                        COUNT(`TEX`.`exe_user_id`) AS attempts,
+                        MAX(`TEX`.`exe_date`) AS lastAttempt 
+                    FROM `$TABLECOURSE_EXERCICES` AS E , `$TABLETRACK_EXERCISES` AS TEX
+                    WHERE `TEX`.`exe_user_id` = '".$_GET['uInfo']."'
+                        AND `TEX`.`exe_exo_id` = `E`.`id`
+                    GROUP BY `TEX`.`exe_exo_id`
+                    ORDER BY `E`.`titre` ASC";
+            
+                echo "<tr><td style='padding-left : 40px;padding-right : 40px;'>";  
+                $result = claro_sql_query($sql);
+                
+                echo "<table class=\"claroTable\" cellpadding='2' cellspacing='1' border='0' align='center'>";
+                echo "<tr class=\"headerX\">
+                        <th>
+                        $langExercicesTitleExerciceColumn
+                        </th>
+                        <th>
+                        $langScoreMin
+                        </th>
+                        <th>
+                        $langScoreMax
+                        </th>
+                        <th>
+                        $langScoreAvg
+                        </th>
+                        <th>
+                        $langAttempts
+                        </th>
+                        <th>
+                        $langLastAttempt
+                        </th>
+                    </tr>";
+                if( mysql_num_rows($result) == 0)
+                {
+                    echo "<tfoot><tr>"; 
+                    echo "<td colspan='6'><center>".$langNoResult."</center></td>";
+                    echo"</tr></tfoot>";
+                }
+                else
+                {
+                      echo "<tbody>";
+                      while( $exo_details = mysql_fetch_array($result) )
+                      { 
+                              echo "<tr>"; 
+                              echo "<td><a href=\"$PHP_SELF?uInfo=".$_GET['uInfo']."&view=".$view."&exoDet=".$exo_details['id']."\">".$exo_details['titre']."</td>";
+                              echo "<td>".$exo_details['minimum']."</td>";
+                              echo "<td>".$exo_details['maximum']."</td>";
+                              echo "<td>".(round($exo_details['average']*10)/10)."</td>";
+                              echo "<td>".$exo_details['attempts']."</td>";
+                              echo "<td>".$exo_details['lastAttempt']."</td>";
+                              echo"</tr>";
+                              
+                              // display details of the exercise, all attempts
+                              if ($_GET['exoDet'] == $exo_details['id'])
+                              {
+                                $sql = "SELECT `exe_date`, `exe_result`, `exe_weighting`
+                                FROM `".$TABLETRACK_EXERCISES."`
+                                WHERE `exe_exo_id` = ".$exo_details['id']."
+                                AND `exe_user_id` = ".$_GET['uInfo']."
+                                ORDER BY `exe_date` ASC";
+                                $resListAttempts = claro_sql_query($sql);
+                                
+                                echo "<tr>";
+                                echo "<td class=\"noHover\">&nbsp;</td>";
+                                echo "<td colspan=\"5\" class=\"noHover\">";
+                                echo "<table class=\"claroTable\" cellspacing=\"1\" cellpadding=\"2\" border=\"0\" width=\"100%\">\n
+                                <tr class=\"headerX\">
+                                  <th><small>$langDate</small></th>\n
+                                  <th><small>$langScore</small></th>\n
+                                </tr>
+                                <tbody>";
+                                
+                                while ( $exo_attempt = mysql_fetch_array($resListAttempts) )
+                                {
+                                    echo "<tr>";
+                                    echo "<td><small>".$exo_attempt['exe_date']."</small></td>";
+                                    echo "<td><small>".$exo_attempt['exe_result']."/".$exo_attempt['exe_weighting']."</small></td>";
+                                    echo "</tr>";
+                                }
+                                echo  "</tbody></table>";
+                                echo "</td>";
+                                echo "</tr>";
+                                
+                              }
+                      
+                      }
+                      echo "</tbody>";
+                }
+                echo "</table>";
+                echo "</td></tr>";
+
+            }
+            else
+            {
+                $tempView[$viewLevel] = '1';
+                echo "
+                    <tr>
+                            <td valign='top'>
+                            +&nbsp;&nbsp;<a href='$PHP_SELF?uInfo=$uInfo&view=".$tempView."' class='specialLink'>$langExercicesResults</a>
+                            </td>
+                    </tr>
+                ";
+            }
+            
+            /***************************************************************************
+             *              
+             *		Learning paths // doesn't use the tracking table but the lp_user_module_progress learnPath table
+             *
+             ***************************************************************************/
+            $tempView = $view;
+            $viewLevel++;
+            if($view[$viewLevel] == '1')
+            {
+                $tempView[$viewLevel] = '0';
+                echo "
+                    <tr>
+                            <td valign='top'>
+                            -&nbsp;&nbsp;&nbsp;<b>".$langLearningPath."</b>&nbsp;&nbsp;&nbsp;<small>[<a href='$PHP_SELF?uInfo=$uInfo&view=".$tempView."'>".$langClose."</a>]</small>
+                            </td>
+                    </tr>
+                ";
+                echo "<tr><td style='padding-left : 40px;' valign='top'>$langLearnPathDetails<br>";
+                
+                // get list of learning paths of this course
+                // list available learning paths
+                $sql = "SELECT LP.`name`, LP.`learnPath_id`
+                       FROM `".$TABLELEARNPATH."` AS LP
+                  ORDER BY LP.`rank`";
+              
+                $lpList = claro_sql_query_fetch_all($sql);
+
+                // table header
+                echo "<table class=\"claroTable\" cellpadding='2' cellspacing='1' border='0' align='center'>
+                <tr class=\"headerX\">
+                        <th>
+                        $langLearningPath
+                        </th>
+                        <th colspan=\"2\">
+                        $langProgress
+                        </th>
+                    </tr>";
+                if(sizeof($lpList) == 0)
+                {
+                    echo "<tfoot><tr> 
+                    <td colspan='3'><center>".$langNoLearnPath."</center></td>
+                    </tr></tfoot>";
+                }
+                else
+                {
+                  // we need the library of learning paths, include it only if needed
+                  include($includePath."/lib/learnPath.lib.inc.php");
+                  
+                  // display each learning path with the corresponding progression of the user
+                  foreach($lpList as $lpDetails)
+                  {
+                      
+                      $lpProgress = get_learnPath_progress($lpDetails['learnPath_id'],$_GET['uInfo']);
+                      echo "<tr>
+                    <td><a href=\"lp_modules_details.php?uInfo=".$_GET['uInfo']."&path_id=".$lpDetails['learnPath_id']."\">".$lpDetails['name']."</a></td>
+                    <td align=\"right\">".
+                    claro_disp_progress_bar($lpProgress, 1).
+                    "</td>
+                    <td align=\"left\"><small>".$lpProgress."%</small></td>
+                   </tr>";
+                  }
+                }
+                echo "</table>
+              </td></tr>";
+                
+                
+            }
+            else
+            {
+                $tempView[$viewLevel] = '1';
+                echo "
+                    <tr>
+                            <td valign='top'>
+                            +&nbsp;&nbsp;<a href='$PHP_SELF?uInfo=$uInfo&view=".$tempView."' class='specialLink'>$langLearningPath</a>
+                            </td>
+                    </tr>
+                ";
+            }
+            /***************************************************************************
+             *              
+             *		Work upload
+             *
+             ***************************************************************************/
+            $tempView = $view;
+            $viewLevel++;
+            if($view[$viewLevel] == '1')
+            {
+                $tempView[$viewLevel] = '0';
+                echo "
+                    <tr>
+                            <td valign='top'>
+                            -&nbsp;&nbsp;&nbsp;<b>".$langWorkUploads."</b>&nbsp;&nbsp;&nbsp;<small>[<a href='$PHP_SELF?uInfo=$uInfo&view=".$tempView."'>".$langClose."</a>]</small>
+                            </td>
+                    </tr>
+                ";
+                echo "<tr><td style='padding-left : 40px;' valign='top'>$langWorksDetails<br>";
+                $sql = "SELECT `u`.`upload_date`, `w`.`titre`, `w`.`auteurs`,`w`.`url`
+                                    FROM `$TABLETRACK_UPLOADS` `u` , `$TABLECOURSE_WORK` `w`
+                                    WHERE `u`.`upload_work_id` = `w`.`id`
+                                        AND `u`.`upload_user_id` = '$uInfo'
+                                    ORDER BY `u`.`upload_date` DESC";
+                echo "<tr><td style='padding-left : 40px;padding-right : 40px;'>";  
+                $results = getManyResultsXCol($sql,4);
+                echo "<table class=\"claroTable\" cellpadding='2' cellspacing='1' border='0' align=center>";
+                echo "<tr class=\"headerX\">
+                        <th width='40%'>
+                        $langWorkTitle
+                        </th>
+                        <th width='30%'>
+                        $langWorkAuthors
+                        </th>
+                        <th width='30%'>
+                        $langDate
+                        </th>
+                    </tr>";
+                if (is_array($results))
+                { 
+                    echo "<tbody>";
+                    for($j = 0 ; $j < count($results) ; $j++)
+                    { 
+                        $pathToFile = $coursesRepositoryWeb.$_course['path']."/".$results[$j][3];
+                        $timestamp = strtotime($results[$j][0]);
+                        $beautifulDate = dateLocalizer($dateTimeFormatLong,$timestamp);
+                        echo "<tr>";
+                        echo "<td>"
+                                ."<a href ='".$pathToFile."'>".$results[$j][1]."</a>"
+                                ."</td>";
+                        echo "<td>".$results[$j][2]."</td>";
+                        echo "<td><small>".$beautifulDate."</small></td>";
+                        echo"</tr>";
+                    }
+                    echo "</tbody>";
+                
+                }
+                else
+                {
+                    echo "<tfoot><tr>"; 
+                    echo "<td colspan='3'><center>".$langNoResult."</center></td>";
+                    echo"</tr></tfoot>";
+                }
+                echo "</table>";
+                echo "</td></tr>";
+            }
+            else
+            {
+                $tempView[$viewLevel] = '1';
+                echo "
+                    <tr>
+                            <td valign='top'>
+                            +&nbsp;&nbsp;<a href='$PHP_SELF?uInfo=$uInfo&view=".$tempView."' class='specialLink'>$langWorkUploads</a>
+                            </td>
+                    </tr>
+                ";
+            }
+            
+           /***************************************************************************
+             *              
+             *		Links usage
+             *
+             ***************************************************************************/
+             /*
+            $tempView = $view;
+            $viewLevel++;
+            if($view[$viewLevel] == '1')
+            {
+                $tempView[$viewLevel] = '0';
+                echo "
+                    <tr>
+                            <td valign='top'>
+                            -&nbsp;&nbsp;&nbsp;<b>".$langLinksAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href='$PHP_SELF?uInfo=$uInfo&view=".$tempView."'>".$langClose."</a>]</small>
+                            </td>
+                    </tr>
+                ";
+                echo "<tr><td style='padding-left : 40px;' valign='top'>$langLinksDetails<br>";
+                $sql = "SELECT `cl`.`titre`, `cl`.`url`
+                            FROM `$TABLETRACK_LINKS` AS sl, `$TABLECOURSE_LINKS` AS cl
+                            WHERE `sl`.`links_link_id` = `cl`.`id`
+                                AND `sl`.`links_user_id` = '$uInfo'
+                            GROUP BY `cl`.`titre`, `cl`.`url`";
+                echo "<tr><td style='padding-left : 40px;padding-right : 40px;'>";  
+                $results = getManyResults2Col($sql);
+                echo "<table cellpadding='2' cellspacing='1' border='0' align=center>";
+                echo "<tr>
+                        <td class='secLine'>
+                        $langLinksTitleLinkColumn
+                        </td>
+                    </tr>";
+                if (is_array($results))
+                { 
+                    for($j = 0 ; $j < count($results) ; $j++)
+                    { 
+                            echo "<tr>"; 
+                            echo "<td class='content'><a href='".$results[$j][1]."'>".$results[$j][0]."</a></td>";
+                            echo"</tr>";
+                    }
+                
+                }
+                else
+                {
+                    echo "<tr>"; 
+                    echo "<td ><center>".$langNoResult."</center></td>";
+                    echo"</tr>";
+                }
+                echo "</table>";
+                echo "</td></tr>";   
+            }
+            else
+            {
+                $tempView[$viewLevel] = '1';
+                echo "
+                    <tr>
+                            <td valign='top'>
+                            +&nbsp;&nbsp;<a href='$PHP_SELF?uInfo=$uInfo&view=".$tempView."' class='specialLink'>$langLinksAccess</a>
+                            </td>
+                    </tr>
+                ";
+            }
+            */
+            /***************************************************************************
+             *              
+             *		Access to documents
+             *
+             ***************************************************************************/
+            $tempView = $view;
+            $viewLevel++;
+            if($view[$viewLevel] == '1')
+            {
+                $tempView[$viewLevel] = '0';
+                echo "
+                    <tr>
+                            <td valign='top'>
+                            -&nbsp;&nbsp;&nbsp;<b>".$langDocumentsAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href='$PHP_SELF?uInfo=$uInfo&view=".$tempView."'>".$langClose."</a>]</small>
+                            </td>
+                    </tr>
+                ";
+                echo "<tr><td style='padding-left : 40px;' valign='top'>$langDocumentsDetails<br>";
+                
+                $sql = "SELECT `down_doc_path`
+                            FROM `$TABLETRACK_DOWNLOADS`
+                            WHERE `down_user_id` = '$uInfo'
+                            GROUP BY `down_doc_path`";
+            
+                echo "<tr><td style='padding-left : 40px;padding-right : 40px;'>";  
+                $results = getManyResults1Col($sql);
+                echo "<table class=\"claroTable\" cellpadding='2' cellspacing='1' border='0' align='center'>";
+                echo "<tr class=\"headerX\">
+                        <th>
+                        $langDocumentsTitleDocumentColumn
+                        </th>
+                    </tr>";
+                if (is_array($results))
+                { 
+                    echo "<tbody>"; 
+                    for($j = 0 ; $j < count($results) ; $j++)
+                    { 
+                            echo "<tr>"; 
+                            echo "<td>".$results[$j]."</td>";
+                            echo"</tr>";
+                    }
+                    echo "</tbody>";
+                
+                }
+                else
+                {
+                    echo "<tfoot><tr>"; 
+                    echo "<td><center>".$langNoResult."</center></td>";
+                    echo"</tr></tfoot>";
+                }
+                echo "</table>";
+                echo "</td></tr>";
+            }
+            else
+            {
+                $tempView[$viewLevel] = '1';
+                echo "
+                    <tr>
+                            <td valign='top'>
+                            +&nbsp;&nbsp;<a href='$PHP_SELF?uInfo=$uInfo&view=".$tempView."' class='specialLink'>$langDocumentsAccess</a>
+                            </td>
+                    </tr>
+                ";
+            }
+        }
+        else
+        {
+            echo $langErrorUserNotInGroup;
+        }
+    }
+}
+// not allowed
+else
+{
+    if(!$is_trackingEnabled)
+    {
+        echo $langTrackingDisabled;
     }
     else
     {
-        $content .=  '<tfoot>' . "\n"
-        .    '<tr>' . "\n"
-        .    '<td colspan="2">' . "\n"
-        .    '<center>'
-        .    get_lang('No result')
-        .    '</center>' . "\n"
-        .    '</td>' . "\n"
-        .    '</tr>' . "\n"
-        .    '</tfoot>' . "\n";
+        echo $langNotAllowed;
     }
-    $content .=  '</table>' . "\n";
-
-    $footer = '';
-    $html .= renderStatBlock($header, $content, $footer);
 }
+?>
 
-/*
- * Part Four - set and output content of the page
- */
-$claroline->display->body->setContent($html);
+</table>
 
-echo $claroline->display->render();
-
-
-
-
-
-
-
-function renderStatBlock($header,$content,$footer)
-{
-	$html = '<div class="statBlock">' . "\n"
-	.	 ' <div class="blockHeader">' . "\n"
-	.	 $header
-	.	 ' </div>' . "\n"
-	.	 ' <div class="blockContent">' . "\n"
-	.	 $content
-	.	 ' </div>' . "\n"
-	.	 ' <div class="blockFooter">' . "\n"
-	.	 $footer
-	.	 ' </div>' . "\n"
-	.	 '</div>' . "\n";
-
-	return $html;
-}
-
-function getUserPlatformAccess($userId, $courseId)
-{
-	$tbl_mdb_names = claro_sql_get_main_tbl(getCourseDbNameGlu($courseId));
-	$tbl_track_e_login = $tbl_mdb_names['track_e_login'];
-
-	$sql = "SELECT UNIX_TIMESTAMP(`login_date`) AS `unix_date`,
-               count(`login_date`)          AS `nbr_login`
-            FROM `" . $tbl_track_e_login . "`
-            WHERE `login_user_id` = " . (int) $userId . "
-            GROUP BY MONTH(`login_date`), YEAR(`login_date`)
-            ORDER BY `login_date` ASC";
-
-	$results = claro_sql_query_fetch_all($sql);
-
-	return $results;
-}
-
-function getUserCourseAccess($userId, $courseId)
-{
-	$tbl_cdb_names = claro_sql_get_course_tbl(getCourseDbNameGlu($courseId));
-	$tbl_track_e_access       = $tbl_cdb_names['track_e_access'];
-
-	$sql = "SELECT UNIX_TIMESTAMP(`access_date`) AS `unix_date`,
-               count(`access_date`)          AS `nbr_access`
-            FROM `" . $tbl_track_e_access . "`
-            WHERE `access_user_id` = " . (int) $userId . "
-            GROUP BY MONTH(`access_date`), YEAR(`access_date`)
-            ORDER BY `access_date` ASC";
-
-	$results = claro_sql_query_fetch_all($sql);
-
-	return $results;
-
-}
-
-function getUserExerciseResults($userId, $courseId)
-{
-	$tbl_cdb_names = claro_sql_get_course_tbl(getCourseDbNameGlu($courseId));
-	$tbl_qwz_exercise = $tbl_cdb_names['qwz_exercise'];
-	$tbl_track_e_exercises = $tbl_cdb_names['track_e_exercices']; // todo rename this table in english ...
-
-	$sql = "SELECT `E`.`title`,
-                   `E`.`id`,
-                   MIN(`TEX`.`exe_result`)    AS `minimum`,
-                   MAX(`TEX`.`exe_result`)    AS `maximum`,
-                   AVG(`TEX`.`exe_result`)    AS `average`,
-                   MAX(`TEX`.`exe_weighting`) AS `weighting`,
-                   COUNT(`TEX`.`exe_user_id`) AS `attempts`,
-                   MAX(`TEX`.`exe_date`)      AS `lastAttempt`,
-                   AVG(`TEX`.`exe_time`)      AS `avgTime`
-              FROM `" . $tbl_qwz_exercise . "` AS `E`
-                 , `" . $tbl_track_e_exercises . "` AS `TEX`
-        WHERE `TEX`.`exe_user_id` = " . (int) $userId . "
-            AND `TEX`.`exe_exo_id` = `E`.`id`
-        GROUP BY `TEX`.`exe_exo_id`
-        ORDER BY `E`.`title` ASC";
-
-    $results = claro_sql_query_fetch_all($sql);
-
-    return $results;
-}
-
-
-function getUserExerciceDetails($userId, $exerciseId, $courseId)
-{
-	$tbl_cdb_names = claro_sql_get_course_tbl(getCourseDbNameGlu($courseId));
-	$tbl_track_e_exercises = $tbl_cdb_names['track_e_exercices']; // todo rename this table in english ...
-
-	$sql = "SELECT `exe_id`, `exe_date`, `exe_result`, `exe_weighting`, `exe_time`
-            FROM `" . $tbl_track_e_exercises . "`
-            WHERE `exe_exo_id` = ". (int) $exerciseId."
-            AND `exe_user_id` = ". (int) $userId."
-            ORDER BY `exe_date` ASC";
-
-    $results = claro_sql_query_fetch_all($sql);
-
-    return $results;
-}
-
-function getUserDocumentDownloads($userId, $courseId)
-{
-	$tbl_cdb_names = claro_sql_get_course_tbl(getCourseDbNameGlu($courseId));
-	$tbl_track_e_downloads = $tbl_cdb_names['track_e_downloads'];
-
-	$sql = "SELECT `down_doc_path` AS `document`,
-				UNIX_TIMESTAMP(`down_date`) AS `unix_date`,
-				COUNT(`down_user_id`) AS `downloads`
-	        FROM `" . $tbl_track_e_downloads . "`
-	        WHERE `down_user_id` = '". (int) $userId."'
-	        GROUP BY `down_doc_path`
-	        ORDER BY `down_doc_path` ASC,`down_date` ASC";
-
-	$results = claro_sql_query_fetch_all($sql);
-
-	return $results;
-}
-
-function getUserTotalForumPost($userId, $courseId)
-{
-	$tbl_cdb_names = claro_sql_get_course_tbl(getCourseDbNameGlu($courseId));
-	$tbl_bb_posts = $tbl_cdb_names['bb_posts'];
-
-	$sql = "SELECT count(`post_id`)
-                FROM `" . $tbl_bb_posts . "`
-                WHERE `poster_id` = '". (int) $userId . "'";
-
-    $value = claro_sql_query_get_single_value($sql);
-
-	if( is_numeric($value) )    return $value;
-	else 						return 0;
-}
-
-function getUserTotalForumTopics($userId, $courseId)
-{
-	$tbl_cdb_names = claro_sql_get_course_tbl(getCourseDbNameGlu($courseId));
-	$tbl_bb_topics = $tbl_cdb_names['bb_topics'];
-
-	$sql = "SELECT count(`topic_title`)
-	            FROM `" . $tbl_bb_topics . "`
-	            WHERE `topic_poster` = '". (int) $userId . "'";
-
-	$value = claro_sql_query_get_single_value($sql);
-
-	if( is_numeric($value) )    return $value;
-	else 						return 0;
-}
-
-function getUserLastTenPosts($userId, $courseId)
-{
-	$tbl_cdb_names = claro_sql_get_course_tbl(getCourseDbNameGlu($courseId));
-	$tbl_bb_posts = $tbl_cdb_names['bb_posts'];
-	$tbl_bb_topics = $tbl_cdb_names['bb_topics'];
-
-	$sql = "SELECT `bb_t`.`topic_id`,
-	                `bb_t`.`topic_title`,
-	                max(`bb_t`.`topic_time`) AS `last_message`
-	            FROM `" . $tbl_bb_posts . "`  AS `bb_p`
-	               , `" . $tbl_bb_topics . "` AS `bb_t`
-	            WHERE `bb_p`.`poster_id` = '". (int) $userId."'
-	              AND `bb_t`.`topic_id` = `bb_p`.`topic_id`
-	            GROUP BY `bb_t`.`topic_title`
-	            ORDER BY `bb_p`.`post_time` DESC
-	            LIMIT 10";
-
-	$results = claro_sql_query_fetch_all($sql);
-
-	return $results;
-}
-
-function getUserWorks($userId, $courseId)
-{
-	$tbl_cdb_names = claro_sql_get_course_tbl(getCourseDbNameGlu($courseId));
-	$tbl_wrk_assignment = $tbl_cdb_names['wrk_assignment'];
-	$tbl_wrk_submission = $tbl_cdb_names['wrk_submission'];
-	$tbl_group_team = $tbl_cdb_names['group_team'];
-
-    $sql = "SELECT `A`.`title` AS `a_title`,
-               `A`.`assignment_type`,
-               `S`.`id`, `S`.`title` AS `s_title`,
-               `S`.`group_id`, `S`.`last_edit_date`, `S`.`authors`,
-               `S`.`score`,
-               `S`.`parent_id`,
-               `G`.`name` AS `g_name`
-          FROM `" . $tbl_wrk_assignment . "` AS `A` ,
-               `" . $tbl_wrk_submission . "` AS `S`
-          LEFT JOIN `" . $tbl_group_team . "` AS `G`
-                 ON `G`.`id` = `S`.`group_id`
-         WHERE `A`.`id` = `S`.`assignment_id`
-           AND ( `S`.`user_id` = ". (int) $userId."
-                  OR ( `S`.`parent_id` IS NOT NULL AND `S`.`parent_id` ) )
-                AND `A`.`visibility` = 'VISIBLE'
-         ORDER BY `A`.`title` ASC, `S`.`last_edit_date` ASC";
-
-	$results = claro_sql_query_fetch_all($sql);
-
-	$submissionList = array();
-
-	// store submission details in list
-	foreach( $results as $submission )
-	{
-		if( empty($submission['parent_id']) )
-		{
-			// is a submission
-			$submissionList[$submission['id']] = $submission;
-		}
-	}
-
-	// get scores
-	foreach( $results as $submission )
-	{
-		if( !empty($submission['parent_id']) && isset($submissionList[$submission['parent_id']]) && is_array($submissionList[$submission['parent_id']]) )
-		{
-			// is a feedback
-			$submissionList[$submission['parent_id']]['score'] = $submission['score'];
-		}
-	}
-
-	return $submissionList;
-}
-
-
-function getUserLogins($userId)
-{
-	$tbl_mdb_names = claro_sql_get_main_tbl();
-	$tbl_track_e_login           = $tbl_mdb_names['track_e_login'    ];
-
-	$sql = "SELECT UNIX_TIMESTAMP(`login_date`) AS `unix_date`,
-                   count(`login_date`)          AS `nbr_login`
-                FROM `" . $tbl_track_e_login . "`
-                WHERE `login_user_id` = " . (int) $userId . "
-                GROUP BY MONTH(`login_date`), YEAR(`login_date`)
-                ORDER BY `login_date` ASC";
-
-    $results = claro_sql_query_fetch_all($sql);
-
-	return $results;
-}
-
-/*
- * To avoid a lot of useless queries to get course data each time we want
- * only the course dbNameGlue we use some of tricky static method to get it
- * as less as possible
- */
-function getCourseDbNameGlu($courseId)
-{
-	static $requestedCourseDbNameGlu = '';
-	static $requestedCourseId = '';
-
-	if( !empty($courseId) && $requestedCourseId != $courseId )
-	{
-		// cache last requested course to be able to retrieve
-		// new dbNameGlu is courseId is different from previous request
-		$requestedCourseId = $courseId;
-
-		$courseInfoArray = get_info_course($courseId);
-    	$requestedCourseDbNameGlu = $courseInfoArray["dbNameGlu"];
-	}
-
-	return $requestedCourseDbNameGlu;
-}
+<?
+@include($includePath."/claro_init_footer.inc.php");
 ?>

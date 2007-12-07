@@ -1,31 +1,25 @@
 <?php // $Id$
-
-//----------------------------------------------------------------------
-// CLAROLINE 1.8
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
-
-/*
- * if not admin ,  nothing  to do  here.
+/**
+      +----------------------------------------------------------------------+
+      | CLAROLINE version $Revision$                                   |
+      +----------------------------------------------------------------------+
+      | Copyright (c) 2001, 2002 Universite catholique de Louvain (UCL)      |
+      +----------------------------------------------------------------------+
+      | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
+      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
+      |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
+      +----------------------------------------------------------------------+
  */
-
+/*
+	if not admin ,  nothing  to do  here.
+*/
 session_start();
 
-if ( isset($_SESSION['is_platformAdmin']) && $_SESSION['is_platformAdmin'] == TRUE )
+if ($HTTP_SESSION_VARS['$is_admin'])
 {
-    //
-    header('Location:../');
+	//
 }
-else
 {
-    header('Location:../');
+   header("Location:../");
 }
-
 ?>

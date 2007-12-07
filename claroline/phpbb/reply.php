@@ -1,218 +1,510 @@
-<?php // $Id$
-/**
- * CLAROLINE
+<?php
+session_start();
+include('../inc/conf/claro_main.conf.php');
+
+/***************************************************************************
+                            reply.php  -  description
+                             -------------------
+    begin                : Sat June 17 2000
+    copyright            : (C) 2001 The phpBB Group
+    email                : support@phpbb.com
+ 
+    $Id$
+
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                         				                                
+ *   This program is free software; you can redistribute it and/or modify  	
+ *   it under the terms of the GNU General Public License as published by  
+ *   the Free Software Foundation; either version 2 of the License, or	    	
+ *   (at your option) any later version.
  *
- * Script view topic for forum tool
- *
- * @version 1.8 $Revision$
- *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
- * @copyright (C) 2001 The phpBB Group
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @author Claro Team <cvs@claroline.net>
- *
- * @package CLFRM
- *
- */
+ ***************************************************************************/
+include('extention.inc');
 
-/*=================================================================
-  Init Section
- =================================================================*/
+//neede for notification in claro 1.5
 
-$tlabelReq = 'CLFRM';
-
-require '../inc/claro_init_global.inc.php';
-
-if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
-
-claro_set_display_mode_available(true);
-
-/*-----------------------------------------------------------------
-  Library
- -----------------------------------------------------------------*/
-
-include_once get_path('incRepositorySys') . '/lib/forum.lib.php';
-include_once get_path('incRepositorySys') . '/lib/pager.lib.php';
-
-// for notification
-include_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
-
-$error = FALSE;
-$dialogBox = new DialogBox();
-$allowed = TRUE;
-$pagetype  = 'reply';
-
-/*=================================================================
-  Main Section
- =================================================================*/
+$TABLEUSER = $mainDbName.".`user`";
+include ('../inc/lib/claro_mail.lib.inc.php');
 
 
-
-if ( isset($_REQUEST['forum']) ) $forum_id = (int) $_REQUEST['forum'];
-else                             $forum_id = 0;
-
-if ( isset($_REQUEST['topic']) ) $topic_id = (int) $_REQUEST['topic'];
-else                             $topic_id = 0;
-
-if ( isset($_REQUEST['cancel']) )
+if($cancel)
 {
-    claro_redirect('viewtopic.php?topic=' . $topic_id . '&forum='.$forum_id);
-    exit();
+	header("Location: viewtopic.php?topic=$topic&forum=$forum");
 }
 
-if ( isset($_REQUEST['message']) ) $message = $_REQUEST['message'];
-else                               $message = '';
+include('functions.php');
+include('config.php');
+require('auth.php');
+$pagetitle = "Post Reply";
+$pagetype = "reply";
 
-// XSS
-$message = preg_replace( '/<script[^\>]*>|<\/script>|(onabort|onblur|onchange|onclick|ondbclick|onerror|onfocus|onkeydown|onkeypress|onkeyup|onload|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|onreset|onresize|onselect|onsubmit|onunload)\s*=\s*"[^"]+"/i', '', $message );
-
-
-$topicSettingList = get_topic_settings($topic_id);
-
-if ( ! claro_is_user_authenticated() || ! claro_is_in_a_course())
+if ($post_id)
 {
-    claro_disp_auth_form(true);
-}
-elseif ( $topicSettingList )
-{
-    if ( $forum_id != $topicSettingList['forum_id'] )
-    {
-        $allowed = FALSE;
-        $dialogBox->error( get_lang('Not allowed') );
-    }
-    else
-    {
-        // Get forum and topics settings
-        $forum_id         = $topicSettingList['forum_id'];
-        $topic_title      = $topicSettingList['topic_title'];
+	// We have a post id, so include that in the checks..
+	$sql = "
+    SELECT f.forum_type, f.forum_name, f.forum_access ,
+            `g`.`id`	`idGroup`
 
-        $forumSettingList = get_forum_settings($forum_id);
+    FROM `$tbl_forums` f, `$tbl_topics` t, `$tbl_posts` p
 
-        $forum_name         = $forumSettingList['forum_name'  ];
-        $forum_post_allowed = ( $forumSettingList['forum_access'] != 0 ) ? true : false;
-        $forum_type         = $forumSettingList['forum_type'  ];
-        $forum_groupId      = $forumSettingList['idGroup'     ];
-        $forum_cat_id       = $forumSettingList['cat_id'      ];
+    # Check possible attached group ...
 
-        /**
-         * Check if the topic isn't attached to a group,  or -- if it is attached --,
-         * check the user is allowed to see the current group forum.
-         */
+    LEFT JOIN `".$tbl_student_group."` `g`
+    ON `f`.`forum_id` = `g`.`forumId`
 
-        if ( ! $forum_post_allowed
-            || ( ! is_null($forumSettingList['idGroup'])
-                && ( !claro_is_in_a_group() || !claro_is_group_allowed() || $forumSettingList['idGroup'] != claro_get_current_group_id() ) ) )
-        {
-            // NOTE : $forumSettingList['idGroup'] != claro_get_current_group_id() is necessary to prevent any hacking
-            // attempt like rewriting the request without $cidReq. If we are in group
-            // forum and the group of the concerned forum isn't the same as the session
-            // one, something weird is happening, indeed ...
-            $allowed = FALSE;
-            $dialogBox->error( get_lang('Not allowed') );
-        }
+    WHERE f.forum_id = '$forum'
 
-        if ( isset($_REQUEST['submit']) )
-        {
-            if ( trim(strip_tags($message)) != '' )
-            {
-
-                if ( get_conf('allow_html') == 0 || isset($html) ) $message = htmlspecialchars($message);
-
-                $lastName   = claro_get_current_user_data('lastName');
-                $firstName  = claro_get_current_user_data('firstName');
-                $poster_ip  = $_SERVER['REMOTE_ADDR'];
-                $time       = date('Y-m-d H:i');
-
-                create_new_post($topic_id, $forum_id, claro_get_current_user_id(), $time, $poster_ip, $lastName, $firstName, $message);
-
-                // notify eventmanager that a new message has been posted
-
-                $eventNotifier->notifyCourseEvent("forum_answer_topic",claro_get_current_course_id(), claro_get_current_tool_id(), $forum_id."-".$topic_id, claro_get_current_group_id(), "0");
-
-                trig_topic_notification($topic_id);
-            }
-            else
-            {
-                $error = TRUE;
-                $dialogBox->error( get_lang('You cannot post an empty message') );
-            }
-        }
-    }
+    AND t.topic_id = $topic
+    AND p.post_id = $post_id 
+    AND t.forum_id = f.forum_id 
+    AND p.forum_id = f.forum_id 
+    AND p.topic_id = t.topic_id";
 }
 else
 {
-    // topic doesn't exist
-    $error = 1;
-    $dialogBox->error( get_lang('Not allowed') );
+	// No post id, just check forum and topic.
+	$sql = "
+    SELECT  f.forum_type, f.forum_name, f.forum_access ,
+            `g`.`id`	`idGroup`
+    FROM `$tbl_forums` f, `$tbl_topics` t 
+               
+    # Check possible attached group ...
+
+    LEFT JOIN `".$tbl_student_group."` `g`
+    ON `f`.`forum_id` = `g`.`forumId`
+
+    WHERE f.forum_id = '$forum' 
+    AND   t.topic_id = $topic 
+    AND   t.forum_id = f.forum_id";	
 }
 
-/*=================================================================
-  Display Section
- =================================================================*/
+$result = mysql_query($sql, $db) OR error_die("Could not connect to the forums database.");
 
-$interbredcrump[] = array ('url' => 'index.php', 'name' => get_lang('Forums'));
-$noPHP_SELF       = true;
-
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-
-$pagetype  = 'reply';
-
-$is_allowedToEdit = claro_is_allowed_to_edit();
-
-echo claro_html_tool_title(get_lang('Forums'),
-                      $is_allowedToEdit ? 'help_forum.php' : false);
-
-if ( !$allowed )
+if (!$myrow = mysql_fetch_array($result,MYSQL_ASSOC))
 {
-    // not allowed
-    echo $dialogBox->render();
+	error_die("The forum/topic you selected does not exist.");
 }
-else
-{
 
-    if ( isset($_REQUEST['submit']) && !$error )
+if (     is_null($myrow['idGroup']) // there is no group attached to this forum
+    || ( $myrow['idGroup'] == $_gid && $is_groupAllowed) )
+{
+    $forum_name   = $myrow['forum_name'];
+    $forum_access = $myrow['forum_access'];
+    $forum_type   = $myrow['forum_type'];
+    $forum_id     = $forum;
+
+    if(is_locked($topic, $db))
     {
-        // DISPLAY SUCCES MESSAGE
-        disp_confirmation_message (get_lang('Your message has been entered'), $forum_id, $topic_id);
+        error_die ($l_nopostlock);
+    }
+
+    if(!does_exists($forum, $db, "forum") || !does_exists($topic, $db, "topic"))
+    {
+        error_die("The forum or topic you are attempting to post to does not exist. Please try again.");
+    }
+
+    include('page_header.php');
+
+    if($submit)
+    {
+        if( trim( strip_tags($message)) == '')
+        {
+            error_die($l_emptymsg);
+        }
+
+        if (!$user_logged_in)
+        {
+            if($username == '' && $password == '' && $forum_access == 2)
+            {
+                // Not logged in, and username and password are empty and forum_access is 2 (anon posting allowed)
+                $userdata = array("user_id" => -1);
+            }
+            else if($username == '' || $password == '')
+            {
+                // no valid session, need to check user/pass.
+                error_die($l_userpass);
+            }
+
+            if($userdata[user_level] == -1) 
+            {
+                error_die($l_userremoved);
+            }
+
+            if($userdata[user_id] != -1) 
+            {
+                $md_pass = md5($password);
+                $userdata = get_userdata($username, $db);
+
+                if($md_pass != $userdata["user_password"])
+                {
+                    error_die($l_wrongpass);
+                }	
+            }
+
+            if($forum_access == 3 && $userdata[user_level] < 2)
+            {
+                error_die($l_nopost);
+            }
+
+            if(is_banned($userdata[user_id], "username", $db)) 
+            {
+                error_die($l_banned);
+            }
+
+            if($userdata[user_id] != -1)
+            {
+                 // You've entered your username and password, so we log you in.
+                 $sessid = new_session($userdata[user_id], $REMOTE_ADDR, $sesscookietime, $db);
+                 set_session_cookie($sessid, $sesscookietime, $sesscookiename, $cookiepath, $cookiedomain, $cookiesecure);
+            }
+        }
+        else
+        {
+            if($forum_access == 3 && $userdata[user_level] < 2) 
+            {
+                error_die($l_nopost);
+            }
+        }
+
+        // Either valid user/pass, or valid session. continue with post.. but first:
+        // Check that, if this is a private forum, the current user can post here.
+        if ($forum_type == 1)
+        {
+            if (!check_priv_forum_auth($userdata[user_id], $forum, TRUE, $db))
+            {
+                error_die("$l_privateforum $l_nopost");
+            }
+        }
+         
+        $poster_ip = $REMOTE_ADDR;
+
+        $is_html_disabled = false;
+
+        if($allow_html == 0 || isset($html))
+        {
+            $message          = htmlspecialchars($message);
+            $is_html_disabled = true;
+
+            if ($quote)
+            {
+                $edit_by = get_syslang_string($sys_lang, "l_editedby");
+
+                // If it's been edited more than once, there might be old "edited by" strings with
+                // escaped HTML code in them. We want to fix this up right here:
+                $message = preg_replace("#&lt;font\ size\=-1&gt;\[\ $edit_by(.*?)\ \]&lt;/font&gt;#si", '<small>[ ' . $edit_by . '\1 ]</small>', $message);	
+            }
+        }
+
+        if($allow_bbcode == 1 && !isset($bbcode))
+        {
+            $message = bbencode($message, $is_html_disabled);
+        }
+
+        // MUST do make_clickable() and smile() before changing \n into <br>.
+        $message = make_clickable($message);
+        if(!$smile)
+        {
+            $message = smile($message);
+        }
+        
+        $message = str_replace("\n", "<BR>", $message);
+        $message = str_replace("<w>", "<s><font color=red>", $message);
+        $message = str_replace("</w>", "</font color></s>", $message);
+        $message = str_replace("<r>", "<font color=#0000FF>", $message);
+        $message = str_replace("</r>", "</font color>", $message);
+
+        $message = censor_string($message, $db);
+        $message = addslashes($message);
+        $time = date("Y-m-d H:i");
+
+
+        // ADDED BY Thomas 20.2.2002
+
+       $nom    = addslashes($nom);
+       $prenom = addslashes($prenom);
+
+       // END ADDED BY THOMAS
+
+        //to prevent [addsig] from getting in the way, let's put the sig insert down here.
+        if($sig && $userdata[user_id] != -1)
+        {
+            $message .= "\n[addsig]";
+        }
+
+        $sql = "INSERT INTO `$tbl_posts` ".
+               "(topic_id, forum_id, poster_id, post_time, poster_ip, nom, prenom)".
+               "VALUES ('$topic', '$forum', '$userdata[user_id]','$time', '$poster_ip', '$nom', '$prenom')";
+
+        if(!$result = mysql_query($sql, $db))
+        {
+            error_die("Error - Could not enter data into the database. Please go back and try again");
+        }
+        
+        $this_post = mysql_insert_id();
+        if($this_post)
+        {
+            $sql = "INSERT INTO `$tbl_posts_text` (post_id, post_text) VALUES ($this_post, '$message')";
+
+            if(!$result = mysql_query($sql, $db)) 
+            {
+                error_die("Could not enter post text!<br>Reason:".mysql_error());
+            }
+        }
+
+        $sql = "UPDATE `$tbl_topics` ".
+               "SET topic_replies = topic_replies+1, ".
+               "topic_last_post_id = $this_post, ".
+               "topic_time = '$time' ".
+               "WHERE topic_id = '$topic'";
+
+        if(!$result = mysql_query($sql, $db))
+        {
+            error_die("Error - Could not enter data into the database. Please go back and try again");
+        }
+
+        if($userdata["user_id"] != -1) 
+        {
+            $sql = "UPDATE `$tbl_users` SET user_posts=user_posts+1 WHERE (user_id = $userdata[user_id])";
+            $result = mysql_query($sql, $db) OR error_die("Error updating user post count.");
+        }
+
+        $sql = "UPDATE `$tbl_forums` ".
+               "SET forum_posts = forum_posts+1, forum_last_post_id = '$this_post' ".
+               "WHERE forum_id = '$forum'";
+
+        $result = mysql_query($sql, $db) OR error_die("Error updating forums post count.");
+
+        $sql = "SELECT t.topic_notify, u.user_email, u.username, u.user_id 
+                FROM `$tbl_topics` t, `$tbl_users` u
+                WHERE t.topic_id = '$topic' AND t.topic_poster = u.user_id";
+
+        $result = mysql_query($sql, $db) OR error_die("Couldn't get topic and user information from database.");
+
+        $m = mysql_fetch_array($result,MYSQL_ASSOC);
+
+        // added for claro 1.5 : send notification for user who subscribed for it
+
+        $sql = "SELECT * FROM `$tbl_user_notify` AS notif, $TABLEUSER AS U
+                      WHERE notif.topic_id = '$topic'
+                      AND  notif.user_id  = U.user_id
+                      ";
+        $notifyResult = mysql_query($sql);
+        $subject = get_syslang_string($sys_lang, "l_notifysubj");
+
+        // send mail to registered user for notification
+
+        while ($list = mysql_fetch_array($notifyResult))
+        {
+
+           $user_id = $list['user_id'];
+           $message = get_syslang_string($sys_lang,"l_dear")." ".$list['prenom']." ".$list['nom'].",\n";
+           $message.= get_syslang_string($sys_lang, "l_notifybody");
+           eval("\$message =\"$message\";");
+           claro_mail_user($user_id, $message, $subject); //send the e-mail to those claroline users
+           //echo "user_id : ".$user_id." has been notified<br>";
+        }
+
+        /*  this code is from phpbb 1.4, but not used in claro 1.5.
+
+        if($m["topic_notify"] == 1 && $m["user_id"] != $userdata["user_id"])
+        {
+            // We have to get the mail body and subject line in the board default language!
+            $subject = get_syslang_string($sys_lang, "l_notifysubj");
+            $message = get_syslang_string($sys_lang, "l_notifybody");
+            eval("\$message =\"$message\";");
+            mail($m[user_email], $subject, $message, "From: $email_from\r\nX-Mailer: phpBB $phpbbversion");
+        }
+
+        */
+
+
+        $total_topic = get_total_posts($topic, $db, "topic")-1;  
+        // Subtract 1 because we want the nr of replies, not the nr of posts.
+
+        $forward = 1;
+     
+        echo	"<br>\n",
+                "<table border=\"0\" cellpadding=\"1\" cellspacing=\"0\" align=\"center\" valign=\"top\" width=\"$tablewidth\">\n",
+                "<tr>\n",
+                "<td  bgcolor=\"$table_bgcolor\">\n",
+                "<table border=\"0\" cellpadding=\"1\" cellspacing=\"1\" width=\"100%\">\n",
+                "<tr bgcolor=\"$color1\">\n",
+                "<td>\n",
+                "<center>\n",
+                $l_stored,"\n",
+                "<ul>\n",
+                "$l_click <a href=\"viewtopic.php?topic=",$topic,"&forum=",$forum,"\">",$l_here,"</a> ",$l_viewmsg,"\n",
+                "<p>\n",
+                $l_click ," <a href=\"viewforum.php?forum=$forum\">$l_here</a>\n", "$l_returntopic\n",
+                "</ul>\n",
+                "</center>\n",
+                "</td>\n",
+                "</tr>\n",
+                "</table>\n",
+                "</td>\n",
+                "</tr>\n",
+                "</table>\n",
+                "<br>\n";
     }
     else
     {
-        if ( $error )
+        // Private forum logic here.
+
+        if(($forum_type == 1) && !$user_logged_in && !$logging_in)
         {
-            echo $dialogBox->render();
+    ?>
+    <form action="<?php echo $PHP_SELF ?>" method="post">
+    <table border="0" cellpadding="1" cellspacing="0" align="center" valign="top" width="<?php echo $tablewidth?>">
+    <tr>
+    <td bgcolor="<?php echo $table_bgcolor ?>">
+    <table border="0" cellpadding="1" cellspacing="1" width="100%">
+    <tr bgcolor="<?php echo $color1 ?>" align="left">
+    <td align="center"><?php echo $l_private?></td>
+    </tr>
+    <tr bgcolor="<?php echo $color2 ?>" align="left">
+    <td align="center">
+
+    </td>
+    </tr>
+    <tr bgcolor="<?php echo $color1 ?>" align="left">
+    <td align="center">
+    <input type="hidden" name="forum" value="<?php echo $forum?>">
+    <input type="hidden" name="topic" value="<?php echo $topic?>">
+    <input type="hidden" name="post" value="<?php echo $post?>">
+    <input type="hidden" name="quote" value="<?php echo $quote?>">
+    <input type="submit" name="logging_in" value="<?php echo $l_enter?>">
+    </td>
+    </tr>
+    </table>
+    </td>
+    </tr>
+    </table>
+    </form>
+    <?php
+            require('page_tail.php');
+            exit();
         }
+        else 
+        {
+            if ($logging_in)
+            {
+                if ($username == '' || $password == '') 
+                {
+                    error_die($l_userpass);
+                }
+                if (!check_username($username, $db)) 
+                {
+                    error_die($l_nouser);
+                }
+                if (!check_user_pw($username, $password, $db)) 
+                {
+                    error_die($l_wrongpass);
+                }
+             
+                /* if we get here, user has entered a valid username and password combination. */
+                $userdata = get_userdata($username, $db);
+                $sessid   = new_session($userdata[user_id], $REMOTE_ADDR, $sesscookietime, $db);	
+                set_session_cookie($sessid, $sesscookietime, $sesscookiename, $cookiepath, $cookiedomain, $cookiesecure);
+            }
 
-        echo claro_html_menu_horizontal(disp_forum_toolbar($pagetype, $forum_id, 0, $topic_id));
+            // ADDED BY CLAROLINE: exclude non identified visitors
+            if (!$_uid AND !$fakeUid)
+            {
+                echo	"<center>",
+                        "<p>",
+                        $langLoginBeforePost1,"<br>",
+                        $langLoginBeforePost2,
+                        "<a href=../../index.php>",$langLoginBeforePost3,"</a>",
+                        "</p>",
+                        "</center>";
+                exit();
+            }
+        
+            if ($forum_type == 1)
+            {
+                // To get here, we have a logged-in user. So, check whether that user is allowed to view
+                // this private forum.
+                if (!check_priv_forum_auth($userdata[user_id], $forum, TRUE, $db))
+                {
+                    error_die("$l_privateforum $l_nopost");
+                }
+                // Ok, looks like we're good.
+            }
+        }
+        
+       
+    ?>
+    <form action="<?php echo $PHP_SELF?>" method="post">
+    <input type="hidden" name="md5" value="<?php echo $md5; ?>">
 
-        echo disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_id, $topic_title);
+    <table border="0">
 
-        echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
-            . '<input type="hidden" name="forum" value="' . $forum_id . '" />' . "\n"
-            . '<input type="hidden" name="topic" value="' . $topic_id . '" />' . "\n";
+    <tr valign="top">
+    <td align="right"><?php echo $l_body?> : 
+    <?php
+        if($quote)
+        {
+            if($r = mysql_query("SELECT pt.post_text, p.post_time, u.username 
+                                 FROM `$tbl_posts` p, `$tbl_users` u, `$tbl_posts_text` pt 
+                                 WHERE p.post_id   = '$post' 
+                                 AND   p.poster_id = u.user_id 
+                                 AND   pt.post_id  = p.post_id", $db))
+            {
+                $m                = mysql_fetch_array($r,MYSQL_ASSOC);
+                $text             = desmile($m[post_text]);
+                $text             = str_replace("<BR>", "\n", $text);
+                $text             = stripslashes($text);
+                $text             = bbdecode($text);
+                $text             = undo_make_clickable($text);
+                $text             = str_replace("[addsig]", "", $text);
+                $syslang_quotemsg = get_syslang_string($sys_lang, "l_quotemsg");
+                eval("\$reply = \"$syslang_quotemsg\";");
+            }
+            else 
+            {
+                error_die("Error Contacting database. Please try again.\n<br>$sql");
+            }
+        }
+    ?>
+    </td>
+    <td>
+    <?php claro_disp_html_area('message', $reply) ?>
+    </td>
+    </tr>
 
-        echo '<table border="0" width="100%">' . "\n"
-            . '<tr valign="top">' . "\n"
-            . '<td align="right"><br />' . get_lang('Message body') . '&nbsp;:</td>'
-            . '<td>'
-            .claro_html_textarea_editor('message', $message)
-            .'</td>'
-            . '</tr>'
-            . '<tr valign="top"><td>&nbsp;</td>'
-            . '<td>'
-            . '<input type="submit" name="submit" value="' . get_lang('Ok') . '" />&nbsp; '
-            . '<input type="submit" name="cancel" value="' . get_lang('Cancel') . '" />'
-            . '</tr>'
-            . '</table>'
-            . '</form>' ;
+    <tr>
+    <td>
+    </td>
+    <td>
+    <input type="hidden" name="forum" value="<?php echo $forum?>">
+    <input type="hidden" name="topic" value="<?php echo $topic?>">
+    <input type="hidden" name="quote" value="<?php echo $quote?>">
+    <input type="submit" name="submit" value="<?php echo $l_submit?>">
+    &nbsp;<input type="submit" name="cancel" value="<?php echo $l_cancelpost?>">
+    </td>
+    </tr>
+    </table>
+    </td>
+    </tr>
+    </table>
+    </form>
+    <?php     
+        // Topic review
+        echo    "<br>",
+                "<center>",
+                "<a href=\"viewtopic.php?topic=$topic&forum=$forum\" target=\"_blank\">",
+                "<b>$l_topicreview</b>",
+                "</a>",
+                "</center>",
+                "<br>";
 
-        echo '<p align="center"><a href="viewtopic.php?topic=' . $topic_id . '&forum=' . $forum_id . '" target="_blank">' . get_lang('Topic review') . '</a>';
-
-    } // end else if submit
+    }
+} // end if $is_groupAllowed
+else
+{
+	echo "This is not available for you";
 }
-
-// Display Forum Footer
-
-include(get_path('incRepositorySys').'/claro_init_footer.inc.php');
+require('page_tail.php');
 ?>

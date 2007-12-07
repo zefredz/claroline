@@ -1,209 +1,480 @@
-<?php // $Id$
-/**
- * CLAROLINE
- *
- * @version 1.9 $Revision$
- *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @package ADMIN
- *
- * @author Guillaume Lederer <lederer@claroline.net>
- * @author claro team <cvs@claroline.net>
- */
+<?php
+// $Id$
+//----------------------------------------------------------------------
+// CLAROLINE
+//----------------------------------------------------------------------
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
+//----------------------------------------------------------------------
+// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
+// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+//----------------------------------------------------------------------
+// Authors: see 'credits' file
+//----------------------------------------------------------------------
 
-$cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
+define ('USER_DATA_FORM', 2);
+
+$langFile='admin';
+$cidReset = true;
 
 require '../inc/claro_init_global.inc.php';
 
-// Security check
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
-
-// Include configuration
-include claro_get_conf_repository() . 'user_profile.conf.php';
-
-// Include libraries
-require_once get_path('incRepositorySys') . '/lib/user.lib.php';
+include $includePath.'/lib/text.lib.php';
+include $includePath.'/lib/admin.lib.inc.php';
+include $includePath.'/conf/profile.conf.inc.php';
 
 
-// Initialise variables
-$nameTools = get_lang('User settings');
-$error = false;
-$messageList = array();
+//SECURITY CHECK
 
-/*=====================================================================
-  Main Section
- =====================================================================*/
-
-// see which user we are working with ...
-
-if ( empty($_REQUEST['uidToEdit']) ) claro_redirect('adminusers.php');
-else                                 $userId = $_REQUEST['uidToEdit'];
-
-$user_data = user_get_properties($userId);
-
-$user_extra_data = user_get_extra_data($userId);
-$dgExtra =null;
-if (count($user_extra_data))
-{
-    $dgExtra = new claro_datagrid(user_get_extra_data($userId));
-}
+if (!$is_platformAdmin) treatNotAuthorized();
 
 
-if ( isset($_REQUEST['applyChange']) )  //for formular modification
-{
-    // get params form the form
-    if ( isset($_REQUEST['lastname']) )       $user_data['lastname'] = trim($_REQUEST['lastname']);
-    if ( isset($_REQUEST['firstname']) )      $user_data['firstname'] = trim($_REQUEST['firstname']);
-    if ( isset($_REQUEST['officialCode']) )   $user_data['officialCode'] = trim($_REQUEST['officialCode']);
-    if ( isset($_REQUEST['username']) )       $user_data['username'] = trim($_REQUEST['username' ]);
-    if ( isset($_REQUEST['password']) )       $user_data['password'] = trim($_REQUEST['password']);
-    if ( isset($_REQUEST['password_conf']) )  $user_data['password_conf'] = trim($_REQUEST['password_conf']);
-    if ( isset($_REQUEST['email']) )          $user_data['email'] = trim($_REQUEST['email']);
-    if ( isset($_REQUEST['officialEmail']) )  $user_data['officialEmail'] = trim($_REQUEST['officialEmail']);
-    if ( isset($_REQUEST['phone']) )          $user_data['phone'] = trim($_REQUEST['phone']);
-    if ( isset($_REQUEST['language']) )       $user_data['language'] = trim($_REQUEST['language']);
-    if ( isset($_REQUEST['isCourseCreator'])) $user_data['isCourseCreator'] = (int) $_REQUEST['isCourseCreator'];
-    if ( isset($_REQUEST['is_admin']) )       $user_data['is_admin'] = (bool) $_REQUEST['is_admin'];
+$nameTools=$langModifOneProfile;
 
-    // validate forum params
-
-    $messageList = user_validate_form_profile($user_data, $userId);
-
-    if ( count($messageList) == 0 )
-    {
-        if ( empty($user_data['password'])) unset($user_data['password']);
-
-        user_set_properties($userId, $user_data);  // if no error update use setting
-
-        if ( $userId == claro_get_current_user_id()  )// re-init system to take new settings in account
-        {
-            $uidReset = true;
-            include get_path('incRepositorySys') . '/claro_init_local.inc.php';
-        }
-
-        $classMsg = 'success';
-        $dialogBox = get_lang('Changes have been applied to the user settings');
-
-        // set user admin parameter
-        if ( $user_data['is_admin'] ) user_set_platform_admin(true, $userId);
-        else                          user_set_platform_admin(false, $userId);
-
-        $messageList[] = get_lang('Changes have been applied to the user settings');
-    }
-    else // user validate form return error messages
-    {
-        $error = true;
-    }
-
-} // if apply changes
-
-
-/**
- * PREPARE DISPLAY
- */
-
-$interbredcrump[]= array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
-
-if( isset($_REQUEST['cfrom']) && $_REQUEST['cfrom'] == 'ulist')
-{
-    $interbredcrump[]= array ('url' => get_path('rootAdminWeb') . 'adminusers.php', 'name' => get_lang('User list'));
-}
+$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
+//$interbredcrump[]= array ("url"=>$rootAdminWeb."/adminusers.php"=> $langManage);
 
 $htmlHeadXtra[] =
             "<script>
             function confirmation (name)
             {
-                if (confirm(\"".clean_str_for_javascript(get_lang('Are you sure to delete'))." \"+ name + \"? \"))
+                if (confirm(\"".$langAreYouSureToDelete."\"+ name + \"? \"))
                     {return true;}
                 else
                     {return false;}
             }
             </script>";
 
-$user_data['is_admin'] = user_is_admin($userId);
+
+$tbl_log         = $mainDbName."`.`loginout";
+$tbl_user        = $mainDbName."`.`user";
+$tbl_admin       = $mainDbName."`.`admin";
+$tbl_course      = $mainDbName."`.`cours";
+$tbl_course_user = $mainDbName."`.`cours_user";
+
+include($includePath.'/claro_init_header.inc.php');
+
+//--------------------------------------------------------------------------------------------------------------------
+// FIRST PART : USER's PERSONNAL INFORMATION
+//--------------------------------------------------------------------------------------------------------------------
+
+// deal with sesison variables (must unset variables if come back from enroll script)
+
+session_unregister("userEdit");
 
 
-$cmd_menu[] = '<a class="claroCmd" href="../auth/courses.php'
-.             '?cmd=rqReg'
-.             '&amp;uidToEdit=' . $userId
-.             '&amp;fromAdmin=settings'
-.             '&amp;category=" >'
-.             '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" />'
-.             get_lang('Enrol to a new course')
-.             '</a>'
+// see which user we are working with ...
 
-;
+$user_id = $_REQUEST['uidToEdit'];
+//echo $user_id."<br>";
 
-$cmd_menu[] = '<a class="claroCmd" href="../auth/lostPassword.php'
-.             '?Femail=' . urlencode($user_data['email'])
-.             '&amp;searchPassword=1" >'
-.             '<img src="' . get_path('imgRepositoryWeb') . 'email.gif" />'
-.             get_lang('Send account information to user by email')
-.             '</a>'
-;
+//------------------------------------
+// Execute COMMAND section
+//------------------------------------
 
-$cmd_menu[] = '<a class="claroCmd" href="adminuserdeleted.php'
-.             '?uidToEdit=' . $userId
-.             '&amp;cmd=delete" '
-.             'onclick="return confirmation(\'' . clean_str_for_javascript(get_lang('Are you sure to delete') . ' ' . $user_data['username']) . '\');" >'
-.             '<img src="' . get_path('imgRepositoryWeb') . 'deluser.gif" /> '
-.             get_lang('Delete user')
-.             '</a>'
-
-;
-
-if (isset($_REQUEST['cfrom']) && $_REQUEST['cfrom'] == 'ulist' ) // if we come form user list, we must display go back to list
+if (isset($applyChange))  //for formular modification
 {
-    $cmd_menu[] = '<a class="claroCmd" href="adminusers.php" >' . get_lang('Back to user list') . '</a>';
-}
+    $regexp = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$";
 
-/**
- * DISPLAY
- */
+    #########" Look for name already taken ##############################
+    $username_form      = trim ($username_form);
+    $nom_form           = trim ($nom_form);
+    $prenom_form        = trim ($prenom_form);
+    $email_form         = trim ($email_form);
 
-// Disdplay header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+    $username_check = mysql_query(
+    "SELECT    username
+    FROM `".$tbl_user."`
+    WHERE username='$username_form'") or die("Erreur SELECT FROM user");
 
-// Display tool title
-echo claro_html_tool_title($nameTools)
-.    claro_html_msg_list($messageList)
-
-// Display "form and info" about the user
-.    '<p>'
-.    claro_html_menu_horizontal($cmd_menu)
-.    '</p>'
-.    user_html_form_admin_user_profile($user_data)
-;
-if (!is_null($dgExtra)) echo $dgExtra->render();
-
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
-
-function user_get_extra_data($userId)
-{
-    $extraInfo = array();
-    $extraInfoDefList = get_userInfoExtraDefinitionList();
-    $userInfo = get_user_property_list($userId);
-
-/**
-    $extraInfo['user_id']['label'] = get_lang('User id');
-    $extraInfo['user_id']['value'] = $userId;
-*/
-
-    foreach ($extraInfoDefList as $extraInfoDef)
+    while ($myusername = mysql_fetch_array($username_check))
     {
-        $currentValue = array_key_exists($extraInfoDef['propertyId'],$userInfo)
-            ? $userInfo[$extraInfoDef['propertyId']]
-            : $extraInfoDef['defaultValue'];
+        $user_exist=$myusername[0];
+    }
 
-            // propertyId, label, type, defaultValue, required
-            $extraInfo[$extraInfoDef['propertyId']]['label'] = $extraInfoDef['label'];
-            $extraInfo[$extraInfoDef['propertyId']]['value'] = $currentValue;
+    ######## No empty field ########################
+
+    if ( empty($nom_form)
+        OR empty($prenom_form)
+        OR empty($username_form)
+        OR (empty($email_form) && !$userMailCanBeEmpty)
+            )
+    {
+        $classMsg  = "warning";
+        $dialogBox = $langFields;
+    }
+
+    ################# verify that user is free #################
+
+    elseif(($username_form==$user_exist) AND ($username_form!=$uname))
+    {
+        $classMsg = "warning";
+        $dialogBox = $langUserTaken;
+    }
+    ################### Check email synthax #####################
+
+    elseif( !empty($email_form) && !eregi( $regexp, $email_form )) // (empty($email_form) && !$userMailCanBeEmpty) is tested before
+    {
+        $classMsg = "warning";
+        $dialogBox = $langEmailWrong;
+    }
+    ################### Check password entered are the same (if reset password is asked)#####################
+
+    elseif( !empty($password) && ($password!=$confirm)) // attempt to change the user password but confirm is not the same
+    {
+        $classMsg = "warning";
+        $dialogBox = $langPasswordWrong;
+    }
+    else  //apply changes as no mistake in the form was found
+    {
+
+        mysql_query(
+        "UPDATE  `".$tbl_user."`
+         SET
+         nom='$nom_form',
+         prenom='$prenom_form',
+         username='$username_form', email='$email_form',
+         officialCode='$official_code_form',
+         phoneNumber='$userphone_form'
+         WHERE user_id='$user_id'");
+
+        if ($user_id==$_uid)
+        {
+            $uidReset    = true;
+            include($includePath.'/claro_init_local.inc.php');
+        }
+        $classMsg = "success";
+        $dialogBox = $langAppliedChange;
+
+        // set user admin parameter
+
+        if (($admin_form=="no"))  //do not set as admin
+        {
+           mysql_query(
+           "DELETE FROM `".$tbl_admin."`
+           WHERE idUser='$user_id'");
+        }
+
+        elseif ($admin_form=="yes")  // if admin, we must check if the user was already admin
+        {
+           $sql = "SELECT * FROM `".$tbl_admin."`
+                   WHERE idUser='$user_id'
+                   ";
+           $resultAdmin =  claro_sql_query($sql);
+           $numadmin = mysql_numrows($resultAdmin);
+
+           if ($numadmin==0)
+           {
+              $sql = "INSERT INTO `".$tbl_admin."` (idUser) VALUES (".$user_id.")";
+              claro_sql_query($sql);
+           }
+        }
+
+       //set user ""can create course"" or not
+
+       if ($create_course_form=="yes")
+       {
+         $sql = "UPDATE  `".$tbl_user."`
+                 SET
+                 statut='1'
+                 WHERE user_id='$user_id'";
+         claro_sql_query($sql);
+       }
+       elseif ($create_course_form=="no")
+       {
+         $sql = "UPDATE  `".$tbl_user."`
+                 SET
+                 statut='5'
+                 WHERE user_id='$user_id'";
+         claro_sql_query($sql);
+       }
+
+       // change user password if it has been asked
+
+       if (!empty($password) && !empty($confirm) && ($confirm==$password))
+       {
+            if ($userPasswordCrypted) $password = md5(trim($password));
+            $sql = "UPDATE  `".$tbl_user."`
+                 SET
+                 password='$password'
+                 WHERE user_id='$user_id'";
+            claro_sql_query($sql);
+            
+       }
 
     }
-    return $extraInfo;
+
+
+    $display = USER_DATA_FORM;
+}    // IF applyChange
+
+if(isset($user_id))
+
+{
+    //find global user info
+
+    $sqlGetInfoUser ="
+    SELECT *
+        FROM  `".$tbl_user."`
+        WHERE user_id='$user_id'";
+    $result=mysql_query($sqlGetInfoUser) or die("Erreur SELECT FROM user");
+    //echo $sqlGetInfoUser;
+
+    $myrow = mysql_fetch_array($result);
+
+    $user_id =            $myrow[user_id];
+    $nom_form =           $myrow[nom];
+    $prenom_form =           $myrow[prenom];
+    $official_code_form = $myrow[officialCode];
+    $username_form =       $myrow[username];
+    $email_form    =          $myrow[email];
+    $userphone_form =     $myrow[phoneNumber];
+    $display = USER_DATA_FORM;
+
+    // find user type, must see if the user is in the admin table.
+
+    $sql = "SELECT * FROM `".$tbl_admin."`
+            WHERE idUser='$user_id'
+            ";
+
+    $resultAdmin = claro_sql_query($sql);
+    $num = mysql_numrows($resultAdmin);
+    //echo $sql." : ".$num;
+    if ($num != 0)
+    {
+        $isAdmin = true;
+    }
+    else
+    {
+        $isAdmin = false;
+    }
+
+    if ($myrow[statut]==1)
+    {
+     $canCreateCourse = true;
+    }
+    else
+    {
+     $canCreateCourse = false;
+    }
+
 }
+
+session_unregister("uname");
+session_unregister("pass");
+session_unregister("nom");
+session_unregister("prenom");
+
+$uname    =    $username_form;
+$nom    =    $nom_form;
+$prenom    =    $prenom_form;
+
+session_register("uname");
+session_register("nom");
+session_register("prenom");
+
+if (isset($cmd))
+{
+    if ($cmd=="delete")
+    {
+        $dialogBox = "delete called";
+    }
+
+}
+
+
+
+//------------------------------------
+// DISPLAY
+//------------------------------------
+
+
+// Display tool title
+
+claro_disp_tool_title($nameTools);
+
+//Display Forms or dialog box(if needed)
+
+if($dialogBox)
+  {
+    claro_disp_message_box($dialogBox);
+  }
+
+//Display "form and info" about the user
+
+if ($display == USER_DATA_FORM)
+{
+
+?>
+
+<form method="POST" action="<?php echo $PHP_SELF ?>">
+<input type="hidden" name="applyChange" value="yes">
+<table border="0">
+
+     <tr>
+        <td align="right" valign="top">
+            <?php echo $langUserid ?> :
+        </td>
+        <td colspan="2">
+            <?php echo $user_id ?>
+        </td>
+    </tr>
+
+    <tr valign="top">
+        <td align="right">
+            <label for="nom_form"><?php echo $langName ?></label> :
+        </td>
+        <td colspan="2">
+            <input type="text" size="40" id="nom_form"  name="nom_form" value="<?php echo $nom_form ?>">
+        </td>
+    </tr>
+
+    <tr valign="top">
+        <td align="right">
+            <label for="prenom_form"><?php echo $langFirstName ?></label> :
+        </td>
+        <td colspan="2">
+            <input type="text" size="40" name="prenom_form" id="prenom_form" value="<?php echo $prenom_form ?>">
+        </td>
+    </tr>
+
+    <tr valign="top">
+        <td align="right">
+            <label for="official_code_form"><?php echo $langOfficialCode ?></label> :
+        </td>
+        <td colspan="2">
+            <input type="text" size="40" name="official_code_form" id="official_code_form" value="<?php echo $official_code_form ?>">
+        </td>
+    </tr>
+
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td></td>
+    </tr>
+
+    <tr>
+      <td>
+      </td>
+      <td colspan="2">
+        <small>(<?php echo $langChangePwdexp?>)</small>
+      </td>
+    </tr>
+
+    <tr valign="top">
+      <td align="right">
+        <label for="username_form"><?php echo $langUsername?></label> :
+      </td>
+      <td colspan="2">
+        <input type="text" size="40" id="username_form" name="username_form" value="<?php echo $username_form?>">
+      </td>
+    </tr>
+
+    <tr valign="top">
+      <td align="right">
+        <label for="password"><?php echo $langPassword?></label> :
+      </td>
+      <td colspan="2">
+        <input type="password" name="password" id="password" size="40" value="<?php echo $password ?>">
+      </td>
+    </tr>
+
+    <tr valign="top">
+      <td align="right">
+        <label for="confirm"><?php echo $langConfirm?></label> :
+      </td>
+      <td colspan="2">
+        <input type="password" name="confirm" id="confirm" size="40" value="<?php echo $confirm ?>">
+      </td>
+    </tr>
+
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td></td>
+    </tr>
+
+    <tr valign="top">
+        <td align="right">
+            <label for="email_form"><?php echo $langEmail?></label> :
+        </td>
+        <td colspan="2">
+            <input type="text" size="40" id="email_form" name="email_form" value="<?php echo $email_form?>">
+            <br>
+        </td>
+    </tr>
+
+    <tr valign="top">
+        <td align="right">
+            <label for="userphone_form"><?php echo $langPhone?></label> : 
+        </td>
+        <td>
+            <input type="text" size="40" id="userphone_form" name="userphone_form" value="<?php echo $userphone_form?>">
+        </td>
+    </tr>
+
+    <tr valign="top">
+        <td align="right">
+            <?php echo $langUserCanCreateCourse?> : 
+        </td>
+        <td>
+            <input type="radio" name="create_course_form" value="yes" id="create_course_form_yes" <? if ($canCreateCourse) { echo "checked"; }?> >
+            <label for="create_course_form_yes"><?php echo $langYes?></label>
+
+            <input type="radio" name="create_course_form" value="no"  id="create_course_form_no"  <? if (!$canCreateCourse){ echo "checked"; }?> >
+            <label for="create_course_form_no"><?php echo $langNo?></label>
+        </td>
+    </tr>
+
+    <tr valign="top">
+       <td align="right"><?php echo $langUserIsPlaformAdmin ?> : </td>
+       <td>
+         <input type="radio" name="admin_form" value="yes" id="admin_form_yes" <? if ($isAdmin) { echo "checked"; }?> >
+         <label for="admin_form_yes"><?php echo $langYes ?></label>
+
+         <input type="radio" name="admin_form" value="no"  id="admin_form_no"  <? if (!$isAdmin) { echo "checked"; }?> >
+         <label for="admin_form_no"><?php echo $langNo  ?></label>
+       </td>
+    </tr>
+
+    <tr>
+     <td>
+         <a href="adminusercourses.php?uidToEdit=<?php echo $user_id?>"><?php echo $langAllUserOfThisCourse ?></a>
+     </td>
+   </tr>
+
+    <tr>
+        <td>
+        </td>
+        <td colspan="2">
+            <input type="hidden" name="uidToEdit" value="<?php echo $user_id?>">
+            <input type="hidden" name="cfrom" value="<?php echo $cfrom?>">
+            <input type="submit" name="applyChange" value="<?php echo $langSaveChanges?>">
+            <br>
+      </td>
+   </tr>
+
+  </table>
+</form>
+<?php
+}
+else
+{
+    echo "Script error";
+}
+
+// display TOOL links :
+
+claro_disp_button("adminuserdeleted.php?uidToEdit=".$user_id."&cmd=delete",$langDeleteUser,$langAreYouSureToDelete." ".$username_form);
+claro_disp_button("../auth/courses.php?cmd=rqReg&uidToEdit=".$user_id."&fromAdmin=settings&category=",$langRegisterUser);
+
+if (isset($cfrom) && $cfrom=="ulist")  //if we come form user list, we must display go back to list
+{
+    claro_disp_button("adminusers.php", $langBackToUserList);
+}
+// display footer
+
+include($includePath."/claro_init_footer.inc.php");
 ?>

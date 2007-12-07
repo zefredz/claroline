@@ -1,233 +1,314 @@
-<?php // $Id$
-/**
- * CLAROLINE
+<?php  
+session_start();
+include('../inc/conf/claro_main.conf.php');
+
+/***************************************************************************
+                            newtopic.php  -  description
+                             -------------------
+    begin                : Sat June 17 2000
+    copyright            : (C) 2001 The phpBB Group
+    email                : support@phpbb.com
+
+    $Id$
+
+ ***************************************************************************/
+
+/***************************************************************************
  *
- * Script for forum tool
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 2 of the License, or
+ *   (at your option) any later version.
  *
- * @version 1.8 $Revision$
- *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
- * @copyright (C) 2001 The phpBB Group
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @author Claro Team <cvs@claroline.net>
- *
- * @package CLFRM
- *
- */
+ ***************************************************************************/
+include('extention.inc');
+// Set the error reporting to a sane value, 'cause we haven't included auth.php yet..
+error_reporting  (E_ERROR | E_WARNING | E_PARSE); // This will NOT report uninitialized variables
 
-/*=================================================================
-  Initialize
- =================================================================*/
-
-$tlabelReq = 'CLFRM';
-
-require '../inc/claro_init_global.inc.php';
-
-if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
-
-claro_set_display_mode_available(true);
-
-/*-----------------------------------------------------------------
-  Library
- -----------------------------------------------------------------*/
-
-include_once get_path('incRepositorySys') . '/lib/forum.lib.php';
-
-// variables
-
-$allowed = TRUE;
-$error = FALSE;
-
-$dialogBox = new DialogBox();
-$pagetype =  'newtopic';
-
-/*=================================================================
-  Main Section
- =================================================================*/
-
-if ( isset($_REQUEST['forum']) ) $forum_id = (int) $_REQUEST['forum'];
-else                             $forum_id = 0;
-
-if ( isset( $_REQUEST['cancel'] ) )
+if($cancel)
 {
-    claro_redirect('viewforum.php?forum='.$forum_id);
-    exit();
+	header("Location: viewforum.php?forum=$forum");
+	exit();
 }
 
-if ( isset($_REQUEST['subject']) ) $subject = $_REQUEST['subject'];
-else                               $subject = '';
+include('functions.php');
+include('config.php');
+require('auth.php');
+$pagetitle = "New Topic";
+$pagetype = "newtopic";
 
-// XSS
-$subject = strip_tags( $subject );
+$userFirstName = $_user['firstName'];
+$userLastName  = $_user['lastName' ];
 
-if ( isset($_REQUEST['message']) ) $message = $_REQUEST['message'];
-else                               $message = '';
+$sql = "
+SELECT 	`f`.`forum_name` forum_name,
+		`f`.`forum_access` forum_access,
+		`f`.`forum_type` forum_type,
+		`g`.`id`	`idGroup`,
+		`g`.`name` 	`nameGroup`
+	FROM `".$tbl_forums."` `f`
+	LEFT JOIN `".$tbl_student_group."` `g`
+		ON `f`.`forum_id` = `g`.`forumId`
+	WHERE `f`.`forum_id` = '".$forum."'";
 
-// XSS
-$message = preg_replace( '/<script[^\>]*>|<\/script>|(onabort|onblur|onchange|onclick|ondbclick|onerror|onfocus|onkeydown|onkeypress|onkeyup|onload|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|onreset|onresize|onselect|onsubmit|onunload)\s*=\s*"[^"]+"/i', '', $message );
+if(!$result = mysql_query($sql, $db))
+	error_die("Can't get forum data.");
 
-$forumSettingList = get_forum_settings($forum_id);
+if(!$myrow = mysql_fetch_array($result,MYSQL_ASSOC))
+	error_die("The forum you are attempting to post to does not exist. Please try again.");
 
-$is_allowedToEdit = claro_is_allowed_to_edit()
-                    || (  claro_is_group_tutor() && !claro_is_course_manager());
-                    // (  claro_is_group_tutor()
-                    //  is added to give admin status to tutor
-                    // && !claro_is_course_manager())
-                    // is added  to let course admin, tutor of current group, use student mode
+$forum_name 		= $myrow['forum_name'  ];
+$forum_access 		= $myrow['forum_access'];
+$forum_type 		= $myrow['forum_type'  ];
+$forum_groupId 		= $myrow['idGroup'     ];
+$forum_groupname	= $myrow['nameGroup'   ];
+$forum_id 			= $forum;
 
-if ( ! claro_is_user_authenticated() || ! claro_is_in_a_course() )
+// Check if the forum isn't attached to a group, 
+// or -- if it is attached --, check the user 
+// is allowed to see the current group forum.
+
+if (     is_null($myrow['idGroup']) 
+    || ( $myrow['idGroup'] == $_gid && $is_groupAllowed) )
 {
-    claro_disp_auth_form(true);
-}
-elseif ( $forumSettingList )
-{
-    $forum_name         = stripslashes($forumSettingList['forum_name']);
-    $forum_post_allowed = ($forumSettingList['forum_access'] != 0) ? true : false;
-    $forum_type         = $forumSettingList['forum_type'  ];
-    $forum_groupId      = $forumSettingList['idGroup'     ];
-    $forum_cat_id       = $forumSettingList['cat_id'      ];
+	if($submit)
+	{
+		$subject = strip_tags($subject);
+		
+		if(trim( strip_tags($message)) == '' || trim($subject) == '')
+		{
+			error_die($l_emptymsg);
+		}
+		
+		// set as anonymous phpBB user. we try to do it better soon
+		// Claroline team
+			
+		$userdata = array("user_id" => -1);
+		
+		// Commented by the Claroline team
+		//
+		// Either valid user/pass, or valid session. continue with post.. but first:
+		// Check that, if this is a private forum, the current user can post here.
+		//
+		// if ($forum_type == 1)
+		// {
+		//		if (!check_priv_forum_auth($userdata[user_id], $forum, TRUE, $db))
+		// 		{
+		//			error_die("$l_privateforum $l_nopost");
+		//		}
+		// }
 
-    /*
-     * Check if the topic isn't attached to a group,  or -- if it is attached --,
-     * check the user is allowed to see the current group forum.
-     */
+		$is_html_disabled = false;
+	
+		if($allow_html == 0 || isset($html))
+		{
+			$message          = htmlspecialchars($message);
+			$is_html_disabled = true;
+		}
 
-    if ( ! $forum_post_allowed
-        || ( ! is_null($forumSettingList['idGroup'])
-            && ( !claro_is_in_a_group() || ! claro_is_group_allowed() || $forumSettingList['idGroup'] != claro_get_current_group_id() ) ) )
-    {
-        // NOTE : $forumSettingList['idGroup'] != claro_get_current_group_id() is necessary to prevent any hacking
-        // attempt like rewriting the request without $cidReq. If we are in group
-        // forum and the group of the concerned forum isn't the same as the session
-        // one, something weird is happening, indeed ...
-        $allowed = FALSE;
-        $dialogBox->error( get_lang('Not allowed') );
-    }
-    else
-    {
-        if ( isset($_REQUEST['submit']) )
-        {
-            // Either valid user/pass, or valid session. continue with post.. but first:
-            // Check that, if this is a private forum, the current user can post here.
+		if($allow_bbcode == 1 && !($HTTP_POST_VARS[bbcode]))
+		{
+			$message = bbencode($message, $is_html_disabled);
+		}
 
-            /*------------------------------------------------------------------------
-                                        PREPARE THE DATA
-              ------------------------------------------------------------------------*/
+		// MUST do make_clickable() and smile() before changing \n into <br>.
+		
+		$message = make_clickable($message);
+		
+		if(!$smile)
+		{
+			$message = smile($message);
+		}
 
-            // SUBJECT
-            $subject = trim($subject);
+		$message   = str_replace("\n", "<BR>", $message);
+		$message   = str_replace("<w>", "<s><font color=red>", $message);
+	    $message   = str_replace("</w>", "</font color></s>", $message);
+	    $message   = str_replace("<r>", "<font color=#0000FF>", $message);
+	    $message   = str_replace("</r>", "</font color>", $message);
+	
+		$message   = censor_string($message, $db);
+		$message   = addslashes($message);
+		$subject   = strip_tags($subject);
+		$subject   = censor_string($subject, $db);
+		$subject   = addslashes($subject);
+		$poster_ip = $REMOTE_ADDR;
+		$time      = date('Y-m-d H:i');
 
-            // MESSAGE
-            if ( get_conf('allow_html') == 0 || isset($html) ) $message = htmlspecialchars($message);
-            $message = trim($message);
 
-            // USER
-            $userLastname  = claro_get_current_user_data('lastName');
-            $userFirstname = claro_get_current_user_data('firstName');
-            $poster_ip     = $_SERVER['REMOTE_ADDR'];
+		// ADDED BY Thomas 20.2.2002
 
-            $time = date('Y-m-d H:i');
+		$userLastName    = addslashes($userLastName);
+		$userFirstName = addslashes($userFirstName);
 
-            // prevent to go further if the fields are actually empty
-            if ( strip_tags($message) == '' || $subject == '' )
-            {
-                $dialogBox->error( get_lang('You cannot post an empty message') );
-                $error = TRUE;
-            }
+		// END ADDED BY THOMAS
 
-            if ( !$error )
-            {
-                // record new topic
-                $topic_id = create_new_topic($subject, $time, $forum_id, claro_get_current_user_id(), $userFirstname, $userLastname);
-                if ( $topic_id )
-                {
-                    create_new_post($topic_id, $forum_id, claro_get_current_user_id(), $time, $poster_ip, $userLastname, $userFirstname, $message);
-                }
-                // notify eventmanager that a new message has been posted
+		// to prevent [addsig] from getting in the way, 
+		// let's put the sig insert down here.
+		
+		if($sig && $userdata["user_id"] != -1)
+		{
+			$message .= "\n[addsig]";
+		}
+	
+		$sql = "INSERT INTO `".$tbl_topics."` 
+		        SET topic_title  = '".$subject."', 
+				    topic_poster = '".$userdata['user_id']."', 
+				    forum_id     = '".$forum."', 
+				    topic_time   = '".$time."', 
+				    topic_notify = 1,
+			 	    nom          = '".$userLastName."', 
+				    prenom       = '".$userFirstName."'";
 
-                $eventNotifier->notifyCourseEvent('forum_new_topic',claro_get_current_course_id(), claro_get_current_tool_id(), $forum_id."-".$topic_id, claro_get_current_group_id(), 0);
+	$result = mysql_query($sql, $db) 
+			  or error_die("Couldn't enter topic in database.");
+	
+	$topic_id = mysql_insert_id();
+	
+	$sql = "INSERT INTO `".$tbl_posts."`
+			SET topic_id  = '".$topic_id."', 
+			    forum_id  = '".$forum."', 
+			    poster_id = '".$userdata[user_id]."', 
+			    post_time = '".$time."', 
+			    poster_ip = '".$poster_ip."', 
+			    nom       = '".$userLastName."', 
+			    prenom    = '".$userFirstName."'";
+	
+	$result = mysql_query($sql) 
+			  or error_die("Couldn't enter post in database.");
 
-            }
+	$post_id = mysql_insert_id();
+	
+	if($post_id)
+	{
+		$sql = "INSERT INTO `".$tbl_posts_text."` 
+		        SET post_id   = '".$post_id."', 
+		            post_text = '".$message."'";
+		
+		$result = mysql_query($sql) 
+		          or error_die("Could not enter post text!");
 
-        } // end if submit
-    }
+		$sql = "UPDATE `".$tbl_topics."` 
+		        SET   topic_last_post_id = '".$post_id."' 
+				WHERE topic_id = '".$topic_id."'";
+
+		$result = mysql_query($sql) 
+				  or error_die("Could not update topics table!");
+	}
+
+
+	if($userdata[user_id] != -1)
+	{
+		$sql = "UPDATE `$tbl_users` 
+		        SET user_posts=user_posts+1 
+		        WHERE user_id = '".$userdata['user_id']."'";
+		
+		$result = mysql_query($sql) 
+				  or error_die("Couldn't update users post count.");
+	}
+	
+	$sql = "UPDATE `".$tbl_forums."` 
+            SET   forum_posts        = forum_posts+1, 
+                  forum_topics       = forum_topics+1, 
+                  forum_last_post_id = '".$post_id."' 
+            WHERE forum_id           = '".$forum."'";
+
+	$result = mysql_query($sql, $db) 
+			  or error_die("Couldn't update forums post count.");
+			  
+	$topic       = $topic_id;
+	$total_topic = get_total_posts($topic, $db, "topic")-1;
+	
+	// Subtract 1 because we want the nr of replies, not the nr of posts.
+	$forward = 1;
+	
+	include('page_header.php');
+	
+	echo	"<br>",
+	
+			"<table border=\"0\" cellpadding=\"1\" cellspacing=\"0\" ",
+			"align=\"center\" valign=\"top\" width=\"$tablewidth\">",
+			
+			"<tr align=\"left\">",
+			"<td>",
+			"<center>",
+			$l_stored,
+			"<p>",$l_click,
+			" <a href=\"viewtopic.$phpEx?topic=$topic_id&forum=$forum\">",
+			$l_here,
+			"</a> ",
+			$l_viewmsg,"<p>",
+			$l_click,
+			" <a href=\"viewforum.$phpEx?forum=$forum_id\">",
+			$l_here,
+			"</a> ", 
+			$l_returntopic,
+			"</center>",
+			"</td>",
+			"</tr>",
+			
+			"</table>";
+			
+	} // end if submit
+	else
+	{
+		include('page_header.php');
+	
+		// ADDED BY CLAROLINE: exclude non identified visitors
+		if (!$_uid AND !$fakeUid)
+		{
+			die("<center><br><br><font face=\"arial, helvetica\" size=2>$langLoginBeforePost1<br>
+				$langLoginBeforePost2<a href=../../index.php>$langLoginBeforePost3.</a></center>");
+		}
+		// END ADDED BY CLAROLINE exclude visitors unidentified
+?>
+
+<form action="<?php echo $php_self?>" method="post">
+
+<table border="0">
+
+<tr valign="top">
+
+<td align="right"><label for="subject"><?php echo $l_subject?></label> :</td>
+<td><input type="text" name="subject" id="subject" size="50" maxlength="100"></td>
+
+</tr>
+
+<tr valign="top">
+
+<td align="right">
+<?php echo $l_body?> :
+<br><br>
+</td>
+
+<td>
+<?php claro_disp_html_area('message'); ?>
+</td>
+
+</tr>
+
+<tr>
+
+<td></td>
+
+<td>
+<input type="hidden" name="forum" value="<?php echo $forum?>">
+<input type="submit" name="submit" value="<?php echo $l_submit?>">
+&nbsp;<input type="submit" name="cancel" value="<?php echo $l_cancelpost?>">
+</td>
+
+</tr>
+
+</table>
+
+</form>
+
+<?php
+	}
 }
 else
 {
-    // forum doesn't exists
-    $allowed = false;
-    $dialogBox->error( get_lang('Not allowed') );
+	header("Location: index.php");
+	exit();
 }
-
-/*=================================================================
-  Display Section
- =================================================================*/
-
-$interbredcrump[] = array ('url' => 'index.php', 'name' => get_lang('Forums'));
-$noPHP_SELF       = true;
-
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-
-// display tool title
-echo claro_html_tool_title(get_lang('Forums'), $is_allowedToEdit ? 'help_forum.php' : false);
-
-if ( ! $allowed )
-{
-	echo $dialogBox->render();
-}
-else
-{
-    // Display new topic page
-
-    if ( isset($_REQUEST['submit']) && !$error)
-    {
-        // Display success message
-        disp_confirmation_message (get_lang('Your message has been entered'), $forum_id, $topic_id);
-
-    }
-    else
-    {
-        if ( $error )
-        {
-            // display error message
-            echo $dialogBox->render();
-        }
-
-        echo disp_forum_breadcrumb($pagetype, $forum_id, $forum_name)
-        .    claro_html_menu_horizontal(disp_forum_toolbar($pagetype, $forum_id, 0, 0))
-
-
-        .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
-        .    '<input type="hidden" name="forum" value="' . $forum_id . '" />' . "\n"
-
-        .    '<table border="0" width="100%">' . "\n"
-        .    '<tr valign="top">' . "\n"
-        .    '<td align="right"><label for="subject">' . get_lang('Subject') . '</label> : </td>'
-        .    '<td><input type="text" name="subject" id="subject" size="50" maxlength="100" value="' . htmlspecialchars($subject) . '" /></td>'
-        .    '<tr  valign="top">' . "\n"
-        .    '<td align="right"><br />' . get_lang('Message body') . ' :</td>';
-
-        if ( !empty($message) ) $content = $message;
-        else                    $content = '';
-
-        echo '<td>'
-            .claro_html_textarea_editor('message',$content)
-            .'</td>'
-            . '</tr>'
-            . '<tr  valign="top"><td>&nbsp;</td>'
-            . '<td><input type="submit" name="submit" value="' . get_lang('Ok') . '" />&nbsp; '
-            . '&nbsp;<input type="submit" name="cancel" value="' . get_lang('Cancel') . '" />' . "\n"
-            . '</td></tr>'
-            . '</table>'
-            .'</form>' . "\n";
-    }
-} // end allowed
-
-/*-----------------------------------------------------------------
-  Display Forum Footer
- -----------------------------------------------------------------*/
-
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+require('page_tail.php');
 ?>

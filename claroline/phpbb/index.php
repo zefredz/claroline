@@ -1,410 +1,333 @@
-<?php // $Id$
-/**
- * CLAROLINE
+<?php //     $Id$
+session_start();
+/***************************************************************************
+                          index.php  -  description
+                             -------------------
+    begin                : Sat June 17 2000
+    copyright            : (C) 2001 The phpBB Group
+    email                : support@phpbb.com
+ ***************************************************************************/
+
+/***************************************************************************
  *
- * Script for forum tool
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 2 of the License, or
+ *   (at your option) any later version.
  *
- * @version 1.8 $Revision$
- *
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
- * @copyright (C) 2001 The phpBB Group
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @author Claro Team <cvs@claroline.net>
- *
- * @package CLFRM
- *
- * @todo  $last_post would be always a timestamp
- *
- */
+ ***************************************************************************/
+$tlabelReq ="CLFRM___";
 
-/*=================================================================
-Init Section
-=================================================================*/
+include('extention.inc');
+include('functions.php');
+include('config.php');
+require("auth.php");
+$pagetitle = $l_indextitle;
+$pagetype = "index";
+include('page_header.php');
 
-$tlabelReq = 'CLFRM';
-$gidReq=null;
-$gidReset=true;
+$is_forumAdmin = $is_courseAdmin || $is_platformAdmin;
 
-require '../inc/claro_init_global.inc.php';
 
-$nameTools = get_lang('Forums');
 
-if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
+//stats
+@include($includePath."/lib/events.lib.inc.php");
+event_access_tool($nameTools);
 
-claro_set_display_mode_available(true); // view mode
+$result = mysql_query("SELECT `c`.* FROM `$tbl_catagories` c, `$tbl_forums` f
+                       WHERE `f`.`cat_id` = `c`.`cat_id`
+                       GROUP BY `c`.`cat_id`, `c`.`cat_title`, `c`.`cat_order`
+                       ORDER BY `c`.`cat_order` ASC")
 
-/*-----------------------------------------------------------------
-Library
------------------------------------------------------------------*/
+          OR error_die("Unable to get categories from database<br>$sql");
 
-include_once get_path('incRepositorySys') . '/lib/forum.lib.php';
-include_once get_path('incRepositorySys') . '/lib/group.lib.inc.php';
+$total_categories = mysql_num_rows($result);
 
-/*-----------------------------------------------------------------
-Initialise variables
------------------------------------------------------------------*/
+$sqlGroupsOfCurrentUser ="
+SELECT `g`.`forumId`
+	FROM `".$tbl_student_group."` `g`,
+		 `".$tbl_user_group."` `gu`
+	WHERE
+		`g`.`id` = `gu`.`team`
+		AND
+		`gu`.`user` = '".$_uid."'";
 
-$last_visit = claro_get_current_user_data('lastLogin');
-$is_allowedToEdit = claro_is_course_manager() ;
-$dialogBox = new DialogBox();
+$resGroupsOfCurrentUser = mysql_query($sqlGroupsOfCurrentUser);
 
-/*=================================================================
-Main Section
-=================================================================*/
-
-/*-----------------------------------------------------------------
-Administration command
------------------------------------------------------------------*/
-
-if ( $is_allowedToEdit ) include_once('./admin.php');
-
-/*-----------------------------------------------------------------
-Get forums categories
------------------------------------------------------------------*/
-
-$categories       = get_category_list();
-$total_categories = count($categories);
-
-$forum_list = get_forum_list();
-
-if ( claro_is_user_authenticated() )
+//$DEBUG = true;
+//printVar($sqlGroupsOfCurrentUser,"GroupsOfCurrentUser");
+$arrGroupsOfCurrentUser = array();
+while ( $thisGroups = mysql_fetch_array($resGroupsOfCurrentUser,MYSQL_ASSOC))
 {
-    $userGroupList  = get_user_group_list(claro_get_current_user_id());
-    $userGroupList  = array_keys($userGroupList);
-    $tutorGroupList = get_tutor_group_list(claro_get_current_user_id());
-}
-else
+	$arrGroupsOfCurrentUser[] = $thisGroups["forumId"];
+};
+?>
+
+<table width="100%" class="claroTable">
+
+<?php
+
+if($total_categories)
 {
-    $userGroupList = array();
-    $tutorGroupList = array();
-}
-
-
-/*=================================================================
-Display Section
-=================================================================*/
-
-// Claroline Header
-
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-
-$pagetype  = 'index';
-
-$is_allowedToEdit = claro_is_allowed_to_edit()
-|| ( claro_is_group_tutor() && !claro_is_course_manager() );
-// ( claro_is_group_tutor()
-//  is added to give admin status to tutor
-// && !claro_is_course_manager())
-// is added  to let course admin, tutor of current group, use student mode
-
-$is_forumAdmin    = claro_is_allowed_to_edit();
-
-$is_groupPrivate   = claro_get_current_group_properties_data('private');
-
-echo claro_html_tool_title(get_lang('Forums'),
-$is_allowedToEdit ? 'help_forum.php' : false);
-
-echo disp_search_box();
-
-echo $dialogBox->render();
-
-// Forum toolbar
-
-echo claro_html_menu_horizontal(disp_forum_toolbar($pagetype, 0, 0, 0));
-
-/*-----------------------------------------------------------------
-Display Forum Index Page
-------------------------------------------------------------------*/
-
-echo '<table width="100%" class="claroTable emphaseLine">' . "\n";
-
-$colspan = $is_allowedToEdit ? 9 : 4;
-
-$categoryIterator = 0;
-
-foreach ( $categories as $this_category )
-{
-    ++$categoryIterator;
-
-    // Pass category for sumple user if no forum inside
-    if ($this_category['forum_count'] == 0 && ! $is_allowedToEdit) continue;
-
-    if ($this_category['forum_count'] > 0) $thCssClass = '';
-    else                                   $thCssClass = ' class="invisible" ';
-
-    echo '<tr class="superHeader" align="left" valign="top">' . "\n"
-
-    .    '<th colspan="'.$colspan.'" '.$thCssClass.'>'
-    ;
-
-    if($is_allowedToEdit)
-    {
-        echo '<div style="float:right">'
-        .    '<a href="' . $_SERVER['PHP_SELF']
-        .    '?cmd=rqEdCat&amp;catId=' . $this_category['cat_id'] . '">'
-        .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="' . get_lang('Edit') . '" />'
-        .    '</a>'
-        .    '&nbsp;'
-        ;
-
-        if ( $this_category['cat_id'] != GROUP_FORUMS_CATEGORY )
-        echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelCat&amp;catId='.$this_category['cat_id'].'" '
-        .    'onclick="return confirm_delete(\''. clean_str_for_javascript($this_category['cat_title']).'\');" >'
-        .    '<img src="' . get_path('imgRepositoryWeb') . '/delete.gif" alt="'.get_lang('Delete').'" />'
-        .    '</a>'
-        .    '&nbsp;'
-        ;
-
-        if ( $categoryIterator > 1)
-        echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exMvUpCat&amp;catId='.$this_category['cat_id'].'">'
-        .    '<img src="' . get_path('imgRepositoryWeb') . '/up.gif" alt="'.get_lang('Move up').'" />'
-        .    '</a>'
-        ;
-
-        if ( $categoryIterator < $total_categories)
-        {
-            echo '<a href="' . $_SERVER['PHP_SELF']
-            .    '?cmd=exMvDownCat'
-            .    '&amp;catId=' . $this_category['cat_id'] . '">'
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'down.gif" alt="' . get_lang('Move down') . '" />'
-            .    '</a>'
-            ;
-        }
-
-        echo '</div>'
-        ;
-    }
-
-    echo htmlspecialchars($this_category['cat_title']);
-
-    if ( $this_category['cat_id'] == GROUP_FORUMS_CATEGORY)
-    {
-        echo '&nbsp;'
-        .    '<a href="' . get_module_url('CLGRP') . '/group.php">'
-        .    '<img src="' . get_path('imgRepositoryWeb') . '/group.gif" alt="' . get_lang('Groups') . '">'
-        .    '</a>'
-        ;
-    }
-
-    echo '</th>' . "\n"
-    .    '</tr>' . "\n"
-    ;
-
-    if ($this_category['forum_count'] == 0)
-    {
-        echo '<tr>' . "\n"
-        .     '<td  colspan="' . $colspan . '" align="center">' . get_lang('No forum') . '</td>' . "\n"
-        .     '</tr>' . "\n";
-    }
-    else
-    {
-        echo ' <tr class="headerX" align="center">' . "\n"
-        .    ' <th align="left">' . get_lang('Forum') . '</th>' . "\n"
-        .    ' <th>' . get_lang('Topics') . '</th>' . "\n"
-        .    ' <th>' . get_lang('Posts')  . '</th>' . "\n"
-        .    ' <th>' . get_lang('Last message') . '</th>' . "\n"
-        ;
-
-        if ($is_allowedToEdit)
-        {
-            echo '<th>'.get_lang('Edit').'</th>'
-            .    '<th>'.get_lang('Empty').'</th>'
-            .    '<th>'.get_lang('Delete').'</th>'
-            .    '<th colspan="2">'.get_lang('Move').'</th>'
-            ;
-        }
-        echo '</tr>' . "\n";
-    }
-
-    $forumIterator = 0;
-
-    if (claro_is_user_authenticated()) $date = $claro_notifier->get_notification_date(claro_get_current_user_id());
-
-    foreach ( $forum_list as $this_forum )
-    {
-        if ( $this_forum['cat_id'] == $this_category['cat_id'] )
-        {
-            ++ $forumIterator;
-
-            $forum_name   = htmlspecialchars($this_forum['forum_name']);
-            $forum_desc   = htmlspecialchars($this_forum['forum_desc']);
-            $last_post    = $this_forum['post_time'];
-            $total_topics = (int) $this_forum['forum_topics'];
-            $total_posts  = (int) $this_forum['forum_posts' ];
-            $forum_id     = (int) $this_forum['forum_id'    ];
-            $group_id     = is_null($this_forum['group_id']) ?
-            null : (int) $this_forum['group_id'];
-
-            $forum_post_allowed = ($this_forum['forum_access'] != 0) ? true : false;
-
-            echo '<tr align="left" valign="top">' . "\n";
-
-            if (claro_is_user_authenticated() && $claro_notifier->is_a_notified_forum(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $this_forum['forum_id']))
-            {
-                $forum_img = 'forum_hot.gif';
-            }
-            else
-            {
-                $forum_img = 'forum.gif';
-            }
-
-            if ( $forum_post_allowed)
-            {
-                $locked_string = '';
-            }
-            else
-            {
-                $locked_string = ' <img src="' . get_path('imgRepositoryWeb') . '/locked.gif" alt="'.get_lang('Locked').'" title="'.get_lang('Locked').'" /> <small>('.get_lang('No new post allowed').')</small>';
-            }
-
-            echo '<td>'                                               . "\n"
-            .    '<img src="' . get_path('imgRepositoryWeb') . $forum_img . '" alt="" />' . "\n"
-            .    '&nbsp;'                                             . "\n"
-            ;
-
-            // Visit only my group forum if not admin or tutor.
-            // If tutor, see all groups but indicate my groups.
-            // Group Category == 1
-
-            if ( ! is_null($group_id ) )
-            {
-                if (   in_array($group_id, $userGroupList )
-                || in_array($group_id, $tutorGroupList)
-                || ! $is_groupPrivate || $is_forumAdmin
-                )
-                {
-                    echo '<a href="viewforum.php?gidReq=' . $group_id
-                    .    '&amp;forum=' . $forum_id . '">'
-                    .    $forum_name
-                    .    '</a>' . "\n"
-
-                    .    '&nbsp;' . "\n"
-
-                    .    '<a href="' . get_module_url('CLGRP') . '/group_space.php?gidReq=' . $group_id . '">'
-                    .    '<img src="' . get_path('imgRepositoryWeb') .  '/group.gif" alt="' . get_lang('Group area') . '" />'
-                    .    '</a>' . "\n"
-                    ;
-
-                    if ( is_array($tutorGroupList) && in_array($group_id, $tutorGroupList) )
-                    {
-                        echo '&nbsp;<small>(' . get_lang('my supervision') . ')</small>';
-                    }
-
-                    if ( is_array($userGroupList) && in_array($group_id, $userGroupList) )
-                    {
-                        echo '&nbsp;<small>(' . get_lang('my group') . ')</small>';
-                    }
-                }
-                else
-                {
-                    echo $forum_name;
-                }
-            }
-            else
-            {
-                echo '<a href="viewforum.php?forum=' . $forum_id . '">'
-                .    $forum_name
-                .    '</a> ';
-            }
-
-            echo $locked_string;
-
-            echo '<br /><div class="comment">' . $forum_desc . '</div>' . "\n"
-            .    '</td>' . "\n"
-
-            .    '<td align="center">' . "\n"
-            .    '<small>' . $total_topics . '</small>' . "\n"
-            .    '</td>' . "\n"
-
-            .    '<td align="center">' . "\n"
-            .    '<small>' . $total_posts . '</small>' . "\n"
-            .    '</td>' . "\n"
-            .    '<td align="center">' . "\n"
-            .    '<small>'
-            .    (
-            ($last_post > 0) ?
-            claro_html_localised_date(get_locale('dateTimeFormatShort'), datetime_to_timestamp($last_post)) :
-            get_lang('No post')
-            )
-            . '</small>'
-            .    '</td>' . "\n"
-            ;
-
-
-            if( $is_allowedToEdit)
-            {
-                echo '<td align="center">';
-
-                if ( is_null($group_id ) )
-                {
-                    echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqEdForum&amp;forumId='.$forum_id.'">'
-                    .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="'.get_lang('Edit').'" />'
-                    .    '</a>'
-                    ;
-                }
-                else
-                {
-                    echo '&nbsp;';
-                }
-
-                echo '</td>'
-
-                .    '<td align="center">'
-                .    '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exEmptyForum&amp;forumId='.$forum_id.'" '
-                .    'onclick="return confirm_empty(\''. clean_str_for_javascript($forum_name).'\');" >'
-                .    '<img src="' . get_path('imgRepositoryWeb') . 'sweep.gif" alt="'.get_lang('Empty').'" />'
-                .    '</a>'
-                .    '</td>'
-
-                .'<td align="center">';
-
-                if ( is_null($group_id ) )
-                {
-                    echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelForum&amp;forumId='.$forum_id.'" '
-                    .    'onclick="return confirm_delete(\''. clean_str_for_javascript($forum_name).'\');" >'
-                    .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="'.get_lang('Delete').'" />'
-                    .    '</a>';
-                }
-                else echo '&nbsp;';
-
-                echo '</td>'
-
-                .    '<td align="center">';
-
-                if ($forumIterator > 1)
-                {
-                    echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exMvUpForum&amp;forumId='.$forum_id.'">'
-                    .    '<img src="' . get_path('imgRepositoryWeb') . 'up.gif" alt="'.get_lang('Move up').'" />'
-                    .    '</a>';
-                }
-                else echo '&nbsp;';
-
-                echo '</td>'
-                .    '<td align="center">'
-                ;
-
-                if ( $forumIterator < $this_category['forum_count'] )
-                {
-                    echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exMvDownForum&amp;forumId='.$forum_id.'">'
-                    .    '<img src="' . get_path('imgRepositoryWeb') . 'down.gif" alt="'.get_lang('Move down').'" />'
-                    .    '</a>';
-                }
-                else echo '&nbsp;';
-
-                echo   '</td>';
-            }
-
-            echo '</tr>' . "\n";
-        }
-    }
+	if(!$viewcat)
+	{
+		$viewcat = -1;
+	}
+
+	while($cat_row = mysql_fetch_array($result))
+	{
+		$categories[] = $cat_row;
+	}
+
+	$limit_forums = "";
+
+	if($viewcat != -1)
+	{
+		$limit_forums = "WHERE f.cat_id = $viewcat";
+	}
+
+	$sql_f = "SELECT f.*, u.username, u.user_id, p.post_time, g.id gid
+	                      FROM `$tbl_forums` f
+	                      LEFT JOIN `$tbl_posts` p ON p.post_id = f.forum_last_post_id
+	                      LEFT JOIN `$tbl_users` u ON u.user_id = p.poster_id
+	                      LEFT JOIN `".$tbl_student_group."` g ON g.forumId = f.forum_id
+	                      $limit_forums
+	                      ORDER BY f.forum_order, f.cat_id, f.forum_id ";
+	$f_res = mysql_query($sql_f)
+
+	                      OR error_die("Error getting forum data<br>$sql_f");
+
+	while($forum_data = mysql_fetch_array($f_res))
+	{
+		$forum_row[] = $forum_data;
+	}
+
+	for($i = 0; $i < $total_categories; $i++)
+	{
+        //get number of forums present in the current categorie we must display
+
+        $iteratorInCat = 1; //used for displaying links to change order or not
+        $sql = "SELECT f.`forum_id`
+                       FROM `$tbl_forums` f
+                       WHERE  f.`cat_id` = ".$categories[$i][cat_id]."
+                       ";
+        $result = mysql_query($sql);
+        $nbForumsInCat = mysql_num_rows($result);
+
+		if($viewcat != -1)
+		{
+			if($categories[$i][cat_id] != $viewcat)
+			{
+				$title = stripslashes($categories[$i][cat_title]);
+
+				echo	"<tr align=\"left\" valign=\"top\">\n\n",
+						"<td colspan=6 bgcolor=\"#4171B5\">\n",
+						"<font color=\"white\"><b>",$title,"</b></font>\n",
+						"</td>\n",
+						"</tr>\n\n";
+?>
+<tr class="headerX" align="center">
+
+<th colspan="2" align="left"><small><?=    $l_forum   ?></small></th>
+<th><small><?= $l_topics  ?></small></th>
+<th><small><?= $l_posts   ?></small></th>
+<th><small><?= $l_lastpost?></small></th>
+
+</tr>
+<?php
+				continue;
+			}
+		}
+
+		$title = stripslashes($categories[$i]['cat_title']);
+
+		/*
+		 * Added by Thomas for Claroline :
+		 * distinguish group forums from others
+		 */
+		$catNum = $categories[$i][cat_id];
+
+		/* category title */
+
+		echo	"<tr align=\"left\" valign=\"top\">\n\n",
+				"<th colspan=\"7\" class=\"superHeader\">\n",
+				$title,
+				"</th>\n",
+				"</tr>\n\n";
+?>
+<tr class="headerX" align="center">
+
+<th colspan="2" align="left"><?php echo $l_forum?></td>
+<th><?php echo $l_topics?></th>
+<th><?php echo $l_posts?></th>
+<th><?php echo $l_lastpost?></th>
+
+
+</tr>
+<?php
+
+		@reset($forum_row);
+
+		for($x = 0; $x < count($forum_row); $x++)
+		{
+			unset($last_post);
+
+			if($forum_row[$x]["cat_id"] == $categories[$i]["cat_id"])
+			{
+				if($forum_row[$x]["post_time"])
+				{
+					$last_post = $forum_row[$x]["post_time"]; // post time format  datetime de mysql
+				}
+
+				$last_post_datetime                    = $forum_row[$x]["post_time"];
+				list($last_post_date, $last_post_time) = split(" ", $last_post_datetime);
+				list($year, $month, $day)              = explode("-", $last_post_date);
+				list($hour, $min)                      = explode(":", $last_post_time);
+				$last_post_time                        = mktime($hour, $min, 0, $month, $day, $year);
+
+				// $last_post_time  mktime du champs  post_time.
+				if(empty($last_post))
+				{
+					$last_post = $langNoPost;
+				}
+
+				echo "<tr  align=\"left\" valign=\"top\">\n\n";
+
+				if($last_post_time > $last_visit && $last_post != "No Posts")
+				{
+					echo	"<td align=\"center\" valign=\"top\" width=5%>\n",
+							"<img src=\"".$clarolineRepositoryWeb."img/red_folder.gif\">\n";
+							"</td>\n";
+				}
+				else
+				{
+					echo	"<td align=\"center\" valign=\"top\" width=5%>\n",
+							"<img src=\"".$clarolineRepositoryWeb."img/folder.gif\">\n",
+							"</td>\n";
+				}
+
+				$name         = stripslashes($forum_row[$x][forum_name]);
+				$total_posts  = $forum_row[$x]["forum_posts"];
+				$total_topics = $forum_row[$x]["forum_topics"];
+				$desc         = stripslashes($forum_row[$x][forum_desc]);
+
+				echo	"<td>\n";
+
+				$forum=$forum_row[$x]["forum_id"];
+
+				/*
+				 * Claroline feature added by Thomas July 2002
+				 * Visit only my group forum if not admin or tutor
+				 * If tutor, see all groups but indicate my groups
+				 */
+
+
+				/*--------------------------------------
+				              TUTOR VIEW
+				  --------------------------------------*/
+
+				if($tutorCheck==1)
+				{
+					$sqlTutor=mysql_query("SELECT id FROM `$tbl_student_group`
+										   WHERE forumId='$forum'
+										   AND tutor='$_uid'") or die('Error in file '.__FILE__.' at line '.__LINE__);
+
+					$countTutor = mysql_num_rows($sqlTutor);
+					// echo "<br>forum $forum count tutor $countTutor<br>";
+
+					if ($countTutor==0)
+					{
+						echo	"<a href=\"viewforum.php?gidReq=",$forum_row[$x]["gid"],"&forum=",$forum_row[$x]["forum_id"],"&",$total_posts,"\">",
+								$name,
+								"</a>\n";
+					}
+					else
+					{
+						echo	"<a href=\"viewforum.php?gidReq=",$forum_row[$x]["gid"],"&forum=",$forum_row[$x]["forum_id"],"&",$total_posts,"\">",
+								$name,
+								"</a>\n",
+								"&nbsp;(",$langOneMyGroups,")";
+					}
+
+				}
+
+
+				/*--------------------------------------
+				               ADMIN VIEW
+				  --------------------------------------*/
+
+				elseif($is_forumAdmin)
+				{
+					echo	"<a href=\"viewforum.php?gidReq=",$forum_row[$x]["gid"],"&forum=",$forum_row[$x]['forum_id'],"&",$total_posts,"\">",
+							$name,
+							"</a>\n";
+				}
+
+
+
+				/*--------------------------------------
+				              STUDENT VIEW
+				  --------------------------------------*/
+
+				elseif($catNum == 1)
+				{
+					if (in_array($forum, $arrGroupsOfCurrentUser)) // this  cond  must change.
+					{
+						echo	"<a href=\"viewforum.php?gidReq=",$forum_row[$x]["gid"],"&forum=",$forum_row[$x]["forum_id"],"&$total_posts\">",
+								$name,
+								"</a>\n",
+								"&nbsp;&nbsp;(",$langMyGroup,")\n";
+					}
+					else
+					{
+						if($privProp==1)
+						{
+							echo $name;
+						}
+						else
+						{
+							echo	"<a href=\"viewforum.php?gidReq=",$forum_row[$x]["gid"],"&forum=",$forum_row[$x]["forum_id"],"&$total_posts\">",
+									$name,
+									"</a>\n";
+						}
+					}
+				}
+
+				/* OTHER FORUMS */
+				else
+				{
+					echo	"<a href=\"viewforum.php?gidReq=",$forum_row[$x]["gid"],"&forum=",$forum_row[$x]["forum_id"],"&$total_posts\">",
+							$name,
+							"</a> ";
+				}
+
+
+
+				echo	"<br><small>",$desc,"</small>\n",
+						"</td>\n",
+
+						"<td width=5% align=\"center\" valign=\"middle\">\n",
+						"<small>",$total_topics,"</small>\n",
+						"</td>\n",
+
+						"<td width=5% align=\"center\" valign=\"middle\">\n",
+						"<small>",$total_posts,"<small>\n",
+						"</td>\n",
+
+						"<td width=15% align=\"center\" valign=\"middle\">\n",
+						"<small>",$last_post,"</small>",
+						"</td>\n";
+
+				$forum_moderators = get_moderators($forum_row[$x][forum_id], $db);
+
+                echo	"</tr>\n";
+			}
+		}
+	}
 }
 
-echo '</table>' . "\n";
-
-// Display Forum Footer
-
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
-
+?>
+</table>
+<?php
+require('page_tail.php'); // include the claro footer.
 ?>

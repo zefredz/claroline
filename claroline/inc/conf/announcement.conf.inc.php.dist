@@ -1,0 +1,13 @@
+<?php # $Id$
+
+/**
+ * Announcement conf file.
+ */
+
+// Logging :  wheter track instertion, deletion and  update of announcement in this cours.
+
+DEFINE("CONFVAL_LOG_ANNOUNCEMENT_INSERT",TRUE);
+DEFINE("CONFVAL_LOG_ANNOUNCEMENT_DELETE",TRUE);
+DEFINE("CONFVAL_LOG_ANNOUNCEMENT_UPDATE",FALSE);
+
+?>

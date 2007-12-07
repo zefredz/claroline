@@ -1,613 +1,584 @@
-<?php // $Id$
-/**
- * CLAROLINE
- *
- *
- * @version 1.8 $Revision$
- *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @package CLSTAT
- *
- * @author Claro Team <cvs@claroline.net>
- *
- * @todo to factorise sql
- * @todo to split work and output
- *
+<?php 
+/*
+      +----------------------------------------------------------------------+
+      | CLAROLINE version 1.5.*			                             |
+      +----------------------------------------------------------------------+
+      | Copyright (c) 2001, 2002 Universite catholique de Louvain (UCL)      |
+      +----------------------------------------------------------------------+
+      |   $Id$             |
+      +----------------------------------------------------------------------+
+      |  Authors : see CREDITS.txt					     |
+      +----------------------------------------------------------------------+
  */
-
+ 
+$langFile = "tracking";
 require '../inc/claro_init_global.inc.php';
 
-if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
-if ( ! claro_is_course_manager() ) claro_die(get_lang('Not allowed'));
+$nameTools = $langToolName;
 
-include_once get_path('incRepositorySys') . '/lib/statsUtils.lib.inc.php';
+$htmlHeadXtra[] = "<style type=\"text/css\">
+<!--
+.secLine {background-color : #E6E6E6;}
+.content {padding-left : 15px;padding-right : 15px; }
+.specialLink{color : #0000FF;}
+-->
+</style>
+<STYLE media=\"print\" type=\"text/css\">
+<!--
+TD {border-bottom: thin dashed Gray;}
+-->
+</STYLE>";
 
-
-$tbl_mdb_names = claro_sql_get_main_tbl();
-$tbl_rel_course_user         = $tbl_mdb_names['rel_course_user'  ];
-$tbl_user                    = $tbl_mdb_names['user'             ];
-$tbl_track_e_login           = $tbl_mdb_names['track_e_login'];
-
-$tbl_cdb_names = claro_sql_get_course_tbl();
-$tbl_group_rel_team_user     = $tbl_cdb_names['group_rel_team_user'    ];
-$tbl_track_e_downloads       = $tbl_cdb_names['track_e_downloads'      ];
-$tbl_track_e_access          = $tbl_cdb_names['track_e_access'         ];
-$tbl_track_e_exercises       = $tbl_cdb_names['track_e_exercices'      ];
-$tbl_qwz_exercise			 = $tbl_cdb_names['qwz_exercise'];
-$tbl_bb_topics               = $tbl_cdb_names['bb_topics'                ];
-$tbl_bb_posts                = $tbl_cdb_names['bb_posts'                ];
 
 // regroup table names for maintenance purpose
+$TABLETRACK_ACCESS      = $_course['dbNameGlu']."track_e_access";
+$TABLETRACK_LINKS       = $_course['dbNameGlu']."track_e_links";
+$TABLETRACK_DOWNLOADS   = $_course['dbNameGlu']."track_e_downloads";
 
-$nameTools = get_lang('Statistics');
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-echo claro_html_tool_title(
-    array(
-        'mainTitle' => $nameTools,
-        'subTitle'  => get_lang('Statistics of course : %courseCode', array('%courseCode' => claro_get_current_course_data('officialCode')))
-    )
-);
+$TABLETRACK_EXERCISES = $_course['dbNameGlu']."track_e_exercices";
+$TABLE_QUIZ_TEST = $_course['dbNameGlu']."quiz_test";
 
+$TABLECOURSUSER	        = $mainDbName."`.`cours_user";
+$TABLEUSER = $mainDbName."`.`user";
+
+$TABLECOURSE_LINKS      = $_course['dbNameGlu']."link";
+$TABLECOURSE_DOCUMENTS  = $_course['dbNameGlu']."document";
+
+
+@include($includePath."/claro_init_header.inc.php");
+@include($includePath."/lib/statsUtils.lib.inc.php");
+
+$is_allowedToTrack = $is_courseAdmin;
+
+// display title
+$titleTab['mainTitle'] = $nameTools;
+$titleTab['subTitle'] = $langStatsOfCourse." : ".$_course['officialCode'];
+claro_disp_tool_title($titleTab);
+
+?>
+
+<table width="100%" cellpadding="2" cellspacing="3" border="0">
+<?php
 // check if uid is prof of this group
 
-if( get_conf('is_trackingEnabled'))
+if($is_allowedToTrack && $is_trackingEnabled)
 {
-    // in $view, a 1 in X posof the $view string means that the 'category' number X
-    // will be show, 0 means don't show
-    echo '<small>'
-        .'[<a href="'.$_SERVER['PHP_SELF'].'?view=1111111">'.get_lang('Show all').'</a>]'
-        .'&nbsp;[<a href="'.$_SERVER['PHP_SELF'].'?view=0000000">'.get_lang('Show none').'</a>]'
-        .'</small>'."\n\n"
-        ;
-
-    if( isset($_REQUEST['view']))   $view = $_REQUEST['view'];
-    else                            $view ="0000000";
-
-    $viewLevel = -1; //  position of the flag of the view in the $view array/string
+    // show all : view must be equal to the sum of all view values (1024+512+...+64)
+    // show none : less than the tiniest value
+    echo "<tr>
+            <td>
+            <small>
+            [<a href=\"$PHP_SELF?view=1111111\">$langShowAll</a>] 
+            [<a href=\"$PHP_SELF?view=0000000\">$langShowNone</a>]
+            </small>
+            </td>
+        </tr>
+    ";
+    
+    if(!isset($view)) $view ="0000000";
+    
     /***************************************************************************
-     *
-     *        Main
+     *              
+     *		Main
      *
      ***************************************************************************/
-
+    
     $tempView = $view;
-    $viewLevel++;
-    echo '<p>'."\n";
-    if($view[$viewLevel] == '1')
+    if($view[0] == '1')
     {
-        $tempView[$viewLevel] = '0';
-        echo '-&nbsp;&nbsp;<b>'.get_lang('Users').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('Close').'</a>]</small><br />'."\n";
-
+        $tempView[0] = '0';
+        echo "
+            <tr>
+                    <td valign=\"top\">
+                    -&nbsp;&nbsp;&nbsp;<b>".$langUsers."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"$PHP_SELF?view=".$tempView."\">".$langClose."</a>]</small>
+                    </td>
+            </tr>
+        ";
         //-- total number of user in the course
         $sql = "SELECT count(*)
-                    FROM `".$tbl_rel_course_user."`
-                    WHERE code_cours = '".claro_get_current_course_id()."'";
-        $count = claro_sql_query_get_single_value($sql);
-        echo '&nbsp;&nbsp;&nbsp;'.get_lang('Number of users').' : '.$count.'<br />'."\n";
-
+                    FROM `$TABLECOURSUSER`
+                    WHERE code_cours = '".$_cid."'";
+        $count = getOneResult($sql);
+        echo "
+            <tr>
+                <td style=\"padding-left : 40px;\" valign=\"top\">
+                ".$langCountUsers." : ".$count."
+                </td>
+            </tr>
+        ";
+        
         //--  student never connected
-        $sql = "SELECT  U.`user_id`, U.`nom` AS `lastname`, U.`prenom` AS `firstname`
-            FROM `".$tbl_user."` AS U, `".$tbl_rel_course_user."` AS CU
-            LEFT JOIN `".$tbl_track_e_access."` AS A
+        $sql = "SELECT  U.`user_id`, U.`nom`, U.`prenom`
+            FROM `$TABLEUSER` AS U, `$TABLECOURSUSER` AS CU
+            LEFT JOIN `$TABLETRACK_ACCESS` AS A
             ON A.`access_user_id` = CU.`user_id`
             WHERE U.`user_id` = CU.`user_id`
-            AND CU.`code_cours` = '" . addslashes(claro_get_current_course_id()) . "'
+            AND CU.`code_cours` = '".$_cid."'
             AND A.`access_user_id` IS NULL
-            ";
-        echo '&nbsp;&nbsp;&nbsp;'.get_lang('Never connected students :');
-
-        $results = claro_sql_query_fetch_all($sql);
-
-        if( !empty($results) && is_array($results) )
-        {
-            echo '<ul>'."\n";
-            foreach( $results as $result )
-            {
-                echo '<li>'
-                    .'<a href="../user/userInfo.php?uInfo='.$result['user_id'].'">'.$result['firstname'].' '.$result['lastname'].'</a>'
-                    .'</li>'."\n";
+            "; 
+        echo "
+            <tr>
+                <td style=\"padding-left : 40px;\" valign=\"top\">
+                ".$langNeverConnectedStudents;
+    
+        $results = getManyResults3Col($sql);
+        if (is_array($results))
+        { 
+            echo "<ul>";
+            for($j = 0 ; $j < count($results) ; $j++)
+            { 
+                    echo "<li>"; 
+                    echo "<a href=\"../user/userInfo.php?uInfo=".$results[$j][0]."\">".$results[$j][2]." ".$results[$j][1]."</a>";
+                    echo"</li>";
             }
-            echo '</ul>'."\n";
+            echo "</ul>";
         }
         else
         {
-            echo '<small>'.get_lang('No result').'</small><br />'."\n";
+            echo "<small>".$langNoResult."</small>";
         }
+         echo            "</td>
+            </tr>
+        ";
         //-- student not connected for 1 month
-        $sql = "SELECT U.`user_id`, U.`nom` AS `lastname`, U.`prenom` AS `firstname`, MAX(A.`access_date`) AS `max_access_date`
-            FROM `".$tbl_user."` AS U, `".$tbl_rel_course_user."` AS CU, `".$tbl_track_e_access."` AS A
+        $sql = "SELECT U.`user_id`, U.`nom`, U.`prenom`, MAX(A.`access_date`)
+            FROM `$TABLEUSER` AS U, `$TABLECOURSUSER` AS CU, `$TABLETRACK_ACCESS` AS A
             WHERE U.`user_id` = CU.`user_id`
-            AND CU.`code_cours` = '".addslashes (claro_get_current_course_id())."'
-            AND U.`user_id` = A.`access_user_id`
+            AND CU.`code_cours` = '".$_cid."'
+            AND A.`access_date` < ( NOW() - INTERVAL 15 DAY ) 
             GROUP BY A.`access_user_id`
-            HAVING `max_access_date` < ( NOW() - INTERVAL 15 DAY )
             ORDER BY A.`access_date` ASC
             ";
-        echo '&nbsp;&nbsp;&nbsp;'.get_lang('Not recently connected students :');
-
-        $results = claro_sql_query_fetch_all($sql);
-        if( !empty($results) && is_array($results) )
-        {
-            echo '<ul>'."\n";
-            foreach( $results as $result )
-            {
-                    echo '<li>'
-                        .'<a href="../user/userInfo.php?uInfo='.$result['user_id'].'">'.$result['firstname'].' '.$result['lastname'].'</a> ( '.get_lang('Last access').' : '.$result['max_access_date'].' )'
-                        .'</li>'."\n";
+        echo "
+            <tr>
+                <td style=\"padding-left : 40px;\" valign=\"top\">
+                ".$langNotRecentlyConnectedStudents;
+    
+        $results = getManyResultsXCol($sql,4);
+        if (is_array($results))
+        { 
+            echo "<ul>";
+            for($j = 0 ; $j < count($results) ; $j++)
+            { 
+                    echo "<li>"; 
+                    echo "<a href=\"../user/userInfo.php?uInfo=".$results[$j][0]."\">".$results[$j][2]." ".$results[$j][1]."</a> ( ".$langLastAccess." : ".$results[$j][3]." )";
+                    echo"</li>";
             }
-            echo '</ul>'."\n";
+            echo "</ul>";
         }
         else
         {
-            echo '<small>'.get_lang('No result').'</small><br />'."\n";
+            echo "<small>".$langNoResult."</small>";
         }
+         echo            "</td>
+            </tr>
+        ";
+        
+        
     }
     else
     {
-        $tempView[$viewLevel] = '1';
-        echo '+&nbsp;&nbsp;&nbsp;'
-            .'<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'
-            .get_lang('Users')
-            .'</a>'
-            ;
+        $tempView[0] = '1';
+        echo "
+            <tr>
+                    <td valign=\"top\">
+                    +&nbsp;&nbsp;<a href=\"$PHP_SELF?view=".$tempView."\" class=\"specialLink\">$langUsers</a>
+                    </td>
+            </tr>
+        ";
     }
-    echo '</p>'
-        ."\n\n"
-        ;
+    
     /***************************************************************************
-     *        Access to this course
+     *              
+     *		Access to this course
+     *
      ***************************************************************************/
     $tempView = $view;
-    $viewLevel++;
-    echo '<p>'."\n";
-    if($view[$viewLevel] == '1')
+    if($view[1] == '1')
     {
-        $tempView[$viewLevel] = '0';
-        echo '-&nbsp;&nbsp;<b>'.get_lang('Course access').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('Close').'</a>]</small><br />'."\n";
-
-        $sql = "SELECT count(`access_id`)
-                    FROM `".$tbl_track_e_access."`
-                    WHERE access_tid IS NULL";
-        $count = claro_sql_query_get_single_value($sql);
-        echo '&nbsp;&nbsp;&nbsp;'.get_lang('Total number of connection to this course').' : '.$count.'<br />'."\n";
-
+        $tempView[1] = '0';
+        echo "
+            <tr>
+                    <td valign=\"top\">
+                    -&nbsp;&nbsp;&nbsp;<b>".$langCourseAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"$PHP_SELF?view=".$tempView."\">".$langClose."</a>]</small>
+                    </td>
+            </tr>
+        ";
+        $sql = "SELECT count(*)
+                    FROM `$TABLETRACK_ACCESS`
+                    WHERE access_tool IS NULL";
+        $count = getOneResult($sql);
+        echo "
+            <tr>
+                <td style=\"padding-left : 40px;\" valign=\"top\">"
+                .$langCountToolAccess." : ".$count."
+                </td>
+            </tr>
+        ";
         // last 31 days
-        $sql = "SELECT count(`access_id`)
-                    FROM `".$tbl_track_e_access."`
+        $sql = "SELECT count(*) 
+                    FROM `$TABLETRACK_ACCESS` 
                     WHERE (access_date > DATE_ADD(CURDATE(), INTERVAL -31 DAY))
-                        AND access_tid IS NULL";
-        $count = claro_sql_query_get_single_value($sql);
-        echo '&nbsp;&nbsp;&nbsp;'.get_lang('Last 31 days').' : '.$count.'<br />'."\n";
-
+                        AND access_tool IS NULL";
+        $count = getOneResult($sql);
+        echo "
+            <tr>
+                <td style=\"padding-left : 40px;\" valign=\"top\">
+                ".$langLast31days." : ".$count."
+                </td>
+            </tr>
+        ";
         // last 7 days
-        $sql = "SELECT count(`access_id`)
-                    FROM `".$tbl_track_e_access."`
+        $sql = "SELECT count(*) 
+                    FROM `$TABLETRACK_ACCESS` 
                     WHERE (access_date > DATE_ADD(CURDATE(), INTERVAL -7 DAY))
-                        AND access_tid IS NULL";
-        $count = claro_sql_query_get_single_value($sql);
-        echo '&nbsp;&nbsp;&nbsp;'.get_lang('Last 7 days').' : '.$count.'<br />'."\n";
-
+                        AND access_tool IS NULL";
+        $count = getOneResult($sql);
+        echo "
+            <tr>
+                <td style=\"padding-left : 40px;\" valign=\"top\">
+                ".$langLast7days." : ".$count."
+                </td>
+            </tr>
+        ";
         // today
-        $sql = "SELECT count(`access_id`)
-                    FROM `".$tbl_track_e_access."`
+        $sql = "SELECT count(*) 
+                    FROM `$TABLETRACK_ACCESS` 
                     WHERE ( access_date > CURDATE() )
-                        AND access_tid IS NULL";
-        $count = claro_sql_query_get_single_value($sql);
-
-        echo '&nbsp;&nbsp;&nbsp;'
-            .get_lang('This day')
-            .' : '
-            .$count
-            .'<br />'."\n";
-
-        // today user list
-        $sql = "SELECT U.`user_id`, U.`nom` AS `lastname`, U.`prenom` AS `firstname`,
-                    MAX(A.`access_date`) AS `max_access_date`, count(A.`access_date`) AS `access_nbr`
-            FROM `".$tbl_track_e_access."` AS A
-            LEFT JOIN `".$tbl_user."` AS U
-                ON U.`user_id` = A.`access_user_id`
-            WHERE access_date > CURDATE()
-            AND access_tid IS NULL
-            GROUP BY A.`access_user_id`
-            ORDER BY A.`access_date` ASC
-            ";
-
-        $results = claro_sql_query_fetch_all($sql);
-        if( !empty($results) && is_array($results) )
-        {
-            echo '<ul>'."\n";
-            foreach( $results as $result )
-            {
-
-                echo '<li>';
-                if ( empty($result['user_id']) || empty($result['firstname']) )
-                {
-                    echo get_lang('Anonymous')
-                        .' <small>( '.get_lang('Last access').' : '.$result['max_access_date'].' ; '.get_lang('Total').' : '.$result['access_nbr'].' )</small>';
-                }
-                else
-                {
-                    echo '<a href="../user/userInfo.php?uInfo='.$result['user_id'].'">'.$result['firstname'].' '.$result['lastname'].'</a>'
-                        .' <small>( '.get_lang('Last access').' : '.$result['max_access_date'].' ; '.get_lang('Total').' : '.$result['access_nbr'].' )</small>';
-                }
-                echo '</li>'."\n";
-            }
-            echo '</ul>'."\n";
-        }
+                        AND access_tool IS NULL";
+        $count = getOneResult($sql);
+        echo "
+            <tr>
+                <td style=\"padding-left : 40px;\" valign=\"top\">
+                ".$langThisday." : ".$count."
+                </td>
+            </tr>
+        ";
         //-- view details of traffic
-        echo '&nbsp;&nbsp;&nbsp;'
-            .'<a href="course_access_details.php">'.get_lang('Traffic Details').'</a><br />'
-            ."\n"
-            ;
-
+        echo "
+            <tr>
+                <td style=\"padding-left : 40px;\" valign=\"top\">
+                <a href=\"course_access_details.php\">".$langTrafficDetails."</a>
+                </td>
+            </tr>
+        ";
+    
     }
     else
     {
-        $tempView[$viewLevel] = '1';
-        echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('Course access').'</a>';
-
+        $tempView[1] = '1';
+        echo "
+            <tr>
+                    <td valign=\"top\">
+                    +&nbsp;&nbsp;<a href=\"$PHP_SELF?view=".$tempView."\" class=\"specialLink\">$langCourseAccess</a>
+                    </td>
+            </tr>
+        ";
+        
     }
-    echo '</p>'."\n\n";
+    
     /***************************************************************************
-     *
-     *        Tools
+     *              
+     *		Tools
      *
      ***************************************************************************/
     $tempView = $view;
-    $viewLevel++;
-    echo '<p>'."\n";
-    if($view[$viewLevel] == '1')
+    if($view[2] == '1')
     {
-        $tempView[$viewLevel] = '0';
-        echo '-&nbsp;&nbsp;<b>'.get_lang('Access to tools').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('Close').'</a>]</small><br />'."\n";
-
-        $sql = "SELECT `access_tid`,
-                COUNT(DISTINCT `access_user_id`) AS `nbr_distinct_users_access`,
-                COUNT( `access_tid` )            AS `nbr_access`,
-                        `access_tlabel`
-                    FROM `" . $tbl_track_e_access . "`
-                    WHERE `access_tid` IS NOT NULL
-                      AND `access_tid` <> ''
-                    GROUP BY `access_tid`";
-
-        $results = claro_sql_query_fetch_all($sql);
-        echo '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
-            .'<tr class="headerX">'."\n"
-            .'<th>&nbsp;'.get_lang('Name of the tool').'&nbsp;</th>'."\n"
-            .'<th>&nbsp;'.get_lang('Users\' Clicks').'&nbsp;</th>'."\n"
-            .'<th>&nbsp;'.get_lang('Total Clicks').'&nbsp;</th>'."\n"
-            .'</tr>'."\n"
-            .'<tbody>'."\n"
-            ;
-        $toolNameList= claro_get_tool_name_list();
-
-        if( !empty($results) && is_array($results))
-        {
-            foreach( $results as $result )
-            {
-                echo '<tr>' . "\n"
-                .    '<td>'
-                .    '<a href="toolaccess_details.php?toolId='.$result['access_tid'].'">'
-                .    $toolNameList[trim($result['access_tlabel'],'_')] . '</a></td>' . "\n"
-                .    '<td align="right"><a href="user_access_details.php?cmd=tool&amp;id='.$result['access_tid'].'">'.$result['nbr_distinct_users_access'] . '</a></td>' . "\n"
-                .    '<td align="right">' . $result['nbr_access'] . '</td>' . "\n"
-                .    '</tr>'
-                .    "\n\n"
-                ;
+        $tempView[2] = '0';
+        echo "
+            <tr>
+                    <td valign=\"top\">
+                    -&nbsp;&nbsp;&nbsp;<b>".$langToolsAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"$PHP_SELF?view=".$tempView."\">".$langClose."</a>]</small>
+                    </td>
+            </tr>
+        ";
+        
+        
+        $sql = "SELECT `access_tool`, COUNT(DISTINCT `access_user_id`),count( `access_tool` )
+                    FROM `$TABLETRACK_ACCESS`
+                    WHERE `access_tool` IS NOT NULL
+                      AND `access_tool` <> ''
+                    GROUP BY `access_tool`";
+        
+        echo "<tr><td style=\"padding-left : 40px;padding-right : 40px;\">";  
+        $results = getManyResults3Col($sql);
+        echo "<table class=\"claroTable\" cellpadding=\"2\" cellspacing=\"1\" border=\"0\" align=\"center\">";
+        echo "<tr class=\"headerX\">
+                <th>
+                &nbsp;$langToolTitleToolnameColumn&nbsp;
+                </th>
+                <th>
+                &nbsp;$langToolTitleUsersColumn&nbsp;
+                </th>
+                <th>
+                &nbsp;$langToolTitleCountColumn&nbsp;
+                </th>
+            </tr><tbody>";
+        if (is_array($results))
+        { 
+            for($j = 0 ; $j < count($results) ; $j++)
+            {                 
+                $encodedTool = urlencode($results[$j][0]);
+		echo "<tr>"; 
+                echo "<td><a href=\"toolaccess_details.php?tool=".$encodedTool."\">".$results[$j][0]."</a></td>";
+                //echo "<td align=\"right\">".$results[$j][1]."</td>";
+		echo "<td align=\"right\"><a href=\"user_access_details.php?cmd=tool&data=".$encodedTool."\">".$results[$j][1]."</a></td>";
+                echo "<td align=\"right\">".$results[$j][2]."</td>";
+                echo"</tr>";
             }
-
+        
         }
         else
         {
-            echo '<tr>'."\n"
-                .'<td colspan="3"><div align="center">'.get_lang('No result').'</div></td>'."\n"
-                .'</tr>'."\n"
-                ;
+            echo "<tr>"; 
+            echo "<td colspan=\"3\"><center>".$langNoResult."</center></td>";
+            echo"</tr>";
         }
-        echo '</tbody>'
-        .    '</table>'."\n"
-        ;
+        echo "</tbody></table>";
+        echo "</td></tr>";
     }
     else
     {
-        $tempView[$viewLevel] = '1';
-        echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('Access to tools').'</a>';
+        $tempView[2] = '1';
+        echo "
+            <tr>
+                    <td valign=\"top\">
+                    +&nbsp;&nbsp;<a href=\"$PHP_SELF?view=".$tempView."\" class=\"specialLink\">$langToolsAccess</a>
+                    </td>
+            </tr>
+        ";
     }
-    echo '</p>'."\n\n";
+    
     /***************************************************************************
+     *              
+     *		Links
      *
-     *        Documents
+     ***************************************************************************/
+     /*
+    $tempView = $view;
+    if($view[3] == '1')
+    {
+        $tempView[3] = '0';
+        echo "
+            <tr>
+                    <td valign=\"top\">
+                    -&nbsp;&nbsp;&nbsp;<b>".$langLinksAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"$PHP_SELF?view=".$tempView."\">".$langClose."</a>]</small>
+                    </td>
+            </tr>
+        ";
+        
+        $sql = "SELECT `cl`.`titre`, `cl`.`url`,count(DISTINCT `sl`.`links_user_id`), count(`cl`.`titre`)
+                    FROM `$TABLETRACK_LINKS` AS sl, `$TABLECOURSE_LINKS` AS cl
+                    WHERE `sl`.`links_link_id` = `cl`.`id`
+                    GROUP BY `cl`.`titre`, `cl`.`url`";
+                    
+        echo "<tr><td style=\"padding-left : 40px;padding-right : 40px;\">";  
+        $results = getManyResultsXCol($sql,4);
+        echo "<table cellpadding=\"2\" cellspacing=\"1\" border=\"0\" align=\"center\">";
+        echo "<tr class=\"headerX\">
+                <td class=\"secLine\">
+                &nbsp;$langLinksTitleLinkColumn&nbsp;
+                </td>
+                <td class=\"secLine\">
+                &nbsp;$langLinksTitleUsersColumn&nbsp;
+                </td>
+                <td class=\"secLine\">
+                &nbsp;$langLinksTitleCountColumn&nbsp;
+                </td>
+            </tr>";
+        if (is_array($results))
+        { 
+            for($j = 0 ; $j < count($results) ; $j++)
+            { 
+                    echo "<tr>"; 
+                    echo "<td class=\"content\"><a href=\"".$results[$j][1]."\">".$results[$j][0]."</a></td>";
+                    echo "<td align=\"right\" class=\"content\">".$results[$j][2]."</td>";
+                    echo "<td align=\"right\" class=\"content\">".$results[$j][3]."</td>";
+                    echo"</tr>";
+            }
+        
+        }
+        else
+        {
+            echo "<tr>"; 
+            echo "<td colspan=\"3\"><center>".$langNoResult."</center></td>";
+            echo"</tr>";
+        }
+        echo "</table>";
+        echo "</td></tr>";
+    }
+    else
+    {
+        $tempView[3] = '1';
+        echo "
+            <tr>
+                    <td valign=\"top\">
+                    +&nbsp;&nbsp;<a href=\"$PHP_SELF?view=".$tempView."\" class=\"specialLink\">$langLinksAccess</a>
+                    </td>
+            </tr>
+        ";
+    }
+    */
+    /***************************************************************************
+     *              
+     *		Documents
      *
      ***************************************************************************/
     $tempView = $view;
-    $viewLevel++;
-    echo '<p>'."\n";
-    if($view[$viewLevel] == '1')
+    if($view[4] == '1')
     {
-        $tempView[$viewLevel] = '0';
-        echo '-&nbsp;&nbsp;<b>'.get_lang('Documents').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('Close').'</a>]</small><br />'."\n";
-
-        $sql = "SELECT `down_doc_path` AS `path`,
-                        COUNT(DISTINCT `down_user_id`) AS `nbr_distinct_user_downloads`,
-                        COUNT(`down_doc_path`) AS `nbr_total_downloads`
-                    FROM `".$tbl_track_e_downloads."`
+        $tempView[4] = '0';
+        echo "
+            <tr>
+                    <td valign=\"top\">
+                    -&nbsp;&nbsp;&nbsp;<b>".$langDocumentsAccess."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"$PHP_SELF?view=".$tempView."\">".$langClose."</a>]</small>
+                    </td>
+            </tr>
+        ";
+        
+        $sql = "SELECT `down_doc_path`, COUNT(DISTINCT `down_user_id`), COUNT(`down_doc_path`)
+                    FROM `$TABLETRACK_DOWNLOADS`
                     GROUP BY `down_doc_path`";
-
-        $results = claro_sql_query_fetch_all($sql);
-
-        echo '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
-            .'<tr class="headerX">'."\n"
-            .'<th>&nbsp;'.get_lang('Document').'&nbsp;</th>'."\n"
-            .'<th>&nbsp;'.get_lang('Users Downloads').'&nbsp;</th>'."\n"
-            .'<th>&nbsp;'.get_lang('Total Downloads').'&nbsp;</th>'."\n"
-            .'</tr>'."\n"
-            .'<tbody>'."\n"
-            ;
-        if( !empty($results) && is_array($results) )
-        {
-            foreach( $results as $result )
-            {
-                    echo '<tr>'."\n"
-                        .'<td>'.$result['path'].'</td>'."\n"
-                        .'<td align="right"><a href="user_access_details.php?cmd=doc&amp;path='.urlencode($result['path']).'">'.$result['nbr_distinct_user_downloads'].'</a></td>'."\n"
-                        .'<td align="right">'.$result['nbr_total_downloads'].'</td>'."\n"
-                        .'</tr>'."\n\n"
-                        ;
+    
+        echo "<tr><td style=\"padding-left : 40px;padding-right : 40px;\">";  
+        $results = getManyResults3Col($sql);
+        echo "<table class=\"claroTable\" cellpadding=\"2\" cellspacing=\"1\" border=\"0\" align=\"center\">";
+        echo "<tr class=\"headerX\">
+                <th>
+                &nbsp;$langDocumentsTitleDocumentColumn&nbsp;
+                </th>
+                <th>
+                &nbsp;$langDocumentsTitleUsersColumn&nbsp;
+                </th>
+                <th>
+                &nbsp;$langDocumentsTitleCountColumn&nbsp;
+                </th>
+            </tr>
+            <tbody>";
+        if (is_array($results))
+        { 
+            for($j = 0 ; $j < count($results) ; $j++)
+            { 
+                    echo "<tr>"; 
+                    echo "<td>".$results[$j][0]."</td>";
+                    //echo "<td align=\"right\">".$results[$j][1]."</td>";
+	            echo "<td align=\"right\"><a href=\"user_access_details.php?cmd=doc&data=".urlencode($results[$j][0])."\">".$results[$j][1]."</a></td>";
+                    echo "<td align=\"right\">".$results[$j][2]."</td>";
+                    echo"</tr>";
             }
-
+        
         }
         else
         {
-            echo '<tr>'."\n"
-                .'<td colspan="3"><div align="center">'.get_lang('No result').'</div></td>'."\n"
-                .'</tr>'."\n"
-                ;
+            echo "<tr>"; 
+            echo "<td colspan=\"3\"><center>".$langNoResult."</center></td>";
+            echo"</tr>";
         }
-        echo '</tbody>'
-            .'</table>'."\n"
-            ;
+        echo "</tbody></table>";
+        echo "</td></tr>";
     }
     else
     {
-        $tempView[$viewLevel] = '1';
-        echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('Documents').'</a>';
+        $tempView[4] = '1';
+        echo "
+            <tr>
+                    <td valign=\"top\">
+                    +&nbsp;&nbsp;<a href=\"$PHP_SELF?view=".$tempView."\" class=\"specialLink\">$langDocumentsAccess</a>
+                    </td>
+            </tr>
+        ";
     }
-    echo '</p>'."\n\n";
-
+    
+    
     /***************************************************************************
-     *        Exercises
+     *              
+     *		Exercises
+     *
      ***************************************************************************/
     $tempView = $view;
-    $viewLevel++;
-    echo '<p>'."\n";
-    if($view[$viewLevel] == '1')
+    if($view[5] == '1')
     {
-        $tempView[$viewLevel] = '0';
-        echo '-&nbsp;&nbsp;<b>'.get_lang('Exercises').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'" >'.get_lang('Close').'</a>]</small><br />'."\n";
-
-        $sql = "SELECT TEX.`exe_exo_id`,
-                        COUNT(DISTINCT TEX.`exe_user_id`) AS `nbr_distinct_user_attempts`,
-                        COUNT(TEX.`exe_exo_id`) AS `nbr_total_attempts`,
-                        EX.`title`
-                    FROM `".$tbl_track_e_exercises."` AS TEX, `".$tbl_qwz_exercise."` AS EX
+        $tempView[5] = '0';
+        echo "
+            <tr>
+                    <td valign=\"top\">
+                    -&nbsp;&nbsp;&nbsp;<b>".$langExercises."</b>&nbsp;&nbsp;&nbsp;<small>[<a href=\"$PHP_SELF?view=".$tempView."\">".$langClose."</a>]</small>
+                    </td>
+            </tr>
+        ";
+        
+        $sql = "SELECT TEX.`exe_exo_id`, COUNT(DISTINCT TEX.`exe_user_id`), COUNT(TEX.`exe_exo_id`), EX.`titre`
+                    FROM `$TABLETRACK_EXERCISES` AS TEX, `$TABLE_QUIZ_TEST` AS EX
                     WHERE TEX.`exe_exo_id` = EX.`id`
                     GROUP BY TEX.`exe_exo_id`";
-
-        $results = claro_sql_query_fetch_all($sql);
-        echo '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
-            .'<tr class="headerX">'."\n"
-            .'<th>&nbsp;'.get_lang('Exercises').'&nbsp;</th>'."\n"
-            .'<th>&nbsp;'.get_lang('User attempts').'&nbsp;</th>'."\n"
-            .'<th>&nbsp;'.get_lang('Total attempts').'&nbsp;</th>'."\n"
-            .'</tr>'."\n"
-            .'<tbody>'."\n"
-            ;
-
-        if( !empty($results) && is_array($results) )
-        {
-            foreach( $results as $result )
-            {
-                    echo '<tr>'."\n"
-                        .'<td><a href="exercises_details.php?exId='.$result['exe_exo_id'].'">'.$result['title'].'</a></td>'."\n"
-                        .'<td align="right">'.$result['nbr_distinct_user_attempts'].'</td>'."\n"
-                        .'<td align="right">'.$result['nbr_total_attempts'].'</td>'."\n"
-                        .'</tr>'."\n\n"
-                        ;
-            }
-        }
-        else
-        {
-            echo '<tr>' . "\n"
-            .    '<td colspan="3">'
-            .    '<div align="center">' . get_lang('No result') . '</div>'
-            .    '</td>' . "\n"
-            .    '</tr>' . "\n"
-            ;
-        }
-        echo '</tbody>'."\n"
-            .'</table>'."\n"
-            ;
-    }
-    else
-    {
-        $tempView[$viewLevel] = '1';
-        echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('Exercises').'</a>';
-    }
-    echo '</p>'."\n\n";
-
-    /***************************************************************************
-     *
-     *        Forum posts
-     *
-     ***************************************************************************/
-    $tempView = $view;
-    $viewLevel++;
-    echo '<p>'."\n";
-    if($view[$viewLevel] == '1')
-    {
-        $tempView[$viewLevel] = '0';
-
-        echo '-&nbsp;&nbsp;<b>'.get_lang('Forum usage').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('Close').'</a>]</small><br />'."\n";
-
-        // total number of posts
-        $sql = "SELECT count(`post_id`)
-                        FROM `".$tbl_bb_posts."`";
-        $totalPosts = claro_sql_query_get_single_value($sql);
-
-        // total number of threads
-        $sql = "SELECT count(`topic_title`)
-                        FROM `".$tbl_bb_topics."`";
-        $totalTopics = claro_sql_query_get_single_value($sql);
-
-        // display total of posts and threads
-        echo '<ul>'."\n"
-            .'<li>'.get_lang('Messages posted').' : '.$totalPosts.'</li>'."\n"
-            .'<li>'.get_lang('Topics started').' : '.$totalTopics.'</li>'."\n";
-        // top 10 topics more active (more responses)
-        $sql = "SELECT `topic_id`, `topic_title`, `topic_replies`
-                    FROM `".$tbl_bb_topics."`
-                    ORDER BY `topic_replies` DESC
-                    LIMIT 10
-                    ";
-        $results = claro_sql_query_fetch_all($sql);
-        echo '<li>'.get_lang('More replied topics').'<br />'
-            .'<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
-            .'<tr class="headerX">'."\n"
-            .'<th>'.get_lang('Topic').'</th>'."\n"
-            .'<th>'.get_lang('Replies').'</th>'."\n"
-            .'</tr>'."\n";
-        if( !empty($results) && is_array($results) )
-        {
-            echo '<tbody>'."\n";
-            foreach( $results as $result )
-            {
-                echo '<tr>'."\n"
-                    .'<td><a href="../phpbb/viewtopic.php?topic='.$result['topic_id'].'">'.$result['topic_title'].'</a></td>'."\n"
-                    .'<td>'.$result['topic_replies'].'</td>'."\n"
-                    .'</tr>'."\n";
-            }
-            echo '</tbody>'."\n";
-
-        }
-        else
-        {
-            echo '<tfoot>'."\n".'<tr>'."\n"
-                .'<td align="center">'.get_lang('No result').'</td>'."\n"
-                .'</tr>'."\n".'</tfoot>'."\n";
-        }
-        echo '</table>'."\n"
-            .'</li>'."\n";
-
-
-        // top 10 topics more seen
-        $sql = "SELECT `topic_id`, `topic_title`, `topic_views`
-                    FROM `".$tbl_bb_topics."`
-                    ORDER BY `topic_views` DESC
-                    LIMIT 10
-                    ";
-        $results = claro_sql_query_fetch_all($sql);
-
-        echo '<li>'.get_lang('More seen topics').'<br />'
-            .'<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
-            .'<tr class="headerX">'."\n"
-            .'<th>'.get_lang('Topic').'</th>'."\n"
-            .'<th>'.get_lang('Seen').'</th>'."\n"
-            .'</tr>'."\n";
-        if( !empty($results) && is_array($results) )
-        {
-            echo '<tbody>'."\n";
-            foreach( $results as $result )
-            {
-                echo '<tr>'."\n"
-                    .'<td><a href="../phpbb/viewtopic.php?topic='.$result['topic_id'].'">'.$result['topic_title'].'</a></td>'."\n"
-                    .'<td>'.$result['topic_views'].'</td>'."\n"
-                    .'</tr>'."\n";
-            }
-            echo '</tbody>'."\n";
-
-        }
-        else
-        {
-            echo '<tfoot>'."\n".'<tr>'."\n"
-                .'<td align="center">'.get_lang('No result').'</td>'."\n"
-                .'</tr>'."\n".'</tfoot>'."\n";
-        }
-        echo '</table>'."\n"
-            .'</li>'."\n";
-
-        // last 10 distinct messages posted
-        $sql = "SELECT `bb_t`.`topic_id`, `bb_t`.`topic_title`, max(`bb_t`.`topic_time`) as `last_message`
-                FROM `".$tbl_bb_posts."` as `bb_p`, `".$tbl_bb_topics."` as `bb_t`
-                WHERE `bb_t`.`topic_id` = `bb_p`.`topic_id`
-                GROUP BY `bb_t`.`topic_title`
-                ORDER BY `bb_p`.`post_time` DESC
-                LIMIT 10";
-
-        $results = claro_sql_query_fetch_all($sql);
-
-        echo '<li>'.get_lang('Last active topics').'<br />'
-        .'<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
-        .'<tr class="headerX">'."\n"
-        .'<th>'.get_lang('Topic').'</th>'."\n"
-        .'<th>'.get_lang('Last message').'</th>'."\n"
-        .'</tr>'."\n";
+    
+        echo "<tr><td style=\"padding-left : 40px;padding-right : 40px;\">";  
+        $results = getManyResultsXCol($sql,4);
+        echo "<table class=\"claroTable\" cellpadding=\"2\" cellspacing=\"1\" border=\"0\" align=\"center\">";
+        echo "<tr class=\"headerX\">
+                <th>
+                &nbsp;$langExercicesTitleExerciceColumn&nbsp;
+                </th>
+                <th>
+                &nbsp;$langExerciseUsersAttempts&nbsp;
+                </th>
+                <th>
+                &nbsp;$langExerciseTotalAttempts&nbsp;
+                </th>
+            </tr>
+            <tbody>";
         if (is_array($results))
-        {
-            echo '<tbody>'."\n";
-            foreach( $results as $result )
-            {
-                echo '<tr>'."\n"
-                .    '<td>'
-                .    '<a href="../phpbb/viewtopic.php?topic=' . $result['topic_id'].'">' . $result['topic_title'] . '</a>'
-                .    '</td>' . "\n"
-                .    '<td>' . $result['last_message'] . '</td>' . "\n"
-                .    '</tr>' . "\n"
-                ;
+        { 
+            for($j = 0 ; $j < count($results) ; $j++)
+            { 
+                    echo "<tr>"; 
+                    echo "<td><a href=\"exercises_details.php?exo_id=".$results[$j][0]."\">".$results[$j][3]."</a></td>";
+                    echo "<td align=\"right\">".$results[$j][1]."</td>";
+                    echo "<td align=\"right\">".$results[$j][2]."</td>";
+                    echo"</tr>";
             }
-            echo '</tbody>'."\n";
-
+        
         }
         else
         {
-            echo '<tfoot>' . "\n"
-            .    '<tr>' . "\n"
-            .    '<td align="center">'
-            .    get_lang('No result')
-            .    '</td>' . "\n"
-            .    '</tr>' . "\n"
-            .    '</tfoot>' . "\n"
-            ;
+            echo "<tr>"; 
+            echo "<td colspan=\"3\"><center>".$langNoResult."</center></td>";
+            echo"</tr>";
         }
-        echo '</table>'."\n"
-        .'</li>';
-
-        echo '</ul>';
+        echo "</tbody></table>";
+        echo "</td></tr>";
     }
     else
     {
-        $tempView[$viewLevel] = '1';
-        echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('Forum usage').'</a>';
+        $tempView[5] = '1';
+        echo "
+            <tr>
+                    <td valign=\"top\">
+                    +&nbsp;&nbsp;<a href=\"$PHP_SELF?view=".$tempView."\" class=\"specialLink\">$langExercises</a>
+                    </td>
+            </tr>
+        ";
     }
-    echo '<br />'
-    .    '</p>'."\n\n"
-    ;
-
-    // display link to delete all course stats
-    echo '<hr />'."\n"
-    .    '<a class="claroButton" href="delete_course_stats.php">'
-    .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="" />'
-    .    get_lang('Delete all course statistics')
-    .    '</a>'."\n"
-    ;
 }
 // not allowed
 else
 {
-    echo get_lang('Tracking has been disabled by system administrator.');
+    if(!$is_trackingEnabled)
+    {
+        echo $langTrackingDisabled;
+    }
+    else
+    {
+        echo $langNotAllowed;
+    }
 }
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+
+
+?>
+</table>
+
+<?
+@include($includePath."/claro_init_footer.inc.php");
 ?>

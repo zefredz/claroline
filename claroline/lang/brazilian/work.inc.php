@@ -1,0 +1,31 @@
+<?php // $Id$ 
+/*
+      +----------------------------------------------------------------------+
+      | CLAROLINE version 1.5.*
+      +----------------------------------------------------------------------+
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
+      +----------------------------------------------------------------------+
+      |   $Id$         	 |
+      |   Brazillian Translation (portugese)                                 |
+      +----------------------------------------------------------------------+
+
+      +----------------------------------------------------------------------+
+      | Translator :                                                         |
+      |           Marcello R. Minholi, <minholi@unipar.be>                   |
+	  |									from Universidade Paranaense         |
+      +----------------------------------------------------------------------+
+ */
+// WORKS
+$langDownloadFile="Enviar documento";
+$langTooBig="Você não escolheu nenhum arquivo ou o arquivo é muito grande.";
+$langListDeleted="A lista toda está sendo apagada.";
+$langDocModif="título do trabalho modificado";
+$langDocAdd="Trabalho adicionado";
+$langDocDel="Trabalho apagado";
+$langTitleWork="Título do Trabalho";
+$langAuthors="Autores";
+$langDescription="Descrição do Trabalho";
+$langDelList="Apagar a lista toda";
+
+$langWorks="Trabalhos de Estudante";
+?>

@@ -1,0 +1,28 @@
+<?php
+
+define("MAX_FILE_SIZE_UPLOAD",7000000);
+//if (basename($_SERVER["SCRIPT_FILENAME"])==basename(__FILE__)) die("Va voir ailleurs");
+
+$is_allowedToRestore	= FALSE;	//
+$sendByUploadAivailable	= FALSE;	//
+$sendByLocaleAivailable = FALSE;	//
+$sendByHTTPAivailable	= FALSE;	// not aivailable in 1.4
+$sendByFTPAivailable	= FALSE;	// not aivailable in 1.4
+
+$firstExpirationDelay   = 31536000; // <- 86400*365    // 60*60*24 = 1 jour = 86400
+
+$localArchivesRepository = $rootSys."archive/";
+
+$defaultVisibilityForANewCourse = 2;
+
+// Course properties rules
+
+define("HUMAN_CODE_NEEDED",TRUE);  // If false, course creator can let system choose a code.
+define("HUMAN_LABEL_NEEDED",TRUE); // If false, course creator can let system choose a label.
+define("COURSE_EMAIL_NEEDED",FALSE); // If false, course creator can let system choose a label.
+
+$prefixAntiNumber = "No";
+$prefixAntiEmpty  = "Course";
+
+
+?>

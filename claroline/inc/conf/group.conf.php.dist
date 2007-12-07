@@ -1,0 +1,19 @@
+<?php # $id$
+// config file for group tool.
+// A big part of option are change for each course,
+// so stored in table group_properties
+// of each course database.
+
+$multiGroupAllowed 			= TRUE;
+// if field limitNbGroupByUser is  missing in groupProperties table
+// for $multiGroupAllowed FALSE limitNbGroupByUser = 1
+// for $multiGroupAllowed TRUE limitNbGroupByUser is null => ALL
+
+// field limitNbGroupByUser must be added in groupProperties with default value = 1
+
+$tutorCanBeSimpleMemberOfOthersGroupsAsStudent	= FALSE;
+
+// Not implemented
+// $showTutorsInGroupList		= FALSE;
+
+?>

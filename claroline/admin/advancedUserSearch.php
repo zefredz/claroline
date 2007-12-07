@@ -1,149 +1,138 @@
 <?php // $Id$
-/**
- * CLAROLINE
- *
- * @version 1.8 $Revision$
- *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @package CLUSR
- *
- * @author claro team <cvs@claroline.net>
- * @author Guillaume Lederer <lederer@claroline.net>
- * @author Christophe Gesché <moosh@claroline.net>
- */
-
-$cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
-
+//----------------------------------------------------------------------
+// CLAROLINE
+//----------------------------------------------------------------------
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
+//----------------------------------------------------------------------
+// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
+// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+//----------------------------------------------------------------------
+// Authors: see 'credits' file
+//----------------------------------------------------------------------
+$langFile = "admin";
 require '../inc/claro_init_global.inc.php';
 
-// Security check
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
+@include ($includePath."/installedVersion.inc.php");
+include($includePath."/lib/admin.lib.inc.php");
 
-include_once(get_path('incRepositorySys') . '/lib/admin.lib.inc.php');
-include_once(get_path('incRepositorySys') . '/lib/form.lib.php');
+//SECURITY CHECK
 
-//-----------------------------------------------------------------------------------------------------------
+if (!$is_platformAdmin) treatNotAuthorized();
+
+$htmlHeadXtra[] = "<style type=\"text/css\">
+<!--
+    ul { font-size : small }
+-->
+</STYLE>";
+
+//------------------------------------------------------------------------------------------------------------------------
 //  USED SESSION VARIABLES
-//-----------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------
 // deal with session variables clean session variables from previous search
 
 
-unset($_SESSION['admin_user_letter']);
-unset($_SESSION['admin_user_search']);
-unset($_SESSION['admin_user_firstName']);
-unset($_SESSION['admin_user_lastName']);
-unset($_SESSION['admin_user_userName']);
-unset($_SESSION['admin_user_mail']);
-unset($_SESSION['admin_user_action']);
-unset($_SESSION['admin_order_crit']);
+session_unregister('admin_user_letter');
+session_unregister('admin_user_search');
+session_unregister('admin_user_firstName');
+session_unregister('admin_user_lastName');
+session_unregister('admin_user_userName');
+session_unregister('admin_user_mail');
+session_unregister('admin_user_action');
+session_unregister('admin_order_crit');
+
 
 //declare needed tables
-$tbl_mdb_names    = claro_sql_get_main_tbl();
-$tbl_course_nodes = $tbl_mdb_names['category'];
+
+$tbl_faculty      = $mainDbName.'`.`faculte';
 
 // Deal with interbredcrumps  and title variable
 
-$interbredcrump[]= array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
-$nameTools = get_lang('Advanced user search');
+$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
+$nameTools = $langSearchUserAdvanced;
 
-//retrieve needed parameters from URL to prefill search form
+// Search needed info in db to creat the right formulaire
 
-if (isset($_REQUEST['action']))    $action    = $_REQUEST['action'];    else $action = '';
-if (isset($_REQUEST['lastName']))  $lastName  = $_REQUEST['lastName'];  else $lastName = '';
-if (isset($_REQUEST['firstName'])) $firstName = $_REQUEST['firstName']; else $firstName = '';
-if (isset($_REQUEST['userName']))  $userName  = $_REQUEST['userName'];  else $userName = '';
-if (isset($_REQUEST['mail']))      $mail      = $_REQUEST['mail'];      else $mail = '';
+$sql_searchfaculty = "select * FROM `$tbl_faculty` order by `treePos`";
+$arrayFaculty=claro_sql_query_fetch_all($sql_searchfaculty);
+
 
 //header and bredcrump display
 
+include($includePath."/claro_init_header.inc.php");
 
+//tool title
 
+claro_disp_tool_title($nameTools." : ");
 
-
-
-
-
-
-/////////////
-// OUTPUT
-
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-echo claro_html_tool_title($nameTools . ' : ');
 ?>
-<form action="adminusers.php" method="get" >
+
+<form action="adminusers.php" method="GET" >
 <table border="0">
-    <tr>
-        <td align="right">
-            <label for="lastName"><?php echo get_lang('Last name')?></label>
-            : <br />
-        </td>
-        <td>
-            <input type="text" name="lastName" id="lastName" value="<?php echo htmlspecialchars($lastName); ?>" />
-        </td>
-    </tr>
+	<tr>
+		<td align="right">
+			<label for="lastName"><?php echo $langLastName?></label>
+			: <br>
+		</td>
+		<td>
+			<input type="text" name="lastName" id="lastName" value="<?php echo $_GET['lastName']?>"/>
+		</td>
+	</tr>
 
-    <tr>
-        <td align="right">
-            <label for="firstName"><?php echo get_lang('First name')?></label>
-            : <br />
-        </td>
-        <td>
-            <input type="text" name="firstName" id="firstName" value="<?php echo htmlspecialchars($firstName) ?>"/>
-        </td>
-    </tr>
+	<tr>
+		<td align="right">
+			<label for="firstName"><?php echo $langFirstName?></label>
+			: <br>
+		</td>
+		<td>
+			<input type="text" name="firstName" id="firstName" value="<?php echo $_GET['firstName']?>"/>
+		</td>
+	</tr>
+	
+	<tr>
+		<td align="right">
+			<label for="userName"><?php echo $langUsername ?></label> 
+			:  <br>
+		</td>
+		<td>
+			<input type="text" name="userName" id="userName" value="<?php echo $_GET['userName']?>"/>
+		</td>
+	</tr>
 
-    <tr>
-        <td align="right">
-            <label for="userName"><?php echo get_lang('Username') ?></label>
-            :  <br />
-        </td>
-        <td>
-            <input type="text" name="userName" id="userName" value="<?php echo htmlspecialchars($userName); ?>"/>
-        </td>
-    </tr>
-
-    <tr>
-        <td align="right">
-            <label for="mail"><?php echo get_lang('Email') ?></label>
-            : <br />
-        </td>
-        <td>
-            <input type="text" name="mail" id="mail" value="<?php echo htmlspecialchars($mail); ?>"/>
-        </td>
-    </tr>
+	<tr>
+		<td align="right">
+			<label for="mail"><?php echo $langEmail ?></label> 
+			: <br>
+		</td>
+		<td>
+			<input type="text" name="mail" id="mail" value="<?php echo $_GET['mail']?>"/>
+		</td>
+	</tr>
 
 <tr>
   <td align="right">
-   <label for="action"><?php echo get_lang('Action') ?></label> : <br />
+   <label for="action"><?php echo $langAction?></label> : <br>
   </td>
   <td>
-<?php
-
-$action_list[get_lang('All')] = 'all';
-$action_list[get_lang('Student')] = 'followcourse';
-$action_list[get_lang('Course creator')] = 'createcourse';
-$action_list[get_lang('Platform Administrator')] = 'plateformadmin';
-
-echo claro_html_form_select( 'action'
-                            , $action_list
-                            , $action
-                            , array('id'=>'action'))
-                                     ; ?>
-    </td>
+    <select name="action" id="action">
+        <option value="followcourse" <?if ($_GET['action']=="followcourse") echo "selected";?>><?php echo $langFollowCourse?></option>
+        <option value="createcourse" <?if ($_GET['action']=="createcourse") echo "selected";?>><?php echo $langCreateCourse?></option>
+        <option value="plateformadmin" <?if ($_GET['action']=="plateformadmin") echo "selected";?>><?php echo $langPlatformAdmin?></option>
+    </select>
+  </td>
 </tr>
+
 <tr>
     <td>
+
     </td>
     <td>
-        <input type="submit" class="claroButton" value="<?php echo get_lang('Search user')?>"  />
+        <input type="submit" class="claroButton" value="<?php echo $langSearchUser?>" >
     </td>
 </tr>
 </table>
 </form>
 <?php
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include($includePath."/claro_init_footer.inc.php");
+
 ?>

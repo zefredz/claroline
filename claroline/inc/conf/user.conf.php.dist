@@ -1,0 +1,31 @@
+<?php # $Id$
+//if (basename($_SERVER["SCRIPT_FILENAME"])==basename(__FILE__)) die("Va voir ailleurs");
+
+$linkToUserInfo = TRUE; // false  like  the  old system
+$nbUsersPerPage = 50;
+
+DEFINE("CONF_COURSEADMIN_IS_ALLOWED_TO_ADD_USER",TRUE);
+
+$headerBgColor 		= "silver";
+$colorEvenLines 	= "#FFFFFF";
+$colorOddLines 		= "#FFFFFF";
+//$colorHoverLines   removed. Use .claro_listInTable in css
+
+
+# ADD_FAKE_USER (DevTools)
+
+DEFINE("DEFAULT_NUMBER_CREATED_USERS",100);
+DEFINE("DEFAULT_QTY_STUDENT",5);
+DEFINE("DEFAULT_QTY_TEACHER",0);
+DEFINE("DEFAUL_SUFFIX_MAIL","@fake.zz");
+DEFINE("ADD_FIRSTNAMES_FROM_BASE",	true);
+DEFINE("ADD_NAMES_FROM_BASE",		false);
+DEFINE("ADD_USERNAMES_FROM_BASE",	true);
+DEFINE("CONFVAL_LIST_USER_ADDED",	true);
+DEFINE("USE_FIRSTNAMES_AS_LASTNAMES",true);
+
+
+
+
+
+?>

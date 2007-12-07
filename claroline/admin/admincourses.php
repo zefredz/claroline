@@ -1,448 +1,453 @@
-<?php // $Id$
-/**
- * CLAROLINE
- *
- * List courses aivailable on the platform and prupose admin link to it
- *
- * @version 1.9 $Revision$
- *
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/COURSE/
- *
- * @author Claro Team <cvs@claroline.net>
- *
- * @package COURSE
- *
- */
+<?php # $Id$
+//----------------------------------------------------------------------
+// CLAROLINE
+//----------------------------------------------------------------------
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
+//----------------------------------------------------------------------
+// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
+// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+//----------------------------------------------------------------------
+// Authors: see 'credits' file
+//----------------------------------------------------------------------
 
-$cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
-
-// initialisation of global variables and used libraries
+$langFile='admin';
+$cidReset = true;
 require '../inc/claro_init_global.inc.php';
 
-// Security check
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
+$tbl_log    = $mainDbName."`.`loginout";
+$tbl_user   = $mainDbName."`.`user";
+$tbl_admin  = $mainDbName."`.`admin";
+$tbl_course = $mainDbName."`.`cours";
 
-// initialisation of global variables and used libraries
-require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
-require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
-
-/**
- * Check incoming data
- */
-$offsetC = isset($_REQUEST['offsetC']) ? $_REQUEST['offsetC'] : '0';
-$validCmdList = array('delete',);
-$cmd = (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$validCmdList)? $_REQUEST['cmd'] : null);
-$delCode = isset($_REQUEST['delCode']) ? $_REQUEST['delCode'] : null;
-$resetFilter = (bool) (isset($_REQUEST['newsearch']) && 'yes' == $_REQUEST['newsearch']);
-$search = (isset($_REQUEST['search']))  ? $_REQUEST['search'] :'';
-$validRefererList = array('clist',);
-$cfrom = (isset($_REQUEST['cfrom']) && in_array($_REQUEST['cfrom'],$validRefererList) ? $_REQUEST['cfrom'] : null);
-$addToURL = '';
-$do=null;
 
 // javascript confirm pop up declaration
-$htmlHeadXtra[] =
-'<script type="text/javascript">
-function confirmation (name)
-{
-    if (confirm("' . clean_str_for_javascript(get_lang('Are you sure to delete')) . ' \"" + name + "\" ? "))
-        {return true;}
-    else
-        {return false;}
-}
-</script>';
+
+  $htmlHeadXtra[] =
+         "<style type=text/css>
+         <!--
+         .comment { margin-left: 30px}
+         .invisible {color: #999999}
+         .invisible a {color: #999999}
+         -->
+         </style>";
+
+  $htmlHeadXtra[] =
+            "<script>
+            function confirmation (name)
+            {
+                if (confirm(\"".$langAreYouSureToDelete."\"+ name + \"? \"))
+                    {return true;}
+                else
+                    {return false;}
+            }
+            </script>";
 
 // Deal with interbredcrumps
 
-$interbredcrump[]= array ('url' => get_conf('rootAdminWeb') , 'name' => get_lang('Administration'));
-$nameTools = get_lang('Course list');
+$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
+$nameTools = $langCourseList;
 
-//------------------------
+
+// initialisation of global variables and used libraries
+
+include($includePath."/lib/pager.lib.php");
+include($includePath."/lib/admin.lib.inc.php");
+
+//SECURITY CHECK
+
+if (!$is_platformAdmin) treatNotAuthorized();
+
+include($includePath.'/claro_init_header.inc.php');
+$is_allowedToAdmin     = $is_platformAdmin;
+$coursePerPage= 20;
+
+//------------------------------------------------------------------------------------------------------------------------
 //  USED SESSION VARIABLES
-//------------------------
+//------------------------------------------------------------------------------------------------------------------------
 // deal with session variables for search criteria, it depends where we come from :
 // 1 ) we must be able to get back to the list that concerned the criteria we previously used (with out re entering them)
 // 2 ) we must be able to arrive with new critera for a new search.
 
-// clean session if needed from  previous search
 
-if ( $resetFilter )
+if (isset($_GET['code'])) {$_SESSION['admin_course_code'] = $_GET['code'];}
+if (isset($_GET['letter'])) {$_SESSION['admin_course_letter'] = $_GET['letter'];}
+if (isset($_GET['search'])) {$_SESSION['admin_course_search'] = $_GET['search'];}
+if (isset($_GET['intitule'])) {$_SESSION['admin_course_intitule'] = $_GET['intitule'];}
+if (isset($_GET['category'])) {$_SESSION['admin_course_category'] = $_GET['category'];}
+if (isset($_GET['language'])) {$_SESSION['admin_course_language'] = $_GET['language'];}
+if (isset($_GET['access'])) {$_SESSION['admin_course_access'] = $_GET['access'];}
+if (isset($_GET['subscription'])) {$_SESSION['admin_course_subscription'] = $_GET['subscription'];}
+if (isset($_GET['order_crit'])) {$_SESSION['admin_course_order_crit'] = $_GET['order_crit'];}
+if (isset($_GET['dir']))       {$_SESSION['admin_course_dir'] = $_GET['dir'];}
+
+// clean session if we come from a course
+
+session_unregister('_cid');
+unset($_cid);
+
+
+// Set parameters to add to URL to know where we come from and what options will be given to the user
+
+$addToURL = "";
+
+if (!isset($cfrom) || $cfrom!="clist") //offset not kept when come from another list
 {
-    unset($_SESSION['admin_course_code'        ]);
-    unset($_SESSION['admin_course_intitule'    ]);
-    unset($_SESSION['admin_course_category'    ]);
-    unset($_SESSION['admin_course_language'    ]);
-    unset($_SESSION['admin_course_access'      ]);
-    unset($_SESSION['admin_course_visibility'  ]);
-    unset($_SESSION['admin_course_subscription']);
+   $addToURL .= "&offsetC=".$offsetC;
 }
 
-if (isset($_REQUEST['code'        ])) $_SESSION['admin_course_code'        ] = trim($_REQUEST['code'    ]);
-if (isset($_REQUEST['search'      ])) $_SESSION['admin_course_search'      ] = trim($_REQUEST['search'  ]);
-if (isset($_REQUEST['intitule'    ])) $_SESSION['admin_course_intitule'    ] = trim($_REQUEST['intitule']);
-if (isset($_REQUEST['category'    ])) $_SESSION['admin_course_category'    ] = trim($_REQUEST['category']);
-if (isset($_REQUEST['language'    ])) $_SESSION['admin_course_language'    ] = trim($_REQUEST['language']);
-if (isset($_REQUEST['access'      ])) $_SESSION['admin_course_access'      ] = trim($_REQUEST['access'  ]);
-if (isset($_REQUEST['visibility'  ])) $_SESSION['admin_course_visibility'  ] = trim($_REQUEST['visibility'  ]);
-if (isset($_REQUEST['subscription'])) $_SESSION['admin_course_subscription'] = trim($_REQUEST['subscription']);
 
-if ('clist' != $cfrom) $addToURL .= '&amp;offsetC=' . $offsetC;
+//----------------------------------
+// EXECUTE COMMAND
+//----------------------------------
 
-/**
- * PARSE COMMAND
- */
-
-if ('delete' == $cmd)
+switch ($cmd)
 {
-    $courseToDelete = claro_get_course_data($delCode);
-    if ($courseToDelete) $do = 'delete';
-    else
+  case "delete" :
+        delete_course($delCode);
+        $dialogBox = $langCourseDelete;
+        break;
+}
+
+//----------------------------------
+// Build query and find info in db
+//----------------------------------
+
+   // main query to know what must be displayed in the list
+
+$sql = "SELECT  *
+        FROM `".$tbl_course."` AS C WHERE 1=1 ";
+
+//deal with LETTER classification call
+
+if (isset($_SESSION['admin_course_letter']))
+{
+    $toAdd = " AND C.`intitule` LIKE '".$_SESSION['admin_course_letter']."%' ";
+    $sql.=$toAdd;
+
+}
+
+//deal with KEY WORDS classification call
+
+if (isset($_SESSION['admin_course_search']))
+{
+    $toAdd = " AND (C.`intitule` LIKE '%".$_SESSION['admin_course_search']."%' OR C.`code` LIKE '%".$_SESSION['admin_course_search']."%'
+               OR C.`faculte` LIKE '%".$_SESSION['admin_course_search']."%'
+               )";
+    $sql.=$toAdd;
+
+}
+
+//deal with ADVANCED SEARCH parmaters call
+
+if (isset($_SESSION['admin_course_intitule']))    // title of the course keyword is used
+{
+    $toAdd = " AND (C.`intitule` LIKE '".$_SESSION['admin_course_intitule']."%') ";
+    $sql.=$toAdd;
+
+}
+
+if (isset($_SESSION['admin_course_code']))        // code keyword is used
+{
+    $toAdd = " AND (C.`fake_code` LIKE '".$_SESSION['admin_course_code']."%') ";
+    $sql.=$toAdd;
+
+}
+
+if (isset($_SESSION['admin_course_category']))     // course category keyword is used
+{
+    $toAdd = " AND (C.`faculte` LIKE '".$_SESSION['admin_course_category']."%') ";
+    $sql.=$toAdd;
+
+}
+
+if (isset($_SESSION['admin_course_language']))    // language filter is used
+{
+    $toAdd = " AND (C.`languageCourse` LIKE '".$_SESSION['admin_course_language']."%') ";
+    $sql.=$toAdd;
+
+}
+
+if (isset($_SESSION['admin_course_access']))     // type of access to course filter is used
+{
+    $toAdd = "";
+    if ($_SESSION['admin_course_access']=="private")
     {
-        switch(claro_failure::get_last_failure())
-        {
-            case 'course_not_found':
-                $dialogBox = get_lang('Course not found');
-                break;
-            default  : $dialogBox = get_lang('Course not found');
-        }
+       $toAdd = " AND (C.`visible`=1 OR C.`visible`=0) ";
     }
-}
-
-// EXECUTE
-if ('delete' == $do)
-{
-    if (delete_course($delCode))
+    elseif ($_SESSION['admin_course_access']=="public")
     {
-        $dialogBox = get_lang('The course has been successfully deleted');
-        $noQUERY_STRING = true;
+       $toAdd = " AND (C.`visible`=2 OR C.`visible`=3) ";
     }
+
+    $sql.=$toAdd;
+
 }
 
-/**
- * PREPARE DISPLAY
- *
- * Display contain 2 part
- *
- * * Filter/search panel
- * * List of datas
- */
+if (isset($_SESSION['admin_course_subscription']))   // type of subscription allowed is used
+{
+    $toAdd = "";
+    if ($_SESSION['admin_course_subscription']=="allowed")
+    {
+       $toAdd = " AND (C.`visible`=2 OR C.`visible`=0) ";
+    }
+    elseif ($_SESSION['admin_course_subscription']=="denied")
+    {
+       $toAdd = " AND (C.`visible`=1 OR C.`visible`=3) ";
+    }
 
-$sqlCourseList = prepare_get_filtred_course_list();
-$myPager = new claro_sql_pager($sqlCourseList, $offsetC, get_conf('coursePerPage',20));
-$sortKey = isset($_GET['sort']) ? $_GET['sort'] : 'officialCode';
-$sortDir = isset($_GET['dir' ]) ? $_GET['dir' ] : SORT_ASC;
-$myPager->set_sort_key($sortKey, $sortDir);
+    $sql.=$toAdd;
+
+}
+
+  //first see is direction must be changed
+
+if (isset($chdir) && ($chdir=="yes"))
+{
+  if ($_SESSION['admin_course_dir'] == "ASC") {$_SESSION['admin_course_dir']="DESC";}
+  elseif ($_SESSION['admin_course_dir'] == "DESC") {$_SESSION['admin_course_dir']="ASC";}
+  else $_SESSION['admin_course_dir'] = "DESC";
+}
+
+// deal with REORDER
+
+if (isset($_SESSION['admin_course_order_crit']))
+{
+    $toAdd = " ORDER BY `".$_SESSION['admin_course_order_crit']."` ".$_SESSION['admin_course_dir'];
+}
+else
+{
+    $toAdd = " ORDER BY `cours_id` ASC";
+}
+
+$sql.=$toAdd;
+
+
+//echo $sql."<br>";
+
+//USE PAGER
+
+$myPager = new claro_sql_pager($sql, $offsetC, $coursePerPage);
 $myPager->set_pager_call_param_name('offsetC');
-$courseList = $myPager->get_result_list();
+$resultList = $myPager->get_result_list();
 
+//----------------------------------
+// DISPLAY
+//----------------------------------
 
-if (is_array($courseList))
-{
-    $tbl_mdb_names = claro_sql_get_main_tbl();
+//display title
 
-    foreach ($courseList as $courseKey => $course)
-    {
-    $sql ="SELECT
-    count(IF(`isCourseManager`=0,1,null))
-    AS `qty_stu`,
-    #count only lines where user is not course manager
+claro_disp_tool_title($nameTools);
 
-    count(IF(`isCourseManager`=1,1,null))
-    AS `qty_cm`
-    #count only lines where statut of user is 1
-           FROM  `" . $tbl_mdb_names['rel_course_user'] . "`
-           WHERE code_cours  = '". addslashes($course['sysCode']) ."'
-          GROUP BY code_cours";
+// display forms and dialogBox, alphabetic choice,...
 
+if($dialogBox)
+  {
+    claro_disp_message_box($dialogBox);
+  }
 
-    $result = claro_sql_query_get_single_row($sql);
-    $courseList[$courseKey]['qty_stu'] =  $result['qty_stu'];
-    $courseList[$courseKey]['qty_cm']  =  $result['qty_cm'];
-    }
-}
+/*
+//Display selectbox, alphabetic choice, and advanced search link search
 
-/**
- * Prepare display of search/Filter panel
+  // ALPHABETIC
+
+echo "<form name=\"indexform\" action=\"",$PHP_SELF,"\" method=\"GET\">
+             ";
+            if (isset($uidToEdit)) {$toAdd = "uidToEdit=".$uidToEdit."&";} else {$toAdd = "";}
+            if (isset($doRegister)) {$toAdd .= "doRegister=true&";}
+
+            echo "<a href=\"",$PHP_SELF,"?".$toAdd."\"><b> ".$langAll."</b></a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=A&".$toAdd."\">A</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=B&".$toAdd."\">B</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=C&".$toAdd."\">C</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=D&".$toAdd."\">D</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=E&".$toAdd."\">E</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=F&".$toAdd."\">F</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=G&".$toAdd."\">G</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=H&".$toAdd."\">H</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=I&".$toAdd."\">I</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=J&".$toAdd."\">J</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=K&".$toAdd."\">K</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=L&".$toAdd."\">L</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=M&".$toAdd."\">M</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=N&".$toAdd."\">N</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=O&".$toAdd."\">O</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=P&".$toAdd."\">P</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=Q&".$toAdd."\">Q</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=R&".$toAdd."\">R</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=S&".$toAdd."\">S</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=T&".$toAdd."\">T</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=U&".$toAdd."\">U</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=V&".$toAdd."\">V</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=W&".$toAdd."\">W</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=X&".$toAdd."\">X</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=Y&".$toAdd."\">Y</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=Z&".$toAdd."\">Z</a>";
+            echo "
+            <input type=\"text\" name=\"search\">
+            <input type=\"hidden\" name=\"uidToEdit\" value=\"".$uidToEdit."\">
+            <input type=\"submit\" value=\"".$langSearch."\">
+
+      </form>
+     ";
  */
+     //TOOL LINKS
 
-$advanced_search_query_string = array();
-$isSearched ='';
+   //Display search form
 
-if ( !empty($_REQUEST['search']) ) $isSearched .= trim($_REQUEST['search']) . ' ';
 
-if ( !empty($_REQUEST['code']) )
+      //see passed search parameters :
+
+if ($_GET['search']!="")    {$isSearched .= $_GET['search']."* ";}
+if ($_GET['code']!="") {$isSearched .= $langCode." = ".$_GET['code']."* ";}
+if ($_GET['intitule']!="")  {$isSearched .= $langCourseTitle." = ".$_GET['intitule']."* ";}
+if ($_GET['category']!="")  {$isSearched .= $langCategory." = ".$_GET['category']." ";}
+if ($_GET['language']!="")      {$isSearched .= $langLanguage." : ".$_GET['language']." ";}
+if ($_GET['access']=="public")    {$isSearched .= " <b><br>".$langPublicOnly." </b> ";}
+if ($_GET['access']=="private")    {$isSearched .= " <b><br>".$langPrivateOnly." </b>  ";}
+if ($_GET['subscription']=="allowed")    {$isSearched .= " <b><br>".$langSubscriptionAllowedOnly." </b>  ";}
+if ($_GET['subscription']=="denied")    {$isSearched .= " <b><br>".$langSubscriptionDeniedOnly." </b>  ";}
+
+     //see what must be kept for advanced links
+
+$addtoAdvanced = "?code=".$_GET['code'];
+$addtoAdvanced .="&intitule=".$_GET['intitule'];
+$addtoAdvanced .="&category=".$_GET['category'];
+$addtoAdvanced .="&language=".$_GET['language'];
+$addtoAdvanced .="&access=".$_GET['access'];
+$addtoAdvanced .="&subscription=".$_GET['subscription'];
+
+    //fianly, form itself
+
+if (($isSearched=="") || !isset($isSearched)) {$title = "";} else {$title = $langSearchOn." : ";}
+
+echo "<table width=\"100%\">
+        <tr>
+          <td align=\"left\">
+             <b>".$title."</b>
+             <small>
+             ".$isSearched."
+             </small>
+          </td>
+          <td align=\"right\">
+            <form action=\"",$PHP_SELF,"\">
+            <label for=\"search\">".$langMakeNewSearch."</label>
+            <input type=\"text\" value=\"".$_GET['search']."\" name=\"search\" id=\"search\"\">
+            <input type=\"submit\" value=\" ".$langOk." \">
+            <input type=\"hidden\" name=\"newsearch\" value=\"yes\">
+            [<a href=\"advancedCourseSearch.php".$addtoAdvanced."\"><small>".$langAdvanced."</small></a>]
+            </form>
+          </td>
+        </tr>
+      </table>
+       ";
+
+
+   //Pager
+
+$myPager->disp_pager_tool_bar($PHP_SELF);
+
+// display list
+
+echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
+       <tr class=\"headerX\" align=\"center\" valign=\"top\">
+       ";
+
+     //add titles for the table
+
+echo "<th><a href=\"",$PHP_SELF,"?order_crit=fake_code&chdir=yes\">".$langCode."</a></th>"
+     ."<th><a href=\"",$PHP_SELF,"?order_crit=intitule&chdir=yes\">".$langCourseTitle."</a></th>"
+     ."<th><a href=\"",$PHP_SELF,"?order_crit=faculte&chdir=yes\">".$langCategory."</a></th>";
+
+echo "<th>".$langAllUsersOfThisCourse."</th>";
+echo "<th>".$langCourseSettings."</th>"
+     ."<th>".$langDelete."</th>";
+
+   // Display list of the course of the user :
+
+foreach($resultList as $list)
 {
-    $isSearched .= get_lang('Course code') . ' = ' . $_REQUEST['code'] . ' ';
-    $advanced_search_query_string[] = 'code=' . urlencode($_REQUEST['code']);
-}
+    echo "<tr>";
 
-if ( !empty($_REQUEST['intitule']) )
-{
-    $isSearched .= get_lang('Course title') . ' = ' . $_REQUEST['intitule'] . ' ';
-    $advanced_search_query_string[] = 'intitule=' . urlencode($_REQUEST['intitule']);
-}
 
-if ( !empty($_REQUEST['category']) )
-{
-    $isSearched .= get_lang('Category') . ' = ' . $_REQUEST['category'] . ' ';
-    $advanced_search_query_string[] = 'category=' . urlencode($_REQUEST['category']);
-}
-
-if ( !empty($_REQUEST['language']) )
-{
-    $isSearched .= get_lang('Language') . ' : ' . $_REQUEST['language'] . ' ';
-    $advanced_search_query_string[] = 'language=' . urlencode($_REQUEST['language']);
-}
-
-if ( isset($_REQUEST['access']))
-{
-    $isSearched .= '<br />' . "\n";
-
-    if ($_REQUEST['access'] == 'public' )
+    if (isset($_SESSION['admin_course_search'])&& ($_SESSION['admin_course_search']!="")) //trick to prevent "//1" display when no keyword used in search
     {
-        $isSearched .= '<b>' . get_lang('Public course only') . '</b>';
-    }
-    elseif ( $_REQUEST['access'] == 'all' )
-    {
-        $isSearched .= '<b>' . get_lang('Both private and Public course') . '</b>';
-    }
-    else
-    {
-        $isSearched .= '<b>' . get_lang('Private course only') . '</b>';
-    }
-}
 
-if ( isset($_REQUEST['subscription']) )
-{
-    $isSearched .= '<br />' . "\n";
+         //  Code
 
-    if ( $_REQUEST['subscription'] == 'allowed' )
-    {
-        $isSearched .= '<b>' . get_lang('Enrolment allowed only') . '</b>';
-    }
-    elseif (  $_REQUEST['subscription'] == 'all' )
-    {
-        $isSearched .= '<b>' . get_lang('Enrolment allowed or not') . '</b>';
-    }
-    else
-    {
-        $isSearched .= '<b>' . get_lang('Enrolment denied only') . ' </b>';
-    }
-}
+         echo "<td >".eregi_replace("(".$_SESSION['admin_course_search'].")","<b>\\1</b>", $list['fake_code'])."
+               </td>";
 
-//see what must be kept for advanced links
+         // title
 
-if ( !empty($_REQUEST['access']) )
-{
-    $advanced_search_query_string[] ='access=' . urlencode($_REQUEST['access']);
-}
-if ( !empty($_REQUEST['subscription']) )
-{
-    $advanced_search_query_string[] ='subscription=' . urlencode($_REQUEST['subscription']);
-}
+         echo "<td align=\"left\"><a href=\"".$coursesRepositoryWeb.$list['directory']."\">".eregi_replace("(".$_SESSION['admin_course_search'].")","<b>\\1</b>", $list['intitule'])."</a></td>";
 
-if ( count($advanced_search_query_string) > 0 ) $addtoAdvanced = '?' . implode('&',$advanced_search_query_string);
-else                                            $addtoAdvanced = '';
+         //  Category
 
+         echo "<td align=\"left\">".eregi_replace("(".$_SESSION['admin_course_search'].")","<b>\\1</b>", $list['faculte'])."</td>";
+     }
+     else
+     {
+          //  Code
 
-$imgVisibilityStatus['visible'] = 'visible.gif';
-$imgVisibilityStatus['invisible'] = 'invisible.gif';
-$imgAccessStatus['private'] = 'access_locked.gif';
-$imgAccessStatus['public'] = 'access_open.gif';
-$imgRegistrationStatus['open'] = 'enroll_open.gif';
-$imgRegistrationStatus['close'] = 'enroll_locked.gif';
+         echo "<td >".$list['fake_code']."
+               </td>";
 
-$courseDataList=array();
-// Now read datas and rebuild cell content to set datagrid to display.
-foreach($courseList as $numLine => $courseLine)
-{
-    if (    isset($_SESSION['admin_course_search'])
-    && $_SESSION['admin_course_search'] != '' )
-    //trick to prevent "//1" display when no keyword used in search
-    {
-        $bold_search = str_replace('*', '.*', $_SESSION['admin_course_search']);
-        $courseLine['officialCode'] = eregi_replace("(".$bold_search.")","<b>\\1</b>", $courseLine['officialCode']);
-        $courseLine['intitule'] = eregi_replace("(".$bold_search.")","<b>\\1</b>", $courseLine['intitule']);
-        $courseLine['faculte'] = eregi_replace("(".$bold_search.")","<b>\\1</b>", $courseLine['faculte']);
-    }
+         // title
 
-    // Official Code
-    $courseDataList[$numLine]['officialCode'] = $courseLine['officialCode'];
+         echo "<td align=\"left\"><a href=\"".$coursesRepositoryWeb.$list['directory']."\">".$list['intitule']."</a></td>";
 
-    // Label
-    $courseDataList[$numLine]['intitule'] =  '<a href="' . get_path('clarolineRepositoryWeb') . 'course/index.php?cid=' . htmlspecialchars($courseLine['sysCode']) . '">'
-    .                                        $courseLine['intitule']
-    .                                        '</a>';
-    // Category
-    $courseDataList[$numLine]['faculte'] = $courseLine['faculte'];
+         //  Category
 
-    // Users in course
-    $courseDataList[$numLine]['qty_cm'] = '<a href="admincourseusers.php'
-    .                                     '?cidToEdit=' . $courseLine['sysCode'] . $addToURL . '&amp;cfrom=clist">'
-
-    .                                     get_lang('%nb member(s)', array ( '%nb' => ($courseLine['qty_stu'] + $courseLine['qty_cm']) ) )
-    .                                     '</a>'
-    .                                     '<br />' . "\n" . '<small><small>' . "\n"
-    .                                     get_lang('%nb course(s) manager(s)', array( '%nb' => $courseLine['qty_cm']) ) . ' - '
-    .                                     get_lang('%nb student(s)', array ('%nb' => $courseLine['qty_stu']) ) . "\n"
-    .                                     '</small></small>' . "\n"
-    ;
-
-    // Course Settings
-    $courseDataList[$numLine]['cmdSetting'] = '<a href="' . get_path('clarolineRepositoryWeb') . 'course/settings.php?adminContext=1'
-    .                                         '&amp;cidReq=' . $courseLine['sysCode'] . $addToURL . '&amp;cfrom=clist">'
-    .                                         '<img align="absmiddle" src="' . get_conf('imgRepositoryWeb') . 'settings.gif" alt="' . get_lang('Course settings'). '" />'
-    .                                         '</a>'
-    .                                         '(<a href="' . get_path('clarolineRepositoryWeb') . 'course/settings.php?adminContext=1'
-    .                                         '&amp;cidReq=' . $courseLine['sysCode'] . $addToURL . '&amp;cfrom=clist">'
-    .                                         '<img align="absmiddle" src="' . get_conf('imgRepositoryWeb') . $imgVisibilityStatus[$courseLine['visibility']] . '" alt="' . get_lang('Course settings'). '" />'
-    .                                         '<img align="absmiddle" src="' . get_conf('imgRepositoryWeb') . $imgAccessStatus[$courseLine['access']] . '" alt="' . get_lang('Course settings'). '" />'
-    .                                         '<img align="absmiddle" src="' . get_conf('imgRepositoryWeb') . $imgRegistrationStatus[$courseLine['registration']] . '" alt="' . get_lang('enrolment'). '" />'
-    .                                         '</a>)'
-    ;
-
-    // Course Action Delete
-    $courseDataList[$numLine]['cmdDelete'] = '<a href="' . $_SERVER['PHP_SELF']
-    .                                        '?cmd=delete&amp;delCode=' . $courseLine['sysCode'] . $addToURL . '" '
-    .                                        ' onclick="return confirmation(\'' . clean_str_for_javascript($courseLine['intitule']) . '\');">' . "\n"
-    .                                        '<img src="' . get_conf('imgRepositoryWeb') . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />' . "\n"
-    .                                        '</a>' . "\n"
-    ;
-}
-
-// CONFIG DATAGRID.
-$sortUrlList = $myPager->get_sort_url_list($_SERVER['PHP_SELF']);
-
-$courseDataGrid = new claro_datagrid($courseDataList);
-
-$courseDataGrid->set_colTitleList(array ( 'officialCode' => '<a href="' . $sortUrlList['officialCode'] . '">' . get_lang('Course code')        . '</a>'
-                                        , 'intitule'     => '<a href="' . $sortUrlList['intitule'    ] . '">' . get_lang('Course title') . '</a>'
-                                        , 'faculte'      => '<a href="' . $sortUrlList['faculte'     ] . '">' . get_lang('Category')    . '</a>'
-                                        , 'qty_cm'       => get_lang('Course members')
-                                        , 'cmdSetting'   => get_lang('Course settings')
-                                        , 'cmdDelete'    => get_lang('Delete')));
-
-$courseDataGrid->set_colAttributeList( array ( 'qty_cm'     => array ('align' => 'right')
-                                             , 'cmdSetting' => array ('align' => 'center')
-                                             , 'cmdDelete'  => array ('align' => 'center')
-                                             ));
-
-$courseDataGrid->set_idLineType('none');
-$courseDataGrid->set_colHead('officialCode') ;
-
-$courseDataGrid->set_noRowMessage( get_lang('There is no course matching such criteria') . '<br />'
-.    '<a href="advancedCourseSearch.php' . $addtoAdvanced . '">' . get_lang('Search again (advanced)') . '</a>');
-
-/** ***********************************************************************************
- * DISPLAY
- */
-
-/** DISPLAY : Common Header */
-
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-echo claro_html_tool_title($nameTools);
-if (isset($dialogBox)) echo claro_html_message_box($dialogBox);
-
-if ( !empty($isSearched) )
-{
-    echo claro_html_message_box ( '<b>' . get_lang('Search on') . '</b> : <small>' .$isSearched . '</small>' );
-}
-
-/**
- * DISPLAY : Search/filter panel
- */
-echo '<table width="100%">' . "\n\n"
-.    '<tr>' . "\n"
-.    '<td align="left" valign="top">' . "\n"
-.    '<a class="claroCmd" href="../course/create.php?adminContext=1">'
-.    '<img src="' . get_path('imgRepositoryWeb') . 'course.gif" alt="" />'
-.    get_lang('Create course')
-.    '</a>'
-.    '</td>' . "\n"
-.    '<td align="right"  valign="top">' . "\n\n"
-.    '<form action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
-.    '<label for="search">' . get_lang('Make new search') . ' : </label>'."\n"
-.    '<input type="text" value="' . htmlspecialchars($search) . '" name="search" id="search" />' . "\n"
-.    '<input type="submit" value=" ' . get_lang('Ok') . ' " />' . "\n"
-.    '<input type="hidden" name="newsearch" value="yes" />' . "\n"
-.    '[<a class="claroCmd" href="advancedCourseSearch.php' . $addtoAdvanced . '">'
-.    get_lang('Advanced')
-.    '</a>]'    . "\n"
-.    '</form>'  . "\n\n"
-.    '</td>'    . "\n"
-.    '</tr>'    . "\n\n"
-.    '</table>' . "\n\n"
-;
-
-/** DISPLAY : LIST of data */
-
-echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'])
-.    $courseDataGrid->render()
-.    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
-;
-
-/** DISPLAY : Common footer */
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
-
-
-function prepare_get_filtred_course_list()
-{
-    $tbl_mdb_names       = claro_sql_get_main_tbl();
-
-    $sqlFilter = array();
-    // Prepare filter deal with KEY WORDS classification call
-    if (isset($_SESSION['admin_course_search']))   $sqlFilter[]="(  C.`intitule`  LIKE '%". addslashes(pr_star_replace($_SESSION['admin_course_search'])) ."%'
-                                                                 OR C.`administrativeNumber` LIKE '%". addslashes(pr_star_replace($_SESSION['admin_course_search'])) ."%'
-                                                                 OR C.`faculte`   LIKE '%". addslashes(pr_star_replace($_SESSION['admin_course_search'])) ."%'
-                                                             )";
-
-    //deal with ADVANCED SEARCH parmaters call
-    if (isset($_SESSION['admin_course_intitule'])) $sqlFilter[] = "(C.`intitule` LIKE '%". addslashes(pr_star_replace($_SESSION['admin_course_intitule'])) ."%')";
-    if (isset($_SESSION['admin_course_code']))     $sqlFilter[] = "(C.`administrativeNumber` LIKE '%". addslashes(pr_star_replace($_SESSION['admin_course_code'])) ."%')";
-    if (isset($_SESSION['admin_course_category'])) $sqlFilter[] = "(C.`faculte` LIKE '%". addslashes(pr_star_replace($_SESSION['admin_course_category'])) ."%')";
-    if (isset($_SESSION['admin_course_language'])) $sqlFilter[] = "(C.`language` LIKE '%". addslashes($_SESSION['admin_course_language']) ."%')";
-
-    if (isset($_SESSION['admin_course_visibility']))
-    {
-        if     ($_SESSION['admin_course_visibility'] == 'invisible') $sqlFilter[]= "C.`visibility`='INVISIBLE'";
-        elseif ($_SESSION['admin_course_visibility'] == 'visible'  ) $sqlFilter[]= "C.`visibility`='VISIBLE'";
-    }
-
-    if (isset($_SESSION['admin_course_access']))
-    {
-        if     ($_SESSION['admin_course_access'] == 'public' ) $sqlFilter[]= "C.`access`='PUBLIC'";
-        elseif ($_SESSION['admin_course_access'] == 'private') $sqlFilter[]= "C.`access`='PRIVATE'";
-    }
-
-    if (isset($_SESSION['admin_course_subscription']))   // type of subscription allowed is used
-    {
-        if ($_SESSION['admin_course_subscription']     == 'allowed') $sqlFilter[]= "C.`registration`='OPEN'";
-        elseif ($_SESSION['admin_course_subscription'] == 'denied' ) $sqlFilter[]= "C.`registration`='CLOSE'";
+         echo "<td align=\"left\">".$list['faculte']."</td>";
     }
 
 
-    $sqlFilter = sizeof($sqlFilter) ? "WHERE " . implode(" AND ",$sqlFilter)  : "";
+
+     //  All users of this course
+
+     echo     "<td align=\"center\">\n",
+                        "<a href=\"admincourseusers.php?cidToEdit=".$list['code'].$addToURL."&cfrom=clist\"><img src=\"".$clarolineRepositoryWeb."/img/membres.gif\" border=\"0\" alt=\"$langAllUsersOfThisCourse\" />\n
+                         \n",
+                        "</a>\n",
+                        "</td>\n";
+
+    // Modify course settings
+
+    echo  "<td align=\"center\">\n
+           <a href=\"../course_info/infocours.php?cidToEdit=".$list['code'].$addToURL."&cfrom=clist\"><img src=\"".$clarolineRepositoryWeb."img/referencement.gif\" alt=\"$langCourseSettings\"></a>
+           </td>\n";
+
+    //  Delete link
 
 
-    // Build the complete SQL
-    $sql = "SELECT  C.`administrativeNumber` AS `officialCode`,
-                    C.`intitule`             AS `intitule`,
-                    C.`faculte`              AS `faculte`,
-                    C.`code`                 AS `sysCode`,
-                    C.`visibility`           AS `visibility`,
-                    C.`access`               AS `access`,
-                    C.`registration`         AS `registration`,
-                    C.`directory`            AS `repository`
-                    FROM  `" . $tbl_mdb_names['course'] . "` AS C
-           " . $sqlFilter ;
-
-    return $sql;
+    echo   "<td align=\"center\">\n",
+                "<a href=\"",$PHP_SELF,"?cmd=delete&delCode=".$list['code'].$addToURL."\" ",
+                "onClick=\"return confirmation('",addslashes($list['intitule']),"');\">\n",
+                "<img src=\"".$clarolineRepositoryWeb."/img/delete.gif\" border=\"0\" alt=\"$langDelete\" />\n",
+                "</a>\n",
+            "</td>\n";
+     echo "</tr>";
+     $atleastOneResult = true;
 }
 
+if ($atleastOneResult != true)
+{
+   echo "<tr>
+          <td colspan=\"6\" align=\"center\">
+            ".$langNoCourseResult."<br>
+            <a href=\"advancedCourseSearch.php".$addtoAdvanced."\">".$langSearchAgain."</a>
+          </td>
+         </tr>";
+}
+echo "<tbody></table>";
+
+//Pager
+
+$myPager->disp_pager_tool_bar($PHP_SELF);
+
+// display footer
+
+include($includePath."/claro_init_footer.inc.php");
 
 ?>

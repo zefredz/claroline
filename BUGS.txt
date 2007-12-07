@@ -1,0 +1,440 @@
+
+> > > > > > > > > > > CLAROLINE 1.5 RC1 - BUG LIST < < < < < < < < < < <
+
+RESOLU--------------------
+1. DOCUMENT. Quand on crée un document avec l'outil create document, si on ne met pas 
+de nom pour le fichier il y a une erreur et donc fichier pas enregistré, 
+mais si on fait back le formulaire ne se rerempli pas donc on pert tout 
+ce qu'on a fait.
+
+Repéré par : SEB
+Assigné à : HUGUES
+Etat      : RESOLU
+
+RESOLU------------------------------------------------------------------
+2. DOCUMENT. Pour les liens créés dans document, on pensait qu'ajouter l'url en 
+<a href... sur la page .url ne serait pas une mauvaise chose pour prévenir 
+les cas ou la redirection ne se passe pas bien.
+
+Repéré par : SEB
+Assigné à : HUGUES
+Etat      : RESOLU
+
+------------------------------------------------------------------
+3.  INSTALL instal repetées = plusieurs admins -> utilisation des function d'ajout utilisateurs
+
+Assigné à : 
+Etat : à résoudre pour : 1.5.1
+
+------------------------------------------------------------------
+4. HTMLAREA. Bug signalé par PRFB sur le forum.  Insertions de <br /> aux 
+retours à la ligne dans le code html des pages créées
+
+------------------------------------------------------------------
+5. COURSE_HOME. librairie à déplacer ? course_home.lib.php se trouve dans le 
+répertoire même de course_home
+
+RESOLU------------------------------------------------------------------
+6. TOOL LIST && COURSE_HOME. Les URL me semblent mal formatées, malgré le fait 
+qu'elles fonctionnent. Exemple : 
+http://localhost/~pir/clarocvs/claroline15rc1/claroline/../claroline/learnPath/l
+earningPathList.php .  La valeur du path de l'outil ne devrait pas contenir de 
+../ dans la mesure on on essaie de plus en plus d'utiliser des url absolues à 
+partir des $*Sys et $*Web du fichier de config
+
+Repéré par : SEB
+Assigné à : SEB
+Etat : RESOLU
+
+RESOLU------------------------------------------------------------------
+7. DOCUMENT.  upload d'une page HTML contenant des images, problèmes lors de la 
+modifications des paths des images au sein du document, les images ne 
+s'affichent pas du tout.
+
+Repéré par : SEB
+Assigné à : HUGUES
+Etat      : RESOLU
+
+------------------------------------------------------------------
+8. CLARO_MAIN.CONF. présence de code couleurs qui ne sont, à ma connaissance pas 
+utilisés.  Ils sont signalé comme étant utilisés dans le banner mais ne le sont 
+pas.
+
+Repéré par : MOOSH
+
+------------------------------------------------------------------
+9. CLARO_INIT_BANNER. Il reste plusieurs tag <font> dans le code qu'il serait 
+intéressant de remplacer par une meilleure utilisation des css. Il reste 
+également des codes couleurs hardcodés pour les différents <td>
+
+Repéré par : MOOSH
+Assigné à : HUGUES
+
+------------------------------------------------------------------
+10. claroline/admin/adminUserCourseSettings.php -> on ne sais pas changer le 
+champ role
+Repéré par : MOOSH
+
+RESOLU------------------------------------------------------------------
+11. claro_disp_button()- Bug Avec Mozilla - Quand il y a htmlArea dans la même 
+page, le 'onclick' sur le <button> du claroButton est cpaturé par htmlArea. 
+Résultat c'est le <form> dans lequel est htmlArea qui est envoyé et pas la 
+commande claroButton.
+
+Repéré par : HUGUES
+Assigné à  : HUGUES
+Etat       : RESOLU
+
+RESOLU-------------------------------------------------------------
+12 . /claroline/admin/adminusers.php Sur une recherche  sans résultat le texte 
+propose une "nouvelle recherche" alors qu'en haut a droite on a aussi une 
+nouvelle recherche possible" Le message  ne devrait-il pas être "nouvelle 
+recherche avancées" ?
+
+Repéré par : MOOSH.
+Assigné à  : SEB
+Etat 	   : RESOLU
+
+------------------------------------------------------------------
+
+13. /claroline/admin/adminusercourses.php
+Quand on liste les cours, on sait sauter vers la liste de ses users.
+Quand on liste les cours, on sait sauter vers la fiche cours.
+Quand on liste les users, on sait sauter vers la liste de ses cours.
+Quand on liste les users, on sait sauter vers la fiche user.
+
+Quand on liste les users d'un cours ou quand on liste les cours d'un user, on 
+peut voir les propriétés d'intersection. mais on ne sait pas "continuer" je suis 
+dans le cours foo, j'y trouve pol, je ne sais pas voir les cours de pol en 
+cliquant sur ... Dans PMA j'avais ca. et C'est bien pratique pour gerer les 
+lustucrus (inscription multiples, cours multiples)
+
+Repéré par : MOOSH
+Guim dit: voir avec Hugues ...
+
+RESOLU------------------------------------------------------------------
+14.  admincats.  refresh après insert -> erreur
+
+1062 : Duplicata du champ 'rzthtr' pour la clef 2
+
+insert into `CL150RC1Main`.`faculte` (name,code,bc,nb_childs,canHaveCoursesChild,canHaveCatChild,treePos,code_P)
+                                        values ('tzrthrth','rzthtr',NULL,'0','TRUE','TRUE','14','EDITME')
+Etat : RESOLU (recherche ds la db d'abord avant création et message d'erreur affiché à la place si la cat existe déjà)
+
+
+RESOLU------------------------------------------------------------
+15. le chat  crée à l'utilisation encore  un fichier dans le rep /claroline/chat/
+et j'ai pas trouvé où il le crée
+
+Repéré par : MOOSH
+Assigné à  : SEB
+Etat 	   : RESOLU 
+
+RESOLU------------------------------------------------------
+16. claroline/admin/adminaddnewuser.php?register=yes
+type : erreur de langue. 
+quoi : "Les nouveaux utilisateurs recevrons un email avec leur nom d'utilisateur et mot de passe"
+
+claroline/admin/adminusercourses.php?uidToEdit=3&cfrom=ulist
+"bouton retour à l'utilisateur en français" :  faute
+Repéré par :  MOOSH
+Assigné à : 
+Etat : RESOLU
+
+RESOLU------------------------------------------------------------------
+M.17. outils de travaux.  
+à l'envoi d'un Ficher .exe  trop gros, le système ne fait pas l'envoi mais ne retourne pas de message d'erreur.
+
+seb : Ne s'agit-il pas du même problème que l'on avait dans document lorsque post_max_size est plus petit que upload_max_filesize
+$_POST est unset et donc on ne sait afficher aucun message d'erreur ?
+
+Repéré par : M.
+Assigné à : SEB
+Etat : RESOLU (en utilisant le meme principe que pour document et import learning path, à savoir affichage de la taille max autorisée sur form d'upload
+
+RESOLU-------------------------------------------------------------
+M.18.Travaux d'étudiants
+retour à la ligne entre le texte d'intro et le bouton "ajouter un texte"
+Repéré par : MOOSH
+Assigné à  : SEB
+Etat	   : RESOLU
+
+
+Etat : RESOLU ------------------------------------------------------
+M.19.Importer un parcours
+type : ortho
+quoi : "Les packages importés doivent consisté être des fichiers zip et répondre à la norme SCORM 1.2"
+phrase pas franchaise
+Repéré par : M
+Assigné à : SEB
+
+Etat : RESOLU ------------------------------------------------------
+M.20. /claroline/learnPath/learningPathList.php?cmd=create
+type : html
+quoi : la liste des parcours semble être un form... sans submit ?
+Repéré par : M
+Assigné à : SEB
+
+Etat : RESOLU ------------------------------------------------------
+M.21 http://127.0.0.1/c/cvs.claroline.net/c150rc1.trakbugs/claroline/learnPath/insertMyModule.php?check_1=on&cmdglobal=add
+type : logik navigation
+quoi :Je me suis retrouvé avec le message 
+"Tous les modules de ce cours sont déjà utilisés dans ce parcours."
+
+et pas de lien pour "continuer"
+
+Repéré par : M
+Assigné à : SEB
+
+Etat : RESOLU -----------------------
+M.22 /auth/courses.php Li :571
+type : lang hardcoded
+quoi : echo	"<small><font color=\"gray\">course manager</font></small>\n";
+Repéré par : M
+Assigné à : 
+
+Etat : RESOLU ------------------------------------------------------
+M.23  : admincats.php
+type : logik
+quoi : si j'édite une cat et que je la rend interdite au 
+ratachement direct de cours mais qu'elle contient déjà des cours.
+l'utilisateur ne recoit aucun message.
+Repéré par : M.
+Assigné à : Guim 
+Solution : message d'erreur si on essaie de rendre non remplissable de cours une catégorie qui en contient déjà.
+
+Etat : RESOLU ------------------------------------------------------
+M.24  : admincats.php
+type : logik
+quoi : si je supprime une cat qui contient des catégories avec déjà des cours.
+- l'utilisateur ne recoit aucun message.
+- les cours disparessent de l'arbre !!!
+Repéré par : M.
+Assigné à : Guim
+Solution : On ne peut pas supprimer une cat qui en contient d'autre ou qui contient au moins un cours, sinon on recoit un warning
+
+
+Etat : New ------------------------------------------------------
+M.25  : admincats.php
+type : structure et affichage
+quoi : le code des faculté est utilisé à l'affichage. 
+Il ne peut donc plus être l'identifiant système unique.
+Repéré par : M.
+Assigné à : M.
+
+Etat : New ------------------------------------------------------
+M.26  : claroline/exercice/admin.php?modifyQuestion=&newQuestion=yes
+type : interface
+quoi : à l'ajout de ma question "assertion" mes champs sont préremplis d'exemples
+Repéré par : M.
+Assigné à : 
+
+Etat : New ------------------------------------------------------
+M.27 : /claroline/exercice/question_pool.php
+type : interface - uniformisation
+quoi : dans la banque de question on a un lien "Nouvelle question" 
+si j'ai bien capté la nouvelle logique ca devrait être un claro_button
+Repéré par : M.
+Assigné à : 
+
+Etat : RESOLU ------------------------------------------------------
+M.28 : /claroline/exercice/question_pool.php
+type : interface - uniformisation
+quoi : Le formulaire englobe 2 <table> alors  qu'il ne propose des input que dans 1 <td>
+Et ce uniquement pour du look
+Repéré par : M.
+Assigné à : SEB
+
+Etat : RESOLU ------------------------------------------------------
+M.29 : /claroline/exercice/question_pool.php
+type : interface - uniformisation
+quoi : javascript de suppression d'un question peu explicite
+Repéré par : M.
+Assigné à : SEB
+
+Etat : RESOLU ------------------------------------------------------
+M.30 : /claroline/exercice/exercice.php
+type : interface - uniformisation
+quoi : javascript de suppression d'un exercice peu explicite
+Repéré par : M.
+Assigné à : SEB
+
+Etat : RESOLU ------------------------------------------------------
+M.31 où : claroline/forum_admin/forum_admin.php?forumgoadd
+type : langue
+quoi : texte anglais su cours français à la réussite d'ajout d'u forum dans une cat
+Repéré par : M
+Assigné à  : SEB
+Etat 	   : RESOLU
+
+Etat : RESOLU ------------------------------------------------------
+M.32 : admin forum
+type : logique
+quoi : quand y a pas de groupe la cat la cat est visible  et mène a un truc où on sait rien editer
+Repéré par : M
+Assigné à  : SEB
+Etat 	   : RESOLU (un message prévient qu'on se trouve dans un cas particulier) 
+
+Etat : New ------------------------------------------------------
+M.33 où : document
+type : logik surf
+quoi : 
+	* Je crée une url
+	* je la renomme
+	* je la teste
+	* quand je suis sur le site je veux revenir en arrière avec un back
+	* j'arrive dans le form de renomage et je suis obligé de re renommer
+	(après coup je me rend compte que le form est tellement grand que j'avais pas vu la liste des documents dans le bas de la page
+Repéré par : M
+Assigné à : H
+
+Etat : RESOLU ------------------------------------------------------
+M.34 où : /lang/*/exerciceRC.inc.php
+type : déprécié
+quoi : ces fichiers ne servent  plus (A VERIFIER)
+Repéré par : M
+Assigné à : SEB 
+Etat	   : RESOLU ( fichier réellement inutilisé -> retiré. )
+
+Etat : RESOLU ------------------------------------------------------
+M.35 où : /lang/*/course_home.inc.php
+type : déprécié ?
+quoi : $langCourseCreate <- défini dans les fichiers de langues course_home.inc.php et utilisé uniquement dans index général
+Repéré par : M
+Assigné à  : SEB
+
+Etat : RESOLU ------------------------------------------------------
+.36 où : fichiers langues
+type : variable manquantes
+
+***  group.inc.php : RESOLU
+$langGroupTutors  	
+	english; 	--empty--
+	french; 	Tuteurs
+
+*** announcements.inc.php : RESOLU 
+ $langMsg  	
+	french; 	--empty--
+	english; 	Messages
+$langUsers 	
+	french; 	--empty--
+	english; 	users
+
+** course_info.inc.php : RESOLU
+$langAdministrationTools  	
+	french; 	--empty-- 
+	english; 	Administration
+$langAllUsersOfThisCourse 	
+	french; 	--empty--
+	english; 	Course members
+$langViewCourse 	
+	french; 	--empty--
+	english; 	View course
+
+Assigné à 	 : SEB
+
+
+Etat : RESOLU ------------------------------------------------------
+M.37 où : create_course
+type : illogique
+quoi : on peut demandé de créer un cours sans intitulé. Il accepte mais ne fait rien, il laisse croire que ca a marché
+Repéré par : M
+Assigné à : ?
+Etat : RESOLU ( message d'erreur apparait si intitulé est vide )  
+	
+Etat : Resolu ------------------------------------------------------
+M.38 où : agenda
+type : chaines vide
+quoi : je peux ajouter une entrée  avec titre vide 
+Pas de problème dans l'agenda 
+mais problème dans la liste des dernières entrée e page de garde.
+et dans  "myagenda"
+Solution 3 : comme annonce, afficher le début du contenu. ignorer si les 2 sont vides
+Repéré par : M
+Assigné à : M
+	
+	
+	
+Repéré par : M.
+Assigné à : 
+
+template à copier coller
+Etat : New ------------------------------------------------------
+.99 où :
+type :
+quoi :
+Repéré par : 
+Assigné à : 
+
+
+
+
+-------------
+$Log$
+Revision 1.52  2004/07/07 07:25:33  moosh
+buges 37,38 résolus
+
+Revision 1.51  2004/07/06 12:51:43  seb
+Bugs 35 done
+
+Revision 1.50  2004/07/06 11:54:21  seb
+Bug 37 resolved
+Bugs 3, 4, 8, 9, 10, 13, 25, 26, 27, 33, 35, 38 need to be corrected or checked.
+
+Revision 1.49  2004/06/28 08:07:25  moosh
+bug  38.
+
+Revision 1.48  2004/06/25 07:45:13  seb
+Bugs 31, 32, 34 & 36 résolus
+
+Revision 1.47  2004/06/24 11:28:41  moosh
+bugs 36. 37
+
+Revision 1.46  2004/06/24 11:21:14  moosh
+bugs 34. 35.
+
+Revision 1.45  2004/06/23 10:28:05  seb
+More bugs resolved
+
+Revision 1.44  2004/06/17 12:57:54  moosh
+résolus
+
+Revision 1.43  2004/06/17 12:56:11  moosh
+bug 33
+
+Revision 1.42  2004/06/17 08:16:38  moosh
+bug 32
+
+Revision 1.41  2004/06/16 13:33:12  seb
+28 29 30 done
+
+Revision 1.40  2004/06/16 12:36:20  guillaume
+cats containing courses can not become cat that can not accept courses...debug
+
+Revision 1.38  2004/06/16 11:42:37  guillaume
+bug 24 resolu
+
+Revision 1.36  2004/06/16 09:42:03  moosh
+bugs 28 , 29 et 30
+
+Revision 1.35  2004/06/16 09:38:24  guillaume
+bug 16 et 22 résolu
+
+Revision 1.34  2004/06/16 09:32:55  moosh
+bugs 26 et 27
+
+Revision 1.33  2004/06/16 08:14:53  seb
+bugs 19 20 21 résolus
+
+Revision 1.32  2004/06/16 08:08:29  guillaume
+*** empty log message ***
+
+Revision 1.30  2004/06/16 06:29:08  moosh
+bugs 19 à 25
+
+Revision 1.26  2004/06/15 07:47:14  seb
+bug 17 résolu
+
+Revision 1.25  2004/06/15 05:56:21  seb
+bug 17 - ajout de commentaire
+

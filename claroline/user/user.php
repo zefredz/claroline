@@ -1,532 +1,365 @@
 <?php // $Id$
 
-/**
- * User list tool
- *
- * @version     1.9 $Revision$
- * @copyright   2001-2007 Universite catholique de Louvain (UCL)
- * @author      Claroline Team <info@claroline.net>
- * @author      Frederic Minne <zefredz@claroline.net>
- * @license     http://www.gnu.org/copyleft/gpl.html
- *              GNU GENERAL PUBLIC LICENSE version 2.0
- * @package     CLUSR
- */
-
-/*=====================================================================
-   Initialisation
-  =====================================================================*/
-$tlabelReq = 'CLUSR';
-$gidReset = true;
+$langFile = 'registration';
+$tlabelReq = "CLUSR___";
 require '../inc/claro_init_global.inc.php';
-
-if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
-
-claro_set_display_mode_available(true);
-
-/*----------------------------------------------------------------------
-   Include Library
-  ----------------------------------------------------------------------*/
-
-require_once get_path('incRepositorySys')  . '/lib/admin.lib.inc.php';
-require_once get_path('incRepositorySys')  . '/lib/user.lib.php';
-require_once get_path('incRepositorySys')  . '/lib/course_user.lib.php';
-require_once get_path('incRepositorySys')  . '/lib/pager.lib.php';
-
-/*----------------------------------------------------------------------
-   Load config
-  ----------------------------------------------------------------------*/
-include claro_get_conf_repository() . 'user_profile.conf.php';
-
-/*----------------------------------------------------------------------
-   JavaScript - Delete Confirmation
-  ----------------------------------------------------------------------*/
+if (!($_cid)) 	claro_disp_select_course();
 
 $htmlHeadXtra[] =
-'
-<script type="text/javascript">
+"
+<script type=\"text/javascript\" language=\"JavaScript\" >
 function confirmation (name)
 {
-    if (confirm(" ' . clean_str_for_javascript(get_lang('Are you sure to delete')) . ' "+ name + " ?"))
-        {return true;}
-    else
-        {return false;}
+	if (confirm(\" $langAreYouSureToDelete \"+ name + \" ?\"))
+		{return true;}
+	else
+		{return false;}
 }
 </script>
-';
+";
 
-/*----------------------------------------------------------------------
-   Variables
-  ----------------------------------------------------------------------*/
+include($includePath."/conf/user.conf.php");
+include($includePath."/lib/admin.lib.inc.php");
 
-$userPerPage = get_conf('nbUsersPerPage',50);
+@include($includePath."/lib/debug.lib.inc.php");
 
-$is_allowedToEdit = claro_is_allowed_to_edit();
+$step             = $nbUsersPerPage;
+$is_allowedToEdit = $is_courseAdmin;
+$can_add_user     = ($is_courseAdmin && CONF_COURSEADMIN_IS_ALLOWED_TO_ADD_USER)
+				    || $is_platformAdmin;
+$currentCourse    = $currentCourseID  = $_course['sysCode'];
 
-$can_add_single_user = (bool) (claro_is_course_manager()
-                     && get_conf('is_coursemanager_allowed_to_add_single_user') )
-                     || claro_is_platform_admin();
-$can_import_user_list = (bool) (claro_is_course_manager()
-                     && get_conf('is_coursemanager_allowed_to_import_user_list') )
-                     || claro_is_platform_admin();
-$can_export_user_list = (bool) (claro_is_course_manager()
-                     && get_conf('is_coursemanager_allowed_to_export_user_list', true) )
-                     || claro_is_platform_admin();
+$tbl_users 				= $mainDbName."`.`user";
+$tbl_courses_users		= $mainDbName."`.`cours_user";
+$tbl_rel_users_groups	= $_course['dbNameGlu']."group_rel_team_user";
+$tbl_groups 			= $_course['dbNameGlu']."group_team";
 
-$can_import_user_class = (bool) (claro_is_course_manager()
-                     && get_conf('is_coursemanager_allowed_to_import_user_class') )
-                     || claro_is_platform_admin();
+////////// WORKS /////////////
 
-$dialogBox = '';
-
-/*----------------------------------------------------------------------
-  DB tables definition
-  ----------------------------------------------------------------------*/
-
-$tbl_cdb_names = claro_sql_get_course_tbl();
-$tbl_mdb_names = claro_sql_get_main_tbl();
-
-$tbl_rel_course_user = $tbl_mdb_names['rel_course_user'  ];
-$tbl_users           = $tbl_mdb_names['user'             ];
-$tbl_courses_users   = $tbl_rel_course_user;
-
-$tbl_rel_users_groups= $tbl_cdb_names['group_rel_team_user'    ];
-$tbl_groups          = $tbl_cdb_names['group_team'             ];
-
-/*----------------------------------------------------------------------
-  Filter data
-  ----------------------------------------------------------------------*/
-
-$cmd = ( isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : '');
-$offset = (int) isset($_REQUEST['offset']) ? $_REQUEST['offset'] : 0;
-
-if (isset($_REQUEST['user_id']))
+if ($is_allowedToEdit)
 {
-    if ($_REQUEST['user_id'] == 'allStudent'
-                    &&  $cmd == 'unregister' ) $req['user_id'] = 'allStudent';
-    elseif ( 0 < (int) $_REQUEST['user_id'] )  $req['user_id'] = (int) $_REQUEST['user_id'];
-    else                                       $req['user_id'] = false;
-}
-/*=====================================================================
-  Main section
-  =====================================================================*/
+	// Unregister user from course
+	// (notice : it does not delete user from claroline main DB)
 
-$disp_tool_link = FALSE;
+	if($unregister)
+	{
+        // delete user from course user list
 
-if ( $is_allowedToEdit )
-{
-    $disp_tool_link = TRUE;
-
-    if ( $cmd == 'register' && $req['user_id'])
-    {
-        $done = user_add_to_course($req['user_id'], claro_get_current_course_id(), false, false, false);
-        if ($done)
+        $done = remove_user_from_course($user_id, $_cid);
+	if ($done)
         {
-            $dialogBox = get_lang('User registered to the course');
+           $dialogBox =$langUserUnsubscribed;
         }
-    }
-
-    if ( $cmd == 'unregister')
-    {
-        // Unregister user from course
-        // (notice : it does not delete user from claroline main DB)
-
-        if ('allStudent' == $req['user_id'])
+        else
         {
-            // TODO : add a function to unenroll all users from a course
-            $sql = "DELETE FROM `" . $tbl_rel_course_user . "`
-                    WHERE `code_cours` = '" . addslashes(claro_get_current_course_id()) . "'
-                     AND `isCourseManager` = 0";
-
-            $unregisterdUserCount = claro_sql_query_affected_rows($sql);
-
-            $dialogBox .= get_lang('%number student(s) unregistered from this course', array ( '%number' => $unregisterdUserCount) );
+           $dialogBox =$langUserNotUnsubscribed;
         }
-        elseif ( 0 < (int)  $req['user_id'] )
-        {
-            // delete user from course user list
-            if ( user_remove_from_course(  $req['user_id'], claro_get_current_course_id(), false, false, false) )
-            {
-               $dialogBox .= get_lang('The user has been successfully unregistered from course');
-            }
-            else
-            {
-                switch ( claro_failure::get_last_failure() )
-                {
-                    case 'cannot_unsubscribe_the_last_course_manager' :
-                        $dialogBox .= get_lang('You cannot unsubscribe the last course manager of the course');
-                        break;
-                    case 'course_manager_cannot_unsubscribe_himself' :
-                        $dialogBox .= get_lang('Course manager cannot unsubscribe himself');
-                        break;
-                    default :
-                        $dialogBox .= get_lang('Error!! you cannot unregister a course manager');
-                }
-            }
-        }
-    } // end if cmd == unregister
+   }
+}	// end if allowed to edit
 
-    if( $cmd == 'export' && $can_export_user_list )
-    {
-        include( dirname(__FILE__) . '/lib/export.lib.php');
+$sqlNbUser = "SELECT count(user.user_id) nb_users
+              FROM `".$tbl_courses_users."` `cours_user`,
+                   `".$tbl_users."` `user`
+              WHERE code_cours = \"".$currentCourseID."\"
+              AND cours_user.user_id = `user`.user_id";
 
-        // contruction of XML flow
-        $csv = export_user_list(claro_get_current_course_id());
+$result      = claro_sql_query($sqlNbUser);
+$userTotalNb = mysql_fetch_array($result, MYSQL_ASSOC);
+$userTotalNb = $userTotalNb["nb_users"];
 
-        if( !empty($csv) )
-        {
-            header("Content-type: application/csv");
-            header('Content-Disposition: attachment; filename="'.claro_get_current_course_id().'_userlist.csv"');
-            echo $csv;
-            exit;
-        }
-    }
-}    // end if allowed to edit
+$nameTools = $langUsers;
 
-/*----------------------------------------------------------------------
-   Get User List
-  ----------------------------------------------------------------------*/
+///////////// OUTPUTS ///////////
 
-$sqlGetUsers = "SELECT `user`.`user_id`      AS `user_id`,
-                       `user`.`nom`          AS `nom`,
-                       `user`.`prenom`       AS `prenom`,
-                       `user`.`email`        AS `email`,
-                       `course_user`.`profile_id`,
-                       `course_user`.`isCourseManager`,
-                       `course_user`.`tutor`  AS `tutor`,
-                       `course_user`.`role`   AS `role`
-               FROM `" . $tbl_users . "`           AS user,
-                    `" . $tbl_rel_course_user . "` AS course_user
-               WHERE `user`.`user_id`=`course_user`.`user_id`
-               AND   `course_user`.`code_cours`='" . addslashes(claro_get_current_course_id()) . "'";
+include($includePath."/claro_init_header.inc.php");
 
-$myPager = new claro_sql_pager($sqlGetUsers, $offset, $userPerPage);
+if ( ! $is_courseAllowed)
+	claro_disp_auth_form();
 
-if ( isset($_GET['sort']) )
-{
-    $myPager->add_sort_key( $_GET['sort'], isset($_GET['dir']) ? $_GET['dir'] : SORT_ASC );
-}
-
-$defaultSortKeyList = array ('course_user.isCourseManager' => SORT_DESC,
-                             'course_user.tutor'  => SORT_DESC,
-                             'user.nom'          => SORT_ASC,
-                             'user.prenom'       => SORT_ASC);
-
-foreach($defaultSortKeyList as $thisSortKey => $thisSortDir)
-{
-    $myPager->add_sort_key( $thisSortKey, $thisSortDir);
-}
-
-$userList    = $myPager->get_result_list();
-$userTotalNb = $myPager->get_total_item_count();
-
-/*----------------------------------------------------------------------
-  Get groups
-  ----------------------------------------------------------------------*/
-
-$userListId = array();
-
-foreach ( $userList as $thisUser )
-{
-    $users[$thisUser['user_id']] = $thisUser;
-    $userListId[] = $thisUser['user_id'];
-}
-
-if ( count($userListId)> 0 )
-{
-    $sqlGroupOfUsers = "SELECT `ug`.`user` AS `uid`,
-                               `ug`.`team` AS `team`,
-                               `sg`.`name` AS `nameTeam`
-                        FROM `"  . $tbl_rel_users_groups . "` AS `ug`
-                        LEFT JOIN `" . $tbl_groups . "` AS `sg`
-                        ON `ug`.`team` = `sg`.`id`
-                        WHERE `ug`.`user` IN (" . implode(",",$userListId) . ")
-                        ORDER BY `sg`.`name`";
-
-    $userGroupList = claro_sql_query_fetch_all($sqlGroupOfUsers);
-
-    $usersGroup = array();
-
-    if( is_array($userGroupList) && !empty($userGroupList) )
-    {
-        foreach( $userGroupList as $thisAffiliation )
-        {
-            $usersGroup[$thisAffiliation['uid']][$thisAffiliation['team']]['nameTeam'] = $thisAffiliation['nameTeam'];
-        }
-    }
-}
-
-
-// PREPARE DISPLAY
-
-$nameTools = get_lang('Users');
-
-if ($can_add_single_user)
-{
-
-    // Add a user link
-    $userMenu[] = claro_html_cmd_link( 'user_add.php' . claro_url_relay_context('?')
-                                     , '<img src="' . get_path('imgRepositoryWeb') . 'user.gif" alt="" />'
-                                     . get_lang('Add a user')
-                                     )
-                                     ;
-}
-
-if ($can_import_user_list)
-{
-    // Add CSV file of user link
-    $userMenu[] = claro_html_cmd_link( 'AddCSVusers.php'
-                                     . '?AddType=userTool'
-                                     . claro_url_relay_context('&amp;')
-                                     , '<img src="' . get_path('imgRepositoryWeb') . 'importlist.gif" alt="" />'
-                                     . get_lang('Add a user list')
-                                     );
-}
-
-if ($can_export_user_list)
-{
-    // Export CSV file of user link
-    $userMenu[] = claro_html_cmd_link( $_SERVER['PHP_SELF']
-                                     . '?cmd=export'
-                                     . claro_url_relay_context('&amp;')
-                                     , '<img src="' . get_path('imgRepositoryWeb') . 'export.gif" alt="" />'
-                                     . get_lang('Export user list')
-                                     );
-}
-
-if ($can_import_user_class)
-{
-    // Add a class link
-    $userMenu[] = claro_html_cmd_link( 'class_add.php'
-                                     . claro_url_relay_context('?')
-                                     , '<img src="' . get_path('imgRepositoryWeb') . 'class.gif" alt="" />'
-                                     . get_lang('Enrol class')
-                                     );
-}
-
-if ($can_add_single_user)
-{
-    // Main group settings
-    $userMenu[] = claro_html_cmd_link( '../right/profile_list.php'
-                                     . claro_url_relay_context('?')
-                                     , '<img src="' . get_path('imgRepositoryWeb') . 'settings.gif" alt="" />'
-                                     . get_lang("Right Profile")
-                                     );
-}
-
-$userMenu[] = claro_html_cmd_link( '../group/group.php'
-                                 . claro_url_relay_context('?')
-                                 , '<img src="' . get_path('imgRepositoryWeb') . 'group.gif" alt="" />'
-                                 . get_lang('Group management')
-                                 );
-
-$userMenu[] = claro_html_cmd_link( $_SERVER['PHP_SELF']
-                                 . '?cmd=unregister&amp;user_id=allStudent'
-                                 . claro_url_relay_context('&amp;')
-                                 , '<img src="' . get_path('imgRepositoryWeb') . 'unenroll.gif" alt="" />'
-                                 . get_lang('Unregister all students')
-                                 , array('onclick'=>"return confirmation('" . clean_str_for_javascript(get_lang('all students')) . "')")
-                                 );
-
-/*=====================================================================
-Display section
-  =====================================================================*/
-
-// Display header
-
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-
-echo claro_html_tool_title($nameTools . ' (' . get_lang('number') . ' : ' . $userTotalNb . ')',
-            $is_allowedToEdit ? 'help_user.php' : FALSE);
+//stats
+include($includePath."/lib/events.lib.inc.php");
+event_access_tool($nameTools);
+claro_disp_tool_title($nameTools." (".$langUserNumber." : ".$userTotalNb.")",
+			$is_allowedToEdit ? 'help_user.php' : false);
 
 // Display Forms or dialog box(if needed)
 
-if ( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
+if($dialogBox)
+  {
+    claro_disp_message_box($dialogBox);
+  }
 
-// Display tool links
-if ( $disp_tool_link ) echo claro_html_menu_horizontal($userMenu);
 
-/*----------------------------------------------------------------------
-   Display pager
-  ----------------------------------------------------------------------*/
-
-echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
-
-$sortUrlList = $myPager->get_sort_url_list($_SERVER['PHP_SELF']);
-
-/*----------------------------------------------------------------------
-   Display table header
-  ----------------------------------------------------------------------*/
-
-echo '<table class="claroTable emphaseLine" width="100%" cellpadding="2" cellspacing="1" '
-.    ' border="0" summary="' . get_lang('Course users list') . '">' . "\n";
-
-echo '<thead>' . "\n"
-.    '<tr class="headerX" align="center" valign="top">'."\n"
-.    '<th><a href="' . $sortUrlList['nom'] . '">' . get_lang('Last name') . '</a></th>' . "\n"
-.    '<th><a href="' . $sortUrlList['prenom'] . '">' . get_lang('First name') . '</a></th>'."\n"
-.    '<th><a href="' . $sortUrlList['profile_id'] . '">' . get_lang('Profile') . '</a></th>'."\n"
-.    '<th><a href="' . $sortUrlList['role'] . '">' . get_lang('Role') . '</a></th>'."\n"
-.    '<th>' . get_lang('Group') . '</th>' . "\n" ;
-
-if ( $is_allowedToEdit ) // EDIT COMMANDS
+if ($is_allowedToEdit)
 {
-    echo '<th><a href="'.$sortUrlList['tutor'].'">'.get_lang('Group Tutor').'</a></th>'."\n"
-       . '<th><a href="'.$sortUrlList['isCourseManager'].'">'.get_lang('Course manager').'</a></th>'."\n"
-       . '<th>'.get_lang('Edit').'</th>'."\n"
-       . '<th>'.get_lang('Unregister').'</th>'."\n" ;
+?>
+<p align="right">
+	<?php if ($can_add_user)
+	{ ?>
+	<a href="user_add.php"><?php echo $langAddAU; ?></a> |
+	<?php
+	}
+	?>
+	<a href="../group/group.php"><?php echo $langGroupUserManagement; ?></a>
+</p>
+
+<?
 }
 
-echo '</tr>'."\n"
-   . '</thead>'."\n"
-   . '<tbody>'."\n" ;
+/*==========================
+      DISPLAY USERS LIST
+  ==========================*/
 
-/*----------------------------------------------------------------------
-   Display users
-  ----------------------------------------------------------------------*/
+// PAGER - don't show the pager link if there are less than 50 user
 
-$i = $offset;
-$previousUser = -1;
-
-reset($userList);
-
-foreach ( $userList as $thisUser )
+if ($userTotalNb > $step)
 {
-    // User name column
-    $i++;
-    echo '<tr align="center" valign="top">'."\n"
-       . '<td align="left">'
-       . '<img src="' . get_path('imgRepositoryWeb') . '/user.gif" alt="" />'."\n"
-       . '<small>' . $i . '</small>'."\n"
-       . '&nbsp;';
+	if(!isset($offset))
+	{
+		$offset=0;
+	}
 
-    if ( $is_allowedToEdit || get_conf('linkToUserInfo') )
-    {
-        echo '<a href="userInfo.php?uInfo=' . $thisUser['user_id']
-        .    claro_url_relay_context('&amp;') . '">'
-        .    ucfirst(strtolower($thisUser['nom']))
-        .    '</a>'
-        ;
-    }
-    else
-    {
-        echo ucfirst(strtolower($thisUser['nom']));
-    }
+	$next     = $offset + $step;
+	$previous = $offset - $step;
 
-    echo '</td>'
-    .    '<td align="left">' . $thisUser['prenom'] . '</td>'
+	$navLink = "<table summary=\"".$langSummaryNavBar."\" width=\"100%\" border=\"0\">\n"
+	          ."<tr >\n"
+			  ."<td align=\"left\">";
 
+	if ($previous >= 0)
+	{
+		$navLink .= "<small><a href=\"$PHP_SELF?offset=$previous\">&lt;&lt; </a></small>";
+	}
 
-    // User profile column
-    .    '<td align="left">'
-    .    claro_get_profile_name($thisUser['profile_id'])
-    .    '</td>' . "\n"
-    ;
+	$navLink .= "</td>\n"
+	           ."<td align=\"right\">";
 
-    // User role column
-    if ( empty($thisUser['role']) )    // NULL and not '0' because team can be inexistent
-    {
-        echo '<td> - </td>'."\n";
-    }
-    else
-    {
-        echo '<td>'.$thisUser['role'].'</td>'."\n";
-    }
+	if ($next < $userTotalNb)
+	{
+		$navLink .= "<small><a href=\"$PHP_SELF?offset=$next\">&gt;&gt;</a></small>";
+	}
 
-    // User group column
-    if ( !isset ($usersGroup[$thisUser['user_id']]) )    // NULL and not '0' because team can be inexistent
-    {
-        echo '<td> - </td>'."\n";
-    }
-    else
-    {
-        $userGroups = $usersGroup[$thisUser['user_id']];
-        echo '<td>'."\n";
-        reset($userGroups);
-        while (list($thisGroupsNo,$thisGroupsName)=each($userGroups))
-        {
-            echo '<div>'
-               . $thisGroupsName["nameTeam"]
-               . ' <small>('.$thisGroupsNo.')</small>'
-               . '</div>';
-        }
-        echo '</td>'."\n";
-    }
+	$navLink .= "</td>\n"
+	           ."</tr>\n"
+	           ."</table>\n";
+}
+else
+{
+	$offset = 0;
+}
 
-    if ($previousUser == $thisUser['user_id'])
-    {
-        echo '<td>&nbsp;</td>'."\n";
-    }
-    elseif ( $is_allowedToEdit )
-    {
-        // Tutor column
-        if($thisUser['tutor'] == '0')
-        {
-            echo '<td> - </td>' . "\n";
-        }
-        else
-        {
-            echo '<td>' . get_lang('Group Tutor') . '</td>' . "\n";
-        }
+echo $navLink;
 
-        // course manager column
-        if($thisUser['isCourseManager'] == '1')
-        {
-            echo '<td>' . get_lang('Course manager') . '</td>' . "\n";
-        }
-        else
-        {
-            echo '<td> - </td>' . "\n";
-        }
+// NOTE !! NEED ALSO 'SHOW ALL USERS'
 
-        // Edit user column
-        echo '<td>'
-        .    '<a href="userInfo.php?editMainUserInfo='.$thisUser['user_id']
-        .    claro_url_relay_context('&amp;') . '">'
-        .    '<img border="0" alt="'.get_lang('Edit').'" src="' . get_path('imgRepositoryWeb') . '/edit.gif" />'
-        .    '</a>'
-        .    '</td>' . "\n"
+$i= $offset;
 
-        // Unregister user column
-        .    '<td>'
-        ;
-
-        if ($thisUser['user_id'] != claro_get_current_user_id())
-        {
-            echo '<a href="'.$_SERVER['PHP_SELF']
-            .    '?cmd=unregister&amp;user_id=' . $thisUser['user_id']
-            .    claro_url_relay_context('&amp;') . '" '
-            .    'onclick="return confirmation(\''.clean_str_for_javascript(get_lang('Unregister') .' '.$thisUser['nom'].' '.$thisUser['prenom']).'\');">'
-            .    '<img border="0" alt="' . get_lang('Unregister') . '" src="' . get_path('imgRepositoryWeb') . '/unenroll.gif" />'
-            .    '</a>'
-            ;
-        }
-
-        echo '</td>' . "\n";
-
-    }  // END - is_allowedToEdit
-
-    echo '</tr>'."\n";
-
-    $previousUser = $thisUser['user_id'];
-
-} // END - foreach users
-
-/*----------------------------------------------------------------------
-   Display table footer
-  ----------------------------------------------------------------------*/
-
-echo '</tbody>' . "\n"
-.    '</table>' . "\n"
-;
-
-/*
-if ( count($userGrid) > 0 ) echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
-
-echo $userDataGrid->render();
-
-if ( count($userGrid) > 0 ) echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
-*/
+/*----------------------------------------
+              COLUMN HEADERS
+ --------------------------------------*/
 
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+echo	"<table class=\"claroTable\" ",
+		"width=\"100%\" cellpadding=\"2\" cellspacing=\"1\" ",
+		"border=\"0\" summary=\"".$langSummaryTable."\">\n",
+
+		"<colgroup span=\"3\" align=\"left\"></colgroup>";
+
+	if($is_allowedToEdit)
+	{
+		echo	"<colgroup span=\"2\"></colgroup>",
+				"<colgroup span=\"2\" width=\"0\" ></colgroup>";
+	}
+
+	echo	"<thead>",
+			"\n<tr class=\"headerX\" align=\"center\" valign=\"top\">",
+			"\n<th scope=\"col\" id=\"name\">",$langUserName,"</th>",
+			"\n<th scope=\"col\" id=\"role\">",$langRole,"</th>",
+			"\n<th scope=\"col\" id=\"team\">",$langGroup,"</th>\n";
+
+	if($is_allowedToEdit) // EDIT COMMANDS
+	{
+		echo	"\n<th scope=\"col\" id=\"tut\"  >",$langTutor,"</th>",
+				"\n<th scope=\"col\" id=\"CM\"   >",$langCourseManager,"</th>",
+				"\n<th scope=\"col\" id=\"edit\" >",$langEdit,"</th>",
+				"\n<th scope=\"col\" id=\"del\"  >",$langUnreg,"</th>\n";
+	}
+
+echo	"\n</tr>",
+		"\n</thead>",
+		"\n<tbody>";
+
+/*==========================
+      DB USERS SEARCH
+  ==========================*/
+
+
+$resultUsers = claro_sql_query("SELECT `user`.`user_id`, `user`.`nom`, `user`.`prenom`, `user`.`email`,
+                              `cours_user`.`statut`, `cours_user`.`tutor`, `cours_user`.`role`,
+                               `ug`.`team` ,
+                               `sg`.`name` nameTeam
+
+                        FROM `$tbl_users` `user`, `$tbl_courses_users` `cours_user`
+                        LEFT JOIN `".$tbl_rel_users_groups."` `ug`
+                        ON `user`.`user_id`=`ug`.`user`
+                        LEFT JOIN `".$tbl_groups."` `sg`
+                        ON `ug`.`team` = `sg`.`id`
+                        WHERE `user`.`user_id`=`cours_user`.`user_id`
+                        AND `cours_user`.`code_cours`='".$currentCourseID."'
+
+                        ORDER BY
+                            `cours_user`.`statut` ASC,
+                            `cours_user`.`tutor` DESC,
+                            UPPER(`user`.`nom`),
+                            UPPER(`user`.`prenom`),
+                            UPPER(`sg`.`name`)
+
+                        LIMIT $offset, $step"); // ORDER BY cours_user.statut, tutor DESC, nom, prenom
+
+$sqlGetUsers ="SELECT `user`.`user_id`, `user`.`nom`, `user`.`prenom`, 
+                      `user`.`email`, `cours_user`.`statut`, 
+                      `cours_user`.`tutor`, `cours_user`.`role`
+               FROM `".$tbl_users."` `user`, `".$tbl_courses_users."` `cours_user`
+               WHERE `user`.`user_id`=`cours_user`.`user_id`
+               AND `cours_user`.`code_cours`='".$currentCourseID."'
+               ORDER BY `cours_user`.`statut` ASC, `cours_user`.`tutor` DESC,
+                        UPPER(`user`.`nom`), UPPER(`user`.`prenom`)
+			   LIMIT $offset, $step";
+
+$resultUsers = claro_sql_query($sqlGetUsers);
+
+// ORDER BY cours_user.statut, tutor DESC, nom, prenom
+while ($thisUser = mysql_fetch_array($resultUsers,MYSQL_ASSOC))
+{
+	$users[$thisUser["user_id"]]	= $thisUser;
+	$usersId[]	= $thisUser["user_id"];
+}
+
+$sqlGroupOfUsers = "SELECT `ug`.`user` uid, `ug`.`team` team, 
+                    `sg`.`name` nameTeam
+                    FROM `".$tbl_rel_users_groups."` `ug`
+                    LEFT JOIN `".$tbl_groups."` `sg`
+                    ON `ug`.`team` = `sg`.`id`
+                    WHERE `ug`.`user` IN (".implode(",",$usersId).")";
+
+$resultUserGroup = claro_sql_query($sqlGroupOfUsers);
+
+while ($thisAffiliation = mysql_fetch_array($resultUserGroup,MYSQL_ASSOC))
+{
+	$usersGroup[$thisAffiliation['uid']][$thisAffiliation["team"]]["nameTeam"]	= $thisAffiliation["nameTeam"];
+}
+
+/*==========================
+      USERS LIST DISPLAY
+  ==========================*/
+
+$previousUser = "";
+reset($users);
+$idColor = 1;
+$colorArr[1] 	= $colorEvenLines;
+$colorArr[-1] 	= $colorOddLines;
+
+while (list(,$thisUser) = each($users))
+{
+	// User name column
+	$i++;
+
+	echo	"\n<tr align=\"center\" valign=\"top\">",
+
+			"\n<td id=\"u".$i."\" headers=\"name\" align=\"left\">",
+
+			"\n<small>\n",$i,"</small>\n&nbsp;",
+			"<a href=\"userInfo.php?uInfo=",$thisUser['user_id'],"\">",
+			$thisUser['prenom']," ",$thisUser['nom'],
+			"</a>",
+
+			"</td>\n";
+	// User role column
+
+	echo	"<td headers=\"role u".$i."\" align=\"left\">",$thisUser["role"],"</td>\n";
+
+	// User group column
+	$userGroups = $usersGroup[$thisUser['user_id']];
+	if($userGroups == NULL)	// NULL and not '0' because team can be inexistent
+	{
+		echo "\n<td headers=\"team\" > - </td>";
+	}
+	else
+	{
+		echo	"\n<td headers=\"team u".$i."\">";
+		reset($userGroups);
+
+		while (list($thisGroupsNo,$thisGroupsName)=each($userGroups))
+		{
+			echo 	"\n<div>",
+					"\n",$thisGroupsName["nameTeam"],"",
+					"\n<small>(".$thisGroupsNo.")</small>",
+					"\n</div>";
+		}
+
+		echo "\n</td>\n";
+	}
+
+
+	if ($previousUser == $thisUser['user_id'])
+	{
+		echo 	"<td headers=\"team u".$i."\" >\n</td>\n";
+	}
+	elseif($is_allowedToEdit)
+	{
+		// Tutor column
+
+		if($thisUser['tutor'] == '0')
+		{
+			echo	"<td headers=\"tut u".$i."\"> - </td>\n";
+		}
+		else
+		{
+			echo	"<td headers=\"tut u".$i."\">",$langTutor,"</td>\n";
+		}
+
+		// course manager column
+
+		if($thisUser['statut'] == '1')
+		{
+			echo 	"<td headers=\"CM u".$i."\">",$langCourseManager,"</td>\n";
+		}
+		else
+		{
+			echo 	"<td headers=\"CM u".$i."\"> - </td>\n";
+		}
+
+		// Edit user column
+
+		echo	"<td headers=\"edit u".$i."\">",
+				"<a href=\"userInfo.php?editMainUserInfo=".$thisUser[user_id]."\">",
+				"<img border=\"0\" alt=\"".$langEdit."\" src=\"".$clarolineRepositoryWeb."img/edit.gif\">",
+				"</a>",
+				"</td>\n";
+
+		// Unregister user column
+		echo "<td headers=\"del u".$i."\" >";
+
+		if ($thisUser["user_id"] != $_uid)
+		{
+			echo	"<a href=\"$PHP_SELF?unregister=yes&user_id=".$thisUser[user_id]."\" ",
+					"onClick=\"return confirmation('".$langUnreg ." ".$thisUser["nom"]."".$thisUser["prenom"]."');\">",
+					"<img border=\"0\" alt=\"".$langUnreg."\" src=\"".$clarolineRepositoryWeb."img/unenroll.gif\">",
+					"</a>";
+		}
+
+		echo	"</td>\n";
+	}													// END - is_allowedToEdit
+
+	echo	"</tr>\n";
+
+	$previousUser = $thisUser['user_id'];
+} 							// END - while fetch_array
+
+echo	"</tbody>",
+		"</table>\n";
+
+echo $navLink;
+
+include($includePath."/claro_init_footer.inc.php");
 ?>
