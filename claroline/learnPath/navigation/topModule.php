@@ -2,9 +2,9 @@
 /**
  * CLAROLINE 
  *
- * @version 1.8 $Revision$
+ * @version 1.7 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001, 2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -23,27 +23,25 @@
        CLAROLINE MAIN
   ======================================*/
 
-require '../../inc/claro_init_global.inc.php';
+  require '../../inc/claro_init_global.inc.php';
 
-$interbredcrump[]= array ("url"=>"../learningPathList.php", "name"=> get_lang('Learning path list'));
-if ( claro_is_course_manager() && (!isset($_SESSION['asStudent']) || $_SESSION['asStudent'] == 0 ) )
-{
-       $interbredcrump[]= array ("url"=>"../learningPathAdmin.php", "name"=> get_lang('Learning path admin'));
-}
-else
-{
-       $interbredcrump[]= array ("url"=>"../learningPath.php", "name"=> get_lang('Learning path'));
-}
-$interbredcrump[]= array ("url"=>"../module.php", "name"=> get_lang('Module'));
-//$htmlHeadXtra[] = "<script src=\"APIAdapter.js\" type=\"text/javascript\" language=\"JavaScript\">";
-//header
-$hide_body = true;
+  $interbredcrump[]= array ("url"=>"../learningPathList.php", "name"=> $langLearningPathList);
+  if ( $is_courseAdmin && (!isset($_SESSION['asStudent']) || $_SESSION['asStudent'] == 0 ) )
+  {
+       $interbredcrump[]= array ("url"=>"../learningPathAdmin.php", "name"=> $langLearningPathAdmin);
+  }
+  else
+  {
+       $interbredcrump[]= array ("url"=>"../learningPath.php", "name"=> $langLearningPath);
+  }
+  $interbredcrump[]= array ("url"=>"../module.php", "name"=> $langModule);
+  //$htmlHeadXtra[] = "<script src=\"APIAdapter.js\" type=\"text/javascript\" language=\"JavaScript\">";
+  //header
+  $hide_body = true;
+  include($includePath."/claro_init_header.inc.php");
+  // footer
+  $hide_footer = true;
+  include($includePath."/claro_init_footer.inc.php");
 
-// Turn off session lost
-$warnSessionLost = false ;
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-// footer
-$hide_footer = true;
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>

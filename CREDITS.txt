@@ -1,5 +1,5 @@
 *******************************************************************************
-                            CLAROLINE 1.8 - CREDITS
+                            CLAROLINE 1.7 - CREDITS
 *******************************************************************************
 
 The Claroline project was initiated in 2000 at the Catholic University of
@@ -48,8 +48,8 @@ Events since last visit :       René Haentjens (rene.haentjens@intec.ugent.be)
 Quizz Tool :                    Olivier Brouckaert (oli.brouckaert@skynet.be)
                                 Sebastien Piraux (piraux@cerdecam.be)
 
-Learning Path Tool :            Sebastien Piraux (Cerdecam)
-                                Guillaume Lederer
+Learning Path Tool :            Guillaume Lederer
+                                Sebastien Piraux (Cerdecam)
 
 Tracking system :               Sebastien Piraux (piraux@cerdecam.be)
 
@@ -175,13 +175,6 @@ Claroline Documentation :       Andrew Lynn (alynn@strathclyde.ac.be)
                                 Dalton Piegas Simoni
                                 Maria Jose Rodriges Malmierca
 
-------------------------------------------------------------------------------
-                                SECURITY
-------------------------------------------------------------------------------
-Zone-H Team :                   Deepfear
-                                Netcraft
-                                Siegfried
-
 =========================================================================
-                Europe, Belgium, Louvain-la-Neuve - August 28 2006
+                Europe, Belgium, Louvain-la-Neuve - August 23 2005
 ================================== END ===================================

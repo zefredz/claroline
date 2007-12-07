@@ -1,11 +1,10 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.7 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001, 2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -22,6 +21,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * DB tables definition
  */
+if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die('---');
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_user            = $tbl_mdb_names['user'             ];
@@ -38,14 +38,14 @@ $TABLEASSET              = $tbl_lp_asset;
 $TABLEUSERMODULEPROGRESS = $tbl_lp_user_module_progress;
 $TABLEUSERS              = $tbl_user;
 
-$SCORMServerURL = get_module_url('CLLNP') . '/navigation/SCORMserver.php';
-$redirectionURL = get_module_url('CLLNP') . '/learningPath.php';
-$TOCurl = get_module_url('CLLNP') . '/navigation/tableOfContent.php';
+$SCORMServerURL = $clarolineRepositoryWeb."learnPath/navigation/SCORMserver.php";
+$redirectionURL = $clarolineRepositoryWeb."learnPath/learningPath.php";
+$TOCurl = $clarolineRepositoryWeb."learnPath/navigation/tableOfContent.php";
 /*======================================
        CLAROLINE MAIN
   ======================================*/
 
-if(claro_is_user_authenticated())
+if($_uid)
 {
     // Get general information to generate the right API inmplementation
     $sql = "SELECT *
@@ -53,7 +53,7 @@ if(claro_is_user_authenticated())
                    `".$TABLELEARNPATHMODULE."` AS LPM,
                    `".$TABLEUSERS."` AS U,
                    `".$TABLEMODULE."` AS M
-             WHERE UMP.`user_id` = ". (int)claro_get_current_user_id()."
+             WHERE UMP.`user_id` = ". (int)$_uid."
                AND UMP.`user_id` = U.`user_id`
                AND UMP.`learnPath_module_id` = LPM.`learnPath_module_id`
                AND M.`module_id` = LPM.`module_id`
@@ -63,7 +63,7 @@ if(claro_is_user_authenticated())
     $userProgressionDetails = claro_sql_query_get_single_row($sql);
 }
 
-if( ! claro_is_user_authenticated() || !$userProgressionDetails )
+if( !$_uid || !$userProgressionDetails )
 {
     $sco['student_id'] = "-1";
     $sco['student_name'] = "Anonymous, User";
@@ -72,8 +72,8 @@ if( ! claro_is_user_authenticated() || !$userProgressionDetails )
     $sco['lesson_status'] = "not attempted";
     $sco['entry'] = "ab-initio";
     $sco['raw'] = "";
-    $sco['scoreMin'] = "0";
-    $sco['scoreMax'] = "100";
+    $sco['scoreMin'] = "";
+    $sco['scoreMax'] = "";
     $sco['total_time'] = "0000:00:00.00";
     $sco['suspend_data'] = "";
     $sco['launch_data'] = "";
@@ -81,7 +81,7 @@ if( ! claro_is_user_authenticated() || !$userProgressionDetails )
 else // authenticated user and no error in query
 {
     // set vars
-    $sco['student_id'] = claro_get_current_user_id();
+    $sco['student_id'] = $_uid;
     $sco['student_name'] = $userProgressionDetails['nom'].", ".$userProgressionDetails['prenom'];
     $sco['lesson_location'] = $userProgressionDetails['lesson_location'];
     $sco['credit'] = strtolower($userProgressionDetails['credit']);
@@ -103,6 +103,7 @@ $sco['exit'] = "";
 $sco['session_time'] = "0000:00:00.00";
 
 ?>
+
 <script type="text/javascript">
 
         var init_total_time = "<?php echo $sco['total_time']; ?>";

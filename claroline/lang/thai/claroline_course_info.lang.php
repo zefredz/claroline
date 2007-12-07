@@ -1,0 +1,31 @@
+<?php
+$langAgenda = "กำหนดการ";
+$langCancel = "ยกเลิก";
+$langChat = "Chat";
+$langCode = "รหัสวิชา";
+$langCopy = "ย้าย";
+$langCourseTitle = "ชื่อวิชา";
+$langDay_of_weekNames = "Array";
+$langDocument = "เอกสาร";
+$langEmail = "Email";
+$langForums = "กระดานข่าว";
+$langGroups = "กลุ่ม";
+$langHelp = "ช่วยเหลือ";
+$langHome = "กลับหน้าแรก";
+$langLogout = "Logout";
+$langModifyProfile = "ปรับปรุงข้อมูลส่วนตัว";
+$langMonthNames = "Array";
+$langMyCourses = "My courses";
+$langNameOfLang = "Array";
+$langNo = "ไม่";
+$langNotAllowed = "ไม่อนุญาต";
+$langOk = "ตกลง";
+$langOtherCourses = "รายชื่อรายวิชา";
+$langPoweredBy = "Powered by";
+$langProfessors = "อาจารย์";
+$langStatistics = "สถิติ";
+$langStudent = "นักศึกษา";
+$langTo = "ไปยัง";
+$langUsers = "Users";
+$langYes = "ใช่";
+?>

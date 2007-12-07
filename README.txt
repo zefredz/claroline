@@ -1,5 +1,5 @@
 ******************************************
-        CLAROLINE 1.9 alpha - README
+        CLAROLINE 1.7.6 - README
 ******************************************
 
 TABLE OF CONTENT :
@@ -12,6 +12,7 @@ TABLE OF CONTENT :
   6. CONTACT
   7. NEW FEATURES
 
+
 1. DESCRIPTION
    ===========
 
@@ -23,7 +24,7 @@ The system provides group management, forums, document repositories, calendar,
 chat, assignment areas, links, user profile administration on a single and
 highly integrated package.
 
-Claroline is translated in 34 languages and used by hundreds of institutions
+Claroline is translated in 32 languages and used by hundreds of institutions
 around world. The software was initially started by the University of Louvain
 (Belgium) and released under Open Source licence (GPL). Since then, a
 community of developers around the world contributes to its development.
@@ -74,57 +75,6 @@ at :
 7. NEW FEATURES
    ============
 
-NEW FEATURES IN CLAROLINE 1.8.3 SINCE CLAROLINE 1.8.0
------------------------------------------------------
-
-* Bug Fixes ; For more details, see the changelog on our documentation wiki :
-  http://www.claroline.net/wiki/index.php/Changelog_1.8.x
-
-NEW FEATURES IN CLAROLINE 1.8.0 SINCE CLAROLINE 1.7
------------------------------------------------------
-
-This new stable version, that comes with a new logo, offers a bunch of interesting new features :
-
- * A new default layout
- * Module system : build your own Claroline extension
- * User rights and profiles are now completely customizable
- * Classes management improved
- * Personal language selector
- * Course Tools Improvements :
-  o Documents : Download all documents in a compressed file
-  o Exercises : Import/export your exercises, ...
-  o Wiki : Internal search engine
- * Configuration : many new parameters
-
-You'll find more information and screenshots about Claroline 1.8 in our detailed claroline 1.8 page :
-
- * http://www.claroline.net/doc/en/index.php/Claroline_18
-
-NEW FEATURES IN CLAROLINE 1.7.7 SINCE CLAROLINE 1.7.6
------------------------------------------------------
-* Translation
-  * new greek lang file with 8 corrections (since 1.7.5) by Spiros Ioannou
-  * the html editor that uses inc/htmlarea/lang/el.js doesn't work with greek
-  at all because all translations in el.js are 16-bit (UTF-8) while the other
-  site is iso-8859-7 (8bit). The result is seeing garbage on the editor menus,
-  buttons etc. I translated el.js with iconv (iconv -f UTF-8 -t ISO8859-7) and
-  I send you the correct one that works ok !
-
-* Security Fix
-  * Remote inclusion have been discovered in these scripts.
-    Platform in register_globals off and/or allow_url_open off are not vulnerable.
-    * claroline/auth/extauth/driver/postnuke.inc.php
-    * claroline/auth/extauth/driver/mambo.inc.php
-    (THANKS TO ZONE-H Team, again)
-
-* Improve Security
-  * protect blindness all included file to prevent other injection.
-
-* Bugs
-  * Documents and links : directory named 0 (zero) causes claro_delete_file to exit without deleting all files in a directory (bug #478)
-  * Wiki : now wiki page title is always case sensitive
-  * Wiki : fix some javascript warning 
-
 NEW FEATURES IN CLAROLINE 1.7.6 SINCE CLAROLINE 1.7.5
 -----------------------------------------------------
 
@@ -138,7 +88,7 @@ NEW FEATURES IN CLAROLINE 1.7.6 SINCE CLAROLINE 1.7.5
 
 * New layouts
 
-  * 1 new Layout : clarcom.css, a new corporate CSS designed by Laurent Colet
+  * 1 new Layout : clarcomm.css, a new corporate CSS designed by Laurent Colet
                    in the context of an internship at Cerdecam Research Center (Brussels)
 
 Fixed bugs and improvements
@@ -171,11 +121,11 @@ NEW FEATURES IN CLAROLINE 1.7.5 SINCE CLAROLINE 1.7.4
 
 This version integrates the last security fixes of claroline 1.7. We highly recommend to upgrade to this recent version.
 
-* New translation : Slovenian 100% by Sergej Rinc - http://sergej.rinc.ws
+* New translation : Slovenian 100% by Sergej Rinc - http://sergej.rinc.ws 
 
-* New layouts : claroffice.css, caucase.css and netscape.css
+* New layouts : claroffice.css, caucase.css and netscape.css 
 
-* Bug fixes :
+* Bug fixes : 
     * Add user : Deep redesign of the user addition workflow
     * Assigments : Don't update visibility when editing assignment settings
     * Forum : Change the way rank moving is done for forums and categories
@@ -486,5 +436,5 @@ is taken into account, at what stage and by who.
 
 
 =========================================================================
-                Europe, Belgium, Louvain-la-Neuve - October 25 2006
+                Europe, Belgium, Louvain-la-Neuve - February 17 2006
 ================================== END ===================================

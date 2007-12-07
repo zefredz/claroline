@@ -1,0 +1,95 @@
+<?php
+$langAdministration = "Administratie";
+$langAgenda = "Agenda";
+$langAllUsersOfThisCourse = "Membrii cursului";
+$langAllowed = "Autorizat";
+$langAnnouncement = "Anunturi";
+$langBackHomeOf = "Inapoi la pagina de inceput a ";
+$langBackToAdmin = "Inapoi la pagina de administrare";
+$langBackToList = "Inapoi la lista";
+$langByDel = "Stergand acest website al cursului se vor sterge totodata si toate documentele pe care le contine si toti studentii inscrisi vor fi dezabonati (dar nu vor fi dezabonati de la alte cursuri). <p>
+Vrei sa stergi acest curs";
+$langCancel = "Anuleaza
+";
+$langCategory = "Categorie";
+$langChat = "Chat";
+$langCode = "Codul cursului";
+$langConfTip = "Implicit, cursul tau este accesibil tuturor. Pentru un minimum de confidentialitate, cea mai simpla cale este sa deschizi o perioada de inregistrare de o saptamana, sa rogi studentii sa se inregistreze, apoi sa inchizi perioada de inregistrare si sa verifici in lista utilizatorilor posibilii intrusi. ";
+$langCopy = "Copiaza";
+$langCourse = "Cursul";
+$langCourseAccess = "Accesul la curs";
+$langCourseHome = "Inceputul Cursului";
+$langCourseManager = "Administratorul cursului";
+$langCourseSettings = "Setarile cursului";
+$langCourseTitle = "titlul cursului";
+$langDay_of_weekNames = "Array";
+$langDelCourse = "Sterge tot site-ul cursului";
+$langDenied = "Refuzat";
+$langDepartmentUrl = "URL-ul Departamentului";
+$langDepartmentUrlName = "Departament";
+$langDescriptionCours = "Descrierea cursului";
+$langDocument = "Documente si Linkuri";
+$langEditToolList = "Editeaza lista de instrumente";
+$langEmail = "Email";
+$langErrorCategoryEmpty = "Categoria nu poate fi golita";
+$langErrorCourseCodeEmpty = "Codul Cursului nu poate fi sters
+
+
+";
+$langErrorCourseTitleEmpty = "Titlul cursului nu poate fi sters";
+$langErrorDepartmentEmpty = "Departamentul nu poate fi sters";
+$langErrorDepartmentURLEmpty = "Depatamentul URL nu poate fi sters";
+$langErrorDepartmentURLWrong = "Departamentul URL este invalid";
+$langErrorEmailEmpty = "Email nu poate fi sters";
+$langErrorEmailInvalid = "Emailul este invalid";
+$langErrorLanguageEmpty = "Limbajul nu poate fi sters";
+$langErrorLecturerEmpty = "Profesorul nu poate fi sters";
+$langExercises = "Exercitii";
+$langForums = "Forumuri";
+$langGroups = "Grupuri";
+$langHasDel = "a fost sters";
+$langHelp = "Ajutor
+";
+$langHome = "Inapoi la pagina de start";
+$langLanguage = "Limba";
+$langLearningPath = "Parcurs Pedagogic";
+$langLegendRequiredFields = "Campurile precedente ale <span class=\"required\">*</span> sunt obligatorii";
+$langLogin = "Logare";
+$langLogout = "Delogare";
+$langMinuteShort = "min.";
+$langModifDone = "Informatia a fost modificata";
+$langModifyProfile = "Modifica profilul meu";
+$langMonthNames = "Array";
+$langMyAgenda = "Calendarul meu";
+$langMyCourses = "Lista cursurilor mele";
+$langNameOfLang = "Array";
+$langNo = "Nu";
+$langNotAllowed = "Nepermis";
+$langOk = "Ok";
+$langOptional = "Optional";
+$langOtherCourses = "Lista cursurilor";
+$langPeriodDayShort = "d.";
+$langPeriodHourShort = "h.";
+$langPlatformAdministration = "Administrarea platformei";
+$langPoweredBy = "Bazat pe";
+$langPrivateAccess = "Acces particular (site accesibil numai persoanelor din <a href=../user/user.php>User list</a>)";
+$langProfessors = "Lector(i)";
+$langPublicAccess = "Acces public din pagina de start a campusului fara autentificare";
+$langSecondShort = "sec.";
+$langStatistics = "statistici";
+$langStudent = "Cursant";
+$langSubscription = "Inscriere";
+$langSwitchEditorToTextConfirm = "Aceasta comanada va anula aranjarea in pagina a textului curent. Vrei sa continui?";
+$langTextEditorDisable = "Dezactiveaza editorul de text";
+$langTextEditorEnable = "Activeaza Editorul de text";
+$langTipLang = "Acest limbaj va fi valid pentru fiecare vizitator al websitului cursului tau.";
+$langTo = "la";
+$langUsers = "Utilizatori";
+$langViewMode = "Modalitatea de vizionare";
+$langWiki = "Wiki";
+$langWork = "Teme";
+$langYes = "Da";
+$lang_enroll = "Inscriere";
+$lang_footer_p_CourseManager = "Administrator (i) %s";
+$lang_p_platformManager = "Administrator pentru  %s";
+?>

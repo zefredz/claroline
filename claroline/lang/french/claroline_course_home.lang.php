@@ -1,0 +1,75 @@
+<?php
+$langActivate = "activer";
+$langAddExternalTool = "Ajouter un lien externe";
+$langAddIntro = "Ajouter un texte d'introduction";
+$langAddedExternalTool = "Lien externe ajouté.";
+$langAgenda = "Agenda";
+$langAnnouncement = "Annonces";
+$langAreYouSureToDelete = "Êtes-vous certain(e) de vouloir supprimer ";
+$langCancel = "Annuler";
+$langChangedTool = "L'accès au lien a été modifié.";
+$langChat = "Discussion";
+$langConfirmYourChoice = "Veuillez confirmer votre choix";
+$langCourseHome = "Accueil";
+$langCourseManager = "Gestionnaire de cours";
+$langCourseSettings = "Paramètres du cours";
+$langDay_of_weekNames = "Array";
+$langDelete = "Supprimer";
+$langDeletedExternalTool = "Lien externe effacé";
+$langDescriptionCours = "Description du cours";
+$langDocument = "Documents et liens";
+$langEditToolList = "Modifier la liste d'outils";
+$langExercises = "Exercices";
+$langExternalToolName = "Nom du lien";
+$langExternalToolUrl = "URL du lien";
+$langForums = "Forums";
+$langGroups = "Groupes";
+$langHelp = "Aide";
+$langHome = "Retourner à la page d'accueil";
+$langIntroCourse = "Bienvenue sur la page d'accueil du cours.<br /><br />Sur cette page, vous pouvez&nbsp;:
+<ul>
+<li>activer ou désactiver des outils (cliquer sur Modifier la liste d'outils en bas à gauche)&nbsp;
+<li>changer les paramètres ou voir les statistiques du cours (cliquer sur les liens correspondants).
+</ul>
+Pour présenter votre cours aux étudiants, cliquer sur Ajouter un texte d'introduction ci-dessous.<br />";
+$langIntroEditToolList = "Sélectionnez les outils que vous voulez activer.
+En mode d'affichage Étudiant, les outils désactivés seront invisiblesanbsp;en mode d'affichage Gestionnaire du cours, ils apparaîtront en grisé dans la page d'accueil du cours.";
+$langLearningPath = "Parcours pédagogique";
+$langLogin = "login";
+$langLogout = "Quitter";
+$langMinuteShort = "min.";
+$langMissingValue = "Valeur manquante";
+$langModify = "Modifier";
+$langModifyProfile = "Mon compte utilisateur";
+$langMonthNames = "Array";
+$langMyAgenda = "Mon agenda";
+$langMyCourses = "Liste de mes cours";
+$langNameOfLang = "Array";
+$langNewLegend = "Nouveautés";
+$langNotAllowed = "Vous n'êtes pas autorisé à accéder à cette section";
+$langOk = "OK";
+$langOtherCourses = "Liste des cours";
+$langPeriodDayShort = "j.";
+$langPeriodHourShort = "h";
+$langPlatformAdministration = "Gérer la plate-forme";
+$langPoweredBy = "Utilise la plate-forme";
+$langSecondShort = "sec";
+$langStatistics = "Statistiques";
+$langStudent = "Étudiant";
+$langSwitchEditorToTextConfirm = "Cette commande supprimera la mise en page courante du texte. Continuer ?";
+$langTextEditorDisable = "Désactiver l'éditeur de texte";
+$langTextEditorEnable = "Activer l'éditeur de texte";
+$langTools = "Outils";
+$langUnableAddExternalTool = "Impossible d'ajouter cet outil";
+$langUnableChangedTool = "Impossible de changer l'accès au lien";
+$langUnableDeleteExternalTool = "Impossible de supprimer le lien externe";
+$langUnableUpdateExternalTool = "Impossible de changer le lien externe";
+$langUpdatedExternalTool = "Lien externe modifié";
+$langUsers = "Utilisateurs";
+$langViewMode = "Mode de vue";
+$langWiki = "Wiki";
+$langWork = "Travaux";
+$lang_enroll = "Inscription";
+$lang_footer_p_CourseManager = "Gestionnaire(s) du cours %s";
+$lang_p_platformManager = "Administrateur %s";
+?>

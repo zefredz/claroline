@@ -1,12 +1,12 @@
 <?php // $Id$
 /**
- * CLAROLINE
+ * CLAROLINE 
  *
- * @version 1.8 $Revision$
+ * @version 1.7 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  *
  * @package LANG-EN
  *
@@ -19,6 +19,7 @@ $iso639_2_code = "eng";
 unset($langNameOfLang);
 unset($langDay_of_weekNames);
 unset($langMonthNames);
+unset($byteUnits);
 
 $langNameOfLang['arabic']        = "arabian";
 $langNameOfLang['brazilian']     = "brazilian";
@@ -36,7 +37,7 @@ $langNameOfLang['greek']         = "greek";
 $langNameOfLang['italian']       = "italian";
 $langNameOfLang['indonesian']    = "indonesian";
 $langNameOfLang['japanese']      = "japanese";
-$langNameOfLang['malay']         = "malay";
+$langNameOfLang['malay']         = "malay"; 
 $langNameOfLang['polish']        = "polish";
 $langNameOfLang['portuguese']    = "portuguese";
 $langNameOfLang['russian']       = "russian";
@@ -47,7 +48,6 @@ $langNameOfLang['swedish']       = "swedish";
 $langNameOfLang['thai']          = "thai";
 $langNameOfLang['turkish']       = "turkish";
 $langNameOfLang['vietnamese']    = "vietnamese";
-$langNameOfLang['zh_tw']         = "traditional chinese";
 
 $charset = 'iso-8859-1';
 $text_dir = 'ltr'; // ('ltr' for left to right, 'rtl' for right to left)

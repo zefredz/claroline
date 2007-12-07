@@ -1,14 +1,13 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.7 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
- * 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
  * @author claroline Team <cvs@claroline.net>
  * @author Renaud Fallier <renaud.claroline@gmail.com>
  * @author Frédéric Minne <minne@ipm.ucl.ac.be>
@@ -16,14 +15,15 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @package CLLINKER
  *
  */
+if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die('---');
 require_once dirname(__FILE__) . '/linker.lib.php';
 require_once dirname(__FILE__) . '/CRLTool.php';
 require_once dirname(__FILE__) . '/../inc/lib/course_utils.lib.php';
 require_once dirname(__FILE__) . '/../inc/lib/claro_utils.lib.php';
 
 /**
-    * Class Resolver 
-    * is a abstact class   
+    * Class Resolver
+    * is a abstact class
     *
     * @author Fallier Renaud
     */
@@ -50,10 +50,10 @@ class Resolver
     }
 
     /**
-        * translated a crl into valid URL 
+        * translated a crl into valid URL
         *
         * @param $CRL string a crl
-        * @return string a url valide who corresponds to the crl  
+        * @return string a url valide who corresponds to the crl
         */
     function resolve($crl)
     {
@@ -111,7 +111,6 @@ class Resolver
     {
         if( isset( $tool_name ) )
         {
-            $tool_name = str_pad( $tool_name, 8, '_' );
             $tool =  $tool_name . 'Resolver';
             require_once dirname(__FILE__) . '/' . $tool . '.php';
             $resolver = new $tool($this->_basePath);
@@ -128,7 +127,7 @@ class Resolver
         * get the name of a reso
         *
         * @param $crl a crl valide
-        * @return 
+        * @return
         */
     function getResourceName($crl)
     {
@@ -164,7 +163,7 @@ class Resolver
         }
         else
         {
-            $tool =  str_pad( $elementCRLArray['tool_name'] . 'Resolver', 8, '_' );
+            $tool =  $elementCRLArray['tool_name'] . 'Resolver';
             require_once dirname(__FILE__) . '/' . $tool . '.php';
             $resolver = new $tool($this->_basePath);
 
@@ -173,10 +172,10 @@ class Resolver
     }
 
     /**
-        * translated a crl into valid URL 
+        * translated a crl into valid URL
         *
         * @param $CRL string a crl
-        * @return string a url valide who corresponds to the crl  
+        * @return string a url valide who corresponds to the crl
         */
     function _resolve($crl)
     {
@@ -188,8 +187,8 @@ class Resolver
             {
                 trigger_error('ERROR: tool_name required',E_USER_ERROR);
             }
-            
-            $url = $this->_getToolPath($elementCRLArray['tool_name']);
+
+            $url = $this->_basePath . '/claroline/' . $this->_getToolPath($elementCRLArray['tool_name']);
             $url .= '?cidReq=' . $elementCRLArray['course_sys_code'];
 
             // add the gidReq at the url
@@ -205,8 +204,8 @@ class Resolver
                 $tbl_cdb_names = claro_sql_get_course_tbl($courseInfoArray['dbNameGlu']);
                 $tbl_group = $tbl_cdb_names['group_team'];
 
-                $sql = 'SELECT `forumId` 
-                        FROM `' . $tbl_group . '` 
+                $sql = 'SELECT `forumId`
+                        FROM `' . $tbl_group . '`
                         WHERE `id` =' . (int)$elementCRLArray['team'];
                 $forumId = claro_sql_query_get_single_value($sql);
 
@@ -215,10 +214,6 @@ class Resolver
                 .                         '&amp;cidReq=' . $elementCRLArray['course_sys_code']
                 .                         '&amp;gidReq=' . $elementCRLArray['team']
                 ;
-            }
-            else
-            {
-               $url = $this->_basePath . $url;
             }
 
             return $url;
@@ -234,19 +229,26 @@ class Resolver
      *  get the path of a tool
      *
      * @param $toolName (string) a Tlabel
-     * @return string the path  
+     * @return string the path
      */
     function _getToolPath($toolName)
     {
-        $toolName = rtrim( $toolName, '_' );
-        return get_module_url( $toolName ) . '/' . get_module_entry( $toolName );
+        $tbl_mdb_names = claro_sql_get_main_tbl();
+        $tbl = $tbl_mdb_names['tool'];
+
+        $sql = "SELECT `script_url`
+                FROM `" . $tbl . "`
+                WHERE `claro_label`= '" . addslashes($toolName) . "'";
+        $toolPath = claro_sql_query_get_single_value($sql);
+
+        return $toolPath;
     }
 
     /**
      *  get the title of a resource
      *
      * @param $crl a crl
-     * @return the title of a resource 
+     * @return the title of a resource
      */
     function _getResourceName($crl)
     {

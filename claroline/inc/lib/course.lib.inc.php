@@ -1,11 +1,10 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.7 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -33,11 +32,11 @@ function delete_directory($dir)
 
       while($entryname = readdir($current_dir))
       {
-         if(is_dir("$dir/$entryname") && ($entryname != "." && $entryname != '..'))
+         if(is_dir("$dir/$entryname") && ($entryname != "." && $entryname!=".."))
          {
                delete_directory("${dir}/${entryname}");
          }
-        elseif($entryname != '.' && $entryname != '..')
+        elseif($entryname != "." && $entryname!="..")
         {
                unlink("${dir}/${entryname}");
          }
@@ -52,7 +51,6 @@ function delete_directory($dir)
   * Create a command to create a selectBox with the language
   * @param string $selected the language selected
   * @return the command to create the selectBox
-  * @todo merge this with  claro_disp_select_box
   */
 
 function create_select_box_language($selected=NULL)
@@ -71,7 +69,7 @@ function create_select_box_language($selected=NULL)
         if (!empty($langNameOfLang[$entries]) && $langNameOfLang[$entries] != '' && $langNameOfLang[$entries] != $entries)
             $selectBox .= ' - ' . $langNameOfLang[$entries];
 
-        $selectBox .= '</option>' . "\n";
+        $selectBox.="</option>\n";
     }
 
     return $selectBox;
@@ -83,7 +81,8 @@ function create_select_box_language($selected=NULL)
   */
 function language_exists()
 {
-    $dirname = get_path('clarolineRepositorySys') . 'lang/';
+    global $clarolineRepositorySys;
+    $dirname = $clarolineRepositorySys.'lang/';
 
     if($dirname[strlen($dirname)-1]!='/')
         $dirname.='/';
@@ -101,7 +100,7 @@ function language_exists()
         //else it is a repertory of a language
         if (is_dir($dirname.$entries))
         {
-            $arrayLanguage[] = $entries;
+            $arrayLanguage[]=$entries;
         }
     }
     closedir($handle);
@@ -124,17 +123,17 @@ function build_editable_cat_table($selectedCat = null, $separator = "&gt;")
     $tbl_category        = $tbl_mdb_names['category'];
 
     $sql = " SELECT code, code_P, name, canHaveCoursesChild
-               FROM `" . $tbl_category . "`
+               FROM `".$tbl_category."`
                ORDER BY `name`";
     $result = claro_sql_query($sql);
     // first we get the categories available in DB from the SQL query result in parameter
 
     while ($myfac = mysql_fetch_array($result))
     {
-        $categories[$myfac['code']]['code']   = $myfac['code'];
-        $categories[$myfac['code']]['parent'] = $myfac['code_P'];
-        $categories[$myfac['code']]['name']   = $myfac['name'];
-        $categories[$myfac['code']]['childs'] = $myfac['canHaveCoursesChild'];
+        $categories[$myfac["code"]]["code"]   = $myfac["code"];
+        $categories[$myfac["code"]]["parent"] = $myfac["code_P"];
+        $categories[$myfac["code"]]["name"]   = $myfac["name"];
+        $categories[$myfac["code"]]["childs"] = $myfac["canHaveCoursesChild"];
     }
 
     // then we build the table we need : full path of editable cats in an array
@@ -189,8 +188,7 @@ function claro_get_cat_list()
 function claro_get_cat_flat_list($separator = ' > ')
 {
     $fac_list = claro_get_cat_list();
-    $categories = array();
-    $fac_array = array();
+
     if(is_array($fac_list))
     foreach ($fac_list as $myfac)
     {
@@ -203,17 +201,16 @@ function claro_get_cat_flat_list($separator = ' > ')
 
     // then we build the table we need : full path of editable cats in an array
 
+    if (is_array($categories ))
     foreach ($categories as $cat)
     {
         if ( $cat['childs'] == 'TRUE' )
         {
-            $label = '('
-            .   get_full_path($categories, $cat['code'], $separator)
-            .   ') '
-            .   htmlspecialchars($cat['name'])
+            $fac_array[$cat['code']] = '('
+            .                          get_full_path($categories, $cat['code'], $separator)
+            .                          ') '
+            .                          htmlspecialchars($cat['name'])
             ;
-            
-            $fac_array[$label] = $cat['code'];
         }
     }
 
@@ -256,14 +253,12 @@ function get_full_path($categories, $catcode = NULL, $separator = ' > ')
         if (($currentCat['code'] == $parent))
         {
 
-            if ($currentCat['treePos'] >= $childTreePos ) return claro_failure::set_failure('loop_in_structure');
-            if ($parent == $catcode ) return claro_failure::set_failure('loop_in_structure');
-
+            if ($currentCat['treePos'] > $childTreePos ) return claro_failure::set_failure('loop_in_structure');
             return get_full_path($categories, $parent, $separator)
             .      $separator
             .      $catcode
             ;
-
+            break;
         }
     }
 }
@@ -284,7 +279,7 @@ function claro_get_lang_flat_list()
             $languageLabel  .=  $this_language['langNameCurrentLang'] . ' - ';
         $languageLabel .=  $this_language['langNameLocaleLang'];
 
-        $language_flat_list[ucwords($languageLabel)] = $languageCode;
+        $language_flat_list[$languageCode] = ucwords($languageLabel);
     }
     asort($language_flat_list);
     return $language_flat_list;

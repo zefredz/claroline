@@ -1,5 +1,4 @@
-<?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+<?php
 /**
 * @package JPSpan
 * @subpackage Include
@@ -104,53 +103,53 @@ function JPSpan_Include_ErrorReader($lang='en',$app=array(),$ser=array(),$cli=ar
     if ( !file_exists(JPSPAN. 'errors/'.$errorfile) ) {
         $errorfile = 'errors.en.ini';
     }
-
+    
     $errors = parse_ini_file(JPSPAN . 'errors/'.$errorfile,TRUE);
 
     $script = "/**@\n* include 'util/errorreader.js';\n*/\n";
     // Use Object instead of Array as Javascript will fill empty elements
     $script .= "JPSpan_Util_ErrorReader.prototype.errorList = new Object();\n";
-
+    
     foreach ( $errors['Client_Error'] as $key => $value ) {
-        $value = addcslashes($value,"\000\042\047\134");
+        $value = addslashes($value);
         $script .= "JPSpan_Util_ErrorReader.prototype.errorList[$key] = '$value';\n";
     }
-
+    
     foreach ( $cli as $key => $value ) {
         if ( array_key_exists($key, $errors['Client_Error']) ) {
             continue;
         }
-        $value = addcslashes($value,"\000\042\047\134");
+        $value = addslashes($value);
         $script .= "JPSpan_Util_ErrorReader.prototype.errorList[$key] = '$value';\n";
     }
-
+    
     foreach ( $errors['Server_Error'] as $key => $value ) {
-        $value = addcslashes($value,"\000\042\047\134");
+        $value = addslashes($value);
         $script .= "JPSpan_Util_ErrorReader.prototype.errorList[$key] = '$value';\n";
     }
-
+    
     foreach ( $ser as $key => $value ) {
         if ( array_key_exists($key, $errors['Server_Error']) ) {
             continue;
         }
-        $value = addcslashes($value,"\000\042\047\134");
+        $value = addslashes($value);
         $script .= "JPSpan_Util_ErrorReader.prototype.errorList[$key] = '$value';\n";
     }
-
+    
     foreach ( $errors['Application_Error'] as $key => $value ) {
-        $value = addcslashes($value,"\000\042\047\134");
+        $value = addslashes($value);
         $script .= "JPSpan_Util_ErrorReader.prototype.errorList[$key] = '$value';\n";
     }
-
+    
     foreach ( $app as $key => $value ) {
         if ( array_key_exists($key, $errors['Application_Error']) ) {
             continue;
         }
-        $value = addcslashes($value,"\000\042\047\134");
+        $value = addslashes($value);
         $script .= "JPSpan_Util_ErrorReader.prototype.errorList[$key] = '$value';\n";
     }
 
-
+    
     $Includer = & JPSpan_Include::instance();
     $Includer->loadString('errorreaderlist',$script);
 }
@@ -198,7 +197,7 @@ class JPSpan_Include {
     * @access private
     */
     var $Manager;
-
+    
     /**
     * Do not construct JPSpan_Include directly! Use instance method
     * @see instance
@@ -207,7 +206,7 @@ class JPSpan_Include {
     function JPSpan_Include() {
         $this->Manager = & new JPSpan_Include_Manager();
     }
-
+    
     /**
     * Load a Javascript file
     * @param string filename
@@ -218,7 +217,7 @@ class JPSpan_Include {
         $file = JPSPAN . 'js/' . $file;
         $this->Manager->loadFile($file);
     }
-
+    
     /**
     * Load a Javascript script from a string
     * @param string source code
@@ -228,7 +227,7 @@ class JPSpan_Include {
     function loadString($name, $src) {
         $this->Manager->load($name,$src);
     }
-
+    
     /**
     * Get the code
     * @return string Javascript
@@ -252,11 +251,11 @@ class JPSpan_Include {
     */
     function & instance() {
         static $importer = NULL;
-
+        
         if ( !$importer ) {
             $importer = new JPSpan_Include();
         }
-
+        
         return $importer;
     }
 }
@@ -276,14 +275,14 @@ class JPSpan_Include_Manager {
     * @access private
     */
     var $includes = array();
-
+    
     /**
     * Map of file name to source code
     * @var array
     * @access private
     */
     var $code = array();
-
+    
     /**
     * Load a Javascript file
     * @param string full path to file
@@ -294,7 +293,7 @@ class JPSpan_Include_Manager {
         $src = file_get_contents($file);
         $this->load($file,$src);
     }
-
+    
     /**
     * Load a Javascript contained in a string
     * @param string indentifier for script (e.g. full path + filename)
@@ -303,7 +302,7 @@ class JPSpan_Include_Manager {
     * @access protected
     */
     function load($name, $src) {
-
+    
         if ( !in_array($name,$this->includes) ) {
             $this->includes[] = $name;
             $File = & new JPSpan_Include_File($this);
@@ -313,7 +312,7 @@ class JPSpan_Include_Manager {
         }
 
     }
-
+    
     /**
     * Resolve any dependencies a script has on others
     * @param array list of dependencies (filenames)
@@ -321,14 +320,14 @@ class JPSpan_Include_Manager {
     * @access private
     */
     function resolveDependencies($includes) {
-
+    
         foreach ( $includes as $include ) {
             $src = file_get_contents($include);
             $this->load($include,$src);
         }
 
     }
-
+    
     /**
     * Get the source
     * @return string
@@ -342,7 +341,7 @@ class JPSpan_Include_Manager {
         }
         return $code;
     }
-
+    
 }
 
 //-----------------------------------------------------------------------------
@@ -361,7 +360,7 @@ class JPSpan_Include_File {
     * @access protected
     */
     var $includes = array();
-
+    
     /**
     * Source code with dependency statements removed
     * @var string
@@ -379,7 +378,7 @@ class JPSpan_Include_File {
         $Parser = & new JPSpan_Include_Parser($this);
         $Parser->parse($src);
     }
-
+    
     /**
     * Parser handler
     * @param string script token (base state)
@@ -391,7 +390,7 @@ class JPSpan_Include_File {
         $this->src .= $script;
         return TRUE;
     }
-
+    
     /**
     * Parser handler (discards)
     * @param string declaration
@@ -402,7 +401,7 @@ class JPSpan_Include_File {
     function declaration($decl, $state) {
         return TRUE;
     }
-
+    
     /**
     * Parser handler - handles include statements
     * @param string include
@@ -417,7 +416,7 @@ class JPSpan_Include_File {
         }
         return TRUE;
     }
-
+    
 }
 
 //-----------------------------------------------------------------------------
@@ -435,7 +434,7 @@ class JPSpan_Include_Parser {
     * @access private
     */
     var $Handler;
-
+    
     /**
     * @param JPSpan_Include_File
     * @access protected
@@ -443,7 +442,7 @@ class JPSpan_Include_Parser {
     function JPSpan_Include_Parser(& $Handler) {
         $this->Handler = & $Handler;
     }
-
+    
     /**
     * Parse some Javascript
     * @param string Javascript
@@ -454,7 +453,7 @@ class JPSpan_Include_Parser {
         $Lexer = & $this->getLexer();
         $Lexer->parse($src);
     }
-
+    
     /**
     * Create the Lexer
     * @see JPSpan_Lexer
@@ -464,10 +463,10 @@ class JPSpan_Include_Parser {
     function & getLexer() {
         require_once JPSPAN . 'Lexer.php';
         $Lexer = new JPSpan_Lexer($this->Handler,'script');
-
+        
         $Lexer->addEntryPattern('/\*\*@','script','declaration');
         $Lexer->addExitPattern('\*/','declaration');
-
+        
         $Lexer->addEntryPattern('include','declaration','inc');
         $Lexer->addExitPattern(';','inc');
 

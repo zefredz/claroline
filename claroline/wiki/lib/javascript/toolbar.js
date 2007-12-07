@@ -97,7 +97,6 @@ function dcToolBar(textarea,format,img_path)
 		var i = document.createElement('img');
 		i.src = src;
 		i.title = title;
-		i.alt = title;
 		i.onclick = function() { try { fn() } catch (e) { } return false };
 		i.tabIndex = 400;
 		toolbar.appendChild(i);
@@ -106,7 +105,7 @@ function dcToolBar(textarea,format,img_path)
 	
 	function addSpace(w)
 	{
-		var s = document.createElement('span');
+		s = document.createElement('span');
 		s.style.padding='0 '+w+'px 0 0';
 		s.appendChild(document.createTextNode(' '));
 		toolbar.appendChild(s);
@@ -154,7 +153,7 @@ function dcToolBar(textarea,format,img_path)
 	}
 	
 	function draw(msg) {
-		var p = document.createElement('em');
+		p = document.createElement('em');
 		p.style.display='block';
 		p.style.margin='-0.5em 0 0.5em 0';
 		p.appendChild(document.createTextNode(msg));

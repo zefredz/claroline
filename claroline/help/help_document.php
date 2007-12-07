@@ -2,40 +2,40 @@
 
 require '../inc/claro_init_global.inc.php';
 
-$nameTools = get_lang('Documents help');
+$nameTools = $langHDoc;
 $hide_banner = true;
 $hide_footer = true;
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include $includePath . '/claro_init_header.inc.php';
 
 ?>
 <table width="100%" border="0" cellpadding="1" cellspacing="1">
 <tr>
   <td align="left" valign="top">
 
-    <?php echo '<h4>'.get_lang('Documents help').'</h4>'; ?>
+    <?php echo "<h4>$langHDoc</h4>"; ?>
 
   </td>
   <td align="right" valign="top">
-    <a href="javascript:window.close();"><?php echo get_lang('Close window'); ?></a>
+    <a href="javascript:window.close();"><?php echo $langCloseWindow; ?></a>
   </td>
 </tr>
 <tr>
   <td colspan="2">
 
-    <?php echo get_block('blockDocumentsHelp'); ?>
+    <?php echo $langDocContent; ?>
 
   </td>
 </tr>
 <tr>
   <td colspan="2">
     <br />
-    <center><a href="javascript:window.close();"><?php echo get_lang('Close window'); ?></a></center>
+    <center><a href="javascript:window.close();"><?php echo $langCloseWindow; ?></a></center>
   </td>
 </tr>
 </table>
 <?php
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 
 ?>

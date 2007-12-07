@@ -1,10 +1,9 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @version 1.7 $Revision$
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -15,22 +14,26 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @package CLLINKER
  *
  */
-    // include for the linker
-    require_once dirname(__FILE__).'/resolver.lib.php';
-    require_once dirname(__FILE__).'/linker_sql.lib.php';
-    require_once dirname(__FILE__).'/CRLTool.php';
-    require_once dirname(__FILE__).'/linker.lib.php';
-    require_once dirname(__FILE__).'/jpspan.lib.php';
+if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die('---');
+	// include for the linker
+	require_once dirname(__FILE__).'/resolver.lib.php';
+	require_once dirname(__FILE__).'/linker_sql.lib.php';
+	require_once dirname(__FILE__).'/CRLTool.php';
+	require_once dirname(__FILE__).'/linker.lib.php';
+	require_once dirname(__FILE__).'/jpspan.lib.php';
 
-    $jpspanEnabled = claro_is_jpspan_enabled();
+	//$jpspanAllowed -> config variable
+	$jpspanEnabled = $jpspanAllowed && claro_is_jpspan_enabled();
 
-    if( claro_is_jpspan_enabled() )
-    {
-        require_once dirname(__FILE__) . '/linker_jpspan.lib.php';
-    }
-    else
-    {
-        require_once dirname(__FILE__) . '/linker_popup.lib.php';
-    }
+	//for debugging : disabled jpspan
+	//$jpspanEnabled = false;
+	if( $jpspanEnabled )
+	{
+		require_once dirname(__FILE__)."/linker_jpspan.lib.php";
+	}
+	else
+	{
+		require_once dirname(__FILE__)."/linker_popup.lib.php";
+	}
 
 ?>

@@ -1,12 +1,9 @@
 <?php // $Id$
-
-// NE PAS PROTEGER CE SCRIPT : IL EST APPELE EN DIRECT
-
 /**
  * CLAROLINE 
  *
- * @version 1.8 $Revision$ 
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @version 1.7 $Revision$ 
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  * 
@@ -36,16 +33,16 @@ require_once('linker_popup.lib.php');
 require_once('linker_popup_display.lib.php');
 
 $htmlHeadXtra[] = '<script type="text/javascript">'
-.                 'var coursecrl = \'' . CRLTool::createCRL(get_conf('platform_id'),claro_get_current_course_id()) . '\';</script>' . "\n";
+.                 'var coursecrl = \'' . CRLTool::createCRL($platform_id,$_course['sysCode']) . '\';</script>' . "\n";
 
 $htmlHeadXtra[] = '<script type="text/javascript">'
-.                 'var lang_linker_prompt_for_url = \'' . addslashes(get_lang("Enter link url")) . '\';</script>' . "\n";
+.                 'var lang_linker_prompt_for_url = \'' . addslashes($langLinkerPromptForUrl) . '\';</script>' . "\n";
 
 $htmlHeadXtra[] = '<script type="text/javascript">'
-.                 'var lang_linker_prompt_invalid_url = \'' . addslashes(get_lang("Invalid url")) . '\';</script>' . "\n";
+.                 'var lang_linker_prompt_invalid_url = \'' . addslashes($langLinkerPromptInvalidUrl) . '\';</script>' . "\n";
 
 $htmlHeadXtra[] = '<script type="text/javascript">'
-.                 'var lang_linker_prompt_invalid_email = \'' . addslashes(get_lang("Invalid email address")) . '\';</script>' . "\n";
+.                 'var lang_linker_prompt_invalid_email = \'' . addslashes($langLinkerPromptInvalidEmail) . '\';</script>' . "\n";
 
 $htmlHeadXtra[] = '<script type="text/javascript" src="' . path() . '/prompt_utils.js"></script>' . "\n";
 
@@ -105,25 +102,21 @@ if ($isToolAllowed)
     // END OF FIX E_ALL
 
     // init the variable
-    $baseServDir = get_path('coursesRepositorySys');
-    $baseServUrl = get_path('rootWeb');
-    $sysCode = claro_get_current_course_id();
+    $baseServDir = $coursesRepositorySys;
+    $baseServUrl = $rootWeb;
+    $sysCode = $_course['sysCode'];
     $cmd = 'browse';
     $crl = '';
-    $current_crl = CRLTool::createCRL(get_conf('platform_id'),$sysCode);
+    $current_crl = CRLTool::createCRL($platform_id,$sysCode);
     $caddy = new AttachmentList();
 
-    //--------------------------------------------------------------------------
+    //-------------------------------------------------------------------------------------------------------------------------
     // init the caddy
     if ( !isset ($_REQUEST['cmd']) )
     {
-        $linkerTLabel = isset($_REQUEST['linkerTLabel']) ? $_REQUEST['linkerTLabel'] : null;
-        $crlSource = getSourceCrl($linkerTLabel);
+        $crlSource = getSourceCrl();
         $caddy->initAttachmentList();
     }
-
-
-
     //-------------------------------------------------------------------------------------------------------------------------
     // get the request variable
     if ( isset ($_REQUEST['cmd']) )
@@ -163,7 +156,7 @@ if ($isToolAllowed)
         {
             $res = new Resolver('');
             $title = $res->getResourceName($crl);
-            echo claro_html_message_box(get_lang("%itemName is already attached", array('%itemName' => '['.$title.']')));
+            echo claro_disp_message_box('[' . $title . ']' . $langLinkerAlreadyInAttachementList);
         }
 
         if($current_crl != $crl)

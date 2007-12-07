@@ -1,12 +1,12 @@
-<?php // $Id$
+<?php # $Id$
 /**
  * Claroline
  *
- * This tools admin courses subscription of one user
+ * This  tools admin courses subscription of one user
  *
- * @version 1.9 $Revision$
+ * @version 1.7 $Revision$
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -18,245 +18,309 @@
  *
  */
 
-$dialogBox = '';
+$coursePerPage= 20;
+
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 
 require '../inc/claro_init_global.inc.php';
-include_once get_path('incRepositorySys') . '/lib/user.lib.php';
-include_once get_path('incRepositorySys') . '/lib/course_user.lib.php';
-include_once get_path('incRepositorySys') . '/lib/pager.lib.php';
-include claro_get_conf_repository() . 'user_profile.conf.php';
+include_once $includePath . '/lib/admin.lib.inc.php';
+include_once $includePath . '/lib/user.lib.php';
+include_once $includePath . '/conf/user_profile.conf.php';
 
 // Security check
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
 
-// FILER INPUT
-$validCmdList = array('unsubscribe',);
-$cmd = (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$validCmdList)? $_REQUEST['cmd'] : null);
+$iconForCuStatus['STUDENT']        = 'user.gif';
+$iconForCuStatus['COURSE_MANAGER'] = 'manager.gif';
 
-$validRefererList = array('ulist',);
-$cfrom = (isset($_REQUEST['cfrom']) && in_array($_REQUEST['cfrom'],$validRefererList) ? $_REQUEST['cfrom'] : null);
+$tbl_mdb_names       = claro_sql_get_main_tbl();
+$tbl_user            = $tbl_mdb_names['user'  ];
+$tbl_course          = $tbl_mdb_names['course'];
+$tbl_admin           = $tbl_mdb_names['admin' ];
+$tbl_rel_course_user = $tbl_mdb_names['rel_course_user' ];
 
-$uidToEdit = (int) (isset($_REQUEST['uidToEdit']) ?  $_REQUEST['uidToEdit'] : null);
-$courseId = (isset($_REQUEST['courseId'])?$_REQUEST['courseId']:null);
-$do = null;
+// See SESSION variables used for reorder criteria :
 
-//// FILTER INPUT FOR PAGING/SORTING : $offset, $sort, $dir
-
-$offset = (int) (!isset($_REQUEST['offset'])) ? 0 :  $_REQUEST['offset'];
-$pagerSortKey = isset($_REQUEST['sort']) ? $_REQUEST['sort'] : 'name';
-$pagerSortDir = isset($_REQUEST['dir' ]) ? $_REQUEST['dir' ] : SORT_ASC;
-
-
-//----------------------------------
-// ANALYSE COMMAND
-//----------------------------------
-
-/**
- * this maner to manage problem would be more discuss.  uidToEdit can neve empty....
- */
-$userData = user_get_properties($uidToEdit);
-
-if ((false === $userData) || $uidToEdit != $userData['user_id']) $dialogBox .= get_lang('Not valid user id');
-
-if ('unsubscribe' == $cmd)
+if ( isset($_REQUEST['order_crit']) )
 {
-    if (is_null($courseId)) $dialogBox .= get_lang('Not valid course code');
-    else                    $do = 'rem_user';
+    $_SESSION['admin_user_course_order_crit'] = trim($_REQUEST['order_crit']) ;
 }
 
+if ( isset($_REQUEST['dir']) )
+{
+    $_SESSION['admin_user_course_dir'] = ($_REQUEST['dir']=='DESC'?'DESC':'ASC');
+}
+
+//set the reorder parameters for colomuns titles
+
+if (!isset($order['code']))     $order['code']     = '';
+if (!isset($order['label']))    $order['label']    = '';
+if (!isset($order['titular']))  $order['titular']  = '';
+if (!isset($order['cuStatus'])) $order['cuStatus'] = '';
+
+//find which user is concerned in URL parameters
+
+$dialogBox = '';
+$nameTools = $langUserCourseList;
+$interbredcrump[]= array ( 'url' => $rootAdminWeb, 'name' => $langAdministration);
+
+if ((isset($_REQUEST['uidToEdit']) && $_REQUEST['uidToEdit'] == '') || !isset($_REQUEST['uidToEdit']))
+{
+    unset($_REQUEST['uidToEdit']);
+    $dialogBox .= 'ERROR : NO USER SET!!!';
+    $uidToEdit = -1;
+
+}
+else
+{
+    $uidToEdit = (int) $_REQUEST['uidToEdit'];
+}
+
+// initialisation of global variables and used libraries
+
+include_once $includePath . '/lib/pager.lib.php';
+
+if ( empty($uidToEdit) ) $dialogBox .= 'ERROR : NO USER SET!!!';
 //----------------------------------
 // EXECUTE COMMAND
 //----------------------------------
 
-if ('rem_user' == $do )
+if (isset($_REQUEST['cmd']))
+$cmd = $_REQUEST['cmd'];
+else $cmd = null;
+
+switch ($cmd)
 {
-    if ( user_remove_from_course($uidToEdit,$courseId,true,false) )
+    case 'unsubscribe' :
+
+    if ( user_remove_from_course($uidToEdit,$_REQUEST['code'],true) )
     {
-        $dialogBox .= get_lang('The user has been successfully unregistered');
+        $dialogBox .= $langUserUnsubscribed;
     }
     else
     {
         switch ( claro_failure::get_last_failure() )
         {
             case 'cannot_unsubscribe_the_last_course_manager' :
-
-                $dialogBox .= get_lang('You cannot unsubscribe the last course manager of the course');
-                break;
+            $dialogBox .= $langCannotUnsubscribeLastCourseManager;
+            break;
             case 'course_manager_cannot_unsubscribe_himself' :
-
-                $dialogBox .= get_lang('Course manager cannot unsubscribe himself');
-                break;
+            $dialogBox .= $langCourseManagerCannotUnsubscribeHimself;
+            break;
             default :
-                $dialogBox .= get_lang('Unknow error during unsubscribing');
         }
     }
+    break;
 }
+
+//----------------------------------
+// PREPARE VIEW
+//----------------------------------
+
+
+
+//----------------------------------
+// Build query and find info in db
+//----------------------------------
 
 // needed to display the name of the user we are watching
 
+$userData = user_get_data( $uidToEdit );
 
-if ('ulist' == $cfrom) $addToUrl = '&amp;cfrom=ulist';
-else                   $addToUrl = '';
+// main query to know what must be displayed in the list
 
-$sqlUserCourseList = prepare_sql_get_courses_of_a_user($uidToEdit);
+$sql = "SELECT  * , IF(CU.statut=1,'COURSE_MANAGER','STUDENT') cu_statut
+            FROM `".$tbl_course."` AS C ";
 
-$myPager = new claro_sql_pager($sqlUserCourseList, $offset, get_conf('coursePerPage', 20));
-$myPager->set_sort_key($pagerSortKey, $pagerSortDir);
+$toAdd = ", `".$tbl_rel_course_user."` AS CU ";
+$toAdd .=" WHERE CU.`code_cours` = C.`code`  AND CU.`user_id` = " . (int)$uidToEdit;
 
-$userCourseList = $myPager->get_result_list();
-$userCourseGrid = array();
+$sql .= $toAdd;
 
-foreach ($userCourseList as $courseKey => $course)
+
+//deal with LETTER classification call
+
+if (isset($_REQUEST['letter']))
 {
-    $userCourseGrid[$courseKey]['officialCode']   = $course['officialCode'];
-    $userCourseGrid[$courseKey]['name']      = '<a href="'. get_path('clarolineRepositoryWeb') . 'course/index.php?cid=' . htmlspecialchars($course['sysCode']) . '">'.$course['name']. '</a><br />' . $course['titular'];
+    $toAdd = " AND C.`intitule` LIKE '%". addslashes($_REQUEST['letter']) ."%' ";
+    $sql.=$toAdd;
+}
 
+//deal with KEY WORDS classification call
 
-    $userCourseGrid[$courseKey]['profileId'] = claro_get_profile_name($course['profileId']);
+if (isset($_REQUEST['search']))
+{
+    $toAdd = " AND (    C.`intitule` LIKE '%". addslashes($_REQUEST['search']) ."%'
+                         OR C.`code` LIKE '%". addslashes($_REQUEST['search']) ."%'
+                       )";
+    $sql.=$toAdd;
+}
 
-    if ( $course['isCourseManager'] )
+// deal with REORDER
+//first see is direction must be changed
+
+// deal with REORDER
+if (isset($_SESSION['admin_user_course_order_crit']))
+{
+    switch ($_SESSION['admin_user_course_order_crit'])
     {
-        $userCourseGrid[$courseKey]['isCourseManager'] = '<img src="' . get_path('imgRepositoryWeb') . 'manager.gif" alt="' . get_lang('Course manager') . '" border="0" />';
+        case 'uid'      : $fieldSort = 'CU`.`user_id';  break;
+        case 'label'    : $fieldSort = 'C`.`intitule';  break;
+        case 'titular'  : $fieldSort = 'C`.`titulaires';break;
+        case 'code'     : $fieldSort = 'C`.`code';      break;
+        case 'cuStatus' : $fieldSort = 'CU`.`statut';   break;
+        //        case 'email'  : $fieldSort = 'email';
     }
-    else
-    {
-        $userCourseGrid[$courseKey]['isCourseManager'] = '<img src="' . get_path('imgRepositoryWeb') . 'user.gif" alt="' . get_lang('Student') . '" border="0" />';
-    }
-
-    $userCourseGrid[$courseKey]['edit_course_user'] = '<a href="adminUserCourseSettings.php?cidToEdit='.$course['sysCode'].'&amp;uidToEdit='.$uidToEdit.'&amp;ccfrom=uclist">'
-    .                                                 '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="' . get_lang('Course manager') . '" border="0" title="' . get_lang('User\'s course settings') . '" />'
-    .                                                 '</a>'
-    ;
-
-    $userCourseGrid[$courseKey]['delete'] = '<a href="' . $_SERVER['PHP_SELF']
-    .                                       '?uidToEdit=' . $uidToEdit
-    .                                       '&amp;cmd=unsubscribe'
-    .    $addToUrl
-    .    '&amp;courseId=' . htmlspecialchars($course['sysCode'])
-    .    '&amp;offset=' . $offset . '"'
-    .    ' onclick="return confirmationUnReg(\''.clean_str_for_javascript($userData['firstname'] . ' ' . $userData['lastname']).'\');">' . "\n"
-    .    '<img src="' . get_path('imgRepositoryWeb') . 'unenroll.gif" border="0" alt="' . get_lang('Delete') . '" />' . "\n"
-    .    '</a>' . "\n"
-    ;
-
+    $toAdd = " ORDER BY `".$fieldSort."` ".$_SESSION['admin_user_course_dir'];
+    $order[$_SESSION['admin_user_course_order_crit']] = ($_SESSION['admin_user_course_dir']=='ASC'?'DESC':'ASC');
+    $sql.=$toAdd;
 }
 
-$sortUrlList = $myPager->get_sort_url_list($_SERVER['PHP_SELF'].'?uidToEdit='. $uidToEdit);
+//Build SQL query
 
-$userCourseDataGrid = new claro_datagrid();
-$userCourseDataGrid->set_grid($userCourseGrid);
+$offset = (int) (!isset($_REQUEST['offset'])) ? 0 :  $_REQUEST['offset'];
 
-// extended setting for this datagrid
-$userCourseDataGrid->set_colTitleList(array (
-'officialCode'     => '<a href="' . $sortUrlList['officialCode'] . '">' . get_lang('Course code') . '</a>'
-,'name'     => '<a href="' . $sortUrlList['name'] . '">' . get_lang('Course title') . '</a>'
-,'profileId'  => '<a href="' . $sortUrlList['profileId'] . '">' . get_lang('User profile') . '</a>'
-,'isCourseManager' => '<a href="' . $sortUrlList['isCourseManager'] . '">' . get_lang('Role') . '</a>'
-,'edit_course_user' => get_lang('Edit settings') . '</a>'
-,'delete'   => get_lang('Unregister user')
-));
+$myPager = new claro_sql_pager($sql, $offset, $coursePerPage);
+$resultList = $myPager->get_result_list();
 
-$userCourseDataGrid->set_caption('<img src="' . get_path('imgRepositoryWeb') . 'user.gif" alt="' . get_lang('Student') . '" border="0" >' . get_lang('Student') . ' - <img src="' . get_path('imgRepositoryWeb') . 'manager.gif" alt="' . get_lang('Course Manager') . '" border="0" />&nbsp;' . get_lang('Course manager'));
 
-if ( 0 == count($userCourseGrid)  )
-{
-    $userCourseDataGrid->set_noRowMessage( get_lang('No course to display') );
-}
-else
-{
-    $userCourseDataGrid->set_colAttributeList(array ( 'officialCode' => array ('align' => 'left')
-    , 'name'            => array ('align' => 'left')
-    , 'isCourseManager' => array ('align' => 'center')
-    , 'edit_course_user' => array ('align' => 'center')
-    , 'delete'          => array ('align' => 'center')
-    ));
-}
+if (!isset($addToUrl)) $addToUrl ='';
 
 //display title
-// initialisation of global variables and used libraries
-$nameTools = get_lang('User Course list') . ' : ' . $userData['firstname'] . ' ' . $userData['lastname'];
-$interbredcrump[]= array ( 'url' => get_conf('rootAdminWeb'), 'name' => get_lang('Administration'));
+
+$nameTools .= ' : ' . $userData['firstname'] . ' ' . $userData['lastname'];
 
 // javascript confirm pop up declaration
 $htmlHeadXtra[] =
 "<script>
             function confirmationUnReg (name)
             {
-                if (confirm(\"".clean_str_for_javascript(get_lang('Are you sure you want to unregister'))." \"+ name + \"? \"))
+                if (confirm(\"".clean_str_for_javascript($langAreYouSureToUnsubscribe)." \"+ name + \"? \"))
                     {return true;}
                 else
                     {return false;}
             }
             </script>";
 
-$cmdList[] =  '<a class="claroCmd" href="adminprofile.php?uidToEdit=' . $uidToEdit . '">' . get_lang('User settings') . '</a>';
-$cmdList[] =  '<a class="claroCmd"  href="../auth/courses.php?cmd=rqReg&amp;uidToEdit=' . $uidToEdit . '&amp;category=&amp;fromAdmin=usercourse">' . get_lang('Enrol to a new course') . '</a>';
 
-if ( 'ulist' == $cfrom )  //if we come from user list, we must display go back to list
-{
-    $cmdList[] = '<a class="claroCmd" href="adminusers.php">' . get_lang('Back to user list') . '</a>';
-}
 
 //----------------------------------
 // DISPLAY VIEWS
 //----------------------------------
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-echo claro_html_tool_title($nameTools);
+include $includePath . '/claro_init_header.inc.php';
+echo claro_disp_tool_title($nameTools);
 
 // display forms and dialogBox, alphabetic choice,...
 
-if( isset($dialogBox) && !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
-
-echo '<p>'
-.    claro_html_menu_horizontal($cmdList)
-.    '</p>'
-.    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?uidToEdit=' . $uidToEdit)
-.    $userCourseDataGrid->render()
-.    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?uidToEdit=' . $uidToEdit) ;
-
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
-
-/**
- * prepare sql to get a list of course of a given user
- *
- * @param integer $userId id of you to fetch courses
- * @return string : mysql statement
- */
-
-function prepare_sql_get_courses_of_a_user($userId=null)
+if ( !empty($dialogBox) )
 {
-    if (is_null($userId)) $userId = claro_get_current_user_id();
-    $tbl_mdb_names       = claro_sql_get_main_tbl();
-    $tbl_course          = $tbl_mdb_names['course'];
-    $tbl_rel_course_user = $tbl_mdb_names['rel_course_user' ];
-
-
-    $sql = "SELECT `C`.`code`              AS `sysCode`,
-                   `C`.`intitule`          AS `name`,
-                   `C`.`administrativeNumber` AS `officialCode`,
-                   `C`.`directory`            AS `path`,
-                   `C`.`dbName`               AS `dbName`,
-                   `C`.`titulaires`           AS `titular`,
-                   `C`.`email`                AS `email`,
-                   `C`.`language`             AS `language`,
-                   `C`.`extLinkUrl`           AS `extLinkUrl`,
-                   `C`.`extLinkName`          AS `extLinkName`,
-                   `C`.`visibility`           AS `visibility`,
-                   `C`.`access`               AS `access`,
-                   `C`.`registration`         AS `registration`,
-                   `C`.`registrationKey`      AS `registrationKey` ,
-                   `CU`.`profile_id`          AS `profileId`,
-                   `CU`.`isCourseManager`,
-                   `CU`.`tutor`
-            FROM `" . $tbl_course . "`          AS C,
-                 `" . $tbl_rel_course_user . "` AS CU
-            WHERE CU.`code_cours` = C.`code`
-              AND CU.`user_id` = " . (int) $userId;
-
-    return $sql;
+    echo claro_disp_message_box($dialogBox);
 }
 
+//TOOL LINKS
+
+echo '<a class="claroCmd" href="adminprofile.php?uidToEdit=' . $uidToEdit . '\">' . $langSeeUserSettings . '</a> | ';
+echo '<a class="claroCmd"  href="../auth/courses.php?cmd=rqReg&amp;uidToEdit=' . $uidToEdit . '&amp;category=&amp;fromAdmin=usercourse">' . $langEnrollToNewCourse . '</a>';
+
+if (isset($cfrom) && $cfrom == 'ulist')  //if we come from user list, we must display go back to list
+{
+    echo ' | <a class="claroCmd" href="adminusers.php">' . $langBackToUserList . '</a>';
+    $addToUrl = '&amp;cfrom=ulist';
+}
+
+//Pager
+
+$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '"?uidToEdit=' . $uidToEdit);
+
+// display User's course list
+
+// table
+
+echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2" >'
+.    '<thead>'
+.    '<caption >'
+.    '<img src="'.$imgRepositoryWeb.$iconForCuStatus['STUDENT'].'" alt="STUDENT" border="0" title="statut" > Student '
+.    '<img src="'.$imgRepositoryWeb.$iconForCuStatus['COURSE_MANAGER'].'" alt="course manager" border="0" title="statut" > Course Manager '
+.    '</caption>'
+.    '<tr class="headerX" align="center" valign="top">'
+
+//    add titles for the table
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=code&amp;dir=' . $order['code'] . '&amp;uidToEdit=' . $uidToEdit . '">' . $langCode . '</a></th>'
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=label&amp;dir=' . $order['label'] . '&amp;uidToEdit=' . $uidToEdit . '">' . $langCourseTitle . '</a></th>'
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=titular&amp;dir=' . $order['titular'] . '&amp;uidToEdit=' . $uidToEdit . '">' . $langTitular . '</a></th>'
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=cuStatus&amp;dir=' . $order['cuStatus'] . '&amp;uidToEdit=' . $uidToEdit . '">' . $langRole . '</a></th>'
+.    '<th>' . $langUnsubscribe . '</th>'
+.    '</tr>'
+.    '</thead>' . "\n"
+;
+
+// Display list of the course of the user :
+
+echo '<tbody>'."\n";
+
+if(is_array($resultList))
+foreach($resultList as $list)
+{
+    echo '<tr>';
+
+    //  Code
+
+    echo '<td>' . $list['fake_code'] . '</td>';
+
+    // title
+
+    echo '<td align="left"><a href="'.$coursesRepositoryWeb.$list['directory'].'">'.$list['intitule'].'</a></td>';
+
+    //  Titular
+
+    echo '<td align="left">'.$list['titulaires'].'</td>';
+
+    //  Status
+    echo '<td align="center">'
+    .    '<a href="adminUserCourseSettings.php?cidToEdit='.$list['code'].'&amp;uidToEdit='.$uidToEdit.'&amp;ccfrom=uclist">'
+    .    '<img src="'.$imgRepositoryWeb.$iconForCuStatus[$list['cu_statut']].'" alt="'.$list['cu_statut'].'" border="0" title="'.$list['cu_statut'].'" >'
+    .    '</a>'
+    .    '</td>'
+    ;
+    // Edit user course settings
+
+    //  Unsubscribe link
+    echo '<td align="center">'."\n"
+    .    '<a href="' . $_SERVER['PHP_SELF']
+    .    '?uidToEdit=' . $uidToEdit
+    .    '&amp;cmd=unsubscribe' . $addToUrl
+    .    '&amp;code=' . $list['code']
+    .    '&amp;offset=' . $offset . '"'
+    .    ' onClick="return confirmationUnReg(\''.clean_str_for_javascript($userData['firstname'] . ' ' . $userData['lastname']).'\');">' . "\n"
+    .    '<img src="' . $imgRepositoryWeb . 'unenroll.gif" border="0" alt="' . $langDelete . '" />' . "\n"
+    .    '</a>' . "\n"
+    .    '</td>' . "\n"
+    .    '</tr>'
+    ;
+
+    $atLeastOne = TRUE;
+}
+
+if (!isset($atLeastOne) || !$atLeastOne)
+{
+    echo '<tr>'
+    .    '<td colspan="5" align="center">'
+    .    $langUserNoCourseToDisplay
+    .    '</td>'
+    .    '</tr>'
+    ;
+}
+
+echo '<tbody>'
+.    '</table>'
+;
+
+//Pager
+
+$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?uidToEdit=' . $uidToEdit);
+
+// display footer
+include $includePath . '/claro_init_footer.inc.php';
 ?>

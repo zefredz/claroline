@@ -1,15 +1,14 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
- * CLAROLINE
+ * CLAROLINE 
  *
  * This script set default content at init of install
  * Most of def value are from def file.
  * Special case are set are. def file would evoluate to deprecate this script
  *
- * @version 1.8 $Revision$
+ * @version 1.7 $Revision$
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -44,25 +43,25 @@ $urlAppendPath = str_replace( array('///', '//'), '/', $_SERVER['PHP_SELF']);
 // detect if url case sensitivity does matter
 $caseSensitive = (PHP_OS == 'WIN32' || PHP_OS == 'WINNT') ? 'i' : '';
 // build the regular expression pattern
-$ereg = "#/claroline/install/".basename($_SERVER['SCRIPT_NAME'])."$#$caseSensitive";
+$ereg = '#/claroline/install/' . basename($_SERVER['SCRIPT_NAME']) . "$#$caseSensitive";
 $urlAppendPath  = preg_replace ($ereg, '', $urlAppendPath);
-$urlForm        = 'http://' . $_SERVER['SERVER_NAME'] . ($_SERVER['SERVER_PORT']!='80'?':' . $_SERVER['SERVER_PORT']:'') . $urlAppendPath . '/';
+$urlForm        = 'http://' . $_SERVER['SERVER_NAME'] . ($_SERVER['SERVER_PORT']!='80'?':' . $_SERVER['SERVER_PORT']:'') . $urlAppendPath."/";
 $pathForm       = realpath('../..') . '/';
 
-$imgRepositoryAppendForm        =  $conf_def_property_list['imgRepositoryAppend']['default'];
-$userImageRepositoryAppendForm =  $conf_def_property_list['userImageRepositoryAppend']['default'];
+$imgRepositoryAppendForm       = $conf_def_property_list['imgRepositoryAppend']['default'];
+$userImageRepositoryAppendForm = $conf_def_property_list['userImageRepositoryAppend']['default'];
 
 $courseRepositoryForm = $conf_def_property_list['coursesRepositoryAppend']['default'];
 
-$campusForm          = $conf_def_property_list['siteName']['default'];
-$institutionForm     = $conf_def_property_list['institution_name'] ['default'];
-$institutionUrlForm  = $conf_def_property_list['institution_url'] ['default'];
+$campusForm         = $conf_def_property_list['siteName']['default'];
+$institutionForm    = $conf_def_property_list['institution_name']['default'];
+$institutionUrlForm = $conf_def_property_list['institution_url']['default'];
 
 $languageForm = $conf_def_property_list['platformLanguage']['default'];
 
-$userPasswordCrypted = $conf_def_property_list['userPasswordCrypted']['default'];
+$userPasswordCrypted =$conf_def_property_list['userPasswordCrypted']['default'];
 
-$allowSelfReg = $conf_def_property_list['allowSelfReg']['default'] ;
+$allowSelfReg =$conf_def_property_list['allowSelfReg']['default'] ;
 
 /**
  * admin & contact
@@ -74,10 +73,8 @@ $adminSurnameForm   = '';
 $adminPhoneForm    = $conf_def_property_list['administrator_phone']['default'];
 $adminEmailForm    = $conf_def_property_list['administrator_email']['default'];
 
-
 $contactNameForm     = '*not set*'; // This magic value is use to detect if the content is edit or not.
-$contactPhoneForm    = ''; // if <not set> is found, the data form admin are copied
+$contactPhoneForm    = '*not set*'; // if <not set> is found, the data form admin are copied
 $contactEmailForm    = '*not set*'; // This tips  permit to  empty these fields
-
 
 ?>

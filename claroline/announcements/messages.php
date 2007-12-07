@@ -1,22 +1,22 @@
 <?php // $Id$
 /**
- * CLAROLINE
+ * CLAROLINE 
  *
  * This modules allows to send messages to some chosen users groups from a course
  *
  * @todo keep trace of message sent
  * @todo translate spanish code
- * @todo factorise direct sql
+ * @todo factorise direct sql 
  * @todo this code must works without js
  * @todo abstract sending following preffered notification way of user
  * @todo add roles as types of target to send to "all tutor, course_admin, students,.."
  *
  *
- * @version 1.8 $Revision$
+ * @version 1.7 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  *
  * @package CLANN
  *
@@ -41,16 +41,15 @@
 /**************************************
 CLAROLINE MAIN SETTINGS
 **************************************/
-$gidReset = true;
+
 require '../inc/claro_init_global.inc.php'; //    settings initialisation
 
-if ( ! claro_is_in_a_course() || ! claro_is_user_authenticated() ) claro_disp_auth_form(true);
-if ( ! claro_is_allowed_to_edit() ) claro_die(get_lang('Not allowed'));
+if ( ! $_cid || ! $_uid ) claro_disp_auth_form(true);
+if ( ! $is_courseAdmin ) claro_die($langNotAllowed);
 
-// get shared lib
-include_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
+include_once $includePath . '/lib/claro_mail.lib.inc.php';
 
-$htmlHeadXtra[] = "<script type=\"text/javascript\" language=\"JavaScript\">
+$htmlHeadXtra[]="<script type=\"text/javascript\" language=\"JavaScript\">
 
 <!-- Begin javascript menu swapper
 
@@ -78,7 +77,7 @@ function move(fbox,    tbox)
         {
             arrTbox[tLength] = fbox.options[i].text;
             tLength++;
-        }
+        } 
         else
         {
             arrFbox[fLength] = fbox.options[i].text;
@@ -110,28 +109,26 @@ function move(fbox,    tbox)
 
 function valida()
 {
-    var f =    document.datos;
-    var dat;
+    var    f =    document.datos;
+    var    dat;
 
-    var incorreo = f.elements['incorreo[]'];
-
-    if (incorreo.length <    1) {
-        alert(\"" . clean_str_for_javascript(get_lang('You must select some users')) . "\");
+    if (f.elements[3].length <    1) {
+        alert(\"" . clean_str_for_javascript($langPleaseSelectUsers) . "\");
         return false;
     }
-    for    (var i=0; i<incorreo.length; i++)
-        incorreo[i].selected = incorreo[i].checked = true
+    for    (var i=0; i<f.elements[3].length; i++)    
+        f.elements[3][i].selected = f.elements[3][i].checked = true
 
     dat=f.emailContent.value;
     if(dat.length == 0)
     {
         //old: Debe    introducir el Texto    del    Mensaje
-        alert(\"" . clean_str_for_javascript(get_lang('You must introduce the message text')) . "\");
+        alert(\"" . clean_str_for_javascript($langPleaseEnterMessage) . "\");
         f.emailContent.focus();
         f.emailContent.select();
-        return false;
+        return false;    
     }
-
+    
     f.submit();
     return true;
 }
@@ -139,7 +136,11 @@ function valida()
 //    End    -->
 </script>";
 
+$interbredcrump[]= array ('url' => '../announcements/announcements.php', 'name' => $langAnnouncement);
 
+$nameTools = $langMessages;
+
+include('../inc/claro_init_header.inc.php');
 
 /*
 * DB tables definition
@@ -157,22 +158,20 @@ $tbl_courseUser = $tbl_mdb_names['rel_course_user'];
 /*
 * Various connection variables from the initialisation scripts
 */
-$_user   = claro_get_current_user_data();
-$_course = claro_get_current_course_data();
+
 $courseCode      = $_course['officialCode'];
 $courseName      = $_course['name'        ];
 $senderFirstName = $_user  ['firstName'   ];
 $senderLastName  = $_user  ['lastName'    ];
 $senderMail      = $_user  ['mail'        ];
 
-
+echo claro_disp_tool_title($langMessages);
 
 /*
-* Init other vars
+* DEFAULT DISPLAY SETTINGS
 */
 
-$dialogBox = new DialogBox();
-$displayForm = true;
+$displayForm = TRUE;
 
 /*
 * SUBMIT ANNOUNCEMENT COMMAND
@@ -180,14 +179,13 @@ $displayForm = true;
 
 if ( isset($_REQUEST['submitAnnouncement']) )
 {
-    $userIdList = array();
-    $groupIdList = array();
 
     if ( isset($_REQUEST['incorreo']) )
     {
+
         /*
-         * Explode the values of incorreo in groups and users
-         */
+        * Explode the values of incorreo in groups and users
+        */
 
         foreach($_REQUEST['incorreo'] as $thisIncorreo)
         {
@@ -210,7 +208,7 @@ if ( isset($_REQUEST['submitAnnouncement']) )
         * Select the students of the different groups
         */
 
-        if ( !empty($groupIdList) )
+        if ( isset($groupIdList) )
         {
             $groupIdList = implode(', ',$groupIdList);
 
@@ -233,61 +231,77 @@ if ( isset($_REQUEST['submitAnnouncement']) )
         * Send the differents mails
         */
 
-        // email subject
-        $emailSubject = '[' . get_conf('siteName') . ' - '
-                      . $_course['officialCode'] . '] '
-                      . get_lang('Message from your lecturer');
-
-        // email content
-        $emailBody = $_REQUEST['emailContent'] . "\n" . "\n"
-        .            '--' . "\n"
-        .            $senderFirstName . ' ' . $senderLastName . "\n"
-        .            $_course['name'] . ' (' . $_course['categoryName'] . ')' . "\n"
-        .            get_conf('siteName') . "\n"
-        .            '(' . get_lang('Message from your lecturer') . ')'
-        ;
-
-        $countUnvalid = 0;
-        $messageFailed = '';
-
-        $sentMailCount = claro_mail_user($userIdList, $emailBody, $emailSubject,
-                             $senderMail, $senderFirstName.' '.$senderLastName);
-
-        $dialogBox->success( get_lang('Message sent') );
-
-        $unsentMailCount = count($userIdList) - $sentMailCount;
-
-        if ( $unsentMailCount > 0 )
+        if( is_array($userIdList) )
         {
-            $messageUnvalid    =  get_block('blockUsersWithoutValidEmail',
-                    array('%userQty' => count($userIdList),
-                          '%userInvalidQty' => $unsentMailCount,
-                          '%messageFailed'  => $messageFailed
-                    ));
 
-            $dialogBox->error( $messageUnvalid );
+            /*
+            * Prepare    email
+            */
+
+            // email subject
+            $emailSubject = '[' . $siteName . ' - ' . $courseCode . '] ' . $langProfessorMessage;
+
+            // email content
+            $emailBody = $_REQUEST['emailContent'] . "\n" . "\n" 
+            .            '--' . "\n" 
+            .            $senderFirstName . ' ' . $senderLastName . "\n" 
+            .            $_course['name'] . ' (' . $_course['categoryName'] . ')' . "\n" 
+            .            $siteName . "\n"
+            .            '(' . $langProfessorMessage . ')'
+            ;
+
+            /*
+            * Send    email one by one to    avoid antispam
+            */
+
+            $countUnvalid = 0;
+            $messageFailed = '';
+
+            foreach( $userIdList as $userId )
+            {
+                if ( !claro_mail_user($userId, $emailBody, $emailSubject, $senderMail, $senderFirstName." ".$senderLastName) )
+                {
+                    $messageFailed.= claro_failure::get_last_failure();
+                    $countUnvalid++;
+                }
+            }
+
+        } // end if - is_array($userIdList)
+
+        $message = '<p>' . $langMsgSent . '<p>';
+
+        if ( $countUnvalid > 0 )
+        {
+            $messageUnvalid    = '<p>'
+            . $langOn.'    '
+            . count($userIdList) .' '
+            . $langSelUser.',    ' .  $countUnvalid . ' ' .$langUnvalid
+            . '<br /><small>'
+            . $messageFailed
+            . '</small>'
+            . '</p>';
+            $message .= $messageUnvalid;
         }
-
-        $displayForm = false;
-
-		$dialogBox->info('<a href="' . $_SERVER['PHP_SELF'] . '">&lt;&lt;&nbsp;' . get_lang('Back') . '</a>');
 
     } // end if - $_REQUEST['incorreo']
 
 } // end if - $_REQUEST['submitAnnouncement']
 
 /*
-* Output
+* DISPLAY ACTION MESSAGE
 */
-$interbredcrump[]= array ('url' => '../announcements/announcements.php', 'name' => get_lang('Announcement'));
 
-$nameTools = get_lang('Messages');
+if ( !empty($message) )
+{
+    echo claro_disp_message_box($message);
 
-include('../inc/claro_init_header.inc.php');
+    echo '<br />' . "\n"
+    .    '<a href="' . $_SERVER['PHP_SELF'] . '">&lt;&lt;&nbsp;' . $langBackList . '</a>'
+    .    '<br />' . "\n"
+    ;
 
-echo claro_html_tool_title($nameTools);
-
-echo $dialogBox->render();
+    $displayForm = FALSE;
+}
 
 /*----------------------------------------
 DISPLAY FORM    TO FILL    AN ANNOUNCEMENT
@@ -300,18 +314,15 @@ if ( $displayForm == TRUE )
     * Get user    list of    this course
     */
 
-    $sql =    "SELECT `u`.`nom`     AS `lastName`,
-                      `u`.`prenom`  AS `firstName`,
-                      `u`.`user_id` AS `uid`
-                 FROM `" . $tbl_user .     "` AS `u`
-                    , `" . $tbl_courseUser."` AS `cu`
-                 WHERE `cu`.`code_cours` = '" . addslashes(claro_get_current_course_id()) . "'
+    $sql =    "SELECT `u`.`nom` AS `lastName`,
+                        `u`.`prenom` AS `firstName`,
+                        `u`.`user_id` AS `uid`
+                 FROM `" . $tbl_user."` AS `u`, `".$tbl_courseUser."` AS `cu`
+                 WHERE `cu`.`code_cours` = '" . $_cid . "'
                  AND `cu`.`user_id` = `u`.`user_id`
                  ORDER BY `u`.`nom`, `u`.`prenom`";
 
     $singleUserList = claro_sql_query_fetch_all($sql);
-
-    $userList = array();
 
     if ( is_array($singleUserList) && !empty($singleUserList) )
     {
@@ -326,15 +337,13 @@ if ( $displayForm == TRUE )
     */
 
     $sql = "SELECT `g`.`id`,
-                   `g`.`name`,
+                    `g`.`name`,
                     COUNT(`gu`.`id`) AS `userNb`
-            FROM `" . $tbl_group . "` AS `g` LEFT JOIN `" . $tbl_groupUser . "` AS `gu`
-            ON `g`.`id` = `gu`.`team`
-            GROUP BY `g`.`id`";
+                FROM `" . $tbl_group . "` AS `g` LEFT JOIN `" . $tbl_groupUser . "` AS `gu`
+                ON `g`.`id` = `gu`.`team`
+                GROUP BY `g`.`id`";
 
     $groupSelect = claro_sql_query_fetch_all($sql);
-
-    $groupList = array();
 
     if ( is_array($groupSelect) && !empty($groupSelect) )
     {
@@ -349,16 +358,14 @@ if ( $displayForm == TRUE )
     * Create Form
     */
 
-    echo get_lang('To send a message, select groups of users (marked with a * in the front) or single users from the list on the left.') . "\n" ;
-
-    echo '<form method="post" action="' . $_SERVER['PHP_SELF'] . '" name="datos" '
+    echo $langIntroText . "\n\n"
+    .    '<form method="post" action="' . $_SERVER['PHP_SELF'] . '" name="datos" '
     .    'onSubmit="return valida();">' . "\n"
-    .    claro_form_relay_context()
     .    '<center>' . "\n"
     .    '<table border="0" cellspacing="3" cellpadding="4">' . "\n"
     .    '<tr valign="top" align="center">'
     .    '<td>' . "\n"
-    .    '<p><b>' . get_lang('User list') . '</b></p>' . "\n"
+    .    '<p><b>' . $langUserlist . '</b></p>' . "\n"
     .    '<select name="nocorreo[]" size="15" multiple="multiple">' . "\n"
     ;
 
@@ -367,7 +374,7 @@ if ( $displayForm == TRUE )
         foreach( $groupList as $thisGroup )
         {
             echo '<option value="GROUP:' . $thisGroup['id'] . '">'
-            .    '* ' . $thisGroup['name'] . ' (' . $thisGroup['userNb'] . ' ' . get_lang('Users') . ')'
+            .    '* ' . $thisGroup['name'] . ' (' . $thisGroup['userNb'] . ' ' . $langUsers . ')'
             .    '</option>' . "\n";
         }
     }
@@ -394,13 +401,12 @@ if ( $displayForm == TRUE )
     echo '</select>' . "\n"
     .    '</td>' . "\n"
     .    '<td valign="middle">' . "\n"
-    .    '<input type="button" onclick="move(this.form.elements[\'nocorreo[]\'],this.form.elements[\'incorreo[]\'])" value="   >>   " />' . "\n"
+    .    '<input type="button" onClick="move(this.form.elements[0],this.form.elements[3])" value="   >>   " />' . "\n"
     .    '<p>&nbsp;</p>' . "\n"
-    .    '<input type="button" onclick="move(this.form.elements[\'incorreo[]\'],this.form.elements[\'nocorreo[]\'])" value="   <<   " />' . "\n"
+    .    '<input type="button" onClick="move(this.form.elements[3],this.form.elements[0])" value="   <<   " />' . "\n"
     .    '</td>' . "\n"
     .    '<td>' . "\n"
-    .    '<p>' . "\n"
-    .    '<b>' . get_lang('Selected Users') . '</b></p>' . "\n"
+    .    '<p><b>' . $langSelectedUsers . '</b></p>' . "\n"
     .    '<p>'
     .    '<select name="incorreo[]" size="15" multiple="multiple" style="width:200" width="20">'
     .    '</select>'
@@ -409,16 +415,15 @@ if ( $displayForm == TRUE )
     .    '</tr>' . "\n\n"
     .    '<tr>' . "\n"
     .    '<td colspan="3">' . "\n"
-    .    '<b>' . get_lang('Announcement') . '</b>' . "\n"
-    .    '<br />' . "\n"
+    .    '<b>' . $langAnnouncement . '</b><br />' . "\n"
     .    '<center>'
-    .    '<textarea rows="7" cols="60" name="emailContent"></textarea>'
+    .    '<textarea wrap="physical" rows="7" cols="60" name="emailContent"></textarea>'
     .    '</center>'
     .    '</td>' . "\n"
     .    '</tr>' . "\n\n"
     .    '<tr>' . "\n"
     .    '<td colspan="3" align="center">' . "\n"
-    .    '<input type="submit" name="submitAnnouncement" value="' . get_lang('Submit') . '" />'
+    .    '<input type="submit" name="submitAnnouncement" value="' . $langSubmit . '" />'
     .    '</td>' . "\n"
     .    '</tr>' . "\n\n"
     ;
@@ -430,5 +435,6 @@ echo '</table>' . "\n\n"
 .    '</form>' . "\n\n"
 ;
 
-include (get_path('incRepositorySys') . '/claro_init_footer.inc.php');
+include ($includePath . '/claro_init_footer.inc.php');
+
 ?>

@@ -1,0 +1,43 @@
+<?php
+$langAgenda = "Agenda";
+$langAnnouncement = "Anunturi";
+$langChat = "Chat";
+$langCourseHome = "Inceputul Cursului";
+$langCourseManager = "Administratorul cursului";
+$langDay_of_weekNames = "Array";
+$langDescriptionCours = "Descrierea cursului";
+$langDocument = "Documente si Linkuri";
+$langExercises = "Exercitii";
+$langForums = "Forumuri";
+$langGroups = "Grupuri";
+$langHelp = "Ajutor
+";
+$langIfNotRedirect = "Daca nu poate fi redirectionat";
+$langLearningPath = "Parcurs Pedagogic";
+$langLogin = "Logare";
+$langLogout = "Delogare";
+$langMinuteShort = "min.";
+$langModifyProfile = "Modifica profilul meu";
+$langMonthNames = "Array";
+$langMyAgenda = "Calendarul meu";
+$langMyCourses = "Lista cursurilor mele";
+$langNameOfLang = "Array";
+$langOtherCourses = "Lista cursurilor";
+$langPeriodDayShort = "d.";
+$langPeriodHourShort = "h.";
+$langPlatformAdministration = "Administrarea platformei";
+$langPoweredBy = "Bazat pe";
+$langSecondShort = "sec.";
+$langStudent = "Cursant";
+$langSwitchEditorToTextConfirm = "Aceasta comanada va anula aranjarea in pagina a textului curent. Vrei sa continui?";
+$langTextEditorDisable = "Dezactiveaza editorul de text";
+$langTextEditorEnable = "Activeaza Editorul de text";
+$langUsers = "Utilizatori";
+$langViewMode = "Modalitatea de vizionare";
+$langWiki = "Wiki";
+$langWork = "Teme";
+$lang_click_here = "apasa aici";
+$lang_enroll = "Inscriere";
+$lang_footer_p_CourseManager = "Administrator (i) %s";
+$lang_p_platformManager = "Administrator pentru  %s";
+?>

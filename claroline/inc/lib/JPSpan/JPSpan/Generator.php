@@ -1,5 +1,4 @@
-<?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+<?php
 /**
 * @package JPSpan
 * @subpackage Generator
@@ -24,7 +23,7 @@ class JPSpan_Generator {
     * @access private
     */
     var $ClientGenerator;
-
+    
     /**
     * Initialize the generator
     * @param Object responsible for generating client
@@ -39,7 +38,7 @@ class JPSpan_Generator {
         $this->ClientGenerator->serverUrl = $serverUrl;
         $this->ClientGenerator->RequestEncoding = $encoding;
     }
-
+    
     /**
     * Return the Javascript client for the server
     * @return string Javascript

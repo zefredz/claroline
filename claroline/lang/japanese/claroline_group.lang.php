@@ -1,0 +1,48 @@
+<?php
+$l_click = "Click";
+$l_here = "here";
+$l_notifybody = "You are receiving this Email because a message
+you posted on forums has been replied to, and
+you selected to be notified on this event.
+
+You may view the topic at:
+
+%1\$s
+
+Or view the forum index at
+
+%2\$s
+
+Thank you for using forums.
+
+Have a nice day.";
+$l_notifysubj = "A reply to your topic has been posted.";
+$l_returnindex = "to return to the forum index";
+$l_returntopic = "to return to the forum topic list.";
+$l_separator = "» »";
+$l_viewmsg = "to view your Message.";
+$langAgenda = "Í½Äê";
+$langAnnouncement = "¤ªÃÎ¤é¤»";
+$langCopy = "¥³¥Ô¡¼";
+$langDay_of_weekNames = "Array";
+$langDear = "·ÉÇò";
+$langDelete = "ºï½ü";
+$langDocument = "Ê¸½ñ¤¿¤Á";
+$langForum = "²ñµÄ¼¼";
+$langForums = "²ñµÄ¼¼";
+$langHelp = "¤Ø¥ë¥×";
+$langLogout = "¥í¥°¥¢¥¦¥È";
+$langModifyProfile = "¼«Ê¬¤Î¥×¥í¥Õ¥¡¥¤¥ë¤ò½¤Àµ";
+$langMonthNames = "Array";
+$langMyCourses = "¼«Ê¬¤Î¥³¡¼¥¹";
+$langNameOfLang = "Array";
+$langNewTopic = "New topic";
+$langNotAllowed = "¤³¤Î¥³¡¼¥¹¼õ¹Ö¤¬µö²Ä¤µ¤ì¤Æ¤¤¤Þ¤»¤ó";
+$langOk = "¥ª¥Ã¥±¡¼";
+$langPoweredBy = "Powered by Claroline";
+$langReply = "Answer";
+$langStudent = "student";
+$langTo = "to";
+$langUsers = "¥æ¡¼¥¶";
+$langWork = "³ØÀ¸¤ÎÊ¸½ñ¤¿¤Á";
+?>

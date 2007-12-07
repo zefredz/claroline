@@ -1,5 +1,4 @@
-<?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+<?php
 /**
 * @package JPSpan
 * @subpackage Unserialzier
@@ -21,35 +20,35 @@ class JPSpan_Unserializer_XML {
     * @access private
     */
     var $dict;
-
+    
     /**
     * Node stack
     * @var array
     * @access private
     */
     var $stack;
-
+    
     /**
     * Root node
     * @var JPSpan_Unserializer_XML_Root
     * @access private
     */
     var $root;
-
+    
     /**
     * Instance of the SAX parser
     * @var int
     * @access private
     */
     var $parser;
-
+    
     /**
     * Whether there's an error in parsing
     * @var boolean (default = FALSE)
     * @access private
     */
     var $isError = FALSE;
-
+    
     /**
     * Switch for when we're inside the root node
     * @var boolean
@@ -73,9 +72,9 @@ class JPSpan_Unserializer_XML {
             'o' => 'JPSpan_Unserializer_XML_Object',
             'e' => 'JPSpan_Unserializer_XML_Element',
         );
-
+        
     }
-
+    
     /**
     * Sax open tag callback
     * @access private
@@ -86,26 +85,26 @@ class JPSpan_Unserializer_XML {
             $this->raiseError($errorMsg);
             return;
         }
-
+        
         if ( $tag == 'r' ) {
             $this->inData = TRUE;
         }
 
         if ( $this->inData ) {
-
+        
             $class = $this->dict[$tag];
 
             $current = & new $class($this, $attrs);
             $this->stack[] = & $current;
-
-
+    
+            
             if ( $tag == 'r' ) {
                 $this->root = & $current;
             }
-
+            
         }
     }
-
+    
     /**
     * Sax tag cdata callback
     * @access private
@@ -116,27 +115,27 @@ class JPSpan_Unserializer_XML {
             $this->stack[$len-1]->readString($data);
         }
     }
-
+    
     /**
     * Sax close tag callback
     * @access private
     */
     function close(& $parser, $tag) {
-
+    
         if ( $tag == 'r' ) {
             $this->inData = FALSE;
         }
-
+        
         if ( $this->inData ) {
             $len = count($this->stack);
 
             $this->stack[$len-2]->add($this->stack[$len-1]);
-
+            
             array_pop($this->stack);
         }
-
+        
     }
-
+    
     /**
     * Raise an error
     * @param string error message
@@ -148,7 +147,7 @@ class JPSpan_Unserializer_XML {
         $msg.= ' [byte index: '.xml_get_current_byte_index($this->parser).']';
         trigger_error($msg, E_USER_ERROR);
     }
-
+    
     /**
     * Unserialize some XML. If the provided param is not a string containing
     * an XML document, it will be returned as is
@@ -162,21 +161,20 @@ class JPSpan_Unserializer_XML {
         if ( !is_string($data) || !preg_match("/^\s*<\?xml(.+)\?>/U", $data, $match) ) {
             return $data;
         }
-
-
-        $this->parser = xml_parser_create('UTF-8');
+        
+        $this->parser = & xml_parser_create('UTF-8');
         xml_parser_set_option($this->parser, XML_OPTION_CASE_FOLDING, false);
         xml_set_object($this->parser, $this);
         xml_set_element_handler($this->parser, 'open', 'close');
         xml_set_character_data_handler($this->parser, 'cdata');
-
+        
         if (!xml_parse($this->parser, trim($data), TRUE)) {
             $errorCode = xml_get_error_code($this->parser);
             $errorMsg = 'Badly formed XML: ('.$errorCode.') '.
                 xml_error_string($this->parser);
             $this->raiseError($errorMsg);
         }
-
+        
         @xml_parser_free($this->parser);
 
         if ( !$this->isError ) {
@@ -200,25 +198,25 @@ class JPSpan_Unserializer_XML_Node {
     * @access protected
     */
     var $Handler;
-
+    
     /**
     * @var mixed node value
     * @access protected
     */
     var $value;
-
+    
     /**
     * @var boolean switch to indentify JPSpan_Unserializer_XML_Element nodes
     * @access protected
     */
     var $isElement = FALSE;
-
+    
     /**
     * @var boolean switch to identify JPSpan_Unserializer_XML_String nodes
     * @access protected
     */
     var $isString = FALSE;
-
+    
     /**
     * @param JPSpan_Unserializer_XML
     * @access protected
@@ -253,7 +251,7 @@ class JPSpan_Unserializer_XML_Root extends JPSpan_Unserializer_XML_Node {
     * @access private
     */
     var $hasValue = FALSE;
-
+    
     /**
     * @param JPSpan_Unserializer_XML
     * @param array XML attributes
@@ -270,7 +268,7 @@ class JPSpan_Unserializer_XML_Root extends JPSpan_Unserializer_XML_Node {
     * @access protected
     */
     function add($child) {
-
+    
         if ( !$this->hasValue ) {
             if ( !$child->isElement ) {
                 $this->value = $child->value;
@@ -283,7 +281,7 @@ class JPSpan_Unserializer_XML_Root extends JPSpan_Unserializer_XML_Node {
             $errorMsg = 'Root node can only contain a single child node';
             $this->Handler->raiseError($errorMsg);
         }
-
+        
     }
 }
 
@@ -324,7 +322,7 @@ class JPSpan_Unserializer_XML_Boolean extends JPSpan_Unserializer_XML_Node {
     */
     function JPSpan_Unserializer_XML_Boolean(& $Handler, $attrs) {
         $this->Handler = & $Handler;
-
+        
         if ( isset($attrs['v']) ) {
             $this->value = (bool)$attrs['v'];
         } else {
@@ -332,7 +330,7 @@ class JPSpan_Unserializer_XML_Boolean extends JPSpan_Unserializer_XML_Node {
             $this->Handler->raiseError($errorMsg);
         }
     }
-
+    
 }
 
 //---------------------------------------------------------------------------
@@ -351,7 +349,7 @@ class JPSpan_Unserializer_XML_Integer extends JPSpan_Unserializer_XML_Node {
     */
     function JPSpan_Unserializer_XML_Integer(& $Handler, $attrs) {
         $this->Handler = & $Handler;
-
+        
         if ( isset($attrs['v']) ) {
             $this->value = (int)$attrs['v'];
         } else {
@@ -359,7 +357,7 @@ class JPSpan_Unserializer_XML_Integer extends JPSpan_Unserializer_XML_Node {
             $this->Handler->raiseError($errorMsg);
         }
     }
-
+    
 }
 
 //---------------------------------------------------------------------------
@@ -378,7 +376,7 @@ class JPSpan_Unserializer_XML_Double extends JPSpan_Unserializer_XML_Node {
     */
     function JPSpan_Unserializer_XML_Double(& $Handler, $attrs) {
         $this->Handler = & $Handler;
-
+        
         if ( isset($attrs['v']) ) {
             $this->value = (double)$attrs['v'];
         } else {
@@ -387,7 +385,7 @@ class JPSpan_Unserializer_XML_Double extends JPSpan_Unserializer_XML_Node {
         }
 
     }
-
+    
 }
 
 //---------------------------------------------------------------------------
@@ -403,11 +401,11 @@ class JPSpan_Unserializer_XML_String extends JPSpan_Unserializer_XML_Node {
     /**
     * Declare it's a string - instructs JPSpan_Unserializer_XML::cdata to
     * pass on string values
-    * @var boolean TRUE
+    * @var boolean TRUE 
     * @access private
     */
     var $isString = TRUE;
-
+    
     /**
     * @param JPSpan_Unserializer_XML
     * @param array XML attributes
@@ -417,7 +415,7 @@ class JPSpan_Unserializer_XML_String extends JPSpan_Unserializer_XML_Node {
         $this->Handler = & $Handler;
         $this->value = '';
     }
-
+    
     /**
     * Read some more string
     * @param string
@@ -427,7 +425,7 @@ class JPSpan_Unserializer_XML_String extends JPSpan_Unserializer_XML_Node {
     function readString($string) {
         $this->value .= $string;
     }
-
+    
 }
 
 //---------------------------------------------------------------------------
@@ -448,7 +446,7 @@ class JPSpan_Unserializer_XML_Array extends JPSpan_Unserializer_XML_Node {
         $this->Handler = & $Handler;
         $this->value = array();
     }
-
+    
     /**
     * @param JPSpan_Unserializer_XML_Node subclass
     * @return void
@@ -463,7 +461,7 @@ class JPSpan_Unserializer_XML_Array extends JPSpan_Unserializer_XML_Node {
             $this->Handler->raiseError($errorMsg);
         }
     }
-
+    
 }
 
 //---------------------------------------------------------------------------
@@ -483,27 +481,27 @@ class JPSpan_Unserializer_XML_Object extends JPSpan_Unserializer_XML_Node {
     */
     function JPSpan_Unserializer_XML_Object(& $Handler, $attrs) {
         $this->Handler = & $Handler;
-
+        
         if ( isset($attrs['c']) ) {
-
+        
             $class = $attrs['c'];
-
+            
             if ( !array_key_exists(strtolower($class),$GLOBALS['_JPSPAN_UNSERIALIZER_MAP']) ) {
-
+            
                 $errorMsg = 'Illegal object type: '.strtolower($class);
                 $this->Handler->raiseError($errorMsg);
                 return;
             }
-
+            
             $this->value = & new $class;
-
+            
         } else {
             $errorMsg = 'Object node requires class attribute';
             $this->Handler->raiseError($errorMsg);
         }
-
+        
     }
-
+    
     /**
     * @param JPSpan_Unserializer_XML_Node subclass
     * @return void
@@ -517,7 +515,7 @@ class JPSpan_Unserializer_XML_Object extends JPSpan_Unserializer_XML_Node {
             $this->Handler->raiseError($errorMsg);
         }
     }
-
+    
 }
 
 //---------------------------------------------------------------------------
@@ -536,21 +534,21 @@ class JPSpan_Unserializer_XML_Element extends JPSpan_Unserializer_XML_Node {
     * @access protected
     */
     var $value = NULL;
-
+    
     /**
     * Element key (e.g. array index or object property name)
     * @var mixed key (string or integer)
     * @access protected
     */
     var $key = NULL;
-
+    
     /**
     * Declare it's an element
     * @var boolean TRUE
     * @access protected
     */
     var $isElement = TRUE;
-
+    
     /**
     * @param JPSpan_Unserializer_XML
     * @param array XML attributes
@@ -558,7 +556,7 @@ class JPSpan_Unserializer_XML_Element extends JPSpan_Unserializer_XML_Node {
     */
     function JPSpan_Unserializer_XML_Element(& $Handler, $attrs) {
         $this->Handler = & $Handler;
-
+        
         if ( isset($attrs['k']) ) {
             $this->key = $attrs['k'];
         } else {
@@ -566,7 +564,7 @@ class JPSpan_Unserializer_XML_Element extends JPSpan_Unserializer_XML_Node {
             $this->Handler->raiseError($errorMsg);
         }
     }
-
+    
     /**
     * @param JPSpan_Unserializer_XML_Node subclass
     * @return void

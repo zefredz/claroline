@@ -1,0 +1,20 @@
+<?php
+$langAgenda = "กำหนดการ";
+$langAnonymous = "ผู้ไม่ประสงค์ออกนาม";
+$langArchive = "Archive";
+$langChat = "Chat";
+$langDay_of_weekNames = "Array";
+$langDocument = "เอกสาร";
+$langForums = "กระดานข่าว";
+$langGroups = "กลุ่ม";
+$langHelp = "ช่วยเหลือ";
+$langLogout = "Logout";
+$langModifyProfile = "ปรับปรุงข้อมูลส่วนตัว";
+$langMonthNames = "Array";
+$langMyCourses = "My courses";
+$langNameOfLang = "Array";
+$langOtherCourses = "รายชื่อรายวิชา";
+$langPoweredBy = "Powered by";
+$langStudent = "นักศึกษา";
+$langUsers = "Users";
+?>

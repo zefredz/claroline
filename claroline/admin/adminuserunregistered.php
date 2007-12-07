@@ -1,95 +1,99 @@
 <?php // $Id$
-/**
- * CLAROLINE
- *
- * @version 1.8 $Revision$
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/index.php/CLUSR
- *
- * @package CLUSR
- * @package CLCOURSES
- *
- * @author Claro Team <cvs@claroline.net>
- *
- */
+//----------------------------------------------------------------------
+// CLAROLINE
+//----------------------------------------------------------------------
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
+//----------------------------------------------------------------------
+// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
+// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+//----------------------------------------------------------------------
+// Authors: see 'credits' file
+//----------------------------------------------------------------------
 
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 
 require '../inc/claro_init_global.inc.php';
 
-require_once get_path('incRepositorySys') . '/lib/course_user.lib.php';
-
-include claro_get_conf_repository() . 'user_profile.conf.php';
+include $includePath."/lib/admin.lib.inc.php";
+include $includePath."/lib/user.lib.php";
+include $includePath.'/conf/user_profile.conf.php';
 
 // Security check
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
 
-$nameTools = get_lang('User settings');
+$nameTools=$langUserSettings;
 $dialogBox = '';
 
-$interbredcrump[]= array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
+$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => $langAdministration);
+
+//declare needed tables
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_admin           = $tbl_mdb_names['admin'           ];
+$tbl_course           = $tbl_mdb_names['course'           ];
+$tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
+$tbl_course_nodes     = $tbl_mdb_names['category'         ];
+$tbl_user             = $tbl_mdb_names['user'             ];
+
+// see which user we are working with ...
+
 $user_id = $_REQUEST['uidToEdit'];
 
 //------------------------------------
 // Execute COMMAND section
 //------------------------------------
 
-if ( isset($_REQUEST['cmd'] ) && claro_is_platform_admin() )
+if ( isset($_REQUEST['cmd'] ) && $is_platformAdmin )
 {
     if ( $_REQUEST['cmd'] == 'UnReg' )
     {
-        if ( user_remove_from_course($user_id, $_REQUEST['cidToEdit'],true, false) )
+        if ( user_remove_from_course($user_id, $_REQUEST['cidToEdit'],true) )
         {
-            $dialogBox .= get_lang('The user has been successfully unregistered');
+            $dialogBox .= $langUserUnsubscribed;
         }
         else
         {
             switch ( claro_failure::get_last_failure() )
             {
                 case 'cannot_unsubscribe_the_last_course_manager' :
-                    $dialogBox .= get_lang('You cannot unsubscribe the last course manager of the course');
+                    $dialogBox .= $langCannotUnsubscribeLastCourseManager;
                     break;
                 case 'course_manager_cannot_unsubscribe_himself' :
-                    $dialogBox .= get_lang('Course manager cannot unsubscribe himself');
+                    $dialogBox .= $langCourseManagerCannotUnsubscribeHimself;
                     break;
-                default :
-            }
+                default :       
+            }       
         }
     }
 }
 
-/**
- * PREPARE DISPLAY
- */
+//------------------------------------
+// DISPLAY
+//------------------------------------
 
-$cmdList[] = '<a class="claroCmd" href="index.php">' . get_lang('Back to administration page') . '</a>';
-$cmdList[] = '<a class="claroCmd" href="adminusercourses.php?uidToEdit=' . $user_id.'">' . get_lang('Back to course list') . '</a>';
+// Display header
 
-/**
- * DISPLAY
- */
+include($includePath.'/claro_init_header.inc.php');
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+// Display tool title
 
-echo claro_html_tool_title(get_lang('User unregistered'));
+echo claro_disp_tool_title($langUserUnregistered);
 
 // Display Forms or dialog box(if needed)
 
 if ( !empty($dialogBox) )
 {
-    echo claro_html_message_box($dialogBox);
+    echo claro_disp_message_box($dialogBox);
 }
 
-echo '<p>'
-.    claro_html_menu_horizontal($cmdList)
-.    '</p>'
-;
+// Display TOOL links :
+
+echo "<a class=\"claroCmd\" href=\"index.php\">".$langBackToAdmin."</a> | ";
+echo "<a class=\"claroCmd\" href=\"adminusercourses.php?uidToEdit=".$user_id."\">".$langBackToCourseList."</a>";
+
 // Display footer
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 
 ?>

@@ -1,0 +1,36 @@
+<?php
+$l_topics = "Konular";
+$langAgenda = "Gündem";
+$langAnnouncement = "Duyurular";
+$langCategories = "Kategoriler";
+$langChat = "Sohbet";
+$langCourseHome = "Kurs Anasayfasý";
+$langCourseManager = "Kurs düzenleyicisi";
+$langDay_of_weekNames = "Array";
+$langDescriptionCours = "Ders açýklamasý";
+$langDocument = "Belgeler";
+$langEmpty = "Bazý alanlarý boþ býraktýnýz.<br />Gezgininizin <b>Geri</b> düðmesini kullanarak doldurunuz.<br />Eðer ders kodunu yazmadýysanýz Ders Programýna bakýnýz";
+$langExercises = "Alýþtýrmalar";
+$langForums = "Forumlar";
+$langGroups = "Gruplar";
+$langHelp = "Yardým";
+$langLearningPath = "Öðrenim Hattý";
+$langLogout = "Çýkýþ";
+$langModifyProfile = "Profilimi deðiþtir";
+$langMonthNames = "Array";
+$langMyAgenda = "Takvimim";
+$langMyCourses = "Derslerim";
+$langNameOfLang = "Array";
+$langOtherCourses = "Ders listesi";
+$langPlatformAdministration = "Site Yönetimi";
+$langPoweredBy = " ile içerik ortaðýdýr";
+$langSecondShort = "dak.";
+$langStudent = "öðrenci";
+$langUp = "Yukarý";
+$langUsers = "Kullanýcýlar";
+$langViewMode = "Görünüm";
+$langWiki = "Webpaylaþým";
+$langWork = "Öðrenci Yazýlarý";
+$lang_footer_p_CourseManager = " %s Yöneticisi";
+$lang_p_platformManager = " %s Sahibi";
+?>

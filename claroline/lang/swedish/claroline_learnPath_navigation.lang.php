@@ -1,0 +1,35 @@
+<?php
+$langAddComment = "lägg till/modifiera kommentar till";
+$langAgenda = "Agenda";
+$langAnnouncement = "Tillkännagivanden";
+$langBack = "Tillbaka";
+$langChat = "Diskussion";
+$langConfirmYourChoice = "Var snäll och bekräfta ditt val";
+$langCourseManager = "Kursansvarig";
+$langDate = "Datum";
+$langDay_of_weekNames = "Array";
+$langDelete = "Radera";
+$langDescriptionCours = "Kursbeskrivning";
+$langDocument = "Dokument";
+$langExercises = "Övningar";
+$langForums = "Forum";
+$langGroups = "instruktion för gruppanvändarna";
+$langHelp = "hjälp";
+$langLogin = "Logga in";
+$langLogout = "Logga ut";
+$langModify = "Redigera";
+$langModifyProfile = "Modifiera min profil";
+$langMonthNames = "Array";
+$langMyCourses = "Mina kurser";
+$langNameOfLang = "Array";
+$langNext = "Nästa";
+$langNoEx = "Det finns inga övningar för tillfället";
+$langOk = "validate";
+$langOtherCourses = "Kurslista";
+$langPoweredBy = "Med kraft från";
+$langSize = "Storlek";
+$langStudent = "elev";
+$langUp = "Upp";
+$langUsers = "Användare";
+$langWork = "Elevarbeten";
+?>
