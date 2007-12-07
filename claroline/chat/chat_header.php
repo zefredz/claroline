@@ -1,39 +1,36 @@
 <?php // $Id$
-/**
- * CLAROLINE
- *
- * @version 1.8 $Revision$
- *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/index.php/CLCHT
- *
- * @package CLCHT
- *
- * @author Claro Team <cvs@claroline.net>
- *
- */
 
-$tlabelReq = 'CLCHT';
+//----------------------------------------------------------------------
+// CLAROLINE
+//----------------------------------------------------------------------
+// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+//----------------------------------------------------------------------
+// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+// as published by the FREE SOFTWARE FOUNDATION. The GPL is available 
+// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+//----------------------------------------------------------------------
+// Authors: see 'credits' file
+//----------------------------------------------------------------------
+
+$langFile = "chat";
+$tlabelReq = "CLCHT___";
 
 require '../inc/claro_init_global.inc.php';
 
-$nameTools  = get_lang('Chat');
-$noPHP_SELF = TRUE;
+$nameTools  = $langChat;
+$noPHP_SELF = true;
 
-// Turn off session lost
-$warnSessionLost = false ;
+include($includePath."/claro_init_header.inc.php");
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-$_group = claro_get_current_group_data();
+
+/* STATS & TRACKING */
+
+include($includePath."/lib/events.lib.inc.php");
+
+event_access_tool($_tid, $_SESSION['_courseTool']['label']);
 
 $titleElement['mainTitle'] = $nameTools;
-if ( claro_is_in_a_group() ) $titleElement['supraTitle'] = claro_get_current_group_data('name');
+if ( $_gid ) $titleElement['subTitle'] = $_group['name'];
 
-echo claro_html_tool_title($titleElement);
-
-$hide_footer = TRUE;
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+claro_disp_tool_title($titleElement);
 ?>

@@ -1,238 +1,349 @@
-<?php // $Id$
-/**
- * CLAROLINE
- *
- * This tool list user of a course but in admin section
- *
- * @version 1.9 $Revision$
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/index.php/CLUSR
- *
- * @package CLUSR
- *
- * @author Claro Team <cvs@claroline.net>
- *
- */
+<?php //$Id$
+//----------------------------------------------------------------------
+// CLAROLINE
+//----------------------------------------------------------------------
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
+//----------------------------------------------------------------------
+// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
+// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+//----------------------------------------------------------------------
+// Authors: see 'credits' file
+//----------------------------------------------------------------------
 
-$cidReset=true;$gidReset=true;$tidReset=true;
+// Lang files needed :
+
+$langFile = "admin";
+
+// initialisation of global variables and used libraries
 
 require '../inc/claro_init_global.inc.php';
+include($includePath."/lib/pager.lib.php");
+include($includePath."/lib/admin.lib.inc.php");
 
-/* ************************************************************************** */
-/*  Security Check
-/* ************************************************************************** */
 
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
+//SECURITY CHECK
 
-/* ************************************************************************** */
-/*  Initialise variables and include libraries
-/* ************************************************************************** */
+if (!$is_platformAdmin) treatNotAuthorized();
 
-$dialogBox = '';
-// initialisation of global variables and used libraries
-require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
-require_once get_path('incRepositorySys') . '/lib/course_user.lib.php';
+$is_allowedToAdmin     = $is_platformAdmin;
 
-include claro_get_conf_repository() . 'user_profile.conf.php';
 
-$tbl_mdb_names   = claro_sql_get_main_tbl();
+if ($cidToEdit=="") {unset($cidToEdit);}
 
-/**
- * Manage incoming.
- */
+$userPerPage = 20; // numbers of user to display on the same page
 
-if ((isset($_REQUEST['cidToEdit']) && $_REQUEST['cidToEdit'] == '') || !isset($_REQUEST['cidToEdit']))
-{
-    unset($_REQUEST['cidToEdit']);
-    $dialogBox .= 'ERROR : NO COURSE SET!!!';
-}
-else $cidToEdit = $_REQUEST['cidToEdit'];
+if ($cidToEdit=="") {$dialogBox ="ERROR : NO USER SET!!!";}
+
+
+@include ($includePath."/installedVersion.inc.php");
+
+// javascript confirm pop up declaration
+
+  $htmlHeadXtra[] =
+         "<style type=text/css>
+         <!--
+         .comment { margin-left: 30px}
+         .invisible {color: #999999}
+         .invisible a {color: #999999}
+         -->
+         </style>";
+
+   $htmlHeadXtra[] =
+            "<script>
+            function confirmationReg (name)
+            {
+                if (confirm(\"".$langAreYouSureToUnsubscribe."\"+ name + \"? \"))
+                    {return true;}
+                else
+                    {return false;}
+            }
+            </script>";
+
 // See SESSION variables used for reorder criteria :
-$validCmdList = array('unsub',);
-$validRefererList = array('clist',);
 
-$cmd = (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$validCmdList) ? $_REQUEST['cmd'] : null);
-$cfrom = (isset($_REQUEST['cfrom']) && in_array($_REQUEST['cfrom'],$validRefererList) ? $_REQUEST['cfrom'] : null);
+if (isset($_GET['dir']))       {$_SESSION['admin_course_user_dir'] = $_GET['dir'];}
+if (isset($_GET['order_crit'])){$_SESSION['admin_course_user_order_crit'] = $_GET['order_crit'];}
 
-$pager_offset =  isset($_REQUEST['pager_offset'])?$_REQUEST['pager_offset'] :'0';
-$addToURL = '';
-$do=null;
+// clean session if we come from a course
 
-/**
- * COMMAND
- */
+session_unregister('_cid');
+unset($_cid);
 
-if ( $cmd == 'unsub' )
+// Deal with interbredcrumps
+
+$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
+$nameTools = $langAllUsersOfThisCourse;
+
+//Header
+
+include($includePath."/claro_init_header.inc.php");
+
+//TABLES
+
+$tbl_user             = $mainDbName."`.`user";
+$tbl_courses        = $mainDbName."`.`cours";
+$tbl_course_user    = $mainDbName."`.`cours_user";
+$tbl_admin            = $mainDbName."`.`admin";
+$tbl_todo            = $mainDbName."`.`todo";
+$tbl_track_default    = $statsDbName."`.`track_e_default";// default_user_id
+$tbl_track_login    = $statsDbName."`.`track_e_login";    // login_user_id
+
+
+
+//------------------------------------
+// Execute COMMAND section
+//------------------------------------
+
+switch ($cmd)
 {
-    $do = 'unsub';
-}
+  case "delete" :
+        delete_user($user_id);
+        $dialogBox = "Delete of the user was done sucessfully";
+        break;
 
-if ( $do == 'unsub' )
-{
-    if ( user_remove_from_course($_REQUEST['user_id'], $_REQUEST['cidToEdit'], true, true, false) )
-    {
-        $dialogBox .= get_lang('The user has been successfully unregistered');
-    }
-    else
-    {
-        switch ( claro_failure::get_last_failure() )
+  case "unsub" :
+        $done = remove_user_from_course($user_id, $cidToEdit);
+        if ($done)
         {
-            case 'cannot_unsubscribe_the_last_course_manager' :
-            {
-                $dialogBox .= get_lang('You cannot unsubscribe the last course manager of the course');
-            }   break;
-            case 'course_manager_cannot_unsubscribe_himself' :
-            {
-                $dialogBox .= get_lang('Course manager cannot unsubscribe himself');
-            }   break;
-            default :
+           $dialogBox =$langUserUnsubscribed;
         }
-    }
+        else
+        {
+           $dialogBox =$langUserNotUnsubscribed;
+        }
+        break;
 }
-// build and call DB to get info about current course (for title) if needed :
-$courseData = claro_get_course_data($cidToEdit);
+
+//build and call DB to get info about current course (for title) if needed :
+
+$sql = "SELECT *
+        FROM  `".$tbl_courses."`
+        WHERE `code`='".$cidToEdit."'
+        ";
+$queryCourse =  claro_sql_query($sql);
+$resultCourse = mysql_fetch_array($queryCourse);
+
+
 
 //----------------------------------
 // Build query and find info in db
 //----------------------------------
-$sql = "SELECT U.user_id  AS user_id,
-               U.nom      AS name,
-               U.prenom   AS firstname,
-               U.username AS username,
-               CU.profile_id AS profileId,
-               CU.isCourseManager
-        FROM  `" . $tbl_mdb_names['user'] . "` AS U
-            , `" . $tbl_mdb_names['rel_course_user'] . "` AS CU
-          WHERE CU.`user_id` = U.`user_id`
-            AND CU.`code_cours` = '" . addslashes($cidToEdit) . "'";
 
-$myPager = new claro_sql_pager($sql, $pager_offset, get_conf('userPerPage',20));
 
-$sortKey = isset($_GET['sort']) ? $_GET['sort'] : 'user_id';
-$sortDir = isset($_GET['dir' ]) ? $_GET['dir' ] : SORT_ASC;
-$myPager->set_sort_key($sortKey, $sortDir);
-$myPager->set_pager_call_param_name('pager_offset');
+$sql = "SELECT *, CU.statut AS stat
+        FROM  `".$tbl_user."` AS U
+        ";
 
-$userList = $myPager->get_result_list();
+$toAdd = ", `".$tbl_course_user."` AS CU WHERE CU.`user_id` = U.`user_id`
+          AND CU.`code_cours` = '".$cidToEdit."'
+        ";
 
-// Start the list of users...
-$userDataList = array();
+$sql.=$toAdd;
 
-foreach($userList as $lineId => $user)
+//deal with LETTER classification call
+
+if (isset($_GET['letter']))
 {
-    $userDataList[$lineId]['user_id']         = $user['user_id'];
-    $userDataList[$lineId]['name']            = $user['name'];
-    $userDataList[$lineId]['firstname']       = $user['firstname'];
+    $toAdd = "
+             AND U.`nom` LIKE '".$_GET['letter']."%'
+             ";
+    $sql.=$toAdd;
+}
 
-    $userDataList[$lineId]['profileId']       = claro_get_profile_name($user['profileId']);
+//deal with KEY WORDS classification call
 
-    if ( $user['isCourseManager'] )
+if (isset($_GET['search']))
+{
+    $toAdd = " AND ((U.`nom` LIKE '".$_GET['search']."%'
+              OR U.`username` LIKE '".$_GET['search']."%'
+              OR U.`prenom` LIKE '".$_GET['search']."%')) ";
+
+    $sql.=$toAdd;
+}
+
+// deal with REORDER
+
+  //first see is direction must be changed
+
+if (isset($chdir) && ($chdir=="yes"))
+{
+  if ($_SESSION['admin_course_user_dir'] == "ASC") {$_SESSION['admin_course_user_dir']="DESC";}
+  elseif ($_SESSION['admin_course_user_dir'] == "DESC") {$_SESSION['admin_course_user_dir']="ASC";}
+  else $_SESSION['admin_course_user_dir'] = "DESC";
+}
+
+if (isset($_SESSION['admin_course_user_order_crit']))
+{
+    if ($_SESSION['admin_course_user_order_crit']=="user_id")
     {
-        $userDataList[$lineId]['isCourseManager'] = '<img src="' . get_conf('imgRepositoryWeb') .'manager.gif" '
-                                                  . ' alt="' . get_lang('Course Manager') . '" border="0"  hspace="4" '
-                                                  . ' title="' . get_lang('Course Manager') . '" />' ;
+        $toAdd = " ORDER BY CU.`user_id` ".$_SESSION['admin_course_user_dir'];
     }
     else
     {
-        $userDataList[$lineId]['isCourseManager'] = '<img src="' . get_conf('imgRepositoryWeb') .'user.gif" '
-                                                  . ' alt="' . get_lang('Student') . '" border="0"  hspace="4" '
-                                                  . ' title="' . get_lang('Student') . '" />' ;
+        $toAdd = " ORDER BY `".$_SESSION['admin_course_user_order_crit']."` ".$_SESSION['admin_course_user_dir'];
     }
-
-    $userDataList[$lineId]['cmd_cu_edit'] = '<a href="adminUserCourseSettings.php'
-                                            . '?cidToEdit=' . $cidToEdit
-                                            . '&amp;uidToEdit=' . $user['user_id'] . '&amp;ccfrom=culist">'
-                                            . '<img src="' . get_conf('imgRepositoryWeb') .'edit.gif" alt="' . get_lang('Edit') . '"/>'
-                                            . '</a>';
-
-    $userDataList[$lineId]['cmd_cu_unenroll']  = '<a href="' . $_SERVER['PHP_SELF']
-    .                                            '?cidToEdit=' . $cidToEdit
-    .                                            '&amp;cmd=unsub&amp;user_id=' . $user['user_id']
-    .                                            '&amp;pager_offset=' . $pager_offset . '" '
-    .                                            ' onclick="return confirmationReg(\'' . clean_str_for_javascript($user['username']) . '\');">' . "\n"
-    .                                            '<img src="' . get_conf('imgRepositoryWeb') . 'unenroll.gif" border="0" alt="' . get_lang('Unregister user') . '" />' . "\n"
-    .                                            '</a>' . "\n";
-
-} // end display users table
-
-/****************
- * Prepare output
- */
-
-// javascript confirm pop up declaration
-$htmlHeadXtra[] =
-         "<script>
-         function confirmationReg (name)
-         {
-             if (confirm(\"".clean_str_for_javascript(get_lang('Are you sure you want to unregister'))." \"+ name + \" ? \"))
-                 {return true;}
-             else
-                 {return false;}
-         }
-         </script>";
-
-// Config Datagrid
-
-$sortUrlList = $myPager->get_sort_url_list($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit);
-
-$dg_opt_list['idLineShift'] = $myPager->offset + 1;
-$dg_opt_list['colTitleList'] = array ( 'user_id'  => '<a href="' . $sortUrlList['user_id'] . '">' . get_lang('User Id') . '</a>'
-                                     , 'name'     => '<a href="' . $sortUrlList['name'] . '">' . get_lang('Last name') . '</a>'
-                                     , 'firstname'=> '<a href="' . $sortUrlList['firstname'] . '">' . get_lang('First name') . '</a>'
-                                     , 'profileId'=> '<a href="' . $sortUrlList['profileId'] . '">' . get_lang('Profile') . '</a>'
-                                     , 'isCourseManager'  => '<a href="' . $sortUrlList['isCourseManager'] . '">' . get_lang('Course Manager') . '</a>'
-                                     , 'cmd_cu_edit'  => get_lang('Edit')
-                                     , 'cmd_cu_unenroll' => get_lang('Unregister user')
-);
-
-$dg_opt_list['colAttributeList'] = array ( 'user_id'   => array ('align' => 'center')
-                                         , 'isCourseManager'    => array ('align' => 'center')
-                                         , 'cmd_cu_edit'    => array ('align' => 'center')
-                                         , 'cmd_cu_unenroll' => array ('align' => 'center')
-);
-
-$dg_opt_list['caption'] = '<img src="' . get_conf('imgRepositoryWeb') . 'user.gif" '
-.                         ' alt="' . get_lang('Student') . '" border="0" title="' . get_lang('Student') . '" />'
-.                         get_lang('Student')
-.                         ' - <img src="' . get_conf('imgRepositoryWeb') . 'manager.gif" '
-.                         ' alt="' . get_lang('Course manager') . '" border="0" title="' . get_lang('Course manager') . '" />'
-.                         get_lang('Course manager')
-;
-
-$nameTools = get_lang('Course members');
-$nameTools .= " : ".$courseData['name'];
-// Deal with interbredcrumps
-$interbredcrump[]= array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
-$command_list[] = '<a class="claroCmd" href="adminregisteruser.php'
-.    '?cidToEdit=' . $cidToEdit . '">'
-.    get_lang('Enroll a user')
-.    '</a>'
-;
-if ($cfrom=='clist')
-{
-    $command_list[] = '<a class="claroCmd" href="admincourses.php">' . get_lang('Back to course list') . '</a>';
+    $sql.=$toAdd;
 }
 
-/*********
- * DISPLAY
- */
+//echo $sql."<br>";
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-echo claro_html_tool_title($nameTools);
-if ( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
+$myPager = new claro_sql_pager($sql, $offset, $userPerPage);
+$resultList = $myPager->get_result_list();
 
-$userDataGrid = new claro_datagrid($userDataList);
-$userDataGrid->set_option_list($dg_opt_list);
 
-echo '<p>' . claro_html_menu_horizontal($command_list) . '</p>'
-.    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit)
-.    $userDataGrid->render()
-.    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit)
-;
+//------------------------------------
+// DISPLAY
+//------------------------------------
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+// Display tool title
+
+$nameTools .= " : ".$resultCourse['intitule'];
+
+claro_disp_tool_title($nameTools);
+
+// Display Forms or dialog box(if needed)
+
+if($dialogBox)
+  {
+    claro_disp_message_box($dialogBox);
+  }
+
+//Display selectbox, alphabetic choice, and advanced search link search
+
+  // ALPHABETIC SEARCH
+/*
+echo "<form name=\"indexform\" action=\"",$PHP_SELF,"\" method=\"GET\">
+             ";
+
+            if (isset($cidToEdit)) {$toAdd = "cidToEdit=".$cidToEdit;} else {$toAdd = "";}
+
+            echo "<a href=\"",$PHP_SELF,"?".$toAdd."\"><b> ".$langAll."</b></a> | ";
+
+            echo "<a href=\"",$PHP_SELF,"?letter=A&".$toAdd."\">A</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=B&".$toAdd."\">B</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=C&".$toAdd."\">C</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=D&".$toAdd."\">D</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=E&".$toAdd."\">E</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=F&".$toAdd."\">F</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=G&".$toAdd."\">G</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=H&".$toAdd."\">H</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=I&".$toAdd."\">I</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=J&".$toAdd."\">J</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=K&".$toAdd."\">K</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=L&".$toAdd."\">L</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=M&".$toAdd."\">M</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=N&".$toAdd."\">N</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=O&".$toAdd."\">O</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=P&".$toAdd."\">P</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=Q&".$toAdd."\">Q</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=R&".$toAdd."\">R</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=S&".$toAdd."\">S</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=T&".$toAdd."\">T</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=U&".$toAdd."\">U</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=V&".$toAdd."\">V</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=W&".$toAdd."\">W</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=X&".$toAdd."\">X</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=Y&".$toAdd."\">Y</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=Z&".$toAdd."\">Z</a>";
+            echo "
+            <input type=\"text\" name=\"search\">
+            <input type=\"hidden\" name=\"cidToEdit\" value=\"".$cidToEdit."\">
+            <input type=\"submit\" value=\"".$langSearch."\">
+
+      </form>
+     ";
+*/
+     //TOOL LINKS
+
+claro_disp_button("adminregisteruser.php?cidToEdit=".$cidToEdit, $langEnrollUser);
+
+if (isset($cfrom) && ($cfrom=="clist"))
+{
+    claro_disp_button("admincourses.php", $langBackToCourseList);
+}
+
+//Pager
+
+$myPager->disp_pager_tool_bar($PHP_SELF."?cidToEdit=".$cidToEdit);
+
+// Display list of users
+
+   // start table...
+
+echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
+
+    <tr class=\"headerX\" align=\"center\" valign=\"top\">
+       <th><a href=\"",$PHP_SELF,"?order_crit=user_id&chdir=yes&cidToEdit=".$cidToEdit."\">".$langUserid."</a></th>
+       <th><a href=\"",$PHP_SELF,"?order_crit=nom&chdir=yes&cidToEdit=".$cidToEdit."\">".$langName."</a></th>
+       <th><a href=\"",$PHP_SELF,"?order_crit=prenom&chdir=yes".$dir."&cidToEdit=".$cidToEdit."\">".$langFirstName."</a></th>";
+echo "<th>".$langCourseManager."</th>";
+echo "<th>".$langEditUserCourseSetting."</th>
+      <th>".$langUnsubscribe."</th>";
+
+echo "</tr><tbody> ";
+
+   // Start the list of users...
+
+foreach($resultList as $list)
+{
+     echo "<tr>";
+
+     //  Id
+
+     echo "<td align=\"center\">".$list['user_id']."
+           </td>";
+
+     // lastname
+
+     echo "<td align=\"left\">".$list['nom']."</td>";
+
+     //  Firstname
+
+     echo "<td align=\"left\">".$list['prenom']."</td>";
+
+     //  course manager
+
+     if ($list['stat']==1)
+     {
+        $userStatut = $langCourseManager;
+     }
+     else
+     {
+        $userStatut = " - ";
+     }
+     echo "<td align=\"center\">".$userStatut."</td>";
+
+     // Edit user course settings
+
+     echo     "<td align=\"center\">\n",
+                        "<a href=\"adminUserCourseSettings.php?cidToEdit=".$cidToEdit."&uidToEdit=".$list['user_id']."&ccfrom=culist\">\n
+                         <img src=\"".$clarolineRepositoryWeb."img/usersetting.gif\" border=\"0\" alt=\"$langEditUserCourseSetting\" />\n",
+                        "</a>\n",
+                        "</td>\n";
+
+     // Unregister
+
+     if (isset($cidToEdit))
+     {
+        echo  "<td align=\"center\">\n",
+                "<a href=\"",$PHP_SELF,"?cidToEdit=".$cidToEdit."&cmd=unsub&user_id=".$list['user_id']."&offset=".$offset."\" ",
+                "onClick=\"return confirmationReg('",addslashes($list['username']),"');\">\n",
+                "<img src=\"".$clarolineRepositoryWeb."img/unenroll.gif\" border=\"0\" alt=\"$langUnsubscribe\" />\n",
+                "</a>\n",
+            "</td>\n";
+     }
+
+     echo "</tr>";
+}
+
+   // end display users table
+
+echo "</tbody></table>";
+
+//Pager
+
+$myPager->disp_pager_tool_bar($PHP_SELF."?cidToEdit=".$cidToEdit);
+
+include($includePath."/claro_init_footer.inc.php");
 ?>

@@ -1,0 +1,32 @@
+<?php # $Id
+//if (basename($_SERVER["SCRIPT_FILENAME"])==basename(__FILE__)) die("Va voir ailleurs");
+$showLinkToDeleteThisCourse = TRUE;
+$showLinkToExportThisCourse = FALSE;
+$showLinkToRestoreCourse	= FALSE;
+
+// If true, these fileds  keep the previous content.
+$canBeEmpty["screenCode"] 	= FALSE;
+$canBeEmpty["int"] 			= FALSE;
+$canBeEmpty["facu"] 		= FALSE;
+$canBeEmpty["description"] 	= TRUE;
+$canBeEmpty["visible"] 		= FALSE;
+$canBeEmpty["titulary"] 	= FALSE;
+$canBeEmpty["lanCourseForm"]= FALSE;
+$canBeEmpty["extLinkName"]	= TRUE;
+$canBeEmpty["extLinkUrl"] 	= TRUE;
+$canBeEmpty["email"]		= TRUE;
+
+$showDiskQuota									= FALSE;
+$showDiskUse									= FALSE;
+$showLinkToChangeDiskQuota						= FALSE;
+$showExpirationDate 							= FALSE;
+$showCreationDate 								= TRUE;
+$showLastEdit 									= FALSE;
+$showLastVisit 									= FALSE;
+$canReportExpirationDate 						= FALSE; // need to be true
+														// if ScriptToReportExpirationDate 
+														// is not automaticly called
+$linkToChangeDiskQuota							= "changeQuota.php";
+$urlScriptToReportExpirationDate 				= "postpone.php"; // external script to postpone the expiration of course.
+
+?>

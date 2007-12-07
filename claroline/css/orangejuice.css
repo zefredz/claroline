@@ -2,41 +2,33 @@
                               MAIN HTML TAGS STYLE
  ******************************************************************************/
 
-body 
-{
-    background-color:#FFFFFF;
-    color:#000000;
-    font-family: Arial,Helvetica,sans-serif;
-    padding: 0;
-    margin: 0;
+body {
+background-color:#ffffff;
+color:#000000;
+font-family: tahoma,Verdana,Geneva,Arial,Helvetica,sans-serif;
+font-size: 12px/17px;
+padding:0;
 }
 
-a:link, a:active, a:visited 
-{
-    color: #333;
-    text-decoration: none;
+a:link, a:active, a:visited {
+  color: #333333;
+  text-decoration: none;
 }
 
-a:hover 
-{
-    color: #369;
+a:hover {
+  color: #FDD088;
 }
 
-a img 
-{
-    border:none;
-    text-decoration: none;
+a img {
+	border:none;
+	text-decoration: none;
 }
 
-.spacer
-{
-    clear: both;
+a | img {
+	border: 0px;
+	text-decoration: none;
 }
 
-h3
-{    
-    font-size: 110%; 
-}
 /******************************************************************************
                               CLAROLINE TOP BANNER
  ******************************************************************************/
@@ -45,419 +37,256 @@ h3
  /*----------------------------------------------------------------------------
                               MAIN BANNER SETTINGS
  ----------------------------------------------------------------------------*/
-
-#topBanner hr
-{
-    display: none;
+ 
+.claroTopBanner {
 }
 
-
-#topBanner 
-{
-    padding: 0;
+/*
+ * ANCHORS BEHAVIOUR
+ */
+ 
+.claroTopBanner a {
+	text-decoration:none
+  color: #33333;
 }
+.claroTopBanner a:hover {
+  color: #FFB848;
+}
+
+/*
+ * BORDER BEHAVIOR
+ *
+ * Note : Maybe you should change the color parameter
+ * if you aim to change the page background color
+ */
+
+.claroTopBanner .platformBanner td, 
+.claroTopBanner .userBanner td  ,
+.claroTopBanner .courseBanner td { 
+	border-top:1px solid #FFF;
+}
+
 
  /*----------------------------------------------------------------------------
                                   CAMPUS LINE
  ----------------------------------------------------------------------------*/
-#platformBanner
-{
-    color: #333;    
-    background-color:#FFB848;
-    padding: 4px;
-    font-size: 115%;
-    font-weight: bold;
-    border-bottom: 1px solid #000;
+
+.claroTopBanner .platformBanner {
+	background-color:#FFB848;
+	color: #333333;
+	font-size: 120%;
 }
 
-#platformBanner a,
-#platformBanner a:active,
-#platformBanner a:link,
-#platformBanner a:visited
-{
-    text-decoration: none;
-       color: #333;
+.claroTopBanner .platformBanner  a {
+	color: #333333;
 }
 
-#platformBanner a:hover
-{
-    color: #fff;
-    text-decoration: none;
+.claroTopBanner .platformBanner  a:hover {
+	color: #FDD088;
 }
-
-#platformBanner #siteName
-{
-}
-
-#platformBanner #institution
-{
-}
-
-#campusBannerRight
-{
-    position: relative;
-    float: right;
-    text-align: right;
-    margin: 0;
-}
-
-#campusBannerLeft
-{
-    position: relative;
-    float: left;
-    text-align: left;
-    margin: 0;
-}
-
 
  /*----------------------------------------------------------------------------
                                    USER LINE
  ----------------------------------------------------------------------------*/
-#userBanner
-{
-    background-color: #FDD088;
-    color: #333;
-    font-size: 80%;
-    padding: 4px;
-    border-bottom: 1px solid #000;
+
+.claroTopBanner .userBanner {
+		background-color: #FDD088;
+		color: #333333;
+		font-size: 80%;
+		margin-top:1px;
 }
 
-#userBanner #userName
-{
-    font-weight: bold;
-    margin: 0px;
+.claroTopBanner .userBanner a {
+		color: #333333;
 }
-
-#userBanner #userLinks
-{
-    text-align: left;
-}
-
-#userBanner a,
-#userBanner a:active,
-#userBanner a:link,
-#userBanner a:visited
-{
-    color: #333;
-}
-
-#userBanner a:hover
-{
-    text-decoration: underline;
-    color: #369;
-    
-}
-
-#userBannerRight
-{
-    position: relative;
-    float: right;
-    text-align: right;
-    margin: 0;
-}
-
-#userBannerLeft
-{
-    position: relative;
-    float: left;
-    text-align: left;
-    margin: 0;
+.claroTopBanner .userBanner a:hover {
+		color: #ffecce;
 }
 
  /*----------------------------------------------------------------------------
                                   COURSE LINE
  ----------------------------------------------------------------------------*/
-#courseBanner
-{
-    color: #036;
-    background-color: #fec;
-    font-weight:bold;
-       padding: 4px;
-    border-bottom: 1px solid #000;
+
+.claroTopBanner .courseBanner {
+		background-color: #ffecce;
+		color: #003366;
+		font-weight:bold;
+    border-top:1px solid #FFF;
 }
 
-#courseBanner #course
-{
-    position: relative;
-    float: left;
-    text-align: left;
+.claroTopBanner .courseBanner p {
+	margin: 0px;
 }
 
-#courseBanner #course span
-{
-       display: block;
+.claroTopBanner .courseBanner p .courseName {
+	font-size: 120%;
 }
 
-#courseBanner #courseToolList
-{
-    position: relative;
-    float: right;
-    text-align: right;
+.claroTopBanner .courseBanner p .courseCode {
+	font-size: 80%;
 }
 
-#courseBanner #courseName
-{
-    font-size: 120%;
-    padding: 0;
-    margin: 0;
-}
 
-#courseBanner #courseCode 
-{
-    font-size: 80%;
+.claroTopBanner .courseBanner a {
+		color:#c60;
 }
-
-#courseBanner a,
-#courseBanner a:active,
-#courseBanner a:link,
-#courseBanner a:visited
-{
-    color: #c60;
-    text-decoration: none;
+	
+.claroTopBanner .courseBanner a:hover {
+		color:#369;		
+    background-color:transparent;
 }
-
-#courseBanner a:hover
-{
-    color: #369;
-}
-
-#courseBanner form
-{
-    padding: 5px;
-    margin: 0;
-}
-
-#courseBannerRight
-{
-    position: relative;
-    float: right;
-    text-align: right;
-    margin: 0;
-}
-
-#courseBannerLeft
-{
-    position: relative;
-    float: left;
-    text-align: left;
-    margin: 0;
-}
-
  /*----------------------------------------------------------------------------
                                   BREAD CRUMB TRAIL
  ----------------------------------------------------------------------------*/
 
-#breadcrumbLine
-{
-    border: none;
-    padding-bottom: 5px;
+.claroBreadCrumbTrail {
+	font-size: 80%;
 }
 
-#breadcrumbLine a,
-#breadcrumbLine a:active,
-#breadcrumbLine a:link,
-#breadcrumbLine a:visited
-{
-    color:#c60;
+.claroBreadCrumbTrail a {
+		color:#c60;
+}
+	
+.claroBreadCrumbTrail a:hover {
+		color:#FFB848;		
+    background-color:transparent;
 }
 
-#breadcrumbLine a:hover
-{
-    color:#FFB848;
-}
 
-#breadcrumbLine hr
-{
-    display: none;
-}
 
-#breadcrumbLine .breadcrumbTrails
-{
-    float: left;
-}
-
-#toolViewOption
-{
-    font-size: 80%;
-    float: right;
-    text-align: right;
-}
-
-.breadcrumbTrails
-{
-    font-size:80%
-}
 /******************************************************************************
                              CLAROLINE BODY
  ******************************************************************************/
 
-#claroBody
-{
-    padding-left: 10px;
-    padding-right: 10px;
+claroBody  {
+
 }
+
+
+
 
 
 /******************************************************************************
                               CLAROLINE FOOTER
  ******************************************************************************/
-#campusFooter
-{
-    background-color: #FFFFF;
-    font-size: 75%;
+
+.claroFooter  {
+	background-color: #FFFFF;
+	font-size: 80%;
 }
 
-#campusFooter hr
-{
-    background-color: gray;
-    border: 0;
-    height: 1px;
+.claroFooter a, 
+.claroFooter a:visited, 
+.claroFooter a:active {	
+}
+	
+.claroFooter a:hover {
 }
 
-#campusFooterRight
-{
-    float: right;
-    text-align: right;
-    padding-right: 10px;
-}
 
-#campusFooterLeft
-{
-    float: left;    
-    padding-left: 10px;
-}
 
-#campusFooterCenter
-{
-    clear: both;
-    text-align: center;
-}
 
-#campusFooterCenter #poweredBy
-{
-    font-style: italic;
-}
-/******************************************************************************
-    CLAROLINE COMMAND LINKS
- ******************************************************************************/
- 
-.claroCmd
-{
-    font-size: smaller;
-    font-weight: bold;
-    text-decoration: underline;
-}
-
-.claroCmdDisabled 
-{
-    color: Gray;
-    font-size: smaller;
-    font-weight: bold;
-    text-decoration: none;
-}
-
-/* Added for document view mode toolbar */
-
-th .claroCmd
-{
-    font-size: smaller;
-    font-weight: bold;
-    text-decoration: underline;
-}
-
-th .claroCmdDisabled
-{
-    color: white;
-    font-size: smaller;
-    font-weight: bold;
-    text-decoration: none;
-}
-
-/******************************************************************************
-                             CLAROLINE ITEM
- ******************************************************************************/
-.item 
-{
-    padding-left: 16px;
-}
-
-.hot
-{
-    background: url(../img/hot.gif) no-repeat;
-}
 /******************************************************************************
                              CLAROLINE TABLE
  ******************************************************************************/
-.claroTable td, th 
-{
-    margin:  1px;
-    padding: 4px;
-    border: none;
+
+/* Uniformize claroline table format. The class provide 3 header type
+ *
+ *     - superHeader : allowing to define table title above the column header
+ *     - headerX : define header in the X axis for each column
+ *     - headerY : define header in the Y axis for each rank
+ * 
+ * Example of table using a super header and header in X axis
+ *
+ * <table class="claroTable">
+ * <tr class="superHeader">
+ * <th colspan="3">User Birthdate</th>
+ * </tr>
+ * <tr class="headerX">
+ * <th>Firstname</th>
+ * <th>Lastname</th>
+ * <th>Birthdate</th>
+ * </tr>
+ * 
+ * <tbody>
+ * 
+ * <tr>
+ * <td>Hugues</td>
+ * <td>Peeters</td>
+ * <td>1969-09-27</td>
+ * </tr>
+ * <tr>
+ * ...
+ * </tr>
+ * 
+ * </tbody>
+ * 
+ * </table>
+ * 
+ * Example of table using header in Y axis
+ * 
+ * 
+ * <table class="claroTable">
+ *
+ * <tr class="superHeader">
+ * <th colspan="3">User Birthdate</th>
+ * </tr>
+ * 
+ * <tr>
+ * <th class="headerY">Firstname</th>
+ * <td>Hugues</td>
+ * <td> ...  </td>
+ * </tr>
+ * 
+ * <tr>
+ * <th class="headerY">Lastname</th>
+ * <td>Peeters</td>
+ * <td> ...  </td>
+ * </tr>
+ * 
+ * <tr>
+ * <th class="headerY">Birthdate</th>
+ * <td>1969-09-27</td>
+ * <td> ...  </td>
+ * </tr>
+ *
+ * </table>
+ */
+
+.claroTable td, th {
+	margin:  1px;
+	padding: 4px;
+	border: none;
 }
 
 
-.claroTable .superHeader th, .claroTable th.superHeader 
-{
-    color: #333;
-    background-color: #FDD088;
-    border: 1px solid #333;
-    font-weight: bold;
-    text-align: left;
+.claroTable .superHeader th, .claroTable th.superHeader {
+	color: white;
+	background-color: #cccccc;
+	font-weight: bold;
+	text-align: left;
 }
 
-.claroTable .superHeader a,
-.claroTable .superHeader a:link,
-.claroTable .superHeader a:visited 
-{
-    color: white;
+.claroTable .superHeader a {
+	color: white;
 }
 
 
 .claroTable th.headerY, .claroTable .headerY th, 
-.claroTable th.headerX, .claroTable .headerX th 
-{
-    font-weight: normal;
-    text-align: left;
+.claroTable th.headerX, .claroTable .headerX th {
+	font-weight: normal;
+	text-align: left;
 }
 
-.claroTable .headerX th,  .claroTable th.headerX 
-{
-    background-color: #ffecce;
+.claroTable .headerX th,  .claroTable th.headerX {
+	background-color: #ffecce;
 }
 
-/* extension of claroTable class for Image Viewer */
-.claroTable tr th.toolbar 
-{
-    background: white;
-    font-weight: normal;
+.claroTable tbody tr:hover {
+	background-color: #EEEEEE;
 }
-
-.claroTable tr.toolbar th.prev
-{
-    text-align:left;
-    font-weight: normal;
-}
-
-.claroTable tr.toolbar th.title
-{
-    font-weight:bold;
-    text-align:center;
-}
-
-.claroTable tr.toolbar th.next
-{
-    text-align:right;
-    font-weight: normal;
-}
-
-.emphaseLine tbody td 
-{
-    border-bottom: solid #ffecce 1px ;
-}
-
-.emphaseLine tbody tr:hover 
-{
-    background-color: #EEEEEE;
+.noHover {
+	background-color: white;
 }
 
 
@@ -471,26 +300,14 @@ th .claroCmdDisabled
  * Things that are usually displayed in a dialog box into offline applications
  */ 
  
-.claroMessageBox 
-{
-    color: #000000;
-    background-color: #FDD088;
-    border:1px solid #666;
+.claroMessageBox {
+	background-color: #FF9900;
+  color: #000000;
+  border:1px solid #666;
 }
 
-.claroIntroSection 
-{ 
-    border: dashed 1px #D8D8D8;
-    padding: 10px;
-    margin-top : 10px;
-    margin-bottom: 10px;
-}
-
-.claroIntroSection hr
-{
-    border: 0;
-    height: 1px;
-    background-color: #D8D8D8;
+.claroIntroSection { 
+	background-color: #F5F5F5;
 }
 
 /*
@@ -500,123 +317,51 @@ th .claroCmdDisabled
  * visible fo the other users
  */
 
-.invisible  
-{
-    color: #999999;
+.invisible  {
+	color: #999999;
 }
 
-.invisible a, 
-.invisible a:link, 
-.invisible a:visited,
-a.invisible,
-a:link.invisible,
-a:visited.invisible
-{
-    color: #999999;
-}
-
-
-/* 'correct' is attached to element that must be highlighted as correct 
-    example : a good score in exercices
-*/
-.correct 
-{
-    color: #009900;
-}
-
-/* 'incorrect' is attached to element that must be highlighted as correct 
-    example : a wrong score in exercices
-*/
-.incorrect 
-{
-    color: #990000;
-}
-
-/* 'highlight' */
-.highlight 
-{
-    color: #FFB848;
+a.invisible, 
+a:link.invisible, 
+a:visited.invisible {
+	color: #999999;
 }
 
 /*
  * 'rightMenu' is mainly use in the platform home page
  */
 
-.claroRightMenu  
-{
-    color: #000000;
-    background-color: #ffecce;    
-    border: 1px solid #666;
+.claroRightMenu  {
+  color: #000000;
+	background-color: #ffecce;	
+  border:1px solid #666;
 }
-
-.claroRightMenu a,
-.claroRightMenu a:link,
-.claroRightMenu a:visited 
-{
-    color:#c60;
+	
+.claroRightMenu a {
+		color:#c60;
 }
-    
-.claroRightMenu a:hover 
-{
-    color:#369;
+	
+.claroRightMenu a:hover {
+		color:#369;		
+    background-color:transparent;
 }
 
 
 
-.HelpText 
-{
+.HelpText {
     color:gray
 }
 
-/*
- * 'comment' is used for comment of documents, forum description, ...
- */
-
-.comment 
-{
-    font-size: smaller;
-    margin-left: 30px;
-}
 
 /*
- * Navigation with tabs : configuration, modules, ...
+ * MOOSH ATTIC -- could be nice if one can put some order here ...
  */
  
-#navlist {
-    margin: 10px;
-    padding: 0 0 7px 10px;
-    border-bottom: 1px solid #DEDEDE;   
-}
-
-.tabTitle {
-    padding: 3px 0;
-    margin-left: 0;
-    border-bottom: 1px solid #DEDEDE; 
-}
-
-.tabTitle a {
-    border-bottom: 4px solid #FFECCE;
-    text-decoration: none;
-}
-
-#navlist li, .tabTitle li {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: inline;
-}
-
-#navlist li a:link,
-#navlist li a:visited {
-    margin: 0 5px 4px 5px;
-    padding: 3px 0.5em;
-    text-decoration: none;
-}
-
-#navlist li a:hover {
-    border-bottom: 4px solid #DEDEDE;
-}
-
-#navlist li a.current {
-    border-bottom: 4px solid #FFECCE;
-}
+.alternativeBgLight { background-color: #F5F5F5; }
+.alternativeBgDark 	{ background-color: #E6E6E6; }
+.forms 		{ background-color : #E6E6E6; letter-spacing: normal; text-align: justify; text-indent: 3pt; word-spacing: normal; padding-top: 2px; padding-right: 5px; padding-bottom: 2px; padding-left: 5px ; }
+.formsTips	{ text-align: justify; text-indent: 15pt; word-spacing: normal; }
+INPUT.forms	{ letter-spacing: normal; text-align: justify; text-indent: 3pt;	word-spacing: normal;	padding-top: 0px;	padding-right: 0px;	padding-bottom: 0px;	padding-left: 0px;}
+.warn {	border: thin double Silver;	margin-left: 15px;	margin-right: 15px;  font-family: serif;  color: Red;  padding-left: 25px;    }
+.typeElement { border: thin sol id #E6E6E6; margin-left: 15px;	margin-right: 25px;padding-left: 25px;color:#003399 }
+.claro_listInTable tr:hover {background-color: #CCCCCC;}

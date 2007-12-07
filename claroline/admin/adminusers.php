@@ -1,454 +1,491 @@
 <?php //$Id$
-/**
- * CLAROLINE
- * @version 1.9 $Revision$
- *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @package ADMIN
- *
- * @author Guillaume Lederer <lederer@claroline.net>
- */
-$cidReset = TRUE; $gidReset = TRUE; $tidReset = TRUE;
+//----------------------------------------------------------------------
+// CLAROLINE 1.6.*
+//----------------------------------------------------------------------
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
+//----------------------------------------------------------------------
+// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
+// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+//----------------------------------------------------------------------
+// Authors: see 'credits' file
+//----------------------------------------------------------------------
+
+// Lang files needed :
+
+$langFile = "admin";
+
+// initialisation of global variables and used libraries
 
 require '../inc/claro_init_global.inc.php';
+include($includePath."/lib/pager.lib.php");
+include($includePath."/lib/admin.lib.inc.php");
 
-$userPerPage = get_conf('userPerPage',20); // numbers of user to display on the same page
+//SECURITY CHECK
 
-// Security check
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
+if (!$is_platformAdmin) treatNotAuthorized();
 
-require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
-require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
-require_once get_path('incRepositorySys') . '/lib/user.lib.php';
+if ($cidToEdit=="") {unset($cidToEdit);}
 
-// CHECK INCOMING DATAS
-if ((isset($_REQUEST['cidToEdit'])) && ($_REQUEST['cidToEdit']=='')) {unset($_REQUEST['cidToEdit']);}
+$userPerPage = 20; // numbers of user to display on the same page
 
-$validCmdList = array('delete');
-$cmd = (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$validCmdList)? $_REQUEST['cmd'] : null);
-$userIdReq = (int) (isset($_REQUEST['user_id']) ? $_REQUEST['user_id']: null);
-// USED SESSION VARIABLES
+//------------------------------------------------------------------------------------------------------------------------
+//  USED SESSION VARIABLES
+//------------------------------------------------------------------------------------------------------------------------
+
 // clean session if needed
 
-if (isset($_REQUEST['newsearch']) && $_REQUEST['newsearch'] == 'yes')
+if ($_GET['newsearch']=="yes")
 {
-    unset($_SESSION['admin_user_search'   ]);
-    unset($_SESSION['admin_user_firstName']);
-    unset($_SESSION['admin_user_lastName' ]);
-    unset($_SESSION['admin_user_userName' ]);
-    unset($_SESSION['admin_user_mail'     ]);
-    unset($_SESSION['admin_user_action'   ]);
-    unset($_SESSION['admin_order_crit'    ]);
+    session_unregister('admin_user_letter');
+    session_unregister('admin_user_search');
+    session_unregister('admin_user_firstName');
+    session_unregister('admin_user_lastName');
+    session_unregister('admin_user_userName');
+    session_unregister('admin_user_mail');
+    session_unregister('admin_user_action');
+    session_unregister('admin_order_crit');
 }
 
 // deal with session variables for search criteria, it depends where we come from :
 // 1 ) we must be able to get back to the list that concerned the criteria we previously used (with out re entering them)
 // 2 ) we must be able to arrive with new critera for a new search.
 
-if (isset($_REQUEST['search'    ])) $_SESSION['admin_user_search'    ] = trim($_REQUEST['search'    ]);
-if (isset($_REQUEST['firstName' ])) $_SESSION['admin_user_firstName' ] = trim($_REQUEST['firstName' ]);
-if (isset($_REQUEST['lastName'  ])) $_SESSION['admin_user_lastName'  ] = trim($_REQUEST['lastName'  ]);
-if (isset($_REQUEST['userName'  ])) $_SESSION['admin_user_userName'  ] = trim($_REQUEST['userName'  ]);
-if (isset($_REQUEST['mail'      ])) $_SESSION['admin_user_mail'      ] = trim($_REQUEST['mail'      ]);
-if (isset($_REQUEST['action'    ])) $_SESSION['admin_user_action'    ] = trim($_REQUEST['action'    ]);
+if (isset($_GET['letter']))    {$_SESSION['admin_user_letter'] = $_GET['letter'];}
+if (isset($_GET['search']))    {$_SESSION['admin_user_search'] = $_GET['search'];}
+if (isset($_GET['firstName'])) {$_SESSION['admin_user_firstName'] = $_GET['firstName'];}
+if (isset($_GET['lastName']))  {$_SESSION['admin_user_lastName'] = $_GET['lastName'];}
+if (isset($_GET['userName']))  {$_SESSION['admin_user_userName'] = $_GET['userName'];}
+if (isset($_GET['mail']))      {$_SESSION['admin_user_mail'] = $_GET['mail'];}
+if (isset($_GET['action']))    {$_SESSION['admin_user_action'] = $_GET['action'];}
+if (isset($_GET['order_crit'])){$_SESSION['admin_user_order_crit'] = $_GET['order_crit'];}
+if (isset($_GET['dir']))       {$_SESSION['admin_user_dir'] = $_GET['dir'];}
 
-if (isset($_REQUEST['order_crit'])) $_SESSION['admin_user_order_crit'] = trim($_REQUEST['order_crit']);
-if (isset($_REQUEST['dir'       ])) $_SESSION['admin_user_dir'       ] = ($_REQUEST['dir'] == 'DESC' ? 'DESC' : 'ASC' );
-$addToURL = ( isset($_REQUEST['addToURL']) ? $_REQUEST['addToURL'] : '');
+// clean session if we come from a course
+
+session_unregister('_cid');
+unset($_cid);
 
 
-//TABLES
-//declare needed tables
+@include ($includePath."/installedVersion.inc.php");
+
+// javascript confirm pop up declaration
+
+  $htmlHeadXtra[] =
+         "<style type=text/css>
+         <!--
+         .comment { margin-left: 30px}
+         .invisible {color: #999999}
+         .invisible a {color: #999999}
+         -->
+         </style>";
+  $htmlHeadXtra[] =
+            "<script>
+            function confirmation (name)
+            {
+                if (confirm(\"".$langAreYouSureToDelete."\"+ name + \"? \"))
+                    {return true;}
+                else
+                    {return false;}
+            }
+            </script>";
 
 // Deal with interbredcrumps
 
-$interbredcrump[] = array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
-$nameTools = get_lang('User list');
+$interbredcrump[]= array ("url"=>$rootAdminWeb, "name"=> $langAdministrationTools);
+$nameTools = $langListUsers;
+
+//Header
+
+include($includePath."/claro_init_header.inc.php");
+
 //TABLES
+
+$tbl_user             = $mainDbName."`.`user";
+$tbl_courses        = $mainDbName."`.`cours";
+$tbl_course_user    = $mainDbName."`.`cours_user";
+$tbl_admin            = $mainDbName."`.`admin";
+$tbl_track_default    = $statsDbName."`.`track_e_default";// default_user_id
+$tbl_track_login    = $statsDbName."`.`track_e_login";    // login_user_id
 
 //------------------------------------
 // Execute COMMAND section
 //------------------------------------
-switch ( $cmd )
+switch ($cmd)
 {
-    case 'delete' :
+  case "delete" :
+        delete_user($user_id);
+        $dialogBox = $langUserDelete;
+        break;
+}
+
+//----------------------------------
+// Build query and find info in db
+//----------------------------------
+
+
+$sql = "SELECT *
+        FROM  `".$tbl_user."` AS U WHERE 1=1
+        ";
+
+//deal with LETTER classification call
+
+if (isset($_SESSION['admin_user_letter']))
+{
+    $toAdd = "
+             AND U.`nom` LIKE '".$_SESSION['admin_user_letter']."%'
+             ";
+    $sql.=$toAdd;
+
+}
+
+//deal with KEY WORDS classification call
+
+if (isset($_SESSION['admin_user_search']))
+{
+    $toAdd = " AND (U.`nom` LIKE '%".$_SESSION['admin_user_search']."%'
+              OR U.`prenom` LIKE '%".$_SESSION['admin_user_search']."%' ";
+    $toAdd .= " OR U.`email` LIKE '%".$_SESSION['admin_user_search']."%')";
+    $sql.=$toAdd;
+
+}
+
+//deal with ADVANCED SEARCH parameters call
+
+if (isset($_SESSION['admin_user_firstName']))
+{
+    $toAdd = " AND (U.`prenom` LIKE '".$_SESSION['admin_user_firstName']."%') ";
+    $sql.=$toAdd;
+
+}
+
+if (isset($_SESSION['admin_user_lastName']))
+{
+    $toAdd = " AND (U.`nom` LIKE '".$_SESSION['admin_user_lastName']."%') ";
+    $sql.=$toAdd;
+
+}
+
+if (isset($_SESSION['admin_user_userName']))
+{
+    $toAdd = " AND (U.`username` LIKE '".$_SESSION['admin_user_userName']."%') ";
+    $sql.=$toAdd;
+
+}
+
+if (isset($_SESSION['admin_user_mail']))
+{
+    $toAdd = " AND (U.`email` LIKE '".$_SESSION['admin_user_mail']."%') ";
+    $sql.=$toAdd;
+
+}
+if (isset($_SESSION['admin_user_action']))
+{
+    if ($_SESSION['admin_user_action']=="createcourse")
     {
-        $dialogBox = ( user_delete($userIdReq) ? get_lang('Deletion of the user was done sucessfully') : get_lang('You can not change your own settings!'));
-    }   break;
-}
-$searchInfo = prepare_search();
-
-$isSearched    = $searchInfo['isSearched'];
-$addtoAdvanced = $searchInfo['addtoAdvanced'];
-
-if(count($searchInfo['isSearched']) )
-{
-    $isSearchedHTML = implode('<br />', $isSearched);
-}
-else
-{
-    $isSearchedHTML = '';
-}
-
-//get the search keyword, if any
-$search  = (isset($_REQUEST['search']) ? $_REQUEST['search'] : '');
-
-$sql = get_sql_filtered_user_list();
-
-$offset       = isset($_REQUEST['offset']) ? $_REQUEST['offset'] : 0 ;
-$myPager      = new claro_sql_pager($sql, $offset, $userPerPage);
-
-if ( array_key_exists( 'sort', $_GET ) )
-{
-    $dir = array_key_exists( 'dir', $_GET ) && $_GET['dir'] == SORT_DESC
-        ? SORT_DESC
-        : SORT_ASC
-        ;
-
-    $sortKey = strip_tags( $_GET['sort'] );
-        
-    $myPager->add_sort_key( $sortKey, $dir );
-}
-
-$defaultSortKeyList = array ('isPlatformAdmin' => SORT_DESC,
-                             'name'          => SORT_ASC,
-                             'firstName'       => SORT_ASC);
-
-foreach($defaultSortKeyList as $thisSortKey => $thisSortDir)
-{
-    $myPager->add_sort_key( $thisSortKey, $thisSortDir);
-}
-
-$userList = $myPager->get_result_list();
-if (is_array($userList))
-{
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    foreach ($userList as $userKey => $user)
-    {
-        $sql ="SELECT count(DISTINCT code_cours) AS qty_course
-                 FROM `" . $tbl_mdb_names['rel_course_user'] . "`
-                 WHERE user_id = '". (int) $user['user_id'] ."'
-                 GROUP BY user_id";
-        $userList[$userKey]['qty_course'] = (int) claro_sql_query_get_single_value($sql);
+       $toAdd = " AND (U.`statut`=1) ";
     }
-}
-
-$userGrid = array();
-if (is_array($userList))
-foreach ($userList as $userKey => $user)
-{
-
-    $userGrid[$userKey]['user_id']   = $user['user_id'];
-    $userGrid[$userKey]['name']      = $user['name'];
-    $userGrid[$userKey]['firstname'] = $user['firstname'];
-    $userEmailLabel=null;
-    if ( !empty($_SESSION['admin_user_search']) )
+    if ($_SESSION['admin_user_action']=="plateformadmin")
     {
-        $bold_search = str_replace('*','.*',$_SESSION['admin_user_search']);
-
-        $userGrid[$userKey]['name'] = eregi_replace('(' . $bold_search . ')' , '<b>\\1</b>', $user['name']);
-        $userGrid[$userKey]['firstname'] = eregi_replace('(' . $bold_search . ')' , '<b>\\1</b>', $user['firstname']);
-        $userEmailLabel  = eregi_replace('(' . $bold_search . ')', '<b>\\1</b>' , $user['email']);
+       $toAdd = " AND (U.`statut`=1) ";
     }
-
-    $userGrid[$userKey]['officialCode'] = empty($user['officialCode']) ? ' - ' : $user['officialCode'];
-    $userGrid[$userKey]['email'] = claro_html_mailTo($user['email'], $userEmailLabel);
-
-    $userGrid[$userKey]['isCourseCreator'] =  ( $user['isCourseCreator']?get_lang('Course creator'):get_lang('User'));
-
-    if ( $user['isPlatformAdmin'] )
-    {
-        $userGrid[$userKey]['isCourseCreator'] .= '<br /><span class="highlight">' . get_lang('Administrator').'</span>';
-    }
-    $userGrid[$userKey]['settings'] = '<a href="adminprofile.php'
-    .                                 '?uidToEdit=' . $user['user_id']
-    .                                 '&amp;cfrom=ulist' . $addToURL . '">'
-    .                                 '<img src="' . get_path('imgRepositoryWeb') . 'usersetting.gif" border="0" alt="' . get_lang('User settings') . '" />'
-    .    '</a>';
-
-
-
-    $userGrid[$userKey]['qty_course'] = '<a href="adminusercourses.php?uidToEdit=' . $user['user_id']
-    .                                   '&amp;cfrom=ulist' . $addToURL . '">' . "\n"
-    .                                   get_lang('%nb course(s)', array('%nb' => $user['qty_course'])) . "\n"
-    .                                   '</a>' . "\n"
-    ;
-
-    $userGrid[$userKey]['delete'] = '<a href="' . $_SERVER['PHP_SELF']
-    .                               '?cmd=delete&amp;user_id=' . $user['user_id']
-    .                               '&amp;offset=' . $offset . $addToURL . '" '
-    .                               ' onclick="return confirmation(\'' . clean_str_for_javascript(' ' . $user['firstname'] . ' ' . $user['name']).'\');">' . "\n"
-    .                               '<img src="' . get_path('imgRepositoryWeb') . 'deluser.gif" border="0" alt="' . get_lang('Delete') . '" />' . "\n"
-    .                               '</a> '."\n"
-    ;
+    $sql.=$toAdd;
 
 }
-$sortUrlList = $myPager->get_sort_url_list($_SERVER['PHP_SELF']);
-$userDataGrid = new claro_datagrid();
-$userDataGrid->set_grid($userGrid);
-$userDataGrid->set_colHead('name') ;
-$userDataGrid->set_colTitleList(array (
-                 'user_id'=>'<a href="' . $sortUrlList['user_id'] . '">' . get_lang('Numero') . '</a>'
-                ,'name'=>'<a href="' . $sortUrlList['name'] . '">' . get_lang('Last name') . '</a>'
-                ,'firstname'=>'<a href="' . $sortUrlList['firstname'] . '">' . get_lang('First name') . '</a>'
-                ,'officialCode'=>'<a href="' . $sortUrlList['officialCode'] . '">' . get_lang('Administrative code') . '</a>'
-                ,'email'=>'<a href="' . $sortUrlList['email'] . '">' . get_lang('Email') . '</a>'
-                ,'isCourseCreator'=>'<a href="' . $sortUrlList['isCourseCreator'] . '">' . get_lang('Status') . '</a>'
-                ,'settings'=> get_lang('User settings')
-                ,'qty_course' => get_lang('Courses')
-                ,'delete'=>get_lang('Delete') ));
 
-if ( count($userGrid)==0 )
+
+  //first see is direction must be changed
+
+if (isset($chdir) && ($chdir=="yes"))
 {
-    $userDataGrid->set_noRowMessage( '<center>'.get_lang('No user to display') . "\n"
-    .    '<br />' . "\n"
-    .    '<a href="advancedUserSearch.php' . $addtoAdvanced . '">' . get_lang('Search again (advanced)') . '</a></center>' . "\n"
-    );
-}
-else
-{
-    $userDataGrid->set_colAttributeList(array ( 'user_id'      => array ('align' => 'center')
-                                              , 'officialCode' => array ('align' => 'center')
-                                              , 'settings'     => array ('align' => 'center')
-                                              , 'delete'       => array ('align' => 'center')
-    ));
+  if ($_SESSION['admin_user_dir'] == "ASC") {$_SESSION['admin_user_dir']="DESC";}
+  elseif ($_SESSION['admin_user_dir'] == "DESC") {$_SESSION['admin_user_dir']="ASC";}
+  else $_SESSION['admin_user_dir'] = "DESC";
 }
 
-//---------
+// deal with REORDER
+
+if (isset($_SESSION['admin_user_order_crit']))
+{
+    $toAdd = " ORDER BY `".$_SESSION['admin_user_order_crit']."` ".$_SESSION['admin_user_dir'];
+    $sql.=$toAdd;
+
+}
+
+//echo $sql."<br>";
+
+$myPager = new claro_sql_pager($sql, $offset, $userPerPage);
+$resultList = $myPager->get_result_list();
+
+//------------------------------------
 // DISPLAY
-//---------
-
-
-//PREPARE
-// javascript confirm pop up declaration
-$htmlHeadXtra[] =
-'<script type="text/javascript">
-        function confirmation (name)
-        {
-            if (confirm("'.clean_str_for_javascript(get_lang('Are you sure to delete')).'" + name + "? "))
-                {return true;}
-            else
-                {return false;}
-        }'
-."\n".'</script>'."\n";
-
-
-
-
-//Header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+//------------------------------------
 
 // Display tool title
-echo claro_html_tool_title($nameTools) . "\n\n";
+
+claro_disp_tool_title($nameTools);
 
 //Display Forms or dialog box(if needed)
 
-if( isset($dialogBox) ) echo claro_html_message_box($dialogBox);
+if($dialogBox)
+  {
+    claro_disp_message_box($dialogBox);
+  }
 
-//Display selectbox and advanced search link
+//Display selectbox, alphabetic choice, and advanced search link search
 
+  // ALPHABETIC SEARCH
+/*
+echo "<form name=\"indexform\" action=\"",$PHP_SELF,"\" method=\"GET\">
+             ";
+
+            if (isset($cidToEdit)) {$toAdd = "cidToEdit=".$cidToEdit;} else {$toAdd = "";}
+
+            echo "<a href=\"",$PHP_SELF,"?".$toAdd."\"><b> ".$langAll."</b></a> | ";
+
+            echo "<a href=\"",$PHP_SELF,"?letter=A&".$toAdd."\">A</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=B&".$toAdd."\">B</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=C&".$toAdd."\">C</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=D&".$toAdd."\">D</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=E&".$toAdd."\">E</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=F&".$toAdd."\">F</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=G&".$toAdd."\">G</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=H&".$toAdd."\">H</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=I&".$toAdd."\">I</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=J&".$toAdd."\">J</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=K&".$toAdd."\">K</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=L&".$toAdd."\">L</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=M&".$toAdd."\">M</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=N&".$toAdd."\">N</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=O&".$toAdd."\">O</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=P&".$toAdd."\">P</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=Q&".$toAdd."\">Q</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=R&".$toAdd."\">R</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=S&".$toAdd."\">S</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=T&".$toAdd."\">T</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=U&".$toAdd."\">U</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=V&".$toAdd."\">V</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=W&".$toAdd."\">W</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=X&".$toAdd."\">X</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=Y&".$toAdd."\">Y</a> | ";
+            echo "<a href=\"",$PHP_SELF,"?letter=Z&".$toAdd."\">Z</a>";
+            echo "
+            <input type=\"text\" name=\"search\">
+            <input type=\"hidden\" name=\"cidToEdit\" value=\"".$cidToEdit."\">
+            <input type=\"submit\" value=\"".$langSearch."\">
+
+      </form>
+     ";
+*/
 //TOOL LINKS
 
-//Display search form
+   //Display search form
 
-if ( !empty($isSearchedHTML) )
+
+      //see passed search parameters :
+
+if ($_SESSION['admin_user_search']!="")    {$isSearched .= $_SESSION['admin_user_search']."* ";}
+if ($_SESSION['admin_user_firstName']!="") {$isSearched .= $langFirstName."=".$_SESSION['admin_user_firstName']."* ";}
+if ($_SESSION['admin_user_lastName']!="")  {$isSearched .= $langLastName."=".$_SESSION['admin_user_lastName']."* ";}
+if ($_SESSION['admin_user_userName']!="")  {$isSearched .= $langUsername."=".$_SESSION['admin_user_userName']."* ";}
+if ($_SESSION['admin_user_mail']!="")      {$isSearched .= $langEmail."=".$_SESSION['admin_user_mail']."* ";}
+if ($_SESSION['admin_user_action']=="createcourse")    {$isSearched .=  "<b> <br>".$langCourseCreator."  </b> ";}
+if ($_SESSION['admin_user_action']=="plateformadmin")    {$isSearched .= "<b> <br>".$langPlatformAdmin."  </b> ";}
+
+     //see what must be kept for advanced links
+
+$addtoAdvanced = "?firstName=".$_SESSION['admin_user_firstName'];
+$addtoAdvanced .="&lastName=".$_SESSION['admin_user_lastName'];
+$addtoAdvanced .="&userName=".$_SESSION['admin_user_userName'];
+$addtoAdvanced .="&mail=".$_SESSION['admin_user_mail'];
+$addtoAdvanced .="&action=".$_SESSION['admin_user_action'];
+
+    //finaly, form itself
+
+if (($isSearched=="") || !isset($isSearched)) {$title = "";} else {$title = $langSearchOn." : ";}
+
+echo "<table width=\"100%\">
+        <tr>
+          <td align=\"left\">
+             <b>".$title."</b>
+             <small>
+             ".$isSearched."
+             </small>
+          </td>
+          <td align=\"right\">
+            <form action=\"",$PHP_SELF,"\">
+            <label for=\"search\">".$langMakeNewSearch."</label>
+            <input type=\"text\" value=\"".$_GET['search']."\" name=\"search\" id=\"search\" >
+            <input type=\"submit\" value=\" ".$langOk." \">
+            <input type=\"hidden\" name=\"newsearch\" value=\"yes\">
+            [<a href=\"advancedUserSearch.php".$addtoAdvanced."\"><small>".$langAdvanced."</small></a>]
+            </form>
+          </td>
+        </tr>
+      </table>
+       ";
+
+   //Pager
+
+$myPager->disp_pager_tool_bar($PHP_SELF);
+
+
+// Display list of users
+
+   // start table...
+
+echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">
+
+     <tr class=\"headerX\" align=\"center\" valign=\"top\">
+          <th><a href=\"",$PHP_SELF,"?order_crit=user_id&chdir=yes\">".$langUserid."</a></th>
+          <th><a href=\"",$PHP_SELF,"?order_crit=nom&chdir=yes\">".$langName."</a></th>
+          <th><a href=\"",$PHP_SELF,"?order_crit=prenom&chdir=yes\">".$langFirstName."</a></th>
+          <th><a href=\"",$PHP_SELF,"?order_crit=officialCode&chdir=yes\">".$langOfficialCode."</a></th>";
+echo     "<th>".$langEmail."</th>";
+echo     "<th>".$langUserStatus."</th>";
+echo     "<th>".$langAllUserOfThisCourse."</th>
+          <th>".$langEditUserSettings."</th>
+          <th>".$langDelete."</th>";
+echo "</tr><tbody> ";
+
+   // Start the list of users...
+foreach($resultList as $list)
+//while ($list = mysql_fetch_array($query))
 {
-    echo claro_html_message_box ('<b>' . get_lang('Search on') . '</b> : <small>' . $isSearchedHTML . '</small>') ;
-}
+     echo "<tr>";
 
-echo '<table width="100%">' . "\n"
-.    '<tr>' . "\n"
-.    '<td>' . '<a class="claroCmd" href="adminaddnewuser.php">'
-.    '<img src="' . get_path('imgRepositoryWeb') . 'user.gif" alt="" />'
-.    get_lang('Create user')
-.    '</a></td>' . "\n"
-.    '<td align="right">' . "\n"
-.    '<form action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
-.    '<label for="search">' . get_lang('Make new search') . '  </label>' . "\n"
-.    '<input type="text" value="' . htmlspecialchars($search).'" name="search" id="search" />' . "\n"
-.    '<input type="submit" value=" ' . get_lang('Ok') . ' " />' . "\n"
-.    '<input type="hidden" name="newsearch" value="yes" />' . "\n"
-.    '&nbsp;[<a class="claroCmd" href="advancedUserSearch.php' . $addtoAdvanced . '" >' . get_lang('Advanced') . '</a>]' . "\n"
-.    '</form>' . "\n"
-.    '</td>' . "\n"
-.    '</tr>' . "\n"
-.    '</table>' . "\n\n"
-;
+     //  Id
 
-if ( count($userGrid) > 0 ) echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+     echo "<td align=\"center\">".$list['user_id']."
+           </td>";
 
-echo $userDataGrid->render();
 
-if ( count($userGrid) > 0 ) echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+     if (isset($_SESSION['admin_user_search'])&& ($_SESSION['admin_user_search']!="")) {  //trick to prevent "//1" display when no keyword used in search 
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+         // name
 
-/**
- *
- * @todo: the  name would  be review  befor move to a lib
- * @todo: eject usage  in function of  $_SESSION
- *
- * @return sql statements
- */
-function get_sql_filtered_user_list()
-{
-    if ( isset($_SESSION['admin_user_action']) )
-    {
-        switch ($_SESSION['admin_user_action'])
+         echo "<td align=\"left\">".eregi_replace("(".$_SESSION['admin_user_search'].")",'<b>\\1</b>', $list['nom'])."</td>";
+
+         //  Firstname
+
+         echo "<td align=\"left\">".eregi_replace("(".$_SESSION['admin_user_search'].")","<b>\\1</b>", $list['prenom'])."</td>";
+     }
+     else
+     {
+         // name
+
+         echo "<td align=\"left\">".$list['nom']."</td>";
+
+         //  Firstname
+
+         echo "<td align=\"left\">".$list['prenom']."</td>";
+     }
+
+     //  Official code
+
+     if (isset($list['officialCode'])) { $toAdd = $list['officialCode']; } else $toAdd = " - ";
+     echo "<td align=\"center\">".$toAdd."</td>";
+
+
+     if (isset($_SESSION['admin_user_search'])&& ($_SESSION['admin_user_search']!="")) {
+
+         // mail
+
+         echo "<td align=\"left\">".eregi_replace("(".$_SESSION['admin_user_search'].")",'<b>\\1</b>', $list['email'])."</td>";
+
+     }
+     else
+     {
+         // mail
+
+         echo "<td align=\"left\">".$list['email']."</td>";
+
+     }
+
+     // Status
+
+     if (isAdminUser($list['user_id']))
+     {
+        $userStatus = $langAdministrator;
+     }
+     else
+     {
+        if ($list['statut']==1)
         {
-            case 'plateformadmin' :
-            {
-                $filterOnStatus = 'plateformadmin';
-            }  break;
-            case 'createcourse' :
-            {
-               $filterOnStatus= 'createcourse';
-            }  break;
-            case 'followcourse' :
-            {
-                $filterOnStatus='followcourse';
-            }  break;
-            case 'all' :
-            {
-                $filterOnStatus='';
-            }  break;
-            default:
-            {
-                trigger_error('admin_user_action value unknow : '.var_export($_SESSION['admin_user_action'],1),E_USER_NOTICE);
-                $filterOnStatus='followcourse';
-            }
+          $userStatus = $langCourseCreator;
         }
-    }
-    else $filterOnStatus='';
+        else
+        {
+          $userStatus = $langStudent;
+        }
+     }
 
-    $tbl_mdb_names   = claro_sql_get_main_tbl();
+     echo     "<td align=\"center\">\n
+                         ".$userStatus.
+              "</td>\n";
 
-    $sql = "SELECT U.user_id                     AS user_id,
-                   U.nom                         AS name,
-                   U.prenom                      AS firstname,
-                   U.authSource                  AS authSource,
-                   U.email                       AS email,
-                   U.officialCode                AS officialCode,
-                   U.phoneNumber                 AS phoneNumber,
-                   U.pictureUri                  AS pictureUri,
-                   U.creatorId                   AS creator_id,
-                   U.isCourseCreator ,
-                   U.isPlatformAdmin             AS isPlatformAdmin
-           FROM  `" . $tbl_mdb_names['user'] . "` AS U
-           WHERE 1=1 ";
+     // All course of this user
 
-    //deal with admin user search only
+     echo     "<td align=\"center\">\n",
+                        "<a href=\"adminusercourses.php?uidToEdit=".$list['user_id']."&cfrom=ulist".$addToURL."\">\n
+                         ".$langViewList."\n",
+                        "</a>\n",
+                        "</td>\n";
 
-    if ($filterOnStatus=='plateformadmin')
-    {
-        $sql .= " AND U.isPlatformAdmin = 1";
-    }
+     // Modify link
 
-    //deal with KEY WORDS classification call
+     echo     "<td align=\"center\">\n",
+                        "<a href=\"adminprofile.php?uidToEdit=".$list['user_id']."&cfrom=ulist".$addToURL."\">\n
+                         <img src=\"".$clarolineRepositoryWeb."img/usersetting.gif\" border=\"0\" alt=\"".$langEditUserSettings."\" />\n",
+                        "</a>\n",
+                        "</td>\n";
 
-    if (isset($_SESSION['admin_user_search']))
-    {
-        $sql .= " AND (U.nom LIKE '%". addslashes(pr_star_replace($_SESSION['admin_user_search'])) ."%'
-                  OR U.prenom LIKE '%".addslashes(pr_star_replace($_SESSION['admin_user_search'])) ."%' ";
-        $sql .= " OR U.email LIKE '%". addslashes(pr_star_replace($_SESSION['admin_user_search'])) ."%')";
-    }
+     //  Delete link
 
-    //deal with ADVANCED SEARCH parameters call
-
-    if (isset($_SESSION['admin_user_firstName']))
-    {
-        $sql .= " AND (U.prenom LIKE '%". addslashes(pr_star_replace($_SESSION['admin_user_firstName'])) ."%') ";
-    }
-
-    if (isset($_SESSION['admin_user_lastName']))
-    {
-        $sql .= " AND (U.nom LIKE '%". addslashes(pr_star_replace($_SESSION['admin_user_lastName']))."%') ";
-    }
-
-    if (isset($_SESSION['admin_user_userName']))
-    {
-        $sql.= " AND (U.username LIKE '%". addslashes(pr_star_replace($_SESSION['admin_user_userName'])) ."%') ";
-    }
-
-    if (isset($_SESSION['admin_user_mail']))
-    {
-        $sql.= " AND (U.email LIKE '%". addslashes(pr_star_replace($_SESSION['admin_user_mail'])) ."%') ";
-    }
-
-    if ($filterOnStatus== 'createcourse' )
-    {
-        $sql.=" AND (U.isCourseCreator=1)";
-    }
-    elseif ($filterOnStatus=='followcourse' )
-    {
-        $sql.=" AND (U.isCourseCreator=0)";
-    }
-
-        return $sql;
+     echo   "<td align=\"center\">\n",
+                "<a href=\"",$PHP_SELF,"?cmd=delete&user_id=".$list['user_id']."&offset=".$offset."".$addToURL."\" ",
+                "onClick=\"return confirmation('",addslashes($list['username']),"');\">\n",
+                "<img src=\"".$clarolineRepositoryWeb."img/deluser.gif\" border=\"0\" alt=\"".$langDelete."\" />\n",
+                "</a>\n",
+            "</td>\n";
+     echo "</tr>";
+     $atLeastOne= true;
 }
-
-
-
-function prepare_search()
+   // end display users table
+if (!$atLeastOne)
 {
-    $queryStringElementList = array();
-    $isSearched = array();
-
-    if ( !empty($_SESSION['admin_user_search']) )
-    {
-        $isSearched[] =  $_SESSION['admin_user_search'];
-    }
-
-    if ( !empty($_SESSION['admin_user_firstName']) )
-    {
-        $isSearched[] = get_lang('First name') . '=' . $_SESSION['admin_user_firstName'];
-        $queryStringElementList [] = 'firstName=' . urlencode($_SESSION['admin_user_firstName']);
-    }
-
-    if ( !empty($_SESSION['admin_user_lastName']) )
-    {
-        $isSearched[] = get_lang('Last name') . '=' . $_SESSION['admin_user_lastName'];
-        $queryStringElementList[] = 'lastName=' . urlencode($_SESSION['admin_user_lastName']);
-    }
-
-    if ( !empty($_SESSION['admin_user_userName']) )
-    {
-        $isSearched[] = get_lang('Username') . '=' . $_SESSION['admin_user_userName'];
-        $queryStringElementList[] = 'userName=' . urlencode($_SESSION['admin_user_userName']);
-    }
-    if ( !empty($_SESSION['admin_user_mail']) )
-    {
-        $isSearched[] = get_lang('Email') . '=' . $_SESSION['admin_user_mail'];
-        $queryStringElementList[] = 'mail=' . urlencode($_SESSION['admin_user_mail']);
-    }
-
-    if ( !empty($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action'] == 'followcourse'))
-    {
-        $isSearched[] = '<b>' . get_lang('Follow courses') . '</b>';
-        $queryStringElementList[] = 'action=' . urlencode($_SESSION['admin_user_action']);
-    }
-    elseif ( !empty($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action'] == 'createcourse'))
-    {
-        $isSearched[] = '<b>' . get_lang('Course creator') . '</b>';
-        $queryStringElementList[] = 'action=' . urlencode($_SESSION['admin_user_action']);
-    }
-    elseif (isset($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action']=='plateformadmin'))
-    {
-        $isSearched[] = '<b>' . get_lang('Platform Administrator') . '  </b> ';
-        $queryStringElementList[] = 'action=' . urlencode($_SESSION['admin_user_action']);
-    }
-    else $queryStringElementList[] = 'action=all';
-
-    if ( count($queryStringElementList) > 0 ) $queryString = '?' . implode('&amp;',$queryStringElementList);
-    else                                      $queryString = '';
-
-    $searchInfo['isSearched'] = $isSearched;
-    $searchInfo['addtoAdvanced'] = $queryString;
-
-    return $searchInfo;
+   echo "<tr>
+          <td colspan=\"8\" align=\"center\">
+            ".$langNoUserResult."<br>
+            <a href=\"advancedUserSearch.php".$addtoAdvanced."\">".$langSearchAgain."</a>
+          </td>
+         </tr>";
 }
+echo "</tbody></table>";
+
+//Pager
+
+$myPager->disp_pager_tool_bar($PHP_SELF);
+
+?>
+
+<?
+function isAdminUser($user_id)
+{
+    global $tbl_admin;
+
+    $sql = "SELECT * FROM `".$tbl_admin."` WHERE `idUser`=".$user_id."";
+    $result = mysql_query($sql);
+    if (mysql_num_rows($result)>0)
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+}
+
+include($includePath."/claro_init_footer.inc.php");
+
 ?>

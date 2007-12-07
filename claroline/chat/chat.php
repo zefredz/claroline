@@ -1,36 +1,13 @@
-<?php // $Id$
-/**
- * CLAROLINE
- *
- * Build the frameset for chat.
- *
- * @version 1.8 $Revision$
- *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/index.php/CLCHT
- *
- * @package CLCHT
- *
- * @author Claro Team <cvs@claroline.net>
- * @author Christophe Gesch� <moosh@claroline.net>
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
- *
- */
+<?php
 
-$tlabelReq = 'CLCHT';
+$langFile = "chat";
 
-require '../inc/claro_init_global.inc.php';
+require '../inc/claro_init_global.inc.php'; 
+// the following constant defines the default display of the learning path browser
+// 0 : display only table of content and content
+// 1 : display claroline header and footer and table of content, and content
 
-if ( ! claro_is_in_a_course() || ( ! claro_is_course_allowed() && ! claro_is_user_authenticated() ) ) claro_disp_auth_form(true);
-
-$_course = claro_get_current_course_data();
-$nameTools  = get_lang('Chat');
-
-$titlePage = '';
-
+$nameTools  = $langChat;;
 if(!empty($nameTools))
 {
   $titlePage .= $nameTools.' - ';
@@ -40,37 +17,38 @@ if(!empty($_course['officialCode']))
 {
   $titlePage .= $_course['officialCode'].' - ';
 }
-$titlePage .= get_conf('siteName');
+$titlePage .= $siteName;
 
 // Redirect previously sent paramaters in the correct subframe (messageList.php)
 $paramList = array();
 
-if ( isset($_REQUEST['gidReset']) && $_REQUEST['gidReset'] == TRUE )
+if ( isset($_REQUEST['gidReset']) && $_REQUEST['gidReset'] == true )
 {
-    $paramList[] = 'gidReset=1';
+	$paramList[] = 'gidReset=1';
 }
 
 if ( isset($_REQUEST['gidReq']) )
 {
-    $paramList[] = 'gidReq='.$_REQUEST['gidReq'];
+	$paramList[] = 'gidReq='.$_REQUEST['gidReq'];
 }
 
 if (is_array($paramList))
 {
-    $paramLine = '?'.implode('&', $paramList);
+	$paramLine = '?'.implode('&', $paramList);
 }
 
 
 ?>
+
 <!doctype html public "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
 
 <head><title><?php echo $titlePage; ?></title></head>
 
-    <frameset rows="215,*,120" marginwidth="0" frameborder="yes">
-        <frame src="chat_header.php" name="topBanner" scrolling="no">
-        <frame src="messageList.php<?php echo $paramLine ?>#final" name="messageList">
-        <frame src="messageEditor.php" name="messageEditor" scrolling="no">
-    </frameset>
+	<frameset rows="215,*,120" marginwidth="0" frameborder="yes">
+		<frame src="chat_header.php" name="topBanner" scrolling="no">
+		<frame src="messageList.php#final<?php echo $paramLine ?>" name="messageList">
+		<frame src="messageEditor.php" name="messageEditor" scrolling="no">
+	</frameset>
 
 </html>
