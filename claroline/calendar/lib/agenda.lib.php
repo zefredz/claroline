@@ -1,5 +1,4 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
@@ -11,7 +10,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -33,12 +32,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 function agenda_get_item_list($context, $order='DESC')
 {
-
-    /*
-    $c = claro_get_course_data($context[CLARO_CONTEXT_COURSE]);
-    $tbl = claro_sql_get_tbl('course_description',array(CLARO_CONTEXT_TOOLLABEL => 'CLANN'
-                                                       ,CLARO_CONTEXT_COURSE    => $c['sysCode']));
-                                                       */
+    //$tbl = claro_sql_get_tbl('calendar_event',$context);
     $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($context[CLARO_CONTEXT_COURSE]));
 
     $sql = "SELECT           `id`,
@@ -271,11 +265,11 @@ function get_agenda_items($userCourseList, $month, $year)
                 $items[$day][$thisEvent['hour']] = '';
             }
 
-            $items [ $day ] [ $thisEvent['hour'] ] .= '<br />'
+            $items [ $day ] [ $thisEvent['hour'] ] .= '<br>'
             .                                         '<i>'
             .                                         '<small>' . $time . ' : </small>'
             .                                         '</i>'
-            .                                         '<br />'
+            .                                         '<br>'
             .                                         $eventLine
             .                                         ' - '
             .                                         '<small>'
@@ -304,20 +298,6 @@ function get_agenda_items($userCourseList, $month, $year)
     return $agendaItemList;
 }
 
-
-function claro_disp_monthly_calendar($agendaItemList, $month, $year, $weekdaynames, $monthName )
-{
-
-    pushClaroMessage( (function_exists('claro_html_debug_backtrace')
-             ? claro_html_debug_backtrace()
-             : 'claro_html_debug_backtrace() not defined'
-             )
-             .'claro_disp_monthly_calendar is deprecated , use claro_html_monthly_calendar','error');
-
-    return claro_html_monthly_calendar($agendaItemList, $month, $year, $weekdaynames, $monthName );
-}
-
-
 /**
  * build a view of items place a monthly view
  *
@@ -328,7 +308,7 @@ function claro_disp_monthly_calendar($agendaItemList, $month, $year, $weekdaynam
  * @param string $monthName name of the current month
  * @return mixed : whether success html stream or false and error throw claro_failure
  */
-function claro_html_monthly_calendar($agendaItemList, $month, $year, $weekdaynames, $monthName )
+function claro_disp_monthly_calendar($agendaItemList, $month, $year, $weekdaynames, $monthName )
 {
     $htmlStream = '';
     //Handle leap year
@@ -411,7 +391,7 @@ function claro_html_monthly_calendar($agendaItemList, $month, $year, $weekdaynam
                     $weekdayType = 'weekEnd';
                 }
 
-                $dayheader = $curday ;
+                $dayheader = '<small>' . $curday . '</small>';
 
 
                 $htmlStream .= '<td height="40" width="12%" valign="top" class="' . $weekdayType . '">'

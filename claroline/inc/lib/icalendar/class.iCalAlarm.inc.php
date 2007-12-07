@@ -1,5 +1,5 @@
-<?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+<?php
+/* vim: set expandtab tabstop=4 shiftwidth=4: */
 //+----------------------------------------------------------------------+
 //| WAMP (XP-SP1/1.3.24/4.0.12/4.3.0)                                    |
 //+----------------------------------------------------------------------+
@@ -21,7 +21,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
 * We need the base class
 */
-include_once dirname(__FILE__) . '/' . 'class.iCalBase.inc.php';
+include_once 'class.iCalBase.inc.php';
 /**
 * Container for an alarm (used in event and todo)
 *
@@ -199,8 +199,7 @@ class iCalAlarm extends iCalBase {
 	*/
 	function &getAction() {
 		$action_status = (array) array('DISPLAY', 'EMAIL', 'AUDIO', 'PROCEDURE');
-		$ret = (string) ((array_key_exists($this->action, $action_status)) ? $action_status[$this->action] : $action_status[0]);
-        return $ret;
+		return (string) ((array_key_exists($this->action, $action_status)) ? $action_status[$this->action] : $action_status[0]);
 	} // end function
 
 	/**
@@ -212,8 +211,7 @@ class iCalAlarm extends iCalBase {
 	* @see $trigger
 	*/
 	function &getTrigger() {
-		$ret = (int) $this->trigger;
-        return $ret;
+		return (int) $this->trigger;
 	} // end function
 	/**#@-*/
 
@@ -227,8 +225,7 @@ class iCalAlarm extends iCalBase {
 	* @access private
 	*/
 	function &getDuration() {
-		$ret = (int) $this->duration;
-        return $ret;
+		return (int) $this->duration;
 	} // end function
 
 	/**
@@ -241,8 +238,7 @@ class iCalAlarm extends iCalBase {
 	* @access private
 	*/
 	function &getRepeat() {
-		$ret = (int) $this->duration;
-        return $ret;
+		return (int) $this->duration;
 	} // end function
 } // end class iCalAlarm
 ?>

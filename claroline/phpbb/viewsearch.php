@@ -1,16 +1,15 @@
-<?php // $Id$
+<?php # -$Id$
 
-$tlabelReq = 'CLFRM';
+$tlabelReq = 'CLFRM___';
 
 require '../inc/claro_init_global.inc.php';
-require get_path('incRepositorySys') . '/lib/forum.lib.php';
-require get_path('incRepositorySys') . '/lib/group.lib.inc.php';
+require $includePath .'/lib/forum.lib.php';
 
-$last_visit        = claro_get_current_user_data('lastLogin');
-$is_groupPrivate   = claro_get_current_group_properties_data('private');
+$last_visit        = $_user['lastLogin'];
+$is_groupPrivate   = $_groupProperties ['private'];
 $is_allowedToEdit  = claro_is_allowed_to_edit();
 
-if (  !claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
+if (  !isset($_cid) || !isset($is_courseAllowed) || $is_courseAllowed == FALSE ) claro_disp_auth_form(true);
 
 if ( isset($_REQUEST['searchUser']) )
 {
@@ -32,7 +31,7 @@ elseif ( isset($_REQUEST['searchPattern']) )
             $thisSearchPattern = str_replace('?', '_' , $thisSearchPattern);
             $thisSearchPattern = str_replace('*', '%' , $thisSearchPattern);
 
-            $sqlClauseList[] =
+            $sqlClauseList[] = 
             "   pt.post_text  LIKE '%".addslashes($thisSearchPattern)."%'
              OR p.nom           LIKE '%".addslashes($thisSearchPattern)."%'
              OR p.prenom        LIKE '%".addslashes($thisSearchPattern)."%'
@@ -55,20 +54,14 @@ if ( $sqlClauseString )
         $tbl_topics     = $tbl_cdb_names['bb_topics'    ];
         $tbl_forums     = $tbl_cdb_names['bb_forums'    ];
 
-        $sql = "SELECT pt.post_id,
-                       pt.post_text,
-                       p.nom         AS lastname,
-                       p.prenom      AS firstname,
-                       p.post_time,
-                       t.topic_id,
-                       t.topic_title,
-                       f.forum_id,
-                       f.forum_name,
-                       f.group_id
-               FROM  `" . $tbl_posts_text . "` AS pt,
-                     `" . $tbl_posts . "`      AS p,
-                     `" . $tbl_topics . "`     AS t,
-                     `" . $tbl_forums . "`     AS f
+        $sql = "SELECT pt.post_id, pt.post_text, 
+                       p.nom lastname, p.prenom firstname, p.post_time,
+                       t.topic_id, t.topic_title,
+                       f.forum_id, f.forum_name, f.group_id
+               FROM  `".$tbl_posts_text."` pt, 
+                     `".$tbl_posts."`     p, 
+                     `".$tbl_topics."`    t, 
+                     `".$tbl_forums."`    f
                WHERE ( ". $sqlClauseString . ")
                  AND pt.post_id = p.post_id
                  AND p.topic_id = t.topic_id
@@ -77,9 +70,8 @@ if ( $sqlClauseString )
 
         $searchResultList = claro_sql_query_fetch_all($sql);
 
-        $userGroupList  = get_user_group_list(claro_get_current_user_id());
-        $userGroupList  = array_keys($userGroupList);
-        $tutorGroupList = get_tutor_group_list(claro_get_current_user_id());
+        $userGroupList  = get_user_group_list($_uid);
+        $tutorGroupList = get_tutor_group_list($_uid);
 }
 else
 {
@@ -91,18 +83,20 @@ $pagetype= 'viewsearch';
 $interbredcrump[] = array ('url' => 'index.php', 'name' => get_lang('Forums'));
 $noPHP_SELF       = true;
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include $includePath . '/claro_init_header.inc.php';
 
-echo claro_html_tool_title(get_lang('Forums'),
+echo claro_html_tool_title(get_lang('Forums'), 
                            $is_allowedToEdit ? 'help_forum.php' : false);
 
-echo claro_html_menu_horizontal(disp_forum_toolbar($pagetype, null))
-.    disp_forum_breadcrumb($pagetype, null, null, null)
+disp_forum_toolbar($pagetype, null);
 
-.    '<table class="claroTable" width="100%">'                          . "\n"
+disp_forum_breadcrumb($pagetype, null, null, null);
+
+
+echo '<table class="claroTable" width="100%">'                          . "\n"
 .    '<tr align="left">'                                                . "\n"
 .    '<th class="superHeader">'                                         . "\n"
-.    get_lang('Search result') . ' : ' . (isset($_REQUEST['searchPattern']) ?  htmlspecialchars($_REQUEST['searchPattern']) : '') . "\n"
+.    get_lang('Search result'). ' : '. (isset($_REQUEST['searchPattern']) ?  htmlspecialchars($_REQUEST['searchPattern']) : '') . "\n"
 .    '</th>'                                                            . "\n"
 .    '</tr>'                                                            . "\n";
 
@@ -117,7 +111,7 @@ echo claro_html_menu_horizontal(disp_forum_toolbar($pagetype, null))
             &&  $is_groupPrivate
             && ! (    in_array($thisPost['group_id'], $userGroupList )
                    || in_array($thisPost['group_id'], $tutorGroupList)
-                   || claro_is_course_manager()
+                   || $is_courseAdmin
                  )
            )
         {
@@ -135,11 +129,11 @@ echo claro_html_menu_horizontal(disp_forum_toolbar($pagetype, null))
             echo '<tr>'                                                   . "\n"
 
             .   '<th class="headerX">'                                    . "\n"
-            .   '<img src="' . get_path('imgRepositoryWeb') . 'topic.gif" alt="" />'
+            .   '<img src="' . $imgRepositoryWeb . 'topic.gif" alt="">'
             .   '<a href="viewtopic.php?topic='.$thisPost['topic_id'].'">'
-            .   $thisPost['topic_title']
+            .   $thisPost['topic_title'] 
             .   '</a><br />'                                              . "\n"
-            .   '<img src="' . get_path('imgRepositoryWeb') . $postImg . '" alt="" />'
+            .   '<img src="' . $imgRepositoryWeb . $postImg . '" alt="">'
             .   get_lang('Author') . ' : <b>' . $thisPost['firstname'] . ' ' . $thisPost['lastname'] . '</b> '
             .   '<small>' . get_lang('Posted') . ' : ' . $thisPost['post_time'] . '</small>' . "\n"
             .   '</th>'                                                  . "\n"
@@ -147,21 +141,21 @@ echo claro_html_menu_horizontal(disp_forum_toolbar($pagetype, null))
             .   '</tr>'                                                  . "\n"
 
             .   '<tr>'                                                   . "\n"
-
+        
             .   '<td>'                                                   . "\n"
             .   claro_parse_user_text($thisPost['post_text'])            . "\n"
             .   '</td>'                                                  . "\n"
             .   '</tr>'                                                  . "\n";
         } // end else if ( ! is_null($thisPost['group_id'])
-
+    
     } // end for each
-
+    
     echo '</table>' . "\n";
-
+    
 /*-----------------------------------------------------------------
   Display Forum Footer
  -----------------------------------------------------------------*/
 
-include get_path('incRepositorySys').'/claro_init_footer.inc.php';
+include $includePath.'/claro_init_footer.inc.php';
 
 ?>

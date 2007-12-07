@@ -1,5 +1,4 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
@@ -43,9 +42,9 @@ array ( 'tutorCanBeSimpleMemberOfOthersGroupsAsStudent'
 
 //PROPERTIES
 $conf_def_property_list['multiGroupAllowed'] =
-array ( 'label'       => 'Allow teachers to subscribe a user in several groups'
-      , 'description' => ''
-      , 'default'     => TRUE
+array ( 'description' => 'Allow teacher to subscribe users in several groups'
+      , 'label'       => 'Multi group allowed'
+      , 'default'     => 'TRUE'
       , 'type'        => 'boolean'
       , 'display'     => TRUE
       , 'readonly'    => FALSE
@@ -54,9 +53,9 @@ array ( 'label'       => 'Allow teachers to subscribe a user in several groups'
       );
 
 $conf_def_property_list['tutorCanBeSimpleMemberOfOthersGroupsAsStudent'] =
-array ( 'label'       => 'Tutors can subscribe to a group as a simple member'
-      , 'description' => 'A tutor attached to a group can subscribe himself to another group as a simple user.'
-      , 'default'     => FALSE
+array ( 'description' => 'A tutor attached to a group can subscribe himself to another group as a simple user.'
+      , 'label'       => 'Tutors can subscribe to a group as a simple member'
+      , 'default'     => 'FALSE'
       , 'type'        => 'boolean'
       , 'acceptedValue' => array ('TRUE'=>'Yes'
                                ,'FALSE'=>'No'
@@ -68,7 +67,7 @@ array ( 'label'       => 'Tutors can subscribe to a group as a simple member'
 $conf_def_property_list['showTutorsInGroupList'] =
 array ( 'description' => 'Not implemented, name reserved  for future version of Claroline'
       , 'label'       => 'Whether include tutors in the displayed member list'
-      , 'default'     => FALSE
+      , 'default'     => 'FALSE'
       , 'type'        => 'boolean'
       , 'acceptedValue' => array ('TRUE'=>'Yes'
                                ,'FALSE'=>'No'

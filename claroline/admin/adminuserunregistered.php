@@ -20,25 +20,26 @@ $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 
 require '../inc/claro_init_global.inc.php';
 
-require_once get_path('incRepositorySys') . '/lib/course_user.lib.php';
+require_once $includePath . '/lib/admin.lib.inc.php';
+require_once $includePath . '/lib/user.lib.php';
 
-include claro_get_conf_repository() . 'user_profile.conf.php';
+include $includePath . '/conf/user_profile.conf.php';
 
 // Security check
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 $nameTools = get_lang('User settings');
 $dialogBox = '';
 
-$interbredcrump[]= array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
+$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 $user_id = $_REQUEST['uidToEdit'];
 
 //------------------------------------
 // Execute COMMAND section
 //------------------------------------
 
-if ( isset($_REQUEST['cmd'] ) && claro_is_platform_admin() )
+if ( isset($_REQUEST['cmd'] ) && $is_platformAdmin )
 {
     if ( $_REQUEST['cmd'] == 'UnReg' )
     {
@@ -66,14 +67,14 @@ if ( isset($_REQUEST['cmd'] ) && claro_is_platform_admin() )
  * PREPARE DISPLAY
  */
 
-$cmdList[] = '<a class="claroCmd" href="index.php">' . get_lang('Back to administration page') . '</a>';
-$cmdList[] = '<a class="claroCmd" href="adminusercourses.php?uidToEdit=' . $user_id.'">' . get_lang('Back to course list') . '</a>';
+$cmd_menu[] = '<a class="claroCmd" href="index.php">' . get_lang('Back to administration page') . '</a>';
+$cmd_menu[] = '<a class="claroCmd" href="adminusercourses.php?uidToEdit=' . $user_id.'">' . get_lang('Back to course list') . '</a>';
 
 /**
  * DISPLAY
  */
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include $includePath . '/claro_init_header.inc.php';
 
 echo claro_html_tool_title(get_lang('User unregistered'));
 
@@ -84,12 +85,10 @@ if ( !empty($dialogBox) )
     echo claro_html_message_box($dialogBox);
 }
 
-echo '<p>'
-.    claro_html_menu_horizontal($cmdList)
-.    '</p>'
-;
+echo claro_html_menu_horizontal($cmd_menu);
+
 // Display footer
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 
 ?>

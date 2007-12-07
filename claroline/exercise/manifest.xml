@@ -1,12 +1,12 @@
 <module>
   <label>CLQWZ</label>
-  <name>Exercises</name>
+  <name>Quiz</name>
   <version>1.8</version>
   <license>GPL</license>
   <icon>quiz.gif</icon>
   <type>tool</type>
   <web>http://www.claroline.net/wiki/CLQWZ/</web>
-  <entry>exercise.php</entry>
+
   <description>
   <![CDATA[
      This tool is an original tool of claroline
@@ -26,5 +26,16 @@
       </configuration>
     </claroline>
  </requirements>
+ <context>
+  <course database="kernel"
+          enabling="automatic"
+          default_access="all"
+          access_manager="platform_admin" >
+    <link target="commonToolList"
+          path="../../exercise/exercise.php" />
+    <link target="toolSelectBox"
+          path="../../exercise/exercise.php" />
+  </course>
+ </context>
 
 </module>

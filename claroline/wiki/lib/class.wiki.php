@@ -1,8 +1,7 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
-
+     
     // vim: expandtab sw=4 ts=4 sts=4:
-
+     
     /**
      * CLAROLINE
      *
@@ -19,7 +18,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
      *
      * @package Wiki
      */
-
+     
     require_once dirname(__FILE__) . "/class.dbconnection.php";
     require_once dirname(__FILE__) . "/class.wikipage.php";
 
@@ -43,9 +42,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         var $desc;
         var $accessControlList;
         var $groupId;
-
+        
         var $con;
-
+        
         // default configuration
         var $config = array(
                 'tbl_wiki_pages' => 'wiki_pages',
@@ -57,7 +56,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         // error handling
         var $error = '';
         var $errno = 0;
-
+        
         /**
          * Constructor
          * @param DatabaseConnection con connection to the database
@@ -70,10 +69,10 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 $this->config = array_merge( $this->config, $config );
             }
             $this->con =& $con;
-
+            
             $this->wikiId = 0;
         }
-
+        
         // accessors
 
         /**
@@ -156,7 +155,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         {
             $this->wikiId = $wikiId;
         }
-
+        
         /**
          * Set the ID of the Wiki
          * @return int ID of the Wiki
@@ -165,7 +164,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         {
             return $this->wikiId;
         }
-
+        
         // load and save
 
         /**
@@ -184,7 +183,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 $this->setError( WIKI_NOT_FOUND_ERROR, WIKI_NOT_FOUND_ERRNO );
             }
         }
-
+        
         /**
          * Load the properties of the Wiki
          * @param int wikiId ID of the Wiki
@@ -200,7 +199,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 . "FROM `".$this->config['tbl_wiki_properties']."` "
                 . "WHERE `id` = ". (int) $wikiId
                 ;
-
+                
             $result = $this->con->getRowFromQuery( $sql );
 
             $this->setWikiId( $result['id'] );
@@ -208,7 +207,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             $this->setDescription( stripslashes( $result['description'] ) );
             $this->setGroupId($result['group_id']);
         }
-
+        
         /**
          * Load the access control list of the Wiki
          * @param int wikiId ID of the Wiki
@@ -226,9 +225,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 ;
 
             $result = $this->con->getAllRowsFromQuery( $sql );
-
+            
             $acl = array();
-
+            
             if( is_array( $result ) )
             {
                 foreach ( $result as $row )
@@ -247,9 +246,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         function save()
         {
             $this->saveProperties();
-
+            
             $this->saveACL();
-
+            
             if ( $this->hasError() )
             {
                 return 0;
@@ -259,7 +258,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 return $this->wikiId;
             }
         }
-
+        
         /**
          * Save the access control list of the Wiki
          */
@@ -270,7 +269,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             {
                 $this->con->connect();
             }
-
+            
 
             $sql = "SELECT `wiki_id` FROM `"
                 . $this->config['tbl_wiki_acls']."` "
@@ -281,7 +280,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             if ( $this->con->queryReturnsResult( $sql ) )
             {
                 $acl = $this->getACL();
-
+                    
                 foreach ( $acl as $flag => $value )
                 {
                     $value = ( $value == false ) ? 'false' : 'true';
@@ -320,7 +319,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 }
             }
         }
-
+        
         /**
          * Save the properties of the Wiki
          */
@@ -331,7 +330,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             {
                 $this->con->connect();
             }
-
+            
             // new wiki
             if ( $this->getWikiId() === 0 )
             {
@@ -347,7 +346,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                     . "'" . (int) $this->getGroupId() . "'"
                     . ")"
                     ;
-
+                    
                 // GET WIKIID
                 $this->con->executeQuery( $sql );
 
@@ -368,11 +367,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                     . "`group_id`='". (int) $this->getGroupId()."' "
                     . "WHERE `id`=" . (int) $this->getWikiId()
                     ;
-
+                    
                 $this->con->executeQuery( $sql );
             }
         }
-
+        
         // utility methods
 
         /**
@@ -396,7 +395,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
             return $this->con->queryReturnsResult( $sql );
         }
-
+        
         /**
          * Check if a wiki exists using its title
          * @param string title wiki title
@@ -417,7 +416,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
             return $this->con->queryReturnsResult( $sql );
         }
-
+        
         /**
          * Check if a wiki exists usind its ID
          * @param int id wiki ID
@@ -438,7 +437,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
             return $this->con->queryReturnsResult( $sql );
         }
-
+        
         /**
          * Get all the pages of this wiki (at this time the method returns
          * only the titles of the pages...)
@@ -451,16 +450,16 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             {
                 $this->con->connect();
             }
-
+            
             $sql = "SELECT `title` "
                 . "FROM `".$this->config['tbl_wiki_pages']."` "
                 . "WHERE `wiki_id` = " . (int) $this->getWikiId() . " "
                 . "ORDER BY `title` ASC"
                 ;
-
+                
             return $this->con->getAllRowsFromQuery( $sql );
         }
-
+        
         /**
          * Get all the pages of this wiki (at this time the method returns
          * only the titles of the pages...) ordered by creation date
@@ -473,16 +472,16 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             {
                 $this->con->connect();
             }
-
+            
             $sql = "SELECT `title` "
                 . "FROM `".$this->config['tbl_wiki_pages']."` "
                 . "WHERE `wiki_id` = " . (int) $this->getWikiId() . " "
                 . "ORDER BY `ctime` ASC"
                 ;
-
+                
             return $this->con->getAllRowsFromQuery( $sql );
         }
-
+        
         /**
          * Get recently modified wiki pages
          * @param int offset start at given offset
@@ -496,9 +495,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             {
                 $this->con->connect();
             }
-
+            
             $limit = ($count == 0 ) ? "" : "LIMIT " . $offset . ", " . $count;
-
+            
             $sql = "SELECT `page`.`title`, `page`.`last_mtime`, `content`.`editor_id` "
                 . "FROM `".$this->config['tbl_wiki_pages']."` `page`, "
                 . "`".$this->config['tbl_wiki_pages_content']."` `content` "
@@ -507,10 +506,10 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 . "ORDER BY `page`.`last_mtime` DESC "
                 . $limit
                 ;
-
+                
             return $this->con->getAllRowsFromQuery( $sql );
         }
-
+        
         function getNumberOfPages()
         {
             if ( ! $this->con->isConnected() )
@@ -518,17 +517,17 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 $this->con->connect();
             }
 
-
+            
             $sql = "SELECT count( `id` ) as `pages` "
                 . "FROM `".$this->config['tbl_wiki_pages']."` "
                 . "WHERE `wiki_id` = " . (int) $this->wikiId
                 ;
-
+                
             $result = $this->con->getRowFromQuery( $sql );
-
+            
             return $result['pages'];
         }
-
+        
         // error handling
 
         function setError( $errmsg = '', $errno = 0 )

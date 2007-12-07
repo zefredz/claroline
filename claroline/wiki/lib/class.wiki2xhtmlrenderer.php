@@ -1,8 +1,7 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
-
+     
     // vim: expandtab sw=4 ts=4 sts=4:
-
+     
     /**
      * CLAROLINE
      *
@@ -19,18 +18,18 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
      *
      * @package Wiki
      */
-
+     
     require_once dirname(__FILE__) . '/wiki2xhtml/class.wiki2xhtml.php';
     require_once dirname(__FILE__) . '/class.wikistore.php';
     require_once dirname(__FILE__) . '/class.wikipage.php';
-
+    
     require_once dirname(__FILE__) . '/class.html_sanitizer.php';
-
+    
     // PHP < 4.3.0
     if ( ! function_exists('html_entity_decode') )
     {
         // decode htmlentities
-        function html_entity_decode( $string )
+        function html_entity_decode( $string ) 
         {
             // replace numeric entities
             $string = preg_replace('~&#x([0-9a-f]+);~ei', 'chr(hexdec("\\1"))', $string);
@@ -42,9 +41,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         }
 
     }
-
+     
     define ("WIKI_WORD_PATTERN", '((?<![A-Za-z0-9µÀ-ÖØ-öø-ÿ])([A-ZÀ-ÖØ-Þ][a-zµß-öø-ÿ]+){2,}(?![A-Za-z0-9µÀ-ÖØ-öø-ÿ]))' );
-
+     
     /**
     * Wiki2xhtml rendering engine
     *
@@ -53,9 +52,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     class Wiki2xhtmlRenderer extends wiki2xhtml
     {
         var /*% Wiki*/ $wiki;
-        var /*% HTML_Sanitizer*/ $san;
-        var $addAtEnd = array();
-
+         
         /**
          * Constructor
          * @param Wiki wiki
@@ -63,10 +60,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         function Wiki2xhtmlRenderer( &$wiki )
         {
             wiki2xhtml::wiki2xhtml();
-
+             
             $this->wiki =& $wiki;
-            $this->san = new HTML_Sanitizer;
-
+             
             // set wiki rendering options
             // use wikiwords to link wikipages
             $this->setOpt( 'active_wikiwords', 1 );
@@ -91,7 +87,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 			// use tables
 			$this->setOpt( 'active_tables', 1 );
         }
-
+        
         /**
          * Overwrite wiki2xhtml __getLine method
          * @access private
@@ -101,40 +97,40 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         {
             $pre_type = $type;
             $pre_mode = $mode;
-            $type = NULL;
+            $type = NULL; 
             $mode = NULL;
-
+            
             if (empty($this->T[$i]))
             {
                 return false;
             }
-
+            
             // Allow inline HTML (EXPERIMENTAL !!!)
             if ( $this->getOpt('inline_html_allowed') )
             {
                 // FIXME secure embedded html !!!
                 // - remove dangerous tags and attributes
                 // - protect against XSS
-                $line = $this->san->sanitize($this->T[$i]);
+                $line = HTML_Sanitizer::sanitize($this->T[$i]);
             }
             else
             {
                 $line = htmlspecialchars($this->T[$i],ENT_NOQUOTES);
             }
-
+            
             # Ligne vide
             if (empty($line))
             {
                 $type = NULL;
             }
-            elseif ($this->getOpt('active_empty')
+            elseif ($this->getOpt('active_empty') 
                 && preg_match('/^øøø(.*)$/',$line,$cap))
             {
                 $type = NULL;
                 $line = trim($cap[1]);
             }
             # Titre
-            elseif ($this->getOpt('active_title')
+            elseif ($this->getOpt('active_title') 
                 && preg_match('/^([!]{1,4})(.*)$/',$line,$cap))
             {
                 $type = 'title';
@@ -142,44 +138,44 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 $line = trim($cap[2]);
             }
             # Ligne HR
-            elseif ($this->getOpt('active_hr')
+            elseif ($this->getOpt('active_hr') 
                 && preg_match('/^[-]{4}[- ]*$/',$line))
             {
                 $type = 'hr';
                 $line = NULL;
             }
             # Blockquote
-            elseif ($this->getOpt('active_quote')
+            elseif ($this->getOpt('active_quote') 
                 && preg_match('/^(&gt;|;:)(.*)$/',$line,$cap))
             {
                 $type = 'blockquote';
                 $line = trim($cap[2]);
             }
             # Liste
-            elseif ($this->getOpt('active_lists')
+            elseif ($this->getOpt('active_lists') 
                 && preg_match('/^([*#]+)(.*)$/',$line,$cap))
             {
                 $type = 'list';
                 $mode = $cap[1];
                 $valid = true;
-
+                
                 # Vérification d'intégrité
                 $dl = ($type != $pre_type) ? 0 : strlen($pre_mode);
                 $d = strlen($mode);
                 $delta = $d-$dl;
-
-                if ($delta < 0
+                
+                if ($delta < 0 
                     && strpos($pre_mode,$mode) !== 0)
                 {
                     $valid = false;
                 }
-                if ($delta > 0
-                    && $type == $pre_type
+                if ($delta > 0 
+                    && $type == $pre_type 
                     && strpos($mode,$pre_mode) !== 0)
                 {
                     $valid = false;
                 }
-                if ($delta == 0
+                if ($delta == 0 
                     && $mode != $pre_mode)
                 {
                     $valid = false;
@@ -188,7 +184,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 {
                     $valid = false;
                 }
-
+                
                 if (!$valid)
                 {
                     $type = 'p';
@@ -201,7 +197,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 }
             }
             # Préformaté
-            elseif ($this->getOpt('active_pre')
+            elseif ($this->getOpt('active_pre') 
                 && preg_match('/^[ ]{1}(.*)$/',$line,$cap))
             {
                 $type = 'pre';
@@ -211,34 +207,27 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 			elseif ($this->getOpt('active_tables'))
 			{
                 # table start
-                if ( preg_match('/^\s*{\|(.+)\s*/', $line, $cap) )
-                {
-                    $type = null;
-                    $line = '<table>';
-                    $caption = trim($cap[1]);
-                    $line .= '<caption>'.$caption.'</caption>';
-                }
-                elseif ( preg_match('/^\s*{\|\s*/', $line, $cap) )
-                {
-                    $type = null;
-                    $line = '<table>';
-                }
+				if ( preg_match('/^{\|$/', $line, $cap) )
+				{
+					$type = null;
+					$line = '<table class="wikiTable">';
+				}
                 # table end
-				elseif ( preg_match('/^\s*\|}\s*$/', $line, $cap) )
+				elseif ( preg_match('/^\|}$/', $line, $cap) )
 				{
 					$type = null;
 					$line = '</table>';
 				}
                 # table row
-				elseif( preg_match('/^\s*\|\|(.*)\|\|\s*$/', $line, $cap) )
+				elseif( preg_match('/^\|\|(.*)\|\|$/', $line, $cap) )
 				{
 					$type = null;
 					
-                    $line = trim( $cap[1] );
-
 					$line = $this->__inlineWalk( $line );
 					
-					$line = $this->_parseTableLine($line);
+					$line = preg_replace( '/^\|\|/', '<tr><td>', $line );
+					$line = preg_replace( '/\|\|$/', '</td></tr>', $line );
+					$line = preg_replace( '/\|/', '</td><td>', $line );
 				}
                 else
                 {
@@ -252,81 +241,10 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 $type = 'p';
                 $line = trim($line);
             }
-
+            
             return $line;
         }
-        
-        function _parseTableLine($line)
-        {
-            $cell = array();
-            $offset = 0;
-            $th = false;
-            
-            while ( strlen ( $line ) > 0 )
-            {
-                if ( false !== ( $pos = strpos( $line, '|', $offset ) ) )
-                {
-                    if ( ($pos-1 >= 0) &&  $line[$pos-1] == '\\' )
-                    {
-                        $offset = $pos+1;
-                        continue;
-                    }
-                    else
-                    {
-                        $r = substr( $line, 0, $pos );
-                        
-                        if ( strpos( $r, '!' ) === 0 )
-                        {
-                            $th = true;
-                            $cell[] = substr($r,1);
-                        }
-                        else
-                        {
-                            $cell[] = $r;
-                        }
-                        
-                        
-                        $line = substr( $line, $pos+1 );
-                        $offset = 0;
-                    }
-                }
-                else
-                {
-                    $r = $line;
-                    
-                    if ( strpos( $r, '!' ) === 0 )
-                    {
-                        $th = true;
-                        $cell[] = substr($r,1);
-                    }
-                    else
-                    {
-                        $cell[] = $r;
-                    }
-
-                    $line = '';
-                    $offset = 0;
-                }
-            }
-            
-            $ret = '';
-            
-            if ( true === $th )
-            {
-                $ret = '<tr><th>';
-                $ret .= implode( '</th><th>', $cell );
-                $ret .= '</th></tr>';
-            }
-            else
-            {
-                $ret = '<tr><td>';
-                $ret .= implode( '</td><td>', $cell );
-                $ret .= '</td></tr>';
-            }
-            
-            return $ret;
-        }
-
+         
         /**
          * Parse WikiWords and create hypertext reference to wiki page
          *
@@ -338,7 +256,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         {
             $tag = 'a';
             $attr = ' href="'.$str.'"';
-
+            
             if ( $this->wiki->pageExists( $str ) )
             {
                 return "<a href=\"".$_SERVER['PHP_SELF']
@@ -360,7 +278,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                     ;
             }
         }
-
+        
         /**
          * Parse and execute wiki2xhtml macros
          *
@@ -377,7 +295,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         {
             $tag = '';
             $attr = '';
-
+            
             switch( trim( $str, '"' ) )
             {
                 // start of html block
@@ -405,15 +323,6 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                         . get_lang( 'Main page' )
                         . "</a>"
                         ;
-                    break;
-                }
-                // toc
-                case 'toc':
-                {
-                    $str = '';
-                    $this->addAtEnd[] = '<script type="text/javascript" src="./lib/javascript/toc.js"></script>';
-                    $this->addAtEnd[] = '<script type="text/javascript">createTOC();</script>';
-                    break;
                 }
                 // embedded html
                 default:
@@ -423,13 +332,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                     // - protect against XSS
                     $str = trim( $str, '"' );
                     $str = html_entity_decode( $str );
-                    $str = $this->san->sanitize( $str );
+                    $str = HTML_Sanitizer::sanitize( $str );
                 }
             }
-
+            
             return $str;
         }
-
+         
         /**
          * Parse links in pages
          *
@@ -440,7 +349,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             $n_str = $this->__inlineWalk($str, array('acronym', 'img' ) );
             $data = $this->__splitTagsAttr($n_str );
             $no_image = false;
-
+             
             if (count($data ) == 1)
             {
                 $url = trim($str );
@@ -452,7 +361,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             {
                 $url = trim($data[1] );
                 $content = $data[0];
-
+                
                 $lang = (!empty($data[2] ) )
                     ? $this->protectAttr($data[2], true )
                     : ''
@@ -462,19 +371,19 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                     : ''
                     ;
                 $no_image = (!empty($data[4] ) )
-                    ? (boolean) $data[4]
+                    ? (boolean) $data[4] 
                     : false
                     ;
             }
-
+             
             $array_url = $this->__specialUrls();
             $url = preg_replace(array_flip($array_url ), $array_url, $url );
-
+             
             # On vire les &nbsp; dans l'url
             $url = str_replace('&nbsp;', ' ', $url);
-
+             
             if ( ereg('^(.+)[.](gif|jpg|jpeg|png)$', $url )
-                && !$no_image
+                && !$no_image 
                 && $this->getOpt('active_auto_img' ) )
             {
                 # On ajoute les dimensions de l'image si locale
@@ -490,14 +399,14 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                     {
                         $path_img = $url;
                     }
-
+                     
                     $img_size = @getimagesize($path_img );
                 }
-
-                $attr = ' src="'.$this->protectAttr($this->protectUrls($url ) ).'"';
-
+                 
+                $attr = ' src="'.$this->protectAttr($this->protectUrls($url ) ).'"'; 
+                
                 $attr .= (count($data) > 1 )
-                    ? ' alt="'.$this->protectAttr($content ).'"'
+                    ? ' alt="'.$this->protectAttr($content ).'"' 
                     : ' alt=""'
                     ;
                 $attr .= ($lang )
@@ -508,11 +417,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                     ? ' title="'.$this->protectAttr($title).'"'
                     : ''
                     ;
-                $attr .= (is_array($img_size ) )
+                $attr .= (is_array($img_size ) ) 
                     ? ' '.$img_size[3]
                     : ''
                     ;
-
+                 
                 $tag = 'img';
                 $type = 'close';
                 return NULL;
@@ -541,18 +450,18 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 }
 
                 $attr .= ($lang)
-                    ? ' hreflang="'.$lang.'"'
+                    ? ' hreflang="'.$lang.'"' 
                     : ''
                     ;
                 $attr .= ($title)
-                    ? ' title="'.$this->protectAttr($title ).'"'
+                    ? ' title="'.$this->protectAttr($title ).'"' 
                     : ''
                     ;
-
+                 
                 return $content;
             }
         }
-
+		
 		/**
          * Overwrite wiki2xhtml __inlineWalk method
          * @access private
@@ -566,13 +475,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     		for ($i=0; $i<count($tree); $i++)
     		{
     			$attr = '';
-
+    			
     			if (in_array($tree[$i],array_values($this->open_tags)) &&
     			($allow_only == NULL || in_array(array_search($tree[$i],$this->open_tags),$allow_only)))
     			{
     				$tag = array_search($tree[$i],$this->open_tags);
     				$tag_type = 'open';
-
+    				
     				if (($tidy = $this->__makeTag($tree,$tag,$i,$i,$attr,$tag_type)) !== false)
     				{
     					if ($tag != '') {
@@ -595,8 +504,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     		# Suppression des echappements
     		$res = str_replace($this->escape_table,$this->all_tags,$res);
             # Unescape table tags
-            
-            $res = str_replace(array('\\{|', '\\|}'),array('{|', '|}'),$res);
+    		$res = str_replace(array('\\{|', '\\||', '\\|}'),array('{|', '||', '|}'),$res);
 
     		return $res;
 		}
@@ -608,15 +516,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
          */
         function render( $txt )
         {
-            // bug #937
-            $ret = preg_replace( '/\\\\((\!|\|)+)/', '$1', $this->transform($txt ) );
-            
-            foreach ( $this->addAtEnd as $line )
-            {
-                $ret .= $line . "\n";
-            }
-            
-            return $ret;
+            return $this->transform($txt );
         }
 
         /**
@@ -632,21 +532,21 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             {
                 $pageName = '__MainPage__';
             }
-
+            
             // allow links to use wikiwords for wiki page locations
             if ($this->getOpt('active_wikiwords') && $this->getOpt('words_pattern'))
             {
                 $pageName = preg_replace('/¶¶¶'.$this->getOpt('words_pattern').'¶¶¶/msU', '$1', $pageName);
             }
-
+            
             $fragment = '';
-
+            
             if ( preg_match('/(#\w+)$/', $pageName, $matches) )
             {
                 $fragment = $matches[1];
                 $pageName = preg_replace( '/(#\w+)$/', '', $pageName );
             }
-
+             
             if ($this->wiki->pageExists( $pageName ) )
             {
                 $attr =  ' href="' . $_SERVER['PHP_SELF']
@@ -666,7 +566,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                     ;
             }
         }
-
+        
         function __initTags()
         {
           $this->tags = array(

@@ -1,5 +1,4 @@
-<?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+<?php
 ////////////////////////////////////////////////////
 // SMTP - PHP SMTP class
 //
@@ -29,13 +28,13 @@ class SMTP
      *  @var int
      */
     var $SMTP_PORT = 25;
-
+    
     /**
      *  SMTP reply line ending
      *  @var string
      */
     var $CRLF = "\r\n";
-
+    
     /**
      *  Sets whether debugging is turned on
      *  @var bool
@@ -509,7 +508,7 @@ class SMTP
         }
 
         $this->helo_rply = $rply;
-
+        
         return true;
     }
 
@@ -1041,4 +1040,6 @@ class SMTP
     }
 
 }
-?>
+
+
+ ?>

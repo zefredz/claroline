@@ -1,20 +1,14 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 
-/**
+/******************************************************************************
  * CLAROLINE
- *
- * @version 1.9 $Revision$
- *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
- *
+ ******************************************************************************
+ * @version 1.8 $Revision$
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
  * @package CLCOURSELIST
- *
  * @author Claro Team <cvs@claroline.net>
- *
- */
+ ******************************************************************************/
 
 class category_browser
 {
@@ -44,9 +38,7 @@ class category_browser
                       AND `subCat`.`treePos` <= (`faculte`.`treePos`+`faculte`.`nb_childs`) )
 
                 LEFT JOIN `" . $tbl_courses . "` AS `cours`
-                       ON `cours`.`faculte` = `subCat`.`code`
-                       AND `cours`.visibility = 'VISIBLE'
-                       ";
+                       ON `cours`.`faculte` = `subCat`.`code` \n";
 
         if ($categoryCode)
         {
@@ -65,7 +57,7 @@ class category_browser
         $this->categoryList = claro_sql_query_fetch_all($sql);
     }
 
-    /**
+        /**
      * @since 1.8
      * @return array list of setting of the current category
      */
@@ -86,11 +78,6 @@ class category_browser
     }
 
     /**
-     * Fetch list of courses of the current category
-     *
-     * This list include main data about
-     * the user but also registration status
-     *
      * @since 1.8
      * @return array list of courses of the current category
      */
@@ -100,17 +87,14 @@ class category_browser
         $tbl_courses   = $tbl_mdb_names['course'];
         $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
 
-        $sql = "SELECT intitule             AS title,
-                       titulaires           AS titular,
-                       code                 AS sysCode,
-                       administrativeNumber AS officialCode,
-                                               directory,
-                                               visibility,
-                                               access,
-                                               registration,
-                                               email,
+        $sql = "SELECT intitule                              AS title,
+                       titulaires                            AS titular,
+                       code                                  AS sysCode,
+                       fake_code                             AS officialCode,
+                                                                directory,
+                                                                visible,
                        "
-              . ( $this->userId ? "cu.user_id" : "NULL") . " AS enroled "
+              . ( $this->userId ? "cu.user_id" : "NULL") . " AS enrolled "
 
               . " FROM `" . $tbl_courses . "` AS c
                 "
@@ -122,10 +106,7 @@ class category_browser
                  : " ")
 
               . "WHERE c.`faculte` = '" . addslashes($this->categoryCode) . "'
-                 AND (visibility = 'VISIBLE' "
-                 . ($this->userId ? "OR NOT (cu.user_id IS NULL)" :"") .
-                 ")
-                 ORDER BY UPPER(c.administrativeNumber)";
+                 ORDER BY UPPER(c.fake_code)";
 
         return claro_sql_query_fetch_all($sql);
     }
@@ -154,35 +135,28 @@ function search_course($keyword, $userId = null)
 
     $upperKeyword = addslashes(strtoupper($keyword));
 
-    $sql = "SELECT c.intitule             AS title,
-                   c.titulaires           AS titular,
-                   c.code                 AS sysCode,
-                   c.administrativeNumber AS officialCode,
-                   c.directory            AS directory,
-                   c.code                 AS code,
-                   c.email                AS email,
-                   c.visibility,
-                   c.access,
-                   c.registration"
+    $sql = "SELECT c.intitule   AS title,
+                   c.titulaires AS titular,
+                   c.code       AS sysCode,
+                   c.fake_code  AS officialCode,
+                   c.directory  AS directory,
+                   c.code       AS code,
+                   c.visible    AS visible"
 
-         .  ($userId ? ", cu.user_id AS enroled" : "")
+         .  ($userId ? ", cu.user_id AS enrolled" : "")
          . " \n "
          .  "FROM `" . $tbl_course . "` c "
          . " \n "
          .  ($userId ? "LEFT JOIN `" . $tbl_rel_course_user . "` AS cu
                         ON  c.code = cu.code_cours
                         AND cu.user_id = " . (int) $userId
+
                      :  "")
          . " \n "
-         . "WHERE (  visibility = 'VISIBLE'
-                  OR ".(claro_is_platform_admin()?"1":"0") ." "
-         .  ($userId ? "OR cu.user_id" : "") . "
+         . "WHERE (UPPER(fake_code)  LIKE '%" . $upperKeyword . "%'
+               OR  UPPER(intitule)   LIKE '%" . $upperKeyword . "%'
+               OR  UPPER(titulaires) LIKE '%" . $upperKeyword . "%')
 
-                  )
-              AND (  (UPPER(administrativeNumber)  LIKE '%" . $upperKeyword . "%'
-                  OR  UPPER(intitule)              LIKE '%" . $upperKeyword . "%'
-                  OR  UPPER(titulaires)            LIKE '%" . $upperKeyword . "%')
-                  )
             ORDER BY officialCode";
 
     $courseList = claro_sql_query_fetch_all($sql);
@@ -192,13 +166,14 @@ function search_course($keyword, $userId = null)
 }
 
 /**
- * Return the list of course of a user.
+ * return the list of course of a user.
  *
  * @param int $userId valid id of a user
  * @param boolean $renew whether true, force to read databaseingoring an existing cache.
  * @return array (list of course) of array (course settings) of the given user.
  * @todo search and merge other instance of this functionality
  */
+
 
 function get_user_course_list($userId, $renew = false)
 {
@@ -212,15 +187,14 @@ function get_user_course_list($userId, $renew = false)
         $tbl_courses           = $tbl_mdb_names['course'         ];
         $tbl_link_user_courses = $tbl_mdb_names['rel_course_user'];
 
-        $sql = "SELECT course.code                 AS `sysCode`,
-                       course.directory            AS `directory`,
-                       course.administrativeNumber AS `officialCode`,
-                       course.dbName               AS `db`,
-                       course.intitule             AS `title`,
-                       course.titulaires           AS `titular`,
-                       course.language             AS `language`,
-                       course.faculte              AS `categoryCode`,
-                       course_user.isCourseManager
+        $sql = "SELECT course.code           AS `sysCode`,
+                       course.directory      AS `directory`,
+                       course.fake_code      AS `officialCode`,
+                       course.dbName         AS `db`,
+                       course.intitule       AS `title`,
+                       course.titulaires     AS `titular`,
+                       course.languageCourse AS `language`,
+                       course_user.statut    AS `userSatus`
 
                        FROM `" . $tbl_courses . "`           AS course,
                             `" . $tbl_link_user_courses . "` AS course_user
@@ -230,11 +204,11 @@ function get_user_course_list($userId, $renew = false)
 
         if ( get_conf('course_order_by') == 'official_code' )
         {
-            $sql .= " ORDER BY UPPER(`administrativeNumber`), `title`";
+            $sql .= " ORDER BY UPPER(`fake_code`), `title`";
         }
         else
         {
-            $sql .= " ORDER BY `title`, UPPER(`administrativeNumber`)";
+            $sql .= " ORDER BY `title`, UPPER(`fake_code`)";
         }
 
         $userCourseList = claro_sql_query_fetch_all($sql);
@@ -242,34 +216,5 @@ function get_user_course_list($userId, $renew = false)
 
     return $userCourseList;
 }
-
-/**
- * return the editable textzone for a course where subscript are denied
- *
- * @param string $course_id
- * @return string : html content
- */
-
-function get_locked_course_explanation($course_id=null)
-{
-    $explanation = claro_text_zone::get_content('course_subscription_locked', array(CLARO_CONTEXT_COURSE => $course_id));
-    return  (empty($explanation)) ? claro_text_zone::get_content('course_subscription_locked'):$explanation;
-}
-
-
-/**
- * Return the editable textzone for a course where subscript are locked
- *
- * @param string $course_id
- *
- * @return string : html content
- */
-
-function get_locked_course_by_key_explanation($course_id=null)
-{
-    $explanation = claro_text_zone::get_content('course_subscription_locked_by_key', array(CLARO_CONTEXT_COURSE => $course_id));
-    return  (empty($explanation)) ? claro_text_zone::get_content('course_subscription_locked_by_key'):$explanation;
-}
-
 
 ?>

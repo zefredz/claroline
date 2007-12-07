@@ -1,5 +1,4 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
@@ -74,7 +73,7 @@ function array_swap_cols_and_rows( $origMatrix, $presumedColKeyList)
 function claro_CSV_format_ok($format, $delim, $enclosedBy)
 {
     $fieldarray = explode($delim,$format);
-    if ($enclosedBy == 'dbquote') $enclosedBy = '"';
+    if ($enclosedBy == "dbquote") $enclosedBy = "\"";
 
     $username_found = FALSE;
     $password_found = FALSE;
@@ -89,19 +88,19 @@ function claro_CSV_format_ok($format, $delim, $enclosedBy)
             $fieldTempArray = explode($enclosedBy,$field);
             if (isset($fieldTempArray[1])) $field = $fieldTempArray[1];
         }
-        if ( trim($field) == 'firstname' )
+        if ( trim($field) == "firstname" )
         {
             $firstname_found = TRUE;
         }
-        if (trim($field)=='lastname')
+        if (trim($field)=="lastname")
         {
             $lastname_found = TRUE;
         }
-        if (trim($field)=='username')
+        if (trim($field)=="username")
         {
             $username_found = TRUE;
         }
-        if ( trim($field) == 'password' )
+        if ( trim($field) == "password" )
         {
             $password_found = TRUE;
         }
@@ -137,21 +136,21 @@ function claro_CSV_format_ok($format, $delim, $enclosedBy)
  */
 
 function claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $usedFormat, $fieldSeparator, $enclosedBy)
-{
+{  
     //open file
 
-    fopen($_FILES['CSVfile']['tmp_name'],'r') or die ('Impossible to open file ' . $_FILES['CSVfile']['name']);
+    $openfile = fopen($_FILES["CSVfile"]["tmp_name"],"r") or die ("Impossible to open file ".$_FILES['CSVfile']['name']);
 
     //Read each ligne : we put one user in an array, and build an array of arrays for the list of user.
 
       //see where the line format must be found and which seperator and enclosion must be used
 
-    if ($useFirstLine)          $usedFormat = 'FIRSTLINE';
-    if ($enclosedBy=='dbquote') $enclosedBy = '"';
+    if ($useFirstLine)          $usedFormat = "FIRSTLINE";
+    if ($enclosedBy=="dbquote") $enclosedBy = "\"";
 
-    //create file Parser
+      //create file Parser
 
-    $CSVParser = new CSV($_FILES['CSVfile']['tmp_name'],$fieldSeparator,$usedFormat,$enclosedBy);
+    $CSVParser = new CSV($_FILES["CSVfile"]["tmp_name"],$fieldSeparator,$usedFormat,$enclosedBy);
 
     if ($CSVParser->validFormat==false)
     {
@@ -173,13 +172,13 @@ function claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $usedFormat,
        //first, we inverse the 2D array containing the lines of CSV file just parsed
        //because it is much easier and faster to have line numbers of the CSV file as second indice in the array
 
-    $cols[] = 'firstname';
-    $cols[] = 'lastname';
-    $cols[] = 'email';
-    $cols[] = 'phone';
-    $cols[] = 'username';
-    $cols[] = 'password';
-    $cols[] = 'officialCode';
+    $cols[] = "firstname";
+    $cols[] = "lastname";
+    $cols[] = "email";
+    $cols[] = "phone";
+    $cols[] = "username";
+    $cols[] = "password";
+    $cols[] = "officialCode";
 
     $working2Darray = array_swap_cols_and_rows($_SESSION['claro_csv_userlist'],$cols);
 
@@ -194,13 +193,7 @@ function claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $usedFormat,
     $officialcode_used_error      = check_officialcode_used_userlist($working2Darray);
 
     if ( get_conf('SECURE_PASSWORD_REQUIRED') )
-    {
-        $password_error               = check_password_userlist($working2Darray);
-    }
-    else
-    {
-        $password_error = array(); // no error ...
-    }
+    $password_error               = check_password_userlist($working2Darray);
 
     $mail_duplicate_error         = check_duplicate_mail_userlist($working2Darray);
     $username_duplicate_error     = check_duplicate_username_userlist($working2Darray);
@@ -219,7 +212,7 @@ function claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $usedFormat,
 
     //delete the temp file
 
-    @unlink($uploadTempDir.$_FILES['CSVfile']['name']);
+    @unlink($uploadTempDir.$_FILES["CSVfile"]["name"]);
 }
 
 /**
@@ -247,7 +240,7 @@ function claro_disp_CSV_error_backlog()
 
     if (isset($_SESSION['claro_invalid_format_error']) && $_SESSION['claro_invalid_format_error'] == true)
     {
-       echo get_lang('ERROR: The format you gave is not compatible with Claroline').'<br />';
+       echo get_lang('ERROR: The format you gave is not compatible with Claroline')."<br>";
        return;
     }
 
@@ -257,35 +250,35 @@ function claro_disp_CSV_error_backlog()
 
         if (isset($_SESSION['claro_mail_synthax_error'][$i]) && $_SESSION['claro_mail_synthax_error'][$i])
         {
-            echo '<b>line ' . $line . ':</b> "' . $_SESSION['claro_csv_userlist'][$i]['email'] . '" <b>:</b>' . get_lang('Mail synthax error.') .  ' <br />';
+            echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['email']."\" <b>:</b>" . get_lang('Mail synthax error.') . " <br>";
         }
         if (isset($_SESSION['claro_mail_used_error'][$i]) && $_SESSION['claro_mail_used_error'][$i])
         {
-            echo '<b>line ' . $line . ':</b> "' . $_SESSION['claro_csv_userlist'][$i]['email'].'" <b>:</b>'  . get_lang('Mail is already used by another user.') .  ' <br />' . "\n";
+            echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['email']."\" <b>:</b>" . get_lang('Mail is already used by another user.') . " <br>\n";
         }
         if (isset($_SESSION['claro_username_used_error'][$i]) && $_SESSION['claro_username_used_error'][$i])
         {
-            echo '<b>line ' . $line . ':</b> "' . $_SESSION['claro_csv_userlist'][$i]['username']. '" <b>:</b>'  . get_lang('UsernameUsed') .  ' <br />' . "\n";
+            echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['username']."\" <b>:</b>" . get_lang('UsernameUsed') . " <br>\n";
         }
         if (isset($_SESSION['claro_officialcode_used_error'][$i]) && $_SESSION['claro_officialcode_used_error'][$i])
         {
-            echo '<b>line ' . $line . ':</b> "' . $_SESSION['claro_csv_userlist'][$i]['officialCode']. '" <b>:</b>'  . get_lang('This official code is already used by another user.') .  ' <br />' . "\n";
+            echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['officialCode']."\" <b>:</b>" . get_lang('This official code is already used by another user.') . " <br>\n";
         }
         if (isset($_SESSION['claro_password_error'][$i]) && $_SESSION['claro_password_error'][$i])
         {
-            echo '<b>line ' . $line . ':</b> "' . $_SESSION['claro_csv_userlist'][$i]['password']. '" <b>:</b>'  . get_lang('Password given is too simple or too close to the username.') .  ' <br />' . "\n";
+            echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['password']."\" <b>:</b>" . get_lang('Password given is too simple or too close to the username.') . " <br>\n";
         }
         if (isset($_SESSION['claro_mail_duplicate_error'][$i]) && $_SESSION['claro_mail_duplicate_error'][$i])
         {
-            echo '<b>line ' . $line . ':</b> "' . $_SESSION['claro_csv_userlist'][$i]['email']. '" <b>:</b>'  . get_lang('This mail appears already in a previous line of the CSV file.')  . "<br />\n";
+            echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['email']."\" <b>:</b>" . get_lang('This mail appears already in a previous line of the CSV file.')  . "<br>\n";
         }
         if (isset($_SESSION['claro_username_duplicate_error'][$i]) && $_SESSION['claro_username_duplicate_error'][$i])
         {
-            echo '<b>line ' . $line . ':</b> "' . $_SESSION['claro_csv_userlist'][$i]['username']. '" <b>:</b>'  . get_lang('UsernameAppearAlready') . "<br />\n";
+            echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['username']."\" <b>:</b>" . get_lang('UsernameAppearAlready') . "<br>\n";
         }
         if (isset($_SESSION['claro_officialcode_duplicate_error'][$i]) && $_SESSION['claro_officialcode_duplicate_error'][$i])
         {
-            echo '<b>line ' . $line . ':</b> "' . $_SESSION['claro_csv_userlist'][$i]['officialCode']. '" <b>:</b>'  . get_lang('This official code already appears in a previous line of the CSV file.') .  ' <br />' . "\n";
+            echo "<b>line $line :</b> \"".$_SESSION['claro_csv_userlist'][$i]['officialCode']."\" <b>:</b>" . get_lang('This official code already appears in a previous line of the CSV file.') . " <br>\n";
         }
     }
 }
@@ -350,7 +343,7 @@ function check_username_used_userlist($userlist)
 
     for ($i=0, $size=sizeof($userlist['username']); $i<$size; $i++)
     {
-        if (!empty($userlist['username'][$i]) && ($userlist['username'][$i]!=''))
+        if (!empty($userlist['username'][$i]) && ($userlist['username'][$i]!=""))
         {
             $sql .= ' OR username="'.addslashes($userlist['username'][$i]).'"';
         }
@@ -358,10 +351,9 @@ function check_username_used_userlist($userlist)
 
     //for each user found, report the potential problem in an error array returned
 
-    // TODO USE Claro_sql function
     $foundUser = claro_sql_query($sql);
 
-    while (false !== $list = mysql_fetch_array($foundUser))
+    while ($list = mysql_fetch_array($foundUser))
     {
         $found = array_search($list['username'],$userlist['username']);
         if (!($found===FALSE))
@@ -410,10 +402,12 @@ function check_officialcode_used_userlist($userlist)
     }
 
     //for each user found, report the potential problem
-    // TODO USE Claro_sql function
+
     $foundUser = claro_sql_query($sql);
 
-    while (false !== $list = mysql_fetch_array($foundUser))
+    //echo $sql."<br>\n";
+
+    while ($list = mysql_fetch_array($foundUser))
     {
         $found = array_search($list['officialCode'],$userlist['officialCode']);
         if (!($found===FALSE))
@@ -484,16 +478,15 @@ function check_mail_used_userlist($userlist)
 
     for ($i=0, $size=sizeof($userlist['email']); $i<$size; $i++)
     {
-        if (!empty($userlist['email'][$i]) && ($userlist['email'][$i]!=''))
+        if (!empty($userlist['email'][$i]) && ($userlist['email'][$i]!=""))
         {
             $sql .= ' OR email="'.addslashes($userlist['email'][$i]).'"';
         }
     }
 
     //for each user found, report the potential problem for email
-    // TODO USE Claro_sql function
     $foundUser = claro_sql_query($sql);
-    while (false !== $list = mysql_fetch_array($foundUser))
+    while ($list = mysql_fetch_array($foundUser))
     {
         $found = array_search($list['email'],$userlist['email']);
         if (!($found===FALSE))
@@ -501,6 +494,8 @@ function check_mail_used_userlist($userlist)
             $errors[$found] = TRUE;
         }
     }
+
+    //echo $sql."<br>\n";
 
     return $errors;
 }
@@ -523,12 +518,14 @@ function check_mail_used_userlist($userlist)
 
 function check_duplicate_mail_userlist($userlist)
 {
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_user             = $tbl_mdb_names['user'             ];
     $errors = array();
     for ($i=0, $size=sizeof($userlist['username']); $i<$size; $i++)
     {
         //check email duplicata in the array
 
-        if ($userlist['email'][$i] != '')
+        if ($userlist['email'][$i] != "")
         {
             $found = array_search($userlist['email'][$i],$userlist['email']);
         }
@@ -561,6 +558,8 @@ function check_duplicate_mail_userlist($userlist)
 
 function check_duplicate_username_userlist($userlist)
 {
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_user             = $tbl_mdb_names['user'             ];
     $errors = array();
     for ($i=0, $size=sizeof($userlist['username']); $i<$size; $i++)
     {
@@ -643,7 +642,7 @@ class CSV
 
     function stripENCLOSED(&$v,$eb)
     {
-        if($eb!='' AND strpos($v,$eb)!==false)
+        if($eb!="" AND strpos($v,$eb)!==false)
         {
             if($v[0]==$eb)
                 $v = substr($v,1,strlen($v));
@@ -669,15 +668,16 @@ class CSV
  */
 
 
-    function CSV($filename,$delim=';',$linedef,$enclosed_by='',$eol="\n")
+    function CSV($filename,$delim=";",$linedef,$enclosed_by="",$eol="\n")
     {
-        //open the file
-        $this->raw_data = implode('',file($filename));
 
+
+        //open the file
+        $this->raw_data = implode("",file($filename));
         // make sure all CRLF's are consistent
         $this->CRLFclean();
         // use custom $eol (if exists)
-        if($eol!="\n" AND trim($eol)=='')
+        if($eol!="\n" AND trim($eol)=="")
         {
             $this->error("Couldn't split data via empty \$eol, please specify a valid end of line character.");
         }
@@ -691,7 +691,7 @@ class CSV
         }
         // create data keys with the line definition given in params,
         // if linedef is not define, take first line of file to define it
-        if ($linedef=='FIRSTLINE')
+        if ($linedef=="FIRSTLINE")
         {
             $linedef = $this->new_data[0];
             $skipFirstLine = TRUE;
@@ -732,20 +732,13 @@ class CSV
 
         foreach($this->new_data AS $index1=>$line)
         {
-            if (trim($line)=='')
-            {
-                // skip empty lines
-                continue;
-            }
-
-            // explode the line with the delimitator
             $temp = @explode($delim,$line);
-
-            if ( count($temp)==0 )
-            {
-                // line didn't split properly so record error
-                $this->errors[] = "Couldn't split data line ". htmlspecialchars($line) ." via given \$delim.";
-            }
+            if(trim($line)=="")
+            // skip empty lines
+                continue;
+            elseif(count($temp)==0)
+            // line didn't split properly so record error
+                $this->errors[] = "Couldn't split data line ".$c." via given \$delim.";
             elseif (!(($index1==0) && ($skipFirstLine)))
             {
                 $data_set = array();
@@ -767,13 +760,13 @@ class CSV
     function error($msg)
     {
         exit(
-           '<hr size="1" noshade>'.
-           '<font color="red" face="arial" size="3">'.
-           '<h2>CSV Class Exception</h2>'.
+           "<hr size=1 noshade>".
+           "<font color=red face=arial size=3>".
+           "<h2>CSV Class Exception</h2>".
            $msg.
-           '<p><b>Script Halted</b>'.
-           '</font>'.
-           '<hr size="1" noshade>'
+           "<p><b>Script Halted</b>".
+           "</font>".
+           "<hr size=1 noshade>"
            );
     }
 

@@ -1,5 +1,4 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
@@ -83,7 +82,8 @@ function create_select_box_language($selected=NULL)
   */
 function language_exists()
 {
-    $dirname = get_path('clarolineRepositorySys') . 'lang/';
+    global $clarolineRepositorySys;
+    $dirname = $clarolineRepositorySys . 'lang/';
 
     if($dirname[strlen($dirname)-1]!='/')
         $dirname.='/';
@@ -207,13 +207,11 @@ function claro_get_cat_flat_list($separator = ' > ')
     {
         if ( $cat['childs'] == 'TRUE' )
         {
-            $label = '('
-            .   get_full_path($categories, $cat['code'], $separator)
-            .   ') '
-            .   htmlspecialchars($cat['name'])
+            $fac_array[$cat['code']] = '('
+            .                          get_full_path($categories, $cat['code'], $separator)
+            .                          ') '
+            .                          htmlspecialchars($cat['name'])
             ;
-            
-            $fac_array[$label] = $cat['code'];
         }
     }
 
@@ -256,8 +254,7 @@ function get_full_path($categories, $catcode = NULL, $separator = ' > ')
         if (($currentCat['code'] == $parent))
         {
 
-            if ($currentCat['treePos'] >= $childTreePos ) return claro_failure::set_failure('loop_in_structure');
-            if ($parent == $catcode ) return claro_failure::set_failure('loop_in_structure');
+            if ($currentCat['treePos'] > $childTreePos ) return claro_failure::set_failure('loop_in_structure');
 
             return get_full_path($categories, $parent, $separator)
             .      $separator
@@ -284,7 +281,7 @@ function claro_get_lang_flat_list()
             $languageLabel  .=  $this_language['langNameCurrentLang'] . ' - ';
         $languageLabel .=  $this_language['langNameLocaleLang'];
 
-        $language_flat_list[ucwords($languageLabel)] = $languageCode;
+        $language_flat_list[$languageCode] = ucwords($languageLabel);
     }
     asort($language_flat_list);
     return $language_flat_list;

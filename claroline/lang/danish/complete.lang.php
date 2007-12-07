@@ -11,6 +11,7 @@ $_lang['Accounts with same <i>Email</i>'] = 'Konti med den samme <i>Email</i>';
 $_lang['Accounts with same <i>User name</i>'] = 'Konti med samme <i>Brugernavn</i>';
 $_lang['Accounts with same <i>User name</i> AND same <i>Password</i>'] = 'Konti med samme <i>Brugernavn</i> Og samme <i>Adgangskode</i>';
 $_lang['Action'] = 'Handling';
+$_lang['Activate'] = 'Gør aktiv';
 $_lang['Add'] = 'Tilføj';
 $_lang['Add a category'] = 'Tilføj en kategori';
 $_lang['Add a comment'] = 'Tilføj/ret kommentar til';
@@ -19,6 +20,7 @@ $_lang['Add an event'] = 'Tilføj en begivenhed';
 $_lang['Add announcement'] = 'Tilføj meddelelse';
 $_lang['Add answ.'] = '+svar';
 $_lang['Add elem.'] = '+felt';
+$_lang['Add introduction text'] = 'Tilføj introduktionstekst';
 $_lang['Add me to this group'] = 'Tilføj mig til denne gruppe';
 $_lang['Add new heading'] = 'Tilføj ny overskrift';
 $_lang['Add user manually'] = 'Tilføj deltagerne manuelt';
@@ -28,6 +30,7 @@ $_lang['All groups are now empty'] = 'Alle grupper er nu tomme';
 $_lang['All groups have been deleted'] = 'Alle grupper er slettet';
 $_lang['Allowed'] = 'Tilladt';
 $_lang['Already enroled'] = 'allerede tilmeldt';
+$_lang['Among'] = 'mellem';
 $_lang['Announcement'] = 'Meddelelser';
 $_lang['Announcement has been added'] = 'Meddelelsen er blevet tilføjet';
 $_lang['Announcement has been deleted'] = 'Meddelelsen er fjernet';
@@ -36,6 +39,7 @@ $_lang['Announcements list has been cleared up'] = 'Meddelelseslisten er blevet 
 $_lang['Anonymous'] = 'Anonym';
 $_lang['Answer'] = 'Svar';
 $_lang['Answer type'] = 'Svar type';
+$_lang['Answers to the question'] = 'Svar på spørgsmålene';
 $_lang['Are you sure to delete'] = 'Er du sikker på, at du vil slette';
 $_lang['Area for this group'] = 'Område for denne gruppe';
 $_lang['Author'] = 'Lagt ud af';
@@ -48,6 +52,7 @@ $_lang['Back to user list'] = 'Tilbage til deltagerlisten';
 $_lang['Cancel'] = 'Fortryd';
 $_lang['Categories'] = 'Kursuskategorier';
 $_lang['Chat'] = 'Chat';
+$_lang['Choice'] = 'Dit valg';
 $_lang['Claroline help'] = 'Kom i gang';
 $_lang['Clear up list of announcements'] = 'Fjern meddelelseslisten';
 $_lang['Click on the month name for more details'] = 'Klik på månedsnavnet for flere detaljer';
@@ -72,6 +77,7 @@ $_lang['Create Directory'] = 'Opret en mappe';
 $_lang['Create a course site'] = 'Opret kursushjemmeside';
 $_lang['Create a course website'] = 'Opret kursushjemmeside';
 $_lang['Create new group(s)'] = 'Opret ny gruppe(r)';
+$_lang['Database Host'] = 'Database Host';
 $_lang['Date'] = 'Dato';
 $_lang['Day'] = 'Dag';
 $_lang['Define Headings'] = 'Angiv Overskriften';
@@ -91,6 +97,8 @@ $_lang['Documents'] = 'Dokumenter';
 $_lang['Documents and Links'] = 'Dokumenter';
 $_lang['Documents downloaded by the student'] = 'Documenter downloaded af studerende';
 $_lang['Documents help'] = 'Hjælpedokumenter';
+$_lang['Documents of the group'] = 'Gruppedokumenter ';
+$_lang['EG'] = 'f.eks.';
 $_lang['Edit'] = 'Rediger';
 $_lang['Edit this group'] = 'Rediger denne gruppe';
 $_lang['Element list'] = 'Feltliste';
@@ -98,9 +106,14 @@ $_lang['Element moved'] = 'Elementet er flyttet';
 $_lang['Element renamed'] = 'Elementet er omdøbt';
 $_lang['Email'] = 'Email';
 $_lang['Empty'] = 'Tom';
+$_lang['Empty (or NULL)'] = 'Tom (eller nul)';
 $_lang['Empty all groups'] = 'Tøm alle grupper';
 $_lang['Enrolment'] = 'Kursustilmelding';
 $_lang['Enter'] = 'Tilbage til min kursusliste';
+$_lang['Exercice not found'] = 'Øvelsen blev ikke fundet';
+$_lang['Exercise description'] = 'Øvelsesbeskrivelse';
+$_lang['Exercise management'] = 'Øvelseshåndtering';
+$_lang['Exercise name'] = 'Øvelsens navn';
 $_lang['Exercise type'] = 'Øvelsestype';
 $_lang['Exercises'] = 'Øvelser';
 $_lang['Exercises help'] = 'Hjælp øvelser';
@@ -117,6 +130,8 @@ $_lang['Forums help'] = 'Hjælpeforum';
 $_lang['From'] = 'Fra';
 $_lang['Get a question from another exercise'] = 'Tag et spørgsmål fra en anden øvelse';
 $_lang['Go back to the exercise'] = 'Tilbage til øvelsen';
+$_lang['Go back to the question list'] = 'Tilbage til spørgsmålslisten';
+$_lang['Go back to the question pool'] = 'Tilbage til spørgsmålspuljen';
 $_lang['Group'] = 'Grupper';
 $_lang['Group Tutor'] = 'tutor';
 $_lang['Group area'] = 'Gruppeområde';
@@ -141,10 +156,12 @@ $_lang['Invalid user : this user doesn\'t exist in your group'] = 'Ugyldig delta
 $_lang['Language'] = 'Sprog';
 $_lang['Last 31 days'] = 'I de sidste 31 dage';
 $_lang['Last 7 days'] = 'Sidste 7 dage';
+$_lang['Last check before install'] = 'Sidste kontrol før installationen';
 $_lang['Last message'] = 'Sidste indlæg';
 $_lang['Last name'] = 'Efternavn';
 $_lang['Lasting'] = 'Varighed';
 $_lang['Lecturer(s)'] = 'Undervisere';
+$_lang['Licence'] = 'Licens';
 $_lang['Line Number'] = 'Antal linier';
 $_lang['List of students in this group'] = 'Liste med studerende i gruppen';
 $_lang['Login'] = 'login';
@@ -154,6 +171,7 @@ $_lang['Logins and access to tools'] = 'Logins og adgange til værktøjer';
 $_lang['Logins not used'] = 'Logins er ikke brugt';
 $_lang['Logout'] = 'Logud';
 $_lang['Lost password'] = 'Glemt din adgangskode?';
+$_lang['Main database'] = 'Hoved claroline DB';
 $_lang['Make correspond'] = 'Skab overensstemmelse';
 $_lang['Manager'] = 'Support';
 $_lang['Matching'] = 'Matching';
@@ -202,14 +220,16 @@ $_lang['Number of users'] = 'Antal deltagere';
 $_lang['Number of users by course'] = 'Antal deltagere efter kursus';
 $_lang['Number of users by faculty'] = 'Antal deltagere efter fakultet';
 $_lang['Number of users by status'] = 'Antal deltagere efter stilling';
-$_lang['Number proposed exceeds max. that you allowed (you can modify it below). Group composition has not been modified'] = 'Antal foreslåede overstiger det max. som du tillod (du kan ændre det nedenfor). 
-				Gruppesammensætningen er ikke blevet ændret';
+$_lang['Number proposed exceeds max. that you allowed (you can modify it below). Group composition has not been modified'] = 'Antal foreslåede overstiger det max. som du tillod (du kan ændre det nedenfor).
+                Gruppesammensætningen er ikke blevet ændret';
 $_lang['Ok'] = 'Ok';
 $_lang['Oldest first'] = 'Ældste først';
 $_lang['On'] = 'Til';
 $_lang['On an unique page'] = 'På en side';
 $_lang['One question per page (sequential)'] = 'Et spørgsmål pr. side (sekventielt)';
+$_lang['Ooops, stranges cases detected !!'] = 'Ups, opdaget mærkelige sager !!';
 $_lang['Operation impossible'] = 'Umulig handling';
+$_lang['Operation impossible.<br />A file with this name already exists.'] = 'Udlægningen kan ikke gennemføres.<br />Der er allerede en fil med samme navn.';
 $_lang['Optional'] = 'Valgfri';
 $_lang['Orphan questions'] = 'Forældreløse spørgsmål';
 $_lang['Other'] = 'Andre';
@@ -217,27 +237,38 @@ $_lang['PHP system information'] = 'information om systemet';
 $_lang['Password'] = 'adgangskode';
 $_lang['Period'] = 'Periode';
 $_lang['Please choose a good answer'] = 'Venligst vælg et godt svar';
+$_lang['Please choose one or more good answers'] = 'Venligst vælg et eller flere gode svar';
 $_lang['Please confirm your choice'] = 'Venligst bekræft dit valg';
+$_lang['Please define at least one blank with brackets [...]'] = 'Venligst definer mindst en rubrik med parentes [...]';
 $_lang['Please define the options'] = 'Venligst angiv valgmuligheder';
 $_lang['Please fill the two lists below'] = 'Udfyld venligst de to lister nederst';
 $_lang['Please give a weighting to each blank'] = 'Venligst angiv en værdi til hver rubrik';
 $_lang['Please give the answers to the question'] = 'Venligst angiv spørgsmålets svar';
+$_lang['Please give the exercise name'] = 'Venligst giv øvelsen et navn';
+$_lang['Please give the question'] = 'Venligst angiv spørgsmålet';
 $_lang['Please type the text'] = 'Venligst skriv det næste';
+$_lang['Please type your text below'] = 'Venligst skriv din tekst nederst';
 $_lang['Posted'] = 'Lagt ud';
 $_lang['Posts'] = 'Indlæg';
 $_lang['Powered by'] = 'Udviklet af';
+$_lang['Prefix for names of course databases'] = 'MySQL Prefix';
 $_lang['Previous day'] = 'Tidligere dage';
 $_lang['Previous month'] = 'Tidligere måneder';
 $_lang['Previous week'] = 'Tidligere uger';
 $_lang['Previous year'] = 'Tidligere år';
+$_lang['PrintVers'] = 'Udskriftsvenlig version';
 $_lang['Private'] = 'lukket gruppe';
 $_lang['Public'] = 'åben gruppe';
 $_lang['Public access from campus home page even without login'] = 'Offentlig adgang til kurset fra E-learning\'s forside selv uden login.';
 $_lang['Publish'] = 'Udgiv';
 $_lang['Published on'] = 'Lagt ud';
 $_lang['Question'] = 'Spørgsmål';
+$_lang['Question / Answer management'] = 'Spørgsmål / Svar håndtering';
+$_lang['Question list of the exercise'] = 'Øvelsens spørgsmålsliste';
+$_lang['Question not found'] = 'Spørgsmålet blev ikke fundet';
 $_lang['Question pool'] = 'Spørgsmålspulje';
 $_lang['Question to lecturer'] = 'Spørgsmål til underviseren';
+$_lang['Questions'] = 'Spørgsmålene';
 $_lang['Random questions'] = 'Vilkårlige spørgsmål';
 $_lang['Registered'] = 'Tilmeldt';
 $_lang['Registration'] = 'Tilmelding';
@@ -246,6 +277,7 @@ $_lang['Rem. elem.'] = '-felt';
 $_lang['Remove'] = 'Fjern';
 $_lang['Rename'] = 'Omdøb';
 $_lang['Reply'] = 'Svar';
+$_lang['Requirements'] = 'Behov';
 $_lang['Result'] = 'Score';
 $_lang['Return to the list'] = 'Tilbage til listen';
 $_lang['Reuse'] = 'Genbrug';
@@ -259,21 +291,26 @@ $_lang['Send this announcement by email to registered students'] = 'Send denne m
 $_lang['Show all'] = 'Vis alle';
 $_lang['Show none'] = 'Vis ingen';
 $_lang['Size'] = 'Størrelse';
+$_lang['Statement'] = 'Valgfri kommentar';
 $_lang['Statistics'] = 'Statistikker';
+$_lang['Statistics of course'] = 'Kursusstatistik';
 $_lang['Statistics of user'] = 'Deltagerstatistik';
 $_lang['Status'] = 'Handling';
 $_lang['Student'] = 'studerende';
 $_lang['Students are allowed to self-register in groups'] = 'De studerende skal selv tilmelde sig grupperne';
 $_lang['Subject'] = 'Emne';
 $_lang['Support forum'] = 'Claroline hjælpeforum';
+$_lang['Take'] = 'tag';
 $_lang['The email address is not valid'] = 'Email adressen er mangelfuld eller indeholder ugyldige tegn';
 $_lang['The file to upload is not valid.'] = 'Filen til udlægning er ikke gyldig.';
+$_lang['The information has been modified'] = 'Informationen er blevet ændret';
 $_lang['The upload has failed. There is not enough space in your directory'] = 'Udlægningen mislykkedes. Der er ikke plads i din mappe.';
 $_lang['The upload is finished'] = 'Udlægning er afsluttet';
 $_lang['The zip file can not contain .PHP files'] = 'Zip fil må ikke indeholde .PHP filer';
 $_lang['There are no topics for this forum. You can post one'] = 'Der er ingen emner til dette forum. Du kan indsende et.';
 $_lang['There is no answer for the moment'] = 'Der er i øjeblikket ikke angivet svarmuligheder';
 $_lang['There is no exercise for the moment'] = 'Der er ingen øvelser lige nu';
+$_lang['There is no question for the moment'] = 'Der er i øjeblikket ingen spørgsmål';
 $_lang['This course is currently not described'] = 'Dette kursus er endnu ikke beskrevet';
 $_lang['This day'] = 'I dag';
 $_lang['This is the faculty, department or school where the course is delivered'] = 'Angiv på hvilket Fakultet kurset udbydes';
@@ -290,6 +327,7 @@ $_lang['Total Clicks'] = 'Totale klik';
 $_lang['Total Downloads'] = 'Totale Downloads';
 $_lang['Total number of connection to this course'] = 'Totale antal forbindelser til dette kursus';
 $_lang['Tracking'] = 'Udtræk';
+$_lang['Tracking database'] = 'Udtræk DB.  Brugbar kun hvis flere DB';
 $_lang['Tracking has been disabled by system administrator.'] = 'Udtrækning af statistik er slået fra af systemadministrator.';
 $_lang['Traffic Details'] = 'Traffik detaljer';
 $_lang['True'] = 'Rigtig';
@@ -312,8 +350,11 @@ $_lang['View my statistics'] = 'Se statistikkerne';
 $_lang['Visibility'] = 'Synlig/usynlig';
 $_lang['Visibility modified'] = 'synlighed ændret';
 $_lang['Visits'] = 'besøg';
+$_lang['Warning ! This question and its answers are used in several exercises. Would you like to modify them'] = 'Advarsel ! Dette spørgsmål og dets svar anvendes i adskillige øvelser. Wil du ændre dem';
 $_lang['Week'] = 'Uge';
 $_lang['Weighting'] = 'Værdi';
+$_lang['Work'] = 'Studerendes Opgaver';
+$_lang['Work title'] = 'Titel';
 $_lang['Work uploaded by the student in the name of \'Authors\''] = 'arbejde lagt ud af de studerende som \'Forfattere\'';
 $_lang['Work uploads'] = 'Upload af arbejde';
 $_lang['Year'] = 'År';
@@ -323,40 +364,44 @@ $_lang['You can now create your  course'] = 'Du kan nu oprette dine kurser';
 $_lang['You can now select, in the list, the courses you want to access'] = 'Vælg nu de kurser på kursusoversigten som du ønsker adgang til.';
 $_lang['You cannot post an empty message'] = 'Du skal skrive en besked som skal sendes. Du kan ikke sende en tom besked.';
 $_lang['You didnt choose any file to send, or it is too big'] = 'Du valgte ingen fil, eller filen er for stor til at blive sendt';
+$_lang['You have already answered the question'] = 'Du har allerede svaret på spørgsmålet';
 $_lang['You have just created the course website'] = 'Du har nu oprettet kursushjemmesiden';
 $_lang['You left some required fields empty'] = 'Du udfyldte ikke alle felter. Brug din browsers tilbageknap og prøv igen.';
 $_lang['Your message has been deleted'] = 'Dit Indlæg er blevet slettet.';
 $_lang['Your message has been entered'] = 'Din besked er blevet gemt i databasen.';
+$_lang['Your new profile has been saved'] = 'Din nye brugerprofil er gemt';
+$_lang['Your total score is'] = 'Dit samlede pointtal er';
 $_lang['Zip file uploaded and uncompressed'] = ' Zip fil er lagt ud og dekomprimeret';
+$_lang['[British people] live in [United Kingdom].'] = '[British people] live in [United Kingdom].';
 $_lang['archive'] = 'arkiv';
 $_lang['blockClaroMainHelp'] = 'Her kan undervisere og assistenter oprette og administrere
-kursushjemmesider. De studerende læser (dokumenter, kalender, informationer) og sommetider 
+kursushjemmesider. De studerende læser (dokumenter, kalender, informationer) og sommetider
 udfører de øvelser, lægger opgavebesvarelser ud, deltager i diskussionsforum
 ...</p><b>Registrering</b><p>Hvis du er studerende, skal du
 registrere dig med følgende valg \'Følg kursus\', vælg derefter
 de kurser du ønsker at følge.</p><p>Hvis du er kursusadministrator,
-vælg også registrering, men derefter \'Opret kursushjemmeside\'. Nu skal du 
+vælg også registrering, men derefter \'Opret kursushjemmeside\'. Nu skal du
 udfylde en formular med kursustitel, fakultet og kursuskode. Når dette
 er gjort, vil du få adgang til din kursushjemmeside og kunne tilpasse den
 dine ønsker. </p><p>Menupunktet \'Gør E-learning bedre\' giver dig mulighed for at kontakte
-administrationen af Claroline på Aarhus Universitet med forslag til 
-forbedringer og fejlretninger af Claroline. Du finder \'Gør E-learning bedre\', 
+administrationen af Claroline på Aarhus Universitet med forslag til
+forbedringer og fejlretninger af Claroline. Du finder \'Gør E-learning bedre\',
 når du er logget på Claroline.</p>
-<p>Claroline hjælpeforum er en anderledes måde at søge hjælp på. Det forbinder alle Claroline brugere i hele verden. 
-Finder du ikke svar på dit spørgsmål i dit eget Claroline studiemiljø, så kan du 
+<p>Claroline hjælpeforum er en anderledes måde at søge hjælp på. Det forbinder alle Claroline brugere i hele verden.
+Finder du ikke svar på dit spørgsmål i dit eget Claroline studiemiljø, så kan du
 sende dit spørgsmål ind her.</p>
-<p>Linket til registrering finder du på forsiden til Claroline 
-(øverst til højre).</p><b>Login</b><p>Ved dit næste besøg, skriv brugernavn og adgangskode 
+<p>Linket til registrering finder du på forsiden til Claroline
+(øverst til højre).</p><b>Login</b><p>Ved dit næste besøg, skriv brugernavn og adgangskode
 (husk de er <i>case sensitive</i>) og tryk ok for at komme ind på dine kurser.';
 $_lang['blockCourseDescriptionCourseContent'] = 'Contenu du cours';
 $_lang['blockCourseDescriptionDescription'] = 'Dokumentets beskrivelse';
-$_lang['blockCourseSettingsTip'] = 'Som standard er dit kursus kun tilgængeligt for dig som dets eneste registrerede bruger. Ønsker du en vis fortrolighed omkring adgang til kurset, 
+$_lang['blockCourseSettingsTip'] = 'Som standard er dit kursus kun tilgængeligt for dig som dets eneste registrerede bruger. Ønsker du en vis fortrolighed omkring adgang til kurset,
 er det letteste, at du åbner for tilmeldinger i f.eks.
 en uge (vælg: Fortrolig adgang, åben tilmelding), og beder de studerende om i første lektion selv at tilmelde sig indenfor denne tid, og derefter lukker for tilmeldinger (vælg: Fortrolig adgang, tilmeldingen er lukket). Du kan nu se de tilmeldte på deltagerlisten, og slette evt. uvelkomne.
 Kurset er nu kun tilgængeligt via login.';
 $_lang['blockDocumentsHelp'] = '<p>Dokumentværktøjet svarer til filhåndtering på din alm. pc.
 </p><p>Du kan lægge alle slags filer ud (HTML, Word,
- Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.). Det eneste du skal være 
+ Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.). Det eneste du skal være
  opnærksom på er, om dine studerende har programmer til at åbne dem med.
  Nogle filer kan indeholde virus, og det er dit ansvar, at der ikke følger virus med, når du lægger materialet ud.
  Tjek derfor din dokumenter med et antivirus program før du lægger dem ud.</p>
@@ -368,107 +413,107 @@ $_lang['blockDocumentsHelp'] = '<p>Dokumentværktøjet svarer til filhåndtering på
 <ul>
   <li>Vælg en fil på din computer ved at bruge Browerserfunktionen <input
  type=submit value=Browse name=submit2>
-	til højre på din skærm.</li>
-		<li>
-			Iværksæt udlægning af dokument med Upload <input type=submit value=Upload name=submit2>.
-		</li>
-	</ul>
-	<h4>
-		Omdøb dokumentnavn (eller en mappe)
-	</h4>
-	<ul>
-		<li>
-			klik på omdøb <img src=../document/img/edit.gif width=20 height=20 align=baseline> 
-			i omdøb kolonnen
-		</li>
-		<li>
-			Skriv det nye navn i feltet (øverst til venstre)
-		</li>
-		<li>
-			udfør ved at klikke <input type=submit value=Ok name=submit24>.
-		</li>
-	</ul>
-		<h4>
-			Slet et dokument (eller en mappe)
-		</h4>
-		<ul>
-			<li>
-				Klik på <img src=../document/img/delete.gif width=20 height=20> 
-				i kolonnen \'slet\'.
-			</li>
-		</ul>
-		<h4>
-			Gør et dokument (eller en mappe) usynlig for de studerende
-		</h4>
-		<ul>
-			<li>
-				Klik på <img src=../document/img/visible.gif width=20 height=20>
-				i kolonnen \'synlig/usynlig\'.
-			</li>
-			<li>
-				Dokumentet (eller mappen) eksisterer stadig men er ikke synlig for de studerende mere.
-			</li>
-			<li>
-				For at gøre det synligt igen, klik på 
-				<img src=../img/invisible.gif width=24 height=20> 
-				i kolonnen \'synlig/usynlig\'
-			</li>
-		</ul>
-		<h4>
-			Tilføj eller fjern en kommentar til et dokument (eller en mappe)
-		</h4>
-		<ul>
-			<li>
-				Klik på <img src=../img/comment.gif width=20 height=20> in column \'Comment\'
-			</li>
-			<li>
-				Skriv en ny kommentar i det korresponderende felt (øverst til højre).
-			</li>
-			<li>
-				Udfør ved at klikke <input type=submit value=OK name=submit2>
-			.</li>
-		</ul>
-		<p>
-		For at fjerne en kommentar, klik på <img src=../img/comment.gif width=20 height=20>, 
-		slet den gamle kommentar i feltet og klik 
-		<input type=submit value=OK name=submit22>.
-		<hr />
-		<p>
-			Du kan organisere dit indhold gennem arkivering. Gør følgende:
-		</p>
-		<h4>
-			<b>
-				Opret en mappe
-			</b>
-		</h4>
-		<ul>
-			<li>
-				klik på 
-				<img src=../img/folder.gif>
-				\'Opret en mape\' (øverst til venstre)
-			</li>
-			<li>
-				Skriv navnet på den nye mappe i det korresponderende felt (øverst til venstre)
-			</li>
-			<li>
-				udfør ved at klikke <input type=submit value=OK name=submit23>.
-			</li>
-		</ul>
-		<h4>
-			Flyt et dokument (eller en mappe)
-		</h4>
-		<ul>
-			<li>
-				Klik på <img src=../img/deplacer.gif width=34 height=16> 
-				i kolonnen \'Flyt\'
-			</li>
-			<li>
-				vælg den mappe du ønsker at flytte dokumentet til (eller mappe) i den korresponderende scrolling menu (øverst til venstre) (bemærk: ordet \'root\' betyder at du ikke kan gå højere op i dokumenthierarkiet på serveren).
-			</li>
-			<li>
-				udfør ved at klikke <input type=submit value=OK name=submit232>.
-			</li>
-		</ul>
+    til højre på din skærm.</li>
+        <li>
+            Iværksæt udlægning af dokument med Upload <input type=submit value=Upload name=submit2>.
+        </li>
+    </ul>
+    <h4>
+        Omdøb dokumentnavn (eller en mappe)
+    </h4>
+    <ul>
+        <li>
+            klik på omdøb <img src=../document/img/edit.gif width=20 height=20 align=baseline>
+            i omdøb kolonnen
+        </li>
+        <li>
+            Skriv det nye navn i feltet (øverst til venstre)
+        </li>
+        <li>
+            udfør ved at klikke <input type=submit value=Ok name=submit24>.
+        </li>
+    </ul>
+        <h4>
+            Slet et dokument (eller en mappe)
+        </h4>
+        <ul>
+            <li>
+                Klik på <img src=../document/img/delete.gif width=20 height=20>
+                i kolonnen \'slet\'.
+            </li>
+        </ul>
+        <h4>
+            Gør et dokument (eller en mappe) usynlig for de studerende
+        </h4>
+        <ul>
+            <li>
+                Klik på <img src=../document/img/visible.gif width=20 height=20>
+                i kolonnen \'synlig/usynlig\'.
+            </li>
+            <li>
+                Dokumentet (eller mappen) eksisterer stadig men er ikke synlig for de studerende mere.
+            </li>
+            <li>
+                For at gøre det synligt igen, klik på
+                <img src=../img/invisible.gif width=24 height=20>
+                i kolonnen \'synlig/usynlig\'
+            </li>
+        </ul>
+        <h4>
+            Tilføj eller fjern en kommentar til et dokument (eller en mappe)
+        </h4>
+        <ul>
+            <li>
+                Klik på <img src=../img/comment.gif width=20 height=20> in column \'Comment\'
+            </li>
+            <li>
+                Skriv en ny kommentar i det korresponderende felt (øverst til højre).
+            </li>
+            <li>
+                Udfør ved at klikke <input type=submit value=OK name=submit2>
+            .</li>
+        </ul>
+        <p>
+        For at fjerne en kommentar, klik på <img src=../img/comment.gif width=20 height=20>,
+        slet den gamle kommentar i feltet og klik
+        <input type=submit value=OK name=submit22>.
+        <hr />
+        <p>
+            Du kan organisere dit indhold gennem arkivering. Gør følgende:
+        </p>
+        <h4>
+            <b>
+                Opret en mappe
+            </b>
+        </h4>
+        <ul>
+            <li>
+                klik på
+                <img src=../img/folder.gif>
+                \'Opret en mape\' (øverst til venstre)
+            </li>
+            <li>
+                Skriv navnet på den nye mappe i det korresponderende felt (øverst til venstre)
+            </li>
+            <li>
+                udfør ved at klikke <input type=submit value=OK name=submit23>.
+            </li>
+        </ul>
+        <h4>
+            Flyt et dokument (eller en mappe)
+        </h4>
+        <ul>
+            <li>
+                Klik på <img src=../img/deplacer.gif width=34 height=16>
+                i kolonnen \'Flyt\'
+            </li>
+            <li>
+                vælg den mappe du ønsker at flytte dokumentet til (eller mappe) i den korresponderende scrolling menu (øverst til venstre) (bemærk: ordet \'root\' betyder at du ikke kan gå højere op i dokumenthierarkiet på serveren).
+            </li>
+            <li>
+                udfør ved at klikke <input type=submit value=OK name=submit232>.
+            </li>
+        </ul>
 <center>
 <p>';
 $_lang['blockExercisesHelp'] = '<p>Øvelsesværktøjet tillader dig at oprette øvelser med lige så mange spørgsmål, som du ønker.<br /><br />
@@ -541,13 +586,13 @@ Hvis du har mange spørgsmål, kan du også vælge, at kun X antal spørgsmål ud af ø
 Spørgsmålspuljen tillader dig også at anvende det samme spørgsmål i flere øvelser<br /><br />
 Som standardindstilling, vises alle spørgsmål til kurset. Du kan vise spørgsmålene til en øvelse ved at vældge denne i drop-down menuen &quotFilter&quot;.<br /><br />
 Forældreløse spørgsmål er spørgsmål, som ikke tilhører en bestemt øvelse.</p>';
-$_lang['blockForumsHelp'] = 'Diskussionsforum er et skriftligt asynkront værktøj, 
+$_lang['blockForumsHelp'] = 'Diskussionsforum er et skriftligt asynkront værktøj,
  hvor e-mail giver adgang til en-til-en dialog, der enten har en åben eller
  lukket form. </p><p>Teknisk behøver den studerende kun sin browser for at få adgang til et
  Diskussionsforum.</P><p>For at oprette et Diskussionforum, klik på
  \'Administration af forum\'. Diskussionerne er organiseret i grupper og undergrupper med
  følgende struktur:</p><p><b>Kategori > Forum > Emne > Svar</b></p> For at strukturere
- de studerendes diskussioner, er det nødvendigt at organisere kategorierne og 
+ de studerendes diskussioner, er det nødvendigt at organisere kategorierne og
  foraene på forhånd, således at oprettelsen af emner og svar overlades til de studerende. Som
  standard er claroline forum kun sat op til kategorien \'åben\', et testforum
  og et testemne.</p><p>Det første du skal gøre er at slette
@@ -555,51 +600,51 @@ $_lang['blockForumsHelp'] = 'Diskussionsforum er et skriftligt asynkront værktøj
  i den \'offentlige\' kategori, andre fora, med grupper eller temaer, som passer til
  dine læringsscenarier.</p><p>Bland ikke kategorier og fora,
  og husk at en tom kategori (uden forum) ikke kan ses af den
- studende.</p><p>Beskrivelsen af et forum kan være deltagerlisten, målformulering, 
+ studende.</p><p>Beskrivelsen af et forum kan være deltagerlisten, målformulering,
  et tema...';
 $_lang['blockGroupsHelp'] = '<p><b>Introduktion</b></p>
-<p>Dette værktøj giver dig mulighed for at oprette og styre grupper. 
-Ved oprettelsen (\'Opret gruppe\'), er grupperne tomme. Der er flere måde at udfylde dem på: 
+<p>Dette værktøj giver dig mulighed for at oprette og styre grupper.
+Ved oprettelsen (\'Opret gruppe\'), er grupperne tomme. Der er flere måde at udfylde dem på:
 <ul><li>automatisk (\'Udfyld grupper\'),</li>
 <li>manuelt (\'Rediger\'),</li>
 <li>selv-registrering af deltagerne (Sæt gruppen til: \'Selv-registrering er tilladt...\').</li>
 </ul>
 Disse tre måder kan kombineres. Du kan, for eksempel, bede deltagerne om at selv-registrere først.
-Derefter erfarer du, at nogle ikke fulgte opfordringen og kan derefter udfylde grupperne automatisk. 
+Derefter erfarer du, at nogle ikke fulgte opfordringen og kan derefter udfylde grupperne automatisk.
 <p>Udfyldelse af grupper, automatisk eller manuelt, virker kun når der er tilmeldt deltagere på kurset
 (bland ikke kursusregistrering med grupperegistrering).
 Deltagerne er synlige på <b>Deltagerliste</b> værktøjet. </p><hr noshade size=1>
 <p><b>Opret gruppe(r)</b></p>
-<p>Opret nye grupper, klik på \'Opret ny gruppe(r)\' og anfør antal af grupper, du ønsker at oprette. 
+<p>Opret nye grupper, klik på \'Opret ny gruppe(r)\' og anfør antal af grupper, du ønsker at oprette.
 Maximum antal deltagere er frit, men vi anbefaler, at man anfører et tal. Hvis du efterlader max. feltet
 tomt, vil størrelsen være uendelig.</p><hr noshade size=1>
 <p><b>Gruppe opsætning</b></p>
 <p>Du kan lade gruppeopsætningen gælde alle grupper.
-<b>Deltagerne tillades at selv-registrere i grupperne</b>: 
-<p>Du opretter tomme grupper, deltagerne selv-registrerer. 
-Hvis du har sat et max. antal deltagere i hver, accpeterer fyldte grupper ikke nye deltagere. 
+<b>Deltagerne tillades at selv-registrere i grupperne</b>:
+<p>Du opretter tomme grupper, deltagerne selv-registrerer.
+Hvis du har sat et max. antal deltagere i hver, accpeterer fyldte grupper ikke nye deltagere.
 Denne metode er god, når underviseren ikke kender deltagerlisten ved orpettelsen af grupperne.</p>
 <b>Tilføjelse</b>:</p>
 <p>Hver gruppe har enten et Diskussionsforum (lukket eller åben) eller et Dokument område
 (fildeling) eller (som hovedregel) begge dele.</p>
 <hr noshade size=1>
 <p><b>Manuel redigering</b></p>
-<p>Når grupperne er oprettet (Opret gruppe(r)), kan du nederst på siden se en liste over grupperne 
-med en række informationer og funktioner<ul><li><b>Rediger</b> manuel ændring af gruppenavn, beskrivelse, tutor, 
+<p>Når grupperne er oprettet (Opret gruppe(r)), kan du nederst på siden se en liste over grupperne
+med en række informationer og funktioner<ul><li><b>Rediger</b> manuel ændring af gruppenavn, beskrivelse, tutor,
 deltagerliste.</li>
 <li><b>Slet</b> sletter en gruppe.</li></ul>
 <hr noshade size=1>';
 $_lang['blockHomepageHelp'] = 'For at komme i gang, indeholder værktøjerne i claroline standard opsætninger.
  Der er et lille eksempel på indhold i hvert værktøj for at hjælpe dig til hurtigt at forstå,
  hvordan det fungerer. Det er op til dig at ændre eksemplerne eller slette dem.</p><p>For
- eksempel er der her på din kursushjemmeside en lille introduktionstekst: 
- \'Dette er introduktionsteksten til dit kursus. For at ersatte den med din egen tekst, Klik på ændre.\' 
+ eksempel er der her på din kursushjemmeside en lille introduktionstekst:
+ \'Dette er introduktionsteksten til dit kursus. For at ersatte den med din egen tekst, Klik på ændre.\'
  Så simpelt er det. Hvert værktøj har den samme logik:
- tilføj, slet, ændre, som er logikken på et dynamisk website.</p><p>Når du 
+ tilføj, slet, ændre, som er logikken på et dynamisk website.</p><p>Når du
  opretter dit website, er de fleste værktøjer aktive. Det er op til dig
  at gøre dem passive, som du ikke ønsker at bruge i første omgang. Klik på \'gør passiv\'.
  Derefter lander værktøjet nede i den grå sektion af din kursushjemmeside, og er dermed
- usynlig for de studerende.  Du kan når som helst gøre værktøjet aktivt igen og dermed 
+ usynlig for de studerende.  Du kan når som helst gøre værktøjet aktivt igen og dermed
  gøre det synligt for de studerende.</p>
 <p>Du kan tilføje dine egne tekster på forsiden af din kursushjemmeside.
  Disse tekster skal være i HTML format (som nemt kan laves med f.eks. Word ved at gemme teksten i web-format).
@@ -631,6 +676,8 @@ $_lang['blockUsersHelp'] = '<b>Titel</b><p>Titel har ikke noget at gøre med at a
 vil mdotage en e-mail, der fortæller ham/hende, at du har registreret ham/hende og fortæller
 ham/hende eller minder ham/hende om sit login og sin adgangskode.</p>';
 $_lang['e.g. <em>History of Literature</em>'] = 'f.eks. <i>Litteraturhistorie</i>';
+$_lang['group(s) has (have) been added'] = 'gruppe(r) er blevet tilføjet';
+$_lang['in all exercises'] = 'i alle øvelser';
 $_lang['line'] = 'linie';
 $_lang['lines'] = 'linier';
 $_lang['max. 12 characters, e.g. <em>ROM2121</em>'] = 'max. 12 tegn, f.eks. <i>ROM2121</i>. Brug ikke <i>æ, ø, å</i>';
@@ -638,6 +685,7 @@ $_lang['my group'] = 'min gruppe';
 $_lang['my supervision'] = 'mit tilsyn';
 $_lang['new group(s)'] = 'ny gruppe(r)';
 $_lang['number'] = 'antal';
+$_lang['only in the current exercise'] = 'kun i denne øvelse';
 $_lang['register'] = 'tilmeld';
 $_lang['sampleForumDescription'] = 'Slet dette testforum ved hjælp af administrationsværktøjet';
 $_lang['sampleForumGroupCategory'] = 'Gruppediskussionslister';
@@ -659,6 +707,8 @@ $_lang['sampleQuizQuestionTitle'] = 'Socratic irony is...';
 $_lang['sampleQuizTitle'] = 'Eksempel på øvelse';
 $_lang['seats (optional)'] = 'pladser (valgfri)';
 $_lang['seats by groups (optional)'] = 'pladser i gruppen (valgfri)';
+$_lang['this password is too simple. Use a password like this <code>%passpruposed</code>'] = 'denne adgangskode er for nem. Brug en adgangskode som denne ';
 $_lang['to'] = 'til';
 $_lang['uncompress zipped (.zip) file on the server'] = 'dekomprimer zipped (.zip) fil på serveren';
+$_lang['use brackets [...] to define one or more blanks'] = 'brug parentes [...] for at oprette en eller flere rubrikker til angivelse af svar';
 ?>

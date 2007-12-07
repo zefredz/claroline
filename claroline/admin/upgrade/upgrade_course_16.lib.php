@@ -1,5 +1,4 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
@@ -221,13 +220,12 @@ function assignment_upgrade_to_16($course_code)
                 `prefill_submit` enum('ENDDATE','AFTERPOST') NOT NULL default 'ENDDATE',
                 PRIMARY KEY  (`id`)
                 ) TYPE=MyISAM"; 
-/*                      
+                      
             $sql_step1[] = "UPDATE `".$currentCourseDbNameGlu."wrk_assignment` 
                 SET 
                 `end_date` = '".date('Y-m-d H:i:00', mktime( date('H'),date('i'),0,date('m'), date('d'), date('Y')+1 ) )."'
                 WHERE `end_date` = '0000-00-00 00:00:00'
                 ";        
-*/
             $sql_step1[] = "CREATE TABLE IF NOT EXISTS `".$currentCourseDbNameGlu."wrk_submission` (
                 `id` int(11) NOT NULL auto_increment,
                 `assignment_id` int(11) default NULL,
@@ -309,7 +307,7 @@ function assignment_upgrade_to_16($course_code)
                                              , `code_cours` = '" . $course_code . "'
                                              , `role` = 'Course missing manager';";
                     if ( ! claro_sql_query($sql_set_teacher) ) return $step;            
-                    log_message('Warning : Course '.$course_code.' has no teacher, you are enrolled in as course manager.');
+                    log_message('Warning : Course '.$currentCourseCode.' has no teacher, you are enrolled in as course manager.');
                 }
     
                 // add old work in submission of course manager

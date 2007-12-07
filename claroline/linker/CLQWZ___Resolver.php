@@ -1,13 +1,12 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
- * CLAROLINE
+ * CLAROLINE 
  *
- * @version 1.8 $Revision$
+ * @version 1.8 $Revision$ 
  * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * 
  * @author claroline Team <cvs@claroline.net>
  * @author Renaud Fallier <renaud.claroline@gmail.com>
  * @author Frédéric Minne <minne@ipm.ucl.ac.be>
@@ -18,14 +17,14 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     require_once dirname(__FILE__) . '/resolver.lib.php';
 
    /**
-    * Class Quizz CRL Resolver
+    * Class Quizz CRL Resolver 
     *
     * @package CLQWZ
-    * @subpackage CLLINKER
+    * @subpackage CLLINKER 
     *
     * @author Fallier Renaud <renaud.claroline@gmail.com>
     **/
-    class CLQWZ___Resolver extends Resolver
+    class CLQWZ___Resolver extends Resolver 
     {
         /*-------------------------
                  variable
@@ -39,12 +38,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         /**
         * Constructor
         *
-        * @param  $basePath string path root directory of courses
+        * @param  $basePath string path root directory of courses 
         */
         function CLQWZ___Resolver($basePath)
         {
             $basePath = preg_replace( '~/$~', "", $basePath );
-            $this->_basePath = $basePath;
+            $this->_basePath = $basePath; 
         }
 
         /**
@@ -54,20 +53,20 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         * @return string a url valide who corresponds to the crl
         * @throws E_USER_ERROR if tool_name is empty
         * @throws E_USER_ERROR if it isn't for tool exercice
-        * @throws E_USER_ERROR if the crl is empty
+        * @throws E_USER_ERROR if the crl is empty     
         */
         function resolve($crl)
         {
            if($crl)
            {
                 if(CRLTool::isForThisTool($crl,'CLQWZ___'))
-               {
+               {    
                    $elementCRLArray = CRLTool::parseCRL($crl);
-                   $url = $this->_basePath . "/claroline/exercise/";
-
+                   $url = $this->_basePath . "/claroline/exercice/";
+                   
                    if( isset($elementCRLArray['resource_id']) )
                    {
-                        $url .= "exercise_submit.php?exId={$elementCRLArray['resource_id']}&cidReq={$elementCRLArray['course_sys_code']}";
+                        $url .= "exercice_submit.php?exerciseId={$elementCRLArray['resource_id']}&cidReq={$elementCRLArray['course_sys_code']}";    
                        return $url;
                    }
                    else
@@ -83,7 +82,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
            else
            {
                trigger_error("ERROR: crl is required",E_USER_ERROR);
-           }
+           }     
         }
 
         /**
@@ -97,41 +96,41 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         function getResourceName($crl)
         {
             if(CRLTool::isForThisTool($crl,'CLQWZ___'))
-            {
+            {    
                 $elementCRLArray = CRLTool::parseCRL($crl);
                 if( isset($elementCRLArray['resource_id']) )
                 {
                     $title  = get_toolname_title( $elementCRLArray );
-                    $title .= " > ". stripslashes($this->_getTitle($elementCRLArray['course_sys_code'],$elementCRLArray['resource_id']));
+                    $title .= " > ". stripslashes($this->_getTitle($elementCRLArray['course_sys_code'],$elementCRLArray['resource_id']));    
                 }
-
+                
                 return $title;
             }
             else
             {
-                trigger_error("Error: missing resource id for exercice",E_USER_ERROR);
-            }
+                trigger_error("Error: missing resource id for exercice",E_USER_ERROR);    
+            }                      
         }
 
         /**
         * FIXME use same field name for title in DB tables
         *
-        * @param  $course_sys_code identifies a course in data base
+        * @param  $course_sys_code identifies a course in data base    
         * @param  $id integer who identifies the exercice
         * @return the title of a annoncement
         */
         function _getTitle( $course_sys_code , $id )
         {
-            $courseInfoArray = get_info_course($course_sys_code);
+            $courseInfoArray = get_info_course($course_sys_code); 
             $tbl_cdb_names = claro_sql_get_course_tbl($courseInfoArray["dbNameGlu"]);
-            $tbl_quiz_exercise = $tbl_cdb_names['qwz_exercise'];
+            $tbl_exercice = $tbl_cdb_names['quiz_test'];
 
-            $sql = 'SELECT `title`
-                    FROM '.$tbl_quiz_exercise.'
+            $sql = 'SELECT `titre` 
+                    FROM '.$tbl_exercice.' 
                     WHERE `id`='. (int)$id;
             $exerciceTitle = claro_sql_query_get_single_value($sql);
-
+            
             return $exerciceTitle;
-        }
+        }   
     }
 ?>

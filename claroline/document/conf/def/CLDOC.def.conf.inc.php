@@ -1,5 +1,4 @@
 <?php //$Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
@@ -25,14 +24,14 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 $conf_def['config_code'] = 'CLDOC';
 $conf_def['config_file'] = 'CLDOC.conf.php';
-$conf_def['config_name'] = 'Documents and Links';
+$conf_def['config_name'] = 'Documents and Links tool';
 $conf_def['config_class']= 'tool';
 
 // CONFIG SECTIONS
 $conf_def['section']['main']['label']='Main';
 $conf_def['section']['main']['description']='';
 $conf_def['section']['main']['properties'] =
-array ( 'openNewWindowForDoc');
+array ( 'openNewWindowForDoc', 'secureDocumentDownload' );
 
 
 // CONFIG SECTIONS
@@ -87,7 +86,7 @@ $conf_def_property_list['thumbnailWidth']
 
 $conf_def_property_list['numberOfRows']
 = array ('label'     => 'Number of rows'
-        ,'description' => 'Number of rows displayed per page'
+        ,'description' => 'Number of rows displayed per pages'
         ,'default'   => '3'
         ,'unit'      => 'rows'
         ,'type'      => 'integer'
@@ -97,7 +96,7 @@ $conf_def_property_list['numberOfRows']
 
 $conf_def_property_list['numberOfCols']
 = array ('label'     => 'Number of columns'
-        ,'description' => 'Number of columns displayed per page'
+        ,'description' => 'Number of columns displayed per pages'
         ,'default'   => '4'
         ,'unit'      => 'columns'
         ,'type'      => 'integer'
@@ -108,10 +107,22 @@ $conf_def_property_list['numberOfCols']
 $conf_def_property_list['openNewWindowForDoc'] =
 array ( 'description' => 'When users click on a document, it opens a new window'
       , 'label'       => 'New window for documents'
-      , 'default'     => FALSE
+      , 'default'     => 'FALSE'
       , 'type'        => 'boolean'
       , 'acceptedValue' => array ('TRUE'=>'Yes'
                                ,'FALSE'=>'No'
+                               )
+      , 'display'     => TRUE
+      , 'readonly'    => FALSE
+      );
+
+$conf_def_property_list['secureDocumentDownload'] =
+array ( 'description' => 'Increase the security of file download. This option only works on Apache Server. To be really secure, this option have to be completed by an .htaccess file on the document directory of the course.'
+      , 'label'       => 'Secure document download'
+      , 'default'     => 'FALSE'
+      , 'type'        => 'boolean'
+      , 'acceptedValue' => array ('TRUE'=>'Yes'
+                                 ,'FALSE'=>'No'
                                )
       , 'display'     => TRUE
       , 'readonly'    => FALSE

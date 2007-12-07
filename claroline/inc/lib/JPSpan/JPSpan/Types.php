@@ -1,5 +1,4 @@
-<?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+<?php
 /**
 * @package JPSpan
 * @subpackage Types
@@ -30,21 +29,21 @@ class JPSpan_Error {
     * @access public
     */
     var $code;
-
+    
     /**
     * Name of Javascript error class
     * @var string
     * @access public
     */
     var $name;
-
+    
     /**
     * Error message
     * @var string
     * @access public
     */
     var $message;
-
+    
     /**
     * Values can be passed optionally to the constructor
     * @param int (optional) error code
@@ -58,7 +57,7 @@ class JPSpan_Error {
             $this->setError($code,$name,$message);
         }
     }
-
+    
     /**
     * Set the error name and message (also reports to the monitor
     * @see JPSpan_Monitor
@@ -72,7 +71,7 @@ class JPSpan_Error {
         $this->code = $code;
         $this->name = $name;
         $this->message = $message;
-
+        
         require_once JPSPAN . 'Monitor.php';
         $M = & JPSpan_Monitor::instance();
         $M->announceError($name, $code, $message, __FILE__, __LINE__);

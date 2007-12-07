@@ -1,9 +1,7 @@
 <?php // $Id$
-
-    if ( count( get_included_files() ) == 1 ) die( '---' );
-
+     
     // vim: expandtab sw=4 ts=4 sts=4:
-
+     
     /**
      * CLAROLINE
      *
@@ -20,25 +18,24 @@
      *
      * @package Wiki
      */
-
+     
     !defined ( "CLWIKI_SEARCH_ANY" ) && define ( "CLWIKI_SEARCH_ANY", "CLWIKI_SEARCH_ANY" );
     !defined ( "CLWIKI_SEARCH_ALL" ) && define ( "CLWIKI_SEARCH_ALL", "CLWIKI_SEARCH_ALL" );
     !defined ( "CLWIKI_SEARCH_EXP" ) && define ( "CLWIKI_SEARCH_EXP", "CLWIKI_SEARCH_EXP" );
-
+    
     /**
      * Search engine for the Wiki
      */
     class WikiSearchEngine
     {
         var $connection = null;
-
         var $config = array(
             'tbl_wiki_pages' => 'wiki_pages',
             'tbl_wiki_pages_content' => 'wiki_pages_content',
             'tbl_wiki_properties' => 'wiki_properties',
             'tbl_wiki_acls' => 'wiki_acls'
         );
-
+        
         /**
          * Constructor
          * @param DatabaseConnection connection
@@ -50,10 +47,10 @@
             {
                 $this->config = array_merge( $this->config, $config );
             }
-
+            
             $this->connection =& $connection;
         }
-
+        
         /**
          * Search for a given pattern in Wiki pages in a given Wiki
          * @param int wikiId
@@ -67,20 +64,20 @@
             {
                 $this->connection->connect();
             }
-
+            
             $searchStr = WikiSearchEngine::makePageSearchQuery( $pattern, $mode );
-
+            
             $sql = "SELECT p.`id`, p.`wiki_id`, p.`title`, c.`content` "
                 . "FROM `"
                 . $this->config['tbl_wiki_properties']."` AS w, `"
                 . $this->config['tbl_wiki_pages']."` AS p, `"
                 . $this->config['tbl_wiki_pages_content']."` AS c "
-                . "WHERE p.`wiki_id` = " . (int) $wikiId
+                . "WHERE p.`wiki_id` = " . (int) $wikiId 
                 . " AND " . $searchStr
                 ;
-
+                
             $ret = $this->connection->getAllRowsFromQuery( $sql );
-
+            
             if ( $this->connection->hasError() )
             {
                 return false;
@@ -90,7 +87,7 @@
                 return $ret;
             }
         }
-
+        
         /**
          * Search for a given pattern in Wiki pages in a given Wiki, light version
          * @param int wikiId
@@ -104,20 +101,20 @@
             {
                 $this->connection->connect();
             }
-
+            
             $searchStr = WikiSearchEngine::makePageSearchQuery( $pattern, $mode );
-
+            
             $sql = "SELECT p.`id`, p.`title` "
                 . "FROM `"
                 . $this->config['tbl_wiki_properties']."` AS w, `"
                 . $this->config['tbl_wiki_pages']."` AS p, `"
                 . $this->config['tbl_wiki_pages_content']."` AS c "
-                . "WHERE p.`wiki_id` = " . (int) $wikiId
+                . "WHERE p.`wiki_id` = " . (int) $wikiId 
                 . " AND " . $searchStr
                 ;
-
+                
             $ret = $this->connection->getAllRowsFromQuery( $sql );
-
+            
             if ( $this->connection->hasError() )
             {
                 return false;
@@ -127,7 +124,7 @@
                 return $ret;
             }
         }
-
+        
         /**
          * Search for a given pattern in all Wiki pages
          * @param String pattern
@@ -141,20 +138,19 @@
             {
                 $this->connection->connect();
             }
-
-            $ret = array();
             
+            $ret = array();
             $wikiList = array();
-
+            
             $searchPageStr = WikiSearchEngine::makePageSearchQuery( $pattern, $groupId, $mode );
-
-            $groupStr = ( ! is_null( $groupId ) )
-                ? "( w.`group_id` = " . (int) $groupId . " ) AND"
+            
+            $groupStr = ( ! is_null( $groupId ) ) 
+                ? "( w.`group_id` = " . (int) $groupId . " ) AND" 
                 : ""
                 ;
-
+                
             $searchWikiStr = WikiSearchEngine::makeWikiPropertiesSearchQuery( $pattern, $groupId, $mode );
-
+            
             $sql = "SELECT DISTINCT w.`id`, w.`title`, w.`description` "
                 . "FROM `"
                 . $this->config['tbl_wiki_properties']."` AS w, `"
@@ -164,14 +160,14 @@
                 . $searchPageStr . " "
                 . " OR " . $searchWikiStr
                 ;
-
+                
             $wikiList = $this->connection->getAllRowsFromQuery( $sql );
-
+            
             if ( $this->connection->hasError() )
             {
                 return false;
             }
-
+            
             if ( is_array( $wikiList ) )
             {
                 # search for Wiki pages
@@ -180,7 +176,6 @@
                     if ( true === $getPageTitles )
                     {
                         $pages = $this->lightSearchInWiki( $wiki['id'], $pattern, $mode );
-                        
                         if ( false !== $pages && !is_null( $pages) )
                         {
                             $wiki['pages'] = is_null($pages) ? array() : $pages;
@@ -193,10 +188,10 @@
                     
                     $ret[] = $wiki;
                 }
-
+                
                 unset( $wikiList );
             }
-
+            
             if ( $this->connection->hasError() )
             {
                 return false;
@@ -206,9 +201,9 @@
                 return $ret;
             }
         }
-
+        
         // utility functions
-
+        
         /**
          * Split a search pattern for the given search mode
          * @param String pattern
@@ -222,7 +217,7 @@
             $pattern = str_replace('%', '\%', $pattern);
             $pattern = str_replace('?', '_' , $pattern);
             $pattern = str_replace('*', '%' , $pattern);
-
+            
             switch( $mode )
             {
                 case CLWIKI_SEARCH_ALL:
@@ -247,10 +242,10 @@
             }
             
             $ret = array( $keywords, $impl );
-
+            
             return $ret;
         }
-
+        
         /**
          * Generate search string for a given pattern in wiki pages
          * @param String pattern
@@ -260,42 +255,40 @@
         function makePageSearchQuery( $pattern, $groupId = null, $mode = CLWIKI_SEARCH_ANY )
         {
             list( $keywords, $impl ) = WikiSearchEngine::splitPattern( $pattern, $mode );
-
+            
             $searchTitleArr = array();
             $searchPageArr = array();
-
-            $groupstr = ( ! is_null( $groupId ) )
-                ? "( w.`group_id` = " . (int) $groupId . "  AND w.`id` = p.`wiki_id`)"
+            
+            $groupstr = ( ! is_null( $groupId ) ) 
+                ? "( w.`group_id` = " . (int) $groupId . "  AND w.`id` = p.`wiki_id`)" 
                 : "(w.`id` = p.`wiki_id`)"
                 ;
-
+            
             foreach ( $keywords as $keyword )
             {
                 $searchTitleArr[] = " p.`title` LIKE '%".$keyword."%' ";
                 $searchPageArr[] = " c.`content` LIKE '%".$keyword."%' ";
             }
-
+            
             $searchTitle = implode ( $impl, $searchTitleArr );
-
             if ( count ( $searchTitleArr ) > 1 )
             {
                 $searchTitle = " ( " . $searchTitle . ") ";
             }
-
+            
             $searchPage = implode ( $impl, $searchPageArr );
-
             if ( count ( $searchPageArr ) > 1 )
             {
                 $searchPage = " ( " . $searchPage . ") ";
             }
-
+            
             $searchStr = "( ".$groupstr." AND c.`id` = p.`last_version` AND " . $searchTitle . " ) OR "
                 . "( ".$groupstr." AND c.`id` = p.`last_version` AND " . $searchPage . " )"
                 ;
-
+            
             return "($searchStr)";
         }
-
+        
         /**
          * Generate search string for a given pattern in wiki properties
          * @param String pattern
@@ -305,30 +298,28 @@
         function makeWikiPropertiesSearchQuery( $pattern, $groupId = null, $mode = CLWIKI_SEARCH_ANY )
         {
             list( $keywords, $impl ) = WikiSearchEngine::splitPattern( $pattern, $mode );
-
+            
             $searchWikiArr = array();
-
-            $groupstr = ( ! is_null( $groupId ) )
-                ? "( w.`group_id` = " . (int) $groupId . "  AND w.`id` = p.`wiki_id`)"
+            
+            $groupstr = ( ! is_null( $groupId ) ) 
+                ? "( w.`group_id` = " . (int) $groupId . "  AND w.`id` = p.`wiki_id`)" 
                 : "(w.`id` = p.`wiki_id`)"
                 ;
-
+            
             foreach ( $keywords as $keyword )
             {
                 $searchTitleArr[] = $groupstr." AND (w.`title` LIKE '%".$keyword."%' "
                     . "OR w.`description` LIKE '%".$keyword."%') "
                     ;
             }
-
+            
             $searchStr = implode ( $impl, $searchTitleArr );
-
+            
             return "($searchStr)";
         }
-
-        // error handling
-
-        var $error = null;
         
+        // error handling
+        var $error = null;
         var $errno = 0;
 
         function setError( $errmsg = '', $errno = 0 )
@@ -345,12 +336,10 @@
             }
             else if (! is_null( $this->error ) )
             {
-
                 $errno = $this->errno;
                 $error = $this->error;
                 $this->error = null;
                 $this->errno = 0;
-
                 return $errno.' - '.$error;
             }
             else

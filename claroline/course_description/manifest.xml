@@ -1,12 +1,12 @@
 <module>
   <label>CLDSC</label>
-  <name>Course description</name>
-  <version>1.9</version>
+  <name>Description</name>
+  <version>1.8</version>
   <license>GPL</license>
   <icon>info.gif</icon>
   <type>tool</type>
   <web>http://www.claroline.net/wiki/CLDSC/</web>
-  <entry>index.php</entry>
+
   <description>
   <![CDATA[
      This  tool  is an original tool of claroline
@@ -22,9 +22,21 @@
 
   <requirements>
     <claroline>
-      <version>1.9</version>
+      <version>1.8</version>
       <configuration>
       </configuration>
     </claroline>
  </requirements>
+ <context>
+  <course database="kernel"
+          enabling="automatic"
+          default_access="all"
+          access_manager="platform_admin" >
+    <link target="commonToolList"
+          path="../../course_description/index.php" />
+    <link target="toolSelectBox"
+          path="../../course_description/index.php" />
+  </course>
+ </context>
+
 </module>

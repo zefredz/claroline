@@ -23,12 +23,12 @@
        CLAROLINE MAIN
   ======================================*/
 
-$tlabelReq = 'CLLNP';
+$tlabelReq = 'CLLNP___';
 require '../inc/claro_init_global.inc.php';
 
-$is_allowedToEdit = claro_is_course_manager();
-if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
-if ( ! $is_allowedToEdit ) claro_die(get_lang('Not allowed'));
+$is_AllowedToEdit = $is_courseAdmin;
+if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+if ( ! $is_AllowedToEdit ) claro_die(get_lang('Not allowed'));
 
 $htmlHeadXtra[] =
         '<script type="text/javascript">
@@ -68,14 +68,14 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 
 
 //lib of this tool
-include(get_path('incRepositorySys')."/lib/learnPath.lib.inc.php");
+include($includePath."/lib/learnPath.lib.inc.php");
 
 /*======================================
        CLAROLINE MAIN
   ======================================*/
 
 //header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include($includePath."/claro_init_header.inc.php");
 
 // display title
 echo claro_html_tool_title($nameTools);
@@ -91,10 +91,10 @@ switch( $cmd )
     // MODULE DELETE
     case "eraseModule" :
         // used to physically delete the module  from server
-        include(get_path('incRepositorySys')."/lib/fileManage.lib.php");
+        include($includePath."/lib/fileManage.lib.php");
 
-        $moduleDir   = claro_get_course_path() . '/modules';
-        $moduleWorkDir = get_path('coursesRepositorySys').$moduleDir;
+        $moduleDir   = $_course['path']."/modules";
+        $moduleWorkDir = $coursesRepositorySys.$moduleDir;
 
         // delete all assets of this module
         $sql = "DELETE
@@ -151,9 +151,8 @@ switch( $cmd )
                  WHERE `module_id` = '". (int)$_REQUEST['module_id']."'";
         $result = claro_sql_query($query);
         $list = mysql_fetch_array($result);
-        echo "\n"
+        echo "\n" 
         .	 '<form method="post" name="rename" action="'.$_SERVER['PHP_SELF'].'">' . "\n"
-        .    claro_form_relay_context()
 		.	 '<label for="newName">'.get_lang('Insert new name').'</label> :' . "\n"
 		.	 '<input type="text" name="newName" id="newName" value="'.htmlspecialchars($list['name']).'" />' . "\n"
 		.	 '<input type="submit" value="'.get_lang('Ok').'" name="submit" />' . "\n"
@@ -174,7 +173,7 @@ switch( $cmd )
                     AND `module_id` != '". (int)$_REQUEST['module_id']."'";
 
             $query = claro_sql_query($sql);
-            $num = mysql_num_rows($query);
+            $num = mysql_numrows($query);
             if($num == 0 ) // "name" doesn't already exist
             {
                 // if no error occurred, update module's name in the database
@@ -210,16 +209,14 @@ switch( $cmd )
 
             if( isset($comment['comment']) )
             {
-                echo '<form method="get" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
-                .    claro_form_relay_context()
-                .    claro_html_textarea_editor('comment', $comment['comment'], 15, 55) . "\n"
-                .    '<br />' . "\n"
-                .    '<input type="hidden" name="cmd" value="exComment" />' . "\n"
-                .    '<input type="hidden" name="module_id" value="' . $_REQUEST['module_id'] . '" />' . "\n"
-                .    '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
-                .    '<br /><br />' . "\n"
-                .    '</form>' . "\n"
-                ;
+                echo "<form method=\"get\" action=\"".$_SERVER['PHP_SELF']."\">\n"
+                    .claro_html_textarea_editor('comment', $comment['comment'], 15, 55)
+                    ."<br />\n"
+                    ."<input type=\"hidden\" name=\"cmd\" value=\"exComment\">\n"
+                    ."<input type=\"hidden\" name=\"module_id\" value=\"".$_REQUEST['module_id']."\">\n"
+                    ."<input type=\"submit\" value=\"".get_lang('Ok')."\">\n"
+                    ."<br /><br />\n"
+                    ."</form>\n";
             }
         } // else no module_id
         break;
@@ -229,8 +226,8 @@ switch( $cmd )
         if( isset($_REQUEST['module_id']) && isset($_REQUEST['comment']) )
         {
             $sql = "UPDATE `".$TABLEMODULE."`
-                    SET `comment` = '". addslashes($_REQUEST['comment']) . "'
-                    WHERE `module_id` = " . (int)$_REQUEST['module_id'];
+                    SET `comment` = \"". addslashes($_REQUEST['comment']) ."\"
+                    WHERE `module_id` = '". (int)$_REQUEST['module_id']."'";
             claro_sql_query($sql);
         }
         break;
@@ -279,23 +276,19 @@ while ($list = mysql_fetch_array($result))
     $contentType_alt = selectAlt($list['contentType']);
     echo '<tr>' . "\n"
 	.	 '<td align="left">' . "\n"
-	.	 '<img src="' . get_path('imgRepositoryWeb') . $contentType_img.'" alt="'.$contentType_alt.'" />'.$list['name'] . "\n"
+	.	 '<img src="'.$imgRepositoryWeb.$contentType_img.'" alt="'.$contentType_alt.'" />'.$list['name'] . "\n"
 	.	 '</td>' . "\n"
 	.	 '<td align="center">' . "\n"
 	.	 '<a href="'.$_SERVER['PHP_SELF'].'?cmd=eraseModule&amp;cmdid='.$list['module_id'].'"'
-	.	 ' onclick="return confirmation(\''.clean_str_for_javascript($list['name']).'\', \''.$list['timesUsed'] .'\');">'
-	.	 '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="'.get_lang('Delete').'" />'
+	.	 ' onClick="return confirmation(\''.clean_str_for_javascript($list['name']).'\', \''.$list['timesUsed'] .'\');">'
+	.	 '<img src="'.$imgRepositoryWeb.'delete.gif" border="0" alt="'.get_lang('Delete').'" />'
 	.	 '</a>' . "\n"
 	.	 '</td>' . "\n"
 	.	 '<td align="center">' . "\n"
-	.	 '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqRename&amp;module_id='.$list['module_id'].'">'
-	.    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="'.get_lang('Rename').'" />'
-	.    '</a>' . "\n"
+	.	 '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqRename&amp;module_id='.$list['module_id'].'"><img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="'.get_lang('Rename').'" /></a>' . "\n"
 	.	 '</td>' . "\n"
 	.	 '<td align="center">' . "\n"
-	.	 '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqComment&amp;module_id='.$list['module_id'].'">'
-	.    '<img src="' . get_path('imgRepositoryWeb') . 'comment.gif" border="0" alt="'.get_lang('Comment').'" />'
-	.    '</a>' . "\n"
+	.	 '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqComment&amp;module_id='.$list['module_id'].'"><img src="'.$imgRepositoryWeb.'comment.gif" border="0" alt="'.get_lang('Comment').'" /></a>' . "\n"
 	.	 '</td>' . "\n"
 	.	 '</tr>' . "\n\n";
 
@@ -313,7 +306,7 @@ while ($list = mysql_fetch_array($result))
 
 } //end while another module to display
 
-if ($atleastOne == false)
+if ($atleastOne == false) 
 {
 	echo '<tr><td align="center" colspan="5">'.get_lang('No module').'</td></tr>' . "\n";
 }
@@ -326,5 +319,5 @@ echo '</tbody>' . "\n"
 
 // footer
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 ?>

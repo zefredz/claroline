@@ -1,5 +1,4 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 ////////////////////////////////////////////////////
 // PHPMailer - PHP email class
 //
@@ -396,7 +395,7 @@ class PHPMailer
      */
     function SendmailSend($header, $body) {
         if ($this->Sender != "")
-            $sendmail = sprintf("%s -oi -f %s -t", $this->Sendmail, escapeshellarg($this->Sender));
+            $sendmail = sprintf("%s -oi -f %s -t", $this->Sendmail, $this->Sender);
         else
             $sendmail = sprintf("%s -oi -t", $this->Sendmail);
 
@@ -603,8 +602,6 @@ class PHPMailer
      * @return bool
      */
     function SetLanguage($lang_type, $lang_path = "language/") {
-        $PHPMAILER_LANG = array();
-        
         if(file_exists($lang_path.'phpmailer.lang-'.$lang_type.'.php'))
             include($lang_path.'phpmailer.lang-'.$lang_type.'.php');
         else if(file_exists($lang_path.'phpmailer.lang-en.php'))

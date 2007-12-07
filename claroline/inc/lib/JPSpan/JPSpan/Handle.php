@@ -1,5 +1,4 @@
-<?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+<?php
 /**
 * Swiped from WACT: http://wact.sourceforge.net (handle.inc.php)
 * @package JPSpan
@@ -28,7 +27,7 @@ class JPSpan_Handle {
     * @static
     */
     function resolve(&$Handle) {
-
+    
         switch ( gettype($Handle) ) {
             case 'array':
                 $Class = array_shift($Handle);
@@ -45,13 +44,13 @@ class JPSpan_Handle {
                 return FALSE;
             break;
         }
-
+        
         if (is_integer($Pos = strpos($Class, '|'))) {
             $File = substr($Class, 0, $Pos);
             $Class = substr($Class, $Pos + 1);
             require_once $File;
         }
-
+        
         switch (count($ConstructionArgs)) {
             case 0:
                 $Handle = new $Class();
@@ -61,13 +60,13 @@ class JPSpan_Handle {
                 break;
             case 2:
                 $Handle = new $Class(
-                    array_shift($ConstructionArgs),
+                    array_shift($ConstructionArgs), 
                     array_shift($ConstructionArgs));
                 break;
             case 3:
                 $Handle = new $Class(
-                    array_shift($ConstructionArgs),
-                    array_shift($ConstructionArgs),
+                    array_shift($ConstructionArgs), 
+                    array_shift($ConstructionArgs), 
                     array_shift($ConstructionArgs));
                 break;
             default:
@@ -80,7 +79,7 @@ class JPSpan_Handle {
         }
         return TRUE;
     }
-
+    
     /**
     * Determines the "public" class methods exposed by a handle
     * Class constructors and methods beginning with an underscore
@@ -108,34 +107,34 @@ class JPSpan_Handle {
                 return FALSE;
             break;
         }
-
+        
         if (is_integer($Pos = strpos($Class, '|'))) {
                 $File = substr($Class, 0, $Pos);
                 $Class = substr($Class, $Pos + 1);
                 require_once $File;
         }
-
+        
         $Class = strtolower($Class);
-
+        
         $Description = new JPSpan_HandleDescription();
         $Description->Class = $Class;
-
+        
         $methods = get_class_methods($Class);
         if ( is_null($methods) ) {
             return FALSE;
         }
         $methods = array_map('strtolower',$methods);
-
+        
         if ( FALSE !== ( $constructor = array_search($Class,$methods) ) ) {
             unset($methods[$constructor]);
         }
-
+        
         foreach ( $methods as $method ) {
             if ( preg_match('/^[a-z]+[0-9a-z_]*$/',$method) == 1 ) {
                 $Description->methods[] = $method;
             }
         }
-
+        
         return $Description;
     }
 
@@ -161,7 +160,7 @@ class JPSpan_HandleDescription {
     * @access public
     */
     var $methods = array();
-
+    
 }
 
 

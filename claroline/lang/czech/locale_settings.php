@@ -1,18 +1,5 @@
 <?php // $Id$
-/**
- *
- * CLAROLINE
- *
- * @version 1.8 $Revision$
- *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @package LANG-CS
- *
- * @author Claro team <cvs@claroline.net>
- *
+/*
  * Czech translate for Claroline 1.75
  * http://www.claroline.cz
  *

@@ -1,13 +1,17 @@
 <?php 
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '£¡£¡£¡£¡¿Î³Ì´¢´æµÄ´óĞ¡ (°üº¬¾ÉÏµÍ³ÖĞµÄclarolineºÍÀ¬»ø)';
 $_lang['%1\$s by %2\$s'] = '%1$s ÓÉ %2$s';
+$_lang['%moduleName has been added as module'] = '×÷Îª¿Î³ÌºÍÑ§Ï°Â·ÏßµÄÒ»¸öÄ£¿éÒÑ¾­±»¼ÓÈë';
+$_lang['%moduleName is already used as a module in this learning path'] = '¸ÃÁ·Ï°×÷ÎªÄ£¿é£¬ÒÑ¾­ÔÚÑ§Ğ£Â·ÏßÖĞ±»Ê¹ÓÃ';
 $_lang['(*) anonymous users, users who are not members of this course...'] = '(*) ÄäÃûÓÃ»§£¬·Ç±¾¿Î³ÌÑ§Ô±¡­¡­';
 $_lang['(When an user open the index of the campus)'] = '(µ±ÓÃ»§´ò¿ªĞéÄâĞ£Ô°µÄÊ±ºò)';
+$_lang['(always private)'] = '(×ÜÊÇË½ÃÜµÄ)';
 $_lang['(d/m/y hh:mm)'] = '(d/m/y hh:mm)';
 $_lang['(none)'] = '(ÎŞ)';
 $_lang['(optional)'] = '(¿ÉÑ¡)';
 $_lang['(version of %1\$s modified by %2\$s)'] = '(°æ±¾ %1$s ÓÉ %2$ ĞŞ¸Ä)';
 $_lang['- none -'] = '- ÎŞ -';
+$_lang['<b>Notice :</b> The directory containing your Claroline installation process (<code>claroline/install/</code>) is still browsable by the web. It means anyone can reinstall Claroline and crush your previous installation. We highly recommend to protect'] = '<b>×¢Òâ£º</b>°üº¬ Claroline °²×°³ÌĞò(<code>claroline/install/</code>) µÄÄ¿Â¼ÈÔÈ»¿ÉÒÔä¯ÀÀ¡£Õâ½«ÒâÎ¶×ÅÈÎºÎÈË¶¼¿ÉÒÔÖØĞÂ°²×° Claroline Ê¹ÄúÒÔÇ°µÄ°²×°»Ù»µ¡£ÎÒÃÇÇ¿ÁÒÍÆ¼öÄúÔÚ·şÎñÆ÷ÉÏ±£´æ»òÉ¾³ı´ËÄ¿Â¼¡£';
 $_lang['<span class=\"required\">*</span> denotes required field'] = '<span class="required">*</span> Îª±ØĞëÌîĞ´';
 $_lang['<strong>Approved</strong><p>Your campus registration has been approved by the Claroline.net team.</p>'] = '<strong>Åú×¼</strong><p>ÄãµÄĞéÄâĞ£Ô°×¢²áÒÑ¾­±»ClarolineÍÅ¶ÓÅú×¼¡£<br />Claroline¹ú¼ÊÍøÒ³ÉÏÒÑ¾­Á´½ÓÁËÄãµÄµç×ÓĞ£Ô°¡£</p>';
 $_lang['<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our website) if you think this is an error.</p>'] = '<strong>É¾³ı</strong><p>ÄãµÄĞéÄâĞ£Ô°×¢²áÃ»ÓĞ±»¼¤»î£¬Èç¹ûÄãÈÏÎªÊÇÒ»¸ö´íÎóµÄ»°£¬ÇëÁªÏµÎÒÃÇ»òÕßä¯ÀÀÎÒÃÇµÄÍøÕ¾¡£</p>';
@@ -25,24 +29,23 @@ $_lang['Accounts with same <i>Email</i>'] = 'ÏàÍ¬ <i>µç×ÓÓÊ¼ş</i>µÄÕÊ»§';
 $_lang['Accounts with same <i>User name</i>'] = 'ÏàÍ¬ <i>ÓÃ»§Ãû</i>µÄÕÊ»§';
 $_lang['Accounts with same <i>User name</i> AND same <i>Password</i>'] = 'ÓĞÏàÍ¬<i>ÓÃ»§Ãû</i> AND same <i>ÃÜÂëµÄÕÊ»§ </i>';
 $_lang['Action'] = '¶¯×÷';
+$_lang['Activate'] = '¼¤»î';
 $_lang['Add'] = 'Ìí¼Ó';
 $_lang['Add a category'] = 'Ôö¼ÓÒ»¸öĞÂÀà±ğ';
 $_lang['Add a comment'] = 'Ìí¼Ó/¸üĞÂÕªÒª:';
 $_lang['Add a comment (optionnal) :'] = 'Ìí¼ÓÒ»¸öÆÀÂÛ(¿ÉÑ¡) :';
-$_lang['Add a document'] = '²åÈëÒ»¸öÎÄ¼ş×÷ÎªÄ£¿é';
-$_lang['Add a module of this course'] = '²åÈëÎÒµÄÄ£¿é';
 $_lang['Add a user'] = 'Ôö¼ÓÒ»¸öÓÃ»§';
 $_lang['Add a user list'] = 'Ìí¼ÓÒ»¸öÓÃ»§ÁĞ±í';
 $_lang['Add a user list in class'] = 'Ìí¼ÓÒ»¸öÓÃ»§ÁĞ±íµ½ĞéÄâ°à¼¶';
 $_lang['Add a user list in course'] = 'Ìí¼ÓÒ»¸öÓÃ»§ÁĞ±íµ½¿Î³Ì';
 $_lang['Add an event'] = 'Ôö¼ÓÒ»¸öÊÂ¼ş';
-$_lang['Add an exercise'] = '²åÈëÎÒµÄÁ·Ï°';
 $_lang['Add announcement'] = 'ĞÂÍ¨Öª:';
 $_lang['Add answ.'] = 'Ìí¼Ó answ.';
 $_lang['Add elem.'] = 'Ìí¼Ó elem.';
 $_lang['Add external link'] = 'Ìí¼ÓÍâ²¿Á´½Ó';
 $_lang['Add feedback'] = 'Ìí¼Ó·´À¡ĞÅÏ¢';
 $_lang['Add forum'] = 'Ìí¼ÓÂÛÌ³';
+$_lang['Add introduction text'] = 'Ôö¼Ó¿Î³Ì½éÉÜ';
 $_lang['Add me to this group'] = '°ÑÎÒÌí¼Óµ½Õâ¸öÑ§Ï°Ğ¡×é';
 $_lang['Add module(s)'] = 'Ìí¼Ó×é¼ş';
 $_lang['Add my campus on Claroline.net website'] = 'Ìí¼ÓÎÒµÄĞéÄâĞ£Ô°µ½Claroline.net';
@@ -50,6 +53,7 @@ $_lang['Add new heading'] = 'Ìí¼ÓĞÂµÄ±êÌâ';
 $_lang['Add user list'] = 'Ìí¼ÓÓÃ»§ÁĞ±í';
 $_lang['Add user manually'] = 'ÊÖ¹¤Ìí¼ÓÓÃ»§';
 $_lang['Add wrong answers for drop down lists <small>(Optionnal. One wrong answer by line.)</small>'] = 'Ìí¼Ó´íÎó´ğ°¸µ½ÏÂÀ­²Ëµ¥ÖĞ<small>£¨¿ÉÑ¡¡£Ã¿¸ö´íÎó´ğ°¸Ò»ĞĞ£©</small>';
+$_lang['Add/modify a comment to'] = 'Ìí¼Ó/ĞŞ¸ÄÒ»¸öÆÀÂÛ';
 $_lang['Added line'] = 'ÒÑÔö¼ÓµÄĞĞ';
 $_lang['Admin'] = 'ÍøÕ¾¹ÜÀí';
 $_lang['Administration'] = '¹ÜÀí';
@@ -72,6 +76,7 @@ $_lang['Allowed'] = 'ÒÑÔÊĞí';
 $_lang['Allowed : do not record usernames in tracking, anonymous users can do the exercise.'] = 'ÔÊĞí£º×·×ÙÖĞ²»¼ÇÂ¼ÓÃ»§Ãû£¬ÄäÃûµÄÓÃ»§ÄÜ×öÁ·Ï°¡£';
 $_lang['Already browsed'] = 'ÒÑä¯ÀÀ';
 $_lang['Already enroled'] = 'ÒÑ¾­µÇ¼Ç';
+$_lang['Among'] = 'µ±ÖĞ';
 $_lang['An error occured.  Learning Path import failed.'] = '·¢ÉúÒ»¸ö´íÎó¡£Ñ§Ï°Â·ÏßÊäÈëÊ§°Ü¡£';
 $_lang['An error occurred while contacting Claroline.net'] = 'ÁªÏµClaroline.netµÄÊ±ºò·¢ÉúÒ»¸ö´íÎó';
 $_lang['Announcement'] = '¹«¸æÍ¨Öª';
@@ -85,6 +90,7 @@ $_lang['Anonymous users access count :'] = 'ÄäÃûÓÃ»§½øÈë¼ÆÊı£º ';
 $_lang['Answer'] = 'Ñ¡Ïî';
 $_lang['Answer is required'] = 'ĞèÒª»Ø´ğ';
 $_lang['Answer type'] = '´ğ°¸ÀàĞÍ';
+$_lang['Answers to the question'] = 'ÎÊÌâµÄ´ğ°¸';
 $_lang['Are you sure to delete'] = 'ÄãÈ·ÈÏÉ¾³ı';
 $_lang['Are you sure you want to completely delete this question ?'] = 'ÄãÈ·ĞÅÄãÒªÍêÈ«É¾³ı¸ÃÎÊÌâÂğ£¿';
 $_lang['Are you sure you want to delete all groups ?'] = 'ÄãÈ·ĞÅÄãÒªÉ¾³ıËùÓĞµÄÑ§Ï°Ğ¡×éÂğ£¿';
@@ -95,6 +101,7 @@ $_lang['Are you sure you want to remove the following module from the learning p
 $_lang['Are you sure you want to remove this course from your list ?'] = 'ÄãÈ·ĞÅ´ÓÄãµÄÁĞ±íÖĞÒÆ³ı¸Ã¿Î³Ì£¿';
 $_lang['Are you sure you want to unregister'] = 'ÄãÈ·ĞÅÏëÉ¾³ı×Ô¼ºµÄÓÃ»§Ãû ';
 $_lang['Area for this group'] = 'Ñ§Ï°Ğ¡×éÇø';
+$_lang['Asset not found :'] = 'Ã»ÓĞ·¢ÏÖÏîÄ¿£º';
 $_lang['Assignment'] = '×÷Òµ';
 $_lang['Assignment deleted'] = '×÷ÒµÉ¾³ı';
 $_lang['Assignment modified'] = '×÷ÒµĞŞ¸Ä';
@@ -109,8 +116,7 @@ $_lang['Attach an existing resource'] = 'Ìí¼ÓÒÑÓĞ×ÊÔ´';
 $_lang['Attached Resources : Add / Delete attachement'] = 'ÒÑ¸½¼Ó×ÊÔ´£ºÌí¼Ó/É¾³ı¸½¼ş';
 $_lang['Attached file'] = '¸½¼ş';
 $_lang['Attached resources'] = 'ÒÑÌí¼Ó×ÊÔ´';
-$_lang['Attempt %attemptCount'] = '³¢ÊÔ %attemptCount';
-$_lang['Attempt %attemptCount on %attempts'] = '³¢ÊÔ %attemptCount ÔÚ %attempts';
+$_lang['Attempt'] = '³¢ÊÔ';
 $_lang['Attempts'] = '³¢ÊÔ';
 $_lang['Attempts allowed'] = '³¢ÊÔÔÊĞí';
 $_lang['Authentication'] = 'Éí·İ¼ø¶¨';
@@ -119,6 +125,7 @@ $_lang['Author(s)'] = '×÷Õß';
 $_lang['Author(s) is(are) required'] = '×÷ÕßÊÇ±ØĞèµÄ';
 $_lang['Automatically, after each submission'] = 'ÔÚÌá½»Ö®ºó£¬×Ô¶¯';
 $_lang['Automatically, after end date'] = 'ÔÚ½ØÖ¹ÈÕÆÚÖ®ºó£¬×Ô¶¯';
+$_lang['Available from'] = '¿ÉµÃµ½µÄµØ·½';
 $_lang['Average Time'] = 'Æ½¾ùÊ±¼ä(Ãë)';
 $_lang['Average score'] = 'Æ½¾ù';
 $_lang['Back'] = '·µ»Ø¿Î³ÌĞÅÏ¢';
@@ -129,6 +136,7 @@ $_lang['Back to class members'] = '·µ»ØĞéÄâ°à¼¶³ÉÔ±';
 $_lang['Back to course list'] = '·µ»Ø¿Î³ÌÁĞ±í';
 $_lang['Back to learning path administration'] = '·µ»ØÑ§Ï°Â·Ïß¹ÜÀí';
 $_lang['Back to list'] = '·µ»ØÁĞ±í';
+$_lang['Back to my course list'] = '·µ»ØÎÒµÄ¿Î³ÌÁĞ±í';
 $_lang['Back to my personal course list'] = '·µ»ØÎÒµÄ¸öÈË¿Î³ÌÁĞ±í';
 $_lang['Back to page'] = '·µ»ØÒ³Ãæ';
 $_lang['Back to parent category'] = '·µ»ØÉÏ¼¶·ÖÀà';
@@ -160,11 +168,14 @@ $_lang['Category name'] = '·ÖÀàÃû³Æ£º';
 $_lang['Category name is required'] = '·ÖÀàÃû³Æ±ØÌî';
 $_lang['Category updated'] = '¿Î³Ì·ÖÀàÒÑ¸üĞÂ';
 $_lang['Change minimum raw mark to pass this module (percentage) :'] = 'ĞŞ¸Ä×îµÍµÄÔ­Ê¼·ÖÒÔÍ¨¹ı¸ÃÄ£¿é£¨°Ù·Ö±È£©: ';
+$_lang['Change picture'] = '¸Ä±äÍ¼Æ¬';
 $_lang['Changes have been applied to the user settings'] = 'ÓÃ»§ÉèÖÃÒÑ¾­±»Ó¦ÓÃ';
 $_lang['Changes have been saved'] = '±ä»¯±»±£´æ';
 $_lang['Chat'] = 'ÁÄÌì´ğÒÉ';
+$_lang['Chat of the group'] = 'Ñ§Ï°Ğ¡×éÊµÊ±½»Á÷×ÊÔ´';
 $_lang['Chat reset by'] = 'ÁÄÌìÖØÖÃ£º';
 $_lang['Check this box to delete the attached file'] = '¼ì²éÕâ¸ö¸ñÉ¾³ı¸½¼ş¡£';
+$_lang['Choice'] = 'Ñ¡Ïî';
 $_lang['Choose a course to access this page.'] = 'ÇëÑ¡ÔñÒ»ÃÅ¿Î³ÌÒÔ·ÃÎÊ±¾Ò³Ãæ';
 $_lang['Clarodoc'] = 'ClaroÎÄ±¾';
 $_lang['Claroline help'] = 'ÉÏÊÖ°ïÖú';
@@ -244,6 +255,15 @@ $_lang['Current file'] = 'µ±Ç°ÎÄ¼ş';
 $_lang['Current registration status :'] = 'µ±Ç°×¢²á×´Ì¬£º <br /> <br />
 ';
 $_lang['Current time'] = 'µ±Ç°Ê±¼ä';
+$_lang['DBSettingNamesIntro'] = '
+°²×°³ÌĞòÕıÔÚ½¨Á¢ClarolineÖ÷ÒªÊı¾İ¿â¡£Èç¹ûÄã±»Êı¾İ¿âÏµÍ³¹Ü
+ÀíÕßÏŞÖÆÊ¹ÓÃÒ»¸öÊı¾İ¿âµÄ»°£¬·µ»Øµ½Ç°Ò³£¬¹´Ñ¡¡°Êı¾İ¿âÄ£Ê½¡±
+Ç°µÄ¡°µ¥¸ö¡±¸´Ñ¡¿ò¡£
+<br /><br />
+';
+$_lang['Database Host'] = 'Êı¾İ¿âÖ÷»ú';
+$_lang['Database name'] = 'Êı¾İ¿âÃû';
+$_lang['Database usage'] = 'Êı¾İ¿âÊ¹ÓÃ';
 $_lang['Date'] = 'ÈÕÆÚ';
 $_lang['Day'] = 'ÈÕ';
 $_lang['Default works visibility'] = 'Ä¬ÈÏ×÷ÒµÃ÷ÏÔĞÔ';
@@ -270,15 +290,18 @@ $_lang['Description of the Wiki'] = '¹²½¨×ÊÔ´ÃèÊö';
 $_lang['Description updated'] = '½éÉÜÉı¼¶¡£';
 $_lang['Detail'] = 'ÄÚÈİ';
 $_lang['Details'] = 'Ï¸½Ú';
+$_lang['Details may be incorrect as it seems that some questions have change between this attempt and now.'] = 'ÓÉÓÚÉÏ´Î³¢ÊÔµ½Ä¿Ç°ºÃÏñÓĞÒ»Ğ©ÎÊÌâÒÑ¾­±»ĞŞ¸Ä£¬ËùÒÔÒ»Ğ©¸ú×ÙµÄÏêÏ¸Êı¾İ¿ÉÄÜ²»ÕıÈ·¡£';
 $_lang['Devel Tools'] = 'Devel¹¤¾ß';
 $_lang['Differences :'] = '²î±ğ£º';
 $_lang['Directory created'] = 'Ä¿Â¼ÒÑ´´½¨';
 $_lang['Disable'] = 'Ê¹Ê§Ğ§';
+$_lang['Disable text editor'] = 'ÒÆ³ıÎÄ±¾±à¼­Æ÷';
 $_lang['Disk Usage'] = '´ÅÅÌÊ¹ÓÃÁ¿';
 $_lang['Display of detailled answers is not authorized.'] = 'ÎŞÈ¨ä¯ÀÀÁ·Ï°¿¼ÊÔÏêÏ¸ÄÚÈİ';
 $_lang['Do you really want to delete the category'] = 'ÄãÕæµÄÏëÉ¾³ı¸Ã·ÖÀà ';
 $_lang['Do you want to continue?'] = 'ÄãÏë¼ÌĞøÂğ£¿';
 $_lang['Document'] = '½²Òå²ÄÁÏ';
+$_lang['Document content'] = 'ÎÄ¼şÄÚÈİ£º';
 $_lang['Document deleted'] = 'ÎÄ¼şÒÑÉ¾³ı';
 $_lang['Document in module'] = 'Ä£¿éÖĞµÄÎÄ¼ş';
 $_lang['Document name'] = 'ÎÄ¼şÃû³Æ£º ';
@@ -286,7 +309,10 @@ $_lang['Documents'] = 'ÎÄ¼ş';
 $_lang['Documents and Links'] = '½²Òå²ÄÁÏ';
 $_lang['Documents downloaded by the student'] = '±»Ñ§ÉúÏÂÔØµÄÎÄ¼ş';
 $_lang['Documents help'] = '½²Òå°ïÖú';
+$_lang['Documents of the group'] = 'Ñ§Ï°Ğ¡×éµÄÎÄ¼ş ';
 $_lang['Down'] = 'ÏòÏÂ';
+$_lang['Download attached file'] = 'ÏÂÔØ¸½¼ş';
+$_lang['EG'] = 'e. g.';
 $_lang['ERROR: The format you gave is not compatible with Claroline'] = '´íÎó£ºÄãÌá¹©µÄ¸ñÊ½ºÍClaroline²»¼æÈİ';
 $_lang['Edit'] = '±à¼­';
 $_lang['Edit Event'] = '±à¼­ÊÂ¼ş';
@@ -314,8 +340,11 @@ $_lang['Element renamed'] = 'Ä¿Â¼»òÎÄ¼şÒÑ¸üÃû';
 $_lang['Email'] = 'ÓÊ¼ş';
 $_lang['Email needed'] = 'µç×ÓÓÊ¼ş²»ÄÜ¿ÕµÄ';
 $_lang['Empty'] = 'ÓĞĞ©ÏîÄ¿Ã»ÓĞÌîĞ´.<br />·µ»ØÖØÊÔ.<br />Èç¹û²»Çå³ı¿Î³Ì´úÂë,Çë²Î¿¼¿Î³Ì´ó¸Ù';
+$_lang['Empty (or NULL)'] = '¿Õ°× (»ò ÎŞ)';
 $_lang['Empty all groups'] = 'Çå¿ÕËùÓĞÑ§Ï°Ğ¡×é';
 $_lang['Empty language file'] = '¿Õ°×µÄÓïÑÔÎÄ¼ş';
+$_lang['Enable'] = 'Ê¹ÉúĞ§';
+$_lang['Enable text editor'] = 'ÏÔÊ¾ÎÄ±¾±à¼­Æ÷';
 $_lang['End date'] = '½ØÖ¹ÈÕÆÚ';
 $_lang['Enrol as course manager'] = '×÷Îª¿Î³Ì¸ºÔğÈËµÇ¼Ç';
 $_lang['Enrol as student'] = '×÷ÎªÑ§ÉúµÇ¼Ç';
@@ -345,10 +374,14 @@ $_lang['ErrorInvalidParms'] = '´íÎó£ºÎŞĞ§µÄ²ÎÊı(½öÊ¹ÓÃÊı×Ö) ';
 $_lang['Event added to the agenda'] = 'ÊÂ¼ş¼ÓÈëµ½ÈÕ³Ì±í¡£';
 $_lang['Event deleted from the agenda'] = 'ÊÂ¼ş´ÓÈÕ³Ì±íÖĞÉ¾³ı¡£';
 $_lang['Event updated into the agenda'] = 'ÊÂ¼şÉı¼¶µ½ÈÕ³Ì±í¡£';
-$_lang['Exercise'] = 'ClarolineÁ·Ï°';
+$_lang['Exercice not found'] = 'Ã»ÓĞ·¢ÏÖÁ·Ï°';
 $_lang['Exercise cancelled, choose a module in the list to continue.'] = 'Á·Ï°È¡Ïû£¬Ñ¡ÔñÁĞ±íÖĞµÄÒ»¸öÄ£¿éºó¼ÌĞø¡£';
+$_lang['Exercise description'] = 'Á·Ï°¼ò½é';
 $_lang['Exercise done, choose a module in the list to continue.'] = 'Á·Ï°×öÍê£¬Ñ¡ÔñÁĞ±íÖĞµÄÒ»¸öÄ£¿é¼ÌĞø¡£';
 $_lang['Exercise in module'] = 'Ä£¿éÖĞµÄÁ·Ï°';
+$_lang['Exercise management'] = 'Á·Ï°¹ÜÀí';
+$_lang['Exercise name'] = 'Á·Ï°Ãû³Æ';
+$_lang['Exercise no longer available'] = '²»ÔÙÓĞĞ§µÄÁ·Ï°';
 $_lang['Exercise not available'] = '²»¿ª·ÅµÄÁ·Ï°';
 $_lang['Exercise type'] = 'Á·Ï°ÀàĞÍ';
 $_lang['Exercises'] = '¿Î³ÌÁ·Ï°';
@@ -376,6 +409,8 @@ $_lang['File description'] = 'ÎÄ¼ş¼ò½é';
 $_lang['File list'] = 'ÎÄ¼şÁĞ±í';
 $_lang['File must be a zip file (.zip)'] = 'ÎÄ¼ş±ØĞëÊÇzipÎÄ¼ş(.zip)';
 $_lang['File name is missing'] = 'ÎÄ¼şÃû¶ªÊ§';
+$_lang['File received :'] = '½ÓÊÜµÄÎÄ¼ş£º ';
+$_lang['File structure checker'] = 'ÎÄ¼ş½á¹¹¼ì²éÆ÷';
 $_lang['Filename'] = 'ÎÄ¼şÃû';
 $_lang['Fill groups (automatically)'] = 'ÌîĞ´Ñ§Ï°Ğ¡×é(×Ô¶¯)';
 $_lang['Fill in blanks'] = 'Ìî¿Õ';
@@ -401,9 +436,12 @@ $_lang['From language files'] = 'À´Ô´ÓÚÓïÑÔÎÄ¼ş';
 $_lang['From script files'] = 'À´Ô´ÓÚ½Å±¾ÎÄ¼ş';
 $_lang['Fullscreen'] = 'È«ÆÁ';
 $_lang['Function list'] = '¹¦ÄÜÁĞ±í';
+$_lang['Garbage'] = 'À¬»ø';
 $_lang['Get a question from another exercise'] = '´ÓÁíÒ»¸öÁ·Ï°ÄÇÀï»ñµÃÒ»¸öÎÊÌâ';
 $_lang['Get tracking data in a CSV file'] = '´Ó CSV ÎÄ¼şÖĞµ¼³ö¸ú×ÙÊı¾İ';
 $_lang['Go back to the exercise'] = '·µ»ØÁ·Ï°';
+$_lang['Go back to the question list'] = '·µ»ØÎÊÌâÁĞ±í';
+$_lang['Go back to the question pool'] = '·µ»ØÎÊÌâ³Ø';
 $_lang['Go to the account creation page'] = '×ªµ½ÕË»§´´½¨Ò³Ãæ';
 $_lang['Group'] = 'Ñ§Ï°Ğ¡×é';
 $_lang['Group Tutor'] = 'Ñ§Ï°Ğ¡×éÖú½Ì';
@@ -426,17 +464,24 @@ $_lang['Help'] = '°ïÖú';
 $_lang['Here you can modify the content of the text zones displayed on the platform home page.'] = 'ÕâÀïÄã¿ÉÒÔĞŞ¸ÄÔÚÆ½Ì¨Ö÷Ò³ÏÔÊ¾µÄÎÄ±¾ÇøÄÚÈİ¡£';
 $_lang['Hits'] = 'µã»÷';
 $_lang['Home page help'] = 'ÍøÕ¾°ïÖú';
+$_lang['Home page text zones'] = 'ÎÄ±¾ÇøÖ÷Ò³';
 $_lang['Hour'] = 'Ê±';
 $_lang['Identical content<br />no modification saved'] = 'ÄÚÈİÖØ¸´<br />ĞŞ¸ÄÎ´±£´æ';
 $_lang['If you wish to enrol on this course'] = 'Èç¹ûÄãÏ£Íû¼ÓÈë¸Ã¿Î³Ì';
+$_lang['IfNotRedirect'] = 'Èç¹û²»ÖØĞÂ¶¨Ïò';
 $_lang['Import'] = 'ÊäÈë';
 $_lang['Import a learning path'] = 'ÊäÈëÒ»¸öÑ§Ï°Â·Ïß';
 $_lang['Imported packages must consist of a zip file and be SCORM 1.2 conformable'] = 'ÊäÈëµÄÊı¾İ°ü±ØĞë°üº¬Ò»¸özipÎÄ¼ş¶øÇÒ·ûºÏSCORM 1.2 ±ê×¼';
 $_lang['Impossible to promote group tutor a student already register to group'] = 'ÒÑ¾­×¢²áµ½Ñ§Ï°Ğ¡×éµÄÑ§Éú²»ÄÜÌáÉıÎªĞ¡×é¸¨µ¼Ô±';
 $_lang['In frames'] = 'ÔÚ¿ò¼ÜÖĞ';
+$_lang['Include picture'] = '°üÀ¨Í¼Æ¬';
 $_lang['Individual'] = 'µ¥¸öµÄ';
 $_lang['Information'] = 'ĞÅÏ¢';
 $_lang['Information to give to students'] = 'Ìá¹©¸øÑ§ÉúµÄĞÅÏ¢';
+$_lang['Insert a document as module'] = '²åÈëÒ»¸öÎÄ¼ş×÷ÎªÄ£¿é';
+$_lang['Insert a module of the course'] = '²åÈëÒ»¸ö¿Î³ÌµÄÄ£¿é';
+$_lang['Insert my exercise'] = '²åÈëÎÒµÄÁ·Ï°';
+$_lang['Insert my module'] = '²åÈëÎÒµÄÄ£¿é';
 $_lang['Insert new name'] = '²åÈëĞÂµÄÃû³Æ';
 $_lang['Institution'] = '»ú¹¹';
 $_lang['Institution URL'] = '»ú¹¹ÍøÖ·';
@@ -454,6 +499,7 @@ $_lang['Last 7 days'] = '¹ıÈ¥Ò»ÖÜ';
 $_lang['Last access'] = 'ÉÏÒ»´Î½øÈë';
 $_lang['Last active topics'] = 'ÉÏÒ»¸ö»îÔ¾µÄÖ÷Ìâ';
 $_lang['Last attempt'] = 'ÉÏÒ»´Î³¢ÊÔ';
+$_lang['Last check before install'] = '°²×°Ç°×îºóµÄ¼ì²é';
 $_lang['Last edit date'] = 'ÉÏÒ»´Î±à¼­Ê±¼ä';
 $_lang['Last message'] = '×î½üÒ»Æª';
 $_lang['Last message was on'] = '×îºóÒ»ÌõÏûÏ¢ÊÇÔÚ£º ';
@@ -474,6 +520,7 @@ $_lang['Learning path list'] = 'Ñ§Ï°Â·ÏßÁĞ±í';
 $_lang['Learning path progression :'] = 'Ñ§Ï°Â·Ïß½øÕ¹£º ';
 $_lang['Learning paths tracking'] = 'Ñ§Ï°Â·Ïß×·×Ù';
 $_lang['Lecturer(s)'] = '½ÌÊÚ';
+$_lang['Licence'] = 'Ğí¿ÉÖ¤';
 $_lang['Limit'] = 'ÏŞÖÆ';
 $_lang['Line Number'] = 'ĞĞÊı';
 $_lang['List of Wiki'] = '¹²½¨×ÊÔ´ÁĞ±í';
@@ -491,7 +538,9 @@ $_lang['Lost password'] = 'ÃÜÂëÒÅÊ§';
 $_lang['Mail is already used by another user.'] = 'ÓÊ¼şÒÑ¾­±»ÁíÒ»¸öÓÃ»§Ê¹ÓÃ¡£';
 $_lang['Mail synthax error.'] = 'µç×ÓÓÊ¼şĞ´·¨´íÎó¡£';
 $_lang['Main Group Settings'] = 'Ö÷Èº×éÉè¶¨';
+$_lang['Main database'] = 'Ö÷ÒªÊı¾İ¿â';
 $_lang['Main page'] = 'Ö÷Ò³Ãæ';
+$_lang['Maintenance'] = 'Æ½Ì¨Î¬»¤';
 $_lang['Make correspond'] = 'Ê¹Ö®Ò»ÖÂ';
 $_lang['Make invisible'] = 'Ê¹Ö®Òş²Ø';
 $_lang['Make new search'] = '½øĞĞĞÂµÄËÑË÷£º ';
@@ -520,6 +569,7 @@ $_lang['Missing value'] = 'ÒÅÊ§µÄÊıÖµ';
 $_lang['Modifies this announcement'] = 'ĞŞ¸Ä¸ÃÍ¨¸æ';
 $_lang['Modify'] = '¸üĞÂ';
 $_lang['Modify a work'] = 'ĞŞ¸ÄÒ»¸ö×÷Òµ';
+$_lang['Modify exercise'] = 'ĞŞ¸ÄÁ·Ï°²âÊÔ';
 $_lang['Modify the format'] = 'ĞŞ¸Ä¸ñÊ½';
 $_lang['Module'] = 'Ä£¿é';
 $_lang['Module added :'] = 'Ä£¿éÌí¼Ó£º ';
@@ -535,6 +585,7 @@ $_lang['Move'] = 'ÒÆ¶¯';
 $_lang['Move down'] = 'ÏòÏÂ';
 $_lang['Move up'] = 'ÏòÉÏ';
 $_lang['Moved line'] = 'ÒÑÒÆ¶¯µÄĞĞ';
+$_lang['Multiple answers'] = '¶à¸ö´ğ°¸';
 $_lang['Multiple choice (Multiple answers)'] = '¶àÑ¡Ìâ (¶à¸ö´ğ°¸)';
 $_lang['Multiple choice (Unique answer)'] = '¶àÑ¡Ìâ (´ğ°¸Î¨Ò»)';
 $_lang['My User Account'] = '¸öÈË×ÊÁÏ';
@@ -543,7 +594,9 @@ $_lang['My course list'] = 'ÎÒµÄ¿Î³Ì';
 $_lang['My other courses'] = 'ÎÒµÄÆäËû¿Î³Ì';
 $_lang['My personal course list'] = 'ÎÒµÄ¿Î³Ì±í';
 $_lang['My results'] = 'ÎÒµÄ½á¹û';
+$_lang['MySQL Database and Table Names'] = 'MySQLÊı¾İ¿âºÍ±íÃû';
 $_lang['Mysql Repository'] = 'Mysql´æ´¢';
+$_lang['Mysql connection parameters'] = 'MysqlÁ¬½Ó²ÎÊı';
 $_lang['Name cannot be empty'] = 'ĞÕÃû±ØĞëÒªÌîĞ´ÍêÕû';
 $_lang['Name link'] = 'Ãû³ÆÁ´½Ó';
 $_lang['Name of the class has been changed'] = 'ĞéÄâ°à¼¶Ãû³ÆÒÑ¾­ĞŞ¸Ä';
@@ -557,6 +610,7 @@ $_lang['New Wiki'] = 'ĞÂ¹²½¨×ÊÔ´';
 $_lang['New assignment created'] = 'ĞÂ×÷Òµ½¨Á¢';
 $_lang['New chat'] = 'ĞÂµÄÁÄÌì´ğÒÉ';
 $_lang['New exercise'] = 'ĞÂ½¨Á·Ï°';
+$_lang['New learning path name :'] = 'ĞÂµÄÑ§Ï°Â·ÏßÃû³Æ£º';
 $_lang['New question'] = 'ĞÂ½¨ÎÊÌâ';
 $_lang['New topic'] = 'ĞÂ»°Ìâ';
 $_lang['New users will receive an e-mail with their user name and password'] = 'ĞÂÓÃ»§½«ÊÕµ½Ò»·â¸½ÓĞÓÃ»§ÃûºÍÃÜÂëµÄµç×ÓÓÊ¼ş';
@@ -589,6 +643,7 @@ $_lang['No post'] = 'Ã»ÓĞÌû×Ó';
 $_lang['No quota'] = 'Ã»ÓĞ¶¨¶î';
 $_lang['No result'] = 'Ã»ÓĞ½á¹û';
 $_lang['No score'] = 'Ã»ÓĞ·ÖÊı';
+$_lang['No scripts'] = '²»ÔÊĞí½Å±¾';
 $_lang['No stats to show.  You haven\'t registered any course.'] = 'Ã»ÓĞÏÔÊ¾Í³¼ÆÊı×Ö¡£ÄãÃ»ÓĞ×¢²áÈÎºÎ¿Î³Ì¡£';
 $_lang['No time limitation'] = 'Ã»ÓĞÊ±¼äÏŞÖÆ';
 $_lang['No user found'] = 'ÓÃ»§Ã»ÕÒµ½';
@@ -624,7 +679,9 @@ $_lang['Oldest first'] = 'ÄæĞòÅÅÁĞ';
 $_lang['On'] = 'ÔÚ';
 $_lang['On an unique page'] = 'ÓÃÒ»¸öµ¥Ò³';
 $_lang['One question per page (sequential)'] = 'Ò»Ò³Ò»¸öÎÊÌâ (Á¬Ğø)';
+$_lang['Ooops, stranges cases detected !!'] = 'àŞ£¬ ·¢ÏÖÆæ¹ÖµÄÇé¿ö£¡£¡';
 $_lang['Operation impossible'] = '²Ù×÷Ê§°Ü';
+$_lang['Operation impossible.<br />A file with this name already exists.'] = '²Ù×÷Ê§°Ü.<br />Í¬ÃûÎÄ¼şÒÑ´æÔÚ.';
 $_lang['Optional'] = '¿ÉÑ¡';
 $_lang['Order'] = 'Ë³Ğò';
 $_lang['Orphan questions'] = 'µ¥Ò»ÎÊÌâ';
@@ -647,16 +704,22 @@ $_lang['Platform Administrator'] = 'Æ½Ì¨¹ÜÀíÕß';
 $_lang['Platform statistics'] = 'Æ½Ì¨Í³¼Æ';
 $_lang['Please check that your campus URL is reachable from the internet.'] = 'Çë¼ì²éÄúµÄĞ£Ô°Á´½ÓÊÇ·ñÄÜÍ¨¹ıÒòÌØÍø·ÃÎÊ¡£';
 $_lang['Please choose a good answer'] = 'ÇëÑ¡ÔñÒ»¸öÕıÈ·´ğ°¸';
+$_lang['Please choose one or more good answers'] = 'ÇëÑ¡ÔñÒ»¸öÕıÈ·µÄÒ»¸ö»ò¶à¸ö´ğ°¸';
 $_lang['Please confirm your choice'] = 'ÇëÈ·ÈÏÄãµÄÑ¡Ôñ';
+$_lang['Please define at least one blank with brackets [...]'] = 'ÇëÖÁÉÙÓÃÀ¨ºÅ[...]¶¨ÒåÒ»¸ö¿Õ¸ñ ';
 $_lang['Please define the options'] = 'Çë¶¨ÒåÑ¡Ïî';
 $_lang['Please fill the two lists below'] = 'ÇëÌîĞ´ÒÔÏÂÁ½¸ö±í';
 $_lang['Please give a weighting to each blank'] = 'Çë¸øÃ¿Ò»¸ö¿Õ¸³·Ö';
 $_lang['Please give the answers to the question'] = 'Çë¸øÎÊÌâ×ö´ğ°¸';
+$_lang['Please give the exercise name'] = 'Çë¸øÁ·Ï°ÃüÃû';
+$_lang['Please give the question'] = 'Çë¸ø³öÎÊÌâ';
 $_lang['Please type the text'] = 'Çë´ò³öÎÄ±¾';
+$_lang['Please type your text below'] = 'ÇëÔÚÏÂÃæÊäÈëÄãµÄÎÄ±¾';
 $_lang['Pool of modules'] = 'Ä£¿é³Ø';
 $_lang['Posted'] = 'ÕÅÌù';
 $_lang['Posts'] = 'ÎÄÕÂ';
 $_lang['Powered by'] = '¼¼ÊõÖ§³Ö';
+$_lang['Prefix for names of course databases'] = '¿Î³ÌÊı¾İ¿âÃûµÄÇ°×º';
 $_lang['Preview'] = 'Ô¤ÀÀ';
 $_lang['Preview :'] = 'Ô¤ÀÀ£º';
 $_lang['Previous'] = 'ÏÈÇ°µÄ';
@@ -664,6 +727,7 @@ $_lang['Previous day'] = 'Ç°Ò»Ìì';
 $_lang['Previous month'] = 'ÉÏ¸öÔÂ';
 $_lang['Previous week'] = 'ÉÏÒ»ÖÜ';
 $_lang['Previous year'] = 'ÉÏÒ»Äê';
+$_lang['PrintVers'] = '´òÓ¡°æ';
 $_lang['Private'] = 'Ë½ÃÜµÄ';
 $_lang['Private course only'] = '½ö¹©Ë½ÃÜ¿Î³Ì';
 $_lang['Private feedback'] = 'Ë½ÃÜ·´À¡';
@@ -679,12 +743,17 @@ $_lang['Public courses'] = '¹«¹²¿Î³Ì';
 $_lang['Publish'] = '·¢²¼';
 $_lang['Published on'] = '·¢²¼';
 $_lang['Question'] = 'ÎÊÌâ';
+$_lang['Question / Answer management'] = 'ÎÊÌâ / ´ğ°¸ ¹ÜÀí ';
+$_lang['Question list of the exercise'] = 'Á·Ï°µÄÎÊÌâÁĞ±í';
+$_lang['Question not found'] = 'Ã»ÓĞ·¢ÏÖÎÊÌâ';
 $_lang['Question pool'] = 'ÎÊÌâ³Ø';
 $_lang['Question title'] = 'ÎÊÌâ±êÌâ';
 $_lang['Question to lecturer'] = '½²Ê¦µÄÎÊÌâ';
+$_lang['Questions'] = 'ÎÊÌâ';
 $_lang['Random questions'] = 'Ëæ»úÎÊÌâ';
 $_lang['Read Pages'] = 'ÒÑÔÄ¶ÁÒ³Ãæ';
 $_lang['Recent changes'] = '×î½ü¸ü¸Ä';
+$_lang['Register'] = '×¢²á';
 $_lang['Register a user for this class'] = '×¢²á¸ÃĞéÄâ°à¼¶µÄÓÃ»§';
 $_lang['Register class for course'] = '×¢²á¿Î³ÌµÄĞéÄâ°à¼¶';
 $_lang['Register my campus'] = '×¢²áÎÒµÄĞéÄâĞ£Ô°';
@@ -699,11 +768,14 @@ $_lang['Rem. elem.'] = 'Rem. elem.';
 $_lang['Remove'] = 'ÒÆ³ı';
 $_lang['Remove course enrolment'] = 'ÒÆ³ı¿Î³ÌµÇ¼Ç';
 $_lang['Remove course from your personal course list'] = '´ÓÄã¸öÈË¿Î³Ì±íÖĞÒÆ³ı¿Î³Ì';
+$_lang['Remove picture'] = 'ÒÆ³ıÍ¼Æ¬';
 $_lang['Rename'] = '¸üÃû';
+$_lang['Replace attached file'] = 'Ìæ´ú¸½¼ş';
 $_lang['Replies'] = '»Ø¸´';
 $_lang['Reply'] = '»Ø¸´';
 $_lang['Request course creation status'] = '¿Î³Ì½¨ÉèÕßÉí·İÉêÇë';
 $_lang['Required'] = '±ØĞè';
+$_lang['Requirements'] = 'Ìõ¼ş';
 $_lang['Reset'] = 'ÖØÖÃ';
 $_lang['Restore course repository'] = 'ĞŞ¸´¿Î³Ì´¢´æ';
 $_lang['Result'] = '·ÖÊı';
@@ -723,6 +795,8 @@ $_lang['Score'] = 'µÃ·Ö';
 $_lang['Score required'] = '·ÖÊı±ØĞè';
 $_lang['Scores of exercises done'] = 'Íê³ÉµÄÁ·Ï°µÄ·ÖÊı';
 $_lang['Scorm'] = 'SCORM±ê×¼';
+$_lang['Script missing'] = '½Å±¾¶ªÊ§';
+$_lang['Script not in claroline'] = '½Å±¾²»ÔÚ Claroline ÖĞ';
 $_lang['Search'] = 'ËÑË÷';
 $_lang['Search again (advanced)'] = 'ÔÙÒ»´ÎËÑË÷ (¸ß¼¶)';
 $_lang['Search course'] = 'ËÑË÷¿Î³Ì';
@@ -748,9 +822,11 @@ $_lang['Size'] = '´óĞ¡';
 $_lang['Start Module'] = '¿ªÊ¼Ä£¿é';
 $_lang['Start date'] = '¿ªÊ¼ÈÕÆÚ';
 $_lang['Start date must be before end date ...'] = 'ÆğÊ¼ÈÕÆÚ±ØĞëÔÚ½áÊøÈÕÆÚÖ®Ç°...';
+$_lang['Statement'] = '±íÊö';
 $_lang['Statistics'] = 'Í³¼ÆĞÅÏ¢';
 $_lang['Statistics by question'] = '°´ÎÊÌâÍ³¼ÆµÄÊı¾İ';
 $_lang['Statistics by user'] = '°´ÓÃ»§Í³¼ÆµÄÊı¾İ';
+$_lang['Statistics of course'] = '¿Î³ÌÍ³¼ÆÊı×Ö';
 $_lang['Statistics of exercise'] = 'Á·Ï°Í³¼ÆÊı×Ö';
 $_lang['Statistics of exercise attempt'] = 'Á·Ï°²âÊÔ³¢ÊÔÍ³¼ÆÊı¾İ';
 $_lang['Statistics of question'] = 'ÎÊÌâÍ³¼ÆÊı¾İ';
@@ -765,15 +841,21 @@ $_lang['Submissions'] = 'Ìá½»';
 $_lang['Submit'] = 'Ìá½»';
 $_lang['Submit a work'] = 'Ìá½»Ò»·İ×÷Òµ';
 $_lang['Submit feedback'] = 'Ìá½»·´À¡';
+$_lang['Subscribe a class'] = '¶©ÔÄÒ»¸ö°à';
+$_lang['Subscribe to course'] = '¶©ÔÄ¿Î³Ì';
 $_lang['Support forum'] = 'Ö§³ÖÂÛÌ³';
+$_lang['SwitchEditorToTextConfirm'] = '¸ÃÃüÁî½«ÒÆ³öµ±Ç°ÎÄ±¾¡£ÄãÏë¼ÌĞøÂğ£¿';
+$_lang['Take'] = '´ø×ß';
 $_lang['Technical Tools'] = '¼¼Êõ¹¤¾ß';
 $_lang['Text only (text required, no file)'] = '½öÎÄ±¾ (ÎÄ±¾±ØĞè£¬²»Òª¸½¼ş)';
 $_lang['Text with attached file (text required, file optional)'] = '´ø¸½¼şµÄÎÄ±¾(ÎÄ±¾±ØĞè£¬¸½¼ş¿ÉÑ¡)';
 $_lang['The changes have been carried out correctly'] = 'ÒÑ¾­ÊµÏÖÕıÈ·µÄ±ä»¯';
+$_lang['The class has been moved'] = 'ĞéÄâ°à¼¶±»ÒÆ³ı';
 $_lang['The course has been successfully deleted'] = '¿Î³ÌÒÑ¾­±»³É¹¦É¾³ı';
 $_lang['The email address is not valid'] = 'ÓÊ¼şµØÖ·²»ÕıÈ·,´æÔÚ·Ç·¨×Ö·û';
 $_lang['The file to upload is not valid.'] = 'ÉÏÔØÎÄ¼şÎŞĞ§';
 $_lang['The following errors were found'] = '·¢ÏÖÏÂÁĞ´íÎó ';
+$_lang['The information has been modified'] = '¿Î³ÌĞÅÏ¢ÒÑ¸üĞÂ';
 $_lang['The module will still be available in the pool of modules.'] = 'Ä£¿é³ØÖĞµÄÄ£¿é½«¿ÉÒÔÀûÓÃ¡£';
 $_lang['The new category has been created.'] = 'ĞÂµÄ·ÖÀàÒÑ¾­½¨Á¢¡£';
 $_lang['The new class has been created'] = 'ĞÂµÄĞéÄâ°à¼¶ÒÑ¾­½¨Á¢';
@@ -791,12 +873,14 @@ $_lang['There is no assignment at the moment'] = '´Ë¿ÌÃ»ÓĞ¿É¼ûµÄ¹¦¿Î¡£';
 $_lang['There is no category available !'] = 'Ã»ÓĞ¿ÉÀûÓÃµÄ·ÖÀà';
 $_lang['There is no course matching such criteria'] = 'Ã»ÓĞ·ûºÏÕâÑù±ê×¼µÄ¿Î³Ì';
 $_lang['There is no exercise for the moment'] = 'ÏÖÔÚ»¹Ã»ÓĞ¿Î³ÌÁ·Ï°.';
+$_lang['There is no question for the moment'] = '´Ë¿ÌÃ»ÓĞÎÊÌâ';
 $_lang['There is no start asset defined for this module.'] = 'Ã»ÓĞÎª¸ÃÄ£¿é¶¨ÒåÓĞÓÃµÄ¿ªÊ¼²¿·Ö¡£';
 $_lang['There is no user account with this email address.'] = 'ÕÒ²»µ½ÓĞ¸ÃµçÓÊµÄÓÃ»§ÕÊ»§¡£';
 $_lang['This category already exists!'] = '¸Ã·ÖÀàÒÑ¾­´æÔÚ£¡';
 $_lang['This category contains other categories, you must delete them before !'] = '¸Ã·ÖÀà°üº¬×ÓÄ¿Â¼£¬Äã±ØĞëÊ×ÏÈÉ¾³ıËüÃÇ£¡';
 $_lang['This category contains some courses, you can\'t erase it!'] = '¸Ã·ÖÀà°üº¬Ò»Ğ©¿Î³Ì£¬Äã²»ÄÜÉ¾³ıËü£¡';
 $_lang['This category include some courses, you must delete or move them before'] = '¸Ã·ÖÀà°üÀ¨Ò»Ğ©¿Î³Ì£¬Äã±ØĞëÊ×ÏÈÉ¾³ı»òÒÆ¶¯ËüÃÇ';
+$_lang['This class still contains some sub classes, delete them first'] = '¸ÃĞéÄâ°à¼¶º¬ÓĞÒ»Ğ©×Ó°à¼¶£¬ÒªÏÈÉ¾³ıËüÃÇ';
 $_lang['This course is currently not described'] = '¸Ã¿Î³Ìµ±Ç°Ã»ÓĞ±»½éÉÜ';
 $_lang['This day'] = 'ÕâÒ»Ìì';
 $_lang['This is the faculty, department or school where the course is delivered'] = 'ÉÏÃæÑ¡ÏîÊÇ±¾ÃÅ¿Î³ÌÄÚÈİÓ¦ÊôÔºÏµ.';
@@ -820,6 +904,7 @@ $_lang['To'] = 'µ½';
 $_lang['To send a message, select groups of users (marked with a * in the front) or single users from the list on the left.'] = 'ÎªÁË·¢³öÒ»ÌõĞÅÏ¢£¬Ñ¡ÔñÓÃ»§×é(ÓÃ*ºÅÔÚÇ°Ãæ±ê³ö)
 »ò×ó±ßÓÃ»§ÁĞ±íÖĞµÄµ¥¸öÓÃ»§¡£';
 $_lang['Tool'] = '¹¤¾ß';
+$_lang['Tool accesses changed'] = '¹¤¾ßÍ¨µÀ¸Ä±ä';
 $_lang['Tools'] = '¹¤¾ß';
 $_lang['Topic'] = '»°Ìâ';
 $_lang['Topic review'] = '»°ÌâÆÀÂÛ';
@@ -832,16 +917,19 @@ $_lang['Total attempts'] = '×Ü¹²³¢ÊÔ';
 $_lang['Total number of connection to this course'] = 'Á´½Ó¸Ã¿Î³ÌµÄ×ÜÊı';
 $_lang['Total time'] = '×Ü¹²Ê±¼ä';
 $_lang['Tracking'] = '×·×Ù';
+$_lang['Tracking database'] = '×·×ÙÊı¾İ¿â';
 $_lang['Tracking has been disabled by system administrator.'] = '×·×Ù¹¦ÄÜ±»¹ÜÀíÔ±¹Ø±Õ¡£';
 $_lang['Traffic Details'] = 'Á÷Á¿Ã÷Ï¸';
 $_lang['Translation Progression'] = '·­Òë½ø³Ì';
 $_lang['Translation Tools'] = '·­Òë¹¤¾ß';
 $_lang['True'] = '´ğ°¸';
 $_lang['True/False'] = 'ÕıÈ·/´íÎó';
+$_lang['URL :'] = 'ÍøÖ·: ';
 $_lang['URL link'] = 'ÍøÖ·Á´½Ó';
 $_lang['Unable to add description'] = '²»ÄÜÌí¼Ó¼ò½é';
 $_lang['Unable to add external tool'] = '²»ÄÜÌí¼ÓÍâ²¿¹¤¾ß';
 $_lang['Unable to add the event to the agenda'] = '²»ÄÜÌí¼ÓÊÂ¼şµ½ÈÕ³Ì±í¡£';
+$_lang['Unable to change tool access'] = '²»ÄÜ¸Ä±ä¹¤¾ß';
 $_lang['Unable to copy file :'] = 'ÎŞ·¨¸´ÖÆÎÄ¼ş£º ';
 $_lang['Unable to create category'] = 'ÎŞ·¨´´½¨·ÖÀà';
 $_lang['Unable to create directory :'] = 'ÎŞ·¨´´½¨¿Î³Ì·ÖÀà';
@@ -870,6 +958,7 @@ $_lang['Unamed path'] = 'Î´ÃüÃûµÄÂ·Ïß';
 $_lang['Unassigned students'] = 'Î´Ö¸¶¨µÄÑ§Éú';
 $_lang['Unblock'] = '½âËø';
 $_lang['Unchanged line'] = 'Î´¸Ä±äµÄĞĞ';
+$_lang['Unique answer'] = '´ğ°¸Î¨Ò»';
 $_lang['Unregister'] = 'Î´×¢²áÓÃ»§';
 $_lang['Unregister all students'] = '×¢ÏúËùÓĞÑ§Éú';
 $_lang['Unregister from class'] = '×¢ÏúĞéÄâ°à¼¶';
@@ -883,6 +972,9 @@ $_lang['Upload a new file to replace the file'] = 'ÉÏÔØĞÂÎÄ¼ş´úÌæÔ­ÓĞÎÄ¼ş¡£';
 $_lang['Upload document'] = 'ÉÏÔØÎÄ¼ş';
 $_lang['Upload file'] = 'ÉÏ´«±¾µØÎÄ¼ş';
 $_lang['Uploaded file'] = 'ÉÏÔØµÄÎÄ¼ş';
+$_lang['Use a document'] = 'Ê¹ÓÃÒ»¸öÎÄ¼ş';
+$_lang['Use a module of this course'] = 'Ê¹ÓÃ¸Ã¿Î³ÌµÄÒ»¸öÄ£¿é';
+$_lang['Use an exercise'] = 'Ê¹ÓÃÒ»¸öÁ·Ï°';
 $_lang['Use format defined in first line of file'] = 'Ê¹ÓÃÎÄ¼şÊ×ĞĞ¶¨ÒåµÄ¸ñÊ½';
 $_lang['User'] = 'ÓÃ»§ÁĞ±í';
 $_lang['User Id'] = 'ÓÃ»§Id';
@@ -923,6 +1015,7 @@ $_lang['Visible'] = '¿É¼ûµÄ';
 $_lang['Visits'] = '·ÃÎÊ';
 $_lang['WARNING : you are going to delete this wiki and all its pages. Are you sure to want to continue ?'] = '¾¯¸æ£ºÄú½«ÒªÉ¾³ı´Ë¹²½¨×ÊÔ´¼°ÆäËùÓĞÒ³Ãæ¡£È·ĞÅÄúÒª¼ÌĞø£¿';
 $_lang['WARNING: this page is a preview. Your modifications to the wiki has not been saved yet ! To save them do not forget to click on the \'save\' button at the bottom of the page.'] = '¾¯¸æ£ºÕâÊÇÔ¤ÀÀÒ³Ãæ¡£Äú¶Ô¹²½¨×ÊÔ´µÄĞŞ¸ÄÉĞÎ´±£´æ£¡ÈçÒª±£´æÇë²»ÒªÍü¼Çµã»÷Ò³Ãæµ×²¿µÄ¡®±£´æ¡¯°´Å¥¡£';
+$_lang['Warning ! This question and its answers are used in several exercises. Would you like to modify them'] = '¾¯¸æ£¡Õâ¸öÎÊÌâºÍËüµÄ´ğ°¸ÒÑ¾­ÓÃÔÚºÃ¼¸¸öÁ·Ï°ÖĞ£¬ÄãÏëĞŞ¸ÄËüÃÇÂğ£¿';
 $_lang['Week'] = 'ÖÜ';
 $_lang['Weighting'] = '¸³·Ö';
 $_lang['Wiki'] = 'Wiki';
@@ -933,9 +1026,12 @@ $_lang['Wiki creation succeed'] = '¹²½¨×ÊÔ´³É¹¦´´½¨';
 $_lang['Wiki deletion succeed'] = '¹²½¨×ÊÔ´³É¹¦É¾³ı';
 $_lang['Wiki description'] = '¹²½¨×ÊÔ´ÃèÊö';
 $_lang['Wiki edition succeed'] = '¹²½¨×ÊÔ´°æ±¾±à¼­³É¹¦';
+$_lang['Wiki of the group'] = 'Ñ§Ï°Ğ¡×é¹²½¨×ÊÔ´';
 $_lang['Wiki syntax'] = '¹²½¨×ÊÔ´¾ä·¨£¨Wiki2xhtml£©';
+$_lang['Work'] = '×÷Òµ';
 $_lang['Work added'] = '×÷ÒµÌí¼Ó';
 $_lang['Work modified'] = '×÷ÒµĞŞ¸Ä';
+$_lang['Work title'] = '×÷Òµ±êÌâ';
 $_lang['Work title required'] = '×÷Òµ±êÌâ±ØĞè';
 $_lang['Work uploaded by the student in the name of \'Authors\''] = 'ÓÃ\'×÷Õß\'ÃûÉÏÔØµÄ×÷Òµ';
 $_lang['Work uploads'] = '×÷ÒµÉÏÔØ';
@@ -951,7 +1047,10 @@ $_lang['You are not allowed to edit this page'] = 'ÄúÎŞÈ¨±à¼­Ò³Ãæ';
 $_lang['You are not allowed to read this page'] = 'ÄúÎŞÈ¨ÔÄ¶Á´ËÒ³Ãæ';
 $_lang['You are now a member of this group.'] = 'ÄãÏÖÔÚÊÇ¸ÃÑ§Ï°Ğ¡×éµÄ³ÉÔ±ÁË¡£';
 $_lang['You can choose a title an a description for the wiki :'] = 'Äú¿ÉÒÔÎª¹²½¨×ÊÔ´µÄÃèÊöÑ¡ÔñÒ»¸ö±êÌâ£º';
+$_lang['You can delete these scripts from you server'] = 'Äú¿ÉÒÔ´Ó·şÎñÆ÷ÉÏÉ¾³ıÕâĞ©½Å±¾';
 $_lang['You can not change your own settings!'] = 'Äã²»¿ÉĞŞ¸ÄÄã×Ô¼ºµÄÉèÖÃ£¡';
+$_lang['You can not change your own status'] = 'Äã²»ÄÜ¸Ä±äÄã×Ô¼ºµÄÉí·İ';
+$_lang['You can not move a class in itself!'] = 'Äã²»ÄÜ½«Ò»¸öĞéÄâ°à¼¶ÒÆÈëËü×Ô¼º£¡';
 $_lang['You can not remove a group forum. You have to remove the group first'] = 'ÄúÎŞ·¨ÒÆ³ıÑ§Ï°Ğ¡×éÂÛÌ³¡£ÇëÄúÏÈÒÆ³ıÑ§Ï°Ğ¡×é¡£';
 $_lang['You can now create your  course'] = 'ÄãÏÖÔÚ¿ÉÒÔ½¨Á¢ÄãµÄ¿Î³Ì';
 $_lang['You can now select, in the list, the courses you want to access'] = 'ÄãÏÖÔÚ¿ÉÒÔÔÚÁĞ±íÖĞÑ¡ÔñÄãÏë½øÈëµÄ¿Î³Ì¡£';
@@ -960,9 +1059,11 @@ $_lang['You cannot give a blank name to a class'] = 'Äã²»ÄÜ¸øÒ»¸öĞéÄâ°à¼¶Æğ¿ÕµÄÃ
 $_lang['You cannot post an empty message'] = '²»ÄÜÕÅÌù¿ÕÏûÏ¢.';
 $_lang['You cannot unsubscribe the last course manager of the course'] = 'Äú²»ÄÜ×¢Ïú×îºóÒ»Î»¿Î³Ì¹ÜÀíÔ±';
 $_lang['You didnt choose any file to send, or it is too big'] = 'Ã»ÓĞÑ¡ÔñÈÎºÎÎÄ¼ş»òÕßÎÄ¼ş¹ı´ó';
+$_lang['You have already answered the question'] = 'ÄãÒÑ¾­»Ø´ğÁË¸ÃÎÊÌâ';
 $_lang['You have just created the course website'] = 'Äú¸Õ¸Õ´´½¨ÁËĞÂµÄ¿Î³ÌÍøÕ¾.';
 $_lang['You have reached the maximum number of allowed attempts.'] = 'ÄãÒÑ¾­´ïµ½ÔÊĞí³¢ÊÔ´ÎÊıµÄ×î¸ßÖµ¡£';
 $_lang['You left some required fields empty'] = 'ÓĞĞ©ÏîÎ´ÌîĞ´!·µ»ØÖØÊÔ.';
+$_lang['You must install these scripts to run correctly claroline'] = 'Äú±ØĞë°²×°ÕâĞ©½Å±¾²ÅÄÜÊ¹ Claroline Õı³£ÔËĞĞ¡£';
 $_lang['You must introduce the message text'] = 'Äã±ØĞë½éÉÜ¶ÌĞÅÎÄ±¾¡£';
 $_lang['You must reach the maximum number of allowed attempts to view these statistics.'] = 'Äú±ØĞë´ïµ½ÔÊĞíµÄ×î¶à³¢ÊÔ´ÎÊıºó²ÅÄÜ¿´¼ûÕâĞ©Í³¼ÆÊı¾İ¡£';
 $_lang['You must select a file'] = 'Äã±ØĞëÑ¡ÔñÒ»¸öÎÄ¼ş';
@@ -978,13 +1079,17 @@ $_lang['Your enrolment on the course has been removed'] = 'ÄãÔÚ¿Î³ÌµÄµÇ¼ÇÒÑ¾­ÒÆ³
 $_lang['Your message has been deleted'] = 'ÄúµÄ ÎÄÕÂ ÒÑÉ¾³ı.';
 $_lang['Your message has been entered'] = ' ÏûÏ¢ ÒÑ±»±£´æµ½Êı¾İ¿âÖĞ.';
 $_lang['Your mother is'] = 'Your mother is';
+$_lang['Your new profile has been saved'] = 'ÄúµÄ¸öÈËĞÅÏ¢ÒÑ¾­±£´æ.';
 $_lang['Your password has been emailed to'] = 'ÄãµÄÃÜÂëÒÑ¾­·¢³öµ½';
 $_lang['Your progression in this module'] = 'ÄãÔÚ¸ÃÄ£¿éµÄ½øÕ¹';
 $_lang['Your request to become a course creator has been sent to platform administrator(s).'] = 'ÄãÒª³ÉÎª¿Î³Ì¸ºÔğÈËµÄÉêÇëĞÅÏ¢ÒÑ¾­·¢µ½Æ½Ì¨¹ÜÀíÔ±';
 $_lang['Your request to remove your account has been sent'] = 'ÄãÒªÉ¾³ıÓÃ»§ÃûµÄÇëÇóÒÑ¾­·¢³ö';
+$_lang['Your time is'] = 'ÄãµÄÃû×ÖÊÇ';
+$_lang['Your total score is'] = 'ÄãµÄ×Ü·ÖÊÇ';
 $_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'ÄãµÄÓÃ»§×ÊÁÏËÆºõÃ»ÓĞÔÚ¸Ã¿Î³ÌµÇ¼Ç';
 $_lang['Zip file uploaded and uncompressed'] = ' ZipÎÄ¼şÉÏÔØ²¢ÇÒ½âÑ¹Ëõ';
 $_lang['Zlib php extension is required to use this tool. Please contact your platform administrator.'] = 'Ê¹ÓÃ¸Ã¹¤¾ß±ØĞëÓĞZlib php À©Õ¹¡£ÇëÁªÏµÆ½Ì¨¹ÜÀíÔ±¡£';
+$_lang['[British people] live in [United Kingdom].'] = '[Ó¢¹úÈË] ¾Ó×¡ÔÚ [Ó¢¹ú]¡£';
 $_lang['archive'] = 'µµ°¸';
 $_lang['blockAssignmentsHelp'] = '<p>
 ¹¦¿Î¹¤¾ßÊÇÑ§Éú·¢±íÇø¡£¿Î³Ì¸ºÔğÈË½¨Á¢Ò»¸ö»ò¼¸¸ö¹¦¿Î£¨²»Í¬µÄ·¢±íÇø£©¡£
@@ -1112,6 +1217,8 @@ $_lang['blockConfirmBlockingPathMadeInvisible'] = '¸ÃÂ·Ïß±»Ëø×¡¡£
 $_lang['blockConfirmDeleteModule'] = 'ÄãÈ·ÈÏÒ»ÆğÉ¾³ı¸ÃÄ£¿é£¿Ëü½«´Ó·şÎñÆ÷ÉÏºÍÑ§Ï°Â·ÏßÖĞÍêÈ«É¾³ı¡£Äã½«²»ÄÜÔÚÈÎºÎÑ§Ï°Â·ÏßÖĞÊ¹ÓÃËü¡£
 È·ĞÅÉ¾³ı£º ';
 $_lang['blockConfirmDeleteScorm'] = '¸ÃÑ§Ï°Â·ÏßÊÇSCORM±ê×¼ÊäÈë°üµÄ×é³É²¿·Ö¡£Èç¹ûÄãÉ¾³ı¸ÃÂ·Ïß£¬ ËüµÄËùÓĞ·ûºÏSCORM±ê×¼µÄÄ£¿éºÍÏà¹ØÎÄ¼ş½«±»´ÓÆ½Ì¨ÉÏÉ¾³ı¡£ÄãÈ·ÈÏÄãÏëÉ¾³ı¸ÃÑ§Ï°Â·Ïß';
+$_lang['blockConfirmDeleteStats'] = '¿Î³ÌÍ³¼ÆÊı×Ö±»É¾³ıÖ®ºó£¬ÊÇ²»ÄÜ»Ö¸´µÄ£¡
+<br /><br />ÄãÈ·ĞÅÄãÒªÍêÈ«É¾³ıÕâĞ©Í³¼ÆÊı×Ö£¿';
 $_lang['blockCourseDescriptionCourseContent'] = '¿Î³ÌÄÚÈİ';
 $_lang['blockCourseDescriptionCourseContentComment1'] = 'ÔÚÒ»¸ö¿Î³Ì¿ò¼ÜÖĞ£¬ÄÄĞ©ÖØÒªµÄĞèÒª½Ì£¿
 ¸ÃÄÚÈİµÄÄÑ¶ÈË®Æ½ÊÇÊ²Ã´£¿¸Ãµ¥ÔªÈçºÎ±»½¨¹¹µÄ£¿ÕâĞ©ÄÚÈİµÄĞòÁĞÊÇÊ²Ã´£¿µ¼ÏòÊ²Ã´£¿';
@@ -1155,59 +1262,59 @@ $_lang['blockDocumentsHelp'] = '<p>½²Òå²ÄÁÏ ¹ÜÀí¹¤¾ßÀàËÆ×ÀÃæµçÄÔÓ¦ÓÃÖĞµÄÎÄ¼ş¹ÜÀí
 <h4>ÉÏ´«ÎÄ¼ş</h4>
 <ul>
   <li>Ñ¡ÔñÄúµçÄÔÉÏµÄÎÄ¼ş,µã»÷<input type=submit value=Browse name=submit2>
-	ÔÚÄúÆÁÄ»µÄÓÒ²à.</li>
+    ÔÚÄúÆÁÄ»µÄÓÒ²à.</li>
   <li>¿ªÊ¼ÉÏ´«,µã»÷ÉÏ´«°´Å¥<input type=submit value=Upload name=submit2>
-	.</li>
+    .</li>
 </ul>
 <h4>ÎªÎÄ¼ş(»òÕßÄ¿Â¼)¸üÃû</h4>
 <ul>
   <li>µã»÷<img src=../document/img/edit.gif width=20 height=20 align=baseline> °´Å¥(Î»ÓÚ\'¸üÃû\'À¸)</li>
   <li>ÔÚ×óÉÏ½ÇÇøÓòÌîĞ´ĞÂµÄÎÄ¼şÃû</li>
   <li>È·ÈÏ,µã»÷<input type=submit value=Ok name=submit24>
-	.
+    .
 </ul>
-	<h4>É¾³ıÎÄ¼ş(»òÄ¿Â¼)</h4>
-	<ul>
+    <h4>É¾³ıÎÄ¼ş(»òÄ¿Â¼)</h4>
+    <ul>
 
   <li>µã»÷ <img src=../document/img/delete.gif width=20 height=20>
-	(Î»ÓÚ \'É¾³ı\'À¸).</li>
-	</ul>
-	<h4>ÏÔÊ¾/Òş²ØÎÄ¼ş(»òÄ¿Â¼)</h4>
-	<ul>
+    (Î»ÓÚ \'É¾³ı\'À¸).</li>
+    </ul>
+    <h4>ÏÔÊ¾/Òş²ØÎÄ¼ş(»òÄ¿Â¼)</h4>
+    <ul>
 
   <li>µã»÷ <img src=../document/img/visible.gif width=20 height=20>Î»ÓÚ\'ÏÔÊ¾/Òş²Ø\'À¸.</li>
-	  <li>Òş²ØÎÄ¼ş(»òÄ¿Â¼)ºó,Ëü»¹ÊÇ´æÔÚµÄ,Ö»ÊÇ¶ÔÑ§ÉúÒÑ¾­²»¿É¼û.</li>
+      <li>Òş²ØÎÄ¼ş(»òÄ¿Â¼)ºó,Ëü»¹ÊÇ´æÔÚµÄ,Ö»ÊÇ¶ÔÑ§ÉúÒÑ¾­²»¿É¼û.</li>
   <li>ÒªÊ¹µÃÆä¶ÔÑ§Éú¿É¼û, µã»÷ <img src=../img/invisible.gif width=24 height=20>
-	(Î»ÓÚ\'ÏÔÊ¾/Òş²Ø\'À¸)</li>
-	</ul>
-	<h4>ÎªÎÄ¼ş(»òÄ¿Â¼)Ìí¼Ó»ò¸üĞÂÕªÒª</h4>
-	<ul>
+    (Î»ÓÚ\'ÏÔÊ¾/Òş²Ø\'À¸)</li>
+    </ul>
+    <h4>ÎªÎÄ¼ş(»òÄ¿Â¼)Ìí¼Ó»ò¸üĞÂÕªÒª</h4>
+    <ul>
   <li>µã»÷ <img src=../img/comment.gif width=20 height=20>
-	(Î»ÓÚ\'ÕªÒª\'À¸)</li>
-	  <li>ÔÚÓÒÉÏ½ÇÏàÓ¦ÇøÓòÌîĞ´ĞÂµÄÕªÒª.</li>
-	  <li>È·ÈÏ,µã»÷<input type=submit value=OK name=submit2>
-		.</li>
-	</ul>
-	<p>É¾³ıÕªÒª,µã»÷ <img src=../img/comment.gif width=20 height=20>,
-	  É¾³ıÏàÓ¦ÇøÓò¾ÉµÄÕªÒª <input type=submit value=OK name=submit22>
-	  .
-	<hr />
-	<p>Í¨¹ı ·ÖÀà ÕûÀíÀ´×éÖ¯ÄÚÈİ. ÈçÏÂËùÊ¾:</p>
-	<h4><b>´´½¨Ò»¸öÄ¿Â¼</b></h4>
-	<ul>
-	  <li>µã»÷ <img src=../img/folder.gif> \'´´½¨Ä¿Â¼\'(×óÉÏ½Ç)</li>
-	  <li>ÔÚÏàÓ¦ÇøÓò¼üÈëĞÂÄ¿Â¼µÄÃû³Æ(×óÉÏ½Ç)</li>
-	  <li>È·ÈÏ,µã»÷ <input type=submit value=OK name=submit23>.</li>
-	</ul>
-	<h4>ÒÆ¶¯ÎÄ¼ş(»òÄ¿Â¼)</h4>
-	<ul>
-	  <li>µã»÷ <img src=../img/deplacer.gif width=34 height=16>
-		Î»ÓÚ\'ÒÆ¶¯\'À¸</li>
-	  <li>ÔÚÏàÓ¦ÏÂÀ­²Ëµ¥(×óÉÏ)Ñ¡ÔñÄ¿±êÎÄ¼ş(»òÄ¿Â¼).(ÌáÊ¾: \'root\' ÒâË¼ÊÇÒÑ¾­Î»ÓÚÎÄ¼şÄ¿Â¼Ê÷µÄ¶¥²ãÁË,·şÎñÆ÷ÉÏµÄÏàÓ¦ÉÏ²ãÄ¿Â¼²»ÄÜÉÏ´«ÎÄ¼ş.</li>
-	  <li>È·ÈÏ,µã»÷ <input type=submit value=OK name=submit232>.</li>
-	</ul>
-	<center>
-	  <p>';
+    (Î»ÓÚ\'ÕªÒª\'À¸)</li>
+      <li>ÔÚÓÒÉÏ½ÇÏàÓ¦ÇøÓòÌîĞ´ĞÂµÄÕªÒª.</li>
+      <li>È·ÈÏ,µã»÷<input type=submit value=OK name=submit2>
+        .</li>
+    </ul>
+    <p>É¾³ıÕªÒª,µã»÷ <img src=../img/comment.gif width=20 height=20>,
+      É¾³ıÏàÓ¦ÇøÓò¾ÉµÄÕªÒª <input type=submit value=OK name=submit22>
+      .
+    <hr />
+    <p>Í¨¹ı ·ÖÀà ÕûÀíÀ´×éÖ¯ÄÚÈİ. ÈçÏÂËùÊ¾:</p>
+    <h4><b>´´½¨Ò»¸öÄ¿Â¼</b></h4>
+    <ul>
+      <li>µã»÷ <img src=../img/folder.gif> \'´´½¨Ä¿Â¼\'(×óÉÏ½Ç)</li>
+      <li>ÔÚÏàÓ¦ÇøÓò¼üÈëĞÂÄ¿Â¼µÄÃû³Æ(×óÉÏ½Ç)</li>
+      <li>È·ÈÏ,µã»÷ <input type=submit value=OK name=submit23>.</li>
+    </ul>
+    <h4>ÒÆ¶¯ÎÄ¼ş(»òÄ¿Â¼)</h4>
+    <ul>
+      <li>µã»÷ <img src=../img/deplacer.gif width=34 height=16>
+        Î»ÓÚ\'ÒÆ¶¯\'À¸</li>
+      <li>ÔÚÏàÓ¦ÏÂÀ­²Ëµ¥(×óÉÏ)Ñ¡ÔñÄ¿±êÎÄ¼ş(»òÄ¿Â¼).(ÌáÊ¾: \'root\' ÒâË¼ÊÇÒÑ¾­Î»ÓÚÎÄ¼şÄ¿Â¼Ê÷µÄ¶¥²ãÁË,·şÎñÆ÷ÉÏµÄÏàÓ¦ÉÏ²ãÄ¿Â¼²»ÄÜÉÏ´«ÎÄ¼ş.</li>
+      <li>È·ÈÏ,µã»÷ <input type=submit value=OK name=submit232>.</li>
+    </ul>
+    <center>
+      <p>';
 $_lang['blockExercisesHelp'] = '<h4>Á·Ï°¹¤¾ßÊÇÊ²Ã´£¿</h4>
 ¸Ã¹¤¾ßÔÊĞíÄã½¨Á¢°üº¬Ò»¸öÎÊÌâÁĞ±íµÄÔÚÏßÁ·Ï°¡£
 ÎÊÌâ¿ÉÒÔÊÇ¶àÖÖ¶àÑù£¬Ñ§Éú¿ÉÒÔ×öÁ·Ï°£¬Èç¹ûËûÃÇ×¢²áÁËÄãµÄ¿Î³Ì£¬ÄÇÃ´
@@ -1406,6 +1513,11 @@ $_lang['blockIntroCourse'] = 'ÄãÔÚ¿Î³ÌÖ÷Ò³¡£<br /><br />ÔÚÕâÀï£¬Äã¿ÉÒÔÊ¹ÓÃ£º
 $_lang['blockIntroLearningPath'] = 'Ê¹ÓÃ¸Ã¹¤¾ßÌá¹©ÎÄ¼ş¡¢Á·Ï°¡¢ÍøÒ³¡¢Á´½ÓÖ®¼äµÄÁ¬ĞøÂ·Ïß¸øÄãµÄÑ§Éú£¬...<br /><br />
 
 Èç¹ûÄãÏëÌá¹©Ñ§Ï°Â·Ïß¸øÄãµÄÑ§Éú£¬µã»÷ÏÂÃæµÄ°´Å¥¡£<br />';
+$_lang['blockIntroWork'] = '¸Ã¹¤¾ßÔÊĞí½ÌÊ¦½¨Á¢¹¦¿Î£¬ÈÎºÎÑ§Éú(°´ÕÕÃ¿¸ö¹¦¿ÎµÄÉèÖÃ)¿ÉÒÔÔÚ¿Î³ÌÖ÷Ò³ÉÏÉÏÔØÎÄ¼ş¡¢Ğ´Ò»¶ÎÎÄ±¾¡£
+
+<br />Äã½«¿ÉÒÔÌí¼ÓÒ»¸öÆÀÂÛ»ò¸øÃ¿¸ö×÷ÒµÉı¼¶¡£
+
+<br /><br />Èç¹ûÄãÏëÌá¹©Õâ¸ö¹¤¾ß»ò¸øÑ§ÉúÒ»Ğ©ÖÒ¸æ£¬µã»÷ÏÂÃæµÄ°´Å¥¡£<br />';
 $_lang['blockModulePoolHelp'] = '¸ÃÒ³ÔÊĞíÄã²é¿´¿Î³ÌÖĞËùÓĞ¿ÉÓÃµÄÄ£¿é¡£<br />
 
                      ÒÑ¾­Ìí¼Óµ½Ñ§Ï°Â·ÏßÖĞµÄÈÎºÎÁ·Ï°»òÎÄ¼ş½«ÏÔÊ¾ÔÚÕâ¸öÁĞ±íÖĞ¡£';
@@ -1498,7 +1610,10 @@ $_lang['denotes new items'] = '±ê¼ÇĞÂÏîÄ¿';
 $_lang['differences between version of %1\$s modified by %2\$s and version of %3\$s modified by %4\$s'] = '%2$s ĞŞ¸ÄµÄ%1$s °æ±¾ºÍ%4$sĞŞ¸ÄµÄ%3$s°æ±¾Ö®¼äµÄ²î±ğ';
 $_lang['e.g. <em>History of Literature</em>'] = 'e.g. <i>ÎÄÑ§ÀúÊ·</i>';
 $_lang['good looking'] = 'good looking';
+$_lang['group(s) has (have) been added'] = 'Ñ§Ï°Ğ¡×éÒÑ¾­¼ÓÈë';
+$_lang['has been enroled'] = 'ÒÑ¾­µÇ¼Ç';
 $_lang['if you choose to continue, lines with errors will simply be ignored'] = 'Èç¹ûÄãÑ¡Ôñ¼ÌĞø£¬ÓĞ´íµÄÏßÌõ½«±»ºöÂÔ';
+$_lang['in all exercises'] = 'ÔÚËùÓĞµÄÁ·Ï°ÖĞ';
 $_lang['line'] = 'ĞĞ';
 $_lang['lines'] = 'ĞĞ';
 $_lang['max. 12 characters, e.g. <em>ROM2121</em>'] = '×î¶à12¸ö×ÖÄ¸,±ÈÈç<i>ROM2121</i>';
@@ -1506,6 +1621,7 @@ $_lang['my group'] = 'ÎÒµÄÑ§Ï°Ğ¡×é';
 $_lang['my supervision'] = 'ÎÒµÄ¹ÜÀí';
 $_lang['new group(s)'] = 'ĞÂÑ§Ï°Ğ¡×é';
 $_lang['number'] = 'ÓÃ»§Êı';
+$_lang['only in the current exercise'] = '½öÔÚµ±Ç°µÄÁ·Ï°ÖĞ';
 $_lang['previous level'] = 'ÉÏ¸öË®Æ½';
 $_lang['register'] = '×¢²á';
 $_lang['rich'] = 'rich';
@@ -1528,8 +1644,10 @@ $_lang['sampleQuizQuestionTitle'] = 'Socratic irony is...';
 $_lang['sampleQuizTitle'] = 'Á·Ï°Ê¾Àı';
 $_lang['seats (optional)'] = '×ùÎ»(¿ÉÑ¡)';
 $_lang['seats by groups (optional)'] = '°´Ñ§Ï°Ğ¡×é¾Í×ù (¿ÉÑ¡)';
+$_lang['this password is too simple. Use a password like this <code>%passpruposed</code>'] = 'Õâ¸öÃÜÂëÌ«¼òµ¥¡£Ê¹ÓÃµÄÃÜÂëÒªÏñ£º';
 $_lang['to'] = 'µ½';
 $_lang['uncompress zipped (.zip) file on the server'] = 'ÔÚ·şÎñÆ÷ÉÏ½âÑ¹Ëõ.zipÎÄ¼ş';
+$_lang['use brackets [...] to define one or more blanks'] = 'Ê¹ÓÃÀ¨ºÅ [...] ¶¨ÒåÒ»¸ö»ò¸ü¶àµÄ¿Õ';
 $_lang['warning : Installation cannot find the description of the learning path and has set a default comment.  You should change it'] = '¾¯¸æ£º°²×°³ÌĞòÃ»ÓĞ·¢ÏÖÑ§Ï°Â·ÏßµÄ¼ò½é£¬ÓÚÊÇÉèÖÃÁËÒ»¸öÄ¬ÈÏµÄËµÃ÷¡£ÄãÒªĞŞ¸ÄËü¡£';
 $_lang['warning : Installation cannot find the name of the learning path and has set a default name.  You should change it.'] = '¾¯¸æ£º °²×°³ÌĞòÃ»ÓĞ·¢ÏÖÑ§Ï°Â·ÏßµÄÃû³Æ£¬ÓÚÊÇÉèÖÃÁËÒ»¸öÄ¬ÈÏµÄËµÃ÷¡£ÄãÒªĞŞ¸ÄËü¡£';
 ?>

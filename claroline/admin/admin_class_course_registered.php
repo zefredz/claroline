@@ -17,34 +17,33 @@
 
 require '../inc/claro_init_global.inc.php';
 
-require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
-require_once get_path('incRepositorySys') . '/lib/class.lib.php';
-require_once get_path('incRepositorySys') . '/lib/user.lib.php';
+require_once $includePath . '/lib/admin.lib.inc.php';
+require_once $includePath . '/lib/class.lib.php';
+require_once $includePath . '/lib/user.lib.php';
 
-include claro_get_conf_repository() . 'user_profile.conf.php'; // find this file to modify values.
+include $includePath . '/conf/user_profile.conf.php'; // find this file to modify values.
 
 // Security check
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 //bredcrump
 
 $nameTools=get_lang('Class registered');
-$interbredcrump[]= array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Class registered'));
+$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Class registered'));
 
-$cmd = isset($_REQUEST['cmd'])?$_REQUEST['cmd']:null;
-$class_id = isset($_REQUEST['class_id'])?$_REQUEST['class_id']:0;
-$course_id = isset($_REQUEST['course_id'])?$_REQUEST['course_id']:null;
+if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
+else                           $cmd = null;
 
 //------------------------------------
 // Execute COMMAND section
 //------------------------------------
 
-if (isset($cmd) && claro_is_platform_admin())
+if (isset($cmd) && $is_platformAdmin)
 {
     if ($cmd == 'exReg')
     {
-        $resultLog = register_class_to_course($class_id,$course_id);
+        $resultLog = register_class_to_course($_REQUEST['class'], $_REQUEST['course']);
         $outputResultLog = '';
 
         if ( isset($resultLog['OK']) && is_array($resultLog['OK']) )
@@ -70,27 +69,44 @@ if (isset($cmd) && claro_is_platform_admin())
  * PREPARE DISPLAY
  */
 
-$classinfo = class_get_properties($class_id);
+$classinfo =  get_class_info_by_id($_SESSION['admin_user_class_id']);
 
 if ( !empty($outputResultLog) ) $dialogBox = $outputResultLog;
-$cmdList[] =  '<a class="claroCmd" href="index.php">' . get_lang('Back to administration page') . '</a>';
-$cmdList[] =  '<a class="claroCmd" href="' . 'admin_class_user.php?class_id=' . $classinfo['id'] . '">' . get_lang('Back to class members') . '</a>';
-$cmdList[] =  '<a class="claroCmd" href="' . get_path('clarolineRepositoryWeb') . 'auth/courses.php?cmd=rqReg&amp;fromAdmin=class' . '">' . get_lang('Register class for course') . '</a>';
+$cmd_menu[] =  '<p><a class="claroCmd" href="index.php">' . get_lang('Back to administration page') . '</a>';
+$cmd_menu[] =  '<a class="claroCmd" href="' . 'admin_class_user.php?class=' . $classinfo['id'] . '">' . get_lang('Back to class members') . '</a>';
+$cmd_menu[] =  '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=rqReg&amp;fromAdmin=class' . '">' . get_lang('Register class for course') . '</a></p>';
+
 
 /**
  * DISPLAY
  */
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include $includePath . '/claro_init_header.inc.php';
 
 echo claro_html_tool_title(get_lang('Class registered') . ' : ' . $classinfo['name']);
 
 if ( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
 
-echo '<p>'
-.    claro_html_menu_horizontal($cmdList)
-.    '</p>'
-;
+echo claro_html_menu_horizontal($cmd_menu);
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
+
+/**
+ * get info about a class
+ *
+ * @param integer $class_id
+ * @return array (id, name)
+ */
+function get_class_info_by_id($class_id)
+{
+
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_class       = $tbl_mdb_names['user_category'];
+    $sqlclass = "SELECT id,
+                        name
+                 FROM `" . $tbl_class . "`
+                 WHERE `id`='". (int) $class_id . "'";
+    return claro_sql_query_get_single_row($sqlclass);
+}
+
 
 ?>

@@ -1,114 +1,67 @@
 <?php // $Id$
-/**
- * The miss named class bufferize dock output.
- * Docks areone of the module type aivailable in claroline
- *
- */
-if ( count( get_included_files() ) == 1 ) die( '---' );
+$tbl_name = claro_sql_get_main_tbl();
 
-// TODO rename this lib to dock.lib.php
+$tbl_module = $tbl_name['module'];
+$tbl_dock = $tbl_name['dock'];
 
 class Buffer
 {
-    var $buffer;
+   var $buffer;
 
-    function Buffer()
-    {
-        $this->buffer = '';
-    }
+   function Buffer()
+   {
+       $this->buffer = '';
+   }
 
-    function init()
-    {
-        $this->buffer = '';
-    }
+   function init()
+   {
+       $this->buffer = '';
+   }
 
-    function clear()
-    {
-        $this->buffer = '';
-    }
+   function clear()
+   {
+       $this->buffer = '';
+   }
 
-    function append( $str )
-    {
-        $this->buffer .= $str;
-    }
+   function append( $str )
+   {
+       $this->buffer .= $str;
+   }
 
-    function getContent()
-    {
-        return $this->buffer;
-    }
+   function getContent()
+   {
+       return $this->buffer;
+   }
 
-    function flush()
-    {
-        $buffer = $this->buffer;
-        $this->clear();
-        return $buffer;
-    }
+   function flush()
+   {
+       $buffer = $this->buffer;
+       $this->clear();
+       return $buffer;
+   }
 }
 
-/**
- * return the list of dock and module actived in there
- *
- * @param boolean $force whether force to load from db ignoring memory cache.
- * @return array of array
- */
-
-function claro_get_docks_module_list($force = false)
-{
-    static $dockList = null;
-
-    if( is_null($dockList) || $force)
-    {
-
-        $tbl_name = claro_sql_get_main_tbl();
-
-        $sql = "SELECT M.`label` AS `label`,
-                       D.`name` AS `dock`
-                FROM `" . $tbl_name['module'] . "` AS M,
-                     `" . $tbl_name['dock'] . "` AS D
-                 WHERE D.`module_id` = M.`id`
-                   AND M.`activation` = 'activated'
-                   ORDER BY D.`rank` ";
-        $moduleList = claro_sql_query_fetch_all($sql);
-
-        $dockList = array();
-
-        if ( $moduleList )
-        {
-            foreach ( $moduleList as $module )
-            {
-                if ( ! array_key_exists( $module['dock'], $dockList ) )
-                {
-                    $dockList[$module['dock']] = array();
-                }
-
-                $dockList[$module['dock']][] = array( 'label' => $module['label']);
-            }
-
-
-        }
-    }
-    return $dockList;
-}
 
 function getAppletList($dock)
 {
-    static $moduleList = array();
+    global $tbl_module;
+    global $tbl_dock;
+    global $includePath;
 
-    if ( empty( $moduleList ) )
-    {
-        $moduleList = claro_get_docks_module_list();
-    }
-
-    $dockModuleList = array_key_exists( $dock, $moduleList )
-    ? $moduleList[$dock]
-    : array()
-    ;
+    $sql = "SELECT *
+              FROM `".$tbl_module."` AS M, `".$tbl_dock."` AS D
+             WHERE D.`name` = '".$dock."'
+               AND D.`module_id` = M.`id`
+               AND M.`activation` = 'activated'
+               ORDER BY D.`rank`
+              ";
+    $module_list = claro_sql_query_fetch_all($sql);
 
     $appletList = array();
 
-    // stack each entry point of plugins supposed to display output in this buffer
+    //include each entry point of plugins supposed to display output in this buffer
 
-    foreach ($dockModuleList as $module)
+    foreach ($module_list as $module)
     {
         if (file_exists(get_module_path($module['label']) . '/entry.php'))
         {
@@ -134,52 +87,52 @@ class Dock
     function Dock($name)
     {
        $this->name = $name;
-       // TODO move call to getAppletList outside the constructor
-       // this is magical code !!!!
        $appletList = getAppletList($this->name);
        $this->setAppletList($appletList);
     }
 
     function setAppletList($appletList = array())
     {
-        $this->appletList = $appletList;
+       $this->appletList = $appletList;
     }
 
     function addElement($applet)
     {
-        $this->appletList[] = $applet;
+       $this->appletList[] = $applet;
     }
 
     function addOutput($string, $atEnd = false)
     {
         if ($atEnd)
         {
-            $this->kernelOutputAtEnd .= $string;
+           $this->kernelOutputAtEnd .= $string;
         }
         else
         {
-            $this->kernelOutput .= $string;
+           $this->kernelOutput .= $string;
         }
     }
 
     function render()
     {
-        $claro_buffer = new Buffer();
-        $claro_buffer->append("\n" . '<div id="' . $this->name.'">' . "\n");
 
-        $claro_buffer->append($this->kernelOutput);
 
-        foreach ( $this->appletList as $applet )
-        {
-            # entry appends appletoutput to $buffer
-            include $applet['path'];
-        }
+       $claro_buffer = new Buffer();
+       $claro_buffer->append("\n" . '<div id="' . $this->name.'" class="dock">' . "\n");
 
-        $claro_buffer->append($this->kernelOutputAtEnd);
+       $claro_buffer->append($this->kernelOutput);
 
-        $claro_buffer->append("\n" . '</div>' . "\n\n");
+       foreach ( $this->appletList as $applet )
+       {
+          # entry appends appletoutput to $buffer
+          include $applet['path'];
+       }
 
-        return $claro_buffer->getContent();
+       $claro_buffer->append($this->kernelOutputAtEnd);
+
+       $claro_buffer->append("\n" . '</div>' . "\n\n");
+
+       return $claro_buffer->getContent();
     }
 }
 ?>

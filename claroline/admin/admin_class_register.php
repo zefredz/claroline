@@ -17,15 +17,15 @@
 
 require '../inc/claro_init_global.inc.php';
 
-require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
-require_once get_path('incRepositorySys') . '/lib/user.lib.php';
-require_once get_path('incRepositorySys') . '/lib/class.lib.php';
-require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
-require_once get_path('incRepositorySys') . '/lib/user.lib.php';
+require_once $includePath . '/lib/pager.lib.php';
+require_once $includePath . '/lib/user.lib.php';
+require_once $includePath . '/lib/class.lib.php';
+require_once $includePath . '/lib/admin.lib.inc.php';
+require_once $includePath . '/lib/user.lib.php';
 
 // Security check
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 $userPerPage = 20; // numbers of user to display on the same page
 
@@ -37,220 +37,223 @@ $tbl_user       = $tbl_mdb_names['user'];
 $tbl_class      = $tbl_mdb_names['user_category'];
 $tbl_class_user = $tbl_mdb_names['user_rel_profile_category'];
 
-// Main section
+//find info about the class
 
-$cmd = isset($_REQUEST['cmd'])?$_REQUEST['cmd']:null;
-$user_id = isset($_REQUEST['user_id'])?(int)$_REQUEST['user_id']:0;
-$class_id = isset($_REQUEST['class_id'])?(int)$_REQUEST['class_id']:0;
+$sqlclass = "SELECT *
+             FROM `".$tbl_class."`
+             WHERE `id`='".$_SESSION['admin_user_class_id']."'";
 
-// find info about the class
+list($classinfo) = claro_sql_query_fetch_all($sqlclass);
 
-if ( ($classinfo = class_get_properties ($class_id)) === false )
+// See SESSION variables used for reorder criteria :
+
+if (isset($_REQUEST['dir'])) $_SESSION['admin_class_reg_user_order_crit'] = ($_REQUEST['dir']=='DESC'?'DESC':'ASC');
+else                         $_REQUEST['dir'] = 'ASC';
+
+//------------------------------------
+// Execute COMMAND section
+//------------------------------------
+
+if (isset($_REQUEST['cmd'])) $cmd = $_REQUEST['cmd'];
+else                         $cmd = null;
+
+switch ($cmd)
 {
-    $class_id = 0;
+    case 'subscribe' :
+    {
+        if (user_add_to_class($_REQUEST['user_id'],$classinfo['id']))
+        {
+            $dialogBox = get_lang('User has been sucessfully registered to the class');
+        }
+    } break;
+
+    case 'unsubscribe' :
+    {
+        user_remove_to_class($_REQUEST['user_id'],$classinfo['id']);
+        $dialogBox = get_lang('User has been sucessfully unregistered from the class');
+    } break;
+
 }
 
-if ( !empty($class_id) )
+
+
+//----------------------------------
+// Build query and find info in db
+//----------------------------------
+
+
+$sql = "SELECT *, U.`user_id`
+        FROM  `" . $tbl_user . "` AS U
+        LEFT JOIN `" . $tbl_class_user . "` AS CU
+               ON  CU.`user_id` = U.`user_id`
+              AND CU.`class_id` = " . (int) $classinfo['id'];
+
+// deal with REORDER
+
+// See SESSION variables used for reorder criteria :
+
+if (isset($_REQUEST['order_crit']))
 {
-    switch ( $cmd )
+    $_SESSION['admin_class_reg_user_order_crit'] = $_REQUEST['order_crit'];
+    if ($_REQUEST['order_crit']=="user_id")
     {
-        case 'subscribe' :
-            if ( user_add_to_class($user_id,$class_id) )
-            {
-                $dialogBox = get_lang('User has been sucessfully registered to the class');
-            }
-            break;
-
-        case 'unsubscribe' :
-            if ( user_remove_to_class($user_id,$class_id) )
-            {
-                $dialogBox = get_lang('User has been sucessfully unregistered from the class');
-            }
-            break;
+        $_SESSION['admin_class_reg_user_order_crit'] = "U`.`user_id";
     }
+}
+if (isset($_REQUEST['class']))
+{
+    $_SESSION['admin_user_class_id'] = $_REQUEST['class'];
+}
+if (!isset($_SESSION['admin_user_class_id']))
+{
+    $dialogBox ="ERROR : NO CLASS SET!!!";
+}
 
-    //----------------------------------
-    // Build query and find info in db
-    //----------------------------------
+  //first if direction must be changed
 
-    $sql = "SELECT *, U.`user_id`
-            FROM  `" . $tbl_user . "` AS U
-            LEFT JOIN `" . $tbl_class_user . "` AS CU
-                   ON  CU.`user_id` = U.`user_id`
-                  AND CU.`class_id` = " . (int) $class_id;
+if (isset($_REQUEST['chdir']) && ($_REQUEST['chdir']=="yes"))
+{
+  if ($_SESSION['admin_class_reg_user_dir'] == "ASC") {$_SESSION['admin_class_reg_user_dir']="DESC";}
+  elseif ($_SESSION['admin_class_reg_user_dir'] == "DESC") {$_SESSION['admin_class_reg_user_dir']="ASC";}
+}
+elseif (!isset($_SESSION['admin_class_reg_user_dir']))
+{
+    $_SESSION['admin_class_reg_user_dir'] = 'DESC';
+}
 
-    // deal with REORDER
-
-    // See SESSION variables used for reorder criteria :
-
-    if (isset($_REQUEST['dir'])) $_SESSION['admin_class_reg_user_order_crit'] = ($_REQUEST['dir']=='DESC'?'DESC':'ASC');
-    else                         $_REQUEST['dir'] = 'ASC';
-
-    if (isset($_REQUEST['order_crit']))
+if (isset($_SESSION['admin_class_reg_user_order_crit']))
+{
+    if ($_SESSION['admin_class_reg_user_order_crit']=="user_id")
     {
-        $_SESSION['admin_class_reg_user_order_crit'] = $_REQUEST['order_crit'];
-        if ($_REQUEST['order_crit']=="user_id")
-        {
-            $_SESSION['admin_class_reg_user_order_crit'] = "U`.`user_id";
-        }
+        $toAdd = " ORDER BY CU.`user_id` ".$_SESSION['admin_class_reg_user_dir'];
     }
     else
     {
-       $_SESSION['admin_class_reg_user_order_crit'] = 'nom';
-       $_SESSION['admin_class_reg_user_dir'] = 'ASC';
+        $toAdd = " ORDER BY `".$_SESSION['admin_class_reg_user_order_crit']."` ".$_SESSION['admin_class_reg_user_dir'];
     }
-
-    // first if direction must be changed
-
-    if (isset($_REQUEST['chdir']) && ($_REQUEST['chdir']=="yes"))
-    {
-      if ($_SESSION['admin_class_reg_user_dir'] == "ASC") {$_SESSION['admin_class_reg_user_dir']="DESC";}
-      elseif ($_SESSION['admin_class_reg_user_dir'] == "DESC") {$_SESSION['admin_class_reg_user_dir']="ASC";}
-    }
-    elseif (!isset($_SESSION['admin_class_reg_user_dir']))
-    {
-        $_SESSION['admin_class_reg_user_dir'] = 'DESC';
-    }
-
-    if (isset($_SESSION['admin_class_reg_user_order_crit']))
-    {
-        if ($_SESSION['admin_class_reg_user_order_crit']=="user_id")
-        {
-            $toAdd = " ORDER BY CU.`user_id` ".$_SESSION['admin_class_reg_user_dir'];
-        }
-        else
-        {
-            $toAdd = " ORDER BY `".$_SESSION['admin_class_reg_user_order_crit']."` ".$_SESSION['admin_class_reg_user_dir'];
-        }
-        $sql.=$toAdd;
-    }
-
-    //Build pager with SQL request
-
-    if (!isset($_REQUEST['offset'])) $offset = '0';
-    else                             $offset = $_REQUEST['offset'];
-
-    $myPager = new claro_sql_pager($sql, $offset, $userPerPage);
-    $resultList = $myPager->get_result_list();
+    $sql.=$toAdd;
 }
+
+// Deal with interbredcrumps
+
+$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+$interbredcrump[]= array ('url' => $rootAdminWeb . 'admin_class.php', 'name' => get_lang('Classes'));
+$interbredcrump[]    = array ('url' => $rootAdminWeb . 'admin_class_user.php', 'name' => get_lang('Class users'));
+$nameTools = get_lang('Register user to class');
+
+//Header
+include $includePath . '/claro_init_header.inc.php';
+
+//Build pager with SQL request
+
+if (!isset($_REQUEST['offset'])) $offset = '0';
+else                             $offset = $_REQUEST['offset'];
+
+
+$myPager = new claro_sql_pager($sql, $offset, $userPerPage);
+$resultList = $myPager->get_result_list();
+
 
 //------------------------------------
 // DISPLAY
 //------------------------------------
 
-// Deal with interbredcrumps
+// Display tool title
 
-$interbredcrump[]= array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
-$interbredcrump[]= array ('url' => get_path('rootAdminWeb') . 'admin_class.php', 'name' => get_lang('Classes'));
-$interbredcrump[]    = array ('url' => get_path('rootAdminWeb') . 'admin_class_user.php?class_id='.$class_id, 'name' => get_lang('Class users'));
-$nameTools = get_lang('Register user to class');
+echo claro_html_tool_title($nameTools . ' : ' . $classinfo['name']);
 
-// Header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+// Display Forms or dialog box(if needed)
 
-if ( empty($class_id) )
+if(isset($dialogBox)) echo claro_html_message_box($dialogBox);
+
+//TOOL LINKS
+
+echo '<a class="claroCmd" href="' . $clarolineRepositoryWeb . 'admin/admin_class_user.php?class=' . $classinfo['id'] . '">' . get_lang('Class members') . '</a>'
+.    '<br /><br />'
+;
+
+if (isset($cfrom) && ($cfrom=="clist")) echo claro_html_button('admincourses.php', get_lang('Back to course list'));
+
+//Pager
+
+echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+
+// Display list of users
+// start table...
+
+echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
+.    '<thead>' . "\n"
+.    '<tr class="headerX" align="center" valign="top">'
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=user_id&amp;chdir=yes">' . get_lang('User Id') . '</a></th>' . "\n"
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=nom&amp;chdir=yes"    >' . get_lang('Last name') . '</a></th>' . "\n"
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=prenom&amp;chdir=yes" >' . get_lang('First name') . '</a></th>' . "\n"
+.    '<th>' . get_lang('Register to the class') . '</th>'
+.    '<th>' . get_lang('Unregister from class') . '</th>'
+.    '</tr>' . "\n"
+.    '</thead>' . "\n"
+.    '<tbody>' . "\n"
+;
+
+   // Start the list of users...
+
+foreach($resultList as $list)
 {
-    echo claro_html_message_box(get_lang('Class not found'));
-}
-else
-{
-    // Display tool title
+     echo '<tr>'
+     .    '<td align="center">'
+     .    '<a name="u' . $list['user_id'] . '"></a>' // no label in the a it's a target.
+     .    $list['user_id'] . '</td>' . "\n"
+     .    '<td align="left">' . $list['nom']    . '</td>' . "\n"
+     .    '<td align="left">' . $list['prenom'] . '</td>' . "\n"
+     ;
+     // Register
 
-    echo claro_html_tool_title($nameTools . ' : ' . $classinfo['name']);
-    
-    // Display Forms or dialog box(if needed)
-    
-    if (isset($dialogBox)) echo claro_html_message_box($dialogBox);
-    
-    // Display tool link
-
-    echo '<p><a class="claroCmd" href="' . get_path('clarolineRepositoryWeb').'admin/admin_class_user.php?class_id='.$class_id.'">'. 
-         get_lang('Class members').'</a></p>'."\n";
-
-    if (isset($_REQUEST['cfrom']) && ($_REQUEST['cfrom']=='clist')) echo claro_html_button('admincourses.php', get_lang('Back to course list'));
-
-    // Display pager
-
-    echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?class_id='.$class_id);
-
-    // Display list of users
-    // start table...
-
-    echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
-    .    '<thead>' . "\n"
-    .    '<tr class="headerX" align="center" valign="top">'
-    .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;order_crit=user_id&amp;chdir=yes">' . get_lang('User Id') . '</a></th>' . "\n"
-    .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;order_crit=nom&amp;chdir=yes"    >' . get_lang('Last name') . '</a></th>' . "\n"
-    .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;order_crit=prenom&amp;chdir=yes" >' . get_lang('First name') . '</a></th>' . "\n"
-    .    '<th>' . get_lang('Register to the class') . '</th>'
-    .    '<th>' . get_lang('Unregister from class') . '</th>'
-    .    '</tr>' . "\n"
-    .    '</thead>' . "\n"
-    .    '<tbody>' . "\n"
-    ;
-
-    // Start the list of users...
-
-    foreach ( $resultList as $list )
-    {
-         echo '<tr>'
-         .    '<td align="center">'
-         .    '<a name="u' . $list['user_id'] . '"></a>' // no label in the a it's a target.
-         .    $list['user_id'] . '</td>' . "\n"
-         .    '<td align="left">' . $list['nom']    . '</td>' . "\n"
-         .    '<td align="left">' . $list['prenom'] . '</td>' . "\n"
+     if ($list['id']==null)
+     {
+         echo '<td align="center">' . "\n"
+         .    '<a href="' . $_SERVER['PHP_SELF'] . '?class=' . $classinfo['id'] . '&amp;cmd=subscribe&user_id=' . $list['user_id'].'&amp;offset=' . $offset . '#u' . $list['user_id'] . '">' . "\n"
+         .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . get_lang('Register to the class') . '" />' . "\n"
+         .    '</a>' . "\n"
+         .    '</td>' . "\n"
          ;
-         // Register
+     }
+     else
+     {
+         echo '<td align="center">' . "\n"
+         .    '<small>' . get_lang('User already in class') . '</small>' . "\n"
+         .    '</td>' . "\n"
+         ;
+     }
 
-         if ($list['id']==null)
-         {
-             echo '<td align="center">' . "\n"
-             .    '<a href="' . $_SERVER['PHP_SELF'] . '?class_id=' . $class_id . '&amp;cmd=subscribe&user_id=' . $list['user_id'].'&amp;offset=' . $offset . '#u' . $list['user_id'] . '">' . "\n"
-             .    '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" border="0" alt="' . get_lang('Register to the class') . '" />' . "\n"
-             .    '</a>' . "\n"
-             .    '</td>' . "\n"
-             ;
-         }
-         else
-         {
-             echo '<td align="center">' . "\n"
-             .    '<small>' . get_lang('User already in class') . '</small>' . "\n"
-             .    '</td>' . "\n"
-             ;
-         }
+// Unregister
 
-        // Unregister
-
-         if ($list['id']!=null)
-         {
-             echo '<td align="center">' . "\n"
-             .    '<a href="'.$_SERVER['PHP_SELF'].'?class_id='.$class_id.'&amp;cmd=unsubscribe&user_id='.$list['user_id'].'&amp;offset='.$offset.'#u'.$list['user_id'].'">' . "\n"
-             .    '<img src="' . get_path('imgRepositoryWeb') . 'unenroll.gif" border="0" alt="' . get_lang('Unregister from class').'" />' . "\n"
-             .    '</a>' . "\n"
-             .    '</td>' . "\n"
-             ;
-         }
-         else
-         {
-             echo '<td align="center">' . "\n"
-             .    '<small>' . get_lang('User not in the class') . '</small>' . "\n"
-             .    '</td>' . "\n"
-             ;
-         }
-         echo '</tr>' . "\n";
-    }
-
-    // end display users table
-
-    echo '</tbody>' . "\n"
-    .    '</table>' . "\n"
-    ;
-
-    //Pager
-
-    echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?class_id='.$class_id);
-
+     if ($list['id']!=null)
+     {
+         echo '<td align="center">' . "\n"
+         .    '<a href="'.$_SERVER['PHP_SELF'].'?class='.$classinfo['id'].'&amp;cmd=unsubscribe&user_id='.$list['user_id'].'&amp;offset='.$offset.'#u'.$list['user_id'].'">' . "\n"
+         .    '<img src="' . $imgRepositoryWeb . 'unenroll.gif" border="0" alt="' . get_lang('Unregister from class').'" />' . "\n"
+         .    '</a>' . "\n"
+         .    '</td>' . "\n"
+         ;
+     }
+     else
+     {
+         echo '<td align="center">' . "\n"
+         .    '<small>' . get_lang('User not in the class') . '</small>' . "\n"
+         .    '</td>' . "\n"
+         ;
+     }
+     echo '</tr>' . "\n";
 }
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+   // end display users table
+
+echo '</tbody>' . "\n"
+.    '</table>' . "\n"
+;
+
+//Pager
+
+echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+
+include $includePath . '/claro_init_footer.inc.php';
 ?>

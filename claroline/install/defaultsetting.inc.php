@@ -1,5 +1,4 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
@@ -76,7 +75,7 @@ $adminEmailForm    = $conf_def_property_list['administrator_email']['default'];
 
 
 $contactNameForm     = '*not set*'; // This magic value is use to detect if the content is edit or not.
-$contactPhoneForm    = ''; // if <not set> is found, the data form admin are copied
+$contactPhoneForm    = '*not set*'; // if <not set> is found, the data form admin are copied
 $contactEmailForm    = '*not set*'; // This tips  permit to  empty these fields
 
 

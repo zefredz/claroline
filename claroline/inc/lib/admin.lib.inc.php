@@ -1,5 +1,4 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
@@ -16,8 +15,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *     ...see details of pre/post for each function's proper use.
  *
  * @version 1.8 $Revision$
- *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * 
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -31,14 +30,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  */
 
 include_once( dirname(__FILE__) . '/fileManage.lib.php');
-include_once( dirname(__FILE__) . '/right/courseProfileToolAction.class.php');
 
 /**
  * delete a course of the plateform
  *
- * TODO detect failure with claro_failure
+ * @author
  *
- * @param string $cid
+ * @param
  *
  * @return boolean TRUE        if suceed
  *         boolean FALSE       otherwise.
@@ -46,30 +44,38 @@ include_once( dirname(__FILE__) . '/right/courseProfileToolAction.class.php');
 
 function delete_course($code)
 {
+    global $coursesRepositorySys;
     global $eventNotifier;
 
     //declare needed tables
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_course           = $tbl_mdb_names['course'           ];
     $tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'  ];
+    $tbl_notify           = $tbl_mdb_names['notify'  ];
     $tbl_course_class      = $tbl_mdb_names['rel_course_class'];
 
     $this_course = claro_get_course_data($code);
     $currentCourseId = $this_course['sysCode'];
 
-    // DELETE USER REGISTRATION INTO THIS COURSE
+    // DELETE USER ENROLLMENT INTO THIS COURSE
 
     $sql = 'DELETE FROM `' . $tbl_rel_course_user . '`
             WHERE code_cours="' . $currentCourseId . '"';
 
     claro_sql_query($sql);
 
-    // Remove any recording in rel_cours_class
-
-      $sql = "DELETE FROM `" . $tbl_course_class . "`
-              WHERE courseId ='" . addslashes($currentCourseId) . "'";
-
-      claro_sql_query($sql);
+    //Get the course id with the cours code and remove any recording in rel_cours_class
+  	 
+  	$sql = "SELECT `cours_id`
+  	        FROM `".$tbl_course."`
+  	        WHERE `code` = '". addslashes($currentCourseId) ."'";
+  	 
+  	$cours_id = claro_sql_query_get_single_value($sql);
+  	 
+  	$sql = 'DELETE FROM `' . $tbl_course_class . '`
+  	        WHERE cours_id ="' . $cours_id . '"';
+  	 
+  	claro_sql_query($sql);
 
     // DELETE THE COURSE INSIDE THE PLATFORM COURSE REGISTERY
 
@@ -78,20 +84,11 @@ function delete_course($code)
 
     claro_sql_query($sql);
 
-    // DELETE course right
-
-    RightCourseProfileToolRight::resetAllRightProfile($currentCourseId);
-
-    // DELETE course module tables
-    // FIXME handle errors
-    list( $success, $log ) = delete_all_modules_from_course( $currentCourseId );
-
     //notify the course deletion event
-    $args['cid'] = $this_course['sysCode'];
-    $args['tid'] = null;
-    $args['rid'] = null;
-    $args['gid'] = null;
-    $args['uid'] = $GLOBALS['_uid'];
+    $args['courseSysCode'] = $this_course['sysCode'];
+    $args['courseDbName'] = $this_course['dbName'];
+    $args['courseDirectory'] = $this_course['path'];
+    $args['courseCategory']	= $this_course['categoryCode'];
 
     $eventNotifier->notifyEvent("course_deleted",$args);
 
@@ -120,7 +117,7 @@ function delete_course($code)
             // DELETE ALL TABLES OF THE CURRENT COURSE
 
             $tblSurvivor = array();
-            while( false !== ($courseTable = mysql_fetch_array($result,MYSQL_NUM ) ))
+            while( $courseTable = mysql_fetch_array($result,MYSQL_NUM ) )
             {
                 $tblSurvivor[]=$courseTable[0];
                 //$tblSurvivor[$courseTable]='not deleted';
@@ -144,21 +141,15 @@ function delete_course($code)
 
         // MOVE THE COURSE DIRECTORY INTO THE COURSE GARBAGE COLLECTOR
 
-        if(file_exists(get_conf('coursesRepositorySys') . $currentCoursePath . '/'))
-        {
-            claro_mkdir(get_conf('garbageRepositorySys'), CLARO_FILE_PERMISSIONS, true);
+        claro_mkdir(get_conf('garbageRepositorySys'), CLARO_FILE_PERMISSIONS, true);
 
-            rename(get_conf('coursesRepositorySys') . $currentCoursePath . '/',
-            get_conf('garbageRepositorySys','garbage') . '/' . $currentCoursePath . '_' . date('YmdHis')
-            );
-        }
-        // else pushClaroMessage('dir was already deleted');
-
-        return true ;
+        rename(get_conf('coursesRepositorySys') . $currentCoursePath . '/',
+        get_conf('garbageRepositorySys','garbage') . '/' . $currentCoursePath . '_' . date('YmdHis')
+        );
     }
     else
     {
-        return false ;
+        die('WRONG CID');
     }
 }
 

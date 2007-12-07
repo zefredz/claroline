@@ -509,7 +509,7 @@ class Cache_Lite
     */
     function raiseError($msg, $code)
     {
-        include_once(PEAR_LIB_PATH . '/PEAR.php');
+        include_once('PEAR.php');
         PEAR::raiseError($msg, $code, $this->_pearErrorMode);
     }
 

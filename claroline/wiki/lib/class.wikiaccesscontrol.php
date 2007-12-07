@@ -1,8 +1,7 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 
     // vim: expandtab sw=4 ts=4 sts=4:
-
+    
     /**
      * CLAROLINE
      *
@@ -19,7 +18,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
      *
      * @package Wiki
      */
-
+    
     /**
      * Wiki access control library
      * ACLs are of the form
@@ -40,7 +39,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         {
             $prefixList = WikiAccessControl::prefixList();
             $privilegeList = WikiAccessControl::privilegeList();
-
+            
             if ( isset( $prefixList[$accessLevel] ) &&
                     isset( $privilegeList[$privilege] ) )
             {
@@ -57,7 +56,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             {
                 $accessControlFlag = false;
             }
-
+        
             if ( $accessControlFlag == true )
             {
                 return true;
@@ -67,7 +66,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 return false;
             }
         }
-
+        
         /**
          * lists the prefixes associated with the access levels
          * @return array associative array of the form
@@ -80,10 +79,10 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 'group' => 'group_',
                 'other' => 'other_'
             );
-
+            
             return $prefixList;
         }
-
+        
         /**
          * lists the privileges
          * @return array associative array of the form
@@ -96,10 +95,10 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 'edit' => 'edit',
                 'create' => 'create'
             );
-
+            
             return $privilegeList;
         }
-
+        
         /**
          * get default access control list for a course wiki
          * @return array default course access control list
@@ -117,10 +116,10 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 'other_edit' => false,
                 'other_create' => false
             );
-
+            
             return $defaultCourseWikiACL;
         }
-
+        
         /**
          * get empty access control list (ie with all entries
          * set to false)
@@ -142,7 +141,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
             return $emptyWikiACL;
         }
-
+        
         /**
          * get default access control list for a group wiki
          * @return array default group access control list
@@ -163,7 +162,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
             return $defaultGroupWikiACL;
         }
-
+        
         /**
          * check a given access control list to see wether or not a given
          * access level has got read privilege
@@ -174,7 +173,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             $privilege = 'read';
             return WikiAccessControl::checkAccess( $accessControlList, $accessLevel, $privilege );
         }
-
+        
         /**
          * check a given access control list to see wether or not a given
          * access level has got edit privilege
@@ -185,7 +184,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             $privilege = 'edit';
             return WikiAccessControl::checkAccess( $accessControlList, $accessLevel, $privilege );
         }
-
+        
         /**
          * check a given access control list to see wether or not a given
          * access level has got create privilege
@@ -196,7 +195,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             $privilege = 'create';
             return WikiAccessControl::checkAccess( $accessControlList, $accessLevel, $privilege );
         }
-
+        
         /**
          * grant the given privilege to the given access level in the given access
          * control list
@@ -222,7 +221,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 return false;
             }
         }
-
+        
         /**
          * remove the given privilege from the given access level in the given access
          * control list
@@ -248,7 +247,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 return false;
             }
         }
-
+        
         /**
          * grant the read given privilege to the given access level in the given access
          * control list
@@ -267,7 +266,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 , $privilege
                 );
         }
-
+        
         /**
          * grant the edit given privilege to the given access level in the given access
          * control list
@@ -279,14 +278,14 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         function grantEditPrivilegeToAccessLevel( &$accessControlList, $accessLevel )
         {
             $privilege = 'edit';
-
+            
             return WikiAccessControl::grantPrivilegeToAccessLevel(
                 $accessControlList
                 , $accessLevel
                 , $privilege
                 );
         }
-
+        
         /**
          * grant the create given privilege to the given access level in the given access
          * control list
@@ -305,7 +304,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 , $privilege
                 );
         }
-
+        
         /**
          * remove the read privilege from the given access level in the given access
          * control list
@@ -362,7 +361,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 , $privilege
                 );
         }
-
+        
         /**
          * Export access control list to a string
          * @param array accessControlList access controllist
@@ -375,29 +374,29 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             $export = "<pre>\n";
             $prefixList = WikiAccessControl::prefixList();
             $privilegeList = WikiAccessControl::privilegeList();
-
+            
             foreach ( $prefixList as $accessLevel => $prefix )
             {
                 $export .= $accessLevel . ':';
-
+                
                 foreach ( $privilegeList as $privilege )
                 {
                     $aclKey = $prefix . $privilege;
-
+                    
                     $boolValue = ( $accessControlList[$aclKey] == true ) ? 'true' : 'false';
                     $export .= $privilege . '('.$boolValue.')';
                 }
-
+                
                 $export .= "<br />\n";
             }
-
+            
             $export .= "</pre>\n";
-
+            
             if ( $echoExport == true )
             {
                 echo $export;
             }
-
+            
             return $export;
         }
     }

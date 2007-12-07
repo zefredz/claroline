@@ -1,12 +1,12 @@
 <module>
   <label>CLUSR</label>
-  <name>Users</name>
+  <name>User list</name>
   <version>4.0</version>
   <license>GPL</license>
   <icon>user.gif</icon>
   <type>tool</type>
   <web>http://www.claroline.net/wiki/CLUSR/</web>
-  <entry>user.php</entry>
+
   <description>
   <![CDATA[
      This tool is an  original tool of claroline
@@ -27,4 +27,16 @@
       </configuration>
     </claroline>
  </requirements>
+ <context>
+  <course database="kernel"
+          enabling="automatic"
+          default_access="all"
+          access_manager="platform_admin" >
+    <link target="commonToolList"
+          path="../../user/user.php" />
+    <link target="toolSelectBox"
+          path="../../user/user.php" />
+  </course>
+ </context>
+
 </module>

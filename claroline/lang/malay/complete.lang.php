@@ -11,6 +11,7 @@ $_lang['Accounts with same <i>Email</i>'] = 'Akaun dengan <i>eMail</i> yang sama
 $_lang['Accounts with same <i>User name</i>'] = 'Akaun dengan <i>ID Pengguna</i> yang sama';
 $_lang['Accounts with same <i>User name</i> AND same <i>Password</i>'] = 'Akaun dengan <i>ID Pengguna</i> dan <i>Katalaluan</i> yang sama';
 $_lang['Action'] = 'Tindakan';
+$_lang['Activate'] = 'Papar';
 $_lang['Add'] = 'Tambah';
 $_lang['Add a category'] = 'Tambah Kategori';
 $_lang['Add a comment'] = 'Tambah/ubahsuai komen ke';
@@ -19,6 +20,7 @@ $_lang['Add an event'] = 'Tambah peristiwa';
 $_lang['Add announcement'] = 'Tambah Pengumuman';
 $_lang['Add answ.'] = 'Tambahkan Jawapan';
 $_lang['Add elem.'] = 'Tambah';
+$_lang['Add introduction text'] = 'Tambah pengenalan';
 $_lang['Add me to this group'] = 'Tambah saya dalam Kumpulan ini';
 $_lang['Add new heading'] = 'Tambah Tajuk Utama baru';
 $_lang['Add user manually'] = 'Tambah Pengguna secara manual';
@@ -28,6 +30,7 @@ $_lang['All groups are now empty'] = 'Semua kumpulan tidak mempunyai ahli';
 $_lang['All groups have been deleted'] = 'Semua kumpulan telah dipadam';
 $_lang['Allowed'] = 'Dibenarkan';
 $_lang['Already enroled'] = 'telah sedia mengikuti';
+$_lang['Among'] = 'diantara';
 $_lang['Announcement'] = 'Pengumuman';
 $_lang['Announcement has been added'] = 'Pengumuman telah ditambah';
 $_lang['Announcement has been deleted'] = 'Pengumuman telah dipadam';
@@ -36,6 +39,7 @@ $_lang['Announcements list has been cleared up'] = 'Senarai pengumuman telah dip
 $_lang['Anonymous'] = 'Anonymous';
 $_lang['Answer'] = 'Jawapan';
 $_lang['Answer type'] = 'Jenis Jawapan';
+$_lang['Answers to the question'] = 'Jawapan kepada soalan yang dikemukakan';
 $_lang['Are you sure to delete'] = 'Anda pasti untuk memadam';
 $_lang['Area for this group'] = 'Maklumat untuk kumpulan ini';
 $_lang['Author'] = 'Penghantar';
@@ -48,6 +52,7 @@ $_lang['Back to user list'] = 'Kembali ke Senarai Ahli';
 $_lang['Cancel'] = 'Batal';
 $_lang['Categories'] = 'Pusat Pengajian';
 $_lang['Chat'] = 'Perbincangan';
+$_lang['Choice'] = 'Pilihan anda';
 $_lang['Claroline help'] = 'Bantuan Pengguna';
 $_lang['Clear up list of announcements'] = 'Padam senarai pengumuman';
 $_lang['Click on the month name for more details'] = 'Klik nama bulan untuk keterangan lanjut';
@@ -72,6 +77,7 @@ $_lang['Create Directory'] = 'Bina Direktori';
 $_lang['Create a course site'] = 'Bina Laman Subjek';
 $_lang['Create a course website'] = 'Bina Laman Subjek';
 $_lang['Create new group(s)'] = 'Bina kumpulan baru';
+$_lang['Database Host'] = 'Database Host';
 $_lang['Date'] = 'Tarikh';
 $_lang['Day'] = 'Hari';
 $_lang['Define Headings'] = 'Bina Borang Cadangan';
@@ -91,6 +97,8 @@ $_lang['Documents'] = 'Dokumen';
 $_lang['Documents and Links'] = 'Dokumen';
 $_lang['Documents downloaded by the student'] = 'Dokumen yang dimuat turun oleh Pelajar ';
 $_lang['Documents help'] = 'Bantuan Pengguna - Dokumen';
+$_lang['Documents of the group'] = 'Dokumen untuk Kumpulan ';
+$_lang['EG'] = 'e. g.';
 $_lang['Edit'] = 'Ubahsuai';
 $_lang['Edit this group'] = 'Ubahsuai kumpulan ini';
 $_lang['Element list'] = 'Element list';
@@ -98,10 +106,14 @@ $_lang['Element moved'] = 'Dokumen berjaya dipindahkan';
 $_lang['Element renamed'] = 'Dokumen telah ditukar namanya';
 $_lang['Email'] = 'Email';
 $_lang['Empty'] = 'Ruang kosong belum diisi sepenuhnya.<br />Use the <b>Back</b> button on your browser and try again.<br />If you ignore your course\'s code, see the Course Program';
+$_lang['Empty (or NULL)'] = 'Kosong (atau Tiada Nilai)';
 $_lang['Empty all groups'] = 'Kosongkan semua kumpulan';
 $_lang['Enrolment'] = 'Langganan';
 $_lang['Enter'] = 'Masuk';
-$_lang['Exercise'] = 'Latihan';
+$_lang['Exercice not found'] = 'Latihan tidak ditemui';
+$_lang['Exercise description'] = 'Penerangan Latihan';
+$_lang['Exercise management'] = 'Latihan';
+$_lang['Exercise name'] = 'Nama Latihan';
 $_lang['Exercise type'] = 'Jenis Latihan';
 $_lang['Exercises'] = 'Latihan';
 $_lang['Exercises help'] = 'Bantuan Pengguna - Latihan';
@@ -118,6 +130,8 @@ $_lang['Forums help'] = 'Bantuan Pengguna - Forum';
 $_lang['From'] = 'Dari';
 $_lang['Get a question from another exercise'] = 'Dapatkan soalan dari latihan lain';
 $_lang['Go back to the exercise'] = 'Kembali ke Latihan';
+$_lang['Go back to the question list'] = 'Kembali ke Senarai Soalan';
+$_lang['Go back to the question pool'] = 'Kembali ke Bank Soalan';
 $_lang['Group'] = 'Kumpulan';
 $_lang['Group Tutor'] = 'Jurutera Pengajar/Tutor';
 $_lang['Group area'] = 'Ruangan Kumpulan';
@@ -142,10 +156,12 @@ $_lang['Invalid user : this user doesn\'t exist in your group'] = 'Pengguna tida
 $_lang['Language'] = 'Language';
 $_lang['Last 31 days'] = '31 hari lepas';
 $_lang['Last 7 days'] = 'Last 7 days';
+$_lang['Last check before install'] = 'Last check before install';
 $_lang['Last message'] = 'Mesej Terakhir';
 $_lang['Last name'] = 'Nama Terakhir';
 $_lang['Lasting'] = 'Kekal';
 $_lang['Lecturer(s)'] = 'Pensyarah';
+$_lang['Licence'] = 'License';
 $_lang['Line Number'] = 'Bilangan baris';
 $_lang['List of students in this group'] = 'Senarai Pelajar dalam Kumpulan';
 $_lang['Login'] = 'Melog Masuk';
@@ -155,6 +171,7 @@ $_lang['Logins and access to tools'] = 'Login dan capaian kepada alat bantu';
 $_lang['Logins not used'] = 'Login yang tidak digunakan';
 $_lang['Logout'] = 'Melog Keluar';
 $_lang['Lost password'] = 'Lupa Katalaluan';
+$_lang['Main database'] = 'Main claroline DB';
 $_lang['Make correspond'] = 'Make correspond';
 $_lang['Manager'] = 'Pentadbir Sistem';
 $_lang['Matching'] = 'Suaikan';
@@ -203,41 +220,54 @@ $_lang['Number of users'] = 'Nama Pengguna';
 $_lang['Number of users by course'] = 'Bilangan Pengguna mengikut Subjek';
 $_lang['Number of users by faculty'] = 'Bilangan Pengguna mengikut Pusat Pengajian';
 $_lang['Number of users by status'] = 'Bilangan Pengguna mengikut Status';
-$_lang['Number proposed exceeds max. that you allowed (you can modify it below). Group composition has not been modified'] = 'Number proposed exceeds max. that you allowed (you can modify it below). 
-				Group composition has not been modified';
+$_lang['Number proposed exceeds max. that you allowed (you can modify it below). Group composition has not been modified'] = 'Number proposed exceeds max. that you allowed (you can modify it below).
+                Group composition has not been modified';
 $_lang['Ok'] = 'Proses';
 $_lang['Oldest first'] = 'Yang lama dahulu';
 $_lang['On'] = 'Terdapat';
 $_lang['On an unique page'] = 'Pada satu <i>Page</i>';
 $_lang['One question per page (sequential)'] = 'Satu Soalan per satu <i>Page</i> (berturutan)';
+$_lang['Ooops, stranges cases detected !!'] = 'Amaran, perkara luar biasa ditemui !!';
 $_lang['Operation impossible'] = 'Permintaan tidak dapat diproses';
+$_lang['Operation impossible.<br />A file with this name already exists.'] = 'Permintaan tidak dapat diproses<br />Nama fail telah wujud.';
 $_lang['Optional'] = 'Pilihan';
 $_lang['Orphan questions'] = 'Soalan Individu';
 $_lang['Other'] = 'Lain-lain';
 $_lang['Password'] = 'katalaluan';
 $_lang['Period'] = 'Jangkamasa';
 $_lang['Please choose a good answer'] = 'Please choose a good answer';
+$_lang['Please choose one or more good answers'] = 'Please choose one or more good answers';
 $_lang['Please confirm your choice'] = 'Anda pasti untuk memadam pilihan anda ?';
+$_lang['Please define at least one blank with brackets [...]'] = 'Please define at least one blank with brackets [...]';
 $_lang['Please define the options'] = 'Please define the options';
 $_lang['Please fill the two lists below'] = 'Please fill the two lists below';
 $_lang['Please give a weighting to each blank'] = 'Please give a weighting to each blank';
 $_lang['Please give the answers to the question'] = 'Please give the question\'s answers';
+$_lang['Please give the exercise name'] = 'Sila berikan Nama Latihan';
+$_lang['Please give the question'] = 'Sila nyatakan soalan';
 $_lang['Please type the text'] = 'Please type the text';
+$_lang['Please type your text below'] = 'Please type your text below';
 $_lang['Posted'] = 'Dihantar';
 $_lang['Posts'] = 'Hantar';
 $_lang['Powered by'] = 'Oleh : ';
+$_lang['Prefix for names of course databases'] = 'MySQL Prefix';
 $_lang['Previous day'] = 'Hari Sebelumnya';
 $_lang['Previous month'] = 'Bulan Sebelumnya';
 $_lang['Previous week'] = 'Minggu Sebelumnya';
 $_lang['Previous year'] = 'Tahun Sebelumnya';
+$_lang['PrintVers'] = 'Printable version';
 $_lang['Private'] = 'Khusus';
 $_lang['Public'] = 'Umum';
 $_lang['Public access from campus home page even without login'] = 'Capaian Umum (Subjek boleh dicapai tanpa proses <i>login</i>)';
 $_lang['Publish'] = 'Terbitkan';
 $_lang['Published on'] = 'Diterbitkan pada';
 $_lang['Question'] = 'Soalan';
+$_lang['Question / Answer management'] = 'Pengurusan Soalan/Jawapan';
+$_lang['Question list of the exercise'] = 'Senarai soalan dalam latihan';
+$_lang['Question not found'] = 'Soalan tidak ditemui';
 $_lang['Question pool'] = 'Bank Soalan';
 $_lang['Question to lecturer'] = 'Maklumat untuk Pensyarah';
+$_lang['Questions'] = 'Soalan';
 $_lang['Random questions'] = 'Soalan Rawak';
 $_lang['Registered'] = 'Bilangan Ahli Semasa';
 $_lang['Registration'] = 'Pendaftaran';
@@ -246,6 +276,7 @@ $_lang['Rem. elem.'] = 'Padam';
 $_lang['Remove'] = 'Padam';
 $_lang['Rename'] = 'Tukar Nama';
 $_lang['Reply'] = 'Jawapan';
+$_lang['Requirements'] = 'Requirements';
 $_lang['Result'] = 'Keputusan';
 $_lang['Return to the list'] = 'Kembali ke senarai';
 $_lang['Reuse'] = 'Gunasemula';
@@ -259,21 +290,26 @@ $_lang['Send this announcement by email to registered students'] = 'Hantar Pengu
 $_lang['Show all'] = 'Papar semua';
 $_lang['Show none'] = 'Tiada Paparan';
 $_lang['Size'] = 'Saiz';
+$_lang['Statement'] = 'Komen(Pilihan)';
 $_lang['Statistics'] = 'Statistik';
+$_lang['Statistics of course'] = 'Statistik Subjek';
 $_lang['Statistics of user'] = 'Statistik Pengguna';
 $_lang['Status'] = 'Mendaftar sebagai';
 $_lang['Student'] = 'Pelajar';
 $_lang['Students are allowed to self-register in groups'] = 'Pelajar dibenarkan untuk mendaftar sendiri ke kumpulan';
 $_lang['Subject'] = 'Topik';
 $_lang['Support forum'] = 'Forum Sokongan';
+$_lang['Take'] = 'ambil';
 $_lang['The email address is not valid'] = 'Alamat email anda tidak sah';
 $_lang['The file to upload is not valid.'] = 'Fail yang dimuat naik tidak sah.';
+$_lang['The information has been modified'] = 'Maklumat telah diubahsuai';
 $_lang['The upload has failed. There is not enough space in your directory'] = 'Proses muatnaik gagal. Ruang tidak mencukupi';
 $_lang['The upload is finished'] = 'Proses muatnaik selesai';
 $_lang['The zip file can not contain .PHP files'] = 'Fail zip file can not contain .PHP files';
 $_lang['There are no topics for this forum. You can post one'] = 'Tiada sebarang topik untuk forum ini, anda boleh menghantar topik ke forum ini.';
 $_lang['There is no answer for the moment'] = 'Tiada jawapan disediakan buat masa ini';
 $_lang['There is no exercise for the moment'] = 'Tiada Latihan buat masa ini';
+$_lang['There is no question for the moment'] = 'Tiada soalan buat masa ini';
 $_lang['This course is currently not described'] = 'Subjek ini belum diberi penerangan';
 $_lang['This day'] = 'Hari ini';
 $_lang['This is the faculty, department or school where the course is delivered'] = 'Pusat Pengajian yang Menawarkan Subjek Ini.';
@@ -290,6 +326,7 @@ $_lang['Total Clicks'] = 'Bilangan Klik';
 $_lang['Total Downloads'] = 'Jumlah Muat turun';
 $_lang['Total number of connection to this course'] = 'Bilangan Pengguna Yang Capai Subjek';
 $_lang['Tracking'] = 'Pengesanan';
+$_lang['Tracking database'] = 'Tracking DB.  Useful only if several DB';
 $_lang['Tracking has been disabled by system administrator.'] = 'Fungsi pengesanan telah dimatikan oleh Pentadbir Sistem.';
 $_lang['Traffic Details'] = 'Keterangan Kesesakan';
 $_lang['True'] = 'Jawapan Betul';
@@ -313,8 +350,11 @@ $_lang['View my statistics'] = 'Paparkan Statistik Pengguna';
 $_lang['Visibility'] = 'Visibility';
 $_lang['Visibility modified'] = 'Ubahsuai mod Paparan';
 $_lang['Visits'] = 'lawatan';
+$_lang['Warning ! This question and its answers are used in several exercises. Would you like to modify them'] = 'Peringatan ! Soalan ini telah digunakan beberapa kali sebelum ini, adakah anda ingin mengubahsuainya?';
 $_lang['Week'] = 'Minggu';
 $_lang['Weighting'] = 'Pemarkahan';
+$_lang['Work'] = 'Works';
+$_lang['Work title'] = 'Tajuk';
 $_lang['Work uploaded by the student in the name of \'Authors\''] = 'Tugasan/Dokumen yang dimuat naik oleh Pelajar ';
 $_lang['Work uploads'] = 'Tugasan dimuat naik';
 $_lang['Year'] = 'Tahun';
@@ -324,11 +364,15 @@ $_lang['You can now create your  course'] = 'Sekarang anda boleh membina Laman S
 $_lang['You can now select, in the list, the courses you want to access'] = 'Sekarang anda boleh memilih Subjek yang anda ingin ikuti.';
 $_lang['You cannot post an empty message'] = 'Anda perlu menaip Mesej untuk dihantar. Anda tidak boleh menghantar Mesej yang kosong.';
 $_lang['You didnt choose any file to send, or it is too big'] = 'Anda tidak memilih sebarang fail/saiz fail terlalu besar.';
+$_lang['You have already answered the question'] = 'Anda telah menjawab soalan tersebut';
 $_lang['You have just created the course website'] = 'Anda telah membina laman subjek';
 $_lang['You left some required fields empty'] = 'Terdapat ruang kosong yang tidak diisi.Sila penuhkan dan cuba sekali lagi';
 $_lang['Your message has been deleted'] = 'Hantar anda telah dipadam.';
 $_lang['Your message has been entered'] = 'Mesej telah disimpan di dalam pangkalan data.';
+$_lang['Your new profile has been saved'] = 'Butir Peribadi anda telah disimpan';
+$_lang['Your total score is'] = 'Jumlah Markah ialah';
 $_lang['Zip file uploaded and uncompressed'] = ' Zip file uploaded and uncompressed';
+$_lang['[British people] live in [United Kingdom].'] = '[British people] live in [United Kingdom].';
 $_lang['archive'] = 'Arkib';
 $_lang['blockClaroMainHelp'] = 'eLearning@kukum membenarkan pensyarah membina dan menguruskan laman subjek. Manakala para pelajar pula boleh melihat dan membaca (Dokumen, Agenda dan pelbagai maklumat) membuat latihan, menghantar tugasan, menyertai perbincangan forum.</p><b>Daftar</b><p><br />Jika anda seorang pelajar dan masih belum mendaftar, sila pilih status \'Pelajar\', kemudian pilih subjek yang didaftarkan oleh anda untuk semester semasa.</p>
 <p>Jika anda seorang pensyarah, anda juga perlu mendaftar dengan memilih status \'Pensyarah\' dan mengisi borang mencipta laman subjek. Apabila pendaftaran anda sah, anda dapat mencapai laman subjek yang telah dibina dan anda mempunyai capaian untuk mengubahsuai kandungan berdasarkan keperluan anda.</p>
@@ -348,101 +392,101 @@ $_lang['blockDocumentsHelp'] = '<p>Fungsi Alat Bantu Dokumen adalah sama seperti
 <ul>
   <li>Sila pilih fail pada komputer anda menggunakan butang ini <input
  type=submit value=Browse... name=submit2>
-	pada sebelah kanan skrin tetingkap.</li>
-		<li> Untuk memuat naik Dokumen anda, sila gunakan butang ini <input type=submit value=Muatnaik name=submit2>.
-		</li>
-	</ul>
-	<h4>
-		Menukar Nama Dokumen (Direktori)
-	</h4>
-	<ul>
-		<li>
-			Klik pada ikon ini <img src=../document/img/edit.gif width=20 height=20 align=baseline> yang terdapat pada lajur <i>Tukar Nama</i>.
-		</li>
-		<li>
-			Isikan nama baru dalam ruang penukaran nama tersebut. (dibahagian atas sebelah kiri)
-		</li>
-		<li>
-			Anda perlu sahkan penukaran tersebut dengan hanya klik pada butang ini <input type=submit value=Proses name=submit24>.
-		</li>
-	</ul>
-		<h4>
-			Padam Dokumen (Direktori)
-		</h4>
-		<ul>
-			<li>
-				Sila klik ikon ini <img src=../document/img/delete.gif width=20 height=20>
-				yang terdapat pada lajur <i>Padam</i>.
-			</li>
-		</ul>
-		<h4>
-			Tetapkan supaya dokumen (atau direktori) tidak dipaparkan kepada pelajar anda	</h4>
-		<ul>
-			<li>
-				Sila klik ikon ini <img src=../document/img/visible.gif width=20 height=20>
-				pada lajur <i> Papar/Tidak Papar</i>.
-			</li>
-			<li>
-				Dokumen (atau direktori) masih wujud cuma ia tidak dipaparkan kepada pelajar.
-			</li>
-			<li>
-				Bagi memaparkan semula dokumen anda kepada pelajar, sila klik ikon ini <img src=../img/invisible.gif width=24 height=20>
-				pada  lajur <i>Papar/Tidak Papar</i>
-			</li>
-		</ul>
-		<h4>
-			Tambah atau ubahsuai komen pada dokumen (atau direktori)
-		</h4>
-		<ul>
-			<li>
-				Sila klik ikon ini <img src=../img/comment.gif width=20 height=20> pada column <i>Komen</i>
-			</li>
-			<li>
-				Masukkan komen yang baru pada lajur yang disediakan (di sebelah atas bahagian kiri).
-			</li>
-			<li>
-				Anda perlu sahkan komen anda terlebih dahulu dengan klik pada butang ini <input type=submit value=Proses name=submit2>
-			.</li>
-		</ul>
-		<p>
-		Untuk memadam komen, sila klik ikon ini <img src=../img/comment.gif width=20 height=20>, padam komen lama yang terdapat dalam lajur dahulu kemudian klik butang ini.
-		<input type=submit value=Proses name=submit22>.
-		<hr />
-		<p>
-			Anda boleh menguruskan kandungan dokumen anda melalui beberapa pengisian. Contohnya adalah seperti berikut:
-		</p>
-		<h4>
-			<b>
-				Bina Direktori
-			</b>
-		</h4>
-		<ul>
-			<li>
-				Sila klik ikon ini <img src=../img/folder.gif>
-				<i>Bina Direktori</i> (dibahagian atas sebelah kiri)
-			</li>
-			<li>
-				Masukkan nama baru bagi direktori anda (dibahagian atas sebelah kiri)
-			</li>
-			<li>
-				Anda perlu sahkan nama baru bagi direktori anda ini dengan klik pada butang ini <input type=submit value=Proses name=submit23>.
-			</li>
-		</ul>
-		<h4>
-			Pindah Dokumen (Direktori)
-		</h4>
-		<ul>
-			<li>
-				Sila klik ikon ini <img src=../img/deplacer.gif width=34 height=16>
-				di lajur <i>Pindah</i>
-	</li>
-			<li>
-				Sila pilih direktori yang ingin anda pindahkan dokumen (atau direktori) anda dengan hanya menggunakan menu <i>scroll</i> dibahagian atas sebelah kiri) (Nota: Satu perkataan <i>Root</i> yang mungkin akan terteta pada skrin tetingkap anda adalah bermaksud capaian tidak dibenarkan melebihi tahap tersebut dalam pepohon dokumen <i>server</i>).
-			</li>
-			<li>
-				Anda perlu sahkan perpindahan dokumen tersebut dengan klik pada butang ini <input type=submit value=Proses name=submit232>.
-			</li>
-		</ul>
+    pada sebelah kanan skrin tetingkap.</li>
+        <li> Untuk memuat naik Dokumen anda, sila gunakan butang ini <input type=submit value=Muatnaik name=submit2>.
+        </li>
+    </ul>
+    <h4>
+        Menukar Nama Dokumen (Direktori)
+    </h4>
+    <ul>
+        <li>
+            Klik pada ikon ini <img src=../document/img/edit.gif width=20 height=20 align=baseline> yang terdapat pada lajur <i>Tukar Nama</i>.
+        </li>
+        <li>
+            Isikan nama baru dalam ruang penukaran nama tersebut. (dibahagian atas sebelah kiri)
+        </li>
+        <li>
+            Anda perlu sahkan penukaran tersebut dengan hanya klik pada butang ini <input type=submit value=Proses name=submit24>.
+        </li>
+    </ul>
+        <h4>
+            Padam Dokumen (Direktori)
+        </h4>
+        <ul>
+            <li>
+                Sila klik ikon ini <img src=../document/img/delete.gif width=20 height=20>
+                yang terdapat pada lajur <i>Padam</i>.
+            </li>
+        </ul>
+        <h4>
+            Tetapkan supaya dokumen (atau direktori) tidak dipaparkan kepada pelajar anda   </h4>
+        <ul>
+            <li>
+                Sila klik ikon ini <img src=../document/img/visible.gif width=20 height=20>
+                pada lajur <i> Papar/Tidak Papar</i>.
+            </li>
+            <li>
+                Dokumen (atau direktori) masih wujud cuma ia tidak dipaparkan kepada pelajar.
+            </li>
+            <li>
+                Bagi memaparkan semula dokumen anda kepada pelajar, sila klik ikon ini <img src=../img/invisible.gif width=24 height=20>
+                pada  lajur <i>Papar/Tidak Papar</i>
+            </li>
+        </ul>
+        <h4>
+            Tambah atau ubahsuai komen pada dokumen (atau direktori)
+        </h4>
+        <ul>
+            <li>
+                Sila klik ikon ini <img src=../img/comment.gif width=20 height=20> pada column <i>Komen</i>
+            </li>
+            <li>
+                Masukkan komen yang baru pada lajur yang disediakan (di sebelah atas bahagian kiri).
+            </li>
+            <li>
+                Anda perlu sahkan komen anda terlebih dahulu dengan klik pada butang ini <input type=submit value=Proses name=submit2>
+            .</li>
+        </ul>
+        <p>
+        Untuk memadam komen, sila klik ikon ini <img src=../img/comment.gif width=20 height=20>, padam komen lama yang terdapat dalam lajur dahulu kemudian klik butang ini.
+        <input type=submit value=Proses name=submit22>.
+        <hr />
+        <p>
+            Anda boleh menguruskan kandungan dokumen anda melalui beberapa pengisian. Contohnya adalah seperti berikut:
+        </p>
+        <h4>
+            <b>
+                Bina Direktori
+            </b>
+        </h4>
+        <ul>
+            <li>
+                Sila klik ikon ini <img src=../img/folder.gif>
+                <i>Bina Direktori</i> (dibahagian atas sebelah kiri)
+            </li>
+            <li>
+                Masukkan nama baru bagi direktori anda (dibahagian atas sebelah kiri)
+            </li>
+            <li>
+                Anda perlu sahkan nama baru bagi direktori anda ini dengan klik pada butang ini <input type=submit value=Proses name=submit23>.
+            </li>
+        </ul>
+        <h4>
+            Pindah Dokumen (Direktori)
+        </h4>
+        <ul>
+            <li>
+                Sila klik ikon ini <img src=../img/deplacer.gif width=34 height=16>
+                di lajur <i>Pindah</i>
+    </li>
+            <li>
+                Sila pilih direktori yang ingin anda pindahkan dokumen (atau direktori) anda dengan hanya menggunakan menu <i>scroll</i> dibahagian atas sebelah kiri) (Nota: Satu perkataan <i>Root</i> yang mungkin akan terteta pada skrin tetingkap anda adalah bermaksud capaian tidak dibenarkan melebihi tahap tersebut dalam pepohon dokumen <i>server</i>).
+            </li>
+            <li>
+                Anda perlu sahkan perpindahan dokumen tersebut dengan klik pada butang ini <input type=submit value=Proses name=submit232>.
+            </li>
+        </ul>
 <center>
 <p>';
 $_lang['blockExercisesHelp'] = '<p>Alat Bantu Latihan membenarkan anda mencipta Latihan yang mengandungi seberapa banyak soalan yang anda suka.<br /><br />
@@ -546,7 +590,7 @@ Jika sekiranya anda telah menentukan bilangan maksimum keahlian sesebuah kumpula
 senarai ahli.</li>
 <li><b>Padam</b> Padam kumpulan.</li></ul>
 <hr noshade size=1>';
-$_lang['blockHomepageHelp'] = 'Untuk kemudahan anda, kami menyediakan pautan ikon yang mempunyai pelbagai fungsi. Terdapat sedikit contoh pada setiap alat bantu untuk membantu anda memahami perjalanan sistem. Terpulanglah kepada anda untuk mengubahsuai atau memadam contoh-contoh yang disediakan.</p><p>Untuk memudahkan anda, kami menyediakan contoh pengenalan mesej pada laman web anda iaitu <i>Ini adalah teks pengenalan untuk laman subjek anda. Untuk menggantikkannya dengan perkataan anda sendiri, sila klik pada ubahsuai, kemudian anda bolehlah menukar dengan perkataan anda sendiri dan seterusnya tekan butang ok</i>. Setiap alat bantu mempunyai logik yang sama iaitu Tambah, Padam, Ubahsuai di mana ia merupakan logik yang dinamik bagi setiap Laman Web.	
+$_lang['blockHomepageHelp'] = 'Untuk kemudahan anda, kami menyediakan pautan ikon yang mempunyai pelbagai fungsi. Terdapat sedikit contoh pada setiap alat bantu untuk membantu anda memahami perjalanan sistem. Terpulanglah kepada anda untuk mengubahsuai atau memadam contoh-contoh yang disediakan.</p><p>Untuk memudahkan anda, kami menyediakan contoh pengenalan mesej pada laman web anda iaitu <i>Ini adalah teks pengenalan untuk laman subjek anda. Untuk menggantikkannya dengan perkataan anda sendiri, sila klik pada ubahsuai, kemudian anda bolehlah menukar dengan perkataan anda sendiri dan seterusnya tekan butang ok</i>. Setiap alat bantu mempunyai logik yang sama iaitu Tambah, Padam, Ubahsuai di mana ia merupakan logik yang dinamik bagi setiap Laman Web.
 </p><p>Apabila anda membina laman subjek anda pada kali pertama,semua alat bantu berada dalam keadaaan aktif. Jadi terpulanglah pada anda sama ada hendak tidak mengaktifkan alat bantu yang dirasakan tidak diperlukan untuk paparan pelajar.Caranya ialah dengan mengklik pada pautan <i>Tidak Aktif.</i> Secara tidak langsung, alat bantu yang tidak diaktifkan akan berada pada bahagian <i>Pautan yang tidak aktif</i> di laman subjek anda. Walaubagaimanapun, anda boleh mengaktifkannya semula mengikut keperluan anda.</p>
 <p>Anda boleh menambah halaman anda ke laman subjek. Halaman tersebut mestilah dalam format HTML(yang boleh dibina oleh <i>Word Processor</i> atau <i>Web Composer</i>). Gunakan pautan <i>Tambah Pautan Pada Laman Subjek</i> untuk menghantar halaman anda ke <i>server.</i> Halaman utama laman web anda secara automatik akan disatukan dengan dokumen baru anda, oleh itu anda hanya perlu memberi tumpuan terhadap kandungan dokumen tersebut. Jika anda ingin membina pautan dari laman web anda ke laman web luar, anda hanya perlu menggunakan alat bantu yang telah disediakan iaitu <i>Pautan</i>.Halaman yang telah ditambah boleh diaktif dan tidak diaktifkan, tetapi alat bantu untuk membina pautan hanya boleh tidak diaktifkan tetapi tidak dibenarkan untuk dipadam.
 </p><p>Setelah laman subjek anda siap, sila klik <i>Ubahsuai Maklumat Subjek</i> untuk menetapkan tahap capaian mengikut kesesuaian anda. Secara umumnya, laman subjek anda tidak dipaparkan kepada umum(ini kerana hanya anda dapat menguruskannya).</p>';
@@ -560,6 +604,8 @@ $_lang['blockUsersHelp'] = '<b>Peranan</b><p>Ahli tidak mempunyai sebarang peran
 <b>Tambah Ahli</b>
 <p>Untuk menambah ahli ke laman subjek anda, sila isikan lajur yang terlibat dengan senarai ahli yang ingin ditambah dan sahkan lajur tersebut. Pengguna yang ditambah keahlian ke dalam subjek anda akan menerima email yang memaklumkan keahlian mereka berserta ID Pengguna dan katalaluan.</p>';
 $_lang['e.g. <em>History of Literature</em>'] = 'cth. <i>Elektronik Analog II</i>';
+$_lang['group(s) has (have) been added'] = 'Kumpulan baru telah dibina';
+$_lang['in all exercises'] = 'pada semua latihan';
 $_lang['line'] = 'baris';
 $_lang['lines'] = 'baris';
 $_lang['max. 12 characters, e.g. <em>ROM2121</em>'] = 'cth:. <i>EKT221</i>';
@@ -567,6 +613,7 @@ $_lang['my group'] = 'kumpulan saya';
 $_lang['my supervision'] = 'Visi Utama';
 $_lang['new group(s)'] = 'kumpulan baru';
 $_lang['number'] = 'Bilangan';
+$_lang['only in the current exercise'] = 'hanya pada latihan semasa';
 $_lang['register'] = 'daftar';
 $_lang['sampleForumDescription'] = 'Remove this through the forum admin tool';
 $_lang['sampleForumGroupCategory'] = 'Forum Kumpulan';
@@ -577,6 +624,8 @@ $_lang['sampleForumTopicTitle'] = 'Contoh Mesej';
 $_lang['sampleQuizTitle'] = 'Contoh Latihan';
 $_lang['seats (optional)'] = 'orang pelajar';
 $_lang['seats by groups (optional)'] = 'orang pelajar';
+$_lang['this password is too simple. Use a password like this <code>%passpruposed</code>'] = 'Katalaluan terlalu ringkas.Gunakan katalaluan seperti berikut';
 $_lang['to'] = 'ke';
 $_lang['uncompress zipped (.zip) file on the server'] = 'Jangan <i>unzip</i>kan fail(.zip) yang dimuat naik ke server';
+$_lang['use brackets [...] to define one or more blanks'] = 'use brackets [...] to define one or more blanks';
 ?>

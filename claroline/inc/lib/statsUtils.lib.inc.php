@@ -1,5 +1,4 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
@@ -12,36 +11,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @package CLTRACK
  *
  * @author Claro Team <cvs@claroline.net>
- * @author Sebastien Piraux <piraux@claroline.net>
+ * @author Sébastien Piraux <piraux@claroline.net>
  *
  * @todo
  *
  */
-
-/**
- * Display a standardblock of
- *
- * @param $header string title of block
- * @param $content string content of the block
- * @param $footer string some additionnal infos (optionnal)
- * @return string html code of the full block
- */
-function renderStatBlock($header,$content,$footer = '')
-{
-	$html = '<div class="statBlock">' . "\n"
-	.	 ' <div class="blockHeader">' . "\n"
-	.	 $header
-	.	 ' </div>' . "\n"
-	.	 ' <div class="blockContent">' . "\n"
-	.	 $content
-	.	 ' </div>' . "\n"
-	.	 ' <div class="blockFooter">' . "\n"
-	.	 $footer
-	.	 ' </div>' . "\n"
-	.	 '</div>' . "\n";
-
-	return $html;
-}
 
 /**
  * Return an assoc array.  Keys are the hours, values are
@@ -171,12 +145,17 @@ function monthTab($sql)
  *
  * @return
  *
+ * @todo variable $linkOnPeriod n'apparaît qu'une fois
+ * @todo déclaration de globale inutilisée :  $clarolineRepositoryWeb
+ * @todo La valeur de la variable $maxSize n'est jamais utilisée
+ * @todo La variable $barwidth n'apparaît qu'une fois
+ *
  */
 function makeHitsTable($period_array,$periodTitle,$linkOnPeriod = "???")
 {
+    global $clarolineRepositoryWeb;
 
-
-    echo '<table class="claroTable emphaseLine" width="100%" cellpadding="0" cellspacing="1" align="center">' . "\n";
+    echo '<table class="claroTable" width="100%" cellpadding="0" cellspacing="1" align="center">' . "\n";
     // titles
     echo '<tr class="headerX">' . "\n"
     .    '<th width="15%">' . $periodTitle . '</th>' . "\n"
@@ -190,11 +169,12 @@ function makeHitsTable($period_array,$periodTitle,$linkOnPeriod = "???")
     $maxSize = $factor * 100; //pixels
     while(list($periodPiece,$cpt) = each($period_array))
     {
-        if($periodPiece !== 'total')
+        if($periodPiece != 'total')
         {
             if($period_array['total'] == 0 ) $pourcent = 0;
             else                             $pourcent = round(100 * $cpt / $period_array['total']);
 
+            $barwidth = $factor * $pourcent ;
             echo '<tr>' . "\n"
                 .'<td align="center" width="15%">'.$periodPiece.'</td>' . "\n"
                 .'<td width="60%" align="center">'.claro_html_progress_bar($pourcent, 4).'</td>' . "\n"
@@ -271,13 +251,73 @@ function buildTab2Col($results, $leftTitle = "", $rightTitle = "")
 }
 
 /**
+ * This function is used to display
+ * integrity errors in the platform
+ * if results is not an array there is
+ * no error, else errors are displayed
+ *
+ * @param array $results a 2 columns array
+ *
+ * @return void
+ */
+
+function buildTabDefcon($results)
+{
+    echo '<table class="claroTable" width="60%" cellpadding="2" cellspacing="1" align="center">' . "\n";
+
+    if( !empty($results) && is_array($results) )
+    {
+        // there is some strange cases ...
+        echo '<tr class="headerX">' . "\n"
+        .    '<th colspan="2" align="center"><span class="error">'.get_lang('Ooops, stranges cases detected !!').'</span></th>' . "\n"
+        .    '</tr>' . "\n"
+        .    '<tr class="headerX">' . "\n"
+        .    '<th colspan="2">' . get_lang('Number of rows') . ' : ' . count($results) . ' </th>' . "\n"
+        .    '</tr>' . "\n"
+        ;
+
+        foreach( $results as $result )
+        {
+            $keys = array_keys($result);
+
+            if( !isset($result[$keys[0]]) || $result[$keys[0]] == '') $key = get_lang('Empty (or NULL)');
+            else                                                      $key = $result[$keys[0]];
+
+            echo '<tr>' . "\n"
+            .    '<td width="70%">' . $key . '</td>' . "\n"
+            .    '<td width="30%" align="right">' . "\n"
+            ;
+
+            if( isset($result[$keys[1]]) ) echo $result[$keys[1]];
+            else                           echo '&nbsp;';
+
+            echo '</td>' . "\n"
+            .    '</tr>' . "\n\n"
+            ;
+        }
+
+    }
+    else
+    {
+        // all right
+        echo '<tr>' . "\n"
+        .    '<td colspan="2" align="center">'
+        .    '<span class="correct">' . get_lang('There is no strange case here') . '</span>'
+        .    '</td>' . "\n"
+        .    '</tr>' . "\n"
+        ;
+    }
+    echo '</table>' . "\n\n";
+}
+
+/**
  * Complete the content of visibility column a with the litteral meaning
  *
  * @param results
  *
  * @return array
  *
- * @author Christophe Geschï¿½ <moosh@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  *
  */
 function changeResultOfVisibility($results)
@@ -309,7 +349,7 @@ function changeResultOfVisibility($results)
  *
  * @return boolean true
  *
- * @author Christophe Gesche <gesche@ipm.ucl.ac.be>
+ * @author Christophe Gesché <gesche@ipm.ucl.ac.be>
  *
  */
 function resetStatForCourse($course_id, $dateLimite )

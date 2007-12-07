@@ -29,24 +29,22 @@ $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_user      = $tbl_mdb_names['user'];
 
 // library for authentification and mail
-include_once(get_path('incRepositorySys') . '/lib/user.lib.php');
-include_once(get_path('incRepositorySys') . '/lib/sendmail.lib.php');
+include_once($includePath . '/lib/user.lib.php');
+include_once($includePath . '/lib/sendmail.lib.php');
 
 // Initialise variables
 
+$passwordFound = FALSE;
 $msg = '';
-$extAuthPasswordCount = 0;
-$passwordFound = false;
-$userAccountList = array();
 
 // Get the forgotten email from the form
 
-if ( isset ($_REQUEST['Femail']) ) $emailTo = strtolower(trim($_REQUEST['Femail']));
-else                               $emailTo = '';
+if ( isset ($_REQUEST['Femail']) ) $Femail = strtolower(trim($_REQUEST['Femail']));
+else                               $Femail = '';
 
 // Main section
 
-if ( isset($_REQUEST['searchPassword']) && !empty($emailTo) )
+if ( isset($_REQUEST['searchPassword']) && !empty($Femail) )
 {
     // search user with this email
 
@@ -59,108 +57,112 @@ if ( isset($_REQUEST['searchPassword']) && !empty($emailTo) )
                     `authSource`            ,
                     `creatorId`
              FROM `" . $tbl_user . "`
-             WHERE LOWER(email) = '" . addslashes($emailTo) . "'";
+             WHERE LOWER(email) = '" . addslashes($Femail) . "'";
 
-    $userList = claro_sql_query_fetch_all($sql);
+    $user = claro_sql_query_fetch_all($sql);
 
-    if ( count($userList) > 0 )
+    $extAuthPasswordCount = 0;
+
+    if ( count($user) > 0 )
     {
-        foreach ( $userList as $user )
+        for ($i = 0, $j = count($user); $i < $j; $i++)
         {
-            if ( in_array(strtolower($user['authSource']),
+            if ( in_array(strtolower($user[$i]['authSource']),
                           array('claroline', 'clarocrypt')))
             {
-                $passwordFound = true;
-
-                if (get_conf('userPasswordCrypted',false))
+                if ($userPasswordCrypted)
                 {
                     /*
                      * If password are crypted, we can not send them as such.
                      * We have to generate new ones.
                      */
 
-                    $user['password'] = generate_passwd();
+                    $user[$i]['password'] = generate_passwd();
 
                     // UPDATE THE DB WITH THE NEW GENERATED PASSWORD
 
-                    $sql = 'UPDATE `' . $tbl_user . '`
-                            SET   `password` = "'. addslashes(md5($user['password'])) .'"
-                             WHERE `user_id` = "'.$user['uid'].'"';
+                    $sql = 'UPDATE `'.$tbl_user.'`
+                            SET   `password` = "'. addslashes(md5($user[$i]['password'])) .'"
+                             WHERE `user_id` = "'.$user[$i]['uid'].'"';
 
-                    if ( claro_sql_query($sql) === false )
-                    {
-                        trigger_error('<p align="center">'. get_lang('Wrong operation') . '</p>', E_USER_ERROR);
-                    }
+                    $result = claro_sql_query($sql)
+                              or die('<p align="center">Unable to record new generated password !</p>');
                 }
-                
-                // Build user account list for email
-                $userAccountList[] =
-                    $user['firstName'] .' ' . $user['lastName']  . "\r\n\r\n"
-                    . "\t" . get_lang('Username') . ' : ' . $user['loginName'] . "\r\n"
-                    . "\t" . get_lang('Password') . ' : ' . $user['password']  . " \r\n" ;
-
             }
             else
             {
+                unset($user[$i]); // remove
                 $extAuthPasswordCount ++;
             }
         }
 
-        if ( $passwordFound ) 
+        // recount if there are still password found
+        if (count($user) > 0) $passwordFound = true;
+
+        /*
+         * Prepare the email message wich has to be send to the user
+         */
+
+        // mail subject
+        $emailSubject = get_lang('Login request') . ' ' . $siteName;
+
+
+        // mail body
+        foreach($user as $thisUser)
         {
+            $userAccountList [] =
+                $thisUser['firstName'].' ' . $thisUser['lastName']  . "\r\n\r\n"
+                ."\t" . get_lang('Username') . ' : ' . $thisUser['loginName'] . "\r\n"
+                ."\t" . get_lang('Password') . ' : ' . $thisUser['password']  . " \r\n";
+        }
 
-            /*
-             * Prepare the email message wich has to be send to the user
-             */
+        if ($userAccountList)
+        {
+            $userAccountList = implode ("\r\n\r\n", $userAccountList);
+        }
 
-            // mail subject
-            $emailSubject = get_lang('Login request') . ' ' . get_conf('siteName');
+        $emailBody = $emailSubject."\r\n"
+                    .get_conf('rootWeb')."\r\n"
+                    .get_lang('This is your account Login-Pass')."\r\n\r\n"
+                    .$userAccountList;
 
-            $emailBody = $emailSubject."\r\n"
-                        .get_path('rootWeb')."\r\n"
-                        .get_lang('This is your account Login-Pass')."\r\n\r\n" ;
-            
-            // mail body
-            if ( count($userAccountList) > 0 )
-            {
-                $emailBody .= implode ("\r\n\r\n", $userAccountList);
-            }
 
             // send message
-            if( claro_mail_user($userList[0]['uid'], $emailBody, $emailSubject) )
+            $emailTo = $user[0]['uid'];
+
+            if( claro_mail_user($emailTo, $emailBody, $emailSubject) )
             {
-                $msg = get_lang('Your password has been emailed to'). ' : ' . $emailTo;
+                $msg = get_lang('Your password has been emailed to'). ' : ' . $Femail;
             }
             else
             {
                 $msg = get_lang('The system is unable to send you an e-mail.') . '<br />'
-                .   get_lang('Please contact') . ' : '
-                .   '<a href="mailto:' . get_conf('administrator_email') . '?BODY=' . $emailTo . '">'
+                .   get_lang('Please contact') . ' : ' 
+                .   '<a href="mailto:'.$administrator_email.'?BODY='.$Femail.'">'
                 .   get_lang('Platform Administrator')
                 .   '</a>';
             }
-        }
     }
     else
     {
-        $msg = '<p>' . get_lang('There is no user account with this email address.') . '</p>';
+        $msg = get_lang('There is no user account with this email address.');
     }
 
     if ($extAuthPasswordCount > 0 )
     {
-        if ( $extAuthPasswordCount == count($userList) )
-        {
-            $msg .= '<p>'
-                 . get_lang('Your password(s) is (are) recorded in an external authentication system outside the platform.') . '<br />'
-                 . get_lang('For more information take contact with the platform administrator.')
-                 . '</p>';
-        }
-        else
+        if ( count ($user) > 0 )
         {
             $msg .= '<p>'
                  . get_lang('Passwords of some of your user account(s) are recorded an in external authentication system outside the platform.') . '<br />'
                  . get_lang('For more information take contact with the platform administrator.')
                  .  '</p>';
+        }
+        else
+        {
+            $msg .= '<p>'
+                 . get_lang('Your password(s) is (are) recorded in an external authentication system outside the platform.') . '<br />'
+                 . get_lang('For more information take contact with the platform administrator.')
+                 . '</p>';
         }
     }
 }
@@ -173,7 +175,7 @@ else
 ////////////////////////////////////////////////////
 // display section
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include$includePath . '/claro_init_header.inc.php';
 
 // display title
 
@@ -187,10 +189,10 @@ if ( ! $passwordFound )
     .       '<input type="hidden" name="searchPassword" value="1" />'
     .       '<label for="Femail">' . get_lang('Email') . ' : </label>'
     .       '<br />'
-    .       '<input type="text" name="Femail" id="Femail" size="50" maxlength="100" value="' . htmlspecialchars($emailTo) . '" />'
+    .       '<input type="text" name="Femail" id="Femail" size="50" maxlength="100" value="' . htmlspecialchars($Femail) . '" />'
     .       '<br /><br />'
-    .       '<input type="submit" name="retrieve" value="' . get_lang('Ok') . '" />&nbsp; '
-    .       claro_html_button(get_conf('urlAppend') . '/index.php', get_lang('Cancel'))
+    .       '<input type="submit" name="retrieve" value="' . get_lang('Ok') . '" /> '
+    .       claro_html_button('../../index.php', get_lang('Cancel'))
     .       '</form>'
     ;
 }
@@ -199,6 +201,5 @@ if ( ! empty($msg) ) echo claro_html_message_box($msg);
 
 // display form
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
-
+include $includePath . '/claro_init_footer.inc.php';
 ?>

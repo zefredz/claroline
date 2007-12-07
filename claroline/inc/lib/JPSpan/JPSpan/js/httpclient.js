@@ -145,9 +145,11 @@ JPSpan_HttpClient.prototype = {
             case 3:
                 return true;
             break;
-		}
+            default:
+                return false;
+            break;
+        }
 
-		return false;
     },
     
     // Callback for timeouts: aborts the request

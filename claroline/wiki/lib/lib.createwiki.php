@@ -1,5 +1,5 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+
     // vim: expandtab sw=4 ts=4 sts=4:
 
     /**
@@ -24,12 +24,14 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     require_once dirname(__FILE__) . "/class.wikipage.php";
     require_once dirname(__FILE__) . "/class.wiki.php";
     require_once dirname(__FILE__) . "/lib.wikisql.php";
-
-
+    
+    
     function create_wiki( $gid = false, $wikiName = 'New wiki' )
     {
-        $creatorId = claro_get_current_user_id();
-
+        global $_uid;
+        
+        $creatorId = $_uid;
+        
         $tblList = claro_sql_get_course_tbl();
 
         $config = array();
@@ -39,9 +41,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         $config["tbl_wiki_acls"] = $tblList[ "wiki_acls" ];
 
         $con = new ClarolineDatabaseConnection();
-
+        
         $acl = array();
-
+        
         if ( $gid )
         {
             $acl = WikiAccessControl::defaultGroupWikiACL();
@@ -50,7 +52,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         {
             $acl = WikiAccessControl::defaultCourseWikiACL();
         }
-
+        
         $wiki = new Wiki( $con, $config );
         $wiki->setTitle( $wikiName );
         $wiki->setDescription( 'This is a sample wiki' );
@@ -58,33 +60,33 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         $wiki->setGroupId( $gid );
         $wikiId = $wiki->save();
         $wikiTitle = $wiki->getTitle();
-
+                
         $mainPageContent = sprintf( "This is the main page of the Wiki %s. Click on edit to modify the content.", $wikiTitle );
-
+                
         $wikiPage = new WikiPage( $con, $config, $wikiId );
         $wikiPage->create( $creatorId
             , '__MainPage__'
             , $mainPageContent
             , date( "Y-m-d H:i:s" )
             , true );
-
+            
         echo $con->getError();
     }
-
+    
     function delete_wiki( $groupId )
     {
         $tblList = claro_sql_get_course_tbl();
-
+        
         $config = array();
         $config["tbl_wiki_properties"] = $tblList[ "wiki_properties" ];
         $config["tbl_wiki_pages"] = $tblList[ "wiki_pages" ];
         $config["tbl_wiki_pages_content"] = $tblList[ "wiki_pages_content" ];
         $config["tbl_wiki_acls"] = $tblList[ "wiki_acls" ];
-
+        
         $con = new ClarolineDatabaseConnection();
-
+        
         $store = new WikiStore( $con, $config );
-
+        
         if ( strtoupper($groupId) == 'ALL' )
         {
             $wikiList = $store->getGroupWikiList();
@@ -93,9 +95,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         {
             $wikiList = $store->getWikiListByGroup( $groupId );
         }
-
+        
         // var_dump( $wikiList );
-
+        
         if ( is_array( $wikiList ) && count( $wikiList ) > 0 )
         {
           foreach ( $wikiList as $wiki )
@@ -104,7 +106,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
           }
         }
     }
-
+    
     function delete_group_wikis( $groupIdList = 'ALL' )
     {
         // echo "passed here";

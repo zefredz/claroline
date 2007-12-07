@@ -1,21 +1,20 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 //----------------------------------------------------------------------
 // CLAROLINE 1.6
 //----------------------------------------------------------------------
 // Copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
+// as published by the FREE SOFTWARE FOUNDATION. The GPL is available 
 // through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
 //----------------------------------------------------------------------
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
 /**
- *
- *
- *
+ * 
+ * 
+ * 
  */
 
 class Tree
@@ -32,17 +31,17 @@ class Tree
     // default value is empty and means that we will only  have one tree in our table
     // e.g. : it could be session id in works
     var $treeCol;
-
+    
     /**
      * constructor, build a tree object
-     *
+     * 
      * @param string $table name of the sql table containing the tree nodes
      * @param string $leftCol name of the 'left' column in $table
      * @param string $rightCol name of the 'right' column in $table
      * @param string $deepCol name of the 'deep' column in $table
      * @author Fragile <pir@cerdecam.be>
      * @access public
-     */
+     */ 
     function Tree($table, $leftCol = 'left', $rightCol = 'right', $deepCol = 'deep', $treeCol = '')
     {
         $this->table = $table;
@@ -51,10 +50,10 @@ class Tree
         $this->deepCol = $deepCol;
         $this->treeCol = $treeCol;
     }
-
+    
     /**
      * create root node
-     *
+     * 
      * @return int id of the inserted node
      * @uses _addNode
      * @author Fragile <pir@cerdecam.be>
@@ -66,13 +65,13 @@ class Tree
         $node['right']     = 2;
         $node['deep']     = 0;
         $node['tree']     = $tree;
-
+        
         return $this->_addNode($node, $values);
     }
-
+    
     /**
      * create a node that will be the first child of node $id
-     *
+     *     
      * @param int $id id of the parent node
      * @return int id of the inserted node
      * @uses _shiftPositions
@@ -93,8 +92,8 @@ class Tree
         return $this->_addNode($newNode, $values);
     }
     /**
-     * create a node that will be the last child of node $id
-     *
+     * create a node that will be the last child of node $id    
+     * 
      * @param $id id of the parent node
      * @return int id of the inserted node
      * @uses _shiftPositions
@@ -105,7 +104,7 @@ class Tree
     function newLastChild( $id , $values = "" )
     {
         $node = $this->getPosition( $id );
-
+        
         $newNode['left']     = $node['right'];
         $newNode['right']     = $node['right'] + 1;
         $newNode['deep']     = $node['deep'] + 1;
@@ -114,10 +113,10 @@ class Tree
         $this->_shiftPositions($newNode['left'],2, $newNode['tree']);
         return $this->_addNode($newNode, $values);
     }
-
+    
     /**
      * create a node that will be the previous brother of node $id
-     *
+     *     
      * @param $id id of the brother node
      * @return int id of the inserted node
      * @uses Tree::_shiftPositions
@@ -128,19 +127,19 @@ class Tree
     function newPrevBrother( $id , $values = "" )
     {
         $node = $this->getPosition( $id );
-
+        
         $newNode['left']     = $node['left'];
         $newNode['right']     = $node['left'] + 1;
         $newNode['deep']     = $node['deep'];
         $newNode['tree']    = $node['tree'];
-
+        
         $this->_shiftPositions($newNode['left'],2, $newNode['tree']);
         return $this->_addNode($newNode, $values);
     }
 
     /**
      * create a node that will be the next brother of node $id
-     *
+     *     
      * @param $id id of the brother node
      * @return int id of the inserted node
      * @uses _shiftPositions
@@ -151,20 +150,20 @@ class Tree
     function newNextBrother( $id , $values = "" )
     {
         $node = $this->getPosition( $id );
-
+        
         $newNode['left']     = $node['right'] + 1;
         $newNode['right']     = $node['right'] + 2;
         $newNode['deep']     = $node['deep'];
-        $newNode['tree']    = $node['tree'];
-
+        $newNode['tree']    = $node['tree'];        
+        
         $this->_shiftPositions($newNode['left'],2, $newNode['tree']);
         return $this->_addNode($newNode, $values);
     }
-
+    
     /**
      * delete a node and all its children
-     *
-     * @param int $id
+     * 
+     * @param int $id 
      * @author Fragile <pir@cerdecam.be>
      * @access public
      */
@@ -175,71 +174,71 @@ class Tree
         if( is_array($node) )
         {
             $sql = "DELETE FROM `".$this->table."`
-                    WHERE `".$this->leftCol."` >= ".$node['left']."
+                    WHERE `".$this->leftCol."` >= ".$node['left']." 
                     AND ".$this->rightCol." <= ".$node['right'];
-            // handle multiple trees allowed in same table
+            // handle multiple trees allowed in same table        
             if( !empty($this->treeCol) ) $sql .= " AND ".$this->treeCol." = ".$node['tree'];
-
+            
             claro_sql_query($sql);
-
+            
             $this->_shiftPositions($node['right']+1, $node['left'] - $node['right'] - 1, $node['tree']);
         }
         else
         {
             return false;
         }
-
+                
     }
     /**
-     *
-     *
+     * 
+     * 
      * @author Fragile <pir@cerdecam.be>
      * @access private
-     */
+     */ 
     function _addNode($node, $values = "")
     {
         if ( strlen($values) > 0) $values .= ",";
 
         $sql = "INSERT INTO `".$this->table."`
                 SET ".$values
-                    ."`".$this->leftCol."` = ".$node['left'].",
+                    ."`".$this->leftCol."` = ".$node['left'].", 
                     `".$this->rightCol."` = ".$node['right'].",
                     `".$this->deepCol."` = ".$node['deep'];
-        // handle multiple trees allowed in same table
+        // handle multiple trees allowed in same table        
         if( !empty($this->treeCol) ) $sql .= ", `".$this->treeCol."` = ".$node['tree'];
 
         // insert node and return inserted id
         return claro_sql_query_insert_id($sql);
     }
-
+    
     /**
-     *
+     * 
      * @author Fragile <pir@cerdecam.be>
      * @access private
-     */
+     */ 
     function _shiftPositions($from, $delta, $tree)
     {
         $sql = "UPDATE `".$this->table."`
-                SET `".$this->leftCol."` = `".$this->leftCol."` + ".$delta."
+                SET `".$this->leftCol."` = `".$this->leftCol."` + ".$delta." 
                 WHERE `".$this->leftCol."` >= ".$from;
-        // handle multiple trees allowed in same table
+        // handle multiple trees allowed in same table        
         if( !empty($this->treeCol) ) $sql .= " AND ".$this->treeCol." = ".$tree;
-
+                
         claro_sql_query($sql);
 
-        $sql = "UPDATE `".$this->table."`
-                SET `".$this->rightCol."` = `".$this->rightCol."` + ".$delta."
+        $sql = "UPDATE `".$this->table."` 
+                SET `".$this->rightCol."` = `".$this->rightCol."` + ".$delta." 
                 WHERE `".$this->rightCol."` >= ".$from;
-        // handle multiple trees allowed in same table
+        // handle multiple trees allowed in same table        
         if( !empty($this->treeCol) ) $sql .= " AND ".$this->treeCol." = ".$tree;
         claro_sql_query($sql);
     }
-
+    
 
     /**
      * Get the left, right and deep attributes of a node
-     *
-     * @param $id id of the node
+     * 
+     * @param $id id of the node 
      * @return array $left, $right and $deep attributes of the father
      * @author Fragile <pir@cerdecam.be>
      * @access public
@@ -269,37 +268,37 @@ class Tree
             return $node;
         }
     }
-
-
+    
+    
     /**
-     *
-     *
+     * 
+     * 
      * @author Fragile <pir@cerdecam.be>
      * @access public
-     */
-    function getChildren($id, $direct = FALSE)
+     */ 
+    function getChildren($id, $direct = FALSE) 
     {
         $node = $this->getPosition( $id );
-
+        
         $sql = "SELECT *
                 FROM `".$this->table."`
                 WHERE `".$this->leftCol."` > ".$node['left']
                 ." AND `".$this->rightCol."` < ".$node['right'];
 
         if( $direct ) $sql .= " AND `".$this->deepCol."` = ".($node['deep']+1);
-        // handle multiple trees allowed in same table
+        // handle multiple trees allowed in same table        
         if( !empty($this->treeCol) ) $sql .= " AND ".$this->treeCol." = ".$node['tree'];
 
         return claro_sql_query_fetch_all($sql);
     }
 
     /**
-     * Count number of children    a node has.  $direct param specifies
+     * Count number of children    a node has.  $direct param specifies 
      * if we count only direct children or direct children and all
      * their children
-     *
+     * 
      * @param int $id id of the node we want to count children
-     * @param boolean $direct if true we only count direct children,
+     * @param boolean $direct if true we only count direct children, 
      * if false we count all children
      * @return int number of children
      * @author Fragile <pir@cerdecam.be>
@@ -312,14 +311,14 @@ class Tree
             // count direct children only
             $children = $this->getChildren($id, $direct);
 
-            if(is_array($children))
+            if(is_array($children)) 
             {
                 return count($children);
             }
             else
             {
                 return 0;
-            }
+            }            
         }
         else
         {
@@ -327,12 +326,12 @@ class Tree
             $node = $this->getPosition( $id );
             return ($node['right'] - $node['left'] - 1) / 2;
         }
-
+        
     }
-
+    
     /**
-     * Display the tree that has '$id' as root
-     *
+     * Display the tree that has '$id' as root 
+     * 
      * @param $id id of the root of the tree to display
      * @author Fragile <pir@cerdecam.be>
      * @access public
@@ -346,25 +345,25 @@ class Tree
         if( is_array($node) )
         {
             // get all nodes that are part of the 'id' tree or subtree
-            $sql = "SELECT *
+            $sql = "SELECT * 
                     FROM `".$this->table."`
                     WHERE `".$this->leftCol."` >= ".$node['left']."
                     AND `".$this->rightCol."` <= ".$node['right'];
-            // handle multiple trees allowed in same table
-            if( !empty($this->treeCol) ) $sql .= " AND ".$this->treeCol." = ".$node['tree'];
-
+            // handle multiple trees allowed in same table        
+            if( !empty($this->treeCol) ) $sql .= " AND ".$this->treeCol." = ".$node['tree'];    
+    
             $sql .= " ORDER BY `".$this->leftCol."` ASC";
-
+                    
             $tree = claro_sql_query_fetch_all($sql);
-
+            
             // display tree
             echo '<h3>Tree</h3>'."\n".'<p>'."\n";
-            foreach( $tree as $node )
+            foreach( $tree as $node ) 
             {
                 // indentation
                 echo str_repeat("&nbsp;", $node[$this->deepCol] * 4);
-
-                echo '<b>'.$node['id'].'</b><br />'."\n";
+                
+                echo '<b>'.$node['id'].'</b><br />'."\n";            
             }
             echo '</p>';
         }
@@ -373,7 +372,7 @@ class Tree
             echo "<p><strong>Nothing at this id.</strong></p>";
         }
     }
-
+    
 }
 
 ?>

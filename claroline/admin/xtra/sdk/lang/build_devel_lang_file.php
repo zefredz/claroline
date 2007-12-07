@@ -63,12 +63,12 @@ $languagePathList = get_lang_path_list($path_lang);
 if ( sizeof($languagePathList) > 0)
 {
     echo "<form action=\"" . $_SERVER['PHP_SELF'] . "\" method=\"GET\">";
-    echo "<select name=\"lang\">";
+    echo "<select name=\"language\">";
     echo '<option value="all" selected="selected">' . get_lang('All') . '</option>'. "\n";
     foreach($languagePathList as $key => $languagePath)
     {
 
-        if (isset($_REQUEST['lang']) && $key == $_REQUEST['lang'] )
+        if (isset($_REQUEST['language']) && $key == $_REQUEST['language'] )
         {
             echo "<option value=\"" . $key . "\" selected=\"selected\">" . $key . "</option>";
         }
@@ -88,12 +88,12 @@ else
 
 // if select language and laguage exists
 
-if (isset($_REQUEST['lang']))
+if (isset($_REQUEST['language']))
 {
 
     $languageToBuild = array();
 
-    if ($_REQUEST['lang'] == 'all')
+    if ($_REQUEST['language'] == 'all')
     {
         foreach ($languagePathList as $language => $languagePath)
         {
@@ -102,7 +102,7 @@ if (isset($_REQUEST['lang']))
     }
     else
     {
-        $languageToBuild[] = $_REQUEST['lang'];
+        $languageToBuild[] = $_REQUEST['language'];
     }
 
     echo "<ol>\n";
@@ -118,13 +118,13 @@ if (isset($_REQUEST['lang']))
 
         // get the different variables
 
-        $sql = " SELECT DISTINCT used.varName, trans.varFullContent
+        $sql = " SELECT DISTINCT trans.varName, trans.varFullContent
                 FROM " . $tbl_used_lang . " used, " . $tbl_translation  . " trans
                 WHERE trans.language = '$language'
                   AND used.varName = trans.varName
-                ORDER BY used.varName, trans.varContent";
+                ORDER BY trans.varName, trans.varContent";
 
-        $result = claro_sql_query($sql) or die ("QUERY FAILED: " .  __LINE__);
+        $result = mysql_query($sql) or die ("QUERY FAILED: " .  __LINE__);
 
         if ($result)
         {

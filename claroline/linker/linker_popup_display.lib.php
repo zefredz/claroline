@@ -1,10 +1,9 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
- * @version 1.9 $Revision$
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @version 1.8 $Revision$
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -16,13 +15,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  */
     /**
-     * claro_linker_popup_display.lib
-     *
-     * is a lib of function for the display of the linker popup.
-     * @package CLLINKER
-     *
-     * @author Fallier Renaud <renaud.claroline@gmail.com>
-     **/
+    * claro_linker_popup_display.lib
+    *
+    * is a lib of function for the display of the linker popup.
+    * @package CLLINKER
+    *
+    * @author Fallier Renaud <renaud.claroline@gmail.com>
+    **/
 
    /**
     * display the navigator in the popup
@@ -51,30 +50,26 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
    function displayAttachmentList($current_crl)
    {
        global $caddy;
+       global $imgRepositoryWeb;
 
        $content = $caddy->getAttachmentList();
 
        if( is_array($content) && isset($content['crl']) && count( $content['crl'] ) > 0 )
        {
-           echo '<hr />' . "\n"
-           .    '<b>' . get_lang("Attached resources") . '</b>' . "\n"
-           .    '<table style="border: 0px; font-size: 80%; width: 100%;">' . "\n"
-           ;
+           echo '<hr /><b>' . get_lang("Attached resources") . '</b>' . "\n";
+
+           echo '<table style="border: 0px; font-size: 80%; width: 100%;">' . "\n";
 
            for($i = 0 ; $i<(count($content["crl"])) ; $i++)
            {
-               echo '<tr>' . "\n"
-               .    '<td>' . $content['title'][$i]
-               .    '</td>' . "\n"
-               .    '<td>' . "\n"
+               echo '<tr><td>' . $content['title'][$i]
+               .    '</td><td>'
                .    '<a href="' . $_SERVER['PHP_SELF']
                .    '?cmd=delete'
                .    '&amp;crl=' . $content["crl"][$i]
                .    '&amp;current_crl=' . urlencode($current_crl) . '" class="claroCmd">'
-               .    '<img src="' . get_path('imgRepositoryWeb') . '/delete.gif" alt='.get_lang("Delete").'" />'
-               .    '</a>' . "\n"
-               .    '</td>' . "\n"
-               .    '</tr>' . "\n"
+               .    '<img src="'.$imgRepositoryWeb.'/delete.gif" alt='.get_lang("Delete").'" />'
+               .    '</a></td></tr>' . "\n"
                ;
            }
 
@@ -196,12 +191,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             else if($object->isLinkable() && !$object->isVisible() )
             {
                 echo "\t".'&nbsp;'
-                .    claro_html_cmd_link( $_SERVER['PHP_SELF']
+                .    '<a href="' . $_SERVER['PHP_SELF']
                 .    '?cmd=add&amp;crl=' . urlencode($object->getCRL())
-                                        . '&amp;current_crl=' . urlencode($crl)
-                                        , '[' . get_lang("Attach") . ']'
-                                        )
-                .    '<br />' . "\n"
+                .    '&amp;current_crl=' . urlencode($crl) . '" class="claroCmd">'
+                .    '[' . get_lang("Attach") . ']'
+                .    '</a><br />' . "\n"
                 ;
             }
             else
@@ -218,12 +212,15 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     }
 
     /**
-     * Display the list the other course
-     *
-     * @throws E_USER_ERROR if it is not a array
-     */
+    * display the list the other course
+    *
+    * @global $platform_id  the id of the platforme
+    * @throws E_USER_ERROR if it is not a array
+    */
     function displayOtherCourse( $navigator , $crl )
     {
+        global $platform_id;
+
         echo '<div class="claroMessageBox" style="margin-top : 1em;margin-bottom : 1em;">' . "\n";
 
         displayOtherCoursesLink( FALSE );
@@ -238,22 +235,22 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         {
             foreach ($otherCourseInfo as $courseInfo )
             {
-                $crl = CRLTool::createCRL(get_conf('platform_id') , $courseInfo['code'] );
+                $crl = CRLTool::createCRL($platform_id , $courseInfo['code'] );
                 echo '<a href="' . $_SERVER['PHP_SELF']
                 .    '?fct=add'
                 .    '&amp;cmd=browse'
                 .    '&amp;current_crl=' . urlencode ($crl).'">'
-                .    $courseInfo['administrativeNumber'] . ' : ' . $courseInfo['intitule']
+                .    $courseInfo['fake_code'] . ' : ' . $courseInfo['intitule']
                 .    '</a>' . "\n"
 
                 .    '&nbsp;'
 
-                .    claro_html_cmd_link( $_SERVER['PHP_SELF']
+                .    '<a href="' . $_SERVER['PHP_SELF']
                 .    '?cmd=add'
                 .    '&amp;crl=' . urlencode($crl)
-                                        . '&amp;current_crl=' . urlencode($crl)
-                                        , '[' . get_lang("Attach") . ']'
-                                        );
+                .    '&amp;current_crl=' . urlencode($crl) . '" class="claroCmd">'
+                .    '[' . get_lang("Attach") . ']</A><br />' . "\n"
+                ;
             }
         }
         else
@@ -268,10 +265,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     /**
     * display the list the public course
     *
+    * @global $platform_id  the id of the platforme
     * @throw E_USER_ERROR if it is not a array
     */
     function displayPublicCourse( $navigator , $crl )
     {
+        global $platform_id;
 
         echo '<div class="claroMessageBox" style="margin-top : 1em;margin-bottom : 1em;">' . "\n";
 
@@ -289,22 +288,22 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         {
             foreach ($publicCourseInfo as $courseInfo )
             {
-                $crl = CRLTool::createCRL(get_conf('platform_id') , $courseInfo['code'] );
+                $crl = CRLTool::createCRL($platform_id , $courseInfo['code'] );
                 echo '<a href="' . $_SERVER['PHP_SELF']
                 .    '?fct=add'
                 .    '&amp;cmd=browse'
                 .    '&amp;current_crl=' . urlencode ($crl).'">'
-                .    $courseInfo['administrativeNumber'] . ' : ' . $courseInfo['intitule']
+                .    $courseInfo['fake_code'] . ' : ' . $courseInfo['intitule']
                 .    '</a>' . "\n"
 
                 .    '&nbsp;'
 
-                .    claro_html_cmd_link( $_SERVER['PHP_SELF']
+                .    '<a href="' . $_SERVER['PHP_SELF']
                 .    '?cmd=add'
                 .    '&amp;crl=' . urlencode($crl)
-                                        . '&amp;current_crl=' . urlencode($crl)
-                                        , '[' . get_lang("Attach") . ']'
-                                        );
+                .    '&amp;current_crl=' . urlencode($crl) . '" class="claroCmd">'
+                .    '[' . get_lang("Attach") . ']</A><br />' . "\n"
+                ;
             }
         }
         else
@@ -321,27 +320,30 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     */
     function displayParentLink ( $navigator , $isLink = TRUE)
     {
+        global $imgRepositoryWeb;
+
         $crlParent = $navigator->getParent();
 
         if( $isLink && $crlParent)
         {
-       echo claro_html_cmd_link( $_SERVER['PHP_SELF']
-                                    .    '?fct=add'
-                                    .    '&amp;cmd=browse'
-                                    . '&amp;current_crl=' . urlencode ($crlParent)
-                                    , '<img src="' . get_path('imgRepositoryWeb') . 'parent.gif" border="0" alt="" />'
-                                    .    get_lang("Up")
-                                    );
+            echo '<a href="' . $_SERVER['PHP_SELF']
+            .    '?fct=add'
+            .    '&amp;cmd=browse'
+            .    '&amp;current_crl=' . urlencode ($crlParent) . '" class="claroCmd">'
+            .    '<img src="' . $imgRepositoryWeb . 'parent.gif" border="0" alt="" />'
+            .    get_lang("Up")
+            .    '</a>'
+            ;
         }
         else
         {
             echo '<span class="claroCmdDisabled">'
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'parentdisabled.gif" border="0" alt="" />'
+            .    '<img src="' . $imgRepositoryWeb . 'parentdisabled.gif" border="0" alt="" />'
             .    get_lang("Up")
             .    '</span>'
             ;
         }
-        echo '<br /><br />' . "\n";
+        echo       '<br /><br />' . "\n";
     }
 
     /**
@@ -355,11 +357,10 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
          {
              if( $isLink )
             {
-                echo claro_html_cmd_link( $_SERVER['PHP_SELF']
-                                        . '?cmd=browseMyCourses'
-                                        . claro_url_relay_context('&amp;')
-                                        , get_lang("My other courses")
-                                        );
+                echo '<a href="' . $_SERVER['PHP_SELF']
+                .    '?cmd=browseMyCourses" class="claroCmd">'
+                .    get_lang("My other courses") . '</a>&nbsp;' . "\n"
+                ;
             }
             else
             {
@@ -384,7 +385,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
          {
              if( $isLink )
             {
-                echo claro_html_cmd_link($_SERVER["PHP_SELF"] . '?cmd=browsePublicCourses' . claro_url_relay_context('&amp;'), get_lang("Public courses"));
+                echo '<a href="'.$_SERVER["PHP_SELF"].'?cmd=browsePublicCourses" class="claroCmd">';
+                echo get_lang("Public courses")."</A>&nbsp;\n";
             }
             else
             {
@@ -454,7 +456,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     {
         echo '<input type="submit" '
         .    'onclick="linker_confirm();return false;" '
-        .    'value="' . get_lang("Close popup") . '" />'
+        .    'value="' . get_lang("Close popup") . '" >'
         ;
     }
 ?>

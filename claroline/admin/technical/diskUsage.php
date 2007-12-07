@@ -15,19 +15,18 @@
 require_once '../../inc/claro_init_global.inc.php';
 
 // Security check
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
+if ( ! get_init('_uid') ) claro_disp_auth_form();
+if ( ! get_init('is_platformAdmin') ) claro_die(get_lang('Not allowed'));
 
-require_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
-require_once get_path('incRepositorySys') . '/lib/form.lib.php';
+require_once $includePath . '/lib/fileManage.lib.php';
+require_once $includePath . '/lib/form.lib.php';
 
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_course = $tbl_mdb_names['course'];
 
 $nameTools = get_lang('Disk Usage');
-$byteUnits = get_locale('byteUnits');
 
-$interbredcrump[]= array ( 'url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
+$interbredcrump[]= array ( 'url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 $interbredcrump[]= array ( 'url' => 'index.php'  , 'name' => get_lang('Technical Tools'));
 
 $disp_form = true;
@@ -44,7 +43,7 @@ else                                  $disp_allcrs =  false;
 if (isset( $_REQUEST['disp_garbage']))
 {
     $disp_garbage =  $_REQUEST['disp_garbage'];
-    $garbagedisk_usage = disk_usage(get_path('garbageRepositorySys'),'','m');
+    $garbagedisk_usage = disk_usage(get_conf('garbageRepositorySys'),'','m');
 }
 else
 {
@@ -57,29 +56,26 @@ else                                     $coursesToCheck =  false;
 if ($disp_form)
 {
 
-    $sqlListCoursesSel = "SELECT administrativeNumber AS officialCode,
-                                 code                 AS sysCode
-                            FROM `" . $tbl_course . "`
-                           ORDER BY trim(administrativeNumber) ASC";
+    $sqlListCoursesSel = "SELECT fake_code officialCode, code sysCode FROM `" . $tbl_course . "` order by trim(fake_code) ASC";
     $course_list = claro_sql_query_fetch_all($sqlListCoursesSel);
 
     if (is_array($course_list))
     {
-        $coursesToCheck_list['** ' . get_lang('All') . ' ** !!! ' . get_lang('high resources')]= ' all ';
+        $coursesToCheck_list[' all ']= '** ' . get_lang('All') . ' ** !!! ' . get_lang('high resources') ;
         foreach ($course_list as $courseSel)
         {
-            $coursesToCheck_list[$courseSel['officialCode']] = $courseSel['sysCode'] ;
+            $coursesToCheck_list[ $courseSel['sysCode'] ]=$courseSel['officialCode'];
         }
     }
 }
 
 
 //OUTPUT
-include get_path('incRepositorySys') . '/claro_init_header.inc.php' ;
+include $includePath . '/claro_init_header.inc.php' ;
 
 echo claro_html_tool_title($nameTools);
 
-echo get_lang('Course Repository') . ' : ' . get_path('coursesRepositorySys') . '<br />' . get_lang('Mysql Repository') . ' : ' . (get_conf('mysqlRepositorySys',false) ? get_conf('mysqlRepositorySys') : '!!! ' . get_lang('Missing')) . '<br />';
+echo get_lang('Course Repository') . ' : ' . $coursesRepositorySys . '<br />' . get_lang('Mysql Repository') . ' : ' . ($mysqlRepositorySys ? $mysqlRepositorySys : '!!! ' . get_lang('Missing')) . '<br />';
 
 
 
@@ -89,29 +85,39 @@ if ($disp_form)
 if ($disp_claro )
     echo '<li>'
     .    'Claroline : '
-    .    sprintf('%01.2f', disk_usage(get_path('clarolineRepositorySys'),'','m')) . ' ' . $byteUnits[2]
+    .    sprintf('%01.2f', disk_usage($clarolineRepositorySys,'','m')) . ' ' . $byteUnits[2]
     .    '</li>'
     ;
 
 if ($disp_allcrs)
-{
-    $diskUsage = sprintf('%01.2f', disk_usage(get_path('coursesRepositorySys'), get_path('mysqlRepositorySys'), 'm')) . ' ' . $byteUnits[2];
     echo '<li>'
-    .    get_lang('Courses : %disk_usage (perhaps with others directory)',
-         array ( '%disk_usage' => $diskUsage ) ) . '</li>' ;
-}
+    .    get_lang('Courses') . ' : '
+    .    sprintf('%01.2f', disk_usage($coursesRepositorySys, $mysqlRepositorySys, 'm')) . ' ' . $byteUnits[2]
+    .    '(' . get_lang('perhaps with others directory') . ')</li>'
+    ;
+
+if ($disp_garbage )
+    echo '<li>'
+    .    get_lang('Garbage')
+    .    ' :  '
+    .    sprintf('%01.2f', $garbagedisk_usage ) . ' ' . $byteUnits[2]
+    .    '</li>'
+    ;
 ?>
 <li>
 <hr />
 <form  method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-<input type="checkbox" id="disp_claro" name="disp_claro" value="true"  />
-<label for="disp_claro"><?php echo ' ' . get_lang('size of claroline scripts') ?></label>
+<input type="checkbox" id="disp_claro" name="disp_claro" value="true" >
+<label for="disp_claro"><?php echo get_lang(' size of claroline scripts') ?></label>
 <br />
-<input type="checkbox" id="disp_allcrs" name="disp_allcrs" value="true"  />
+<input type="checkbox" id="disp_allcrs" name="disp_allcrs" value="true" >
 <label for="disp_allcrs"><?php echo get_lang('!!!! size of course repository (include claroline and garbage in old systems)') ?></label>
 <br />
+<input type="checkbox" id="disp_garbage" name="disp_garbage" value="true" >
+<label for="disp_garbage">size of garbage</label>
+<br />
 
-<input type="checkbox" name="disp_selCrs" id="disp_selCrs" value="true"  />
+<input type="checkbox" name="disp_selCrs" id="disp_selCrs" value="true" >
 <label for="disp_selCrs"><?php echo get_lang('size of selected courses') ?></label><br />
 
 <?php
@@ -121,7 +127,8 @@ echo claro_html_form_select( 'coursesToCheck[]'
                            , array( 'multiple'=>'multiple'
                                   , 'size'=>'' ))
                            ; ?>
-<input type="submit" />
+
+<input type="submit">
 </form>
 <hr />
 </li>
@@ -132,12 +139,11 @@ echo claro_html_form_select( 'coursesToCheck[]'
 if ($disp_selCrs && $coursesToCheck)
 {
     echo '<li><ol>';
-    $sqlListCourses = "
-                       SELECT administrativeNumber AS code,
-                              directory            AS dir,
-                              dbName               AS db,
-                              diskQuota
-                         FROM `" . $tbl_course . "` ";
+    $sqlListCourses = "SELECT fake_code code,
+                      directory dir,
+                      dbName db,
+                      diskQuota
+                      FROM `" . $tbl_course . "` ";
     if($coursesToCheck[0]==" all ")    $sqlListCourses .= " order by dbName";
     elseif (is_array($coursesToCheck)) $sqlListCourses .= " where code in ('".implode( "','", $coursesToCheck )."') order by dbName";
     else unset($sqlListCourses);
@@ -147,14 +153,17 @@ if ($disp_selCrs && $coursesToCheck)
         $resCourses= claro_sql_query($sqlListCourses);
         while (($course = mysql_fetch_array($resCourses,MYSQL_ASSOC)))
         {
-            $duFiles = disk_usage(get_path('coursesRepositorySys') . $course['dir'] . '/','','k');
-            $duBase  = get_db_size($course["db"],'k');
+            $duFiles = disk_usage($coursesRepositorySys . $course['dir'] . '/','','k');
+            $duBase  = disk_usage($mysqlRepositorySys . $course['db'] . '/','','k');
 
-            $duTotal = disk_usage(get_path('coursesRepositorySys') . $course['dir'] . '/', get_path('coursesRepositorySys') . $course['db'] . '/' , 'm');
-            echo '<p>' . get_path('coursesRepositorySys') . $course['dir'] . '/'
+
+//            $duBase  = get_db_size($course["db"],k);
+
+            $duTotal = disk_usage($coursesRepositorySys . $course['dir'] . '/', $mysqlRepositorySys . $course['db'] . '/' , 'm');
+            echo '<p>' . $coursesRepositorySys . $course['dir'] . '/'
             .    ' = '
             .    '<pre>'
-            .    var_export( get_path('coursesRepositorySys') . $course['dir'] . '/',1)
+            .    var_export( $coursesRepositorySys . $course['dir'] . '/',1)
             .    '</pre>'
             ;
 
@@ -188,7 +197,7 @@ if ($disp_selCrs && $coursesToCheck)
 
 <?php
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 
 
 
@@ -222,7 +231,7 @@ function disk_usage( $dirFiles = '', $dirBase='', $precision='m')
 
 function get_db_size($tdb)
 {
-    $db = mysql_connect(get_conf('dbHost'), get_conf('dbLogin'), get_conf('dbPass')) or die ("Error connecting to MySQL Server!\n");
+    $db = mysql_connect(get_conf('dbHost'), $get_conf('dbLogin'), get_conf('dbPass')) or die ("Error connecting to MySQL Server!\n");
     mysql_select_db($tdb, $db);
 
     $sql_result = "SHOW TABLE STATUS FROM " .$tdb;

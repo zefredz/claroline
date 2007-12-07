@@ -1,24 +1,27 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 
 /******************************************************************************
  * CLAROLINE
  ******************************************************************************
  * This module displays the course list of a the current authenticated user
  *
- * @version 1.9 $Revision$
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @version 1.8 $Revision$
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  * @license (GPL) GENERAL PUBLIC LICENSE - http://www.gnu.org/copyleft/gpl.html
  * @package CLINDEX
  ******************************************************************************/
 
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
+// Prevent direct reference to the script by external browser
+if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die();
 
-$personnalCourseList = get_user_course_list(claro_get_current_user_id());
+if ( ! isset($_uid) ) claro_disp_auth_form();
+
+$personnalCourseList = get_user_course_list($_uid);
 
 // get the list of personnal courses marked as contening new events
-$date            = $claro_notifier->get_notification_date(claro_get_current_user_id());
-$modified_course = $claro_notifier->get_notified_courses($date,claro_get_current_user_id());
+$date            = $claro_notifier->get_notification_date($_uid);
+$modified_course = $claro_notifier->get_notified_courses($date,$_uid);
+
 
 
 /******************************************************************************
@@ -29,13 +32,11 @@ echo claro_html_tool_title(get_lang('My course list'));
 
 //display list
 
-if (count($personnalCourseList))
-{
 echo '<ul style="list-style-image:url(claroline/img/course.gif);list-style-position:inside">'."\n";
 
 foreach($personnalCourseList as $thisCourse)
 {
-    // If the course contains new things to see since last user login,
+    // If the course contains new things to see since last user login, 
     // The course name will be displayed with the 'hot' class style in the list.
     // Otherwise it will name normally be displaied
 
@@ -60,7 +61,7 @@ foreach($personnalCourseList as $thisCourse)
     }
 
     echo '<li class="item' . $classItem . '">' . "\n"
-    .    '<a href="' .  get_path('url') . '/claroline/course/index.php?cid=' . htmlspecialchars($thisCourse['sysCode']) . '">';
+    .    '<a href="' . $urlAppend . '/claroline/course/index.php?cid=' . htmlspecialchars($thisCourse['sysCode']) . '">';
 
     if ( get_conf('course_order_by') == 'official_code' )
     {
@@ -71,9 +72,9 @@ foreach($personnalCourseList as $thisCourse)
         echo $thisCourse['title'] . ' (' . $thisCourse['officialCode'] . ')';
     }
 
-    if ($thisCourse['isCourseManager'] == 1)
+    if ($thisCourse['userSatus'] == 1)
     {
-        $userStatusImg = '<img src="' . get_path('imgRepositoryWeb') . 'manager.gif" alt="'.get_lang('Course manager').'" />';
+        $userStatusImg = '<img src="'.$imgRepositoryWeb.'manager.gif" alt="'.get_lang('Course manager').'">';
     }
     else
     {
@@ -91,13 +92,12 @@ foreach($personnalCourseList as $thisCourse)
 } // end foreach($personnalCourseList as $thisCourse)
 
 echo '</ul>' . "\n";
-}
-//display legend if required
-if( !empty($modified_course) )
-{
-    echo '<br />'
-    .    '<small><span class="item hot"> '.get_lang('denotes new items').'</span></small>'
-    .     '</td>' . "\n";
-}
+
+//display legend
+
+echo '<br />'
+.    '<small><span class="item hot"> '.get_lang('denotes new items').'</span></small>';
+echo '</td>' . "\n";
+
 
 ?>

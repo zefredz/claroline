@@ -1,7 +1,6 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
- * CLAROLINE
+ * CLAROLINE 
  *
  * This file describe the parameter for user tool
  *
@@ -21,14 +20,14 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 // TOOL
 $conf_def['config_code'] = 'CLWIKI';
 $conf_def['config_file'] = 'CLWIKI.conf.php';
-$conf_def['config_name'] = 'Wiki';
+$conf_def['config_name'] = 'Wiki tool';
 $conf_def['config_class']='tool';
 
 
 //SECTION
 $conf_def['section']['main']['label']='Main settings';
 //$conf_def['section']['main']['description']='Settings of the tool';
-$conf_def['section']['main']['properties'] =
+$conf_def['section']['main']['properties'] = 
 array ( 'showWikiEditorToolbar'
     , 'forcePreviewBeforeSaving'
       );
@@ -36,9 +35,9 @@ array ( 'showWikiEditorToolbar'
 //PROPERTIES
 
 $conf_def_property_list['showWikiEditorToolbar'] =
-array ('label'         => 'Show wiki syntax toolbar'
+array ('label'         => 'Show wiki syntax toolbar in wiki editor'
  //     ,'description'   => '...'
-      ,'default'       => TRUE
+      ,'default'       => 'TRUE'
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
                                 ,'FALSE' => 'No'
@@ -46,9 +45,9 @@ array ('label'         => 'Show wiki syntax toolbar'
       );
 
 $conf_def_property_list['forcePreviewBeforeSaving'] =
-array ('label'         => 'Force text preview before saving it'
+array ('label'         => 'Force preview before saving in wiki editor'
     //  ,'description'   => '...'
-      ,'default'       => FALSE
+      ,'default'       => 'FALSE'
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
                                 ,'FALSE' => 'No'

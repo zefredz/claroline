@@ -1,5 +1,5 @@
-<?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+<?php # -$Id$
+
 define ('DATAVALIDATOR_STRICT_MODE', true);
 
 /**
@@ -76,7 +76,7 @@ class DataValidator
 
     function addRule($dataKey, $errorMessage, $rule, $xtraParamList = array() )
     {
-        if ( 'required' == $rule )
+        if ( $rule == 'required' )
         {
             // 'required' rule is a special case needing to be treated appart
             $this->requiredDataList[]  = $dataKey;
@@ -164,7 +164,7 @@ class DataValidator
             }
             else
             {
-                trigger_error('CALL TO UNDEFINED FUNCTION : ' . $ruleName, E_USER_WARNING);
+                trigger_error('CALL TO UNDEFINED FUNCTION : '.$ruleName);
                 return false;
             }
 

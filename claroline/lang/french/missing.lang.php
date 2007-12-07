@@ -1,12 +1,80 @@
 <?php 
-$_lang['File are always created in cache, but if this value is true feed file in cache arent rebuilt on request if exiting in cache.'] = 'File are always created in cache, but if this value is true feed file in cache arent rebuilt on request if exiting in cache.';
-$_lang['The domain that the cookie is available.  To make the cookie available on all subdomains of example.com, you\'d set it to ".example.com". The . is not required but makes it compatible with more browsers. Setting it to www.example.com  will make the co'] = 'The domain that the cookie is available.  To make the cookie available on all subdomains of example.com, you\'d set it to ".example.com". The . is not required but makes it compatible with more browsers. Setting it to www.example.com  will make the co';
-$_lang['The path on the server in which the cookie will be available on.  If set to "/", the cookie will be available within the entire domain. If set to "/foo/", the cookie will only be available within the /foo/ directory and all sub-directories such as /f'] = 'The path on the server in which the cookie will be available on.  If set to "/", the cookie will be available within the entire domain. If set to "/foo/", the cookie will only be available within the /foo/ directory and all sub-directories such as /f';
-$_lang['This prefix could allow to order more easily the tables / DB in the user interface of your server technical back office  '] = 'This prefix could allow to order more easily the tables / DB in the user interface of your server technical back office';
-$_lang['This renderer is used for TEX/LaTEX expressions. It is available into the \'claroline/inc/lib/\' directory and has to be copied on a server location where CGI programs are expected.'] = 'This renderer is used for TEX/LaTEX expressions. It is available into the \'claroline/inc/lib/\' directory and has to be copied on a server location where CGI programs are expected.';
-$_lang['URL trail'] = 'URL trail';
-$_lang['Use it, and build  on change'] = 'Use it, and build  on change';
-$_lang['User registred in cours with unexisting (deprecated) status'] = 'User registred in cours with unexisting (deprecated) status';
-$_lang['rebuild file on each request'] = 'rebuild file on each request';
-$_lang['write n-1 times without check if (others) cached files are or not deprecated'] = 'write n-1 times without check if (others) cached files are or not deprecated';
+$_lang['blockAccountCreationNotification'] = '
+Dear %firstname %lastname,
+You are registered on %siteName
+    Login name :  %username
+    Password  : %password
+    The address of  %siteName
+    Is : %rootWeb
+    In case of problems, contact us.
+    Yours sincerely,
+    administratorName
+--
+Manager %administratorName
+T. %administratorPhone
+Email : %administratorEmail
+    ';
+$_lang['blockCourseCreationEmailMessage'] = '%date
+
+Course creation on %sitename by the user %user_firstname %user_lastname ( %user_email )
+
+Course code : %course_code
+Course title : %course_title
+Lecturer(s) : %course_lecturers
+Email : %course_email
+Category : %course_category
+Language : %course_language
+Url : %course_url';
+$_lang['blockCourseSubscriptionNotification'] = '
+
+Dear %firstname %lastname,
+One of administrators of the course %courseCode has registered you on this course.
+
+The address of  %courseName is :
+
+%coursePath
+
+In case of problems, contact us.
+
+Yours sincerely,
+%administratorName
+
+--
+Manager : %administratorName
+Phone : %administratorPhone
+Email : %administratorEmail
+';
+$_lang['blockForumNotificationEmailMessage'] = 'Dear %firstname %lastname,
+
+You are receiving this email because a new message in one of your favourite topics on our forums has been added, and
+you selected to be notified on this event.
+
+You may view the topic at:
+
+%url_topic
+
+Or view the forum index at
+
+%url_forum
+
+Thank you for using our forums.';
+$_lang['blockRequestCourseManagerStatusMail'] = '%time
+Course creator status to %firstname %lastname
+User : %user_id
+Name : %firstname %lastname
+Email : %email
+Comment : %comment
+Link : %url';
+$_lang['blockRequestUserRevoquationMail'] = '%time
+Revocation of %firstname %lastname
+User : %user_id
+Name : %firstname %lastname
+Email : %email
+Login : %login
+Password : %password
+Comment : %comment
+Link : %url';
+$_lang['blockUsersWithoutValidEmail'] = 'On %userQty registered users of the site, %userInvalidQty have unvalid or no email address.
+
+%messageFailed';
 ?>

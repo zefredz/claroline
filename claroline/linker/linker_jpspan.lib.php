@@ -1,5 +1,4 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE 
  *
@@ -33,9 +32,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     {
         global $htmlHeadXtra;
         global $claroBodyOnload;
+        global $platform_id;  
         global $_course;
-        require_once(get_path('incRepositorySys') . '/lib/JPSpan/JPSpan.php');
-        require_once(get_path('incRepositorySys') . '/lib/JPSpan/JPSpan/Include.php');
+        global $imgRepositoryWeb;
+        global $includePath;
+        require_once($includePath . '/lib/JPSpan/JPSpan.php');
+        require_once($includePath . '/lib/JPSpan/JPSpan/Include.php');
         
         $htmlHeadXtra[] = "<script type=\"text/javascript\" src=\""
             . path() ."/linker_jpspan_server.php?client\"></script>\n"
@@ -67,7 +69,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 . "var lang_attachements = '".addslashes(get_lang("Attached resources"))."';</script>\n";
                 
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_already_in_attachement_list = '".addslashes(get_lang("%itemName is already attached"))."';</script>\n";
+                . "var lang_already_in_attachement_list = '".addslashes(get_lang(" is already attached"))."';</script>\n";
         
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
                 . "var lang_linker_add_new_attachment = '".addslashes(get_lang("Attach an existing resource"))."';</script>\n"; 
@@ -75,6 +77,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
                 . "var lang_linker_close = '".addslashes(get_lang("Close"))."';</script>\n"; 
                 
+        $htmlHeadXtra[] = "<script type=\"text/javascript\">"
+                . "var lang_linker_close = '".addslashes(get_lang("Close"))."';</script>\n";
+        
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
                 . "var lang_linker_prompt_for_url = '".addslashes(get_lang("Enter link url"))."';</script>\n";
         
@@ -133,13 +138,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         }    
         
         // other variable 
-        $courseCrl = CRLTool::createCRL(get_conf('platform_id'),claro_get_current_course_id());
+        $courseCrl = CRLTool::createCRL($platform_id,$_course['sysCode']);    
         $htmlHeadXtra[] = "<script type=\"text/javascript\">
                 var coursecrl = '".$courseCrl."';</script>\n";    
         
         
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var img_repository_web  = '" . get_path('imgRepositoryWeb') ."';</script>\n";
+                . "var img_repository_web  = '".$imgRepositoryWeb ."';</script>\n";    
                 
         $claroBodyOnload[] = "clear_all();";    
         $claroBodyOnload[] = "hide_div('navbox');";    
@@ -182,9 +187,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     */    
     function linker_set_display( $extraGetVar = false, $tLabel = NULL )
     {   
-        $html = '';
-        
-        $html .= '<div id="shoppingCart" style="width:100%">' . "\n"
+        echo '<div id="shoppingCart" style="width:100%">' . "\n"
         .    '</div>' . "\n"
         .    '<div style="margin-top : 1em;margin-bottom : 1em;" id="openCloseAttachment">' . "\n"
         .    '<a href="#btn" name="btn" onclick="change_button(\'open\');return false;">' . get_lang("Attach an existing resource") . '</a>' . "\n"
@@ -200,8 +203,6 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         .    '</div>' . "\n"
         .    '<div id="hiddenFields" style="display:none;"></div>'
         ;
-        
-        return $html;
     }    
     
         

@@ -2,9 +2,9 @@
 /**
  * CLAROLINE
  *
- * this tool manage the
+ * this tool manage the 
  *
- * @version 1.0
+ * @version 1.0 
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -16,15 +16,15 @@ $userPerPage = 20; // numbers of cours to display on the same page
 
 // initialisation of global variables and used libraries
 require '../inc/claro_init_global.inc.php';
-
-require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
-require_once get_path('incRepositorySys') . '/lib/class.lib.php';
-require_once get_path('incRepositorySys') . '/lib/user.lib.php';
-require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
+	
+require_once $includePath . '/lib/pager.lib.php';
+require_once $includePath . '/lib/class.lib.php';
+require_once $includePath . '/lib/user.lib.php';
+require_once $includePath . '/lib/admin.lib.inc.php';
 
 // Security check
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 /**#@+
  * DB tables definition
@@ -32,204 +32,228 @@ if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
  */
 
 $tbl_mdb_names = claro_sql_get_main_tbl();
-$tbl_cours               = $tbl_mdb_names['course'];
-$tbl_course_class          = $tbl_mdb_names['rel_course_class'];
-$tbl_class              = $tbl_mdb_names['class'];
+$tbl_cours       		= $tbl_mdb_names['course'];
+$tbl_cours_class      	= $tbl_mdb_names['rel_course_class'];
+$tbl_class      		= $tbl_mdb_names['class'];
+
+if ((isset($_REQUEST['cidToEdit']) && $_REQUEST['cidToEdit']=='') || !isset($_REQUEST['cidToEdit']))
+{
+    unset($cidToEdit);
+}
+
+//----------------------------------------------
+//  USED SESSION VARIABLES
+//----------------------------------------------
+
+// deal with session variables for search criteria
+
+if (isset($_REQUEST['dir'])) {$_SESSION['admin_user_class_dir']  = ($_REQUEST['dir']=='DESC'?'DESC':'ASC');}
+
+
+if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
 
 // javascript confirm pop up declaration
 
-$htmlHeadXtra[] =
-         "<script>
-         function confirmationUnReg (name)
-         {
-             if (confirm(\"".clean_str_for_javascript(get_lang('Are you sure you want to unregister'))."\"+ name + \"? \"))
-                 {return true;}
-             else
-                 {return false;}
-         }
-         </script>";
+   $htmlHeadXtra[] =
+            "<script>
+            function confirmationUnReg (name)
+            {
+                if (confirm(\"".clean_str_for_javascript(get_lang('Are you sure you want to unregister '))."\"+ name + \"? \"))
+                    {return true;}
+                else
+                    {return false;}
+            }
+            </script>";
+
+// Deal with interbredcrumps
+$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+$interbredcrump[]= array ('url' => $rootAdminWeb . 'admin_class.php', 'name' => get_lang('Classes') );
+$nameTools = get_lang('Class members');
+//TODO, changer le nom du chapitre
+
+//SESSION VARIABLES
+
+if (isset($_REQUEST['class']))
+{
+    $_SESSION['admin_cours_class_id'] = $_REQUEST['class'];
+	$_SESSION['admin_user_class_id'] = $_SESSION['admin_cours_class_id'];
+}
 
 //------------------------------------
 // Execute COMMAND section
 //------------------------------------
+if (isset($_REQUEST['cmd'])) $cmd = $_REQUEST['cmd'];
+else                         $cmd = null;
 
-$cmd = isset($_REQUEST['cmd'])?$_REQUEST['cmd']:null;
-$class_id = isset($_REQUEST['class_id'])?(int)$_REQUEST['class_id']:0;
-$course_id = isset($_REQUEST['course_id'])?$_REQUEST['course_id']:null;
-
-// find info about the class
-
-if ( ($classinfo = class_get_properties ($class_id)) === false )
+switch ($cmd)
 {
-    $class_id = 0;
+    case 'unsubscribe' :
+  	{ 
+		unregister_class_to_course($_SESSION['admin_cours_class_id'], $_REQUEST['coursid']);
+		
+    }break;
+
+    default :
+        // No command
 }
 
-if ( !empty($class_id) )
+//----------------------------------
+// Build query and find info in db
+//----------------------------------
+
+//find info about the class
+
+$sqlclass = "SELECT *
+             FROM `" . $tbl_class . "`
+             WHERE `id`='". (int)$_SESSION['admin_cours_class_id']."'";
+list($classinfo) = claro_sql_query_fetch_all($sqlclass);
+
+//find this class current content
+  	
+     $sql = "SELECT distinct (A.`cours_id`), B.`code`, B.`languageCourse` ,B.`intitule`,B.`faculte`,B.`titulaires`
+				FROM `".$tbl_cours_class."` A, `".$tbl_cours."` B
+				WHERE B.`cours_id` = A.`cours_id`
+				AND A.`class_id` = '".$_SESSION['admin_cours_class_id']."'";
+
+  	                
+ //first see is direction must be changed 
+
+if (isset($_REQUEST['chdir']) && ($_REQUEST['chdir']=="yes"))
 {
-    switch ($cmd)
+    if     ($_SESSION['admin_cours_class_dir'] == 'ASC')  {$_SESSION['admin_cours_class_dir']='DESC';}
+    elseif ($_SESSION['admin_cours_class_dir'] == 'DESC') {$_SESSION['admin_cours_class_dir']='ASC';}
+}
+elseif (!isset($_SESSION['admin_cours_class_dir']))
+{
+    $_SESSION['admin_cours_class_dir'] = 'DESC';
+}
+
+// deal with REORDER
+
+if (isset($_REQUEST['order_crit']))
+{
+    $_SESSION['admin_cours_class_order_crit'] = $_REQUEST['order_crit'];
+    if ($_REQUEST['order_crit']=='user_id')
     {
-        case 'unsubscribe' :
-            unregister_class_to_course($class_id,$course_id);
-            break;
-
-        default :
-            // No command
+        $_SESSION['admin_cours_class_order_crit'] = 'U`.`user_id';
     }
+}
 
-    //find this class current content
-    // TODO Factorise this statement
-    $sql = "SELECT distinct (CC.`courseId`), C.`code`, C.`language` ,C.`intitule`,C.`faculte`,C.`titulaires`
-            FROM `".$tbl_course_class."` CC, `".$tbl_cours."` C
-            WHERE C.`code` = CC.`courseId`
-            AND CC.`classId` = '". $class_id ."'";
-
-    // deal with session variables for search criteria
-
-    if (isset($_REQUEST['dir'])) {$_SESSION['admin_user_class_dir']  = ($_REQUEST['dir']=='DESC'?'DESC':'ASC');}
-
-    // first see is direction must be changed
-
-    if (isset($_REQUEST['chdir']) && ($_REQUEST['chdir']=="yes"))
-    {
-        if     ($_SESSION['admin_course_class_dir'] == 'ASC')  {$_SESSION['admin_course_class_dir']='DESC';}
-        elseif ($_SESSION['admin_course_class_dir'] == 'DESC') {$_SESSION['admin_course_class_dir']='ASC';}
-    }
-    elseif (!isset($_SESSION['admin_course_class_dir']))
-    {
-        $_SESSION['admin_course_class_dir'] = 'DESC';
-    }
-
-    // deal with REORDER
-
-    if (isset($_REQUEST['order_crit']))
-    {
-        $_SESSION['admin_course_class_order_crit'] = $_REQUEST['order_crit'];
-        if ($_REQUEST['order_crit']=='user_id')
-        {
-            $_SESSION['admin_course_class_order_crit'] = 'U`.`user_id';
-        }
-    }
-
-    if (isset($_SESSION['admin_course_class_order_crit']))
-    {
-        $toAdd = " ORDER BY `".$_SESSION['admin_course_class_order_crit'] . "` " . $_SESSION['admin_course_class_dir'];
-        $sql.=$toAdd;
-    }
-
-    //Build pager with SQL request
-    if (!isset($_REQUEST['offset'])) $offset = "0";
-    else                             $offset = $_REQUEST['offset'];
-
-    $myPager = new claro_sql_pager($sql, $offset, $userPerPage);
-    $resultList = $myPager->get_result_list();
+if (isset($_SESSION['admin_cours_class_order_crit']))
+{
+    $toAdd = " ORDER BY `".$_SESSION['admin_cours_class_order_crit'] . "` " . $_SESSION['admin_cours_class_dir'];
+    $sql.=$toAdd;
 
 }
+
+//Build pager with SQL request
+if (!isset($_REQUEST['offset'])) $offset = "0";
+else                             $offset = $_REQUEST['offset'];
+
+$myPager = new claro_sql_pager($sql, $offset, $userPerPage);
+$resultList = $myPager->get_result_list();
 
 //------------------------------------
 // DISPLAY
 //------------------------------------
 
-// Deal with interbredcrumps
-$interbredcrump[]= array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
-$interbredcrump[]= array ('url' => get_path('rootAdminWeb') . 'admin_class.php', 'name' => get_lang('Classes') );
-$nameTools = get_lang('Class members');
+if (!isset($addToUrl)) $addToUrl ='';
 
 //Header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include $includePath . '/claro_init_header.inc.php';
 
-if ( empty($class_id) )
+// Display tool title
+
+echo claro_html_tool_title(get_lang('Course list') . ' : ' . $classinfo['name']);
+
+//Display Forms or dialog box(if needed)
+
+if (isset($dialogBox))
 {
-    echo claro_html_message_box(get_lang('Class not found'));
+    echo claro_html_message_box($dialogBox);
+    echo '<br />';
 }
-else
+
+//TOOL LINKS
+
+echo '<a class="claroCmd" href="'.$clarolineRepositoryWeb.'auth/courses.php'
+.    '?cmd=rqReg&amp;fromAdmin=class">'
+.    '<img src="'.$imgRepositoryWeb.'enroll.gif" border="0" /> '
+.    get_lang('Register class for course')
+.    '</a>'
+.    '<br /><br />'
+;
+
+   //Pager
+
+$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+
+
+// Display list of cours
+
+// start table...
+
+echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
+.    '<thead>'
+.    '<tr class="headerX" align="center" valign="top">'
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=code&amp;chdir=yes">' . get_lang('Course code') . '</a></th>'
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=intitule&amp;chdir=yes">' . get_lang('Course title') . '</a></th>'
+.    '<th><a href="' . $_SERVER['PHP_SELF'] . '?order_crit=faculte&amp;chdir=yes">' . get_lang('Category') . '</a></th>'
+.	 '<th>' . get_lang('Course settings') . '</th>'
+.    '<th>' . get_lang('Unregister from class') . '</th>'
+.    '</tr>'
+.    '</thead>'
+.    '<tbody>'
+;
+
+   // Start the list of users...
+foreach($resultList as $list)
 {
-    // Display tool title
+     $list['officialCode'] = (isset($list['officialCode']) ? $list['officialCode'] :' - ');
 
-    echo claro_html_tool_title(get_lang('Course list') . ' : ' . $classinfo['name']);
-
-    // TOOL LINKS
-    // TODO claro_html_menu
-    echo '<p><a class="claroCmd" href="' . get_path('clarolineRepositoryWeb').'auth/courses.php'
-    .    '?cmd=rqReg&amp;fromAdmin=class&amp;class_id='.$class_id.'">'
-    .    '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" border="0" /> '
-    .    get_lang('Register class for course')
+    echo '<tr>'
+    .    '<td align="center" >' . $list['code']      . '</td>'
+    .    '<td align="left" >'   . $list['intitule']          . '</td>'
+    .    '<td align="left" >'   . $list['faculte']       . '</td>'
+	.	 '<td align="center">' 
+    .    '<a href="../course_info/infocours.php?adminContext=1'
+    .    '&amp;cidReq=' . $list['code'] . '&amp;cfrom=xxx">'
+    .    '<img src="' . $imgRepositoryWeb . 'settings.gif" alt="' . get_lang('Course settings') . '" />'
     .    '</a>'
-    .    '</p>';
+    .    '</td>'
+    .    '<td align="center">'
+    .    '<a href="'.$_SERVER['PHP_SELF']
+    .    '?cmd=unsubscribe'.$addToUrl.'&amp;offset='.$offset.'&amp;coursid='.$list['code'].'" '
+    .    ' onClick="return confirmationUnReg(\''.clean_str_for_javascript($list['code']).'\');">'
+    .    '<img src="' . $imgRepositoryWeb . 'unenroll.gif" border="0" alt="" />'
+    .    '</a>'
+    .    '</td>'
+	.    '</tr>';
 
-    // Pager
-
-    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'&amp;class_id='.$class_id);
-
-    // Display list of cours
-
-    // start table...
-    // TODO datagrid
-    echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
-    .    '<thead>'
-    .    '<tr class="headerX" align="center" valign="top">'
-    .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;order_crit=code&amp;chdir=yes">' . get_lang('Course code') . '</a></th>'
-    .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;order_crit=intitule&amp;chdir=yes">' . get_lang('Course title') . '</a></th>'
-    .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;order_crit=faculte&amp;chdir=yes">' . get_lang('Category') . '</a></th>'
-    .     '<th>' . get_lang('Course settings') . '</th>'
-    .    '<th>' . get_lang('Unregister from class') . '</th>'
-    .    '</tr>'
-    .    '</thead>'
-    .    '<tbody>'
-    ;
-
-    // Start the list of users...
-
-    foreach($resultList as $list)
-    {
-        $list['officialCode'] = (isset($list['officialCode']) ? $list['officialCode'] :' - ');
-
-        echo '<tr>'
-        .    '<td align="center" >' . $list['code']      . '</td>'
-        .    '<td align="left" >'   . $list['intitule']          . '</td>'
-        .    '<td align="left" >'   . $list['faculte']       . '</td>'
-        .     '<td align="center">'
-        .    '<a href="../course/settings.php?adminContext=1'
-        // TODO cfrom=xxx is probably a hack
-        .    '&amp;cidReq=' . $list['code'] . '&amp;cfrom=xxx">'
-        .    '<img src="' . get_path('imgRepositoryWeb') . 'settings.gif" alt="' . get_lang('Course settings') . '" />'
-        .    '</a>'
-        .    '</td>'
-        .    '<td align="center">'
-        .    '<a href="'.$_SERVER['PHP_SELF']
-        .    '?cmd=unsubscribe&amp;class_id='.$class_id.'&amp;offset='.$offset.'&amp;course_id='.$list['code'].'" '
-        .    ' onclick="return confirmationUnReg(\''.clean_str_for_javascript($list['code']).'\');">'
-        .    '<img src="' . get_path('imgRepositoryWeb') . 'unenroll.gif" border="0" alt="" />'
-        .    '</a>'
-        .    '</td>'
-        .    '</tr>';
-    }
-
-    // end display users table
-    if ( empty($resultList) )
-    {
-        echo '<tr>'
-        .    '<td colspan="5" align="center">'
-        .    get_lang('No course to display')
-        .    '<br />'
-        .    '<a href="' . get_path('clarolineRepositoryWeb') . 'admin/admin_class.php">'
-        .    get_lang('Back')
-        .    '</a>'
-        .    '</td>'
-        .    '</tr>'
-        ;
-    }
-    echo '</tbody>' . "\n"
-    .    '</table>' . "\n"
-    ;
-
-    //Pager
-
-    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'&amp;class_id='.$class_id);
-
+     $atLeastOne= TRUE;
 }
+// end display users table
+if (isset($atLeastOne) && !$atLeastOne)
+{
+    echo '<tr>'
+    .    '<td colspan="8" align="center">'
+    .    get_lang('No user to display')
+    .    '<br />'
+    .    '<a href="' . $clarolineRepositoryWeb . 'admin/admin_class.php' . $addtoAdvanced . '">'
+    .    get_lang('Back')
+    .    '</a>'
+    .    '</td>'
+    .    '</tr>'
+    ;
+}
+echo '</tbody>'."\n"
+.    '</table>'."\n"
+;
 
-// Display footer
+//Pager
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+
+include $includePath . '/claro_init_footer.inc.php';
 
 ?>

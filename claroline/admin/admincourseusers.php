@@ -4,8 +4,8 @@
  *
  * This tool list user of a course but in admin section
  *
- * @version 1.9 $Revision$
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
+ * @version 1.8 $Revision$
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -18,6 +18,8 @@
  */
 
 $cidReset=true;$gidReset=true;$tidReset=true;
+$iconForCuStatus['STUDENT']        = 'user.gif';
+$iconForCuStatus['COURSE_MANAGER'] = 'manager.gif';
 
 require '../inc/claro_init_global.inc.php';
 
@@ -25,26 +27,26 @@ require '../inc/claro_init_global.inc.php';
 /*  Security Check
 /* ************************************************************************** */
 
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
+// Security check
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 /* ************************************************************************** */
 /*  Initialise variables and include libraries
 /* ************************************************************************** */
-
 $dialogBox = '';
 // initialisation of global variables and used libraries
-require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
-require_once get_path('incRepositorySys') . '/lib/course_user.lib.php';
+require_once $includePath . '/lib/pager.lib.php';
+require_once $includePath . '/lib/admin.lib.inc.php';
+require_once $includePath . '/lib/user.lib.php';
 
-include claro_get_conf_repository() . 'user_profile.conf.php';
+include $includePath . '/conf/user_profile.conf.php';
 
 $tbl_mdb_names   = claro_sql_get_main_tbl();
 
 /**
  * Manage incoming.
  */
-
 if ((isset($_REQUEST['cidToEdit']) && $_REQUEST['cidToEdit'] == '') || !isset($_REQUEST['cidToEdit']))
 {
     unset($_REQUEST['cidToEdit']);
@@ -52,26 +54,17 @@ if ((isset($_REQUEST['cidToEdit']) && $_REQUEST['cidToEdit'] == '') || !isset($_
 }
 else $cidToEdit = $_REQUEST['cidToEdit'];
 // See SESSION variables used for reorder criteria :
-$validCmdList = array('unsub',);
-$validRefererList = array('clist',);
-
-$cmd = (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$validCmdList) ? $_REQUEST['cmd'] : null);
-$cfrom = (isset($_REQUEST['cfrom']) && in_array($_REQUEST['cfrom'],$validRefererList) ? $_REQUEST['cfrom'] : null);
-
+if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
+else                           $cmd = null;
 $pager_offset =  isset($_REQUEST['pager_offset'])?$_REQUEST['pager_offset'] :'0';
-$addToURL = '';
-$do=null;
+
+
+
 
 /**
  * COMMAND
  */
-
 if ( $cmd == 'unsub' )
-{
-    $do = 'unsub';
-}
-
-if ( $do == 'unsub' )
 {
     if ( user_remove_from_course($_REQUEST['user_id'], $_REQUEST['cidToEdit'], true, true, false) )
     {
@@ -103,8 +96,7 @@ $sql = "SELECT U.user_id  AS user_id,
                U.nom      AS name,
                U.prenom   AS firstname,
                U.username AS username,
-               CU.profile_id AS profileId,
-               CU.isCourseManager
+               IF(CU.statut=1,'COURSE_MANAGER','STUDENT') AS `status`
         FROM  `" . $tbl_mdb_names['user'] . "` AS U
             , `" . $tbl_mdb_names['rel_course_user'] . "` AS CU
           WHERE CU.`user_id` = U.`user_id`
@@ -118,44 +110,31 @@ $myPager->set_sort_key($sortKey, $sortDir);
 $myPager->set_pager_call_param_name('pager_offset');
 
 $userList = $myPager->get_result_list();
+if(count($userList))
+{
 
+}
 // Start the list of users...
 $userDataList = array();
 
 foreach($userList as $lineId => $user)
 {
-    $userDataList[$lineId]['user_id']         = $user['user_id'];
-    $userDataList[$lineId]['name']            = $user['name'];
-    $userDataList[$lineId]['firstname']       = $user['firstname'];
-
-    $userDataList[$lineId]['profileId']       = claro_get_profile_name($user['profileId']);
-
-    if ( $user['isCourseManager'] )
-    {
-        $userDataList[$lineId]['isCourseManager'] = '<img src="' . get_conf('imgRepositoryWeb') .'manager.gif" '
-                                                  . ' alt="' . get_lang('Course Manager') . '" border="0"  hspace="4" '
-                                                  . ' title="' . get_lang('Course Manager') . '" />' ;
-    }
-    else
-    {
-        $userDataList[$lineId]['isCourseManager'] = '<img src="' . get_conf('imgRepositoryWeb') .'user.gif" '
-                                                  . ' alt="' . get_lang('Student') . '" border="0"  hspace="4" '
-                                                  . ' title="' . get_lang('Student') . '" />' ;
-    }
-
-    $userDataList[$lineId]['cmd_cu_edit'] = '<a href="adminUserCourseSettings.php'
-                                            . '?cidToEdit=' . $cidToEdit
-                                            . '&amp;uidToEdit=' . $user['user_id'] . '&amp;ccfrom=culist">'
-                                            . '<img src="' . get_conf('imgRepositoryWeb') .'edit.gif" alt="' . get_lang('Edit') . '"/>'
-                                            . '</a>';
-
-    $userDataList[$lineId]['cmd_cu_unenroll']  = '<a href="' . $_SERVER['PHP_SELF']
-    .                                            '?cidToEdit=' . $cidToEdit
-    .                                            '&amp;cmd=unsub&amp;user_id=' . $user['user_id']
-    .                                            '&amp;pager_offset=' . $pager_offset . '" '
-    .                                            ' onclick="return confirmationReg(\'' . clean_str_for_javascript($user['username']) . '\');">' . "\n"
-    .                                            '<img src="' . get_conf('imgRepositoryWeb') . 'unenroll.gif" border="0" alt="' . get_lang('Unregister user') . '" />' . "\n"
-    .                                            '</a>' . "\n";
+     $userDataList[$lineId]['user_id']         = $user['user_id'];
+     $userDataList[$lineId]['name']            = $user['name'];
+     $userDataList[$lineId]['firstname']       = $user['firstname'];
+     $userDataList[$lineId]['cmd_cu_setting']  = '<a href="adminUserCourseSettings.php'
+     .                                           '?cidToEdit=' . $cidToEdit
+     .                                           '&amp;uidToEdit=' . $user['user_id'] . '&amp;ccfrom=culist">'
+     .                                           '<img src="' . get_conf('imgRepositoryWeb') . $iconForCuStatus[$user['status']] . '" '
+     .                                           ' alt="' . $user['status'] . '" border="0"  hspace="4" title="' . $user['status'] . '" />'
+     .                                           '</a>';
+     $userDataList[$lineId]['cmd_cu_unenroll']  = '<a href="' . $_SERVER['PHP_SELF']
+     .                                            '?cidToEdit=' . $cidToEdit
+     .                                            '&amp;cmd=unsub&amp;user_id=' . $user['user_id']
+     .                                            '&amp;pager_offset=' . $pager_offset . '" '
+     .                                            ' onClick="return confirmationReg(\'' . clean_str_for_javascript($user['username']) . '\');">' . "\n"
+     .                                            '<img src="' . get_conf('imgRepositoryWeb') . 'unenroll.gif" border="0" alt="' . get_lang('Unregister user') . '" />' . "\n"
+     .                                            '</a>' . "\n";
 
 } // end display users table
 
@@ -168,7 +147,7 @@ $htmlHeadXtra[] =
          "<script>
          function confirmationReg (name)
          {
-             if (confirm(\"".clean_str_for_javascript(get_lang('Are you sure you want to unregister'))." \"+ name + \" ? \"))
+             if (confirm(\"".clean_str_for_javascript(get_lang('Are you sure you want to unregister '))." \"+ name + \" ? \"))
                  {return true;}
              else
                  {return false;}
@@ -180,39 +159,40 @@ $htmlHeadXtra[] =
 $sortUrlList = $myPager->get_sort_url_list($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit);
 
 $dg_opt_list['idLineShift'] = $myPager->offset + 1;
-$dg_opt_list['colTitleList'] = array ( 'user_id'  => '<a href="' . $sortUrlList['user_id'] . '">' . get_lang('User Id') . '</a>'
+$dg_opt_list['colTitleList'] = array ( 'user_id'  => '<a href="' . $sortUrlList['user_id'] . '">' . get_lang('Userid') . '</a>'
                                      , 'name'     => '<a href="' . $sortUrlList['name'] . '">' . get_lang('Last name') . '</a>'
                                      , 'firstname'=> '<a href="' . $sortUrlList['firstname'] . '">' . get_lang('First name') . '</a>'
-                                     , 'profileId'=> '<a href="' . $sortUrlList['profileId'] . '">' . get_lang('Profile') . '</a>'
-                                     , 'isCourseManager'  => '<a href="' . $sortUrlList['isCourseManager'] . '">' . get_lang('Course Manager') . '</a>'
-                                     , 'cmd_cu_edit'  => get_lang('Edit')
+                                     , 'cmd_cu_setting'  => '<a href="' . $sortUrlList['status'] . '">' . get_lang('Action') . '</a>'
                                      , 'cmd_cu_unenroll' => get_lang('Unregister user')
 );
 
 $dg_opt_list['colAttributeList'] = array ( 'user_id'   => array ('align' => 'center')
-                                         , 'isCourseManager'    => array ('align' => 'center')
-                                         , 'cmd_cu_edit'    => array ('align' => 'center')
+                                         , 'cmd_cu_setting'    => array ('align' => 'center')
                                          , 'cmd_cu_unenroll' => array ('align' => 'center')
 );
 
-$dg_opt_list['caption'] = '<img src="' . get_conf('imgRepositoryWeb') . 'user.gif" '
-.                         ' alt="' . get_lang('Student') . '" border="0" title="' . get_lang('Student') . '" />'
+$dg_opt_list['caption'] = '<small>'
+.                         '<img src="' . get_conf('imgRepositoryWeb') . $iconForCuStatus['STUDENT'] . '" '
+.                         ' alt="STUDENT" border="0" title="statut Student" />'
 .                         get_lang('Student')
-.                         ' - <img src="' . get_conf('imgRepositoryWeb') . 'manager.gif" '
-.                         ' alt="' . get_lang('Course manager') . '" border="0" title="' . get_lang('Course manager') . '" />'
+.                         '<wbr>'
+.                         '<img src="' . get_conf('imgRepositoryWeb') . $iconForCuStatus['COURSE_MANAGER'].'" '
+.                         ' alt="course manager" border="0" title="statut Course manager" />'
 .                         get_lang('Course manager')
+.                         '</nobr>'
+.                         '</small>'
 ;
 
 $nameTools = get_lang('Course members');
 $nameTools .= " : ".$courseData['name'];
 // Deal with interbredcrumps
-$interbredcrump[]= array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
+$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 $command_list[] = '<a class="claroCmd" href="adminregisteruser.php'
 .    '?cidToEdit=' . $cidToEdit . '">'
 .    get_lang('Enroll a user')
 .    '</a>'
 ;
-if ($cfrom=='clist')
+if (isset($cfrom) && ($cfrom=='clist'))
 {
     $command_list[] = '<a class="claroCmd" href="admincourses.php">' . get_lang('Back to course list') . '</a>';
 }
@@ -221,18 +201,18 @@ if ($cfrom=='clist')
  * DISPLAY
  */
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include($includePath . '/claro_init_header.inc.php');
 echo claro_html_tool_title($nameTools);
 if ( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
 
 $userDataGrid = new claro_datagrid($userDataList);
 $userDataGrid->set_option_list($dg_opt_list);
 
-echo '<p>' . claro_html_menu_horizontal($command_list) . '</p>'
+echo claro_html_menu_horizontal($command_list)
 .    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit)
 .    $userDataGrid->render()
 .    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit)
 ;
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 ?>

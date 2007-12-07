@@ -1,22 +1,22 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 
-/**
- * CLAROLINE
- *
- * @version 1.8 $Revision$
- *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/config_def/
- *
- * @package KERNEL
- *
- * @author Claro Team <cvs@claroline.net>
- *
- */
+/* vim: set expandtab tabstop=4 shiftwidth=4:
+  +----------------------------------------------------------------------+
+  | CLAROLINE version 1.3.0 $Revision$                             |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2000, 2001 Universite catholique de Louvain (UCL)      |
+  +----------------------------------------------------------------------+
+  | $Id$  |
+  +----------------------------------------------------------------------+
+  | This source file is subject to the GENERAL PUBLIC LICENSE,           |
+  | available through the world-wide-web at                              |
+  | http://www.gnu.org/copyleft/gpl.html                                 |
+  +----------------------------------------------------------------------+
+  | Authors: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
+  |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
+  |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
+  +----------------------------------------------------------------------+
+*/
 
 
 /**
@@ -46,12 +46,6 @@ function choose_image($fileName)
         $type['acrobat'   ] = array('pdf');
         $type['powerpoint'] = array('ppt', 'pps');
         $type['link'      ] = array('url');
-        $type['writer'      ] = array('odt');
-        $type['calc'      ] = array('ods');
-        $type['base'      ] = array('odb');
-        $type['draw'      ] = array('odg');
-        $type['impress'      ] = array('odp');
-        $type['math'      ] = array('odf');
 
         $image['word'      ] = 'doc.gif';
         $image['web'       ] = 'html.gif';
@@ -63,16 +57,10 @@ function choose_image($fileName)
         $image['acrobat'   ] = 'pdf.gif';
         $image['powerpoint'] = 'ppt.gif';
         $image['link'      ] = 'link.gif';
-        $image['writer'    ] = 'odt.png';
-        $image['calc'      ] = 'ods.png';
-        $image['base'      ] = 'odb.png';
-        $image['draw'      ] = 'odg.png';
-        $image['impress'   ] = 'odp.png';
-        $image['math'      ] = 'odf.png';
+
     }
 
     /* FUNCTION CORE */
-    $extension= null;
 
     if (ereg("\.([[:alnum:]]+)$", $fileName, $extension))
     {
@@ -87,14 +75,14 @@ function choose_image($fileName)
         }
     }
 
-    return 'default.gif';
+    return "default.gif";
 }
 
 //------------------------------------------------------------------------------
 
 /**
  * Transform the file size in a human readable format
- *
+ * 
  * @author - ???
  * @param  - fileSize (int) - size of the file in bytes
  */
@@ -103,7 +91,7 @@ function format_file_size($fileSize)
 {
     // byteUnits is setted in trad4all
     global $byteUnits;
-
+    
     if($fileSize >= 1073741824)
     {
         $fileSize = round($fileSize / 1073741824 * 100) / 100 . '&nbsp;' . $byteUnits[3]; //GB
@@ -132,7 +120,7 @@ function format_file_size($fileSize)
  * Transform a UNIX time stamp in human readable format date
  *
  * @author - Hugues Peeters <peeters@ipm.ucl.ac.be>
- * @param - date - UNIX time stamp
+ * @param - date - UNIX time stamp 
  */
 
 function format_date($fileDate)
@@ -145,10 +133,24 @@ function format_date($fileDate)
 
 /**
  * Transform the file path in a url
- *
+ * 
  * @param - url (string) - relative local path of the file on the Hard disk
  * @return - relative url
  */
+
+/*function format_url($url)
+{
+    $path = substr($url, strpos($url, '://') +3 );
+
+    $pathElementList = explode('/', $path);
+
+    for ($i = 0; $i < sizeof($pathElementList); $i++)
+    {
+        $pathElementList[$i] = rawurlencode($pathElementList[$i]);
+    }
+
+    return substr($url, 0, strpos($url, '://')+3) . implode('/',$pathElementList);
+}*/
 
 function url_already_encoded( $url )
 {
@@ -161,24 +163,10 @@ function format_url($url)
     {
         return $url;
     }
-
+    
     $urlArray = parse_url( $url );
 
-
-    $urlToRet = isset($urlArray['scheme'])
-        ? $urlArray['scheme']
-        : ''
-        ;
-
-    if ( isset($urlArray['scheme'])
-        && 'mailto' == $urlArray['scheme'] )
-    {
-        $urlToRet .= ':';
-    }
-    elseif ( isset($urlArray['scheme']) )
-    {
-        $urlToRet .= '://';
-    }
+    $urlToRet = '';
 
     if ( isset( $urlArray['user'] ) )
     {
@@ -190,10 +178,7 @@ function format_url($url)
         $urlToRet .= '@';
     }
 
-    $urlToRet .= isset( $urlArray['host']  )
-        ? $urlArray['host']
-        : ''
-        ;
+    $urlToRet .= $urlArray['host'];
     $urlToRet .= isset( $urlArray['port']  )
         ? ':' . $urlArray['port']
         : ''
@@ -214,16 +199,9 @@ function format_url($url)
         : ''
         ;
 
-    return $urlToRet;
+    return $urlArray['scheme'] . '://' . $urlToRet;
 }
 
-/**
- * Enter description here...
- *
- * @param string $path
- * @return string
- *
- */
 function format_url_path( $path )
 {
     $pathElementList = explode('/', $path);
@@ -236,16 +214,10 @@ function format_url_path( $path )
     return implode('/',$pathElementList);
 }
 
-/**
- * Enter description here...
- *
- * @param string $query
- * @return string
- */
 function format_url_query( $query )
 {
     $ret = '';
-
+    
     if ( strpos( $query, '&' ) !== false
         || strpos( $query, '&amp;' ) !== false
         || strpos( $query, '=' ) !== false )
@@ -289,13 +261,6 @@ function format_url_query( $query )
     return $ret;
 }
 
-
-/**
- * Callbacked function
- *
- * @param array $matches
- * @return string
- */
 function query_make_part( $matches )
 {
     return $matches[1] . '=' . rawurlencode( $matches[2] );
@@ -306,7 +271,7 @@ function query_make_part( $matches )
 
 
 /**
- *
+ * 
  *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @param string $curDirPath current path in the documents tree navugation
@@ -315,44 +280,33 @@ function query_make_part( $matches )
 
 function claro_disp_document_breadcrumb($curDirPath)
 {
-    pushClaroMessage( (function_exists('claro_html_debug_backtrace')
-                 ? claro_html_debug_backtrace()
-                 : 'claro_html_debug_backtrace() not defined'
-                 )
-                 .'claro_disp_document_breadcrumb is deprecated , use claro_html_document_breadcrumb','error');
-   return claro_html_document_breadcrumb($curDirPath);
-}
-function claro_html_document_breadcrumb($curDirPath)
-{
     $curDirPathList = explode('/', $curDirPath);
 
     $urlTrail = '';
-    
-    $bc = new BreadCrumbs;
+
+    $breadcrumbNameList = array();
+    $breadcrumbUrlList  = array();
 
     foreach($curDirPathList as $thisDir)
     {
         if ( empty($thisDir) )
         {
-            $bc->appendNode( new BreadCrumbsNode( get_lang('Root'),
-                get_module_entry_url('CLDOC') ) );
+            $breadcrumbNameList[] = get_lang('Root');
+            $breadcrumbUrlList[]  = '?cmd=exChDir&amp;file=';
         }
         else
         {
+            $breadcrumbNameList[] = $thisDir;
             $urlTrail .= '/'.$thisDir;
-            $bc->appendNode( new BreadCrumbsNode( get_lang($thisDir),
-                get_module_entry_url('CLDOC') . '?cmd=exChDir&amp;file='.rawurlencode($urlTrail)  ));
+            $breadcrumbUrlList[] = $_SERVER['PHP_SELF']
+                                 . '?cmd=exChDir&amp;file='.rawurlencode($urlTrail);
         }
     }
-    
-    if ( $bc->size() < 2 )
-    {
-        return '';
-    }
-    else
-    {
-        return '<div class="breadcrumbTrails">' . $bc->render().'</div>' . "\n";
-    }
+
+    // remove the url on the last (current) element
+    $breadcrumbUrlList[ count($breadcrumbUrlList) - 1] = null;
+
+    return claro_html_breadcrumbtrail($breadcrumbNameList, $breadcrumbUrlList);
 }
 
 ?>

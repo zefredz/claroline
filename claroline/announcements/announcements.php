@@ -33,7 +33,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @package CLANN
@@ -55,33 +55,30 @@ define('HIDE_LIST_WHEN_DISP_FORM', FALSE);
  *  CLAROLINE MAIN SETTINGS
  */
 
-$tlabelReq = 'CLANN';
-$gidReset = true;
+$tlabelReq = 'CLANN___';
 
 require '../inc/claro_init_global.inc.php';
 
-if ( ! claro_is_in_a_course()  || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
+if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 $context = claro_get_current_context(CLARO_CONTEXT_COURSE);
 
 // local lib
 require_once './lib/announcement.lib.php';
 
 // get some shared lib
-require_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
-require_once get_path('clarolineRepositorySys') . '/linker/linker.inc.php';
+require_once $includePath . '/lib/sendmail.lib.php';
+require_once $clarolineRepositorySys . '/linker/linker.inc.php';
 
 // get specific conf file
-require claro_get_conf_repository() . 'ical.conf.php';
-require claro_get_conf_repository() . 'rss.conf.php';
+require_once $includePath . '/conf/rss.conf.php';
 
 claro_set_display_mode_available(TRUE);
 
 //set flag following init settings
 $is_allowedToEdit = claro_is_allowed_to_edit();
 
-$courseId         = claro_get_current_course_id();
-
-$userLastLogin    = claro_get_current_user_data('lastLogin');
+$courseId         = $_course['sysCode'];
+$userLastLogin    = $_user['lastLogin'];
 
 /**
  * DB tables definition
@@ -98,20 +95,16 @@ $displayList = TRUE;
 
 $subTitle = '';
 
-$dialogBox = new DialogBox();
-
 /**
  *                    COMMANDS SECTION (COURSE MANAGER ONLY)
  */
 
 $id  = isset($_REQUEST['id'])  ? (int) $_REQUEST['id']   : 0;
 $cmd = isset($_REQUEST['cmd']) ? $cmd = $_REQUEST['cmd'] : '';
-$cmdList=array();
+
 
 if($is_allowedToEdit) // check teacher status
 {
-    $emailNotificationAllowed = claro_get_current_user_data('mail') != '';
-
     //------------------------
     //linker
 
@@ -120,7 +113,7 @@ if($is_allowedToEdit) // check teacher status
         linker_init_session();
     }
 
-    if( claro_is_jpspan_enabled() )
+    if( $jpspanEnabled )
     {
            linker_set_local_crl( isset ($_REQUEST['id']) );
     }
@@ -157,10 +150,9 @@ if($is_allowedToEdit) // check teacher status
 
             if ( announcement_delete_item($id) )
             {
-                $dialogBox->success( get_lang('Announcement has been deleted') );
-
+                $message = get_lang('Announcement has been deleted');
                 if ( CONFVAL_LOG_ANNOUNCEMENT_DELETE ) event_default('ANNOUNCEMENT',array('DELETE_ENTRY'=>$id));
-                $eventNotifier->notifyCourseEvent('anouncement_deleted', claro_get_current_course_id(), claro_get_current_tool_id(), $id, claro_get_current_group_id(), '0');
+                $eventNotifier->notifyCourseEvent('anouncement_deleted', $_cid, $_tid, $id, $_gid, '0');
                 $autoExportRefresh = TRUE;
 
                 linker_delete_resource();
@@ -178,13 +170,10 @@ if($is_allowedToEdit) // check teacher status
 
         if ( 'exDeleteAll' == $cmd )
         {
-            $announcementList = announcement_get_item_list($context);
             if ( announcement_delete_all_items() )
             {
-                $dialogBox->success( get_lang('Announcements list has been cleared up') );
-
+                $message = get_lang('Announcements list has been cleared up');
                 if ( CONFVAL_LOG_ANNOUNCEMENT_DELETE ) event_default('ANNOUNCEMENT',array ('DELETE_ENTRY' => 'ALL'));
-                $eventNotifier->notifyCourseEvent('all_anouncement_deleted', claro_get_current_course_id(), claro_get_current_tool_id(), $announcementList , claro_get_current_group_id(), '0');
                 $autoExportRefresh = TRUE;
 
                 linker_delete_all_tool_resources();
@@ -221,17 +210,17 @@ if($is_allowedToEdit) // check teacher status
         {
             if ('mkShow' == $cmd )
             {
-                $eventNotifier->notifyCourseEvent('anouncement_visible', claro_get_current_course_id(), claro_get_current_tool_id(), $id, claro_get_current_group_id(), '0');
+                $eventNotifier->notifyCourseEvent('anouncement_visible', $_cid, $_tid, $id, $_gid, '0');
                 $visibility = 'SHOW';
             }
             if ('mkHide' == $cmd )
             {
-                $eventNotifier->notifyCourseEvent('anouncement_invisible', claro_get_current_course_id(), claro_get_current_tool_id(), $id, claro_get_current_group_id(), '0');
+                $eventNotifier->notifyCourseEvent('anouncement_invisible', $_cid, $_tid, $id, $_gid, '0');
                 $visibility = 'HIDE';
             }
             if (announcement_set_item_visibility($id,$visibility))
             {
-                // $dialogBox->success( get_lang('Visibility modified') );
+                $message = get_lang('Visibility modified');
             }
             $autoExportRefresh = TRUE;
         }
@@ -258,7 +247,7 @@ if($is_allowedToEdit) // check teacher status
 
             $title       = isset($_REQUEST['title'])      ? trim($_REQUEST['title']) : '';
             $content     = isset($_REQUEST['newContent']) ? trim($_REQUEST['newContent']) : '';
-            $emailOption = ($emailNotificationAllowed && isset($_REQUEST['emailOption']))? (int) $_REQUEST['emailOption'] : 0;
+            $emailOption = isset($_REQUEST['emailOption'])? (int) $_REQUEST['emailOption'] : 0;
 
             /* MODIFY ANNOUNCEMENT */
 
@@ -267,16 +256,17 @@ if($is_allowedToEdit) // check teacher status
 
                 if ( announcement_update_item((int) $_REQUEST['id'], $title, $content) )
                 {
-                    $dialogBox->success( get_lang('Announcement has been modified') );
-
-                    // update linker and get error log
-	            	$linkerUpdateLog = linker_update();
-	            	if( !empty($linkerUpdateLog) ) $dialogBox->info( $linkerUpdateLog );
-
-                    $eventNotifier->notifyCourseEvent('anouncement_modified', claro_get_current_course_id(), claro_get_current_tool_id(), $id, claro_get_current_group_id(), '0');
+                    $message = get_lang('Announcement has been modified');
+                    $message .= linker_update();
+                    $eventNotifier->notifyCourseEvent('anouncement_modified', $_cid, $_tid, $id, $_gid, '0');
                     if (CONFVAL_LOG_ANNOUNCEMENT_UPDATE)event_default('ANNOUNCEMENT', array ('UPDATE_ENTRY'=>$_REQUEST['id']));
                     $autoExportRefresh = TRUE;
                 }
+//                else
+//                {
+//                    //error on UPDATE
+//                    //claro_failure::set_failure('CLANN:announcement can be update '.mysql_error());
+//                }
             }
 
             /* CREATE NEW ANNOUNCEMENT */
@@ -288,13 +278,10 @@ if($is_allowedToEdit) // check teacher status
                 $insert_id = announcement_add_item($title,$content) ;
                 if ( $insert_id )
                 {
-                    $dialogBox->success( get_lang('Announcement has been added') );
-
-                    // update linker and get error log
-	            	$linkerUpdateLog = linker_update();
-	            	if( !empty($linkerUpdateLog) ) $dialogBox->info( $linkerUpdateLog );
-
-                    $eventNotifier->notifyCourseEvent('anouncement_added',claro_get_current_course_id(), claro_get_current_tool_id(), $insert_id, claro_get_current_group_id(), '0');
+                    // notify that a new anouncement is present in this course
+                    $eventNotifier->notifyCourseEvent('anouncement_added',$_cid, $_tid, $insert_id, $_gid, '0');
+                    $message  = get_lang('Announcement has been added');
+                    $message .= linker_update();
                     if (CONFVAL_LOG_ANNOUNCEMENT_INSERT) event_default('ANNOUNCEMENT',array ('INSERT_ENTRY'=>$insert_id));
                     $autoExportRefresh = TRUE;
                 }
@@ -311,10 +298,10 @@ if($is_allowedToEdit) // check teacher status
             if ( 1 == $emailOption )
             {
                 // sender name and email
-                $courseSender = claro_get_current_user_data('firstName') . ' ' . claro_get_current_user_data('lastName');
+                $courseSender =  $_user['firstName'] . ' ' . $_user['lastName'];
 
                 // email subject
-                $emailSubject = '[' . get_conf('siteName') . ' - ' . claro_get_current_course_data('officialCode') . '] ';
+                $emailSubject = '[' . $siteName . ' - ' . $_course['officialCode'] . '] ';
                 if ( !empty($title) ) $emailSubject .= $title ;
                 else                  $emailSubject .= get_lang('Message from your lecturer');
 
@@ -326,12 +313,12 @@ if($is_allowedToEdit) // check teacher status
                 $str_to_replace = array("\n\n","\t* ","\n","\n","\n","\n","\n");
                 $msgContent = str_replace($str_to_search,$str_to_replace,$msgContent);
 
-                // Transform string like this : click <a href="http://www.claroline.net">here</a>
+                // Transform string like this : click <a hre="http://www.claroline.net">here</a>
                 // in string like that : click here [ http://www.claroline.net ]
 
                 $msgContent = preg_replace('|< *a +href *= *["\']([^"\']+)["\'][^>]*>([^<]+)</a>|', '$2 [ $1 ]', $msgContent);
                 $msgContent = str_replace('  ',' ',$msgContent);
-                $msgContent = html_entity_decode( $msgContent, ENT_QUOTES, get_locale('charset') );
+                $msgContent = unhtmlentities($msgContent);
                 $msgContent = strip_tags($msgContent);
 
                 // attached resource
@@ -342,15 +329,14 @@ if($is_allowedToEdit) // check teacher status
                 '--' . "\n" .
                 $msgAttachement . "\n" .
                 $courseSender . "\n" .
-                claro_get_current_course_data('name') . ' (' . claro_get_current_course_data('categoryName') . ')' . "\n" .
-                get_conf('siteName') . "\n"
-                ;
+                $_course['name'] . ' (' . $_course['categoryName'] . ')' . "\n" .
+                $siteName . "\n";
 
                 // Select students id list
                 $sql = "SELECT u.user_id AS id
                         FROM `" . $tbl_course_user . "` AS cu
                            , `" . $tbl_user . "`        AS u
-                        WHERE code_cours='" . addslashes(claro_get_current_course_id()) . "'
+                        WHERE code_cours='" . $courseId . "'
                         AND   cu.user_id = u.user_id";
 
                 $studentIdList  = claro_sql_query_fetch_all_cols($sql);
@@ -362,9 +348,9 @@ if($is_allowedToEdit) // check teacher status
                 $messageFailed = '';
 
                 $sentMailCount = claro_mail_user($studentIdList, $emailBody,
-                                  $emailSubject, claro_get_current_user_data('mail'), $courseSender);
+                                  $emailSubject, $_user['mail'], $courseSender);
 
-                $dialogBox->success( get_lang('Message sent') );
+                $message = '<p>' . get_lang('Message sent') . '<p>';
 
                 $unsentMailCount = $studentIdCount - $sentMailCount;
 
@@ -376,7 +362,7 @@ if($is_allowedToEdit) // check teacher status
                                 '%messageFailed'  => $messageFailed
                                 ));
 
-                        $dialogBox->error( $messageUnvalid );
+                        $message .= $messageUnvalid;
                 }
             }   // end if $emailOption==1
         }   // end if $submit Announcement
@@ -387,17 +373,17 @@ if($is_allowedToEdit) // check teacher status
              * in future, the 2 following calls would be pas by event manager.
              */
             // rss update
-            if ( get_conf('enableRssInCourse',1))
+            if ( get_conf('enable_rss_in_course',1))
             {
-                require_once get_path('incRepositorySys') . '/lib/rss.write.lib.php';
-                build_rss( array('course' => claro_get_current_course_id()));
+                require_once $includePath . '/lib/rss.write.lib.php';
+                build_rss( array('course' => $_cid));
             }
 
             // ical update
             if (get_conf('enableICalInCourse', 1)  )
             {
-                require_once get_path('incRepositorySys') . '/lib/ical.write.lib.php';
-                buildICal( array('course' => claro_get_current_course_id()));
+                require_once $includePath . '/lib/ical.write.lib.php';
+                buildICal( array('course' => $_cid));
             }
         }
 
@@ -424,48 +410,38 @@ $displayButtonLine = (bool) $is_allowedToEdit && ( empty($cmd) || $cmd != 'rqEdi
 
 if ( $displayButtonLine )
 {
-    $cmdList[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
-    .            '?cmd=rqCreate' . claro_url_relay_context('&amp;') . '">'
-    .             '<img src="' . get_path('imgRepositoryWeb') . 'announcement.gif" alt="" />'
+    $cmd_menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqCreate">'
+    .             '<img src="' . $imgRepositoryWeb . 'announcement.gif" alt="" />'
     .             get_lang('Add announcement')
     .             '</a>' . "\n"
     ;
-
-    if ($emailNotificationAllowed)
-    {
-    $cmdList[] = '<a class="claroCmd" href="messages.php' . claro_url_relay_context('?') . '">'
-        .             '<img src="' . get_path('imgRepositoryWeb') . 'email.gif" alt="" />'
+    $cmd_menu[] = '<a class="claroCmd" href="messages.php">'
+    .             '<img src="' . $imgRepositoryWeb . 'email.gif" alt="" />'
     .             get_lang('Messages to selected users')
     .             '</a>' . "\n"
     ;
-    }
-    else
-    {
-    $cmdList[] = '<span class="claroCmdDisabled" title="' . get_lang('You need an email in your profile') . '" >'
-        .             '<img src="' . get_path('imgRepositoryWeb') . 'email.gif" alt="" />'
-    .             get_lang('Messages to selected users')
-    .             '</span>' . "\n"
-    ;
-    }
     if (($announcementQty > 0 ))
     {
-        $cmdList[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll' . claro_url_relay_context('&amp;') . '" '
+        $cmd_menu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll" '
         .             ' onclick="if (confirm(\'' . clean_str_for_javascript(get_lang('Clear up list of announcements')) . ' ?\')){return true;}else{return false;}">'
-        .             '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="" />'
+        .             '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
         .             get_lang('Clear up list of announcements')
         .             '</a>' . "\n"
         ;
     }
     else
     {
-        $cmdList[] = '<span class="claroCmdDisabled" >'
-        .             '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="" />'
+        $cmd_menu[] = '<span class="claroCmdDisabled" >'
+        .             '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="" />'
         .             get_lang('Clear up list of announcements')
         .             '</span>' . "\n"
         ;
     }
 
 }
+
+
+event_access_tool($_tid, $_courseTool['label']);
 
 /**
  *  DISPLAY SECTION
@@ -475,17 +451,33 @@ if ( $displayButtonLine )
 $nameTools = get_lang('Announcement');
 $noQUERY_STRING = true;
 
+// Add feed RSS in header
+if ( get_conf('enable_rss_in_course') )
+{
+    $htmlHeadXtra[] = '<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars($_course['name'] . ' - ' . $siteName) . '"'
+            .' href="' . get_conf('rootWeb') . 'claroline/rss/?cidReq=' . $_cid . '" />';
+}
+
 // Display header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php' ;
+include $includePath . '/claro_init_header.inc.php' ;
+
+/*----------------------------------------------------------------------------
+TOOL TITLE
+----------------------------------------------------------------------------*/
 
 echo claro_html_tool_title(array('mainTitle' => $nameTools, 'subTitle' => $subTitle));
 
-echo $dialogBox->render();
+/*----------------------------------------------------------------------------
+ACTION MESSAGE
+----------------------------------------------------------------------------*/
 
-echo '<p>'
-.    claro_html_menu_horizontal($cmdList)
-.    '</p>'
-;
+if ( !empty($message) ) echo claro_html_message_box($message);
+
+/*----------------------------------------------------------------------------
+MAIN COMMANDS LINE
+----------------------------------------------------------------------------*/
+if ( $displayButtonLine ) echo claro_html_menu_horizontal($cmd_menu);
+
 
 /*----------------------------------------------------------------------------
 FORM TO FILL OR MODIFY AN ANNOUNCEMENT
@@ -497,21 +489,20 @@ if ( $displayForm )
     // DISPLAY ADD ANNOUNCEMENT COMMAND
 
     echo '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">'."\n"
-    .    claro_form_relay_context()
     .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'
     .    '<input type="hidden" name="cmd" value="' . $nextCommand . '" />'
     .    (isset( $announcementToEdit['id'] )
          ? '<input type="hidden" name="id" value="' . $announcementToEdit['id'] . '" />' . "\n"
          : ''
          )
-    .    '<table cellpadding="5">'
+    .    '<table>'
     .    '<tr>'
-    .    '<td valign="top"><label for="title">' . get_lang('Title') . ' : </label></td>' . "\n"
+    .    '<td valign="top"><label for="title">' . get_lang('Title') . ' : </label></td>'
     .    '<td>'
     .    '<input type="text" id="title" name="title" value = "'
     .    ( isset($announcementToEdit['title']) ? htmlspecialchars($announcementToEdit['title']) : '' )
     .    '" size="80" />'
-    .    '</td>' . "\n"
+    .    '</td>'
     .    '</tr>' . "\n"
     .    '<tr>'
     .    '<td valign="top">'
@@ -519,66 +510,38 @@ if ( $displayForm )
     .    get_lang('Content')
     .    ' : '
     .    '</label>'
-    .    '</td>' . "\n"
+    .    '</td>'
     .    '<td>'
-    .     claro_html_textarea_editor('newContent', !empty($announcementToEdit) ? $announcementToEdit['content'] : '',12,67)
-    .    '</td>' . "\n"
+    .     claro_html_textarea_editor('newContent', !empty($announcementToEdit) ? htmlspecialchars($announcementToEdit['content']) : '',12,67, $optAttrib=' wrap="virtual"')
+    .    '</td>'
     .    '</tr>' . "\n"
+    .    '<tr>'
+    .    '<td></td>'
+    .    '<td>'
+    .    '<input type=checkbox value="1" name="emailOption" id="emailOption" />'
+    .    '<label for="emailOption">' . get_lang('Send this announcement by email to registered students') . '</label><hr />' . "\n"
     ;
-
-    // TODO :  add else case  wich show disabled version ton show that possible  with a filled email.
-    if ($emailNotificationAllowed)
-    {
-        echo '<tr>'
-        .    '<td>&nbsp;</td>' . "\n"
-        .    '<td>'
-        .    '<input type="checkbox" value="1" name="emailOption" id="emailOption" />'
-        .    '<label for="emailOption">'
-        .    get_lang('Send this announcement by email to registered students')
-        .    '</label>' . "\n"
-        .    '</td>' . "\n"
-        .    '</tr>' . "\n"
-        ;
-    }
-
-    echo '<tr>'
-    .    '<td>&nbsp;</td>' . "\n"
-    .    '<td>' . "\n"
-;
 
     //---------------------
     // linker
 
-    if( claro_is_jpspan_enabled() )
+    if( $jpspanEnabled )
     {
         linker_set_local_crl( isset ($_REQUEST['id']) );
-        echo linker_set_display();
+        linker_set_display();
+        echo '<input type="submit" onClick="linker_confirm();" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />'."\n";
     }
     else // popup mode
     {
-        if(isset($_REQUEST['id'])) echo linker_set_display($_REQUEST['id']);
-        else                       echo linker_set_display();
-    }
+        if(isset($_REQUEST['id'])) linker_set_display($_REQUEST['id']);
+        else                       linker_set_display();
 
-    echo '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr>'
-    .    '<td>&nbsp;</td>' . "\n"
-    .    '<td>' . "\n"
-    ;
-
-    if( claro_is_jpspan_enabled() )
-    {
-        echo '<input type="submit" onclick="linker_confirm();" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />'."\n";
-    }
-    else
-    {
         echo '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />'."\n";
     }
 
     echo claro_html_button($_SERVER['PHP_SELF'], 'Cancel')
     .    '</td>'
-    .    '</tr>' . "\n"
+    .    '<tr>' . "\n"
     .    '</table>'
     .    '</form>' . "\n"
     ;
@@ -599,130 +562,121 @@ if ($displayList)
         echo '<br /><blockquote>' . get_lang('No announcement') . '</blockquote>' . "\n";
     }
 
-    else
+    echo '<table class="claroTable" width="100%">';
+
+    if (isset($_uid)) $date = $claro_notifier->get_notification_date($_uid); //get notification date
+
+    foreach ( $announcementList as $thisAnnouncement)
     {
-        echo '<table class="claroTable" width="100%">';
+        //modify style if the file is recently added since last login
 
-        if (claro_is_user_authenticated()) $date = $claro_notifier->get_notification_date(claro_get_current_user_id()); //get notification date
-
-        foreach ( $announcementList as $thisAnnouncement)
+        if (isset($_uid) && $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, $_gid, $_tid, $thisAnnouncement['id']))
         {
-            //modify style if the event is recently added since last login
-            if (claro_is_user_authenticated() && $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $thisAnnouncement['id']))
+            $classItem=' hot';
+        }
+        else // otherwise just display its name normally
+        {
+            $classItem='';
+        }
+
+        if (($thisAnnouncement['visibility']=='HIDE' && $is_allowedToEdit) || $thisAnnouncement['visibility']=='SHOW')
+        {
+            $style = ($thisAnnouncement['visibility'] == 'HIDE') ? 'invisible' :'';
+            $title = $thisAnnouncement['title'];
+
+            $content = make_clickable(claro_parse_user_text($thisAnnouncement['content']));
+            $last_post_date = $thisAnnouncement['time']; // post time format date de mysql
+
+            $imageFile = 'announcement.gif';
+            $altImg    = '';
+
+            echo '<tr>'."\n"
+            .    '<th class="headerX item'.$classItem.'">'."\n"
+            .    '<a href="#" name="ann' . $thisAnnouncement['id'] . '"></a>'. "\n"
+            .    '<img src="' . $imgRepositoryWeb . $imageFile . '" alt="' . $altImg . '" />' . "\n"
+            .    get_lang('Published on')
+            .    ' : ' . claro_disp_localised_date($dateFormatLong, strtotime($last_post_date))
+            .    '</th>' . "\n"
+            .    '</tr>' . "\n"
+            .    '<tr>' . "\n"
+            .    '<td>' . "\n"
+            .    '<div class="content ' . $style . '">' . "\n"
+            .    ($title ? '<p><strong>' . htmlspecialchars($title) . '</strong></p>' . "\n"
+                 : ''
+                 )
+            .    claro_parse_user_text($content) . "\n"
+            .    '</div>' . "\n"
+            ;
+
+            linker_display_resource();
+        }
+        if ($is_allowedToEdit)
+        {
+            echo '<p>'
+            // EDIT Request LINK
+            .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;id=' . $thisAnnouncement['id'] . '">'
+            .    '<img src="' . $imgRepositoryWeb . 'edit.gif" alt="' . get_lang('Modify') . '" />'
+            .    '</a>' . "\n"
+            // DELETE  Request LINK
+            .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;id=' . $thisAnnouncement['id'] . '" '
+            .    ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('Please confirm your choice')) . '\')) return false;">'
+            .    '<img src="' . $imgRepositoryWeb . 'delete.gif" alt="' . get_lang('Delete') . '" border="0" />'
+            .    '</a>' . "\n"
+            ;
+
+            // DISPLAY MOVE UP COMMAND only if it is not the top announcement
+
+            if( $iterator != 1 )
             {
-                $cssItem = 'item hot';
+                // echo    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvUp&amp;id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
+                // the anchor dont refreshpage.
+                echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMvUp&amp;id=' . $thisAnnouncement['id'] . '">'
+                .    '<img src="' . $imgRepositoryWeb . 'up.gif" alt="' . get_lang('Move up') . '" />'
+                .    '</a>' . "\n"
+                ;
+            }
+
+            // DISPLAY MOVE DOWN COMMAND only if it is not the bottom announcement
+
+            if($iterator < $bottomAnnouncement)
+            {
+                // echo    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvDown&amp;id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
+                // the anchor dont refreshpage.
+                echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMvDown&amp;id=' . $thisAnnouncement['id'] . '">'
+                .    '<img src="' . $imgRepositoryWeb . 'down.gif" alt="' . get_lang('Move down') . '" />'
+                .    '</a>' . "\n"
+                ;
+            }
+
+            //  Visibility
+            if ($thisAnnouncement['visibility']=='SHOW')
+            {
+                echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkHide&amp;id=' . $thisAnnouncement['id'] . '">'
+                .    '<img src="' . $imgRepositoryWeb . 'visible.gif" alt="' . get_lang('Invisible').'" />'
+                .    '</a>' . "\n"
+                ;
             }
             else
             {
-                $cssItem = 'item';
-            }
-
-            if (($thisAnnouncement['visibility']=='HIDE' && $is_allowedToEdit) || $thisAnnouncement['visibility'] == 'SHOW')
-            {
-                $cssInvisible = '';
-                if ($thisAnnouncement['visibility'] == 'HIDE')
-                {
-                    $cssInvisible = ' invisible';
-                }
-
-                $title = $thisAnnouncement['title'];
-
-                $content = make_clickable(claro_parse_user_text($thisAnnouncement['content']));
-                $last_post_date = $thisAnnouncement['time']; // post time format date de mysql
-
-                $imageFile = 'announcement.gif';
-                $altImg    = '';
-
-                echo '<tr class="headerX">'."\n"
-                .    '<th>'."\n"
-                .    '<span class="'. $cssItem . $cssInvisible .'">' . "\n"
-                .    '<a href="#" name="ann' . $thisAnnouncement['id'] . '"></a>'. "\n"
-                .    '<img src="' . get_path('imgRepositoryWeb') . $imageFile . '" alt="' . $altImg . '" />' . "\n"
-                .    get_lang('Published on')
-                .    ' : ' . claro_html_localised_date( get_locale('dateFormatLong'), strtotime($last_post_date))
-                .    '</span>'
-                .    '</th>' . "\n"
-                .    '</tr>' . "\n"
-                .    '<tr>' . "\n"
-                .    '<td>' . "\n"
-                .    '<div class="content ' . $cssInvisible . '">' . "\n"
-                .    ($title ? '<p><strong>' . htmlspecialchars($title) . '</strong></p>' . "\n"
-                     : ''
-                     )
-                .    claro_parse_user_text($content) . "\n"
-                .    '</div>' . "\n"
+                echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkShow&amp;id=' . $thisAnnouncement['id'] . '">'
+                .    '<img src="' . $imgRepositoryWeb . 'invisible.gif" alt="' . get_lang('Visible') . '" />'
+                .    '</a>' . "\n"
                 ;
-
-                echo linker_display_resource();
-
-                if ($is_allowedToEdit)
-                {
-                    echo '<p>'
-                    // EDIT Request LINK
-                    .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;id=' . $thisAnnouncement['id'] . '">'
-                    .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="' . get_lang('Modify') . '" />'
-                    .    '</a>' . "\n"
-                    // DELETE  Request LINK
-                    .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;id=' . $thisAnnouncement['id'] . '" '
-                    .    ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('Please confirm your choice')) . '\')) return false;">'
-                    .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="' . get_lang('Delete') . '" border="0" />'
-                    .    '</a>' . "\n"
-                    ;
-
-                    // DISPLAY MOVE UP COMMAND only if it is not the top announcement
-
-                    if( $iterator != 1 )
-                    {
-                        // echo    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvUp&amp;id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
-                        // the anchor dont refreshpage.
-                        echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMvUp&amp;id=' . $thisAnnouncement['id'] . '">'
-                        .    '<img src="' . get_path('imgRepositoryWeb') . 'up.gif" alt="' . get_lang('Move up') . '" />'
-                        .    '</a>' . "\n"
-                        ;
-                    }
-
-                    // DISPLAY MOVE DOWN COMMAND only if it is not the bottom announcement
-
-                    if($iterator < $bottomAnnouncement)
-                    {
-                        // echo    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvDown&amp;id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
-                        // the anchor dont refreshpage.
-                        echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMvDown&amp;id=' . $thisAnnouncement['id'] . '">'
-                        .    '<img src="' . get_path('imgRepositoryWeb') . 'down.gif" alt="' . get_lang('Move down') . '" />'
-                        .    '</a>' . "\n"
-                        ;
-                    }
-
-                    //  Visibility
-                    if ($thisAnnouncement['visibility']=='SHOW')
-                    {
-                        echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkHide&amp;id=' . $thisAnnouncement['id'] . '">'
-                        .    '<img src="' . get_path('imgRepositoryWeb') . 'visible.gif" alt="' . get_lang('Visible').'" />'
-                        .    '</a>' . "\n"
-                        ;
-                    }
-                    else
-                    {
-                        echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkShow&amp;id=' . $thisAnnouncement['id'] . '">'
-                        .    '<img src="' . get_path('imgRepositoryWeb') . 'invisible.gif" alt="' . get_lang('Invisible') . '" />'
-                        .    '</a>' . "\n"
-                        ;
-                    }
-                    echo '</p>'."\n"
-                    .    '</td>' . "\n"
-                    .    '</tr>' . "\n"
-                    ;
-
-                } // end if is_AllowedToEdit
             }
+            echo '</p>'."\n";
 
-            $iterator ++;
-        }    // end foreach ( $announcementList as $thisAnnouncement)
+        } // end if is_AllowedToEdit
 
-        echo '</table>';
-    }
+        echo '</td>' . "\n"
+        .    '</tr>' . "\n"
+        ;
+
+        $iterator ++;
+    }    // end foreach ( $announcementList as $thisAnnouncement)
+
+    echo '</table>';
 
 } // end if displayList
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 ?>

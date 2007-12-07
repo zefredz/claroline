@@ -2,13 +2,17 @@
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!!a tanfolyam raktár mérete (régi rendszereken claroline-t és a szeméttár-at tartalmazza)';
 $_lang['%1\$s by %2\$s'] = '%1$s  %2$s által';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s módosítva: %2$s  %3$s által';
+$_lang['%moduleName has been added as module'] = 'hozzáadva modulként a tanösvényhez';
+$_lang['%moduleName is already used as a module in this learning path'] = 'A gyakorlat már használatban van a tanösvényben modulként';
 $_lang['(*) anonymous users, users who are not members of this course...'] = '(*) névtelen felhasználók, olyan felhasználók, akik nem tagjai a tanfolyamnak...';
 $_lang['(When an user open the index of the campus)'] = '(Ha a felhasználó a Campus index fájlját megnyitja)';
+$_lang['(always private)'] = '(mindig személyes)';
 $_lang['(d/m/y hh:mm)'] = '(n/h/é óó:pp)';
 $_lang['(none)'] = '(semmi)';
 $_lang['(optional)'] = '(opcionális)';
 $_lang['(version of %1\$s modified by %2\$s)'] = '(verzió: %1$s módosítva: %2$s által)';
 $_lang['- none -'] = '-semmi-';
+$_lang['<b>Notice :</b> The directory containing your Claroline installation process (<code>claroline/install/</code>) is still browsable by the web. It means anyone can reinstall Claroline and crush your previous installation. We highly recommend to protect'] = '<b>Megjegyzés :</b>A Claroline telepítõanyagát tartalmazó könyvtár (<code>claroline/install/</code>) még mindig megtalálható a neten. Ez azt jelenti, hogy bárki újratelepítheti a Claroline-t és tönkreteheti a meglévõ telepítést. Javasoljuk, hogy védje le a könyvtárat, vagy egyszerûen törölje a szerverrõl';
 $_lang['<span class=\"required\">*</span> denotes required field'] = '<span class="required">*</span> kötelezõ mezõt jelöl';
 $_lang['<strong>Approved</strong><p>Your campus registration has been approved by the Claroline.net team.</p>'] = '<strong>Elfogadva</strong><p>A regisztrációját elfogadta a Claroline.net csapat.<br />Egy link mutat az Ön Campus-ára a Claroline.net Worldwide oldalán.</p>';
 $_lang['<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our website) if you think this is an error.</p>'] = '<strong>Törölve</strong><p>Az Ön felhasználói profilja deaktiválásra került, lépjen velünk kapcsolatba, ha ön szerint ez tévedés</p>';
@@ -26,24 +30,23 @@ $_lang['Accounts with same <i>Email</i>'] = 'Felhasználó fiókok ugyanolyan <i>Em
 $_lang['Accounts with same <i>User name</i>'] = 'Felhasználó fiókok ugyanolyan <i>Felhasználó név</i>-vel';
 $_lang['Accounts with same <i>User name</i> AND same <i>Password</i>'] = 'Azonos <i>Felhasználói nevû</i> és <i>Jelszavú</i> felhasználói fiókok';
 $_lang['Action'] = 'Tevékenység';
+$_lang['Activate'] = 'Aktiválás';
 $_lang['Add'] = 'Hozzáad';
 $_lang['Add a category'] = 'Kategória hozzáadása';
 $_lang['Add a comment'] = 'Megjegyzés hozzáfûzése';
 $_lang['Add a comment (optionnal) :'] = 'Megjegyzés hozzáfûzése (opcionális)';
-$_lang['Add a document'] = 'Dokumentum beillesztése modulként';
-$_lang['Add a module of this course'] = 'Saját modul beillesztése';
 $_lang['Add a user'] = 'Felhasználó hozzáadása';
 $_lang['Add a user list'] = 'Felhasználói lista hozzáadása';
 $_lang['Add a user list in class'] = 'Felhasználó beíratása az osztályba';
 $_lang['Add a user list in course'] = 'Felhasználói lista hozzáadása a kurzushoz';
 $_lang['Add an event'] = 'Esemény hozzáadása';
-$_lang['Add an exercise'] = 'Saját gyakorlat beillesztése';
 $_lang['Add announcement'] = 'Hirdetmény hozzáadása';
 $_lang['Add answ.'] = 'Válasz hozzáadása';
 $_lang['Add elem.'] = 'Elem hozzáadása';
 $_lang['Add external link'] = 'Külsõ link hozzáadása';
 $_lang['Add feedback'] = 'Visszajelzés hozzáadása';
 $_lang['Add forum'] = 'Fórum hozzáadása';
+$_lang['Add introduction text'] = 'Bevezetõ szöveg hozzáadása';
 $_lang['Add me to this group'] = 'Adjon hozzá a csoporthoz';
 $_lang['Add module(s)'] = 'Hodul(ok) hozzáadása';
 $_lang['Add my campus on Claroline.net website'] = 'A campus közzététele a Claroline.net honlapján';
@@ -51,6 +54,7 @@ $_lang['Add new heading'] = 'Fejléc hozzáadása';
 $_lang['Add user list'] = 'Felhasználói lista hozzáadása';
 $_lang['Add user manually'] = 'Felhasználó manuális hozzáadása';
 $_lang['Add wrong answers for drop down lists <small>(Optionnal. One wrong answer by line.)</small>'] = 'Téves válaszok hozzáadása a legördülõ listához <small>(Opcionális. Egy téves válasz soronként.)</small>';
+$_lang['Add/modify a comment to'] = 'Megjegyzés hozzáadása, módosítása';
 $_lang['Added line'] = 'Hozzáadott sor';
 $_lang['Admin'] = 'Adminisztrátor';
 $_lang['Administration'] = 'Adminisztráció';
@@ -73,6 +77,7 @@ $_lang['Allowed'] = 'Megengedett';
 $_lang['Allowed : do not record usernames in tracking, anonymous users can do the exercise.'] = 'Megengedett: nem rögzítjük a felhasználó nevet a nyomonkövetés során, névtelen felhasználók is elvégezhetik a gyakorlatot.';
 $_lang['Already browsed'] = 'Már járt itt';
 $_lang['Already enroled'] = 'már beiratkozott';
+$_lang['Among'] = 'között';
 $_lang['An error occured.  Learning Path import failed.'] = 'Hiba történt. Tanösvény importálás sikertelen';
 $_lang['An error occurred while contacting Claroline.net'] = 'Hiba történt a Claroline.net-hez való kapcsolódás közben';
 $_lang['Announcement'] = 'Hirdetmények';
@@ -86,6 +91,7 @@ $_lang['Anonymous users access count :'] = 'Névtelen felhasználók belépési száma
 $_lang['Answer'] = 'Válasz';
 $_lang['Answer is required'] = 'Válasz megadása kötelezõ';
 $_lang['Answer type'] = 'Válasz típusa';
+$_lang['Answers to the question'] = 'Kérdésre adott válaszok';
 $_lang['Are you sure to delete'] = 'Biztosan törli a';
 $_lang['Are you sure you want to completely delete this question ?'] = 'Biztosan törli ezt a kérdést?';
 $_lang['Are you sure you want to delete all groups ?'] = 'Biztos abban, hogy az összes csoportot törli?';
@@ -96,6 +102,7 @@ $_lang['Are you sure you want to remove the following module from the learning p
 $_lang['Are you sure you want to remove this course from your list ?'] = 'Biztosan törölni kívánja a tanfolyamot a tanfolyam listájáról ?';
 $_lang['Are you sure you want to unregister'] = 'Biztosan törli a regisztrációt?';
 $_lang['Area for this group'] = 'A csoport területe';
+$_lang['Asset not found :'] = 'Készlet nem található:';
 $_lang['Assignment'] = 'Beadandó feladat';
 $_lang['Assignment deleted'] = 'Beadandó feladat törölve';
 $_lang['Assignment modified'] = 'Beadandó feladat módosítva';
@@ -110,8 +117,7 @@ $_lang['Attach an existing resource'] = 'Meglévõ erõforrás csatolása';
 $_lang['Attached Resources : Add / Delete attachement'] = 'Csatolt erõforrások: Csatolmányok hozzáadása/törlése';
 $_lang['Attached file'] = 'Csatolt fájl';
 $_lang['Attached resources'] = 'Csatolt erõforrások';
-$_lang['Attempt %attemptCount'] = 'Próbálkozás %attemptCount';
-$_lang['Attempt %attemptCount on %attempts'] = 'Próbálkozás %attemptCount idõpontkor %attempts';
+$_lang['Attempt'] = 'Próbálkozás';
 $_lang['Attempts'] = 'Próbálkozások';
 $_lang['Attempts allowed'] = 'megengedett próbálkozások';
 $_lang['Authentication'] = 'Azonosítás';
@@ -120,6 +126,7 @@ $_lang['Author(s)'] = 'Szerzõ(k)';
 $_lang['Author(s) is(are) required'] = 'Szerzõ(k) kötelezõ(ek)';
 $_lang['Automatically, after each submission'] = 'Automatikusa, minden beküldés után';
 $_lang['Automatically, after end date'] = 'Automatikusa, a zárási dátum után';
+$_lang['Available from'] = 'Elérhetõ a következõ idõponttól';
 $_lang['Average Time'] = 'Átlagos idõtartam';
 $_lang['Average score'] = 'Átlageredmény';
 $_lang['Back'] = 'Vissza';
@@ -130,6 +137,7 @@ $_lang['Back to class members'] = 'Vissza az osztály tagjaihoz';
 $_lang['Back to course list'] = 'Vissza a tanfolyam listához';
 $_lang['Back to learning path administration'] = 'Vissza a tanösvény adminisztrációhoz';
 $_lang['Back to list'] = 'Vissza a listához';
+$_lang['Back to my course list'] = 'Vissza a saját tanfolyam listához';
 $_lang['Back to my personal course list'] = 'Vissza a személyes tanfolyam listához';
 $_lang['Back to page'] = 'Vissza az oldalra';
 $_lang['Back to parent category'] = 'Vissza a szülõ kategóriához';
@@ -160,11 +168,14 @@ $_lang['Category name'] = 'Kategória neve :';
 $_lang['Category name is required'] = 'Kategória név kötelezõ';
 $_lang['Category updated'] = 'Kategória aktualizálva';
 $_lang['Change minimum raw mark to pass this module (percentage) :'] = 'A modul sikerességét jelentõ köszöbérték módosítása (százalék):';
+$_lang['Change picture'] = 'Kép módosítása';
 $_lang['Changes have been applied to the user settings'] = 'A felhasználó beállítok változását rögzítettük';
 $_lang['Changes have been saved'] = 'Változások elmentve';
 $_lang['Chat'] = 'Csevegés';
+$_lang['Chat of the group'] = 'Csoport csevegés';
 $_lang['Chat reset by'] = 'Csevegést újraindította:';
 $_lang['Check this box to delete the attached file'] = 'Jelölje ki ezt a dobozt a csatolt fájl törléséhez.';
+$_lang['Choice'] = 'Az Ön választása';
 $_lang['Choose a course to access this page.'] = 'Válasszon tanfolyamot az oldal megtekintéséhez.';
 $_lang['Clarodoc'] = 'Clarodoc';
 $_lang['Claroline help'] = 'Segítség az induláshoz';
@@ -243,6 +254,12 @@ $_lang['Current feedback file'] = 'Aktuális visszacsatolási fájl';
 $_lang['Current file'] = 'Aktuális fájl';
 $_lang['Current registration status :'] = 'Aktuális regisztrációs státusz: <br /> <br />';
 $_lang['Current time'] = 'Aktuális idõ';
+$_lang['DBSettingNamesIntro'] = 'A telepítõ létrehozza a fõ Claroline adatbázisokat.
+Ha a rendszer adminisztrátor csak egy adatbázist engedélyez, akkor 
+menjen vissza az elõzõ oldalra, és válassza az \'egyedüli\'-t az \'Adatbázis Mód\'-nál.<br /><br />';
+$_lang['Database Host'] = 'Adatbázis Szerver';
+$_lang['Database name'] = 'Adatbázis név';
+$_lang['Database usage'] = 'Adatbázis használat';
 $_lang['Date'] = 'Dátum';
 $_lang['Day'] = 'Nap';
 $_lang['Default works visibility'] = 'A munkák alapértelmezett láthatósága';
@@ -269,15 +286,18 @@ $_lang['Description of the Wiki'] = 'Wiki leírása';
 $_lang['Description updated'] = 'Leírás módosítása';
 $_lang['Detail'] = 'Részlet';
 $_lang['Details'] = 'Részletek';
+$_lang['Details may be incorrect as it seems that some questions have change between this attempt and now.'] = 'A részletek pontatlanok lehetnek, mert úgy tûnik, valamelyik kérdés megváltozott a probálkozás és a mostani idõpont között.';
 $_lang['Devel Tools'] = 'Fejlesztõ eszközök';
 $_lang['Differences :'] = 'Eltérések :';
 $_lang['Directory created'] = 'Könyvtár létrehozva';
 $_lang['Disable'] = 'Deaktivál';
+$_lang['Disable text editor'] = 'Szövegszerkesztõ kikapcsolása';
 $_lang['Disk Usage'] = 'Lemez használat';
 $_lang['Display of detailled answers is not authorized.'] = 'A részletes válaszok megjelenítése nem megengedett';
 $_lang['Do you really want to delete the category'] = 'Biztosan törölni kívánja a kategóriát?';
 $_lang['Do you want to continue?'] = 'Folytatni kívánja ?';
 $_lang['Document'] = 'Dokumentum';
+$_lang['Document content'] = 'Dokumentum tartalma:';
 $_lang['Document deleted'] = 'Dokumentum törölve';
 $_lang['Document in module'] = 'Dokumentum a modulban';
 $_lang['Document name'] = 'Dokumentum neve:';
@@ -285,7 +305,10 @@ $_lang['Documents'] = 'Dokumentumok';
 $_lang['Documents and Links'] = 'Dokumentumok és Linkek';
 $_lang['Documents downloaded by the student'] = 'A hallgató által letöltött dokumentumok';
 $_lang['Documents help'] = 'Dokumentumok, segítség';
+$_lang['Documents of the group'] = 'Csoport dokumentumai';
 $_lang['Down'] = 'Sorrend lefelé';
+$_lang['Download attached file'] = 'Csatolt fájl letöltése';
+$_lang['EG'] = 'pl.';
 $_lang['ERROR: The format you gave is not compatible with Claroline'] = 'HIBA: A megadott formátum nem kompatibilis a Claroline-nal';
 $_lang['Edit'] = 'Szerkeszt';
 $_lang['Edit Event'] = 'Esemény szerkesztése';
@@ -313,8 +336,11 @@ $_lang['Element renamed'] = 'Elem átnevezve';
 $_lang['Email'] = 'E-mail';
 $_lang['Email needed'] = 'Az e-mail nem lehet üres';
 $_lang['Empty'] = 'Üres';
+$_lang['Empty (or NULL)'] = 'Üres (vagy NULL)';
 $_lang['Empty all groups'] = 'Minden csoport ürítése';
 $_lang['Empty language file'] = 'Üres nyelvi fájl';
+$_lang['Enable'] = 'Érvényessé tesz';
+$_lang['Enable text editor'] = 'Szövegszerkesztõ bekapcsolása';
 $_lang['End date'] = 'Zárási dátum';
 $_lang['Enrol as course manager'] = 'Bejelentkezés tanfolyam vezetõként';
 $_lang['Enrol as student'] = 'Bejelentkezés hallgatóként';
@@ -344,10 +370,14 @@ $_lang['ErrorInvalidParms'] = 'HIBA: Érvénytelen paraméter (csak számokat haszná
 $_lang['Event added to the agenda'] = 'Esemény hozzáadva az eseménynaptárhoz.';
 $_lang['Event deleted from the agenda'] = 'Esemény törölve az eseménynaptárból.';
 $_lang['Event updated into the agenda'] = 'Esemény rögzítve az eseménynaptárban.';
-$_lang['Exercise'] = 'Gyakorlat';
+$_lang['Exercice not found'] = 'Gyakorlat nem található';
 $_lang['Exercise cancelled, choose a module in the list to continue.'] = 'Gyakorlat törölve, válasszon egy modult a listából.';
+$_lang['Exercise description'] = 'Gyakorlat leírás';
 $_lang['Exercise done, choose a module in the list to continue.'] = 'Gyakorlat elvégezve, válasszon egy modult a listából a továbbhaladáshoz.';
 $_lang['Exercise in module'] = 'Gyakorlat a modulban';
+$_lang['Exercise management'] = 'Gyakorlat kezelés';
+$_lang['Exercise name'] = 'Gyakorlat neve';
+$_lang['Exercise no longer available'] = 'Gyakorlat nem elérhetõ a továbbiakban';
 $_lang['Exercise not available'] = 'Gyakorlat nem elérhetõ';
 $_lang['Exercise type'] = 'Gyakorlat típus';
 $_lang['Exercises'] = 'Gyakorlatok';
@@ -375,6 +405,8 @@ $_lang['File description'] = 'Fájl leírás';
 $_lang['File list'] = 'Fájl lista';
 $_lang['File must be a zip file (.zip)'] = 'A fájl-nak zip fájlnak kell lennie (.zip)';
 $_lang['File name is missing'] = 'Fájlnév hiányzik';
+$_lang['File received :'] = 'Fájl megérkezett:';
+$_lang['File structure checker'] = 'Fájlstruktúra ellenõrzõ';
 $_lang['Filename'] = 'Fájlnév';
 $_lang['Fill groups (automatically)'] = 'Csoportok feltöltése (automatiusan)';
 $_lang['Fill in blanks'] = 'Üres részek kitöltése';
@@ -400,9 +432,12 @@ $_lang['From language files'] = 'Nyelvi fájlokból';
 $_lang['From script files'] = 'Script fájlokból';
 $_lang['Fullscreen'] = 'Teljes képernyõ';
 $_lang['Function list'] = 'Funkció lista';
+$_lang['Garbage'] = 'Szeméttároló';
 $_lang['Get a question from another exercise'] = 'Kérdés átvétele másik gyakorlatból';
 $_lang['Get tracking data in a CSV file'] = 'Nyomonkövetési adatok CSV fájlban';
 $_lang['Go back to the exercise'] = 'Vissza a gyakorlathoz';
+$_lang['Go back to the question list'] = 'Vissza a kérdés listához';
+$_lang['Go back to the question pool'] = 'Vissza a kérdéstárolóhoz';
 $_lang['Go to the account creation page'] = 'A felhasználói fiók létrehozása lapra megy';
 $_lang['Group'] = 'Csoport';
 $_lang['Group Tutor'] = 'Csoport Oktató';
@@ -425,17 +460,24 @@ $_lang['Help'] = 'Segítség';
 $_lang['Here you can modify the content of the text zones displayed on the platform home page.'] = 'Itt módosíthatja a rendszer honlapján látható szöveges területeket.';
 $_lang['Hits'] = 'Találatok';
 $_lang['Home page help'] = 'Honlap, segítség';
+$_lang['Home page text zones'] = 'Honlap szöveges részei';
 $_lang['Hour'] = 'Óra';
 $_lang['Identical content<br />no modification saved'] = 'Egyedi tartalom<br />változás nincsen mentve';
 $_lang['If you wish to enrol on this course'] = 'Ha be kíván iratkozni a tanfolyamra';
+$_lang['IfNotRedirect'] = 'Ha nincsen átirányítva';
 $_lang['Import'] = 'Importál';
 $_lang['Import a learning path'] = 'Tanösvény importálása';
 $_lang['Imported packages must consist of a zip file and be SCORM 1.2 conformable'] = 'Az importált csomagok zip fájlból állnak és SCORM 1.2-vel kompatibilisek';
 $_lang['Impossible to promote group tutor a student already register to group'] = 'A csoportba regisztrált hallgató tanárrá történõ elõléptetése nem lehetséges';
 $_lang['In frames'] = 'Keretekben';
+$_lang['Include picture'] = 'Kép kapcsolása';
 $_lang['Individual'] = 'Egyéni';
 $_lang['Information'] = 'Információk';
 $_lang['Information to give to students'] = 'Hallgatóknak adandó információk';
+$_lang['Insert a document as module'] = 'Dokumentum beillesztése modulként';
+$_lang['Insert a module of the course'] = 'A tanfolyam egyik moduljának beillesztése';
+$_lang['Insert my exercise'] = 'Saját gyakorlat beillesztése';
+$_lang['Insert my module'] = 'Saját modul beillesztése';
 $_lang['Insert new name'] = 'Új név beillesztése';
 $_lang['Institution'] = 'Intézmény';
 $_lang['Institution URL'] = 'Intézmény Url-je';
@@ -453,6 +495,7 @@ $_lang['Last 7 days'] = 'Utolsó 7 nap';
 $_lang['Last access'] = 'Utolsó belépés';
 $_lang['Last active topics'] = 'Utolsó aktív témák';
 $_lang['Last attempt'] = 'Utolsó próbálkozás';
+$_lang['Last check before install'] = 'Telepítés elõtti utolsó ellenörzés';
 $_lang['Last edit date'] = 'Utolsó szerkesztési dátum';
 $_lang['Last message'] = 'Utolsó üzenet';
 $_lang['Last message was on'] = 'Az utolsó üzenet érkezett:';
@@ -473,6 +516,7 @@ $_lang['Learning path list'] = 'Tanösvény Lista';
 $_lang['Learning path progression :'] = 'Elõrehaladás a tanösvényben:';
 $_lang['Learning paths tracking'] = 'Tanösvények nyomonkövetése';
 $_lang['Lecturer(s)'] = 'Oktató(k)';
+$_lang['Licence'] = 'Licence';
 $_lang['Limit'] = 'Korlát';
 $_lang['Line Number'] = 'Sorszám';
 $_lang['List of Wiki'] = 'Wiki lista';
@@ -490,7 +534,9 @@ $_lang['Lost password'] = 'Elfelejtett jelszó';
 $_lang['Mail is already used by another user.'] = 'A levelet egy másik felhasználó már használja';
 $_lang['Mail synthax error.'] = 'Mail nyelvtani hiba';
 $_lang['Main Group Settings'] = 'Fõ Csoport Beállítások';
+$_lang['Main database'] = 'Fõ adatbázis';
 $_lang['Main page'] = 'Fõ lap';
+$_lang['Maintenance'] = 'Karbantartás';
 $_lang['Make correspond'] = 'Összhangba hoz';
 $_lang['Make invisible'] = 'Láthatatlanná tesz';
 $_lang['Make new search'] = 'Új keresés:';
@@ -519,6 +565,7 @@ $_lang['Missing value'] = 'Hiányzó érték';
 $_lang['Modifies this announcement'] = 'Módosítja a hirdetményt';
 $_lang['Modify'] = 'Módosít';
 $_lang['Modify a work'] = 'Munka szerkesztése';
+$_lang['Modify exercise'] = 'Gyakorlat módosítása';
 $_lang['Modify the format'] = 'Formátum módosítása';
 $_lang['Module'] = 'Modul';
 $_lang['Module added :'] = 'Modul hozzáadva:';
@@ -534,6 +581,7 @@ $_lang['Move'] = 'Mozgat';
 $_lang['Move down'] = 'Lefele mozgat';
 $_lang['Move up'] = 'Felfele mozgat';
 $_lang['Moved line'] = 'Elmozgatott sor';
+$_lang['Multiple answers'] = 'Többfeleletes';
 $_lang['Multiple choice (Multiple answers)'] = 'Többfeleletes (Több helyes válasz)';
 $_lang['Multiple choice (Unique answer)'] = 'Feleletválasztós (Egy helyes válasz)';
 $_lang['My User Account'] = 'Saját beállítások módosítása';
@@ -542,7 +590,9 @@ $_lang['My course list'] = 'Saját Tanfolyam Lista';
 $_lang['My other courses'] = 'Egyéb tanfolyamaim';
 $_lang['My personal course list'] = 'Saját tanfolyam lista';
 $_lang['My results'] = 'Saját eredmények';
+$_lang['MySQL Database and Table Names'] = 'MySQL adatbázis és tábla nevek';
 $_lang['Mysql Repository'] = 'MySQL Tárház';
+$_lang['Mysql connection parameters'] = 'Mysql kapcsolat paraméterek';
 $_lang['Name cannot be empty'] = 'A negnevezést ki kell tölteni';
 $_lang['Name link'] = 'Név link';
 $_lang['Name of the class has been changed'] = 'Az osztály neve megváltozott';
@@ -556,6 +606,7 @@ $_lang['New Wiki'] = 'Új Wiki';
 $_lang['New assignment created'] = 'Új beadandó feladat létrehozva';
 $_lang['New chat'] = 'Új csevegés';
 $_lang['New exercise'] = 'Új gyakorlat';
+$_lang['New learning path name :'] = 'Új tanösvény név:';
 $_lang['New question'] = 'Új kérdés';
 $_lang['New topic'] = 'Új téma';
 $_lang['New users will receive an e-mail with their user name and password'] = 'Az új felhasználók e-mail-ben értesülnek felhasználó nevükrõl és jelszavukról';
@@ -588,6 +639,7 @@ $_lang['No post'] = 'Nincsen üzenet';
 $_lang['No quota'] = 'Nincsen kvóta';
 $_lang['No result'] = 'Nincsen eredmény';
 $_lang['No score'] = 'Nincsen eredmény';
+$_lang['No scripts'] = 'Nincsen script';
 $_lang['No stats to show.  You haven\'t registered any course.'] = 'Nincsen megjelenítendó stat. Ön nem regisztrált egyetlen tanfolyamot sem.';
 $_lang['No time limitation'] = 'Nincsen idõkorlát';
 $_lang['No user found'] = 'Nem találtunk felhasználót';
@@ -622,7 +674,9 @@ $_lang['Oldest first'] = 'Legkorábbi elõször';
 $_lang['On'] = 'Idõpontkor:';
 $_lang['On an unique page'] = 'Egy oldalon';
 $_lang['One question per page (sequential)'] = 'Oldalanként egy kérdés (sorban)';
+$_lang['Ooops, stranges cases detected !!'] = 'Hoppá, furcsa eseteket találtam!';
 $_lang['Operation impossible'] = 'Mûvelet nem lehetséges';
+$_lang['Operation impossible.<br />A file with this name already exists.'] = 'Mûvelet nem lehetséges.<br />Ezen a néven már létezik fájl.';
 $_lang['Optional'] = 'Opcionális';
 $_lang['Order'] = 'Sorrend';
 $_lang['Orphan questions'] = ' "Árva" kérdések';
@@ -645,16 +699,22 @@ $_lang['Platform Administrator'] = 'Rendszer Adminisztrátor';
 $_lang['Platform statistics'] = 'Rendszer statisztikák';
 $_lang['Please check that your campus URL is reachable from the internet.'] = 'Ellenõrizze, hogy a rendszer elérhetõ-e az Internet-rõl';
 $_lang['Please choose a good answer'] = 'Kérjük, adjon meg helyes választ';
+$_lang['Please choose one or more good answers'] = 'Kérjük, adjon egy vagy több helyes választ';
 $_lang['Please confirm your choice'] = 'Kérjük, erõsítse meg választását!';
+$_lang['Please define at least one blank with brackets [...]'] = 'Legalább egy üres helyet adjon meg a zárójelek [...] segítségével.';
 $_lang['Please define the options'] = 'Lehetõségek meghatározása';
 $_lang['Please fill the two lists below'] = 'Kérjük, töltse ki a két alábbi listát';
 $_lang['Please give a weighting to each blank'] = 'Adjon súlyt minden üres helynek';
 $_lang['Please give the answers to the question'] = 'Kérjük, válaszoljon-e a kérdésre';
+$_lang['Please give the exercise name'] = 'Kérjük, adja meg a gyakorlat nevét';
+$_lang['Please give the question'] = 'Kérjük, adja meg a kérdést';
 $_lang['Please type the text'] = 'Kérjük, írja be a szöveget';
+$_lang['Please type your text below'] = 'Kérjük, írja be a szöveget';
 $_lang['Pool of modules'] = 'Modultár';
 $_lang['Posted'] = 'Elküldve';
 $_lang['Posts'] = 'Üzenetek';
 $_lang['Powered by'] = 'Fejlesztõ:';
+$_lang['Prefix for names of course databases'] = 'Elõtét a tanfolyam adatbázisok nevei elé';
 $_lang['Preview'] = 'Elõnézet';
 $_lang['Preview :'] = 'Elõnézet :';
 $_lang['Previous'] = 'Elõzõ';
@@ -662,6 +722,7 @@ $_lang['Previous day'] = 'Elõzõ Nap';
 $_lang['Previous month'] = 'Elõzõ Hónap';
 $_lang['Previous week'] = 'Elõzõ Hét';
 $_lang['Previous year'] = 'Elõzõ Év';
+$_lang['PrintVers'] = 'Nyomtatható verzió';
 $_lang['Private'] = 'Magán';
 $_lang['Private course only'] = 'Személyes tanfolyam csupán';
 $_lang['Private feedback'] = 'Személyes visszacsatolás';
@@ -677,12 +738,17 @@ $_lang['Public courses'] = 'Nyilvános tanfolyamok';
 $_lang['Publish'] = 'Közzétesz';
 $_lang['Published on'] = 'Közzétéve:';
 $_lang['Question'] = 'Kérdés';
+$_lang['Question / Answer management'] = 'Kérdés/Válasz kezelés';
+$_lang['Question list of the exercise'] = 'A gyakorlat kérdéslistája';
+$_lang['Question not found'] = 'Kérdést nem találtuk';
 $_lang['Question pool'] = 'Kérdéstár';
 $_lang['Question title'] = 'Kérdés címe';
 $_lang['Question to lecturer'] = 'Kérdés az oktatóhoz';
+$_lang['Questions'] = 'Kérdések';
 $_lang['Random questions'] = 'Véletlenszerû kérdés';
 $_lang['Read Pages'] = 'Oldalak olvasása';
 $_lang['Recent changes'] = 'Újabb változások';
+$_lang['Register'] = 'Regisztrál';
 $_lang['Register a user for this class'] = 'Felhasználó regisztrálása az osztályba';
 $_lang['Register class for course'] = 'Osztály regisztrálása tanfolyamba';
 $_lang['Register my campus'] = 'Saját rendszer regisztrálása';
@@ -697,11 +763,14 @@ $_lang['Rem. elem.'] = 'Kev. elem';
 $_lang['Remove'] = 'Eltávolít';
 $_lang['Remove course enrolment'] = 'Tanfolyami beiratkozás törlése';
 $_lang['Remove course from your personal course list'] = 'Tanfolyam törlése a személyes tanfolyam listából';
+$_lang['Remove picture'] = 'Kép törlése';
 $_lang['Rename'] = 'Átnevez';
+$_lang['Replace attached file'] = 'Csatolt fájl cseréje';
 $_lang['Replies'] = 'Válaszok';
 $_lang['Reply'] = 'Válasz';
 $_lang['Request course creation status'] = 'Tanfolyam Létrehozó státusz kérése';
 $_lang['Required'] = 'Kötelezõ';
+$_lang['Requirements'] = 'Követelmények';
 $_lang['Reset'] = 'Újraindít';
 $_lang['Restore course repository'] = 'Tanfolyam tárház helyreállítása';
 $_lang['Result'] = 'Eredmény';
@@ -721,6 +790,8 @@ $_lang['Score'] = 'Eredmény';
 $_lang['Score required'] = 'Eredmény kötelezõ';
 $_lang['Scores of exercises done'] = 'Az elvégzett gyakorlatok eredményei';
 $_lang['Scorm'] = 'SCORM';
+$_lang['Script missing'] = 'Script hiányzik';
+$_lang['Script not in claroline'] = 'Script nincsen a Claroline-ban';
 $_lang['Search'] = 'Keresés';
 $_lang['Search again (advanced)'] = 'Újabb keresés (haladó)';
 $_lang['Search course'] = 'Tanfolyam keresése';
@@ -746,9 +817,11 @@ $_lang['Size'] = 'Méret';
 $_lang['Start Module'] = 'Modul Indítása';
 $_lang['Start date'] = 'Kezdési dátum';
 $_lang['Start date must be before end date ...'] = 'A kezdési dátumnak meg kell elõzni a zárási dátumot';
+$_lang['Statement'] = 'Kijelentés';
 $_lang['Statistics'] = 'Statisztikák';
 $_lang['Statistics by question'] = 'Statisztikák kérdésenként';
 $_lang['Statistics by user'] = 'Statisztikák felhasználónként';
+$_lang['Statistics of course'] = 'Tanfolyam statisztikái';
 $_lang['Statistics of exercise'] = 'Gyakorlat statisztikái';
 $_lang['Statistics of exercise attempt'] = 'A megkísérelt gyakorlatok statisztikái';
 $_lang['Statistics of question'] = 'Kérdés statisztikái';
@@ -763,15 +836,21 @@ $_lang['Submissions'] = 'Beküldések';
 $_lang['Submit'] = 'Beküld';
 $_lang['Submit a work'] = 'Munka beküldése';
 $_lang['Submit feedback'] = 'Visszacsatolás küldése';
+$_lang['Subscribe a class'] = 'Osztály beíratása';
+$_lang['Subscribe to course'] = 'Beiratkozás a tanfolyamba';
 $_lang['Support forum'] = 'Támogató fórum';
+$_lang['SwitchEditorToTextConfirm'] = 'Ez a parancs eltávolítja az aktuális szöveg elrendezést. Folytatja?';
+$_lang['Take'] = 'vesz';
 $_lang['Technical Tools'] = 'Technikai eszközök';
 $_lang['Text only (text required, no file)'] = 'Csak szöveg (szöveg kötelezõ, nincsen fájl)';
 $_lang['Text with attached file (text required, file optional)'] = 'Szöveg csatolt fájllal (szöveg kötelezõ, fájl opcionális)';
 $_lang['The changes have been carried out correctly'] = 'A változások sikeresen végrehajtva';
+$_lang['The class has been moved'] = 'Az osztály elmozdítva';
 $_lang['The course has been successfully deleted'] = 'A tanfolyamot sikeresen töröltük';
 $_lang['The email address is not valid'] = 'Az e-mail cím érvénytelen';
 $_lang['The file to upload is not valid.'] = 'A feltöltendõ fájl érvénytelen';
 $_lang['The following errors were found'] = 'A következõ hibák merültek fel:';
+$_lang['The information has been modified'] = 'Az információ módosítva';
 $_lang['The module will still be available in the pool of modules.'] = 'A modul a Modultárban még hozzáférhetõ marad';
 $_lang['The new category has been created.'] = 'Az új kategória létrehozva';
 $_lang['The new class has been created'] = 'Az új osztály létrejött';
@@ -789,12 +868,14 @@ $_lang['There is no assignment at the moment'] = 'Nincsen pillanatnyilag beadand
 $_lang['There is no category available !'] = 'Nincsen rendelkezésre álló kategória';
 $_lang['There is no course matching such criteria'] = 'A feltételnek egyetlen tanfolyam sem felel meg';
 $_lang['There is no exercise for the moment'] = 'Nincsen pillanatnyilag gyakorlat';
+$_lang['There is no question for the moment'] = 'Nincsen kérdés pillanatnyilag';
 $_lang['There is no start asset defined for this module.'] = 'Nincsen kiinduló készlet a modulhoz';
 $_lang['There is no user account with this email address.'] = 'Jelenleg nincsen felhasználói fiók ezen az e-mail címen';
 $_lang['This category already exists!'] = 'Ez a kategória már létezik !';
 $_lang['This category contains other categories, you must delete them before !'] = 'Ez a kategória egyéb kategóriákat tartalmaz, elõször azokat kell törölni !';
 $_lang['This category contains some courses, you can\'t erase it!'] = 'Ez a kategória tanfolyamokat tartalmaz, ezért nem törölhetõ.';
 $_lang['This category include some courses, you must delete or move them before'] = 'Ez a kategória tanfolyamokat tartalmaz, elõször azokat kell törölnie';
+$_lang['This class still contains some sub classes, delete them first'] = 'Az osztály még mindig tartalmaz al-osztályokat, törölje azokat elõbb';
 $_lang['This course is currently not described'] = 'A tanfolyam jelenleg nincsen leírva';
 $_lang['This day'] = 'Ez a nap';
 $_lang['This is the faculty, department or school where the course is delivered'] = 'Ez az a kar, intézet, vagy iskola, ahol a tanfolyam folyik';
@@ -817,6 +898,7 @@ $_lang['Title of the wiki'] = 'Wiki címe';
 $_lang['To'] = 'ig:';
 $_lang['To send a message, select groups of users (marked with a * in the front) or single users from the list on the left.'] = 'Üzenet küldéséhez válassza ki a hallgatók csoportjait (*-gal jelölve), vagy egyesével a hallgatókat a baloldali listából.';
 $_lang['Tool'] = 'Eszköz';
+$_lang['Tool accesses changed'] = 'Az eszközök hozzáférhetõsége módosítva';
 $_lang['Tools'] = 'Eszközök';
 $_lang['Topic'] = 'Téma';
 $_lang['Topic review'] = 'Téma Áttekintése';
@@ -829,16 +911,19 @@ $_lang['Total attempts'] = 'Összes próbálkozás';
 $_lang['Total number of connection to this course'] = 'Az összes kapcsolódás száma a tanfolyamhoz';
 $_lang['Total time'] = 'Összes idõ';
 $_lang['Tracking'] = 'Nyomonkövetés';
+$_lang['Tracking database'] = 'Nyomonkövetési adatbázis';
 $_lang['Tracking has been disabled by system administrator.'] = 'A nyomonkövetést a rendszer adminisztrátor kikapcsolta';
 $_lang['Traffic Details'] = 'Forgalom Részletek';
 $_lang['Translation Progression'] = 'Fordítás Elõrehaladása';
 $_lang['Translation Tools'] = 'Fordító Eszközök';
 $_lang['True'] = 'Igaz';
 $_lang['True/False'] = 'Igaz/Hamis';
+$_lang['URL :'] = 'Url.:';
 $_lang['URL link'] = 'Url. link';
 $_lang['Unable to add description'] = 'Leírás nem hozzáadható';
 $_lang['Unable to add external tool'] = 'Külsõ eszköz nem hozzáadható';
 $_lang['Unable to add the event to the agenda'] = 'Az eseménynaptárhoz az esemény nem hozzáadható';
+$_lang['Unable to change tool access'] = 'Az eszközökhöz való hozzáférés nem módosítható';
 $_lang['Unable to copy file :'] = 'A fájl nem másolható:';
 $_lang['Unable to create category'] = 'Kategória nem létrehozható';
 $_lang['Unable to create directory :'] = 'A könyvtár nem létrehozható:';
@@ -867,6 +952,7 @@ $_lang['Unamed path'] = 'Névtelen tanösvény';
 $_lang['Unassigned students'] = 'Csoporthoz nem tartozó hallgatók';
 $_lang['Unblock'] = 'Felold';
 $_lang['Unchanged line'] = 'Változatlan sor';
+$_lang['Unique answer'] = 'Egy helyes válasz';
 $_lang['Unregister'] = 'Regisztráció törlése';
 $_lang['Unregister all students'] = 'Minden hallgató regisztrációjának törlése';
 $_lang['Unregister from class'] = 'Osztályból való törlés';
@@ -880,6 +966,9 @@ $_lang['Upload a new file to replace the file'] = 'Új fájl feltöltése a meglévõ 
 $_lang['Upload document'] = 'Dokumentum feltöltése';
 $_lang['Upload file'] = 'Fájl feltöltése';
 $_lang['Uploaded file'] = 'Feltöltött fájl';
+$_lang['Use a document'] = 'Egy dokumentum felhasználása';
+$_lang['Use a module of this course'] = 'A tanfolyam egy moduljának használata';
+$_lang['Use an exercise'] = 'Egy gyakorlat felhasználása';
 $_lang['Use format defined in first line of file'] = 'A fájl elsõ sorában leírt formátumot használja';
 $_lang['User'] = 'Felhasználó';
 $_lang['User Id'] = 'Azonosító';
@@ -920,6 +1009,7 @@ $_lang['Visible'] = 'Látható';
 $_lang['Visits'] = 'látogatások';
 $_lang['WARNING : you are going to delete this wiki and all its pages. Are you sure to want to continue ?'] = 'Figyelem: ön törölni fogja a wiki-t és annak összes oldalát. Biztosan folytatja?';
 $_lang['WARNING: this page is a preview. Your modifications to the wiki has not been saved yet ! To save them do not forget to click on the \'save\' button at the bottom of the page.'] = 'Figyelem: ez az oldal elõnézet. Még nem mentette el a Wiki módosításait. A mentéshez ne felejtsen el a \'mentés\' gombra kattintani az oldal alján.';
+$_lang['Warning ! This question and its answers are used in several exercises. Would you like to modify them'] = 'Figyelem! Ezt a kérdést és válazsait több gyakorlatban is használják. Biztosan módosítja?';
 $_lang['Week'] = 'Hét';
 $_lang['Weighting'] = 'Súlyozás';
 $_lang['Wiki'] = 'Wiki';
@@ -930,9 +1020,12 @@ $_lang['Wiki creation succeed'] = 'Wiki létrehozása sikeres';
 $_lang['Wiki deletion succeed'] = 'Wiki sikeresen törölve';
 $_lang['Wiki description'] = 'Wiki leírás';
 $_lang['Wiki edition succeed'] = 'Wiki szerkesztése sikeres';
+$_lang['Wiki of the group'] = 'A csoport wiki-je';
 $_lang['Wiki syntax'] = 'Wiki szintaktika';
+$_lang['Work'] = 'Munka';
 $_lang['Work added'] = 'Munka hozzáadva';
 $_lang['Work modified'] = 'Munka módosítva';
+$_lang['Work title'] = 'Munka címe';
 $_lang['Work title required'] = 'Munka címe kötelezõ';
 $_lang['Work uploaded by the student in the name of \'Authors\''] = 'A felhasználó munkája beküldve a \'Szerzõk\' nevében';
 $_lang['Work uploads'] = 'Munka beküldések';
@@ -948,7 +1041,10 @@ $_lang['You are not allowed to edit this page'] = 'Ön nem módosíthatja az oldalt
 $_lang['You are not allowed to read this page'] = 'Ön nem olvashatja ezt az oldalt';
 $_lang['You are now a member of this group.'] = 'Mostantól Ön a csoport tagja';
 $_lang['You can choose a title an a description for the wiki :'] = 'Választhat címet és leírást a wiki-nek';
+$_lang['You can delete these scripts from you server'] = 'Ezeket a scripteket törölheti a szerverrõl';
 $_lang['You can not change your own settings!'] = 'Saját beállításait nem módosíthatja!';
+$_lang['You can not change your own status'] = 'Saját státuszát nem változtathatja meg';
+$_lang['You can not move a class in itself!'] = 'Osztályt nem mozgathat saját magába';
 $_lang['You can not remove a group forum. You have to remove the group first'] = 'Nem törölhet csoport fórumot. Elõször a csoportot kell törölni';
 $_lang['You can now create your  course'] = 'Most saját tanfolyamot készíthet';
 $_lang['You can now select, in the list, the courses you want to access'] = 'Most kiválaszthatja a listából azokat a tanfolyamokat, melyeket meg kíván látogatni';
@@ -957,9 +1053,11 @@ $_lang['You cannot give a blank name to a class'] = 'Osztálynak nem adható üres 
 $_lang['You cannot post an empty message'] = 'Küldéshez mindenképpen írjon Üzenetet. Üres üzenet nem küldhetõ el.';
 $_lang['You cannot unsubscribe the last course manager of the course'] = 'Nem írathatja le a tanfolyam utolsó tanfolyam vezetõjét';
 $_lang['You didnt choose any file to send, or it is too big'] = 'Nem választott ki elküldendõ fájlt, vagy az túl nagy';
+$_lang['You have already answered the question'] = 'Ön már válaszolt a kérdésre';
 $_lang['You have just created the course website'] = 'Elkészült a tanfolyam honlapja';
 $_lang['You have reached the maximum number of allowed attempts.'] = 'Ön elérte a próbálkozások megengedett számát';
 $_lang['You left some required fields empty'] = 'Ön valamelyik mezõt üresen hagyta';
+$_lang['You must install these scripts to run correctly claroline'] = 'Ezeket a scripteket telepítenie kell a megfelelõ mûködéshez';
 $_lang['You must introduce the message text'] = 'Meg kell adni az üzenet szövegét.';
 $_lang['You must reach the maximum number of allowed attempts to view these statistics.'] = 'A statisztika megtekintéséhez el kell érnie a próbálkozások maximális számát.';
 $_lang['You must select a file'] = 'Ki kell választani egy fájlt';
@@ -975,13 +1073,17 @@ $_lang['Your enrolment on the course has been removed'] = 'Az Ön tanfolyami beir
 $_lang['Your message has been deleted'] = 'Az Üzenetet töröltük';
 $_lang['Your message has been entered'] = 'Üzenetét tároltuk az adatbázisban.';
 $_lang['Your mother is'] = 'Az Ön édesanyja:';
+$_lang['Your new profile has been saved'] = 'Az új beállítások elmentve';
 $_lang['Your password has been emailed to'] = 'Jelszavát elküldtük emailben:';
 $_lang['Your progression in this module'] = 'Elõrehaladás a a modulban';
 $_lang['Your request to become a course creator has been sent to platform administrator(s).'] = 'Az Ön tanfolyam létrehozó státusz iránti kérelmét elküldtük a rendszer adminisztrátornak.';
 $_lang['Your request to remove your account has been sent'] = 'Az Ön fiók törlési kérelmét elküldtük';
+$_lang['Your time is'] = 'Az Ön ideje';
+$_lang['Your total score is'] = 'Az Ön összes pontja: ';
 $_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'Úgy tûnik, Ön nincsen beiratkozva a tanfolyamra';
 $_lang['Zip file uploaded and uncompressed'] = 'Zip fájl feltöltve és kicsomagolva';
 $_lang['Zlib php extension is required to use this tool. Please contact your platform administrator.'] = 'Zlib php kiterjesztés szükséges az eszköz használatához. Kérjük, lépjen kapcsolatba a rendszer adminisztrátorral.';
+$_lang['[British people] live in [United Kingdom].'] = '[A britek] az [Egyesült Királyságban] élnek.';
 $_lang['archive'] = 'tárol';
 $_lang['blockAssignmentsHelp'] = 'Fordítatlan!!!
 <p>
@@ -1040,27 +1142,27 @@ The list of publications related to the user and the assignment can be view by c
 </li>
 </ul>
 ';
-$_lang['blockClaroMainHelp'] = 'Itt az oktatók és segítõik létrehozhatnak és adminisztrálhatnak tanfolyam honlapokat.
-A hallgatók olvashatnak (dokumentumok, eseménynaptár, információk), és esetenként
+$_lang['blockClaroMainHelp'] = 'Itt az oktatók és segítõik létrehozhatnak és adminisztrálhatnak tanfolyam honlapokat. 
+A hallgatók olvashatnak (dokumentumok, eseménynaptár, információk), és esetenként 
 teszteket tölthetnek ki, dokumentumaikat publikálhatják, fórum megbeszéléseken vehetnek részt...
-</p><b>Regisztráció</b><p>A következõk abban az esetben érvényesek, ha a rendszer
-a hallgatói regisztrációt megengedi (bizonyos helyek automatikusan regisztrálnak).
-<br />Amennyiben Ön hallgató, csak regisztrálnia kell a Tanfolyam Követése (hallgató)
-kiválasztásával, majd a kívánt tanfolyam kiválasztásával.</p><p>Ha Ön professzor vagy
-tanársegéd, szintén regisztrálhat, de válassza a Tanfolyam létrehozása opciót, ezt
-követõen egy ûrlapon megadhatja a Tanfolyam kódot, Kart és Tanfolyam nevet.
-Ha ezt elküldi, akkor máris az Ön által létrehozott tanfolyam honlapon találja magát,
-és tetszése szerint módosíthatja annak tartalmát és felépítését. </p><p>A \'Tennivaló\'
-opció lehetõvé teszi, hogy visszacsatolást kapjanak a rendszer adminisztrátorok. Itt
-olyan dolgokat tehet közzé, mint hibák és javítási javaslatok. A \'Tennivaló\' lista a
+</p><b>Regisztráció</b><p>A következõk abban az esetben érvényesek, ha a rendszer 
+a hallgatói regisztrációt megengedi (bizonyos helyek automatikusan regisztrálnak). 
+<br />Amennyiben Ön hallgató, csak regisztrálnia kell a Tanfolyam Követése (hallgató) 
+kiválasztásával, majd a kívánt tanfolyam kiválasztásával.</p><p>Ha Ön professzor vagy 
+tanársegéd, szintén regisztrálhat, de válassza a Tanfolyam létrehozása opciót, ezt 
+követõen egy ûrlapon megadhatja a Tanfolyam kódot, Kart és Tanfolyam nevet. 
+Ha ezt elküldi, akkor máris az Ön által létrehozott tanfolyam honlapon találja magát, 
+és tetszése szerint módosíthatja annak tartalmát és felépítését. </p><p>A \'Tennivaló\' 
+opció lehetõvé teszi, hogy visszacsatolást kapjanak a rendszer adminisztrátorok. Itt 
+olyan dolgokat tehet közzé, mint hibák és javítási javaslatok. A \'Tennivaló\' lista a 
 Campus honlapjára kerül belinkelésre (amint bejelentkezik).</p>
-<p>A támogatási fórum ettõl eltér. Ez az összes Claroline felhasználót kapcsolatba
+<p>A támogatási fórum ettõl eltér. Ez az összes Claroline felhasználót kapcsolatba 
 hozza Önnel. Ha valamire saját rendszerén belül nem kap választ, akkor tegyen fel itt kérdést!</p>
 <p>A Regisztrációt indító link (ha van ilyen) a Campus honlapján található (jobb oldalon)
-</p><b>Belépés</b><p>Következõ látogatásakor adja meg felhasználói nevét és
+</p><b>Belépés</b><p>Következõ látogatásakor adja meg felhasználói nevét és 
 jelszavát, majd kattintson a gombra a rendszerbe való belépéshez. A rendszer címe:';
 $_lang['blockConfirmBlockingModuleMadeInvisible'] = 'Ez a modul blokkolva van.
-Ha láthatatlanná teszi, akkor a hallgatók a modul
+Ha láthatatlanná teszi, akkor a hallgatók a modul 
 teljesítése nélkül is tovább léphetnek.
 Biztos benne?';
 $_lang['blockConfirmBlockingPathMadeInvisible'] = 'Ez a Tanösvény blokkolva van.
@@ -1072,6 +1174,7 @@ Teljesen törlésre kerül a szerverrõl, és minden olyan tanösvényrõl, ahol az megt
 A továbbiakban másik tanösvényben nem tudja majd felhasználni.
 Erõsítse meg a törlést:';
 $_lang['blockConfirmDeleteScorm'] = 'Ez a tanösvény egy SCORM importálási csomag része. Ha törli a tanösvényt, akkor a rendszerbõl minden SCORM modul és kapcsolódó fájl törölve lesz. Biztosan törölni akarja a következõ tanösvényt:';
+$_lang['blockConfirmDeleteStats'] = 'Ha törli a tanfolyam statisztikákat, azt nem lehet visszaállítani.<br /><br />Biztosan törli a statisztikákat?';
 $_lang['blockCourseDescriptionCourseContent'] = 'Tanfolyam tartalma';
 $_lang['blockCourseDescriptionCourseContentComment1'] = 'Mi a jelentõsége a különbözõ tartalmaknak, melyeket a tanfolyam keretén belül adunk le? Mi a tartalom nehézségi szintje? Hogyan épül fel az egység? Mi lesz a tartalom sorrendje? Mit eredményez a tartalom?';
 $_lang['blockCourseDescriptionCourseContentComment2'] = 'A tanfolyam tartalmának megjelenítése, a tartalom struktúrája, az elõrehaladás, illetve a naptár';
@@ -1094,9 +1197,9 @@ $_lang['blockCourseDescriptionTeachingTrainingActivitiesComment1'] = 'Milyen mód
 $_lang['blockCourseDescriptionTeachingTrainingActivitiesComment2'] = 'A tervezett tevékenységek bemutatása (szerzõi áttekintések, a hallgatók elvárt részvétele, gyakorlati munka, laboratóriumi találkozók, látogatások, meglévõ információk összegyûjtése...)';
 $_lang['blockCourseHomePageIntroduction'] = 'Válassza ki azokat az eszközöket, melyeket láthatóvá kíván tenni a felhasználó számára.
 A láthatatlan eszközök szürkén jelennek meg Önnek';
-$_lang['blockCourseSettingsTip'] = 'Alap beállításként a tanfolyamra bárki beléphet. Ha bizalmas a tartalom,
- akkor javasoljuk, hogy nyissa meg a regisztrációt az egyik héten, kérje meg
-a hallgatókat, hogy regisztráljanak, majd zárja be a regisztrációt,
+$_lang['blockCourseSettingsTip'] = 'Alap beállításként a tanfolyamra bárki beléphet. Ha bizalmas a tartalom, 
+ akkor javasoljuk, hogy nyissa meg a regisztrációt az egyik héten, kérje meg 
+a hallgatókat, hogy regisztráljanak, majd zárja be a regisztrációt, 
 és ellenõrizze az illetéktelenek jelenlétét.';
 $_lang['blockDefaultLearningPathComment'] = 'Ez a tanösvény bevezetõ szövege. Kattintson a <b>módosítás</b>-ra ha ki akarja cserélni a szöveget.';
 $_lang['blockDefaultModuleAddedComment'] = 'Ez egy további bevezetõ szöveg a modul létezésérõl a tanösvényen belül. Ha ki akarja cserélni a szöveget, kattintson a <b>módosítás</b>-ra.';
@@ -1107,7 +1210,7 @@ $_lang['blockDocumentsHelp'] = 'Fordítatlan!!!
  Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.). Your only concern
  must be that your students have the corresponding software to read them.
  Some file types can contain viruses, it is your responsibilty not to
- upload virus contaminated files. It is a worthwhile precaution to check
+ upload virus contaminated files. It is a worthwhile precaution to check 
  documents with antivirus software before uploading them.</p>
 <hr />
 <h4>View modes</h4>
@@ -1116,7 +1219,7 @@ The Claroline document has 2 view mode
 <li>File list (default)</li>
 <li>Thumbnail</li>
 </ul>
-You can switch between \'file list\' and \'thumbnail\' mode simply by clicking on
+You can switch between \'file list\' and \'thumbnail\' mode simply by clicking on 
 the \'File list | Thumbnails\' commands  on the right in the directory toolbar.
 <h4>The image viewer</h4>
 <ul>
@@ -1144,7 +1247,7 @@ The search result wil be displayed just beside the directory toolbar.
 </ul>
 <hr />
 <h4>Managing documents</h4>
-This tool has a collection of commands allowing you to upload, edit and
+This tool has a collection of commands allowing you to upload, edit and 
 organize your file ressources.
 </hr />
 <h4>Upload a document</h4>
@@ -1156,11 +1259,11 @@ Click on the \'Upload file\' command in the upper left.
 Select the file on your computer using the \'Browse\' button in the dialog box.
 </li>
 <li>
-Optionnaly, you can attach a comment to this document. It will be displayed
+Optionnaly, you can attach a comment to this document. It will be displayed 
 just below the document line.
 <blockquote><small>
 <i>Note</i> If you upload a file collection gathered in archive file in <i>ZIP</i> format,
-check the \'uncompress zipped (.zip) file on the server\' option to extract them
+check the \'uncompress zipped (.zip) file on the server\' option to extract them 
 automatically once the archive is uploaded in your course repositoy on the server.
 </small></blockquote>
 </li>
@@ -1177,7 +1280,7 @@ Click on the \'create hyperlink\' command  in the upper side of your browser win
 Fill the \'Name\' field with a specific name to this hyperlink;
 </li>
 <li>
-Type the complete URL of the hyperlink
+Type the complete URL of the hyperlink 
 (example : http://my.domain/my/file.htm).
 </li>
 <li>
@@ -1193,7 +1296,7 @@ Validate by clicking on the \'OK\' button.
 <ul>
 <li> Click on the \'Create document\' command in the upper side of your browser windows.
 </li>
-<li>
+<li> 
 Fill appearing \'Document name\' field with a a name for this document.
 </li>
 <li>
@@ -1204,8 +1307,8 @@ Click on the \'OK\' button once finished.
 </li>
 </ul>
 <p>
-This command can be used for writing short documents. To write
-longer texts we recommend you to use a more suitable tool on your personal
+This command can be used for writing short documents. To write 
+longer texts we recommend you to use a more suitable tool on your personal 
 computer.
 </p>
 <h4>Rename a document, a directory or a hyperlink</h4>
@@ -1216,7 +1319,7 @@ computer.
 Type the new name in the field in the upper side of your browser window.
 </li>
 <li>
-Optionally, you can also add or modify a comment attached to this document.
+Optionally, you can also add or modify a comment attached to this document. 
 It will be displayed just below the document line.
 </li>
 <li>
@@ -1225,7 +1328,7 @@ Validate by clicking on the \'OK\' button.
 </ul>
 <p>
 <b>Tip. </b>
-Documents are presented in alphabetical order. If you want to present them in a
+Documents are presented in alphabetical order. If you want to present them in a 
 different order, number them: 01, 02, 03...
 </p>
 <h4>Delete a document, a directory or a hyperlink</h4>
@@ -1244,7 +1347,7 @@ Click on the icon beside the document in the \'Visible/invisible\' column.
 The element still exists but it is not visible by students anymore.
 </li>
 <li>
-To make it invisible back again, click once more on the icon beside the document
+To make it invisible back again, click once more on the icon beside the document 
 in the \'Visible/invisible\' column.
 </li>
 </ul>
@@ -1284,9 +1387,9 @@ Move a document a directory or a hyperlink
 Click on on the icon beside the concernent element in the \'Move\' column.
 </li>
 <li>
-Choose the directory into which you want to move the element in
+Choose the directory into which you want to move the element in 
 the corresponding scrolling menu (top left)
-<br />Note: the word \'root\' means you cannot go higher than that level in the
+<br />Note: the word \'root\' means you cannot go higher than that level in the 
 document tree of the server).
 </li>
 <li>
@@ -1322,7 +1425,7 @@ This tool allow you to create online exercises composed of a list of questions. 
 <hr />
 <h4>Questions</h4>
 <h4>Multiple choice questions</h4>
-<p>There are two kind of multiple choice question&nbsp;:
+<p>There are two kind of multiple choice question&nbsp;: 
 </p>
 <ul>
 <li> Question with unique answer</li>
@@ -1455,6 +1558,9 @@ $_lang['blockIntroCourse'] = 'Ön most a tanfolyam honlapján tartózkodik.<br /><b
 </ul>
 Kattintson erre a gombra bevezetõ szöveg megjeleítéséhez';
 $_lang['blockIntroLearningPath'] = 'Használja ezt az eszközt arra, hogy segítse a hallgatókat egy dokumentumokból, gyakorlatokból, HTML oldalakból, linkekbõl, stb. álló sorrendiséggel. <br /><br />Ha meg akarja jeleníteni a hallgatók számára, kattintson az alábbiakra.<br />';
+$_lang['blockIntroWork'] = 'Az eszköz lehetõvé teszi a tanárok számára beadandó feladatok készítését, ahova bármely hallgató (függõen a beállításoktól) feladhat dokumentumot, szöveget írjon a tanfolyam honlapján.
+<br />Minden munkához megjegyzést fûzhet, vagy akár osztályzatot.
+<br /><br />Ha be akarja mutatni az eszközt, vagy javaslatokat akar tenni a hallgatók számára, kattintson az alábbi gombra.<br />';
 $_lang['blockModulePoolHelp'] = 'Az oldal lehetõvé teszi, hogy tanfolyam összes modulját megtekintse.<br />
                            Minden olyan gyakorlat és dokumentum megjelenik, mely hozzáadásra került a tanösvényhez.';
 $_lang['blockRegisterLocalUrl'] = 'A Campus url-je helyinek tûnik.
@@ -1469,17 +1575,17 @@ $_lang['blockUsersHelp'] = 'Fordítatlan!!!
 </li>
 <li>
 <b>Roles</b>.
-Roles have no computer related function. They do not give rights on
-operating the system. They just indicate to humans who is who. You can
-modify them by clicking on the icon in the \'Edit\' column, then typing whatever
+Roles have no computer related function. They do not give rights on 
+operating the system. They just indicate to humans who is who. You can 
+modify them by clicking on the icon in the \'Edit\' column, then typing whatever 
 you want: lecturer, assistant, student, visitor, expert...
 </li>
 <li>
-<b>Group tutor</b>. Group tutor is a status allowing a user to coach a group more closely. It gives permission to this user to access all the group area and to see and edit messages on the group forum. You can
+<b>Group tutor</b>. Group tutor is a status allowing a user to coach a group more closely. It gives permission to this user to access all the group area and to see and edit messages on the group forum. You can 
 modify this status by clicking on the icon in the \'Edit\' column.
 </li>
 <li>
-<b>Course manager</b>. This status is reserved to the people who manage and administrate the course. You can
+<b>Course manager</b>. This status is reserved to the people who manage and administrate the course. You can 
 modify this status by clicking on the icon in the \'Edit\' column.
 </li>
 <li>
@@ -1592,7 +1698,10 @@ $_lang['denotes new items'] = 'új elmeket jelöl';
 $_lang['differences between version of %1\$s modified by %2\$s and version of %3\$s modified by %4\$s'] = '%1$s verzió, módosító: %2$s és %3$s verzió, módosító %4$s eltérései';
 $_lang['e.g. <em>History of Literature</em>'] = 'pl. <i>Irodalom történet</i>';
 $_lang['good looking'] = 'jóképû';
+$_lang['group(s) has (have) been added'] = 'csoport(ok) hozzáadva';
+$_lang['has been enroled'] = 'beíratva';
 $_lang['if you choose to continue, lines with errors will simply be ignored'] = 'ha a folytatást választja, a hibás sorokat egyszerûen figyelmen kívül hagyjuk';
+$_lang['in all exercises'] = 'minden gyakorlatban';
 $_lang['line'] = 'sor';
 $_lang['lines'] = 'sorok';
 $_lang['max. 12 characters, e.g. <em>ROM2121</em>'] = 'max. 12 karakter, pl. <em>ROM2121</em>';
@@ -1600,6 +1709,7 @@ $_lang['my group'] = 'saját csoport';
 $_lang['my supervision'] = 'saját felügyelet';
 $_lang['new group(s)'] = 'új csoport(ok)';
 $_lang['number'] = 'szám';
+$_lang['only in the current exercise'] = 'csak az aktuális gyakorlatben';
 $_lang['previous level'] = 'elõzõ szint';
 $_lang['register'] = 'regisztrál';
 $_lang['rich'] = 'gazdag';
@@ -1631,8 +1741,10 @@ $_lang['sampleQuizQuestionTitle'] = 'A Socratic-us irónia...';
 $_lang['sampleQuizTitle'] = 'Példa gyakorlat';
 $_lang['seats (optional)'] = 'helyek (opcionális)';
 $_lang['seats by groups (optional)'] = 'helyek csoportonként (opcionális)';
+$_lang['this password is too simple. Use a password like this <code>%passpruposed</code>'] = 'a jelszó túl egyszerû. Használjon ilyen jelszót';
 $_lang['to'] = 'ig:';
 $_lang['uncompress zipped (.zip) file on the server'] = 'a zip-pelt (zip) fájl kitömörítése a szerveren';
+$_lang['use brackets [...] to define one or more blanks'] = 'használjon szögletes zárójelet [...] az egy vagy több üres hely meghatározásához';
 $_lang['warning : Installation cannot find the description of the learning path and has set a default comment.  You should change it'] = 'figyelmeztetés: a telepítõ nem talált leírást a tanösvényhez, így alapértelmezett megjegyzést adott hozzá. Ez megváltoztatható';
 $_lang['warning : Installation cannot find the name of the learning path and has set a default name.  You should change it.'] = 'figyelmeztetés: A telepítõ nem találta meg a tanösvény nevét, agy az alapértelmezett nevet kapott. Változtassa meg azt.';
 ?>

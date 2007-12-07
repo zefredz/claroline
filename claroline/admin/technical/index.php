@@ -18,8 +18,8 @@
  */
 
 require '../../inc/claro_init_global.inc.php';
-if(file_exists(get_path('rootSys').'platform/currentVersion.inc.php')) include (get_path('rootSys').'platform/currentVersion.inc.php');
-$is_allowedToUseSDK = claro_is_platform_admin();
+if(file_exists($includePath . '/currentVersion.inc.php')) include ($includePath . '/currentVersion.inc.php');
+$is_allowedToUseSDK = $is_platformAdmin;
 
 if (! $is_allowedToUseSDK) claro_disp_auth_form();
 
@@ -27,7 +27,7 @@ $nameTools = get_lang('Technical Tools');
 
 $interbredcrump[]= array ('url' => '../index.php', 'name' => get_lang('Admin'));
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include($includePath . '/claro_init_header.inc.php');
 
 echo claro_html_tool_title(
     array(
@@ -35,8 +35,6 @@ echo claro_html_tool_title(
     )
     );
 
-
-// TODO : cuse claro disp menu v
 ?>
 <ul>
  <li><a href="./diskUsage.php"><?php echo get_lang('Disk Usage') ?></a></li>
@@ -44,5 +42,5 @@ echo claro_html_tool_title(
 </ul>
 
 <?php
-include (get_path('incRepositorySys') . '/claro_init_footer.inc.php');
+include ($includePath . '/claro_init_footer.inc.php');
 ?>

@@ -62,17 +62,84 @@ $gidReset=TRUE;
 
 require '../../inc/claro_init_global.inc.php';
 $error = false ;
-$message = array();
+$error_msg = array();
 
 // Security check
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
+
+// temporary css style sheet for tab navigation
+
+$htmlHeadXtra[] = '<style type="text/css" media="screen">
+
+<!--
+#navlist, .tabTitle
+{
+padding: 3px 0;
+margin-left: 0;
+border-bottom: 1px solid #778;
+font: bold 12px Verdana, sans-serif;
+}
+
+#navlist li, .tabTitle li
+{
+list-style: none;
+margin: 0;
+display: inline;
+}
+
+#navlist li a, .tabTitle li a
+{
+padding: 3px 0.5em;
+margin-left: 3px;
+border: 1px solid #778;
+border-bottom: none;
+background: #DDE;
+text-decoration: none;
+}
+
+#navlist li a:link { color: #448; }
+#navlist li a:visited { color: #667; }
+
+#navlist li a:hover
+{
+color: #000;
+background: #AAE;
+border-color: #227;
+}
+
+#navlist li a.current
+{
+background: white;
+border-bottom: 1px solid white;
+}
+
+#navlist li a.viewall
+{
+align : right;
+background: white;
+border-right: 0px solid white;
+border-top: 0px solid white;
+border-left: 0px solid white;
+}
+
+.configSectionDesc
+{
+    padding: 3px 0.5em;
+    margin-left: 10px;
+    background: #eD2;
+    border: 1px solid #778;
+    // Yes its awfull but volontary to be changed
+
+}
+-->
+</style>';
 
 /* ************************************************************************** */
 /*  Initialise variables and include libraries
 /* ************************************************************************** */
 
-require_once get_path('incRepositorySys') . '/lib/configHtml.class.php';
+require_once $includePath . '/lib/config.lib.inc.php';
 
 /* ************************************************************************** */
 /* Process
@@ -82,16 +149,15 @@ $form = '';
 
 if ( !isset($_REQUEST['config_code']) )
 {
-    $message[] = get_lang('Wrong parameters');
+    $message[] = get_lang('No configuration code');
 }
 else
 {
     // get config_code
     $config_code = trim($_REQUEST['config_code']);
-    $newPropertyList = isset($_REQUEST['property']) ?$_REQUEST['property']:array();
 
     // new config object
-    $config = new ConfigHtml($config_code, 'config_list.php');
+    $config = new Config($config_code);
 
     // load configuration
     if ( $config->load() )
@@ -102,35 +168,32 @@ else
         $form .= $config->display_section_menu($section);
 
         // init config name
-        $config_name = $config->get_conf_name();
-        if ( isset($_REQUEST['cmd']) && !empty($newPropertyList) )
+        $config_name = $config->config_code;
+
+        if ( isset($_REQUEST['cmd']) && isset($_REQUEST['property']) )
         {
             if ( 'save' == $_REQUEST['cmd'] )
             {
-                // validate config
-                if ( $config->validate($newPropertyList) )
+                if ( ! empty($_REQUEST['property']) )
                 {
-                    // save config file
-                    if ( $config->save() )
+                    // validate config
+                    if ( $config->validate($_REQUEST['property']) )
                     {
+                        // save config file
+                        $config->save();
                         $message[] = get_lang('Properties for %config_name, (%config_code) are now effective on server.'
-                    , array('%config_name' => get_lang($config_name), '%config_code' => $config_code));
+                                         , array('%config_name' => $config_name, '%config_code' => $config_code));
                     }
                     else
                     {
+                        // no valid
                         $error = true ;
-                        $message[] = $config->backlog->output();
+                        $message = $config->get_error_message();
                     }
-                }
-                else
-                {
-                    // no valid
-                    $error = true ;
-                    $message[] = $config->backlog->output();
                 }
             }
             // display form
-            $form .= $config->display_form($newPropertyList,$section);
+            $form .= $config->display_form($_REQUEST['property'],$section);
         }
         else
         {
@@ -142,7 +205,7 @@ else
     {
         // error loading the configuration
         $error = true ;
-        $message[] = $config->backlog->output();
+        $message = $config->get_error_message();
     }
 
     if ( $config->is_modified() )
@@ -160,7 +223,6 @@ else
 {
     // tool name and url to edit config file
     $nameTools = $config->get_conf_name(); // the name of the configuration page
-    $nameTools = get_lang($nameTools);
     $_SERVER['QUERY_STRING'] = 'config_code=' . $config_code;
 }
 
@@ -169,11 +231,11 @@ else
 /*************************************************************************** */
 
 // define bredcrumb
-$interbredcrump[] = array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
-$interbredcrump[] = array ('url' => get_path('rootAdminWeb') . 'tool/config_list.php', 'name' => get_lang('Configuration'));
+$interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+$interbredcrump[] = array ('url' => $rootAdminWeb . 'tool/config_list.php', 'name' => get_lang('Configuration'));
 
 // display claroline header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include $includePath . '/claro_init_header.inc.php';
 
 // display tool title
 echo claro_html_tool_title(array('mainTitle'=>get_lang('Configuration'),'subTitle'=>$nameTools)) ;
@@ -188,6 +250,6 @@ if ( !empty($form) )
 }
 
 // display footer
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 
 ?>

@@ -1,11 +1,10 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -21,7 +20,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 
 /**
- * Return the tablename for a tool, en tenant compte du fait que it's (or not)
+ * return the tablename for a tool, en tenant compte du fait que it's (or not)
  * * in a course,
  * * in a group
  *
@@ -29,10 +28,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @param array $contextData id To discrim table. Do not add context Id  of an context active but managed by tool.
  * @return array
  */
+//function claro_sql_get_tbl($toolId,$tableId,$courseId=null,$groupId=null)
 function claro_sql_get_tbl( $tableList, $contextData=null)
 {
     /**
-     * If it's in a course, $courseId is set or $courseId is null but not claro_get_current_course_id()
+     * If it's in a course, $courseId is set or $courseId is null but not get_init('_cid')
      * if both are null, it's a main table
      *
      * when
@@ -49,8 +49,8 @@ function claro_sql_get_tbl( $tableList, $contextData=null)
      * Tool Context capatibility
      *
      * There is many context in claroline,
-     * a new tool can don't provide initially
-     * all field to discrim each context in fields.
+     * a new tool can  d'ont provide initially
+     * all field to discrim each context ins  fields.
      * When a tool can't discrim a context,
      * the table would be duplicated for each instance
      * and the name of table (or db) contain the discriminator
@@ -66,19 +66,12 @@ function claro_sql_get_tbl( $tableList, $contextData=null)
 
     if (!is_array($contextData)) $contextData = array();
 
-    if ( isset($GLOBALS['_courseTool']['label']) )
-    {
-        $toolId = rtrim($GLOBALS['_courseTool']['label'],'_');
-    }
-    else
-    {
-        $toolId = null;
-    }
+    $contextDependance = get_context_db_discriminator(rtrim($GLOBALS['_courseTool']['label'],'_'));
 
-    $contextDependance = get_context_db_discriminator($toolId);
     // Now place discriminator in db & table name.
     // if a context is needed ($contextData) and $contextDependance is found,
     // add the discriminator in schema name or table prefix
+
     $schemaPrefix = array();
 
     if (is_array($contextDependance) )
@@ -90,6 +83,33 @@ function claro_sql_get_tbl( $tableList, $contextData=null)
             && in_array(CLARO_CONTEXT_COURSE, $contextDependance['schema']))
             {
                 $schemaPrefix[] = get_conf('courseTablePrefix') . claro_get_course_db_name($contextData[CLARO_CONTEXT_COURSE]);
+            }
+            if (array_key_exists('toolInstance',$contextData)
+            && !is_null($contextData['toolInstance'])
+            && in_array('toolInstance', $contextDependance['schema']))
+            {
+                $schemaPrefix[] = get_conf('dbPrefixForToolInstance', 'TI_')  . $contextData['toolInstance'];
+            }
+            if (array_key_exists('session',$contextData)
+            && !is_null($contextData['session'])
+            && in_array('session', $contextDependance['schema']))
+            {
+                $schemaPrefix[] = get_conf('dbPrefixForSession', 'S_') . $contextData['session'];
+            }
+
+            if (array_key_exists(CLARO_CONTEXT_GROUP,$contextData)
+            && !is_null($contextData[CLARO_CONTEXT_GROUP])
+            && in_array(CLARO_CONTEXT_GROUP, $contextDependance['schema'])
+            )
+            {
+                $schemaPrefix[] = get_conf('dbPrefixForGroup', 'G_') . $contextData[CLARO_CONTEXT_GROUP];
+            }
+            if (array_key_exists(CLARO_CONTEXT_USER,$contextData)
+            && !is_null($contextData[CLARO_CONTEXT_USER])
+            && in_array(CLARO_CONTEXT_USER, $contextDependance['schema'])
+            )
+            {
+                $schemaPrefix[] = get_conf('dbPrefixForUser', 'U_') . $contextData[CLARO_CONTEXT_USER] ;
             }
         }
 
@@ -103,6 +123,33 @@ function claro_sql_get_tbl( $tableList, $contextData=null)
             {
                 $tablePrefix .= 'C_' . $contextData[CLARO_CONTEXT_COURSE] . '_';
             }
+            if (array_key_exists('toolInstance',$contextData)
+            && !is_null($contextData['toolInstance'])
+            && in_array('toolInstance', $contextDependance['table']))
+            {
+                $tablePrefix .= get_conf('dbPrefixForToolInstance', 'TI_') . $contextData['toolInstance'] . '_';
+            }
+            if (array_key_exists('session',$contextData)
+            && !is_null($contextData['session'])
+            && in_array('session', $contextDependance['table']))
+            {
+                $tablePrefix .= get_conf('dbPrefixForSession', 'S_') . $contextData['session'];
+            }
+            if (array_key_exists(CLARO_CONTEXT_GROUP,$contextData)
+            && !is_null($contextData[CLARO_CONTEXT_GROUP])
+            && in_array(CLARO_CONTEXT_GROUP, $contextDependance['table'])
+            )
+            {
+                $tablePrefix .=  get_conf('dbPrefixForGroup', 'G_') . $contextData[CLARO_CONTEXT_GROUP] . '_';
+            }
+            if (array_key_exists(CLARO_CONTEXT_USER,$contextData)
+            && !is_null($contextData[CLARO_CONTEXT_USER])
+            && in_array(CLARO_CONTEXT_USER, $contextDependance['table'])
+            )
+            {
+                $tablePrefix .= get_conf('dbPrefixForUser', 'U_') . $contextData[CLARO_CONTEXT_USER] . '_';
+            }
+
         }
     }
 
@@ -163,13 +210,7 @@ function claro_sql_get_main_tbl()
         'module'                    => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'module',
         'module_info'               => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'module_info',
         'dock'                      => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'dock',
-        'right_profile'             => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'right_profile',
-        'right_rel_profile_action'  => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'right_rel_profile_action',
-        'right_action'              => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'right_action',
-        'user_property'             => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'user_property',
-        'property_definition'       => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'property_definition',
-        'tracking_event'            => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'tracking_event',
-        'log'            			=> get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'log',
+
         'track_e_default'           => get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . 'track_e_default',
         'track_e_login'             => get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . 'track_e_login',
         'track_e_open'              => get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . 'track_e_open'
@@ -250,7 +291,6 @@ function claro_sql_get_course_tbl($dbNameGlued = null)
               'track_e_exe_answers'    => $courseDbInCache . 'track_e_exe_answers',
               'track_e_exercices'      => $courseDbInCache . 'track_e_exercices',
               'track_e_uploads'        => $courseDbInCache . 'track_e_uploads',
-              'tracking_event' 		   => $courseDbInCache . 'tracking_event',
               'userinfo_content'       => $courseDbInCache . 'userinfo_content',
               'userinfo_def'           => $courseDbInCache . 'userinfo_def',
               'wrk_assignment'         => $courseDbInCache . 'wrk_assignment',
@@ -269,11 +309,11 @@ function claro_sql_get_course_tbl($dbNameGlued = null)
 }
 
 /**
- * CLAROLINE mySQL query wrapper. It also provides a debug display which works
+ * Claroline mySQL query wrapper. It also provides a debug display which works
  * when the CLARO_DEBUG_MODE constant flag is set to on (true)
  *
  * @author Hugues Peeters    <peeters@ipm.ucl.ac.be>,
- * @author Christophe Geschï¿½ <moosh@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  * @param  string  $sqlQuery   - the sql query
  * @param  handler $dbHandler  - optional
  * @return handler             - the result handler
@@ -282,12 +322,6 @@ function claro_sql_get_course_tbl($dbNameGlued = null)
 function claro_sql_query($sqlQuery, $dbHandler = '#' )
 {
 
-    if ( get_conf('CLARO_DEBUG_MODE',false)
-      && get_conf('CLARO_PROFILE_SQL',false)
-      )
-      {
-         $start = microtime();
-      }
     if ( $dbHandler == '#')
     {
         $resultHandler =  @mysql_query($sqlQuery);
@@ -297,122 +331,17 @@ function claro_sql_query($sqlQuery, $dbHandler = '#' )
         $resultHandler =  @mysql_query($sqlQuery, $dbHandler);
     }
 
-    if ( get_conf('CLARO_DEBUG_MODE',false)
-      && get_conf('CLARO_PROFILE_SQL',false)
-      )
+    if ( get_conf('CLARO_DEBUG_MODE',false)  && mysql_errno() )
     {
-        static $queryCounter = 1;
-        $duration = microtime()-$start;
-        $info = 'execution time : ' . ($duration > 0.001 ? '<b>' . round($duration,4) . '</b>':'&lt;0.001')  . '&#181;s'  ;
-        // $info = ( $dbHandler == '#') ? mysql_info() : mysql_info($dbHandler);
-        // $info .= ': affected rows :' . (( $dbHandler == '#') ? mysql_affected_rows() : mysql_affected_rows($dbHandler));
-        $info .= ': affected rows :' . claro_sql_affected_rows();
-
-        pushClaroMessage( '<br />Query counter : <b>' . $queryCounter++ . '</b> : ' . $info . '<br />'
-            . '<code><span class="sqlcode">' . nl2br($sqlQuery) . '</span></code>'
-            , (claro_sql_errno()?'error':'sqlinfo'));
-
-    }
-    if ( get_conf('CLARO_DEBUG_MODE',false) && claro_sql_errno() )
-    {
-        echo '<hr size="1" noshade>'
-        .    claro_sql_errno() . ' : '. claro_sql_error() . '<br>'
-        .    '<pre style="color:red">'
-        .    $sqlQuery
-        .    '</pre>'
-        .    ( function_exists('claro_html_debug_backtrace')
-             ? claro_html_debug_backtrace()
-             : ''
-             )
-        .    '<hr size="1" noshade>'
-        ;
+                echo '<hr size="1" noshade>'
+                     .mysql_errno(), " : ", mysql_error(), '<br>'
+                     .'<pre style="color:red">'
+                     .$sqlQuery
+                     .'</pre>'
+                     .'<hr size="1" noshade>';
     }
 
     return $resultHandler;
-}
-
-/**
- * CLAROLINE mySQL errno wrapper.
- */
-
-function claro_sql_errno($dbHandler = '#')
-{
-	if ( $dbHandler == '#' )
-    {
-    	return mysql_errno();
-    }
-    else
-    {
-	    return mysql_errno($dbHandler);
-    }
-}
-
-/**
- * CLAROLINE mySQL error wrapper.
- *
- */
-
-function claro_sql_error($dbHandler = '#')
-{
-	if ( $dbHandler == '#' )
-    {
-    	return mysql_error();
-    }
-    else
-    {
-	    return mysql_error($dbHandler);
-    }
-}
-
-/**
- * CLAROLINE mySQL selectDb wrapper.
- *
- */
-
-function claro_sql_select_db($dbName, $dbHandler = '#')
-{
-	if ( $dbHandler == '#' )
-    {
-    	return mysql_select_db($dbName);
-    }
-    else
-    {
-	    return mysql_select_db($dbName, $dbHandler);
-    }
-}
-
-/**
- * CLAROLINE mySQL affected rows wrapper.
- *
- */
-
-function claro_sql_affected_rows($dbHandler = '#')
-{
-	if ( $dbHandler == '#' )
-    {
-    	return mysql_affected_rows();
-    }
-    else
-    {
-	    return mysql_affected_rows($dbHandler);
-    }
-}
-
-/**
- * CLAROLINE mySQL insert id wrapper.
- *
- */
-
-function claro_sql_insert_id($dbHandler = '#')
-{
-	if ( $dbHandler == '#' )
-    {
-    	return mysql_insert_id();
-    }
-    else
-    {
-	    return mysql_insert_id($dbHandler);
-    }
 }
 
 /**
@@ -434,15 +363,14 @@ function claro_sql_field_names( $sql, $resultPt = null )
 
     if ( ! array_key_exists( $sqlHash, $_colNameList) )
     {
-        if ( is_resource($resultPt) && get_resource_type($resultPt) == 'mysql result' )
-        {
-            // if ressource type is mysql result use it
-            $releasablePt = false;
-        }
-        else
+        if ( ! is_resource($resultPt) || get_resource_type($resultPt) != 'Unknown' )
         {
             $resultPt     = claro_sql_query($sql);
             $releasablePt = true;
+        }
+        else
+        {
+            $releasablePt = false;
         }
 
         $resultFieldCount = mysql_num_fields($resultPt);
@@ -459,7 +387,7 @@ function claro_sql_field_names( $sql, $resultPt = null )
 }
 
 /**
- * CLAROLINE SQL query and fetch array wrapper. It returns all the result rows
+ * Claroline SQL query and fetch array wrapper. It returns all the result rows
  * in an associative array.
  *
  * @param  string  $sqlQuery the sql query
@@ -508,7 +436,7 @@ function claro_sql_query_fetch_all($sqlQuery, $dbHandler = '#')
 }
 
 /**
- * CLAROLINE SQL query and fetch array wrapper. It returns all the result in
+ * Claroline SQL query and fetch array wrapper. It returns all the result in
  * associative array ARRANGED BY COLUMNS.
  *
  * @param  string  $sqlQuery  the sql query
@@ -558,7 +486,7 @@ function claro_sql_query_fetch_all_cols($sqlQuery, $dbHandler = '#')
 
 
 /**
- * CLAROLINE SQL query wrapper returning only a single result value.
+ * Claroline SQL query wrapper returning only a single result value.
  * Useful in some cases because, it avoid nested arrays of results.
  *
  * @param  string  $sqlQuery  the sql query
@@ -577,17 +505,7 @@ function claro_sql_query_get_single_value($sqlQuery, $dbHandler = '#')
 
     if($result)
     {
-        $row = mysql_fetch_row($result);
-
-        if ( is_array( $row ) )
-        {
-            list($value) = $row;
-        }
-        else
-        {
-            $value = null;
-        }
-
+        list($value) = mysql_fetch_row($result);
         mysql_free_result($result);
         return $value;
     }
@@ -598,12 +516,12 @@ function claro_sql_query_get_single_value($sqlQuery, $dbHandler = '#')
 }
 
 /**
- * CLAROLINE SQL query wrapper returning only the first row of the result
+ * Claroline SQL query wrapper returning only the first row of the result
  * Useful in some cases because, it avoid nested arrays of results.
  *
  * @param  string  $sqlQuery  the sql query
  * @param  handler $dbHandler optional
- * @return associative array containing all the result column
+ * @return associative array containing all the result rows
  * @since  1.5.1
  * @see    claro_sql_query()
  *
@@ -614,7 +532,7 @@ function claro_sql_query_get_single_value($sqlQuery, $dbHandler = '#')
 function claro_sql_query_get_single_row($sqlQuery, $dbHandler = '#')
 {
     $result = claro_sql_query($sqlQuery, $dbHandler);
-    // TODO if $result is empty it can't return false but empty array.
+
     if($result)
     {
         $row = mysql_fetch_array($result, MYSQL_ASSOC);
@@ -630,7 +548,7 @@ function claro_sql_query_get_single_row($sqlQuery, $dbHandler = '#')
 
 
 /**
- * CLAROLINE SQL query wrapper returning the number of rows affected by the
+ * Claroline SQL query wrapper returning the number of rows affected by the
  * query
  *
  * @param  string  $sqlQuery  the sql query
@@ -652,16 +570,16 @@ function claro_sql_query_affected_rows($sqlQuery, $dbHandler = '#')
         if ($dbHandler == '#') return mysql_affected_rows();
         else                   return mysql_affected_rows($dbHandler);
 
-        // NOTE. To make claro_sql_query_affected_rows() work properly,
-        // database connection is required with CLIENT_FOUND_ROWS flag.
+        // NOTE. To make claro_sql_query_affected_rows() work properly, 
+        // database connection is required with CLIENT_FOUND_ROWS flag. 
         //
-        // When using UPDATE, MySQL will not update columns where the new
-        // value is the same as the old value. This creates the possiblity
-        // that mysql_affected_rows() may not actually equal the number of
-        // rows matched, only the number of rows that were literally affected
-        // by the query. But this behavior can be changed by setting the
-        // CLIENT_FOUND_ROWS flag in mysql_connect(). mysql_affected_rows()
-        // will return then the number of rows matched, even if none are
+        // When using UPDATE, MySQL will not update columns where the new 
+        // value is the same as the old value. This creates the possiblity 
+        // that mysql_affected_rows() may not actually equal the number of 
+        // rows matched, only the number of rows that were literally affected 
+        // by the query. But this behavior can be changed by setting the 
+        // CLIENT_FOUND_ROWS flag in mysql_connect(). mysql_affected_rows() 
+        // will return then the number of rows matched, even if none are 
         // updated.
     }
     else
@@ -671,7 +589,7 @@ function claro_sql_query_affected_rows($sqlQuery, $dbHandler = '#')
 }
 
 /**
- * CLAROLINE mySQL query wrapper returning the last id generated by the last
+ * Claroline mySQL query wrapper returning the last id generated by the last
  * inserted row
  *
  * @author Hugues Peeters <hugues.peeters@claroline.net>,
@@ -738,15 +656,15 @@ function get_context_db_discriminator($toolId)
     // if the descriminator needed (because not managed by tool )
     // would be placed in table name or schema name.
 
-    // switch n'as plus trop de sens ici.
-    // le default  devrait probablement sortir
-    // et le switch des debrayages dans if (!get_conf('singleDbEnabled'))
-    // parce que si singleDbEnabled =true $genericConfig['schema'] DOIT tre vide
+ // switch n'as plus trop de sens ici.
+ // le default  devrait probablement sortir
+ // et le swtich des debrayage dans if (!get_conf('singleDbEnabled'))
+ // parce que si singleDbEnabled =true $genericConfig['schema'] DOIT tre vide
 
     switch ($toolId)
     {
 // ie        case 'CLANN' : return array('schema' => array (CLARO_CONTEXT_COURSE), 'table' => array(CLARO_CONTEXT_GROUP));
-// ie        case 'CLWIKI' : return array('schema' => array (CLARO_CONTEXT_COURSE, CLARO_CONTEXT_GROUP));
+// ie        case 'CLWIKI' : return array('schema' => array (CLARO_CONTEXT_COURSE,CLARO_CONTEXT_GROUP));
         default:
             $dependance = get_module_db_dependance($toolId);
 
@@ -757,7 +675,7 @@ function get_context_db_discriminator($toolId)
                 if (!get_conf('singleDbEnabled'))
                 {
                     $genericConfig['schema'] = array(CLARO_CONTEXT_COURSE);
-                    $genericConfig['table'] = array_diff ($genericConfig['table'], $genericConfig['schema'] );
+                    $genericConfig['table'] = array_diff ($genericConfig['table'],$genericConfig['schema'] );
                 }
             }
             return $genericConfig;

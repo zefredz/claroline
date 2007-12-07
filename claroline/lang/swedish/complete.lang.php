@@ -1,4 +1,5 @@
 <?php 
+$_lang['(When an user open the index of the campus)'] = '(When an user open the index of the campus)';
 $_lang['(none)'] = '(ingen)';
 $_lang['(optional)'] = '(frivillig)';
 $_lang['A reply to your topic has been posted'] = 'Ett svar på ditt inlägg har postats.';
@@ -10,6 +11,7 @@ $_lang['Accounts with same <i>Email</i>'] = 'Konton med samma <i>Emejl</i>';
 $_lang['Accounts with same <i>User name</i>'] = 'Konton med samma <i>Användarnamn</i>';
 $_lang['Accounts with same <i>User name</i> AND same <i>Password</i>'] = 'Konton med samma <i>Användarnamn</i> OCH samma <i>Lösenord</i>';
 $_lang['Action'] = 'Utför';
+$_lang['Activate'] = 'aktivera';
 $_lang['Add'] = 'Lägg till';
 $_lang['Add a category'] = 'Lägg till en kategori';
 $_lang['Add a comment'] = 'lägg till/modifiera kommentar till';
@@ -18,6 +20,7 @@ $_lang['Add an event'] = 'Lägg till en händelse';
 $_lang['Add announcement'] = 'Lägg till tillkännagivande';
 $_lang['Add answ.'] = '+svar';
 $_lang['Add elem.'] = '+elem';
+$_lang['Add introduction text'] = 'Lägg till introduktionstext';
 $_lang['Add me to this group'] = 'Lägg till mig i denna grupp';
 $_lang['Add new heading'] = 'Lägg till ny rubrik';
 $_lang['Add user manually'] = 'Lägg till användare manuellt';
@@ -26,6 +29,7 @@ $_lang['All exercises'] = 'Alla övningar';
 $_lang['All groups are now empty'] = 'Alla grupper är nu tomma';
 $_lang['All groups have been deleted'] = 'Alla grupper har raderats';
 $_lang['Allowed'] = 'Tillåten';
+$_lang['Among'] = 'bland';
 $_lang['Announcement'] = 'Tillkännagivanden';
 $_lang['Announcement has been added'] = 'Tillkännagivande har lagts till';
 $_lang['Announcement has been deleted'] = 'Tillkännagivande har raderats';
@@ -34,6 +38,7 @@ $_lang['Announcements list has been cleared up'] = 'Listan över tillkännagivande
 $_lang['Anonymous'] = 'Anonym';
 $_lang['Answer'] = 'Svar';
 $_lang['Answer type'] = 'Svarstyp';
+$_lang['Answers to the question'] = 'Svar till frågan';
 $_lang['Are you sure to delete'] = 'Är du säker på att du vill radera';
 $_lang['Area for this group'] = 'Area för denna grupp';
 $_lang['Author'] = 'Postare';
@@ -45,6 +50,7 @@ $_lang['Back to user list'] = 'Tillbaka till användarlistan';
 $_lang['Cancel'] = 'Avbryt';
 $_lang['Categories'] = 'Kategorier';
 $_lang['Chat'] = 'Diskussion';
+$_lang['Choice'] = 'Ditt val';
 $_lang['Claroline help'] = 'Hjälp Start';
 $_lang['Clear up list of announcements'] = 'Rensa upp listan över tillkännagivanden';
 $_lang['Click on the month name for more details'] = 'Klicka på månadsnamn för fler detaljer';
@@ -69,6 +75,7 @@ $_lang['Create Directory'] = 'Skapa ny mapp';
 $_lang['Create a course site'] = 'Skapa en webbkurs';
 $_lang['Create a course website'] = 'Skapa kurswebbsajt';
 $_lang['Create new group(s)'] = 'Skapa ny(a) grupp(er)';
+$_lang['Database Host'] = 'Databasvärd';
 $_lang['Date'] = 'Datum';
 $_lang['Day'] = 'Dag';
 $_lang['Define Headings'] = 'Definiera rubrik';
@@ -88,6 +95,8 @@ $_lang['Documents'] = 'Dokument';
 $_lang['Documents and Links'] = 'Dokument';
 $_lang['Documents downloaded by the student'] = 'Dokument nedladdade av student';
 $_lang['Documents help'] = 'Hjälp Dokument';
+$_lang['Documents of the group'] = 'Dokument tillhörande gruppen';
+$_lang['EG'] = 'e.g.';
 $_lang['Edit'] = 'Redigera';
 $_lang['Edit this group'] = 'Redigera denna grupp';
 $_lang['Element list'] = 'Elementlista';
@@ -95,9 +104,14 @@ $_lang['Element moved'] = 'mapp flyttad';
 $_lang['Element renamed'] = 'filen bytte namn';
 $_lang['Email'] = 'Emejl';
 $_lang['Empty'] = 'Tom';
+$_lang['Empty (or NULL)'] = 'Tom (eller NULL)';
 $_lang['Empty all groups'] = 'Töm alla grupper';
 $_lang['Enrolment'] = 'Prenumeration';
 $_lang['Enter'] = 'Stig in';
+$_lang['Exercice not found'] = 'Övning hittades inte';
+$_lang['Exercise description'] = 'Övningsbeskrivning';
+$_lang['Exercise management'] = 'Övningshanterare';
+$_lang['Exercise name'] = 'Övningnsnamn';
 $_lang['Exercise type'] = 'Övningstyp';
 $_lang['Exercises'] = 'Övningar';
 $_lang['Exercises help'] = 'Hjälp övningar';
@@ -114,6 +128,8 @@ $_lang['Forums help'] = 'Hjälp Forum';
 $_lang['From'] = 'Från';
 $_lang['Get a question from another exercise'] = 'Hämta en fråga från en annan övning';
 $_lang['Go back to the exercise'] = 'Tillbaka till övningen';
+$_lang['Go back to the question list'] = 'Tillbaka till frågelistan';
+$_lang['Go back to the question pool'] = 'Tillbaka till frågepoolen';
 $_lang['Group'] = 'Grupper';
 $_lang['Group Tutor'] = 'Lärare';
 $_lang['Group area'] = 'Grupparea';
@@ -138,11 +154,13 @@ $_lang['Invalid user : this user doesn\'t exist in your group'] = 'Ogiltig använ
 $_lang['Language'] = 'Språk';
 $_lang['Last 31 days'] = 'Inom de senaste 31 dagarna';
 $_lang['Last 7 days'] = 'Senaste 7 dagarna';
+$_lang['Last check before install'] = 'Sista kontroll före installation';
 $_lang['Last message'] = 'Senaste medddelande';
 $_lang['Last messages'] = 'Senaste meddelandena';
 $_lang['Last name'] = 'Efternamn';
 $_lang['Lasting'] = 'Längd';
 $_lang['Lecturer(s)'] = 'Lärare';
+$_lang['Licence'] = 'Licens';
 $_lang['Line Number'] = 'Radnummer';
 $_lang['List of students in this group'] = 'Lista över studenter i denna grupp';
 $_lang['Login'] = 'Logga in';
@@ -152,6 +170,7 @@ $_lang['Logins and access to tools'] = 'Inloggningar och åtkomst av verktyg';
 $_lang['Logins not used'] = 'Användare som ej använts';
 $_lang['Logout'] = 'Logga ut';
 $_lang['Lost password'] = 'Tappat Lösenordet';
+$_lang['Main database'] = 'Claroline huvudDB';
 $_lang['Make correspond'] = 'Skapa svar';
 $_lang['Manager'] = 'Ansvarig';
 $_lang['Matching'] = 'Matchning';
@@ -198,41 +217,54 @@ $_lang['Number of users'] = 'Antal användare';
 $_lang['Number of users by course'] = 'Antal användare efter kurs';
 $_lang['Number of users by faculty'] = 'Antal användare efter fakultet';
 $_lang['Number of users by status'] = 'Antal användare efter statuss';
-$_lang['Number proposed exceeds max. that you allowed (you can modify it below). Group composition has not been modified'] = 'Antal föreslagna överstiger max. som är tillåtet (du kan modifiera de nedan). 
-				Gruppsammansättningen har not inte ändrats';
+$_lang['Number proposed exceeds max. that you allowed (you can modify it below). Group composition has not been modified'] = 'Antal föreslagna överstiger max. som är tillåtet (du kan modifiera de nedan).
+                Gruppsammansättningen har not inte ändrats';
 $_lang['Ok'] = 'validate';
 $_lang['Oldest first'] = 'Äldst först';
 $_lang['On'] = 'På';
 $_lang['On an unique page'] = 'På samma sida';
 $_lang['One question per page (sequential)'] = 'En fråga per sida (sekventiell)';
+$_lang['Ooops, stranges cases detected !!'] = 'Ooops, konstiga fall har detekterats !!';
 $_lang['Operation impossible'] = 'Operation omöjlig';
+$_lang['Operation impossible.<br />A file with this name already exists.'] = 'Operationen är omöjlig.<br />En fil med detta namn existerar redan.';
 $_lang['Optional'] = 'Valbart';
 $_lang['Orphan questions'] = 'Föräldralösa frågor';
 $_lang['Other'] = 'Andra';
 $_lang['Period'] = 'Period';
 $_lang['Platform'] = 'Med kraft från';
 $_lang['Please choose a good answer'] = 'Var snäll och välj ett rätt svar';
+$_lang['Please choose one or more good answers'] = 'Var snäll och välj ett eller flera rätta svar';
 $_lang['Please confirm your choice'] = 'Var snäll och bekräfta ditt val';
+$_lang['Please define at least one blank with brackets [...]'] = 'Var snäll och definiera minst en blank med hakparanteser [...]';
 $_lang['Please define the options'] = 'Var snäll och definiera valen';
 $_lang['Please fill the two lists below'] = 'Var snäll och fyll i de två listorna nedan';
 $_lang['Please give a weighting to each blank'] = 'Please give a weighting to each blank';
 $_lang['Please give the answers to the question'] = 'Ange frågans svar';
+$_lang['Please give the exercise name'] = 'Var snäll och ange övningens namn';
+$_lang['Please give the question'] = 'Var snäll och ge frågan';
 $_lang['Please type the text'] = 'Skriv in texten';
+$_lang['Please type your text below'] = 'Var snäll och skriv in texten nedan';
 $_lang['Posted'] = 'Postad';
 $_lang['Posts'] = 'Inlägg';
 $_lang['Powered by'] = 'Med kraft från';
+$_lang['Prefix for names of course databases'] = 'MySQL-Prefix';
 $_lang['Previous day'] = 'Föregående dag';
 $_lang['Previous month'] = 'Föregående månad';
 $_lang['Previous week'] = 'Föregående vecka';
 $_lang['Previous year'] = 'Föregående år';
+$_lang['PrintVers'] = 'Utskrivbar version';
 $_lang['Private'] = 'privat';
 $_lang['Public'] = 'publik';
 $_lang['Public access from campus home page even without login'] = 'Publik åtkomst från campus hemsida även utan inloggning';
 $_lang['Publish'] = 'Publicera';
 $_lang['Published on'] = 'Publicerat den ';
 $_lang['Question'] = 'Fråga';
+$_lang['Question / Answer management'] = 'Fråga- / Svarshanterare';
+$_lang['Question list of the exercise'] = 'Frågelista för övningen';
+$_lang['Question not found'] = 'Frågan hittades ej';
 $_lang['Question pool'] = 'Frågepool';
 $_lang['Question to lecturer'] = 'Frågor till läraren';
+$_lang['Questions'] = 'Frågor';
 $_lang['Random questions'] = 'Slumpvisa frågor';
 $_lang['Registered'] = 'Registrerade';
 $_lang['Registration'] = 'Registrering';
@@ -241,6 +273,7 @@ $_lang['Rem. elem.'] = '-elem';
 $_lang['Remove'] = 'radera';
 $_lang['Rename'] = 'Byt namn';
 $_lang['Reply'] = 'Svar';
+$_lang['Requirements'] = 'Krav';
 $_lang['Result'] = 'Resultat';
 $_lang['Return to the list'] = 'Tillbaka till listan';
 $_lang['Reuse'] = 'Återanvänd';
@@ -252,21 +285,26 @@ $_lang['Send this announcement by email to registered students'] = 'Sänd detta t
 $_lang['Show all'] = 'Visa alla';
 $_lang['Show none'] = 'Visa ingen';
 $_lang['Size'] = 'Storlek';
+$_lang['Statement'] = 'Valfri kommentar';
 $_lang['Statistics'] = 'Statistik';
+$_lang['Statistics of course'] = 'Kursstatistik';
 $_lang['Statistics of user'] = 'Användarstatistik';
 $_lang['Status'] = 'Status';
 $_lang['Student'] = 'elev';
 $_lang['Students are allowed to self-register in groups'] = 'Elever tillåts självregistrera sig i grupper.';
 $_lang['Subject'] = 'Ämne';
 $_lang['Support forum'] = 'Supportforum';
+$_lang['Take'] = 'ta';
 $_lang['The email address is not valid'] = 'Emejl address är inte komplett eller så innehåller den otillåtna tecken';
 $_lang['The file to upload is not valid.'] = 'Filen för uppladdning är inte tillåten.';
+$_lang['The information has been modified'] = 'Informationen har modifierats';
 $_lang['The upload has failed. There is not enough space in your directory'] = 'Uppladdningen har misslyckats. Det finns inte tillräckligt med diskutrymme i din mapp.';
 $_lang['The upload is finished'] = 'Uppladdningen är klar.';
 $_lang['The zip file can not contain .PHP files'] = 'ZIP-filen kan inte innehålla .PHP-filer';
 $_lang['There are no topics for this forum. You can post one'] = 'Det finns inte några inlägg i detta forum, men du kan göra ett.';
 $_lang['There is no answer for the moment'] = 'Det finns inga svar just nu';
 $_lang['There is no exercise for the moment'] = 'Det finns inga övningar för tillfället';
+$_lang['There is no question for the moment'] = 'Det finn ingen fråga för tillfället';
 $_lang['This course is currently not described'] = 'Denna kurs är inte beskriven för närvande';
 $_lang['This day'] = 'Denna dag';
 $_lang['This is the faculty, department or school where the course is delivered'] = 'Detta är den fakultet eller avdelning där kursen hålls';
@@ -283,6 +321,7 @@ $_lang['Total Clicks'] = 'Totalt antal klick';
 $_lang['Total Downloads'] = 'Totalt antal nedladdningar';
 $_lang['Total number of connection to this course'] = 'Totalt antal anslutningar till denna kurs';
 $_lang['Tracking'] = 'Spårning';
+$_lang['Tracking database'] = 'Spårnings-DB. Endast användbar vid flera DB';
 $_lang['Tracking has been disabled by system administrator.'] = 'Spårning har avaktiverats av systemadministratören.';
 $_lang['Traffic Details'] = 'Trafikdetaljer';
 $_lang['True'] = 'Sant';
@@ -303,8 +342,11 @@ $_lang['View my statistics'] = 'Visa min statistik';
 $_lang['Visibility'] = 'Synlighet';
 $_lang['Visibility modified'] = 'Synlighet modifierad';
 $_lang['Visits'] = 'Besök';
+$_lang['Warning ! This question and its answers are used in several exercises. Would you like to modify them'] = 'Varning ! Denna fråga och dess svar används i flera övningar. Vill du modifiera den';
 $_lang['Week'] = 'Vecka';
 $_lang['Weighting'] = 'Viktning';
+$_lang['Work'] = 'Elevarbeten';
+$_lang['Work title'] = 'Titel';
 $_lang['Work uploaded by the student in the name of \'Authors\''] = 'Arbeten uppladdade av student från \'Författare\'';
 $_lang['Work uploads'] = 'Arbeten uppladdade';
 $_lang['Year'] = 'År';
@@ -314,16 +356,20 @@ $_lang['You can now create your  course'] = 'Du kan nu skapa din kurs';
 $_lang['You can now select, in the list, the courses you want to access'] = 'Du kan nu välja, i listan, de kurser du vill deltaga i.';
 $_lang['You cannot post an empty message'] = 'Du måste skriva ett Inlägg för att posta det. Du kan inte posta ett tomt Inlägg.';
 $_lang['You didnt choose any file to send, or it is too big'] = 'Du valde ingen fil eller filen du valde är för stor.';
+$_lang['You have already answered the question'] = 'Du har redan svarat på frågan';
 $_lang['You have just created the course website'] = 'Du har just skapat en webbplats för kursen';
 $_lang['You left some required fields empty'] = 'Du har lämnat några fält tomma. Använda webbläsaren tillbakaknapp och fyll i dem och försök igen.';
 $_lang['Your message has been deleted'] = 'Ditt Inlägg har tagits bort.';
 $_lang['Your message has been entered'] = 'Ditt inlägg har sparats i databasen.';
+$_lang['Your new profile has been saved'] = 'Din nya profil har sparats';
+$_lang['Your total score is'] = 'Din totala poäng är';
 $_lang['Zip file uploaded and uncompressed'] = '.ZIP-fil uppladdad och dekomprimerad';
+$_lang['[British people] live in [United Kingdom].'] = '[Brittiska människor] lever i [Storbrittanien].';
 $_lang['archive'] = 'arkiv';
 $_lang['blockClaroMainHelp'] = 'Här kan, lärare och assistenter skapa och administrera kurswebbsajter. Studenter kan läsa (dokument, agendor och annan information) och ibland göra övningar, publicera arbeten samt delta i forumdiskusioner...</p><b>Registrering</b><p>Följande instruktioner gäller bara om din version av Claroline tillåter självregistrering (vissa sajter registrerar dig automatiskt). Om du är elev, behöver du bara registrera dig på kursen genom att välja \'Följ kurser (elev)\', därefter väljer du de kurser du vill delta i.</p><p>Om du är lärare eller assistent, registrera dig också, välj \'Skapa kurswebbsajter(lärare)\'. Du kommer sedan att få fylla i Kurskod, Fakultet och Kurstitel. När allt godkänts tas du till den sajt som du nyss har skapat för att modifiera dess innehåll och organisation efter dina önskemål. </p><p>Om denna portal inte passar för dina ändamål, kontakta oss genom länken \'Att göra\' som finns på campusens hemsida (när du loggat in).</p><p>Länken till Registrering hittar du på Campusens hemsida (överst till höger).</p><b>Login</b><p>När beöker sajten nästa gång, skriv in inloggnngsnamn/lösenord och godkänn för att få åtkomst till dina kurser. URL:en för sajten är';
 $_lang['blockCourseDescriptionCourseContent'] = 'Kursinnehåll';
 $_lang['blockCourseDescriptionDescription'] = 'Uppgiftsbeskrivning';
-$_lang['blockCourseSettingsTip'] = 'Som standard kommer din kurs att kunna nås av alla så länge som det är registrerade användare. I händelse av att du har något konfidentiellt, 
+$_lang['blockCourseSettingsTip'] = 'Som standard kommer din kurs att kunna nås av alla så länge som det är registrerade användare. I händelse av att du har något konfidentiellt,
 det enklaste är att öppna registrering under
 en vecka, och be studenterna att de registrerar sig själva, därefter stänga registreringen och kontrollera användarlistan efter obehöriga.';
 $_lang['blockDocumentsHelp'] = '<p>Dokumentverktyget är liknande Filhanteraren på din dator.</p><p>Du kan ladda upp filer oavsett typ (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, m.fl.). Du behöver bara bry dig om ifall eleverna har motsvarande programvara för att kunna läsa dem. Några filtyper kan vara bärare av datorvirus och det är ditt ansvar att inte ladda upp smittade filer. Det är säkrast att kontrollera dokumentet med en antivirusprogramvara före uppladdning.</p>
@@ -332,9 +378,9 @@ $_lang['blockDocumentsHelp'] = '<p>Dokumentverktyget är liknande Filhanteraren p
 <h4>Ladda upp ett dokument</h4>
 <ul>
   <li>Välj fil på din dator genom att använda Bläddra knappen <input type=submit value=Bläddra name=submit2>
-	på höger sida av bildskärmen.</li>
+    på höger sida av bildskärmen.</li>
   <li>Starta uppladdningen med Ladda upp-knappen <input type=submit value=Ladda upp name=submit2>
-	.</li>
+    .</li>
 </ul>
 <h4>Byta namn på ett dokument (en mapp)</h4>
 <ul>
@@ -342,52 +388,52 @@ $_lang['blockDocumentsHelp'] = '<p>Dokumentverktyget är liknande Filhanteraren p
   Byta namn-kolumnen</li>
   <li>Skriv in det nya namnet i fältet (uppe till vänster)</li>
   <li>Godkänn genom att klicka på <input type=submit value=Ok name=submit24>
-	. 
+    .
 </ul>
-	<h4>Radera ett dokument (eller en mapp)</h4>
-	<ul>
-	  
-  <li>Klicka på <img src=../document/img/delete.gif width=20 height=20> 
-	i kolumnen \'Radera\'.</li>
-	</ul>
-	<h4>Skapa ett dokument (eller mapp) osynligt för eleverna</h4>
-	<ul>
-	  
+    <h4>Radera ett dokument (eller en mapp)</h4>
+    <ul>
+
+  <li>Klicka på <img src=../document/img/delete.gif width=20 height=20>
+    i kolumnen \'Radera\'.</li>
+    </ul>
+    <h4>Skapa ett dokument (eller mapp) osynligt för eleverna</h4>
+    <ul>
+
   <li>Klicka på <img src=../document/img/visible.gif width=20 height=20>i kolumnen \'Synlig/osynlig\'.</li>
-	  <li>Dokumentet (eller mappen) existerar fortfarande men är är inte synlig för studenterna längre.</li>	  
-  <li>För att göra det synligt igen, klicka på <img src=../img/invisible.gif width=24 height=20> 
-	i kolumnen \'Synlig/osynlig\'</li>
-	</ul>
-	<h4>Lägga till eller ändra på kommentar till ett dokument (eller en mapp)</h4>
-	<ul>	  
-  <li>Klicka på <img src=../img/comment.gif width=20 height=20> 
-	i kolumnen \'Kommentar\'</li>
-	  <li>Skriv in ny kommentar i motsvarande fält (uppe till höger).</li>
-	  <li>Godkänn genom att klicka på <input type=submit value=OK name=submit2>
-		.</li>
-	</ul>
-	<p>För att radera kommentar, klick på <img src=../img/comment.gif width=20 height=20>, 
-	  radera den gamla kommentaren i fältet och klicka på <input type=submit value=OK name=submit22>
-	  . 
-	<hr />
-	<p>Du kan organisera innehållet genom mappanvändning. För detta:</p>
-	<h4><b>Skapa en mapp</b></h4>
-	<ul>
-	  <li>Klicka på <img src=../img/folder.gif> \'Skapa en mapp\' (överst tillvänster)</li>
-	  <li>Skriv in namn på ny mapp i motsvarande fält (överst till vänster)</li>
-	  <li>Godkänn genom att klicka på <input type=submit value=OK name=submit23>.</li>
-	</ul>
-	<h4>Flytta ett dokument (eller en mapp)</h4>
-	<ul>
-	  <li>Klicka på knappen <img src=../img/deplacer.gif width=34 height=16> 
-		i kolumnen \'Flytta\'</li>
-	  <li>Välj till vilken du vill flytta dokumentet (eller mappen) i 
-	  motsvarande bläddringsmeny (överst till vänster) (notera: ordet \'root\' betyder att du inte kan gå 
-	  högre än den nivån i dokument trädet på servern).</li>
-	  <li>Godkänn med att klicka på på <input type=submit value=OK name=submit232>.</li>
-	</ul>
-	<center>
-	  <p>';
+      <li>Dokumentet (eller mappen) existerar fortfarande men är är inte synlig för studenterna längre.</li>
+  <li>För att göra det synligt igen, klicka på <img src=../img/invisible.gif width=24 height=20>
+    i kolumnen \'Synlig/osynlig\'</li>
+    </ul>
+    <h4>Lägga till eller ändra på kommentar till ett dokument (eller en mapp)</h4>
+    <ul>
+  <li>Klicka på <img src=../img/comment.gif width=20 height=20>
+    i kolumnen \'Kommentar\'</li>
+      <li>Skriv in ny kommentar i motsvarande fält (uppe till höger).</li>
+      <li>Godkänn genom att klicka på <input type=submit value=OK name=submit2>
+        .</li>
+    </ul>
+    <p>För att radera kommentar, klick på <img src=../img/comment.gif width=20 height=20>,
+      radera den gamla kommentaren i fältet och klicka på <input type=submit value=OK name=submit22>
+      .
+    <hr />
+    <p>Du kan organisera innehållet genom mappanvändning. För detta:</p>
+    <h4><b>Skapa en mapp</b></h4>
+    <ul>
+      <li>Klicka på <img src=../img/folder.gif> \'Skapa en mapp\' (överst tillvänster)</li>
+      <li>Skriv in namn på ny mapp i motsvarande fält (överst till vänster)</li>
+      <li>Godkänn genom att klicka på <input type=submit value=OK name=submit23>.</li>
+    </ul>
+    <h4>Flytta ett dokument (eller en mapp)</h4>
+    <ul>
+      <li>Klicka på knappen <img src=../img/deplacer.gif width=34 height=16>
+        i kolumnen \'Flytta\'</li>
+      <li>Välj till vilken du vill flytta dokumentet (eller mappen) i
+      motsvarande bläddringsmeny (överst till vänster) (notera: ordet \'root\' betyder att du inte kan gå
+      högre än den nivån i dokument trädet på servern).</li>
+      <li>Godkänn med att klicka på på <input type=submit value=OK name=submit232>.</li>
+    </ul>
+    <center>
+      <p>';
 $_lang['blockExercisesHelp'] = '<p>Övningsverktyget tillåter dig att skapa övningar som innehåller så många frågor som du önskar dig.<br /><br />
 Det finns flera typer av svarmöjligheter tillgänliga vid skapandet av frågorna:<br /><br />
 <ul>
@@ -495,6 +541,8 @@ $_lang['blockUsersHelp'] = '<b>Roller</b><p>Roller har ingen datorrelaterad funk
 <b>Lägg till en användare</b>
 <p>För att lägga till en användare på din kurs, kontrollera först att personen inte är registrerad globalt på webbsajten. Om det är så markera i rutan på sidan om hans namn och klicka \'Ok\'. Om personen inte är registrerad, lägg till personen manuellt. I båda fallen kommer personen att få ett mejl som talar om att du har registrerat personen och lösenord samt användarnamn skickas till personen som påminnelse.</p>';
 $_lang['e.g. <em>History of Literature</em>'] = 'e.g. <i>Svenska A</i>';
+$_lang['group(s) has (have) been added'] = 'grupp(erna) har lagts till';
+$_lang['in all exercises'] = 'i alla övningar';
 $_lang['line'] = 'rad';
 $_lang['lines'] = 'rader';
 $_lang['max. 12 characters, e.g. <em>ROM2121</em>'] = 'max. 12 tecken, e.g. <i>SV1201</i>';
@@ -502,6 +550,7 @@ $_lang['my group'] = 'min grupp';
 $_lang['my supervision'] = 'under min tillsyn';
 $_lang['new group(s)'] = 'ny(a) grupp(er)';
 $_lang['number'] = 'nummer';
+$_lang['only in the current exercise'] = 'bara i nuvarande övning';
 $_lang['register'] = 'registrera';
 $_lang['sampleForumDescription'] = 'Ta bort denna genom forumets administrationsverktyg';
 $_lang['sampleForumGroupCategory'] = 'Gruppforum';
@@ -512,6 +561,8 @@ $_lang['sampleForumTopicTitle'] = 'Exempelmeddelande';
 $_lang['sampleQuizTitle'] = 'Enkel övning';
 $_lang['seats (optional)'] = 'platser (frivillig)';
 $_lang['seats by groups (optional)'] = 'platser per grupp (frivillig)';
+$_lang['this password is too simple. Use a password like this <code>%passpruposed</code>'] = 'detta lösenord är för enkelt. Använd ett som liknar detta:';
 $_lang['to'] = 'Till';
 $_lang['uncompress zipped (.zip) file on the server'] = 'dekomprimera zippad (.ZIP) fil på servern';
+$_lang['use brackets [...] to define one or more blanks'] = 'använd hakparanteser [...] för att definiera en eller flera blanka';
 ?>

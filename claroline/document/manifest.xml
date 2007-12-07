@@ -1,17 +1,19 @@
 <module>
  <label>CLDOC</label>
- <name>Documents and Links</name>
+ <name>Document</name>
  <version>4.0</version>
  <license>GPL</license>
  <icon>document.gif</icon>
  <type>tool</type>
  <web>http://www.claroline.net/wiki/CLDOC/</web>
- <entry>document.php</entry>
+
   <description>
+  <![CDATA[
      This tool is an original tool of claroline
      It's able to store and manage local ressoures like file, url.
      Can  manage upload, zip, images, url, subdirectory
      Ca edit html files
+  ]]>
   </description>
 
   <author>
@@ -27,5 +29,22 @@
       </configuration>
     </claroline>
  </requirements>
+ <context>
+  <course database="kernel"
+          enabling="automatic"
+          default_access="all"
+          access_manager="platform_admin" >
+    <link target="commonToolList"
+          path="../../document/document.php" />
+    <link target="toolSelectBox"
+          path="../../document/document.php" />
+  </course>
+   <group database="module"
+          enabling="automatic"
+          default_access="group_member"
+          access_manager="platform_admin">
+    <link target="commonToolList" path="../../document/document.php" />
+   </group>
+ </context>
 
 </module>

@@ -1,7 +1,4 @@
-
                     CLAROLINE EXTERNAL AUTHENTICATION SYSTEM
-
-Preliminary Note. This document doens't treat external authentication with CAS.
 
 This system allows Claroline to rely on external system concerning 
 authentication and user profile management. It is based on a collection of 
@@ -17,7 +14,7 @@ To use one of these drivers
 own context.
 
 2. Uncomment the concerned line in the main Claroline configuration file 
-(claroline/inc/conf/auth.conf.php)
+(claroline/inc/conf/claro_main.conf.php)
 
 
                                  HOW IT WORKS ?
@@ -32,10 +29,10 @@ authentication systems list specified by its configuration file. When it founds
 it, Claroline duplicates the user profile into its own user table, stating that 
 it comes for this specific external authentication system.
 
-    The driver treating this case is called by the Claroline Kernel by line like 
-    this below into the Claroline configuration file.
+	The driver treating this case is called by the Claroline Kernel by line like 
+	this below into the Claroline configuration file.
 
-    $extAuthSource['authSourceName']['newUser'] = "path/file";
+	$extAuthSource['authSourceName']['newUser'] = "path/file";
 
 2. When a user log to the platform next time. A record concerning this user is 
 already stored into the Claroline system. From this record Claroline is able to 
@@ -45,10 +42,10 @@ allowed to connect with this password. It also takes the occasion to update from
 the external authentication system the user data stored into the Claroline 
 system.
 
-    The driver treating this case is called by the Claroline Kernel by line like 
-    this below into the Claroline configuration file.
+	The driver treating this case is called by the Claroline Kernel by line like 
+	this below into the Claroline configuration file.
 
-    $extAuthSource['authSourceName']['login'  ] = "path/file";
+	$extAuthSource['authSourceName']['login'  ] = "path/file";
 
 
                                 DRIVER SETTINGS

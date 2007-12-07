@@ -58,12 +58,12 @@ $languagePathList = get_lang_path_list($path_lang);
 if ( sizeof($languagePathList) > 0)
 {
     echo "<form action=\"" . $_SERVER['PHP_SELF'] . "\" method=\"GET\">";
-    echo "<select name=\"lang\">";
+    echo "<select name=\"language\">";
     echo '<option value="all" selected="selected">' . get_lang('All') . '</option>'. "\n";
     foreach($languagePathList as $key => $languagePath)
     {
 
-        if (isset($_REQUEST['lang']) && $key == $_REQUEST['lang'] )
+        if (isset($_REQUEST['language']) && $key == $_REQUEST['language'] )
         {
             echo "<option value=\"" . $key . "\" selected=\"selected\">" . $key . "</option>";
         }
@@ -83,12 +83,12 @@ else
 
 // if select language and laguage exists
 
-if (isset($_REQUEST['lang']))
+if (isset($_REQUEST['language']))
 {
 
     $languageToBuild = array();
 
-    if ($_REQUEST['lang'] == 'all')
+    if ($_REQUEST['language'] == 'all')
     {
         foreach ($languagePathList as $language => $languagePath)
         {
@@ -97,7 +97,7 @@ if (isset($_REQUEST['lang']))
     }
     else
     {
-        $languageToBuild[] = $_REQUEST['lang'];
+        $languageToBuild[] = $_REQUEST['language'];
     }
 
 

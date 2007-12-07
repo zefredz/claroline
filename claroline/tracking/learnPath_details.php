@@ -16,13 +16,13 @@
  
 require '../inc/claro_init_global.inc.php';
 
-if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
-if ( ! claro_is_course_manager() ) claro_die(get_lang('Not allowed')) ; 
+if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+if ( ! $is_courseAdmin ) claro_die(get_lang('Not allowed')) ; 
 
 // path id can not be empty, return to the list of learning paths
 if( empty($_REQUEST['path_id']) )
 {
-    claro_redirect("../learnPath/learningPathList.php");
+    header("Location: ../learnPath/learningPathList.php");
     exit();
 }
 
@@ -54,10 +54,10 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 $TABLECOURSUSER            = $tbl_rel_course_user;
 $TABLEUSER              = $tbl_user;
 
-include(get_path('incRepositorySys').'/lib/statsUtils.lib.inc.php');
-include(get_path('incRepositorySys').'/lib/learnPath.lib.inc.php');
+include($includePath.'/lib/statsUtils.lib.inc.php');
+include($includePath.'/lib/learnPath.lib.inc.php');
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include($includePath."/claro_init_header.inc.php");
 
 if ( get_conf('is_trackingEnabled') )  
 {
@@ -85,12 +85,12 @@ if ( get_conf('is_trackingEnabled') )
                     FROM `".$TABLEUSER."` AS U, 
                          `".$TABLECOURSUSER."` AS CU
                     WHERE U.`user_id`= CU.`user_id`
-                    AND CU.`code_cours` = '". addslashes(claro_get_current_course_id()) ."'";
+                    AND CU.`code_cours` = '". addslashes($_cid) ."'";
 
             $usersList = claro_sql_query_fetch_all($sql);
 
             // display tab header
-            echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'."\n\n"
+            echo '<table class="claroTable" width="100%" border="0" cellspacing="2">'."\n\n"
                    .'<tr class="headerX" align="center" valign="top">'."\n"
                 .'<th>'.get_lang('Student').'</th>'."\n"
                 .'<th colspan="2">'.get_lang('Progress').'</th>'."\n"
@@ -120,5 +120,5 @@ else
     echo claro_html_message_box(get_lang('Tracking has been disabled by system administrator.'));
 }
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include($includePath."/claro_init_footer.inc.php");
 ?>

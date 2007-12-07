@@ -1,6 +1,6 @@
-<?php // $Id$
+<?php # -$Id$
 
-/**
+/*
  * SOAP server available for Single Sign On (SSO) process.
  *
  * Once a user logs to the Claroline platform a cookie is sent to the
@@ -12,10 +12,6 @@
  * parameter from another server on the internet on the base of this
  * cookie value.
  *
- * @package SSO
- *
- * @author Claro Team cvs@claroline.net
- *
  */
 
 /******************************************************************************
@@ -26,12 +22,8 @@
                            // but can be skipped in claroline 1.6
 
 require_once '../../inc/claro_init_global.inc.php';
-require_once claro_get_conf_repository() .  'auth.extra.conf.php';
-require_once claro_get_conf_repository() .  'auth.cas.conf.php';
-require_once claro_get_conf_repository() .  'auth.sso.conf.php';
-require_once claro_get_conf_repository() .  'auth.drivers.conf.php';
-
-require_once get_path('incRepositorySys') . '/lib/nusoap.php';
+require_once $includePath.'/conf/auth.conf.php';
+require_once $includePath.'/lib/nusoap.php';
 
 $server = new soap_server();
 
@@ -42,6 +34,8 @@ $server->register('get_user_info_from_cookie',
                          'gid'    => 'xsd:string' ) );
 
 $server->service($HTTP_RAW_POST_DATA);
+
+
 
 
 /*----------------------------------------------------------------------------
@@ -63,7 +57,7 @@ $server->service($HTTP_RAW_POST_DATA);
 
 function get_user_info_from_cookie($auth, $cookie, $cid, $gid)
 {
-    if (! is_allowed_to_receive_user_info($auth) )
+    if (! is_allowed_to_recieve_user_info($auth) )
     {
         return null;
     }
@@ -84,7 +78,6 @@ function get_user_info_from_cookie($auth, $cookie, $cid, $gid)
                  'courseDbName'             => null,
                  'courseRegistrationAllowed'=> null,
                  'courseVisibility'         => null,
-                 'courseAccess'             => null,
                  'is_courseMember'          => null,
                  'is_courseTutor'           => null,
                  'is_courseAdmin'           => null,
@@ -154,21 +147,19 @@ function get_user_info_from_cookie($auth, $cookie, $cid, $gid)
         // $tbl_course          = $mainTblList['cours'       ]; // for claroline 1.5
         $tbl_rel_course_user = $mainTblList['rel_course_user'];
 
-        $sql = "SELECT `c`.`intitule`              AS title,
-                       `c`.`administrativeNumber`  AS officialCode,
-                       `c`.`titulaires`            AS titular,
-                       `c`.`dbName`                AS dbName,
-                       `c`.`visibility`            AS visibility,
-                       `c`.`access`                AS access,
-                       `c`.`registration`          AS registration,
-                       `cu`.`isCourseManager`      AS isCourseManager,
-                       `cu`.`role`                 AS userRole,
-                       `cu`.`tutor`                AS tutor
-                FROM      `" . $tbl_course . "`          AS c
-                LEFT JOIN `" . $tbl_rel_course_user . "` AS cu
+        $sql = "SELECT `c`.`intitule`   title,
+                       `c`.`fake_code`  officialCode,
+                       `c`.`titulaires` titular,
+                       `c`.`dbName`,
+                       `c`.`visible`    visibility,
+                       `cu`.`statut`    userStatus,
+                       `cu`.`role`      userRole,
+                       `cu`.`tutor`
+                FROM      `".$tbl_course."`          c
+                LEFT JOIN `".$tbl_rel_course_user."` cu
                 ON    `c`.`code`     = `cu`.`code_cours`
-                AND   `cu`.`user_id` = " . (int) $uid . "
-                WHERE `c`.`code`     = '" . $cid."'";
+                AND   `cu`.`user_id` = '".$uid."'
+                WHERE `c`.`code`     = '".$cid."'";
 
         $courseResult = claro_sql_query_fetch_all($sql);
 
@@ -181,13 +172,15 @@ function get_user_info_from_cookie($auth, $cookie, $cid, $gid)
             $res['courseCode'   ] = $course['officialCode'];
             $res['courseDbName' ] = $course['dbName'      ];
 
-            $res['courseRegistrationAllowed'] = (bool) ($course['registration'] == 'OPEN');
-            $res['courseVisibility'         ] = (bool) ($course['visibility'] == 'VISIBLE');
-            $res['courseAccess'             ] = (bool) ($course['access']     == 'PUBLIC');
+            $res['courseRegistrationAllowed'] = (bool) (   $course['visibility'] == 1
+                                                        || $course['visibility'] == 2 );
+
+            $res['courseVisibility'         ] = (bool) (   $course['visibility'] == 2
+                                                        || $course['visibility'] == 3 );
 
             $res['is_courseMember' ] = (bool) ( ! is_null($course['userStatus']) );
             $res['is_courseTutor'  ] = (bool) (   $course['tutor'     ] == 1  );
-            $res['is_courseAdmin'  ] = (bool) (   $course['isCourseManager'] ==  1 );
+            $res['is_courseAdmin'  ] = (bool) (   $course['userStatus'] ==  1 );
             $res['is_courseAllowed'] = (bool) (   $course['visibility'     ]
                                                || $course['is_courseMember']  );
         }
@@ -287,7 +280,7 @@ function record_sso_cookie($userId, $ssoCookie)
 
 
 /**
- * check if the soap client is allowed to receive the user information
+ * check if the soap client is allowed to recieve the user information
  * recorded into the system
  *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
@@ -296,7 +289,7 @@ function record_sso_cookie($userId, $ssoCookie)
  */
 
 
-function is_allowed_to_receive_user_info($auth)
+function is_allowed_to_recieve_user_info($auth)
 {
     if ( in_array($auth, get_conf('ssoAuthenticationKeyList')) )
     {

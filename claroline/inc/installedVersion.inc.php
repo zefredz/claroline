@@ -1,5 +1,4 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
@@ -10,9 +9,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @var $version_db_cvs   contain the version of script set
  *                        (different from _file_ because some time there is nothing to change in db)
  *
- * @version 1.9 $Revision$
+ * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -24,12 +23,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die('---');
 
 $stable = false;
-$is_upgrade_available = true;
+$is_upgrade_available = false;
 
 // var version_db  max. 10 chars
 
-$new_version = '1.9.cvs';
-$new_version_branch = '1.9';
+$new_version = '1.8.alpha';
+$new_version_branch = '1.8';
 
 if (!$is_upgrade_available)
 {

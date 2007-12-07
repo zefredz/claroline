@@ -1,5 +1,4 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
@@ -54,7 +53,6 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     function linker_set_display( $extraGetVar = false, $tLabel = NULL, $extraName = 'id' )
     {
         $url = "../linker/linker_popup.inc.php";
-        $html = '';
 
         if( $extraGetVar !== false )
         {
@@ -72,25 +70,10 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 $url .= "?linkerTLabel=$tLabel";
             }
         }
-        
-        if ( claro_is_javascript_enabled() )
-        {
-             $html .= '<p>' . "\n"
-             .   '<a href="javascript:popup(\''
-             .   $url.'\')">'.get_lang('Attached Resources : Add / Delete attachement')
-             .   '</a>' . "\n"
-             .   '</p>' . "\n"
-             ;
-        }
-        else
-        {
-            $html .= '<p>' . "\n"
-            .    '<a href="'.$url.'" target="_blank">'.get_lang('Attached Resources : Add / Delete attachement')
-            .    '</a>' . "\n"
-            .    '</p>' . "\n"
-            ;
-        }
-        return $html;
+
+        echo "<A href=\"javascript:popup('"
+            . $url."')\">".get_lang('Attached Resources : Add / Delete attachement')
+            ."</A>\n";
     }
 
 //--------------------------------------------------------------------------------------------------------

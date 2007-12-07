@@ -1,5 +1,4 @@
 <?php //$Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
@@ -36,12 +35,12 @@ array ( 'cache_lifeTime'
 
 $conf_def_property_list['cache_lifeTime']
 = array ('label'     => 'Time to keep a cache as valid'
-        ,'default'   => 10
+        ,'default'   => 3600*48
         ,'unit'      => 'second'
         ,'type'      => 'integer'
         ,'container' => 'VAR'
         ,'acceptedValue' => array ( 'min'=>2
-                                  , 'max'=>3600*24
+                                  , 'max'=>3600*365*24
                                   )
         );
 

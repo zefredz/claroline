@@ -18,9 +18,9 @@
  */
 
 require '../../inc/claro_init_global.inc.php';
-if (file_exists(get_path('rootSys') .'platform/currentVersion.inc.php')) include (get_path('rootSys') . 'platform/currentVersion.inc.php');
+if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
 
-$is_allowedToUseSDK = claro_is_platform_admin();
+$is_allowedToUseSDK = $is_platformAdmin;
 
 if (! $is_allowedToUseSDK) claro_disp_auth_form();
 
@@ -37,11 +37,10 @@ $nameTools = get_lang('Devel Tools');
 
 $interbredcrump[]= array ('url' => '../index.php', 'name' => get_lang('Admin'));
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include($includePath.'/claro_init_header.inc.php');
 
 echo claro_html_tool_title($nameTools);
 
-// TODO use claro_disp_title
 ?>
 <h4><?php echo get_lang('Translations') ?></h4>
 <ul>
@@ -54,5 +53,5 @@ if ( 0 < count($devtoolsList))
     .     claro_html_menu_vertical($devtoolsList)
     ;
 }
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 ?>

@@ -1,8 +1,7 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 
     // vim: expandtab sw=4 ts=4 sts=4:
-
+    
     /**
      * CLAROLINE
      *
@@ -19,10 +18,10 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
      *
      * @package Wiki
      */
-
+      
     require_once dirname(__FILE__) . "/class.dbconnection.php";
     require_once dirname(__FILE__) . "/class.wiki.php";
-
+    
     // Error codes
     !defined("WIKI_NO_TITLE_ERROR") && define( "WIKI_NO_TITLE_ERROR", "Missing title" );
     !defined("WIKI_NO_TITLE_ERRNO") && define( "WIKI_NO_TITLE_ERRNO", 1 );
@@ -32,7 +31,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     !defined( "WIKI_CANNOT_BE_UPDATED_ERRNO") && define( "WIKI_CANNOT_BE_UPDATED_ERRNO", 3 );
     !defined( "WIKI_NOT_FOUND_ERROR") && define( "WIKI_NOT_FOUND_ERROR", "Wiki not found" );
     !defined( "WIKI_NOT_FOUND_ERRNO") && define( "WIKI_NOT_FOUND_ERRNO", 4 );
-
+    
     /**
      * Class representing the WikiStore
      * (ie the place where the wiki are stored)
@@ -41,7 +40,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     {
         // private fields
         var $con;
-
+        
         // default configuration
         var $config = array(
                 'tbl_wiki_pages' => 'wiki_pages',
@@ -49,11 +48,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 'tbl_wiki_properties' => 'wiki_properties',
                 'tbl_wiki_acls' => 'wiki_acls'
             );
-
+            
         // error handling
         var $error = '';
         var $errno = 0;
-
+        
         /**
          * Constructor
          * @param DatabaseConnection con connection to the database
@@ -67,7 +66,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             }
             $this->con = $con;
         }
-
+        
         // load and save
         /**
          * Load a Wiki
@@ -77,17 +76,17 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         function loadWiki( $wikiId )
         {
             $wiki = new Wiki( $this->con, $this->config );
-
+            
             $wiki->load( $wikiId );
-
+            
             if ( $wiki->hasError() )
             {
                 $this->setError( $wiki->error, $wiki->errno );
             }
-
+            
             return $wiki;
         }
-
+        
         /**
          * Check if a page exists in a given wiki
          * @param int wikiId ID of the Wiki
@@ -110,7 +109,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
             return $this->con->queryReturnsResult( $sql );
         }
-
+        
         /**
          * Check if a wiki exists usind its ID
          * @param int id wiki ID
@@ -131,7 +130,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
             return $this->con->queryReturnsResult( $sql );
         }
-
+        
         // Wiki methods
 
         /**
@@ -145,16 +144,16 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             {
                 $this->con->connect();
             }
-
+            
             $sql = "SELECT `id`, `title`, `description` "
                 . "FROM `".$this->config['tbl_wiki_properties']."` "
                 . "WHERE `group_id` = ". (int) $groupId . " "
                 . "ORDER BY `id` ASC"
                 ;
-
+                
             return $this->con->getAllRowsFromQuery( $sql );
         }
-
+        
         /**
          * Get the list of the wiki's in a course
          * @return array list of the wiki's in the course
@@ -164,7 +163,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         {
             return $this->getWikiListByGroup( 0 );
         }
-
+        
         /**
          * Get the list of the wiki's in all groups (exept course wiki's)
          * @return array list of all the group wiki's
@@ -175,16 +174,16 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             {
                 $this->con->connect();
             }
-
+            
             $sql = "SELECT `id`, `title`, `description` "
                 . "FROM `".$this->config['tbl_wiki_properties']."` "
                 . "WHERE `group_id` != 0 "
                 . "ORDER BY `group_id` ASC"
                 ;
-
+                
             return $this->con->getAllRowsFromQuery( $sql );
         }
-
+        
         function getNumberOfPagesInWiki( $wikiId )
         {
             if ( ! $this->con->isConnected() )
@@ -198,9 +197,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                     . "FROM `".$this->config['tbl_wiki_pages']."` "
                     . "WHERE `wiki_id` = " . (int) $wikiId
                     ;
-
+                    
                 $result = $this->con->getRowFromQuery( $sql );
-
+                
                 return $result['pages'];
             }
             else
@@ -209,7 +208,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 return false;
             }
         }
-
+        
         /**
          * Delete a Wiki from the store
          * @param int wikiId ID of the wiki
@@ -221,77 +220,77 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             {
                 $this->con->connect();
             }
-
+            
             if ( $this->wikiIdExists( $wikiId ) )
             {
                 // delete properties
                 $sql = "DELETE FROM `".$this->config['tbl_wiki_properties']."` "
                     . "WHERE `id` = " . (int) $wikiId
                     ;
-
+                    
                 $numrows = $this->con->executeQuery( $sql );
-
+                
                 if ( $numrows < 1 || $this->hasError() )
                 {
                     return false;
                 }
-
+                
                 // delete wiki acl
                 $sql = "DELETE FROM `".$this->config['tbl_wiki_acls']."` "
                     . "WHERE `wiki_id` = " . (int) $wikiId
                     ;
-
+                    
                 $numrows = $this->con->executeQuery( $sql );
 
                 if ( $numrows < 1 || $this->hasError() )
                 {
                     return false;
                 }
-
+                
                 $sql = "SELECT `id` "
                     . "FROM `" . $this->config['tbl_wiki_pages'] . "` "
                     . "WHERE `wiki_id` = " . (int) $wikiId
                     ;
-
+                    
                 $pageIds = $this->con->getAllRowsFromQuery( $sql );
-
+                
                 if ( $this->hasError() )
                 {
                     return false;
                 }
-
+                
                 $idList = array();
-
+                
                 foreach ( $pageIds as $pageId )
                 {
                     $idList[] = (int) $pageId['id'];
                 }
-
+                
                 $idListStr = '(' . implode( ',', $idList ) . ')';
-
+                
                 $sql = "DELETE "
                     . "FROM `".$this->config['tbl_wiki_pages_content']."` "
                     . "WHERE `pid` IN " . $idListStr
                     ;
-
+                        
                 $this->con->executeQuery( $sql );
-
+                
                 if ( $this->hasError() )
                 {
                     return false;
                 }
-
+                
                 $sql = "DELETE FROM `".$this->config['tbl_wiki_pages']."` "
                     . "WHERE `wiki_id` = " . (int) $wikiId
                     ;
-
+                    
                 $numrows = $this->con->executeQuery( $sql );
 
                 if ( $this->hasError() )
                 {
                     return false;
                 }
-
+                
                 return true;
             }
             else
@@ -300,7 +299,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 return false;
             }
         }
-
+        
         // error handling
 
         function setError( $errmsg = '', $errno = 0 )

@@ -1,10 +1,10 @@
 <?php // $Id$
 /**
- * CLAROLINE
+ * CLAROLINE 
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -17,29 +17,30 @@
 /*======================================
        CLAROLINE MAIN
   ======================================*/
-$tlabelReq = 'CLLNP';
+$tlabelReq = 'CLLNP___';
 require '../inc/claro_init_global.inc.php';
 
-// if there is an auth information missing redirect to the first page of lp tool
-// this page will do the necessary to auth the user,
+// if there is an auth information missing redirect to the first page of lp tool 
+// this page will do the necessary to auth the user, 
 // when leaving a course all the LP sessions infos are cleared so we use this trick to avoid other errors
 
-if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
-$is_allowedToEdit = claro_is_course_manager();
+if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+$is_AllowedToEdit = $is_courseAdmin;
 
-if ( ! $is_allowedToEdit ) claro_die(get_lang('Not allowed'));
+if ( ! $is_AllowedToEdit ) claro_die(get_lang('Not allowed'));
 
-$interbredcrump[]= array ("url"=>get_module_url('CLLNP') . '/learningPathList.php', "name"=> get_lang('Learning path list'));
-$interbredcrump[]= array ("url"=>get_module_url('CLLNP') . '/learningPathAdmin.php', "name"=> get_lang('Learning path admin'));
+$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
+$interbredcrump[]= array ("url"=>"../learnPath/learningPathAdmin.php", "name"=> get_lang('Learning path admin'));
 
-$nameTools = get_lang('Add a document');
+$nameTools = get_lang('Insert a document as module');
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+//header
+@include($includePath."/claro_init_header.inc.php");
 
 // tables names
-
+  
 $tbl_cdb_names = claro_sql_get_course_tbl();
-
+  
 $tbl_lp_learnPath            = $tbl_cdb_names['lp_learnPath'           ];
 $tbl_lp_rel_learnPath_module = $tbl_cdb_names['lp_rel_learnPath_module'];
 $tbl_lp_user_module_progress = $tbl_cdb_names['lp_user_module_progress'];
@@ -51,27 +52,27 @@ $TABLELEARNPATHMODULE      = $tbl_lp_rel_learnPath_module;
 $TABLEUSERMODULEPROGRESS   = $tbl_lp_user_module_progress;
 $TABLEMODULE               = $tbl_lp_module;
 $TABLEASSET                = $tbl_lp_asset;
-
+  
 $dbTable = $tbl_cdb_names['document'];
 
 // document browser vars
-$TABLEDOCUMENT = claro_get_current_course_data('dbNameGlu') . 'document';
+$TABLEDOCUMENT     = $_course['dbNameGlu']."document";
 
-$courseDir   = claro_get_course_path() . '/document';
-$moduleDir   = claro_get_course_path() . '/modules';
-$baseWorkDir = get_path('coursesRepositorySys').$courseDir;
-$moduleWorkDir = get_path('coursesRepositorySys').$moduleDir;
+$courseDir   = $_course['path']."/document";
+$moduleDir   = $_course['path']."/modules";
+$baseWorkDir = $coursesRepositorySys.$courseDir;
+$moduleWorkDir = $coursesRepositorySys.$moduleDir;
 
 //lib of this tool
-include(get_path('incRepositorySys') . "/lib/learnPath.lib.inc.php");
+@include($includePath."/lib/learnPath.lib.inc.php");
 
-include(get_path('incRepositorySys') . "/lib/fileDisplay.lib.php");
-include(get_path('incRepositorySys') . "/lib/fileManage.lib.php");
+include($includePath."/lib/fileDisplay.lib.php");
+include($includePath."/lib/fileManage.lib.php");
 
 // $_SESSION
 if ( !isset($_SESSION['path_id']) )
 {
-      claro_redirect("./learningPath.php");
+      die ("<center> Not allowed ! (path_id not set :@ )</center>");
 }
 
 /*======================================
@@ -114,7 +115,7 @@ function buildRequestModules()
   $query = "SELECT *
              FROM `".$TABLEMODULE."` AS M
              WHERE NOT EXISTS(SELECT * FROM `".$TABLELEARNPATHMODULE."` AS TLPM
-             WHERE TLPM.`module_id` = M.`module_id`)";
+             WHERE TLPM.`module_id` = M.`module_id`)"; 
   */
 
   return $sql;
@@ -141,7 +142,7 @@ if (!isset($dialogBox)) $dialogBox = "";
 
 $iterator = 0;
 
-if (!isset($_REQUEST['maxDocForm'])) $_REQUEST['maxDocForm'] = 0;
+if (!isset($_REQUEST['maxDocForm'])) $_REQUEST['maxDocForm'] = 0; 
 
 while ($iterator <= $_REQUEST['maxDocForm'])
 {
@@ -150,7 +151,7 @@ while ($iterator <= $_REQUEST['maxDocForm'])
     if (isset($_REQUEST['submitInsertedDocument']) && isset($_POST['insertDocument_'.$iterator]) )
     {
         $insertDocument = str_replace('..', '',$_POST['insertDocument_'.$iterator]);
-
+        
         $sourceDoc = $baseWorkDir.$insertDocument;
 
         if ( check_name_exist($sourceDoc) ) // source file exists ?
@@ -162,7 +163,7 @@ while ($iterator <= $_REQUEST['maxDocForm'])
                       AND A.`path` LIKE \"". addslashes($insertDocument)."\"
                       AND M.`contentType` = \"".CTDOCUMENT_."\"";
             $query = claro_sql_query($sql);
-            $num = mysql_num_rows($query);
+            $num = mysql_numrows($query);
             $basename = substr($insertDocument, strrpos($insertDocument, '/') + 1);
 
             if($num == 0)
@@ -173,7 +174,7 @@ while ($iterator <= $_REQUEST['maxDocForm'])
                         VALUES ('". addslashes($basename) ."' , '". addslashes(get_block('blockDefaultModuleComment')) . "', '".CTDOCUMENT_."', '' )";
                 $query = claro_sql_query($sql);
 
-                $insertedModule_id = claro_sql_insert_id();
+                $insertedModule_id = mysql_insert_id();
 
                 // create new asset
                 $sql = "INSERT INTO `".$TABLEASSET."`
@@ -181,7 +182,7 @@ while ($iterator <= $_REQUEST['maxDocForm'])
                         VALUES ('". addslashes($insertDocument)."', " . (int)$insertedModule_id . ", '')";
                 $query = claro_sql_query($sql);
 
-                $insertedAsset_id = claro_sql_insert_id();
+                $insertedAsset_id = mysql_insert_id();
 
                 $sql = "UPDATE `".$TABLEMODULE."`
                         SET `startAsset_id` = " . (int)$insertedAsset_id . "
@@ -201,7 +202,7 @@ while ($iterator <= $_REQUEST['maxDocForm'])
                         (`learnPath_id`, `module_id`, `specificComment`, `rank`, `lock`)
                         VALUES ('". (int)$_SESSION['path_id']."', '".(int)$insertedModule_id."','".addslashes(get_block('blockDefaultModuleAddedComment'))."', ".(int)$order.", 'OPEN')";
                 $query = claro_sql_query($sql);
-
+                
                 $dialogBox .= get_lang("%moduleName has been added as module", array('%moduleName' => $basename)).'<br />' . "\n";
             }
             else
@@ -216,7 +217,7 @@ while ($iterator <= $_REQUEST['maxDocForm'])
                           AND A.`path` = '". addslashes($insertDocument)."'
                           AND LPM.`learnPath_id` = ". (int)$_SESSION['path_id'];
                 $query2 = claro_sql_query($sql);
-                $num = mysql_num_rows($query2);
+                $num = mysql_numrows($query2);
                 if ($num == 0)     // used in another LP but not in this one, so reuse the module id reference instead of creating a new one
                 {
                     $thisDocumentModule = mysql_fetch_array($query);
@@ -232,7 +233,7 @@ while ($iterator <= $_REQUEST['maxDocForm'])
                             (`learnPath_id`, `module_id`, `specificComment`, `rank`,`lock`)
                             VALUES ('". (int)$_SESSION['path_id']."', '". (int)$thisDocumentModule['module_id']."','".addslashes(get_block('blockDefaultModuleAddedComment'))."', ".(int)$order.",'OPEN')";
                     $query = claro_sql_query($sql);
-
+                     
                     $dialogBox .= get_lang("%moduleName has been added as module", array('%moduleName' => $basename)).'<br />' . "\n";
                 }
                 else
@@ -295,7 +296,7 @@ $sql = "SELECT *
         AND `path` NOT LIKE '". addslashes($curDirPath) ."/%/%'";
 $result = claro_sql_query($sql);
 $attribute = array();
-
+           
 while($row = mysql_fetch_array($result, MYSQL_ASSOC))
 {
     $attribute['path'      ][] = $row['path'      ];
@@ -394,7 +395,7 @@ if (isset($attribute))
      * than the numbers of files attributes previously given
      */
 
-    if ( isset($attribute['path']) && isset($fileList['comment'])
+    if ( isset($attribute['path']) && isset($fileList['comment']) 
          && ( sizeof($attribute['path']) > (sizeof($fileList['comment']) + sizeof($fileList['visibility'])) ) )
     {
         /* SEARCH DB RECORDS WICH HAVE NOT CORRESPONDANCE ON THE DIRECTORY */
@@ -411,11 +412,11 @@ if (isset($attribute))
         /* BUILD THE QUERY TO DELETE DEPRECATED DB RECORDS */
         $nbrRecToDel = sizeof ($recToDel);
         $queryClause = "";
-
+        
         for ($i=0; $i < $nbrRecToDel ;$i++)
         {
             $queryClause .= "path LIKE \"". addslashes($recToDel[$i]) ."%\"";
-            if ($i < $nbrRecToDel-1)
+            if ($i < $nbrRecToDel-1) 
             {
                 $queryClause .=" OR ";
             }
@@ -456,5 +457,6 @@ echo '<a href="learningPathAdmin.php">&lt;&lt;&nbsp;'.get_lang('Back to learning
 display_path_content();
 
 // footer
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+@include($includePath."/claro_init_footer.inc.php");
+
 ?>

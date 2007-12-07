@@ -6,7 +6,7 @@
   <icon>learnpath.gif</icon>
   <type>tool</type>
   <web>http://www.claroline.net/wiki/CLLNP/</web>
-  <entry>learningPathList.php</entry>
+
   <description>
   <![CDATA[
      This tool is an original tool of claroline.
@@ -29,5 +29,16 @@
       </configuration>
     </claroline>
  </requirements>
+ <context>
+  <course database="kernel"
+          enabling="automatic"
+          default_access="all"
+          access_manager="platform_admin" >
+    <link target="commonToolList"
+          path="../../learningPath/learningPathList.php" />
+    <link target="toolSelectBox"
+          path="../../learningPath/learningPathList.php" />
+  </course>
+ </context>
 
 </module>

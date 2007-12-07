@@ -1,5 +1,4 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 /*
 +----------------------------------------------------------------------+
 | CLAROLINE 1.6                                                        |
@@ -70,7 +69,7 @@ class csv
     function export()
     {
         $csvContent = '';
-
+        
         foreach( $this->recordList as $record )
         {
              foreach( $record as $field )
@@ -80,7 +79,7 @@ class csv
             // delete the last separator and create a new line
             $csvContent = substr($csvContent, 0, -1)."\n";
         }
-
+        
         if( !empty($csvContent) )     return $csvContent;
         else                        return "";
     }

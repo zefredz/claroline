@@ -1,5 +1,4 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
@@ -134,9 +133,11 @@ class ImsSection
      */
     function export($standalone)
     {
+        global $charset;
+        
         $head = $foot = "";
         if ($standalone) {
-            $head = '<?xml version = "1.0" encoding = "' . get_locale('charset') . '" standalone = "no"?>' . "\n"
+            $head = '<?xml version = "1.0" encoding = "' . $charset . '" standalone = "no"?>' . "\n"
                   . '<!DOCTYPE questestinterop SYSTEM "ims_qtiasiv1p2p1.dtd">' . "\n"
                   . "<questestinterop>\n";
             $foot = "</questestinterop>\n";
@@ -275,11 +276,12 @@ class ImsItem
       */
      function export($standalone = False)
      {
+        global $charset;
         $head = $foot = "";
         
         if( $standalone )
         {
-            $head = '<?xml version = "1.0" encoding = "'.get_locale('charset').'" standalone = "no"?>' . "\n"
+            $head = '<?xml version = "1.0" encoding = "'.$charset.'" standalone = "no"?>' . "\n"
                   . '<!DOCTYPE questestinterop SYSTEM "ims_qtiasiv1p2p1.dtd">' . "\n"
                   . "<questestinterop>\n";
             $foot = "</questestinterop>\n";

@@ -1,5 +1,5 @@
-<?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+<?php
+/* vim: set expandtab tabstop=4 shiftwidth=4: */
 //+----------------------------------------------------------------------+
 //| WAMP (XP-SP1/1.3.24/4.0.12/4.3.0)                                    |
 //+----------------------------------------------------------------------+
@@ -21,11 +21,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
 * We need the base class
 */
-include_once dirname(__FILE__) . '/' . 'class.iCalBase.inc.php';
+include_once 'class.iCalBase.inc.php';
 /**
 * We need the child class
 */
-include_once dirname(__FILE__) . '/' . 'class.iCalAlarm.inc.php';
+include_once 'class.iCalAlarm.inc.php';
 
 /**
 * Container for a single event
@@ -370,8 +370,7 @@ class iCalEvent extends iCalBase {
 	* @see $startdate_ts
 	*/
 	function &getStartDateTS() {
-		$ret = (int) $this->startdate_ts;
-        return $ret;
+		return (int) $this->startdate_ts;
 	} // end function
 
 	/**
@@ -383,8 +382,7 @@ class iCalEvent extends iCalBase {
 	* @see $enddate_ts
 	*/
 	function &getEndDateTS() {
-		$ret = (int) $this->enddate_ts;
-        return $ret;
+		return (int) $this->enddate_ts;
 	} // end function
 
 	/**
@@ -396,8 +394,7 @@ class iCalEvent extends iCalBase {
 	* @see $startdate
 	*/
 	function &getStartDate() {
-		$ret = (string) $this->startdate;
-        return $ret;
+		return (string) $this->startdate;
 	} // end function
 
 	/**
@@ -409,8 +406,7 @@ class iCalEvent extends iCalBase {
 	* @see $enddate
 	*/
 	function &getEndDate() {
-		$ret = (string) $this->enddate;
-        return $ret;
+		return (string) $this->enddate;
 	} // end function
 
 	/**
@@ -423,8 +419,7 @@ class iCalEvent extends iCalBase {
 	*/
 	function &getTransp() {
 		$transps = (array) array('OPAQUE','TRANSPARENT');
-		$ret = (string) ((array_key_exists($this->transp, $transps)) ? $transps[$this->transp] : $transps[0]);
-        return $ret;
+		return (string) ((array_key_exists($this->transp, $transps)) ? $transps[$this->transp] : $transps[0]);
 	} // end function
 
 	/**
@@ -436,8 +431,7 @@ class iCalEvent extends iCalBase {
 	* @see $uid
 	*/
 	function &getUID() {
-		$ret = (string) $this->uid;
-        return $ret;
+		return (string) $this->uid;
 	} // end function
 
 	/**
@@ -450,8 +444,7 @@ class iCalEvent extends iCalBase {
 	* @since 1.001 - 2002-10-10
 	*/
 	function &getAlarm() {
-		$ret = ((is_object($this->alarm)) ? $this->alarm : FALSE);
-        return $ret;
+		return ((is_object($this->alarm)) ? $this->alarm : FALSE);
 	} // end function
 	/**#@-*/
 } // end class iCalEvent

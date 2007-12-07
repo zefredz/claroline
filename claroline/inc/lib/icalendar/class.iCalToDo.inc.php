@@ -1,5 +1,5 @@
-<?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+<?php
+/* vim: set expandtab tabstop=4 shiftwidth=4: */
 //+----------------------------------------------------------------------+
 //| WAMP (XP-SP1/1.3.24/4.0.12/4.3.0)                                    |
 //+----------------------------------------------------------------------+
@@ -21,11 +21,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
 * We need the base class
 */
-include_once dirname(__FILE__) . '/' . 'class.iCalBase.inc.php';
+include_once 'class.iCalBase.inc.php';
 /**
 * We need the child class
 */
-include_once dirname(__FILE__) . '/' . 'class.iCalAlarm.inc.php';
+include_once 'class.iCalAlarm.inc.php';
 
 /**
 * Container for a single todo
@@ -369,8 +369,7 @@ class iCalToDo extends iCalBase {
 	* @see $uid
 	*/
 	function &getUID() {
-		$ret = (string) $this->uid;
-        return $ret;
+		return (string) $this->uid;
 	} // end function
 
 	/**
@@ -382,8 +381,7 @@ class iCalToDo extends iCalBase {
 	* @see $startdate_ts
 	*/
 	function &getStartDateTS() {
-		$ret = (int) $this->startdate_ts;
-        return $ret;
+		return (int) $this->startdate_ts;
 	} // end function
 
 	/**
@@ -395,8 +393,7 @@ class iCalToDo extends iCalBase {
 	* @see $startdate
 	*/
 	function &getStartDate() {
-		$ret = (string) $this->startdate;
-        return $ret;
+		return (string) $this->startdate;
 	} // end function
 
 	/**
@@ -409,8 +406,7 @@ class iCalToDo extends iCalBase {
 	* @since 1.020 - 2002-12-24
 	*/
 	function &getCompletedTS() {
-		$ret = (int) $this->completed_ts;
-        return $ret;
+		return (int) $this->completed_ts;
 	} // end function
 
 	/**
@@ -423,8 +419,7 @@ class iCalToDo extends iCalBase {
 	* @since 1.020 - 2002-12-24
 	*/
 	function &getCompleted() {
-		$ret = (string) $this->completed;
-        return $ret;
+		return (string) $this->completed;
 	} // end function
 
 	/**
@@ -437,8 +432,7 @@ class iCalToDo extends iCalBase {
 	* @since 1.020 - 2002-12-24
 	*/
 	function &getPercent() {
-		$ret = (int) $this->percent;
-        return $ret;
+		return (int) $this->percent;
 	} // end function
 
 	/**
@@ -451,8 +445,7 @@ class iCalToDo extends iCalBase {
 	* @since 1.020 - 2002-12-24
 	*/
 	function &getDuration() {
-		$ret = (int) $this->duration;
-        return $ret;
+		return (int) $this->duration;
 	} // end function
 
 	/**
@@ -465,8 +458,7 @@ class iCalToDo extends iCalBase {
 	* @since 1.010 - 2002-10-26
 	*/
 	function &getRecEnd() {
-		$ret = $this->rec_end;
-        return $ret;
+		return $this->rec_end;
 	} // end function
 
 	/**
@@ -479,8 +471,7 @@ class iCalToDo extends iCalBase {
 	* @since 1.001 - 2002-10-10
 	*/
 	function &getAlarm() {
-		$ret = ((is_object($this->alarm)) ? $this->alarm : FALSE);
-        return $ret;
+		return ((is_object($this->alarm)) ? $this->alarm : FALSE);
 	} // end function
 	/**#@-*/
 } // end class iCalToDo

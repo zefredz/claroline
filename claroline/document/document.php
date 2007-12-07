@@ -4,7 +4,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -14,7 +14,6 @@
  * @author Claro Team <cvs@claroline.net>
  *
  */
-
 /**
  *
  * DESCRIPTION:
@@ -38,62 +37,35 @@
  *  * 4th section display all of that on a HTML page
  */
 
-/* Programmer's documentation :
- *
- * Action variable : $_REQUEST['cmd']
- *
- * Available actions
- * - exUpload       : upload a file
- * - rqUpload       : display upload dialog
- * - submitImage    : upload image within html documents
- * - exMkHtml       : create html file
- * - exEditHtml     : edit html file
- * - exMkUrl        : create a link
- * - rqMkUrl        : display link creation dialog
- * - exMv           : move a file or directory
- * - rqMv           : display move dialog
- * - exRm           : delete a file or directory
- * - exEdit         : edit file or directory properties
- * - rqEdit         : display file properties dialog
- * - exMkDir        : create a directory
- * - rqMkDir        : display directory creation dialog
- * - exChVis        : change file or directory visibility
- * - rqSearch       : display search dialog
- * - exDownload     : download directory contents
- * - exSearch       : execute search
- */
-
 /*= = = = = = = = = = = = = = = = =
        CLAROLINE MAIN
   = = = = = = = = = = = = = = = = = = = =*/
 
-$tlabelReq = 'CLDOC';
+$tlabelReq = 'CLDOC___';
 require '../inc/claro_init_global.inc.php';
 
-if ( ! claro_is_in_a_course() || ! claro_is_course_allowed()) claro_disp_auth_form(true);
-$_course = claro_get_current_course_data();
+if ( ! $_cid || ! $is_courseAllowed) claro_disp_auth_form(true);
 
 /*
  * Library for images
  */
 
-require_once get_path('incRepositorySys') . '/lib/image.lib.php';
-require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
+require_once $includePath . '/lib/image.lib.php';
+require_once $includePath . '/lib/pager.lib.php';
+
 
 /*
- * Library for file management and display
+ * Library for the file display
  */
 
-require_once get_path('incRepositorySys') . '/lib/fileDisplay.lib.php';
-require_once get_path('incRepositorySys')  . '/lib/fileManage.lib.php';
-require_once get_path('incRepositorySys')  . '/lib/file.lib.php';
+require_once $includePath . '/lib/fileDisplay.lib.php';
 
 /*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
                      FILEMANAGER BASIC VARIABLES DEFINITION
   = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =*/
 
-$baseServDir = get_path('coursesRepositorySys');
-$baseServUrl = get_path('url') . '/';
+$baseServDir = $coursesRepositorySys;
+$baseServUrl = $urlAppend . '/';
 
 $dialogBox = '';
 
@@ -103,20 +75,19 @@ $dialogBox = '';
  * (one document area for each group)
  */
 
-if (claro_is_in_a_group() && claro_is_group_allowed())
+if ($_gid && $is_groupAllowed)
 {
-    $_group = claro_get_current_group_data();
-
     $groupContext      = TRUE;
     $courseContext     = FALSE;
 
     $maxFilledSpace    = get_conf('maxFilledSpace_for_groups');
-    $courseDir         = claro_get_course_path() . '/group/' . claro_get_current_group_data('directory');
+    $courseDir         = $_course['path'] . '/group/' . $_group['directory'];
+    $groupDir          = urlencode('group/' . $_group['directory']);
 
-    $is_allowedToEdit  = claro_is_group_member() ||  claro_is_group_tutor()|| claro_is_course_manager();
+    $is_allowedToEdit  = $is_groupMember || $is_groupTutor|| $is_courseAdmin;
     $is_allowedToUnzip =  FALSE;
 
-    if ( ! claro_is_group_allowed() )
+    if ( ! $is_groupAllowed )
     {
       die('<center>You are not allowed to see this group\'s documents!!!</center>');
     }
@@ -126,7 +97,7 @@ else
     $groupContext     = FALSE;
     $courseContext    = TRUE;
 
-    $courseDir   = claro_get_course_path().'/document';
+    $courseDir   = $_course['path'].'/document';
 
     // initialise view mode tool
     claro_set_display_mode_available(TRUE);
@@ -160,18 +131,21 @@ else
 
 $baseWorkDir = $baseServDir.$courseDir;
 
+event_access_tool($_tid, $_courseTool['label']);
+
+
+require_once $includePath . '/lib/fileManage.lib.php';
+
 if($is_allowedToEdit) // for teacher only
 {
-    require_once get_path('incRepositorySys') . '/lib/fileUpload.lib.php';
+    require_once $includePath . '/lib/fileUpload.lib.php';
 
     if (isset($_REQUEST['uncompress']) && $_REQUEST['uncompress'] == 1)
     {
-        require_once get_path('incRepositorySys') . '/lib/pclzip/pclzip.lib.php';
+        require_once $includePath . '/lib/pclzip/pclzip.lib.php';
     }
 }
 
-// XSS protection
-$cwd = isset( $_REQUEST['cwd'] ) ? $_REQUEST['cwd'] : null;
 
 // clean information submited by the user from antislash
 
@@ -181,12 +155,14 @@ else                           $cmd = null;
 if ( isset($_REQUEST['docView']) ) $docView = $_REQUEST['docView'];
 else                               $docView = 'files';
 
-if ( isset($_REQUEST['file']) ) $_REQUEST['file'] = $_REQUEST['file'];
 
-/* > > > > > > MAIN SECTION  < < < < < < <*/
+                  /* > > > > > > MAIN SECTION  < < < < < < <*/
 
-if ( $is_allowedToEdit ) // Document edition are reserved to certain people
+
+if( $is_allowedToEdit ) // Document edition are reserved to certain people
 {
+
+
     /*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
                                   UPLOAD FILE
       = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
@@ -208,93 +184,82 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
         {
             if (   isset($_REQUEST['uncompress'])
                 && $_REQUEST['uncompress'] == 1
-                && $is_allowedToUnzip
-                && preg_match('/.zip$/i',$_FILES['userFile']['name']))
-            {
-                $unzip = 'unzip';
-            }
-            else
-            {
-                $unzip = '';
-            }
+                && $is_allowedToUnzip)                $unzip = 'unzip';
+            else                                      $unzip = '';
 
-            if ( isset( $_REQUEST['comment'] ) && trim($_REQUEST['comment']) != '') // insert additional comment
-            {
-                $comment = trim($_REQUEST['comment']);
-            }
-            else
-            {
-                $comment = '';
-            }
-
-            $cwd = secure_file_path( $cwd );
+            $_REQUEST['cwd'] = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['cwd']);
 
             $uploadedFileName = treat_uploaded_file($_FILES['userFile'], $baseWorkDir,
-                                    $cwd, $maxFilledSpace, $unzip);
-
-            $uploadedFileNameList = array();
+                                    $_REQUEST['cwd'], $maxFilledSpace, $unzip);
 
             if ($uploadedFileName !== false)
             {
-                if (isset($_REQUEST['uncompress']) && $_REQUEST['uncompress'] == 1  && $unzip=='unzip')
+                if (isset($_REQUEST['uncompress']) && $_REQUEST['uncompress'] == 1)
                 {
-                    $dialogBox .= ' ' . get_lang('Zip file uploaded and uncompressed');
-
-                    foreach ( $uploadedFileName as $uploadedFile )
-                    {
-                        $uploadedFileNameList[] = $cwd . '/' . $uploadedFile['stored_filename'];
-                    }
+                    $dialogBox .= ' ' . get_lang("Zip file uploaded and uncompressed");
                 }
                 else
                 {
-                    $dialogBox .= get_lang('The upload is finished');
-                    $uploadedFileNameList[] = $cwd . '/' . $uploadedFileName;
-                }
+                    $dialogBox .= get_lang("The upload is finished");
 
-                if ( !empty($comment) )
-                {
-                    $cur_dir = $cwd;
-
-                    // add comment to each file
-                    foreach ( $uploadedFileNameList as $uploadedFileName )
+                    if ( isset( $_REQUEST['comment'] ) && trim($_REQUEST['comment']) != '') // insert additional comment
                     {
-                        $uploadedFileName = secure_file_path( $uploadedFileName);
-
-                        if ( dirname($uploadedFileName) != $cwd )
-                        {
-                            // put a comment on the folder
-                            update_db_info('update', dirname($uploadedFileName),
-                                            array('comment' => $comment ) );
-                            $cur_dir = dirname($uploadedFileName);
-                        }
-
-                        // put a comment on the file
-                        update_db_info('update', $uploadedFileName,
-                                        array('comment' => $comment ) );
+                        update_db_info('update', $_REQUEST['cwd'] . '/' . $uploadedFileName,
+                                        array('comment' => trim($_REQUEST['comment']) ) );
                     }
                 }
             }
             else
             {
-                $dialogBox .= claro_failure::get_last_failure();
+                $uploadFailure = claro_failure::get_last_failure();
+                switch ( $uploadFailure )
+                {
+                    case 'not_enough_space':
+                        $dialogBox .= get_lang("The upload has failed. There is not enough space in your directory");
+                        break;
+                    case 'php_file_in_zip_file':
+                        $dialogBox .= get_lang("The zip file can not contain .PHP files");
+                        break;
+                    case 'file_exceeds_php_upload_max_filesize' :
+                        $dialogBox .= 'File size exeeds.'
+                                   .  '<br />'.get_lang("Notice") . ' : ' . get_lang("Max file size")
+                                   . ' ' . get_cfg_var('upload_max_filesize');
+                        break;
+                    case 'file_exceeds_html_max_file_size':
+                        $dialogBox .= 'File size exceeds.' ;
+                        break;
+                    case 'file_partially_uploaded':
+                        $dialogBox .= 'File upload incomplete.';
+                        break;
+                    case 'no_file_uploaded':
+                        $dialogBox .= 'No file uploaded.';
+                        break;
+                    default:
+                        $dialogBox .= 'File upload failed.';
+                }
+
             }
 
             //notify that a new document has been uploaded
 
             $eventNotifier->notifyCourseEvent('document_file_added'
-                                             , claro_get_current_course_id()
-                                             , claro_get_current_tool_id()                                             , $cwd . '/' . $uploadedFileName
-                                             , claro_get_current_group_id()
+                                             , $_cid
+                                             , $_tid
+                                             , $_REQUEST['cwd'] . '/' . $uploadedFileName
+                                             , $_gid
                                              , '0');
+
+
 
             /*--------------------------------------------------------------------
                IN CASE OF HTML FILE, LOOKS FOR IMAGE NEEDING TO BE UPLOADED TOO
               --------------------------------------------------------------------*/
 
-            if ( preg_match('/.htm$/i',$_FILES['userFile']['name'])
-                || preg_match('/.html$/i',$_FILES['userFile']['name']) )
+
+            if (   strrchr($uploadedFileName, '.') == '.htm'
+                || strrchr($uploadedFileName, '.') == '.html')
             {
-                $imgFilePath = search_img_from_html($baseWorkDir . $cwd . '/' . $uploadedFileName);
+                $imgFilePath = search_img_from_html($baseWorkDir . $_REQUEST['cwd'] . '/' . $uploadedFileName);
 
                 /*
                  * Generate Form for image upload
@@ -305,11 +270,10 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                     $dialogBox .= '<br /><b>' . get_lang("Missing images detected") . '</b><br />' . "\n"
                     .             '<form method="post" action="' . $_SERVER['PHP_SELF'] . '" '
                     .             'enctype="multipart/form-data">' . "\n"
-                    .             claro_form_relay_context()
                     .             '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'
                     .             '<input type="hidden" name="cmd" value="submitImage" />' . "\n"
                     .             '<input type="hidden" name="relatedFile" '
-                    .             ' value="' . $cwd . '/' . $uploadedFileName . '" />' . "\n"
+                    .             ' value="' . $_REQUEST['cwd'] . '/' . $uploadedFileName . '" />' . "\n"
                     .             '<table border="0">' . "\n"
                     ;
 
@@ -320,21 +284,22 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                         .             '<label for="' . $thisImgKey . '">' . basename($thisImgFilePath) . ' : </label>' . "\n"
                         .             '</td>' . "\n"
                         .             '<td>'
-                        .             '<input type="file"  id="' . $thisImgKey . '" name="imgFile[]" />' . "\n"
-                        .             '<input type="hidden" name="imgFilePath[]"  value="' . $thisImgFilePath . '" />'
+                        .             '<input type="file"  id="' . $thisImgKey . '" name="imgFile[]">' . "\n"
+                        .             '<input type="hidden" name="imgFilePath[]" '
+                        .             ' value="' . $thisImgFilePath . '">'
                         .             '</td>' . "\n"
                         .             '</tr>' . "\n"
                         ;
                     }
 
-                    $dialogBox .= '<tr>' . "\n"
-                    .             '<td>&nbsp;</td>' . "\n"
-                    .             '<td>' . "\n"
-                    .             '<input type="submit" name="submitImage" value="' . get_lang("Ok") . '" />&nbsp;' . "\n"
+                    $dialogBox .= 'tr>'
+                    .             '<td></td>'
+                    .             '<td>'
+                    .             '<input type="submit" name="submitImage" value="' . get_lang("Ok") . '"> '
                     .             claro_html_button($_SERVER['PHP_SELF']
-                    .            '?cmd=exChDir&file=' . htmlspecialchars($cwd), get_lang("Cancel") )
-                    .             '</td>' . "\n"
-                    .             '</tr>' . "\n\n"
+                    .            '?cmd=exChDir&file=' . htmlspecialchars($_REQUEST['cwd']), get_lang("Cancel") )
+                    .             '</td>'
+                    .             '</tr>'
                     .             '</table>' . "\n"
                     .             '</form>' . "\n"
                     ;
@@ -350,95 +315,60 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
          */
 
         $spaceAlreadyOccupied = dir_total_space($baseWorkDir);
-        $remainingDiskSpace = $maxFilledSpace - $spaceAlreadyOccupied;
-        $maxUploadSize = get_max_upload_size( $maxFilledSpace,$baseWorkDir );
 
-        if ( $remainingDiskSpace < 0 )
+        /*
+         * Technical note: 'cmd=exUpload' is added into the 'action'
+         * attributes of the form, rather than simply put in a post
+         * hidden input. That way, this parameter is concatenated with
+         * the URL, and it guarantees than it will be received by the
+         * server. The reason of this trick, is because, sometimes,
+         * when file upload fails, no form data are received at all by
+         * the server. For example when the size of the sent file is so
+         * huge that its reception exceeds the max execution time
+         * allowed for the script. When no 'cmd' argument are sent it is
+         * impossible to manage this error gracefully. That's why,
+         * exceptionally, we pass 'cmd' in the 'action' attribute of
+         * the form.
+         */
+
+        $dialogBox .= "<form action=\"".$_SERVER['PHP_SELF']."?cmd=exUpload\" method=\"post\" enctype=\"multipart/form-data\">"
+                     ."<input type=\"hidden\" name=\"cmd\" value=\"exUpload\">"
+                     ."<input type=\"hidden\" name=\"cwd\" value=\"".$_REQUEST['cwd']."\">"
+                     ."<label for=\"userFile\">".get_lang("Upload file")." : </label><br />"
+                     ."<input type=\"file\" id=\"userFile\" name=\"userFile\"> "
+                     ."<table border='0'>"
+                     ."<tr>"
+                     ."<td><small>".get_lang('Max file size')." :</small></td>"
+                     ."<td><small> : ".format_file_size( get_max_upload_size($maxFilledSpace,$baseWorkDir) )."</small></td>"
+                     ."</tr>"
+                     ."<tr>"
+                     ."<td><small>Disk space available</small></td>"
+                     ."<td><small>  : ".claro_html_progress_bar( $spaceAlreadyOccupied / $maxFilledSpace * 100 , 1) .' '.format_file_size($maxFilledSpace - $spaceAlreadyOccupied)."</small></td>"
+                     ."</tr>"
+                     ."</table>\n";
+
+        if ($is_allowedToUnzip)
         {
-            // Disk quota exceeded
-
-            $remainingDiskSpace = 0;
-
-            $adminEmailUrl = '<a href="mailto:'.get_conf('administrator_email').'">'
-                . get_lang('Platform Administrator') . '</a>';
-            $dialogBox .= '<p>' . get_lang( 'Disk quota exceeded, please contact the %administrator',
-                    array ( '%administrator' => $adminEmailUrl ) ) . '<br />' . "\n"
-                . '<small>' . get_lang('Maximum disk space : %size',array('%size'=>format_file_size($maxFilledSpace))) . '</small><br />' . "\n"
-                . '<small>' . get_lang('Disk space occupied : %size',array('%size'=>format_file_size($spaceAlreadyOccupied))) . '</small><br />' . "\n"
-                . '<small>' . get_lang('Disk space available : %size',array('%size'=>format_file_size($remainingDiskSpace))) . '</small>'
-                . '</p>' . "\n"
-                ;
+            $dialogBox .= "<img src=\"".$imgRepositoryWeb."zip.gif\" alt=\"\">"
+                          ."<input type=\"checkbox\" id=\"uncompress\" name=\"uncompress\" value=\"1\">"
+                          ."<label for=\"uncompress\">".get_lang("uncompress zipped (.zip) file on the server")."</label>";
         }
-        else
+
+        if ($courseContext)
         {
-            /*
-             * Technical note: 'cmd=exUpload' is added into the 'action'
-             * attributes of the form, rather than simply put in a post
-             * hidden input. That way, this parameter is concatenated with
-             * the URL, and it guarantees than it will be received by the
-             * server. The reason of this trick, is because, sometimes,
-             * when file upload fails, no form data are received at all by
-             * the server. For example when the size of the sent file is so
-             * huge that its reception exceeds the max execution time
-             * allowed for the script. When no 'cmd' argument are sent it is
-             * impossible to manage this error gracefully. That's why,
-             * exceptionally, we pass 'cmd' in the 'action' attribute of
-             * the form.
-             */
-
-            $dialogBox .= '<form action="' . $_SERVER['PHP_SELF'] . '" method="post" enctype="multipart/form-data">'
-                       .  '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n"
-                       .  claro_form_relay_context()
-                       .  '<input type="hidden" name="cmd" value="exUpload" />' . "\n"
-                       .  '<input type="hidden" name="cwd" value="' . htmlspecialchars($cwd) . '" />' . "\n"
-                       .  '<label for="userFile">' . get_lang("Upload file") . ' : </label>' . "\n"
-                       .  '<br />' . "\n"
-                       .  '<input type="file" id="userFile" name="userFile" /> ' . "\n"
-                       .  '<table border="0">' . "\n"
-                       .  '<tr>' . "\n"
-                       .  '<td>' . "\n"
-                       .  '<small>' . get_lang("Max file size") . '</small>' . "\n"
-                       .  '</td>' . "\n"
-                       .  '<td>' . "\n"
-                       .  '<small> : ' . format_file_size( $maxUploadSize ) . '</small>' . "\n"
-                       .  '</td>' . "\n"
-                       .  '</tr>' . "\n"
-                       .  '<tr>' . "\n"
-                       .  '<td>' . "\n"
-                       .  '<small>' . get_lang("Disk space available") . '</small>' . "\n"
-                       .  '</td>' . "\n"
-                       .  '<td>' . "\n"
-                       .  '<small>  :' . "\n"
-                       .  claro_html_progress_bar( $spaceAlreadyOccupied / $maxFilledSpace * 100 , 1) . "\n"
-                       .  format_file_size($remainingDiskSpace)
-                       . '</small>' . "\n"
-                       .  '</td>' . "\n"
-                       .  '</tr>' . "\n"
-                       .  '</table>' . "\n"
-                       ;
-            if ($is_allowedToUnzip)
-            {
-                $dialogBox .= '<img src="' . get_path('imgRepositoryWeb') . 'zip.gif" alt="" />'
-                              .'<input type="checkbox" id="uncompress" name="uncompress" value="1" />'
-                              .'<label for="uncompress">'.get_lang('uncompress zipped (.zip) file on the server').'</label>';
-            }
-
-            if ($courseContext)
-            {
-                if (!isset($oldComment)) $oldComment = "";
-                $dialogBox .= '<p>'
-                            . '<label for="comment">'.get_lang('Add a comment (optionnal) :').'</label>'
-                            . '<br />'
-                            . '<textarea rows=2 cols=50 id="comment" name="comment">'
-                            . htmlspecialchars($oldComment)
-                            .'</textarea>'
-                            .'</p>' . "\n";
-            }
-
-            $dialogBox .= '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp; '
-                       .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='. rawurlencode($cwd), get_lang('Cancel'))
-                       .'</form>';
+            if (!isset($oldComment)) $oldComment = "";
+        $dialogBox .= "<p>\n"
+                        ."<label for=\"comment\">".get_lang("Add a comment (optionnal) :")."</label>"
+                        ."<br /><textarea rows=2 cols=50 id=\"comment\" name=\"comment\">"
+                        .$oldComment
+                        ."</textarea>\n"
+                        ."</p>\n";
         }
+
+        $dialogBox .= "<input style=\"font-weight: bold\" type=\"submit\" value=\"".get_lang("Ok")."\"> "
+                   .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars($_REQUEST['cwd']),
+                                      get_lang("Cancel"))
+                   ."</form>";
     }
 
 
@@ -454,7 +384,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
         if ($uploadImgFileNb > 0)
         {
             // Try to create  a directory to store the image files
-            $_REQUEST['relatedFile'] = secure_file_path( $_REQUEST['relatedFile']);
+            $_REQUEST['relatedFile'] = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['relatedFile']);
 
             $imgDirectory = $_REQUEST['relatedFile'].'_files';
             $imgDirectory = create_unexisting_directory($baseWorkDir.$imgDirectory);
@@ -467,19 +397,18 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
             // Try to create  a directory to store the image files
             $newImgPathList = move_uploaded_file_collection_into_directory($_FILES['imgFile'], $imgDirectory);
 
-            if ( !empty( $newImgPathList ) )
-            {
-                $newImgPathList = array_map('rawurlencode', $newImgPathList);
-                // rawurlencode() does too much. We don't need to replace '/' by '%2F'
-                $newImgPathList = str_replace('%2F', '/', $newImgPathList);
 
-                replace_img_path_in_html_file($_REQUEST['imgFilePath'],
+            $newImgPathList = array_map('urlencode', $newImgPathList);
+            // urlencode() does too much. We don't need to replace '/' by '%2F'
+            $newImgPathList = str_replace('%2F', '/', $newImgPathList);
+
+            replace_img_path_in_html_file($_REQUEST['imgFilePath'],
                                           $newImgPathList,
                                           $baseWorkDir.$_REQUEST['relatedFile']);
 
-            }
         }                                            // end if ($uploadImgFileNb > 0)
     }                                        // end if ($submitImage)
+
 
 
     /*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -492,7 +421,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
 
     $htmlContentHeader = '<html>' . "\n"
         . '<head>' . "\n"
-        . '<meta http-equiv="Content-Type" content="text/HTML; charset=' . get_locale('charset') . '"  />' . "\n"
+        . '<meta http-equiv="Content-Type" content="text/HTML; charset=' . $charset . '"  />' . "\n"
         . '</head>' . "\n"
         . '<body>' . "\n";
 
@@ -501,7 +430,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
     if ('exMkHtml' == $cmd)
     {
         $fileName = replace_dangerous_char(trim($_REQUEST['fileName']));
-        $cwd = secure_file_path( $cwd);
+        $_REQUEST['cwd'] = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['cwd']);
 
         if (! empty($fileName) )
         {
@@ -511,28 +440,29 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                 $fileName = $fileName.'.htm';
             }
 
-            $cwd = secure_file_path( $cwd);
+            $_REQUEST['cwd'] = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['cwd']);
 
-            $htmlContent = claro_parse_user_text( $_REQUEST['htmlContent'] );
+            $htmlContent =  $htmlContentHeader . $_REQUEST['htmlContent'] . $htmlContentFooter;
 
-            $htmlContent =  $htmlContentHeader . $htmlContent . $htmlContentFooter;
-
-            create_file($baseWorkDir.$cwd.'/'.$fileName,
+            create_file($baseWorkDir.$_REQUEST['cwd'].'/'.$fileName,
                         $htmlContent);
 
-            $eventNotifier->notifyCourseEvent('document_htmlfile_created',claro_get_current_course_id(), claro_get_current_tool_id(), $cwd.'/'.$fileName, claro_get_current_group_id(), "0");
-            $dialogBox .= get_lang('File created');
+            $eventNotifier->notifyCourseEvent("document_htmlfile_created",$_cid, $_tid, $_REQUEST['cwd'].'/'.$fileName, $_gid, "0");
+            $dialogBox .= get_lang("File created");
         }
         else
         {
-            $dialogBox .= get_lang('File name is missing');
+            $dialogBox .= get_lang("File name is missing");
 
             if (!empty($_REQUEST['htmlContent']))
             {
-                $dialogBox .= '<p>'
-                             . '<a href="rqmkhtml.php?cmd=rqMkHtml&amp;cwd='.rawurlencode($cwd)
-                             . '&amp;htmlContent='.rawurlencode($_REQUEST['htmlContent']).'">' . get_lang('Back to the editor'). '</a>'
-                             . '</p>' . "\n";
+                $dialogBox .= "<p>\n"
+                             ."<a href=\"rqmkhtml.php"
+                             ."?cmd=rqMkHtml"
+                             ."&amp;cwd=".urlencode($_REQUEST['cwd'])
+                             ."&amp;htmlContent=".urlencode($_REQUEST['htmlContent'])."\">\n"
+                             .get_lang("Back to the editor")."\n"
+                             ."</p>\n";
             }
         }
     }
@@ -548,22 +478,19 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                              EDIT DOCUMENT CONTENT
       = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 
-    // TODO use the same code as exMkHml
     if ('exEditHtml' == $cmd)
     {
-        $_REQUEST['file'] = secure_file_path( $_REQUEST['file']);
+        $_REQUEST['file'] = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['file']);
         $fp = fopen($baseWorkDir.$_REQUEST['file'], 'w');
 
         if ($fp)
         {
-            $htmlContent = claro_parse_user_text( $_REQUEST['htmlContent'] );
-
-            $htmlContent =  $htmlContentHeader . $htmlContent . $htmlContentFooter;
+            $htmlContent =  $htmlContentHeader . $_REQUEST['htmlContent'] . $htmlContentFooter;
 
             if ( fwrite($fp, $htmlContent) )
             {
-                $eventNotifier->notifyCourseEvent('document_htmlfile_edited',claro_get_current_course_id(), claro_get_current_tool_id(), $_REQUEST['file'], claro_get_current_group_id(), "0");
-                                $dialogBox .= get_lang('File content modified').'<br />';
+                $eventNotifier->notifyCourseEvent("document_htmlfile_edited",$_cid, $_tid, $_REQUEST['file'], $_gid, "0");
+                                $dialogBox .= get_lang("File content modified")."<br />";
             }
 
         }
@@ -588,7 +515,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
         $fileName = replace_dangerous_char(trim($_REQUEST['fileName']));
         $url = trim($_REQUEST['url']);
 
-        $cwd = secure_file_path( $cwd);
+        $_REQUEST['cwd'] = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['cwd']);
 
         // check for "http://", if the user forgot "http://" or "ftp://" or ...
         // the link will not be correct
@@ -601,14 +528,14 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
         if ( ! empty($fileName) && ! empty($url) )
         {
             $linkFileExt = '.url';
-            create_link_file( $baseWorkDir.$cwd.'/'.$fileName.$linkFileExt,
+            create_link_file( $baseWorkDir.$_REQUEST['cwd'].'/'.$fileName.$linkFileExt,
                               $url);
 
             if (   isset($_REQUEST['comment'])
                 && trim($_REQUEST['comment']) != ''
                 && $courseContext                     )
             {
-                update_db_info('update', $cwd.'/'.$fileName.$linkFileExt,
+                update_db_info('update', $_REQUEST['cwd'].'/'.$fileName.$linkFileExt,
                                 array('comment' => trim($_REQUEST['comment']) ) );
             }
         }
@@ -625,32 +552,30 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
 
     if ('rqMkUrl' == $cmd )
     {
-        $dialogBox .= get_lang('Create hyperlink')."\n"
-                   .  '<form action="'.$_SERVER['PHP_SELF'].'" method="post">' . "\n"
-                   .  claro_form_relay_context()
-                   .  '<input type="hidden" name="cmd" value="exMkUrl" />' . "\n"
-                     .'<input type="hidden" name="cwd" value="'. htmlspecialchars($cwd).'" />' . "\n"
-                     .'<label for="fileName">' . get_lang('Name'). ' : </label><br />' . "\n"
-                     .'<input type="text" id="fileName" name="fileName" /><br />' . "\n"
-                     .'<label for="url">'. get_lang('URL'). ' : </label><br />' . "\n"
-                     .'<input type="text" id="url" name="url" value="" />' . "\n"
-                     .'<br />' . "\n";
+        $dialogBox .= "<h4>".get_lang("Create hyperlink")."</h4>\n"
+                     ."<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\">\n"
+                     ."<input type=\"hidden\" name=\"cmd\" value=\"exMkUrl\">\n"
+                     ."<input type=\"hidden\" name=\"cwd\" value=\"".$_REQUEST['cwd']."\">"
+                     ."<label for=\"fileName\">".get_lang("Name")." : </label><br />\n"
+                     ."<input type=\"text\" id=\"fileName\" name=\"fileName\"><br />\n"
+                     ."<label for=\"url\">".get_lang("URL : ")."</label><br />\n"
+                     ."<input type=\"text\" id=\"url\" name=\"url\" value=\"\">\n"
+                     ."<br /><br />\n";
 
         if ($courseContext)
         {
-            $dialogBox .= '<p><label for="comment">'
-                        .get_lang('Add a comment (optionnal) :')
-                        . '</label>'
-                        . '<br />' . "\n"
-                        .'<textarea rows="2" cols="50" id="comment" name="comment"></textarea>' . "\n"
-                        .'</p>' . "\n";
+            $dialogBox .= "<label for=\"comment\">\n"
+                        ."Add a comment (optionnal) :\n"
+                        ."</label>\n"
+                        ."<br />\n"
+                        ."<textarea rows=\"2\" cols=\"50\" id=\"comment\" name=\"comment\"></textarea>\n"
+                        ."<br />\n";
         }
 
-        $dialogBox .= '<input type="submit" value="'.get_lang('Ok') . '" />&nbsp; '
-                   .  claro_html_button($_SERVER['PHP_SELF']
-                   .  '?cmd=exChDir&file='.rawurlencode($cwd), get_lang('Cancel'))
-                   .  '</form>' . "\n"
-                   ;
+        $dialogBox .= "<input type=\"submit\" value=\"".get_lang("Ok")."\">\n"
+                     .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars($_REQUEST['cwd']),
+                                       get_lang("Cancel"))
+                     ."</form>\n";
 
     }
 
@@ -665,8 +590,8 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
 
     if ('exMv' == $cmd )
     {
-        $_REQUEST['file'       ] = secure_file_path( $_REQUEST['file'       ]);
-        $_REQUEST['destination'] = secure_file_path( $_REQUEST['destination']);
+        $_REQUEST['file'       ] = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['file'       ]);
+        $_REQUEST['destination'] = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['destination']);
 
         if ( claro_move_file($baseWorkDir.$_REQUEST['file'],$baseWorkDir.$_REQUEST['destination']) )
         {
@@ -679,13 +604,13 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
             }
             $ressource['old_uri'] = $_REQUEST['file'];
             $ressource['new_uri'] = $_REQUEST['destination'].'/'.basename($_REQUEST['file']);
-            $eventNotifier->notifyCourseEvent('document_moved', claro_get_current_course_id(), claro_get_current_tool_id(), $ressource, claro_get_current_group_id(), '0');
+            $eventNotifier->notifyCourseEvent('document_moved', $_cid, $_tid, $ressource, $_gid, '0');
 
-            $dialogBox = get_lang('Element moved').'<br />';
+            $dialogBox = get_lang("Element moved").'<br />';
         }
         else
         {
-            $dialogBox = get_lang('Operation impossible').'<br />';
+            $dialogBox = get_lang("Operation impossible").'<br />';
 
             if ( claro_failure::get_last_failure() == 'FILE EXISTS' )
             {
@@ -703,6 +628,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
         }
     }
 
+
     /*------------------------------------------------------------------------
                         MOVE FILE OR DIRECTORY : STEP 1
     --------------------------------------------------------------------------*/
@@ -712,13 +638,16 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
         $dialogBox .= form_dir_list($_REQUEST['file'], $baseWorkDir);
     }
 
+
+
     /*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
                             DELETE FILE OR DIRECTORY
       = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 
+
     if ('exRm' == $cmd )
     {
-        $file = secure_file_path( $_REQUEST['file']);
+        $file = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['file']);
 
         if ( claro_delete_file($baseWorkDir.$file))
         {
@@ -730,11 +659,14 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
 
             //notify that a document has been deleted
 
-            $eventNotifier->notifyCourseEvent("document_file_deleted",claro_get_current_course_id(), claro_get_current_tool_id(), $_REQUEST['file'], claro_get_current_group_id(), "0");
+            $eventNotifier->notifyCourseEvent("document_file_deleted",$_cid, $_tid, $_REQUEST['file'], $_gid, "0");
 
             $dialogBox = get_lang("Document deleted");
         }
     }
+
+
+
 
     /*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
                                       EDIT
@@ -745,6 +677,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
      * so it allows to return to STEP 1
      * if STEP 2 unsucceds
      */
+
 
     /*------------------------------------------------------------------------
                                  EDIT : STEP 2
@@ -782,7 +715,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
             $directoryName = '';
         }
 
-        $_REQUEST['newName'] = secure_file_path( trim($_REQUEST['newName']));
+        $_REQUEST['newName'] = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', trim($_REQUEST['newName']));
 
 
         if ( ! empty($_REQUEST['newName']) )
@@ -791,17 +724,15 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
         }
         else
         {
-            $newPath = secure_file_path( $_REQUEST['file'] );
+            $newPath = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['file']);
         }
 
-        $oldPath = secure_file_path( $_REQUEST['file'] );
-
-        $newPath = claro_rename_file( $baseWorkDir.$oldPath, $baseWorkDir.$newPath );
+        $newPath = claro_rename_file($baseWorkDir.$_REQUEST['file'], $baseWorkDir.$newPath);
 
         if ( $newPath )
         {
             $newPath = substr($newPath, strlen($baseWorkDir) );
-            $dialogBox = get_lang('Element renamed').'<br />';
+            $dialogBox = get_lang("Element renamed").'<br />';
 
             if ($courseContext)
             {
@@ -813,23 +744,23 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
 
                 update_Doc_Path_in_Assets('update', $_REQUEST['file'], $newPath);
 
-                if ( ! empty($newComment) ) $dialogBox .= get_lang('Comment modified').'<br />';
+                if ( ! empty($newComment) ) $dialogBox .= get_lang("Comment modified").'<br />';
             }
 
             $ressource['old_uri'] = str_replace('..', '', $_REQUEST['file']);
             $ressource['new_uri'] = $newPath;
-            $eventNotifier->notifyCourseEvent('document_file_modified',claro_get_current_course_id(), claro_get_current_tool_id(), $ressource , claro_get_current_group_id(), "0");
+            $eventNotifier->notifyCourseEvent("document_file_modified",$_cid, $_tid, $ressource , $_gid, "0");
         }
         else
         {
-            $dialogBox .= get_lang('Operation impossible.') . '<br />' . "\n"
-                          . get_lang('A file with this name already exists.');
+            $dialogBox .= get_lang("Operation impossible.<br />A file with this name already exists.");
 
             /* return to step 1 */
 
             $cmd = 'rqEdit';
         }
     }
+
 
     /*------------------------------------------------------------------------
                                  EDIT : STEP 1
@@ -839,38 +770,22 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
     {
         $fileName = basename($_REQUEST['file']);
 
-        $dialogBox .= '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">'
-        .             claro_form_relay_context()
-        .             '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
-        .             '<input type="hidden" name="file" value="' . $_REQUEST['file'] . '" />' . "\n"
-        .             '<p>'
-        .             '<label for="newName">'
-        .             get_lang('Rename %filename in', array ('%filename' => htmlspecialchars($fileName) ) )
-        .             ' : '
-        .             '</label>' . "\n"
-        .             '<br />' . "\n"
-        .             '<input type="text" id="newName" name="newName" value="' . htmlspecialchars($fileName) . '" />' . "\n"
-        .           '</p>' . "\n"
-        ;
+        $dialogBox .=     "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\">"
+                        ."<input type=\"hidden\" name=\"cmd\" value=\"exEdit\">\n"
+                        ."<input type=\"hidden\" name=\"file\" value=\"".$_REQUEST['file']."\">\n"
+                        ."<p>\n"
+                        ."<label for=\"newName\">".get_lang("Rename")." ".htmlspecialchars($fileName)
+                        ." ".get_lang("in")." : </Label>\n"
+                        ."<br /><input type=\"text\" id=\"newName\" name=\"newName\" value=\"". htmlspecialchars($fileName) ."\">\n"
+                        ."</p>\n";
 
         if ('url' == get_file_extension($baseWorkDir.$_REQUEST['file']) )
         {
-            if( file_exists($baseWorkDir.$_REQUEST['file']) )
-            {
-                $url = get_link_file_url($baseWorkDir.$_REQUEST['file']);
-            }
-            else
-            {
-                $url = '';
-            }
+            $url = get_link_file_url($baseWorkDir.$_REQUEST['file']);
 
-            $dialogBox .= '<p>' . "\n"
-            .             '<label for="url">' . get_lang('URL') . ' : ' . "\n"
-            .             '</label>' . "\n"
-            .             '<br />' . "\n"
-            .             '<input type="text" id="url" name="url" value="' . htmlspecialchars($url) . '" />' . "\n"
-            .             '</p>' . "\n"
-            ;
+            $dialogBox .= "<p><label for=\"url\">".get_lang("URL : ")."</label><br />\n"
+                         ."<input type=\"text\" id=\"url\" name=\"url\" value=\"".htmlspecialchars($url)."\">\n"
+                         ."</p>\n";
         }
 
         if ($courseContext)
@@ -878,23 +793,21 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
             /* Search the old comment */
             $sql = "SELECT comment
                     FROM `".$dbTable."`
-                    WHERE path = \"". addslashes($_REQUEST['file']) ."\"";
+                    WHERE path = \"".$_REQUEST['file']."\"";
 
-            $result = claro_sql_query ($sql);
-
+            $result = mysql_query ($sql);
             while( $row = mysql_fetch_array($result, MYSQL_ASSOC) ) $oldComment = $row['comment'];
 
             //list($oldComment) = claro_sql_query_fetch_all($sql);
 
-            if (!isset($oldComment)) $oldComment = "";
+        if (!isset($oldComment)) $oldComment = "";
 
-            $dialogBox .= '<p><label for="newComment">'
-                          . get_lang('Add/modify a comment to %documentName',array('%documentName'=>htmlspecialchars($fileName))) . '</label>'
-                          . '<br />' . "\n"
-                          . '<textarea rows="2" cols="50" name="newComment" id="newComment">'
-                          . htmlspecialchars($oldComment)
-                          . '</textarea>'
-                          . '</p>' . "\n";
+            $dialogBox .= "<p>\n<label for=\"newComment\">"
+                          .get_lang("Add/modify a comment to")." ".htmlspecialchars($fileName)."</label>\n"
+                          ."<br /><textarea rows=\"2\" cols=\"50\" name=\"newComment\" id=\"newComment\">"
+                          .$oldComment
+                          ."</textarea>\n"
+                          ."</p>\n";
         }
 
         /*
@@ -906,15 +819,22 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                        array('html', 'htm') ) )
         {
 
-            $dialogBox .= '<p><a href="rqmkhtml.php?cmd=rqEditHtml&amp;file='. rawurlencode($_REQUEST['file']) .'">'
-                          .get_lang('Edit file content') . '</a></p>';
+            $dialogBox .= "<p>"
+                          ."<a href=\"rqmkhtml.php?cmd=rqEditHtml&amp;file=".$_REQUEST['file']."\">"
+                          .get_lang("Edit file content")
+                          ."</a>"
+                          ."</p>";
         }
 
-        $dialogBox .= '<br /><input type="submit" value="'.get_lang('Ok').'" />&nbsp; '
-                      .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars(claro_dirname($_REQUEST['file'])), get_lang('Cancel'))
-                     .'</form>' . "\n";
+        $dialogBox .= "<br /><input type=\"submit\" value=\"".get_lang("Ok")."\">\n"
+                      .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars(claro_dirname($_REQUEST['file'])),
+                                         get_lang("Cancel"))
+                     ."</form>\n";
 
     } // end if cmd == rqEdit
+
+
+
 
     /*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
                                 CREATE DIRECTORY
@@ -934,28 +854,25 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
     {
         $newDirName = replace_dangerous_char(trim($_REQUEST['newName']));
 
-        $cwd = secure_file_path( $cwd);
+        $_REQUEST['cwd'] = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['cwd']);
 
-        if( check_name_exist($baseWorkDir.$cwd.'/'.$newDirName) )
+        if( check_name_exist($baseWorkDir.$_REQUEST['cwd'].'/'.$newDirName) )
         {
-            $dialogBox = get_lang('Operation impossible.') . '<br />' . "\n"
-                        . get_lang('A file with this name already exists.');
+            $dialogBox = get_lang("Operation impossible.<br />A file with this name already exists.");
             $cmd = 'rqMkDir';
         }
         else
         {
-            claro_mkdir($baseWorkDir.$cwd.'/'.$newDirName, CLARO_FILE_PERMISSIONS);
+            claro_mkdir($baseWorkDir.$_REQUEST['cwd'].'/'.$newDirName, CLARO_FILE_PERMISSIONS);
 
-            $comment = isset($_REQUEST['comment'])?trim($_REQUEST['comment']):'';
-
-            if ( !empty($comment) && $courseContext)
+            if ( trim($_REQUEST['comment']) != '' && $courseContext)
             {
-                update_db_info('update', $cwd.'/'.$newDirName,
-                                array('comment' => $comment) );
+                update_db_info('update', $_REQUEST['cwd'].'/'.$newDirName,
+                                array('comment' => trim($_REQUEST['comment']) ) );
             }
 
             $dialogBox = get_lang("Directory created");
-            $eventNotifier->notifyCourseEvent("document_file_added",claro_get_current_course_id(), claro_get_current_tool_id(), $cwd.'/'.$newDirName, claro_get_current_group_id(), "0");
+            $eventNotifier->notifyCourseEvent("document_file_added",$_cid, $_tid, $_REQUEST['cwd'].'/'.$newDirName, $_gid, "0");
         }
     }
 
@@ -966,26 +883,22 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
 
     if ('rqMkDir' == $cmd )
     {
-        $dialogBox .= '<form>' . "\n"
-                      . '<input type="hidden" name="cmd" value="exMkDir" />' . "\n"
-                      . '<input type="hidden" name="cwd" value="'. htmlspecialchars($cwd).'" />' . "\n"
-                      . '<label for="newName">' . get_lang('Name of the new directory').' : </label><br />' . "\n"
-                      . '<input type="text" id="newName" name="newName" />' . "\n"
-                      . '<br />' . "\n" ;
-
-        if ( $courseContext )
-        {
-            $dialogBox .= '<p><label for="comment">' . "\n"
-                       .get_lang('Add a comment (optionnal) :') . "\n"
-                       .'</label>' . "\n"
-                       .'<br />' . "\n"
-                       .'<textarea rows="2" cols="50" id="comment" name="comment"></textarea>' . "\n"
-                       .'</p>' . "\n";
-        }
-
-        $dialogBox .= '<input type="submit" value="'.get_lang('Ok').'" />&nbsp; '
-                      .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.rawurlencode($cwd), get_lang('Cancel'))
-                      .'</form>' . "\n";
+        $dialogBox .= "<form>\n"
+                      ."<input type=\"hidden\" name=\"cmd\" value=\"exMkDir\">\n"
+                      ."<input type=\"hidden\" name=\"cwd\" value=\"".$_REQUEST['cwd']."\">\n"
+                      ."<label for=\"newName\">".get_lang("Name of the new directory")." : </label><br />\n"
+                      ."<input type=\"text\" id=\"newName\" name=\"newName\">\n"
+                      ."<br />"
+                      ."<label for=\"comment\">\n"
+                      ."Add a comment (optionnal) :\n"
+                      ."</label>\n"
+                      ."<br />\n"
+                      ."<textarea rows=\"2\" cols=\"50\" id=\"comment\" name=\"comment\"></textarea>\n"
+                      ."<br />\n"
+                      ."<input type=\"submit\" value=\"".get_lang("Ok")."\">\n"
+                      .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars($_REQUEST['cwd']),
+                                                get_lang("Cancel"))
+                      ."</form>\n";
     }
 
     /*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -994,38 +907,40 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
 
     if ('exChVis'  == $cmd && $courseContext)
     {
-        $_REQUEST['file'] = secure_file_path( $_REQUEST['file']);
+        $_REQUEST['file'] = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['file']);
 
         update_db_info('update', $_REQUEST['file'], array('visibility' => $_REQUEST['vis']) );
 
-        $dialogBox = get_lang("Visibility modified");
+    $dialogBox = get_lang("Visibility modified");
 
         //notify claroline that visibility changed
 
-        if ($_REQUEST['vis'] == 'v')
+    if ($_REQUEST['vis'] == 'v')
         {
-            $eventNotifier->notifyCourseEvent("document_visible",claro_get_current_course_id(), claro_get_current_tool_id(), $_REQUEST['file'], claro_get_current_group_id(), "0");
+        $eventNotifier->notifyCourseEvent("document_visible",$_cid, $_tid, $_REQUEST['file'], $_gid, "0");
         }
         else
-        {
-            $eventNotifier->notifyCourseEvent("document_invisible",claro_get_current_course_id(), claro_get_current_tool_id(), $_REQUEST['file'], claro_get_current_group_id(), "0");
-        }
+            {
+                $eventNotifier->notifyCourseEvent("document_invisible",$_cid, $_tid, $_REQUEST['file'], $_gid, "0");
+            }
     }
 } // END is Allowed to Edit
 
+
+
 if ('rqSearch' == $cmd )
 {
-    $searchMsg = empty($cwd) ? get_lang("Search")." :" : get_lang('Search in %currentDirectory', array('%currentDirectory'=>$cwd) )." :" ;
-    $dialogBox .=   '<form>' . "\n"
-                    . '<input type="hidden" name="cmd" value="exSearch" />' . "\n"
-                    . '<label for="searchPattern">' .$searchMsg . '</label><br />' . "\n"
-                    . '<input type="text" id="searchPattern" name="searchPattern" />' . "\n"
-                    . '<input type="hidden" name="cwd" value="' . htmlspecialchars($cwd) . '" /><br /><br />' . "\n"
-                    . '<input type="submit" value="' . get_lang('Ok' ) . '" />&nbsp;'
-                    .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='. rawurlencode($cwd),
+    $searchMsg = empty($_REQUEST['cwd']) ? get_lang("Search")." :" : get_lang("Search in ").$_REQUEST['cwd']." :" ;
+    $dialogBox .=     "<form>\n"
+                    ."<input type=\"hidden\" name=\"cmd\" value=\"exSearch\">\n"
+                    ."<label for=\"searchPattern\">".$searchMsg."</label><br />\n"
+                    ."<input type=\"text\" id=\"searchPattern\" name=\"searchPattern\">\n"
+                    ."<input type=\"hidden\" name=\"cwd\" value=\"".$_REQUEST['cwd']."\"><br />\n"
+                    ."<input type=\"submit\" value=\"".get_lang("Ok")."\">\n"
+                    .claro_html_button($_SERVER['PHP_SELF']. '?cmd=exChDir&file='.htmlspecialchars($_REQUEST['cwd']),
                                        get_lang("Cancel"))
 
-                    .'</form>' . "\n";
+                    ."</form>\n";
 }
 
 if ('exDownload' == $cmd )
@@ -1034,10 +949,10 @@ if ('exDownload' == $cmd )
      * PREPARE THE FILE COLLECTION
      */
 
-    if ( isset( $_REQUEST['file'] ) )
+    if ( isset($_REQUEST['file'] ) )
     {
         $requestDownloadPath = $baseWorkDir
-                             . secure_file_path( $_REQUEST['file']);
+                             . preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['file']);
         $searchDownloadPattern = '';
     }
     elseif( isset($_REQUEST['searchPattern']) )
@@ -1050,7 +965,11 @@ if ('exDownload' == $cmd )
     {
         // Build an exclude file list to prevent simple user
         // to see document contained in "invisible" directories
-        $searchExcludeList = getInvisibleDocumentList($baseWorkDir);
+
+        $sql = "SELECT path FROM `".$dbTable."` WHERE visibility ='i'";
+
+        $searchExcludeList = claro_sql_query_fetch_all_cols($sql);
+        $searchExcludeList = $searchExcludeList['path'];
     }
     else
     {
@@ -1060,97 +979,49 @@ if ('exDownload' == $cmd )
     $filePathList = claro_search_file(search_string_to_pcre($searchDownloadPattern),
                                       $requestDownloadPath,
                                       true,
-                                      'FILE',
+                                      'ALL',
                                       $searchExcludeList);
 
     /*
      * BUILD THE ZIP ARCHIVE
      */
 
-    require_once get_path('incRepositorySys') . '/lib/pclzip/pclzip.lib.php';
+    require_once $includePath . '/lib/pclzip/pclzip.lib.php';
 
-    // Build archive in tmp course folder
-    $downloadArchivePath = get_path('coursesRepositorySys') . claro_get_course_path() . '/tmp';
-    $downloadArchiveFile = $downloadArchivePath . '/' . uniqid('') . '.zip';
-
-    // Create the temp dir if it doesn't exist
-    // or do a cleanup before creating the zipfile
-
-    if(!is_dir($downloadArchivePath))
-    {
-        mkdir($downloadArchivePath);
-    }
-    else
-    {
-        // Delete old archive files - fix bug
-        $handle=opendir($downloadArchivePath);
-        while ( false !== ($file = readdir($handle)) )
-        {
-            if ($file != '.' && $file != '..')
-            {
-                $fileCreationTimeInMinute = (time() - filemtime($downloadArchivePath . '/' . $file))/60;
-
-                // If file is old of 60 minutes delete it
-                if ($fileCreationTimeInMinute > 60 )
-                {
-                    unlink($downloadArchivePath . '/' . $file);
-                }
-            }
-        }
-        closedir($handle);
-    }
-
-    $downloadArchiveName = get_conf('siteName');
-
-    if (claro_is_in_a_course())
-    {
-        $downloadArchiveName .= '.' . $_course['officialCode'];
-    }
-
-    if (claro_is_in_a_group())
-    {
-        $downloadArchiveName .= '.' . claro_get_current_group_data('name');
-    }
-
-    if (isset($_REQUEST['file']))
-    {
-        $bnFile = basename($_REQUEST['file']);
-        if (empty($bnFile)) $downloadArchiveName .= '.complete';
-        else                $downloadArchiveName .= '.' . $bnFile;
-    }
-
-    if (isset($_REQUEST['searchPattern']))
-    {
-        $downloadArchiveName .= '.' . get_lang('Search') . '.' . $_REQUEST['searchPattern'];
-    }
-
-    $downloadArchiveName .= '.zip';
+    $downloadArchivePath = $requestDownloadPath.'/'.uniqid('').'.zip';
+    $downloadArchiveName = basename($requestDownloadPath.'.zip');
     $downloadArchiveName = str_replace('/', '', $downloadArchiveName);
+    if ( $downloadArchiveName == '.zip') $downloadArchiveName = get_lang("Documents and Links").'.zip';
 
-    if ( $downloadArchiveName == '.zip')
-    {
-        $downloadArchiveName = get_lang('Documents and Links') . '.zip';
-    }
-
-    $downloadArchive     = new PclZip($downloadArchiveFile);
+    $downloadArchive     = new PclZip($downloadArchivePath);
 
     $downloadArchive->add($filePathList,
                           PCLZIP_OPT_REMOVE_PATH,
                           $requestDownloadPath);
 
-    if ( file_exists($downloadArchiveFile) )
+    if ( file_exists($downloadArchivePath) )
     {
+        $downloadArchiveSize = filesize($downloadArchivePath);
+
         /*
          * SEND THE ZIP ARCHIVE FOR DOWNLOAD
          */
 
-        claro_send_file( $downloadArchiveFile, $downloadArchiveName );
-        unlink($downloadArchiveFile);
+        header('Expires: Wed, 01 Jan 1990 00:00:00 GMT');
+        header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
+        header('Cache-Control: no-cache, must-revalidate');
+        header('Pragma: no-cache');
+        header('Content-type: application/zip');
+        header('Content-Length: '.$downloadArchiveSize);
+        header('Content-Disposition: attachment; filename="'.$downloadArchiveName.'";');
+
+        readfile($downloadArchivePath);
+        unlink($downloadArchivePath);
         exit();
     }
     else
     {
-        $dialogBox .= get_lang('Unable to create zip file');
+        $dialogBox .= get_lang("Unable to create zip file");
     }
 }
 
@@ -1167,7 +1038,7 @@ if (in_array($cmd, array('rqMv', 'exRm', 'rqEdit', 'exEdit', 'exEditHtml',
 elseif (in_array($cmd, array('rqMkDir', 'exMkDir', 'rqUpload', 'exUpload',
                              'rqMkUrl', 'exMkUrl', 'reqMkHtml', 'exMkHtml', 'rqSearch')))
 {
-    $curDirPath = $cwd;
+    $curDirPath = $_REQUEST['cwd'];
 }
 elseif ($cmd == 'exChDir')
 {
@@ -1179,7 +1050,7 @@ elseif ($cmd == 'exMv')
 }
 elseif ($docView == 'image' || $docView == 'thumbnails' )
 {
-    $curDirPath = $cwd;
+    $curDirPath = $_REQUEST['cwd'];
 }
 else
 {
@@ -1203,6 +1074,9 @@ if ($parentDir == '/' || $parentDir == '\\')
     $parentDir = ''; // manage the root directory problem
 }
 
+
+
+
 /*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
                          READ CURRENT DIRECTORY CONTENT
   = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
@@ -1219,15 +1093,24 @@ if ($cmd == 'exSearch')
     {
         // Build an exclude file list to prevent simple user
         // to see document contained in "invisible" directories
-        $searchExcludeList = getInvisibleDocumentList($baseWorkDir);
+
+        $sql = "SELECT path FROM `".$dbTable."`
+                WHERE visibility ='i'";
+
+        $searchExcludeList = claro_sql_query_fetch_all_cols($sql);
+        $searchExcludeList = $searchExcludeList['path'];
+
+        for( $i=0; $i < count($searchExcludeList); $i++ )
+        {
+            $searchExcludeList[$i] = $baseWorkDir.$searchExcludeList[$i];
+        }
     }
     else
     {
       $searchExcludeList = array();
     }
 
-    $cwd = secure_file_path( $cwd);
-
+    $_REQUEST['cwd'] = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $_REQUEST['cwd']);
 
     $searchPattern    = $_REQUEST['searchPattern'];
     $searchPatternSql = $_REQUEST['searchPattern'];
@@ -1238,7 +1121,7 @@ if ($cmd == 'exSearch')
     $searchPatternSql = str_replace('*', '%' , $searchPatternSql);
 
     $searchRecursive = true;
-    $searchBasePath  = $baseWorkDir.$cwd;
+    $searchBasePath  = $baseWorkDir.$_REQUEST['cwd'];
 }
 else
 {
@@ -1248,22 +1131,13 @@ else
     $searchExcludeList = array();
 }
 
-$searchBasePath = secure_file_path( $searchBasePath);
+$searchBasePath = preg_replace('~^(\.\.)$|(/\.\.)|(\.\./)~', '', $searchBasePath);
 
-if (false === ($filePathList = claro_search_file( search_string_to_pcre($searchPattern),$searchBasePath,$searchRecursive,'ALL',$searchExcludeList)))
-{
-    switch (claro_failure::get_last_failure())
-    {
-        case 'BASE_DIR_DONT_EXIST' :
-            pushClaroMessage($searchBasePath . ' : call to an unexisting directory in groups');
-        break;
-        default :
-            pushClaroMessage('Search failed');
-        break;
-    }
-    // TODO claro_search_file would return an empty array when failed
-    $filePathList=array();
-}
+$filePathList = claro_search_file( search_string_to_pcre($searchPattern),
+                                  $searchBasePath,
+                                  $searchRecursive,
+                                  'ALL',
+                                  $searchExcludeList);
 
 for ($i =0; $i < count($filePathList); $i++ )
 {
@@ -1365,7 +1239,7 @@ if ( count($filePathList) > 0 )
     if ( count($xtraAttributeList['path']) > 0 )
     {
         $sql = "DELETE FROM `".$dbTable."`
-                WHERE `path` IN ( \"".implode("\" , \"" , $xtraAttributeList['path'])."\" )";
+                WHERE `path` IN ( \"".implode("\" , \"" , $attributeList['path'])."\" )";
 
         claro_sql_query($sql);
 
@@ -1386,7 +1260,7 @@ $fileLister = new claro_array_pager($fileList, 0, 1000);
 foreach ($defaultSortkeyList as $thisSortkey) $fileLister->add_sort_key($thisSortkey, SORT_ASC);
 if ( isset($_GET['sort']) ) $fileLister->set_sort_key($_GET['sort'], $_GET['dir']);
 
-$sortUrlList = $fileLister->get_sort_url_list( $_SERVER['PHP_SELF'] . '?cmd=exChDir&file='.rawurlencode($curDirPath) );
+$sortUrlList = $fileLister->get_sort_url_list( $_SERVER['PHP_SELF'] . '?cmd=exChDir&file='.urlencode($curDirPath) );
 
 $fileList = $fileLister->get_result_list();
 
@@ -1402,7 +1276,7 @@ $htmlHeadXtra[] =
 "<script>
 function confirmation (name)
 {
-    if (confirm(\" ".clean_str_for_javascript(get_lang('Are you sure to delete'))." \"+ name + \" ?\"))
+    if (confirm(\" ".clean_str_for_javascript(get_lang("Are you sure to delete"))." \"+ name + \" ?\"))
         {return true;}
     else
         {return false;}
@@ -1434,7 +1308,7 @@ function zoomOut ()
     nOriginalHeight = oImage.height;
     nOriginalWidth = oImage.width;
 
-    var nNewWidth = getWindowWidth() - Math.floor(getWindowWidth() / 10);
+    var nNewWidth = getWindowWidth() - 30;
 
     if ( nNewWidth < nOriginalWidth )
     {
@@ -1492,17 +1366,17 @@ $nameTools = get_lang("Documents and Links");
 $_SERVER['QUERY_STRING'] = ''; // used for the breadcrumb
                               // when one need to add a parameter after the filename
 
-include(get_path('incRepositorySys').'/claro_init_header.inc.php');
+include($includePath.'/claro_init_header.inc.php');
 
 $dspCurDirName = htmlspecialchars($curDirName);
 $dspCurDirPath = htmlspecialchars($curDirPath);
 $cmdCurDirPath = rawurlencode($curDirPath);
 $cmdParentDir  = rawurlencode($parentDir);
 
-//display toot title and subtitl)e
+//display toot title and subtitle
 
 $titleElement['mainTitle'] = get_lang("Documents and Links");
-if ( claro_is_in_a_group() && claro_is_group_allowed()) $titleElement['supraTitle'] = claro_get_current_group_data('name');
+if ( $_gid && $is_groupAllowed) $titleElement['supraTitle'] = $_group['name'];
 
 echo claro_html_tool_title($titleElement,
                       $is_allowedToEdit ? 'help_document.php' : false);
@@ -1524,10 +1398,7 @@ echo claro_html_tool_title($titleElement,
                            DIALOG BOX SECTION
       --------------------------------------------------------------------*/
 
-    if (isset($dialogBox) && $dialogBox != '')
-    {
-        echo claro_html_message_box($dialogBox);
-    }
+    if (isset($dialogBox) && $dialogBox != '') echo claro_html_message_box($dialogBox);
 
     $is_allowedToEdit ? $colspan = 7 : $colspan = 3;
 
@@ -1556,11 +1427,11 @@ echo claro_html_tool_title($titleElement,
 
         if( isset( $_REQUEST['searchPattern'] ) )
         {
-            $searchCmdUrl = "&amp;cmd=exSearch&amp;searchPattern=" . rawurlencode( $_REQUEST['searchPattern'] );
+            $searchCmdUrl = "&amp;cmd=exSearch&amp;searchPattern=" . urlencode( $_REQUEST['searchPattern'] );
         }
 
         // get requested image key in fileList
-        $imgKey = image_search( $file, $fileList );
+        $imgKey = image_search( $file, $filePathList );
 
         $current = get_current_index($imageList, $imgKey);
 
@@ -1568,20 +1439,31 @@ echo claro_html_tool_title($titleElement,
 
         // compute absolute path to requested image
 
-        $doc_url = claro_get_file_download_url( $file );
+        if ( strstr($_SERVER['SERVER_SOFTWARE'], 'Apache')
+          && get_conf('secureDocumentDownload') )
+        {
+            // slash argument method - only compatible with Apache
+            $doc_url = 'goto/index.php'.str_replace('%2F', '/', rawurlencode($file));
+        }
+        else
+        {
+            // question mark argument method, for IIS ...
+            $doc_url = 'goto/?url=' . rawurlencode($file);
+        }
+
 
         // Image description table
-        echo '<table class="claroTable" width="100%">' . "\n" ;
+        echo '<table class="claroTable" width="100%">' . "\n";
 
         // View Mode Bar
 
         if ($cmd == 'exSearch')
         {
-            $curDirLine = get_lang('Search result');
+            $curDirLine = get_lang("Search result");
         }
         elseif ($curDirName)
         {
-               $curDirLine = '<img src="' . get_path('imgRepositoryWeb') . 'opendir.gif" '
+               $curDirLine = '<img src="' . $imgRepositoryWeb . 'opendir.gif" '
                .             'align="absbottom" vspace="2" hspace="5" alt="" />' . "\n"
                .             $dspCurDirName . "\n"
                ;
@@ -1593,41 +1475,39 @@ echo claro_html_tool_title($titleElement,
 
         if( $docView == 'files' )
         {
-            $docViewToolbar[] = '<span class="claroCmdDisabled">'
-                . '<img src="' . get_path('imgRepositoryWeb') . 'document.gif" alt="" />'
-                . get_lang('File list')
-                . '</span>';
+            $docViewToolbar = "<span class=\"claroCmdDisabled\">"
+                . "<img src=\"".$imgRepositoryWeb."document.gif\" alt=\"\">\n"
+                . get_lang("File list")
+                . "</span>\n | ";
         }
         else
         {
-            $docViewToolbar[] = '<a class="claroCmd" href="' .  $_SERVER['PHP_SELF']
-                 . '?docView=files&amp;cmd=exChDir&amp;file='. rawurlencode($curDirPath) . $searchCmdUrl . '">'
-                 . '<img src="' . get_path('imgRepositoryWeb') . 'document.gif" alt="" />'
-                 . get_lang('File list')
-                 . '</a>';
+            $docViewToolbar = "<a class='claroCmd' href=\"" .  $_SERVER['PHP_SELF']
+                 . "?docView=files&amp;cmd=exChDir&amp;file=". $curDirPath . $searchCmdUrl ."\">"
+                . "<img src=\"".$imgRepositoryWeb."document.gif\" alt=\"\">\n"
+                 . get_lang("File list") ."</a>\n | ";
         }
-
         if( $docView == 'thumbnails' )
         {
-            $docViewToolbar[] = '<span class="claroCmdDisabled">'
-                . '<img src="' . get_path('imgRepositoryWeb') . 'image.gif" alt="" />'
-                . get_lang('Thumbnails').'</span>';
+            $docViewToolbar .= "<span class=\"claroCmdDisabled\">"
+                . "<img src=\"".$imgRepositoryWeb."image.gif\" alt=\"\">\n"
+                . get_lang("Thumbnails")."</span>\n";
         }
         else
         {
-            $docViewToolbar[] = '<a class="claroCmd" href="' .  $_SERVER['PHP_SELF']
-                 . '?docView=thumbnails&amp;cwd=' . rawurlencode($curDirPath) . $searchCmdUrl . '">'
-                 . '<img src="' . get_path('imgRepositoryWeb') . 'image.gif" alt="" />'
-                 . get_lang('Thumbnails').'</a>';
+            $docViewToolbar .= "<a class='claroCmd' href=\"" .  $_SERVER['PHP_SELF']
+                 . "?docView=thumbnails&cwd=". $curDirPath . $searchCmdUrl ."\">"
+                 ."<img src=\"".$imgRepositoryWeb."image.gif\" alt=\"\">\n"
+                 . get_lang("Thumbnails")."</a>\n";
         }
 
-        echo '<!-- current dir name line -->' . "\n"
-                .'<tr>' . "\n"
-                .'<th class="superHeader" colspan="' . $colspan . '" align="left">' . "\n"
-                .'<div style="float: right;">'. claro_html_menu_horizontal($docViewToolbar) . '</div>'
+        echo "<!-- current dir name line -->\n"
+                ."<tr>\n"
+                ."<th class=\"superHeader\" colspan=\"$colspan\" align=\"left\">\n"
+                ."<div style=\"float: right;\">".$docViewToolbar."</div>"
                 .$curDirLine
-                .'</th>' . "\n"
-                .'</tr>' . "\n";
+                ."</th>\n"
+                ."</tr>\n";
 
 
         // --------------------- tool bar --------------------------------------
@@ -1684,7 +1564,7 @@ echo claro_html_tool_title($titleElement,
         // system path
 
 
-        $imgPath = get_path('coursesRepositorySys') . $courseDir
+        $imgPath = $coursesRepositorySys . $courseDir
             . $file
             ;
 
@@ -1695,22 +1575,24 @@ echo claro_html_tool_title($titleElement,
         $depth = get_image_color_depth( $imgPath );
 
         // display image
-        echo '<p><center><a href="#"><img id="mainImage" src="' . $doc_url . '" alt="' . $fileName . '" /></a></center></p>' . "\n" ;
+        echo "<p><center><a href=\"#\"><img id=\"mainImage\" src=\"" . $doc_url . "\" alt=\""
+            . $fileName . "\" /></a></center></p>\n"
+            ;
 
-        echo '<p><center>'
-            . '<a href="' . $doc_url . '">' . get_lang('Direct link to image') . '</a>'
-            . '</center></p>' . "\n"
+        echo "<p><center><a href=\"" . $doc_url . "\">"
+            . get_lang("Direct link to image") .
+            "</a></center></p>\n"
             ;
 
         // display image info
         // -> title and size
-        echo '<br /><small>[ Info : ' . $imgTitle . ' - ' . $width
-            . 'x' . $height
-            . ' - ' .format_file_size($fileList[$imgKey]['size'])
+        echo "<br /><small>[ Info : " . $imgTitle . " - " . $width
+            . "x" . $height
+            . " - " .format_file_size($fileList[$imgKey]['size'])
             ;
 
         // -> color depth
-        echo ' - ' . $depth . 'bits';
+        echo " - " . $depth . "bits";
 
         // -> mime type
         if( version_compare(phpversion(), '4.3.0', '>') )
@@ -1719,14 +1601,14 @@ echo claro_html_tool_title($titleElement,
             echo " - " . $mime_type ;
         }
 
-        echo ' ]</small>' . "\n";
+        echo " ]</small>\n";
     }
 
     /*-----------------------------------------------------------------------
                             VIEW THUMBNAILS
       -----------------------------------------------------------------------*/
 
-    elseif ($docView == 'thumbnails' ) // thumbnails mode
+    else if ($docView == 'thumbnails' ) // thumbnails mode
     {
         // intialize page number
          $page = 1; // if not set, set to first page
@@ -1745,24 +1627,25 @@ echo claro_html_tool_title($titleElement,
 
         if( isset( $_REQUEST['searchPattern'] ) )
         {
-            $searchCmdUrl = '&amp;cmd=exSearch&amp;searchPattern=' . rawurlencode( $_REQUEST['searchPattern'] );
+            $searchCmdUrl = "&amp;cmd=exSearch&amp;searchPattern=" . urlencode( $_REQUEST['searchPattern'] );
         }
 
         // compute column width
-         $colWidth = round(100 / get_conf('numberOfCols', 3));
+         $colWidth = round(100 / $numberOfCols);
 
         // display table
-        echo "\n" . '<table class="claroTable" width="100%">' . "\n";
+        echo "\n<table class=\"claroTable\" width=\"100%\">\n";
 
         // View Mode Bar
 
         if ($cmd == 'exSearch')
         {
-            $curDirLine = get_lang('Search result');
+            $curDirLine = get_lang("Search result");
         }
         elseif ($curDirName)
         {
-            $curDirLine = '<img src="' . get_path('imgRepositoryWeb') . 'opendir.gif" align="absbottom" vspace="2" hspace="5" alt="" />' . "\n"
+               $curDirLine = "<img src=\"".$imgRepositoryWeb."opendir.gif\" "
+                ."align=\"absbottom\" vspace=\"2\" hspace=\"5\" alt=\"\">\n"
                 .$dspCurDirName."\n";
         }
         else
@@ -1772,100 +1655,100 @@ echo claro_html_tool_title($titleElement,
 
         if( $docView == 'files' )
         {
-            $docViewToolbar[] = '<span class="claroCmdDisabled">'
-                . '<img src="' . get_path('imgRepositoryWeb') . 'document.gif" alt="" />' . "\n"
-                . get_lang('File list')
-                . '</span>';
+            $docViewToolbar = "<span class=\"claroCmdDisabled\">"
+                . "<img src=\"".$imgRepositoryWeb."document.gif\" alt=\"\">\n"
+                . get_lang("File list")
+                . "</span>\n | ";
         }
         else
         {
-            $docViewToolbar[] = '<a class="claroCmd" href="' .  $_SERVER['PHP_SELF']
-                 . '?docView=files&amp;cmd=exChDir&amp;file='. rawurlencode($curDirPath . $searchCmdUrl) . '">'
-                 . '<img src="' . get_path('imgRepositoryWeb') . 'document.gif" alt="" />' . "\n"
-                 . get_lang('File list') . '</a>';
+            $docViewToolbar = "<a class='claroCmd' href=\"" .  $_SERVER['PHP_SELF']
+                 . "?docView=files&amp;cmd=exChDir&amp;file=". $curDirPath . $searchCmdUrl ."\">"
+                . "<img src=\"".$imgRepositoryWeb."document.gif\" alt=\"\">\n"
+                 . get_lang("File list") ."</a>\n | ";
         }
         if( $docView == 'thumbnails' )
         {
-            $docViewToolbar[] = '<span class="claroCmdDisabled">'
-                . '<img src="' . get_path('imgRepositoryWeb') . 'image.gif" alt="" />'
-                . get_lang('Thumbnails').'</span>'
-                ;
+            $docViewToolbar .= "<span class=\"claroCmdDisabled\">"
+                . "<img src=\"".$imgRepositoryWeb."image.gif\" alt=\"\">\n"
+                . get_lang("Thumbnails")."</span>\n";
         }
         else
         {
-            $docViewToolbar[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
-                 . '?docView=thumbnails&amp;cwd='. rawurlencode($curDirPath) . $searchCmdUrl . '">'
-                 . '<img src="' . get_path('imgRepositoryWeb') . 'image.gif" alt="" />' . "\n"
-                 . get_lang('Thumbnails').'</a>';
+            $docViewToolbar .= "<a class='claroCmd' href=\"" .  $_SERVER['PHP_SELF']
+                 . "?docView=thumbnails&cwd=". $curDirPath . $searchCmdUrl ."\">"
+                 ."<img src=\"".$imgRepositoryWeb."image.gif\" alt=\"\">\n"
+                 . get_lang("Thumbnails")."</a>\n";
         }
 
-        $colspan = get_conf( 'numberOfCols', 3 );
+        $colspan = $numberOfCols;
 
-        echo '<!-- current dir name line -->' . "\n"
-                .'<tr>' . "\n"
-                .'<th class="superHeader" colspan="' . $colspan . '" align="left">' . "\n"
-                .'<div style="float: right;">'. claro_html_menu_horizontal($docViewToolbar) . '</div>'
+        echo "<!-- current dir name line -->\n"
+                ."<tr>\n"
+                ."<th class=\"superHeader\" colspan=\"$colspan\" align=\"left\">\n"
+                ."<div style=\"float: right;\">".$docViewToolbar."</div>"
                 .$curDirLine
-                .'</th>' . "\n"
-                .'</tr>' . "\n";
+                ."</th>\n"
+                ."</tr>\n";
 
         // toolbar
 
-        echo '<tr class="toolbar">' . "\n";
-        echo '<th class="prev" colspan="1" style="width: ' . $colWidth . '%;">' . "\n";
+        echo "<tr class=\"toolbar\">\n";
+        echo "<th class=\"prev\" colspan=\"1\" style=\"width: " . $colWidth . "%;\">\n";
         if( !isset($imageList) || count($imageList) == 0)
         {
-            $colspan = get_conf( 'numberOfCols', 3 );
+            $colspan = $numberOfCols;
 
-            echo '<!-- current dir name line -->' . "\n"
-                .'<tr>' . "\n"
-                .'<td colspan="' . $colspan . '" align="left">' . "\n"
-                . get_lang('No image to display')
-                .'</td>' . "\n"
-                .'</tr>' . "\n";
+            echo "<!-- current dir name line -->\n"
+                ."<tr>\n"
+                ."<td colspan=\"$colspan\" align=\"left\">\n"
+                . get_lang("No image to display")
+                ."</td>\n"
+                ."</tr>\n";
         }
         else
         {
             if(has_previous_page($imageList, $page))
             {
                 // link to previous page
-                  echo '<a href="'.$_SERVER['PHP_SELF']
-                    . '?docView=thumbnails&amp;cwd=' . rawurlencode($curDirPath)
-                    . '&amp;page=' . ($page - 1) . $searchCmdUrl . '">&lt;&lt;&nbsp;&nbsp;page&nbsp;'
-                    . ($page - 1) . '</a>' . "\n"
+                  echo "<a href=\"".$_SERVER['PHP_SELF']
+                    . "?docView=thumbnails&amp;cwd=" . $curDirPath
+                    . "&amp;page=" . ($page - 1) . $searchCmdUrl . "\">&lt;&lt;&nbsp;&nbsp;page&nbsp;"
+                    . ($page - 1) . "</a>\n"
                     ;
             }
             else
             {
-                echo '<!-- empty -->';
+                echo "<!-- empty -->";
             }
 
-            echo '</th>' . "\n";
+            echo "</th>\n";
 
-            echo '<th class="title" colspan="' . (get_conf( 'numberOfCols', 3) - 2) . '">' . "\n"
-                . '<p align="center">' . get_lang('Page') . '&nbsp;' . $page . '</p>'
-                . '</th>' . "\n"
+            echo "<th class=\"title\" colspan=\"" . ($numberOfCols - 2) . "\">\n"
+                . "<p align=\"center\">page&nbsp;" . $page . "</p>"
+                . "</th>\n"
                 ;
 
-            echo '<th class="next" colspan="1" style="width: ' . $colWidth . '%;">' . "\n"
+            echo "<th class=\"next\" colspan=\"1\" style=\"width: "
+                . $colWidth . "%;\">\n"
                 ;
 
             if(has_next_page($imageList, $page))
             {
                 // link to next page
-                echo '<a href="'.$_SERVER['PHP_SELF']
-                    . '?docView=thumbnails&amp;cwd=' . rawurlencode($curDirPath)
-                    . '&amp;page=' . ($page + 1) . $searchCmdUrl . '">'. get_lang('Page') .'&nbsp;'
-                    . ($page + 1) . '&nbsp;&nbsp;&gt;&gt;</a>' . "\n"
+                echo "<a href=\"".$_SERVER['PHP_SELF']
+                    . "?docView=thumbnails&amp;cwd=" . $curDirPath
+                    . "&amp;page=" . ($page + 1) . $searchCmdUrl . "\">page&nbsp;"
+                    . ($page + 1) . "&nbsp;&nbsp;&gt;&gt;</a>\n"
                     ;
             }
             else
             {
-                echo '<!-- empty -->';
+                echo "<!-- empty -->";
             }
 
-            echo '</th>' . "\n";
-            echo '</tr>' . "\n";
+            echo "</th>\n";
+            echo "</tr>\n";
 
             display_thumbnails($imageList, $fileList, $page
                 , get_conf('thumbnailWidth'), $colWidth
@@ -1873,7 +1756,7 @@ echo claro_html_tool_title($titleElement,
 
         }
 
-        echo '</table>' . "\n";
+        echo "</table>\n";
 
     }
     else // current directory line
@@ -1887,99 +1770,90 @@ echo claro_html_tool_title($titleElement,
 
         if( isset( $_REQUEST['searchPattern'] ) )
         {
-            $searchCmdUrl = '&amp;cmd=exSearch&amp;searchPattern=' . rawurlencode( $_REQUEST['searchPattern'] );
+            $searchCmdUrl = "&amp;cmd=exSearch&amp;searchPattern=" . urlencode( $_REQUEST['searchPattern'] );
         }
 
         /* GO TO PARENT DIRECTORY */
 
-        $links = array();
+
+        echo "<p>\n";
 
         if ($curDirName || $cmd == 'exSearch') /* if the $curDirName is empty, we're in the root point
                                                   and we can't go to a parent dir */
         {
-            $links[] = '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=exChDir&amp;file='.$cmdParentDir.'">' . "\n"
-                     . '<img src="'. get_path('imgRepositoryWeb') . 'parent.gif" border="0" alt="" />&nbsp;'
-                     . get_lang('Up')
-                     . '</a>'
-                     ;
+
+            echo "<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=exChDir&amp;file=".$cmdParentDir."\">\n"
+                ."<img src=\"".$imgRepositoryWeb."parent.gif\" border=\"0\" alt=\"\">\n"
+                .get_lang("Up")
+                ."</a>\n";
         }
         else
         {
-            $links[] = '<span class="claroCmdDisabled">'
-                .      '<img src="' . get_path('imgRepositoryWeb') . 'parentdisabled.gif" border="0" alt="" />&nbsp;'
-                .      get_lang('Up')
-                .      '</span>';
+            echo "<span class=\"claroCmdDisabled\">"
+                ."<img src=\"".$imgRepositoryWeb."parentdisabled.gif\" border=\"0\" alt=\"\">\n"
+                .get_lang("Up")
+                ."</span>\n";
         }
 
 
+        echo " | "
+            ."<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=rqSearch&amp;cwd=".$cmdCurDirPath."\">\n"
+            ."<img src=\"".$imgRepositoryWeb."search.gif\" border=\"0\" alt=\"\">\n"
+            .get_lang("Search")
+            ."</a>\n";
 
-        $links[] = '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=rqSearch&amp;cwd='.$cmdCurDirPath.'">&nbsp;'
-            .      '<img src="' . get_path('imgRepositoryWeb') . 'search.gif" border="0" alt="" />&nbsp;'
-            .      get_lang('Search')
-            .      '</a>'
-            ;
+        if ( trim($searchPattern) != '') $downloadArgument = 'searchPattern='.$searchPattern;
+        else                             $downloadArgument = "file=".$cmdCurDirPath;
 
-        if ( trim($searchPattern) != '') $downloadArgument = 'searchPattern='.rawurlencode($searchPattern);
-        else                             $downloadArgument = 'file='. $cmdCurDirPath;
-
-        if ( isset($fileList) && count($fileList) > 0 )
-        {
-            // Download current folder
-           $links[] = '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=exDownload&amp;'.$downloadArgument.'">'
-                .'<img src="' . get_path('imgRepositoryWeb') . 'save.gif" border="0" alt="" />&nbsp;'
-                .get_lang('Download current directory')
-                .'</a>';
-        }
-        else
-        {
-            // Download current folder disabled
-            $links[] = '<span class="claroCmdDisabled" >'
-                .'<img src="' . get_path('imgRepositoryWeb') . 'save.gif" border="0" alt="" />&nbsp;'
-                .get_lang('Download current directory')
-                .'</span>';
-        }
+        echo " | "
+            ."<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=exDownload&amp;".$downloadArgument."\">\n"
+            ."<img src=\"".$imgRepositoryWeb."save.gif\" border=\"0\" alt=\"\">\n"
+            .get_lang("Download current directory")
+            ."</a>\n";
 
 
         if ($is_allowedToEdit)
         {
             /* CREATE DIRECTORY - UPLOAD FILE - CREATE HYPERLINK */
 
-            $links[] = '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=rqUpload&amp;cwd='.$cmdCurDirPath.'">'
-                .'<img src="' . get_path('imgRepositoryWeb') . 'download.gif" alt="" />&nbsp;'
+            echo " | "
+                ."<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=rqUpload&amp;cwd=".$cmdCurDirPath."\">"
+                ."<img src=\"".$imgRepositoryWeb."download.gif\" alt=\"\">"
                 .get_lang('Upload file')
-                .'</a>';
-
-            $links[] = '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=rqMkDir&amp;cwd='.$cmdCurDirPath.'">'
-                .'<img src="' . get_path('imgRepositoryWeb') . 'folder.gif" alt="" />&nbsp;'
+                ."</a>\n"
+                ." | "
+                ."<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=rqMkDir&amp;cwd=".$cmdCurDirPath."\">"
+                ."<img src=\"".$imgRepositoryWeb."folder.gif\" alt=\"\">"
                 .get_lang('Create Directory')
-                .'</a>';
-
-            $links[] = '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=rqMkUrl&amp;cwd='.$cmdCurDirPath.'">'
-                .'<img src="' . get_path('imgRepositoryWeb') . 'link.gif" alt="" />&nbsp;'
+                ."</a>\n"
+                ."| "
+                ."<a class='claroCmd' href=\"".$_SERVER['PHP_SELF']."?cmd=rqMkUrl&amp;cwd=".$cmdCurDirPath."\">"
+                ."<img src=\"".$imgRepositoryWeb."link.gif\" alt=\"\">"
                 .get_lang('Create hyperlink')
-                .'</a>';
-
-            $links[] = '<a class="claroCmd" href="rqmkhtml.php?cmd=rqMkHtml&amp;cwd='.$cmdCurDirPath.'">'
-                .'<img src="' . get_path('imgRepositoryWeb') . 'html.gif" alt="" />&nbsp;'
+                ."</a>\n"
+                ." | "
+                ."<a class='claroCmd' href=\"rqmkhtml.php?cmd=rqMkHtml&amp;cwd=".$cmdCurDirPath."\">"
+                ."<img src=\"".$imgRepositoryWeb."html.gif\" alt=\"\">"
                 .get_lang('Create Document')
-                .'</a>';
+                ."</a>\n";
         }
 
-        echo '<p>' . claro_html_menu_horizontal($links) . '</p>' . "\n";
+        echo "</p>\n";
 
-        echo claro_html_document_breadcrumb($curDirPath);
+        echo claro_disp_document_breadcrumb($curDirPath);
 
-        echo '<table class="claroTable emphaseLine" width="100%">' . "\n";
+        echo "<table class=\"claroTable emphaseLine\" width=\"100%\">\n";
 
         /* CURRENT DIRECTORY LINE */
 
         if ($cmd == 'exSearch')
         {
-            $curDirLine = get_lang('Search result');
+            $curDirLine = get_lang("Search result");
         }
         elseif ($curDirName)
         {
-            $curDirLine = '<img src="' . get_path('imgRepositoryWeb') . 'opendir.gif" "align="absbottom" vspace="2" hspace="5" alt="" />' . "\n"
+            $curDirLine = "<img src=\"".$imgRepositoryWeb."opendir.gif\" "
+                ."align=\"absbottom\" vspace=\"2\" hspace=\"5\" alt=\"\">\n"
                 .$dspCurDirName."\n";
         }
         else
@@ -1989,91 +1863,91 @@ echo claro_html_tool_title($titleElement,
 
         if( $docView == 'files' )
         {
-            $docViewToolbar[] = '<span class="claroCmdDisabled">'
-                . '<img src="' . get_path('imgRepositoryWeb') . 'document.gif" alt="" />' . "\n"
-                . get_lang('File list')
-                . '</span>';
+            $docViewToolbar = "<span class=\"claroCmdDisabled\">"
+                . "<img src=\"".$imgRepositoryWeb."document.gif\" alt=\"\">\n"
+                . get_lang("File list")
+                . "</span>\n | ";
         }
         else
         {
-            $docViewToolbar[] = '<a class="claroCmd" href="' .  $_SERVER['PHP_SELF']
-                 . '?docView=files&amp;cmd=exChDir&amp;file='. $curDirPath . $searchCmdUrl . '">'
-                 . '<img src="' . get_path('imgRepositoryWeb') . 'document.gif" alt="" />' . "\n"
-                 . get_lang('File list') .'</a>';
+            $docViewToolbar = "<a class='claroCmd' href=\"" .  $_SERVER['PHP_SELF']
+                 . "?docView=files&amp;cmd=exChDir&amp;file=". $curDirPath . $searchCmdUrl ."\">"
+                . "<img src=\"".$imgRepositoryWeb."document.gif\" alt=\"\">\n"
+                 . get_lang("File list") ."</a>\n | ";
         }
         if( $docView == 'thumbnails' )
         {
-            $docViewToolbar[] = '<span class="claroCmdDisabled">'
-                . '<img src="' . get_path('imgRepositoryWeb') . 'image.gif" alt="" />' . "\n"
-                . get_lang('Thumbnails').'</span>';
+            $docViewToolbar .= "<span class=\"claroCmdDisabled\">"
+                . "<img src=\"".$imgRepositoryWeb."image.gif\" alt=\"\">\n"
+                . get_lang("Thumbnails")."</span>\n";
         }
         else
         {
-            $docViewToolbar[] = '<a class="claroCmd" href="' .  $_SERVER['PHP_SELF']
-                 . '?docView=thumbnails&cwd='. $curDirPath . $searchCmdUrl .'">'
-                 . '<img src="' . get_path('imgRepositoryWeb') . 'image.gif" alt="" />'
-                 . get_lang('Thumbnails').'</a>';
+            $docViewToolbar .= "<a class='claroCmd' href=\"" .  $_SERVER['PHP_SELF']
+                 . "?docView=thumbnails&cwd=". $curDirPath . $searchCmdUrl ."\">"
+                 ."<img src=\"".$imgRepositoryWeb."image.gif\" alt=\"\">\n"
+                 . get_lang("Thumbnails")."</a>\n";
         }
 
-        echo '<!-- current dir name line -->' . "\n"
-            .'<tr>' . "\n"
-            .'<th class="superHeader" colspan="' . $colspan . '" align="left">' . "\n"
-            .'<div style="float: right;">'. claro_html_menu_horizontal($docViewToolbar).'</div>'
+        echo "<!-- current dir name line -->\n"
+            ."<tr>\n"
+            ."<th class=\"superHeader\" colspan=\"$colspan\" align=\"left\">\n"
+            ."<div style=\"float: right;\">".$docViewToolbar."</div>"
             .$curDirLine
-            .'</th>' . "\n"
-            .'</tr>' . "\n";
+            ."</th>\n"
+            ."</tr>\n";
 
-        echo '<tr class="headerX" align="center" valign="top">' . "\n";
+        echo "<tr class=\"headerX\" align=\"center\" valign=\"top\">\n";
 
         # Patch to avoid E_NOTICE when no files in directory empty
         # FIXME find a more elegant way to solve the problem
         if ( count( $sortUrlList ) > 0 )
         {
-            echo '<th><a href="'.$sortUrlList['path'].'">'.get_lang('Name').'</a></th>' . "\n"
-            .    '<th><a href="'.$sortUrlList['size'].'">'.get_lang('Size').'</a></th>' . "\n"
-            .    '<th><a href="'.$sortUrlList['date'].'">'.get_lang('Date').'</a></th>' . "\n"
+            echo '<th><a href="'.$sortUrlList['path'].'">'.get_lang("Name").'</a></th>' . "\n"
+            .    '<th><a href="'.$sortUrlList['size'].'">'.get_lang("Size").'</a></th>' . "\n"
+            .    '<th><a href="'.$sortUrlList['date'].'">'.get_lang("Date").'</a></th>' . "\n"
             ;
         }
         else
         {
-            echo '<th>'.get_lang('Name').'</th>' . "\n"
-            .    '<th>'.get_lang('Size').'</th>' . "\n"
-            .    '<th>'.get_lang('Date').'</th>' . "\n"
+            echo '<th>'.get_lang("Name").'</th>' . "\n"
+            .    '<th>'.get_lang("Size").'</th>' . "\n"
+            .    '<th>'.get_lang("Date").'</th>' . "\n"
             ;
         }
 
         if ($is_allowedToEdit)
         {
-            echo  '<th>'.get_lang('Modify').'</th>' . "\n"
-                . '<th>'.get_lang('Delete').'</th>' . "\n"
-                . '<th>'.get_lang('Move').'</th>' . "\n";
+            echo  "<th>".get_lang("Modify")."</th>\n"
+                . "<th>".get_lang("Delete")."</th>\n"
+                . "<th>".get_lang("Move")."</th>\n";
 
-            if ($courseContext)
-            {
-                echo '<th>'.get_lang('Visibility').'</th>' . "\n";
-            }
-            elseif ($groupContext)
-            {
-                echo '<th>'.get_lang('Publish').'</th>' . "\n";
-            }
+                    if ($courseContext)
+                    {
+                        echo "<th>".get_lang("Visibility")."</th>\n";
+                    }
+                    elseif ($groupContext)
+                    {
+                        echo "<th>".get_lang("Publish")."</th>\n";
+                    }
         }
 
-        echo '</tr>' . "\n"
-            .'<tbody>';
+        echo "</tr>\n"
+            ."<tbody>";
 
         /*------------------------------------------------------------------------
                                    DISPLAY FILE LIST
           ------------------------------------------------------------------------*/
 
-        // find the recent documents with the notification system
+                //find the recent documents with the notification system
 
-        if (claro_is_user_authenticated())
-        {
-            $date = $claro_notifier->get_notification_date(claro_get_current_user_id());
+                if (isset($_uid))
+                {
+                    $date = $claro_notifier->get_notification_date($_uid);
 
-        }
+                }
 
-        if (isset($fileList))
+                if (isset($fileList))
         {
             foreach($fileList as $thisFile )
             {
@@ -2102,7 +1976,7 @@ echo claro_html_tool_title($titleElement,
 
                 //modify style if the file is recently added since last login
 
-                if (claro_is_user_authenticated() && $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $thisFile['path']))
+                if (isset($_uid) && $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, $_gid, $_tid, $thisFile['path']))
                 {
                     $classItem=' hot';
                 }
@@ -2118,9 +1992,19 @@ echo claro_html_tool_title($titleElement,
                     $size        = format_file_size($thisFile['size']);
                     $date        = format_date($thisFile['date']);
 
-                    $urlFileName = claro_get_file_download_url( $cmdFileName );
+                    if ( strstr($_SERVER['SERVER_SOFTWARE'], 'Apache')
+                        && get_conf('secureDocumentDownload') )
+                    {
+                        // slash argument method - only compatible with Apache
+                        $urlFileName = 'goto/index.php'.str_replace('%2F', '/', $cmdFileName);
+                    }
+                    else
+                    {
+                        // question mark argument method, for IIS ...
+                        $urlFileName = 'goto/?url=' . $cmdFileName;
+                    }
 
-                    //$urlFileName = "goto/?doc_url=".rawurlencode($cmdFileName);
+                    //$urlFileName = "goto/?doc_url=".urlencode($cmdFileName);
                     //format_url($baseServUrl.$courseDir.$curDirPath."/".$fileName));
 
                     $target = ( get_conf('openNewWindowForDoc') ? 'target="_blank"' : '');
@@ -2135,27 +2019,27 @@ echo claro_html_tool_title($titleElement,
                     $target = '';
                 }
 
-                echo '<tr align="center">' . "\n"
-                    .'<td align="left">';
+                echo "<tr align=\"center\">\n"
+                    ."<td align=\"left\">";
 
                 if( is_image( $thisFile['path'] ) )
                 {
-                    echo '<a class="'.$style.' item'.$classItem.'" href="'. $_SERVER['PHP_SELF'] .
-                        '?docView=image&amp;file=' . rawurlencode($thisFile['path']) . '&amp;cwd='
-                        . $curDirPath . $searchCmdUrl .'">';
+                    echo "<a class=\"".$style." item".$classItem."\" href=\"". $_SERVER['PHP_SELF'],
+                        "?docView=image&amp;file=" . urlencode($thisFile['path']) . "&cwd="
+                        . $curDirPath . $searchCmdUrl ."\">";
                 }
                 else
                 {
-                        echo '<a class="'.$style.' item'.$classItem.'" href="'.$urlFileName.'" '.$target.' >';
+                        echo "<a class=\"".$style." item".$classItem."\" href=\"".$urlFileName."\" ".$target." >";
                 } // end if is_image
 
-                echo '<img src="' . get_path('imgRepositoryWeb') .
-                        $image  . '" border="0" alt="" />'.$dspFileName.'</a>';
+                echo "<img src=\"".$imgRepositoryWeb."",
+                        $image,"\" border=\"0\" alt=\"\">".$dspFileName."</a>";
 
-                echo '</td>' . "\n"
+                echo "</td>\n"
 
-                    .'<td><small>'.$size.'</small></td>' . "\n"
-                    .'<td><small>'.$date.'</small></td>' . "\n";
+                    ."<td><small>",$size,"</small></td>\n"
+                    ."<td><small>",$date,"</small></td>\n";
 
                 /* NB : Before tracking implementation the url above was simply
                  * "<a href=\"",$urlFileName,"\"",$style,">"
@@ -2165,30 +2049,30 @@ echo claro_html_tool_title($titleElement,
                 {
                     /* EDIT COMMAND */
 
-                    echo '<td>'
-                        .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;file='.$cmdFileName.'">'
-                        .'<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="'.get_lang('Modify').'" />'
-                        .'</a>'
-                        .'</td>' . "\n";
+                    echo "<td>"
+                        ."<a href=\"".$_SERVER['PHP_SELF']."?cmd=rqEdit&amp;file=".$cmdFileName."\">"
+                        ."<img src=\"".$imgRepositoryWeb."edit.gif\" border=\"0\" alt=\"".get_lang("Modify")."\">"
+                        ."</a>"
+                        ."</td>\n";
 
                     /* DELETE COMMAND */
 
-                    echo '<td>'
-                        .'<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exRm&amp;file=' . $cmdFileName . '" '
-                        .'onclick="return confirmation(\''.clean_str_for_javascript($dspFileName).'\');">'
-                        .'<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="'.get_lang('Delete').'" />'
-                        .'</a>'
-                        .'</td>' . "\n";
+                    echo "<td>"
+                        ."<a href=\"",$_SERVER['PHP_SELF'],"?cmd=exRm&amp;file=",$cmdFileName,"\" "
+                        ."onClick=\"return confirmation('".clean_str_for_javascript($dspFileName)."');\">"
+                        ."<img src=\"".$imgRepositoryWeb."delete.gif\" border=\"0\" alt=\"".get_lang("Delete")."\">"
+                        ."</a>"
+                        ."</td>\n";
 
                     /* MOVE COMMAND */
-                    echo '<td>'
-                        .'<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqMv&amp;file=' . $cmdFileName . '">'
-                        .'<img src="' . get_path('imgRepositoryWeb') . 'move.gif" border="0" alt="'.get_lang('Move').'" />'
-                        .'</a>'
-                        .'</td>' . "\n";
+                    echo "<td>"
+                        ."<a href=\"",$_SERVER['PHP_SELF'],"?cmd=rqMv&amp;file=",$cmdFileName,"\">"
+                        ."<img src=\"".$imgRepositoryWeb."move.gif\" border=\"0\" alt=\"".get_lang("Move")."\">"
+                        ."</a>"
+                        ."</td>\n";
 
 
-                    echo '<td>';
+                    echo "<td>";
 
                     if ($groupContext)
                     {
@@ -2196,10 +2080,10 @@ echo claro_html_tool_title($titleElement,
 
                         if ($thisFile['type'] == A_FILE)
                         {
-                            echo '<a href="../work/work.php?'
-                                .'submitGroupWorkUrl='.$cmdFileName.'&amp;gidReq=' . claro_get_current_group_id() . '">'
-                                .'<small>'.get_lang('Publish').'</small>'
-                                .'</a>';
+                            echo "<a href=\"../work/work.php?"
+                                ."submitGroupWorkUrl=".$groupDir.$cmdFileName."\">"
+                                ."<small>".get_lang("Publish")."</small>"
+                                ."</a>";
                         }
                         // else noop
                     }
@@ -2209,22 +2093,22 @@ echo claro_html_tool_title($titleElement,
 
                         if ($thisFile['visibility'] == "i")
                         {
-                            echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exChVis&amp;file=' . $cmdFileName . '&amp;vis=v">'
-                                .'<img src="' . get_path('imgRepositoryWeb') . 'invisible.gif" border="0" alt="'.get_lang('Make visible').'" />'
-                                .'</a>';
+                            echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=exChVis&amp;file=",$cmdFileName,"&amp;vis=v\">"
+                                ."<img src=\"".$imgRepositoryWeb."invisible.gif\" border=\"0\" alt=\"".get_lang("Make visible")."\">"
+                                ."</a>";
                         }
                         else
                         {
-                            echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exChVis&amp;file=' . $cmdFileName . '&amp;vis=i">'
-                                .'<img src="' . get_path('imgRepositoryWeb') . 'visible.gif" border="0" alt="'.get_lang('Make invisible').'" />'
-                                .'</a>';
+                            echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=exChVis&amp;file=",$cmdFileName,"&amp;vis=i\">"
+                                ."<img src=\"".$imgRepositoryWeb."visible.gif\" border=\"0\" alt=\"".get_lang("Make invisible")."\">"
+                                ."</a>";
                         }
                     }
 
-                    echo '</td>' . "\n";
+                    echo    "</td>\n";
                 } // end if($is_allowedToEdit)
 
-                echo '</tr>' . "\n";
+                echo    "</tr>\n";
 
                 /* COMMENTS */
 
@@ -2233,23 +2117,22 @@ echo claro_html_tool_title($titleElement,
                     $thisFile['comment'] = htmlspecialchars($thisFile['comment']);
                     $thisFile['comment'] = claro_parse_user_text($thisFile['comment']);
 
-                    echo '<tr align="left">' . "\n"
-                        .'<td colspan="' . $colspan . '">'
-                        .'<div class="comment">'
+                    echo "<tr align=\"left\">\n"
+                        ."<td colspan=\"$colspan\">"
+                        ."<div class=\"comment\">"
                         .$thisFile['comment']
-                        .'</div>'
-                        .'</td>' . "\n"
-                        .'</tr>' . "\n";
+                        ."</div>"
+                        ."</td>\n"
+                        ."</tr>\n";
                 }
             }               // end each ($fileList)
 
         }                   // end if ( $fileList)
 
-        echo    '</tbody>' . "\n"
-                . '</table>' . "\n";
+        echo    "</tbody>",
+
+                "</table>\n";
 
     } // END ELSE VIEW IMAGE
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
-
-?>
+include $includePath . '/claro_init_footer.inc.php';

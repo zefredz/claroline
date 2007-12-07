@@ -26,15 +26,15 @@ $tidReset = TRUE;
 require '../../inc/claro_init_global.inc.php';
 
 // check if user is logged as administrator
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
-include_once get_path('incRepositorySys') . '/lib/course.lib.inc.php';
-include_once get_path('incRepositorySys') . '/lib/faculty.lib.inc.php';
+include_once $includePath . '/lib/course.lib.inc.php';
+include_once $includePath . '/lib/faculty.lib.inc.php';
 // build bredcrump
 $nameTools        = get_lang('Repair category structure');
-$interbredcrump[] = array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
-$interbredcrump[] = array ('url' => get_path('rootAdminWeb'). '/admincats.php', 'name' => get_lang('Categories'));
+$interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+$interbredcrump[] = array ('url' => $rootAdminWeb. '/admincats.php', 'name' => get_lang('Categories'));
 
 $htmlHeadXtra[] = '
 <STYLE>
@@ -63,8 +63,7 @@ switch($cmd)
         $errorCounter = 0;
 
         $category_array = claro_get_cat_flat_list();
-        $dataAnalyseResult=array();
-        foreach( $category_array as $catName => $catCode )
+        foreach (array_keys($category_array) as $catCode)
         {
             $analyseResult = analyseCat($catCode);
             $dataAnalyseResult[] = array ( 'Code'=>$catCode
@@ -73,23 +72,15 @@ switch($cmd)
             if (! $analyseResult) $errorCounter++;
 
         }
+        if (0 < $errorCounter) $analyseTreeResultMsg['error'][] = get_lang('%nb errors found', array('%s'=>$errorCounter));
+        // analyse Course onwance
+        $courseOwnanceCheck = checkCourseOwnance();
+
         $dgDataAnalyseResult = new claro_datagrid($dataAnalyseResult);
         $dgDataAnalyseResult->set_idLineType('numeric');
-
-        $dgDataAnalyseResult->set_noRowMessage( get_lang('There is no category'));
-        $dgDataAnalyseResult->set_colTitleList(array ( 'Code' =>  get_lang('Code'),
-        'Result' =>  get_lang('Result'),
-        'Message' =>  get_lang('Message'),));
-
-        if (0 < $errorCounter) $analyseTreeResultMsg['error'][] = get_lang('%nb errors found', array('%nb'=>$errorCounter));
-        // analyse Course onwance
-        if (false === $courseOwnanceCheck = checkCourseOwnance())
-        {
-            $courseOwnanceCheck = array();
-        }
-            $dgCourseOwnanceCheck = new claro_datagrid($courseOwnanceCheck);
-            $dgCourseOwnanceCheck->set_idLineType('numeric');
-            $dgCourseOwnanceCheck->set_colTitleList(array( get_lang('Course code'), get_lang('Unknow faculty')));
+        $dgCourseOwnanceCheck = new claro_datagrid($courseOwnanceCheck);
+        $dgCourseOwnanceCheck->set_idLineType('numeric');
+        $dgCourseOwnanceCheck->set_colTitleList(array( get_lang('Course code'), get_lang('Unknow faculty')));
 
         $view = DISP_ANALYSE;
         break;
@@ -97,7 +88,7 @@ switch($cmd)
         $repairResult = repairTree();
         if ($repairResult)
         {
-            $repairResultMsg['success'][] = get_lang('Categories structure is right');
+            $repairResultMsg['success'][] = get_lang('Categories Structure is right');
         }
         else
         switch ($failure = claro_failure::get_last_failure())
@@ -120,7 +111,7 @@ switch($cmd)
  * Display
  */
 // display claroline header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include $includePath . '/claro_init_header.inc.php';
 
 /**
 * Information edit for create or edit a category
@@ -148,7 +139,7 @@ switch ($view)
         echo '<div>' . __LINE__ . ': $view = <pre>'. var_export($view,1).'</PRE></div>';
 }
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 
 /**
  * Return course list which have an unexisting category as parent
@@ -168,10 +159,8 @@ function checkCourseOwnance()
         LEFT JOIN  `" . $tbl_mdb_names['category']. "` AS f
         ON c.FACULTE = f.code
         WHERE f.id IS null ";
-
-    if (false !== ($res =  claro_sql_query_fetch_all($sql))) return $res;
-    else
-        return claro_failure::set_failure('QUERY_ERROR_'.__LINE__ );
+    if (($res =  claro_sql_query_fetch_all($sql))) return $res;
+    else                                           return claro_failure::set_failure('QUERY_ERROR'.__LINE__);
 
 
 }

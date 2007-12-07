@@ -19,13 +19,13 @@
      * @package Wiki
      */
 
-    $tlabelReq = 'CLWIKI';
+    $tlabelReq = 'CLWIKI__';
 
     require_once "../inc/claro_init_global.inc.php";
 
-    if ( ! claro_is_tool_allowed() )
+    if ( ! $is_toolAllowed )
     {
-        if ( ! claro_is_in_a_course() )
+        if ( is_null( $_cid ) )
         {
             claro_disp_auth_form( true );
         }
@@ -35,6 +35,9 @@
         }
     }
 
+    // if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+
+    event_access_tool($_tid, $_courseTool['label']);
 
     // display mode
 
@@ -47,16 +50,16 @@
     $is_allowedToAdmin = claro_is_allowed_to_edit();
 
 
-    if ( claro_is_in_a_group() && claro_is_group_allowed() )
+    if ( $_gid && $is_groupAllowed )
     {
         // group context
-        $groupId = (int) claro_get_current_group_id();
+        $groupId = (int) $_gid;
     }
-    elseif ( claro_is_in_a_group() && ! claro_is_group_allowed() )
+    elseif ( $_gid && ! $is_groupAllowed )
     {
         claro_die(get_lang("Not allowed"));
     }
-    elseif ( claro_is_course_allowed() )
+    elseif ( $is_courseAllowed )
     {
         // course context
         $groupId = 0;
@@ -84,7 +87,7 @@
     {
         $valid_actions = array( 'list', 'rqEdit', 'exEdit', 'rqDelete', 'exDelete', 'rqSearch', 'exSearch', 'exExport' );
     }
-    elseif ( claro_is_group_member() && $groupId )
+    elseif ( $is_groupMember && $groupId )
     {
         $valid_actions = array( 'list', 'rqEdit', 'exEdit', 'rqDelete', 'exDelete', 'rqSearch', 'exSearch' );
     }
@@ -99,7 +102,7 @@
 
     $wikiId = ( isset( $_REQUEST['wikiId'] ) ) ? (int) $_REQUEST['wikiId'] : 0;
 
-    $creatorId = claro_get_current_user_id();
+    $creatorId = $_uid;
 
     // get request variable for wiki edition
     if ( $action == 'exEdit' )
@@ -188,7 +191,7 @@
         case 'exExport':
         {
             require_once "lib/class.wiki2xhtmlexport.php";
-
+            
             if ( ! $wikiStore->wikiIdExists( $wikiId ) )
             {
                 // die( get_lang("Invalid Wiki Id") );
@@ -200,38 +203,24 @@
                 $wiki = $wikiStore->loadWiki( $wikiId );
                 $wikiTitle = $wiki->getTitle();
                 $renderer = new WikiToSingleHTMLExporter( $wiki );
-
+                
                 $contents = $renderer->export();
-
-                if ( 0 != $groupId )
-                {
-                    $groupPart = '_group' . (int) $groupId;
-                }
-                else
-                {
-                    $groupPart = '';
-                }
-
+                
                 require_once get_conf( 'includePath' ) . '/lib/fileUpload.lib.php';
-                // TODO : use function wich return get_conf('coursesRepositorySys') . '/' . $_course['path']
-                $exportDir = get_conf('coursesRepositorySys') . '/' . claro_get_course_path() . '/document';
-                $exportFile = replace_dangerous_char( $wikiTitle, 'strict' ) . $groupPart;
-
-                $i = 1;
-                while ( file_exists($exportDir . '/' .$exportFile.'_'.$i.'.html') ) $i++;
-
-                $wikiFileName = $exportFile . '_' . $i . '.html';
+                $wikiFileName = replace_dangerous_char( $wikiTitle, 'strict' ) . '.html';
+                
+                $exportDir = get_conf('coursesRepositorySys') . '/' . $_course['path'].'/document';
                 $exportPath = $exportDir . '/' . $wikiFileName;
-
+                
                 file_put_contents( $exportPath, $contents );
             }
-
+            
             break;
         }
         case 'exSearch':
         {
             require_once "lib/class.wikisearchengine.php";
-
+            
             $pattern = isset( $_REQUEST['searchPattern'] )
                 ? trim($_REQUEST['searchPattern'])
                 : null
@@ -268,14 +257,13 @@
         {
             if ( !isset( $message ) ) $message = '';
 
-            $message .= '<form method="post" action="'.$_SERVER['PHP_SELF'].'">'."\n"
-                . '<input type="hidden" name="action" value="exSearch" />'."\n"
-                . claro_form_relay_context() . "\n"
+            $message .= '<form>'."\n"
+                . '<input type="hidden" name="action" value="exSearch">'."\n"
                 . '<label for="searchPattern">'
                 . get_lang("Search")
                 . '</label><br />'."\n"
-                . '<input type="text" id="searchPattern" name="searchPattern" />'."\n"
-                . '<input type="submit" value="'.get_lang("Ok").'" />'."\n"
+                . '<input type="text" id="searchPattern" name="searchPattern">'."\n"
+                . '<input type="submit" value="'.get_lang("Ok").'">'."\n"
                 . claro_html_button($_SERVER['PHP_SELF'], get_lang("Cancel"))
                 . '</form>'."\n"
                 ;
@@ -319,8 +307,8 @@
             //notify that the wiki was deleted
 
             $eventNotifier->notifyCourseEvent('wiki_deleted'
-                                         , claro_get_current_course_id()
-                                         , claro_get_current_tool_id()
+                                         , $_cid
+                                         , $_tid
                                          , $wikiId
                                          , $groupId
                                          , '0');
@@ -368,11 +356,11 @@
 
                 //notify wiki modification
 
-                $eventNotifier->notifyCourseEvent('wiki_added'
-                                         , claro_get_current_course_id()
-                                         , claro_get_current_tool_id()
+                $eventNotifier->notifyCourseEvent('wiki_modified'
+                                         , $_cid
+                                         , $_tid
                                          , $wikiId
-                                         , claro_get_current_group_id()
+                                         , $_gid
                                          , '0');
 
                 $mainPageContent = sprintf(
@@ -397,11 +385,11 @@
 
                 //notify wiki creation
 
-                $eventNotifier->notifyCourseEvent('wiki_modified'
-                                         , claro_get_current_course_id()
-                                         , claro_get_current_tool_id()
+                $eventNotifier->notifyCourseEvent('wiki_added'
+                                         , $_cid
+                                         , $_tid
                                          , $wikiId
-                                         , claro_get_current_group_id()
+                                         , $_gid
                                          , '0');
 
                 $message = get_lang("Wiki edition succeed");
@@ -474,7 +462,7 @@
 
     // Claro header and banner
 
-    require_once get_path('incRepositorySys') . "/claro_init_header.inc.php";
+    require_once $includePath . "/claro_init_header.inc.php";
 
     // --------- Start of display ----------------
 
@@ -482,9 +470,9 @@
 
     $toolTitle = array();
 
-    if ( claro_is_in_a_group() )
+    if ( $_gid )
     {
-        $toolTitle['supraTitle'] = claro_get_current_group_data('name');
+        $toolTitle['supraTitle'] = $_group['name'];
     }
 
     switch( $action )
@@ -536,23 +524,50 @@
         }
         case 'exExport':
         {
-            echo '<blockquote>'
+            $cmdFileName = rawurlencode( '/' . $wikiFileName);
+            
+            if ( strstr($_SERVER['SERVER_SOFTWARE'], 'Apache')
+                        && get_conf('secureDocumentDownload') )
+            {
+                // slash argument method - only compatible with Apache
+                $urlFileName = 'goto/index.php'.str_replace('%2F', '/', $cmdFileName);
+            }
+            else
+            {
+                // question mark argument method, for IIS ...
+                $urlFileName = 'goto/?url=' . $cmdFileName;
+            }
+            
+            $url = '../document/' . $urlFileName;
+            
+            if ( false !== strpos( $url, '?' ) )
+            {
+                $url .= '&amp;gidReset=1';
+            }
+            else
+            {
+                $url .= '?gidReset=1';
+            }
+            
+            echo '<blockquote>' 
                 . get_lang( "Wiki %TITLE% exported to course documents. (this file is visible)"
                     , array( '%TITLE%' => $wikiTitle ) )
                 . '</blockquote>'
-                . '<p>'
-                . claro_html_cmd_link( get_module_url('CLDOC')
-                                     . '/document.php?gidReset=1'
-                                     . claro_url_relay_context('&amp;')
-                                     , get_lang("Go to documents tool"))
+                . '<p><a class="claroCmd" href="' . $url . '">'
+                . get_lang( "Go to the exported Wiki" )
+                . '</a>'
                 . '&nbsp;|&nbsp;'
-                . claro_html_cmd_link( $_SERVER['PHP_SELF']
-                                     . claro_url_relay_context('?')
-                                     , get_lang("Go back to Wiki list"))
+                . '<a class="claroCmd" href="' . '../document/' . '">' 
+                . get_lang("Go to documents tool") 
+                .'</a>'
+                . '&nbsp;|&nbsp;'
+                . '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '">' 
+                . get_lang("Go back to Wiki list") 
+                .'</a>'
                 . '</p>'
                 . "\n"
                 ;
-
+            
             break;
         }
         // edit form
@@ -566,7 +581,7 @@
         // delete form
         case 'rqDelete':
         {
-            echo '<form method="post" action="'
+            echo '<form method="POST" action="'
                 . $_SERVER['PHP_SELF']
                 . '" id="rqDelete">'
                 . "\n"
@@ -589,10 +604,10 @@
         {
             //find the wiki with recent modification from the notification system
 
-            if (claro_is_user_authenticated())
+            if (isset($_uid))
             {
-                $date = $claro_notifier->get_notification_date(claro_get_current_user_id());
-                $modified_wikis = $claro_notifier->get_notified_ressources(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id());
+                $date = $claro_notifier->get_notification_date($_uid);
+                $modified_wikis = $claro_notifier->get_notified_ressources($_cid, $date, $_uid, $_gid,12);
             }
             else
             {
@@ -602,26 +617,26 @@
             // if admin, display add new wiki link
             echo '<p>';
 
-            if ( ( $groupId && claro_is_group_member() ) || $is_allowedToAdmin )
+            if ( ( $groupId && $is_groupMember ) || $is_allowedToAdmin )
             {
-                echo claro_html_cmd_link(
-                    $_SERVER['PHP_SELF'] . '?action=rqEdit'
-                    . claro_url_relay_context('&amp;')
-                    , '<img src="' . get_path('imgRepositoryWeb') . '/wiki.gif" '
-                    . ' alt="' . get_lang("Create a new Wiki").'" />'
-                    . '&nbsp;'
-                    . get_lang("Create a new Wiki"))
+                echo '<a href="'
+                    . $_SERVER['PHP_SELF']
+                    . '?action=rqEdit'
+                    . '" class="claroCmd">'
+                    . '<img src="' . $imgRepositoryWeb . '/wiki.gif" alt="'.get_lang("Create a new Wiki").'" />&nbsp;'
+                    . get_lang("Create a new Wiki")
+                    . '</a>'
                     . '&nbsp;|&nbsp;'
                     ;
             }
 
-            echo claro_html_cmd_link(
-                $_SERVER['PHP_SELF'] . '?action=rqSearch'
-                . claro_url_relay_context('&amp;')
-                , '<img src="' . get_path('imgRepositoryWeb') . '/search.gif" '
-                . ' alt="' . get_lang("Search") . '" />'
-                . '&nbsp;'
-                . get_lang("Search"))
+            echo '<a href="'
+                . $_SERVER['PHP_SELF']
+                . '?action=rqSearch'
+                . '" class="claroCmd">'
+                . '<img src="' . $imgRepositoryWeb . '/search.gif" alt="'.get_lang("Search").'" />&nbsp;'
+                . get_lang("Search")
+                . '</a>'
                 . '</p>'
                 . "\n"
                 ;
@@ -631,7 +646,7 @@
             echo '<table class="claroTable emphaseLine" style="width: 100%">' . "\n";
 
             // if admin, display title, edit and delete
-            if ( ( $groupId && claro_is_group_member() ) || $is_allowedToAdmin )
+            if ( ( $groupId && $is_groupMember ) || $is_allowedToAdmin )
             {
                 echo '<thead>' . "\n"
                     . '<tr class="headerX" style="text-align: center;">' . "\n"
@@ -671,7 +686,7 @@
 
                     //modify style if the wiki is recently added or modified since last login
 
-                    if ( (claro_is_user_authenticated() && $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $entry['id'])))
+                    if ((isset($_uid) && $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, $_gid, $_tid, $entry['id'])))
                     {
                         $classItem=" hot";
                     }
@@ -688,7 +703,7 @@
                     echo '<a class="item'.$classItem.'" href="page.php?wikiId='
                         . $entry['id'].'&amp;action=show'
                         . '">'
-                        . '<img src="' . get_path('imgRepositoryWeb') . '/wiki.gif" alt="'.get_lang("Wiki").'" />&nbsp;'
+                        . '<img src="' . $imgRepositoryWeb . '/wiki.gif" alt="'.get_lang("Wiki").'" />&nbsp;'
                         . $entry['title'] . '</a>'
                         ;
                         ;
@@ -712,7 +727,7 @@
                     echo '<a href="page.php?wikiId='
                         . $entry['id'].'&amp;action=recent'
                         . '">'
-                        . '<img src="' . get_path('imgRepositoryWeb') . '/history.gif" alt="'.get_lang("Recent changes").'" />'
+                        . '<img src="' . $imgRepositoryWeb . '/history.gif" alt="'.get_lang("Recent changes").'" />'
                         . '</a>'
                         ;
                         ;
@@ -721,7 +736,7 @@
 
                     // if admin, display edit and delete links
 
-                    if ( ( $groupId && claro_is_group_member() ) || $is_allowedToAdmin )
+                    if ( ( $groupId && $is_groupMember ) || $is_allowedToAdmin )
                     {
                         // edit link
 
@@ -729,7 +744,7 @@
                         echo '<a href="'.$_SERVER['PHP_SELF'].'?wikiId='
                             . $entry['id'].'&amp;action=rqEdit'
                             . '">'
-                            . '<img src="' . get_path('imgRepositoryWeb') . 'settings.gif" border="0" alt="'
+                            . '<img src="'.$imgRepositoryWeb.'settings.gif" border="0" alt="'
                             . get_lang("Edit properties").'" />'
                             . '</a>'
                             ;
@@ -741,18 +756,18 @@
                         echo '<a href="'.$_SERVER['PHP_SELF'].'?wikiId='
                             . $entry['id'].'&amp;action=rqDelete'
                             . '">'
-                            . '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="'.get_lang("Delete").'" />'
+                            . '<img src="'.$imgRepositoryWeb.'delete.gif" border="0" alt="'.get_lang("Delete").'" />'
                             . '</a>'
                             ;
                         echo '</td>' . "\n";
-
+                        
                         if ( true === $is_allowedToAdmin )
                         {
                             echo '<td style="text-align:center;">';
                             echo '<a href="'.$_SERVER['PHP_SELF'].'?wikiId='
                                 . $entry['id'].'&amp;action=exExport'
                                 . '">'
-                                . '<img src="' . get_path('imgRepositoryWeb') . 'export.gif" border="0" alt="'.get_lang("Export").'" />'
+                                . '<img src="'.$imgRepositoryWeb.'export.gif" border="0" alt="'.get_lang("Export").'" />'
                                 . '</a>'
                                 ;
                             echo '</td>' . "\n";
@@ -764,8 +779,8 @@
                     if ( ! empty( $entry['description'] ) )
                     {
                         echo '<tr>' . "\n";
-
-                        if ( $groupId && claro_is_group_member() )
+                        
+                        if ( $groupId && $is_groupMember )
                         {
                             $colspan = 5;
                         }
@@ -791,7 +806,7 @@
             // wiki list empty
             else
             {
-                if ( $groupId && claro_is_group_member() )
+                if ( $groupId && $is_groupMember )
                 {
                     $colspan = 5;
                 }
@@ -803,7 +818,7 @@
                 {
                     $colspan = 3;
                 }
-
+                        
                 echo '<tr><td colspan="'.$colspan.'" style="text-align: center;">'
                  . get_lang("No Wiki")
                  . '</td></tr>' . "\n"
@@ -823,7 +838,9 @@
         }
     }
 
-// ------------ End of display ---------------
-// Claroline footer
-require_once get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+    // ------------ End of display ---------------
+
+    // Claroline footer
+
+    require_once $includePath . "/claro_init_footer.inc.php";
 ?>

@@ -1,5 +1,4 @@
-<?php // $Id$ 
-if ( count( get_included_files() ) == 1 ) die( '---' );
+<?php
 /*--protectAdminIndex--*/
 if (    ("apache" ==  strtolower(substr($_SERVER['SERVER_SOFTWARE'],0,6))) 
         && ($_SERVER['PHP_AUTH_USER']=="" ) 

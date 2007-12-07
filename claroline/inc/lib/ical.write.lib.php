@@ -1,5 +1,4 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
@@ -20,17 +19,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * * icalendar/class.iCal.inc.php
  *
  */
-require_once claro_get_conf_repository() . 'rss.conf.php';
-require_once claro_get_conf_repository() . 'ical.conf.php';
 require_once dirname(__FILE__) . '/icalendar/class.iCal.inc.php';
 
 
-/**
- * return the mime type for a requested format
- *
- * @param fortma $calType : ics,xcs,rdf
- * @return string mimetype
- */
 function get_ical_MimeType($calType)
 {
 
@@ -43,23 +34,15 @@ function get_ical_MimeType($calType)
     return false;
 }
 
-/**
- * build the rss file and place it in directory
- *
- * @param array $context context of claroline
- * @param string $calType : ics,xcs,rdf
- * @return string ical file path
- */
 function buildICal($context, $calType='ics')
 {
     if (is_array($context) && count($context) > 0)
     {
-        $iCalRepositorySys =  get_path('rootSys') . get_conf('iCalRepositoryCache','tmp/cache/iCal/');
+        $iCalRepositorySys =  get_conf('rootSys') . get_conf('iCalRepositoryCache','tmp/cache/iCal/');
         if (!file_exists($iCalRepositorySys))
         {
             require_once dirname(__FILE__) . '/fileManage.lib.php';
             claro_mkdir($iCalRepositorySys, CLARO_FILE_PERMISSIONS, true);
-            if (!file_exists($iCalRepositorySys)) claro_failure::set_failure('CANT_CREATE_ICAL_DIR');
         }
 
         $iCal = (object) new iCal('', 0, $iCalRepositorySys ); // (ProgrammID, Method (1 = Publish | 0 = Request), Download Directory)
@@ -73,7 +56,7 @@ function buildICal($context, $calType='ics')
             if ( file_exists($icalToolLibPath)
             )
             {
-                require_once $icalToolLibPath;
+                include_once $icalToolLibPath;
                 if (function_exists($icalToolFuncName)) $iCal = call_user_func($icalToolFuncName, $iCal, $context );
             }
         }
@@ -87,33 +70,25 @@ function buildICal($context, $calType='ics')
         if ('ics' == $calType || get_conf('iCalGenStandard', true))
         {
             $stdICalFilePath = $iCalFilePath . 'ics';
-            if(false !== ($fpICal = @fopen($stdICalFilePath, 'w')))
-            {
-                fwrite($fpICal, $iCal->getOutput('ics'));
-                fclose($fpICal);
-            }
+            $fpICal = fopen($stdICalFilePath, 'w');
+            fwrite($fpICal, $iCal->getOutput('ics'));
+            fclose($fpICal);
         }
 
         if ('xcs' == $calType || get_conf('iCalGenXml', true))
         {
             $xmlICalFilePath = $iCalFilePath . 'xml';
-            if(false !== ($fpICal = @fopen($xmlICalFilePath, 'w')))
-            {
-                fwrite($fpICal, $iCal->getOutput('xcs'));
-                fclose($fpICal);
-            }
-
+            $fpICal = fopen($xmlICalFilePath, 'w');
+            fwrite($fpICal, $iCal->getOutput('xcs'));
+            fclose($fpICal);
         }
 
         if ('rdf' == $calType || get_conf('iCalGenRdf', false))
         {
             $rdfICalFilePath = $iCalFilePath . 'rdf';
-            if(false !== ($fpICal = @fopen($rdfICalFilePath, 'w')))
-            {
-
-                fwrite($fpICal, $iCal->getOutput('rdf'));
-                fclose($fpICal);
-            }
+            $fpICal = fopen($rdfICalFilePath, 'w');
+            fwrite($fpICal, $iCal->getOutput('rdf'));
+            fclose($fpICal);
         }
 
         switch ($calType)
@@ -150,14 +125,14 @@ function ical_get_tool_compatible_list()
     if (is_null($iCalToolList))
     {
         $iCalToolList = array();
-        if(get_conf('iCalUseCache',true))
+        if(get_conf('icalUseCache',true))
         {
             include_once dirname(__FILE__) . '/pear/Lite.php';
 
             // Cache_lite setting & init
             $cache_options = array(
-            'cacheDir' => get_path('rootSys') . 'tmp/cache/ical/sources/',
-            'lifeTime' => get_conf('iCalCacheLifeTime',get_conf('cache_lifeTime',10)),
+            'cacheDir' => get_conf('rootSys') . 'tmp/cache/ical/sources/',
+            'lifeTime' => get_conf('cache_lifeTime', get_conf('iCalCacheLifeTime'), 600000), // 600.000 little less than a week
             'automaticCleaningFactor' => 500,
             );
             if (get_conf('CLARO_DEBUG_MODE',false) )
@@ -171,8 +146,6 @@ function ical_get_tool_compatible_list()
             {
                 include_once dirname(__FILE__) . '/fileManage.lib.php';
                 claro_mkdir($cache_options['cacheDir'],CLARO_FILE_PERMISSIONS,true);
-                if (! file_exists($cache_options['cacheDir']) )
-                claro_failure::set_failure('CANT_CREATE_CACHE_ICAL_SOURCE_LIST');
             }
 
             $iCalToolListCache = new Cache_Lite($cache_options);

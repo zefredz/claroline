@@ -1,5 +1,5 @@
-<?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+<?php
+/* vim: set expandtab tabstop=4 shiftwidth=4: */
 //+----------------------------------------------------------------------+
 //| WAMP (XP-SP1/1.3.24/4.0.12/4.3.0)                                    |
 //+----------------------------------------------------------------------+
@@ -21,7 +21,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
 * We need the base class
 */
-include_once dirname(__FILE__) . '/' . 'class.iCalBase.inc.php';
+include_once 'class.iCalBase.inc.php';
 /**
 * Container for a single freebusy
 *
@@ -284,8 +284,7 @@ class iCalFreeBusy extends iCalBase {
 	* @see $startdate_ts
 	*/
 	function &getStartDateTS() {
-		$ret = (int) $this->startdate_ts;
-        return $ret;
+		return (int) $this->startdate_ts;
 	} // end function
 
 	/**
@@ -297,8 +296,7 @@ class iCalFreeBusy extends iCalBase {
 	* @see $enddate_ts
 	*/
 	function &getEndDateTS() {
-		$ret = (int) $this->enddate_ts;
-        return $ret;
+		return (int) $this->enddate_ts;
 	} // end function
 
 	/**
@@ -310,8 +308,7 @@ class iCalFreeBusy extends iCalBase {
 	* @see $startdate
 	*/
 	function &getStartDate() {
-		$ret = (string) $this->startdate;
-        return $ret;
+		return (string) $this->startdate;
 	} // end function
 
 	/**
@@ -323,8 +320,7 @@ class iCalFreeBusy extends iCalBase {
 	* @see $enddate
 	*/
 	function &getEndDate() {
-		$ret = (string) $this->enddate;
-        return $ret;
+		return (string) $this->enddate;
 	} // end function
 
 	/**
@@ -336,8 +332,7 @@ class iCalFreeBusy extends iCalBase {
 	* @see $uid
 	*/
 	function &getUID() {
-		$ret = (string) $this->uid;
-        return $ret;
+		return (string) $this->uid;
 	} // end function
 	/**#@-*/
 
@@ -352,8 +347,7 @@ class iCalFreeBusy extends iCalBase {
 	* @since 1.020 - 2002-12-24
 	*/
 	function &getDuration() {
-		$ret = (int) $this->duration;
-        return $ret;
+		return (int) $this->duration;
 	} // end function
 
 	/**
@@ -367,8 +361,7 @@ class iCalFreeBusy extends iCalBase {
 	* @since 1.020 - 2002-12-24
 	*/
 	function &getFBTimes() {
-		$ret = (array) $this->freebusy_times;
-        return $ret;
+		return (array) $this->freebusy_times;
 	} // end function
 
 	/**
@@ -382,8 +375,7 @@ class iCalFreeBusy extends iCalBase {
 	* @since 1.020 - 2002-12-24
 	*/
 	function &getFBStatus($int = 0) {
-		$ret = (string) ((array_key_exists($int, $this->fb_status)) ? $this->fb_status[$int] : $this->fb_status[0]);
-        return $ret;
+		return (string) ((array_key_exists($int, $this->fb_status)) ? $this->fb_status[$int] : $this->fb_status[0]);
 	} // end function
 } // end class iCalFreeBusy
 ?>

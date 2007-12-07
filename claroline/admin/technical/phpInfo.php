@@ -18,139 +18,155 @@
 
 require '../../inc/claro_init_global.inc.php';
 
-require_once dirname( __FILE__ ) . '/lib/phpinfo.lib.php';
-
 // Security check
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
-$claroCreditFilePath = get_path('rootSys').'CREDITS.txt';
+$claroCreditFilePath = get_conf('rootSys').'CREDITS.txt';
 
-if( file_exists(get_path('rootSys').'platform/currentVersion.inc.php') )
-{
-	include (get_path('rootSys').'platform/currentVersion.inc.php');
-}
-
-if( ! claro_is_platform_admin() ) claro_disp_auth_form();
+if(file_exists($includePath . '/currentVersion.inc.php')) include ($includePath . '/currentVersion.inc.php');
+if ( ! $is_platformAdmin ) claro_disp_auth_form();
 
 
 
-if( ! isset($clarolineVersion) )  $clarolineVersion= 'X';
+if (! isset($clarolineVersion) )  $clarolineVersion= 'X';
 
 
 $nameTools = get_lang('PHP system information');
 $interbredcrump[]= array ('url' => '..', 'name' => get_lang('Admin'));
 $interbredcrump[]= array ('url' => 'index.php', 'name' => get_lang('Technical Tools'));
-
-if( array_key_exists( 'to', $_REQUEST) )
+if (isset($_REQUEST['to']))
 {
     $interbredcrump[]= array ('url' => basename($_SERVER['PHP_SELF']), 'name' => get_lang('PHP system information'));
     $nameTools = $_REQUEST['to'];
 }
 
-$is_allowedToAdmin = claro_is_platform_admin();
+$is_allowedToAdmin = $is_platformAdmin;
 if ($is_allowedToAdmin)
 {
-    $htmlHeadXtra[] = phpinfo_getStyle();
-    include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-
-    echo claro_html_tool_title( array( 'mainTitle'=>$nameTools, 'subTitle'=> get_conf('siteName') ) );
-
-	$cmd = array_key_exists( 'cmd', $_REQUEST ) ? $_REQUEST['cmd'] : 'phpinfo';
-	$ext = array_key_exists( 'ext', $_REQUEST ) ? $_REQUEST['ext'] : '';
+    include($includePath . '/claro_init_header.inc.php');
+    echo claro_html_tool_title( array( 'mainTitle'=>$nameTools
+                                , 'subTitle'=> $siteName . ' - ' . $clarolineVersion . ' - '
+                                )
+                         );
 
 ?>
-
-<div class="elementServeur">
- <span>Claroline</span> <strong><?php echo $clarolineVersion ;?></strong><br />
- <span>PHP</span>  <strong><?php echo phpversion(); ?></strong><br />
- <span>MySql</span> <strong><?php echo mysql_get_server_info();?></strong><br />
- <span>WebServer</span> <strong><?php echo $_SERVER['SERVER_SOFTWARE'] ;?></strong>
-</div>
-
-<ul id="navlist">
-	<li>
-		<a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=phpinfo" <? echo ($cmd == 'phpinfo')? 'class="current"': ''; ?>>
-		<?php echo get_lang('PHP configuration'); ?>
-		</a>
-	</li>
-	<li>
-		<a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=secinfo" <? echo ($cmd == 'secinfo')? 'class="current"': ''; ?>>
-		<?php echo get_lang('PHP security information'); ?>
-		</a>`
-	</li>
-	<li>
-		<a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=extensions" <? echo ($cmd == 'extensions')? 'class="current"': ''; ?>>
-		<?php echo get_lang('Loaded extensions'); ?>
-		</a>
-	</li>
-	<li>
-		<a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=claroconf" <? echo ($cmd == 'claroconf')? 'class="current"': ''; ?>>
-		<?php echo get_lang('Claroline configuration'); ?>
-		</a>
-	</li>
-</ul>
+<img src="http://www.claroline.net/image/logo.gif"  alt="claroline" border="0" align="right">
+<?php
+    if (isset($_REQUEST)) while( (list($name, $value) = each($_REQUEST)))  $$name = $value;
+    if (!isset($cmd)) $cmd = '';
+    if (!isset($ext)) $ext = '';
+    if (!isset($ext)) $do = '';
+    if (!isset($ext)) $directory = '';
 
 
-<div class="phpInfoContents">
+    function localtest()
+    {
+        global $local_test;
+        $local_addr = $_SERVER['REMOTE_ADDR'];
+        if ($local_addr == "127.0.0.1")
+        {
+            $local_test = true;
+        }
+        else
+        {
+            $local_test = false;
+        }
+    }
+?>
+
+<br />
+<DIV class="elementServeur">
+<span class="elementServeur" >PHP</span>  <?php echo phpversion()?> :
+[<a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=phpinfo">PHP info</a>]&nbsp;
+[<a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=phpcredit">PHP credit</a>]&nbsp;
+[<a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=ext">Extentions</a>]
+</DIV>
+<DIV class="elementServeur">
+<span class="elementServeur" >Claroline</span> <?php echo $clarolineVersion ;?></strong> : [<a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=clarconf">Config Claroline</a>]&nbsp;
+[<a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=clarcredit">Claroline credit</a>]&nbsp;
+</DIV>
+<DIV class="elementServeur">
+<span class="elementServeur" >WebServer</span> <?php echo $_SERVER['SERVER_SOFTWARE'] ;?></strong><br />
+
+[<?php echo get_lang('Mail to') . ' : ' ; ?><a href="mailto:<?php echo $_SERVER['SERVER_ADMIN'] ?>">Admin apache (<?php echo $_SERVER['SERVER_ADMIN'] ?>)</A>]
+<br />
+</DIV>
+<HR size="1" noshade="noshade">
 <?php
 
-	if( $cmd == 'extensions' )
-	{
-	    $extensions = @get_loaded_extensions();
-	    echo count($extensions) . ' ' . get_lang('Loaded extensions') . '<br /><br />';
-	    @sort($extensions);
+    if ($cmd == 'ext')
+    {
+        $extensions = @get_loaded_extensions();
+        echo count($extensions) . ' extensions <hr /><br />';
+        @sort($extensions);
+        foreach($extensions as $extension)
+        {
+            echo $extension.' &nbsp; <a href="'.$_SERVER['PHP_SELF'].'?cmd=ext&amp;ext='.$extension.'" >'.get_lang('Function list').'</a><br />'."\n";
+            if ($extension==$ext)
+            {
+                $functions = @get_extension_funcs($ext);
+                @sort($functions);
+                if (is_array($functions))
+                {
+                    echo '<OL>';
+                    foreach($functions as $function)
+                    {
+                        print '<LI>' . $function . '</li>';
+                    }
+                    echo '</OL>';
+                }
+                else
+                {
+                    echo '!! ' . get_lang('No function in this extension') . '!!<br />';
+                }
+            }
+        }
+    }
+    elseif ($cmd == 'phpinfo')
+    {
+        phpinfo();
+    }
+    elseif ($cmd == 'phpcredit')
+    {
+        phpcredits(CREDITS_ALL);
+    }
 
-	    foreach($extensions as $extension)
-	    {
-	        echo $extension.' &nbsp; <a href="'.$_SERVER['PHP_SELF'].'?cmd=ext&amp;ext='.$extension.'" >'.get_lang('Function list').'</a><br />'."\n";
-	        if( $extension == $ext )
-	        {
-	            $functions = @get_extension_funcs($ext);
-	            @sort($functions);
-	            if( is_array($functions) )
-	            {
-	                echo '<ol>';
-	                foreach($functions as $function)
-	                {
-	                    print '<li>' . $function . '</li>';
-	                }
-	                echo '</ol>';
-	            }
-	            else
-	            {
-	                echo get_lang('No function in this extension') . '<br />';
-	            }
-	        }
-	    }
-	}
-	elseif( $cmd == 'phpinfo' )
-	{
-	    echo '<div class="center">';
-	    echo phpinfoNoHtml();
-	    echo '</div>';
-	}
-	elseif( $cmd == 'secinfo' )
-	{
-	    require_once('./lib/PhpSecInfo.lib.php');
-	    phpsecinfo();
+    elseif ($cmd == 'clarconf')
+    {
+        echo '<div style="background-color: #dfdfff;"><hr />config file<hr />';
+        highlight_file($includePath . '/conf/claro_main.conf.php');
+        echo '<hr /></div>';
 
-	}
-	elseif( $cmd == 'claroconf' )
-	{
-	    echo '<div style="background-color: #dfdfff;">';
-	    highlight_file(claro_get_conf_repository() . 'claro_main.conf.php');
-	    echo '<hr /></div>';
-	}
+    }
+    elseif ($cmd == 'clarcredit' )
+    {
+    ?>
+
+    <a href="http://www.claroline.net/credits.htm">See online Credits</a>
+
+<PRE>
+<?php
+        echo "\n";
+        if (file_exists($claroCreditFilePath)) include ($claroCreditFilePath);
+    }
+    else
+    {
+        $hideBar = true;
+    }
+
+
 }
-else // is not allowed
+else
 {
     echo get_lang('No way');
 }
 
 ?>
-</div>
-
+<HR size="1" noshade="noshade">
+[<a href="http://freshmeat.net/projects/claroline/?topic_id=92%2C72%2C20%2C71"  hreflang="en">FreshMeat</a>]
+[<a href="http://freshmeat.net/rate/20465/"  hreflang="en" >Rate it</a>]<br />
+[<a href="https://sourceforge.net/projects/claroline/" hreflang="en">SourceForge</a>]<br />
 <?php
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 ?>

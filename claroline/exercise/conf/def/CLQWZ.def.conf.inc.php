@@ -1,7 +1,6 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
- * CLAROLINE
+ * CLAROLINE 
  *
  * This file describe the parameter for user tool
  *
@@ -21,16 +20,15 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 // TOOL
 $conf_def['config_code'] = 'CLQWZ';
 $conf_def['config_file'] = 'CLQWZ.conf.php';
-$conf_def['config_name'] = 'Exercises';
+$conf_def['config_name'] = 'Exercise tool';
 $conf_def['config_class']='tool';
 
 
 //SECTION
 $conf_def['section']['main']['label']='Main settings';
 //$conf_def['section']['main']['description']='';
-$conf_def['section']['main']['properties'] =
+$conf_def['section']['main']['properties'] = 
 array ( 'enableExerciseExportQTI'
-       ,'exercisesPerPage'
 );
 
 //PROPERTIES
@@ -38,21 +36,11 @@ array ( 'enableExerciseExportQTI'
 $conf_def_property_list['enableExerciseExportQTI'] =
 array ('label'         => 'Enable IMS-QTI Export'
       ,'description'   => ''
-      ,'default'       => TRUE
+      ,'default'       => 'TRUE'
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
                                 ,'FALSE' => 'No'
                                 )
       );
-
-$conf_def_property_list['exercisesPerPage'] =
-array ( 'label'   => 'Number of exercices per page'
-      , 'default' => '25'
-      , 'unit'    => 'exercices'
-      , 'type'    => 'integer'
-      , 'acceptedValue' => array ('min'=>'5')
-      );
-
-
 
 ?>

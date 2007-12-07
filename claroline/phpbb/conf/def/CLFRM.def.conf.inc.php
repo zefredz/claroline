@@ -1,5 +1,4 @@
 <?php //$Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
@@ -22,7 +21,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 // TOOL
 $conf_def['config_code']='CLFRM';
 $conf_def['config_file']='CLFRM.conf.php';
-$conf_def['config_name'] = 'Forums';
+$conf_def['config_name'] = 'Forums tool';
 $conf_def['config_class']='tool';
 
 $conf_def['section']['forum']['label']='General settings';
@@ -43,13 +42,13 @@ $conf_def_property_list['allow_html']
         ,'type'      => 'enum'
         ,'container' => 'VAR'
         ,'readonly'      => FALSE
-        ,'acceptedValue' => array ( '1'=>'Yes'
-                                  , '0'=>'No'
+        ,'acceptedValue' => array ( '1'=>'Allow'
+                                  , '0'=>'Deny'
                                   )
         );
 
 $conf_def_property_list['posts_per_page']
-= array ('label'     => 'Number of posts per page'
+= array ('label'     => 'Maximum of posts per page'
         ,'default'   => '5'
         ,'unit'      => 'posts'
         ,'type'      => 'integer'
@@ -60,7 +59,7 @@ $conf_def_property_list['posts_per_page']
         );
 
 $conf_def_property_list['topics_per_page']
-= array ('label'     => 'Number of topics per page'
+= array ('label'     => 'Maximum of topics per page'
         ,'default'   => '5'
         ,'unit'      => 'topics'
         ,'type'      => 'integer'

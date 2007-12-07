@@ -1,6 +1,7 @@
 <?php // $Id$
+
 /**
- * CLAROLINE
+ * CLAROLINE 
  *
  * @version 1.8 $Revision$
  *
@@ -18,11 +19,11 @@
        CLAROLINE MAIN
   ======================================*/
 
-$tlabelReq = 'CLLNP';
+$tlabelReq = 'CLLNP___';
 
 require '../inc/claro_init_global.inc.php';
 
-if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
+if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 
 // $_SESSION
 // path_id
@@ -39,10 +40,10 @@ if ( isset($_GET['module_id']) && $_GET['module_id'] != '')
 // use viewMode
 claro_set_display_mode_available(true);
 
-$is_allowedToEdit = claro_is_allowed_to_edit();    // as teacher
+$is_AllowedToEdit = claro_is_allowed_to_edit();    // as teacher
 //-- interbredcrump
 $interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
-if ( $is_allowedToEdit )
+if ( $is_AllowedToEdit )
 {
     $interbredcrump[]= array ("url"=>"../learnPath/learningPathAdmin.php", "name"=> get_lang('Learning path'));
 }
@@ -68,16 +69,18 @@ $tbl_quiz_exercise = $tbl_cdb_names['qwz_exercise'];
 $dbTable = $TABLEASSET; // for old functions of document tool
 
 //lib of this tool
-include(get_path('incRepositorySys')."/lib/learnPath.lib.inc.php");
+include($includePath."/lib/learnPath.lib.inc.php");
 
-include(get_path('incRepositorySys')."/lib/fileDisplay.lib.php");
-include(get_path('incRepositorySys')."/lib/fileManage.lib.php");
-include(get_path('incRepositorySys')."/lib/fileUpload.lib.php");
+include($includePath."/lib/fileDisplay.lib.php");
+include($includePath."/lib/fileManage.lib.php");
+include($includePath."/lib/fileUpload.lib.php");
 
 // clean exercise session vars
-unset($_SESSION['serializedExercise']);
-unset($_SESSION['serializedQuestionList']);
-unset($_SESSION['exeStartTime']);
+if(session_is_registered('objExercise'))        { session_unregister('objExercise');        }
+if(session_is_registered('objQuestion'))        { session_unregister('objQuestion');        }
+if(session_is_registered('objAnswer'))          { session_unregister('objAnswer');          }
+if(session_is_registered('questionList'))       { session_unregister('questionList');       }
+if(session_is_registered('exerciseResult'))     { session_unregister('exerciseResult');     }
 
 // main page
 // FIRST WE SEE IF USER MUST SKIP THE PRESENTATION PAGE OR NOT
@@ -140,10 +143,10 @@ $sql = "SELECT `contentType`,
                 `scoreMax`,
                 `raw`,
                 `lesson_status`
-        FROM `".$TABLEUSERMODULEPROGRESS."` AS UMP,
-             `".$TABLELEARNPATHMODULE."` AS LPM,
+        FROM `".$TABLEUSERMODULEPROGRESS."` AS UMP, 
+             `".$TABLELEARNPATHMODULE."` AS LPM, 
              `".$TABLEMODULE."` AS M
-        WHERE UMP.`user_id` = '" . (int) claro_get_current_user_id() . "'
+        WHERE UMP.`user_id` = '$_uid'
           AND UMP.`learnPath_module_id` = LPM.`learnPath_module_id`
           AND LPM.`learnPath_id` = ".(int)$_SESSION['path_id']."
           AND LPM.`module_id` = ". (int)$_SESSION['module_id']."
@@ -152,7 +155,7 @@ $sql = "SELECT `contentType`,
 $resultBrowsed = claro_sql_query_get_single_row($sql);
 
 // redirect user to the path browser if needed
-if( !$is_allowedToEdit
+if( !$is_AllowedToEdit
     && ( !is_array($resultBrowsed) || !$resultBrowsed || count($resultBrowsed) <= 0 )
     && $noModuleComment
     && $noModuleSpecificComment
@@ -164,7 +167,7 @@ if( !$is_allowedToEdit
 }
 
 //header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include($includePath."/claro_init_header.inc.php");
 
 //####################################################################################\\
 //################################## MODULE NAME BOX #################################\\
@@ -221,7 +224,7 @@ if($module['contentType'] != CTLABEL_ )
 } //  if($module['contentType'] != CTLABEL_ )
 
 //back button
-if ($is_allowedToEdit)
+if ($is_AllowedToEdit)
 {
     $pathBack = "./learningPathAdmin.php";
 }
@@ -262,7 +265,7 @@ if($module['contentType'] != CTLABEL_) //
         //display type of the module
         echo '<tr>'."\n"
             .'<td>'.get_lang('Module type').'</td>'."\n"
-            .'<td><img src="' . get_path('imgRepositoryWeb') . $contentType_img.'" alt="'.$contentType_alt.'" border="0" />'.$contentDescType.'</td>'."\n"
+            .'<td><img src="'.$imgRepositoryWeb.$contentType_img.'" alt="'.$contentType_alt.'" border="0" />'.$contentDescType.'</td>'."\n"
             .'</tr>'."\n\n";
 
         //display total time already spent in the module
@@ -276,7 +279,7 @@ if($module['contentType'] != CTLABEL_) //
             .'<td>'.get_lang('Last session time').'</td>'."\n"
             .'<td>'.$resultBrowsed['session_time'].'</td>'."\n"
             .'</tr>'."\n\n";
-
+            
         //display user best score
         if ($resultBrowsed['scoreMax'] > 0)
         {
@@ -288,7 +291,7 @@ if($module['contentType'] != CTLABEL_) //
         }
 
         $raw = max($raw, 0);
-
+        
         if (($resultBrowsed['contentType'] == CTSCORM_ ) && ($resultBrowsed['scoreMax'] <= 0)
             &&  (  ( ($resultBrowsed['lesson_status'] == "COMPLETED") || ($resultBrowsed['lesson_status'] == "PASSED") ) || ($resultBrowsed['raw'] != -1) ) )
         {
@@ -346,25 +349,23 @@ if($module['contentType'] != CTLABEL_) //
     {
 
         echo '<center>'."\n"
-        .    '<form action="./navigation/viewer.php" method="post">' . "\n"
-            . claro_form_relay_context()
-        .    '<input type="submit" value="' . get_lang('Start Module') . '" />'."\n"
-        .    '</form>' . "\n"
-        .    '</center>' . "\n\n"
-        ;
+            .'<form action="./navigation/viewer.php" method="post">'."\n"
+            .'<input type="submit" value="'.get_lang('Start Module').'" />'."\n"
+            .'</form>'."\n"
+            .'</center>'."\n\n";
     }
     else
     {
         echo '<p><center>'.get_lang('There is no start asset defined for this module.').'</center></p>'."\n";
     }
-}// end if($module['contentType'] != CTLABEL_)
+}// end if($module['contentType'] != CTLABEL_) 
 // if module is a label, only allow to change its name.
-
+  
 //####################################################################################\\
 //################################# ADMIN DISPLAY ####################################\\
 //####################################################################################\\
 
-if( $is_allowedToEdit ) // for teacher only
+if( $is_AllowedToEdit ) // for teacher only
 {
     switch ($module['contentType'])
     {
@@ -382,8 +383,8 @@ if( $is_allowedToEdit ) // for teacher only
         case CTLABEL_ :
             break;
     }
-} // if ($is_allowedToEdit)
+} // if ($is_AllowedToEdit)
 
 // footer
-include(get_path('incRepositorySys').'/claro_init_footer.inc.php');
+include($includePath.'/claro_init_footer.inc.php');
 ?>

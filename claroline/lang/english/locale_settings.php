@@ -2,9 +2,9 @@
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.7 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -19,6 +19,7 @@ $iso639_2_code = "eng";
 unset($langNameOfLang);
 unset($langDay_of_weekNames);
 unset($langMonthNames);
+unset($byteUnits);
 
 $langNameOfLang['arabic']        = "arabian";
 $langNameOfLang['brazilian']     = "brazilian";

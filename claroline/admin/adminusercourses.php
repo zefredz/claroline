@@ -2,11 +2,11 @@
 /**
  * Claroline
  *
- * This tools admin courses subscription of one user
+ * This  tools admin courses subscription of one user
  *
- * @version 1.9 $Revision$
+ * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -19,17 +19,20 @@
  */
 
 $dialogBox = '';
+$iconForCuStatus['STUDENT']        = 'user.gif';
+$iconForCuStatus['COURSE_MANAGER'] = 'manager.gif';
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 
+
 require '../inc/claro_init_global.inc.php';
-include_once get_path('incRepositorySys') . '/lib/user.lib.php';
-include_once get_path('incRepositorySys') . '/lib/course_user.lib.php';
-include_once get_path('incRepositorySys') . '/lib/pager.lib.php';
-include claro_get_conf_repository() . 'user_profile.conf.php';
+include_once $includePath . '/lib/admin.lib.inc.php';
+include_once $includePath . '/lib/user.lib.php';
+include_once $includePath . '/lib/pager.lib.php';
+include $includePath . '/conf/user_profile.conf.php';
 
 // Security check
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
+if ( ! get_init('_uid') ) claro_disp_auth_form();
+if ( ! get_init('is_platformAdmin') ) claro_die(get_lang('Not allowed'));
 
 // FILER INPUT
 $validCmdList = array('unsubscribe',);
@@ -57,12 +60,10 @@ $pagerSortDir = isset($_REQUEST['dir' ]) ? $_REQUEST['dir' ] : SORT_ASC;
  * this maner to manage problem would be more discuss.  uidToEdit can neve empty....
  */
 $userData = user_get_properties($uidToEdit);
-
-if ((false === $userData) || $uidToEdit != $userData['user_id']) $dialogBox .= get_lang('Not valid user id');
-
+if ((false === $userData) || $uidToEdit != $userData['user_id']) $dialogBox .= get_lang('user code to view is not valid');
 if ('unsubscribe' == $cmd)
 {
-    if (is_null($courseId)) $dialogBox .= get_lang('Not valid course code');
+    if (is_null($courseId)) $dialogBox .= get_lang('course code to manage is not valid');
     else                    $do = 'rem_user';
 }
 
@@ -111,33 +112,21 @@ $userCourseGrid = array();
 foreach ($userCourseList as $courseKey => $course)
 {
     $userCourseGrid[$courseKey]['officialCode']   = $course['officialCode'];
-    $userCourseGrid[$courseKey]['name']      = '<a href="'. get_path('clarolineRepositoryWeb') . 'course/index.php?cid=' . htmlspecialchars($course['sysCode']) . '">'.$course['name']. '</a><br />' . $course['titular'];
-
-
-    $userCourseGrid[$courseKey]['profileId'] = claro_get_profile_name($course['profileId']);
-
-    if ( $course['isCourseManager'] )
-    {
-        $userCourseGrid[$courseKey]['isCourseManager'] = '<img src="' . get_path('imgRepositoryWeb') . 'manager.gif" alt="' . get_lang('Course manager') . '" border="0" />';
-    }
-    else
-    {
-        $userCourseGrid[$courseKey]['isCourseManager'] = '<img src="' . get_path('imgRepositoryWeb') . 'user.gif" alt="' . get_lang('Student') . '" border="0" />';
-    }
-
-    $userCourseGrid[$courseKey]['edit_course_user'] = '<a href="adminUserCourseSettings.php?cidToEdit='.$course['sysCode'].'&amp;uidToEdit='.$uidToEdit.'&amp;ccfrom=uclist">'
-    .                                                 '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="' . get_lang('Course manager') . '" border="0" title="' . get_lang('User\'s course settings') . '" />'
-    .                                                 '</a>'
+    $userCourseGrid[$courseKey]['name']      = '<a href="'. $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars($course['sysCode']) . '">'.$course['name'].'</a>';
+    $userCourseGrid[$courseKey]['titular'] = $course['titular'];
+    $userCourseGrid[$courseKey]['cuStatus'] = '<a href="adminUserCourseSettings.php?cidToEdit='.$course['sysCode'].'&amp;uidToEdit='.$uidToEdit.'&amp;ccfrom=uclist">'
+    .                                         '<img src="' . $imgRepositoryWeb . $iconForCuStatus[$course['cuStatus']].'" alt="'.$course['cuStatus'].'" border="0" title="'.$course['cuStatus'].'" >'
+    .                                         '</a>'
     ;
 
     $userCourseGrid[$courseKey]['delete'] = '<a href="' . $_SERVER['PHP_SELF']
     .                                       '?uidToEdit=' . $uidToEdit
     .                                       '&amp;cmd=unsubscribe'
     .    $addToUrl
-    .    '&amp;courseId=' . htmlspecialchars($course['sysCode'])
+    .    '&amp;code=' . $course['sysCode']
     .    '&amp;offset=' . $offset . '"'
-    .    ' onclick="return confirmationUnReg(\''.clean_str_for_javascript($userData['firstname'] . ' ' . $userData['lastname']).'\');">' . "\n"
-    .    '<img src="' . get_path('imgRepositoryWeb') . 'unenroll.gif" border="0" alt="' . get_lang('Delete') . '" />' . "\n"
+    .    ' onClick="return confirmationUnReg(\''.clean_str_for_javascript($userData['firstname'] . ' ' . $userData['lastname']).'\');">' . "\n"
+    .    '<img src="' . $imgRepositoryWeb . 'unenroll.gif" border="0" alt="' . get_lang('Delete') . '" />' . "\n"
     .    '</a>' . "\n"
     ;
 
@@ -152,13 +141,14 @@ $userCourseDataGrid->set_grid($userCourseGrid);
 $userCourseDataGrid->set_colTitleList(array (
 'officialCode'     => '<a href="' . $sortUrlList['officialCode'] . '">' . get_lang('Course code') . '</a>'
 ,'name'     => '<a href="' . $sortUrlList['name'] . '">' . get_lang('Course title') . '</a>'
-,'profileId'  => '<a href="' . $sortUrlList['profileId'] . '">' . get_lang('User profile') . '</a>'
-,'isCourseManager' => '<a href="' . $sortUrlList['isCourseManager'] . '">' . get_lang('Role') . '</a>'
-,'edit_course_user' => get_lang('Edit settings') . '</a>'
+,'titular'  => '<a href="' . $sortUrlList['titular'] . '">' . get_lang('Course manager') . '</a>'
+,'cuStatus' => '<a href="' . $sortUrlList['cuStatus'] . '">' . get_lang('Role') . '</a>'
 ,'delete'   => get_lang('Unregister user')
 ));
 
-$userCourseDataGrid->set_caption('<img src="' . get_path('imgRepositoryWeb') . 'user.gif" alt="' . get_lang('Student') . '" border="0" >' . get_lang('Student') . ' - <img src="' . get_path('imgRepositoryWeb') . 'manager.gif" alt="' . get_lang('Course Manager') . '" border="0" />&nbsp;' . get_lang('Course manager'));
+$userCourseDataGrid->set_caption('<img src="' . $imgRepositoryWeb . $iconForCuStatus['STUDENT'].'" alt="STUDENT" border="0" title="statut" >' . get_lang('Student')
+.                                '<img src="' . $imgRepositoryWeb . $iconForCuStatus['COURSE_MANAGER'] . '" alt="course manager" border="0" title="statut" >' . get_lang('Course manager'));
+
 
 if ( 0 == count($userCourseGrid)  )
 {
@@ -167,10 +157,10 @@ if ( 0 == count($userCourseGrid)  )
 else
 {
     $userCourseDataGrid->set_colAttributeList(array ( 'officialCode' => array ('align' => 'left')
-    , 'name'            => array ('align' => 'left')
-    , 'isCourseManager' => array ('align' => 'center')
-    , 'edit_course_user' => array ('align' => 'center')
-    , 'delete'          => array ('align' => 'center')
+    , 'name'         => array ('align' => 'left')
+    , 'titular'      => array ('align' => 'left')
+    , 'cuStatus'     => array ('align' => 'center')
+    , 'delete'       => array ('align' => 'center')
     ));
 }
 
@@ -184,14 +174,14 @@ $htmlHeadXtra[] =
 "<script>
             function confirmationUnReg (name)
             {
-                if (confirm(\"".clean_str_for_javascript(get_lang('Are you sure you want to unregister'))." \"+ name + \"? \"))
+                if (confirm(\"".clean_str_for_javascript(get_lang('Are you sure you want to unregister '))." \"+ name + \"? \"))
                     {return true;}
                 else
                     {return false;}
             }
             </script>";
 
-$cmdList[] =  '<a class="claroCmd" href="adminprofile.php?uidToEdit=' . $uidToEdit . '">' . get_lang('User settings') . '</a>';
+$cmdList[] =  '<a class="claroCmd" href="adminprofile.php?uidToEdit=' . $uidToEdit . '\">' . get_lang('User settings') . '</a>';
 $cmdList[] =  '<a class="claroCmd"  href="../auth/courses.php?cmd=rqReg&amp;uidToEdit=' . $uidToEdit . '&amp;category=&amp;fromAdmin=usercourse">' . get_lang('Enrol to a new course') . '</a>';
 
 if ( 'ulist' == $cfrom )  //if we come from user list, we must display go back to list
@@ -203,21 +193,19 @@ if ( 'ulist' == $cfrom )  //if we come from user list, we must display go back t
 // DISPLAY VIEWS
 //----------------------------------
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include $includePath . '/claro_init_header.inc.php';
 echo claro_html_tool_title($nameTools);
 
 // display forms and dialogBox, alphabetic choice,...
 
 if( isset($dialogBox) && !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
 
-echo '<p>'
-.    claro_html_menu_horizontal($cmdList)
-.    '</p>'
+echo claro_html_menu_horizontal($cmdList)
 .    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?uidToEdit=' . $uidToEdit)
 .    $userCourseDataGrid->render()
-.    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?uidToEdit=' . $uidToEdit) ;
-
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+.    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?uidToEdit=' . $uidToEdit)
+;
+include $includePath . '/claro_init_footer.inc.php';
 
 /**
  * prepare sql to get a list of course of a given user
@@ -225,33 +213,29 @@ include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
  * @param integer $userId id of you to fetch courses
  * @return string : mysql statement
  */
-
 function prepare_sql_get_courses_of_a_user($userId=null)
 {
-    if (is_null($userId)) $userId = claro_get_current_user_id();
+    if (is_null($userId)) $userId = get_init('_uid');
     $tbl_mdb_names       = claro_sql_get_main_tbl();
     $tbl_course          = $tbl_mdb_names['course'];
     $tbl_rel_course_user = $tbl_mdb_names['rel_course_user' ];
 
 
-    $sql = "SELECT `C`.`code`              AS `sysCode`,
-                   `C`.`intitule`          AS `name`,
-                   `C`.`administrativeNumber` AS `officialCode`,
-                   `C`.`directory`            AS `path`,
-                   `C`.`dbName`               AS `dbName`,
-                   `C`.`titulaires`           AS `titular`,
-                   `C`.`email`                AS `email`,
-                   `C`.`language`             AS `language`,
-                   `C`.`extLinkUrl`           AS `extLinkUrl`,
-                   `C`.`extLinkName`          AS `extLinkName`,
-                   `C`.`visibility`           AS `visibility`,
-                   `C`.`access`               AS `access`,
-                   `C`.`registration`         AS `registration`,
-                   `C`.`registrationKey`      AS `registrationKey` ,
-                   `CU`.`profile_id`          AS `profileId`,
-                   `CU`.`isCourseManager`,
-                   `CU`.`tutor`
-            FROM `" . $tbl_course . "`          AS C,
+    $sql = "SELECT `C`.`code`              `sysCode`,
+                   `C`.`intitule`          `name`,
+                   `C`.`fake_code`         `officialCode`,
+                   `C`.`directory`         `path`,
+                   `C`.`dbName`            `dbName`,
+                   `C`.`titulaires`        `titular`,
+                   `C`.`email`             `email`,
+                   `C`.`enrollment_key`    `enrollmentKey` ,
+                   `C`.`languageCourse`    `language`,
+                   `C`.`departmentUrl`     `extLinkUrl`,
+                   `C`.`departmentUrlName` `extLinkName`,
+                   `C`.`visible` `visible`,
+
+                   IF(CU.statut=1,'COURSE_MANAGER','STUDENT') cuStatus
+            FROM `" . $tbl_course . "` AS C,
                  `" . $tbl_rel_course_user . "` AS CU
             WHERE CU.`code_cours` = C.`code`
               AND CU.`user_id` = " . (int) $userId;

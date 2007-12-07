@@ -1,5 +1,5 @@
-<?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+<?php
+/* vim: set expandtab tabstop=4 shiftwidth=4: */
 //+----------------------------------------------------------------------+
 //| WAMP (XP-SP1/1.3.24/4.0.12/4.3.0)                                    |
 //+----------------------------------------------------------------------+
@@ -21,7 +21,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
 * We need the base class
 */
-include_once dirname(__FILE__) . '/' . 'class.iCalBase.inc.php';
+include_once 'class.iCalBase.inc.php';
 /**
 * Container for a single Journal
 *
@@ -302,8 +302,7 @@ class iCalJournal extends iCalBase {
 	* @see $startdate_ts
 	*/
 	function &getStartDateTS() {
-		$ret = (int) $this->startdate_ts;
-        return $ret;
+		return (int) $this->startdate_ts;
 	} // end function
 
 	/**
@@ -315,8 +314,7 @@ class iCalJournal extends iCalBase {
 	* @see $created_ts
 	*/
 	function &getCreatedTS() {
-		$ret = (int) $this->created_ts;
-        return $ret;
+		return (int) $this->created_ts;
 	} // end function
 
 	/**
@@ -328,8 +326,7 @@ class iCalJournal extends iCalBase {
 	* @see $startdate
 	*/
 	function &getStartDate() {
-		$ret = (string) $this->startdate;
-        return $ret;
+		return (string) $this->startdate;
 	} // end function
 
 	/**
@@ -341,8 +338,7 @@ class iCalJournal extends iCalBase {
 	* @see $created
 	*/
 	function &getCreated() {
-		$ret = (string) $this->created;
-        return $ret;
+		return (string) $this->created;
 	} // end function
 
 	/**
@@ -354,8 +350,7 @@ class iCalJournal extends iCalBase {
 	* @see $uid
 	*/
 	function &getUID() {
-		$ret = (string) $this->uid;
-        return $ret;
+		return (string) $this->uid;
 	} // end function
 	/**#@-*/
 } // end class iCalJournal

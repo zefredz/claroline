@@ -4,9 +4,9 @@
  *
  * This script allows users to log on platform and back to requested ressource
  *
- * @version 1.9 $Revision$
+ * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -29,7 +29,7 @@ elseif ( isset($_SERVER ['HTTP_REFERER'])
          &&   basename($_SERVER ['HTTP_REFERER']) != basename($_SERVER['PHP_SELF'])
          && ! strstr($_SERVER ['HTTP_REFERER'], 'logout=true') )
 {
-     $sourceUrl = base64_encode($_SERVER ['HTTP_REFERER']);
+     $sourceUrl = $_SERVER ['HTTP_REFERER'];
 }
 else
 {
@@ -41,30 +41,30 @@ else
 
 if (get_conf('claro_CasEnabled',false) && ! get_conf('claro_displayLocalAuthForm',true))
 {
-    claro_redirect($_SERVER['PHP_SELF'] . '?authModeReq=CAS&sourceUrl='.urlencode($sourceUrl));
+    header('Location: ' . http_response_splitting_workaround($_SERVER['PHP_SELF'] . '?authModeReq=CAS&sourceUrl='.urlencode($sourceUrl)));
 }
 
 if ( $sourceUrl )
 {
-    $sourceUrlFormField = '<input type="hidden" name="sourceUrl" value="'.htmlspecialchars($sourceUrl).'" />';
+    $sourceUrlFormField = '<input type="hidden" name="sourceUrl" value="'.htmlspecialchars($sourceUrl).'">';
 }
 else
 {
     $sourceUrlFormField = '';
 }
 
-if (claro_is_in_a_course())
+if ($_cid)
 {
-    $sourceCidFormField = '<input type="hidden" name="sourceCid" value="' . htmlspecialchars(claro_get_current_course_id()) . '" />';
+    $sourceCidFormField = '<input type="hidden" name="sourceCid" value="' . htmlspecialchars($_cid) . '">';
 }
 else
 {
     $sourceCidFormField = '';
 }
 
-if (claro_is_in_a_group())
+if ($_gid)
 {
-    $sourceGidFormField = '<input type="hidden" name="sourceGid" value="' . htmlspecialchars(claro_get_current_group_id()) . '" />';
+    $sourceGidFormField = '<input type="hidden" name="sourceGid" value="' . htmlspecialchars($_gid) . '">';
 }
 else
 {
@@ -72,14 +72,14 @@ else
 }
 
 $cidRequired = (isset($_REQUEST['cidRequired']) ? $_REQUEST['cidRequired'] : false );
-$cidRequiredFormField = ($cidRequired ? '<input type="hidden" name="cidRequired" value="true" />' : '');
+$cidRequiredFormField = ($cidRequired ? '<input type="hidden" name="cidRequired" value="true">' : '');
 
 $uidRequired = true; // todo : possibility to continue in anonymous
 
-if ( ! claro_is_user_authenticated() && $uidRequired )
+if ( is_null($_uid) && $uidRequired )
 {
     // Display header
-    require get_path('incRepositorySys') . '/claro_init_header.inc.php';
+    require $includePath . '/claro_init_header.inc.php';
 
     if( get_conf('claro_displayLocalAuthForm',true) == true )
     {
@@ -91,20 +91,20 @@ if ( ! claro_is_user_authenticated() && $uidRequired )
 
         if ( $claro_loginRequested && ! $claro_loginSucceeded ) // var comming from claro_init_local.inc.php
         {
-            $message = get_lang('Login failed.') . ' ' . get_lang('Please try again.') . '<br />' . "\n" ;
-
             if ( get_conf('allowSelfReg',false))
             {
-                $message .= get_lang('If you haven\'t a user account yet, use the <a href="%url">the account creation form</a>.',array('%url'=> get_path('url') . '/claroline/auth/inscription.php')) . '<br / ><br />' . "\n";
+                $message = get_lang('Login failed.') . get_lang('Please try again.') . '<br />' . "\n" ;
+                $message .= get_lang('If you haven\'t a user account yet, use the <a href=\"%url\">the account creation form</a>.',array('%url'=>$urlAppend . '/claroline/auth/inscription.php'));
+
+                echo claro_html_message_box($message);
             }
             else
             {
+                $message = get_lang('Login failed.') . get_lang('Please try again.') . '<br />' . "\n" ;
                 $message .= get_lang('Contact your administrator.');
+
+                echo claro_html_message_box($message);
             }
-            $message .= '<small>' . get_lang('Warning the system distinguishes uppercase (capital) and lowercase (small) letters') . '</small>' . "\n" ;
-
-            echo claro_html_message_box($message);
-
         }
 
         echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' ."\n"
@@ -116,13 +116,13 @@ if ( ! claro_is_user_authenticated() && $uidRequired )
         .    '<legend>' . get_lang('Authentication') . '</legend>'               ."\n"
 
         .    '<label for="username">'.get_lang('Username').' : </label><br />'   ."\n"
-        .    '<input type="text" name="login" id="username" /><br />'       ."\n"
+        .    '<input type="text" name="login" id="username"><br />'       ."\n"
 
         .    '<label for="password">'.get_lang('Password').' : </label><br />'   ."\n"
-        .    '<input type="password" name="password" id="password" /><br />'."\n"
+        .    '<input type="password" name="password" id="password"><br />'."\n"
         .    '<br />'
-        .    '<input type="submit" value="'.get_lang('Ok').'" />&nbsp; '                 ."\n"
-        .    claro_html_button(get_path('clarolineRepositoryWeb'), get_lang('Cancel'))
+        .    '<input type="submit" value="'.get_lang('Ok').'"> '                 ."\n"
+        .    claro_html_button($clarolineRepositoryWeb, get_lang('Cancel'))
         .    '</fieldset>'                                                ."\n"
         .    '</form>'                                                    ."\n"
         ;
@@ -137,15 +137,15 @@ if ( ! claro_is_user_authenticated() && $uidRequired )
     {
         echo '<div align="center">'
         .    '<a href="login.php?'. ($sourceUrl ? 'sourceUrl='.urlencode($sourceUrl) : '').'&authModeReq=CAS">'
-        .    ( '' != trim(get_conf('claro_CasLoginString','')) ? get_conf('claro_CasLoginString') : get_lang('Login'))
+        .    (''!=trim(get_conf('claro_CasLoginString','')) ? get_conf('claro_CasLoginString') : get_lang('Login'))
         .    '</a>'
         .    '</div>';
     } // end if claro_CASEnabled
 
     // Display footer
-    require get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+    require $includePath . '/claro_init_footer.inc.php';
 }
-elseif ( ! claro_is_in_a_course() && $cidRequired )
+elseif ( is_null($_cid) && $cidRequired )
 {
     /*
      * The script the user is trying to access
@@ -153,19 +153,21 @@ elseif ( ! claro_is_in_a_course() && $cidRequired )
      * and no course are set.
      */
 
-    $tbl                = claro_sql_get_main_tbl();
-    $sql = "
-            SELECT c.code                                             AS `value`,
-                   CONCAT(c.intitule,' (',c.administrativeNumber,')') AS `name`
-            FROM `" . $tbl['course'] . "`          AS c ,
-                 `" . $tbl['rel_course_user'] . "` AS cu
-            WHERE c.code = cu.code_cours
-              AND cu.user_id = " . (int) claro_get_current_user_id();
+    $mainTbl                = claro_sql_get_main_tbl();
+    $tbl_courses            = $mainTbl['course'         ];
+    $tbl_rel_user_courses   = $mainTbl['rel_course_user'];
+
+    $sql = "SELECT c.code                                  `value`,
+                   CONCAT(c.intitule,' (',c.fake_code,')') `name`
+            FROM `" . $tbl_courses."`          c ,
+                 `" . $tbl_rel_user_courses . "` cu
+            WHERE c.code= cu.code_cours
+              AND cu.user_id = '" . (int) $_uid . "'" ;
 
     $courseList = claro_sql_query_fetch_all($sql);
 
     // Display header
-    require get_path('incRepositorySys') . '/claro_init_header.inc.php';
+    require $includePath . '/claro_init_header.inc.php';
 
     if ( $courseList !== false && count($courseList) > 0 )
     {
@@ -195,8 +197,8 @@ elseif ( ! claro_is_in_a_course() && $cidRequired )
         .    '<td>'                                                  ."\n"
         .    '</td>'                                                 ."\n"
         .    '<td>'                                                  ."\n"
-        .    '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp; '."\n"
-        .    claro_html_button(get_path('url') . '/index.php', get_lang('Cancel'))
+        .    '<input type="submit" value="' . get_lang('Ok') . '">'         ."\n"
+        .    claro_html_button($urlAppend.'/index.php', get_lang('Cancel'))
         .    '</td>'                                                 ."\n"
         .    '</tr>'                                                 ."\n"
         .    '</table>'                                              ."\n"
@@ -208,49 +210,46 @@ elseif ( ! claro_is_in_a_course() && $cidRequired )
         // Display link to student to enrol to this course
         echo '<p align="center">'           ."\n"
         .    get_lang('If you wish to enrol on this course') . ' : '
-        .    ' <a href="' . get_path('clarolineRepositoryWeb') . 'auth/courses.php?cmd=rqReg">'
+        .    ' <a href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=rqReg">'
         .    get_lang('Enrolment').'</a>' ."\n"
         .    '</p>'          ."\n";
     }
 
     // Display footer
-    require get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+    require $includePath . '/claro_init_footer.inc.php';
 }
 else // LOGIN SUCCEEDED
 {
-    if(!isset($userLoggedOnCas))
-        $userLoggedOnCas = false;
+    //notify that a user has just loggued in
+    $eventNotifier->notifyEvent('user_login', array('uid' => $_uid));
 
-    $claroline->notifier->event( 'user_login', array('data' => array('ip' => $_SERVER['REMOTE_ADDR']) ) );
-
-    if ( claro_is_in_a_course() && ! claro_is_course_allowed() )
+    if ( $_cid && ! $is_courseAllowed )
     {
         // Display header
-        require get_path('incRepositorySys') . '/claro_init_header.inc.php';
+        require $includePath . '/claro_init_header.inc.php';
 
         if ( $_course['registrationAllowed'] )
         {
-            if ( claro_is_user_authenticated() )
+            if ( $_uid )
             {
                 // Display link to student to enrol to this course
                 echo '<p align="center">'           ."\n"
                 .    get_lang('Your user profile doesn\'t seem to be enrolled on this course').'<br />'
                 .    get_lang('If you wish to enrol on this course') . ' : '
-                .    ' <a href="' . get_path('clarolineRepositoryWeb') . 'auth/courses.php?cmd=rqReg&amp;keyword=' . urlencode($_course['officialCode']) . '">'
+                .    ' <a href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=rqReg&amp;keyword=' . urlencode($_course['officialCode']) . '">'
                 .    get_lang('Enrolment').'</a>' ."\n"
                 .    '</p>'          ."\n";
 
             }
-            elseif ( get_conf('allowSelfReg') )
+            elseif ( $allowSelfReg )
             {
                 // Display a link to anonymous to register on the platform
                 echo '<p align="center">' . "\n"
                 .    get_lang('Create first a user account on this platform') . ' : '
-                .    '<a href="' . get_path('clarolineRepositoryWeb') . 'auth/inscription.php">'
+                .    '<a href="' . $clarolineRepositoryWeb . 'auth/inscription.php">'
                 .    get_lang('Go to the account creation page')
                 .    '</a>'                                         ."\n"
-                .    '</p>'                                         ."\n"
-                ;
+                .    '</p>'                                         ."\n";
             }
             else
             {
@@ -276,16 +275,11 @@ else // LOGIN SUCCEEDED
         }
 
         // Display footer
-        require get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+        require $includePath . '/claro_init_footer.inc.php';
 
-    }
-    elseif($userLoggedOnCas && isset($_SESSION['casCallBackUrl']))
-    {
-        claro_redirect(base64_decode($_SESSION['casCallBackUrl']));
     }
     elseif( isset($sourceUrl) ) // send back the user to the script authentication trigger
     {
-        $sourceUrl = base64_decode($sourceUrl);
         if (isset($_REQUEST['sourceCid']) )
         {
             $sourceUrl .= ( strstr( $sourceUrl, '?' ) ? '&' : '?')
@@ -298,15 +292,15 @@ else // LOGIN SUCCEEDED
                        .  'gidReq=' . $_REQUEST['sourceGid'];
         }
 
-        claro_redirect($sourceUrl);
+        header('Location: ' . http_response_splitting_workaround( $sourceUrl ) );
     }
-    elseif ( claro_is_in_a_course() )
+    elseif ( $_cid )
     {
-        claro_redirect(get_path('coursesRepositoryWeb') . '/' . claro_get_course_path());
+        header('Location: ' . $coursesRepositoryWeb . '/' . $_course['path']);
     }
     else
     {
-        claro_redirect(get_path('clarolineRepositoryWeb'));
+        header('Location: ' . $clarolineRepositoryWeb);
     }
 }
 ?>

@@ -4,38 +4,38 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @author Claro Team <cvs@claroline.net>
  *
  */
-
-$tlabelReq = 'CLQWZ';
-
+ 
+$tlabelReq = 'CLQWZ___';
+ 
 require '../../inc/claro_init_global.inc.php';
 
-if ( !claro_is_in_a_course() || !claro_is_course_allowed() ) claro_disp_auth_form(true);
+if ( !$_cid || !$is_courseAllowed ) claro_disp_auth_form(true);
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
 
 // courseadmin reserved page
 if( !$is_allowedToEdit )
 {
-    header("Location: ../exercise.php");
-    exit();
+	header("Location: ../exercise.php");
+	exit();	
 }
 
 // tool libraries
 include_once '../lib/exercise.class.php';
 include_once '../lib/question.class.php';
-include_once '../lib/exercise.lib.php';
+include_once '../lib/exercise.lib.php'; 
 
 // claroline libraries
-include_once get_path('incRepositorySys').'/lib/form.lib.php';
-include_once get_path('incRepositorySys').'/lib/pager.lib.php';
-include_once get_path('incRepositorySys').'/lib/fileManage.lib.php';
+include_once $includePath.'/lib/form.lib.php';
+include_once $includePath.'/lib/pager.lib.php';
+include_once $includePath.'/lib/fileManage.lib.php';
 
 /*
  * DB tables definition for list query
@@ -44,32 +44,27 @@ $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_quiz_exercise = $tbl_cdb_names['qwz_exercise'];
 $tbl_quiz_question = $tbl_cdb_names['qwz_question'];
 $tbl_quiz_rel_exercise_question = $tbl_cdb_names['qwz_rel_exercise_question'];
-
+ 
 /*
- * Init request vars
+ * Handle request
  */
-if ( isset($_REQUEST['cmd']) )    $cmd = $_REQUEST['cmd'];
-else                            $cmd = '';
+if ( isset($_REQUEST['cmd']) )	$cmd = $_REQUEST['cmd'];
+else							$cmd = '';
 
 if( isset($_REQUEST['exId']) && is_numeric($_REQUEST['exId']) ) $exId = (int) $_REQUEST['exId'];
-else                                                            $exId = null;
+else															$exId = null;
 
-if( isset($_REQUEST['quId']) && is_numeric($_REQUEST['quId']) ) $quId = (int) $_REQUEST['quId'];
-else                                                            $quId = null;
-
-if( isset($_REQUEST['filter']) )     $filter = $_REQUEST['filter'];
-else                                $filter = 'all';
-
-/*
- * Init other vars
- */
 $exercise = new Exercise();
 if( !is_null($exId) )
 {
-    $exercise->load($exId);
+	$exercise->load($exId);
 }
 
-$dialogBox = new DialogBox();
+if( isset($_REQUEST['quId']) && is_numeric($_REQUEST['quId']) ) $quId = (int) $_REQUEST['quId'];
+else															$quId = null;
+
+if( isset($_REQUEST['filter']) ) 	$filter = $_REQUEST['filter'];
+else								$filter = 'all';
 
 /*
  * Execute commands
@@ -77,300 +72,345 @@ $dialogBox = new DialogBox();
 // use question in exercise
 if( $cmd == 'rqUse' && !is_null($quId) && !is_null($exId) )
 {
-    if( $exercise->addQuestion($quId) )
-    {
-        // TODO show confirmation and back link
-        header('Location: edit_exercise.php?exId='.$exId);
-    }
+	if( $exercise->addQuestion($quId) )
+	{
+		// TODO show confirmation and back link
+		header('Location: edit_exercise.php?exId='.$exId);	
+	}
 }
-
+ 
 // delete question
 if( $cmd == 'delQu' && !is_null($quId) )
 {
-    $question = new Question();
-    if( $question->load($quId) )
-    {
-        if( !$question->delete() )
-        {
-            // TODO show confirmation and list
-        }
-    }
+	$question = new Question();
+	if( $question->load($quId) )
+	{
+		if( !$question->delete() )
+		{
+			// TODO show confirmation and list	
+		}	
+	}
 }
 
 // export question
 if( $cmd == 'exExport' && get_conf('enableExerciseExportQTI') )
 {
-    require_once '../export/qti2/qti2_export.php';
-    require_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
-    require_once get_path('incRepositorySys') . '/lib/file.lib.php';
-    require_once get_path('incRepositorySys') . '/lib/pclzip/pclzip.lib.php';
-
-    $question = new Question();
-    $question->load($quId);
+    include('../export/qti2/qti2_export.php');
 
     // contruction of XML flow
     $xml = export_question($quId);
 
-    // remove trailing slash
-    if( substr($question->questionDirSys, -1) == '/' )
-    {
-        $question->questionDirSys = substr($question->questionDirSys, 0, -1);
-    }
+    //load the question
+    $question = new Question();
+    $question->load($quId);
 
     //save question xml file
-    if( !file_exists($question->questionDirSys) )
-    {
-        claro_mkdir($question->questionDirSys,CLARO_FILE_PERMISSIONS);
-    }
-
-    if( $fp = @fopen($question->questionDirSys."/question_".$quId.".xml", 'w') )
-    {
-        fwrite($fp, $xml);
-        fclose($fp);
-    }
-    else
-    {
-        // interrupt process
-    }
-
-    // list of dirs to add in archive
-    $filePathList[] = $question->questionDirSys;
-
+    $handle = fopen($question->questionDirSys."question_".$quId.".xml", "w");
+    fwrite($handle, $xml);
+    fclose($handle);
 
     /*
      * BUILD THE ZIP ARCHIVE
      */
 
-    // build and send the zip
-    if( sendZip($question->getTitle(), $filePathList, $question->questionDirSys) )
+    require_once $includePath . '/lib/pclzip/pclzip.lib.php';
+
+    //do not take ther last char is it is a '/'
+
+    $lastChar = $question->questionDirSys{(strlen($question->questionDirSys)-1)};
+
+    //echo 'lastChar :'. $lastChar.'<br/>';
+
+    if ($lastChar == "/")
     {
+        $question->questionDirSys = substr($question->questionDirSys,0,-1);
+    }
+
+
+    //find question file to copy
+
+    $filePathList = claro_search_file(search_string_to_pcre(''),
+                                      $question->questionDirSys,
+                                      true,
+                                      'ALL');
+
+    /*echo "filePathList : ";
+    var_dump($filePathList);
+    echo '<br/>';
+
+    die();*/
+
+    //prepare zip
+
+    $downloadArchivePath = $question->questionDirSys.'/'.uniqid(true).'.zip';
+    $downloadArchiveName = basename($question->questionDirSys).'.zip';
+    $downloadArchiveName = str_replace('/', '', $downloadArchiveName);
+
+    /*echo 'downloadArchivePath :'.$downloadArchivePath. '<br/>';
+    echo 'downloadArchiveName :'.$downloadArchiveName. '<br/>';
+    echo 'filpathlist :';
+    var_dump($filePathList);
+    echo '<br/>';
+    die();*/
+
+    $downloadArchive     = new PclZip($downloadArchivePath);
+    
+    $downloadArchive->add($filePathList,
+                          PCLZIP_OPT_REMOVE_PATH,
+                          $question->questionDirSys);
+
+    if ( file_exists($downloadArchivePath) )
+    {
+
+        $downloadArchiveSize = filesize($downloadArchivePath);
+
+        /*
+         * SEND THE ZIP ARCHIVE FOR DOWNLOAD
+         */
+        
+        header('Expires: Wed, 01 Jan 1990 00:00:00 GMT');
+        header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
+        header('Cache-Control: no-cache, must-revalidate');
+        header('Pragma: no-cache');
+        header('Content-type: application/zip');
+        header('Content-Length: '.$downloadArchiveSize);
+        header('Content-Disposition: attachment; filename="'.$downloadArchiveName.'";');
+        readfile($downloadArchivePath);
+        unlink($downloadArchivePath);
         exit();
     }
     else
     {
-        $dialogBox->error( get_lang("Unable to send zip file") );
+        $dialogBox .= get_lang("Unable to create zip file");
     }
-}
 
+    /*
+    if (!empty($xml))
+    {
+        header("Content-type: application/xml");
+        header('Content-Disposition: attachment; filename="question_'. http_response_splitting_workaround($quId) . '.xml"');
+        echo $xml;
+        exit();
+    }
+    */
+}
 /*
  * Get list
  */
 //-- pager init
-if( !isset($_REQUEST['offset']) )    $offset = 0;
-else                                $offset = $_REQUEST['offset'];
+if( !isset($_REQUEST['offset']) )	$offset = 0;
+else								$offset = $_REQUEST['offset'];
 
 //-- filters handling
-if( !is_null($exId) )    $filterList = get_filter_list($exId);
-else                    $filterList = get_filter_list();
+$filterList = get_filter_list();
+
+// in exercise context remove exercise from filters
+if( !is_null($exId) )
+{
+	if( isset($filterList[$exId]) ) unset($filterList[$exId]); 	
+}
 
 if( is_numeric($filter) )
 {
-    $filterCondition = " AND REQ.`exerciseId` = ".$filter;
+	$filterCondition = " AND REQ.`exerciseId` = ".$filter;	
 }
 elseif( $filter == 'orphan' )
 {
-    $filterCondition = " AND REQ.`exerciseId` IS NULL ";
+	$filterCondition = " AND REQ.`exerciseId` IS NULL ";	
 }
 else // $filter == 'all'
 {
-    $filterCondition = "";
+	$filterCondition = "";
 }
 
 //-- prepare query
 if( !is_null($exId) )
 {
-    $questionList = $exercise->getQuestionList();
-
-    if( is_array($questionList) && !empty($questionList) )
-    {
-        foreach( $questionList as $aQuestion )
-        {
-            $questionIdList[] = $aQuestion['id'];
-        }
-        $questionCondition = " AND Q.`id` NOT IN ("  . implode(', ', array_map( 'intval', $questionIdList) ) . ") ";
-    }
-    else
-    {
-        $questionCondition = "";
-    }
-
-    // TODO probably need to adapt query with a left join on rel_exercise_question for filter
-
-    $sql = "SELECT Q.`id`, Q.`title`, Q.`type`
-              FROM `".$tbl_quiz_question."` AS Q
-              LEFT JOIN `".$tbl_quiz_rel_exercise_question."` AS REQ
-              ON REQ.`questionId` = Q.`id`
-              WHERE 1 = 1
-             " . $questionCondition . "
-             " . $filterCondition . "
-          GROUP BY Q.`id`
-          ORDER BY Q.`title`, Q.`id`";
+	$questionList = $exercise->getQuestionList();
+	
+	if( is_array($questionList) && !empty($questionList) )
+	{
+		foreach( $questionList as $aQuestion )
+		{
+			$questionIdList[] = $aQuestion['id'];
+		}
+	    $questionCondition = " AND Q.`id` NOT IN ("  . implode(', ', array_map( 'intval', $questionIdList) ) . ") ";
+	}
+	else
+	{
+		$questionCondition = "";
+	}
+	
+// TODO probably need to adapt query with a left join on rel_exercise_question for filter	
+	
+	$sql = "SELECT Q.`id`, Q.`title`, Q.`type`
+			  FROM `".$tbl_quiz_question."` AS Q
+			  LEFT JOIN `".$tbl_quiz_rel_exercise_question."` AS REQ
+			  ON REQ.`questionId` = Q.`id`
+			  WHERE 1 = 1 
+			 " . $questionCondition . "
+			 " . $filterCondition . "
+		  GROUP BY Q.`id`
+		  ORDER BY Q.`title`";
 
 }
 else
 {
-    $sql = "SELECT Q.`id`, Q.`title`, Q.`type`
-              FROM `".$tbl_quiz_question."` AS Q
-              LEFT JOIN `".$tbl_quiz_rel_exercise_question."` AS REQ
-              ON REQ.`questionId` = Q.`id`
-              WHERE 1 = 1
-             " . $filterCondition . "
-          GROUP BY Q.`id`
-          ORDER BY Q.`title`, Q.`id`";
+	$sql = "SELECT Q.`id`, Q.`title`, Q.`type`
+			  FROM `".$tbl_quiz_question."` AS Q
+			  LEFT JOIN `".$tbl_quiz_rel_exercise_question."` AS REQ
+			  ON REQ.`questionId` = Q.`id`			  
+			  WHERE 1 = 1 
+			 " . $filterCondition . "
+		  GROUP BY Q.`id`
+		  ORDER BY Q.`title`";
 }
 
 // get list
 $myPager = new claro_sql_pager($sql, $offset, get_conf('questionPoolPager',25));
 $questionList = $myPager->get_result_list();
-
+ 
 /*
  * Output
- */
+ */ 
 $interbredcrump[]= array ('url' => '../exercise.php', 'name' => get_lang('Exercises'));
 if( !is_null($exId) )
 {
-    $interbredcrump[] = array ('url' => './edit_exercise.php?exId='.$exId, 'name' => get_lang('Exercise').' : '.$exercise->getTitle());
-    $pagerUrl = $_SERVER['PHP_SELF'].'?exId='.$exId;
+	$interbredcrump[]= array ('url' => './edit_exercise.php?exId='.$exId, 'name' => get_lang('Exercise').' : '.$exercise->getTitle());	
 }
-else
-{
-    $pagerUrl = $_SERVER['PHP_SELF'];
-}
-
-$noQUERY_STRING = true;
 
 $nameTools = get_lang('Question pool');
 
-include(get_path('incRepositorySys').'/claro_init_header.inc.php');
+include($includePath.'/claro_init_header.inc.php');
 
 echo claro_html_tool_title($nameTools);
-
-echo $dialogBox->render();
 
 //-- filter listbox
 $attr['onchange'] = 'filterForm.submit()';
 
-echo "\n"
-.     '<form method="get" name="filterForm" action="question_pool.php">' . "\n"
-.     '<input type="hidden" name="exId" value="'.$exId.'" />' . "\n"
-.     '<p align="right">' . "\n"
-.     '<label for="filter">'.get_lang('Filter').'&nbsp;:&nbsp;</label>' . "\n"
-.     claro_html_form_select('filter',$filterList, $filter, $attr) . "\n"
-.     '<noscript>' . "\n"
-.     '<input type="submit" value="'.get_lang('Ok').'" />' . "\n"
-.     '</noscript>' . "\n"
-.     '</p>' . "\n"
-.     '</form>' . "\n\n";
+echo "\n" 
+.	 '<form method="get" name="filterForm" action="question_pool.php">' . "\n"
+.	 '<input type="hidden" name="exId" value="'.$exId.'" />' . "\n"
+.	 '<p align="right">' . "\n"
+.	 '<label for="filter">'.get_lang('Filter').'&nbsp;:&nbsp;</label>' . "\n"
+.	 claro_html_form_select('filter',$filterList, $filter, $attr) . "\n"
+.	 '<noscript>' . "\n"
+.	 '<input type="submit" value="'.get_lang('ok').'" />' . "\n"
+.	 '</noscript>' . "\n"
+.	 '</p>' . "\n"
+.	 '</form>' . "\n\n";
 
 if( !is_null($exId) )
 {
-    $cmd_menu[] = '<a class="claroCmd" href="./edit_exercise.php?exId='.$exId.'">&lt;&lt; '.get_lang('Go back to the exercise').'</a>';
+	$cmd_menu[] = '<a class="claroCmd" href="./edit_exercise.php?exId='.$exId.'">&lt;&lt; '.get_lang('Go back to the exercise').'</a>';
 }
 $cmd_menu[] = '<a class="claroCmd" href="./edit_question.php?cmd=rqEdit">'.get_lang('New question').'</a>';
 
 echo claro_html_menu_horizontal($cmd_menu);
 
 //-- pager
-echo $myPager->disp_pager_tool_bar($pagerUrl);
+echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 //-- list
 echo '<table class="claroTable emphaseLine" border="0" align="center" cellpadding="2" cellspacing="2" width="100%">' . "\n\n"
-.     '<thead>' . "\n"
-.     '<tr class="headerX">' . "\n"
-.     '<th>' . get_lang('Question') . '</th>' . "\n"
-.     '<th>' . get_lang('Answer type') . '</th>' . "\n";
+.	 '<thead>' . "\n"
+.	 '<tr class="headerX">' . "\n"
+.	 '<th>' . get_lang('Question') . '</th>' . "\n"
+.	 '<th>' . get_lang('Answer type') . '</th>' . "\n";
 $colspan = 2;
 if( !is_null($exId) )
 {
-    echo '<th>' . get_lang('Reuse') . '</th>' . "\n";
-    $colspan++;
+	echo '<th>' . get_lang('Reuse') . '</th>' . "\n";
+	$colspan++;
 }
 else
 {
-    echo '<th>' . get_lang('Modify') . '</th>' . "\n"
-    .     '<th>' . get_lang('Delete') . '</th>' . "\n";
-    $colspan += 2;
-
-    if( get_conf('enableExerciseExportQTI') )
-    {
-        echo '<th colspan="2">' . get_lang('Export') . '</th>' . "\n";
-        $colspan++;
-    }
+	echo '<th>' . get_lang('Modify') . '</th>' . "\n"
+	.	 '<th>' . get_lang('Delete') . '</th>' . "\n";
+	$colspan += 2;
+	
+	if( get_conf('enableExerciseExportQTI') ) 
+	{
+		echo '<th colspan="2">' . get_lang('Export') . '</th>' . "\n";
+		$colspan++;
+	}
 }
 
 echo '</tr>' . "\n"
-.     '</thead>' . "\n\n"
-.     '<tbody>' . "\n";
+.	 '</thead>' . "\n\n"		
+.	 '<tbody>' . "\n";
 
 if( !empty($questionList) )
-{
-    $questionTypeLang['MCUA'] = get_lang('Multiple choice (Unique answer)');
-    $questionTypeLang['MCMA'] = get_lang('Multiple choice (Multiple answers)');
-    $questionTypeLang['TF'] = get_lang('True/False');
-    $questionTypeLang['FIB'] = get_lang('Fill in blanks');
-    $questionTypeLang['MATCHING'] = get_lang('Matching');
+{		
+	$questionTypeLang['MCUA'] = get_lang('Multiple choice (Unique answer)');
+	$questionTypeLang['MCMA'] = get_lang('Multiple choice (Multiple answers)');
+	$questionTypeLang['TF'] = get_lang('True/False');
+	$questionTypeLang['FIB'] = get_lang('Fill in blanks');
+	$questionTypeLang['MATCHING'] = get_lang('Matching');
+	
+	foreach( $questionList as $question )
+	{
+		echo '<tr>'
+		.	 '<td>'.$question['title'].'</td>' . "\n";
 
-    foreach( $questionList as $question )
-    {
-        echo '<tr>'
-        .     '<td>'.$question['title'].'</td>' . "\n";
-
-        // answer type
-        echo '<td><small>'.$questionTypeLang[$question['type']].'</small></td>' . "\n";
-
-        if( !is_null($exId) )
-        {
-            // reuse
-            echo '<td align="center">'
-            .     '<a href="question_pool.php?exId='.$exId.'&amp;cmd=rqUse&amp;quId='.$question['id'].'">'
-            .     '<img src="' . get_path('imgRepositoryWeb') . '/enroll.gif" border="0" alt="'.get_lang('Modify').'" />'
-            .     '</a>'
-            .     '</td>' . "\n";
-        }
-        else
-        {
-            // edit
-            echo '<td align="center">'
-            .     '<a href="edit_question.php?quId='.$question['id'].'">'
-            .     '<img src="' . get_path('imgRepositoryWeb') . '/edit.gif" border="0" alt="'.get_lang('Modify').'" />'
-            .     '</a>'
-            .     '</td>' . "\n";
-
-            // delete question from database
-            $confirmString = get_lang('Are you sure you want to completely delete this question ?');
-
-            echo '<td align="center">'
-            .     '<a href="question_pool.php?exId='.$exId.'&amp;cmd=delQu&amp;quId='.$question['id'].'" onclick="javascript:if(!confirm(\''.clean_str_for_javascript($confirmString).'\')) return false;">'
-            .     '<img src="' . get_path('imgRepositoryWeb') . '/delete.gif" border="0" alt="'.get_lang('Delete').'" />'
-            .     '</a>'
-            .     '</td>' . "\n";
-
-            if( get_conf('enableExerciseExportQTI') )
-            {
-                // export
-                echo '<td align="center">'
-                .     '<a href="question_pool.php?exId='.$exId.'&amp;cmd=exExport&amp;quId='.$question['id'].'">'
-                .     '<img src="' . get_path('imgRepositoryWeb') . '/export.gif" border="0" alt="'.get_lang('Export').'" />'
-                .     '</a>'
-                .     '</td>' . "\n";
-            }
-        }
-        echo '</tr>';
-
-    }
-
+		// answer type			
+		echo '<td><small>'.$questionTypeLang[$question['type']].'</small></td>' . "\n";
+		
+		if( !is_null($exId) )
+		{
+			// reuse
+			echo '<td align="center">'
+			.	 '<a href="question_pool.php?exId='.$exId.'&amp;cmd=rqUse&amp;quId='.$question['id'].'">'
+			.	 '<img src="'.$clarolineRepositoryWeb.'img/enroll.gif" border="0" alt="'.get_lang('Modify').'" />'
+			.	 '</a>'
+			.	 '</td>' . "\n";			
+		}
+		else
+		{
+			// edit
+			echo '<td align="center">'
+			.	 '<a href="edit_question.php?quId='.$question['id'].'">'
+			.	 '<img src="'.$clarolineRepositoryWeb.'img/edit.gif" border="0" alt="'.get_lang('Modify').'" />'
+			.	 '</a>'
+			.	 '</td>' . "\n";
+			
+			// delete question from database
+			$confirmString = get_lang('Are you sure you want to completely delete this question ?');		
+			
+			echo '<td align="center">'
+			.	 '<a href="question_pool.php?exId='.$exId.'&amp;cmd=delQu&amp;quId='.$question['id'].'" onclick="javascript:if(!confirm(\''.clean_str_for_javascript($confirmString).'\')) return false;">'
+			.	 '<img src="'.$clarolineRepositoryWeb.'img/delete.gif" border="0" alt="'.get_lang('Delete').'" />'
+			.	 '</a>'
+			.	 '</td>' . "\n";
+			
+			if( get_conf('enableExerciseExportQTI') )
+			{
+				// export
+				echo '<td align="center">'
+				.	 '<a href="question_pool.php?exId='.$exId.'&amp;cmd=exExport&amp;quId='.$question['id'].'">'
+				.	 '<img src="'.$clarolineRepositoryWeb.'img/export.gif" border="0" alt="'.get_lang('Export').'" />'
+				.	 '</a>'
+				.	 '</td>' . "\n";
+			}
+		}
+		echo '</tr>';
+		
+	}
+	
 }
-else
+else 
 {
-    echo '<tr>' . "\n"
-    .     '<td colspan="'.$colspan.'">' . get_lang('Empty') . '</td>' . "\n"
-    .     '</tr>' . "\n\n";
+	echo '<tr>' . "\n"
+	.	 '<td colspan="'.$colspan.'">' . get_lang('Empty') . '</td>' . "\n"
+	.	 '</tr>' . "\n\n";	
 }
 echo '</tbody>' . "\n\n"
-.     '</table>' . "\n\n";
+.	 '</table>' . "\n\n";
 
 //-- pager
-echo $myPager->disp_pager_tool_bar($pagerUrl);
+echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
-include(get_path('incRepositorySys').'/claro_init_footer.inc.php');
+include($includePath.'/claro_init_footer.inc.php');
+
 ?>
+

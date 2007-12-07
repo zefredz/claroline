@@ -21,26 +21,34 @@
   Init Section
  =================================================================*/
 
-$tlabelReq = 'CLFRM';
+$tlabelReq = 'CLFRM___';
 
 require '../inc/claro_init_global.inc.php';
 
-if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
+if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 
 claro_set_display_mode_available(true);
+
+/*-----------------------------------------------------------------
+  Stats
+ -----------------------------------------------------------------*/
+
+event_access_tool($_tid, $_courseTool['label']);
 
 /*-----------------------------------------------------------------
   Library
  -----------------------------------------------------------------*/
 
-include_once get_path('incRepositorySys') . '/lib/forum.lib.php';
+include_once $includePath . '/lib/forum.lib.php';
 
 // initialise variables
 
-$last_visit = claro_get_current_user_data('lastLogin');
+$last_visit = $_user['lastLogin'];
+
+$last_visit = $_user['lastLogin'];
 $error = FALSE;
 $allowed = TRUE;
-$dialogBox = new DialogBox();
+$error_message = '';
 
 $pagetype  = 'editpost';
 
@@ -52,10 +60,10 @@ if ( isset($_REQUEST['post_id']) ) $post_id = (int) $_REQUEST['post_id'];
 else                               $post_id = 0;
 
 $is_allowedToEdit = claro_is_allowed_to_edit()
-                    || ( claro_is_group_tutor() && !claro_is_course_manager());
-                    // ( claro_is_group_tutor()
+                    || ( $is_groupTutor && !$is_courseAdmin);
+                    // ( $is_groupTutor
                     //  is added to give admin status to tutor
-                    // && !claro_is_course_manager())
+                    // && !$is_courseAdmin)
                     // is added  to let course admin, tutor of current group, use student mode
 
 $postSettingList =  get_post_settings($post_id);
@@ -75,20 +83,20 @@ if ( $postSettingList && $is_allowedToEdit )
      */
 
     if (   ! is_null($forumSettingList['idGroup'])
-        && ( ($forumSettingList['idGroup'] != claro_get_current_group_id()) || ! claro_is_group_allowed()) )
+        && ( $forumSettingList['idGroup'] != $_gid || ! $is_groupAllowed) )
     {
-        // NOTE : $forumSettingList['idGroup'] != claro_get_current_group_id() is necessary to prevent any hacking
+        // NOTE : $forumSettingList['idGroup'] != $_gid is necessary to prevent any hacking
         // attempt like rewriting the request without $cidReq. If we are in group
         // forum and the group of the concerned forum isn't the same as the session
         // one, something weird is happening, indeed ...
         $allowed = false;
-        $dialogBox->error( get_lang('Not allowed') );
+        $error_message = get_lang('Not allowed') ;
     }
     else
     {
         if ( isset($_REQUEST['cancel']) )
         {
-            claro_redirect('viewtopic.php?topic=' . $topic_id );
+            header('Location: viewtopic.php?topic=' . $topic_id );
             exit();
         }
 
@@ -105,14 +113,15 @@ if ( $postSettingList && $is_allowedToEdit )
             $topic_id         = $postSettingList['topic_id' ];
             $this_post_time   = $postSettingList['post_time'];
             list($day, $time) = split(' ', $postSettingList['post_time']);
+
+            $posterdata       = get_userdata_from_id($poster_id);
             $date             = date('Y-m-d H:i');
 
             if ( isset($_REQUEST['message']) )
             {
                 $message = $_REQUEST['message'];
 
-                // XSS
-                $message = preg_replace( '/<script[^\>]*>|<\/script>|(onabort|onblur|onchange|onclick|ondbclick|onerror|onfocus|onkeydown|onkeypress|onkeyup|onload|onmousedown|onmousemove|onmouseout|onmouseover|onmouseup|onreset|onresize|onselect|onsubmit|onunload)\s*=\s*"[^"]+"/i', '', $message );
+                if ( get_conf('allow_html') == 0 || isset($html) ) $message = htmlspecialchars($message);
             }
             else
             {
@@ -134,7 +143,7 @@ if ( $postSettingList && $is_allowedToEdit )
             }
             else
             {
-                delete_post($post_id, $topic_id, $forum_id, $poster_id);
+                delete_post($post_id, $topic_id, $forum_id, $posterdata['user_id']);
             }
 
         } // end submit management
@@ -163,7 +172,7 @@ else
 {
     // post doesn't exist or not allowed to edit post
     $allowed = FALSE;
-    $dialogBox->error( get_lang('Not allowed') );
+    $error_message = get_lang('Not allowed');
 }
 
 /*=================================================================
@@ -173,7 +182,7 @@ else
 $interbredcrump[] = array ('url' => 'index.php', 'name' => get_lang('Forums'));
 $noPHP_SELF       = true;
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include $includePath . '/claro_init_header.inc.php';
 
 // Forum Title
 
@@ -181,7 +190,7 @@ echo claro_html_tool_title(get_lang('Forums'), $is_allowedToEdit ? 'help_forum.p
 
 if ( !$allowed || !$is_allowedToEdit )
 {
-      echo $dialogBox->render();
+      echo claro_html_message_box($error_message);
 }
 else
 {
@@ -199,78 +208,76 @@ else
     }
     else
     {
-        $first_post = is_first_post($topic_id, $post_id);
 
         if ( $error )
         {
-            echo $dialogBox->render();
+            echo claro_html_message_box($error_message);
         }
 
-        echo disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_id, $subject)
-        .    claro_html_menu_horizontal(disp_forum_toolbar($pagetype, $forum_id, $topic_id, 0))
+        disp_forum_toolbar($pagetype, $forum_id, $topic_id, 0);
+        disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $subject);
 
-        .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="post" >' . "\n"
-        .    '<input type="hidden" name="post_id" value="' . $post_id . '" />' . "\n"
-        .    '<table border="0" width="100%" >' . "\n"
-        ;
+        echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post" >' . "\n"
+            . '<input type="hidden" name="post_id" value="' . $post_id . '" />' . "\n"
+            . '<table border="0">' . "\n"
+            . '<tr valign="top">' . "\n"
+            . '<td colspan="2"><b>' . get_lang('Edit post') . '</b></td>' . "\n"
+            . '</tr>' . "\n";
+
+        $first_post = is_first_post($topic_id, $post_id);
 
         if ( $first_post )
         {
             echo '<tr valign="top">' . "\n"
-            .    '<td align="right">' . "\n"
-            .    '<label for="subject">' . get_lang('Subject') . '</label> : '
-            .    '</td>' . "\n"
-            .    '<td>' . "\n"
-            .    '<input type="text" name="subject" id="subject" size="50" maxlength="100" value="' . htmlspecialchars($subject) . '" />'
-            .    '</td>' . "\n"
-            .    '</tr>' . "\n"
-            ;
+                . '<td align="right">' . "\n"
+                . '<label for="subject">' . get_lang('Subject') . '</label> : '
+                . '</td>' . "\n"
+                . '<td>' . "\n"
+                . '<input type="text" name="subject" id="subject" size="50" maxlength="100" value="' . htmlspecialchars($subject) . '" />'
+                . '</td>' . "\n"
+                . '</tr>' . "\n";
         }
 
         echo '<tr valign="top">' . "\n"
-        .    '<td align="right">' . "\n"
-        .    '<br />' . get_lang('Message body') . ' : ' . "\n"
-        .    '</td>' . "\n"
-        .    '<td>' . "\n"
-        .    claro_html_textarea_editor('message', $message)
-        .    '</td>' . "\n"
-        .    '</tr>' . "\n"
+            . '<td align="right"><br />' . get_lang('Message body') . ' : </td>' . "\n"
+            . '<td>' . "\n"
+            .claro_html_textarea_editor('message', htmlspecialchars($message))
+            .'</td>' . "\n"
+            . '</tr>' . "\n"
 
-        .    '<tr valign="top">' . "\n"
-        .    '<td align="right">' . "\n"
-        .    '<label for="delete" >' . get_lang('Delete') . '</label>' . "\n"
-        .    ' : ' . "\n"
-        .    '</td>' . "\n"
-        .    '<td>' . "\n"
-        .    '<input type="checkbox" name="delete" id="delete" />' . "\n"
-        .    '</td>' . "\n"
-        .    '</tr>' . "\n"
+            . '<tr valign="top">' . "\n"
+            . '<td align="right"><label for="delete" >' . get_lang('Delete') . '</label> : </td>' . "\n"
+            . '<td>' . "\n"
+            . '<input type="checkbox" name="delete" id="delete" />' . "\n"
+            . '</td>' . "\n"
+            . '</tr>' . "\n"
 
-        .    '<tr>'
-        .    '<td>&nbsp;</td>' ."\n"
-        .    '<td>'
-        .    '<input type="submit" name="submit" value="' . get_lang('Ok') . '" />&nbsp; '
-        .    '<input type="submit" name="cancel" value="' . get_lang('Cancel') . '" />'
-        .    '</td>' . "\n"
-        .    '</tr>' . "\n"
-        .    '</table>'. "\n"
+            . '<tr>'
+            . '<td>&nbsp;</td>' ."\n"
+            . '<td>'
+            . '<input type="submit" name="submit" value="' . get_lang('Ok') . '" />' . "\n"
+            . '<input type="submit" name="cancel" value="' . get_lang('Cancel') . '" />'
+            . '</td>' . "\n"
+            . '</tr>' . "\n"
+            . '</table>'. "\n"
 
-        .    '<br />' . "\n"
-        .    '<center>'
-        .    '<a href="viewtopic.php?topic=' . $topic_id . '" target="_blank">'
-        .    get_lang('Topic review')
-        .    '</a>'
-        .    '</center>'
-        .    '<br />' . "\n"
-        ;
+            . '<br />' . "\n"
+            . '<center>'
+            . '<a href="viewtopic.php?topic=' . $topic_id . '" target="_blank">'
+            . get_lang('Topic review')
+            . '</a>'
+            . '</center>'
+            . '<br />' ."\n";
 
     } // end // else if ! isset submit
+
 
 }
 
 /*-----------------------------------------------------------------
   Display Forum Footer
  -----------------------------------------------------------------*/
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+
+include($includePath . '/claro_init_footer.inc.php');
 
 ?>

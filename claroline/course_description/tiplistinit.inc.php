@@ -1,56 +1,43 @@
-<?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+<?php
 
-unset($tipList);
+unset($titreBloc);
+unset($titreBlocNotEditable);
+unset($questionPlan);
+unset($info2Say);
 
+$titreBloc           [] = get_block('blockCourseDescriptionDescription');
+$titreBlocNotEditable[] = false;
+$questionPlan        [] = get_block('blockCourseDescriptionDescriptionComment1');
+$info2Say            [] = get_block('blockCourseDescriptionDescriptionComment2');
 
-$tipList[] = array( 
-    'title'         => get_block('blockCourseDescriptionDescription'),
-    'isEditable'    => false,
-    'question'      => get_block('blockCourseDescriptionDescriptionComment1'),
-    'information'   => get_block('blockCourseDescriptionDescriptionComment2')
-);
+$titreBloc           [] = get_block('blockCourseDescriptionQualificationsAndGoals');
+$titreBlocNotEditable[] = true;
+$questionPlan        [] = get_block('blockCourseDescriptionQualificationsAndGoalsComment1');
+$info2Say            [] = get_block('blockCourseDescriptionQualificationsAndGoalsComment2');
 
-$tipList[] = array( 
-    'title'         => get_block('blockCourseDescriptionQualificationsAndGoals'),
-    'isEditable'    => false,
-    'question'      => get_block('blockCourseDescriptionQualificationsAndGoalsComment1'),
-    'information'   => get_block('blockCourseDescriptionQualificationsAndGoalsComment2')
-);
+$titreBloc           [] = get_block('blockCourseDescriptionCourseContent');
+$titreBlocNotEditable[] = true;
+$questionPlan        [] = get_block('blockCourseDescriptionCourseContentComment1');
+$info2Say            [] = get_block('blockCourseDescriptionCourseContentComment2');
 
-$tipList[] = array( 
-    'title'         => get_block('blockCourseDescriptionCourseContent'),
-    'isEditable'    => false,
-    'question'      => get_block('blockCourseDescriptionCourseContentComment1'),
-    'information'   => get_block('blockCourseDescriptionCourseContentComment2')
-);
+$titreBloc           [] = get_block('blockCourseDescriptionTeachingTrainingActivities');
+$titreBlocNotEditable[] = true;
+$questionPlan        [] = get_block('blockCourseDescriptionTeachingTrainingActivitiesComment1');
+$info2Say            [] = get_block('blockCourseDescriptionTeachingTrainingActivitiesComment2');
 
-$tipList[] = array( 
-    'title'         => get_block('blockCourseDescriptionTeachingTrainingActivities'),
-    'isEditable'    => false,
-    'question'      => get_block('blockCourseDescriptionTeachingTrainingActivitiesComment1'),
-    'information'   => get_block('blockCourseDescriptionTeachingTrainingActivitiesComment2')
-);
+$titreBloc           [] = get_block('blockCourseDescriptionSupports');
+$titreBlocNotEditable[] = true;
+$questionPlan        [] = get_block('blockCourseDescriptionSupportsComment1');
+$info2Say            [] = get_block('blockCourseDescriptionSupportsComment2');
 
-$tipList[] = array( 
-    'title'         => get_block('blockCourseDescriptionSupports'),
-    'isEditable'    => false,
-    'question'      => get_block('blockCourseDescriptionSupportsComment1'),
-    'information'   => get_block('blockCourseDescriptionSupportsComment2')
-);
+$titreBloc           [] = get_block('blockCourseDescriptionHumanAndPhysicalRessources');
+$titreBlocNotEditable[] = true;
+$questionPlan        [] = get_block('blockCourseDescriptionHumanAndPhysicalResourcesComment1');
+$info2Say            [] = get_block('blockCourseDescriptionHumanAndPhysicalResourcesComment2');
 
-$tipList[] = array( 
-    'title'         => get_block('blockCourseDescriptionHumanAndPhysicalRessources'),
-    'isEditable'    => false,
-    'question'      => get_block('blockCourseDescriptionHumanAndPhysicalResourcesComment1'),
-    'information'   => get_block('blockCourseDescriptionHumanAndPhysicalResourcesComment2')
-);
-
-$tipList[] = array( 
-    'title'         => get_block('blockCourseDescriptionMethodsOfEvaluation'),
-    'isEditable'    => false,
-    'question'      => '',
-    'information'   => get_block('blockCourseDescriptionMethodsOfEvaluationComment1')
-);
+$titreBloc           [] = get_block('blockCourseDescriptionMethodsOfEvaluation');
+$titreBlocNotEditable[] = true;
+$questionPlan        [] = get_block('blockCourseDescriptionMethodsOfEvaluationComment1');
+$info2Say            [] = get_block('blockCourseDescriptionMethodsOfEvaluationComment1');
 
 ?>

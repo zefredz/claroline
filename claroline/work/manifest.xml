@@ -1,12 +1,12 @@
 <module>
   <label>CLWRK</label>
-  <name>Assignments</name>
+  <name>Assignment</name>
   <version>1.8</version>
   <license>GPL</license>
   <icon>assignment.gif</icon>
   <type>tool</type>
   <web>http://www.claroline.net/wiki/CLWRK/</web>
-  <entry>work.php</entry>
+
   <description>
   <![CDATA[
      This  tool  is an  original tool of claroline
@@ -27,5 +27,16 @@
       </configuration>
     </claroline>
  </requirements>
-
+ <context>
+  <course db="emule" file="emule" enabling="automatic" default_access="all" access_manager="platform_admin" />
+  <course database="kernel"
+          enabling="automatic"
+          default_access="all"
+          access_manager="platform_admin" >
+    <link target="commonToolList"
+          path="../../work/work.php" />
+    <link target="toolSelectBox"
+          path="../../work/work.php" />
+  </course>
+ </context>
 </module>

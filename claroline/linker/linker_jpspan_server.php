@@ -1,12 +1,12 @@
 <?php // $Id$
 /**
- * CLAROLINE
+ * CLAROLINE 
  *
- * @version 1.9 $Revision$
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @version 1.8 $Revision$ 
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * 
  * @author claroline Team <cvs@claroline.net>
  * @author Renaud Fallier <captren@gmail.com>
  * @author Frédéric Minne <minne@ipm.ucl.ac.be>
@@ -15,31 +15,31 @@
  *
  */
     //-----------------------------------------------------------------------------------
-    // include for JPSPAN
+    // include for JPSPAN 
     //-----------------------------------------------------------------------------------
-
-    require_once '../inc/claro_init_global.inc.php';
-
+    
+    require_once ("../inc/claro_init_global.inc.php");
+     
     if ( !defined('JPSPAN') )
     {
-        define( 'JPSPAN', '../inc/lib/JPSpan/JPSpan/' );
+        define('JPSPAN', '../inc/lib/JPSpan/JPSpan/' );
     }
-
-    define ( 'JPSPAN_ERROR_DEBUG', TRUE );
-
-    require_once dirname(__FILE__) . '/../inc/lib/JPSpan/JPSpan.php';
+     
+    define ('JPSPAN_ERROR_DEBUG', TRUE);
+     
+    require_once ('../inc/lib/JPSpan/JPSpan.php');
     require_once JPSPAN.'Server/PostOffice.php';
-
+    
     //-----------------------------------------------------------------------------------
 
-    require_once dirname(__FILE__) . '/CRLTool.php';
-    require_once dirname(__FILE__) . '/navigator.lib.php';
-    require_once dirname(__FILE__) . '/resolver.lib.php';
-    require_once dirname(__FILE__) . '/linker_sql.lib.php';
-
+    require_once ("CRLTool.php");
+    require_once ("navigator.lib.php");
+    require_once ("resolver.lib.php");
+    require_once ("linker_sql.lib.php");
+    
    /**
     * Class NavigatorJSP
-    *
+    *    
     *
     **/
     class NavigatorJPSPAN
@@ -49,60 +49,68 @@
         *
         * @param string $crl a crl
         * @return array a array with the resource
-        **/
+        * @global $coursesRepositorySys
+        **/ 
         function getResource($crl = false)
         {
+            global $coursesRepositorySys;
+             
             if($crl)
-            {
+            {    
                 $crl = urldecode($crl);
             }
-
-            $baseServDir = get_path('coursesRepositorySys');
-            $baseServUrl = get_path('rootWeb');
-
+             
+            $baseServDir = $coursesRepositorySys;
+            $baseServUrl = get_conf('rootWeb');
+             
             $nav = new Navigator($baseServDir, $crl);
             $tab = $nav->getArrayRessource();
-
+             
             return $tab;
         }
-
+       
        /**
         * get navigator toolbar
         *
         * @param string $crl a crl
         * @return array a array with the navigator toolbar
-        **/
+        **/   
         function getToolBar($crl = false)
-        {
+        {            
             if($crl)
-            {
+            {    
                 $crl = urldecode($crl);
             }
-
+            
             $tab = array();
-
+             
             $tab["title"]["name"] = htmlentities($this->_getCourseTitle($crl));
             $tab["parent"] = $this->_getParent($crl);
-
+             
             return $tab;
         }
-
+        
        /**
         * get the list of the other courses of the teacher
         *
         * @param string $crl a crl
         * @return array a array with the resource of the other courses of the teacher
+        * @global $coursesRepositorySys        
+        * @global $platform_id
         * @global $_course
-        **/
+        **/  
         function getOtherCourse()
         {
-
-            $baseServDir = get_path('coursesRepositorySys');
-
-            $crl = CRLTool::createCRL(get_conf('platform_id'), claro_get_current_course_id());
+            global $coursesRepositorySys;
+            global $platform_id;
+            global $_course;
+             
+            $baseServDir = $coursesRepositorySys;
+             
+            $crl = CRLTool::createCRL($platform_id, $_course['sysCode']);
             $nav = new Navigator($baseServDir, $crl);
             $tab = $nav->getOtherCoursesArray();
-
+             
             return $tab;
         }
 
@@ -111,18 +119,22 @@
         *
         * @param string $crl a crl
         * @return array a array with the resource of the other courses of the teacher
+        * @global $coursesRepositorySys        
+        * @global $platform_id
         * @global $_course
-        **/
+        **/  
         function getPublicCourses()
         {
+            global $coursesRepositorySys;
+            global $platform_id;
             global $_course;
-
-            $baseServDir = get_path('coursesRepositorySys');
-
-            $crl = CRLTool::createCRL(get_conf('platform_id'), claro_get_current_course_id());
+             
+            $baseServDir = $coursesRepositorySys;
+             
+            $crl = CRLTool::createCRL($platform_id, $_course['sysCode']);
             $nav = new Navigator($baseServDir, $crl);
             $tab = $nav->getPublicCoursesArray();
-
+             
             return $tab;
         }
        /**
@@ -130,91 +142,97 @@
         *
         * @param string $crl a crl
         * @return array a array with the crl and the name of the button
-        **/
+        * @global $coursesRepositorySys
+        **/   
         function _getParent($crl = false)
         {
+            global $coursesRepositorySys;  
             $tab = array();
-
+             
             if ($crl)
             {
-                $baseServDir = get_path('coursesRepositorySys');
-
+                $baseServDir = $coursesRepositorySys;
+                 
                 $nav = new Navigator($baseServDir, $crl);
-
+                 
                 $tab["crl"] = $nav->getParent();
             }
-
+             
             return $tab;
         }
-
+        
        /**
         * get the title of a course
         *
         * @param string $crl a crl
         * @return string the title of a course
+        * @global $coursesRepositorySys        
+        * @global $platform_id
         * @global $_course
-        **/
+        **/   
         function _getCourseTitle($crl = false)
         {
+            global $coursesRepositorySys;
+            global $platform_id;
             global $_course;
-
-            $baseServDir = get_path('coursesRepositorySys');
-
+             
+            $baseServDir = $coursesRepositorySys;
+             
             $nav = new Navigator($baseServDir, $crl);
             $courseTitle = $nav->getCourseTitle();
-
+             
             return $courseTitle;
         }
-
+        
         /**
         * register array with the crl that one must add and delete in session
         *
         * @param array $servAdd array with the crl that one must add
         * @param array $servDel array with the crl that one must delete
-        **/
+        **/   
         function registerAttachementList( $servAdd , $servDel )
         {
             $_SESSION['servAdd'] = array();
             $_SESSION['servDel'] = array();
-
+            
             if( is_array($servAdd) && count($servAdd) != 0 )
-            {
-                $_SESSION['servAdd'] = array_map("urldecode",$servAdd);
+            { 
+                $_SESSION['servAdd'] = array_map("urldecode",$servAdd);    
             }
-
-            if( is_array($servDel) && count($servDel) != 0 )
+            
+            if( is_array($servDel) && count($servDel) != 0 ) 
             {
                    $_SESSION['servDel'] = array_map("urldecode",$servDel);
                }
 
                return true;
         }
-
+        
        /**
         * give crl which are stored in dB
         *
         * @param string $crl a crl
         * @return array  a array witch the crl and title of the crl
         * @global $baseServUrl
-        **/
+        **/ 
         function getResourceDB($crl)
-        {
+        {    
             global $baseServUrl;
-
-            $baseServUrl = get_path('rootWeb');
-            $crlListe = linker_get_link_list($crl);
-            $resourceListe = array();
-
-            foreach($crlListe as $crlElement)
-            {
-                $infoResource = array();
-
-                $infoResource["crl"] = urlencode($crlElement["crl"]);
-                $infoResource["title"] = htmlentities($crlElement["title"]);
-
-                $resourceListe[] = $infoResource;
+            
+            $baseServUrl = get_conf('rootWeb');
+               $crlListe = linker_get_link_list($crl);
+               $resourceListe = array();
+               
+               foreach($crlListe as $crlElement)
+               {
+                   $infoResource = array();
+                
+                $infoResource["crl"] = urlencode($crlElement["crl"]); 
+                $infoResource["title"] = htmlentities($crlElement["title"]); 
+                
+                $resourceListe[] = $infoResource;                  
             }
-
+            
             return $resourceListe;
         }
     }
@@ -236,6 +254,6 @@
         {
             require_once JPSPAN . 'ErrorHandler.php';
         }
-        $jpspan->serve();
+        $jpspan->serve();  
     }
 ?>

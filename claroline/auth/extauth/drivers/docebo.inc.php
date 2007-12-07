@@ -1,5 +1,4 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
@@ -53,6 +52,40 @@ $extAuthAttribNameList = array (
 // authentication system. They're able to be trigged from NULL value ...
 
 $extAuthAttribTreatmentList = array ('status' => 5);
+
+
+//////////////////////////////////////////////////////////////////////////////
+
+
+$extAuth = new ExternalAuthentication($authSourceType, $extAuthOptionList);
+$extAuth->setAuthSourceName($authSourceName);
+
+if ( $extAuth->isAuth() )
+{
+    if ( isset($uData['user_id']) )
+    {
+       // update the user data in the claroline user table
+
+       $extAuth->recordUserData($extAuthAttribNameList, 
+                                $extAuthAttribTreatmentList, 
+                                $uData['user_id']);
+    }
+    else
+    {
+        // create a new rank in the claroline user table for this user
+    
+    $extAuth->recordUserData($extAuthAttribNameList, 
+                             $extAuthAttribTreatmentList);
+    }
+
+    $extAuthId = $extAuth->getUid();
+}
+else
+{
+    $extAuthId = false;
+}
+
+return $extAuthId;
 
 // PROCESS AUTHENTICATION
 

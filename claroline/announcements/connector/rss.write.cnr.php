@@ -1,5 +1,4 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
@@ -19,10 +18,11 @@ function CLANN_write_rss($context)
 {
     if (is_array($context) && count($context)>0)
     {
-        $courseId = (array_key_exists(CLARO_CONTEXT_COURSE,$context)) ? $context[CLARO_CONTEXT_COURSE] : claro_get_current_course_id();
+        $courseId = (array_key_exists(CLARO_CONTEXT_COURSE,$context)) ? $context[CLARO_CONTEXT_COURSE] : $GLOBALS['_cid'];
     }
 
     require_once dirname(__FILE__) . '/../lib/announcement.lib.php';
+    $courseData = claro_get_course_data($courseId);
 
     $toolNameList = claro_get_tool_name_list();
     $announcementList = announcement_get_item_list($context, 'DESC');
@@ -33,9 +33,9 @@ function CLANN_write_rss($context)
         if('SHOW' == $announcementItem['visibility'])
         {
             $rssList[] = array( 'title'       => trim($announcementItem['title'])
-            ,                   'category'    => trim($toolNameList['CLANN'])
-            ,                   'guid'        => get_path('rootWeb') .'claroline/' . 'announcements/announcements.php?cidReq=' . $courseId . '&l#ann'.$announcementItem['id']
-            ,                   'link'        => get_path('rootWeb') .'claroline/' . 'announcements/announcements.php?cidReq=' . $courseId . '&l#ann'.$announcementItem['id']
+            ,                   'category'    => trim($toolNameList[str_pad('CLANN',8,'_')])
+            ,                   'guid'        => get_conf('clarolineRepositoryWeb') . 'announcements/announcements.php?cidReq=' . $courseId . '&l#ann'.$announcementItem['id']
+            ,                   'link'        => get_conf('clarolineRepositoryWeb') . 'announcements/announcements.php?cidReq=' . $courseId . '&l#ann'.$announcementItem['id']
             ,                   'description' => trim(str_replace('<!-- content: html -->','',$announcementItem['content']))
             ,                   'pubDate'     => date('r', stripslashes(strtotime($announcementItem['time'])))
           //,                   'author'      => $_course['email']

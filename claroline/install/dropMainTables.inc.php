@@ -1,5 +1,4 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
@@ -40,14 +39,8 @@ $dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "notify` 
 $dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "upgrade_status`  ";
 $dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "module`  ";
 $dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "module_info`  ";
-//$dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "module_tool`  ";
-//$dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "module_rel_tool_context`  ";
+$dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "module_tool`  ";
+$dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "module_rel_tool_context`  ";
 $dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "dock`  ";
-$dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "user_property`  ";
-$dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "property_definition`  ";
-$dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "right_rel_profile_action`  ";
-$dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "right_profile`  ";
-$dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "right_action`  ";
-$dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "rel_course_class`  ";
 
 ?>
