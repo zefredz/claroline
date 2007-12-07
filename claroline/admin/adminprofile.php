@@ -1,10 +1,9 @@
 <?php // $Id$
 /**
  * CLAROLINE
+ * @version 1.8 $Revision$
  *
- * @version 1.9 $Revision$
- *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -19,14 +18,14 @@ $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 require '../inc/claro_init_global.inc.php';
 
 // Security check
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
+if ( ! get_init('_uid') ) claro_disp_auth_form();
+if ( ! get_init('is_platformAdmin') ) claro_die(get_lang('Not allowed'));
 
 // Include configuration
 include claro_get_conf_repository() . 'user_profile.conf.php';
 
 // Include libraries
-require_once get_path('incRepositorySys') . '/lib/user.lib.php';
+require_once $includePath . '/lib/user.lib.php';
 
 
 // Initialise variables
@@ -41,17 +40,9 @@ $messageList = array();
 // see which user we are working with ...
 
 if ( empty($_REQUEST['uidToEdit']) ) claro_redirect('adminusers.php');
-else                                 $userId = $_REQUEST['uidToEdit'];
+else                                 $user_id = $_REQUEST['uidToEdit'];
 
-$user_data = user_get_properties($userId);
-
-$user_extra_data = user_get_extra_data($userId);
-$dgExtra =null;
-if (count($user_extra_data))
-{
-    $dgExtra = new claro_datagrid(user_get_extra_data($userId));
-}
-
+$user_data = user_get_properties($user_id);
 
 if ( isset($_REQUEST['applyChange']) )  //for formular modification
 {
@@ -71,26 +62,26 @@ if ( isset($_REQUEST['applyChange']) )  //for formular modification
 
     // validate forum params
 
-    $messageList = user_validate_form_profile($user_data, $userId);
+    $messageList = user_validate_form_profile($user_data, $user_id);
 
     if ( count($messageList) == 0 )
     {
         if ( empty($user_data['password'])) unset($user_data['password']);
 
-        user_set_properties($userId, $user_data);  // if no error update use setting
+        user_set_properties($user_id, $user_data);  // if no error update use setting
 
-        if ( $userId == claro_get_current_user_id()  )// re-init system to take new settings in account
+        if ( $user_id == get_init('_uid')  )// re-init system to take new settings in account
         {
             $uidReset = true;
-            include get_path('incRepositorySys') . '/claro_init_local.inc.php';
+            include $includePath . '/claro_init_local.inc.php';
         }
 
         $classMsg = 'success';
         $dialogBox = get_lang('Changes have been applied to the user settings');
 
         // set user admin parameter
-        if ( $user_data['is_admin'] ) user_set_platform_admin(true, $userId);
-        else                          user_set_platform_admin(false, $userId);
+        if ( $user_data['is_admin'] ) user_set_platform_admin(true, $user_id);
+        else                          user_set_platform_admin(false, $user_id);
 
         $messageList[] = get_lang('Changes have been applied to the user settings');
     }
@@ -106,11 +97,11 @@ if ( isset($_REQUEST['applyChange']) )  //for formular modification
  * PREPARE DISPLAY
  */
 
-$interbredcrump[]= array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
+$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 
 if( isset($_REQUEST['cfrom']) && $_REQUEST['cfrom'] == 'ulist')
 {
-    $interbredcrump[]= array ('url' => get_path('rootAdminWeb') . 'adminusers.php', 'name' => get_lang('User list'));
+    $interbredcrump[]= array ('url' => $rootAdminWeb . 'adminusers.php', 'name' => get_lang('User list'));
 }
 
 $htmlHeadXtra[] =
@@ -124,15 +115,15 @@ $htmlHeadXtra[] =
             }
             </script>";
 
-$user_data['is_admin'] = user_is_admin($userId);
+$user_data['is_admin'] = user_is_admin($user_id);
 
 
 $cmd_menu[] = '<a class="claroCmd" href="../auth/courses.php'
 .             '?cmd=rqReg'
-.             '&amp;uidToEdit=' . $userId
+.             '&amp;uidToEdit=' . $user_id
 .             '&amp;fromAdmin=settings'
 .             '&amp;category=" >'
-.             '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" />'
+.             '<img src="' . $imgRepositoryWeb . 'enroll.gif">'
 .             get_lang('Enrol to a new course')
 .             '</a>'
 
@@ -141,16 +132,16 @@ $cmd_menu[] = '<a class="claroCmd" href="../auth/courses.php'
 $cmd_menu[] = '<a class="claroCmd" href="../auth/lostPassword.php'
 .             '?Femail=' . urlencode($user_data['email'])
 .             '&amp;searchPassword=1" >'
-.             '<img src="' . get_path('imgRepositoryWeb') . 'email.gif" />'
+.             '<img src="' . $imgRepositoryWeb . 'email.gif" />'
 .             get_lang('Send account information to user by email')
 .             '</a>'
 ;
 
 $cmd_menu[] = '<a class="claroCmd" href="adminuserdeleted.php'
-.             '?uidToEdit=' . $userId
+.             '?uidToEdit=' . $user_id
 .             '&amp;cmd=delete" '
-.             'onclick="return confirmation(\'' . clean_str_for_javascript(get_lang('Are you sure to delete') . ' ' . $user_data['username']) . '\');" >'
-.             '<img src="' . get_path('imgRepositoryWeb') . 'deluser.gif" /> '
+.             'onClick="return confirmation(\'' . clean_str_for_javascript(get_lang('Are you sure to delete') . ' ' . $user_data['username']) . '\');" >'
+.             '<img src="' . $imgRepositoryWeb . 'deluser.gif" /> '
 .             get_lang('Delete user')
 .             '</a>'
 
@@ -166,44 +157,19 @@ if (isset($_REQUEST['cfrom']) && $_REQUEST['cfrom'] == 'ulist' ) // if we come f
  */
 
 // Disdplay header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include $includePath . '/claro_init_header.inc.php';
 
 // Display tool title
 echo claro_html_tool_title($nameTools)
 .    claro_html_msg_list($messageList)
 
 // Display "form and info" about the user
+.    user_html_form_admin_user_profile($user_data)
 .    '<p>'
 .    claro_html_menu_horizontal($cmd_menu)
 .    '</p>'
-.    user_html_form_admin_user_profile($user_data)
 ;
-if (!is_null($dgExtra)) echo $dgExtra->render();
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 
-function user_get_extra_data($userId)
-{
-    $extraInfo = array();
-    $extraInfoDefList = get_userInfoExtraDefinitionList();
-    $userInfo = get_user_property_list($userId);
-
-/**
-    $extraInfo['user_id']['label'] = get_lang('User id');
-    $extraInfo['user_id']['value'] = $userId;
-*/
-
-    foreach ($extraInfoDefList as $extraInfoDef)
-    {
-        $currentValue = array_key_exists($extraInfoDef['propertyId'],$userInfo)
-            ? $userInfo[$extraInfoDef['propertyId']]
-            : $extraInfoDef['defaultValue'];
-
-            // propertyId, label, type, defaultValue, required
-            $extraInfo[$extraInfoDef['propertyId']]['label'] = $extraInfoDef['label'];
-            $extraInfo[$extraInfoDef['propertyId']]['value'] = $currentValue;
-
-    }
-    return $extraInfo;
-}
 ?>

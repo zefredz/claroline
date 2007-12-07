@@ -4,8 +4,8 @@
  *
  * This tool list user of a course but in admin section
  *
- * @version 1.9 $Revision$
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
+ * @version 1.8 $Revision$
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -25,8 +25,8 @@ require '../inc/claro_init_global.inc.php';
 /*  Security Check
 /* ************************************************************************** */
 
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 /* ************************************************************************** */
 /*  Initialise variables and include libraries
@@ -34,8 +34,8 @@ if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
 $dialogBox = '';
 // initialisation of global variables and used libraries
-require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
-require_once get_path('incRepositorySys') . '/lib/course_user.lib.php';
+require_once $includePath . '/lib/pager.lib.php';
+require_once $includePath . '/lib/course_user.lib.php';
 
 include claro_get_conf_repository() . 'user_profile.conf.php';
 
@@ -52,26 +52,15 @@ if ((isset($_REQUEST['cidToEdit']) && $_REQUEST['cidToEdit'] == '') || !isset($_
 }
 else $cidToEdit = $_REQUEST['cidToEdit'];
 // See SESSION variables used for reorder criteria :
-$validCmdList = array('unsub',);
-$validRefererList = array('clist',);
-
-$cmd = (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$validCmdList) ? $_REQUEST['cmd'] : null);
-$cfrom = (isset($_REQUEST['cfrom']) && in_array($_REQUEST['cfrom'],$validRefererList) ? $_REQUEST['cfrom'] : null);
-
+if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
+else                           $cmd = null;
 $pager_offset =  isset($_REQUEST['pager_offset'])?$_REQUEST['pager_offset'] :'0';
-$addToURL = '';
-$do=null;
 
 /**
  * COMMAND
  */
 
 if ( $cmd == 'unsub' )
-{
-    $do = 'unsub';
-}
-
-if ( $do == 'unsub' )
 {
     if ( user_remove_from_course($_REQUEST['user_id'], $_REQUEST['cidToEdit'], true, true, false) )
     {
@@ -118,7 +107,10 @@ $myPager->set_sort_key($sortKey, $sortDir);
 $myPager->set_pager_call_param_name('pager_offset');
 
 $userList = $myPager->get_result_list();
+if(count($userList))
+{
 
+}
 // Start the list of users...
 $userDataList = array();
 
@@ -153,7 +145,7 @@ foreach($userList as $lineId => $user)
     .                                            '?cidToEdit=' . $cidToEdit
     .                                            '&amp;cmd=unsub&amp;user_id=' . $user['user_id']
     .                                            '&amp;pager_offset=' . $pager_offset . '" '
-    .                                            ' onclick="return confirmationReg(\'' . clean_str_for_javascript($user['username']) . '\');">' . "\n"
+    .                                            ' onClick="return confirmationReg(\'' . clean_str_for_javascript($user['username']) . '\');">' . "\n"
     .                                            '<img src="' . get_conf('imgRepositoryWeb') . 'unenroll.gif" border="0" alt="' . get_lang('Unregister user') . '" />' . "\n"
     .                                            '</a>' . "\n";
 
@@ -168,7 +160,7 @@ $htmlHeadXtra[] =
          "<script>
          function confirmationReg (name)
          {
-             if (confirm(\"".clean_str_for_javascript(get_lang('Are you sure you want to unregister'))." \"+ name + \" ? \"))
+             if (confirm(\"".clean_str_for_javascript(get_lang('Are you sure you want to unregister '))." \"+ name + \" ? \"))
                  {return true;}
              else
                  {return false;}
@@ -206,13 +198,13 @@ $dg_opt_list['caption'] = '<img src="' . get_conf('imgRepositoryWeb') . 'user.gi
 $nameTools = get_lang('Course members');
 $nameTools .= " : ".$courseData['name'];
 // Deal with interbredcrumps
-$interbredcrump[]= array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
+$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 $command_list[] = '<a class="claroCmd" href="adminregisteruser.php'
 .    '?cidToEdit=' . $cidToEdit . '">'
 .    get_lang('Enroll a user')
 .    '</a>'
 ;
-if ($cfrom=='clist')
+if (isset($cfrom) && ($cfrom=='clist'))
 {
     $command_list[] = '<a class="claroCmd" href="admincourses.php">' . get_lang('Back to course list') . '</a>';
 }
@@ -221,7 +213,7 @@ if ($cfrom=='clist')
  * DISPLAY
  */
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include($includePath . '/claro_init_header.inc.php');
 echo claro_html_tool_title($nameTools);
 if ( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
 
@@ -234,5 +226,5 @@ echo '<p>' . claro_html_menu_horizontal($command_list) . '</p>'
 .    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit)
 ;
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 ?>

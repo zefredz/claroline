@@ -1,9 +1,9 @@
 <?php //$Id$
 /**
  * CLAROLINE
- * @version 1.9 $Revision$
+ * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -18,12 +18,12 @@ require '../inc/claro_init_global.inc.php';
 $userPerPage = get_conf('userPerPage',20); // numbers of user to display on the same page
 
 // Security check
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
+if ( ! get_init('_uid') ) claro_disp_auth_form();
+if ( ! get_init('is_platformAdmin') ) claro_die(get_lang('Not allowed'));
 
-require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
-require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
-require_once get_path('incRepositorySys') . '/lib/user.lib.php';
+require_once $includePath . '/lib/pager.lib.php';
+require_once $includePath . '/lib/admin.lib.inc.php';
+require_once $includePath . '/lib/user.lib.php';
 
 // CHECK INCOMING DATAS
 if ((isset($_REQUEST['cidToEdit'])) && ($_REQUEST['cidToEdit']=='')) {unset($_REQUEST['cidToEdit']);}
@@ -58,15 +58,15 @@ if (isset($_REQUEST['action'    ])) $_SESSION['admin_user_action'    ] = trim($_
 
 if (isset($_REQUEST['order_crit'])) $_SESSION['admin_user_order_crit'] = trim($_REQUEST['order_crit']);
 if (isset($_REQUEST['dir'       ])) $_SESSION['admin_user_dir'       ] = ($_REQUEST['dir'] == 'DESC' ? 'DESC' : 'ASC' );
-$addToURL = ( isset($_REQUEST['addToURL']) ? $_REQUEST['addToURL'] : '');
 
+if (!isset($addToURL)) $addToURL ='';
 
 //TABLES
 //declare needed tables
 
 // Deal with interbredcrumps
 
-$interbredcrump[] = array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
+$interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 $nameTools = get_lang('User list');
 //TABLES
 
@@ -87,7 +87,7 @@ $addtoAdvanced = $searchInfo['addtoAdvanced'];
 
 if(count($searchInfo['isSearched']) )
 {
-    $isSearchedHTML = implode('<br />', $isSearched);
+    $isSearchedHTML = implode('<br>', $isSearched);
 }
 else
 {
@@ -102,16 +102,9 @@ $sql = get_sql_filtered_user_list();
 $offset       = isset($_REQUEST['offset']) ? $_REQUEST['offset'] : 0 ;
 $myPager      = new claro_sql_pager($sql, $offset, $userPerPage);
 
-if ( array_key_exists( 'sort', $_GET ) )
+if ( isset($_GET['sort']) )
 {
-    $dir = array_key_exists( 'dir', $_GET ) && $_GET['dir'] == SORT_DESC
-        ? SORT_DESC
-        : SORT_ASC
-        ;
-
-    $sortKey = strip_tags( $_GET['sort'] );
-        
-    $myPager->add_sort_key( $sortKey, $dir );
+    $myPager->add_sort_key( $_GET['sort'], isset($_GET['dir']) ? $_GET['dir'] : SORT_ASC );
 }
 
 $defaultSortKeyList = array ('isPlatformAdmin' => SORT_DESC,
@@ -125,17 +118,15 @@ foreach($defaultSortKeyList as $thisSortKey => $thisSortDir)
 
 $userList = $myPager->get_result_list();
 if (is_array($userList))
+foreach ($userList as $userKey => $user)
 {
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    foreach ($userList as $userKey => $user)
-    {
-        $sql ="SELECT count(DISTINCT code_cours) AS qty_course
-                 FROM `" . $tbl_mdb_names['rel_course_user'] . "`
-                 WHERE user_id = '". (int) $user['user_id'] ."'
-                 GROUP BY user_id";
-        $userList[$userKey]['qty_course'] = (int) claro_sql_query_get_single_value($sql);
-    }
+	$sql ="Select count(DISTINCT code_cours) AS qty_course
+           FROM  `" . $tbl_mdb_names['rel_course_user'] . "`
+           WHERE user_id = '". (int) $user['user_id'] ."'
+		  GROUP BY user_id";
+	$userList[$userKey]['qty_course'] = (int) claro_sql_query_get_single_value($sql);
 }
+
 
 $userGrid = array();
 if (is_array($userList))
@@ -167,7 +158,7 @@ foreach ($userList as $userKey => $user)
     $userGrid[$userKey]['settings'] = '<a href="adminprofile.php'
     .                                 '?uidToEdit=' . $user['user_id']
     .                                 '&amp;cfrom=ulist' . $addToURL . '">'
-    .                                 '<img src="' . get_path('imgRepositoryWeb') . 'usersetting.gif" border="0" alt="' . get_lang('User settings') . '" />'
+    .                                 '<img src="' . $imgRepositoryWeb . 'usersetting.gif" border="0" alt="' . get_lang('User settings') . '" />'
     .    '</a>';
 
 
@@ -180,9 +171,9 @@ foreach ($userList as $userKey => $user)
 
     $userGrid[$userKey]['delete'] = '<a href="' . $_SERVER['PHP_SELF']
     .                               '?cmd=delete&amp;user_id=' . $user['user_id']
-    .                               '&amp;offset=' . $offset . $addToURL . '" '
-    .                               ' onclick="return confirmation(\'' . clean_str_for_javascript(' ' . $user['firstname'] . ' ' . $user['name']).'\');">' . "\n"
-    .                               '<img src="' . get_path('imgRepositoryWeb') . 'deluser.gif" border="0" alt="' . get_lang('Delete') . '" />' . "\n"
+    .                               '&amp;ffset=' . $offset . $addToURL . '" '
+    .                               ' onClick="return confirmation(\'' . clean_str_for_javascript(' ' . $user['firstname'] . ' ' . $user['name']).'\');">' . "\n"
+    .                               '<img src="' . $imgRepositoryWeb . 'deluser.gif" border="0" alt="' . get_lang('Delete') . '" />' . "\n"
     .                               '</a> '."\n"
     ;
 
@@ -240,7 +231,7 @@ $htmlHeadXtra[] =
 
 
 //Header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include $includePath . '/claro_init_header.inc.php';
 
 // Display tool title
 echo claro_html_tool_title($nameTools) . "\n\n";
@@ -263,7 +254,7 @@ if ( !empty($isSearchedHTML) )
 echo '<table width="100%">' . "\n"
 .    '<tr>' . "\n"
 .    '<td>' . '<a class="claroCmd" href="adminaddnewuser.php">'
-.    '<img src="' . get_path('imgRepositoryWeb') . 'user.gif" alt="" />'
+.    '<img src="' . $imgRepositoryWeb . 'user.gif" alt="" />'
 .    get_lang('Create user')
 .    '</a></td>' . "\n"
 .    '<td align="right">' . "\n"
@@ -285,7 +276,7 @@ echo $userDataGrid->render();
 
 if ( count($userGrid) > 0 ) echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 
 /**
  *

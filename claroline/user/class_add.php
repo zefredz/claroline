@@ -6,7 +6,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -23,20 +23,20 @@ $gidReset = true;
 $dialogBoxMsg = array();
 require '../inc/claro_init_global.inc.php';
 
-if ( ! claro_is_in_a_course() || !claro_is_course_allowed() ) claro_disp_auth_form(true);
+if ( !$_cid || !$is_courseAllowed ) claro_disp_auth_form(true);
 
-$can_import_user_class  = (bool) (claro_is_course_manager()
+$can_import_user_class  = (bool) ($is_courseAdmin
                         && get_conf('is_coursemanager_allowed_to_import_user_class') )
-                        || claro_is_platform_admin();
+                        || $is_platformAdmin;
 
 // TODO replace calro_die by best usage.
 
 if ( !$can_import_user_class ) claro_die(get_lang('Not allowed'));
 
-require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
-require_once get_path('incRepositorySys') . '/lib/user.lib.php';
-require_once get_path('incRepositorySys') . '/lib/class.lib.php';
-require_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
+require_once $includePath . '/lib/admin.lib.inc.php';
+require_once $includePath . '/lib/user.lib.php';
+require_once $includePath . '/lib/class.lib.php';
+require_once $includePath . '/lib/sendmail.lib.php';
 
 /*---------------------------------------------------------------------*/
 /*----------------------EXECUTE COMMAND SECTION------------------------*/
@@ -65,7 +65,7 @@ switch ( $cmd )
 
     case 'exEnrol' :
 
-        if ( register_class_to_course( $form_data['class_id'], claro_get_current_course_id()) )
+        if ( register_class_to_course( $form_data['class_id'], $_cid) )
         {
             $dialogBoxMsg[]  = get_lang('Class has been enroled') ;
         }
@@ -75,7 +75,7 @@ switch ( $cmd )
 
     case 'exUnenrol' :
 
-        if ( unregister_class_to_course( $form_data['class_id'], claro_get_current_course_id()) )
+        if ( unregister_class_to_course( $form_data['class_id'], $_cid) )
         {
             $dialogBoxMsg[]  = get_lang('Class has been unenroled') ;
         }
@@ -86,7 +86,7 @@ switch ( $cmd )
 /*----------------------FIND information SECTION-----------------------*/
 /*---------------------------------------------------------------------*/
 
-$classList = get_class_list_by_course(claro_get_current_course_id());
+$classList = get_class_list_by_course($_cid);
 
 /*---------------------------------------------------------------------*/
 /*----------------------DISPLAY SECTION--------------------------------*/
@@ -95,7 +95,7 @@ $classList = get_class_list_by_course(claro_get_current_course_id());
 // set bredcrump
 
 $nameTools = get_lang('Enrol class');
-$interbredcrump[] = array ('url' => 'user.php' . claro_url_relay_context('?') , 'name' => get_lang('Users'));
+$interbredcrump[] = array ('url' => 'user.php', 'name' => get_lang('Users'));
 // javascript confirm pop up declaration for header
 
 $htmlHeadXtra[] =
@@ -119,7 +119,7 @@ $htmlHeadXtra[] =
 
 // display top banner
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include $includePath . '/claro_init_header.inc.php';
 
 // Display tool title
 
@@ -131,7 +131,7 @@ echo claro_html_tool_title(get_lang('Enrol class'))
 
 // display tool links
 .    '<p>'
-.    claro_html_cmd_link('user.php'  . claro_url_relay_context('?') , get_lang('Back to list'))
+.    '<a class="claroCmd" href="user.php">' . get_lang('Back to list') . '</a>'
 .    '</p>'
 // display cols headers
 .    '<table class="claroTable" width="100%" border="0" cellspacing="2">' . "\n"
@@ -144,13 +144,13 @@ echo claro_html_tool_title(get_lang('Enrol class'))
 .    '</thead>' . "\n"
 .    '<tbody>' . "\n"
 // display Class list (or tree)
-.    display_tree_class_in_user($classList, claro_get_current_course_id())
+.    display_tree_class_in_user($classList, $_cid)
 .    '</tbody>' . "\n"
 .    '</table>' . "\n"
 ;
 
 // display footer banner
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 
 ?>

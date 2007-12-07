@@ -20,7 +20,7 @@ function CLCAL_write_rss($context)
 
     if (is_array($context) && count($context)>0)
     {
-        $courseId = (array_key_exists(CLARO_CONTEXT_COURSE,$context)) ? $context[CLARO_CONTEXT_COURSE] : claro_get_current_course_id();
+        $courseId = (array_key_exists(CLARO_CONTEXT_COURSE,$context)) ? $context[CLARO_CONTEXT_COURSE] : $GLOBALS['_cid'];
     }
 
     require_once dirname(__FILE__) . '/../lib/agenda.lib.php';
@@ -28,7 +28,7 @@ function CLCAL_write_rss($context)
     $toolNameList = claro_get_tool_name_list();
 
     $itemRssList = array();
-    foreach ($eventList as $item)
+    foreach ($eventList as $id => $item)
     {
         if('SHOW' == $item['visibility'] )
         {
@@ -42,8 +42,8 @@ function CLCAL_write_rss($context)
 
             $itemRssList[] = array( 'title'       => $item['title']
             ,                       'category'    => trim($toolNameList['CLCAL'])
-            ,                        'guid'        => get_path('rootWeb') .'claroline/' . 'calendar/agenda.php?cidReq=' . $courseId . '&amp;l#event' . $item['id']
-            ,                        'link'        => get_path('rootWeb') .'claroline/' . 'calendar/agenda.php?cidReq=' . $courseId . '&amp;l#event' . $item['id']
+            ,                        'guid'        => get_conf('rootWeb') .'claroline/' . 'calendar/agenda.php?cidReq=' . $courseId . '&amp;l#event' . $item['id']
+            ,                        'link'        => get_conf('rootWeb') .'claroline/' . 'calendar/agenda.php?cidReq=' . $courseId . '&amp;l#event' . $item['id']
             ,                        'description' => trim(str_replace('<!-- content: html -->','',$item['content']))
             ,                        'pubDate'     => $item['pubDate']
             ,                        'dc:date'     => $item['dc:date']

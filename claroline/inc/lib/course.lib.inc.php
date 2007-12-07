@@ -83,7 +83,8 @@ function create_select_box_language($selected=NULL)
   */
 function language_exists()
 {
-    $dirname = get_path('clarolineRepositorySys') . 'lang/';
+    global $clarolineRepositorySys;
+    $dirname = $clarolineRepositorySys . 'lang/';
 
     if($dirname[strlen($dirname)-1]!='/')
         $dirname.='/';

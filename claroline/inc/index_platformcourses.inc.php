@@ -25,7 +25,7 @@ if ( trim($category) != '' ) // means that we are not on the root level of the c
 {
     $backCommandLine = '<p>'
                       .'<small>'
-                      .'<a href="'.$_SERVER['PHP_SELF']."?category=". urlencode($parentCategory['code_P']) .'">'
+                      .'<a href="'.$_SERVER['PHP_SELF']."?category=".$parentCategory['code_P'].'">'
                       .'&lt;&lt; '.get_lang('previous level')
                       .'</a>'
                       .'</small>'
@@ -45,10 +45,8 @@ echo claro_html_tool_title($pageTitle);
 
 if ( ( count($categoryList) - 1 )  >= 0 )
 {
-
-    echo claro_html_title(get_lang('Categories'),4)
-    .    '<ul>'  . "\n"
-    ;
+    echo '<h4>'.get_lang('Categories').'</h4>' . "\n\n";
+    echo '<ul>'                                . "\n";
 
     foreach($categoryList as $thisCategory)
     {
@@ -56,7 +54,7 @@ if ( ( count($categoryList) - 1 )  >= 0 )
 
         if ( $thisCategory['nbCourse'] + $thisCategory['nb_childs'] > 0 )
         {
-            echo '<a href="'.$_SERVER['PHP_SELF'].'?category='. urlencode($thisCategory['code']) .'">'
+            echo '<a href="'.$_SERVER['PHP_SELF'].'?category='.$thisCategory['code'].'">'
             .    $thisCategory['name']
             .    '</a>'
             ;
@@ -66,8 +64,8 @@ if ( ( count($categoryList) - 1 )  >= 0 )
             echo $thisCategory['name'];
         }
 
-        echo ' <small>(' . $thisCategory['nbCourse'] . ')</small>'."\n"
-        .    '</li>'                                              . "\n"
+        echo ' <small>('.$thisCategory['nbCourse'].')</small>'."\n"
+        .    '</li>'                                          . "\n"
         ;
     }
 
@@ -78,7 +76,7 @@ if ( count($courseList) > 0 )
 {
     if ( ( count($categoryList) - 1 )  > 0 )
     {
-        echo '<hr size="1" noshade="noshade" />' . "\n";
+        echo '<hr size="1" noshade="noshade">' . "\n";
     }
 
     echo '<h4>'.get_lang('Course list').'</h4>' . "\n"
@@ -87,31 +85,31 @@ if ( count($courseList) > 0 )
     foreach($courseList as $thisCourse)
     {
         echo '<li>' . "\n"
-        .    '<a href="' .   get_path('url') . '/claroline/course/index.php?cid=' . htmlspecialchars($thisCourse['sysCode']) . '">'
+        .    '<a href="' .  $urlAppend . '/claroline/course/index.php?cid=' . htmlspecialchars($thisCourse['sysCode']) . '">'
         .    $thisCourse['officialCode'] . ' - '
         .    $thisCourse['title']
         .    '</a>'
         .    '<br />';
-        if (claro_is_user_authenticated())
+        if (isset($_uid))
         {
-            echo '<small><a href="mailto:'.$thisCourse['email'].'">' . $thisCourse['titular'] . '</a></small>' . "\n";
+        	echo '<small><a href="mailto:'.$thisCourse['email'].'">' . $thisCourse['titular'] . '</a></small>' . "\n";
         }
         else
         {
-            echo '<small>' . $thisCourse['titular'] . '</small>' . "\n";
+        	echo '<small>' . $thisCourse['titular'] . '</small>' . "\n";
         }
 
         echo '</li>' . "\n";
     }
 
-    echo '</ul>' . "\n";
+	echo '</ul>' . "\n";
 
 }
 else
 {
     if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] = 'search')
     {
-        echo '<blockquote>' . get_lang('Your search did not match any courses') . '</blockquote>' . "\n";
+	    echo '<blockquote>' . get_lang('Your search did not match any courses') . '</blockquote>' . "\n";
     }
 }
 

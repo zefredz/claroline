@@ -54,8 +54,7 @@ if( isset($learningPath_module['lock'])
     && $learningPath_module['lock'] == 'CLOSE'
     && isset($learningPath_module['raw_to_pass']) )
 {
-    echo '<form method="post" action="'.$_SERVER['PHP_SELF'].'">'."\n"
-    .    claro_form_relay_context()
+    echo '<form method="POST" action="'.$_SERVER['PHP_SELF'].'">'."\n"
         .'<label for="newRaw">'.get_lang('Change minimum raw mark to pass this module (percentage) :').' </label>'."\n"
         .'<input type="text" value="'.htmlspecialchars( $learningPath_module['raw_to_pass'] ).'" name="newRaw" id="newRaw" size="3" maxlength="3" /> % '."\n"
         .'<input type="hidden" name="cmd" value="raw" />'."\n"
@@ -79,7 +78,7 @@ if( $module )
         .'<p>'."\n"
         .htmlspecialchars($module['name'])
         .'<a href="../exercise/admin/edit_exercise.php?exId='.$module['exerciseId'].'">'
-        .'<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="'.get_lang('Modify').'" />'
+        .'<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="'.get_lang('Modify').'" />'
         .'</a>'."\n"
         .'</p>'."\n";
 } // else sql error, do nothing except in debug mode, where claro_sql_query_fetch_all will show the error

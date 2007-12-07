@@ -21,7 +21,7 @@
 $conf_def['config_code'] = 'CLAUTH';
 $conf_def['config_file'] = 'auth.cas.conf.php';
 $conf_def['config_name'] = 'Central Authentication System';
-$conf_def['config_class']= 'auth';
+$conf_def['config_class']='auth';
 
 
 $conf_def['section']['CAS']['label']='Cas settings';
@@ -32,7 +32,6 @@ array ( 'claro_CasEnabled'
       , 'claro_CasServerHostPort'
       , 'claro_CasServerRoot'
       , 'claro_CasLoginString'
-      , 'claro_CasGlobalLogout'
       );
 
 //PROPERTIES
@@ -74,15 +73,5 @@ array ('label'         => 'Root of CAS server'
       ,'default'       => ''
       ,'type'          => 'string'
       );
-      
-$conf_def_property_list['claro_CasGlobalLogout'] =
-array ('label'         => 'Logout user from CAS server when user logout from Claroline'
-      ,'description'   => ''
-      ,'default'       => FALSE
-      ,'type'          => 'boolean'
-      ,'acceptedValue' => array ('TRUE'  => 'Yes'
-                                ,'FALSE' => 'No'
-                                )
-      );      
 
 ?>

@@ -6,7 +6,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -22,17 +22,17 @@
 
 /**
  * @todo TODO use is_coursemanager_allowed_to_import_user_list
-$can_import_user_list     = (bool) (claro_is_course_manager()
+$can_import_user_list     = (bool) ($is_courseAdmin
                      && get_conf('is_coursemanager_allowed_to_import_user_list') )
-                     || claro_is_platform_admin();
+                     || $is_platformAdmin;
  */
 
 require '../inc/claro_init_global.inc.php';
-require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
-require_once get_path('incRepositorySys') . '/lib/user.lib.php';
-require_once get_path('incRepositorySys') . '/lib/class.lib.php';
-require_once get_path('incRepositorySys') . '/lib/course_user.lib.php' ;
-require_once get_path('incRepositorySys') . '/lib/import_csv.lib.php';
+require_once $includePath . '/lib/admin.lib.inc.php';
+require_once $includePath . '/lib/user.lib.php';
+require_once $includePath . '/lib/class.lib.php';
+require_once $includePath . '/lib/course_user.lib.php' ;
+require_once $includePath . '/lib/import_csv.lib.php';
 
 include claro_get_conf_repository() . 'user_profile.conf.php';
 
@@ -44,9 +44,9 @@ include claro_get_conf_repository() . 'user_profile.conf.php';
 * - adding CSV users by the user tool in a course (in this case, available to teacher too) (AddType=userTool)
 */
 
-$can_import_user_list     = (bool) (claro_is_course_manager()
+$can_import_user_list     = (bool) ($is_courseAdmin
                      && get_conf('is_coursemanager_allowed_to_import_user_list') )
-                     || claro_is_platform_admin();
+                     || $is_platformAdmin;
 
 
 if ( isset($_REQUEST['AddType']) ) $AddType = $_REQUEST['AddType'];
@@ -56,13 +56,13 @@ switch ($AddType)
 {
     case 'adminTool' :
     case 'adminClassTool' :
-        if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-        if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
+        if ( ! $_uid ) claro_disp_auth_form();
+        if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
         break;
 
     case 'userTool' :
     default :
-        if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
+        if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 
         if ( ! $can_import_user_list ) claro_die(get_lang('Not allowed'));
         $AddType = 'userTool' ;
@@ -271,7 +271,7 @@ switch ($cmd)
                     break;
 
                 case 'userTool':
-                    user_add_to_course($user_id, claro_get_current_course_id(), false, false, false);
+                    user_add_to_course($user_id, $_cid, false, false, false);
                     break;
             }
         }
@@ -305,23 +305,23 @@ switch ($AddType)
         {
             $noQUERY_STRING   = true;
             $nameTools        = get_lang('Add a user list');
-            $interbredcrump[] = array ('url'=>get_path('rootAdminWeb') . claro_url_relay_context('?') , 'name'=> get_lang('Administration'));
+            $interbredcrump[] = array ('url'=>$rootAdminWeb, 'name'=> get_lang('Administration'));
         }   break;
 
     case 'adminClassTool' :
         {
             $noQUERY_STRING      = true;
             $nameTools           = get_lang('Add a user list in class');
-            $interbredcrump[]    = array ('url'=>get_path('rootAdminWeb') . claro_url_relay_context('?') , 'name'=> get_lang('Administration'));
-            $interbredcrump[]    = array ('url'=>get_path('rootAdminWeb').'admin_class.php' . claro_url_relay_context('?') , 'name'=> get_lang('Classes'));
-            $interbredcrump[]    = array ('url'=>get_path('rootAdminWeb').'admin_class_user.php?class_id='. $_SESSION['admin_user_class_id'] . claro_url_relay_context('&amp;') , 'name'=> get_lang('Class members'));
+            $interbredcrump[]    = array ('url'=>$rootAdminWeb, 'name'=> get_lang('Administration'));
+            $interbredcrump[]    = array ('url'=>$rootAdminWeb.'admin_class.php', 'name'=> get_lang('Classes'));
+            $interbredcrump[]    = array ('url'=>$rootAdminWeb.'admin_class_user.php?class_id='. $_SESSION['admin_user_class_id'], 'name'=> get_lang('Class members'));
         }   break;
 
     case 'userTool':
         {
             $noQUERY_STRING   = true;
             $nameTools        = get_lang('Add a user list in course');
-            $interbredcrump[] = array ('url'=>'user.php' . claro_url_relay_context('?') , 'name'=> get_lang('Users'));
+            $interbredcrump[] = array ('url'=>'user.php', 'name'=> get_lang('Users'));
         }   break;
 }
 
@@ -345,8 +345,7 @@ if (isset($_REQUEST['chformat']) && $_REQUEST['chformat']=='yes')
     .            '<br /><br />' . "\n"
     .            get_lang('The fields <em>%field_list</em> are compulsory', array ('%field_list' => implode(', ',$compulsory_list)) )
     .            '<br /><br />'
-    .            '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">'
-    .            claro_form_relay_context()
+    .            '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '">'
     .            '<input type="hidden" name="AddType" value="' . $AddType . '" />' . "\n"
     .            '<input type="text" name="usedFormat" value="' . htmlspecialchars($usedFormat) . '" size="55" />' . "\n"
     .            '<br /><br />' . "\n"
@@ -379,7 +378,7 @@ if (isset($_REQUEST['chformat']) && $_REQUEST['chformat']=='yes')
  * DISPLAY
  */
 
-include get_path('incRepositorySys').'/claro_init_header.inc.php';
+include $includePath.'/claro_init_header.inc.php';
 echo claro_html_tool_title($nameTools);
 if( isset( $dialogBox ) ) echo claro_html_message_box($dialogBox) . '<br />';
 
@@ -392,64 +391,51 @@ switch ( $display )
         {
             $backButtonUrl = '';
             unset($_SESSION['claro_csv_userlist']);
-            if (claro_is_in_a_course())
-            {
-                $backButtonUrl = get_module_url('CLUSR') . '/user.php' . claro_url_relay_context('?') ;
-            }
+            if ($_cid) $backButtonUrl = $clarolineRepositoryWeb . 'user/user.php';
             elseif (isset($addType) && $addType =='adminClassTool') //tricky fix, the use of addtype should be avoided
             {
-                $backButtonUrl = get_path('clarolineRepositoryWeb').'admin/admin_class_user.php?class_id='.$_SESSION['admin_user_class_id']  . claro_url_relay_context('&amp;') ;
+                $backButtonUrl = $clarolineRepositoryWeb.'admin/admin_class_user.php?class_id='.$_SESSION['admin_user_class_id'];
             }
-            elseif (claro_is_platform_admin())
-            {
-                $backButtonUrl = get_path('clarolineRepositoryWeb') . 'admin/'  . claro_url_relay_context('?') ;
-            }
+            elseif ($is_platformAdmin) $backButtonUrl = $clarolineRepositoryWeb.'admin/';
 
             $_SESSION['claro_CSV_done'] = FALSE;
 
-            echo get_lang('You must specify the CSV format used in your file') . "\n"
-            .    ':' . "\n"
-            .    '<br /><br />' . "\n"
-            .    '<form enctype="multipart/form-data"  method="post" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
-            .    claro_form_relay_context()
-            .    '<input type="radio" name="firstLineFormat" value="YES" id="firstLineFormat_YES" />' . "\n"
-            .    ' ' . "\n"
-            .    '<label for="firstLineFormat_YES">' . "\n"
-            .    get_lang('Use format defined in first line of file') . '</label>' . "\n"
-            .    '<br /><br />' . "\n"
-            .    '<input type="radio" name="firstLineFormat" value="NO"  checked="checked" id="firstLineFormat_NO" />' . "\n"
-            .    '<label for="firstLineFormat_NO">' . "\n"
-            .    get_lang('Use the following format') . ' : ' . "\n"
-            .    '</label>' . "\n"
-            .    '<br /><br />' . "\n"
-            .    '<b>' . "\n"
+            echo get_lang('You must specify the CSV format used in your file')
+            .    ':'
+            .    '<br /><br />'
+            .    '<form enctype="multipart/form-data"  method="POST" action="' . $_SERVER['PHP_SELF'] . '">'
+            .    '<input type="radio" name="firstLineFormat" value="YES" id="firstLineFormat_YES">'
+            .    ' '
+            .    '<label for="firstLineFormat_YES">'
+            .    get_lang('Use format defined in first line of file') . '</label>'
+            .    '<br /><br />'
+            .    '<input type="radio" name="firstLineFormat" value="NO" checked id="firstLineFormat_NO">'
+            .    '<label for="firstLineFormat_NO">'
+            .    get_lang('Use the following format') . ' : '
+            .    '</label>'
+            .    '<br /><br />'
+            .    '<b>'
             .    '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
-            .    $usedFormat . "\n"
-            .    '</b>' . "\n"
-            .    '<br /><br />' . "\n"
-            .    '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . "\n"
-            .    claro_html_cmd_link( $_SERVER['PHP_SELF']
-                                    . '?display=default'
-                                    . '&amp;loadDefault=yes'
-                                    . '&amp;AddType=' . $AddType
-                                    . claro_url_relay_context('&amp;')
-                                    , get_lang('Load default format')
-                                    ) . "\n"
+            .    $usedFormat
+            .    '<br /><br />'
+            .    '</b>'
+            .    '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+            .    '[<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
+            .    '?display=default&amp;loadDefault=yes&amp;AddType=' . $AddType . '">'
+            .    get_lang('Load default format')
+            .    '</a>]'
             .    ' | '
-            .    claro_html_cmd_link( $_SERVER['PHP_SELF']
-                                    . '?display=default'
-                                    . '&amp;chformat=yes'
-                                    . '&amp;AddType=' . $AddType
-                                    . claro_url_relay_context('&amp;')
-                                    , get_lang('Edit format to use')
-                                    ) . "\n"
-            .    '<br /><br />' . "\n"
-            .    '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . "\n"
+            .    '[<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
+            .    '?display=default&amp;chformat=yes&amp;AddType=' . $AddType . '">'
+            .    get_lang('Edit format to use')
+            .    '</a>]'
+            .    '<br /><br />'
+            .    '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
             ;
             echo '<input type="hidden" name="fieldSeparator" value="';
             if (!empty($_SESSION['CSV_fieldSeparator'])) echo $_SESSION['CSV_fieldSeparator'];
             else                                         echo ';';
-            echo '"  />' . "\n"
+            echo '" >' . "\n"
             .    '<input type="hidden" name="enclosedBy" value="' . $_SESSION['CSV_enclosedBy'] . '" />' . "\n"
             .    '<input type="hidden" name="AddType" value="' . $AddType . '" />' . "\n"
             .    '<br />' . "\n"
@@ -506,7 +492,7 @@ switch ( $display )
                     echo '(' . get_lang('if you choose to continue, lines with errors will simply be ignored') . ')<br />';
                 }
                 echo '<br />'
-                .    '<form method="post" action="' . $_SERVER['PHP_SELF'] . '?cmd=exImpSec">' . "\n"
+                .    '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '?cmd=exImpSec">' . "\n"
                 .    '<input type="hidden" name="AddType" value="' . $AddType . '" />'
                 .    '<input type="submit" value="' . get_lang('Continue') .'" />' . "\n"
                 .    claro_html_button($_SERVER['PHP_SELF'] . '?AddType=' . htmlspecialchars($AddType), get_lang('Cancel'))
@@ -556,7 +542,7 @@ switch ( $display )
             case 'adminTool' :
                 {
                     echo '<br />'
-                    .    '<a href="../admin/adminusers.php' . claro_url_relay_context('?') . '">&gt;&gt; '
+                    .    '<a href="../admin/adminusers.php">&gt;&gt; '
                     .    get_lang('See user list')
                     .    '</a>'
                     ;
@@ -565,7 +551,7 @@ switch ( $display )
             case 'adminClassTool' :
                 {
                     echo '<br />'
-                    .    '<a href="../admin/admin_class.php' . claro_url_relay_context('?') . '">&gt;&gt; '
+                    .    '<a href="../admin/admin_class.php">&gt;&gt; '
                     .    get_lang('Back to class list')
                     .    '</a>'
                     ;
@@ -574,7 +560,7 @@ switch ( $display )
             case 'userTool' :
                 {
                     echo '<br />'
-                    .    '<a href="user.php' . claro_url_relay_context('?') . '">&lt;&lt; ' . get_lang('Back to user list') . '</a>'
+                    .    '<a href="user.php">&lt;&lt; ' . get_lang('Back to user list') . '</a>'
                     ;
                 }   break;
         }
@@ -582,5 +568,5 @@ switch ( $display )
 }
 
 //footer
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 ?>

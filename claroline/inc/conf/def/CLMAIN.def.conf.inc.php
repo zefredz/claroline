@@ -26,15 +26,18 @@ $conf_def['config_class']='platform';
 
 // SECTION
 
-$conf_def['section']['ADMINISTRATIVE_SETTING']['label']='General';
+$conf_def['section']['ADMINISTRATIVE_SETTING']['label']='Platform & Organisation';
 $conf_def['section']['ADMINISTRATIVE_SETTING']['description']='Information about your platform and your organisation';
 $conf_def['section']['ADMINISTRATIVE_SETTING']['properties'] =
 array ( 'siteName'
       , 'institution_name'
       , 'institution_url'
+      
       );
 
+
 $conf_def['section']['LAYOUT']['label']='Layout';
+//$conf_def['section']['LAYOUT']['description']='';
 $conf_def['section']['LAYOUT']['properties'] =
 array ( 'claro_stylesheet'
       , 'siteLogo'
@@ -88,25 +91,10 @@ array ( 'dbHost'
       , 'courseTablePrefix'
       );
 
-$conf_def['section']['SMTP']['label']='SMTP';
-$conf_def['section']['SMTP']['description']='Mail server configuration';
-$conf_def['section']['SMTP']['properties'] =
-array ( 'smtp_host'
-      , 'smtp_username'
-      , 'smtp_password'
-      );
-
 $conf_def['section']['RIGHT']['label']='Right';
 $conf_def['section']['RIGHT']['properties'] =
 array ( 'allowSelfReg'
       , 'allowToSelfEnroll'
-      );
-      
-$conf_def['section']['DOWNLOAD_SETTINGS']['label']='Download';
-$conf_def['section']['DOWNLOAD_SETTINGS']['description']='Configure the way file are downloaded from the platform';
-$conf_def['section']['DOWNLOAD_SETTINGS']['properties'] =
-array ( 'useSendFile'
-      , 'usePrettyUrl'
       );
 
 $conf_def['section']['ADVANCED']['label']='Advanced settings';
@@ -121,8 +109,7 @@ array ( 'userPasswordCrypted'
       , 'DEVEL_MODE'
       , 'warnSessionLost'
       , 'claro_brailleViewMode'
-      , 'javascriptCompression'
-      // , 'secureDocumentDownload'
+      , 'secureDocumentDownload'
       );
 
 // Platform
@@ -341,32 +328,6 @@ array ('label'       => 'Mysql Base Path'
       ,'readonly'    => FALSE
       );
 
-// SMTP
-
-$conf_def_property_list['smtp_host'] =
-array ('label'       => 'SMTP server(s)'
-      ,'description' => 'Give a SMTP server name to turn on SMTP mode. (e.g. smtp1.site.com or smtp1.site.com;smtp2.site.com)'
-      ,'default'     => ''
-      ,'type'        => 'string'
-      ,'display'     => TRUE
-      );
-
-$conf_def_property_list['smtp_username'] =
-array ('label'       => 'Username'
-      ,'description' => 'Give a username and password to turn on SMTP authentication.'
-      ,'default'     => ''
-      ,'type'        => 'string'
-      ,'display'     => TRUE
-      );
-
-$conf_def_property_list['smtp_password'] =
-array ('label'       => 'Password'
-      ,'description' => ''
-      ,'default'     => ''
-      ,'type'        => 'string'
-      ,'display'     => TRUE
-      );
-
 // Path
 
 $conf_def_property_list['rootWeb'] =
@@ -556,7 +517,7 @@ $conf_def_property_list['userImageRepositoryAppend'] =
 array ('label'        => 'relative path from root web to user pic repository'
       ,'type'        => 'relpath'
       ,'display'     => FALSE
-      ,'default'     => 'platform/img/users/'
+      ,'default'     => 'claroline/img/users/'
       );
 
 $conf_def_property_list['CLARO_DEBUG_MODE'] =
@@ -584,16 +545,6 @@ array ('label'       => 'Profile SQL'
 $conf_def_property_list['warnSessionLost'] =
 array ('label'       => 'Session lost warning'
       ,'description' => 'Warn users when they loose their session on the platform'
-      ,'type'        => 'boolean'
-      ,'default'     => TRUE
-      ,'display'     => TRUE
-      ,'readonly'    => FALSE
-      , 'acceptedValue' => array('TRUE' => 'On', 'FALSE' => 'Off')
-      );
-      
-$conf_def_property_list['javascriptCompression'] =
-array ('label'       => 'Javascript compression'
-      ,'description' => 'Compress javascript files. This option should be set to off only for debugging.'
       ,'type'        => 'boolean'
       ,'default'     => TRUE
       ,'display'     => TRUE
@@ -644,39 +595,13 @@ array ('label'       => 'Display banner'
       ,'acceptedValue' => array ('FALSE' => 'on top', 'TRUE'=>'on bottom')
       );
 
-/*$conf_def_property_list['secureDocumentDownload'] =
+$conf_def_property_list['secureDocumentDownload'] =
 array ( 'description' => 'Increase the security of file download. This option only works on Apache Server. To be really secure, this option have to be completed by an .htaccess file on the course folders.'
       , 'label'       => 'Secure document download'
       , 'default'     => FALSE
       , 'type'        => 'boolean'
       , 'acceptedValue' => array ('TRUE'=>'On'
                                  ,'FALSE'=>'Off'
-                               )
-      , 'display'     => TRUE
-      , 'readonly'    => FALSE
-      );*/
-      
-// File Download
-      
-$conf_def_property_list['useSendFile'] =
-array ( 'description' => 'Select the way Claroline send files to a user.'
-      , 'label'       => 'Download mechanism'
-      , 'default'     => TRUE
-      , 'type'        => 'boolean'
-      , 'acceptedValue' => array ('TRUE'=>'Send file using PHP (mask real file location)'
-                                 ,'FALSE'=>'Redirect to the file'
-                               )
-      , 'display'     => TRUE
-      , 'readonly'    => FALSE
-      );
-      
-$conf_def_property_list['usePrettyUrl'] =
-array ( 'description' => 'Choose the mode for URL for file download. Warning : Pretty URL mode don\'t work with IIS.'
-      , 'label'       => 'File url mode'
-      , 'default'     => FALSE
-      , 'type'        => 'boolean'
-      , 'acceptedValue' => array ('TRUE'=>'Pretty URL using PATH_INFO (download.php/path/to/file.ext)'
-                                 ,'FALSE'=>'Standard URL using QUERY_STRING (download.php?url=/path/to/file.ext)'
                                )
       , 'display'     => TRUE
       , 'readonly'    => FALSE

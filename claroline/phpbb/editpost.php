@@ -25,22 +25,30 @@ $tlabelReq = 'CLFRM';
 
 require '../inc/claro_init_global.inc.php';
 
-if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
+if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 
 claro_set_display_mode_available(true);
+
+/*-----------------------------------------------------------------
+  Stats
+ -----------------------------------------------------------------*/
+
+event_access_tool($_tid, $_courseTool['label']);
 
 /*-----------------------------------------------------------------
   Library
  -----------------------------------------------------------------*/
 
-include_once get_path('incRepositorySys') . '/lib/forum.lib.php';
+include_once $includePath . '/lib/forum.lib.php';
 
 // initialise variables
 
-$last_visit = claro_get_current_user_data('lastLogin');
+$last_visit = $_user['lastLogin'];
+
+$last_visit = $_user['lastLogin'];
 $error = FALSE;
 $allowed = TRUE;
-$dialogBox = new DialogBox();
+$error_message = '';
 
 $pagetype  = 'editpost';
 
@@ -52,10 +60,10 @@ if ( isset($_REQUEST['post_id']) ) $post_id = (int) $_REQUEST['post_id'];
 else                               $post_id = 0;
 
 $is_allowedToEdit = claro_is_allowed_to_edit()
-                    || ( claro_is_group_tutor() && !claro_is_course_manager());
-                    // ( claro_is_group_tutor()
+                    || ( $is_groupTutor && !$is_courseAdmin);
+                    // ( $is_groupTutor
                     //  is added to give admin status to tutor
-                    // && !claro_is_course_manager())
+                    // && !$is_courseAdmin)
                     // is added  to let course admin, tutor of current group, use student mode
 
 $postSettingList =  get_post_settings($post_id);
@@ -75,14 +83,14 @@ if ( $postSettingList && $is_allowedToEdit )
      */
 
     if (   ! is_null($forumSettingList['idGroup'])
-        && ( ($forumSettingList['idGroup'] != claro_get_current_group_id()) || ! claro_is_group_allowed()) )
+        && ( $forumSettingList['idGroup'] != $_gid || ! $is_groupAllowed) )
     {
-        // NOTE : $forumSettingList['idGroup'] != claro_get_current_group_id() is necessary to prevent any hacking
+        // NOTE : $forumSettingList['idGroup'] != $_gid is necessary to prevent any hacking
         // attempt like rewriting the request without $cidReq. If we are in group
         // forum and the group of the concerned forum isn't the same as the session
         // one, something weird is happening, indeed ...
         $allowed = false;
-        $dialogBox->error( get_lang('Not allowed') );
+        $error_message = get_lang('Not allowed') ;
     }
     else
     {
@@ -163,7 +171,7 @@ else
 {
     // post doesn't exist or not allowed to edit post
     $allowed = FALSE;
-    $dialogBox->error( get_lang('Not allowed') );
+    $error_message = get_lang('Not allowed');
 }
 
 /*=================================================================
@@ -173,7 +181,7 @@ else
 $interbredcrump[] = array ('url' => 'index.php', 'name' => get_lang('Forums'));
 $noPHP_SELF       = true;
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include $includePath . '/claro_init_header.inc.php';
 
 // Forum Title
 
@@ -181,7 +189,7 @@ echo claro_html_tool_title(get_lang('Forums'), $is_allowedToEdit ? 'help_forum.p
 
 if ( !$allowed || !$is_allowedToEdit )
 {
-      echo $dialogBox->render();
+      echo claro_html_message_box($error_message);
 }
 else
 {
@@ -203,7 +211,7 @@ else
 
         if ( $error )
         {
-            echo $dialogBox->render();
+            echo claro_html_message_box($error_message);
         }
 
         echo disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_id, $subject)
@@ -211,7 +219,7 @@ else
 
         .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="post" >' . "\n"
         .    '<input type="hidden" name="post_id" value="' . $post_id . '" />' . "\n"
-        .    '<table border="0" width="100%" >' . "\n"
+        .    '<table border="0">' . "\n"
         ;
 
         if ( $first_post )
@@ -271,6 +279,6 @@ else
 /*-----------------------------------------------------------------
   Display Forum Footer
  -----------------------------------------------------------------*/
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include($includePath . '/claro_init_footer.inc.php');
 
 ?>

@@ -15,6 +15,29 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  */
 
 /**
+ * function to create a temporary directory (SAME AS IN MODULE ADMIN)
+ * concat a "unique" directory name to $dir
+ *
+ * @param string $dir repository for temp path
+ * @param string $prefix prefix the name
+ * @param integer $mode chmod of path
+ * @return string new dir path
+ */
+
+function tempdir($dir, $prefix='tmp', $mode=0777)
+{
+    if (substr($dir, -1) != '/') $dir .= '/';
+
+    do
+    {
+        $path = $dir.$prefix.mt_rand(0, 9999999);
+    } while (!claro_mkdir($path, $mode));
+
+    return $path;
+}
+
+
+/**
  * @return the path of the temporary directory where the exercise was uploaded and unzipped
  */
 
@@ -33,7 +56,7 @@ function get_and_unzip_uploaded_exercise($baseWorkDir, $uploadDir)
     include_once realpath(dirname(__FILE__) . '/../../inc/lib/pclzip/') . '/pclzip.lib.php';
 
 
-    if ( preg_match('/.zip$/i', $_FILES['uploadedExercise']['name'])
+    if ( preg_match('/.zip$/i', $_FILES['uploadedExercise']['name']) 
         && treat_uploaded_file($_FILES['uploadedExercise'],$baseWorkDir, $uploadDir, get_conf('maxFilledSpaceForExercise' , 10000000),'unzip',true))
     {
         if (!function_exists('gzopen'))
@@ -75,13 +98,13 @@ function import_exercise($file, &$backlog)
     $tbl_quiz_question = $tbl_cdb_names['qwz_question'];
 
     // paths
-    $baseWorkDir = get_path('rootSys') . get_conf('tmpPathSys') . 'upload/';
+    $baseWorkDir = get_conf('rootSys') . get_conf('tmpPathSys') . 'upload/';
     // create temp dir for upload
     if( !file_exists($baseWorkDir) ) claro_mkdir($baseWorkDir, CLARO_FILE_PERMISSIONS);
 
-    $uploadDir = claro_mkdir_tmp($baseWorkDir); // this function should return the dir name and not the full path ...
+    $uploadDir = tempdir($baseWorkDir); // this function should return the dir name and not the full path ...
     $uploadPath = str_replace($baseWorkDir,'',$uploadDir);
-
+    
     // set some default values for the new exercise
     $exercise_info   = array();
     $exercise_info['name'] = preg_replace('/.zip$/i','' ,$file);
@@ -136,7 +159,7 @@ function import_exercise($file, &$backlog)
 					$file_found = true;
                 }
             }
-        }
+        } 
         elseif( preg_match('/.xml$/i' ,$file) )
         {
             list( $parsingBacklog, $success ) = parse_file($uploadDir, '', $file);
@@ -184,16 +207,16 @@ function import_exercise($file, &$backlog)
         {
             // I need to save the question after the answer because I need question id in answers
             $question_id = $question->save();
-
+            
             //3.create answers
             $question->setAnswer();
             $question->answer->import($question_array);
-
+            
             if( $question->answer->validate() )
             {
                 $question->setGrade($question->answer->getGrade());
                 $question->save(); // save computed grade
-
+                
                 $question->answer->save();
 
                 $exercise->addQuestion($question_id);
@@ -244,13 +267,13 @@ function parse_file($exercisePath, $file, $questionFile)
     }
     else
     {
-        $data = fread($fp, filesize( $questionFilePath));
+        $data = html_entity_decode(fread($fp, filesize( $questionFilePath)));
     }
 
     //parse XML question file
 
     $record_item_body = false;
-
+    
     $non_HTML_tag_to_avoid = array(
     "SIMPLECHOICE",
     "CHOICEINTERACTION",
@@ -265,9 +288,9 @@ function parse_file($exercisePath, $file, $questionFile)
     "OBJECT",
     "PROMPT"
     );
-
-    $inside_non_HTML_tag_to_avoid = 0;
-
+    
+    $inside_non_HTML_tag_to_avoid = 0;   
+    
     //this array to detect tag not supported by claroline import in the xml file to warn the user.
     $non_supported_content_in_question = array(
     "GAPMATCHINTERACTION",
@@ -308,7 +331,7 @@ function parse_file($exercisePath, $file, $questionFile)
         $backlog->failure(get_lang('Unknown question format in file %file', array ('%file' => $questionFile) ) );
         return array($backlog,false);
     }
-
+    
     return array($backlog,true);
 }
 
@@ -334,14 +357,14 @@ function startElement($parser, $name, $attributes)
     global $record_item_body;
     global $non_HTML_tag_to_avoid;
     /* inside_non_HTML_tag_to_avoid is a hack to avoid adding of content of html tags contained by non html tags to avoid */
-    global $inside_non_HTML_tag_to_avoid;
+    global $inside_non_HTML_tag_to_avoid;    
     global $current_inlinechoice_id;
     global $cardinality;
     global $questionTempDir;
 
     foreach( $attributes as $key => $value)
     {
-        $attributes[$key] = claro_utf8_decode($value);
+        $attributes[$key] = utf8_decode_if_is_utf8($value);
     }
 
     array_push($element_pile,$name);
@@ -366,7 +389,7 @@ function startElement($parser, $name, $attributes)
         else
         {
             $inside_non_HTML_tag_to_avoid++;
-
+            
             //in case of FIB question, we replace the IMS-QTI tag b y the correct answer between "[" "]",
             //we first save with claroline tags ,then when the answer will be parsed, the claroline tags will be replaced
 
@@ -374,7 +397,7 @@ function startElement($parser, $name, $attributes)
             {
                   $current_question_item_body .= "**claroline_start**".$attributes['RESPONSEIDENTIFIER']."**claroline_end**";
             }
-
+            
             if ($current_element == 'TEXTENTRYINTERACTION')
             {
                 $correct_answer_value = $exercise_info['question'][$current_question_ident]['correct_answers'][$attributes['RESPONSEIDENTIFIER']];
@@ -382,7 +405,7 @@ function startElement($parser, $name, $attributes)
                 $current_question_item_body .= "[".$correct_answer_value."]";
 
             }
-
+            
             if ($current_element == 'BR')
             {
                 $current_question_item_body .= "<br />";
@@ -392,12 +415,12 @@ function startElement($parser, $name, $attributes)
 
     switch ($current_element)
     {
-        case 'PROMPT' :
+        case 'PROMPT' : 
         {
             $prompt = '';
         }
         break;
-
+        
         case 'ASSESSMENTITEM' :
         {
             //retrieve current question
@@ -429,7 +452,7 @@ function startElement($parser, $name, $attributes)
 				$exercise_info['question'][$current_question_ident]['type'] = 'MCMA'; // will be overload if FIB
                 $cardinality = 'multiple';
 			}
-
+			
 			if( $attributes['CARDINALITY'] == "single" )
 			{
 				$exercise_info['question'][$current_question_ident]['type'] = 'MCUA'; // will be overload if FIB
@@ -577,12 +600,12 @@ function endElement($parser,$name)
                     $exercise_info['question'][$current_question_ident]['statement'] = $current_question_item_body;
                     $exercise_info['question'][$current_question_ident]['statement'] .= '<p><i>' . $prompt . '</i></p>';
                 }
-
+                
                 $record_item_body = false;
             }
         break;
     }
-
+    
     if( $record_item_body )
     {
         if( !in_array($current_element,$non_HTML_tag_to_avoid) && $inside_non_HTML_tag_to_avoid == 0 )
@@ -594,7 +617,7 @@ function endElement($parser,$name)
             $inside_non_HTML_tag_to_avoid--;
         }
     }
-
+    
     array_pop($element_pile);
 }
 
@@ -607,20 +630,20 @@ function elementData($parser,$data)
     global $current_match_set;
     global $currentAssociableChoice;
     global $current_question_item_body;
-    global $prompt;
+    global $prompt;    
     global $record_item_body;
     global $non_HTML_tag_to_avoid;
-    global $inside_non_HTML_tag_to_avoid;
+    global $inside_non_HTML_tag_to_avoid;    
     global $current_inlinechoice_id;
     global $cardinality;
 
-    $data = claro_utf8_decode($data);
-
+    $data = utf8_decode_if_is_utf8($data);
+	
     $current_element = end($element_pile);
 	if (sizeof($element_pile) >= 2) $parent_element = $element_pile[sizeof($element_pile)-2]; else $parent_element = "";
 
 
-    if( $record_item_body && $inside_non_HTML_tag_to_avoid == 0 )
+    if( $record_item_body && $inside_non_HTML_tag_to_avoid == 0 ) 
     {
         if( !in_array($current_element,$non_HTML_tag_to_avoid)  )
         {
@@ -630,12 +653,12 @@ function elementData($parser,$data)
 
     switch ($current_element)
     {
-        case 'PROMPT' :
+        case 'PROMPT' : 
         {
             $prompt .= $data;
         }
         break;
-
+        
         case 'SIMPLECHOICE':
         {
             if (!isset($exercise_info['question'][$current_question_ident]['answer'][$current_answer_id]['value']))

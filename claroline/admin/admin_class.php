@@ -6,7 +6,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -18,14 +18,14 @@
 
 require '../inc/claro_init_global.inc.php';
 
-require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
-require_once get_path('incRepositorySys') . '/lib/class.lib.php';
-require_once get_path('incRepositorySys') . '/lib/user.lib.php';
+require_once $includePath . '/lib/admin.lib.inc.php';
+require_once $includePath . '/lib/class.lib.php';
+require_once $includePath . '/lib/user.lib.php';
 
 // Security check
 
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 // DB tables definition
 
@@ -42,7 +42,7 @@ if ( !isset($_SESSION['admin_visible_class']))
 // Deal with interbredcrumps  and title variable
 
 $nameTools = get_lang('Classes');
-$interbredcrump[] = array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
+$interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 
 // javascript confirm pop up declaration for header
 
@@ -95,7 +95,7 @@ switch ( $cmd )
     // Display form to create a new class
     case 'rqAdd' :
 
-        $dialogBox = '<form action="'.$_SERVER['PHP_SELF'].'" method="post" >' . "\n"
+        $dialogBox = '<form action="'.$_SERVER['PHP_SELF'].'" method="POST" >' . "\n"
         .            '<input type="hidden" name="cmd" value="exAdd" />' . "\n"
         .            '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'
         .            '<table>' . "\n"
@@ -157,9 +157,9 @@ switch ( $cmd )
     // Show form to edit class properties (display form)
     case 'rqEdit' :
 
-        if ( false !== ($thisClass = class_get_properties($form_data['class_id']) ))
+        if ( $thisClass = class_get_properties($form_data['class_id']) )
         {
-            $dialogBox= '<form action="'.$_SERVER['PHP_SELF'].'" method="post" >' . "\n"
+            $dialogBox= '<form action="'.$_SERVER['PHP_SELF'].'" method="POST" >' . "\n"
             .           '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
             .           '<input type="hidden" name="class_id" value="' . $thisClass['id'] . '" />' . "\n"
             .           '<table>' . "\n"
@@ -259,7 +259,7 @@ $class_list = claro_sql_query_fetch_all($sql);
 
 // Display Header
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include $includePath . '/claro_init_header.inc.php';
 
 // Display title
 
@@ -272,7 +272,7 @@ if ( isset($dialogBox) ) echo claro_html_message_box($dialogBox);
 //display tool links
 
 echo '<p><a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd">'
-.    '<img src="' . get_path('imgRepositoryWeb') . 'class.gif" />' . get_lang('Create a new class')
+.    '<img src="' . $imgRepositoryWeb . 'class.gif" />' . get_lang('Create a new class')
 .    '</a>'
 .    '</p>' . "\n";
 
@@ -297,6 +297,6 @@ echo '</tbody>' . "\n"
 .    '</table>' ;
 
 // Display footer
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 
 ?>

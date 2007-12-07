@@ -3,7 +3,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.8 $Revision$ 
  * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
@@ -307,7 +307,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         $tool_name = FALSE, $ressource_id = FALSE, $team = FALSE )
     {
         $crl = CRLTool::createCRL( $plateform_id, $course_sys_code, $tool_name, $ressource_id, $team );
-        $resolver = new Resolver( get_path('rootWeb') );
+        $resolver = new Resolver( get_conf('rootWeb') );
         $url = $resolver->resolve( $crl );
 
         return $url;
@@ -319,14 +319,16 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     *
     * @param string tLable tool label if different form current tool
     * @return  string a valid crl
-    * @global $_course,$_courseTool
+    * @global $platform_id,$_course,$_courseTool,$_gid
     */
     function getSourceCrl( $tLabel = NULL )
     {
+        global $platform_id;
         global $_course;
         global $_courseTool;
+        global $_gid;
 
-        $baseServUrl = get_path('rootWeb');
+        $baseServUrl = get_conf('rootWeb');
         $course_sys_code = $_course["sysCode"];
 
         if ( ! is_null( $tLabel ) )
@@ -337,7 +339,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         }
         elseif ( isset( $_courseTool ) && isset( $_courseTool['label'] ) )
         {
-            $tool_name = claro_get_current_course_tool_data('label');
+            $tool_name = $_courseTool["label"];
             $res = new Resolver($baseServUrl);
             $resource_id = $res->getResourceId($tool_name);
         }
@@ -347,16 +349,16 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             $resource_id = '';
         }
 
-        if ( claro_is_in_a_group() )
+        if ( $_gid )
         {
-            $group = claro_get_current_group_id();
+            $group = $_gid;
         }
         else
         {
             $group = NULL;
         }
 
-        $crl_source = CRLTool::createCRL(get_conf('platform_id') , $course_sys_code , $tool_name  , $resource_id , $group  );
+        $crl_source = CRLTool::createCRL($platform_id , $course_sys_code , $tool_name  , $resource_id , $group  );
 
         return $crl_source;
     }
@@ -390,9 +392,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     */
     function linker_update( $tLabel = NULL )
     {
+        global $jpspanEnabled;
+
         $crlSource = getSourceCrl( $tLabel );
 
-        if ( claro_is_jpspan_enabled() )
+        if ( $jpspanEnabled )
         {
             if ( isset( $_REQUEST['servAdd'] ) )
             {
@@ -470,11 +474,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
     function linker_delete_all_tool_resources()
     {
+        global $platform_id;
         global $_course;
+        global $_courseTool;
+        global $_gid;
+        $group = ( $_gid ) ? $_gid : NULL;
 
-        $group = ( claro_is_in_a_group() ) ? claro_get_current_group_id() : NULL;
-
-        $toolCRL = CRLTool::createCRL(get_conf('platform_id') , claro_get_current_course_id() , claro_get_current_course_tool_data('label') , '' , $group  );;
+        $toolCRL = CRLTool::createCRL($platform_id , $_course['sysCode'] , $_courseTool['label'] , '' , $group  );;
 
         linker_remove_all_tool_resources( $toolCRL );
     }
@@ -490,8 +496,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     {
         $crlSource = getSourceCrl( $tLabel );
         $linkList = linker_get_link_list($crlSource);
-        $baseServUrl = get_path('rootWeb');
-
+        $baseServUrl = get_conf('rootWeb');
+        
         $output = '';
 
         if ( is_array($linkList) && count($linkList) > 0 )
@@ -499,7 +505,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             //style=\"margin-top:1em;\"
             $output .=  "<hr />\n";
             $output .= "<div  class=\"linkerResourceList\">\n";
-
+            
             $resourceList = array();
 
             foreach ( $linkList as $link )
@@ -508,17 +514,17 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                    $url = $res->resolve($link["crl"]);
                 $name = $link["title"];
 
-                $resourceList[] = '<a href="' . htmlspecialchars($url) . '">'
+                $resourceList[] = "<a href=\"".htmlspecialchars($url)."\">"
                     . htmlspecialchars($name) ."</a>"
                     ;
             }
-
+            
             $output .= implode( "<br />\n", $resourceList );
-
+            
             $output .= "</div>\n";
             $output .= "<hr />\n";
         }
-
+        
         return $output;
     }
 
@@ -531,9 +537,10 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     {
         $crlSource = getSourceCrl( $tLabel );
         $linkList = linker_get_link_list($crlSource);
-        $baseServUrl = get_path('rootWeb');
+        $baseServUrl = get_conf('rootWeb');
 
         $attachement = "";
+        //$handle = fopen("/home/renaud/public_html/mail.txt", "a+");
 
         if ( is_array($linkList) && count($linkList) > 0 )
         {
@@ -542,12 +549,15 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             foreach ( $linkList as $link )
             {
                 $res = new Resolver($baseServUrl);
-                   $url = $res->resolve($link['crl']);
-                $name = $link['title'];
+                   $url = $res->resolve($link["crl"]);
+                $name = $link["title"];
 
                 $attachement .= " < ".$name." > ".$url."\n";
             }
         }
+
+        //fwrite($handle, $attachement);
+        //fclose($handle);
 
         return $attachement;
     }
@@ -565,7 +575,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
            $indexTool = 0;
            foreach($_courseToolList as $toolTbl)
            {
-               if($toolTbl['label'] == $label)
+               if($toolTbl["label"] == $label)
                {
                    return $indexTool;
                }
@@ -655,13 +665,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     */
     function path()
     {
-        /* // replace this as it do not work when linker is called from modules 
         return dirname($_SERVER['PHP_SELF'])
             . "/../linker";
-        */
-
-        return get_conf('urlAppend') 
-                . '/' . get_conf('clarolineRepositoryAppend') 
-                . '/linker';
     }
 ?>

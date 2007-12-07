@@ -350,7 +350,7 @@ $_lang['ErrorInvalidParms'] = 'Fout: ongeldige parameter (gebruik alleen getalle
 $_lang['Event added to the agenda'] = 'Gebeurtenis toegevoegd aan de agenda.';
 $_lang['Event deleted from the agenda'] = 'Gebeurtenis verwijderd uit de agenda.';
 $_lang['Event updated into the agenda'] = 'Gebeurtenis aangepast in de agenda.';
-$_lang['Exercise'] = 'Exercise';
+$_lang['Exercise'] = 'Claroline exercise';
 $_lang['Exercise cancelled, choose a module in the list to continue.'] = 'Oefening geannuleerd, kies een module in de lijst om door te gaan.';
 $_lang['Exercise done, choose a module in the list to continue.'] = 'Uw vooruitgang is genoteerd, kies een module uit de lijst om verder te gaan.';
 $_lang['Exercise in module'] = 'Oefening in module';
@@ -1137,7 +1137,7 @@ $_lang['blockDocumentsHelp'] = '<p>De module voor het beheer van documenten (cur
 <ul>
 <p>Als u een commentaar wenst uit te verwijderen, klik op <img
  src=../document/../document/img/comment.gif width=20 height=20>.</li>
-  <li>Wis het oud commentaar uit het kader, dat bovenaan links op het scherm verschijnt, en klik op \'OK\'; <input type=submit value=OK name=submit22>.</hr />
+  <li>Wis het oud commentaar uit het kader, dat bovenaan links op het scherm verschijnt, en klik op \'OK\'; <input type=submit value=OK name=submit22>.</hr>
 <p>U kunt ook de inhoud organiseren door de documenten in maps te zetten:</p>
 <h4><b>Maak een map aan:</b></h4>
 <ul>

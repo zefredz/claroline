@@ -29,8 +29,8 @@ $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_user      = $tbl_mdb_names['user'];
 
 // library for authentification and mail
-include_once(get_path('incRepositorySys') . '/lib/user.lib.php');
-include_once(get_path('incRepositorySys') . '/lib/sendmail.lib.php');
+include_once($includePath . '/lib/user.lib.php');
+include_once($includePath . '/lib/sendmail.lib.php');
 
 // Initialise variables
 
@@ -117,7 +117,7 @@ if ( isset($_REQUEST['searchPassword']) && !empty($emailTo) )
             $emailSubject = get_lang('Login request') . ' ' . get_conf('siteName');
 
             $emailBody = $emailSubject."\r\n"
-                        .get_path('rootWeb')."\r\n"
+                        .get_conf('rootWeb')."\r\n"
                         .get_lang('This is your account Login-Pass')."\r\n\r\n" ;
             
             // mail body
@@ -173,7 +173,7 @@ else
 ////////////////////////////////////////////////////
 // display section
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include $includePath . '/claro_init_header.inc.php';
 
 // display title
 
@@ -199,6 +199,6 @@ if ( ! empty($msg) ) echo claro_html_message_box($msg);
 
 // display form
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 
 ?>

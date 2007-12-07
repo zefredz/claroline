@@ -15,15 +15,16 @@
  * @author Claro Team <cvs@claroline.net>
  *
  */
-$tlabelReq = 'CLGRP';
+
+
 require '../inc/claro_init_global.inc.php';
-include_once get_path('incRepositorySys') . '/lib/group.lib.inc.php';
+include_once $includePath . '/lib/group.lib.inc.php';
 
 // display login form
-if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
+if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 
 // check user right
-if ( ! claro_is_allowed_to_edit() )
+if ( ! $is_courseAdmin )
 {
     claro_die(get_lang("Not allowed"));
 }
@@ -31,7 +32,7 @@ if ( ! claro_is_allowed_to_edit() )
 $nameTools = get_lang("Groups settings");
 $interbredcrump[]= array ('url' => 'group.php', 'name' => get_lang("Groups"));
 
-$_groupProperties = claro_get_main_group_properties(claro_get_current_course_id());
+$_groupProperties = claro_get_main_group_properties($_cid);
 
 
 session_register('_groupProperties');
@@ -57,11 +58,10 @@ if ( get_conf('multiGroupAllowed') )
 
 $groupToolList = get_group_tool_list();
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include($includePath . '/claro_init_header.inc.php');
 echo claro_html_tool_title( array('supraTitle' => get_lang("Groups"), 'mainTitle' => $nameTools));
 
 echo '<form method="post" action="group.php">' . "\n"
-.    claro_form_relay_context()
 .    '<table border="0" width="100%" cellspacing="0" cellpadding="4">' . "\n"
 .    '<tr>' . "\n"
 .    '<td valign="top">' . "\n"
@@ -72,7 +72,7 @@ echo '<form method="post" action="group.php">' . "\n"
 .    '<td valign="top">' . "\n"
 .    '<span class="item">' . "\n"
 .    '<input type="checkbox" name="self_registration" id="self_registration" value="1" '
-.    (($registrationAllowedInGroup) ?  'checked':'')  . '  />' . "\n"
+.    (($registrationAllowedInGroup) ?  'checked':'')  . ' >' . "\n"
 .    '<label for="self_registration" >'
 .    get_lang("Students are allowed to self-register in groups")
 .    '</label>' . "\n"
@@ -132,12 +132,12 @@ echo '<tr>' . "\n"
 .    '<input type="radio" name="private" id="private_1" value="1" '
 ;
 if($groupPrivate) echo "checked";
-echo '  />' . "\n"
+echo ' >' . "\n"
 .    '<label for="private_1">' . get_lang("Private") . '</label>' . "\n"
 .    '<input type="radio" name="private" id="private_0" value="0" '
 ;
 if(!$groupPrivate) echo 'checked';
-echo '  />' . "\n"
+echo ' >' . "\n"
 .    '<label for="private_0">' . get_lang("Public") . '</label>' . "\n"
 .    '</span>' . "\n"
 .    '</td>' . "\n"
@@ -164,7 +164,7 @@ foreach ($groupToolList as $groupTool)
     ;
 
     if($_groupProperties['tools'] [$groupTool['label']]) echo "checked";
-    echo '  />' . "\n"
+    echo ' >' . "\n"
     .    '<label for="' . $groupTool['label'] . '">' . get_lang($toolName)  . '</label>' . "\n"
     .    '</span>' . "\n"
     .    '</td>' . "\n"
@@ -175,7 +175,7 @@ foreach ($groupToolList as $groupTool)
 
 echo '<tr>' . "\n"
 .    '<td valign="top">' . "\n"
-.    '<input type="submit" name="properties" value="' . get_lang("Ok") . '" />' . "\n"
+.    '<input type="submit" name="properties" value="' . get_lang("Ok") . '">' . "\n"
 .    claro_html_button($_SERVER['HTTP_REFERER'], get_lang("Cancel")) . '' . "\n"
 .    '</td>' . "\n"
 .    '</tr>' . "\n"
@@ -183,5 +183,5 @@ echo '<tr>' . "\n"
 .    '</form>' . "\n"
 ;
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 ?>

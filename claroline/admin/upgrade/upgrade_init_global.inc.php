@@ -82,7 +82,6 @@ session_start();
   ----------------------------------------------------------------------*/
 
 require $includePath . '/lib/claro_main.lib.php';
-require $includePath . '/lib/fileManage.lib.php';
 
 // conf variables
 

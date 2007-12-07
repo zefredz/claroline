@@ -23,17 +23,13 @@ require '../inc/claro_init_global.inc.php';
 $nameTools  = get_lang('Chat');
 $noPHP_SELF = TRUE;
 
-// Turn off session lost
-$warnSessionLost = false ;
-
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-$_group = claro_get_current_group_data();
+include($includePath . '/claro_init_header.inc.php');
 
 $titleElement['mainTitle'] = $nameTools;
-if ( claro_is_in_a_group() ) $titleElement['supraTitle'] = claro_get_current_group_data('name');
+if ( $_gid ) $titleElement['supraTitle'] = $_group['name'];
 
 echo claro_html_tool_title($titleElement);
 
 $hide_footer = TRUE;
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 ?>

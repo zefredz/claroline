@@ -344,7 +344,7 @@ class claro_sql_pager extends claro_pager // implements sortable
     function claro_sql_pager($sql, $offset = 0, $step = 20)
     {
         $this->sql       = trim($sql);
-        $this->offset    = max(0,(int) $offset);
+        $this->offset    = (int) $offset;
         $this->step      = (int) $step;
         $this->set_pager_call_param_name('offset');
         $this->set_sort_key_call_param_name('sort');
@@ -450,7 +450,7 @@ class claro_sql_pager extends claro_pager // implements sortable
                 elseif ( $thisSortDirection == SORT_ASC ) $direction = 'ASC';
                 else                                      $direction = '';
 
-                $orderByList[] = addslashes($thisSortKey) . ' ' . $direction ;
+                $orderByList[] = $thisSortKey . ' ' . $direction ;
             }
 
             $sql .= "\n\t" . 'ORDER BY '. implode(', ', $orderByList) ;
@@ -527,7 +527,7 @@ class claro_sql_pager extends claro_pager // implements sortable
      * @return array
      */
 
-    function get_sort_url_list($url, $context=null)
+    function get_sort_url_list($url)
     {
         $urlList        = array();
         $sortArgList    = array();
@@ -557,9 +557,7 @@ class claro_sql_pager extends claro_pager // implements sortable
             $urlList[$thisArg] = $url
                        . ( ( strstr($url, '?') !== false ) ? '&amp;' : '?' )
                        . $this->sortKeyParamName . '=' . urlencode($thisArg)
-                       . '&amp;' . $this->sortDirParamName . '=' . $direction
-                       . claro_url_relay_context('&amp;',$context)
-                       ;
+                       . '&amp;' . $this->sortDirParamName . '=' . $direction;
         }
 
         return $urlList;
@@ -660,7 +658,7 @@ class claro_array_pager extends claro_pager
     /**
      * This method is dedicated to the usort() process
      * into get_result_list() method
-     * @access private
+     * @acess private
      */
 
     function compare_array_rows($row1, $row2)
@@ -673,8 +671,6 @@ class claro_array_pager extends claro_pager
 
             if ($result != 0) return $result;
         }
-        // return ???? ?
-        // TODO ADD a return
     }
 
     /**
@@ -717,7 +713,7 @@ class claro_array_pager extends claro_pager
         return false;
     }
 
-    function get_sort_url_list($url, $defaultArrayKeyList = array() , $context=null)
+    function get_sort_url_list($url, $defaultArrayKeyList = array() )
     {
         $urlList        = array();
         $sortArgList    = array();
@@ -747,8 +743,7 @@ class claro_array_pager extends claro_pager
             $urlList[$thisArg] = $url
                        . ( ( strstr($url, '?') !== false ) ? '&amp;' : '?' )
                        . $this->sortKeyParamName . '=' . urlencode($thisArg)
-                       . '&amp;' . $this->sortDirParamName . '=' . $direction
-                       . claro_url_relay_context('&amp;',$context);
+                       . '&amp;' . $this->sortDirParamName . '=' . $direction;
         }
 
         return $urlList;

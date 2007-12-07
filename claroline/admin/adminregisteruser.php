@@ -23,12 +23,12 @@ $cidReset = TRUE; $gidReset = TRUE; $tidReset = TRUE;
 // initialisation of global variables and used libraries
 require '../inc/claro_init_global.inc.php';
 
-include_once get_path('incRepositorySys') . '/lib/pager.lib.php';
-include_once get_path('incRepositorySys') . '/lib/course_user.lib.php';
+include_once $includePath . '/lib/pager.lib.php';
+include_once $includePath . '/lib/course_user.lib.php';
 
 // Security check
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 if ((isset($_REQUEST['cidToEdit']) && $_REQUEST['cidToEdit']=='') || !isset($_REQUEST['cidToEdit']))
 {
@@ -49,7 +49,7 @@ $user_id = isset( $_REQUEST['user_id'] ) ? $_REQUEST['user_id'] : null ;
 if ($cidToEdit=='') { $dialogBox ='ERROR : NO USER SET!!!'; }
 
 // Deal with interbredcrumps
-$interbredcrump[]= array ( 'url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
+$interbredcrump[]= array ( 'url' => $rootAdminWeb, 'name' => get_lang('Administration'));
 $nameTools = get_lang('Enroll a user');
 
 //TABLES
@@ -200,8 +200,7 @@ else
    $search = $_REQUEST['search'];
 }
 
-
-$addToURL = ( isset($_REQUEST['addToURL']) ? $_REQUEST['addToURL'] : '');
+if ( !isset($addToURL) ) $addToURL = '';
 
 $nameTools .= ' : ' . $courseData['name'];
 
@@ -227,7 +226,7 @@ if (isset($_REQUEST['order_crit']))
 // Display tool title
 
 //Header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include $includePath . '/claro_init_header.inc.php';
 
 echo claro_html_tool_title( $nameTools );
 
@@ -300,19 +299,18 @@ echo '<table width="100%" class="claroTableForm" >'
 ;
 
 // Start the list of users...
-$addToURL = ( isset($_REQUEST['addToURL']) ? $_REQUEST['addToURL'] : '');
 
-if (isset($_REQUEST['order_crit']))
+if (isset($order_crit))
 {
-    $addToURL = '&amp;order_crit=' . $_REQUEST['order_crit'];
+    $addToURL = '&amp;order_crit=' . $order_crit;
 }
-if (isset($_REQUEST['offset']))
+if (isset($offset))
 {
-    $addToURL = '&amp;offset=' . $_REQUEST['offset'];
+    $addToURL = '&amp;offset=' . $offset;
 }
 foreach($userList as $user)
 {
-    if (isset($_REQUEST['search'])&& ($_REQUEST['search'] != ''))
+    if (isset($_REQUEST['search'])&& ($_REQUEST['search']!=""))
     {
         $user['nom'] = eregi_replace("^(".$_REQUEST['search'].")",'<b>\\1</b>', $user['nom']);
         $user['prenom'] = eregi_replace("^(".$_REQUEST['search'].")","<b>\\1</b>", $user['prenom']);
@@ -353,7 +351,7 @@ foreach($userList as $user)
             .'&amp;cmd=sub&amp;search='.$search
             .'&amp;user_id=' . $user['ID']
             .'&amp;isCourseManager=0' . $addToURL . '">'
-            .'<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" border="0" alt="' . get_lang('Register user') . '" />' . "\n"
+            .'<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . get_lang('Register user') . '" />' . "\n"
             .'</a>'
             .'</td>'."\n"
             ;
@@ -378,7 +376,7 @@ foreach($userList as $user)
         .    '&amp;cmd=sub&amp;search='.$search
         .    '&amp;user_id=' . $user['ID']
         .    '&amp;isCourseManager=1' . $addToURL . '">'
-        .    '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" border="0" alt="' . get_lang('Register user') . '" />'
+        .    '<img src="' . $imgRepositoryWeb . 'enroll.gif" border="0" alt="' . get_lang('Register user') . '" />'
         .    '</a>' . "\n"
         .    '</td>' . "\n"
         ;
@@ -389,5 +387,5 @@ foreach($userList as $user)
 echo '</tbody></table>'
 .    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit . $addToURL);
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 ?>

@@ -26,15 +26,15 @@ $tidReset = TRUE;
 require '../../inc/claro_init_global.inc.php';
 
 // check if user is logged as administrator
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
-include_once get_path('incRepositorySys') . '/lib/course.lib.inc.php';
-include_once get_path('incRepositorySys') . '/lib/faculty.lib.inc.php';
+include_once $includePath . '/lib/course.lib.inc.php';
+include_once $includePath . '/lib/faculty.lib.inc.php';
 // build bredcrump
 $nameTools        = get_lang('Repair category structure');
-$interbredcrump[] = array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
-$interbredcrump[] = array ('url' => get_path('rootAdminWeb'). '/admincats.php', 'name' => get_lang('Categories'));
+$interbredcrump[] = array ('url' => $rootAdminWeb, 'name' => get_lang('Administration'));
+$interbredcrump[] = array ('url' => $rootAdminWeb. '/admincats.php', 'name' => get_lang('Categories'));
 
 $htmlHeadXtra[] = '
 <STYLE>
@@ -120,7 +120,7 @@ switch($cmd)
  * Display
  */
 // display claroline header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include $includePath . '/claro_init_header.inc.php';
 
 /**
 * Information edit for create or edit a category
@@ -148,7 +148,7 @@ switch ($view)
         echo '<div>' . __LINE__ . ': $view = <pre>'. var_export($view,1).'</PRE></div>';
 }
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 
 /**
  * Return course list which have an unexisting category as parent

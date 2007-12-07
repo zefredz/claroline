@@ -39,7 +39,7 @@ function claro_get_all_profile_name_list ()
         $tbl_mdb_names = claro_sql_get_main_tbl();
         $tbl_profile = $tbl_mdb_names['right_profile'];
 
-        $sql = "SELECT profile_id, name, label, description
+        $sql = "SELECT profile_id, name, label
                 FROM `" . $tbl_profile . "`
                 ORDER BY profile_id ";
 
@@ -48,9 +48,10 @@ function claro_get_all_profile_name_list ()
         foreach ( $result as $profile)
         {
             $profile_id = $profile['profile_id'];
-            $profileList[$profile_id]['name'] = $profile['name'];
-            $profileList[$profile_id]['label'] = $profile['label'];
-            $profileList[$profile_id]['description'] = $profile['description'];
+            $profile_name = $profile['name'];
+            $profile_label = $profile['label'];
+            $profileList[$profile_id]['name'] = $profile_name;
+            $profileList[$profile_id]['label'] = $profile_label;
         }
 
         $cachedProfileList = $profileList ; // cache for the next time ...
@@ -89,7 +90,7 @@ function claro_get_profile_name ($profileId)
 
     if ( isset($profileList[$profileId]['name']) )
     {
-        return get_lang($profileList[$profileId]['name']);
+        return $profileList[$profileId]['name'];
     }
     else
     {
@@ -136,7 +137,7 @@ function claro_get_course_profile_right ($profileId = null, $courseId = null)
     // load courseId
     if ( is_null($courseId) )
     {
-        if ( claro_is_in_a_course() ) $courseId = claro_get_current_course_id();
+        if ( !empty($GLOBALS['_cid'] ) ) $courseId = $GLOBALS['_cid'];
         else                             return false ;
     }
 
@@ -194,6 +195,7 @@ function claro_get_course_profile_right ($profileId = null, $courseId = null)
 function claro_is_allowed_tool_action ($actionName, $tid = null, $profileId = null, $courseId = null)
 {
     global $_mainToolId;
+    global $_cid;
     global $_profileId;
 
     // load tool id
@@ -213,12 +215,12 @@ function claro_is_allowed_tool_action ($actionName, $tid = null, $profileId = nu
     // load course id
     if ( is_null($courseId) )
     {
-        if ( claro_is_in_a_course() ) $courseId = claro_get_current_course_id() ;
+        if ( !empty($_cid) ) $courseId = $_cid ;
         else                 return false ;
     }
 
     // FIXME
-    if ( claro_is_platform_admin() ) return true;
+    if ( $GLOBALS['is_platformAdmin'] ) return true;
 
     // get course profile right
     $courseProfileRight = claro_get_course_profile_right($profileId,$courseId);
@@ -313,7 +315,7 @@ function claro_is_allowed_tool_edit ($tid = null, $profileId = null, $courseId =
 
 function claro_is_tool_activated ($tid, $courseId)
 {
-    global $_mainToolId;
+    global $_mainToolId, $_cid;
 
     // load tool id
     if ( is_null($tid) )
@@ -325,7 +327,7 @@ function claro_is_tool_activated ($tid, $courseId)
     // load course id
     if ( is_null($courseId) )
     {
-        if ( claro_is_in_a_course() ) $courseId = claro_get_current_course_id() ;
+        if ( !empty($_cid) ) $courseId = $_cid ;
         else                 return false ;
     }
 
@@ -355,14 +357,13 @@ function claro_is_tool_activated ($tid, $courseId)
  *
  * @param integer $tid tool identifier
  * @param string courseId
- * @todo to move in a lib
  *
  * @return boolean 'true' if it's visible
  */
 
 function claro_is_tool_visible ($tid, $courseId)
 {
-    global $_mainToolId;
+    global $_mainToolId, $_cid;
 
     // load tool id
     if ( is_null($tid) )
@@ -374,7 +375,7 @@ function claro_is_tool_visible ($tid, $courseId)
     // load course id
     if ( is_null($courseId) )
     {
-        if ( claro_is_in_a_course() ) $courseId = claro_get_current_course_id() ;
+        if ( !empty($_cid) ) $courseId = $_cid ;
         else                 return false ;
     }
 

@@ -8,7 +8,7 @@
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
- * @author Piraux Sï¿½bastien <pir@cerdecam.be>
+ * @author Piraux Sébastien <pir@cerdecam.be>
  * @author Lederer Guillaume <led@cerdecam.be>
  *
  * @package CLLNP
@@ -20,15 +20,15 @@
 $tlabelReq = 'CLLNP';
 require '../inc/claro_init_global.inc.php';
 
-$is_allowedToEdit = claro_is_course_manager();
-if (! claro_is_in_a_course() || !claro_is_course_allowed() ) claro_disp_auth_form(true);
-if (! $is_allowedToEdit ) claro_die(get_lang('Not allowed'));
+$is_AllowedToEdit = $is_courseAdmin;
+if (! $_cid || !$is_courseAllowed ) claro_disp_auth_form(true);
+if (! $is_AllowedToEdit ) claro_die(get_lang('Not allowed'));
 
-$interbredcrump[]= array ('url' => get_module_url('CLLNP') . '/learningPathList.php', 'name' => get_lang('Learning path list'));
+$interbredcrump[]= array ('url' => $clarolineRepositoryWeb.'learnPath/learningPathList.php', 'name' => get_lang('Learning path list'));
 $nameTools = get_lang('Import a learning path');
 
 //header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include $includePath . '/claro_init_header.inc.php';
 
 /*
 * DB tables definition
@@ -50,10 +50,10 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 
 
 //lib of this tool
-include_once get_path('incRepositorySys') . '/lib/learnPath.lib.inc.php';
-include_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
-include_once get_path('incRepositorySys') . '/lib/fileUpload.lib.php';
-include_once get_path('incRepositorySys') . '/lib/fileDisplay.lib.php';
+include_once $includePath . '/lib/learnPath.lib.inc.php';
+include_once $includePath . '/lib/fileManage.lib.php';
+include_once $includePath . '/lib/fileUpload.lib.php';
+include_once $includePath . '/lib/fileDisplay.lib.php';
 
 
 // error handling
@@ -222,12 +222,13 @@ function elementData($parser,$data)
     global $itemsPile;
     global $manifestData;
     global $flagTag;
+    global $dialogBox;
     global $errorFound;
     global $zipFile;
     global $errorMsgs,$okMsgs;
     global $pathToManifest;
 
-    $data = trim(claro_utf8_decode($data));
+    $data = trim(utf8_decode_if_is_utf8($data));
 
     if (!isset($data)) $data="";
 
@@ -303,7 +304,7 @@ function elementData($parser,$data)
             break;
 
         case "LANGSTRING" :
-
+            //echo $data."<br>";
             switch ( $flagTag['type'] )
             {
                 case "item" :
@@ -428,8 +429,8 @@ $errorMsgs = array();
 
 $maxFilledSpace = 100000000;
 
-$courseDir   = claro_get_course_path() . '/scormPackages/';
-$baseWorkDir = get_path('coursesRepositorySys').$courseDir; // path_id
+$courseDir   = $_course['path']."/scormPackages/";
+$baseWorkDir = $coursesRepositorySys.$courseDir; // path_id
 // handle upload
 // if the post is done a second time, the claroformid mecanism
 // will set $_POST to NULL, so we need to check it
@@ -456,13 +457,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
             VALUES ('". addslashes($lpName) ."','HIDE',".($rankMax+1).", '')";
     claro_sql_query($sql);
 
-    $tempPathId = claro_sql_insert_id();
+    $tempPathId = mysql_insert_id();
     $baseWorkDir .= "path_".$tempPathId;
 
     if (!is_dir($baseWorkDir)) claro_mkdir($baseWorkDir, CLARO_FILE_PERMISSIONS );
 
     // unzip package
-    include_once get_path('incRepositorySys')."/lib/pclzip/pclzip.lib.php";
+    include_once $includePath."/lib/pclzip/pclzip.lib.php";
 
     /*
      * Check if the file is valide (not to big and exists)
@@ -614,10 +615,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
 
                 $errorFound = true;
                 array_push ($errorMsgs, get_lang('Error reading <i>manifest</i> file') );
-
+                
                 if ( get_conf('CLARO_DEBUG_MODE') )
                 {
-                    $debugMessage = strtr( 'Debug : %message (error code %code) on line %line and column %column' ,
+                    $debugMessage = strtr( 'Debug : %message (error code %code) on line %line and column %column' , 
                                  array( '%message' => xml_error_string($xml_parser) ,
                                         '%code' => xml_get_error_code($xml_parser) ,
                                         '%line' => xml_get_current_line_number($xml_parser) ,
@@ -710,7 +711,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                     break;
                 }
             }
-        } // if sizeof (...ï¿½
+        } // if sizeof (...à
         else
         {
             $errorFound = true;
@@ -781,13 +782,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
 
                     $query = claro_sql_query($sql);
 
-                    if ( claro_sql_error() )
+                    if ( mysql_error() )
                     {
                         $errorFound = true;
                         array_push($errorMsgs, get_lang('Error in SQL statement'));
                         break;
                     }
-                    $insertedModule_id[$i] = claro_sql_insert_id();  // array of all inserted module ids
+                    $insertedModule_id[$i] = mysql_insert_id();  // array of all inserted module ids
 
                     // visibility
                     if ( isset($item['isvisible']) && $item['isvisible'] != '' )
@@ -807,10 +808,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                     $query = claro_sql_query($sql);
 
                     // get the inserted id of the learnPath_module rel to allow 'parent' link in next inserts
-                    $insertedLPMid[$item['itemIdentifier']]['LPMid'] = claro_sql_insert_id();
+                    $insertedLPMid[$item['itemIdentifier']]['LPMid'] = mysql_insert_id();
                     $insertedLPMid[$item['itemIdentifier']]['rank'] = 1;
 
-                    if ( claro_sql_error() )
+                    if ( mysql_error() )
                     {
                         $errorFound = true;
                         array_push($errorMsgs, get_lang('Error in SQL statement'));
@@ -866,14 +867,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                         VALUES ('".addslashes($moduleName)."' , '".addslashes($description)."', '".CTSCORM_."', '".addslashes($item['datafromlms'])."')";
                 $query = claro_sql_query($sql);
 
-                if ( claro_sql_error() )
+                if ( mysql_error() )
                 {
                     $errorFound = true;
                     array_push($errorMsgs, get_lang('Error in SQL statement'));
                     break;
                 }
 
-                $insertedModule_id[$i] = claro_sql_insert_id();  // array of all inserted module ids
+                $insertedModule_id[$i] = mysql_insert_id();  // array of all inserted module ids
 
                 // build asset path
                 // a $manifestData['scos'][$item['identifierref']] __SHOULD__ not exist if a $manifestData['assets'][$item['identifierref']] exists
@@ -900,14 +901,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                         VALUES ('". addslashes($assetPath) ."', ".$insertedModule_id[$i]." , '')";
 
                 $query = claro_sql_query($sql);
-                if ( claro_sql_error() )
+                if ( mysql_error() )
                 {
                     $errorFound = true;
                     array_push($errorMsgs, get_lang('Error in SQL statement'));
                     break;
                 }
 
-                $insertedAsset_id[$i] = claro_sql_insert_id(); // array of all inserted asset ids
+                $insertedAsset_id[$i] = mysql_insert_id(); // array of all inserted asset ids
 
                 // update of module with correct start asset id
                 $sql = "UPDATE `".$TABLEMODULE."`
@@ -915,7 +916,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                         WHERE `module_id` = ". (int)$insertedModule_id[$i];
                 $query = claro_sql_query($sql);
 
-                if ( claro_sql_error() )
+                if ( mysql_error() )
                 {
                     $errorFound = true;
                     array_push($errorMsgs, get_lang('Error in SQL statement'));
@@ -939,11 +940,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                 $query = claro_sql_query($sql);
 
                 // get the inserted id of the learnPath_module rel to allow 'parent' link in next inserts
-                $insertedLPMid[$item['itemIdentifier']]['LPMid']  = claro_sql_insert_id();
+                $insertedLPMid[$item['itemIdentifier']]['LPMid']  = mysql_insert_id();
                 $insertedLPMid[$item['itemIdentifier']]['rank']  = 1;
 
 
-                if ( claro_sql_error() )
+                if ( mysql_error() )
                 {
                     $errorFound = true;
                     array_push($errorMsgs, get_lang('Error in SQL statement'));
@@ -1092,21 +1093,20 @@ else // if method == 'post'
 <br /><br />
 
 <form enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
-<input type="hidden" name="claroFormId" value="<?php echo uniqid(''); ?>" />
+<input type="hidden" name="claroFormId" value="<?php echo uniqid(''); ?>">
 
 <input type="file" name="uploadedPackage" /><br />
 <small><?php echo get_lang('Max file size : %size', array('%size' => format_file_size( get_max_upload_size($maxFilledSpace,$baseWorkDir) ) ) ); ?></small>
 
 <p>
-<input type="submit" value="<?php echo get_lang('Import') ?>" />&nbsp;
-<?php
-echo claro_html_button( './learningPathList.php', get_lang('Cancel')) . "\n"
-.    '</p>'
-.    '</form>'
-;
+<input type="submit" value="<?php echo get_lang('Import') ?>">&nbsp;
+<?php echo claro_html_button( './learningPathList.php', get_lang('Cancel')) . "\n"; ?>
+</p>
 
+</form>
+
+     <?php
 } // else if method == 'post'
 // footer
-
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 ?>

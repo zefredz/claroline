@@ -25,7 +25,6 @@ $_lang['%nb course(s)'] = '%nb course(s)';
 $_lang['%nb course(s) manager(s)'] = '%nb course(s) manager(s)';
 $_lang['%nb errors found'] = '%nb errors found';
 $_lang['%nb member(s)'] = '%nb member(s)';
-$_lang['%nb message(s)'] = '%nb message(s)';
 $_lang['%nb student(s)'] = '%nb student(s)';
 $_lang['%nb_user new users in the platform'] = '%nb_user new users in the platform';
 $_lang['%number student(s) unregistered from this course'] = '%number student(s) unregistered from this course';
@@ -49,7 +48,6 @@ $_lang['A tutor attached to a group can subscribe himself to another group as a 
 $_lang['A user can be a member of maximum %nb groups'] = 'A user can be a member of maximum %nb groups';
 $_lang['About'] = 'About';
 $_lang['Accept email as valid (best choice)'] = 'Accept email as valid (best choice)';
-$_lang['Access allowed'] = 'Access allowed';
 $_lang['Access to course and tools'] = 'Access to course and tools';
 $_lang['Activate Jpspan'] = 'Activate Jpspan';
 $_lang['Activated'] = 'Activated';
@@ -63,7 +61,6 @@ $_lang['Add/modify a comment to %documentName'] = 'Add/modify a comment to %docu
 $_lang['Administrator for %site_name'] = 'Administrator for %site_name';
 $_lang['Advanced Settings'] = 'Advanced Settings';
 $_lang['Advanced settings'] = 'Advanced settings';
-$_lang['Agreement text displayed before the "Create user account" page'] = 'Agreement text displayed before the "Create user account" page';
 $_lang['All modules of this course are already used in this learning path.'] = 'All modules of this course are already used in this learning path.';
 $_lang['All platform courses'] = 'All platform courses';
 $_lang['All profiles'] = 'All profiles';
@@ -102,8 +99,8 @@ $_lang['Authentication Required'] = 'Authentication Required';
 $_lang['Authentication source'] = 'Authentication source';
 $_lang['Automatic cleaning factor'] = 'Automatic cleaning factor';
 $_lang['Available from %startDate'] = 'Available from %startDate';
-$_lang['Back to :'] = 'Back to :';
 $_lang['Back to the exercise list'] = 'Back to the exercise list';
+$_lang['Back to the question list'] = 'Back to the question list';
 $_lang['Back to user\'s course list'] = 'Back to user\'s course list';
 $_lang['Before'] = 'Before';
 $_lang['Blank space'] = 'Blank space';
@@ -171,7 +168,6 @@ $_lang['Conversion 1.7 to 1.8'] = 'Conversion 1.7 to 1.8';
 $_lang['Copy any text you are currently writing and paste it outside the browser'] = 'Copy any text you are currently writing and paste it outside the browser';
 $_lang['Corresponds to'] = 'Corresponds to';
 $_lang['Could not load page %page'] = 'Could not load page %page';
-$_lang['Course Administrator'] = 'Course Administrator';
 $_lang['Course Manager'] = 'Course Manager';
 $_lang['Course Title is'] = 'Course Title is';
 $_lang['Course banner - left'] = 'Course banner - left';
@@ -179,13 +175,10 @@ $_lang['Course banner - right'] = 'Course banner - right';
 $_lang['Course code case'] = 'Course code case';
 $_lang['Course email is'] = 'Course email is';
 $_lang['Course main settings'] = 'Course main settings';
-$_lang['Course member (the user is actually enrolled in the course)'] = 'Course member (the user is actually enrolled in the course)';
 $_lang['Course options'] = 'Course options';
 $_lang['Course profile'] = 'Course profile';
 $_lang['Course profile list'] = 'Course profile list';
 $_lang['Course tools'] = 'Course tools';
-$_lang['Course visitor (the user has an account on the platform, but is not enrolled in the course)'] = 'Course visitor (the user has an account on the platform, but is not enrolled in the course)';
-$_lang['Course visitor (the user has no account on the platform)'] = 'Course visitor (the user has no account on the platform)';
 $_lang['Courses : %disk_usage (perhaps with others directory)'] = 'Courses : %disk_usage (perhaps with others directory)';
 $_lang['Courses with unexisting users registered'] = 'Courses with unexisting users registered';
 $_lang['Creation of Course Creator account'] = 'Creation of Course Creator account';
@@ -199,7 +192,6 @@ $_lang['Database update successful'] = 'Database update successful';
 $_lang['Deactivated'] = 'Deactivated';
 $_lang['Deactivated - Click to activate'] = 'Deactivated - Click to activate';
 $_lang['Dear %firstname %lastname, your personal settings have been registered.'] = 'Dear %firstname %lastname, your personal settings have been registered.';
-$_lang['Debug'] = 'Debug';
 $_lang['Debug mode'] = 'Debug mode';
 $_lang['Default course access'] = 'Default course access';
 $_lang['Definition file doesn\'t exist'] = 'Definition file doesn\'t exist';
@@ -251,7 +243,6 @@ $_lang['Edit conflict'] = 'Edit conflict';
 $_lang['Edit exercise'] = 'Edit exercise';
 $_lang['Edit profile'] = 'Edit profile';
 $_lang['Edit text zones'] = 'Edit text zones';
-$_lang['Edition allowed'] = 'Edition allowed';
 $_lang['Editor'] = 'Editor';
 $_lang['Email is'] = 'Email is';
 $_lang['Enable CAS system'] = 'Enable CAS system';
@@ -291,18 +282,12 @@ $_lang['External authentication drivers'] = 'External authentication drivers';
 $_lang['External image'] = 'External image';
 $_lang['Fail'] = 'Fail';
 $_lang['Failed to update module visibility'] = 'Failed to update module visibility';
-$_lang['Failed to write file to disk'] = 'Failed to write file to disk';
 $_lang['Feedback edited'] = 'Feedback edited';
 $_lang['Field \'%name\' is required'] = 'Field \'%name\' is required';
 $_lang['File are always created in cache, but if this value is true feed file in cache arent rebuilt on request if exiting in cache.'] = 'File are always created in cache, but if this value is true feed file in cache arent rebuilt on request if exiting in cache.';
 $_lang['File received : %filename'] = 'File received : %filename ';
-$_lang['File size exceeds'] = 'File size exceeds';
 $_lang['File system settings'] = 'File system settings';
-$_lang['File too large. Notice : Max file size %size'] = 'File too large. Notice : Max file size %size';
-$_lang['File upload failed'] = 'File upload failed';
-$_lang['File upload incomplete'] = 'File upload incomplete';
 $_lang['Files dezipped sucessfully in %path'] = 'Files dezipped sucessfully in %path';
-$_lang['Fill courses tools with material example'] = 'Fill courses tools with material example';
 $_lang['Find doubled variables'] = 'Find doubled variables';
 $_lang['Find more available modules on <a href="http://www.claroline.net/">Claroline.net</a>.'] = 'Find more available modules on <a href="http://www.claroline.net/">Claroline.net</a>.';
 $_lang['Finish the test'] = 'Finish the test';
@@ -317,22 +302,18 @@ $_lang['Force to uppercase the course code'] = 'Force to uppercase the course co
 $_lang['Format changed'] = 'Format changed';
 $_lang['Forum posts'] = 'Forum posts';
 $_lang['Garbage : %disk_usage'] = 'Garbage : %disk_usage';
-$_lang['General'] = 'General';
 $_lang['General Informations'] = 'General Informations';
 $_lang['General settings'] = 'General settings';
 $_lang['Generate RDF file'] = 'Generate RDF file';
 $_lang['Generate Xml file'] = 'Generate Xml file';
 $_lang['Generate ics file'] = 'Generate ics file';
 $_lang['Get tracking data in a CSV file'] = 'Get tracking data in a CSV file';
-$_lang['Give a SMTP server name to turn on SMTP mode. (e.g. smtp1.site.com or smtp1.site.com;smtp2.site.com)'] = 'Give a SMTP server name to turn on SMTP mode. (e.g. smtp1.site.com or smtp1.site.com;smtp2.site.com)';
-$_lang['Give a username and password to turn on SMTP authentication.'] = 'Give a username and password to turn on SMTP authentication.';
 $_lang['Global settings'] = 'Global settings';
 $_lang['Go back to Wiki list'] = 'Go back to Wiki list';
 $_lang['Go to documents tool'] = 'Go to documents tool';
 $_lang['Group area'] = 'Group area';
 $_lang['Groups have been filled (or completed) by students present in the \'Users\' list.'] = 'Groups have been filled (or completed) by students present in the \'Users\' list.';
 $_lang['Groups permissions'] = 'Groups permissions';
-$_lang['Guest'] = 'Guest';
 $_lang['Here you can modify the content of the text zones displayed on the platform home page.'] = 'Here you can modify the content of the text zones displayed on the platform home page.';
 $_lang['Hide course categories to anonymous'] = 'Hide course categories to anonymous';
 $_lang['Hide email address to anonymous user'] = 'Hide email address to anonymous user';
@@ -392,8 +373,6 @@ $_lang['Login failed.'] = 'Login failed.';
 $_lang['Logins not used'] = 'Logins not used';
 $_lang['Lost password'] = 'Lost password';
 $_lang['Mail notification'] = 'Mail notification';
-$_lang['Mail sent to user'] = 'Mail sent to user';
-$_lang['Mail server configuration'] = 'Mail server configuration';
 $_lang['Mail synthax error.'] = 'Mail synthax error.';
 $_lang['Mail to'] = 'Mail to';
 $_lang['Main'] = 'Main';
@@ -424,7 +403,6 @@ $_lang['Maximum size of a document that a user can upload'] = 'Maximum size of a
 $_lang['Memorize them, you will use them the next time you will enter to this site.'] = 'Memorize them, you will use them the next time you will enter to this site.';
 $_lang['Message'] = 'Message';
 $_lang['Message sent'] = 'Message sent';
-$_lang['Missing elements in module Manifest : %MissingElements'] = 'Missing elements in module Manifest : %MissingElements';
 $_lang['Missing language files'] = 'Missing language files';
 $_lang['Missing module directory'] = 'Missing module directory';
 $_lang['Missing parameters'] = 'Missing parameters';
@@ -452,8 +430,6 @@ $_lang['Module uninstallation failed'] = 'Module uninstallation failed';
 $_lang['Module uninstallation script called'] = 'Module uninstallation script called';
 $_lang['Module uninstallation succeeded'] = 'Module uninstallation succeeded';
 $_lang['Module uninstalled in all courses'] = 'Module uninstalled in all courses';
-$_lang['Module unpackaging failed'] = 'Module unpackaging failed';
-$_lang['Module upload failed'] = 'Module upload failed';
 $_lang['Module visibility updated'] = 'Module visibility updated';
 $_lang['More verbose when error occurs.'] = 'More verbose when error occurs.';
 $_lang['Multiple'] = 'Multiple';
@@ -468,16 +444,12 @@ $_lang['New window for documents'] = 'New window for documents';
 $_lang['New window for submitted files'] = 'New window for submitted files';
 $_lang['Next question'] = 'Next question';
 $_lang['No XML file found in the zip'] = 'No XML file found in the zip';
-$_lang['No access'] = 'No access';
 $_lang['No description given'] = 'No description given';
 $_lang['No dock chosen'] = 'No dock chosen';
 $_lang['No dock selected'] = 'No dock selected';
-$_lang['No error'] = 'No error';
-$_lang['No file uploaded'] = 'No file uploaded';
 $_lang['No function in this extension'] = 'No function in this extension';
 $_lang['No icon'] = 'No icon';
 $_lang['No language folder'] = 'No language folder';
-$_lang['No mail sent to user'] = 'No mail sent to user';
 $_lang['No module in package'] = 'No module in package';
 $_lang['No module to uninstall'] = 'No module to uninstall';
 $_lang['No name'] = 'No name';
@@ -532,6 +504,7 @@ $_lang['Password security check'] = 'Password security check';
 $_lang['Passwords of some of your user account(s) are recorded an in external authentication system outside the platform.'] = 'Passwords of some of your user account(s) are recorded an in external authentication system outside the platform.';
 $_lang['Personal language selector'] = 'Personal language selector';
 $_lang['Phone : %phone_number'] = 'Phone : %phone_number';
+$_lang['Platform & Organisation'] = 'Platform & Organisation';
 $_lang['Platform Courses'] = 'Platform Courses';
 $_lang['Platform Settings'] = 'Platform Settings';
 $_lang['Platform language'] = 'Platform language';
@@ -550,8 +523,6 @@ $_lang['Prefix for course table  / db names'] = 'Prefix for course table  / db n
 $_lang['Prefix for main table names'] = 'Prefix for main table names';
 $_lang['Prefix for tracking table names'] = 'Prefix for tracking table names';
 $_lang['Preformated text'] = 'Preformated text';
-$_lang['Preview : %textZone'] = 'Preview : %textZone';
-$_lang['Previous page'] = 'Previous page';
 $_lang['Previous question'] = 'Previous question';
 $_lang['Private access (site accessible only to people on the <a href="%url">user list</a>)'] = 'Private access (site accessible only to people on the <a href="%url">user list</a>)';
 $_lang['Private access (site accessible only to people on the user list)'] = 'Private access (site accessible only to people on the user list)';
@@ -564,7 +535,6 @@ $_lang['Profile SQL in DEBUG MODE.
 Display for each request :duration, counter,  statement '] = 'Profile SQL in DEBUG MODE.
 Display for each request :duration, counter,  statement';
 $_lang['Profile form'] = 'Profile form';
-$_lang['Profile list'] = 'Profile list';
 $_lang['Profile locked'] = 'Profile locked';
 $_lang['Profile not found'] = 'Profile not found';
 $_lang['Properties for %config_name, (%config_code) are now effective on server.'] = 'Properties for %config_name, (%config_code) are now effective on server.';
@@ -588,7 +558,6 @@ $_lang['Request'] = 'Request';
 $_lang['Request to remove this account'] = 'Request to remove this account';
 $_lang['Right'] = 'Right';
 $_lang['Right Profile'] = 'Right Profile';
-$_lang['Right list'] = 'Right list';
 $_lang['Right menu settings'] = 'Right menu settings';
 $_lang['Right profile list'] = 'Right profile list';
 $_lang['Rights'] = 'Rights';
@@ -599,8 +568,6 @@ $_lang['Rss feed for %course'] = 'Rss feed for %course';
 $_lang['SCORM 1.2 conformable content'] = 'SCORM 1.2 conformable content';
 $_lang['SCORM conformant modules are definitively removed from server when deleted in their learning path.'] = 'SCORM conformant modules are definitively removed from server when deleted in their learning path.';
 $_lang['SDK'] = 'SDK';
-$_lang['SMTP'] = 'SMTP';
-$_lang['SMTP server(s)'] = 'SMTP server(s)';
 $_lang['SSO authentication key list'] = 'SSO authentication key list';
 $_lang['SSO cookie domain'] = 'SSO cookie domain';
 $_lang['SSO cookie name'] = 'SSO cookie name';
@@ -643,14 +610,9 @@ $_lang['System Info'] = 'System Info';
 $_lang['System mail : recipients list'] = 'System mail : recipients list';
 $_lang['Take one of these options'] = 'Take one of these options';
 $_lang['Teacher can add a user in his course'] = 'Teacher can add a user in his course';
+$_lang['Teacher can add some users in his course'] = 'Teacher can add some users in his course';
 $_lang['Teacher can import an existing class course'] = 'Teacher can import an existing class course';
 $_lang['Teacher can import user list in his course'] = 'Teacher can import user list in his course';
-$_lang['Temporary folder missing'] = 'Temporary folder missing';
-$_lang['Text displayed if a user tries to enrol in a course requiring a key'] = 'Text displayed if a user tries to enrol in a course requiring a key';
-$_lang['Text displayed if a user tries to enrol in a locked course'] = 'Text displayed if a user tries to enrol in a locked course';
-$_lang['Text displayed on the "Create user account" page'] = 'Text displayed on the "Create user account" page';
-$_lang['Text displayed on the "My user account" page'] = 'Text displayed on the "My user account" page';
-$_lang['Text displayed on the right column'] = 'Text displayed on the right column';
 $_lang['The class has been moved'] = 'The class has been moved';
 $_lang['The content of this panel is editable in administration '] = 'The content of this panel is editable in administration';
 $_lang['The domain that the cookie is available.  To make the cookie available on all subdomains of example.com, you\'d set it to ".example.com". The . is not required but makes it compatible with more browsers. Setting it to www.example.com  will make the co'] = 'The domain that the cookie is available.  To make the cookie available on all subdomains of example.com, you\'d set it to ".example.com". The . is not required but makes it compatible with more browsers. Setting it to www.example.com  will make the co';
@@ -727,7 +689,6 @@ $_lang['Uninstall'] = 'Uninstall';
 $_lang['Unknow error during unsubscribing'] = 'Unknow error during unsubscribing';
 $_lang['Unknow faculty'] = 'Unknow faculty';
 $_lang['Unknown error'] = 'Unknown error';
-$_lang['Unknown error code %errCode%'] = 'Unknown error code %errCode%';
 $_lang['Unknown question format in file %file'] = 'Unknown question format in file %file';
 $_lang['Unknown user'] = 'Unknown user';
 $_lang['Unlock'] = 'Unlock';
@@ -751,7 +712,6 @@ $_lang['User is not valid'] = 'User is not valid';
 $_lang['User not found'] = 'User not found';
 $_lang['User profile'] = 'User profile';
 $_lang['User profile options'] = 'User profile options';
-$_lang['User registred in cours with unexisting (deprecated) status'] = 'User registred in cours with unexisting (deprecated) status';
 $_lang['User request'] = 'User request';
 $_lang['User search in the user tool is allowed'] = 'User search in the user tool is allowed';
 $_lang['User\'s course settings'] = 'User\'s course settings';
@@ -770,9 +730,6 @@ $_lang['WARNING ! You have just lost your session on the server.'] = 'WARNING ! 
 $_lang['Warn users when they loose their session on the platform'] = 'Warn users when they loose their session on the platform';
 $_lang['Warning the system distinguishes uppercase (capital) and lowercase (small) letters'] = 'Warning the system distinguishes uppercase (capital) and lowercase (small) letters';
 $_lang['Website'] = 'Website';
-$_lang['Welcome text displayed on the homepage'] = 'Welcome text displayed on the homepage';
-$_lang['Welcome text displayed to anonymous users'] = 'Welcome text displayed to anonymous users';
-$_lang['Welcome text displayed to authenticated users'] = 'Welcome text displayed to authenticated users';
 $_lang['When iCal File is regenerated, make the RDF version.'] = 'When iCal File is regenerated, make the RDF version.';
 $_lang['When iCal File is regenerated, make the ics version.'] = 'When iCal File is regenerated, make the ics version.';
 $_lang['When iCal File is regenerated, make the xml version.'] = 'When iCal File is regenerated, make the xml version.';
@@ -1072,7 +1029,7 @@ For each user type, you can grant three type of privileges to the Wiki(*) :<ul>
 <dd>Click on the icon in the \'Export\' column to export a Wiki as a HTML file in the course documents tool.</dd>
 </dl>';
 $_lang['blockWikiHelpSyntaxContent'] = '<h1>Wiki Syntax</h1>
-<h2>Basic syntax</h2>
+<h2>1. Basic syntax</h2>
 <dl class="wikiHelp">
 <dt>Creating wiki pages and links between them</dt>
 <dd><strong>Wiki words</strong> : Wiki words are words written like <em>WikiWord</em>. Wiki2xhtml automaticaly recognise them as Wiki page links. To create a wiki page or to create a link to a wiki page, edit an existing one and add the title of the page in WikiWord syntax, for example <em>MyPage</em>, then save the page. Wiki2xhtml will automaticaly replace the Wiki Word <em>MyPage</em> with a link to the Wiki page <em>MyPage</em>&nbsp;;</dd>
@@ -1095,7 +1052,7 @@ $_lang['blockWikiHelpSyntaxContent'] = '<h1>Wiki Syntax</h1>
 <dt>Paragraph</dt>
 <dd>Separate paragraphs with one or more new lines&nbsp;;</dd>
 </dl>
-<h2>Advanced syntax</h2>
+<h2>2. Advanced syntax</h2>
 <dl class="wikiHelp">
 <dt>Footnote</dt>
 <dd><code>$$footnote text$$</code>&nbsp;;</dd>
@@ -1115,18 +1072,10 @@ $_lang['blockWikiHelpSyntaxContent'] = '<h1>Wiki Syntax</h1>
 <dd><code>@@your code here@@</code>&nbsp;;</dd>
 <dt>Named anchor</dt>
 <dd><code>~anchor~</code>&nbsp;;</dd>
-</dl>
-<h2>Table syntax</h2>
-<dl>
-<dt>Simple table</dt>
-<dd><code>{|</code>&nbsp;: start of table (must be on a new ligne)</dd>
-<dd><code>||first cell|second cell|...||</code>&nbsp;: table row (on one line)</dd>
-<dd><code>|}</code>&nbsp;: end of table (must be on a new ligne)</dd>
-<dt>Complete table</dt>
-<dd><code>{|Caption text</code>&nbsp;: start of table (must be on a new ligne)</dd>
-<dd><code>||!first column title|!second column title|...||</code>&nbsp;: column header</dd>
-<dd><code>||first cell|second cell|...||</code>&nbsp;: table row (on one line)</dd>
-<dd><code>|}</code>&nbsp;: end of table (must be on a new ligne)</dd>
+<dt>Table</dt>
+<dd><code>{|</code>&nbsp; start of table (must be on a new ligne)</dd>
+<dd><code>||first cell|second cell|...||</code> table row (on one line)</dd>
+<dd><code>|}</code> end of table (must be on a new ligne)</dd>
 </dl>';
 $_lang['boolean'] = 'boolean';
 $_lang['count'] = 'count';
@@ -1134,6 +1083,7 @@ $_lang['details'] = 'details';
 $_lang['dont change case'] = 'dont change case';
 $_lang['email'] = 'email';
 $_lang['enum'] = 'enum';
+$_lang['expand'] = 'expand';
 $_lang['for current and new works'] = 'for current and new works';
 $_lang['high resources'] = 'high resources';
 $_lang['iCal feed for %course'] = 'iCal feed for %course';

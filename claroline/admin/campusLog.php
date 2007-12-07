@@ -3,9 +3,9 @@
  * CLAROLINE
  * This tool run some check to detect abnormal situation
  *
- * @version 1.9 $Revision$
+ * @version 1.8 $Revision$
  *
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -20,8 +20,8 @@
 require '../inc/claro_init_global.inc.php';
 
 // Security check
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 
 $interbredcrump[]= array ('url' => 'index.php', 'name' => get_lang('Administration'));
 
@@ -45,15 +45,15 @@ $tbl_document        = $tbl_cdb_names['document'];
 
 $toolNameList = claro_get_tool_name_list();
 
-require_once get_path('incRepositorySys') . '/lib/statsUtils.lib.inc.php';
+require_once $includePath . '/lib/statsUtils.lib.inc.php';
 
 // used in strange cases, a course is unused if not used since $limitBeforeUnused
 // INTERVAL SQL expr. see http://www.mysql.com/doc/en/Date_and_time_functions.html
 $limitBeforeUnused = "INTERVAL 6 MONTH";
 
-$is_allowedToTrack     = claro_is_platform_admin();
+$is_allowedToTrack     = $is_platformAdmin;
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include $includePath . '/claro_init_header.inc.php';
 echo claro_html_tool_title(
     array(
     'mainTitle'=>$nameTools,
@@ -82,82 +82,42 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled'))
     if($view[0] == '1')
     {
         $tempView[0] = '0';
-        echo '-&nbsp;&nbsp;'
-        .    '<b>'
-        .    get_lang('Platform statistics')
-        .    '</b>'
-        .    '&nbsp;&nbsp;&nbsp;'
-        .    '<small>'
-        .    '[<a href="' . $_SERVER['PHP_SELF'] . '?view=' . $tempView . '">' . get_lang('Close').'</a>]'
-        .    '</small>'
-        .    '<br />' . "\n"
-
+        echo '-&nbsp;&nbsp;<b>'.get_lang('Platform statistics').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('Close').'</a>]</small><br />'."\n";
         //---- COURSES
-        .    '<br />'
-        .    '&nbsp;&nbsp;&nbsp;'
-        .    '<b>' . get_lang('Courses') . '</b>'
-        .    '<br />' . "\n"
-        ;
-
+        echo "\n".'<br />&nbsp;&nbsp;&nbsp;<b>'.get_lang('Courses').'</b><br />'."\n";
         //--  number of courses
         $sql = "SELECT count(*)
-                  FROM `" . $tbl_course . "`";
+                    FROM `".$tbl_course."`";
         $count = claro_sql_query_get_single_value($sql);
-        echo '&nbsp;&nbsp;&nbsp;' . get_lang('Number of courses') . ' : ' . $count.'<br />'."\n";
+        echo '&nbsp;&nbsp;&nbsp;'.get_lang('Number of courses').' : '.$count.'<br />'."\n";
 
         //--  number of courses by faculte
         $sql = "SELECT `faculte`, count( * ) AS `nbr`
-                  FROM `" . $tbl_course . "`
-                 WHERE `faculte` IS NOT NULL
-                 GROUP BY `faculte`";
+                    FROM `".$tbl_course."`
+                    WHERE `faculte` IS NOT NULL
+                    GROUP BY `faculte`";
         $results = claro_sql_query_fetch_all($sql);
-        echo '&nbsp;&nbsp;&nbsp;'
-        .    get_lang('Number of courses by faculty')
-        .    ' : '
-        .    '<br />' . "\n"
-        ;
+        echo '&nbsp;&nbsp;&nbsp;'.get_lang('Number of courses by faculty').' : <br />'."\n";
         buildTab2Col($results);
         echo '<br />'."\n";
 
         //--  number of courses by language
-        $sql = "SELECT `language`, count( * ) AS `nbr`
-                  FROM `" . $tbl_course . "`
-                 WHERE `language` IS NOT NULL
-                 GROUP BY `language`";
-
+        $sql = "SELECT `languageCourse`, count( * ) AS `nbr`
+                    FROM `".$tbl_course."`
+                    WHERE `languageCourse` IS NOT NULL
+                    GROUP BY `languageCourse`";
         $results = claro_sql_query_fetch_all($sql);
         echo '&nbsp;&nbsp;&nbsp;'.get_lang('Number of courses by language').' : <br />'."\n";
         buildTab2Col($results);
         echo '<br />'."\n";
-        //--  number of courses by access
-        $sql = "SELECT `access`, count( * ) AS `nbr`
-                    FROM `" . $tbl_course . "`
-                    WHERE `access` IS NOT NULL
-                    GROUP BY `access`";
-
-        $results = claro_sql_query_fetch_all($sql);
-        echo '&nbsp;&nbsp;&nbsp;'.get_lang('Number of courses by access').' : <br />'."\n";
-        buildTab2Col($results);
-        echo '<br />'."\n";
-
-        //--  number of courses by registration
-        $sql = "SELECT `registration`, count( * ) AS `nbr`
-                    FROM `" . $tbl_course . "`
-                    WHERE `registration` IS NOT NULL
-                    GROUP BY `registration`";
-
-        $results = claro_sql_query_fetch_all($sql);
-        echo '&nbsp;&nbsp;&nbsp;'.get_lang('Number of courses by enrollment').' : <br />'."\n";
-        buildTab2Col($results);
-        echo '<br />'."\n";
-
         //--  number of courses by visibility
-        $sql = "SELECT `visibility`, count( * ) AS `nbr`
-                    FROM `" . $tbl_course . "`
-                    WHERE `visibility` IS NOT NULL
-                    GROUP BY `visibility`";
+        $sql = "SELECT `visible`, count( * ) AS `nbr`
+                    FROM `".$tbl_course."`
+                    WHERE `visible` IS NOT NULL
+                    GROUP BY `visible`";
 
         $results = claro_sql_query_fetch_all($sql);
+        $results = changeResultOfVisibility($results);
         echo '&nbsp;&nbsp;&nbsp;'.get_lang('Number of courses by visibility').' : <br />'."\n";
         buildTab2Col($results);
         echo '<br />'."\n";
@@ -173,19 +133,19 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled'))
 
         //--  number of users by course
         $sql = "SELECT C.`code`, count( CU.user_id ) as `nb`
-                    FROM `" . $tbl_course . "` C, `" . $tbl_rel_course_user . "` CU
+                    FROM `".$tbl_course."` C, `".$tbl_rel_course_user."` CU
                     WHERE CU.`code_cours` = C.`code`
                         AND `code` IS NOT NULL
                     GROUP BY C.`code`
                     ORDER BY nb DESC";
         $results = claro_sql_query_fetch_all($sql);
-        echo '&nbsp;&nbsp;&nbsp;' . get_lang('Number of users by course') . ' : <br />'."\n";
+        echo '&nbsp;&nbsp;&nbsp;'.get_lang('Number of users by course').' : <br />'."\n";
         buildTab2Col($results);
         echo '<br />'."\n";
 
         //--  number of users by faculte
         $sql = "SELECT C.`faculte`, count( CU.`user_id` ) AS `nbr`
-                    FROM `" . $tbl_course . "` C, `" . $tbl_rel_course_user . "` CU
+                    FROM `".$tbl_course."` C, `".$tbl_rel_course_user."` CU
                     WHERE CU.`code_cours` = C.`code`
                         AND C.`faculte` IS NOT NULL
                     GROUP BY C.`faculte`";
@@ -221,20 +181,10 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled'))
     if($view[1] == '1')
     {
         $tempView[1] = '0';
-        echo '-&nbsp;&nbsp;'
-        .    '<b>' . get_lang('Access to campus') . '</b>'
-        .    '&nbsp;&nbsp;&nbsp;'
-        .    '<small>'
-        .    '[<a href="' . $_SERVER['PHP_SELF'] . '?view=' . $tempView . '">' . get_lang('Close') . '</a>]'
-        .    '</small>'
-        .    '<br />' . "\n"
+        echo '-&nbsp;&nbsp;<b>'.get_lang('Access to campus').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('Close').'</a>]</small><br />'."\n";
 
         //----------------------------  access
-        .    '&nbsp;&nbsp;&nbsp;'
-        .    '<b>' . get_lang('Access') . '</b> '
-        .    get_lang('(When an user open the index of the campus)')
-        .    '<br />' . "\n"
-        ;
+        echo "\n".'<br />&nbsp;&nbsp;&nbsp;<b>'.get_lang('Access').'</b> '.get_lang('(When an user open the index of the campus)').'<br />'."\n";
 
         //--  all
         $sql = "SELECT count(*)
@@ -244,8 +194,8 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled'))
 
         //--  last 31 days
         $sql = "SELECT count(*)
-                  FROM `" . $tbl_track_e_open . "`
-                 WHERE (`open_date` > DATE_ADD(CURDATE(), INTERVAL -31 DAY))";
+                    FROM `".$tbl_track_e_open."`
+                    WHERE (`open_date` > DATE_ADD(CURDATE(), INTERVAL -31 DAY))";
         $count = claro_sql_query_get_single_value($sql);
         echo '&nbsp;&nbsp;&nbsp;'.get_lang('Last 31 days').' : '.$count.'<br />'."\n";
 
@@ -322,31 +272,22 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled'))
     }
     echo '</p>'."\n\n";
 
-    /**
+    /***************************************************************************
      *
-     * Access to courses
-     * due to the moving of access tables in course DB
-     *  this part of the code exec (nbCourser+1) queries
-     *  this can create heavy overload on servers ... should be reconsidered
+     *        Access to courses
+     *     // due to the moving of access tables in course DB this part of the code exec (nbCourser+1) queries
+     *     // this can create heavy overload on servers ... should be reconsidered
      *
-     */
+     ***************************************************************************/
     $tempView = $view;
-    echo '<p>' . "\n";
+    echo '<p>'."\n";
     if($view[2] == '1')
     {
         $tempView[2] = '0';
-        echo '-&nbsp;&nbsp;'
-        .    '<b>'.get_lang('Access to courses').'</b>'
-        .    '&nbsp;&nbsp;&nbsp;'
-        .    '<small>'
-        .    '[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">' . get_lang('Close').'</a>]'
-        .    '</small>'
-        .    '<br />' . "\n"
-        ;
+        echo '-&nbsp;&nbsp;<b>'.get_lang('Access to courses').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('Close').'</a>]</small><br />'."\n";
         // display list of course of the student with links to the corresponding userLog
-        $sql = "SELECT `administrativeNumber`,
-                       `dbName`
-                FROM    `" . $tbl_course . "`
+        $sql = "SELECT `fake_code`, `dbName`
+                FROM    `".$tbl_course."`
                 ORDER BY code ASC";
         $resCourseList = claro_sql_query_fetch_all($sql);
         $i=0;
@@ -360,16 +301,12 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled'))
                       ORDER BY nb DESC";
             $count = claro_sql_query_get_single_value($sql);
 
-            $resultsArray[$i][0] = $course['administrativeNumber'];
+            $resultsArray[$i][0] = $course['fake_code'];
             $resultsArray[$i][1] = $count;
             $i++;
         }
 
-        echo '<br />'
-        .    '&nbsp;&nbsp;&nbsp;'
-        .    '<b>' . get_lang('Access') . '</b>'
-        .    '<br />' . "\n"
-        ;
+        echo "\n".'<br />&nbsp;&nbsp;&nbsp;<b>'.get_lang('Access').'</b><br />'."\n";
         buildTab2Col($resultsArray);
     }
     else
@@ -394,11 +331,11 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled'))
          echo '-&nbsp;&nbsp;<b>'.get_lang('Access to tools').'</b>&nbsp;&nbsp;&nbsp;<small>[<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('Close').'</a>]</small><br />'."\n";
         // display list of course of the student with links to the corresponding userLog
         $sql = "SELECT code, dbName
-              FROM    `" . $tbl_course . "`
+              FROM    `".$tbl_course."`
               ORDER BY code ASC";
 
         $resCourseList = claro_sql_query_fetch_all($sql);
-        $resultsTools=array();
+
         foreach ( $resCourseList as $course )
         {
             // TODO : use claro_sql_get_course_tbl_name
@@ -471,5 +408,5 @@ else // not allowed to track
     else                     echo get_lang('Not allowed');
 }
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 ?>

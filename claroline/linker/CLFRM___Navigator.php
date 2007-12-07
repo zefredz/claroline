@@ -59,6 +59,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         */
         function getResource($node = NULL)
         {
+            global $platform_id;
 
             if($node)
             {
@@ -89,7 +90,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
                         foreach ($groupTopicList as $groupTopic )
                         {
-                            $crl = CRLTool::createCRL( get_conf('platform_id') , $elementCRLArray['course_sys_code'] , $elementCRLArray["tool_name"] , $groupTopic["topic_id"] , $elementCRLArray["team"] );
+                            $crl = CRLTool::createCRL( $platform_id , $elementCRLArray['course_sys_code'] , $elementCRLArray["tool_name"] , $groupTopic["topic_id"] , $elementCRLArray["team"] );
                             $container = new ClaroObject( $groupTopic["topic_title"] , $crl  );
                             $elementList[] = $container ;
                         }
@@ -242,9 +243,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         * @param $elementCRLArray associative array who contains the information of a crl
         * @param $partResourceId  string element of a resource_id
         * @return string a valide crl
+        * @global $platform_id id of the platform
         */
         function _createObjectCRL($elementCRLArray,$partResourceId)
         {
+             global $platform_id;
+
              if( isset ($elementCRLArray['resource_id']) )
              {
                  $resource_id = $elementCRLArray['resource_id']."/".$partResourceId;
@@ -254,7 +258,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                  $resource_id = $partResourceId;
              }
 
-             $crl = CRLTool::createCRL( get_conf('platform_id') , $elementCRLArray['course_sys_code'] , $elementCRLArray["tool_name"] ,$resource_id );
+             $crl = CRLTool::createCRL( $platform_id , $elementCRLArray['course_sys_code'] , $elementCRLArray["tool_name"] ,$resource_id );
 
              return $crl;
         }

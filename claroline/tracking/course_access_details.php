@@ -3,7 +3,7 @@
       +----------------------------------------------------------------------+
       | CLAROLINE version 1.6.*
       +----------------------------------------------------------------------+
-      | Copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+      | Copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
       +----------------------------------------------------------------------+
       |   Authors : see CREDITS.txt
       +----------------------------------------------------------------------+
@@ -11,10 +11,10 @@
 
 require '../inc/claro_init_global.inc.php';
 
-if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
-if ( ! claro_is_course_manager() ) claro_die(get_lang('Not allowed'));
+if ( ! $_cid && ! $is_courseAllowed ) claro_disp_auth_form(true);
+if ( ! $is_courseAdmin ) claro_die(get_lang('Not allowed'));
 
-include_once get_path('incRepositorySys') . '/lib/statsUtils.lib.inc.php';
+include_once $includePath . '/lib/statsUtils.lib.inc.php';
 
 $interbredcrump[]= array ('url' => 'courseLog.php', 'name' => get_lang('Statistics'));
 
@@ -25,7 +25,7 @@ $TABLETRACK_ACCESS = $tbl_cdb_names['track_e_access'];
 
 
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include $includePath . '/claro_init_header.inc.php';
 
 
 echo claro_html_tool_title(
@@ -48,7 +48,7 @@ if ( get_conf('is_trackingEnabled') )
 
     $displayTypeList = array ('month','day','hour');
 
-    if ( isset($_REQUEST['displayType']) && in_array($_REQUEST['displayType'],$displayTypeList) )
+    if ( isset($_REQUEST['displayType']) && in_array($_REQUEST['displayType'],$displayTypeList) ) 
     {
         $displayType = $_REQUEST['displayType'];
     }
@@ -68,13 +68,13 @@ if ( get_conf('is_trackingEnabled') )
             echo date(' Y', $reqdate);
             break;
         case 'month' :
-            echo claro_html_localised_date('%B %Y',$reqdate);
+            echo claro_disp_localised_date('%B %Y',$reqdate);
           break;
         // default == day
         default :
             $period = 'day';
         case 'day' :
-            echo claro_html_localised_date('%A %d %B %Y',$reqdate);
+            echo claro_disp_localised_date('%A %d %B %Y',$reqdate);
           break;
     }
 echo '</b></td>'."\n".'</tr>'."\n\n";
@@ -199,5 +199,5 @@ else // tracking not enable
 
 echo '</table>';
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 ?>

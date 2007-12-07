@@ -20,7 +20,7 @@ CAS stands for 'Central Authentication Service' and is Single sign On (SSO)
 system originally developed by the Yale University. SSO is an authentication
 process enabling user to authenticate once and gain access to multiple systems.
 For example, once authenticated in the library catalog, students don't have to
-re-enter their password to access their Claroline courses or their Web mail.
+re-enter their password to access their Claroline courses or their web mail.
 
 The CAS system of Claroline is based on the free phpCAS library available at
 http://esup-phpcas.sourceforge.net .
@@ -46,18 +46,15 @@ if (   ! isset($_SESSION['init_CasCheckinDone'] )
     if ($logout)
     {
         $userLoggedOnCas = false;
+        phpCAS::logout(get_conf('rootWeb').'index.php');
     }
     elseif( basename($_SERVER['SCRIPT_NAME']) == 'login.php' )
     {
         // set the call back url
-        if     (   isset($_REQUEST['sourceUrl'])     ) $casCallBackUrl = base64_decode($_REQUEST['sourceUrl']);
+        if     (   isset($_REQUEST['sourceUrl'])     ) $casCallBackUrl = $_REQUEST['sourceUrl'];
         elseif ( ! is_null($_SERVER['HTTP_REFERER']) ) $casCallBackUrl = $_SERVER['HTTP_REFERER'];
-        else
-        {
-            $casCallBackUrl = (isset( $_SERVER['HTTPS']) && ($_SERVER['HTTPS']=='on'||$_SERVER['HTTPS']==1) ? 'https://' : 'http://')
-                    . $_SERVER['HTTP_HOST'] . get_conf('urlAppend').'/';
-        } 
-        
+        else                                           $casCallBackUrl = get_conf('rootWeb');
+
         $casCallBackUrl .= ( strstr( $casCallBackUrl, '?' ) ? '&' : '?')
                         .  'fromCasServer=true';
 
@@ -73,7 +70,7 @@ if (   ! isset($_SESSION['init_CasCheckinDone'] )
                          .  'gidReq='.urlencode($_SESSION['_gid']);
         }
 
-        $_SESSION['casCallBackUrl'] = base64_encode($casCallBackUrl); // we record callback url in session
+        phpCAS::setFixedServiceURL($casCallBackUrl);
         phpCAS::forceAuthentication();
 
         $userLoggedOnCas                  = true;

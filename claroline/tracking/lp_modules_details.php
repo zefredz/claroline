@@ -64,16 +64,16 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 $TABLECOURSUSER            = $tbl_rel_course_user;
 $TABLEUSER              = $tbl_user;
 
-include(get_path('incRepositorySys')."/lib/statsUtils.lib.inc.php");
+include($includePath."/lib/statsUtils.lib.inc.php");
 
 // lib of learning path tool
-include(get_path('incRepositorySys')."/lib/learnPath.lib.inc.php");
+include($includePath."/lib/learnPath.lib.inc.php");
 //lib of document tool
-include(get_path('incRepositorySys')."/lib/fileDisplay.lib.php");
+include($includePath."/lib/fileDisplay.lib.php");
 
 // only the course administrator or the student himself can view the tracking
-$is_allowedToTrack = claro_is_course_manager();
-if (isset($uInfo) && claro_is_user_authenticated()) $is_allowedToTrack = $is_allowedToTrack || ($uInfo == claro_get_current_user_id());
+$is_allowedToTrack = $is_courseAdmin;
+if (isset($uInfo) && isset($_uid)) $is_allowedToTrack = $is_allowedToTrack || ($uInfo == $_uid);
 
 // get infos about the user
 $sql = "SELECT `nom` AS `lastname`, `prenom` as `firstname`, `email`
@@ -98,7 +98,7 @@ $nameTools = get_lang('Modules');
 
 $_SERVER['QUERY_STRING'] = 'uInfo='.$_REQUEST['uInfo']."&path_id=".$_REQUEST['path_id'];
 
-include get_path('incRepositorySys')."/claro_init_header.inc.php";
+include($includePath."/claro_init_header.inc.php");
 // display title
 $titleTab['mainTitle'] = $nameTools;
 $titleTab['subTitle'] = $lpDetails['name'];
@@ -226,7 +226,7 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
             $moduleImg = choose_image(basename($module['path']));
 
             $contentType_alt = selectAlt($module['contentType']);
-            echo '<img src="' . get_path('imgRepositoryWeb') . $moduleImg.'" alt="'.$contentType_alt.'" border="0" />'.$module['name'];
+            echo '<img src="'.$imgRepositoryWeb.$moduleImg.'" alt="'.$contentType_alt.'" border="0" />'.$module['name'];
 
         }
           
@@ -329,5 +329,5 @@ else
     }
 }
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include($includePath . '/claro_init_footer.inc.php');
 ?>

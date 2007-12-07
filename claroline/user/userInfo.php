@@ -7,7 +7,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -36,10 +36,10 @@ $descSizeToPrupose = array(3,5,10,15,20); // size in lines for desc - don't add 
 
 require '../inc/claro_init_global.inc.php';
 
-require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php' ;
-require_once get_path('incRepositorySys') . '/lib/user.lib.php';
-require_once get_path('incRepositorySys') . '/lib/course_user.lib.php';
-require_once get_path('incRepositorySys') . '/lib/user_info.lib.php';
+require_once $includePath . '/lib/admin.lib.inc.php' ;
+require_once $includePath . '/lib/user.lib.php';
+require_once $includePath . '/lib/course_user.lib.php';
+require_once $includePath . '/lib/user_info.lib.php';
 
 $interbredcrump[]= array ('url' => 'user.php', 'name' => get_lang('Users'));
 
@@ -48,7 +48,7 @@ $nameTools = get_lang('User');
 /** OUTPUT **/
 claro_set_display_mode_available(TRUE);
 
-if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form();
+if ( !$_cid || ! $is_courseAllowed ) claro_disp_auth_form();
 
 /*
 * data  found  in settings  are :
@@ -65,7 +65,9 @@ else $userIdViewed = 0;
 Connection API between Claroline and the current script
 --------------------------------------------------------*/
 
-$userIdViewer = claro_get_current_user_id(); // id fo the user currently online
+$course_id               = $_course['sysCode'];
+
+$userIdViewer = $_uid; // id fo the user currently online
 //$userIdViewed = $_GET['userIdViewed']; // Id of the user we want to view
 
 $allowedToEditContent     = ($userIdViewer == $userIdViewed); // || claro_is_allowed_to_edit();
@@ -190,7 +192,7 @@ if ($allowedToEditDef)
 
         // Set variable for course manager or student status
 
-        if ( !empty($_REQUEST['profileId']) && $userIdViewed != claro_get_current_user_id() )
+        if ( !empty($_REQUEST['profileId']) && $userIdViewed != $_uid )
         {
             $userProperties['profileId'] = $_REQUEST['profileId'];
         }
@@ -204,9 +206,9 @@ if ($allowedToEditDef)
             $tbl_group_rel_team_user = $tbl_crs_names['group_rel_team_user'];
 
             $sql = "SELECT COUNT(user)
-                    FROM `".$tbl_group_rel_team_user."`
-                    WHERE user = ".(int) $userIdViewed;
-
+                    FROM `".$tbl_group_rel_team_user."` 	 
+                    WHERE user = ".(int) $userIdViewed; 	 
+  	 
             if ( claro_sql_query_get_single_value($sql) == 0 )
             {
                 $userProperties['tutor' ] = 1;
@@ -228,7 +230,7 @@ if ($allowedToEditDef)
 
         // apply changes in DB
 
-        user_set_course_properties($userIdViewed, claro_get_current_course_id(), $userProperties);
+        user_set_course_properties($userIdViewed, $course_id, $userProperties);
         $displayMode = "viewContentList";
     }
 }
@@ -239,7 +241,7 @@ if ($allowedToEditContent)
 {
     if (isset($_REQUEST['submitContent']))
     {
-        if ($_REQUEST['cntId'])    // submit a content change
+        if ($cntId)    // submit a content change
         {
             claro_user_info_edit_cat_content($_REQUEST['catId'], $userIdViewed, $_REQUEST['content'], $_SERVER['REMOTE_ADDR']);
         }
@@ -279,7 +281,7 @@ elseif ($displayMode == 'viewDefList')
 elseif ($displayMode == 'viewMainInfoEdit')
 {
     /*>>>>>>>>>>>> CATEGORIES MAIN INFO : EDIT <<<<<<<<<<<<*/
-    $mainUserInfo = course_user_get_properties($userIdViewed, claro_get_current_course_id());
+    $mainUserInfo = course_user_get_properties($userIdViewed, $course_id);
 
 }
 elseif ($displayMode == 'viewContentEdit' )
@@ -288,24 +290,25 @@ elseif ($displayMode == 'viewContentEdit' )
 }
 elseif ($displayMode == 'viewContentList') // default display
 {
-    $mainUserInfo = course_user_get_properties($userIdViewed, claro_get_current_course_id());
+    $mainUserInfo = course_user_get_properties($userIdViewed, $course_id);
 }
 
 
 if( $displayMode != "viewContentList" ) claro_set_display_mode_available(false);
+event_access_tool($_tid, $_courseTool['label']);
 
 //////////////////////////////
 // OUTPUT
 //////////////////////////////
 
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include $includePath . '/claro_init_header.inc.php';
 
 echo claro_html_tool_title($nameTools)
 // Back button for each display mode (Top)
 .    '<p>' . "\n"
 .    '<small>' . "\n"
-.    '<a href="user.php' . claro_url_relay_context('?') . '">'
+.    '<a href="user.php">'
 .    '&lt;&lt;&nbsp;'
 .    get_lang('Back to user list')
 .    '</a>' . "\n"
@@ -318,7 +321,6 @@ if ($displayMode == "viewDefEdit")
 {
     /* CATEGORIES DEFINITIONS : EDIT */
     echo '<form method="post" action="' . $_SERVER['PHP_SELF'] . '?uInfo=' . $userIdViewed . '">' . "\n"
-    .    claro_form_relay_context()
     .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n"
     .    '<input type="hidden" name="id" value="' . $catToEdit['id'] . '" />' . "\n"
     .    '<table>' . "\n"
@@ -335,7 +337,7 @@ if ($displayMode == "viewDefEdit")
     .    '<label for="comment" >' . get_lang('Comment') . '</label> :' . "\n"
     .    '</td>' . "\n"
     .    '<td>' . "\n"
-    .    '<textarea name="comment" id="comment" cols="60" rows="3" >' . $catToEdit['comment'] . '</textarea>' . "\n"
+    .    '<textarea name="comment" id="comment" cols="60" rows="3" wrap="virtual">' . $catToEdit['comment'] . '</textarea>' . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '<tr>' . "\n"
@@ -403,21 +405,17 @@ elseif ($displayMode == "viewDefList")
 
             // displays commands
 
-            .    '<a href="'.$_SERVER['PHP_SELF'] . '?removeDef=' . $thisCat['catId']
-            .    claro_url_relay_context('&amp;') . '">'
-            .    '<img src="' . get_path('imgRepositoryWeb') . '/delete.gif" border="0" alt="'.get_lang('Delete').'" />'
+            .    '<a href="'.$_SERVER['PHP_SELF'].'?removeDef='.$thisCat['catId'].'">'
+            .    '<img src="'.$imgRepositoryWeb.'delete.gif" border="0" alt="'.get_lang('Delete').'">'
             .    '</a>' . "\n"
-            .    '<a href="'.$_SERVER['PHP_SELF'].'?editDef='.$thisCat['catId']
-            .    claro_url_relay_context('&amp;') . '">'
-            .    '<img src="' . get_path('imgRepositoryWeb') . '/edit.gif" border="0" alt="'.get_lang('Edit').'" />'
+            .    '<a href="'.$_SERVER['PHP_SELF'].'?editDef='.$thisCat['catId'].'">'
+            .    '<img src="'.$imgRepositoryWeb.'edit.gif" border="0" alt="'.get_lang('Edit').'">'
             .    '</a>' . "\n"
-            .    '<a href="'.$_SERVER['PHP_SELF'].'?moveUpDef='.$thisCat['catId']
-            .    claro_url_relay_context('&amp;') . '">'
-            .    '<img src="' . get_path('imgRepositoryWeb') . '/up.gif" border="0" alt="'.get_lang('Move up').'" />'
+            .    '<a href="'.$_SERVER['PHP_SELF'].'?moveUpDef='.$thisCat['catId'].'">'
+            .    '<img src="'.$imgRepositoryWeb.'up.gif" border="0" alt="'.get_lang('Move up').'">'
             .    '</a>' . "\n"
-            .    '<a href="'.$_SERVER['PHP_SELF'].'?moveDownDef='.$thisCat['catId']
-            .    claro_url_relay_context('&amp;') . '">'
-            .    '<img src="' . get_path('imgRepositoryWeb') . '/down.gif" border="0" alt="'.get_lang('Move down').'" />'
+            .    '<a href="'.$_SERVER['PHP_SELF'].'?moveDownDef='.$thisCat['catId'].'">'
+            .    '<img src="'.$imgRepositoryWeb.'down.gif" border="0" alt="'.get_lang('Move down').'">'
             .    '</a>' . "\n"
             .    '</div>' . "\n"
             ;
@@ -428,7 +426,6 @@ elseif ($displayMode == "viewDefList")
 
     echo '<div align="center">' . "\n"
     .    '<form method="post" action="'.$_SERVER['PHP_SELF'].'?uInfo='.$userIdViewed.'">' . "\n"
-    .    claro_form_relay_context()
     .    '<input type="submit" name="addDef" value="'.get_lang('Add new heading').'" />' . "\n"
     .    '</form>' . "\n"
     .    '</div>' . "\n"
@@ -439,7 +436,6 @@ elseif ($displayMode == 'viewContentEdit' )
 {
     /*>>>>>>>>>>>> CATEGORIES CONTENTS : EDIT <<<<<<<<<<<<*/
     echo '<form method="post" action="' . $_SERVER['PHP_SELF'] . '?uInfo=' . $userIdViewed . '">' . "\n"
-    .    claro_form_relay_context()
     .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n"
     .    '<input type="hidden" name="cntId" value="' . $catToEdit['contentId'] . '" />' . "\n"
     .    '<input type="hidden" name="catId" value="' . $catToEdit['catId'    ] . '" />' . "\n"
@@ -453,7 +449,7 @@ elseif ($displayMode == 'viewContentEdit' )
     }
     else
     {
-        echo '<textarea  cols="80" rows="' . $catToEdit['nbline'] . '" name="content" id="content" >' . $catToEdit['content'] . '</textarea>'
+        echo '<textarea  cols="80" rows="' . $catToEdit['nbline'] . '" name="content" id="content" wrap="VIRTUAL">' . $catToEdit['content'] . '</textarea>'
         ;
     }
     echo '<input type="submit" name="submitContent" value="' . get_lang('Ok') . '" />' . "\n"
@@ -467,7 +463,7 @@ elseif ($displayMode =="viewMainInfoEdit")
     {
         $hidden_param = array ( 'submitMainUserInfo' => $userIdViewed,
         'uInfo' => $userIdViewed);
-        echo course_user_html_form($mainUserInfo, claro_get_current_course_id(), $userIdViewed, $hidden_param);
+        echo course_user_html_form($mainUserInfo, $course_id, $userIdViewed, $hidden_param);
     }
 }
 elseif ($displayMode == "viewContentList") // default display
@@ -482,7 +478,7 @@ elseif ($displayMode == "viewContentList") // default display
 
         if ($mainUserInfo['picture'] != '')
         {
-            echo '<img src="' . get_path('imgRepositoryWeb') . 'users/' . $mainUserInfo['picture'] . '" border="1" />';
+            echo '<img src="' . $imgRepositoryWeb . 'users/' . $mainUserInfo['picture'] . '" border="1">';
         }
 
         echo '<table class="claroTable" width="80%" border="0">' . "\n"
@@ -510,30 +506,24 @@ elseif ($displayMode == "viewContentList") // default display
         if($allowedToEditDef)
         {
             echo '<td>'
-            .    '<a href="' . $_SERVER['PHP_SELF']
-            .    '?editMainUserInfo=' . $userIdViewed
-            .    claro_url_relay_context('&amp;') . '">'
-            .    '<img border="0" alt="'.get_lang('Edit').'" src="' . get_path('imgRepositoryWeb') . 'edit.gif" />'
+            .    '<a href="'.$_SERVER['PHP_SELF'].'?editMainUserInfo='.$userIdViewed.'">'
+            .    '<img border="0" alt="'.get_lang('Edit').'" src="'.$imgRepositoryWeb.'edit.gif" />'
             .    '</a>'
             .    '</td>' . "\n"
             ;
         }
 
         echo '<td>'
-        .    '<a href="' . get_module_url('CLFRM')
-        .    '/viewsearch.php?searchUser='.$userIdViewed
-        .    claro_url_relay_context('&amp;') . '">'
-        .    '<img src="' . get_path('imgRepositoryWeb') . 'post.gif" alt="'.get_lang('Forum posts').'" />'
+        .    '<a href="'.$clarolineRepositoryWeb.'phpbb/viewsearch.php?searchUser='.$userIdViewed.'">'
+        .    '<img src="'.$imgRepositoryWeb.'post.gif" alt="'.get_lang('Forum posts').'">'
         .    '</a>'
         .    '</td>';
 
         if($is_allowedToTrack)
         {
             echo '<td>'
-            .    '<a href="' . get_path('clarolineRepositoryWeb') . 'tracking/userLog.php'
-            .    '?userId=' . $userIdViewed
-            .    claro_url_relay_context('&amp;') . '">'
-            .    '<img border="0" alt="' . get_lang('Tracking') . '" src="' . get_path('imgRepositoryWeb') . 'statistics.gif" />'
+            .    '<a href="'.$clarolineRepositoryWeb.'tracking/userLog.php?uInfo='.$userIdViewed.'">'
+            .    '<img border="0" alt="'.get_lang('Tracking').'" src="'.$imgRepositoryWeb.'statistics.gif" />'
             .    '</a>'
             .    '</td>' . "\n"
             ;
@@ -544,7 +534,7 @@ elseif ($displayMode == "viewContentList") // default display
         .    '</table>' . "\n\n"
         ;
 
-        if ( claro_is_user_authenticated() || ! get_conf('user_email_hidden_to_anonymous') )
+        if ( ! empty($_uid) || ! get_conf('user_email_hidden_to_anonymous') )
         {
             echo '<p><a href="mailto:'.$mainUserInfo['email'].'">'.$mainUserInfo['email'].'</a></p>';
         }
@@ -558,7 +548,6 @@ elseif ($displayMode == "viewContentList") // default display
         echo "\n\n"
         .    '<div align="right">' . "\n"
         .    '<form method="post" action="'.$_SERVER['PHP_SELF'].'?uInfo='.$userIdViewed.'">' . "\n"
-        .    claro_form_relay_context()
         .    get_lang('Course administrator only').' : '
         .    '<input type="submit" name="viewDefList" value="'.get_lang('Define Headings').'" />' . "\n"
         .    '</form>' . "\n"
@@ -576,7 +565,7 @@ elseif ($displayMode == "viewContentList") // default display
             // Category title
 
             echo '<p>' . "\n"
-            .    '<b>' . $thisCat['title'] . '</b>' . "\n"
+            .    '<b>'.$thisCat['title'].'</b>' . "\n"
             .    '</p>' . "\n"
             .    '<blockquote>' . "\n"
             ;
@@ -590,11 +579,8 @@ elseif ($displayMode == "viewContentList") // default display
             if ($allowedToEditContent)
             {
                 echo '<br /><br />' . "\n"
-                .    '<a href="' . $_SERVER['PHP_SELF']
-                .    '?editContent=' . $thisCat['catId']
-                .    '&amp;uInfo=' . $userIdViewed
-                .    claro_url_relay_context('&amp;') . '">'
-                .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="' . get_lang('Edit') . '" />'
+                .    '<a href="'.$_SERVER['PHP_SELF'].'?editContent='.$thisCat['catId'].'&amp;uInfo='.$userIdViewed.'">'
+                .    '<img src="' . $imgRepositoryWeb . 'edit.gif" border="0" alt="' . get_lang('Edit') . '" />'
                 .    '</a>' . "\n"
                 ;
             }
@@ -607,14 +593,10 @@ elseif ($displayMode == "viewContentList") // default display
 // Back button for each display mode (bottom)
 echo '<p>' . "\n"
 .    '<small>' . "\n"
-.    '<a href="user.php'
-.    claro_url_relay_context('?') . '">'
-.    '&lt;&lt;&nbsp;'
-.    get_lang('Back to user list')
-.    '</a>' . "\n"
+.    '<a href="user.php">&lt;&lt;&nbsp;' . get_lang('Back to user list') . '</a>' . "\n"
 .    '</small>' . "\n"
 .    '</p>' . "\n"
 ;
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 ?>

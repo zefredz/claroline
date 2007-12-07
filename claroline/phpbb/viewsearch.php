@@ -3,14 +3,13 @@
 $tlabelReq = 'CLFRM';
 
 require '../inc/claro_init_global.inc.php';
-require get_path('incRepositorySys') . '/lib/forum.lib.php';
-require get_path('incRepositorySys') . '/lib/group.lib.inc.php';
+require $includePath .'/lib/forum.lib.php';
 
-$last_visit        = claro_get_current_user_data('lastLogin');
-$is_groupPrivate   = claro_get_current_group_properties_data('private');
+$last_visit        = $_user['lastLogin'];
+$is_groupPrivate   = $_groupProperties ['private'];
 $is_allowedToEdit  = claro_is_allowed_to_edit();
 
-if (  !claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
+if (  !isset($_cid) || !isset($is_courseAllowed) || $is_courseAllowed == FALSE ) claro_disp_auth_form(true);
 
 if ( isset($_REQUEST['searchUser']) )
 {
@@ -77,9 +76,8 @@ if ( $sqlClauseString )
 
         $searchResultList = claro_sql_query_fetch_all($sql);
 
-        $userGroupList  = get_user_group_list(claro_get_current_user_id());
-        $userGroupList  = array_keys($userGroupList);
-        $tutorGroupList = get_tutor_group_list(claro_get_current_user_id());
+        $userGroupList  = get_user_group_list($_uid);
+        $tutorGroupList = get_tutor_group_list($_uid);
 }
 else
 {
@@ -91,7 +89,7 @@ $pagetype= 'viewsearch';
 $interbredcrump[] = array ('url' => 'index.php', 'name' => get_lang('Forums'));
 $noPHP_SELF       = true;
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include $includePath . '/claro_init_header.inc.php';
 
 echo claro_html_tool_title(get_lang('Forums'),
                            $is_allowedToEdit ? 'help_forum.php' : false);
@@ -117,7 +115,7 @@ echo claro_html_menu_horizontal(disp_forum_toolbar($pagetype, null))
             &&  $is_groupPrivate
             && ! (    in_array($thisPost['group_id'], $userGroupList )
                    || in_array($thisPost['group_id'], $tutorGroupList)
-                   || claro_is_course_manager()
+                   || $is_courseAdmin
                  )
            )
         {
@@ -135,11 +133,11 @@ echo claro_html_menu_horizontal(disp_forum_toolbar($pagetype, null))
             echo '<tr>'                                                   . "\n"
 
             .   '<th class="headerX">'                                    . "\n"
-            .   '<img src="' . get_path('imgRepositoryWeb') . 'topic.gif" alt="" />'
+            .   '<img src="' . $imgRepositoryWeb . 'topic.gif" alt="">'
             .   '<a href="viewtopic.php?topic='.$thisPost['topic_id'].'">'
             .   $thisPost['topic_title']
             .   '</a><br />'                                              . "\n"
-            .   '<img src="' . get_path('imgRepositoryWeb') . $postImg . '" alt="" />'
+            .   '<img src="' . $imgRepositoryWeb . $postImg . '" alt="">'
             .   get_lang('Author') . ' : <b>' . $thisPost['firstname'] . ' ' . $thisPost['lastname'] . '</b> '
             .   '<small>' . get_lang('Posted') . ' : ' . $thisPost['post_time'] . '</small>' . "\n"
             .   '</th>'                                                  . "\n"
@@ -162,6 +160,6 @@ echo claro_html_menu_horizontal(disp_forum_toolbar($pagetype, null))
   Display Forum Footer
  -----------------------------------------------------------------*/
 
-include get_path('incRepositorySys').'/claro_init_footer.inc.php';
+include $includePath.'/claro_init_footer.inc.php';
 
 ?>

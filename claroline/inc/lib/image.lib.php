@@ -1,25 +1,20 @@
 <?php // $Id$
-
-    // vim: expandtab sw=4 ts=4 sts=4:
-    
-    if ( count( get_included_files() ) == 1 )
-    {
-        die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-    }
-
-    /**
-     * Image manipulation library
-     *
-     * @version     1.9 $Revision$
-     * @copyright   2001-2007 Universite catholique de Louvain (UCL)
-     * @author      Claroline team <info@claroline.net>
-     * @license     http://www.gnu.org/copyleft/gpl.html
-     *              GNU GENERAL PUBLIC LICENSE
-     * @package     KERNEL
-     */
-
-    uses ( 'core/url.lib' );
-
+// vim: expandtab sw=4 ts=4 sts=4:
+if ( count( get_included_files() ) == 1 ) die( '---' );
+/**
+ * CLAROLINE
+ *
+ * @version 1.8 $Revision$
+ *
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @author see 'credits' file
+ *
+ * @package KERNEL
+ *
+ */
 
     /*============================================================================
                             IMAGE MANIPULATION LIBRARY
@@ -143,24 +138,6 @@
         $info = getimagesize($img);
         return $info['bits'];
     }
-    
-    function get_image_thumbnail_url( $file, $context = null )
-    {
-        $url = get_path('url') . '/claroline/backends/thumbnail.php?img=' . rawurlencode($file);
-        
-        $urlObj = new Url( $url );
-
-        if ( !empty ( $context ) )
-        {
-            $urlObj->relayContext( $context );
-        }
-        else
-        {
-            $urlObj->relayCurrentContext();
-        }
-
-        return $urlObj->toUrl();
-    }
 
     // THE EVIL NASTY ONE !
     /**
@@ -181,9 +158,10 @@
     */
     function create_thumbnail($file, $thumbWidth, $title = '')
     {
+        global $coursesRepositorySys;
         global $courseDir;
 
-        $imgPath = get_path('coursesRepositorySys')
+        $imgPath = $coursesRepositorySys
             . $courseDir
             . $file
             ;
@@ -200,29 +178,31 @@
             $newHeight = $height;
         }
 
-        $img_url = get_image_thumbnail_url( $file );
+        $fileUrl = $file;
 
-        return '<img src="' . $img_url . '"
-                     width="' . $thumbWidth . '"
-                     height="' . $newHeight . '"
-                     ' . $title . '
-                     alt="' . $file . '" />' . "\n"
+        if ( $GLOBALS['is_Apache'] && get_conf('secureDocumentDownload') )
+        {
+            // slash argument method - only compatible with Apache
+            $img_url = 'goto/index.php'.str_replace('%2F', '/', rawurlencode($fileUrl));
+        }
+        else
+        {
+            // question mark argument method, for IIS ...
+            $img_url = 'goto/?url=' . rawurlencode($fileUrl);
+        }
+
+        return "<img src=\"" . $img_url
+            . "\" width=\"" . $thumbWidth
+            . "\" height=\"" . $newHeight
+            . "\" " . $title . " alt=\""
+            . $file . "\" />\n"
             ;
 
     }
 
     function image_search($file, $filePathList)
     {
-        // return array_search( $file, $filePathList );
-        for ( $i = 0; $i < count( $filePathList ); $i++ )
-        {
-            if ( $filePathList[$i]['path'] == $file )
-            {
-                return $i;
-            }
-        }
-
-        return 0;
+        return array_search( $file, $filePathList );
     }
 
     /*-------------------------------------------------------------------------------
@@ -240,15 +220,8 @@
     */
     function get_current_index($imageList, $fileIndex)
     {
-        /*$index = array_search($fileIndex, $imageList);
-        return $index;*/
-
-        for ( $i = 0; $i < count( $imageList ); $i++ )
-        {
-            if ( $imageList[$i] == $fileIndex ) return $i;
-        }
-
-        return 0;
+        $index = array_search($fileIndex, $imageList);
+        return $index;
     }
 
     /**

@@ -53,7 +53,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         $out .= '</div>' . "\n";
 
                 // display editor
-        $out .= '<form method="post" action="'.$script.'"'
+        $out .= '<form method="POST" action="'.$script.'"'
             . ' name="editform" id="editform">' . "\n"
             ;
 
@@ -66,7 +66,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         {
             $out .= '<label>Texte :</label><br />' . "\n";
             $out .= '<textarea name="content" id="content"'
-                 . ' cols="80" rows="15" >'
+                 . ' cols="80" rows="15" wrap="virtual">'
                  ;
             $out .= $content;
             $out .= '</textarea>' . "\n";
@@ -123,8 +123,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         {
             $title = get_lang("Main page");
         }
-        
-        $title = "<h1 class=\"wikiTitle\">" . get_lang('Preview :') . "$title</h1>\n";
+
+        $title = "<h1 class=\"wikiTitle\">" . get_lang("Preview : ") . "$title</h1>\n";
 
         $out .= $title;
 
@@ -148,6 +148,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
         $out .= "</div>\n";
 
+        // $out .= "</div>\n";
+
         return $out;
     }
 
@@ -163,7 +165,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     {
         $script = ( is_null( $script ) ) ? $_SERVER['PHP_SELF'] : $script;
 
-        $out = '<div style="clear:both;"><form method="post" action="' . $script
+        $out = '<div style="clear:both;"><form method="POST" action="' . $script
             . '" name="previewform" id="previewform">' . "\n"
             ;
         $out .= '<input type="hidden" name="content" value="'
@@ -240,11 +242,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
         $script = ( is_null( $script ) ) ? $_SERVER['PHP_SELF'] : $script;
 
-        $form = '<form method="post" id="wikiProperties" action="'.$script.'">' . "\n"
+        $form = '<form method="POST" id="wikiProperties" action="'.$script.'">' . "\n"
             . '<fieldset style="padding: 10px; margin: 10px;">' . "\n"
             . '<legend>'.get_lang("Wiki description").'</legend>' . "\n"
             . '<!-- wikiId = 0 if creation, != 0 if edition  -->' . "\n"
-            . '<p style="font-style: italic;">' . get_lang('You can choose a title an a description for the wiki :') . '</p>' . "\n"
+            . '<p style="font-style: italic;">' . get_lang("You can choose a title an a description for the wiki : ") . '</p>' . "\n"
             . '<input type="hidden" name="wikiId" value="'.$wikiId.'" />' . "\n"
             . '<!-- groupId = 0 if course wiki, != 0 if group_wiki  -->' . "\n"
             . '<input type="hidden" name="groupId" value="'.$groupId.'" />' . "\n"
@@ -260,7 +262,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             . '<fieldset id="acl" style="padding: 10px;margin: 10px;">' . "\n"
             . '<legend>' . get_lang("Access control management") . '</legend>' . "\n"
             . '<p style="font-style: italic;">'
-            . get_lang('You can set access rights for users using the following grid :')
+            . get_lang("You can set access rights for users using the following grid : ")
             . '</p>' . "\n"
             . '<table style="text-align: center; padding: 5px;" id="wikiACL">' . "\n"
             . '<tr class="matrixAbs">' . "\n"

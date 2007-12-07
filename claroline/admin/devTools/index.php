@@ -18,9 +18,9 @@
  */
 
 require '../../inc/claro_init_global.inc.php';
-if (file_exists(get_path('rootSys') .'platform/currentVersion.inc.php')) include (get_path('rootSys') . 'platform/currentVersion.inc.php');
+if (file_exists($rootSys.'platform/currentVersion.inc.php')) include ($rootSys.'platform/currentVersion.inc.php');
 
-$is_allowedToUseSDK = claro_is_platform_admin();
+$is_allowedToUseSDK = $is_platformAdmin;
 
 if (! $is_allowedToUseSDK) claro_disp_auth_form();
 
@@ -33,26 +33,29 @@ if ( get_conf('DEVEL_MODE',false))
     if (file_exists('./fillToolCourses.php')) $devtoolsList[] = claro_html_tool_link('fillToolCourses.php',  get_lang('Create item into courses tools'));
 }
 
+$translationToolList[] = claro_html_tool_link('../xtra/sdk/translation_index.php',  get_lang('Translations'));
+
 $nameTools = get_lang('Devel Tools');
 
 $interbredcrump[]= array ('url' => '../index.php', 'name' => get_lang('Admin'));
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include($includePath.'/claro_init_header.inc.php');
 
 echo claro_html_tool_title($nameTools);
 
-// TODO use claro_disp_title
-?>
-<h4><?php echo get_lang('Translations') ?></h4>
-<ul>
-    <li><a href="../xtra/sdk/translation_index.php"><?php echo get_lang('Translations') ?></a></li>
-</ul>
-<?php
+if ( 0 < count($translationToolList))
+{
+    echo  claro_html_tool_title(get_lang('Translations'))
+    .     claro_html_menu_vertical($translationToolList)
+    ;
+}
+
 if ( 0 < count($devtoolsList))
 {
     echo  claro_html_tool_title(get_lang('Filling'))
     .     claro_html_menu_vertical($devtoolsList)
     ;
 }
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+
+include $includePath . '/claro_init_footer.inc.php';
 ?>

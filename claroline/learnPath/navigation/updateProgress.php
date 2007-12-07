@@ -18,7 +18,7 @@
 
 require '../../inc/claro_init_global.inc.php'; 
 
-include get_path('incRepositorySys') . '/lib/learnPath.lib.inc.php';
+include($includePath."/lib/learnPath.lib.inc.php");
 
 /**
  * DB tables definition
@@ -41,7 +41,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 $TABLEUSERS                    = $tbl_user;
 
 
-$TOCurl = get_module_url('CLLNP') . '/navigation/tableOfContent.php'; 
+$TOCurl = $clarolineRepositoryWeb."learnPath/navigation/tableOfContent.php"; 
 
 /*********************/
 /* HANDLING API FORM */
@@ -116,7 +116,7 @@ if($_POST['ump_id'])
 ?>
 </head>
 <body>
-<form name="cmiForm" method="post" action="<?php echo $_SERVER["PHP_SELF"] ?>"> 
+<form name="cmiForm" method="POST" action="<?php echo $_SERVER["PHP_SELF"] ?>"> 
     <input type="hidden" name="ump_id" />
     <input type="hidden" name="lesson_status" />
     <input type="hidden" name="lesson_location" />

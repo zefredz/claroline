@@ -50,7 +50,7 @@ array ( 'label'   => 'Number of exercices per page'
       , 'default' => '25'
       , 'unit'    => 'exercices'
       , 'type'    => 'integer'
-      , 'acceptedValue' => array ('min'=>'5')
+      , 'acceptedValue' => array ('Min'=>'5')
       );
 
 

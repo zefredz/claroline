@@ -2,89 +2,6 @@
     
     // vim: expandtab sw=4 ts=4 sts=4:
     
-    if ( count( get_included_files() ) == 1 )
-    {
-        die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-    }
-
-    uses ( 'core/url.lib' );
-    
-    function file_upload_failed( $file )
-    {
-        return get_file_upload_errno( $file ) > 0;
-    }
-    
-    function get_file_upload_errno( $file )
-    {
-        return (int) $file['error'];
-    }
-    
-    function get_file_upload_error_message( $file )
-    {
-        return get_file_upload_errstring_from_errno( get_file_upload_errno( $file ) );
-    }
-    
-    function get_file_upload_errstring_from_errno( $errorLevel )
-    {
-        if ( !defined( 'UPLOAD_ERR_CANT_WRITE' ) )
-        {
-            // Introduced in PHP 5.1.0
-            define( 'UPLOAD_ERR_CANT_WRITE', 5 );
-        }
-        
-        switch( $errorLevel )
-        {
-            case UPLOAD_ERR_OK: 
-            {
-                $details = get_lang('No error');
-            }
-            case UPLOAD_ERR_INI_SIZE: 
-            {
-                $details = get_lang('File too large. Notice : Max file size %size', array ( '%size' => get_cfg_var('upload_max_filesize')) );
-            }   break;
-            case UPLOAD_ERR_FORM_SIZE: 
-            {
-                $details = get_lang('File size exceeds');
-            }   break;
-            case UPLOAD_ERR_PARTIAL: 
-            {
-                $details = get_lang('File upload incomplete');
-            }   break;
-            case UPLOAD_ERR_NO_FILE: 
-            {
-                $details = get_lang('No file uploaded');
-            }   break;
-            case UPLOAD_ERR_NO_TMP_DIR: 
-            {
-                $details = get_lang('Temporary folder missing');
-            }   break;
-            case UPLOAD_ERR_CANT_WRITE: 
-            {
-                $details = get_lang('Failed to write file to disk');
-            }   break;
-            default: 
-            {
-                $details = get_lang('Unknown error code %errCode%'
-                    , array('%errCode%' => $errorLevel ));
-            }   break;
-        }
-        
-        return $details;
-    }
-    
-    /**
-     * Extract the extention of the filename
-
-     * @param string $fileName name of the file
-     * @return string extension
-     */
-    function get_file_extension ( $fileName )
-    {
-        $fileExtension = strtolower( pathinfo( $fileName, PATHINFO_EXTENSION ) );
-
-        return $fileExtension;
-    }
-    
     /**
      * Get file MIME type from file name based on extension
      * @param string $fileName name of the file
@@ -184,17 +101,9 @@
                 'url'   => 'text/html',
                 'wav'   => 'audio/x-wav',
                 'wmv'   => 'video/x-ms-wmv',
-                'xml'   => 'application/xml',
+                'xml'   =>'application/xml',
                 'xls'   => 'application/vnd.ms-excel',
-                'xsl'   => 'text/xml',
                 'zip'   => 'application/zip',
-                
-                # Syndication
-                'ics'   => 'text/Calendar',
-                'xcs'   => 'text/Calendar',
-                'rdf'   => 'text/xml',
-                'rss'   => 'application/rss+xml',
-                'opml'  => 'text/x-opml',
             );
     
             $mimeType = array_key_exists( $fileExtension, $mimeTypeList )
@@ -218,19 +127,22 @@
      *          false if file not found or file empty, 
      *          set a claro_failure if file not found 
      */
-    function claro_send_file( $path, $name = '', $charset = null )
+    function claro_send_file( $path, $name = '' )
     {
         if ( file_exists( $path ) )
         {
             if ( empty( $name ) ) $name = basename( $path );
-            $charset = empty( $charset )
-                ? ''
-                : '; charset=' . $charset
-                ;
             
             $mimeType = get_mime_on_ext( $path );
         
-            header( 'Content-Type: ' . $mimeType . $charset );
+            if ( ! is_null( $mimeType ) )
+            {
+                header( 'Content-Type: ' . $mimeType );
+            }
+            else
+            {
+                header( 'Content-Type: document/unknown' );
+            }
                 
             // IE no-cache bug
             
@@ -245,7 +157,7 @@
             header('Content-Disposition: inline; filename="' . $name . '"');
             header('Content-Length: '. filesize( $path ) );
             
-            return ( claro_readfile( $path ) );
+            return ( claro_readfile( $path ) > 0 );
         }
         else
         {
@@ -260,13 +172,7 @@
      */
     function secure_file_path( $path )
     {
-        while ( strpos( $path, '..') || strpos( $path, '://' ) )
-        {
-            $path = str_replace( '..', '', $path );
-            $path = str_replace( '://', '', $path );
-        }
-        
-        return $path; 
+        return preg_replace( '~^(\.\.)$|(/\.\.)|(\.\./)~', '', $path );
     }
     
     /**
@@ -304,11 +210,6 @@
         {
             $buffer = fread($handle, $chunksize);
             
-            if ( $buffer === false )
-            {
-                return claro_failure::set_failure( 'CANNOT_READ_FILE' );
-            }
-            
             echo $buffer;
             
             if ( $retbytes )
@@ -327,33 +228,6 @@
         {
             return $status;
         }
-    }
-    
-    function claro_get_file_download_url( $file, $context = null )
-    {
-        if ( $GLOBALS['is_Apache'] && get_conf('usePrettyUrl', false) )
-        {
-            // slash argument method - only compatible with Apache
-            $url = get_path('url') . '/claroline/backends/download.php'.str_replace('%2F', '/', $file);
-        }
-        else
-        {
-            // question mark argument method, for IIS ...
-            $url = get_path('url') . '/claroline/backends/download.php?url=' . $file;
-        }
-        
-        $urlObj = new Url( $url );
-        
-        if ( !empty ( $context ) )
-        {
-            $urlObj->relayContext( $context );
-        }
-        else
-        {
-            $urlObj->relayCurrentContext();
-        }
-
-        return $urlObj->toUrl();
     }
     
 if ( ! function_exists( 'replace_dangerous_char' ) )

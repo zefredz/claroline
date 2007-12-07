@@ -46,12 +46,12 @@ function choose_image($fileName)
         $type['acrobat'   ] = array('pdf');
         $type['powerpoint'] = array('ppt', 'pps');
         $type['link'      ] = array('url');
-        $type['writer'      ] = array('odt');
-        $type['calc'      ] = array('ods');
-        $type['base'      ] = array('odb');
-        $type['draw'      ] = array('odg');
-        $type['impress'      ] = array('odp');
-        $type['math'      ] = array('odf');
+        $type['writer'	  ] = array('odt');
+        $type['calc'	  ] = array('ods');
+        $type['base'	  ] = array('odb');
+        $type['draw'	  ] = array('odg');
+        $type['impress'	  ] = array('odp');
+        $type['math'	  ] = array('odf');
 
         $image['word'      ] = 'doc.gif';
         $image['web'       ] = 'html.gif';
@@ -72,7 +72,6 @@ function choose_image($fileName)
     }
 
     /* FUNCTION CORE */
-    $extension= null;
 
     if (ereg("\.([[:alnum:]]+)$", $fileName, $extension))
     {
@@ -165,10 +164,10 @@ function format_url($url)
     $urlArray = parse_url( $url );
 
 
-    $urlToRet = isset($urlArray['scheme'])
-        ? $urlArray['scheme']
-        : ''
-        ;
+	$urlToRet = isset($urlArray['scheme'])
+		? $urlArray['scheme']
+		: ''
+		;
 
     if ( isset($urlArray['scheme'])
         && 'mailto' == $urlArray['scheme'] )
@@ -191,9 +190,9 @@ function format_url($url)
     }
 
     $urlToRet .= isset( $urlArray['host']  )
-        ? $urlArray['host']
-        : ''
-        ;
+    	? $urlArray['host']
+    	: ''
+    	;
     $urlToRet .= isset( $urlArray['port']  )
         ? ':' . $urlArray['port']
         : ''
@@ -315,44 +314,33 @@ function query_make_part( $matches )
 
 function claro_disp_document_breadcrumb($curDirPath)
 {
-    pushClaroMessage( (function_exists('claro_html_debug_backtrace')
-                 ? claro_html_debug_backtrace()
-                 : 'claro_html_debug_backtrace() not defined'
-                 )
-                 .'claro_disp_document_breadcrumb is deprecated , use claro_html_document_breadcrumb','error');
-   return claro_html_document_breadcrumb($curDirPath);
-}
-function claro_html_document_breadcrumb($curDirPath)
-{
     $curDirPathList = explode('/', $curDirPath);
 
     $urlTrail = '';
-    
-    $bc = new BreadCrumbs;
+
+    $breadcrumbNameList = array();
+    $breadcrumbUrlList  = array();
 
     foreach($curDirPathList as $thisDir)
     {
         if ( empty($thisDir) )
         {
-            $bc->appendNode( new BreadCrumbsNode( get_lang('Root'),
-                get_module_entry_url('CLDOC') ) );
+            $breadcrumbNameList[] = get_lang('Root');
+            $breadcrumbUrlList[]  = '?cmd=exChDir&amp;file=';
         }
         else
         {
+            $breadcrumbNameList[] = $thisDir;
             $urlTrail .= '/'.$thisDir;
-            $bc->appendNode( new BreadCrumbsNode( get_lang($thisDir),
-                get_module_entry_url('CLDOC') . '?cmd=exChDir&amp;file='.rawurlencode($urlTrail)  ));
+            $breadcrumbUrlList[] = $_SERVER['PHP_SELF']
+                                 . '?cmd=exChDir&amp;file='.rawurlencode($urlTrail);
         }
     }
-    
-    if ( $bc->size() < 2 )
-    {
-        return '';
-    }
-    else
-    {
-        return '<div class="breadcrumbTrails">' . $bc->render().'</div>' . "\n";
-    }
+
+    // remove the url on the last (current) element
+    $breadcrumbUrlList[ count($breadcrumbUrlList) - 1] = null;
+
+    return claro_html_breadcrumbtrail($breadcrumbNameList, $breadcrumbUrlList);
 }
 
 ?>

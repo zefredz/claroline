@@ -6,7 +6,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -28,7 +28,7 @@ $uidRequired = TRUE;
 
 require '../inc/claro_init_global.inc.php';
 
-if( ! claro_is_user_authenticated() ) claro_disp_auth_form();
+if( ! $_uid ) claro_disp_auth_form();
 
 $messageList = array();
 $display = '';
@@ -38,9 +38,9 @@ $error = false;
 include claro_get_conf_repository() . 'user_profile.conf.php'; // find this file to modify values.
 
 // include library files
-include_once get_path('incRepositorySys') . '/lib/user.lib.php';
-include_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
-include_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
+include_once $includePath . '/lib/user.lib.php';
+include_once $includePath . '/lib/sendmail.lib.php';
+include_once $includePath . '/lib/fileManage.lib.php';
 
 $nameTools = get_lang('My User Account');
 
@@ -60,7 +60,7 @@ $extraInfoDefList = get_userInfoExtraDefinitionList();
 
 
 $user_data = user_initialise();
-$user_data = user_get_properties(claro_get_current_user_id());
+$user_data = user_get_properties($_uid);
 
 $acceptedCmdList = array( 'exCCstatus'
                         , 'exRevoquation'
@@ -104,14 +104,13 @@ if ( isset($_REQUEST['applyChange']) )
     }
 
     // validate forum params
-
-    $messageList['warning'] = user_validate_form_profile($user_data, claro_get_current_user_id());
-
+    $messageList['warning'] = user_validate_form_profile($user_data, $_uid);
+    
     if ( count($messageList['warning']) == 0 )
     {
         // if no error update use setting
-        user_set_properties(claro_get_current_user_id(), $user_data);
-        event_default('PROFILE_UPDATE', array('user'=>claro_get_current_user_id()));
+        user_set_properties($_uid, $user_data);
+        event_default('PROFILE_UPDATE', array('user'=>$_uid));
 
         // re-init the system to take new settings in account
 
@@ -120,7 +119,7 @@ if ( isset($_REQUEST['applyChange']) )
         $messageList['info'][] = get_lang('The information have been modified') . '<br />' . "\n";
 
         // Initialise
-        $user_data = user_get_properties(claro_get_current_user_id());
+        $user_data = user_get_properties($_uid);
 
     } // end if $userSettingChangeAllowed
     else
@@ -130,7 +129,7 @@ if ( isset($_REQUEST['applyChange']) )
     }
 
 }
-elseif ( ! claro_is_allowed_to_create_course() && get_conf('can_request_course_creator_status')
+elseif ( ! $is_allowedCreateCourse && get_conf('can_request_course_creator_status')
 && 'exCCstatus' == $cmd )
 {
     // send a request for course creator status
@@ -157,7 +156,7 @@ elseif (    get_conf('can_request_revoquation')
 
     }
 }
-elseif (  ! claro_is_allowed_to_create_course() && get_conf('can_request_course_creator_status')
+elseif (  ! $is_allowedCreateCourse && get_conf('can_request_course_creator_status')
 && 'reqCCstatus' == $cmd )
 {
     // display course creator status form
@@ -182,7 +181,7 @@ elseif ( 'editExtraInfo' == $cmd && 0 < count($extraInfoDefList) )
     $display = DISP_MOREINFO_FORM;
     $interbredcrump[]= array('url'=>$_SERVER['PHP_SELF'],'name' =>$nameTools);
     $nameTools = get_lang('Complementary fields');
-    $userInfo = get_user_property_list(claro_get_current_user_id());
+    $userInfo = get_user_property_list($_uid);
 
 }
 elseif ( 'exMoreInfo' == $cmd && 0 < count($extraInfoDefList)  )
@@ -191,14 +190,14 @@ elseif ( 'exMoreInfo' == $cmd && 0 < count($extraInfoDefList)  )
     {
         foreach( $_REQUEST['extraInfoList'] as $extraInfoName=> $extraInfoValue)
         {
-            set_user_property(claro_get_current_user_id(),$extraInfoName,$extraInfoValue,'userExtraInfo');
+            set_user_property($_uid,$extraInfoName,$extraInfoValue,'userExtraInfo');
         }
     }
 }
 
 
 // Initialise
-$user_data['userExtraInfoList'] =  get_user_property_list(claro_get_current_user_id());
+$user_data['userExtraInfoList'] =  get_user_property_list($_uid);
 
 $profileMenu =  array();
 
@@ -214,26 +213,22 @@ switch ( $display )
         if( get_conf('is_trackingEnabled') )
         {
             // display user tracking link
-            $profileMenu[] = '<a class="claroCmd" href="' . get_conf('urlAppend') . '/claroline/tracking/userLog.php?userId='.claro_get_current_user_id() . claro_url_relay_context('&amp;') . '">'
-            .                 '<img src="' . get_conf('clarolineRepositoryWeb','/claroline') . '/img/statistics.gif" alt="" />' . get_lang('View my statistics')
+            $profileMenu[] = '<a class="claroCmd" href="' . get_conf('urlAppend') . '/claroline/tracking/personnalLog.php">'
+            .                 '<img src="' . get_conf('clarolineRepositoryWeb','/claroline') . '/img/statistics.gif" />' . get_lang('View my statistics')
             .                 '</a>'
             ;
         }
 
         // display request course creator status
-        if ( ! claro_is_allowed_to_create_course() && get_conf('can_request_course_creator_status') )
+        if ( ! $is_allowedCreateCourse && get_conf('can_request_course_creator_status') )
         {
-            $profileMenu[] = claro_html_cmd_link($_SERVER['PHP_SELF'] . '?cmd=reqCCstatus' . claro_url_relay_context('&amp;')
-                                                , get_lang('Request course creation status') );
+            $profileMenu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=reqCCstatus">' . get_lang('Request course creation status') . '</a>';
         }
 
         // display user revoquation
         if ( get_conf('can_request_revoquation') )
         {
-            $profileMenu[] =  claro_html_cmd_link( $_SERVER['PHP_SELF']
-                                                 . '?cmd=reqRevoquation' . claro_url_relay_context('&amp;')
-                                                 , get_lang('Delete my account')
-                                                 ) ;
+            $profileMenu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=reqRevoquation">' . get_lang('Delete my account') . '</a>' ;
         }
 
         break;
@@ -247,7 +242,7 @@ View Section
 **********************************************************************/
 
 // display header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include $includePath . '/claro_init_header.inc.php';
 
 echo claro_html_tool_title($nameTools);
 
@@ -266,10 +261,10 @@ switch ( $display )
             ;
         }
 
-        echo '<p>'
+        echo user_html_form_profile($user_data)
+        .    '<p>'
         .    claro_html_menu_horizontal($profileMenu)
         .    '</p>'
-        .    user_html_form_profile($user_data)
         ;
 
         break;
@@ -296,11 +291,9 @@ switch ( $display )
 
         echo '<tr valign="top">' . "\n"
         .    '<td>' . get_lang('Submit') . ': </td>' . "\n"
-        .    '<td>'
-        .    '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp; ' . "\n"
+        .    '<td><input type="submit" value="' . get_lang('Ok') . '">&nbsp; ' . "\n"
         .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
-        .    '</td>'
-        .    '</tr>' . "\n"
+        .    '</td></tr>' . "\n"
         .     form_row('&nbsp;', '<small>' . get_lang('<span class="required">*</span> denotes required field') . '</small>')
         .    '</table>' . "\n"
         .    '</form>' . "\n"
@@ -340,8 +333,7 @@ switch ( $display )
             .    form_input_textarea('explanation','',get_lang('Comment'),true,6)
             .    '<tr valign="top">' . "\n"
             .    '<td>' . get_lang('Delete my account') . ': </td>' . "\n"
-            .    '<td>'
-            .    '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp; ' . "\n"
+            .    '<td><input type="submit" value="' . get_lang('Ok') . '">&nbsp; ' . "\n"
             .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
             .    '</td></tr>' . "\n"
             .    '</table>' . "\n"
@@ -354,6 +346,6 @@ switch ( $display )
 
 // display footer
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 
 ?>

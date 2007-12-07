@@ -84,15 +84,15 @@ function empty_group($groupIdList = 'ALL', $course_id = null)
 
 function delete_groups($groupIdList = 'ALL')
 {
-    global $eventNotifier;
+    global $_cid,$_tid,$eventNotifier;
 
     $tbl_c_names = claro_sql_get_course_tbl();
 
     $tbl_groups      = $tbl_c_names['group_team'         ];
     $tbl_groupsUsers = $tbl_c_names['group_rel_team_user'];
 
-    require_once get_module_path('CLWIKI') . '/lib/lib.createwiki.php';
-    require_once get_path('incRepositorySys') . '/lib/forum.lib.php';
+    require_once $GLOBALS['includePath'] . '/../wiki/lib/lib.createwiki.php';
+    require_once $GLOBALS['includePath'] . '/lib/forum.lib.php';
 
     delete_group_wikis( $groupIdList );
     delete_group_forums( $groupIdList );
@@ -121,8 +121,8 @@ function delete_groups($groupIdList = 'ALL')
             $sql_condition = '  WHERE id = ' . (int)$groupIdList ;
 
             $eventNotifier->notifyCourseEvent('group_deleted'
-            , claro_get_current_course_id()
-            , claro_get_current_tool_id()
+            , $_cid
+            , $_tid
             , '0'
             , $groupIdList
             , '0');
@@ -150,8 +150,8 @@ function delete_groups($groupIdList = 'ALL')
     foreach ($groupList['id'] as $thisGroupId )
     {
         $eventNotifier->notifyCourseEvent('group_deleted'
-        , claro_get_current_course_id()
-        , claro_get_current_tool_id()
+        , $_cid
+        , $_tid
         , '0'
         , $thisGroupId
         , '0');
@@ -244,7 +244,7 @@ function fill_in_groups($nbGroupPerUser, $course_id )
     if( !settype($nbGroupPerUser, 'integer') || $nbGroupPerUser < 0 )
     return FALSE;
     /*
-    * Retrieve all the groups where registration is still allowed
+    * Retrieve all the groups where enrollment is still allowed
     * (reverse) ordered by the number of place available
     */
 
@@ -482,15 +482,17 @@ function create_group($prefixGroupName, $maxMember)
 
     do
     {
-        $groupRepository = str_replace(' ', '_', substr(uniqid(substr($groupName,0,19) . ' ',''),0,30) );
+        $groupRepository = substr(uniqid(substr($groupName,0,19) . '_'),0,30);
     }
-    while ( check_name_exist( $GLOBALS['coursesRepositorySys'] . $GLOBALS['currentCourseRepository'] . '/group/' . $groupRepository) );
+    while ( check_name_exist(  $GLOBALS['coursesRepositorySys']
+    . $GLOBALS['currentCourseRepository']
+    . '/group/' . $groupRepository) );
 
     claro_mkdir($GLOBALS['coursesRepositorySys'] . $GLOBALS['currentCourseRepository'] . '/group/' . $groupRepository, CLARO_FILE_PERMISSIONS);
 
     /*
-     * Insert a new group in the course group table and keep its ID
-     */
+    * Insert a new group in the course group table and keep its ID
+    */
 
     $sql = "INSERT INTO `" . $tbl_groups . "`
             SET name = '" . $groupName . "',
@@ -510,7 +512,7 @@ function create_group($prefixGroupName, $maxMember)
     , $createdGroupId
     );
 
-    require_once get_module_path('CLWIKI') . '/lib/lib.createwiki.php';
+    require_once $GLOBALS['includePath'] . '/../wiki/lib/lib.createwiki.php';
     create_wiki( $createdGroupId, $groupName. ' - Wiki' );
 
     return $createdGroupId;
@@ -557,9 +559,9 @@ function get_course_tutor_list($currentCourseId)
 
 function get_group_tool_list($course_id=NULL,$active = true)
 {
-    global $forumId;
-    $_groupProperties = claro_get_current_group_properties_data();
-    $isAllowedToEdit = claro_is_course_manager() || claro_is_platform_admin();
+    global $_groupProperties, $forumId, $is_courseAdmin, $is_platformAdmin;
+
+    $isAllowedToEdit = $is_courseAdmin || $is_platformAdmin;
 
     $tbl = claro_sql_get_main_tbl(array('module','course_tool'));
 
@@ -605,7 +607,7 @@ ORDER BY tl.rank
             case 'CLDOC' :
                 if($_groupProperties['tools']['CLDOC'] || $isAllowedToEdit)
                 {
-                    $tool['url'] .= claro_url_relay_context('?') ;
+
                     $group_tool_list[] = $tool;
                 }
                 break;
@@ -614,7 +616,7 @@ ORDER BY tl.rank
 
                 if($_groupProperties['tools']['CLFRM'] || $isAllowedToEdit)
                 {
-                    $tool['url'] = 'viewforum.php?forum=' . $forumId . claro_url_relay_context('&amp;') ; ;
+                    $tool['url'] = 'viewforum.php?forum=' . $forumId ;
                     $group_tool_list[] = $tool;
                 }
 
@@ -624,7 +626,6 @@ ORDER BY tl.rank
 
                 if($_groupProperties['tools']['CLWIKI'] || $isAllowedToEdit)
                 {
-                    $tool['url'] .= claro_url_relay_context('?') ;
                     $group_tool_list[] = $tool;
                 }
                 break;
@@ -633,7 +634,6 @@ ORDER BY tl.rank
 
                 if($_groupProperties['tools']['CLCHT'] || $isAllowedToEdit)
                 {
-                    $tool['url'] .= claro_url_relay_context('?') ;
                     $group_tool_list[] = $tool;
                 }
                 break;
@@ -645,58 +645,5 @@ ORDER BY tl.rank
     return $group_tool_list;
 }
 
-/**
- * Return list of groupe subscribed by a given user in a given/current course
- *
- * @param integer $user_id
- * @param course_syscode $course
- *
- */
-
-function get_user_group_list($userId,$course=null)
-{
-    $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course));
-    $tbl_group_team          = $tbl_cdb_names['group_team'];
-    $tbl_group_rel_team_user = $tbl_cdb_names['group_rel_team_user'];
-
-    $userGroupList = array();
-
-    $sql = "SELECT `tu`.`team` as `id` , `t`.`name`
-            FROM `" . $tbl_group_rel_team_user . "` as `tu`
-            INNER JOIN `" . $tbl_group_team . "`    as `t`
-              ON `tu`.`team` = `t`.`id`
-            WHERE `tu`.`user` = " . (int) $userId ;
-
-    $groupList = claro_sql_query_fetch_all($sql);
-
-    if( is_array($groupList) )
-    {
-        foreach( $groupList AS $group ) $userGroupList[$group['id']] = $group;
-    }
-
-    return $userGroupList;
-
-}
-
-/**
- * return list of groups id where a given user (userId) is tutor
- *
- * @param integer $uid uid to find groups where he's tutor
- * @return array of integer : group list
- */
-
-function get_tutor_group_list($uid)
-{
-    $tbl_cdb_names     = claro_sql_get_course_tbl();
-    $tbl_student_group = $tbl_cdb_names['group_team'];
-
-    $sql = "SELECT `id` `group_id`
-            FROM `" . $tbl_student_group . "`
-            WHERE tutor = " . (int) $uid ;
-
-    $groupList = claro_sql_query_fetch_all_cols($sql);
-    $groupList = $groupList['group_id'];
-    return $groupList;
-}
 
 ?>

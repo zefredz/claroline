@@ -5,7 +5,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * User lib contains function to manage users on the platform
  * @version 1.8 $Revision$
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package CLUSR
  * @author Claro Team <cvs@claroline.net>
@@ -210,7 +210,7 @@ function user_set_properties($userId, $propertyList)
 
 function user_delete($userId)
 {
-    require_once get_path('incRepositorySys') . '/lib/course_user.lib.php';
+    require_once $GLOBALS['includePath'] . '/lib/course_user.lib.php';
 
     if ( $GLOBALS['_uid'] == $userId ) // user cannot remove himself of the platform
     {
@@ -230,7 +230,6 @@ function user_delete($userId)
 
     $courseList = claro_sql_query_fetch_all_cols($sql);
 
-    $log = array();
     if ( user_remove_from_course($userId, $courseList['code'], true, true, true) == false ) return false;
     else
     {
@@ -344,6 +343,7 @@ function claro_get_uid_of_system_notification_recipient()
             INNER JOIN `" . $tbl['user_property'] . "` AS up
             ON up.userId = u.user_id
             WHERE up.propertyId = 'adminContactForSystemNotification'
+              #AND u.isPlatformAdmin = 1
               AND up.propertyValue = 1
               AND up.scope = 'contacts'
               ";
@@ -456,7 +456,7 @@ function user_send_registration_mail ($userId, $data)
         '%username' => $data['username'],
         '%password' => $data['password'],
         '%siteName'=> get_conf('siteName'),
-        '%rootWeb' => get_path('rootWeb'),
+        '%rootWeb' => get_conf('rootWeb'),
         '%administratorName' => get_conf('administrator_name'),
         '%administratorPhone'=> get_conf('administrator_phone'),
         '%administratorEmail'=> get_conf('administrator_email')
@@ -481,7 +481,7 @@ function user_send_registration_mail ($userId, $data)
 
 function profile_send_request_course_creator_status($explanation)
 {
-    global $_user;
+    global $_uid, $_user, $dateFormatLong;
 
     $mailToUidList = claro_get_uid_of_request_admin();
     if(empty($mailToUidList)) $mailToUidList = claro_get_uid_of_platform_admin();
@@ -494,13 +494,13 @@ function profile_send_request_course_creator_status($explanation)
 
     $requestMessage_Content =
     get_block('blockRequestCourseManagerStatusMail',
-    array( '%time'      => claro_html_localised_date(get_locale('dateFormatLong')),
-    '%user_id'   => claro_get_current_user_id(),
+    array( '%time'      => claro_disp_localised_date($dateFormatLong),
+    '%user_id'   => $_uid,
     '%firstname' => $_user['firstName'],
     '%lastname'  => $_user['lastName'],
     '%email'     => $_user['mail'],
     '%comment'   => $explanation,
-    '%url'       => get_path('rootWeb') . '/claroline/admin/adminprofile.php?uidToEdit=' . claro_get_current_user_id()
+    '%url'       => get_conf('rootWeb') . 'claroline/admin/adminprofile.php?uidToEdit=' . $_uid
     )
     );
 
@@ -520,7 +520,8 @@ function profile_send_request_revoquation($explanation,$login,$password)
 {
     if (empty($explanation)) return claro_failure::set_failure('EXPLANATION_EMPTY');
 
-    $_user = claro_get_current_user_data();
+    $_user = get_init('_user');
+    global $dateFormatLong;
 
     $mailToUidList = claro_get_uid_of_request_admin();
     if(empty($mailToUidList)) $mailToUidList = claro_get_uid_of_platform_admin();
@@ -533,15 +534,15 @@ function profile_send_request_revoquation($explanation,$login,$password)
 
     $requestMessage_Content =
     get_block('blockRequestUserRevoquationMail',
-    array('%time'      => claro_html_localised_date(get_locale('dateFormatLong')),
-    '%user_id'   => claro_get_current_user_id(),
+    array('%time'      => claro_disp_localised_date($dateFormatLong),
+    '%user_id'   => get_init('_uid'),
     '%firstname' => $_user['firstName'],
     '%lastname'  => $_user['lastName'],
     '%email'     => $_user['mail'],
     '%login'     => $login,
     '%password'  => $password,
     '%comment'   => nl2br($explanation),
-    '%url'       => get_path('rootWeb') . '/claroline/admin/adminprofile.php?uidToEdit=' . claro_get_current_user_id()
+    '%url'       => get_conf('rootWeb') . 'claroline/admin/adminprofile.php?uidToEdit=' . get_init('_uid')
     )
     );
 
@@ -684,7 +685,7 @@ function user_validate_form($formMode, $data, $userId = null)
         if ( get_conf('SECURE_PASSWORD_REQUIRED') )
         {
             $validator->addRule('password',
-            get_lang( 'This password is too simple or too close to the username, first name or last name.<br> Use a password like this <code>%passProposed</code>', array('%passProposed'=> generate_passwd() )),
+            get_lang( 'This password is too simple. Use a password like this <code>%passProposed</code>', array('%passProposed'=> generate_passwd() )),
             'is_password_secure_enough',
             array(array( $data['username'] ,
             $data['officialCode'] ,
@@ -694,10 +695,10 @@ function user_validate_form($formMode, $data, $userId = null)
             )
             );
         }
-
+    
         $validator->addRule('password', get_lang('You typed two different passwords'), 'compare', $data['password_conf']);
     }
-
+    
     $validator->addRule('email'  , get_lang('The email address is not valid'), 'email');
 
     if ( 'registration' == $formMode)
@@ -716,7 +717,7 @@ function user_validate_form($formMode, $data, $userId = null)
         {
             $validator->addRule('password'  , get_lang('You left some required fields empty'), 'required');
         }
-
+        
         $validator->addRule('officialCode' , get_lang('This official code is already used by another user.'), 'is_official_code_available', $userId);
         $validator->addRule('username'     , get_lang('This user name is already taken'), 'is_username_available', $userId);
     }
@@ -874,6 +875,8 @@ function user_html_form_admin_user_profile($data)
 
 function user_html_form($data, $form_type='registration')
 {
+    global $imgRepositoryWeb;
+
     if ( $form_type == 'profile' )
     {
         $profile_editable = get_conf('profile_editable');
@@ -884,13 +887,11 @@ function user_html_form($data, $form_type='registration')
     }
 
     // display registration form
-    $html = '<form action="' . $_SERVER['PHP_SELF'] . '" method="post" enctype="multipart/form-data" >' . "\n"
-    .       claro_form_relay_context()
+    $html = '<form action="' . $_SERVER['PHP_SELF'] . '" method="post" enctype="multipart/form-data" >' . "\n";
 
     // hidden fields
-    .       form_input_hidden('cmd', 'registration')
-    .       form_input_hidden('claroFormId', uniqid('') )
-    ;
+    $html .= form_input_hidden('cmd', 'registration')
+    .        form_input_hidden('claroFormId', uniqid('') );
 
     if ( array_key_exists('confirmUserCreate', $data) )
     {
@@ -1012,7 +1013,7 @@ function user_html_form($data, $form_type='registration')
         {
             // password
             $html .= form_row('<label for="password">' . $password_label . '&nbsp;:</label>',
-            '<input type="password" size="40" id="password" name="password"  autocomplete="off" />');
+            '<input type="password" size="40" id="password" name="password" />');
 
             // password confirmation
             $html .= form_row('<label for="password_conf">' . $password_label . '&nbsp;:<br/>'
@@ -1075,12 +1076,12 @@ function user_html_form($data, $form_type='registration')
         $html .= form_row( get_lang('Action') .'&nbsp;: ',
         '<input type="radio" name="isCourseCreator" id="follow"'
         .' value="0" '
-        . (!$data['isCourseCreator']? ' checked="checked"' : '') . ' />'
+        . (!$data['isCourseCreator']? ' checked' : '') . ' />'
         . '<label for="follow">' . get_lang('Follow courses') . '</label>'
         . '<br />'
         . '<input type="radio" name="isCourseCreator" id="create"'
         . ' value="1"   '
-        . ($data['isCourseCreator']? ' checked="checked"'  :'') . ' />'
+        . ($data['isCourseCreator']? ' checked'  :'') . ' />'
         . '<label for="create">' . get_lang('Create course') . '</label>');
     }
 
@@ -1129,7 +1130,7 @@ function user_html_form($data, $form_type='registration')
     {
         $html .= form_row('&nbsp;',
         '<a href="adminusercourses.php?uidToEdit=' . $data['user_id'] . '">'
-        . '<img src="' . get_path('imgRepositoryWeb') . 'course.gif" alt="" />' . get_lang('PersonalCourseList')
+        . '<img src="' . $imgRepositoryWeb . 'course.gif" alt="">' . get_lang('PersonalCourseList')
         . '</a>');
     }
 
@@ -1144,20 +1145,16 @@ function user_html_form($data, $form_type='registration')
                 $html .= form_row( get_lang($label) . '&nbsp:',$userExtraInfoValue);
             }
         }
+        if (0<count($extraInfoDefList))
+        $html .= form_row( '','<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=editExtraInfo"><img src="' . $imgRepositoryWeb . 'edit.gif" border="O" alt="' . get_lang('Modify') . '"></a>' );
 
-        if ( 0 < count($extraInfoDefList))
-        $html .= form_row( ''
-                         , claro_html_cmd_link( $_SERVER['PHP_SELF'] . '?cmd=editExtraInfo'
-                                              . claro_url_relay_context('&amp;')
-                                              , '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="' . get_lang('Modify') . '" />'
-                                              )
-                         );
+
+
     }
 
     $html .= '</table>' . "\n"
     .        '</form>' . "\n"
     ;
-
     return $html;
 }
 
@@ -1272,21 +1269,21 @@ function get_user_property_list($userId, $force = false, $getUndefinedProperties
         $tbl = claro_sql_get_tbl(array('user_property','property_definition'));
         if ($getUndefinedProperties)
         {
-            $sql = "SELECT
-                       propertyId,
+        $sql = "SELECT propertyId,
                    propertyValue,
                    scope
             FROM  `" . $tbl['user_property'] . "`
             WHERE userId = " . (int) $userId . "
             ORDER BY propertyId";
+
         }
         else
         {
         $sql = "SELECT up.propertyId,
                    up.propertyValue,
                    up.scope
-            FROM  `" . $tbl['user_property'] . "` AS up
-            INNER JOIN `" . $tbl['property_definition'] . "` AS pd
+            FROM  `" . $tbl['user_property'] . "` up
+            INNER JOIN `" . $tbl['property_definition'] . "` pd
             ON up.propertyId = pd.propertyId
             WHERE up.userId = " . (int) $userId . "
             ORDER BY pd.rank, up.propertyId";
@@ -1301,7 +1298,7 @@ function get_user_property_list($userId, $force = false, $getUndefinedProperties
 }
 
 /**
- * Return a property of a user.
+ * return a property of a user.
  *
  * @param interger $userId
  * @param string $propertyId

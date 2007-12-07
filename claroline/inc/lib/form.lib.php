@@ -34,19 +34,8 @@ $formSize = 40;
 
 function claro_disp_date_form($dayFieldName, $monthFieldName, $yearFieldName, $unixDate = 0, $formatMonth = 'numeric' )
 {
-    pushClaroMessage( (function_exists('claro_html_debug_backtrace')
-             ? claro_html_debug_backtrace()
-             : 'claro_html_debug_backtrace() not defined'
-             )
-             .'claro_disp_date_form() is deprecated , use claro_html_date_form()','error');
-
-    return claro_html_date_form($dayFieldName, $monthFieldName, $yearFieldName, $unixDate, $formatMonth );
-}
-
-function claro_html_date_form($dayFieldName, $monthFieldName, $yearFieldName, $unixDate = 0, $formatMonth = 'numeric' )
-{
     if( $unixDate == 0) $selectedDate = date('Y-m-d');
-    else                $selectedDate = date('Y-m-d', $unixDate);
+	else				$selectedDate = date('Y-m-d', $unixDate);
 
     // split selectedDate
     list($selYear, $selMonth, $selDay) = split('-', $selectedDate);
@@ -113,21 +102,8 @@ function claro_html_date_form($dayFieldName, $monthFieldName, $yearFieldName, $u
 
 function claro_disp_time_form($hourFieldName, $minuteFieldName, $unixDate = 0)
 {
-
-    pushClaroMessage( (function_exists('claro_html_debug_backtrace')
-             ? claro_html_debug_backtrace()
-             : 'claro_html_debug_backtrace() not defined'
-             )
-             .'claro_disp_time_form() is deprecated , use claro_html_time_form()','error');
-
-
-    return claro_html_time_form($hourFieldName, $minuteFieldName, $unixDate);
-}
-
-function claro_html_time_form($hourFieldName, $minuteFieldName, $unixDate = 0)
-{
     if( $unixDate == 0) $selectedTime = date("H:i");
-    else                $selectedTime = date("H:i",$unixDate);
+    else				$selectedTime = date("H:i",$unixDate);
 
 
     //split selectedTime

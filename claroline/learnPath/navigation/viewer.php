@@ -1,6 +1,6 @@
 <?php // $Id$
 /**
- * CLAROLINE
+ * CLAROLINE 
  *
  * @version version 1.7
  *
@@ -19,7 +19,7 @@
 
 require '../../inc/claro_init_global.inc.php';
 
-if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
+if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 
 // the following constant defines the default display of the learning path browser
 // 0 : display only table of content and content
@@ -31,7 +31,7 @@ if(isset ($_GET['path_id']) && $_GET['path_id'] != '')
 	$_SESSION['path_id'] = $_GET['path_id'];
 
 if(isset ($_GET['viewModule_id']) && $_GET['viewModule_id'] != '')
-	$_SESSION['module_id'] = $_GET['viewModule_id'];
+	$_SESSION['module_id'] = $_GET['viewModule_id'];	
 */
 $nameTools = get_lang('Learning path');
 
@@ -41,14 +41,14 @@ if(!empty($nameTools))
     $titlePage .= $nameTools.' - ';
 }
 
-if(claro_get_current_course_data('officialCode') != '' )
+if(!empty($_course['officialCode']))
 {
-    $titlePage .= claro_get_current_course_data('officialCode') . ' - ';
+    $titlePage .= $_course['officialCode'] . ' - ';
 }
-$titlePage .= get_conf('siteName');
+$titlePage .= $siteName;
 
 // set charset as claro_header should do but we cannot include it here
-header('Content-Type: text/html; charset=' . get_locale('charset'));
+header('Content-Type: text/html; charset=' . $charset);
 ?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN"
    "http://www.w3.org/TR/html4/frameset.dtd">
 <html>
@@ -73,7 +73,7 @@ if( $displayFrames )
 ?>
     <frameset border="0" rows="150,*,70" frameborder="no">
         <frame src="topModule.php" name="headerFrame" />
-        <frame src="startModule.php" name="mainFrame" />
+        <frame src="startModule.php" name="mainFrame" />         
         <frame src="bottomModule.php" name="bottomFrame" />
     </frameset>
 <?php
@@ -82,7 +82,7 @@ else
 {
 ?>
     <frameset cols="*" border="0">
-        <frame src="startModule.php" name="mainFrame" />
+        <frame src="startModule.php" name="mainFrame" />    
     </frameset>
 <?php
 }

@@ -7,7 +7,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * This module displays a cross course digest for the current authenticated user
  *
  * @version 1.8 $Revision$
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  * @license (GPL) GENERAL PUBLIC LICENSE - http://www.gnu.org/copyleft/gpl.html
  * @package CLCALDIGEST
  *
@@ -15,22 +15,21 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @change this in a applet.
  *
  */
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
+if ( ! isset($_uid) ) claro_disp_auth_form();
 
-include_once get_path('incRepositorySys') . '/lib/pear/Lite.php';
-include_once claro_get_conf_repository() . 'CLKCACHE.conf.php';
+include_once $GLOBALS['includePath'] . '/lib/pear/Lite.php';
 
 // Cache_lite setting & init
 $cache_options = array(
-'cacheDir' => get_path('rootSys') . 'tmp/cache/CLCALdigest/',
-'lifeTime' => get_conf('cache_lifeTime', 10),
-'automaticCleaningFactor' =>get_conf('cache_automaticCleaningFactor', 50),
+'cacheDir' => get_conf('rootSys') . 'tmp/cache/CLCALdigest/',
+'lifeTime' => get_conf('cache_lifeTime', 600),
+'automaticCleaningFactor' => 50,
 );
 if (get_conf('CLARO_DEBUG_MODE',false) ) $cache_options['pearErrorMode'] = CACHE_LITE_ERROR_DIE;
 if (get_conf('CLARO_DEBUG_MODE',false) ) $cache_options['lifeTime'] = 120;
 if (! file_exists($cache_options['cacheDir']) )
 {
-    include_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
+    include_once $GLOBALS['includePath'] . '/lib/fileManage.lib.php';
     claro_mkdir($cache_options['cacheDir'],CLARO_FILE_PERMISSIONS,true);
 }
 $Cache_LiteCLCALDIGEST = new Cache_Lite($cache_options);
@@ -41,9 +40,9 @@ $courseDigestList = array('courseSysCode'      => array(),
                           'date'               => array(),
                           'content'            => array());
 
-if (false === $htmlCLCALDIGEST = $Cache_LiteCLCALDIGEST->get('CALDIGEST' . claro_get_current_user_id()))
+if (false === $htmlCLCALDIGEST = $Cache_LiteCLCALDIGEST->get('CALDIGEST'.$_uid))
 {
-    $personnalCourseList = get_user_course_list(claro_get_current_user_id());
+    $personnalCourseList = get_user_course_list($_uid);
 
     foreach($personnalCourseList as $thisCourse)
     {
@@ -126,14 +125,14 @@ if (false === $htmlCLCALDIGEST = $Cache_LiteCLCALDIGEST->get('CALDIGEST' . claro
         {
             case 'CLANN':
                 $itemIcon = 'announcement.gif';
-                $url = get_module_url('CLANN') . '/announcements.php?cidReq='
+                $url = 'claroline/announcements/announcements.php?cidReq='
                 . $courseDigestList['courseSysCode'][$i];
                 $name = get_lang('Latest announcements');
                 break;
 
             case 'CLCAL':
                 $itemIcon = 'agenda.gif';
-                $url = get_module_url('CLCAL') . '/agenda.php?cidReq='
+                $url = 'claroline/calendar/agenda.php?cidReq='
                 . $courseDigestList['courseSysCode'][$i];
                 $name = get_lang('Agenda next events');
                 break;
@@ -152,10 +151,10 @@ if (false === $htmlCLCALDIGEST = $Cache_LiteCLCALDIGEST->get('CALDIGEST' . claro
         $htmlCLCALDIGEST .= '<p>' . "\n"
         .    '<small>'
         .    '<a href="' . $url . '">'
-        .    '<img src="' . get_path('imgRepositoryWeb') . $itemIcon . '" alt="" />'
+        .    '<img src="' . $imgRepositoryWeb . $itemIcon . '" alt="" />'
         .    '</a>' . "\n"
 
-        .    claro_html_localised_date( get_locale('dateFormatLong'),
+        .    claro_disp_localised_date( $dateFormatLong,
         strtotime($courseDigestList['date'][$i]) )
         .    '<br />' . "\n"
         .    '<a href="' . $url . '">'
@@ -169,7 +168,7 @@ if (false === $htmlCLCALDIGEST = $Cache_LiteCLCALDIGEST->get('CALDIGEST' . claro
         ;
     } // end for( $i=0, ... $i < $itemCount; $i++)
 
-    $Cache_LiteCLCALDIGEST->save($htmlCLCALDIGEST,'CALDIGEST'.claro_get_current_user_id());
+    $Cache_LiteCLCALDIGEST->save($htmlCLCALDIGEST,'CALDIGEST'.$_uid);
 }
 
 unset ($Cache_LiteCLCALDIGEST);

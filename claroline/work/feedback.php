@@ -4,7 +4,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -20,13 +20,13 @@ $tlabelReq = 'CLWRK';
 
 require '../inc/claro_init_global.inc.php';
 
-if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
+if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 
 require_once './lib/assignment.class.php';
 
-include_once get_path('incRepositorySys') . '/lib/fileUpload.lib.php';
-include_once get_path('incRepositorySys') . '/lib/fileDisplay.lib.php'; // need format_url function
-include_once get_path('incRepositorySys') . '/lib/fileManage.lib.php'; // need claro_delete_file
+include_once $includePath . '/lib/fileUpload.lib.php';
+include_once $includePath . '/lib/fileDisplay.lib.php'; // need format_url function
+include_once $includePath . '/lib/fileManage.lib.php'; // need claro_delete_file
 
 /*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 BASIC VARIABLES DEFINITION
@@ -38,7 +38,7 @@ $fileAllowedSize = get_conf('max_file_size_per_works') ;    //file size in bytes
 $allowedTags = '<img>';
 
 // initialise dialog box to an empty string, all dialog will be concat to it
-$dialogBox = new DialogBox();
+$dialogBox = '';
 
 // permission
 $is_allowedToEdit = claro_is_allowed_to_edit();
@@ -99,7 +99,7 @@ if( $is_allowedToEdit && $isFeedbackSubmitted && $assignmentId  )
     {
         if ($_FILES['autoFeedbackFilename']['size'] > $fileAllowedSize)
         {
-            $dialogBox->error( get_lang('You didnt choose any file to send, or file is too big') );
+            $dialogBox .= get_lang('You didnt choose any file to send, or it is too big') . '<br />';
             $formCorrectlySent = false;
             $autoFeedbackFilename = $assignment->getAutoFeedbackFilename();
         }
@@ -129,7 +129,7 @@ if( $is_allowedToEdit && $isFeedbackSubmitted && $assignmentId  )
             }
             else
             {
-                $dialogBox->error( get_lang('Cannot copy the file') );
+                $dialogBox .= get_lang('Cannot copy the file') . '<br />';
                 $formCorrectlySent = false;
             }
 
@@ -182,13 +182,15 @@ if($is_allowedToEdit)
         // form data have been handled before this point if the form was sent
         if( $formCorrectlySent && $assignment->save() )
         {
-            $dialogBox->success( get_lang('Feedback edited') );
-            $dialogBox->info('<a href="./workList.php?assigId=' . $assignmentId . '">' . get_lang('Continue') . '</a>' );
+            $dialogBox .= get_lang('Feedback edited') . '<br /><br />';
+            $dialogBox .= '<a href="./workList.php?assigId=' . $_REQUEST['assigId'] . '">';
+            $dialogBox .= get_lang('Continue');
+            $dialogBox .= '</a>';
 
             $displayFeedbackForm = false;
 
             //report event to eventmanager "feedback_posted"
-            $eventNotifier->notifyCourseEvent("work_feedback_posted",claro_get_current_course_id(), claro_get_current_tool_id(), $assignmentId, '0', '0');
+            $eventNotifier->notifyCourseEvent("work_feedback_posted",$_cid, $_tid, $_REQUEST['assigId'], '0', '0');
         }
         else
         {
@@ -202,7 +204,7 @@ if($is_allowedToEdit)
     // edit assignment / display the form
     if( $cmd == 'rqEditFeedback' )
     {
-        include(get_path('incRepositorySys') . '/lib/form.lib.php');
+        include($includePath . '/lib/form.lib.php');
 
         // check if it was already sent
         if( !$isFeedbackSubmitted )
@@ -211,17 +213,17 @@ if($is_allowedToEdit)
             $form['autoFeedbackText'] 			= $assignment->getAutoFeedbackText();
             $form['autoFeedbackFilename'] 		= $assignment->getAutoFeedbackFilename();
             $form['autoFeedbackSubmitMethod'] 	= $assignment->getAutoFeedbackSubmitMethod();
+
+            // end date (as a reminder for the "after end date" option
+        	$form['unix_end_date']				= $assignment->getEndDate();
         }
         else
         {
             // there was an error in the form
             $form['autoFeedbackText'] 			= $_REQUEST['autoFeedbackText'];
-        	$form['autoFeedbackFilename'] 		= (!empty($_REQUEST['autoFeedbackFilename'])?$_REQUEST['autoFeedbackFilename']:'');
+        	$form['autoFeedbackFilename'] 		= $_REQUEST['autoFeedbackFilename'];
             $form['autoFeedbackSubmitMethod'] 	= $_REQUEST['autoFeedbackSubmitMethod'];
         }
-
-        // end date (as a reminder for the "after end date" option
-		$form['unix_end_date']				= $assignment->getEndDate();
 
         // ask the display of the form
         if($form['autoFeedbackSubmitMethod'] == 'ENDDATE')
@@ -250,15 +252,14 @@ if($is_allowedToEdit)
 
 // bredcrump to return to the list when in a form
 $interbredcrump[]= array ('url' => './work.php', 'name' => get_lang('Assignments'));
-$interbredcrump[]= array ('url' => './workList.php?assigId=' . $assignmentId, 'name' => get_lang('Assignment'));
+$interbredcrump[]= array ('url' => './workList.php?assigId=' . $_REQUEST['assigId'], 'name' => get_lang('Assignment'));
 $nameTools = get_lang('Feedback');
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include $includePath . '/claro_init_header.inc.php';
 
 echo claro_html_tool_title($nameTools);
 
-echo $dialogBox->render();
-
+if ($dialogBox) echo claro_html_message_box($dialogBox);
 /**
  * FEEDBACK FORM
  */
@@ -268,9 +269,9 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
     .    '<input type="hidden" name="cmd" value="exEditFeedback" />' . "\n"
     ;
 
-    if( isset($assignmentId) )
+    if( isset($_REQUEST['assigId']) )
     {
-        echo '<input type="hidden" name="assigId" value="' . $assignmentId . '" />' . "\n";
+        echo '<input type="hidden" name="assigId" value="' . $_REQUEST['assigId'] . '" />' . "\n";
     }
     echo '<table cellpadding="5" width="100%">' . "\n\n"
     .    '<tr>' . "\n"
@@ -294,7 +295,7 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
     .    '</tr>' . "\n\n"
     ;
 
-    if( !empty($form['autoFeedbackFilename']) )
+    if( isset($form['autoFeedbackFilename']) && $form['autoFeedbackFilename'] != '' )
     {
     	$target = ( get_conf('open_submitted_file_in_new_window') ? 'target="_blank"' : '');
         $completeFileUrl = $assignment->getAssigDirWeb() . $form['autoFeedbackFilename'];
@@ -340,11 +341,11 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
     .    '<label for="prefillSubmitEndDate">' . "\n"
     .    '&nbsp;' . "\n"
     .    get_lang('Automatically, after end date')
-    .    ' (' . claro_html_localised_date(get_locale('dateTimeFormatLong'), $form['unix_end_date']) . ')' . "\n"
+    .    ' (' . claro_disp_localised_date($dateTimeFormatLong, $form['unix_end_date']) . ')' . "\n"
     .    '</label>' . "\n"
     .    '<br />' . "\n"
     .    '<input type="radio" name="autoFeedbackSubmitMethod" id="prefillSubmitAfterPost" value="AFTERPOST" '
-    .    $prefillSubmitAfterPostCheckStatus . ' />' . "\n"
+    .    $prefillSubmitAfterPostCheckStatus . '>' . "\n"
     .    '<label for="prefillSubmitAfterPost">&nbsp;' . "\n"
     .    get_lang('Automatically, after each submission') . "\n"
     .    '</label>' . "\n"
@@ -354,8 +355,8 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
     .    '<tr>' . "\n"
     .    '<td>&nbsp;</td>' . "\n"
     .    '<td>' . "\n"
-    .    '<input type="submit" name="submitFeedback" value="' . get_lang('Ok') . '" />&nbsp;' . "\n"
-    .    claro_html_button('./workList.php?assigId=' . $assignmentId, get_lang('Cancel')) . "\n"
+    .    '<input type="submit" name="submitFeedback" value="' . get_lang('Ok') . '">&nbsp;' . "\n"
+    .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n\n"
     .    '</table>' . "\n"
@@ -365,5 +366,5 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
 }
 
 // FOOTER
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 ?>

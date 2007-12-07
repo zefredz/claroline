@@ -1,55 +1,111 @@
 <?php // $Id$
+if ( count( get_included_files() ) == 1 ) die( '---' );
 
-    /**
-     * CLAROLINE
-     *
-     * @version 1.9 $Revision$
-     *
-     * @copyright 2001-2007 Universite catholique de Louvain (UCL)
-     *
-     * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
-     *
-     * @package CLKERNEL
-     *
-     * @author Claro Team <cvs@claroline.net>
-     *
-     */
- 
-    if ( count( get_included_files() ) == 1 )
+if (!isset($hide_body) || $hide_body == false)
+{
+    echo "\n" . '</div>' . "\n"
+    .    '<!-- - - - - - - - - - -   End of Claroline Body   - - - - - - - - - - -->' . "\n\n\n"
+   ;
+}
+
+//echo "<pre>".var_export($_courseToolList,1)."</pre>";
+
+// depends on claro_brailleViewMode (in config)
+if ( isset($claro_banner) )
+{
+    echo $claro_banner;
+}
+
+// don't display the footer text if requested, only display minimal html closing tags
+if (!isset($hide_footer) || $hide_footer == false)
+{
+
+    echo '<div id="campusFooter">' . "\n"
+    .    '<hr />'
+    ;
+
+// FOOTER LEFT DOCK declaration
+
+$footerLeftDock = new Dock('campusFooterLeft');
+
+if ( isset($_cid) )
+{
+
+    $courseManagerOutput = '<div id="courseManager">' . "\n"
+                         . get_lang('Manager(s) for %course_code', array('%course_code' => $_course['officialCode']) ) . ' : ' ;
+
+    if ( empty($_course['email']) )
     {
-        die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+        $courseManagerOutput .= '<a href="' . $clarolineRepositoryWeb . 'user/user.php">'. $_course['titular'].'</a>';
+    }
+    else
+    {
+        $courseManagerOutput .= '<a href="mailto:' . $_course['email'] . '?body=' . $_course['officialCode'] . '&amp;subject=[' . rawurlencode( get_conf('siteName')) . ']' . '">' . $_course['titular'] . '</a>';
     }
 
-    // this file can be called from within a function so we need to add the
-    // folowwing line !!!
-    $claroline = Claroline::getInstance();
+    $courseManagerOutput .= '</div>';
+    $footerLeftDock->addOutput($courseManagerOutput,true);
+}
 
-    if (!isset($hide_body) || $hide_body == false)
+echo $footerLeftDock->render();
+
+// FOOTER RIGHT DOCK declaration
+
+$footerRightDock = new Dock('campusFooterRight');
+
+$platformManagerOutput = '<div id="platformManager">'
+                       . get_lang('Administrator for %site_name', array('%site_name'=>get_conf('siteName'))). ' : '
+                       . '<a href="mailto:' . get_conf('administrator_email')
+                       . '?subject=[' . rawurlencode( get_conf('siteName') ) . ']'.'">'
+                       . get_conf('administrator_name')
+                       . '</a>';
+
+if ( get_conf('administrator_phone') != '' )
+{
+    $platformManagerOutput .= '<br />' . "\n" . get_lang('Phone : %phone_number', array('%phone_number' => get_conf('administrator_phone'))) ;
+}
+
+$platformManagerOutput .= '</div>' ;
+
+$footerRightDock->addOutput($platformManagerOutput,true);
+
+echo $footerRightDock->render();
+
+// FOOTER CENTER DOCK declaration
+
+$footerCenterDock = new Dock('campusFooterCenter');
+
+$poweredByOutput = '<div id="poweredBy">'
+                 . get_lang('Powered by')
+                 . ' <a href="http://www.claroline.net" target="_blank">Claroline</a> '
+                 . '&copy; 2001 - 2006'
+                 . '</div>';
+
+$footerCenterDock->addOutput($poweredByOutput,true);
+
+echo $footerCenterDock->render();
+
+} // if (!isset($hide_footer) || $hide_footer == false)
+
+echo '</div>';
+
+if (CLARO_DEBUG_MODE)
+{
+    $claroMsgList = getClaroMessageList();
+
+    if ( count($claroMsgList) > 0)
     {
-        echo "\n" . '</div>' . "\n"
-            . '<!-- - - - - - - - - - -   End of Claroline Body   - - - - - - - - - - -->' . "\n\n\n"
-            ;
+        echo claro_html_tool_title('Debug info');
+        $dbgContent = claro_html_msg_list($claroMsgList);
+
+        require_once dirname( __FILE__ ) . '/lib/backlog.class.php';
+
+        echo Backlog_Reporter::report( '', $dbgContent, get_lang('expand'), true );
     }
+}
 
-    if ( get_conf('claro_brailleViewMode',false))
-    {
-        echo $claroline->display->banner->render();
-    }
+echo '</body>'
+.    '</html>'
+;
 
-    // don't display the footer text if requested, only display minimal html closing tags
-    if ( isset($hide_footer) && $hide_footer )
-    {
-        $claroline->display->footer->hide();
-    } // if (!isset($hide_footer) || $hide_footer == false)
-    
-    echo $claroline->display->footer->render();
-
-    if (claro_debug_mode())
-    {
-        echo  claro_disp_debug_banner() .  "\n" ;
-    }
-
-    echo '</body>' . "\n"
-        . '</html>' . "\n"
-        ;
 ?>

@@ -2,7 +2,7 @@
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.8 $Revision$ 
  * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
@@ -13,11 +13,11 @@
  * @author Sébastien Piraux <piraux@claroline.net>
  *
  */
-
+ 
 require '../inc/claro_init_global.inc.php';
 
 // check if no anonymous
-if ( ! claro_is_in_a_course() || ! claro_is_user_authenticated() ) claro_disp_auth_form(true);
+if ( !$_cid || !$_uid ) claro_disp_auth_form(true);
 
 // answer types
 define('UNIQUE_ANSWER',  1);
@@ -26,11 +26,11 @@ define('FILL_IN_BLANKS', 3);
 define('MATCHING',     4);
 define('TRUEFALSE',     5);
 
-if( isset($_REQUEST['exId']) && is_numeric($_REQUEST['exId']) )
-{
+if( isset($_REQUEST['exId']) && is_numeric($_REQUEST['exId']) ) 
+{	
 	$exId = (int) $_REQUEST['exId'];
 }
-else
+else															
 {
 	header("Location: ../exercise/exercise.php");
     exit();
@@ -60,8 +60,8 @@ $tbl_track_e_exercises     = $tbl_cdb_names['track_e_exercices'];
 $tbl_track_e_exe_details = $tbl_cdb_names['track_e_exe_details'];
 $tbl_track_e_exe_answers = $tbl_cdb_names['track_e_exe_answers'];
 
-$is_allowedToTrack = claro_is_course_manager();
-
+$is_allowedToTrack = $is_courseAdmin;
+ 
 // bredcrump
 if( isset($_REQUEST['src']) && $_REQUEST['src'] == 'ex' )
 {
@@ -85,7 +85,7 @@ if( empty($_REQUEST['question_id']) )
     $sql = "SELECT `questionId`
             FROM `".$tbl_qwz_rel_exercise_question."`
             WHERE `exerciseId` = ".(int) $exId;
-
+            
     $questionList = claro_sql_query_fetch_all($sql);
     // store all question_id for the selected exercise in a tab
     foreach ( $questionList as $question )
@@ -100,7 +100,7 @@ else
 }
 
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include($includePath."/claro_init_header.inc.php");
 // display title
 $titleTab['mainTitle'] = $nameTools;
 echo claro_html_tool_title($titleTab);
@@ -113,19 +113,19 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
 {
 	echo "\n"
 	.	 '<table width="100%" border="0" cellpadding="1" cellspacing="0" class="claroTable">' . "\n";
-
+		
 	if( count($questionIdsToShow) > 1 )
-	{
-		$questionIterator = 1;
+	{		
+		$questionIterator = 1;	
 	}
-
+	
     foreach( $questionIdsToShow as $questionId )
     {
         // get infos about the question
         $question = new Question();
-
-        if( !$question->load($questionId) ) break;
-
+        
+        if( !$question->load($questionId) ) break; 
+        
         // prepare list to display
         if( $question->getType() == 'MCUA'
             || $question->getType() == 'MCMA' )
@@ -150,20 +150,20 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
             {
                 $results[$i] = $answer;
                 $results[$i]['nbr'] = 0;
-
+                
                 foreach( $trackedAnswers as $trackedAnswer )
                 {
-
+                    
                     if( $results[$i]['answer'] == $trackedAnswer['answer'] )
                     {
                         $results[$i]['nbr'] = $trackedAnswer['nbr'];
                         $multipleChoiceTotal += $trackedAnswer['nbr'];
                         break;
-                    }
+                    }                    
                 }
                 $i++;
             }
-
+            
             $displayedStatement = $question->getDescription();
         }
         elseif( $question->getType() == 'TF' )
@@ -202,7 +202,7 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
             // we take id to have a unique key for answer, answer with same id are
             // from the same attempt
             $sql = "SELECT `TED`.`id`,`TEA`.`answer`
-                    FROM (
+                    FROM ( 
                         `".$tbl_qwz_rel_exercise_question."` AS `RTQ`,
                         `".$tbl_qwz_answer_fib."` AS `A`,
                         `".$tbl_track_e_exercises."` AS `TE`,
@@ -221,13 +221,13 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
                     ORDER BY `TED`.`id` ASC, `TEA`.`id` ASC";
 
             $answers_details = claro_sql_query_fetch_all($sql);
-
+			
 			$answerText = $question->answer->answerText;
 			$answerList = $question->answer->answerList;
-
+			
 			$nbrBlanks = count($answerList);
-
-
+			
+			
             $fillInBlanksTotal = array();
             $results = array();
 			// in $answers_details we have the list of answers given, each line is one blank filling
@@ -268,20 +268,20 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
 
             $nbrColumn = 0; // at least one column for headers
             $nbrRow = 0; // at least one row for headers
-
+            
             foreach( $rightList as $rightElt )
             {
             	$nbrColumn++;
-
+            	
                 // right column , will be displayed in top headers
                 $columnTitlePosition[$rightElt['code']] = $nbrColumn;// to know in which column is which id
                 $results[0][$nbrColumn] = $rightElt['answer'];
 			}
-
+			
 			foreach( $leftList as $leftElt )
 			{
 				$nbrRow++;
-
+				
                 // left column , will be displayed in left headers
                 $rowTitlePosition[$leftElt['code']] = $nbrRow; // to know in which row is which id
                 $results[$nbrRow][0] = $leftElt['answer'];
@@ -311,12 +311,12 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
                 if( !is_null($trackedAnswer['answer']) )
                 {
                     list($leftProposal, $rightProposal) = explode(' -> ',$trackedAnswer['answer']);
-
+                    
                     // find right code
                     $rightCode = '';
                     if( isset($rightProposal) )
                     {
-                        foreach( $rightList as $rightElt )
+                        foreach( $rightList as $rightElt ) 
                         {
                             if( $rightElt['answer'] == $rightProposal )
                             {
@@ -325,12 +325,12 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
                             }
                         }
                     }
-
+                    
                     // find left code
                     $leftCode = '';
                     if( isset($leftProposal) )
                     {
-                        foreach( $leftList as $leftElt )
+                        foreach( $leftList as $leftElt ) 
                         {
                             if( $leftElt['answer'] == $leftProposal )
                             {
@@ -339,7 +339,7 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
                             }
                         }
                     }
-
+                    
                     if( !empty($rightCode) && !empty($leftCode) )
                     {
 						if( isset($rowTitlePosition[$leftCode]) && isset($columnTitlePosition[$rightCode]) )
@@ -354,7 +354,7 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
 
         //-- DISPLAY (common)
 		//-- display a resume of the selected question
-
+		
         // several questions have to be shown on the page
 		if( isset($questionIterator) )
 		{
@@ -365,10 +365,10 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
 			.	 '</tr>' . "\n\n"
 			.	 '<tr>'
 			.	 '<td>' . "\n";
-
+			
 			$questionIterator++;
 		}
-
+		
         echo '<p><strong>'.$question->getTitle().'</strong></p>'."\n"
         .	 '<blockquote>'.$displayedStatement.'</blockquote>'."\n\n"
         .	 '<center>';
@@ -392,38 +392,30 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
                 echo      '<tr>'."\n"
                         .'<td align="center">';
                 // expected choice image
-                echo '<img src="' . get_path('imgRepositoryWeb');
+                echo '<img src="'.$imgRepositoryWeb;
                 // choose image to display
                 if ($question->getType() != 'MCMA') echo 'radio';
                 else                                echo 'checkbox';
-
+                
                 if( $result['correct'] )    echo '_on';
                 else                        echo '_off';
-
+                
                 echo '.gif" alt="';
-
+                
                 if( $result['correct'] )    echo '(X)';
                 else                        echo '( )';
-
-                echo '" />';
+                
+                echo '"/>';
 
                 // compute pourcentage
                 if( $result['nbr'] == 0 )	$pourcent = 0;
                 else                        $pourcent = round(100 * $result['nbr'] / $multipleChoiceTotal);
 
-                echo '</td>' . "\n"
-                .    '<td>'
-                .    $result['answer']
-                .    '</td>' . "\n"
-                .    '<td align="right">'
-                .    claro_html_progress_bar($pourcent,1)
-                .    '</td>' . "\n"
-                .    '<td align="left"><small>'
-                .    $result['nbr'] . '&nbsp;(&nbsp;' . $pourcent . '%&nbsp;)'
-                .    '</small>'
-                .    '</td>' . "\n"
-                .    '</tr>' . "\n"
-                ;
+                echo '</td>'."\n"
+                          .'<td>'.$result['answer'].'</td>'."\n"
+                          .'<td align="right">'.claro_html_progress_bar($pourcent,1).'</td>'."\n"
+                        .'<td align="left"><small>'.$result['nbr'].'&nbsp;(&nbsp;'.$pourcent.'%&nbsp;)</small></td>'."\n"
+                        .'</tr>'."\n";
             }
 
             // foot of table
@@ -433,21 +425,16 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
         elseif( $question->getType() == 'TF' )
         {
             // display tab header
-            echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
-            .    '<tr class="headerX" align="center" valign="top">' . "\n"
-            .    '<th>'
-            .    get_lang('Expected choice')
-            .    '</th>'."\n"
-            .    '<th width="60%">'
-            .    get_lang('Answer')
-            .    '</th>'."\n"
-            .    '<th colspan="2">#</th>' . "\n"
-            .    '</tr>'."\n"
-            .    '<tbody>' . "\n\n"
-            ;
+            echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'."\n"
+                .'<tr class="headerX" align="center" valign="top">'."\n"
+                .'<th>'.get_lang('Expected choice').'</th>'."\n"
+                .'<th width="60%">'.get_lang('Answer').'</th>'."\n"
+                .'<th colspan="2">#</th>'."\n"
+                  .'</tr>'."\n"
+                  .'<tbody>'."\n\n";
 
 			$truePourcent = 0; $trueSelected = 0;
-			$falsePourcent = 0; $falseSelected = 0;
+			$falsePourcent = 0; $falseSelected = 0; 
             foreach( $results as $result )
             {
             	if( $result['answer'] == 'TRUE' )
@@ -465,57 +452,50 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
             	}
             	// else ignore
             }
-
+            
             // TRUE
-            echo '<tr>'."\n"
-            .    '<td align="center">'
+            echo      '<tr>'."\n"
+                    .'<td align="center">';
             // expected choice image
-            .    '<img src="' . get_path('imgRepositoryWeb')
-            ;
+            echo '<img src="'.$imgRepositoryWeb;
             // choose image to display
-
+            
             if( $question->answer->correctAnswer == 'TRUE' )    echo 'radio_on.gif" alt="(X)"';
             else												echo 'radio_off.gif" alt="( )"';
-
+            
             echo ' />';
 
-
+            
 
             echo '</td>'."\n"
-            .    '<td>'.get_lang('True').'</td>'."\n"
-            .    '<td align="right">'.claro_html_progress_bar($truePourcent,1).'</td>'."\n"
-            .    '<td align="left"><small>'.$trueSelected.'&nbsp;(&nbsp;'.$truePourcent.'%&nbsp;)</small></td>'."\n"
-            .    '</tr>' . "\n"
-
-
+                      .'<td>'.get_lang('True').'</td>'."\n"
+                      .'<td align="right">'.claro_html_progress_bar($truePourcent,1).'</td>'."\n"
+                    .'<td align="left"><small>'.$trueSelected.'&nbsp;(&nbsp;'.$truePourcent.'%&nbsp;)</small></td>'."\n"
+                    .'</tr>'."\n";
+            
             // FALSE
-            .    '<tr>' . "\n"
-            .    '<td align="center">'
-
+            echo      '<tr>'."\n"
+                    .'<td align="center">';
             // expected choice image
-            .    '<img src="' . get_path('imgRepositoryWeb')
-            ;
+            echo '<img src="'.$imgRepositoryWeb;
             // choose image to display
-
+            
             if( $question->answer->correctAnswer == 'FALSE' )    echo 'radio_on.gif" alt="(X)"';
             else												echo 'radio_off.gif" alt="( )"';
-
+            
             echo ' />';
 
-
+            
 
             echo '</td>'."\n"
-            .    '<td>'.get_lang('False').'</td>'."\n"
-            .    '<td align="right">'.claro_html_progress_bar($falsePourcent,1).'</td>'."\n"
-            .    '<td align="left"><small>'.$falseSelected.'&nbsp;(&nbsp;'.$falsePourcent.'%&nbsp;)</small></td>'."\n"
-            .    '</tr>'."\n"
-
-
-
+                      .'<td>'.get_lang('False').'</td>'."\n"
+                      .'<td align="right">'.claro_html_progress_bar($falsePourcent,1).'</td>'."\n"
+                    .'<td align="left"><small>'.$falseSelected.'&nbsp;(&nbsp;'.$falsePourcent.'%&nbsp;)</small></td>'."\n"
+                    .'</tr>'."\n";
+            
+                    
             // foot of table
-            .    '</tbody>' . "\n"
-            .    '</table>' . "\n\n"
-            ;
+            echo '</tbody>'."\n".'</table>'."\n\n";
 
         }
         elseif( $question->getType() == 'FIB' )
@@ -599,8 +579,8 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
             echo '</table>'."\n\n";
         }
         echo '</center>'."\n".'<br /><br />'."\n";
-
-        // several questions have to be shown on the page
+        
+        // several questions have to be shown on the page 
         if( isset($questionIterator) )
 		{
 			echo '</td>' . "\n"
@@ -609,7 +589,7 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
     } // end of foreach( $questionIdsToShow as $questionId )
 
 	echo '</table>' . "\n";
-
+	
     echo $backLink;
 }
 // not allowed
@@ -625,5 +605,5 @@ else
     }
 }
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include($includePath . '/claro_init_footer.inc.php');
 ?>
