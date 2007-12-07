@@ -24,7 +24,7 @@ you need the following on your machine :
 1. One of the following Operating systems :
 
         Linux / BSD / Unix (*)
-        Windows (9x, Me, NT4, 2000, XP)
+        Windows (9x, Me, NT4, 2000, XP, Vista)
         MacOs X.
 
   (*) We thoroughly test Claroline on Debian, Ubuntu and Mandrake distributions,
