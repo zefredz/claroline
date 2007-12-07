@@ -54,8 +54,8 @@ function claro_disp_tree($elem,$father,$space)
                         echo '<a href="' . $_SERVER['PHP_SELF']
                         .    '?id=' . $one_faculty['id'] . '"> '
                         .    ( $one_faculty['visible']
-                             ?    '<img src="' . get_path('imgRepositoryWeb') . 'minus.gif" border="0" alt="-"  />'
-                             :    '<img src="' . get_path('imgRepositoryWeb') . 'plus.gif" border="0" alt="+"  />'
+                             ?    '<img src="' . get_path('imgRepositoryWeb') . 'minus.gif" border="0" alt="-" >'
+                             :    '<img src="' . get_path('imgRepositoryWeb') . 'plus.gif" border="0" alt="+" >'
                              )
                         .    '</a> '
                         .    '&nbsp;'
@@ -78,10 +78,10 @@ function claro_disp_tree($elem,$father,$space)
                     //Display the picture to edit and delete a category
                     echo '</td>'
                     .    '<td  align="center">'
-                    .    '<a href="./admincourses.php?category=' . urlencode($one_faculty['code']) . '">'
+                    .    '<a href="./admincourses.php?category=' . $one_faculty['code'] . '">'
                     .    get_node_children_count_course( $one_faculty['code'] )
                     .    '</a>' ;
-
+                    
                     echo '</td>'
                         . '<td  align="center">'
                         . '<a href="' . $_SERVER['PHP_SELF'] . '?id=' . $one_faculty['id'] . '&amp;cmd=rqEdit" >'
@@ -89,13 +89,13 @@ function claro_disp_tree($elem,$father,$space)
                         . '</td>'
                     . '<td align="center">'
                     . '<a href="' . $_SERVER['PHP_SELF'] . '?id='.$one_faculty['id'].'&amp;cmd=rqMove" >'
-                    . '<img src="' . get_path('imgRepositoryWeb') . 'move.gif" border="0" alt="' . get_lang('Move') . '"  /></a>'
+                    . '<img src="' . get_path('imgRepositoryWeb') . 'move.gif" border="0" alt="' . get_lang('Move') . '" ></a>'
                     . '</td>'
                     . '<td align="center">'
                     . '<a href="' . $_SERVER['PHP_SELF'] . '?id='.$one_faculty['id'].'&amp;cmd=exDelete"'
                     . 'onclick="javascript:if(!confirm(\''
                     . clean_str_for_javascript(get_lang('Do you really want to delete the category ').' '.$one_faculty['code'].' ?') . '\')) return false" >'
-                    . '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" /> </a>'
+                    . '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="' . get_lang('Delete') . '"> </a>'
                     . '</td>';
 
                     //Search nbChild of the father
@@ -115,28 +115,28 @@ function claro_disp_tree($elem,$father,$space)
                         if ($num>1)
                         {
                             echo '<a href="' . $_SERVER['PHP_SELF'] . '?id='.$one_faculty['id'].'&amp;cmd=exUp">'
-                            . '<img src="' . get_path('imgRepositoryWeb') . 'up.gif" border="0" alt="' . get_lang('Up') .'" /></a>';
+                            . '<img src="' . get_path('imgRepositoryWeb') . 'up.gif" border="0" alt="' . get_lang('Up') .'"></a>';
                         }
                         else
                         {
                             echo '&nbsp;';
                         }
-
+                        
                         echo '</td>' . "\n" ;
-
+                        
                         echo '<td align="center">' . "\n" ;
 
                         // If isn't the last child, you can down
                         if ($num<$nbChild)
                         {
                             echo '<a href="' . $_SERVER['PHP_SELF'] . '?id=' . $one_faculty['id'] . '&amp;cmd=exDown">'
-                            . '<img src="' . get_path('imgRepositoryWeb') . 'down.gif" border="0" alt="' . get_lang('Move down') . '"  /> </a>';
+                            . '<img src="' . get_path('imgRepositoryWeb') . 'down.gif" border="0" alt="' . get_lang('Move down') . '" > </a>';
                         }
                         else
                         {
                             echo '&nbsp;';
                         }
-
+                        
                         echo '</td>' . "\n" ;
 
                     }

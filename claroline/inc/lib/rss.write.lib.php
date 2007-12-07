@@ -48,16 +48,13 @@ function build_rss($context)
             if (!file_exists($rssRepositoryCacheSys))
             return claro_failure::set_failure('CANT_CREATE_RSS_DIR');
         }
-        
-        $outEnc = 'utf-8';
-        $inEnc = get_conf('charset');
 
         $options = array(
         'indent'    => '    ',
         'linebreak' => "\n",
         'typeHints' => FALSE,
         'addDecl'   => TRUE,
-        'encoding'  => $outEnc,
+        'encoding'  => get_conf('charset'),
         'rootName'  => 'rss',
         'defaultTagName' => 'item',
         'rootAttributes' => array('version' => '2.0', 'xmlns:dc'=>'http://purl.org/dc/elements/1.1/')
@@ -128,12 +125,21 @@ function build_rss($context)
 
         if ($serializer->serialize($data))
         {
-            if( is_writable($rssFilePath)
-                || (!file_exists($rssFilePath) && is_writable(dirname($rssFilePath))))
+            if(is_writable($rssFilePath) || (!file_exists($rssFilePath) && is_writable(dirname($rssFilePath))))
             {
-                $contents = iconv( $inEnc, $outEnc, $serializer->getSerializedData() );
-                
-                if ( false === file_put_contents( $rssFilePath, $contents ) )
+                if( false !== $fprss = fopen($rssFilePath, 'w'))
+                {
+                    fwrite($fprss,
+                        //str_replace('//','/',
+                       //     str_replace(get_conf('urlAppend'),
+                         //               get_path('rootWeb'),
+                                        $serializer->getSerializedData()
+                                       // )
+                          //              )
+                                        );
+                    fclose($fprss);
+                }
+                else
                 {
                     return claro_failure::set_failure('CANT_OPEN_RSS_FILE');
                 }

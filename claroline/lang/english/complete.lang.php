@@ -249,6 +249,7 @@ $_lang['Bold'] = 'Bold';
 $_lang['Both private and Public course'] = 'Both private and Public course';
 $_lang['Build language files'] = 'Build language files';
 $_lang['By deleting a label you will delete all modules or label it contains.'] = 'By deleting a label you will delete all modules or label it contains.';
+$_lang['CAS (Central Authentication Service)'] = 'CAS (Central Authentication Service)';
 $_lang['CSV file with the user list :'] = 'CSV file with the user list : ';
 $_lang['Cache settings'] = 'Cache settings';
 $_lang['Cache system'] = 'Cache system';
@@ -563,6 +564,7 @@ $_lang['Enable IMS-QTI Export'] = 'Enable IMS-QTI Export';
 $_lang['Enable RSS in course'] = 'Enable RSS in course';
 $_lang['Enable SSO system'] = 'Enable SSO system';
 $_lang['Enable iCal in course'] = 'Enable iCal in course';
+$_lang['Encrypt exported password using md5 algorithm'] = 'Encrypt exported password using md5 algorithm';
 $_lang['End date'] = 'End date';
 $_lang['Enrol as course manager'] = 'Enrol as course manager';
 $_lang['Enrol as student'] = 'Enrol as student';
@@ -624,6 +626,9 @@ $_lang['Exercises help'] = 'Help exercises';
 $_lang['Expected choice'] = 'Expected choice';
 $_lang['Explain cannot be empty'] = 'Explain cannot be empty';
 $_lang['Export'] = 'Export';
+$_lang['Export password'] = 'Export password';
+$_lang['Export user list'] = 'Export user list';
+$_lang['Export username'] = 'Export username';
 $_lang['External Tool added'] = 'External Tool added.';
 $_lang['External authentication drivers'] = 'External authentication drivers';
 $_lang['External image'] = 'External image';
@@ -791,6 +796,7 @@ $_lang['Italic'] = 'Italic';
 $_lang['Item'] = 'Item';
 $_lang['Kernel'] = 'Kernel';
 $_lang['Keys :'] = 'Keys :';
+$_lang['LCS'] = 'LCS';
 $_lang['Label of the login url to CAS'] = 'Label of the login url to CAS';
 $_lang['Language'] = 'Language';
 $_lang['Language mode'] = 'Language mode';
@@ -808,7 +814,6 @@ $_lang['Last message'] = 'Last message';
 $_lang['Last message was on'] = 'Last message was on';
 $_lang['Last messages'] = 'Last messages';
 $_lang['Last name'] = 'Last name';
-$_lang['Last score'] = 'Last score';
 $_lang['Last session time'] = 'Last session time';
 $_lang['Last submission'] = 'Last submission';
 $_lang['Lasting'] = 'Lasting';
@@ -849,6 +854,7 @@ $_lang['Logins'] = 'Logins';
 $_lang['Logins and access to tools'] = 'Logins and access to tools';
 $_lang['Logins not used'] = 'Logins not used';
 $_lang['Logout'] = 'Logout';
+$_lang['Logout user from CAS server when user logout from Claroline'] = 'Logout user from CAS server when user logout from Claroline';
 $_lang['Lost password'] = 'Lost password';
 $_lang['Mail is already used by another user.'] = 'Mail is already used by another user.';
 $_lang['Mail notification'] = 'Mail notification';
@@ -1208,7 +1214,7 @@ $_lang['Published on'] = 'Published on';
 $_lang['Question'] = 'Question';
 $_lang['Question pool'] = 'Question pool';
 $_lang['Question title'] = 'Question title';
-$_lang['Question to lecturer : '] = 'Question to lecturer';
+$_lang['Question to lecturer'] = 'Question to lecturer';
 $_lang['Quota'] = 'Quota';
 $_lang['Quota for courses'] = 'Quota for courses';
 $_lang['Quota for groups'] = 'Quota for groups';
@@ -1315,6 +1321,7 @@ $_lang['Settings for users of group'] = 'Settings for users of group';
 $_lang['Settings of the right menu elements'] = 'Settings of the right menu elements';
 $_lang['Settings of the tool'] = 'Settings of the tool';
 $_lang['Settings of the user course list'] = 'Settings of the user course list';
+$_lang['Shibboleth'] = 'Shibboleth';
 $_lang['Show all'] = 'Show all';
 $_lang['Show answers'] = 'Show answers';
 $_lang['Show differences'] = 'Show differences';
@@ -1437,7 +1444,7 @@ This option allow only to request it, and don\'t prework the answer
 ';
 $_lang['This page is empty, click on \'Edit this page\' to add a content'] = 'This page is empty, click on \'Edit this page\' to add a content';
 $_lang['This page is empty, use the editor to add content.'] = 'This page is empty, use the editor to add content.';
-$_lang['This password is too simple or too close to the username, first name or last name.<br> Use a password like this <code>%passProposed</code>'] = 'This password is too simple or too close to the username, first name or last name.<br> Use a password like this <code>%passProposed</code>';
+$_lang['This password is too simple. Use a password like this <code>%passProposed</code>'] = 'This password is too simple. Use a password like this <code>%passProposed</code>';
 $_lang['This prefix could allow to order more easily the tables / DB in the user interface of your server technical back office  '] = 'This prefix could allow to order more easily the tables / DB in the user interface of your server technical back office';
 $_lang['This question is used in several exercises.'] = 'This question is used in several exercises.';
 $_lang['This renderer is used for TEX/LaTEX expressions. It is available into the \'claroline/inc/lib/\' directory and has to be copied on a server location where CGI programs are expected.'] = 'This renderer is used for TEX/LaTEX expressions. It is available into the \'claroline/inc/lib/\' directory and has to be copied on a server location where CGI programs are expected.';
@@ -1502,7 +1509,7 @@ $_lang['URL?'] = 'URL?';
 $_lang['Unable to add description'] = 'Unable to add description';
 $_lang['Unable to add external tool'] = 'Unable to add external tool';
 $_lang['Unable to add the event to the agenda'] = 'Unable to add the event to the agenda.';
-$_lang['Unable to copy file : %filename'] = 'Unable to copy file : %filename';
+$_lang['Unable to copy file :'] = 'Unable to copy file : ';
 $_lang['Unable to create category'] = 'Unable to create category';
 $_lang['Unable to create course database'] = 'Unable to create course database';
 $_lang['Unable to create directory :'] = 'Unable to create directory : ';
@@ -1565,6 +1572,7 @@ $_lang['Upload failed'] = 'Upload failed';
 $_lang['Upload file'] = 'Upload file';
 $_lang['Uploaded file'] = 'Uploaded file';
 $_lang['Use Jpspan mode for the resource linking utility. Warning : Jpspan does not work on IIS web servers.'] = 'Use Jpspan mode for the resource linking utility. Warning : Jpspan does not work on IIS web servers.';
+$_lang['Use SSO system'] = 'Use SSO system';
 $_lang['Use format defined in first line of file'] = 'Use format defined in first line of file';
 $_lang['Use it, and build  on change'] = 'Use it, and build  on change';
 $_lang['Use negative weighting for incorrect choices to penalize a user that check all answers.'] = 'Use negative weighting for incorrect choices to penalize a user that check all answers.';
@@ -2448,23 +2456,14 @@ $_lang['blockWikiHelpSyntaxContent'] = '<h1>Wiki Syntax</h1>
 <dd><code>||!first column title|!second column title|...||</code>&nbsp;: column header</dd>
 <dd><code>||first cell|second cell|...||</code>&nbsp;: table row (on one line)</dd>
 <dd><code>|}</code>&nbsp;: end of table (must be on a new ligne)</dd>
-</dl>
-<h2>Special commands</h2>
-<dl>
-<dt>Raw HTML inclusion</dt>
-<dd><code>"""html code"""</code>&nbsp;: inline HTML inclusion</dd>
-<dd><code>"""start_html"""</code>&nbsp;: start of raw HTML block</dd>
-<dd><code>"""end_html"""</code>&nbsp;: end of raw HTML block</dd>
-<dt>Link to MainPage</dt>
-<dd><code>"""main"""</code> or <code>"""home"""</code></dd>
-<dt>Table of contents</dt>
-<dd><code>"""toc"""</code></dd>
 </dl>';
 $_lang['boolean'] = 'boolean';
 $_lang['click here'] = 'click here';
 $_lang['click to zoom in'] = 'click to zoom in';
 $_lang['click to zoom out'] = 'click to zoom out';
 $_lang['count'] = 'count';
+$_lang['delete failed for module %module'] = 'delete failed for module %module';
+$_lang['delete succeeded for module %module'] = 'delete succeeded for module %module';
 $_lang['denotes new items'] = 'denotes new items';
 $_lang['details'] = 'details';
 $_lang['differences between version of %1\$s modified by %2\$s and version of %3\$s modified by %4\$s'] = 'differences between version of %1$s modified by %2$s and version of %3$s modified by %4$s';

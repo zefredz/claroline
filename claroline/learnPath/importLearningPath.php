@@ -8,7 +8,7 @@
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
- * @author Piraux Sï¿½bastien <pir@cerdecam.be>
+ * @author Piraux Sébastien <pir@cerdecam.be>
  * @author Lederer Guillaume <led@cerdecam.be>
  *
  * @package CLLNP
@@ -227,7 +227,7 @@ function elementData($parser,$data)
     global $errorMsgs,$okMsgs;
     global $pathToManifest;
 
-    $data = trim(claro_utf8_decode($data));
+    $data = trim(utf8_decode_if_is_utf8($data));
 
     if (!isset($data)) $data="";
 
@@ -303,7 +303,7 @@ function elementData($parser,$data)
             break;
 
         case "LANGSTRING" :
-
+            //echo $data."<br>";
             switch ( $flagTag['type'] )
             {
                 case "item" :
@@ -710,7 +710,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                     break;
                 }
             }
-        } // if sizeof (...ï¿½
+        } // if sizeof (...à
         else
         {
             $errorFound = true;
@@ -1092,13 +1092,13 @@ else // if method == 'post'
 <br /><br />
 
 <form enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
-<input type="hidden" name="claroFormId" value="<?php echo uniqid(''); ?>" />
+<input type="hidden" name="claroFormId" value="<?php echo uniqid(''); ?>">
 
 <input type="file" name="uploadedPackage" /><br />
 <small><?php echo get_lang('Max file size : %size', array('%size' => format_file_size( get_max_upload_size($maxFilledSpace,$baseWorkDir) ) ) ); ?></small>
 
 <p>
-<input type="submit" value="<?php echo get_lang('Import') ?>" />&nbsp;
+<input type="submit" value="<?php echo get_lang('Import') ?>">&nbsp;
 <?php
 echo claro_html_button( './learningPathList.php', get_lang('Cancel')) . "\n"
 .    '</p>'

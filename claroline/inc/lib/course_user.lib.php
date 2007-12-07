@@ -3,18 +3,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
- * Course user library contains function to manage users registration and properties in course
- *
- * @version 1.9 $Revision$
- *
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
- *
+ * Course user library contains function to manage users enrolment and properties in course
+ * @version 1.8 $Revision$
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
  * @package CLUSR
- *
  * @author Claro Team <cvs@claroline.net>
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe GeschÃ© <moosh@claroline.net>
  * @author Mathieu Laurent <laurent@cerdecam.be>
  * @author Hugues Peeters <hugues.peeters@advalvas.be>
  */
@@ -58,7 +53,7 @@ function user_add_to_course($userId, $courseCode, $admin = false, $tutor = false
             $count_user_enrol = (int) $course_user_list['count_user_enrol'];
             $count_class_enrol = (int) $course_user_list['count_class_enrol'];
 
-            // increment the count of registration by the user or class
+            // increment the count of enrolment by the user or class
             if ( ! $register_by_class )  $count_user_enrol = 1;
             else                         $count_class_enrol++;
 
@@ -72,7 +67,7 @@ function user_add_to_course($userId, $courseCode, $admin = false, $tutor = false
         }
         else
         {
-            // first registration to the course
+            // first enrolment to the course
             $count_user_enrol = 0;
             $count_class_enrol = 0;
 
@@ -99,46 +94,47 @@ function user_add_to_course($userId, $courseCode, $admin = false, $tutor = false
 }
 
 /**
- * Check if the registration flag of the given course is "open"
  * @author Hugues Peeters <hugues.peeters@advalvas.be>
  * @param string $courseId - sys code of the course
  * @return boolean
  */
 
-function is_course_registration_allowed($courseId)
+function is_course_enrollment_allowed($courseId)
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_course = $tbl_mdb_names['course'];
 
-    $sql = " SELECT count(*) AS registration_allowed
+    $sql = " SELECT `code`, `visible`
              FROM `" . $tbl_course . "`
              WHERE  `code` = '" . addslashes($courseId) . "'
-             AND    `registration` = 'open'" ;
+             AND    (`visible` = 0 OR `visible` = 3)" ;
 
-    $courseRegistrationList = claro_sql_query_get_single_value($sql);
-    return (bool) ($courseRegistrationList) ;
+    $resultCourseEnrollmentList = claro_sql_query_fetch_all($sql);
+
+    if (count ($resultCourseEnrollmentList) > 0 ) return false;
+    else                                          return true;
 }
 
 /**
  * @author Hugues Peeters <hugues.peeters@advalvas.be>
  * @param string $courseId - sys code of the course
- * @return string registration key
+ * @return string enrollment key
  */
 
-function get_course_registration_key($courseId)
+function get_course_enrollment_key($courseId)
 {
     $tbl = claro_sql_get_main_tbl();
 
 
-    $sql = " SELECT registrationKey
+    $sql = " SELECT enrollment_key
              FROM `" . $tbl['course'] . "`
              WHERE  code = '" . addslashes($courseId) . "'";
 
-    $registrationKey = claro_sql_query_get_single_value($sql);
+    $enrollmentKey = claro_sql_query_get_single_value($sql);
 
-    if ( ! is_null($registrationKey) || ! empty($registrationKey) )
+    if ( ! is_null($enrollmentKey) || ! empty($enrollmentKey) )
     {
-        return $registrationKey;
+        return $enrollmentKey;
     }
     else
     {
@@ -236,17 +232,17 @@ function user_remove_from_course( $userId, $courseCodeList = array(), $force = f
         }
         else
         {
-            // decrement the count of registration by the user or class
+            // decrement the count of enrolment by the user or class
             if ( ! $unregister_by_class )  $count_user_enrol--;
             else                           $count_class_enrol--;
 
             // update enrol count in table rel_course_user
 
             $sql = "UPDATE `".$tbl['rel_course_user']."`
-                      SET `count_user_enrol` = '" . $count_user_enrol . "',
+  	                SET `count_user_enrol` = '" . $count_user_enrol . "',
                         `count_class_enrol` = '" . $count_class_enrol . "'
-                      WHERE `user_id`   =  " . (int) $userId . "
-                      AND  `code_cours` = '" . addslashes($thisCourseCode) . "'";
+  	                WHERE `user_id`   =  " . (int) $userId . "
+  	                AND  `code_cours` = '" . addslashes($thisCourseCode) . "'";
 
             if ( claro_sql_query($sql) ) return true;
             else                         return false;
@@ -520,14 +516,13 @@ function course_user_get_properties($userId, $courseId)
  * Display form to edit course user properties
  * @author Mathieu Laurent <laurent@cerdecam.be>
  * @param $data array to fill the form
- * @todo $courseManagerChecked never used
  */
 
 function course_user_html_form ( $data, $courseId, $userId, $hiddenParam = null )
 {
 
     // TODO $courseManagerChecked never used
-    //$courseManagerChecked = $data['isCourseManager'] == 1 ? 'checked="checked"':'';
+    $courseManagerChecked = $data['isCourseManager'] == 1 ? 'checked="checked"':'';
     $tutorChecked = $data['isTutor'] == 1 ? 'checked="checked"':'';
     $selectedProfileId = isset($data['profileId'])?(int)$data['profileId']:0;
 

@@ -44,7 +44,6 @@ you need the following on your machine :
    these ones:
 
         safe_mode            = Off
-        magic_quotes_runtime = Off
 
 3. The MySQL databases server (version 4.0 or later) plus a login/password 
    allowing to administrate and create at least one database.
@@ -85,16 +84,16 @@ INSTALLATION PROCEDURE
 NEW CLAROLINE INSTALLATION
 --------------------------
 
-1. Download 'claroline183.tar.gz'
+1. Download 'claroline186.tar.gz'
 
-   Windows : download 'claroline183.zip
+   Windows : download 'claroline186.zip
 
 
 2. Open a shell, go to download directory and type
 
-    tar -zxvf claroline183.tar.gz
+    tar -zxvf claroline186.tar.gz
 
-   Windows : unzip 'claroline183.zip'.
+   Windows : unzip 'claroline186.zip'.
 
 3. FTP or move by any means 'index.php' file and 'claroline' directory
    to your website on web server (whether web root or subdirectory).
@@ -107,7 +106,7 @@ NEW CLAROLINE INSTALLATION
 4. The following directory need to be readable, writeable and executable
    for everyone: 
 
-    chmod ugo+w claroline183/
+    chmod ugo+w claroline186/
 
 4. Open Web Browser and go to
 
@@ -132,16 +131,16 @@ Before upgrading we heavily recommend you do a full backup of the previous
 Claroline directories and databases. If you are unsure how to achieve this
 please ask your hosting provider for advice.
 
-1. Download 'claroline183.tar.gz'
+1. Download 'claroline186.tar.gz'
 
-   Windows : download 'claroline183.zip'
+   Windows : download 'claroline186.zip'
 
 
 2. Open a shell, go to download directory and type
 
-    tar -zxvf claroline183.tar.gz
+    tar -zxvf claroline186.tar.gz
 
-   Windows : unzip 'claroline182.zip'
+   Windows : unzip 'claroline186.zip'
 
 
 3. Replace your previous Claroline directory and index.php by the new one.
@@ -180,5 +179,5 @@ To access the Claroline administration section, open browser
 and go to http://www.mydomain.org/mysite/claroline/admin/
 
 ==========================================================================
-            Europe, Belgium, Louvain-la-Neuve - February 9 2007
+            Europe, Belgium, Louvain-la-Neuve - July 31 2007
 ================================== END ===================================

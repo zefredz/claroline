@@ -151,7 +151,7 @@ switch( $cmd )
                  WHERE `module_id` = '". (int)$_REQUEST['module_id']."'";
         $result = claro_sql_query($query);
         $list = mysql_fetch_array($result);
-        echo "\n"
+        echo "\n" 
         .	 '<form method="post" name="rename" action="'.$_SERVER['PHP_SELF'].'">' . "\n"
         .    claro_form_relay_context()
 		.	 '<label for="newName">'.get_lang('Insert new name').'</label> :' . "\n"
@@ -210,16 +210,15 @@ switch( $cmd )
 
             if( isset($comment['comment']) )
             {
-                echo '<form method="get" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
+                echo "<form method=\"get\" action=\"".$_SERVER['PHP_SELF']."\">\n"
                 .    claro_form_relay_context()
-                .    claro_html_textarea_editor('comment', $comment['comment'], 15, 55) . "\n"
-                .    '<br />' . "\n"
-                .    '<input type="hidden" name="cmd" value="exComment" />' . "\n"
-                .    '<input type="hidden" name="module_id" value="' . $_REQUEST['module_id'] . '" />' . "\n"
-                .    '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
-                .    '<br /><br />' . "\n"
-                .    '</form>' . "\n"
-                ;
+                    .claro_html_textarea_editor('comment', $comment['comment'], 15, 55)
+                    ."<br />\n"
+                    ."<input type=\"hidden\" name=\"cmd\" value=\"exComment\">\n"
+                    ."<input type=\"hidden\" name=\"module_id\" value=\"".$_REQUEST['module_id']."\">\n"
+                    ."<input type=\"submit\" value=\"".get_lang('Ok')."\">\n"
+                    ."<br /><br />\n"
+                    ."</form>\n";
             }
         } // else no module_id
         break;
@@ -229,8 +228,8 @@ switch( $cmd )
         if( isset($_REQUEST['module_id']) && isset($_REQUEST['comment']) )
         {
             $sql = "UPDATE `".$TABLEMODULE."`
-                    SET `comment` = '". addslashes($_REQUEST['comment']) . "'
-                    WHERE `module_id` = " . (int)$_REQUEST['module_id'];
+                    SET `comment` = \"". addslashes($_REQUEST['comment']) ."\"
+                    WHERE `module_id` = '". (int)$_REQUEST['module_id']."'";
             claro_sql_query($sql);
         }
         break;
@@ -283,19 +282,15 @@ while ($list = mysql_fetch_array($result))
 	.	 '</td>' . "\n"
 	.	 '<td align="center">' . "\n"
 	.	 '<a href="'.$_SERVER['PHP_SELF'].'?cmd=eraseModule&amp;cmdid='.$list['module_id'].'"'
-	.	 ' onclick="return confirmation(\''.clean_str_for_javascript($list['name']).'\', \''.$list['timesUsed'] .'\');">'
+	.	 ' onClick="return confirmation(\''.clean_str_for_javascript($list['name']).'\', \''.$list['timesUsed'] .'\');">'
 	.	 '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="'.get_lang('Delete').'" />'
 	.	 '</a>' . "\n"
 	.	 '</td>' . "\n"
 	.	 '<td align="center">' . "\n"
-	.	 '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqRename&amp;module_id='.$list['module_id'].'">'
-	.    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="'.get_lang('Rename').'" />'
-	.    '</a>' . "\n"
+	.	 '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqRename&amp;module_id='.$list['module_id'].'"><img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="'.get_lang('Rename').'" /></a>' . "\n"
 	.	 '</td>' . "\n"
 	.	 '<td align="center">' . "\n"
-	.	 '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqComment&amp;module_id='.$list['module_id'].'">'
-	.    '<img src="' . get_path('imgRepositoryWeb') . 'comment.gif" border="0" alt="'.get_lang('Comment').'" />'
-	.    '</a>' . "\n"
+	.	 '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqComment&amp;module_id='.$list['module_id'].'"><img src="' . get_path('imgRepositoryWeb') . 'comment.gif" border="0" alt="'.get_lang('Comment').'" /></a>' . "\n"
 	.	 '</td>' . "\n"
 	.	 '</tr>' . "\n\n";
 
@@ -313,7 +308,7 @@ while ($list = mysql_fetch_array($result))
 
 } //end while another module to display
 
-if ($atleastOne == false)
+if ($atleastOne == false) 
 {
 	echo '<tr><td align="center" colspan="5">'.get_lang('No module').'</td></tr>' . "\n";
 }

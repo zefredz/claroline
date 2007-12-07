@@ -345,7 +345,7 @@ if (isset($_REQUEST['chformat']) && $_REQUEST['chformat']=='yes')
     .            '<br /><br />' . "\n"
     .            get_lang('The fields <em>%field_list</em> are compulsory', array ('%field_list' => implode(', ',$compulsory_list)) )
     .            '<br /><br />'
-    .            '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">'
+    .            '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '">'
     .            claro_form_relay_context()
     .            '<input type="hidden" name="AddType" value="' . $AddType . '" />' . "\n"
     .            '<input type="text" name="usedFormat" value="' . htmlspecialchars($usedFormat) . '" size="55" />' . "\n"
@@ -410,14 +410,14 @@ switch ( $display )
             echo get_lang('You must specify the CSV format used in your file') . "\n"
             .    ':' . "\n"
             .    '<br /><br />' . "\n"
-            .    '<form enctype="multipart/form-data"  method="post" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
+            .    '<form enctype="multipart/form-data"  method="POST" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
             .    claro_form_relay_context()
             .    '<input type="radio" name="firstLineFormat" value="YES" id="firstLineFormat_YES" />' . "\n"
             .    ' ' . "\n"
             .    '<label for="firstLineFormat_YES">' . "\n"
             .    get_lang('Use format defined in first line of file') . '</label>' . "\n"
             .    '<br /><br />' . "\n"
-            .    '<input type="radio" name="firstLineFormat" value="NO"  checked="checked" id="firstLineFormat_NO" />' . "\n"
+            .    '<input type="radio" name="firstLineFormat" value="NO" checked id="firstLineFormat_NO" />' . "\n"
             .    '<label for="firstLineFormat_NO">' . "\n"
             .    get_lang('Use the following format') . ' : ' . "\n"
             .    '</label>' . "\n"
@@ -449,7 +449,7 @@ switch ( $display )
             echo '<input type="hidden" name="fieldSeparator" value="';
             if (!empty($_SESSION['CSV_fieldSeparator'])) echo $_SESSION['CSV_fieldSeparator'];
             else                                         echo ';';
-            echo '"  />' . "\n"
+            echo '" >' . "\n"
             .    '<input type="hidden" name="enclosedBy" value="' . $_SESSION['CSV_enclosedBy'] . '" />' . "\n"
             .    '<input type="hidden" name="AddType" value="' . $AddType . '" />' . "\n"
             .    '<br />' . "\n"
@@ -506,7 +506,7 @@ switch ( $display )
                     echo '(' . get_lang('if you choose to continue, lines with errors will simply be ignored') . ')<br />';
                 }
                 echo '<br />'
-                .    '<form method="post" action="' . $_SERVER['PHP_SELF'] . '?cmd=exImpSec">' . "\n"
+                .    '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '?cmd=exImpSec">' . "\n"
                 .    '<input type="hidden" name="AddType" value="' . $AddType . '" />'
                 .    '<input type="submit" value="' . get_lang('Continue') .'" />' . "\n"
                 .    claro_html_button($_SERVER['PHP_SELF'] . '?AddType=' . htmlspecialchars($AddType), get_lang('Cancel'))

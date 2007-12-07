@@ -225,7 +225,7 @@ if( ! $thisAttemptDetails = claro_sql_query_get_single_row($sql) )
     // sql error, let's get out of here !
     claro_redirect("../exercise/exercise.php");
     exit();
-}
+ }
 
 //-- permissions
 // if a user want to see its own results the teacher must have allowed the students

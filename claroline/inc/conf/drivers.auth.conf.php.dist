@@ -32,7 +32,6 @@
  *
  */
 
-
 /* LDAP */
 
 // $extAuthSource['ldap']['login'  ] = $clarolineRepositorySys.'/auth/extauth/drivers/ldap.inc.php';
@@ -92,5 +91,9 @@
 // $extAuthSource['mambo']['login'  ] = $clarolineRepositorySys.'auth/extauth/drivers/mambo.inc.php';
 // $extAuthSource['mambo']['newUser'] = $clarolineRepositorySys.'auth/extauth/drivers/mambo.inc.php';
 
+/* LCS */
+
+// $extAuthSource['lcs']['login'  ] = $clarolineRepositorySys.'/auth/extauth/lcs/lcs.inc.php';
+// $extAuthSource['lcs']['newUser'] = $clarolineRepositorySys.'/auth/extauth/lcs/lcs.inc.php';
 
 ?>

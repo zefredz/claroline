@@ -35,6 +35,9 @@
         }
     }
 
+    // if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
+
+    event_access_tool(claro_get_current_tool_id(), claro_get_current_course_tool_data('label'));
 
     // display mode
 
@@ -268,14 +271,13 @@
         {
             if ( !isset( $message ) ) $message = '';
 
-            $message .= '<form method="post" action="'.$_SERVER['PHP_SELF'].'">'."\n"
-                . '<input type="hidden" name="action" value="exSearch" />'."\n"
-                . claro_form_relay_context() . "\n"
+            $message .= '<form>'."\n"
+                . '<input type="hidden" name="action" value="exSearch">'."\n"
                 . '<label for="searchPattern">'
                 . get_lang("Search")
                 . '</label><br />'."\n"
-                . '<input type="text" id="searchPattern" name="searchPattern" />'."\n"
-                . '<input type="submit" value="'.get_lang("Ok").'" />'."\n"
+                . '<input type="text" id="searchPattern" name="searchPattern">'."\n"
+                . '<input type="submit" value="'.get_lang("Ok").'">'."\n"
                 . claro_html_button($_SERVER['PHP_SELF'], get_lang("Cancel"))
                 . '</form>'."\n"
                 ;
@@ -566,7 +568,7 @@
         // delete form
         case 'rqDelete':
         {
-            echo '<form method="post" action="'
+            echo '<form method="POST" action="'
                 . $_SERVER['PHP_SELF']
                 . '" id="rqDelete">'
                 . "\n"

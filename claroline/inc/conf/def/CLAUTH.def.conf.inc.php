@@ -29,11 +29,26 @@ $conf_def['config_class']='auth';
 $conf_def['section']['main']['label']='Main settings';
 //$conf_def['section']['main']['description']='Settings of the tool';
 $conf_def['section']['main']['properties'] =
-array ( 'claro_authUsernameCaseSensitive'
-      , 'claro_displayLocalAuthForm'
+array ( 'claro_extauth_sso_system',
+        'claro_authUsernameCaseSensitive',
+        'claro_displayLocalAuthForm'
       );
 
 //PROPERTIES
+
+$conf_def_property_list['claro_extauth_sso_system'] =
+array ('label'       => 'Use SSO system'
+      ,'description' => ''
+      ,'default'     => ''
+      ,'type'        => 'enum'
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
+      ,'acceptedValue' => array (''=>'No',
+                                'cas'=>'CAS (Central Authentication Service)',
+                                'shibboleth'=>'Shibboleth',
+                                'lcs'=>'LCS'
+                                )
+      );
 
 $conf_def_property_list['claro_authUsernameCaseSensitive'] =
 array ( 'label'         => 'The username is case sensitive'

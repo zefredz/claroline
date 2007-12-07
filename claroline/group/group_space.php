@@ -131,10 +131,10 @@ if( isset($_REQUEST['registration']) )
             $message = get_lang('Confirm your subscription to the group &quot;<b>%group_name</b>&quot;',array('%group_name'=>claro_get_current_group_data('name'))) . "\n"
             .          '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
             .          claro_form_relay_context()
-            .          '<input type="hidden" name="registration" value="1" />' . "\n"
-            .          '<input type="hidden" name="doReg" value="1" />' . "\n"
+            .          '<input type="hidden" name="registration" value="1">' . "\n"
+            .          '<input type="hidden" name="doReg" value="1">' . "\n"
             .          '<br />' . "\n"
-            .          '<input type="submit" value="' . get_lang("Ok") . '" />' . "\n"
+            .          '<input type="submit" value="' . get_lang("Ok") . '">' . "\n"
             .          claro_html_button($_SERVER['PHP_SELF'] , get_lang("Cancel")) . "\n"
             .          '</form>' . "\n"
             ;

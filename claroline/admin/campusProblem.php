@@ -230,7 +230,7 @@ switch ($display)
                 .    ', '
                 .    get_lang('%delay ago', array('%delay' => claro_html_duration(time()-$Cache_Lite->lastModified())))
                 .    '</small>'
-                .    '<br />'
+                .    '<br>'
                 ;
             }
             else
@@ -269,7 +269,7 @@ switch ($display)
 
                 if (false === $datagrid[$levelView] = $Cache_Lite->get($levelView))
                 {
-                    $sql = "SELECT CONCAT(c.code,' (<a href=\"admincourseusers.php?cidToEdit=',c.code,'\">',c.administrativeNumber,'</a>)')
+                    $sql = "SELECT CONCAT(c.code,' (<a href=\"admincourseusers.php?cidToEdit=',c.code,'\">',c.fake_code,'</a>)')
                                                    AS course,
                                count( cu.user_id ) AS qty
                     FROM `" . $tbl_course . "` c
@@ -298,7 +298,7 @@ switch ($display)
                 .    ', '
                 .    get_lang('%delay ago', array('%delay' => claro_html_duration(time()-$Cache_Lite->lastModified())))
                 .    '</small>'
-                .    '<br />'
+                .    '<br>'
                 ;
             }
             else
@@ -336,7 +336,7 @@ switch ($display)
 
                 if (false === $datagrid[$levelView] = $Cache_Lite->get($levelView))
                 {
-                    $sql = "SELECT CONCAT(c.code,' (<a href=\"admincourseusers.php?cidToEdit=',c.code,'\">',c.administrativeNumber,'</a>)')
+                    $sql = "SELECT CONCAT(c.code,' (<a href=\"admincourseusers.php?cidToEdit=',c.code,'\">',c.fake_code,'</a>)')
                                                    AS course,
                                count( cu.user_id ) AS qty
                     FROM `" . $tbl_course . "`               AS c
@@ -364,7 +364,7 @@ switch ($display)
                 .    ', '
                 .    get_lang('%delay ago', array('%delay' => claro_html_duration(time()-$Cache_Lite->lastModified())))
                 .    '</small>'
-                .    '<br />'
+                .    '<br>'
                 ;
             }
             else
@@ -439,7 +439,7 @@ switch ($display)
                 .    ', '
                 .    get_lang('%delay ago', array('%delay' => claro_html_duration(time()-$Cache_Lite->lastModified())))
                 .    '</small>'
-                .    '<br />'
+                .    '<br>'
                 ;
 
             }
@@ -500,7 +500,7 @@ switch ($display)
                 .    ', '
                 .    get_lang('%delay ago', array('%delay' => claro_html_duration(time()-$Cache_Lite->lastModified())))
                 .    '</small>'
-                .    '<br />'
+                .    '<br>'
                 ;
 
             }
@@ -583,7 +583,7 @@ switch ($display)
                 .    ', '
                 .    get_lang('%delay ago', array('%delay' => claro_html_duration(time()-$Cache_Lite->lastModified())))
                 .    '</small>'
-                .    '<br />'
+                .    '<br>'
                 ;
 
 
@@ -629,7 +629,7 @@ switch ($display)
                 if (false === $datagrid[$levelView] = $Cache_Lite->get($levelView))
                 {
                     $sql = "
-                SELECT concat('(',cu.code_cours,') <br />', c.administrativeNumber,' : ',c.intitule) course,
+                SELECT concat('(',cu.code_cours,') <br />', c.fake_code,' : ',c.intitule) course,
                        cu.user_id AS user_id
                 FROM `" . $tbl_rel_course_user . "` AS cu
                     INNER JOIN `" . $tbl_course . "` AS c
@@ -657,7 +657,7 @@ switch ($display)
                 .    ', '
                 .    get_lang('%delay ago', array('%delay' => claro_html_duration(time()-$Cache_Lite->lastModified())))
                 .    '</small>'
-                .    '<br />'
+                .    '<br>'
                 ;
             }
             else
@@ -702,7 +702,7 @@ switch ($display)
                 if (false === $datagrid[$levelView] = $Cache_Lite->get($levelView))
                 {
                     $sql = "
-                SELECT concat('(',cu.code_cours,') <br />', c.administrativeNumber,' : ',c.intitule) course,
+                SELECT concat('(',cu.code_cours,') <br />', c.fake_code,' : ',c.intitule) course,
                        cu.user_id AS user_id
                 FROM `" . $tbl_rel_course_user . "` AS cu
                     INNER JOIN `" . $tbl_course . "` AS c
@@ -730,7 +730,7 @@ switch ($display)
                 .    ', '
                 .    get_lang('%delay ago', array('%delay' => claro_html_duration(time()-$Cache_Lite->lastModified())))
                 .    '</small>'
-                .    '<br />'
+                .    '<br>'
                 ;
             }
             else

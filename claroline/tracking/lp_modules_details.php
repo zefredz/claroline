@@ -28,15 +28,21 @@
 
 require '../inc/claro_init_global.inc.php';
 
-if( empty($_REQUEST['uInfo']) )
+if( isset($_REQUEST['path_id']) && is_numeric($_REQUEST['path_id']) )   $pathId = (int) $_REQUEST['path_id'];
+else                                                                  $pathId = null;
+
+if( isset($_REQUEST['uInfo']) && is_numeric($_REQUEST['uInfo']) )   $userId = (int) $_REQUEST['uInfo'];
+else                                                                $userId = null;
+
+if( is_null($userId) )
 {
     claro_redirect("./userLog.php");
     exit();
 }
     
-if( empty($_REQUEST['path_id']) )
+if( is_null($pathId) )
 {
-      claro_redirect("./userLog.php?uInfo=".$_REQUEST['uInfo']."&view=0010000");
+      claro_redirect("./userLog.php?uInfo=".$userId."&view=0010000");
       exit();
 }
 
@@ -73,18 +79,18 @@ include(get_path('incRepositorySys')."/lib/fileDisplay.lib.php");
 
 // only the course administrator or the student himself can view the tracking
 $is_allowedToTrack = claro_is_course_manager();
-if (isset($uInfo) && claro_is_user_authenticated()) $is_allowedToTrack = $is_allowedToTrack || ($uInfo == claro_get_current_user_id());
+if (isset($userId) && claro_is_user_authenticated()) $is_allowedToTrack = $is_allowedToTrack || ($userId == claro_get_current_user_id());
 
 // get infos about the user
 $sql = "SELECT `nom` AS `lastname`, `prenom` as `firstname`, `email`
         FROM `".$TABLEUSER."`
-       WHERE `user_id` = ". (int)$_REQUEST['uInfo'];
+       WHERE `user_id` = ". (int)$userId;
 $uDetails = claro_sql_query_get_single_row($sql);
 
 // get infos about the learningPath
 $sql = "SELECT `name` 
         FROM `".$TABLELEARNPATH."`
-       WHERE `learnPath_id` = ". (int)$_REQUEST['path_id'];
+       WHERE `learnPath_id` = ". (int)$pathId;
 $lpDetails = claro_sql_query_get_single_row($sql);
 
 ////////////////////
@@ -92,11 +98,11 @@ $lpDetails = claro_sql_query_get_single_row($sql);
 ////////////////////
 
 $interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
-$interbredcrump[]= array ("url"=>"learnPath_details.php?path_id=".$_REQUEST['path_id'], "name"=> get_lang('Statistics'));
+$interbredcrump[]= array ("url"=>"learnPath_details.php?path_id=".$pathId, "name"=> get_lang('Statistics'));
 
 $nameTools = get_lang('Modules');
 
-$_SERVER['QUERY_STRING'] = 'uInfo='.$_REQUEST['uInfo']."&path_id=".$_REQUEST['path_id'];
+$_SERVER['QUERY_STRING'] = 'uInfo='.$userId."&path_id=".$pathId;
 
 include get_path('incRepositorySys')."/claro_init_header.inc.php";
 // display title
@@ -125,11 +131,11 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
                 )
        LEFT JOIN `".$TABLEUSERMODULEPROGRESS."` AS UMP
                ON UMP.`learnPath_module_id` = LPM.`learnPath_module_id`
-               AND UMP.`user_id` = ". (int)$_REQUEST['uInfo']."
+               AND UMP.`user_id` = ". (int)$userId."
        LEFT JOIN `".$TABLEASSET."` AS A
               ON M.`startAsset_id` = A.`asset_id`
             WHERE LPM.`module_id` = M.`module_id`
-              AND LPM.`learnPath_id` = ". (int)$_REQUEST['path_id']."
+              AND LPM.`learnPath_id` = ". (int)$pathId."
               AND LPM.`visibility` = 'SHOW'
               AND LPM.`module_id` = M.`module_id`
          GROUP BY LPM.`module_id`
@@ -265,7 +271,7 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
           //-- status
           echo '<td>';
           if($module['contentType'] == CTEXERCISE_ && $module['lesson_status'] != "" ) 
-            echo ' <a href="userLog.php?uInfo='.$_REQUEST['uInfo'].'&amp;view=0100000&amp;exoDet='.$module['path'].'">'.strtolower($module['lesson_status']).'</a>';
+            echo ' <a href="userLog.php?uInfo='.$userId.'&amp;view=0100000&amp;exoDet='.$module['path'].'">'.strtolower($module['lesson_status']).'</a>';
           else
             echo strtolower($module['lesson_status']);
           echo '</td>'."\n";

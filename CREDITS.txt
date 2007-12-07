@@ -48,8 +48,8 @@ Events since last visit :       René Haentjens (rene.haentjens@intec.ugent.be)
 Quizz Tool :                    Olivier Brouckaert (oli.brouckaert@skynet.be)
                                 Sebastien Piraux (piraux@cerdecam.be)
 
-Learning Path Tool :            Sebastien Piraux (Cerdecam)
-                                Guillaume Lederer
+Learning Path Tool :            Guillaume Lederer
+                                Sebastien Piraux (Cerdecam)
 
 Tracking system :               Sebastien Piraux (piraux@cerdecam.be)
 
@@ -90,6 +90,7 @@ Chinese translation :           Maizeman (Maizeman@21cn.com)
                                 Ping Pingjianban (pingjianban@gmail.com)
 
 Chinese (traditionnal) :        Kiang (kiange@gmail.com) - Taiwan PHP User Group http://twpug.net/
+                                Lionel Li-Xing Hong - Faculty Development and Instructional Resources Center - Fu Jen Catholic University
 
 Croatian translation :          Dragan Misovic
                                 Karolj Skala (skala@irb.hr)
@@ -117,7 +118,8 @@ German translation :            Stiehl Nikolai  (nikolai.stiehl@web.de)
                                 Angela Büchler (buechler@gp.tu-berlin.de)
                                 Christine Knieriemen (tine@knieriemen.de)
 
-Greek translation:              Costas Tsibanis (costas@noc.uoa.gr)
+Greek translation:              Michail Vourlakos
+                                Costas Tsibanis (costas@noc.uoa.gr)
                                 Yannis Exidaridis (jexi@noc.uoa.gr)
                                 Spiros Ktenas (claroline@claroline.gr,
                                 unofficial greek community website :
@@ -128,6 +130,7 @@ Greek translation:              Costas Tsibanis (costas@noc.uoa.gr)
                                                     http://www.image.ece.ntua.gr/
 
 Hungarian translation :         Balázs Györök (gyorok.balazs@vgszi.szie.hu)
+                                maxigas (maxigas@anargeek.net)
 
 Italian translation :           Maurizio Guercio  (mguercio@libero.it),
                                 Furio Petrossi  (Furio.Petrossi@scuolefvg.org)
@@ -164,6 +167,8 @@ Spanish_Latin :                 Carlos Brys (brys@fce.unam.edu.ar)
 Thaï translation :              Sutas Jitchuen (dtsjc@mucc.mahidol.ac.th)
 
 Turkish translation :           Cuneyt Birkok (cbirkok@insanbilimleri.com)
+
+Guarani translation :           Manuel Fernández from the Guaraní Renda association
 
 Claroline Documentation :       Andrew Lynn (alynn@strathclyde.ac.be)
                                 Emmanuel Pecquet (emmanuel.pecquet@wanadoo.fr)

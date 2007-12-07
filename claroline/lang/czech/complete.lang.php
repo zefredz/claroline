@@ -665,7 +665,6 @@ $_lang['Last message'] = 'Poslední zpráva';
 $_lang['Last message was on'] = 'Poslední zpráva z : ';
 $_lang['Last messages'] = 'Poslední zprávy';
 $_lang['Last name'] = 'Pøíjmení';
-$_lang['Last score'] = 'Poslední výsledek';
 $_lang['Last session time'] = 'Èas poslední relace';
 $_lang['Last submission'] = 'Poslední odevzdání';
 $_lang['Lasting'] = 'Trvání';

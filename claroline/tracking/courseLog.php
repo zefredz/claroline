@@ -97,7 +97,7 @@ if( get_conf('is_trackingEnabled'))
             AND CU.`code_cours` = '" . addslashes(claro_get_current_course_id()) . "'
             AND A.`access_user_id` IS NULL
             ";
-        echo '&nbsp;&nbsp;&nbsp;'.get_lang('Never connected students :');
+        echo '&nbsp;&nbsp;&nbsp;'.get_lang('Never connected students : ');
 
         $results = claro_sql_query_fetch_all($sql);
 
@@ -126,7 +126,7 @@ if( get_conf('is_trackingEnabled'))
             HAVING `max_access_date` < ( NOW() - INTERVAL 15 DAY )
             ORDER BY A.`access_date` ASC
             ";
-        echo '&nbsp;&nbsp;&nbsp;'.get_lang('Not recently connected students :');
+        echo '&nbsp;&nbsp;&nbsp;'.get_lang('Not recently connected students : ');
 
         $results = claro_sql_query_fetch_all($sql);
         if( !empty($results) && is_array($results) )
@@ -549,40 +549,32 @@ if( get_conf('is_trackingEnabled'))
         $results = claro_sql_query_fetch_all($sql);
 
         echo '<li>'.get_lang('Last active topics').'<br />'
-        .'<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
-        .'<tr class="headerX">'."\n"
-        .'<th>'.get_lang('Topic').'</th>'."\n"
-        .'<th>'.get_lang('Last message').'</th>'."\n"
-        .'</tr>'."\n";
+            .'<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
+                .'<tr class="headerX">'."\n"
+                .'<th>'.get_lang('Topic').'</th>'."\n"
+                .'<th>'.get_lang('Last message').'</th>'."\n"
+                .'</tr>'."\n";
         if (is_array($results))
         {
             echo '<tbody>'."\n";
             foreach( $results as $result )
             {
-                echo '<tr>'."\n"
-                .    '<td>'
-                .    '<a href="../phpbb/viewtopic.php?topic=' . $result['topic_id'].'">' . $result['topic_title'] . '</a>'
-                .    '</td>' . "\n"
-                .    '<td>' . $result['last_message'] . '</td>' . "\n"
-                .    '</tr>' . "\n"
-                ;
+                    echo '<tr>'."\n"
+                            .'<td><a href="../phpbb/viewtopic.php?topic='.$result['topic_id'].'">'.$result['topic_title'].'</a></td>'."\n"
+                            .'<td>'.$result['last_message'].'</td>'."\n"
+                            .'</tr>'."\n";
             }
             echo '</tbody>'."\n";
 
         }
         else
         {
-            echo '<tfoot>' . "\n"
-            .    '<tr>' . "\n"
-            .    '<td align="center">'
-            .    get_lang('No result')
-            .    '</td>' . "\n"
-            .    '</tr>' . "\n"
-            .    '</tfoot>' . "\n"
-            ;
+            echo '<tfoot>'."\n".'<tr>'."\n"
+                    .'<td align="center">'.get_lang('No result').'</td>'."\n"
+                    .'</tr>'."\n".'</tfoot>'."\n";
         }
         echo '</table>'."\n"
-        .'</li>';
+            .'</li>';
 
         echo '</ul>';
     }
@@ -591,17 +583,13 @@ if( get_conf('is_trackingEnabled'))
         $tempView[$viewLevel] = '1';
         echo '+&nbsp;&nbsp;&nbsp;<a href="'.$_SERVER['PHP_SELF'].'?view='.$tempView.'">'.get_lang('Forum usage').'</a>';
     }
-    echo '<br />'
-    .    '</p>'."\n\n"
-    ;
+    echo '<br /></p>'."\n\n";
 
     // display link to delete all course stats
     echo '<hr />'."\n"
-    .    '<a class="claroButton" href="delete_course_stats.php">'
-    .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="" />'
-    .    get_lang('Delete all course statistics')
-    .    '</a>'."\n"
-    ;
+        .'<a class="claroButton" href="delete_course_stats.php">'
+        .'<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="">'.get_lang('Delete all course statistics')
+        .'</a>'."\n";
 }
 // not allowed
 else

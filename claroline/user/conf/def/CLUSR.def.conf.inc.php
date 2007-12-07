@@ -127,22 +127,10 @@ array('label'         => 'Teacher can import an existing class course'
 $conf_def['section']['export']['label'] = 'Export';
 $conf_def['section']['export']['description'] = '';
 $conf_def['section']['export']['properties'] =
-array ( 'is_coursemanager_allowed_to_export_user_list'
-      , 'export_user_username'
+array ( 'export_user_username'
       , 'export_user_password'
       , 'export_user_password_encrypted'
 );
-
-$conf_def_property_list['is_coursemanager_allowed_to_export_user_list'] =
-array('label'         => 'Teacher can export user list from his course'
-     ,'default'       => TRUE
-     ,'type'          => 'boolean'
-     ,'display'       => TRUE
-     ,'readonly'      => FALSE
-     ,'acceptedValue' => array ('TRUE'=>'Yes'
-                              ,'FALSE'=>'No'
-                              )
-     );
 
 $conf_def_property_list['export_user_username'] =
 array('label'         => 'Export username'

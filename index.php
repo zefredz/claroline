@@ -30,30 +30,6 @@ include claro_get_conf_repository() . 'CLHOME.conf.php'; // conf file
 
 require_once get_path('incRepositorySys') . '/lib/courselist.lib.php'; // conf file
 
-
-// logout request : delete session data
-
-if (isset($_REQUEST['logout']))
-{
-    // notify that a user has just loggued out
-    if (isset($logout_uid)) // Set  by local_init
-    {
-        $eventNotifier->notifyEvent('user_logout', array('uid' => $logout_uid));
-    }
-    /* needed to be able to :
-         - log with claroline when 'magic login' has previously been clicked
-         - notify logout event
-         (logout from CAS has been commented in casProcess.inc.php)*/
-    if( get_conf('claro_CasEnabled', false) && ( get_conf('claro_CasGlobalLogout') && !phpCAS::checkAuthentication() ) )
-    {
-        phpCAS::logout((isset( $_SERVER['HTTPS']) && ($_SERVER['HTTPS']=='on'||$_SERVER['HTTPS']==1) ? 'https://' : 'http://')
-                        . $_SERVER['HTTP_HOST'].get_conf('urlAppend').'/index.php');
-    }
-    session_destroy();
-}
-
-// Hide breadcrumbs and view mode on platform home page
-$claroline->display->banner->hideBreadcrumbLine();
 // CLAROLINE HEADER AND BANNER
 require get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
@@ -130,7 +106,7 @@ if ( claro_is_user_authenticated() )
    /**
      * Commands line
      */
-    $userCommands = array();
+	$userCommands = array();
 
     $userCommands[] = '<a href="' . $_SERVER['PHP_SELF'] . '" class="claroCmd">'
     .    '<img src="' . get_path('imgRepositoryWeb') . 'course.gif" alt="" /> '
@@ -160,7 +136,7 @@ if ( claro_is_user_authenticated() )
 
     $userCommands[] = '<a href="'.$_SERVER['PHP_SELF'].'?category=" class="claroCmd">'
     .                 '<img src="' . get_path('imgRepositoryWeb') . 'course.gif" alt="" /> '
-    .     get_lang('All platform courses')
+    .	 get_lang('All platform courses')
     .                 '</a>'
     ;
 
@@ -182,6 +158,8 @@ if ( claro_get_current_user_id() )
 }
 else
 {
+    event_open();
+
     if ( ! get_conf('course_categories_hidden_to_anonymous',false) )
     {
         // DISPLAY PLATFORM COURSE LIST
