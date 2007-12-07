@@ -1,44 +1,49 @@
-<?php // $Id$
-/**
- * CLAROLINE 
- *
- * @version 1.8 $Revision$
- *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @author Piraux Sébastien <pir@cerdecam.be>
- * @author Lederer Guillaume <led@cerdecam.be>
- *
- * @package CLLNP
- *
- */
-require '../../inc/claro_init_global.inc.php';
+<?php
+    // $Id$
+/*
+  +----------------------------------------------------------------------+
+  | CLAROLINE version 1.3.2 $Revision$                            |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
+  +----------------------------------------------------------------------+
+  | This source file is subject to the GENERAL PUBLIC LICENSE,           |
+  | available through the world-wide-web at                              |
+  | http://www.gnu.org/copyleft/gpl.html                                 |
+  +----------------------------------------------------------------------+
+  | Authors: Piraux Sébastien <pir@cerdecam.be>                          |
+  |          Lederer Guillaume <led@cerdecam.be>                         |
+  +----------------------------------------------------------------------+
+*/
+
+  $langFile = "learnPath";
+
+  require '../../inc/claro_init_global.inc.php';
+
+  
 ?>
-<html>
-<head>
- <script>
-  <!-- //
-   parent.tocFrame.location.href="tableOfContent.php";
-  //-->
- </script> 
-</head>
-<body>
- <center>
+  <html>
+  <head>
+    <script>
+    <!-- //
+    parent.tocFrame.location.href="tableOfContent.php";
+    //-->
+    </script> 
+  </head>
+  <body>
+  <center>
   <br /><br /><br />
   <p>
 <?php
 if($_GET['op'] == 'cancel')
 {
-    echo get_lang('Exercise cancelled, choose a module in the list to continue.');
+  echo $langExerciseCancelled;
 }
 elseif($_GET['op'] == 'finish') // exercise done
 {
-    echo get_lang('Exercise done, choose a module in the list to continue.');
+  echo $langExerciseDone;
 }
 ?>
-   </p>
-  </center>
- </body>
-</html>
+  </p>
+  <center>
+  </body>
+  </html>

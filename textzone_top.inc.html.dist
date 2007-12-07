@@ -1,0 +1,11 @@
+<div style="border: gray 1px dashed;
+            margin: 10px;
+            padding: 10px;
+            font-size:80%;
+            color: gray;">
+This text zone is displayed to each unauthenticated user. Platform administrator 
+can change its content or remove it by editing the <b>textzone_top.inc.html</b> 
+file.
+</div>
+
+

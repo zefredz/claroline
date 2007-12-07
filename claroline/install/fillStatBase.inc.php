@@ -1,26 +1,279 @@
-<?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
-/**
- * CLAROLINE
- *
- * This file build the array of SQL  use to fill the Stat/tracking database
- *
- * @version 1.8 $Revision$
- *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/index.php/Config
- *
- * @author Claro Team <cvs@claroline.net>
- * @author Sebastien Piraux <piraux@cerdecam.be>
- * @author Christophe Gesché <moosh@claroline.net>
- *
- * @package INSTALL
- *
- */
+<?php # $Id$
 
-$fillStatementList = array();
+//----------------------------------------------------------------------
+// CLAROLINE
+//----------------------------------------------------------------------
+// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+//----------------------------------------------------------------------
+// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
+// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+//----------------------------------------------------------------------
+// Authors: see 'credits' file
+//----------------------------------------------------------------------
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (1, 'ac', 'Ascension (ile)', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (2, 'ad', 'Andorre', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (3, 'ae', 'Emirats  Arabes Unis', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (4, 'af', 'Afghanistan', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (5, 'ag', 'Antigua et Barbuda', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (6, 'ai', 'Anguilla', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (7, 'al', 'Albanie', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (8, 'am', 'Arménie', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (9, 'an', 'Antilles Neerlandaises', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (10, 'ao', 'Angola', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (11, 'aq', 'Antarctique', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (12, 'ar', 'Argentine', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (13, 'as', 'American Samoa', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (14, 'au', 'Australie', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (15, 'aw', 'Aruba', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (16, 'az', 'Azerbaijan', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (17, 'ba', 'Bosnie Herzegovine', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (18, 'bb', 'Barbade', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (19, 'bd', 'Bangladesh', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (20, 'be', 'Belgique', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (21, 'bf', 'Burkina Faso', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (22, 'bg', 'Bulgarie', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (23, 'bh', 'Bahrain', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (24, 'bi', 'Burundi', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (25, 'bj', 'Benin', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (26, 'bm', 'Bermudes', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (27, 'bn', 'Brunei Darussalam', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (28, 'bo', 'Bolivie', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (29, 'br', 'Brésil', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (30, 'bs', 'Bahamas', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (31, 'bt', 'Bhoutan', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (32, 'bv', 'Bouvet (ile)', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (33, 'bw', 'Botswana', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (34, 'by', 'Biélorussie', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (35, 'bz', 'Bélize', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (36, 'ca', 'Canada', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (37, 'cc', 'Cocos (Keeling) iles', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (38, 'cd', 'Congo, (République démocratique du)', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (39, 'cf', 'Centrafricaine (République )', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (40, 'cg', 'Congo', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (41, 'ch', 'Suisse', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (42, 'ci', 'Cote d\'Ivoire', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (43, 'ck', 'Cook (iles)', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (44, 'cl', 'Chili', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (45, 'cm', 'Cameroun', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (46, 'cn', 'Chine', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (47, 'co', 'Colombie', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (48, 'cr', 'Costa Rica', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (49, 'cu', 'Cuba', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (50, 'cv', 'Cap Vert', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (51, 'cx', 'Christmas (ile)', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (52, 'cy', 'Chypre', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (53, 'cz', 'Tchéque (République)', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (54, 'de', 'Allemagne', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (55, 'dj', 'Djibouti', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (56, 'dk', 'Danemark', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (57, 'dm', 'Dominique', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (58, 'do', 'Dominicaine (république)', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (59, 'dz', 'Algérie', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (60, 'ec', 'Equateur', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (61, 'ee', 'Estonie', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (62, 'eg', 'Egypte', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (63, 'eh', 'Sahara Occidental', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (64, 'er', 'Erythrée', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (65, 'es', 'Espagne', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (66, 'et', 'Ethiopie', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (67, 'fi', 'Finlande', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (68, 'fj', 'Fiji', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (69, 'fk', 'Falkland (Malouines) iles', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (70, 'fm', 'Micronésie', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (71, 'fo', 'Faroe (iles)', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (72, 'fr', 'France', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (73, 'ga', 'Gabon', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (74, 'gd', 'Grenade', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (75, 'ge', 'Géorgie', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (76, 'gf', 'Guyane Française', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (77, 'gg', 'Guernsey', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (78, 'gh', 'Ghana', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (79, 'gi', 'Gibraltar', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (80, 'gl', 'Groenland', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (81, 'gm', 'Gambie', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (82, 'gn', 'Guinée', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (83, 'gp', 'Guadeloupe', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (84, 'gq', 'Guinée Equatoriale', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (85, 'gr', 'Grèce', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (86, 'gs', 'Georgie du sud et iles Sandwich du sud', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (87, 'gt', 'Guatemala', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (88, 'gu', 'Guam', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (89, 'gw', 'Guinée-Bissau', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (90, 'gy', 'Guyana', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (91, 'hk', 'Hong Kong', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (92, 'hm', 'Heard et McDonald (iles)', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (93, 'hn', 'Honduras', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (94, 'hr', 'Croatie', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (95, 'ht', 'Haiti', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (96, 'hu', 'Hongrie', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (97, 'id', 'Indonésie', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (98, 'ie', 'Irlande', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (99, 'il', 'Israël', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (100, 'im', 'Ile de Man', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (101, 'in', 'Inde', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (102, 'io', 'Territoire Britannique de l\'Océan Indien', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (103, 'iq', 'Iraq', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (104, 'ir', 'Iran', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (105, 'is', 'Islande', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (106, 'it', 'Italie', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (107, 'je', 'Jersey', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (108, 'jm', 'Jamaïque', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (109, 'jo', 'Jordanie', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (110, 'jp', 'Japon', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (111, 'ke', 'Kenya', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (112, 'kg', 'Kirgizstan', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (113, 'kh', 'Cambodge', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (114, 'ki', 'Kiribati', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (115, 'km', 'Comores', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (116, 'kn', 'Saint Kitts et Nevis', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (117, 'kp', 'Corée du nord', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (118, 'kr', 'Corée du sud', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (119, 'kw', 'Koweït', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (120, 'ky', 'Caïmanes (iles)', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (121, 'kz', 'Kazakhstan', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (122, 'la', 'Laos', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (123, 'lb', 'Liban', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (124, 'lc', 'Sainte Lucie', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (125, 'li', 'Liechtenstein', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (126, 'lk', 'Sri Lanka', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (127, 'lr', 'Liberia', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (128, 'ls', 'Lesotho', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (129, 'lt', 'Lituanie', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (130, 'lu', 'Luxembourg', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (131, 'lv', 'Latvia', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (132, 'ly', 'Libyan Arab Jamahiriya', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (133, 'ma', 'Maroc', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (134, 'mc', 'Monaco', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (135, 'md', 'Moldavie', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (136, 'mg', 'Madagascar', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (137, 'mh', 'Marshall (iles)', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (138, 'mk', 'Macédoine', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (139, 'ml', 'Mali', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (140, 'mm', 'Myanmar', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (141, 'mn', 'Mongolie', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (142, 'mo', 'Macao', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (143, 'mp', 'Mariannes du nord (iles)', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (144, 'mq', 'Martinique', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (145, 'mr', 'Mauritanie', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (146, 'ms', 'Montserrat', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (147, 'mt', 'Malte', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (148, 'mu', 'Maurice (ile)', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (149, 'mv', 'Maldives', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (150, 'mw', 'Malawi', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (151, 'mx', 'Mexique', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (152, 'my', 'Malaisie', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (153, 'mz', 'Mozambique', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (154, 'na', 'Namibie', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (155, 'nc', 'Nouvelle Calédonie', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (156, 'ne', 'Niger', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (157, 'nf', 'Norfolk (ile)', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (158, 'ng', 'Nigéria', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (159, 'ni', 'Nicaragua', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (160, 'nl', 'Pays Bas', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (161, 'no', 'Norvège', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (162, 'np', 'Népal', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (163, 'nr', 'Nauru', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (164, 'nu', 'Niue', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (165, 'nz', 'Nouvelle Zélande', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (166, 'om', 'Oman', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (167, 'pa', 'Panama', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (168, 'pe', 'Pérou', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (169, 'pf', 'Polynésie Française', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (170, 'pg', 'Papouasie Nouvelle Guinée', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (171, 'ph', 'Philippines', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (172, 'pk', 'Pakistan', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (173, 'pl', 'Pologne', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (174, 'pm', 'St. Pierre et Miquelon', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (175, 'pn', 'Pitcairn (ile)', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (176, 'pr', 'Porto Rico', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (177, 'pt', 'Portugal', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (178, 'pw', 'Palau', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (179, 'py', 'Paraguay', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (180, 'qa', 'Qatar', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (181, 're', 'Réunion (ile de la)', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (182, 'ro', 'Roumanie', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (183, 'ru', 'Russie', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (184, 'rw', 'Rwanda', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (185, 'sa', 'Arabie Saoudite', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (186, 'sb', 'Salomon (iles)', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (187, 'sc', 'Seychelles', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (188, 'sd', 'Soudan', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (189, 'se', 'Suède', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (190, 'sg', 'Singapour', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (191, 'sh', 'St. Hélène', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (192, 'si', 'Slovénie', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (193, 'sj', 'Svalbard et Jan Mayen (iles)', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (194, 'sk', 'Slovaquie', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (195, 'sl', 'Sierra Leone', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (196, 'sm', 'Saint Marin', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (197, 'sn', 'Sénégal', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (198, 'so', 'Somalie', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (199, 'sr', 'Suriname', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (200, 'st', 'Sao Tome et Principe', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (201, 'sv', 'Salvador', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (202, 'sy', 'Syrie', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (203, 'sz', 'Swaziland', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (204, 'tc', 'Turks et Caïques (iles)', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (205, 'td', 'Tchad', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (206, 'tf', 'Territoires Français du sud', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (207, 'tg', 'Togo', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (208, 'th', 'Thailande', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (209, 'tj', 'Tajikistan', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (210, 'tk', 'Tokelau', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (211, 'tm', 'Turkménistan', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (212, 'tn', 'Tunisie', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (213, 'to', 'Tonga', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (214, 'tp', 'Timor Oriental', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (215, 'tr', 'Turquie', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (216, 'tt', 'Trinidad et Tobago', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (217, 'tv', 'Tuvalu', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (218, 'tw', 'Taiwan', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (219, 'tz', 'Tanzanie', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (220, 'ua', 'Ukraine', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (221, 'ug', 'Ouganda', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (222, 'uk', 'Royaume Uni', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (223, 'gb', 'Royaume Uni', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (224, 'um', 'US Minor Outlying (iles)', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (225, 'us', 'Etats Unis', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (226, 'uy', 'Uruguay', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (227, 'uz', 'Ouzbékistan', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (228, 'va', 'Vatican', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (229, 'vc', 'Saint Vincent et les Grenadines', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (230, 've', 'Venezuela', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (231, 'vg', 'Vierges Britaniques (iles)', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (232, 'vi', 'Vierges USA (iles)', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (233, 'vn', 'Viêt Nam', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (234, 'vu', 'Vanuatu', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (235, 'wf', 'Wallis et Futuna (iles)', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (236, 'ws', 'Western Samoa', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (237, 'ye', 'Yemen', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (238, 'yt', 'Mayotte', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (239, 'yu', 'Yugoslavie', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (240, 'za', 'Afrique du Sud', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (241, 'zm', 'Zambie', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (242, 'zr', 'Zaïre', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (243, 'zw', 'Zimbabwe', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (244, 'com', '.COM', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (245, 'net', '.NET', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (246, 'org', '.ORG', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (247, 'edu', 'Education', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (248, 'int', '.INT', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (249, 'arpa', '.ARPA', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (250, 'at', 'Autriche', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (251, 'gov', 'Gouvernement', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (252, 'mil', 'Militaire', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (253, 'su', 'Ex U.R.S.S.', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (254, 'reverse', 'Reverse', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (255, 'biz', 'Businesses', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (256, 'info', '.INFO', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (257, 'name', '.NAME', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (258, 'pro', '.PRO', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (259, 'coop', '.COOP', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (260, 'aero', '.AERO', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (261, 'museum', '.MUSEUM', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (262, 'tv', '.TV', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (263, 'ws', 'Web site', 0)");
+        mysql_query("INSERT INTO `track_c_countries` (`id`, `code`, `country`, `counter`) VALUES (264, '--', 'Unknown', 0)");
 
 ?>

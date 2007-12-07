@@ -1,124 +1,144 @@
-<?php // $Id$
-/**
- * CLAROLINE
- *
- * @version 1.8 $Revision$
- *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @package CLSTAT
- *
- * @author Claro Team <cvs@claroline.net>
- *
+<?php 
+/*
+      +----------------------------------------------------------------------+
+      | CLAROLINE version 1.3.0 $Revision$                            |
+      +----------------------------------------------------------------------+
+      | Copyright (c) 2001, 2002 Universite catholique de Louvain (UCL)      |
+      +----------------------------------------------------------------------+
+      |   $Id$         |
+      +----------------------------------------------------------------------+
+      |   This program is free software; you can redistribute it and/or      |
+      |   modify it under the terms of the GNU General Public License        |
+      |   as published by the Free Software Foundation; either version 2     |
+      |   of the License, or (at your option) any later version.             |
+      |                                                                      |
+      |   This program is distributed in the hope that it will be useful,    |
+      |   but WITHOUT ANY WARRANTY; without even the implied warranty of     |
+      |   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the      |
+      |   GNU General Public License for more details.                       |
+      |                                                                      |
+      |   You should have received a copy of the GNU General Public License  |
+      |   along with this program; if not, write to the Free Software        |
+      |   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA          |
+      |   02111-1307, USA. The GNU GPL license is also available through     |
+      |   the world-wide-web at http://www.gnu.org/copyleft/gpl.html         |
+      +----------------------------------------------------------------------+
+      | Authors:                                                           |
+      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
+      |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
+      |          Sebastien Piraux  <piraux_seb@hotmail.com>   |
+      |                                                                        |
+      |                    http://www.claroline.net/                |
+      +----------------------------------------------------------------------+
+
  */
  
+$langFile = "tracking";
 require '../inc/claro_init_global.inc.php';
 
-if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
-if ( ! claro_is_course_manager() ) claro_die(get_lang('Not allowed')) ; 
+$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> $langLearningPathList);
 
-// path id can not be empty, return to the list of learning paths
-if( empty($_REQUEST['path_id']) )
-{
-    claro_redirect("../learnPath/learningPathList.php");
-    exit();
-}
+$nameTools = $langStatsOfLearnPath;
 
-$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
+$htmlHeadXtra[] = "<style type=\"text/css\">
+<!--
+.secLine {background-color : #E6E6E6;}
+.content {padding-left : 15px;padding-right : 15px; }
+.specialLink{color : #0000FF;}
+-->
+</style>
+<STYLE media=\"print\" type=\"text/css\">
+<!--
+TD {border-bottom: thin dashed Gray;}
+-->
+</STYLE>";
 
-$nameTools = get_lang('Learning paths tracking');
 
 // regroup table names for maintenance purpose
-/*
- * DB tables definition
- */
+$TABLELEARNPATH         = $_course['dbNameGlu']."lp_learnPath";
+$TABLEMODULE            = $_course['dbNameGlu']."lp_module";
+$TABLELEARNPATHMODULE   = $_course['dbNameGlu']."lp_rel_learnPath_module";
+$TABLEASSET             = $_course['dbNameGlu']."lp_asset";
+$TABLEUSERMODULEPROGRESS= $_course['dbNameGlu']."lp_user_module_progress";
 
-$tbl_cdb_names               = claro_sql_get_course_tbl();
-$tbl_mdb_names               = claro_sql_get_main_tbl();
-$tbl_rel_course_user         = $tbl_mdb_names['rel_course_user'  ];
-$tbl_user                    = $tbl_mdb_names['user'             ];
-$tbl_lp_learnPath            = $tbl_cdb_names['lp_learnPath'           ];
-$tbl_lp_rel_learnPath_module = $tbl_cdb_names['lp_rel_learnPath_module'];
-$tbl_lp_user_module_progress = $tbl_cdb_names['lp_user_module_progress'];
-$tbl_lp_module               = $tbl_cdb_names['lp_module'              ];
-$tbl_lp_asset                = $tbl_cdb_names['lp_asset'               ];
+$TABLECOURSUSER	        = $mainDbName."`.`cours_user";
+$TABLEUSER = $mainDbName."`.`user";
 
-$TABLELEARNPATH         = $tbl_lp_learnPath;
-$TABLEMODULE            = $tbl_lp_module;
-$TABLELEARNPATHMODULE   = $tbl_lp_rel_learnPath_module;
-$TABLEASSET             = $tbl_lp_asset;
-$TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 
-$TABLECOURSUSER            = $tbl_rel_course_user;
-$TABLEUSER              = $tbl_user;
+include($includePath."/lib/statsUtils.lib.inc.php");
 
-include(get_path('incRepositorySys').'/lib/statsUtils.lib.inc.php');
-include(get_path('incRepositorySys').'/lib/learnPath.lib.inc.php');
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include($includePath."/lib/learnPath.lib.inc.php");
 
-if ( get_conf('is_trackingEnabled') )  
+$is_allowedToTrack = $is_courseAdmin;
+
+include($includePath."/claro_init_header.inc.php");
+
+if($is_allowedToTrack && $is_trackingEnabled) 
 {
 
-    if ( !empty($_REQUEST['path_id']) )
+    if ( !empty($_GET['path_id']) )
     {
-        $path_id = (int) $_REQUEST['path_id'];
+
+        $path_id = (int) $_GET['path_id'];
 
         // get infos about the learningPath
         $sql = "SELECT `name` 
                 FROM `".$TABLELEARNPATH."`
-                WHERE `learnPath_id` = ". (int)$path_id;
+                WHERE `learnPath_id` = ".$path_id;
 
-        $learnPathName = claro_sql_query_get_single_value($sql);
-    
-        if( $learnPathName )
+        $result = claro_sql_query($sql);
+        $pDetails = @mysql_fetch_array($result);
+
+        // display title
+        $titleTab['mainTitle'] = $nameTools;
+        $titleTab['subTitle'] = htmlspecialchars($pDetails['name']);
+        claro_disp_tool_title($titleTab);
+
+        // display a list of user and their respective progress    
+        $sql = "SELECT U.`nom`, U.`prenom`, U.`user_id`
+              FROM `".$TABLEUSER."` AS U, `".$TABLECOURSUSER."`	 AS CU
+              WHERE U.`user_id`= CU.`user_id`
+               AND CU.`code_cours` = '$_cid'";
+        $usersList = claro_sql_query_fetch_all($sql);
+
+        // display tab header
+        echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">\n
+            <tr class=\"headerX\" align=\"center\" valign=\"top\">\n
+              <th>$langStudent</th>\n
+              <th colspan=\"2\">$langProgress</th>\n
+            </tr>\n
+            <tbody>";
+
+        // display tab content
+        foreach ( $usersList as $user )
         {
-            // display title
-            $titleTab['mainTitle'] = $nameTools;
-            $titleTab['subTitle'] = htmlspecialchars($learnPathName);
-            echo claro_html_tool_title($titleTab);
-
-            // display a list of user and their respective progress    
-            $sql = "SELECT U.`nom`, U.`prenom`, U.`user_id`
-                    FROM `".$TABLEUSER."` AS U, 
-                         `".$TABLECOURSUSER."` AS CU
-                    WHERE U.`user_id`= CU.`user_id`
-                    AND CU.`code_cours` = '". addslashes(claro_get_current_course_id()) ."'";
-
-            $usersList = claro_sql_query_fetch_all($sql);
-
-            // display tab header
-            echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'."\n\n"
-                   .'<tr class="headerX" align="center" valign="top">'."\n"
-                .'<th>'.get_lang('Student').'</th>'."\n"
-                .'<th colspan="2">'.get_lang('Progress').'</th>'."\n"
-                .'</tr>'."\n\n"
-                .'<tbody>'."\n\n";
-
-            // display tab content
-            foreach ( $usersList as $user )
-            {
-                $lpProgress = get_learnPath_progress($path_id,$user['user_id']);
-                echo '<tr>'."\n"
-                    .'<td><a href="lp_modules_details.php?uInfo='.$user['user_id'].'&amp;path_id='.$path_id.'">'.$user['nom'].' '.$user['prenom'].'</a></td>'."\n"
-                    .'<td align="right">'
-                    .claro_html_progress_bar($lpProgress, 1)
-                      .'</td>'."\n"
-                    .'<td align="left"><small>'.$lpProgress.'%</small></td>'."\n"
-                    .'</tr>'."\n\n";
-            }
-            // foot of table
-            echo '</tbody>'."\n\n".'</table>'."\n\n";
+            $lpProgress = get_learnPath_progress($path_id,$user['user_id']);
+            echo "<tr>
+                  <td><a href=\"lp_modules_details.php?uInfo=".$user['user_id']."&path_id=".$path_id."\">".$user['nom']." ".$user['prenom']."</a></td>\n
+                  <td align=\"right\">".
+                  claro_disp_progress_bar($lpProgress, 1).
+              	" </td>
+                   <td align=\"left\"><small>".$lpProgress."%</small></td>
+                </tr>";
         }
+        // foot of table
+        echo "</tbody>\n</table>";
     }
+    
 }
 // not allowed
 else
 {
-    echo claro_html_message_box(get_lang('Tracking has been disabled by system administrator.'));
+    if(!$is_trackingEnabled)
+    {
+        claro_disp_message_box($langTrackingDisabled);
+    }
+    else
+    {
+        claro_disp_message_box($langNotAllowed);
+    }
 }
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include($includePath."/claro_init_footer.inc.php");
 ?>

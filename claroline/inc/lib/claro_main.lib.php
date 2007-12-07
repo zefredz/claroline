@@ -1,227 +1,227 @@
-<?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
-/**
- * CLAROLINE
- *
- * This lib contain many parts of frequently used function.
- * This is not a thematic lib
- *
- * @version 1.9 $Revision$
- *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @author see 'credits' file
- *
- * @package KERNEL
- *
- */
- 
-require_once(dirname(__FILE__) . '/core/core.lib.php');
+<?php #	$Id$
+
+//----------------------------------------------------------------------
+// CLAROLINE
+//----------------------------------------------------------------------
+// Copyright (c) 2001-2004 Universite catholique de	Louvain	(UCL)
+//----------------------------------------------------------------------
+// This	program	is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+// as published	by the FREE	SOFTWARE FOUNDATION. The GPL is	available
+// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+//----------------------------------------------------------------------
+// Authors:	see	'credits' file
+//----------------------------------------------------------------------
+
+//////////////////////////////////////////////////////////////////////////////
+//				   CLAROLINE DB	QUERY WRAPPRER MODULE
+//////////////////////////////////////////////////////////////////////////////
 
 /**
- * SECTION :  Function to access the sql datas
+ * @author Hugues Peeters <hugues.peeters@claroline.net>
+ * @return array list of the central claroline database	tables
  */
 
-require_once(dirname(__FILE__) . '/sql.lib.php');
-
-/**
- * SECTION :  Class & function to prepare a normalised html output.
- */
-
-require_once(dirname(__FILE__) . '/init.lib.php');
-
-/**
- * SECTION :  Class & function to prepare a normalised html output.
- */
-
-require_once(dirname(__FILE__) . '/path.lib.php');
-
-/**
- * SECTION : PHP COMPAT For PHP backward compatibility
- */
-
-require_once(dirname(__FILE__) . '/compat.lib.php');
-
-/**
- * SECTION :  Class & function to prepare a normalised html output.
- */
-
-require_once(dirname(__FILE__) . '/html.lib.php');
-
-/**
- * SECTION :  Class & function to get text zone contents.
- */
-
-require_once(dirname(__FILE__) . '/textzone.lib.php');
-
-/**
- * SECTION :  Modules functions
- */
-require_once(dirname(__FILE__) . '/module.lib.php');
-
-/**
- * SECTION :  Icon functions
- * depends on module.lib.php
- */
-require_once(dirname(__FILE__) . '/icon.lib.php');
-
-/**
- * SECTION :  Get kernel
- * SUBSECTION datas for courses
- */
-
-/**
- * Get unique keys of a course.
- *
- * @param  string $course_id (optionnal)  If not set, it use the current course
- *         will be taken.
- * @return array list of unique keys (sys, db & path) of a course
- * @author Christophe Gesché <moosh@claroline.net>
- * @author Frédéric Minne <zefredz@claroline.net>
- * @since 1.7
- */
-
-function claro_get_course_data($courseId = NULL, $force = false )
+function claro_sql_get_main_tbl()
 {
-    static $cachedDataList = array();
-    
-    $useCurrentCourseData = false;
-    
-    if ( is_null( $courseId ) && claro_is_in_a_course() )
-    {
-        $courseId =  claro_get_current_course_id();
-        $useCurrentCourseData = true;
-    }
-    
-    if ( ! array_key_exists( $courseId, $cachedDataList ) || true === $force )
-    {
-        if ( $useCurrentCourseData )
-        {
-            $courseDataList = $GLOBALS['_course'];
-        }
-        else
-        {
-            $tbl =  claro_sql_get_tbl(array('cours','faculte',));
+	global $mainDbName;
 
-            $sql =  "SELECT
-                    c.code                 AS sysCode,
-                    c.cours_id             AS courseId,
-                    c.intitule             AS name,
-                    c.administrativeNumber AS officialCode,
-                    c.directory            AS path,
-                    c.dbName               AS dbName,
-                    c.titulaires           AS titular,
-                    c.email                AS email  ,
-                    c.language             AS language,
-                    c.extLinkUrl           AS extLinkUrl,
-                    c.extLinkName          AS extLinkName,
-                    c.visibility           AS visibility,
-                    c.access               AS access,
-                    c.registration         AS registration,
-                    c.registrationKey      AS registrationKey ,
-                    cat.code               AS categoryCode,
-                    cat.name               AS categoryName,
-                    c.diskQuota            AS diskQuota
+	$mainDb	= $mainDbName;
 
-                    FROM      `" . $tbl['cours'] . "`   AS c
-                    LEFT JOIN `" . $tbl['faculte'] . "` AS cat
-                            ON c.faculte =  cat.code
-                    WHERE c.code = '" . addslashes($courseId) . "'";
+	static $mainTblList	= array();
 
-            $courseDataList = claro_sql_query_get_single_row($sql);
+	if ( count($mainTblList) ==	0 )
+	{
+		$mainTblList['admin'		  		]	= $mainDb.'`.`admin';
+		$mainTblList['cours'		  		]	= $mainDb.'`.`cours';
+		$mainTblList['rel_course_user']	= $mainDb.'`.`cours_user';
+		$mainTblList['category'		  	]	= $mainDb.'`.`faculte';
+		$mainTblList['todo'			  	]	= $mainDb.'`.`todo';
+		$mainTblList['user'			  	]	= $mainDb.'`.`user';
+	}
 
-            if ( ! $courseDataList ) return claro_failure::set_failure('course_not_found');
-
-            $courseDataList['access'             ] = (bool) ('public' == $courseDataList['access']     );
-            $courseDataList['visibility'         ] = (bool) ('visible' == $courseDataList['visibility'] );
-            $courseDataList['registrationAllowed'] = (bool) ('open' == $courseDataList['registration'] );
-            $courseDataList['dbNameGlu'          ] = get_conf('courseTablePrefix') . $courseDataList['dbName'] . get_conf('dbGlu'); // use in all queries
+	return $mainTblList;
+}
 
 
 
-            // Dont work claro_sql_get_tbl need a tool id and is not for a tool
-            // kernel table would be in mainDB.
-            // $tbl =  claro_sql_get_tbl('course_properties', array(CLARO_CONTEXT_COURSE=>$courseDataList['sysCode']));
-            $tbl = claro_sql_get_course_tbl( $courseDataList['dbNameGlu'] );
-            $sql = "SELECT name,
-                       value
-                     FROM `" . $tbl['course_properties'] . "`
-                     WHERE category = 'MAIN'";
 
-            $extraDataList = claro_sql_query_fetch_all($sql);
+/**
+ * @author Hugues Peeters <hugues.peeters@claroline.net>
+ * @return array list of the current course	database tables
+ */
 
-            if (is_array($extraDataList) )
-            {
-                foreach($extraDataList as $thisData)
-                {
-                    $courseDataList[$thisData['name']] = $thisData['value'];
-                }
-            }
-        }
+function claro_sql_get_course_tbl()
+{
+	static $courseTblList =	array();
 
-        $cachedDataList[$courseId] = $courseDataList; // cache for the next time ...
-    }
-    
-    // var_dump( $cachedDataList );
+	if ( count($course_tbl)	== 0 )
+	{
+        $courseTblList['announcement'          ] = $courseDb.'announcement';
+        $courseTblList['assignment_doc'        ] = $courseDb.'assignment_doc';
+        $courseTblList['bb_access'             ] = $courseDb.'bb_access';
+        $courseTblList['bb_banlist'            ] = $courseDb.'bb_banlist';
+        $courseTblList['bb_categories'         ] = $courseDb.'bb_categories';
+        $courseTblList['bb_config'             ] = $courseDb.'bb_config';
+        $courseTblList['bb_disallow'           ] = $courseDb.'bb_disallow';
+        $courseTblList['bb_forum_access'       ] = $courseDb.'bb_forum_access';
+        $courseTblList['bb_forum_mods'         ] = $courseDb.'bb_forum_mods';
+        $courseTblList['bb_forums'             ] = $courseDb.'bb_forums';
+        $courseTblList['bb_headermetafooter'   ] = $courseDb.'bb_headermetafooter';
+        $courseTblList['bb_posts'              ] = $courseDb.'bb_posts';
+        $courseTblList['bb_posts_text'         ] = $courseDb.'bb_posts_text';
+        $courseTblList['bb_priv_msgs'          ] = $courseDb.'bb_priv_msgs';
+        $courseTblList['bb_ranks'              ] = $courseDb.'bb_ranks';
+        $courseTblList['bb_sessions'           ] = $courseDb.'bb_sessions';
+        $courseTblList['bb_themes'             ] = $courseDb.'bb_themes';
+        $courseTblList['bb_topics'             ] = $courseDb.'bb_topics';
+        $courseTblList['bb_users'              ] = $courseDb.'bb_users';
+        $courseTblList['bb_whosonline'         ] = $courseDb.'bb_whosonline';
+        $courseTblList['bb_words'              ] = $courseDb.'bb_words';
+        $courseTblList['calendar_event'        ] = $courseDb.'calendar_event';
+        $courseTblList['course_description'    ] = $courseDb.'course_description';
+        $courseTblList['document'              ] = $courseDb.'document';
+        $courseTblList['group_property'        ] = $courseDb.'group_property';
+        $courseTblList['group_rel_team_user'   ] = $courseDb.'group_rel_team_user';
+        $courseTblList['group_team'            ] = $courseDb.'group_team';
+        $courseTblList['link'                  ] = $courseDb.'link';
+        $courseTblList['quiz_answer'           ] = $courseDb.'quiz_answer';
+        $courseTblList['quiz_question'         ] = $courseDb.'quiz_question';
+        $courseTblList['quiz_rel_test_question'] = $courseDb.'quiz_rel_test_question';
+        $courseTblList['quiz_test'             ] = $courseDb.'quiz_test' ;
+        $courseTblList['tool_intro'            ] = $courseDb.'tool_intro';
+        $courseTblList['tool_list'             ] = $courseDb.'tool_list';
+        $courseTblList['userinfo_content'      ] = $courseDb.'userinfo_content';
+        $courseTblList['userinfo_def'          ] = $courseDb.'userinfo_def';
+        $courseTblList['work_student'          ] = $courseDb.'work_student';
 
-    return $cachedDataList[$courseId];
+	} // end if	( count($course_tbl) ==	0 )
+
+	return $courseTbl;
+}
+
+
+
+
+/**
+ * Claroline mySQL query wrapper. It also provides a debug display which works 
+ * when	the	CLARO_DEBUG_MODE constant flag is set to on	(true)
+ *
+ * @author Christophe Gesche <gesche@ipm.ucl.ac.be>
+ * @author Hugues Peeters	 <peeters@ipm.ucl.ac.be>, 
+ * @param  string  $sqlQuery   - the sql query
+ * @param  handler $dbHandler  - optional
+ * @return handler			   - the result	handler
+ */
+
+function claro_sql_query($sqlQuery,	$dbHandler = '#' )
+{
+
+	if ( $dbHandler	== '#')
+	{
+		$resultHandler =  @mysql_query($sqlQuery);
+	}
+	else
+	{
+		$resultHandler =  @mysql_query($sqlQuery, $dbHandler);
+	}
+
+	if ( defined('CLARO_DEBUG_MODE') && CLARO_DEBUG_MODE && mysql_errno() )
+	{
+		echo '<hr size="1" noshade>'
+            .var_export(CLARO_DEBUG_MODE,1)
+			.mysql_errno()
+			." : "
+			.mysql_error()
+			.'<br>'
+			.'<pre style="color:red">'
+			.$sqlQuery
+			.'</pre>'
+			.'<hr size="1" noshade>';
+	}
+
+	return $resultHandler;
+}
+
+
+/**
+ * Claroline mySQL fetch array returning all the result	rows
+ * in an associative array.	Compared to	the	PHP	mysql_fetch_array(),
+ * it proceeds in a	single pass.
+ *
+ * @author Hugues Peeters <hugues.peeters@claroline.net>,
+ * @param  handler	$sql - $sqlResultHandler
+ * @param  int $resultType (optional) -	MYSQL_ASSOC	constant by	default
+ * @return array		 - associative array containing	all	the	result rows
+ */
+
+
+function claro_sql_fetch_all($sqlResultHandler, $resultType	= MYSQL_ASSOC)
+{
+	$rowList = array();
+
+	while( $row = mysql_fetch_array($sqlResultHandler, $resultType) )
+	{
+		$rowList [] = $row;
+	}
+
+	mysql_free_result($sqlResultHandler);
+
+	return $rowList;
+}
+
+
+
+/**
+ * Claroline mySQL query and fetch array wrapper. It returns all the result rows
+ * in an associative array. It also provides debug display wich works when the
+ * global debug flag is set to on (true)
+ *
+ * @author Hugues Peeters <hugues.peeters@claroline.net>,
+ * @param  string  $sql - the sql query
+ * @param  handler $db  - optional
+ * @return array        - associative array containing all the result rows
+ *
+ * @see	claro_sql_query(), claro_sql_fetch_all
+ *
+ */
+
+function claro_sql_query_fetch_all($sqlQuery, $dbHandler = '#')
+{
+	$result = claro_sql_query($sqlQuery, $dbHandler);
+
+	if ($result)
+	{
+		return claro_sql_fetch_all($result);
+	}
+	else
+	{
+		return false;
+	}
 }
 
 /**
- * This function return properties for groups in a given course context.
+ * Claroline SQL query wrapper returning only a single result value.
+ * Useful in some cases because, it avoid nested arrays of results.
  *
- * @param string $courseId sysCode of the course.
+ * @author Hugues Peeters <hugues.peeters@claroline.net>,
+ * @param  string  $sqlQuery - the sql query
+ * @param  handler $dbHandler  - optional
+ * @return associative array containing all the result rows
+ * @since  1.5.1
+ * @see    claro_sql_query()
  *
- * @return array ('registrationAllowed' ,
-                  'self_registration',
-                  'private',
-                  'nbGroupPerUser',
-                  'tools' => array ('CLFRM',
-                                    'CLDOC',
-                                    'CLWIKI',
-                                    'CLCHT')
-                                    )
-
-
- * The 4th first properties  are course properties dedicated to groups as default value.
- * The 'tool' array is like course.tool_list.
  */
 
-function claro_get_main_group_properties($courseId)
+
+function claro_sql_query_get_single_value($sqlQuery, $dbHandler = '#')
 {
-    $tbl_cdb_names = claro_sql_get_course_tbl( claro_get_course_db_name_glued($courseId) );
-    $tbl_course_properties   = $tbl_cdb_names['course_properties'];
+    $result = claro_sql_query($sqlQuery, $dbHandler = '#');
 
-    $sql = "SELECT name,
-                   value
-            FROM `" . $tbl_course_properties . "`
-            WHERE category = 'GROUP'";
-
-    $dbDataList = claro_sql_query_fetch_all($sql);
-
-    if (is_array($dbDataList) )
+    if($result)
     {
-        foreach($dbDataList as $thisData)
-        {
-            $tempList[$thisData['name']] = (int) $thisData['value'];
-        }
-
-        $propertyList = array();
-
-        $propertyList ['registrationAllowed'] =  ($tempList['self_registration'] == 1);
-        $propertyList ['private'            ] =  ($tempList['private']           == 1);
-        $propertyList ['nbGroupPerUser'     ] =  $tempList['nbGroupPerUser'];
-
-        $propertyList['tools'] = array();
-
-        $propertyList ['tools'] ['CLFRM'    ] =   ($tempList['CLFRM']             == 1);
-        $propertyList ['tools'] ['CLDOC'    ] =   ($tempList['CLDOC']             == 1);
-        $propertyList ['tools'] ['CLWIKI'   ] =   ($tempList['CLWIKI']            == 1);
-        $propertyList ['tools'] ['CLCHT'    ] =   ($tempList['CLCHT']             == 1);
-
-        return $propertyList;
+        list($value) = mysql_fetch_row($result);
+        mysql_free_result($result);
+        return $value;
     }
     else
     {
@@ -229,960 +229,801 @@ function claro_get_main_group_properties($courseId)
     }
 }
 
-/**
- * Get the db name of a course.
- * @param  string $course_id (optionnal)  If not set, it use the current course
- *         will be taken.
- * @return string db_name
- * @author Christophe Gesché <moosh@claroline.net>
- * @since 1.7
- */
-function claro_get_course_db_name($cid=NULL)
-{
-    $k = claro_get_course_data($cid);
-
-    if (isset($k['dbName'])) return $k['dbName'];
-    else                     return NULL;
-
-}
-
-/**
- * Get the glued db name of a course.Read to be use in claro_get_course_table_name
- * @param  string $course_id (optionnal)  If not set, it use the current course
- *         will be taken.
- * @return string db_name glued
- * @author Christophe Gesché <moosh@claroline.net>
- * @since 1.7
- */
-function claro_get_course_db_name_glued($cid=NULL)
-{
-    $k = claro_get_course_data($cid);
-
-    if (isset($k['dbNameGlu'])) return $k['dbNameGlu'];
-    else                        return NULL;
-}
-
-/**
- * Get the path of a course.
- * @param  string $course_id (optionnal)  If not set, it use the current course
- *         will be taken.
- * @return string path
- * @author Christophe Gesché <moosh@claroline.net>
- * @since 1.7
- */
-function claro_get_course_path($cid=NULL)
-{
-    $k = claro_get_course_data($cid);
-    if (isset($k['path'])) return $k['path'];
-    else                   return NULL;
-}
 
 
 /**
- * SECTION :  Get kernel
- * SUBSECTION datas for groups
- */
-
-/**
- * Get unique keys of a course.
+ * Claroline mySQL query wrapper returning the number of rows affected by the 
+ * query
  *
- * @param  string $course_id (optionnal)  If not set, it use the current course
- *         will be taken.
- * @return array list of unique keys (sys, db & path) of a course
- * @author Christophe Gesché <moosh@claroline.net>
- * @since 1.7
+ * @author Hugues Peeters <hugues.peeters@claroline.net>,
+ * @param  string  $sqlQuery  - the sql query
+ * @param  handler $dbHandler - optional
+ * @return int                - the number of rows affected by the query
+ *
+ * @see	claro_sql_query()
+ *
  */
 
-function claro_get_group_data($context, $force = false )
+
+function claro_sql_query_affected_rows($sqlQuery, $dbHandler = '#')
 {
-    if (is_array($context) && array_key_exists(CLARO_CONTEXT_COURSE,$context))
-    {
-        $cid = $context[CLARO_CONTEXT_COURSE];
-    }
+	$result = claro_sql_query($sqlQuery, $dbHandler);
 
-    if (is_array($context) && array_key_exists(CLARO_CONTEXT_GROUP,$context))
-    {
-        $gid = $context[CLARO_CONTEXT_GROUP];
-    }
-    $groupDataList = null;
+	if ($result)
+	{
+		if ($dbHandler == '#')
+		{
+			return mysql_affected_rows();
+		}
+		else
+		{
+			return mysql_affected_rows($dbHandler);
+		}
+	}
+	else
+	{
+		return false;
+	}
+}
 
-    static $cachedGroupDataList = null;
+
+/**
+ * Claroline mySQL query wrapper returning the last id generated by the last 
+ * inserted row
+ *
+ * @author Hugues Peeters <hugues.peeters@claroline.net>,
+ * @param  string  $sqlQuery  - the sql query
+ * @param  handler $dbHandler - optional
+ * @return long         -  the id generated by the previous insert query
+ *
+ * @see	claro_sql_query()
+ *
+ */
+
+function claro_sql_query_insert_id($sqlQuery, $dbHandler = '#')
+{
+	$result = claro_sql_query($sqlQuery, $dbHandler);
+
+	if ($result)
+	{
+		return mysql_insert_id();
+	}
+	else
+	{
+		return false;
+	}
+}
+
+
+//////////////////////////////////////////////////////////////////////////////
+//					CLAROLINE FAILURE MANGEMENT
+//////////////////////////////////////////////////////////////////////////////
+
 /*
-    if ( ! $force)
-    {
-        if ( $cachedGroupDataList && $groupId == $cachedGroupDataList['sysCode'] )
-        {
-            $groupDataList = $cachedGroupDataList;
-        }
-        elseif ( ( is_null($groupId) && $GLOBALS['_gid']) )
-        {
-            $groupDataList = $GLOBALS['_group'];
-        }
-    }
-*/
-    if ( ! $groupDataList )
-    {
-        $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($cid) );
-
-        $sql = "SELECT g.id               AS id          ,
-                       g.name             AS name        ,
-                       g.description      AS description ,
-                       g.tutor            AS tutorId     ,
-                       f.forum_id         AS forumId     ,
-                       g.secretDirectory  AS directory   ,
-                       g.maxStudent       AS maxMember
-
-                FROM `" . $tbl_c_names['group_team'] . "`      g
-                LEFT JOIN `" . $tbl_c_names['bb_forums'] . "`   f
-
-                   ON    g.id = f.group_id
-                WHERE    `id` = '". (int) $gid."'";
-
-        $groupDataList = claro_sql_query_get_single_row($sql);
-
-        if ( ! $groupDataList ) return claro_failure::set_failure('group_not_found');
-
-        $cachedGroupDataList = $groupDataList; // cache for the next time ...
-    }
-
-    return $groupDataList;
-}
-
-/**
- * Get the path of a group in a course.
- * @param  array $context
- * @return string path
- * @author Christophe Gesché <moosh@claroline.net>
- * @var $gData use to get groupdata
- * @since 1.8.1
- */
-function claro_get_course_group_path($context)
-{
-    if (is_array($context) && array_key_exists(CLARO_CONTEXT_COURSE,$context))
-    {
-        $cid = $context[CLARO_CONTEXT_COURSE];
-    }
-
-    $coursePath = claro_get_course_path($cid);
-    $gData = claro_get_group_data($context);
-    if (isset($gData['directory'])) return $coursePath . '/group/' . $gData['directory'];
-    else                   return NULL;
-}
-
-/**
- * SECTION :  Get kernel
- * SUBSECTION datas for tools
+ * The Failure Management module is here to compensate
+ * the absence of 'exception' device in PHP 4.
  */
 
-/**
- * Get names  of tools in an array where key are Claro_label
- * @return array list of localised name of tools
- * @todo with plugin, this lis would be read in a dynamic datasource
- */
-
-function claro_get_tool_name_list()
-{
-    return claro_get_module_name_list();
-}
 
 /**
- * Get a list of tag names of some tools
- * This is a bad named function because they return only tool type modules
- *
- * Returned tagname is the "Developpers english name" this tag would be passed to get_lang
- *
- * @param boolean $active true filter to keep only tools activated in platform
- * @return array( `label`=>`tagname`)
+ * $claro_failureList -	array containing all the failure recorded
+ * in order	of arrival.
  */
-function claro_get_module_name_list($active = true)
-{
-    static $toolNameList;
-
-    $tbl_mdb_names   = claro_sql_get_main_tbl();
-    $tbl_module      = $tbl_mdb_names['module'];
-
-    if( ! isset( $toolNameList ) )
-    {
-        $toolNameList = array('CLANN' => 'Announcement'
-        ,                     'CLFRM' => 'Forums'
-        ,                     'CLCAL' => 'Agenda'
-        ,                     'CLCHT' => 'Chat'
-        ,                     'CLDOC' => 'Documents and Links'
-        ,                     'CLDSC' => 'Course description'
-        ,                     'CLGRP' => 'Groups'
-        ,                     'CLLNP' => 'Learning path'
-        ,                     'CLQWZ' => 'Exercises'
-        ,                     'CLWRK' => 'Assignments'
-        ,                     'CLUSR' => 'Users'
-        ,                     'CLWIKI' => 'Wiki'
-        );
-    }
-
-    //add in result the module of type 'tool'
-    //see if we take only activated modules or all of them
-
-    if ($active)
-    {
-        $activationSQL = " AND `activation`='activated'";
-    }
-    else
-    {
-        $activationSQL = "";
-    }
-
-    //find tool modules
-
-    $sql = "SELECT `label`, `name` FROM `" . $tbl_module . "`
-                            WHERE `type`='tool'
-                              ".$activationSQL;
-
-    $result = claro_sql_query_fetch_all($sql);
-
-    //add them in result array
-
-    foreach ($result as $tool)
-    {
-
-        if (!isset($toolNameList[$tool['label']]))
-        {
-            $toolNameList[$tool['label']] = $tool['name'];
-        }
-    }
-
-    return $toolNameList;
-}
-
-/**
- * SECTION :  Get kernel
- * SUBSECTION datas for rel tool courses
- */
-
-/**
- * Return the list of tool installed on the platform
- *
- * @param  boolean $force (optionnal) - reset the result cache, default is false
- *
- * @return array the main course list array ( $tid => 'label','name','url','icon','activation' )
- */
-
-function claro_get_main_course_tool_list ( $force = false )
-{
-    static $courseToolList = null ;
-
-    if ( is_null($courseToolList) || $force )
-    {
-        // Initialise course tool list
-        $courseToolList = array();
-
-        // Get name of the tables
-        $tbl_mdb_names        = claro_sql_get_main_tbl();
-        $tbl_tool_list        = $tbl_mdb_names['tool'];
-        $tbl_module           = $tbl_mdb_names['module'];
-
-        // Find module tools
-        $sql = "SELECT t.id,
-                       t.claro_label as label,
-                       m.name,
-                       m.activation,
-                       t.icon,
-                       t.script_url as url
-                FROM `" . $tbl_module . "` as m,
-                     `" . $tbl_tool_list . "` as t
-               WHERE t.claro_label = m.label
-                 AND m.type = 'tool'
-               ORDER BY t.def_rank";
-
-        $courseToolResult = claro_sql_query_fetch_all($sql);
-
-        // Fill course tool list
-        foreach ( $courseToolResult as $courseTool )
-        {
-            $toolId = $courseTool['id'];
-
-            $courseToolList[$toolId]['label'] = $courseTool['label'];
-            $courseToolList[$toolId]['name'] = $courseTool['name'];
-            $courseToolList[$toolId]['url'] = get_module_url($courseTool['label']) . '/' . $courseTool['url'] ;
-
-            if ( !empty($courseTool['icon']) )
-            {
-                $courseToolList[$toolId]['icon'] = get_module_url($courseTool['label']) . $courseTool['icon'];
-            }
-            else
-            {
-                $courseToolList[$toolId]['icon'] = $GLOBALS['imgRepositoryWeb'] .'/tool.gif';
-            }
-
-            if ( $courseTool['activation'] == 'activated' )
-            {
-                $courseToolList[$toolId]['activation'] = true;
-            }
-            else
-            {
-                $courseToolList[$toolId]['activation'] = false;
-            }
-        }
-    }
-
-    return $courseToolList ;
-}
-
-/**
- * Return the tool list for a course according a certain access level
- * @param  string  $courseIdReq - the requested course id
- *
- * @param  boolean $force (optionnal)  - reset the result cache, default is false
- * @param  boolean $active (optionnal) - get the list of active tool only if set to true (default behaviour)
- * @return array   the course list
- */
-
-function claro_get_course_tool_list($courseIdReq, $profileIdReq, $force = false, $active=true )
-{
-    static $courseToolList = null, $courseId = null, $profileId = null;
-
-    if (   is_null($courseToolList)
-    || $courseId    != $courseIdReq
-    || $profileId   != $profileIdReq
-    || $force )
-    {
-        $courseId   = $courseIdReq;
-        $profileId  = $profileIdReq;
-
-        $tbl_mdb_names        = claro_sql_get_main_tbl();
-        $tbl_tool_list        = $tbl_mdb_names['tool'];
-        $tbl_module           = $tbl_mdb_names['module'];
-        $tbl_cdb_names        = claro_sql_get_course_tbl( claro_get_course_db_name_glued($courseIdReq) );
-        $tbl_course_tool_list = $tbl_cdb_names['tool'];
-
-        /*
-        * Search all the tool corresponding to this access levels
-        */
-
-        // find module or claroline existing tools
-
-        $sql = "SELECT DISTINCT ctl.id            AS id,
-                      pct.id                      AS tool_id,
-                      pct.claro_label             AS label,
-                      ctl.script_name             AS external_name,
-                      ctl.visibility              AS visibility,
-                      IFNULL(pct.icon,'tool.gif') AS icon,
-                      ISNULL(ctl.tool_id)         AS external,
-                      m.activation ,
-                      m.name                      AS name,
-                      IFNULL( ctl.script_url ,
-                              pct.script_url )    AS url
-               FROM `" . $tbl_course_tool_list . "` AS ctl,
-                    `" . $tbl_module . "`           AS m,
-                    `" . $tbl_tool_list . "`        AS pct
-
-               WHERE pct.id = ctl.tool_id
-                 AND pct.claro_label = m.label
-                 ". ($active ? " AND m.activation = 'activated' " :"") . "
-               ORDER BY external, pct.def_rank, ctl.rank";
-
-        $courseToolList = claro_sql_query_fetch_all($sql);
-
-        // right profile management
-
-        $size = count($courseToolList);
-
-        for ( $i=0 ; $i<$size ; $i++ )
-        {
-            $toolId = $courseToolList[$i]['tool_id'];
-            $visibility = (bool) $courseToolList[$i]['visibility'];
-
-            // delete tool from course tool list if :
-            // 1. tool is invisible and profile has no right to edit tool
-            // 2. profile has no right to view tool
-            if ( ( $visibility == false && ! claro_is_allowed_tool_edit($toolId,$profileId,$courseId) )
-            || ! claro_is_allowed_tool_read($toolId,$profileId,$courseId) )
-            {
-                unset($courseToolList[$i]);
-            }
-        }
-
-        // find external url added by teacher
-
-        $sql = "SELECT DISTINCT ctl.id            AS id,
-                      NULL                        AS tool_id,
-                      NULL                        AS label,
-                      ctl.script_name             AS external_name,
-                      ctl.visibility              AS visibility,
-                      'tool.gif'                  AS icon,
-                      ISNULL(ctl.tool_id)         AS external,
-                      NULL                        AS name,
-                      ctl.script_url              AS url
-
-               FROM `" . $tbl_course_tool_list . "` AS ctl
-               WHERE ISNULL(ctl.tool_id) ";
-
-        if ( ! get_init('is_courseAdmin') )
-        {
-            $sql .= 'AND ctl.visibility = 1';
-        }
-
-        $result = claro_sql_query_fetch_all($sql);
-
-        $courseToolList = array_merge($courseToolList,$result);
-    }
-
-    return $courseToolList;
-}
-
-/**
- * Return the tool list for a course according a certain access level
- *
- * @param  boolean $force (optionnal) - reset the result cache, default is false
- *
- * @return array the main course list array ( $id => 'name','url','icon','visibility' )
- */
-
-function claro_get_course_external_link_list ( $courseIdReq = null, $force = false )
-{
-    static $courseExtLinkList = null, $courseId = null ;
-
-    if ( is_null($courseIdReq) )
-    {
-        $courseIdReq = get_init('_cid');
-    }
-
-    if ( is_null($courseExtLinkList)
-    || $courseIdReq != $courseId
-    || $force )
-    {
-        // Initialise course tool list
-        $courseId = $courseIdReq;
-        $courseExtLinkList = array();
-
-        // Get name of the tables
-        $tbl_cdb_names        = claro_sql_get_course_tbl( claro_get_course_db_name_glued($courseIdReq) );
-        $tbl_course_tool_list = $tbl_cdb_names['tool'];
-
-        // Find external link
-        $sql = "SELECT id,
-                       script_name,
-                       script_url,
-                       visibility
-               FROM `" . $tbl_course_tool_list . "`
-               WHERE ISNULL(tool_id) ";
-
-        if ( ! ( get_init('is_courseAdmin') || get_init('is_platformAdmin') ) )
-        {
-            $sql .= 'AND visibility = 1';
-        }
-
-        $courseExtLinkResult = claro_sql_query_fetch_all($sql);
-
-        foreach ( $courseExtLinkResult as $courseExtLink )
-        {
-            $id = $courseExtLink['id'];
-            $courseExtLinkList[$id]['name'] = $courseExtLink['script_name'];
-            $courseExtLinkList[$id]['url'] = $courseExtLink['script_url'];
-            $courseExtLinkList[$id]['icon'] = $GLOBALS['imgRepositoryWeb'] .'/tool.gif';
-            $courseExtLinkList[$id]['visibility'] = (bool) $courseExtLink['visibility'];
-        }
-    }
-
-    return $courseExtLinkList;
-}
-
-/**
- * Get the name of a tool
- * @param string identifier is tool_id or tool_label
- * @return string tool name
- */
-
-function claro_get_tool_name ( $identifier )
-{
-    return claro_get_module_name($identifier);
-}
-
-/**
- * Return the name of a given module
- *
- * @param mixed $identifier
- *        interger for a module id
- *        string for a claro label
- * @return string translated tool name;
- */
-function claro_get_module_name ( $identifier )
-{
-    static $cachedModuleIdList = null ;
-    if ( is_numeric($identifier) )
-    {
-        // identifier is a tool_id
-        if ( ! $cachedModuleIdList )
-        {
-            $tbl = claro_sql_get_main_tbl();
-
-            $sql = "SELECT id      AS toolId,
-                       claro_label AS claroLabel
-                    FROM `" . $tbl['tool'] . "`";
-
-            $moduleList = claro_sql_query_fetch_all($sql);
-
-            foreach ($moduleList as $thisModule)
-            {
-                $toolId = $thisModule['toolId'];
-                $claroLabel =  $thisModule['claroLabel'];
-                $cachedModuleIdList[$toolId] = $claroLabel;
-            }
-        }
-        // get tool label of the tool
-        $toolLabel = $cachedModuleIdList[$identifier];
-    }
-    else
-    {
-        // identifier is a tool label
-        $toolLabel = $identifier;
-    }
-
-    $toolNameList = claro_get_tool_name_list();
-
-    if ( isset($toolNameList[$toolLabel]) )
-    {
-        return $toolNameList[$toolLabel];
-    }
-/*
-    if ( isset($toolNameList[$toolLabel]) )
-    {
-
-        $moduleData = get_module_data($toolLabel);
-        if (is_array($moduleData))
-        {
-            $moduleName = $moduleData['moduleName'];
-            return  get_lang($moduleName);
-        }
-    }
-*/
-    return get_lang('No tool name') ;
-
-}
-
-/**
- * SECTION : CLAROLINE FAILURE MANGEMENT
- */
-
 
 $claro_failureList = array();
 
 /**
- * collects and manage failures occuring during script execution
- * The main purpose is allowing to manage the display messages externaly
- * from functions or objects. This strengthens encapsulation principle
+ * Fills a global array	called $claro_failureList
+ * This	array collects all the failure occuring	during the script runs
+ * The main	purpose	is allowing	to manage the display messages externaly
+ * from	the	functions or objects. This strengthens encupsalation principle
  *
- * @example :
- *
- *  function my_function()
- *  {
- *      if ($succeeds) return true;
- *      else           return claro_failure::set_failure('my_failure_type');
- *  }
- *
- *  if ( my_function() )
- *  {
- *      SOME CODE ...
- *  }
- *  else
- *  {
- *      $failure_type = claro_failure::get_last_failure()
- *  }
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param  string $failureType - the type of failure
+ * @global array $claro_failureList
+ * @return bolean false	to stay	consistent with	the	main script
+ */
+
+function claro_set_failure($failureType)
+{
+	global $claro_failureList;
+
+	$claro_failureList[] = $failureType;
+
+	return false;
+}
+
+
+
+/**
+ * get the last	failure	stored in $claro_failureList;
  *
  * @author Hugues Peeters <hugues.peeters@claroline.net>
- * @package failure
+ * @param void
+ * @return string -	the	last failure stored
+ */
+
+function claro_get_last_failure()
+{
+	global $claro_failureList;
+
+	return $claro_failureList[ count($claro_failureList) - 1 ];
+}
+
+
+
+/**
+ * collects and manage failures occuring during script execution
+ * The main purpose is allowing to manage the display messages externaly 
+ * from functions or objects. This strengthens encupsalation principle
+ *
+ * @author Hugues Peeters <hugues.peeters@claroline.net>
  */
 
 class claro_failure
 {
-    /*
-    * IMPLEMENTATION NOTE : For now the $claro_failureList list is set to the
-    * global scope, as PHP 4 is unable to manage static variable in class. But
-    * this feature is awaited in PHP 5. The class is already written to
-    * minimize the changes when static class variable will be possible. And the
-    * API won't change.
-    */
-
-    // var $claro_failureList = array();
-
-    /**
-     * Pile the last failure in the failure list
-     *
-     * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
-     * @param  string $failureType the type of failure
-     * @global array  claro_failureList
-     * @return boolean false to stay consistent with the main script
+    /* 
+     * IMPLEMENTATION NOTE : For now the $claro_failureList list is set to the 
+     * global scope, as PHP 4 is unable to manage static variable in class. But 
+     * this feature is awaited in PHP 5. The class is already written to minize 
+     * the change when static class variable will be possible. And the API won't 
+     * change.
      */
 
-    function set_failure($failureType)
-    {
-        global $claro_failureList;
+	var	$claro_failureList = array();
 
-        $claro_failureList[] = $failureType;
+	/**
+	 * Pile	the	last failure in	the	failure	list
+	 *
+	 * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+	 * @param  string $failureType - the type of failure
+	 * @global array  $claro_failureList
+	 * @return bolean false	to stay	consistent with	the	main script
+	 */
 
-        pushClaroMessage('set failure : ' . var_export($failureType,1),'set_failure');
+	function set_failure($failureType)
+	{
+		global $claro_failureList;
 
-        return false;
-    }
+		$claro_failureList[] = $failureType;
+
+		return false;
+	}
 
 
-    /**
-     * get the last failure stored
-     *
-     * @author Hugues Peeters <hugues.peeters@claroline.net>
-     * @return string the last failure stored
-     */
+	/**
+	 * get the last	failure	stored
+	 *
+	 * @author Hugues Peeters <hugues.peeters@claroline.net>
+	 * @param void
+	 * @return string -	the	last failure stored
+	 */
 
-    function get_last_failure()
-    {
-        global $claro_failureList;
+	function get_last_failure()
+	{
+		global $claro_failureList;
 
-        if( isset( $claro_failureList[ count($claro_failureList) - 1 ] ) )
-        return $claro_failureList[ count($claro_failureList) - 1 ];
-        else
-        return '';
-    }
+		return $claro_failureList[ count($claro_failureList) - 1 ];
+	}
 }
 
+//////////////////////////////////////////////////////////////////////////////
+//							  DISPLAY OPTIONS
+//							student	view, title, ...
+//////////////////////////////////////////////////////////////////////////////
+
 
 /**
- * SECTION :  "view AS"
- */
-
-
-/**
- * Set if  the  access level switcher is aivailable
+ * Displays the title of a tool. Optionally, there can be a subtitle below
+ * the normal title, and / or a supra title above the normal title.
  *
- * @global boolean claro_toolViewOptionEnabled
- * @return true
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * e.g. supra title:
+ * group
+ * GROUP PROPERTIES
+ *
+ * e.g. subtitle:
+ * AGENDA
+ * calender & events tool
+ *
+ * @author Hugues Peeters <hugues.peeters@claroline.net>
+ * @param  mixed $titleElement - it could either be a string or an array
+ *                               containing 'supraTitle', 'mainTitle',
+ *                               'subTitle'
+ * @return void
  */
 
-function claro_enable_tool_view_option()
+function claro_disp_tool_title($titleElement, $helpUrl = false)
 {
-    global $claro_toolViewOptionEnabled;
-    $claro_toolViewOptionEnabled = true;
-    return true;
+	// if titleElement is simply a string transform it into an array
+
+    if (is_string($titleElement)) 
+	{
+		$tit = $titleElement;
+		unset($titleElement);
+		$titleElement['mainTitle'] = $tit;
+	}
+
+	echo '<h3>';
+
+    if ($helpUrl)
+    {
+    	global $clarolineRepositoryWeb, $langHelp;
+
+?><a href="#" onClick="MyWindow=window.open('<?php echo $clarolineRepositoryWeb ?>help/<?php echo $helpUrl ?>','MyWindow','toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,resizable=yes,width=350,height=450,left=300,top=10'); return false;"><?php
+
+
+        echo '<img src="'.$clarolineRepositoryWeb.'/img/help.gif" '
+                .' alt ="'.$langHelp.'"'
+                .' align="right"'
+                .' hspace="30">'
+            .'</a>';
+    }
+
+
+    if ($titleElement['supraTitle'])
+	{
+		echo '<small>'.$titleElement['supraTitle'].'</small><br>';
+	}
+
+	if ($titleElement['mainTitle'])
+	{
+		echo $titleElement['mainTitle'];
+	}
+
+	if ($titleElement['subTitle'])
+	{
+		echo '<br><small>'.$titleElement['subTitle'].'</small>';
+	}
+
+	echo '</h3>';
 }
 
-
-/**
- * Set if  the  access level switcher is aivailable
- *
- * @param  $viewMode 'STUDENT' or 'COURSE_ADMIN'
- * @return true if set succeed.
- *
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
- */
-
-function claro_set_tool_view_mode($viewMode)
-{
-    $viewMode = strtoupper($viewMode); // to be sure ...
-
-    if ( in_array($viewMode, array('STUDENT', 'COURSE_ADMIN') ) )
-    {
-        $_SESSION['claro_toolViewMode'] = $viewMode;
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
 
 /**
  * Display options to switch between student view and course manager view
- * This function is mainly used by the claro_init_banner.inc.php file
- * The display mode command will only be displayed if
- * claro_set_tool_view_mode(true) has been previously called.
- * This will affect the return value of claro_is_allowed_to_edit() function.
- * It will ten return false as the user is a simple student.
  *
- * @author Roan Embrechts
- * @author Hugues Peeters
- * @param string - $viewModeRequested.
- *                 For now it can be 'STUDENT' or 'COURSE_ADMIN'
- * @see claro_is_allowed_to_edit()
- * @see claro_is_display_mode_available()
- * @see claro_set_display_mode_available()
- * @see claro_get_tool_view_mode()
- * @see claro_set_tool_view_mode()
- * @return true;
+ * @param $isStudentView the current state (true|false)
+ * @author Roan	Embrechts
+ * @version	1.1
+ *
+ * Example code	for	using this in your tools:
+ * include('../inc/lib/claro_main.lib.php'); //this	is perhaps necessary
+ * $is_AllowedToEdit = $is_courseAdmin;
+ * if ($is_AllowedToEdit) claro_disp_tool_view_option($isStudentView);
+ * $is_AllowedToEdit = $is_AllowedToEdit &&	! $isStudentView;
+ * ...
  */
-
-
-function claro_disp_tool_view_option($viewModeRequested = false)
+function claro_disp_tool_view_option($isStudentView	= false)
 {
-    pushClaroMessage( (function_exists('claro_html_debug_backtrace')
-             ? claro_html_debug_backtrace()
-             : 'claro_html_debug_backtrace() not defined'
-             )
-             .'claro_disp_tool_view_option is deprecated , use claro_html_tool_view_option','error');
-
-    return claro_html_tool_view_option($viewModeRequested);
+	global $langCourseManagerview, $langStudentView;
+	if ($isStudentView)
+	{
+		?>
+		<p align="right" style="margin-top:	0; margin-bottom: 0"><small><b>
+		<?php echo $langStudentView;?> | <a	href="<? echo $_SERVER['PHP_SELF']; ?>"><u><?php echo $langCourseManagerview; ?></u></a>
+		</small></b></p>
+		<?php
+	}
+	else
+	{
+		?>
+		<p align="right" style="margin-top:	0; margin-bottom: 0"><small><b>
+		<a href="<?	echo $_SERVER['PHP_SELF'];	?>?isStudentView=true"><u><?php	echo $langStudentView;?></u></a>
+		| <?php	echo $langCourseManagerview; ?>
+		</small></b></p>
+		<?php
+	}
 }
 
-function claro_html_tool_view_option($viewModeRequested = false)
+
+/**
+	Display	list of	messages
+
+	!!! DEPRECATED !!!
+
+    USE claro_disp_message_box($message) INSTEAD
+
+	@param $msgArrBody array of	messages
+	@author	Christophe gesché <moosh@phpFrance.com>
+	@version 1.0
+
+	Example	code for using this	in your	tools:
+	$msgArrBody["nameOfCssClass"]="foo";
+.	css	class can be defined in	script but try to use
+	class from	generic	css	()
+	error success warning
+	...
+*/
+
+function claro_disp_msg_arr($msgArrBody)
 {
-    if ( ! claro_is_course_manager() || ! claro_is_display_mode_available() ) return false;
+	if (is_array($msgArrBody))
+	{
+		foreach ($msgArrBody as $thisMsgArr)
+			foreach ($thisMsgArr as $anotherThis)
+				$messageList[] = $anotherThis;
 
-    if ($viewModeRequested) claro_set_tool_view_mode($viewModeRequested);
-
-    $currentViewMode = claro_get_tool_view_mode();
-
-    /*------------------------------------------------------------------------
-    PREPARE URL
-    ------------------------------------------------------------------------*/
-
-    /*
-    * check if the REQUEST_URI contains already URL parameters
-    * (thus a questionmark)
-    */
-
-    if ( strstr($_SERVER['REQUEST_URI' ], '?') )
-    {
-        $url = $_SERVER['REQUEST_URI' ];
-    }
-    else
-    {
-        $url = $_SERVER['PHP_SELF'] . '?';
-    }
-
-    /*
-     * convert & to &amp;
-     */
-
-    $url = preg_replace( '/(&amp;|&)/', '&amp;', $url );
-
-    /*
-    * remove previous view mode request from the url
-    */
-
-    $url = str_replace('&amp;viewMode=STUDENT'     , '', $url);
-    $url = str_replace('&amp;viewMode=COURSE_ADMIN', '', $url);
-    $url = str_replace('?viewMode=STUDENT'     , '?', $url);
-    $url = str_replace('?viewMode=COURSE_ADMIN', '?', $url);
-    $url = str_replace('?&amp;', '?', $url );
-
-    /*------------------------------------------------------------------------
-    INIT BUTTONS
-    -------------------------------------------------------------------------*/
-    
-    if ( substr( $url, -1, 1) === '?' )
-    {
-        $sep = '';
-    }
-    else
-    {
-        $sep = '&amp;';
-    }
+		claro_disp_message_box( '<p>'.implode('<p></p>', $messageList).'</p>' );
+	}
+}
 
 
-    switch ($currentViewMode)
-    {
-        case 'COURSE_ADMIN' :
+/**
+	Display	authencation form if needed
 
-            $studentButton = '<a href="' . $url . $sep . 'viewMode=STUDENT">'
-            .                get_lang('Student')
-            .                '</a>'
-            ;
-            $courseAdminButton = '<b>' . get_lang('Course manager') . '</b>';
+	@author	Christophe gesché <moosh@phpFrance.com>
+	@version 0.1
+*/
 
-            break;
+function claro_disp_auth_form()
+{
+	global  $includePath, $clarolineRepositoryWeb,
+			$_uid, $is_courseAllowed, $_course,
+			$siteName,
 
-        case 'STUDENT' :
+			$lang_thisCoursIsProtectedOrDontExist , $lang_password ,
+			$lang_username, $lang_doLogin, $lang_IfYouDontHaveAccountOn, 
+			$lang_YouNeedToSubscribeThisCourse, $langReg;
 
-            $studentButton     = '<b>'.get_lang('Student').'</b>';
-            $courseAdminButton = '<a href="' . $url . $sep . 'viewMode=COURSE_ADMIN">'
-            . get_lang('Course manager')
-            . '</a>';
-            break;
-    }
+			
+	if ( ! $is_courseAllowed)
+	{
+        echo "<p align=\"center>\">"
+            .$lang_this_course_is_protected."<br>"
+            .$lang_enter_your_user_name_and_password
+            ."</p>";
+		
+		if( ! $_uid && ! $_course['visibility'])
+		{
+			echo '<table align="center">' ."\n"
+                .'<tr>'
+                .'<td>'
+				.'<form action="'
+				.$_SERVER['PHP_SELF']
+				.($_SERVER['QUERY_STRING']?'?'.$_SERVER['QUERY_STRING']:'')
+				.'" method="POST">'       ."\n"
 
-    /*------------------------------------------------------------------------
-    DISPLAY COMMANDS MENU
-    ------------------------------------------------------------------------*/
+				.'<fieldset>'             ."\n"
 
-    return get_lang('View mode') . ' : '
-    .    $studentButton
-    .    ' | '
-    .    $courseAdminButton
-    ;
+				.'<legend>'.$lang_doLogin.'</legend>'                        ."\n"
+
+				.'<label for="username">'.$lang_username.' : </label><br>'   ."\n"
+				.'<input type="text" name="login" id="username"><br>'        ."\n"
+
+				.'<label for="password">'.$lang_password.' : </label><br>'   ."\n"
+				.'<input type="password" name="password" id="password"><br>' ."\n"
+				.'<input type="submit" >' ."\n"
+				
+				.'</fieldset>'            ."\n"
+				
+				.'</form>'                ."\n"
+                .'</td>'                  ."\n"
+                .'</tr>'                  ."\n"
+				.'</table>'               ."\n";
+				
+			/*
+			 * If users are allowed to register themselves to the platform
+			 * redirect this user to the platform registration page
+			 */
+			 
+			if ( $allowSelfReg || !isset($allowSelfReg) ) 
+			{
+				echo '<p>'."\n"
+					.$lang_if_you_dont_have_a_user_account_profile_on." ".$siteName
+					."<a href=\"".$clarolineRepositoryWeb."auth/inscription.php\">"
+					.$lang_click_here
+					."</a>\n"
+					."</p>\n";
+			}
+		} // end if ! $uid && ! $course['visibility']
+		
+		/*
+		 * If the user is logged (authenticated) on the platform
+		 * and the course settings still allows user self enrollment,
+		 * redirect him to the course enrollment pages
+		 */
+		
+		elseif( $_uid && $_course['registrationAllowed'] )
+		{
+			// if  I'm logged but have no access
+			// this course is close, right, but the subscribe to this course ?
+				echo "<p>\n"
+					.$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course.'<br>'
+                    .$lang_if_you_wish_to_enroll_to_this_course
+					."<a href=\"".$clarolineRepositoryWeb."auth/courses.php?cmd=rqReg&keyword=".$_course['officialCode']."\" >"
+					.$langReg
+					."</a>\n"
+					."</p>\n";
+					
+		} // elseif$_uid && $_course['registrationAllowed']
+		
+		include($includePath."/claro_init_footer.inc.php");
+		die('');
+	}
+}
+
+
+/**
+	Display selectbox for select a course
+
+	@author	Christophe gesché <moosh@claroline.net>
+	@version 0.1
+*/
+
+function claro_disp_select_course()
+{
+	global  $_uid, $_cid,
+
+			$siteName,$includePath, 
+			$langManager, $administrator
+			;
+
+	$mainTbl = claro_sql_get_main_tbl();
+	$tbl_courses 				= $mainTbl['cours'];
+	$tbl_rel_user_courses	= $mainTbl['rel_course_user'];
+	if ( ! $_cid)
+	{
+		/*
+			This function is called when a $_cid is request
+		*/
+		
+		if($_uid)
+		{
+			$sql_get_course_list = 
+			"select c.code `value`, concat(c.intitule,' (',c.fake_code,')') `name` 
+			 from `".$tbl_courses."` c ,  `".$tbl_rel_user_courses."` cu
+			 WHERE c.code= cu.code_cours and cu.user_id = '".$_uid."'" ;
+		} // end if $uid 
+		else
+		{
+			$sql_get_course_list = 
+			"select c.code `value`, concat(c.intitule,' (',c.fake_code,')') `name` 
+			from `".$tbl_courses."` c";
+		}
+
+		$resCourses = claro_sql_query($sql_get_course_list);
+		while($course = mysql_fetch_array($resCourses))
+		{
+				$courses[]=$course;
+		}
+		if (is_array($courses))
+		{
+			if(count($courses)==1)
+			{
+				header("location:".$_SERVER['PHP_SELF']."?cidReq=".urlencode($courses[0]['value']));
+			}
+			else
+			{
+			    claro_disp_tool_title("This tools need a course");
+		?>
+<form action="<?php echo $PHP_SELF ?>" method="post">
+	<label for="selectCourse">Course</label> : 
+		<select name="cidReq" id="selectCourse">
+	<?php  echo implode("\t\t\t", prepare_option_tags($courses) ); ?>
+		</select>
+	
+	<input type="submit">
+</form>
+		<?php
+             }
+        }
+		include($includePath."/claro_init_footer.inc.php");
+		die('');
+	}
 }
 
 
 
 /**
- * return the current mode in tool able to handle different view mode
- *
- * @return string 'COURSE_ADMIN' or 'STUDENT'
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
- */
+	Display	intro of tool
+	This   use introductionSection.inc.php in a	function.
 
-function claro_get_tool_view_mode()
+	!!!!! BETA !!!!! this  a test.	That's	work but is	that pertinent ????
+
+	@param $idTools
+	@author	Christophe Gesché <moosh@phpFrance.com>
+	@version 0.1
+*/
+
+function claro_disp_intro($idTools)
 {
-    // check first if a viewMode has been requested
-    // if one was requested change the current viewMode to the mode asked
-    // if there was no change requested and there is nothing in session
-    // concerning view mode set the default viewMode
-    // if there was something in session and nothing
-    // in request keep the session value ( == nothing to do)
-    if( isset($_REQUEST['viewMode']) )
-    {
-        claro_set_tool_view_mode($_REQUEST['viewMode']);
-    }
-    elseif( ! isset($_SESSION['claro_toolViewMode']) )
-    {
-        claro_set_tool_view_mode('COURSE_ADMIN'); // default
-    }
+	global $includePath, $_course,$urlAppend, $is_courseAdmin,
+	       $langOk, $langAddIntro, $langModify, 
+	       $langConfirmYourChoice,$langDelete;
 
-    return $_SESSION['claro_toolViewMode'];
+	$moduleId =	$idTools; // Id	of the Student Paper introduction Area
+	include($includePath.'/introductionSection.inc.php');
+	return true;
 }
 
-
 /**
- * Function that removes the need to directly use is_courseAdmin global in
- * tool scripts. It returns true or false depending on the user's rights in
- * this particular course.
+ * diplays the message box appearing on	the	top	of the window,
+ * just	below the tool title. It is	recommended	to use this	function
+ * to display any confirmation or error	messages, or to	ask	to the user
+ * to enter	simple parameters.
  *
- * @version 1.1, February 2004
- * @return boolean true: the user has the rights to edit, false: he does not
- * @author Roan Embrechts
- * @author Patrick Cool
+ * @author Hugues Peeters <hugues.peeters@claroline.net>
+ * @param string $message -	include	your self any additionnal html
+ *							tag	if you need	them
+ * @return void
  */
 
-function claro_is_allowed_to_edit()
+function claro_disp_message_box($message)
 {
-    if ( claro_is_course_manager() )
+?>
+<table class="claroMessageBox" border="0" cellspacing="0" cellpadding="10">
+<tr>
+<td>
+<?php echo $message; ?>
+</td>
+</tr>
+</table>
+<?php
+}
+
+/**
+ * displays an anchor tag (<a ...>) which, thanks to style sheet (css),
+ * looks like a button.
+ *
+ * This function is needed, because Netscap 4 family browsers renders CSS 
+ * so badly that it makes the button unusable. The function prevents the problem 
+ * to occur by removing class style  if the browser is from the Netscape 4 
+ * familiy.
+ *
+ * @author Hugues Peeters <hugues.peeters@claroline.net>
+ *
+ * @param string $url url inserted into the 'href' part of the tag
+ * @param string $text text inserted between the two <a>...</a> tags (note : it 
+ *        could also be an image ...) 
+ * @param string $confirmMessage (optionnal) introduce a javascript confirmation popup
+ * @return void
+ */
+
+
+function claro_disp_button($url, $text, $confirmMessage = '')
+{
+    global $HTTP_USER_AGENT;
+
+    if (   claro_is_javascript_enabled()
+        && ! preg_match('~^Mozilla/4\.[1234567]~', $HTTP_USER_AGENT))
     {
-        $isAllowedToEdit = true;
-    }
-    else
-    {
-        if ( claro_is_in_a_tool() )
+        if ($confirmMessage != '')
         {
-            $isAllowedToEdit = claro_is_allowed_tool_edit();
+            $onClickCommand =" if(confirm('".$confirmMessage."')){document.location='".$url."';return false}";
         }
         else
         {
-            $isAllowedToEdit = false;
+            $onClickCommand = "document.location='".$url."';return false";
+        }
+        
+        echo "<button class=\"claroButton\" onclick=\"".$onClickCommand."\">"
+            .$text
+            ."</button>&nbsp;\n";
+    }
+    else
+    {
+        echo '<nobr>[ <a  href="'.$url.'" '.$additionnalParam.'>'.$text.'</a> ] </nobr>';
+    }
+}
+
+/**
+ * Function used to draw a progression bar
+ *
+ * @author Piraux Sébastien <pir@cerdecam.be>
+ *
+ * @param $progress progression in pourcent
+ * @param $factor will be multiply by 100 to have the full size of the bar (i.e. 1 will give a 100 pixel wide bar)
+ */
+function claro_disp_progress_bar ($progress, $factor)
+{
+	global $clarolineRepositoryWeb;
+        $maxSize = $factor * 100; //pixels
+        $barwidth = $factor * $progress ;
+
+	// display progress bar
+	// origin of the bar
+	$progressBar = "<img src=\"".$clarolineRepositoryWeb."img/bar_1.gif\" width=\"1\" height=\"12\" alt=\"\">";
+
+	if($progress != 0)
+        	$progressBar .= "<img src=\"".$clarolineRepositoryWeb."img/bar_1u.gif\" width=\"$barwidth\" height=\"12\" alt=\"\">";
+	// display 100% bar
+
+	if($progress!= 100 && $progress != 0)
+        	$progressBar .= "<img src=\"".$clarolineRepositoryWeb."img/bar_1m.gif\" width=\"1\" height=\"12\" alt=\"\">";
+
+	if($progress != 100)
+        	$progressBar .= "<img src=\"".$clarolineRepositoryWeb."img/bar_1r.gif\" width=\"".($maxSize-$barwidth)."\" height=\"12\" alt=\"\">";
+	// end of the bar
+	$progressBar .=  "<img src=\"".$clarolineRepositoryWeb."img/bar_1.gif\" width=\"1\" height=\"12\" alt=\"\">";
+
+	return $progressBar;
+}
+
+
+/**
+ * Insert a	sort of	HTML Wysiwyg textarea inside a FORM
+ *
+ * @author Hugues Peeters <hugues.peeters@claroline.net>
+ *
+ * @param string $name 
+ * @param string $content optional content previously inserted into	the	area
+ * @param int	 $rows optional	textarea rows
+ * @param int	 $cols optional	textarea columns
+ * @param string $optAttrib	optional - additionnal tag attributes 
+ *									   (wrap, class, ...)
+ * @return void
+ *
+ * @globals	$urlAppend from	claro_main.conf.php
+ *
+ * @desc the html area currently implemented is	HTMLArea 3.0. To work correctly,
+ * the area	needs a	specific stylesheet	previously loaded in the html header.
+ * For that, use the claroline $htmlHeadXtra[] array at	the	top	of the script 
+ * just	before including claro_init_header.inc.php
+ *
+ * Example : $htmlHeadXtra[] = '<style type="text/css">
+ * @import url('.$urlAppend.'/claroline/inc/htmlarea'.'/htmlarea.css);
+ *								</style>';
+ */
+
+function claro_disp_html_area($name, $content =	'',	
+							  $rows=20,	$cols=80, $optAttrib='')
+{
+	global $urlAppend;
+
+	$incPath = $urlAppend.'/claroline/inc/htmlarea';
+?>
+
+<textarea id    = "<?php echo $name; ?>" 
+          name  = "<?php echo $name; ?>" 
+          style = "width:100%" 
+          rows  = "<?php echo $rows; ?>" 
+          cols  = "<?php echo $cols ?>"
+          <?php echo $optAttrib; ?> ><?php echo $content; ?></textarea>
+
+<script>_editor_url	= "<?php echo  $incPath?>";</script>
+<script	type="text/javascript" src="<?php echo $incPath; ?>/htmlarea.js"></script>
+<script	type="text/javascript" src="<?php echo $incPath; ?>/lang/en.js"></script>
+<script	type="text/javascript" src="<?php echo $incPath; ?>/dialog.js"></script>
+
+<script	type="text/javascript">
+var	editor = null;
+function initEditor() {
+  editor = new HTMLArea("<?php echo	$name ?>");
+
+  // comment the following two lines to	see	how	customization works
+  editor.generate();
+  return false;
+}
+
+function insertHTML() {
+ var html =	prompt("Enter some HTML	code here");
+ if	(html) {editor.insertHTML(html);}
+}
+function highlight() {
+  editor.surroundHTML('<span style="background-color: yellow">', '</span>');
+}
+</script>
+
+<script>
+initEditor();
+</script>
+
+<!-- <input type="button" name="ins"	value="	 insert	html  "	onclick="return	insertHTML();" /> -->
+<!-- <input type="button" name="hil"	value="	 highlight text	 " onclick="return highlight();" /> -->
+<?php
+}
+
+/**
+ * function claro_build_nested_select_menu($name, $elementList)
+ * Build in a relevant way 'select' menu for an HTML form containing nested data
+ *
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ *
+ * @param string $name, name of the select tag
+ *
+ * @param array nested data in a composite way
+ *
+ *  Exemple :
+ *
+ *  $elementList[1]['name'    ] = 'level1';
+ *  $elementList[1]['value'   ] = 'level1';
+ *
+ *  $elementList[1]['children'][1]['name' ] = 'level2';
+ *  $elementList[1]['children'][1]['value'] = 'level2';
+ *
+ *  $elementList[1]['children'][2]['name' ] = 'level2';
+ *  $elementList[1]['children'][2]['value'] = 'level2';
+ *
+ *  $elementList[2]['name' ]  = 'level1';
+ *  $elementList[2]['value']  = 'level1';
+ *
+ * @return string the HTML flow
+ * @desc depends on prepare option tags
+ *
+ */
+
+function claro_build_nested_select_menu($name, $elementList)
+{
+    return "<select name=\"".$name."\">\n"
+          .implode("\n", prepare_option_tags($elementList) )
+          ."</select>\n";
+}
+
+/**
+ * prepare the 'option' html tag for the claro_disp_nested_select_menu()
+ * fucntion
+ *
+ * @author Hugues Peeters <hugues.peeters@claroline.net>
+ * @param array $elementList
+ * @param int  $deepness (optionnal, default is 0)
+ * @return array of option tag list
+ */
+
+
+function prepare_option_tags($elementList, $deepness = 0)
+{
+    foreach($elementList as $thisElement)
+    {
+        $tab = str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $deepness);
+
+        $optionTagList[] = '<option value="'.$thisElement['value'].'">'
+                          .$tab.$thisElement['name']
+                          .'</option>';
+
+        if (   isset( $thisElement['children'] )
+            && sizeof($thisElement['children'] ) > 0)
+        {
+            $optionTagList = array_merge( $optionTagList,
+                                          prepare_option_tags($thisElement['children'],
+                                                              $deepness + 1 ) );
         }
     }
 
-    if ( claro_is_display_mode_available() )
-    {
-        return $isAllowedToEdit && (claro_get_tool_view_mode() != 'STUDENT');
-    }
-    else
-    {
-        return $isAllowedToEdit ;
-    }
-}
-
-/**
- *
- *
- * @return boolean
- * @author Hugues Peeters <hugues.peeters@claroline.net>
- */
-
-function claro_is_display_mode_available()
-{
-    global $is_display_mode_available;
-    return $is_display_mode_available;
-}
-
-/**
- *
- *
- * @param boolean $mode state to set in mode
- * @return boolean mode
- * @author Hugues Peeters <hugues.peeters@claroline.net>
- */
-
-
-function claro_set_display_mode_available($mode)
-{
-    global $is_display_mode_available;
-    $is_display_mode_available = $mode;
-}
-
-
-/**
- * Compose currentdate with server time shift
- *
- * @param string $format date() format
- * @param integer $timestamp timestamp or default  -1 for "now()"
- * @return date()
- *
- * @author Christophe Gesché <moosh@claroline.net>
- *
- */
-function claro_date($format, $timestamp = -1)
-{
-    if ($timestamp == -1) return date($format, claro_time());
-    else                  return date($format, $timestamp);
-
-}
-
-/**
- * Compose currentdate with server time shift
- *
- * @return timestamp shifted by mainTimeShift config value
- *
- * @author Christophe Gesché <moosh@claroline.net>
- *
- */
-function claro_time()
-{
-    $mainTimeShift = (int) get_conf('mainTimeShift',0);
-    return time()+(3600 * $mainTimeShift);
-}
-
-/**
- * Equivalent to mktime but taking the mainTimeShift into account
- *
- *  Usage :
- *      claro_mktime ( [int hour [, int minute [, int second [, int month [
- *          , int day [, int year [, int is_dst]]]]]]] )
- *
- * @see mktime()
- * @return timestamp corresponding to the given arguments shifted by
- *  mainTimeShift config value
- * @author Frédéric Minne <zefredz@claroline.net>
- */
-function claro_mktime()
-{
-    if ( 0 < func_num_args() )
-    {
-        $args = func_get_args();
-
-        return call_user_func_array( 'mktime', $args );
-    }
-    else
-    {
-        // shift
-        $mainTimeShift = (int) get_conf('mainTimeShift',0);
-        return mktime()+(3600 * $mainTimeShift);
-    }
-}
+    return  $optionTagList;
+} 
 //////////////////////////////////////////////////////////////////////////////
-//                              INPUT HANDLING
-//
+//							  INPUT HANDLING
+//							addslashes,...
 //////////////////////////////////////////////////////////////////////////////
+
+/**
+ * Add slashes to $text if it has not be automatically done by magic_quotes
+ * Use this function _ONLY_ for vars that are affected by magic_quote_gpc 
+ *
+ * @author Piraux Sébastien <pir@cerdecam.be>
+ * @param string text to add slashes in
+ * @return string $text without change if magi_quote_gpc is on, addslahed $text else
+ * @desc Use this only for get/post/cookies vars, not for lang vars,...
+ */
+function claro_addslashes($text)
+{
+  if( get_magic_quotes_gpc() )
+  {
+    // magic_quote_gpc is on : do not addslashes
+    return $text;
+  }
+  else
+  {
+    // magic_quote_gpc is off : addslashes
+    return addslashes($text);
+  }
+}
 
 /**
  * checks if the javascript is enabled on the client browser
- * Actually a cookies is set on the header by a javascript code.
- * If this cookie isn't set, it means javascript isn't enabled.
  *
- * @return boolean enabling state of javascript
  * @author Hugues Peeters <hugues.peeters@claroline.net>
+ * @param void
+ * @return boolean
+ * @desc Actually a cookies is set on the header by a javascript code. 
+ *       If this cookie isn't set, it means javascript isn't enabled.
  */
 
 function claro_is_javascript_enabled()
 {
     global $_COOKIE;
 
-    if ( isset( $_COOKIE['javascriptEnabled'] ) && $_COOKIE['javascriptEnabled'] == true)
+    if ($_COOKIE['javascriptEnabled'] == true)
     {
         return true;
     }
@@ -1192,413 +1033,154 @@ function claro_is_javascript_enabled()
     }
 }
 
-
-
 /**
- * get the list  of aivailable languages on the platform
+ * parse the user text (e.g. stored in database) 
+ * before displaying it to the screen
+ * For example it change new line charater to <br> tag etc.
  *
- * @author Christophe Gesché <moosh@claroline.net>
- *
- * @return array( langCode => langLabel) with aivailable languages
- */
-function claro_get_language_list()
-{
-    $langNameOfLang = get_locale('langNameOfLang');
-    $dirname = get_path('incRepositorySys') . '/../lang/';
-
-    if($dirname[strlen($dirname)-1]!='/')
-    $dirname .= '/';
-
-    if (!file_exists($dirname)) trigger_error('lang repository not found',E_USER_WARNING);
-
-    $handle = opendir($dirname);
-
-    while ( ($entries = readdir($handle) ) )
-    {
-        if ($entries == '.' || $entries == '..' || $entries == 'CVS')
-        continue;
-        if (is_dir($dirname . $entries))
-        {
-            if (isset($langNameOfLang[$entries])) $language_list[$entries]['langNameCurrentLang'] = $langNameOfLang[$entries];
-            $language_list[$entries]['langNameLocaleLang']  = $entries;
-        }
-    }
-    closedir($handle);
-    return $language_list;
-}
-
-/**
- * Return the config ropisitory for a given context
- *
- * All platform config are stored in platform/conf/
- * But a course or a group can overide some config values
- *
- * This function return the repository ignoring if it's  existing or empty
- *
- * @param array $context
- * @return string
- */
-function claro_get_conf_repository($context=array())
-{
-    if (!isset($context) || !is_array($context) || empty($context) || is_null($context))
-        return get_path('rootSys') . 'platform/conf/';
-
-    if (array_key_exists(CLARO_CONTEXT_COURSE, $context))
-    {
-        if (array_key_exists(CLARO_CONTEXT_GROUP, $context))
-        {
-            return claro_get_course_group_path($context) . '/conf/';
-        }
-        return get_path('coursesRepositorySys') . claro_get_course_path($context[CLARO_CONTEXT_COURSE]) . '/conf/';
-
-    }
-
-
-    pushClaroMessage('Unknown context passed to claro_get_conf_repository : ' . var_export($context,1));
-    return null;
-
-}
-
-/**
- * Return the value of a Claroline configuration parameter
- * @param string $param config parameter
- * @param mixed $default (optionnal) - set a defaut to return value
- *                                     if no paramater with such a name is found.
- * @return string param value
- * @todo http://www.claroline.net/forum/viewtopic.php?t=4579
-*/
-
-function get_conf($param, $default = null)
-{
-    if (CLARO_DEBUG_MODE)
-    {
-
-        if ( ! isset($GLOBALS['_conf'][$param]) && ! isset($GLOBALS[$param]) && !defined($param))
-        {
-            static $paramList = array();
-
-            if (!in_array($param,$paramList))
-            {
-                $paramList[]=$param;
-                pushClaroMessage($param . ' use but not set. use default :' . var_export($default,1),'warning');
-            }
-        }
-    }
-
-    if     ( isset($GLOBALS['_conf'][$param]) )  return $GLOBALS['_conf'][$param];
-    elseif ( isset($GLOBALS[$param]) )           return $GLOBALS[$param];
-    elseif ( defined($param)         )           return constant($param);
-    else                                         return $default;
-}
-
-/**
- * SECTION : security
+ * @author Hugues Peeters <hugues.peeters@claroline.net>
+ * @param string $userText original user tex
+ * @return string parsed user text
  */
 
+function claro_parse_user_text($userText)
+{
+   global $claro_texRendererUrl; // see 'inc/conf/claro_main.conf.php'
+
+   if ($claro_texRendererUrl) 
+   {
+       $userText = str_replace('[tex]',
+                          '<img src="'.$claro_texRendererUrl.'?',
+                          $userText);
+
+       $userText = str_replace('[/tex]',
+                           '" border="0" align="absmiddle">',
+                           $userText);   	
+   }
+   else
+   {
+       $userText = str_replace('[tex]',
+                              '<embed TYPE="application/x-techexplorer" texdata="',
+                              $userText);
+
+       $userText = str_replace('[/tex]',
+                               '" width="100%" pluginspace="http://www.integretechpub.com/">',
+                               $userText);
+   }
+
+   if ( strpos($usertext, '<!-- content: html -->') === false )
+   {
+        // only if the content isn't HTML change new line to <br>
+        // Note the '<!-- content: html -->' is introduced by HTML Area
+        $userText = nl2br($userText); 
+   }
+
+   // add blank before and after br to let make clickable react on url write alone on a line.
+   $userText = str_replace('<br',
+                           ' <br',
+                           $userText);
+
+   $userText = str_replace('<br>',
+                           '<br> ',
+                           $userText);
+
+   $userText = str_replace('<br/>',
+                           '<br/> ',
+                           $userText);
+
+   $userText = str_replace('<br />',
+                           '<br /> ',
+                           $userText);
+
+   return make_clickable($userText);
+}
+
+
 /**
- * Terminate the script and display message
+ * function make_clickable($text) 
  *
- * @param string message
- */
-
-function claro_die($message)
-{
-    global $includePath, $claro_stylesheet, $urlAppend ,
-           $siteName, $text_dir, $_uid, $_cid, $administrator_name, $administrator_email;
-    global $_course, $_user, $_courseToolList, $coursesRepositoryWeb,
-           $is_courseAllowed, $_tid, $is_courseMember, $_gid;
-    global $claroBodyOnload, $httpHeadXtra, $htmlHeadXtra, $charset, $interbredcrump,
-           $noPHP_SELF, $noQUERY_STRING;
-    global $institution_name, $institution_url, $hide_banner, $hide_footer, $hide_body;
-    global $clarolineRepositoryWeb, $imgRepositoryWeb;
-
-    if ( ! headers_sent () )
-    {
-        // display header
-        require get_path('incRepositorySys') . '/claro_init_header.inc.php';
-    }
-
-    echo '<table align="center">'
-    .    '<tr><td>'
-    .    claro_html_message_box($message)
-    .    '</td></tr>'
-    .    '</table>'
-    ;
-
-    require get_path('incRepositorySys') . '/claro_init_footer.inc.php' ;
-
-    die(); // necessary to prevent any continuation of the application
-}
-
-
-/**
- * HTTP response splitting security flaw filter
- * @author Frederic Minne <zefredz@gmail.com>
- * @return string clean string to filter http_response_splitting attack
- * @see http://www.saintcorporation.com/cgi-bin/demo_tut.pl?tutorial_name=HTTP_Response_Splitting.html
- */
-
-function http_response_splitting_workaround( $str )
-{
-    $dangerousCharactersPattern = '~(\r\n|\r|\n|%0a|%0d|%0D|%0A)~';
-    return preg_replace( $dangerousCharactersPattern, '', $str );
-}
-
-/**
- * Strip the slashes coming from browser request
+ * @desc   completes url contained in the text with "<a href ...".
+ *         However the function simply returns the submitted text without any 
+ *         transformation if it already contains some "<a href:" or "<img src=".
+ * @params string $text text to be converted
+ * @return text after conversion 
+ * @author Rewritten by Nathan Codding - Feb 6, 2001.
+ *         completed by Hugues Peeters - July 22, 2002
  *
- * If the php.ini setting MAGIC_QUOTE_GPC is set to ON, all the variables
- * content comming frome the browser are automatically quoted by adding
- * slashes (default setting before PHP 4.3). claro_unquote_gpc() removes
- * these slashes. It needs to be called just once at the biginning
- * of the script.
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * Actually this function is taken from the PHP BB 1.4 script
+ * - Goes through the given string, and replaces xxxx://yyyy with an HTML <a> tag linking
+ * 	to that URL
+ * - Goes through the given string, and replaces www.xxxx.yyyy[zzzz] with an HTML <a> tag linking
+ * 	to http://www.xxxx.yyyy[/zzzz] 
+ * - Goes through the given string, and replaces xxxx@yyyy with an HTML mailto: tag linking
+ *		to that email address
+ * - Only matches these 2 patterns either after a space, or at the beginning of a line
  *
- * @return void
+ * Notes: the email one might get annoying - it's easy to make it more restrictive, though.. maybe
+ * have it require something like xxxx@yyyy.zzzz or such. We'll see.
  */
 
-function claro_unquote_gpc()
+function make_clickable($text)
 {
-    if ( ! defined('CL_GPC_UNQUOTED') )
-    {
-        if ( get_magic_quotes_gpc() )
-        {
-            /*
-            * The new version is written in a safer approach inspired by Ilia
-            * Alshanetsky. The previous approach which was using recursive
-            * function permits to smash the stack and crash PHP. For example if
-            * the user supplies a very deep multidimensional array, such as
-            * foo[][][][] ..., the recursion can reach the point of exhausting
-            * the stack. Generating such an attack is quite trivial, via the
-            * use of :
-            *
-            *    str_repeat() function example $str = str_repeat("[]", 100000);
-            *    file_get_contents("http://sitre.com.scriptphp?foo={$str}");
-            */
 
-            $inputList = array(&$_REQUEST, &$_GET, &$_POST, &$_COOKIE);
+	// If the user has decided to deeply use html and manage himself hyperlink
+	// cancel the make clickable() function and return the text untouched.
 
-            while ( list($topKey, $array) = each($inputList) )
-            {
-                foreach( $array as $childKey => $value)
-                {
-                    if ( ! is_array($value) )
-                    {
-                        $inputList[$topKey][$childKey] = stripslashes($value);
-                    }
-                    else
-                    {
-                        $inputList[] =& $inputList[$topKey][$childKey];
-                    }
-                }
-            }
+	if (preg_match ( "<a[[:space:]]*href[[:space:]]*=(.*)>", $text) )
+	{
+		return $text;
+	}
+	
+	// pad it with a space so we can match things at the start of the 1st line.
+	$ret = " " . $text;
 
-            define('CL_GPC_UNQUOTED', true);
 
-        } // end if get_magic_quotes_gpc
-    }
+	// matches an "xxxx://yyyy" URL at the start of a line, or after a space.
+	// xxxx can only be alpha characters.
+	// yyyy is anything up to the first space, newline, or comma.
+
+	$ret = preg_replace("#([\n ])([a-z]+?)://([^, \n\r]+)#i", 
+						"\\1<a href=\"\\2://\\3\" >\\2://\\3</a>", 
+						$ret);
+
+	// matches a "www.xxxx.yyyy[/zzzz]" kinda lazy URL thing
+	// Must contain at least 2 dots. xxxx contains either alphanum, or "-"
+	// yyyy contains either alphanum, "-", or "."
+	// zzzz is optional.. will contain everything up to the first space, newline, or comma.
+	// This is slightly restrictive - it's not going to match stuff like "forums.foo.com"
+	// This is to keep it from getting annoying and matching stuff that's not meant to be a link.
+
+	$ret = preg_replace("#([\n ])www\.([a-z0-9\-]+)\.([a-z0-9\-.\~]+)((?:/[^, \n\r]*)?)#i", 
+						"\\1<a href=\"http://www.\\2.\\3\\4\" >www.\\2.\\3\\4</a>", 
+						$ret);
+	
+	// matches an email@domain type address at the start of a line, or after a space.
+	// Note: before the @ sign, the only valid characters are the alphanums and "-", "_", or ".".
+	// After the @ sign, we accept anything up to the first space, linebreak, or comma.
+
+	$ret = preg_replace("#([\n ])([a-z0-9\-_.]+?)@([^, \n\r]+)#i", 
+						"\\1<a href=\"mailto:\\2@\\3\">\\2@\\3</a>", 
+						$ret);
+	
+	// Remove our padding..
+	$ret = substr($ret, 1);
+	
+	return($ret);
 }
 
+
 /**
- * @param $contextKeys array or null
+ * strips the tags from str 
+ * Why such a function ? for the future, to allow some tags some times.
  *
- * array can contain course, group, user and/or toolInstance
- *
- * return array of context requested containing current id fors these context.
- */
-function claro_get_current_context($contextKeys = null)
-{
-    $currentKeys = array();
-
-    if(!is_null($contextKeys) && !is_array($contextKeys)) $contextKeys = array($contextKeys);
-
-    if((is_null($contextKeys) || in_array(CLARO_CONTEXT_COURSE,$contextKeys))       && claro_is_in_a_course()) $currentKeys[CLARO_CONTEXT_COURSE]       = claro_get_current_course_id();
-    if((is_null($contextKeys) || in_array(CLARO_CONTEXT_GROUP,$contextKeys))        && !is_null($GLOBALS['_gid'])) $currentKeys[CLARO_CONTEXT_GROUP]        = claro_get_current_group_id();
-    if((is_null($contextKeys) || in_array(CLARO_CONTEXT_USER,$contextKeys))         && !is_null($GLOBALS['_uid'])) $currentKeys[CLARO_CONTEXT_USER]         = claro_get_current_user_id();
-    //if((is_null($contextKeys) || in_array('session',$contextKeys))      && !is_null($GLOBALS['_sid']))  $currentKeys['session']       = get_init('_sid');
-    if((is_null($contextKeys) || in_array('toolInstance',$contextKeys)) && !is_null($GLOBALS['_tid'])) $currentKeys['toolInstance'] = claro_get_current_tool_id();
-
-    return $currentKeys;
-}
-
-
-/**
- * Developper function to push a message in stack of devs messages
- * in debug mod this stack is output in footer
- * @author Christophe Gesché <moosh@claroline.net>
- */
-if (!isset($claroErrorList)) $claroErrorList= array();
-function pushClaroMessage($message,$errorClass='error')
-{
-    global $claroErrorList;
-    $claroErrorList[$errorClass][]= $message;
-    return true;
-}
-
-/**
- * get stack of devel message
- */
-function getClaroMessageList($errorClass=null)
-{
-    if (isset($GLOBALS['claroErrorList']))
-    {
-        $claroErrorList = $GLOBALS['claroErrorList'];
-        if (is_null($errorClass)) $returnedClaroErrorList = $claroErrorList;
-        else
-        {
-            if (array_key_exists($errorClass,$claroErrorList))
-            {
-                $returnedClaroErrorList[$errorClass] = $claroErrorList[$errorClass];
-            }
-            else $returnedClaroErrorList[]=array();
-        }
-    }
-    else $returnedClaroErrorList[]=array();
-
-    return $returnedClaroErrorList;
-}
-
-/**
- * Return the list of tools for a user
- *
- *  in 1.8 only  CLCAL are both  course tool and user tool.
- *  ie : profile is'nt view as module,
- *  and other course tool can't work outside a course for a user.
- *
- * @param boolean $activeOnly default true
- * @return array of tools
- */
-function claro_get_user_tool_list($activeOnly=true)
-{
-    $toolDataList= array();
-    $toolData = get_module_data('CLCAL');
-
-    if (false !== $toolData && (!$activeOnly || $toolData['activation'] != 'desactivated'))
-    {
-        $toolData['entry'] = 'myagenda.php';
-        $toolDataList[]=$toolData;
-    }
-    return $toolDataList;
-}
-
-/**
- * Safe redirect
- * Works around IIS Bug
+ * @param string $str text to clean from html tags
+ * 
  */
 
-function claro_redirect($location)
+function claro_strip_tags($str)
 {
-    global $is_IIS;
-
-    $location = http_response_splitting_workaround($location);
-
-    if ($is_IIS)
-    {
-        header("Refresh: 0;url=$location");
-    }
-    header("Location: $location");
+	return strip_tags($str);
 }
 
-function claro_form_relay_context($context=null)
-{
-    $html ='';
-    if(is_null($context))
-    {
-        if (claro_is_in_a_course())
-            $html .= '<input type="hidden" name="cidReq" value="' . claro_get_current_course_id() . '" />';
-
-        if (claro_is_in_a_group())
-            $html .= '<input type="hidden" name="gidReq" value="' . claro_get_current_group_id()  . '" />';
-    }
-    else
-    {
-        if (array_key_exists(CLARO_CONTEXT_COURSE,$context)) $html .= '<input type="hidden" name="cidReq" value="' . $context[CLARO_CONTEXT_COURSE] . '" />';
-        if (array_key_exists(CLARO_CONTEXT_GROUP,$context)) $html .= '<input type="hidden" name="gidReq" value="' . $context[CLARO_CONTEXT_GROUP] . '" />';
-    }
-
-    return $html;
-}
-
-function claro_url_relay_context($prepend='',$context=null)
-{
-    $urlParam = array();
-    if(is_null($context))
-    {
-        if (claro_is_in_a_course())
-            $urlParam[] = 'cidReq=' . claro_get_current_course_id();
-
-        if (claro_is_in_a_group())
-            $urlParam[] = 'gidReq=' . claro_get_current_group_id();
-
-    }
-    else
-    {
-        if (array_key_exists(CLARO_CONTEXT_COURSE,$context))
-            $urlParam[] = 'cidReq=' . $context[CLARO_CONTEXT_COURSE];
-
-        if (array_key_exists(CLARO_CONTEXT_GROUP,$context))
-            $urlParam[] = 'gidReq=' . $context[CLARO_CONTEXT_GROUP];
-    }
-
-    if (count($urlParam)>0) return $prepend . implode($urlParam,'&');
-    else                    return '';
-}
-
-function claro_disp_debug_banner()
-{
-    require_once dirname( __FILE__ ) . '/backlog.class.php';
-
-    $html = '';
-
-    $claroMsgList = getClaroMessageList();
-
-    if ( is_array($claroMsgList) && count($claroMsgList) > 0)
-    {
-        $claroMsgCount = 0;
-
-        $html .= '<div class="debugBar">' . "\n"
-              .                         get_lang('Debug') .  "\n" ;
-
-        $html .= get_lang('Messages') . ' : ';
-
-        foreach ($claroMsgList as $bloc=>$msgList )
-        {
-            $html .= Backlog_Reporter::report( $bloc . ' :' . count($msgList),
-                                               claro_html_msg_list($msgList),
-                                               '+',
-                                               true );
-            $claroMsgCount += count($msgList);
-            $html .= ' | ';
-        }
-        $html .= get_lang('%nb message(s)',array('%nb'=> $claroMsgCount));
-
-        $html .= '<div class="spacer"></div>' . "\n\n"
-        .        '</div>' . "\n"
-        .        '<!-- end of debugBanner -->' . "\n\n"
-        ;
-    }
-
-    return $html;
-}
-
-function php_self()
-{
-    // remove html tags
-    $url = strip_tags($_SERVER['PHP_SELF']);
-    // protect against XSS
-    $url = preg_replace( '~(\r\n|\r|\n|%0a|%0d|%0D|%0A)~', '', $url );
-    // entify remaining special chars
-    $url = htmlentities( $url );
-
-    return $url;
-}
-
-/**
- * @return bool, true if the platform is in debug mode, false else
- */
-function claro_debug_mode()
-{
-    return ( defined ( 'CLARO_DEBUG_MODE' ) && CLARO_DEBUG_MODE );
-}
 
 ?>

@@ -1,55 +1,45 @@
-<?php // $Id$
-
-    /**
-     * CLAROLINE
-     *
-     * @version 1.9 $Revision$
-     *
-     * @copyright 2001-2007 Universite catholique de Louvain (UCL)
-     *
-     * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
-     *
-     * @package CLKERNEL
-     *
-     * @author Claro Team <cvs@claroline.net>
-     *
-     */
- 
-    if ( count( get_included_files() ) == 1 )
-    {
-        die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-    }
-
-    // this file can be called from within a function so we need to add the
-    // folowwing line !!!
-    $claroline = Claroline::getInstance();
-
-    if (!isset($hide_body) || $hide_body == false)
-    {
-        echo "\n" . '</div>' . "\n"
-            . '<!-- - - - - - - - - - -   End of Claroline Body   - - - - - - - - - - -->' . "\n\n\n"
-            ;
-    }
-
-    if ( get_conf('claro_brailleViewMode',false))
-    {
-        echo $claroline->display->banner->render();
-    }
-
-    // don't display the footer text if requested, only display minimal html closing tags
-    if ( isset($hide_footer) && $hide_footer )
-    {
-        $claroline->display->footer->hide();
-    } // if (!isset($hide_footer) || $hide_footer == false)
-    
-    echo $claroline->display->footer->render();
-
-    if (claro_debug_mode())
-    {
-        echo  claro_disp_debug_banner() .  "\n" ;
-    }
-
-    echo '</body>' . "\n"
-        . '</html>' . "\n"
-        ;
+<?php # $Id$
+//echo "<pre>".var_export($_courseToolList,1)."</pre>";
 ?>
+<hr noshade size="1">
+
+<table width="100%" border="0">
+<tr>
+<?php
+if(isset($_cid))
+{
+?>
+<td width="30%">
+<small>
+<?php echo $lang_footer_CourseManager ?> : <a href="<?php echo (empty($_course['email'])?$clarolineRepositoryWeb."user/user.php":"mailto:".$_course['email']."?body=".$_course['officialCode']."&subject=[".rawurlencode($siteName)."]") ?>">
+<?php echo $_course['titular'] ?></a>
+</small>
+</td>
+<td align="center" width="*">
+<?php
+}
+else
+{
+?>
+<td width="*">
+<?php
+}
+?>
+
+<small>
+<?php echo $langManager." ".$siteName; ?> : <a href="mailto:<?php echo $administrator["email"]."?body=".$_course['officialCode']."&subject=[".rawurlencode($siteName)."]" ?>">
+<?php echo $administrator["name"] ?></a>
+</small>
+</td>
+<td align="right" width="30%">
+<small>
+<?php echo $langPlatform ?> <a href="http://www.claroline.net" target="_blank">Claroline</a> &copy; 2001 - 2004
+</small>
+</td>
+</tr>
+</table>
+<?php 
+	if ($_user['is_devel'] && function_exists( 'printInit')) printInit() ;
+?>
+</body>
+</html>

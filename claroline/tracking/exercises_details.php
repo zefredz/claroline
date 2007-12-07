@@ -1,254 +1,204 @@
-<?php // $Id$
-/**
- * CLAROLINE
- *
- * @version 1.8 $Revision$
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @package CLTRACK
- *
- * @author Claro Team <cvs@claroline.net>
- *
+<?php 
+/*
+      +----------------------------------------------------------------------+
+      | CLAROLINE version 1.3.0 $Revision$                            |
+      +----------------------------------------------------------------------+
+      | Copyright (c) 2001, 2002 Universite catholique de Louvain (UCL)      |
+      +----------------------------------------------------------------------+
+      |   $Id$         |
+      +----------------------------------------------------------------------+
+      |   This program is free software; you can redistribute it and/or      |
+      |   modify it under the terms of the GNU General Public License        |
+      |   as published by the Free Software Foundation; either version 2     |
+      |   of the License, or (at your option) any later version.             |
+      |                                                                      |
+      |   This program is distributed in the hope that it will be useful,    |
+      |   but WITHOUT ANY WARRANTY; without even the implied warranty of     |
+      |   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the      |
+      |   GNU General Public License for more details.                       |
+      |                                                                      |
+      |   You should have received a copy of the GNU General Public License  |
+      |   along with this program; if not, write to the Free Software        |
+      |   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA          |
+      |   02111-1307, USA. The GNU GPL license is also available through     |
+      |   the world-wide-web at http://www.gnu.org/copyleft/gpl.html         |
+      +----------------------------------------------------------------------+
+      | Authors:                                                           |
+      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
+      |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
+      |          Sebastien Piraux  <piraux_seb@hotmail.com>   |
+      |                                                                        |
+      |                    http://www.claroline.net/                |
+      +----------------------------------------------------------------------+
+      
+      
+      DESCRIPTION
+      -------------------
+      This page display global information about 
  */
+ 
+$langFile = "tracking";
 require '../inc/claro_init_global.inc.php';
 
-if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
-if ( ! claro_is_course_manager() ) claro_die(get_lang('Not allowed'));
+$interbredcrump[]= array ("url"=>"courseLog.php", "name"=> $langToolName);
 
-if( isset($_REQUEST['exId']) && is_numeric($_REQUEST['exId']) ) $exId = (int) $_REQUEST['exId'];
-else															$exId = null;
+$nameTools = $langStatsOfExercise;
 
-// exId is required
-if( is_null($exId) )
-{
-    claro_redirect("../exercise/exercise.php");
-    exit();
-}
-
-include('../exercise/lib/exercise.class.php');
-/**
- * DB tables definition
- */
-$tbl_mdb_names = claro_sql_get_main_tbl();
-$tbl_rel_course_user = $tbl_mdb_names['rel_course_user'  ];
-$tbl_user            = $tbl_mdb_names['user'             ];
-
-$tbl_cdb_names = claro_sql_get_course_tbl();
-$tbl_qwz_exercise            	= $tbl_cdb_names['qwz_exercise'];
-$tbl_qwz_question 				= $tbl_cdb_names['qwz_question'];
-$tbl_qwz_rel_exercise_question 	= $tbl_cdb_names['qwz_rel_exercise_question'];
-
-$tbl_track_e_exercises     = $tbl_cdb_names['track_e_exercices'];
-$tbl_track_e_exe_details = $tbl_cdb_names['track_e_exe_details'];
+$htmlHeadXtra[] = "<style type=\"text/css\">
+<!--
+.secLine {background-color : #E6E6E6;}
+.content {padding-left : 15px;padding-right : 15px; }
+.specialLink{color : #0000FF;}
+-->
+</style>
+<STYLE media=\"print\" type=\"text/css\">
+<!--
+TD {border-bottom: thin dashed Gray;}
+-->
+</STYLE>";
 
 
-// get exercise details
-$exercise = new Exercise();
-$exercise->load($exId);
+// regroup table names for maintenance purpose
+$TABLETRACK_EXERCISES = $_course['dbNameGlu']."track_e_exercices";
+$TABLE_QUIZ_TEST = $_course['dbNameGlu']."quiz_test";
 
-if( isset($_REQUEST['src']) && $_REQUEST['src'] == 'ex' )
-{
-    $interbredcrump[]= array ("url"=>"../exercise/exercise.php", "name"=> get_lang('Exercises'));
-    $src = '&src=ex';
-}
-else
-{
-    $interbredcrump[]= array ("url"=>"courseLog.php", "name"=> get_lang('Statistics'));
-    $src = '';
-}
+$TABLECOURSUSER	        = $mainDbName."`.`cours_user";
+$TABLEUSER = $mainDbName."`.`user";
 
-$nameTools = get_lang('Statistics of exercise');
 
-// get the tracking of a question as a csv file
-if( get_conf('is_trackingEnabled') && isset($_REQUEST['exportCsv']) )
-{
-    include(get_path('incRepositorySys').'/lib/export_exe_tracking.class.php');
+@include($includePath."/claro_init_header.inc.php");
+@include($includePath."/lib/statsUtils.lib.inc.php");
 
-    // contruction of XML flow
-    $csv = export_exercise_tracking($exId);
+$is_allowedToTrack = $is_courseAdmin;
 
-    if( isset($csv) )
-    {
-        header("Content-type: application/csv");
-        header('Content-Disposition: attachment; filename="exercise_'. $exId . '.csv"');
-        echo $csv;
-        exit;
-    }
-}
+// get infos about the exercise
+$sql = "SELECT * 
+        FROM `".$TABLE_QUIZ_TEST."`
+       WHERE `id` = ". (int) $_GET['exo_id'];
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$result = claro_sql_query($sql);
+$exo_details = @mysql_fetch_array($result);
 
 // display title
 $titleTab['mainTitle'] = $nameTools;
-$titleTab['subTitle'] = $exercise->getTitle();
+$titleTab['subTitle'] = $langStatsOfExercise." : ".$exo_details['titre'];
+claro_disp_tool_title($titleTab);
 
-echo claro_html_tool_title($titleTab);
-
-if ( get_conf('is_trackingEnabled') )
+if($is_allowedToTrack && $is_trackingEnabled) 
 {
-    // get global infos about scores in the exercise
-    $sql = "SELECT  MIN(TEX.`exe_result`) AS `minimum`,
-                MAX(TEX.`exe_result`) AS `maximum`,
-                AVG(TEX.`exe_result`) AS `average`,
-                MAX(TEX.`exe_weighting`) AS `weighting` ,
-                COUNT(DISTINCT TEX.`exe_user_id`) AS `users`,
-                COUNT(TEX.`exe_user_id`) AS `tusers`,
-                AVG(`TEX`.`exe_time`) AS `avgTime`
-        FROM `".$tbl_track_e_exercises."` AS TEX
-        WHERE TEX.`exe_exo_id` = ". (int)$exercise->getId()."
+
+  // get global infos about scores in the exercise
+  $sql = "SELECT  MIN(TEX.`exe_result`) AS minimum, 
+                MAX(TEX.`exe_result`) AS maximum, 
+                AVG(TEX.`exe_result`) AS average,
+                MAX(TEX.`exe_weighting`) AS weighting ,
+                COUNT(DISTINCT TEX.`exe_user_id`) AS users,
+                COUNT(TEX.`exe_user_id`) AS tusers
+        FROM `".$TABLETRACK_EXERCISES."` AS TEX
+        WHERE TEX.`exe_exo_id` = ".$exo_details['id']."
                 AND TEX.`exe_user_id` IS NOT NULL";
+  
+  $result = claro_sql_query($sql);
+  $exo_scores_details = mysql_fetch_array($result);
+?>
 
-    $exo_scores_details = claro_sql_query_get_single_row($sql);
+<ul>
+  <? 
+        if (isset($exo_score_details['weighting']) || $exo_scores_details['weighting'] != '')
+            echo "<li>".$langWeighting." : ".$exo_scores_details['weighting']."</li>";
 
-    if ( ! isset($exo_scores_details['minimum']) )
-    {
-        $exo_scores_details['minimum'] = 0;
-        $exo_scores_details['maximum'] = 0;
-        $exo_scores_details['average'] = 0;
-    }
-    else
-    {
-        // round average number for a beautifuler display
-        $exo_scores_details['average'] = (round($exo_scores_details['average']*100)/100);
-    }
-
-    if (isset($exo_score_details['weighting']) || $exo_scores_details['weighting'] != '')
-        $displayedWeighting = '/'.$exo_scores_details['weighting'];
-    else
-        $displayedWeighting = '';
-
-      echo '<ul>'."\n"
-    .'<li>'.get_lang('Worst score').' : '.$exo_scores_details['minimum'].$displayedWeighting.'</li>'."\n"
-    .'<li>'.get_lang('Best score').' : '.$exo_scores_details['maximum'].$displayedWeighting.'</li>'."\n"
-    .'<li>'.get_lang('Average score').' : '.$exo_scores_details['average'].$displayedWeighting.'</li>'."\n"
-    .'<li>'.get_lang('Average Time').' : '.claro_html_duration(floor($exo_scores_details['avgTime'])).'</li>'."\n"
-    .'</ul>'."\n\n"
-    .'<ul>'."\n"
-    .'<li>'.get_lang('User attempts').' : '.$exo_scores_details['users'].'</li>'."\n"
-    .'<li>'.get_lang('Total attempts').' : '.$exo_scores_details['tusers'].'</li>'."\n"
-    .'</ul>'."\n\n";
-
-    echo '<ul>'."\n"
-    .'<li><a href="'.$_SERVER['PHP_SELF'].'?exportCsv=1&exId='.$exId.'">'.get_lang('Get tracking data in a CSV file').'</a></li>'."\n"
-    .'</ul>'."\n\n";
-
-    //-- display details : USERS VIEW
-    $sql = "SELECT `U`.`nom`, `U`.`prenom`, `U`.`user_id`,
-            MIN(TE.`exe_result`) AS `minimum`,
-            MAX(TE.`exe_result`) AS `maximum`,
-            AVG(TE.`exe_result`) AS `average`,
-            COUNT(TE.`exe_result`) AS `attempts`,
-            AVG(TE.`exe_time`) AS `avgTime`
-    FROM (`".$tbl_user."` AS `U`, `".$tbl_rel_course_user."` AS `CU`, `".$tbl_qwz_exercise."` AS `QT`)
-    LEFT JOIN `".$tbl_track_e_exercises."` AS `TE`
-          ON `CU`.`user_id` = `TE`.`exe_user_id`
-          AND `QT`.`id` = `TE`.`exe_exo_id`
-    WHERE `CU`.`user_id` = `U`.`user_id`
-      AND `CU`.`code_cours` = '" . addslashes(claro_get_current_course_id()) . "'
-      AND (
-            `TE`.`exe_exo_id` = ". (int)$exercise->getId()."
-            OR
-            `TE`.`exe_exo_id` IS NULL
-          )
-    GROUP BY `U`.`user_id`
-    ORDER BY `U`.`nom` ASC, `U`.`prenom` ASC";
-
-
-    $exo_users_details = claro_sql_query_fetch_all($sql);
-
-    echo '<p><b>'.get_lang('Statistics by user').'</b></p>'."\n";
-    // display tab header
-    echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'."\n\n"
-        .'<tr class="headerX" align="center" valign="top">'."\n"
-        .'<th>'.get_lang('Student').'</th>'."\n"
-        .'<th>'.get_lang('Worst score').'</th>'."\n"
-        .'<th>'.get_lang('Best score').'</th>'."\n"
-        .'<th>'.get_lang('Average score').'</th>'."\n"
-        .'<th>'.get_lang('Attempts').'</th>'."\n"
-        .'<th>'.get_lang('Average Time').'</th>'."\n"
-          .'</tr>'."\n\n"
-          .'<tbody>'."\n\n";
-
-    // display tab content
-    foreach( $exo_users_details as $exo_users_detail )
-    {
-        if ( $exo_users_detail['attempts'] == 0 )
+        if ( ! isset($exo_scores_details['minimum']) )
         {
-            $exo_users_detail['minimum'] = '-';
-            $exo_users_detail['maximum'] = '-';
-            $displayedAverage = '-';
-            $displayedAvgTime = '-';
+          $exo_scores_details['minimum'] = 0;
+          $exo_scores_details['maximum'] = 0;
+          $exo_scores_details['average'] = 0;
         }
         else
         {
-        	$displayedAverage = round($exo_users_detail['average']*100)/100;
-        	$displayedAvgTime = claro_html_duration(floor($exo_users_detail['avgTime']));
+            // round average number for a beautifuler display :p
+            $exo_scores_details['average'] = (round($exo_scores_details['average']*100)/100);
         }
-        echo      '<tr>'."\n"
-                  .'<td><a href="userLog.php?uInfo='.$exo_users_detail['user_id'].'&view=0100000&exoDet='.$exercise->getId().'">'."\n"
-                .$exo_users_detail['nom'].' '.$exo_users_detail['prenom'].'</a></td>'."\n"
-                  .'<td>'.$exo_users_detail['minimum'].'</td>'."\n"
-                  .'<td>'.$exo_users_detail['maximum'].'</td>'."\n"
-                  .'<td>'.$displayedAverage.'</td>'."\n"
-                  .'<td>'.$exo_users_detail['attempts'].'</td>'."\n"
-                  .'<td>'.$displayedAvgTime.'</td>'."\n"
-                .'</tr>'."\n\n";
-    }
-    // foot of table
-    echo '</tbody>'."\n".'</table>'."\n\n";
+  ?>
+  <li><?= $langScoreMin; ?> : <?= $exo_scores_details['minimum']; ?></li>
+  <li><?= $langScoreMax; ?> : <?= $exo_scores_details['maximum']; ?></li>
+  <li><?= $langScoreAvg; ?> : <?= $exo_scores_details['average']; ?></li>
+</ul>
+<ul>
+  <li><?= $langExerciseUsersAttempts; ?> : <?= $exo_scores_details['users']; ?></li>
+  <li><?= $langExerciseTotalAttempts; ?> : <?= $exo_scores_details['tusers']; ?></li>
+</ul>  
 
-    // display details : QUESTIONS VIEW
-    $sql = "SELECT `Q`.`id`, `Q`.`title`, `Q`.`type`, `Q`.`grade`,
-                  MIN(TED.`result`) AS `minimum`,
-                MAX(TED.`result`) AS `maximum`,
-                AVG(TED.`result`) AS `average`
-        FROM (`".$tbl_qwz_question."` AS `Q`, `".$tbl_qwz_rel_exercise_question."` AS `RTQ`)
-        LEFT JOIN `".$tbl_track_e_exercises."` AS `TE`
-            ON `TE`.`exe_exo_id` = `RTQ`.`exerciseId`
-        LEFT JOIN `".$tbl_track_e_exe_details."` AS `TED`
-              ON `TED`.`exercise_track_id` = `TE`.`exe_id`
-            AND `TED`.`question_id` = `Q`.`id`
-        WHERE `Q`.`id` = `RTQ`.`questionId`
-            AND `RTQ`.`exerciseId` = ". (int)$exercise->getId()."
-        GROUP BY `Q`.`id`
-        ORDER BY `RTQ`.`rank` ASC";
 
-    $exo_questions_details = claro_sql_query_fetch_all($sql);
-
-    echo '<p><b>'.get_lang('Statistics by question').'</b></p>'."\n";
-    // display tab header
-    echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'."\n"
-        .'<tr class="headerX" align="center" valign="top">'."\n"
-        .'<th>'.get_lang('Question title').'</th>'."\n"
-        .'<th>'.get_lang('Worst score').'</th>'."\n"
-        .'<th>'.get_lang('Best score').'</th>'."\n"
-        .'<th>'.get_lang('Average score').'</th>'."\n"
-          .'</tr>'."\n\n"
-          .'<tbody>'."\n\n";
-    // display tab content
-    foreach ( $exo_questions_details as $exo_questions_detail )
+<?
+  // display details
+   $sql = "SELECT U.`nom`, U.`prenom`, U.`user_id`,
+            MIN(TEX.`exe_result`) AS minimum,
+            MAX(TEX.`exe_result`) AS maximum,
+            AVG(TEX.`exe_result`) AS average,
+            COUNT(TEX.`exe_result`) AS attempts            
+    FROM `".$TABLEUSER."` AS U, `".$TABLECOURSUSER."` AS CU, `".$TABLE_QUIZ_TEST."` AS QT
+    LEFT JOIN `".$TABLETRACK_EXERCISES."` AS TEX 
+          ON CU.`user_id` = TEX.`exe_user_id` 
+          AND QT.`id` = TEX.`exe_exo_id`
+    WHERE CU.`user_id` = U.`user_id`
+      AND CU.`code_cours` = '".$_cid."'
+      AND (
+            TEX.`exe_exo_id` = ".$exo_details['id']." 
+            OR 
+            TEX.`exe_exo_id` IS NULL 
+          )
+    GROUP BY U.`user_id`
+    ORDER BY U.`nom` ASC, U.`prenom` ASC";
+    
+    
+  $result = claro_sql_query($sql);
+  // display tab header
+  echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">\n
+      <tr class=\"headerX\" align=\"center\" valign=\"top\">\n
+        <th>$langStudent</th>\n
+        <th>$langScoreMin</th>\n
+        <th>$langScoreMax</th>\n
+        <th>$langScoreAvg</th>\n
+        <th>$langAttempts</th>\n
+      </tr>\n
+      <tbody>";
+  // display tab content
+  while ( $exo_users_details = mysql_fetch_array($result) )
+  {
+    if ( $exo_users_details['minimum'] == '' )
     {
-        if ( $exo_questions_detail['minimum'] == '' )
-        {
-            $exo_questions_detail['minimum'] = 0;
-            $exo_questions_detail['maximum'] = 0;
-        }
-        echo      '<tr>'."\n"
-                  .'<td><a href="questions_details.php?question_id='.$exo_questions_detail['id'].'&exId='.$exId.$src.'">'.$exo_questions_detail['title'].'</a></td>'."\n"
-                  .'<td>'.$exo_questions_detail['minimum'].'/'.$exo_questions_detail['grade'].'</td>'."\n"
-                  .'<td>'.$exo_questions_detail['maximum'].'/'.$exo_questions_detail['grade'].'</td>'."\n"
-                  .'<td>'.(round($exo_questions_detail['average']*100)/100).'/'.$exo_questions_detail['grade'].'</td>'."\n"
-                .'</tr>'."\n\n";
+      $exo_users_details['minimum'] = 0;
+      $exo_users_details['maximum'] = 0;
     }
-    // foot of table
-    echo '</tbody>'."\n\n".'</table>'."\n\n";
+    echo "<tr>";
+      echo "<td><a href=\"userLog.php?uInfo=".$exo_users_details['user_id']."&view=0100000&exoDet=".$exo_details['id']."\">".$exo_users_details['nom']." ".$exo_users_details['prenom']."</a></td>\n";
+      echo "<td>".$exo_users_details['minimum']."</td>\n";
+      echo "<td>".$exo_users_details['maximum']."</td>\n";
+      echo "<td>".(round($exo_users_details['average']*100)/100)."</td>\n";
+      echo "<td>".$exo_users_details['attempts']."</td>\n";
+    echo "</tr>";
+  }
+  // foot of table
+  echo "</tbody>\n</table>";
+
 }
+// not allowed
 else
 {
-    echo get_lang('Tracking has been disabled by system administrator.');
+    if(!$is_trackingEnabled)
+    {
+        echo $langTrackingDisabled;
+    }
+    else
+    {
+        echo $langNotAllowed;
+    }
 }
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+
+?>
+</table>
+
+<?
+@include($includePath."/claro_init_footer.inc.php");
 ?>

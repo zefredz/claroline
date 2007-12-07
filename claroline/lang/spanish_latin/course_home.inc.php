@@ -1,0 +1,52 @@
+<?php // $Id$
+/*
+      +----------------------------------------------------------------------+
+      | CLAROLINE version 1.5.*
+      +----------------------------------------------------------------------+
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)
+      +----------------------------------------------------------------------+
+      |   Este programa es software libre; usted puede redistribuirlo y/o    |
+      |   modificarlo bajo los términos de la Licencia Pública General (GNU) |
+      |   como fué publicada por la Fundación de Sofware Libre; desde la     |
+      |   versión 2 de esta Licencia o (a su opción) cualquier versión       |
+      |   posterior.                                                         |
+      |   Este programa es distribuído con la esperanza de que sea útil,     |
+      |   pero SIN NINGUNA GARANTIA; sin ninguna garantía implícita de       |
+      |   MERCATIBILILIDAD o ADECUACIÓN PARA PROPOSITOS PARTICULARES.        |
+      |   Vea la Licencia Pública General GNU por más detalles.              |
+      |   Usted pudo haber recibido una copia de la Licencia Pública         |
+      |   General GNU junto con este programa; sino, escriba a la Fundación  |
+      |   de Sofware Libre : Free Software Foundation, Inc., 59 Temple Place |
+      |   - Suite 330, Boston, MA 02111-1307, USA. La licencia GNU GPL       |
+      |   también está disponible a través de la world-wide-web en la        |
+      |   dirección  http://www.gnu.org/copyleft/gpl.html                    |
+      +----------------------------------------------------------------------+
+      | Traducción :                                                         |
+      |          Andrew Lynn       <Andrew.Lynn@strath.ac.uk>                |
+      +----------------------------------------------------------------------+
+      | Basado en la traducción al castellano de                             |
+      |          Xavier Casassas Canals <xcc@ics.co.at>                      |
+      | Adaptado al español latinoamericano en Agosto-2003 por               |
+      |          Carlos Brys       <brys@fce.unam.edu.ar>                    |
+      +----------------------------------------------------------------------+
+ */
+$langNo         = "No";
+$langYes        = "Si";
+
+$langActivate   = "Activar";
+$langAdminOnly  = "Reservado a los administradores";
+$langInLnk      = "Enlaces desactivados";
+
+$langDelLk      = "¿Está seguro de que quiere borrar este enlace?";
+
+$langRemove     = "Eliminar";
+$langDeactivate = "Desactivar";
+$langActivate   = "Activar";
+$langHelp       = "Ayuda";
+$langEnter      = "Ingresar";
+
+$langCourseCreate = "Crear el sitio web de un curso";
+$langEnter ="Ingresar";
+$langNameOfTheLink ="Nombre del enlace";
+
+?>

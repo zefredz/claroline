@@ -1,0 +1,81 @@
+<?php // $Id$
+
+
+$lang_SearchUser_SearchUser 		= "Opération utilisateur";
+$langAdministrationTools 			= "Outil d'administration";
+$langManage							= "Gestion du campus";
+$lang_SearchUser_UserId				= "Id";
+$lang_SearchUser_LastName 			= "Nom";
+$lang_SearchUser_FirstName			= "Prénom";
+$lang_SearchUser_UserName			= "Login";
+$lang_SearchUser_AuthSource			= "Source d'authentification";
+$lang_SearchUser_Statut				= "Peut créer des cours";
+$lang_SearchUser_Password			= "Mot de passe";
+$lang_SearchUser_Email				= "E-mail"; // JCC 
+$lang_SearchUser_OfficialCode		= "Code officiel";
+$lang_SearchUser_PhoneNumber		= "Numéro de téléphone";
+$lang_SearchUser_PictureUri			= "Photo";
+$lang_SearchUser_CreatorId			= "Id du créateur"; // JCC 
+$lang_SearchUser_ParameterSearch	= "Paramètre(s) de la recherche";
+$lang_SearchUser_ButtonSearch		= "Rechercher";
+$lang_SearchUser_ButtonDelete		= "Effacer";
+$lang_SearchUser_SysCode			= "SysCode";
+$lang_SearchUser_StatutCourses		= "Statut";
+$lang_SearchUser_Role				= "Rôle";
+$lang_SearchUser_Tutor				= "Peut-il être tuteur ?"; // JCC 
+$lang_SearchUser_Intitule			= "Intitulé";
+$lang_SearchUser_langage			= "Langue";
+$lang_SearchUser_faculte			= "Faculté";
+$lang_SearchUser_Titulaire			= "Titulaire";
+$lang_SearchUser_fakeCode			= "Code officiel";
+$lang_SearchUser_NoUserCourses		= "Cet utilisateur n'est inscrit à aucun cours";
+$lang_SearchUser_NoUser				= "Aucun utilisateurs correspondant à ce(s) critère(s)"; // JCC 
+$lang_SearchUser_NoParameter		= "Vous n'avez pas entré de paramètre pour la recherche";
+$lang_SearchUser_StatutAdmin		= "Administrateur";
+$lang_SearchUser_StatutUser			= "Utilisateur";
+$lang_SearchUser_Yes				= "Oui";
+$lang_SearchUser_No					= "Non";
+$lang_SearchUser_YesandNo			= "Oui/Non";
+$lang_SearchUser_TitleCourses		= "Ses cours :";
+$lang_SearchUser_TitleCourse		= "Le cours :";
+$lang_SearchUser_TitleInfoCourse	= "Information sur le cours :";
+$lang_SearchUser_NoTeam				= "L'utilisateur ne fait partie d'aucun groupe dans ce cours";
+$lang_SearchUser_TitleTeam			= "Information sur les groupes dont il fait partie dans ce cours :";
+$lang_SearchUser_Name				= "Nom";
+$lang_SearchUser_Description		= "Description";
+$lang_SearchUser_SecretDirectory	= "Répertoire";
+$lang_SearchUser_link				= "Lien vers le cours";
+$lang_SearchUser_See				= "Voir";
+$lang_SearchUser_imgEdit			= "Editer"; // JCC 
+$lang_SearchUser_Edit				= "Editer";
+$lang_SearchUser_imgDelete			= "Supprimer";
+$lang_SearchUser_Delete				= "Supprimer";
+$lang_SearchUser_ConfirmDelete		= "Voulez vous réellement supprimer l'utilisateur ";
+$lang_SearchUser_group				= "Groupe(s) dont il fait partie";
+$lang_SearchUser_InfoGroup			= "Information sur le groupe"; // JCC 
+$lang_SearchUser_SearchAUser		= "Chercher un utilisateur";
+$lang_SearchUser_Merge				= "Fusionner un utilisateur";
+$lang_SearchUser_NotIntUser1		= "L'id de l'utilisateur 1 n'est pas un entier !"; // JCC 
+$lang_SearchUser_UserDontExist		= " ne correspond à aucun utilisateur existant !"; // JCC 
+$lang_SearchUser_NotIntUser2		= "L'id de l'utilisateur 2 n'est pas un entier !"; // JCC 
+$lang_SearchUser_FusionOk			= "La fusion a été traitée";
+$lang_SearchUser_MajorUser			= "Utilisateur principal";
+$lang_SearchUser_Info				= "Informations";
+$lang_SearchUser_MinorUser			= "Utilisateur secondaire";
+$lang_SearchUser_SeeInfoUser		= "Voir les informations des utilisateurs"; // JCC 
+$lang_SearchUser_FusionUser			= "Fusionner les utilisateurs (l'utilisateur principal sera gardé)";
+$lang_SearchUser_Treat 				= "Traiter";
+$lang_SearchUser_Goose				= "Conflit dans le(s) cour(s) : ";
+$lang_SearchUser_ContinueFusion		= " voulez vous vraiment continuer et supprimer les groupes de l'utilisateur secondaire ?"; // JCC 
+$lang_SearchUser_SearchEditDelete 	= "Chercher/Editer/Supprimer un utilisateur";
+$lang_SearchUser_Fusion 			= "Fusionner deux utilisateurs";
+$lang_SearchUser_Create 			= "Créer un utilisateur";
+$lang_SearchUser_DeleteOfCourse		= "Radier du cours"; // JCC 
+$lang_SearchCourse_imgDelete		= "Radier"; // JCC 
+$lang_SearchUser_LinkCourses		= "Voir tous les cours dont il fait partie";
+$lang_SearchUser_DeleteOfGroup		= "Radier du groupe"; // JCC 
+$lang_SearchUser_NoAdmin			= "Vous n'êtes pas identifié en tant qu'administrateur"; // JCC 
+
+
+
+?>

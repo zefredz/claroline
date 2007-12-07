@@ -1,18 +1,10 @@
 <?php // $Id$
 /**
- * CLAROLINE 
- *
- * @version 1.8 $Revision$
- *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
- *
- * @package CLANN
- *
- * @author Claro Team <cvs@claroline.net>
- */
-
-header('Location:./announcements.php');
-exit();
+      +----------------------------------------------------------------------+
+      | CLAROLINE 
+      +----------------------------------------------------------------------+
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
+      +----------------------------------------------------------------------+
+*/
+  header("Location:./announcements.php");
 ?>

@@ -1,0 +1,36 @@
+<?php // $Id$
+$lang_config_AdministrationTools	=	"Ferramentas de Administração";
+$lang_config_config					=	"Configuração";
+$lang_config_TitleConfig			=	"Configuração da sua plataforma : ";
+$lang_config_siteName				=	"Nome do site : ";
+ $lang_config_TitleAdministrator	=	"Administrador : ";
+$lang_config_name					=	"Nome : ";
+$lang_config_phone					=	"Telefone : ";
+$lang_config_email					=	"E-mail : ";
+$lang_config_TitleEducationManager	=	"Gerente Educacional : ";
+$lang_config_TitleInstitution		=	"Instituição : ";
+$lang_config_urlInstitution			=	"URL : ";
+$lang_config_ButtonSend				=	"Modificar a configuração";
+$lang_config_langage 				=	"Língua :";
+$lang_config_rootWeb				= 	"Raíz do Site";
+$lang_config_urlAppend				=	"Sufixo da URL";
+$lang_config_dbHost					=	"Servidor";
+$lang_config_dbLogin				=	"Login";
+$lang_config_dbPass					=	"Senha :";
+$lang_config_dbNamePrefix			=	"Prefixo das tabelas : ";
+$lang_config_TitleProperty 			=	"Propriedades : ";
+$lang_config_TitleBD				=	"Base de dados : ";
+$lang_config_ErrorRootWebEmpty		=	"A raíz do site está vazia !";
+$lang_config_ErrorURLEmpty			=	"O sufixo da URL está vazio !";
+$lang_config_ErrorLoginBDEmpty		=	"O login para a Base de dados está vazio !";
+$lang_config_ErrorPassBDEmpty		=	"A senha para a base de dados está vazia !";
+$lang_config_ErrorConnectMySQL		=	"O servidor, login ou senha estão errados para a conexão com a base de dados";
+$lang_config_ErrorHostEmpty			=	"O nome do servidor está vazio !";
+$lang_config_ErrorOpenFile			=	"Erro ao abrir o arquivo config.php";
+$lang_config_ErrorEmailAdmin		=	"O e-mail do administrador está errado !";
+$lang_config_ErrorEmailManager		=	"O e-mail do gerente educacional está errado !";
+$lang_config_Info					=	"(*) valor requerido";
+$lang_config_ErrorURLInstitution	=	"A URL da instituição está errada !";
+$lang_config_ErrorRootWeb			=	"A raiz do site está errada !";
+$lang_config_NoAdmin				=	"Você não está logado como administrador da plataforma";
+?>

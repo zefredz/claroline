@@ -1,26 +1,107 @@
-<?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+<?php # $Id$
+
+//----------------------------------------------------------------------
+// CLAROLINE
+//----------------------------------------------------------------------
+// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+//----------------------------------------------------------------------
+// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
+// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+//----------------------------------------------------------------------
+// Authors: see 'credits' file
+//----------------------------------------------------------------------
+
 /**
- * CLAROLINE
+ * Update the file or directory path in the document db document table
  *
- * @version 1.8 $Revision$
+ * @author - Hugues Peeters <peeters@ipm.ucl.ac.be>
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/config_def/
- *
- * @package KERNEL
- *
- * @author Claro Team <cvs@claroline.net>
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param  - action (string)   - action type require : 'delete' or 'update'
+ * @param  - filePath (string) - original path of the file
+ * @param  - $newParam (array) - new param of the file, can contain
+ *                              'path', 'visibility' and 'comment'
  *
  */
 
+function update_db_info($action, $filePath, $newParam = array())
+{
+    global $dbTable; // table 'document'
+
+    if ($action == 'delete') // case for a delete
+    {
+        $theQuery = "DELETE FROM `".$dbTable."`
+                     WHERE path=\"".$filePath."\"
+                     OR    path LIKE \"".addslashes($filePath)."/%\"";
+    }
+    elseif ($action == 'update')
+    {
+        $sql = "SELECT path, comment, visibility
+                FROM `".$dbTable."`
+                WHERE path=\"".addslashes($filePath)."\"";
+
+        list($attribute) = claro_sql_query_fetch_all($sql);
+
+        if (is_null($attribute)) // case where there isn't any record in the db
+        {                        // concerning this file yet ...
+            if (   ( isset($newParam['comment'])    && ! empty($newParam['comment']) )
+                || ( isset($newParam['visibility']) && $newParam['visibility'] != 'v') )
+            {
+                $newParam['visibility'] != 'i' ? $newParam['visibility'] = 'v' : '';
+
+                $theQuery = "INSERT INTO `".$dbTable."`
+                             SET path       = \"".addslashes($filePath)."\",
+                                 comment    = \"".addslashes($newParam['comment'   ])."\",
+                                 visibility = \"".addslashes($newParam['visibility'])."\"";
+            }
+            // else noop
+        }
+        else // case there is already a record in the db concerning this file
+        {
+            if ( ! isset($newParam['visibility']) )
+            {
+                $newParam['visibility'] = $attribute['visibility'];
+            }
+
+            if ( ! isset($newParam['comment']) )
+            {
+                $newParam['comment'] = $attribute['comment'];
+            }
+
+
+            if (empty($newParam['comment']) && $newParam['visibility'] == 'v')
+            {
+                $theQuery = "DELETE FROM `".$dbTable."`
+                             WHERE path=\"".$filePath."\"";
+            }
+            else
+            {
+                $theQuery = "UPDATE `".$dbTable."`
+                             SET comment    = \"".addslashes($newParam['comment'   ])."\",
+                                 visibility = \"".addslashes($newParam['visibility'])."\"
+                             WHERE path=\"".addslashes($filePath)."\"";
+            }
+        }
+
+        if (isset($theQuery)) claro_sql_query($theQuery);
+
+        if ( ! empty($newParam['path']) )
+        {
+            $theQuery = "UPDATE `".$dbTable."`
+            SET path = CONCAT(\"".addslashes($newParam['path'])."\", SUBSTRING(path, LENGTH(\"".addslashes($filePath)."\")+1) )
+            WHERE path = \"".addslashes($filePath)."\" OR path LIKE \"".addslashes($filePath)."/%\"";
+
+            claro_sql_query($theQuery);
+        }
+
+    } // end else if action == update
+}
+//------------------------------------------------------------------------------
+
 /**
- * Checks a file or a directory actually exist at this location
+ * Cheks a file or a directory actually exist at this location
  *
+ * @author - Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @param  - filePath (string) - path of the presume existing file or dir
  * @return - boolean TRUE if the file or the directory exists
  *           boolean FALSE otherwise.
@@ -28,62 +109,102 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 function check_name_exist($filePath)
 {
-    clearstatcache();
-    return file_exists($filePath);
+	clearstatcache();
+	chdir ( dirname($filePath) );
+	$fileName = basename ($filePath);
+
+	if (file_exists( $fileName ))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
+
 /**
- * Delete a file or a directory (and its whole content)
+ * Delete a file or a directory
  *
- * @param  - $filePath (String) - the path of file or directory to delete
- * @return - boolean - true if the delete succeed
- *           boolean - false otherwise.
+ * @author - Hugues Peeters
+ * @param  - $file (String) - the path of file or directory to delete
+ * @return - bolean - true if the delete succeed
+ *           bolean - false otherwise.
+ * @see    - delete() uses check_name_exist() and removeDir() functions
  */
 
-function claro_delete_file($filePath)
+function my_delete($file)
 {
-    if( is_file($filePath) )
-    {
-        return unlink($filePath);
-    }
-    elseif( is_dir($filePath) )
-    {
-        $dirHandle = @opendir($filePath);
+	if ( check_name_exist($file) )
+	{
+		if ( is_file($file) ) // FILE CASE
+		{
+			unlink($file);
+			return true;
+		}
 
-        if ( ! $dirHandle )
-        {
-            function_exists('claro_html_debug_backtrace') && pushClaroMessage( claro_html_debug_backtrace());
-            return false;
-        }
+		elseif ( is_dir($file) ) // DIRECTORY CASE
+		{
+			removeDir($file);
+			return true;
+		}
+	}
+	else
+	{
+		return false; // no file or directory to delete
+	}
 
-        $removableFileList = array();
+}
 
-        while ( false !== ($file = readdir($dirHandle) ) )
-        {
-            if ( $file == '.' || $file == '..') continue;
+//------------------------------------------------------------------------------
 
-            $removableFileList[] = $filePath . '/' . $file;
-        }
+/**
+ * Delete a directory and its whole content
+ *
+ * @author - Hugues Peeters
+ * @param  - $dirPath (String) - the path of the directory to delete
+ * @return - no return !
+ */
 
-        closedir($dirHandle); // impossible to test, closedir return void ...
 
-        if ( sizeof($removableFileList) > 0)
-        {
-            foreach($removableFileList as $thisFile)
-            {
-                if ( ! claro_delete_file($thisFile) ) return false;
-            }
-        }
+function removeDir($dirPath)
+{
+	/* Try to remove the directory. If it can not manage to remove it,
+	 * it's probable the directory contains some files or other directories,
+	 * and that we must first delete them to remove the original directory.
+	 */
 
-        clearstatcache();
-        if (is_writable($filePath)) return @rmdir($filePath);
-        else
-        {
-            function_exists('claro_html_debug_backtrace') && pushClaroMessage( claro_html_debug_backtrace());
-            return false;
-        }
+	if ( ! @rmdir($dirPath) ) // If PHP can not manage to remove the dir...
+	{
+		$handle = opendir($dirPath);
 
-    } // end elseif is_dir()
+		while ($element = readdir($handle) )
+		{
+            if ( $element == '.' || $element == '..')
+			{
+				continue;	// skip current and parent directories
+			}
+			elseif ( is_file($dirPath.'/'.$element) )
+			{
+				unlink($dirPath.'/'.$element);
+			}
+			elseif ( is_dir ($dirPath.'/'.$element) )
+			{
+				$dirToRemove[] = $dirPath.'/'.$element;
+			}
+		}
+
+		closedir ($handle) ;
+
+
+		if ( sizeof($dirToRemove) > 0)
+		{
+			foreach($dirToRemove as $j) removedir($j) ; // recursivity
+		}
+
+		rmdir( $dirPath ) ;
+	}
 }
 
 //------------------------------------------------------------------------------
@@ -92,51 +213,50 @@ function claro_delete_file($filePath)
 /**
  * Rename a file or a directory
  *
+ * @author - Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @param  - $filePath (string) - complete path of the file or the directory
  * @param  - $newFileName (string) - new name for the file or the directory
- * @return - string  - new file path if it succeeds
+ * @return - boolean - true if succeed
  *         - boolean - false otherwise
  * @see    - rename() uses the check_name_exist() and php2phps() functions
  */
 
-function claro_rename_file($oldFilePath, $newFilePath)
+function my_rename($oldFilePath, $newFilePath)
 {
-    if (realpath($oldFilePath) == realpath($newFilePath) ) return true;
 
-    /* CHECK IF THE NEW NAME HAS AN EXTENSION */
+	/* CHECK IF THE NEW NAME HAS AN EXTENSION */
 
-    if (( ! ereg('[[:print:]]+\.[[:alnum:]]+$', $newFilePath))
-        &&  ereg('[[:print:]]+\.([[:alnum:]]+)$', $oldFilePath, $extension))
-    {
-        $newFilePath .= '.' . $extension[1];
-    }
+	if (( ! ereg('[[:print:]]+\.[[:alnum:]]+$', $newFilePath))
+		&&  ereg('[[:print:]]+\.([[:alnum:]]+)$', $oldFilePath, $extension))
+	{
+		$newFilePath .= ".".$extension[1];
+	}
 
-    /* PREVENT FILE NAME WITH PHP EXTENSION */
+	/* PREVENT FILE NAME WITH PHP EXTENSION */
 
-    $newFilePath = get_secure_file_name($newFilePath);
+	$newFilePath = get_secure_file_name($newFilePath);
 
     /* REPLACE CHARACTER POTENTIALY DANGEROUS FOR THE SYSTEM */
 
-    $newFilePath = dirname($newFilePath).'/'
-    .              replace_dangerous_char(basename($newFilePath))
-    ;
+	$newFilePath = dirname($newFilePath).'/'
+                  .replace_dangerous_char(basename($newFilePath));
 
-    if (check_name_exist($newFilePath)
-        && $newFilePath != $oldFilePath)
-    {
+	if (check_name_exist($newFilePath)
+		&& $newFilePath != $oldFilePath)
+	{
         return false;
-    }
-    else
-    {
-        if ( rename($oldFilePath, $newFilePath) )
-        {
-            return $newFilePath;
-        }
+	}
+	else
+	{
+		if ( rename($oldFilePath, $newFilePath) )
+		{
+			return $newFilePath;
+		}
         else
         {
-            return false;
+        	return false;
         }
-    }
+	}
 }
 
 //------------------------------------------------------------------------------
@@ -145,114 +265,116 @@ function claro_rename_file($oldFilePath, $newFilePath)
 /**
  * Move a file or a directory to an other area
  *
- * @param  - $sourcePath (String) - the path of file or directory to move
- * @param  - $targetPath (String) - the path of the new area
- * @return - boolean - true if the move succeed
- *           boolean - false otherwise.
+ * @author - Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param  - $source (String) - the path of file or directory to move
+ * @param  - $target (String) - the path of the new area
+ * @return - bolean - true if the move succeed
+ *           bolean - false otherwise.
+ * @see    - move() uses check_name_exist() and copyDirTo() functions
  */
 
 
-function claro_move_file($sourcePath, $targetPath)
+function move($source, $target)
 {
-    if (realpath($sourcePath) == realpath($targetPath) ) return true;
+	if ( check_name_exist($source) )
+	{
+		$fileName = basename($source);
 
-    // check to not copy a directory inside itself
-    if (   is_dir($sourcePath)
-        && ereg('^' . $sourcePath . '/', $targetPath . '/') )
-        return claro_failure::set_failure('MOVE INSIDE ITSELF');
+		if ( check_name_exist($target.'/'.$fileName) )
+		{
+			return false;
+		}
+		else
+		{	/* File case */
 
-    $sourceFileName = basename($sourcePath);
+			if ( is_file($source) )
+			{
+				copy($source , $target."/".$fileName);
+				unlink($source);
+				return true;
+			}
 
-    if (   $sourcePath == $targetPath
-        || file_exists($targetPath . '/' . $sourceFileName) )
-         return claro_failure::set_failure('FILE EXISTS');
+			/* Directory case */
+			elseif (is_dir($source))
+			{
+				// check to not copy the directory inside itself
+				if (ereg('^'.$source.'/', $target.'/'))
+				{
+					return false;
+				}
+				else
+				{
+					copyDirTo($source, $target, true);
+					return true;
+				}
+			}
+		}
+	}
+	else
+	{
+		return false;
+	}
 
-    if ( is_dir($targetPath) )
-    {
-        return rename($sourcePath, $targetPath . '/' . $sourceFileName);
-    }
-    else
-    {
-        return rename($sourcePath, $targetPath);
-    }
 }
 
 //------------------------------------------------------------------------------
 
 
 /**
- * Copy a file or a directory and its content to an other directory
+ * Move a directory and its content to an other area
  *
- * @param  - $sourcePath (String) - the path of the directory or the path of the file to move
- * @param  - $targetPath (String) - the path of the destination directory
- * @return - void no return !!
+ * @author - Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param  - $origDirPath (String) - the path of the directory to move
+ * @param  - $destination (String) - the path of the new area
+ * @param  - $delete (bool) - move or copy the file
+ * @return - no return !!
  */
 
-function claro_copy_file($sourcePath, $targetPath)
+function copyDirTo($origDirPath, $destination, $delete)
 {
-    $fileName = basename($sourcePath);
-    
-    $sourcePath = realpath ($sourcePath);
-    $targetPath = realpath ($targetPath);
-    if (! is_readable($sourcePath)) Console::warning($sourcePath . 'not readable');
-    if (! is_writable($targetPath)) Console::warning($targetPath . 'not writable');
-    
-    if ( is_file($sourcePath) )
-    {
-        return copy($sourcePath , $targetPath . '/' . $fileName);
-    }
-    elseif ( is_dir($sourcePath) )
-    {
-        // check to not copy the directory inside itself
+	// extract directory name - create it at destination - update destination trail
+	$dirName = basename($origDirPath);
+	mkdir ($destination."/".$dirName, 0775);
+	$destinationTrail = $destination."/".$dirName;
 
-        if ( ereg('^'.$sourcePath . '/', $targetPath . '/') ) return false;
+	chdir ($origDirPath) ;
+	$handle = opendir($origDirPath);
 
-        if ( ! claro_mkdir($targetPath . '/' . $fileName, CLARO_FILE_PERMISSIONS) )   return false;
+	while ($element = readdir($handle) )
+	{
+		if ( $element == "." || $element == "..")
+		{
+			continue; // skip the current and parent directories
+		}
+		elseif ( is_file($element) )
+		{
+			copy($element, $destinationTrail."/".$element);
+            if ($delete)
+    			unlink($element);
+		}
+		elseif ( is_dir($element) )
+		{
+			$dirToCopy[] = $origDirPath."/".$element;
+		}
+	}
 
-        $dirHandle = opendir($sourcePath);
+	closedir($handle) ;
 
-        if ( ! $dirHandle ) return false;
+	if ( sizeof($dirToCopy) > 0)
+	{
+		foreach($dirToCopy as $thisDir)
+		{
+			copyDirTo($thisDir, $destinationTrail, $delete);	// recursivity
+		}
+	}
 
-        $copiableFileList = array();
+	if($delete)
+		rmdir ($origDirPath);
 
-        while ( false !== ( $element = readdir($dirHandle) ) )
-        {
-            if ( $element == '.' || $element == '..') continue;
-
-            $copiableFileList[] = $sourcePath . '/' . $element;
-        }
-
-        closedir($dirHandle);
-
-        if ( count($copiableFileList) > 0 )
-        {
-            foreach($copiableFileList as $thisFile)
-            {
-                if ( ! claro_copy_file($thisFile, $targetPath . '/' . $fileName) ) return false;
-            }
-        }
-
-        return true;
-    } // end elseif is_dir()
 }
 
 //------------------------------------------------------------------------------
 
-
-/**
- * returns the dir path of a specific file or directory
- *
- * @param string $filePath
- * @return string dir name
- */
-
-function claro_dirname($filePath)
-{
-     return str_replace('\\', '', dirname($filePath) );
-
-     // str_replace is necessary because, when there is no
-     // dirname, PHP leaves a ' \ ' (at least on windows)
-}
 
 /* NOTE: These functions batch is used to automatically build HTML forms
  * with a list of the directories contained on the course Directory.
@@ -263,51 +385,51 @@ function claro_dirname($filePath)
 /**
  * Indexes all the directories and subdirectories
  * contented in a given directory
- *
- * @param  dirPath (string) - directory path of the one to index
- * @param  mode (string) - ALL, FILE, DIR : specify what will be listed
- * @return an array containing the path of all the subdirectories
+ * 
+ * @author - Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param  - path (string) - directory path of the one to index
+ * @return - an array containing the path of all the subdirectories
  */
 
-function index_dir($dirPath, $mode = 'ALL' )
+function index_dir($path)
 {
-    $files = array();
-    if( is_dir($dirPath) ) 
-    {
-        $fh = opendir($dirPath);
-        while( ( $fileName = readdir($fh) ) !== false ) 
-        {
-            // loop through the files, skipping . and .., and recursing if necessary
-            if( $fileName == '.' || $fileName == '..' || $fileName == 'CVS' ) continue;
-            
-            $filePath = $dirPath . '/' . $fileName;
-            
-            if( is_dir($filePath) )
-            {
-                if( $mode != 'FILE' ) array_push($files, $filePath); // mode == DIR or ALL : store dirname
-                $files = array_merge($files, index_dir($filePath, $mode));
-            }
-            elseif( $mode != 'DIR' )
-            {
-                // mode == FILE or ALL : store filename
-                array_push($files, $filePath);
-            }
-        }
-        closedir($fh);
-    } 
-    else
-    {
-        // false if the function was called with an invalid non-directory argument
-        Console::warning($dirPath . 'not a dir');
-        $files = false;
-    }
-    return $files;
+	chdir($path);
+	$handle = opendir($path);
+
+    $dirList = array();
+
+	// reads directory content end record subdirectoies names in $dir_array
+	while ($element = readdir($handle) )
+	{
+		if ( $element == '.' || $element == '..') continue;	// skip the current and parent directories
+		if ( is_dir($element) )	 $dirList[] = $path.'/'.$element;
+	}
+
+	closedir($handle) ;
+
+	// recursive operation if subdirectories exist
+	$dirNumber = sizeof($dirList);
+	if ( $dirNumber > 0 )
+	{
+		for ($i = 0 ; $i < $dirNumber ; $i++ )
+		{
+			$subDirList = index_dir( $dirList[$i] ) ;			    // function recursivity
+			$dirList  =  array_merge( $dirList , $subDirList ) ;	// data merge
+		}
+	}
+
+	chdir("..") ;
+
+	return $dirList ;
+
 }
+
 
 /**
  * Indexes all the directories and subdirectories
  * contented in a given directory, and sort them alphabetically
  *
+ * @author - Hugues Peeters <peeters@ipm.ucl.ac.be>
  * @param  - path (string) - directory path of the one to index
  * @return - an array containing the path of all the subdirectories sorted
  *           false, if there is no directory
@@ -316,513 +438,278 @@ function index_dir($dirPath, $mode = 'ALL' )
 
 function index_and_sort_dir($path)
 {
-    $dir_list = index_dir($path, 'DIR');
+	$dir_list = index_dir($path);
 
-    if ($dir_list)
-    {
-        sort($dir_list);
-        return $dir_list;
-    }
-    else
-    {
-        return false;
-    }
+	if ($dir_list)
+	{
+		sort($dir_list);
+		return $dir_list;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 
 /**
- * build an html form listing all directories of a given directory and file to move
+ * build an html form listing all directories of a given directory
  *
- * @param file        string: filename to o move
- * @param baseWorkDir string: complete path to root directory to prupose as target for move
  */
 
 function form_dir_list($file, $baseWorkDir)
 {
+	global $PHP_SELF, $langCopy, $langTo;
 
-    $dirList = index_and_sort_dir($baseWorkDir);
+	$dirList = index_and_sort_dir($baseWorkDir);
 
-    $dialogBox = "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\">\n"
-                 .    claro_form_relay_context()
-                 ."<input type=\"hidden\" name=\"cmd\" value=\"exMv\" />\n"
-                 ."<input type=\"hidden\" name=\"file\" value=\"".$file."\" />\n"
-                 ."<label for=\"destiantion\">"
-                 . get_lang('Copy').' <i>'.basename($file).'</i> '.get_lang('To')." : "
-                 ."</label><br />\n"
-                 ."<select name=\"destination\">\n";
-
-    if ( dirname($file) == '/' || dirname($file) == '\\')
+	$dialogBox .= "<form action=\"".$PHP_SELF."\" method=\"post\">\n"
+	             ."<input type=\"hidden\" name=\"cmd\" value=\"exMv\">\n"
+	             ."<input type=\"hidden\" name=\"file\" value=\"".$file."\">\n"	
+	             .$langCopy.' <i>'.basename($file).'</i> '.$langTo." :\n"
+	             ."<select name=\"destination\">\n";
+    
+    if ( dirname($file) == '/' )
     {
-        $dialogBox .= '<option value="" class="invisible">root</option>' . "\n";
+        $dialogBox .= "<option value=\"\" style=\"color:#999999\">root</option>\n";
     }
-    else
+    else 
     {
-        $dialogBox .= '<option value="" >root</option>' . "\n";
+        $dialogBox .= "<option value=\"\" >root</option>\n";
     }
 
+	$bwdLen = strlen($baseWorkDir) ;	// base directories lenght, used under
 
-    $bwdLen = strlen($baseWorkDir) ;    // base directories lenght, used under
+	/* build html form inputs */
 
-    /* build html form inputs */
+	if ($dirList)
+	{
+		while (list( , $pathValue) = each($dirList) )
+		{
 
-    if ($dirList)
-    {
-        while (list( , $pathValue) = each($dirList) )
-        {
+			$pathValue = substr ( $pathValue , $bwdLen );		// truncate cunfidential informations confidentielles
+			$dirname = basename ($pathValue);					// extract $pathValue directory name du nom
 
-            $pathValue = substr ( $pathValue , $bwdLen );        // truncate confidential informations
-            $dirname = basename ($pathValue);                    // extract $pathValue directory name
+			/* compute de the display tab */
 
-            /* compute de the display tab */
+			$tab = "";										// $tab reinitialisation
+			$depth = substr_count($pathValue, "/");			// The number of nombre '/' indicates the directory deepness
 
-            $tab = '';                                        // $tab reinitialisation
-            $depth = substr_count($pathValue, '/');            // The number of nombre '/' indicates the directory deepness
-
-            for ($h = 0; $h < $depth; $h++)
-            {
-                $tab .= '&nbsp;&nbsp';
-            }
+			for ($h=0; $h<$depth; $h++)
+			{
+				$tab .= "&nbsp;&nbsp";
+			}
 
             if ($file == $pathValue OR dirname($file) == $pathValue)
             {
-                $dialogBox .= '<option class="invisible" value="'.$pathValue.'">'.$tab.' &gt; '.$dirname.'</option>'."\n";
+                $dialogBox .= "<option style=\"color:#999999\" value=\"$pathValue\">$tab>$dirname</option>\n";
             }
             else
             {
-                $dialogBox .= '<option value="'.$pathValue.'">'.$tab.' &gt; '.$dirname.'</option>'."\n";
+    			$dialogBox .= "<option value=\"$pathValue\">$tab>$dirname</option>\n";
             }
-        }
-    }
+		}
+	}
 
-    $dialogBox .= '</select>' . "\n"
-               .  '<br /><br />'
-               .  '<input type="submit" value="'.get_lang('Ok').'" />&nbsp; '
-               .  claro_html_button($_SERVER['PHP_SELF'].'?cmd=exChDir&file='.htmlspecialchars(claro_dirname($file)), get_lang('Cancel'))
-               .  '</form>' . "\n";
+	$dialogBox .= "</select>\n";
+	$dialogBox .= "<input type=\"submit\" value=\"Ok\">";
+	$dialogBox .= "</form>\n";
 
-    return $dialogBox;
+	return $dialogBox;
 }
 
 //------------------------------------------------------------------------------
 
-
-
 /**
- * create directories path
+ * to create missing directory in a gived path
  *
- * @param string  $pathname
- * @param int     $mode directory permission (optional)
- * @param boolean $recursive (optional)
- * @return boolean TRUE if succeed, false otherwise
+ * @returns a resource identifier or FALSE if the query was not executed correctly. 
+ * @author KilerCris@Mail.com original function from  php manual 
+ * @author Christophe Gesché gesche@ipm.ucl.ac.be Claroline Team 
+ * @since  28-Aug-2001 09:12 
+ * @param 	sting	$path 		wanted path
+ * @param 	boolean	$verbose	fix if comments must be printed
+ * @param 	string	$mode		fix if chmod is same of parent or default
+ * @global 	string  $langCreatedIn string to say "create in"
  */
 
-function claro_mkdir($pathName, $mode = 0777, $recursive = false)
+function mkpath($path, $verbose = false, $mode = "herit")  
 {
-    if ($recursive)
-    {
-        if ( strstr($pathName,get_path('rootSys')) !== false )
-        {
-            /* Remove rootSys path from pathName for system with safe_mode or open_basedir restrictions
-               Functions (like file_exists, mkdir, ...) return false for files inaccessible with these restrictions
-            */
-
-            $pathName = str_replace(get_path('rootSys'),'',$pathName);
-            $dirTrail = get_path('rootSys') ;
-        }
-        else
-        {
-            $dirTrail = '';
-        }
-
-        $dirList = explode( '/', str_replace('\\', '/', $pathName) );
-
-        $dirList[0] = empty($dirList[0]) ? '/' : $dirList[0];
-
-        foreach($dirList as $thisDir)
-        {
-            $dirTrail .= empty($dirTrail) ? $thisDir : '/'.$thisDir;
-
-            if ( file_exists($dirTrail) )
-            {
-                if ( is_dir($dirTrail) ) continue;
-                else                     return false;
-            }
-            else
-            {
-
-                if ( ! @mkdir($dirTrail , $mode) ) return false;
-            }
-
-        }
-        return true;
-    }
-    else
-    {
-        // remove trailing slash
-        if( substr($pathName, -1) == '/' )
-        {
-            $pathName = substr($pathName, 0, -1);
-        }
-
-        return @mkdir($pathName, $mode);
-    }
+	GLOBAL $langCreatedIn;
+	if ($langCreatedIn =="") $langCreatedIn ="Create in";
+	$path = str_replace("/","\\",$path);
+	$dirs = explode("\\",$path);
+//	print_r ($dirs);
+	$path = $dirs[0];
+	if ($verbose)
+		echo "<UL>";
+	for($i = 1;$i < count($dirs);$i++) 
+	{
+		$path .= "/".$dirs[$i];
+		if(!is_dir($path))
+		{
+//			if ($mode=="herit")
+//				$mode =	fileperms($path."/../");
+//			$mode = "0700";
+			$ret=mkdir($path, 0770);
+			if ($ret)
+			{
+				if ($verbose)
+					echo "
+				<LI>
+					<strong>
+						".basename($path)."
+					</strong>
+					<br>
+				 	".$langCreatedIn." 
+					<br>
+				 	<strong>
+						".realpath($path."/..")."
+					</strong>";
+			}
+			else
+			{
+				if ($verbose)
+					echo "
+				</UL>
+				error : ".$path." not created";
+//				return false;	
+			}
+		}
+	}
+	if ($verbose)
+		echo "</UL>";
+	return $ret;
 }
 
 /**
- * create a tmp directory
- *
- * @param string  $dir
- * @param string  $prefix 
- * @param int     $mode  
- * @return string full pathname
- */
-function claro_mkdir_tmp($dir, $prefix = 'tmp', $mode = 0777)
-{
-    if (substr($dir, -1) != '/') $dir .= '/';
-
-    do
-    {
-        $path = $dir.$prefix.mt_rand(0, 9999999);
-    } while ( !claro_mkdir($path, $mode) );
-
-    return $path;
-}
-
-
-/**
- * to compute the size of the directory
- *
- * @returns integer size
- * @param     string    $path path to size
- * @param     boolean $recursive if true , include subdir in total
- */
-
-function claro_get_file_size($filePath)
-{
-    if     ( is_file($filePath) ) return filesize($filePath);
-    elseif ( is_dir($filePath)  ) return disk_total_space($filePath);
-    else                          return 0;
-}
-
-/**
- * search files or directory whose name fit a pattern
- *
- * @param string $searchPattern - Perl compatible regex to search on file name
- * @param string $baseDirPath - directory path where to start the search
- * @param string $fileType (optional) - filter allowing to restrict search
- *        on files or directories (allowed value are 'ALL', 'FILE', 'DIR').
- * @param array $excludedPathList (optional) - list of files or directories
- *        that have to be excluded from the search
- * @return array path list of the files fitting the search pattern
- */
-
-function claro_search_file($searchPattern             , $baseDirPath,
-                           $recursive        = false , $fileType = 'ALL',
-                           $excludedPathList = array()                    )
-{
-        $searchResultList = array();
-
-        //$baseDirPath unexisting is  a devel error or a data incoherence,
-        if (! file_exists($baseDirPath))
-        {
-            // TODO would push an error but return empty array instead of false.
-            return claro_failure::set_failure('BASE_DIR_DONT_EXIST');
-        }
-
-        $dirPt = opendir($baseDirPath);
-
-        //can't be false as if (! file_exists($baseDirPath))  have make a good control
-        //if ( ! $dirPt) return false;
-
-        while ( $fileName = readdir($dirPt) )
-        {
-            $filePath = $baseDirPath.'/'.$fileName;
-
-            if (   $fileName == '.' || $fileName == '..'
-                || in_array($filePath, $excludedPathList ) )
-            {
-                continue;
-            }
-            else
-            {
-
-                if ( is_dir($filePath) ) $dirList[] = $filePath;
-
-                if ( $fileType == 'DIR'  && is_file($filePath) )
-                {
-                    continue;
-                }
-
-                if ( $fileType == 'FILE' && is_dir($filePath) )
-                {
-                    continue;
-                }
-
-                if ( preg_match($searchPattern, $fileName) )
-                {
-                    $searchResultList[] = $filePath;
-                }
-
-            }
-        }
-
-        closedir($dirPt);
-
-        if ( $recursive && isset($dirList) && count($dirList) > 0)
-        {
-            foreach($dirList as $thisDir)
-            {
-                $searchResultList =
-                    array_merge( $searchResultList,
-                                 claro_search_file($searchPattern, $thisDir,
-                                                   $recursive, $fileType,
-                                                   $excludedPathList)
-                               );
-            }
-        }
-
-        return $searchResultList;
-}
-
-/**
- * convert search string coming from the user interface
- * to a Perl Compatible Regular Expression (PCRE)
+ * to extract the extention of the filename 
  *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
- * @param string search string
- * @return string Perl Compatible Regular Expression
+ * @param  string $file
+ * @return string extension
+ *         bool false
  */
 
+function get_file_extension($file)
+{ 
+    $pieceList = explode('.', $file);
 
-function search_string_to_pcre($searchPattern)
-{
-    $searchPattern   = str_replace('.', '\\.', $searchPattern);
-    $searchPattern   = str_replace('*', '.*' , $searchPattern);
-    $searchPattern   = str_replace('?', '.?' , $searchPattern);
-    $searchPattern   = '|'.$searchPattern.'|i';
-    return $searchPattern;
-}
-
-/**
- * Get the list of invisible documents of the current course
- *
- * @param $baseWorkDir path document
- * @param $cidReq course identifier
- * @return list of invisible document
- */
-
-function getInvisibleDocumentList ( $baseWorkDir, $cidReq = null )
-{
-    $documentList = array();
-
-    if ( is_null($cidReq) ) $cid = claro_get_current_course_id() ;
-    else                    $cid = $cidReq ;
-
-    $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($cid));
-    $tbl_document = $tbl_cdb_names['document'];
-
-    $sql = "SELECT path
-            FROM `". $tbl_document ."`
-            WHERE visibility = 'i'";
-
-    $documentList = claro_sql_query_fetch_all_cols($sql);
-    $documentList = $documentList['path'];
-
-    for( $i=0; $i < count($documentList); $i++ )
+    if ( count($pieceList) > 1) // there is more than one piece
     {
-        $documentList[$i] = $baseWorkDir.$documentList[$i];
+        $lastPiece = array_pop($pieceList); // the last cell should be the extansion
+
+        if ( ! strstr('/', $lastPiece) ) // check the dot is not into 
+        {                                // a parent directory name
+            return $lastPiece;
+        }
     }
 
-    return $documentList ;
+    return false;
 }
 
-/**
- * get the url written in files specially created by Claroline
- * to redirect to a specific url
- *
- * @param param string $file complete file path
- * @return string url
- */
-
-function get_link_file_url($file)
-{
-   $fileContent = implode("\n", file ($file));
-   $matchList =  array();
-
-   if (preg_match('~>([^<]+)</a>~',
-                  $fileContent,
-                  $matchList))
-   {
-        return $matchList[1];
-   }
-   else
-   {
-       return null;
-   }
-}
-
-//------------------------------------------------------------------------------
 
 
 /**
- * Update the file or directory path in the document db document table
+ * to compute the size of the directory 
  *
- * @param  String action    - action type require : 'delete' or 'update'
- * @param  String filePath  - original path of the file
- * @param  String $newParam - new param of the file, can contain
- *                              'path', 'visibility' and 'comment'
- *
+ * @returns integer size
+ * @param 	string	$path path to size
+ * @param 	boolean $recursive if true , include subdir in total
  */
 
-function update_db_info($action, $filePath, $newParamList = array())
-{
-    global $dbTable; // table 'document'
+function DirSize($path , $recursive=TRUE)
+{ 
+	$result = 0; 
+	if(!is_dir($path) || !is_readable($path)) 
+   		return 0; 
+	$fd = dir($path); 
+	while($file = $fd->read())
+	{ 
+	   	if(($file != ".") && ($file != ".."))
+   		{ 
+    	if (@is_dir("$path$file/")) 
+ 			$result += $recursive?DirSize("$path$file/"):0; 
+    	else  
+			$result += filesize("$path$file"); 
+		} 
+	}
+	$fd->close(); 
+	return $result; 
+} 
 
-    $newComment    = (isset($newParamList['comment'   ]) ? trim($newParamList['comment'   ]) : null);
-    $newVisibility = (isset($newParamList['visibility']) ? trim($newParamList['visibility']) : null);
-    $newPath       = (isset($newParamList['path'      ]) ? trim($newParamList['path'      ]) : null);
+function update_Doc_Path_in_Assets($type, $oldPath, $newPath) {
 
-    if ($action == 'delete') // case for a delete
-    {
-        $theQuery = "DELETE FROM `".$dbTable."`
-                     WHERE path=\"".addslashes($filePath)."\"
-                     OR    path LIKE \"".addslashes($filePath)."/%\"";
-
-        claro_sql_query($theQuery);
-    }
-    elseif ($action == 'update')
-    {
-        // GET OLD PARAMETERS IF THEY EXIST
-
-        $sql = "SELECT path, comment, visibility
-                FROM `".$dbTable."`
-                WHERE path=\"".addslashes($filePath)."\"";
-
-        $result = claro_sql_query_fetch_all($sql);
-        if ( count($result) > 0 ) list($oldAttributeList) = $result;
-        else                      $oldAttributeList = null;
-
-        if ( ! $oldAttributeList ) // NO RECORD CONCERNING THIS FILE YET ...
-        {
-            if ( $newComment || $newVisibility == 'i' )
-            {
-                if ( $newVisibility != 'i' ) $newVisibility = 'v';
-                $insertedPath = ( $newPath ? $newPath : $filePath);
-
-                $theQuery = "INSERT INTO `".$dbTable."`
-                             SET path       = \"".addslashes($insertedPath)."\",
-                                 comment    = \"".addslashes($newComment)."\",
-                                 visibility = \"".addslashes($newVisibility)."\"";
-            } // else noop
-
-        }
-        else // ALREADY A RECORD CONCERNING THIS FILE
-        {
-            if ( is_null($newVisibility ) ) $newVisibility = $oldAttributeList['visibility'];
-            if ( is_null($newComment    ) ) $newComment    = $oldAttributeList['comment'   ];
-
-            if ( empty($newComment) && $newVisibility == 'v')
-            {
-                // NO RELEVANT PARAMETERS ANYMORE => DELETE THE RECORD
-                $theQuery = "DELETE FROM `".$dbTable."`
-                             WHERE path=\"".$filePath."\"";
-            }
-            else
-            {
-                $theQuery = "UPDATE `" . $dbTable . "`
-                             SET   comment    = '" . addslashes($newComment) . "',
-                                   visibility = '" . addslashes($newVisibility) . "'
-                             WHERE path     = '" . addslashes($filePath) . "'";
-            }
-        } // end else if ! $oldAttributeList
-
-        if( isset($theQuery ) ) claro_sql_query($theQuery);
-
-        if ( $newPath )
-        {
-            $theQuery = "UPDATE `" . $dbTable . "`
-                        SET path = CONCAT('" . addslashes($newPath) . "',
-                                   SUBSTRING(path, LENGTH('" . addslashes($filePath) . "')+1) )
-                        WHERE path = '" . addslashes($filePath) . "'
-                        OR path LIKE '" . addslashes($filePath) . "/%'";
-
-            claro_sql_query($theQuery);
-        }
-    } // end else if action == update
-}
-
-//------------------------------------------------------------------------------
-
-
-function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
-{
-        global $TABLEASSET, $TABLELEARNPATHMODULE,
-               $TABLEUSERMODULEPROGRESS, $TABLEMODULE;
+        global $TABLEASSET;
+        global $TABLELEARNPATH;
+        global $TABLELEARNPATHMODULE;
+        global $TABLEUSERMODULEPROGRESS;
+        global $TABLEMODULE;
+        global $TABLEEXERCISES;
 
         switch ($type)
         {
-            case 'update' :
+            case "update" :
 
                   // Find and update assets that are concerned by this move
 
-                  $sql = "UPDATE `" . $TABLEASSET . "`
-                          SET `path` = CONCAT('" . addslashes($newPath) . "',
-                                              SUBSTRING(`path`, LENGTH('" . addslashes($oldPath) . "')+1) )
-                          WHERE `path` LIKE '" . addslashes($oldPath) . "%'";
+                  $sql = "UPDATE `".$TABLEASSET."`
+                                SET `path` = CONCAT(\"".$newPath."\", SUBSTRING(`path`, LENGTH(\"".$oldPath."\")+1) )
+                                WHERE `path` LIKE \"".$oldPath."%\"";
 
-                  claro_sql_query($sql);
+                  mysql_query($sql);
 
                   break;
 
-            case 'delete' :
+            case "delete" :
 
                   // delete assets, modules, learning path modules, and userprogress that are based on this document
 
                   // find all assets concerned by this deletion
 
                   $sql ="SELECT *
-                         FROM `" . $TABLEASSET . "`
-                         WHERE `path` LIKE '" . addslashes($oldPath) . "%'
+                         FROM `".$TABLEASSET."`
+                         WHERE
+                         `path` LIKE \"".$oldPath."%\"
                          ";
 
-                  $result = claro_sql_query($sql);
+                  $result = mysql_query($sql);
 
-                  $num = mysql_num_rows($result);
+                  $num = mysql_numrows($result);
                   if ($num != 0)
                   {
                         //find all learning path module concerned by the deletion
 
                         $sqllpm ="SELECT *
-                                  FROM `" . $TABLELEARNPATHMODULE . "`
-                                  WHERE 0=1
-                                  ";
+                               FROM `".$TABLELEARNPATHMODULE."`
+                               WHERE 0=1
+                               ";
 
                         while ($list=mysql_fetch_array($result))
                         {
-                           $sqllpm.= " OR `module_id` = '" . (int)$list['module_id'] . "' ";
+                           $sqllpm.= " OR `module_id` = '".$list['module_id']."' ";
                         }
-
-                        $result2 = claro_sql_query($sqllpm);
+                        
+                        $result2 = mysql_query($sqllpm);
 
                         //delete the learning path module(s)
 
                         $sql1 ="DELETE
-                                FROM `" . $TABLELEARNPATHMODULE . "`
-                                WHERE 0=1
-                                ";
-
-                        // delete the module(s) concerned
-                        $sql2 ="DELETE
-                                FROM `" . $TABLEMODULE . "`
-                                WHERE 0=1
+                               FROM `".$TABLELEARNPATHMODULE."`
+                               WHERE 0=1
                                ";
-
+                        // delete the module(s) concerned
+						$sql2 ="DELETE
+                               FROM `".$TABLEMODULE."`
+                               WHERE 0=1
+                               ";
+                               
                         $result = mysql_query($sqllpm);//:to reset result resused
 
                         while ($list=mysql_fetch_array($result))
                         {
-                           $sql1.= " OR `module_id` = '" . (int)$list['module_id'] . "' ";
-                           $sql2.= " OR `module_id` = '" . (int)$list['module_id'] . "' ";
+                           $sql1.= " OR `module_id` = '".$list['module_id']."' ";
+                           $sql2.= " OR `module_id` = '".$list['module_id']."' ";
                         }
 
                         claro_sql_query($sql1);
@@ -831,12 +718,12 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
                         //delete the user module progress concerned
 
                         $sql ="DELETE
-                               FROM `" . $TABLEUSERMODULEPROGRESS . "`
+                               FROM `".$TABLEUSERMODULEPROGRESS."`
                                WHERE 0=1
                                ";
                         while ($list=mysql_fetch_array($result2))
                         {
-                           $sql.= " OR `learnPath_module_id` = '" . (int)$list['learnPath_module_id'] . "' ";
+                           $sql.= " OR `learnPath_module_id` = '".$list['learnPath_module_id']."' ";
                         }
 
                         claro_sql_query($sql);
@@ -844,9 +731,9 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
                         // delete the assets
 
                         $sql ="DELETE
-                               FROM `" . $TABLEASSET . "`
+                               FROM `".$TABLEASSET."`
                                WHERE
-                               `path` LIKE '" . addslashes($oldPath) . "%'
+                               `path` LIKE \"".$oldPath."%\"
                                ";
 
                         claro_sql_query($sql);
@@ -856,36 +743,26 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
 
 }
 
-/*
- * Return html content between <body> and </body> from $html
+
+/**
+ * get the url written in files specially created by Claroline 
+ * to redirect to a specific url
  *
- * @param string $html html content
- *
- * @return string html body content
+ * @author Hugues Peeters <hugues.peeters@claroline.net>
+ * @param param string $file complete file path
+ * @return string url
  */
 
-function get_html_body_content($html)
+function get_link_file_url($file)
 {
-    $body_open_pattern = '/<body[^<>]*>/';
-    $body_close_pattern = '/<\/body>/';
+   $fileContent = implode("\n", file ($file));
 
-    // remove html before <body>
-    $split_html = preg_split($body_open_pattern,$html);
-
-    if ( count($split_html) > 1 )
-    {
-        $html = $split_html[1];
-    }
-
-    // remove html after </body>
-    $split_html = preg_split($body_close_pattern,$html);
-
-    if ( count($split_html) > 0 )
-    {
-        $html = $split_html[0];
-    }
-
-    return $html;
+   preg_match("^<meta http-equiv=\"refresh\" content=\"[0-9]+;url=([-a-zA-Z:/.0-9]+)\">^",
+              $fileContent,
+              $matchList);
+   
+   return $matchList[1];
 }
+
 
 ?>

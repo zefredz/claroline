@@ -1,0 +1,1192 @@
+$Id$
+
+> > > > > > > > > > > CLAROLINE 1.5.1 - BUG LIST < < < < < < < < < < <
+
+THIS DOCUMENT IS AIMED FOR THE CLAROLINE DEVELOPMENT TEAM TO COORDINATE THE BUG 
+FIXING BEFORE ANY OFFICIAL RELEASE.
+
+3.  INSTALL
+Quoi : install repetées = plusieurs admins -> utilisation des function d'ajout utilisateurs
+Assigné à : Moosh
+
+Etat : à résoudre pour 1.5.2
+------------------------------------------------------------------
+4. HTMLAREA
+quoi: Bug signalé par PRFB sur le forum.  Insertions de <br /> aux 
+retours à la ligne dans le code html des pages créées
+------------------------------------------------------------------
+5. COURSE_HOME
+Etat : résolu
+Quoi : librairie à déplacer ? course_home.lib.php se trouve dans le 
+répertoire même de course_home
+
+------------------------------------------------------------------
+8. CONFIG: CLARO_MAIN.CONF
+Quoi : présence de code couleurs qui ne sont, à ma connaissance pas 
+utilisés.  Ils sont signalé comme étant utilisés dans le banner mais ne le sont 
+pas. (si c'est color1 et 2 j'en ai encore vu, il faut d'abord styliser ces pages
+
+Repéré par : SEB
+Etat : à résoudre pour 1.6
+
+Res : Résolu partiellement (j'ai pas touché à phpBB qui en a tout plein 
+mais c'est une variable qui vient du système de thème. Et comme 
+ce qui est désactivé ce ne sont pas les thème  mais  bien la 
+possibilité d'un choisir un, il faut attendre le nettoyage de ce code output
+qui en fait, fera disparaitre leur utilisation)
+------------------------------------------------------------------
+9. CSS: CLARO_INIT_BANNER
+Quoi : Il reste plusieurs tag <font> dans le code qu'il serait 
+intéressant de remplacer par une meilleure utilisation des css. Il reste 
+également des codes couleurs hardcodés pour les différents <td>
+
+Repéré par : SEB
+Assigné à : HUGUES
+Etat : à résoudre pour 1.6
+------------------------------------------------------------------
+10. ADMIN: claroline/admin/adminUserCourseSettings.php 
+quoi -> 
+ - on ne sais pas changer le champ role
+ - on ne sait pas editer le status "tutor in course"
+Repéré par : MOOSH
+Etat : 
+Quid: Un user ne peut pas changer son rôle. admin.lib.inc.php function update_user_course_properties.
+
+------------------------------------------------------------------
+13. ADMIN: /claroline/admin/adminusercourses.php
+Quand on liste les cours, on sait sauter vers la liste de ses users.
+Quand on liste les cours, on sait sauter vers la fiche cours.
+Quand on liste les users, on sait sauter vers la liste de ses cours.
+Quand on liste les users, on sait sauter vers la fiche user.
+
+Quand on liste les users d'un cours ou quand on liste les cours d'un user, on 
+peut voir les propriétés d'intersection. mais on ne sait pas "continuer" je suis 
+dans le cours foo, j'y trouve pol, je ne sais pas voir les cours de pol en 
+cliquant sur ... Dans PMA j'avais ca. et C'est bien pratique pour gerer les 
+lustucrus (inscription multiples, cours multiples)
+
+Repéré par : MOOSH
+Guim dit: voir avec Hugues ...
+Etat : à résoudre pour 1.6
+
+Etat : FIXED ------------------------------------------------------
+M.25  : ADMIN: admincats.php
+type : structure et affichage
+quoi : le code des faculté est utilisé à l'affichage. 
+Il ne peut donc plus être l'identifiant système unique.
+
+Repéré par : M.
+Assigné à : M.
+Etat : à résoudre pour 1.5.2
+Quid : afficher le nom de la catégorie.
+
+Etat : New ------------------------------------------------------
+M.26  : QUIZZ: claroline/exercice/admin.php?modifyQuestion=&newQuestion=yes
+type : interface
+
+quoi : à l'ajout de ma question "assertion" mes champs sont préremplis d'exemples
+Repéré par : M.
+Assigné à : 
+
+Etat : New ------------------------------------------------------
+M.27 : QUIZZ: /claroline/exercice/question_pool.php
+type : interface - uniformisation
+quoi : dans la banque de question on a un lien "Nouvelle question" 
+si j'ai bien capté la nouvelle logique ca devrait être un claro_button
+Repéré par : M.
+Assigné à : 
+
+Etat : New ------------------------------------------------------
+M.33 où : DOCUMENT
+type : logik surf
+quoi : 
+	* Je crée une url
+	* je la renomme
+	* je la teste
+	* quand je suis sur le site je veux revenir en arrière avec un back
+	* j'arrive dans le form de renomage et je suis obligé de re renommer
+	(après coup je me rend compte que le form est tellement grand que j'avais pas vu la liste des documents dans le bas de la page
+Repéré par : M
+Assigné à : H
+
+M.37 --résolu----------------------------------------------------------------------------------
+Etat : résolu
+Assigné à : Hugues
+
+Bug in Upload File just like the other one (visible/unvisible documents when 
+upload file with comments). I´m using Claroline 1.5 Stable. I updated from the 
+last version of 1.4. The following are the steps I did when I found the bug:
+
+   1. I clicked in the "upload file" link
+   2. I searched a new document to upload in my C:
+   3. I WROTE A COMMENT
+   4. I UPLOADED THE FILE
+
+The new document is on the server with the comment but the comments of others 
+documents uploaded before are now erased!!! 
+
+M. 38 -résolu------------------------------------------------------------
+dans l'install il manque my organisation et my url
+Etat : résolu
+Assigné à : Moosh
+
+Etat : New ------------------------------------------------------
+M.39 où : LIB: /inc/lib/claro_mail.lib.inc.php
+Etat : à résoudre pour 1.6
+type : bizarre / code
+quoi :
+function claro_mail_user($user_id, $message, $subject ,$specificFrom="", $specificFromName="" ) 
+{
+	include('../inc/conf/claro_main.conf.php');
+
+Guim ne se souvient pas, mais bon  cet include bien que pas propre ne peut pas être simplement retiré
+Repéré par : M
+Assigné à : M (pour 1.6)
+
+Etat : Résolu dans la 1.6 ------------------------------------------------------
+.40 où : index général
+type : scénarios
+quoi : Je browse l'arbre des cat (non connecté) VS (connecté en train de souscrire certains cours)
+dans le mode connecté.
+j'ai "<< Retour à ma liste personnelle de cours" ou 
+en haut et en bas "<< Retour à la catégorie supérieure"
+ce ki est correct
+
+en 'non connecté' j'ai 
+en haut << catégorie supérieure
+en bas  << Retour à la catégorie supérieure
+
+il faut le même en haut et en bas.
+
+Repéré par : M
+Assigné à : 
+
+Etat : FIXED (lang var was missing)--------------------------------
+.41 où : http://127.0.0.1/c/cvs.claroline.net/1.5.1/claroline.151/claroline/auth/inscription.php
+type : français
+quoi : bouton en anglais
+Repéré par : M
+Assigné à : 
+
+Etat : New ------------------------------------------------------
+.42 où : user_info
+Etat : à résoudre pour 1.6
+type : scénario/logique surf
+quoi : 
+Pour définir les intitulés
+	1° il faut passer par un user ca marche a partir de m'importe lequel mais c bizarre.
+	C'est comme si on devait rentrer dans 1 groupe pour fixer 
+	une valeur de config valable pour tous les groupes
+	2° au début c'est vide et on ne voit que
+	"Réservé à l'administrateur du cours : définir les intitulés" 
+	C'est pas trop clair, con crois que c'est lié mais en fait non.
+Repéré par : M
+Assigné à : 
+
+Etat : FIXED ------------------------------------------------------
+.43 où : user_info
+Etat : à résoudre pour 1.6
+type : logique
+quoi : si je suis prof, dans la fiche d'un de mes élèves, 
+que clique sur le crayon pour éditer les données liée à un des 
+intitulé que j'ai ajouté, *je suis sans être averti* redirigé 
+sur l'edition de MON compte. 
+C'est normal en tant que protection mais il faudrait être soit averti 
+soit bloqué. (en fait les crayon ne devraient peut-être pas apparaître
+si uid != uinfo.
+Repéré par : M
+Assigné à : 
+
+
+Etat : Resolved ------------------------------------------------------
+.44 où : outiluser, ajout d'un user
+Etat : à résoudre pour 1.5.2
+type : 
+quoi : quand j'ajoute un user, le mail est obligatoire, (contrairement aux autres endroit)
+C'est normal sauf que si je l'oublie, il me dit "maque info" sans me préciser que c'est le mail
+
+!! le mail est obligatoire si inc/conf/claro_main.conf.php:105: $userMailCanBeEmpty = TRUE; ou 
+inc/conf/profile.conf.inc.php:10: $userMailCanBeEmpty = true;
+
+Repéré par : Moosh
+Assigné à : 
+
+Résolution: comportement identique aux autres outils (utilisation de  $userMailCanBeEmpty ) et meilleur affichage des message.
+Pour "manque info" sans me préciser que c'est le mail --> pour la 1.6
+
+
+Etat : FIXED ------------------------------------------------------
+.45 où : forum admin
+type : interface dans un cours en français
+quoi : la suppression d'un forum fonctionne mais ne retourne aucun message de succès.
+Repéré par : Moosh sur iCampus
+Assigné à : 
+
+Etat : FIXED ------------------------------------------------------
+.46 où : inscription
+type : langue
+quoi : plateforme french, bouton = register
+Repéré par : Moosh
+Assigné à : 
+
+Etat : New ------------------------------------------------------
+.47 où : inscription par tier via l'outil utilisateur
+type : intégrité 
+quoi : si j'ajoute  un utilisateur et que je rentre une  adresse mail existante, il n'y a pas fusion
+et l'ancien utilisateur est éjecté.
+Repéré par : Moosh
+Assigné à : 
+
+Etat : New ------------------------------------------------------
+.48 où : admin - ajout user	
+Etat : à résoudre pour 1.6
+type : intégrité
+quoi : si j'ajoute un user avec un email d'éjà dans la base il l'accepte.
+Normal en considérant que l'admin peut tout faire. 
+Mais il n'est même pas prévenu qu'il a probablement créé un doubloun
+Repéré par : Moosh
+Assigné à : 
+
+Etat : New ------------------------------------------------------
+.49 où : claroline/user/user.php
+type : erreur séquence
+quoi : pour éditer les question de user info, il fauit passer par un utilisateur
+en cliquant sur son nom. 
+Editer l'utilisateur mène directement aux info de l'utilisateur.
+lister n'indique en rien que l'édition est possible dans la fiche utilisateur
+Repéré par : Moosh
+Assigné à : 
+
+Etat : Fixed ------------------------------------------------------
+.50 où :  liste des cours  - claroline/calendar - htmlarea
+type : probleme d'affichage
+où : dans la zone de droite de la page my course list
+quoi : les retours a la ligne sont supprimes de la description des evenements =>
+les lignes de la description de l'evenement sont collees les unes aux autres, sans
+espace entre elles.
+Repéré par : ZeFredz
+Assigné à :
+
+Etat : FIXED ------------------------------------------------------
+.51 où : statistiques
+type : langue ?
+quoi :  le nom de l'outil DOCUMENT apparaît sous forme de chiffre et dans la partie admin il n'apparaît pas du tout
+Repéré par : Phil
+Assigné à : SEB
+
+Etat : FIXED ( c'était un bug ) ------------------------------------------------------
+.52 où : statisiques
+type : statistique
+quoi : l'outil chat n'apparaît pas dans la liste des outils même si des accès a cet outil ont eu lieu (bug ou pas prévu ?).  
+Repéré par : Phil
+Assigné à : SEB 
+
+Etat : FIXED ------------------------------------------------------
+.53 où : announcements
+Etat : à résoudre pour 1.5.2
+type : code
+quoi : 	la modification de l'ordre ne marche pas toujours : déplacer 2 fois (de suite, passer l'annonce 1 en 2 puis en 3eme position) 
+	dans la meme direction une meme annonce ne marche pas (la DB est correcte (et le reste) cependant)
+
+	Il s'agit des ancres à la fin des liens qui empechent le navigateur de rafraichir la page, aucune modif ne peut donc forcément etre faite
+	La solution a été de retirer les ancres dans un premier temps
+	
+Repéré par : SEB
+Assigné à : 
+
+Etat : FIXED ------------------------------------------------------
+.54 où : annoucement (ajout)
+type : accessibilité
+quoi : aucun <label>
+Repéré par : SEB
+Assigné à : 
+
+
+Etat : New ------------------------------------------------------
+.55 où : Documents
+Etat : à résoudre pour 1.6
+type : navigabilité (?)
+quoi : 	Je crée un docuùent(html) au moyen de l'éditeur, j'oublie de mettre un titre, 
+	j'ai un message d'erreur qui me dit ke le titre est manquant et la liste des documents, 
+	si je fais pas gaffe je clique n'importe ou ailleurs que sur 'back to editor' et je perds le contenu du document.  
+	Il serait p-e préférable de réafficher directement le formulaire avec le message d'erreur le précédent plutot que de repasser par la liste.
+	Méthode qu'il faudrait selon moi généraliser.
+Repéré par : SEB
+Assigné à : 
+
+
+Etat : New ------------------------------------------------------
+.56 où : Documents
+Etat : à résoudre pour 1.6
+type : 
+quoi : On sait commenter un fichier à directement l'upload mais pas à la création ni à la création d'un lien
+Repéré par : SEB
+Assigné à : 
+
+
+Etat : New ------------------------------------------------------
+.57 où : Documents
+Etat : à résoudre pour 1.6
+type : 
+quoi : ou disparait le commentaire qd on uploade un zip et qu'on le dézippe ? 
+Repéré par : SEB
+Assigné à : 
+
+Etat : New ------------------------------------------------------
+.58 où : Documents
+Etat : à résoudre pour 1.6
+type : feedback utilisateur après erreur
+quoi : 	Le message "operation impossible" est très flou car parfois accopagné d'aucune précision, 
+	parfois accompagné d'une précision qui ne correspond pas tout à fait.
+	ex : move d'un fichier index.html vers un répertoire où se trouve déjà un index.html : "operation impossible" sans aucune précision
+	ex : création d'un répertoire sans nom : "operation impossible, un fichier de ce nom existe déjà"
+	ex : création d'un répertoire nommé '/' alors que j'ai un répertoire '-' qui existe : "operation impossible, un fichier de ce nom existe déjà
+		un utilisateur lambda n'est pas censé savoir que / sera remplacé par un - et donc que le nom sera pareil
+Repéré par : SEB
+Assigné à : Hugues
+
+Etat : Fixed ------------------------------------------------------
+.59 où : Document
+Etat : à résoudre pour 1.5.2
+type : intégrité
+quoi :	Déplacement d'un répertoire dont le nom comprend un ou plusieurs caractères spéciaux 
+	ex : création d'un répertoire "test$" (fonctionne) si je le déplace dans lui meme j'ai de beau message d'erreur et lorsque je reviens en arrière le répertoire a disparu
+	ex : Déplacement d'un répertoire plein de caractères spéciaux ( azertyuiop^$^ùµ=-)àçç!!è!&é'é'''( ) dans lui meme
+		résultat : pleins d'erreur et le répertoire disparait !!!
+		Warning: ereg(): REG_EPAREN:$parentheses not balanced in d:\www\claro151\claroline\inc\lib\fileManage.lib.php on line 301
+		Warning: mkdir(d:/www/claro151/ANNONCES/document/azertyuiop^$^ùµ=-)àçç!!è!&é'é'''(/azertyuiop^$^ùµ=-)àçç!!è!&é'é'''(/azertyuiop^$^ùµ=-)àçç!!è!&é'é'''(/azertyuiop^$^ùµ=-)àçç!!è!&é'é'''(/azertyuiop^$^ùµ=-)àçç!!è!&é'é'''(/azertyuiop^$^ùµ=-)àçç!!è!&é'é'''(/azertyuiop^$^ùµ=-)àçç!!è!&é'é'''(): No such file or directory in d:\www\claro151\claroline\inc\lib\fileManage.lib.php on line 337
+		Warning: chdir(): No such file or directory (errno 2) in d:\www\claro151\claroline\document\document.php on line 795
+		Wrong directory !
+		Please contact your platform administrator. 
+	
+
+	( Pourquoi ne pas empecher l'affichage (ou le griser?) du nom du répertoire que l'on veut déplacer dans la listbox du choix de destination ? )
+Repéré par : SEB 
+Assigné à : 
+
+
+Etat : New ------------------------------------------------------
+.60 où : Install
+Etat : à résoudre pour 1.5.2
+type : Nom dans les champs
+quoi : Problème d'ajoute de slashes inutile dans les 
+champs de l'installeur quand on utilise des apostrophe, 
+repéré dans le nom du campus et dans le nom de l'institution.
+Repéré par : Hugues
+Assigné à : 
+
+Etat : Fixed ------------------------------------------------------
+.61 où : Description du cours
+type : integrité (TRES GRAVE :o)
+quoi : 	Lorsque j'ajoute une description de type "other" lorsque qu'une description (type "description) ou d'autres descriptions de type "other" est présente
+	l'ajout provoque le "vidage" de la "description" ou d'un des autre types "other" déjà ajouté
+	ex: j'ajoute une description, j'ajoute un other -> description se vide (mais existe encore avec 2 champs NULL et date == 0000-00-00 00:00) j'ajoute un other -> le other précédent se vide
+Repéré par : SEB
+Assigné à : 
+
+
+Etat : new ------------------------------------------------------
+.62 où : Description du cours
+Etat : à résoudre pour 1.6
+type : CSS (p-e plutot pour la 1.6)
+quoi : 	classes CSS définies localement et dont le nom est encore en francais(infoAcommuniquer par exemple)
+Repéré par : SEB
+Assigné à : 
+
+Etat : FIXED ------------------------------------------------------
+.63 où : Description du cours
+Etat : à résoudre pour 1.5.2
+type : Feedback à l'utilisateur après action
+quoi : message de confirmation après un delete semble incomplet , seul le contenu de ce qu'on a effacé est affiché, pas l'action que l'on vient de faire
+Repéré par : SEB
+Assigné à : 
+
+Etat : New ------------------------------------------------------
+.64 où : Description du cours
+Etat : à résoudre pour 1.6
+type : logique
+quoi :	le delete ne ressemble à aucun autre delete sur la plateforme, il vaudrait mieux effacer directement le contenu après avoir cliqué sur la croix
+	en mettant éventuellement un popup javascript
+Repéré par : SEB
+Assigné à : 
+
+
+Etat : FIXED ------------------------------------------------------
+.65 où : Agenda
+Etat : à résoudre pour 1.5.2
+type : 	
+quoi :	Le champs input text du lasting accepte bcp plus de caractères que sa longueur visuelle ET que le champs en DB
+Repéré par : SEB
+Assigné à : 
+
+
+Etat : New ------------------------------------------------------
+.66 où : Agenda
+Etat : à résoudre pour 1.6
+type :	logique
+quoi :	Event sans titre ni contenu est accepté sans problème (oui ca avait déjà été discuté mais je me souviens plus des conclusions de la discussion donc hop je remet sur le tapis à tout hasard ;) )
+Repéré par : SEB
+Assigné à : 
+
+
+Etat : New ------------------------------------------------------
+Etat : à résoudre pour 1.5.2
+.67 où : Agenda
+type : 
+quoi : 	une des options des select pour heure et minutes est = "-" , si on choisi ca le résultat est l'heure "12h00" 
+	alors qu'on aurait pu croire que ca désactiverait l'affichage d'une heure
+	Cette possibilité n'est d'ailleurs pas présente pour jour, mois et année
+Repéré par : SEB
+Assigné à : 
+
+Etat : NOT A BUG ------------------------------------------------------
+.68 où : Agenda
+type :	logique
+quoi :	L'affichage de la barre "maintenant" ne se fait pas sytématiquement.  Pour une meme liste d'agenda il se 
+	peut qu'elle ne soit affichée que lorsque l'ordre est "older first" alors qu'elle n'est pas affichée en "newest first"
+	(ce qui n'est pas très logique)
+Repéré par : SEB
+Assigné à : 
+
+Etat : NOT A BUG ------------------------------------------------------
+.69 où : travaux
+Etat : à résoudre pour 1.5.2
+type : droits à discuter
+quoi : je peux en tant qu'anonyme acceder au formulaire d'ajout de travaux 
+et ajouter des travaux.
+Repéré par : Moosh
+Assigné à : 
+
+Etat : Not a bug ---------------------------------------------------
+.70 où : groupes
+Etat : à résoudre pour 1.5.2. ou 1.6
+type : usability leak
+quoi : il faudrait ajouter une demande de confirmation lors du remplissage 
+automatique des groupes.
+Repéré par : moosh
+Assigné à : annulé
+
+Etat : FIXED ------------------------------------------------------
+.71 où : travaux la limite affichée
+Etat : à résoudre pour 1.5.2
+type : langue
+quoi : 
+l'unité de la limite affichée n'est pas internationalisée
+format_file_size n'utilise pas trad4all pour les unités de grandeur informatique
+Repéré par : 
+Assigné à : 
+
+Etat : FIXED ------------------------------------------------------
+voir : http://www.claroline.net/doc/en/index.php/No_listing_directory
+.72 où : travaux
+Etat : à résoudre pour 1.5.2 ou 1.6
+type : protection
+quoi : http://127.0.0.1/c/cvs.claroline.net/1.5.1/claroline.debugUser/TESTFRENCH/work/
+rep accessible
+solution : ajout index.php ?
+solution: écrire une doc pour ne pas lister les fichiers des dossiers sous apache et ie.
+Repéré par : Moosh
+Assigné à : 
+
+Etat : Fixed ------------------------------------------------------
+.73 où : travaux 
+Etat : à résoudre pour 1.5.2
+type : message à l'utilisateur
+quoi : pas de message si fichier trop gros
+Repéré par : moosh
+Assigné à : 
+
+Etat : FIXED ------------------------------------------------------
+.74 où : Learning path
+Etat : à résoudre pour 1.5.2 ou 1.6
+type : sequence // langues
+quoi : 
+  <noframes>
+  <body>
+  Votre navigateur ne supporte pas les frames  
+   </body>
+</noframes>
+solution : ajouter un ch'ti lien vers le cours ou kekchose comme ca.
+à discuter
+Repéré par : Moosh
+Assigné à : 
+
+Etat : FIXED ------------------------------------------------------
+.75 où : user.php
+type : affichage 
+quoi : Les nom et prénom on des casses variables.
+Bien qu'on ne puisse décider c'est très désagréable à l'affichage (feedback convergent de profs)
+Solution : strtoLower + UCfirst.
+Repéré par : Moosh
+Assigné à : 
+
+Etat : New ------------------------------------------------------
+.76 où : learning path
+type : affichage
+quoi : "plein ecran | frame" ; l'option est clicable
+Repéré par : Moosh
+Assigné à : 
+
+Etat : Fixed ------------------------------------------------------
+.77 où :learning path
+Etat : à résoudre pour 1.5.2
+type : affichage
+quoi : "plein ecran | frame" ; le passage de l'un à l'autre provoque une perte de charset.
+Il y a visiblement un des cas  ou le header de claroline n'est pas appelé.
+Repéré par : Moosh
+Assigné à : 
+
+Etat : Inresovuble ------------------------------------------------------
+.78 où : Install
+type : interface
+quoi :	Quand on tape sur enter après avoir complété une étape de l'install 
+	c'est le bouton back qui activé au lieu du bouton next, c'est assez irritant
+
+	IMPOSSIBLE à résoudre pour certain navigateur c'est le 1er bouton 
+	qui a le focus pour d'autre c'est le dernier
+	
+Repéré par : SEB
+Assigné à : 
+
+Etat : Resolu ------------------------------------------------------
+.79 où : Install
+Etat : à résoudre pour 1.5.2
+quoi :	
+Lorsque on revient en arrière de step 4 à step 3 le radiobutton "enabled" 
+pour le tracking est toujours activé	
+meme si on avait choisi disabled à l'étape précédente (la valeur est correcte dans le input hidden lorsque la page est affichée, 
+	il s'agit donc seulement d'un bug d'affichage mais qui peut perturber l'installation si l'utilisateur n'as pas vu que le tracking 
+	a de nouveau été activé alors qu'il a demandé le contraire)
+Repéré par : SEB
+Assigné à : Moosh
+
+Etat : Résolu ------------------------------------------------------
+.79Bis où : Install
+Etat : à résoudre pour 1.5.2
+type :	
+quoi :	
+Lorsque on revient en arrière de step 7 à step 6 le radiobutton "enabled" 
+perte de selection
+Repéré par : SEB
+Assigné à : Moosh
+
+
+Etat : New ------------------------------------------------------
+.80 où : Install
+Etat : à résoudre pour 1.5.2 ou 1.6
+type : 
+quoi : lors du choix du nom de la base de données on peut mettre n'importe quel caractère
+	Si on met " ou ' ce caractère est stripslashé et si on fait un back on se retrouve avec un nom de database
+	dans lequel tous les " et ' ont été remplacés par \\ .  Le meme problème arrive p-e aussi pour d'autres caractères ?
+Repéré par : SEB
+Assigné à : 
+
+Etat : Fixed ------------------------------------------------------
+.81 où : Install
+Etat : à résoudre pour 1.5.2
+type : 	message à l'utilisateur
+quoi : 	'exist dans le warning du nom db déjà existant doit prendre S => exists
+	"(this script write in tables us by claroline)" (use -> used) et je trouve que le message n'explique pas 
+	assez ce qui se passera réellement, il faudrait un message plus explicite disant ke les données ne seront pas effacées, ... 
+Repéré par : SEB
+
+Etat : RESOLU FIXED DONE -------------------------------------------
+.82 où : Install (step 4)
+Etat : résolvu
+type :
+quoi :	J'ai donné le nom d'une db existante au step 4 pour main ET tracking, j'ai un warning qui me dit  que la db du meme nom que le nom choisi pour main existe déjà
+	je coche et lorsque j'appuie sur next il "boucle" la page affichée reste la meme alors qu'il devrait m'afficher le warning pour le nom de la DB de tracking qui existe déjà
+	comme c'est le cas lorsque les 2 noms de DB sont différents
+
+	Après un séquence dont je ne me souviens plus précisement je n'avais plus de warning du tout à cette étape alors que les 2 noms sont déjà utilisés !!
+Repéré par : SEB
+Assigné à : Moosh
+
+Etat : Fixed ------------------------------------------------------
+.83 où : Install (step 7)
+Etat : à résoudre pour 1.5.2
+type : 
+quoi : 	le label du champ email de campus contact est URL alors qu'il devrait être email ! 
+car on ne peut rien y mettre d'autre qu'un email valide.
+Au contraire dans le champs URL on peut mettre autre chose qu'une url, une adresse email par exemple (en étant induit en erreur par un message de "mail incorrect") ce qui donnera dans la bannière un url du genre http://localhost/claro152/encaisse@gmail.com
+
+Repéré par : SEB
+Assigné à : 
+
+
+Etat : FIXED ------------------------------------------------------
+.84 où : Install (step 8)
+type :	cosmétique mineur
+quoi :	Last tip trop collé au bouton "go to campus"
+Repéré par : SEB
+Assigné à : 
+
+Etat : FIXED ------------------------------------------------------
+.85 où : Install
+type : sécurité
+quoi : pas l'impression d'avoir vu le moindre message d'avertissement demandant de sécuriser le script d'installation en le supprimant ou en ajoutant un htaccess
+(il est juste derrière le "Last tip" dont tu parles ci dessus)
+Repéré par : Seb
+Assigné à : 
+
+Etat : FIXED ------------------------------------------------------
+.86 où : Upgrade (step 1)
+type :
+quoi : 	Le mail de l'admin n'apparait pas dans le step 1 (config upgrade)
+	Alors que dans mon config.cfg de la 1.42 j'ai clairement $emailAdministrator = "encaisse@gmail.com" (par contre $educationManager['email'] est vide, p-e est-ce celui là qui est utilisé ? )
+Repéré par : SEB
+Assigné à : 
+
+Etat : New ------------------------------------------------------
+.87 où : UserInfo
+Etat : 
+type : interface
+quoi : en édition des zones utilisateurs, les boutons d'action semblent être pour les suivant (feedback icampus)
+Repéré par : icampus
+Assigné à : 
+
+Etat : New ------------------------------------------------------
+PAREIL QUE 42
+.88 où : Userinfo // edition des intitulé
+type : sequence
+quoi : visiblement, arriver à l'édition des intitulé n'est évidente que pour nous
+Repéré par : Denis
+Assigné à : 
+
+Etat : FIXED ------------------------------------------------------
+.89 où : forum 
+type : lanque quote
+quoi : Lorsque vous supprimerez le forum "Forum d’´essai", cela supprimera également le présent sujet qui ne contient que ce seul message
+2 ' à essai.
+Repéré par : Moosh 
+Assigné à : 
+
+Etat : New ------------------------------------------------------
+.90 où : forum et course description
+Etat : à résoudre pour 1.6
+type : homogénéité
+quoi : la séquence pour effacer une entrée est différente des autres endroits du campus.
+Repéré par : Moosh
+Assigné à : 
+
+Etat : FIXED ------------------------------------------------------
+PAREIL QUE 107 et 114 
+.91 où : Forum
+type : htmlarea 
+quoi : quand  je crée un sujet. avec mozilla PC (problème non rencontré en ie)
+si j'ajoute un titre et pas ce corp de message
+1° j'ai une erreur phpbb avec layout non clarolinisé
+2° je fait back et je ne peux plus éditer mon message
+Repéré par : Moosh
+Assigné à : 
+
+Etat : NOT A BUG ------------------------------------------------------
+.92 où : Forum
+type : ambiguité ?
+quoi : dans l'outil forum, le mot sujet veux dire  à la fois "thread" et "topic"
+Repéré par : Moosh
+Assigné à : 
+
+Etat : New ------------------------------------------------------
+.93 où : ensemble des outils
+type : Back 
+quoi : erreur avec un back quand on a quitté icampus 
+depuis n'importe qu'elle page 
+du forum, document, groupes, travaux, 
+learning path(normalement il suffit de descendre le event après le check), 
+chat
+fonctionnent : utilisateur,  description de cours, agenda, annonce, exercice, course_home
+Repéré par : Moosh
+Assigné à : 
+
+Etat : New ------------------------------------------------------
+.94 où : ensemble des outils
+type : Back 
+quoi : erreur avec un back quand on a quitté le cours
+depuis n'importe qu'elle page 
+du forum, document, groupes
+fonctionnent : utilisateurs, description de cours, agenda, annonce, exercice, course_home, learning path,
+travaux, chat
+Repéré par : 
+Assigné à : 
+
+Etat : New ------------------------------------------------------
+.95 où : forum
+type : sequence
+quoi : si je veux poster alors que je suis pas authentifié, il n'utilise pas claro_auth_form
+donc oblige de repartir de la case départ
+Repéré par :  Moosh
+Assigné à : 
+
+Etat : New ------------------------------------------------------
+.96 où : Chat
+type : est-ce bien raisonable
+quoi : fonctionne en anonyme
+Repéré par : Moosh
+Assigné à : 
+
+Etat : FIXED ------------------------------------------------------
+Corrigé en 1.5, à corriger en 1.6
+.97 où : Forum 
+type : sequence
+quoi : quand on est dans un forum , qu'on clique sur adminsitrer, on arrive pas dans l'administration du forum mais des catégorie.
+Repéré par : Moosh
+Assigné à : guim
+
+Etat : New ------------------------------------------------------
+.98 où : Forum
+type : feature
+quoi : dans  forum on a 
+catégorie, forum, fil, post
+on sait supprimer catégorie, forum, post mais pas un fil 
+Repéré par : Moosh
+Assigné à : 
+
+Etat : Fixed ------------------------------------------------------
+.99 où : Upgrade
+type :
+quoi : Ne faudrait-il pas indiquer la version de Claroline que 
+l’utilisateur possède dans la page « Claroline Upgrade Tool from 1.4.* to 1.5 » 
+et lui dire que l’upgrade n’est pour lui pas nécessaire ?
+Repéré par : Aurélien
+Assigné à : 
+
+Etat : FEATURE FOR 1.6 ------------------------------------------------
+	|--> Il n'y a pas que le tracking qui soit dans cette situation
+
+.100 où :Statistiques//config
+type :
+quoi : Quand on installe claroline sans le tracking, 
+on ne peut pas activer le tracking par après, 
+directement dans la plateforme d’administration ou autre part. 
+On peut l’activer mais il faut aller manuellement dans les fichiers.
+Peut-être faut-il prévoir cette fonction.
+Repéré par : Aurélien
+Assigné à : 
+
+Etat : NOT A BUG ------------------------------------------------------
+.101 où :Utilisateurs
+type : sql
+quoi :  L’information sur le nombre d’utilisateur est erronée.
+Repéré par : Aurélien
+Assigné à : 
+
+Etat : FIXED ------------------------------------------------------
+.102 où : stat
+type : 
+quoi : Accès aux outils : Le nom de l’outil ne s’affiche pas, 
+c’est un numéro (peut-être l’id de l’outil) qui s’affiche 
+dans la colonne Nom de l’outil.
+Repéré par : Aurélien
+Assigné à : 
+
+Etat : FIXED ------------------------------------------------------
+.103 où : stat
+type :
+quoi : Accès aux outils : Quand on clique sur un outil 
+et que l’on fait après 
+« Voir la liste de tous les outils, 
+on ne réapparaît pas au bonne endroit 
+Repéré par : Aurélien
+Assigné à : 
+
+Etat : FIXED ------------------------------------------------------
+.104 où : stat
+type :
+quoi : Accès aux outils : Quand on fait « Voir la liste de tous les outils », 
+le nom de la page qui s’affiche dans le breadcrumb est « details : »
+Repéré par : Aurélien
+Assigné à : 
+
+Etat : Fixed ------------------------------------------------------
+.105 où : Statistiques de l’utilisateur > Accès et utilisation des outils 
+type :
+quoi : C’est le numéro de l’outil qui est affiché à la place de son nom.
+Repéré par : Aurélien
+Assigné à : 
+
+Etat : CANNOT BE FIXED DUE TO THE CONSTRUCTION OF DOCUMENTS TOOL -----------------
+.106 où : Statistiques de l’utilisateur > Documents  
+type :
+quoi : on a la liste des documents que l’utilisateur a téléchargés. 
+Pourquoi ne pas représenté chaque document comme un lien qui pointe vers ce document. 
+Repéré par : Aurélien
+Assigné à : 
+
+
+Etat : FIXED ------------------------------------------------------
+PAREIL QUE 91 et 114 
+.107 où : Forum
+- Lorsque que je poste un message vide, j'arrive sur une page cul-de-sac,(et si je fais "back" le wysiwyg n'est plus à©ditable)
+Repéré par : Guim
+Assigné à : 
+
+Etat : New ------------------------------------------------------
+.108 où : Forum
+Etat : 1.6
+- Un post marquà© comme "non-vu" le reste, màªme si je vais le regarder, c normal? pourquoi faut-il attendre de se dà©logguer/ relogguer?ne peut on pas dà©tecter sa lecture? 
+Repéré par : Guim
+Assigné à : 
+
+Etat : NOT A BUG ------------------------------------------------------
+Utilise une variable composée : $lastpost = "last ".$post;
+.109 où : Forum
+
+- "Last Post" au lieu de "Last post" dans la colonne prà©vue à  cet effet
+Repéré par : Guim
+Assigné à : 
+
+Etat : FIXED ------------------------------------------------------
+.110 où : Forum
+- Dans "Last post", les forums de groupes et celui crà©à© par dà©dfaut affiche un date de dernier post alors qu'il y en a aucun, cela n'a pas de sens. (de plus, cette date s'affiche avec les secondes alors que toutes les autres n'affichent pas les secondes)
+Repéré par : Guim
+Assigné à : 
+
+Etat : FIXED ------------------------------------------------------
+.111 où : Forum
+- Quand l'outil de forum est vide (sans màªmes les exmples) sa prà©santattion est bizarre, on ne peut pas comprendre qu'il s'agit d'un forum vide. 
+Repéré par : Guim
+Assigné à : 
+
+Etat : New ------------------------------------------------------
+.112 où : Forum
+
+- le bouton "help" qui ouvre la pop-up donne des explications incomplà¨te, notamment la signification des images pour les post vus et non-vus.
+Repéré par : Guim
+Assigné à : 
+
+Etat : FIXED ------------------------------------------------------
+.113 où : Forum
+
+- le lien menant vers le projet phpbb est naze, màªme si c'est pas notre faute, à§a coute pas grand chose de le modifier...
+Repéré par : Guim
+Assigné à : 
+
+Etat : FIXED ------------------------------------------------------
+.114 où : Forum
+PAREIL QUE 91 et 107 
+- si je crà©e un nouveau topic mais vide, j'arrive sur une page m'indiquant que je dois taper un message mais qui est sans bannià¨re, ni aucun lien, j e n'ai pas d'autre solution que le back du navigateur.
+
+Repéré par : Guim
+Assigné à : 
+
+Etat : fixé par guim ------------------------------------------------------
+.115 où : travaux
+
+- Lorsque, comme à©tudiant, je viens de poster un travail, il y a un lien "return to the list" alors que je ne vois rien d'affichà© (aucune liste aprà¨s un upload)
+Repéré par : Guim
+Assigné à : 
+
+Etat : New ------------------------------------------------------
+.116 où : travaux
+- Le nom des fichiers upploadà© est bizarre... c'est un dà©routant. Mais je suppose qu'on sait pas changà© à§a...
+Repéré par : Guim
+Assigné à : 
+
+Etat : Fixed ------------------------------------------------------
+.117 où : travaux
+- "Authors" et "titres" dans la liste des travaux sont prà©sentà©s sans qu'on disent qu'est ce qui est quoi:  ne devrait-on pas mettre : 
+
+Titre : Manuel de Claroline
+Auteur: Marcel Lebrun
+
+plutotque 
+
+Manuel de Claroline
+Marcel Lebrun
+
+Dans certain cas, à§a pourrait paraitre confus.
+
+Repéré par : Guim
+Assigné à : 
+
+Etat : New ------------------------------------------------------
+.118 où : travaux
+- En admin, j'ai des options qui peuvent agir pour tout les fichiers 
+à  la fois "delete et "visible/invisible". 
+je ne trouve pas intuitif la double action qui se cache derrière à ca : 
+action direct si j'appuie : tout les travaux deviennent visible ou invisible,
+Action futur : selon le setting, les travaux uploadés à  l'avenir 
+serront aussi sous ce setting
+Une petit phrase d'explication serait peut-etre bienvenue.
+
+Repéré par : Guim
+Assigné à : 
+
+Etat : 1° pour 1.6 2° FIXED  ------------------------------------------------------
+.119 où : groupe
+- dans group_edit.php il y a : 
+	1 ° " max ___ seats (optional " c quoi? pourquoi il ya un champs editable (ce n'est pas clair)? 
+	2° "(optional" sans parenthèse qui se ferme.
+Repéré par : Guim
+Assigné à : 
+
+Etat : FIXED ------------------------------------------------------
+.120 où : groupe
+- "Empty all groups"  sans warning. 
+Repéré par : Guim
+Assigné à : 
+
+Etat : FIXED ------------------------------------------------------
+.121 où : groupe
+- "group settings" affiche toujours quil n'est pas permis de s'inscrire soi même ds les groupes, quelque soit le setting donnà©. (plutot un prod d'affichage du setting en fait à§a)  
+
+Etat : FIXED ------------------------------------------------------
+.122 où : claroline/user/user.php && claroline/user/user_add.php
+type : 	langue (en fr)
+quoi :	le nom du lien (dans user.php) et le titre (dans user_add) en francais est = "Ajouter des utilisateurs" alors que l'outil ne permet d'ajouter les utilisateur que 1 par 1
+Repéré par : SEB
+Assigné à : 
+
+
+Etat : New ------------------------------------------------------
+.123 où :	claroline/user/userInfo.php
+Etat : pour 1.6
+type :	
+quoi :	non seulement les intitulés sont compliqués à trouver (déjà signalé dans un bug précédent) mais il est 
+		également difficile de trouver l'intérêt de cet outil, de comprendre ce qu'il faut faire avec et comment 
+		il marche car cela n'est précisé nulle part
+Repéré par : SEB
+Assigné à : 
+
+
+Etat : New ------------------------------------------------------
+.124 où :	partout on on affiche des adresses mails (sauf p-e celle de l'administrateur)
+type :	lutte contre le spam et les bots qui fouinent dans les sites à la recherche d'adresses mail
+quoi :	Ne pas afficher de liens de type "mailto:" ni d'adresse mails en clair mais plutot utiliser un codage du genre user(at)gmail(dot)com 
+Repéré par : 
+Assigné à : 
+
+
+Etat : FIXED ------------------------------------------------------
+.125 où : 	claroline/tracking/userLog.php?uInfo=5
+type :	bredcrump logique	
+quoi :	il manque un niveau au bredcrump lorsque qu'on affiche cette page en passant par outil utilisateurs
+Repéré par : SEB
+Assigné à : SEB
+
+
+Etat : New ------------------------------------------------------
+.126 où :	claroline/user/user.php
+type :	langue
+quoi :	messages dans le popup d'aide ne correspondent plus du tout 
+Repéré par : SEB
+Assigné à : 
+
+Etat : FIXED ------------------------------------------------------
+.127 où :	claroline/chat/chat.php
+type :	
+quoi :	Ajouter la date devant les message comme en 1.6
+Repéré par : SEB
+Assigné à : 
+
+
+Etat : FIXED ------------------------------------------------------
+.128 où :	claroline/chat/chat.php
+type :
+quoi :	La page n'a pas de titre (<title>)
+Repéré par : SEB
+Assigné à : 
+
+
+Etat : Fixed ------------------------------------------------------
+.129 où :	claroline/chat/chat.php
+type :
+quoi :	HTML pas valide lorsque on vient de sauvegarder la discussion, on a un blocquote affiché avant <html>
+Repéré par : SEB
+Assigné à : 
+
+Etat : FIXED ------------------------------------------------------
+.130 où : http://127.0.0.1/claro142/claroline/admin/adminusers.php?search=* (recherche faite à partir de claroline/admin/index.php)
+type :	AIE :x
+quoi :	Warning: eregi_replace(): REG_BADRPT:lrepetition-operator operand invalid in d:\www\claro142\claroline\admin\adminusers.php on line 352
+		et les noms et prénoms des utilisateurs n'apparaissent plus dans la liste
+		* doit être wildcard !!!
+Repéré par : SEB
+Assigné à : 
+
+
+Etat : FIXED ------------------------------------------------------
+.131 où : passage de claroline/admin/index.php à claroline/admin/adminaddnewuser.php
+type :	bredcrump
+quoi :	Administration devient Admin dans le bredcrump
+Repéré par : SEB
+Assigné à : 
+
+
+Etat : FIXED ------------------------------------------------------
+.132 où : passage de claroline/admin/index.php à claroline/create_course/add_course.php?fromAdmin=yes
+type :	bredcrump
+quoi :	Administration n'apparait pas dans le bredcrump sur add_course
+Repéré par : SEB
+Assigné à : 
+
+
+Etat : FIXED ------------------------------------------------------
+.133 où :	claroline/admin/admincats.php
+type :	message d'erreur affiché à l'utilisateur
+quoi :	You don't have the rights to change categorie's name ! You don't have the rights to change categorie's code ! 
+		sont affichés alors que le problème est que je n'ai pas remplis tous les champs
+Repéré par : 
+Assigné à : 
+
+Etat : Fixed ------------------------------------------------------
+.134 où :	claroline/admin/admincats.php
+type :
+quoi :	Pourquoi ne pas afficher la liste des catégories (sous le formulaire d'edit) aussi lorsque on modifie une catégorie ? elle est affichée lors de l'ajout et du "change parent" 
+Repéré par : SEB
+Assigné à : 
+
+Etat : Fixed ------------------------------------------------------
+.135 où : 	upgrade
+type :
+quoi :	Il faudrait, au début de l'upgrade, vérifier que la version à upgrader est bien antérieure à celle vers laquelle on veut upgrader et bloquer le processus 
+		si la version est la meme, dire à l'utilisateur qu'il n'as pas besoin de le faire 
+Repéré par : 
+Assigné à : 
+
+Etat : Fixed ------------------------------------------------------
+.136 où : claroline/admin/maintenance/index.php
+type :	langue
+quoi :	message "all ready done" must be change to "already done"
+Repéré par : SEB
+Assigné à : 
+
+Etat : FIXED ------------------------------------------------------
+.137 où : claroline/admin/maintenance/index.php
+type :	bredcrump
+quoi :	"Administration tool" correspond à "Administration" et devrait donc être changé pour avoir le meme nom que la page vers laquelle le lien pointe donc : "Adminstration tools" doit etre changé en "Adminstration"
+Repéré par : SEB
+Assigné à : 
+
+
+Etat : New ------------------------------------------------------
+.138 où : /claroline/user/userInfo.php?editMainUserInfo=5
+type :
+quoi :	Lorsque que l'on clique sur ok pour envoyer les modifs on ne revient pas de la ou on venait si on vient de la liste des utilisateurs directement
+Repéré par : Aurélien
+Assigné à : 
+
+Etat : New ------------------------------------------------------
+.139 où : claroline/user/user.php
+type :
+quoi :	le lien de tracking devrait se trouver directement dans cette liste 
+Repéré par : Aurélien
+Assigné à :
+
+
+Etat : FIXED ------------------------------------------------------
+PAREIL QUE BUG 43 
+.140 où : Intitulés dans l'outil utilisateur
+type :
+quoi :	le prof définit un intitulé, l'étudiant s1 le complète, cela s'affiche sous ses détails mais lorsque l'étudiant s2 voudra ajouter son propre intitulé
+	et qu'il cliquera sur le crayon il verra le texte que s1 à rempli
+
+	autre problème :
+	l'affichage du contenu de l'intitulé sur claroline/user/userInfo.php?uInfo=1 est inccorect, il affiche partout "..." sauf pour un user qui est l'administrateur 
+
+	
+Repéré par : Aurélien
+Assigné à : 
+
+
+Etat : FIXED ------------------------------------------------------
+.141 où : ajout d'un utilisateur
+type :
+quoi :	 à l'ajout d'un utilisateur j'ai (lorsque un utilisateur avec meme nom existe déjà)
+	1062 : Duplicate entry 'UPGRADE-4' for key 1
+
+	INSERT INTO cours_user
+		SET user_id     = '4',
+		code_cours  = 'UPGRADE',
+		statut      = '5',
+		tutor       = '0'	
+
+Repéré par : SEB
+Assigné à : 
+
+
+Etat : FIXED ------------------------------------------------------
+.142 où :	claroline/user/user_add.php
+type :
+quoi :	Lors de l'ajout d'un utilisateur par le prof dans l'outil utilisateur d'un cours aurélien a :
+	Warning: mysql_num_rows(): supplied argument is not a valid MySQL result resource in c:\wamp\www\claroline-1.5.2.alpha.cvs\claroline\inc\lib\claro_mail.lib.inc.php on line 32
+	(il utilise php5, ca influence p-e)
+Repéré par : Aurélien
+Assigné à : 
+
+Etat : FIXED ------------------------------------------------------
+.143 où : Administration
+type :
+quoi :	étudiant, je m'inscrit dans un cours, puis dans un groupe, puis je me désinscrit du cours sans me désinscrire du groupe : 
+	A: erreur SQL car la table user_group n'existe plus , elle est hardcodée dans la fonction remove_user_from_group de admin.lib ( apparait en 1.6 mais je suppose aussi en 1.5 )
+	B: le remove from group ne fonctionne pas !!!
+Repéré par : SEB
+Assigné à : 
+
+Etat : FIXED ------------------------------------------------------
+.144 où :	Administration
+type :
+quoi :	dans l'admin zone , je modifie les propriétés d'un utilisateur, 
+        je clic sur 'save changes' 
+		puis sur 'User Settings' (dernier élément du bredcrump) 
+		je me retrouve avec un message SCRIPT ERROR suivi de deux boutons : 
+		delete user et enroll user in course 
+	    
+		le user id de commandes des boutons est NULL 
+		 mais pourtant l'enroll to a course ajoute l'admin dans le cours 
+    	donc pour moi il y a le bug du SCRIPT ERROR 
+		mais p-e également un problème au niveau de la vérification 
+		si uidToEdit est setté 
+	apparait autant en pouin 5 que pouin 6
+Repéré par : SEB
+Assigné à :
+
+
+Etat : FIXED ------------------------------------------------------
+(document utilisait claro_sql_get_course_tbl alors que cette fonction n'est pas fonctionnelle en 1.5)
+.145 où : document lors de la suppression d'un fichier
+type :
+quoi : Warning: mysql_numrows(): supplied argument is not a valid MySQL result resource in d:\www\claro151\claroline\inc\lib\fileManage.lib.php on line 662
+Repéré par : SEB
+Assigné à : SEB
+
+
+Etat : FIXED - Bug résolu dans la 1.5.2 depuis 1 mois --------------------
+.146 où : annonces
+type : envoi mail
+quoi :
+* les retours à  ligne sont remplacé par "rien"  plus fâcheux que si remplacés par <br> ou espace.
+Repéré par : Fred
+Assigné à : 
+
+Etat : FIXED ------------------------------------------------------
+.147 où : annonces
+type : affichage des annonces
+quoi :
+* le trim se faisant avant le textToUrl, les urls terminant un texte ne sont pas urlisées.
+* les urls débutants une lignes semblent ne pas être urlisées non plus.
+
+* voir la fonction make_clickable
+
+Repéré par : Moosh
+Assigné à : 
+
+Etat : New ------------------------------------------------------
+.148 où :
+type :
+quoi :
+Repéré par : 
+Assigné à : 
+
+
+[template à copier coller]
+Etat : New ------------------------------------------------------
+.99 où :
+type :
+quoi :
+Repéré par : 
+Assigné à : 
+
+
+

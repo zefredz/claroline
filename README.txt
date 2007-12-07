@@ -1,5 +1,5 @@
 ******************************************
-        CLAROLINE 1.9 alpha - README
+CLAROLINE 1.5.5 - README
 ******************************************
 
 TABLE OF CONTENT :
@@ -12,6 +12,7 @@ TABLE OF CONTENT :
   6. CONTACT
   7. NEW FEATURES
 
+
 1. DESCRIPTION
    ===========
 
@@ -23,7 +24,7 @@ The system provides group management, forums, document repositories, calendar,
 chat, assignment areas, links, user profile administration on a single and
 highly integrated package.
 
-Claroline is translated in 34 languages and used by hundreds of institutions
+Claroline is translated in 28 languages and used by hundreds of institutions
 around world. The software was initially started by the University of Louvain
 (Belgium) and released under Open Source licence (GPL). Since then, a
 community of developers around the world contributes to its development.
@@ -74,225 +75,58 @@ at :
 7. NEW FEATURES
    ============
 
-NEW FEATURES IN CLAROLINE 1.8.3 SINCE CLAROLINE 1.8.0
+NEW FEATURES IN CLAROLINE 1.5.5 SINCE CLAROLINE 1.5.4
 -----------------------------------------------------
 
-* Bug Fixes ; For more details, see the changelog on our documentation wiki :
-  http://www.claroline.net/wiki/index.php/Changelog_1.8.x
+Security Fixes in :
+ * claroline/document/rqmkhtml.php
+ * claroline/phpbb/page_tail.php
 
-NEW FEATURES IN CLAROLINE 1.8.0 SINCE CLAROLINE 1.7
+NEW FEATURES IN CLAROLINE 1.5.4 SINCE CLAROLINE 1.5.3
 -----------------------------------------------------
 
-This new stable version, that comes with a new logo, offers a bunch of interesting new features :
+Securities holes XSS and SQL injections have been detected by Zone-H Research Center (http://fr.zone-h.org). The Claroline team has immediately wrote the patch fixing these bugs.
 
- * A new default layout
- * Module system : build your own Claroline extension
- * User rights and profiles are now completely customizable
- * Classes management improved
- * Personal language selector
- * Course Tools Improvements :
-  o Documents : Download all documents in a compressed file
-  o Exercises : Import/export your exercises, ...
-  o Wiki : Internal search engine
- * Configuration : many new parameters
+Here are the modified files between claroline 1.5.3 and 1.5.4
 
-You'll find more information and screenshots about Claroline 1.8 in our detailed claroline 1.8 page :
+* claroline/calendar/agenda.php
+* claroline/calendar/myagenda.php
+* claroline/claroline/document/document.php
+* claroline/create_course/add_course.php ( Patch http://www.claroline.net/dlarea/claroline153fix01.zip 2005/02/03 )
+* claroline/exercice/exercice_submit.php
+* claroline/exercice/question_pool.php
+* claroline/inc/claro_init_header.inc.php
+* claroline/inc/introductionSection.inc.php
+* claroline/inc/lib/admin.lib.inc.php
+* claroline/inc/lib/fileUpload.lib.php
+* claroline/inc/lib/tool_access_details.lib.php
+* claroline/learnPath/insertMyDoc.php
+* claroline/learnPath/insertMyExercise.php
+* claroline/learnPath/learningPathAdmin.php
+* claroline/learnPath/learningPathList.php
+* claroline/learnPath/learningPath.php
+* claroline/learnPath/module.php
+* claroline/learnPath/modules_pool.php
+* claroline/tracking/exercises_details.php
+* claroline/tracking/learnPath_details.php
+* claroline/tracking/toolaccess_details.php
+* claroline/tracking/user_access_details.php
+* claroline/userLog.php
 
- * http://www.claroline.net/doc/en/index.php/Claroline_18
-
-NEW FEATURES IN CLAROLINE 1.7.7 SINCE CLAROLINE 1.7.6
------------------------------------------------------
-* Translation
-  * new greek lang file with 8 corrections (since 1.7.5) by Spiros Ioannou
-  * the html editor that uses inc/htmlarea/lang/el.js doesn't work with greek
-  at all because all translations in el.js are 16-bit (UTF-8) while the other
-  site is iso-8859-7 (8bit). The result is seeing garbage on the editor menus,
-  buttons etc. I translated el.js with iconv (iconv -f UTF-8 -t ISO8859-7) and
-  I send you the correct one that works ok !
-
-* Security Fix
-  * Remote inclusion have been discovered in these scripts.
-    Platform in register_globals off and/or allow_url_open off are not vulnerable.
-    * claroline/auth/extauth/driver/postnuke.inc.php
-    * claroline/auth/extauth/driver/mambo.inc.php
-    (THANKS TO ZONE-H Team, again)
-
-* Improve Security
-  * protect blindness all included file to prevent other injection.
-
-* Bugs
-  * Documents and links : directory named 0 (zero) causes claro_delete_file to exit without deleting all files in a directory (bug #478)
-  * Wiki : now wiki page title is always case sensitive
-  * Wiki : fix some javascript warning 
-
-NEW FEATURES IN CLAROLINE 1.7.6 SINCE CLAROLINE 1.7.5
+NEW FEATURES IN CLAROLINE 1.5.3 SINCE CLAROLINE 1.5.2
 -----------------------------------------------------
 
-* Translations
+* This is a maintenance release fixing the last bugs communicated by our user community
 
-  * Czech 100% by Zdenek Machek
-     o Claroline in Czech: http://www.claroline.cz (coming soon)
-     o Translated for: ZUS Police (http://www.zuspolice.cz)
-  * Dutch - fine tuning including the missing items by Klaas Kroeze.
-  * Italian - fine tuning by Fausto Barbarito (http://www.nosmet.com)
-
-* New layouts
-
-  * 1 new Layout : clarcom.css, a new corporate CSS designed by Laurent Colet
-                   in the context of an internship at Cerdecam Research Center (Brussels)
-
-Fixed bugs and improvements
-
-Bug fix
-
-    * Course settings : Cannot enter URL of the department with the character - in it.
-                        (fixed by Marina from St-Etienne France)
-
-Security Fix
-
-Remote inclusion have been discovered in these scripts. Platform in register_globals off and/or allow_url_open off are not vulnerable. (Discovered by beford and Kevin Fernandez "Siegfried", Zone-H Research Team)
-
- claroline/admin/admin_class_register.php
- claroline/auth/extauth/casProcess.inc.php
- claroline/auth/extauth/driver/*.inc.php
- claroline/exercice/answer_admin.inc.php
- claroline/exercice/exercise_admin.inc.php
- claroline/exercice/question_admin.inc.php
- claroline/exercice/question_list_admin.inc.php
- claroline/exercice/statement_admin.inc.php
- claroline/inc/claro_init_local.inc.php
- claroline/inc/conf/auth.conf.php.dist
- claroline/inc/lib/add_course.lib.inc.php
- claroline/inc/lib/event/init_event_manager.inc.php
- claroline/inc/lib/export_exe_tracking.class.php
-
-NEW FEATURES IN CLAROLINE 1.7.5 SINCE CLAROLINE 1.7.4
+NEW FEATURES IN CLAROLINE 1.5.2 SINCE CLAROLINE 1.5.1
 -----------------------------------------------------
 
-This version integrates the last security fixes of claroline 1.7. We highly recommend to upgrade to this recent version.
+* This is a minor bugs fixing release. Every tools have been widely tested, stablilized and securised.
 
-* New translation : Slovenian 100% by Sergej Rinc - http://sergej.rinc.ws
-
-* New layouts : claroffice.css, caucase.css and netscape.css
-
-* Bug fixes :
-    * Add user : Deep redesign of the user addition workflow
-    * Assigments : Don't update visibility when editing assignment settings
-    * Forum : Change the way rank moving is done for forums and categories
-
-* Security fix :
-    * A security hole in the file editing
-    * A remote inclusion in scorm export tool
-    * A securityt bug in password recovery tool
-
-More info here : http://www.claroline.net/wiki/index.php/Changelog_1.7.x
-
-NEW FEATURES IN CLAROLINE 1.7.4 SINCE CLAROLINE 1.7.3
+NEW FEATURES IN CLAROLINE 1.5.1 SINCE CLAROLINE 1.5.0
 -----------------------------------------------------
 
-* New translation updates : Greek, Italian and Turkish
-
-* Bug Fixes ; For more details, see the changelog on our documentation wiki :
-  http://www.claroline.net/wiki/index.php/Changelog_1.7.x
-
-
-NEW FEATURES IN CLAROLINE 1.7.3 SINCE CLAROLINE 1.7.2
------------------------------------------------------
-
-* New translation updates : Spanish Latin
-
-* Bug Fixes ; For more details, see the changelog on our documentation wiki :
-  http://www.claroline.net/wiki/index.php/Changelog_1.7.x
-
-NEW FEATURES IN CLAROLINE 1.7.2 SINCE CLAROLINE 1.7.1
------------------------------------------------------
-
-* New translation updates : Arabic, Polish , Bulgarian, Greek, Persian,
-                            Spanish Latin, Romanian, Traditional Chinese
-
-* Security and bug Fixes ; For more details, see the changelog on our documentation wiki :
-  http://www.claroline.net/wiki/index.php/Changelog_1.7.x
-
-NEW FEATURES IN CLAROLINE 1.7.1 SINCE CLAROLINE 1.7.0
------------------------------------------------------
-
-* New translation updates : Arabic, Bulgarian, Croatian, Dutch, French, Galician,
-                            Indonesian, Persian, Polish and Spanish
-* Security and bug Fixes ; For more details, see the changelog on our documentation wiki :
-  http://www.claroline.net/wiki/index.php/Changelog_1.7.x
-
-NEW FEATURES IN CLAROLINE 1.7 SINCE CLAROLINE 1.6
--------------------------------------------------
-
-  See http://www.claroline.net/newfeatures17.html
-
-NEW FEATURES IN CLAROLINE 1.6 SINCE CLAROLINE 1.5
--------------------------------------------------
-
-* ASSIGNMENTS. New assignment tool dealing with :
-
-    - Planned work sessions.
-    - Automatically close or open assignments uploads.
-    - Time planning. (start date and end date)
-    - Give a personalized (or automatic) feedback to any work session submission.
-    - Work content can be text, file or text and file.
-
-* DOCUMENTS AND LINKS. Two new features:
-
-    - new image gallery
-    - Internal search functionality
-
-* EXERCISES. important improvements.
-
-    - time planning. (start date, end date and duration)
-    - optional attempts limit for each user.
-    - multimedia files. (pictures,documents, flash animations, videos, sounds, ... )
-    - flash mp3 player.
-
-* CLASSES. This totally new tool allows platform administrator to
-  manage more easily users by grouping them in classes and subclasses on
-  your virtual campus. Then classes can be and enrolled to specific
-  courses.
-
-* USERS. Massive import with CSV files or classes.
-
-* CONFIGURATION FILES EDITOR. New configuration files editor allowing
-  easy customization of the campus and of the tool parameters.
-
-    - Define which values are required for the creation of new courses.
-    - Set the disk space limit of the documents and links tool.
-    - Select which values are required in user profiles
-    - Choose the number of posts displayed per forum page
-    - ...
-
-* TRACKING & STATISTICS.
-
-    - Improvements on exercises and forum tracking.
-    - Option to erase all statistics of a course.
-
-* TRANSLATION.  New translation files simplify the process to add or
-  update language interface of the Claroline system. See documentation
-  on http://clarolinet.net: How to translate 1.6 ?
-
-* LAYOUT PERSONALIZATION. Claroline code has been adapted to a more
-  intensive use of a CSS stylesheet. This makes it easier, and without
-  any code change, for anyone to modify the appearance (color, style,
-  logo,..) of new Claroline campus installed. See documentation: Modify
-  styles with CSS.
-
-* EXTERNAL AUTHENTICATION SYSTEM. New external authentication system
-  provides methods to authenticate user from a significant number of
-  systems (LDAP servers, 14 databases from Oracle to ODBC, POP3 servers,
-  IMAP servers, vpopmail accounts, RADIUS, SAMBA password files SOAP,
-  and various CMS or LMS applications). This feature improves the
-  integration of Claroline into your existing computer network
-  environment.
-
-* SINGLE SIGN ON (SSO) SYSTEM. Single Sign On (SSO) system enabling
-  users, once logged into Claroline, to connect to all other web sites
-  session without the need of physically enter repetitive usernames and
-  passwords. This feature allows to smoothly associate Claroline into
-  your institution Portals.
+* PHP 5 compliancy
 
 
 NEW FEATURES IN CLAROLINE 1.5 SINCE CLAROLINE 1.4
@@ -486,5 +320,5 @@ is taken into account, at what stage and by who.
 
 
 =========================================================================
-                Europe, Belgium, Louvain-la-Neuve - October 25 2006
+                Europe, Belgium, Louvain-la-Neuve - July 7 2004
 ================================== END ===================================

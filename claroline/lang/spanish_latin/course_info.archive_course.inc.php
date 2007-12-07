@@ -1,0 +1,55 @@
+<?php // $Id$
+/*
+      +----------------------------------------------------------------------+
+      | CLAROLINE version 1.5.*
+      +----------------------------------------------------------------------+
+      | Copyright (c) 2001, 2004, 2003 Universite catholique de Louvain (UCL)|
+      +----------------------------------------------------------------------+
+      |   Este programa es software libre; usted puede redistribuirlo y/o    | 
+      |   modificarlo bajo los términos de la Licencia Pública General (GNU) | 
+      |   como fué publicada por la Fundación de Sofware Libre; desde la     |
+      |   versión 2 de esta Licencia o (a su opción) cualquier versión       |
+      |   posterior.                                                         |
+      |   Este programa es distribuído con la esperanza de que sea útil,     |
+      |   pero SIN NINGUNA GARANTIA; sin ninguna garantía implícita de       |
+      |   MERCATIBILILIDAD o ADECUACIÓN PARA PROPOSITOS PARTICULARES.        |
+      |   Vea la Licencia Pública General GNU por más detalles.              |
+      |   Usted pudo haber recibido una copia de la Licencia Pública         |
+      |   General GNU junto con este programa; sino, escriba a la Fundación  |
+      |   de Sofware Libre : Free Software Foundation, Inc., 59 Temple Place |
+      |   - Suite 330, Boston, MA 02111-1307, USA. La licencia GNU GPL       |
+      |   también está disponible a través de la world-wide-web en la        |
+      |   dirección  http://www.gnu.org/copyleft/gpl.html                    |
+      +----------------------------------------------------------------------+
+      | Autores: Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
+      |          Hugues Peeters    <peeters@ipm.ucl.ac.be>                   |
+      |          Christophe Gesché <gesche@ipm.ucl.ac.be>                    |
+      +----------------------------------------------------------------------+
+      | Traducción :                                                         |
+      |          Thomas Depraetere <depraetere@ipm.ucl.ac.be>                |
+      |          Andrew Lynn       <Andrew.Lynn@strath.ac.uk>                |
+      +----------------------------------------------------------------------+
+      | Basado en la traducción al castellano de                             |
+      |          Xavier Casassas Canals <xcc@ics.co.at>                      |
+      | Adaptado al español latinoamericano en Agosto-2003 por               |
+      |          Carlos Brys       <brys@fce.unam.edu.ar>                    |
+      +----------------------------------------------------------------------+
+ */
+
+$langArchiveCourse = "Resguardo del Curso ";
+$langCreatedIn = "creado el ";
+$langCreateMissingDirectories ="Creación de directorios perdidos";
+$langCopyDirectoryCourse = "Copia de los archivos del curso";
+$langDisk_free_space = "espacio libre";
+$langBuildTheCompressedFile ="2° - Creación del archivo de resguardo";
+$langFileCopied = "archivo copiado";
+$langArchiveLocation="Ubicación del archivo";
+$langSizeOf ="Tamaño de";
+$langArchiveName ="Nombre del Archivo";
+$langBackupSuccesfull = "Resguardo exitoso";
+$langBUCourseDataOfMainBase = "Resguardo del los datos del curso en la base de datos principal para";
+$langBUUsersInMainBase = "Resguardo de los datos de usuarios en la base de datos principal para";
+$langBUAnnounceInMainBase="Resguardo de los datos de anuncios en la base de datos principal para";
+$langBackupOfDataBase="Resguardo de la Base de datos";
+
+?>
