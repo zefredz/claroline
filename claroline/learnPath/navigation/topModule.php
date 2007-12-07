@@ -1,49 +1,50 @@
-<?php // $Id$
-/**
- * CLAROLINE 
- *
- * @version 1.8 $Revision$
- *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @author Piraux Sébastien <pir@cerdecam.be>
- * @author Lederer Guillaume <led@cerdecam.be>
- *
- * @package CLLNP
- * @subpackage navigation
- *
- * This script creates the top frame needed when we browse a module that needs to use frame
- * This appens when the module is SCORM (@link http://www.adlnet.org )
- * or made by the user with his own html pages.
+<?
+// $Id$
+/*
+  +----------------------------------------------------------------------+
+  | CLAROLINE 1.5.*                                                      |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
+  +----------------------------------------------------------------------+
+  | This source file is subject to the GENERAL PUBLIC LICENSE,           |
+  | available through the world-wide-web at                              |
+  | http://www.gnu.org/copyleft/gpl.html                                 |
+  +----------------------------------------------------------------------+
+  | Authors: Piraux Sébastien <pir@cerdecam.be>                          |
+  |          Lederer Guillaume <led@cerdecam.be>                         |
+  +----------------------------------------------------------------------+
  */
+ /**
+  * This script creates the top frame needed when we browse a module that needs to use frame
+  * This appens when the module is SCORM (@link http://www.adlnet.org )or made by the user with his own html pages.
+  * @package learningpath
+  * @subpackage navigation
+  * @author Piraux Sébastien <pir@cerdecam.be>
+  * @author Lederer Guillaume <led@cerdecam.be>
+  * @filesource
+  */
 
 /*======================================
        CLAROLINE MAIN
   ======================================*/
 
-require '../../inc/claro_init_global.inc.php';
+  $langFile = "learnPath";
 
-$interbredcrump[]= array ("url"=>"../learningPathList.php", "name"=> get_lang('Learning path list'));
-if ( claro_is_course_manager() && (!isset($_SESSION['asStudent']) || $_SESSION['asStudent'] == 0 ) )
-{
-       $interbredcrump[]= array ("url"=>"../learningPathAdmin.php", "name"=> get_lang('Learning path admin'));
-}
-else
-{
-       $interbredcrump[]= array ("url"=>"../learningPath.php", "name"=> get_lang('Learning path'));
-}
-$interbredcrump[]= array ("url"=>"../module.php", "name"=> get_lang('Module'));
-//$htmlHeadXtra[] = "<script src=\"APIAdapter.js\" type=\"text/javascript\" language=\"JavaScript\">";
-//header
-$hide_body = true;
+  require '../../inc/claro_init_global.inc.php';
 
-// Turn off session lost
-$warnSessionLost = false ;
+  $interbredcrump[]= array ("url"=>"../learningPathList.php", "name"=> $langLearningPathList);
+  if ( $is_courseAdmin && (!isset($_SESSION['asStudent']) || $_SESSION['asStudent'] == 0 ) )
+  {
+       $interbredcrump[]= array ("url"=>"../learningPathAdmin.php", "name"=> $langLearningPathAdmin);
+  }
+  else
+  {
+       $interbredcrump[]= array ("url"=>"../learningPath.php", "name"=> $langLearningPath);
+  }
+  $interbredcrump[]= array ("url"=>"../module.php", "name"=> $langModule);
+  //$htmlHeadXtra[] = "<script src=\"APIAdapter.js\" type=\"text/javascript\" language=\"JavaScript\">";
+  //header
+  @include($includePath."/claro_init_header.inc.php");
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-// footer
-$hide_footer = true;
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+
 ?>

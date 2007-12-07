@@ -1,111 +1,111 @@
-<?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
-/**
- * CLAROLINE
- *
- * @version 1.8 $Revision$
- *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @author Piraux Sébastien <pir@cerdecam.be>
- * @author Lederer Guillaume <led@cerdecam.be>
- *
- * @package CLLNP
- * @subpackage navigation
- *
- * This file must be included when the module browsed is SCORM conformant
- * This script supplies the SCORM API implémentation in javascript for browsers like NS and Mozilla
- * This script is the client side API javascript generated for user with browser like NS and Mozilla
- */
-/**
- * DB tables definition
- */
-$tbl_cdb_names = claro_sql_get_course_tbl();
-$tbl_mdb_names = claro_sql_get_main_tbl();
-$tbl_user            = $tbl_mdb_names['user'             ];
-$tbl_lp_learnPath            = $tbl_cdb_names['lp_learnPath'           ];
-$tbl_lp_rel_learnPath_module = $tbl_cdb_names['lp_rel_learnPath_module'];
-$tbl_lp_user_module_progress = $tbl_cdb_names['lp_user_module_progress'];
-$tbl_lp_module               = $tbl_cdb_names['lp_module'              ];
-$tbl_lp_asset                = $tbl_cdb_names['lp_asset'               ];
+<?
+/*
+  +----------------------------------------------------------------------+
+  | CLAROLINE version  $Revision$                            |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
+  +----------------------------------------------------------------------+
+  | This source file is subject to the GENERAL PUBLIC LICENSE,           |
+  | available through the world-wide-web at                              |
+  | http://www.gnu.org/copyleft/gpl.html                                 |
+  +----------------------------------------------------------------------+
+  | Authors: Piraux Sébastien <pir@cerdecam.be>                          |
+  |          Lederer Guillaume <led@cerdecam.be>                         |
+  +----------------------------------------------------------------------+
 
-$TABLELEARNPATH          = $tbl_lp_learnPath;
-$TABLEMODULE             = $tbl_lp_module;
-$TABLELEARNPATHMODULE    = $tbl_lp_rel_learnPath_module;
-$TABLEASSET              = $tbl_lp_asset;
-$TABLEUSERMODULEPROGRESS = $tbl_lp_user_module_progress;
-$TABLEUSERS              = $tbl_user;
+  This file must be included when the module browsed is SCORM conformant
+  This script supplies the SCORM API implémentation in javascript for browsers like NS and Mozilla
+*/
 
-$SCORMServerURL = get_module_url('CLLNP') . '/navigation/SCORMserver.php';
-$redirectionURL = get_module_url('CLLNP') . '/learningPath.php';
-$TOCurl = get_module_url('CLLNP') . '/navigation/tableOfContent.php';
+/**
+  * This script is the client side API javascript generated for user with browser like NS and Mozilla
+  *
+  *
+  * @package learningpath
+  * @subpackage navigation
+  * @author Piraux Sébastien <pir@cerdecam.be>
+  * @author Lederer Guillaume <led@cerdecam.be>
+  * @filesource
+  */
+
+  $TABLELEARNPATH         = $_course['dbNameGlu']."lp_learnPath";
+  $TABLEMODULE            = $_course['dbNameGlu']."lp_module";
+  $TABLELEARNPATHMODULE   = $_course['dbNameGlu']."lp_rel_learnPath_module";
+  $TABLEASSET             = $_course['dbNameGlu']."lp_asset";
+  $TABLEUSERMODULEPROGRESS= $_course['dbNameGlu']."lp_user_module_progress";
+
+  $TABLEUSERS                    = $mainDbName."`.`user";
+
+  $SCORMServerURL = $clarolineRepositoryWeb."learnPath/navigation/SCORMserver.php";
+  $redirectionURL = $clarolineRepositoryWeb."learnPath/learningPath.php";
+  $TOCurl = $clarolineRepositoryWeb."learnPath/navigation/tableOfContent.php";
 /*======================================
        CLAROLINE MAIN
   ======================================*/
 
-if(claro_is_user_authenticated())
-{
-    // Get general information to generate the right API inmplementation
-    $sql = "SELECT *
-              FROM `".$TABLEUSERMODULEPROGRESS."` AS UMP,
-                   `".$TABLELEARNPATHMODULE."` AS LPM,
-                   `".$TABLEUSERS."` AS U,
-                   `".$TABLEMODULE."` AS M
-             WHERE UMP.`user_id` = ". (int)claro_get_current_user_id()."
-               AND UMP.`user_id` = U.`user_id`
-               AND UMP.`learnPath_module_id` = LPM.`learnPath_module_id`
-               AND M.`module_id` = LPM.`module_id`
-               AND LPM.`learnPath_id` = ". (int)$_SESSION['path_id']."
-               AND LPM.`module_id` = ". (int)$_SESSION['module_id'];
+  if($_uid)
+  {
+        // Get general information to generate the right API inmplementation
+        $sql = "SELECT *
+                  FROM `".$TABLEUSERMODULEPROGRESS."` AS UMP,
+                       `".$TABLELEARNPATHMODULE."` AS LPM,
+                       `".$TABLEUSERS."` AS U,
+                       `".$TABLEMODULE."` AS M
+                 WHERE UMP.`user_id` = ".$_uid."
+                   AND UMP.`user_id` = U.`user_id`
+                   AND UMP.`learnPath_module_id` = LPM.`learnPath_module_id`
+                   AND M.`module_id` = LPM.`module_id`
+                   AND LPM.`learnPath_id` = ".$_SESSION['path_id']."
+                   AND LPM.`module_id` = ".$_SESSION['module_id'];
 
-    $userProgressionDetails = claro_sql_query_get_single_row($sql);
-}
+        $query = claro_sql_query($sql);
+        if ( ! ($userProgressionDetails = mysql_fetch_array($query) ) )
+                die ("mysql_error in ".__FILE__." [line ".__LINE__."] )");
 
-if( ! claro_is_user_authenticated() || !$userProgressionDetails )
-{
-    $sco['student_id'] = "-1";
-    $sco['student_name'] = "Anonymous, User";
-    $sco['lesson_location'] = "";
-    $sco['credit'] ="no-credit";
-    $sco['lesson_status'] = "not attempted";
-    $sco['entry'] = "ab-initio";
-    $sco['raw'] = "";
-    $sco['scoreMin'] = "0";
-    $sco['scoreMax'] = "100";
-    $sco['total_time'] = "0000:00:00.00";
-    $sco['suspend_data'] = "";
-    $sco['launch_data'] = "";
-}
-else // authenticated user and no error in query
-{
-    // set vars
-    $sco['student_id'] = claro_get_current_user_id();
-    $sco['student_name'] = $userProgressionDetails['nom'].", ".$userProgressionDetails['prenom'];
-    $sco['lesson_location'] = $userProgressionDetails['lesson_location'];
-    $sco['credit'] = strtolower($userProgressionDetails['credit']);
-    $sco['lesson_status'] = strtolower($userProgressionDetails['lesson_status']);
-    $sco['entry'] = strtolower($userProgressionDetails['entry']);
-    $sco['raw'] = ($userProgressionDetails['raw'] == -1) ? "" : "".$userProgressionDetails['raw'];
-    $sco['scoreMin'] = ($userProgressionDetails['scoreMin'] == -1) ? "" : "".$userProgressionDetails['scoreMin'];
-    $sco['scoreMax'] = ($userProgressionDetails['scoreMax'] == -1) ? "" : "".$userProgressionDetails['scoreMax'];
-    $sco['total_time'] = $userProgressionDetails['total_time'];
-    $sco['suspend_data'] = $userProgressionDetails['suspend_data'];
-    $sco['launch_data'] = stripslashes($userProgressionDetails['launch_data']);
-}
+        // set vars
+        $sco['student_id'] = "$_uid";
+        $sco['student_name'] = $userProgressionDetails['nom'].", ".$userProgressionDetails['prenom'];
+        $sco['lesson_location'] = $userProgressionDetails['lesson_location'];
+        $sco['credit'] = strtolower($userProgressionDetails['credit']);
+        $sco['lesson_status'] = strtolower($userProgressionDetails['lesson_status']);
+        $sco['entry'] = strtolower($userProgressionDetails['entry']);
+        $sco['raw'] = ($userProgressionDetails == -1) ? "" : "".$userProgressionDetails['raw'];
+        $sco['scoreMin'] = ($userProgressionDetails['scoreMin'] == -1) ? "" : "".$userProgressionDetails['scoreMin'];
+        $sco['scoreMax'] = ($userProgressionDetails['scoreMax'] == -1) ? "" : "".$userProgressionDetails['scoreMax'];
+        $sco['total_time'] = $userProgressionDetails['total_time'];
+        $sco['suspend_data'] = $userProgressionDetails['suspend_data'];
+  }
+  else // anonymous
+  {
+        $sco['student_id'] = "-1";
+        $sco['student_name'] = "Anonymous, User";
+        $sco['lesson_location'] = "";
+        $sco['credit'] ="no-credit";
+        $sco['lesson_status'] = "not attempted";
+        $sco['entry'] = "ab-initio";
+        $sco['raw'] = "";
+        $sco['scoreMin'] = "";
+        $sco['scoreMax'] = "";
+        $sco['total_time'] = "0000:00:00.00";
+        $sco['suspend_data'] = "";
+  }
 
 
-//common vars
-$sco['_children'] = "student_id,student_name,lesson_location,credit,lesson_status,entry,score,total_time,exit,session_time";
-$sco['score_children'] = "raw,min,max";
-$sco['exit'] = "";
-$sco['session_time'] = "0000:00:00.00";
+  //common vars
+  $sco['_children'] = "student_id,student_name,lesson_location,credit,lesson_status,entry,score,total_time,exit,session_time";
+  $sco['score_children'] = "raw,min,max";
+  $sco['exit'] = "";
+  $sco['session_time'] = "0000:00:00.00";
+  // get in XML manifest
+  $sco['launch_data'] = stripslashes($userProgressionDetails['launch_data']);
+
+
 
 ?>
-<script type="text/javascript">
 
-        var init_total_time = "<?php echo $sco['total_time']; ?>";
+<script>
+
+        var init_total_time = "<?= $sco['total_time']; ?>";
         // ====================================================
         // API Class Constructor
         var debug_ = false;
@@ -184,9 +184,9 @@ $sco['session_time'] = "0000:00:00.00";
                                 return "false";
                         }
                         this.APIError("0");
-
+                        
                         setTimeout("do_commit()",1000);
-
+                      
                         APIInitialized = false; //
                         return "true";
                 } else {
@@ -458,21 +458,14 @@ $sco['session_time'] = "0000:00:00.00";
                                       // regexp to check format
                                       // hhhh:mm:ss.ss
                                       var re = /^[0-9]{2,4}:[0-9]{2}:[0-9]{2}(.)?[0-9]?[0-9]?$/;
+                                      // check that minuts and second are 0 <= x < 60
+                                      var splitted_val = val.split(":");
 
-                                      if ( !re.test(val) )
+                                      if ( !re.test(val) || splitted_val[1] < 0 || splitted_val[1] >= 60 || splitted_val[2] < 0 || splitted_val[2] >= 60)
                                       {
                                            APIError("405");
                                            return "false";
                                       }
-
-									  // check that minuts and second are 0 <= x < 60
-                                      var splitted_val = val.split(":");
-                                      if( splitted_val[1] < 0 || splitted_val[1] >= 60 || splitted_val[2] < 0 || splitted_val[2] >= 60 )
-                                      {
-                                           APIError("405");
-                                           return "false";
-									  }
-
                                       values[i] = val;
                                       APIError("0");
                                       return "true";
@@ -518,7 +511,7 @@ $sco['session_time'] = "0000:00:00.00";
                                 return "false";
                         } else {
                                 this.APIError("0");
-
+                                
                                 do_commit();
 
                                 return "true";
@@ -535,20 +528,20 @@ $sco['session_time'] = "0000:00:00.00";
         //
         function LMSGetLastError() {
                 if(debug_) alert ("LMSGetLastError : " + APILastError);
-
-                return APILastError;
+                
+                return APILastError;               
         }
 
         function LMSGetErrorString(num) {
                 if(debug_) alert ("LMSGetErrorString(" + num +") = " + errCodes[num] );
-
+                
                 return errCodes[num];
 
         }
 
         function LMSGetDiagnostic(num) {
                 if(debug_) alert ("LMSGetDiagnostic("+num+") = " + errDiagn[num] );
-
+                
                 if ( num=="" ) num = APILastError;
                 return errDiagn[num];
         }
@@ -618,40 +611,40 @@ $sco['session_time'] = "0000:00:00.00";
         elements[17] = "cmi.success_status";
 
         var values = new Array();
-        values[0]  = "<?php echo $sco['_children']; ?>";
-        values[1]  = "<?php echo $sco['student_id']; ?>";
-        values[2]  = "<?php echo $sco['student_name']; ?>";
-        values[3]  = "<?php echo $sco['lesson_location']; ?>";
-        values[4]  = "<?php echo $sco['lesson_status'];?>";
-        values[5]  = "<?php echo $sco['credit']; ?>";
-        values[6]  = "<?php echo $sco['entry'];?>";
-        values[7]  = "<?php echo $sco['score_children']; ?>";
-        values[8]  = "<?php echo $sco['raw'];?>";
-        values[9]  = "<?php echo $sco['total_time'] ?>";
-        values[10] = "<?php echo $sco['exit']; ?>";
-        values[11] = "<?php echo $sco['session_time']; ?>";
-        values[12] = "<?php echo $sco['suspend_data'];?>";
-        values[13] = "<?php echo $sco['launch_data'];?>";
-        values[14] = "<?php echo $sco['scoreMin'];?>";
-        values[15] = "<?php echo $sco['scoreMax'];?>";
-        values[16] = "<?php echo $sco['lesson_status']?>"; //we do deal the completion_status element with the old lesson_status element, this will change in further versions...
-        values[17] = "<?php echo $sco['lesson_status']?>"; //we do deal the sucess_status element with the old lesson_status element, this will change in further versions...
+        values[0]  = "<?= $sco['_children']; ?>";
+        values[1]  = "<?= $sco['student_id']; ?>";
+        values[2]  = "<?= $sco['student_name']; ?>";
+        values[3]  = "<?= $sco['lesson_location']; ?>";
+        values[4]  = "<?= $sco['lesson_status'];?>";
+        values[5]  = "<?= $sco['credit']; ?>";
+        values[6]  = "<?= $sco['entry'];?>";
+        values[7]  = "<?= $sco['score_children']; ?>";
+        values[8]  = "<?= $sco['raw'];?>";
+        values[9]  = "<?= $sco['total_time'] ?>";
+        values[10] = "<?= $sco['exit']; ?>";
+        values[11] = "<?= $sco['session_time']; ?>";
+        values[12] = "<?= $sco['suspend_data'];?>";
+        values[13] = "<?= $sco['launch_data'];?>";
+        values[14] = "<?= $sco['scoreMin'];?>";
+        values[15] = "<?= $sco['scoreMax'];?>";
+        values[16] = "<?= $sco['lesson_status']?>"; //we do deal the completion_status element with the old lesson_status element, this will change in further versions...
+        values[17] = "<?= $sco['lesson_status']?>"; //we do deal the sucess_status element with the old lesson_status element, this will change in further versions...
 
 
         // ====================================================
-        //
+        // 
         //
         function do_commit()
         {
               // target form is in a hidden frame
               cmiform = upFrame.document.forms[0];
               // user module progress id
-              cmiform.ump_id.value = "<?php echo $userProgressionDetails['user_module_progress_id'] ?>";
+              cmiform.ump_id.value = "<?= $userProgressionDetails['user_module_progress_id'] ?>";
               // values to set in DB
               cmiform.lesson_location.value = values[3];
               cmiform.lesson_status.value = values[4];
               cmiform.credit.value = values[5];
-              cmiform.entry.value = values[6];
+              cmiform.entry.value = values[6];              
               cmiform.raw.value = values[8];
               cmiform.total_time.value = values[9];
               cmiform.session_time.value = values[11];

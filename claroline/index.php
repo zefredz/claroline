@@ -1,31 +1,9 @@
-<?php // $Id$
-
-//----------------------------------------------------------------------
-// CLAROLINE 1.8
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
-
-/*
- * if not admin ,  nothing  to do  here.
- */
-
-session_start();
-
-if ( isset($_SESSION['is_platformAdmin']) && $_SESSION['is_platformAdmin'] == TRUE )
-{
-    //
-    header('Location:../');
-}
-else
-{
-    header('Location:../');
-}
-
+<?php header("Location:.."); ?>
+<head>
+	<meta http-equiv="Refresh" content="0;url=..">
+</head>
+<?php
+// $Id$
+// the first location is cleanest, 
+// the second is present to protect dir if php is down and not apache
 ?>

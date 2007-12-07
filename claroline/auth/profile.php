@@ -1,359 +1,571 @@
-<?php // $Id$
-/**
- * CLAROLINE
- *
- * This script prupose to user to edit his own profile
- *
- * @version 1.8 $Revision$
- *
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/Auth/
- *
- * @author Claro Team <cvs@claroline.net>
- *
- * @package Auth
- *
- */
+<?php # $Id$
 
-/*=====================================================================
-Init Section
-=====================================================================*/
+//----------------------------------------------------------------------
+// CLAROLINE
+//----------------------------------------------------------------------
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
+//----------------------------------------------------------------------
+// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
+// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+//----------------------------------------------------------------------
+// Authors: see 'credits' file
+//----------------------------------------------------------------------
 
-$cidReset = TRUE;
-$gidReset = TRUE;
-$uidRequired = TRUE;
+
+$langFile = 'registration';
+$cidReset = true;
+$gidReset = true;
+
+#default - don't edit default !!! change in config files
+$userOfficialCodeCanBeEmpty    = true;
+$userMailCanBeEmpty            = true;
 
 require '../inc/claro_init_global.inc.php';
+include $includePath.'/conf/profile.conf.inc.php'; // find this file to modify values.
+include $includePath.'/lib/text.lib.php';
+include $includePath.'/lib/fileManage.lib.php';
+include $includePath.'/lib/auth.lib.inc.php';
 
-if( ! claro_is_user_authenticated() ) claro_disp_auth_form();
+$nameTools = $langModifProfile;
 
-$messageList = array();
-$display = '';
-$error = false;
+$tbl_user   = $mainDbName."`.`user";
 
-// include configuration files
-include claro_get_conf_repository() . 'user_profile.conf.php'; // find this file to modify values.
+if (isset($userImageRepositorySys))
+    $userImageRepositorySys = $clarolineRepositorySys.'img/users/';
+if (isset($userImageRepositoryWeb))
+    $userImageRepositoryWeb = $clarolineRepositoryWeb.'img/users/';
+///// COMMAND ///
 
-// include library files
-include_once get_path('incRepositorySys') . '/lib/user.lib.php';
-include_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
-include_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
-
-$nameTools = get_lang('My User Account');
-
-// define display
-define('DISP_PROFILE_FORM',__LINE__);
-define('DISP_MOREINFO_FORM',__LINE__);
-define('DISP_REQUEST_COURSE_CREATOR_STATUS',__LINE__);
-define('DISP_REQUEST_REVOQUATION',__LINE__);
-
-$display = DISP_PROFILE_FORM;
-
-/*=====================================================================
-CONTROLER Section
-=====================================================================*/
-
-$extraInfoDefList = get_userInfoExtraDefinitionList();
-
-
-$user_data = user_initialise();
-$user_data = user_get_properties(claro_get_current_user_id());
-
-$acceptedCmdList = array( 'exCCstatus'
-                        , 'exRevoquation'
-                        , 'reqCCstatus'
-                        , 'reqRevoquation'
-                        , 'editExtraInfo'
-                        , 'exMoreInfo'
-                        );
-
-if ( isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCmdList) )
+if ($_REQUEST['applyChange'])
 {
-    $cmd = $_REQUEST['cmd'];
-}
-else
-{
-    $cmd = '';
-}
+    /*
+     *==========================
+     * DATA CHECKING
+     *==========================
+     */
 
-if ( isset($_REQUEST['applyChange']) )
-{
-    $profile_editable = get_conf('profile_editable');
 
-    // get params form the form
-    if ( isset($_REQUEST['lastname']) && in_array('name',$profile_editable) )              $user_data['lastname'] = trim($_REQUEST['lastname']);
-    if ( isset($_REQUEST['firstname']) && in_array('name',$profile_editable) )             $user_data['firstname'] = trim($_REQUEST['firstname']);
-    if ( isset($_REQUEST['officialCode']) && in_array('official_code',$profile_editable) ) $user_data['officialCode'] = trim($_REQUEST['officialCode']);
-    if ( isset($_REQUEST['username']) && in_array('login',$profile_editable) )             $user_data['username'] = trim($_REQUEST['username' ]);
-    if ( isset($_REQUEST['password']) && in_array('password',$profile_editable) )          $user_data['password'] = trim($_REQUEST['password']);
-    if ( isset($_REQUEST['password_conf']) && in_array('password',$profile_editable) )     $user_data['password_conf'] = trim($_REQUEST['password_conf']);
-    if ( isset($_REQUEST['email']) && in_array('email',$profile_editable) )                $user_data['email'] = trim($_REQUEST['email']);
-    if ( isset($_REQUEST['officialEmail']) && in_array('email',$profile_editable) )        $user_data['officialEmail'] = trim($_REQUEST['officialEmail']);
-    if ( isset($_REQUEST['phone']) && in_array('phone',$profile_editable) )                $user_data['phone'] = trim($_REQUEST['phone']);
-    if ( isset($_REQUEST['language']) && in_array('language',$profile_editable) )          $user_data['language'] = trim($_REQUEST['language']);
+    $form_password1    = trim($_REQUEST['form_password1'   ]);
+    $form_password2    = trim($_REQUEST['form_password2'   ]);
+    $form_userName     = claro_strip_tags ( trim($_REQUEST['form_userName'    ]) );
 
-    // manage password.
+    $form_officialCode = claro_strip_tags ( trim($_REQUEST['form_officialCode']) );
+    $form_lastName     = claro_strip_tags ( trim($_REQUEST['form_lastName'    ]) );
+    $form_firstName    = claro_strip_tags ( trim($_REQUEST['form_firstName'   ]) );
+    $form_email        = claro_strip_tags ( trim($_REQUEST['form_email'       ]) );
 
-    if (empty($user_data['password']) && empty($user_data['password_conf']))
+    $form_del_picture  = trim($_REQUEST['form_del_picture'] );
+
+
+    /*
+     * CHECK IF USERNAME IS ALREADY TAKEN BY ANOTHER USER
+     */
+
+    $sql = 'SELECT COUNT(*) `loginNameCount`
+            FROM `'.$tbl_user.'`
+            WHERE `username` =  "'.$form_userName.'"
+              AND `user_id`  <> "'.$_uid.'"';
+
+    list($result) = claro_sql_query_fetch_all($sql);
+
+    if ($result['loginNameCount'] > 0)
     {
-        unset ($user_data['password']);
-        unset ($user_data['password_conf']);
+        $userNameOk    = false;
+        $messageList[] = $langUserTaken;
+    }
+    else
+    {
+        $userNameOk = true;
     }
 
-    // validate forum params
+    $sql_ActualUserInfo = 'SELECT `username`   `userName`,
+                                  `nom`        `lastName`,
+                                  `prenom`     `firstName`,
+                                  `pictureUri` `actual_ImageFile`
+                          FROM `'.$tbl_user.'`
+                          WHERE `user_id` = "'.$_uid.'"';
 
-    $messageList['warning'] = user_validate_form_profile($user_data, claro_get_current_user_id());
+    list($data_ActualUserInfo) = claro_sql_query_fetch_all($sql_ActualUserInfo);
 
-    if ( count($messageList['warning']) == 0 )
+    if (is_null($data_ActualUserInfo))
     {
-        // if no error update use setting
-        user_set_properties(claro_get_current_user_id(), $user_data);
-        event_default('PROFILE_UPDATE', array('user'=>claro_get_current_user_id()));
+        $data_ActualUserInfo = array('lastName' => '', 'firstName' => '', 
+                                     'userName' => '', 'actual_ImageFile' => '');
+    }
 
-        // re-init the system to take new settings in account
+    /*
+     * CHECK BOTH PASSWORD TOKEN ARE THE SAME
+     */
+
+    if ($form_password2 !== $form_password1)
+    {
+        $passwordOK    = false;
+        $messageList[] = $langPassTwo.'<br>';
+        unset($new_password);
+    }
+    else
+    {
+        $passwordOK    = true;
+        $new_password  = $form_password2 ;
+    }
+    unset($form_password1);
+    unset($form_password2);
+
+    /*
+     * CHECK PASSWORD AREN'T TOO EASY
+     */
+
+    if ( $new_password && SECURE_PASSWORD_REQUIRED && $passwordOK)
+    {
+        if (is_password_secure_enough($new_password,
+                                      array($form_userName, $form_officalCode, 
+                                            $form_lastName, $form_firstName, $form_email)))
+        {
+            $passwordOK = true;
+        }
+        else
+        {
+            $passwordOK    = false;
+            $messageList[] =  $langPassTooEasy." :\n"
+                            ."<code>".substr( md5( date('Bis').$HTTP_REFFERER ), 0, 8 )."</code>\n";
+        }       
+    }
+
+    /*
+     * CHECK THERE IS NO EMPTY FIELD
+     */
+
+    if (     empty($form_lastName) 
+        ||   empty($form_firstName)
+        ||   empty($form_userName)
+        || ( empty($form_officialCode) && ! $userOfficialCodeCanBeEmpty )
+        || ( empty($form_email)        && ! $userMailCanBeEmpty         ) )
+    {
+        $importantFieldFilled = false;
+        $messageList[] =  $langFields;
+    }
+    else
+    {
+        $importantFieldFilled = true;
+    }
+
+    /*
+     * CHECK EMAIL SYNTAX
+     */
+
+    $emailRegex = "^[0-9a-z_\.-]+@(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z][0-9a-z-]*[0-9a-z]\.)+[a-z]{2,4})$";
+
+    if( ! empty($form_email) && ! eregi( $emailRegex, $form_email ))
+    {
+        $emailOk = false;
+        $messageList[] = $langEmailWrong;
+    }
+    else
+    {
+        $emailOk = true;
+    }
+
+    /*
+     * RESUME ALL THE CHECKIN
+     */
+
+    if ($importantFieldFilled && $emailOk && $userNameOk && $passwordOK)
+    {
+        $userSettingChangeAllowed = true;
+    }
+    else
+    {
+        $userSettingChangeAllowed = false;
+        $messageList[] = '<b>'.$langAgain.'</b>';
+    }
+
+    /*
+     *--------------------------------------
+     * PROCEED TO THE USER SETTINGS CHANGE
+     *--------------------------------------
+     */
+
+    if ($userSettingChangeAllowed)
+    {
+         /*
+          * UPLOAD A USER IMAGE
+          *
+          * Originally added by Miguel (miguel@cesga.es) - 04/11/2003
+          * Image resizing  added by Patrick Cool Ugent - 24/11/2003
+          * Code Refactoring Hugues Peeters (hugues.peeters@claroline.net) 24/11/2003
+          */
+        $actualImage = $data_ActualUserInfo['actual_ImageFile'];
+        if ($form_del_picture== 'yes')
+        {
+            $form_picture = NULL;
+        }
+        elseif ( is_uploaded_file( $form_picture ) )
+        {
+            $fileExtension = strtolower( array_pop( explode(".",$HTTP_POST_FILES['form_picture']['name']) ) );
+
+            if ( in_array($fileExtension, array('php', 'php4', 'php3', 'phtml') ) )
+            {
+                die('<center>No PHP Filles allowed</center>');
+            }
+            mkpath($userImageRepositorySys);
+            $user_have_pic = (bool) (trim($actualImage)!="");
+            if ($user_have_pic)
+            {
+                if (KEEP_THE_NAME_WHEN_CHANGE_IMAGE)
+                {
+                    $picture_FileName     = $actualImage;
+                    $old_picture_FileName  = "save_".date("Y_m_d_H_i_s")."_".uniqid('')."_".$actualImage;
+                }
+                else
+                {
+                    $old_picture_FileName     = $actualImage;
+                    $picture_FileName     = (PREFIX_IMAGE_FILENAME_WITH_UID?"u".$_uid."_":"").uniqid('').".".$fileExtension;
+                }
+                if (KEEP_THE_OLD_IMAGE_AFTER_CHANGE)
+                {
+                    rename($userImageRepositorySys.$actualImage,$userImageRepositorySys.$old_picture_FileName);
+                }
+                else
+                {
+                    unlink($userImageRepositorySys.$actualImage);
+                }
+            }
+            else
+            {
+                $picture_FileName     = (PREFIX_IMAGE_FILENAME_WITH_UID?$_uid."_":"").uniqid('').".".$fileExtension;
+            }
+            if (move_uploaded_file( $form_picture,
+                                    $userImageRepositorySys.$picture_FileName))
+            {
+                /*
+                 *--------------------------------------
+                 *            Image resizing
+                 *--------------------------------------
+                 */
+
+                if ( extension_loaded('gd') ) // Check the GD library is available
+                {
+                    // Get Width, Height and type from the original image
+
+                    list($actualWidth,
+                         $actualHeight,
+                         $type, )       = getimagesize($userImageRepositorySys.$picture_FileName);
+
+
+                    if ($type == 2) // Check to see if it is a reall JPEF file
+                    {               // 1 stands for GIF, 2 for JPG, 3 for PNG
+
+                        // Set and compute the final image size
+
+                        $finalHeight         = RESIZE_IMAGE_TO_THIS_HEIGTH;
+                        $factor              = $actualHeight / $finalHeight;
+                        $finalWidth          = round( $actualWidth / $factor );
+
+                        // Create an image from the original image file
+
+                        $actualImage = ImageCreateFromJPEG($userImageRepositorySys.$picture_FileName)
+                                       or die('<center>can not open image</center>');
+
+                        // Create a new image set with new size
+
+                        $finalImage   = ImageCreate($finalWidth, $finalHeight)
+                                        or die('<center>can not create new image</center>');
+
+                        // Copy and resize the original image into the new one
+
+                        ImageCopyResized( $finalImage,
+                                          $actualImage,
+                                          0,
+                                          0,
+                                          0,
+                                          0,
+                                          $finalWidth,
+                                          $finalHeight,
+                                          ImageSX($actualImage),
+                                          ImageSY($actualImage) )
+
+                            or die("<center>can not resize image</center>");
+
+                        // Store the final image
+
+                        ImageJPEG($finalImage, $userImageRepositorySys.$picture_FileName)
+                            or die('<center>can not save image</center>');
+
+                        $picture = $picture_FileName;
+
+                    }            // end if type == JPEG
+                }                // end if GD extension loaded
+            }                     // end if move_uploaded file
+        }                        // end if is_uploaded_file $form_picture
+
+
+        $sql = 'UPDATE  `'.$tbl_user.'`
+
+                SET `nom`         = "'.$form_lastName.'",
+                    `prenom`      = "'.$form_firstName.'",
+                    `username`    = "'.$form_userName.'",
+                    `phoneNumber` = "'.$form_phone.'",
+                    `creatorId`   = "'.$_uid.'",
+                    `email`       = "'.$form_email.'" ';
+
+        if ($form_officialCode) $sql .= ', officialCode   = "'.$form_officialCode.'" ';
+
+        if ($new_password) 
+        {
+            $new_password = ($userPasswordCrypted?md5(trim($new_password)):trim($new_password)) ;
+            $sql .= ', `password`   = "'.$new_password.'" ';
+        }
+        
+        if ($form_picture||$form_del_picture)
+        {
+            if ($form_del_picture=="yes")
+            {
+                $sql .= ', `pictureUri` = NULL ';
+                if (KEEP_THE_OLD_IMAGE_AFTER_CHANGE)
+                {
+                    rename($userImageRepositorySys.$actualImage, $userImageRepositorySys."deleted_".date("Y_m_d_H_i_s")."_".$actualImage);
+                }
+                else
+                {
+                    unlink($userImageRepositorySys.$actualImage);
+                }
+            }
+            else
+            {
+                $sql .= ', `pictureUri` = "'.$picture.'"';
+            }
+        }
+
+        $sql .= ' WHERE `user_id`  = "'.$_uid.'"';
+
+        mysql_query($sql) or die ('<center>can not UPDATE user data</center>');
+
+        /*
+         * re-init the system to take new settings in account
+         */
 
         $uidReset = true;
-        include '../inc/claro_init_local.inc.php';
-        $messageList['info'][] = get_lang('The information have been modified') . '<br />' . "\n";
-
-        // Initialise
-        $user_data = user_get_properties(claro_get_current_user_id());
+        include('../inc/claro_init_local.inc.php');
+        $messageList[] = $langProfileReg."<br>\n"
+                        ."<a href=\"../../index.php\">".$langHome."</a>";
 
     } // end if $userSettingChangeAllowed
-    else
-    {
-        // user validate form return error messages
-        $error = true;
-    }
 
-}
-elseif ( ! claro_is_allowed_to_create_course() && get_conf('can_request_course_creator_status')
-&& 'exCCstatus' == $cmd )
-{
-    // send a request for course creator status
-    profile_send_request_course_creator_status($_REQUEST['explanation']);
-    $messageList['info'][] = get_lang('Your request to become a course creator has been sent to platform administrator(s).');
-}
-elseif (    get_conf('can_request_revoquation')
-&& 'exRevoquation' == $cmd )
-{
-    // send a request for revoquation
-    if (profile_send_request_revoquation($_REQUEST['explanation'], $_REQUEST['loginToDelete'],$_REQUEST['passwordToDelete']))
-    $messageList['info'][] = get_lang('Your request to remove your account has been sent');
-    else
-    switch (claro_failure::get_last_failure())
-    {
-        case 'EXPLANATION_EMPTY' :
-            $messageList['warn'][] = get_lang('You left some required fields empty');
-            $messageList['info'][] = get_lang('Explain cannot be empty');
-            $noQUERY_STRING = TRUE;
-            $interbredcrump[]= array('url'=>$_SERVER['PHP_SELF'],'name' =>$nameTools);
-            $nameTools = get_lang('Request to remove this account');
-            $display = DISP_REQUEST_REVOQUATION;
-        break;
+}    // end iF applyChange
 
-    }
-}
-elseif (  ! claro_is_allowed_to_create_course() && get_conf('can_request_course_creator_status')
-&& 'reqCCstatus' == $cmd )
-{
-    // display course creator status form
-    $noQUERY_STRING = TRUE;
-    $display = DISP_REQUEST_COURSE_CREATOR_STATUS;
-    $interbredcrump[]= array('url'=>$_SERVER['PHP_SELF'],'name' =>$nameTools);
-    $nameTools = get_lang('Request course creation status');
-}
-elseif ( get_conf('can_request_revoquation')
-&& 'reqRevoquation' == $cmd )
-{
-    // display revoquation form
-    $noQUERY_STRING = TRUE;
-    $interbredcrump[]= array('url'=>$_SERVER['PHP_SELF'],'name' =>$nameTools);
-    $nameTools = get_lang('Request to remove this account');
-    $display = DISP_REQUEST_REVOQUATION;
-}
-elseif ( 'editExtraInfo' == $cmd && 0 < count($extraInfoDefList) )
-{
-    // display revoquation form
-    $noQUERY_STRING = TRUE;
-    $display = DISP_MOREINFO_FORM;
-    $interbredcrump[]= array('url'=>$_SERVER['PHP_SELF'],'name' =>$nameTools);
-    $nameTools = get_lang('Complementary fields');
-    $userInfo = get_user_property_list(claro_get_current_user_id());
 
-}
-elseif ( 'exMoreInfo' == $cmd && 0 < count($extraInfoDefList)  )
+//////////////////////////////////////////////////////////////////////////////
+
+
+$sql = 'SELECT 
+			`nom`          `lastname` , 
+			`prenom`       `firstname`, 
+			`username`                , 
+			`email`                   , 
+			`pictureUri`              , 
+			`officialCode`            , 
+			`phoneNumber`  
+        FROM  `'.$tbl_user.'`
+        WHERE 
+			`user_id` = "'.$_uid.'"';
+
+$result = claro_sql_query($sql);
+
+if ($result)
 {
-    if (array_key_exists('extraInfoList',$_REQUEST))
-    {
-        foreach( $_REQUEST['extraInfoList'] as $extraInfoName=> $extraInfoValue)
-        {
-            set_user_property(claro_get_current_user_id(),$extraInfoName,$extraInfoValue,'userExtraInfo');
-        }
-    }
+    $myrow = mysql_fetch_array($result);
+
+    $form_lastName     = $myrow['lastname'    ];
+    $form_firstName    = $myrow['firstname'   ];
+    $form_userName     = $myrow['username'    ];
+    $form_officialCode = $myrow['officialCode'];
+    $form_email        = $myrow['email'       ];
+    $form_phone        = $myrow['phoneNumber' ];
+
+    $disp_picture      = $myrow['pictureUri'  ];
 }
 
+//////////////////////////////////////////////////////////////////////////////
 
-// Initialise
-$user_data['userExtraInfoList'] =  get_user_property_list(claro_get_current_user_id());
+/*==========================
+         DISPLAY
+  ==========================*/
+include('../inc/claro_init_header.inc.php');
+claro_disp_tool_title($nameTools);
 
-$profileMenu =  array();
+if ( count($messageList) > 0) claro_disp_message_box( implode('<br />', $messageList) );
 
-switch ( $display )
+/*
+ * Data Form
+ */
+?>
+<p>
+<form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>" enctype="multipart/form-data">
+<?php
+if( $disp_picture != '')
 {
-    case DISP_PROFILE_FORM :
-
-
-        // display user tracking link
-
-        $profileText = claro_text_zone::get_content('textzone_edit_profile_form');
-
-        if( get_conf('is_trackingEnabled') )
-        {
-            // display user tracking link
-            $profileMenu[] = '<a class="claroCmd" href="' . get_conf('urlAppend') . '/claroline/tracking/userLog.php?userId='.claro_get_current_user_id() . claro_url_relay_context('&amp;') . '">'
-            .                 '<img src="' . get_conf('clarolineRepositoryWeb','/claroline') . '/img/statistics.gif" alt="" />' . get_lang('View my statistics')
-            .                 '</a>'
-            ;
-        }
-
-        // display request course creator status
-        if ( ! claro_is_allowed_to_create_course() && get_conf('can_request_course_creator_status') )
-        {
-            $profileMenu[] = claro_html_cmd_link($_SERVER['PHP_SELF'] . '?cmd=reqCCstatus' . claro_url_relay_context('&amp;')
-                                                , get_lang('Request course creation status') );
-        }
-
-        // display user revoquation
-        if ( get_conf('can_request_revoquation') )
-        {
-            $profileMenu[] =  claro_html_cmd_link( $_SERVER['PHP_SELF']
-                                                 . '?cmd=reqRevoquation' . claro_url_relay_context('&amp;')
-                                                 , get_lang('Delete my account')
-                                                 ) ;
-        }
-
-        break;
+?>
+<img align="right" alt="<?php echo $form_lastName." ".$form_firstName ?>"
+     src="<?php echo $clarolineRepositoryWeb."img/users/".$disp_picture ?>"
+     border="0" hspace="5" vspace="5">
+<?
 }
+?>
+<table>
+    <tr>
+        <td align="right">
+            <label for="form_lastName" >
+				<?php echo $langLastname ?>
+				
+			</label> : </td>
+            <td valign="middle">
+				<input type="text" size="40" id="form_lastName" name="form_lastName" value="<?php echo $form_lastName ?>" >
+            </td>
+    </tr>
+    <tr>
+        <td  align="right">
+            <label for="form_firstName">
+                <?php echo $langFirstname ?>
 
-
-
-
-/**********************************************************************
-View Section
-**********************************************************************/
-
-// display header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-
-echo claro_html_tool_title($nameTools);
-
-echo claro_html_msg_list($messageList);
-
-switch ( $display )
+            </label> : 
+        </td>
+        <td >
+            <input type="text" size="40" name="form_firstName" id="form_firstName" value="<?php echo $form_firstName ?>" >
+        </td>
+    </tr>
+<?php
+if (CONFVAL_ASK_FOR_OFFICIAL_CODE)
 {
-    case DISP_PROFILE_FORM :
+?>
+    <tr>
+        <td align="right">
+            <label for="form_officialCode">
+                <?php echo $langOfficialCode ?>
 
-        // display form profile
-        if ( trim ($profileText) != '')
-        {
-            echo '<div class="info profileEdit">'
-            .    $profileText
-            .    '</div>'
-            ;
-        }
+            </label> : 
+        </td>
+        <td>
+            <input type="text" size="40" name="form_officialCode" id="form_officialCode" value="<?php echo $form_officialCode ?>">
+        </td>
+    </tr>
+<?php
+}
+?>
+    <tr>
+        <td >
+        </td>
+        <td >
+           <br>
+        </td>
+    </tr>
+<!-- 
+    <tr>
+        <td align="right">
+            <label for="form_picture">
+                <?php echo ($disp_picture?$langUpdateImage:$langAddImage)?>  : "
+            <br>
+            <small>
+                (.jpg or .jpeg only)
+                </br>
+            </small>
+            </label>
+        </td>
+        <td>
+            <input type="file" name="form_picture" id="form_picture" >
+            <?php 
+            if ( $disp_picture)
+            { ?>
+            <br>
+            <label for="form_del_picture">
+                <?php echo $langDelImage ?>
+            </label>
+            <input type="checkbox" name="form_del_picture" id="form_del_picture" value="yes"> : 
+            <?php 
+            }
+            ?>
+        </td>
+    <tr>
+-->
+    <tr>
+        <td></td>
+        <td>
+            <small>
+                <?php echo $langEnter2passToChange ?>
+            </small>
+        </td>
+    </tr>
+    <tr>
+        <td  align="right">
+            <label for="form_userName">
+                <?php echo $langUsername ?>
+            </label> : 
+        </td>
+        <td>
+            <input type="text" size="40" name="form_userName" id="form_userName" value="<?php echo $form_userName?>">
+        </td>
+    </tr>
+    <tr>
+        <td  align="right">
+            <label for="form_password1">
+                <?php echo $langPass ?>
+            </label> : 
+        </td>
+        <td>
+            <input type="password" size="40" name="form_password1" id="form_password1" value="">
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <label for="form_password2">
+                <?php echo $langConfirmation ?>
+            </label> : 
+        </td>
+        <td>
+            <input type="password" size="40" name="form_password2" id="form_password2" value="">
+        </td>
+    </tr>
+    <tr>
+        <td >
+        </td>
+        <td >
+            <br>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <label for="form_email">
+                <?php echo $langEmail ?>
+            </label> :
+        </td>
+        <td >
+            <input type="text" size="40" name="form_email" id="form_email" value="<?php echo $form_email ?>">
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            <label for="form_phone">
+                <?php echo $langPhone ?>
+            </label> : 
+        </td>
+        <td >
+            <input type="text" size="40" name="form_phone" id="form_phone" value="<?php echo $form_phone ?>">
+        </td>
+    </tr>
+    <tr>
+         <td></td>
+         <td>
+            <input type="submit" name="applyChange" value="<?php echo $langSaveChange?>" >
+        </td>
+    </tr>
+</table>
+</form>
+</p>
 
-        echo '<p>'
-        .    claro_html_menu_horizontal($profileMenu)
-        .    '</p>'
-        .    user_html_form_profile($user_data)
-        ;
-
-        break;
-
-    case DISP_MOREINFO_FORM :
-
-        // display request course creator form
-        echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
-        .    '<input type="hidden" name="cmd" value="exMoreInfo" />' . "\n"
-        .    '<table>' . "\n"
-        ;
-
-        foreach ($extraInfoDefList as $extraInfoDef)
-        {
-            $currentValue = array_key_exists($extraInfoDef['propertyId'],$userInfo)
-            ? $userInfo[$extraInfoDef['propertyId']]
-            : $extraInfoDef['defaultValue'];
-            $requirement = (bool) (TRUE == $extraInfoDef['required']);
-
-            $labelExtraInfoDef = $extraInfoDef['label'];
-            echo form_input_text('extraInfoList['.htmlentities($extraInfoDef['propertyId']).']',$currentValue,get_lang($labelExtraInfoDef),$requirement);
-
-        }
-
-        echo '<tr valign="top">' . "\n"
-        .    '<td>' . get_lang('Submit') . ': </td>' . "\n"
-        .    '<td>'
-        .    '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp; ' . "\n"
-        .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
-        .    '</td>'
-        .    '</tr>' . "\n"
-        .     form_row('&nbsp;', '<small>' . get_lang('<span class="required">*</span> denotes required field') . '</small>')
-        .    '</table>' . "\n"
-        .    '</form>' . "\n"
-        ;
-        break;
-
-    case DISP_REQUEST_COURSE_CREATOR_STATUS :
-
-
-        echo '<p>' . get_lang('Fill the area to explain your motivation and submit your request. An e-mail will be sent to platform adminisrator(s).') . '</p>';
-
-        // display request course creator form
-        echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
-        .    '<input type="hidden" name="cmd" value="exCCstatus" />' . "\n"
-        .    '<table>' . "\n"
-        .    form_input_textarea('explanation','',get_lang('Comment'),true,6)
-        .    '<tr valign="top">' . "\n"
-        .    '<td>' . get_lang('Submit') . ': </td>' . "\n"
-        .    '<td><input type="submit" value="' . get_lang('Ok') . '" />&nbsp; ' . "\n"
-        .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
-        .    '</td></tr>' . "\n"
-        .    '</table>' . "\n"
-        .    '</form>' . "\n"
-        ;
-
-        break;
-
-    case DISP_REQUEST_REVOQUATION :
-        if ( get_conf('can_request_revoquation') )
-        {
-
-            echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
-            .    '<input type="hidden" name="cmd" value="exRevoquation" />' . "\n"
-            .    '<table>' . "\n"
-            .    form_input_text('loginToDelete','',get_lang('Username'),true)
-            .    form_input_password('passwordToDelete','',get_lang('Password'),true)
-            .    form_input_textarea('explanation','',get_lang('Comment'),true,6)
-            .    '<tr valign="top">' . "\n"
-            .    '<td>' . get_lang('Delete my account') . ': </td>' . "\n"
-            .    '<td>'
-            .    '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp; ' . "\n"
-            .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
-            .    '</td></tr>' . "\n"
-            .    '</table>' . "\n"
-            .    '</form>' . "\n"
-            ;
-        }
-        break;
-
-} // end switch display
-
-// display footer
-
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
-
+<p>
+    <hr noshade size="1">
+    <a href="../tracking/personnalLog.php"><?php echo $langMyStats ?></a>
+</p>
+<?php
+include($includePath."/claro_init_footer.inc.php");
 ?>

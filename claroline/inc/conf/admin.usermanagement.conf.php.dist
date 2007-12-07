@@ -1,0 +1,38 @@
+<?php # $Id$
+//// config  this tools
+unset($stepUser) ; //  null or unset  to dislabing pagingation
+unset($stepCourse) ; //  null or unset  to dislabing pagingation
+
+$stepUser 		= 20;
+$stepCourse 	= 20;
+
+//uncomment to force but so think  to  comment  link in bottom of page
+$display1colPerCourse		= True; // true -> synopsis | False -> List
+//$listAllCourses4EachUser 	= false;
+
+//HTML colors
+$headerBgColor 		= "silver";
+$colorEvenLines 	= "#ECECEC";
+$colorOddLines 		= "white";
+$colorClickedLines 	= "#FFCC99";
+$colorHoverLines   	= "#CCFFCC";
+//'#CCFFCC', '#FFCC99'
+
+$colorUserAction = "#CCCC99"; // <- javascript  highlighting  dont work  if this  line is uncommented
+
+$showCheckBox 		= true;
+$editSubscription	= true;
+$editStatut			= false;
+$editTutor			= false;
+$showIfMember		= false;
+$showStatut			= false;
+
+$showRemoveOfClarolineButton	= true;
+$showLockUnlockUserButton		= false;
+$showUpdateSubscriptionButton	= true;
+
+$urlUnderCoursesNamesBefore = "../../../";
+$urlUnderCoursesNamesAfter = "/";
+
+$dirTextInHeaders= "H"; // "V" or "H"
+?>

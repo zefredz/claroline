@@ -1,0 +1,40 @@
+<?php // $Id$
+$langAdministrationTools				=	"Outil d'administration";
+$langManage 							= 	"Gestion du campus";
+$lang_faculty_faculty					=	"Créer une catégorie";
+$lang_faculty_EditCat					=	"Editer une catégorie";
+$lang_faculty_NameEmpty					=	"Vous n'avez pas entré de nom pour votre catégorie !";
+$lang_faculty_CodeEmpty					=	"Vous n'avez pas entré de code pour votre catégorie !";
+$lang_faculty_CatHaveCat				=	"Cette catégorie contient d'autres catégories, supprimez-les avant celle ci!"; // JCC 
+$lang_faculty_CatHaveCourses			=	"Cette catégorie contient des cours, vous ne pouvez pas la supprimer!";
+$lang_faculty_NoChange					=	"Aucun changement n'a été effectué !";
+$lang_faculty_NoMove_1					=	"Erreur, vous ne pouvez déplacer ";
+$lang_faculty_NoMove_2					=	" dans une de ses sous catégorie !";
+$lang_faculty_NoParentSelf				=	" Vous ne pouvez pas avoir comme catégorie parente la catégorie elle-même !"; // JCC 
+$lang_faculty_NoCat						=	"Aucune faculté n'est disponible !";
+$lang_faculty_ConfirmDelete				=	"Voulez vous vraiment supprimer ";
+$lang_faculty_NameCat					=	"Nom de la catégorie :";
+$lang_faculty_CodeCat					=	"Code de la catégorie :";
+$lang_faculty_Father					=	"Catégorie parente";
+$lang_faculty_CanHaveCatChild			=	"Peut-elle avoir des catégories comme enfants ?"; // JCC 
+$lang_faculty_CanHaveCatCourse			=	"Peut-elle avoir des cours ? "; // JCC 
+$lang_faculty_Yes						=	"Oui";
+$lang_faculty_No						=	"Non";
+$lang_faculty_MoveChild					=	"Déplacer ces enfants ?";
+$lang_faculty_IfNoMoveChild				=	"( Si 'NON' les enfants seront placés dans : ";
+$lang_faculty_HaveCourses				=	"La catégorie possède des cours, vous devez d'abord les supprimer avant d'interdire à cette
+											catégorie d'avoir des cours"; // JCC 
+$lang_faculty_imgUp						=	"Monter";
+$lang_faculty_imgDown					=	"Descendre";
+$lang_faculty_imgEdit					=	"Editer";
+$lang_faculty_imgDelete					=	"Supprimer";
+$lang_faculty_imgMove					=	"Déplacer";
+$lang_faculty_CreateOk					=	"La création a été effectuée avec succès"; // JCC 
+$lang_faculty_EditOk					=	"Les changements ont bien été effectués";
+$lang_faculty_DeleteOk					=	"La suppression a été effectuée avec succès";
+$lang_faculty_MoveOk					=	"Le déplacement de la catégorie a été effectué avec succès";
+$lang_faculty_NoAdmin					=	"Vous n'êtes pas identifié en tant qu'administrateur"; // JCC
+$langSubTitleCreate                     =   "Créer une catégorie"; // JCC 
+$langSubTitleEdit                       =   "Modifier une catégorie"; // JCC 
+$langSubTitleChangeParent               =   "Changer le père de la catégorie ";
+?>
