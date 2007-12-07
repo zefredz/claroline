@@ -55,8 +55,8 @@ class csvUserList extends csv
         
         $sql .=  " 
                        `U`.`officialCode`     AS `officialCode`,
-                       GROUP_CONCAT(`G`.`id`) AS `groupId`,
-                       GROUP_CONCAT(`G`.`name`) AS `groupName`
+                       `G`.`id` AS `groupId`,
+                       `G`.`name` AS `groupName`
                FROM 
                     (
                     `" . $tbl_user . "`           AS `U`,
@@ -68,7 +68,6 @@ class csvUserList extends csv
                 ON `GU`.`team` = `G`.`id`
                WHERE `U`.`user_id` = `CU`.`user_id`
                AND   `CU`.`code_cours`= '" . addslashes($this->course_id) . "'
-               GROUP BY U.`user_id`
                ORDER BY U.`user_id`";
 
         $userList = claro_sql_query_fetch_all($sql);
@@ -77,19 +76,27 @@ class csvUserList extends csv
         if( is_array($userList) && !empty($userList) )
         {
             // add titles at row 0, for that get the keys of the first row of array
-            $this->recordList[0] = array_keys($userList[1]); 
-            $i = 1;
+            $this->recordList[0] = array_keys($userList[0]); 
+
             foreach( $userList as $user )
             {
+                $id = $user['userId'];
                 // $this->recordList is defined in parent class csv
-                $this->recordList[$i] = $user;
-                // if password is exported and must be encrypted and is not already encrypted : crypt it
-                if( get_conf('export_user_password') && get_conf('export_user_password_encrypted') && !get_conf('userPasswordCrypted') )
+                if( !isset($this->recordList[$id]) )
                 {
-                    $this->recordList[$i]['password'] = md5($this->recordList[$i]['password']);
+                    $this->recordList[$id] = $user;
+                    // if password is exported and must be encrypted and is not already encrypted : crypt it
+                    if( get_conf('export_user_password') && get_conf('export_user_password_encrypted') && !get_conf('userPasswordCrypted') )
+                    {
+                        $this->recordList[$id]['password'] = md5($this->recordList[$id]['password']);
+                    }
+                }
+                else
+                {
+                    $this->recordList[$id]['groupId'] .= ',' . $user['groupId'];
+                    $this->recordList[$id]['groupName'] .= ',' . $user['groupName'];                    
                 }
                 
-                $i++;
             }
 
             if( is_array($this->recordList) && !empty($this->recordList) ) return true;

@@ -30,6 +30,12 @@ if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_f
 claro_set_display_mode_available(true);
 
 /*-----------------------------------------------------------------
+Stats
+-----------------------------------------------------------------*/
+
+event_access_tool(claro_get_current_tool_id(), claro_get_current_course_tool_data('label'));
+
+/*-----------------------------------------------------------------
 Library
 -----------------------------------------------------------------*/
 
@@ -41,7 +47,7 @@ Initialise variables
 $last_visit    = claro_get_current_user_data('lastLogin');
 $error         = FALSE;
 $allowed       = TRUE;
-$dialogBox = new DialogBox();
+$error_message = '';
 
 /*=================================================================
 Main Section
@@ -82,7 +88,7 @@ if ($topicSettingList)
     && ! ( ($forumSettingList['idGroup'] == claro_get_current_group_id()) || claro_is_group_allowed()) )
     {
         $allowed = FALSE;
-        $dialogBox->error( get_lang('Not allowed') );
+        $error_message = get_lang('Not allowed');
     }
     else
     {
@@ -151,7 +157,7 @@ else
 {
     // forum or topic doesn't exist
     $allowed = false;
-    $dialogBox->error( get_lang('Not allowed') );
+    $error_message = get_lang('Not allowed');
 }
 
 if ( $increaseTopicView ) increase_topic_view_count($topic_id); // else noop
@@ -179,7 +185,7 @@ include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 if ( ! $allowed )
 {
-    echo $dialogBox->render();
+    echo claro_html_message_box($error_message);
 }
 else
 {
@@ -271,7 +277,7 @@ else
             . '</a>' . "\n"
 
             . '<a href="editpost.php?post_id=' . $thisPost['post_id'] . '&amp;delete=delete&amp;submit=submit" '
-            . 'onclick="return confirm_delete();" >'
+            . 'onClick="return confirm_delete();" >'
             . '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />'
             . '</a>' . "\n"
 

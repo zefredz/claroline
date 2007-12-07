@@ -25,7 +25,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
      */
     function document_web_path()
     {
-        return "http://" . $_SERVER['HTTP_HOST'] . dirname( $_SERVER['SCRIPT_NAME'] );
+        return get_module_url('CLWIKI');
     }
 
     /**
@@ -33,7 +33,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
      */
     function document_sys_path()
     {
-        return realpath( str_replace( '\\', '/', $_SERVER['DOCUMENT_ROOT'] ) . dirname( $_SERVER['SCRIPT_NAME'] ) );
+        return get_module_path('CLWIKI');
     }
 
     // remove from claroline version

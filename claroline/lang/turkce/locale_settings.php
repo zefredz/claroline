@@ -17,26 +17,27 @@ $englishLangName = "Turkish";
 $iso639_1_code = "tr";
 $iso639_2_code = "tur";
 
-$langNameOfLang['arabic'		]="arabian";
+$langNameOfLang['arabic'		]="arapÃ§a";
 $langNameOfLang['brazilian'		]="brezilya dili";
-$langNameOfLang['bulgarian'		]="bulgarian";
-$langNameOfLang['croatian'		]="croatian";
+$langNameOfLang['bulgarian'		]="bulgarca";
+$langNameOfLang['croatian'		]="hÄ±rvatÃ§a";
 $langNameOfLang['dutch'			]="dutch";
 $langNameOfLang['english'		]="ingilizce";
 $langNameOfLang['finnish'		]="fince";
-$langNameOfLang['french'		]="frans&#305;zca";
+$langNameOfLang['french'		]="fransÄ±zca";
 $langNameOfLang['german'		]="almanca";
-$langNameOfLang['greek'			]="greek";
+$langNameOfLang['greek'			]="rumca";
 $langNameOfLang['italian'		]="italyanca";
 $langNameOfLang['japanese'		]="japonca";
-$langNameOfLang['polish'		]="polca";
-$langNameOfLang['simpl_chinese'	]="çince";
+$langNameOfLang['polish'		]="lehce";
+$langNameOfLang['simpl_chinese'	        ]="Ã§ince";
 $langNameOfLang['spanish'		]="ispanyolca";
-$langNameOfLang['swedish'		]="isveçce";
+$langNameOfLang['swedish'		]="isveÃ§ce";
 $langNameOfLang['thai'			]="tayca";
-$langNameOfLang['turkish'		]="türkçe";
+$langNameOfLang['turkish'		]="tÃ¼rkÃ§e";
 
-$charset = 'iso-8859-9';
+$charset = 'utf-8';
+
 $text_dir = 'ltr'; // ('ltr' for left to right, 'rtl' for right to left)
 $left_font_family = 'verdana, helvetica, arial, geneva, sans-serif';
 $right_font_family = 'helvetica, arial, geneva, sans-serif';
@@ -44,13 +45,13 @@ $number_thousands_separator = ',';
 $number_decimal_separator = '.';
 $byteUnits = array('Byte', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB');
 
-$langDay_of_weekNames['init'] = array('P', 'Pt', 'S', 'Ç', 'P', 'C', 'Ct');
-$langDay_of_weekNames['short'] = array('Paz', 'Pts', 'Sal', 'Çar', 'Per', 'Cum', 'Cts');
-$langDay_of_weekNames['long'] = array('Pazar', 'Pazartesi', 'Salý', 'Çarþamba', 'Perþembe', 'Cuma', 'Cumartesi');
+$langDay_of_weekNames['init'] = array('P', 'Pt', 'S', 'Ã‡', 'P', 'C', 'Ct');
+$langDay_of_weekNames['short'] = array('Paz', 'Pts', 'Sal', 'Ã‡ar', 'Per', 'Cum', 'Cts');
+$langDay_of_weekNames['long'] = array('Pazar', 'Pazartesi', 'SalÄ±', 'Ã‡arÅŸamba', 'PerÅŸembe', 'Cuma', 'Cumartesi');
 
-$langMonthNames['init']  = array('O', 'Þ', 'M', 'N', 'M', 'H', 'T', 'A', 'E', 'E', 'K', 'A');
-$langMonthNames['short'] = array('Oca', 'Þub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Aðu', 'Eyl', 'Eki', 'Kas', 'Ara');
-$langMonthNames['long'] = array('Ocak', 'Þubat', 'Mart', 'Nisan', 'Mayýs', 'Haziran', 'Temmuz', 'Aðustos', 'Eylül', 'Ekim', 'Kasým', 'Aralýk');
+$langMonthNames['init']  = array('O', 'Åž', 'M', 'N', 'M', 'H', 'T', 'A', 'E', 'E', 'K', 'A');
+$langMonthNames['short'] = array('Oca', 'Åžub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'AÄŸu', 'Eyl', 'Eki', 'Kas', 'Ara');
+$langMonthNames['long'] = array('Ocak', 'Åžubat', 'Mart', 'Nisan', 'MayÄ±s', 'Haziran', 'Temmuz', 'AÄŸustos', 'EylÃ¼l', 'Ekim', 'KasÄ±m', 'AralÄ±k');
 
 // Voir http://www.php.net/manual/en/function.strftime.php pour la variable
 // ci-dessous

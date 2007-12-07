@@ -139,7 +139,11 @@ function valida()
 //    End    -->
 </script>";
 
+$interbredcrump[]= array ('url' => '../announcements/announcements.php', 'name' => get_lang('Announcement'));
 
+$nameTools = get_lang('Messages');
+
+include('../inc/claro_init_header.inc.php');
 
 /*
 * DB tables definition
@@ -165,14 +169,13 @@ $senderFirstName = $_user  ['firstName'   ];
 $senderLastName  = $_user  ['lastName'    ];
 $senderMail      = $_user  ['mail'        ];
 
-
+echo claro_html_tool_title(get_lang('Messages'));
 
 /*
-* Init other vars
+* DEFAULT DISPLAY SETTINGS
 */
 
-$dialogBox = new DialogBox();
-$displayForm = true;
+$displayForm = TRUE;
 
 /*
 * SUBMIT ANNOUNCEMENT COMMAND
@@ -180,6 +183,7 @@ $displayForm = true;
 
 if ( isset($_REQUEST['submitAnnouncement']) )
 {
+
     $userIdList = array();
     $groupIdList = array();
 
@@ -253,7 +257,7 @@ if ( isset($_REQUEST['submitAnnouncement']) )
         $sentMailCount = claro_mail_user($userIdList, $emailBody, $emailSubject,
                              $senderMail, $senderFirstName.' '.$senderLastName);
 
-        $dialogBox->success( get_lang('Message sent') );
+        $message = '<p>' . get_lang('Message sent') . '<p>';
 
         $unsentMailCount = count($userIdList) - $sentMailCount;
 
@@ -265,29 +269,27 @@ if ( isset($_REQUEST['submitAnnouncement']) )
                           '%messageFailed'  => $messageFailed
                     ));
 
-            $dialogBox->error( $messageUnvalid );
+            $message .= $messageUnvalid;
         }
-
-        $displayForm = false;
-
-		$dialogBox->info('<a href="' . $_SERVER['PHP_SELF'] . '">&lt;&lt;&nbsp;' . get_lang('Back') . '</a>');
 
     } // end if - $_REQUEST['incorreo']
 
 } // end if - $_REQUEST['submitAnnouncement']
 
 /*
-* Output
+* DISPLAY ACTION MESSAGE
 */
-$interbredcrump[]= array ('url' => '../announcements/announcements.php', 'name' => get_lang('Announcement'));
 
-$nameTools = get_lang('Messages');
+if ( !empty($message) )
+{
+    echo claro_html_message_box($message)
+    .    '<br />' . "\n"
+    .    '<a href="' . $_SERVER['PHP_SELF'] . '">&lt;&lt;&nbsp;' . get_lang('Return to the list') . '</a>'
+    .    '<br />' . "\n"
+    ;
 
-include('../inc/claro_init_header.inc.php');
-
-echo claro_html_tool_title($nameTools);
-
-echo $dialogBox->render();
+    $displayForm = FALSE;
+}
 
 /*----------------------------------------
 DISPLAY FORM    TO FILL    AN ANNOUNCEMENT
@@ -394,9 +396,9 @@ if ( $displayForm == TRUE )
     echo '</select>' . "\n"
     .    '</td>' . "\n"
     .    '<td valign="middle">' . "\n"
-    .    '<input type="button" onclick="move(this.form.elements[\'nocorreo[]\'],this.form.elements[\'incorreo[]\'])" value="   >>   " />' . "\n"
+    .    '<input type="button" onClick="move(this.form.elements[\'nocorreo[]\'],this.form.elements[\'incorreo[]\'])" value="   >>   " />' . "\n"
     .    '<p>&nbsp;</p>' . "\n"
-    .    '<input type="button" onclick="move(this.form.elements[\'incorreo[]\'],this.form.elements[\'nocorreo[]\'])" value="   <<   " />' . "\n"
+    .    '<input type="button" onClick="move(this.form.elements[\'incorreo[]\'],this.form.elements[\'nocorreo[]\'])" value="   <<   " />' . "\n"
     .    '</td>' . "\n"
     .    '<td>' . "\n"
     .    '<p>' . "\n"
@@ -412,7 +414,7 @@ if ( $displayForm == TRUE )
     .    '<b>' . get_lang('Announcement') . '</b>' . "\n"
     .    '<br />' . "\n"
     .    '<center>'
-    .    '<textarea rows="7" cols="60" name="emailContent"></textarea>'
+    .    '<textarea wrap="physical" rows="7" cols="60" name="emailContent"></textarea>'
     .    '</center>'
     .    '</td>' . "\n"
     .    '</tr>' . "\n\n"

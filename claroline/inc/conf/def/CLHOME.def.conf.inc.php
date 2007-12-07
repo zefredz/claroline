@@ -29,7 +29,8 @@ $conf_def['section']['courselist']['label']='Course list';
 $conf_def['section']['courselist']['description']='Settings of the user course list';
 $conf_def['section']['courselist']['properties'] =
 array ( 'course_order_by',
-        'course_categories_hidden_to_anonymous' );
+        'course_categories_hidden_to_anonymous',
+        'homepage_hide_introduction_messages_on_course_categories_page' );
 
 $conf_def['section']['rightmenu']['label']='Right menu settings';
 $conf_def['section']['rightmenu']['description']='Settings of the right menu elements';
@@ -52,6 +53,17 @@ $conf_def_property_list['course_order_by']
 
 $conf_def_property_list['course_categories_hidden_to_anonymous']
 = array ('label'     => 'Hide course categories to anonymous'
+        ,'description' => ''
+        ,'default'   => false
+        ,'type'      => 'boolean'
+        ,'display'       => TRUE
+        ,'readonly'      => FALSE
+        ,'acceptedValue' => array ( 'TRUE'=> 'Yes',
+                                    'FALSE' => 'No' )
+        );
+
+$conf_def_property_list['homepage_hide_introduction_messages_on_course_categories_page']
+= array ('label'     => 'Hide introduction messages on course categories pages'
         ,'description' => ''
         ,'default'   => false
         ,'type'      => 'boolean'

@@ -315,7 +315,7 @@ function treat_uploaded_file($uploadedFile, $baseWorkDir, $uploadPath, $maxFille
 {
 
     if ( file_upload_failed($uploadedFile) )
-      {
+  	{
         $failureStr = get_file_upload_error_message($uploadedFile);
         return claro_failure::set_failure($failureStr);
     }
@@ -402,9 +402,7 @@ function treat_secure_file_unzip($fileName, $filePath,
     // Check the zip content (real size and file extension)
 
     $zipContentArray = $zipFile->listContent();
-    
-    if( ! is_array($zipContentArray) ) return false;
-    
+
     foreach($zipContentArray as $thisContent)
     {
         if (!$allowPHP)
@@ -450,14 +448,18 @@ function search_img_from_html($htmlFile)
 {
     $imgPathList = array();
 
-    $buffer = file_get_contents( $htmlFile );
+    $fp = fopen($htmlFile, "r") or die('<center>can not open file</center>');
+
+    // search and store occurences of the <IMG> tag in an array
+
+    $buffer = fread( $fp, filesize($htmlFile) ) or die('<center>can not read file</center>');;
 
     if ( preg_match_all('~<[[:space:]]*img[^>]*>~i', $buffer, $matches) )
     {
         $imgTagList = $matches[0];
     }
 
-    unset($buffer);
+    fclose ($fp); unset($buffer);
 
     // Search the image file path from all the <IMG> tag detected
 

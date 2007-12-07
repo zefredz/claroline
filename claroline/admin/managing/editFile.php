@@ -142,7 +142,7 @@ echo claro_html_tool_title($titles)
 if ( $display == DISP_EDIT_FILE )
 {
     echo '<h4>' . basename($textZoneList[$fileId]['filename']) . '</h4>'
-    .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
+    .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
     .    '<input type="hidden" name="file" value="' . htmlspecialchars($fileId) . '" />' . "\n"
     .    '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
     .    claro_html_textarea_editor('textContent', $textContent)
@@ -184,12 +184,12 @@ if( $display==DISP_FILE_LIST || $display==DISP_EDIT_FILE || $display==DISP_VIEW_
                        ? $textZone['desc'] : ''). '</td>' . "\n"
         .    '<td align="center">' . "\n"
         .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;file=' . $idFile . '">'
-        .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="' . get_lang('Edit') . '" />' . "\n"
+        .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="' . get_lang('Edit') . '" >' . "\n"
         .    '</a>' . "\n"
         .    '</td>' . "\n"
         .    '<td align="center">' . "\n"
         .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exView&amp;file=' . $idFile . '">'
-        .    '<img src="' . get_path('imgRepositoryWeb') . 'preview.gif" border="0" alt="' . get_lang('Preview') . '" />' . "\n"
+        .    '<img src="' . get_path('imgRepositoryWeb') . 'preview.gif" border="0" alt="' . get_lang('Preview') . '" >' . "\n"
         .    '</a>' . "\n"
         .    '</td>' . "\n"
         .    '</tr>' . "\n"

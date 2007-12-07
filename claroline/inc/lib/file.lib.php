@@ -2,13 +2,6 @@
     
     // vim: expandtab sw=4 ts=4 sts=4:
     
-    if ( count( get_included_files() ) == 1 )
-    {
-        die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-    }
-
-    uses ( 'core/url.lib' );
-    
     function file_upload_failed( $file )
     {
         return get_file_upload_errno( $file ) > 0;
@@ -71,17 +64,18 @@
         
         return $details;
     }
-    
+
     /**
      * Extract the extention of the filename
 
      * @param string $fileName name of the file
      * @return string extension
      */
-    function get_file_extension ( $fileName )
-    {
-        $fileExtension = strtolower( pathinfo( $fileName, PATHINFO_EXTENSION ) );
 
+    function get_file_extension ( $fileName )
+    {        
+        $fileExtension = strtolower( pathinfo( $fileName, PATHINFO_EXTENSION ) );
+    
         return $fileExtension;
     }
     
@@ -99,7 +93,7 @@
          * Check if the file has an extension AND if the browser has send a MIME Type
          */
          
-        $fileExtension = strtolower( pathinfo( $fileName, PATHINFO_EXTENSION ) );
+        $fileExtension = get_file_extension($fileName);
         
         $defaultMimeType = 'document/unknown';
     
@@ -115,6 +109,7 @@
                 'bmp'   => 'image/bmp',
                 'css'   => 'text/css',
                 'doc'   => 'application/msword',
+                'dot'   => 'application/msword',
                 'fla'   => 'application/octet-stream',
                 'gif'   => 'image/gif',
                 'gz'    => 'application/x-gzip',
@@ -131,6 +126,7 @@
                 'mp4'   => 'video/mp4',
                 'mpg'   => 'video/mpeg',
                 'mpeg'  => 'video/mpeg',
+                'mpp'   => 'application/vnd.ms-project',
                 'ogg'   => 'application/x-ogg',
                 
                 # Open Document Formats
@@ -184,17 +180,10 @@
                 'url'   => 'text/html',
                 'wav'   => 'audio/x-wav',
                 'wmv'   => 'video/x-ms-wmv',
-                'xml'   => 'application/xml',
+                'xml'   =>'application/xml',
                 'xls'   => 'application/vnd.ms-excel',
                 'xsl'   => 'text/xml',
                 'zip'   => 'application/zip',
-                
-                # Syndication
-                'ics'   => 'text/Calendar',
-                'xcs'   => 'text/Calendar',
-                'rdf'   => 'text/xml',
-                'rss'   => 'application/rss+xml',
-                'opml'  => 'text/x-opml',
             );
     
             $mimeType = array_key_exists( $fileExtension, $mimeTypeList )
@@ -214,29 +203,20 @@
      * Send a file over HTTP
      * @param   string $path file path
      * @param   string $name file name to force (optional)
-     * @return  true on success,
-     *          false if file not found or file empty, 
-     *          set a claro_failure if file not found 
+     * @return  number of octet sent on success,
+     *          false on error (set a claro_failure)
      */
-    function claro_send_file( $path, $name = '', $charset = null )
+    function claro_send_file( $path, $name = '' )
     {
         if ( file_exists( $path ) )
         {
             if ( empty( $name ) ) $name = basename( $path );
-            $charset = empty( $charset )
-                ? ''
-                : '; charset=' . $charset
-                ;
             
-            $mimeType = get_mime_on_ext( $path );
-        
-            header( 'Content-Type: ' . $mimeType . $charset );
-                
+            header( 'Content-Type: ' . get_mime_on_ext( $path ) );
+            
             // IE no-cache bug
-            
             // TODO move $lifetime to config
             $lifetime = 60;
-            
             header( 'Cache-Control: max-age=' . $lifetime );
             header( 'Expires: ' . gmdate( 'D, d M Y H:i:s', time() + $lifetime ) .' GMT' );
             header( 'Pragma: ' );
@@ -245,7 +225,7 @@
             header('Content-Disposition: inline; filename="' . $name . '"');
             header('Content-Length: '. filesize( $path ) );
             
-            return ( claro_readfile( $path ) );
+            return claro_readfile( $path );
         }
         else
         {
@@ -327,33 +307,6 @@
         {
             return $status;
         }
-    }
-    
-    function claro_get_file_download_url( $file, $context = null )
-    {
-        if ( $GLOBALS['is_Apache'] && get_conf('usePrettyUrl', false) )
-        {
-            // slash argument method - only compatible with Apache
-            $url = get_path('url') . '/claroline/backends/download.php'.str_replace('%2F', '/', $file);
-        }
-        else
-        {
-            // question mark argument method, for IIS ...
-            $url = get_path('url') . '/claroline/backends/download.php?url=' . $file;
-        }
-        
-        $urlObj = new Url( $url );
-        
-        if ( !empty ( $context ) )
-        {
-            $urlObj->relayContext( $context );
-        }
-        else
-        {
-            $urlObj->relayCurrentContext();
-        }
-
-        return $urlObj->toUrl();
     }
     
 if ( ! function_exists( 'replace_dangerous_char' ) )

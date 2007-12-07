@@ -218,7 +218,7 @@ class Resolver
             }
             else
             {
-               $url = $this->_basePath . $url;
+                $url = $this->_basePath . $url;
             }
 
             return $url;

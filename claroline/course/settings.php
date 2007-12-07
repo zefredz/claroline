@@ -5,7 +5,7 @@
  * This tool manage properties of an exiting course
  *
  * @version 1.8 $Revision$
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -65,14 +65,14 @@ $course = new ClaroCourse();
 if ( $adminContext && claro_is_platform_admin() )
 {
     // from admin
-    if ( isset($_REQUEST['cidToEdit']) )
-    {
-        $current_cid = trim($_REQUEST['cidToEdit']);
-    }
-    elseif ( isset($_REQUEST['cidReq']) )
-    {
-        $current_cid = trim($_REQUEST['cidReq']);
-    }
+	if ( isset($_REQUEST['cidToEdit']) )
+	{
+		$current_cid = trim($_REQUEST['cidToEdit']);
+	}
+	elseif ( isset($_REQUEST['cidReq']) )
+	{
+		$current_cid = trim($_REQUEST['cidReq']);
+	}
 
     // add param to form
     $course->addHtmlParam('adminContext','1');
@@ -89,71 +89,71 @@ elseif ( claro_is_in_a_course() )
 }
 else
 {
-    $current_cid = null ;
+	$current_cid = null ;
 }
 
 if ( $course->load($current_cid) )
 {
-    if ( $cmd == 'exEdit' )
-    {
-        $course->handleForm();
+	if ( $cmd == 'exEdit' )
+	{
+	    $course->handleForm();
 
-        if ( $course->validate() )
-        {
-            if ( $course->save() )
-            {
-                $dialogBox = get_lang('The information have been modified') . '<br />' . "\n"
-                    . '<a href="' . $backUrl . '">' . get_lang('Continue') . '</a>' ;
+	    if ( $course->validate() )
+	    {
+	    	if ( $course->save() )
+	    	{
+	    		$dialogBox = get_lang('The information have been modified') . '<br />' . "\n"
+	    			. '<a href="' . $backUrl . '">' . get_lang('Continue') . '</a>' ;
 
-                if ( ! $adminContext )
-                {
-                    // force reload of the "course session" of the user
-                    $cidReset = true;
-                    $cidReq = $current_cid;
-                    include(get_path('incRepositorySys') . '/claro_init_local.inc.php');
-                }
-            }
-            else
-            {
-                $dialogBox = get_lang('Unable to save');
-            }
-        }
-        else
-        {
-            $dialogBox = $course->backlog->output();
-        }
-    }
+	    		if ( ! $adminContext )
+	    		{
+		    		// force reload of the "course session" of the user
+		    		$cidReset = true;
+					$cidReq = $current_cid;
+					include(get_path('incRepositorySys') . '/claro_init_local.inc.php');
+				}
+	    	}
+	    	else
+	    	{
+	    		$dialogBox = get_lang('Unable to save');
+	    	}
+	    }
+	    else
+	    {
+	    	$dialogBox = $course->backlog->output();
+	    }
+	}
 
-    if ( $cmd == 'exDelete' )
-    {
-        if ( $course->delete() )
-        {
-            event_default( 'DELETION COURSE' , array ('courseName' => addslashes($course->title), 'uid' => claro_get_current_user_id()));
-            if( $adminContext )
-            {
-                claro_redirect( get_path('rootAdminWeb') . '/admincourses.php');
-            }
-            else
-            {
-                claro_redirect(get_path('url') . '/index.php');
-            }
-        }
-        else
-        {
-            $dialogBox = get_lang('Unable to save');
-        }
-    }
+	if ( $cmd == 'exDelete' )
+	{
+		if ( $course->delete() )
+		{
+			event_default( 'DELETION COURSE' , array ('courseName' => addslashes($course->title), 'uid' => claro_get_current_user_id()));
+			if( $adminContext )
+			{
+				claro_redirect( get_path('rootAdminWeb') . '/admincourses.php');
+			}
+			else
+			{
+				claro_redirect(get_path('url') . '/index.php');
+			}
+		}
+		else
+		{
+			$dialogBox = get_lang('Unable to save');
+		}
+	}
 
-    if ( $cmd == 'rqDelete' )
-    {
-        $display = DISP_COURSE_RQ_DELETE;
-    }
+	if ( $cmd == 'rqDelete' )
+	{
+		$display = DISP_COURSE_RQ_DELETE;
+	}
 
 }
 else
 {
-    // course data load failed
-    claro_die(get_lang('Wrong parameters'));
+	// course data load failed
+	claro_die(get_lang('Wrong parameters'));
 }
 
 //----------------------------
@@ -179,7 +179,7 @@ $links[] = '<a class="claroCmd" href="../group/group_properties.php' . claro_url
 
 if ( get_conf('is_trackingEnabled') )
 {
-    $links[] = '<a class="claroCmd" href="' . get_path('clarolineRepositoryWeb') . 'tracking/courseLog.php' . claro_url_relay_context('?') . '">'
+	$links[] = '<a class="claroCmd" href="' . get_path('clarolineRepositoryWeb') . 'tracking/courseLog.php' . claro_url_relay_context('?') . '">'
     .          '<img src="' . get_path('imgRepositoryWeb') . 'statistics.gif" alt="" />'
     .          get_lang('Statistics')
     .          '</a>' ;
@@ -189,7 +189,7 @@ if ( get_conf('is_trackingEnabled') )
 
 if ( get_conf('showLinkToDeleteThisCourse') )
 {
-    $paramString = $course->getHtmlParamList('GET');
+	$paramString = $course->getHtmlParamList('GET');
 
     $links[] = '<a class="claroCmd" href="' . get_path('clarolineRepositoryWeb') . 'course/settings.php?cmd=rqDelete' . ( !empty($paramString) ? '&amp;'.$paramString : '') . '">'
     .          '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="" />'
@@ -201,7 +201,7 @@ if ( $adminContext && claro_is_platform_admin() )
 {
     // switch to admin breadcrumb
 
-    $interbredcrump[]= array ('url' => get_path('rootAdminWeb') , 'name' => get_lang('Administration'));
+	$interbredcrump[]= array ('url' => get_path('rootAdminWeb') , 'name' => get_lang('Administration'));
     unset($_cid);
 
     $links[] = '<a class="claroCmd" href="' . $backUrl . '">'
@@ -223,13 +223,13 @@ echo '<p>' . claro_html_menu_horizontal($links) . '</p>' . "\n\n" ;
 
 if( $display == DISP_COURSE_EDIT_FORM )
 {
-    // Display form
-    echo $course->displayForm($backUrl);
+	// Display form
+	echo $course->displayForm($backUrl);
 }
 elseif( $display == DISP_COURSE_RQ_DELETE )
 {
-    // display delete confirmation request
-    echo $course->displayDeleteConfirmation();
+	// display delete confirmation request
+	echo $course->displayDeleteConfirmation();
 }
 
 

@@ -359,7 +359,7 @@
                 $new = htmlspecialchars( $new );
 
                 // get differences
-                $diff = '<table style="border: 0;">'.diff( $new, $old, true, 'format_table_line' ).'</table>';
+                $diff = '<table style="border: 0;">'.diff( $old, $new, true, 'format_table_line' ).'</table>';
             }
 
             break;
@@ -636,13 +636,6 @@
 
     $htmlHeadXtra[] = '<link rel="stylesheet" type="text/css" href="wiki.css" media="screen, projection, tv" />' . "\n";
 
-    if ( $action == 'show' || $action == 'preview' )
-    {
-        /*$htmlHeadXtra[] = '<script type="text/javascript" src="./lib/javascript/toc.js"></script>' . "\n";
-        $claroBodyOnload[] = 'createTOC();' . "\n";*/
-        $htmlHeadXtra[] = '<link rel="stylesheet" type="text/css" href="toc.css" media="screen, projection, tv" />' . "\n";
-    }
-
     // Breadcrumps
 
     $interbredcrump[]= array ( 'url' => 'wiki.php', 'name' => get_lang("Wiki"));
@@ -887,7 +880,7 @@
 
     if ( 'edit' == $action || 'diff' == $action )
     {
-            $cmdActions[] = '<a class="claroCmd" href="#" onclick="MyWindow=window.open(\''
+            $cmdActions[] = '<a class="claroCmd" href="#" onClick="MyWindow=window.open(\''
                 . 'help_wiki.php?help=syntax' . claro_url_relay_context('&amp;')
             . '\',\'MyWindow\',\'toolbar=no,location=no,directories=no,status=yes,menubar=no'
             . ',scrollbars=yes,resizable=yes,width=350,height=450,left=300,top=10\'); return false;">'
@@ -925,9 +918,9 @@
 
             echo claro_html_message_box ( $message ) . '<br />' . "\n";
 
-            echo '<form id="editConflict" action="'.$_SERVER['PHP_SELF'].'" method="post">';
+            echo '<form id="editConflict" action="'.$_SERVER['PHP_SELF'].'" method="POST">';
             echo '<textarea name="conflictContent" id="content"'
-                 . ' cols="80" rows="15" >'
+                 . ' cols="80" rows="15" wrap="virtual">'
                  ;
             echo $content;
             echo '</textarea><br /><br />' . "\n";
@@ -977,7 +970,7 @@
                 . ')'
                 ;
 
-            $versionInfo = '&nbsp;<span style="font-size: 40%; font-weight: normal; color: red;">'
+            $versionInfo = '&nbsp;<span style="font-size: x-small; font-weight: normal; color: red;">'
                         . $versionInfo . '</span>'
                         ;
 
@@ -1214,13 +1207,16 @@
                 {
                     $versionInfo = '';
                 }
-                
-                echo '<div id="mainContent" class="wiki2xhtml">' . "\n";
+
+                echo '<div class="wikiTitle">' . "\n";
                 echo '<h1>'.$displaytitle
                     . $versionInfo
                     . '</h1>'
                     . "\n"
                     ;
+                echo '</div>' . "\n";
+
+                echo '<div class="wiki2xhtml">' . "\n";
                 echo $wikiRenderer->render( $content );
                 echo '</div>' . "\n";
 
@@ -1267,7 +1263,7 @@
                 . '</p>'
                 ;
 
-            echo '<form id="differences" method="get" action="'
+            echo '<form id="differences" method="GET" action="'
                 . $_SERVER['PHP_SELF']
                 . '">'
                 . "\n"
@@ -1415,12 +1411,12 @@
         {
             $searchForm = '<form method="post" action="'
                 . $_SERVER['PHP_SELF'].'?wikiId='.$wikiId.'">'."\n"
-                . '<input type="hidden" name="action" value="exSearch" />'."\n"
+                . '<input type="hidden" name="action" value="exSearch">'."\n"
                 . '<label for="searchPattern">'
                 . get_lang("Search")
                 . '</label><br />'."\n"
-                . '<input type="text" id="searchPattern" name="searchPattern" />'."\n"
-                . '<input type="submit" value="'.get_lang("Ok").'" />'."\n"
+                . '<input type="text" id="searchPattern" name="searchPattern">'."\n"
+                . '<input type="submit" value="'.get_lang("Ok").'">'."\n"
                 . claro_html_button($_SERVER['PHP_SELF'].'?wikiId='.$wikiId, get_lang("Cancel"))
                 . '</form>'."\n"
                 ;

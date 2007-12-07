@@ -655,13 +655,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     */
     function path()
     {
-        /* // replace this as it do not work when linker is called from modules 
         return dirname($_SERVER['PHP_SELF'])
             . "/../linker";
-        */
-
-        return get_conf('urlAppend') 
-                . '/' . get_conf('clarolineRepositoryAppend') 
-                . '/linker';
     }
 ?>

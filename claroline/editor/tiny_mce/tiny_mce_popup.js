@@ -5,282 +5,288 @@ function TinyMCE_Popup() {
 };
 
 TinyMCE_Popup.prototype = {
-    findWin : function(w) {
-        var c;
+	findWin : function(w) {
+		var c;
 
-        // Check parents
-        c = w;
-        while (c && (c = c.parent) != null) {
-            if (typeof(c.tinyMCE) != "undefined")
-                return c;
-        }
+		// Check parents
+		c = w;
+		while (c && (c = c.parent) != null) {
+			if (typeof(c.tinyMCE) != "undefined")
+				return c;
+		}
 
-        // Check openers
-        c = w;
-        while (c && (c = c.opener) != null) {
-            if (typeof(c.tinyMCE) != "undefined")
-                return c;
-        }
+		// Check openers
+		c = w;
+		while (c && (c = c.opener) != null) {
+			if (typeof(c.tinyMCE) != "undefined")
+				return c;
+		}
 
-        // Try top
-        if (typeof(top.tinyMCE) != "undefined")
-            return top;
+		// Try top
+		if (typeof(top.tinyMCE) != "undefined")
+			return top;
 
-        return null;
-    },
+		return null;
+	},
 
-    init : function() {
-        var win = window.opener ? window.opener : window.dialogArguments, c;
-        var inst;
+	init : function() {
+		var win = window.opener ? window.opener : window.dialogArguments, c;
+		var inst, re, title, divElm;
 
-        if (!win)
-            win = this.findWin(window);
+		if (!win)
+			win = this.findWin(window);
 
-        if (!win) {
-            alert("tinyMCE object reference not found from popup.");
-            return;
-        }
+		if (!win) {
+			alert("tinyMCE object reference not found from popup.");
+			return;
+		}
 
-        window.opener = win;
-        this.windowOpener = win;
-        this.onLoadEval = "";
+		window.opener = win;
+		this.windowOpener = win;
+		this.onLoadEval = "";
 
-        // Setup parent references
-        tinyMCE = win.tinyMCE;
-        tinyMCELang = win.tinyMCELang;
+		// Setup parent references
+		tinyMCE = win.tinyMCE;
+		tinyMCELang = win.tinyMCELang;
 
-        inst = tinyMCE.selectedInstance;
-        this.isWindow = tinyMCE.getWindowArg('mce_inside_iframe', false) == false;
-        this.storeSelection = (tinyMCE.isRealIE) && !this.isWindow && tinyMCE.getWindowArg('mce_store_selection', true);
+		inst = tinyMCE.selectedInstance;
+		this.isWindow = tinyMCE.getWindowArg('mce_inside_iframe', false) == false;
+		this.storeSelection = (tinyMCE.isRealIE) && !this.isWindow && tinyMCE.getWindowArg('mce_store_selection', true);
 
-        if (this.isWindow)
-            window.focus();
+		if (this.isWindow)
+			window.focus();
 
-        // Store selection
-        if (this.storeSelection)
-            inst.selectionBookmark = inst.selection.getBookmark(true);
+		// Store selection
+		if (this.storeSelection)
+			inst.selectionBookmark = inst.selection.getBookmark(true);
 
-        // Setup dir
-        if (tinyMCELang['lang_dir'])
-            document.dir = tinyMCELang['lang_dir'];
+		// Setup dir
+		if (tinyMCELang.lang_dir)
+			document.dir = tinyMCELang.lang_dir;
 
-        // Setup title
-        var re = new RegExp('{|\\\$|}', 'g');
-        var title = document.title.replace(re, "");
-        if (typeof tinyMCELang[title] != "undefined") {
-            var divElm = document.createElement("div");
-            divElm.innerHTML = tinyMCELang[title];
-            document.title = divElm.innerHTML;
+		// Setup title
+		re = new RegExp('{|\\\$|}', 'g');
+		title = document.title.replace(re, "");
+		if (typeof(tinyMCELang[title]) != "undefined") {
+			divElm = document.createElement("div");
+			divElm.innerHTML = tinyMCELang[title];
+			document.title = divElm.innerHTML;
 
-            if (tinyMCE.setWindowTitle != null)
-                tinyMCE.setWindowTitle(window, divElm.innerHTML);
-        }
+			if (typeof(tinyMCE.setWindowTitle) != 'undefined')
+				tinyMCE.setWindowTitle(window, divElm.innerHTML);
+		}
 
-        // Output Popup CSS class
-        document.write('<link href="' + tinyMCE.getParam("popups_css") + '" rel="stylesheet" type="text/css">');
+		// Output Popup CSS class
+		document.write('<link href="' + tinyMCE.getParam("popups_css") + '" rel="stylesheet" type="text/css">');
 
-        if (tinyMCE.getParam("popups_css_add")) {
-            c = tinyMCE.getParam("popups_css_add");
+		if (tinyMCE.getParam("popups_css_add")) {
+			c = tinyMCE.getParam("popups_css_add");
 
-            // Is relative
-            if (c.indexOf('://') == -1 && c.charAt(0) != '/')
-                c = tinyMCE.documentBasePath + "/" + c;
+			// Is relative
+			if (c.indexOf('://') == -1 && c.charAt(0) != '/')
+				c = tinyMCE.documentBasePath + "/" + c;
 
-            document.write('<link href="' + c + '" rel="stylesheet" type="text/css">');
-        }
+			document.write('<link href="' + c + '" rel="stylesheet" type="text/css">');
+		}
 
-        tinyMCE.addEvent(window, "load", this.onLoad);
-    },
+		tinyMCE.addEvent(window, "load", this.onLoad);
+	},
 
-    onLoad : function() {
-        var dir, i, elms, body = document.body;
+	onLoad : function() {
+		var dir, i, elms, body = document.body;
 
-        if (tinyMCE.getWindowArg('mce_replacevariables', true))
-            body.innerHTML = tinyMCE.applyTemplate(body.innerHTML, tinyMCE.windowArgs);
+		if (tinyMCE.getWindowArg('mce_replacevariables', true))
+			body.innerHTML = tinyMCE.applyTemplate(body.innerHTML, tinyMCE.windowArgs);
 
-        dir = tinyMCE.selectedInstance.settings['directionality'];
-        if (dir == "rtl" && document.forms && document.forms.length > 0) {
-            elms = document.forms[0].elements;
-            for (i=0; i<elms.length; i++) {
-                if ((elms[i].type == "text" || elms[i].type == "textarea") && elms[i].getAttribute("dir") != "ltr")
-                    elms[i].dir = dir;
-            }
-        }
+		dir = tinyMCE.selectedInstance.settings.directionality;
+		if (dir == "rtl" && document.forms && document.forms.length > 0) {
+			elms = document.forms[0].elements;
+			for (i=0; i<elms.length; i++) {
+				if ((elms[i].type == "text" || elms[i].type == "textarea") && elms[i].getAttribute("dir") != "ltr")
+					elms[i].dir = dir;
+			}
+		}
 
-        if (body.style.display == 'none')
-            body.style.display = 'block';
+		if (body.style.display == 'none')
+			body.style.display = 'block';
 
-        // Execute real onload (Opera fix)
-        if (tinyMCEPopup.onLoadEval != "")
-            eval(tinyMCEPopup.onLoadEval);
-    },
+		// Execute real onload (Opera fix)
+		if (tinyMCEPopup.onLoadEval !== '')
+			eval(tinyMCEPopup.onLoadEval);
+	},
 
-    executeOnLoad : function(str) {
-        if (tinyMCE.isOpera)
-            this.onLoadEval = str;
-        else
-            eval(str);
-    },
+	executeOnLoad : function(str) {
+		if (tinyMCE.isOpera)
+			this.onLoadEval = str;
+		else
+			eval(str);
+	},
 
-    resizeToInnerSize : function() {
-        // Netscape 7.1 workaround
-        if (this.isWindow && tinyMCE.isNS71) {
-            window.resizeBy(0, 10);
-            return;
-        }
+	resizeToInnerSize : function() {
+		var i, doc, body, oldMargin, wrapper, iframe, nodes, dx, dy;
 
-        if (this.isWindow) {
-            var doc = document;
-            var body = doc.body;
-            var oldMargin, wrapper, iframe, nodes, dx, dy;
+		// Netscape 7.1 workaround
+		if (this.isWindow && tinyMCE.isNS71) {
+			window.resizeBy(0, 10);
+			return;
+		}
 
-            if (body.style.display == 'none')
-                body.style.display = 'block';
+		if (this.isWindow) {
+			doc = document;
+			body = doc.body;
 
-            // Remove margin
-            oldMargin = body.style.margin;
-            body.style.margin = '0';
+			if (body.style.display == 'none')
+				body.style.display = 'block';
 
-            // Create wrapper
-            wrapper = doc.createElement("div");
-            wrapper.id = 'mcBodyWrapper';
-            wrapper.style.display = 'none';
-            wrapper.style.margin = '0';
+			// Remove margin
+			oldMargin = body.style.margin;
+			body.style.margin = '0';
 
-            // Wrap body elements
-            nodes = doc.body.childNodes;
-            for (var i=nodes.length-1; i>=0; i--) {
-                if (wrapper.hasChildNodes())
-                    wrapper.insertBefore(nodes[i].cloneNode(true), wrapper.firstChild);
-                else
-                    wrapper.appendChild(nodes[i].cloneNode(true));
+			// Create wrapper
+			wrapper = doc.createElement("div");
+			wrapper.id = 'mcBodyWrapper';
+			wrapper.style.display = 'none';
+			wrapper.style.margin = '0';
 
-                nodes[i].parentNode.removeChild(nodes[i]);
-            }
+			// Wrap body elements
+			nodes = doc.body.childNodes;
+			for (i=nodes.length-1; i>=0; i--) {
+				if (wrapper.hasChildNodes())
+					wrapper.insertBefore(nodes[i].cloneNode(true), wrapper.firstChild);
+				else
+					wrapper.appendChild(nodes[i].cloneNode(true));
 
-            // Add wrapper
-            doc.body.appendChild(wrapper);
+				nodes[i].parentNode.removeChild(nodes[i]);
+			}
 
-            // Create iframe
-            iframe = document.createElement("iframe");
-            iframe.id = "mcWinIframe";
-            iframe.src = document.location.href.toLowerCase().indexOf('https') == -1 ? "about:blank" : tinyMCE.settings['default_document'];
-            iframe.width = "100%";
-            iframe.height = "100%";
-            iframe.style.margin = '0';
+			// Add wrapper
+			doc.body.appendChild(wrapper);
 
-            // Add iframe
-            doc.body.appendChild(iframe);
+			// Create iframe
+			iframe = document.createElement("iframe");
+			iframe.id = "mcWinIframe";
+			iframe.src = document.location.href.toLowerCase().indexOf('https') == -1 ? "about:blank" : tinyMCE.settings.default_document;
+			iframe.width = "100%";
+			iframe.height = "100%";
+			iframe.style.margin = '0';
 
-            // Measure iframe
-            iframe = document.getElementById('mcWinIframe');
-            dx = tinyMCE.getWindowArg('mce_width') - iframe.clientWidth;
-            dy = tinyMCE.getWindowArg('mce_height') - iframe.clientHeight;
+			// Add iframe
+			doc.body.appendChild(iframe);
 
-            // Resize window
-            // tinyMCE.debug(tinyMCE.getWindowArg('mce_width') + "," + tinyMCE.getWindowArg('mce_height') + " - " + dx + "," + dy);
-            window.resizeBy(dx, dy);
+			// Measure iframe
+			iframe = document.getElementById('mcWinIframe');
+			dx = tinyMCE.getWindowArg('mce_width') - iframe.clientWidth;
+			dy = tinyMCE.getWindowArg('mce_height') - iframe.clientHeight;
 
-            // Hide iframe and show wrapper
-            body.style.margin = oldMargin;
-            iframe.style.display = 'none';
-            wrapper.style.display = 'block';
-        }
-    },
+			// Resize window
+			// tinyMCE.debug(tinyMCE.getWindowArg('mce_width') + "," + tinyMCE.getWindowArg('mce_height') + " - " + dx + "," + dy);
+			window.resizeBy(dx, dy);
 
-    resizeToContent : function() {
-        var isMSIE = (navigator.appName == "Microsoft Internet Explorer");
-        var isOpera = (navigator.userAgent.indexOf("Opera") != -1);
+			// Hide iframe and show wrapper
+			body.style.margin = oldMargin;
+			iframe.style.display = 'none';
+			wrapper.style.display = 'block';
+		}
+	},
 
-        if (isOpera)
-            return;
+	resizeToContent : function() {
+		var isMSIE = (navigator.appName == "Microsoft Internet Explorer");
+		var isOpera = (navigator.userAgent.indexOf("Opera") != -1);
+		var elm, width, height, x, y, dx, dy;
 
-        if (isMSIE) {
-            try { window.resizeTo(10, 10); } catch (e) {}
+		if (isOpera)
+			return;
 
-            var elm = document.body;
-            var width = elm.offsetWidth;
-            var height = elm.offsetHeight;
-            var dx = (elm.scrollWidth - width) + 4;
-            var dy = elm.scrollHeight - height;
+		if (isMSIE) {
+			try { window.resizeTo(10, 10); } catch (e) {}
 
-            try { window.resizeBy(dx, dy); } catch (e) {}
-        } else {
-            window.scrollBy(1000, 1000);
-            if (window.scrollX > 0 || window.scrollY > 0) {
-                window.resizeBy(window.innerWidth * 2, window.innerHeight * 2);
-                window.sizeToContent();
-                window.scrollTo(0, 0);
-                var x = parseInt(screen.width / 2.0) - (window.outerWidth / 2.0);
-                var y = parseInt(screen.height / 2.0) - (window.outerHeight / 2.0);
-                window.moveTo(x, y);
-            }
-        }
-    },
+			elm = document.body;
+			width = elm.offsetWidth;
+			height = elm.offsetHeight;
+			dx = (elm.scrollWidth - width) + 4;
+			dy = elm.scrollHeight - height;
 
-    getWindowArg : function(name, default_value) {
-        return tinyMCE.getWindowArg(name, default_value);
-    },
+			try { window.resizeBy(dx, dy); } catch (e) {}
+		} else {
+			window.scrollBy(1000, 1000);
+			if (window.scrollX > 0 || window.scrollY > 0) {
+				window.resizeBy(window.innerWidth * 2, window.innerHeight * 2);
+				window.sizeToContent();
+				window.scrollTo(0, 0);
+				x = parseInt(screen.width / 2.0) - (window.outerWidth / 2.0);
+				y = parseInt(screen.height / 2.0) - (window.outerHeight / 2.0);
+				window.moveTo(x, y);
+			}
+		}
+	},
 
-    restoreSelection : function() {
-        if (this.storeSelection) {
-            var inst = tinyMCE.selectedInstance;
+	getWindowArg : function(name, default_value) {
+		return tinyMCE.getWindowArg(name, default_value);
+	},
 
-            inst.getWin().focus();
+	restoreSelection : function() {
+		var inst;
 
-            if (inst.selectionBookmark)
-                inst.selection.moveToBookmark(inst.selectionBookmark);
-        }
-    },
+		if (this.storeSelection) {
+			inst = tinyMCE.selectedInstance;
 
-    execCommand : function(command, user_interface, value) {
-        var inst = tinyMCE.selectedInstance;
+			inst.getWin().focus();
 
-        this.restoreSelection();
-        inst.execCommand(command, user_interface, value);
+			if (inst.selectionBookmark)
+				inst.selection.moveToBookmark(inst.selectionBookmark);
+		}
+	},
 
-        // Store selection
-        if (this.storeSelection)
-            inst.selectionBookmark = inst.selection.getBookmark(true);
-    },
+	execCommand : function(command, user_interface, value) {
+		var inst = tinyMCE.selectedInstance;
 
-    close : function() {
-        tinyMCE.closeWindow(window);
-    },
+		this.restoreSelection();
+		inst.execCommand(command, user_interface, value);
 
-    pickColor : function(e, element_id) {
-        tinyMCE.selectedInstance.execCommand('mceColorPicker', true, {
-            element_id : element_id,
-            document : document,
-            window : window,
-            store_selection : false
-        });
-    },
+		// Store selection
+		if (this.storeSelection)
+			inst.selectionBookmark = inst.selection.getBookmark(true);
+	},
 
-    openBrowser : function(element_id, type, option) {
-        var cb = tinyMCE.getParam(option, tinyMCE.getParam("file_browser_callback"));
-        var url = document.getElementById(element_id).value;
+	close : function() {
+		tinyMCE.closeWindow(window);
+	},
 
-        tinyMCE.setWindowArg("window", window);
-        tinyMCE.setWindowArg("document", document);
+	pickColor : function(e, element_id) {
+		tinyMCE.selectedInstance.execCommand('mceColorPicker', true, {
+			element_id : element_id,
+			document : document,
+			window : window,
+			store_selection : false
+		});
+	},
 
-        // Call to external callback
-        if (eval('typeof(tinyMCEPopup.windowOpener.' + cb + ')') == "undefined")
-            alert("Callback function: " + cb + " could not be found.");
-        else
-            eval("tinyMCEPopup.windowOpener." + cb + "(element_id, url, type, window);");
-    },
+	openBrowser : function(element_id, type, option) {
+		var cb = tinyMCE.getParam(option, tinyMCE.getParam("file_browser_callback"));
+		var url = document.getElementById(element_id).value;
 
-    importClass : function(c) {
-        window[c] = function() {};
+		tinyMCE.setWindowArg("window", window);
+		tinyMCE.setWindowArg("document", document);
 
-        for (var n in window.opener[c].prototype)
-            window[c].prototype[n] = window.opener[c].prototype[n];
+		// Call to external callback
+		if (eval('typeof(tinyMCEPopup.windowOpener.' + cb + ')') == "undefined")
+			alert("Callback function: " + cb + " could not be found.");
+		else
+			eval("tinyMCEPopup.windowOpener." + cb + "(element_id, url, type, window);");
+	},
 
-        window[c].constructor = window.opener[c].constructor;
-    }
+	importClass : function(c) {
+		var n;
 
-    };
+		window[c] = function() {};
+
+		for (n in window.opener[c].prototype)
+			window[c].prototype[n] = window.opener[c].prototype[n];
+
+		window[c].constructor = window.opener[c].constructor;
+	}
+
+	};
 
 // Setup global instance
 var tinyMCEPopup = new TinyMCE_Popup();

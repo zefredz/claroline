@@ -43,7 +43,7 @@ $urlNewsClaroline = 'http://www.claroline.net/rss.php';
 $rss = new lastRSS;
 
 // where the cached file will be written
-$rss->cache_dir = get_path('rootSys') . '/tmp/cache/';
+$rss->cache_dir = '.';
 // how long without refresh the cache
 $rss->cache_time = 1200;
 
@@ -82,7 +82,7 @@ if (false !== $rs = $rss->get($urlNewsClaroline))
 }
 else
 {
-    echo claro_html_message_box(get_lang('Error : cannot read RSS feed (Check feed url and if php setting "allow_url_fopen" is turned on).'));
+    echo claro_html_message_box(get_lang('Error : cannot read RSS feed'));
 }
 
 include get_path('incRepositorySys') . '/claro_init_footer.inc.php';

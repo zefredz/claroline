@@ -53,7 +53,7 @@ function upgrade_main_database_course_to_18 ()
             return $step;
     
     }
-      
+  	
     return false;
 
 }
@@ -98,7 +98,7 @@ function upgrade_main_database_rel_course_user_to_18 ()
             return $step;
     
     }
-      
+  	
     return false;
 
 }
@@ -130,7 +130,7 @@ function upgrade_main_database_course_category_to_18 ()
             return $step;
     
     }
-      
+  	
     return false;
 }
 
@@ -207,7 +207,7 @@ function upgrade_main_database_user_to_18 ()
             return $step;
     
     }
-      
+  	
     return false;    
 
 }
@@ -243,7 +243,7 @@ function upgrade_main_database_course_class_to_18 ()
             return $step;
     
     }
-      
+  	
     return false;    
 }
 
@@ -398,7 +398,7 @@ function upgrade_main_database_module_to_18 ()
             return $step;
     
     }
-      
+  	
     return false;    
 }
 
@@ -522,7 +522,7 @@ function upgrade_main_database_right_to_18 ()
             return $step;
     
     }
-      
+  	
     return false;
 }
 
@@ -542,7 +542,7 @@ function upgrade_main_database_user_property_to_18 ()
 
             // create tables
 
-            $sqlForUpdate[]= "CREATE TABLE IF NOT EXISTS `" . $tbl_mdb_names['user_property'] . "` (
+            $sqlForUpdate[]= "CREATE TABLE  IF NOT EXISTS  `" . $tbl_mdb_names['user_property'] . "` (
               `userId`        int(10) unsigned NOT NULL default '0',
               `propertyId`    varchar(255) NOT NULL default '',
               `propertyValue` varchar(255) NOT NULL default '',
@@ -550,7 +550,7 @@ function upgrade_main_database_user_property_to_18 ()
               PRIMARY KEY  (`scope`(2),`propertyId`,`userId`)
             ) TYPE=MyISAM ";
 
-            $sqlForUpdate[]= "CREATE TABLE IF NOT EXISTS `" . $tbl_mdb_names['property_definition'] . "` (
+            $sqlForUpdate[]= "CREATE TABLE  IF NOT EXISTS `" . $tbl_mdb_names['property_definition'] . "` (
               `propertyId` varchar(50) NOT NULL default '',
               `contextScope` varchar(10) NOT NULL default '',
               `label` varchar(50) NOT NULL default '',
@@ -574,7 +574,7 @@ function upgrade_main_database_user_property_to_18 ()
             $step = set_upgrade_status($tool, 0);
             return $step; 
     }
-      
+  	
     return false;
 }
 
@@ -606,7 +606,7 @@ function upgrade_main_database_tracking_to_18 ()
             $step = set_upgrade_status($tool, 0);
             return $step; 
     }
-      
+  	
     return false;
 }
 

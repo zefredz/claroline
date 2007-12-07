@@ -1,15 +1,60 @@
 <?php // $Id$
+
+
+/**
+ * Claroline Shibboleth / Switch AAI
+ *
+ * Customization: Show Shibboleth login link 
+ *
+ * @version 0.4
+ *
+ * @author Daniel Streiff <daniel.streiff@fh-htwchur.ch>
+ *
+ */
+
+
 if ( count( get_included_files() ) == 1 ) die( '---' );
 
-if ( get_conf('claro_CasEnabled') ) // CAS is a special case of external authentication
+/* Claroline CAS login */
+
+if (get_conf('claro_CasEnabled',false))
 {
-    echo '<!-- CAS login hyperlink -->' . "\n"
-    .    '<div align="center">' . "\n"
-    .    '<a href="' . get_path('clarolineRepositoryWeb') . 'auth/login.php?authModeReq=CAS">' . "\n"
-    .    get_conf('claro_CasLoginString')  . "\n"
-    .    '</a>' . "\n"
-    .    '</div>' . "\n"
-    ;
+    if ( trim(get_conf('claro_CasLoginString','') != '' ))
+    {
+        $login_text = trim(get_conf('claro_CasLoginString',''));
+    }
+    else
+    {
+        $login_text = get_lang('Login');
+    }
+
+    echo '<div align="center">'
+    .    '<a href="' . get_path('clarolineRepositoryWeb') . 'auth/login.php?authModeReq=CAS">'
+    .    $login_text
+    .    '</a>'
+    .    '</div>';
+} 
+
+/* Claroline Shibboleth / Switch AAI login */
+
+if ( get_conf('claro_ShibbolethEnabled') )
+{
+    if ( trim(get_conf('claro_ShibbolethText','') != '' ) )
+    {
+        $login_text = trim(get_conf('claro_ShibbolethText',''));
+    }
+    else
+    {
+        $login_text = get_lang('Login');
+    }
+
+    echo  '<fieldset style="padding: 7px;">' . "\n"
+    	. '<legend>' . $login_text . '</legend>' . "\n"
+    	. '<div align="center">' . "\n"
+        . '<a href="' . get_conf('claro_ShibbolethPath') . 'index.php"><img src="' . get_conf('claro_ShibbolethLogo') . '" border="0" title="' . $login_text . '" alt="' . $login_text . '"></a>' . "\n"
+        . '</div>' . "\n"
+        . '</fieldset>' . "\n"
+        . '<br />' . "\n";
 }
 
 if( get_conf('claro_displayLocalAuthForm') )
@@ -36,7 +81,7 @@ if( get_conf('claro_displayLocalAuthForm') )
     ;
 
 
-if( get_conf('allowSelfReg') )
+if( $allowSelfReg )
 {
     echo '<!-- "Create user Account" -->' . "\n"
     .    '<p>' . "\n"

@@ -26,7 +26,7 @@ require_once './lib/assignment.class.php';
 
 include_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
 include_once get_path('incRepositorySys') . '/lib/pager.lib.php';
-include_once get_path('incRepositorySys') . '/lib/group.lib.inc.php';
+include_once get_path('incRepositorySys') . '/lib/assignment.lib.php';
 
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_user                = $tbl_mdb_names['user'];
@@ -43,6 +43,8 @@ $currentUserLastName  = claro_get_current_user_data('lastName');
 // 'step' of pager
 $usersPerPage = get_conf('usersPerPage',20);
 
+event_access_tool(claro_get_current_tool_id(), claro_get_current_course_tool_data('label'));
+
 // use viewMode
 claro_set_display_mode_available(true);
 
@@ -54,7 +56,7 @@ $fileAllowedSize = get_conf('max_file_size_per_works') ;    //file size in bytes
 $maxFilledSpace  = get_conf('maxFilledSpace', 100000000);
 
 // initialise dialog box to an empty string, all dialog will be concat to it
-$dialogBox = new DialogBox();
+$dialogBox = '';
 
 /*============================================================================
 	Clean informations sent by user
@@ -66,8 +68,12 @@ $acceptedCmdList = array( 'rqDownload', 'exDownload' );
 if( isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'], $acceptedCmdList) )   $cmd = $_REQUEST['cmd'];
 else                                                                            $cmd = null;
 
-if( isset($_REQUEST['downloadMode']) )  $downloadMode = $_REQUEST['downloadMode'];
-else                                                                    $downloadMode = 'all';
+if( isset($_REQUEST['downloadMode']) )	$downloadMode = $_REQUEST['downloadMode'];
+else									$downloadMode = 'all';
+
+if( !empty($_REQUEST['submitGroupWorkUrl']) ) 	$submitGroupWorkUrl = urldecode($_REQUEST['submitGroupWorkUrl']);
+else											$submitGroupWorkUrl = null;
+
 
 $req['assignmentId'] = ( isset($_REQUEST['assigId'])
                     && !empty($_REQUEST['assigId'])
@@ -98,16 +104,13 @@ if ( !$req['assignmentId'] || !$assignment->load($req['assignmentId']) )
   ============================================================================*/
 // redirect to the submission form prefilled with a .url document targetting the published document
 
-/**
- * @todo $_REQUEST['submitGroupWorkUrl'] must be treated in  filter process
- */
-if ( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) && claro_is_in_a_group() )
+if ( !is_null($submitGroupWorkUrl) && claro_is_in_a_group() )
 {
     claro_redirect ('userWork.php?authId='
     .       claro_get_current_group_id()
     .       '&cmd=rqSubWrk'
     .       '&assigId=' . $req['assignmentId']
-    .       '&submitGroupWorkUrl=' . urlencode($_REQUEST['submitGroupWorkUrl'])
+    .       '&submitGroupWorkUrl=' . urlencode($submitGroupWorkUrl)
     );
     exit();
 }
@@ -157,7 +160,7 @@ if( $cmd == 'exDownload' && $is_allowedToEditAll && get_conf('allow_download_all
 
 		if( $unixRequestDate >= time() )
 		{
-			$dialogBox->erro(get_lang('Warning : chosen date is in the future'));
+			$dialogBox .= get_lang('Warning : chosen date is in the future') . '<br />';
 		}
 
 		$downloadRequestDate = date('Y-m-d G:i:s', $unixRequestDate);
@@ -261,10 +264,9 @@ if( $cmd == 'exDownload' && $is_allowedToEditAll && get_conf('allow_download_all
 	}
 	else
 	{
-		$dialogBox->error(get_lang('There is no submission available for download with these settings.'));
+		$dialogBox .= get_lang('There is no submission available for download with these settings.');
 	}
 }
-
 
 if( $assignment->getAssignmentType() == 'INDIVIDUAL' )
 {
@@ -273,7 +275,7 @@ if( $assignment->getAssignmentType() == 'INDIVIDUAL' )
 }
 else
 {
-	$userGroupList = get_user_group_list(claro_get_current_user_id());
+	$userGroupList = REL_GROUP_USER::get_user_group_list(claro_get_current_user_id());
 	// check if user is member of at least one group
 	$userCanPost = (bool) ( !empty($userGroupList) );
 }
@@ -334,8 +336,7 @@ if( $assignment->getAssignmentType() == 'INDIVIDUAL' )
                    `S`.`title`,
                    COUNT(`S`.`id`)                      AS `submissionCount`,
                    COUNT(`FB`.`id`)                     AS `feedbackCount`,
-                   MAX(`FB`.`score`)                   AS `maxScore`,
-                   MAX(`S`.`last_edit_date`)         AS `last_edit_date`
+                   max(`FB`.`score`)   AS `maxScore`
 
             #GET USER LIST
             FROM  `" . $tbl_user . "` AS `U`
@@ -376,13 +377,12 @@ if( $assignment->getAssignmentType() == 'INDIVIDUAL' )
     $sortKeyList['U.prenom']  = SORT_ASC;
 
     // get last submission titles
-    $sql2 = "SELECT `S`.`user_id` as `authId`, `S`.`title`, DATE(`S`.`last_edit_date`) as date
+    $sql2 = "SELECT `S`.`user_id` as `authId`, `S`.`title`
     			FROM `" . $tbl_wrk_submission . "` AS `S`
             LEFT JOIN `" . $tbl_wrk_submission . "` AS `S2`
             	ON `S`.`user_id` = `S2`.`user_id`
             	AND `S2`.`assignment_id` = ". (int) $req['assignmentId']."
             	AND `S`.`last_edit_date` < `S2`.`last_edit_date`
-            	AND `S2`.`parent_id` IS NULL
             WHERE `S2`.`user_id` IS NULL
                 AND `S`.`original_id` IS NULL
                 AND `S`.`assignment_id` = ". (int) $req['assignmentId']."
@@ -399,8 +399,7 @@ else  // $assignment->getAssignmentType() == 'GROUP'
                    `S`.`title`,
                    COUNT(`S`.`id`)     AS `submissionCount`,
                    COUNT(`FB`.`id`)    AS `feedbackCount`,
-				   MAX(`FB`.`score`)   AS `maxScore`,
-				   MAX(`S`.`last_edit_date`)         AS `last_edit_date`
+				   max(`FB`.`score`)   AS `maxScore`
 
         FROM `" . $tbl_group_team . "` AS `G`
 
@@ -431,7 +430,7 @@ else  // $assignment->getAssignmentType() == 'GROUP'
     $sortKeyList['G.name'] = SORT_ASC;
 
     // get last submission titles
-    $sql2 = "SELECT `S`.`group_id` as `authId`, `S`.`title`, DATE(`S`.`last_edit_date`) as date
+    $sql2 = "SELECT `S`.`group_id` as `authId`, `S`.`title`
     			FROM `" . $tbl_wrk_submission . "` AS `S`
             LEFT JOIN `" . $tbl_wrk_submission . "` AS `S2`
             	ON `S`.`group_id` = `S2`.`group_id`
@@ -462,24 +461,19 @@ $workList = $workPager->get_result_list();
 // add the title of the last submission in each displayed line
 $results = claro_sql_query_fetch_all($sql2);
 
-$lastWorkTitleList = array();
-$last_edit_date_list = array();
-
 foreach( $results as $result )
 {
-	$lastWorkTitleList[$result['authId']] = $result['title'];
-	$last_edit_date_list[$result['authId']] = $result['date'];
+	$lastWorkList[$result['authId']] = $result;
 }
 
-if( !empty($lastWorkTitleList) )
+if( !empty($lastWorkList) )
 {
 	for( $i = 0; $i < count($workList); $i++ )
 	{
-		if( isset($lastWorkTitleList[$workList[$i]['authId']]) )
-			$workList[$i]['title'] = $lastWorkTitleList[$workList[$i]['authId']];
-
-		if( isset($last_edit_date_list[$workList[$i]['authId']]) )
-			$workList[$i]['last_edit_date'] = $last_edit_date_list[$workList[$i]['authId']];
+		if( isset($lastWorkList[$workList[$i]['authId']]) )
+		{
+			$workList[$i]['title'] = $lastWorkList[$workList[$i]['authId']]['title'];
+		}
 	}
 }
 
@@ -494,9 +488,7 @@ foreach ( $workList as $workId => $thisWrk )
 
     $workList[$workId]['name'] = '<a class="item" href="userWork.php'
     .                            '?authId=' . $thisWrk['authId']
-    .                            '&amp;assigId=' . $req['assignmentId']
-    .                            claro_url_relay_context('&amp;')
-    .                            '">'
+    .                            '&amp;assigId=' . $req['assignmentId'] . '">'
     .                            $workList[$workId]['name']
     .                            '</a>'
     ;
@@ -631,7 +623,7 @@ if( $textOrFilePresent &&  ( $showAfterEndDate || $showAfterPost ) )
     if( $assignment->getAutoFeedbackFilename() != '' )
     {
     	$target = ( get_conf('open_submitted_file_in_new_window') ? 'target="_blank"' : '');
-        echo  '<p><a href="' . $assignment->getAssigDirWeb() . $assignment->getAutoFeedbackFilename() . claro_url_relay_context('&amp;') . '" ' . $target . '>'
+        echo  '<p><a href="' . $assignment->getAssigDirWeb() . $assignment->getAutoFeedbackFilename() . '" ' . $target . '>'
         .     $assignment->getAutoFeedbackFilename()
         .     '</a></p>'
         ;
@@ -659,24 +651,24 @@ if ( $is_allowedToSubmit && $assignment->getAssignmentType() != 'GROUP' )
 if ( $is_allowedToEditAll )
 {
 	// Submission download requested
-	if( $cmd == 'rqDownload' ) // UJM
+	if( $cmd == 'rqDownload' && get_conf('allow_download_all_submissions') ) // UJM
 	{
 		include($includePath . '/lib/form.lib.php');
 
-	 	$downloadForm = '<strong>' . get_lang('Download').'</strong>' . "\n"
-	 	.        '<form action="' . $_SERVER['PHP_SELF'] . '?assigId=' . $req['assignmentId'] . '" method="POST">' . "\n"
-	 	.    claro_form_relay_context()
-	 	.    '<input type="hidden" name="cmd" value="exDownload" />' . "\n"
-	 	.        '<input type="radio" name="downloadMode" id="downloadMode_from" value="from" checked /><label for="downloadMode_from">' . get_lang('Submissions posted or modified after date :') . '</label><br />' . "\n"
-	 	.        claro_html_date_form('day', 'month', 'year', time(), 'long') . ' '
-	 	.        claro_html_time_form('hour', 'minute', time() - fmod(time(), 86400) - 3600) . '<small>' . get_lang('(d/m/y hh:mm)') . '</small>' . '<br /><br />' . "\n"
-	 	.        '<input type="radio" name="downloadMode" id="downloadMode_all" value="all" /><label for="downloadMode_all">' . get_lang('All submissions') . '</label><br /><br />' . "\n"
-	 	.        '<input type="submit" value="'.get_lang('OK').'" />&nbsp;' . "\n"
-	 	.    claro_html_button('workList.php?assigId='.$req['assignmentId'], get_lang('Cancel'))
-	 	.        '</form>'."\n"
-	    ;
+		$downloadForm = '<strong>' . get_lang('Download').'</strong>' . "\n"
+		.	 '<form action="' . $_SERVER['PHP_SELF'] . '?assigId=' . $req['assignmentId'] . '" method="POST">' . "\n"
+		.    claro_form_relay_context()
+		.    '<input type="hidden" name="cmd" value="exDownload" />' . "\n"
+		.	 '<input type="radio" name="downloadMode" id="downloadMode_from" value="from" checked /><label for="downloadMode_from">' . get_lang('Submissions posted or modified after date :') . '</label><br />' . "\n"
+		.	 claro_html_date_form('day', 'month', 'year', time(), 'long') . ' '
+		.	 claro_html_time_form('hour', 'minute', time() - fmod(time(), 86400) - 3600) . '<small>' . get_lang('(d/m/y hh:mm)') . '</small>' . '<br /><br />' . "\n"
+		.	 '<input type="radio" name="downloadMode" id="downloadMode_all" value="all" /><label for="downloadMode_all">' . get_lang('All submissions') . '</label><br /><br />' . "\n"
+		.	 '<input type="submit" value="'.get_lang('OK').'" />&nbsp;' . "\n"
+		.    claro_html_button('workList.php?assigId='.$req['assignmentId'], get_lang('Cancel'))
+		.	 '</form>'."\n"
+		;
 
-	    echo $dialogBox->form($downloadForm);
+		echo claro_html_message_box($downloadForm);
 	}
 
     $cmdMenu[] = claro_html_cmd_link( 'feedback.php?cmd=rqEditFeedback'
@@ -684,18 +676,15 @@ if ( $is_allowedToEditAll )
                                     . claro_url_relay_context('&amp;')
                                     , get_lang('Edit automatic feedback')
                                     );
-
-	$cmdMenu[] = claro_html_cmd_link( $_SERVER['PHP_SELF'] . '?cmd=rqDownload&amp;assigId=' . $req['assignmentId'] . claro_url_relay_context('&amp;')
-									, '<img src="' . $imgRepositoryWeb . 'save.gif" />' . get_lang('Download submissions')
-									);
-
+	if( get_conf('allow_download_all_submissions') )
+	{
+	    $cmdMenu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
+	    . 	 '?cmd=rqDownload&amp;assigId=' . $req['assignmentId'] . '">'
+		.	 '<img src="' . $imgRepositoryWeb . 'save.gif" />'.get_lang('Download submissions').'</a>'
+		.	 "\n"
+		;
+	}
 }
-
-/*--------------------------------------------------------------------
-                        DIALOG BOX SECTION
-  --------------------------------------------------------------------*/
-
-echo $dialogBox->render();
 
 if( !empty($cmdMenu) ) echo '<p>' . claro_html_menu_horizontal($cmdMenu) . '</p>' . "\n";
 
@@ -703,7 +692,7 @@ if( !empty($cmdMenu) ) echo '<p>' . claro_html_menu_horizontal($cmdMenu) . '</p>
 /**
  * Submitter (User or group) listing
  */
-$headerUrl = $workPager->get_sort_url_list($_SERVER['PHP_SELF'] . '?assigId=' . $req['assignmentId'] );
+$headerUrl = $workPager->get_sort_url_list($_SERVER['PHP_SELF'] . '?assigId=' . $req['assignmentId']);
 
 echo $workPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?assigId=".$req['assignmentId'])
 
@@ -716,9 +705,7 @@ echo $workPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?assigId=".$req['assi
 .    '</a>'
 .    '</th>' . "\n"
 .    '<th>'
-.    '<a href="' . $headerUrl['last_edit_date'] . '">'
 .    get_lang('Last submission')
-.	 '</a>'
 .    '</th>' . "\n"
 .    '<th>'
 .    '<a href="' . $headerUrl['submissionCount'] . '">'
@@ -734,7 +721,7 @@ echo $workPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?assigId=".$req['assi
 if( $is_allowedToEditAll )
 {
 	echo '<th>'
-	.    '<a href="' . $headerUrl['maxScore'] . '">'
+	.    '<a href="' . $headerUrl['score'] . '">'
 	.    get_lang('Best score')
 	.    '</a>'
 	.    '</th>' . "\n";
@@ -754,7 +741,7 @@ foreach ( $workList as $thisWrk )
     .     $thisWrk['name']
     .    '</td>' . "\n"
     .    '<td>'
-    .    ( !empty($thisWrk['title']) ? $thisWrk['title'] . '<small> ( ' . $thisWrk['last_edit_date'] . ' )</small>'  : '&nbsp;' )
+    .    ( !empty($thisWrk['title']) ? $thisWrk['title'] : '&nbsp;' )
     .    '</td>' . "\n"
     .    '<td>'
     .    $thisWrk['submissionCount']
@@ -766,7 +753,7 @@ foreach ( $workList as $thisWrk )
 	if( $is_allowedToEditAll )
 	{
 	    echo '<td>'
-		.    ( ( !empty($thisWrk['maxScore']) && $thisWrk['maxScore'] > -1 )? $thisWrk['maxScore'] : get_lang('No score') )
+		.    ( !empty($thisWrk['maxScore']) && $thisWrk['maxScore'] > 0 ? $thisWrk['maxScore'] : geT_lang('No score') )
 		.    '</td>' . "\n";
 	}
 

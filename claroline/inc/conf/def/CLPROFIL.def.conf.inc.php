@@ -23,7 +23,6 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 $conf_def['config_code'] = 'CLPROFIL';
 $conf_def['config_name'] = 'User profile options';
-//$conf_def['description'] = '';
 $conf_def['config_file'] = 'user_profile.conf.php';
 $conf_def['old_config_file'][] ='profile.conf.php';
 $conf_def['config_class']='user';
@@ -52,26 +51,35 @@ $conf_def['section']['required']['properties'] =
 array ( 'profile_editable'
       , 'userOfficialCodeCanBeEmpty'
       , 'ask_for_official_code'
+      , 'userOfficialCodeIsUnique'
       , 'userMailCanBeEmpty'
       , 'SECURE_PASSWORD_REQUIRED'
       );
 
 $conf_def_property_list['userOfficialCodeCanBeEmpty'] =
-array ( 'label'         => 'Official Code is'
+array ( 'label'         => 'Official Code can be empty'
       , 'default'       => TRUE
       , 'type'          => 'boolean'
-      , 'acceptedValue' => array ('TRUE'  => 'Optional'
-                                 ,'FALSE' => 'Required'
+      , 'acceptedValue' => array ('TRUE'  => 'Yes'
+                                 ,'FALSE' => 'No'
+                                 )
+      );
+
+$conf_def_property_list['userOfficialCodeIsUnique'] =
+array ( 'label'         => 'Official Code is unique'
+      , 'default'       => TRUE
+      , 'type'          => 'boolean'
+      , 'acceptedValue' => array ('TRUE'  => 'Yes'
+                                 ,'FALSE' => 'No'
                                  )
       );
 
 $conf_def_property_list['userMailCanBeEmpty'] =
-array ( 'label'         => 'Email is'
-      , 'description'   => 'Accept email as valid (best choice)'
+array ( 'label'         => 'Email can be empty'
       , 'default'       => TRUE
       , 'type'          => 'boolean'
-      , 'acceptedValue' => array ('FALSE' => 'Required'
-                                 ,'TRUE'  => 'Optional'
+      , 'acceptedValue' => array ('TRUE' => 'Yes'
+                                 ,'FALSE'  => 'No'
                                  )
       );
 
@@ -103,7 +111,6 @@ array ( 'label'         => 'Profile form'
 // Section read only fields
 
 $conf_def['section']['readonly']['label'] = 'Allow to modify field';
-//$conf_def['section']['readonly']['description'] = '';
 $conf_def['section']['readonly']['display'] = FALSE;
 $conf_def['section']['readonly']['properties'] =
 array (
@@ -124,7 +131,6 @@ array ('label'         => 'Password security check'
 
 $conf_def['section']['view']['label'] = 'Display data';
 $conf_def['section']['view']['display'] = FALSE;
-//$conf_def['section']['view']['description'] = '';
 $conf_def['section']['view']['properties'] =
 array (
       );

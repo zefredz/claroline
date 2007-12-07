@@ -33,6 +33,11 @@ class editor extends GenericEditor
     var $_tag;
 
     /**
+     * @var $_askStrip ask user if the content can be cleaned ?
+     */
+    var $_askStrip;
+
+    /**
      * constructor
      *
      * @author Sébastien Piraux <pir@cerdecam.be>
@@ -48,6 +53,9 @@ class editor extends GenericEditor
         parent::GenericEditor( $name,$content,$rows,$cols,$optAttrib,$webPath );
 
         $this->_tag = '<!-- content: html tiny_mce -->';
+
+        // test content before preparing because preparation adds $this->_tag
+        $this->_askStrip = $this->needCleaning();
 
         $this->prepareContent();
     }
@@ -91,15 +99,51 @@ class editor extends GenericEditor
             .'    theme_advanced_path : true,'."\n"
             .'    theme_advanced_path_location : "bottom",'."\n"
             .'    apply_source_formatting : true,'."\n"
-            .'	  cleanup_on_startup : true,'."\n"
-            .'    entity_encoding : "raw",'."\n"
-            .'    convert_fonts_to_spans : true,'."\n"
-            .'	  directionality : "'.get_locale("text_dir").'",' . "\n"
             .'    convert_urls : false,'."\n" // prevent forced conversion to relative url
             .'    relative_urls : false,'."\n" // prevent forced conversion to relative url
-			.'    extended_valid_elements : "a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]"'."\n"
+            .'    save_callback : "addMetadata",'."\n";
+
+		// if required call the function that will ask user if the text has to be cleaned
+		if( $this->_askStrip ) $returnString .='    setupcontent_callback : "strip_old_htmlarea",'."\n";
+
+        $returnString .=
+            '    extended_valid_elements : "a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]"'."\n"
             .'});'."\n\n"
             .'</script>'."\n\n";
+
+        $returnString .=
+	            "\n\n"
+            	.'<script language="javascript" type="text/javascript">'."\n\n"
+            	.'function addMetadata(element_id, html, body)'."\n"
+            	.'{'."\n"
+            	.'    // remove any metadata'."\n"
+            	.'    html = html.replace(/<!-- content:[^(\-\->)]*-->/, "");'."\n"
+            	.'    // add tiny_mce metadata'."\n"
+            	.'    html = html + "'.$this->_tag.'";'."\n\n"
+            	.'    return html;'
+            	.'}'."\n\n"
+            	;
+
+		if( $this->_askStrip )
+		{
+			$returnString .=
+	            "\n\n"
+            	.'function strip_old_htmlarea(editor_id,body,doc)'."\n"
+		        .'{'."\n"
+        	    .'    if( confirm(" '.clean_str_for_javascript(get_lang('This text layout should be modified to be editable in this editor. Cancel to keep your original text layout.')).' ") )'."\n"
+    	        .'    {'."\n"
+				.'        content = body.innerHTML;'."\n\n"
+        	    .'        content = content.replace(/style="[^"]*"/g, "");'."\n"
+    	        .'        content = content.replace(/<span[^>]*>/g, "");'."\n"
+	            .'        content = content.replace(/<\/span>/g, "");'."\n\n"
+        	    .'        body.innerHTML = content ;'."\n"
+    	        .'        return true;'."\n"
+	            .'    }'."\n"
+        	    .'    return false;'."\n"
+    	        .'}'."\n\n"
+	            ;
+        }
+        $returnString .= '</script>'."\n\n";
 
         // add standard text area
         $returnString .= $this->getTextArea();
@@ -114,10 +158,43 @@ class editor extends GenericEditor
      */
     function prepareContent()
     {
-        // remove old 'metadata' and add the good one
-        $this->content = preg_replace('/<!-- content:[^(\-\->)]*-->/', '', $this->content) . $this->_tag;
+    	// remove old 'metadata'
+    	$this->content = preg_replace('/<!-- content:[^(\-\->)]*-->/', '', $this->content);
+    	// new metadata will be added
 
         return true;
     }
+
+    /**
+     * check if the text require a cleaning to be editable by tinymce
+     *
+     * @return boolean is content requiring a cleaning to be
+     * @access private
+     */
+    function needCleaning()
+    {
+    	// if we already have the tinymce tag content cleaning is not required
+	    if( strpos($this->content,$this->_tag) !== false ) return false;
+
+	    // if content contains only the tiny_mce tag cleaning is not required
+	    if( '' == str_replace($this->_tag,'',$this->content) ) return false;
+
+    	if( preg_match('/style="[^"]*"/',$this->content) )
+    	{
+   			// if we have style attributes : cleaning is required
+    		return true;
+    	}
+    	elseif( preg_match('/<span[^>]*>/', $this->content) )
+    	{
+  			// if we have span tags : cleaning is required
+    		return true;
+    	}
+    	else
+    	{
+    		// nor style attributes neither span tags : cleaning is not required
+    		return false;
+    	}
+    }
+
 }
 ?>

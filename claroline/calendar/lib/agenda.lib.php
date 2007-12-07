@@ -271,11 +271,11 @@ function get_agenda_items($userCourseList, $month, $year)
                 $items[$day][$thisEvent['hour']] = '';
             }
 
-            $items [ $day ] [ $thisEvent['hour'] ] .= '<br />'
+            $items [ $day ] [ $thisEvent['hour'] ] .= '<br>'
             .                                         '<i>'
             .                                         '<small>' . $time . ' : </small>'
             .                                         '</i>'
-            .                                         '<br />'
+            .                                         '<br>'
             .                                         $eventLine
             .                                         ' - '
             .                                         '<small>'

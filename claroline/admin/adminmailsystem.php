@@ -72,11 +72,11 @@ foreach ($platformAdminUidList as $k => $platformAdminUid )
     $userDataGrid[$k]['firstname'] = $userData['firstname'];
     $userDataGrid[$k]['email'] = $userData['email'];
     $userDataGrid[$k]['authsource'] = $userData['authsource'];
-    //$userDataGrid[$k]['contact_switch'] = '<input name="contactList[]" type="checkbox" value="' . $platformAdminUid . '" ' . ((bool) in_array($platformAdminUid,$contactUidList)  ? 'checked="checked"  />' : '>');
+    //$userDataGrid[$k]['contact_switch'] = '<input name="contactList[]" type="checkbox" value="' . $platformAdminUid . '" ' . ((bool) in_array($platformAdminUid,$contactUidList)  ? 'checked="checked" >' : '>');
     $userDataGrid[$k]['request_switch'] = '<input name="requestList[]" type="checkbox" value="' . $platformAdminUid . '" '
-    .    ((bool) in_array($platformAdminUid,$requestUidList)  ? 'checked="checked"  /> ' : '> ');
+    .    ((bool) in_array($platformAdminUid,$requestUidList)  ? 'checked="checked" > ' : '> ');
     $userDataGrid[$k]['notification_switch'] = '<input name="notifiedList[]" type="checkbox" value="' . $platformAdminUid . '" '
-    .    ((bool) in_array($platformAdminUid,$notifiedUidList)  ? 'checked="checked"  /> ' : '> ');
+    .    ((bool) in_array($platformAdminUid,$notifiedUidList)  ? 'checked="checked" > ' : '> ');
 
 }
 $adminDataGrid = new claro_datagrid($userDataGrid);
@@ -111,7 +111,7 @@ echo claro_html_tool_title($nameTools)
 .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
 .    '<input type="hidden" name="cmd" value="setRecipient" />' . "\n"
 .    $adminDataGrid->render()
-.    '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp;' . "\n"
+.    '<input type="submit" value="' . get_lang('Ok') . '">&nbsp;' . "\n"
 .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
 .    '</form>' . "\n"
 ;

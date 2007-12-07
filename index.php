@@ -30,30 +30,6 @@ include claro_get_conf_repository() . 'CLHOME.conf.php'; // conf file
 
 require_once get_path('incRepositorySys') . '/lib/courselist.lib.php'; // conf file
 
-
-// logout request : delete session data
-
-if (isset($_REQUEST['logout']))
-{
-    // notify that a user has just loggued out
-    if (isset($logout_uid)) // Set  by local_init
-    {
-        $eventNotifier->notifyEvent('user_logout', array('uid' => $logout_uid));
-    }
-    /* needed to be able to :
-         - log with claroline when 'magic login' has previously been clicked
-         - notify logout event
-         (logout from CAS has been commented in casProcess.inc.php)*/
-    if( get_conf('claro_CasEnabled', false) && ( get_conf('claro_CasGlobalLogout') && !phpCAS::checkAuthentication() ) )
-    {
-        phpCAS::logout((isset( $_SERVER['HTTPS']) && ($_SERVER['HTTPS']=='on'||$_SERVER['HTTPS']==1) ? 'https://' : 'http://')
-                        . $_SERVER['HTTP_HOST'].get_conf('urlAppend').'/index.php');
-    }
-    session_destroy();
-}
-
-// Hide breadcrumbs and view mode on platform home page
-$claroline->display->banner->hideBreadcrumbLine();
 // CLAROLINE HEADER AND BANNER
 require get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
@@ -63,62 +39,69 @@ echo '<table width="100%" border="0" cellpadding="4">' . "\n"
 ;
 
 // INTRODUCTION MESSAGE
-if ( file_exists('./textzone_top.inc.html') )
-{
-    include './textzone_top.inc.html';
-}
-else
-{
-    echo '<div style="text-align: center">'
-    .    '<img src="./claroline/img/logo.gif" border="0" alt="Claroline logo" />' . "\n"
-    .    '<p><strong>Claroline Open Source e-Learning</strong></p>' . "\n"
-    .    '</div>'
-    ;
 
-    if(claro_is_platform_admin())
+$displayIntroMessage = (bool) ! isset($_REQUEST['category']) || ! get_conf('homepage_hide_introduction_messages_on_course_categories_page',false);
+
+if ( $displayIntroMessage )
+{
+    if ( file_exists('./textzone_top.inc.html') )
     {
-        echo '<p>'
-        .    get_lang('blockTextZoneHelp', array('%textZoneFile' => 'textzone_top.inc.html'))
-        .    '</p>' . "\n";
+        include './textzone_top.inc.html';
     }
-}
-
-if( claro_is_platform_admin() )
-{
-    echo '<p>'
-    .    '<a href="claroline/admin/managing/editFile.php?cmd=rqEdit&amp;file=0">'
-    .    '<img src="claroline/img/edit.gif" alt="" />'
-    .    get_lang('Edit text zone')
-    .    '</a>'
-    .    '</p>' . "\n"
-    ;
-}
-
-if(claro_is_user_authenticated())
-{
-    if ( file_exists('./platform/textzone/textzone_top.authenticated.inc.html') )
+    else
     {
-        include './platform/textzone/textzone_top.authenticated.inc.html';
+        echo '<div style="text-align: center">'
+        .    '<img src="./claroline/img/logo.gif" border="0" alt="Claroline logo" />' . "\n"
+        .    '<p><strong>Claroline Open Source e-Learning</strong></p>' . "\n"
+        .    '</div>'
+        ;
 
-        if( claro_is_platform_admin() )
+        if(claro_is_platform_admin())
         {
             echo '<p>'
-            .    '<a href="claroline/admin/managing/editFile.php?cmd=rqEdit&amp;file=2">'
-            .    '<img src="claroline/img/edit.gif" alt="" />' . get_lang('Edit text zone')
-            .    '</a>'
+            .    get_lang('blockTextZoneHelp', array('%textZoneFile' => 'textzone_top.inc.html'))
             .    '</p>' . "\n";
         }
     }
 
-}
-else
-{
-    if ( file_exists('./platform/textzone/textzone_top.anonymous.inc.html') )
+    if( claro_is_platform_admin() )
     {
-        include './platform/textzone/textzone_top.anonymous.inc.html';
+        echo '<p>'
+        .    '<a href="claroline/admin/managing/editFile.php?cmd=rqEdit&amp;file=0">'
+        .    '<img src="claroline/img/edit.gif" alt="" />'
+        .    get_lang('Edit text zone')
+        .    '</a>'
+        .    '</p>' . "\n"
+        ;
     }
 
+    if(claro_is_user_authenticated())
+    {
+        if ( file_exists('./platform/textzone/textzone_top.authenticated.inc.html') )
+        {
+            include './platform/textzone/textzone_top.authenticated.inc.html';
+
+            if( claro_is_platform_admin() )
+            {
+                echo '<p>'
+                .    '<a href="claroline/admin/managing/editFile.php?cmd=rqEdit&amp;file=2">'
+                .    '<img src="claroline/img/edit.gif" alt="" />' . get_lang('Edit text zone')
+                .    '</a>'
+                .    '</p>' . "\n";
+            }
+        }
+
+    }
+    else
+    {
+        if ( file_exists('./platform/textzone/textzone_top.anonymous.inc.html') )
+        {
+            include './platform/textzone/textzone_top.anonymous.inc.html';
+        }
+
+    }
 }
+
 // Dock - Campus homepage - Top
 
 $campusHomePageTop = new Dock('campusHomePageTop');
@@ -130,7 +113,7 @@ if ( claro_is_user_authenticated() )
    /**
      * Commands line
      */
-    $userCommands = array();
+	$userCommands = array();
 
     $userCommands[] = '<a href="' . $_SERVER['PHP_SELF'] . '" class="claroCmd">'
     .    '<img src="' . get_path('imgRepositoryWeb') . 'course.gif" alt="" /> '
@@ -160,7 +143,7 @@ if ( claro_is_user_authenticated() )
 
     $userCommands[] = '<a href="'.$_SERVER['PHP_SELF'].'?category=" class="claroCmd">'
     .                 '<img src="' . get_path('imgRepositoryWeb') . 'course.gif" alt="" /> '
-    .     get_lang('All platform courses')
+    .	 get_lang('All platform courses')
     .                 '</a>'
     ;
 
@@ -182,6 +165,8 @@ if ( claro_get_current_user_id() )
 }
 else
 {
+    event_open();
+
     if ( ! get_conf('course_categories_hidden_to_anonymous',false) )
     {
         // DISPLAY PLATFORM COURSE LIST
