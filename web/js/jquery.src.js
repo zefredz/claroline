@@ -7,7 +7,7 @@
  * and GPL (GPL-LICENSE.txt) licenses.
  *
  * $Date$
- * $Rev: 3353 $
+ * $Rev$
  */
 
 // Map over jQuery in case of overwrite
