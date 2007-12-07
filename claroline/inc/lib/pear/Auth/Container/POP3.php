@@ -31,7 +31,7 @@ require_once('Net/POP3.php');
  *
  * @author   Yavor Shahpasov <yavo@netsmart.com.cy>
  * @package  Auth
- * @version $Revision$
+ * @version  $Revision$
  */
 class Auth_Container_POP3 extends Auth_Container
 {

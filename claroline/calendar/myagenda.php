@@ -1,18 +1,18 @@
 <?php // $Id$
 /**
- * CLAROLINE
+ * CLAROLINE 
  *
- *    This file generates a general agenda of all items of the courses
- *    the user is registered for.
+ *	This file generates a general agenda of all items of the courses
+ *	the user is registered for.
  *
- *    Based on the master-calendar code of Eric Remy (6 Oct 2003)
- *    adapted by Toon Van Hoecke (Dec 2003) and Hugues Peeters (March 2004)
+ *	Based on the master-calendar code of Eric Remy (6 Oct 2003)
+ *	adapted by Toon Van Hoecke (Dec 2003) and Hugues Peeters (March 2004)
  *
- * @version 1.9 $Revision$
+ * @version 1.7 $Revision$
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  *
  * @package CLCAL
  *
@@ -27,60 +27,218 @@ $cidReset = TRUE;
 
 require '../inc/claro_init_global.inc.php';
 
-// check access
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 
-require_once './lib/agenda.lib.php';
 
-$nameTools = get_lang('My calendar');
+$nameTools = $langMyAgenda;
+
+if(!empty($_REQUEST['coursePath']))
+{
+    $_REQUEST['coursePath'] = htmlspecialchars($_REQUEST['coursePath']);
+	$interbredcrump[]=array('url' => $rootWeb.$_REQUEST['coursePath'].'/index.php',
+                            'name' => $_REQUEST['courseCode']);
+}
 
 $tbl_mdb_names       = claro_sql_get_main_tbl();
 
 $tbl_course          = $tbl_mdb_names['course'];
 $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
 
-// Main
+include($includePath."/claro_init_header.inc.php");
+claro_disp_tool_title($nameTools);
 
-$sql = "SELECT cours.code                 AS sysCode,
-               cours.administrativeNumber AS officialCode,
-               cours.intitule             AS title,
-               cours.titulaires           AS t,
-               cours.dbName               AS db,
-               cours.directory            AS dir
+if (isset($_uid))
+{
+    $sql = "SELECT cours.code sysCode, cours.fake_code officialCode,
+                   cours.intitule title, cours.titulaires t, 
+                   cours.dbName db, cours.directory dir
+	        FROM    `".$tbl_course."`     cours,
+				    `".$tbl_rel_course_user."` cours_user
+	        WHERE cours.code         = cours_user.code_cours
+	        AND   cours_user.user_id = '".$_uid."'";
 
-        FROM    `" . $tbl_course . "`          AS cours,
-                `" . $tbl_rel_course_user . "` AS cours_user
+    $userCourseList = claro_sql_query_fetch_all($sql);
 
-        WHERE cours.code         = cours_user.code_cours
-        AND   cours_user.user_id = " . (int) claro_get_current_user_id() ;
+	$year  = $_REQUEST['year' ];
+	$month = $_REQUEST['month'];
 
-$userCourseList = claro_sql_query_fetch_all($sql);
+	if ( ($year == NULL) && ($month == NULL) )
+	{
+		$today = getdate();
+		$year  = $today['year'];
+		$month = $today['mon' ];
+	}
 
-$today = getdate();
+	$agendaItemList = get_agenda_items($userCourseList, $month, $year);
 
-if ( isset($_REQUEST['year']) ) $year = (int) $_REQUEST['year' ];
-else                            $year = $today['year'];
+	$monthName   = $langMonthNames['long'][$month-1];
 
-if( isset($_REQUEST['month']) ) $month = (int) $_REQUEST['month'];
-else                            $month = $today['mon' ];
+	disp_monthly_calendar($agendaItemList, $month, $year, $langDay_of_weekNames['long'], $monthName, $langToday);
+}
 
-$agendaItemList = get_agenda_items($userCourseList, $month, $year);
-$langMonthNames = get_locale('langMonthNames');
-$langDay_of_weekNames = get_locale('langDay_of_weekNames');
+include($includePath."/claro_init_footer.inc.php");
 
-$monthName = $langMonthNames['long'][$month-1];
+//////////////////////////////////////////////////////////////////////////////
 
-// Display
 
-// Header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-echo claro_html_tool_title($nameTools)
 
-// Display Calendar
-.    claro_html_monthly_calendar($agendaItemList, $month, $year, $langDay_of_weekNames['long'], $monthName)
-;
+function get_agenda_items($userCourseList, $month, $year)
+{
+	global $courseTablePrefix, $dbGlu;
 
-// Footer
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+	$items = array();
 
+	// get agenda-items for every course
+
+    foreach( $userCourseList as $thisCourse)
+    {
+//	    $courseAgendaTable = $courseTablePrefix. $thisCourse['db'].$dbGlu."calendar_event";
+		$tbl_cdb_names = claro_sql_get_course_tbl($courseTablePrefix. $thisCourse['db'].$dbGlu);
+		$courseAgendaTable          = $tbl_cdb_names['calendar_event'];
+
+        $sql = "SELECT id, titre title, day, hour, lasting 
+                FROM `".$courseAgendaTable."`
+                WHERE month(day) = '".$month."' 
+                AND   year(day)  ='".$year."'" ;
+
+	    $courseEventList = claro_sql_query_fetch_all($sql);
+
+        foreach($courseEventList as $thisEvent )
+ 		if (!(trim(strip_tags($thisEvent["title"]))==""))
+		{
+            $eventDate = explode('-', $thisEvent['day']);
+            $day       = intval($eventDate[2]);
+            $eventTime = explode(':', $thisEvent['hour']);
+            $time      = $eventTime[0].':'.$eventTime[1];
+            $url       = 'agenda.php?cidReq='.$thisCourse['sysCode'];
+
+            $items[$day][$thisEvent['hour']] .= 
+            "<br><small><i>".$time." : </small><br></i> "
+            .$thisEvent['title']
+            ." - <small><a href=\"".$url."\">".$thisCourse['officialCode']."</a></small>\n";
+        }
+    }
+
+	// sorting by hour for every day
+	$agendaItemList = array();
+
+	while ( list($agendaday, $tmpitems) = each($items))
+	{
+		sort($tmpitems);
+
+		while ( list($key,$val) = each($tmpitems))
+		{
+			$agendaItemList[$agendaday].=$val;
+		}
+	}
+
+	return $agendaItemList;
+}
+
+function disp_monthly_calendar($agendaItemList, $month, $year, $weekdaynames, $monthName, $langToday)
+{
+	global $_SERVER;
+
+	//Handle leap year
+	$numberofdays = array(0,31,28,31,30,31,30,31,31,30,31,30,31);
+
+	if ( ($year%400 == 0) || ( $year%4 == 0 && $year%100 != 0 ) )
+    {
+        $numberofdays[2] = 29;
+    }
+
+	//Get the first day of the month
+	$dayone = getdate(mktime(0,0,0,$month,1,$year));
+
+  	//Start the week on monday
+	$startdayofweek = $dayone['wday']<>0 ? ($dayone['wday']-1) : 6;
+    $urlcoursePath = htmlspecialchars($_REQUEST['coursePath']);
+    
+	$backwardsURL = $_SERVER['PHP_SELF'].'?coursePath='.$urlcoursePath
+                   .'&amp;courseCode='.$_REQUEST['courseCode']
+                   .'&amp;month='.($month==1 ? 12 : $month-1)
+                   .'&amp;year='.($month==1 ? $year-1 : $year);
+
+	$forewardsURL = $_SERVER['PHP_SELF'].'?coursePath='.$urlcoursePath
+                   .'&amp;courseCode='.$_REQUEST['courseCode']
+                   .'&amp;month='.($month==12 ? 1 : $month+1)
+                   .'&amp;year='.($month==12 ? $year+1 : $year);
+
+	echo '<table class="claroTable" width="95%">'."\n"
+  	    .'<tr class="superHeader">'."\n"
+	    .'<th width="13%">'
+	    .'<center>'."\n"
+        .'<a href="'.$backwardsURL.'">&lt;&lt;</a>'
+        .'</center>'."\n"
+        .'</th>'."\n"
+	    .'<th width="65%" colspan="5">'
+        .'<center>'
+        .$monthName.' '.$year
+        .'</center>'
+        .'</th>'."\n"
+	    .'<th width="13%"><center>'
+        .'<a href="'.$forewardsURL.'">&gt;&gt;</center></a>'
+        .'</th>'."\n"
+	    .'</tr>'."\n"
+	    ;
+
+	echo "<tr class=\"headerX\">\n";
+
+	for ( $iterator = 1; $iterator < 8; $iterator++)
+	{
+    	echo  '<th width="13%">' . $weekdaynames[$iterator%7] . '</th>'."\n";
+    }
+	
+    echo '</tr>'."\n";
+
+	$curday = -1;
+	
+    $today = getdate();
+
+	while ($curday <= $numberofdays[$month])
+  	{
+  		echo "<tr>\n";
+
+      	for ($iterator = 0; $iterator < 7 ; $iterator++)
+	  	{
+	  		if ( ($curday == -1) && ($iterator == $startdayofweek) )
+			{
+	    		$curday = 1;
+			}
+
+			if ( ($curday > 0) && ($curday <= $numberofdays[$month]) )
+			{
+		  		if (   ($curday == $today['mday']) 
+                    && ($year   == $today['year']) 
+                    && ($month  == $today['mon' ]) )
+				{
+		  			$weekdayType = 'highlight'; // today
+				}
+                elseif ( $iterator < 5 )
+                {
+                	$weekdayType = 'workingWeek';
+                }
+                else
+                {
+                    $weekdayType = 'weekEnd';
+                }
+
+				$dayheader = "<small>".$curday."</small>";
+
+
+	      		echo "<td height=\"40\" width=\"12%\" valign=\"top\" class=\"".$weekdayType."\">"
+                    .$dayheader
+				    .$agendaItemList[$curday]
+                    ."</td>\n";
+
+	      		$curday++;
+	    	}
+	  		else
+	    	{
+	    		echo "<td width=12%>&nbsp;</td>\n";
+	    	}
+		}
+    	echo "</tr>\n";
+    }
+  	echo  "</table>";
+}
 ?>

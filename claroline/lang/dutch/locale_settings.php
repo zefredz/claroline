@@ -1,9 +1,17 @@
 <?php // $Id$
 /*
+      +----------------------------------------------------------------------+
+      | CLAROLINE version 1.5.*
+      +----------------------------------------------------------------------+
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
+      +----------------------------------------------------------------------+
       |   Dutch  Translation
+      +----------------------------------------------------------------------+
+
+      +----------------------------------------------------------------------+
       | Translator :                                                         |
       |          Roan Embrechts, Stefan De Wannemacker, Isabel Deprez        |
-      
+      +----------------------------------------------------------------------+
 */
 
 $iso639_1_code = "nl";
@@ -36,27 +44,29 @@ $timeNoSecFormat = '%I:%M %p';
 $englishLangName = "Dutch";
 $localLangName = "Nederlands";
 
-$langNameOfLang['arabic']="Arabisch";
-$langNameOfLang['brazilian']="Braziliaans";
-$langNameOfLang['bulgarian']="Bulgaars";
-$langNameOfLang['catalan']="Catalaans";
-$langNameOfLang['croatian']="Kroatisch";
-$langNameOfLang['dutch']="Nederlands";
-$langNameOfLang['english']="Engels";
-$langNameOfLang['finnish']="Fins";
-$langNameOfLang['french']="Frans";
-$langNameOfLang['fr_corporate']="Frans (bedrijven)";
-$langNameOfLang['galician']="Galiciaans";
-$langNameOfLang['german']="Duits";
-$langNameOfLang['greek']="Grieks";
-$langNameOfLang['italian']="Italiaans";
-$langNameOfLang['japanese']="Japans";
-$langNameOfLang['polish']="Pools";
-$langNameOfLang['simpl_chinese']="Eenvoudig Chinees";
-$langNameOfLang['spanish']="Spaans";
-$langNameOfLang['swedish']="Zweeds";
-$langNameOfLang['thai']="Thai";
-$langNameOfLang['turkish']="Turks";
+$iso639_2_code = "NL";
+$iso639_1_code = "DU";
+$langNameOfLang[arabic]="Arabisch";
+$langNameOfLang[brazilian]="Braziliaans";
+$langNameOfLang[bulgarian]="Bulgaars";
+$langNameOfLang[catalan]="Catalaans";
+$langNameOfLang[croatian]="Kroatisch";
+$langNameOfLang[dutch]="Nederlands";
+$langNameOfLang[english]="Engels";
+$langNameOfLang[finnish]="Fins";
+$langNameOfLang[french]="Frans";
+$langNameOfLang[fr_corporate]="Frans (bedrijven)";
+$langNameOfLang[galician]="Galiciaans";
+$langNameOfLang[german]="Duits";
+$langNameOfLang[greek]="Grieks";
+$langNameOfLang[italian]="Italiaans";
+$langNameOfLang[japanese]="Japans";
+$langNameOfLang[polish]="Pools";
+$langNameOfLang[simpl_chinese]="Eenvoudig Chinees";
+$langNameOfLang[spanish]="Spaans";
+$langNameOfLang[swedish]="Zweeds";
+$langNameOfLang[thai]="Thai";
+$langNameOfLang[turkish]="Turks";
 
 $charset = 'iso-8859-1';
 $text_dir = 'ltr';

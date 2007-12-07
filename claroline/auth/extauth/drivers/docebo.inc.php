@@ -1,19 +1,16 @@
-<?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
-/**
- * CLAROLINE
- *
- * @version 1.8 $Revision$
- *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @package CLAUTH
- *
- * @author Claro Team <cvs@claroline.net>
- */
+<?php # -$Id$
 
+//----------------------------------------------------------------------
+// CLAROLINE
+//----------------------------------------------------------------------
+// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+//----------------------------------------------------------------------
+// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
+// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+//----------------------------------------------------------------------
+// Authors: see 'credits' file
+//----------------------------------------------------------------------
 
 $authSourceName = 'docebo';
 $authSourceType = 'DB';
@@ -54,9 +51,42 @@ $extAuthAttribNameList = array (
 
 $extAuthAttribTreatmentList = array ('status' => 5);
 
+
+//////////////////////////////////////////////////////////////////////////////
+
+
+$extAuth = new ExternalAuthentication($authSourceType, $extAuthOptionList);
+$extAuth->setAuthSourceName($authSourceName);
+
+if ( $extAuth->isAuth() )
+{
+    if ( isset($uData['user_id']) )
+    {
+       // update the user data in the claroline user table
+
+       $extAuth->recordUserData($extAuthAttribNameList, 
+                                $extAuthAttribTreatmentList, 
+                                $uData['user_id']);
+    }
+    else
+    {
+        // create a new rank in the claroline user table for this user
+    
+    $extAuth->recordUserData($extAuthAttribNameList,
+                             $extAuthAttribTreatmentList);
+    }
+
+    $extAuthId = $extAuth->getUid();
+}
+else
+{
+    $extAuthId = false;
+}
+
+return $extAuthId;
+
 // PROCESS AUTHENTICATION
 
 return require dirname(__FILE__).'/../extAuthProcess.inc.php';
-
 
 ?>

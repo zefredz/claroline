@@ -1,14 +1,12 @@
 <?php // $Id$
 /**
- * CLAROLINE
+ * @version  CLAROLINE version 1.6
  *
- * @version 1.8 $Revision$
+ * @copyright (c) 2001, 2005 Universite catholique de Louvain (UCL)
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @license GENERAL PUBLIC LICENSE
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @author Piraux Sï¿½bastien <pir@cerdecam.be>
+ * @author Piraux Sébastien <pir@cerdecam.be>
  * @author Lederer Guillaume <led@cerdecam.be>
  *
  * @package CLLNP
@@ -26,9 +24,9 @@
        CLAROLINE MAIN
   ======================================*/
 
-require '../../inc/claro_init_global.inc.php';
+  require '../../inc/claro_init_global.inc.php';
 
-// Tables names
+  // Tables names
 /*
  * DB tables definition
  */
@@ -45,134 +43,156 @@ $TABLELEARNPATHMODULE   = $tbl_lp_rel_learnPath_module;
 $TABLEASSET             = $tbl_lp_asset;
 $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 
-// lib of this tool
-include(get_path('incRepositorySys')."/lib/learnPath.lib.inc.php");
-
-if(isset ($_GET['viewModule_id']) && $_GET['viewModule_id'] != '')
-	$_SESSION['module_id'] = $_GET['viewModule_id'];
-
-// SET USER_MODULE_PROGRESS IF NOT SET
-if(claro_is_user_authenticated()) // if not anonymous
-{
-	// check if we have already a record for this user in this module
-	$sql = "SELECT COUNT(LPM.`learnPath_module_id`)
-	        FROM `".$TABLEUSERMODULEPROGRESS."` AS UMP, `".$TABLELEARNPATHMODULE."` AS LPM
-	       WHERE UMP.`user_id` = '" . (int)claro_get_current_user_id() . "'
-	         AND UMP.`learnPath_module_id` = LPM.`learnPath_module_id`
-	         AND LPM.`learnPath_id` = ". (int)$_SESSION['path_id']."
-	         AND LPM.`module_id` = ". (int)$_SESSION['module_id'];
-	$num = claro_sql_query_get_single_value($sql);
-
-	$sql = "SELECT `learnPath_module_id`
-	        FROM `".$TABLELEARNPATHMODULE."`
-	       WHERE `learnPath_id` = ". (int)$_SESSION['path_id']."
-	         AND `module_id` = ". (int)$_SESSION['module_id'];
-	$learnPathModuleId = claro_sql_query_get_single_value($sql);
-
-	// if never intialised : create an empty user_module_progress line
-	if( !$num || $num == 0 )
-	{
-	    $sql = "INSERT INTO `".$TABLEUSERMODULEPROGRESS."`
-	            ( `user_id` , `learnPath_id` , `learnPath_module_id`, `suspend_data` )
-	            VALUES ( " . (int)claro_get_current_user_id() . " , ". (int)$_SESSION['path_id']." , ". (int)$learnPathModuleId.", '')";
-	    claro_sql_query($sql);
-	}
-}  // else anonymous : record nothing !
+  // lib of this tool
 
 
-// Get info about launched module
+  include($includePath."/lib/learnPath.lib.inc.php");
 
-$sql = "SELECT `contentType`,`startAsset_id`
-          FROM `".$TABLEMODULE."`
-         WHERE `module_id` = ". (int)$_SESSION['module_id'];
+  if(isset ($_GET['viewModule_id']) && $_GET['viewModule_id'] != '')
+        $_SESSION['module_id'] = $_GET['viewModule_id'];
+  // SET USER_MODULE_PROGRESS IF NOT SET
 
-$module = claro_sql_query_get_single_row($sql);
+  if($_uid) // if not anonymous
+  {
+      $sql = "SELECT *
+                FROM `".$TABLEUSERMODULEPROGRESS."` AS UMP, `".$TABLELEARNPATHMODULE."` AS LPM
+               WHERE UMP.`user_id` = '$_uid'
+                 AND UMP.`learnPath_module_id` = LPM.`learnPath_module_id`
+                 AND LPM.`learnPath_id` = ".$_SESSION['path_id']."
+                 AND LPM.`module_id` = ".$_SESSION['module_id'];
+      $query1 = claro_sql_query($sql);
+      $num = mysql_num_rows($query1);
 
-$sql = "SELECT `path`
-               FROM `".$TABLEASSET."`
-              WHERE `asset_id` = ". (int)$module['startAsset_id'];
+      $sql = "SELECT *
+                FROM `".$TABLELEARNPATHMODULE."`
+               WHERE `learnPath_id` = ".$_SESSION['path_id']."
+                 AND `module_id` = ".$_SESSION['module_id'];
+      $query = claro_sql_query($sql);
+      $LPM = mysql_fetch_array($query);
 
-$assetPath = claro_sql_query_get_single_value($sql);
 
-// Get path of file of the starting asset to launch
+      // if never intialised : create an empty user_module_progress line
+      if ($num == 0)
+      {
 
-$withFrames = false;
+            $sql = "INSERT
+                      INTO `".$TABLEUSERMODULEPROGRESS."`
+                           ( `user_id` , `learnPath_id` , `learnPath_module_id` )
+                    VALUES ( '$_uid' , ".$_SESSION['path_id']." , ".$LPM['learnPath_module_id'].")";
+            claro_sql_query($sql);
+      }
+  }  // else anonymous : record nothing !
 
-switch ($module['contentType'])
-{
-	case CTDOCUMENT_ :
-		if(claro_is_user_authenticated())
-		{
-		    // if credit was already set this query changes nothing else it update the query made at the beginning of this script
-		    $sql = "UPDATE `".$TABLEUSERMODULEPROGRESS."`
-		               SET `credit` = 1,
-		                   `raw` = 100,
-		                   `lesson_status` = 'completed',
-		                   `scoreMin` = 0,
-		                   `scoreMax` = 100
-		             WHERE `user_id` = " . (int)claro_get_current_user_id() . "
-		               AND `learnPath_module_id` = ". (int)$learnPathModuleId;
 
-		    claro_sql_query($sql);
-		} // else anonymous : record nothing
+  // Get info about launched module
 
-		$startAssetPage = urlencode($assetPath);
-        $moduleStartAssetPage = claro_get_file_download_url( $startAssetPage );
+  $query = "SELECT `contentType`,`startAsset_id`
+              FROM `".$TABLEMODULE."`
+             WHERE `module_id` = ".$_SESSION['module_id'];
 
-  		$withFrames = true;
-		break;
+  $result      = claro_sql_query($query);
+  $module        = mysql_fetch_array($result);
 
-	case CTEXERCISE_ :
-		// clean session vars of exercise
-		unset($_SESSION['serializedExercise']);
-		unset($_SESSION['serializedQuestionList']);
-		unset($_SESSION['exeStartTime'	]);
 
-		$_SESSION['inPathMode'] = true;
-		$startAssetpage = get_module_url('CLQWZ') . '/exercise_submit.php';
-		$moduleStartAssetPage = $startAssetpage . '?exId=' . $assetPath;
-		break;
-	case CTSCORM_ :
-		// real scorm content method
-		$startAssetPage = $assetPath;
-		$modulePath     = 'path_' . $_SESSION['path_id'];
-		$moduleStartAssetPage = get_path('coursesRepositoryWeb') . claro_get_course_path() . '/scormPackages/' . $modulePath . $startAssetPage;
-		break;
-	case CTCLARODOC_ :
-		break;
-} // end switch
+  $assetQuery = "SELECT `path`
+                   FROM `".$TABLEASSET."`
+                  WHERE `asset_id` = ".$module['startAsset_id'];
+
+  $assetResult = claro_sql_query($assetQuery);
+  $asset   = mysql_fetch_array($assetResult);
+
+
+  // Get path of file of the starting asset to launch
+
+  $withFrames = false;
+  switch ($module['contentType'])
+  {
+          case CTDOCUMENT_ :
+                if($_uid)
+                {
+                    // if credit was already set this query changes nothing else it update the query made at the beginning of this script
+                    $sql = "UPDATE `".$TABLEUSERMODULEPROGRESS."`
+                               SET `credit` = 1,
+                                   `raw` = 100,
+                                   `lesson_status` = 'completed',
+                                   `scoreMin` = 0,
+                                   `scoreMax` = 100
+                             WHERE `user_id` = $_uid
+                               AND `learnPath_module_id` = ".$LPM['learnPath_module_id'];
+
+                    claro_sql_query($sql);
+                } // else anonymous : record nothing
+
+                $startAssetPage = $asset['path'];
+                // str_replace("%2F","/",urlencode($startAssetPage)) is useed to avoid problems with accents in filename.
+                // without tracking of document
+                //$moduleStartAssetPage = $coursesRepositoryWeb.$_course['path']."/document".str_replace("%2F","/",urlencode($startAssetPage));
+                // with tracking of document
+                $moduleStartAssetPage = $clarolineRepositoryWeb."/document/goto/?doc_url=".str_replace("%2F","/",urlencode($startAssetPage));
+
+                $withFrames = true;
+                break;
+          case CTEXERCISE_ :
+               // clean session vars of exercise
+                unset($_SESSION['objExercise']);
+                unset($_SESSION['objQuestion']);
+                unset($_SESSION['objAnswer']);
+                unset($_SESSION['questionList']);
+                unset($_SESSION['exerciseResult']);
+				unset($_SESSION['exeStartTime'	]);
+                session_unregister('objExercise');
+                session_unregister('objQuestion');
+                session_unregister('objAnswer');
+                session_unregister('questionList');
+                session_unregister('exerciseResult');
+				session_unregister('exeStartTime');
+
+                $_SESSION['inPathMode'] = true;
+                $startAssetpage = $clarolineRepositoryWeb."exercice/exercice_submit.php";
+                $exerciseId     = $asset['path'];
+                $moduleStartAssetPage = $startAssetpage."?exerciseId=".$exerciseId;
+                break;
+          case CTSCORM_ :
+                // real scorm content method
+                $startAssetPage = $asset['path'];
+                $modulePath     = "path_".$_SESSION['path_id'];
+                $moduleStartAssetPage = $coursesRepositoryWeb.$_course['path']."/scormPackages/".$modulePath.$startAssetPage;
+                break;
+          case CTCLARODOC_ :
+               break;
+  } // end switch
 
 ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN"
-   "http://www.w3.org/TR/html4/frameset.dtd">
+
+
 <html>
 
   <head>
-
+  
 <?php
-   // add the update frame if this is a SCORM module
+   // add the update frame if this is a SCORM module   
    if ( $module['contentType'] == CTSCORM_ )
    {
-
+      
       include("scormAPI.inc.php");
-      echo '<frameset border="0" cols="0,20%,80%" frameborder="no">
-            <frame src="updateProgress.php" name="upFrame">';
-
+      echo "<frameset border='0' cols='0,20%,80%' frameborder='no'>
+            <frame src='updateProgress.php' name='upFrame'>";
+      
    }
    else
    {
-      echo '<frameset border="0" cols="20%,80%" frameborder="yes">';
+      echo "<frameset border='0' cols='20%,80%' frameborder='yes'>";
    }
-?>
+?>    
     <frame src="tableOfContent.php" name="tocFrame" />
-    <frame src="<?php echo $moduleStartAssetPage; ?>" name="scoFrame" />
+    <frame src="<?php echo $moduleStartAssetPage; ?>" name="scoFrame">
 
     </frameset>
   <noframes>
 <body>
 <?php
-  echo get_lang('Your browser cannot see frames.');
+  echo $langBrowserCannotSeeFrames;
 ?>
-</body>
+   </body>
 </noframes>
 </html>

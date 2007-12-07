@@ -1,0 +1,32 @@
+<?php
+$langAddIntro = "Dodaj tekst wprowadzenia";
+$langAgenda = "Terminarz";
+$langAnnouncement = "Og³oszenia";
+$langChat = "Chat-room";
+$langConfirmYourChoice = "Potwierd¼ swój wybór";
+$langCourseManager = "Administrator";
+$langDay_of_weekNames = "Array";
+$langDelete = "Usuñ";
+$langDescriptionCours = "Opis kursu";
+$langDocument = "Dokumenty";
+$langForums = "Forum";
+$langGroups = "inscription des utilisateurs dans les groupes";
+$langHelp = "Pomoc";
+$langLogin = "Logowanie";
+$langLogout = "Wylogowanie";
+$langManager = "Administrator";
+$langModify = "Modyfikuj";
+$langModifyProfile = "Modyfikuj Mój profil";
+$langMonthNames = "Array";
+$langMyCourses = "Lista moich kursów";
+$langNotAllowed = "You are not allowed here";
+$langOk = "Ok";
+$langOtherCourses = "Lista kursów";
+$langPoweredBy = "Powered by";
+$langReg = "Rejestracja";
+$langStudent = "student";
+$langTotal = "Total";
+$langUserName = "Nazwa u¿ytkownika";
+$langUsers = "U¿ytkownicy";
+$langWork = "Works";
+?>

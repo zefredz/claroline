@@ -1,0 +1,66 @@
+<?php
+$langAddIntro = "A&ntilde;adir texto introductorio";
+$langAddPage = "A&ntilde;adir una p&aacute;gina";
+$langAgenda = "Agenda";
+$langAnnouncement = "Anuncios";
+$langChat = "Debate";
+$langConfirmYourChoice = "Por favor confirme su elecci&oacute;n";
+$langCouldNot = "El archivo no puede ser enviado";
+$langCourseHome = "P&aacute;gina de inicio del curso";
+$langCourseManager = "Responsable del curso";
+$langDay_of_weekNames = "Array";
+$langDelete = "Borrar";
+$langDescriptionCours = "Descripci&oacute;n del curso";
+$langDocument = "Documentos";
+$langExercises = "Ejercicios";
+$langExplanation = "Una vez que usted haya pulsado OK, ser&aacute; creada una web que incluir&aacute; Foro, 
+					Lista de enlaces, Ejercicios, Agenda, Lista de documentos... Por medio de su c&oacute;digo 
+					de identificaci&oacute;n, usted podr&aacute; modificar su contenido";
+$langForums = "Foros";
+$langGroups = "Inscripci&oacute;n de los usuarios en los grupos";
+$langHelp = "ayuda";
+$langHome = "Volver a la p&aacute;gina principal";
+$langLearningPath = "Secuencia de aprendizaje";
+$langLink = "Enlaces";
+$langLinkSite = "Enlace a una web";
+$langLinks = "Enlaces";
+$langLogin = "nombre de usuario";
+$langLogout = "Salir";
+$langManager = "Responsable";
+$langModify = "Modificar";
+$langModifyProfile = "Modificar mis datos";
+$langMonthNames = "Array";
+$langMyAgenda = "Mi agenda";
+$langMyCourses = "Mis cursos";
+$langName = "Nombre";
+$langNotAllowed = "Usted no est&aacute; identificado como responsable de este curso";
+$langOk = "validar";
+$langOkSent = "Su p&aacute;gina ha sido enviada al servidor. <p>Es accesible desde la 
+			   <a href=../..//index.php>p&aacute;gina principal</a> de su curso";
+$langOtherCourses = "Lista de cursos";
+$langPassword = "contraseña";
+$langPgTitle = "T&iacute;tulo de la p&aacute;gina";
+$langPlatformAdministration = "Administraci&oacute;n de la plataforma";
+$langPoweredBy = "Generado con";
+$langReg = "Inscripci&oacute;n";
+$langSendPage = "P&aacute;gina a enviar";
+$langStudent = "Estudiante";
+$langSubTitle = "A&ntilde;adir al men&uacute; principal de su p&aacute;gina principal un enlace a una p&aacute;gina, 
+				 en el interior o exterior de su web";
+$langSwitchEditorToTextConfirm = "Este comando va a eliminar el formato de texto actual. Desea continuar?";
+$langTextEditorDisable = "Deshabilitar editor de texto";
+$langTextEditorEnable = "Habilitar editor de texto";
+$langTooBig = "Usted no ha seleccionado ning&uacute;n archivo para enviar o el archivo es demasiado grande";
+$langUserName = "Nombre de usuario";
+$langUsers = "Usuarios";
+$langViewMode = "Modo de vista";
+$langWork = "Trabajos";
+$lang_click_here = "pulse aqu&iacute;";
+$lang_enter_your_user_name_and_password = "Introduzca su nombre de usuario y contrase&ntilde;a";
+$lang_footer_p_CourseManager = "Gestor(es) para %s";
+$lang_if_you_dont_have_a_user_account_profile_on = "Si usted no tiene una cuenta de usuario activa";
+$lang_if_you_wish_to_enroll_to_this_course = "Si desea usted matricularse en este curso";
+$lang_p_platformManager = "Administrador de %s";
+$lang_this_course_is_protected = "Este curso est&aacute; protegido";
+$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Parece que su cuenta de usuario no est&aacute; registrada en este curso";
+?>

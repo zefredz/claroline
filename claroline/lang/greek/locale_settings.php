@@ -1,20 +1,18 @@
 <?php // $Id$
-/**
- * CLAROLINE 
- *
- * Greek Translation
- *
- * @version 1.8 $Revision$
- *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
- *
- * @package LANG-EL
- *
- * @author Costas Tsibanis		<costas@noc.uoa.gr>
- * @author Yannis Exidaridis 	<jexi@noc.uoa.gr>
- * @author Christophe Geschι <moosh@claroline.net>
+/*
+      +----------------------------------------------------------------------+
+      | CLAROLINE version 1.5.* $Revision$                             |
+      +----------------------------------------------------------------------+
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
+      +----------------------------------------------------------------------+
+      |   Greek Translation                                                  |
+      +----------------------------------------------------------------------+
+
+      +----------------------------------------------------------------------+
+      | Translator :                                                         |
+      |          Costas Tsibanis		<costas@noc.uoa.gr>                      |
+      |          Yannis Exidaridis 	<jexi@noc.uoa.gr>                        |
+      +----------------------------------------------------------------------+
  */
 $englishLangName = "greek";
 
@@ -42,7 +40,7 @@ $langMonthNames['long'] = array('Ιανουάριος', 'Φεβρουάριος', 'Μάρτιος', 'Απρίλιο
 
 $dateFormatShort =  "%b %d, %y";
 $dateFormatLong  = '%A %B %d, %Y';
-$dateTimeFormatLong  = '%d %B %Y, στις %I:%M %p';
+$dateTimeFormatLong  = '%B %d, %Y at %I:%M %p';
 $timeNoSecFormat = '%I:%M %p';
 
 

@@ -1,0 +1,35 @@
+<?php
+$langActivate = "Aktivigi ";
+$langAddIntro = "ALDONI ENKONDUKON ";
+$langAgenda = "Proksimaj agendopunktoj ";
+$langAnnouncement = "Anoncoj";
+$langAreYouSureToDelete = "&#264;u vi volas forigi &#265;i-dokumenton: ";
+$langCancel = "Nuligi ";
+$langChat = "Interreta babilado";
+$langConfirmYourChoice = "Bv. konfirmi vian elekton";
+$langCourseManager = "Kursmastrumanto ";
+$langDelete = "Vi&#349;i ";
+$langDescriptionCours = "Priskribo de la kurso";
+$langDocument = "Dokumentoj";
+$langForums = "Forumoj";
+$langGroups = "Grupoj ";
+$langHelp = "Helpu";
+$langHome = "Startpa&#285;o ";
+$langLogin = "Ensaluti ";
+$langLogout = "Adia&#365;i ";
+$langManager = "Platformmastrumanto";
+$langModify = "Adapti";
+$langModifyProfile = "mian profilon";
+$langMyAgenda = "Mia agendo";
+$langMyCourses = "miajn kursojn";
+$langNotAllowed = "Vi ne estas kursmastrumanto. Vi ne povas fari tion. ";
+$langOk = "En ordo ";
+$langOtherCourses = "Kursa supervido ";
+$langReg = "Registrado ";
+$langStatistics = "Statistikoj";
+$langStudent = "Studento ";
+$langTools = "Ilaro";
+$langUserName = "Uzulnomo (\'ensaluto\') ";
+$langUsers = "Uzuloj";
+$langWork = "Studentaj publika&#309;oj ";
+?>

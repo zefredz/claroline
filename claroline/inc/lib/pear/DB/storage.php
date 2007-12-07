@@ -28,7 +28,7 @@ require_once 'DB.php';
  * statements.
  *
  * @package  DB
- * @version $Id$
+ * @version  $Id$
  * @category Database
  * @author   Stig Bakken <stig@php.net>
  */

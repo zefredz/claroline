@@ -109,7 +109,7 @@ $GLOBALS['_FILE_PASSWD_64'] =
 * Beside that it offers some encryption methods used by the extensions.
 *
 * @author       Michael Wallner <mike@php.net>
-* @version     $Revision$
+* @version      $Revision$
 * 
 * Usage Example:
 * <code>

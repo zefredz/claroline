@@ -1,21 +1,19 @@
-<?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
-/**
- * CLAROLINE
- *
- * @version 1.8 $Revision$
- *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @package CLAUTH
- *
- * @author Claro Team <cvs@claroline.net>
- */
+<?php # -$Id$
+
+//----------------------------------------------------------------------
+// CLAROLINE
+//----------------------------------------------------------------------
+// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+//----------------------------------------------------------------------
+// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
+// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+//----------------------------------------------------------------------
+// Authors: see 'credits' file
+//----------------------------------------------------------------------
 
 
-// Define the Auth driver options
+// Define the Auth driver options 
 
 $authSourceName = 'ldap';
 $authSourceType = 'LDAP';
@@ -28,17 +26,16 @@ $extAuthOptionList = array(
     'userattr' => 'uid',
     'useroc'   => 'person',
     'attributes' => array('sn', 'givenName', 'telephoneNumber','mail'),
-    'attrformat' => 'AUTH_LDAP_ATTR_AUTH_STYLE',
 );
 
 
 // Link external authentication attributes to the Claroline user attribute.
-// The keys are the claroline attributes and the value are the authentication
+// The keys are the claroline attributes and the value are the authentication 
 // external attributes.
 //
 // Note. If the attribute isn't found in the external authentication results,
-// the external attribute NAME would be record as claroline attribute VALUE
-// user table. It means that you can substitute a default value to the attribute
+// the external attribute NAME would be record as claroline attribute VALUE 
+// user table. It means that you can substitute a default value to the attribute 
 // name.
 
 $extAuthAttribNameList = array (
@@ -49,35 +46,26 @@ $extAuthAttribNameList = array (
     'authSource'   => 'ldap'
 );
 
+    
 
-
-// Array setting optionnal preliminary treatment to the data retrieved from the
-// exernal authentication source. The array keys are the concernend claroline
-// user table fields, ans the values are the name of the function which make
-// the treatment You can use standart PHP functions or functions defined by
-// your own. If no function named like the value are found, the authentication
+// Array setting optionnal preliminary treatment to the data retrieved from the 
+// exernal authentication source. The array keys are the concernend claroline 
+// user table fields, ans the values are the name of the function which make 
+// the treatment You can use standart PHP functions or functions defined by 
+// your own. If no function named like the value are found, the authentication 
 // system will simply stored thisvalue into Claroline.
 
 $extAuthAttribTreatmentList = array (
-    'lastname'     => 'ldap_to_claroline',
-    'firstname'    => 'ldap_to_claroline',
-    'loginName'    => 'ldap_to_claroline',
-    'email'        => 'ldap_to_claroline',
-    'officialCode' => 'ldap_to_claroline',
-    'phoneNumber'  => 'ldap_to_claroline',
-    'isCourseCreator' => 0
+    'lastname'     => 'utf8_decode',
+    'firstname'    => 'utf8_decode',
+    'loginName'    => 'utf8_decode',
+    'email'        => 'utf8_decode',
+    'officialCode' => 'utf8_decode',
+    'phoneNumber'  => 'utf8_decode',
+    'status'       => 5
 );
-
-
-function ldap_to_claroline($attribute)
-{
-    if ( is_array( $attribute ) ) $attribute = implode(', ', $attribute);
-    return utf8_decode($attribute);
-}
-
 
 // PROCESS AUTHENTICATION
 
 return require dirname(__FILE__).'/../extAuthProcess.inc.php';
-
 ?>

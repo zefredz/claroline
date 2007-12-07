@@ -65,7 +65,7 @@ require_once "PEAR.php";
  *
  * @author   Jeroen Houben <jeroen@terena.nl>, Cipriano Groenendal <cipri@campai.nl>
  * @package  Auth
- * @version $Revision$
+ * @version  $Revision$
  */
 class Auth_Container_IMAP extends Auth_Container
 {

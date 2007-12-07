@@ -2,153 +2,131 @@
 /**
  * CLAROLINE
  *
- * @version 1.6 *
+ * @version  1.6 *
  *
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @copyright 2001, 2005 Universite catholique de Louvain (UCL)
+ * @license GPL
  * @author see CREDITS.txt
  *
- */
+ */ 
 require '../inc/claro_init_global.inc.php';
 
-$nameTools = get_lang('User access details');
+$nameTools = $langUserAccessDetails;
 
-$interbredcrump[]= array ("url"=>"courseLog.php", "name"=> get_lang('Statistics'));
+$interbredcrump[]= array ("url"=>"courseLog.php", "name"=> $langStatistics);
 
+$htmlHeadXtra[] = "<style type='text/css'>
+<!--
+.secLine {background-color : #E6E6E6;}
+.content {padding-left : 15px;padding-right : 15px; }
+.specialLink{color : #0000FF;}
+-->
+</style>
+<STYLE media='print' type='text/css'>
+<!--
+TD {border-bottom: thin dashed Gray;}
+-->
+</STYLE>";
 $tbl_mdb_names       = claro_sql_get_main_tbl();
 $TABLEUSER           = $tbl_mdb_names['user'  ];
 $tbl_cdb_names       = claro_sql_get_course_tbl();
 $TABLETRACK_ACCESS        = $tbl_cdb_names['track_e_access'];
 $TABLETRACK_DOWNLOADS        = $tbl_cdb_names['track_e_downloads'];
 
-include get_path('incRepositorySys') . '/lib/statsUtils.lib.inc.php';
+include($includePath."/lib/statsUtils.lib.inc.php");
 
 $toolTitle['mainTitle'] = $nameTools;
-
-$is_allowedToTrack = claro_is_course_manager();
-
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-
-if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
+switch ($_GET['cmd'])
 {
-     if( isset($_REQUEST['cmd']) && ( $_REQUEST['cmd'] == 'tool' && !empty($_REQUEST['id']) ) )
-    {
-            // set the subtitle for the echo claro_html_tool_title function
-            $sql = "SELECT `access_tlabel` AS `label`
-                    FROM `" . $TABLETRACK_ACCESS . "`
-                    WHERE `access_tid` = ". (int)$_REQUEST['id']."
-                    GROUP BY `access_tid`" ;
+	case 'tool' : 
+	    	// set the subtitle for the claro_disp_tool_title function
+		$toolTitle['subTitle'] = $langTool." : ".$toolNameList[$_GET['label']];
+		// prepare SQL query
+		$sql = "SELECT nom, prenom, MAX(UNIX_TIMESTAMP(`access_date`)) AS data, COUNT(`access_date`) AS nbr
+			FROM `".$TABLETRACK_ACCESS."`
+			LEFT JOIN `".$TABLEUSER."`
+			ON `access_user_id` = `user_id`
+			WHERE `access_tid` = '".$_GET['data']."'
+			GROUP BY nom, prenom
+			ORDER BY nom, prenom	";
+		break;
+	case 'doc'  :	
+	    	// set the subtitle for the claro_disp_tool_title function
+		$toolTitle['subTitle'] = $langDocument." : ".$_GET['data'];	
+		// prepare SQL query
+		$sql = "SELECT nom, prenom, MAX(UNIX_TIMESTAMP(`down_date`)) AS data, COUNT(`down_date`) AS nbr
+			FROM `".$TABLETRACK_DOWNLOADS."`
+			LEFT JOIN `".$TABLEUSER."`
+			ON `down_user_id` = `user_id`
+			WHERE `down_doc_path` = '".$_GET['data']."'
+			GROUP BY nom, prenom
+			ORDER BY nom, prenom	";
+		break;
+}
 
-            $viewedToolLabel = claro_sql_query_get_single_row($sql);
+include($includePath."/claro_init_header.inc.php");
+claro_disp_tool_title($toolTitle);
 
-            if( isset($viewedToolLabel['label']) && isset($toolNameList[$viewedToolLabel['label']]) )
-                    $toolTitle['subTitle'] = get_lang('Tool')." : ".$toolNameList[$viewedToolLabel['label']];
+$is_allowedToTrack = $is_courseAdmin; 
+if(  $is_allowedToTrack && $is_trackingEnabled )
+{
 
+?>
+   
+       <table class="claroTable" border="0" cellpadding="5" cellspacing="1">
+              	<tr class="headerX">
+                  <th><?php echo $langFirstName;?></th>
+                  <th><?php echo $langLastName;?></th>
+                  <th><?php echo $langLastAccess;?></th>                  
+                  <th><?php echo $langNbrAccess;?></th>                  
+              	</tr>
+		<tbody>	
+            
+<?php
 
-            // prepare SQL query
-            $sql = "SELECT `nom` AS `lastName`,
-                        `prenom` AS `firstName`,
-                        MAX(UNIX_TIMESTAMP(`access_date`)) AS `data`,
-                        COUNT(`access_date`) AS `nbr`
-                    FROM `".$TABLETRACK_ACCESS."`
-                    LEFT JOIN `".$TABLEUSER."`
-                    ON `access_user_id` = `user_id`
-                    WHERE `access_tid` = '". (int)$_REQUEST['id']."'
-                    GROUP BY `nom`, `prenom`
-                    ORDER BY `nom`, `prenom`";
-    }
-    elseif( isset($_REQUEST['cmd']) && ( $_REQUEST['cmd'] == 'doc' && !empty($_REQUEST['path']) ) )
-    {
-            // set the subtitle for the echo claro_html_tool_title function
-            $toolTitle['subTitle'] = get_lang('Documents and Links')." : ". htmlspecialchars($_REQUEST['path']);
-            // prepare SQL query
-            $sql = "SELECT `nom` as `lastName`,
-                        `prenom` as `firstName`,
-                        MAX(UNIX_TIMESTAMP(`down_date`)) AS `data`,
-                        COUNT(`down_date`) AS `nbr`
-                    FROM `".$TABLETRACK_DOWNLOADS."`
-                    LEFT JOIN `".$TABLEUSER."`
-                    ON `down_user_id` = `user_id`
-                    WHERE `down_doc_path` = '". addslashes($_REQUEST['path']) ."'
-                    GROUP BY `nom`, `prenom`
-                    ORDER BY `nom`, `prenom`";
-    }
-    else
-    {
-        $dialogBox = get_lang('Wrong operation');
-    }
-
-    echo claro_html_tool_title($toolTitle);
-
-    if( isset($dialogBox) ) echo claro_html_message_box($dialogBox);
-
-
-    // TODO  use datagrid
-    echo '<br />' . "\n\n"
-    .    '<table class="claroTable" border="0" cellpadding="5" cellspacing="1">' . "\n"
-    .    '<tr class="headerX">'."\n"
-    .    '<th>' . get_lang('Username') . '</th>' . "\n"
-    .    '<th>' . get_lang('Last access') . '</th>' . "\n"
-    .    '<th>' . get_lang('Access count') . '</th>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tbody>' . "\n\n"
-    ;
-
+    $result = claro_sql_query($sql);  
     $i = 0;
-    $anonymousCount = 0;
-    if( isset($sql) )
+    // display the list
+    while ($userAccess = mysql_fetch_array ($result))
     {
-        $accessList = claro_sql_query_fetch_all($sql);
-        // display the list
-        foreach ( $accessList as $userAccess )
-        {
-            $userName = $userAccess['lastName']." ".$userAccess['firstName'];
-            if( empty($userAccess['lastName']) )
-            {
-                 $anonymousCount = $userAccess['nbr'];
-                continue;
-            }
-            $i++;
-            echo '<tr>' . "\n"
-            .    '<td>' . $userName . '</td>' . "\n"
-            .    '<td>' . claro_html_localised_date(get_locale('dateTimeFormatLong'), $userAccess['data']) . '</td>' . "\n"
-            .    '<td>' . $userAccess['nbr'] . '</td>' . "\n"
-            .    '</tr>' . "\n\n"
-            ;
-        }
-    }
+	if($userAccess['nom'] == "" )
+	{
+	 	$anonymousCount = $userAccess['nbr'];
+		continue;
+	}
+	$i++;    	
+	echo "<tr>";
+    	   	
+    	echo "<td> ".$userAccess['nom']." </td> <td> "
+		.$userAccess['prenom']." </td> <td> "
+		.claro_disp_localised_date($dateTimeFormatLong, $userAccess['data'])." </td> <td> "
+		.$userAccess['nbr']." </td>";
+    	
+    	echo "</tr>";
+    }	
     // in case of error or no results to display
-    if( $i == 0 || !isset($sql) )
-    {
-        echo '<td colspan="3">' . "\n"
-        .    '<center>' . get_lang('No result') . '</center>' . "\n"
-        .    '</td>' . "\n\n"
-        ;
-    }
-
-    echo '</tbody>' . "\n\n"
-    .    '</table>' . "\n\n"
-    ;
-
-    if( $anonymousCount != 0 )
-    {
-        echo '<p>'.get_lang('Anonymous users access count : ').' '.$anonymousCount.'</p>'."\n";
-    }
-
+    if($i == 0 ) 
+	echo "<td colspan=\"4\"><center>".$langNoResult."</center></td>";
+ 
+    echo "</tbody>\n</table>";         
+	
+    if( $anonymousCount && $anonymousCount != "" )
+	echo "<p>".$langAnonymousUserAccessCount.$anonymousCount."</p>";
+ 
 }
 // not allowed
 else
 {
-    if(!get_conf('is_trackingEnabled'))
+    if(!$is_trackingEnabled)
     {
-        echo get_lang('Tracking has been disabled by system administrator.');
+        echo $langTrackingDisabled;
     }
     else
     {
-        echo get_lang('Not allowed');
+        echo $langNotAllowed;
     }
 }
 
 // footer
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include($includePath."/claro_init_footer.inc.php");
 ?>

@@ -1,0 +1,36 @@
+<?php
+$langAddIntro = "Dodaj tekst wprowadzenia";
+$langAgenda = "Terminarz";
+$langAnnouncement = "Og³oszenia";
+$langCategories = "Kategorie/Wydzia³y";
+$langChat = "Chat-room";
+$langConfirmYourChoice = "Potwierd¼ swój wybór";
+$langCourseCreate = "Utwórz nowy kurs";
+$langCourseManager = "Administrator";
+$langDay_of_weekNames = "Array";
+$langDelete = "Usuñ";
+$langDescriptionCours = "Opis kursu";
+$langDocument = "Dokumenty";
+$langEnter = "Wej¶cie";
+$langForums = "Forum";
+$langGroups = "inscription des utilisateurs dans les groupes";
+$langHelp = "Pomoc";
+$langInvalidId = "Niew³a¶ciwa nazwa u¿ytkownika. Je¶li nie jeste¶ zarejestowany, wype³nij <a href='claroline/auth/inscription.php'>formularz rejestracyjny</a></font color>";
+$langLogin = "Logowanie";
+$langLogout = "Wylogowanie";
+$langLostPassword = "Odzyskiwanie has³a";
+$langManager = "Administrator";
+$langModify = "Modyfikuj";
+$langModifyProfile = "Modyfikuj Mój profil";
+$langMonthNames = "Array";
+$langMyCourses = "Lista moich kursów";
+$langNotAllowed = "You are not allowed here";
+$langOk = "Ok";
+$langOtherCourses = "Lista kursów";
+$langPoweredBy = "Powered by";
+$langReg = "Rejestracja";
+$langStudent = "student";
+$langUserName = "Nazwa u¿ytkownika";
+$langUsers = "U¿ytkownicy";
+$langWork = "Works";
+?>

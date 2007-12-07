@@ -2,7 +2,7 @@
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -13,9 +13,9 @@
 
 require '../../../../inc/claro_init_global.inc.php';
 
-// Security check
-if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
+// SECURITY CHECK
+
+if (!$is_platformAdmin) claro_disp_auth_form();
 
 /*
  * This script build the lang files with var without translation for all languages.
@@ -38,48 +38,48 @@ $starttime = get_time();
 
 $nameTools = 'Build an empty language file';
 
-$urlSDK = $rootAdminWeb . 'xtra/sdk/';
+$urlSDK = $rootAdminWeb . 'xtra/sdk/'; 
 $urlTranslation = $urlSDK . 'translation_index.php';
-$interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> get_lang('Administration'));
-$interbredcrump[] = array ("url"=>$urlSDK, "name"=> get_lang('SDK'));
-$interbredcrump[] = array ("url"=>$urlTranslation, "name"=> get_lang('Translation Tools'));
+$interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
+$interbredcrump[] = array ("url"=>$urlSDK, "name"=> $langSDK);
+$interbredcrump[] = array ("url"=>$urlTranslation, "name"=> $langTranslationTools);
 
 include($includePath."/claro_init_header.inc.php");
 
-echo claro_html_tool_title($nameTools);
+claro_disp_tool_title($nameTools);
 
-// go to lang folder
+// go to lang folder 
 
 $path_lang = $rootSys . "claroline/lang";
 chdir ($path_lang);
 
 
-// get the different variables
-$sql = " SELECT DISTINCT u.varName
-         FROM ". $tbl_used_lang . " u
+// get the different variables 
+$sql = " SELECT DISTINCT u.varName 
+         FROM ". $tbl_used_lang . " u 
          ORDER BY u.varName";
-
+	
 $result = mysql_query($sql) or die ("QUERY FAILED: " .  __LINE__);
-
-if ($result)
+	         
+if ($result) 
 {
     echo '<p>Create file: ' . $path_lang . '/' . LANG_EMPTY_FILENAME . '</p>' . "\n";
-
-    $fileHandle = fopen(LANG_EMPTY_FILENAME, 'w') or die("FILE OPEN FAILED: ". __LINE__);
+	
+    $fileHandle = fopen(LANG_EMPTY_FILENAME, 'w') or die("FILE OPEN FAILED: ". __LINE__);	
     if ($fileHandle)
     {
         fwrite($fileHandle, "<?php \n");
-
+		
         while ( $row=mysql_fetch_array($result) )
         {
-            $string = build_translation_line_file($row['varName'],'') ;
-            fwrite($fileHandle, $string) or die ("FILE WRITE FAILED: ". __LINE__);
-        }
-
-        fwrite($fileHandle, "?>");
+	        $string = '$'. $row['varName'] . ' = "";' . "\n";
+    	    fwrite($fileHandle, $string) or die ("FILE WRITE FAILED: ". __LINE__);
+	    }
+	
+    	fwrite($fileHandle, "?>");
     }
 }
-
+	
 // build language files
 fclose($fileHandle) or die ("FILE CLOSE FAILED: ". __LINE__);
 

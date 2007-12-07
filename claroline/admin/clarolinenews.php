@@ -1,36 +1,30 @@
 <?php // $Id$
-/**
- * CLAROLINE
- *
- * Show news read from claroline.net
- *
- * @version 1.8 $Revision$
- *
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/CLNEWS/
- *
- * @author Claro Team <cvs@claroline.net>
- *
- * @package CLNEWS
- *
- */
+//----------------------------------------------------------------------
+// CLAROLINE
+//----------------------------------------------------------------------
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
+//----------------------------------------------------------------------
+// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
+// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+//----------------------------------------------------------------------
+// Authors: see 'credits' file
+//----------------------------------------------------------------------
 $cidReset=true;$gidReset=true;
 require '../inc/claro_init_global.inc.php';
 
-// Security check
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
-
-require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
+if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
+include($includePath.'/lib/admin.lib.inc.php');
 // rss reader library
-require get_path('incRepositorySys') . '/lib/lastRSS/lastRSS.php';
+require($includePath.'/lib/lastRSS/lastRSS.php');
 
+//SECURITY CHECK
+$is_allowedToAdmin     = $is_platformAdmin;
+if (!$is_allowedToAdmin) treatNotAuthorized();
 
-$nameTools = get_lang('Claroline.net news');
-$interbredcrump[] = array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
+$nameTools = $langClarolineNetNews;
+
+$interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 $noQUERY_STRING   = TRUE;
 
 
@@ -43,47 +37,47 @@ $urlNewsClaroline = 'http://www.claroline.net/rss.php';
 $rss = new lastRSS;
 
 // where the cached file will be written
-$rss->cache_dir = get_path('rootSys') . '/tmp/cache/';
+$rss->cache_dir = '.';
 // how long without refresh the cache
-$rss->cache_time = 1200;
+$rss->cache_time = 1200; 
 
 //----------------------------------
 // DISPLAY
 //----------------------------------
 // title variable
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-echo claro_html_tool_title($nameTools);
+include($includePath."/claro_init_header.inc.php");	
+claro_disp_tool_title($nameTools);
 
-if (false !== $rs = $rss->get($urlNewsClaroline))
+if ($rs = $rss->get($urlNewsClaroline))
 {
-    echo '<table class="claroTable" width="100%">'."\n\n";
+	echo '<table class="claroTable" width="100%">'."\n\n";
 
-    foreach ($rs['items'] as $item)
-    {
-        $href = $item['link'];
-        $title = $item['title'];
-        $summary = $rss->unhtmlentities($item['description']);
-        $date = strtotime($item['pubDate']);
+	foreach ($rs['items'] as $item) 
+	{
+		$href = $item['link'];
+	    $title = $item['title'];
+		$summary = $rss->unhtmlentities($item['description']);
+		$date = strtotime($item['pubDate']);
 
-        echo '<tr>'."\n"
+	    echo '<tr>'."\n"
             .'<th class="headerX">'."\n"
-            .'<a href="'.$href.'">'.$title.'</a>'."\n"
-            .'<small> - '.claro_html_localised_date(get_locale('dateFormatLong'),$date).'</small>'."\n"
-            .'</th>'."\n"
-            .'</tr>'."\n"
+	        .'<a href="'.$href.'">'.$title.'</a>'."\n"
+			.'<small> - '.claro_disp_localised_date($dateFormatLong,$date).'</small>'."\n"
+	        .'</th>'."\n"
+			.'</tr>'."\n"
             .'<tr>'."\n"
             .'<td>'."\n"
-            .$summary."\n"
+	        .$summary."\n"
             .'</td>'."\n"
-            .'</tr>'."\n\n";
-    }
+			.'</tr>'."\n\n";
+	}
 
-    echo '</table>'."\n\n";
+	echo '</table>'."\n\n";
 }
 else
-{
-    echo claro_html_message_box(get_lang('Error : cannot read RSS feed (Check feed url and if php setting "allow_url_fopen" is turned on).'));
+{	
+	claro_disp_message_box($langErrorCannotReadRSSFile);
 }
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include($includePath."/claro_init_footer.inc.php");
 ?>

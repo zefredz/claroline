@@ -26,7 +26,7 @@ require_once "Auth/Container.php";
  *
  * @author   Stanislav Grozev <tacho@orbitel.bg>
  * @package  Auth
- * @version $Revision$
+ * @version  $Revision$
  */
 class Auth_Container_vpopmail extends Auth_Container {
 

@@ -1,0 +1,33 @@
+<?php
+$langAddIntro = "Önsöz metni ekle";
+$langAgenda = "Gündem";
+$langAnnouncement = "Duyurular";
+$langCategories = "Kategoriler";
+$langChat = "Tartýþma";
+$langCourseCreate = "Web dersi yarat";
+$langDay_of_weekNames = "Array";
+$langDelete = "Sil";
+$langDescriptionCours = "Ders açýklamasý";
+$langDocument = "Belgeler";
+$langEnter = "Giriþ";
+$langExercises = "Alýþtýrmalar";
+$langForums = "Forumlar";
+$langGroups = "Gruplar";
+$langHelp = "Yardým";
+$langInvalidId = "Giriþ yapýlamadý.<BR>Eðer kayýtlý deðilseniz, bu formdan <a href=claroline/auth/inscription.php>kaydolunuz</a></font color>";
+$langLogout = "Çýkýþ";
+$langManager = "Yönetici";
+$langModify = "Deðiþtir";
+$langModifyProfile = "Profilimi deðiþtir";
+$langMonthNames = "Array";
+$langMyCourses = "Derslerim";
+$langNotAllowed = "Ýzin verilmiyor";
+$langOk = "Tamam";
+$langOtherCourses = "Ders listesi";
+$langPoweredBy = "Powered by";
+$langReg = "Kayýt";
+$langStudent = "öðrenci";
+$langUserName = "Kullanýcý adýnýz";
+$langUsers = "Kullanýcýlar";
+$langWork = "Öðrenci Yazýlarý";
+?>

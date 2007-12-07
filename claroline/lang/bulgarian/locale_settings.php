@@ -1,16 +1,16 @@
 <?php // $Id$
-/**
- * CLAROLINE
- * Bulgarian Portuguese Translation
- * @version 1.8 $Revision$
- *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
- *
- * @package LANG-BG
- *
- * @author Claro team <cvs@claroline.net>
+/*
+      +----------------------------------------------------------------------+
+      | CLAROLINE version 1.5.*
+      +----------------------------------------------------------------------+
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
+      +----------------------------------------------------------------------+
+      |   Bulgarian Translation 
+      +----------------------------------------------------------------------+
+
+      +----------------------------------------------------------------------+
+      | Translator :                                                         |
+      +----------------------------------------------------------------------+
  */
 
 $iso639_1_code = "bg";
@@ -19,7 +19,24 @@ $iso639_2_code = "bul";
 $englishLangName = "bulgarian";
 $localLangName = "български";
 
-$langNameOfLang['bulgarian'] = "български";
+//$langNameOfLang[arabic]="arabian";
+//$langNameOfLang[brazilian]="brazilian";
+$langNameOfLang['bulgarian'			] = "български";
+//$langNameOfLang[croatian]="croatian";
+//$langNameOfLang[dutch]="dutch";
+//$langNameOfLang[english]="english";
+//$langNameOfLang[finnish]="finnish";
+//$langNameOfLang[french]="french";
+//$langNameOfLang[german]="german";
+//$langNameOfLang[greek]="greek";
+//$langNameOfLang[italian]="italian";
+//$langNameOfLang[japanese]="japanese";
+//$langNameOfLang[polish]="polish";
+//$langNameOfLang[simpl_chinese]="simplified chinese";
+//$langNameOfLang[spanish]="spanish";
+//$langNameOfLang[swedish]="swedish";
+//$langNameOfLang[thai]="thai";
+//$langNameOfLang[turkish]="turkish";
 
 $charset = 'CP1251';
 $text_dir = 'ltr'; // ('ltr' for left to right, 'rtl' for right to left)

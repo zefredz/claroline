@@ -1,0 +1,37 @@
+<?php
+$langAddIntro = "Tambah teks pendahuluan";
+$langAgenda = "Agenda";
+$langAnnouncement = "Pengumuman";
+$langArchive = "arsip";
+$langChat = "Diskusi";
+$langConfirmYourChoice = "Silahkan konfirmasi pilihan anda";
+$langCopyFailed = "Gagal cetak";
+$langCourseManager = "Penanggung jawab pelajaran";
+$langDay_of_weekNames = "Array";
+$langDelete = "Hapus";
+$langDescriptionCours = "Deskripsi pelajaran";
+$langDocument = "Dokumen";
+$langForums = "Forum-forum";
+$langGroup = "Group";
+$langGroupSpace = "ArealGroup";
+$langGroups = "inscription des utilisateurs dans les groupes";
+$langHelp = "Pertolongan";
+$langIsNowInYourDocDir = " sekarang dalam document tool anda. <br><B>File ini nampak</B>";
+$langLogin = "login";
+$langLogout = "Logout";
+$langManager = "Pengelola";
+$langModify = "Ubah";
+$langModifyProfile = "Ubah profil Ku";
+$langMonthNames = "Array";
+$langMyCourses = "Daftar Pelajaran Ku";
+$langNotAllowed = "Tidak diijinkan";
+$langOk = "Ok";
+$langOtherCourses = "Daftar pelajaran";
+$langPassword = "password";
+$langPoweredBy = "Diperkuat oleh";
+$langReg = "Pendaftaran";
+$langStudent = "siswa";
+$langUserName = "Nama user";
+$langUsers = "Users";
+$langWork = "Tugad";
+?>

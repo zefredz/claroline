@@ -2,7 +2,7 @@
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -13,9 +13,9 @@
 
 require '../../../../inc/claro_init_global.inc.php';
 
-// Security check
-if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
+// SECURITY CHECK
+
+if (!$is_platformAdmin) claro_disp_auth_form();
 
 /*
  * This script displays all the variables 
@@ -54,13 +54,13 @@ $nameTools = 'Display different variables with the same content';
 
 $urlSDK = $rootAdminWeb . 'xtra/sdk/'; 
 $urlTranslation = $urlSDK . 'translation_index.php';
-$interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> get_lang('Administration'));
-$interbredcrump[] = array ("url"=>$urlSDK, "name"=> get_lang('SDK'));
-$interbredcrump[] = array ("url"=>$urlTranslation, "name"=> get_lang('Translation Tools'));
+$interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
+$interbredcrump[] = array ("url"=>$urlSDK, "name"=> $langSDK);
+$interbredcrump[] = array ("url"=>$urlTranslation, "name"=> $langTranslationTools);
 
 include($includePath."/claro_init_header.inc.php");
 
-echo claro_html_tool_title($nameTools);
+claro_disp_tool_title($nameTools);
 
 // start form
 
@@ -103,7 +103,7 @@ $form .= "</select></p>";
 $form .= "<p><input type=\"submit\" value=\"OK\" /></p>";
 $form .= "</form>";
 
-echo claro_html_message_box($form);
+claro_disp_message_box($form);
 
 // select variables with same content
 
@@ -125,11 +125,11 @@ $results = $myPager->get_result_list();
 
 // display nb results
 
-echo '<p>' . get_lang('Total') . ': ' . $myPager->totalResultCount . '</p>' ;
+echo '<p>' . $langTotal . ': ' . $myPager->totalResultCount . '</p>' ;
 
 // display pager
 
-echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?language='.$language);
+$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?language='.$language);
 
 // display table header 
 
@@ -176,11 +176,11 @@ echo "</tbody>\n</table>\n";
 
 // display pager
 
-echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?language='.$language);
+$myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?language='.$language);
 
 // display nb results
 
-echo '<p>' . get_lang('Total') . ': ' . $myPager->totalResultCount . '</p>' ;
+echo '<p>' . $langTotal . ': ' . $myPager->totalResultCount . '</p>' ;
 
 // get end time
 $endtime = get_time();

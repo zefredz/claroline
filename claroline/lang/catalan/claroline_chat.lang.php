@@ -1,0 +1,32 @@
+<?php
+$langAddIntro = "AFEGEIX TEXT INTRODUCTORI";
+$langAgenda = "Agenda";
+$langAnnouncement = "Anuncis";
+$langArchive = "arxiu";
+$langChat = "Xat";
+$langCopyFailed = "Error d'impressió";
+$langDay_of_weekNames = "Array";
+$langDelete = "Esborra";
+$langDocument = "Documents";
+$langExercises = "Exercicis";
+$langForums = "Fòrums";
+$langGroup = "Grup";
+$langGroupSpace = "Àrea de grups";
+$langGroups = "Grups";
+$langHelp = "Ajuda";
+$langIsNowInYourDocDir = "ara es troba en la teva eina de document. <br><B>Aquest fitxer és visible</B>";
+$langManager = "El coordinador";
+$langModify = "modifica";
+$langModifyProfile = "Modifica el meu perfil";
+$langMonthNames = "Array";
+$langMyCourses = "Els meus cursos";
+$langNotAllowed = "Vosté no ha estat identificat com a responsable d'aquest curs";
+$langOk = "D'acord";
+$langOtherCourses = "Llista de cursos";
+$langPoweredBy = "Potenciat per ";
+$langReg = "Enregistrament";
+$langStudent = "estudiant";
+$langUserName = "Nom d'usuari";
+$langUsers = "Usuaris";
+$langWork = "Treballs dels estudiants";
+?>

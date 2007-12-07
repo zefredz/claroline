@@ -1,13 +1,10 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
- * CLAROLINE
+ * @version  CLAROLINE version 1.6
  *
- * @version 1.8 $Revision$
+ * @copyright (c) 2001, 2005 Universite catholique de Louvain (UCL)
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @license GENERAL PUBLIC LICENSE
  *
  * @author Piraux Sébastien <pir@cerdecam.be>
  * @author Lederer Guillaume <led@cerdecam.be>
@@ -22,6 +19,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * DB tables definition
  */
+if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die('---');
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_user            = $tbl_mdb_names['user'             ];
@@ -38,71 +36,73 @@ $TABLEASSET              = $tbl_lp_asset;
 $TABLEUSERMODULEPROGRESS = $tbl_lp_user_module_progress;
 $TABLEUSERS              = $tbl_user;
 
-$SCORMServerURL = get_module_url('CLLNP') . '/navigation/SCORMserver.php';
-$redirectionURL = get_module_url('CLLNP') . '/learningPath.php';
-$TOCurl = get_module_url('CLLNP') . '/navigation/tableOfContent.php';
+  $SCORMServerURL = $clarolineRepositoryWeb."learnPath/navigation/SCORMserver.php";
+  $redirectionURL = $clarolineRepositoryWeb."learnPath/learningPath.php";
+  $TOCurl = $clarolineRepositoryWeb."learnPath/navigation/tableOfContent.php";
 /*======================================
        CLAROLINE MAIN
   ======================================*/
 
-if(claro_is_user_authenticated())
-{
-    // Get general information to generate the right API inmplementation
-    $sql = "SELECT *
-              FROM `".$TABLEUSERMODULEPROGRESS."` AS UMP,
-                   `".$TABLELEARNPATHMODULE."` AS LPM,
-                   `".$TABLEUSERS."` AS U,
-                   `".$TABLEMODULE."` AS M
-             WHERE UMP.`user_id` = ". (int)claro_get_current_user_id()."
-               AND UMP.`user_id` = U.`user_id`
-               AND UMP.`learnPath_module_id` = LPM.`learnPath_module_id`
-               AND M.`module_id` = LPM.`module_id`
-               AND LPM.`learnPath_id` = ". (int)$_SESSION['path_id']."
-               AND LPM.`module_id` = ". (int)$_SESSION['module_id'];
+  if($_uid)
+  {
+        // Get general information to generate the right API inmplementation
+        $sql = "SELECT *
+                  FROM `".$TABLEUSERMODULEPROGRESS."` AS UMP,
+                       `".$TABLELEARNPATHMODULE."` AS LPM,
+                       `".$TABLEUSERS."` AS U,
+                       `".$TABLEMODULE."` AS M
+                 WHERE UMP.`user_id` = ".$_uid."
+                   AND UMP.`user_id` = U.`user_id`
+                   AND UMP.`learnPath_module_id` = LPM.`learnPath_module_id`
+                   AND M.`module_id` = LPM.`module_id`
+                   AND LPM.`learnPath_id` = ".$_SESSION['path_id']."
+                   AND LPM.`module_id` = ".$_SESSION['module_id'];
 
-    $userProgressionDetails = claro_sql_query_get_single_row($sql);
-}
+        $query = claro_sql_query($sql);
+        if ( ! ($userProgressionDetails = mysql_fetch_array($query) ) )
+                die ("mysql_error in ".__FILE__." [line ".__LINE__."] )");
 
-if( ! claro_is_user_authenticated() || !$userProgressionDetails )
-{
-    $sco['student_id'] = "-1";
-    $sco['student_name'] = "Anonymous, User";
-    $sco['lesson_location'] = "";
-    $sco['credit'] ="no-credit";
-    $sco['lesson_status'] = "not attempted";
-    $sco['entry'] = "ab-initio";
-    $sco['raw'] = "";
-    $sco['scoreMin'] = "0";
-    $sco['scoreMax'] = "100";
-    $sco['total_time'] = "0000:00:00.00";
-    $sco['suspend_data'] = "";
-    $sco['launch_data'] = "";
-}
-else // authenticated user and no error in query
-{
-    // set vars
-    $sco['student_id'] = claro_get_current_user_id();
-    $sco['student_name'] = $userProgressionDetails['nom'].", ".$userProgressionDetails['prenom'];
-    $sco['lesson_location'] = $userProgressionDetails['lesson_location'];
-    $sco['credit'] = strtolower($userProgressionDetails['credit']);
-    $sco['lesson_status'] = strtolower($userProgressionDetails['lesson_status']);
-    $sco['entry'] = strtolower($userProgressionDetails['entry']);
-    $sco['raw'] = ($userProgressionDetails['raw'] == -1) ? "" : "".$userProgressionDetails['raw'];
-    $sco['scoreMin'] = ($userProgressionDetails['scoreMin'] == -1) ? "" : "".$userProgressionDetails['scoreMin'];
-    $sco['scoreMax'] = ($userProgressionDetails['scoreMax'] == -1) ? "" : "".$userProgressionDetails['scoreMax'];
-    $sco['total_time'] = $userProgressionDetails['total_time'];
-    $sco['suspend_data'] = $userProgressionDetails['suspend_data'];
-    $sco['launch_data'] = stripslashes($userProgressionDetails['launch_data']);
-}
+        // set vars
+        $sco['student_id'] = "$_uid";
+        $sco['student_name'] = $userProgressionDetails['nom'].", ".$userProgressionDetails['prenom'];
+        $sco['lesson_location'] = $userProgressionDetails['lesson_location'];
+        $sco['credit'] = strtolower($userProgressionDetails['credit']);
+        $sco['lesson_status'] = strtolower($userProgressionDetails['lesson_status']);
+        $sco['entry'] = strtolower($userProgressionDetails['entry']);
+        $sco['raw'] = ($userProgressionDetails['raw'] == -1) ? "" : "".$userProgressionDetails['raw'];
+        $sco['scoreMin'] = ($userProgressionDetails['scoreMin'] == -1) ? "" : "".$userProgressionDetails['scoreMin'];
+        $sco['scoreMax'] = ($userProgressionDetails['scoreMax'] == -1) ? "" : "".$userProgressionDetails['scoreMax'];
+        $sco['total_time'] = $userProgressionDetails['total_time'];
+        $sco['suspend_data'] = $userProgressionDetails['suspend_data'];
+  }
+  else // anonymous
+  {
+        $sco['student_id'] = "-1";
+        $sco['student_name'] = "Anonymous, User";
+        $sco['lesson_location'] = "";
+        $sco['credit'] ="no-credit";
+        $sco['lesson_status'] = "not attempted";
+        $sco['entry'] = "ab-initio";
+        $sco['raw'] = "";
+        $sco['scoreMin'] = "";
+        $sco['scoreMax'] = "";
+        $sco['total_time'] = "0000:00:00.00";
+        $sco['suspend_data'] = "";
+  }
 
 
-//common vars
-$sco['_children'] = "student_id,student_name,lesson_location,credit,lesson_status,entry,score,total_time,exit,session_time";
-$sco['score_children'] = "raw,min,max";
-$sco['exit'] = "";
-$sco['session_time'] = "0000:00:00.00";
+  //common vars
+  $sco['_children'] = "student_id,student_name,lesson_location,credit,lesson_status,entry,score,total_time,exit,session_time";
+  $sco['score_children'] = "raw,min,max";
+  $sco['exit'] = "";
+  $sco['session_time'] = "0000:00:00.00";
+  // get in XML manifest
+  $sco['launch_data'] = stripslashes($userProgressionDetails['launch_data']);
+
+
 
 ?>
+
 <script type="text/javascript">
 
         var init_total_time = "<?php echo $sco['total_time']; ?>";

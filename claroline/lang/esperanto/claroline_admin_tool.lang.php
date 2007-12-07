@@ -1,0 +1,31 @@
+<?php
+$langAddIntro = "ALDONI ENKONDUKON ";
+$langAgenda = "Proksimaj agendopunktoj ";
+$langAnnouncement = "Anoncoj";
+$langChat = "Interreta babilado";
+$langConfirmYourChoice = "Bv. konfirmi vian elekton";
+$langCourseManager = "Kursmastrumanto ";
+$langDelete = "Vi&#349;i ";
+$langDescriptionCours = "Priskribo de la kurso";
+$langDocument = "Dokumentoj";
+$langEmpty = "Vi ne plenigis &#265;iujn kampojn. <br> Premu la RETRO-klavon kaj rekomencu.<br>Se vi ne scias vian kurskodon, vi povas rigardi al la kurslisto ";
+$langForums = "Forumoj";
+$langGroups = "Grupoj ";
+$langHelp = "Helpu";
+$langLogin = "Ensaluti ";
+$langLogout = "Adia&#365;i ";
+$langManager = "Platformmastrumanto";
+$langModify = "Adapti";
+$langModifyProfile = "mian profilon";
+$langMyAgenda = "Mia agendo";
+$langMyCourses = "miajn kursojn";
+$langNameOfLang = "nomo de la lingvo";
+$langNotAllowed = "Vi ne estas kursmastrumanto. Vi ne povas fari tion. ";
+$langOk = "En ordo ";
+$langOtherCourses = "Kursa supervido ";
+$langReg = "Registrado ";
+$langStudent = "Studento ";
+$langUserName = "Uzulnomo (\'ensaluto\') ";
+$langUsers = "Uzuloj";
+$langWork = "Studentaj publika&#309;oj ";
+?>

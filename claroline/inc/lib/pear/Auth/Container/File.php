@@ -33,7 +33,7 @@ require_once "PEAR.php";
  * @author   Stefan Ekman <stekman@sedata.org>
  * @author   Michael Wallner <mike@php.net>
  * @package  Auth
- * @version $Revision$
+ * @version  $Revision$
  */
 class Auth_Container_File extends Auth_Container
 {

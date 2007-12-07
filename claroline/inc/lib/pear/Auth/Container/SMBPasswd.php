@@ -38,7 +38,7 @@ require_once "PEAR.php";
  *
  * @author   Michael Bretterklieber <michael@bretterklieber.com>
  * @package  Auth
- * @version $Revision$
+ * @version  $Revision$
  */
 class Auth_Container_SMBPasswd extends Auth_Container
 {

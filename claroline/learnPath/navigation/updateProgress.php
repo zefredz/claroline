@@ -1,12 +1,10 @@
 <?php // $Id$
 /**
- * CLAROLINE 
+ * @version  CLAROLINE version 1.6
  *
- * @version 1.8 $Revision$
+ * @copyright (c) 2001, 2005 Universite catholique de Louvain (UCL)
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @license GENERAL PUBLIC LICENSE
  *
  * @author Piraux Sébastien <pir@cerdecam.be>
  * @author Lederer Guillaume <led@cerdecam.be>
@@ -15,11 +13,8 @@
  * @subpackage navigation
  *
  */
-
 require '../../inc/claro_init_global.inc.php'; 
-
-include get_path('incRepositorySys') . '/lib/learnPath.lib.inc.php';
-
+include($includePath."/lib/learnPath.lib.inc.php");
 /**
  * DB tables definition
  */
@@ -41,7 +36,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 $TABLEUSERS                    = $tbl_user;
 
 
-$TOCurl = get_module_url('CLLNP') . '/navigation/tableOfContent.php'; 
+$TOCurl = $clarolineRepositoryWeb."learnPath/navigation/tableOfContent.php"; 
 
 /*********************/
 /* HANDLING API FORM */
@@ -79,17 +74,17 @@ if($_POST['ump_id'])
   
   $sql = "UPDATE `".$TABLEUSERMODULEPROGRESS."` 
             SET 
-                `lesson_location` = '". addslashes($_POST['lesson_location'])."',
-                `lesson_status` = '". addslashes($lesson_status_value) ."',
-                `entry` = '". addslashes($entry_value) ."',
-                `raw` = '". (int)$_POST['raw']."',
-                `scoreMin` = '".(int)$_POST['scoreMin']."',
-                `scoreMax` = '". (int)$_POST['scoreMax']."',
-                `total_time` = '". addslashes($total_time_value) ."',
-                `session_time` = '". addslashes($_POST['session_time']) ."',
-                `suspend_data` = '". addslashes($_POST['suspend_data'])."',
-                `credit` = '". addslashes($credit_value) ."'
-          WHERE `user_module_progress_id` = ". (int)$_POST['ump_id'];
+                `lesson_location` = '".$_POST['lesson_location']."',
+                `lesson_status` = '".$lesson_status_value."',
+                `entry` = '".$entry_value."',
+                `raw` = '".$_POST['raw']."',
+                `scoreMin` = '".$_POST['scoreMin']."',
+                `scoreMax` = '".$_POST['scoreMax']."',
+                `total_time` = '".$total_time_value."',
+                `session_time` = '".$_POST['session_time']."',
+                `suspend_data` = '".$_POST['suspend_data']."',
+                `credit` = '".$credit_value."'
+          WHERE `user_module_progress_id` = ".$_POST['ump_id'];
   claro_sql_query($sql);
 }
 
@@ -116,18 +111,18 @@ if($_POST['ump_id'])
 ?>
 </head>
 <body>
-<form name="cmiForm" method="post" action="<?php echo $_SERVER["PHP_SELF"] ?>"> 
-    <input type="hidden" name="ump_id" />
-    <input type="hidden" name="lesson_status" />
-    <input type="hidden" name="lesson_location" />
+   <form name="cmiForm" method="POST" action="<?php echo $_SERVER["PHP_SELF"] ?>"> 
+	<input type="hidden" name="ump_id" />
+	<input type="hidden" name="lesson_status" />
+	<input type="hidden" name="lesson_location" />
     <input type="hidden" name="credit" />
-    <input type="hidden" name="entry" />
-    <input type="hidden" name="raw" />
+	<input type="hidden" name="entry" />
+	<input type="hidden" name="raw" />
     <input type="hidden" name="total_time" />
-    <input type="hidden" name="session_time" />
-    <input type="hidden" name="suspend_data" />
-    <input type="hidden" name="scoreMin" />
-    <input type="hidden" name="scoreMax" />
-</form>
+	<input type="hidden" name="session_time" />
+	<input type="hidden" name="suspend_data" />
+	<input type="hidden" name="scoreMin" />
+	<input type="hidden" name="scoreMax" />
+   </form>
 </body>
 </html>

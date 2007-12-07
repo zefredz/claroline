@@ -1,55 +1,39 @@
-*******************************************************************************
-                            CLAROLINE 1.8 - CREDITS
-*******************************************************************************
-
-The Claroline project was initiated in 2000 at the Catholic University of
-Louvain (Belgium - http://www.ucl.ac.be/) by Thomas De Praetere and was
-financially supported by the Louvain Foundation.
-
-Since 2004, the main code of Claroline is co-developed with CERDECAM, research
-center of ECAM (Engineering higher school - Belgium).
+*******************************************
+CLAROLINE 1.6 - CREDITS
+*******************************************
 
 Claroline Core Team :           Hugues Peeters     (peeters@ipm.ucl.ac.be)
                                 Christophe Gesché  (gesche@ipm.ucl.ac.be) aka Moosh
-                                Frédéric Minne     (minne@ipm.ucl.ac.be) aka ZeFredz
-
+                                Frédéric Minne     (minne@ipm.ucl.ac.be)
+                                Thomas De Praetere 
+                                
 Team from Cerdecam :            Philippe Dekimpe (dkp@ecam.be)
 http://www.cerdecam.be          Mathieu Laurent (laurent@cerdecam.be)
                                 Nicolas Leblanc (leblanc@cerdecam.be)
                                 Guillaume Lederer (lederer@cerdecam.be)
                                 Sebastien Piraux (piraux@cerdecam.be)
+				                Amand Tihon (amand@alrj.org)
                                 Aurelien Van Hamme (vanhamme@cerdecam.be)
-
-
-
-------------------------------------------------------------------------------
-                          SPECIFIC CODE CONTRIBUTIONS
-------------------------------------------------------------------------------
-
-Linker feature :                Renaud Fallier (captren@gmail.com)
-
-SCORM and IMS-QTI export :      Amand Tihon (amand@alrj.org)
 
 Administration section :        Benoit Muret (muret_ben@hotmail.com)
                                 Guillaume Lederer (lederer@cerdecam.be)
 
 Announcement tool improvement:  Pablo Rey (prey@cesga.es)
 
-Password Encryption :           Fabio Spelta (fabio.spelta@tiscali.it)
+LDAP :                          Roan Embrechts (roan.embrechts@ugent.be)
+                                and Hugues Peeters(peeters@ipm.ucl.ac.be)
+
+Events since last visit :       René Haentjens (rene.haentjens@intec.ugent.be)
+
+Learning Path Tool :            Guillaume Lederer and Sebastien Piraux (Cerdecam)
 
 Personnal Agenda :              Eric Remy (eremy@rmwc.edu),
                                 Toon Van Hoecke (Toon.VanHoecke@UGent.be)
 
-LDAP :                          Roan Embrechts (roan.embrechts@ugent.be)
-
-Events since last visit :       René Haentjens (rene.haentjens@intec.ugent.be)
-                                Guillaume Lederer
-
 Quizz Tool :                    Olivier Brouckaert (oli.brouckaert@skynet.be)
                                 Sebastien Piraux (piraux@cerdecam.be)
 
-Learning Path Tool :            Sebastien Piraux (Cerdecam)
-                                Guillaume Lederer
+Password Encryption :           Fabio Spelta (fabio.spelta@tiscali.it)
 
 Tracking system :               Sebastien Piraux (piraux@cerdecam.be)
 
@@ -66,34 +50,16 @@ Forum tool :                    adpated from PHPBB 1.4 (http://www.phpbb.com)
 Zip / unzipping option  :       PclZip library - Vincent Blavet
                                 (http://www.phpconcept.net)
 
-CAS system :                    based on phpCas library from ESUP-Portail project
-                                (http://esup-phpcas.sourceforge.net/)
-
-
-
-
-------------------------------------------------------------------------------
-                                  TRANSLATIONS
-------------------------------------------------------------------------------
-
-
-Arab translation :              Yassine Jelman (yjelmam@myrealbox.com)
+Arab translation :              Yassine Jelman (yjelmam@myrealbox.com)  
                                 Eng.Ali Ismaeel (ali@parmaja.com,a-s-is@scs-net.org)
                                 (http://www.arabeyes.org, http://www.parmaja.com/)
-
-Bulgarian translation :         Alexander Simidchiev (simid@mail.bg)
 
 Catalan translation :           Xavier de Pedro (xavidp@confluencia.net)
 
 Chinese translation :           Maizeman (Maizeman@21cn.com)
-                                Barry (barry@synu.edu.cn)
                                 Ping Pingjianban (pingjianban@gmail.com)
 
-Chinese (traditionnal) :        Kiang (kiange@gmail.com) - Taiwan PHP User Group http://twpug.net/
-
 Croatian translation :          Dragan Misovic
-                                Karolj Skala (skala@irb.hr)
-                                Bozo Jonic (bjonic@irb.hr)
 
 Dutch translation :             Inès Du Four (inesdufour@hotmail.com)
                                 Denis Smidts (Smidts@ipm.ucl.ac.be)
@@ -102,10 +68,8 @@ Dutch translation :             Inès Du Four (inesdufour@hotmail.com)
                                 Stefan De Wannemacker (sdwannem@cage.rug.ac.be)
                                 Toon Van Hoecke (toon.vanhoecke@ugent.be)
                                 Michael Van Canneyt (michael.vancanneyt@wisa.be)
-                                Svenn d'hert - wmtown.com
 
 French translation:             Jean-Claude Cordier (Jean-Claude.Cordier@univ-rouen.fr)
-                                Paul Muraille (info@tictips.com)
 
 Finnish translation :           Asmo Koskinen (asmo.koskinen@asmokoskinen.net)
 
@@ -115,51 +79,34 @@ Galician translation:           Maria Jose Rodriges Malmierca
 German translation :            Stiehl Nikolai  (nikolai.stiehl@web.de)
                                 Markus Petz
                                 Angela Büchler (buechler@gp.tu-berlin.de)
-                                Christine Knieriemen (tine@knieriemen.de)
 
 Greek translation:              Costas Tsibanis (costas@noc.uoa.gr)
                                 Yannis Exidaridis (jexi@noc.uoa.gr)
-                                Spiros Ktenas (claroline@claroline.gr,
-                                unofficial greek community website :
-                                http://www.claroline.gr)
-                                Lefteris Zacharia (lzachari@cytanet.com.cy)
-                                Spiros Ioannou From School of Electrical & Computer Eng.
-                                                    National Technical University of Athens
-                                                    http://www.image.ece.ntua.gr/
+                                Spiros Ktenas (claroline@claroline.gr, unofficial greek community website : www.claroline.gr)
 
-Hungarian translation :         Balázs Györök (gyorok.balazs@vgszi.szie.hu)
+Hungarian translation :         Janos Foldessy & Peter Fuchs
 
 Italian translation :           Maurizio Guercio  (mguercio@libero.it),
                                 Furio Petrossi  (Furio.Petrossi@scuolefvg.org)
                                 Giuseppe Filice (Università della Calabria)
-                                Fausto Barbarito (http://www.nosmet.com)
-
-Indonesian translation :        Ery Atmodjo (eryatmodjo@yahoo.com)
 
 Japanese translation :          Akira Yoshii (yoshii@cc.hokkyodai.ac.jp)
 
-Persian translation :           Elnaz Sarbar (elnaz.s@gmail.com)
-
 Polish translation :            Slawomir Gurdala (guslaw@uni.lodz.pl)
-                                Jacek Grudzien (bel2@bel.biz.pl)
 
 Portugese translation :         Marcello R. Minholi (minholi@unipar.br)
-
-Romanian Translation :          Antonio Apostoliu (antonio.apostoliu@meteo.inmh.ro)
+                                Luis Cesar
 
 Swedish translation :           Jan Olsson (jano@artedi.nordmaling.se)
 
-Slovenian translation :         Sergej Rinc - http://sergej.rinc.ws
-                                Sasa Divjak (sasa@fri.uni-lj.si)
-
-Spanish translation :           Xavier Casassas (xcc@mail.ics.co.at)
-                                Jorge Gonzales (jgonzalez@athenasoft.com.mx)
+Spanish translation :           Xavier Casassas ( xcc@mail.ics.co.at)
+                                Jorge Gonzales ( jgonzalez@athenasoft.com.mx)
                                 Javier Picado Ladrón de Guevara (jpicado@eurosur.com)
                                 Oda Begares (begaeres@arch.ucl.ac.be)
                                 Rodrigo Alejandro Parra Soto
                                 Gerardo Albela Gonzalez (galbela@uvigo.es)
 
-Spanish_Latin :                 Carlos Brys (brys@fce.unam.edu.ar)
+Spanish_latin translation :     Carlo Brys (brys@fce.unam.edu.ar)
 
 Thaï translation :              Sutas Jitchuen (dtsjc@mucc.mahidol.ac.th)
 
@@ -174,14 +121,7 @@ Claroline Documentation :       Andrew Lynn (alynn@strathclyde.ac.be)
                                 Paul Muraille
                                 Dalton Piegas Simoni
                                 Maria Jose Rodriges Malmierca
-
-------------------------------------------------------------------------------
-                                SECURITY
-------------------------------------------------------------------------------
-Zone-H Team :                   Deepfear
-                                Netcraft
-                                Siegfried
-
+                                
 =========================================================================
-                Europe, Belgium, Louvain-la-Neuve - August 28 2006
+                Europe, Belgium, Louvain-la-Neuve - April 26 2005
 ================================== END ===================================

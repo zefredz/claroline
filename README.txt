@@ -1,5 +1,5 @@
 ******************************************
-        CLAROLINE 1.9 alpha - README
+        CLAROLINE 1.6.4 - README
 ******************************************
 
 TABLE OF CONTENT :
@@ -12,6 +12,7 @@ TABLE OF CONTENT :
   6. CONTACT
   7. NEW FEATURES
 
+
 1. DESCRIPTION
    ===========
 
@@ -23,7 +24,7 @@ The system provides group management, forums, document repositories, calendar,
 chat, assignment areas, links, user profile administration on a single and
 highly integrated package.
 
-Claroline is translated in 34 languages and used by hundreds of institutions
+Claroline is translated in 29 languages and used by hundreds of institutions
 around world. The software was initially started by the University of Louvain
 (Belgium) and released under Open Source licence (GPL). Since then, a
 community of developers around the world contributes to its development.
@@ -74,157 +75,38 @@ at :
 7. NEW FEATURES
    ============
 
-NEW FEATURES IN CLAROLINE 1.8.3 SINCE CLAROLINE 1.8.0
+NEW FEATURES IN CLAROLINE 1.6.4 SINCE CLAROLINE 1.6.3
+-----------------------------------------------------
+* Security and bug Fixes
+* For more details, see the changelog on our documentation wiki:
+  http://wwww.claroline.net/wiki/index.php/Changelog_1.6.x
+
+NEW FEATURES IN CLAROLINE 1.6.3 SINCE CLAROLINE 1.6.2
+-----------------------------------------------------
+* New translation updates (Spanish)
+* Security and bug Fixes
+* For more details, see the changelog on our documentation wiki:
+  http://wwww.claroline.net/wiki/index.php/Changelog_1.6.x
+
+NEW FEATURES IN CLAROLINE 1.6.2 SINCE CLAROLINE 1.6.1
 -----------------------------------------------------
 
-* Bug Fixes ; For more details, see the changelog on our documentation wiki :
-  http://www.claroline.net/wiki/index.php/Changelog_1.8.x
+This is a maintenance release fixing the last bugs communicated by our user community
 
-NEW FEATURES IN CLAROLINE 1.8.0 SINCE CLAROLINE 1.7
+* New translation updates (Arabic, Brazilian, Greek, Simple chinese)
+* Compatability widening with the main PHP hosting
+* For more details, see the changelog on our documentation wiki:
+  http://wwww.claroline.net/wiki/index.php/Changelog_1.6.x
+
+NEW FEATURES IN CLAROLINE 1.6.1 SINCE CLAROLINE 1.6
 -----------------------------------------------------
 
-This new stable version, that comes with a new logo, offers a bunch of interesting new features :
+This is a minor bugs fixing release.
 
- * A new default layout
- * Module system : build your own Claroline extension
- * User rights and profiles are now completely customizable
- * Classes management improved
- * Personal language selector
- * Course Tools Improvements :
-  o Documents : Download all documents in a compressed file
-  o Exercises : Import/export your exercises, ...
-  o Wiki : Internal search engine
- * Configuration : many new parameters
-
-You'll find more information and screenshots about Claroline 1.8 in our detailed claroline 1.8 page :
-
- * http://www.claroline.net/doc/en/index.php/Claroline_18
-
-NEW FEATURES IN CLAROLINE 1.7.7 SINCE CLAROLINE 1.7.6
------------------------------------------------------
-* Translation
-  * new greek lang file with 8 corrections (since 1.7.5) by Spiros Ioannou
-  * the html editor that uses inc/htmlarea/lang/el.js doesn't work with greek
-  at all because all translations in el.js are 16-bit (UTF-8) while the other
-  site is iso-8859-7 (8bit). The result is seeing garbage on the editor menus,
-  buttons etc. I translated el.js with iconv (iconv -f UTF-8 -t ISO8859-7) and
-  I send you the correct one that works ok !
-
-* Security Fix
-  * Remote inclusion have been discovered in these scripts.
-    Platform in register_globals off and/or allow_url_open off are not vulnerable.
-    * claroline/auth/extauth/driver/postnuke.inc.php
-    * claroline/auth/extauth/driver/mambo.inc.php
-    (THANKS TO ZONE-H Team, again)
-
-* Improve Security
-  * protect blindness all included file to prevent other injection.
-
-* Bugs
-  * Documents and links : directory named 0 (zero) causes claro_delete_file to exit without deleting all files in a directory (bug #478)
-  * Wiki : now wiki page title is always case sensitive
-  * Wiki : fix some javascript warning 
-
-NEW FEATURES IN CLAROLINE 1.7.6 SINCE CLAROLINE 1.7.5
------------------------------------------------------
-
-* Translations
-
-  * Czech 100% by Zdenek Machek
-     o Claroline in Czech: http://www.claroline.cz (coming soon)
-     o Translated for: ZUS Police (http://www.zuspolice.cz)
-  * Dutch - fine tuning including the missing items by Klaas Kroeze.
-  * Italian - fine tuning by Fausto Barbarito (http://www.nosmet.com)
-
-* New layouts
-
-  * 1 new Layout : clarcom.css, a new corporate CSS designed by Laurent Colet
-                   in the context of an internship at Cerdecam Research Center (Brussels)
-
-Fixed bugs and improvements
-
-Bug fix
-
-    * Course settings : Cannot enter URL of the department with the character - in it.
-                        (fixed by Marina from St-Etienne France)
-
-Security Fix
-
-Remote inclusion have been discovered in these scripts. Platform in register_globals off and/or allow_url_open off are not vulnerable. (Discovered by beford and Kevin Fernandez "Siegfried", Zone-H Research Team)
-
- claroline/admin/admin_class_register.php
- claroline/auth/extauth/casProcess.inc.php
- claroline/auth/extauth/driver/*.inc.php
- claroline/exercice/answer_admin.inc.php
- claroline/exercice/exercise_admin.inc.php
- claroline/exercice/question_admin.inc.php
- claroline/exercice/question_list_admin.inc.php
- claroline/exercice/statement_admin.inc.php
- claroline/inc/claro_init_local.inc.php
- claroline/inc/conf/auth.conf.php.dist
- claroline/inc/lib/add_course.lib.inc.php
- claroline/inc/lib/event/init_event_manager.inc.php
- claroline/inc/lib/export_exe_tracking.class.php
-
-NEW FEATURES IN CLAROLINE 1.7.5 SINCE CLAROLINE 1.7.4
------------------------------------------------------
-
-This version integrates the last security fixes of claroline 1.7. We highly recommend to upgrade to this recent version.
-
-* New translation : Slovenian 100% by Sergej Rinc - http://sergej.rinc.ws
-
-* New layouts : claroffice.css, caucase.css and netscape.css
-
-* Bug fixes :
-    * Add user : Deep redesign of the user addition workflow
-    * Assigments : Don't update visibility when editing assignment settings
-    * Forum : Change the way rank moving is done for forums and categories
-
-* Security fix :
-    * A security hole in the file editing
-    * A remote inclusion in scorm export tool
-    * A securityt bug in password recovery tool
-
-More info here : http://www.claroline.net/wiki/index.php/Changelog_1.7.x
-
-NEW FEATURES IN CLAROLINE 1.7.4 SINCE CLAROLINE 1.7.3
------------------------------------------------------
-
-* New translation updates : Greek, Italian and Turkish
-
-* Bug Fixes ; For more details, see the changelog on our documentation wiki :
-  http://www.claroline.net/wiki/index.php/Changelog_1.7.x
-
-
-NEW FEATURES IN CLAROLINE 1.7.3 SINCE CLAROLINE 1.7.2
------------------------------------------------------
-
-* New translation updates : Spanish Latin
-
-* Bug Fixes ; For more details, see the changelog on our documentation wiki :
-  http://www.claroline.net/wiki/index.php/Changelog_1.7.x
-
-NEW FEATURES IN CLAROLINE 1.7.2 SINCE CLAROLINE 1.7.1
------------------------------------------------------
-
-* New translation updates : Arabic, Polish , Bulgarian, Greek, Persian,
-                            Spanish Latin, Romanian, Traditional Chinese
-
-* Security and bug Fixes ; For more details, see the changelog on our documentation wiki :
-  http://www.claroline.net/wiki/index.php/Changelog_1.7.x
-
-NEW FEATURES IN CLAROLINE 1.7.1 SINCE CLAROLINE 1.7.0
------------------------------------------------------
-
-* New translation updates : Arabic, Bulgarian, Croatian, Dutch, French, Galician,
-                            Indonesian, Persian, Polish and Spanish
-* Security and bug Fixes ; For more details, see the changelog on our documentation wiki :
-  http://www.claroline.net/wiki/index.php/Changelog_1.7.x
-
-NEW FEATURES IN CLAROLINE 1.7 SINCE CLAROLINE 1.6
--------------------------------------------------
-
-  See http://www.claroline.net/newfeatures17.html
+* New translation updates (German, Dutch, Italian, Greek, Galician)
+* Compatability widening with the main PHP hosting
+* For more details, see the changelog on our documentation wiki:
+  http://wwww.claroline.net/wiki/index.php/Changelog_1.6.x
 
 NEW FEATURES IN CLAROLINE 1.6 SINCE CLAROLINE 1.5
 -------------------------------------------------
@@ -294,6 +176,25 @@ NEW FEATURES IN CLAROLINE 1.6 SINCE CLAROLINE 1.5
   passwords. This feature allows to smoothly associate Claroline into
   your institution Portals.
 
+NEW FEATURES IN CLAROLINE 1.5.4 SINCE CLAROLINE 1.5.3
+-----------------------------------------------------
+
+Securities holes XSS and SQL injections have been detected by Zone-H Research Center (http://fr.zone-h.org). The Claroline team has immediately wrote the patch fixing these bugs.
+
+NEW FEATURES IN CLAROLINE 1.5.3 SINCE CLAROLINE 1.5.2
+-----------------------------------------------------
+
+* This is a maintenance release fixing the last bugs communicated by our user community
+
+NEW FEATURES IN CLAROLINE 1.5.2 SINCE CLAROLINE 1.5.1
+-----------------------------------------------------
+
+* This is a minor bugs fixing release. Every tools have been widely tested, stablilized and securised.
+
+NEW FEATURES IN CLAROLINE 1.5.1 SINCE CLAROLINE 1.5.0
+-----------------------------------------------------
+
+* PHP 5 compliancy
 
 NEW FEATURES IN CLAROLINE 1.5 SINCE CLAROLINE 1.4
 -------------------------------------------------
@@ -486,5 +387,5 @@ is taken into account, at what stage and by who.
 
 
 =========================================================================
-                Europe, Belgium, Louvain-la-Neuve - October 25 2006
+                Europe, Belgium, Louvain-la-Neuve - December 15 2004
 ================================== END ===================================
