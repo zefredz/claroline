@@ -1,413 +1,285 @@
 <?php 
-$_lang['<span class=\"required\">*</span> denotes required field'] = '<span class="required">*</span>É¬¿Üµ­Æþ»ö¹à';
-$_lang['A reply to your topic has been posted'] = 'ÊÖ¿®¤¬½ñ¤­¹þ¤Þ¤ì¤Þ¤·¤¿';
-$_lang['Access'] = '¥¢¥¯¥»¥¹';
-$_lang['Action'] = '¤Ç¤­¤ë¤³¤È';
-$_lang['Add'] = 'ÄÉ²Ã';
-$_lang['Add a comment (optionnal) :'] = 'ÀâÌÀÊ¸ÆþÎÏ :';
-$_lang['Add an event'] = 'Í½ÄêÄÉ²Ã';
-$_lang['Add announcement'] = '¤ªÃÎ¤é¤»ÄÉ²Ã';
-$_lang['Add external link'] = '³°Éô¥Ä¡¼¥ëÄÉ²Ã';
-$_lang['Administration'] = '´ÉÍý';
-$_lang['Administrative code'] = '³ØÀ¸ÈÖ¹æ';
-$_lang['Administrator'] = '´ÉÍý¼Ô';
-$_lang['Agenda'] = 'Í½ÄêÉ½';
-$_lang['Agenda next events'] = 'ºÇ¶á¤ÎÍ½Äê';
-$_lang['Allow late upload'] = 'ÄùÀÚ¸å¤ÎÂÐ±þ';
-$_lang['Allowed'] = '³ØÀ¸¤¬ÅÐÏ¿¤Ç¤­¤ë';
-$_lang['Already enroled'] = '¼õ¹ÖºÑ';
-$_lang['Announcement'] = '¤ªÃÎ¤é¤»';
-$_lang['Announcement has been added'] = '¤ªÃÎ¤é¤»¤òÄÉ²Ã¤·¤Þ¤·¤¿';
-$_lang['Announcement has been deleted'] = '¤ªÃÎ¤é¤»¤òºï½ü¤·¤Þ¤·¤¿';
-$_lang['Announcement has been modified'] = '¤ªÃÎ¤é¤»½¤Àµ';
-$_lang['Announcements list has been cleared up'] = '¤ªÃÎ¤é¤»¤ò¤¹¤Ù¤Æºï½ü';
-$_lang['Anonymous'] = 'Æ¿Ì¾¥æ¡¼¥¶¡¼';
-$_lang['Answer'] = 'ËÜÊ¸';
-$_lang['Are you sure to delete'] = 'ºï½ü¤·¤Æ¤â¤¤¤¤¤Ç¤¹¤«';
-$_lang['Are you sure you want to remove this course from your list ?'] = '¼õ¹Ö²ÊÌÜ¤«¤éºï½ü¤·¤Æ¤â¤è¤¤¤Ç¤¹¤«¡©';
-$_lang['Assignment'] = '²ÝÂêÆâÍÆ';
-$_lang['Assignment deleted'] = '²ÝÂê¤òºï½ü¤·¤Þ¤·¤¿';
-$_lang['Assignment modified'] = '²ÝÂê¤òÊÑ¹¹¤·¤Þ¤·¤¿';
-$_lang['Assignment title'] = '¥¿¥¤¥È¥ë';
-$_lang['Assignment title already exists'] = 'Æ±¤¸¥¿¥¤¥È¥ë¤¬¤¢¤ê¤Þ¤¹';
-$_lang['Assignment title required'] = '¥¿¥¤¥È¥ë¤¬É¬Í×¤Ç¤¹';
-$_lang['Assignment type'] = 'Äó½Ð¼Ô';
-$_lang['Assignments help'] = '¢¨¥Ø¥ë¥×¡§²ÝÂê';
-$_lang['Attach'] = 'ÅºÉÕ';
-$_lang['Attach a file'] = 'ÅºÉÕ¤¹¤ë';
-$_lang['Attach an existing resource'] = '¥Õ¥¡¥¤¥ë¤òÅºÉÕ';
-$_lang['Attached Resources : Add / Delete attachement'] = 'ÅºÉÕ¥Õ¥¡¥¤¥ë¤òÄÉ²Ã¡¿ºï½ü';
-$_lang['Attached file'] = 'ÅºÉÕ¥Õ¥¡¥¤¥ë';
-$_lang['Attached resources'] = 'ÅºÉÕ¤µ¤ì¤¿¥Õ¥¡¥¤¥ë';
-$_lang['Authentication'] = '¥æ¡¼¥¶¡¼Ç§¾Ú';
-$_lang['Authentication Required'] = '¤³¤Î²ÊÌÜ¥µ¥¤¥È±ÜÍ÷¤Ë¤Ï¥æ¡¼¥¶¡¼Ç§¾Ú¤¬É¬Í×¤Ç¤¹';
-$_lang['Author'] = 'Åê¹Æ¼Ô';
-$_lang['Author(s)'] = 'Äó½Ð¼Ô';
-$_lang['Automatically, after each submission'] = '²ÝÂêÄó½Ð¤¬¤¢¤Ã¤¿¤éÌÏÈÏ²òÅú¤ò¼«Æ°Åª¤Ë·Ç¼¨¤¹¤ë';
-$_lang['Automatically, after end date'] = 'ÄùÀÚ¸å¡¢ÌÏÈÏ²òÅú¤ò¼«Æ°Åª¤Ë·ÇºÜ¤¹¤ë';
-$_lang['Back'] = 'Ìá¤ë';
-$_lang['Back to Home page'] = '¥È¥Ã¥×¥Ú¡¼¥¸¤ØÌá¤ë';
-$_lang['Back to administration page'] = '´ÉÍý¥Ú¡¼¥¸¤ËÌá¤ë';
-$_lang['Back to course list'] = '²ÊÌÜ¥ê¥¹¥È¤ËÌá¤ë';
-$_lang['Back to list'] = '¢¨°ìÍ÷¤ËÌá¤ë';
-$_lang['Back to my personal course list'] = '¼õ¹Ö²ÊÌÜ¥ê¥¹¥È¤ËÌá¤ë';
-$_lang['Back to parent category'] = 'Ê¬ÌîÊÌ¥ê¥¹¥È¤ËÌá¤ë';
-$_lang['Back to the class'] = '²ÊÌÜ¤Î¥È¥Ã¥×¤ËÌá¤ë';
-$_lang['Back to the editor'] = 'ÊÔ½¸²èÌÌ¤ËÌá¤ë';
-$_lang['Back to user settings'] = '¥æ¡¼¥¶¡¼ÀßÄê¤ËÌá¤ë';
-$_lang['Cancel'] = '¥­¥ã¥ó¥»¥ë';
-$_lang['Categories'] = 'Ê¬ÌîÊÌ¥ê¥¹¥È';
-$_lang['Category'] = 'Ê¬ÌîÊÌ¥ê¥¹¥È';
-$_lang['Category deleted'] = '¥«¥Æ¥´¥ê¡¼¤òºï½ü¤·¤Þ¤·¤¿';
-$_lang['Category updated'] = '¥«¥Æ¥´¥ê¡¼¤ò¹¹¿·¤·¤Þ¤·¤¿';
-$_lang['Chat'] = '¥Á¥ã¥Ã¥È';
-$_lang['Chat reset by'] = '¥Á¥ã¥Ã¥È¤Ï¥ê¥»¥Ã¥È¤µ¤ì¤Þ¤·¤¿¡§';
-$_lang['Choose now a username and a password for the user account'] = '¥í¥°¥¤¥ó¤¹¤ë¤¿¤á¤Î¥æ¡¼¥¶¡¼Ì¾¤Ë¤Ï<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>³ØÀ¸ÈÖ¹æ</b>¤òµ­Æþ¤·¤Æ¤¯¤À¤µ¤¤¡£<br>¥Ñ¥¹¥ï¡¼¥É¤Ë¤Ï<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>È¾³Ñ±Ñ¿ôÊ¸»ú¤Ç4Ê¸»ú°Ê¾å</b>¤ò»È¤Ã¤Æ¤¯¤À¤µ¤¤¡£';
-$_lang['Claroline help'] = '¥Ø¥ë¥×¤ò»²¾È';
-$_lang['Clear up event list'] = 'Í½Äê¥ê¥¹¥È¤ò¤¹¤Ù¤Æºï½ü';
-$_lang['Clear up list of announcements'] = '¤ªÃÎ¤é¤»¤ò¤¹¤Ù¤Æºï½ü';
-$_lang['Close popup'] = '¥¦¥£¥ó¥É¥¦¤òÊÄ¤¸¤ë';
-$_lang['Close window'] = 'ÊÄ¤¸¤ë';
-$_lang['Comment'] = '¥³¥á¥ó¥È';
-$_lang['Comment modified'] = 'ÀâÌÀÊ¸¤ò½¤Àµ¤·¤Þ¤·¤¿';
-$_lang['Confirmation'] = '³ÎÇ§';
-$_lang['Content'] = 'µ­ºÜÆâÍÆ';
-$_lang['Copy'] = '¥³¥Ô¡¼';
-$_lang['Course'] = '²ÊÌÜ';
-$_lang['Course Home'] = '²ÊÌÜ¤Î¥È¥Ã¥×¥Ú¡¼¥¸';
-$_lang['Course access'] = '±ÜÍ÷¤ÎÀ©¸Â';
-$_lang['Course code'] = '²ÊÌÜ¥³¡¼¥É';
-$_lang['Course code needed'] = '²ÊÌÜ¥³¡¼¥É¤òÆþÎÏ¤·¤Æ²¼¤µ¤¤';
-$_lang['Course description'] = '²ÊÌÜ¾Ò²ð';
-$_lang['Course list'] = '²ÊÌÜ¥ê¥¹¥È';
-$_lang['Course manager'] = '²ÊÌÜÃ´Åö¼Ô';
-$_lang['Course members'] = '¼õ¹Ö¼Ô';
-$_lang['Course settings'] = '²ÊÌÜ¥µ¥¤¥È¤ÎÀßÄêÊÑ¹¹';
-$_lang['Course title'] = '²ÊÌÜÌ¾';
-$_lang['Course title needed'] = '²ÊÌÜÌ¾¤òÆþÎÏ¤·¤Æ²¼¤µ¤¤';
-$_lang['Create'] = 'ºîÀ®';
-$_lang['Create Directory'] = '¥Õ¥©¥ë¥ÀºîÀ®';
-$_lang['Create Document'] = 'HTML¥Õ¥¡¥¤¥ëºîÀ®';
-$_lang['Create a course site'] = '²ÊÌÜ¥µ¥¤¥ÈºîÀ®';
-$_lang['Create a course website'] = '²ÊÌÜ¥µ¥¤¥ÈºîÀ®';
-$_lang['Create a new assignment'] = '¿·µ¬ºîÀ®';
-$_lang['Create category'] = '¥«¥Æ¥´¥ê¡¼ºîÀ®';
-$_lang['Create first a user account on this platform'] = '¢¨ºÇ½é¤Ë¥æ¡¼¥¶¡¼¥¢¥«¥¦¥ó¥È¤òºîÀ®¤·¤Æ¤¯¤À¤µ¤¤';
-$_lang['Create forum'] = '¥Õ¥©¡¼¥é¥àºîÀ®';
-$_lang['Create hyperlink'] = '³°Éô¥ê¥ó¥¯ºîÀ®';
-$_lang['Create user account'] = '¥¢¥«¥¦¥ó¥ÈºîÀ®';
-$_lang['Create/edit document'] = 'HTML¥Õ¥¡¥¤¥ë¿·µ¬ºîÀ®/ÊÔ½¸';
-$_lang['Creating course (it may take a while) ...'] = '²ÊÌÜ¥µ¥¤¥ÈºîÀ®Ãæ¤Ç¤¹... ';
-$_lang['Date'] = 'ÆüÉÕ';
-$_lang['Default works visibility'] = 'Äó½Ð²ÝÂê¤Î¸ø³«¡¿Èó¸ø³«';
-$_lang['Delete'] = 'ºï½ü';
-$_lang['Delete all messages of'] = 'Á´¤Æ¤Î¥á¥Ã¥»¡¼¥¸¤òºï½ü¤·¤Þ¤¹¡§';
-$_lang['Delete my account'] = '¥¢¥«¥¦¥ó¥Èºï½ü';
-$_lang['Delete the whole course website'] = '²ÊÌÜ¥µ¥¤¥ÈÁ´ÂÎ¤òºï½ü¤¹¤ë';
-$_lang['Denied'] = 'Ã´Åö¼Ô¤¬ÅÐÏ¿¤¹¤ë';
-$_lang['Department'] = 'Âç³Ø¡¿¸Ä¿Í¥µ¥¤¥ÈÌ¾';
-$_lang['Department URL'] = 'Âç³Ø¡¿¸Ä¿Í¥µ¥¤¥È¤ÎURL';
-$_lang['Department URL is not valid'] = 'URL¤¬Àµ¤·¤¯¤¢¤ê¤Þ¤»¤ó';
-$_lang['Description added.'] = 'µ­ºÜ»ö¹à¤òÄÉ²Ã¤·¤Þ¤·¤¿';
-$_lang['Description deleted.'] = 'µ­ºÜ»ö¹à¤òºï½ü¤·¤Þ¤·¤¿';
-$_lang['Description updated'] = 'µ­ºÜ»ö¹à¤ò¹¹¿·¤·¤Þ¤·¤¿';
-$_lang['Detail'] = '¾ÜºÙ';
-$_lang['Directory created'] = 'ÊÔ½¸¤·¤Þ¤·¤¿';
-$_lang['Document deleted'] = 'ºï½ü¤·¤Þ¤·¤¿';
-$_lang['Document name'] = '»ñÎÁÌ¾ : ';
-$_lang['Documents and Links'] = '»ñÎÁ¤È´ØÏ¢¥ê¥ó¥¯';
-$_lang['Documents help'] = '¥Ø¥ë¥×¡§»ñÎÁ¤È´ØÏ¢¥ê¥ó¥¯';
-$_lang['Edit'] = 'ÊÔ½¸';
-$_lang['Edit Event'] = 'Í½Äê¤òÊÔ½¸';
-$_lang['Edit Tool list'] = '»ÈÍÑ¥Ä¡¼¥ë¤ÎÁªÂò';
-$_lang['Edit automatic feedback'] = 'ÌÏÈÏ²òÅúÊÔ½¸';
-$_lang['Edit category'] = '¥«¥Æ¥´¥ê¡¼ÊÔ½¸';
-$_lang['Edit file content'] = '¥Õ¥©¥ë¥ÀÆâ¤Î»ñÎÁÊÔ½¸';
-$_lang['Edit post'] = 'ÊÔ½¸';
-$_lang['Edit text zone'] = '¥Û¡¼¥à¥Ú¡¼¥¸ÊÔ½¸';
-$_lang['Element moved'] = '°ÜÆ°¤·¤Þ¤·¤¿';
-$_lang['Element renamed'] = 'ÊÑ¹¹¤·¤Þ¤·¤¿';
-$_lang['Email needed'] = 'Email¤òµ­Æþ¤¹¤ëÉ¬Í×¤¬¤¢¤ê¤Þ¤¹';
-$_lang['Empty'] = '¶õ¤Ë¤¹¤ë';
-$_lang['End date'] = 'ÄùÀÚ´üÆü';
-$_lang['Enrol as student'] = '³ØÀ¸¤È¤·¤ÆÅÐÏ¿¡Ê±ÜÍ÷¤Î¤ß¡Ë';
-$_lang['Enrol as teacher'] = '¶µ»Õ¤È¤·¤ÆÅÐÏ¿¡Ê¥µ¥¤¥ÈºîÀ®²Ä¡Ë';
-$_lang['Enrol class'] = '¼õ¹Ö¤¹¤ë²ÊÌÜ¤òÁª¤Ö';
-$_lang['Enrol on a new course'] = '¼õ¹Ö¤¹¤ë';
-$_lang['Enrol to course not allowed'] = 'ÅÐÏ¿¤Ï¤Ç¤­¤Þ¤»¤ó';
-$_lang['Enrolment'] = '¡Ê±ÜÍ÷À©¸Â¤¢¤ê¤Î¾ì¹ç¡Ë¥æ¡¼¥¶¡¼ÅÐÏ¿¤ÎÊýË¡';
-$_lang['Enter'] = '£Ï£Ë';
-$_lang['Enter link url'] = '³°Éô¥ê¥ó¥¯¤ÎURL';
-$_lang['Enter new password twice to change, leave empty to keep it'] = '¥Ñ¥¹¥ï¡¼¥É¤òÊÑ¹¹¤¹¤ë¾ì¹ç¤Ï¡¢³ÎÇ§¤Î¤¿¤á¤Ë¿·¤·¤¤¥Ñ¥¹¥ï¡¼¥É¤òÆóÅÙÆþÎÏ¤·¤Æ¤¯¤À¤µ¤¤¡£';
-$_lang['Enter your email so we can send you your password.'] = '¥Ñ¥¹¥ï¡¼¥É¤ò¤ªÃÎ¤é¤»¤Ç¤­¤ë¤è¤¦¤Ëemail¥¢¥É¥ì¥¹¤òÆþÎÏ¤·¤Æ¤¯¤À¤µ¤¤';
-$_lang['Event added to the agenda'] = 'Í½Äê¤òÄÉ²Ã¤·¤Þ¤·¤¿';
-$_lang['Event deleted from the agenda'] = 'Í½Äê¤òºï½ü¤·¤Þ¤·¤¿';
-$_lang['Event updated into the agenda'] = 'Í½Äê¤ò¹¹¿·¤·¤Þ¤·¤¿';
-$_lang['Exercise'] = 'ÌäÂê½¸';
-$_lang['Exercises'] = 'ÌäÂê½¸';
-$_lang['Exercises help'] = '¥Ø¥ë¥×¡§ÌäÂê½¸';
-$_lang['External Tool added'] = '³°Éô¥Ä¡¼¥ë¤òÄÉ²Ã¤·¤Þ¤·¤¿';
-$_lang['External link'] = '³°Éô¥ê¥ó¥¯';
-$_lang['External tool deleted'] = '³°Éô¥Ä¡¼¥ë¤òºï½ü¤·¤Þ¤·¤¿';
-$_lang['External tool updated'] = '³°Éô¥Ä¡¼¥ë¤ò¹¹¿·¤·¤Þ¤·¤¿';
-$_lang['Feedback'] = '¥Õ¥£¡¼¥É¥Ð¥Ã¥¯';
-$_lang['Feedback added'] = 'ÌÏÈÏ²òÅú¤òÄÉ²Ã¤·¤Þ¤·¤¿';
-$_lang['Feedback file'] = 'ÌÏÈÏ²òÅú¤Î¥Õ¥¡¥¤¥ë';
-$_lang['Feedback text'] = 'ÌÏÈÏ²òÅú¤ÎËÜÊ¸';
-$_lang['Feedbacks'] = 'Ã´Åö¼Ô¤«¤é¤Î¥Õ¥£¡¼¥É¥Ð¥Ã¥¯';
-$_lang['File (file required, description text optional)'] = '¥Õ¥¡¥¤¥ë (¥Õ¥¡¥¤¥ë¤Î¥¢¥Ã¥×¥í¡¼¥É¤Î¤ß)';
-$_lang['File Name or URL is missing.'] = '¥Õ¥¡¥¤¥ëËô¤ÏURL¤¬¸«¤Ä¤«¤ê¤Þ¤»¤ó';
-$_lang['File content modified'] = 'ÊÑ¹¹¤·¤Þ¤·¤¿';
-$_lang['File created'] = 'ºîÀ®¤·¤Þ¤·¤¿';
-$_lang['File list'] = '¥Õ¥¡¥¤¥ë¥ê¥¹¥È';
-$_lang['File name is missing'] = '¥Õ¥¡¥¤¥ë¤¬¸«¤Ä¤«¤ê¤Þ¤»¤ó';
-$_lang['Fill the area to explain your motivation and submit your request. An e-mail will be sent to platform adminisrator(s).'] = '´ÉÍý¼Ô¤Ë¤´Í×Ë¾¤¬¤¢¤ì¤Ð¤ª½ñ¤­¤¯¤À¤µ¤¤¡£';
-$_lang['First name'] = 'Ì¾';
-$_lang['First submission date'] = 'ºÇ½é¤ÎÄó½ÐÆü';
-$_lang['Follow courses'] = '³ØÀ¸¤È¤·¤Æ²ÊÌÜ¤ò¼õ¤±¤ë';
-$_lang['Forum'] = '¥Õ¥©¡¼¥é¥à';
-$_lang['Forum created'] = '¥Õ¥©¡¼¥é¥à¤¬ºîÀ®¤µ¤ì¤Þ¤·¤¿';
-$_lang['Forum deleted'] = '¥Õ¥©¡¼¥é¥à¤òºï½ü¤·¤Þ¤·¤¿';
-$_lang['Forum emptied'] = '¥Õ¥©¡¼¥é¥à¤ò¶õ¤Ë¤·¤Þ¤·¤¿';
-$_lang['Forum updated'] = '¥Õ¥©¡¼¥é¥à¤¬¹¹¿·¤µ¤ì¤Þ¤·¤¿';
-$_lang['Forums'] = '¥Ç¥£¥¹¥«¥Ã¥·¥ç¥ó';
-$_lang['Forums help'] = '¥Ø¥ë¥×¡§¥Ç¥£¥¹¥«¥Ã¥·¥ç¥ó';
-$_lang['Go to the account creation page'] = '¥¢¥«¥¦¥ó¥ÈºîÀ®¥Ú¡¼¥¸¤Ø';
-$_lang['Group'] = '¥°¥ë¡¼¥×';
-$_lang['Group Tutor'] = '¥°¥ë¡¼¥×¥Á¥å¡¼¥¿¡¼';
-$_lang['Groups'] = '¥°¥ë¡¼¥×';
-$_lang['Groups (from groups tool, only group members can post)'] = '¥°¥ë¡¼¥×Äó½Ð(¥°¥ë¡¼¥×¥á¥ó¥Ð¡¼¤Ê¤é¤Ð¡¢¥°¥ë¡¼¥×¡¦¥Ä¡¼¥ë¤«¤éÄó½Ð¤Ç¤­¤Þ¤¹¡Ë';
-$_lang['Help'] = '¥Ø¥ë¥×';
-$_lang['Home page help'] = '¥Ø¥ë¥×¡§¥È¥Ã¥×¥Ú¡¼¥¸';
-$_lang['If you wish to enrol on this course'] = '¤³¤Î²ÊÌÜ¤ò¼õ¹Ö¤¹¤ë¤Ê¤é¤Ð¡§';
-$_lang['Individual'] = '¸Ä¿ÍÄó½Ð';
-$_lang['Information to give to students'] = '¼õ¹ÖÀ¸¤ËÅÁ¤¨¤ë¤³¤È';
-$_lang['Invalid email address'] = 'email¥¢¥É¥ì¥¹¤¬ÉÔÀµ¤Ç¤¹';
-$_lang['Invalid url'] = 'URL¤¬ÉÔÀµ¤Ç¤¹';
-$_lang['Invisible'] = 'Èó¸ø³«';
-$_lang['Is platform admin'] = '¢¨¥µ¥¤¥È´ÉÍý¼Ô';
-$_lang['Language'] = '¸À¸ì';
-$_lang['Last edit date'] = 'ºÇ½ªÊÔ½¸Æü';
-$_lang['Last message'] = 'ºÇ¶á¤Î¥á¥Ã¥»¡¼¥¸';
-$_lang['Last message was on'] = 'ºÇ¿·¤Î¥á¥Ã¥»¡¼¥¸¤Ï¡§';
-$_lang['Last name'] = 'Ì¾Á°';
-$_lang['Lasting'] = '½ªÎ»´üÆü';
-$_lang['Latest announcements'] = 'ºÇ¶á¤Î¤ªÃÎ¤é¤»';
-$_lang['Lecturer(s)'] = '²ÊÌÜÃ´Åö¼Ô';
-$_lang['Locked'] = '¢¨³ØÀ¸¤ÎÅÐÏ¿¤Ï¤Ç¤­¤Þ¤»¤ó';
-$_lang['Login'] = '¥í¥°¥¤¥ó';
-$_lang['Login request'] = '¥í¥°¥¤¥óÊýË¡¤Ë¤Ä¤¤¤Æ¤ªÃÎ¤é¤»';
-$_lang['Logout'] = '¥í¥°¥¢¥¦¥È';
-$_lang['Lost password'] = '¥Ñ¥¹¥ï¡¼¥É¤òËº¤ì¤¿Êý¤Ø';
-$_lang['Make invisible'] = '¸ø³«¡¿Èó¸ø³«';
-$_lang['Make visible'] = '¸ø³«¡¿Èó¸ø³«';
-$_lang['Manager'] = '´ÉÍý¼Ô';
-$_lang['Max file size'] = 'ºÇÂç¥¢¥Ã¥×¥í¡¼¥É¥µ¥¤¥º : ';
-$_lang['Memorize them, you will use them the next time you will enter to this site.'] = 'ÆþÎÏ¤·¤¿¥Ñ¥¹¥ï¡¼¥É¤Ï¡¢¥í¥°¥¤¥ó¤¹¤ë¤È¤­¤ËÉ¬Í×¤Ç¤¹¤«¤éËº¤ì¤Ê¤¤¤è¤¦¤Ë¤·¤Æ²¼¤µ¤¤¡£';
-$_lang['Message body'] = '¥á¥Ã¥»¡¼¥¸';
-$_lang['Message from your lecturer'] = 'Ã´Åö¼Ô¤«¤é¤Î¥á¥Ã¥»¡¼¥¸';
-$_lang['Messages'] = '¥á¥Ã¥»¡¼¥¸';
-$_lang['Messages to selected users'] = '¥á¥Ã¥»¡¼¥¸Á÷¿®';
-$_lang['Missing images detected'] = '²èÁü¤ò¸«¤Ä¤±¤ë¤³¤È¤¬¤Ç¤­¤Þ¤»¤ó';
-$_lang['Missing value'] = 'µ­Æþ¤µ¤ì¤Æ¤¤¤Ê¤¤¹àÌÜ¤¬¤¢¤ê¤Þ¤¹';
-$_lang['Modifies this announcement'] = 'ÀâÌÀÊ¸¤òÊÑ¹¹¤¹¤ë';
-$_lang['Modify'] = 'ÊÔ½¸¡¿½¤Àµ';
-$_lang['Move'] = '°ÜÆ°';
-$_lang['Move down'] = '²¼¤Ø';
-$_lang['My User Account'] = '¥×¥í¥Õ¥¡¥¤¥ëÊÔ½¸';
-$_lang['My calendar'] = '¥«¥ì¥ó¥À¡¼';
-$_lang['My course list'] = '¼õ¹Ö²ÊÌÜ¥ê¥¹¥È';
-$_lang['My other courses'] = '²ÊÌÜ¥ê¥¹¥È';
-$_lang['My personal course list'] = '¼õ¹Ö²ÊÌÜ¥ê¥¹¥È';
-$_lang['Name link'] = '¥Ä¡¼¥ëÌ¾';
-$_lang['Name of the new directory'] = '¥Õ¥©¥ë¥ÀÌ¾';
-$_lang['New assignment created'] = '²ÝÂê¤òºîÀ®¤·¤Þ¤·¤¿';
-$_lang['New chat'] = '¿·µ¬¥Á¥ã¥Ã¥È';
-$_lang['New topic'] = '¿·µ¬¥È¥Ô¥Ã¥¯';
-$_lang['Newest first'] = '¿·¤·¤¤½ç';
-$_lang['Next'] = '¼¡¤Ø';
-$_lang['No announcement'] = '¸½ºß¡¢¤ªÃÎ¤é¤»¤Ï¤¢¤ê¤Þ¤»¤ó';
-$_lang['No course available fitting this keyword'] = '³ºÅö¤¹¤ë²ÊÌÜ¤Ï¤¢¤ê¤Þ¤»¤ó';
-$_lang['No event in the agenda'] = 'Í½Äê¤Ï¤¢¤ê¤Þ¤»¤ó';
-$_lang['No forum'] = '¥Õ¥©¡¼¥é¥à¤Ï¤¢¤ê¤Þ¤»¤ó';
-$_lang['No image to display'] = '²èÁü¥Õ¥¡¥¤¥ë¤¬¤¢¤ê¤Þ¤»¤ó';
-$_lang['No new post allowed'] = '¿·µ¬Åê¹Æ¤Ï¤Ç¤­¤Þ¤»¤ó';
-$_lang['No post'] = 'Åê¹Æ¤Ï¤¢¤ê¤Þ¤»¤ó';
-$_lang['No visible submission'] = 'Äó½Ð¤µ¤ì¤¿²ÝÂê¤Ï¸ø³«¤µ¤ì¤Æ¤¤¤Þ¤»¤ó';
-$_lang['No, prevent users submitting work after the end date'] = '¼õ¤±ÉÕ¤±¤Ê¤¤';
-$_lang['Not allowed'] = '¢¨µö²Ä¤µ¤ì¤Æ¤¤¤Þ¤»¤ó';
-$_lang['Notify by email when replies are posted'] = 'ÊÖ¿®¤¬¤¢¤Ã¤¿¤éemail¤¹¤ë';
-$_lang['Ok'] = '  £Ï£Ë  ';
-$_lang['Oldest first'] = '¸Å¤¤½ç';
-$_lang['Operation impossible'] = '¤³¤ÎÁàºî¤Ï¤Ç¤­¤Þ¤»¤ó';
-$_lang['Optional'] = '¥ª¥×¥·¥ç¥ó¤Ç¤¹';
-$_lang['Order'] = '¢¨½ç½ø';
-$_lang['Other'] = '¹àÌÜÄÉ²Ã';
-$_lang['Password'] = '¥Ñ¥¹¥ï¡¼¥É';
-$_lang['PersonalCourseList'] = '¼õ¹Ö²ÊÌÜ¥ê¥¹¥È';
-$_lang['Phone'] = 'ÅÅÏÃÈÖ¹æ';
-$_lang['Platform Administration'] = '¥µ¥¤¥È´ÉÍý';
-$_lang['Platform Administrator'] = '¥µ¥¤¥È´ÉÍý¼Ô';
-$_lang['Please confirm your choice'] = '¼Â¹Ô¤·¤Æ¤è¤¤¤Ç¤¹¤«';
-$_lang['Posted'] = 'Åê¹ÆÆü»þ';
-$_lang['Posts'] = 'Åê¹Æ¿ô';
-$_lang['Private feedback'] = 'Ã´Åö¼Ô¤Î¥á¥â¡Ê¼õ¹Ö¼Ô¤Ë¤ÏÉÔ²Ä»ë¡Ë';
-$_lang['Public access from campus home page even without login'] = '¤Ê¤·¡ÊÃ¯¤Ç¤â±ÜÍ÷²ÄÇ½¡Ë';
-$_lang['Published on'] = '·ÇºÜÆü';
-$_lang['Question to lecturer'] = '²¿¤ò½ñ¤¯¤Ù¤­¤«';
-$_lang['Registration not allowed on the platform'] = '¥æ¡¼¥¶¡¼ÅÐÏ¿¤Ï¤Ç¤­¤Þ¤»¤ó';
-$_lang['Remove course enrolment'] = '¼õ¹Ö¼è¾Ã';
-$_lang['Remove course from your personal course list'] = '¼õ¹Ö²ÊÌÜ¥ê¥¹¥È¤«¤éºï½ü¤¹¤ë';
-$_lang['Rename'] = 'Ì¾Á°¤ÎÊÑ¹¹';
-$_lang['Reply'] = 'ÊÖ¿®';
-$_lang['Request course creation status'] = '¥µ¥¤¥ÈºîÀ®²ÄÇ½¤Ê¥¢¥«¥¦¥ó¥È¤ò¿½ÀÁ¤¹¤ë';
-$_lang['Required'] = 'É¬¿Ü';
-$_lang['Reset'] = '¥ê¥»¥Ã¥È';
-$_lang['Return to the list'] = '°ìÍ÷¤ËÌá¤ë';
-$_lang['Role'] = 'Ìò³ä';
-$_lang['Save changes'] = 'ÊÑ¹¹¤òÊÝÂ¸';
-$_lang['Score'] = 'É¾²Á¥¹¥³¥¢';
-$_lang['Score required'] = 'É¾²Á¥¹¥³¥¢¤¬É¬Í×¤Ç¤¹';
-$_lang['Search'] = '¸¡º÷';
-$_lang['Search from keyword'] = '¥­¡¼¥ï¡¼¥É¤ÇÃµ¤¹';
-$_lang['Search result'] = '¸¡º÷·ë²Ì';
-$_lang['Seen'] = '±ÜÍ÷²ó¿ô';
-$_lang['Select course in'] = '¼õ¹Ö¤¹¤ë²ÊÌÜ¤òÁª¤Ö';
-$_lang['Select course in search results'] = '¸¡º÷·ë²Ì¤«¤é²ÊÌÜ¤òÁª¤Ö';
-$_lang['Selected Users'] = 'Á÷¿®¥ê¥¹¥È';
-$_lang['Send this announcement by email to registered students'] = '¼õ¹Ö¼Ô¤ËemailÁ÷¿®';
-$_lang['Size'] = '¥µ¥¤¥º';
-$_lang['Start date'] = '¼õÉÕ³«»Ï';
-$_lang['Statistics'] = '¥¢¥¯¥»¥¹Åý·×';
-$_lang['Store Chat'] = '¥Á¥ã¥Ã¥ÈÊÝÂ¸';
-$_lang['Student'] = '³ØÀ¸';
-$_lang['Subject'] = '·ïÌ¾';
-$_lang['Submission type'] = 'Äó½ÐÊª¤Î¼ïÎà';
-$_lang['Submissions'] = 'Äó½Ð²ó¿ô';
-$_lang['Submit'] = 'Á÷¿®';
-$_lang['Submit a work'] = '²ÝÂêÄó½Ð';
-$_lang['Submit feedback'] = 'ÌÏÈÏ²òÅú¤òÉ½¼¨¤¹¤ë';
-$_lang['Text only (text required, no file)'] = '¥Æ¥­¥¹¥È(¥Õ¥¡¥¤¥ëÅºÉÕ¤Ê¤·)';
-$_lang['Text with attached file (text required, file optional)'] = '¥Æ¥­¥¹¥È¡Ê¥Õ¥¡¥¤¥ëÅºÉÕ¤¢¤ê)';
-$_lang['The email address is not valid'] = 'email¥¢¥É¥ì¥¹¤¬ÉÔÀµ¤Ç¤¹';
-$_lang['The file to upload is not valid.'] = '¥Õ¥¡¥¤¥ë¤Î¥¢¥Ã¥×¥í¡¼¥É¤ÏÉÔÀµ¤Ç¤¹';
-$_lang['The upload has failed. There is not enough space in your directory'] = 'ÍÆÎÌ¤¬Â­¤ê¤Þ¤»¤ó';
-$_lang['The upload is finished'] = '¥¢¥Ã¥×¥í¡¼¥É¤¬´°Î»¤·¤Þ¤·¤¿';
-$_lang['The user has been enroled to the course'] = '¥æ¡¼¥¶¡¼¤Ï¤¹¤Ç¤Ë¼õ¹ÖºÑ¤Ç¤¹';
-$_lang['The user is already enroled in this course'] = '¤³¤Î¥æ¡¼¥¶¡¼¤Ï¤¹¤Ç¤Ë¤³¤Î²ÊÌÜ¤ò¼õ¹Ö¤·¤Æ¤¤¤Þ¤¹';
-$_lang['The zip file can not contain .PHP files'] = 'zip¥Õ¥¡¥¤¥ëÆâ¤Ë php ¥Õ¥¡¥¤¥ë¤ò¼ýÇ¼¤¹¤ë¤³¤È¤Ï¤Ç¤­¤Þ¤»¤ó';
-$_lang['There are no topics for this forum. You can post one'] = '¤³¤Î¥Õ¥©¡¼¥é¥à¤Ë¤Ï¥È¥Ô¥Ã¥¯¤Ï¤¢¤ê¤Þ¤»¤ó¡£¤É¤¦¤¾¥È¥Ô¥Ã¥¯¤òÅê¹Æ¤·¤Æ¤¯¤À¤µ¤¤¡£';
-$_lang['There is no assignment at the moment'] = '¸½ºß¡¢²ÝÂê¤Ï¸ø³«¤µ¤ì¤Æ¤¤¤Þ¤»¤ó';
-$_lang['There is no exercise for the moment'] = '¸½ºß¡¢ÌäÂê½¸¤Ï¤¢¤ê¤Þ¤»¤ó';
-$_lang['There is no user account with this email address.'] = '¤³¤Îemail¥¢¥É¥ì¥¹¤Î¥æ¡¼¥¶¡¼¥¢¥«¥¦¥ó¥È¤ÏÂ¸ºß¤·¤Þ¤»¤ó';
-$_lang['This course is currently not described'] = '¤³¤Î²ÊÌÜ¤Ë¤Ïµ­ºÜ»ö¹à¤¬¤¢¤ê¤Þ¤»¤ó';
-$_lang['This is the faculty, department or school where the course is delivered'] = '¤³¤Î²ÊÌÜ¤¬³«¹Ö¤µ¤ì¤Æ¤¤¤ë³ØÉô';
-$_lang['This is your account Login-Pass'] = '¤¢¤Ê¤¿¤Î¥í¥°¥¤¥ó¡¦¥Ñ¥¹¥ï¡¼¥É¤Ï¼¡¤Î¤È¤ª¤ê¤Ç¤¹¡§';
-$_lang['This official code is already used by another user.'] = 'ÆþÎÏ¤·¤¿³ØÀ¸ÈÖ¹æ¤Ï¤¹¤Ç¤Ë»È¤ï¤ì¤Æ¤¤¤Þ¤¹¡£';
-$_lang['This user name is already taken'] = '¤³¤Î¥æ¡¼¥¶¡¼Ì¾¤Ï¤¹¤Ç¤Ë»È¤ï¤ì¤Æ¤¤¤Þ¤¹';
-$_lang['Thumbnails'] = '¥µ¥à¥Í¥¤¥ëÉ½¼¨';
-$_lang['Title'] = '¥¿¥¤¥È¥ë';
-$_lang['To'] = '¡Á';
-$_lang['To send a message, select groups of users (marked with a * in the front) or single users from the list on the left.'] = '¥á¥Ã¥»¡¼¥¸¤òÁ÷¤ê¤¿¤¤¥°¥ë¡¼¥×¤¢¤ë¤¤¤Ï³ØÀ¸¤ò¥ê¥¹¥È¤«¤éÁª¤Ó¡¢±¦Â¦¤Ë°ÜÆ°¤·¤Æ²¼¤µ¤¤';
-$_lang['Tools'] = '¥Ä¡¼¥ë';
-$_lang['Topic'] = '¥È¥Ô¥Ã¥¯';
-$_lang['Topics'] = '¥È¥Ô¥Ã¥¯¥¹';
-$_lang['Unable to add description'] = 'µ­ºÜ»ö¹à¤òÄÉ²Ã¤Ç¤­¤Þ¤»¤ó';
-$_lang['Unable to add external tool'] = '³°Éô¥Ä¡¼¥ë¤òÄÉ²Ã¤Ç¤­¤Þ¤»¤ó¤Ç¤·¤¿';
-$_lang['Unable to add the event to the agenda'] = 'Í½Äê¤òÄÉ²Ã¤Ç¤­¤Þ¤»¤ó';
-$_lang['Unable to create forum'] = '¥Õ¥©¡¼¥é¥à¤òºîÀ®¤Ç¤­¤Þ¤»¤ó¤Ç¤·¤¿';
-$_lang['Unable to delete'] = 'ºï½ü¤Ç¤­¤Þ¤»¤ó';
-$_lang['Unable to delete Forum'] = '¥Õ¥©¡¼¥é¥à¤òºï½ü¤Ç¤­¤Þ¤»¤ó¤Ç¤·¤¿';
-$_lang['Unable to delete event from the agenda'] = 'Í½Äê¤òºï½ü¤Ç¤­¤Þ¤»¤ó';
-$_lang['Unable to delete external tool'] = '³°Éô¥Ä¡¼¥ë¤òºï½ü¤Ç¤­¤Þ¤»¤ó¤Ç¤·¤¿';
-$_lang['Unable to empty forum'] = '¥Õ¥©¡¼¥é¥à¤ò¶õ¤Ë¤Ç¤­¤Þ¤»¤ó¤Ç¤·¤¿';
-$_lang['Unable to enrol you to the course'] = '¤³¤Î²ÊÌÜ¤Î¼õ¹Ö¤Ï¤Ç¤­¤Þ¤»¤ó';
-$_lang['Unable to remove your registration to the course'] = '¼õ¹Ö¼è¤ê¾Ã¤·¤Ï¤Ç¤­¤Þ¤»¤ó';
-$_lang['Unable to save'] = 'ÊÝÂ¸¤Ç¤­¤Þ¤»¤ó';
-$_lang['Unable to update'] = '¹¹¿·¤Ç¤­¤Þ¤»¤ó';
-$_lang['Unable to update external tool'] = '³°Éô¥Ä¡¼¥ë¤ò¹¹¿·¤Ç¤­¤Þ¤»¤ó¤Ç¤·¤¿';
-$_lang['Unable to update forum'] = '¥Õ¥©¡¼¥é¥à¤ò¹¹¿·¤Ç¤­¤Þ¤»¤ó¤Ç¤·¤¿';
-$_lang['Unable to update the event into the agenda'] = 'Í½Äê¤ò¹¹¿·¤Ç¤­¤Þ¤»¤ó';
-$_lang['Unsubscribe'] = '¼õ¹Ö¤Ç¤­¤Þ¤»¤ó';
-$_lang['Until'] = '¡Á';
-$_lang['Untitled'] = '¢¨Ì¾Á°¤Ê¤·';
-$_lang['Up'] = '¾å¤Ø';
-$_lang['Upload file'] = '¥Õ¥¡¥¤¥ë¤Î¥¢¥Ã¥×¥í¡¼¥É';
-$_lang['User'] = '¥æ¡¼¥¶¡¼';
-$_lang['User Id'] = '¢¨¥æ¡¼¥¶¡¼ÈÖ¹æ';
-$_lang['User\'s course'] = '¼õ¹Ö²ÊÌÜ';
-$_lang['Username'] = '¥æ¡¼¥¶¡¼Ì¾';
-$_lang['Users'] = '¥æ¡¼¥¶¡¼';
-$_lang['Users help'] = '¥Ø¥ë¥×¡§¥æ¡¼¥¶¡¼';
-$_lang['View mode'] = '±ÜÍ÷¥â¡¼¥É';
-$_lang['View my statistics'] = '¥¢¥¯¥»¥¹µ­Ï¿¤ò¸«¤ë';
-$_lang['Visibility'] = '¸ø³«¡¿Èó¸ø³«';
-$_lang['Visibility modified'] = '¸ø³«¡¿Èó¸ø³«¤òÊÑ¹¹';
-$_lang['Visible'] = '¸ø³«';
-$_lang['Work added'] = '¼õ¤±ÉÕ¤±¤Þ¤·¤¿';
-$_lang['Work modified'] = '²ÝÂê¤¬½¤Àµ¤µ¤ì¤Þ¤·¤¿';
-$_lang['Work title required'] = '²ÝÂê¤Ë¤Ï¥¿¥¤¥È¥ë¤¬É¬Í×¤Ç¤¹';
-$_lang['Yes, allow users to submit works after end date'] = '¼õ¤±ÉÕ¤±¤ë';
-$_lang['You can not remove a group forum. You have to remove the group first'] = '¥°¥ë¡¼¥×¡¦¥Õ¥©¡¼¥é¥à¤Ïºï½ü¤¹¤ë¤Ë¤Ï¡¢ºÇ½é¤Ë¥°¥ë¡¼¥×¤òºï½ü¤¹¤ëÉ¬Í×¤¬¤¢¤ê¤Þ¤¹¡£';
-$_lang['You can now create your  course'] = '²ÊÌÜ¥µ¥¤¥È¤òºîÀ®¤¹¤ë';
-$_lang['You can now select, in the list, the courses you want to access'] = '¼õ¹Ö¤¹¤ë²ÊÌÜ¤ò¥ê¥¹¥È¤«¤éÁª¤Ö';
-$_lang['You cannot post an empty message'] = 'Åê¹Æ¥á¥Ã¥»¡¼¥¸¤¬µ­Æþ¤µ¤ì¤Æ¤¤¤Þ¤»¤ó';
-$_lang['You didnt choose any file to send, or it is too big'] = '¥Õ¥¡¥¤¥ë¤¬Âç¤­¤¹¤®¤ë¤Î¤ÇÁ÷¿®¤Ç¤­¤Þ¤»¤ó';
-$_lang['You have just created the course website'] = '²ÊÌÜ¥µ¥¤¥È¤¬ºîÀ®¤µ¤ì¤Þ¤·¤¿';
-$_lang['You left some required fields empty'] = 'É¬Í×»ö¹à¤¬µ­Æþ¤µ¤ì¤Æ¤¤¤Þ¤»¤ó';
-$_lang['You must introduce the message text'] = '¥á¥Ã¥»¡¼¥¸¤òÆþÎÏ¤·¤Æ²¼¤µ¤¤';
-$_lang['You must select some users'] = '¥æ¡¼¥¶¡¼¤òÁª¤ó¤Ç²¼¤µ¤¤';
-$_lang['You\'ve been enroled on the course'] = '¼õ¹ÖÅÐÏ¿¤¬´°Î»¤·¤Þ¤·¤¿';
-$_lang['Your enrolment on the course has been removed'] = '¼õ¹Ö¤Ï¼è¾Ã¤µ¤ì¤Þ¤·¤¿';
-$_lang['Your message has been deleted'] = 'Åê¹Æ¤Ïºï½ü¤µ¤ì¤Þ¤·¤¿';
-$_lang['Your message has been entered'] = '¥á¥Ã¥»¡¼¥¸¤ÏÊÝÂ¸¤µ¤ì¤Þ¤·¤¿';
-$_lang['Your password has been emailed to'] = '¥æ¡¼¥¶¡¼Ì¾¤È¥Ñ¥¹¥ï¡¼¥É¤òemail¤·¤Þ¤·¤¿';
-$_lang['Your request to become a course creator has been sent to platform administrator(s).'] = '¥µ¥¤¥ÈºîÀ®²ÄÇ½¥¢¥«¥¦¥ó¥È¿½ÀÁ¤ò¥µ¥¤¥È´ÉÍý¼Ô¤ËÁ÷¤ê¤Þ¤·¤¿';
-$_lang['Your request to remove your account has been sent'] = '¥¢¥«¥¦¥ó¥Èºï½ü¤Î¿½ÀÁ¤òÃ´Åö¼Ô¤ËÁ÷¤ê¤Þ¤·¤¿';
-$_lang['Your user profile doesn\'t seem to be enrolled on this course'] = '¤¢¤Ê¤¿¤Î¥×¥í¥Õ¥¡¥¤¥ë¤¬¤³¤Î²ÊÌÜ¤ËÅÐÏ¿¤µ¤ì¤Æ¤¤¤Ê¤¤¤è¤¦¤Ç¤¹';
-$_lang['Zip file uploaded and uncompressed'] = ' zip¥Õ¥¡¥¤¥ë¤ò²òÅà¤·¤Æ¥¢¥Ã¥×¥í¡¼¥É¤·¤Þ¤·¤¿';
-$_lang['archive'] = '°µ½ÌÊÝÂ¸';
-$_lang['blockCourseDescriptionCourseContent'] = 'ÆâÍÆ';
-$_lang['blockCourseDescriptionCourseContentComment1'] = '¤³¤Î²ÊÌÜ¤ÎÁ´ÂÎÁü';
-$_lang['blockCourseDescriptionCourseContentComment2'] = '²¿¤òÌÜ»Ø¤·¤Æ¤¤¤ë¤«<br>¼è¤ê¾å¤²¤ë»ö¹à<br>¤½¤ì¤é¤Î½ç½ø<br>¥­¡¼¥ï¡¼¥É¡¢¹àÌÜ¡¢¾ÏÎ©¤Æ¤Ê¤É¤Ê¤É';
-$_lang['blockCourseDescriptionDescription'] = '²ÝÂê¤ÎÆâÍÆ';
-$_lang['blockCourseDescriptionDescriptionComment1'] = '¤³¤Î²ÊÌÜ¤Ë¤Ä¤¤¤Æ';
-$_lang['blockCourseDescriptionDescriptionComment2'] = '²ÊÌÜ¤ÎÀ­³Ê¡¢´ØÏ¢¤¹¤ë²ÊÌÜ¡¢¼õ¹Ö¾ò·ï¡¢³«¹Ö»þ¸Â¡¢¶µ¼¼¤Ê¤É¤Ê¤É';
-$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment1'] = '²ÊÌÜÃ´Åö¼Ô¤Ë¤Ä¤¤¤Æ¤Î¾ðÊó';
-$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment2'] = '»áÌ¾¡¢ÀìÌçÊ¬Ìî¡¢¸¦µæ¼¼¡¢email¡¢¥ª¥Õ¥£¥¹¥¢¥ï¡¼¡¢¥â¥Ã¥È¡¼¤Ê¤É¤Ê¤É';
-$_lang['blockCourseDescriptionHumanAndPhysicalRessources'] = 'Ã´Åö¼Ô';
-$_lang['blockCourseDescriptionMethodsOfEvaluation'] = 'É¾²Á';
-$_lang['blockCourseDescriptionMethodsOfEvaluationComment1'] = 'É¾²Á¤Ë´Ø¤¹¤ë¾ðÊó';
-$_lang['blockCourseDescriptionQualificationsAndGoals'] = 'ÌÜÅª';
-$_lang['blockCourseDescriptionQualificationsAndGoalsComment1'] = '¤³¤Î²ÊÌÜ¤¬ÌÜ»Ø¤¹¤³¤È';
-$_lang['blockCourseDescriptionQualificationsAndGoalsComment2'] = '³Ø½¬ÌÜÉ¸¡¢´üÂÔ¤µ¤ì¤ëÀ®²Ì¤Ê¤É¤Ê¤É';
-$_lang['blockCourseDescriptionSupports'] = '¥µ¥Ý¡¼¥È';
-$_lang['blockCourseDescriptionSupportsComment1'] = '¼õ¹Ö¼Ô¤Î¥µ¥Ý¡¼¥È';
-$_lang['blockCourseDescriptionSupportsComment2'] = '¼õ¹Ö¼Ô¤¬³Ø½¬¤ò¿Ê¤á¤ë¤Ë¤¢¤¿¤Ã¤ÆÆÀ¤é¤ì¤ë¥µ¥Ý¡¼¥È<br>»ñÎÁ¡¢¼ÁÌä¡¢ÁêÃÌ¡¢¥Ç¥£¥¹¥«¥Ã¥·¥ç¥ó¡¢email¤Ê¤É¤Ê¤É';
-$_lang['blockCourseDescriptionTeachingTrainingActivities'] = '·×²è';
-$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment1'] = '³Ø´üÃæ¤Î¹ÖµÁ·×²è¤ä³èÆ°·×²è';
-$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment2'] = '¹ÖµÁ¥×¥é¥ó¡¢¤¤¤Ä²ÝÂê¤ÎÄó½Ð¤ò¤â¤È¤á¤ë¤«¡¢¤¤¤Ä½ÉÂê¤ò½Ð¤¹¤«¡¢¥ß¡¼¥Æ¥£¥ó¥°¤Ï¤¤¤Ä¤«¤Ê¤É¤Ê¤É';
-$_lang['blockCourseHomePageIntroduction'] = '»È¤¤¤¿¤¤¥Ä¡¼¥ë¤ò¥Á¥§¥Ã¥¯¤·¤Æ²¼¤µ¤¤¡£»È¤Ã¤Æ¤¤¤Ê¤¤¥Ä¡¼¥ë¤ÏÃ´Åö¼Ô¤Ë¤Ï³¥¿§¤ÇÉ½¼¨¤µ¤ì¡¢³ØÀ¸¤Ë¤Ï¸«¤¨¤Þ¤»¤ó¡£';
-$_lang['blockCourseSettingsTip'] = '½é´üÀßÄê¤Ç¤Ï²ÊÌÜ¥µ¥¤¥È¤ÏÈó¸ø³«¤È¤Ê¤Ã¤Æ¤¤¤Þ¤¹¡£¤Ä¤Þ¤ê¡¢Ã´Åö¼Ô¤¬¤¢¤é¤«¤¸¤á¥µ¥¤¥È±ÜÍ÷¤òµö²Ä¤¹¤ë¥æ¡¼¥¶¡¼¤òÅÐÏ¿¤¹¤ëÉ¬Í×¤¬¤¢¤ê¤Þ¤¹¡£¤³¤ÎÀßÄê¤Ï¡Ú¤³¤Î²ÊÌÜ¤ÎÀßÄêÊÑ¹¹¡Û¤ÇÊÔ½¸¤Ç¤­¡¢ÉÔÆÃÄêÂ¿¿ô¤ÎÃ¯¤Ë¤Ç¤â¥µ¥¤¥È¤ò¸ø³«¤¹¤ë¤³¤È¤â¤Ç¤­¤Þ¤¹¡£<br />¤ªÁ¦¤á¤ÎÀßÄê¡§³Ø´ü¤¬¤Ï¤¸¤Þ¤Ã¤Æ¤«¤é´ü´Ö¤ò¶èÀÚ¤Ã¤Æ¡Ê¤¿¤È¤¨¤Ð°ì½µ´Ö¡Ë³ØÀ¸¤Ë¥æ¡¼¥¶¡¼ÅÐÏ¿¤òµö²Ä¤·¡¢¤½¤Î¸å¥æ¡¼¥¶¡¼ÅÐÏ¿¤òÉÔµö²Ä¤Ë¤¹¤ë';
-$_lang['blockDocumentsHelp'] = '<p>¤³¤Î¥Ú¡¼¥¸¤Ç²ÊÌÜÃ´Åö¼Ô¤Ï²ÊÌÜ¥µ¥¤¥È¤ÎºîÀ®¤ª¤è¤Ó´ÉÍý¤¬¤Ç¤­¤Þ¤¹¡£³ØÀ¸¤Ï»ñÎÁ¡¢Í½Äê¡¢¤ªÃÎ¤é¤»¤òÆÉ¤ß¡¢±é½¬ÌäÂê¤Ë¼è¤êÁÈ¤ß¡¢¥ê¥Ý¡¼¥È¤Ê¤É¤òÄó½Ð¤·¡¢¤½¤·¤Æ¥Ç¥£¥¹¥«¥Ã¥·¥ç¥ó¤Ë»²²Ã¤Ç¤­¤Þ¤¹¡£';
-$_lang['blockFeedbackHelp'] = 'ÌÏÈÏ²òÅú¤Ï¥ª¥×¥·¥ç¥ó¤Ç¤¹¡£ÌÏÈÏ²òÅú¤¬µ­Æþ¤µ¤ì¤Æ¤¤¤ë¾ì¹ç¡¢É½¼¨¤¹¤ë¤«¤É¤¦¤«¤Ï¡ÚÌÏÈÏ²òÅú¤ò·Ç¼¨¤¹¤ë¡Û¤ÎÀßÄê¤Ë°Í¤ê¤Þ¤¹¡£';
-$_lang['blockIntroCourse'] = '²ÊÌÜ¤Î¥È¥Ã¥×¥Ú¡¼¥¸¤Ç¤¹¡£<br /><br /><ul><li>¤É¤Î¥Ä¡¼¥ë¤ò»È¤¦¤«¤ò·è¤á¤¿¤ê</li><li>¥µ¥¤¥È¤ÎÀßÄêÊÑ¹¹¤·¤¿¤ê</li><li>¥¢¥¯¥»¥¹Åý·×¤ò¸«¤¿¤ê</li></ul>¤Ç¤­¤Þ¤¹¡£<br />¤³¤³¤ò¥¯¥ê¥Ã¥¯¤·¤Æ¡¢²ÊÌÜ¤Î¾Ò²ðÊ¸¤ò½ñ¤¤¤Æ²¼¤µ¤¤¡£';
-$_lang['click here'] = '¥¯¥ê¥Ã¥¯';
-$_lang['click to zoom in'] = '³ÈÂçÉ½¼¨';
-$_lang['click to zoom out'] = '½Ì¾®É½¼¨';
-$_lang['denotes new items'] = 'New!';
-$_lang['e.g. <em>History of Literature</em>'] = 'Îã¡§<i>±ÑÊ¸³Ø»Ë</i>';
-$_lang['max. 12 characters, e.g. <em>ROM2121</em>'] = 'ºÇÂç12Ê¸»ú¡ÊÎã¡§<em>PSY5110</em>¡Ë';
-$_lang['previous level'] = 'Á°¤ËÌá¤ë';
-$_lang['sampleForumDescription'] = '¥Õ¥©¡¼¥é¥à´ÉÍý¥Ä¡¼¥ë¤ò»È¤Ã¤Æºï½ü¤·¤Æ²¼¤µ¤¤';
-$_lang['sampleForumGroupCategory'] = '¥°¥ë¡¼¥×¡¦¥Õ¥©¡¼¥é¥à';
-$_lang['sampleForumMainCategory'] = '¥á¥¤¥ó';
-$_lang['sampleForumMessage'] = '¥µ¥ó¥×¥ë¤òºï½ü¤¹¤ë¤È¤½¤Î¥Õ¥©¡¼¥é¥à¤Ç¤Î¥á¥Ã¥»¡¼¥¸¤Ï¤¹¤Ù¤Æºï½ü¤µ¤ì¤Þ¤¹';
-$_lang['sampleForumTopicTitle'] = '¥á¥Ã¥»¡¼¥¸¡ÊÎã¡Ë';
-$_lang['sampleLearnPathDocumentTitle'] = '¢¨¤³¤ì¤Ï¥µ¥ó¥×¥ë¤Ç¤¹';
-$_lang['sampleQuizDescription'] = '¥®¥ê¥·¥ã¡¦¥í¡¼¥Þ»Ë';
-$_lang['sampleQuizQuestionText'] = '(Àµ²ò¤ÏÊ£¿ô¤¢¤ê¤Þ¤¹)';
-$_lang['sampleQuizTitle'] = 'ÌäÂê½¸¡ÊÎã¡Ë';
-$_lang['to'] = '¡Á';
-$_lang['uncompress zipped (.zip) file on the server'] = '¥¢¥Ã¥×¥í¡¼¥É¤ÈÆ±»þ¤Ëzip¥Õ¥¡¥¤¥ë¤ò²òÅà';
+$l_author = "Author";
+$l_body = "Message Body";
+$l_click = "Click";
+$l_delete = "Delete this Post";
+$l_deleted = "Your Post has been deleted.";
+$l_emptymsg = "You must type a Message to post. You cannot post an empty Message.";
+$l_here = "here";
+$l_indextitle = "Forum Index";
+$l_lastpost = "Last Post";
+$l_notify = "Notify by email when replies are posted";
+$l_notifybody = "You are receiving this Email because a message
+you posted on forums has been replied to, and
+you selected to be notified on this event.
+
+You may view the topic at:
+
+%1\$s
+
+Or view the forum index at
+
+%2\$s
+
+Thank you for using forums.
+
+Have a nice day.";
+$l_notifysubj = "A reply to your topic has been posted.";
+$l_notopics = "There are no topics for this forum. You can post one.";
+$l_posted = "Posted";
+$l_poster = "Poster";
+$l_posts = "Posts";
+$l_returnindex = "to return to the forum index";
+$l_returntopic = "to return to the forum topic list.";
+$l_separator = "» »";
+$l_stored = "Your Message has been stored in the database.";
+$l_subject = "Subject";
+$l_topic = "Topic";
+$l_topicreview = "Topic Review";
+$l_topics = "Topics";
+$l_topictitle = "View Topic";
+$l_viewforum = "View Forum";
+$l_viewmsg = "to view your Message.";
+$langActivate = "Í­¸ú¤Ë¤¹¤ë";
+$langAdd = "²Ã¤¨¤ë";
+$langAddAU = "¥æ¡¼¥¶¤ò²Ã¤¨¤ë";
+$langAddAnn = "¤ªÃÎ¤é¤»ÄÉ²Ã";
+$langAddCategory = "¥«¥Æ¥´¥ê¡¼¤òºî¤ë";
+$langAddComment = "¼¡¤Î¤â¤Î¤Ë¥³¥á¥ó¥È¤ËÉÕ²Ã¤¢¤ë¤¤¤Ï¥³¥á¥ó¥È½¤Àµ¤¹¤ë¡£";
+$langAddEvent = "¹Ô»öÄÉ²Ã";
+$langAddIntro = "¾Ò²ðÊ¸¤ò²Ã¤¨¤ë";
+$langAddress = "¥¢¥É¥ì¥¹::";
+$langAdmitError = "Admit one\'s own errors to invite one\'s interlocutor to do the same.";
+$langAgain = "ºÆÅÙ»î¤·¤Æ¤¯¤À¤µ¤¤!";
+$langAgenda = "Í½Äê";
+$langAnd = "¤ª¤è¤Ó";
+$langAnnAdd = "¤ªÃÎ¤é¤»ÄÉ²Ã";
+$langAnnDel = "¤ªÃÎ¤é¤»ºï½ü";
+$langAnnEmpty = "¤ªÃÎ¤é¤»¤ò¤¹¤Ù¤Æ¡¢ºï½ü¤¹¤ë";
+$langAnnModify = "¤ªÃÎ¤é¤»½¤Àµ";
+$langAnnouncement = "¤ªÃÎ¤é¤»";
+$langAnonymous = "Æ¿Ì¾";
+$langAnswer = "²óÅú";
+$langAntique = "¸ÅÂåÅ¯³Ø»Ë";
+$langBack = "¤³¤³";
+$langBackHomeOf = "..¤Î¥Û¡¼¥à¥Ú¡¼¥¸¤ËÌá¤ë";
+$langBackList = "¥ê¥¹¥È¤ËÌá¤ë";
+$langByDel = "¤³¤Î¥³¡¼¥¹¤Î¥¦¥¨¥Ö¥µ¥¤¥È¤òºï½ü¤¹¤ë¤È¡¢¤½¤³¤Ë´Þ¤Þ¤ì¤ë¤¹¤Ù¤Æ¤ÎÊ¸½ñ¤¬¾Ã¤¨¤Þ¤¹¡£¤Þ¤¿³ØÀ¸ÅÐÏ¿¤â¾Ã¤¨¤Þ¤¹(Â¾¤Î¥³¡¼¥¹ÅÐÏ¿¤ÏÌµ´Ø·¸¤Ç¤¹)¡£<p>ËÜÅö¤Ëºï½ü¤·¤Þ¤¹¤«?</p>";
+$langCategories = "¥«¥Æ¥´¥ê¡¼";
+$langChoice = "ÁªÂò";
+$langClose = "Áë¤òÊÄ¤¸¤ë";
+$langCode = "¥³¡¼¥¹ÈÖ¹æ";
+$langComMod = "¥³¥á¥ó¥È¤ò½¤Àµ";
+$langComment = "¥³¥á¥ó¥È";
+$langConfTip = "By default, you course is only accessible to you as its only registered user. IN case you want some confidentiality, 
+the simplest is to open registration during
+one week, ask the students to register themselves, then close registration and check possible intruders in the users list.";
+$langConfirmation = "³ÎÇ§";
+$langContradiction = "Use the Principle of Non Contradiction to force one\'s interlocutor into a dead end.";
+$langCopy = "¥³¥Ô¡¼";
+$langCourse = "¤³¤Î¥¦¥¨¥Ö¥µ¥¤¥È¤Ï";
+$langCourseCreate = "¥³¡¼¥¹¤Î¥¦¥¨¥Ö¥µ¥¤¥È¤òºî¤ë";
+$langCourseTitle = "¥¿¥¤¥È¥ë";
+$langCreateDir = "¥Ç¥£¥ì¥¯¥È¥ê¤òºî¤ë";
+$langCreateSite = "¥³¡¼¥¹¤Î¥¦¥¨¥Ö¥µ¥¤¥È¤òºî¤ë";
+$langDate = "ÆüÉÕ";
+$langDay = "Æü";
+$langDay_of_weekNames = "Array";
+$langDear = "·ÉÇò";
+$langDelAdmin = "²ñµÄ¼¼´ÉÍý¼Ô¥Ä¡¼¥ë¤òÍÑ¤¤¤Æºï½ü";
+$langDelCourse = "¤³¤Î¥³¡¼¥¹¥µ¥¤¥ÈÁ´ÂÎ¤òºï½ü";
+$langDelete = "ºï½ü";
+$langDescription = "Ê¸½ñ²òÀâ";
+$langDetail = "¾ÜºÙ";
+$langDirCr = "¥Ç¥£¥ì¥¯¥È¥êºîÀ®";
+$langDirMv = "¥Ç¥£¥ì¥¯¥È¥ê¤ò°ÜÆ°";
+$langDocContent = "<p>¤³¤ÎÊ¸½ñ¥Ä¡¼¥ë¤Ï¡¢¥³¥ó¥Ô¥å¡¼¥¿¤Î¥Õ¥¡¥¤¥ë¥Þ¥Í¡¼¥¸¥ã¤Ë»÷¤Æ¤¤¤Þ¤¹¡£</p><p>HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.¤Ê¤É¤Î¥Õ¥¡¥¤¥ë¤ò¥¢¥Ã¥×¥í¡¼¥É½ÐÍè¤Þ¤¹¡£Í£°ì¡¢´Ø¿´¤òÊ§¤¦¤Ù¤­¤Ï¡¢¤¢¤Ê¤¿¤Î³ØÀ¸¤¬¡¢¤½¤Î¥Õ¥¡¥¤¥ë¤òÆÉ¤á¤ë´Ä¶­¤Ë¤¢¤ë¤«¤É¤¦¤«¡¢¤È¤¤¤¦¤³¤È¤Î¤ß¤Ç¤¹¡£¤¤¤¯¤Ä¤«¤Î¥Õ¥¡¥¤¥ë¥¿¥¤¥×¤Ë¤Ï¡¢¥¦¥¤¥ë¥¹¤¬¤Ä¤­¤â¤Î¤Ç¤¹¡£¤½¤Î¤è¤¦¤Ê¥Õ¥¡¥¤¥ë¤ËÂÐ¤¹¤ë°ÂÁ´¤Ë¤Ä¤¤¤Æ¤Ï¤¢¤Ê¤¿¤ÎÀÕÇ¤¤Ç¤¹¡£¥¢¥Ã¥×¥í¡¼¥É¤ÎÁ°¤Ë¡¢¥¦¥¤¥ë¥¹¥Á¥§¥Ã¥¯¥½¥Õ¥È¤ÇÊ¸½ñ¤ò¥Á¥§¥Ã¥¯¤¹¤ë¤Ê¤É¡¢Ãí°Õ¤ò¤·¤Æ¤¯¤À¤µ¤¤¡£</p>
+<p>Ê¸½ñ¤Ï¡¢¥¢¥ë¥Õ¥¡¥Ù¥Ã¥È½ç¤ËÊÂ¤Ó¤Þ¤¹¡£<br /><b>¤Á¤ç¤Ã¤È¤·¤¿¥Ò¥ó¥È : </b>¤â¤·ÊÌ¤Î½ç¤ÇÊÂ¤Ù¤¿¤¤¤Ê¤é¡¢¤¿¤È¤¨¤Ð¥Õ¥¡¥¤¥ë¤ÎÆ¬¤Ë: 01, 02, 03...¤Ê¤É¿ô»ú¤òÊÂ¤Ù¤ë¤È¤¤¤¤¤Ç¤¹¤Í¡£</p>
+<p>You can :</p>
+<h4>Ê¸½ñ¤Î¥¢¥Ã¥×¥í¡¼¥É</h4>
+<ul>
+  <li>±¦¤Ë¤¢¤ë¡¢¥Ö¥é¥¦¥º¥Ü¥¿¥ó¤òÁª¤Ó¤Þ¤¹¡£<input type=submit value=Browse name=submit2>
+</li>
+  <li>¥¢¥Ã¥×¥í¡¼¥É(Á÷¿®)¥Ü¥¿¥ó¤ÇÁ÷¿®¤·¤Þ¤¹ <input type=submit value=Upload name=submit2>
+	.</li>
+</ul>
+<h4>Ê¸½ñÌ¾¤ÎÊÑ¹¹(a directory)</h4>
+<ul>
+  <li> <img src=../document/img/edit.gif width=20 height=20 align=baseline> ¥Ü¥¿¥ó¤ò²¡¤·¤Æ¡¢ÊÑ¹¹¤·¤Þ¤¹¡£</li>
+  <li>¿·¤·¤¤Ì¾Á°¤òÆþ¤ì¤Þ¤¹(º¸¤ËÍó¤¬½Ð¤Þ¤¹)</li>
+  <li>ÊÑ¹¹³ÎÇ§¥Ü¥¿¥ó<input type=submit value=Ok name=submit24>
+	. 
+</ul>
+	<h4>Ê¸½ñ¤¢¤ë¤¤¤Ï¥Ç¥£¥ì¥¯¥È¥ê¤Îºï½ü</h4>
+	<ul>
+	  
+  <li> <img src=../document/img/delete.gif width=20 height=20> 
+	¡Öºï½ü¡×¥Ü¥¿¥ó</li>
+	</ul>
+	<h4>Ê¸½ñ¤¢¤ë¤¤¤Ï¥Ç¥£¥ì¥¯¥È¥ê¤ò³ØÀ¸¤Ë¤Ï¸«¤¨¤Ê¤¯¤¹¤ë</h4>
+	<ul>
+	  
+  <li><img src=../document/img/visible.gif width=20 height=20>¡Ö¸«¤¨¤ë¤è¤¦¤Ë¤¹¤ë/¸«¤¨¤Ê¤¤¤è¤¦¤Ë¤¹¤ë¡×¥Ü¥¿¥ó</li>
+	  <li>Ê¸½ñ¡¢¥Ç¥£¥ì¥¯¥È¥ê¤ÏÂ¸ºß¤·¤Æ¤¤¤Þ¤¹(ºï½ü¤µ¤ì¤ë¤ï¤±¤Ç¤Ï¤¢¤ê¤Þ¤»¤ó)¡£³ØÀ¸¤¬¸«¤¨¤Ê¤¯¤Ê¤ë¤À¤±¤Ç¤¹¡£</li>	  
+  <li>ºÆÅÙ¸«¤¨¤ë¤è¤¦¤Ë¤¹¤ë¤Ë¤Ï¡¢Æ±¤¸¥Ü¥¿¥ó¤ò²¡¤·¤Æ¤¯¤À¤µ¤¤<img src=../img/invisible.gif width=24 height=20> </li>
+	</ul>
+	<h4>¥³¥á¥ó¥È¤òÊ¸½ñ¡¢¥Ç¥£¥ì¥¯¥È¥ê¤Ë²Ã¤¨¤¿¤ê½¤Àµ¤·¤¿¤ê¤¹¤ë</h4>
+	<ul>	  
+  <li>¥³¥á¥ó¥È¥Ü¥¿¥ó <img src=../img/comment.gif width=20 height=20></li>
+	  <li>±¦Â¦¤ËÍó¤¬½Ð¤Þ¤¹</li>
+	  <li>ÊÑ¹¹³ÎÇ§¥Ü¥¿¥ó¤ò¤ª¤¹ <input type=submit value=OK name=submit2>
+		.</li>
+	</ul>
+	<p>¥³¥á¥ó¥È¤òºï½ü<img src=../img/comment.gif width=20 height=20>, 	ÍóÆâ¤Î¸Å¤¤¥³¥á¥ó¥È¤ò¶õÇò¤Ë¤¹¤ë <input type=submit value=OK name=submit22>
+	  . 
+	<hr />
+	<p>Ê¸½ñÀ°Íý¤Ï¼¡¤Î¤è¤¦¤Ë¤·¤Þ¤¹:</p>
+	<h4><b>¥Ç¥£¥ì¥¯¥È¥ê¤òºî¤ë</b></h4>
+	<ul>
+	  <li> <img src=../img/folder.gif> º¸Â¦¤Ë¡Ö¥Ç¥£¥ì¥¯¥È¥ê¤òºî¤ë¡×Íó¤¬½Ð¤Þ¤¹</li>
+	  <li>¥Ç¥£¥ì¥¯¥È¥êÌ¾¤òÆþ¤ì¤Þ¤¹</li>
+	  <li>ÊÑ¹¹³ÎÇ§<input type=submit value=OK name=submit23>.</li>
+	</ul>
+	<h4>Ê¸½ñ¡¢¥Ç¥£¥ì¥¯¥È¥ê¤Î°ÜÆ°</h4>
+	<ul>
+	  <li>¡Ö°ÜÆ°¡×¥Ü¥¿¥ó¤ò²¡¤·¤Þ¤¹ <img src=../img/deplacer.gif width=34 height=16></li>
+
+	  <li>°ÜÆ°¤·¤¿¤¤Ê¸½ñ¡¢¥Ç¥£¥ì¥¯¥È¥ê¤ò¥¹¥¯¥í¡¼¥ë¥á¥Ë¥å¤ÇÁª¤Ó¤Þ¤¹(º¸¤Ë¤Ç¤Þ¤¹)(Ãí°Õ'root'¤È¤¤¤¦¸ÀÍÕ¤Ï¡¢Ê¸½ñ¤ò°ì¤Ä¾å¤Î¾ì½ê¤ò»Ø¤·¤Þ¤¹).</li>
+	  <li>ÊÑ¹¹³ÎÇ§¥Ü¥¿¥ó<input type=submit value=OK name=submit232>.</li>
+	</ul>
+	<center>
+	  <p>";
+$langDocDeleted = "Ê¸½ñ¤òºï½ü¤·¤Þ¤·¤¿";
+$langDocument = "Ê¸½ñ¤¿¤Á";
+$langElRen = "element renamed";
+$langEmail = "Email";
+$langEmailOption = "Send this announcement by email to registered students";
+$langEmailSent = " and emailed to registered students";
+$langEmailWrong = "¤³¤Î email address ¤ÏÉÔ´°Á´¤«¡¢ÍøÍÑ½ÐÍè¤Ê¤¤Ê¸»ú¤¬´Þ¤Þ¤ì¤Æ¤¤¤Þ¤¹";
+$langEmpty = "Ì¤µ­ÆþÍó¤¬¤¢¤ê¤Þ¤¹¡£<br />¤â¤É¤ë¥Ü¥¿¥ó¤Ç¤â¤É¤Ã¤Æ¡¢ºÆÅÙ»î¤·¤Æ¤¯¤À¤µ¤¤¡£<br />¤â¤·¤â¥³¡¼¥¹¥³¡¼¥É¤òÃÎ¤é¤Ê¤¤¤Ê¤é¡¢¥³¡¼¥¹¥×¥í¥°¥é¥à¤òÌä¤¤¹ç¤ï¤»¤Æ¤¯¤À¤µ¤¤";
+$langEmptyAnn = "¤ªÃÎ¤é¤»¤ò¤¹¤Ù¤Æ¡¢ºï½ü¤¹¤ë";
+$langEmptyFields = "¤¤¤¯¤Ä¤«¤ÎÍó¤¬¶õÇò¤Ç¤¹¡£¥Ü¥¿¥ó¤ÇÌá¤Ã¤Æ¡¢ºÆÅÙ¤¿¤á¤·¤Æ¤¯¤À¤µ¤¤";
+$langEnter = "Entrer";
+$langEx = "Îã¡§<i>Ê¸³Ø»Ë</i>";
+$langExMessage = "Îã";
+$langExerciceEx = "±é½¬ÌäÂêÎã";
+$langExercices = "±é½¬ÌäÂê";
+$langExercise = "±é½¬ÌäÂê";
+$langExplanation = "°ì²óOK¤ò¥¯¥ê¥Ã¥¯¤¹¤ë¤È¡¢²ñµÄ¼¼¤äÍ½Äê¡¢Ê¸½ñ¥Þ¥Í¡¼¥¸¥ã¡¼ÉÕ¤Î¥µ¥¤¥È¤¬½ÐÍè¤Þ¤¹¡£¥µ¥¤¥ÈºîÀ®¼Ô¤È¤·¤Æ¥í¥°¥¤¥ó¤¹¤ë¤È¡¢¥µ¥¤¥È¤ò½¤Àµ¤¹¤ë¤³¤È¤¬½ÐÍè¤Þ¤¹¡£";
+$langFileExists = "ÉÔ²ÄÇ½¤ÊÁàºî¤Ç¤¹<br />Æ±¤¸Ì¾Á°¤Î¥Õ¥¡¥¤¥ë¤¬Â¸ºß¤·¤Æ¤¤¤Þ¤¹¡£";
+$langForContent = "<p>¤³¤Î²ñµÄ¼¼¤Ï¡¢¡ÖÊ¸»ú¡×¤Ç¹Ô¤¦²ñµÄ¼¼¤Ç¤¹¡£¤ª¸ß¤¤¤Î»þ´Ö¤Î¤¹¤ì¤Á¤¬¤¤¤òÁ°Äó¤È¤·¤¿Æ¤ÏÀ¤Î¤¿¤á¤ÎÆ»¶ñ¤Ç¤¹¡£ÅÅ»Ò¥á¡¼¥ë¤¬£±ÂÐ£±¤ÎÂÐÏÃ¤òµö¤¹¤È¤¹¤ì¤Ð¡¢²ñµÄ¼¼¤Ï¸ø¶¦¡¢È¾¸ø¶¦¤ÎÊ£¿ô¤Î¿Í¡¹¤ÎÂÐÏÃ¤òÍ¿¤¨¤ë¤â¤Î¤Ç¤¹¡£</p><p>µ»½ÑÅª¤Ë¤Ï¡¢³ØÀ¸½ô·¯¤Ï¡¢¼«Ê¬¤Î¥Ö¥é¥¦¥¶¤À¤±¤ò¤âp¤Æ¤Ð¡¢claroline¤Î²ñµÄ¼¼¤ò¤Ä¤«¤¨¤Þ¤¹¡£</p><p>²ñµÄ¼¼¤òÁÈ¿¥¤¹¤ë¤¿¤á¤Ë¤Ï¡¢¡Ö´ÉÍý¡×admin¤ò¥¯¥ê¥Ã¥¯¤·¤Þ¤¹¡£Æ¤ÏÀ¤ÎÀßÄê¤Ï¼¡¤Î¤è¤¦¤Ë¤·¤Þ¤¹¡£</p><p><b>¥«¥Æ¥´¥ê¡¼ &gt; ²ñµÄ¼¼ &gt; ¥È¥Ô¥Ã¥¯ &gt; > Answers</b></p>³ØÀ¸¤¿¤Á¤ÎÆ¤ÏÀ¤òÁÈ¿¥¤¹¤ë¤¿¤á¤Ë¤Ï¡¢Á°¤â¤Ã¤Æ¥«¥Æ¥´¥ê¡¼¤È²ñµÄ¼¼¤ò¤Ä¤¯¤ê¡¢¥È¥Ô¥Ã¥¯¤È²óÅú¤òºî¤ë¤Î¤Ï³ØÀ¸¤¿¤Á¤Ë¤æ¤À¤Í¤Þ¤¹¡£¥Ç¥Õ¥©¥ë¥È¤Ç¤Ï¡¢claroline¤Î²ñµÄ¼¼¤Ï¡¢'Public'¤È¤¤¤¦¥«¥Æ¥´¥ê¡¼¤Î¤ß¤ò¤â¤Ã¤Æ¤¤¤Þ¤¹¡£¤Ò¤È¤Ä¤Î¥·¥ó¥×¥ë¤Ê²ñµÄ¼¼¤È¥È¥Ô¥Ã¥¯¤Î¤ß¤¬¤¢¤ë¥«¥Æ¥´¥ê¡¼¤Ç¤¹¡£</p><p>ºÇ½é¤Ë¹Ô¤¦¤Ù¤­¤Ï¡¢¤½¤Î¥·¥ó¥×¥ë¤Ê¥È¥Ô¥Ã¥¯¤òºï½ü¤¹¤ë¤³¤È¤È¡¢²ñµÄ¼¼Ì¾¤òÊÑ¹¹¤¹¤ë¤³¤È¤Ç¤¹¡£¤½¤Î¤¢¤È¤Ï¡¢²ñµÄ¼¼¤ò¥°¥ë¡¼¥×¤ä¥Æ¡¼¥Þ¤´¤È¤Ë¡¢¼ø¶È¤Î¥·¥Ê¥ê¥ª¤Ë±þ¤¸¤Æ¡¢Â¾¤Î²ñµÄ¼¼¤ò¤Ä¤¯¤ì¤Ð¤¤¤Ç¤¹¡£</p><p>¥«¥Æ¥´¥ê¡¼¡¢¤È²ñµÄ¼¼¤òº®Æ±¤·¤Ê¤¤¤è¤¦¤Ë¡£¤Þ¤¿¡¢²ñµÄ¼¼¤¬Â¸ºß¤·¤Ê¤¤¥«¥Æ¥´¥ê¤Ï¡¢³ØÀ¸¤Ë¤Ï¸«¤¨¤Ê¤¤¤³¤È¤òËº¤ì¤Ê¤¤¤Ç¤¯¤À¤µ¤¤¡£</p><p>²ñµÄ¼¼¤Î²òÀâ¤Ë¤Ï¡¢¤½¤Î¥á¥ó¥Ð¡¼¤Î¥ê¥¹¥È¤ä¡¢ÌÜÅª¡¢ºî¶ÈÆâÍÆÅù¤Ê¤É¤ò½ñ¤­¤Þ¤¹¡£</p>";
+$langForce = "Compell one\'s interlocutor, by a series of questions and sub-questions, to admit he doesn\'t know what he claims to know.";
+$langFormula = "Yours sincerely";
+$langForum = "²ñµÄ¼¼";
+$langForums = "²ñµÄ¼¼";
+$langHClar = "¥¹¥¿¡¼¥È¤Î¤Ø¥ë¥×";
+$langHDoc = "¡ÖÊ¸½ñ¡×¤Î¥Ø¥ë¥×";
+$langHFor = "²ñµÄ¼¼¤Î¤Ø¥ë¥×";
+$langHHome = "¥Û¡¼¥à¥Ú¡¼¥¸¤Ø¥ë¥×";
+$langHUser = "¡Ö¥æ¡¼¥¶¡×¤Î¥Ø¥ë¥×";
+$langHasDel = "´û¤Ëºï½ü¤µ¤ì¤Þ¤·¤¿¡£";
+$langHelp = "¤Ø¥ë¥×";
+$langHome = "¥Û¡¼¥à¥Ú¡¼¥¸¤ËÌá¤ë";
+$langHomeContent = "<p>ÍøÍÑ¼Ô¤ÎÊØµ¹¤ò¹Í¤¨¤Æ¡¢claroline¤Î¥Ä¡¼¥ë¤Ï¡¢½é´ü¾õÂÖ¤Ç¤â¤Þ¤Ã¤µ¤é¤Ç¤Ï¤¢¤ê¤Þ¤»¤ó¡£¤¹¤Ù¤Æ¤Î¥Ä¡¼¥ë¤Ë¤Ï¡¢¤¹¤°¤Ë¤Ç¤â¤Ê¤Ë¤«¤Ç¤­¤ë¤è¤¦¤Ë¡¢¾®¤µ¤ÊÎã¤¬½é´ü¾õÂÖ¤Ç¤Î¤Ã¤Æ¤¤¤Þ¤¹¡£¤½¤ÎÎã¤ò½¤Àµ¤·¤¿¤ê¡¢ºï½ü¤·¤Æ¤¿¤ê¤·¤Æ¡¢¤ª¤Ä¤«¤¤¤¯¤À¤µ¤¤¡£</p><p>Îã¤¨¤Ð¡¢¤³¤Î¥³¡¼¥¹¤Î¥¦¥¨¥Ö¥µ¥¤¥È¤Î¥Û¡¼¥à¥Ú¡¼¥¸¤Ë¤Ï,¤Ä¤®¤Î¤è¤¦¤Ê¥Æ¥­¥¹¥È¤¬¤Î¤Ã¤Æ¤¤¤Þ¤¹¡£'¤³¤ì¤Ï¡¢¤¢¤Ê¤¿¤Î¥³¡¼¥¹¤ÎÀâÌÀÊ¸½ñ¤Ç¤¹¡£¤¢¤Ê¤¿¤Ë¹ç¤¦¤è¤¦¤Ë½¤Àµ¤·¤Æ¤¯¤À¤µ¤¤¡£¤¦¤ó¤Ì¤ó' ¤¹¤Ù¤Æ¤Î¥Ä¡¼¥ë¤Ë¤Ï¡¢Æ±¤¸¤è¤¦¤ÊÁàºî¼ê½ç¡¢¡ÖÄÉ²Ã¡¢ºï½ü¡¢½¤Àµ¡×¤¬¤¢¤ê¤Þ¤¹¡£¤³¤ì¤ÏÆ°Åª¥¦¥¨¥Ö¥µ¥¤¥È¤¬Í­¤¹¤ë¶¦ÄÌ¤ÎÏÀÍý¤À¤È¤¤¤¨¤Þ¤·¤ç¤¦¡£</p><p>¤Ï¤¸¤á¤Æ¥¦¥¨¥Ö¥µ¥¤¥È¤òºî¤Ã¤¿¤È¤­¡¢¥Ä¡¼¥ë¤ÎÂ¿¤¯¤Ï¥¢¥¯¥Æ¥£¥Ö¤Ë¤Ê¤Ã¤Æ¤¤¤Þ¤¹¡£¤Þ¤¿¡¢É¬Í×¤Ç¤Ï¤Ê¤¤¤â¤Î¤ò¡¢Ìµ¸ú²½½ÐÍè¤Þ¤¹¡£¡ÖÌµ¸ú¡×¤ò¥¯¥ê¥Ã¥¯¤¹¤ì¤Ð¤¤¤¤¤Ç¤¹¡£¤½¤ÎÉôÊ¬¤¬¥°¥ì¡¼¤Ë¤Ê¤ë¤Ç¤·¤ç¤¦¡£¤¢¤Ê¤¿¤Î³ØÀ¸¤Ï¤Ê¤Ë¤â¸«¤¨¤Ê¤¯¤Ê¤ê¤Þ¤¹¡£Í­¸ú¤ËÌá¤¹¤Î¤Ï¡¢¤¤¤Ä¤Ç¤â²ÄÇ½¤Ç¤¹¡£</p><p>¥Ú¡¼¥¸¤ò¡¢¤¢¤Ê¤¿¤Î¥Û¡¼¥à¥Ú¡¼¥¸¤ò²Ã¤¨¤ë¤³¤È¤¬½ÐÍè¤Þ¤¹¡£¥Ú¡¼¥¸¤Ï HTML ¤Ç¤Ê¤±¤ì¤Ð¤Ê¤ê¤Þ¤»¤ó  ( ¥ï¡¼¥×¥í¤ä¡¢ÊÔ½¸¥½¥Õ¥È¤Çºî¤ì¤Þ¤¹). ¡Ö¥Ú¡¼¥¸¤ò¥Û¡¼¥à¥Ú¡¼¥¸¤Ë¥¢¥Ã¥×¥í¡¼¥É¤·¤Æ¥Û¡¼¥à¥Ú¡¼¥¸¤Ë¥ê¥ó¥¯¤¹¤ë¡×¤È¤¤¤¦¥ê¥ó¥¯¤òÁª¤Ó¡¢¤¢¤Ê¤¿¤Î¥Ú¡¼¥¸¤ò¥µ¡¼¥Ð¤ËÁ÷¤Ã¤Æ¤¯¤À¤µ¤¤¡£</p></p>¤¢¤Ê¤¿¤Î¥¦¥¨¥Ö¥µ¥¤¥È¤ÎÉ¸½àÅª¤Ê¤Ø¥Ã¥À¤¬¡¢¼«Æ°Åª¤Ë¤¢¤Ê¤¿¤ÎÊ¸½ñ¤ËÉÕ²Ã¤µ¤ì¤Þ¤¹¡£¤·¤¿¤¬¤Ã¤Æ¡¢ÆâÍÆºîÀ®¤Î¤ß¤Ë½¸Ãæ¤Ç¤­¤Þ¤¹¡£¤â¤·¡¢¤¢¤Ê¤¿¤¬¡¢¼«Ê¬¤Î¥Û¡¼¥à¤ò¤³¤Î¥¦¥¨¥Ö¥µ¡¼¥Ð¤ËÂ¸ºß¤¹¤ë¥µ¥¤¥È¤¢¤ë¤¤¤Ï¥Ú¡¼¥¸¤È¥ê¥ó¥¯¤Å¤±¤¿¤¤¤Î¤Ç¤¢¤ì¤Ð¡¢¡Ö¥Û¡¼¥à¥Ú¡¼¥¸¤Ë¥ê¥ó¥¯¤òÄÉ²Ã¡×¤òÁª¤ó¤Ç¤¯¤À¤µ¤¤¡£²Ã¤¨¤¿¥Ú¡¼¥¸¤Ï¡¢Ìµ¸ú²½¤¹¤ë¤³¤È¤¬½ÐÍè¤Þ¤¹¡£ºï½ü¤Ï½ÐÍè¤Þ¤»¤ó¡£</p><p>°ìÃ¶¤¢¤Ê¤¿¤Î¥³¡¼¥¹¤Î¥¦¥¨¥Ö¥µ¥¤¥È¤Î½àÈ÷¤¬½ÐÍè¤¿¤é¡¢¡Ö¥³¡¼¥¹¤Î¾ðÊó¤ò½¤Àµ¡×¤Ë¹Ô¤Ã¤Æ¤¯¤À¤µ¤¤¡£¤½¤·¤Æ¡¢¤¢¤Ê¤¿¤¬Ë¾¤à¡Ö¾ðÊóÈëÆ¿¥ì¥Ù¥ë¡× confidentiality ¤òÁª¤ó¤Ç¤¯¤À¤µ¤¤¡£¥Ç¥Õ¥©¥ë¥È¤Ç¤Ï¡¢¥³¡¼¥¹¤Ï¡Ö±£¤¹¡×hidden  ¤È¤Ê¤Ã¤Æ¤¤¤Þ¤¹(¤¢¤Ê¤¿¤¬¤½¤³¤Ç»Å»ö¤ò¤·¤Æ¤¤¤ë¤Î¤Ç¤¹¤«¤é).</p>";
+$langHour = "»þ";
+$langImpossible = "ÁàºîÉÔÇ½";
+$langIn = "in";
+$langIndeed = "Indeed. Socratic irony is an interrogative method. The Greek \"eirotao\" means \"ask questions\"";
+$langInvalidId = "¥í¥°¥¤¥ó¤Ï¼õ¤±ÉÕ¤±¤é¤ì¤Þ¤»¤ó¤Ç¤·¤¿¡£¤â¤·ÅÐÏ¿¤¬¤Þ¤À¤Ê¤é¡¢¼¡¤Î¥ê¥ó¥¯¤Ç¤É¤¦¤¾ <a href";
+$langIs = "¤Ï";
+$langJustCreated = "¥³¡¼¥¹¤Î¥¦¥¨¥Ö¥µ¥¤¥È¤òºî¤ê¤Þ¤·¤¿";
+$langLanguage = "¸À¸ì";
+$langLastMsg = "Last msg";
+$langLasting = "Lasting";
+$langLink = "¥ê¥ó¥¯";
+$langLogout = "¥í¥°¥¢¥¦¥È";
+$langManager = "±¿ÍÑ¼Ô";
+$langManyAnswers = "(more than one answer can be true)";
+$langMessage = "¥Æ¥¹¥È²ñµÄ¼¼¤òºï½ü¤¹¤ë¤È¤³¤Î¥á¥Ã¥»¡¼¥¸¤âºï½ü¤µ¤ì¤Þ¤¹";
+$langModifDone = "¾ðÊó½¤Àµ¤µ¤ì¤Þ¤·¤¿";
+$langModify = "½¤Àµ";
+$langModifyProfile = "¼«Ê¬¤Î¥×¥í¥Õ¥¡¥¤¥ë¤ò½¤Àµ";
+$langMonthNames = "Array";
+$langMove = "°ÜÆ°";
+$langMyCourses = "¼«Ê¬¤Î¥³¡¼¥¹";
+$langNameDir = "¿·¥Ç¥£¥ì¥¯¥È¥ê¤ÎÌ¾Á°";
+$langNameOfLang = "Array";
+$langNewEx = "¿·±é½¬ÌäÂê";
+$langNewQu = "¿·ÌäÂê";
+$langNewToOld = "Invert";
+$langNewTopic = "New topic";
+$langNo = "¤¤¤¤¤¨";
+$langNoEx = "¸½ºß±é½¬ÌäÂê¤Ï¤¢¤ê¤Þ¤»¤ó";
+$langNoPsychology = "No. Socratic irony is not a matter of psychology, it concerns argumentation.";
+$langNoSeduction = "No. Socratic irony is not a seduction strategy or a method based on the example.";
+$langNoSpace = "¥¢¥Ã¥×¥í¡¼¥É¤¬¼ºÇÔ¤·¤Þ¤·¤¿¡£¥Ç¥£¥¹¥¯¥¹¥Ú¡¼¥¹¤ÎÉÔÂ­¤Ç¤¹¡£";
+$langNone = "none";
+$langNotAllowed = "¤³¤Î¥³¡¼¥¹¼õ¹Ö¤¬µö²Ä¤µ¤ì¤Æ¤¤¤Þ¤»¤ó";
+$langNotFalse = "This answer is not false. It is true that the revelation of the interlocutor\'s ignorance means showing the contradictory conclusions where lead his premisses.";
+$langNow = "Now";
+$langOk = "¥ª¥Ã¥±¡¼";
+$langOldToNew = "Invert";
+$langOn = "On";
+$langOneResp = "One of the course administrators";
+$langPassTwice = "1ÅÙÌÜ¤È2ÅÙÌÜ¤Ç°ã¤Ã¤¿¥Ñ¥¹¥ï¡¼¥É¤òÆþ¤ì¤Þ¤·¤¿¡£¥Ü¥¿¥ó¤ÇÌá¤Ã¤Æ¡¢ºÆÅÙ¤¿¤á¤·¤Æ¤¯¤À¤µ¤¤";
+$langPoweredBy = "Powered by Claroline";
+$langPrivateAccess = "Private access, registration colsed (site accessible only to people on the <a href";
+$langProblem = "ÌäÂê¤¬¤ª¤­¤¿¤È¤­¤Ï¡¢Ï¢Íí¤·¤Æ¤¯¤À¤µ¤¤";
+$langProfessor = "¶µ»Õ";
+$langProfessors = "Professor(s)";
+$langProfileReg = "¤¢¤Ê¤¿¤Î¿·¥×¥í¥Õ¥¡¥¤¥ë¤¬ÊÝÂ¸¤µ¤ì¤Þ¤·¤¿";
+$langPubl = "¸ø³«";
+$langPublicAccess = "¥í¥°¥¤¥ó¤Ê¤·¤Ë¡¢¥­¥ã¥ó¥Ñ¥¹¥Ú¡¼¥¸¤«¤é¥¢¥¯¥»¥¹¤Ç¤­¤Þ¤¹¡£";
+$langQuestion = "Ìä";
+$langReg = "ÅÐÏ¿";
+$langRegAdmin = "¥³¡¼¥¹¤Î¥¦¥¨¥Ö¥µ¥¤¥È¤ò¤Ä¤¯¤ë (¶µ»Õ)";
+$langRegStudent = "¼¡¤Î¥³¡¼¥¹¤¬¤¢¤ê¤Þ¤¹(³ØÀ¸)";
+$langRegUser = "registered users of the site";
+$langRegYou = "has registered you on this course";
+$langRemove = "°ÜÆ°";
+$langRename = "Ì¾Á°¤òÊÑ¤¨¤ë";
+$langReply = "Answer";
+$langResult = "ÅÀ¿ô";
+$langRidiculise = "Ridiculise one\'s interlocutor in order to have him concede he is wrong.";
+$langRole = "Role";
+$langSave = "ÊÝÂ¸";
+$langSeen = "Seen";
+$langSettings = "¼¡¤ÎÀßÄê¤Ç¤¹: 
+ Username:";
+$langSize = "¥µ¥¤¥º";
+$langSocraticIrony = "Socratic irony is...";
+$langStatistics = "Åý·×";
+$langStatus = "Status";
+$langStudent = "student";
+$langTargetFac = "¤³¤Î¥³¡¼¥¹¤Î³Ø²Ê¡¢³ØÉô";
+$langTestForum = "¥Æ¥¹¥È²ñµÄ¼¼";
+$langTheU = "The user";
+$langTipLang = "¤³¤Î¸À¸ì¤Ï¡¢¤¢¤Ê¤¿¤Î¥³¡¼¥¹¤Î¥¦¥¨¥Ö¥µ¥¤¥È¤ÎÁ´¤Æ¤ÎË¬Ìä¼Ô¤Î¸øÍÑ¸À¸ì¤Ç¤¹¡£";
+$langTitle = "¥¿¥¤¥È¥ë";
+$langTo = "to";
+$langTooBig = "¥Õ¥¡¥¤¥ë¤¬Âç¤­¤¹¤®¤ë¤Î¤Ç¡¢ÁªÂò¤Ç¤­¤Þ¤»¤ó¡£";
+$langTrue = "Àµ²ò";
+$langUnreg = "Unregister";
+$langUnvalid = "have unvalid or no email address";
+$langUp = "Up";
+$langUploadEnd = "¥¢¥Ã¥×¥í¡¼¥É½ªÎ»";
+$langUploadFile = "Ê¸½ñ¤Î¥¢¥Ã¥×¥í¡¼¥É";
+$langUser = "¥æ¡¼¥¶¤¿¤Á";
+$langUserContent = "<b>¡ÖÌò³ä¡×roles</b><p>¡ÖÌò³ä¡×¤Ï¥³¥ó¥Ô¥å¡¼¥¿¤Îµ¡Ç½¤Ç¤Ï¤¢¤ê¤Þ¤»¤ó¡£¥·¥¹¥Æ¥à±¿ÍÑ¾å¤Î¸ÀÍÕ¤Ç¤Ï¤Ê¤¤¤Î¤Ç¤¹¡£¡ÖÌò³ä¡×¤Ï¡¢¿Í¤Ë³ä¤êÅö¤Æ¤é¤ì¤¿¡Ö¤³¤Î¿ÍÃ¯?¡×¤È¤¤¤¦°ÕÌ£¤ËÂ¾À®¤ê¤Þ¤»¤ó¡£¤¢¤Ê¤¿¤Ï¡¢¡ÖÌò³ä¡×¤Î¡Ö½¤Àµ¡×¤Ç¡¢¤½¤ì¤é¤òÊÑ¹¹¤¹¤ë¤³¤È¤¬½ÐÍè¤Þ¤¹¡£¡Ö¶µ»Õ¡×¡Ö¥¢¥·¥¹¥¿¥ó¥È¡×¡Ö³ØÀ¸¡×¡ÖË¬Ìä¼Ô¡×¡ÖÀìÌç²È¡×¡£¡£¡£¡£</p><hr />
+<b>´ÉÍý¼Ô¤Î¸¢Íø</b>
+<p>Â¾Êý¡¢¡Ö´ÉÍý¼Ô¤Î¸¢Íø¡×Admin rights¤Ï¡¢¥µ¥¤¥È¤ä¥³¡¼¥¹¤ÎÆâÍÆ¤Ë¤«¤«¤ï¤ëµ»½ÑÅª¤ÊÁàºî¤Î¾µÇ§¤òÉ½¤·¤Þ¤¹¡£¤¢¤Ê¤¿¤Ï¡¢¾å¤Î¡ÖÌò³ä¡×¤Î¿Í¤¿¤Á¤Ë¡¢¡Ö´ÉÍý¼Ô¤Î¸¢Íø¡×¤òÁ´¤ÆÍ¿¤¨¤ë¤«¡¢Á´Á³Í¿¤¨¤Ê¤¤¤«¡¢¤É¤¦¤«¤ò·è¤á¤ë¤³¤È¤Î¤ß¤Ç¤­¤Þ¤¹¡£</p>
+<p>¤³¤Î¥µ¥¤¥È¤Î¶¨Æ±±¿ÍÑ¼Ô¤È¤·¤Æ¡¢¥¢¥·¥¹¥¿¥ó¥È¤Ë¡¢¤½¤ì¤òÍ¿¤¨¤è¤¦¤È¤¹¤ë¤Ê¤é¡¢Èà½÷/Èà¤ò¤³¤Î¥µ¥¤¥È¤ËÅÐÏ¿¤¹¤ë¤«¡¢¤¢¤ë¤¤¤ÏÅÐÏ¿¤·¤Æ¤¤¤ë¤³¤È¤ò³Î¤«¤á¤Æ¤«¤é¡Ö´ÉÍý¼Ô¡×¤Î¥ê¥ó¥¯¤ÎÀè¤Î¡Ö´ÉÍý¼Ô¤Î¸¢Íø½¤Àµ¡×¤Ç¡¢¡Ö¤¹¤Ù¤Æ¡×¤òÁª¤Ó¤Þ¤¹</p><hr />
+<b>¶¨Æ±¼çºË¼Ô(Co-chairmen)</b>
+<p>¥³¡¼¥¹¤ÎËÁÆ¬¤Ë¡Ö¶¨Æ±¼çºË¼Ô¡×¤È¤¤¤¦Ì¾Á°¤òÆþ¤ì¤ë¤¿¤á¤Ë¤Ï¡¢¡Ö¥³¡¼¥¹¾ðÊó¤Î½¤ÀµÊÑ¹¹¡× (¥ª¥ì¥ó¥¸¤Î¥Ä¡¼¥ë¤Ç¤¹)¤ò»È¤¤¤Þ¤¹¡£¤³¤Î½¤Àµ¤ò¤·¤Æ¤â¡¢¤¢¤Ê¤¿¤Î¶¨Æ±¼çºË¼Ô¤Ï¡¢¥³¡¼¥¹¤Î¥æ¡¼¥¶¤È¤·¤ÆÅÐÏ¿¤µ¤ì¤ë¤ï¤±¤Ç¤Ï¤¢¤ê¤Þ¤»¤ó¡£¡Ö¶µ»Õ¡×Íó¤Ï¡¢¥æ¡¼¥¶¥ê¥¹¥È¤È´°Á´¤ËÆÈÎ©¤·¤Æ¤¤¤Þ¤¹¤Î¤Ç¡£</p><hr />
+<b>¥æ¡¼¥¶ÄÉ²Ã</b>
+<p>¥æ¡¼¥¶¤òÄÉ²Ã¤¹¤ë¤Ë¤Ï¡¢¤³¤Î¥Ð¡¼¥Á¥ã¥ë¥­¥ã¥ó¥Ñ¥¹¥¦¥¨¥Ö¥µ¥¤¥ÈÁ´ÂÎ¤Ë¡¢¤½¤Î¥æ¡¼¥¶¤¬ÅÐÏ¿¤µ¤ì¤Æ¤¤¤Ê¤¤¤«¤É¤¦¤«¡¢³Î¤«¤á¤Æ¤¯¤À¤µ¤¤¡£¤â¤·¡¢ÅÐÏ¿¤µ¤ì¤Æ¤¤¤¿¤é¡¢Èà½÷/Èà¤ÎÌ¾Á°¤Î²£¤Ë¤¢¤ë¥Á¥§¥Ã¥¯¥Ü¥Ã¥¯¥¹¤Ë¥Á¥§¥Ã¥¯¤òÆþ¤ì¤Æ¡ÖOK¡×¤ò½Ð¤·¤Æ¤¯¤À¤µ¤¤¡£Ì¤ÅÐÏ¿¤Ê¤é¡¢ÅÐÏ¿¤·¤Æ¤¯¤À¤µ¤¤¡£¤É¤Á¤é¤Î¥±¡¼¥¹¤Ç¤¢¤Ã¤Æ¤â¡¢Èà½÷/Èà¤Ë¡¢¥á¡¼¥ë¤¬Á÷¤é¤ì¡¢ÅÐÏ¿¤¬¤¹¤ó¤À¤³¤È¡¢¤¢¤ë¤¤¤Ï¡¢¿·ÅÐÏ¿¤Î¾ì¹ç¤Ï¥æ¡¼¥¶Ì¾¤È¥Ñ¥¹¥ï¡¼¥É¤¬ÅÁ¤¨¤é¤ì¤Þ¤¹¡£</p>";
+$langUserName = "¥æ¡¼¥¶Ì¾";
+$langUserTaken = "¤³¤Î¥æ¡¼¥¶Ì¾¤Ï¤¹¤Ç¤Ë¡¢Â¾¤Î¿Í¤¬¤Ä¤«¤Ã¤Æ¤¤¤Þ¤¹¡£";
+$langUsers = "¥æ¡¼¥¶";
+$langViMod = "²ÄÆÉ¤ò½¤Àµ";
+$langVisibility = "¸«¤¨¤ë¤è¤¦¤Ë¤¹¤ë/¸«¤¨¤Ê¤¤¤è¤¦¤Ë¤¹¤ë";
+$langWork = "³ØÀ¸¤ÎÊ¸½ñ¤¿¤Á";
+$langYes = "¤Ï¤¤";
+$langYouAreReg = "You are registered on";
+$langYourReg = "ÅÐÏ¿¤µ¤ì¤Þ¤·¤¿:";
 ?>

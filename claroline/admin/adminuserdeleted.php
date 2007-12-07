@@ -6,8 +6,8 @@
  * tool from the page to visualize the user profile (adminprofile.php)
  * and display a confirmation message to the admin.
  *
- * @version 1.8 $Revision$
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @version 1.7 $Revision$
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -24,15 +24,15 @@ $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 require '../inc/claro_init_global.inc.php';
 
 // Security check
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
 
-require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
-require_once get_path('incRepositorySys') . '/lib/user.lib.php';
-include claro_get_conf_repository() . 'user_profile.conf.php'; // find this file to modify values.
+require_once $includePath . '/lib/admin.lib.inc.php';
+require_once $includePath . '/lib/user.lib.php';
+require_once $includePath . '/conf/user_profile.conf.php'; // find this file to modify values.
 
-$nameTools=get_lang('User settings');
-$interbredcrump[]= array ('url' => get_conf(get_path('rootAdminWeb')), 'name' => get_lang('Administration'));
+$nameTools=$langUserSettings;
+$interbredcrump[]= array ('url' => $rootAdminWeb, 'name' => $langAdministration);
 
 //------------------------------------
 // Execute COMMAND section
@@ -40,46 +40,33 @@ $interbredcrump[]= array ('url' => get_conf(get_path('rootAdminWeb')), 'name' =>
 
 $cmd = (isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : null );
 
-$req['uidToEdit'] = (isset($_REQUEST['uidToEdit']) && ctype_digit($_REQUEST['uidToEdit']))
-? (int) $_REQUEST['uidToEdit']
-: false;
-
-
-$cmdList[] = '<a class="claroCmd" href="index.php" >' . get_lang('Back to administration page') . '</a>';
-$cmdList[] = '<a class="claroCmd" href="adminusers.php" >' . get_lang('Back to user list') . '</a>';
-
-if ( $cmd == 'delete' && $req['uidToEdit'] )
+if ( $cmd=='delete' )
 {
-    event_default( 'DELETE_USER' , array ('USER' => $req['uidToEdit']) );
-    if(false !== $deletionResult = user_delete($req['uidToEdit']))
-    $dialogBox =   get_lang('Deletion of the user was done sucessfully');
-    else
-    {
-        switch (claro_failure::get_last_failure())
-        {
-            case 'user_cannot_remove_himself'  :
-            {
-                $dialogBox = get_lang('You can not change your own settings!');
-            } break;
-            default :  $dialogBox = get_lang('Unable to delete');
-        }
-    }
+    $dialogBox = user_delete((int) $_REQUEST['uidToEdit']) ? $langUserDelete : $langNotUnregYourself;
 }
-else $dialogBox = get_lang('Unable to delete');
+
 //------------------------------------
 // DISPLAY
 //------------------------------------
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include $includePath . '/claro_init_header.inc.php';
 
-echo claro_html_tool_title(get_lang('Delete user'));
+// Display tool title
 
-if ( isset($dialogBox) ) echo claro_html_message_box($dialogBox);
+echo claro_disp_tool_title($langDeleteUser);
 
-echo '<p>'
-.    claro_html_menu_horizontal($cmdList)
-.    '</p>'
+//Display Forms or dialog box(if needed)
+
+if ( isset($dialogBox) ) echo claro_disp_message_box($dialogBox);
+
+// display TOOL links :
+
+echo '<a class="claroCmd" href="index.php" >' . $langBackToAdmin . '</a> | '
+.    '<a class="claroCmd" href="adminusers.php" >' . $langBackToUserList . '</a>'
 ;
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+
+// display footer
+include $includePath . '/claro_init_footer.inc.php';
+
 ?>

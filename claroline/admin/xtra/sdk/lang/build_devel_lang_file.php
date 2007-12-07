@@ -2,7 +2,7 @@
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -15,7 +15,7 @@ require '../../../../inc/claro_init_global.inc.php';
 
 // Security check
 if ( ! $_uid ) claro_disp_auth_form();
-if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
+if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
 
 /*
  * This script build the devel lang files for all languages.
@@ -39,22 +39,22 @@ $starttime = get_time();
 
 $nameTools = "Build development language files";
 
-$urlSDK = $rootAdminWeb . 'xtra/sdk/';
+$urlSDK = $rootAdminWeb . 'xtra/sdk/'; 
 $urlTranslation = $urlSDK . 'translation_index.php';
-$interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> get_lang('Administration'));
-$interbredcrump[] = array ("url"=>$urlSDK, "name"=> get_lang('SDK'));
-$interbredcrump[] = array ("url"=>$urlTranslation, "name"=> get_lang('Translation Tools'));
+$interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
+$interbredcrump[] = array ("url"=>$urlSDK, "name"=> $langSDK);
+$interbredcrump[] = array ("url"=>$urlTranslation, "name"=> $langTranslationTools);
 
 include($includePath."/claro_init_header.inc.php");
 
-echo claro_html_tool_title($nameTools);
+echo claro_disp_tool_title($nameTools);
 
-// go to lang folder
+// go to lang folder 
 
 $path_lang = $rootSys . "claroline/lang";
 chdir ($path_lang);
 
-// browse lang folder
+// browse lang folder 
 
 $languagePathList = get_lang_path_list($path_lang);
 
@@ -63,16 +63,16 @@ $languagePathList = get_lang_path_list($path_lang);
 if ( sizeof($languagePathList) > 0)
 {
     echo "<form action=\"" . $_SERVER['PHP_SELF'] . "\" method=\"GET\">";
-    echo "<select name=\"lang\">";
-    echo '<option value="all" selected="selected">' . get_lang('All') . '</option>'. "\n";
-    foreach($languagePathList as $key => $languagePath)
-    {
+    echo "<select name=\"language\">";
+    echo '<option value="all" selected="selected">' . $langAll . '</option>'. "\n";
+	foreach($languagePathList as $key => $languagePath)
+	{
 
-        if (isset($_REQUEST['lang']) && $key == $_REQUEST['lang'] )
+        if (isset($_REQUEST['language']) && $key == $_REQUEST['language'] )
         {
             echo "<option value=\"" . $key . "\" selected=\"selected\">" . $key . "</option>";
         }
-        else
+        else 
         {
             echo "<option value=\"" . $key ."\">" . $key . "</option>";
         }
@@ -88,12 +88,12 @@ else
 
 // if select language and laguage exists
 
-if (isset($_REQUEST['lang']))
-{
+if (isset($_REQUEST['language']))
+{	
 
     $languageToBuild = array();
 
-    if ($_REQUEST['lang'] == 'all')
+    if ($_REQUEST['language'] == 'all')
     {
         foreach ($languagePathList as $language => $languagePath)
         {
@@ -102,69 +102,78 @@ if (isset($_REQUEST['lang']))
     }
     else
     {
-        $languageToBuild[] = $_REQUEST['lang'];
+        $languageToBuild[] = $_REQUEST['language'];
     }
-
+    
     echo "<ol>\n";
 
-    foreach( $languageToBuild as $language )
-    {
-
+	foreach( $languageToBuild as $language )
+	{
+        
         $languagePath = $languagePathList[$language];
 
         // get language name and display it
 
-        echo "<li><strong>" . $language . "</strong> ";
-
-        // get the different variables
-
-        $sql = " SELECT DISTINCT used.varName, trans.varFullContent
-                FROM " . $tbl_used_lang . " used, " . $tbl_translation  . " trans
-                WHERE trans.language = '$language'
+	    echo "<li><strong>" . $language . "</strong> ";
+	
+		// get the different variables 
+	
+		$sql = " SELECT DISTINCT trans.varName, trans.varFullContent
+	    		FROM " . $tbl_used_lang . " used, " . $tbl_translation  . " trans
+	    		WHERE trans.language = '$language' 
                   AND used.varName = trans.varName
-                ORDER BY used.varName, trans.varContent";
+	    		ORDER BY trans.varName, trans.varContent";
+	
+		$result = mysql_query($sql) or die ("QUERY FAILED: " .  __LINE__);
+	         
+		if ($result) 
+		{
+		    $languageVarList = array();
 
-        $result = claro_sql_query($sql) or die ("QUERY FAILED: " .  __LINE__);
+		    while ($row=mysql_fetch_array($result))
+		    {
+		        $thisLangVar['name'   ] = $row['varName'       ];
+		        $thisLangVar['content'] = $row['varFullContent'];
+		
+		        $languageVarList[] = $thisLangVar;
+		    }
+		}
+	
+		chdir ($languagePath);
+	
+		echo "- Create file: " . $languagePath . "/" . LANG_COMPLETE_FILENAME;
+	
+		$fileHandle = fopen(LANG_COMPLETE_FILENAME, 'w') or die("FILE OPEN FAILED: ". __LINE__);	
+	
+		// build language files
+	
+		if ($fileHandle && count($languageVarList) > 0)
+		{
+		    fwrite($fileHandle, "<?php \n");
+		
+		    foreach($languageVarList as $thisLangVar)
+		    {
+                $varContent = $thisLangVar['content'];
 
-        if ($result)
-        {
-            $languageVarList = array();
+                // addslashes not back slashes double quote                
+		        $varContent = preg_replace('/([^\\\\])"/', '\\1\\"', $varContent);
 
-            while ($row=mysql_fetch_array($result))
-            {
-                $thisLangVar['name'   ] = $row['varName'       ];
-                $thisLangVar['content'] = $row['varFullContent'];
+                // addslashes before $
+                $varContent = preg_replace('/\$/','\\\$', $varContent);
 
-                $languageVarList[] = $thisLangVar;
-            }
-        }
-
-        chdir ($languagePath);
-
-        echo "- Create file: " . $languagePath . "/" . LANG_COMPLETE_FILENAME;
-
-        $fileHandle = fopen(LANG_COMPLETE_FILENAME, 'w') or die("FILE OPEN FAILED: ". __LINE__);
-
-        // build language files
-
-        if ($fileHandle && count($languageVarList) > 0)
-        {
-            fwrite($fileHandle, "<?php \n");
-
-            foreach($languageVarList as $thisLangVar)
-            {
-                $string = build_translation_line_file($thisLangVar['name'],$thisLangVar['content']) ;
-                fwrite($fileHandle, $string) or die ("FILE WRITE FAILED: ". __LINE__);
-            }
-
-            fwrite($fileHandle, "?>");
-        }
-
-        fclose($fileHandle) or die ("FILE CLOSE FAILED: ". __LINE__);
-
-        echo "</li>\n";
-
-    }
+		        $string = '$'.$thisLangVar['name'].' = "'.$varContent."\";\n";
+	
+		        fwrite($fileHandle, $string) or die ("FILE WRITE FAILED: ". __LINE__);
+		    }
+	
+		    fwrite($fileHandle, "?>");
+		}
+	
+		fclose($fileHandle) or die ("FILE CLOSE FAILED: ". __LINE__);
+		
+		echo "</li>\n";
+	
+	}    
     echo "</ol>\n";
 
 } // end sizeof($languagePathList) > 0

@@ -1,5 +1,4 @@
-<?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+<?php
 // --------------------------------------------------------------------------------
 // PhpConcept Library - Zip Module 2.4
 // --------------------------------------------------------------------------------
@@ -28,7 +27,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
   // ----- Constants
   define( 'PCLZIP_READ_BLOCK_SIZE', 2048 );
-
+  
   // ----- File list separator
   // In version 1.x of PclZip, the separator for file list is a space
   // (which is not a very smart choice, specifically for windows paths !).
@@ -162,7 +161,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     // ----- Internal error handling
     var $error_code = 1;
     var $error_string = '';
-
+    
     // ----- Current status of the magic_quotes_runtime
     // This value store the php configuration for magic_quotes
     // The class can then disable the magic_quotes and reset it after
@@ -258,7 +257,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     // ----- Look for arguments
     if ($v_size > 1) {
       // ----- Get the arguments
-      $v_arg_list = func_get_args();
+      $v_arg_list = &func_get_args();
 
       // ----- Remove form the options list the first argument
       array_shift($v_arg_list);
@@ -421,7 +420,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     // ----- Look for arguments
     if ($v_size > 1) {
       // ----- Get the arguments
-      $v_arg_list = func_get_args();
+      $v_arg_list = &func_get_args();
 
       // ----- Remove form the options list the first argument
       array_shift($v_arg_list);
@@ -661,7 +660,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     // ----- Look for arguments
     if ($v_size > 0) {
       // ----- Get the arguments
-      $v_arg_list = func_get_args();
+      $v_arg_list = &func_get_args();
 
       // ----- Look for first arg
       if ((is_integer($v_arg_list[0])) && ($v_arg_list[0] > 77000)) {
@@ -820,7 +819,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     // ----- Look for arguments
     if ($v_size > 1) {
       // ----- Get the arguments
-      $v_arg_list = func_get_args();
+      $v_arg_list = &func_get_args();
 
       // ----- Remove form the options list the first argument
       array_shift($v_arg_list);
@@ -937,7 +936,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
   // Options :
   //   PCLZIP_OPT_BY_INDEX :
   //   PCLZIP_OPT_BY_NAME :
-  //   PCLZIP_OPT_BY_EREG :
+  //   PCLZIP_OPT_BY_EREG : 
   //   PCLZIP_OPT_BY_PREG :
   // Return Values :
   //   0 on failure,
@@ -968,7 +967,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     // ----- Look for arguments
     if ($v_size > 0) {
       // ----- Get the arguments
-      $v_arg_list = func_get_args();
+      $v_arg_list = &func_get_args();
 
       // ----- Parse the options
       $v_result = $this->privParseOptions($v_arg_list, $v_size, $v_options,
@@ -1012,7 +1011,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
   function deleteByIndex($p_index)
   {
     //--(MAGIC-PclTrace)--//PclTraceFctStart(__FILE__, __LINE__, "PclZip::deleteByIndex", "index='$p_index'");
-
+    
     $p_list = $this->delete(PCLZIP_OPT_BY_INDEX, $p_index);
 
     // ----- Return
@@ -1066,7 +1065,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
       if (($this->zip_fd = @fopen($this->zipname, 'rb')) == 0)
       {
         $this->privSwapBackMagicQuotes();
-
+        
         // ----- Error log
         PclZip::privErrorLog(PCLZIP_ERR_READ_OPEN_FAIL, 'Unable to open archive \''.$this->zipname.'\' in binary read mode');
 
@@ -1566,7 +1565,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             //--(MAGIC-PclTrace)--//PclTraceFctEnd(__FILE__, __LINE__, PclZip::errorCode(), PclZip::errorInfo());
             return PclZip::errorCode();
           }
-
+          
           // ----- Reduce the index list
           // each index item in the list must be a couple with a start and
           // an end value : [0,3], [5-5], [8-10], ...
@@ -1577,10 +1576,10 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
               // ----- Explode the item
               $v_item_list = explode("-", $v_work_list[$j]);
               $v_size_item_list = sizeof($v_item_list);
-
+              
               // ----- TBC : Here we might check that each item is a
               // real integer ...
-
+              
               // ----- Look for single value
               if ($v_size_item_list == 1) {
                   // ----- Set the option value
@@ -1618,7 +1617,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
               }
               $v_sort_value = $v_result_list[$p_options_list[$i]][$j]['start'];
           }
-
+          
           // ----- Sort the items
           if ($v_sort_flag) {
               // TBC : To Be Completed
@@ -1749,7 +1748,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     //--(MAGIC-PclTrace)--//PclTraceFctStart(__FILE__, __LINE__, "PclZip::privCreate", "list, result_list, add_dir='$p_add_dir', remove_dir='$p_remove_dir'");
     $v_result=1;
     $v_list_detail = array();
-
+    
     // ----- Magic quotes trick
     $this->privDisableMagicQuotes();
 
@@ -2369,7 +2368,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     if ($p_header['stored_filename'] == "") {
       $p_header['status'] = "filtered";
     }
-
+    
     // ----- Check the path length
     if (strlen($p_header['stored_filename']) > 0xFF) {
       $p_header['status'] = 'filename_too_long';
@@ -2416,13 +2415,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
           $p_header['compressed_size'] = strlen($v_content_compressed);
           $p_header['compression'] = 8;
         }
-
+        
         // ----- Look for encryption
         /*
         if ((isset($p_options[PCLZIP_OPT_CRYPT]))
 		    && ($p_options[PCLZIP_OPT_CRYPT] != "")) {
           //--(MAGIC-PclTrace)--//PclTraceFctMessage(__FILE__, __LINE__, 2, "File need to be crypted ....");
-
+          
           // Should be a random header
           $v_header = 'xxxxxxxxxxxx';
 	      $v_content_compressed = PclZipUtilZipEncrypt($v_content_compressed,
@@ -2430,10 +2429,10 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 	                                               $v_header,
 												   $p_header['crc'],
 												   "test");
-
+												   
           $p_header['compressed_size'] += 12;
           $p_header['flag'] = 1;
-
+          
           // ----- Add the header to the data
           $v_content_compressed = $v_header.$v_content_compressed;
           //--(MAGIC-PclTrace)--//PclTraceFctMessage(__FILE__, __LINE__, 2, "Size after header : ".strlen($v_content_compressed)."");
@@ -2453,9 +2452,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 		                      $v_content_compressed);
         @fwrite($this->zip_fd, $v_binary_data, $p_header['compressed_size']);
         */
-        @fwrite($this->zip_fd,
+        @fwrite($this->zip_fd, 
 		        $v_content_compressed, $p_header['compressed_size']);
-
+        
         // ----- Close the file
         @fclose($v_file);
       }
@@ -2670,7 +2669,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     {
       // ----- Magic quotes trick
       $this->privSwapBackMagicQuotes();
-
+      
       // ----- Error log
       PclZip::privErrorLog(PCLZIP_ERR_READ_OPEN_FAIL, 'Unable to open archive \''.$this->zipname.'\' in binary read mode');
 
@@ -2949,7 +2948,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
       else if (   (isset($p_options[PCLZIP_OPT_BY_INDEX]))
                && ($p_options[PCLZIP_OPT_BY_INDEX] != 0)) {
           //--(MAGIC-PclTrace)--//PclTraceFctMessage(__FILE__, __LINE__, 3, "Extract with rule 'ByIndex'");
-
+          
           // ----- Look if the index is in the list
           for ($j=$j_start; ($j<sizeof($p_options[PCLZIP_OPT_BY_INDEX])) && (!$v_extract); $j++) {
               //--(MAGIC-PclTrace)--//PclTraceFctMessage(__FILE__, __LINE__, 3, "Look if index '$i' is in [".$p_options[PCLZIP_OPT_BY_INDEX][$j]['start'].",".$p_options[PCLZIP_OPT_BY_INDEX][$j]['end']."]");
@@ -2989,7 +2988,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
               //--(MAGIC-PclTrace)--//PclTraceFctMessage(__FILE__, __LINE__, 2, "PCLZIP_OPT_STOP_ON_ERROR is selected, extraction will be stopped");
 
               $this->privSwapBackMagicQuotes();
-
+              
               PclZip::privErrorLog(PCLZIP_ERR_UNSUPPORTED_COMPRESSION,
 			                       "Filename '".$v_header['stored_filename']."' is "
 				  	    	  	   ."compressed by an unsupported compression "
@@ -2999,7 +2998,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
               return PclZip::errorCode();
 		  }
 	  }
-
+	  
 	  // ----- Check encrypted files
 	  if (($v_extract) && (($v_header['flag'] & 1) == 1)) {
           //--(MAGIC-PclTrace)--//PclTraceFctMessage(__FILE__, __LINE__, 2, "Unsupported file encryption");
@@ -3036,7 +3035,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
           $v_extract = false;
       }
-
+      
       // ----- Look for real extraction
       if ($v_extract)
       {
@@ -3090,7 +3089,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
           // ----- Next extracted file
           $v_nb_extracted++;
-
+          
           // ----- Look for user callback abort
           if ($v_result1 == 2) {
           	break;
@@ -3261,7 +3260,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         $p_entry['status'] = "skipped";
         $v_result = 1;
       }
-
+      
       // ----- Look for abort result
       if ($v_result == 2) {
         //--(MAGIC-PclTrace)--//PclTraceFctMessage(__FILE__, __LINE__, 2, "User callback abort the extraction");
@@ -3293,7 +3292,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
         // ----- Change the file status
         $p_entry['status'] = "already_a_directory";
-
+        
         // ----- Look for PCLZIP_OPT_STOP_ON_ERROR
         // For historical reason first PclZip implementation does not stop
         // when this kind of error occurs.
@@ -3426,7 +3425,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             $v_binary_data = pack('a'.$v_read_size, $v_buffer);
             @fwrite($v_dest_file, $v_binary_data, $v_read_size);
             */
-            @fwrite($v_dest_file, $v_buffer, $v_read_size);
+            @fwrite($v_dest_file, $v_buffer, $v_read_size);            
             $v_size -= $v_read_size;
           }
 
@@ -3435,7 +3434,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
           // ----- Change the file mtime
           touch($p_entry['filename'], $p_entry['mtime']);
-
+          
 
         }
         else {
@@ -3448,11 +3447,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
               // ----- Read the encryption header
               //--(MAGIC-PclTrace)--//PclTraceFctMessage(__FILE__, __LINE__, 5, "Read 12 encryption header bytes");
               $v_encryption_header = @fread($this->zip_fd, 12);
-
+              
               // ----- Read the encrypted & compressed file in a buffer
               //--(MAGIC-PclTrace)--//PclTraceFctMessage(__FILE__, __LINE__, 5, "Read '".($p_entry['compressed_size']-12)."' compressed & encrypted bytes");
               $v_buffer = @fread($this->zip_fd, $p_entry['compressed_size']-12);
-
+              
               // ----- Decrypt the buffer
               $this->privDecrypt($v_encryption_header, $v_buffer,
 			                     $p_entry['compressed_size']-12, $p_entry['crc']);
@@ -3464,7 +3463,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
               // ----- Read the compressed file in a buffer (one shot)
               $v_buffer = @fread($this->zip_fd, $p_entry['compressed_size']);
           }
-
+          
           // ----- Decompress the file
           $v_file_content = @gzinflate($v_buffer);
           unset($v_buffer);
@@ -3474,11 +3473,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             // ----- Change the file status
             // TBC
             $p_entry['status'] = "error";
-
+            
             //--(MAGIC-PclTrace)--//PclTraceFctEnd(__FILE__, __LINE__, $v_result);
             return $v_result;
           }
-
+          
           // ----- Opening destination file
           if (($v_dest_file = @fopen($p_entry['filename'], 'wb')) == 0) {
             //--(MAGIC-PclTrace)--//PclTraceFctMessage(__FILE__, __LINE__, 2, "Error while opening '".$p_entry['filename']."' in write binary mode");
@@ -3517,7 +3516,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 	if ($p_entry['status'] == "aborted") {
       $p_entry['status'] = "skipped";
 	}
-
+	
     // ----- Look for post-extract callback
     elseif (isset($p_options[PCLZIP_CB_POST_EXTRACT])) {
       //--(MAGIC-PclTrace)--//PclTraceFctMessage(__FILE__, __LINE__, 2, "A post-callback '".$p_options[PCLZIP_CB_POST_EXTRACT]."()') is defined for the extraction");
@@ -3626,7 +3625,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
           // ----- Read the compressed file in a buffer (one shot)
           $v_buffer = @fread($this->zip_fd, $p_entry['compressed_size']);
-
+          
           // ----- Decompress the file
           $v_file_content = gzinflate($v_buffer);
           unset($v_buffer);
@@ -3715,7 +3714,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
         // ----- Reading the file
         $v_data = @fread($this->zip_fd, $p_entry['compressed_size']);
-
+        
         // ----- Decompress the file
         if (($p_string = @gzinflate($v_data)) === FALSE) {
             // TBC
@@ -4465,7 +4464,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 //--(MAGIC-PclTrace)--//PclTraceFctEnd(__FILE__, __LINE__, $v_result);
                 return $v_result;
             }
-
+            
             // ----- Check that local file header is same as central file header
             if ($this->privCheckFileHeaders($v_local_header,
 			                                $v_header_list[$i]) != 1) {
@@ -4558,11 +4557,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         // TBC : I should test the result ...
         //@rename($v_zip_temp_name, $this->zipname);
         PclZipUtilRename($v_zip_temp_name, $this->zipname);
-
+    
         // ----- Destroy the temporary archive
         unset($v_temp_zip);
     }
-
+    
     // ----- Remove every files : reset the file
     else if ($v_central_dir['entries'] != 0) {
         $this->privCloseFd();
@@ -4977,13 +4976,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
   {
     //--(MAGIC-PclTrace)--//PclTraceFctStart(__FILE__, __LINE__, 'PclZip::privDecrypt', "size=".$p_size."");
     $v_result=1;
-
+    
     // ----- To Be Modified ;-)
     $v_pwd = "test";
-
+    
     $p_buffer = PclZipUtilZipDecrypt($p_buffer, $p_size, $p_encryption_header,
 	                                 $p_crc, $v_pwd);
-
+    
     // ----- Return
     //--(MAGIC-PclTrace)--//PclTraceFctEnd(__FILE__, __LINE__, $v_result);
     return $v_result;
@@ -5133,7 +5132,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 		  }
         }
       }
-
+      
       // ----- Look for skip
       if ($v_skip > 0) {
         while ($v_skip > 0) {
@@ -5347,7 +5346,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
   function PclZipUtilOptionText($p_option)
   {
     //--(MAGIC-PclTrace)--//PclTraceFctStart(__FILE__, __LINE__, "PclZipUtilOptionText", "option='".$p_option."'");
-
+    
     $v_list = get_defined_constants();
     for (reset($v_list); $v_key = key($v_list); next($v_list)) {
 	  $v_prefix = substr($v_key, 0, 10);
@@ -5357,7 +5356,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
           return $v_key;
 	    }
     }
-
+    
     $v_result = 'Unknown';
 
     //--(MAGIC-PclTrace)--//PclTraceFctEnd(__FILE__, __LINE__, $v_result);

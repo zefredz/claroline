@@ -1,17 +1,16 @@
 <?php // $Id$
-/**
- * CLAROLINE
+/** 
+ * CLAROLINE 
  *
  * Initialize conf settings
  * Try to read  current values in current conf files
  * Build new conf file content with these settings
  * write it.
  *
- * @version 1.9 $Revision$
+ * @version 1.7 $Revision$ 
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  *
  * @see http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.7
  *
@@ -25,9 +24,9 @@
 
 /*=====================================================================
   Init Section
- =====================================================================*/
+ =====================================================================*/ 
 
-if ( ! file_exists('../../inc/currentVersion.inc.php') )
+if ( ! file_exists('../../currentVersion.inc.php') )
 {
     // if this file doesn't exist, the current version is < claroline 1.6
     // in 1.6 we need a $platform_id for session handling
@@ -37,8 +36,11 @@ if ( ! file_exists('../../inc/currentVersion.inc.php') )
 // Initialise Upgrade
 require 'upgrade_init_global.inc.php';
 
+// Include library
+include ($includePath.'/lib/fileManage.lib.php');
+
 // Security Check
-if (!claro_is_platform_admin()) upgrade_disp_auth_form();
+if (!$is_platformAdmin) upgrade_disp_auth_form();
 
 // Define display
 DEFINE ('DISPLAY_WELCOME_PANEL', __LINE__);
@@ -49,177 +51,221 @@ $display = DISPLAY_WELCOME_PANEL;
 
 /*=====================================================================
   Main Section
- =====================================================================*/
+ =====================================================================*/ 
 
 $error = FALSE;
 
 if ( isset($_REQUEST['verbose']) ) $verbose = true;
 
-$cmd = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : '';
+$cmd = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : ''; 
 
 if ( $cmd == 'run' )
 {
-    // Create module, platform, tmp folders
-    if ( !file_exists(get_path('rootSys') . 'module/') )        claro_mkdir(get_path('rootSys') . 'module/', CLARO_FILE_PERMISSIONS, true);
-    if ( !file_exists(get_path('rootSys') . 'platform/') )      claro_mkdir(get_path('rootSys') . 'platform/', CLARO_FILE_PERMISSIONS, true);
-    if ( !file_exists(get_path('rootSys') . 'platform/conf/') ) claro_mkdir(get_path('rootSys') . 'platform/conf/', CLARO_FILE_PERMISSIONS, true);
-    if ( !file_exists(get_path('rootSys') . 'tmp/') )           claro_mkdir(get_path('rootSys') . 'tmp/', CLARO_FILE_PERMISSIONS, true);
+    // Prepare repository to backup files
+    $backupRepositorySys = $includePath .'/conf/bak.'.date('Y-z-B').'/';
+    claro_mkdir($backupRepositorySys);
 
-    // Create folder to backup configuration files
-    $backupRepositorySys = get_path('rootSys') .'platform/bak.'.date('Y-z-B').'/';
-    claro_mkdir($backupRepositorySys, CLARO_FILE_PERMISSIONS, true);
-
-    $output = '<h3>Configuration file</h3>' . "\n" ;
-
+    $output = '<h3>Configuration file</h3>' . "\n" ;  
     $output.= '<ol>' . "\n" ;
+    
+    // Generate configuration file from definition file
 
-    /*
-     * Generate configuration file from definition file
-     */
+    $def_file_list = get_def_file_list();
 
-    $config_code_list = get_config_code_list();
-    $config_code_list = array_merge($config_code_list,array('CLANN','CLCAL','CLFRM','CLCHT','CLDOC','CLDSC','CLUSR','CLLNP','CLQWZ','CLWRK','CLWIKI'));
-
-    if ( is_array($config_code_list) )
-    {
-        // Build table with current values in configuration files
-        $current_property_list = array();
-
-        foreach ( $config_code_list as $config_code )
+    if ( is_array($def_file_list) )
+    {        
+        // Build table with current values in configuration files       
+        $current_value_list = array();
+        
+        foreach ( array_keys($def_file_list) as $config_code )
         {
-            // new config object
-            $config = new ConfigUpgrade($config_code);
-            $config->load();
-            $this_property_list = $config->get_property_list();
-            $current_property_list = array_merge($current_property_list, $this_property_list);
-            unset($config);
+            unset($conf_def, $conf_def_property_list);
+        
+            $def_file = get_def_file($config_code);
+        
+            if ( file_exists($def_file) ) 
+            {
+                require($def_file);
+            }
+
+            // Add current config file to old config file list
+            $conf_def['old_config_file'][] = $conf_def['config_file'];
+
+            if ( is_array($conf_def['old_config_file']) )
+            {
+                // Browse configuration files
+                foreach ( $conf_def['old_config_file'] as $current_file_name ) 
+                {
+                    // Add config name an value in array current value list
+                    $current_value_list = array_merge( $current_value_list,
+                                                       get_values_from_confFile($includePath . '/conf/' . $current_file_name,$conf_def_property_list)
+                                                      );
+                }
+            }
+
         }
 
         // Set platform_id if not set in current claroline version (new in 1.6)
-        if ( ! isset($current_property_list['platform_id']) )
+        if ( ! isset($current_value_list['platform_id']) )
         {
-            $current_property_list['platform_id'] = $platform_id;
+            $current_value_list['platform_id'] = $platform_id;
         }
 
         // Old variables from 1.5
-        if ( isset($current_property_list['administrator']) )
-        {
-            $current_property_list['administrator_name'] = $administrator['name'];
-            $current_property_list['administrator_phone'] = $administrator['phone'];
-            $current_property_list['administrator_email'] = $administrator['email'];
+        if ( isset($administrator) )
+        { 
+            $current_value_list['administrator_name'] = $administrator['name'];
+            $current_value_list['administrator_phone'] = $administrator['phone'];
+            $current_value_list['administrator_email'] = $administrator['email'];
         }
 
-        // Old variables from 1.5
-        if ( isset($current_property_list['institution']) )
-        {
-            $current_property_list['institution_name'] = $current_property_list['institution']['name'];
-            $current_property_list['institution_url'] = $current_property_list['institution']['url'];
-        }
-
-
-        // UPDATE for  1.9
-        // split defaultVisibilityForANewCourse in 2 new var
-        // 'acceptedValue' => array ('0'=>'Private&nbsp;+ New registration denied'
-        //                          ,'1'=>'Private&nbsp+ New Registration allowed'
-        //                          ,'2'=>'Public&nbsp;&nbsp;+ New Registration allowed'
-        //                          ,'3'=>'Public&nbsp;&nbsp;+ New Registration denied'
-        if ( isset($current_property_list['defaultVisibilityForANewCourse']) )
-        {
-            $current_property_list['defaultAccessOnCourseCreation']    = (bool) ( $current_property_list['defaultVisibilityForANewCourse'] == 2 or $current_property_list['defaultVisibilityForANewCourse'] == 3 );
-            $current_property_list['defaultRegistrationOnCourseCreation'] = (bool) ( $current_property_list['defaultVisibilityForANewCourse'] == 1 or $current_property_list['defaultVisibilityForANewCourse'] == 2 );
+        if ( isset($institution) )
+        { 
+            $current_value_list['institution_name'] = $institution['name'];
+            $current_value_list['institution_url'] = $institution['url'];
         }
 
         // Browse definition file and build them
-
-        reset( $config_code_list );
-
-        foreach ( $config_code_list as $config_code )
+        
+        reset( $def_file_list );
+        
+        foreach ( $def_file_list as $config_code => $def)
         {
-            $config = new ConfigUpgrade($config_code);
+            // read configuration file
+            $conf_file = get_conf_file($config_code);
 
-            // load and initialise the config
-            if ( $config->load() )
+            $output .= '<li>'. basename($conf_file)
+                    .  '<ul >' . "\n";
+
+            $okToSave = TRUE;
+            
+            unset($conf_def, $conf_def_property_list);
+    
+            // read definition file
+            $def_file = get_def_file($config_code);
+    
+            if ( file_exists($def_file) ) require($def_file);
+            
+            if ( isset($conf_def_property_list) && is_array($conf_def_property_list) )
             {
-                $config_filename = $config->get_config_filename();
+                
+                $propertyList = array();
+                
+                // Browse each property of the definition files
 
-                $output .= '<li>'. htmlspecialchars(basename($config_filename))
-                        .  '<ul >' . "\n";
-
-                // Backup current file
-                $output .= '<li>Validate property : ' ;
-
-                if ( $config->validate($current_property_list) )
+                foreach ( $conf_def_property_list as $propName => $propDef )
                 {
-                    $output .= '<span class="success">Succeeded</span></li>';
 
-                    if ( !file_exists($config_filename) )
+                    // Get current property value if exists 
+                    // else get its default value
+
+                    if ( isset($current_value_list[$propName]) )
+                    {  
+                        $propValue = $current_value_list[$propName];
+                    }
+                    else 
                     {
-                        // Create a file empty if not exists
-                        touch($config_filename);
+                        $propValue = $propDef['default'];                                 
+                    }
+
+                    /**
+                     * Validate property value
+                     * @todo user can be better informed how to react to this error.
+                     */
+                    if ( !validate_property($propValue, $propDef) )
+                    {
+                        // Validation failed - Alert users
+                        $okToSave = FALSE;
+                        $error = TRUE;
+                        $output .= '<span class="warning">'.sprintf("%s : %s is invalid", $propName, $propValue) . '</span>' . '<br />' . "\n"
+                                . sprintf("Rules : %s in %s",$propDef['type'] ,basename($def_file)).' <br />' . "\n"
+                                . var_export($propDef['acceptedValue'],1) . '<br />' . "\n" ;
                     }
                     else
                     {
-                        // Backup current file
-                        $output .= '<li>Backup old file : ' ;
-
-                        $fileBackup = $backupRepositorySys . basename($config_filename);
-
-                        if ( !@copy($config_filename, $fileBackup) )
-                        {
-                            $output .= '<span class="warning">Failed</span>';
-                        }
-                        else
-                        {
-                            $output .= '<span class="success">Succeeded</span>';
-                        }
-                        $output .= '</li>' . "\n" ;
-
-                        // Change permission of the backup file
-                        @chmod( $fileBackup, CLARO_FILE_PERMISSIONS );
-                        @chmod( $fileBackup, CLARO_FILE_PERMISSIONS );
+                        // Validation succeed 
+                        $propertyList[] = array('propName'  => $propName
+                                               ,'propValue' => $propValue);
                     }
+                }
+            }
+            else
+            {
+                $okToSave = FALSE;
+                $error = TRUE;
+            }
+    
+            // We save the upgraded configuration file
 
-                    $output .= '<li>Upgrade file : ';
-
-                    if ( $config->save() )
-                    {
-                        $output .= '<span class="success">Succeeded</span>';
-                    }
-                    else
-                    {
-                        $output .= '<span class="warning">Failed : ' . $config->backlog->output() . '</span>';
-                        $error = true ;
-                    }
-
-                    $output .= '</li>'."\n";
+            if ($okToSave)
+            {
+                if ( !file_exists($conf_file) )
+                {
+                    // Create a file empty if not exists
+                    touch($conf_file);
                 }
                 else
                 {
-                    $output .= '<span class="warning">Failed : ' . $config->backlog->output() . '</span></li>' . "\n";
-                    $error = true ;
+                    // Backup current file 
+                    $output .= '<li>Backup old file : ' ;
+
+                    $fileBackup = $backupRepositorySys . basename($conf_file);
+                    if (!@copy($conf_file, $fileBackup) )
+                    {
+                        $output .= '<span class="warning">Failed</span>';
+                    }
+                    else
+                    {
+                        $output .= '<span class="success">Succeeded</span>';
+                    }
+                    $output .= '</li>' . "\n" ;
+
+                    // Change permission of the backup file
+                    @chmod( $fileBackup, CLARO_FILE_PERMISSIONS );
+                    @chmod( $fileBackup, CLARO_FILE_PERMISSIONS );
                 }
 
-                $output .= '</ul>' . "\n"
+    
+                if ( is_array($propertyList) && count($propertyList)>0 )
+                {
+                    // Save the new configuration file 
+
+                    $output .= '<li>Upgrade file : ';
+
+                    if ( write_conf_file($conf_def,$conf_def_property_list,$propertyList,$conf_file,realpath(__FILE__)) )
+                    {
+                        $output .= '<span class="success">Succeeded</span>';
+                    }
+                    else 
+                    {
+                        $output .= '<span class="warning">Failed</span>';
+                        $error = TRUE;
+                    }
+                    $output .= '</li>'."\n";
+                }
+            }
+            $output .= '</ul>' . "\n" 
                      . '</li>' . "\n";
 
-            } // end if config->load()
+        } // End browse definition file and build them
 
-        } // end browse definition file and build them
-
-    } // end if is_array def file list
-
+    }
+    
     /**
      * Config file to undist
      */
+    
+    $arr_file_to_undist = array ( $includePath.'/../../textzone_top.inc.html',
+                                 $includePath.'/../../textzone_right.inc.html',
+                                 $includePath.'/conf/auth.conf.php'
+                                );
 
-    $arr_file_to_undist = array ( get_path('incRepositorySys').'/../auth/extauth/drivers/auth.drivers.conf.php' => get_path('rootSys').'platform/conf' );
-
-    foreach ( $arr_file_to_undist as $undistFile => $undistPath )
+    foreach ( $arr_file_to_undist as $undist_this )
     {
-        $output .= '<li>'. basename ($undistFile) . "\n"
+        $output .= '<li>'. basename ($undist_this) . "\n"
                 . '<ul><li>Undist : ' . "\n" ;
 
-        if ( claro_undist_file($undistFile, $undistPath) )
+        if ( claro_undist_file($undist_this) )
         {
             $output .= '<span class="success">Succeeded</span>';
         }
@@ -233,7 +279,7 @@ if ( $cmd == 'run' )
     }
 
     $output .= '</ol>' . "\n";
-
+    
     if ( !$error )
     {
         $display = DISPLAY_RESULT_SUCCESS_PANEL;
@@ -245,12 +291,12 @@ if ( $cmd == 'run' )
     {
         $display = DISPLAY_RESULT_ERROR_PANEL;
     }
-
-} // end if run
+    
+} // end if run 
 
 /*=====================================================================
   Display Section
- =====================================================================*/
+ =====================================================================*/ 
 
 // Display Header
 echo upgrade_disp_header();
@@ -267,7 +313,7 @@ switch ($display)
               <center><p><button onclick="document.location=\'' . $_SERVER['PHP_SELF'] . '?cmd=run\';">Launch platform
               main settings upgrade</button></p></center>';
         break;
-
+        
     case DISPLAY_RESULT_ERROR_PANEL :
         echo '<h2>Step 1 of 3: platform main settings - <span class="error">Failed</span></h2>';
         echo $output;

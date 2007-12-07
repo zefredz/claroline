@@ -1,5 +1,4 @@
-<?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+<?php
 
 /**
  * @file CAS/client.php
@@ -108,8 +107,8 @@ class CASClient
   function printHTMLFooter()
     {
       $this->HTMLFilterOutput(empty($this->_output_footer)
-      ?('<hr /><address>phpCAS __PHPCAS_VERSION__ '.$this->getString(CAS_STR_USING_SERVER).' <a href="__SERVER_BASE_URL__">__SERVER_BASE_URL__</a> (CAS __CAS_VERSION__)</a></address></body></html>')
-      :$this->_output_footer);
+			      ?('<hr><address>phpCAS __PHPCAS_VERSION__ '.$this->getString(CAS_STR_USING_SERVER).' <a href="__SERVER_BASE_URL__">__SERVER_BASE_URL__</a> (CAS __CAS_VERSION__)</a></address></body></html>')
+			      :$this->_output_footer);
     }
 
   /**
@@ -166,7 +165,7 @@ class CASClient
   function getLang()
     {
       if ( empty($this->_lang) )
-    $this->setLang(PHPCAS_LANG_DEFAULT);
+	$this->setLang(PHPCAS_LANG_DEFAULT);
       return $this->_lang;
     }
 
@@ -336,17 +335,6 @@ class CASClient
     }
 
   /**
-   * This method sets the login URL of the CAS server.
-   * @param $url the login URL
-   * @private
-   * @since 0.4.21 by Wyman Chan
-   */
-  function setServerLoginURL($url)
-    {
-      return $this->_server['login_url'] = $url;
-    }
-
-  /**
    * This method is used to retrieve the service validating URL of the CAS server.
    * @return a URL.
    * @private
@@ -421,17 +409,6 @@ class CASClient
 	$this->_server['logout_url'] = $this->getServerBaseURL().'logout';
       }
       return $this->_server['logout_url']; 
-    }
-
-  /**
-   * This method sets the logout URL of the CAS server.
-   * @param $url the logout URL
-   * @private
-   * @since 0.4.21 by Wyman Chan
-   */
-  function setServerLogoutURL($url)
-    {
-      return $this->_server['logout_url'] = $url;
     }
 
   // ########################################################################
@@ -1770,7 +1747,7 @@ class CASClient
       if ( !($dom = domxml_open_mem($text_response))) {
 	// read failed
 	$this->authError('PT not validated',
-		     $validate_url,
+		     $alidate_url,
 		     FALSE/*$no_response*/,
 		     TRUE/*$bad_response*/,
 		     $text_response);
@@ -1896,8 +1873,6 @@ class CASClient
 	  // remove the ticket if present in the CGI parameters
 	  $cgi_params = preg_replace('/&ticket=[^&]*/','',$cgi_params);
 	  $cgi_params = preg_replace('/\?ticket=[^&;]*/','?',$cgi_params);
-	  $cgi_params = preg_replace('/\?%26/','?',$cgi_params);
-	  $cgi_params = preg_replace('/\?&/','?',$cgi_params);
 	  $cgi_params = preg_replace('/\?$/','',$cgi_params);
 	  $final_uri .= $cgi_params;
 	  $this->setURL($final_uri);

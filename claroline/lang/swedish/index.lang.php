@@ -1,0 +1,30 @@
+<?php
+$langAgenda = "Agenda";
+$langAnnouncement = "Tillkännagivanden";
+$langCategories = "Kategorier";
+$langChat = "Diskussion";
+$langCourseCreate = "Skapa en webbkurs";
+$langCourseManager = "Kursansvarig";
+$langDay_of_weekNames = "Array";
+$langDescriptionCours = "Kursbeskrivning";
+$langDocument = "Dokument";
+$langEnter = "Stig in";
+$langExercises = "Övningar";
+$langForums = "Forum";
+$langGroups = "instruktion för gruppanvändarna";
+$langHelp = "hjälp";
+$langInvalidId = "Ogiltig inloggning. Om du inte är registrerad fyll i <a href='claroline/auth/inscription.php'>registreringsformuläret</a></font color>";
+$langLogin = "Logga in";
+$langLogout = "Logga ut";
+$langLostPassword = "Tappat Lösenordet";
+$langModifyProfile = "Modifiera min profil";
+$langMonthNames = "Array";
+$langMyCourses = "Mina kurser";
+$langNameOfLang = "Array";
+$langOtherCourses = "Kurslista";
+$langPoweredBy = "Med kraft från";
+$langStudent = "elev";
+$langUserName = "Namn";
+$langUsers = "Användare";
+$langWork = "Elevarbeten";
+?>

@@ -1,0 +1,82 @@
+<?php
+$langAddComment = "Tambah/ubah komentar ke";
+$langAddModule = "Tambah";
+$langAddModulesButton = "Tambah modul(-modul)";
+$langAddOneModuleButton = "Tambah modul";
+$langAgenda = "Agenda";
+$langAltClarodoc = "Clarodoc";
+$langAltDocument = "Dokumen";
+$langAltExercise = "Latihan";
+$langAltScorm = "Scorm";
+$langAnnouncement = "Pengumuman";
+$langBack = "Kembali";
+$langBrowserCannotSeeFrames = "Browser Anda tidak dapat melihat frame.";
+$langChat = "Diskusi";
+$langConfirmYourChoice = "Silahkan konfirmasi pilihan anda";
+$langCourseHome = "Halaman induk mata kuliah";
+$langCourseManager = "Penanggung jawab mata kuliah";
+$langDate = "Tanggal";
+$langDay_of_weekNames = "Array";
+$langDefaultLearningPathComment = "Ini uraian pengantar untuk alur pembelajaran ini. Untuk mengubahnya dengan uraian anda, klik di <b>ubah</b> di bawah ini.";
+$langDefaultModuleAddedComment = "Ini adalah teks perkenalan tambahan tentang keberadaan modul ini 
+secara khusus dalam alur pembelajaran. Untuk menggantinya dengan teks Anda sendiri, 
+klik <b>ubah</b> di bawah ini.";
+$langDefaultModuleComment = "Ini adalah teks perkenalan dari modul ini, yang akan tampil
+pada setiap jalur pembelajaran yang mengandung modul ini. Untuk menggantinya dengan teks Anda sendiri,
+ klik <b>ubah</b> di bawah ini.";
+$langDelete = "Hapus";
+$langDescriptionCours = "Deskripsi mata kuliah";
+$langDocument = "Dokumen";
+$langErrorInvalidParms = "Error : Parameter tidak benar (gunakan angka saja)";
+$langErrorNameAlreadyExists = "Error : Nama telah ada dalam alur pembelajaran
+atau di kumpulan modul";
+$langErrorValuesInDouble = "Error : Satu nilai atau lebih berganda";
+$langExercise = "Latihan";
+$langExerciseCancelled = "Latihan dibatalkan, pilih modul di dalam daftar untuk melanjutkan.";
+$langExerciseDone = "Latihan selesai, pilih modul di dalam daftar untuk melanjutkan.";
+$langExercises = "Latihan";
+$langForums = "Forum-forum";
+$langFullScreen = "Layar penuh";
+$langGroups = "Pendaftaran user ke dalam grup";
+$langHelp = "Pertolongan";
+$langInFrames = "Dalam frame";
+$langLearningPath = "Alur pembelajaran";
+$langLearningPathAdmin = "Pengelola alur pembelajaran";
+$langLearningPathList = "Daftar Alur Pembelajaran";
+$langLogin = "login";
+$langLogout = "Logout";
+$langMinuteShort = "menit";
+$langModify = "Ubah";
+$langModifyProfile = "Ubah profil Ku";
+$langModule = "Modul";
+$langMonthNames = "Array";
+$langMyAgenda = "Kalenderku";
+$langMyCourses = "Daftar Mata kuliah Ku";
+$langName = "Nama";
+$langNameOfLang = "Array";
+$langNext = "Berikutnya";
+$langNoEx = "Saat ini belum ada latihan";
+$langOk = "Ok";
+$langOtherCourses = "Daftar mata kuliah";
+$langPeriodDayShort = "h.";
+$langPeriodHourShort = "j.";
+$langPlatformAdministration = "Administrasi Platform";
+$langPoweredBy = "Diperkuat oleh";
+$langPrevious = "Sebelumnya";
+$langQuitViewer = "Kembali ke daftar";
+$langSecondShort = "detik";
+$langSize = "Ukuran";
+$langStudent = "mahasiswa";
+$langSwitchEditorToTextConfirm = "Perintah ini akan menghapus layout teks berlaku. Ingin dilanjutkan?";
+$langTextEditorDisable = "Nonaktifkan editor teks";
+$langTextEditorEnable = "Aktifkan editor teks";
+$langUp = "Atas";
+$langUsers = "Users";
+$langView = "Lihat";
+$langViewMode = "modus tampil";
+$langWiki = "Wiki";
+$langWork = "Tugas";
+$lang_enroll = "Daftar";
+$lang_footer_p_CourseManager = "Pengelola %s";
+$lang_p_platformManager = "Administrator untuk %s";
+?>

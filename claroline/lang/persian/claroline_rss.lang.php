@@ -1,0 +1,37 @@
+<?php
+$langAgenda = "دستور کار";
+$langAnnouncement = "اعلان‌ها";
+$langCancel = "لغو";
+$langChat = "گپ";
+$langCopy = "نسخه‌برداری";
+$langCourseHome = "صفحه‌ی اصلی درس";
+$langCourseManager = "مدیر درس";
+$langDay_of_weekNames = "آرایه";
+$langDescriptionCours = "شرح درس";
+$langDocument = "نوشتارها و پیوندها";
+$langExercises = "تمرین‌ها";
+$langForums = "فوروم‌ها";
+$langGroups = "گروه‌ها";
+$langHelp = "راهنما";
+$langLearningPath = "مسیر آموزشی";
+$langLogin = "ورود به سیستم";
+$langLogout = "خروج از سیستم";
+$langMinuteShort = "حداقل";
+$langModifyProfile = "تغییر مجموعه تنظیمات من";
+$langMonthNames = "آرایه";
+$langMyAgenda = "تقویم من";
+$langMyCourses = "فهرست درس‌های من";
+$langNameOfLang = "آرایه";
+$langOk = "خوب";
+$langOtherCourses = "فهرست درس‌ها";
+$langPeriodDayShort = "ر.";
+$langPeriodHourShort = "س.";
+$langRetry = "تلاش دوباره";
+$langSecondShort = "sec.";
+$langStudent = "دانشجو";
+$langToday = "امروز";
+$langUsers = "کاربران";
+$langViewMode = "حالت نمایش";
+$langWiki = "ویکی";
+$langWork = "تکلیف";
+?>

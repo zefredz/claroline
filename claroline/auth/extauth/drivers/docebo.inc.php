@@ -1,11 +1,10 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.7 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -54,9 +53,43 @@ $extAuthAttribNameList = array (
 
 $extAuthAttribTreatmentList = array ('status' => 5);
 
+
+//////////////////////////////////////////////////////////////////////////////
+
+
+$extAuth = new ExternalAuthentication($authSourceType, $extAuthOptionList);
+$extAuth->setAuthSourceName($authSourceName);
+
+if ( $extAuth->isAuth() )
+{
+    if ( isset($uData['user_id']) )
+    {
+       // update the user data in the claroline user table
+
+       $extAuth->recordUserData($extAuthAttribNameList, 
+                                $extAuthAttribTreatmentList, 
+                                $uData['user_id']);
+    }
+    else
+    {
+        // create a new rank in the claroline user table for this user
+    
+    $extAuth->recordUserData($extAuthAttribNameList, 
+                             $extAuthAttribTreatmentList);
+    }
+
+    $extAuthId = $extAuth->getUid();
+}
+else
+{
+    $extAuthId = false;
+}
+
+return $extAuthId;
+
 // PROCESS AUTHENTICATION
 
-return require dirname(__FILE__).'/../extAuthProcess.inc.php';
+return require $clarolineRepositorySys.'/auth/extauth/extAuthProcess.inc.php';
 
 
 ?>

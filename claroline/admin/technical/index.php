@@ -4,9 +4,9 @@
  *
  * This is the index page of sdk tools
  *
- * @version 1.8 $Revision$
+ * @version 1.7 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -18,31 +18,29 @@
  */
 
 require '../../inc/claro_init_global.inc.php';
-if(file_exists(get_path('rootSys').'platform/currentVersion.inc.php')) include (get_path('rootSys').'platform/currentVersion.inc.php');
-$is_allowedToUseSDK = claro_is_platform_admin();
+if(file_exists($includePath . '/currentVersion.inc.php')) include ($includePath . '/currentVersion.inc.php');
+$is_allowedToUseSDK = $is_platformAdmin;
 
 if (! $is_allowedToUseSDK) claro_disp_auth_form();
 
-$nameTools = get_lang('Technical Tools');
+$nameTools = $langTechnical;
 
-$interbredcrump[]= array ('url' => '../index.php', 'name' => get_lang('Admin'));
+$interbredcrump[]= array ('url' => '../index.php', 'name' => $langAdmin);
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include($includePath . '/claro_init_header.inc.php');
 
-echo claro_html_tool_title(
+echo claro_disp_tool_title(
     array(
     'mainTitle'=>$nameTools
     )
     );
 
-
-// TODO : cuse claro disp menu v
 ?>
 <ul>
- <li><a href="./diskUsage.php"><?php echo get_lang('Disk Usage') ?></a></li>
- <li><a href="./phpInfo.php"><?php echo get_lang('PHP system information') ?></a></li>
+ <li><a href="./diskUsage.php"><?php echo $langDiskUsage ?></a></li>
+ <li><a href="./phpInfo.php"><?php echo $lang_php_info ?></a></li>
 </ul>
 
 <?php
-include (get_path('incRepositorySys') . '/claro_init_footer.inc.php');
+include ($includePath . '/claro_init_footer.inc.php');
 ?>

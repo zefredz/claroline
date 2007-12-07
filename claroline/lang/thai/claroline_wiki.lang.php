@@ -1,0 +1,47 @@
+<?php
+$langAddress = "ที่อยู่ ";
+$langAgenda = "กำหนดการ";
+$langCancel = "ยกเลิก";
+$langChat = "Chat";
+$langConfirmation = "ยืนยันรหัสผ่าน";
+$langDay_of_weekNames = "Array";
+$langDear = "สวัสดี คุณ";
+$langDelete = "ลบ";
+$langDocument = "เอกสาร";
+$langEmail = "Email";
+$langEmailWrong = "อีเมล์ไม่สมบูรณ์ หรือมีตัวอักษรต้องห้ามปะปน";
+$langEmptyFields = "คุณปล่อยบางช่องไว้ว่างเปล่า คลิกปุ่มย้อนหลัง และลองอีกครั้งหนึ่ง";
+$langFormula = "ด้วยความปรารถนาดี, อาจารย์";
+$langForums = "กระดานข่าว";
+$langGroups = "กลุ่ม";
+$langHelp = "ช่วยเหลือ";
+$langIs = "คือ";
+$langLogout = "Logout";
+$langManager = "ผู้จัดการ";
+$langModifyProfile = "ปรับปรุงข้อมูลส่วนตัว";
+$langMonthNames = "Array";
+$langMyCourses = "My courses";
+$langNameOfLang = "Array";
+$langNo = "ไม่";
+$langNotAllowed = "ไม่อนุญาต";
+$langOk = "ตกลง";
+$langOneResp = "ผู้ดูแลรายวิชาคนหนึ่ง";
+$langOtherCourses = "รายชื่อรายวิชา";
+$langPassTwice = "คุณพิมพ์รหัสผ่านไม่เหมือนกันสองครั้ง คลิกปุ่มย้อนหลัง และลองอีกครั้งหนึ่ง";
+$langPoweredBy = "Powered by";
+$langProblem = "กรณีที่มีปัญหา โปรดติดต่อเรา";
+$langRegAdmin = "สร้างรายวิชา";
+$langRegStudent = "เข้าสู่บทเรียน";
+$langRegYou = "ลงทะเบียนให้คุณที่รายวิชานี้";
+$langSave = "บันทึก";
+$langSettings = "ตามข้อมูล:
+Username:";
+$langStudent = "นักศึกษา";
+$langTitle = "ชื่อวิชา";
+$langUserName = "ชื่อผู้ใช้";
+$langUserTaken = "ชื่อ username นี้ถูกใช้แล้ว";
+$langUsers = "Users";
+$langYes = "ใช่";
+$langYouAreReg = "ท่านลงทะเบียนด้วย";
+$langYourReg = "ท่านลงทะเบียนวันที่";
+?>

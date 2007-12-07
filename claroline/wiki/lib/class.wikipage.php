@@ -1,14 +1,13 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 
     // vim: expandtab sw=4 ts=4 sts=4:
-
+    
     /**
      * CLAROLINE
      *
-     * @version 1.8 $Revision$
+     * @version 1.7 $Revision$
      *
-     * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+     * @copyright 2001-2005 Universite catholique de Louvain (UCL)
      *
      * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
      * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
@@ -19,7 +18,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
      *
      * @package Wiki
      */
-
+      
     require_once dirname(__FILE__) . "/class.dbconnection.php";
 
     define( "PAGE_NO_TITLE_ERROR", "Missing title" );
@@ -31,7 +30,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     define( "PAGE_NOT_FOUND_ERROR", "Page not found" );
     define( "PAGE_NOT_FOUND_ERRNO", 4 );
 
-
+    
     // TODO rewrite WikiPage as a subclass of DatabaseConnection ?
 
     /**
@@ -49,10 +48,10 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         var $lastEditTime = '';     // attr_reader:
         var $lastVersionId = 0;     // attr_reader:
         var $wikiId = 0;            // attr_reader:
-
+        
         var $currentVersionMtime = '0000-00-00 00:00:00'; // attr_reader:
         var $currentVersionEditorId = 0; // attr_reader:
-
+        
         // private fields
         var $con = null;            // private
 
@@ -63,11 +62,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 'tbl_wiki_properties' => 'wiki_properties',
                 'tbl_wiki_acls' => 'wiki_acls'
             );
-
+        
         // error handling
         var $error = '';
         var $errno = 0;
-
+        
         /**
          * Constructor
          * @param DatabaseConnection con connection to the database
@@ -82,9 +81,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             $this->wikiId = $wikiId;
             $this->con = $con;
         }
-
+        
         // public methods
-
+        
         /**
          * Edit an existing page
          * @param int editorId ID of the user who edits the page
@@ -121,7 +120,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 }
             }
         }
-
+        
         /**
          * Create a new page
          * @param int ownerId ID of the user who creates the page
@@ -154,7 +153,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                     $this->setCreationTime( $ctime );
                     $this->setEditorId( $ownerId );
                     $this->setLastEditTime( $ctime );
-
+                    
                     if ( $auto_save === true )
                     {
                         return $this->save();
@@ -166,7 +165,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 }
             }
         }
-
+        
         /**
          * Delete the page
          * @return boolean true on success, false on failure
@@ -178,24 +177,24 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             {
                 $this->con->connect();
             }
-
+            
             // (OPT) backup last version
             // 1st delete page info
             $sql = "DELETE FROM `".$this->config['tbl_wiki_pages']."` "
-                . "WHERE `id` = " . (int) $this->getPageId()
+                . "WHERE `id` = " . $this->getPageId()
                 ;
 
             $numrows = $this->con->executeQuery( $sql );
-
+            
             if ( $numrows == 1 )
             {
                 // 2nd delete page versions
                 $sql = "DELETE FROM `".$this->config['tbl_wiki_pages_content']."` "
-                    . "WHERE `pid` = " . (int) $this->getPageId()
+                    . "WHERE `pid` = " . $this->getPageId()
                     ;
-
+                
                 $numrows = $this->con->executeQuery( $sql );
-
+                
                 $this->_setPageId( 0 );
                 $this->_setLastVersionId( 0 );
 
@@ -206,7 +205,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 return false;
             }
         }
-
+        
         /**
          * Save the page
          * @return boolean true on success, false on failure
@@ -218,17 +217,17 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             {
                 $this->con->connect();
             }
-
+            
             if ( $this->getCreationTime() === '' )
             {
                 $this->setCreationTime( date( "Y-m-d H:i:s" ) );
             }
-
+            
             if ( $this->getLastEditTime() === '' )
             {
                 $this->setLastEditTime( date( "Y-m-d H:i:s" ) );
             }
-
+            
             if ( $this->getPageId() === 0 )
             {
                 if ( $this->pageExists( $this->getTitle() ) )
@@ -243,19 +242,19 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                     $sql = "INSERT INTO `".$this->config['tbl_wiki_pages']."`"
                         . "(`wiki_id`, `owner_id`,`title`,`ctime`, `last_mtime`) "
                         . "VALUES("
-                        . (int) $this->getWikiId() . ", "
-                        . (int) $this->getOwnerId() . ", "
+                        . $this->getWikiId() . ", "
+                        . $this->getOwnerId() . ", "
                         . "'" . addslashes( $this->getTitle() ) . "', "
                         . "'" . $this->getCreationTime() . "', "
                         . "'" . $this->getLastEditTime() . "'"
                         . ")"
                         ;
                     $this->con->executeQuery( $sql );
-
+                
                     // 2nd update pageId
                     $pageId = $this->con->getLastInsertId();
                     $this->_setPageId( $pageId );
-
+                
                     // 3rd update version
                     return $this->_updateVersion();
                 }
@@ -266,67 +265,37 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 return $this->_updateVersion();
             }
         }
-
+        
         /**
          * Get page version history
          * @return array page history on success, null on failure
          */
-        function history( $offset = 0, $limit = 0, $order = 'DESC' )
+        function history( $offset = 0, $limit = 50, $order = 'DESC' )
         {
             // reconnect if needed
             if ( ! $this->con->isConnected() )
             {
                 $this->con->connect();
             }
-
-            $limit = ( $limit == 0 && $offset == 0 )
-                ? ""
-                : "LIMIT " . $offset . "," . $limit . " "
-                ;
-
+            
+            $limit = ( $limit == 0 ) ? "" : "LIMIT " . $offset . "," . $limit . " ";
+            
             $order = ($order === 'ASC') ? " ORDER BY `id` ASC " : " ORDER BY `id` DESC ";
             // retreive versionId and editorId and mtime for each version
             // of the page
-
+            
             $sql = "SELECT `id`, `editor_id`, `mtime` "
                 . "FROM `" . $this->config['tbl_wiki_pages_content'] . "` "
-                . "WHERE `pid` = " . (int) $this->getPageId()
+                . "WHERE `pid` = " . $this->getPageId()
                 . $order
                 . $limit
                 ;
-
-            // echo $sql;
-
+                
             $result =  $this->con->getAllRowsFromQuery( $sql );
-
+            
             if ( is_array( $result ) )
             {
                 return $result;
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        function countVersion()
-        {
-            // reconnect if needed
-            if ( ! $this->con->isConnected() )
-            {
-                $this->con->connect();
-            }
-
-            $sql = "SELECT count(`id`) as `nbversion` "
-                . "FROM `" . $this->config['tbl_wiki_pages_content'] . "` "
-                . "WHERE `pid` = " . (int) $this->getPageId()
-                ;
-
-            $result =  $this->con->getRowFromQuery( $sql );
-
-            if ( is_array( $result ) )
-            {
-                return $result['nbversion'];
             }
             else
             {
@@ -346,18 +315,18 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             {
                 $this->con->connect();
             }
-
+            
             $sql = "SELECT `id` "
                 . "FROM `".$this->config['tbl_wiki_pages']."` "
-                . "WHERE BINARY `title` = '". addslashes( $title )."' "
-                . "AND `wiki_id` = " . (int) $this->getWikiId();
+                . "WHERE `title` = '". addslashes( $title )."' "
+                . "AND `wiki_id` = " . $this->getWikiId();
                 ;
 
             return $this->con->queryReturnsResult( $sql );
         }
-
+        
         // public factory methods
-
+        
         /**
          * Load a page using its title
          * @param string title title of the page
@@ -370,7 +339,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             {
                 $this->con->connect();
             }
-
+            
             // retreive page (last version)
             $sql = "SELECT p.`id`, p.`owner_id`, p.`title`, "
                 . "p.`ctime`, p.`last_version`, p.`last_mtime`, "
@@ -379,9 +348,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 . ", `".$this->config['tbl_wiki_pages_content']."` c "
                 . "WHERE BINARY p.`title` = '".addslashes( $title )."' "
                 . "AND c.`id` = p.`last_version` "
-                . "AND `wiki_id` = " . (int) $this->getWikiId();
+                . "AND `wiki_id` = " . $this->getWikiId();
                 ;
-
+                
             return $this->_updatePageFields( $sql );
         }
 
@@ -397,14 +366,14 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             {
                 $this->con->connect();
             }
-
+            
             // retreive page (given version)
             $sql = "SELECT p.`id`, p.`owner_id`, p.`title`, "
                 . "p.`ctime`, p.`last_version`, p.`last_mtime`, "
                 . "c.`editor_id`, c.`content`, c.`mtime` AS `current_mtime`, c.`id` AS `current_version` "
                 . "FROM `".$this->config['tbl_wiki_pages']."` p, "
                 . "`".$this->config['tbl_wiki_pages_content']."` c "
-                . "WHERE c.`id` = '".(int) $versionId."' "
+                . "WHERE c.`id` = '".$versionId."' "
                 . "AND p.`id` = c.`pid`"
                 ;
 
@@ -430,20 +399,20 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             {
                 $this->con->connect();
             }
-
+            
             // retreive page (last version)
             $sql = "SELECT p.`id`, p.`owner_id`, p.`title`, "
                 . "p.`ctime`, p.`last_version`, p.`last_mtime`, "
                 . "c.`editor_id`, c.`content` "
                 . "FROM `".$this->config['tbl_wiki_pages']."` p,"
                 . " `".$this->config['tbl_wiki_pages_content']."` c "
-                . "WHERE p.`id` = '".(int) $pageId."' "
+                . "WHERE p.`id` = '".$pageId."' "
                 . "AND c.`id` = p.`last_version`"
                 ;
-
+                
             return $this->_updatePageFields( $sql );
         }
-
+        
         /**
          * Restore a given version of the page
          * @param int editorId ID of the user who restores the page
@@ -454,9 +423,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             $this->loadPageVersion( $versionId );
             $this->edit( $editorId, $this->getContent(), date( "Y-m-d H:i:s" ), true );
         }
-
+        
         // private methods
-
+        
         /**
          * Update a page
          * @access private
@@ -468,34 +437,34 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             $sql = "INSERT INTO `".$this->config['tbl_wiki_pages_content']."`"
                     . "(`pid`,`editor_id`,`mtime`, `content`) "
                     . "VALUES("
-                    . (int) $this->getPageId() . ", "
-                    . "'" . (int) $this->getEditorId() . "', "
+                    . $this->getPageId() . ", "
+                    . "'" . $this->getEditorId() . "', "
                     . "'" . $this->getLastEditTime() . "', "
                     . "'" . addslashes( $this->getContent() ) . "'"
                     . ")"
                     ;
-
+                    
             $this->con->executeQuery( $sql );
-
+                    
             // update last version id
             $lastVersionId = $this->con->getLastInsertId();
-
+            
             $this->_setLastVersionId( $lastVersionId );
             $this->_setCurrentVersionId( $lastVersionId );
-
+            
             // 2nd update page info
             $sql = "UPDATE `".$this->config['tbl_wiki_pages']."` "
                     . "SET `last_version` = "
                     . $this->getLastVersionId() . ", "
                     . "`last_mtime` = '" . $this->getLastEditTime() . "' "
-                    . "WHERE `id` = " . (int) $this->getPageId()
+                    . "WHERE `id` = " . $this->getPageId()
                     ;
-
+                    
             $this->con->executeQuery( $sql );
-
+            
             return ! $this->hasError();
         }
-
+        
         /**
          * Update the fields of the page
          * @access private
@@ -517,12 +486,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 $this->setLastEditTime( $page['last_mtime'] );
                 $this->setEditorId( $page['editor_id'] );
                 $this->setContent( $this->stripSlashesForWiki($page['content'] ) );
-
+                
                 $this->currentVersionId = ( isset ( $page['current_version'] ) )
                     ? $page['current_version']
                     : $page['last_version']
                     ;
-
+                    
                 $this->currentVersionMtime = ( isset ( $page['current_mtime'] ) )
                     ? $page['current_mtime']
                     : $page['last_mtime']
@@ -539,7 +508,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 return null;
             }
         }
-
+        
         // error handling
 
         function setError( $errmsg = '', $errno = 0 )
@@ -572,7 +541,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         {
             return ( $this->error != '' ) || $this->con->hasError();
         }
-
+        
         // public accessors
 
         function setTitle( $title )
@@ -604,7 +573,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         {
             $this->creationTime = ($ctime == '') ? date( "Y-m-d H:i:s" ) : $ctime;
         }
-
+        
         function getWikiId()
         {
             return $this->wikiId;
@@ -644,12 +613,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         {
             return $this->lastVersionId;
         }
-
+        
         function getCurrentVersionId()
         {
             return $this->currentVersionId;
         }
-
+        
         function getCurrentVersionMtime()
         {
             return $this->currentVersionMtime;
@@ -659,35 +628,34 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         {
             return $this->pageId;
         }
-
+        
         // private accessors
-
+        
         function _setPageId( $pageId )
         {
             $this->pageId = $pageId;
         }
-
+        
         function _setLastVersionId( $lastVersionId )
         {
             $this->lastVersionId = $lastVersionId;
         }
-
+        
         function _setCurrentVersionId( $currentVersionId )
         {
             $this->currentVersionId = $currentVersionId;
         }
-
+        
          // static methods
-
+         
          function stripSlashesForWiki( $str )
          {
 #            return str_replace( '\\', "\\",
 #                    str_replace( '\"', '"',
 #                    str_replace( "\'", "'", $str ) ) );
-
+                    
             return str_replace( '\\', "\\",
-                    str_replace( '\"', '"',
-                        str_replace( '\\"""', '\\\"""', $str ) ) );
+                    str_replace( '\"', '"', $str ) );
          }
     }
 ?>

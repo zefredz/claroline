@@ -1,43 +1,23 @@
-<?php // $Id$
+<?php # $Id$
 
 
 require '../inc/claro_init_global.inc.php';
-require_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
-$_course = claro_get_current_course_data();
 
-function is_parent_path($parentPath, $childPath)
+if ($_gid && $is_groupAllowed)
 {
-    // convert the path for operating system harmonize
-    $parentPath = realpath($parentPath) ;
-    $childPath = realpath($parentPath . $childPath ) ;
-
-    if ( $childPath !== false )
-    {
-        // verify if the file exists and if the file is under parent path
-        return preg_match('|^'.preg_quote($parentPath).'|', $childPath);
-    }
-    else
-    {
-        return false;
-    }
-}
-
-if (claro_is_in_a_group() && claro_is_group_allowed())
-{
-    $_group = claro_get_current_group_data();
-    $courseDir         = claro_get_course_path() .'/group/'.claro_get_current_group_data('directory');
-    $interbredcrump[]  = array ('url' => '../group/group.php', 'name' => get_lang('Groups'));
-    $interbredcrump[] = array ('url' => 'document.php', 'name' => get_lang('Documents and Links'));
+    $courseDir         = $_course['path'] .'/group/'.$_group['directory'];
+    $interbredcrump[]  = array ('url' => '../group/group.php', 'name' => $langGroups);
+    $interbredcrump[] = array ('url' => 'document.php', 'name' => $langDocument);
 }
 else
 {
-    $courseDir   = claro_get_course_path() .'/document';
-    $interbredcrump[] = array ('url' => 'document.php', 'name' => get_lang('Documents and Links'));
+    $courseDir   = $_course['path'] .'/document';
+    $interbredcrump[] = array ('url' => 'document.php', 'name' => $langDocument);
 }
 
 $noPHP_SELF = true;
 
-$baseWorkDir = get_path('coursesRepositorySys') . $courseDir;
+$baseWorkDir = $coursesRepositorySys . $courseDir;
 
 if( !empty($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
 else                           $cmd = null;
@@ -45,14 +25,14 @@ else                           $cmd = null;
 if( !empty($_REQUEST ['cwd']) ) $cwd = $_REQUEST ['cwd'];
 else                            $cwd = '';
 
-$nameTools = get_lang('Create/edit document');
+$nameTools = $langCreateModifyDocument;
 include '../inc/claro_init_header.inc.php';
 
-echo claro_html_tool_title(array('mainTitle' => get_lang('Documents and Links'), 'subTitle' => get_lang('Create/edit document')));
+echo claro_disp_tool_title(array('mainTitle' => $langDocument, 'subTitle' => $langCreateModifyDocument));
 
 /*========================================================================
-CREATE DOCUMENT
-========================================================================*/
+                             CREATE DOCUMENT
+  ========================================================================*/
 
 if ($cmd ==  'rqMkHtml' )
 {
@@ -60,56 +40,42 @@ if ($cmd ==  'rqMkHtml' )
     <input type="hidden" name="cmd" value="exMkHtml" />
     <input type="hidden" name="cwd" value="<?php echo $cwd; ?>" />
     <p>
-    <b><?php echo get_lang('Document name') ?>&nbsp;: </b><br />
+    <b><?php echo $langDocumentName ?></b><br />
     <input type="text" name="fileName" size="80" />
     </p>
     <p>
-    <b><?php echo get_lang('Document content') ?>&nbsp;: </b>
+    <b><?php echo $langDocumentContent ?></b>
     <?php
     if (!empty($_REQUEST['htmlContent'])) $content = $_REQUEST['htmlContent']; else $content = "";
-
-    echo claro_html_textarea_editor('htmlContent',$content);
-
-    // the second argument _REQUEST['htmlContent'] for the case when we have to
-    // get to the editor because of an error at creation
+    
+    echo claro_disp_html_area('htmlContent',$content);
+    
+    // the second argument _REQUEST['htmlContent'] for the case when we have to 
+    // get to the editor because of an error at creation 
     // (eg forgot to give a file name)
-    ?>
-    <p>
-    <input type="submit" value="<?php echo get_lang('Ok'); ?>" />&nbsp;
-    <?php echo claro_html_button('./document.php?cmd=exChDir&amp;file='.$cwd, get_lang('Cancel')); ?>
-    </p>
+    ?> 
+    <input type="submit" value="<?php echo $langOk; ?>" />
+    <?php echo claro_disp_button('./document.php?cmd=exChDir&file='.$cwd, $langCancel); ?>
     </form>
     <?php
 }
 elseif($cmd == "rqEditHtml" && !empty($_REQUEST['file']) )
 {
-    if ( is_parent_path($baseWorkDir, $_REQUEST['file'] ) )
-    {
-        $fileContent = implode("\n",file($baseWorkDir.$_REQUEST['file']));
-    }
-    else
-    {
-        claro_die('WRONG PATH');
-    }
-
-
-    $fileContent = get_html_body_content($fileContent)
-
+    $fileContentList = file($baseWorkDir.$_REQUEST['file']);
+      
     ?><form action="document.php" method="post">
-    <input type="hidden" name="cmd" value="exEditHtml" />
-    <input type="hidden" name="file" value="<?php echo $_REQUEST['file']; ?>" />
-    <b><?php echo get_lang('Document name') ?> : </b><br />
+    <input type="hidden" name="cmd" value="exEditHtml">
+    <input type="hidden" name="file" value="<?php echo $_REQUEST['file']; ?>">
+    <b><?php echo $langDocumentName ?></b><br />
     <?php echo $_REQUEST['file']?>
     </p>
     <p>
-    <b><?php echo get_lang('Document content') ?> : </b>
+    <b><?php echo $langDocumentContent ?></b>
     <?php
-    echo claro_html_textarea_editor('htmlContent', $fileContent );
+    echo claro_disp_html_area('htmlContent', implode("\n", $fileContentList));
     ?>
-    <p>
-    <input type="submit" value="<?php echo get_lang('Ok'); ?>" />&nbsp;
-    <?php echo claro_html_button('./document.php?cmd=rqEdit&file='.$_REQUEST['file'], get_lang('Cancel')); ?>
-    </p>
+    <input type="submit" value="<?php echo $langOk; ?>">
+    <?php echo claro_disp_button('./document.php?cmd=rqEdit&file='.$_REQUEST['file'], $langCancel); ?>
     </form>
     <?php
 }
@@ -117,6 +83,4 @@ elseif($cmd == "rqEditHtml" && !empty($_REQUEST['file']) )
 <br />
 <br />
 
-<?php
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
-?>
+<?php include $includePath . '/claro_init_footer.inc.php'; ?>

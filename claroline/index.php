@@ -1,9 +1,9 @@
 <?php // $Id$
 
 //----------------------------------------------------------------------
-// CLAROLINE 1.8
+// CLAROLINE 1.6
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available

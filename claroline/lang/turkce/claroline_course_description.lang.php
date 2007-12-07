@@ -1,0 +1,36 @@
+<?php
+$langAdd = "Ekle";
+$langAgenda = "Gündem";
+$langAnnouncement = "Duyurular";
+$langAreYouSureToDelete = "Silmek istediðinizden emin misiniz?";
+$langCancel = "Ýptal";
+$langChat = "Tartýþma";
+$langCourseProgram = "Ders Açýklamalarý";
+$langDay_of_weekNames = "Array";
+$langDelete = "Sil";
+$langDescription = "Belge Açýklamalarý";
+$langDescriptionCours = "Ders açýklamasý";
+$langDocument = "Belgeler";
+$langExercises = "Alýþtýrmalar";
+$langForums = "Forumlar";
+$langGroups = "Gruplar";
+$langHelp = "Yardým";
+$langInfo2Say = "Öðrencilere verilecek bilgiler";
+$langLogout = "Çýkýþ";
+$langModify = "Deðiþtir";
+$langModifyProfile = "Profilimi deðiþtir";
+$langMonthNames = "Array";
+$langMyCourses = "Derslerim";
+$langNameOfLang = "Array";
+$langNewBloc = "Diðer";
+$langOk = "Tamam";
+$langOtherCourses = "Ders listesi";
+$langPoweredBy = "Powered by";
+$langQuestionPlan = "Hocaya soru";
+$langStudent = "öðrenci";
+$langThisCourseDescriptionIsEmpty = "Bu dersin açýklamalarý yapýlmamýþtýr";
+$langTitle = "Baþlýk";
+$langUsers = "Kullanýcýlar";
+$langViMod = "Görünürlük deðiþtirildi";
+$langWork = "Öðrenci Yazýlarý";
+?>

@@ -1,0 +1,34 @@
+<?php
+$langAdd = "Afegeix";
+$langAgenda = "Agenda";
+$langAnnouncement = "Anuncis";
+$langAreYouSureToDelete = "Estàs segur que vols esborrar";
+$langCancel = "Cancel·la";
+$langChat = "Xat";
+$langCourseProgram = "Programa del curs";
+$langDay_of_weekNames = "Array";
+$langDelete = "Esborra";
+$langDescription = "Descripció eventual";
+$langDocument = "Documents";
+$langExercises = "Exercicis";
+$langForums = "Fòrums";
+$langGroups = "Grups";
+$langHelp = "Ajuda";
+$langInfo2Say = "Informació a donar als estudiants";
+$langModify = "modifica";
+$langModifyProfile = "Modifica el meu perfil";
+$langMonthNames = "Array";
+$langMyCourses = "Els meus cursos";
+$langNameOfLang = "Array";
+$langNewBloc = "Altre";
+$langOk = "D'acord";
+$langOtherCourses = "Llista de cursos";
+$langPoweredBy = "Potenciat per ";
+$langQuestionPlan = "Pregunta al professor";
+$langStudent = "estudiant";
+$langThisCourseDescriptionIsEmpty = "Aquest curs actualment no es troba descrit";
+$langTitle = "Títol";
+$langUsers = "Usuaris";
+$langViMod = "Visibilitat modificada";
+$langWork = "Treballs dels estudiants";
+?>

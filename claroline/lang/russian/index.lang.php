@@ -1,0 +1,32 @@
+<?php
+$langAgenda = "Календарь";
+$langAnnouncement = "Объявления";
+$langCategories = "Разделы";
+$langChat = "Чат";
+$langCourseCreate = "Создать сайт курса";
+$langCourseManager = "Менеджер курса";
+$langDay_of_weekNames = "Array";
+$langDescriptionCours = "Описание курса";
+$langDocument = "Документ";
+$langEnter = "Вернуться к вашему списку курсов";
+$langForums = "Форумы";
+$langGroups = "запись пользователей в группы";
+$langHelp = "рПНПЭШ";
+$langInvalidId = "Это имя пользователя не действительно. Если вы еще не зарегистрированы, 
+заполните <a href='claroline/auth/inscription.php'>бланк регистрации</a></font color>";
+$langLogin = "Вход, логин";
+$langLogout = "Выйти";
+$langLostPassword = "Пароль утерян";
+$langModifyProfile = "Изменить мои настройки";
+$langMonthNames = "Array";
+$langMyCourses = "Список моих курсов";
+$langNameOfLang = "Array";
+$langOtherCourses = "Список курсов";
+$langPassword = "пароль";
+$langPoweredBy = "использует оболочку";
+$langStudent = "студент";
+$langUserName = "Имя пользователя";
+$langUsers = "Пользователи";
+$langWork = "Задания";
+$lang_enroll = "Регистрация";
+?>
