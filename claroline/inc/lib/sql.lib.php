@@ -21,7 +21,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 
 /**
- * Return the tablename for a tool, en tenant compte du fait que it's (or not)
+ * return the tablename for a tool, en tenant compte du fait que it's (or not)
  * * in a course,
  * * in a group
  *
@@ -29,6 +29,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @param array $contextData id To discrim table. Do not add context Id  of an context active but managed by tool.
  * @return array
  */
+//function claro_sql_get_tbl($toolId,$tableId,$courseId=null,$groupId=null)
 function claro_sql_get_tbl( $tableList, $contextData=null)
 {
     /**
@@ -49,8 +50,8 @@ function claro_sql_get_tbl( $tableList, $contextData=null)
      * Tool Context capatibility
      *
      * There is many context in claroline,
-     * a new tool can don't provide initially
-     * all field to discrim each context in fields.
+     * a new tool can  d'ont provide initially
+     * all field to discrim each context ins  fields.
      * When a tool can't discrim a context,
      * the table would be duplicated for each instance
      * and the name of table (or db) contain the discriminator
@@ -76,9 +77,11 @@ function claro_sql_get_tbl( $tableList, $contextData=null)
     }
 
     $contextDependance = get_context_db_discriminator($toolId);
+
     // Now place discriminator in db & table name.
     // if a context is needed ($contextData) and $contextDependance is found,
     // add the discriminator in schema name or table prefix
+
     $schemaPrefix = array();
 
     if (is_array($contextDependance) )
@@ -168,8 +171,6 @@ function claro_sql_get_main_tbl()
         'right_action'              => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'right_action',
         'user_property'             => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'user_property',
         'property_definition'       => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'property_definition',
-        'tracking_event'            => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'tracking_event',
-        'log'            			=> get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'log',
         'track_e_default'           => get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . 'track_e_default',
         'track_e_login'             => get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . 'track_e_login',
         'track_e_open'              => get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . 'track_e_open'
@@ -250,7 +251,6 @@ function claro_sql_get_course_tbl($dbNameGlued = null)
               'track_e_exe_answers'    => $courseDbInCache . 'track_e_exe_answers',
               'track_e_exercices'      => $courseDbInCache . 'track_e_exercices',
               'track_e_uploads'        => $courseDbInCache . 'track_e_uploads',
-              'tracking_event' 		   => $courseDbInCache . 'tracking_event',
               'userinfo_content'       => $courseDbInCache . 'userinfo_content',
               'userinfo_def'           => $courseDbInCache . 'userinfo_def',
               'wrk_assignment'         => $courseDbInCache . 'wrk_assignment',
@@ -273,7 +273,7 @@ function claro_sql_get_course_tbl($dbNameGlued = null)
  * when the CLARO_DEBUG_MODE constant flag is set to on (true)
  *
  * @author Hugues Peeters    <peeters@ipm.ucl.ac.be>,
- * @author Christophe Geschï¿½ <moosh@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  * @param  string  $sqlQuery   - the sql query
  * @param  handler $dbHandler  - optional
  * @return handler             - the result handler
@@ -281,34 +281,26 @@ function claro_sql_get_course_tbl($dbNameGlued = null)
 
 function claro_sql_query($sqlQuery, $dbHandler = '#' )
 {
+	global $db;
+	
+	$myHandler = ($dbHandler == '#') ? $db : $dbHandler ;
 
-    if ( get_conf('CLARO_DEBUG_MODE',false)
-      && get_conf('CLARO_PROFILE_SQL',false)
-      )
-      {
+    if ( get_conf('CLARO_DEBUG_MODE',false) && get_conf('CLARO_PROFILE_SQL',false) )
+    {
          $start = microtime();
-      }
-    if ( $dbHandler == '#')
-    {
-        $resultHandler =  @mysql_query($sqlQuery);
     }
-    else
-    {
-        $resultHandler =  @mysql_query($sqlQuery, $dbHandler);
-    }
+    
+    $resultHandler =  @mysql_query($sqlQuery, $myHandler);
 
-    if ( get_conf('CLARO_DEBUG_MODE',false)
-      && get_conf('CLARO_PROFILE_SQL',false)
-      )
+    if ( get_conf('CLARO_DEBUG_MODE',false) && get_conf('CLARO_PROFILE_SQL',false) )
     {
         static $queryCounter = 1;
         $duration = microtime()-$start;
         $info = 'execution time : ' . ($duration > 0.001 ? '<b>' . round($duration,4) . '</b>':'&lt;0.001')  . '&#181;s'  ;
         // $info = ( $dbHandler == '#') ? mysql_info() : mysql_info($dbHandler);
-        // $info .= ': affected rows :' . (( $dbHandler == '#') ? mysql_affected_rows() : mysql_affected_rows($dbHandler));
-        $info .= ': affected rows :' . claro_sql_affected_rows();
-
-        pushClaroMessage( '<br />Query counter : <b>' . $queryCounter++ . '</b> : ' . $info . '<br />'
+        // $info .= ': affected rows :' . (( $dbHandler == '#') ? mysql_affected_rows($db) : mysql_affected_rows($dbHandler));
+		$info .= ': affected rows :' . claro_sql_affected_rows();
+        pushClaroMessage( '<br>Query counter : <b>' . $queryCounter++ . '</b> : ' . $info . '<br />'
             . '<code><span class="sqlcode">' . nl2br($sqlQuery) . '</span></code>'
             , (claro_sql_errno()?'error':'sqlinfo'));
 
@@ -332,88 +324,74 @@ function claro_sql_query($sqlQuery, $dbHandler = '#' )
 }
 
 /**
- * CLAROLINE mySQL errno wrapper.
+ * CLAROLINE mySQL errno wrapper. 
+ *
  */
-
+ 
 function claro_sql_errno($dbHandler = '#')
 {
-	if ( $dbHandler == '#' )
-    {
-    	return mysql_errno();
-    }
-    else
-    {
-	    return mysql_errno($dbHandler);
-    }
+	global $db;
+	
+	$myHandler = ($dbHandler == '#') ? $db : $dbHandler ;
+	
+	return mysql_errno($myHandler);
 }
 
 /**
- * CLAROLINE mySQL error wrapper.
+ * CLAROLINE mySQL error wrapper. 
  *
  */
-
+ 
 function claro_sql_error($dbHandler = '#')
 {
-	if ( $dbHandler == '#' )
-    {
-    	return mysql_error();
-    }
-    else
-    {
-	    return mysql_error($dbHandler);
-    }
-}
+	global $db;
+	
+	$myHandler = ($dbHandler == '#') ? $db : $dbHandler ;
+	
+	return mysql_error($myHandler);
+} 
 
 /**
- * CLAROLINE mySQL selectDb wrapper.
+ * CLAROLINE mySQL selectDb wrapper. 
  *
  */
-
-function claro_sql_select_db($dbName, $dbHandler = '#')
+ 
+function claro_sql_select_db($dbHandler = '#')
 {
-	if ( $dbHandler == '#' )
-    {
-    	return mysql_select_db($dbName);
-    }
-    else
-    {
-	    return mysql_select_db($dbName, $dbHandler);
-    }
-}
+	global $db;
+	
+	$myHandler = ($dbHandler == '#') ? $db : $dbHandler ;
+	
+	return mysql_select_db($myHandler);
+} 
 
 /**
- * CLAROLINE mySQL affected rows wrapper.
+ * CLAROLINE mySQL affected rows wrapper. 
  *
  */
-
+ 
 function claro_sql_affected_rows($dbHandler = '#')
 {
-	if ( $dbHandler == '#' )
-    {
-    	return mysql_affected_rows();
-    }
-    else
-    {
-	    return mysql_affected_rows($dbHandler);
-    }
+	global $db;
+	
+	$myHandler = ($dbHandler == '#') ? $db : $dbHandler ;
+	
+	return mysql_affected_rows($myHandler);
 }
 
 /**
- * CLAROLINE mySQL insert id wrapper.
+ * CLAROLINE mySQL insert id wrapper. 
  *
  */
-
+ 
 function claro_sql_insert_id($dbHandler = '#')
 {
-	if ( $dbHandler == '#' )
-    {
-    	return mysql_insert_id();
-    }
-    else
-    {
-	    return mysql_insert_id($dbHandler);
-    }
-}
+	global $db;
+	
+	$myHandler = ($dbHandler == '#') ? $db : $dbHandler ;
+	
+	return mysql_insert_id($myHandler);
+}  
 
 /**
  * Get the name of the specified fields in a query result
@@ -577,17 +555,7 @@ function claro_sql_query_get_single_value($sqlQuery, $dbHandler = '#')
 
     if($result)
     {
-        $row = mysql_fetch_row($result);
-
-        if ( is_array( $row ) )
-        {
-            list($value) = $row;
-        }
-        else
-        {
-            $value = null;
-        }
-
+        list($value) = mysql_fetch_row($result);
         mysql_free_result($result);
         return $value;
     }
@@ -645,11 +613,13 @@ function claro_sql_query_get_single_row($sqlQuery, $dbHandler = '#')
 
 function claro_sql_query_affected_rows($sqlQuery, $dbHandler = '#')
 {
+	global $db;
+	
     $result = claro_sql_query($sqlQuery, $dbHandler);
 
     if ($result)
     {
-        if ($dbHandler == '#') return mysql_affected_rows();
+        if ($dbHandler == '#') return mysql_affected_rows($db);
         else                   return mysql_affected_rows($dbHandler);
 
         // NOTE. To make claro_sql_query_affected_rows() work properly,
@@ -685,11 +655,13 @@ function claro_sql_query_affected_rows($sqlQuery, $dbHandler = '#')
 
 function claro_sql_query_insert_id($sqlQuery, $dbHandler = '#')
 {
+	global $db;
+	
     $result = claro_sql_query($sqlQuery, $dbHandler);
 
     if ($result)
     {
-        if ($dbHandler == '#') return mysql_insert_id();
+        if ($dbHandler == '#') return mysql_insert_id($db);
         else                   return mysql_insert_id($dbHandler);
     }
     else
@@ -705,10 +677,12 @@ function claro_sql_query_insert_id($sqlQuery, $dbHandler = '#')
  * @param unknown_type $db
  * @return unknown
  */
-function claro_sql_escape($statement,$db=null)
+function claro_sql_escape($statement,$dbHandler=null)
 {
-    if (is_null($db)) return mysql_real_escape_string($statement);
-    else              return mysql_real_escape_string($statement, $db);
+	global $db;
+	
+    if (is_null($dbHandler)) return mysql_real_escape_string($statement, $db);
+    else              return mysql_real_escape_string($statement, $dbHandler);
 
 }
 

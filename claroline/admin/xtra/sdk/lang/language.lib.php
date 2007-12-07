@@ -795,7 +795,7 @@ function get_lang_vars_from_deffile($file)
                 {
                     continue ;
                 }
-                elseif ( $key == 'pattern' )
+                elseif ( $key === 'pattern' )
                 {
                     continue ;
                 }

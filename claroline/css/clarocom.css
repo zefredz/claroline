@@ -3,77 +3,77 @@
  ******************************************************************************/
 
 html {
-    margin: 0;
-    padding: 0;
-    font-size: 1em;
+	margin: 0;
+	padding: 0;
+	font-size: 1em;
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    color: #666666;
-    background-color: #FFFFFF;
-    text-align: left;
-    font-size: 1em;
-    font-family: Arial, Verdana, Helvetica, Sans-Serif;
+	margin: 0;
+	padding: 0;
+	color: #666666;
+	background-color: #FFFFFF;
+	text-align: left;
+	font-size: 1em;
+	font-family: Arial, Verdana, Helvetica, Sans-Serif;
 }
 
 a:link, a:visited  {
-    color: #336699;
-    font-weight: normal;
-    text-decoration: none;
+	color: #336699;
+	font-weight: normal;
+	text-decoration: none;
 }
 
 a:hover, a:active {
-    color: #669933;
-    font-weight: normal;
-    text-decoration: none;
+	color: #669933;
+	font-weight: normal;
+	text-decoration: none;
 }
 
 a img {
-    border: none;
-    text-decoration: none;
+	border: none;
+	text-decoration: none;
 }
 
 .spacer {
-    clear: both;
+	clear: both;
 }
 
 ul {
-    list-style-type: circle;
-    font-size: O.9em;
+	list-style-type: circle;
+	font-size: O.9em;
 }
 
 label {
-    padding: 2px;
-    vertical-align: bottom;
-    color: #555555;
-    font-size: 0.9em;
-    font-style: italic;
+	padding: 2px;
+	vertical-align: bottom;
+	color: #555555;
+	font-size: 0.9em;
+	font-style: italic;
 }
 
 input[type=submit], input[type=reset], button {
-    margin-left: 2px;
-    color: #666666;
+	margin-left: 2px;
+	color: #666666;
 } 
 
 input, textarea, button {
-    border: 1px solid #aaa;
-    color: #336699;
+	border: 1px solid #aaa;
+	color: #336699;
 }
 
 input[type], textarea[name], button {
-    background: #ffffff;
+	background: #ffffff;
 }
 
 input[type=submit], input[type=reset], button {
-    background: #fffffff;
-    color: #000000;
+	background: #fffffff;
+	color: #000000;
 }
 
 input[type=submit]:hover, button:hover {
-    background-color: #336699;
-    color: #ffffff;
+	background-color: #336699;
+	color: #ffffff;
 }
 
 /******************************************************************************
@@ -85,16 +85,16 @@ input[type=submit]:hover, button:hover {
  ----------------------------------------------------------------------------*/
 
 #platformBanner {
-    margin: 0;
-    padding: 0;
-    color: #336699;
-    font-weight: bold;
-    font-family: Arial, Helvetica, verdana, sans-serif;
-    background-image: url(clarocom/bg_header.jpg);
-    background-position: left 0 0 0 10px;
-    background-repeat: repeat-x;
-    border: 1px solid #FFFFFF;
-    height: 50px;
+	margin: 0;
+	padding: 0;
+	color: #336699;
+	font-weight: bold;
+	font-family: Arial, Helvetica, verdana, sans-serif;
+	background-image: url(clarocom/bg_header.jpg);
+	background-position: left 0 0 0 10px;
+	background-repeat: repeat-x;
+	border: 1px solid #FFFFFF;
+	height: 50px;
 }
 
 #platformBanner a,
@@ -102,55 +102,55 @@ input[type=submit]:hover, button:hover {
 #platformBanner a:link,
 #platformBanner a:visited 
 {
-    text-decoration: none;
-       color: #336699;
-    font-weight: bold;
+	text-decoration: none;
+   	color: #336699;
+	font-weight: bold;
 }
 
 #platformBanner a:hover {
-    color: #5B84AE;
-    text-decoration: none;
-    font-weight: bold;
+	color: #5B84AE;
+	text-decoration: none;
+	font-weight: bold;
 }
 
 #platformBanner #siteName
 {
-    font-weight: bold;
-    letter-spacing: 3px;
+	font-weight: bold;
+	letter-spacing: 3px;
 }
 
 #platformBanner #institution 
 {
-    font-weight: bold;
+	font-weight: bold;
 }
 
 #campusBannerRight
 {
     position: relative;
-    float: right;
-    text-align: right;
-    height: 35px;
-    font-size: O.95em;
-    margin-top: -1px;
-    padding: 15px 15px 0 0;
-    margin /**/: 0;
-    background-image: url(clarocom/cornerright_header.jpg);
-    background-position: right top;
-    background-repeat: no-repeat;
+	float: right;
+	text-align: right;
+	height: 35px;
+	font-size: O.95em;
+	margin-top: -1px;
+	padding: 15px 15px 0 0;
+	margin /**/: 0;
+	background-image: url(clarocom/cornerright_header.jpg);
+	background-position: right top;
+	background-repeat: no-repeat;
 }
 
 #campusBannerLeft
 {
     position: relative;
-    float: left;
-    text-align: left;
-    height: 35px;
-    margin-top: -1px;
-    padding: 15px 0 0 15px;
-    margin /**/: 0;
-    background-image: url(clarocom/cornerleft_header.jpg);
-    background-position: left top;
-    background-repeat: no-repeat;
+	float: left;
+	text-align: left;
+	height: 35px;
+	margin-top: -1px;
+	padding: 15px 0 0 15px;
+	margin /**/: 0;
+	background-image: url(clarocom/cornerleft_header.jpg);
+	background-position: left top;
+	background-repeat: no-repeat;
 }
 
 
@@ -159,96 +159,96 @@ input[type=submit]:hover, button:hover {
  ----------------------------------------------------------------------------*/
 
 #userBanner {
-    color: #336699;
-    font-weight: bold;
-    font-size: 0.8em;
-    padding: 0 0 0 5px;
+	color: #336699;
+	font-weight: bold;
+	font-size: 0.8em;
+	padding: 0 0 0 5px;
 }
 
 #userBanner #userName {
-    color: #669933;
-    font-weight: bold;
-    margin: 0;
+	color: #669933;
+	font-weight: bold;
+	margin: 0;
 }
 
 #userBanner a,
 #userBanner a:link,
 #userBanner a:visited {
-    text-decoration: none;
+	text-decoration: none;
     color: #777777;
-    font-weight: normal;
+	font-weight: normal;
 }
 
 #userBanner a:hover,
 #userBanner a:active {
-       color: #336699;
-    text-decoration: underline;
-    font-weight: normal;
+   	color: #336699;
+	text-decoration: underline;
+	font-weight: normal;
 }
 
 #userBannerRight
 {
     position: relative;
-    float: right;
-    text-align: right;
+	float: right;
+	text-align: right;
 }
 
 #userBannerLeft
 {
     position: relative;
-    float: left;
-    text-align: left;
+	float: left;
+	text-align: left;
 }
 
  /*----------------------------------------------------------------------------
                                   COURSE LINE
  ----------------------------------------------------------------------------*/
 #courseBanner {
-       padding: 4px;
-    color: #336699;
-    font-size: 0.8em;
-    font-weight: bold;
-    border-top: 1px #999999 solid;
+   	padding: 4px;
+	color: #336699;
+	font-size: 0.8em;
+	font-weight: bold;
+	border-top: 1px #999999 solid;
 }
 
 #courseBanner #course {
-    position: relative;
-    float: left;
-    text-align: left;
+	position: relative;
+	float: left;
+	text-align: left;
 }
 
 #courseBanner #course span {
-       display: block;
+   	display: block;
 }
 
 #courseBanner #courseToolList {
-    position: relative;
-    float: right;
-       text-align: right;
+	position: relative;
+	float: right;
+   	text-align: right;
 }
 
 #courseBanner #courseName {
-    padding: 0;
-    margin: 0;
-    text-indent: 12px;
-    background-image: url(clarocom/fleche_bleu.gif);
-    background-position: left;
-    background-repeat: no-repeat;
+	padding: 0;
+	margin: 0;
+	text-indent: 12px;
+	background-image: url(clarocom/fleche_bleu.gif);
+	background-position: left;
+	background-repeat: no-repeat;
 }
 
 #courseBanner a,
 #courseBanner a:link,
 #courseBanner a:visited {
-    color: #336699;
-    text-decoration: none;
-    font-weight: normal;
+	color: #336699;
+	text-decoration: none;
+	font-weight: normal;
 }
 
 #courseBanner a:hover,
 #courseBanner a:active {
-    color: #669933;
-    text-decoration: underline;
-    font-weight: normal;
+	color: #669933;
+	text-decoration: underline;
+	font-weight: normal;
 }
 
 #courseBanner #courseCode {
@@ -256,24 +256,24 @@ input[type=submit]:hover, button:hover {
 
 #courseBanner form
 {
-    padding-top: 5px;
-    margin: 0;
+	padding-top: 5px;
+	margin: 0;
 }
 
 #courseBannerRight
 {
     position: relative;
-    float: right;
-    text-align: right;
-    margin: 0;
+	float: right;
+	text-align: right;
+	margin: 0;
 }
 
 #courseBannerLeft
 {
     position: relative;
-    float: left;
-    text-align: left;
-    margin: 0;
+	float: left;
+	text-align: left;
+	margin: 0;
 }
 
  /*----------------------------------------------------------------------------
@@ -281,34 +281,38 @@ input[type=submit]:hover, button:hover {
  ----------------------------------------------------------------------------*/
 
 #breadcrumbLine {
-    font-size: 0.8em;
-    color: #666666;
-    border: none;
+	font-size: 0.8em;
+	color: #666666;
+	border: none;
 }
 
 #breadcrumbLine hr {
-    display: none;
+	display: none;
 }
 
-#breadcrumbLine .breadcrumbTrails {
-    float: left;
+#breadcrumbLine .breadcrumbTrail {
+	float: left;
 }
 
 #breadcrumbLine #toolViewOption {
-    float: right;
-    text-align: right;
+	float: right;
+	text-align: right;
+}
+
+
+.breadcrumbTrail {
 }
 
 #breadcrumbLine a:link,
 #breadcrumbLine a:visited {
-    color: #669933;
-    font-weight: normal;
+	color: #669933;
+	font-weight: normal;
 }
 
 #breadcrumbLine a:hover,
 #breadcrumbLine a:active {
-    color: #999999;
-    font-weight: normal;
+	color: #999999;
+	font-weight: normal;
 }
 
 /******************************************************************************
@@ -316,51 +320,51 @@ input[type=submit]:hover, button:hover {
  ******************************************************************************/
 
 #claroBody {
-    padding-top:15px;
-    font-family: Arial, Verdana, Helvetica, Sans-Serif;
-    font-size: 0.9em;
-    color: #666666;
-    background-image: url(clarocom/bg_separator.jpg);
-    background-position: left top;
-    background-repeat: repeat-x;
+	padding-top:15px;
+	font-family: Arial, Verdana, Helvetica, Sans-Serif;
+	font-size: 0.9em;
+	color: #666666;
+	background-image: url(clarocom/bg_separator.jpg);
+	background-position: left top;
+	background-repeat: repeat-x;
 }
 
 #claroBody small {
-    font-size: 12px;
+	font-size: 12px;
 }
 
 #claroBody a:link,
 #claroBody a:visited {
-    font-weight: normal;
+	font-weight: normal;
 }
 
 #claroBody a:hover,
 #claroBody a:active {
-    color: #999999;
-    font-weight: normal;
+	color: #999999;
+	font-weight: normal;
 }
 
 #claroBody a.item:link,
 #claroBody a.item:visited {
-    font-weight: normal;
+	font-weight: normal;
 }
 
 #claroBody a.item:hover,
 #claroBody a.item:active  {
-    color: #999999;
-    font-weight: normal;
+	color: #999999;
+	font-weight: normal;
 }
 
 #claroBody a.claroCmd:link,
 #claroBody a.claroCmd:visited {
-    color: #336699;
-    font-weight: normal;
+	color: #336699;
+	font-weight: normal;
 }
 
 #claroBody a.claroCmd:hover,
 #claroBody a.claroCmd:active {
-    color: #999999;
-    font-weight: normal;
+	color: #999999;
+	font-weight: normal;
 }
 
 /******************************************************************************
@@ -369,51 +373,51 @@ input[type=submit]:hover, button:hover {
 
 #campusFooter
 {
-    margin: 0;
-    padding: 0;
-    font-size: 0.8em;
-    color: #FFFFFF;
-    font-family: Arial, Helvetica, verdana, sans-serif;
-    background-image: url(clarocom/bg_footer.jpg);
-    background-color: #6D8DB7;
-    background-position: bottom;
-    background-repeat: repeat-x;
+	margin: 0;
+	padding: 0;
+	font-size: 0.8em;
+	color: #FFFFFF;
+	font-family: Arial, Helvetica, verdana, sans-serif;
+	background-image: url(clarocom/bg_footer.jpg);
+	background-color: #6D8DB7;
+	background-position: bottom;
+	background-repeat: repeat-x;
 }
 
 #campusFooter a:link, 
 #campusFooter a:visited 
 {
-    color: #FFFFFF;
-    font-weight: bold;
+	color: #FFFFFF;
+	font-weight: bold;
 }
 
 #campusFooter a:hover, 
 #campusFooter a:active 
 {
-    color: #D1E0F4;
-    font-weight: bold;
+	color: #D1E0F4;
+	font-weight: bold;
 }
 
 #campusFooter hr
 {
-    border: 0;
-    height: 1px;
-    background-color: gray;
+	border: 0;
+	height: 1px;
+	background-color: gray;
 }
 
 #campusFooterRight
 {
-    float: right;
-    text-align: right;
-    margin: 0 15px 0 0;
-    padding: 0;
+	float: right;
+	text-align: right;
+	margin: 0 15px 0 0;
+	padding: 0;
 }
 
 #campusFooterLeft
 {
-    float: left;    
-    margin: 0 0 0 15px;
-    padding: 0;
+	float: left;	
+	margin: 0 0 0 15px;
+	padding: 0;
 }
 
 #campusFooterCenter
@@ -425,44 +429,44 @@ input[type=submit]:hover, button:hover {
 #campusFooterCenter #poweredBy
 {
     font-style: italic;
-    padding-bottom: 20px;
+	padding-bottom: 20px;
 }
 
 
 /******************************************************************************
-    CLAROLINE COMMAND LINKS
+	CLAROLINE COMMAND LINKS
  ******************************************************************************/
  
 .claroCmd
 {
-        font-size: O.8em;
-        font-weight: bold;
-        text-decoration: underline;
+		font-size: O.8em;
+		font-weight: bold;
+		text-decoration: underline;
 }
 
 .claroCmdDisabled 
 {
-        color: Gray;
-        font-size: O.8em;
-        font-weight: bold;
-        text-decoration: none;
+		color: Gray;
+		font-size: O.8em;
+		font-weight: bold;
+		text-decoration: none;
 }
 
 /* Added for document view mode toolbar */
 
 th .claroCmd
 {
-    font-size: O.8em;
-    font-weight: bold;
-    text-decoration: underline;
+	font-size: O.8em;
+	font-weight: bold;
+	text-decoration: underline;
 }
 
 th .claroCmdDisabled
 {
-       color: white;
-       font-size: O.8em;
-    font-weight: bold;
-    text-decoration: none;
+   	color: white;
+   	font-size: O.8em;
+	font-weight: bold;
+	text-decoration: none;
 }
 
 
@@ -489,15 +493,15 @@ th .claroCmdDisabled
  */
 
 .item {
-    padding-left: 16px;
+	padding-left: 16px;
 }
 
 .hot {
-    background: url(../img/hot.gif) no-repeat;
+	background: url(../img/hot.gif) no-repeat;
 }
 
 a.item:visited{
-    color: #336699;
+	color: #336699;
 }
 
 /******************************************************************************
@@ -569,32 +573,32 @@ a.item:visited{
 
 .claroTable td, 
 .claroTable th {
-    vertical-align: middle;
-    padding: 2px 5px 2px 5px;
-    border: 1px solid #EDEDED;
-    font-size: 0.9em;
+	vertical-align: middle;
+	padding: 2px 5px 2px 5px;
+	border: 1px solid #EDEDED;
+	font-size: 0.9em;
 }
 
 .claroTable td em, 
 .claroTable th em{
-    font-size: 0.9em;
+	font-size: 0.9em;
 }
 
 .claroTable .superHeader th, 
 .claroTable th.superHeader 
 {
-    color: #669933;
-    background-color: #DEEECE;
-    border: 1px #87B665 solid;
-    padding: 2px 5px 2px 5px;
-    font-size: 12px;
-    font-weight: bold;
-    text-align: center;
+	color: #669933;
+	background-color: #DEEECE;
+	border: 1px #87B665 solid;
+	padding: 2px 5px 2px 5px;
+	font-size: 12px;
+	font-weight: bold;
+	text-align: center;
 }
 
 .claroTable .superHeader a {
-    color: #669933;
-    padding: 2px 5px 2px 5px;
+	color: #669933;
+	padding: 2px 5px 2px 5px;
 }
 
 
@@ -603,73 +607,73 @@ a.item:visited{
 .claroTable th.headerX, 
 .claroTable .headerX th 
 {
-    color: #669933;
-    font-size: 12px;
-    font-weight: bold;
-    text-align: center;
-    padding: 2px 5px 2px 5px;
+	color: #669933;
+	font-size: 12px;
+	font-weight: bold;
+	text-align: center;
+	padding: 2px 5px 2px 5px;
 }
 
 .claroTable .headerX th,
 .claroTable th.headerX 
 {
-    background-color: #EDF1E3;
-    border: 1px #96BB7A solid;
-    padding: 2px 5px 2px 5px;
+	background-color: #EDF1E3;
+	border: 1px #96BB7A solid;
+	padding: 2px 5px 2px 5px;
 }
 
 /* extension of claroTable class for Image Viewer */
 .claroTable tr th.toolbar {
-    font-weight: normal;
-    padding: 2px 5px 2px 5px;
+	font-weight: normal;
+	padding: 2px 5px 2px 5px;
 }
 
 .claroTable tr.toolbar th.prev{
-    text-align: left;
-    font-weight: normal;
-    padding: 2px 5px 2px 5px;
+	text-align: left;
+	font-weight: normal;
+	padding: 2px 5px 2px 5px;
 }
 
 .claroTable tr.toolbar th.title{
-    font-weight: bold;
-    text-align: center;
-    padding: 2px 5px 2px 5px;
+	font-weight: bold;
+	text-align: center;
+	padding: 2px 5px 2px 5px;
 }
 
 .claroTable tr.toolbar th.next{
-    text-align: center;
-    font-weight: normal;
-    padding: 2px 5px 2px 5px;
+	text-align: center;
+	font-weight: normal;
+	padding: 2px 5px 2px 5px;
 }
 
 .claroTable td.workingWeek {
-    vertical-align: top;
-    font-size: 14px;
-    font-weight: bold;
-    color: #999999;
-    padding: 2px 5px 2px 5px;
+	vertical-align: top;
+	font-size: 14px;
+	font-weight: bold;
+	color: #999999;
+	padding: 2px 5px 2px 5px;
 }
 
 .claroTable td.weekEnd {
-    vertical-align: top;
-    font-size: 14px;
-    color: #FF003C;
-    padding: 2px 5px 2px 5px;
+	vertical-align: top;
+	font-size: 14px;
+	color: #FF003C;
+	padding: 2px 5px 2px 5px;
 }
 .claroTable td.highlight {
-    vertical-align: top;
-    font-size: 14px;
-    font-weight: bold;
-    color: #FFB848;
-    padding: 2px 5px 2px 5px;
+	vertical-align: top;
+	font-size: 14px;
+	font-weight: bold;
+	color: #FFB848;
+	padding: 2px 5px 2px 5px;
 }
 
 .emphaseLine tbody td {
-    border-bottom: solid #DDDEBC 1px ;
+	border-bottom: solid #DDDEBC 1px ;
 }
 
 .emphaseLine tbody tr:hover {
-    background-color: #E3E3E3;
+	background-color: #E3E3E3;
 }
 
 /******************************************************************************
@@ -683,39 +687,39 @@ a.item:visited{
  */ 
  
 .claroMessageBox {
-    background-color: #FDFDFD;
-    border: 1px solid #DEDEDE;
-    margin-left: 5px;
-    font-size: 0.9em;
-    color: #000;
+	background-color: #FDFDFD;
+	border: 1px solid #DEDEDE;
+	margin-left: 5px;
+	font-size: 0.9em;
+	color: #000;
 }
 
 .claroIntroSection { 
-    background-color: #F5F5F5;
-    padding: 5px;
-    margin-top : 5px;
-    margin-bottom: 5px;
+	background-color: #F5F5F5;
+	padding: 5px;
+	margin-top : 5px;
+	margin-bottom: 5px;
 }
 
 .warning {
-    color: #FF0000;
+	color: #FF0000;
 }
 
 div .wikiTitle h1 {
-    margin: 10px 0 10px 10px;
-    padding: 0;
-    font-size: 0.9em;
-    border-bottom: 1px solid #DEDEDE;
-    color: #666666;
-    text-indent: 15px;
-    background-image: url(clarocom/fleche_bleu.gif);
-    background-position: left;
-    background-repeat: no-repeat;
+	margin: 10px 0 10px 10px;
+	padding: 0;
+	font-size: 0.9em;
+	border-bottom: 1px solid #DEDEDE;
+	color: #666666;
+	text-indent: 15px;
+	background-image: url(clarocom/fleche_bleu.gif);
+	background-position: left;
+	background-repeat: no-repeat;
 }
 
 div .wiki2xhtml p {
-    font-size: 0.8em;
-    color: #666666;
+	font-size: 0.8em;
+	color: #666666;
 }
 
 /*
@@ -727,7 +731,7 @@ div .wiki2xhtml p {
 
 .invisible
 {
-    color: #999999;
+	color: #999999;
 }
 
 .invisible a, 
@@ -736,33 +740,33 @@ div .wiki2xhtml p {
 a.invisible,
 a:link.invisible,
 a:visited.invisible {
-    color: #999999;
+	color: #999999;
 }
 
 /* menu */
 
 .menu a.invisible:visited{
-    color: #999999;
+	color: #999999;
 }
 
 
 /* 'correct' is attached to element that must be highlighted as correct
-    example : a good score in exercices
+	example : a good score in exercices
 */
 .correct {
-    color: #009900;
+	color: #009900;
 }
 
 /* 'error' is attached to element that must be highlighted as correct
-    example : a wrong score in exercices
-    example : an error message
+	example : a wrong score in exercices
+	example : an error message
 */
 .error {
-    color: #990000;
+	color: #990000;
 }
 
 /* 'highlight' is used when something needs to be especially shown to the user
-    example : 'today' in the agenda
+	example : 'today' in the agenda
 */
 .highlight {
  color: #FFB848;
@@ -790,55 +794,55 @@ a:visited.invisible {
  */
 
 .claroRightMenu  {
-    background-color: #FFFFFF;
-    background-image: url(clarocom/verticalbar.jpg);
-    background-position: left top;
-    background-repeat: no-repeat;
-    padding-left: 10px;
-    font-size: 0.9em;
+	background-color: #FFFFFF;
+	background-image: url(clarocom/verticalbar.jpg);
+	background-position: left top;
+	background-repeat: no-repeat;
+	padding-left: 10px;
+	font-size: 0.9em;
 }
-    
+	
 .claroRightMenu a:link, 
 .claroRightMenu a:visited {
-        color: #336699;
+		color: #336699;
 }
-    
+	
 .claroRightMenu a:hover,
 .claroRightMenu a:active {
-        color: #669933;
+		color: #669933;
 }
 
 .claroRightMenu form {
-    color: #336699;
+	color: #336699;
 }
 
 .claroRightMenu label {
-    display: block;
-    padding: 2px;
-    vertical-align: bottom;
-    color: #555555;
-    font-size: 0.9em;
-    font-style: italic;
+	display: block;
+	padding: 2px;
+	vertical-align: bottom;
+	color: #555555;
+	font-size: 0.9em;
+	font-style: italic;
 }
 
 .HelpText {
     color: #666666;
-    font-size: O.9em;
+	font-size: O.9em;
 }
 .HelpText ul{
     color: #666666;
-    font-size: O.9em;
+	font-size: O.9em;
 }
 
 .claroToolTitle {
-    margin: 10px 0 5px 5px;
-    padding: 0;
-    font-weight: bold;
-    border-bottom: 1px solid #DEDEDE;
-    text-indent: 15px;
-    background-image: url(clarocom/fleche_vert.gif);
-    background-position: 0px 5px;
-    background-repeat: no-repeat;
+	margin: 10px 0 5px 5px;
+	padding: 0;
+	font-weight: bold;
+	border-bottom: 1px solid #DEDEDE;
+	text-indent: 15px;
+	background-image: url(clarocom/fleche_vert.gif);
+	background-position: 0px 5px;
+	background-repeat: no-repeat;
 }
 
 /*

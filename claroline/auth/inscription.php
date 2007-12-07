@@ -101,7 +101,9 @@ if ( get_conf('allowSelfReg',false) )
                 $_SESSION['is_allowedCreateCourse'] = $is_allowedCreateCourse;
 
                 // track user login
-                $claroline->notifier->event( 'user_login', array('data' => array('ip' => $_SERVER['REMOTE_ADDR']) ) );
+
+                $eventNotifier->notifyEvent('user_login', array('uid' => claro_get_current_user_id()));
+                event_login();
 
                 // last user login date is now
                 $user_last_login_datetime = 0; // used as a unix timestamp it will correspond to : 1 1 1970
@@ -153,7 +155,7 @@ if ( get_conf('allowSelfReg',false) )
 }
 elseif (! get_conf('show_agreement_panel'))
 {
-    // This  section is not use actually.
+    // This  section is not use actually.  
     // it's only when selfReg =false so  It's need another textZoneContent
     $display = DISP_REGISTRATION_AGREEMENT;
 }

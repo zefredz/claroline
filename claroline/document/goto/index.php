@@ -13,8 +13,6 @@
 
 // This page is used to launch an event when a user click to download a document
 
-die("document/goto is deprecated, use claro_get_file_download_url( $file ) function instead");
-
 $tlabelReq = 'CLDOC';
 
 require '../../inc/claro_init_global.inc.php';
@@ -105,6 +103,8 @@ else
         $pathInfo = get_path('coursesRepositorySys'). $intermediatePath
                     . implode ( '/',
                             array_map('rawurldecode', explode('/',$requestUrl)));
+                            
+        $pathInfo = str_replace('\\', '/', $pathInfo); // OS harmonize ...
     }
 
     if (get_conf('CLARO_DEBUG_MODE'))
@@ -129,10 +129,30 @@ else
 
 if ( $isDownloadable )
 {
-    if( claro_send_file( $pathInfo )  > 0 )
+    $extension = get_file_extension($pathInfo);
+    $mimeType = get_mime_on_ext($pathInfo);
+
+    if ( $mimeType == 'text/html' && $extension != 'url' )
     {
-        event_download( $requestUrl );
+        event_download($requestUrl);
+        
+
+
+        // replace rootSys by urlAppend
+        $document_url = str_replace($rootSys,$urlAppend.'/',$pathInfo);
+
+        // redirect to document
+        claro_redirect($document_url);
+       
+        die();
     }
+    else
+    {
+        if( claro_send_file( $pathInfo )  > 0 )
+        {
+            event_download( $requestUrl );
+        }   
+    } 
 }
 else
 {

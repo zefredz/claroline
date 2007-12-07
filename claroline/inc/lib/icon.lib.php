@@ -2,22 +2,17 @@
     
     // vim: expandtab sw=4 ts=4 sts=4:
     
-    if ( count( get_included_files() ) == 1 )
-    {
-        die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-    }
-    
     /**
      * Icon library
      *
-     * @version     1.9 $Revision$
+     * @version     1.8 $Revision$
      * @copyright   2001-2007 Universite catholique de Louvain (UCL)
      * @author      Frederic Minne <zefredz@claroline.net>
      * @license     http://www.gnu.org/copyleft/gpl.html
      *              GNU GENERAL PUBLIC LICENSE
      * @package     KERNEL
      */
-
+     
     /**
      * Returns the (system) path to the current iconset
      */
@@ -25,7 +20,7 @@
     {
         return get_path('imgRepositorySys');
     }
-    
+
     /**
      * Returns the (web) url to the current iconset
      */
@@ -33,19 +28,19 @@
     {
          return get_path('imgRepositoryWeb');
     }
-    
+
     /**
      * Returns the url of the given icon, replaced by get_icon_url()
      * @deprecated
      * @since v1.9
      * @see get_icon_url()
      */
-     
+
     function get_icon( $fileName )
     {
         return get_icon_url( $fileName );
     }
-    
+
 
     /**
      * Returns the url of the given icon
@@ -57,12 +52,10 @@
     function get_icon_url( $fileName )
     {
         $fileInfo = pathinfo( $fileName );
-        
+
         $imgPath = array(
             // claroline theme iconset
             get_current_iconset_path() => get_current_iconset_url(),
-            // claroline web/img
-            get_path( 'rootSys' ) . 'web/img' => get_path('url') . '/web/img',
             // module img directory
             get_module_path(get_current_module_label()).'/img/' => get_module_url(get_current_module_label()).'/img/',
             // module root directory
@@ -72,7 +65,7 @@
             // working directory
             './' => './',
         );
-        
+
         if ( !empty( $fileInfo['extension'] ) )
         {
             $img = array( $fileName );
@@ -84,27 +77,27 @@
                 $fileName . '.png'
             );
         }
-        
+
         foreach ( $imgPath as $tryPath => $tryUrl )
         {
             foreach ( $img as $tryImg )
             {
                 if ( claro_debug_mode() ) pushClaroMessage("Try ".$tryPath.$tryImg, 'debug');
-                
+
                 if ( file_exists( $tryPath.$tryImg ) )
                 {
                     if ( claro_debug_mode() ) pushClaroMessage("Using ".$tryPath.$tryImg, 'debug');
-                    
+
                     return $tryUrl.$tryImg;
                 }
             }
         }
-        
+
         if ( claro_debug_mode() ) pushClaroMessage("Icon $fileName not found",'error');
-        
+
         return null;
     }
-    
+
     /**
      * Includes an icon in html code
      * @param string fileName file name with or without extension
@@ -118,12 +111,12 @@
             ? ' alt="' . $alternate . '"'
             : ' alt="' . htmlspecialchars( $fileName ) . '"'
             ;
-            
+
         $title = $toolTip
             ? ' title="' . htmlspecialchars( $toolTip ) .'"'
             : ''
             ;
-            
+
         if ( false !== ( $iconUrl = get_icon_url( $fileName ) ) )
         {
             return '<img src="' . $iconUrl .'"'
@@ -136,7 +129,7 @@
             return false;
         }
     }
-    
+
     /**
      * Add a claroCmd button with icon to HTML output
      * @param string targetUrl url of the target page

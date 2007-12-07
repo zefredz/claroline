@@ -42,6 +42,7 @@ $tbl_class_user = $tbl_mdb_names['user_rel_profile_category'];
 $cmd = isset($_REQUEST['cmd'])?$_REQUEST['cmd']:null;
 $user_id = isset($_REQUEST['user_id'])?(int)$_REQUEST['user_id']:0;
 $class_id = isset($_REQUEST['class_id'])?(int)$_REQUEST['class_id']:0;
+$searchFor = isset($_REQUEST['searchFor'])?$_REQUEST['searchFor']:'';
 
 // find info about the class
 
@@ -78,6 +79,11 @@ if ( !empty($class_id) )
             LEFT JOIN `" . $tbl_class_user . "` AS CU
                    ON  CU.`user_id` = U.`user_id`
                   AND CU.`class_id` = " . (int) $class_id;
+
+    if ( !empty($searchFor) )
+    {
+       $sql .= ' WHERE U.`nom` LIKE(\''.claro_sql_escape($searchFor).'%\')';
+    }
 
     // deal with REORDER
 
@@ -169,9 +175,18 @@ else
 
     if (isset($_REQUEST['cfrom']) && ($_REQUEST['cfrom']=='clist')) echo claro_html_button('admincourses.php', get_lang('Back to course list'));
 
+    // Display search form
+    echo '<div align="center">'."\n"
+    .   '<form action="'.$_SERVER['PHP_SELF'].'" method="GET">'."\n"
+    .   get_lang('Name') . ' : <input type="text" name="searchFor" size="20" value="' . htmlspecialchars($searchFor) . '"/>'."\n"
+    .   '<input type="hidden" name="class_id" value="' . $class_id . '"/>'."\n"
+    .   '<input type="submit" value="'.get_lang('Search').'"/>'."\n"
+    .   '</form>'."\n"
+    .   '</div>'."\n";
+
     // Display pager
 
-    echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?class_id='.$class_id);
+    echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?class_id='.$class_id . ($searchFor?'&amp;searchFor='.urlencode($searchFor):''));
 
     // Display list of users
     // start table...
@@ -247,8 +262,7 @@ else
     ;
 
     //Pager
-
-    echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?class_id='.$class_id);
+    echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?class_id='.$class_id . ($searchFor?'&amp;searchFor='.urlencode($searchFor):''));
 
 }
 

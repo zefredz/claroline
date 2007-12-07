@@ -3,8 +3,7 @@
 $tlabelReq = 'CLFRM';
 
 require '../inc/claro_init_global.inc.php';
-require get_path('incRepositorySys') . '/lib/forum.lib.php';
-require get_path('incRepositorySys') . '/lib/group.lib.inc.php';
+require get_path('incRepositorySys') .'/lib/forum.lib.php';
 
 $last_visit        = claro_get_current_user_data('lastLogin');
 $is_groupPrivate   = claro_get_current_group_properties_data('private');
@@ -78,7 +77,6 @@ if ( $sqlClauseString )
         $searchResultList = claro_sql_query_fetch_all($sql);
 
         $userGroupList  = get_user_group_list(claro_get_current_user_id());
-        $userGroupList  = array_keys($userGroupList);
         $tutorGroupList = get_tutor_group_list(claro_get_current_user_id());
 }
 else
@@ -135,11 +133,11 @@ echo claro_html_menu_horizontal(disp_forum_toolbar($pagetype, null))
             echo '<tr>'                                                   . "\n"
 
             .   '<th class="headerX">'                                    . "\n"
-            .   '<img src="' . get_path('imgRepositoryWeb') . 'topic.gif" alt="" />'
+            .   '<img src="' . get_path('imgRepositoryWeb') . 'topic.gif" alt="">'
             .   '<a href="viewtopic.php?topic='.$thisPost['topic_id'].'">'
             .   $thisPost['topic_title']
             .   '</a><br />'                                              . "\n"
-            .   '<img src="' . get_path('imgRepositoryWeb') . $postImg . '" alt="" />'
+            .   '<img src="' . get_path('imgRepositoryWeb') . $postImg . '" alt="">'
             .   get_lang('Author') . ' : <b>' . $thisPost['firstname'] . ' ' . $thisPost['lastname'] . '</b> '
             .   '<small>' . get_lang('Posted') . ' : ' . $thisPost['post_time'] . '</small>' . "\n"
             .   '</th>'                                                  . "\n"

@@ -37,9 +37,9 @@ function get_filter_list($excludeId = '')
     {
         foreach( $exerciseList as $anExercise )
         {
-            if( $excludeId != $anExercise['id'] )
+        	if( $excludeId != $anExercise['id'] )
             {
-                $filterList[$anExercise['title']] = $anExercise['id'];
+            	$filterList[$anExercise['title']] = $anExercise['id'];
             }
         }
     }     
@@ -96,8 +96,8 @@ function set_learning_path_progression($totalResult,$totalGrade,$timeToCompleteE
     if( $_uid )
     {
         // exercices can have a negative score, but we don't accept that in LP
-        // so if totalScore is negative use 0 as result
-        $totalResult = max($totalResult, 0);
+		// so if totalScore is negative use 0 as result
+		$totalResult = max($totalResult, 0);
 
         if ( $totalGrade != 0 )
         {
@@ -117,48 +117,48 @@ function set_learning_path_progression($totalResult,$totalGrade,$timeToCompleteE
                   FROM `".$tbl_lp_rel_learnPath_module."` AS LPM, `".$tbl_lp_user_module_progress."` AS UMP
                  WHERE LPM.`learnPath_id` = '".(int)$_SESSION['path_id']."'
                    AND LPM.`module_id` = '".(int)$_SESSION['module_id']."'
-                   AND LPM.`learnPath_module_id` = UMP.`learnPath_module_id`
-                   AND UMP.`user_id` = ".(int) $_uid;
-                   
+				   AND LPM.`learnPath_module_id` = UMP.`learnPath_module_id`
+				   AND UMP.`user_id` = ".(int) $_uid;
+				   
         $lastProgression = claro_sql_query_get_single_row($sql);
 
-        if( $lastProgression )
-        {
-            // build sql query
-            $sql = "UPDATE `".$tbl_lp_user_module_progress."` SET ";
-            // if recorded score is more than the new score => update raw, credit and status
+		if( $lastProgression )
+		{
+    		// build sql query
+		    $sql = "UPDATE `".$tbl_lp_user_module_progress."` SET ";
+    		// if recorded score is more than the new score => update raw, credit and status
 
-            if( $lastProgression['raw'] < $totalResult )
-            {
-                // update raw
-                $sql .= "`raw` = ".$totalResult.",";
-                // update credit and statut if needed ( score is better than raw_to_pass )
-                if ( $newRaw >= $lastProgression['raw_to_pass'])
-                {
-                    $sql .= "    `credit` = 'CREDIT',
-                                 `lesson_status` = 'PASSED',";
-                }
-                else // minimum raw to pass needed to get credit
-                {
-                    $sql .= "    `credit` = 'NO-CREDIT',
-                                `lesson_status` = 'FAILED',";
-                }
-            }// else don't change raw, credit and lesson_status
+	    	if( $lastProgression['raw'] < $totalResult )
+		    {
+			    // update raw
+    			$sql .= "`raw` = ".$totalResult.",";
+	    		// update credit and statut if needed ( score is better than raw_to_pass )
+		    	if ( $newRaw >= $lastProgression['raw_to_pass'])
+			    {
+				    $sql .= "	`credit` = 'CREDIT',
+					     		`lesson_status` = 'PASSED',";
+			    }
+			    else // minimum raw to pass needed to get credit
+			    {
+				    $sql .= "	`credit` = 'NO-CREDIT',
+					    		`lesson_status` = 'FAILED',";
+    			}
+	    	}// else don't change raw, credit and lesson_status
 
-            // default query statements
-            $sql .= "    `scoreMin`         = " . (int)$scoreMin . ",
-                        `scoreMax`         = " . (int)$scoreMax . ",
-                        `total_time`    = '".addScormTime($lastProgression['total_time'], $scormSessionTime)."',
-                        `session_time`    = '".$scormSessionTime."'
+    		// default query statements
+	    	$sql .= "	`scoreMin` 		= " . (int)$scoreMin . ",
+		    			`scoreMax` 		= " . (int)$scoreMax . ",
+			    		`total_time`	= '".addScormTime($lastProgression['total_time'], $scormSessionTime)."',
+				    	`session_time`	= '".$scormSessionTime."'
                      WHERE `learnPath_module_id` = ". (int)$lastProgression['learnPath_module_id']."
                        AND `user_id` = " . (int)$_uid . "";
                        
-            return claro_sql_query($sql);
-        }
-        else
-        {
-            return false;
-        }
+    	    return claro_sql_query($sql);
+    	}
+    	else
+    	{
+    		return false;
+    	}
     }
 }
 

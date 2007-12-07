@@ -74,7 +74,7 @@ array ('label'         => 'Root of CAS server'
       ,'default'       => ''
       ,'type'          => 'string'
       );
-      
+
 $conf_def_property_list['claro_CasGlobalLogout'] =
 array ('label'         => 'Logout user from CAS server when user logout from Claroline'
       ,'description'   => ''
@@ -83,6 +83,5 @@ array ('label'         => 'Logout user from CAS server when user logout from Cla
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
                                 ,'FALSE' => 'No'
                                 )
-      );      
-
+      ); 
 ?>

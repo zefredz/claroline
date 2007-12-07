@@ -3,10 +3,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
- * This lib provide html stream for various
- * uniformised output.
- *
- * @version 1.9 $Revision$
+ * @version 1.8 $Revision$
  *
  * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
@@ -14,8 +11,14 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @author see 'credits' file
  *
- * @package HTML
  *
+ */
+
+/**
+ * This lib (in a class to simulate namespace) provide html stream for various
+ * uniformised output.
+ *
+ * @package HTML
  *
  */
 
@@ -76,7 +79,7 @@ function claro_html_menu_vertical_br($itemList, $attrBloc=array())
 
     if (! empty($itemList) && is_array($itemList))
     {
-        $htmlStream .= implode('<br />' . "\n",$itemList );
+            $htmlStream .= implode('<br />' . "\n",$itemList );
     }
     $htmlStream .= '</div>' . "\n";
 
@@ -109,13 +112,13 @@ function claro_html_menu_horizontal($itemList)
 }
 
 /**
- * Return the claroline sytled url for a link to a tool
- *
- * @param string $url
- * @param string $label
- * @param array $attributeList array of array(attributeName,attributeValue)
- * @return string html stream
- */
+* Return the claroline sytled url for a link to a tool
+*
+* @param string $url
+* @param string $label
+* @param array $attributeList array of array(attributeName,attributeValue)
+* @return string html stream
+*/
 function claro_html_tool_link($url,$label,$attributeList=array())
 {
     $attributeConcat = 'class="toollink" ';
@@ -232,21 +235,6 @@ function claro_html_button($url, $text, $confirmMessage = '')
 
 
 /**
- * Displays a title inc claroline wich can be relooked by css
- *
- * @author Christophe GeschÈ <moosh@claroline.net>
- * @param  string $title
- * @param  string $level 1->7
- *
- * @return void
- */
-
-function claro_html_title($title, $level)
-{
-    return '<h'.$level.' class="claroTitle claroTitle' . $level . '" >' . $title . '</h'.$level.' >';
-}
-
-/**
 * Displays the title of a tool. Optionally, there can be a subtitle below
 * the normal title, and / or a supra title above the normal title.
 *
@@ -293,13 +281,13 @@ function claro_html_tool_title($titlePart, $helpUrl = false)
     if ($helpUrl)
     {
 
-        $string .= "<a href='#' onclick=\"MyWindow=window.open('". get_path('clarolineRepositoryWeb') . "help/" .$helpUrl
+        $string .= "<a href='#' onClick=\"MyWindow=window.open('". get_path('clarolineRepositoryWeb') . "help/" .$helpUrl
         ."','MyWindow','toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,resizable=yes,width=350,height=450,left=300,top=10'); return false;\">"
 
         .'<img src="' . get_path('imgRepositoryWeb') . '/help.gif" '
         .' alt ="'.get_lang('Help').'"'
         .' align="right"'
-        .' hspace="30" />'
+        .' hspace="30">'
         .'</a>' . "\n"
         ;
     }
@@ -368,7 +356,7 @@ function claro_html_breadcrumbtrail($nameList, $urlList, $separator = ' &gt; ', 
         && ! is_null($urlList[$thisKey])       )
         {
             $startAnchorTag = '<a href="' . $urlList[$thisKey] . '" target="_top">';
-            $endAnchorTag   = '</a>' . "\n";
+            $endAnchorTag   = '</a>';
         }
         else
         {
@@ -389,12 +377,12 @@ function claro_html_breadcrumbtrail($nameList, $urlList, $separator = ' &gt; ', 
 
     $breadCrumbList[count($breadCrumbList)-1] = '<strong>'
     .end($breadCrumbList)
-    .'</strong>' . "\n";
+    .'</strong>';
 
-    return  '<div class="breadcrumbTrail">' . "\n"
-    . ( is_null($homeImg) ? '' : '<img src="' . $homeImg . '" alt="" /> ' . "\n" )
-    . implode($separator . "\n", $breadCrumbList)
-    . '</div>' . "\n";
+    return  '<div class="breadcrumbTrail">'
+    . ( is_null($homeImg) ? '' : '<img src="' . $homeImg . '" alt=""> ' )
+    . implode($separator, $breadCrumbList)
+    . '</div>';
 }
 
 
@@ -598,15 +586,6 @@ function claro_html_textarea_editor($name, $content = '', $rows=20, $cols=80, $o
     return $returnString;
 }
 
-
-/**
- *
- *
- */
-DEFINE('DG_ORDER_COLS_BY_GRID','DG_ORDER_COLS_BY_GRID'.__FILE__.__LINE__);
-DEFINE('DG_ORDER_COLS_BY_TITLE','DG_ORDER_COLS_BY_TITLE'.__FILE__.__LINE__);
-
-
 /**
  * datagrid is actually a function but can became an object.
  *
@@ -624,30 +603,26 @@ DEFINE('DG_ORDER_COLS_BY_TITLE','DG_ORDER_COLS_BY_TITLE'.__FILE__.__LINE__);
  * set_colAttributeList(array('colName'=> array('attribName'=>'attribValue'))
  * set_caption(string 'caption');
  * set_counterLine(bool 'dispCounter')
- * set_colDecoration(string columnName,string pattern, array param)
- * 
+ *
  * @package HTML
- * @author Christophe GeschÈ <moosh@claroline.net>
  *
  */
 class claro_datagrid
 {
-    private $datagrid;
+    var $datagrid;
 
-    private $idLineType =  'numeric';
-    private $idLineShift = 1;
-    private $colTitleList =null;
-    private $colAttributeList = array();
-    private $caption = '';
-    private $counterLine;
-    private $dispCounter = false;
-    private $colHead =null;
-    private $htmlNoRowMessage = null;
-    private $hideColsWithoutTitle = false;
-    private $orderCols=DG_ORDER_COLS_BY_GRID;
-    private $decorationList = array();
-    private $dispIdCol = true;
-    private $internalKey = 0;
+    var $idLineType =  'numeric';
+    var $idLineShift = 1;
+    var $colTitleList =null;
+    var $colAttributeList = array();
+    var $caption = '';
+    var $counterLine;
+    var $dispCounter = false;
+    var $colHead =null;
+    var $htmlNoRowMessage = null;
+
+    var $dispIdCol = true;
+    var $internalKey = 0;
 
     function claro_datagrid($datagrid = null)
     {
@@ -695,8 +670,6 @@ class claro_datagrid
         }
     }
 
-
-
     /**
      * set the  isLineType option
      *
@@ -729,46 +702,13 @@ class claro_datagrid
     }
 
     /**
-     * set the  hideColsWithoutTitle option
-     * if hideColsWithoutTitle is true, only cols present in the colTitleList are shown in the rendered grid
-     * @param boolean $hideColsWithoutTitle set if  the cols of grid
-     * withouth title would be displayed
-     */
-
-    function set_hideColsWithoutTitle( $hideColsWithoutTitle)
-    {
-        if (is_bool($hideColsWithoutTitle)) $this->hideColsWithoutTitle = $hideColsWithoutTitle;
-        else                                trigger_error('boolean attempt',E_USER_NOTICE);
-    }
-
-    /**
-     * set the  hideColsWithoutTitle option
-     * if hideColsWithoutTitle is true, only cols present in the colTitleList are shown in the rendered grid
-     * @param boolean $hideColsWithoutTitle set if  the cols of grid
-     * withouth title would be displayed
-     */
-
-    function set_orderColBy( $orderCols)
-    {
-        if (in_array($orderCols,array(DG_ORDER_COLS_BY_GRID,DG_ORDER_COLS_BY_TITLE)))
-        {
-            $this->orderCols = $orderCols;
-        }
-        else
-        {
-            trigger_error('boolean attempt',E_USER_NOTICE);
-        }
-    }
-
-    /**
      * set the  colTitleList option
      *
      * @param array $colTitleList array('colName'=>'colTitle')
      */
 
-    function set_colTitleList( $colTitleList, $hideColsWithoutTitle=false)
+    function set_colTitleList( $colTitleList)
     {
-        $this->set_hideColsWithoutTitle($hideColsWithoutTitle);
         if (is_array($colTitleList)) $this->colTitleList = $colTitleList;
         else                         trigger_error('array attempt',E_USER_NOTICE);
     }
@@ -833,35 +773,6 @@ class claro_datagrid
         $this->dispCounter = true;
     }
 
-    /**
-     * Add a decoration on a column
-     * 
-     * add, or overide a column by a content build from a template and where 
-     * tags are replace by data from each lines
-     *
-     * $myDataList[]=array('id'=>1,'pid'=>'foo',);
-     * $dg = new claro_datagrid($myDataList);
-     * $dg->set_colDecoration('edit','<a href="?cmd=edit&amp;id=%id&amp;pid=%pid">edit</a>', array('id','pid'));
-     * $dg->set_colDecoration('foo','<strong>%foo</strong>', array('foo'));
-     * 
-     * The first decoration add a third column called edit. and  using id and pid from line to fill %id and %pid;
-     * The second decoration overite the existing column 'foo' by the same content between <strong> tags 
-     *  
-     *
-     * @param string $colName
-     * @param string $decorationPattern
-     * @param array $tag
-     * 
-     * @since 1.9
-     * @return the current list
-     */
-    function set_colDecoration($colName,$decorationPattern, $tag)
-    {
-        $this->decorationList[$colName] = array( 'decorationPattern' => $decorationPattern
-                                         , 'tagList' => $tag);
-        return $this->decorationList;            
-    }
-    
     function render()
     {
         $stream = '';
@@ -873,14 +784,10 @@ class claro_datagrid
              * In  W3C <COL> seems be the good usage but browser don't follow the tag
              * So all attribute would be in each td of column.
              */
-            if (!is_array($this->colTitleList) && count($this->datagrid))
+            if (!is_array($this->colTitleList)&&count($this->datagrid))
             {
                 if (is_array($this->datagrid) && isset($this->datagrid[0]) && is_array($this->datagrid[0]))
                 $this->colTitleList = array_keys($this->datagrid[0]);
-            }
-            elseif (!is_array($this->colTitleList))
-            {
-                $this->colTitleList = array();
             }
 
             if (isset($this->colAttributeList))
@@ -931,6 +838,7 @@ class claro_datagrid
             $stream .= '<tbody>' . "\n";
             if(count($this->datagrid))
             {
+
                 foreach ($this->datagrid as $key => $dataLine )
                 {
                     switch ($this->idLineType)
@@ -945,52 +853,19 @@ class claro_datagrid
                     if ($this->dispIdCol) $stream .= '<td align="right" valign="middle">' . $idLine . '</td>' . "\n";
 
                     $i=0;
-                    if($this->orderCols == DG_ORDER_COLS_BY_TITLE)
+                    foreach ($dataLine as $colId => $dataCell)
                     {
-                        $keyOrder=array_keys(array_merge($this->colTitleList,$dataLine,$this->decorationList));
-                    }
-                    else
-                    {
-                        $keyOrder=array_keys(array_merge($dataLine,$this->decorationList));
-                    }
-                    
-                    foreach ($keyOrder as $colId)
-                    {
-                        // a protection if there is no cell for the current col
-                        if(array_key_exists($colId,$dataLine)) $dataCell= $dataLine[$colId];
-                        else                                   $dataCell = '';
-
-                        if(array_key_exists($colId,$this->decorationList))
+                        if ($this->colHead == $colId)
                         {
-                            // Decore content
-                            $dataCell = $this->decorationList[$colId]['decorationPattern'];
-                            foreach ($this->decorationList[$colId]['tagList'] as $tagName) 
-                            {
-                                $dataCell = str_replace('%'.$tagName,$dataLine[$tagName],$dataCell);
-                            }
+                            $stream .= '<td scope="line" id="L' . $key . '" headers="c' . $i++ . '" ' . ( isset($attrCol[$colId])?$attrCol[$colId]:'') . '>';
+                            $stream .= $dataCell;
+                            $stream .= '</td>' . "\n";
                         }
-                        
-
-                        if ( !$this->hideColsWithoutTitle
-                             || (    is_array($this->colTitleList)
-                                  && count($this->colTitleList) > 0
-                                  && in_array($colId,array_keys($this->colTitleList))
-                             )
-                        )
-
+                        else
                         {
-                            if ($this->colHead == $colId)
-                            {
-                                $stream .= '<td scope="row" id="L' . $key . '" headers="c' . $i++ . '" ' . ( isset($attrCol[$colId])?$attrCol[$colId]:'') . '>';
-                                $stream .= $dataCell;
-                                $stream .= '</td>' . "\n";
-                            }
-                            else
-                            {
-                                $stream .= '<td headers="c' . $i++ . ' L' . $key . '" ' . ( isset($attrCol[$colId])?$attrCol[$colId]:'') . '>';
-                                $stream .= $dataCell;
-                                $stream .= '</td>' . "\n";
-                            }
+                            $stream .= '<td headers="c' . $i++ . ' L' . $key . '" ' . ( isset($attrCol[$colId])?$attrCol[$colId]:'') . '>';
+                            $stream .= $dataCell;
+                            $stream .= '</td>' . "\n";
                         }
                     }
                     $stream .= '</tr>' . "\n";
@@ -1000,20 +875,18 @@ class claro_datagrid
             else
             {
                 if (is_null($this->htmlNoRowMessage )) $this->htmlNoRowMessage = get_lang('No result');
-                $stream .= '<tr class="dgnoresult" >'
-                .          '<td class="dgnoresult" colspan="' . count(array_keys($this->colTitleList)) . '">'
-                .          $this->htmlNoRowMessage
-                .          '</td>'
-                .          '</tr>'
-                ;
+                $stream .= '<tr class="dgnoresult" ><td class="dgnoresult" colspan="' . count(array_keys($this->colTitleList)) . '">' . $this->htmlNoRowMessage  . '</td></tr>';
             }
             $stream .= '</tbody>' . "\n"
             .          '</table>' . "\n"
             ;
 
         }
+
         return $stream;
+
     }
+
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -1210,22 +1083,22 @@ function renderTex($text)
     if ( !empty($claro_texRendererUrl) )
     {
         $text = str_replace('[tex]',
-        '<img src="'.$claro_texRendererUrl.'?',
-        $text);
+                            '<img src="'.$claro_texRendererUrl.'?',
+                            $text);
 
         $text = str_replace('[/tex]',
-        '" border="0" align="absmiddle" />',
-        $text);
+                            '" border="0" align="absmiddle">',
+                            $text);
     }
     else
     {
         $text = str_replace('[tex]',
-        '<embed TYPE="application/x-techexplorer" texdata="',
-        $text);
+                                '<embed TYPE="application/x-techexplorer" texdata="',
+                                $text);
 
         $text = str_replace('[/tex]',
-        '" width="100%" pluginspace="http://www.integretechpub.com/">',
-        $text);
+                                '" width="100%" pluginspace="http://www.integretechpub.com/">',
+                                $text);
     }
 
     return $text;
@@ -1274,8 +1147,8 @@ function make_clickable($text)
     // yyyy is anything up to the first space, newline, or comma.
 
     $ret = preg_replace("#([\n ])([a-z]+?)://([^, \n\r]+)#i",
-    "\\1<a href=\"\\2://\\3\" >\\2://\\3</a>",
-    $ret);
+                        "\\1<a href=\"\\2://\\3\" >\\2://\\3</a>",
+                        $ret);
 
     // matches a "www.xxxx.yyyy[/zzzz]" kinda lazy URL thing
     // Must contain at least 2 dots. xxxx contains either alphanum, or "-"
@@ -1285,16 +1158,16 @@ function make_clickable($text)
     // This is to keep it from getting annoying and matching stuff that's not meant to be a link.
 
     $ret = preg_replace("#([\n ])www\.([a-z0-9\-]+)\.([a-z0-9\-.\~]+)((?:/[^, \n\r]*)?)#i",
-    "\\1<a href=\"http://www.\\2.\\3\\4\" >www.\\2.\\3\\4</a>",
-    $ret);
+                        "\\1<a href=\"http://www.\\2.\\3\\4\" >www.\\2.\\3\\4</a>",
+                        $ret);
 
     // matches an email@domain type address at the start of a line, or after a space.
     // Note: before the @ sign, the only valid characters are the alphanums and "-", "_", or ".".
     // After the @ sign, we accept anything up to the first space, linebreak, or comma.
 
     $ret = preg_replace("#([\n ])([a-z0-9\-_.]+?)@([^, \n\r]+)#i",
-    "\\1<a href=\"mailto:\\2@\\3\">\\2@\\3</a>",
-    $ret);
+                        "\\1<a href=\"mailto:\\2@\\3\">\\2@\\3</a>",
+                        $ret);
 
     // Remove our padding..
     $ret = substr($ret, 1);
@@ -1329,10 +1202,10 @@ function make_clickable($text)
 function claro_disp_html_area($name, $content = '', $rows=20, $cols=80, $optAttrib='')
 {
     pushClaroMessage( (function_exists('claro_html_debug_backtrace')
-    ? claro_html_debug_backtrace()
-    : 'claro_html_debug_backtrace() not defined'
-    )
-    .'claro_disp_textarea_editor() is deprecated , use claro_html_textarea_editor()','error');
+             ? claro_html_debug_backtrace()
+             : 'claro_html_debug_backtrace() not defined'
+             )
+             .'claro_disp_textarea_editor() is deprecated , use claro_html_textarea_editor()','error');
 
     // becomes a alias while the function call is not replaced by the new one
     return claro_html_textarea_editor($name,$content,$rows,$cols,$optAttrib);
@@ -1394,8 +1267,8 @@ if ( ! function_exists( 'replace_dangerous_char' ) )
             $string = str_replace('-', '_', $string);
             $string = str_replace("'", '', $string);
             $string = strtr($string,
-            '¿¡¬√ƒ≈‡·‚„‰Â“”‘’÷ÿÚÛÙıˆ¯»… ÀËÈÍÎ«ÁÃÕŒœÏÌÓÔŸ⁄€‹˘˙˚¸ˇ—Ò',
-            'AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn');
+                            '¿¡¬√ƒ≈‡·‚„‰Â“”‘’÷ÿÚÛÙıˆ¯»… ÀËÈÍÎ«ÁÃÕŒœÏÌÓÔŸ⁄€‹˘˙˚¸ˇ—Ò',
+                            'AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn');
         }
 
         return $string;
@@ -1411,10 +1284,10 @@ if ( ! function_exists( 'replace_dangerous_char' ) )
 function claro_disp_duration( $duration  )
 {
     pushClaroMessage( (function_exists('claro_html_debug_backtrace')
-    ? claro_html_debug_backtrace()
-    : 'claro_html_debug_backtrace() not defined'
-    )
-    .'claro_ disp _duration() is deprecated , use claro_ html _duration()','error');
+             ? claro_html_debug_backtrace()
+             : 'claro_html_debug_backtrace() not defined'
+             )
+             .'claro_ disp _duration() is deprecated , use claro_ html _duration()','error');
 
     return claro_html_duration( $duration  );
 }
@@ -1442,13 +1315,38 @@ function claro_html_duration( $duration  )
     return $durationString;
 }
 
+
+
+/**
+ * return the complete claroline banner
+ *
+ * @return html stream
+ */
+function claro_html_banner()
+{
+
+    $html = "\n\n"
+    .       '<!-- - - - - - - - - - -   Claroline Banner  - - - - - - - - - -  -->' . "\n"
+    .       '<div id="topBanner">' . "\n\n"
+    .       claro_html_platform_banner() . "\n"
+    .       claro_html_user_banner() . "\n"
+    .       claro_html_banner_course() . "\n"
+    .       '</div>' . "\n"
+    .       '<!-- - - - - - - - - - -  End of Banner  - - - - - - - - - -  -->' . "\n\n"
+    .       claro_html_breadcrumb()
+    .       '<!-- - - - - - - - - - -  End of Claroline Banner  - - - - - - - - - - -->' . "\n"
+    ;
+
+    return $html;
+}
+
 /**
  * Return the breadcrumb to display in the header
  *
- * @global string  $nameTools
- * @global array   $interbredcrump
- * @global boolean $noPHP_SELF
- * @global boolean $noQUERY_STRING
+ * @global $nameTools
+ * @global $interbredcrump
+ * @global $noPHP_SELF
+ * @global $noQUERY_STRING
  *
  * @return string html content
  */
@@ -1526,7 +1424,7 @@ function claro_html_breadcrumb()
         {
             $htmlBC .= "\n".'<div id="toolViewOption" style="padding-right:10px">'
             .'<a href="' . get_path('clarolineRepositoryWeb') . 'auth/login.php'
-            .'?sourceUrl='.urlencode(base64_encode( (isset( $_SERVER['HTTPS']) && ($_SERVER['HTTPS']=='on'||$_SERVER['HTTPS']==1) ? 'https://' : 'http://'). $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'])). '" target="_top">'
+            .'?sourceUrl='.urlencode( (isset( $_SERVER['HTTPS']) && ($_SERVER['HTTPS']=='on'||$_SERVER['HTTPS']==1) ? 'https://' : 'http://'). $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']). '" target="_top">'
             .get_lang('Login')
             .'</a>'
             .'</div>'."\n";
@@ -1535,17 +1433,14 @@ function claro_html_breadcrumb()
         {
             $htmlBC .= '<div id="toolViewOption">'
             .    '<a href="' . get_path('clarolineRepositoryWeb') . 'auth/courses.php?cmd=exReg&course='.claro_get_current_course_id().'">'
-            .     '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" alt="" /> '
-            .    '<b>' . get_lang('Enrolment') . '</b>'
+            .     '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" alt=""> '
+            .    '<b>'.get_lang('Enrolment').'</b>'
             .    '</a>'
-            .    '</div>' . "\n"
-            ;
+            .    '</div>' . "\n";
         }
         elseif ( claro_is_display_mode_available() )
         {
-            $htmlBC .= "\n"
-            .          '<div id="toolViewOption">' . "\n"
-            ;
+            $htmlBC .= "\n".'<div id="toolViewOption">'                    ."\n";
 
             if ( isset($_REQUEST['View mode']) )
             {
@@ -1559,18 +1454,18 @@ function claro_html_breadcrumb()
             if ( claro_is_platform_admin() && ! claro_is_course_member() )
             {
                 $htmlBC .= ' | <a href="' . get_path('clarolineRepositoryWeb') . 'auth/courses.php?cmd=exReg&course='.claro_get_current_course_id().'">';
-                $htmlBC .= '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" alt="" /> ';
-                $htmlBC .= '<b>' . get_lang('Enrolment') . '</b>';
+                $htmlBC .= '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" alt=""> ';
+                $htmlBC .= '<b>'.get_lang('Enrolment').'</b>';
                 $htmlBC .= '</a>';
             }
 
-            $htmlBC .= "\n".'</div>' ."\n";
+            $htmlBC .= "\n".'</div>'                                       ."\n";
         }
 
 
-        $htmlBC .= '<div class="spacer"></div>' ."\n"
-        .          '<hr />' ."\n"
-        .          '</div>' . "\n"
+        $htmlBC .= '<div class="spacer"></div>'                       ."\n"
+        .    '<hr />'                                           ."\n"
+        .    '</div>' . "\n"
         ;
 
     } // end if claro_is_in_a_course() isset($nameTools) && is_array($interbredcrump)
@@ -1580,4 +1475,397 @@ function claro_html_breadcrumb()
     }
     return $htmlBC;
 }
+
+
+/**
+ * Return the html of course banner section
+ *
+ * @return string
+ */
+
+function claro_html_banner_course()
+{
+
+    $_courseToolList = claro_get_current_course_tool_list_data();
+
+    /******************************************************************************
+    COURSE SECTION
+    ******************************************************************************/
+    $courseBanner ='';
+    if (claro_is_in_a_course())
+    {
+        //COURSE BANNER LEFT DOCK declaration
+
+        /*------------------------------------------------------------------------
+        COURSE TITLE, CODE & TITULARS
+        ------------------------------------------------------------------------*/
+
+        $courseBannerLeftDock = new Dock('courseBannerLeft');
+
+        $courseBanner .= '<div id="courseBanner">' . "\n";
+
+        $courseName = '<div id="course">' . "\n"
+        .             '<h2 id="courseName">'
+        .             '<a href="'. get_path('clarolineRepositoryWeb') . 'course/index.php?cid=' . htmlspecialchars(claro_get_current_course_id()) . '" target="_top">' . claro_get_current_course_data('name') .'</a>'
+        .             '</h2>' . "\n"
+        ;
+        $courseBannerLeftDock->addOutput($courseName);
+
+        $courseCodeDisplay = '<span id="courseCode">'. claro_get_current_course_data('officialCode') . ' - ' . claro_get_current_course_data('titular') . '</span>' . "\n"
+        . '</div>' . "\n";
+
+        $courseBannerLeftDock->addOutput($courseCodeDisplay);
+
+        $courseBanner .= $courseBannerLeftDock->render();
+
+        //COURSE BANNER LEFT DOCK declaration
+
+        $courseBannerRightDock = new Dock('courseBannerRight');
+
+        /*------------------------------------------------------------------------
+        COURSE TOOLS SELECTOR
+        ------------------------------------------------------------------------*/
+
+        /*
+        * Language initialisation of the tool names
+        */
+        if (is_array($_courseToolList) && claro_is_course_allowed())
+        {
+            $toolNameList = claro_get_tool_name_list();
+
+            foreach($_courseToolList as $_courseToolKey => $_courseToolDatas)
+            {
+
+                if (isset($_courseToolDatas['name']) && !is_null($_courseToolDatas['name']) && isset($_courseToolDatas['label']))
+                {
+                    $_courseToolList[ $_courseToolKey ] [ 'name' ] = $toolNameList[ $_courseToolDatas['label'] ];
+                }
+                else
+                {
+                    $external_name = $_courseToolList[ $_courseToolKey ] [ 'external_name' ] ;
+                    $_courseToolList[ $_courseToolKey ] [ 'name' ] = get_lang($external_name);
+                }
+                // now recheck to be sure the value is really filled before going further
+                if ($_courseToolList[ $_courseToolKey ] [ 'name' ] =='')
+                $_courseToolList[ $_courseToolKey ] [ 'name' ] = get_lang('No name');
+            }
+            $courseToolSelector = '<form action="'.get_path('clarolineRepositoryWeb').'redirector.php" name="redirector" method="POST">' . "\n"
+            . '<select name="url" size="1" onchange="top.location=redirector.url.options[selectedIndex].value" >' . "\n\n";
+
+            $courseToolSelector .= '<option value="' . get_path('clarolineRepositoryWeb') . 'course/index.php?cid=' . htmlspecialchars(claro_get_current_course_id()) .'" style="padding-left:22px;background:url(' . get_path('imgRepositoryWeb') . '/course.gif) no-repeat">' . get_lang('Course Home') . '</option>' . "\n";
+
+            if (is_array($_courseToolList))
+            {
+                foreach($_courseToolList as $_courseToolKey => $_courseToolData)
+                {
+                    //find correct url to access current tool
+
+                    if (isset($_courseToolData['url']))
+                    {
+                        if (!empty($_courseToolData['label']))
+                        $_courseToolData['url'] = get_module_url($_courseToolData['label']) . '/' . $_courseToolData['url'];
+                        // reset group to access course tool
+
+                        if (claro_is_in_a_group() && !$_courseToolData['external'])
+                        $_toolDataUrl = strpos($_courseToolData['url'], '?') !== false
+                        ? $_courseToolData['url'] . '&amp;gidReset=1'
+                        : $_courseToolData['url'] . '?gidReset=1'
+                        ;
+                        else $_toolDataUrl = $_courseToolData['url'];
+
+                    }
+
+                    //find correct url for icon of the tool
+
+                    if (isset($_courseToolData['icon']))
+                    {
+                        $_toolIconUrl = get_path('imgRepositoryWeb') . $_courseToolData['icon'];
+                    }
+
+                    // select "groups" in group context instead of tool
+                    if ( claro_is_in_a_group() )
+                    {
+                        $toolSelected = $_courseToolData['label'] == 'CLGRP___' ? 'selected="selected"' : '';
+                    }
+                    else
+                    {
+                        $toolSelected = $_courseToolData['id'] == claro_get_current_tool_id() ? 'selected="selected"' : '';
+                    }
+
+                    $_courseToolDataName = $_courseToolData['name'];
+                    $courseToolSelector .= '<option value="' . $_toolDataUrl . '" '
+                    .   $toolSelected
+                    .   'style="padding-left:22px;background:url('.$_toolIconUrl.') no-repeat">'
+                    .    get_lang($_courseToolDataName)
+                    .    '</option>'."\n"
+                    ;
+                }
+            } // end if is_array _courseToolList
+            $courseToolSelector .= "\n"
+            . '</select>' . "\n"
+            . '<noscript>' . "\n"
+            . '<input type="submit" name="gotool" value="go">' . "\n"
+            . '</noscript>' . "\n"
+            . '</form>' . "\n\n";
+
+            $courseBannerRightDock->addOutput($courseToolSelector);
+
+        } // end if is_array($courseTooList) && $isCourseAllowed
+
+        $courseBanner .= $courseBannerRightDock->render();
+        $courseBanner .= "\n";
+        $courseBanner .= '<div class="spacer"></div>' . "\n\n";
+        $courseBanner .= '</div>' . "\n";
+        $courseBanner .= '<!-- end of courseBanner -->' . "\n\n";
+    } // end if _cid
+    return $courseBanner;
+}
+
+
+function claro_html_user_banner()
+{
+
+    $userBanner ='';
+    $_user = claro_get_current_user_data();
+
+    /******************************************************************************
+    USER SECTION
+    ******************************************************************************/
+
+    if(claro_is_user_authenticated())
+    {
+        $userBanner .= '<div id="userBanner">' . "\n";
+
+        $userToolUrlList = array();
+        //USER BANNER LEFT DOCK declaration
+
+        $userBannerLeftDock = new Dock('userBannerLeft');
+
+        $userNameOutput = '<span id="userName">'. $_user ['firstName'] . ' ' . $_user ['lastName'] .' : </span>';
+        $userBannerLeftDock->addOutput($userNameOutput);
+
+        $userToolUrlList[]= '<a href="'.  get_path('url') . '/index.php" target="_top">'. get_lang('My course list').'</a>';
+        $userToolList = claro_get_user_tool_list();
+
+        foreach ($userToolList as $userTool)
+        {
+            $userToolUrlList[] = '<a href="'. get_module_url('CLCAL') . '/' . $userTool['entry'] . '" target="_top">'. get_lang('My calendar').'</a>';
+        }
+
+        $userToolUrlList[]  = '<a href="'. get_path('clarolineRepositoryWeb'). 'auth/profile.php" target="_top">'. get_lang('My User Account').'</a>';
+
+        if(claro_is_platform_admin())
+        {
+            $userToolUrlList[] = '<a href="'. get_path('clarolineRepositoryWeb').'admin/" target="_top">'. get_lang('Platform Administration'). '</a>';
+        }
+
+        $userToolUrlList[] = '<a href="'.  get_path('url') . '/index.php?logout=true" target="_top">'. get_lang('Logout').'</a>';
+
+        $userBannerLeftDock->addOutput(claro_html_menu_horizontal($userToolUrlList));
+        $userBanner .= $userBannerLeftDock->render();
+
+        //USER BANNER RIGHT DOCK declaration
+
+        $userBannerRightDock = new Dock('userBannerRight');
+
+        $userBanner .= $userBannerRightDock->render();
+
+        $userBanner .= "\n" . '<div class="spacer"></div>' . "\n\n"
+        . '</div>' . "\n"
+        . '<!-- end of userBanner -->' . "\n\n";
+
+    } // end if _uid
+    return $userBanner;
+}
+
+/**
+ * return the platform banner
+ *
+ */
+
+function claro_html_platform_banner()
+{
+    $platformBanner = '<div id="platformBanner">' . "\n";
+
+    //CAMPUS BANNER LEFT DOCK declaration
+
+    $campusBannerLeftDock = new Dock('campusBannerLeft');
+    $bannerSiteName =  get_conf('siteLogo') != ''
+    ? '<img src="' . get_conf('siteLogo') . '" alt="'.get_conf('siteName').'" >'
+    : get_conf('siteName');
+
+    $siteNameOutput   = '<span id="siteName">'
+    .                   '<a href="' . get_path('url') . '/index.php" target="_top">'
+    .                   $bannerSiteName
+    .                   '</a></span>' . "\n"
+    ;
+
+    $campusBannerLeftDock->addOutput($siteNameOutput);
+
+    $platformBanner .= $campusBannerLeftDock->render();
+
+    //CAMPUS BANNER RIGHT DOCK declaration
+
+    $campusBannerRightDock = new Dock('campusBannerRight');
+    $institutionNameOutput = '';
+
+    $bannerInstitutionName = (get_conf('institutionLogo') != '')
+    ? '<img src="' . get_conf('institutionLogo') . '" alt="'.get_conf('institution_name').'" >'
+    : get_conf('institution_name')
+    ;
+
+    if( !empty($bannerInstitutionName) )
+    {
+        if( get_conf('institution_url') != '' )
+        $institutionNameOutput .= '<a href="'
+        .get_conf('institution_url').'" target="_top">'
+        .$bannerInstitutionName.'</a>'
+        ;
+        else
+        $institutionNameOutput .= $bannerInstitutionName;
+    }
+
+    /* --- External Link Section --- */
+    if( claro_get_current_course_data('extLinkName') != '' )
+    {
+        $institutionNameOutput .= get_conf('institution_url') != ''
+        ? ' / '
+        : ' '
+        ;
+
+        if( claro_get_current_course_data('extLinkUrl') != '' )
+        {
+            $institutionNameOutput .= '<a href="'
+            . claro_get_current_course_data('extLinkUrl') . '" target="_top">'
+            . claro_get_current_course_data('extLinkName')
+            . '</a>'
+            ;
+        }
+        else
+        {
+            $institutionNameOutput .= claro_get_current_course_data('extLinkName');
+        }
+    }
+
+    $institutionNameOutput = '<span id="institution">'
+    . $institutionNameOutput
+    . '</span>' . "\n"
+    ;
+
+    $campusBannerRightDock->addOutput($institutionNameOutput);
+
+    $platformBanner .= $campusBannerRightDock->render();
+
+    $platformBanner .= '<div class="spacer"></div>' . "\n\n"
+    . '</div>' . "\n"
+    . '<!-- end of platformBanner -->' . "\n\n";
+
+    return $platformBanner;
+
+}
+
+/**
+ * Send http headers in each pages of claroline
+ * This function inspect the content of $httpHeadXtra wich can be set by the calling script
+ *
+ */
+function claro_send_http_headers()
+{
+    global $httpHeadXtra;
+    if (! is_null(get_locale('charset')) ) header('Content-Type: text/html; charset='. get_locale('charset'));
+
+    if (!empty($httpHeadXtra) && is_array($httpHeadXtra) )
+    {
+        foreach($httpHeadXtra as $thisHttpHead)
+        {
+            header($thisHttpHead);
+        }
+    }
+
+}
+
+/**
+ * Return the doctype used for claroline pages
+ *
+ * @return string
+ */
+
+function claro_html_doctype()
+{
+    return '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">';
+}
+
+/**
+ * return <head> bloc for a claroline page
+ *
+ * @return string
+ */
+
+function claro_html_headers()
+{
+    global $nameTools, $htmlHeadXtra, $claroBodyOnload;
+
+    $head = '<head>';
+
+    $titlePage = '';
+
+    if(!empty($nameTools))
+    {
+        $titlePage .= $nameTools . ' - ';
+    }
+
+    if(claro_is_in_a_course() && claro_get_current_course_data('officialCode') != '')
+    {
+        $titlePage .= claro_get_current_course_data('officialCode') . ' - ';
+    }
+
+    $titlePage .= get_conf('siteName');
+
+
+    $head .= '<title>' . $titlePage . '</title>' . "\n";
+    $head .= '<meta http-equiv="Content-Script-Type" content="text/javascript" />' . "\n";
+    $head .= '<meta http-equiv="Content-Style-Type" content="text/css" />' . "\n";
+    $head .= '<meta http-equiv="Content-Type" content="text/HTML; charset=' . get_locale('charset') . '"  />' . "\n";
+    $head .= '<link rel="stylesheet" type="text/css" href="' . get_path('clarolineRepositoryWeb') . 'css/' . get_conf('claro_stylesheet') . '" media="screen, projection, tv" />' . "\n";
+    $head .= '<link rel="stylesheet" type="text/css" href="' . get_path('clarolineRepositoryWeb') . 'css/print.css" media="print" />' . "\n";
+    $head .= '<link rel="top" href="' .  get_path('url') . '/index.php" title="" />' . "\n";
+    $head .= '<link href="http://www.claroline.net/documentation.htm" rel="Help" />' . "\n";
+    $head .= '<link href="http://www.claroline.net/credits.htm" rel="Author" />' . "\n";
+    $head .= '<link href="http://www.claroline.net" rel="Copyright" />' . "\n";
+    $head .= '<script type="text/javascript">' . "\n";
+    $head .= 'document.cookie="javascriptEnabled=true; path=' . get_path('url') . '";' . "\n";
+
+
+    if ( true === get_conf( 'warnSessionLost', true ) && claro_get_current_user_id() )
+    {
+        $head .=
+"function claro_session_loss_countdown(sessionLifeTime){
+    var chrono = setTimeout('claro_warn_of_session_loss()', sessionLifeTime * 1000);
+}
+
+function claro_warn_of_session_loss() {
+    alert('" . clean_str_for_javascript (get_lang('WARNING ! You have just lost your session on the server.') . "\n" . get_lang('Copy any text you are currently writing and paste it outside the browser')) . "');
+}
+";
+        $claroBodyOnload[] = 'claro_session_loss_countdown(' . ini_get('session.gc_maxlifetime') . ');';
+    }
+
+
+
+    $head .= '</script>' . "\n";
+
+    if ( isset($htmlHeadXtra) && is_array($htmlHeadXtra) )
+    {
+        foreach($htmlHeadXtra as $thisHtmlHead)
+        {
+            $head .=($thisHtmlHead);
+        }
+    }
+
+    $head .= '</head>' . "\n";
+
+    return $head;
+}
+
+
 ?>

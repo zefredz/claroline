@@ -6,7 +6,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * This lib contain many parts of frequently used function.
  * This is not a thematic lib
  *
- * @version 1.9 $Revision$
+ * @version 1.8 $Revision$
  *
  * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
@@ -17,8 +17,6 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @package KERNEL
  *
  */
- 
-require_once(dirname(__FILE__) . '/core/core.lib.php');
 
 /**
  * SECTION :  Function to access the sql datas
@@ -79,94 +77,66 @@ require_once(dirname(__FILE__) . '/icon.lib.php');
  *         will be taken.
  * @return array list of unique keys (sys, db & path) of a course
  * @author Christophe Gesché <moosh@claroline.net>
- * @author Frédéric Minne <zefredz@claroline.net>
  * @since 1.7
  */
 
 function claro_get_course_data($courseId = NULL, $force = false )
 {
-    static $cachedDataList = array();
-    
-    $useCurrentCourseData = false;
-    
-    if ( is_null( $courseId ) && claro_is_in_a_course() )
+    $courseDataList = null;
+
+    static $cachedDataList = null;
+
+    if ( ! $force)
     {
-        $courseId =  claro_get_current_course_id();
-        $useCurrentCourseData = true;
-    }
-    
-    if ( ! array_key_exists( $courseId, $cachedDataList ) || true === $force )
-    {
-        if ( $useCurrentCourseData )
+        if ( $cachedDataList && $courseId == $cachedDataList['sysCode'] )
+        {
+            $courseDataList = $cachedDataList;
+        }
+        elseif ( ( is_null($courseId) && claro_is_in_a_course()) )
         {
             $courseDataList = $GLOBALS['_course'];
         }
-        else
-        {
-            $tbl =  claro_sql_get_tbl(array('cours','faculte',));
-
-            $sql =  "SELECT
-                    c.code                 AS sysCode,
-                    c.cours_id             AS courseId,
-                    c.intitule             AS name,
-                    c.administrativeNumber AS officialCode,
-                    c.directory            AS path,
-                    c.dbName               AS dbName,
-                    c.titulaires           AS titular,
-                    c.email                AS email  ,
-                    c.language             AS language,
-                    c.extLinkUrl           AS extLinkUrl,
-                    c.extLinkName          AS extLinkName,
-                    c.visibility           AS visibility,
-                    c.access               AS access,
-                    c.registration         AS registration,
-                    c.registrationKey      AS registrationKey ,
-                    cat.code               AS categoryCode,
-                    cat.name               AS categoryName,
-                    c.diskQuota            AS diskQuota
-
-                    FROM      `" . $tbl['cours'] . "`   AS c
-                    LEFT JOIN `" . $tbl['faculte'] . "` AS cat
-                            ON c.faculte =  cat.code
-                    WHERE c.code = '" . addslashes($courseId) . "'";
-
-            $courseDataList = claro_sql_query_get_single_row($sql);
-
-            if ( ! $courseDataList ) return claro_failure::set_failure('course_not_found');
-
-            $courseDataList['access'             ] = (bool) ('public' == $courseDataList['access']     );
-            $courseDataList['visibility'         ] = (bool) ('visible' == $courseDataList['visibility'] );
-            $courseDataList['registrationAllowed'] = (bool) ('open' == $courseDataList['registration'] );
-            $courseDataList['dbNameGlu'          ] = get_conf('courseTablePrefix') . $courseDataList['dbName'] . get_conf('dbGlu'); // use in all queries
-
-
-
-            // Dont work claro_sql_get_tbl need a tool id and is not for a tool
-            // kernel table would be in mainDB.
-            // $tbl =  claro_sql_get_tbl('course_properties', array(CLARO_CONTEXT_COURSE=>$courseDataList['sysCode']));
-            $tbl = claro_sql_get_course_tbl( $courseDataList['dbNameGlu'] );
-            $sql = "SELECT name,
-                       value
-                     FROM `" . $tbl['course_properties'] . "`
-                     WHERE category = 'MAIN'";
-
-            $extraDataList = claro_sql_query_fetch_all($sql);
-
-            if (is_array($extraDataList) )
-            {
-                foreach($extraDataList as $thisData)
-                {
-                    $courseDataList[$thisData['name']] = $thisData['value'];
-                }
-            }
-        }
-
-        $cachedDataList[$courseId] = $courseDataList; // cache for the next time ...
     }
-    
-    // var_dump( $cachedDataList );
 
-    return $cachedDataList[$courseId];
+    if ( ! $courseDataList )
+    {
+        $tbl_mdb_names =  claro_sql_get_main_tbl();
+
+        $sql =  "SELECT
+                c.code              AS sysCode,
+                c.cours_id          AS courseId,
+                c.intitule          AS name,
+                c.fake_code         AS officialCode,
+                c.directory         AS path,
+                c.dbName            AS dbName,
+                c.titulaires        AS titular,
+                c.email             AS email  ,
+                c.enrollment_key    AS enrollmentKey ,
+                c.languageCourse    AS language,
+                c.departmentUrl     AS extLinkUrl,
+                c.departmentUrlName AS extLinkName,
+                c.visible           AS visible,
+                cat.code            AS categoryCode,
+                cat.name            AS categoryName,
+                c.diskQuota         AS diskQuota
+
+                FROM      `" . $tbl_mdb_names['course'] . "`   AS c
+                LEFT JOIN `" . $tbl_mdb_names['category'] . "` AS cat
+                        ON c.faculte =  cat.code
+                WHERE c.code = '" . addslashes($courseId) . "'";
+
+        $courseDataList = claro_sql_query_get_single_row($sql);
+
+        if ( ! $courseDataList ) return claro_failure::set_failure('course_not_found');
+
+        $courseDataList['visibility'         ] = (bool) (2 == $courseDataList['visible'] || 3 == $courseDataList['visible'] );
+        $courseDataList['registrationAllowed'] = (bool) (1 == $courseDataList['visible'] || 2 == $courseDataList['visible'] );
+        $courseDataList['dbNameGlu'          ] = get_conf('courseTablePrefix') . $courseDataList['dbName'] . get_conf('dbGlu'); // use in all queries
+
+        $cachedDataList = $courseDataList; // cache for the next time ...
+    }
+
+    return $courseDataList;
 }
 
 /**
@@ -295,6 +265,8 @@ function claro_get_course_path($cid=NULL)
 
 function claro_get_group_data($context, $force = false )
 {
+
+
     if (is_array($context) && array_key_exists(CLARO_CONTEXT_COURSE,$context))
     {
         $cid = $context[CLARO_CONTEXT_COURSE];
@@ -304,6 +276,7 @@ function claro_get_group_data($context, $force = false )
     {
         $gid = $context[CLARO_CONTEXT_GROUP];
     }
+
     $groupDataList = null;
 
     static $cachedGroupDataList = null;
@@ -365,7 +338,7 @@ function claro_get_course_group_path($context)
 
     $coursePath = claro_get_course_path($cid);
     $gData = claro_get_group_data($context);
-    if (isset($gData['directory'])) return $coursePath . '/group/' . $gData['directory'];
+    if (isset($gData['directory'])) return $coursePath . '/group' . $gData['directory'];
     else                   return NULL;
 }
 
@@ -419,6 +392,7 @@ function claro_get_module_name_list($active = true)
     }
 
     //add in result the module of type 'tool'
+
     //see if we take only activated modules or all of them
 
     if ($active)
@@ -958,29 +932,17 @@ function claro_html_tool_view_option($viewModeRequested = false)
 
     $url = str_replace('&amp;viewMode=STUDENT'     , '', $url);
     $url = str_replace('&amp;viewMode=COURSE_ADMIN', '', $url);
-    $url = str_replace('?viewMode=STUDENT'     , '?', $url);
-    $url = str_replace('?viewMode=COURSE_ADMIN', '?', $url);
-    $url = str_replace('?&amp;', '?', $url );
 
     /*------------------------------------------------------------------------
     INIT BUTTONS
     -------------------------------------------------------------------------*/
-    
-    if ( substr( $url, -1, 1) === '?' )
-    {
-        $sep = '';
-    }
-    else
-    {
-        $sep = '&amp;';
-    }
 
 
     switch ($currentViewMode)
     {
         case 'COURSE_ADMIN' :
 
-            $studentButton = '<a href="' . $url . $sep . 'viewMode=STUDENT">'
+            $studentButton = '<a href="' . $url . '&amp;viewMode=STUDENT">'
             .                get_lang('Student')
             .                '</a>'
             ;
@@ -991,7 +953,7 @@ function claro_html_tool_view_option($viewModeRequested = false)
         case 'STUDENT' :
 
             $studentButton     = '<b>'.get_lang('Student').'</b>';
-            $courseAdminButton = '<a href="' . $url . $sep . 'viewMode=COURSE_ADMIN">'
+            $courseAdminButton = '<a href="' . $url . '&amp;viewMode=COURSE_ADMIN">'
             . get_lang('Course manager')
             . '</a>';
             break;
@@ -1135,34 +1097,6 @@ function claro_time()
 {
     $mainTimeShift = (int) get_conf('mainTimeShift',0);
     return time()+(3600 * $mainTimeShift);
-}
-
-/**
- * Equivalent to mktime but taking the mainTimeShift into account
- *
- *  Usage :
- *      claro_mktime ( [int hour [, int minute [, int second [, int month [
- *          , int day [, int year [, int is_dst]]]]]]] )
- *
- * @see mktime()
- * @return timestamp corresponding to the given arguments shifted by
- *  mainTimeShift config value
- * @author Frédéric Minne <zefredz@claroline.net>
- */
-function claro_mktime()
-{
-    if ( 0 < func_num_args() )
-    {
-        $args = func_get_args();
-
-        return call_user_func_array( 'mktime', $args );
-    }
-    else
-    {
-        // shift
-        $mainTimeShift = (int) get_conf('mainTimeShift',0);
-        return mktime()+(3600 * $mainTimeShift);
-    }
 }
 //////////////////////////////////////////////////////////////////////////////
 //                              INPUT HANDLING
@@ -1492,11 +1426,25 @@ function claro_redirect($location)
 
     $location = http_response_splitting_workaround($location);
 
+    // fix bug : urlencodes the url for files with special characters, and doesn't encode '/'
+    $location = str_replace('%3A%2F%2F', '://', rawurlencode($location));
+    $location = str_replace('%2F', '/', $location);
+    $location = str_replace('%3F', '?', $location);
+    $location = str_replace('%3D', '=', $location);
+    $location = str_replace('%26', '&', $location);
+    $location = str_replace('%7E', '~', $location);
+    $location = str_replace('%3A', ':', $location);
+
+    if ( get_locale('charset') != '' ) header('Content-Type: text/html; charset=' . get_locale('charset') );
+
     if ($is_IIS)
     {
         header("Refresh: 0;url=$location");
     }
-    header("Location: $location");
+    else
+    {
+        header("Location: $location");
+    }
 }
 
 function claro_form_relay_context($context=null)
@@ -1556,7 +1504,7 @@ function claro_disp_debug_banner()
     {
         $claroMsgCount = 0;
 
-        $html .= '<div class="debugBar">' . "\n"
+        $html .= '<div id="debugBanner" class="debugBar">' . "\n"
               .                         get_lang('Debug') .  "\n" ;
 
         $html .= get_lang('Messages') . ' : ';
@@ -1600,5 +1548,28 @@ function claro_debug_mode()
 {
     return ( defined ( 'CLARO_DEBUG_MODE' ) && CLARO_DEBUG_MODE );
 }
+
+if ( ! function_exists( 'protect_against_file_inclusion' ) )
+{
+    /**
+     * Protect file path against arbitrary file inclusion
+     * @param   string path, untrusted path
+     * @return  string secured path
+     */
+    function protect_against_file_inclusion( $path )
+    {
+        while ( false !== strpos( $path, '://' )
+            || false !== strpos( $path, '..' ) )
+        {
+            // protect against remote file inclusion
+            $path = str_replace( '://', '', $path );
+            // protect against arbitrary file inclusion
+            $path = str_replace( '..', '.', $path );
+        }
+
+        return $path;
+    }
+}
+
 
 ?>

@@ -41,6 +41,9 @@ function get_course_title($cid)
  */
 function get_info_course($cid)
 {
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_category  = $tbl_mdb_names['category' ];
+
     if ($cid)
     {
         $_course = claro_get_course_data($cid);
@@ -74,7 +77,7 @@ function get_info_course($cid)
  * @param  string $course_id (optionnal)  If not set, it use the current course
  *         will be taken.
  * @return string path
- * @author Christophe Geschï¿½ <moosh@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  * @since 1.7
  */
 function claro_get_course_name($cid=NULL)
@@ -91,7 +94,7 @@ function claro_get_course_name($cid=NULL)
  * @param  string $course_id (optionnal)  If not set, it use the current course
  *         will be taken.
  * @return string path
- * @author Christophe Geschï¿½ <moosh@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  * @since 1.7
  */
 function claro_get_course_officialCode($cid=NULL)

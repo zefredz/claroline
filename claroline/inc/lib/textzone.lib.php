@@ -24,8 +24,7 @@ class claro_text_zone
      * Build the file path of a textzone in a given context
      *
      * @param string $key
-     * @param array $context specify the context to build the path.
-     * @param array $right specify an array of right to specify the file
+     * @param array $context
      * @return file path
      */
     function get_textzone_file_path($key, $context = null, $right= null)
@@ -56,6 +55,7 @@ class claro_text_zone
                 }
             }
         }
+
         if (is_array($context) && array_key_exists(CLARO_CONTEXT_COURSE,$context))
         {
             if (is_array($context) && array_key_exists(CLARO_CONTEXT_GROUP,$context))
@@ -68,6 +68,7 @@ class claro_text_zone
                 $textZoneFile =  get_conf('coursesRepositorySys') . claro_get_course_path($context[CLARO_CONTEXT_COURSE]) . '/textzone/' . $key . 'inc.html';
             }
         }
+
         if(is_null($textZoneFile)) $textZoneFile = get_path('rootSys') . 'platform/textzone/' . $key . 'inc.html';
 
         return $textZoneFile;

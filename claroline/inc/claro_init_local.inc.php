@@ -4,7 +4,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -198,12 +198,21 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  ******************************************************************************/
 
 $extAuthSource = array(); // initialise extAuthSource Array (before include of auth.conf.php) - fix Remote File Inclusion (bug 707)
+$claro_extauth_sso_system = null;
 
-require claro_get_conf_repository() .  'auth.drivers.conf.php';
+require claro_get_conf_repository() . 'auth.drivers.conf.php';
+require_once claro_get_conf_repository() . 'auth.sso.conf.php';
+require_once claro_get_conf_repository() . 'auth.extra.conf.php';
 
-require_once claro_get_conf_repository() .  'auth.sso.conf.php';
-require_once claro_get_conf_repository() .  'auth.cas.conf.php';
-require_once claro_get_conf_repository() .  'auth.extra.conf.php';
+if ( get_conf('claro_extauth_sso_system','cas') != '' )
+{
+    $ext_auth_sso_file = realpath(claro_get_conf_repository() . 'auth.' . get_conf('claro_extauth_sso_system','cas') . '.conf.php');
+
+    if ( file_exists($ext_auth_sso_file) )
+    {
+        require_once $ext_auth_sso_file;
+    }
+}
 
 /*===========================================================================
   Set claro_init_local.inc.php variables coming from HTTP request into the
@@ -256,11 +265,22 @@ $tbl_sso             = $tbl_mdb_names['sso'            ];
 // default variables initialization
 $claro_loginRequested = false;
 $claro_loginSucceeded = false;
+$logout_uid = null;
 
-if ($logout && !empty($_SESSION['_uid']))
+if ( !empty($_SESSION['_uid']) && $logout )
 {
+    // logout
+
     // needed to notify that a user has just loggued out
     $logout_uid = $_SESSION['_uid'];
+    
+    // logout from CAS server
+    if ( get_conf('claro_CasEnabled', false) && get_conf('claro_CasGlobalLogout') )
+    {
+        require get_path('rootSys').'/claroline/auth/extauth/cas/casProcess.inc.php';
+    }
+
+    session_destroy();
 }
 
 if ( ! empty($_SESSION['_uid']) && ! ($login || $logout) )
@@ -278,10 +298,40 @@ else
 {
     $_uid     = null;   // uid not in session ? prevent any hacking
     $uidReset = false;
+    
+    /* Claroline CAS authentication */
 
-    if ( get_conf('claro_CasEnabled', false) ) // CAS is a special case of external authentication
+    if ( get_conf('claro_CasEnabled', false) 
+         && isset($_REQUEST['authModeReq'])
+         && $_REQUEST['authModeReq'] == 'CAS'
+         )
     {
-        require(get_path('rootSys').'/claroline/auth/extauth/casProcess.inc.php');
+        require get_path('rootSys').'/claroline/auth/extauth/cas/casProcess.inc.php';
+    }
+
+    /* Claroline Shibboleth / Switch AAI */
+
+    if ( get_conf('claro_ShibbolethEnabled',false) )
+    {
+        require get_path('rootSys').'/claroline/auth/extauth/shibboleth/shibbolethProcess.inc.php';
+    }
+
+    /* Claroline LCS */
+
+    if ( get_conf('claro_LcsEnabled',false) )
+    {
+        require '/var/www/lcs/includes/headerauth.inc.php';
+        require '/var/www/Annu/includes/ldap.inc.php';
+
+        list($lcs_idpers,$lcs_login)= isauth();
+
+        // force reconnection to claroline database
+        $db = @mysql_connect($dbHost, $dbLogin, $dbPass, false, CLIENT_FOUND_ROWS);
+
+        if (isset($lcs_login)) // LCS is a special case of external authentication
+        {
+            require get_path('rootSys').'/claroline/auth/extauth/lcs/lcsProcess.inc.php';
+        }
     }
 
     if ( $login && $password ) // $login && $password are given to log in
@@ -290,7 +340,6 @@ else
         $claro_loginRequested = true;
 
         // lookup the user in the Claroline database
-
         $sql = 'SELECT user_id, username, password, authSource
                 FROM `' . $tbl_user . '`
                 WHERE '
@@ -337,7 +386,7 @@ else
 
                     $_uid = include_once($extAuthSource[$key]['login']);
 
-                    if ( $_uid > 0 )
+                    if ( $_uid !== true && $_uid > 0 )
                     {
                         $uidReset             = true;
                         $claro_loginSucceeded = true;
@@ -374,7 +423,7 @@ else
                 {
                     $_uid = include_once($thisAuthSource['newUser']);
 
-                    if ( $_uid > 0 )
+                    if ( $_uid !== true && $_uid > 0 )
                     {
                         $uidReset             = true;
                         $claro_loginSucceeded = true;
@@ -437,6 +486,14 @@ if ( $uidReset && !empty($_uid) ) // session data refresh requested && uid is gi
          ;
 
     $_user = claro_sql_query_get_single_row($sql);
+
+    /* Claroline Shibboleth / Switch AAI */
+
+    if ( get_conf('claro_ShibbolethEnabled',false) && isset($_REQUEST['shibbolethLogin']) )
+    {
+        // track login after user init to display hot items
+        event_login();
+    }
 
     if ( is_array($_user) )
     {
@@ -518,6 +575,7 @@ else
     $is_allowedCreateCourse  = false;
 }
 
+
 /*---------------------------------------------------------------------------
   Course initialisation
  ---------------------------------------------------------------------------*/
@@ -536,13 +594,16 @@ if ( $cidReset ) // course session data refresh requested
     {
         $_course = claro_get_course_data($cidReq, true);
 
-        if ($_course == false) die('WARNING !! claro_get_course_data() in INIT FAILED ! '.__LINE__);
+        if ($_course == false) 
+        {            
+            claro_die(get_lang('Course %course_code doesn\'t exist', array('%course_code' => htmlspecialchars($cidReq) )));
+        }
 
         $_cid    = $_course['sysCode'];
 
         $_groupProperties = claro_get_main_group_properties($_cid);
 
-        if ($_groupProperties == false) die('WARNING !! claro_get_main_group_properties() in INIT FAILED !  '.__LINE__);
+        if ($_groupProperties == false) claro_die('WARNING !! claro_get_main_group_properties() in INIT FAILED !  '.__LINE__);
     }
     else
     {
@@ -578,18 +639,40 @@ if ( $uidReset || $cidReset ) // session data refresh requested
 {
     if ( $_uid && $_cid ) // have keys to search data
     {
-          $_course_user_properties = claro_get_course_user_properties($_cid,$_uid,true);
+        $sql = "SELECT profile_id as profileId,
+                       isCourseManager,
+                       tutor,
+                       role
+                FROM `".$tbl_rel_course_user."` `cours_user`
+                WHERE `user_id`  = '". (int) $_uid."'
+                AND `code_cours` = '". addslashes($cidReq) ."'";
 
-          // would probably be less and less used because
-          // claro_get_course_user_data($_cid,$_uid)
-          // and claro_get_current_course_user_data() do the same job
+        $result = claro_sql_query($sql) or claro_die ('WARNING !! Load profile (DB QUERY) FAILED ! '.__LINE__);
 
-          $_profileId      = $_course_user_properties['privilege']['_profileId'];
-          $is_courseMember = $_course_user_properties['privilege']['is_courseMember'];
-          $is_courseTutor  = $_course_user_properties['privilege']['is_courseTutor'];
-          $is_courseAdmin  = $_course_user_properties['privilege']['is_courseAdmin'];
+        if ( mysql_num_rows($result) > 0 ) // this  user have a recorded state for this course
+        {
+            $cuData = mysql_fetch_array($result);
 
-          $_courseUser = claro_get_course_user_data($_cid,$_uid);
+            $_profileId      = $cuData['profileId'];
+            $is_courseMember = true;
+            $is_courseTutor  = (bool) ($cuData['tutor' ] == 1 );
+            $is_courseAdmin  = (bool) ($cuData['isCourseManager'] == 1 );
+
+            $_courseUser['role'] = $cuData['role'  ]; // not used
+
+        }
+        else // this user has no status related to this course
+        {
+            $_profileId      = claro_get_profile_id('guest');
+            $is_courseMember = false;
+            $is_courseAdmin  = false;
+            $is_courseTutor  = false;
+
+            $_courseUser     = null; // not used
+        }
+
+        $is_courseAdmin = (bool) ($is_courseAdmin || $is_platformAdmin);
+
     }
     else // keys missing => not anymore in the course - user relation
     {
@@ -670,7 +753,7 @@ if ( $tidReset || $cidReset ) // session data refresh requested
         else // this tool has no status related to this course
         {
             $activatedModules = get_module_label_list( true );
-            
+
             if ( ! in_array( $tlabelReq, $activatedModules ) )
             {
                 exit('WARNING UNDEFINED TLABEL OR TID !! Your script declare be a tool wich is not registred');
@@ -719,17 +802,29 @@ if ( $gidReset || $cidReset ) // session data refresh requested
 {
     if ( $gidReq && $_cid ) // have keys to search data
     {
-        $context = array(CLARO_CONTEXT_COURSE=>$_cid,CLARO_CONTEXT_GROUP=>$gidReq);
-        $course_group_data = claro_get_group_data($context, true );
+        $sql = "SELECT g.id               AS id          ,
+                       g.name             AS name        ,
+                       g.description      AS description ,
+                       g.tutor            AS tutorId     ,
+                       f.forum_id         AS forumId     ,
+                       g.secretDirectory  AS directory   ,
+                       g.maxStudent       AS maxMember
 
-        $_group = $course_group_data;
-        if ( $_group ) // This group has recorded status related to this course
+                FROM `".$_course['dbNameGlu']."group_team`      g
+                LEFT JOIN `".$_course['dbNameGlu']."bb_forums`   f
+
+                   ON    g.id = f.group_id
+                WHERE    `id` = '". (int) $gidReq."'";
+
+        $_group = claro_sql_query_get_single_row($sql);
+
+        if ( is_array($_group) ) // This group has recorded status related to this course
         {
-            $_gid = $course_group_data ['id'];
+            $_gid = $_group ['id'];
         }
         else
         {
-            claro_die('WARNING UNDEFINED GID !! The requested group doesn\'t exist');
+            exit('WARNING UNDEFINED GID !! The requested group doesn\'t exist');
         }
     }
     else  // Keys missing => not anymore in the group - course relation
@@ -761,7 +856,7 @@ if ($uidReset || $cidReset || $gidReset) // session data refresh requested
                 WHERE `user` = '". (int) $_uid . "'
                 AND `team`   = '". (int) $gidReq . "'";
 
-        $result = claro_sql_query($sql)  or die ('WARNING !! Load user course_group status (DB QUERY) FAILED ! '.__LINE__);
+        $result = claro_sql_query($sql)  or claro_die ('WARNING !! Load user course_group status (DB QUERY) FAILED ! '.__LINE__);
 
         if (mysql_num_rows($result) > 0) // This user has a recorded status related to this course group
         {

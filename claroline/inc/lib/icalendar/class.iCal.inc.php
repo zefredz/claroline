@@ -22,10 +22,10 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /**#@+
 * We need the child class
 */
-include_once dirname(__FILE__) . '/' . 'class.iCalEvent.inc.php';
-include_once dirname(__FILE__) . '/' . 'class.iCalToDo.inc.php';
-include_once dirname(__FILE__) . '/' . 'class.iCalFreeBusy.inc.php';
-include_once dirname(__FILE__) . '/' . 'class.iCalJournal.inc.php';
+include_once 'class.iCalEvent.inc.php';
+include_once 'class.iCalToDo.inc.php';
+include_once 'class.iCalFreeBusy.inc.php';
+include_once 'class.iCalJournal.inc.php';
 /**#@-*/
 
 /**

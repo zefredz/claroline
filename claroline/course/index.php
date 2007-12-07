@@ -2,7 +2,7 @@
 /**
  * CLAROLINE
  *
- * @version 1.9 $Revision$
+ * @version 1.8 $Revision$
  *
  * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
@@ -36,6 +36,13 @@ if ( !claro_is_in_a_course()  || !claro_is_course_allowed() ) claro_disp_auth_fo
 $toolRepository = get_path('clarolineRepositoryWeb');
 claro_set_display_mode_available(TRUE);
 
+// Add feed RSS in header
+if ( get_conf('enableRssInCourse') )
+{
+    $htmlHeadXtra[] = '<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars(claro_get_current_course_data('name') . ' - ' . get_conf('siteName')) . '"'
+            .' href="' . get_path('rootWeb') . 'claroline/rss/?cidReq=' . claro_get_current_course_id() . '" />';
+}
+
 /*
  * Load javascript for management of the linker into the main text zone
  * see 'introductionSection.inc.php' file included later in the script
@@ -54,8 +61,24 @@ if (      isset( $_REQUEST['introCmd'] )
 }
 
 /*
- * Language initialisation of the tool names
- */
+* Tracking - Count only one time by course and by session
+*/
+// following instructions are used to prevent statistics to be recorded more than needed
+// for course access
+// check if the user as already visited this course during this session (
+if ( ! isset($_SESSION['tracking']['coursesAlreadyVisited'][claro_get_current_course_id()]))
+{
+    event_access_course();
+    $_SESSION['tracking']['coursesAlreadyVisited'][claro_get_current_course_id()] = 1;
+}
+// for tool access
+// unset the label of the last visited tool
+unset($_SESSION['tracking']['lastUsedTool']);
+// end of tracking
+
+/*
+* Language initialisation of the tool names
+*/
 
 $toolNameList = claro_get_tool_name_list();
 
@@ -122,7 +145,7 @@ foreach ($toolList as $thisTool)
     if ( ! empty($url) )
     {
         $toolLinkList[] = '<a class="' . $style . 'item' . $classItem . '" href="' . $url . '">'
-        .                 '<img src="' . $icon . '" alt="" />&nbsp;'
+        .                 '<img src="' . $icon . '" alt="">&nbsp;'
         .                 $toolName
         .                 '</a>' . "\n"
         ;
@@ -130,7 +153,7 @@ foreach ($toolList as $thisTool)
     else
     {
         $toolLinkList[] = '<span ' . $style . '>'
-        .                 '<img src="' . $icon . '" alt="" />&nbsp;'
+        .                 '<img src="' . $icon . '" alt="">&nbsp;'
         .                 $toolName
         .                 '</span>' . "\n"
         ;
@@ -138,12 +161,12 @@ foreach ($toolList as $thisTool)
 }
 
     $courseManageToolLinkList[] = '<a class="claroCmd" href="' . get_path('clarolineRepositoryWeb')  . 'course/tools.php' . claro_url_relay_context('?') . '">'
-    .                             '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="" /> '
+    .                             '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt=""> '
     .                             get_lang('Edit Tool list')
     .                             '</a>'
     ;
     $courseManageToolLinkList[] = '<a class="claroCmd" href="' . $toolRepository . 'course/settings.php' . claro_url_relay_context('?') . '">'
-    .                             '<img src="' . get_path('imgRepositoryWeb') . 'settings.gif" alt="" /> '
+    .                             '<img src="' . get_path('imgRepositoryWeb') . 'settings.gif" alt=""> '
     .                             get_lang('Course settings')
     .                             '</a>'
     ;
@@ -151,7 +174,7 @@ foreach ($toolList as $thisTool)
     if( get_conf('is_trackingEnabled') )
     {
         $courseManageToolLinkList[] =  '<a class="claroCmd" href="' . $toolRepository . 'tracking/courseLog.php' . claro_url_relay_context('?') . '">'
-        .                             '<img src="' . get_path('imgRepositoryWeb') . 'statistics.gif" alt="" /> '
+        .                             '<img src="' . get_path('imgRepositoryWeb') . 'statistics.gif" alt=""> '
         .                             get_lang('Statistics')
         .                             '</a>'
         ;

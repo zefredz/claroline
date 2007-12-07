@@ -25,6 +25,7 @@ if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_f
 
 require_once './lib/assignment.class.php';
 
+require_once get_path('incRepositorySys') . '/lib/assignment.lib.php';
 require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
 require_once get_path('incRepositorySys') . '/lib/fileUpload.lib.php';
 require_once get_path('incRepositorySys') . '/lib/fileDisplay.lib.php'; // need format_url function
@@ -36,6 +37,7 @@ $tbl_wrk_assignment = $tbl_cdb_names['wrk_assignment'];
 $tbl_wrk_submission = $tbl_cdb_names['wrk_submission'];
 
 $currentCoursePath =  claro_get_current_course_data('path');
+event_access_tool(claro_get_current_tool_id(), claro_get_current_course_tool_data('label'));
 
 // 'step' of pager
 $assignmentsPerPage = get_conf('assignmentsPerPage', 20);
@@ -56,7 +58,7 @@ $fileAllowedSize = get_conf('max_file_size_per_works') ;    //file size in bytes
 $allowedTags = '<img>';
 
 // initialise dialog box to an empty string, all dialog will be concat to it
-$dialogBox = new DialogBox();
+$dialogBox = '';
 
 // permission
 $is_allowedToEdit = claro_is_allowed_to_edit();
@@ -65,19 +67,12 @@ $is_allowedToEdit = claro_is_allowed_to_edit();
                      CLEAN INFORMATIONS SENT BY USER
   =============================================================================*/
 
-$acceptedCmdList = array( 'rqDownload', 'exDownload', 'exChVis', 'exRmAssig', 'exEditAssig', 'rqEditAssig', 'exMkAssig', 'rqMkAssig' );
-
-if( isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'], $acceptedCmdList) )   $cmd = $_REQUEST['cmd'];
-else                                                                            $cmd = null;
-
-
-if( isset($_REQUEST['downloadMode']) )	$downloadMode = $_REQUEST['downloadMode'];
-else									$downloadMode = 'all';
+$cmd = ( isset($_REQUEST['cmd']) )?$_REQUEST['cmd']:'';
 
 /*============================================================================
                 HANDLING FORM DATA : CREATE/EDIT ASSIGNMENT
   =============================================================================*/
-if( !is_null($cmd) )
+if( !empty($cmd) )
 {
     // instanciate assignment object
     $assignment = new Assignment();
@@ -89,13 +84,13 @@ if( !is_null($cmd) )
         if( ! $assignment->load($_REQUEST['assigId']) )
         {
             // could not read assignment
-            $cmd = null;
+            $cmd = '';
             $_REQUEST['assigId'] = NULL;
         }
     }
 
 
-    if( isset($_REQUEST['submitAssignment']) && !is_null($cmd) )
+    if( isset($_REQUEST['submitAssignment']) && $cmd != '' )
     {
         // form submitted
         if ( isset($_REQUEST['title']) )                        $assignment->setTitle(strip_tags(trim($_REQUEST['title'])));
@@ -124,7 +119,7 @@ if( !is_null($cmd) )
                                 $_REQUEST['startYear']);
         $assignment->setStartDate($unixStartDate);
 
-        $unixEndDate = mktime( $_REQUEST['endHour'],
+           $unixEndDate = mktime( $_REQUEST['endHour'],
                                 $_REQUEST['endMinute'],
                                 '00',
                                 $_REQUEST['endMonth'],
@@ -145,138 +140,6 @@ if( !is_null($cmd) )
     }
 }
 
-/*============================================================================
-                DOWNLOAD SUBMISSIONS (thanks to UJM)
-  =============================================================================*/
-if( $cmd == 'exDownload' && $is_allowedToEdit && get_conf('allow_download_all_submissions') ) // UJM
-{
-	require_once('lib/zip.lib.php');
-
-	$zipfile = new zipfile();
-
-	if( $downloadMode == 'from')
-	{
-		if( isset($_REQUEST['hour']) && is_numeric($_REQUEST['hour']) )   	$hour = (int) $_REQUEST['hour'];
-		else                                                              	$hour = 0;
-		if( isset($_REQUEST['minute']) && is_numeric($_REQUEST['minute']) ) $minute = (int) $_REQUEST['minute'];
-		else                                                              	$minute = 0;
-
-		if( isset($_REQUEST['month']) && is_numeric($_REQUEST['month']) )   $month = (int) $_REQUEST['month'];
-		else                                                              	$month = 0;
-		if( isset($_REQUEST['day']) && is_numeric($_REQUEST['day']) )   	$day = (int) $_REQUEST['day'];
-		else                                                              	$day = 0;
-		if( isset($_REQUEST['year']) && is_numeric($_REQUEST['year']) )   	$year = (int) $_REQUEST['year'];
-		else                                                              	$year = 0;
-
-		$unixRequestDate = mktime( $hour, $minute, '00', $month, $day, $year );
-
-		if( $unixRequestDate >= time() )
-		{
-			$dialogBox->error( get_lang('Chosen date is in the future') );
-		}
-
-		$downloadRequestDate = date('Y-m-d G:i:s', $unixRequestDate);
-
-		$wanted = '_' . replace_dangerous_char(get_lang('From')) . '_' . date('Y_m_d', $unixRequestDate) . '_'
-		. replace_dangerous_char(get_lang('To')) . '_' . date('Y_m_d')
-		;
-		$sqlDateCondition = " AND `last_edit_date` >= '" . $downloadRequestDate . "' ";
-	}
-	else // download all
-	{
-		$wanted = '';
-
-		$sqlDateCondition = '';
-	}
-
-    $sql = "SELECT `id`,
-    		`assignment_id`,
-	 		`authors`,
-	 		`submitted_text`,
-	 		`submitted_doc_path`,
-	 		`title`,
-	 		`creation_date`,
-	 		`last_edit_date`
-	        FROM  `" . $tbl_wrk_submission . "`
-            WHERE `parent_id` IS NULL
-            " . $sqlDateCondition . "
-            ORDER BY `creation_date`";
-
-	$results = claro_sql_query_fetch_all($sql);
-
-	if( is_array($results) && !empty($results) )
-	{
-		$previousAuthors = '';
-		$i = 1;
-
-		$assignmentDir = replace_dangerous_char($_cid) . '_' . replace_dangerous_char(get_lang('Assignments')) . $wanted . '/';
-
-		foreach($results as $row => $result)
-		{
-			//  count author's submissions for the name of directory
-			if( $result['authors'] != $previousAuthors )
-			{
-				$i = 1;
-				$previousAuthors = $result['authors'];
-			}
-			else
-			{
-				$i++;
-			}
-
-			$path = $coursesRepositorySys . $_course['path'] . '/work/assig_' . (int) $result['assignment_id'] . '/';
-
-			$workDir = $assignmentDir
-			. replace_dangerous_char(get_lang('Assignment')) . '_' . (int) $result['assignment_id'] . '/'
-			;
-
-			$authorsDir = replace_dangerous_char($result['authors']) . '/';
-
-			$submissionPrefix = $authorsDir . replace_dangerous_char(get_lang('Submission')) . '_' . $i . '_';
-
-			// attached file
-			if(!empty($result['submitted_doc_path']))
-			{
-				if(file_exists($path . $result['submitted_doc_path']))
-					$zipfile->addFile(file_get_contents($path . $result['submitted_doc_path']),
-									$workDir . '/' . $submissionPrefix . $result['submitted_doc_path']);
-			}
-
-			// description file
-			$txtFileName = replace_dangerous_char(get_lang('Description')) . '.html';
-
-			$htmlContent = '<html><head></head><body>' . "\n"
-			.	 get_lang('Title') . ' : ' . $result['title'] . '<br />' . "\n"
-			.	 get_lang('First submission date') . ' : ' . $result['creation_date']. '<br />' . "\n"
-			.	 get_lang('Last edit date') . ' : ' . $result['last_edit_date'] . '<br />' . "\n"
-			;
-
-			if( !empty($result['submitted_doc_path']) )
-			{
-				$htmlContent .= get_lang('Attached file') . ' : ' . $submissionPrefix . $result['submitted_doc_path']. '<br />' . "\n";
-			}
-
-			$htmlContent .= '<div>' . "\n"
-			.	 '<h3>' . get_lang('Description') . '</h3>' . "\n"
-			.	 $result['submitted_text']
-			.	 '</div>' . "\n"
-			.	 '</body></html>';
-
-			$zipfile->addFile($htmlContent,
-							$workDir . '/' . $submissionPrefix . $txtFileName);
-		}
-
-		header('Content-type: application/octet-stream');
-		header('Content-Disposition: attachment; filename=' . $assignmentDir . '.zip');
-		echo $zipfile->file();
-
-		exit;
-	}
-	else
-	{
-		$dialogBox->error( get_lang('There is no submission available for download with these settings.') );
-	}
-}
 
 if ($is_allowedToEdit)
 {
@@ -318,7 +181,7 @@ if ($is_allowedToEdit)
         //notify eventmanager
         $eventNotifier->notifyCourseEvent('work_deleted', claro_get_current_course_id(), claro_get_current_tool_id(), $_REQUEST['assigId'], claro_get_current_group_id(), '0');
 
-        $dialogBox->success( get_lang('Assignment deleted') );
+        $dialogBox .= get_lang('Assignment deleted');
     }
 
     /*--------------------------------------------------------------------
@@ -336,16 +199,16 @@ if ($is_allowedToEdit)
         {
             $assignment->save();
 
-            $dialogBox->success( get_lang('Assignment modified') );
+            $dialogBox .= get_lang('Assignment modified');
         }
         else
         {
             if(claro_failure::get_last_failure() == 'assignment_no_title')
-               $dialogBox->error( get_lang('Assignment title required') );
+               $dialogBox .= get_lang('Assignment title required').'<br />';
             if(claro_failure::get_last_failure() == 'assignment_title_already_exists')
-               $dialogBox->error( get_lang('Assignment title already exists') );
+                $dialogBox .= get_lang('Assignment title already exists').'<br />';
             if(claro_failure::get_last_failure() == 'assignment_incorrect_dates')
-               $dialogBox->error( get_lang('Start date must be before end date ...') );
+                $dialogBox .= get_lang('Start date must be before end date ...')."<br />";
 
             $cmd = 'rqEditAssig';
         }
@@ -378,7 +241,7 @@ if ($is_allowedToEdit)
         {
             $lastAssigId = $assignment->save();
             // confirmation message
-            $dialogBox->success( get_lang('New assignment created') );
+            $dialogBox .= get_lang('New assignment created');
 
             if($lastAssigId)
             {
@@ -389,11 +252,11 @@ if ($is_allowedToEdit)
         else
         {
             if(claro_failure::get_last_failure() == 'assignment_no_title')
-               $dialogBox->error( get_lang('Assignment title required') );
+               $dialogBox .= get_lang('Assignment title required').'<br />';
             if(claro_failure::get_last_failure() == 'assignment_title_already_exists')
-               $dialogBox->error( get_lang('Assignment title already exists') );
+                $dialogBox .= get_lang('Assignment title already exists').'<br />';
             if(claro_failure::get_last_failure() == 'assignment_incorrect_dates')
-               $dialogBox->error( get_lang('Start date must be before end date ...') );
+                $dialogBox .= get_lang('Start date must be before end date ...')."<br />";
 
             $cmd = 'rqMkAssig';
         }
@@ -510,7 +373,10 @@ if ($is_allowedToEdit)
                             DIALOG BOX SECTION
       --------------------------------------------------------------------*/
 
-    echo $dialogBox->render();
+    if ( isset($dialogBox) && !empty($dialogBox) )
+    {
+        echo claro_html_message_box($dialogBox);
+    }
 
     /*--------------------------------------------------------------------
                           CREATE AND EDIT FORM
@@ -519,20 +385,20 @@ if ($is_allowedToEdit)
     {
 ?>
     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
-    <input type="hidden" name="claroFormId" value="<?php echo uniqid(''); ?>" />
-    <input type="hidden" name="cmd" value="<?php echo $cmdToSend; ?>" />
+    <input type="hidden" name="claroFormId" value="<?php echo uniqid(''); ?>">
+    <input type="hidden" name="cmd" value="<?php echo $cmdToSend; ?>">
 <?php
     if( isset($_REQUEST['assigId']) )
     {
 ?>
-    <input type="hidden" name="assigId" value="<?php echo $_REQUEST['assigId']; ?>" />
+    <input type="hidden" name="assigId" value="<?php echo $_REQUEST['assigId']; ?>">
 <?php
     }
 ?>
     <table cellpadding="5" width="100%">
       <tr>
         <td valign="top"><label for="title"><?php echo get_lang('Assignment title'); ?>&nbsp;:</label></td>
-        <td><input type="text" name="title" id="title" size="50" maxlength="200" value="<?php echo htmlspecialchars($assignment->getTitle()); ?>" /></td>
+        <td><input type="text" name="title" id="title" size="50" maxlength="200" value="<?php echo htmlspecialchars($assignment->getTitle()); ?>"></td>
       </tr>
 
       <tr>
@@ -547,13 +413,13 @@ if ($is_allowedToEdit)
       <tr>
         <td valign="top"><?php echo get_lang('Submission type'); ?>&nbsp;:</td>
         <td>
-          <input type="radio" name="authorized_content" id="authorizeFile" value="FILE" <?php if( $assignment->getSubmissionType() == "FILE" ) echo 'checked="checked"'; ?> />
+          <input type="radio" name="authorized_content" id="authorizeFile" value="FILE" <?php if( $assignment->getSubmissionType() == "FILE" ) echo 'checked="checked"'; ?>>
             <label for="authorizeFile">&nbsp;<?php echo get_lang('File (file required, description text optional)'); ?></label>
             <br />
-          <input type="radio" name="authorized_content" id="authorizeText" value="TEXT" <?php if( $assignment->getSubmissionType() == "TEXT" ) echo 'checked="checked"'; ?> />
+          <input type="radio" name="authorized_content" id="authorizeText" value="TEXT" <?php if( $assignment->getSubmissionType() == "TEXT" ) echo 'checked="checked"'; ?>>
             <label for="authorizeText">&nbsp;<?php echo get_lang('Text only (text required, no file)'); ?></label>
             <br />
-          <input type="radio" name="authorized_content" id="authorizeTextFile" value="TEXTFILE" <?php if( $assignment->getSubmissionType() == "TEXTFILE" ) echo 'checked="checked"'; ?> />
+          <input type="radio" name="authorized_content" id="authorizeTextFile" value="TEXTFILE" <?php if( $assignment->getSubmissionType() == "TEXTFILE" ) echo 'checked="checked"'; ?>>
             <label for="authorizeTextFile">&nbsp;<?php echo get_lang('Text with attached file (text required, file optional)'); ?></label>
             <br />
         </td>
@@ -562,10 +428,10 @@ if ($is_allowedToEdit)
       <tr>
         <td valign="top"><?php echo get_lang('Assignment type'); ?>&nbsp;:</td>
         <td>
-          <input type="radio" name="assignment_type" id="individual" value="INDIVIDUAL" <?php if($assignment->getAssignmentType() == "INDIVIDUAL") echo 'checked="checked"'; ?> />
+          <input type="radio" name="assignment_type" id="individual" value="INDIVIDUAL" <?php if($assignment->getAssignmentType() == "INDIVIDUAL") echo 'checked="checked"'; ?>>
             <label for="individual">&nbsp;<?php echo get_lang('Individual'); ?></label>
             <br />
-          <input type="radio" name="assignment_type" id="group" value="GROUP" <?php if($assignment->getAssignmentType() == "GROUP") echo 'checked="checked"'; ?> />
+          <input type="radio" name="assignment_type" id="group" value="GROUP" <?php if($assignment->getAssignmentType() == "GROUP") echo 'checked="checked"'; ?>>
             <label for="group">&nbsp;<?php echo get_lang('Groups (from groups tool, only group members can post)'); ?></label>
             <br />
         </td>
@@ -594,10 +460,10 @@ if ($is_allowedToEdit)
       <tr>
         <td valign="top"><?php echo get_lang('Allow late upload'); ?>&nbsp;:</td>
         <td>
-        <input type="radio" name="allow_late_upload" id="allowUpload" value="YES" <?php if($assignment->getAllowLateUpload() == "YES") echo 'checked="checked"'; ?> />
+        <input type="radio" name="allow_late_upload" id="allowUpload" value="YES" <?php if($assignment->getAllowLateUpload() == "YES") echo 'checked="checked"'; ?>>
           <label for="allowUpload">&nbsp;<?php echo get_lang('Yes, allow users to submit works after end date'); ?></label>
           <br />
-        <input type="radio" name="allow_late_upload" id="preventUpload" value="NO" <?php if($assignment->getAllowLateUpload() == "NO") echo 'checked="checked"'; ?> />
+        <input type="radio" name="allow_late_upload" id="preventUpload" value="NO" <?php if($assignment->getAllowLateUpload() == "NO") echo 'checked="checked"'; ?>>
           <label for="preventUpload">&nbsp;<?php echo get_lang('No, prevent users submitting work after the end date'); ?></label>
           <br />
         </td>
@@ -606,10 +472,10 @@ if ($is_allowedToEdit)
       <tr>
         <td valign="top"><?php echo get_lang('Default works visibility'); ?>&nbsp;:</td>
         <td>
-          <input type="radio" name="def_submission_visibility" id="visible" value="VISIBLE" <?php if($assignment->getDefaultSubmissionVisibility() == "VISIBLE") echo 'checked="checked"'; ?> />
+          <input type="radio" name="def_submission_visibility" id="visible" value="VISIBLE" <?php if($assignment->getDefaultSubmissionVisibility() == "VISIBLE") echo 'checked="checked"'; ?>>
             <label for="visible">&nbsp;<?php echo get_lang('Visible for all users'); ?></label>
             <br />
-          <input type="radio" name="def_submission_visibility" id="invisible" value="INVISIBLE" <?php if($assignment->getDefaultSubmissionVisibility() == "INVISIBLE") echo 'checked="checked"'; ?> />
+          <input type="radio" name="def_submission_visibility" id="invisible" value="INVISIBLE" <?php if($assignment->getDefaultSubmissionVisibility() == "INVISIBLE") echo 'checked="checked"'; ?>>
             <label for="invisible">&nbsp;<?php echo get_lang('Only visible for teacher(s) and submitter(s)'); ?></label>
             <br />
         </td>
@@ -618,9 +484,9 @@ if ($is_allowedToEdit)
       <tr>
         <td>&nbsp;</td>
         <td>
-          <input type="submit" name="submitAssignment" value="<?php echo get_lang('Ok'); ?>" />&nbsp;
+          <input type="submit" name="submitAssignment" value="<?php echo get_lang('Ok'); ?>">&nbsp;
           <?php echo claro_html_button((isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:'.'), get_lang('Cancel')); ?>
-        </td>
+                  </td>
       </tr>
       </table>
     </form>
@@ -640,27 +506,6 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
     $cmdMenu = array();
     if( $is_allowedToEdit )
     {
-    	// Submission download requested
-		if( $cmd == 'rqDownload' && get_conf('allow_download_all_submissions') )
-		{
-			include($includePath . '/lib/form.lib.php');
-
-			$downloadForm = '<strong>' . get_lang('Download').'</strong>' . "\n"
-			.	 '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
-			.    claro_form_relay_context()
-			.    '<input type="hidden" name="cmd" value="exDownload" />' . "\n"
-			.	 '<input type="radio" name="downloadMode" id="downloadMode_from" value="from" checked /><label for="downloadMode_from">' . get_lang('Submissions posted or modified after date :') . '</label><br />' . "\n"
-			.	 claro_html_date_form('day', 'month', 'year', time(), 'long') . ' '
-			.	 claro_html_time_form('hour', 'minute', time() - fmod(time(), 86400) - 3600) . '<small>' . get_lang('(d/m/y hh:mm)') . '</small>' . '<br /><br />' . "\n"
-			.	 '<input type="radio" name="downloadMode" id="downloadMode_all" value="all" /><label for="downloadMode_all">' . get_lang('All submissions') . '</label><br /><br />' . "\n"
-			.	 '<input type="submit" value="'.get_lang('OK').'" />&nbsp;' . "\n"
-			.    claro_html_button('work.php', get_lang('Cancel'))
-			.	 '</form>'."\n"
-			;
-
-			echo claro_html_message_box($downloadForm);
-		}
-
         // link to create a new assignment
         $cmdMenu[] =  claro_html_cmd_link( $_SERVER['PHP_SELF']
                                          . '?cmd=rqMkAssig'
@@ -668,15 +513,6 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
                                          , '<img src="' . get_path('imgRepositoryWeb') . 'assignment.gif" alt="" />'
                                          . get_lang('Create a new assignment')
                                          );
-
-		if( get_conf('allow_download_all_submissions') )
-		{
-	        $cmdMenu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
-		    . 	 '?cmd=rqDownload">'
-			.	 '<img src="' . $imgRepositoryWeb . 'save.gif" />'.get_lang('Download submissions').'</a>'
-			.	 "\n"
-			;
-		}
     }
 
     if( !empty($cmdMenu) ) echo '<p>' . claro_html_menu_horizontal($cmdMenu) . '</p>' . "\n";
@@ -775,7 +611,7 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
             if( !isset($anAssignment['authorized_content']) || $anAssignment['authorized_content'] != 'TEXT' )
             {
                 echo '<td align="center">'
-                .     '<a href="workList.php?cmd=rqSubWrk&amp;assigId=' . $anAssignment['id'] . '&amp;submitGroupWorkUrl=' . urlencode($_REQUEST['submitGroupWorkUrl']) . '&amp;gidReq=' . claro_get_current_group_id() . '">'
+                .     '<a href="workList.php?cmd=rqSubWrk&amp;assigId=' . $anAssignment['id'] . '&amp;submitGroupWorkUrl=' . urlencode($_REQUEST['submitGroupWorkUrl']) . '">'
                 .      '<small>' . get_lang('Publish') . '</small>'
                 .     '</a>'
                 .     '</td>' . "\n";
@@ -793,11 +629,11 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
         {
                         echo '<td align="center">'
             .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEditAssig&amp;assigId=' . $anAssignment['id'] . '">'
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="' . get_lang('Modify') . '" /></a>'
+            .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="' . get_lang('Modify') . '"></a>'
             .    '</td>' . "\n"
             .    '<td align="center">'
-            .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exRmAssig&amp;assigId=' . $anAssignment['id'] . '" onclick="return confirmation(\'' . clean_str_for_javascript($anAssignment['title']) . '\');">'
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" /></a>'
+            .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exRmAssig&amp;assigId=' . $anAssignment['id'] . '" onClick="return confirmation(\'' . clean_str_for_javascript($anAssignment['title']) . '\');">'
+            .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="' . get_lang('Delete') . '"></a>'
             .    '</td>' . "\n"
             .    '<td align="center">'
             ;

@@ -57,10 +57,7 @@ else                                     $coursesToCheck =  false;
 if ($disp_form)
 {
 
-    $sqlListCoursesSel = "SELECT administrativeNumber AS officialCode,
-                                 code                 AS sysCode
-                            FROM `" . $tbl_course . "`
-                           ORDER BY trim(administrativeNumber) ASC";
+    $sqlListCoursesSel = "SELECT fake_code officialCode, code sysCode FROM `" . $tbl_course . "` order by trim(fake_code) ASC";
     $course_list = claro_sql_query_fetch_all($sqlListCoursesSel);
 
     if (is_array($course_list))
@@ -100,18 +97,28 @@ if ($disp_allcrs)
     .    get_lang('Courses : %disk_usage (perhaps with others directory)',
          array ( '%disk_usage' => $diskUsage ) ) . '</li>' ;
 }
+
+if ($disp_garbage )
+    $diskUsage = sprintf('%01.2f', $garbagedisk_usage ) . ' ' . $byteUnits[2];
+    echo '<li>'
+    .    get_lang('Garbage : %disk_usage', array('%disk_usage'=>$diskUsage) )
+    .    '</li>'
+    ;
 ?>
 <li>
 <hr />
 <form  method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-<input type="checkbox" id="disp_claro" name="disp_claro" value="true"  />
+<input type="checkbox" id="disp_claro" name="disp_claro" value="true" >
 <label for="disp_claro"><?php echo ' ' . get_lang('size of claroline scripts') ?></label>
 <br />
-<input type="checkbox" id="disp_allcrs" name="disp_allcrs" value="true"  />
+<input type="checkbox" id="disp_allcrs" name="disp_allcrs" value="true" >
 <label for="disp_allcrs"><?php echo get_lang('!!!! size of course repository (include claroline and garbage in old systems)') ?></label>
 <br />
+<input type="checkbox" id="disp_garbage" name="disp_garbage" value="true" >
+<label for="disp_garbage">size of garbage</label>
+<br />
 
-<input type="checkbox" name="disp_selCrs" id="disp_selCrs" value="true"  />
+<input type="checkbox" name="disp_selCrs" id="disp_selCrs" value="true" >
 <label for="disp_selCrs"><?php echo get_lang('size of selected courses') ?></label><br />
 
 <?php
@@ -121,7 +128,7 @@ echo claro_html_form_select( 'coursesToCheck[]'
                            , array( 'multiple'=>'multiple'
                                   , 'size'=>'' ))
                            ; ?>
-<input type="submit" />
+<input type="submit">
 </form>
 <hr />
 </li>
@@ -132,12 +139,11 @@ echo claro_html_form_select( 'coursesToCheck[]'
 if ($disp_selCrs && $coursesToCheck)
 {
     echo '<li><ol>';
-    $sqlListCourses = "
-                       SELECT administrativeNumber AS code,
-                              directory            AS dir,
-                              dbName               AS db,
-                              diskQuota
-                         FROM `" . $tbl_course . "` ";
+    $sqlListCourses = "SELECT fake_code code,
+                      directory dir,
+                      dbName db,
+                      diskQuota
+                      FROM `" . $tbl_course . "` ";
     if($coursesToCheck[0]==" all ")    $sqlListCourses .= " order by dbName";
     elseif (is_array($coursesToCheck)) $sqlListCourses .= " where code in ('".implode( "','", $coursesToCheck )."') order by dbName";
     else unset($sqlListCourses);
@@ -148,7 +154,10 @@ if ($disp_selCrs && $coursesToCheck)
         while (($course = mysql_fetch_array($resCourses,MYSQL_ASSOC)))
         {
             $duFiles = disk_usage(get_path('coursesRepositorySys') . $course['dir'] . '/','','k');
-            $duBase  = get_db_size($course["db"],'k');
+            $duBase  = disk_usage(get_path('mysqlRepositorySys') . $course['db'] . '/','','k');
+
+
+//            $duBase  = get_db_size($course["db"],k);
 
             $duTotal = disk_usage(get_path('coursesRepositorySys') . $course['dir'] . '/', get_path('coursesRepositorySys') . $course['db'] . '/' , 'm');
             echo '<p>' . get_path('coursesRepositorySys') . $course['dir'] . '/'
