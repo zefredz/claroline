@@ -1,5 +1,5 @@
 ******************************************
-        CLAROLINE 1.9 alpha - README
+        CLAROLINE 1.7.9 - README
 ******************************************
 
 TABLE OF CONTENT :
@@ -12,6 +12,7 @@ TABLE OF CONTENT :
   6. CONTACT
   7. NEW FEATURES
 
+
 1. DESCRIPTION
    ===========
 
@@ -23,7 +24,7 @@ The system provides group management, forums, document repositories, calendar,
 chat, assignment areas, links, user profile administration on a single and
 highly integrated package.
 
-Claroline is translated in 34 languages and used by hundreds of institutions
+Claroline is translated in 32 languages and used by hundreds of institutions
 around world. The software was initially started by the University of Louvain
 (Belgium) and released under Open Source licence (GPL). Since then, a
 community of developers around the world contributes to its development.
@@ -74,31 +75,30 @@ at :
 7. NEW FEATURES
    ============
 
-NEW FEATURES IN CLAROLINE 1.8.3 SINCE CLAROLINE 1.8.0
+NEW FEATURES IN CLAROLINE 1.7.9 SINCE CLAROLINE 1.7.8
 -----------------------------------------------------
 
-* Bug Fixes ; For more details, see the changelog on our documentation wiki :
-  http://www.claroline.net/wiki/index.php/Changelog_1.8.x
+* Translations
+ * Italian 100% : Stefano Crosatti
+ * Guarani 100% : Manuel Fernández from the Guaraní Renda association
 
-NEW FEATURES IN CLAROLINE 1.8.0 SINCE CLAROLINE 1.7
+* Fix sql compatibility with MySQL 5.0 in tracking
+
+NEW FEATURES IN CLAROLINE 1.7.8 SINCE CLAROLINE 1.7.7
 -----------------------------------------------------
 
-This new stable version, that comes with a new logo, offers a bunch of interesting new features :
+* Translations
+  * Japanese 35% complete by Naoto KIMURA at Takushoku University in Japan.
 
- * A new default layout
- * Module system : build your own Claroline extension
- * User rights and profiles are now completely customizable
- * Classes management improved
- * Personal language selector
- * Course Tools Improvements :
-  o Documents : Download all documents in a compressed file
-  o Exercises : Import/export your exercises, ...
-  o Wiki : Internal search engine
- * Configuration : many new parameters
+* New features
+  * Add mail notification : to teacher on new submission, to student on new feedback 
 
-You'll find more information and screenshots about Claroline 1.8 in our detailed claroline 1.8 page :
+* Security Fix
+  * Fix XSS in Wiki, MyAgenda, Documents and links, Forums and Tracking
+  * Remote file inclusion with register_globals to On 
 
- * http://www.claroline.net/doc/en/index.php/Claroline_18
+* Bugs
+  * Export SCORM : Compatibility with php5 
 
 NEW FEATURES IN CLAROLINE 1.7.7 SINCE CLAROLINE 1.7.6
 -----------------------------------------------------
@@ -109,6 +109,7 @@ NEW FEATURES IN CLAROLINE 1.7.7 SINCE CLAROLINE 1.7.6
   site is iso-8859-7 (8bit). The result is seeing garbage on the editor menus,
   buttons etc. I translated el.js with iconv (iconv -f UTF-8 -t ISO8859-7) and
   I send you the correct one that works ok !
+  * Italian 100% complete (6 missing translations) by Stefano Crosatti
 
 * Security Fix
   * Remote inclusion have been discovered in these scripts.
@@ -486,5 +487,5 @@ is taken into account, at what stage and by who.
 
 
 =========================================================================
-                Europe, Belgium, Louvain-la-Neuve - October 25 2006
+                Europe, Belgium, Louvain-la-Neuve - September 1 2006
 ================================== END ===================================

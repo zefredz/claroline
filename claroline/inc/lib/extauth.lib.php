@@ -1,5 +1,5 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+if ( ! defined('CLARO_INCLUDE_ALLOWED') ) die('---');
 
 //----------------------------------------------------------------------
 // CLAROLINE
@@ -67,7 +67,7 @@ class ExternalAuthentication
 
     function setAuthSourceName($authSourceName)
     {
-        $this->authSourceName = $authSourceName;
+    	$this->authSourceName = $authSourceName;
     }
 
 
@@ -112,7 +112,7 @@ class ExternalAuthentication
                               'email'        => NULL,
                               'officialCode' => NULL,
                               'phoneNumber'  => NULL,
-                              'isCourseCreator' => NULL,
+                              'status'       => NULL,
                               'authSource'   => NULL);
 
         foreach($extAuthAttribNameList as $claroAttribName => $extAuthAttribName)
@@ -159,17 +159,9 @@ class ExternalAuthentication
                                    'email'        => 'email',
                                    'officialCode' => 'officialCode',
                                    'phoneNumber'  => 'phoneNumber',
-                                   'isCourseCreator' => 'isCourseCreator',
+                                   'statut'       => 'status',
                                    'authSource'   => 'authSource');
         $sqlPrepareList = array();
-
-        // Status 1 == IsCourseCreator true
-
-        if ( isset($userAttrList['status']) )
-        {
-            if ( $userAttrList['status'] == 1 ) $userAttrList['isCourseCreator'] = 1;
-            else                                $userAttrList['isCourseCreator'] = 0;
-        }
 
         foreach($dbFieldToClaroMap as $dbFieldName => $claroAttribName)
         {
@@ -179,7 +171,6 @@ class ExternalAuthentication
             }
         }
 
-        // TODO use user.lib.php
 
         $sql = ($uid ? 'UPDATE' : 'INSERT INTO') . " `".$userTbl['user']."` "
               ."SET ".implode(', ', $sqlPrepareList)

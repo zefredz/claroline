@@ -1,10 +1,10 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+if ( ! defined('CLARO_INCLUDE_ALLOWED') ) die('---');
 /**
  * CLAROLINE
  *
- * @version 1.9 $Revision$
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @version 1.7 $Revision$
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -15,14 +15,15 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @package CLLINKER
  *
  */
+
     /**
-     * claro_linker_popup_display.lib
-     *
-     * is a lib of function for the display of the linker popup.
-     * @package CLLINKER
-     *
-     * @author Fallier Renaud <renaud.claroline@gmail.com>
-     **/
+    * claro_linker_popup_display.lib
+    *
+    * is a lib of function for the display of the linker popup.
+    * @package CLLINKER
+    *
+    * @author Fallier Renaud <renaud.claroline@gmail.com>
+    **/
 
    /**
     * display the navigator in the popup
@@ -51,30 +52,27 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
    function displayAttachmentList($current_crl)
    {
        global $caddy;
+       global $langLinkerDelete,$langEmpty,$langLinkerAttachements;
+       global $imgRepositoryWeb;
 
        $content = $caddy->getAttachmentList();
 
        if( is_array($content) && isset($content['crl']) && count( $content['crl'] ) > 0 )
        {
-           echo '<hr />' . "\n"
-           .    '<b>' . get_lang("Attached resources") . '</b>' . "\n"
-           .    '<table style="border: 0px; font-size: 80%; width: 100%;">' . "\n"
-           ;
+           echo '<hr /><b>' . $langLinkerAttachements . '</b>' . "\n";
+
+           echo '<table style="border: 0px; font-size: 80%; width: 100%;">' . "\n";
 
            for($i = 0 ; $i<(count($content["crl"])) ; $i++)
            {
-               echo '<tr>' . "\n"
-               .    '<td>' . $content['title'][$i]
-               .    '</td>' . "\n"
-               .    '<td>' . "\n"
+               echo '<tr><td>' . $content['title'][$i]
+               .    '</td><td>'
                .    '<a href="' . $_SERVER['PHP_SELF']
                .    '?cmd=delete'
                .    '&amp;crl=' . $content["crl"][$i]
                .    '&amp;current_crl=' . urlencode($current_crl) . '" class="claroCmd">'
-               .    '<img src="' . get_path('imgRepositoryWeb') . '/delete.gif" alt='.get_lang("Delete").'" />'
-               .    '</a>' . "\n"
-               .    '</td>' . "\n"
-               .    '</tr>' . "\n"
+               .    '<img src="'.$imgRepositoryWeb.'/delete.gif" alt='.$langLinkerDelete.'" />'
+               .    '</a></td></tr>' . "\n"
                ;
            }
 
@@ -131,6 +129,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     */
     function display( $navigator , $crl , $elementCRLArray )
     {
+        global $langLinkerAdd,$langEmpty;
+
         $container = $navigator->getResource();
         $iterator = $container->iterator();
 
@@ -190,18 +190,17 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 .    '?cmd=add&amp;crl=' . urlencode($object->getCRL())
                 .    '&amp;current_crl=' . urlencode($crl) . '" '
                 .    'class="claroCmd">'
-                .    '[' . get_lang("Attach") . ']</a><br />' . "\n"
+                .    '[' . $langLinkerAdd . ']</a><br />' . "\n"
                 ;
             }
             else if($object->isLinkable() && !$object->isVisible() )
             {
                 echo "\t".'&nbsp;'
-                .    claro_html_cmd_link( $_SERVER['PHP_SELF']
+                .    '<a href="' . $_SERVER['PHP_SELF']
                 .    '?cmd=add&amp;crl=' . urlencode($object->getCRL())
-                                        . '&amp;current_crl=' . urlencode($crl)
-                                        , '[' . get_lang("Attach") . ']'
-                                        )
-                .    '<br />' . "\n"
+                .    '&amp;current_crl=' . urlencode($crl) . '" class="claroCmd">'
+                .    '[' . $langLinkerAdd . ']'
+                .    '</a><br />' . "\n"
                 ;
             }
             else
@@ -212,24 +211,27 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         // if a directory is empty
         if (!$passed )
         {
-            echo '&lt;&lt;&nbsp;' . get_lang("Empty") . '&nbsp;&gt;&gt;' . "\n";
+            echo '&lt;&lt;&nbsp;' . $langEmpty . '&nbsp;&gt;&gt;' . "\n";
         }
         echo '</div>';
     }
 
     /**
-     * Display the list the other course
-     *
-     * @throws E_USER_ERROR if it is not a array
-     */
+    * display the list the other course
+    *
+    * @global $platform_id  the id of the platforme
+    * @throws E_USER_ERROR if it is not a array
+    */
     function displayOtherCourse( $navigator , $crl )
     {
+        global $platform_id,$langLinkerMyOtherCourses,$langLinkerAdd;
+
         echo '<div class="claroMessageBox" style="margin-top : 1em;margin-bottom : 1em;">' . "\n";
 
         displayOtherCoursesLink( FALSE );
         displayPublicCoursesLink();
         displayExternalLink( $crl );
-        echo '<br /><b>' . get_lang("My other courses") . '</b><hr />';
+        echo '<br /><b>' . $langLinkerMyOtherCourses . '</b><hr />';
         displayParentLink ( $navigator , FALSE );
 
         $otherCourseInfo = $navigator->getOtherCoursesList();
@@ -238,22 +240,22 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         {
             foreach ($otherCourseInfo as $courseInfo )
             {
-                $crl = CRLTool::createCRL(get_conf('platform_id') , $courseInfo['code'] );
+                $crl = CRLTool::createCRL($platform_id , $courseInfo['code'] );
                 echo '<a href="' . $_SERVER['PHP_SELF']
                 .    '?fct=add'
                 .    '&amp;cmd=browse'
                 .    '&amp;current_crl=' . urlencode ($crl).'">'
-                .    $courseInfo['administrativeNumber'] . ' : ' . $courseInfo['intitule']
+                .    $courseInfo['fake_code'] . ' : ' . $courseInfo['intitule']
                 .    '</a>' . "\n"
 
                 .    '&nbsp;'
 
-                .    claro_html_cmd_link( $_SERVER['PHP_SELF']
+                .    '<a href="' . $_SERVER['PHP_SELF']
                 .    '?cmd=add'
                 .    '&amp;crl=' . urlencode($crl)
-                                        . '&amp;current_crl=' . urlencode($crl)
-                                        , '[' . get_lang("Attach") . ']'
-                                        );
+                .    '&amp;current_crl=' . urlencode($crl) . '" class="claroCmd">'
+                .    '[' . $langLinkerAdd . ']</A><br />' . "\n"
+                ;
             }
         }
         else
@@ -268,10 +270,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     /**
     * display the list the public course
     *
+    * @global $platform_id  the id of the platforme
     * @throw E_USER_ERROR if it is not a array
     */
     function displayPublicCourse( $navigator , $crl )
     {
+        global $platform_id,$langLinkerPublicCourses,$langLinkerAdd;
 
         echo '<div class="claroMessageBox" style="margin-top : 1em;margin-bottom : 1em;">' . "\n";
 
@@ -279,7 +283,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         displayPublicCoursesLink( FALSE );
         displayExternalLink( $crl );
 
-        echo '<br /><b>' . get_lang("Public courses") . '</b><hr />';
+        echo '<br /><b>' . $langLinkerPublicCourses . '</b><hr />';
 
         displayParentLink ( $navigator , FALSE );
 
@@ -289,22 +293,22 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         {
             foreach ($publicCourseInfo as $courseInfo )
             {
-                $crl = CRLTool::createCRL(get_conf('platform_id') , $courseInfo['code'] );
+                $crl = CRLTool::createCRL($platform_id , $courseInfo['code'] );
                 echo '<a href="' . $_SERVER['PHP_SELF']
                 .    '?fct=add'
                 .    '&amp;cmd=browse'
                 .    '&amp;current_crl=' . urlencode ($crl).'">'
-                .    $courseInfo['administrativeNumber'] . ' : ' . $courseInfo['intitule']
+                .    $courseInfo['fake_code'] . ' : ' . $courseInfo['intitule']
                 .    '</a>' . "\n"
 
                 .    '&nbsp;'
 
-                .    claro_html_cmd_link( $_SERVER['PHP_SELF']
+                .    '<a href="' . $_SERVER['PHP_SELF']
                 .    '?cmd=add'
                 .    '&amp;crl=' . urlencode($crl)
-                                        . '&amp;current_crl=' . urlencode($crl)
-                                        , '[' . get_lang("Attach") . ']'
-                                        );
+                .    '&amp;current_crl=' . urlencode($crl) . '" class="claroCmd">'
+                .    '[' . $langLinkerAdd . ']</A><br />' . "\n"
+                ;
             }
         }
         else
@@ -321,50 +325,56 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     */
     function displayParentLink ( $navigator , $isLink = TRUE)
     {
+        global $langUp,$imgRepositoryWeb;
+
         $crlParent = $navigator->getParent();
 
         if( $isLink && $crlParent)
         {
-       echo claro_html_cmd_link( $_SERVER['PHP_SELF']
-                                    .    '?fct=add'
-                                    .    '&amp;cmd=browse'
-                                    . '&amp;current_crl=' . urlencode ($crlParent)
-                                    , '<img src="' . get_path('imgRepositoryWeb') . 'parent.gif" border="0" alt="" />'
-                                    .    get_lang("Up")
-                                    );
+            echo '<a href="' . $_SERVER['PHP_SELF']
+            .    '?fct=add'
+            .    '&amp;cmd=browse'
+            .    '&amp;current_crl=' . urlencode ($crlParent) . '" class="claroCmd">'
+            .    '<img src="' . $imgRepositoryWeb . 'parent.gif" border="0" alt="" />'
+            .    $langUp
+            .    '</a>'
+            ;
         }
         else
         {
             echo '<span class="claroCmdDisabled">'
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'parentdisabled.gif" border="0" alt="" />'
-            .    get_lang("Up")
+            .    '<img src="' . $imgRepositoryWeb . 'parentdisabled.gif" border="0" alt="" />'
+            .    $langUp
             .    '</span>'
             ;
         }
-        echo '<br /><br />' . "\n";
+        echo       '<br /><br />' . "\n";
     }
 
     /**
     * display the link of the other course
     *
     * @param $isLink boolean
+    * @global $otherCoursesAllowed -> config variable
     */
     function displayOtherCoursesLink( $isLink = TRUE )
     {
-         if ( get_conf('otherCoursesAllowed') )
+        global $otherCoursesAllowed;//-> config variable
+        global $langLinkerMyOtherCourses;
+
+         if ($otherCoursesAllowed)
          {
              if( $isLink )
             {
-                echo claro_html_cmd_link( $_SERVER['PHP_SELF']
-                                        . '?cmd=browseMyCourses'
-                                        . claro_url_relay_context('&amp;')
-                                        , get_lang("My other courses")
-                                        );
+                echo '<a href="' . $_SERVER['PHP_SELF']
+                .    '?cmd=browseMyCourses" class="claroCmd">'
+                .    $langLinkerMyOtherCourses . '</a>&nbsp;' . "\n"
+                ;
             }
             else
             {
                 echo '<span class="claroCmdDisabled">'
-                .    get_lang("My other courses")
+                .    $langLinkerMyOtherCourses
                 .    '</span>'
                 .    '&nbsp;' . "\n"
                 ;
@@ -377,18 +387,23 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     * display the link of the public course
     *
     * @param $isLink boolean
+    * @global $publicCoursesAllowed -> config variable
     */
     function displayPublicCoursesLink( $isLink = TRUE )
     {
-         if ( get_conf('publicCoursesAllowed') )
+        global $publicCoursesAllowed;//-> config variable
+        global $langLinkerPublicCourses;
+
+         if ($publicCoursesAllowed)
          {
              if( $isLink )
             {
-                echo claro_html_cmd_link($_SERVER["PHP_SELF"] . '?cmd=browsePublicCourses' . claro_url_relay_context('&amp;'), get_lang("Public courses"));
+                echo '<a href="'.$_SERVER["PHP_SELF"].'?cmd=browsePublicCourses" class="claroCmd">';
+                echo $langLinkerPublicCourses."</A>&nbsp;\n";
             }
             else
             {
-                echo '<span class="claroCmdDisabled">'.get_lang("Public courses") . '</span> &nbsp;' . "guim\n";
+                echo '<span class="claroCmdDisabled">'.$langLinkerPublicCourses . '</span> &nbsp;' . "guim\n";
             }
         }
 
@@ -421,24 +436,33 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
    /**
     * display the general title
     *
+    * @global string $langLinkerResourceAttachment
     */
     function displayGeneralTitle()
     {
-        echo '<h1>' . get_lang("Attached Resources : Add / Delete attachement") . '</h1>';
+        global $langLinkerResourceAttachment;
+
+        echo '<h1>' . $langLinkerResourceAttachment . '</h1>';
     }
 
     /**
     * display the link of the external link
     *
+    * @global boolean $externalLinkAllowed
+    * @global string $langLinkerExternalLink
+    *
     * @param crl $current_crl
     */
     function displayExternalLink($current_crl)
     {
-         if ( get_conf('externalLinkAllowed') )
+        global $externalLinkAllowed;//-> config variable
+        global $langLinkerExternalLink;
+
+         if ($externalLinkAllowed)
          {
             echo '<a href="http://claroline.net" class="claroCmd" '
             .    ' onclick="prompt_popup_for_external_link(\'' . $current_crl . '\');return false;">'
-            .    get_lang("External link") . '</a>' . "\n"
+            .    $langLinkerExternalLink . '</a>' . "\n"
             ;
         }
 
@@ -452,9 +476,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
      */
     function displayLinkerButtons()
     {
+        global $langLinkerClosePopup;
+
         echo '<input type="submit" '
         .    'onclick="linker_confirm();return false;" '
-        .    'value="' . get_lang("Close popup") . '" />'
+        .    'value="' . $langLinkerClosePopup . '" >'
         ;
     }
 ?>

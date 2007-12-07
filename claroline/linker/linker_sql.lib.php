@@ -1,10 +1,10 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+if ( ! defined('CLARO_INCLUDE_ALLOWED') ) die('---');
 /**
  * CLAROLINE 
  *
- * @version 1.8 $Revision$ 
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @version 1.7 $Revision$ 
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  * 
@@ -15,6 +15,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @package CLLINKER
  *
  */
+
 
 //    require_once dirname(__FILE__) . '/' . '../inc/claro_init_global.inc.php';
     
@@ -115,8 +116,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             
             if( isset($ret) && $ret === FALSE )
             {
-                // workaround for bug #303
-                // TODO : FIXME
+				// workaround for bug #303
+				// TODO : FIXME
                 // $msg .= 'error in the insert of the link';
             }    
         }
@@ -127,8 +128,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             
             if( isset($ret) && $ret === FALSE )
             {
-                // workaround for bug #303
-                // TODO : FIXME
+				// workaround for bug #303
+				// TODO : FIXME
                 // $msg .= 'error in the delete of the link';
             }
         }

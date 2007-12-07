@@ -1,4 +1,5 @@
 <?php // $Id$
+if ( ! defined('CLARO_INCLUDE_ALLOWED') ) die('---');
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
@@ -92,6 +93,7 @@
 // $extAuthSource['mambo']['login'  ] = $clarolineRepositorySys.'auth/extauth/drivers/mambo.inc.php';
 // $extAuthSource['mambo']['newUser'] = $clarolineRepositorySys.'auth/extauth/drivers/mambo.inc.php';
 
+
 /*
  * Flag enabling case sensitivity for the username
  * during the authentication process
@@ -107,6 +109,7 @@ $claro_authUsernameCaseSensitive = true;
 
 $claro_displayLocalAuthForm    = true;
 
+
 // --------------------------------------------
 // CENTRAL AUTHENTICATION SERVICE (CAS) SECTION
 // --------------------------------------------
@@ -114,8 +117,8 @@ $claro_displayLocalAuthForm    = true;
 $claro_CasEnabled       = false;
 $claro_CasServerHostUrl  = 'my.cas.server.domain.com';
 $claro_CasServerHostPort = 443;
-$claro_CasLibPath       = $includePath.'/lib/cas/CAS.php';
-$claro_CasProcessPath   = $clarolineRepositorySys.'/auth/extauth/casProcess.inc.php';
+$claro_CasLibPath       = dirname(__FILE__) . '/../lib/cas/CAS.php';
+$claro_CasProcessPath   = dirname(__FILE__) . '/../../auth/extauth/casProcess.inc.php';
 $claro_CasLoginString   = 'Magic Login';
 
 

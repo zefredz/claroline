@@ -1,13 +1,13 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+if ( ! defined('CLARO_INCLUDE_ALLOWED') ) die('---');
 /**
- * CLAROLINE 
+ * CLAROLINE
  *
- * @version 1.8 $Revision$ 
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @version 1.7 $Revision$
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
- * 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
  * @author claroline Team <cvs@claroline.net>
  * @author Renaud Fallier <renaud.claroline@gmail.com>
  * @author Frédéric Minne <minne@ipm.ucl.ac.be>
@@ -18,89 +18,113 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
    /**
     * linker_jpspan.lib
     *
-    * is a lib of function for the linker Jpspan.  
+    * is a lib of function for the linker Jpspan.
     * @package CLLINKER
     *
     * @author Fallier Renaud <renaud.claroline@gmail.com>
     **/
-    
-    
+
+
    /**
-    * load the Javascript which will be necessary 
+    * load the Javascript which will be necessary
     * to the execution of jpspan
-    */    
+    */
     function linker_html_head_xtra()
     {
         global $htmlHeadXtra;
         global $claroBodyOnload;
+        global $platform_id;
         global $_course;
-        require_once(get_path('incRepositorySys') . '/lib/JPSpan/JPSpan.php');
-        require_once(get_path('incRepositorySys') . '/lib/JPSpan/JPSpan/Include.php');
-        
+        global $otherCoursesAllowed; // -> config variable
+        global $publicCoursesAllowed; // -> config variable
+        global $externalLinkAllowed; // -> config variable
+        global $imgRepositoryWeb;
+        global $langEmpty;
+        global $langUp;
+        global $langLinkerAdd;
+        global $langLinkerAddNewAttachment;
+        global $langLinkerAlreadyInAttachementList;
+        global $langLinkerAttachements;
+        global $langLinkerCloseJpspan;
+        global $langLinkerDelete;
+        global $langLinkerExternalLink;
+        global $langLinkerMyOtherCourses;
+        global $langLinkerUntitled;
+        global $langLinkerPublicCourses;
+        global $langLinkerPromptForUrl;
+        global $langLinkerPromptInvalidEmail;
+        global $langLinkerPromptInvalidUrl;
+        global $includePath;
+        require_once($includePath . '/lib/JPSpan/JPSpan.php');
+        require_once($includePath . '/lib/JPSpan/JPSpan/Include.php');
+
         $htmlHeadXtra[] = "<script type=\"text/javascript\" src=\""
             . path() ."/linker_jpspan_server.php?client\"></script>\n"
             ;
-        
+
         //lang variable
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_add = '".addslashes(get_lang("Attach"))."';</script>\n";    
-                
+                . "var lang_add = '".addslashes($langLinkerAdd)."';</script>\n";
+
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_delete = '".addslashes(get_lang("Delete"))."';</script>\n";    
-        
+                . "var lang_delete = '".addslashes($langLinkerDelete)."';</script>\n";
+
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_empty = '".addslashes(get_lang("Empty"))."';</script>\n";    
-                
+                . "var lang_empty = '".addslashes($langEmpty)."';</script>\n";
+
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_up = '".addslashes(get_lang("Up"))."';</script>\n";    
-        
+                . "var lang_up = '".addslashes($langUp)."';</script>\n";
+
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_my_other_courses = '".addslashes(get_lang("My other courses"))."';</script>\n";
-        
+                . "var lang_my_other_courses = '".addslashes($langLinkerMyOtherCourses)."';</script>\n";
+
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_public_courses = '".addslashes(get_lang("Public courses"))."';</script>\n";
-        
+                . "var lang_public_courses = '".addslashes($langLinkerPublicCourses)."';</script>\n";
+
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_external_link = '".addslashes(get_lang("External link"))."';</script>\n";
-        
+                . "var lang_external_link = '".addslashes($langLinkerExternalLink)."';</script>\n";
+
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_attachements = '".addslashes(get_lang("Attached resources"))."';</script>\n";
-                
+                . "var lang_attachements = '".addslashes($langLinkerAttachements)."';</script>\n";
+
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_already_in_attachement_list = '".addslashes(get_lang("%itemName is already attached"))."';</script>\n";
-        
+                . "var lang_already_in_attachement_list = '".addslashes($langLinkerAlreadyInAttachementList)."';</script>\n";
+
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_linker_add_new_attachment = '".addslashes(get_lang("Attach an existing resource"))."';</script>\n"; 
-        
+                . "var lang_linker_add_new_attachment = '".addslashes($langLinkerAddNewAttachment)."';</script>\n";
+
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_linker_close = '".addslashes(get_lang("Close"))."';</script>\n"; 
-                
+                . "var lang_linker_close = '".addslashes($langLinkerCloseJpspan)."';</script>\n";
+
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_linker_prompt_for_url = '".addslashes(get_lang("Enter link url"))."';</script>\n";
-        
+                . "var lang_linker_close = '".addslashes($langLinkerCloseJpspan)."';</script>\n";
+
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_linker_prompt_invalid_url = '".addslashes(get_lang("Invalid url"))."';</script>\n";
-        
+                . "var lang_linker_prompt_for_url = '".addslashes($langLinkerPromptForUrl)."';</script>\n";
+
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var lang_linker_prompt_invalid_email = '".addslashes(get_lang("Invalid email address"))."';</script>\n";
-        
-        //javascript function 
-        $htmlHeadXtra[] = "<script type=\"text/javascript\" src=\"" 
+                . "var lang_linker_prompt_invalid_url = '".addslashes($langLinkerPromptInvalidUrl)."';</script>\n";
+
+        $htmlHeadXtra[] = "<script type=\"text/javascript\">"
+                . "var lang_linker_prompt_invalid_email = '".addslashes($langLinkerPromptInvalidEmail)."';</script>\n";
+
+        //javascript function
+        $htmlHeadXtra[] = "<script type=\"text/javascript\" src=\""
             . path() . "/arrayutils.js\"></script>\n"
             ;
-        $htmlHeadXtra[] = "<script type=\"text/javascript\" src=\"" 
+        $htmlHeadXtra[] = "<script type=\"text/javascript\" src=\""
             . path() . "/prompt_utils.js\"></script>\n"
-            ;    
+            ;
         $htmlHeadXtra[] = "<script type=\"text/javascript\" src=\""
             . path() . "/linker_jpspan_display.js\"></script>\n"
             ;
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
             . "var linklistallreadysubmitted = false;</script>\n"
-            ;    
+            ;
 
         // config variable
-        if( get_conf('otherCoursesAllowed') )
-        {    
+        if($otherCoursesAllowed)
+        {
             $htmlHeadXtra[] = "<script type=\"text/javascript\">"
                 . "var other_courses_allowed = true;</script>\n";
         }
@@ -109,85 +133,85 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             $htmlHeadXtra[] = "<script type=\"text/javascript\">"
                 . "var other_courses_allowed = false;</script>\n";
         }
-        
-        if( get_conf('publicCoursesAllowed') )
-        {    
+
+        if($publicCoursesAllowed)
+        {
             $htmlHeadXtra[] = "<script type=\"text/javascript\">"
                 . "var public_courses_allowed = true;</script>\n";
         }
         else
         {
             $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var public_courses_allowed = false;</script>\n";    
-        }    
-        
-        if( get_conf('externalLinkAllowed') )
-        {    
+                . "var public_courses_allowed = false;</script>\n";
+        }
+
+        if($externalLinkAllowed)
+        {
             $htmlHeadXtra[] = "<script type=\"text/javascript\">"
                 . "var external_link_allowed = true;</script>\n";
         }
         else
         {
             $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var external_link_allowed = false;</script>\n";    
-        }    
-        
-        // other variable 
-        $courseCrl = CRLTool::createCRL(get_conf('platform_id'),claro_get_current_course_id());
+                . "var external_link_allowed = false;</script>\n";
+        }
+
+        // other variable
+        $courseCrl = CRLTool::createCRL($platform_id,$_course['sysCode']);
         $htmlHeadXtra[] = "<script type=\"text/javascript\">
-                var coursecrl = '".$courseCrl."';</script>\n";    
-        
-        
+                var coursecrl = '".$courseCrl."';</script>\n";
+
+
         $htmlHeadXtra[] = "<script type=\"text/javascript\">"
-                . "var img_repository_web  = '" . get_path('imgRepositoryWeb') ."';</script>\n";
-                
-        $claroBodyOnload[] = "clear_all();";    
-        $claroBodyOnload[] = "hide_div('navbox');";    
+                . "var img_repository_web  = '".$imgRepositoryWeb ."';</script>\n";
+
+        $claroBodyOnload[] = "clear_all();";
+        $claroBodyOnload[] = "hide_div('navbox');";
         $claroBodyOnload[] = "init_shopping_cart();";
     }
-    
+
    /**
-    * set the id of resource in the sript 
-    * what makes it possible jpspan to recover this id     
+    * set the id of resource in the sript
+    * what makes it possible jpspan to recover this id
     *
     * @param $isSetResouceId integer of the resource
     * @param $tLabel tlabel of a tool
-    * @global array htmlHeadXtra 
-    */    
+    * @global array htmlHeadXtra
+    */
     function linker_set_local_crl( $isSetResouceId, $tLabel = NULL )
     {
         global $htmlHeadXtra;
-        
+
         if( $isSetResouceId )
         {
             $crlSource =  getSourceCrl( $tLabel );
-        
+
             $htmlHeadXtra[] = "<script type=\"text/javascript\">
                 var localcrl = '".$crlSource."';</script>\n";
         }
         else
         {
             $htmlHeadXtra[] = "<script type=\"text/javascript\">
-                var localcrl = false;</script>\n";                
+                var localcrl = false;</script>\n";
         }
     }
-    
+
     /**
-    * the dislay of the linker 
+    * the dislay of the linker
     *
-    * @param $extraGetVar not use in jpspan 
+    * @param $extraGetVar not use in jpspan
     *    but left in respect to the linker api
     * @param $tLabel not use in jpspan
     *    but left in respect to the linker api
-    */    
+    */
     function linker_set_display( $extraGetVar = false, $tLabel = NULL )
-    {   
-        $html = '';
-        
-        $html .= '<div id="shoppingCart" style="width:100%">' . "\n"
+    {
+        global $langLinkerAddNewAttachment;
+
+        echo '<div id="shoppingCart" style="width:100%">' . "\n"
         .    '</div>' . "\n"
         .    '<div style="margin-top : 1em;margin-bottom : 1em;" id="openCloseAttachment">' . "\n"
-        .    '<a href="#btn" name="btn" onclick="change_button(\'open\');return false;">' . get_lang("Attach an existing resource") . '</a>' . "\n"
+        .    '<a href="#btn" name="btn" onclick="change_button(\'open\');return false;">' . $langLinkerAddNewAttachment . '</a>' . "\n"
         .    '</div>' . "\n"
         .    '<div class="claroMessageBox" style="margin-top : 1em;margin-bottom : 1em;" id="navbox">' . "\n"
         .    '<div id="toolBar">' . "\n"
@@ -200,11 +224,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         .    '</div>' . "\n"
         .    '<div id="hiddenFields" style="display:none;"></div>'
         ;
-        
-        return $html;
-    }    
-    
-        
-   
+    }
+
+
+
 
 ?>

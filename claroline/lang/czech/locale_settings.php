@@ -1,19 +1,6 @@
 <?php // $Id$
-/**
- *
- * CLAROLINE
- *
- * @version 1.8 $Revision$
- *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @package LANG-CS
- *
- * @author Claro team <cvs@claroline.net>
- *
- * Czech translate for Claroline 1.75
+/*
+ * Czech translate for Claroline 1.75 rev 1
  * http://www.claroline.cz
  *
  * author Zdenek Machek <zdenek.machek@atlas.cz>
@@ -68,9 +55,9 @@ $number_thousands_separator = ',';
 $number_decimal_separator = '.';
 $byteUnits = array('Bajtù', 'KB', 'MB', 'GB');
 
-$langDay_of_weekNames['init'] = array('P', 'Ú', 'S', 'È', 'P', 'S', 'N');
-$langDay_of_weekNames['short'] = array('Pon', 'Út', 'St', 'Èt', 'Pá', 'So', 'Ne');
-$langDay_of_weekNames['long'] = array('Pondìlí', 'Úterý', 'Støeda', 'Ètvrtek', 'Pátek', 'Sobota', 'Nedìle');
+$langDay_of_weekNames['init'] = array( 'N','P', 'Ú', 'S', 'È', 'P', 'S');
+$langDay_of_weekNames['short'] = array('Ne','Pon', 'Út', 'St', 'Èt', 'Pá', 'So');
+$langDay_of_weekNames['long'] = array('Nedìle','Pondìlí', 'Úterý', 'Støeda', 'Ètvrtek', 'Pátek', 'Sobota');
 
 $langMonthNames['init']  = array('L', 'Ú', 'B', 'D', 'K', 'È', 'È', 'S', 'Z', 'Ø', 'L', 'P');
 $langMonthNames['short'] = array('Led', 'Úno', 'Bøe', 'Dub', 'Kvì', 'Èerv', 'Èerc', 'Srp', 'Záø', 'Øíj', 'List', 'Pros');

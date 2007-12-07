@@ -1,6 +1,6 @@
 <?php // $Id$
 /**
- * CLAROLINE
+ * CLAROLINE 
  *
  *    This file generates a general agenda of all items of the courses
  *    the user is registered for.
@@ -8,11 +8,11 @@
  *    Based on the master-calendar code of Eric Remy (6 Oct 2003)
  *    adapted by Toon Van Hoecke (Dec 2003) and Hugues Peeters (March 2004)
  *
- * @version 1.9 $Revision$
+ * @version 1.7 $Revision$
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  *
  * @package CLCAL
  *
@@ -28,11 +28,11 @@ $cidReset = TRUE;
 require '../inc/claro_init_global.inc.php';
 
 // check access
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
+if ( ! $_uid ) claro_disp_auth_form();
 
-require_once './lib/agenda.lib.php';
+require_once($includePath . '/lib/agenda.lib.php');
 
-$nameTools = get_lang('My calendar');
+$nameTools = $langMyAgenda;
 
 $tbl_mdb_names       = claro_sql_get_main_tbl();
 
@@ -41,46 +41,38 @@ $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
 
 // Main
 
-$sql = "SELECT cours.code                 AS sysCode,
-               cours.administrativeNumber AS officialCode,
-               cours.intitule             AS title,
-               cours.titulaires           AS t,
-               cours.dbName               AS db,
-               cours.directory            AS dir
-
-        FROM    `" . $tbl_course . "`          AS cours,
-                `" . $tbl_rel_course_user . "` AS cours_user
-
+$sql = "SELECT cours.code sysCode, cours.fake_code officialCode,
+               cours.intitule title, cours.titulaires t, 
+               cours.dbName db, cours.directory dir
+        FROM    `" . $tbl_course . "`     cours,
+                `" . $tbl_rel_course_user . "` cours_user
         WHERE cours.code         = cours_user.code_cours
-        AND   cours_user.user_id = " . (int) claro_get_current_user_id() ;
+        AND   cours_user.user_id = '" . (int) $_uid . "'";
 
 $userCourseList = claro_sql_query_fetch_all($sql);
 
 $today = getdate();
 
-if ( isset($_REQUEST['year']) ) $year = (int) $_REQUEST['year' ];
+if ( isset($_REQUEST['year']) ) $year  = (int) $_REQUEST['year' ];
 else                            $year = $today['year'];
 
 if( isset($_REQUEST['month']) ) $month = (int) $_REQUEST['month'];
 else                            $month = $today['mon' ];
 
 $agendaItemList = get_agenda_items($userCourseList, $month, $year);
-$langMonthNames = get_locale('langMonthNames');
-$langDay_of_weekNames = get_locale('langDay_of_weekNames');
 
 $monthName = $langMonthNames['long'][$month-1];
 
 // Display
 
 // Header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-echo claro_html_tool_title($nameTools)
+include($includePath . '/claro_init_header.inc.php');
+echo claro_disp_tool_title($nameTools);
 
 // Display Calendar
-.    claro_html_monthly_calendar($agendaItemList, $month, $year, $langDay_of_weekNames['long'], $monthName)
-;
+claro_disp_monthly_calendar($agendaItemList, $month, $year, $langDay_of_weekNames['long'], $monthName, $langToday);
 
 // Footer
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include $includePath . '/claro_init_footer.inc.php';
 
 ?>

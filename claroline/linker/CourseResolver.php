@@ -1,10 +1,10 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+if ( ! defined('CLARO_INCLUDE_ALLOWED') ) die('---');
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @version 1.7 $Revision$
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -15,6 +15,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @package CLLINKER
  *
  */
+
 require_once ('resolver.lib.php');
 
 /**
@@ -41,9 +42,9 @@ class CourseResolver extends Resolver
          */
     function CourseResolver($basePath)
     {
-        global $coursesRepositoryAppend;
+        global $rootWeb, $coursesRepositoryAppend;
 
-        $this->_basePath = get_path('rootWeb');
+        $this->_basePath = $rootWeb . $coursesRepositoryAppend;
 
     }
 
@@ -64,9 +65,12 @@ class CourseResolver extends Resolver
         !isset( $elementCRLArray['team'] ) &&
         !isset( $elementCRLArray['resource_id']) )
         {
-            $url = $this->_basePath . 'claroline/course/index.php?cidReq=' 
-                . $elementCRLArray['course_sys_code']
-                ;
+
+            $sql = "SELECT `directory`
+                    FROM `" . $tbl_course . "`
+                    WHERE `code`= '" . addslashes($elementCRLArray['course_sys_code']) . "'";
+            $directory = claro_sql_query_get_single_value($sql);
+            $url = $this->_basePath . $directory . '/';
 
             return $url;
 

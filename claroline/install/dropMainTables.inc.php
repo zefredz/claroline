@@ -1,13 +1,13 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+if ( ! defined('CLARO_INCLUDE_ALLOWED') ) die('---');
 /**
  * CLAROLINE
  *
  * SQL Statement to DROP TABLE IF EXISTS of central database
  *
- * @version 1.8 $Revision$
+ * @version 1.7 $Revision$
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -19,35 +19,37 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  */
 
+
 ############# claroline DB DROP #############################
 
 /**
  * @var $mainTblPrefixForm prefix set during  install, and keep in mainconf
- * @private $dropStatementList[] var where build sql request.
+ * @private $sql var where build sql request.
  */
 
-$dropStatementList[] ="DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "admin` ";
-$dropStatementList[] ="DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "cours` ";
-$dropStatementList[] ="DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "cours_user` ";
-$dropStatementList[] ="DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "faculte`  ";
-$dropStatementList[] ="DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "user`  ";
-$dropStatementList[] ="DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "course_tool` ";
-$dropStatementList[] ="DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "class`  ";
-$dropStatementList[] ="DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "rel_class_user`  ";
-$dropStatementList[] ="DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "config_file`  ";
-$dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "sso`  ";
-$dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "notify`  ";
-$dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "upgrade_status`  ";
-$dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "module`  ";
-$dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "module_info`  ";
-//$dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "module_tool`  ";
-//$dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "module_rel_tool_context`  ";
-$dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "dock`  ";
-$dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "user_property`  ";
-$dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "property_definition`  ";
-$dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "right_rel_profile_action`  ";
-$dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "right_profile`  ";
-$dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "right_action`  ";
-$dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "rel_course_class`  ";
+$sql ="DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "admin` ";
+claro_sql_query($sql);
+$sql ="DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "cours` ";
+claro_sql_query($sql);
+$sql ="DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "cours_user` ";
+claro_sql_query($sql);
+$sql ="DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "faculte`  ";
+claro_sql_query($sql);
+$sql ="DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "user`  ";
+claro_sql_query($sql);
+$sql ="DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "course_tool` ";
+claro_sql_query($sql);
+$sql ="DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "class`  ";
+claro_sql_query($sql);
+$sql ="DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "rel_class_user`  ";
+claro_sql_query($sql);
+$sql ="DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "config_file`  ";
+claro_sql_query($sql);
+$sql = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "sso`  ";
+claro_sql_query($sql);
+$sql = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "notify`  ";
+claro_sql_query($sql);
+$sql = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "upgrade_status`  ";
+claro_sql_query($sql);
 
 ?>

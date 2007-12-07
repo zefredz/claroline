@@ -1,4 +1,5 @@
 <?php // $Id$
+if ( ! defined('CLARO_INCLUDE_ALLOWED') ) die('---');
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
@@ -13,13 +14,13 @@
 
 // Files and path
 
-define ('LANG_COMPLETE_FILENAME','complete.lang.php'); 
-define ('LANG_MISSING_FILENAME','missing.lang.php'); 
+define ('LANG_COMPLETE_FILENAME','complete.lang.php');
+define ('LANG_MISSING_FILENAME','missing.lang.php');
 
-// Default values 
+// Default values
 
-define ('DEFAULT_LANGUAGE','english'); 
- 
+define ('DEFAULT_LANGUAGE','english');
+
 // database authentification data
 
 define('HOST','localhost');

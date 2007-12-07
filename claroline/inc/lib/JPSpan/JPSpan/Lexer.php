@@ -1,5 +1,5 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+if (!defined('JPSPAN')) die('---');
 /**
 * Author Markus Baker: http://www.lastcraft.com
 * Version adapted from Simple Test: http://sourceforge.net/projects/simpletest/
@@ -426,7 +426,6 @@ class JPSpan_Lexer {
 		if ($raw === "") {
 			return true;
 		}
-        $match = null;
 		if ($action = $this->_regexes[$this->_mode->getCurrent()]->match($raw, $match)) {
 			$unparsed_character_count = strpos($raw, $match);
 			$unparsed = substr($raw, 0, $unparsed_character_count);

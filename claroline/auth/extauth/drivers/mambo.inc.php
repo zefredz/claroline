@@ -1,11 +1,11 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+if ( ! defined('CLARO_INCLUDE_ALLOWED') ) die('---');
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.7 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -13,6 +13,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @author Claro Team <cvs@claroline.net>
  */
+
+
+
 
 $authSourceName = 'mambo';
 $authSourceType = 'DB';
@@ -24,7 +27,7 @@ $extAuthOptionList = array(
     // PUT HERE THE CORRECT DSN FOR YOUR DB SYSTEM
     'dsn'         => 'mysql://root:@localhost/mambo',
 
-    'table'       => 'mos_users', // warning ! table prefix can change from one system to another
+    'table'       => 'mos_users', // warning ! table prefix can change from one system to another 
     'usernamecol' => 'username',
     'passwordcol' => 'password',
     'db_fields'   => array('name', 'email', 'usertype'),
@@ -32,7 +35,7 @@ $extAuthOptionList = array(
 );
 
 
-// Link additionnal external authentication attributes to the Claroline
+// Link additionnal external authentication attributes to the Claroline 
 // user attribute.
 //
 // array KEYS   are the Claroline attributes and
@@ -43,11 +46,11 @@ $extAuthAttribNameList = array (
     'email'        => 'email'
 );
 
-// Array setting optionnal preliminary treatment to the data retrieved from the
-// exernal authentication source. Array KEYS are the concernend claroline
-// user table fields, and Array VALUES are either the name of a function which
+// Array setting optionnal preliminary treatment to the data retrieved from the 
+// exernal authentication source. Array KEYS are the concernend claroline 
+// user table fields, and Array VALUES are either the name of a function which 
 // makes the treatment or simply a default value to insert
-// Note. Treatments doesn't necessary previously require data from the external
+// Note. Treatments doesn't necessary previously require data from the external 
 // authentication system. They're able to be trigged from NULL value ...
 
 $extAuthAttribTreatmentList = array ();
@@ -55,5 +58,4 @@ $extAuthAttribTreatmentList = array ();
 // PROCESS AUTHENTICATION
 
 return require dirname(__FILE__).'/../extAuthProcess.inc.php';
-
 ?>

@@ -1,5 +1,5 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+if (!defined('JPSPAN')) die('---');
 /**
 * @package JPSpan
 * @subpackage Types

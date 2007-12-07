@@ -1,10 +1,10 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+if ( ! defined('CLARO_INCLUDE_ALLOWED') ) die('---');
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @version 1.7 $Revision$
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -55,9 +55,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         * @return ClaroContainer who contains the objects current node
         * @throws  E_USER_ERROR if the node is not intended for the tool forum
         * @throws  E_USER_ERROR if the node is empty
+        * @global rootWeb
         */
         function getResource($node = null)
         {
+            global $rootWeb;
+
             if($node)
             {
                 if(CRLTool::isForThisTool($node, 'CLCAL___'))
@@ -73,7 +76,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                          foreach ($agenda as $itemAgenda )
                          {
                              $crl = $node."/".$itemAgenda["id"];
-                             $res = new CLCAL___Resolver(get_path('rootWeb'));
+                             $res = new CLCAL___Resolver($rootWeb);
                              $title = $res->getTitle($elementCRLArray['course_sys_code'],$itemAgenda["id"]);
                              $isVisible = ( $itemAgenda["visibility"] == 'SHOW');
                              $container = new ClaroObject( $title , $crl , TRUE , FALSE , $isVisible );

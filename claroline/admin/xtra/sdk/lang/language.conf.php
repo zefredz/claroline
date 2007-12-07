@@ -1,8 +1,9 @@
 <?php // $Id$
+if ( ! defined('CLARO_INCLUDE_ALLOWED') ) die('---');
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -13,14 +14,14 @@
 
 // Files and path
 
-define ('LANG_COMPLETE_FILENAME','complete.lang.php'); 
-define ('LANG_MISSING_FILENAME','missing.lang.php'); 
-define ('LANG_EMPTY_FILENAME','new.lang.txt'); 
+define ('LANG_COMPLETE_FILENAME','complete.lang.php');
+define ('LANG_MISSING_FILENAME','missing.lang.php');
+define ('LANG_EMPTY_FILENAME','new.lang.txt');
 
-// Default values 
+// Default values
 
-define ('DEFAULT_LANGUAGE','english'); 
- 
+define ('DEFAULT_LANGUAGE','english');
+
 // database authentification data
 
 define('TABLE_TRANSLATION','translation');

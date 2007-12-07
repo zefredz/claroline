@@ -1,5 +1,5 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+if (!defined('JPSPAN')) die('---');
 /**
 * @package JPSpan
 * @subpackage Unserialzier
@@ -163,8 +163,7 @@ class JPSpan_Unserializer_XML {
             return $data;
         }
 
-
-        $this->parser = xml_parser_create('UTF-8');
+        $this->parser = & xml_parser_create('UTF-8');
         xml_parser_set_option($this->parser, XML_OPTION_CASE_FOLDING, false);
         xml_set_object($this->parser, $this);
         xml_set_element_handler($this->parser, 'open', 'close');

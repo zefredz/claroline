@@ -1,9 +1,22 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+// Prevent direct call of this file from the web
+// NOTE. The use of PHP_SELF is not appropriate in this case
+// as PHP_SELF can also contain the path info ...
+
+if ( basename( $_SERVER['SCRIPT_NAME'] ) === basename(__FILE__) ) die( '---' );
+
+// The CLARO_INCLUDE_ALLOWED constant allows to include PHP file further in the
+// code. Files which are meant to be included check if this constant is defined.
+// If it isn't the case, these files immediately die.
+// This process prevents hacking by direct calls of included file and setting
+// of global variable (when PHP register_globals is set to 'ON')
+
+define('CLARO_INCLUDE_ALLOWED', true);
+
 
 // Most PHP package has increase the error reporting.
 // The line below set the error reporting to the most fitting one for Claroline
-//error_reporting(error_reporting() & ~ E_NOTICE);
+error_reporting(error_reporting() & ~ E_NOTICE);
 
 // Determine the directory path where this current file lies
 // This path will be useful to include the other intialisation files
@@ -12,11 +25,7 @@ $includePath = realpath(dirname(__FILE__).'/../../inc');
 
 if ( file_exists($includePath . '/conf/claro_main.conf.php') )
 {
-    include $includePath . '/conf/claro_main.conf.php';
-}
-elseif ( file_exists($includePath . '/../../platform/conf/claro_main.conf.php') )
-{
-    include $includePath . '/../../platform/conf/claro_main.conf.php';
+    require $includePath . '/conf/claro_main.conf.php';
 }
 else
 {
@@ -43,11 +52,15 @@ define('PEAR_LIB_PATH', $includePath.'/lib/pear');
 // This action is mandatory because PEAR inner include() statements
 // rely on the php.ini include_path settings
 
-set_include_path( '.' . PATH_SEPARATOR . PEAR_LIB_PATH . PATH_SEPARATOR . get_include_path() );
+set_include_path( get_include_path(). PATH_SEPARATOR . PEAR_LIB_PATH );
 
 // Unix file permission access ...
 
 define('CLARO_FILE_PERMISSIONS', 0777);
+
+// conf variables
+
+$coursesRepositorySys   = $rootSys . $coursesRepositoryAppend;
 
 // verbose mode
 
@@ -59,12 +72,6 @@ else
 {
     $verbose = false;
 }
-
-/*----------------------------------------------------------------------
- DEFINE old secure mechanism from 1.7.x
-  ----------------------------------------------------------------------*/
-
-define('CLARO_INCLUDE_ALLOWED',true);
 
 /*----------------------------------------------------------------------
   Start session
@@ -82,20 +89,12 @@ session_start();
   ----------------------------------------------------------------------*/
 
 require $includePath . '/lib/claro_main.lib.php';
-require $includePath . '/lib/fileManage.lib.php';
-
-// conf variables
-
-$coursesRepositorySys   = get_conf('rootSys') . $coursesRepositoryAppend;
-$coursesRepositoryWeb   = get_conf('urlAppend') . '/' . $coursesRepositoryAppend;
-$clarolineRepositorySys = get_conf('rootSys') . $clarolineRepositoryAppend;
 
 /*----------------------------------------------------------------------
   Include upgrade library
   ----------------------------------------------------------------------*/
 
 require $includePath . '/lib/config.lib.inc.php';
-require dirname(__FILE__) . '/configUpgrade.class.php';
 require 'upgrade.lib.php';
 
 /**
@@ -112,7 +111,7 @@ require 'upgrade.lib.php';
  */
 
 $accepted_error_list = array(1017,1050,1060,1062,1065,1091,1146);
-$accepted_error_list = array(1060);
+$accepted_error_list = array();
 
 /*
  * Initialize version variables
@@ -157,7 +156,14 @@ if ($statsDbName == '')
   Load language files
   ----------------------------------------------------------------------*/
 
-$languageInterface = $platformLanguage;
+if ($_course['language'])
+{
+    $languageInterface = $_course['language'];
+}
+else
+{
+    $languageInterface = $platformLanguage;
+}
 
 // include the language file with all language variables
 
@@ -183,7 +189,7 @@ if ( $languageInterface  != 'english' ) // // Avoid useless include as English l
 
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_user      = $tbl_mdb_names['user' ];
-$tbl_admin     = get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'admin' ;
+$tbl_admin     = $tbl_mdb_names['admin'];
 
 // default variables initialization
 $claro_loginRequested = false;
@@ -201,32 +207,21 @@ if ( ! empty($_SESSION['_uid']) && ! ($login) )
     $_uid = $_SESSION['_uid'];
 
     if ( !empty($_SESSION['is_platformAdmin']) ) $is_platformAdmin = $_SESSION['is_platformAdmin'];
-    else                                         $is_platformAdmin = false;
+    else $is_platformAdmin = false;    
 }
 else
 {
     $_uid = null; // uid not in session ? prevent any hacking
-    $is_platformAdmin = false;
 
     if ( $login && $password ) // $login && $password are given to log in
     {
         // lookup the user in the Claroline database
-        $sql = "SHOW TABLES FROM `". $mainDbName."` LIKE '" . get_conf('mainTblPrefix') . "admin'";
 
-        if(claro_sql_query_get_single_row($sql))
-        {
-            $sql = "SELECT user_id, username, password, authSource, creatorId
-                        FROM `".$tbl_user."` `user`, `" . $tbl_admin . "` `admin`
-                        WHERE BINARY username = '". addslashes($login) ."'
-                        AND `user`.`user_id` = `admin`.`idUser` ";
-        }
-        else
-        {
-            $sql = "SELECT user_id, username, password, authSource, creatorId, isPlatformAdmin
-                FROM `".$tbl_user."` `user`
-                WHERE BINARY username = '". addslashes($login) ."'
-                AND `user`.`isPlatformAdmin` = '1' ";
-        }
+        $sql = "SELECT user_id, username, password, authSource, creatorId
+                 FROM `".$tbl_user."` `user`, `". $tbl_admin  ."` `admin`
+                 WHERE BINARY username = '". addslashes($login) ."'
+                   AND `user`.`user_id` = `admin`.`idUser` ";
+
         $result = claro_sql_query($sql) or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
 
         if ( mysql_num_rows($result) > 0)

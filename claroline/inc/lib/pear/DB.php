@@ -1,4 +1,5 @@
-<?php
+<?php // $Id$
+if ( ! defined('CLARO_INCLUDE_ALLOWED') ) die('---');
 /* vim: set expandtab tabstop=4 shiftwidth=4 foldmethod=marker: */
 // +----------------------------------------------------------------------+
 // | PHP Version 4                                                        |
@@ -326,7 +327,7 @@ class DB
      * Create a new DB object and connect to the specified database.
      *
      * Example 1.
-     * <code> <?php
+     * <code> <?php 
      * require_once 'DB.php';
      *
      * $dsn = 'mysql://user:password@host/database'

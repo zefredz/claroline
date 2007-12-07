@@ -2,33 +2,36 @@
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * This script displays the stats of all users of a course
+ * for his progression into the chosen learning path
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @version 1.7 $Revision$ 
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
- * @package CLSTAT
+ * @package TRACKING
  *
  * @author Claro Team <cvs@claroline.net>
+ * @author Sebastien Piraux  <piraux_seb@hotmail.com>
  *
  */
  
 require '../inc/claro_init_global.inc.php';
 
-if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
-if ( ! claro_is_course_manager() ) claro_die(get_lang('Not allowed')) ; 
+if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
+if ( ! $is_courseAdmin ) claro_die($langNotAllowed) ; 
 
 // path id can not be empty, return to the list of learning paths
 if( empty($_REQUEST['path_id']) )
 {
-    claro_redirect("../learnPath/learningPathList.php");
-    exit();
+	header("Location: ../learnPath/learningPathList.php");
+	exit();
 }
 
-$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
+$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> $langLearningPathList);
 
-$nameTools = get_lang('Learning paths tracking');
+$nameTools = $langStatsOfLearnPath;
 
 // regroup table names for maintenance purpose
 /*
@@ -51,15 +54,15 @@ $TABLELEARNPATHMODULE   = $tbl_lp_rel_learnPath_module;
 $TABLEASSET             = $tbl_lp_asset;
 $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 
-$TABLECOURSUSER            = $tbl_rel_course_user;
+$TABLECOURSUSER	        = $tbl_rel_course_user;
 $TABLEUSER              = $tbl_user;
 
-include(get_path('incRepositorySys').'/lib/statsUtils.lib.inc.php');
-include(get_path('incRepositorySys').'/lib/learnPath.lib.inc.php');
+include($includePath.'/lib/statsUtils.lib.inc.php');
+include($includePath.'/lib/learnPath.lib.inc.php');
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include($includePath."/claro_init_header.inc.php");
 
-if ( get_conf('is_trackingEnabled') )  
+if ( $is_trackingEnabled )  
 {
 
     if ( !empty($_REQUEST['path_id']) )
@@ -78,23 +81,23 @@ if ( get_conf('is_trackingEnabled') )
             // display title
             $titleTab['mainTitle'] = $nameTools;
             $titleTab['subTitle'] = htmlspecialchars($learnPathName);
-            echo claro_html_tool_title($titleTab);
+            echo claro_disp_tool_title($titleTab);
 
             // display a list of user and their respective progress    
             $sql = "SELECT U.`nom`, U.`prenom`, U.`user_id`
                     FROM `".$TABLEUSER."` AS U, 
                          `".$TABLECOURSUSER."` AS CU
                     WHERE U.`user_id`= CU.`user_id`
-                    AND CU.`code_cours` = '". addslashes(claro_get_current_course_id()) ."'";
+                    AND CU.`code_cours` = '". addslashes($_cid) ."'";
 
             $usersList = claro_sql_query_fetch_all($sql);
 
             // display tab header
-            echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'."\n\n"
-                   .'<tr class="headerX" align="center" valign="top">'."\n"
-                .'<th>'.get_lang('Student').'</th>'."\n"
-                .'<th colspan="2">'.get_lang('Progress').'</th>'."\n"
-                .'</tr>'."\n\n"
+            echo '<table class="claroTable" width="100%" border="0" cellspacing="2">'."\n\n"
+           		.'<tr class="headerX" align="center" valign="top">'."\n"
+				.'<th>'.$langStudent.'</th>'."\n"
+				.'<th colspan="2">'.$langProgress.'</th>'."\n"
+				.'</tr>'."\n\n"
                 .'<tbody>'."\n\n";
 
             // display tab content
@@ -102,10 +105,10 @@ if ( get_conf('is_trackingEnabled') )
             {
                 $lpProgress = get_learnPath_progress($path_id,$user['user_id']);
                 echo '<tr>'."\n"
-                    .'<td><a href="lp_modules_details.php?uInfo='.$user['user_id'].'&amp;path_id='.$path_id.'">'.$user['nom'].' '.$user['prenom'].'</a></td>'."\n"
+					.'<td><a href="lp_modules_details.php?uInfo='.$user['user_id'].'&amp;path_id='.$path_id.'">'.$user['nom'].' '.$user['prenom'].'</a></td>'."\n"
                     .'<td align="right">'
-                    .claro_html_progress_bar($lpProgress, 1)
-                      .'</td>'."\n"
+                    .claro_disp_progress_bar($lpProgress, 1)
+              	    .'</td>'."\n"
                     .'<td align="left"><small>'.$lpProgress.'%</small></td>'."\n"
                     .'</tr>'."\n\n";
             }
@@ -117,8 +120,8 @@ if ( get_conf('is_trackingEnabled') )
 // not allowed
 else
 {
-    echo claro_html_message_box(get_lang('Tracking has been disabled by system administrator.'));
+    echo claro_disp_message_box($langTrackingDisabled);
 }
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include($includePath."/claro_init_footer.inc.php");
 ?>

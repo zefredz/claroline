@@ -1,0 +1,53 @@
+<?php
+$langAgenda = "Ahénda";
+$langAnnouncement = "Kuaauka";
+$langAnonymous = "Ojekuaa'&#7929;va";
+$langArchive = "eñongatu";
+$langCannotInitChat = "Javy: ndaikatúi oñemoñepyr&#361; ñomongeta";
+$langChat = "Ñomongeta";
+$langChatResetBy = "Ko ñomongeta omoñepur&#361;";
+$langCopyFailed = "Ndaikatúi oñembokuatia";
+$langCourseHome = "Mbo'esyry rogue ypyr&#361;";
+$langCourseManager = "Mbo'esyry rerekua";
+$langDateLastWrite = "Marandu ipaháva ojerahauka:";
+$langDay_of_weekNames = "Array";
+$langDescriptionCours = "Mbo'esyry mombe'uanga";
+$langDocument = "Kuatia ha joajuha kuéra";
+$langExercises = "Tembiapor&atilde;";
+$langForums = "Jehaiaty kuéra";
+$langGroups = "Aty kuéra";
+$langHelp = "Ñepytyv&otilde;";
+$langIsNowInYourDocDir = "ko'á&#285;a o&#297;ma nde kuatia rembiporúpe.<br />
+ <b>Ko ñongatuha ikatu ojehecha</b>";
+$langLearningPath = "Jehekombo'e rape";
+$langLogin = "Jeikeha réra";
+$langLogout = "Ñes&#7869;ha";
+$langMinuteShort = "aravo'i";
+$langModifyProfile = "Emoambue che remimba'ekuaa";
+$langMonthNames = "Array";
+$langMyAgenda = "Che ahénda";
+$langMyCourses = "Che mbo'esyry kuéra";
+$langNameOfLang = "Array";
+$langNewChat = "Ñomongeta'i pyahu";
+$langNotGroupMember = "Nde nereiméi ko aty ryepýpe.";
+$langOtherCourses = "Mbo'esyry rysýi";
+$langPeriodDayShort = "ára";
+$langPeriodHourShort = "aravo";
+$langPlatformAdministration = "Tendaguasu ñeñangareko";
+$langPoweredBy = "Tembiapoha";
+$langResetChat = "Emoñepyr&#361; jey";
+$langSecondShort = "aravo'ive";
+$langStoreChat = "Eñongatu ñomongeta";
+$langStudent = "Temimbo'e";
+$langSwitchEditorToTextConfirm = "Kóva ohundíta tembihai jehechauka lája
+ ojeporúva ko'á&#285;a. Rehoreítapa hese.";
+$langTextEditorDisable = "Tojeiporu'&#7929; tembihai moambueha";
+$langTextEditorEnable = "Tojeiporu tembihai moambueha";
+$langUsers = "Poruháha";
+$langViewMode = "Jehechauka lája";
+$langWiki = "Guíki";
+$langWork = "Tembiapo";
+$lang_enroll = "Kuatiavuka";
+$lang_footer_p_CourseManager = "Terekua %s -pe &#285;uar&atilde;";
+$lang_p_platformManager = "%s ñangarekohára";
+?>

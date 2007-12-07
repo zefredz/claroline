@@ -1,51 +1,55 @@
-<?php // -$Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
-/**
- * This is an example in PHP and SOAP of a Single Sign On (SSO) client allowing 
- * a system to request user parameter from a cookie retrieved on the user 
- * browser. 
+<?php # $Id$
+/*
+ * This is an example in PHP and SOAP of a Single Sign On (SSO) client allowing
+ * a system to request user parameter from a cookie retrieved on the user
+ * browser.
  *
- * WARNING ! The SOAP request will return a SSO updated cookie. It's the job of 
+ * WARNING ! The SOAP request will return a SSO updated cookie. It's the job of
  * the SOAP client to update the cookie into the user browser.
  */
+
 
 /******************************************************************************
                               SSO CLIENT SETTINGS
  ******************************************************************************/
 
-// SOAP LIBRARY PATH. The script is based on the nuSoap Library 
-// (http://sourceforge.net/projects/nusoap/). Adapt the path of the line below 
+
+
+
+// SOAP LIBRARY PATH. The script is based on the nuSoap Library
+// (http://sourceforge.net/projects/nusoap/). Adapt the path of the line below
 // to fit the location of your own nuSoap library.
 
 $nuSoapPath = '../../inc/lib/nusoap.php';
 
-// CLAROLINE SSO SERVER URL. Complete Address of the SSO server contained in 
-// the Claroline platform you want to request on. Adapt this url to fit your 
+
+// CLAROLINE SSO SERVER URL. Complete Address of the SSO server contained in
+// the Claroline platform you want to request on. Adapt this url to fit your
 // Claroline location.
 
 $ssoServerUrl = 'http://my.domain.com/mycampus/claroline/auth/sso/server.php';
 
-// COOKIE NAME. The name of the cookie the Claroline platform has set into the 
-// user browser. By default this name is 'clarolineSsoCookie'. But it can be 
+// COOKIE NAME. The name of the cookie the Claroline platform has set into the
+// user browser. By default this name is 'clarolineSsoCookie'. But it can be
 // changed by the Claroline platform administrator.
 
 $cookieName = 'clarolineSsoCookie';
 
-// AUTHENTICATION KEY. This is the key allowing your SOAP client to request on 
-// the Claroline SSO server. This key should be communicated to you by the 
+// AUTHENTICATION KEY. This is the key allowing your SOAP client to request on
+// the Claroline SSO server. This key should be communicated to you by the
 // Claroline platform administrator.
 
 $serverAuthenticationKey = '';
 
-// COURSE ID. Beside the user basic parameters, you can also check the user 
-// status in a specific claroline course. Put here the system code of the 
+// COURSE ID. Beside the user basic parameters, you can also check the user
+// status in a specific claroline course. Put here the system code of the
 // course you want check.
 
 $courseId = '';
 
-// GROUP ID. You can also the satus in a specific group from a course. 
-// Put here the group system id you want to chek. This part of the user 
-// checking only if you request course checking in the same time 
+// GROUP ID. You can also the satus in a specific group from a course.
+// Put here the group system id you want to chek. This part of the user
+// checking only if you request course checking in the same time
 // (groups are coming from specific course).
 
 $groupId  = '';
@@ -58,6 +62,8 @@ $groupId  = '';
  ******************************************************************************/
 
 
+
+
 if ( isset($_COOKIE[$cookieName]) )
 {
 
@@ -67,12 +73,12 @@ if ( isset($_COOKIE[$cookieName]) )
 
     require $nuSoapPath;
 
-    $paramList = array('auth'   => $serverAuthenticationKey, 
-                       'cookie' => $_COOKIE[$cookieName],  
-                       'cid'    => $courseId, 
+    $paramList = array('auth'   => $serverAuthenticationKey,
+                       'cookie' => $_COOKIE[$cookieName],
+                       'cid'    => $courseId,
                        'gid'    => $groupId              );
 
-    $client = new nuSoapclient($ssoServerUrl);
+    $client = new soapclient($ssoServerUrl);
 
     $result = $client->call('get_user_info_from_cookie', $paramList);
 
@@ -85,17 +91,17 @@ if ( isset($_COOKIE[$cookieName]) )
             .$result['faultstring']
             .'</p>';
     }
-    elseif ( is_array($result) ) // USER ALREADY CONNECTED TO HE CLAROLINE 
+    elseif ( is_array($result) ) // USER ALREADY CONNECTED TO HE CLAROLINE
                                  // PLATFORM. AUTHENTICATION SUCCEEDS.
     {
         /*--------------------------------------------------------------------
                      UPDATE THE COOKIE OF THE USER BROWSER
           --------------------------------------------------------------------*/
-        
-         setcookie($result['ssoCookieName'      ], 
-                   $result['ssoCookieValue'     ], 
-                   $result['ssoCookieExpireTime'], 
-                   $result['ssoCookiePath'      ], 
+
+         setcookie($result['ssoCookieName'      ],
+                   $result['ssoCookieValue'     ],
+                   $result['ssoCookieExpireTime'],
+                   $result['ssoCookiePath'      ],
                    $result['ssoCookieDomain'    ]);
 
 
@@ -103,11 +109,11 @@ if ( isset($_COOKIE[$cookieName]) )
                                 BUSSINESS LOGIC
           --------------------------------------------------------------------*/
 
-         // FROM HERE YOU INSERT YOUR CODE HERE TO SPECIAL OPERATIONS 
+         // FROM HERE YOU INSERT YOUR CODE HERE TO SPECIAL OPERATIONS
          // WITH THE USER DATA ON YOUR SYSTEM
          //
          //         ...
-           
+
         echo '<h1 align="center">SSO Result</h1>'
             .'<pre>';
 
@@ -121,6 +127,6 @@ if ( isset($_COOKIE[$cookieName]) )
         // AUTHENTICATION FAILED
         echo '<center>Authentication failed</center>';
     }
-    
+
 }
 ?>

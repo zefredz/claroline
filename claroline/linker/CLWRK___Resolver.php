@@ -1,10 +1,10 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+if ( ! defined('CLARO_INCLUDE_ALLOWED') ) die('---');
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @version 1.7 $Revision$
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -15,6 +15,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @package CLLINKER
  *
  */
+
+
     require_once dirname(__FILE__) . '/resolver.lib.php';
 
     /**
@@ -47,10 +49,10 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             $this->_basePath = $basePath;
         }
 
-       /**
-        * Translate a crl into valid URL for the forum tool
+        /**
+        * translated a crl into valid URL for the forum tool
         *
-        * @param  string $CRL a crl
+        * @param  $CRL string a crl
         * @return string a url valide who corresponds to the crl
         * @throws E_USER_ERROR if tool_name is empty
         * @throws E_USER_ERROR if it isn't for tool work

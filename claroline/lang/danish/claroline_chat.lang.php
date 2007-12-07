@@ -1,0 +1,29 @@
+<?php
+$langAgenda = "Kalenderen - Hvad sker der?";
+$langAnnouncement = "Meddelelser";
+$langAnonymous = "Anonym";
+$langArchive = "arkiv";
+$langChat = "Chat";
+$langCopyFailed = "Udskrift mislykkedes";
+$langCourseManager = "Kursusadministrator";
+$langDay_of_weekNames = "Array";
+$langDescriptionCours = "kursusbeskrivelse";
+$langDocument = "Dokumenter";
+$langExercises = "Øvelser";
+$langForums = "Diskussionsforum";
+$langGroups = "inscription des utilisateurs dans les groupes";
+$langHelp = "Hjælp";
+$langIsNowInYourDocDir = "er nu i dine værktøjer til dokumenter. <br /><B>Denne fil er synlig</B>";
+$langLogin = "login";
+$langLogout = "Logud";
+$langModifyProfile = "Ændre min profil";
+$langMonthNames = "Array";
+$langMyCourses = "Mine kurser";
+$langNameOfLang = "Array";
+$langOtherCourses = "Kursusoversigt";
+$langPoweredBy = "Udviklet af";
+$langStudent = "studerende";
+$langUsers = "Deltagerlisten";
+$langWork = "Studerendes Opgaver";
+$lang_enroll = "Tilmeld";
+?>

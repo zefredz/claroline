@@ -1,5 +1,5 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+if ( ! defined('CLARO_INCLUDE_ALLOWED') ) die('---');
 // --------------------------------------------------------------------------------
 // PhpConcept Library - Zip Module 2.4
 // --------------------------------------------------------------------------------
@@ -258,7 +258,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     // ----- Look for arguments
     if ($v_size > 1) {
       // ----- Get the arguments
-      $v_arg_list = func_get_args();
+      $v_arg_list = &func_get_args();
 
       // ----- Remove form the options list the first argument
       array_shift($v_arg_list);
@@ -421,7 +421,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     // ----- Look for arguments
     if ($v_size > 1) {
       // ----- Get the arguments
-      $v_arg_list = func_get_args();
+      $v_arg_list = &func_get_args();
 
       // ----- Remove form the options list the first argument
       array_shift($v_arg_list);
@@ -661,7 +661,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     // ----- Look for arguments
     if ($v_size > 0) {
       // ----- Get the arguments
-      $v_arg_list = func_get_args();
+      $v_arg_list = &func_get_args();
 
       // ----- Look for first arg
       if ((is_integer($v_arg_list[0])) && ($v_arg_list[0] > 77000)) {
@@ -820,7 +820,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     // ----- Look for arguments
     if ($v_size > 1) {
       // ----- Get the arguments
-      $v_arg_list = func_get_args();
+      $v_arg_list = &func_get_args();
 
       // ----- Remove form the options list the first argument
       array_shift($v_arg_list);
@@ -968,7 +968,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     // ----- Look for arguments
     if ($v_size > 0) {
       // ----- Get the arguments
-      $v_arg_list = func_get_args();
+      $v_arg_list = &func_get_args();
 
       // ----- Parse the options
       $v_result = $this->privParseOptions($v_arg_list, $v_size, $v_options,

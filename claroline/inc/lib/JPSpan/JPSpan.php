@@ -1,4 +1,4 @@
-<?php
+<?php // $Id$
 /**
 * @package JPSpan
 * @version $Id$
@@ -9,5 +9,4 @@
 if ( !defined('JPSPAN') ) {
     define('JPSPAN', dirname(__FILE__) . '/JPSpan/');
 }
-
-
+?>

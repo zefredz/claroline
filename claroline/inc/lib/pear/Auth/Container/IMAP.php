@@ -1,5 +1,5 @@
-<?php
-//
+<?php // $Id$
+if ( ! defined('CLARO_INCLUDE_ALLOWED') ) die('---');
 // +----------------------------------------------------------------------+
 // | PHP Version 4                                                        |
 // +----------------------------------------------------------------------+
@@ -36,7 +36,7 @@ require_once "PEAR.php";
  * To use this storage containers, you have to use the
  * following syntax:
  *
- * <?php
+ * <?php 
  * ...
  * $params = array(
  * 'host'       => 'mail.example.com',

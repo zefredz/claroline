@@ -1,10 +1,10 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+if ( ! defined('CLARO_INCLUDE_ALLOWED') ) die('---');
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @version 1.7 $Revision$
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -56,9 +56,16 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         * @return ClaroContainer who contains the objects current node
         * @throws  E_USER_ERROR if the node is not intended for the tool forum
         * @throws  E_USER_ERROR if the node is empty
+        * @global $langCategories;
+        * @global $langForums;
+        * @global $l_topics;
         */
         function getResource($node = NULL)
         {
+            global $langCategories;
+            global $langForums;
+            global $l_topics;
+            global $platform_id;
 
             if($node)
             {
@@ -89,7 +96,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
                         foreach ($groupTopicList as $groupTopic )
                         {
-                            $crl = CRLTool::createCRL( get_conf('platform_id') , $elementCRLArray['course_sys_code'] , $elementCRLArray["tool_name"] , $groupTopic["topic_id"] , $elementCRLArray["team"] );
+                            $crl = CRLTool::createCRL( $platform_id , $elementCRLArray['course_sys_code'] , $elementCRLArray["tool_name"] , $groupTopic["topic_id"] , $elementCRLArray["team"] );
                             $container = new ClaroObject( $groupTopic["topic_title"] , $crl  );
                             $elementList[] = $container ;
                         }
@@ -99,7 +106,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                     {
                          // listing of a categories, it is a container no linkable
                          $categories = $this->_listCat();
-                         $name = get_lang("Categories");
+                         $name = $langCategories;
                          $elementList = array();
 
                          foreach ($categories as $itemCategorie )
@@ -116,7 +123,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                          if( $resultat["type"] == "forum")
                          {
                              $forums = $this->_listForum($resultat["id"]);
-                             $name = get_lang("Forums");
+                             $name = $langForums;
                              $elementList = array();
 
                              foreach ($forums as $itemForum )
@@ -129,7 +136,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                          else
                          {
                              $topics = $this->_listTopic($resultat["id"]);
-                             $name = get_lang("Topics");
+                             $name = $l_topics;
                              $elementList = array();
 
                              foreach ($topics as $itemTopic )
@@ -242,9 +249,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         * @param $elementCRLArray associative array who contains the information of a crl
         * @param $partResourceId  string element of a resource_id
         * @return string a valide crl
+        * @global $platform_id id of the platform
         */
         function _createObjectCRL($elementCRLArray,$partResourceId)
         {
+             global $platform_id;
+
              if( isset ($elementCRLArray['resource_id']) )
              {
                  $resource_id = $elementCRLArray['resource_id']."/".$partResourceId;
@@ -254,7 +264,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                  $resource_id = $partResourceId;
              }
 
-             $crl = CRLTool::createCRL( get_conf('platform_id') , $elementCRLArray['course_sys_code'] , $elementCRLArray["tool_name"] ,$resource_id );
+             $crl = CRLTool::createCRL( $platform_id , $elementCRLArray['course_sys_code'] , $elementCRLArray["tool_name"] ,$resource_id );
 
              return $crl;
         }

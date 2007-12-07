@@ -1,13 +1,13 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+if ( ! defined('CLARO_INCLUDE_ALLOWED') ) die('---');
 /**
  * CLAROLINE
  *
  * The script works with the
  *
- * @version 1.9 $Revision$
+ * @version 1.7 $Revision$
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -28,7 +28,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 function upgrade_disp_header()
 {
-    global $htmlHeadXtra;
+    global $htmlHeadXtra, $text_dir;
     global $new_version;
 
     $output = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -53,7 +53,7 @@ if ( !empty($htmlHeadXtra) && is_array($htmlHeadXtra) )
 }
 
 $output .='</head>
-<body bgcolor="white" dir="' .get_locale('text_dir') . '">
+<body bgcolor="white" dir="' . $text_dir . '">
 
 <center>
 
@@ -111,8 +111,10 @@ function upgrade_disp_footer()
 
 function save_current_version_file ( $clarolineVersion, $databaseVersion )
 {
+    global $includePath;
+
     // open file in write mode
-    $fp_currentVersion = fopen( get_path('rootSys') . 'platform/currentVersion.inc.php','w');
+    $fp_currentVersion = fopen($includePath .'/currentVersion.inc.php','w');
 
     // build content
     $currentVersionStr = '<?php
@@ -137,18 +139,13 @@ $versionDb = "' . $databaseVersion . '";
 function get_current_version ()
 {
     global $clarolineVersion, $versionDb;
-    global $rootSys;
+    global $includePath;
 
-    if ( file_exists(get_path('rootSys').'platform/currentVersion.inc.php') )
-    {
-        // get claroline version in get_path('rootSys') folder
-        include(get_path('rootSys').'platform/currentVersion.inc.php');
-    }
-    elseif ( file_exists(get_path('incRepositorySys').'/currentVersion.inc.php') )
+    if ( file_exists($includePath.'/currentVersion.inc.php') )
     {
         // get claroline version in currentVersion file (new in 1.6)
         // before the clarolineVersion was in claro_main.conf.php
-        include (get_path('incRepositorySys').'/currentVersion.inc.php');
+        include ($includePath.'/currentVersion.inc.php');
     }
 
     $current_version['claroline'] = $clarolineVersion;
@@ -166,16 +163,91 @@ function get_current_version ()
 
 function get_new_version ()
 {
+    global $includePath;
 
-    $new_version = null;
-    $new_version_branch  = null;
-
-    include ( get_path('incRepositorySys') . '/installedVersion.inc.php' ) ;
+    include ( $includePath . '/installedVersion.inc.php' ) ;
 
     $version = array( 'complete' => $new_version,
-                      'branch' => $new_version_branch );
+                          'branch' => $new_version_branch );
 
     return $version;
+}
+
+/**
+ * Apply sql queries to upgrade main database
+ *
+ * @param array sql queries
+ * @param boolean verbose mode
+ *
+ * @return integer number of errors
+ *
+ * @since  1.7
+ */
+
+function upgrade_apply_sql_to_main_database ( $array_query , $verbose = false )
+{
+    global $accepted_error_list;
+
+    $nb_error = 0;
+
+    if ( $verbose ) echo '<p class="info">Mode Verbose:</p>' . "\n";
+
+    echo '<ol>' . "\n";
+
+    foreach ( $array_query as $sql )
+    {
+        if ( $sql[0] == "#" && $verbose )
+        {
+            // Upgrade comment displayed in verbose mode
+            echo '<p class="comment">' . 'Comment:' . $sql . '</p>' . "\n";
+        }
+        else
+        {
+            // Sql query
+            claro_sql_query($sql);
+
+            // Start Verbose Bloc
+            if ( $verbose )
+            {
+                echo  '<li>' . "\n"
+                    . '<p class="tt">' . $sql . '</p>' . "\n"
+                    . '<p>'
+                    . sprintf('%d affected rows',mysql_affected_rows()) . '<br />'
+                    . mysql_info()
+                    . '</p>' . "\n";
+            }
+
+            // Sql error
+            if ( mysql_errno() > 0 )
+            {
+                if ( in_array(mysql_errno(),$accepted_error_list) )
+                {
+                    // Sql error is accepted
+                    if ( $verbose )
+                    {
+                        echo '<p class="success">' . mysql_errno(). ': ' . mysql_error() . '</p>' . "\n";
+                    }
+                }
+                else
+                {
+                    echo '<p class="error">' . "\n"
+                        . (++$nb_error) . '<strong>' . 'n°' . mysql_errno() . '</strong>: '. mysql_error() . '<br />' . "\n"
+                        . '<code>' . $sql . '</code>' . "\n"
+                        . '</p>' . "\n";
+                }
+            }
+
+            // End Verbose Bloc
+            if ( $verbose ) {
+                echo '</li>' . "\n";
+                flush();
+            }
+        }
+    } // end foreach $array_query
+
+    echo '</ol>' . "\n";
+
+    return $nb_error;
 }
 
 /**
@@ -205,7 +277,7 @@ function upgrade_apply_sql ( $array_query )
 
 }
 
-function upgrade_sql_query($sql,$verbose=null)
+function upgrade_sql_query($sql)
 {
     global $accepted_error_list;
     global $verbose;
@@ -221,21 +293,19 @@ function upgrade_sql_query($sql,$verbose=null)
             // error accepted
             if ( $verbose )
             {
-                $message = sprintf('Warning (error sql): %s -message- %s', mysql_errno(), mysql_error()) . "\n" ;
-                $message .= 'statment : ' . $sql . '' . "\n";
-                $message .= mysql_info() . "\n";
+                $message  = 'Warning (error sql):' . mysql_errno() . '-message- ' . mysql_error() . "\n";
+                $message .= $sql;
                 log_message($message);
             }
-            return true;
+            return $handler;
         }
         else
         {
             // error not accepted
-            $message = sprintf('Error sql: %s -message- %s', mysql_errno(), mysql_error()) . "\n";
-            $message .= 'statment : ' . $sql . '' . "\n";
-            $message .= mysql_info() . "\n";
+            $message  = 'Error sql: ' . mysql_errno() . ' -message- '. mysql_error() . "\n";
+            $message .= $sql . "\n";
             log_message($message);
-            return false;
+            return $handler;
         }
     }
     else
@@ -247,7 +317,7 @@ function upgrade_sql_query($sql,$verbose=null)
                 $message  = 'Successfull sql: ' . $sql . "\n";
                 log_message($message);
             }
-            return true;
+            return $handler;
     }
 }
 
@@ -476,7 +546,7 @@ function sql_repair_course_database($courseDbNameGlu)
  * Get upgrade status of a tool
  *
  * @param string claro_label
- * @param string course_code optionnal
+ * @param string course_code
  *
  * @return integer status value
  *
@@ -526,7 +596,7 @@ function get_upgrade_status($claro_label,$course_code=null)
  *
  * @param string claro_label
  * @param int status value
- * @param string course_code optionnal
+ * @param string course_code
  *
  * @return integer status value
  *
@@ -623,6 +693,7 @@ function log_message($message)
 
 function open_upgrade_log()
 {
+    global $includePath, $dateTimeFormatLong;
     global $new_version, $currentClarolineVersion, $currentDbVersion;
     global $fp_upgrade_log;
 
@@ -633,7 +704,7 @@ function open_upgrade_log()
                        . ' * Upgrade to ' . $new_version . "\n"
                        . ' * Current File Version : ' . $currentClarolineVersion . "\n"
                        . ' * Current Database Version : ' . $currentDbVersion . "\n"
-                       . ' * Date :'. claro_html_localised_date(get_locale('dateTimeFormatLong')) . "\n"
+                       . ' * Date :'. claro_disp_localised_date($dateTimeFormatLong) . "\n"
                        . '========================================================'. "\n" ;
 
         // write content in file
@@ -655,18 +726,18 @@ function upgrade_disp_auth_form()
     echo '<table align="center">'."\n"
         .'<tr>'
         .'<td>'
-        .'<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
+        .'<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
 
         .'<fieldset>'."\n"
 
         .'<legend>Login</legend>'."\n"
 
         .'<label for="username">User name : </label><br />'."\n"
-        .'<input type="text" name="login" id="username" /><br />'."\n"
+        .'<input type="text" name="login" id="username"><br />'."\n"
 
         .'<label for="password">Password : </label><br />'."\n"
-        .'<input type="password" name="password" id="password" /><br />'."\n"
-        .'<input type="submit"  />'."\n"
+        .'<input type="password" name="password" id="password"><br />'."\n"
+        .'<input type="submit" >'."\n"
 
         .'</fieldset>'."\n"
 
@@ -678,24 +749,6 @@ function upgrade_disp_auth_form()
     // Display footer
     echo upgrade_disp_footer();
     die();
-}
-
-function fill_table_config_with_md5()
-{
-    // For each configuration file add a hash code in the new table config_list (new in 1.6)
-
-    $config_code_list = get_config_code_list();
-
-    foreach ( $config_code_list as $config_code )
-    {
-        $conf_file = get_conf_file($config_code);
-
-        // The Hash compute and store is differed after creation table use for this storage
-        // calculate hash of the config file
-        $conf_hash = md5_file($conf_file);
-        save_config_hash_in_db($config_code,$conf_hash);
-    }
-    return true;
 }
 
 ?>

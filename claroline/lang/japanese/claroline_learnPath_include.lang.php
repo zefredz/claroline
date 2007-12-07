@@ -1,0 +1,7 @@
+<?php
+$langDate = "ÆüÉÕ";
+$langModify = "ÊÔ½¸¡¿½¤Àµ";
+$langOk = "  £Ï£Ë  ";
+$langScore = "É¾²Á¥¹¥³¥¢";
+$langSize = "¥µ¥¤¥º";
+?>

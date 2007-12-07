@@ -1,13 +1,13 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+if ( ! defined('CLARO_INCLUDE_ALLOWED') ) die('---');    
 /**
  * CLAROLINE
  *
  * This lib prupose function use by installer.
  *
- * @version 1.8 $Revision$
+ * @version 1.7 $Revision$
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -19,6 +19,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @package INSTALL
  *
  */
+
 
 /**
  * check extention and  write  if exist  in a  <LI></LI>

@@ -1,5 +1,5 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+if (!defined('JPSPAN')) die('---');
 /**
 * Library for serializing PHP variables into Javascript for use with
 * Javascript eval()
@@ -195,7 +195,7 @@ class JPSpan_RootElement {
         $child = & JPSpan_Serializer::reflect($this->data);
         $child->generate($code);
 
-        $code->write('new Function("'.addcslashes($code->toString(),"\000\042\047\134").$child->getReturn().'");');
+        $code->write('new Function("'.addSlashes($code->toString()).$child->getReturn().'");');
     }
 }
 
@@ -274,7 +274,7 @@ class JPSpan_SerializedString extends JPSpan_SerializedElement {
     * @access protected
     */
     function generate(&$code) {
-        $value = addcslashes($this->value,"\000\042\047\134");
+        $value = addSlashes($this->value);
         $value = str_replace("\r\n",'\n',$value);
         $value = str_replace("\n",'\n',$value);
         $value = str_replace("\t",'\t',$value);
@@ -559,7 +559,7 @@ class JPSpan_SerializedError {
         $error .= "e.code = '{$this->code}';";
         $error .= "throw e;";
         // Wrap in anon function - violates RootElement
-        $code->write('new Function("'.addcslashes($error,"\000\042\047\134").'");');
+        $code->write('new Function("'.addSlashes($error).'");');
 
         // Disable further code writing so only single Error returned
         $code->enabled = FALSE;

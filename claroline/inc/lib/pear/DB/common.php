@@ -1,5 +1,5 @@
-<?php
-/* vim: set expandtab tabstop=4 shiftwidth=4 foldmethod=marker: */
+<?php // $Id$
+if ( ! defined('CLARO_INCLUDE_ALLOWED') ) die('---');
 // +----------------------------------------------------------------------+
 // | PHP Version 4                                                        |
 // +----------------------------------------------------------------------+
@@ -653,18 +653,18 @@ class DB_common extends PEAR
      * -----------------------------------------
      *
      * Example 1. Simple setOption() example
-     * <code> <?php
+     * <code> <?php 
      * $dbh->setOption('autofree', true);
      * ?></code>
      *
      * Example 2. Portability for lowercasing and trimming
-     * <code> <?php
+     * <code> <?php 
      * $dbh->setOption('portability',
      *                  DB_PORTABILITY_LOWERCASE | DB_PORTABILITY_RTRIM);
      * ?></code>
      *
      * Example 3. All portability options except trimming
-     * <code> <?php
+     * <code> <?php 
      * $dbh->setOption('portability',
      *                  DB_PORTABILITY_ALL ^ DB_PORTABILITY_RTRIM);
      * ?></code>
@@ -748,7 +748,7 @@ class DB_common extends PEAR
      *                   data in a db)
      *
      * Example 1.
-     * <code> <?php
+     * <code> <?php 
      * $sth = $dbh->prepare('INSERT INTO tbl (a, b, c) VALUES (?, !, &)');
      * $data = array(
      *     "John's text",
@@ -920,7 +920,7 @@ class DB_common extends PEAR
      * Executes a DB statement prepared with prepare()
      *
      * Example 1.
-     * <code> <?php
+     * <code> <?php 
      * $sth = $dbh->prepare('INSERT INTO tbl (a, b, c) VALUES (?, !, &)');
      * $data = array(
      *     "John's text",

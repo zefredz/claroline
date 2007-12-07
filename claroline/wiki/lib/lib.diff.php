@@ -1,14 +1,14 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
-
+if ( ! defined('CLARO_INCLUDE_ALLOWED') ) die('---');
+     
     // vim: expandtab sw=4 ts=4 sts=4:
-
+     
     /**
      * CLAROLINE
      *
-     * @version 1.8 $Revision$
+     * @version 1.7 $Revision$
      *
-     * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+     * @copyright 2001-2005 Universite catholique de Louvain (UCL)
      *
      * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
      * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
@@ -19,6 +19,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
      *
      * @package Wiki
      */
+
 
     define( "DIFF_EQUAL", "=" );
     define( "DIFF_ADDED", "+" );
@@ -39,19 +40,19 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     {
         $oldArr = str_split_on_new_line( $old );
         $newArr = str_split_on_new_line( $new );
-
+         
         $oldCount = count ( $oldArr );
         $newCount = count ( $newArr );
-
+         
         $max = max( $oldCount, $newCount );
-
+         
         //get added and deleted lines
-
+         
         $deleted = array_diff_assoc( $oldArr, $newArr );
         $added = array_diff_assoc( $newArr, $oldArr );
-
+         
         $moved = array();
-
+         
         foreach ( $added as $key => $candidate )
         {
             foreach ( $deleted as $index => $content )
@@ -65,9 +66,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 }
             }
         }
-
+         
         $output = '';
-
+         
         for ( $i = 0; $i < $max; $i++ )
         {
             // line changed
@@ -101,7 +102,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 // skip
             }
         }
-
+         
         return $output;
     }
 
@@ -111,7 +112,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     function str_split_on_new_line( $str )
     {
         $content = array();
-
+         
         if ( strpos( $str, "\r\n" ) != false )
         {
             $content = explode("\r\n", $str );
@@ -128,10 +129,10 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         {
             $content[] = $str;
         }
-
+         
         return $content;
     }
-
+    
     /**
      * Default and prototype format line function
      * @param int line line number
@@ -195,7 +196,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         {
             $value = '&nbsp;';
         }
-
+         
         switch ( $type )
         {
             case DIFF_EQUAL:
@@ -203,7 +204,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 return '<tr><td>' . $line. '&nbsp;:&nbsp;' . '&nbsp;=</td><td><span class="diffEqual" >'
                     . $value . '</span></td></tr>' . "\n"
                     ;
-
+                 
                 break;
             }
             case DIFF_MOVED:
@@ -211,7 +212,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 return '<tr><td>' . $line. '&nbsp;:&nbsp;' . '&nbsp;M</td><td><span class="diffMoved" >'
                     . $value . '</span></td></tr>' . "\n"
                     ;
-
+                 
                 break;
             }
             case DIFF_ADDED:
@@ -219,7 +220,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 return '<tr><td>' . $line. '&nbsp;:&nbsp;' . '&nbsp;+</td><td><span class="diffAdded" >'
                     . $value . '</span></td></tr>' . "\n"
                     ;
-
+                 
                 break;
             }
             case DIFF_DELETED:
@@ -227,12 +228,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 return '<tr><td>' . $line. '&nbsp;:&nbsp;' . '&nbsp;-</td><td><span class="diffDeleted" >'
                     . $value . '</span></td></tr>' . "\n"
                     ;
-
+                    
                 break;
             }
         }
     }
-
+     
     if (! function_exists('array_diff_assoc') )
     {
         /**
@@ -253,7 +254,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 trigger_error('Wrong parameter count for array_diff_assoc()', E_USER_WARNING );
                 return;
             }
-
+             
             // Check arrays
             for ($i = 0; $i < $count; $i++ )
             {
@@ -263,11 +264,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                     return;
                 }
             }
-
+             
             // Get the comparison array
             $array_comp = array_shift($args );
             --$count;
-
+             
             // Traverse values of the first array
             foreach ($array_comp as $key => $value )
             {
@@ -279,13 +280,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                     {
                         if ((string) $key === (string)$comp_key && (string) $value === (string) $comp_value )
                         {
-
+                             
                             unset($array_comp[$key] );
                         }
                     }
                 }
             }
-
+             
             return $array_comp;
         }
     }

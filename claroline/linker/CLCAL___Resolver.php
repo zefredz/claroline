@@ -1,10 +1,10 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+if ( ! defined('CLARO_INCLUDE_ALLOWED') ) die('---');
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @version 1.7 $Revision$
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -100,8 +100,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         */
         function getResourceId($tool_name)
         {
-            // global $insert_id;
-            global $entryId;
+            global $insert_id;
             global $thisEvent;
 
             if( isset( $tool_name ) )
@@ -111,9 +110,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                        $resource_id = $thisEvent['id'];
                }
 
-               else if( $entryId != FALSE )
+               else if( $insert_id != FALSE )
                {
-                       $resource_id = $entryId;
+                       $resource_id = $insert_id;
                }
 
                else if( isset($_REQUEST['id']) )
@@ -188,6 +187,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         */
         function getTitle( $course_sys_code , $id )
         {
+            global $langLinkerUntitled;
             $agendaInfo = $this->_getInfo( $course_sys_code , $id );
 
             $content = trim( stripslashes(strip_tags($agendaInfo[0]["contenu"])));
@@ -207,7 +207,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                   /*------------------------------
                    *   todo : no name of event   -
                    *-----------------------------*/
-                   $title = get_lang('Untitled')." {" . $agendaInfo[0]["day"]."}";
+                   $title = $langLinkerUntitled." {" . $agendaInfo[0]["day"]."}";
                }
 
                return $title;

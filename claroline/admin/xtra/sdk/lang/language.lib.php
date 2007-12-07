@@ -1,9 +1,9 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+if ( ! defined('CLARO_INCLUDE_ALLOWED') ) die('---');
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -39,76 +39,85 @@ function get_time ()
 
 function glance_through_dir_lang ($dirPath, $languageName)
 {
-    chdir ($dirPath) ;
-    $handle = opendir($dirPath);
+	chdir ($dirPath) ;
+	$handle = opendir($dirPath);
 
     $fileList = array();
     $dirList  = array();
 
-    while ($element = readdir($handle) )
-    {
-        if ( $element == "." || $element == ".." || strstr($element,"~")
-             || strstr($element,"#"))
-        {
-            continue; // skip the current and parent directories and some files
-        }
+	while ($element = readdir($handle) )
+	{
+		if ( $element == "." || $element == ".." || strstr($element,"~")
+		     || strstr($element,"#"))
+		{
+			continue; // skip the current and parent directories and some files
+		}
 
         // browse only old file name .php and LANG_COMPLETE_FILENAME (complete.lang.php)
 
         $pos = strpos($element,'.lang.php');
 
-        if ( is_file($element)
+		if ( is_file($element)
              && $element != 'locale_settings.php'
              && substr(strrchr($element, '.'), 1) == 'php'
              && ( strlen($element) != $pos + strlen('.lang.php') || $element == LANG_COMPLETE_FILENAME)
            )
-        {
-            $fileList[] = $dirPath."/".$element;
-        }
-        if ( is_dir($element) )
-        {
-            $dirList[] = $dirPath."/".$element;
-        }
-    }
+		{
+			$fileList[] = $dirPath."/".$element;
+		}
+		if ( is_dir($element) )
+		{
+			$dirList[] = $dirPath."/".$element;
+		}
+	}
 
-    if ( sizeof($fileList) > 0)
-    {
+	if ( sizeof($fileList) > 0)
+	{
         echo "<ol>";
-        foreach($fileList as $thisFile)
-        {
+		foreach($fileList as $thisFile)
+		{
             echo "<li>" . $thisFile . "</li>\n";
-            retrieve_lang_var($thisFile, $languageName);
-        }
+			retrieve_lang_var($thisFile, $languageName);
+		}
         echo "</ol>\n";
         echo "<p>" . sizeof($fileList) . " file(s).</p>\n";
-    }
+	}
 
-    if ( sizeof($dirList) > 0)
-    {
-        foreach($dirList as $thisDir)
-        {
-            glance_through_dir_lang ($thisDir, $languageName); // recursion
-        }
-    }
+	if ( sizeof($dirList) > 0)
+	{
+		foreach($dirList as $thisDir)
+		{
+			glance_through_dir_lang ($thisDir, $languageName); // recursion
+		}
+	}
 }
 
 /**
  * Get defined language variables of the script and store them.
  *
  * @author - Hugues Peeters <peeters@ipm.ucl.ac.be>
- * @param  - string $fileName - language file where to retrieve get_lang(' variable') translation
+ * @param  - string $fileName - language file where to retrieve $lang variable translation
  * @param  - string $languageName - language name of the translation
  */
 
 function retrieve_lang_var($fileName, $languageName)
 {
-    global $_lang;
 
-    $_lang = array();
+    $varList = array();
 
-    include($fileName);
+	include($fileName);
 
-    store_lang_var($_lang, $fileName, $languageName);
+	$localVar = get_defined_vars(); // collect the variable instancied locally
+
+	foreach($localVar as $thisVarKey => $thisVarContent)
+	{
+		if ( is_a_lang_varname($thisVarKey) )
+		{
+			$varList[$thisVarKey] = addslashes($thisVarContent);
+		}
+	}
+
+	store_lang_var($varList, $fileName, $languageName);
 }
 
 /**
@@ -125,21 +134,18 @@ function retrieve_lang_var($fileName, $languageName)
 function store_lang_var($languageVarList, $sourceFileName, $languageName)
 {
 
-    global $problemMessage, $tbl_translation;
+	global $problemMessage, $rootSys, $tbl_translation;
 
-    foreach ( $languageVarList as $thisVarKey => $thisVarContent )
-    {
-        if ( ! empty($thisVarContent) )
-        {
-            $sql = "INSERT INTO " . $tbl_translation . " SET
-             VarName    = \"". addslashes($thisVarKey)."\",
-             VarContent = \"". addslashes($thisVarContent) ."\",
-             varFullContent  = \"". addslashes($thisVarContent) ."\",
-             language   = \"".addslashes($languageName)."\",
-             sourceFile = \"" . str_replace(get_path('rootSys'),"",$sourceFileName) ."\"";
-            mysql_query($sql) or die($problemMessage);
-        }
-    }
+	foreach($languageVarList as $thisVarKey => $thisVarContent)
+	{
+		$sql = "INSERT INTO " . $tbl_translation . " SET
+		 VarName    = \"".$thisVarKey."\",
+		 VarContent = \"".$thisVarContent."\",
+         varFullContent  = \"".$thisVarContent."\",
+		 language   = \"".$languageName."\",
+		 sourceFile = \"" . str_replace($rootSys,"",$sourceFileName) ."\"";
+		mysql_query($sql) or die($problemMessage);
+	}
 
 }
 
@@ -216,12 +222,8 @@ function is_scannable($filePath,
     $parentPath  = str_replace($rootSys, '', $parentPath);
 
     $forbiddenDirNameList    = array_merge( array('claroline/lang',
-                                                  'claroline/install',
                                                   'claroline/inc/conf',
                                                   'courses',
-                                                  'platform',
-                                                  'tmp',
-                                                  'claroline/admin/devTools',
                                                   'claroline/claroline_garbage'),
                                             $additionnalForbiddenDirNameList);
     $forbiddenParentNameList = array('CVS');
@@ -284,22 +286,19 @@ function is_scannable($filePath,
 function store_lang_used_in_script($languageVarList, $sourceFileName)
 {
 
-    global $problemMessage, $tbl_used_lang;
+	global $problemMessage, $rootSys, $tbl_used_lang;
 
-    $sourceFileName =  str_replace(get_path('rootSys'),'',$sourceFileName);
+    $sourceFileName =  str_replace($rootSys,"",$sourceFileName);
     $languageFileName = compose_language_production_filename($sourceFileName);
 
-    foreach($languageVarList as $thisVar)
-    {
-        if ( trim($thisVar) != '' )
-        {
-            $sql = "INSERT INTO " . $tbl_used_lang . "
-                       SET VarName    = '". addslashes($thisVar) . "',
-                           langFile   = '" .$languageFileName."',
-                           sourceFile = '" . $sourceFileName ."'";
-            mysql_query($sql) or die($problemMessage);
-        }
-    }
+	foreach($languageVarList as $thisVar)
+	{
+		$sql = "INSERT INTO " . $tbl_used_lang . " SET
+		 VarName    = \"".$thisVar."\",
+		 langFile    = \"".$languageFileName."\",
+		 sourceFile = \"" . $sourceFileName ."\"";
+		mysql_query($sql) or die($problemMessage);
+	}
 
 }
 
@@ -313,6 +312,8 @@ function store_lang_used_in_script($languageVarList, $sourceFileName)
 
 function detect_included_files(&$tokenList)
 {
+    global $includePath;
+
     $includeFileList = array();
 
     for ($i = 0, $tokenCount =  count($tokenList); $i < $tokenCount ; $i++)
@@ -350,7 +351,7 @@ function detect_included_files(&$tokenList)
                     elseif ( $token == ')' ) $bracketPile--;
                     else
                     {
-                        $token =  $tokenList[$i][0];
+                    	$token =  $tokenList[$i][0];
                     }
 
                 }
@@ -360,12 +361,12 @@ function detect_included_files(&$tokenList)
 
             // replace dirname(__FILE__) by nothing
             $includeFile = ereg_replace("dirname\(__FILE__\) *\. *(['\"])","\\1",$includeFile);
-            // replace get_path('incRepositorySys') by get_path('incRepositorySys')
-            $includeFile = ereg_replace('\$includePath *\. *([\'\"])',"\\1" . get_path('incRepositorySys'), $includeFile);
+            // replace $includePath by $includePath
+            $includeFile = ereg_replace('\$includePath *\. *([\'\"])',"\\1" . $GLOBALS['includePath'],$includeFile);
             // replace $rootSys by $rootSys
             $includeFile = ereg_replace('\$rootSys *\. *([\'\"])',"\\1" . $GLOBALS['rootSys'],$includeFile);
             // replace $rootAdminSys by $rootAdminSys
-            $includeFile = ereg_replace('\$rootAdminSys *\. *([\'\"])',"\\1" . get_path('rootAdminSys'),$includeFile);
+            $includeFile = ereg_replace('\$rootAdminSys *\. *([\'\"])',"\\1" . $GLOBALS['rootAdminSys'],$includeFile);
             // replace $clarolineRepositorySys by $clarolineRepositorySys
             $includeFile = ereg_replace('\$clarolineRepositorySys  *\. *([\'\"])',"\\1" . $GLOBALS['clarolineRepositorySys'],$includeFile);
 
@@ -412,8 +413,7 @@ function get_lang_vars_from_file($file)
         $sourceFile = file_get_contents($file);
         $tokenList  = token_get_all($sourceFile);
 
-        //$languageVarList      = detect_lang_var($tokenList);
-        $languageVarList      = detect_get_lang($tokenList);
+        $languageVarList      = detect_lang_var($tokenList);
         $includeStatementList = detect_included_files($tokenList);
 
         foreach ( $includeStatementList as $thisIncludeStatement )
@@ -458,98 +458,9 @@ function get_lang_vars_from_file($file)
     else
     {
         array_pop($parsingFileList);
-        return false;
+    	return false;
     }
 
-}
-
-/**
- * Extract the parameter name of get_lang function from a script
- *
- * @return - array $languageVarList
- * @param  - array $tokenList
- */
-
-function detect_get_lang($tokenList)
-{
-    $languageVarList = array();
-
-    $total_token = count($tokenList);
-
-    $i = 0;
-
-    // Parse token list
-
-    while ( $i < $total_token )
-    {
-        $thisToken = $tokenList[$i];
-
-        if ( is_array($thisToken) && is_int($thisToken[0]) && $thisToken[0] == T_STRING )
-        {
-
-            // find function 'get_lang'
-
-            if ( $thisToken[1] == 'get_lang' || $thisToken[1] == 'get_block' )
-            {
-                $varName = '';
-
-                $i++;
-
-                // Parse get_lang function parameters
-
-                while ($i < $total_token)
-                {
-                    $thisToken = $tokenList[$i];
-
-                    if ( is_string($thisToken) && $thisToken == '(')
-                    {
-                        // bracket open - begin parsong of parameters
-                        $i++;
-                        continue;
-                    }
-                    elseif ( is_string($thisToken) && $thisToken == ')')
-                    {
-                        // bracket close - end parsing of parameters
-                        $i++;
-                        break;
-                    }
-                    elseif ( is_string($thisToken) && $thisToken == ',')
-                    {
-                        // comma, end parsing of parameters
-                        $i++;
-                        break;
-                    }
-                    elseif ( is_int($thisToken[0]) && ( $thisToken[0] == T_VARIABLE ) )
-                    {
-                        // variable - end parsing
-                        $i++;
-                        break;
-                    }
-                    elseif ( is_array($thisToken) )
-                    {
-                        // get parameters name
-                        if ( $thisToken[0] == T_CONSTANT_ENCAPSED_STRING )
-                        {
-                            $search = array ('/^[\'"]/','/[\'"]$/','/\134\047/');
-                            $replace = array('','','\'');
-                            $varName .= preg_replace($search,$replace,$thisToken[1]);
-                        }
-
-                    }
-                    $i++;
-                }
-                $varName = trim($varName);
-                if ( !empty($varName) )
-                {
-                    $languageVarList[]=$varName;
-                }
-            }
-        }
-        $i++;
-
-    } // end token parsing
-
-    return $languageVarList;
 }
 
 /**
@@ -642,15 +553,17 @@ function is_a_lang_varname($var)
 
 function get_real_path_from_statement($statementString, $parsedFilePath)
 {
+    global $includePath, $rootSys;
+
     $evaluatedPath = eval("return ".$statementString.";");
 
-    if ( ! strstr($evaluatedPath, get_path('rootSys')) )
+    if ( ! strstr($evaluatedPath, $rootSys) )
     {
         $realPath = realpath( dirname($parsedFilePath) .'/'. $evaluatedPath);
     }
     else
     {
-        $realPath = $evaluatedPath;
+    	$realPath = $evaluatedPath;
     }
 
     if ( file_exists($realPath) )  return $realPath;
@@ -692,122 +605,22 @@ function get_lang_path_list($path_lang)
 
     while ($element = readdir($handle) )
     {
-        if ( $element == "." || $element == ".." || $element == "CVS"
+	    if ( $element == "." || $element == ".." || $element == "CVS"
             || strstr($element,"~") || strstr($element,"#")
            )
-        {
-            continue; // skip current and parent directories
-        }
-        if ( is_dir($path_lang . '/' . $element) )
-        {
-            $path = $path_lang . '/' . $element;
+    	{
+	    	continue; // skip current and parent directories
+    	}
+	    if ( is_dir($element) )
+    	{
+	    	$path = $path_lang . '/' . $element;
             $elements = explode (".", $element);
-            $name = reset($elements);
-            $languagePathList[$name] = $path;
+		    $name = reset( $elements );
+    		$languagePathList[$name] = $path;
         }
     }
 
     return $languagePathList;
 }
-
-function load_array_translation ($language)
-{
-    if ( file_exists(get_path('incRepositorySys') . '/../lang/' . $language . '/complete.lang.php') )
-    {
-        include(get_path('incRepositorySys') . '/../lang/' . $language . '/complete.lang.php');
-
-        $localVar = get_defined_vars();
-
-        if ( isset($localVar['_lang']) )
-        {
-            return $localVar['_lang'];
-        }
-        else
-        {
-            // retrieve old language var
-            $translations = array();
-
-            foreach($localVar as $thisVarKey => $thisVarContent)
-            {
-                if ( is_a_lang_varname($thisVarKey) )
-                {
-                    // modify var name
-                    $thisVarKey = preg_replace('/(^lang|^l_)/','',$thisVarKey);
-                    $translations[$thisVarKey] = $thisVarContent;
-                }
-            }
-
-            return $translations;
-        }
-    }
-    return array();
-}
-
-function build_translation_line_file($key,$value)
-{
-    $varName = preg_replace('/\'/', '\\\'', $key);
-    //$varName = preg_replace('/\\\"/', '"', $key);
-    $varContent = preg_replace('/\'/', '\\\'', $value);
-
-    $string = '$_lang[\''. $varName .'\'] = \''. $varContent .'\';' . "\n";
-
-    return $string;
-}
-
-
-/**
- * Get the list of language variables in a script and its included files
- *
- * @return - array $languageVarList or boolean FALSE
- * @param - string $file
- */
-
-function get_lang_vars_from_deffile($file)
-{
-
-    $conf_def['section'] = array();
-    $conf_def_property_list = array();
-
-    include($file);
-
-    if(array_key_exists('config_name',$conf_def))  $deflang[] = $conf_def['config_name'];
-
-    if(is_array($conf_def['section']))
-    foreach ($conf_def['section'] as $conf_def_section)
-    {
-        if(array_key_exists('label',$conf_def_section)) $deflang[] = $conf_def_section['label'];
-        if(array_key_exists('description',$conf_def_section)) $deflang[] = $conf_def_section['description'];
-    }
-
-    if(is_array($conf_def_property_list))
-    foreach ($conf_def_property_list as $conf_def_property)
-    {
-        if(array_key_exists('display',$conf_def_property) && $conf_def_property['display'] === false ) continue ;
-
-        if(array_key_exists('label',$conf_def_property)) $deflang[] = $conf_def_property['label'];
-        if(array_key_exists('description',$conf_def_property)) $deflang[] = $conf_def_property['description'];
-        if(array_key_exists('type',$conf_def_property)) $deflang[] = $conf_def_property['type'];
-        if(array_key_exists('acceptedValue',$conf_def_property))
-        {
-            foreach ($conf_def_property['acceptedValue'] as $key => $acceptedValue)
-            {
-                if ( $conf_def_property['type'] == 'integer' )
-                {
-                    continue ;
-                }
-                elseif ( $key == 'pattern' )
-                {
-                    continue ;
-                }
-                else
-                {
-                    $deflang[] = $acceptedValue;
-                }
-            }
-        }
-    }
-    return $deflang;
-}
-
 
 ?>

@@ -1,10 +1,10 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+if ( ! defined('CLARO_INCLUDE_ALLOWED') ) die('---');
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @version 1.7 $Revision$
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -15,6 +15,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @package CLLINKER
  *
  */
+
 
    /**
     * linker_popup.lib
@@ -50,15 +51,17 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     *
     * @param $extraGetVar integer who is id of a resource
     * @param $tLabel tlabel of a tool
+    * @global $langLinkerResourceAttachment
     */
-    function linker_set_display( $extraGetVar = false, $tLabel = NULL, $extraName = 'id' )
+    function linker_set_display( $extraGetVar = false, $tLabel = NULL )
     {
+        global $langLinkerResourceAttachment;
+
         $url = "../linker/linker_popup.inc.php";
-        $html = '';
 
         if( $extraGetVar !== false )
         {
-            $url .= '?' . $extraName .'='.$extraGetVar;
+            $url .= "?id=".$extraGetVar;
         }
 
         if ( ! is_null( $tLabel ) )
@@ -72,25 +75,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 $url .= "?linkerTLabel=$tLabel";
             }
         }
-        
-        if ( claro_is_javascript_enabled() )
-        {
-             $html .= '<p>' . "\n"
-             .   '<a href="javascript:popup(\''
-             .   $url.'\')">'.get_lang('Attached Resources : Add / Delete attachement')
-             .   '</a>' . "\n"
-             .   '</p>' . "\n"
-             ;
-        }
-        else
-        {
-            $html .= '<p>' . "\n"
-            .    '<a href="'.$url.'" target="_blank">'.get_lang('Attached Resources : Add / Delete attachement')
-            .    '</a>' . "\n"
-            .    '</p>' . "\n"
-            ;
-        }
-        return $html;
+
+        echo "<br />\n";
+        echo "<A href=\"javascript:popup('"
+            . $url."')\">".$langLinkerResourceAttachment
+            ."</A><br /><br />\n";
     }
 
 //--------------------------------------------------------------------------------------------------------

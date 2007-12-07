@@ -1,5 +1,5 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+if (!defined('JPSPAN')) die('---');
 /**
 * @package JPSpan
 * @subpackage Server
@@ -58,7 +58,7 @@ class JPSpan_Server {
         } else {
             $prot = 'http://';
         }
-        $this->serverUrl = $prot.$_SERVER['HTTP_HOST'].$this->resolveScriptName();
+        $this->serverUrl = $prot.$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'];
     }
 
     /**
@@ -164,12 +164,12 @@ class JPSpan_Server {
     */
     function getUriPath() {
 
-        $basePath = explode('/',$this->resolveScriptName());
+        $basePath = explode('/',$_SERVER['SCRIPT_NAME']);
         $script = array_pop($basePath);
         $basePath = implode('/',$basePath);
 
         // Determine URI path - path variables to the right of the PHP script
-        if ( $script && ( false !== strpos ( $_SERVER['REQUEST_URI'], $script ) ) ) {
+        if ( false !== strpos ( $_SERVER['REQUEST_URI'], $script ) ) {
             $uriPath = explode( $script,$_SERVER['REQUEST_URI'] );
             $uriPath = $uriPath[1];
         } else {
@@ -182,22 +182,6 @@ class JPSpan_Server {
         $uriPath = preg_replace(array('/^\//','/\/$/'),'',$uriPath);
         return $uriPath;
 
-    }
-
-    /**
-    * Introspects the name of the script. Depending on the PHP SAPI
-    * determining the name of the current script varies. This will probably
-    * need updating later and testing under a number of environments
-    * @return string script name
-    * @access public
-    */
-    function resolveScriptName() {
-        if ( isset($_SERVER['PATH_INFO']) && $_SERVER['PATH_INFO'] == $_SERVER['PHP_SELF'] ) {
-            $script_name = $_SERVER['PATH_INFO'];
-        } else {
-            $script_name = $_SERVER['SCRIPT_NAME'];
-        }
-        return $script_name;
     }
 
     /**
@@ -228,7 +212,7 @@ class JPSpan_Server {
         // HACK - this needs to change
         $I->loadString(__FILE__,$G->getClient());
         $client = $I->getCode();
-        header('Content-Type: text/javascript');
+        header('Content-Type: application/x-javascript');
         header('Content-Length: '.strlen($client));
         echo $client;
         exit();

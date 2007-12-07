@@ -1,10 +1,10 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+if ( ! defined('CLARO_INCLUDE_ALLOWED') ) die('---');
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @version 1.7 $Revision$
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -15,7 +15,6 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @package CLLINKER
  *
  */
-
    require_once dirname(__FILE__) . '/navigator.lib.php';
 
     /**
@@ -191,9 +190,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         * @param $elementCRLArray associative array who contains the information of a crl
         * @param $partResourceId  string element of a resource_id
         * @return string a valide crl
+        * @global $platform_id id of the platform
         */
         function _createObjectCRL($elementCRLArray,$partResourceId)
         {
+             global $platform_id;
 
              if( isset($elementCRLArray['resource_id']) )
              {
@@ -206,11 +207,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
              if( isset($elementCRLArray["team"]) )
              {
-                 $crl = CRLTool::createCRL(get_conf('platform_id') , $elementCRLArray['course_sys_code'] , $elementCRLArray["tool_name"] ,$resource_id ,$elementCRLArray["team"]);
+                 $crl = CRLTool::createCRL($platform_id , $elementCRLArray['course_sys_code'] , $elementCRLArray["tool_name"] ,$resource_id ,$elementCRLArray["team"]);
              }
              else
              {
-                 $crl = CRLTool::createCRL(get_conf('platform_id') , $elementCRLArray['course_sys_code'] , $elementCRLArray["tool_name"] ,$resource_id );
+                 $crl = CRLTool::createCRL($platform_id , $elementCRLArray['course_sys_code'] , $elementCRLArray["tool_name"] ,$resource_id );
              }
 
              return $crl;

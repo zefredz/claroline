@@ -1,5 +1,5 @@
-<?php
-//
+<?php // $Id$
+if ( ! defined('CLARO_INCLUDE_ALLOWED') ) die('---');
 // +----------------------------------------------------------------------+
 // | PHP Version 4                                                        |
 // +----------------------------------------------------------------------+
@@ -90,7 +90,7 @@ require_once "PEAR.php";
  *
  * To use this storage container, you have to use the following syntax:
  *
- * <?php
+ * <?php 
  * ...
  *
  * $a = new Auth("LDAP", array(

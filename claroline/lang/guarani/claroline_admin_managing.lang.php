@@ -1,0 +1,71 @@
+<?php
+$langAddLoginPass = "Emo&#297; tero/ñe'&#7869;kañy .htpassword -pe</a><br />";
+$langAddLoginPassForThisUser = "Emo&#297; tero (puruhára réra anga) ha ñe'&#7869;kañy ko
+ poruhára mbo'e renda kuéntagui .htpassword -pe";
+$langAdministration = "Ñangarekoha";
+$langAgenda = "Ahénda";
+$langAnnouncement = "Kuaauka";
+$langCancel = "Ehejarei";
+$langChat = "Ñomongeta";
+$langCourseHome = "Mbo'esyry rogue ypyr&#361;";
+$langCourseManager = "Mbo'esyry rerekua";
+$langDay_of_weekNames = "Array";
+$langDescriptionCours = "Mbo'esyry mombe'uanga";
+$langDocument = "Kuatia ha joajuha kuéra";
+$langEdit = "Ehai";
+$langExercises = "Tembiapor&atilde;";
+$langFileName = "Ñongatuha réra";
+$langForums = "Jehaiaty kuéra";
+$langGiveAdminRight = "Emo&#297; poruhára ñangarekoháraramo";
+$langGroups = "Aty kuéra";
+$langHelp = "Ñepytyv&otilde;";
+$langHereyoucanmodifythecontentofthetextzonesdisplayedontheplatformhomepage = "Ko'ápe ikatu nde remoambue tembihai os&#7869;va ne Claroline rogue ypyr&#361;me
+ (ojeikeha rupi).";
+$langHomePageTextZone = "Tembihai os&#7869;va togue ypyr&#361;me";
+$langLearningPath = "Jehekombo'e rape";
+$langListAdmin = "Ñangarekohára rysýi";
+$langListAllUsers = "Mayma poruhára rysýi";
+$langListHtUsers = "Emaña .htpassword";
+$langLogin = "Jeikeha réra";
+$langLogout = "Ñes&#7869;ha";
+$langManage = "Eñangareko mbo'e rendáre";
+$langMinuteShort = "aravo'i";
+$langModifyProfile = "Emoambue che remimba'ekuaa";
+$langMonthNames = "Array";
+$langMyAgenda = "Che ahénda";
+$langMyCourses = "Che mbo'esyry kuéra";
+$langNameOfLang = "Array";
+$langNoContent = "Ndaipóri mba'eve";
+$langNomPageAddHtPass = "Ñangarekohára kuéra ñangareko";
+$langNotAllowed = "Nde ndaikatúi péva rejapo";
+$langOk = "O&#297;ma";
+$langOtherCourses = "Mbo'esyry rysýi";
+$langOtherWorks = "Apor&atilde; ambue";
+$langPassword = "Ñe'&#7869;kañy";
+$langPeriodDayShort = "ára";
+$langPeriodHourShort = "aravo";
+$langPlatformAdministration = "Tendaguasu ñeñangareko";
+$langPoweredBy = "Tembiapoha";
+$langPreview = "Techa ñepyr&#361;";
+$langRemoveAdminLevel = "Ndaha'evéima ñangarekohára";
+$langSecondShort = "aravo'ive";
+$langSeebelowthefilesyoucaneditfromthistool = "Ko'à ñongatuha o&#297;va iguýpe ha'e
+ nde ikatúva remomambue ko tembiporúpe.";
+$langSelectAUser = "Eiporavo poruhára";
+$langSetAdmin = "Emo&#297; Ñangarekoháraramo";
+$langStudent = "Temimbo'e";
+$langSwitchEditorToTextConfirm = "Kóva ohundíta tembihai jehechauka lája
+ ojeporúva ko'á&#285;a. Rehoreítapa hese.";
+$langTextEditorDisable = "Tojeiporu'&#7929; tembihai moambueha";
+$langTextEditorEnable = "Tojeiporu tembihai moambueha";
+$langUpdated = "Oñemoambue";
+$langUsers = "Poruháha";
+$langViewMode = "Jehechauka lája";
+$langWiki = "Guíki";
+$langWork = "Tembiapo";
+$lang_EditFile_ModifyOk = "Remoambue va'ekue o&#297; por&atilde;mbáma";
+$lang_enroll = "Kuatiavuka";
+$lang_footer_p_CourseManager = "Terekua %s -pe &#285;uar&atilde;";
+$lang_no_access_here = "Nde ndaikatúi reike ko'ápe";
+$lang_p_platformManager = "%s ñangarekohára";
+?>

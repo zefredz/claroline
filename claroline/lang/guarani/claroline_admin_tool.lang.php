@@ -1,0 +1,53 @@
+<?php
+$langAdministration = "Ñangarekoha";
+$langAgenda = "Ahénda";
+$langAnnouncement = "Kuaauka";
+$langChat = "Ñomongeta";
+$langConfiguration = "Teko mba'ekuaa";
+$langCourseHome = "Mbo'esyry rogue ypyr&#361;";
+$langCourseManager = "Mbo'esyry rerekua";
+$langDay_of_weekNames = "Array";
+$langDescriptionCours = "Mbo'esyry mombe'uanga";
+$langDocument = "Kuatia ha joajuha kuéra";
+$langEmpty = "Nandi";
+$langExercises = "Tembiapor&atilde;";
+$langForums = "Jehaiaty kuéra";
+$langGroups = "Aty kuéra";
+$langHelp = "Ñepytyv&otilde;";
+$langLearningPath = "Jehekombo'e rape";
+$langLogin = "Jeikeha réra";
+$langLogout = "Ñes&#7869;ha";
+$langMinuteShort = "aravo'i";
+$langModifyProfile = "Emoambue che remimba'ekuaa";
+$langMonthNames = "Array";
+$langMyAgenda = "Che ahénda";
+$langMyCourses = "Che mbo'esyry kuéra";
+$langNameOfLang = "Array";
+$langNotAllowed = "Nde ndaikatúi péva rejapo";
+$langOtherCourses = "Mbo'esyry rysýi";
+$langPeriodDayShort = "ára";
+$langPeriodHourShort = "aravo";
+$langPlatformAdministration = "Tendaguasu ñeñangareko";
+$langPoweredBy = "Tembiapoha";
+$langPropertiesNotIncludeInSections = "Temimba'e noñemo&#297;riva ko'&atilde; vorépe";
+$langRequestToTheCoderOfThisConfigToAddThesesProportiesInASectionOfTheDefinitionFile = "Ejerure upe kóva ojapo va'ekuépe, tomoingemi ko'&atilde; teko mba'ekuaa pete&#297; tenda vorépe,
+ tekomombe'u ñongatuha ryepýpe.";
+$langSecondShort = "aravo'ive";
+$langStudent = "Temimbo'e";
+$langSwitchEditorToTextConfirm = "Kóva ohundíta tembihai jehechauka lája
+ ojeporúva ko'á&#285;a. Rehoreítapa hese.";
+$langTextEditorDisable = "Tojeiporu'&#7929; tembihai moambueha";
+$langTextEditorEnable = "Tojeiporu tembihai moambueha";
+$langThisIsAnErrorInDefinitionFile = "Kóva hína javy o&#297;va apopy ñongatuhápe";
+$langUsers = "Poruháha";
+$langViewMode = "Jehechauka lája";
+$langWiki = "Guíki";
+$langWork = "Tembiapo";
+$lang_enroll = "Kuatiavuka";
+$lang_footer_p_CourseManager = "Terekua %s -pe &#285;uar&atilde;";
+$lang_p_ErrorOnBuild_S_for_S = "Oiko javy ojejapohápe <em>%s</em>, <b>%s</b> -pe &#285;uar&atilde;";
+$lang_p_PropForConfigCommited = "Temimba'ekuaa %s (%s)-pe &#285;uar&atilde;, ko'á&#285; o&#297;ma.";
+$lang_p_config_file_creation = "Teko mba'ekuaa ñongatuha apo:<br /> %s";
+$lang_p_nothing_to_edit_in_S = "ndaipóri mba'eve %s ryepýpe oñemoambue ha&#285;ua";
+$lang_p_platformManager = "%s ñangarekohára";
+?>

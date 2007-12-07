@@ -1,5 +1,5 @@
 *******************************************************************************
-                            CLAROLINE 1.8 - CREDITS
+                            CLAROLINE 1.7 - CREDITS
 *******************************************************************************
 
 The Claroline project was initiated in 2000 at the Catholic University of
@@ -48,8 +48,8 @@ Events since last visit :       René Haentjens (rene.haentjens@intec.ugent.be)
 Quizz Tool :                    Olivier Brouckaert (oli.brouckaert@skynet.be)
                                 Sebastien Piraux (piraux@cerdecam.be)
 
-Learning Path Tool :            Sebastien Piraux (Cerdecam)
-                                Guillaume Lederer
+Learning Path Tool :            Guillaume Lederer
+                                Sebastien Piraux (Cerdecam)
 
 Tracking system :               Sebastien Piraux (piraux@cerdecam.be)
 
@@ -137,6 +137,7 @@ Italian translation :           Maurizio Guercio  (mguercio@libero.it),
 Indonesian translation :        Ery Atmodjo (eryatmodjo@yahoo.com)
 
 Japanese translation :          Akira Yoshii (yoshii@cc.hokkyodai.ac.jp)
+                                Naoto KIMURA at Takushoku University (Japan)
 
 Persian translation :           Elnaz Sarbar (elnaz.s@gmail.com)
 
@@ -175,6 +176,8 @@ Claroline Documentation :       Andrew Lynn (alynn@strathclyde.ac.be)
                                 Dalton Piegas Simoni
                                 Maria Jose Rodriges Malmierca
 
+Guarani translation :           Manuel Fernández from the Guaraní Renda association
+
 ------------------------------------------------------------------------------
                                 SECURITY
 ------------------------------------------------------------------------------
@@ -183,5 +186,5 @@ Zone-H Team :                   Deepfear
                                 Siegfried
 
 =========================================================================
-                Europe, Belgium, Louvain-la-Neuve - August 28 2006
+                Europe, Belgium, Louvain-la-Neuve - June 24 2006
 ================================== END ===================================

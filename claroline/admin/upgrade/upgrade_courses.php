@@ -1,12 +1,12 @@
 <?php // $Id$
 /**
- * CLAROLINE
- *
+ * CLAROLINE 
+ * 
  * This script Upgrade course database and course space.
  *
- * @version 1.9 $Revision$
+ * @version 1.7 $Revision$
  *
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
  * @package UPGRADE
@@ -15,17 +15,16 @@
  * @author Mathieu Laurent <laurent@cerdecam.be>
  *
  */
-$new_version_branch = '';
+
 // Initialise Upgrade
 require 'upgrade_init_global.inc.php';
 
 // Include Libraries
 include ('upgrade_course_16.lib.php');
 include ('upgrade_course_17.lib.php');
-include ('upgrade_course_18.lib.php');
 
 // Security Check
-if (!claro_is_platform_admin()) upgrade_disp_auth_form();
+if (!$is_platformAdmin) upgrade_disp_auth_form();
 
 // DB tables definition
 $tbl_mdb_names = claro_sql_get_main_tbl();
@@ -50,7 +49,7 @@ if ( isset($_REQUEST['verbose']) ) $verbose = true;
 if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
 else                           $cmd = FALSE;
 
-$upgradeCoursesError = isset($_REQUEST['upgradeCoursesError'])
+$upgradeCoursesError = isset($_REQUEST['upgradeCoursesError']) 
                      ? $_REQUEST['upgradeCoursesError']
                      : FALSE;
 
@@ -58,7 +57,7 @@ if ( $cmd == 'run')
 {
     $display = DISPLAY_RESULT_PANEL;
 }
-else
+else 
 {
     $display = DISPLAY_WELCOME_PANEL;
 }
@@ -81,7 +80,7 @@ $count_course_upgraded_at_start =  $count_course_upgraded;
  =====================================================================*/
 
 /*---------------------------------------------------------------------
-  Steps of Display
+  Steps of Display 
  ---------------------------------------------------------------------*/
 
 // auto refresh
@@ -103,9 +102,9 @@ switch ($display)
     case DISPLAY_WELCOME_PANEL :
 
         echo '<h2>Step 3 of 3: courses upgrade</h2>
-             <p>Now the <em>Claroline Upgrade Tool</em> is going to prepare <b>course</b> data
-            (directories and database tables) one by one and set it to be compatible with the new
-            Claroline version.<p class="help">Note. Depending of the speed of your server or the amount
+             <p>Now the <em>Claroline Upgrade Tool</em> is going to prepare <b>course</b> data 
+            (directories and database tables) one by one and set it to be compatible with the new 
+            Claroline version.<p class="help">Note. Depending of the speed of your server or the amount 
             of data stored on your platform, this operation may take some time.</p>
             <p style="text-align: center"><strong>' . $count_course_upgraded . ' courses
             on ' . $count_course . ' already upgraded</strong><br /></p>
@@ -113,19 +112,19 @@ switch ($display)
             <p><button onclick="document.location=\'' . $_SERVER['PHP_SELF'] . '?cmd=run\';">Launch course data upgrade</button></p>
             </center>';
         break;
-
-    case DISPLAY_RESULT_PANEL :
+                
+    case DISPLAY_RESULT_PANEL : 
 
         echo '<h2>Step 3 of 3: courses upgrade</h2>
-              <p>The <em>Claroline Upgrade Tool</em> proceeds to the courses data upgrade</p>';
+              <p>The <em>Claroline Upgrade Tool</em> proceeds to the courses data upgrade</p>'; 
 
         // display course upgraded
 
-        echo '<p style="text-align: center"><strong>' . $count_course_upgraded . ' courses
+        echo '<p style="text-align: center"><strong>' . $count_course_upgraded . ' courses 
               on ' . $count_course . ' already upgraded</strong><br /></p>';
 
         flush();
-
+                
         /*
          * display refresh bloc
          */
@@ -136,7 +135,7 @@ switch ($display)
             <button onclick="document.location=\'' . $_SERVER['PHP_SELF'].'?cmd=run\';">Continue courses data upgrade</button>
             </p>
             <p><small>(*) see in the status bar of your browser.</small></p>
-            </div>';
+            </div>'; 
 
         flush();
 
@@ -149,17 +148,16 @@ switch ($display)
             // retry to upgrade course where upgrade failed
             claro_sql_query(" UPDATE `" . $tbl_course . "` SET `versionClaro` = '1.5' WHERE `versionClaro` = 'error-1.5'");
             claro_sql_query(" UPDATE `" . $tbl_course . "` SET `versionClaro` = '1.6' WHERE `versionClaro` = 'error-1.6'");
-            claro_sql_query(" UPDATE `" . $tbl_course . "` SET `versionClaro` = '1.7' WHERE `versionClaro` = 'error-1.7'");
         }
 
-        $sql_course_to_upgrade = " SELECT c.dbName dbName,
-                                          c.code ,
-                                          c.administrativeNumber ,
+        $sql_course_to_upgrade = " SELECT c.dbName dbName, 
+                                          c.code , 
+                                          c.fake_code , 
                                           c.directory coursePath,
                                           c.creationDate,
                                           c.versionClaro "
                                . " FROM `" . $tbl_course . "` `c` ";
-
+        
         if ( isset($_REQUEST['upgradeCoursesError']) )
         {
             // retry to upgrade course where upgrade failed
@@ -170,38 +168,38 @@ switch ($display)
         {
             // not upgrade course where upgrade failed ( versionClaro == error* )
             $sql_course_to_upgrade .= " WHERE ( c.versionClaro not like '". $new_version_branch . "%' )
-                                              and c.versionClaro not like 'error%'
+                                              and c.versionClaro not like 'error%' 
                                         ORDER BY c.dbName ";
         }
-
+              
         $res_course_to_upgrade = mysql_query($sql_course_to_upgrade);
-
+        
         /*
          * Upgrade course
          */
 
         while ( ($course = mysql_fetch_array($res_course_to_upgrade) ) )
-        {
+        {   
             // initialise variables
 
             $currentCourseDbName       = $course['dbName'];
-            $currentcoursePathSys      = get_path('coursesRepositorySys') . $course['coursePath'].'/';
-            $currentcoursePathWeb      = get_path('coursesRepositoryWeb') . $course['coursePath'].'/';
+            $currentcoursePathSys      = $coursesRepositorySys . $course['coursePath'].'/';
+            $currentcoursePathWeb      = $coursesRepositoryWeb . $course['coursePath'].'/';
             $currentCourseCode         = $course['code'];
-            $currentCourseFakeCode     = $course['administrativeNumber'];
+            $currentCourseFakeCode     = $course['fake_code'];
             $currentCourseCreationDate = $course['creationDate'];
             $currentCourseVersion      = $course['versionClaro'];
-            $currentCourseDbNameGlu    = get_conf('courseTablePrefix') . $currentCourseDbName . get_conf('dbGlu'); // use in all queries
+            $currentCourseDbNameGlu    = $courseTablePrefix . $currentCourseDbName . $dbGlu; // use in all queries
 
             // initialise
             $error = false;
             $upgraded = false;
             $message = '';
-
-            echo '<p><strong>' . ( $count_course_upgraded + 1 ) . ' . </strong>
+            
+            echo '<p><strong>' . ( $count_course_upgraded + 1 ) . ' . </strong> 
                   Upgrading course <strong>' . $currentCourseFakeCode . '</strong><br />
                   <small>DB Name : ' . $currentCourseDbName . ' - Course ID : ' . $currentCourseCode . '</small></p>';
-
+            
             /**
              * Make some check.
              * For next versions these test would be set in separate process and available out of upgrade
@@ -209,11 +207,11 @@ switch ($display)
 
             // repair tables
             sql_repair_course_database($currentCourseDbNameGlu);
-
+                
             // course repository doesn't exists
 
             if ( !file_exists($currentcoursePathSys) )
-            {
+            {            
                 $error = true;
                 $message .= '<p class="help"><strong>Course has no repository.</strong><br />
                              <small>' .  $currentcoursePathSys . '</small> Not found</p>' . "\n";
@@ -221,11 +219,11 @@ switch ($display)
                              Fix, first, the technical problem and relaunch the upgrade tool.</p>' . "\n";
             }
 
-            if ( ! $error )
+            if ( ! $error ) 
             {
                 /*---------------------------------------------------------------------
-                  Upgrade 1.5 to 1.6
-                 ---------------------------------------------------------------------*/
+                  Upgrade 1.5 to 1.7
+                 ---------------------------------------------------------------------*/                
 
                 if ( preg_match('/^1.5/',$currentCourseVersion) )
                 {
@@ -244,7 +242,7 @@ switch ($display)
                             $error = true;
                         }
                     }
-
+                   
                     if ( ! $error )
                     {
                         // Upgrade succeeded
@@ -259,10 +257,10 @@ switch ($display)
                     // Save version
                     save_course_current_version($currentCourseCode,$currentCourseVersion);
                 }
-
+                
                 /*---------------------------------------------------------------------
                   Upgrade 1.6 to 1.7
-                 ---------------------------------------------------------------------*/
+                 ---------------------------------------------------------------------*/                
 
                 if ( preg_match('/^1.6/',$currentCourseVersion) )
                 {
@@ -285,7 +283,7 @@ switch ($display)
                             $error = true;
                         }
                     }
-
+                    
                     if ( ! $error )
                     {
                         // Upgrade succeeded
@@ -299,56 +297,15 @@ switch ($display)
                     }
                     // Save version
                     save_course_current_version($currentCourseCode,$currentCourseVersion);
-
-                }
-
-                /*---------------------------------------------------------------------
-                  Upgrade 1.7 to 1.8
-                 ---------------------------------------------------------------------*/
-
-                if ( preg_match('/^1.7/',$currentCourseVersion) )
-                {
-                    // Function to upgrade tool to 1.8
-                    $function_list = array( 'course_repository_upgrade_to_18',
-                                            'group_upgrade_to_18',
-                                            'tool_list_upgrade_to_18',
-                                            'quiz_upgrade_to_18',
-                                            'tool_intro_upgrade_to_18',
-                                            'tracking_upgrade_to_18',
-                                            'forum_upgrade_to_18' );
-
-                    foreach ( $function_list as $function )
-                    {
-                        $step = $function($currentCourseCode);
-                        if ( $step > 0 )
-                        {
-                            echo 'Error : ' . $function . ' at step ' . $step . '<br />';
-                            $error = true;
-                        }
-                    }
-
-                    if ( ! $error )
-                    {
-                        // Upgrade succeeded
-                        clean_upgrade_status($currentCourseCode);
-                        $currentCourseVersion = '1.8';
-                    }
-                    else
-                    {
-                        // Upgrade failed
-                        $currentCourseVersion = 'error-1.7';
-                    }
-                    // Save version
-                    save_course_current_version($currentCourseCode,$currentCourseVersion);
-
+                
                 }
 
             }
 
-
+            
             if ( ! $error )
             {
-                if ( preg_match('/^1.8/',$currentCourseVersion) )
+                if ( preg_match('/^1.7/',$currentCourseVersion) )
                 {
                     $message .= '<p class="success">Upgrade succeeded</p>';
                     // course upgraded
@@ -367,21 +324,21 @@ switch ($display)
                 $count_course_error++;
                 $message .= '<p class="error">Upgrade failed</p>';
             }
-
+            
             // display message
             echo $message;
-
-            // Calculate time
+            
+            // Calculate time            
             $mtime = microtime(); $mtime = explode(' ',$mtime);    $mtime = $mtime[1] + $mtime[0]; $endtime = $mtime;
             $totaltime = ($endtime - $starttime);
             $stepDuration = ($endtime - $steptime);
             $steptime = $endtime;
-            $stepDurationAvg = $totaltime / ( ($count_course_upgraded-$count_course_upgraded_at_start)
+            $stepDurationAvg = $totaltime / ( ($count_course_upgraded-$count_course_upgraded_at_start) 
                                              + ($count_course_error-$count_course_error_at_start) );
 
             $leftCourses = (int) ($count_course-$count_course_upgraded);
             $leftTime = strftime('%H:%M:%S',$leftCourses * $stepDurationAvg);
-
+            
             $str_execution_time = sprintf(" <!-- Execution time for this course [%01.2f s] - average [%01.2f s] - total [%s] - left courses [%d]. -->
                                            <strong>Expected remaining time %s</strong>."
                                           ,$stepDuration
@@ -393,39 +350,39 @@ switch ($display)
 
             echo '<p>' . $str_execution_time . '</p>';
 
-            echo '<hr noshade="noshade" />';
+            echo '<hr noshade="noshade" />';           
             flush();
 
         } // end of course upgrade
-
+                
         $mtime = microtime(); $mtime = explode(" ",$mtime);    $mtime = $mtime[1] + $mtime[0];    $endtime = $mtime; $totaltime = ($endtime - $starttime);
-
+        
         if ( $count_course_error > 0 )
         {
             /*
              * display block with list of course where upgrade failed
              * add a link to retry upgrade of this course
              */
-
-            $sql = "SELECT code
-                    FROM `" . $tbl_course . "`
+    
+            $sql = "SELECT code 
+                    FROM `" . $tbl_course . "` 
                     WHERE versionClaro like 'error-%' ";
-
+    
             $result = claro_sql_query($sql);
-
+    
             if ( mysql_num_rows($result) )
             {
                 echo '<p  class="error">Upgrade tool is not able to upgrade the following courses : ';
                 while ( ( $course = mysql_fetch_array($result)) )
                 {
-                    echo $course['code'] . ' ; ';
+                    echo $course['code'] . ' ; ';    
                 }
                 echo  '</p>';
 
             }
 
             echo '<p class="comment">'
-                    . sprintf('Fix first the technical problem and <a href="%s">relaunch the upgrade tool</a>.',
+                    . sprintf('Fix first the technical problem and <a href="%s">relaunch the upgrade tool</a>.', 
                               $_SERVER['PHP_SELF'] . '?cmd=run&upgradeCoursesError=1')
                     . '</p>';
         }
@@ -439,11 +396,11 @@ switch ($display)
         /*
          * Hide Refresh Block
          */
-
+                       
         echo '<script type="text/javascript">' . "\n";
         echo 'document.getElementById(\'refreshIfBlock\').style.visibility = "hidden"';
         echo '</script>';
-
+                
         break;
 
 } // end of switch display

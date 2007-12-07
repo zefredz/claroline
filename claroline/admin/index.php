@@ -1,9 +1,9 @@
 <?php // $Id$
 /**
  * CLAROLINE
- * @version 1.8 $Revision$
+ * @version 1.7 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -17,17 +17,18 @@ require '../inc/claro_init_global.inc.php';
 
 //SECURITY CHECK
 
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
 
-require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
+require_once $includePath . '/lib/admin.lib.inc.php';
 
-//------------------------
+//------------------------------------------------------------------------------------------------------------------------
 //  USED SESSION VARIABLES
-//------------------------
+//------------------------------------------------------------------------------------------------------------------------
 // clean session of possible previous search information. : COURSE
 
 unset($_SESSION['admin_course_code']);
+unset($_SESSION['admin_course_letter']);
 unset($_SESSION['admin_course_search']);
 unset($_SESSION['admin_course_intitule']);
 unset($_SESSION['admin_course_category']);
@@ -39,7 +40,7 @@ unset($_SESSION['admin_course_order_crit']);
 
 // deal with session variables clean session variables from previous search : USER
 
-// TODO : this unset would disapear
+unset($_SESSION['admin_user_letter']);
 unset($_SESSION['admin_user_search']);
 unset($_SESSION['admin_user_firstName']);
 unset($_SESSION['admin_user_lastName']);
@@ -49,158 +50,179 @@ unset($_SESSION['admin_user_action']);
 unset($_SESSION['admin_order_crit']);
 
 $controlMsg = array();
-
-$menu['AdminUser']      = get_menu_item_list('AdminUser');
-$menu['AdminCourse']    = get_menu_item_list('AdminCourse');
-$menu['AdminClaroline'] = get_menu_item_list('AdminClaroline');
-$menu['AdminPlatform']  = get_menu_item_list('AdminPlatform');
-$menu['AdminTechnical'] = get_menu_item_list('AdminTechnical');
-
-
 //----------------------------------
 // DISPLAY
 //----------------------------------
 
 // Deal with interbredcrumps  and title variable
 
-$nameTools = get_lang('Administration');
+$nameTools = $langAdministration;
 
-//  no sense because not allowed with claro_is_platform_admin()
-// but  claro_is_platform_admin() would be later replaced by get_user_property ('can view admin menu')
-$is_allowedToAdmin     = claro_is_platform_admin();
+include $includePath . '/lib/debug.lib.inc.php';
+$is_allowedToAdmin     = $is_platformAdmin;
 
 // ----- is install visible ----- begin
 if ( file_exists('../install/index.php') && ! file_exists('../install/.htaccess'))
 {
-    $controlMsg['warning'][] = get_block('blockWarningRemoveInstallDirectory');
+     $controlMsg['warning'][] = $langNoticeInstallFolderBrowsable;
 }
-
 // ----- is install visible ----- end
 
 $register_globals_value = ini_get('register_globals');
 
 if ( ! empty($register_globals_value) && strtolower($register_globals_value) != 'off' )
 {
-    $controlMsg['warning'][] = get_lang('<b>Security :</b> We recommend to set register_globals to off in php.ini');
+    $controlMsg['warning'][] = '<b>Security :</b> We recommend to set register_globals to off in php.ini';
 }
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-echo claro_html_tool_title($nameTools)
-.    claro_html_msg_list( $controlMsg,1) . "\n\n"
-;
-
-echo '<table cellspacing="5" align="center">' . "\n"
-.    '<tr valign="top">' . "\n"
-.    '<td nowrap="nowrap">' . "\n"
-.    claro_html_tool_title('<img src="' . get_path('imgRepositoryWeb') . 'user.gif" alt="" />&nbsp;'.get_lang('Users'))
-.    claro_html_menu_vertical($menu['AdminUser'])
-.    '</td>' . "\n"
-.    '<td nowrap="nowrap">'
-.    claro_html_tool_title('<img src="' . get_path('imgRepositoryWeb') . 'course.gif" alt="" />&nbsp;'.get_lang('Courses'))
-.    claro_html_menu_vertical($menu['AdminCourse']) . "\n"
-.    '</td>' . "\n"
-.    '</tr>' . "\n"
-.    '<tr valign="top">' . "\n"
-.    '<td nowrap="nowrap">' . "\n"
-.    claro_html_tool_title('<img src="' . get_path('imgRepositoryWeb') . 'settings.gif" alt="" />&nbsp;'.get_lang('Platform')) . "\n"
-.    claro_html_menu_vertical($menu['AdminPlatform']) . "\n"
-.    '</td>' . "\n"
-.    '<td nowrap="nowrap">' . "\n"
-.    claro_html_tool_title('<img src="' . get_path('imgRepositoryWeb') . 'claroline.gif" alt="" />&nbsp;Claroline.net')
-.    claro_html_menu_vertical($menu['AdminClaroline'])
-.    '</td>' . "\n"
-.    '</tr>' . "\n"
-.    '<tr valign="top">' . "\n"
-.    '<td nowrap="nowrap">' . "\n"
-.    claro_html_tool_title('<img src="' . get_path('imgRepositoryWeb') . 'exe.gif" alt="" />&nbsp;' . get_lang('Tools'))
-.    claro_html_menu_vertical($menu['AdminTechnical'])
-.    '</td>' . "\n"
-.    '</tr>'
+include $includePath . '/claro_init_header.inc.php';
+echo claro_disp_tool_title($nameTools)
+.    claro_disp_msg_arr( $controlMsg,1) . "\n\n"
 ;
 
 ?>
-</table>
+<table cellspacing="5" align="center">
+
+<tr valign="top">
+
+<td nowrap="nowrap">
+<h4><img src="<?php echo $imgRepositoryWeb; ?>user.gif" alt="" /> <?php echo $langUsers?></h4>
+<ul>
+<li>
+<form name="searchUser" action="adminusers.php" method="GET" >
+<label for="search_user"><?php echo $langUser; ?></label>
+:
+<input name="search" id="search_user" />
+<input type="submit" value="<?php echo $langSearch; ?>" />
+&nbsp;&nbsp;<small><a href="advancedUserSearch.php"><?php echo $langAdvanced?></small></a>
+</form>
+<li>
+<a href="adminusers.php" class="toollink"><?php echo $langListUsers?></a>
+</li>
+<li>
+<a href="adminaddnewuser.php" class="toollink"><?php echo $langCreateUser?></a>
+</li>
+<li>
+<a href="admin_class.php" class="toollink"><?php echo $langManageClasses?></a>
+</li>
+<li>
+<a href="../user/AddCSVusers.php?AddType=adminTool" class="toollink"><?php echo $langAddCSVUsers?></a>
+</li>
+</ul>
+</td>
+
+<td nowrap="nowrap">
+<h4><img src="<?php echo $imgRepositoryWeb; ?>course.gif" alt="" /> <?php echo $langCourses?></h4>
+<ul>
+<li>
+<form name="searchCourse" action="admincourses.php" method="GET" >
+<label for="search_course"><?php echo $langCourse; ?></label> :
+<input name="search" id="search_course" />
+<input type="submit" value="<?php echo $langSearch; ?>" />
+&nbsp; &nbsp;<small><a href="advancedCourseSearch.php"><?php echo $langAdvanced?></a></small>
+</form>
+</li>
+<li>
+<a href="admincourses.php" class="toollink"><?php echo $langCourseList?></a>
+</li>
+<li>
+<a href="../create_course/add_course.php?fromAdmin=yes" class="toollink"><?php echo $langCreateCourse?></a><br />
+</li>
+<li>
+<a href="admincats.php" class="toollink"><?php echo $langManageCourseCategories?></a>
+</li>
+</ul>
+</td>
+
+</tr>
+<tr valign="top">
+
+<td nowrap="nowrap">
+<h4><img src="<?php echo $imgRepositoryWeb; ?>settings.gif" alt="" /> <?php echo $langPlatform?></h4>
+<ul>
+<li>
+<a href="tool/config_list.php" class="toollink"><?php echo $langConfiguration?></a>
+</li>
+<li>
+<a href="managing/editFile.php" class="toollink"><?php echo $langHomePageTextZone ?></a>
+</li>
+<li>
+<a href="campusLog.php" class="toollink"><?php echo $langViewPlatFormStatistics?></a>
+</li>
+<li>
+<a href="campusProblem.php" class="toollink"><?php echo $langViewPlatFormError ?></a>
+</li>
+<li>
+<a href="maintenance/repaircats.php" class="toollink"><?php echo $langCategoriesRepairs ?></a>
+</li>
+<li>
+<a href="upgrade/index.php" class="toollink"><?php echo $langUpgrade?></a>
+</li>
+</ul>
+</td>
+
+<td nowrap="nowrap">
+<h4><img src="<?php echo $imgRepositoryWeb; ?>claroline.gif" alt="" />&nbsp;Claroline.net</h4>
+<ul>
+<li>
+<a href="registerCampus.php"  class="toollink" ><?php echo $langRegisterMyCampus; ?></a>
+</li>
+<li>
+<a href="http://www.claroline.net/forum/" class="extlink" ><?php echo $langSupportForum; ?></a>
+</li>
+<li>
+<a href="clarolinenews.php" class="extlink" ><?php echo $langClarolineNetNews; ?></a>
+</li>
+</ul>
+</td>
+
+</tr>
+
 <?php
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
-
-function get_menu_item_list($type)
+if ( ( defined('DEVEL_MODE') && DEVEL_MODE == TRUE )
+|| ( defined('CLAROLANG') && CLAROLANG == 'TRANSLATION') )
 {
-
-    static $menu = null;
-
-    // set static menu
-    if(is_null($menu))
-    {
-
-        $menu['AdminUser'][] =  '<form name="searchUser" action="adminusers.php" method="get" >' . "\n"
-        .                   '<label for="search_user">' . get_lang('User') . '</label>'
-        .                   ' : '
-        .                   '<input name="search" id="search_user" />&nbsp;'
-        .                   '<input type="submit" value="' . get_lang('Search') . '" />'
-        .                   '&nbsp;'
-        .                   '<small>'
-        .                   '<a href="advancedUserSearch.php">'
-        .                   get_lang('Advanced')
-        .                   '</a>'
-        .                   '</small>'
-        .                   '</form>'
-        ;
-
-        $menu['AdminUser'][] = claro_html_tool_link('adminusers.php',       get_lang('User list'));
-        $menu['AdminUser'][] = claro_html_tool_link('adminaddnewuser.php',  get_lang('Create user'));
-        $menu['AdminUser'][] = claro_html_tool_link('admin_class.php',      get_lang('Manage classes'));
-        $menu['AdminUser'][] = claro_html_tool_link('../user/AddCSVusers.php?AddType=adminTool', get_lang('Add a user list'));
-        $menu['AdminUser'][] = claro_html_tool_link('right/profile_list.php', get_lang('Right profile list'));
-
-        $menu['AdminCourse'][] = '<form name="searchCourse" action="admincourses.php" method="get" >' . "\n"
-        .                    '<label for="search_course">' . get_lang('Course') . '</label> :' . "\n"
-        .                    '<input name="search" id="search_course" />&nbsp;'
-        .                    '<input type="submit" value="' . get_lang('Search'). '" />'
-        .                    '&nbsp;<small><a href="advancedCourseSearch.php">' . get_lang('Advanced') . '</a></small>' . "\n"
-        .                    '</form>'
-        ;
-
-        $menu['AdminCourse'][] = claro_html_tool_link('admincourses.php',                   get_lang('Course list'));
-        $menu['AdminCourse'][] = claro_html_tool_link('../course/create.php?adminContext=1', get_lang('Create course'));
-        $menu['AdminCourse'][] = claro_html_tool_link('admincats.php',                      get_lang('Manage course categories'));
-
-
-        $menu['AdminPlatform'][] = claro_html_tool_link('tool/config_list.php', get_lang('Configuration'));
-        $menu['AdminPlatform'][] = claro_html_tool_link('managing/editFile.php',get_lang('Edit text zones'));
-        $menu['AdminPlatform'][] = claro_html_tool_link('module/module_list.php', get_lang('Modules'));
-        $menu['AdminPlatform'][] = claro_html_tool_link('campusLog.php',        get_lang('Platform statistics'));
-        $menu['AdminPlatform'][] = claro_html_tool_link('campusProblem.php',    get_lang('Scan technical fault'));
-        if (file_exists(dirname(__FILE__) . '/maintenance/checkmails.php'))
-        $menu['AdminPlatform'][] = claro_html_tool_link('maintenance/checkmails.php', get_lang('Check and Repair emails of users'));
-        // Broken $menu['AdminPlatform'][] = claro_html_tool_link('maintenance/repaircats.php', get_lang('Repair category structure'));
-        //$menu['AdminPlatform'][] = claro_html_tool_link('adminmailsystem.php', get_lang('Choose messages dest'));
-        $menu['AdminPlatform'][] = claro_html_tool_link('upgrade/index.php',    get_lang('Upgrade'));
-
-
-        $menu['AdminClaroline'][] = claro_html_tool_link('registerCampus.php',  get_lang('Register my campus'));
-        $menu['AdminClaroline'][] = claro_html_tool_link('http://www.claroline.net/forum', get_lang('Support forum'));
-        $menu['AdminClaroline'][] = claro_html_tool_link('clarolinenews.php',              get_lang('Claroline.net news'));
-
-        $menu['AdminTechnical'][] = claro_html_tool_link('technical/diskUsage.php',  get_lang('Disk usage'));
-        $menu['AdminTechnical'][] = claro_html_tool_link('technical/phpInfo.php',    get_lang('System Info'));
-
-        if ( defined('CLAROLANG') && CLAROLANG == 'TRANSLATION') $menu['AdminTechnical'][] = claro_html_tool_link('xtra/sdk/translation_index.php', get_lang('Translation Tools'));
-        if ( get_conf('DEVEL_MODE', false) == TRUE )
-        {
-            $menu['AdminTechnical'][] =  claro_html_tool_link('devTools', get_lang('Devel Tools'));
-        }
-
-
-
-    }
-
-
-
-    if (array_key_exists($type,$menu )) $item_list = $menu[$type];
-    else                                $item_list=array();
-
-
-    return $item_list;
+    echo '<tr valign="top">'
+    .    '<td nowrap="nowrap">'
+    .    '<h4>'
+    .    $langSDK
+    .    '</h4>'
+    .    '<ul>'
+    ;
 }
 
+if ( defined('CLAROLANG') && CLAROLANG == 'TRANSLATION')
+{
+    echo '<li>'
+    .    '<a href="xtra/sdk/translation_index.php" class="toollink">'
+    .    $langTranslationTools
+    .    '</a>'
+    .    '</li>'
+    ;
+}
+if ( defined('DEVEL_MODE') && DEVEL_MODE == TRUE )
+{
+    echo '<li>'
+    .    '<a href="devTools/" class="toollink">'
+    .    $langDevTools
+    .    '</a>'
+    .    '</li>'
+    ;
+}
+
+if ( ( defined('DEVEL_MODE') && DEVEL_MODE == TRUE )
+|| ( defined('CLAROLANG') && CLAROLANG == 'TRANSLATION') )
+{
+    // close opened tag if needed
+?>
+</ul>
+</td>
+<td nowrap="nowrap">&nbsp;</td>
+</tr>
+<?php
+}
+?>
+</table>
+<?php
+include $includePath . '/claro_init_footer.inc.php';
 ?>

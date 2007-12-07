@@ -1,10 +1,10 @@
 <?php // $Id$
 /**
- * CLAROLINE
+ * CLAROLINE 
  *
  * @version version 1.7
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001, 2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -19,37 +19,30 @@
 
 require '../../inc/claro_init_global.inc.php';
 
-if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
+if ( ! $_cid || ! $is_courseAllowed ) claro_disp_auth_form(true);
 
 // the following constant defines the default display of the learning path browser
 // 0 : display only table of content and content
 // 1 : display claroline header and footer and table of content, and content
 define ( 'USE_FRAMES' , 1 );
 
-/*
-if(isset ($_GET['path_id']) && $_GET['path_id'] != '')
-	$_SESSION['path_id'] = $_GET['path_id'];
-
-if(isset ($_GET['viewModule_id']) && $_GET['viewModule_id'] != '')
-	$_SESSION['module_id'] = $_GET['viewModule_id'];
-*/
-$nameTools = get_lang('Learning path');
-
+$nameTools = $langLearningPath;
 if (!isset($titlePage)) $titlePage = '';
 if(!empty($nameTools))
 {
     $titlePage .= $nameTools.' - ';
 }
 
-if(claro_get_current_course_data('officialCode') != '' )
+if(!empty($_course['officialCode']))
 {
-    $titlePage .= claro_get_current_course_data('officialCode') . ' - ';
+    $titlePage .= $_course['officialCode'] . ' - ';
 }
-$titlePage .= get_conf('siteName');
+$titlePage .= $siteName;
 
 // set charset as claro_header should do but we cannot include it here
-header('Content-Type: text/html; charset=' . get_locale('charset'));
-?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN"
+header('Content-Type: text/html; charset=' . $charset);
+?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN"
    "http://www.w3.org/TR/html4/frameset.dtd">
 <html>
 
@@ -73,7 +66,7 @@ if( $displayFrames )
 ?>
     <frameset border="0" rows="150,*,70" frameborder="no">
         <frame src="topModule.php" name="headerFrame" />
-        <frame src="startModule.php" name="mainFrame" />
+        <frame src="startModule.php" name="mainFrame" />         
         <frame src="bottomModule.php" name="bottomFrame" />
     </frameset>
 <?php
@@ -82,16 +75,17 @@ else
 {
 ?>
     <frameset cols="*" border="0">
-        <frame src="startModule.php" name="mainFrame" />
+        <frame src="startModule.php" name="mainFrame" />    
     </frameset>
 <?php
 }
 ?>
+
     <noframes>
         <body>
-            <?php echo get_lang('Your browser cannot see frames.') ?>
+            <?php echo $langBrowserCannotSeeFrames ?>
             <br />
-            <a href="../module.php"><?php echo get_lang('Back') ?></a>
+            <a href="../module.php"><?php echo $langBack ?></a>
         </body>
     </noframes>
 </html>

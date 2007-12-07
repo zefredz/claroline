@@ -1,0 +1,35 @@
+<?php
+$l_click = "Click";
+$l_here = "ที่นี่";
+$l_notifysubj = "A reply to your topic has been posted.";
+$l_returnindex = "กลับไป to the forum index";
+$l_returntopic = "กลับไป to the forum topic list.";
+$l_separator = "ป ป";
+$l_viewmsg = "ต้องการดู ข้อความ ของคุณ";
+$langAgenda = "กำหนดการ";
+$langCancel = "ยกเลิก";
+$langChat = "Chat";
+$langCopy = "ย้าย";
+$langDay_of_weekNames = "Array";
+$langDear = "สวัสดี คุณ";
+$langDelete = "ลบ";
+$langDocument = "เอกสาร";
+$langForums = "กระดานข่าว";
+$langGroupSpaceLink = "พื้นที่กลุ่ม";
+$langGroups = "กลุ่ม";
+$langHelp = "ช่วยเหลือ";
+$langLogout = "Logout";
+$langModifyProfile = "ปรับปรุงข้อมูลส่วนตัว";
+$langMonthNames = "Array";
+$langMyCourses = "My courses";
+$langNameOfLang = "Array";
+$langNewTopic = "ตั้งกระทู้ใหม่";
+$langNotAllowed = "ไม่อนุญาต";
+$langOk = "ตกลง";
+$langOtherCourses = "รายชื่อรายวิชา";
+$langPoweredBy = "Powered by";
+$langReply = "ตอบกระทู้";
+$langStudent = "นักศึกษา";
+$langTo = "ไปยัง";
+$langUsers = "Users";
+?>

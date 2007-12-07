@@ -1,10 +1,10 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+if ( ! defined('CLARO_INCLUDE_ALLOWED') ) die('---');
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @version 1.7 $Revision$
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -15,6 +15,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @package CLLINKER
  *
  */
+
 
     /**
     * Class CRLTool
@@ -135,7 +136,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
                         if( count($crlArray) > 4 )
                         {
-                            $elementCRL["tool_name"] = str_pad( $crlArray[4], 8, '_' );
+                            $elementCRL["tool_name"] = $crlArray[4];
 
                             if( count($crlArray) > 5 )
                             {
@@ -160,7 +161,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 {
                     if( count($crlArray) > 2 )
                     {
-                        $elementCRL["tool_name"] = str_pad( $crlArray[2], 8, '_' );
+                        $elementCRL["tool_name"] = $crlArray[2];
 
                         if( count($crlArray) > 3 )
                         {
@@ -201,11 +202,6 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         {
             $crl_sheme = "crl";
             $crl_virtual_host = "claroline.net";
-
-            $tool_name = empty( $tool_name )
-            	? ''
-            	: str_pad( $tool_name, 8, '_' )
-            	;
 
             if($course_sys_code && $platform_id)
             {
@@ -252,7 +248,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
             if( isset($array["tool_name"]))
             {
-                return ( str_pad( $array["tool_name"], 8, '_' ) == str_pad( $tool_name, 8, '_' ) );
+                return ($array["tool_name"] == $tool_name);
             }
             else
             {

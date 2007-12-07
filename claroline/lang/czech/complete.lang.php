@@ -1,1551 +1,409 @@
 <?php 
-$_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! velikost úlo¾i¹tì kurzù (vèetnì claroline a zbytkù starých systémù)';
-$_lang['%1\$s by %2\$s'] = '%1$s - %2$s';
-$_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s upraveno %2$s - %3$s';
-$_lang['%chat_filename is now in the document tool. (<em>This file is visible</em>)'] = '%chat_filename je v nástorjích dokumentu. (<em>Soubor je viditelný</em>)';
-$_lang['%claroLabel registered'] = '%claroLabel registrováno';
-$_lang['%date not valid'] = '%date není platné';
-$_lang['%delay ago'] = 'pøed %delay';
-$_lang['%firstname %lastname has been added to the campus'] = '%firstname %lastname byl pøidán/a do kampusu';
-$_lang['%firstname %lastname has been added to the campus and to the class'] = '%firstname %lastname byl pøidán/a do kampusu a tøídy';
-$_lang['%firstname %lastname has been added to the campus and to the course'] = '%firstname %lastname byl pøidán/a do kampusu a kurzu';
-$_lang['%firstname %lastname has been registered to your course'] = '%firstname %lastname byl zaregistrován/a do kurzu';
-$_lang['%groupQty group(s) has (have) been added'] = '%groupQty skupina(ny) byly pøidány';
-$_lang['%itemName is already attached'] = '%itemName je ji¾ pøipojen';
-$_lang['%label registered as tool'] = '%label registrován jako nástroj';
-$_lang['%moduleName has been added as module'] = '%moduleName byl pøidán jako modul kurzu této uèební osnovy';
-$_lang['%moduleName is already used as a module in this learning path'] = '%moduleName je ji¾ pou¾ívám jako modul v této uèební osnovì';
-$_lang['%name is required'] = '%name je povinné';
-$_lang['%name should be an array'] = '%name mù¾e být pole';
-$_lang['%name should be boolean'] = '%name mù¾e být boolean';
-$_lang['%name should be integer'] = '%name mù¾e být celé èíslo';
-$_lang['%name should be integer inferior or equal to %value'] = '%name mù¾e být ni¾¹í celé èíslo nebo rovno %value';
-$_lang['%name should be integer superior or equal to %value'] = '%name mù¾e být vy¹¹í celé èíslo nebo rovno %value';
-$_lang['%name should be match %regular_expression'] = '%name mìlo by odpovídat %regular_expression';
-$_lang['%nb course(s)'] = '%nb kurzy';
-$_lang['%nb course(s) manager(s)'] = '%nb správce(i) kurzù';
-$_lang['%nb errors found'] = '%nb nalezeno chyb';
-$_lang['%nb member(s)'] = '%nb èlenù';
-$_lang['%nb student(s)'] = '%nb studentù';
-$_lang['%nb_user new users in the platform'] = '%nb_user nový u¾ivatel v platformì';
-$_lang['%number student(s) unregistered from this course'] = '%number studentù odhlá¹ených z tohoto kurzu';
-$_lang['%site_name Course creation %course_name'] = '%site_name Vytváøení kurzu %course_name';
-$_lang['%sitename Request - Course creator status for %firstname %lastname'] = '%sitename Po¾adavek - %firstname %lastname status Tvùrce kurzù';
-$_lang['%sitename Request - Revocation of %firstname %lastname'] = '%sitename Po¾adavek - zmìna %firstname %lastname';
-$_lang['%value should be in enum list of %name'] = '%value by mìla být v seznamu %name';
-$_lang['%value should be in the accepted value list of %name'] = '%value by mìla být v seznamu pøípustných hodnot %name';
-$_lang['&#91;British people&#93; live in &#91;United Kingdom&#93;.'] = '[Køemílek a Vochomùrka] ¾ijí v [Paøezové chaloupce].';
-$_lang['(*) anonymous users, users who are not members of this course...'] = '(*) anonymní u¾ivatelé, kteøí nejsou èleny tohoto kurzu...';
-$_lang['(When an user open the index of the campus)'] = '(Kdy¾ u¾ivatel otevøe obsah Kampusu)';
-$_lang['(d/m/y hh:mm)'] = '(d/m/r hh:mm)';
-$_lang['(none)'] = '(nic)';
-$_lang['(optional)'] = '(volitelné)';
-$_lang['(version of %1\$s modified by %2\$s)'] = '(verze z %1$s upravená %2$s)';
-$_lang['- none -'] = '- ¾ádný -';
-$_lang['<b>From</b> %startDate <b>until</b> %endDate'] = '<b>Od</b> %startDate <b>do</b> %endDate';
-$_lang['<b>From</b> %start_date <b>until</b> %end_date'] = '<b>Od/b> %start_date <b>do</b> %end_date';
-$_lang['<b>Security :</b> We recommend to set register_globals to off in php.ini'] = '<b>Zabezpeèení :</b> Doporuèujeme nastavit register_globals na off v php.ini';
-$_lang['<b>Warning : </b>'] = '<b>Varování : </b>';
-$_lang['<i>%firstname %lastname</i> has been sucessfully registered to the course'] = '<i>%firstname %lastname</i> byl(a) úspì¹nì zaregistrován(a) do kurzu.';
-$_lang['<i>%firstname %lastname</i> has not been sucessfully registered to the course'] = '<i>%firstname %lastname</i> nebyl(a) zaregistrován(a) do kurzu';
-$_lang['<label1>Yes</label1>, <label2>take</label2> %nb questions among %total'] = '<label1>Ano</label1>, <label2>vyberte</label2> otázku %nb z %total';
-$_lang['<span class="required">*</span> denotes required field'] = '<span class="required">*</span> povinné pole';
-$_lang['<span class=\"required\">*</span> denotes required field'] = '<span class="required">*</span> povinná pole';
-$_lang['<strong>Approved</strong><p>Your campus registration has been approved by the Claroline.net team.</p>'] = '<strong>Schváleno</strong><p>Registrace Va¹eho kampusu byla schválena týmem Claroline.net.<br />Odkaz na Vá¹ Kampus bude zobrazen na webu Claroline.net.</p>';
-$_lang['<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our website) if you think this is an error.</p>'] = '<strong>Odstranìn</strong><p>Registrace Va¹eho kampusu byla deaktivována, kontaktujte nás (nav¹tivte ná¹ web), jestli¾e se domníváte, ¾e do¹lo k chybì.</p>';
-$_lang['<strong>Removed</strong><p>Your campus has been removed from the worldwide page.</p>'] = '<strong>Odstranìn</strong><p>Vá¹ kampus byl odstranìn ze seznamu svìtových kampusù.</p>';
-$_lang['<strong>Submitted</strong><p>Waiting for validation by Claroline.net team.</p>'] = '<strong>Odesláno</strong><p>Èeká se na schválení týmem Claroline.net.</p>';
-$_lang['A file is required'] = 'Je po¾adován soubor';
-$_lang['A file with this name already exists.'] = 'Soubor s tímto názvem ji¾ existuje.';
-$_lang['A reply to your topic has been posted'] = 'Byla zaslána odpovìï na Vá¹ pøíspìvek.';
-$_lang['A user can be a member of maximum %nb groups'] = 'U¾ivatel mù¾e být èlenem maximálnì %nb skupin';
-$_lang['About'] = 'O Claroline';
-$_lang['Access'] = 'Pøístup';
-$_lang['Access control management'] = 'Správa oprávnìní pøístupu';
-$_lang['Access count'] = 'Poèet pøístupù';
-$_lang['Access to campus'] = 'Pøístup do kampusu';
-$_lang['Access to course and tools'] = 'Pøístup ke kurzu a nástrojùm';
-$_lang['Access to courses'] = 'Pøístup do kurzù';
-$_lang['Access to tools'] = 'Pøístup k nástrojùm';
-$_lang['Accounts with same <i>Email</i>'] = 'Úèet se stejným <i>Emailem</i>';
-$_lang['Accounts with same <i>User name</i>'] = 'Úèet se stejným <i>U¾ivatelským jménem</i>';
-$_lang['Accounts with same <i>User name</i> AND same <i>Password</i>'] = 'Úèty se stejným <i>U¾ivatelským jménem</i> a stejným <i>Heslem</i>';
-$_lang['Action'] = 'Akce';
-$_lang['Activated'] = 'Zapnuto';
-$_lang['Activated - Click to deactivate'] = 'Zapnuto - kliknìte pro vypnutí';
-$_lang['Activation'] = 'Zapnutí';
-$_lang['Add'] = 'Pøidat';
-$_lang['Add Text'] = 'Pøidat text';
-$_lang['Add a category'] = 'Pøidat kategorii';
-$_lang['Add a comment'] = 'Pøidat komentáø';
-$_lang['Add a comment (optionnal) :'] = 'Pøidat komentáø (volitelné) :';
-$_lang['Add a document'] = 'Vlo¾it dokument jako modul';
-$_lang['Add a module of this course'] = 'Vlo¾it mùj modul';
-$_lang['Add a user'] = 'Pøidat u¾ivatele';
-$_lang['Add a user list'] = 'Pøidat seznam u¾ivatelù';
-$_lang['Add a user list in class'] = 'Pøidat seznam u¾ivatelù do tøídy';
-$_lang['Add a user list in course'] = 'Pøidat seznam u¾ivatelù do kurzu';
-$_lang['Add an event'] = 'Pøidat událost';
-$_lang['Add an exercise'] = 'Vlo¾it mé cvièené';
-$_lang['Add announcement'] = 'Pøidat oznámení';
-$_lang['Add answ.'] = 'Pøidat odp.';
-$_lang['Add elem.'] = 'Pøidat objekt';
-$_lang['Add external link'] = 'Pøidat externí odkaz';
-$_lang['Add feedback'] = 'Pøidat zpìtnou informaci';
-$_lang['Add forum'] = 'Pøidat fórum';
-$_lang['Add me to this group'] = 'Pøidat Vás do skupiny';
-$_lang['Add module(s)'] = 'Pøidat modul(y)';
-$_lang['Add my campus on Claroline.net website'] = 'Pøidat mùj Kampus na Claroline.net';
-$_lang['Add new heading'] = 'Vlo¾it novou hlavièku';
-$_lang['Add new profile'] = 'Pøidat nový profil';
-$_lang['Add user list'] = 'Pøidat seznam u¾ivatelù';
-$_lang['Add user manually'] = 'Pøidat u¾ivatele ruènì';
-$_lang['Add wrong answers for drop down lists <small>(Optionnal. One wrong answer by line.)</small>'] = 'Pøidat chybné odpovìdi do rozbalovacího seznamu <small>(Volitelné. Jedna chybná odpovìï na øádek.)</small>';
-$_lang['Add/modify a comment to %documentName'] = 'Pøidat/upravit komentáø k dokumentu %documentName';
-$_lang['Added line'] = 'Øádek byl pøidán';
-$_lang['Admin'] = 'Správce';
-$_lang['Administration'] = 'Administrace';
-$_lang['Administrative code'] = 'Kód administrace';
-$_lang['Administrator'] = 'Správce';
-$_lang['Administrator for %site_name'] = 'Správa %site_name';
-$_lang['Advanced'] = 'Roz¹íøené';
-$_lang['Advanced course search'] = 'Roz¹íøené vyhledávání v kurzu';
-$_lang['Advanced user search'] = 'Roz¹íøené vyhledávání u¾ivatele';
-$_lang['After last allowed attempt'] = 'Po posledním povoleném pokusu';
-$_lang['Agenda'] = 'Rozvrh';
-$_lang['Agenda next events'] = 'Dal¹í událost v rozvrhu';
-$_lang['All'] = 'V¹e';
-$_lang['All exercises'] = 'V¹echna cvièení';
-$_lang['All groups are now empty'] = 'V souèasné chvíli jsou v¹echny skupiny prázdné';
-$_lang['All groups have been deleted'] = 'V¹echny skupiny byly vymazány';
-$_lang['All modules of this course are already used in this learning path.'] = 'V¹echny moduly tohoto kurzu jsou ji¾ pou¾ity v uèební osnovì.';
-$_lang['All pages'] = 'V¹echny stránky';
-$_lang['All platform courses'] = 'V¹echny kurzy platformy';
-$_lang['All profiles'] = 'V¹echny profily';
-$_lang['All users have been sucessfully unregistered from the class'] = 'V¹ichni u¾ivatelé byli úspì¹nì odhlá¹eni ze tøídy';
-$_lang['Allow late upload'] = 'Povolit pozdní odeslání';
-$_lang['Allowed'] = 'Povoleno';
-$_lang['Allowed : do not record usernames in tracking, anonymous users can do the exercise.'] = 'Povoleno : nesledovat jména u¾ivatelù, anonymní u¾ivatelé mohou dìlat cvièení.';
-$_lang['Already browsed'] = 'Ji¾ prohlédnuto';
-$_lang['Already enroled'] = 'je ji¾ zapsán';
-$_lang['An email has been sent to help you remember your user name and password.'] = 'Pro zapamatování Vám byl zaslán email a Va¹im u¾ivatelským jménem a heslem.';
-$_lang['An error occured.  Learning Path import failed.'] = 'Chyba, uèební osnova nemohla být naimportovaná.';
-$_lang['An error occurred while contacting Claroline.net'] = 'Chyba pøi pøipojení se k Claroline.net';
-$_lang['Announcement'] = 'Oznámení';
-$_lang['Announcement has been added'] = 'Bylo pøidáno oznámení';
-$_lang['Announcement has been deleted'] = 'Oznámení bylo smazáno';
-$_lang['Announcement has been modified'] = 'Oznámení bylo upraveno';
-$_lang['Announcements list has been cleared up'] = 'Seznam oznámení byl vymazán';
-$_lang['Anonymous'] = 'Anonymní';
-$_lang['Anonymous attempts'] = 'Anonymní pokus';
-$_lang['Anonymous users access count :'] = 'Poèet pøístupù anonymních u¾ivatelù : ';
-$_lang['Answer'] = 'Odpovìï';
-$_lang['Answer is required'] = 'Je nutné odpovìdìt';
-$_lang['Answer type'] = 'Typ odpovìdi';
-$_lang['Applets'] = 'Applety';
-$_lang['Are you sure to delete'] = 'Opravdu chcete vymazat';
-$_lang['Are you sure to delete the course "%course_name" ( %course_code ) ?'] = 'Opravdu chcete odstranit kurz "%course_name" ( %course_code ) ?';
-$_lang['Are you sure to delete this group ?'] = 'Jste si jistý, ¾e chcte odstranit tuto skupinu ?';
-$_lang['Are you sure you want to completely delete this question ?'] = 'Jste si jistý, ¾e chcete odstranit tuto otázku?';
-$_lang['Are you sure you want to delete all groups ?'] = 'Jste si jistý, ¾e chcete odstranit v¹echny skupiny ?';
-$_lang['Are you sure you want to delete this exercise ?'] = 'Jste si jistý, ¾e chcete odstranit toto cvièení?';
-$_lang['Are you sure you want to empty all groups ?'] = 'Jste si jistý, ¾e chcete vyprázdnit v¹echny skupiny ?';
-$_lang['Are you sure you want to enrol the whole class on the course ?'] = 'Opravdu chcete zapsat celou tøídu do kurzu ?';
-$_lang['Are you sure you want to make this module invisible in all courses ?'] = 'Opravdu chcete tento modul zneviditelnit ve v¹ech kurzech ?';
-$_lang['Are you sure you want to make this module visible in all courses ?'] = 'Opravdu chtete tento modul zviditelnit ve v¹ech kurzech ?';
-$_lang['Are you sure you want to remove the following module from the learning path :'] = 'Opravdu chcete odstranit následující modul z uèební osnovy : ';
-$_lang['Are you sure you want to remove the question from the exercise ?'] = 'Opravdu chcete odstranit otázku ze cvièení?';
-$_lang['Are you sure you want to remove this course from your list ?'] = 'Jste si jistý, ¾e chcete odstranit tento kurz ze svého seznamu?';
-$_lang['Are you sure you want to unenrol the whole class on the course ?'] = 'Opravdu chcete odhlásit celou tøídu z kurzu ?';
-$_lang['Are you sure you want to uninstall the module'] = 'Opravdu chcete modul odinstalovat?';
-$_lang['Are you sure you want to unregister'] = 'Opravdu chcete zru¹it registraci?';
-$_lang['Area for this group'] = 'Oblast pro tuto skupinu';
-$_lang['Asset not found : %asset'] = 'Nenalezen : %asset';
-$_lang['Assignment'] = 'Zadání';
-$_lang['Assignment deleted'] = 'Zadání vymazáno';
-$_lang['Assignment modified'] = 'Zadání bylo upraveno';
-$_lang['Assignment title'] = 'Název zadání';
-$_lang['Assignment title already exists'] = 'Název zadání ji¾ existuje';
-$_lang['Assignment title required'] = 'Nutné zadat Název zadání';
-$_lang['Assignment type'] = 'Typ zadání';
-$_lang['Assignments'] = 'Úlohy';
-$_lang['Assignments help'] = 'Nápovìda k zadáním';
-$_lang['Attach'] = 'Pøipojit';
-$_lang['Attach a file'] = 'Pøipojte soubor';
-$_lang['Attach an existing resource'] = 'Pøipojit existující zdroj';
-$_lang['Attached Resources : Add / Delete attachement'] = 'Pøipojené zdroje : Pøidat / Odebrat pøílohu';
-$_lang['Attached file'] = 'Pøipojený soubor';
-$_lang['Attached resources'] = 'Pøipojit zdroje';
-$_lang['Attempts'] = 'Pokusù';
-$_lang['Attempts allowed'] = 'Povolených pokusù';
-$_lang['Authentication'] = 'Pøihlá¹ení';
-$_lang['Authentication Required'] = 'Je nutné se pøihlásit';
-$_lang['Authentication source'] = 'Zdroj ovìøení';
-$_lang['Author'] = 'Zaslal';
-$_lang['Author(s)'] = 'Autor(øi)';
-$_lang['Author(s) is(are) required'] = 'Jsou po¾adováni Autor(øi)';
-$_lang['Automatically, after each submission'] = 'Automaticky po ka¾dém odevzdání';
-$_lang['Automatically, after end date'] = 'Automaticky po datu ukonèení';
-$_lang['Average Time'] = 'Prùmìrný èas';
-$_lang['Average score'] = 'Prùmìrný výsledek';
-$_lang['Back'] = 'Zpìt';
-$_lang['Back to Home page'] = 'Zpìt na úvodní stranu';
-$_lang['Back to administration page'] = 'Zpìt k administraci';
-$_lang['Back to class list'] = 'Zpìt na seznam tøíd';
-$_lang['Back to class members'] = 'Zpìt na èleny tøídy';
-$_lang['Back to course list'] = 'Zpìt na seznam kurzù';
-$_lang['Back to learning path administration'] = 'Zpìt k administraci uèebních osnov';
-$_lang['Back to list'] = 'Zpìt na seznam';
-$_lang['Back to my personal course list'] = 'Zpìt na osobní seznam kurzù';
-$_lang['Back to page'] = 'Zpìt na stranu';
-$_lang['Back to parent category'] = 'Zpìt na rodièovskou kategorii';
-$_lang['Back to the class'] = 'zpìt do tøídy';
-$_lang['Back to the editor'] = 'Zpìt do editoru';
-$_lang['Back to user list'] = 'Zpìt k seznamu u¾ivatelù';
-$_lang['Back to user settings'] = 'Zpìt k nastavení u¾ivatele';
-$_lang['Back to user\'s course list'] = 'Zpìt na seznam kurzù u¾ivatele';
-$_lang['Before'] = 'Pøed';
-$_lang['Best score'] = 'Nejlep¹í výsledek';
-$_lang['Blank space'] = 'Prázdné místo';
-$_lang['Block'] = 'Blokovat';
-$_lang['Blockquote'] = 'Citace';
-$_lang['Bold'] = 'Tuènì';
-$_lang['Build language files'] = 'Vytvoø jazykové soubory';
-$_lang['By deleting a label you will delete all modules or label it contains.'] = 'Odstranìním jmenovky vyma¾ete v¹echny moduly nebo jmenovky, které obsahuje.';
-$_lang['CSV file with the user list :'] = 'CSV soubor se seznamem u¾ivatelù : ';
-$_lang['Campus banner - left'] = 'Banner Kampusu - vlevo';
-$_lang['Campus banner - right'] = 'Banner Kampusu - vpravo';
-$_lang['Campus footer - center'] = 'Patièka Kampusu - støed';
-$_lang['Campus footer - left'] = 'Patièka Kampusu - vlevo';
-$_lang['Campus footer - right'] = 'Patièka Kampusu - vpravo';
-$_lang['Campus homepage - bottom'] = 'Úvodní strana Kampusu - spodek';
-$_lang['Campus homepage - right menu'] = 'Úvodní strana Kampusu - pravé menu';
-$_lang['Campus homepage - top'] = 'Úvodní strana Kampusu - vr¹ek';
-$_lang['Campus name'] = 'Jméno webu';
-$_lang['Can have courses'] = 'Tyto kurzy jsou dostupné : ';
-$_lang['Cancel'] = 'Zru¹it';
-$_lang['Cancel the operation'] = 'Pøeru¹it operaci';
-$_lang['Cannot activate module'] = 'Modul nelze aktivovat';
-$_lang['Cannot change module visibility in %course'] = 'Nelze zmìnit nastavení viditelnosti modulu v kurzu %course';
-$_lang['Cannot copy the file'] = 'Soubor Nelze zkopírovat.';
-$_lang['Cannot deactivate module'] = 'Modul nelze deaktivovat';
-$_lang['Cannot extract files.'] = 'Soubory nelze rozbalit.';
-$_lang['Cannot extract manifest from zip file (corrupted file ? ).'] = 'Nelze extrahovat manifest ze zip souboru (po¹kozený soubor ? ).';
-$_lang['Cannot find <i>manifest</i> file in the package.<br /> File not found : imsmanifest.xml'] = 'V balíèku nelze nalézt soubor <i>manifest</i>.<br /> Soubor nenalezen : imsmanifest.xml';
-$_lang['Cannot find module'] = 'Nemohu nalézt modul';
-$_lang['Cannot find secondary initialisation file in the package.<br /> File not found :'] = 'V balíèku nemohu nalézt druhý poèáteèní soubor.<br /> Soubor nenalezen : ';
-$_lang['Cannot open %filename'] = 'Soubor %filename nelze otevøít';
-$_lang['Cannot register module %label'] = 'Modul %label nelze zaregistrovat';
-$_lang['Cannot register tool %label'] = 'Nástroj %label nelze zaregistrovat';
-$_lang['Cannot update course database for %course'] = 'Databázi kurzu %course nelze aktualizovat';
-$_lang['Cannot update database'] = 'Databázi nelze aktualizovat';
-$_lang['Categories'] = 'Kategorie';
-$_lang['Categories structure is right'] = 'Struktura kategorií je v poøádku';
-$_lang['Category'] = 'Kategorie';
-$_lang['Category code'] = 'Kód kategorie ';
-$_lang['Category code is required'] = 'Je po¾adován kód kategorie';
-$_lang['Category created'] = 'Kategorie byla vytvoøena';
-$_lang['Category deleted'] = 'Kategorie byla odstranìna';
-$_lang['Category moved'] = 'Kategorie byla pøesunuta';
-$_lang['Category name'] = 'Jméno kategorie :';
-$_lang['Category name is required'] = 'Je po¾adováno jméno kategorie';
-$_lang['Category needed'] = 'Kategorie je povinná';
-$_lang['Category updated'] = 'Kategorie upravena.';
-$_lang['Change minimum raw mark to pass this module (percentage) :'] = 'Zmìò minimální hodnocení pro absolvování tohoto modulu (v procentech) : ';
-$_lang['Change parent\'s category of %catCode'] = 'Zmìòte rodièovskou kategorii kategorie %catCode';
-$_lang['Changes have been applied to the user settings'] = 'Byla provedena zmìna u¾ivatelského nastavení';
-$_lang['Changes have been saved'] = 'Zmìny byly ulo¾eny';
-$_lang['Changes in the display of the module have been applied'] = 'Zmìny v nastavení zobrazení modulu byly ulo¾eny';
-$_lang['Chat'] = 'Chat';
-$_lang['Chat reset by'] = 'Chat vymazán u¾ivatelem ';
-$_lang['Check this box to delete the attached file'] = 'Za¹krtnìte pro odstranìní pøipojeného souboru.';
-$_lang['Choose a course to access this page.'] = 'Vyberte kurz pro pøístup k této stranì.';
-$_lang['Choose now a username and a password for the user account'] = 'Zadej u¾ivatelské jméno a heslo pro u¾ivatelský úèet.';
-$_lang['Choose one'] = 'Vyberte';
-$_lang['Clarodoc'] = 'Clarodoc';
-$_lang['Claroline help'] = 'Spustit nápovìdu';
-$_lang['Claroline.net news'] = 'Novinky na Claroline.net';
-$_lang['Class deleted'] = 'Tøída odstranìna';
-$_lang['Class has been enroled'] = 'Tøída byla zapsána';
-$_lang['Class has been unenroled'] = 'Tøída byla odhlá¹ena';
-$_lang['Class members'] = 'Èlenové tøídy';
-$_lang['Class not found'] = 'Tøída nebyla nalezena';
-$_lang['Class registered'] = 'Tøída byla zaregistrována';
-$_lang['Class users'] = 'U¾ivatelé ve tøídì';
-$_lang['Classes'] = 'Tøídy';
-$_lang['Clear up event list'] = 'Vyma¾ seznam událostí';
-$_lang['Clear up list of announcements'] = 'Vyma¾ seznam oznámení';
-$_lang['Click <a href="%url">here</a> to return to the forum index'] = 'Kliknìte <a href="%url">zde</a> pro návrat na úvodní stranu fóra';
-$_lang['Click <a href="%url">here</a> to return to the forum topic list'] = 'Kliknìte <a href="%url">zde</a> pro návrat na seznam témat fóra';
-$_lang['Click <a href="%url">here</a> to view your message'] = 'Kliknìte <a href="%url">zde</a> pro zobrazení Va¹í zprávy';
-$_lang['Click on the enrollment command beside the concerned user'] = 'Kliknìte na pøíkaz pro zapsání vedle jména zvoleného u¾ivatele';
-$_lang['Click on the month name for more details'] = 'Pro podrobnosti kliknìte na název mìsíce ';
-$_lang['Click to make invisible'] = 'Kliknìte pro zneviditelnìní';
-$_lang['Click to make visible'] = 'Kliknìte pro zviditelnìní';
-$_lang['Close'] = 'Zavøít';
-$_lang['Close popup'] = 'Zavøi vyskakovací okno';
-$_lang['Close window'] = 'Zavøít okno';
-$_lang['Code'] = 'Kód';
-$_lang['Comment'] = 'Komentáø';
-$_lang['Comment modified'] = 'Komentáø upraven';
-$_lang['Complementary fields'] = 'Povinná pole';
-$_lang['Complete language files'] = 'Kompletovat jazykové soubory';
-$_lang['Configuration'] = 'Konfigurace';
-$_lang['Confirm Operation'] = 'Potvrïte operaci';
-$_lang['Confirm the creation of a new user'] = 'Potvrïte vytvoøení nového u¾ivatele';
-$_lang['Confirm your subscription to the group &quot;<b>%group_name</b>&quot;'] = 'Potvrïte své pøihlá¹ení se do skupiny &quot;<b>%group_name</b>&quot;';
-$_lang['Confirmation'] = 'Potvrzení';
-$_lang['Contact'] = 'Kontakt';
-$_lang['Contact your administrator.'] = 'Kontaktujte svého správce.';
-$_lang['Content'] = 'Obsah';
-$_lang['Continue'] = 'Pokraèuj';
-$_lang['Conversion'] = 'Pøevod';
-$_lang['Conversion 1.7 to 1.8'] = 'Pøevod z 1.7 do 1.8';
-$_lang['Copy'] = 'Kopírovat';
-$_lang['Copy any text you are currently writing and paste it outside the browser'] = 'Zkopírujte jakýkoliv text, který zrovna pí¹ete a vlo¾te mimo okno prohlí¾eèe';
-$_lang['Corresponds to'] = 'Týkající se';
-$_lang['Could not load page %page'] = 'Stranu %page nelze nahrát';
-$_lang['Country'] = 'Zemì';
-$_lang['Country code seems to be incorrect.'] = 'Chybný kód zemì.';
-$_lang['Course'] = 'Kurz';
-$_lang['Course Home'] = 'Hlavní strana kurzu';
-$_lang['Course Manager'] = 'Vedoucí kurzu';
-$_lang['Course Repository'] = 'Úschovna kurzu';
-$_lang['Course access'] = 'Pøístup ke kurzu';
-$_lang['Course administrator only'] = 'Pouze správce kurzu';
-$_lang['Course banner - left'] = 'Banner kurzu - vlevo';
-$_lang['Course banner - right'] = 'Banner kurzu - vpravo';
-$_lang['Course code'] = 'Kód kurzu';
-$_lang['Course code needed'] = 'Kód kurzu musí být vyplnìn';
-$_lang['Course creator'] = 'Autor kurzu';
-$_lang['Course description'] = 'Popis kurzu';
-$_lang['Course list'] = 'Seznam kurzù';
-$_lang['Course manager'] = 'Vedoucí kurzu';
-$_lang['Course manager cannot unsubscribe himself'] = 'Správce kurzu nemù¾e odhlásit sám sebe';
-$_lang['Course members'] = 'Èlenové kurzu';
-$_lang['Course not found'] = 'Kurz nenalezen';
-$_lang['Course profile'] = 'Profil kurzu';
-$_lang['Course profile list'] = 'Seznam profilù kurzu';
-$_lang['Course progression'] = 'Postup kurzu ';
-$_lang['Course settings'] = 'Nastavení kurzu';
-$_lang['Course statistics deleted'] = 'Statistiky kurzù vymazány';
-$_lang['Course title'] = 'Název kurzu';
-$_lang['Course title needed'] = 'Vyplòte název kurzu';
-$_lang['Course users list'] = 'Seznam u¾ivatelù v kurzu';
-$_lang['Courses'] = 'Kurzy';
-$_lang['Courses : %disk_usage (perhaps with others directory)'] = 'Kurzy : %disk_usage (mo¾né vèetnì dal¹ích adresáøù)';
-$_lang['Courses not used'] = 'Kurz není pou¾ívaný';
-$_lang['Courses with unexisting users registered'] = 'Jsou registrovány kurzy s neexistujícími u¾ivateli';
-$_lang['Courses without a lecturer'] = 'Kurzy bez lektora';
-$_lang['Courses without student'] = 'Kurzy bez studentù';
-$_lang['Create'] = 'Vytvoøit';
-$_lang['Create Directory'] = 'Vytvoøit adresáø';
-$_lang['Create Document'] = 'Vytvoøit dokument';
-$_lang['Create Pages'] = 'Vytvoøit strany';
-$_lang['Create a category'] = 'Vytvoøit kategorii';
-$_lang['Create a course site'] = 'Vytvoøit web kurzu';
-$_lang['Create a course website'] = 'Vytvoøit web kurzu';
-$_lang['Create a new Wiki'] = 'Vytvoøit novou spolupráci';
-$_lang['Create a new assignment'] = 'Vytvoøit novou úlohu';
-$_lang['Create a new class'] = 'Vytvoøit novou tøídu';
-$_lang['Create a new label / title in this learning path'] = 'Vytvoøit novou jmenovku / název v této uèební osnovì';
-$_lang['Create a new learning path'] = 'Vytvoøit novou uèební osnovu';
-$_lang['Create a new user'] = 'Vytvoøit nového u¾ivatele';
-$_lang['Create another new user'] = 'Vytvoøit dal¹ího nového u¾ivatele';
-$_lang['Create category'] = 'Vytvoøit kategorii';
-$_lang['Create course'] = 'Vytvoøit kurz';
-$_lang['Create first a user account on this platform'] = 'vytvoø první u¾ivatelský úèet na této platformì';
-$_lang['Create forum'] = 'Vytvoøit fórum';
-$_lang['Create hyperlink'] = 'Vytvoøit odkaz';
-$_lang['Create label'] = 'Vytvoøit popisek';
-$_lang['Create new group(s)'] = 'Vytvoøit novou skupinu(y)';
-$_lang['Create user'] = 'Vytvoøit u¾ivatele';
-$_lang['Create user account'] = 'Vytvoøit u¾ivatelský úèet';
-$_lang['Create/edit document'] = 'Vytvoøit/upravit dokument';
-$_lang['Creating course (it may take a while) ...'] = 'Vytváøím kurz (èekejte) ... ';
-$_lang['Current attached file'] = 'Souèasnì pøipojený soubor';
-$_lang['Current feedback file'] = 'Souèasný soubor zpìtné informace';
-$_lang['Current file'] = 'Souèasný soubor';
-$_lang['Current registration status :'] = 'Souèasný stav registrace : <br /> <br />
-';
-$_lang['Current time'] = 'Aktuální èas';
-$_lang['Data missing'] = 'Chybìjí data';
-$_lang['Database error :'] = 'Chyba databáze :';
-$_lang['Database uninstallation failed'] = 'Chyba, databáze nebyl odinstalována';
-$_lang['Database uninstallation succeeded'] = 'Databáze byla úspì¹nì odinstalována';
-$_lang['Date'] = 'Datum';
-$_lang['Day'] = 'Den';
-$_lang['Deactivated'] = 'Vypnuto';
-$_lang['Deactivated - Click to activate'] = 'Vypnuto - Kliknìte na zapnutí';
-$_lang['Dear %firstname %lastname, your personal settings have been registered.'] = 'Vá¾ený \/ Vá¾ená %firstname %lastname, Va¹e osobní nastavení bylo ulo¾eno.';
-$_lang['Default works visibility'] = 'Standardní viditelnost prací';
-$_lang['Define Headings'] = 'Definovat hlavièku';
-$_lang['Definition file doesn\'t exist'] = 'Chybí definièní soubor';
-$_lang['Delete'] = 'Odstranit';
-$_lang['Delete Wiki'] = 'Smazat spolupráci';
-$_lang['Delete all course statistics'] = 'Smazat statistiky v¹ech kurzù';
-$_lang['Delete all event before %date in statistics'] = 'Smazat ze statistiky v¹echny události pøed datem %date';
-$_lang['Delete all groups'] = 'Vymazat v¹echny skupiny';
-$_lang['Delete all messages of'] = 'Vymazat v¹echny zprávy z  ';
-$_lang['Delete attached file'] = 'Odstranit pøipojený soubor';
-$_lang['Delete my account'] = 'Odstranit mùj úèet';
-$_lang['Delete scripts of the module'] = 'ODstranit skripty modulu';
-$_lang['Delete the whole course website'] = 'Odstranit celý web kurzu';
-$_lang['Delete user'] = 'Odstranit u¾ivatele';
-$_lang['Deleted line'] = 'Odstranìný øádek';
-$_lang['Deleting this course will permanently delete all its documents and unenroll all its students.'] = 'Odstranìním tohoto kurzu dojde také k odstanìní v¹ech jeho dokumentù a odhlá¹ení v¹ech jeho studentù.';
-$_lang['Deletion of the user was done sucessfully'] = 'U¾ivatel byl úspì¹nì odstranìn';
-$_lang['Denied'] = 'Zakázáno';
-$_lang['Department'] = 'Oddìlení';
-$_lang['Department URL'] = 'Adresa oddìlení';
-$_lang['Department URL is not valid'] = 'Adresa oddìlení je chybná';
-$_lang['Department needed'] = 'Vyberte oddìlení';
-$_lang['Department url needed'] = 'Odkaz na url oddìlení je pivinný údaj';
-$_lang['Description'] = 'Popis';
-$_lang['Description added.'] = 'Popis pøidán.';
-$_lang['Description deleted.'] = 'Popis odstranìn.';
-$_lang['Description of the Wiki'] = 'Popis Spolupráce';
-$_lang['Description updated'] = 'Popis upraven.';
-$_lang['Detail'] = 'Detail';
-$_lang['Details'] = 'Detaily';
-$_lang['Devel Tools'] = 'Vývojáøské nástroje';
-$_lang['Differences :'] = 'Rozdíly :';
-$_lang['Direct link to image'] = 'Pøímý odkaz na obrázek';
-$_lang['Directory created'] = 'Adresáø vytvoøil';
-$_lang['Disable'] = 'Vypnout';
-$_lang['Disk Usage'] = 'Vyu¾ití prostoru na disku';
-$_lang['Disk quota exceeded, please contact the %administrator'] = 'Diskový prostor je zaplnìn, prosím kontaktujte svého správce %administrator';
-$_lang['Disk space available'] = 'Dostupný prostor na disku';
-$_lang['Disk space available : %size'] = 'Dostupný prostor na disku : %size';
-$_lang['Disk space occupied : %size'] = 'Obsazený prostor na disku : %size';
-$_lang['Display'] = 'Zobrazit';
-$_lang['Display file'] = 'Zobrazit soubor';
-$_lang['Display of detailled answers is not authorized.'] = 'Zobrazení podrobných odpovìdí není povoleno.';
-$_lang['Do you really want to delete the category'] = 'Opravdu chcete odstranit tuto kategorii ';
-$_lang['Do you want to continue?'] = 'Chcete pokraèovat?';
-$_lang['Dock'] = 'Dok';
-$_lang['Document'] = 'Dokument';
-$_lang['Document content'] = 'Obsah dokumentu';
-$_lang['Document deleted'] = 'Dokument odstranìn';
-$_lang['Document in module'] = 'Dokument v modulu';
-$_lang['Document name'] = 'Jméno dokumentu : ';
-$_lang['Documents'] = 'Dokumenty';
-$_lang['Documents and Links'] = 'Dokumenty a odkazy';
-$_lang['Documents downloaded by the student'] = 'Dokumenty sta¾ené studenty';
-$_lang['Documents help'] = 'Dokumenty nápovìdy';
-$_lang['Down'] = 'Setøídit sestupnì';
-$_lang['Download current directory'] = 'Stáhnout obsah aktuálního adresáøe';
-$_lang['Download file'] = 'Stáhnout soubor';
-$_lang['ERROR: The format you gave is not compatible with Claroline'] = 'Chyba: zadaný formát není kompatibilní s Claroline';
-$_lang['Edit'] = 'Upravit';
-$_lang['Edit Event'] = 'Upravit událost';
-$_lang['Edit Pages'] = 'Upravit strany';
-$_lang['Edit Tool list'] = 'Upravit seznam nástrojù';
-$_lang['Edit a category'] = 'Upravit kategorii';
-$_lang['Edit answers'] = 'Upravit odpovìdi';
-$_lang['Edit automatic feedback'] = 'Upravit automatickou zpìtnou informaci';
-$_lang['Edit category'] = 'Upravit kategorii';
-$_lang['Edit conflict'] = 'Upravit konflikt';
-$_lang['Edit exercise'] = 'Upravit cvièení';
-$_lang['Edit exercise settings'] = 'Upravit nastavení cvièení';
-$_lang['Edit file content'] = 'Upravit obsah souboru';
-$_lang['Edit format to use'] = 'Upravit pou¾itý formát';
-$_lang['Edit last version'] = 'Upravit poslední verzi';
-$_lang['Edit post'] = 'Upravit pøíspìvek';
-$_lang['Edit profile'] = 'Upravit profil';
-$_lang['Edit properties'] = 'Upravit vlastnosti';
-$_lang['Edit question'] = 'Upravit otázku';
-$_lang['Edit settings'] = 'Upravit nastavení';
-$_lang['Edit text zone'] = 'Upravit oblast textu';
-$_lang['Edit text zones'] = 'Upravit textové oblasti';
-$_lang['Edit this group'] = 'Upravit tuto skupinu';
-$_lang['Edit this page'] = 'Upravit tuto stranu';
-$_lang['Element list'] = 'Seznam objektù';
-$_lang['Element moved'] = 'Element pøesunut';
-$_lang['Element renamed'] = 'Pøejmenování objektu';
-$_lang['Email'] = 'Email';
-$_lang['Email needed'] = 'Email musí být vyplnìn';
-$_lang['Empty'] = 'Prázdné';
-$_lang['Empty all groups'] = 'Vyprázdnit v¹echny skupiny';
-$_lang['Empty language file'] = 'Vyprázdnit jazykové soubory';
-$_lang['End date'] = 'Datum ukonèení';
-$_lang['Enrol as course manager'] = 'Zapsat jako správce kurzu';
-$_lang['Enrol as student'] = 'Zapsat jako studenta';
-$_lang['Enrol as teacher'] = 'Zapsat jako uèitele';
-$_lang['Enrol class'] = 'Zapsat tøídu';
-$_lang['Enrol on a new course'] = 'Zapsat se do nového kurzu';
-$_lang['Enrol to a new course'] = 'Zapsat do nového kurzu';
-$_lang['Enrol to course'] = 'Zapsat do kurzu';
-$_lang['Enrol to course not allowed'] = 'není povoleno zapsání se do kurzu';
-$_lang['Enroll a user'] = 'Zapsat u¾ivatele';
-$_lang['Enrolment'] = 'Zápis';
-$_lang['Enrolment allowed only'] = 'Zapsání se mo¾né pouze pro';
-$_lang['Enrolment denied only'] = 'Zapsat není mo¾né pouze';
-$_lang['Enrolment key'] = 'Klíè pro zápsání';
-$_lang['Enter'] = 'Vstup';
-$_lang['Enter link url'] = 'Vlo¾te adresu odkazu';
-$_lang['Enter new password twice to change, leave empty to keep it'] = 'Vlo¾te heslo dvakrát pro zmìnu, ponechte prázdné pro zachování';
-$_lang['Enter the description of your wiki here'] = 'Vlo¾te popis Spolupráce';
-$_lang['Enter your email so we can send you your password.'] = 'Vlo¾te svùj e-mail, na který bude zasláno Va¹e heslo.';
-$_lang['Error : Cannot initialize chat'] = 'Chyba : nelze inicializovat chat';
-$_lang['Error : Class has sub-classes'] = 'Chyba : Tøída má postøídy';
-$_lang['Error : Class not found'] = 'Chyba : Tøída nenalezena';
-$_lang['Error : Name already exists in the learning path or in the module pool'] = 'Chyba : Jméno ji¾ existuje v uèební osnovì nebo modulu';
-$_lang['Error : One or more values are doubled'] = 'Chyba : Jedna nebo více polo¾ek se opakují';
-$_lang['Error : cannot read RSS feed'] = 'Chyba : nemù¾u èíst RSS kanál';
-$_lang['Error : no file uploaded'] = 'Chyba : ¾ádný soubor nebyl nahrán';
-$_lang['Error : no zlib extension found'] = 'Chyba : roz¹íøení zlib nebylo nalezeno';
-$_lang['Error copying existing SCORM content'] = 'Chyba pøi kopírování stávajícího SCROM  obsahu';
-$_lang['Error exporting SCORM package'] = 'Chyba pøi exportu SCROM balíèku';
-$_lang['Error in SQL statement'] = 'Chyba v SQL skriptu';
-$_lang['Error opening question\'s XML file'] = 'Chyba pøi otevøení XML souboru otázek';
-$_lang['Error reading <i>manifest</i> file'] = 'Chyba pøi èetní souboru <i>manifest</i>';
-$_lang['Error reading XML file'] = 'Chyba pøi ètení XML souboru';
-$_lang['Error reading a secondary initialisation file :'] = 'Chyba pøi ètení druhého poèáteèního souboru : ';
-$_lang['Error reading zip file.'] = 'Chyba pøi ètení souboru zip .';
-$_lang['Error when copying needed SCORM files'] = 'Chyba pøi kopírování nezbytných SCROM souborù';
-$_lang['Error while deleting the scripts of the module'] = 'Chyba pøi odstraòování skriptù modulu';
-$_lang['Error while renaming module folder'] = 'Chyba pøi pøejmenovávání slo¾ky modulu';
-$_lang['Error!! you cannot unregister a course manager'] = 'Chyba!! nemù¾ete zru¹it registraci vedoucího kurzu';
-$_lang['ErrorInvalidParms'] = 'Chyba : ©patný parametr (pouze èísla)';
-$_lang['Event added to the agenda'] = 'Událost byla pøidána do rozvrhu.';
-$_lang['Event deleted from the agenda'] = 'Událost byla odstranìna z rozvrhu.';
-$_lang['Event updated into the agenda'] = 'Událost v rozvrhu byla upravena.';
-$_lang['Exercise'] = 'Cvièení Claroline';
-$_lang['Exercise added'] = 'Cvièení bylo pøidáno';
-$_lang['Exercise cancelled, choose a module in the list to continue.'] = 'Cvièení pøeru¹eno, vyberte modul ze seznamu pro pokraèování.';
-$_lang['Exercise done, choose a module in the list to continue.'] = 'Cvièení ukonèeno, pro pokraèování vyberte modul v seznamu.';
-$_lang['Exercise in module'] = 'Cvièení v modulu';
-$_lang['Exercise modified'] = 'Cvièení bylo upraveno';
-$_lang['Exercise not available'] = 'Cvièení není dostupné';
-$_lang['Exercise results'] = 'Výsledky cvièení';
-$_lang['Exercise title'] = 'Název cvièení';
-$_lang['Exercise type'] = 'Typ cvièení';
-$_lang['Exercises'] = 'Cvièení';
-$_lang['Exercises help'] = 'Cvièení nápovìdy';
-$_lang['Expected choice'] = 'Oèekávaný výbìr';
-$_lang['Explain cannot be empty'] = 'Vysvìtlení nemù¾e být prázdné';
-$_lang['Export'] = 'Export';
-$_lang['External Tool added'] = 'Byl pøidán externí nástroj.';
-$_lang['External authentication drivers'] = 'Externí ovìøení pøístupu';
-$_lang['External image'] = 'Externí obrázek';
-$_lang['External link'] = 'Externí odkaz';
-$_lang['External tool deleted'] = 'Externí nástroj byl odstranìn';
-$_lang['External tool updated'] = 'Externí nástroj zmìnìn';
-$_lang['Extract language variables'] = 'Extrahovat jazykové promìnné';
-$_lang['Fail'] = 'Neúspì¹nì';
-$_lang['Failed to update module visibility'] = 'Zmìna na stavení viditelnosti modulu se nezdaøila';
-$_lang['False'] = 'Nepravda';
-$_lang['Feedback'] = 'Zpìtná informace';
-$_lang['Feedback added'] = 'Zpìtná informace pøidána';
-$_lang['Feedback edited'] = 'Zpìtná informace upravena';
-$_lang['Feedback file'] = 'Soubor zpìtné informace';
-$_lang['Feedback text'] = 'Text zpìtné informace';
-$_lang['Feedbacks'] = 'Zpìtné informace';
-$_lang['Field \'%name\' is required'] = 'Pole \'%name\', je pole povinné';
-$_lang['Fields enclosed by'] = 'Pole uzavøené do';
-$_lang['Fields separator used'] = 'Pou¾ité pole oddìlovaèe';
-$_lang['File (file required, description text optional)'] = 'Soubor (soubor je povinný, popis je nepovinný)';
-$_lang['File Name or URL is missing.'] = 'Jméno souboru nebo adresa chybí.';
-$_lang['File content modified'] = 'Obsah souboru byl upraven';
-$_lang['File created'] = 'Soubor byl vytvoøen';
-$_lang['File description'] = 'Popis souboru';
-$_lang['File list'] = 'Seznam souborù';
-$_lang['File must be a zip file (.zip)'] = 'Soubor musí být ve formátu zip (.zip)';
-$_lang['File name is missing'] = 'Jméno souboru chybí';
-$_lang['File received : %filename'] = 'Soubor pøijat : %filename ';
-$_lang['Filename'] = 'Jméno souboru';
-$_lang['Files dezipped sucessfully in %path'] = 'Soubor byl úspì¹nì rozbalen do %path';
-$_lang['Fill groups (automatically)'] = 'Naplnit skupiny (automaticky)';
-$_lang['Fill in blanks'] = 'Doplòte';
-$_lang['Fill text field'] = 'Vyplòte textové pole';
-$_lang['Fill the area to explain your motivation and submit your request. An e-mail will be sent to platform adminisrator(s).'] = 'Zde se pokuste nastínit dùvod Va¹eho zájmu a ode¹lete po¾adavek. Správce platformy obdr¾í Vá¹ po¾adavek mailem..';
-$_lang['Fill type'] = 'Vyplòte typ';
-$_lang['Filter'] = 'Filtr';
-$_lang['Find doubled variables'] = 'Najdi opakující se promìnné';
-$_lang['Find more available modules on <a href="http://www.claroline.net/">Claroline.net</a>.'] = 'Nalézt dal¹í dostupné moduly na <a href="http://www.claroline.net/">Claroline.net</a>.';
-$_lang['Finish'] = 'Konec';
-$_lang['Finish the test'] = 'Ukonèení testu';
-$_lang['First name'] = 'Jméno';
-$_lang['First submission date'] = 'Datum&nbsp;prvního&nbsp;odevzdání';
-$_lang['Follow courses'] = 'Absolvuje kurzy';
-$_lang['For more information take contact with the platform administrator.'] = 'Pro více informací kontaktujte správce platformy.';
-$_lang['Format changed'] = 'Formát byl zmìnìn';
-$_lang['Forum'] = 'Fórum';
-$_lang['Forum created'] = 'Fórum vytvoøeno.';
-$_lang['Forum deleted'] = 'Fórum odstranìno.';
-$_lang['Forum emptied'] = 'Fórum vyprázdnìno.';
-$_lang['Forum posts'] = 'Pøíspìvky ve fóru';
-$_lang['Forum updated'] = 'Fórum zmìnìno.';
-$_lang['Forum usage'] = 'Vyu¾ití fóra';
-$_lang['Forums'] = 'Diskuze';
-$_lang['Forums help'] = 'Fórum nápovìdy';
-$_lang['From'] = 'Od';
-$_lang['From language files'] = 'Z jazykových souborù';
-$_lang['From script files'] = 'Ze skriptových souborù';
-$_lang['Fullscreen'] = 'Celá obrazovka';
-$_lang['Function list'] = 'Seznam funkcí';
-$_lang['Garbage : %disk_usage'] = 'Zbytky : %disk_usage';
-$_lang['General Informations'] = 'Základní informace';
-$_lang['Get a question from another exercise'] = 'Vzít otázku z jiného cvièení';
-$_lang['Get tracking data in a CSV file'] = 'Ulo¾it data záznamù do CSV souboru';
-$_lang['Global settings'] = 'Hlavní nastavení';
-$_lang['Go back to Wiki list'] = 'Jít zpátky na seznam Spolupráce';
-$_lang['Go back to the exercise'] = 'Jdi zpìt na cvièení';
-$_lang['Go to documents tool'] = 'Jít do nástrojù dokumentu';
-$_lang['Go to the account creation page'] = 'Jdi na stránku pro vytvoøení úètu';
-$_lang['Group'] = 'Skupina';
-$_lang['Group Tutor'] = 'Instruktor skupiny';
-$_lang['Group area'] = 'Oblast skupiny';
-$_lang['Group deleted'] = 'Skupiny odstranìna';
-$_lang['Group forums category can\'t be deleted'] = 'Kategorie fóra skupiny nemù¾e být odstranìna.';
-$_lang['Group management'] = 'Správa skupiny';
-$_lang['Group members'] = 'Èlenové skupiny';
-$_lang['Group name'] = 'Jméno skupiny';
-$_lang['Group settings have been modified'] = 'Mo¾nosti skupiny upraveny';
-$_lang['Group settings modified'] = 'Nastavení upraveno';
-$_lang['Groups'] = 'Skupiny';
-$_lang['Groups (from groups tool, only group members can post)'] = 'Skupiny (z nástroje skupin, pouze èlenové skupin mohou publikovat)';
-$_lang['Groups have been filled (or completed) by students present in the \'Users\' list.'] = 'Skupiny byly naplnìny nebo jsou úplné podle studentù nastavených v seznamu u¾ivatelù.';
-$_lang['Groups help'] = 'Nápovìda skupin';
-$_lang['Groups settings'] = 'Nastavení skupiny';
-$_lang['He or she will receive email confirmation with login and password'] = 'U¾ivatel obdr¾í email s u¾ivatelským jménem a heslem';
-$_lang['Heading'] = 'Titulek';
-$_lang['Help'] = 'Nápovìda';
-$_lang['Here you can modify the content of the text zones displayed on the platform home page.'] = 'Zde mù¾ete upravit texty zobrazené na titulní stranì platformy.';
-$_lang['Hits'] = 'Kliknutí';
-$_lang['Home page help'] = 'Úvodní strana nápovìdy';
-$_lang['Hour'] = 'Hodina';
-$_lang['Icon'] = 'Ikona';
-$_lang['Identical content<br />no modification saved'] = 'Identický obsah<br />úprava nebyla ulo¾ena';
-$_lang['If after while no message appears confirming the course creation, please click <a href="%url">here</a>'] = 'Pokud se Vám po chvíli nezobrazí zpráva potvrzující vytvoøení kurzu, prosím kliknìte <a href="%url">zde</a>';
-$_lang['If you do not have the key, please contact the course manager'] = 'Pokud nemáte klíè, prosím kontaktujte vedoucího kurzu';
-$_lang['If you haven\'t a user account yet, use the <a href="%url">the account creation form</a>.'] = 'Pokud dosud nemáte vytvoøen u¾ivatelský úèet, <a href="%url">vytvoøte si jej.</a>.';
-$_lang['If you wish to enrol on this course'] = 'Pokud si pøejete zapsat se do tohoto kurzu';
-$_lang['Import'] = 'Import';
-$_lang['Import a learning path'] = 'Importovat uèební osnovu';
-$_lang['Import done'] = 'Import byl proveden';
-$_lang['Import exercise'] = 'Importovat cvièení';
-$_lang['Imported exercises must be an ims-qti zip file.'] = 'Importovaná cvièení musí být soubor typu ims-qti zip.';
-$_lang['Imported modules must consist of a zip file and be compatible with your Claroline version.'] = 'Importované moduly musí obsahovat zip soubor a být kompatibilní s Va¹í verzí Claroline.';
-$_lang['Imported packages must consist of a zip file and be SCORM 1.2 conformable'] = 'Importované balíèky musí obsahovat zip soubor musí dále odpovídat SCORM 1.2';
-$_lang['Impossible to promote group tutor a student already register to group'] = 'Není mo¾né zavést instruktora skupiny - studenti se ji¾ registrují do skupiny';
-$_lang['Impossible to unzip file'] = 'Soubor nelze rozbalit';
-$_lang['In frames'] = 'v rámcích ';
-$_lang['Individual'] = 'Individuální';
-$_lang['Information'] = 'Informace';
-$_lang['Information to give to students'] = 'Informace pro studenty';
-$_lang['Inline quote'] = 'Komentáø na øádku';
-$_lang['Insert new name'] = 'Vlo¾it nové jméno';
-$_lang['Install module'] = 'Instalovat modul';
-$_lang['Institution'] = 'Instituce';
-$_lang['Institution URL'] = 'Adresa Instituce';
-$_lang['Invalid Wiki Id'] = 'Neplatné ID Spolupráce';
-$_lang['Invalid email address'] = 'Chybná emailová adresa';
-$_lang['Invalid matching choice'] = 'Chybný pøiøazovací výbìr';
-$_lang['Invalid url'] = 'Chybný odkaz';
-$_lang['Invalid user : this user doesn\'t exist in your group'] = 'Chybný u¾ivatel : tento u¾ivatel ve Va¹í tøídì neexistuje';
-$_lang['Invisible'] = 'Nezobrazené';
-$_lang['Is platform admin'] = 'Je správce platformy';
-$_lang['It seems that you already have registered your campus.'] = 'Zdá se, ¾e Vá¹ kampus byl ji¾ zaregistrován.';
-$_lang['Italic'] = 'Kurzíva';
-$_lang['Item'] = 'Polo¾ka';
-$_lang['Keys :'] = 'Klíèe :';
-$_lang['Language'] = 'Jazyk';
-$_lang['Language needed'] = 'Zvolte jazyk';
-$_lang['Language packs'] = 'Jazykové balíèky';
-$_lang['Last 31 days'] = 'Posledních 31 dní';
-$_lang['Last 7 days'] = 'Posledních 7 dní';
-$_lang['Last access'] = 'Poslední pøístup';
-$_lang['Last active topics'] = 'Poslední zobrazovaná témata';
-$_lang['Last attempt'] = 'Poslední pokus';
-$_lang['Last computing'] = 'Poslední výpoèet';
-$_lang['Last edit date'] = 'Datum poslední úpravy';
-$_lang['Last message'] = 'Poslední zpráva';
-$_lang['Last message was on'] = 'Poslední zpráva z : ';
-$_lang['Last messages'] = 'Poslední zprávy';
-$_lang['Last name'] = 'Pøíjmení';
-$_lang['Last score'] = 'Poslední výsledek';
-$_lang['Last session time'] = 'Èas poslední relace';
-$_lang['Last submission'] = 'Poslední odevzdání';
-$_lang['Lasting'] = 'Trvání';
-$_lang['Late upload'] = 'Pozdní odeslání';
-$_lang['Latest announcements'] = 'Nejnovìj¹í oznámení';
-$_lang['Launch restore of the course repository'] = 'Spustit obnovu úlo¾i¹tì kurzu';
-$_lang['Learning Path is empty'] = 'Uèební osnova je prázdná';
-$_lang['Learning Path not found'] = 'Uèební osnova nenalezena';
-$_lang['Learning path'] = 'Uèební osnova';
-$_lang['Learning path admin'] = 'Správa uèební osnovy';
-$_lang['Learning path content'] = 'Komentáø uèební osnovy';
-$_lang['Learning path has been successfully imported.'] = 'Uèební osnova byla úspì¹nì naimportovaná.';
-$_lang['Learning path list'] = 'Seznam uèebních osnov';
-$_lang['Learning path progression :'] = 'Postup v uèební osnovì : ';
-$_lang['Learning paths tracking'] = 'Záznam uèební osnovy';
-$_lang['Lecturer(s)'] = 'Lektor-Lektoøi';
-$_lang['License'] = 'Licence';
-$_lang['Limit'] = 'Maximální poèet';
-$_lang['Line Number'] = 'Èíslo øádku';
-$_lang['Line break'] = 'Konec øádku';
-$_lang['Lines'] = 'Øádky';
-$_lang['List of Wiki'] = 'Seznam Spoluprací';
-$_lang['List of students in this group'] = 'Seznam studentù v této skupinì';
-$_lang['Load default format'] = 'Nahrát standardní formát';
-$_lang['Local settings'] = 'Místní nastavení';
-$_lang['Location'] = 'Umístìní';
-$_lang['Lock'] = 'Uzamknuto';
-$_lang['Locked'] = 'Uzamèeno';
-$_lang['Login'] = 'Pøihlásit se';
-$_lang['Login date'] = 'Datum pøihl¹ení se';
-$_lang['Login failed.'] = 'Nelze pøihlásit.';
-$_lang['Login request'] = 'Je nutné se pøihlásit';
-$_lang['Logins'] = 'Pøihlá¹ení';
-$_lang['Logins and access to tools'] = 'Pøihlá¹ení a pøístup k nástrojùm';
-$_lang['Logins not used'] = 'Nejste pøihlá¹en(a)';
-$_lang['Logout'] = 'Odhlá¹ení';
-$_lang['Lost password'] = 'Zapomenuté heslo';
-$_lang['Mail is already used by another user.'] = 'Mail je ji¾ pou¾íván jiným u¾ivatelem.';
-$_lang['Mail synthax error.'] = 'Zásadní chyba mailu.';
-$_lang['Mail to'] = 'Napsat';
-$_lang['Main Group Settings'] = 'Nastavení hlavní skupiny';
-$_lang['Main Page'] = 'Hlavní strana';
-$_lang['Main page'] = 'Hlavní strana';
-$_lang['Make correspond'] = 'Týkající se';
-$_lang['Make invisible'] = 'Zneviditelnit';
-$_lang['Make module invisible in all courses'] = 'Zneviditelnit modul ve v¹ech kurzech';
-$_lang['Make module visible in all courses'] = 'Zviditelnit modul ve v¹ech kurzech';
-$_lang['Make new search'] = 'Nové vyhledávání : ';
-$_lang['Make search'] = 'Vyhledat';
-$_lang['Make visible'] = 'Viditelnost';
-$_lang['Manage External link'] = 'Správa externích odkazù';
-$_lang['Manage Right'] = 'Správa oprávnìní';
-$_lang['Manage classes'] = 'Správa tøíd';
-$_lang['Manage course categories'] = 'Správa kategorií kurzù';
-$_lang['Manager'] = 'Vedoucí';
-$_lang['Manager(s) for %course_code'] = 'Vedoucí kurzu %course_code';
-$_lang['Manifest found in zip file :'] = 'Manifest nalezen v zip souboru : ';
-$_lang['Manifest missing : %filename'] = 'Chybìjící soubor Manifest v : %filename';
-$_lang['Manifest open : manifest.xml'] = 'Otevøít soubor Manifest : manifest.xml';
-$_lang['Manifest read.'] = 'Manifest pøeèten.';
-$_lang['Matching'] = 'Porovnej';
-$_lang['Max file size'] = 'Maximální velikost souboru : ';
-$_lang['Max file size : %size'] = 'maximální velikost souboru : %size';
-$_lang['Max.'] = 'Max.';
-$_lang['Maximum disk space : %size'] = 'Maximální prostor na disku : %size';
-$_lang['Memorize them, you will use them the next time you will enter to this site.'] = 'Zapamatuj si je, znovu se pou¾ije pøi dal¹í náv¹tìvì toho webu.';
-$_lang['Message'] = 'Zpráva';
-$_lang['Message body'] = 'Zpráva';
-$_lang['Message from your lecturer'] = 'Zpráva od Va¹eho lektora';
-$_lang['Message sent'] = 'Zpráva odeslána';
-$_lang['Messages'] = 'Zprávy';
-$_lang['Messages posted'] = 'Publikované zprávy';
-$_lang['Messages to selected users'] = 'Zprávy vybraným u¾ivatelùm';
-$_lang['Minimum raw to pass has been changed'] = 'Minimální po¾adavky na absolvování byly zmìnìny';
-$_lang['MinuteShort'] = 'min.';
-$_lang['Missing'] = 'chybìjící';
-$_lang['Missing field(s)'] = 'Chybìjící pole';
-$_lang['Missing images detected'] = 'Nalezeny chybìjící obrázky';
-$_lang['Missing language files'] = 'Chybìjící jazykové soubory';
-$_lang['Missing module directory'] = 'Chybìjící adresáø modulu';
-$_lang['Missing parameters'] = 'Chybìjící parametry';
-$_lang['Missing search keywords'] = 'Cgybìjící výraz pro vyhledání';
-$_lang['Missing value'] = 'Chybìjící hodnota';
-$_lang['Modifies this announcement'] = 'Upravit oznámení';
-$_lang['Modify'] = 'Upravit';
-$_lang['Modify a work'] = 'Zmìnit práci';
-$_lang['Modify it in all exercises'] = 'Upravit ve v¹ech cvièeních';
-$_lang['Modify it only in this exercise'] = 'Upravit pouze v tomto cvièení';
-$_lang['Modify the format'] = 'Upravit formát';
-$_lang['Module'] = 'Modul';
-$_lang['Module %module is already installed on your platform'] = 'Modul %module je ji¾ instalován ve Va¹í platformì';
-$_lang['Module activation failed'] = 'Aktivace modulu selhala';
-$_lang['Module activation succeeded'] = 'Modul byl úspì¹nì aktivován';
-$_lang['Module added :'] = 'Modul byl pøidán : ';
-$_lang['Module added in dock : %dock'] = 'Modul pøidán do doku : %dock';
-$_lang['Module cache update failed'] = 'Aktualizace vyrovnávací pamìti modulu selhala';
-$_lang['Module cache update succeeded'] = 'Aktualizace vyrovnávací pamìti modulu probìhla úspì¹nì';
-$_lang['Module deactivation failed'] = 'Vypnutí modulu selhalo';
-$_lang['Module deactivation succeeded'] = 'Modul byl úspì¹nì vypnut';
-$_lang['Module directory not found'] = 'Adresáø modulu nebyl nalezen';
-$_lang['Module installation failed'] = 'Instalace modulu selhala';
-$_lang['Module installation script called'] = 'Instalaèní skript modulu byl spu¹tìn';
-$_lang['Module installation succeeded'] = 'Modul byl úspì¹nì nainstalován';
-$_lang['Module installed in all courses'] = 'Modul byl nainstalován do v¹ech kurzù';
-$_lang['Module list'] = 'Seznam modulu';
-$_lang['Module moved'] = 'Modul byl pøesunut';
-$_lang['Module name'] = 'Názav modulu';
-$_lang['Module registration failed'] = 'Registrace modulu selhala';
-$_lang['Module settings'] = 'Nastavení modulu';
-$_lang['Module status'] = 'Status modulu';
-$_lang['Module type'] = 'Typ modulu';
-$_lang['Module uninstallation failed'] = 'Odinstalace modulu selhala';
-$_lang['Module uninstallation script called'] = 'Odinstalaèní skript modulu byl spu¹tìn';
-$_lang['Module uninstallation succeeded'] = 'Modul byl úspì¹nì odinstalován';
-$_lang['Module uninstalled in all courses'] = 'Modul byl odinstalován ze v¹ech kurzù';
-$_lang['Module visibility updated'] = 'Nastavení viditelnosti modulu bylo upraveno';
-$_lang['Modules'] = 'Moduly';
-$_lang['Modules of this path will still be available in the pool of modules'] = 'Modul této osnovy bude stále dostupný pøes úlo¾i¹tì modulù';
-$_lang['Month'] = 'Mìsíc';
-$_lang['More replied topics'] = 'Více témat s odpovìïmi';
-$_lang['More seen topics'] = 'Více zobrazených témat';
-$_lang['Move'] = 'Pøesunout';
-$_lang['Move down'] = 'Pøesunout ní¾e';
-$_lang['Move up'] = 'Pøesunout vý¹e';
-$_lang['Moved line'] = 'Pøesunutý øádek';
-$_lang['Multiple choice (Multiple answers)'] = 'Vícenásobný výbìr (Vícenásobné odpovìdi)';
-$_lang['Multiple choice (Unique answer)'] = 'Více odpovìdí (Jedna správná odpovìï)';
-$_lang['My User Account'] = 'U¾ivatelský úèet';
-$_lang['My calendar'] = 'Vá¹ Kalendáø';
-$_lang['My course list'] = 'Seznam Va¹ich kurzù';
-$_lang['My other courses'] = 'Moje dal¹í kurzy';
-$_lang['My personal course list'] = 'Osobní seznam kurzù';
-$_lang['My results'] = 'Va¹e výsledky';
-$_lang['Mysql Repository'] = 'Mysql úlo¾i¹tì';
-$_lang['Name'] = 'Jméno';
-$_lang['Name cannot be empty'] = 'Vyplòte jméno';
-$_lang['Name is missing'] = 'Jméno chybí';
-$_lang['Name link'] = 'Jméno odkazu';
-$_lang['Name of the class has been changed'] = 'Jméno tøídy bylo zmìnìno';
-$_lang['Name of the new directory'] = 'Jméno nového adresáøe';
-$_lang['Name of the tool'] = 'Název nástroje';
-$_lang['Never browsed'] = 'Nebylo prohlédnuto';
-$_lang['Never connected students :'] = 'Studenti, kteøí se nikdy nepøipojili : ';
-$_lang['Never used'] = 'Nebylo pou¾ito';
-$_lang['New Class name'] = 'Jméno nové tøídy';
-$_lang['New Wiki'] = 'Nová spolupráce';
-$_lang['New assignment created'] = 'Byla vytvoøena nové úloha';
-$_lang['New assignment feedback posted'] = 'Vlo¾ena nová zpìtná informace úlohy';
-$_lang['New chat'] = 'Nový chat';
-$_lang['New exercise'] = 'Nové cvièení';
-$_lang['New question'] = 'Nová otázka';
-$_lang['New submission posted in assignment tool.'] = 'Nové odevzdání v nástroji úlohy.';
-$_lang['New topic'] = 'Nové téma';
-$_lang['New users will receive an e-mail with their user name and password'] = 'Nový u¾ivatel obdr¾í email s jeho pøihla¹ovacím jménem a heslem';
-$_lang['Newest first'] = 'Od nejnovìj¹ích';
-$_lang['Next'] = 'Dal¹í';
-$_lang['Next day'] = 'Dal¹í den';
-$_lang['Next month'] = 'Dal¹í mìsíc';
-$_lang['Next question'] = 'Dal¹í otázka';
-$_lang['Next week'] = 'Dal¹í týden';
-$_lang['Next year'] = 'Dal¹í rok';
-$_lang['No'] = 'Ne';
-$_lang['No Content'] = 'Bez obsahu';
-$_lang['No Wiki'] = 'Bez Spolupráce';
-$_lang['No XML file found in the zip'] = 'V archivu nebyl nalezen ¾ádný XML soubor';
-$_lang['No announcement'] = '®ádné oznámení.';
-$_lang['No change applied'] = 'Beze zmìn';
-$_lang['No change applied.'] = 'Zmìny nebyly ulo¾eny.';
-$_lang['No closing date'] = 'Není urèeno datum ukonèení';
-$_lang['No course available fitting this keyword'] = '®ádný kurz neodpovídá zadanému slovu';
-$_lang['No course to display'] = 'K zobrazení není ¾ádný kurz';
-$_lang['No description given'] = 'Nebyl zadán ¾ádný popis';
-$_lang['No dock chosen'] = 'Nebyl vybrán ¾ádný dok';
-$_lang['No dock selected'] = 'Nebyl oznaèen ¾ádný dok';
-$_lang['No email address specified'] = 'Není zadaná ¾ádná emailová adresa';
-$_lang['No error in file found.'] = 'V souboru nebyla nalezena ¾ádná chyba.';
-$_lang['No event in the agenda'] = 'V kalendáøi není ¾ádná událost';
-$_lang['No forum'] = '®ádné fórum';
-$_lang['No function in this extension'] = 'V tomto roz¹íøení není ¾ádná funkce';
-$_lang['No group deleted'] = '®ádná skupina nebyla odstranìna';
-$_lang['No icon'] = 'Bez ikony';
-$_lang['No image to display'] = '®ádný obrázek k zobrazení';
-$_lang['No language folder'] = '®ádná jazyková slo¾ka';
-$_lang['No learning path'] = '®ádná uèební osnova';
-$_lang['No module'] = '®ádný modul';
-$_lang['No module in package'] = 'V balíèku není ¾ádný modul';
-$_lang['No module to uninstall'] = '®ádný modul k odinstalování';
-$_lang['No name'] = 'Beze jména';
-$_lang['No new post allowed'] = 'Není povoleno pøidávat nové pøíspìvky';
-$_lang['No post'] = 'Bez pøíspìvkù';
-$_lang['No quota'] = 'Bez omezení';
-$_lang['No result'] = 'Bez výsledkù';
-$_lang['No score'] = 'Bez hodnocení';
-$_lang['No stats to show.  You haven\'t registered any course.'] = 'Není k dispozici ¾ádná statistika. Zatím jste nezaregistroval(a) ¾ádný kurz.';
-$_lang['No time limitation'] = 'Bez èasového omezení';
-$_lang['No tool name'] = '®ádný název nástroje';
-$_lang['No user found'] = '®ádný u¾ivatel nebyl nalezen';
-$_lang['No user to display'] = 'Pro zobrazení není k dispozici ¾ádný u¾ivatel';
-$_lang['No visible submission'] = '®ádné odevzdání ke zobrazení';
-$_lang['No way'] = 'Nepøístupno';
-$_lang['No, prevent users submitting work after the end date'] = 'Ne, zabránit u¾ivatelùm odeslání práce po termínu';
-$_lang['Node Moved, relaunch repair process to complete'] = 'Uzel byl pøemístìn, pro dokonèení spuste znovu proces obnovy';
-$_lang['None'] = '®ádný';
-$_lang['Not allowed'] = 'Není povoleno';
-$_lang['Not allowed : record usernames in tracking, anonymous users cannot do the exercise.'] = 'Není povoleno : zaznamenat jména u¾ivatelù, anonymní u¾ivatelé nemohou dìlat cvièení.';
-$_lang['Not found'] = 'Nenalezeno';
-$_lang['Not recently connected students :'] = 'Studenti , kteøí se nepøipojili v nedávné dobì : ';
-$_lang['Notice'] = 'Poznámka';
-$_lang['Notify'] = 'Upozorni';
-$_lang['Notify by email when replies are posted'] = 'Upozornit mailem na odpovìdi';
-$_lang['Now'] = 'Nyní';
-$_lang['Number of courses'] = 'Poèet kurzù';
-$_lang['Number of courses by faculty'] = 'Poèet kurzù dle fakult';
-$_lang['Number of courses by language'] = 'Poèet kurzù dle jazykù';
-$_lang['Number of courses by visibility'] = 'Poèet kurzù dle viditelnosti';
-$_lang['Number of learning paths using this module :'] = '
-Poèet uèebních osnov pou¾ívajících tento modul : ';
-$_lang['Number of logins'] = 'Poèet pøihlá¹ení';
-$_lang['Number of pages'] = 'Poèet stran';
-$_lang['Number of rows'] = 'Poèet øádkù';
-$_lang['Number of users'] = 'Poèet u¾ivatelù';
-$_lang['Number of users by course'] = 'Poèet u¾ivatelù dle kurzu';
-$_lang['Number of users by faculty'] = 'Poèet u¾ivatelù dle fakult';
-$_lang['Number of users by status'] = 'Poèet u¾ivatelù dle statusu';
-$_lang['Number proposed exceeds max. that you allowed (you can modify it below). Group composition has not been modified'] = 'Maximální poèet èlenù skupiny (lze upravit ní¾e).
-                Slo¾ení skupiny nebylo zmìnìno';
-$_lang['Numero'] = 'È.';
-$_lang['OVER QUOTA'] = 'PROSTOR VYÈERPÁN';
-$_lang['Ok'] = 'Ok';
-$_lang['Oldest first'] = 'Od nejstar¹ích';
-$_lang['On'] = 'Na';
-$_lang['On an unique page'] = 'Na samostatné stránce';
-$_lang['One question per page (sequential)'] = 'Jedna otázka na stránku (následující)';
-$_lang['Only visible for teacher(s) and submitter(s)'] = 'Viditelné pouze pro uèitele a odesílatele';
-$_lang['Operation impossible'] = 'Operace není mo¾ná';
-$_lang['Operation impossible.'] = 'Operace není mo¾ná.';
-$_lang['Optional'] = 'Volitelné';
-$_lang['Order'] = 'Tøídìní';
-$_lang['Ordered list'] = 'Seznam tøídìní';
-$_lang['Orphan questions'] = 'Nezadané otázky';
-$_lang['Other'] = 'Jiné';
-$_lang['Others (*)'] = 'Ostatní (*)';
-$_lang['PHP system information'] = 'PHP systémové informace';
-$_lang['Page'] = 'Strana';
-$_lang['Page %title not found'] = 'Strana %title nenalezena';
-$_lang['Page history'] = 'Historie strany';
-$_lang['Page saved'] = 'Stana ulo¾ena';
-$_lang['Pairs'] = 'Páry';
-$_lang['Parent category'] = 'Rodièovská kategorie ';
-$_lang['Password'] = 'Heslo';
-$_lang['Password given is too simple or too close to the username.'] = 'Zadané heslo je pøíli¹ jednoduché nebo podobné u¾ivatelskému jménu.';
-$_lang['Passwords of some of your user account(s) are recorded an in external authentication system outside the platform.'] = 'Hesla nìkterých u¾ivatelských úètù jsou zaznamenána v externím autorizaèním systému mimo tuto platformu.';
-$_lang['Period'] = 'Období';
-$_lang['PeriodDayShort'] = 'd.';
-$_lang['PeriodHourShort'] = 'h.';
-$_lang['PersonalCourseList'] = 'Osobní seznam kurzù';
-$_lang['Phone'] = 'Telefon';
-$_lang['Platform'] = 'Platforma';
-$_lang['Platform Administration'] = 'Správa platformy';
-$_lang['Platform Administrator'] = 'Správce platformy';
-$_lang['Platform Courses'] = 'Kurzy platformy';
-$_lang['Platform Settings'] = 'Nastavení platformy';
-$_lang['Platform statistics'] = 'Statistika platformy';
-$_lang['Please check that your campus URL is reachable from the internet.'] = 'Prosím zkontrolujte, zda je Vá¹ kampus pøístupný z Internetu.';
-$_lang['Please choose a good answer'] = 'Vyberte správnou odpovìï';
-$_lang['Please confirm your choice'] = 'Potvrïte výbìr';
-$_lang['Please contact'] = 'Kontaktujte';
-$_lang['Please contact course titular(s)'] = 'Prosím kantaktujte vedoucího kurzu';
-$_lang['Please contact the course manager : %email'] = 'Prosím kontaktujte vedoucího kurzu : %email';
-$_lang['Please define at least one blank with brackets %mask'] = 'Prosím definujte alespoò jedno vynechané místo v hranatých závorkách %mask';
-$_lang['Please define the options'] = 'Definice volby mo¾ností';
-$_lang['Please fill the two lists below'] = 'Prosím vyplòte následující dva seznamy';
-$_lang['Please give a weighting to each blank'] = 'Zadejte váhu ka¾dého doplnìní';
-$_lang['Please give the answers to the question'] = 'Zadejte odpovìdi na otázku';
-$_lang['Please try again.'] = 'Zkuste znovu.';
-$_lang['Please type the text'] = 'Vlo¾te text';
-$_lang['Please type your text below, use brackets %mask to define one or more blanks'] = 'Napi¹te text, kde pou¾ijete hranaté závorky %mask pro definování jednoho èi nìkolika vynechaných míst';
-$_lang['Pool of modules'] = 'Úlo¾i¹tì modulù';
-$_lang['Posted'] = 'Zasláno';
-$_lang['Posts'] = 'Pøíspìvky';
-$_lang['Powered by'] = 'Bì¾í na';
-$_lang['Preformated text'] = 'Pøedfomátovyný text';
-$_lang['Preview'] = 'Náhled';
-$_lang['Preview :'] = 'Náhled : ';
-$_lang['Previous'] = 'Pøedchozí';
-$_lang['Previous day'] = 'Pøedchozí den';
-$_lang['Previous month'] = 'Pøedchozí mìsíc';
-$_lang['Previous question'] = 'Pøedchozí otázka';
-$_lang['Previous week'] = 'Pøedchozí týden';
-$_lang['Previous year'] = 'Pøedchozí rok';
-$_lang['Private'] = 'Soukromé';
-$_lang['Private access (site accessible only to people on the <a href="%url">user list</a>)'] = 'Soukromý pøístup (strany pøístupné pouze pro u¾ivatele definované v <a href="%url">seznamu u¾ivatelù</a>)';
-$_lang['Private access (site accessible only to people on the user list)'] = 'Soukromý pøístup (strany pøístupné pouze pro u¾ivatele ze seznamu u¾ivatelù)';
-$_lang['Private course only'] = 'Pouze soukromé kurzy';
-$_lang['Private feedback'] = 'Soukromá zpìtná informace';
-$_lang['Production language files'] = 'Vytvoøení jazykových souborù';
-$_lang['Profile'] = 'Profil';
-$_lang['Profile locked'] = 'Profil je uzamèen';
-$_lang['Profile not found'] = 'Profil nebyl nalezen';
-$_lang['Progress'] = 'Postup';
-$_lang['Progress in learning paths'] = 'Postup  v uèebních osnovách';
-$_lang['Progression of users on all learning paths'] = 'Postup u¾ivatelù ve v¹ech uèebních osnovách';
-$_lang['Properties'] = 'Vlastnosti';
-$_lang['Properties for %config_name, (%config_code) are now effective on server.'] = 'Nastavení %config_name, (%config_code) bylo aktivováno na serveru.';
-$_lang['Public'] = 'Veøejné';
-$_lang['Public access from campus home page even without login'] = 'Veøejný pøístup z hlavní strany Kampusu bez pøihlá¹ení se';
-$_lang['Public course only'] = 'Pouze veøejné kurzy';
-$_lang['Public courses'] = 'Veøejné kurzy';
-$_lang['Public feedback'] = 'Veøejná zpìtná informace';
-$_lang['Publish'] = 'Publikovat';
-$_lang['Published on'] = 'Publikováno';
-$_lang['Question'] = 'Otázka';
-$_lang['Question pool'] = 'Úlo¾i¹tì otázek';
-$_lang['Question title'] = 'Název otázky';
-$_lang['Question to lecturer'] = 'Otázka pro lektora';
-$_lang['Quota'] = 'Prostor';
-$_lang['Random questions'] = 'Náhodné otázky';
-$_lang['Read Pages'] = 'Èíst strany';
-$_lang['Recent changes'] = 'Poslední zmìny';
-$_lang['Register a user for this class'] = 'Pøihlas u¾ivatele do tøídy';
-$_lang['Register class for course'] = 'Pøihlas tøídu do kurzu';
-$_lang['Register my campus'] = 'Registruj mùj kampus';
-$_lang['Register this user to a course'] = 'Registruj tohoto u¾ivatele do kurzu';
-$_lang['Register to the class'] = 'Registrovat do tøídy';
-$_lang['Register user'] = 'Registrovat u¾ivatele';
-$_lang['Register user to class'] = 'Registruj u¾ivatele do tøídy';
-$_lang['Registered'] = 'Registrován';
-$_lang['Registration'] = 'Registrace';
-$_lang['Registration not allowed on the platform'] = 'Na této platformì není registrace povolena';
-$_lang['Rem. answ.'] = '- odp.';
-$_lang['Rem. elem.'] = '- objekt.';
-$_lang['Remove'] = 'Odstranit';
-$_lang['Remove course enrolment'] = 'Odstranit pøihlá¹ení do kurzu';
-$_lang['Remove course from your personal course list'] = 'Odebrat kurz z osobního seznamu kurzù';
-$_lang['Remove from the dock'] = 'Odstranit z doku';
-$_lang['Rename'] = 'Pøejmenovat';
-$_lang['Rename %filename in'] = 'Pøejmenovat %filename v';
-$_lang['Repair category structure'] = 'Opravit strukturu kategorií';
-$_lang['Replies'] = 'Odpovìdi';
-$_lang['Reply'] = 'Odpovìï';
-$_lang['Request'] = 'Po¾adavek';
-$_lang['Request course creation status'] = 'Status vytváøení kurzu';
-$_lang['Request to remove this account'] = 'Po¾adavek na odstranìní tohoto úètu';
-$_lang['Required'] = 'Po¾adováno';
-$_lang['Reset'] = 'Vymazat';
-$_lang['Restore course repository'] = 'Obnovit úlo¾i¹tì kurzu';
-$_lang['Result'] = 'Výsledek';
-$_lang['Results of the exercises done'] = 'Výsledky absolvovaných cvièení';
-$_lang['Retry'] = 'znovu';
-$_lang['Return to the list'] = 'Návrat na seznam';
-$_lang['Reuse'] = 'Znovu pou¾ít';
-$_lang['Right'] = 'Oprávnìní';
-$_lang['Right Profile'] = 'Profil oprávnìní';
-$_lang['Right profile list'] = 'Seznam profilu oprávnìní';
-$_lang['Rights'] = 'Oprávnìní';
-$_lang['Role'] = 'Role';
-$_lang['Root'] = 'root';
-$_lang['Rss feed for %course'] = 'Rss kanál pro %course';
-$_lang['SCORM 1.2 conformable content'] = 'hodnota schodná s SCORM 1.2';
-$_lang['SCORM conformant modules are definitively removed from server when deleted in their learning path.'] = 'SCORM moduly jsou definitivnì odstranìny ze serveru pøi jejich odstranìní z uèební osnovy.';
-$_lang['SDK'] = 'SDK';
-$_lang['Save'] = 'Ulo¾it';
-$_lang['Save changes'] = 'Ulo¾it zmìny';
-$_lang['Scan technical fault'] = 'Vyhledat selhání techniky';
-$_lang['Score'] = 'Výsledek';
-$_lang['Score required'] = 'Je po¾adováno Hodnocení';
-$_lang['Scores of exercises done'] = 'Hodnocení absolvovaných cvièení';
-$_lang['Scorm'] = 'Scorm';
-$_lang['Search'] = 'Hledat';
-$_lang['Search again (advanced)'] = 'Hledat znovu (roz¹íøené)';
-$_lang['Search course'] = 'Vyhledávání v kurzu';
-$_lang['Search from keyword'] = 'Vyhledávání dle klíèového slova';
-$_lang['Search in %currentDirectory'] = 'Hledat v %currentDirectory';
-$_lang['Search in pages'] = 'Hlenat na stránkách';
-$_lang['Search on'] = 'Hledat v ';
-$_lang['Search result'] = 'Výsledky vyhledávání';
-$_lang['Search user'] = 'Vyhledat u¾ivatele';
-$_lang['SecondShort'] = 'sec.';
-$_lang['Secondary manifest found in zip file :'] = 'Druhý manifest soubor nalezen v archivu :';
-$_lang['See below the files you can edit from this tool.'] = 'Vidíte pod tìmito soubory, mù¾ete editovat z tohoto nástroje.';
-$_lang['See user list'] = 'Zobraz seznam u¾ivatelù';
-$_lang['Seen'] = 'Zobrazeno';
-$_lang['Select course in'] = 'Vybrat kurz v ';
-$_lang['Select course in search results'] = 'Vybrat kurz ve výsledcích hledání';
-$_lang['Select in drop down list'] = 'Vyberte v rozbalovací nabídce';
-$_lang['Selected Users'] = 'Vybraní u¾ivatelé';
-$_lang['Send account information to user by email'] = 'Zaslat informace o úètu u¾ivatele';
-$_lang['Send this announcement by email to registered students'] = 'Toto oznámení poslat emailem registrovaným studentùm';
-$_lang['Show all'] = 'Zobraz v¹e';
-$_lang['Show answers'] = 'Zobraz odpovìdi';
-$_lang['Show differences'] = 'Ukázat rozdíly';
-$_lang['Show none'] = 'Nezobrazovat nic';
-$_lang['Size'] = 'Velikost';
-$_lang['Sql installation query failed'] = 'Sql instalaèní skript nebyl proveden';
-$_lang['Start Module'] = 'Spustit modul';
-$_lang['Start date'] = 'Datum zahájení';
-$_lang['Start date must be before end date ...'] = 'Zaèátek musí pøedcházet konci ...';
-$_lang['Statistics'] = 'Statistika';
-$_lang['Statistics by question'] = 'Statistika podle otázek';
-$_lang['Statistics by user'] = 'Statistika podle u¾ivatele';
-$_lang['Statistics of course : %courseCode'] = 'Statistika kurzu : %courseCode';
-$_lang['Statistics of exercise'] = 'Statistika cvièení';
-$_lang['Statistics of exercise attempt'] = 'Statistika pokusù ve cvièení';
-$_lang['Statistics of question'] = 'Statistika otázky';
-$_lang['Statistics of user'] = 'Statistika u¾ivatele';
-$_lang['Status'] = 'Souèasný stav';
-$_lang['Store Chat'] = 'Ulo¾it Chat';
-$_lang['Store failed'] = 'Ulo¾ení selhalo';
-$_lang['Strike'] = 'Stisknìte';
-$_lang['Student'] = 'Student';
-$_lang['Students are allowed to self-register in groups'] = 'Je povolena registrace studentùm do skupin';
-$_lang['Subject'] = 'Pøedmìt';
-$_lang['Submission'] = 'Odevzdání';
-$_lang['Submission type'] = 'Typ odevzdání';
-$_lang['Submission visibility'] = 'Viditelnost odevzdání';
-$_lang['Submissions'] = 'Odevzdání';
-$_lang['Submit'] = 'Odeslat';
-$_lang['Submit a work'] = 'Odeslat práci';
-$_lang['Submit all and finish'] = 'Odeslat v¹e a zkonèit';
-$_lang['Submit feedback'] = 'Odeslat zpìtnou informaci';
-$_lang['Subscription not allowed'] = 'Zapsání se není povoleno';
-$_lang['Support forum'] = 'Podpùrné fórum';
-$_lang['System mail : recipients list'] = 'Systémová zpráva : seznam pøíjemcù';
-$_lang['Take one of these options'] = 'Zvolte jednu z mo¾ností';
-$_lang['Technical Tools'] = 'Technické nástroje';
-$_lang['Text only (text required, no file)'] = 'Pouze text (text je povinný, bez souboru)';
-$_lang['Text with attached file (text required, file optional)'] = 'Text s pøipojeným souborem (text je povinný, soubor je volitelný)';
-$_lang['The changes have been carried out correctly'] = 'Zmìny byly odstranìny korektnì';
-$_lang['The class has been moved'] = 'Tøída byla pøemístìna';
-$_lang['The course has been successfully deleted'] = 'Kurz byl úspì¹nì odstranìn';
-$_lang['The email address is not valid'] = 'Chybná emailová adresa';
-$_lang['The fields <em>%field_list</em> are compulsory'] = 'Tato pole <em>%field_list</em> jsou povinná';
-$_lang['The file to upload is not valid.'] = 'Nahrávaný soubor není platný.';
-$_lang['The following errors were found'] = 'Byly nalezeny následující chyby ';
-$_lang['The information have been modified'] = 'Informace byla upravena';
-$_lang['The module has been removed from this dock'] = 'Modul byl odstranìn z doku';
-$_lang['The module will still be available in the pool of modules.'] = 'Modul bude i nadále k dispozici v úlo¾i¹ti modulù.';
-$_lang['The new category has been created.'] = 'Nová kategorie byla vytvoøena.';
-$_lang['The new class has been created'] = 'Nová tøída byla vytvoøena';
-$_lang['The new user has been sucessfully created'] = 'Nový u¾ivatel byl úspì¹nì vytvoøen';
-$_lang['The requested file <strong>%file</strong> was not found on the platform.'] = 'Po¾adovaný soubor <strong>%file</strong> nebyl v platformì nalezen.';
-$_lang['The system is unable to send you an e-mail.'] = 'Systém není schopen odeslat Vám email.';
-$_lang['The upload has failed. There is not enough space in your directory'] = 'Soubor nebyl odeslán. Ve Va¹em adresáøi není dostatek volného místa.';
-$_lang['The upload is finished'] = 'Soubor byl odeslán';
-$_lang['The user has been enroled to the course'] = 'U¾ivatel byl odhlá¹en z kurzu';
-$_lang['The user has been successfully unregistered'] = 'Registrace u¾ivatele byla zru¹ena';
-$_lang['The user has been successfully unregistered from course'] = 'U¾ivatel byl úspì¹nì odhlá¹en z kurzu';
-$_lang['The user is already enroled in this course'] = 'U¾ivatel je ji¾ zapsán do kurzu';
-$_lang['The zip file can not contain .PHP files'] = 'Zip soubor nemù¾e obsahovat .php soubory';
-$_lang['Themes'] = 'Témata vzhledu';
-$_lang['There are no topics for this forum. You can post one'] = 'Ve fóru nejsou ¾ádná témata. Mù¾ete vytvoøit téma.';
-$_lang['There is a folder called <b><i>%module_name</i></b> for which there is no module installed.'] = 'Existuje slo¾ka <b><i>%module_name</i></b> která nemá instalovaný odpovídající modul.';
-$_lang['There is a module installed in DB : <b><i>%module_name</i></b> for which there is no folder on the server.'] = 'V databázi je instalován modul : <b><i>%module_name</i></b>, který nemá na serveru vytvoøenou odpovídající slo¾ku.';
-$_lang['There is an error in exercise data of imported file.'] = 'Importovaný soubor s daty cvièení obsahuje chybu.';
-$_lang['There is no answer for the moment'] = 'V tuto chvíli zde není ¾ádná odpovìï';
-$_lang['There is no assignment at the moment'] = 'V tuto chvíli není k dispozici ¾ádná úloha.';
-$_lang['There is no category'] = 'Není dostupná ¾ádná kategorie';
-$_lang['There is no category available !'] = 'Není dostupná ¾ádná kategorie !';
-$_lang['There is no course matching such criteria'] = 'Zadaným kritériím nevyhovuje ¾ádný kurz';
-$_lang['There is no exercise for the moment'] = 'V tuto chvíli není k dispozici ¾ádné cvièení';
-$_lang['There is no start asset defined for this module.'] = 'V modulu není nic nadefinováno.';
-$_lang['There is no user account with this email address.'] = 'Není vytvoøen ¾ádný u¾ivatelský úèet s touto emailovou adresou.';
-$_lang['This category already exists!'] = 'Tato kategorie ji¾ existuje!';
-$_lang['This category contains other categories, you must delete them before !'] = 'Tato kategorie obsahuje dal¹í kategorie, které musíte nejprve odstranit !';
-$_lang['This category contains some courses, you can\'t erase it!'] = 'tato kategorie obsahuje nìkteré kurzy, nelze ji odstranit!';
-$_lang['This category include some courses, you must delete or move them before'] = 'Tato kategorie obsahuje nìkteré kurzy, nejprve je musíte odstranit nebo pøesunout';
-$_lang['This course is currently not described'] = 'Tento kurz nemá popisek';
-$_lang['This course requires a key for enrolment'] = 'Pro zapsání se do kurzu potøebujete klíè';
-$_lang['This day'] = 'Tento den';
-$_lang['This is the faculty, department or school where the course is delivered'] = 'Toto je fakulta, oddìlení nebo ¹kola, které je kurz doruèen';
-$_lang['This is the main page of the Wiki %s. Click on \'\'\'Edit\'\'\' to modify the content.'] = 'Toto je hlavní strana spolupráce %s. Kliknìte na \'\'\'Upravit\'\'\' pro úpravu obsahu.';
-$_lang['This is your account Login-Pass'] = 'Toto je Va¹e u¾ivatelské jméno a heslo';
-$_lang['This mail appears already in a previous line of the CSV file.'] = 'Tento email je ji¾ obsa¾en v pøedchozích øádcích CSV souboru.';
-$_lang['This module cannot be deactivated'] = 'Tento modul nemù¾e být vypnut';
-$_lang['This official code already appears in a previous line of the CSV file.'] = 'Tento oficiální kód se ji¾ objevil v pøedchozím øádku CSV souboru.';
-$_lang['This official code is already used by another user.'] = 'Tento oficiální kód je ji¾ pou¾it jiným u¾ivatelem.';
-$_lang['This page is empty, click on \'Edit this page\' to add a content'] = 'Tato strana je prázdná, kliknìte na \'Upravit tuto stranu\' pro pøidání obsahu';
-$_lang['This page is empty, use the editor to add content.'] = 'Tato strana je prázdná, pou¾ijte editor pro pøidání obsahu.';
-$_lang['This password is too simple. Use a password like this <code>%passProposed</code>'] = 'Toto heslo je pøíli¹ jednoduché. Pou¾ijte podobné heslo jako <code>%passProposed</code>';
-$_lang['This question is used in several exercises.'] = 'Tato otázka je pou¾ita v nìkolika cvièeních.';
-$_lang['This text layout should be modified to be editable in this editor. Cancel to keep your original text layout.'] = 'Tento vzhled textu by mìl být upraven pro editaci v tomto editoru. Pro zachování pùvodního vzhledu kliknìte nepotvrzujte.';
-$_lang['This tool can not be uninstalled.'] = 'Tento nástroj nemù¾e být odinstalován.';
-$_lang['This user name is already taken'] = 'Toto u¾ivatelské jméno je ji¾ pou¾ito';
-$_lang['This will also delete all works submitted in this assignment !'] = '! Toto také vyma¾e v¹echny odeslané práce v této úloze !';
-$_lang['Thumbnails'] = 'Náhledy';
-$_lang['Time'] = 'Èas';
-$_lang['Time in learning path'] = 'Èas v uèební osnovì';
-$_lang['Time is over, results not submitted.'] = 'Èas vypr¹el, výsledky neodeslány.';
-$_lang['Time limit'] = 'Maximum povoleného èasu';
-$_lang['Title'] = 'Název';
-$_lang['Title added :'] = 'Název byl pøidán : ';
-$_lang['Title of the wiki'] = 'Název Spolupráce';
-$_lang['To'] = 'do';
-$_lang['To install this module click <a href="%url">here</a>.'] = 'Pro instalování tohoto modulu kliknìte <a href="%url">zde</a>.';
-$_lang['To send a message, select groups of users (marked with a * in the front) or single users from the list on the left.'] = 'Pro zaslání zprávy vyberte skupiny u¾ivatelù (oznaèené * v popøedí)
- nebo jednotlivé u¾ivatele ze seznamu nalevo.';
-$_lang['Tool'] = 'Nástroj';
-$_lang['Tool list'] = 'Seznam nástroje';
-$_lang['Tools'] = 'Nástroje';
-$_lang['Topic'] = 'Téma';
-$_lang['Topic review'] = 'Pøehled tématu';
-$_lang['Topics'] = 'Témata';
-$_lang['Topics started'] = 'Téma zahájeno';
-$_lang['Total'] = 'Celkem';
-$_lang['Total Clicks'] = 'Celkový poèet vstupù';
-$_lang['Total Downloads'] = 'Poèet sta¾ení';
-$_lang['Total attempts'] = 'Celkovì pokusù';
-$_lang['Total number of connection to this course'] = 'Celkový poèet pøipojení k tomuto kurzu';
-$_lang['Total time'] = 'Celkový èas';
-$_lang['Tracking'] = 'Záznam';
-$_lang['Tracking has been disabled by system administrator.'] = 'Administrátor vypnul záznam.';
-$_lang['Traffic Details'] = 'Podrobnosti provozu';
-$_lang['Translation Progression'] = 'Postup pøekladu';
-$_lang['Translation Tools'] = 'Nástroje pro pøeklad';
-$_lang['True'] = 'Pravda';
-$_lang['True/False'] = 'Pravda/Nepravda';
-$_lang['Type'] = 'Typ';
-$_lang['URL'] = 'URL';
-$_lang['URL link'] = 'Adresa odkazu';
-$_lang['URL?'] = 'URL?';
-$_lang['Unable to add description'] = 'Není mo¾no pøidat popis';
-$_lang['Unable to add external tool'] = 'Není mo¾no pøidat externí nástroj';
-$_lang['Unable to add the event to the agenda'] = 'Není mo¾no pøidat událost do kalendáøe.';
-$_lang['Unable to copy file :'] = 'Není mo¾no kopírovat soubor : ';
-$_lang['Unable to create category'] = 'Není mo¾no vytvoøit kategorii';
-$_lang['Unable to create directory :'] = 'Chyba pøi vytváøení adresáøe : ';
-$_lang['Unable to create file :'] = 'Chyba pøi vytváøení souboru : ';
-$_lang['Unable to create forum'] = 'Není mo¾no vytvoøit fórum';
-$_lang['Unable to create frame file'] = 'Chyba pøi vytváøení souboru rámce';
-$_lang['Unable to create the SCORM archive'] = 'Nelze vytvoøit SCROM archív';
-$_lang['Unable to create the SCORM manifest (imsmanifest.xml)'] = 'Nelze vytvoøit SCORM manifest (imsmanifest.xml)';
-$_lang['Unable to create zip file'] = 'Není mo¾né vytvoøit archiv (.zip)';
-$_lang['Unable to delete'] = 'Není mo¾né odstranit';
-$_lang['Unable to delete Forum'] = 'Není mo¾no odstranit fórum.';
-$_lang['Unable to delete category'] = 'Není mo¾no odstranit kategorii.';
-$_lang['Unable to delete event from the agenda'] = 'Není mo¾no odstranit událost z kalendáøe.';
-$_lang['Unable to delete external tool'] = 'Není mo¾no odstranit externí nástroj';
-$_lang['Unable to empty forum'] = 'Není mo¾no vyprázdnit fórum.';
-$_lang['Unable to empty groups'] = 'Není mo¾no vyprázdnit skupiny';
-$_lang['Unable to enrol you to the course'] = 'Není mo¾no zapsat do kurzu';
-$_lang['Unable to load exercise\'s question'] = 'Není mo¾no nahrát otázky ze cvièení';
-$_lang['Unable to load the exercise'] = 'Není mo¾no nahrát cvièení';
-$_lang['Unable to remove your registration to the course'] = 'Není mo¾no odstranit registraci z kurzu';
-$_lang['Unable to save'] = 'Není mo¾né ulo¾it';
-$_lang['Unable to send zip file'] = 'Není mo¾né odeslat archiv (.zip)';
-$_lang['Unable to update'] = 'Není mo¾né upravit';
-$_lang['Unable to update category'] = 'Není mo¾no upravit kategorii.';
-$_lang['Unable to update external tool'] = 'Není mo¾no upravit externí nástroj';
-$_lang['Unable to update forum'] = 'Není mo¾no upravit fórum.';
-$_lang['Unable to update the event into the agenda'] = 'Není mo¾no upravit událost v kalendáøi.';
-$_lang['Unamed module'] = 'Nepojmenovaný modul';
-$_lang['Unamed path'] = 'Nepojmenovaná osnova';
-$_lang['Unassigned students'] = 'Nezapsaní studenti';
-$_lang['Unblock'] = 'Odblokovat';
-$_lang['Unchanged line'] = 'Nezmìnìný øádek';
-$_lang['Underline'] = 'Podtr¾ení';
-$_lang['Unenrol from course'] = 'Odhlásit z kurzu';
-$_lang['Uninstall'] = 'Odinstalovat';
-$_lang['Unknow error during unsubscribing'] = 'neznámá chyba v prùbìhu ohla¹ování';
-$_lang['Unknow faculty'] = 'Neznámá fakulta';
-$_lang['Unknown error'] = 'Neznámá chyba';
-$_lang['Unknown user'] = 'Neznámý u¾ivatel';
-$_lang['Unlock'] = 'Odemknout';
-$_lang['Unordered list'] = 'Netøídìný seznam';
-$_lang['Unregister'] = 'Zru¹it registraci';
-$_lang['Unregister all students'] = 'Zru¹it registraci v¹ech studentù';
-$_lang['Unregister all users'] = 'Zru¹it v¹echny u¾ivatele';
-$_lang['Unregister all users ?'] = 'Zru¹it v¹echny u¾ivatele ?';
-$_lang['Unregister from class'] = 'Zru¹it registraci ve tøídì';
-$_lang['Unregister user'] = 'Zru¹it registraci u¾ivatele';
-$_lang['Unsubscribe'] = 'Odhlásit';
-$_lang['Until'] = 'do';
-$_lang['Untitled'] = 'Bez názvu';
-$_lang['Up'] = 'Nahoru';
-$_lang['Upgrade'] = 'Upgrade';
-$_lang['Upload a new file to replace the file'] = 'Odeslat nový soubor a nahradit jím souèasný.';
-$_lang['Upload document'] = 'Odeslat dokument';
-$_lang['Upload failed'] = 'Nahrání selhalo';
-$_lang['Upload file'] = 'Odeslat soubor';
-$_lang['Uploaded file'] = 'Odeslaný soubor';
-$_lang['Use format defined in first line of file'] = 'Pou¾ij formát definovaný v prvním øádku souboru';
-$_lang['Use the following format'] = 'Pou¾ijte následující formát';
-$_lang['User'] = 'U¾ivatel';
-$_lang['User Course list'] = 'Seznam kurzù u¾ivatele';
-$_lang['User Id'] = 'ID u¾ivatele';
-$_lang['User access details'] = 'Podrobnosti pøístupù u¾ivatele';
-$_lang['User already in class'] = 'U¾ivatel ji¾ je èlenem tøídy';
-$_lang['User attempts'] = 'U¾ivatelské pokusy';
-$_lang['User banner - left'] = 'Banner u¾ivatele - vlevo';
-$_lang['User banner - right'] = 'Banner u¾ivatele - vpravo';
-$_lang['User course settings'] = 'U¾ivatelské nastavení kurzu';
-$_lang['User has been sucessfully registered to the class'] = 'U¾ivatel byl úspì¹nì registrován do tøídy';
-$_lang['User has been sucessfully unregistered from the class'] = 'U¾ivatel byl úspì¹nì vyøazen ze tøídy';
-$_lang['User id'] = 'Id i¾ivatele';
-$_lang['User is not valid'] = 'U¾ivatel není zadán';
-$_lang['User is now course manager'] = 'U¾ivatel je nyní vedoucí kurzu';
-$_lang['User is now student for this course'] = 'U¾ivatel je nyní student kurzu';
-$_lang['User list'] = 'Seznam u¾ivatelù';
-$_lang['User not found'] = 'U¾ivatel nenalezen';
-$_lang['User not in the class'] = 'U¾ivatel není èlenem tøídy';
-$_lang['User profile'] = 'Profil u¾ivatele';
-$_lang['User registered to the course'] = 'U¾ivatel registrovaný do kurzu';
-$_lang['User settings'] = 'U¾ivatelské nastavení';
-$_lang['User unregistered'] = 'Neregistrovaný u¾ivatel';
-$_lang['User\'s course'] = 'U¾ivatelovi kurzy';
-$_lang['User\'s course settings'] = 'Nastavení kurzu u¾ivatele';
-$_lang['Username'] = 'U¾ivatelské jméno';
-$_lang['UsernameAppearAlready'] = 'Toto u¾ivatelské jméno se ji¾ objevilo v pøedchozím øádku CSV souboru.';
-$_lang['UsernameUsed'] = 'Toto u¾ivatelské jméno ji¾ pou¾ívá jiný u¾ivatel.';
-$_lang['Users'] = 'U¾ivatelé';
-$_lang['Users Downloads'] = 'Sta¾ení u¾ivateli';
-$_lang['Users can not submit after end date'] = 'U¾ivatelé nemohou odesílat po ukonèení';
-$_lang['Users can submit after end date'] = 'U¾ivatelé mohou odesílat po ukonèení';
-$_lang['Users help'] = 'Nápovìda u¾ivatelù';
-$_lang['Users not in this group'] = 'U¾ivatelé nejsou v této skupinì';
-$_lang['Users with similar settings exist on the system yet'] = 'V systému stále existují u¾ivatelé s podobným nastavením';
-$_lang['Users\' Clicks'] = 'Poèet vstupù u¾ivatelù';
-$_lang['UsersMin'] = 'u¾ivatelé';
-$_lang['Values'] = 'Hodnoty';
-$_lang['Variables with same content and different name'] = 'Promìnné se stejným obsahem a rùznými názvy';
-$_lang['Variables with same name and different content'] = 'Promìnné se stejnými názvy a rùzným obsahem';
-$_lang['Version'] = 'Verze';
-$_lang['View'] = 'Zobrazení';
-$_lang['View all'] = 'Zobrazit v¹e';
-$_lang['View all right profile'] = 'Zobrazit profil v¹ech oprávnìní';
-$_lang['View by'] = 'Zobrazeno';
-$_lang['View group data'] = 'Zobrazit data skupiny';
-$_lang['View list of all tools'] = 'Zobrazit seznam v¹ech nástrojù';
-$_lang['View mode'] = 'Typ zobrazení';
-$_lang['View my statistics'] = 'Zobrazit Va¹í statistiku';
-$_lang['View user data'] = 'Zobrazit data u¾ivatele';
-$_lang['Visibility'] = 'Viditelnost';
-$_lang['Visibility modified'] = 'Zobrazitelnost upravena';
-$_lang['Visible'] = 'Viditelný';
-$_lang['Visible for all users'] = 'Viditelné pro v¹echny u¾ivatele';
-$_lang['Visits'] = 'náv¹tìv';
-$_lang['WARNING ! You have just lost your session on the server.'] = 'VAROVÁNÍ ! Va¹e relace se serverem vypr¹ela.';
-$_lang['WARNING : you are going to delete this wiki and all its pages. Are you sure to want to continue ?'] = 'Varování : chystáte se odstranit tuto Spolupráci a v¹echny její stránky. Opravdu chcete pokraèovat?';
-$_lang['WARNING: this page is a preview. Your modifications to the wiki has not been saved yet ! To save them do not forget to click on the \'save\' button at the bottom of the page.'] = 'Varování: tato strana je náhled. Va¹e úprava Spolupráce nebyla zatím ulo¾ena! Pro ulo¾ení nezapomeòte kliknout na tlaèítko \'Ulo¾it\' ve spodní èásti strany.';
-$_lang['Warning the system distinguishes uppercase (capital) and lowercase (small) letters'] = 'Varování systém rozli¹uje malá a velkí písmena';
-$_lang['Website'] = 'Website';
-$_lang['Week'] = 'Týden';
-$_lang['Weighting'] = 'Váha';
-$_lang['Wiki'] = 'Spolupráce';
-$_lang['Wiki %TITLE% exported to course documents. (this file is visible)'] = '%TITLE% Spolupráce exportována do dokumentù kurzu. (tento soubor je viditelný)';
-$_lang['Wiki : %s'] = 'Spolupráce : %s';
-$_lang['Wiki : Create new Wiki'] = 'Spolupráce : Vytvoøit novou spolupráci';
-$_lang['Wiki : Edit properties'] = 'Spolupráce : Upravit vlastnosti';
-$_lang['Wiki creation succeed'] = 'Vytvoøení Spolupráce bylo úspì¹né';
-$_lang['Wiki deletion succeed'] = 'Spolupráce byla odstranìna';
-$_lang['Wiki description'] = 'Popis Spolupráce';
-$_lang['Wiki edition succeed'] = 'Editace Spolupráce byla úspì¹ná';
-$_lang['Wiki syntax'] = 'Skladba Spolupráce';
-$_lang['Work added'] = 'Práce pøidána';
-$_lang['Work modified'] = 'Práce upravena';
-$_lang['Work title'] = 'Chybný název';
-$_lang['Work title required'] = 'Je po¾adován pracovní název';
-$_lang['Work uploaded by the student in the name of \'Authors\''] = 'Za v¹echny autory práci odeslal jeden student';
-$_lang['Work uploads'] = 'Odeslání práce';
-$_lang['Worst score'] = 'Nejhor¹í výsledek';
-$_lang['Wrong enrolment key'] = 'Cyhbný klíè pro zápis';
-$_lang['Wrong operation'] = 'Chybná operace';
-$_lang['Wrong page title'] = 'Chybný název strany';
-$_lang['Wrong parameters'] = 'Chybné parametry';
-$_lang['Year'] = 'Rok';
-$_lang['Yes'] = 'Ano';
-$_lang['Yes, allow users to submit works after end date'] = 'Ano, povolit u¾ivatelùm odeslání práce po vypr¹ení data';
-$_lang['Yesterday'] = 'Vèera';
-$_lang['You are not a member of this group'] = 'Nejste èlenem této skupiny';
-$_lang['You are not allowed to create pages'] = 'Nemáte povoleno vytváøení stránek';
-$_lang['You are not allowed to edit this page'] = 'Nemáte povoleno upravovat tuto stranu';
-$_lang['You are not allowed to read this page'] = 'Nemáte povoleno èíst tuto stranu';
-$_lang['You are now a member of this group.'] = 'Jste èlenem této skupiny.';
-$_lang['You can choose a title an a description for the wiki :'] = 'Zvolte název a popis Spolupráce : ';
-$_lang['You can not change your own settings!'] = 'Nemù¾ete zmìnit své vlastní nastavení!';
-$_lang['You can not remove a group forum. You have to remove the group first'] = 'Nelze odstranit fórum skupiny. Nejprve je tøeba odstranit skupinu';
-$_lang['You can now create your  course'] = 'Nyní mù¾ete vytvoøit Vá¹ vlastní kurz';
-$_lang['You can now select, in the list, the courses you want to access'] = 'Nyní mù¾ete v seznamu zvolit kurz, který chcete nav¹tìvovat.';
-$_lang['You can set access rights for users using the following grid :'] = 'Mù¾ete nastavit práva pro u¾ivatele dle následujícího principu : ';
-$_lang['You can\'t move %facultyCode in the same category !'] = 'Nemù¾ete pøesunout %facultyCode ve stejné kategorii !';
-$_lang['You can\'t remove a group forum. You have to remove the group first'] = 'Nelze odstranit fórum skupiny. Nejprve musíte odstranit skupinu.';
-$_lang['You cannot give a blank name to a class'] = 'Název tøídy nemù¾e být prázdný';
-$_lang['You cannot post an empty message'] = 'Nelze odeslat prázdnou zprávu, napi¹te zprávu.';
-$_lang['You cannot unsubscribe the last course manager of the course'] = 'Nemù¾ete odhlásit posledního vedoucího kurzu';
-$_lang['You didnt choose any file to send, or it is too big'] = 'Nevybral jste ¾ádný soubor pro odeslání nebo je soubor pøíli¹ velký';
-$_lang['You have just created the course website'] = 'Právì jste vytvoøil(a) web kurzu';
-$_lang['You have reached the maximum number of allowed attempts.'] = 'Dosáhl jste poètu povolených pokusù.';
-$_lang['You left some required fields empty'] = 'Nejsou vyplnìna v¹echna povinná pole';
-$_lang['You must introduce the message text'] = 'Musíte vlo¾it text zprávy.';
-$_lang['You must reach the maximum number of allowed attempts to view these statistics.'] = 'Musíte dosáhnout maximálního poètu povolených pokusù pro zobrazení této statistiky.';
-$_lang['You must select a file'] = 'Musíte vybrat soubor';
-$_lang['You must select a text file'] = 'Musíte vybrat textový soubor';
-$_lang['You must select some users'] = 'Musíte vybrat nìkteré u¾ivatele.';
-$_lang['You must specify the CSV format used in your file'] = 'Soubor musí být ve formátu CSV';
-$_lang['You must upload a zip file'] = 'Musíte odeslat archvní soubor (.zip)';
-$_lang['You need an email in your profile'] = 'Vá¹ profil musí obsahovat mailovou adresu';
-$_lang['You need to be authenticated with your %sitename account'] = 'Musíte být pøihlá¹en(a) Va¹ím %sitename úètem';
-$_lang['You typed two different passwords'] = 'Napsal(a) jste dvì neshodující se hesla';
-$_lang['You\'ve been enroled on the course'] = 'Byl jste pøihlá¹en do kurzu';
-$_lang['Your best performance'] = 'Va¹e nejlep¹í výsledky';
-$_lang['Your browser cannot see frames.'] = 'Vá¹ prohlí¾eè nezobrazuje rámce.';
-$_lang['Your campus has been submitted and is waiting to be validate by Claroline.net team'] = 'Vá¹ kampus byl odeslán a èeká na potvrzení týmem Claroline.net';
-$_lang['Your choice'] = 'Vá¹ výbìr';
-$_lang['Your daddy is'] = 'Vá¹ otec je';
-$_lang['Your enrolment on the course has been removed'] = 'Va¹e pøihlá¹ení do kurzu bylo zru¹eno';
-$_lang['Your message has been deleted'] = 'Vás pøíspìvek byl smazán.';
-$_lang['Your message has been entered'] = 'Va¹e zpráva byla ulo¾ena do databáze.';
-$_lang['Your mother is'] = 'Va¹e matka je';
-$_lang['Your password has been emailed to'] = 'Va¹e heslo bylo odesláno na adresu ';
-$_lang['Your password(s) is (are) recorded in an external authentication system outside the platform.'] = 'Va¹e heslo(a) je zaznamenáno v externím autorizaèním systému mimo platformu.';
-$_lang['Your progression in this module'] = 'Vá¹ postup v modulu';
-$_lang['Your registration'] = 'Va¹e registrace';
-$_lang['Your request to become a course creator has been sent to platform administrator(s).'] = 'Vá¹ po¾adavek stát se tvùrcem kurzù byl odeslán administrátorovi platformy.';
-$_lang['Your request to remove your account has been sent'] = 'Vá¹ po¾adavek na odstranìní Va¹eho úètu byl odeslán';
-$_lang['Your search did not match any courses'] = 'Zadaným parametrùm neodpovídá ¾ádný kurz';
-$_lang['Your time is %time'] = 'Vá¹ èas je %time';
-$_lang['Your total score is %score'] = 'Va¹e celkové hodnocení je %score';
-$_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'Zdá se, ¾e jste nebyl pøihlá¹en do tohoto kurzu';
-$_lang['Zip file uploaded and uncompressed'] = ' Zip soubor nahrán a rozbalen';
-$_lang['Zlib php extension is required to use this tool. Please contact your platform administrator.'] = 'Roz¹íøení php Zlib je nutné pro tento nástroj. Kontaktujte správce.';
-$_lang['archive'] = 'archiv';
-$_lang['blockAccountCreationNotification'] = '
-Vá¾ený %firstname %lastname,
-Jste zaregistrován na %siteName
-    U¾ivatelské jméno :  %username
-    Heslo  : %password
-    Adresa %siteName
-    je : %rootWeb
-    V pøípadì problémù nás kontaktujte.
-    S pozdravem,
-    %administratorName
---
-Vedoucí %administratorName
-T. %administratorPhone
-Email : %administratorEmail
-    ';
-$_lang['blockAssignmentsHelp'] = '<p>
-Nástroj zadání je publikaèní oblastí pro studenty. Správce kurzu mù¾e vytvoøit jedno nebo více zadání ( rùzné zóny pro publikování), kde studenti budou moci publikovat své práce.<br /><br />
-Ka¾dé zadání mù¾e mít rùzné zamìøení a po¾adavky : publikován musí být soubor nebo text. Publikace mù¾e být vytvoøena pro skupinu místo pro jednotlivce...<br /><br />
-Studenti mohou upravit svou práci po odeslání a správce kurzu mù¾e pøipomínkovat jejich odeslané práce.
-</p>
-<hr />
-<h4>Vytvoøit zadání</h4>
-<p>Pro vytvoøení nového zadání musí správce kurzu v Nástroji zadání kliknout na odkaz "Vytvoøit nové zadání".
-</p>
-<p>Ve formuláøi, který se zobrazí je tøeba vyplnit&nbsp;:
-</p>
-<ul><li> Název&nbsp;: název zadání
-</li><li> Popis&nbsp;: Popis zadání, náplò práce studentù, po¾adovaný výsledek
-</li><li> &nbsp;:
-<ul><li> Soubor&nbsp;: jakýkoliv typ souboru, který mù¾e být odeslán. Mìjte v¹ak na pamìti, ¾e bývá omezení velikosti odesílaných souborù (dle nastavení serveru). Mù¾e být pøipojen text, popisující soubor
-</li><li> Pouze text&nbsp;: text formátovaný wysiwyg editorem
-</li><li> Text s pøipojeným souborem&nbsp;: text formátovaný wysiwyg editorem a soubor (soubor je nepovinný)
-</li></ul>
-</li><li> datum zahájení&nbsp;: datum, od kterého mohou u¾ivatelé odeslat výsledky svých prací
-</li><li> datum ukonèení&nbsp;: datum, do kterého musí u¾ivatelé odeslat výsledky svých prací
-</li><li> standardní nastavení zobrazení výsledkù prací&nbsp;: zvolte, zda výsledky prací budou viditelné pro ostatní studenty
-</li><li> typ zadání&nbsp;:
-<ul><li> pro jednotlivce&nbsp;: kterýkoliv registrovaný u¾ivatel mù¾e odeslat výsledky své práce
-</li><li> pro skupiny&nbsp;: u¾ivatel musí být èlenem alespoò jedné skupiny v kurzu pro odeslání výsledkù práce a výsledek bude zobrazen ve jménu skupiny
-</li></ul>
-</li><li> povolení k odeslání, po uplynutí termínu
-</li></ul>
-<p><br />
-<strong>Automatická zpìtná informace</strong>
-</p>
-<p>Správné zadání by mìlo obsahovat zpìtnou informaci.  Pro pøidání automatické zpìtné informace k zadání, vstupte do zadání a kliknìte na odkaz "Upravit automatickou zpìtnou informaci".  </p>
-<p>Mù¾e to být text, soubor nebo obojí.  Správce kurzu mù¾e vybrat kdy se u¾ivatelùm tato automatická zpìtná informace zobrazí ( po vypr¹ení termínu nebo po prvním odeslání výsledku u¾ivatelem v rámci tohoto zadání )
-</p>
-<hr />
-<h4>Práce</h4>
-<p>Práce jsou publikace nahrané u¾ivateli.</p>
-<p>Pro ka¾dé zadání nástroj zadání zobrazuje seznam v¹ech u¾ivatelù registrovaných do kurzu a pro ka¾dého u¾ivatele název jeho první práce, kterou publikoval, poèet odeslaných výsledkù a poèet zpìtných vazeb.
-Seznam publikací vztahujících se k u¾ivateli a zadání, lze zobrazit kliknutím na jméno u¾ivatele.</p>
-<p><strong>Odeslat práci</strong></p>
-<p>Pokud má oprávnìní odeslat práci, bude mu zobrazen  odkaz na odesílací formuláø.</p>
-<p><strong>Seznam prací</strong></p>
-<p>Jako vedoucí kurzu máte právo upravovat, mazat, zviditelnit/zneviditelnit kteroukoli z prací. Ke ka¾dé práci mù¾ete také pøidat zpìtnou informaci.
-</p>
-<ul>
-<li> <strong>Upravit</strong>&nbsp;: Pokud se zobrazí tato ikona, znamená to, ¾e u¾ivatel mù¾e upravit obsah práce. Zobrazí se, pokud je u¾ivatel vedoucím kurzu, èi pokud si u¾ivatel prohlí¾í své práce nebo práce práce jeho skupiny. 
-</li>
-<li> <strong>Odstranit</strong>&nbsp;: Tento pøíkaz umo¾òuje vedoucímu kurzu odstranit práci.
-</li>
-<li> <strong>Viditelné</strong>&nbsp;: Tato ikona se zobrazí pro práci, znamená, ¾e práce je viditelná pro studující. Je to jako nástroj dokumenty Claroline. Nastavení zmìníte kliknutím na ikonu.
-</li>
-<li> <strong>Neviditelné</strong>&nbsp;: Pokud se práci zobrazí zato ikona,  znamená, ¾e práce je neviditelná pro studující. Je to jako nástroj dokumenty Claroline. Nastavení zmìníte kliknutím na ikonu.
-</li>
-<li> <strong>Pøidat zpìtnou informaci</strong>&nbsp;: umo¾òuje vedoucímu kurzu publikovat zpìtnou informaci k pracem u¾ivatelù. Zpìtná informace mù¾e být soubor, text nebo obojí, se soukromým komentáøem, který jenom vedoucí kurzu uvidí a skóre v procentech
-</li>
-</ul>
-';
-$_lang['blockClaroMainHelp'] = 'Lektoøi a asistenti zde vytváøejí a spravují stranu kurzù. Studenti ètou (dokumenty, zadání, informace), 
+$l_author = "Autor";
+$l_body = "Zpráva";
+$l_click = "Klik";
+$l_delete = "Sma¾ tento pøíspìvek";
+$l_deleted = "Vás pøíspìvek byl smazán.";
+$l_emptymsg = "Nelze odeslat prázdnou zprávu, napi¹te zprávu.";
+$l_here = "zde";
+$l_indextitle = "Obsah fóra:";
+$l_lastpost = "Poslední pøíspìvky";
+$l_notify = "Upozornit mailem na odpovìdi";
+$l_notifybody = "Obdr¾el(a) jste tento mail, proto¾e byla pøidána nová zpráva do jednoho z Va¹ich oblíbených témat
+ ve fóru a
+zvolil(a) jste upozornìní na tuto událost.
+Téma si mù¾ete zobrazit zde:
+%1\$s
+nebo si mù¾ete prohlédnout obsah fóra zde:
+%2\$s
+Dìkujeme za pou¾ívání na¹eho fóra.";
+$l_notifysubj = "Byla zaslána odpovìï na Vá¹ pøíspìvek.";
+$l_notopics = "Ve fóru nejsou ¾ádná témata. Mù¾ete vytvoøit téma.";
+$l_posted = "Zasláno";
+$l_poster = "Zaslal";
+$l_posts = "Pøíspìvky";
+$l_returnindex = "návrat na obsah fóra";
+$l_returntopic = "návrat na seznam témat fóra.";
+$l_separator = " > ";
+$l_stored = "Va¹e zpráva byla ulo¾ena do databáze.";
+$l_subject = "Pøedmìt";
+$l_topic = "Téma";
+$l_topicreview = "Pøehled tématu";
+$l_topics = "Témata";
+$l_topictitle = "Zobrazit téma";
+$l_viewforum = "Zobrazit fórum";
+$l_viewmsg = "zobrazit Va¹i zprávu.";
+$langAccess = "Pøístup";
+$langAccessExplain = "(Kdy¾ u¾ivatel otevøe obsah Kampusu)";
+$langAction = "Akce";
+$langActivate = "Aktivovat";
+$langAdd = "Pøidat";
+$langAddAClassToCourse = "Pøihlásit tøídu do kurzu";
+$langAddAU = "Pøidat u¾ivatele";
+$langAddAnn = "Pøidat oznámení";
+$langAddCSVUsers = "Pøidat seznam u¾ivatelù";
+$langAddCSVUsersInClass = "Pøidat seznam u¾ivatelù do tøídy";
+$langAddCSVUsersInCourse = "Pøidat seznam u¾ivatelù do kurzu";
+$langAddCategory = "Pøidat kategorii";
+$langAddClass = "Pøihlásit tøídu";
+$langAddComment = "Pøidat komentáø";
+$langAddCommentOptionnal = "Pøidat komentáø (volitelné) :";
+$langAddEvent = "Pøidat událost";
+$langAddExternalTool = "Pøidat externí odkaz";
+$langAddFeedback = "Pøidat zpìtnou vazbu";
+$langAddForum = "Pøidat fórum";
+$langAddImage = "Vlo¾it obrázek";
+$langAddIntro = "Vlo¾it úvodní text";
+$langAddListUser = "Pøidat seznam u¾ivatelù";
+$langAddLoginPass = "Vlo¾it jméno a heslo do .htpassword</a><br />";
+$langAddLoginPassForThisUser = "Vlo¾it jméno a heslo u¾ivatele z úètu v Kampusu do .htpassword";
+$langAddModifyComment = "Pøidat / upravit komentáø k ";
+$langAddModule = "Pøidat";
+$langAddModulesButton = "Pøidat modul(y)";
+$langAddMyCampusOnClarolineNet = "Pøidat mùj Kampus na Claroline.net";
+$langAddNewHeading = "Vlo¾it novou hlavièku";
+$langAddOneModuleButton = "Pøidat modul";
+$langAddTutors = "Seznam správcù";
+$langAddUser = "Vytvoøit nového u¾ivatele";
+$langAddUserOneByOne = "Nový u¾ivatel obdr¾í email s jeho pøihla¹ovacím jménem a heslem";
+$langAddWrongAnswers = "Pøidat chybné odpovìdi do rozbalovacího seznamu <small>(Volitelné. Jedna chybná odpovìï na øádek.)</small>";
+$langAdd_users = "Pøidat u¾ivatele";
+$langAddedExternalTool = "Byl pøidán externí nástroj.";
+$langAddedToCampus = " byl pøidán do Kampusu";
+$langAddedToCampusAndClass = " byl pøidán do kampusu a tøídy";
+$langAddedToCampusAndCourse = " byl pøidán do Kampusu a do kurzu";
+$langAddedToCourse = "byl zaregistrován do Va¹eho kurzu";
+$langAddedToCreator = "Úvodní strana kurzu";
+$langAddress = "Adresa ";
+$langAdmin = "Správce";
+$langAdminEmail = "Email";
+$langAdminLogin = "Pøihlá¹ení";
+$langAdminName = "Pøíjmení";
+$langAdminPass = "Heslo";
+$langAdminSurname = "Køestní jméno";
+$langAdministration = "Administrace";
+$langAdministrationClassTools = "Tøídy";
+$langAdministrator = "Správce";
+$langAdmitError = "Pøipustit vlastní chybu, k pøizvání úèastníka konverzace, aby udìlal toté¾.";
+$langAdvanced = "Roz¹íøené";
+$langAgain = "Zkus znovu!";
+$langAgenda = "Rozvrh";
+$langAgendaNextEvents = "Dal¹í událost v rozvrhu";
+$langAlertBlockingMakedInvisible = "Tento modul je zablokován.
+Jeho zneviditelnìní umo¾ní studentùm pøístup k dal¹ímu modulu bez ukonèení tohoto.
+Potvrdit ?";
+$langAlertBlockingPathMadeInvisible = "Tato cesta je zablokována.
+Její zneviditelnìní umo¾ní studentùm pøístup k dal¹í cestì bez ukonèení tohoto.
+Potvrdit ?";
+$langAll = "V¹e";
+$langAllExercises = "V¹echna cvièení";
+$langAllRight = "Nic neobvyklého";
+$langAllUsersOfThisCourse = "Èlenové kurzu";
+$langAllowAnonymousAttempts = "Anonymní pokus";
+$langAllowLateUpload = "Ano, povolit u¾ivatelùm odeslání práce po vypr¹ení data";
+$langAllowLateUploadShort = "Povolit pozdní nahrání";
+$langAllowed = "Povoleno";
+$langAllowedTime = "Èasový limit";
+$langAlreadyAnswered = "Otázku jste ji¾ zodpovìdìl(a)";
+$langAlreadyBrowsed = "Ji¾ prohlédnuto";
+$langAltClarodoc = "Clarodoc";
+$langAltDocument = "Dokument";
+$langAltExercise = "Cvièení";
+$langAltMakeNotBlocking = "Odblokovat";
+$langAltMakeVisible = "Zviditelnit";
+$langAltMove = "Pøesunout";
+$langAltMoveUp = "Pøesuò nahoru";
+$langAltScorm = "Scorm";
+$langAlways = "V¾dy";
+$langAmong = "mezi";
+$langAnd = "a";
+$langAnnAdd = "Bylo pøidáno oznámení";
+$langAnnDel = "Oznámení bylo smazáno";
+$langAnnEmpty = "Seznam oznámení byl vymazán";
+$langAnnModify = "Oznámení bylo upraveno";
+$langAnnouncement = "Oznámení";
+$langAnonymous = "Anonymní";
+$langAnonymousAttemptsAllowed = "Povoleno : nesledovat jména u¾ivatelù, anonymní u¾ivatelé mohou dìlat cvièení.";
+$langAnonymousAttemptsNotAllowed = "Není povoleno : zaznamenat jména u¾ivatelù, anonymní u¾ivatelé nemohou dìlat cvièení.";
+$langAnonymousUserAccessCount = "Poèet pøístupù anonymních u¾ivatelù : ";
+$langAnswer = "Odpovìï";
+$langAnswerRequired = "Je nutné odpovìdìt";
+$langAnswerType = "Typ odpovìdi";
+$langAntique = "Historie starovìké filozofie";
+$langAppliedChange = "Byla provedena zmìna u¾ivatelského nastavení";
+$langArchive = "archiv";
+$langAreCompulsory = "jsou povinné";
+$langAreYouSureDeleteModule = "Opravdu chcete tento modul odstranit, bez mo¾nosti návratu?
+Bude nevratnì smazán ze serveru a z ka¾dé uèební cesty ve které se nachází.
+Nebude ho mo¾né pou¾ít v ¾ádné uèební cestì.
+Potvrïte vymazání z : ";
+$langAreYouSureToDelete = "Opravdu chcete vymazat";
+$langAreYouSureToDeleteScorm = "Tato uèební cesta je souèástí importovaného balíèku SCORM. Kdy¾ sma¾ete tuto uèební cestu, v¹echny moduly SCORM a návazné soubory budou ze systému odstranìny.  Opravdu chcete odstranit uèební cestu ";
+$langAreYouSureToRemove = "Opravdu chcete odstranit následující modul z uèební cesty : ";
+$langAreYouSureToRemoveLabel = "Odstranìním jmenovky vyma¾ete v¹echny moduly nebo jmenovky, které obsahuje.";
+$langAreYouSureToRemoveSCORM = "SCORM moduly jsou definitivnì odstranìny ze serveru pøi jejich odstranìní z uèební cesty.";
+$langAreYouSureToRemoveStd = "Modul bude i nadále k dispozici v úlo¾i¹ti modulù.";
+$langAreYouSureToUnsubscribe = "Opravdu chcete zru¹it registraci?";
+$langAssignment = "Zadání";
+$langAssignmentAdded = "Bylo vytvoøeno nové zadání";
+$langAssignmentDeleted = "Zadání vymazáno";
+$langAssignmentDescription = "Popis";
+$langAssignmentEdited = "Zadání bylo upraveno";
+$langAssignmentTitle = "Název zadání";
+$langAssignmentTitleAlreadyExists = "Název zadání ji¾ existuje";
+$langAssignmentTitleRequired = "Nutné zadat Název zadání";
+$langAssignmentType = "Typ zadání";
+$langAttachDoc = "Pøipojte soubor";
+$langAttachFile = "Pøipojte soubor";
+$langAttachedFile = "Pøipojený soubor";
+$langAttempt = "Pokus";
+$langAttemptAllowed = "Pokusy jsou povoleny";
+$langAttempts = "Pokusù";
+$langAttemptsAllowed = "Povolených pokusù";
+$langAuthentication = "Pøihlá¹ení";
+$langAuthenticationRequired = "Je nutné se pøihlásit";
+$langAvailableFrom = "K dispozici od";
+$langBack = "Zpìt";
+$langBackHomeOf = "Návrat na hlavní stranu";
+$langBackList = "Návrat na seznam";
+$langBackModule = "Zpìt na seznam";
+$langBackTo = "Zpìt k :";
+$langBackToAdmin = "Zpìt k administraci";
+$langBackToClass = "zpìt do tøídy";
+$langBackToClassList = "Zpìt na seznam tøíd";
+$langBackToClassMembers = "Zpìt na èleny tøídy";
+$langBackToCourseList = "Zpìt na seznam kurzù";
+$langBackToEditor = "Zpìt do editoru";
+$langBackToLPAdmin = "Zpìt k administraci uèebních cest";
+$langBackToList = "Zpìt na seznam";
+$langBackToMyCourseList = "Zpìt k Va¹emu seznamu kurzù";
+$langBackToUserList = "Zpìt k seznamu u¾ivatelù";
+$langBackToUserSettings = "Zpìt k nastavení u¾ivatele";
+$langBackToUsersList = "Zpìt k seznamu u¾ivatelù";
+$langBlankSpace = "(Prázdné místo)";
+$langBlock = "Blokovat";
+$langBrowserCannotSeeFrames = "Vá¹ prohlí¾eè nezobrazuje rámce.";
+$langBuildCompleteLangFile = "Kompletovat jazykové soubory";
+$langBuildEmptyLangFile = "Vyprázdnit jazykové soubory";
+$langBuildLangFile = "Vytvoø jazykové soubory";
+$langBuildMissingLangFile = "Chybìjící jazykové soubory";
+$langBuildProductionLangFile = "Vytvoøení jazykových souborù";
+$langByDel = "Smazáním webu tohoto kurzu nenávratnì odstraní v¹echny dokumenty, které obsahuje a odhlásí v¹echny registrované studenty ( ale neodstraní je z ostatních kurzù).<p>Opravdu chcete kurz odstranit";
+$langByUser = "u¾ivatelem";
+$langCSVSeeUserList = "Zobraz seznam u¾ivatelù";
+$langCampusAlreadyRegistered = "Zdá se, ¾e Vá¹ kampus byl ji¾ zaregistrován.";
+$langCampusDeleted = "<strong>Odstranìn</strong><p>Registrace Va¹eho kampusu byla deaktivována, kontaktujte nás (nav¹tivte ná¹ web), jestli¾e se domníváte, ¾e do¹lo k chybì.</p>";
+$langCampusRegistered = "<strong>Schváleno</strong><p>Registrace Va¹eho kampusu byla schválena týmem Claroline.net.<br />Odkaz na Vá¹ Kampus bude zobrazen na webu Claroline.net.</p>";
+$langCampusRegistrationSubmitted = "Vá¹ kampus byl odeslán a èeká na potvrzení týmem Claroline.net";
+$langCampusRemoved = "<strong>Odstranìn</strong><p>Vá¹ kampus byl odstranìn ze seznamu svìtových kampusù.</p>";
+$langCampusSubmitted = "<strong>Odesláno</strong><p>Èeká se na schválení týmem Claroline.net.</p>";
+$langCancel = "Zru¹it";
+$langCannotBeBlank = "Název tøídy nemù¾e být prázdný";
+$langCannotCopyFile = "Soubor Nelze zkopírovat.";
+$langCannotInitChat = "Chyba : nelze inicializovat chat";
+$langCannotRemoveGroupForum = "Nelze odstranit fórum skupiny. Nejprve je tøeba odstranit skupinu";
+$langCannotSeeExerciseDetails = "Zobrazení podrobných odpovìdí není povoleno.";
+$langCannotUnsubscribeLastCourseManager = "Nemù¾ete odhlásit posledního mana¾era kurzu";
+$langCatagoryGroup = "Fóra skupiny";
+$langCatagoryMain = "Hlavní";
+$langCategories = "Kategorie";
+$langCategoriesRepairs = "Opravit strukturu kategorií";
+$langCategory = "Kategorie";
+$langCategoryDeleted = "Kategorie odstranìna.";
+$langCategoryUpdated = "Kategorie upravena.";
+$langChangePwdexp = "Vlo¾te heslo dvakrát pro zmìnu, ponechte prázdné pro zachování";
+$langChangeRaw = "Zmìò minimální hodnocení pro absolvování tohoto modulu (v procentech) : ";
+$langChangedTool = "Nastavení pøístupu k nástroji zmìnìno";
+$langChat = "Chat";
+$langChatResetBy = "Chat vymazán u¾ivatelem ";
+$langChoice = "Vá¹ výbìr";
+$langChooseACourseToAccessThisPage = "Vyberte kurz pro pøístup k této stranì.";
+$langChooseDateHelper = "(d/m/r hh:mm)";
+$langChooseGoodAnswer = "Vyberte správnou odpovìï";
+$langChooseGoodAnswers = "Vyberte jednu nebo více správných odpovìdí";
+$langChooseYourPassword = "Zadej u¾ivatelské jméno a heslo pro u¾ivatelský úèet.";
+$langClarContent = "Lektoøi a asistenti zde vytváøejí a spravují stranu kurzù. Studenti ètou (dokumenty, zadání, informace), 
 nìkdy dìlají cvièení, publikují dokumenty a úèastní se diskuzí
 ...</p><b>Registrace</b><p>Následující instrukce platí pouze pokud Va¹e verze Claroline dovoluje
  vlastní registraci, pokud není nastavená automatická registrace. <br />Jestli ¾e jste student, 
- registrujte se vybráním \'Následujte kurzy (student)\', pak vyberte kurzy, které chcete absolvovat .</p>
- <p>Jestli¾e jste Lektor nebo Asistent, také  se registrujte, ale vyberte  \'Vytvoøit kurzy (lektor)\'.
+ registrujte se vybráním 'Následujte kurzy (student)', pak vyberte kurzy, které chcete absolvovat .</p>
+ <p>Jestli¾e jste Lektor nebo Asistent, také  se registrujte, ale vyberte  'Vytvoøit kurzy (lektor)'.
  Budete muset vyplnit formuláø s kódem kurzu , Fakultou a Názvem kurzu. Kdy¾ je toto
   ovìøeno, budete pøesmìrován na web, který se právì vytvoøil a umo¾nìno mìnit obsah a organizaci dle svých po¾adavkù.   </p>
-  <p>Volba \'Seznam úkolù\' umo¾òuje povolit zpìtnou informaci s administrací Va¹eho Claroline webu.
- Dají se zde pøipomínkovat vìci jako chyby, návrhy na vylep¹ení. \'Seznam úkolù\'
+  <p>Volba 'Seznam úkolù' umo¾òuje povolit zpìtnou vazbu s administrací Va¹eho Claroline webu.
+ Dají se zde pøipomínkovat vìci jako chyby, návrhy na vylep¹ení. 'Seznam úkolù'
  je provázán na Hlavní stranu Kampusu (po pøihlá¹ení).</p>
 <p>Fórum podpory je nìco jiného. Spojuje u¾ivatele Claroline po celém svìtì.
 Pokud nenajdete odpovìï na svou otázku ve Va¹em kampusu a prostøedí Claroline,
  po¹lete dotaz sem.</p>
 <p>Odkaz na registraci, pokud je mo¾ná, je na Hlavní stranì kampusu vpravo nahoøe.</p>
 <b>Pøihlá¹ení</b><p>Pøi dal¹í náv¹tìvì vlo¾te jméno/heslo pro pøístup do kurzù.
- Adresa je ';
-$_lang['blockConfirmBlockingModuleMadeInvisible'] = 'Tento modul je zablokován.
-Jeho zneviditelnìní umo¾ní studentùm pøístup k dal¹ímu modulu bez ukonèení tohoto.
-Potvrdit ?';
-$_lang['blockConfirmBlockingPathMadeInvisible'] = 'Tato osnova je zablokována.
-Její zneviditelnìní umo¾ní studentùm pøístup k dal¹í osnovì bez ukonèení tohoto.
-Potvrdit ?';
-$_lang['blockConfirmDeleteModule'] = 'Opravdu chcete tento modul odstranit, bez mo¾nosti návratu?
-Bude nevratnì smazán ze serveru a z ka¾dé uèební osnovy ve které se nachází.
-Nebude ho mo¾né pou¾ít v ¾ádné uèební osnovì.
-Potvrïte vymazání z : ';
-$_lang['blockConfirmDeleteScorm'] = 'Tato uèební osnova je souèástí importovaného balíèku SCORM. Kdy¾ sma¾ete tuto uèební osnovu, v¹echny moduly SCORM a návazné soubory budou ze systému odstranìny.  Opravdu chcete odstranit uèební osnovu ';
-$_lang['blockCourseCreationEmailMessage'] = '%date
-
-Vytvoøení kurzu na webu %sitename u¾ivatelem %user_firstname %user_lastname ( %user_email )
-
-Kód kurzu : %course_code
-Název kurzu : %course_title
-Lektor(øi) : %course_lecturers
-Email : %course_email
-Kategorie : %course_category
-Jazyk : %course_language
-Adresa : %course_url';
-$_lang['blockCourseDescriptionCourseContent'] = 'Obsah kurzu';
-$_lang['blockCourseDescriptionCourseContentComment1'] = 'Jaká je dùle¾itost rùzného obsahu v rámci osnovy kurzu?  Jaký je stupeò obtí¾nosti tohoto obsahu?  Je strukturován? Jaké bude poøadí obsahu?  K èemu obsah smìøuje?';
-$_lang['blockCourseDescriptionCourseContentComment2'] = 'Prezentace obsahu kurzu, struktura obsahu, postup a kalendáø';
-$_lang['blockCourseDescriptionDescription'] = 'Popis';
-$_lang['blockCourseDescriptionDescriptionComment1'] = 'Jaké je místo a význam kurzu v programu?  Existují pøedchozí kurzy, na které navazuje?  Jaká je souvzta¾nost s ostatními kurzy?';
-$_lang['blockCourseDescriptionDescriptionComment2'] = 'Informace k identifikaci kurzu (iniciály, název a poèet hodin...), vyuèující (pøíjmení, jméno, kanceláø, telefon, e-mail, k zasti¾ení).  Základní prezentace kurzu v programu.';
-$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment1'] = 'Co èlovìk doká¾e? Co je to pøedstavivost?  Co mù¾ou studenti oèekávat od ¹koly nebo ¹kola od uèitelù?';
-$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment2'] = 'Pøedstavení dal¹ích uèitelù, kteøí se budou úèastnit kurzù (asistenti, výzkumníci, vìdci, pozorovatelé...), dostupnost prostøedkù a lidí.';
-$_lang['blockCourseDescriptionHumanAndPhysicalRessources'] = 'Lidské schopnosti a mo¾nosti';
-$_lang['blockCourseDescriptionMethodsOfEvaluation'] = 'Metody hodnocení';
-$_lang['blockCourseDescriptionMethodsOfEvaluationComment1'] = 'Pøesné podmínky hodnocení (psané zkou¹ky, ústní projev, projekty, domácí úkoly), formální datum vstupního hodnocení, termíny odevzdání prací s kritérii hodnocení, pravdìpodobná váha kriterií a kategorií hodnocení.';
-$_lang['blockCourseDescriptionQualificationsAndGoals'] = 'Kvalifikace a cíle';
-$_lang['blockCourseDescriptionQualificationsAndGoalsComment1'] = 'Co je cílem výuky?  Jakou budou mít studenti na konci kurz kvalifikaci, mo¾nosti a znalosti?';
-$_lang['blockCourseDescriptionQualificationsAndGoalsComment2'] = 'Prezentace hlavních a vedlej¹ích cílù kurzu, k jaké kvalifikaci tyto cíle povedou.';
-$_lang['blockCourseDescriptionSupports'] = ' Podpora ';
-$_lang['blockCourseDescriptionSupportsComment1'] = 'Existuje podpora kurzu?  Jaký typ podpory je poskytován?  Otevøená?  Uzavøená?';
-$_lang['blockCourseDescriptionSupportsComment2'] = 'Prezentace podpory kurzu.  Prezentace bibliografie, sada dokumentù nebo doplòková bibliografie.';
-$_lang['blockCourseDescriptionTeachingTrainingActivities'] = 'Aktivity Výuka - procvièování';
-$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment1'] = 'Jaké metody a které aktivity podpoøí definované cíle kurzu? Jaký je kalendáø aktivit?';
-$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment2'] = 'Prezentace oèekávaných aktivit (hodnotící recenze, oèekávaná úèast studentù, praktická práce, laboratorní práce, náv¹tìvy, sbìr základních informací...';
-$_lang['blockCourseHomePageIntroduction'] = ' Vyberte nástroje, které chcete u¾ivatelùm zpøístupnit.
-Nepøístupný (neviditelný) nástroj bude ve Va¹í nabídce zvýraznìn ¹edì.';
-$_lang['blockCourseSettingsTip'] = 'Standardnì je kurz pøístupen ka¾dému.  Nejjednodu¹¹í osnova, jak o¹etøit pøístup ke kurzu je:
+ Adresa je ";
+$langClarolineNetNews = "Novinky na Claroline.net";
+$langClass = "Tøídy";
+$langClassMembers = "Èlenové tøídy";
+$langClassMoved = "Tøída byla pøemístìna";
+$langClassName = "Jméno tøídy";
+$langClassRegisterUser = "Pøihlas u¾ivatele do tøídy";
+$langClassRegisterWholeClass = "Pøihlas tøídu do kurzu";
+$langClassRegisterWholeClassAgain = "Pøihlas celou tøídu do dal¹ího kurzu";
+$langClassRegistered = "Tøída byla zaregistrována";
+$langClearList = "Vyma¾ seznam událostí";
+$langClickToZoomIn = "zvìt¹it";
+$langClickToZoomOut = "zmen¹it";
+$langClose = "Zavøít";
+$langCloseWindow = "Zavøít okno";
+$langCode = "Kód kurzu";
+$langCodeAppearAlready = "Tento oficiální kód se ji¾ objevil v pøedchozím øádku CSV souboru.";
+$langCodeCanBeEmpty = "Kód kurzu musí být vyplnìn";
+$langCodeUsed = "Tento oficiální kód je ji¾ pou¾it jiným u¾ivatelem.";
+$langComMod = "Komentáø upraven";
+$langComment = "Komentáø";
+$langConfTip = "Standardnì je kurz pøístupen ka¾dému.  Nejjednodu¹¹í cesta, jak o¹etøit pøístup ke kurzu je:
  umo¾nit v prùbìhu jednoho týdne registraci, po¾ádat studenty aby se registrovali a uzavøít mo¾nost registrovat se. Pak 
- zkontrolovat potencionální zá¹kodníky v seznamu u¾ivatelù.';
-$_lang['blockCourseSubscriptionNotification'] = '
-
-Vá¾ený/Vá¾ená %firstname %lastname,
-
-Jeden ze správcù kurzu "%courseName" Vás zaregistroval do kurzu.
-
-Adresa kurzu je :
-
-%coursePath
-
-V pøípadì problémù nás kontaktujte.
-
-S pozdravem,
-%administratorName
-
---
-Vedoucí : %administratorName
-Telefon : %administratorPhone
-Email : %administratorEmail
-';
-$_lang['blockDefaultLearningPathComment'] = 'Toto je úvodní text uèební osnovy. Pro pøepsání vlastním textem kliknìte na  <b>upravit</b>.';
-$_lang['blockDefaultModuleAddedComment'] = 'Toto je pøídavný úvodní text o pøítomnosti tohoto modulu v uèební osnovì. Pro pøepsání vlastním textem kliknìte na  <b>upravit</b>.';
-$_lang['blockDefaultModuleComment'] = 'Toto je úvodní text modulu, objeví se v ka¾dé uèební osnovì, která obsahuje tento modul. Pro pøepsání vlastním textem kliknìte na  <b>upravit</b>.';
-$_lang['blockDocumentsHelp'] = '<p>Nástroj Dokumentù je podobný Správci souborù Va¹eho poèítaèe
+ zkontrolovat potencionální zá¹kodníky v seznamu u¾ivatelù.";
+$langConfigMenuContent = "Menu konfigurace";
+$langConfiguration = "Konfigurace";
+$langConfirmDeleteExercise = "Jste si jistý, ¾e chcete odstranit toto cvièení?";
+$langConfirmDeleteGroups = "Jste si jistý, ¾e chcete odstranit v¹echny skupiny ?";
+$langConfirmDeleteQuestion = "Jste si jistý, ¾e chcete odstranit tuto otázku?";
+$langConfirmDeleteStats = "Pokud odstraníte statistiku tohoto kurzu, bude nenávratnì vymazána !<br /><br />Jsi si jistý, ¾e chce¹ vymazat statistiku ?";
+$langConfirmDeleteThisGroup = "Jste si jistý, ¾e chcte odstranit tuto skupinu ?";
+$langConfirmEmptyForum = "Vymazat v¹echny zprávy z  ";
+$langConfirmEmptyGroups = "Jste si jistý, ¾e chcete vyprázdnit v¹echny skupiny ?";
+$langConfirmEnrollClassToCourse = "Opravdu chcete zapsat celou tøídu do kurzu ?";
+$langConfirmYourChoice = "Potvrïte výbìr";
+$langConfirmation = "Potvrzení";
+$langContent = "Obsah";
+$langContinue = "Pokraèuj";
+$langContradiction = " Pou¾ít princip kontradikce s cílem dovést debatu do slepé ulièky.";
+$langCopy = "Kopírovat";
+$langCopyFailed = "Chyba tisku";
+$langCorrespondsTo = "Týkající se";
+$langCountCours = "Poèet kurzù";
+$langCountCourseByFaculte = "Poèet kurzù dle fakult";
+$langCountCourseByLanguage = "Poèet kurzù dle jazykù";
+$langCountCourseByVisibility = "Poèet kurzù dle viditelnosti";
+$langCountToolAccess = "Celkový poèet pøipojení k tomuto kurzu";
+$langCountUsers = "Poèet u¾ivatelù";
+$langCountUsersByCourse = "Poèet u¾ivatelù dle kurzu";
+$langCountUsersByFaculte = "Poèet u¾ivatelù dle fakult";
+$langCountUsersByStatus = "Poèet u¾ivatelù dle statusu";
+$langCountry = "Zemì";
+$langCountryCodeError = "Chybný kód zemì.";
+$langCourse = "Kurz";
+$langCourseAccess = "Pøístup ke kurzu";
+$langCourseAdministratorOnly = "Pouze správce kurzu";
+$langCourseContent = "Obsah kurzu";
+$langCourseContentComment1 = "Jaká je dùle¾itost rùzného obsahu v rámci osnovy kurzu?  Jaký je stupeò obtí¾nosti tohoto obsahu?  Je strukturován? Jaké bude poøadí obsahu?  K èemu obsah smìøuje?";
+$langCourseContentComment2 = "Prezentace obsahu kurzu, struktura obsahu, postup a kalendáø";
+$langCourseCreate = "Vytvoø web kurzu";
+$langCourseCreator = "Autor kurzu";
+$langCourseDelete = "Kurz byl úspì¹nì odstranìn";
+$langCourseHome = "Hlavní strana kurzu";
+$langCourseList = "Seznam kurzù";
+$langCourseManager = "Správa kurzu";
+$langCourseManagerCannotUnsubscribeHimself = "Správce kurzu nemù¾e odhlásit sám sebe";
+$langCourseManagerStatusToUser = "Status tvùrce kurzu %s %s";
+$langCourseNotFound = "Kurz nenalezen";
+$langCourseProgram = "Popis kurzu";
+$langCourseSettings = "Nastavení kurzu";
+$langCourseTitle = "Název kurzu";
+$langCourseWithoutAccess = "Kurz není pou¾ívaný";
+$langCourseWithoutProf = "Kurzy bez lektora";
+$langCourseWithoutStudents = "Kurzy bez studentù";
+$langCourse_Repository = "Úschovna kurzu";
+$langCourses = "Kurzy";
+$langCreate = "Vytvoøit";
+$langCreate1stAccountOnPlatform = "vytvoø první u¾ivatelský úèet na této platformì";
+$langCreateAnotherUser = "Vytvoø dal¹ího nového u¾ivatele";
+$langCreateAssignment = "Vytvoø nové zadání";
+$langCreateCategory = "Vytvoø kategorii";
+$langCreateCourse = "Vytvoø kurz";
+$langCreateCourses = "Vytvoø kurzy";
+$langCreateDir = "Vytvoø adresáø";
+$langCreateDocument = "Vytvoø dokument";
+$langCreateForum = "Vytvoø fórum";
+$langCreateHyperlink = "Vytvoø odkaz";
+$langCreateLabel = "Vytvoø popisek";
+$langCreateModifyDocument = "Vytvoø/uprav dokument";
+$langCreateNewClass = "Vytvoø novou tøídu";
+$langCreateNewLearningPath = "Vytvoøit novou výukovou cestu";
+$langCreateSite = "Vytvoøit web kurzu";
+$langCreateUser = "Vytvoøit u¾ivatele";
+$langCreateUserAccount = "Vytvoøit u¾ivatelský úèet";
+$langCreatingCourse = "Vytváøím kurz (èekejte) ... ";
+$langCreationMailNotificationBody = "Vytvoøení kurzu na";
+$langCreationMailNotificationSubject = "Vytvoøení kurzu";
+$langCurrentAttachedDoc = "Souèasnì pøipojený soubor";
+$langCurrentDoc = "Souèasný soubor";
+$langCurrentFeedbackFile = "Souèasný soubor zpìtné vazby";
+$langCurrentStatus = "Souèasný stav registrace : <br /> <br />
+";
+$langCurrentTime = "Aktuální èas";
+$langDBConnectionParameters = "Mysql parametry pøipojení";
+$langDBHost = "Database Host";
+$langDBSettingNamesIntro = "
+Instalátor vytvoøí hlavní databáze Claroline.
+Jestli¾e jste omezeni pouze na pou¾ití jedné databáze, vra»te se zpìt
+ na pøedchozí stranu a vyberte volbu 'jedna' pro 'Mód databáze'.<br /><br />
+";
+$langDBUse = "Vyu¾ití databáze";
+$langDOCUMENTTypeDesc = "Dokument";
+$langDate = "Datum";
+$langDateLastWrite = "Poslední zpráva z : ";
+$langDay = "Den";
+$langDay_of_weekNames = "Array";
+$langDbName = "Jméno databáze";
+$langDbPrefixForm = "Pøedpona pro jména databází kurzù";
+$langDear = "";
+$langDefSubVisibility = "Standardní viditelnost prací";
+$langDefaultLearningPathComment = "Toto je úvodní text uèební cesty. Pro pøepsání vlastním textem kliknìte na  <b>upravit</b>.";
+$langDefaultMatchingOpt1 = "bohatý";
+$langDefaultMatchingOpt2 = "dobøe vypadá";
+$langDefaultMatchingProp1 = "Vá¹ otec je";
+$langDefaultMatchingProp2 = "Va¹e matka je";
+$langDefaultModuleAddedComment = "Toto je pøídavný úvodní text o pøítomnosti tohoto modulu v uèební cestì. Pro pøepsání vlastním textem kliknìte na  <b>upravit</b>.";
+$langDefaultModuleComment = "Toto je úvodní text modulu, objeví se v ka¾dé uèební cestì, která obsahuje tento modul. Pro pøepsání vlastním textem kliknìte na  <b>upravit</b>.";
+$langDefaultTextInBlanks = "[Anglièané] ¾ijí v [Anglii].";
+$langDefcon = "Chyba, detekován neobvyklý pøípad!!";
+$langDefineBlanks = "Definujte alespoò jeden prázdný s hranatými závorkami [...]";
+$langDefineHeadings = "Definovat hlavièku";
+$langDefineOptions = "Definice volby mo¾ností";
+$langDelAdmin = "Odstranìní pøes nástroj administrace fóra";
+$langDelCourse = "Odstranit celý web kurzu";
+$langDelCourseStats = "Smazat statistiky v¹ech kurzù";
+$langDelCourseStatsDone = "Statistiky kurzù vymazány";
+$langDelImage = "Odstranit obrázek";
+$langDelete = "Odstranit";
+$langDeleteAttachedFile = "Odstranit pøipojený soubor";
+$langDeleteCaution = "! Toto také vyma¾e v¹echny odeslané práce v tomto úkolu !";
+$langDeleteGroups = "Vymazat v¹echny skupiny";
+$langDeleteMyAccount = "Odstranit mùj úèet";
+$langDeleteUser = "Odstranit u¾ivatele";
+$langDeletedExternalTool = "Externí nástroj byl odstranìn";
+$langDenied = "Zakázáno";
+$langDepartmentUrl = "Adresa oddìlení";
+$langDepartmentUrlName = "Oddìlení";
+$langDescAdded = "Popis pøidán.";
+$langDescDeleted = "Popis odstranìn.";
+$langDescUnableToDelete = "Není mo¾né odstranit";
+$langDescUnableToUpdate = "Není mo¾né upravit";
+$langDescUpdated = "Popis upraven.";
+$langDescription = "Popis";
+$langDescriptionComment1 = "Jaké je místo a význam kurzu v programu?  Existují pøedchozí kurzy, na které navazuje?  Jaká je souvzta¾nost s ostatními kurzy?";
+$langDescriptionComment2 = "Informace k identifikaci kurzu (iniciály, název a poèet hodin...), vyuèující (pøíjmení, jméno, kanceláø, telefon, e-mail, k zasti¾ení).  Základní prezentace kurzu v programu.";
+$langDescriptionCours = "Popis kurzu";
+$langDetail = "Detail";
+$langDetailView = "Zobrazeno";
+$langDetails = "Detaily";
+$langDevTools = "Vývojáøské nástroje";
+$langDirCr = "Adresáø vytvoøil";
+$langDirMv = "Element pøesunut";
+$langDisable = "Vypnout";
+$langDiskUsage = "Vyu¾ití prostoru na disku";
+$langDispClassAdded = "Zobrazení tøídy pøidáno";
+$langDocContent = "<p>Nástroj Dokumentù je podobný Správci souborù Va¹eho poèítaèe
  .</p><p>Mù¾ete nahrát soubor jakéhokoliv typu(HTML, Word,
  Powerpoint, Excel, Acrobat, Flash, Quicktime, atd.). Je pouze nutné, aby studenti mìli instalovaný software, kterým tyto soubory pøeètou.
  Nìkteré typu souborù mohou obsahovat virus. Doporuèujeme antivirovou kontrolu tìchto souborù pøed nahráním.
@@ -1557,8 +415,8 @@ Claroline dokument má dva módy zobrazení
 <li>Seznam souborù (výchozí)</li>
 <li>Náhled</li>
 </ul>
-Mù¾ete pøepínat mezi módy \'Seznam souborù\' a \'Náhledy\', jednodu¹e kliknutím na pøíkaz
-\'Seznam souborù | Náhledy\' v nástrojové li¹tì adresáøe, po pravé stranì.
+Mù¾ete pøepínat mezi módy 'Seznam souborù' a 'Náhledy', jednodu¹e kliknutím na pøíkaz
+'Seznam souborù | Náhledy' v nástrojové li¹tì adresáøe, po pravé stranì.
 <h4>Prohlí¾eè obrázkù</h4>
 <ul>
 <li>Prohlí¾eè obrázkù se otevøe kliknutím na jméno souboru v módu Seznam souborù
@@ -1571,13 +429,13 @@ Mù¾ete pøepínat mezi módy \'Seznam souborù\' a \'Náhledy\', jednodu¹e kliknutím 
 <h4>Prohledat zdroje</h4>
 <ul>
 <li>
-Kliknìte na pøíkaz \'Hledat\' v horní èásti okna prohlí¾eèe.
+Kliknìte na pøíkaz 'Hledat' v horní èásti okna prohlí¾eèe.
 </li>
 <li>
-Vlo¾te hledaný øetìzec. Lze pou¾ít \'*\' a \'?\' pro komplexní vyhledávání.
+Vlo¾te hledaný øetìzec. Lze pou¾ít '*' a '?' pro komplexní vyhledávání.
 </li>
 <li>
-Kliknìte na tlaèítko \'OK\'.
+Kliknìte na tlaèítko 'OK'.
 </li>
 <li>
 Výsledek hledání se zobrazí vedle nástrojové li¹ty adresáøe.
@@ -1590,33 +448,33 @@ Tento nástroj umo¾òuje nahrávat, editovat a uspoøádat soubory.
 <h4>Nahrát dokument</h4>
 <ul>
 <li>
-Kliknìte na \'Nahrát soubor\' vlevo nahoøe.
+Kliknìte na 'Nahrát soubor' vlevo nahoøe.
 </li>
 <li>
-Vyberte soubor ve svém poèítaèi pomocí tlaèítka \'Procházet\'.
+Vyberte soubor ve svém poèítaèi pomocí tlaèítka 'Procházet'.
 </li>
 <li>
 Je mo¾né, pøidat komentáø k tomuto dokumentu. Zobrazí se pod èarou.
 <blockquote><small>
 <i>Poznámka</i> Pokud nahrajete více souborù zabalených v archiv ve formátu <i>ZIP</i>,
-zatrhnìte volbu \'rozbalit archiv (.zip) na serveru\' pro automatické rozbalení,
+zatrhnìte volbu 'rozbalit archiv (.zip) na serveru' pro automatické rozbalení,
 ve chvíli kdy je soubor nahrán na server, do úlo¾i¹tì kurzu.
 </small></blockquote>
 </li>
 <li>
-Spustit pøenos kliknutím na tlaèítko \'Nahrát\'.
+Spustit pøenos kliknutím na tlaèítko 'Nahrát'.
 </li>
 </ul>
 <h4>Vytvoøit odkaz</h4>
 <ul>
 <li>
-Kliknìte na \'Vytvoøit odkaz\' ve vrchní èásti okna prohlí¾eèe.
+Kliknìte na 'Vytvoøit odkaz' ve vrchní èásti okna prohlí¾eèe.
 </li>
 <li>
-Vyplòte pole \'Jméno\' pro název odkazu
+Vyplòte pole 'Jméno' pro název odkazu
 </li>
 <li>
-Napi¹te úplnou osnovu odkazu
+Napi¹te úplnou cestu odkazu
 (pøíklad : http://my.domain/my/file.htm).
 </li>
 <li>
@@ -1624,21 +482,21 @@ Nepovinné pole komentáø k odkazu, bude zobrazeno pod odkazem.
 </li>
 </li>
 <li>
-Kontrola po stisknutí tlaèítka \'OK\'.
+Kontrola po stisknutí tlaèítka 'OK'.
 </li>
 </ul>
 <h4>Vytvoøení HTML dokumentu</h4>
 <ul>
-<li> Kliknìte na \'Vytvoøit dokument\' ve vrchní èásti okna prohlí¾eèe.
+<li> Kliknìte na 'Vytvoøit dokument' ve vrchní èásti okna prohlí¾eèe.
 </li>
 <li>
-Vyplòte pole \'Název dokumentu\'.
+Vyplòte pole 'Název dokumentu'.
 </li>
 <li>
-Vlo¾te obsah dokumentu do sekce \'Obsah dokumentu\'.
+Vlo¾te obsah dokumentu do sekce 'Obsah dokumentu'.
 </li>
 <li>
-Po dokonèení stisknìte tlaèítko \'OK\'.
+Po dokonèení stisknìte tlaèítko 'OK'.
 </li>
 </ul>
 <p>
@@ -1657,7 +515,7 @@ Je mo¾né také pøidat nebo upravit komentáø tohoto dokumentu.
 Komentáø se zobrazí pod dokumentem.
 </li>
 <li>
-Potvrïte stisknutím tlaèítka \'OK\'.
+Potvrïte stisknutím tlaèítka 'OK'.
 </li>
 </ul>
 <p>
@@ -1694,20 +552,20 @@ Kliknìte na ikonu vedle dokumentu ve sloupci Upravit.
 Upravte komentáø v pøíslu¹ném poli.
 </li>
 <li>
-Potvrïte tlaèítkem  \'OK\' .
+Potvrïte tlaèítkem  'OK' .
 </li>
 </ul>
 <p>
 Pro odstranìní komentáøe kliknìte na ikonu vedle dokumentu ve sloupci Upravit, sma¾te starý komentáø a stisknìte tlaèítko OK.
 <h4>Vytvoøení adresáøe</h4>
 <ul>
-<li>Kliknìte na \'Vytvoøit adresáø\' v horní èásti okna prohlí¾eèe.
+<li>Kliknìte na 'Vytvoøit adresáø' v horní èásti okna prohlí¾eèe.
 </li>
 <li>
 Vlo¾te jméno nového adresáøe (vlevo nahoøe).
 </li>
 <li>
-Potvrïte tlaèítkem \'OK\'.
+Potvrïte tlaèítkem 'OK'.
 </li>
 </ul>
 <h4>
@@ -1719,21 +577,134 @@ Kliknìte na ikonu vedle pøíslu¹ného objektu ve sloupci Pøesunout.
 </li>
 <li>
 Vyberte adresáø do kterého chcete objekt pøesunout v rozbalovacím menu vlevo nahoøe
-<br />Poznámka: slovo \'root\' znamená, ¾e nelze jít vý¹e ve struktuøe adresáøù.
+<br />Poznámka: slovo 'root' znamená, ¾e nelze jít vý¹e ve struktuøe adresáøù.
 </li>
 <li>
-Potvrïte stisknutím tlaèítka \'OK\'.
+Potvrïte stisknutím tlaèítka 'OK'.
 </li>
 </ul>
 <center>
-<p>';
-$_lang['blockExercisesHelp'] = '<h4>Co je to nástroj cvièení ?</h4>
+<p>";
+$langDocDeleted = "Dokument odstranìn";
+$langDocInsertedAsModule = "byl pøidán jako modul";
+$langDocument = "Dokumenty a odkazy";
+$langDocumentAlreadyUsed = "Tento dokument je ji¾ pou¾it jako modul v uèební cestì";
+$langDocumentAsModule = "Pou¾ij dokument";
+$langDocumentContent = "Obsah dokumentu : ";
+$langDocumentInModule = "Dokument v modulu";
+$langDocumentName = "Jméno dokumentu : ";
+$langDocumentation = "Dokumentace";
+$langDocumentsAccess = "Dokumenty";
+$langDocumentsDetails = "Dokumenty sta¾ené studenty";
+$langDocumentsTitleCountColumn = "Poèet sta¾ení";
+$langDocumentsTitleDocumentColumn = "Dokument";
+$langDocumentsTitleUsersColumn = "Sta¾ení u¾ivateli";
+$langDown = "Setøídit sestupnì";
+$langDownloadAttachedFile = "Stáhnout pøipojený soubor";
+$langEG = "napø.";
+$langEXERCISETypeDesc = "Cvièení Claroline";
+$langEdit = "Upravit";
+$langEditAnswers = "Upravit odpovìdi";
+$langEditCategory = "Upravit kategorii";
+$langEditEvent = "Upravit událost";
+$langEditExercise = "Upravit nastavení cvièení";
+$langEditFeedback = "Upravit automatickou zpìtnou vazbu";
+$langEditFileContent = "Upravit obsah souboru";
+$langEditFormat = "Upravit pou¾itý formát";
+$langEditGroup = "Upravit tuto skupinu";
+$langEditPost = "Upravit pøíspìvek";
+$langEditQuestion = "Upravit otázku";
+$langEditSettings = "Upravit nastavení";
+$langEditTextZone = "Upravit oblast textu";
+$langEditToolList = "Upravit seznam nástrojù";
+$langEditWork = "Zmìnit práci";
+$langElRen = "Pøejmenování objektu";
+$langElementList = "Seznam objektù";
+$langEmail = "Email";
+$langEmailAddressNotFound = "Není vytvoøen ¾ádný u¾ivatelský úèet s touto emailovou adresou.";
+$langEmailCanBeEmpty = "Email musí být vyplnìn";
+$langEmailNotSent = "Systém nemù¾e odeslat email.<br />Kontaktujte  ";
+$langEmailOption = "Toto oznámení poslat emailem registrovaným studentùm";
+$langEmailSent = " a odesláno registrovaným studentùm";
+$langEmailWrong = "Chybná emailová adresa";
+$langEmpty = "Prázdné";
+$langEmptyAnn = "Vyma¾ seznam oznámení";
+$langEmptyFields = "Nejsou vyplnìna v¹echna povinná pole";
+$langEmtpyGroups = "Vyprázdnit v¹echny skupiny";
+$langEnable = "Povolit";
+$langEndDate = "Datum ukonèení";
+$langEnrollAsManager = "Zapsat jako správce kurzu";
+$langEnrollAsStudent = "Zapsat jako studenta";
+$langEnrollAsTeacher = "Zapsat jako uèitele";
+$langEnrollClass = "Zapsat tøídu";
+$langEnrollToNewCourse = "Zapsat do nového kurzu";
+$langEnrollUser = "Zapsat u¾ivatele";
+$langEnrollmentKey = "klíè k zápisu do kurzu";
+$langEnter = "Vstup";
+$langEnterMail = "Vlo¾te svùj e-mail, na který bude zasláno Va¹e heslo.";
+$langErrorAssetNotFound = "Zásoba nenalezena : ";
+$langErrorCannotReadRSSFile = "Chyba : nemù¾u èíst RSS kanál";
+$langErrorCategoryEmpty = "Kategorie nemù¾e být vyprázdnìna";
+$langErrorClassNotEmpty = "Tato tøída stále obsahuje podtøídy, odstraòte je";
+$langErrorCopyAttachedFile = "Není mo¾no kopírovat soubor : ";
+$langErrorCopyScormFiles = "Chyba pøi kopírování nezbytných SCROM souborù";
+$langErrorCopyingScorm = "Chyba pøi kopírování stávajícího SCROM  obsahu";
+$langErrorCourseCodeEmpty = "Kód kurzu musí být vyplnìn";
+$langErrorCourseTitleEmpty = "Název kurzu musí být vyplnìn";
+$langErrorCreatingDirectory = "Chyba pøi vytváøení adresáøe : ";
+$langErrorCreatingFile = "Chyba pøi vytváøení souboru : ";
+$langErrorCreatingFrame = "Chyba pøi vytváøení souboru rámce";
+$langErrorCreatingManifest = "Nelze vytvoøit SCORM manifest (imsmanifest.xml)";
+$langErrorCreatingScormArchive = "Nelze vytvoøit SCROM archív";
+$langErrorDepartmentEmpty = "Oddìlení musí být vyplnìno";
+$langErrorDepartmentURLEmpty = "Adresa oddìlení musí být vyplnìna";
+$langErrorDepartmentURLWrong = "Adresa oddìlení je chybná";
+$langErrorEmailEmpty = "Email musí být vyplnìn";
+$langErrorEmailInvalid = "Email je neplatný";
+$langErrorEmptyName = "Vyplòte jméno";
+$langErrorFileMustBeZip = "Soubor musí být ve formátu zip (.zip)";
+$langErrorFormatCSV = "Chyba: zadaný formát není kompatibilní s Claroline";
+$langErrorInvalidParms = "Chyba : ©patný parametr (pouze èísla)";
+$langErrorLanguageEmpty = "Jazyk musí být vyplnìn";
+$langErrorLecturerEmpty = "Lektor musí být vyplnìn";
+$langErrorLoadingExercise = "Není mo¾no nahrát cvièení";
+$langErrorLoadingQuestion = "Není mo¾no nahrát otázky ze cvièení";
+$langErrorMove = "Nelze pøesunout tøídu samu do sebe!";
+$langErrorMyOwnSettings = "Nemù¾ete mìnit svùj vlastní status";
+$langErrorNameAlreadyExists = "Chyba : Jméno ji¾ existuje v uèební cestì nebo modulu";
+$langErrorNoModuleInPackage = "V balíèku není ¾ádný modul";
+$langErrorNoZlibExtension = "Roz¹íøení php Zlib je nutné pro tento nástroj. Kontaktujte správce.";
+$langErrorOpeningManifest = "V balíèku nelze nalézt soubor <i>manifest</i>.<br /> Soubor nenalezen : imsmanifest.xml";
+$langErrorOpeningXMLFile = "V balíèku nemohu nalézt druhý poèáteèní soubor.<br /> Soubor nenalezen : ";
+$langErrorReadingManifest = "Chyba pøi èetní souboru <i>manifest</i>";
+$langErrorReadingXMLFile = "Chyba pøi ètení druhého poèáteèního souboru : ";
+$langErrorReadingZipFile = "Chyba pøi ètení souboru zip .";
+$langErrorSql = "Chyba v SQL skriptu";
+$langErrorUserNotInGroup = "Chybný u¾ivatel : tento u¾ivatel ve Va¹í tøídì neexistuje";
+$langErrorValuesInDouble = "Chyba : Jedna nebo více polo¾ek se opakují";
+$langErrortExtractingManifest = "Nelze extrahovat manifest ze zip souboru (po¹kozený soubor ? ).";
+$langEventAdded = "Událost byla pøidána do rozvrhu.";
+$langEventDeleted = "Událost byla odstranìna z rozvrhu.";
+$langEventUpdated = "Událost v rozvrhu byla upravena.";
+$langEx = "napø. <i>Historie Literatury</i>";
+$langExAlreadyUsed = "Toto cvièené je ji¾ pou¾ito jako modul v této uèební cestì";
+$langExInsertedAsModule = "bylo pøidáno jako modul kurzu a uèební cesty";
+$langExMessage = "Pøíklad zprávy";
+$langExeAvgTime = "Prùmìrný èas";
+$langExeTime = "Èas";
+$langExerciceEx = "Vzorové cvièení";
+$langExercices = "Cvièení";
+$langExercise = "Cvièení";
+$langExerciseAsModule = "Pou¾ít cvièení";
+$langExerciseCancelled = "Cvièení pøeru¹eno, vyberte modul ze seznamu pro pokraèování.";
+$langExerciseClosing = "Konec cvièení";
+$langExerciseContent = "<h4>Co je to nástroj cvièení ?</h4>
 Tento nástroj Vám umo¾òuje vytvoøit cvièení tvoøená souborem otázek. Otázky mù¾ou být rùzného druhu, studenti je vyplòují v rámci cvièení. Pokud jsou zaregistrováni do kurzu, jejich výsledek bude ulo¾en a pøístupný ve statistice kurzu.
 <hr />
 <h4>Správa cvièení</h4>
 <p>Vytvoøení cvièení</p>
 <ul>
-<li> Kliknìte na "Nové cvièení", v základní obrazovce nástroje (ujistìte se, ¾e jste pøihlá¹en jako uèitel kurzu nebo administrátor)</li>
+<li> Kliknìte na \"Nové cvièení\", v základní obrazovce nástroje (ujistìte se, ¾e jste pøihlá¹en jako uèitel kurzu nebo administrátor)</li>
 <li> Vlo¾te jméno cvièení</li>
 <li> Vlo¾te popis</li>
 <li> Vyberte, zda u¾ivatel uvidí v¹echny otázky na jedné stranì, nebo ka¾dá otázka bude mít vlastní stranu</li>
@@ -1744,7 +715,7 @@ Tento nástroj Vám umo¾òuje vytvoøit cvièení tvoøená souborem otázek. Otázky mù¾o
 <li> definujte èasový limit</li>
 <li> vyberte poèet povolených pokusù</li>
 <li> vyberte, zda jsou povoleny anonymní pokusy (pokud ano, nebude proveden záznam)</li>
-<li> vyberte, kdy se zobrazí zpìtná informace</li>
+<li> vyberte, kdy se zobrazí zpìtná vazba</li>
 </ul>
 </li>
 <li> Kliknìte na Ok</li>
@@ -1771,7 +742,7 @@ Tento nástroj Vám umo¾òuje vytvoøit cvièení tvoøená souborem otázek. Otázky mù¾o
 <ul>
 <li> Za¹krtnìte správnou odpovìï (odpovìdi).</li>
 <li> Ve sloupci odpovìdi, vlo¾te text odpovìdi na otázku</li>
-<li> Ve sloupci komentáø, vlo¾te text, který se studentovi zobrazí jako zpìtná informace pøi výbìru této odpovìdi.</li>
+<li> Ve sloupci komentáø, vlo¾te text, který se studentovi zobrazí jako zpìtná vazba pøi výbìru této odpovìdi.</li>
 <li> Nastavte váhu otázky. Principem tabulky hodnocení je definice správné váhy poètu správných odpovìdí otázky. Napøíklad máte otázku se ètyømi odpovìïmi a je více správných odpovìdí. Student mìl dvì správné a dvì ¹patné odpovìdi. Mù¾ete mu dát polovinu bodùm, mù¾ete ale také rozhodnout, ¾e odpovìï je neuspokojivá  dát mu 0 bodù. Pokud je v¹e správnì 20 bodù a pøi jiných kombinacích napø. 10 bodù.
 </li>
 </ul>
@@ -1785,8 +756,8 @@ Tento nástroj Vám umo¾òuje vytvoøit cvièení tvoøená souborem otázek. Otázky mù¾o
 <ul>
 <li> stisknìte -prvek pro ka¾dou odpovìï, kterou chcete odstranit</li>
 </ul>
-<p>Mù¾ete také definovat váhu ka¾dé odpovìdi, nemù¾e v¹ak být záporná. Nezapomeòte kliknout na "ok" pro potvrzení Va¹í nové otázky.</p>
-<h4>Otázka \'Doplòte\'</h4>
+<p>Mù¾ete také definovat váhu ka¾dé odpovìdi, nemù¾e v¹ak být záporná. Nezapomeòte kliknout na \"ok\" pro potvrzení Va¹í nové otázky.</p>
+<h4>Otázka 'Doplòte'</h4>
 <p>Tento typ otázky je text, ve kterém chybìjí slova a student musí doplòovat.
 Pokud vytváøíte otázky jako&nbsp;:
 </p>
@@ -1797,61 +768,149 @@ Pokud vytváøíte otázky jako&nbsp;:
 <li> <em>pøíklad:</em> [Prase divoké] ¾ije [v lese].</li>
 </ul>
 </li>
-<li> Kliknìte na "dále", pokud máte hotovo</li>
+<li> Kliknìte na \"dále\", pokud máte hotovo</li>
 <li> Definujte váhu ka¾dé odpovìdi</li>
-<li> Kliknìte na "Ok" pro potvrzení nové otázky</li>
+<li> Kliknìte na \"Ok\" pro potvrzení nové otázky</li>
 </ul>
 <hr />
 <h4>Úlo¾i¹tì otázek</h4>
 <p>Úlo¾i¹tì otázek uchovává seznam v¹ech otázek vytvoøených v kurzu.  Seznamy pøeskupí pou¾ité otázky (v jednom nebo více cvièeních) a nezaøazené otázky (nejsou pou¾ity v ¾ádném cvièení).</p>
 <p>Pokud odstraníte cvièení, otázky nejsou odstranìny z databáze a mohou být pou¾ity v novém cvièení pomocí úlo¾i¹tì otázek.</p>
 <p>Úlo¾i¹tì otázek také umo¾òuje pou¾ití otázky ve více cvièeních.</p>
-<p>Standardnì jsou v¹echny otázky kurzu zobrazené. Mù¾ete zobrazit otázky vzta¾ené ke cvièení, výbìrem "Filtr" v rozbalovacím menu .</p>
+<p>Standardnì jsou v¹echny otázky kurzu zobrazené. Mù¾ete zobrazit otázky vzta¾ené ke cvièení, výbìrem \"Filtr\" v rozbalovacím menu .</p>
 <hr />
 <h4>Jak zobrazit pøedchozí hodnocení ?</h4>
-<p>Ka¾dý u¾ivatel vidí své hodnocení pod seznamem cvièení.  Jako správce kurzu mù¾ete kliknout na odkaz zaznamenávání, který je v ka¾dém cvièení, v seznamu cvièení, pro pøístup k detailnímu hodnocení ka¾dého studenta v kurzu.</p>';
-$_lang['blockFeedbackHelp'] = 'Zpìtná informace je nepovinná. Toto je správný postup. Pokud pole není prázdné, bude zobrazeno u¾ivateli dle nastavení \'odeslání zpìtné informace\'.';
-$_lang['blockForumNotificationEmailMessage'] = 'Vá¾ený %firstname %lastname,
-
-Obdr¾el(a) jste tento mail, proto¾e v jednom z Va¹ich vybraných témat v na¹em diskuzním fóru se objevil nový pøíspìvek
-a vy jste vybral(a), ¾e chcete býti o tomto informována(a).
-
-Téma naleznete na adrese:
-
-%url_topic
-
-Seznam témat fóra pak na adrese
-
-%url_forum
-
-Dìkujeme za pou¾ívání na¹eho fóra.';
-$_lang['blockForumsHelp'] = 'Toto fórum je napsáno jako asynchronní diskuzní nástroj.
+<p>Ka¾dý u¾ivatel vidí své hodnocení pod seznamem cvièení.  Jako správce kurzu mù¾ete kliknout na odkaz zaznamenávání, který je v ka¾dém cvièení, v seznamu cvièení, pro pøístup k detailnímu hodnocení ka¾dého studenta v kurzu.</p>";
+$langExerciseDescription = "Popis cvièení";
+$langExerciseDone = "Cvièení ukonèeno, pro pokraèování vyberte modul v seznamu.";
+$langExerciseInModule = "Cvièení v modulu";
+$langExerciseManagement = "Správa cvièení";
+$langExerciseName = "Jméno cvièení";
+$langExerciseNoMoreAvailable = "Cvièení ji¾ není dostupné";
+$langExerciseNotAvailable = "Cvièení není dostupné";
+$langExerciseNotFound = "Cvièení nenalezeno";
+$langExerciseOpening = "Cvièení zaèíná:";
+$langExerciseTotalAttempts = "Celkovì pokusù";
+$langExerciseType = "Typ cvièení";
+$langExerciseUsersAttempts = "U¾ivatelské pokusy";
+$langExercises = "Cvièení";
+$langExercisesDetails = "Hodnocení absolvovaných cvièení";
+$langExercisesResults = "Výsledky absolvovaných cvièení";
+$langExercisesTitleExerciseColumn = "Cvièení";
+$langExistingGroups = "Skupiny";
+$langExpectedChoice = "Oèekávaný výbìr";
+$langExplainDeleteFile = "Za¹krtnìte pro odstranìní pøipojeného souboru.";
+$langExplainReplaceFile = "Nahrát nový soubor pro nahrazení souèasného.";
+$langExplanation = "Po stisknutí tlaèítka OK, web s Fórem, Rozvrhem, Správcem dokumentù atd. bude vytvoøen. Va¹e pøihla¹ovací jméno Vám umo¾ní pøizpùsobit nastavení dle Va¹ich po¾adavkù.";
+$langExport = "Export";
+$langExportTrackingCsv = "Ulo¾it data záznamù do CSV souboru";
+$langExternalToolName = "Jméno odkazu";
+$langExternalToolUrl = "Adresa odkazu";
+$langExtractFromLangFile = "Z jazykových souborù";
+$langExtractFromScriptFile = "Ze skriptových souborù";
+$langExtractLangVariable = "Extrahovat jazykové promìnné";
+$langFalse = "Nepravda";
+$langFeedback = "Zpìtná vazba";
+$langFeedbackAdded = "Zpìtná vazba pøidána";
+$langFeedbackEdited = "Zpìtná vazba upravena";
+$langFeedbackFile = "Soubor zpìtné vazby";
+$langFeedbackHelp = "Zpìtná vazba je nepovinná. Toto je správný postup. Pokud pole není prázdné, bude zobrazeno u¾ivateli dle nastavení 'odeslání zpìtné vazby'.";
+$langFeedbackSubmit = "Odeslat zpìtnou vazbu";
+$langFeedbackText = "Text zpìtné vazby";
+$langFeedbacks = "Zpìtné vazby";
+$langFieldSeparatorUsed = "Pou¾ité pole oddìlovaèe";
+$langFileContentModified = "Obsah souboru byl upraven";
+$langFileCreated = "Soubor byl vytvoøen";
+$langFileDesc = "Popis souboru";
+$langFileError = "Nahrávaný soubor není platný.";
+$langFileExists = "Operaci není mo¾né dokonèit.<br />Soubor stejného jména ji¾ existuje.";
+$langFileForCSVUpload = "CSV soubor se seznamem u¾ivatelù : ";
+$langFileName = "Jméno souboru";
+$langFileNameMissing = "Jméno souboru chybí";
+$langFileNameOrURLMissing = "Jméno souboru nebo adresa chybí.";
+$langFileOnly = "Soubor (soubor je povinný, popis je nepovinný)";
+$langFileRequired = "Je po¾adován soubor";
+$langFileStructureChecker = "Kontrola struktury souboru";
+$langFiles = "Seznam souborù";
+$langFillBlanks = "Doplòte";
+$langFillCourses = "Vytvoøit testovací kurz";
+$langFillGroups = "Naplnit skupiny (automaticky)";
+$langFillLists = "Prosím vyplòte následující dva seznamy";
+$langFillSelectBox = "Vyberte v rozbalovací nabídce";
+$langFillTextField = "Vyplòte textové pole";
+$langFillTheAreaToExplainTheMotivations = "Zde se pokuste nastínit dùvod Va¹eho zájmu a ode¹lete po¾adavek. Správce platformy obdr¾í Vá¹ po¾adavek mailem..";
+$langFillToolCourses = "Vyplòte nástroje kurzù";
+$langFillTree = "Vlo¾te kategorie kurzu";
+$langFillType = "Vyplòte typ";
+$langFillUsers = "Vlo¾te u¾ivatele";
+$langFilling = "Vyplòte testovacími hodnotami";
+$langFilter = "Filtr";
+$langFindDoubledVariable = "Najdi opakující se promìnné";
+$langFindVarWithSameContentAndDifferentName = "Promìnné se stejným obsahem a rùznými názvy";
+$langFindVarWithSameNameAndDifferentContent = "Promìnné se stejnými názvy a rùzným obsahem";
+$langFinish = "Konec";
+$langFirstName = "Jméno";
+$langFirstSubmission = "První odevzdání";
+$langFirstname = "Jméno";
+$langForContent = "Toto fórum je napsáno jako asynchronní diskuzní nástroj.
  E-mail umo¾òuje standardnì pouze komunikaci dvou lidí, fórum umo¾òuje veøejnou nebo poloveøejnou diskuzi.
  </p><p>Po stránce technické, pro úèast ve fóru studenti potøebují pouze webový prohlí¾eè.</P>
- <p>Pro správu fóra kliknìte na  \'Administrace\'. 
+ <p>Pro správu fóra kliknìte na  'Administrace'. 
  Diskuze jsou organizovány v následující struktuøe:</p>
  <p><b>Kategorie > Fórum > Téma > Odpovìdi</b></p>Pro strukturování diskuze studentù je tøeba dopøedu organizovat
  kategorie a fóra. Tvorba témat a odpovìdí je pak ji¾ na studentech.
- Standardnì fórum Claroline obsahuje pouze kategorii \'Veøejné\', vzorové fórum a vzorové téma.</p>
+ Standardnì fórum Claroline obsahuje pouze kategorii 'Veøejné', vzorové fórum a vzorové téma.</p>
  <p>První vìc, kterou by jste mìli udìlat je smazat vzorové téma a zmìnit název prvního fóra.
- Poté mù¾ete vytvoøit v kategorii \'Veøejné\'  dal¹í fóra, dle skupin nebo témat, dle po¾adavkù výukového scénáøe.</p>
+ Poté mù¾ete vytvoøit v kategorii 'Veøejné'  dal¹í fóra, dle skupin nebo témat, dle po¾adavkù výukového scénáøe.</p>
  <p>Neple»te Kategorie a fóra a nezapomeòte, ¾e prázdné kategorie (bez fór), se studentùm nezobrazí.</p>
- <p> Popis fóra mù¾e být seznam jeho èlenù, definice cíle, úkolu a tématu ...';
-$_lang['blockGroupsHelp'] = '<p><b>Úvod</b></p>
+ <p> Popis fóra mù¾e být seznam jeho èlenù, definice cíle, úkolu a tématu ...";
+$langForce = "Donutit diskutujícího sérií otázek a podotázek, pøipustit ¾e neví, to co si myslí ¾e ví.";
+$langFormula = "S pozdravem";
+$langForum = "Fórum";
+$langForumCreated = "Fórum vytvoøeno.";
+$langForumDeleted = "Fórum odstranìno.";
+$langForumEmptied = "Fórum vyprázdnìno.";
+$langForumGroup = "Fórum skupiny";
+$langForumUpdated = "Fórum zmìnìno.";
+$langForums = "Diskuze";
+$langFree = "Volný";
+$langFrom = "Od";
+$langFullScreen = "Celá obrazovka";
+$langFunctions = "Seznam funkcí";
+$langGarbage = "Odpad";
+$langGetExistingQuestion = "Vzít otázku z jiného cvièení";
+$langGiveAdminRight = "Nastavit u¾ivatele jako správce";
+$langGiveAnswers = "Zadejte odpovìdi na otázku";
+$langGiveExerciseName = "Zadejte jméno cvièení";
+$langGiveQuestion = "Zadejte otázku";
+$langGiveText = "Vlo¾te text";
+$langGlobalProgress = "Postup v uèební cestì : ";
+$langGo2accountCreationPage = "Jdi na stránku pro vytvoøení úètu";
+$langGoBackToEx = "Jdi zpìt na cvièení";
+$langGoBackToQuestionList = "Jdi zpìt na seznam otázek";
+$langGoBackToQuestionPool = "Jdi zpìt na úlo¾i¹tì otázek";
+$langGoToMainUserSettings = "Jdi na hlavní nastavení u¾ivatele";
+$langGoToUserSettings = "Jdi na nastavení u¾ivatele";
+$langGroup = "Skupina";
+$langGroupAllowStudentRegistration = "Je povolena registrace studentùm do skupin";
+$langGroupAlwaysPrivate = "(v¾dy soukromé)";
+$langGroupAssignment = "Skupiny (z nástroje skupin, pouze èlenové skupin mohou publikovat)";
+$langGroupChatLink = "Chat skupiny";
+$langGroupContent = "<p><b>Úvod</b></p>
 <p>Tento nástroj umo¾òuje vytvoøení a správu práce skupiny.
 Pøi vytvoøení (Vytvoøit skupiny), jsou skupiny prázdné. Je více zpùsobù, jak je naplnit:
-<ul><li>automaticky (\'Naplò skupiny\'),</li>
-<li>ruènì (\'Upravit\'),</li>
-<li>studenti se sami registrují (Nastavení skupin: \'Samostatná registrace povolena...\').</li>
+<ul><li>automaticky ('Naplò skupiny'),</li>
+<li>ruènì ('Upravit'),</li>
+<li>studenti se sami registrují (Nastavení skupin: 'Samostatná registrace povolena...').</li>
 </ul>
-Tyto tøi osnovy mohou být kombinované. Napøíklad mù¾ete po¾ádat studenty, aby se sami zaregistrovali.
+Tyto tøi cesty mohou být kombinované. Napøíklad mù¾ete po¾ádat studenty, aby se sami zaregistrovali.
 Po kontrole zjistíte, ¾e nìkteøí z nich to neudìlali a rozhodnete se naplnit skupiny automaticky pro jejich zaøazení.
 Mù¾ete upravit skupinu pro nastavení pouze jednoho èlenství studenta ve skupinì.</p>
 <p>Naplnìní skupin a» ji¾ automatické nebo ruèní, funguje pouze tehdy, kdy¾ jsou v kurzu studenti zaregistrováni
  (neple»te si registraci do kurzu s registrací do skupin).
 Seznam studentù naleznete v <b>U¾ivatelských</b> nástrojích. </p><hr noshade size=1>
 <p><b>Vytvoøit skupiny</b></p>
-<p>Pro vytvoøení nové skupiny, kliknìte na \'Vytvoøit novu skupinu (y)\' a zvolte poèet skupin, který se má vytvoøit.
+<p>Pro vytvoøení nové skupiny, kliknìte na 'Vytvoøit novu skupinu (y)' a zvolte poèet skupin, který se má vytvoøit.
  Maximální poèet èlenù je nepovinný, ale je doporuèeno vybrat jeden. Pokud ponecháte toto pole
 a nezmìnìné, maximální poèet èlenù bude neomezený.</p><hr noshade size=1>
 <p><b>Nastavení skupiny</b></p>
@@ -1868,64 +927,758 @@ Tato metoda je vhodná pro uèitele, kteøí neznají seznam studentù, v dobì kdy¾ vy
 <p>Pokud vytvoøíte skupiny, na spodní stranì stránky uvidíte seznam skupin, se skupinou informací a funkcí
 <ul><li><b>Upravit</b> úprava jména skupiny, popisu, výkladu a èlenù skupiny.</li>
 <li><b>Odstranit</b> odstraní skupinu.</li></ul>
-<hr noshade size=1>';
-$_lang['blockHomepageHelp'] = 'Pro usnadnìní obsahují nástroje Claroline standardní záznamy.
+<hr noshade size=1>";
+$langGroupDel = "Skupiny odstranìna";
+$langGroupDescription = "Popis";
+$langGroupDocument = "Dokumenty";
+$langGroupDocumentsLink = "Dokumenty skupiny";
+$langGroupFilledGroups = "Skupiny byly naplnìny nebo jsou úplné podle studentù nastavených v seznamu u¾ivatelù.";
+$langGroupForum = "Fórum";
+$langGroupLimit = "Maximální poèet";
+$langGroupMembers = "Èlenové skupiny";
+$langGroupName = "Jméno skupiny";
+$langGroupNoTutor = "(nic)";
+$langGroupNone = "(nic)";
+$langGroupNoneMasc = "(nic)";
+$langGroupNowMember = "Jste èlenem této skupiny.";
+$langGroupPlacesThis = "míst (volitelné)";
+$langGroupProperties = "Nastavení skupiny";
+$langGroupPropertiesModified = "Mo¾nosti skupiny upraveny";
+$langGroupSelfRegInf = "registrovat se";
+$langGroupSelfRegistration = "Registrace";
+$langGroupSettingsModified = "Nastavení upraveno";
+$langGroupSpace = "Oblast skupiny";
+$langGroupSpaceLink = "Oblast skupiny";
+$langGroupThisSpace = "Oblast pro tuto skupinu";
+$langGroupTooMuchMembers = "Maximální poèet èlenù skupiny (lze upravit ní¾e).
+                Slo¾ení skupiny nebylo zmìnìno";
+$langGroupTools = "Nástroje";
+$langGroupTutor = "Vedoucí skupiny";
+$langGroupUserManagement = "Správa skupiny";
+$langGroupWikiLink = "Spoleèná práce skupiny";
+$langGroups = "Skupiny";
+$langGroupsAdded = "skupina(y) byla(y) pøidána(y)";
+$langGroupsDeleted = "V¹echny skupiny byly vymazány";
+$langGroupsEmptied = "V souèasné chvíli jsou v¹echny skupiny prázdné";
+$langGroupsNotEmptied = "Není mo¾no vyprázdnit skupiny";
+$langHClar = "Spustit nápovìdu";
+$langHDoc = "Dokumenty nápovìdy";
+$langHExercise = "Cvièení nápovìdy";
+$langHFor = "Fórum nápovìdy";
+$langHHome = "Úvodní strana nápovìdy";
+$langHUser = "Nápovìda u¾ivatelù";
+$langHasBeenEnrolled = "byl zapsán";
+$langHasDel = "byl odstranìn";
+$langHeading = "Titulek";
+$langHelp = "Nápovìda";
+$langHelpAssignment = "Nápovìda k zadáním";
+$langHelpAssignmentContent = "<p>
+Nástroj zadání je publikaèní oblastí pro studenty. Správce kurzu mù¾e vytvoøit jedno nebo více zadání ( rùzné zóny pro publikování), kde studenti budou moci publikovat své práce.<br /><br />
+Ka¾dé zadání mù¾e mít rùzné zamìøení a po¾adavky : publikován musí být soubor nebo text. Publikace mù¾e být vytvoøena pro skupinu místo pro jednotlivce...<br /><br />
+Studenti mohou upravit svou práci po odeslání a správce kurzu mù¾e pøipomínkovat jejich odeslané práce.
+</p>
+<hr />
+<h4>Vytvoøit zadání</h4>
+<p>Pro vytvoøení nového zadání musí správce kurzu v Nástroji zadání kliknout na odkaz \"Vytvoøit nové zadání\".
+</p>
+<p>Ve formuláøi, který se zobrazí je tøeba vyplnit&nbsp;:
+</p>
+<ul><li> Název&nbsp;: název zadání
+</li><li> Popis&nbsp;: Popis zadání, náplò práce studentù, po¾adovaný výsledek
+</li><li> &nbsp;:
+<ul><li> Soubor&nbsp;: jakýkoliv typ souboru, který mù¾e být odeslán. Mìjte v¹ak na pamìti, ¾e bývá omezení velikosti odesílaných souborù (dle nastavení serveru). Mù¾e být pøipojen text, popisující soubor
+</li><li> Pouze text&nbsp;: text formátovaný wysiwyg editorem
+</li><li> Text s pøipojeným souborem&nbsp;: text formátovaný wysiwyg editorem a soubor (soubor je nepovinný)
+</li></ul>
+</li><li> datum zahájení&nbsp;: datum, od kterého mohou u¾ivatelé odeslat výsledky svých prací
+</li><li> datum ukonèení&nbsp;: datum, do kterého musí u¾ivatelé odeslat výsledky svých prací
+</li><li> standardní nastavení zobrazení výsledkù prací&nbsp;: zvolte, zda výsledky prací budou viditelné pro ostatní studenty
+</li><li> typ zadání&nbsp;:
+<ul><li> pro jednotlivce&nbsp;: kterýkoliv registrovaný u¾ivatel mù¾e odeslat výsledky své práce
+</li><li> pro skupiny&nbsp;: u¾ivatel musí být èlenem alespoò jedné skupiny v kurzu pro odeslání výsledkù práce a výsledek bude zobrazen ve jménu skupiny
+</li></ul>
+</li><li> povolení k odeslání, po uplynutí termínu
+</li></ul>
+<p><br />
+<strong>Automatická zpìtná vazba</strong>
+</p>
+<p>Správné zadání by mìlo obsahovat zpìtnou vazbu.  Pro pøidání automatické zpìtné vazby k zadání, vstupte do zadání a kliknìte na odkaz \"Upravit automatickou zpìtnou vazbu\".  </p>
+<p>Mù¾e to být text, soubor nebo obojí.  Správce kurzu mù¾e vybrat kdy se u¾ivatelùm tato automatická zpìtná vazba zobrazí ( po vypr¹ení termínu nebo po prvním odeslání výsledku u¾ivatelem v rámci tohoto zadání )
+</p>
+<hr />
+<h4>Práce</h4>
+<p>Práce jsou publikace nahrané u¾ivateli.</p>
+<p>Pro ka¾dé zadání nástroj zadání zobrazuje seznam v¹ech u¾ivatelù registrovaných do kurzu a pro ka¾dého u¾ivatele název jeho první práce, kterou publikoval, poèet odeslaných výsledkù a poèet zpìtných vazeb.
+Seznam publikací vztahujících se k u¾ivateli a zadání, lze zobrazit kliknutím na jméno u¾ivatele.</p>
+<p><strong>Odeslat práci</strong></p>
+<p>Pokud má oprávnìní odeslat práci, bude mu zobrazen  odkaz na odesílací formuláø.</p>
+<p><strong>Seznam prací</strong></p>
+<p>Jako mana¾er kurzu máte právo upravovat, mazat, zviditelnit/zneviditelnit kteroukoli z prací. Ke ka¾dé práci mù¾ete také pøidat zpìtnou vazbu.
+</p>
+<ul>
+<li> <strong>Upravit</strong>&nbsp;: Pokud se zobrazí tato ikona, znamená to, ¾e u¾ivatel mù¾e upravit obsah práce. Zobrazí se, pokud je u¾ivatel mana¾erem kurzu, èi pokud si u¾ivatel prohlí¾í své práce nebo práce práce jeho skupiny. 
+</li>
+<li> <strong>Odstranit</strong>&nbsp;: Tento pøíkaz umo¾òuje mana¾erovi kurzu odstranit práci.
+</li>
+<li> <strong>Viditelné</strong>&nbsp;: Tato ikona se zobrazí pro práci, znamená, ¾e práce je viditelná pro studující. Je to jako nástroj dokumenty Claroline. Nastavení zmìníte kliknutím na ikonu.
+</li>
+<li> <strong>Neviditelné</strong>&nbsp;: Pokud se práci zobrazí zato ikona,  znamená, ¾e práce je neviditelná pro studující. Je to jako nástroj dokumenty Claroline. Nastavení zmìníte kliknutím na ikonu.
+</li>
+<li> <strong>Pøidat zpìtnou vazbu</strong>&nbsp;: umo¾òuje mana¾erovi kurzu publikovat zpìtnou vazbu k pracem u¾ivatelù. Zpìtná vazba mù¾e být soubor, text nebo obojí, se soukromým komentáøem, který jenom mana¾er(ové) kurzu uvidí a skóre v procentech
+</li>
+</ul>
+";
+$langHelpGroups = "Nápovìda skupin";
+$langHereyoucanmodifythecontentofthetextzonesdisplayedontheplatformhomepage = "Zde mù¾ete upravit texty zobrazené na titulní stranì platformy.";
+$langHigh_resources = "dùle¾ité zdroje";
+$langHits = "Kliknutí";
+$langHome = "Zpìt na úvodní stranu";
+$langHomeContent = "Pro usnadnìní obsahují nástroje Claroline standardní záznamy.
 Ka¾dý nástroj obsahuje malý pøíklad pro rychlé pochopení, jak funguje. 
  Je na Vás, jestli pøíklady upravíte nebo odstraníte.
 </p>
 <p> Napøíklad zde na úvodní stranì Va¹ich kurzù je krátký úvodní text:
- \'Toto je úvodní text Va¹ich kurzù. Pro jeho nahrazení Va¹ím vlastním textem, kliknìte na pøíkaz Upravit.\' 
+ 'Toto je úvodní text Va¹ich kurzù. Pro jeho nahrazení Va¹ím vlastním textem, kliknìte na pøíkaz Upravit.' 
  Kliknìte na upravit, zmìòte text a OK. Je to jednoduché.
  Ka¾dý nástroj má stejnou logiku:
- pøidat, odstranit, upravit, co¾ je osnova fungování dynamických webù.</p>
+ pøidat, odstranit, upravit, co¾ je cesta fungování dynamických webù.</p>
  <p>Kdy¾ poprvé vytvoøíte web, vìt¹ina nástrojù je aktivních. 
  Zde opìt pøipomenutí, je pouze na Vás, které uznáte za nepotøebné a vypnete je.
- Pouze kliknìte na \'vypnout\'. Poté se nástroj pøesune do ¹edé sekce úvodní strany Va¹eho webu
+ Pouze kliknìte na 'vypnout'. Poté se nástroj pøesune do ¹edé sekce úvodní strany Va¹eho webu
   a stane se neviditelný pro studenty.  Samozøejmì ho mù¾ete kdykoli znovu aktivovat a tím ho 
    zároveò i opìt zviditelníte pro studenty.</p>
 <p>Mù¾ete pøidat vlastní strany do úvodní strany.
  Tyto strany musí být HTML stránky, vytvoøené jakýmkoli textovým editorem nebo editorem webových stránek. 
- Pou¾ijte \'Nahrát stranu a odkaz do Úvodní strany\' k odeslání Va¹í strany na server.
+ Pou¾ijte 'Nahrát stranu a odkaz do Úvodní strany' k odeslání Va¹í strany na server.
  Standardní hlavièka Va¹eho webu bude automaticky spojena s Va¹ím novým dokumentem, 
   tak¾e se staèí soustøedit pouze na obsah. 
   Pokud se chcete odkázat z úvodní strany na existující webové strany, které jsou umístìny nìkde jinde (i na Va¹em webu),
-   pou¾ijte \'Pøidat odkaz na Úvodní stranì\'. Pøidaná strana mù¾e být vypnuta a pak smazána, narozdíl od
+   pou¾ijte 'Pøidat odkaz na Úvodní stranì'. Pøidaná strana mù¾e být vypnuta a pak smazána, narozdíl od
     standardní nástrojù, které mohou být vypnuty, ale ne odstranìny.</p>
     <p>Ve chvíli, kdy je Vá¹ web kurzù pøipraven, pøejdìte na  
-    \'Upravit popis kurzu\' a rozhodnìte jaký stupeò dùvìrnosti pou¾ijete.
- Standardnì jsou Va¹e kurzy skryté (proto¾e na nich pracujete).</p>';
-$_lang['blockIntroCourse'] = 'Jste na úvodní stranì kurzu.<br /><br />Na této stranì mù¾ete :
+    'Upravit popis kurzu' a rozhodnìte jaký stupeò dùvìrnosti pou¾ijete.
+ Standardnì jsou Va¹e kurzy skryté (proto¾e na nich pracujete).</p>";
+$langHomePageTextZone = "Textové oblasti Úvodní strany";
+$langHour = "Hodina";
+$langHumanAndPhysicalResourcesComment1 = "Co èlovìk doká¾e? Co je to pøedstavivost?  Co mù¾ou studenti oèekávat od ¹koly nebo ¹kola od uèitelù?";
+$langHumanAndPhysicalResourcesComment2 = "Pøedstavení dal¹ích uèitelù, kteøí se budou úèastnit kurzù (asistenti, výzkumníci, vìdci, pozorovatelé...), dostupnost prostøedkù a lidí.";
+$langHumanAndPhysicalRessources = "Lidské schopnosti a mo¾nosti";
+$langIfNotRedirect = "Pokud není pøesmìrováno ";
+$langImport = "Import";
+$langImpossible = "Operace není mo¾ná";
+$langImpossibleToPromote = "Není mo¾né zavést vedoucího skupiny - studenti se ji¾ registrují do skupiny";
+$langIn = "v";
+$langInFrames = "v rámcích ";
+$langIncorrectDate = "Zaèátek musí pøedcházet konci ...";
+$langIndeed = "Vskutku. Sokratova ironie je metoda dotazování se. Øecké \"eirotao\" znamená \"pokládat otázky\"";
+$langIndividual = "Individuální";
+$langInfo2Say = "Informace pro studenty";
+$langInfoProgNameTitle = "Informace";
+$langInsertMyDocToolName = "Vlo¾it dokument jako modul";
+$langInsertMyExerciseToolName = "Vlo¾it mé cvièené";
+$langInsertMyModuleToolName = "Vlo¾it mùj modul";
+$langInsertMyModulesTitle = "Vlo¾it modul kurzu";
+$langInsertNewModuleName = "Vlo¾it nové jméno";
+$langInstalled = "Uèební cesta byla úspì¹nì naimportovaná.";
+$langInstitution = "Instituce";
+$langInstitutionUrl = "Adresa Instituce";
+$langIntroCourse = "Jste na úvodní stranì kurzu.<br /><br />Na této stranì mù¾ete :
 <ul>
-<li>aktivovat èi deaktivovat nástroje (kliknìte na tlaèítko \'Upravit seznam nástrojù\' vlevo dole).</li>
+<li>aktivovat èi deaktivovat nástroje (kliknìte na tlaèítko 'Upravit nástroj' vlevo dole).</li>
 <li>zmìnit nastavení nebo zobrazit statistiku (kliknìte na odpovídající odkaz ve spodní èásti okna).</li>
 </ul>
-Pro vlo¾ení úvodního textu kurzu, kliknìte na toto tlaèítko ';
-$_lang['blockIntroLearningPath'] = 'Pou¾ijte tento nástroj pro postupné zpøístupnìní mezi dokumenty, cvièeními, HTML stránkami, odkazy ....<br /><br />
-Pokud chcete pøedstavit svou uèební osnovu studentùm, kliknìte na tlaèítko.<br />';
-$_lang['blockModulePoolHelp'] = 'Tato stránka umo¾òuje zobrazení v¹ech modulù dostupných v kurzu. <br />
-Jakékoliv cvièení nebo dokument, který byl pøidán do uèební osnovy, se zobrazí v tomto seznamu.';
-$_lang['blockRegisterLocalUrl'] = 'Adresa Va¹eho kampusu vypadá jako lokální adresa.
+Pro vlo¾ení úvodního textu kurzu, kliknìte na toto tlaèítko ";
+$langIntroEditToolList = " Vyberte nástroje, které chcete u¾ivatelùm zpøístupnit.
+Nepøístupný (neviditelný) nástroj bude ve Va¹í nabídce zvýraznìn ¹edì.";
+$langIntroLearningPath = "Pou¾ijte tento nástroj pro postupné zpøístupnìní mezi dokumenty, cvièeními, HTML stránkami, odkazy ....<br /><br />
+Pokud chcete pøedstavit svou uèební cestu studentùm, kliknìte na tlaèítko.<br />";
+$langIntroText = "Pro zaslání zprávy vyberte skupiny u¾ivatelù (oznaèené * v popøedí)
+ nebo jednotlivé u¾ivatele ze seznamu nalevo.";
+$langIntroWork = "Tento nástroj umo¾òuje uèiteli vytvoøit zadání, ve kterém kterýkoli student (dle nastavení ka¾dého zadání)
+  bude moci nahrát dokument nebo napsat text na stranách kurzu.
+<br />Budete moci pøidat komentáø èi ohodnotit ka¾dou práci
+<br /><br />Pokud chcete popsat tento nástroj nebo dát doporuèení studentùm, stisknìte tlaèítko.<br />";
+$langInvalidId = "Nelze se pøihlásit.<br />Kontaktujte správce.";
+$langInvalidIdSelfReg = "<b>Nelze se pøihlásit.</b><br />Zkuste to znovu.<br />
+<small>Pokud nemáte zalo¾en u¾ivatelský úèet, pro vytvoøení úètu kliknìte na <a href=\"%s\">odkaz</a></small>";
+$langInvisible = "Nezobrazené";
+$langIs = "je";
+$langIsAlreadyRegistered = "je ji¾ registrován do kurzu";
+$langIsNowInYourDocDir = "je nyní Va¹ím nástrojem dokumentu. <br /><B>Tento soubor je zobrazen</B>";
+$langIsNowRegistered = "je nyní registrován do kurzu";
+$langJustCreated = "Právì jste vytvoøil(a) web kurzu";
+$langLabelCanBeEmpty = "Vyplòte název kurzu";
+$langLanguage = "Jazyk";
+$langLast31days = "Posledních 31 dní";
+$langLast7Days = "Posledních 7 dní";
+$langLastAccess = "Poslední pøístup";
+$langLastActiveTopics = "Poslední zobrazovaná témata";
+$langLastAttempt = "Poslední pokus";
+$langLastCheck = "Poslední kontrola pøed instalací";
+$langLastEditDate = "Datum poslední úpravy";
+$langLastMsg = "Poslední zpráva";
+$langLastMsgs = "Poslední zprávy";
+$langLastName = "Pøíjmení";
+$langLastSessionTimeSpent = "Èas poslední relace";
+$langLasting = "Trvání";
+$langLastname = "Pøíjmení";
+$langLateUpload = "Pozdní nahrátí";
+$langLaunchRestoreCourseRepository = "Spustit obnovu úlo¾i¹tì kurzu";
+$langLearnPathDetails = "Postup  v uèební cestách";
+$langLearningPath = "Uèební cesta";
+$langLearningPathAdmin = "Správa uèební cesty";
+$langLearningPathEmpty = "Uèební cesta je prázdná";
+$langLearningPathList = "Seznam uèebních cest";
+$langLearningPathName = "Nové jméno uèební cesty : ";
+$langLearningPathNotFound = "Uèební cesta nenalezena";
+$langLegendRequiredFields = "<span class=\"required\">*</span> povinná pole";
+$langLessAnswers = "- odp.";
+$langLessElements = "- objekt.";
+$langLessonStatus = "Status modulu";
+$langLicence = "Licence";
+$langLine = "øádek";
+$langLineNumber = "Èíslo øádku";
+$langLineOrLines = "øádek(ù)";
+$langLines = "øádky";
+$langLink = "Odkaz";
+$langLinkerAdd = "Pøipojit";
+$langLinkerAddNewAttachment = "Pøipojit existující zdroj";
+$langLinkerAlreadyInAttachementList = " je ji¾ pøipojen";
+$langLinkerAttachements = "Pøipojit zdroje";
+$langLinkerCloseJpspan = "Zavøít";
+$langLinkerClosePopup = "Zavøi vyskakovací okno";
+$langLinkerDelete = "Odstranit";
+$langLinkerExternalLink = "Externí odkaz";
+$langLinkerMyOtherCourses = "Moje dal¹í kurzy";
+$langLinkerPromptForUrl = "Vlo¾te adresu odkazu";
+$langLinkerPromptInvalidEmail = "Chybná emailová adresa";
+$langLinkerPromptInvalidUrl = "Chybný odkaz";
+$langLinkerPublicCourses = "Veøejné kurzy";
+$langLinkerResourceAttachment = "Pøipojené zdroje : Pøidat / Odebrat pøílohu";
+$langLinkerUntitled = "Bez názvu";
+$langListAdmin = "Seznam správcù";
+$langListAllUsers = "Seznam v¹ech u¾ivatelù";
+$langListClassUser = "U¾ivatelé ve tøídì";
+$langListCourseUsers = "Seznam u¾ivatelù v kurzu";
+$langListHtUsers = "Zobrazit .htpassword";
+$langListStudents = "Seznam studentù v této skupinì";
+$langListUsers = "Seznam u¾ivatelù";
+$langLoadDefaultFormat = "Nahrát standardní formát";
+$langLocation = "Umístìní";
+$langLocked = "Uzamèeno";
+$langLogin = "Pøihlásit se";
+$langLoginRequest = "Je nutné se pøihlásit";
+$langLoginWithoutAccess = "Nejste pøihlá¹en(a)";
+$langLogins = "Pøihlá¹ení";
+$langLoginsAndAccessTools = "Pøihlá¹ení a pøístup k nástrojùm";
+$langLoginsDetails = "Pro podrobnosti kliknìte na název mìsíce ";
+$langLoginsTitleCountColumn = "Poèet pøihlá¹ení";
+$langLoginsTitleMonthColumn = "Mìsíc";
+$langLogout = "Odhlá¹ení";
+$langLostPassword = "Zapomenuté heslo";
+$langMailAppearAlready = "Tento email je ji¾ obsa¾en v pøedchozích øádcích CSV souboru.";
+$langMailSynthaxError = "Zásadní chyba mailu.";
+$langMailTo = "Napsat : ";
+$langMailUsed = "Mail je ji¾ pou¾íván jiným u¾ivatelem.";
+$langMainDB = "Hlavní databáze";
+$langMainGroupSettings = "Nastavení hlavní skupiny";
+$langMaintenance = "Údr¾ba";
+$langMakeCorrespond = "Týkající se";
+$langMakeInvisible = "Zneviditelnit";
+$langMakeNewSearch = "Nové vyhledávání : ";
+$langMakeSearch = "Vyhledat";
+$langMakeVisible = "Viditelnost";
+$langManage = "Správa Kampusu";
+$langManageClasses = "Správa tøíd";
+$langManageCourseCategories = "Správa kategorií kurzù";
+$langManager = "Mana¾er";
+$langManyAnswers = "(více ne¾ jedna odpovìï mù¾e být správná)";
+$langMatching = "Porovnej";
+$langMax = "Max.";
+$langMaxAllowedTime = "Maximum povoleného èasu";
+$langMaxFileSize = "Maximální velikost souboru : ";
+$langMaxSizeCourseCode = "max. 12 znakù, napø.<em>ROM2121</em>";
+$langMaxStudentGroup = "Maximální poèet studentù ve skupinì";
+$langMaximum = "Maximum : ";
+$langMemorizeYourPassord = "Zapamatuj si je, znovu se pou¾ije pøi dal¹í náv¹tìvì toho webu.";
+$langMessage = "Kdy¾ odstraníte testovací fórum, dojde také  k odstranìní v¹ech zpráv, které osahuje.";
+$langMessageEnrollToCourseNotAllowed = "není povoleno zapsání se do kurzu";
+$langMessageRegistrationNotAllowed = "Na této platformì není registrace povolena";
+$langMessageSubscribeDone_p_firstname_lastname = "Vá¾ený  %s, %s. Va¹e osobní nastavení bylo zaregistrováno a také byl zaslán email s Va¹im u¾ivatelský jménem a heslem.";
+$langMessageToSelectedUsers = "Zprávy vybraným u¾ivatelùm";
+$langMessages = "Zprávy";
+$langMethodsOfEvaluation = "Metody hodnocení";
+$langMethodsOfEvaluationComment1 = "Pøesné podmínky hodnocení (psané zkou¹ky, ústní projev, projekty, domácí úkoly), formální datum vstupního hodnocení, termíny odevzdání prací s kritérii hodnocení, pravdìpodobná váha kriterií a kategorií hodnocení.";
+$langMin = "Minimum : ";
+$langMinuteShort = "min.";
+$langMissing = "chybìjící";
+$langMissingFields = "Chybìjící pole";
+$langMissingImagesDetected = "Nalezeny chybìjící obrázky";
+$langMissingValue = "Chybìjící hodnota";
+$langModifAnn = "Upravit oznámení";
+$langModifDone = "Informace byla upravena";
+$langModifUserCourseSettings = "U¾ivatelské nastavení kurzu";
+$langModify = "Upravit";
+$langModifyExercise = "Upravit cvièení";
+$langModifyFormat = "Upravit formát";
+$langModifyInAllExercises = "ve v¹ech cvièeních";
+$langModifyInThisExercise = "jenom v tomto cvièení";
+$langModifyProfile = "U¾ivatelský úèet";
+$langModule = "Modul";
+$langModuleMoved = "Modul byl pøesunut";
+$langModuleOfMyCourse = "Pou¾ij modul tohoto kurzu";
+$langModuleStillInPool = "Modul této cesty bude stále dostupný pøes úlo¾i¹tì modulù";
+$langModules = "Moduly";
+$langModulesPoolToolName = "Úlo¾i¹tì modulù";
+$langMonthNames = "Pole";
+$langMoreAnswers = "Pøidat odp.";
+$langMoreElements = "Pøidat objekt";
+$langMoreRepliedTopics = "Více témat s odpovìïmi";
+$langMoreSeenTopics = "Více zobrazených témat";
+$langMove = "Pøesunout";
+$langMoveDown = "Pøesunout ní¾e";
+$langMoveUp = "Pøesunout vý¹e";
+$langMsgSent = "Zpráva byla zaslána vybraným studentùm";
+$langMultipleAnswers = "Vícenásobné odpovìdi";
+$langMultipleEmails = "Úèet se stejným <i>Emailem</i>";
+$langMultipleLogins = "Úèet se stejným <i>U¾ivatelským jménem</i>";
+$langMultipleSelect = "Vícenásobný výbìr (Vícenásobné odpovìdi)";
+$langMultipleUsernameAndPassword = "Úèty se stejným <i>U¾ivatelským jménem</i> a stejným <i>Heslem</i>";
+$langMustSelectAFile = "Musíte vybrat soubor";
+$langMustSelectATxtFile = "Musíte vybrat textový soubor";
+$langMyAgenda = "Vá¹ Kalendáø";
+$langMyCourses = "Seznam Va¹ich kurzù";
+$langMyGroup = "Va¹e skupina";
+$langMyResults = "Va¹e výsledky";
+$langMyStats = "Zobrazit Va¹í statistiku";
+$langMysqlNames = "MySQL Databáze a jména Tabulek";
+$langMysql_Repository = "Mysql úlo¾i¹tì";
+$langNULLValue = "Prázdné (nebo NULL)";
+$langName = "Jméno";
+$langNameChanged = "Jméno tøídy bylo zmìnìno";
+$langNameDir = "Jméno nového adresáøe";
+$langNameOfLang = "Pole";
+$langNbLines = "Poèet øádkù";
+$langNbrAccess = "Poèet pøístupù";
+$langNever = "Nikdy";
+$langNeverBrowsed = "Nebylo prohlédnuto";
+$langNeverConnectedStudents = "Studenti, kteøí se nikdy nepøipojili : ";
+$langNeverUsed = "Nebylo pou¾ito";
+$langNewBloc = "Jiné";
+$langNewChat = "Nový chat";
+$langNewClassCreated = "Nová tøída byla vytvoøena";
+$langNewClassName = "Jméno nové tøídy";
+$langNewEx = "Nové cvièení";
+$langNewGroupCreate = "Vytvoøit novou skupinu(y)";
+$langNewGroups = "nová skupina(y)";
+$langNewLabel = "Vytvoøit novou jmenovku / název v této uèební cestì";
+$langNewLegend = "oznaèuje nové polo¾ky";
+$langNewQu = "Nová otázka";
+$langNewToOld = "Od nejnovìj¹ích";
+$langNewTopic = "Nové téma";
+$langNewUsersIn = "nový u¾ivatel v platformì : ";
+$langNext = "Dal¹í";
+$langNextDay = "Dal¹í den";
+$langNextMonth = "Dal¹í mìsíc";
+$langNextWeek = "Dal¹í týden";
+$langNextYear = "Dal¹í rok";
+$langNo = "Ne";
+$langNoAnnouncement = "®ádné oznámení.";
+$langNoAnswer = "V tuto chvíli zde není ¾ádná odpovìï";
+$langNoContent = "Bez obsahu";
+$langNoCourseResult = "Zadaným kritériím nevyhovuje ¾ádný kurz";
+$langNoEmail = "Není zadaná ¾ádná emailová adresa";
+$langNoEndDate = "Není urèeno datum ukonèení";
+$langNoEventInTheAgenda = "V kalendáøi není ¾ádná událost";
+$langNoEx = "V tuto chvíli není k dispozici ¾ádné cvièení";
+$langNoFile = "- ¾ádný -";
+$langNoForum = "®ádné fórum";
+$langNoFunctionInThisSection = "Toto roz¹íøení nemá ¾ádnou funkci";
+$langNoGroupStudents = "Nezapsaní studenti";
+$langNoGroupsDeleted = "®ádná skupina nebyla odstranìna";
+$langNoImage = "®ádný obrázek k zobrazení";
+$langNoLearningPath = "®ádná uèební cesta";
+$langNoModule = "®ádný modul";
+$langNoMoreAttemptsAvailable = "Dosáhl jste poètu povolených pokusù.";
+$langNoMoreModuleToAdd = "V¹echny moduly tohoto kurzu jsou ji¾ pou¾ity v uèební cestì.";
+$langNoPost = "Bez pøíspìvkù";
+$langNoPostAllowed = "Není povoleno pøidávat nové pøíspìvky";
+$langNoPsychology = "Ne, Sokratova ironie není otázka psychologie, ale argumentù.";
+$langNoQuestion = "V tuto chvíli není ¾ádná otázka";
+$langNoQuota = "Bez omezení";
+$langNoRegisteredCourses = "Není k dispozici ¾ádná statistika. Zatím jste nezaregistroval(a) ¾ádný kurz.";
+$langNoResult = "Bez výsledkù";
+$langNoScore = "Bez hodnocení";
+$langNoSeduction = "Ne, Sokratova ironie není metoda svádìní ani metoda zalo¾ená na pøíkladu.";
+$langNoSpace = "Soubor nebyl nahrán. Ve Va¹em adresáøi není dostatek volného místa.";
+$langNoStartAsset = "V modulu není nic nadefinováno.";
+$langNoTimeLimit = "Bez èasového omezení";
+$langNoTrackingForExerciseAttempt = "Tento pokus nebude zaznamenán.";
+$langNoUserFound = "®ádný u¾ivatel nebyl nalezen";
+$langNoUserResult = "Pro zobrazení není k dispozici ¾ádný u¾ivatel";
+$langNoVisibleAssignment = "V tuto chvíli není k dispozici øádné zadání.";
+$langNoVisibleSubmission = "®ádné odevzdání ke zobrazení";
+$langNomPageAddHtPass = "Správa u¾ivatelù s oprávnìním správce";
+$langNone = "®ádný";
+$langNormalUser = "Normální";
+$langNotAllowed = "Není povoleno";
+$langNotFalse = "Tato odpovìï není nepravdivá. Je pravda ¾e, projevení se nízké úrovnì úèastníka rozhovoru, znamená vyvození protichùdných závìrù, ne¾ které vycházejí z jeho pøedpokladù.";
+$langNotGroupMember = "Nejste èlenem této skupiny";
+$langNotInstalled = "Chyba, uèební cesta nemohla být naimportovaná.";
+$langNotRecentlyConnectedStudents = "Studenti , kteøí se nepøipojili v nedávné dobì : ";
+$langNotSaved = "Není mo¾né ulo¾it";
+$langNotUnregYourself = "Nemù¾ete zmìnit své vlastní nastavení!";
+$langNotice = "Poznámka";
+$langNoticeInstallFolderBrowsable = "<b>Poznámka :</b> Adresáø, který obsahuje instalaèní proces Claroline (<code>claroline/install/</code>) je stále pøístupný z Internetu. To znamená, ¾e kdokoli mù¾e pøeinstalovat Va¹i pøedchozí instalaci. Je dùraznì doporuèeno odstranit nebo pøesunout tento adresáø.";
+$langNow = "Nyní";
+$langNowGoChooseYourCourses = "Nyní mù¾ete v seznamu zvolit kurz, který chcete nav¹tìvovat.";
+$langNowGoCreateYourCourse = "Nyní mù¾ete vytvoøit Vá¹ vlastní kurz";
+$langNumGroup = "Poèet skupin v kurzu";
+$langNumGroupStudent = "Poèet týmù, které studenti mohou pøihlásit do kurzu";
+$langNumero = "È.";
+$langOfficialCode = "Kód administrace";
+$langOk = "Ok";
+$langOkChapterHeadAdded = "Název byl pøidán : ";
+$langOkDefaultCommentUsed = "Varování : Instalace nemù¾e nalézt popis uèební cesty a nastavila standardní popis. Mìlo by být zmìnìno.";
+$langOkDefaultTitleUsed = "Varování : Instalace nemù¾e nalézt jméno uèební cesty a nastavila standardní jméno. Mìlo by být zmìnìno.";
+$langOkFileReceived = "Doruèený soubor : ";
+$langOkManifestFound = "Manifest nalezen v zip souboru : ";
+$langOkManifestRead = "Manifest pøeèten.";
+$langOkModuleAdded = "Modul byl pøidán : ";
+$langOldToNew = "Od nejstar¹ích";
+$langOn = "Na";
+$langOneByOne = "Pøidat u¾ivatele ruènì";
+$langOneMyGroups = "dohled";
+$langOneResp = "Jeden ze správcù kurzu";
+$langOnly = "Pouze";
+$langOptional = "Volitelné";
+$langOrder = "Tøídìní";
+$langOrderUp = "Vzestupnì";
+$langOrphanQuestions = "Nezadané otázky";
+$langOtherCourses = "Seznam kurzù";
+$langOtherWorks = "dal¹í funkce";
+$langPassTooEasy = "toto heslo je pøíli¹ jednoduché. Pou¾ijte heslo jako ";
+$langPassTwice = "Vlo¾ili jste dvì rùzná hesla";
+$langPassword = "Heslo";
+$langPasswordHasBeenEmailed = "Va¹e heslo bylo odesláno na adresu ";
+$langPasswordSimple = "Zadané heslo je pøíli¹ jednoduché nebo podobné u¾ivatelskému jménu.";
+$langPathContentTitle = "Komentáø uèební cesty";
+$langPathsInCourseProg = "Postup kurzu ";
+$langPerhaps_with_others_directory = "mo¾ná s ostatními adresáøi";
+$langPeriodDay = "Den";
+$langPeriodDayShort = "d.";
+$langPeriodHour = "Hodina";
+$langPeriodHourShort = "h.";
+$langPeriodMonth = "Mìsíc";
+$langPeriodToDisplay = "Období";
+$langPeriodWeek = "Týden";
+$langPeriodYear = "Rok";
+$langPersoValue = "Hodnoty";
+$langPersonalCourseList = "Osobní seznam kurzù";
+$langPhone = "Telefon";
+$langPlaces = "místa podle skupin (volitelné)";
+$langPlatform = "Platforma";
+$langPlatformAccess = "Pøístup do kampusu";
+$langPlatformAdministration = "Správa platformy";
+$langPlatformAdministrator = "Správce platformy";
+$langPlatformCoursesAccess = "Pøístup do kurzù";
+$langPlatformStats = "Statistika platformy";
+$langPleaseEnterMessage = "Musíte vlo¾it text zprávy.";
+$langPleaseSelectUsers = "Musíte vybrat nìkteré u¾ivatele.";
+$langPopulateTools = "Nástroje zalidnìní v kurzech";
+$langPostReply = "Odeslat odpovìï";
+$langPoweredBy = "Bì¾í na";
+$langPrefix = "Pøedpona  : ";
+$langPreventLateUpload = "Ne, zabránit u¾ivatelùm odeslání práce po termínu";
+$langPreview = "Náhled";
+$langPrevious = "Pøedchozí";
+$langPreviousDay = "Pøedchozí den";
+$langPreviousLevel = "pøedchozí úroveò";
+$langPreviousMonth = "Pøedchozí mìsíc";
+$langPreviousWeek = "Pøedchozí týden";
+$langPreviousYear = "Pøedchozí rok";
+$langPrintVers = "Verze pro tisk";
+$langPrivate = "Soukromé";
+$langPrivateAccess = "Soukromý pøístup (web je pøístupný pouze pro u¾ivatele obsa¾ené v <a href=../user/user.php>Seznamu u¾ivatelù</a>)";
+$langPrivateFeedback = "Soukromá zpìtná vazba";
+$langPrivateOnly = "Pouze soukromé kurzy";
+$langProblem = "V pøípadì problémù nás kontaktujte.";
+$langProfessor = "Lektor";
+$langProfessorMessage = "Zpráva od Va¹eho lektora";
+$langProfessors = "Lektor-Lektoøi";
+$langProfileReg = "Vá¹ nový profil byl ulo¾en";
+$langProgInModuleTitle = "Vá¹ postup v modulu";
+$langProgress = "Postup";
+$langPropertiesNotIncludeInSections = "Vlastnosti nejsou vlo¾eny v sekcích";
+$langPubl = "Publikováno";
+$langPublic = "Veøejné";
+$langPublicAccess = "Veøejný pøístup z hlavní strany Kampusu bez pøihlá¹ení se";
+$langPublicOnly = "Pouze veøejné kurzy";
+$langPublish = "Publikovat";
+$langQtyOfUserCanSubscribe_PartAfterNumber = "&nbsp;skupiny";
+$langQtyOfUserCanSubscribe_PartBeforeNumber = "U¾ivatel mù¾e být èlenem maximálnì ";
+$langQualificationsAndGoals = "Kvalifikace a cíle";
+$langQualificationsAndGoalsComment1 = "Co je cílem výuky?  Jakou budou mít studenti na konci kurz kvalifikaci, mo¾nosti a znalosti?";
+$langQualificationsAndGoalsComment2 = "Prezentace hlavních a vedlej¹ích cílù kurzu, k jaké kvalifikaci tyto cíle povedou.";
+$langQuantity = "Mno¾ství";
+$langQuestion = "Otázka";
+$langQuestionAnswers = "Odpovìdi na otázku";
+$langQuestionDescription = "Volitelný komentáø";
+$langQuestionList = "Seznam otázek cvièení";
+$langQuestionManagement = "Správa Otázek / Odpovìdí";
+$langQuestionNotFound = "Otázka nenalezena";
+$langQuestionPlan = "Otázka pro lektora";
+$langQuestionPool = "Úlo¾i¹tì otázek";
+$langQuestionTitle = "Název otázky";
+$langQuestionWeighting = "Váha";
+$langQuestions = "Otázky";
+$langQuitViewer = "Zpìt na seznam";
+$langRandomLanguage = "Pøeházet výbìr v dostupných jazycích";
+$langRandomQuestions = "Náhodné otázky";
+$langRawHasBeenChanged = "Minimální po¾adavky na absolvování byly zmìnìny";
+$langReg = "Registrace";
+$langRegAdmin = "Vytvoøit weby kurzù";
+$langRegIntoGroup = "Pøidat Vás do skupiny";
+$langRegStudent = "Následujte kurzy";
+$langRegUser = "registrovaní u¾ivatelé";
+$langRegYou = "byl jste zaregistrován do kurzu";
+$langRegisterCampusAdvice = "Prosím zkontrolujte, zda je Vá¹ kampus pøístupný z Internetu.";
+$langRegisterClass = " Registrovat tøídu";
+$langRegisterLocalUrl = "Adresa Va¹eho kampusu vypadá jako lokální adresa.
 Pro registraci na Claroline.net je tøeba mít veøejnou adresu kampusu.<br /><br />
-Zkontrolujte hodnotu \'Web base\' v konfiguraci Claroline.';
-$_lang['blockRequestCourseManagerStatusMail'] = '%time
-Status autora kurzù %firstname %lastname
-U¾ivatelské jméno : %user_id
-Jméno : %firstname %lastname
-Email : %email
-Komentáø : %comment
-Odkaz : %url';
-$_lang['blockRequestUserRevoquationMail'] = '%time
-Odvolání %firstname %lastname
-U¾ivatel : %user_id
-Jméno : %firstname %lastname
-Email : %email
-Jméno : %login
-Heslo : %password
-Komentáø : %comment
-Odkaz : %url';
-$_lang['blockTextZoneHelp'] = 'Tato oblast textu se zobrazí ka¾dému u¾ivateli. Správce platformy mù¾e tento obsah zmìnit nebo odstaranit úpravou souboru <b>%textZoneFile</b>.';
-$_lang['blockUsedInSeveralPath'] = 'Toto cvièení je pou¾ito v jedné nebo více uèebních osnovách. Pokud jej vyma¾ete, nebude ji¾ více dostupné v uèební osnovì.';
-$_lang['blockUsersHelp'] = '<p>Nástroj \'U¾ivatelé\' zobrazí informace o u¾ivatelích v pøehledné tabulce. Zde je popis sloupcù:
+Zkontrolujte hodnotu 'Web base' v konfiguraci Claroline.";
+$langRegisterMyCampus = "Registruj mùj kampus";
+$langRegisterTheNewUser = "Registruj tohoto u¾ivatele do kurzu";
+$langRegisterUser = "Zapi¹ do nového kurzu";
+$langRegisterUserToClass = "Registruj u¾ivatele do tøídy";
+$langRegistered = "Registrován";
+$langRemove = "Odstranit";
+$langRemoveAdminLevel = "Ji¾ není správce";
+$langRename = "Pøejmenovat";
+$langReplaceAttachedFile = "Nahraï pøilo¾ený soubor";
+$langReply = "Odpovìï";
+$langRequestOfCourseCreatorStatus = "Status vytváøení kurzu";
+$langRequestToTheCoderOfThisConfigToAddThesesProportiesInASectionOfTheDefinitionFile = "Po¾adavek na vlo¾ení tìchto nastavení do sekce definièního souboru.";
+$langRequired = "Po¾adováno";
+$langRequirements = "Po¾adavky";
+$langResetChat = "Vymazat";
+$langRestoreCourseRepository = "Obnovit úlo¾i¹tì kurzu";
+$langResult = "Výsledek";
+$langRetry = "znovu";
+$langReuse = "Znovu pou¾ít";
+$langRevoquationOfUser = "Zneplatnìní %s %s";
+$langRidiculise = "Utahovat si z úèastníka debaty s cílem donutit ho uznat chybu.";
+$langRole = "Role";
+$langRoot = "root";
+$langSCORMTypeDesc = "hodnota schodná s SCORM 1.2";
+$langSDK = "SDK";
+$langSampleDocument = "dokument_priklad";
+$langSampleDocumentDesc = "Mù¾ete pou¾ít kterýkoli dokument z nástroje dokumentù tohoto kurzu.";
+$langSampleExerciseDesc = "Mù¾ete pou¾ít kterýkoli cvièení z nástroje cvièení tohoto kurzu.";
+$langSampleLearnPath = "Vzorové uèební cesta";
+$langSampleLearnPathDesc = "Toto je vzorová uèební cesta, pou¾ívá vzorová cvièení a vzorové dokumenty, nástroje cvièení a nástroje dokumentù. Kliknìte na
+                            <b>Upravit</b> pro zmìnìní tohoto textu.";
+$langSave = "Ulo¾it";
+$langSaveChanges = "Ulo¾it zmìny";
+$langScore = "Výsledek";
+$langScoreAvg = "Prùmìrný výsledek";
+$langScoreMax = "Nejlep¹í výsledek";
+$langScoreMin = "Nejhor¹í výsledek";
+$langScormIntroTextForDummies = "Importované balíèky musí obsahovat zip soubor musí dále odpovídat SCORM 1.2";
+$langScriptMissing = "Chybìjící skript";
+$langScriptMissingComment = "Musíte instalovat tyto skripty pro korektní bìh claroline";
+$langScriptNotInArchive = "Chybìjící skript v claroline";
+$langScriptNotInArchiveComment = "tyto skripty mù¾ete ze serveru odstranit";
+$langSearch = "Hledat";
+$langSearchAgain = "Hledat znovu (roz¹íøené)";
+$langSearchCourse = "Vyhledávání v kurzu";
+$langSearchCourseAdvanced = "Roz¹íøené vyhledávání v kurzu";
+$langSearchOn = "Hledat v ";
+$langSearchResult = "Výsledky vyhledávání";
+$langSearchUser = "Vyhledat u¾ivatele";
+$langSearchUserAdvanced = "Roz¹íøené vyhledávání u¾ivatele";
+$langSecondShort = "sec.";
+$langSeeUserSettings = "Zobraz nastavení u¾ivatele";
+$langSeebelowthefilesyoucaneditfromthistool = "Vidíte pod tìmito soubory, mù¾ete editovat z tohoto nástroje.";
+$langSeen = "Zobrazeno";
+$langSelUser = "vybraní u¾ivatelé";
+$langSelectAUser = "Vyberte u¾ivatele";
+$langSelectedUsers = "Vybraní u¾ivatelé";
+$langSendToUserAccountInfoByMail = "Zaslat informace o úètu u¾ivatele";
+$langSequentialExercise = "Jedna otázka na stránku (následující)";
+$langSetAdmin = "Nastav správce";
+$langSettings = "s následujícím nastavením:
+U¾ivatelské jméno:";
+$langShowAll = "Zobraz v¹e";
+$langShowAnswers = "Zobraz odpovìdi";
+$langShowAnswersAfterLastTry = "Po posledním povoleném pokusu";
+$langShowNone = "Nezobrazovat nic";
+$langSimpleExercise = "Na samostatné stránce";
+$langSiteName = "Jméno webu";
+$langSize = "Velikost";
+$langSize_of_claroline_scripts = " velikost claroline skriptù";
+$langSize_of_course_repository = "!!!! velikost úlo¾i¹tì kurzù (vèetnì claroline a zbytkù starých systémù)";
+$langSize_of_selected_courses = "velikost vybraných kurzù";
+$langSocraticIrony = "Sokratova ironie je...";
+$langSpecifyFormat = "Soubor musí být ve formátu CSV";
+$langStartDate = "Datum zahájení";
+$langStartModule = "Spustit modul";
+$langStatDB = "Záznam databáze";
+$langStatistics = "Statistika";
+$langStatsByQuestion = "Statistika podle otázek";
+$langStatsByUser = "Statistika podle u¾ivatele";
+$langStatsOfCampus = "Statistika kampusu";
+$langStatsOfCourse = "Statistika kurzu";
+$langStatsOfExercise = "Statistika cvièení";
+$langStatsOfExerciseAttempt = "Statistika pokusù ve cvièení";
+$langStatsOfLearnPath = "Statistika";
+$langStatsOfQuestion = "Statistika otázky";
+$langStatsOfUser = "Statistika u¾ivatele";
+$langStatus = "Akce";
+$langStatusChangeNotMade = "Beze zmìn";
+$langStepNOfN = "Krok %d z %d";
+$langStoreChat = "Ulo¾it Chat";
+$langStudent = "Student";
+$langStudentQty = "Poèet Studentù";
+$langStudents = "Studenti";
+$langStudentsNotInThisGroups = "U¾ivatelé nejsou v této skupinì";
+$langSubTitleChangeParent = "Zmìnit rodièovskou kategorii z ";
+$langSubTitleCreate = "Vytvoøit kategorii";
+$langSubTitleEdit = "Upravit kategorii";
+$langSubmissionDate = "Datum&nbsp;prvního&nbsp;odevzdání";
+$langSubmissionType = "Typ odevzdání";
+$langSubmissions = "Odevzdání";
+$langSubmit = "Odeslat";
+$langSubmitFeedbackAfterEndDate = "Automaticky po datu ukonèení";
+$langSubmitFeedbackAfterPost = "Automaticky po ka¾dém odevzdání";
+$langSubmitWork = "Odeslat práci";
+$langSubmittedWork = "Práce";
+$langSubscribeClass = "Registrovat do tøídy";
+$langSubscribeToCourse = "Pøihlásit do kurzu";
+$langSubscribeUser = "Registrovat u¾ivatele";
+$langSubscription = "Zápis";
+$langSubscriptionAllowedOnly = "Zápis povolen pouze ";
+$langSubscriptionDeniedOnly = "Zápis zakázán pouze ";
+$langSupportForum = "Podpùrné fórum";
+$langSupports = " Podpora ";
+$langSupportsComment1 = "Existuje podpora kurzu?  Jaký typ podpory je poskytován?  Otevøená?  Uzavøená?";
+$langSupportsComment2 = "Prezentace podpory kurzu.  Prezentace bibliografie, sada dokumentù nebo doplòková bibliografie.";
+$langSwitchEditorToTextConfirm = "Tento pøíkaz odstraní souèasný vzhled textu. Chcete pokraèovat?";
+$langTake = "vzít";
+$langTargetFac = "Toto je fakulta, oddìlení nebo ¹kola, které je kurz doruèen";
+$langTeacherQty = "Poèet uèitelù";
+$langTeachers = "Uèitelé";
+$langTeachingTrainingActivities = "Aktivity Výuka - procvièování";
+$langTeachingTrainingActivitiesComment1 = "Jaké metody a které aktivity podpoøí definované cíle kurzu? Jaký je kalendáø aktivit?";
+$langTeachingTrainingActivitiesComment2 = "Prezentace oèekávaných aktivit (hodnotící recenze, oèekávaná úèast studentù, praktická práce, laboratorní práce, náv¹tìvy, sbìr základních informací...";
+$langTechAdmin = "Technika administrace";
+$langTechnical = "Technické nástroje";
+$langTestForum = "Testovací fórum";
+$langTextEditorDisable = "Vypnout textový editor";
+$langTextEditorEnable = "Zapnout textový editor";
+$langTextFile = "Text s pøipojeným souborem (text je povinný, soubor je volitelný)";
+$langTextOnly = "Pouze text (text je povinný, bez souboru)";
+$langTheFields = "Pole";
+$langTheSystemIsCaseSensitive = "Systém rozli¹uje malá a velká písmena.";
+$langTheU = "U¾ivatel";
+$langThisCourseDescriptionIsEmpty = "Tento kurz nemá popisek";
+$langThisIsAnErrorInDefinitionFile = "Chyba v definièním souboru.";
+$langThisday = "Tento den";
+$langThumbnails = "Náhledy";
+$langTimeInLearnPath = "Èas v uèební cestì";
+$langTimeOver = "Èas vypr¹el, výsledky neodeslány.";
+$langTipLang = "Tento jazyk bude platný pro ka¾dého náv¹tìvníka Vá¹eho webu s kurzy.";
+$langTitle = "Název";
+$langTitular = "Autor";
+$langTo = "do";
+$langToDate = "do";
+$langToday = "Dnes";
+$langTooBig = "Nevybral jste ¾ádný soubor pro odeslání nebo je soubor pøíli¹ velký";
+$langTool = "Nástroj";
+$langToolTitleCountColumn = "Celkový poèet vstupù";
+$langToolTitleToolnameColumn = "Název nástroje";
+$langToolTitleUsersColumn = "Poèet vstupù u¾ivatelù";
+$langTools = "Nástroje";
+$langToolsAccess = "Pøístup k nástrojùm";
+$langTopLevel = "nejvy¹¹í stupeò";
+$langTopicReplies = "Odpovìdi";
+$langTotal = "Celkem";
+$langTotalPlatformAccess = "Celkem";
+$langTotalPlatformLogin = "Celkem";
+$langTotalTimeSpent = "Celkový èas";
+$langTrackAllPath = "Záznam uèební cesty";
+$langTrackAllPathExplanation = "Postup u¾ivatelù ve v¹ech uèebních cestách";
+$langTrackExerciseError = "Podrobnosti mohou být nesprávné, proto¾e se zdá, ¾e se zmìnila èást nìkterých otázek mezi tímto pokusem a souèasností.";
+$langTrackForumUsage = "Vyu¾ití fóra";
+$langTrackNotEnoughAttempts = "Musíte dosáhnout maximálního poètu povolených pokusù pro zobrazení této statistiky.";
+$langTrackTotalPosts = "Zprávy publikována";
+$langTrackTotalTopics = "Téma zahájeno";
+$langTracking = "Záznam";
+$langTrackingDisabled = "Administrátor vypnul záznam.";
+$langTrafficDetails = "Podrobnosti provozu";
+$langTranslationStatistics = "Postup pøekladu";
+$langTranslationTools = "Nástroje pro pøeklad";
+$langTranslations = "Pøeklady";
+$langTrue = "Pravda";
+$langTrueFalse = "Pravda/Nepravda";
+$langTypeOfModule = "Typ modulu";
+$langTypeTextBelow = "Prosím vyplòte následující text";
+$langURL = "Adresa : ";
+$langUnableAddExternalTool = "Není mo¾no pøidat externí nástroj";
+$langUnableChangedTool = "Není mo¾no zmìnit pøístup k nástroji";
+$langUnableCreateCategory = "Není mo¾no vytvoøit kategorii";
+$langUnableCreateForum = "Není mo¾no vytvoøit fórum";
+$langUnableDeleteCategory = "Není mo¾no odstranit kategorii.";
+$langUnableDeleteExternalTool = "Není mo¾no odstranit externí nástroj";
+$langUnableDeleteForum = "Není mo¾no odstranit fórum.";
+$langUnableDeleteGroupCategoryForum = "Kategorie fóra skupiny nemù¾e být odstranìna.";
+$langUnableDescToAdd = "Není mo¾no pøidat popis";
+$langUnableToAdd = "Není mo¾no pøidat událost do kalendáøe.";
+$langUnableToDelete = "Není mo¾no odstranit událost z kalendáøe.";
+$langUnableToEmptyForum = "Není mo¾no vyprázdnit fórum.";
+$langUnableToEnrollInCourse = "Není mo¾no zapsat do kurzu";
+$langUnableToRemoveCourseRegistration = "Není mo¾no odstranit registraci z kurzu";
+$langUnableToUpdate = "Není mo¾no upravit událost v kalendáøi.";
+$langUnableToUpdateCategory = "Není mo¾no upravit kategorii.";
+$langUnableToUpdateForum = "Není mo¾no upravit fórum.";
+$langUnableUpdateExternalTool = "Není mo¾no upravit externí nástroj";
+$langUnamedModule = "Nepojmenovaný modul";
+$langUnamedPath = "Nepojmenovaná cesta";
+$langUncompress = "rozbalit zazipovaný soubor (.zip) na serveru";
+$langUncompulsory = "(volitelné)";
+$langUniqueAnswer = "Jedna správná odpovìï";
+$langUniqueSelect = "Více odpovìdí (Jedna správná odpovìï)";
+$langUnkownSOAPError = "Chyba pøi pøipojení se k Claroline.net";
+$langUnlimitedAttempts = "Neomezený poèet pokusù";
+$langUnreg = "Zru¹it registraci";
+$langUnregisterAllStudents = "Zru¹it registraci v¹ech studentù";
+$langUnsubscribe = "Zru¹it registraci u¾ivatele";
+$langUnsubscribeClass = "Zru¹it registraci ve tøídì";
+$langUntil = "do";
+$langUnvalid = "chybná nebo chybìjící emailová adresa";
+$langUp = "Nahoru";
+$langUpdateImage = "Zmìnit obrázek";
+$langUpdated = "Zmìnìno";
+$langUpdatedExternalTool = "Externí nástroj zmìnìn";
+$langUpgrade = "Upgrade";
+$langUploadAndZipEnd = " Zip soubor nahrán a rozbalen";
+$langUploadDoc = "Nahrát dokument";
+$langUploadEnd = "Soubor byl nahrán";
+$langUploadFile = "Nahrát soubor";
+$langUploadedFile = "Nahraný soubor";
+$langUseFollowingFormat = " Pou¾ij následující formát : ";
+$langUseFormatDefined = "Pou¾ij formát definovaný v prvním øádku souboru";
+$langUseOfPool = "Tato stránka umo¾òuje zobrazení v¹ech modulù dostupných v kurzu. <br />
+Jakékoliv cvièení nebo dokument, který byl pøidán do uèební cesty, se zobrazí v tomto seznamu.";
+$langUseTagForBlank = "pou¾ijte hranaté závorky [...] pro definování vynechání";
+$langUsedInLearningPaths = "
+Poèet uèebních cest pou¾ívajících tento modul : ";
+$langUsedInSeveralExercises = "Varování, tato otázka a odpovìï jsou pou¾ity v nìkolika cvièeních. Chcete je upravit";
+$langUsedInSeveralPath = "Toto cvièení je pou¾ito v jedné nebo více uèebních cestách. Pokud jej vyma¾ete, nebude ji¾ více dostupné v uèební cestì.";
+$langUser = "U¾ivatel";
+$langUserAccessDetails = "Podrobnosti pøístupù u¾ivatele";
+$langUserAlreadyInClass = "U¾ivatel ji¾ je èlenem tøídy";
+$langUserContent = "<p>Nástroj 'U¾ivatelé' zobrazí informace o u¾ivatelích v pøehledné tabulce. Zde je popis sloupcù:
 <ul>
 <li>
 <b>Jméno</b>. Kliknutím na jméno u¾ivatele si zobrazíte dal¹í informace o u¾ivateli jako email atd.
@@ -1933,21 +1686,21 @@ $_lang['blockUsersHelp'] = '<p>Nástroj \'U¾ivatelé\' zobrazí informace o u¾ivate
 <li>
 <b>Role</b>.
 Role nemají ¾ádnou funkci spojenou s poèítaèi. Nepøiøazují ¾ádná práva k systému.
- Zobrazují lidem kdo je kdo. Mù¾ete upravit kliknutím na ikonu ve sloupci \'Upravit\', a napsat cokoliv potøebujete:
+ Zobrazují lidem kdo je kdo. Mù¾ete upravit kliknutím na ikonu ve sloupci 'Upravit', a napsat cokoliv potøebujete:
  lektor, asistent, student, náv¹tìvník, expert ...
 </li>
 <li>
-<b>Instruktor skupiny</b>. Instruktor skupiny je funkce, která umo¾òuje u¾ivateli blí¾e øídit skupinu. Dává u¾ivateli oprávnìní pro pøístup do v¹ech èástí skupiny, zobrazit a upravit zprávy ve fóru skupiny.
- Mù¾ete upravit toto nastavení kliknutím na ikonu ve sloupci \'Upravit\'.
+<b>Vedoucí skupiny</b>. Vedoucí skupiny je funkce, která umo¾òuje u¾ivateli blí¾e øídit skupinu. Dává u¾ivateli oprávnìní pro pøístup do v¹ech èástí skupiny, zobrazit a upravit zprávy ve fóru skupiny.
+ Mù¾ete upravit toto nastavení kliknutím na ikonu ve sloupci 'Upravit'.
 </li>
 <li>
-<b>Vedoucí kurzu</b>. Tato funkce je vyèlenìna pro lidi, kteøí spravují a øídí kurz.  Mù¾ete upravit toto nastavení kliknutím na ikonu ve sloupci \'Upravit\'.
+<b>Mana¾er kurzu</b>. Tato funkce je vyèlenìna pro lidi, kteøí spravují a øídí kurz.  Mù¾ete upravit toto nastavení kliknutím na ikonu ve sloupci 'Upravit'.
 </li>
 <li>
-<b>Upravit</b> (nepøístupné vedoucímu kurzu). Tento pøíkaz umo¾òuje vedoucím kurzu upravit informace o tomto kurzu. Vedoucí kurzu nemají mo¾nost upravit osobní informace jako email, jméno atd., pouze data pøímo související s kurzem - role, status instruktora, status vedoucího. Tento pøíkaz také umo¾òuje vytvoøit nové hlavièky týkající se pouze tohoto kurzu (viz. tlaèítko \'definovat hlavièky\' v stránce podrobností u¾ivatele). Pokud jsou hlavièky definovány, ka¾dý student je ji¾ mù¾e vyplnit.
+<b>Upravit</b> (nepøístupné mana¾erovi kurzu). Tento pøíkaz umo¾òuje mana¾erùm kurzu upravit informace o tomto kurzu. Mana¾eøi kurzu nemají mo¾nost upravit osobní informace jako email, jméno atd., pouze data pøímo související s kurzem - role, status vedoucího, status mana¾era. Tento pøíkaz také umo¾òuje vytvoøit nové hlavièky týkající se pouze tohoto kurzu (viz. tlaèítko 'definovat hlavièky' v stránce podrobností u¾ivatele). Pokud jsou hlavièky definovány, ka¾dý student je ji¾ mù¾e vyplnit.
 </li>
 <li>
-<b>Zru¹it registraci</b> (nepøístupné vedoucímu kurzu). Tento pøíkaz umo¾òuje vedoucím kurzu vyøadit u¾ivatele z jejich kurzu. To neznamená ,¾e u¾ivatel bude odstranìn, ale pouze ¾e ji¾ nebude úèastníkem kurzu.
+<b>Zru¹it registraci</b> (nepøístupné mana¾erovi kurzu). Tento pøíkaz umo¾òuje mana¾erùm kurzu vyøadit u¾ivatele z jejich kurzu. To neznamená ,¾e u¾ivatel bude odstranìn, ale pouze ¾e ji¾ nebude úèastníkem kurzu.
 </li>
 </ul>
 <h4>
@@ -1968,24 +1721,93 @@ Hlavní pøíkazy
 </ul>
 <h4>Tipy</h4>
 <p>
-Pro umo¾nìní asistentovi spoluspravovat web, musíte ho registrovat do kurzu, pak kliknìte na \'Upravit\' pod \'Práva správce\' - v¹e a ok. Zástupce
+Pro umo¾nìní asistentovi spoluspravovat web, musíte ho registrovat do kurzu, pak kliknìte na 'Upravit' pod 'Práva správce' - v¹e a ok. Zástupce
 </p>
 <p>
-Pro zmínku o zástupci ve hlavièce kurzu, pou¾ijte nástroj \'Upravit informace o kurzu\' (oran¾ové nástroje). Tato úprava neregistruje zástupce jako u¾ivatele kurzu. Pole \'Lektoøi\' je nezávislé na seznamu u¾ivatelù.
+Pro zmínku o zástupci ve hlavièce kurzu, pou¾ijte nástroj 'Upravit informace o kurzu' (oran¾ové nástroje). Tato úprava neregistruje zástupce jako u¾ivatele kurzu. Pole 'Lektoøi' je nezávislé na seznamu u¾ivatelù.
 Pøidat u¾ivatele
-</p>';
-$_lang['blockUsersWithoutValidEmail'] = '%userQty registrovaných u¾ivatelù tohoto webu, %userInvalidQty nemá platnou nebo vùbec nemá emailovou adresu.
-
-%messageFailed';
-$_lang['blockWikiConflictHowTo'] = '<p><strong>Konflikt úprav</strong> : Strana, kterou se sna¾íte ulo¾it byla v prùbìhu Va¹í editace zmìnìna.<br /><br />
+</p>";
+$langUserCourseList = "Seznam kurzù u¾ivatele";
+$langUserCreated = "Nový u¾ivatel byl úspì¹nì vytvoøen";
+$langUserDelete = "U¾ivatel byl úspì¹nì odstranìn";
+$langUserIsNowCourseManager = "U¾ivatel je nyní mana¾er kurzu";
+$langUserIsNowStudent = "U¾ivatel je nyní student kurzu";
+$langUserIsPlaformAdmin = "Je správce platformy";
+$langUserName = "U¾ivatelské jméno";
+$langUserNoCourseToDisplay = "K zobrazení není ¾ádný kurz";
+$langUserNotInClass = "U¾ivatel není èlenem tøídy";
+$langUserNotUnsubscribedFromCourse = "Chyba!! nemù¾ete zru¹it registraci mana¾era kurzu";
+$langUserNumber = "èíslo";
+$langUserOneByOneExplanation = "U¾ivatel obdr¾í email s u¾ivatelským jménem a heslem";
+$langUserRegisteredClass = "U¾ivatel byl úspì¹nì registrován do tøídy";
+$langUserRegisteredToCourse = "U¾ivatel registrovaný do kurzu";
+$langUserSettings = "U¾ivatelské nastavení";
+$langUserStatus = "Souèasný stav";
+$langUserSubscribed = "U¾ivatel byl úspì¹nì registrován";
+$langUserTaken = "Toto u¾ivatelské jméno je ji¾ pou¾ito";
+$langUserUnregistered = "Neregistrovaný u¾ivatel";
+$langUserUnregisteredFromClass = "U¾ivatel byl úspì¹nì vyøazen ze tøídy";
+$langUserUnsubscribed = "Registrace u¾ivatele byla zru¹ena";
+$langUserUnsubscribedFromCourse = "U¾ivatel byl úspì¹nì odhlá¹en z kurzu";
+$langUserid = "ID u¾ivatele";
+$langUserlist = "Seznam u¾ivatelù";
+$langUsernameAppearAlready = "Toto u¾ivatelské jméno se ji¾ objevilo v pøedchozím øádku CSV souboru.";
+$langUsernameUsed = "Toto u¾ivatelské jméno ji¾ pou¾ívá jiný u¾ivatel.";
+$langUsers = "U¾ivatelé";
+$langUsersMin = "u¾ivatelé";
+$langValvas = "Nejnovìj¹í oznámení";
+$langViMod = "Zobrazitelnost upravena";
+$langView = "Zobrazení";
+$langViewMode = "Typ zobrazení";
+$langViewPlatFormError = "Vyhledat selhání techniky";
+$langViewPlatFormStatistics = "Statistika platformy";
+$langViewToolList = "Zobrazit seznam v¹ech nástrojù";
+$langVisibility = "Viditelnost";
+$langVisible = "Viditelný";
+$langVisits = "náv¹tìv";
+$langWarning = "Varování.";
+$langWeightingForEachBlank = "Zadejte váhu ka¾dého doplnìní";
+$langWiki = "Spolupráce";
+$langWikiAccessControl = "Správa oprávnìní pøístupu";
+$langWikiAccessControlText = "Mù¾ete nastavit práva pro u¾ivatele dle následujícího principu : ";
+$langWikiAllPages = "V¹echny stránky";
+$langWikiBackToPage = "Zpìt na stranu";
+$langWikiConflictHowTo = "<p><strong>Konflikt úprav</strong> : Strana, kterou se sna¾íte ulo¾it byla v prùbìhu Va¹í editace zmìnìna.<br /><br />
 Jaký postup chcete zvolit ?<ul>
-<li>Mù¾ete kopírovat / vlo¾it do textového editoru (jako poznámkový blok), kliknout na \'upravit poslední verzi\' a pokusit se vlo¾it svou úpravu do nové verze stránek.</li>
+<li>Mù¾ete kopírovat / vlo¾it do textového editoru (jako poznámkový blok), kliknout na 'upravit poslední verzi' a pokusit se vlo¾it svou úpravu do nové verze stránek.</li>
 <li>Mù¾ete kliknout na zru¹it pro neulo¾ení provedených zmìn.</li>
-</ul></p>';
-$_lang['blockWikiHelpAdminContent'] = '<h3>Nápovìda administrace Spolupráce</h3>
-<dl class="wikiHelp">
+</ul></p>";
+$langWikiContentEmpty = "Tato strana je prázdná, kliknìte na 'Upravit tuto stranu' pro pøidání obsahu";
+$langWikiCourseMembers = "Èlenové kurzu";
+$langWikiCreateNewWiki = "Vytvoøit novou spolupráci";
+$langWikiCreatePrivilege = "Vytvoøit strany";
+$langWikiCreationSucceed = "Vytvoøení Spolupráce bylo úspì¹né";
+$langWikiDefaultDescription = "Vlo¾te popis Spolupráce";
+$langWikiDefaultTitle = "Nová spolupráce";
+$langWikiDeleteWiki = "Smazat spolupráci";
+$langWikiDeleteWikiWarning = "Varování : chystáte se odstranit tuto Spolupráci a v¹echny její stránky. Opravdu chcete pokraèovat?";
+$langWikiDeletionSucceed = "Spolupráce byla odstranìna";
+$langWikiDescription = "Popis Spolupráce";
+$langWikiDescriptionForm = "Popis Spolupráce";
+$langWikiDescriptionFormText = "Zvolte název a popis Spolupráce : ";
+$langWikiDiffAddedLine = "Øádek byl pøidán";
+$langWikiDiffDeletedLine = "Odstranìný øádek";
+$langWikiDiffMovedLine = "Pøesunutý øádek";
+$langWikiDiffUnchangedLine = "Nezmìnìný øádek";
+$langWikiDifferenceKeys = "Klíèe :";
+$langWikiDifferencePattern = "rozdíly mezi verzemi %1\$s upraveno %2\$s a verze %3\$s upravena %4\$s";
+$langWikiDifferenceTitle = "Rozdíly :";
+$langWikiEditConflict = "Upravit konflikt";
+$langWikiEditLastVersion = "Upravit poslední verzi";
+$langWikiEditPage = "Upravit tuto stranu";
+$langWikiEditPrivilege = "Upravit strany";
+$langWikiEditProperties = "Upravit vlastnosti";
+$langWikiEditionSucceed = "Editace Spolupráce byla úspì¹ná";
+$langWikiGroupMembers = "Èlenové skupiny";
+$langWikiHelpAdminContent = "<h3>Nápovìda administrace Spolupráce</h3>
+<dl class=\"wikiHelp\">
 <dt>Jak vytvoøit novou spolupráci ?</dt>
-<dd>Kliknìte na odkaz \'Vytvoøit novou Spolupráci\'. Vlo¾te vlastnosti Spolupráce :
+<dd>Kliknìte na odkaz 'Vytvoøit novou Spolupráci'. Vlo¾te vlastnosti Spolupráce :
 <ul>
 <li><b>Název Spolupráce</b> : zvolte název</li>
 <li><b>Popis Spolupráce</b> : zvolte popis</li>
@@ -1995,12 +1817,12 @@ $_lang['blockWikiHelpAdminContent'] = '<h3>Nápovìda administrace Spolupráce</h3>
 <dt>Jak se pøipojit ke Spolupráci? ?</dt>
 <dd>Kliknìte na název Spolupráce v seznamu.</dd>
 <dt>Jak zmìnit vlastnosti Spolupráce ?</dt>
-<dd>Kliknìte na ikonu ve sloupci \'Vlastnosti\', pro pøístup k formuláøi pro nastavení vlastností.</dd>
+<dd>Kliknìte na ikonu ve sloupci 'Vlastnosti', pro pøístup k formuláøi pro nastavení vlastností.</dd>
 <dt>Jak pou¾ívat mo¾nosti kontroly pøístupu ?</dt>
-<dd>Mù¾ete nastavit práva pro pøístup u¾ivatelù za¹krtnutím / neza¹krtnutím \'Kontroly pøístupu\' ve vlastnostech Spolupráce.
+<dd>Mù¾ete nastavit práva pro pøístup u¾ivatelù za¹krtnutím / neza¹krtnutím 'Kontroly pøístupu' ve vlastnostech Spolupráce.
  Mù¾ete pøidìlit / odebrat pøístup pro tøi typy u¾ivatelù :<ul>
-<li><b>Èlenové kurzu</b> : u¾ivatelé zapsaní do kurzu (mimo vedoucích kurzu)</li>
-<li><b>Èlenové skupiny</b> (dostupné pouze v skupinì) : u¾ivatelé, kteøí jsou èlenové skupiny (mimo instruktorù skupin)</li>
+<li><b>Èlenové kurzu</b> : u¾ivatelé zapsaní do kurzu (mimo mana¾erù kurzu)</li>
+<li><b>Èlenové skupiny</b> (dostupné pouze v skupinì) : u¾ivatelé, kteøí jsou èlenové skupiny (mimo vedoucí skupin)</li>
 <li><b>Ostatní u¾ivatelé</b> : neregistrovaní u¾ivatelé nebo u¾ivatelé, kteøí nejsou èlenové kurzu</li></ul>
 Pro ka¾dý typ u¾ivatelù mù¾ete nastavit tøi typy oprávnìní (*)  :<ul>
 <li><b>Èíst strany</b> : u¾ivatelé mohou èíst strany Spolupráce</li>
@@ -2008,15 +1830,16 @@ Pro ka¾dý typ u¾ivatelù mù¾ete nastavit tøi typy oprávnìní (*)  :<ul>
 <li><b>Vytváøet strany</b> : u¾ivatelé mohou vytváøet nové strany Spolupráce</li>
 </ul><small><em>(*) Poznámka - pokud u¾ivatel nemù¾e èíst strany Spolupráce, nemù¾e je ani upravovat. Pokud u¾ivatel nemù¾e upravovat strany, nemù¾e ani vytváøet nové strany.</em></small></dd>
 <dt>Jak odstranit Spolupráci ?</dt>
-<dd>Kliknìte na Ikonu ve sloupci \'Odstranit\' pro odstranìní spolupráce a v¹ech stran této Spolupráce.</dd>
+<dd>Kliknìte na Ikonu ve sloupci 'Odstranit' pro odstranìní spolupráce a v¹ech stran této Spolupráce.</dd>
 <dt>Jak získat seznam stran Spolupráce ?</dt>
 <dd>Kliknìte na Poèet stran této Spolupráce v seznamu spolupráce.</dd>
 <dt>Jak získat seznam naposledy upravených stran ve Spolupráci ?</dt>
-<dd>Kliknìte na ikonu ve sloupci \'Nedávno zmìnìno\' v seznamu spolupráce.</dd>
-</dl>';
-$_lang['blockWikiHelpSyntaxContent'] = '<h1>Skladba Spolupráce</h1>
+<dd>Kliknìte na ikonu ve sloupci 'Nedávno zmìnìno' v seznamu spolupráce.</dd>
+</dl>";
+$langWikiHelpSyntax = "Skladba Spolupráce";
+$langWikiHelpSyntaxContent = "<h1>Skladba Spolupráce</h1>
 <h2>1. Základní skladba</h2>
-<dl class="wikiHelp">
+<dl class=\"wikiHelp\">
 <dt>Vytváøení stran Spolupráce a odkazy mezi nimi</dt>
 <dd><strong>Slova spolupráce</strong> : Slova spolupráce jsou slova napsaná jako <em>Slova Spolupráce</em>. Pøevadìè je automaticky rozpozná a pøevede je na odkazy strany Spolupráce. </dd>
 <dd><strong>Odkazy Spolupráce</strong> : Odkazy Spolupráce jsou jako hypertextové odkazy, bez udání protokolu (jako <em>http://</em> nebo <em>ftp://</em>) a jsou automaticky rozpoznané jako odkazy na Strany Spolupráce. 
@@ -2029,8 +1852,8 @@ $_lang['blockWikiHelpSyntaxContent'] = '<h1>Skladba Spolupráce</h1>
 <dt>Odkaz na obrázek</dt>
 <dd>stejnì jako hypertextové odkazy ,ale vlo¾te 0 jako 4 parametr  pro zabránìní rozpoznání a smìrování odkazu pøímo na obrázek. Napøíklad <code>[obrázek|obrazek.gif||0]</code> zobrazí odkaz na obrazek.gif místo zobrazení samotného obrázku</dd>
 <dt>Vzhled</dt>
-<dd><strong>Kurzíva</strong> : ohraniète text dvìmi jednoduchými uvozovkami <code>\'\'text\'\'</code>&nbsp;;</dd>
-<dd><strong>Tuèné</strong> : ohraniète text tøemi jednoduchými uvozovkami <code>\'\'\'text\'\'\'</code>&nbsp;;</dd>
+<dd><strong>Kurzíva</strong> : ohraniète text dvìmi jednoduchými uvozovkami <code>''text''</code>&nbsp;;</dd>
+<dd><strong>Tuèné</strong> : ohraniète text tøemi jednoduchými uvozovkami <code>'''text'''</code>&nbsp;;</dd>
 <dd><strong>Podtr¾ené</strong> : ohraniète text dvìmi podtr¾eními <code>__text__</code>&nbsp;;</dd>
 <dd><strong>Pøe¹krtnuté</strong> : ohraniète text dvìmi mínusy <code>--text--</code>&nbsp;;</dd>
 <dd><strong>Nadpis</strong> : <code>!!!</code>, <code>!!</code>, <code>!</code> pro nadpisy, podnadpisy první a druhé úrovnì&nbsp;;</dd>
@@ -2040,9 +1863,9 @@ $_lang['blockWikiHelpSyntaxContent'] = '<h1>Skladba Spolupráce</h1>
 <dd>Odstavce oddìlujte jedním nebo více prázdnými øádky&nbsp;;</dd>
 </dl>
 <h2>2. Roz¹íøená skladba</h2>
-<dl class="wikiHelp">
+<dl class=\"wikiHelp\">
 <dt>Text v zápatí</dt>
-<dd><code>$$footnote text$$</code>&nbsp;;</dd>
+<dd><code>\$\$footnote text\$\$</code>&nbsp;;</dd>
 <dt>Pøeformátovaný text</dt>
 <dd>zaènìte ka¾dý øádek pøedformátovaného textu mezerou&nbsp;;</dd>
 <dt>Blok citace</dt>
@@ -2059,64 +1882,144 @@ $_lang['blockWikiHelpSyntaxContent'] = '<h1>Skladba Spolupráce</h1>
 <dd><code>@@Vá¹ kód@@</code>&nbsp;;</dd>
 <dt>Pojmenované místo (kotva)</dt>
 <dd><code>~kotva~</code>&nbsp;;</dd>
-</dl>';
-$_lang['click here'] = 'kliknìte zde';
-$_lang['click to zoom in'] = 'zvìt¹it';
-$_lang['click to zoom out'] = 'zmen¹it';
-$_lang['count'] = 'poèet';
-$_lang['denotes new items'] = 'oznaèuje nové polo¾ky';
-$_lang['details'] = 'podrobnosti';
-$_lang['differences between version of %1\$s modified by %2\$s and version of %3\$s modified by %4\$s'] = 'rozdíly mezi verzemi %1$s upraveno %2$s a verze %3$s upravena %4$s';
-$_lang['e.g. <em>History of Literature</em>'] = 'napø. <i>Historie Literatury</i>';
-$_lang['email'] = 'email';
-$_lang['good looking'] = 'dobøe vypadá';
-$_lang['high resources'] = 'vysoké zdroje';
-$_lang['iCal feed for %course'] = 'iCal kanál kurzu %course';
-$_lang['if you choose to continue, lines with errors will simply be ignored'] = 'pokud vyberete pokraèovat, øádky s chybami budou ignorovány';
-$_lang['line'] = 'øádek';
-$_lang['line(s)'] = 'øádkù';
-$_lang['lines'] = 'øádky';
-$_lang['max. 12 characters, e.g. <em>ROM2121</em>'] = 'max. 12 znakù, napø.<em>ROM2121</em>';
-$_lang['min.'] = 'min.';
-$_lang['my group'] = 'Va¹e skupina';
-$_lang['my supervision'] = 'dohled';
-$_lang['new group(s)'] = 'nová skupina(y)';
-$_lang['number'] = 'èíslo';
-$_lang['previous level'] = 'pøedchozí úroveò';
-$_lang['register'] = 'registrovat se';
-$_lang['rich'] = 'bohatý';
-$_lang['sampleForumDescription'] = 'Odstranìní pøes nástroj administrace fóra';
-$_lang['sampleForumGroupCategory'] = 'Fóra skupiny';
-$_lang['sampleForumMainCategory'] = 'Hlavní';
-$_lang['sampleForumMessage'] = 'Kdy¾ odstraníte testovací fórum, dojde také  k odstranìní v¹ech zpráv, které osahuje.';
-$_lang['sampleForumTitle'] = 'Testovací fórum';
-$_lang['sampleForumTopicTitle'] = 'Pøíklad zprávy';
-$_lang['sampleLearnPathDescription'] = 'Toto je vzorová uèební osnova, pou¾ívá vzorová cvièení a vzorové dokumenty, nástroje cvièení a nástroje dokumentù. Kliknìte na
-                            <b>Upravit</b> pro zmìnìní tohoto textu.';
-$_lang['sampleLearnPathDocumentDescription'] = 'Mù¾ete pou¾ít kterýkoli dokument z nástroje dokumentù tohoto kurzu.';
-$_lang['sampleLearnPathDocumentTitle'] = 'dokument_priklad';
-$_lang['sampleLearnPathQuizDescription'] = 'Mù¾ete pou¾ít kterýkoli cvièení z nástroje cvièení tohoto kurzu.';
-$_lang['sampleLearnPathTitle'] = 'Vzorové uèební osnova';
-$_lang['sampleQuizAnswer1'] = 'Utahovat si z úèastníka debaty s cílem donutit ho uznat chybu.';
-$_lang['sampleQuizAnswer1Comment'] = 'Ne, Sokratova ironie není otázka psychologie, ale argumentù.';
-$_lang['sampleQuizAnswer2'] = 'Pøipustit vlastní chybu, k pøizvání úèastníka konverzace, aby udìlal toté¾.';
-$_lang['sampleQuizAnswer2Comment'] = 'Ne, Sokratova ironie není metoda svádìní ani metoda zalo¾ená na pøíkladu.';
-$_lang['sampleQuizAnswer3'] = 'Donutit diskutujícího sérií otázek a podotázek, pøipustit ¾e neví, to co si myslí ¾e ví.';
-$_lang['sampleQuizAnswer3Comment'] = 'Vskutku. Sokratova ironie je metoda dotazování se. Øecké "eirotao" znamená "pokládat otázky"';
-$_lang['sampleQuizAnswer4'] = ' Pou¾ít princip kontradikce s cílem dovést debatu do slepé ulièky.';
-$_lang['sampleQuizAnswer4Comment'] = 'Tato odpovìï není nepravdivá. Je pravda ¾e, projevení se nízké úrovnì úèastníka rozhovoru, znamená vyvození protichùdných závìrù, ne¾ které vycházejí z jeho pøedpokladù.';
-$_lang['sampleQuizDescription'] = 'Historie starovìké filozofie';
-$_lang['sampleQuizQuestionText'] = '(více ne¾ jedna odpovìï mù¾e být správná)';
-$_lang['sampleQuizQuestionTitle'] = 'Sokratova ironie je...';
-$_lang['sampleQuizTitle'] = 'Vzorové cvièení';
-$_lang['seats (optional)'] = 'míst (volitelné)';
-$_lang['seats by groups (optional)'] = 'místa podle skupin (volitelné)';
-$_lang['sec.'] = 'sec.';
-$_lang['size of claroline scripts'] = 'velikost skriptù Claroline';
-$_lang['size of selected courses'] = 'velikost vybraných kurzù';
-$_lang['to'] = 'do';
-$_lang['uncompress zipped (.zip) file on the server'] = 'rozbalit zazipovaný soubor (.zip) na serveru';
-$_lang['unlimited'] = 'neomezené';
-$_lang['warning : Installation cannot find the description of the learning path and has set a default comment.  You should change it'] = 'Varování : Instalace nemù¾e nalézt popis uèební osnovy a nastavila standardní popis. Mìlo by být zmìnìno.';
-$_lang['warning : Installation cannot find the name of the learning path and has set a default name.  You should change it.'] = 'Varování : Instalace nemù¾e nalézt jméno uèební osnovy a nastavila standardní jméno. Mìlo by být zmìnìno.';
+</dl>";
+$langWikiIdenticalContent = "Identický obsah<br />úprava nebyla ulo¾ena";
+$langWikiInvalidWikiId = "Neplatné ID Spolupráce";
+$langWikiList = "Seznam Spoluprací";
+$langWikiMainPage = "Hlavní strana";
+$langWikiMainPageContent = "Toto je hlavní strana spolupráce %s. Kliknìte na '''Upravit''' pro úpravu obsahu.";
+$langWikiNoWiki = "Bez Spolupráce";
+$langWikiNotAllowedToCreate = "Nemáte povoleno vytváøení stránek";
+$langWikiNotAllowedToEdit = "Nemáte povoleno upravovat tuto stranu";
+$langWikiNotAllowedToRead = "Nemáte povoleno èíst tuto stranu";
+$langWikiNumberOfPages = "Poèet stran";
+$langWikiOtherUsers = "Ostatní (*)";
+$langWikiOtherUsersText = "(*) anonymní u¾ivatelé, kteøí nejsou èleny tohoto kurzu...";
+$langWikiPageHistory = "Historie strany";
+$langWikiPageSaved = "Stana ulo¾ena";
+$langWikiPreviewTitle = "Náhled : ";
+$langWikiPreviewWarning = "Varování: tato strana je náhled. Va¹e úprava Spolupráce nebyla zatím ulo¾ena! Pro ulo¾ení nezapomeòte kliknout na tlaèítko 'Ulo¾it' ve spodní èásti strany.";
+$langWikiProperties = "Vlastnosti";
+$langWikiReadPrivilege = "Èíst strany";
+$langWikiRecentChanges = "Poslední zmìny";
+$langWikiRecentChangesPattern = "%1\$s upraveno %2\$s - %3\$s";
+$langWikiShowDifferences = "Ukázat rozdíly";
+$langWikiTitle = "Název Spolupráce";
+$langWikiTitleEdit = "Spolupráce : Upravit vlastnosti";
+$langWikiTitleNew = "Spolupráce : Vytvoøit novou spolupráci";
+$langWikiTitlePattern = "Spolupráce : %s";
+$langWikiVersionInfoPattern = "(verze z %1\$s upravená %2\$s)";
+$langWikiVersionPattern = "%1\$s - %2\$s";
+$langWork = "Zadání";
+$langWorkAuthors = "Autoøi";
+$langWorkTitle = "Pracovní název";
+$langWorkUploads = "Nahrátí práce";
+$langWorksDetails = "Práce nahrána studentem za 'Autory'";
+$langWrkAdded = "Práce pøidána";
+$langWrkAuthors = "Autor(øi)";
+$langWrkAuthorsRequired = "Jsou po¾adováni Autor(øi)";
+$langWrkEdited = "Práce upravena";
+$langWrkScoreRequired = "Je po¾adováno Hodnocení";
+$langWrkTitle = "Název";
+$langWrkTitleRequired = "Je po¾adován pracovní název";
+$langWrongOperation = "Chybná operace";
+$langYes = "Ano";
+$langYesterday = "Vèera";
+$langYouAreReg = "Jste zaregistrován";
+$langYourAccountParam = "Toto je Va¹e u¾ivatelské jméno a heslo";
+$langYourBestScore = "Va¹e nejlep¹í výsledky";
+$langYourReg = "Va¹e registrace do";
+$langYourRequestToBeCourseManagerIsSent = "Vá¹ po¾adavek stát se tvùrcem kurzù byl odeslán administrátorovi platformy.";
+$langYourRequestToRemoveYourAccountIsSent = "Vá¹ po¾adavek na odstranìní Va¹eho úètu byl odeslán";
+$langYourTime = "Vá¹ èas je";
+$langYourTotalScore = "Va¹e hodnocení je";
+$langZipNoPhp = "Zip soubor nemù¾e obsahovat .php soubory";
+$lang_EditFile_ModifyOk = "Zmìny byly odstranìny korektnì";
+$lang_TheUserIsAlreadyEnrolledInTheCourse = "U¾ivatel je ji¾ zapsán do kurzu";
+$lang_add_user_list = "Pøidat seznam u¾ivatelù";
+$lang_already_enrolled = "je ji¾ zapsán";
+$lang_are_you_sure_to_remove_the_course_from_your_list = "Jste si jistý, ¾e chcete odstranit tento kurz ze svého seznamu?";
+$lang_back_to_my_personnal_course_list = "Zpìt na osobní seznam kurzù";
+$lang_back_to_parent_category = "Zpìt na rodièovskou kategorii";
+$lang_cancel_the_operation = "Pøeru¹it operaci";
+$lang_click_here = "kliknìte zde";
+$lang_click_on_the_enrollment_command_beside_the_concerned_user = "Kliknìte na pøíkaz Zapsat do kurzu vedle jména u¾ivatele pro jeho pøihlá¹ení do kurzu";
+$lang_completeUserInfoOfUser = "Doplnit informace o u¾ivateli";
+$lang_confirm_the_creation_of_a_new_user = "Potvrdit vytvoøení nového u¾ivatele";
+$lang_course_enrollment = "U¾ivatelovi kurzy";
+$lang_do_you_want_to_continue = "Chcete pokraèovat?";
+$lang_enroll = "Zapsat";
+$lang_enroll_to_a_new_course = "Zapsat se do nového kurzu";
+$lang_faculty_CanHaveCatCourse = "Tyto kurzy jsou dostupné : ";
+$lang_faculty_CatHaveCat = "Tato kategorie obsahuje dal¹í kategorie, které musíte nejprve odstranit !";
+$lang_faculty_CatHaveCourses = "tato kategorie obsahuje nìkteré kurzy, nelze ji odstranit!";
+$lang_faculty_CodeCat = "Kód kategorie ";
+$lang_faculty_CodeEmpty = "Je po¾adován kód kategorie";
+$lang_faculty_ConfirmDelete = "Opravdu chcete odstranit tuto kategorii ";
+$lang_faculty_CreateNotOk = "Tato kategorie ji¾ existuje!";
+$lang_faculty_CreateOk = "Kategorie byla vytvoøena";
+$lang_faculty_DeleteOk = "Kategorie byla odstranìna";
+$lang_faculty_EditOk = "Zmìny byly ulo¾eny";
+$lang_faculty_Father = "Rodièovská kategorie ";
+$lang_faculty_HaveCourses = "Tato kategorie obsahuje nìkteré kurzy, nejprve je musíte odstranit nebo pøesunout";
+$lang_faculty_MoveOk = "Kategorie byla pøesunuta";
+$lang_faculty_NameCat = "Jméno kategorie :";
+$lang_faculty_NameEmpty = "Je po¾adováno jméno kategorie";
+$lang_faculty_NoCat = "Není dostupná ¾ádná kategorie !";
+$lang_faculty_NoChange = "Zmìny nebyly ulo¾eny.";
+$lang_faculty_NoMove_1 = "Nelze pøesunout ";
+$lang_faculty_NoMove_2 = " ve stejné kategorii !";
+$lang_faculty_imgDown = "Dolù";
+$lang_fields_enclosed_by = "Pole uzavøené do";
+$lang_footer_p_CourseManager = "Mana¾er pro %s";
+$lang_if_you_choose_to_continue_lines_with_errors_will_be_simply_ignored = "pokud vyberete pokraèovat, øádky s chybami budou ignorovány";
+$lang_if_you_wish_to_enroll_to_this_course = "Pokud si pøejete zapsat se do tohoto kurzu";
+$lang_my_personnal_course_list = "Osobní seznam kurzù";
+$lang_no_access_here = "Nepøístupno";
+$lang_no_course_available_fitting_this_keyword = "®ádný kurz neodpovídá zadanému slovu";
+$lang_no_error_in_file_found = "V souboru nebyla nalezena ¾ádná chyba.";
+$lang_notice = "Poznámka.";
+$lang_or_search_from_keyword = "Vyhledávání dle klíèového slova";
+$lang_p_ErrorOnBuild_S_for_S = "Chyba pøi tvorbì <em>%s</em> pro <B>%s</B>";
+$lang_p_FeedOf_s = "Rss kanál pro %s";
+$lang_p_FillCourses = "Vyplnit %s s %s";
+$lang_p_IfNothingHappendClickHere = "Pokud se po chvíli nezobrazí hlá¹ení o úspì¹ném vytvoøení kurzu, kliknìte <a href=\"%s\">zde</a> ";
+$lang_p_PropForConfigCommited = "Nastavení pro %s (%s) je nastaveno na serveru.";
+$lang_p_aCategoryWouldBeSelected = "Musíte vybrat kategorii. pokud chybí, kontaktujte <a href=\"%s\">správce platformy</a>";
+$lang_p_category_s_created = "Kategorie %s byla vytvoøena";
+$lang_p_config_file_creation = "Nastavení vytváøení souboru:<br /> %s";
+$lang_p_d_StudentUnregistredFormCours = "%d student(ù) odhlá¹ených z tohoto kurzu";
+$lang_p_d_course = "%2d kurz";
+$lang_p_d_course_manager = "%2d vyuèující ";
+$lang_p_d_course_managers = "%2d vyuèujících ";
+$lang_p_d_course_member = "%2d èlen";
+$lang_p_d_course_members = "%2d èlenù";
+$lang_p_d_courses = "%2d kurzù";
+$lang_p_d_student = "%2d student";
+$lang_p_d_students = "%2d studentù";
+$lang_p_forum_s_created = "Fórum %s bylo vytvoøeno";
+$lang_p_nothing_to_edit_in_S = "nic k úpravì v %s";
+$lang_p_platformManager = "Správce pro %s";
+$lang_p_post_s_created = "Pøíspìvek %s byl vytvoøen";
+$lang_p_s_s_has_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> byl úspì¹nì pøihlá¹en do kurzu";
+$lang_p_s_s_has_not_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> nebyl úspì¹nì pøihlá¹en do kurzu";
+$lang_p_topic_s_created = "Téma %s bylo vytvoøeno";
+$lang_p_youNeedToBeAuthenticatedWithYour_s_account = "Musíte se pøihlásit svým jménem %s ";
+$lang_php_info = "PHP systémové informace";
+$lang_remove_course_enrollment = "Odstranit pøihlá¹ení do kurzu";
+$lang_remove_course_from_your_personnal_course_list = "Odebrat kurz z osobního seznamu kurzù";
+$lang_select_course_in = "Vybrat kurz v ";
+$lang_select_course_in_search_results = "Vybrat kurz ve výsledcích hledání";
+$lang_take_one_of_these_choices = "Vybrat jednu z tìchto odpovìdí";
+$lang_the_following_errors_were_found = "Byly nalezeny následující chyby ";
+$lang_toolsToFill = "Nástroje pro zalidnìní";
+$lang_unsubscribe = "Odhlásit";
+$lang_user_has_been_enrolled_to_the_course = "U¾ivatel byl odhlá¹en z kurzu";
+$lang_users_with_similar_settings_exists_on_the_system_yet = "Jeden nebo více u¾ivatelù s podobným nastavením ji¾ v systému existují.";
+$lang_you_had_request = "Po¾ádal jste";
+$lang_you_have_been_enrolled_to_the_course = "Byl jste pøihlá¹en do kurzu";
+$lang_your_enrollment_to_the_course_has_been_removed = "Va¹e pøihlá¹ení do kurzu bylo zru¹eno";
+$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Zdá se, ¾e jste nebyl pøihlá¹en do tohoto kurzu";
+$langcatcreated = "Nová kategorie byla vytvoøena.";
+$langimportLearningPath = "Importovat uèební cestu";
 ?>

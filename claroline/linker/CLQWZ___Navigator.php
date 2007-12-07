@@ -1,10 +1,10 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+if ( ! defined('CLARO_INCLUDE_ALLOWED') ) die('---');
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @version 1.7 $Revision$
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -75,7 +75,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                          foreach ($exercices as $itemExercice )
                          {
                              $crl = $node."/".$itemExercice["id"];
-                             if( $itemExercice["visibility"] == 'VISIBLE' )
+                             if( $itemExercice["active"] == 1 )
                              {
                                  $isVisible = TRUE;
                              }
@@ -83,7 +83,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                              {
                                  $isVisible = FALSE;
                              }
-                             $container = new ClaroObject( $itemExercice["title"] , $crl , TRUE , FALSE , $isVisible);
+                             $container = new ClaroObject( $itemExercice["titre"] , $crl , TRUE , FALSE , $isVisible);
                              $elementList[] = $container ;
                          }
 
@@ -123,9 +123,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         {
             $courseInfoArray = get_info_course($course_sys_code);
             $tbl_cdb_names = claro_sql_get_course_tbl($courseInfoArray["dbNameGlu"]);
-            $tbl_quiz_exercise = $tbl_cdb_names['qwz_exercise'];
+            $tbl_exercice = $tbl_cdb_names['quiz_test'];
 
-            $sql = 'SELECT `id`,`title`,`visibility` FROM `'.$tbl_quiz_exercise.'`';
+            $sql = 'SELECT `id`,`titre`,`active` FROM `'.$tbl_exercice.'`';
             $exercice = claro_sql_query_fetch_all($sql);
 
             return $exercice;
