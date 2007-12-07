@@ -37,6 +37,9 @@ include_once get_module_path($tlabelReq) . '/lib/courseDescription.lib.php';
 //-- Get $tipList
 $tipList = get_tiplistinit();
 
+
+event_access_tool(claro_get_current_tool_id(), claro_get_current_course_tool_data('label'));
+
 /*
  * init request vars
  */
@@ -45,7 +48,7 @@ if ( isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'], $acceptedCmdList) )  
 else                                                                             $cmd = null;
 
 if ( isset($_REQUEST['descId']) && is_numeric($_REQUEST['descId']) ) $descId = (int) $_REQUEST['descId'];
-else                                                                 $descId = null;
+else															     $descId = null;
 
 if ( isset($_REQUEST['category']) && $_REQUEST['category'] >= 0 )    $category = $_REQUEST['category'];
 else                                                                 $category = -1;
@@ -53,7 +56,7 @@ else                                                                 $category =
 /*
  * init other vars
  */
-$dialogBox = new DialogBox();
+$messageList = array();
 
 if ( $is_allowedToEdit && !is_null($cmd) )
 {
@@ -61,9 +64,9 @@ if ( $is_allowedToEdit && !is_null($cmd) )
 
     if ( !is_null($descId) && !$description->load($descId) )
     {
-        // description must be load but cannot, cancel any command
-        $cmd = null;
-        $descId = null;
+    	// description must be load but cannot, cancel any command
+    	$cmd = null;
+    	$descId = null;
     }
 
     /*> > > > > > > > > > > > COMMANDS < < < < < < < < < < < < */
@@ -76,29 +79,29 @@ if ( $is_allowedToEdit && !is_null($cmd) )
         if ( isset($_REQUEST['descCategory']) )  $description->setCategory($_REQUEST['descCategory']);
 
         if ( $description->validate() )
-        {
+    	{
             // Update description
             if ( $description->save() )
             {
                 if ( $descId )
                 {
                     $eventNotifier->notifyCourseEvent('course_description_modified', claro_get_current_course_id(), claro_get_current_tool_id(), $descId, claro_get_current_group_id(), '0');
-                    $dialogBox->success( get_lang('Description updated') );
+                    $messageList['info'][] = '<p>' . get_lang('Description updated') . '</p>';
                 }
                 else
                 {
                     $eventNotifier->notifyCourseEvent('course_description_added', claro_get_current_course_id(), claro_get_current_tool_id(), $descId, claro_get_current_group_id(), '0');
-                    $dialogBox->success( get_lang('Description added') );
+                    $messageList['info'][] = '<p>' . get_lang('Description added') . '</p>';
                 }
             }
             else
             {
-                $dialogBox->error( get_lang('Unable to update') );
+                $messageList['info'][] = '<p>' . get_lang('Unable to update') . '</p>';
             }
         }
         else
         {
-            // $dialogBox->error( get_lang('Unkown problem') );
+            $messageList['info'][] = '<p>' . get_lang('Check input') . '</p>';
             $cmd = 'rqEdit';
         }
     }
@@ -135,11 +138,11 @@ if ( $is_allowedToEdit && !is_null($cmd) )
         if ( $description->delete() )
         {
             $eventNotifier->notifyCourseEvent('course_description_deleted',claro_get_current_course_id(), claro_get_current_tool_id(), $descId, claro_get_current_group_id(), '0');
-            $dialogBox->success( get_lang("Description deleted.") );
+            $messageList['info'][] = '<p>' . get_lang("Description deleted.") . '</p>';
         }
         else
         {
-            $dialogBox->error( get_lang("Unable to delete") );
+            $messageList['info'][] = '<p>' . get_lang("Unable to delete") . '</p>';
         }
     }
 
@@ -189,7 +192,7 @@ include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 echo claro_html_tool_title($nameTools);
 
 //-- dialogBox
-echo $dialogBox->render();
+echo claro_html_msg_list($messageList);
 
 if ( $is_allowedToEdit )
 {
@@ -249,7 +252,7 @@ if ( $is_allowedToEdit )
 
         .    '<tr>' . "\n"
         .    '<td>'."\n"
-        .    claro_html_textarea_editor('descContent', $description->getContent(), 20, 80 )."\n"
+        .    claro_html_textarea_editor('descContent', $description->getContent(), 20, 80, $optAttrib=' wrap="virtual"')."\n"
 
         .    '<p>' . "\n"
         .    '<input type="submit" name="save" value="' . get_lang('Ok') . '" />&nbsp; ' . "\n"
@@ -292,7 +295,7 @@ if ( $is_allowedToEdit )
 
         echo "\n\n"
         .    '<br />' . "\n"
-        .    '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
+        .    '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
         .    claro_form_relay_context()
         .    '<input type="hidden" name="cmd" value="rqEdit" />' . "\n"
         .    '<select name="category">' . "\n"
@@ -359,7 +362,7 @@ if ( count($descList) )
                 $cssInvisible = ' invisible';
             }
 
-            echo '<tr class="headerX">'
+            echo '<tr class="superHeader">'
             .    '<th>'
             .    '<span class="'. $cssItem . $cssInvisible .'">';
 
@@ -388,7 +391,8 @@ if ( count($descList) )
                 .    '</a>' . "\n"
                 // delete
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;descId=' . $thisDesc['id'] . '"'
-                .    ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('Are you sure to delete "%title" ?', array('%title' => $thisDesc['title']))) . '\')) return false;">'
+                .    ' onClick="if (!confirm(\'' . clean_str_for_javascript(get_lang('Are you sure to delete'))
+                .    ' : ' . $thisDesc['title'] . ' ?\')){ return false}">'
                 .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="' . get_lang('Delete') . '" />'
                 .    '</a>' . "\n";
 

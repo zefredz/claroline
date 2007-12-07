@@ -4,9 +4,9 @@
  *
  * This script allows users to log on platform and back to requested ressource
  *
- * @version 1.9 $Revision$
+ * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -46,7 +46,7 @@ if (get_conf('claro_CasEnabled',false) && ! get_conf('claro_displayLocalAuthForm
 
 if ( $sourceUrl )
 {
-    $sourceUrlFormField = '<input type="hidden" name="sourceUrl" value="'.htmlspecialchars($sourceUrl).'" />';
+    $sourceUrlFormField = '<input type="hidden" name="sourceUrl" value="'.htmlspecialchars($sourceUrl).'">';
 }
 else
 {
@@ -55,7 +55,7 @@ else
 
 if (claro_is_in_a_course())
 {
-    $sourceCidFormField = '<input type="hidden" name="sourceCid" value="' . htmlspecialchars(claro_get_current_course_id()) . '" />';
+    $sourceCidFormField = '<input type="hidden" name="sourceCid" value="' . htmlspecialchars(claro_get_current_course_id()) . '">';
 }
 else
 {
@@ -64,7 +64,7 @@ else
 
 if (claro_is_in_a_group())
 {
-    $sourceGidFormField = '<input type="hidden" name="sourceGid" value="' . htmlspecialchars(claro_get_current_group_id()) . '" />';
+    $sourceGidFormField = '<input type="hidden" name="sourceGid" value="' . htmlspecialchars(claro_get_current_group_id()) . '">';
 }
 else
 {
@@ -72,7 +72,7 @@ else
 }
 
 $cidRequired = (isset($_REQUEST['cidRequired']) ? $_REQUEST['cidRequired'] : false );
-$cidRequiredFormField = ($cidRequired ? '<input type="hidden" name="cidRequired" value="true" />' : '');
+$cidRequiredFormField = ($cidRequired ? '<input type="hidden" name="cidRequired" value="true">' : '');
 
 $uidRequired = true; // todo : possibility to continue in anonymous
 
@@ -116,12 +116,12 @@ if ( ! claro_is_user_authenticated() && $uidRequired )
         .    '<legend>' . get_lang('Authentication') . '</legend>'               ."\n"
 
         .    '<label for="username">'.get_lang('Username').' : </label><br />'   ."\n"
-        .    '<input type="text" name="login" id="username" /><br />'       ."\n"
+        .    '<input type="text" name="login" id="username"><br />'       ."\n"
 
         .    '<label for="password">'.get_lang('Password').' : </label><br />'   ."\n"
-        .    '<input type="password" name="password" id="password" /><br />'."\n"
+        .    '<input type="password" name="password" id="password"><br />'."\n"
         .    '<br />'
-        .    '<input type="submit" value="'.get_lang('Ok').'" />&nbsp; '                 ."\n"
+        .    '<input type="submit" value="'.get_lang('Ok').'">&nbsp; '                 ."\n"
         .    claro_html_button(get_path('clarolineRepositoryWeb'), get_lang('Cancel'))
         .    '</fieldset>'                                                ."\n"
         .    '</form>'                                                    ."\n"
@@ -154,13 +154,13 @@ elseif ( ! claro_is_in_a_course() && $cidRequired )
      */
 
     $tbl                = claro_sql_get_main_tbl();
-    $sql = "
-            SELECT c.code                                             AS `value`,
-                   CONCAT(c.intitule,' (',c.administrativeNumber,')') AS `name`
+
+    $sql = "SELECT c.code                                  AS `value`,
+                   CONCAT(c.intitule,' (',c.fake_code,')') AS `name`
             FROM `" . $tbl['course'] . "`          AS c ,
                  `" . $tbl['rel_course_user'] . "` AS cu
-            WHERE c.code = cu.code_cours
-              AND cu.user_id = " . (int) claro_get_current_user_id();
+            WHERE c.code= cu.code_cours
+              AND cu.user_id = '" . (int) claro_get_current_user_id() . "'" ;
 
     $courseList = claro_sql_query_fetch_all($sql);
 
@@ -195,7 +195,7 @@ elseif ( ! claro_is_in_a_course() && $cidRequired )
         .    '<td>'                                                  ."\n"
         .    '</td>'                                                 ."\n"
         .    '<td>'                                                  ."\n"
-        .    '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp; '."\n"
+        .    '<input type="submit" value="' . get_lang('Ok') . '">&nbsp; '."\n"
         .    claro_html_button(get_path('url') . '/index.php', get_lang('Cancel'))
         .    '</td>'                                                 ."\n"
         .    '</tr>'                                                 ."\n"
@@ -218,10 +218,12 @@ elseif ( ! claro_is_in_a_course() && $cidRequired )
 }
 else // LOGIN SUCCEEDED
 {
-    if(!isset($userLoggedOnCas))
-        $userLoggedOnCas = false;
-
-    $claroline->notifier->event( 'user_login', array('data' => array('ip' => $_SERVER['REMOTE_ADDR']) ) );
+	if(!isset($userLoggedOnCas))
+		$userLoggedOnCas = false;
+    //notify that a user has just loggued in
+    $eventNotifier->notifyEvent('user_login', array('uid' => claro_get_current_user_id()));
+	//record in tracking tables
+	event_login();
 
     if ( claro_is_in_a_course() && ! claro_is_course_allowed() )
     {
@@ -279,13 +281,13 @@ else // LOGIN SUCCEEDED
         require get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
     }
-    elseif($userLoggedOnCas && isset($_SESSION['casCallBackUrl']))
-    {
-        claro_redirect(base64_decode($_SESSION['casCallBackUrl']));
-    }
+	elseif($userLoggedOnCas && isset($_SESSION['casCallBackUrl']))
+	{
+		claro_redirect(base64_decode($_SESSION['casCallBackUrl']));
+	}
     elseif( isset($sourceUrl) ) // send back the user to the script authentication trigger
     {
-        $sourceUrl = base64_decode($sourceUrl);
+    	$sourceUrl = base64_decode($sourceUrl);
         if (isset($_REQUEST['sourceCid']) )
         {
             $sourceUrl .= ( strstr( $sourceUrl, '?' ) ? '&' : '?')

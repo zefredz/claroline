@@ -36,7 +36,7 @@ if( get_conf('claro_displayLocalAuthForm') )
     ;
 
 
-if( get_conf('allowSelfReg') )
+if( $allowSelfReg )
 {
     echo '<!-- "Create user Account" -->' . "\n"
     .    '<p>' . "\n"

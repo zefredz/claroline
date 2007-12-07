@@ -36,13 +36,13 @@ else                          $id = null;
 $item_list = explode('_',$id);
 
 if( isset($item_list['0']) ) $cmd = $item_list['0'];
-else                         $cmd = null;
+else	                     $cmd = null;
 
 if( isset($item_list['1']) && is_numeric($item_list['1']) ) $quId = (int) $item_list['1'];
-else                                                        $quId = null;
+else	                                                    $quId = null;
 
 if( isset($item_list['2']) && is_numeric($item_list['2']) ) $exId = (int) $item_list['2'];
-else                                                        $exId = null;
+else	                                                    $exId = null;
 
 if ( $cmd == 'download' )
 {

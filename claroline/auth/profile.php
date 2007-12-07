@@ -214,8 +214,8 @@ switch ( $display )
         if( get_conf('is_trackingEnabled') )
         {
             // display user tracking link
-            $profileMenu[] = '<a class="claroCmd" href="' . get_conf('urlAppend') . '/claroline/tracking/userLog.php?userId='.claro_get_current_user_id() . claro_url_relay_context('&amp;') . '">'
-            .                 '<img src="' . get_conf('clarolineRepositoryWeb','/claroline') . '/img/statistics.gif" alt="" />' . get_lang('View my statistics')
+            $profileMenu[] = '<a class="claroCmd" href="' . get_conf('urlAppend') . '/claroline/tracking/personnalLog.php' . claro_url_relay_context('?') . '">'
+            .                 '<img src="' . get_conf('clarolineRepositoryWeb','/claroline') . '/img/statistics.gif" />' . get_lang('View my statistics')
             .                 '</a>'
             ;
         }
@@ -296,11 +296,9 @@ switch ( $display )
 
         echo '<tr valign="top">' . "\n"
         .    '<td>' . get_lang('Submit') . ': </td>' . "\n"
-        .    '<td>'
-        .    '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp; ' . "\n"
+        .    '<td><input type="submit" value="' . get_lang('Ok') . '">&nbsp; ' . "\n"
         .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
-        .    '</td>'
-        .    '</tr>' . "\n"
+        .    '</td></tr>' . "\n"
         .     form_row('&nbsp;', '<small>' . get_lang('<span class="required">*</span> denotes required field') . '</small>')
         .    '</table>' . "\n"
         .    '</form>' . "\n"
@@ -340,8 +338,7 @@ switch ( $display )
             .    form_input_textarea('explanation','',get_lang('Comment'),true,6)
             .    '<tr valign="top">' . "\n"
             .    '<td>' . get_lang('Delete my account') . ': </td>' . "\n"
-            .    '<td>'
-            .    '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp; ' . "\n"
+            .    '<td><input type="submit" value="' . get_lang('Ok') . '">&nbsp; ' . "\n"
             .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . "\n"
             .    '</td></tr>' . "\n"
             .    '</table>' . "\n"

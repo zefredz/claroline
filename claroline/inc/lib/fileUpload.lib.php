@@ -21,8 +21,6 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 //------------------------------------------------------------------------------
 
-require_once dirname(__FILE__) . '/file.lib.php';
-
 /**
  * Change the file name extension from .php to .phps
  * Useful to secure a site !!
@@ -315,7 +313,7 @@ function treat_uploaded_file($uploadedFile, $baseWorkDir, $uploadPath, $maxFille
 {
 
     if ( file_upload_failed($uploadedFile) )
-      {
+  	{
         $failureStr = get_file_upload_error_message($uploadedFile);
         return claro_failure::set_failure($failureStr);
     }
@@ -402,9 +400,7 @@ function treat_secure_file_unzip($fileName, $filePath,
     // Check the zip content (real size and file extension)
 
     $zipContentArray = $zipFile->listContent();
-    
-    if( ! is_array($zipContentArray) ) return false;
-    
+
     foreach($zipContentArray as $thisContent)
     {
         if (!$allowPHP)
@@ -424,9 +420,7 @@ function treat_secure_file_unzip($fileName, $filePath,
         return claro_failure::set_failure(get_lang('The upload has failed. There is not enough space in your directory'));
     }
 
-    $extractedFileNameList = $zipFile->extract(
-        PCLZIP_OPT_PATH,        $extractPath . $filePath,
-        PCLZIP_OPT_SET_CHMOD,   CLARO_FILE_PERMISSIONS );
+    $extractedFileNameList = $zipFile->extract(PCLZIP_OPT_PATH, $extractPath . $filePath);
 
     if ( is_array($extractedFileNameList) )
     {
@@ -450,14 +444,18 @@ function search_img_from_html($htmlFile)
 {
     $imgPathList = array();
 
-    $buffer = file_get_contents( $htmlFile );
+    $fp = fopen($htmlFile, "r") or die('<center>can not open file</center>');
+
+    // search and store occurences of the <IMG> tag in an array
+
+    $buffer = fread( $fp, filesize($htmlFile) ) or die('<center>can not read file</center>');;
 
     if ( preg_match_all('~<[[:space:]]*img[^>]*>~i', $buffer, $matches) )
     {
         $imgTagList = $matches[0];
     }
 
-    unset($buffer);
+    fclose ($fp); unset($buffer);
 
     // Search the image file path from all the <IMG> tag detected
 
@@ -630,16 +628,9 @@ function create_link_file($filePath, $url)
 function create_file($filePath, $fileContent)
 {
     $fp = fopen ($filePath, 'w') or die ('can not create file');
-    
-    if ( ( $ret = fwrite($fp, $fileContent) ) !== false )
-    {
-        @chmod($filePath,CLARO_FILE_PERMISSIONS);
-    }
-
-    fclose($fp);
-
-    return $ret;
+    return  fwrite($fp, $fileContent);
 }
+
 
 /**
  * Determine the maximum size allowed to upload. This size is based on

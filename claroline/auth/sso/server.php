@@ -1,6 +1,6 @@
-<?php // $Id$
+<?php # -$Id$
 
-/**
+/*
  * SOAP server available for Single Sign On (SSO) process.
  *
  * Once a user logs to the Claroline platform a cookie is sent to the
@@ -11,10 +11,6 @@
  * The function of this script is providing a way to retrieve the user
  * parameter from another server on the internet on the base of this
  * cookie value.
- *
- * @package SSO
- *
- * @author Claro Team cvs@claroline.net
  *
  */
 
@@ -84,7 +80,6 @@ function get_user_info_from_cookie($auth, $cookie, $cid, $gid)
                  'courseDbName'             => null,
                  'courseRegistrationAllowed'=> null,
                  'courseVisibility'         => null,
-                 'courseAccess'             => null,
                  'is_courseMember'          => null,
                  'is_courseTutor'           => null,
                  'is_courseAdmin'           => null,
@@ -154,21 +149,19 @@ function get_user_info_from_cookie($auth, $cookie, $cid, $gid)
         // $tbl_course          = $mainTblList['cours'       ]; // for claroline 1.5
         $tbl_rel_course_user = $mainTblList['rel_course_user'];
 
-        $sql = "SELECT `c`.`intitule`              AS title,
-                       `c`.`administrativeNumber`  AS officialCode,
-                       `c`.`titulaires`            AS titular,
-                       `c`.`dbName`                AS dbName,
-                       `c`.`visibility`            AS visibility,
-                       `c`.`access`                AS access,
-                       `c`.`registration`          AS registration,
-                       `cu`.`isCourseManager`      AS isCourseManager,
-                       `cu`.`role`                 AS userRole,
-                       `cu`.`tutor`                AS tutor
-                FROM      `" . $tbl_course . "`          AS c
-                LEFT JOIN `" . $tbl_rel_course_user . "` AS cu
+        $sql = "SELECT `c`.`intitule`   title,
+                       `c`.`fake_code`  officialCode,
+                       `c`.`titulaires` titular,
+                       `c`.`dbName`,
+                       `c`.`visible`    visibility,
+                       `cu`.`isCourseManager`,
+                       `cu`.`role`      userRole,
+                       `cu`.`tutor`
+                FROM      `".$tbl_course."`          c
+                LEFT JOIN `".$tbl_rel_course_user."` cu
                 ON    `c`.`code`     = `cu`.`code_cours`
-                AND   `cu`.`user_id` = " . (int) $uid . "
-                WHERE `c`.`code`     = '" . $cid."'";
+                AND   `cu`.`user_id` = '".$uid."'
+                WHERE `c`.`code`     = '".$cid."'";
 
         $courseResult = claro_sql_query_fetch_all($sql);
 
@@ -181,9 +174,11 @@ function get_user_info_from_cookie($auth, $cookie, $cid, $gid)
             $res['courseCode'   ] = $course['officialCode'];
             $res['courseDbName' ] = $course['dbName'      ];
 
-            $res['courseRegistrationAllowed'] = (bool) ($course['registration'] == 'OPEN');
-            $res['courseVisibility'         ] = (bool) ($course['visibility'] == 'VISIBLE');
-            $res['courseAccess'             ] = (bool) ($course['access']     == 'PUBLIC');
+            $res['courseRegistrationAllowed'] = (bool) (   $course['visibility'] == 1
+                                                        || $course['visibility'] == 2 );
+
+            $res['courseVisibility'         ] = (bool) (   $course['visibility'] == 2
+                                                        || $course['visibility'] == 3 );
 
             $res['is_courseMember' ] = (bool) ( ! is_null($course['userStatus']) );
             $res['is_courseTutor'  ] = (bool) (   $course['tutor'     ] == 1  );

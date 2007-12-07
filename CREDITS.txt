@@ -48,8 +48,8 @@ Events since last visit :       René Haentjens (rene.haentjens@intec.ugent.be)
 Quizz Tool :                    Olivier Brouckaert (oli.brouckaert@skynet.be)
                                 Sebastien Piraux (piraux@cerdecam.be)
 
-Learning Path Tool :            Sebastien Piraux (Cerdecam)
-                                Guillaume Lederer
+Learning Path Tool :            Guillaume Lederer
+                                Sebastien Piraux (Cerdecam)
 
 Tracking system :               Sebastien Piraux (piraux@cerdecam.be)
 

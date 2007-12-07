@@ -4,8 +4,8 @@
  *
  * This tool list user of a course but in admin section
  *
- * @version 1.9 $Revision$
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
+ * @version 1.8 $Revision$
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -153,7 +153,7 @@ foreach($userList as $lineId => $user)
     .                                            '?cidToEdit=' . $cidToEdit
     .                                            '&amp;cmd=unsub&amp;user_id=' . $user['user_id']
     .                                            '&amp;pager_offset=' . $pager_offset . '" '
-    .                                            ' onclick="return confirmationReg(\'' . clean_str_for_javascript($user['username']) . '\');">' . "\n"
+    .                                            ' onClick="return confirmationReg(\'' . clean_str_for_javascript($user['username']) . '\');">' . "\n"
     .                                            '<img src="' . get_conf('imgRepositoryWeb') . 'unenroll.gif" border="0" alt="' . get_lang('Unregister user') . '" />' . "\n"
     .                                            '</a>' . "\n";
 
@@ -168,7 +168,7 @@ $htmlHeadXtra[] =
          "<script>
          function confirmationReg (name)
          {
-             if (confirm(\"".clean_str_for_javascript(get_lang('Are you sure you want to unregister'))." \"+ name + \" ? \"))
+             if (confirm(\"".clean_str_for_javascript(get_lang('Are you sure you want to unregister '))." \"+ name + \" ? \"))
                  {return true;}
              else
                  {return false;}

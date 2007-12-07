@@ -76,7 +76,7 @@ if ( isset($_REQUEST['exCmd']) && $_REQUEST['exCmd'] == 'ToTranslate' )
     if ( isset($_REQUEST['lang']))
     {
         $language = $_REQUEST['lang'];
-    }
+	}
     else 
     {
         $language = DEFAULT_LANGUAGE ;
@@ -86,14 +86,14 @@ if ( isset($_REQUEST['exCmd']) && $_REQUEST['exCmd'] == 'ToTranslate' )
     printf("<h4>Missing variables in %s</h4>",$language);
     
     // count missing lang var in devel complete file for this language
-    $sql = " SELECT DISTINCT u.varName, u.sourceFile 
-             FROM ". $tbl_used_lang . " u 
-             LEFT JOIN " . $tbl_translation . " t ON 
-             (
-                u.varName = t.varName 
-                AND t.language=\"" . $language . "\"
-             ) 
-             WHERE t.varContent is NULL
+	$sql = " SELECT DISTINCT u.varName, u.sourceFile 
+	         FROM ". $tbl_used_lang . " u 
+	         LEFT JOIN " . $tbl_translation . " t ON 
+	         (
+	            u.varName = t.varName 
+	            AND t.language=\"" . $language . "\"
+	         ) 
+	         WHERE t.varContent is NULL
              ORDER BY u.varName, u.sourceFile ";
     
     // build pager
@@ -102,26 +102,26 @@ if ( isset($_REQUEST['exCmd']) && $_REQUEST['exCmd'] == 'ToTranslate' )
 
     // display pager
     echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?exCmd=ToTranslate&lang='.$language);
-    
+	
     // display table header
     echo "<table class=\"claroTable\" width=\"100%\" >\n";
     echo "<thead>"
-         . "<tr class=\"headerX\">"
+	     . "<tr class=\"headerX\">"
          . "<th>VarName</th>"
-         . "<th>SourceFile</th>"
-         . "</tr>"
+	     . "<th>SourceFile</th>"
+	     . "</tr>"
          . "</thead>"
-         . "<tbody>\n";
+	     . "<tbody>\n";
 
     // variables used to switch background color
     $varName = '';
     $color = true;
-    
+	
     // browse missing variables
-    foreach ( $result_missing_var as $row_missing_var ) 
-    {
-        // get values
-        $sourceFile = $row_missing_var['sourceFile'];
+	foreach ( $result_missing_var as $row_missing_var ) 
+	{
+	    // get values
+	    $sourceFile = $row_missing_var['sourceFile'];
         if ($row_missing_var['varName'] != $varName)
         {
             $varName = $row_missing_var['varName'];
@@ -141,7 +141,7 @@ if ( isset($_REQUEST['exCmd']) && $_REQUEST['exCmd'] == 'ToTranslate' )
         echo "<td>". $varName ."</td>\n"
             . "<td><a href=\"http://cvs.claroline.net/cgi-bin/viewcvs.cgi/claroline/" . $sourceFile . "\">". $sourceFile ."</a></td>\n"
             . "</tr>\n";
-    }
+	}
 
     // display table footer
     echo "</tbody>";
@@ -161,55 +161,55 @@ else
      * Display a table and display each language variable translated, to translate and complete pourcentage of the translation
      */
 
-    // get all languages
-    $sql = " SELECT DISTINCT language 
-             FROM " . $tbl_translation . "";
-    $result_language = claro_sql_query($sql);
+	// get all languages
+	$sql = " SELECT DISTINCT language 
+	         FROM " . $tbl_translation . "";
+	$result_language = claro_sql_query($sql);
 
     // display table header
-    echo "<table class=\"claroTable\">\n";
-    echo "<thead>
-          <tr class=\"headerX\">
-           <th>Language</th>
-           <th>Translated</th>
-           <th>To translate</th>
-           <th>Complete %</th>
-          </tr>
-          </thead>
-          <tbody>\n";
-    
-    while ($row_language = mysql_fetch_array($result_language)) 
-    {
-        // get language
-        $language = $row_language['language'];
-    
-        // count missing lang var in devel complete file for this language
-        $sql = " SELECT count(DISTINCT u.varName) 
-                 FROM ". $tbl_used_lang . " u 
-                 LEFT JOIN " . $tbl_translation . " t ON 
-                 (
-                    u.varName = t.varName 
-                    AND t.language=\"" . $language . "\"
-                 ) 
-                 WHERE t.varContent is NOT NULL ";
-        
+	echo "<table class=\"claroTable\">\n";
+	echo "<thead>
+	      <tr class=\"headerX\">
+	       <th>Language</th>
+	       <th>Translated</th>
+	       <th>To translate</th>
+	       <th>Complete %</th>
+	      </tr>
+	      </thead>
+	      <tbody>\n";
+	
+	while ($row_language = mysql_fetch_array($result_language)) 
+	{
+	    // get language
+	    $language = $row_language['language'];
+	
+		// count missing lang var in devel complete file for this language
+		$sql = " SELECT count(DISTINCT u.varName) 
+		         FROM ". $tbl_used_lang . " u 
+		         LEFT JOIN " . $tbl_translation . " t ON 
+		         (
+		            u.varName = t.varName 
+		            AND t.language=\"" . $language . "\"
+		         ) 
+		         WHERE t.varContent is NOT NULL ";
+	    
         // execute query and get result
-        $result_missing_var_count = claro_sql_query($sql);
-        $row_missing_var_count  = mysql_fetch_row($result_missing_var_count);
+		$result_missing_var_count = claro_sql_query($sql);
+		$row_missing_var_count  = mysql_fetch_row($result_missing_var_count);
 
         // compute field
-        $count_var_translated = $row_missing_var_count[0];
-        $count_var_to_translate = $count_total_diff_var - $count_var_translated;
-        $pourcent_progession = (float) round (1000 * $count_var_translated / $count_total_diff_var) / 10;
-    
+		$count_var_translated = $row_missing_var_count[0];
+	    $count_var_to_translate = $count_total_diff_var - $count_var_translated;
+	    $pourcent_progession = (float) round (1000 * $count_var_translated / $count_total_diff_var) / 10;
+	
         // display row
 
         if ( $pourcent_progession > 60 ) echo "<tr style=\"font-weight: bold;\">\n";
         else echo "<tr>\n";
 
         echo "<td>" . $language . "</td>\n"
-             . "<td style=\"text-align: right\">" . $count_var_translated . "</td>\n"
-             . "<td style=\"text-align: right\">" ;
+	         . "<td style=\"text-align: right\">" . $count_var_translated . "</td>\n"
+	         . "<td style=\"text-align: right\">" ;
 
         if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'export' )
         {

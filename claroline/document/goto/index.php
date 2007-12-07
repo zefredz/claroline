@@ -13,8 +13,6 @@
 
 // This page is used to launch an event when a user click to download a document
 
-die("document/goto is deprecated, use claro_get_file_download_url( $file ) function instead");
-
 $tlabelReq = 'CLDOC';
 
 require '../../inc/claro_init_global.inc.php';

@@ -54,7 +54,6 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     {
         var /*% Wiki*/ $wiki;
         var /*% HTML_Sanitizer*/ $san;
-        var $addAtEnd = array();
 
         /**
          * Constructor
@@ -211,12 +210,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 			elseif ($this->getOpt('active_tables'))
 			{
                 # table start
-                if ( preg_match('/^\s*{\|(.+)\s*/', $line, $cap) )
+                if ( preg_match('/^\s*{\|(\w+)\s*/', $line, $cap) )
                 {
                     $type = null;
                     $line = '<table>';
-                    $caption = trim($cap[1]);
-                    $line .= '<caption>'.$caption.'</caption>';
+                    $line .= '<caption>'.$cap[1].'</caption>';
                 }
                 elseif ( preg_match('/^\s*{\|\s*/', $line, $cap) )
                 {
@@ -233,12 +231,41 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 				elseif( preg_match('/^\s*\|\|(.*)\|\|\s*$/', $line, $cap) )
 				{
 					$type = null;
-					
-                    $line = trim( $cap[1] );
 
-					$line = $this->__inlineWalk( $line );
-					
-					$line = $this->_parseTableLine($line);
+					$line = $this->__inlineWalk( $cap[1] );
+                    
+                    $content = explode( '|', $line );
+                    
+                    $th = false;
+                    $cell = array();
+                    
+                    for ( $i = 0; $i < count( $content ); $i++ )
+                    {
+                        $r = trim( $content[$i] );
+                        
+                        if ( strpos( $r, '!' ) === 0 )
+                        {
+                            $th = true;
+                            $cell[] = substr($r,1);
+                        }
+                        else
+                        {
+                            $cell[] = $r;
+                        }
+                    }
+                    
+                    if ( true === $th )
+                    {
+                       $line = '<tr><th>';
+                       $line .= implode( '</th><th>', $cell );
+                       $line .= '</th></tr>';
+                    }
+                    else
+                    {
+					   $line = '<tr><td>';
+					   $line .= implode( '</td><td>', $cell );
+                       $line .= '</td></tr>';
+                    }
 				}
                 else
                 {
@@ -254,77 +281,6 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             }
 
             return $line;
-        }
-        
-        function _parseTableLine($line)
-        {
-            $cell = array();
-            $offset = 0;
-            $th = false;
-            
-            while ( strlen ( $line ) > 0 )
-            {
-                if ( false !== ( $pos = strpos( $line, '|', $offset ) ) )
-                {
-                    if ( ($pos-1 >= 0) &&  $line[$pos-1] == '\\' )
-                    {
-                        $offset = $pos+1;
-                        continue;
-                    }
-                    else
-                    {
-                        $r = substr( $line, 0, $pos );
-                        
-                        if ( strpos( $r, '!' ) === 0 )
-                        {
-                            $th = true;
-                            $cell[] = substr($r,1);
-                        }
-                        else
-                        {
-                            $cell[] = $r;
-                        }
-                        
-                        
-                        $line = substr( $line, $pos+1 );
-                        $offset = 0;
-                    }
-                }
-                else
-                {
-                    $r = $line;
-                    
-                    if ( strpos( $r, '!' ) === 0 )
-                    {
-                        $th = true;
-                        $cell[] = substr($r,1);
-                    }
-                    else
-                    {
-                        $cell[] = $r;
-                    }
-
-                    $line = '';
-                    $offset = 0;
-                }
-            }
-            
-            $ret = '';
-            
-            if ( true === $th )
-            {
-                $ret = '<tr><th>';
-                $ret .= implode( '</th><th>', $cell );
-                $ret .= '</th></tr>';
-            }
-            else
-            {
-                $ret = '<tr><td>';
-                $ret .= implode( '</td><td>', $cell );
-                $ret .= '</td></tr>';
-            }
-            
-            return $ret;
         }
 
         /**
@@ -405,15 +361,6 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                         . get_lang( 'Main page' )
                         . "</a>"
                         ;
-                    break;
-                }
-                // toc
-                case 'toc':
-                {
-                    $str = '';
-                    $this->addAtEnd[] = '<script type="text/javascript" src="./lib/javascript/toc.js"></script>';
-                    $this->addAtEnd[] = '<script type="text/javascript">createTOC();</script>';
-                    break;
                 }
                 // embedded html
                 default:
@@ -595,8 +542,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     		# Suppression des echappements
     		$res = str_replace($this->escape_table,$this->all_tags,$res);
             # Unescape table tags
-            
-            $res = str_replace(array('\\{|', '\\|}'),array('{|', '|}'),$res);
+    		$res = str_replace(array('\\{|', '\\||', '\\|}'),array('{|', '||', '|}'),$res);
 
     		return $res;
 		}
@@ -608,15 +554,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
          */
         function render( $txt )
         {
-            // bug #937
-            $ret = preg_replace( '/\\\\((\!|\|)+)/', '$1', $this->transform($txt ) );
-            
-            foreach ( $this->addAtEnd as $line )
-            {
-                $ret .= $line . "\n";
-            }
-            
-            return $ret;
+            return $this->transform($txt );
         }
 
         /**

@@ -191,12 +191,7 @@ function claro_move_file($sourcePath, $targetPath)
 function claro_copy_file($sourcePath, $targetPath)
 {
     $fileName = basename($sourcePath);
-    
-    $sourcePath = realpath ($sourcePath);
-    $targetPath = realpath ($targetPath);
-    if (! is_readable($sourcePath)) Console::warning($sourcePath . 'not readable');
-    if (! is_writable($targetPath)) Console::warning($targetPath . 'not writable');
-    
+
     if ( is_file($sourcePath) )
     {
         return copy($sourcePath , $targetPath . '/' . $fileName);
@@ -215,7 +210,7 @@ function claro_copy_file($sourcePath, $targetPath)
 
         $copiableFileList = array();
 
-        while ( false !== ( $element = readdir($dirHandle) ) )
+        while ($element = readdir($dirHandle) )
         {
             if ( $element == '.' || $element == '..') continue;
 
@@ -264,45 +259,42 @@ function claro_dirname($filePath)
  * Indexes all the directories and subdirectories
  * contented in a given directory
  *
- * @param  dirPath (string) - directory path of the one to index
- * @param  mode (string) - ALL, FILE, DIR : specify what will be listed
- * @return an array containing the path of all the subdirectories
+ * @param  - path (string) - directory path of the one to index
+ * @return - an array containing the path of all the subdirectories
  */
 
-function index_dir($dirPath, $mode = 'ALL' )
+function index_dir($path)
 {
-    $files = array();
-    if( is_dir($dirPath) ) 
+    chdir($path);
+    $handle = opendir($path);
+
+    $dirList = array();
+
+    // reads directory content end record subdirectoies names in $dir_array
+    while ($element = readdir($handle) )
     {
-        $fh = opendir($dirPath);
-        while( ( $fileName = readdir($fh) ) !== false ) 
-        {
-            // loop through the files, skipping . and .., and recursing if necessary
-            if( $fileName == '.' || $fileName == '..' || $fileName == 'CVS' ) continue;
-            
-            $filePath = $dirPath . '/' . $fileName;
-            
-            if( is_dir($filePath) )
-            {
-                if( $mode != 'FILE' ) array_push($files, $filePath); // mode == DIR or ALL : store dirname
-                $files = array_merge($files, index_dir($filePath, $mode));
-            }
-            elseif( $mode != 'DIR' )
-            {
-                // mode == FILE or ALL : store filename
-                array_push($files, $filePath);
-            }
-        }
-        closedir($fh);
-    } 
-    else
-    {
-        // false if the function was called with an invalid non-directory argument
-        Console::warning($dirPath . 'not a dir');
-        $files = false;
+        if ( $element == '.' || $element == '..') continue;    // skip the current and parent directories
+        if ( is_dir($element) )     $dirList[] = $path.'/'.$element;
     }
-    return $files;
+
+    closedir($handle) ;
+
+    // recursive operation if subdirectories exist
+    $dirNumber = sizeof($dirList);
+    if ( $dirNumber > 0 )
+    {
+        for ($i = 0 ; $i < $dirNumber ; $i++ )
+        {
+            $subDirList = index_dir( $dirList[$i] ) ;                // function recursivity
+            $dirList  =  array_merge( $dirList , $subDirList ) ;    // data merge
+        }
+    }
+
+    chdir("..") ;
+
+    return $dirList ;
 }
+
 
 /**
  * Indexes all the directories and subdirectories
@@ -316,7 +308,7 @@ function index_dir($dirPath, $mode = 'ALL' )
 
 function index_and_sort_dir($path)
 {
-    $dir_list = index_dir($path, 'DIR');
+    $dir_list = index_dir($path);
 
     if ($dir_list)
     {
@@ -344,8 +336,8 @@ function form_dir_list($file, $baseWorkDir)
 
     $dialogBox = "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\">\n"
                  .    claro_form_relay_context()
-                 ."<input type=\"hidden\" name=\"cmd\" value=\"exMv\" />\n"
-                 ."<input type=\"hidden\" name=\"file\" value=\"".$file."\" />\n"
+                 ."<input type=\"hidden\" name=\"cmd\" value=\"exMv\">\n"
+                 ."<input type=\"hidden\" name=\"file\" value=\"".$file."\">\n"
                  ."<label for=\"destiantion\">"
                  . get_lang('Copy').' <i>'.basename($file).'</i> '.get_lang('To')." : "
                  ."</label><br />\n"
@@ -396,7 +388,7 @@ function form_dir_list($file, $baseWorkDir)
 
     $dialogBox .= '</select>' . "\n"
                .  '<br /><br />'
-               .  '<input type="submit" value="'.get_lang('Ok').'" />&nbsp; '
+               .  '<input type="submit" value="'.get_lang('Ok').'">&nbsp; '
                .  claro_html_button($_SERVER['PHP_SELF'].'?cmd=exChDir&file='.htmlspecialchars(claro_dirname($file)), get_lang('Cancel'))
                .  '</form>' . "\n";
 
@@ -469,23 +461,28 @@ function claro_mkdir($pathName, $mode = 0777, $recursive = false)
 }
 
 /**
- * create a tmp directory
+ * to extract the extention of the filename
  *
- * @param string  $dir
- * @param string  $prefix 
- * @param int     $mode  
- * @return string full pathname
+ * @param  string $file
+ * @return string extension
+ *         bool false
  */
-function claro_mkdir_tmp($dir, $prefix = 'tmp', $mode = 0777)
+
+function get_file_extension($file)
 {
-    if (substr($dir, -1) != '/') $dir .= '/';
+    $pieceList = explode('.', $file);
 
-    do
+    if ( count($pieceList) > 1) // there is more than one piece
     {
-        $path = $dir.$prefix.mt_rand(0, 9999999);
-    } while ( !claro_mkdir($path, $mode) );
+        $lastPiece = array_pop($pieceList); // the last cell should be the extansion
 
-    return $path;
+        if ( !empty($lastPiece) && !strstr('/', $lastPiece) ) // check the dot is not into
+        {                                // a parent directory name
+            return $lastPiece;
+        }
+    }
+
+    return false;
 }
 
 

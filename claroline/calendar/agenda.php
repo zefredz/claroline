@@ -8,7 +8,7 @@
  *         - Add entries
  *         - generate an "announce" entries about an entries
  *
- * @version 1.9 $Revision$
+ * @version 1.8 $Revision$
  *
  * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
@@ -78,12 +78,15 @@ if ( $is_allowedToEdit )
     }
 }
 
+//stats
+event_access_tool(claro_get_current_tool_id(), claro_get_current_course_tool_data('label'));
+
 $tbl_c_names = claro_sql_get_course_tbl();
 $tbl_calendar_event = $tbl_c_names['calendar_event'];
 
 $cmd = ( isset($_REQUEST['cmd']) ) ?$_REQUEST['cmd']: null;
 
-$dialogBox = new DialogBox();
+$dialogBox = '';
 
 if     ( 'rqAdd' == $cmd ) $subTitle = get_lang('Add an event');
 elseif ( 'rqEdit' == $cmd ) $subTitle = get_lang('Edit Event');
@@ -137,11 +140,8 @@ if ( $is_allowedToEdit )
         $entryId = agenda_add_item($title,$content, $date_selection, $hour, $lasting) ;
         if ( $entryId != false )
         {
-            $dialogBox->success( get_lang('Event added to the agenda') );
-
-            // update linker and get error log
-            $linkerUpdateLog = linker_update();
-            if( !empty($linkerUpdateLog) ) $dialogBox->info( $linkerUpdateLog );
+            $dialogBox .= '<p>' . get_lang('Event added to the agenda') . '</p>' . "\n";
+            $dialogBox .= linker_update(); //return textual error msg
 
             if ( CONFVAL_LOG_CALENDAR_INSERT )
             {
@@ -156,7 +156,7 @@ if ( $is_allowedToEdit )
         }
         else
         {
-            $dialogBox->error( get_lang('Unable to add the event to the agenda') );
+            $dialogBox .= '<p>' . get_lang('Unable to add the event to the agenda') . '</p>' . "\n";
         }
     }
 
@@ -174,18 +174,14 @@ if ( $is_allowedToEdit )
         {
             if ( agenda_update_item($id,$title,$content,$date_selection,$hour,$lasting))
             {
-                $dialogBox->success( get_lang('Event updated into the agenda') );
-
-				// update linker and get error log
-	            $linkerUpdateLog = linker_update();
-	            if( !empty($linkerUpdateLog) ) $dialogBox->info( $linkerUpdateLog );
-
+                $dialogBox .= linker_update(); //return textual error msg
                 $eventNotifier->notifyCourseEvent('agenda_event_modified', claro_get_current_course_id(), claro_get_current_tool_id(), $id, claro_get_current_group_id(), '0'); // notify changes to event manager
                 $autoExportRefresh = TRUE;
+                $dialogBox .= '<p>' . get_lang('Event updated into the agenda') . '</p>' . "\n";
             }
             else
             {
-                $dialogBox->error( get_lang('Unable to update the event into the agenda') );
+                $dialogBox .= '<p>' . get_lang('Unable to update the event into the agenda') . '</p>' . "\n";
             }
         }
     }
@@ -199,7 +195,7 @@ if ( $is_allowedToEdit )
 
         if ( agenda_delete_item($id) )
         {
-            $dialogBox->success( get_lang('Event deleted from the agenda') );
+            $dialogBox .= '<p>' . get_lang('Event deleted from the agenda') . '</p>' . "\n";
 
             $eventNotifier->notifyCourseEvent('agenda_event_deleted', claro_get_current_course_id(), claro_get_current_tool_id(), $id, claro_get_current_group_id(), '0'); // notify changes to event manager
             $autoExportRefresh = TRUE;
@@ -210,7 +206,7 @@ if ( $is_allowedToEdit )
         }
         else
         {
-            $dialogBox->error( get_lang('Unable to delete event from the agenda') );
+            $dialogBox = '<p>' . get_lang('Unable to delete event from the agenda') . '</p>' . "\n";
         }
 
         linker_delete_resource();
@@ -224,7 +220,7 @@ if ( $is_allowedToEdit )
     {
         if ( agenda_delete_all_items())
         {
-            $dialogBox->success( get_lang('All events deleted from the agenda') );
+            $dialogBox .= '<p>' . get_lang('Event deleted from the agenda') . '</p>' . "\n";
 
             if ( CONFVAL_LOG_CALENDAR_DELETE )
             {
@@ -233,7 +229,7 @@ if ( $is_allowedToEdit )
         }
         else
         {
-            $dialogBox->error( get_lang('Unable to delete all events from the agenda') );
+            $dialogBox = '<p>' . get_lang('Unable to delete event from the agenda') . '</p>' . "\n";
         }
 
         linker_delete_all_tool_resources();
@@ -258,7 +254,14 @@ if ( $is_allowedToEdit )
             $autoExportRefresh = TRUE;
         }
 
-        agenda_set_item_visibility($id, $visibility);
+        if ( agenda_set_item_visibility($id, $visibility)  )
+        {
+            $dialogBox = get_lang('Visibility modified');
+        }
+        //        else
+        //        {
+        //            //error on delete
+        //        }
     }
 
     /*------------------------------------------------------------------------
@@ -322,6 +325,12 @@ if ( $is_allowedToEdit )
 
 $noQUERY_STRING = true;
 
+// Add feed RSS in header
+if ( get_conf('enableRssInCourse') )
+{
+    $htmlHeadXtra[] = '<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars($_course['name'] . ' - ' . get_conf('siteName')) . '"'
+    .' href="' . get_path('rootWeb') . 'claroline/rss/?cidReq=' . claro_get_current_course_id() . '" />';
+}
 $eventList = agenda_get_item_list($currentContext,$orderDirection);
 
 /**
@@ -340,7 +349,7 @@ $cmdList[]=  '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd">
 if ( count($eventList) > 0 )
 {
     $cmdList[]=  '<a class= "claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll" '
-    .    ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('Clear up event list ?')) . '\')) return false;">'
+    .    ' onclick="if (confirm(\'' . clean_str_for_javascript(get_lang('Clear up event list')) . ' ? \')){return true;}else{return false;}">'
     .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="" />'
                                    . get_lang('Clear up event list')
     .    '</a>'
@@ -361,7 +370,7 @@ include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 echo claro_html_tool_title(array('mainTitle' => $nameTools, 'subTitle' => $subTitle));
 
-echo $dialogBox->render();
+if ( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
 
 
 if ($display_form)
@@ -408,7 +417,7 @@ if ($display_form)
     .    '</label>' . "\n"
     .    '</td>' . "\n"
     .    '<td>' . "\n"
-    .    claro_html_textarea_editor('content', $editedEvent['content'], 12, 67 ) . "\n"
+    .    claro_html_textarea_editor('content', $editedEvent['content'], 12, 67, $optAttrib = ' wrap="virtual" ') . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '<tr valign="top">' . "\n"
@@ -423,12 +432,12 @@ if ($display_form)
     if( claro_is_jpspan_enabled() )
     {
         linker_set_local_crl( isset ($_REQUEST['id']) );
-        echo linker_set_display();
+        linker_set_display();
     }
     else // popup mode
     {
-        if(isset($_REQUEST['id'])) echo linker_set_display($_REQUEST['id']);
-        else                       echo linker_set_display();
+        if(isset($_REQUEST['id'])) linker_set_display($_REQUEST['id']);
+        else                       linker_set_display();
     }
 
     echo '</td></tr>' . "\n"
@@ -437,7 +446,7 @@ if ($display_form)
 
     if( claro_is_jpspan_enabled() )
     {
-        echo '<input type="submit" onclick="linker_confirm();"  class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />' . "\n";
+        echo '<input type="submit" onClick="linker_confirm();"  class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />' . "\n";
     }
     else // popup mode
     {
@@ -594,10 +603,12 @@ foreach ( $eventList as $thisEvent )
     if ($is_allowedToEdit)
     {
         echo '<a href="' . $_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;id=' . $thisEvent['id'] . '">'
-        .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="' . get_lang('Modify') . '" />'
+        .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="O" alt="' . get_lang('Modify') . '">'
         .    '</a> '
         .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;id=' . $thisEvent['id'] . '" '
-        .    ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('Are you sure to delete "%title" ?', array('%title' => $thisEvent['title']))) . '\')) return false;">'
+        .    'onclick="javascript:if(!confirm(\''
+        .    clean_str_for_javascript(get_lang('Delete') . ' ' . $thisEvent['title'].' ?')
+        .    '\')) {document.location=\'' . $_SERVER['PHP_SELF'] . '\'; return false}" >'
         .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />'
         .    '</a>'
         ;

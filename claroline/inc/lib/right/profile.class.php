@@ -517,7 +517,7 @@ class RightProfile
         $form = '<form action="' . $_SERVER['PHP_SELF'] . '" method="post" >'
         .       claro_form_relay_context()
         .       '<input type="hidden" name="profile_id" value="' . $this->id . '" />' . "\n"
-        .       '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n"
+        .       '<input type="hidden" name="claroFormId" value="' . uniqid('') . '">' . "\n"
         .       '<input type="hidden" name="cmd" value="exSave" />' . "\n"
         .       '<table>'
         ;
@@ -615,7 +615,7 @@ class RightProfile
         $form .= '
             <tr>
             <td align="right">&nbsp;</td>
-            <td><input type="submit" name="submitProfile" value="' . get_lang('Ok') . '" />&nbsp;'
+            <td><input type="submit" name="submitProfile" value="' . get_lang('Ok') . '">&nbsp;'
             . claro_html_button((isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:'.'), get_lang('Cancel'))
             . '</td></tr>
             </table>

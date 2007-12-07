@@ -18,15 +18,17 @@ define('CLARO_INCLUDE_ALLOWED', true);
 // Determine the directory path where this current file lies
 // This path will be useful to include the other intialisation files
 
+
 require_once  dirname(__FILE__) . '/lib/claro_main.lib.php';
 
 $_SERVER['PHP_SELF'] = php_self();
 
-$mainConfigurationFile = dirname(__FILE__) . '/../../platform/conf/claro_main.conf.php';
+$includePath = get_path('incRepositorySys');
+$mainConfPath = get_path('incRepositorySys') . '/../../platform/conf/' . 'claro_main.conf.php';
 
-if ( file_exists($mainConfigurationFile) )
+if ( file_exists($mainConfPath) )
 {
-    include $mainConfigurationFile;
+    include $mainConfPath;
 }
 else
 {
@@ -47,16 +49,6 @@ if( !CLARO_DEBUG_MODE ) error_reporting(error_reporting() & ~ E_NOTICE);
   Various Path Init
   ----------------------------------------------------------------------*/
 
-$includePath            = get_path('incRepositorySys');
-$clarolineRepositorySys = get_path('clarolineRepositorySys');
-$clarolineRepositoryWeb = get_path('clarolineRepositoryWeb');
-$coursesRepositorySys   = get_path('coursesRepositorySys');
-$coursesRepositoryWeb   = get_path('coursesRepositoryWeb');
-$rootAdminWeb           = get_path('rootAdminWeb');
-$imgRepositoryAppend    = get_path('imgRepositoryAppend');
-$imgRepositorySys       = get_path('imgRepositorySys');
-$imgRepositoryWeb       = get_path('imgRepositoryWeb');
-
 // Path to the PEAR library. PEAR stands for "PHP Extension and Application
 // Repository". It is a framework and distribution system for reusable PHP
 // components. More on http://pear.php.net.
@@ -72,6 +64,15 @@ define('PEAR_LIB_PATH', get_path('incRepositorySys') . '/lib/pear');
 // rely on the php.ini include_path settings
 
 set_include_path( '.' . PATH_SEPARATOR . PEAR_LIB_PATH . PATH_SEPARATOR . get_include_path() );
+
+$clarolineRepositorySys = get_path('clarolineRepositorySys');
+$clarolineRepositoryWeb = get_path('clarolineRepositoryWeb');
+$coursesRepositorySys   = get_path('coursesRepositorySys');
+$coursesRepositoryWeb   = get_path('coursesRepositoryWeb');
+$rootAdminWeb           = get_path('rootAdminWeb');
+$imgRepositoryAppend    = get_path('imgRepositoryAppend');
+$imgRepositorySys       = get_path('imgRepositorySys');
+$imgRepositoryWeb       = get_path('imgRepositoryWeb');
 
 // Unix file permission access ...
 
@@ -100,7 +101,6 @@ if ( !isset($_SERVER['REQUEST_URI']) )
 session_name(get_conf('platform_id','claroline'));
 
 session_start();
-
 
 /*----------------------------------------------------------------------
   Include main library
@@ -167,97 +167,11 @@ require get_path('incRepositorySys') . '/lib/events.lib.inc.php';
 
 require get_path('incRepositorySys') . '/claro_init_local.inc.php';
 
-uses('core/claroline.lib');
-
-$claroline = Claroline::getInstance();
-
-
-if ( isset( $tlabelReq ) && !empty( $tlabelReq ) )
-{
-    /*----------------------------------------------------------------------
-        Check tool access right an block unautorised users
-    ----------------------------------------------------------------------*/
-    if ( $tlabelReq !== 'CLGRP' && ! claro_is_module_allowed() )
-    {
-        if ( ! claro_is_user_authenticated() )
-        {
-            claro_disp_auth_form(true);
-        }
-        else
-        {
-            claro_die( get_lang( 'Not allowed' ) );
-        }
-    }
-
-    /*----------------------------------------------------------------------
-        Install module
-    ----------------------------------------------------------------------*/
-    if ( claro_is_in_a_course() )
-    {
-        install_module_database_in_course( $tlabelReq, claro_get_current_course_id() ) ;
-    }
-}
-
 /*----------------------------------------------------------------------
-  Initialize the event manager declarations for the notification system
+  Include the event manager declarations for the notification system
   ----------------------------------------------------------------------*/
 
-// for backward compatibility
-$eventNotifier = $claroline->notifier;
-$claro_notifier = $claroline->notification;
-
-
-// Register listener in the event manager for the NOTIFICATION system :
-// EXAMPLE :
-//
-//  $claroline->notification->addListener( 'document_visible', 'update' );
-//
-// 'update' is the name of the function called in the listener class when the event happens
-// 'document_visible' is the name of the event that you want to track
-
-// register listener for access to platform
-$claroline->notification->addListener( 'platform_access', 'trackPlatformAccess');
-// todo move this to a better place ? like end of script ?
-$claroline->notifier->event( 'platform_access' );
-
-// we must register this listener here else it will not be registered when 'inscription login' will occur
-$claroline->notification->addListener( 'user_login', 'trackInPlatform' );
-
-if ( claro_is_user_authenticated() )
-{
-   //global events (can happen outside of courses too)
-
-   $claroline->notification->addListener( 'course_deleted', 'modificationDelete' );
-}
-
-if ( claro_is_user_authenticated() && claro_is_in_a_course() )
-{
-    //global events IN COURSE only
-
-    $claroline->notification->addListener( 'toollist_changed', 'modificationDefault' );
-    $claroline->notification->addListener( 'introsection_modified', 'modificationDefault' );
-
-    $claroline->notification->addListener( 'course_access', 'trackCourseAccess' );
-    // todo : should move this event to initialisation of course context
-    $claroline->notifier->event( 'course_access' );
-}
-
-if ( claro_is_in_a_group() )
-{
-    $claroline->notification->addListener( 'group_deleted', 'modificationDelete' );
-}
-
-if ( claro_is_in_a_tool() )
-{
-	// generic tool event
-    $claroline->notification->addListener( 'tool_access', 'trackToolAccess' );
-    // todo : should move this event to initialisation of tool context
-    $claroline->notifier->event( 'tool_access' );
-
-    // others
-    load_current_module_listeners();
-
-}
+require get_path('incRepositorySys') . '/lib/event/init_event_manager.inc.php';
 
 /*----------------------------------------------------------------------
   Load language translation and locale settings
@@ -265,7 +179,6 @@ if ( claro_is_in_a_tool() )
 
 language::load_translation();
 language::load_locale_settings();
-load_module_language();
 
 /*----------------------------------------------------------------------
   Prevent duplicate form submission
@@ -276,7 +189,7 @@ load_module_language();
 // browser. It will nullify all the variables posted to the server by the
 // form, provided this form complies to 2 points :
 //
-// 1. The form is submitted by POST method (<form method="post">). GET
+// 1. The form is submitted by POST method (<form method="POST">). GET
 // method is not taken into account.
 //
 // 2. A unique ID value is provided at form submission that way
@@ -339,14 +252,5 @@ if (file_exists($cacheRepositorySys . $module_cache_filename))
     include $cacheRepositorySys . $module_cache_filename;
 }
 else pushClaroMessage('module_cache not generated : check access right in '.$cacheRepositorySys,'warning');
-
-// Add feed RSS in header
-if ( claro_is_in_a_course() && get_conf('enableRssInCourse', true) )
-{
-    require claro_get_conf_repository() . 'rss.conf.php';
-
-    $claroline->display->header->addHtmlHeader('<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars($_course['name'] . ' - ' . get_conf('siteName')) . '"'
-    .' href="' . get_path('url') . '/claroline/backends/rss.php?cidReq=' . claro_get_current_course_id() . '" />' );
-}
 
 ?>

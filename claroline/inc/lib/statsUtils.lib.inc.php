@@ -12,36 +12,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @package CLTRACK
  *
  * @author Claro Team <cvs@claroline.net>
- * @author Sebastien Piraux <piraux@claroline.net>
+ * @author Sébastien Piraux <piraux@claroline.net>
  *
  * @todo
  *
  */
-
-/**
- * Display a standardblock of
- *
- * @param $header string title of block
- * @param $content string content of the block
- * @param $footer string some additionnal infos (optionnal)
- * @return string html code of the full block
- */
-function renderStatBlock($header,$content,$footer = '')
-{
-	$html = '<div class="statBlock">' . "\n"
-	.	 ' <div class="blockHeader">' . "\n"
-	.	 $header
-	.	 ' </div>' . "\n"
-	.	 ' <div class="blockContent">' . "\n"
-	.	 $content
-	.	 ' </div>' . "\n"
-	.	 ' <div class="blockFooter">' . "\n"
-	.	 $footer
-	.	 ' </div>' . "\n"
-	.	 '</div>' . "\n";
-
-	return $html;
-}
 
 /**
  * Return an assoc array.  Keys are the hours, values are
@@ -171,6 +146,9 @@ function monthTab($sql)
  *
  * @return
  *
+ * @todo variable $linkOnPeriod n'apparaît qu'une fois
+ * @todo La valeur de la variable $maxSize n'est jamais utilisée
+ *
  */
 function makeHitsTable($period_array,$periodTitle,$linkOnPeriod = "???")
 {
@@ -190,7 +168,7 @@ function makeHitsTable($period_array,$periodTitle,$linkOnPeriod = "???")
     $maxSize = $factor * 100; //pixels
     while(list($periodPiece,$cpt) = each($period_array))
     {
-        if($periodPiece !== 'total')
+        if($periodPiece != 'total')
         {
             if($period_array['total'] == 0 ) $pourcent = 0;
             else                             $pourcent = round(100 * $cpt / $period_array['total']);
@@ -277,7 +255,7 @@ function buildTab2Col($results, $leftTitle = "", $rightTitle = "")
  *
  * @return array
  *
- * @author Christophe Geschï¿½ <moosh@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
  *
  */
 function changeResultOfVisibility($results)
@@ -309,7 +287,7 @@ function changeResultOfVisibility($results)
  *
  * @return boolean true
  *
- * @author Christophe Gesche <gesche@ipm.ucl.ac.be>
+ * @author Christophe Gesché <gesche@ipm.ucl.ac.be>
  *
  */
 function resetStatForCourse($course_id, $dateLimite )

@@ -302,8 +302,7 @@ class language
             }
             else
             {
-                if ( isset($_REQUEST['language'])
-                    && in_array($_REQUEST['language'], array_keys(get_language_list())) )
+                if ( isset($_REQUEST['language']) )
                 {
                     // selected language
                     $_SESSION['language'] = $_REQUEST['language'];
@@ -352,7 +351,7 @@ function get_language_list()
             if ( $elt == '.' || $elt == '..' || $elt == 'CVS' ) continue;
 
             // skip if not a dir
-            if ( is_dir($language_dirname.$elt) )
+            if ( ! is_dir($language_dirname.$elt) )
             {
                 $elt_key = $elt;
                 $elt_value = get_translation_of_language($elt_key);
@@ -504,7 +503,7 @@ function get_lang_weekday_name_list($size='long')
 
 /**
  * Display a date at localized format
- * @author Christophe Geschï¿½ <gesche@ipm.ucl.ac.be>
+ * @author Christophe Gesché <gesche@ipm.ucl.ac.be>
  * @param formatOfDate
          see http://www.php.net/manual/en/function.strftime.php
          for syntax to use for this string
@@ -533,7 +532,7 @@ function claro_html_localised_date($formatOfDate,$timestamp = -1) //PMAInspirati
 
     if ($timestamp == -1) $timestamp = claro_time();
 
-    // avec un ereg on fait nous mï¿½me le replace des jours et des mois
+    // avec un ereg on fait nous même le replace des jours et des mois
     // with the ereg  we  replace %aAbB of date format
     //(they can be done by the system when  locale date aren't aivailable
 
@@ -570,42 +569,19 @@ function seems_utf8($str)
 }
 
 /**
- * Returns utf-8 encoded $str. No changes are made if it was already utf-8
- *
+ * decode $str if $str is utf8 encoded
  */
-function claro_utf8_encode($str, $toCharset = '' )
+function utf8_decode_if_is_utf8($str)
 {
-	if( $toCharset != '' )	$charset = $toCharset;
-	else					$charset = $GLOBALS['charset'];
-
-
-	if( strtoupper($charset) == 'UTF-8' || seems_utf8($str) )
+    if( $GLOBALS['charset'] == 'utf-8' || !seems_utf8($str) )
     {
         return $str;
     }
     else
     {
-    	return iconv( $charset, 'UTF-8//TRANSLIT', $str );
+    	return utf8_decode($str);
     }
 }
 
-/**
- * Returns decoded utf-8 $str. No changes are made if it was not utf-8
- *
- */
-function claro_utf8_decode($str, $fromCharset = '')
-{
-	if( $fromCharset != '' )$charset = $fromCharset;
-	else					$charset = $GLOBALS['charset'];
-
-	if( strtoupper($charset) == 'UTF-8' || !seems_utf8($str) )
-    {
-        return $str;
-    }
-    else
-    {
-    	return iconv( 'UTF-8', $charset.'//TRANSLIT', $str );
-    }
-}
 
 ?>

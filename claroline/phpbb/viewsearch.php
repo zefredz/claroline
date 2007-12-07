@@ -135,11 +135,11 @@ echo claro_html_menu_horizontal(disp_forum_toolbar($pagetype, null))
             echo '<tr>'                                                   . "\n"
 
             .   '<th class="headerX">'                                    . "\n"
-            .   '<img src="' . get_path('imgRepositoryWeb') . 'topic.gif" alt="" />'
+            .   '<img src="' . get_path('imgRepositoryWeb') . 'topic.gif" alt="">'
             .   '<a href="viewtopic.php?topic='.$thisPost['topic_id'].'">'
             .   $thisPost['topic_title']
             .   '</a><br />'                                              . "\n"
-            .   '<img src="' . get_path('imgRepositoryWeb') . $postImg . '" alt="" />'
+            .   '<img src="' . get_path('imgRepositoryWeb') . $postImg . '" alt="">'
             .   get_lang('Author') . ' : <b>' . $thisPost['firstname'] . ' ' . $thisPost['lastname'] . '</b> '
             .   '<small>' . get_lang('Posted') . ' : ' . $thisPost['post_time'] . '</small>' . "\n"
             .   '</th>'                                                  . "\n"

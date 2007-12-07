@@ -5,7 +5,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * Get and set value of current session.
  *
- * @version 1.9 $Revision$
+ * @version 1.8 $Revision$
  *
  * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
@@ -131,21 +131,15 @@ function claro_get_current_tool_id()
 
 /**
  * Returns the label of the current tool module
+ * WARNING: Works only on tool modules not on applets
  * FIXME: non-course module hack
- * FIXME: applet module hack
- * FIXME: switch tlbelReq and _courseTool lookup ?
  * @return string module label
  *         boolean false if no module currently in use or not in a tool module
  */
 function get_current_module_label()
 {
-    // set by module (hack for applets !!!)
-    if ( isset( $GLOBALS['currentModuleLabel'] ) && ! empty( $GLOBALS['currentModuleLabel'] ) )
-    {
-        return $GLOBALS['currentModuleLabel'];
-    }
     // course module
-    elseif ( isset( $GLOBALS['_courseTool'] )
+    if ( isset( $GLOBALS['_courseTool'] )
         && is_array( $GLOBALS['_courseTool'] )
         && array_key_exists( 'label', $GLOBALS['_courseTool'] ) )
     {
@@ -161,33 +155,6 @@ function get_current_module_label()
     {
         return false;
     }
-}
-
-/**
- * Set the current module label at run time
- *  @param string label module label
- *  @return string old label
- *          boolean false if no old label defined
- *  FIXME : use it in docks and kernel
- */
-function set_current_module_label( $label )
-{
-    $old = get_current_module_label();
-    
-    $GLOBALS['currentModuleLabel'] = $label;
-    
-    return $old;
-}
-
-/**
- * Unset the current module label at run time
- *  (Warning : does not alter tlabelReq or _courseTool)
- *  @param string label module label
- *  @return string old label or false if no old label defined
- */
-function clear_current_module_label()
-{
-    return set_current_module_label( null );
 }
 
 /**
@@ -261,6 +228,7 @@ function claro_get_current_user_data($dataName=null)
         pushClaroMessage( ' -' . $dataName . '- does not exist for user data','error');
         return null;
     };
+
 }
 
 /**
@@ -302,6 +270,8 @@ function claro_get_current_course_user_data($dataName=null)
     elseif (is_array($cu) && array_key_exists($dataName,$cu)) return $cu[$dataName];
     else
     {
+
+
         pushClaroMessage( ' -' . $dataName . '- does not exist for course user relation data','error');
         return null;
     };
@@ -323,8 +293,10 @@ function claro_get_current_course_tool_data($dataName=null)
     else
     {
         pushClaroMessage( ' -' . $dataName . '- does not exist for course tool relation data' ,'error');
+
         return null;
     };
+
 }
 
 /**
@@ -390,7 +362,8 @@ function  claro_is_platform_admin()
  * Return the right of the current user
  *
  * @author Christophe Gesché <moosh@claroline.net>
- * @return boolean
+ * @return
+boolean
  */
 function  claro_is_course_admin()
 {
@@ -409,14 +382,13 @@ function  claro_is_course_manager()
 {
     return get_init('is_courseAdmin');
 }
-
 /**
  * Return the right of the current user
  *
  * @author Christophe Gesché <moosh@claroline.net>
- * @return boolean
+ * @return
+boolean
  */
-
 function claro_is_course_allowed()
 {
     return get_init('is_courseAllowed');
@@ -428,19 +400,20 @@ function claro_is_course_allowed()
  * @author Christophe Gesché <moosh@claroline.net>
  * @return boolean
  */
-
 function  claro_is_allowed_to_create_course()
 {
     return get_init('is_allowedCreateCourse');
 }
 
+
+
 /**
  * Return the right of the current user
  *
  * @author Christophe Gesché <moosh@claroline.net>
- * @return boolean
+ * @return
+boolean
  */
-
 function  claro_is_group_member()
 {
     return get_init('is_groupMember');
@@ -452,7 +425,6 @@ function  claro_is_group_member()
  * @author Christophe Gesché <moosh@claroline.net>
  * @return boolean
  */
-
 function  claro_is_group_tutor()
 {
     return get_init('is_groupTutor');
@@ -462,9 +434,9 @@ function  claro_is_group_tutor()
  * Return the right of the current user
  *
  * @author Christophe Gesché <moosh@claroline.net>
- * @return boolean
+ * @return
+boolean
  */
-
 function  claro_is_group_allowed()
 {
     return is_null(get_init('is_groupAllowed'))? false : get_init('is_groupAllowed');
@@ -476,34 +448,9 @@ function  claro_is_group_allowed()
  * @author Christophe Gesché <moosh@claroline.net>
  * @return boolean
  */
-
 function claro_is_tool_allowed()
 {
     return get_init('is_toolAllowed');
-}
-
-function claro_is_module_allowed()
-{
-    if ( ! array_key_exists( 'tlabelReq', $GLOBALS ) )
-    {
-        return claro_failure::set_failure('MISSING TOOL LABEL');
-    }
-    
-    $moduleLabel = $GLOBALS['tlabelReq'];
-    
-    $moduleData = get_module_data( $moduleLabel );
-
-    if ( $moduleData['type'] == 'tool' )
-    {
-        // if a course tool, use claro_is_tool_allowed
-        return claro_is_tool_allowed();
-    }
-    else
-    {
-        // if an applet "tool", return true if activated
-        // and let module manage it's access by itself
-        return ( $moduleData['activation'] == 'activated' );
-    }
 }
 
 // 5° Generic get_init
@@ -515,7 +462,7 @@ function claro_is_module_allowed()
  * @author Christophe Gesché <moosh@claroline.net>
  * @return string param value
  * @todo http://www.claroline.net/forum/viewtopic.php?t=4579
- */
+*/
 
 function get_init($param)
 {
@@ -538,7 +485,7 @@ function get_init($param)
     , 'is_courseTutor'         // claro_is_courseTutor()
     , 'is_courseAdmin'         // claro_is_courseAdmin()
     , 'is_courseAllowed'       // claro_is_course_allowed()
-    , 'is_allowedCreateCourse' // claro_is_allowed_to_create_course() or claro_is_course_creator()
+    , 'is_allowedCreateCourse' // claro_is_allowedCreateCourse()
     , 'is_groupMember'         // claro_is_groupMember()
     , 'is_groupTutor'          // claro_is_groupTutor()
     , 'is_groupAllowed'        // claro_is_groupAllowed()
@@ -567,7 +514,6 @@ function get_init($param)
  * @return array('role')
  * @author Christophe Gesché <moosh@claroline.net>
  */
-
 function claro_get_course_user_data($cid,$uid,$ignoreCache=false)
 {
     $properties = claro_get_course_user_properties($cid,$uid,$ignoreCache);
@@ -610,13 +556,10 @@ function claro_get_course_user_privilege($cid,$uid,$ignoreCache=false)
 
 function claro_get_course_user_properties($cid,$uid,$ignoreCache=false)
 {
-    $admin = claro_is_platform_admin();
-    
     $tbl = claro_sql_get_tbl('cours_user');
     static $course_user_cache = null;
     static $course_user_data = null;
     static $course_user_privilege = array();
-    
     if (($course_user_cache != array('uid'=>$uid,'cid'=>$cid)) || $ignoreCache)
     {
         $sql = "SELECT profile_id as profileId,
@@ -626,11 +569,11 @@ function claro_get_course_user_properties($cid,$uid,$ignoreCache=false)
                 FROM `" . $tbl['cours_user'] . "` `cours_user`
                 WHERE `user_id`  = '" . (int) $uid . "'
                 AND `code_cours` = '" . addslashes($cid) . "'";
-
         $cuData = claro_sql_query_get_single_row($sql);
 
-        if ( !empty($cuData) )
+        if (count($cuData))
         {
+
             $course_user_data['role'] = $cuData['role']; // not used
 
             $course_user_privilege['_profileId'] = $cuData['profileId'];
@@ -640,7 +583,7 @@ function claro_get_course_user_properties($cid,$uid,$ignoreCache=false)
         }
         else // this user has no status related to this course
         {
-            $course_user_privilege['_profileId']      = claro_get_profile_id('guest');
+            $course_user_privilege['_profileId'] = claro_get_profile_id('guest');
             $course_user_privilege['is_courseMember'] = false;
             $course_user_privilege['is_courseAdmin']  = false;
             $course_user_privilege['is_courseTutor']  = false;

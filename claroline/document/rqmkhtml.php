@@ -7,20 +7,11 @@ $_course = claro_get_current_course_data();
 
 function is_parent_path($parentPath, $childPath)
 {
-    // convert the path for operating system harmonize
-    $parentPath = realpath($parentPath) ;
-    $childPath = realpath($parentPath . $childPath ) ;
-
-    if ( $childPath !== false )
-    {
-        // verify if the file exists and if the file is under parent path
-        return preg_match('|^'.preg_quote($parentPath).'|', $childPath);
-    }
-    else
-    {
-        return false;
-    }
+    $realPath = realpath($parentPath . $childPath);
+    $realPath = str_replace('\\', '/', $realPath); // OS harmonize ...
+    return preg_match('|^'.$parentPath.'|', $realPath);
 }
+
 
 if (claro_is_in_a_group() && claro_is_group_allowed())
 {
@@ -96,8 +87,8 @@ elseif($cmd == "rqEditHtml" && !empty($_REQUEST['file']) )
     $fileContent = get_html_body_content($fileContent)
 
     ?><form action="document.php" method="post">
-    <input type="hidden" name="cmd" value="exEditHtml" />
-    <input type="hidden" name="file" value="<?php echo $_REQUEST['file']; ?>" />
+    <input type="hidden" name="cmd" value="exEditHtml">
+    <input type="hidden" name="file" value="<?php echo $_REQUEST['file']; ?>">
     <b><?php echo get_lang('Document name') ?> : </b><br />
     <?php echo $_REQUEST['file']?>
     </p>
@@ -107,7 +98,7 @@ elseif($cmd == "rqEditHtml" && !empty($_REQUEST['file']) )
     echo claro_html_textarea_editor('htmlContent', $fileContent );
     ?>
     <p>
-    <input type="submit" value="<?php echo get_lang('Ok'); ?>" />&nbsp;
+    <input type="submit" value="<?php echo get_lang('Ok'); ?>">&nbsp;
     <?php echo claro_html_button('./document.php?cmd=rqEdit&file='.$_REQUEST['file'], get_lang('Cancel')); ?>
     </p>
     </form>

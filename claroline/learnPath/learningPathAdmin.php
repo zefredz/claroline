@@ -63,7 +63,7 @@ $_SERVER['QUERY_STRING'] =''; // used forthe breadcrumb
 claro_set_display_mode_available(true);
 
 // permissions
-$is_allowedToEdit = claro_is_allowed_to_edit();
+$is_AllowedToEdit = claro_is_allowed_to_edit();
 
 //lib of document tool
 include get_path('incRepositorySys') . '/lib/fileDisplay.lib.php';
@@ -90,7 +90,7 @@ if ( isset($_GET['path_id']) && $_GET['path_id'] > 0 )
 }
 
 // get user out of here if he is not allowed to edit
-if ( !$is_allowedToEdit )
+if ( !$is_AllowedToEdit )
 {
     if ( isset($_SESSION['path_id']) )
     {
@@ -410,34 +410,25 @@ else
 
 if (isset($displayCreateLabelForm) && $displayCreateLabelForm)
 {
-    $dialogBox = '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">'
-    .            claro_form_relay_context()
-    .            '<h4>'
-    .            '<label for="newLabel">'
-    .            get_lang('Create a new label / title in this learning path')
-    .            '</label>'
-    .            '</h4>' . "\n"
-    .            '<input type="text" name="newLabel" id="newLabel" maxlength="255" />' . "\n"
-    .            '<input type="hidden" name="cmd" value="createLabel" />' . "\n"
-    .            '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
-    .            '</form>'
-    ;
+    $dialogBox = "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\">
+                 " . claro_form_relay_context() . "
+                  <h4><label for=\"newLabel\">".get_lang('Create a new label / title in this learning path')."</label></h4>
+                  <input type=\"text\" name=\"newLabel\" id=\"newLabel\" maxlength=\"255\" />
+                  <input type=\"hidden\" name=\"cmd\" value=\"createLabel\" />
+                  <input type=\"submit\" value=\"".get_lang('Ok')."\" />
+                  </form>";
 }
-
 if (isset($displayChangePosForm) && $displayChangePosForm)
 {
     $dialogBox = '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">'
     .            claro_form_relay_context()
-    .            '<h4>'
-    .            get_lang('Move') . " ' " . $moduleInfos['name']." ' ".get_lang('To') . '</h4>'
-    ;
+    .            '<h4>' . get_lang('Move')." ' ".$moduleInfos['name']." ' ".get_lang('To')."</h4>";
     // build select input - $elementList has been declared in the previous big cmd case
-    $dialogBox .= claro_build_nested_select_menu("newPos",$elementList)
-    .             '<input type="hidden" name="cmd" value="changePos" />' . "\n"
-    .             '<input type="hidden" name="cmdid" value="' . $_REQUEST['cmdid'] . '" />' . "\n"
-    .             '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
-    .             '</form>'
-    ;
+    $dialogBox .= claro_build_nested_select_menu("newPos",$elementList);
+    $dialogBox .= "<input type=\"hidden\" name=\"cmd\" value=\"changePos\" />
+                   <input type=\"hidden\" name=\"cmdid\" value=\"".$_REQUEST['cmdid']."\" />
+                   <input type=\"submit\" value=\"".get_lang('Ok')."\" />
+                   </form>";
 }
 
 //####################################################################################\\
@@ -531,7 +522,7 @@ foreach ($flatElementList as $module)
     //-------------visibility-----------------------------
     if ( $module['visibility'] == 'HIDE' )
     {
-        if ($is_allowedToEdit)
+        if ($is_AllowedToEdit)
         {
             $style=" class=\"invisible\"";
         }
@@ -585,7 +576,7 @@ foreach ($flatElementList as $module)
    //in case of SCORM module, the pop-up window to confirm must be different as the action will be different on the server
     echo "<td>
           <a href=\"".$_SERVER['PHP_SELF']."?cmd=delModule&cmdid=".$module['learnPath_module_id']."\" ".
-         "onclick=\"return confirmation('".clean_str_for_javascript(get_lang('Are you sure you want to remove the following module from the learning path : ')." ".$module['name'])." ? ";
+         "onClick=\"return confirmation('".clean_str_for_javascript(get_lang('Are you sure you want to remove the following module from the learning path : ')." ".$module['name'])." ? ";
 
     if ($module['contentType'] == CTSCORM_)
         echo clean_str_for_javascript(get_lang('SCORM conformant modules are definitively removed from server when deleted in their learning path.')) ;
@@ -595,11 +586,11 @@ foreach ($flatElementList as $module)
         echo clean_str_for_javascript(get_lang('The module will still be available in the pool of modules.'));
 
     echo   "');\"
-    ><img src=\"" . get_path('imgRepositoryWeb') . "delete.gif\" border=0 alt=\"".get_lang('Remove')."\" /></a>
+    ><img src=\"" . get_path('imgRepositoryWeb') . "delete.gif\" border=0 alt=\"".get_lang('Remove')."\"></a>
        </td>";
 
     // LOCK
-    echo    '<td>';
+    echo    "<td>";
 
     if ( $module['contentType'] == CTLABEL_)
     {
@@ -608,13 +599,13 @@ foreach ($flatElementList as $module)
     elseif ( $module['lock'] == 'OPEN')
     {
         echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkBlock&cmdid=".$module['learnPath_module_id']."\">".
-             "<img src=\"" . get_path('imgRepositoryWeb') . "unblock.gif\" alt=\"" . get_lang('Block') . "\" border=0 />".
+             "<img src=\"" . get_path('imgRepositoryWeb') . "unblock.gif\" alt=\"" . get_lang('Block') . "\" border=0>".
              "</a>";
     }
     elseif( $module['lock'] == 'CLOSE')
     {
         echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkUnblock&cmdid=".$module['learnPath_module_id']."\">".
-             "<img src=\"" . get_path('imgRepositoryWeb') . "block.gif\" alt=\"" . get_lang('Unblock') . "\" border=0 />".
+             "<img src=\"" . get_path('imgRepositoryWeb') . "block.gif\" alt=\"" . get_lang('Unblock') . "\" border=0>".
              "</a>";
     }
     echo "</td>";
@@ -625,21 +616,21 @@ foreach ($flatElementList as $module)
     if ( $module['visibility'] == 'HIDE')
     {
         echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkVisibl&cmdid=".$module['module_id']."\">".
-             "<img src=\"" . get_path('imgRepositoryWeb') . "invisible.gif\" alt=\"" . get_lang('Make visible') . "\" border=\"0\" />".
+             "<img src=\"" . get_path('imgRepositoryWeb') . "invisible.gif\" alt=\"" . get_lang('Make visible') . "\" border=\"0\">".
              "</a>";
     }
     else
     {
         if( $module['lock'] == 'CLOSE' )
         {
-            $onclick = "onclick=\"return confirmation('".clean_str_for_javascript(get_block('blockConfirmBlockingModuleMadeInvisible'))."');\"";
+            $onclick = "onClick=\"return confirmation('".clean_str_for_javascript(get_block('blockConfirmBlockingModuleMadeInvisible'))."');\"";
         }
         else
         {
             $onclick = "";
         }
         echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkInvisibl&cmdid=".$module['module_id']."\" ",$onclick, " >".
-             "<img src=\"" . get_path('imgRepositoryWeb') . "visible.gif\" alt=\"" . get_lang('Make invisible') . "\" border=0 />".
+             "<img src=\"" . get_path('imgRepositoryWeb') . "visible.gif\" alt=\"" . get_lang('Make invisible') . "\" border=0>".
              "</a>";
     }
 
@@ -649,7 +640,7 @@ foreach ($flatElementList as $module)
     // DISPLAY CATEGORY MOVE COMMAND
     echo "<td>".
          "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=changePos&cmdid=".$module['learnPath_module_id']."\">".
-         "<img src=\"" . get_path('imgRepositoryWeb') . "move.gif\" alt=\"" . get_lang('Move'). "\" border=0 />".
+         "<img src=\"" . get_path('imgRepositoryWeb') . "move.gif\" alt=\"" . get_lang('Move'). "\" border=0>".
          "</a>".
          "</td>";
 
@@ -658,7 +649,7 @@ foreach ($flatElementList as $module)
     {
         echo "<td>".
              "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=moveUp&cmdid=".$module['learnPath_module_id']."\">".
-             "<img src=\"" . get_path('imgRepositoryWeb') . "up.gif\" alt=\"" . get_lang('Move up') . "\" border=0 />".
+             "<img src=\"" . get_path('imgRepositoryWeb') . "up.gif\" alt=\"" . get_lang('Move up') . "\" border=0>".
              "</a>".
              "</td>";
     }
@@ -672,7 +663,7 @@ foreach ($flatElementList as $module)
     {
         echo "<td>".
              "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=moveDown&cmdid=".$module['learnPath_module_id']."\">".
-             "<img src=\"" . get_path('imgRepositoryWeb') . "down.gif\" alt=\"" . get_lang('Move down') . "\" border=0 />".
+             "<img src=\"" . get_path('imgRepositoryWeb') . "down.gif\" alt=\"" . get_lang('Move down') . "\" border=0>".
              "</a>".
              "</td>";
     }

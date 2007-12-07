@@ -84,7 +84,7 @@ function commentBox($type, $mode)
     $tbl_lp_rel_learnPath_module = $tbl_cdb_names['lp_rel_learnPath_module'];
     $tbl_lp_module               = $tbl_cdb_names['lp_module'];
     // globals
-    global $is_allowedToEdit;
+    global $is_AllowedToEdit;
     // will be set 'true' if the comment has to be displayed
     $dsp = false;
 
@@ -124,7 +124,7 @@ function commentBox($type, $mode)
     // allow to chose between
     // - update and show the comment and the pencil and the delete cross (UPDATE_)
     // - update and nothing displayed after form sent (UPDATENOTSHOWN_)
-    if ( ( $mode == UPDATE_ || $mode == UPDATENOTSHOWN_ )  && $is_allowedToEdit )
+    if ( ( $mode == UPDATE_ || $mode == UPDATENOTSHOWN_ )  && $is_AllowedToEdit )
     {
         if ( isset($_POST['insertCommentBox']) )
         {
@@ -146,7 +146,7 @@ function commentBox($type, $mode)
                       WHERE " . $where_cond;
             $oldComment = claro_sql_query_get_single_value($sql);
 
-            echo '<form method="post" action="'.$_SERVER['PHP_SELF'].'">' . "\n"
+            echo '<form method="POST" action="'.$_SERVER['PHP_SELF'].'">' . "\n"
                 .claro_html_textarea_editor('insertCommentBox', $oldComment, 15, 55).'<br />' . "\n"
                 .'<input type="hidden" name="cmd" value="update' . $col_name . '" />'
                 .'<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
@@ -158,7 +158,7 @@ function commentBox($type, $mode)
     }
 
     // delete mode
-    if ( $mode == DELETE_ && $is_allowedToEdit)
+    if ( $mode == DELETE_ && $is_AllowedToEdit)
     {
         $sql =  "UPDATE `" . $tbl_name . "`
                  SET `" . $col_name . "` = ''
@@ -177,12 +177,12 @@ function commentBox($type, $mode)
         $currentComment = claro_sql_query_get_single_value($sql);
 
         // display nothing if this is default comment and not an admin
-        if ( ($currentComment == $defaultTxt) && !$is_allowedToEdit ) return 0;
+        if ( ($currentComment == $defaultTxt) && !$is_AllowedToEdit ) return 0;
 
         if ( empty($currentComment) )
         {
             // if no comment and user is admin : display link to add a comment
-            if ( $is_allowedToEdit )
+            if ( $is_AllowedToEdit )
             {
                 echo '<p>' . "\n"
                 .    claro_html_cmd_link( $_SERVER['PHP_SELF']
@@ -198,7 +198,7 @@ function commentBox($type, $mode)
             // display comment
             echo "<p>".$currentComment."</p>";
             // display edit and delete links if user as the right to see it
-            if ( $is_allowedToEdit )
+            if ( $is_AllowedToEdit )
             {
 
                 echo '<p>' . "\n"
@@ -236,7 +236,7 @@ function nameBox($type, $mode)
     $tbl_lp_module               = $tbl_cdb_names['lp_module'];
 
     // globals
-    global $is_allowedToEdit;
+    global $is_AllowedToEdit;
     global $urlAppend;
 
     // $dsp will be set 'true' if the comment has to be displayed
@@ -258,7 +258,7 @@ function nameBox($type, $mode)
     }
 
     // update mode
-    if ( $mode == UPDATE_ && $is_allowedToEdit)
+    if ( $mode == UPDATE_ && $is_AllowedToEdit)
     {
 
         if ( isset($_POST['newName']) && !empty($_POST['newName']) )
@@ -294,7 +294,7 @@ function nameBox($type, $mode)
 
             $oldName = claro_sql_query_get_single_value($sql);
 
-            echo '<form method="post" action="' . $_SERVER['PHP_SELF'].'">' . "\n"
+            echo '<form method="POST" action="' . $_SERVER['PHP_SELF'].'">' . "\n"
             .    '<input type="text" name="newName" size="50" maxlength="255" value="'.htmlspecialchars($oldName).'" />'
             .    '<br />' . "\n"
             .    '<input type="hidden" name="cmd" value="updateName" />' ."\n"
@@ -318,7 +318,7 @@ function nameBox($type, $mode)
         echo '<h4>'
         .    $currentName;
 
-        if ( $is_allowedToEdit )
+        if ( $is_AllowedToEdit )
             echo '<br /><a href="' . $_SERVER['PHP_SELF'] . '?cmd=updateName">'
             .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="' . get_lang('Modify') . '" border="0" />'
             .    '</a>' . "\n";
@@ -593,8 +593,7 @@ function get_learnPath_progress($lpid, $lpUid)
             }
             else
             {
-                $raw = min($module['R'],$module['SMax']);
-                $modProgress = @round($raw/$module['SMax']*100);
+                $modProgress = @round($module['R']/$module['SMax']*100);
             }
 
             // in case of scorm module, progression depends on the lesson status value
@@ -619,7 +618,7 @@ function get_learnPath_progress($lpid, $lpUid)
                     ";
         $nbrOfVisibleModules = claro_sql_query_get_single_value($sqlnum);
 
-        if( is_numeric($nbrOfVisibleModules) && $nbrOfVisibleModules > 0)
+        if( is_numeric($nbrOfVisibleModules) )
               $progression = @round($progress/$nbrOfVisibleModules);
         else
             $progression = 0;
@@ -663,7 +662,7 @@ function display_my_exercises($dialogBox)
     ;
 
     // Display available modules
-    echo '<form method="post" name="addmodule" action="' . $_SERVER['PHP_SELF'] . '?cmdglobal=add">'."\n";
+    echo '<form method="POST" name="addmodule" action="' . $_SERVER['PHP_SELF'] . '?cmdglobal=add">'."\n";
     $atleastOne = FALSE;
     $sql = "SELECT `id`, `title`, `description`
             FROM `" . $tbl_quiz_exercise . "`
@@ -754,7 +753,7 @@ function display_my_exercises($dialogBox)
 
 function display_my_documents($dialogBox)
 {
-    global $is_allowedToEdit;
+    global $is_AllowedToEdit;
 
     global $curDirName;
     global $curDirPath;
@@ -772,7 +771,7 @@ function display_my_documents($dialogBox)
     $cmdParentDir  = rawurlencode($parentDir);
 
     echo '<br />'
-    .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">';
+    .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">';
 
     /*--------------------------------------
     DIALOG BOX SECTION
@@ -836,7 +835,7 @@ function display_my_documents($dialogBox)
 
             if ($fileList['visibility'][$fileKey] == "i")
             {
-                if ($is_allowedToEdit)
+                if ($is_AllowedToEdit)
                 {
                     $style = ' class="invisible"';
                 }
@@ -1311,77 +1310,77 @@ function addScormTime($time1, $time2)
 
 function delete_exercise_asset($exerciseId)
 {
-        $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued());
-        $tbl_lp_module = $tbl_cdb_names['lp_module'];
-        $tbl_lp_asset = $tbl_cdb_names['lp_asset'];
-        $tbl_lp_rel_learnPath_module = $tbl_cdb_names['lp_rel_learnPath_module'];
-        $tbl_lp_user_module_progress = $tbl_cdb_names['lp_user_module_progress'];
+		$tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued());
+		$tbl_lp_module = $tbl_cdb_names['lp_module'];
+		$tbl_lp_asset = $tbl_cdb_names['lp_asset'];
+		$tbl_lp_rel_learnPath_module = $tbl_cdb_names['lp_rel_learnPath_module'];
+		$tbl_lp_user_module_progress = $tbl_cdb_names['lp_user_module_progress'];
 
-        // get id of all item to delete
-        $sql = "SELECT `A`.`asset_id`, `M`.`module_id`,`LPM`.`learnPath_module_id`
-                FROM `".$tbl_lp_asset."` AS `A`, `".$tbl_lp_module."` AS `M`,
-                    `".$tbl_lp_rel_learnPath_module."` AS `LPM`
-                WHERE `A`.`path` = '".$exerciseId."'
-                 AND `A`.`asset_id` = `M`.`startAsset_id`
-                 AND `M`.`module_id` = `LPM`.`module_id`";
+		// get id of all item to delete
+		$sql = "SELECT `A`.`asset_id`, `M`.`module_id`,`LPM`.`learnPath_module_id`
+				FROM `".$tbl_lp_asset."` AS `A`, `".$tbl_lp_module."` AS `M`,
+					`".$tbl_lp_rel_learnPath_module."` AS `LPM`
+				WHERE `A`.`path` = '".$exerciseId."'
+				 AND `A`.`asset_id` = `M`.`startAsset_id`
+				 AND `M`.`module_id` = `LPM`.`module_id`";
 
-        $deleteItemList = claro_sql_query_fetch_all($sql);
+		$deleteItemList = claro_sql_query_fetch_all($sql);
 
-        if( is_array($deleteItemList) && !empty($deleteItemList) )
-        {
-            foreach( $deleteItemList as $row )
-            {
-                if( isset($row['asset_id']) ) $assetList[] = $row['asset_id'];
-                if( isset($row['module_id']) ) $moduleList[] = $row['module_id'];
-                if( isset($row['learnPath_module_id']) ) $learnPathModuleList[] = $row['learnPath_module_id'];
-            }
-            // remove doubled values
-            $assetList = array_unique($assetList);
-            $moduleList = array_unique($moduleList);
-            $learnPathModuleList = array_unique($learnPathModuleList);
+		if( is_array($deleteItemList) && !empty($deleteItemList) )
+		{
+			foreach( $deleteItemList as $row )
+			{
+				if( isset($row['asset_id']) ) $assetList[] = $row['asset_id'];
+				if( isset($row['module_id']) ) $moduleList[] = $row['module_id'];
+				if( isset($row['learnPath_module_id']) ) $learnPathModuleList[] = $row['learnPath_module_id'];
+			}
+			// remove doubled values
+			$assetList = array_unique($assetList);
+			$moduleList = array_unique($moduleList);
+			$learnPathModuleList = array_unique($learnPathModuleList);
 
-            // we should now have a list for each ressource type, build delete queries
-            if( is_array($assetList) && !empty($assetList) )
-            {
-                $sql = "DELETE
-                        FROM `".$tbl_lp_asset."`
-                        WHERE `asset_id` IN (".implode(',',$assetList).")";
+			// we should now have a list for each ressource type, build delete queries
+			if( is_array($assetList) && !empty($assetList) )
+			{
+				$sql = "DELETE
+						FROM `".$tbl_lp_asset."`
+						WHERE `asset_id` IN (".implode(',',$assetList).")";
 
-                if( claro_sql_query($sql) == false ) return false;
-            }
+				if( claro_sql_query($sql) == false ) return false;
+			}
 
-            if( is_array($moduleList) && !empty($moduleList) )
-            {
-                $sql = "DELETE
-                        FROM `".$tbl_lp_module."`
-                        WHERE `module_id` IN (".implode(',',$moduleList).")";
+			if( is_array($moduleList) && !empty($moduleList) )
+			{
+				$sql = "DELETE
+						FROM `".$tbl_lp_module."`
+						WHERE `module_id` IN (".implode(',',$moduleList).")";
 
-                if( claro_sql_query($sql) == false ) return false;
-            }
+				if( claro_sql_query($sql) == false ) return false;
+			}
 
-            if( is_array($learnPathModuleList) && !empty($learnPathModuleList) )
-            {
-                $sql = "DELETE
-                        FROM `".$tbl_lp_rel_learnPath_module."`
-                        WHERE `learnPath_module_id` IN (".implode(',',$learnPathModuleList).")";
+			if( is_array($learnPathModuleList) && !empty($learnPathModuleList) )
+			{
+				$sql = "DELETE
+						FROM `".$tbl_lp_rel_learnPath_module."`
+						WHERE `learnPath_module_id` IN (".implode(',',$learnPathModuleList).")";
 
-                if( claro_sql_query($sql) == false ) return false;
+				if( claro_sql_query($sql) == false ) return false;
 
-                // and the user progression
+				// and the user progression
 
-                $sql = "DELETE
-                        FROM `".$tbl_lp_user_module_progress."`
-                        WHERE `learnPath_module_id` IN (".implode(',',$learnPathModuleList).")";
+				$sql = "DELETE
+						FROM `".$tbl_lp_user_module_progress."`
+						WHERE `learnPath_module_id` IN (".implode(',',$learnPathModuleList).")";
 
-                if( claro_sql_query($sql) == false ) return false;
+				if( claro_sql_query($sql) == false ) return false;
 
-            }
-        }
-        else
-        {
-            return false;
-        }
+			}
+		}
+		else
+		{
+			return false;
+		}
 
-        return true;
+		return true;
 }
 ?>

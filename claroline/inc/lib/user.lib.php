@@ -500,7 +500,7 @@ function profile_send_request_course_creator_status($explanation)
     '%lastname'  => $_user['lastName'],
     '%email'     => $_user['mail'],
     '%comment'   => $explanation,
-    '%url'       => get_path('rootWeb') . '/claroline/admin/adminprofile.php?uidToEdit=' . claro_get_current_user_id()
+    '%url'       => get_path('rootWeb') . 'claroline/admin/adminprofile.php?uidToEdit=' . claro_get_current_user_id()
     )
     );
 
@@ -541,7 +541,7 @@ function profile_send_request_revoquation($explanation,$login,$password)
     '%login'     => $login,
     '%password'  => $password,
     '%comment'   => nl2br($explanation),
-    '%url'       => get_path('rootWeb') . '/claroline/admin/adminprofile.php?uidToEdit=' . claro_get_current_user_id()
+    '%url'       => get_path('rootWeb') . 'claroline/admin/adminprofile.php?uidToEdit=' . claro_get_current_user_id()
     )
     );
 
@@ -684,7 +684,7 @@ function user_validate_form($formMode, $data, $userId = null)
         if ( get_conf('SECURE_PASSWORD_REQUIRED') )
         {
             $validator->addRule('password',
-            get_lang( 'This password is too simple or too close to the username, first name or last name.<br> Use a password like this <code>%passProposed</code>', array('%passProposed'=> generate_passwd() )),
+            get_lang( 'This password is too simple. Use a password like this <code>%passProposed</code>', array('%passProposed'=> generate_passwd() )),
             'is_password_secure_enough',
             array(array( $data['username'] ,
             $data['officialCode'] ,
@@ -1012,7 +1012,7 @@ function user_html_form($data, $form_type='registration')
         {
             // password
             $html .= form_row('<label for="password">' . $password_label . '&nbsp;:</label>',
-            '<input type="password" size="40" id="password" name="password"  autocomplete="off" />');
+            '<input type="password" size="40" id="password" name="password" />');
 
             // password confirmation
             $html .= form_row('<label for="password_conf">' . $password_label . '&nbsp;:<br/>'
@@ -1075,12 +1075,12 @@ function user_html_form($data, $form_type='registration')
         $html .= form_row( get_lang('Action') .'&nbsp;: ',
         '<input type="radio" name="isCourseCreator" id="follow"'
         .' value="0" '
-        . (!$data['isCourseCreator']? ' checked="checked"' : '') . ' />'
+        . (!$data['isCourseCreator']? ' checked' : '') . ' />'
         . '<label for="follow">' . get_lang('Follow courses') . '</label>'
         . '<br />'
         . '<input type="radio" name="isCourseCreator" id="create"'
         . ' value="1"   '
-        . ($data['isCourseCreator']? ' checked="checked"'  :'') . ' />'
+        . ($data['isCourseCreator']? ' checked'  :'') . ' />'
         . '<label for="create">' . get_lang('Create course') . '</label>');
     }
 
@@ -1129,7 +1129,7 @@ function user_html_form($data, $form_type='registration')
     {
         $html .= form_row('&nbsp;',
         '<a href="adminusercourses.php?uidToEdit=' . $data['user_id'] . '">'
-        . '<img src="' . get_path('imgRepositoryWeb') . 'course.gif" alt="" />' . get_lang('PersonalCourseList')
+        . '<img src="' . get_path('imgRepositoryWeb') . 'course.gif" alt="">' . get_lang('PersonalCourseList')
         . '</a>');
     }
 
@@ -1149,7 +1149,7 @@ function user_html_form($data, $form_type='registration')
         $html .= form_row( ''
                          , claro_html_cmd_link( $_SERVER['PHP_SELF'] . '?cmd=editExtraInfo'
                                               . claro_url_relay_context('&amp;')
-                                              , '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="' . get_lang('Modify') . '" />'
+                                              , '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="O" alt="' . get_lang('Modify') . '">'
                                               )
                          );
     }

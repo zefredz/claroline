@@ -21,9 +21,9 @@
 $tlabelReq = 'CLLNP';
 require '../inc/claro_init_global.inc.php';
 
-$is_allowedToEdit = claro_is_course_manager();
+$is_AllowedToEdit = claro_is_course_manager();
 if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
-if ( ! $is_allowedToEdit ) claro_die(get_lang('Not allowed'));
+if ( ! $is_AllowedToEdit ) claro_die(get_lang('Not allowed'));
 
 $interbredcrump[]= array ("url"=>get_module_url('CLLNP') . '/learningPathList.php', "name"=> get_lang('Learning path list'));
 $interbredcrump[]= array ("url"=>get_module_url('CLLNP') . '/learningPathAdmin.php', "name"=> get_lang('Learning path admin'));
@@ -190,13 +190,10 @@ while ($list=mysql_fetch_array($result))
 
     echo '<tr>'."\n"
         .'<td align="center">'."\n"
-        .'<input type="checkbox" name="check_'.$list['module_id'].'" id="check_'.$list['module_id'].'" />'."\n"
+        .'<input type="checkbox" name="check_'.$list['module_id'].'" id="check_'.$list['module_id'].'">'."\n"
         .'</td>'."\n"
         .'<td align="left">'."\n"
-        .'<label for="check_' . $list['module_id'] . '" >'
-        .'<img src="' . get_path('imgRepositoryWeb') . $moduleImg.'" alt="' . $contentType_alt . '" />'
-        . $list['name']
-        . '</label>' . "\n"
+        .'<label for="check_'.$list['module_id'].'" ><img src="' . get_path('imgRepositoryWeb') . $moduleImg.'" alt="'.$contentType_alt.'" />'.$list['name'].'</label>'."\n"
         .'</td>'."\n"
         .'</tr>'."\n\n";
 
@@ -236,15 +233,12 @@ if ( $atleastOne )
     echo '<tr>'."\n"
         .'<td colspan="2">'."\n"
         .'<input type="submit" value="'.get_lang('Add module(s)').'" />'."\n"
-        .'<input type="hidden" name="cmdglobal" value="add" />'."\n"
+        .'<input type="hidden" name="cmdglobal" value="add">'."\n"
         .'</td>'."\n"
         .'</tr>'."\n";
 }
 
-echo "\n" . '</tfoot>' . "\n\n"
-.    '</form>' . "\n"
-.    '</table>'
-;
+echo "\n".'</tfoot>'."\n\n".'</form>'."\n".'</table>';
 
 //####################################################################################\\
 //################################## MODULES LIST ####################################\\
@@ -254,7 +248,7 @@ echo "\n" . '</tfoot>' . "\n\n"
 echo claro_html_tool_title(get_lang('Learning path content'));
 
 // display back link to return to the LP administration
-echo '<a href="learningPathAdmin.php">&lt;&lt;&nbsp;' . get_lang('Back to learning path administration') . '</a>';
+echo '<a href="learningPathAdmin.php">&lt;&lt;&nbsp;'.get_lang('Back to learning path administration').'</a>';
 
 // display list of modules used by this learning path
 display_path_content();

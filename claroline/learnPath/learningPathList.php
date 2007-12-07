@@ -8,7 +8,7 @@
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
- * @author Piraux Sï¿½bastien <pir@cerdecam.be>
+ * @author Piraux Sébastien <pir@cerdecam.be>
  * @author Lederer Guillaume <led@cerdecam.be>
  *
  * @package CLLNP
@@ -63,6 +63,9 @@ include_once (get_path('incRepositorySys') . '/lib/learnPath.lib.inc.php');
 //lib needed to delete packages
 include_once (get_path('incRepositorySys') . '/lib/fileManage.lib.php');
 
+// statistics
+event_access_tool(claro_get_current_tool_id(), claro_get_current_course_tool_data('label'));
+
 $htmlHeadXtra[] =
           '<script type="text/javascript">
           function confirmation (name)
@@ -113,7 +116,7 @@ claro_set_display_mode_available(true);
 
 
 // main page
-$is_allowedToEdit = claro_is_allowed_to_edit();
+$is_AllowedToEdit = claro_is_allowed_to_edit();
 $lpUid = claro_get_current_user_id();
 
 // display introduction
@@ -173,6 +176,8 @@ switch ( $cmd )
 
             claro_sql_query($delAssetSql);
 
+            //echo $delAssetSql."<br>";
+
             // DELETE the SCORM modules
 
             $delModuleSql = "DELETE
@@ -191,6 +196,8 @@ switch ( $cmd )
                 $delModuleSql .= " OR `module_id`=". (int)$delList['module_id'];
             }
             $delModuleSql .= ")";
+
+            //echo $delModuleSql."<br>";
 
             claro_sql_query($delModuleSql);
 
@@ -352,12 +359,12 @@ switch ( $cmd )
         else  // create form requested
         {
             $dialogBox = "\n\n"
-            . '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
+            . '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
             . claro_form_relay_context()
             . '<h4>' . get_lang('Create a new learning path') . '</h4>' . "\n"
             . '<label for="newPathName">' . get_lang('Title') . ' : </label>' . "\n"
             . '<br />' . "\n"
-            . '<input type="text" name="newPathName" id="newPathName" maxlength="255" />' . "\n"
+            . '<input type="text" name="newPathName" id="newPathName" maxlength="255">' . "\n"
             . '<br />' . "\n"
             . '<br />' . "\n"
             . '<label for="newComment">' . get_lang('Comment') . ' : </label>' . "\n"
@@ -365,8 +372,8 @@ switch ( $cmd )
             . '<textarea id="newComment" name="newComment" rows="2" cols="50">'
             . '</textarea>' . "\n"
             . '<br /><br />' . "\n"
-            . '<input type="hidden" name="cmd" value="create" />' . "\n"
-            . '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp;' . "\n"
+            . '<input type="hidden" name="cmd" value="create">' . "\n"
+            . '<input type="submit" value="' . get_lang('Ok') . '">&nbsp;' . "\n"
             . claro_html_button('learningPathList.php', get_lang('Cancel'))
             . '</form>' . "\n"
             ;
@@ -438,7 +445,7 @@ if (isset($dialogBox))
     echo claro_html_message_box($dialogBox);
 }
 
-if($is_allowedToEdit)
+if($is_AllowedToEdit)
 {
     // Display links to create and import a learning path
     echo '<p>'
@@ -462,14 +469,14 @@ GROUP BY LPM.`learnpath_id`
 ";
 
 
-echo $sql."<br />";
+echo $sql."<br>";
 $resultB = claro_sql_query($sql);
 
 echo mysql_error();
 
 while ($listB = mysql_fetch_array($resultB))
 {
-echo "LPMID : ".$listB['LPMID']." rank : ".$listB['M']." LPID : ".$listB['learnpath_id']." credit : ".$listB['UMPC']."<br />";
+echo "LPMID : ".$listB['LPMID']." rank : ".$listB['M']." LPID : ".$listB['learnpath_id']." credit : ".$listB['UMPC']."<br>";
 }
 
 $resultB = claro_sql_query($sql);
@@ -477,12 +484,12 @@ $resultB = claro_sql_query($sql);
 
 if (claro_is_user_authenticated()) $date = $claro_notifier->get_notification_date(claro_get_current_user_id()); // get date for notified "as new" paths
 
-echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">
+echo "<table class=\"claroTable emphaseLine\" width=\"100%\" border=\"0\" cellspacing=\"2\">
  <thead>
- <tr class="headerX" align="center" valign="top">
-  <th>' . get_lang('Learning path') . '</th>';
+ <tr class=\"headerX\" align=\"center\" valign=\"top\">
+  <th>".get_lang('Learning path')."</th>";
 
-if($is_allowedToEdit)
+if($is_AllowedToEdit)
 {
     // Titles for teachers
     echo "<th>".get_lang('Modify')."</th>"
@@ -503,7 +510,7 @@ elseif($lpUid)
 echo "</tr>\n</thead>\n<tbody>";
 
 // display invisible learning paths only if user is courseAdmin
-if ($is_allowedToEdit)
+if ($is_AllowedToEdit)
 {
     $visibility = "";
 }
@@ -557,7 +564,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
 
     if ( $list['visibility'] == 'HIDE' )
     {
-        if ($is_allowedToEdit)
+        if ($is_AllowedToEdit)
         {
             $style=" class=\"invisible\"";
         }
@@ -586,7 +593,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         {
         if($lpUid)
         {
-        if ( !$is_allowedToEdit )
+        if ( !$is_AllowedToEdit )
         {
         $is_blocked = true;
         } // never blocked if allowed to edit
@@ -643,7 +650,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
 
             if($lpUid)
             {
-                if ( !$is_allowedToEdit )
+                if ( !$is_AllowedToEdit )
                 {
                     $is_blocked = true;
                 } // never blocked if allowed to edit
@@ -666,7 +673,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
                 //must block next path because last module of this path not credited yet!
                 if($lpUid)
                 {
-                    if ( !$is_allowedToEdit )
+                    if ( !$is_AllowedToEdit )
                     {
                         $is_blocked = true;
                     } // never blocked if allowed to edit
@@ -688,14 +695,14 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
 
         while ($listB = mysql_fetch_array($resultB))
         {
-        echo  "lp_id listB: ".$listB['learnpath_id']." lp_id list: ".$list['learnPath_id']." creditUMP: ".$listB['UMPC']." Lplock: ".$list['lock']."<br />";
+        echo  "lp_id listB: ".$listB['learnpath_id']." lp_id list: ".$list['learnPath_id']." creditUMP: ".$listB['UMPC']." Lplock: ".$list['lock']."<br>";
 
         if (($listB['learnpath_id']==$list['learnPath_id']) && ($listB['UMPC']=="NO-CREDIT") && ($list['lock'] == "CLOSE"))
         {
         echo "ok";
         if($lpUid)
         {
-        if ( !$is_allowedToEdit )
+        if ( !$is_AllowedToEdit )
         {
         echo "on va bloquer pour LPMID : ".$listB['LPMID'];
         $is_blocked = true;
@@ -716,7 +723,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         echo "ok2";
         if($lpUid)
         {
-        if ( !$is_allowedToEdit )
+        if ( !$is_AllowedToEdit )
         {
         echo "on va bloquer pour LPMID : ".$listB['LPMID'];
         $is_blocked = true;
@@ -744,7 +751,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
 
     // DISPLAY ADMIN LINK-----------------------------------------------------------
 
-    if($is_allowedToEdit)
+    if($is_AllowedToEdit)
     {
         // 5 administration columns
 
@@ -765,7 +772,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         {
             echo '<td>' . "\n"
             .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=delete&amp;del_path_id=' . $list['learnPath_id'] . '" '
-            .    ' onclick="return scormConfirmation(\'' . clean_str_for_javascript($list['name']) . '\');">' . "\n"
+            .    ' onClick="return scormConfirmation(\'' . clean_str_for_javascript($list['name']) . '\');">' . "\n"
             .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />' . "\n"
             .    '</a>' . "\n"
             .    '</td>' . "\n"
@@ -776,7 +783,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         {
             echo '<td>' . "\n"
             .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=delete&amp;del_path_id=' . $list['learnPath_id'] . '" '
-            .    'onclick="return confirmation(\'' . clean_str_for_javascript($list['name']) . '\');">' . "\n"
+            .    'onClick="return confirmation(\'' . clean_str_for_javascript($list['name']) . '\');">' . "\n"
             .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />' . "\n"
             .    '</a>' . "\n"
             .    '</td>' . "\n"
@@ -794,14 +801,14 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
             .    '?cmd=mkBlock'
             .    '&amp;cmdid=' . $list['learnPath_id'] . '">' . "\n"
             .    '<img src="' . get_path('imgRepositoryWeb') . 'unblock.gif" '
-            .    'alt="' . get_lang('Block') . '" border="0" />'. "\n"
+            .    'alt="' . get_lang('Block') . '" border="0">'. "\n"
             .    '</a>' . "\n"
             ;
         }
         else
         {
             echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkUnblock&amp;cmdid=' . $list['learnPath_id'] . '">' . "\n"
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'block.gif" alt="' . get_lang('Unblock') . '" border="0" />' . "\n"
+            .    '<img src="' . get_path('imgRepositoryWeb') . 'block.gif" alt="' . get_lang('Unblock') . '" border="0">' . "\n"
             .    '</a>' . "\n"
             ;
         }
@@ -823,7 +830,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         {
             if ($list['lock']=='CLOSE')
             {
-                $onclick = "onclick=\"return confirm('" . clean_str_for_javascript(get_block('blockConfirmBlockingPathMadeInvisible')) . "');\"";
+                $onclick = "onClick=\"return confirm('" . clean_str_for_javascript(get_block('blockConfirmBlockingPathMadeInvisible')) . "');\"";
             }
             else
             {
@@ -831,7 +838,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
             }
 
             echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkInvisibl&amp;visibility_path_id=' . $list['learnPath_id'] . '" ' . $onclick . ' >' . "\n"
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'visible.gif" alt="' . get_lang('Make invisible') . '" border="0" />' . "\n"
+            .    '<img src="' . get_path('imgRepositoryWeb') . 'visible.gif" alt="' . get_lang('Make invisible') . '" border="0">' . "\n"
             .    '</a>' . "\n"
             ;
         }
@@ -844,7 +851,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         {
             echo '<td>' . "\n"
             .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=moveUp&amp;move_path_id=' . $list['learnPath_id'] . '">' . "\n"
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'up.gif" alt="' . get_lang('Move up') . '" border="0" />' . "\n"
+            .    '<img src="' . get_path('imgRepositoryWeb') . 'up.gif" alt="' . get_lang('Move up') . '" border="0">' . "\n"
             .    '</a>' . "\n"
             .    '</td>' . "\n"
             ;
@@ -859,7 +866,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         {
             echo '<td>' . "\n"
             .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=moveDown&amp;move_path_id=' . $list['learnPath_id'] . '">' . "\n"
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'down.gif" alt="' . get_lang('Move down') . '" border="0" />' . "\n"
+            .    '<img src="' . get_path('imgRepositoryWeb') . 'down.gif" alt="' . get_lang('Move down') . '" border="0">' . "\n"
             .    '</a>' . "\n"
             .    '</td>' . "\n"
             ;
@@ -872,7 +879,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         // EXPORT links
         echo '<td>' . "\n"
         .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=export&amp;path_id=' . $list['learnPath_id'] . '" >'
-        .    '<img src="' . get_path('imgRepositoryWeb') . 'export.gif" alt="' . get_lang('Export') . '" border="0" />'
+        .    '<img src="' . get_path('imgRepositoryWeb') . 'export.gif" alt="' . get_lang('Export') . '" border="0">'
         .    '</a>' . "\n"
         .    '</td>' . "\n"
         ;

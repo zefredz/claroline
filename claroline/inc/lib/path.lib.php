@@ -38,49 +38,35 @@ $clarolineRepositorySys = Http://www.domain.tld/whereisMyCampus/claroline
  */
 function get_path($pathKey)
 {
-    static $pathList = array() ;
-
-    if ( count($pathList) == 0 )
+    switch ($pathKey)
     {
-        $rootPath = dirname(dirname(dirname(dirname(__FILE__))));
+        case 'includePath'            : return dirname( dirname(__FILE__) );
+        case 'incRepositorySys'       : return dirname( dirname(__FILE__) );
 
-        // root path
-        $pathList['rootSys'] =  $rootPath . '/' ;
-        $pathList['includePath'] =  $rootPath . '/claroline/inc' ;
-        $pathList['incRepositorySys'] =  $rootPath . '/claroline/inc' ;
+        case 'rootSys' : return get_conf('rootSys') ;
+        case 'rootWeb' : return get_conf('rootWeb') ;
 
-        // root url
-        $pathList['url'] =  get_conf('urlAppend');
-        $pathList['rootWeb'] =  get_conf('rootWeb') ;
+        // private translation / Dont use theses paths
+        case 'imgRepositoryAppend'       : return 'img/'; // <-this line would be editable in claroline 1.7
+        case 'clarolineRepositoryAppend' : return get_conf('clarolineRepositoryAppend','claroline/');
+        case 'coursesRepositoryAppend'   : return get_conf('coursesRepositoryAppend','courses/');
+        case 'rootAdminAppend'           : return get_conf('rootAdminAppend','admin/');
 
-        // append path
-        $pathList['imgRepositoryAppend'] =  'claroline/img/'; // <-this line would be editable in claroline 1.7
-        $pathList['coursesRepositoryAppend'] =  get_conf('coursesRepositoryAppend','courses/');
 
-        // root path + append path
-        $pathList['clarolineRepositorySys'] =  $rootPath . '/claroline/' ;
-        $pathList['coursesRepositorySys'] =  $rootPath . '/' . $pathList['coursesRepositoryAppend'] ;
-        $pathList['rootAdminSys'] =  $rootPath . '/claroline/admin/' ;
-        $pathList['imgRepositorySys'] =  $rootPath . '/' . $pathList['imgRepositoryAppend'];
+        case 'clarolineRepositorySys' : return get_conf('rootSys') . get_conf('clarolineRepositoryAppend','claroline/');
+        case 'clarolineRepositoryWeb' : return get_conf('urlAppend') . '/' . get_conf('clarolineRepositoryAppend','claroline/');
+        case 'userImageRepositorySys' : return get_conf('rootSys') . get_conf('userImageRepositoryAppend','platform/img/users/');
+        case 'userImageRepositoryWeb' : return get_conf('urlAppend') . '/' . get_conf('userImageRepositoryAppend','platform/img/users/');
+        case 'coursesRepositorySys'   : return get_conf('rootSys') . get_conf('coursesRepositoryAppend','courses/');
+        case 'coursesRepositoryWeb'   : return get_conf('urlAppend') . '/' . get_conf('coursesRepositoryAppend','courses/');
+        case 'rootAdminSys'           : return get_conf('clarolineRepositorySys') . get_conf('rootAdminAppend','admin/');
+        case 'rootAdminWeb'           : return get_conf('clarolineRepositoryWeb') . get_conf('rootAdminAppend','admin/');
+        case 'imgRepositorySys'       : return get_conf('clarolineRepositorySys') . get_conf('imgRepositoryAppend');
+        case 'imgRepositoryWeb'       : return get_conf('clarolineRepositoryWeb') . get_conf('imgRepositoryAppend');
+        case 'url'                    : return get_conf('urlAppend');
 
-        // root url + append path
-        $pathList['coursesRepositoryWeb'] =  $pathList['url'] . '/' . $pathList['coursesRepositoryAppend'];
-        $pathList['imgRepositoryWeb'] = $pathList['url']  . '/' . $pathList['imgRepositoryAppend'];
-        $pathList['clarolineRepositoryWeb'] =  $pathList['url'] . '/claroline/';
-        $pathList['rootAdminWeb'] =  $pathList['url'] . '/claroline/admin/';
+        default : trigger_error('Claroline : Unknown path name "' . $pathKey . '" passed to get_path function' , E_USER_NOTICE);
 
-        // path special case
-        $pathList['garbageRepositorySys'] =  get_conf('garbageRepositorySys');
-        $pathList['mysqlRepositorySys'] =  get_conf('mysqlRepositorySys');
-    }
-
-    if ( array_key_exists( $pathKey, $pathList ) )
-    {
-        return $pathList[$pathKey];
-    }
-    else
-    {
-        trigger_error('Claroline : Unknown path name "' . $pathKey . '" passed to get_path function' , E_USER_NOTICE);
         return false;
     }
 
@@ -103,7 +89,7 @@ function get_url_domain()
     )
     */
 
-    $urlPart = parse_url(get_conf('rootWeb'));
+    $urlPart = parse_url(get_conf($rootWeb));
 
     $url  = $urlPart[scheme] . '://';
     if(! empty($urlPart[user]))
@@ -115,5 +101,4 @@ function get_url_domain()
     $url .= $urlPart[host] . '/';
 
 }
-
 ?>

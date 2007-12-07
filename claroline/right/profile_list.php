@@ -72,7 +72,7 @@ echo '<table class="claroTable emphaseLine" >' . "\n"
 foreach ( $profileList as $thisProfile )
 {
     echo '<tr align="center">' . "\n"
-        . '<td align="left">' . get_lang($thisProfile['name']) ;
+        . '<td align="left">' . $thisProfile['name'] ;
 
     if ( $thisProfile['locked'] == '1' )
     {
@@ -80,7 +80,7 @@ foreach ( $profileList as $thisProfile )
     }
 
     echo '<br />' . "\n"
-    .    '<em>' . get_lang($thisProfile['description']) . '</em>' . "\n"
+    .    '<em>' . $thisProfile['description'] . '</em>' . "\n"
     .    '<td>' . "\n"
     .    '<a href="profile.php?cmd=rqEdit&display_profile='. $thisProfile['id'].'">' 
     .    '<img src="' .  get_path('imgRepositoryWeb') . 'settings.gif" alt="' . get_lang('Rights') . '" />' . "\n"

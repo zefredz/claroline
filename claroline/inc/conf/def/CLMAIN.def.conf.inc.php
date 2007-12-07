@@ -101,13 +101,6 @@ $conf_def['section']['RIGHT']['properties'] =
 array ( 'allowSelfReg'
       , 'allowToSelfEnroll'
       );
-      
-$conf_def['section']['DOWNLOAD_SETTINGS']['label']='Download';
-$conf_def['section']['DOWNLOAD_SETTINGS']['description']='Configure the way file are downloaded from the platform';
-$conf_def['section']['DOWNLOAD_SETTINGS']['properties'] =
-array ( 'useSendFile'
-      , 'usePrettyUrl'
-      );
 
 $conf_def['section']['ADVANCED']['label']='Advanced settings';
 $conf_def['section']['ADVANCED']['properties'] =
@@ -121,8 +114,7 @@ array ( 'userPasswordCrypted'
       , 'DEVEL_MODE'
       , 'warnSessionLost'
       , 'claro_brailleViewMode'
-      , 'javascriptCompression'
-      // , 'secureDocumentDownload'
+      , 'secureDocumentDownload'
       );
 
 // Platform
@@ -590,16 +582,6 @@ array ('label'       => 'Session lost warning'
       ,'readonly'    => FALSE
       , 'acceptedValue' => array('TRUE' => 'On', 'FALSE' => 'Off')
       );
-      
-$conf_def_property_list['javascriptCompression'] =
-array ('label'       => 'Javascript compression'
-      ,'description' => 'Compress javascript files. This option should be set to off only for debugging.'
-      ,'type'        => 'boolean'
-      ,'default'     => TRUE
-      ,'display'     => TRUE
-      ,'readonly'    => FALSE
-      , 'acceptedValue' => array('TRUE' => 'On', 'FALSE' => 'Off')
-      );
 
 $conf_def_property_list['DEVEL_MODE'] =
 array ('label'       => 'Development mode'
@@ -644,39 +626,13 @@ array ('label'       => 'Display banner'
       ,'acceptedValue' => array ('FALSE' => 'on top', 'TRUE'=>'on bottom')
       );
 
-/*$conf_def_property_list['secureDocumentDownload'] =
+$conf_def_property_list['secureDocumentDownload'] =
 array ( 'description' => 'Increase the security of file download. This option only works on Apache Server. To be really secure, this option have to be completed by an .htaccess file on the course folders.'
       , 'label'       => 'Secure document download'
       , 'default'     => FALSE
       , 'type'        => 'boolean'
       , 'acceptedValue' => array ('TRUE'=>'On'
                                  ,'FALSE'=>'Off'
-                               )
-      , 'display'     => TRUE
-      , 'readonly'    => FALSE
-      );*/
-      
-// File Download
-      
-$conf_def_property_list['useSendFile'] =
-array ( 'description' => 'Select the way Claroline send files to a user.'
-      , 'label'       => 'Download mechanism'
-      , 'default'     => TRUE
-      , 'type'        => 'boolean'
-      , 'acceptedValue' => array ('TRUE'=>'Send file using PHP (mask real file location)'
-                                 ,'FALSE'=>'Redirect to the file'
-                               )
-      , 'display'     => TRUE
-      , 'readonly'    => FALSE
-      );
-      
-$conf_def_property_list['usePrettyUrl'] =
-array ( 'description' => 'Choose the mode for URL for file download. Warning : Pretty URL mode don\'t work with IIS.'
-      , 'label'       => 'File url mode'
-      , 'default'     => FALSE
-      , 'type'        => 'boolean'
-      , 'acceptedValue' => array ('TRUE'=>'Pretty URL using PATH_INFO (download.php/path/to/file.ext)'
-                                 ,'FALSE'=>'Standard URL using QUERY_STRING (download.php?url=/path/to/file.ext)'
                                )
       , 'display'     => TRUE
       , 'readonly'    => FALSE

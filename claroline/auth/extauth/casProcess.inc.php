@@ -73,7 +73,7 @@ if (   ! isset($_SESSION['init_CasCheckinDone'] )
                          .  'gidReq='.urlencode($_SESSION['_gid']);
         }
 
-        $_SESSION['casCallBackUrl'] = base64_encode($casCallBackUrl); // we record callback url in session
+		$_SESSION['casCallBackUrl'] = base64_encode($casCallBackUrl); // we record callback url in session
         phpCAS::forceAuthentication();
 
         $userLoggedOnCas                  = true;

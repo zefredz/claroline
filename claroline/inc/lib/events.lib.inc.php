@@ -243,6 +243,51 @@ function event_download($doc_url)
 }
 
 /**
+ * No more used in 1.7
+ * @param doc_id id of document (id in mainDb.document table)
+ * @author Sebastien Piraux <pir@cerdecam.be>
+ * @desc Record information for upload event
+     used in the works tool to record informations when
+     an user upload 1 work
+ */
+function event_upload($doc_id)
+{
+    // if tracking is disabled record nothing
+    if( ! get_conf('is_trackingEnabled') ) return 0;
+
+    // get table names
+    $tbl_cdb_names               = claro_sql_get_course_tbl();
+    $tbl_track_e_uploads      = $tbl_cdb_names['track_e_uploads'];
+
+    $reallyNow = time();
+    if(claro_is_user_authenticated())
+    {
+        $user_id = "'".claro_get_current_user_id()."'";
+    }
+    else // anonymous
+    {
+        $user_id = "NULL";
+    }
+
+    $sql = "INSERT INTO `".$tbl_track_e_uploads."`
+            (
+             `upload_user_id`,
+             `upload_work_id`,
+             `upload_date`
+            )
+
+            VALUES
+            (
+             ". $user_id.",
+             '".(int)$doc_id."',
+             FROM_UNIXTIME(".$reallyNow.")
+            )";
+
+    $res = claro_sql_query($sql);
+    return 1;
+}
+
+/**
  * Record result of user when an exercice was done
  * @param exo_id ( id in courseDb exercices table )
  * @param result ( score @ exercice )
@@ -255,7 +300,7 @@ function event_download($doc_url)
 function event_exercice($exo_id,$score,$weighting,$time, $uid = "")
 {
     // exercise tracking must always be recorded
-
+    
     // get table names
     $tbl_cdb_names               = claro_sql_get_course_tbl();
     $tbl_track_e_exercises    = $tbl_cdb_names['track_e_exercices'];
@@ -402,7 +447,7 @@ function event_default($type_event,$values)
         }
     }
     $sql = "INSERT INTO `".$tbl_track_e_default."`
-           ( `default_user_id` , `default_cours_code` , `default_date` , `default_event_type` , `default_value_type` , `default_value` )
+           ( `default_user_id` , `default_cours_code` , `default_date` , `default_event_type` , `default_value_type` , `default_value` ) 
             VALUES ".$sqlValues;
 
     $res = claro_sql_query($sql);

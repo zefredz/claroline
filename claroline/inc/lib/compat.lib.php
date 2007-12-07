@@ -293,35 +293,4 @@ if (!function_exists('scandir')) {
         return php_compat_scandir($directory, $sorting_order = 0);
     }
 }
-
-if ( !function_exists('htmlspecialchars_decode') )
-{
-    // for version previous to PHP 5.1.0RC1
-    function htmlspecialchars_decode($text)
-    {
-        return strtr( $text,
-            array_flip(
-                get_html_translation_table( HTML_SPECIALCHARS ) ) );
-    }
-}
-
-/**
- * Alternative iconv() function when original is missing.
- * @param string $from original charset
- * @param string $to destination charset
- * @param string $string to convert
- * @return string converted
- * @author Jean-Pierre Morfin
- * @license Creative Commons By
- * @license http://creativecommons.org/licenses/by/2.0/fr/
- */
-if(!function_exists("iconv"))
-{
-	function iconv($from, $to, $string)
-	{
-    	$converted = htmlentities($string, ENT_NOQUOTES, $from);
-    	$converted = html_entity_decode($converted, ENT_NOQUOTES, $to);
-    	return $converted;
-	}
-}
 ?>

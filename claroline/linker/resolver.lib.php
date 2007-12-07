@@ -216,10 +216,6 @@ class Resolver
                 .                         '&amp;gidReq=' . $elementCRLArray['team']
                 ;
             }
-            else
-            {
-               $url = $this->_basePath . $url;
-            }
 
             return $url;
 

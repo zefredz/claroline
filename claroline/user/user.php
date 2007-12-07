@@ -1,15 +1,21 @@
 <?php // $Id$
-
 /**
- * User list tool
+ * CLAROLINE
  *
- * @version     1.9 $Revision$
- * @copyright   2001-2007 Universite catholique de Louvain (UCL)
- * @author      Claroline Team <info@claroline.net>
- * @author      Frederic Minne <zefredz@claroline.net>
- * @license     http://www.gnu.org/copyleft/gpl.html
- *              GNU GENERAL PUBLIC LICENSE version 2.0
- * @package     CLUSR
+ * This tool list user member of the course.
+ *
+ * @version 1.8 $Revision$
+ *
+ * @copyright 2001-2007 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @see http://www.claroline.net/wiki/index.php/CLUSR
+ *
+ * @author Claro Team <cvs@claroline.net>
+ *
+ * @package CLUSR
+ *
  */
 
 /*=====================================================================
@@ -36,6 +42,12 @@ require_once get_path('incRepositorySys')  . '/lib/pager.lib.php';
    Load config
   ----------------------------------------------------------------------*/
 include claro_get_conf_repository() . 'user_profile.conf.php';
+
+/*----------------------------------------------------------------------
+  Stats
+  ----------------------------------------------------------------------*/
+
+event_access_tool(claro_get_current_tool_id(), claro_get_current_course_tool_data('label'));
 
 /*----------------------------------------------------------------------
    JavaScript - Delete Confirmation
@@ -68,10 +80,6 @@ $can_add_single_user = (bool) (claro_is_course_manager()
 $can_import_user_list = (bool) (claro_is_course_manager()
                      && get_conf('is_coursemanager_allowed_to_import_user_list') )
                      || claro_is_platform_admin();
-$can_export_user_list = (bool) (claro_is_course_manager()
-                     && get_conf('is_coursemanager_allowed_to_export_user_list', true) )
-                     || claro_is_platform_admin();
-
 $can_import_user_class = (bool) (claro_is_course_manager()
                      && get_conf('is_coursemanager_allowed_to_import_user_class') )
                      || claro_is_platform_admin();
@@ -163,23 +171,8 @@ if ( $is_allowedToEdit )
                 }
             }
         }
-    } // end if cmd == unregister
+    } // end if isset $_REQUEST['cmd']
 
-    if( $cmd == 'export' && $can_export_user_list )
-    {
-        include( dirname(__FILE__) . '/lib/export.lib.php');
-
-        // contruction of XML flow
-        $csv = export_user_list(claro_get_current_course_id());
-
-        if( !empty($csv) )
-        {
-            header("Content-type: application/csv");
-            header('Content-Disposition: attachment; filename="'.claro_get_current_course_id().'_userlist.csv"');
-            echo $csv;
-            exit;
-        }
-    }
 }    // end if allowed to edit
 
 /*----------------------------------------------------------------------
@@ -270,7 +263,6 @@ if ($can_add_single_user)
                                      )
                                      ;
 }
-
 if ($can_import_user_list)
 {
     // Add CSV file of user link
@@ -281,18 +273,6 @@ if ($can_import_user_list)
                                      . get_lang('Add a user list')
                                      );
 }
-
-if ($can_export_user_list)
-{
-    // Export CSV file of user link
-    $userMenu[] = claro_html_cmd_link( $_SERVER['PHP_SELF']
-                                     . '?cmd=export'
-                                     . claro_url_relay_context('&amp;')
-                                     , '<img src="' . get_path('imgRepositoryWeb') . 'export.gif" alt="" />'
-                                     . get_lang('Export user list')
-                                     );
-}
-
 if ($can_import_user_class)
 {
     // Add a class link
@@ -324,7 +304,7 @@ $userMenu[] = claro_html_cmd_link( $_SERVER['PHP_SELF']
                                  . claro_url_relay_context('&amp;')
                                  , '<img src="' . get_path('imgRepositoryWeb') . 'unenroll.gif" alt="" />'
                                  . get_lang('Unregister all students')
-                                 , array('onclick'=>"return confirmation('" . clean_str_for_javascript(get_lang('all students')) . "')")
+                                 , array('onClick'=>"return confirmation('" . clean_str_for_javascript(get_lang('all students')) . "')")
                                  );
 
 /*=====================================================================
@@ -495,7 +475,7 @@ foreach ( $userList as $thisUser )
             echo '<a href="'.$_SERVER['PHP_SELF']
             .    '?cmd=unregister&amp;user_id=' . $thisUser['user_id']
             .    claro_url_relay_context('&amp;') . '" '
-            .    'onclick="return confirmation(\''.clean_str_for_javascript(get_lang('Unregister') .' '.$thisUser['nom'].' '.$thisUser['prenom']).'\');">'
+            .    'onClick="return confirmation(\''.clean_str_for_javascript(get_lang('Unregister') .' '.$thisUser['nom'].' '.$thisUser['prenom']).'\');">'
             .    '<img border="0" alt="' . get_lang('Unregister') . '" src="' . get_path('imgRepositoryWeb') . '/unenroll.gif" />'
             .    '</a>'
             ;

@@ -586,12 +586,12 @@ function trig_topic_notification($topicId)
 
     while ( ( $list = mysql_fetch_array($notifyResult) ) )
     {
-        $message = get_block('blockForumNotificationEmailMessage',array('%firstname' => $list['firstname'],
-                                  '%lastname' => $list['lastname'],
+    	$message = get_block('blockForumNotificationEmailMessage',array('%firstname' => $list['firstname'],
+								  '%lastname' => $list['lastname'],
                                   '%url_topic' => $url_topic,
                                   '%url_forum' => $url_forum ) );
 
-           claro_mail_user($list['user_id'], $message, $subject);
+       	claro_mail_user($list['user_id'], $message, $subject);
     }
 }
 
@@ -609,7 +609,7 @@ function trig_topic_notification($topicId)
 function disp_confirmation_message ($message, $forumId = false, $topicId = false)
 {
 
-    echo '<table border="0" align="center" >' . "\n"
+    echo '<table border="0" align="center" ">' . "\n"
        . '<tr>' . "\n"
        . '<td>' . "\n"
        . '<center>' . "\n"
@@ -876,7 +876,7 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 
             $toolList[] =
             claro_html_cmd_link( 'newtopic.php?forum=' . $forum_id . claro_url_relay_context('&amp;')
-                               , '<img src="' . get_path('imgRepositoryWeb') . 'topic.gif" /> '
+                               , '<img src="' . get_path('imgRepositoryWeb') . 'topic.gif"> '
                                . get_lang('New topic')
                                );
             break;
@@ -933,7 +933,7 @@ function disp_search_box()
         '<form action="viewsearch.php" method="post">'
         .    claro_form_relay_context()
         .            get_lang('Search') . ' : <br />'
-        .            '<input type="text" name="searchPattern" /><br />'
+        .            '<input type="text" name="searchPattern"><br />'
         .            '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp; '
         .            claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
         .            '</form>'
@@ -947,18 +947,13 @@ function disp_search_box()
 
 function disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_id=0, $topic_name='')
 {
-    $bc = new BreadCrumbs;
-
-    $bc->appendNode( new BreadCrumbsNode( 'Forum Index'
-        , get_module_entry_url('CLFRM') ) );
+    $breadCrumbNameList   = array ('Forum Index');
+    $breadCrumbUrlList    = array ('index.php');
 
     if ( in_array($pagetype, array('viewforum', 'viewtopic', 'editpost', 'reply', 'newtopic') ) )
     {
-        $bc->appendNode( new BreadCrumbsNode( $forum_name
-            , get_module_url('CLFRM') . '/viewforum.php?forum=' . $forum_id
-                . (claro_is_in_a_group()
-                    ? '&amp;gidReq=' . claro_get_current_group_id()
-                    : '') ) );
+        $breadCrumbNameList[] = $forum_name;
+        $breadCrumbUrlList[]  = 'viewforum.php?forum=' . $forum_id . (claro_is_in_a_group() ? '&amp;gidReq=' . claro_get_current_group_id() : '');
 
         switch ( $pagetype )
         {
@@ -966,38 +961,37 @@ function disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_id=0, $
                 break;
 
             case 'viewtopic' :
-                $bc->appendNode( new BreadCrumbsNode( $topic_name ) );
+                $breadCrumbNameList[] = $topic_name;
+                $breadCrumbNameUrl[] = '';
                 break;
 
             case 'newtopic' :
-                $bc->appendNode( new BreadCrumbsNode( get_lang('New topic') ) );
+                $breadCrumbNameList[] = get_lang('New topic');
+                $breadCrumbUrlList[]  = null;
                 break ;
 
             case 'editpost' :
-                $bc->appendNode( new BreadCrumbsNode( $topic_name,
-                    get_module_url('CLFRM') . '/viewtopic.php?topic=' . $topic_id
-                        . (claro_is_in_a_group()
-                            ? '&amp;gidReq=' . claro_get_current_group_id()
-                            : '') ) );
-                $bc->appendNode( new BreadCrumbsNode( get_lang('Edit post') ) );
+                $breadCrumbNameList[] = $topic_name;
+                $breadCrumbUrlList[]  = 'viewtopic.php?topic=' . $topic_id . (claro_is_in_a_group() ? '&amp;gidReq=' . claro_get_current_group_id() : '');
+                $breadCrumbNameList[] = get_lang('Edit post');
+                $breadCrumbUrlList[]  = null;
                 break ;
 
             case 'reply' :
-                $bc->appendNode( new BreadCrumbsNode( $topic_name,
-                    get_module_url('CLFRM') . '/viewtopic.php?topic=' . $topic_id
-                        . (claro_is_in_a_group() ? '&amp;gidReq=' . claro_get_current_group_id() : '') ) );
-
-                $bc->appendNode( new BreadCrumbsNode( get_lang('Reply') ) );
+                $breadCrumbNameList[] = $topic_name;
+                $breadCrumbUrlList[]  = 'viewtopic.php?topic=' . $topic_id . (claro_is_in_a_group() ? '&amp;gidReq=' . claro_get_current_group_id() : '');
+                $breadCrumbNameList[] = get_lang('Reply');
+                $breadCrumbUrlList[]  = null;
                 break ;
         }
     }
     elseif ($pagetype == 'viewsearch')
     {
-            $bc->appendNode( new BreadCrumbsNode( get_lang('Search result'), null ) );
+            $breadCrumbNameList[] = get_lang('Search result');
+            $breadCrumbUrlList[]  = null;
     }
 
-    // return claro_html_breadcrumbtrail($breadCrumbNameList, $breadCrumbUrlList, ' > ') . '<br />' ;
-    return '<div class="breadcrumbTrails">' . $bc->render().'</div>' . "\n";
+    return claro_html_breadcrumbtrail($breadCrumbNameList, $breadCrumbUrlList, ' > ') . '<br />' ;
 }
 
 /**
@@ -1474,7 +1468,7 @@ function move_category_rank($currCatId, $direction)
     }
     else
     {
-        return false;
+    	return false;
     }
 
     return true;
@@ -1626,4 +1620,5 @@ function get_group_forum_list ($groupId)
     return claro_sql_query_fetch_all_rows($sql);
 
 }
+
 ?>

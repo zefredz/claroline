@@ -1,9 +1,9 @@
 <?php //$Id$
 /**
  * CLAROLINE
- * @version 1.9 $Revision$
+ * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -87,7 +87,7 @@ $addtoAdvanced = $searchInfo['addtoAdvanced'];
 
 if(count($searchInfo['isSearched']) )
 {
-    $isSearchedHTML = implode('<br />', $isSearched);
+    $isSearchedHTML = implode('<br>', $isSearched);
 }
 else
 {
@@ -102,16 +102,9 @@ $sql = get_sql_filtered_user_list();
 $offset       = isset($_REQUEST['offset']) ? $_REQUEST['offset'] : 0 ;
 $myPager      = new claro_sql_pager($sql, $offset, $userPerPage);
 
-if ( array_key_exists( 'sort', $_GET ) )
+if ( isset($_GET['sort']) )
 {
-    $dir = array_key_exists( 'dir', $_GET ) && $_GET['dir'] == SORT_DESC
-        ? SORT_DESC
-        : SORT_ASC
-        ;
-
-    $sortKey = strip_tags( $_GET['sort'] );
-        
-    $myPager->add_sort_key( $sortKey, $dir );
+    $myPager->add_sort_key( $_GET['sort'], isset($_GET['dir']) ? $_GET['dir'] : SORT_ASC );
 }
 
 $defaultSortKeyList = array ('isPlatformAdmin' => SORT_DESC,
@@ -181,7 +174,7 @@ foreach ($userList as $userKey => $user)
     $userGrid[$userKey]['delete'] = '<a href="' . $_SERVER['PHP_SELF']
     .                               '?cmd=delete&amp;user_id=' . $user['user_id']
     .                               '&amp;offset=' . $offset . $addToURL . '" '
-    .                               ' onclick="return confirmation(\'' . clean_str_for_javascript(' ' . $user['firstname'] . ' ' . $user['name']).'\');">' . "\n"
+    .                               ' onClick="return confirmation(\'' . clean_str_for_javascript(' ' . $user['firstname'] . ' ' . $user['name']).'\');">' . "\n"
     .                               '<img src="' . get_path('imgRepositoryWeb') . 'deluser.gif" border="0" alt="' . get_lang('Delete') . '" />' . "\n"
     .                               '</a> '."\n"
     ;

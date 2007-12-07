@@ -1,21 +1,21 @@
 
 /******************************************************************************
                               MAIN HTML TAGS STYLE
- $Id$
+ $Id$                          
  ******************************************************************************/
 
 html {
     margin: 0;
     padding: 0;
     height: 100%;
-    font-size: 1em;
+    font-size: 1em;    
 }
 
 body {
     margin: 0;
     padding: 0;
     color: #444;
-    background: #FFF;
+    background: #FFF; 
     text-align: left;
     font-family: Arial, Verdana, Helvetica, Sans-Serif;
     font-size: 1em;
@@ -23,7 +23,7 @@ body {
 }
 
 a:link, a:visited  {
-    color: #369;
+    color: #336699;
     font-weight: normal;
     text-decoration: none;
 }
@@ -51,26 +51,26 @@ ul {
 
 input, textarea, button, select{
     border: 1px solid #aaa;
-    color: #369;
+    color: #336699;
 }
 
 input[type=submit], input[type=reset], button {
     margin-left: 2px;
-    color: #666;
-}
+    color: #666666;
+} 
 
 input[type], textarea[name], button {
-    background: #fff;
+    background: #ffffff;
 }
 
 input[type=submit], input[type=reset], button {
-    background: #fff;
-    color: #000;
+    background: #fffffff;
+    color: #000000;
 }
 
 input[type=submit]:hover, button:hover {
-    background-color: #369;
-    color: #fff;
+    background-color: #336699;
+    color: #ffffff;
 }
 
 label {
@@ -141,7 +141,7 @@ label {
  ----------------------------------------------------------------------------*/
 
 #userBanner {
-    color: #369;
+    color: #336699;
     font-weight: bold;
     font-size: 0.8em;
     padding: 1px 5px;
@@ -150,7 +150,7 @@ label {
 }
 
 #userBanner #userName {
-    color: #693;
+    color: #669933;
     font-weight: bold;
     margin: 0;
 }
@@ -159,13 +159,13 @@ label {
 #userBanner a:link,
 #userBanner a:visited {
     text-decoration: none;
-    color: #369;
+    color: #336699;
     font-weight: normal;
 }
 
 #userBanner a:hover,
 #userBanner a:active {
-       color: #369;
+       color: #336699;
     text-decoration: underline;
     font-weight: normal;
 }
@@ -184,8 +184,8 @@ label {
                                   COURSE LINE
  ----------------------------------------------------------------------------*/
 #courseBanner {
-    padding: 4px;
-    color: #369;
+       padding: 4px;
+    color: #336699;
     font-size: 0.8em;
     font-weight: bold;
     border-top: 1px #999 solid;
@@ -217,14 +217,14 @@ label {
 #courseBanner a,
 #courseBanner a:link,
 #courseBanner a:visited {
-    color: #369;
+    color: #336699;
     text-decoration: none;
     font-weight: normal;
 }
 
 #courseBanner a:hover,
 #courseBanner a:active {
-    color: #693;
+    color: #669933;
     text-decoration: underline;
     font-weight: normal;
 }
@@ -270,7 +270,7 @@ label {
 
 #breadcrumbLine {
     font-size: 0.8em;
-    color: #666;
+    color: #666666;
     border: none;
     padding : 2px 5px;
 }
@@ -279,7 +279,7 @@ label {
     display: none;
 }
 
-#breadcrumbLine .breadcrumbTrails {
+#breadcrumbLine .breadcrumbTrail {
     float: left;
 }
 
@@ -288,15 +288,19 @@ label {
     text-align: right;
 }
 
+
+.breadcrumbTrail {
+}
+
 #breadcrumbLine a:link,
 #breadcrumbLine a:visited {
-    color: #693;
+    color: #669933;
     font-weight: normal;
 }
 
 #breadcrumbLine a:hover,
 #breadcrumbLine a:active {
-    color: #999;
+    color: #999999;
     font-weight: normal;
 }
 
@@ -345,13 +349,13 @@ label {
     background: url('default/bg_footer.jpg') repeat-x top left #fff;
 }
 
-#campusFooter a:link,
+#campusFooter a:link, 
 #campusFooter a:visited {
     color: #666;
     font-weight: bold;
 }
 
-#campusFooter a:hover,
+#campusFooter a:hover, 
 #campusFooter a:active {
     color: #369;
     font-weight: bold;
@@ -368,7 +372,7 @@ label {
 }
 
 #campusFooterLeft {
-    float: left;
+    float: left;    
     padding: 0;
 }
 
@@ -386,7 +390,7 @@ label {
 /******************************************************************************
     CLAROLINE COMMAND LINKS
  ******************************************************************************/
-
+ 
 .claroCmd, .claroCmdDisabled
 {
     font-size: 0.8em;
@@ -395,7 +399,7 @@ label {
 #claroBody .claroCmd,
 #claroBody a.claroCmd:link,
 #claroBody a.claroCmd:visited {
-    color: #369;
+    color: #336699;
     font-weight: bold;
     text-decoration: none;
 }
@@ -408,7 +412,7 @@ label {
 }
 
 .claroCmdDisabled {
-    color: #999;
+    color: #999999;
     font-weight: bold;
     text-decoration: none;
 }
@@ -422,8 +426,8 @@ th .claroCmd {
 }
 
 th .claroCmdDisabled {
-	color: #999;
-	font-size: 0.9em;
+       color: #999999;
+       font-size: 0.9em;
     font-weight: bold;
     text-decoration: none;
 }
@@ -455,7 +459,7 @@ th .claroCmdDisabled {
 }
 
 a.item:visited{
-    color: #369;
+    color: #336699;
 }
 
 /******************************************************************************
@@ -467,7 +471,7 @@ a.item:visited{
  *     - superHeader : allowing to define table title above the column header
  *     - headerX : define header in the X axis for each column
  *     - headerY : define header in the Y axis for each rank
- *
+ * 
  * Example of table using a super header and header in X axis
  *
  * <table class="claroTable">
@@ -479,9 +483,9 @@ a.item:visited{
  * <th>Lastname</th>
  * <th>Birthdate</th>
  * </tr>
- *
+ * 
  * <tbody>
- *
+ * 
  * <tr>
  * <td>Hugues</td>
  * <td>Peeters</td>
@@ -490,32 +494,32 @@ a.item:visited{
  * <tr>
  * ...
  * </tr>
- *
+ * 
  * </tbody>
- *
+ * 
  * </table>
- *
+ * 
  * Example of table using header in Y axis
- *
- *
+ * 
+ * 
  * <table class="claroTable">
  *
  * <tr class="superHeader">
  * <th colspan="3">User Birthdate</th>
  * </tr>
- *
+ * 
  * <tr>
  * <th class="headerY">Firstname</th>
  * <td>Hugues</td>
  * <td> ...  </td>
  * </tr>
- *
+ * 
  * <tr>
  * <th class="headerY">Lastname</th>
  * <td>Peeters</td>
  * <td> ...  </td>
  * </tr>
- *
+ * 
  * <tr>
  * <th class="headerY">Birthdate</th>
  * <td>1969-09-27</td>
@@ -529,7 +533,7 @@ a.item:visited{
     text-align: left;
 }
 
-.claroTable td,
+.claroTable td, 
 .claroTable th {
     vertical-align: middle;
     padding: 2px 5px 2px 5px;
@@ -537,9 +541,9 @@ a.item:visited{
     font-size: 0.9em;
 }
 
-.claroTable .superHeader th,
+.claroTable .superHeader th, 
 .claroTable th.superHeader {
-    color: #693;
+    color: #669933;
     background-color: #DEEECE;
     border: 1px #87B665 solid;
     padding: 2px 5px 2px 5px;
@@ -547,12 +551,12 @@ a.item:visited{
 }
 
 .claroTable .superHeader a {
-    color: #693;
+    color: #669933;
 }
 
 .claroTable .headerY th,
 .claroTable .headerX th {
-    color: #693;
+    color: #669933;
     font-weight: bold;
     padding: 2px 5px 2px 5px;
     background-color: #EDF1E3;
@@ -562,14 +566,14 @@ a.item:visited{
 .claroTable .headerX th a
 {
     font-weight: bold !important ;
-    color: #693;
+    color: #669933;
     text-decoration : underline;
 }
 
 .claroTable .headerX th a:active,
 .claroTable .headerX th a:hover
 {
-    color: #693 !important;
+    color: #669933 !important;
     text-decoration : underline;
 }
 
@@ -599,7 +603,7 @@ a.item:visited{
 
 .claroTable td.workingWeek {
     vertical-align: top;
-    color: #999;
+    color: #999999;
     padding: 2px 5px 2px 5px;
 }
 
@@ -627,33 +631,26 @@ a.item:visited{
  ******************************************************************************/
 
 /*
- * 'claroMessageBox' is used to display all messages from the platform like
+ * 'claroMessageBox' is used to display all messages from the platform like 
  * action confirmation, parameter request, warning mesage...
  * Things that are usually displayed in a dialog box into offline applications
- */
-
+ */ 
+ 
 .claroMessageBox {
+    //background: url(default/bg_msgBox.jpg) repeat-x top right #FFF; 
     background-color : #EDF1E3;
-    border: 1px #693 solid;
+    border: 1px #669933 solid;
     margin-left: 5px;
     font-size: 0.9em;
     color: #666;
 }
 
-.claroIntroSection {
+.claroIntroSection { 
     background-color: #F5F5F5;
     padding: 5px;
     margin-top : 5px;
     margin-bottom: 5px;
 }
-
-/* specific styling for dialog box messages */
-.dialogInfo { margin-top: 2px; margin-bottom: 2px; padding: 1px 5px 2px 20px; }
-.dialogSuccess { margin-top: 2px; margin-bottom: 2px; padding: 1px 5px 2px 20px; background: url('default/success.gif') top left no-repeat; }
-.dialogError { margin-top: 2px; margin-bottom: 2px; padding: 1px 5px 2px 20px; background: url('default/error.png') top left no-repeat; }
-.dialogQuestion { margin-top: 2px; margin-bottom: 2px; padding: 1px 5px 2px 20px; background: url('default/question.png') top left no-repeat; }
-.dialogForm { padding: 3px 20px; }
-.dialogDebug { margin-top: 2px; margin-bottom: 2px; padding: 1px 5px 2px 20px; }
 
 .warning b, .waring strong {
     color: #000;
@@ -668,7 +665,7 @@ div .wikiTitle h1 {
     padding: 0;
     font-size: 0.9em;
     border-bottom: 1px solid #DEDEDE;
-    color: #666;
+    color: #666666;
     text-indent: 15px;
     background-image: url(default/arrow_blue.gif);
     background-position: left;
@@ -677,33 +674,33 @@ div .wikiTitle h1 {
 
 div .wiki2xhtml p {
     font-size: 0.8em;
-    color: #666;
+    color: #666666;
 }
 
 /*
- * 'invisible' is generally attached to element that shouldn't be visible into
- * common user interface but which are visible in course manager or platform
- * administrator screen, showing that the element is deactivated or isn't
+ * 'invisible' is generally attached to element that shouldn't be visible into 
+ * common user interface but which are visible in course manager or platform 
+ * administrator screen, showing that the element is deactivated or isn't 
  * visible fo the other users
  */
 
 .invisible {
-    color: #999;
+    color: #999999;
 }
 
-.invisible a,
+.invisible a, 
 .invisible a:link,
 .invisible a:visited,
 a.invisible,
 a:link.invisible,
 a:visited.invisible {
-    color: #999;
+    color: #999999;
 }
 
 /* menu */
 
 .menu a.invisible:visited {
-    color: #999;
+    color: #999999;
 }
 
 
@@ -711,7 +708,7 @@ a:visited.invisible {
     example : a good score in exercices
 */
 .correct {
-    color: #090;
+    color: #009900;
 }
 
 /* 'error' is attached to element that must be highlighted as correct
@@ -719,7 +716,7 @@ a:visited.invisible {
     example : an error message
 */
 .error {
-    color: #900;
+    color: #990000;
 }
 
 /* 'highlight' is used when something needs to be especially shown to the user
@@ -741,25 +738,26 @@ a:visited.invisible {
  */
 
 .claroRightMenu {
+    border: 1px solid #669933;
     background : #e7f2c1;
     background-color : #EDF1E3;
-    border: 1px #693 solid;
+    border: 1px #669933 solid;
     padding: 10px;
     font-size: 0.9em;
 }
-
-.claroRightMenu a:link,
+    
+.claroRightMenu a:link, 
 .claroRightMenu a:visited {
-    color: #369;
+    color: #336699;
 }
-
+    
 .claroRightMenu a:hover,
 .claroRightMenu a:active {
-    color: #693;
+    color: #669933;
 }
 
 .claroRightMenu form {
-    color: #369;
+    color: #336699;
 }
 
 
@@ -798,22 +796,22 @@ small {
 /*
  * Navigation with tabs : configuration, modules, ...
  */
-
+ 
 #navlist {
     margin: 10px;
     padding: 0 0 7px 10px;
-    border-bottom: 1px solid #DEDEDE;
+    border-bottom: 1px solid #DEDEDE;   
 }
 
 .tabTitle {
     padding: 3px 0;
     margin-left: 0;
     font-weight: bold;
-    border-bottom: 1px solid #DEDEDE;
+    border-bottom: 1px solid #DEDEDE; 
 }
 
 .tabTitle a {
-    border-bottom: 4px solid #693;
+    border-bottom: 4px solid #669933;
 }
 
 #navlist li, .tabTitle li {
@@ -835,18 +833,5 @@ small {
 }
 
 #navlist li a.current {
-    border-bottom: 4px solid #693;
-}
-
-form tr.admin td{
-    background-color : #EDF1E3;
-    border: 1px solid #630;
-    margin: 10px 10px 10px 10px;
-
-}
-
-.linkCloseWindow {
-    padding: 0;
-    margin: 0;
-    text-align:center;
+    border-bottom: 4px solid #669933;
 }

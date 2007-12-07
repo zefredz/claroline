@@ -36,6 +36,12 @@ if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_f
 claro_set_display_mode_available(true); // view mode
 
 /*-----------------------------------------------------------------
+Stats
+-----------------------------------------------------------------*/
+
+event_access_tool(claro_get_current_tool_id(), claro_get_current_course_tool_data('label'));
+
+/*-----------------------------------------------------------------
 Library
 -----------------------------------------------------------------*/
 
@@ -48,7 +54,7 @@ Initialise variables
 
 $last_visit = claro_get_current_user_data('lastLogin');
 $is_allowedToEdit = claro_is_course_manager() ;
-$dialogBox = new DialogBox();
+$dialogBox = '';
 
 /*=================================================================
 Main Section
@@ -108,7 +114,7 @@ $is_allowedToEdit ? 'help_forum.php' : false);
 
 echo disp_search_box();
 
-echo $dialogBox->render();
+if ( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
 
 // Forum toolbar
 
@@ -151,7 +157,7 @@ foreach ( $categories as $this_category )
 
         if ( $this_category['cat_id'] != GROUP_FORUMS_CATEGORY )
         echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelCat&amp;catId='.$this_category['cat_id'].'" '
-        .    'onclick="return confirm_delete(\''. clean_str_for_javascript($this_category['cat_title']).'\');" >'
+        .    'onClick="return confirm_delete(\''. clean_str_for_javascript($this_category['cat_title']).'\');" >'
         .    '<img src="' . get_path('imgRepositoryWeb') . '/delete.gif" alt="'.get_lang('Delete').'" />'
         .    '</a>'
         .    '&nbsp;'
@@ -283,7 +289,7 @@ foreach ( $categories as $this_category )
                     .    '&nbsp;' . "\n"
 
                     .    '<a href="' . get_module_url('CLGRP') . '/group_space.php?gidReq=' . $group_id . '">'
-                    .    '<img src="' . get_path('imgRepositoryWeb') .  '/group.gif" alt="' . get_lang('Group area') . '" />'
+                    .    '<img src="' . get_path('imgRepositoryWeb') .  '/group.gif" alt="' . get_lang('Group area') . '">'
                     .    '</a>' . "\n"
                     ;
 
@@ -353,7 +359,7 @@ foreach ( $categories as $this_category )
 
                 .    '<td align="center">'
                 .    '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exEmptyForum&amp;forumId='.$forum_id.'" '
-                .    'onclick="return confirm_empty(\''. clean_str_for_javascript($forum_name).'\');" >'
+                .    'onClick="return confirm_empty(\''. clean_str_for_javascript($forum_name).'\');" >'
                 .    '<img src="' . get_path('imgRepositoryWeb') . 'sweep.gif" alt="'.get_lang('Empty').'" />'
                 .    '</a>'
                 .    '</td>'
@@ -363,7 +369,7 @@ foreach ( $categories as $this_category )
                 if ( is_null($group_id ) )
                 {
                     echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelForum&amp;forumId='.$forum_id.'" '
-                    .    'onclick="return confirm_delete(\''. clean_str_for_javascript($forum_name).'\');" >'
+                    .    'onClick="return confirm_delete(\''. clean_str_for_javascript($forum_name).'\');" >'
                     .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="'.get_lang('Delete').'" />'
                     .    '</a>';
                 }
