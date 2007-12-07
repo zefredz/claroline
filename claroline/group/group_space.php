@@ -80,8 +80,9 @@ $userGroupRegCount = group_count_group_of_a_user(claro_get_current_user_id());
 
 // The previous request compute the quantity of subscription for the current user.
 // the following request compare with the quota of subscription allowed to each student
+
 $userGroupQuotaExceeded = (bool) (   $_groupProperties ['nbGroupPerUser'] <= $userGroupRegCount)
-&& ! is_null($_groupProperties['nbGroupPerUser']); // no limit assign to group per user;
+&& ! ( 0 === $_groupProperties['nbGroupPerUser'] ); // no limit assign to group per user;
 
 $is_allowedToSelfRegInGroup = (bool) ( $_groupProperties ['registrationAllowed']
 && ( ! $groupMemberQuotaExceeded )
@@ -131,10 +132,10 @@ if( isset($_REQUEST['registration']) )
             $message = get_lang('Confirm your subscription to the group &quot;<b>%group_name</b>&quot;',array('%group_name'=>claro_get_current_group_data('name'))) . "\n"
             .          '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
             .          claro_form_relay_context()
-            .          '<input type="hidden" name="registration" value="1" />' . "\n"
-            .          '<input type="hidden" name="doReg" value="1" />' . "\n"
+            .          '<input type="hidden" name="registration" value="1">' . "\n"
+            .          '<input type="hidden" name="doReg" value="1">' . "\n"
             .          '<br />' . "\n"
-            .          '<input type="submit" value="' . get_lang("Ok") . '" />' . "\n"
+            .          '<input type="submit" value="' . get_lang("Ok") . '">' . "\n"
             .          claro_html_button($_SERVER['PHP_SELF'] , get_lang("Cancel")) . "\n"
             .          '</form>' . "\n"
             ;

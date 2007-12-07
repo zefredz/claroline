@@ -1,11 +1,11 @@
 <?php // $Id$
 if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
- * CLAROLINE
+ * CLAROLINE 
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -16,6 +16,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  */
 // document browser vars
+
+// TODO use
+$TABLEDOCUMENT = claro_sql_get_tbl('document', array(CLARO_CONTEXT_COURSE,claro_get_current_course_id()));
 
 // Update infos about asset
 $sql = "SELECT `path`

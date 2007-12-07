@@ -1,8 +1,8 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
- *
- * @version 1.9 $Revision$
+ * @version 1.8 $Revision$
  *
  * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
@@ -227,11 +227,10 @@ if ($item == 'GLOBAL')
 }
 else
 {
-    echo '<li>'
-    .    '<a href="module.php?module_id='.$moduleId.'&amp;item=GLOBAL">'
-    .    get_lang('Global settings').'</a>'
-    .    '</li>' . "\n"
-    ;
+    echo '<li><a href="module.php?module_id='.$moduleId.'&amp;item=GLOBAL">'
+        . get_lang('Global settings').'</a></li>'
+        . "\n"
+        ;
 }
 
 $config_code = $module['label'];
@@ -287,7 +286,7 @@ switch ($item)
     {
         echo claro_html_tool_title(array('subTitle' => get_lang('Platform Settings')));
 
-        echo '<form action="' . $_SERVER['PHP_SELF'] . '?module_id=' . $module['module_id'] . '&amp;item='.$item.'" method="post">';
+        echo '<form action="' . $_SERVER['PHP_SELF'] . '?module_id=' . $module['module_id'] . '&amp;item='.$item.'" method="POST">';
 
         echo '<table>' . "\n";
 
@@ -448,7 +447,7 @@ switch ($item)
             echo claro_html_message_box($message);
         }
 
-        echo $form . '</div>';
+        echo $form.'</div>';
 
         break;
     }

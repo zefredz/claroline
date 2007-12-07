@@ -1141,7 +1141,7 @@ $_lang['blockDocumentsHelp'] = '<p>Narzedzie Dokumenty jest podobne do Menad¿era
 	  skasuj istniej±cy komentarz i kliknij <input type=submit
  value=OK name=submit22>
 	  .
-	<hr />
+	<hr>
 	<p>Mo¿esz dowolnie zorganizowaæ zawarto¶æ. W tym celu:</p>
 	<h4><b>Twórz katalogi</b></h4>
 	<ul>
@@ -1169,7 +1169,7 @@ Dostêpne s± ró¿ne typy odpowiedzi na stworzone przez Ciebie pytania:<br><br>
   <li>Wype³nianie</li>
 </ul>
 Æwiczenie zawiera pewn± liczbê pytañ pod ka¿dym wspólnym tematem.</p>
-<hr />
+<hr>
 <b>Exercise creation</b>
 <p>In order to create an exercise, click on the link &quot;New exercise&quot;.<br><br>
 Type the exercise name, as well as an optional description of it.<br><br>
@@ -1180,10 +1180,10 @@ You can also choose between 2 exercise types :<br><br>
 </ul>
 and tell if you want or not questions to be randomly sorted at the time of the exercise running.<br><br>
 Then, save your exercise. You will go to to the question administration for this exercise.</p>
-<hr />
+<hr>
 <b>Question adding</b>
 <p>You can now add a question into the exercise previously created. The description is optional, as well as the picture that you have the possibility of linking to your question.</p>
-<hr />
+<hr>
 <b>Multiple choice</b>
 <p>This is the famous MAQ (multiple answer question) / MCQ (multiple choice question).<br><br>
 In order to create a MAQ / MCQ :<br><br>
@@ -1194,37 +1194,37 @@ In order to create a MAQ / MCQ :<br><br>
   <li>Give a weighting to each answer. The weighting can be any positive or negatif integer, or zero</li>
   <li>Save your answers</li>
 </ul></p>
-<hr />
+<hr>
 <b>Fill in the blanks</b>
 <p>This allows you to create a text with gaps. The aim is to let student find words that you have removed from the text.<br><br>
 To remove a word from the text, and so to create a blank, put this word between brackets [like this].<br><br>
 Once the text has been typed and blanks defined, you can add a comment that will be seen by the student when it replies to the question.<br><br>
 Save your text, and you will enter the next step that will allow you to give a weighting to each blank. For example, if the question worths 10 points and you have 5 blanks, you can give a weighting of 2 points to each blank.</p>
-<hr />
+<hr>
 <b>Matching</b>
 <p>This answer type can be chosen so as to create a question where the student will have to connect elements from an unit U1 with elements from an unit U2.<br><br>
 It can also be used to ask students to sort elements in a certain order.<br><br>
 First define the options among which the student will be able to choose the good answer. Then, define the questions which will have to be linked to one of the options previously defined. Finally, connect via the drop-down menu elements from the first unit with those of the second one.<br><br>
 Notice : Several elements from the first unit can point to the same element in the second unit.<br><br>
 Give a weighting to each correct matching, and save your answer.</p>
-<hr />
+<hr>
 <b>Exercise modification</b>
 <p>In order to modify an exercise, the principle is the same as for the creation. Just click on the picture <img src="img/edit.gif" border="0" align="absmiddle"> beside the exercise to modify, and follow instructions above.</p>
-<hr />
+<hr>
 <b>Exercise deleting</b>
 <p>In order to delete an exercise, click on the picture <img src="img/delete.gif" border="0" align="absmiddle"> beside the exercise to delete.</p>
-<hr />
+<hr>
 <b>Exercise enabling</b>
 <p>So as for an exercise to be used, you have to enable it by clicking on the picture <img src="img/invisible.gif" border="0" align="absmiddle"> beside the exercise to enable.</p>
-<hr />
+<hr>
 <b>Exercise running</b>
 <p>You can test your exercise by clicking on its name in the exercise list.</p>
-<hr />
+<hr>
 <b>Random exercises</b>
 <p>At the time of an exercise creation / modification, you can tell if you want questions to be drawn in a random order among all questions of the exercise.<br><br>
 That means that, by enabling this option, questions will be drawn in a different order each time students will run the exercise.<br><br>
 If you have got a big number of questions, you can also choose to randomly draw only X questions among all questions available in that exercise.</p>
-<hr />
+<hr>
 <b>Question pool</b>
 <p>When you delete an exercise, questions of its own are not removed from the data base, and can be reused into a new exercise, via the question pool.<br><br>
 The question pool also allows to reuse a same questions into several exercises.<br><br>
@@ -1272,12 +1272,12 @@ Ka¿de æwiczenie lub dokument dodane do ¶cie¿ki nauczania pojawi siê równie¿ na t
 $_lang['blockRegisterLocalUrl'] = 'URL Twojego kampusu wydaje siê byæ URL lokalnym. Do rejestracji Twojego kampusu na stronie Claroline .net wymagany jest URL dostêpny z sieci<br /><br />
 Sprawd¼ warto¶æ \'Baza sieci\' w konfiguracji swojej Claroline.';
 $_lang['blockUsedInSeveralPath'] = 'To æwiczenie jest u¿ywane w przynajmniej jednej ¶cie¿ce nauczania. Je¶li go skasujesz nie bêdzie d³u¿ej dostêpne w ¶cie¿ce nauczania.';
-$_lang['blockUsersHelp'] = '<b>Funkcje</b><p>Funkcje w niniejszym rozumieniu nie maj± nic wspólnego z funkcjami uprawnieñ w systemie operacyjnym. Dotycz± odró¿niania poszczególnych osób bior±cych udzia³ w kursie. Mo¿esz modyfikowaæ uprawnienia poszczególnych osób przez klikniêcie \'modyfikuj\' w kolumnie \'Funkcje\' i wpisanie odpowiednio: prowadz±cy, asystent, student, go¶æ, expert...</P><hr />
+$_lang['blockUsersHelp'] = '<b>Funkcje</b><p>Funkcje w niniejszym rozumieniu nie maj± nic wspólnego z funkcjami uprawnieñ w systemie operacyjnym. Dotycz± odró¿niania poszczególnych osób bior±cych udzia³ w kursie. Mo¿esz modyfikowaæ uprawnienia poszczególnych osób przez klikniêcie \'modyfikuj\' w kolumnie \'Funkcje\' i wpisanie odpowiednio: prowadz±cy, asystent, student, go¶æ, expert...</P><hr>
 <b>Uprawnienia administratora</b>
 <p>Uprawnienia administratora odpowiadaj± technicznej autoryzacji w celu modyfikowania zawarto¶ci i organizacji stron kursu. W chwili obecnej mo¿esz wybraæ jedynie miêdzy przyznaniem wszelkich praw administracyjnych i nie przyznaniem ¿adnych.</P>
-<p>¯eby do³±czyæ do kursu asystenta lub wspó³administratora, musisz zarejestrowaæ go w kursie lub upewniæ siê, ¿e jest ju¿ zarejestrowany, potem kliknij \'modyfikuj\' w kolumnie \'Uprawnienia administracyjne\', nastêpnie \'wszystkie\' i \'Ok\'.</P><hr />
+<p>¯eby do³±czyæ do kursu asystenta lub wspó³administratora, musisz zarejestrowaæ go w kursie lub upewniæ siê, ¿e jest ju¿ zarejestrowany, potem kliknij \'modyfikuj\' w kolumnie \'Uprawnienia administracyjne\', nastêpnie \'wszystkie\' i \'Ok\'.</P><hr>
 <b>Prowadz±cy</b>
-<p>W nag³ówku stron kursu znajduje siê nazwisko osoby odpowiedzialnej za kurs. Mo¿na to zmieniæ u¿ywaj±c \'Modyfikuj ustawienia kursu\'. Ta modyfikacja nie zmienia danych o u¿ytkownikach kursu. Pole \'Wyk³adowca\' jest zupe³nie niezale¿ne od listy u¿ytkowników.</p><hr />
+<p>W nag³ówku stron kursu znajduje siê nazwisko osoby odpowiedzialnej za kurs. Mo¿na to zmieniæ u¿ywaj±c \'Modyfikuj ustawienia kursu\'. Ta modyfikacja nie zmienia danych o u¿ytkownikach kursu. Pole \'Wyk³adowca\' jest zupe³nie niezale¿ne od listy u¿ytkowników.</p><hr>
 <b>Dodawanie u¿ytkownika</b>
 <p>¯eby dodaæ u¿ytkownika do kursu, wype³nij odpowiednie pola i zatwierd¼. Do osób, które zarejestujesz zostan± wys³ne listy email z informacj± o ich Nazwie u¿ytkownika i ha¶le.</p>';
 $_lang['blockWikiConflictHowTo'] = '<p><strong>Konflikt edycji</strong> : Strona, któr± próbujesz zachowaæ wydaje siê byæ zmieniona od czasu, kiedy j± zmodyfikowaBe¶.<br /><br />

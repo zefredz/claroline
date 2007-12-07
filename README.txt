@@ -1,5 +1,5 @@
 ******************************************
-        CLAROLINE 1.9 alpha - README
+        CLAROLINE 1.8.8 - README
 ******************************************
 
 TABLE OF CONTENT :
@@ -23,7 +23,7 @@ The system provides group management, forums, document repositories, calendar,
 chat, assignment areas, links, user profile administration on a single and
 highly integrated package.
 
-Claroline is translated in 34 languages and used by hundreds of institutions
+Claroline is translated in 35 languages and used by hundreds of institutions
 around world. The software was initially started by the University of Louvain
 (Belgium) and released under Open Source licence (GPL). Since then, a
 community of developers around the world contributes to its development.
@@ -74,10 +74,10 @@ at :
 7. NEW FEATURES
    ============
 
-NEW FEATURES IN CLAROLINE 1.8.3 SINCE CLAROLINE 1.8.0
+NEW FEATURES IN CLAROLINE 1.8.8 SINCE CLAROLINE 1.8.0
 -----------------------------------------------------
 
-* Bug Fixes ; For more details, see the changelog on our documentation wiki :
+* Bug Fixes, new translation ; For more details, see the changelog on our documentation wiki :
   http://www.claroline.net/wiki/index.php/Changelog_1.8.x
 
 NEW FEATURES IN CLAROLINE 1.8.0 SINCE CLAROLINE 1.7
@@ -486,5 +486,5 @@ is taken into account, at what stage and by who.
 
 
 =========================================================================
-                Europe, Belgium, Louvain-la-Neuve - October 25 2006
+                Europe, Belgium, Brussels - October 3 2007
 ================================== END ===================================

@@ -66,7 +66,14 @@ class claro_pager
     {
         if ( ! $this->offsetCount )
         {
-            $this->offsetCount = ceil( $this->get_total_item_count() / $this->step );
+            if ( $this->step == 0 )
+            {
+                $this->offsetCount = $this->get_total_item_count() ;
+            }
+            else
+            {
+                $this->offsetCount = ceil( $this->get_total_item_count() / $this->step );
+            }
         }
 
         return $this->offsetCount;
@@ -191,7 +198,14 @@ class claro_pager
                 ;
 
         // current page
-        $currentPage = (int) $this->offset / $this->step ;
+        if ($this->step == 0)
+        {
+            $currentPage = (int) $this->offset;
+        }
+        else
+        {
+            $currentPage = (int) $this->offset / $this->step ;
+      	}
 
         // total page
         $pageCount = $this->get_offset_count();
@@ -450,7 +464,7 @@ class claro_sql_pager extends claro_pager // implements sortable
                 elseif ( $thisSortDirection == SORT_ASC ) $direction = 'ASC';
                 else                                      $direction = '';
 
-                $orderByList[] = addslashes($thisSortKey) . ' ' . $direction ;
+                $orderByList[] = addslashes( $thisSortKey ) . ' ' . $direction ;
             }
 
             $sql .= "\n\t" . 'ORDER BY '. implode(', ', $orderByList) ;

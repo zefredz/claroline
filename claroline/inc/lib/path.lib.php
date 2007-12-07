@@ -86,34 +86,4 @@ function get_path($pathKey)
 
 }
 
-/**
- * return prefix for urls to externalize
- */
-function get_url_domain()
-{
-    /*
-    Array
-    (
-    [scheme] => http
-    [host] => hostname
-    [user] => username     [pass] => password
-    [path] => /path
-    [query] => arg=value
-    [fragment] => anchor
-    )
-    */
-
-    $urlPart = parse_url(get_conf('rootWeb'));
-
-    $url  = $urlPart[scheme] . '://';
-    if(! empty($urlPart[user]))
-    {
-        $url .= $urlPart[user] ;
-        if(! empty($urlPart[pass])) $url .= ':' . $urlPart[pass] ;
-        $url .= '@' ;
-    }
-    $url .= $urlPart[host] . '/';
-
-}
-
 ?>

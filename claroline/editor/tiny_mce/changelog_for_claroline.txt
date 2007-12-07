@@ -1,0 +1,4 @@
+* themes/advanced/image.htm is replaced by themes/advanced/image.php to allow upload directly to document tool
+* themes/advanced/editor_template.js (compressed file) is modified : call to image.htm replace by call to image.php; height of template using image.php must be changed to +/- 325
+
+

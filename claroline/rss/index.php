@@ -17,8 +17,6 @@
  * @author Claro Team <cvs@claroline.net>
  * @author Christophe Gesché <moosh@claroline.net>
  */
- 
-die("rss/index.php is deprecated, use backends/rss.php instead");
 
 $_course = array();
 $siteName ='';
@@ -36,7 +34,7 @@ if ( ! get_conf('enableRssInCourse') )
 // need to be in a course
 if( ! claro_is_in_a_course() )
 {
-    echo '<form >cidReq = <input name="cidReq" type="text" /><input type="submit" /></form>';
+    echo '<form >cidReq = <input name="cidReq" type="text" ><input type="submit"></form>';
     exit;
 }
 else
@@ -80,7 +78,7 @@ if ( !$_course['visibility'] && !claro_is_course_allowed() )
 // OK TO SEND FEED
 include get_path('incRepositorySys') . '/lib/rss.write.lib.php';
 
-header('Content-type: text/xml; charset=utf-8');
+header('Content-type: text/xml;');
 readfile (build_rss(array('course' => claro_get_current_course_id())));
 }
 ?>

@@ -3,8 +3,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
- * @version 1.9 $Revision$
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @version 1.8 $Revision$
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -16,13 +16,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  */
     /**
-     * claro_linker_popup_display.lib
-     *
-     * is a lib of function for the display of the linker popup.
-     * @package CLLINKER
-     *
-     * @author Fallier Renaud <renaud.claroline@gmail.com>
-     **/
+    * claro_linker_popup_display.lib
+    *
+    * is a lib of function for the display of the linker popup.
+    * @package CLLINKER
+    *
+    * @author Fallier Renaud <renaud.claroline@gmail.com>
+    **/
 
    /**
     * display the navigator in the popup
@@ -56,25 +56,20 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
        if( is_array($content) && isset($content['crl']) && count( $content['crl'] ) > 0 )
        {
-           echo '<hr />' . "\n"
-           .    '<b>' . get_lang("Attached resources") . '</b>' . "\n"
-           .    '<table style="border: 0px; font-size: 80%; width: 100%;">' . "\n"
-           ;
+           echo '<hr /><b>' . get_lang("Attached resources") . '</b>' . "\n";
+
+           echo '<table style="border: 0px; font-size: 80%; width: 100%;">' . "\n";
 
            for($i = 0 ; $i<(count($content["crl"])) ; $i++)
            {
-               echo '<tr>' . "\n"
-               .    '<td>' . $content['title'][$i]
-               .    '</td>' . "\n"
-               .    '<td>' . "\n"
+               echo '<tr><td>' . $content['title'][$i]
+               .    '</td><td>'
                .    '<a href="' . $_SERVER['PHP_SELF']
                .    '?cmd=delete'
                .    '&amp;crl=' . $content["crl"][$i]
                .    '&amp;current_crl=' . urlencode($current_crl) . '" class="claroCmd">'
                .    '<img src="' . get_path('imgRepositoryWeb') . '/delete.gif" alt='.get_lang("Delete").'" />'
-               .    '</a>' . "\n"
-               .    '</td>' . "\n"
-               .    '</tr>' . "\n"
+               .    '</a></td></tr>' . "\n"
                ;
            }
 
@@ -218,12 +213,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     }
 
     /**
-     * Display the list the other course
-     *
-     * @throws E_USER_ERROR if it is not a array
-     */
+    * display the list the other course
+    *
+    * @throws E_USER_ERROR if it is not a array
+    */
     function displayOtherCourse( $navigator , $crl )
     {
+
         echo '<div class="claroMessageBox" style="margin-top : 1em;margin-bottom : 1em;">' . "\n";
 
         displayOtherCoursesLink( FALSE );
@@ -243,7 +239,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 .    '?fct=add'
                 .    '&amp;cmd=browse'
                 .    '&amp;current_crl=' . urlencode ($crl).'">'
-                .    $courseInfo['administrativeNumber'] . ' : ' . $courseInfo['intitule']
+                .    $courseInfo['fake_code'] . ' : ' . $courseInfo['intitule']
                 .    '</a>' . "\n"
 
                 .    '&nbsp;'
@@ -294,7 +290,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 .    '?fct=add'
                 .    '&amp;cmd=browse'
                 .    '&amp;current_crl=' . urlencode ($crl).'">'
-                .    $courseInfo['administrativeNumber'] . ' : ' . $courseInfo['intitule']
+                .    $courseInfo['fake_code'] . ' : ' . $courseInfo['intitule']
                 .    '</a>' . "\n"
 
                 .    '&nbsp;'
@@ -454,7 +450,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     {
         echo '<input type="submit" '
         .    'onclick="linker_confirm();return false;" '
-        .    'value="' . get_lang("Close popup") . '" />'
+        .    'value="' . get_lang("Close popup") . '" >'
         ;
     }
 ?>

@@ -1,9 +1,9 @@
 <?php //$Id$
 /**
  * CLAROLINE
- * @version 1.9 $Revision$
+ * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -60,7 +60,6 @@ if (isset($_REQUEST['order_crit'])) $_SESSION['admin_user_order_crit'] = trim($_
 if (isset($_REQUEST['dir'       ])) $_SESSION['admin_user_dir'       ] = ($_REQUEST['dir'] == 'DESC' ? 'DESC' : 'ASC' );
 $addToURL = ( isset($_REQUEST['addToURL']) ? $_REQUEST['addToURL'] : '');
 
-
 //TABLES
 //declare needed tables
 
@@ -87,7 +86,7 @@ $addtoAdvanced = $searchInfo['addtoAdvanced'];
 
 if(count($searchInfo['isSearched']) )
 {
-    $isSearchedHTML = implode('<br />', $isSearched);
+    $isSearchedHTML = implode('<br>', $isSearched);
 }
 else
 {
@@ -110,7 +109,7 @@ if ( array_key_exists( 'sort', $_GET ) )
         ;
 
     $sortKey = strip_tags( $_GET['sort'] );
-        
+    
     $myPager->add_sort_key( $sortKey, $dir );
 }
 
@@ -181,7 +180,7 @@ foreach ($userList as $userKey => $user)
     $userGrid[$userKey]['delete'] = '<a href="' . $_SERVER['PHP_SELF']
     .                               '?cmd=delete&amp;user_id=' . $user['user_id']
     .                               '&amp;offset=' . $offset . $addToURL . '" '
-    .                               ' onclick="return confirmation(\'' . clean_str_for_javascript(' ' . $user['firstname'] . ' ' . $user['name']).'\');">' . "\n"
+    .                               ' onClick="return confirmation(\'' . clean_str_for_javascript(' ' . $user['firstname'] . ' ' . $user['name']).'\');">' . "\n"
     .                               '<img src="' . get_path('imgRepositoryWeb') . 'deluser.gif" border="0" alt="' . get_lang('Delete') . '" />' . "\n"
     .                               '</a> '."\n"
     ;

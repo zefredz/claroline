@@ -132,7 +132,7 @@ function get_menu_item_list($type)
     if(is_null($menu))
     {
 
-        $menu['AdminUser'][] =  '<form name="searchUser" action="adminusers.php" method="get" >' . "\n"
+        $menu['AdminUser'][] =  '<form name="searchUser" action="adminusers.php" method="GET" >' . "\n"
         .                   '<label for="search_user">' . get_lang('User') . '</label>'
         .                   ' : '
         .                   '<input name="search" id="search_user" />&nbsp;'
@@ -152,7 +152,7 @@ function get_menu_item_list($type)
         $menu['AdminUser'][] = claro_html_tool_link('../user/AddCSVusers.php?AddType=adminTool', get_lang('Add a user list'));
         $menu['AdminUser'][] = claro_html_tool_link('right/profile_list.php', get_lang('Right profile list'));
 
-        $menu['AdminCourse'][] = '<form name="searchCourse" action="admincourses.php" method="get" >' . "\n"
+        $menu['AdminCourse'][] = '<form name="searchCourse" action="admincourses.php" method="GET" >' . "\n"
         .                    '<label for="search_course">' . get_lang('Course') . '</label> :' . "\n"
         .                    '<input name="search" id="search_course" />&nbsp;'
         .                    '<input type="submit" value="' . get_lang('Search'). '" />'

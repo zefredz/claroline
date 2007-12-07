@@ -659,7 +659,6 @@ $_lang['Last message'] = 'Ultimo messaggio';
 $_lang['Last message was on'] = 'Ultimo messaggio:';
 $_lang['Last messages'] = 'Ultimi messaggi';
 $_lang['Last name'] = 'Cognome';
-$_lang['Last score'] = 'Ultimo risultato';
 $_lang['Last session time'] = 'Tempo ultima sessione';
 $_lang['Last submission'] = 'Ultimo invio';
 $_lang['Lasting'] = 'Durata';

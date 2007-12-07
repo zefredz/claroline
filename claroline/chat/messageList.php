@@ -268,7 +268,7 @@ echo implode("\n", $curDisplayLineList) // LAST LINES
     .'<p align="right"><small>'
     .$dateLastWrite                 // LAST MESSAGE DATE TIME
     .'</small></p>'."\n\n"
-    .'<a name="final"></a>'."\n\n"       // ANCHOR ALLOWING TO DIRECTLY POINT LAST LINE
+    .'<a name="final">&nbsp;</a>'."\n\n"       // ANCHOR ALLOWING TO DIRECTLY POINT LAST LINE
     .'</body>'."\n\n"
     .'</html>'."\n"
     ;

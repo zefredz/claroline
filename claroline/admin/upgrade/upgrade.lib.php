@@ -5,7 +5,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * The script works with the
  *
- * @version 1.9 $Revision$
+ * @version 1.8 $Revision$
  *
  * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
@@ -221,8 +221,8 @@ function upgrade_sql_query($sql,$verbose=null)
             // error accepted
             if ( $verbose )
             {
-                $message = sprintf('Warning (error sql): %s -message- %s', mysql_errno(), mysql_error()) . "\n" ;
-                $message .= 'statment : ' . $sql . '' . "\n";
+                $message = sprintf('Warning (error sql): %s -message- %s', mysql_errno(), mysql_error()) ;
+                $message .= '<code>' . $sql . '</code>' . "\n";
                 $message .= mysql_info() . "\n";
                 log_message($message);
             }
@@ -231,8 +231,8 @@ function upgrade_sql_query($sql,$verbose=null)
         else
         {
             // error not accepted
-            $message = sprintf('Error sql: %s -message- %s', mysql_errno(), mysql_error()) . "\n";
-            $message .= 'statment : ' . $sql . '' . "\n";
+            $message = sprintf('Error sql: %s -message- %s', mysql_errno(), mysql_error()) ;
+            $message .= '<code>' . $sql . '</code>' . "\n";
             $message .= mysql_info() . "\n";
             log_message($message);
             return false;
@@ -655,18 +655,18 @@ function upgrade_disp_auth_form()
     echo '<table align="center">'."\n"
         .'<tr>'
         .'<td>'
-        .'<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
+        .'<form action="'.$_SERVER['PHP_SELF'].'" method="POST">'."\n"
 
         .'<fieldset>'."\n"
 
         .'<legend>Login</legend>'."\n"
 
         .'<label for="username">User name : </label><br />'."\n"
-        .'<input type="text" name="login" id="username" /><br />'."\n"
+        .'<input type="text" name="login" id="username"><br />'."\n"
 
         .'<label for="password">Password : </label><br />'."\n"
-        .'<input type="password" name="password" id="password" /><br />'."\n"
-        .'<input type="submit"  />'."\n"
+        .'<input type="password" name="password" id="password"><br />'."\n"
+        .'<input type="submit" >'."\n"
 
         .'</fieldset>'."\n"
 

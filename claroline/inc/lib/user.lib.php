@@ -684,7 +684,7 @@ function user_validate_form($formMode, $data, $userId = null)
         if ( get_conf('SECURE_PASSWORD_REQUIRED') )
         {
             $validator->addRule('password',
-            get_lang( 'This password is too simple or too close to the username, first name or last name.<br> Use a password like this <code>%passProposed</code>', array('%passProposed'=> generate_passwd() )),
+            get_lang( 'This password is too simple. Use a password like this <code>%passProposed</code>', array('%passProposed'=> generate_passwd() )),
             'is_password_secure_enough',
             array(array( $data['username'] ,
             $data['officialCode'] ,
@@ -702,10 +702,15 @@ function user_validate_form($formMode, $data, $userId = null)
 
     if ( 'registration' == $formMode)
     {
-        $validator->addRule('password_conf', get_lang('You left some required fields empty'), 'required');
-        $validator->addRule('officialCode' , get_lang('This official code is already used by another user.'), 'is_official_code_available');
         $validator->addRule('username'     , get_lang('This user name is already taken'), 'is_username_available');
+
+        if ( get_conf('userOfficialCodeIsUnique',true) === true )
+        {
+            $validator->addRule('officialCode' , get_lang('This official code is already used by another user.'), 'is_official_code_available');
+        }
+
         $validator->addRule('password'  , get_lang('You left some required fields empty'), 'required');
+        $validator->addRule('password_conf', get_lang('You left some required fields empty'), 'required');
     }
     else // profile mode
     {
@@ -717,8 +722,12 @@ function user_validate_form($formMode, $data, $userId = null)
             $validator->addRule('password'  , get_lang('You left some required fields empty'), 'required');
         }
 
-        $validator->addRule('officialCode' , get_lang('This official code is already used by another user.'), 'is_official_code_available', $userId);
-        $validator->addRule('username'     , get_lang('This user name is already taken'), 'is_username_available', $userId);
+        if ( get_conf('userOfficialCodeIsUnique',true) === true )
+        {
+            $validator->addRule('officialCode' , get_lang('This official code is already used by another user.'), 'is_official_code_available', $userId);
+        }
+        
+        $validator->addRule('username' , get_lang('This user name is already taken'), 'is_username_available', $userId);
     }
 
     if ( $validator->validate() ) return array();
@@ -1075,12 +1084,12 @@ function user_html_form($data, $form_type='registration')
         $html .= form_row( get_lang('Action') .'&nbsp;: ',
         '<input type="radio" name="isCourseCreator" id="follow"'
         .' value="0" '
-        . (!$data['isCourseCreator']? ' checked="checked"' : '') . ' />'
+        . (!$data['isCourseCreator']? ' checked' : '') . ' />'
         . '<label for="follow">' . get_lang('Follow courses') . '</label>'
         . '<br />'
         . '<input type="radio" name="isCourseCreator" id="create"'
         . ' value="1"   '
-        . ($data['isCourseCreator']? ' checked="checked"'  :'') . ' />'
+        . ($data['isCourseCreator']? ' checked'  :'') . ' />'
         . '<label for="create">' . get_lang('Create course') . '</label>');
     }
 
@@ -1129,7 +1138,7 @@ function user_html_form($data, $form_type='registration')
     {
         $html .= form_row('&nbsp;',
         '<a href="adminusercourses.php?uidToEdit=' . $data['user_id'] . '">'
-        . '<img src="' . get_path('imgRepositoryWeb') . 'course.gif" alt="" />' . get_lang('PersonalCourseList')
+        . '<img src="' . get_path('imgRepositoryWeb') . 'course.gif" alt="">' . get_lang('PersonalCourseList')
         . '</a>');
     }
 
@@ -1149,7 +1158,7 @@ function user_html_form($data, $form_type='registration')
         $html .= form_row( ''
                          , claro_html_cmd_link( $_SERVER['PHP_SELF'] . '?cmd=editExtraInfo'
                                               . claro_url_relay_context('&amp;')
-                                              , '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="' . get_lang('Modify') . '" />'
+                                              , '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="O" alt="' . get_lang('Modify') . '">'
                                               )
                          );
     }

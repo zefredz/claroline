@@ -109,7 +109,7 @@
 
         function append( $other )
         {
-            if ( is_a( $other, 'Backlog' ) )
+            if ( 'Backlog' == get_class($other) )
             {
                 $this->_backlog = array_merge( $this->_backlog, $other->_backlog );
                 return true;
@@ -133,15 +133,9 @@
             var_dump( $bl->_size );
             echo '</pre>';
 
-            echo '<pre>';
             echo $bl->output();
-            echo '</pre>';
-            
-            echo 'Append';
-            echo '<pre>';
             $bl->append( $bl );
             echo $bl->output();
-            echo '</pre>';
         }
     }
 

@@ -1,6 +1,6 @@
 <?php // $Id$
 /**
- * CLAROLINE
+ * CLAROLINE 
  *
  * @version 1.8 $Revision$
  *
@@ -121,7 +121,7 @@ echo '<p><b>'.wordwrap($lpName,$moduleNameLength,' ',1).'</b></p>'."\n"
 	. '</p>'."\n\n"
 	. '<table width="100%">'."\n\n"
 	;
-
+  
 $previous = ""; // temp id of previous module, used as a buffer in foreach
 $previousModule = ""; // module id that will be used in the previous link
 $nextModule = ""; // module id that will be used in the next link
@@ -142,7 +142,7 @@ foreach ($flatElementList as $module)
 	{
 		$progress = 0;
 	}
-
+	
 	if ( $module['contentType'] == CTEXERCISE_ )
 	{
 		$passExercise = ($module['credit']=='CREDIT');
@@ -151,7 +151,7 @@ foreach ($flatElementList as $module)
 	{
 		$passExercise = false;
 	}
-
+	
 	if ( $module['contentType'] == CTSCORM_ )
 	{
 		if ( $module['lesson_status'] == 'COMPLETED' || $module['lesson_status'] == 'PASSED')
@@ -171,10 +171,10 @@ foreach ($flatElementList as $module)
 	$spacingString = '';
 
 	for($i = 0; $i < $module['children']; $i++) $spacingString .= '<td>&nbsp;</td>';
-
+	
 	$colspan = $maxDeep - $module['children']+1;
-
-
+        
+      
 	// spacing col
 	echo $spacingString.'<td colspan="'.$colspan.'"><small>';
 	if ( !$is_blocked )
@@ -189,7 +189,7 @@ foreach ($flatElementList as $module)
 				$displayedName = substr($module['name'],0,$moduleNameLength)."...";
 			else
 				$displayedName = $module['name'];
-
+				
 			// bold the title of the current displayed module
 			if( $_SESSION['module_id'] == $module['module_id'] )
 			{
@@ -246,7 +246,7 @@ foreach ($flatElementList as $module)
 	{
 		$globalProg =  $globalProg+$progress;
 	}
-
+       
 	echo '</small></td>'."\n".'<td>';
 
 	if($module['contentType'] != CTLABEL_ )
@@ -266,7 +266,7 @@ foreach ($flatElementList as $module)
 	{
 		echo '&nbsp;';
 	}
-
+      
 	$atleastOne = true;
 	echo '</td>'."\n"
 		.'</tr>'."\n\n";
@@ -274,12 +274,12 @@ foreach ($flatElementList as $module)
 	// don't remember if label...
 	if ($module['contentType'] != CTLABEL_ )
 		$previous = $module['module_id'];
-
-
+      
+      
 } // end of foreach ($flatElementList as $module)
 
 echo '</table>'."\n\n";
-
+   
 
 
 //  set redirection link
@@ -294,7 +294,7 @@ echo '<br />'."\n\n".'<center>'."\n";
 if ( $moduleNb > 1 )
 {
 	$prevNextString = '<small>';
-
+	
 	if( $previousModule != '' )
 	{
 		$prevNextString .= '<a href="startModule.php?viewModule_id='.$previousModule.'" target="mainFrame">'.get_lang('Previous').'</a>';
@@ -304,7 +304,7 @@ if ( $moduleNb > 1 )
 		$prevNextString .=  get_lang('Previous');
 	}
 	$prevNextString .=  ' | ';
-
+	
 	if( $nextModule != '' )
 	{
 		$prevNextString .=  '<a href="startModule.php?viewModule_id='.$nextModule.'" target="mainFrame">'.get_lang('Next').'</a>';
@@ -312,24 +312,24 @@ if ( $moduleNb > 1 )
 	else
 	{
 		$prevNextString .=  get_lang('Next');
-	}
+	}  
 	$prevNextString .=  '</small><br /><br />'."\n";
-
+	
 	echo $prevNextString;
 }
 
-//  set redirection link
+//  set redirection link 
 if ( claro_is_course_manager() && (!isset($_SESSION['asStudent']) || $_SESSION['asStudent'] == 0 ) )
     $returl = '../learningPathAdmin.php';
 else
     $returl = '../learningPath.php';
 ?>
 <form action="<?php echo $returl; ?>" method="post" target="_top">
-<input type="submit" value="<?php echo get_lang('Back to list'); ?>" />
+<input type="submit" value="<?php echo get_lang('Back to list'); ?>">
 </form>
 
 </center>
-
+  
 <?php
 // footer
 $hide_footer = TRUE;

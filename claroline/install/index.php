@@ -4,9 +4,9 @@
  *
  * GOAL : install claroline 1.8 on server
  *
- * @version 1.9 $Revision$
+ * @version 1.8 $Revision$
  *
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -266,7 +266,8 @@ if( DISP_ADMINISTRATIVE_SETTING == $_REQUEST['fromPanel'] )
     $contactNameForm    = trim($contactNameForm);
     $adminNameForm      = trim($adminNameForm);
     $contactEmailForm   = trim($contactEmailForm);
-    $regexp = "^(http|https|ftp)\://[a-zA-Z0-9\-\.]+\.[a-zA-Z0-9]{1,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&%\$#\=~])*$";
+    $regexp = "^(http|https|ftp)\://[a-zA-Z0-9\.-]+\.[a-zA-Z0-9]{1,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\._\?\,\'/\\\+&%\$#\=~-])*$";
+
     if ( (!empty($institutionUrlForm)) && !eregi( $regexp, $institutionUrlForm) )
     {
         // problem with url. try to repair
@@ -600,18 +601,16 @@ if ($display==DISP_ADMINISTRATIVE_SETTING)
 
 // COMMON OUTPUT Including top of form  and list of hidden values
 
-echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"'
-.    "\t". '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">' ."\n"
-.    '<html>' . "\n"
+echo '<html>' . "\n"
 .    '<head>' . "\n"
 .    '<title>' . "\n"
 .    ' -- Claroline installation'
 .    ' -- version ' . $new_version
 .    ' -- Step  ' . (array_search($display, $panelSequence) + 1)  . "\n"
 .    '</title>' . "\n"
-//.    '<link rel="stylesheet" href="../css/default.css" type="text/css" />' . "\n"
-.    '<link rel="stylesheet" href="./install.css" type="text/css" />' . "\n"
-.    '<style media="print" type="text/css" >' . "\n"
+//.    '<link rel="stylesheet" href="../css/default.css" type="text/css" >' . "\n"
+.    '<link rel="stylesheet" href="./install.css" type="text/css" >' . "\n"
+.    '<style media="print" type="text/css"  >' . "\n"
 .    '    .notethis { font-weight : bold;  }' . "\n"
 .    '    .progressPanel{ visibility: hidden;width:0px; }' . "\n"
 .    '</style>' . "\n"
@@ -637,13 +636,14 @@ echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"'
 // don't display stepping on last panel
 if (DISP_RUN_INSTALL_COMPLETE != $display )
 {
-    echo '<br/>' . "\n"
+    echo '<br>' . "\n"
     .    '<div class="progressPanel">' . "\n"
     ;
 
     foreach ($panelSequence as $stepCount => $thisStep  )
     {
         $stepStyle = ($thisStep == $display) ? 'active' : $cssStepStatus[$stepStatus[$thisStep]];
+        //$stepIcon = '<img src="../img/' . ($thisStep == $display) ? 'edit.gif' : $imgStatus[$stepStatus[$thisStep]] . '" border="0" />';
         $stepIcon = (($stepStatus[$thisStep] == 'V') ? '<img src="../img/' . $imgStatus['V'] . '" border="0" />':'');
         echo '<div class="progress ' . $stepStyle . '"  >'
         .    $stepIcon
@@ -670,12 +670,12 @@ $htmlNextPrevButton = '<table width="100%">'  . "\n"
 .    '<td>'  . "\n"
 .    '</td>'  . "\n"
 .    '<td align="right" rowspan="2" valign="bottom">'  . "\n"
-.    ($stepPos !== false && ($stepPos+1 < count($panelSequence)) ? '<input type="submit" name="' . $cmdName[$panelSequence[$stepPos+1]] . '" value="Next &gt; " />' :'')
+.    ($stepPos !== false && ($stepPos+1 < count($panelSequence)) ? '<input type="submit" name="' . $cmdName[$panelSequence[$stepPos+1]] . '" value="Next &gt; ">' :'')
 .    '</td>' . "\n"
 .    '</tr>' . "\n"
 .    '<tr>' . "\n"
 .    '<td align="left">'  . "\n"
-.    ($stepPos!==false && ( $stepPos > 0 ) ? '<input type="submit" name="' . $cmdName[$panelSequence[$stepPos-1]] . '" value="&lt; Back" />' :'')
+.    ($stepPos!==false && ( $stepPos > 0 ) ? '<input type="submit" name="' . $cmdName[$panelSequence[$stepPos-1]] . '" value="&lt; Back">' :'')
 .    '</td>' . "\n"
 .    '</tr>' . "\n"
 .    '</table>'
@@ -685,45 +685,45 @@ else $htmlNextPrevButton ='';
 
 
 foreach (array_keys($panelTitle) as $step )
-    echo '<input type="hidden" name="stepStatus['.$step.']" value="' . $stepStatus[$step] . '" />'                ."\n";
+    echo '<input type="hidden" name="stepStatus['.$step.']" value="' . $stepStatus[$step] . '">'                ."\n";
 
-echo '<input type="hidden" name="alreadyVisited" value="1" />'                                                 ."\n"
-.    '<input type="hidden" name="urlAppendPath"                value="'.$urlAppendPath.'" />'                  ."\n"
-.    '<input type="hidden" name="urlEndForm"                   value="'.$urlEndForm.'" />'                     ."\n"
-.    '<input type="hidden" name="courseRepositoryForm"         value="'.$courseRepositoryForm.'" />'           ."\n"
-.    '<input type="hidden" name="pathForm" value="'.str_replace("\\","/",realpath($pathForm)."/").'"  />'      ."\n"
-.    '<input type="hidden" name="imgRepositoryAppendForm" value="'.str_replace("\\","/",$imgRepositoryAppendForm).'"  />'      ."\n"
-.    '<input type="hidden" name="userImageRepositoryAppendForm" value="'.str_replace("\\","/",$userImageRepositoryAppendForm).'"  />'      ."\n"
-.    '<input type="hidden" name="dbHostForm"                   value="'.$dbHostForm.'" />'                     ."\n"
-.    '<input type="hidden" name="dbUsernameForm"               value="'.$dbUsernameForm.'" />'                 ."\n\n"
-.    '<input type="hidden" name="singleDbForm"                 value="'.$singleDbForm.'" />'                   ."\n\n"
-.    '<input type="hidden" name="dbPrefixForm"                 value="'.$dbPrefixForm.'" />'                   ."\n"
-.    '<input type="hidden" name="dbNameForm"                   value="'.$dbNameForm.'" />'                     ."\n"
-.    '<input type="hidden" name="dbStatsForm"                  value="'.$dbStatsForm.'" />'                    ."\n"
-.    '<input type="hidden" name="mainTblPrefixForm"            value="'.$mainTblPrefixForm.'" />'              ."\n"
-.    '<input type="hidden" name="statsTblPrefixForm"           value="'.$statsTblPrefixForm.'" />'              ."\n"
-.    '<input type="hidden" name="dbMyAdmin"                    value="'.$dbMyAdmin.'" />'                      ."\n"
-.    '<input type="hidden" name="dbPassForm"                   value="'.$dbPassForm.'" />'                     ."\n\n"
-.    '<input type="hidden" name="urlForm"                      value="'.$urlForm.'" />'                        ."\n"
-.    '<input type="hidden" name="adminEmailForm"               value="'.htmlspecialchars($adminEmailForm).'" />'   ."\n"
-.    '<input type="hidden" name="adminNameForm"                value="'.htmlspecialchars($adminNameForm).'" />'    ."\n"
-.    '<input type="hidden" name="adminSurnameForm"             value="'.htmlspecialchars($adminSurnameForm).'" />' ."\n\n"
-.    '<input type="hidden" name="loginForm"                    value="'.htmlspecialchars($loginForm).'" />'        ."\n"
-.    '<input type="hidden" name="passForm"                     value="'.htmlspecialchars($passForm).'" />'         ."\n\n"
-.    '<input type="hidden" name="languageForm"                 value="'.$languageForm.'" />'                   ."\n\n"
-.    '<input type="hidden" name="campusForm"                   value="'.htmlspecialchars($campusForm).'" />'       ."\n"
-.    '<input type="hidden" name="contactNameForm"              value="'.htmlspecialchars($contactNameForm).'" />'  ."\n"
-.    '<input type="hidden" name="contactEmailForm"             value="'.htmlspecialchars($contactEmailForm).'" />' ."\n"
-.    '<input type="hidden" name="contactPhoneForm"             value="'.htmlspecialchars($contactPhoneForm).'" />' ."\n"
-.    '<input type="hidden" name="institutionForm"              value="'.htmlspecialchars($institutionForm).'" />'  ."\n"
-.    '<input type="hidden" name="institutionUrlForm"           value="'.$institutionUrlForm.'" />'             ."\n\n"
+echo '<input type="hidden" name="alreadyVisited" value="1">'                                                 ."\n"
+.    '<input type="hidden" name="urlAppendPath"                value="'.$urlAppendPath.'">'                  ."\n"
+.    '<input type="hidden" name="urlEndForm"                   value="'.$urlEndForm.'">'                     ."\n"
+.    '<input type="hidden" name="courseRepositoryForm"         value="'.$courseRepositoryForm.'">'           ."\n"
+.    '<input type="hidden" name="pathForm" value="'.str_replace("\\","/",realpath($pathForm)."/").'" >'      ."\n"
+.    '<input type="hidden" name="imgRepositoryAppendForm" value="'.str_replace("\\","/",$imgRepositoryAppendForm).'" >'      ."\n"
+.    '<input type="hidden" name="userImageRepositoryAppendForm" value="'.str_replace("\\","/",$userImageRepositoryAppendForm).'" >'      ."\n"
+.    '<input type="hidden" name="dbHostForm"                   value="'.$dbHostForm.'">'                     ."\n"
+.    '<input type="hidden" name="dbUsernameForm"               value="'.$dbUsernameForm.'">'                 ."\n\n"
+.    '<input type="hidden" name="singleDbForm"                 value="'.$singleDbForm.'">'                   ."\n\n"
+.    '<input type="hidden" name="dbPrefixForm"                 value="'.$dbPrefixForm.'">'                   ."\n"
+.    '<input type="hidden" name="dbNameForm"                   value="'.$dbNameForm.'">'                     ."\n"
+.    '<input type="hidden" name="dbStatsForm"                  value="'.$dbStatsForm.'">'                    ."\n"
+.    '<input type="hidden" name="mainTblPrefixForm"            value="'.$mainTblPrefixForm.'">'              ."\n"
+.    '<input type="hidden" name="statsTblPrefixForm"           value="'.$statsTblPrefixForm.'">'              ."\n"
+.    '<input type="hidden" name="dbMyAdmin"                    value="'.$dbMyAdmin.'">'                      ."\n"
+.    '<input type="hidden" name="dbPassForm"                   value="'.$dbPassForm.'">'                     ."\n\n"
+.    '<input type="hidden" name="urlForm"                      value="'.$urlForm.'">'                        ."\n"
+.    '<input type="hidden" name="adminEmailForm"               value="'.htmlspecialchars($adminEmailForm).'">'   ."\n"
+.    '<input type="hidden" name="adminNameForm"                value="'.htmlspecialchars($adminNameForm).'">'    ."\n"
+.    '<input type="hidden" name="adminSurnameForm"             value="'.htmlspecialchars($adminSurnameForm).'">' ."\n\n"
+.    '<input type="hidden" name="loginForm"                    value="'.htmlspecialchars($loginForm).'">'        ."\n"
+.    '<input type="hidden" name="passForm"                     value="'.htmlspecialchars($passForm).'">'         ."\n\n"
+.    '<input type="hidden" name="languageForm"                 value="'.$languageForm.'">'                   ."\n\n"
+.    '<input type="hidden" name="campusForm"                   value="'.htmlspecialchars($campusForm).'">'       ."\n"
+.    '<input type="hidden" name="contactNameForm"              value="'.htmlspecialchars($contactNameForm).'">'  ."\n"
+.    '<input type="hidden" name="contactEmailForm"             value="'.htmlspecialchars($contactEmailForm).'">' ."\n"
+.    '<input type="hidden" name="contactPhoneForm"             value="'.htmlspecialchars($contactPhoneForm).'">' ."\n"
+.    '<input type="hidden" name="institutionForm"              value="'.htmlspecialchars($institutionForm).'">'  ."\n"
+.    '<input type="hidden" name="institutionUrlForm"           value="'.$institutionUrlForm.'">'             ."\n\n"
 .    '<!-- BOOLEAN -->'                                                                                      ."\n"
-.    '<input type="hidden" name="enableTrackingForm"           value="'.$enableTrackingForm.'" />'             ."\n"
-.    '<input type="hidden" name="allowSelfReg"                 value="'.$allowSelfReg.'" />'                   ."\n"
-.    '<input type="hidden" name="userPasswordCrypted"          value="'.$userPasswordCrypted.'" />'            ."\n"
-.    '<input type="hidden" name="encryptPassForm"              value="'.$encryptPassForm.'" />'                ."\n"
-.    '<input type="hidden" name="confirmUseExistingMainDb"     value="'.$confirmUseExistingMainDb.'" />'       ."\n"
-.    '<input type="hidden" name="confirmUseExistingStatsDb"    value="'.$confirmUseExistingStatsDb.'" />';
+.    '<input type="hidden" name="enableTrackingForm"           value="'.$enableTrackingForm.'">'             ."\n"
+.    '<input type="hidden" name="allowSelfReg"                 value="'.$allowSelfReg.'">'                   ."\n"
+.    '<input type="hidden" name="userPasswordCrypted"          value="'.$userPasswordCrypted.'">'            ."\n"
+.    '<input type="hidden" name="encryptPassForm"              value="'.$encryptPassForm.'">'                ."\n"
+.    '<input type="hidden" name="confirmUseExistingMainDb"     value="'.$confirmUseExistingMainDb.'">'       ."\n"
+.    '<input type="hidden" name="confirmUseExistingStatsDb"    value="'.$confirmUseExistingStatsDb.'">';
 
 
  ##### PANNELS  ######
@@ -736,7 +736,7 @@ echo '<input type="hidden" name="alreadyVisited" value="1" />'                  
 ###################################################################
 if ($display == DISP_WELCOME)
 {
-    echo '<input type="hidden" name="fromPanel" value="' . $display . '" />'
+    echo '<input type="hidden" name="fromPanel" value="' . $display . '">'
     .    '<h2>'
     .    get_lang('Step %step of %nb_step : %step_name', array( '%step' => array_search(DISP_WELCOME, $panelSequence)+1 ,
                                                                 '%nb_step' => count($panelSequence) ,
@@ -898,7 +898,7 @@ if ($display == DISP_WELCOME)
 
 elseif(DISP_LICENSE == $display)
 {
-    echo '<input type="hidden" name="fromPanel" value="'.$display.'" />'  . "\n"
+    echo '<input type="hidden" name="fromPanel" value="'.$display.'">'  . "\n"
     .    '<h2>'  . "\n"
     .    get_lang('Step %step of %nb_step : %step_name', array( '%step' => array_search(DISP_LICENSE, $panelSequence)+1 ,
                                                                 '%nb_step' => count($panelSequence) ,
@@ -909,7 +909,7 @@ elseif(DISP_LICENSE == $display)
     .    'Please read the licence and click &quot;Next &gt;&quot;.'  . "\n"
     .    '<a href="../../LICENCE.txt">Printer-friendly version</a>'  . "\n"
     .    '</p>'  . "\n"
-    .    '<textarea  cols="65" rows="15">'
+    .    '<textarea wrap="virtual" cols="65" rows="15">'
     ;
 
     readfile ('../license/gpl.txt');
@@ -930,7 +930,7 @@ elseif(DISP_DB_CONNECT_SETTING == $display)
 {
 
 
-    echo '<input type="hidden" name="fromPanel" value="'.$display.'" />'
+    echo '<input type="hidden" name="fromPanel" value="'.$display.'">'
     .    '<h2>'
     .    get_lang('Step %step of %nb_step : %step_name', array( '%step' => array_search(DISP_DB_CONNECT_SETTING, $panelSequence)+1 ,
                                                                 '%nb_step' => count($panelSequence) ,
@@ -951,7 +951,7 @@ elseif(DISP_DB_CONNECT_SETTING == $display)
     .    '<label for="dbHostForm">Database host</label>'
     .    '</td>'
     .    '<td>'
-    .    '<input type="text" size="25" id="dbHostForm" name="dbHostForm" value="'.htmlspecialchars($dbHostForm).'" />'
+    .    '<input type="text" size="25" id="dbHostForm" name="dbHostForm" value="'.htmlspecialchars($dbHostForm).'">'
     .    '</td>'
     .    '<td>'
     .    get_lang('EG') . ' localhost'
@@ -962,7 +962,7 @@ elseif(DISP_DB_CONNECT_SETTING == $display)
     .    '<label for="dbUsernameForm">Database username</label>'
     .    '</td>'
     .    '<td>'
-    .    '<input type="text"  size="25" id="dbUsernameForm" name="dbUsernameForm" value="'.htmlspecialchars($dbUsernameForm).'" />'
+    .    '<input type="text"  size="25" id="dbUsernameForm" name="dbUsernameForm" value="'.htmlspecialchars($dbUsernameForm).'">'
     .    '</td>'
     .    '<td>'
     .    get_lang('EG').' root'
@@ -973,7 +973,7 @@ elseif(DISP_DB_CONNECT_SETTING == $display)
     .    '<label for="dbPassForm">Database password</label>'
     .    '</td>'
     .    '<td>'
-    .    '<input type="text"  size="25" id="dbPassForm" name="dbPassForm" value="'.htmlspecialchars($dbPassForm).'" />'
+    .    '<input type="text"  size="25" id="dbPassForm" name="dbPassForm" value="'.htmlspecialchars($dbPassForm).'">'
     .    '</td>'
     .    '<td>'
     .    get_lang('EG') . ' ' . generate_passwd(8)
@@ -982,18 +982,36 @@ elseif(DISP_DB_CONNECT_SETTING == $display)
     .    '</table>'
     .    '<h4>'.get_lang('Database usage').'</h4>'
     .    '<table width="100%">'
+/*    .    '<tr>'
+    .    '<td>'
+    .    'Tracking</label>'
+    .    '</td>'
+    .    '<td>'
+    .    '<input type="radio" id="enableTrackingForm_enabled" name="enableTrackingForm" value="1" '.($enableTrackingForm?'checked':'').'>'
+    .    '<label for="enableTrackingForm_enabled">'
+    .    'enabled'
+    .    '</label>'
+    .    '</td>'
+    .    '<td>'
+    .    '<input type="radio" id="enableTrackingForm_disabled" name="enableTrackingForm" value="0" '.($enableTrackingForm?'':'checked').'>'
+    .    '<label for="enableTrackingForm_disabled">'
+    .    'disabled'
+    .    '</label>'
+    .    '</td>'
+    .    '</tr>'
+    */
     .    '<tr>'
     .    '<td>'
     .    'Database mode'
     .    '</td>'
     .    '<td>'
-    .    '<input type="radio" id="singleDbForm_single" name="singleDbForm" value="1" '.($singleDbForm?'checked':'').' />'
+    .    '<input type="radio" id="singleDbForm_single" name="singleDbForm" value="1" '.($singleDbForm?'checked':'').' >'
     .    '<label for="singleDbForm_single">'
     .    'single'
     .    '</label>'
     .    '</td>'
     .    '<td>'
-    .    '<input type="radio" id="singleDbForm_multi" name="singleDbForm" value="0" '.($singleDbForm?'':'checked').' />'
+    .    '<input type="radio" id="singleDbForm_multi" name="singleDbForm" value="0" '.($singleDbForm?'':'checked').' >'
     .    '<label for="singleDbForm_multi">'
     .    'multi '
     .    '<small>'
@@ -1021,7 +1039,7 @@ elseif(DISP_DB_CONNECT_SETTING == $display)
 ##########################################################################
 elseif(DISP_DB_NAMES_SETTING == $display )
 {
-    echo '<input type="hidden" name="fromPanel" value="' . $display . '" />'  . "\n"
+    echo '<input type="hidden" name="fromPanel" value="'.$display.'">'  . "\n"
     .    '<h2>'  . "\n"
     .    get_lang('Step %step of %nb_step : %step_name', array( '%step' => array_search(DISP_DB_NAMES_SETTING, $panelSequence)+1 ,
                                                                 '%nb_step' => count($panelSequence) ,
@@ -1071,7 +1089,7 @@ elseif(DISP_DB_NAMES_SETTING == $display )
         .    'Claroline may overwrite data previously stored'  . "\n"
         .    'in tables of this database.'  . "\n"
         .    '<br />'  . "\n"
-        .    '<input type="checkbox" name="confirmUseExistingMainDb"  id="confirmUseExistingMainDb" value="true" '.($confirmUseExistingMainDb?'checked':'').' />'  . "\n"
+        .    '<input type="checkbox" name="confirmUseExistingMainDb"  id="confirmUseExistingMainDb" value="true" '.($confirmUseExistingMainDb?'checked':'').'>'  . "\n"
         .    '<label for="confirmUseExistingMainDb" >'  . "\n"
         .    '<B>I know, I want to use this database.</B>'  . "\n"
         .    '</label>'  . "\n"
@@ -1087,14 +1105,14 @@ elseif(DISP_DB_NAMES_SETTING == $display )
     .    '</label>'  . "\n"
     .    '</td>'  . "\n"
     .    '<td>'  . "\n"
-    .    '<input type="text"  size="25" id="dbNameForm" name="dbNameForm" value="'.htmlspecialchars($dbNameForm).'" />'  . "\n"
+    .    '<input type="text"  size="25" id="dbNameForm" name="dbNameForm" value="'.htmlspecialchars($dbNameForm).'">'  . "\n"
     .    '</td>'  . "\n"
     .    '<td>'  . "\n"
     .    'e.g. \''.$dbNameForm.'\''  . "\n"
     /*
     I want  put this in a popup.
-    .    (is_array($existingDbs) ? (5 > count($existingDbs) ? '<br/><abbr title="&quot;' . implode('&quot;, &quot;', $existingDbs) . '&quot;" >INFO : Existing databases</abbr>' . "\n"
-                                                            : '<br/>INFO : ' . count($existingDbs) . ' databases found<br/><select size="8" ><option>' . implode('</option><option>', $existingDbs) . '</option></select>')
+    .    (is_array($existingDbs) ? (5 > count($existingDbs) ? '<br><abbr title="&quot;' . implode('&quot;, &quot;', $existingDbs) . '&quot;" >INFO : Existing databases</abbr>' . "\n"
+                                                            : '<br>INFO : ' . count($existingDbs) . ' databases found<br><select size="8" ><option>' . implode('</option><option>', $existingDbs) . '</option></select>')
                                  : '')
  */
     .    '</td>'  . "\n"
@@ -1107,7 +1125,7 @@ elseif(DISP_DB_NAMES_SETTING == $display )
     .    '</label>'  . "\n"
     .    '</td>'  . "\n"
     .    '<td>'  . "\n"
-    .    '<input type="text"  size="5" id="mainTblPrefixForm" name="mainTblPrefixForm" value="'.htmlspecialchars($mainTblPrefixForm).'" />'  . "\n"
+    .    '<input type="text"  size="5" id="mainTblPrefixForm" name="mainTblPrefixForm" value="'.htmlspecialchars($mainTblPrefixForm).'">'  . "\n"
     .    '</td>'  . "\n"
     .    '<td>'  . "\n"
     .    'e.g. \''.$mainTblPrefixForm.'\''  . "\n"        .    '</td>'  . "\n"
@@ -1131,7 +1149,7 @@ elseif(DISP_DB_NAMES_SETTING == $display )
             .    'Claroline may overwrite data previously stored'  . "\n"
             .    'in tables of this database.'  . "\n"
             .    '<br />'  . "\n"
-            .    '<input type="checkbox" name="confirmUseExistingStatsDb"  id="confirmUseExistingStatsDb" value="true" ' . ($confirmUseExistingStatsDb?'checked':'') . ' />'  . "\n"
+            .    '<input type="checkbox" name="confirmUseExistingStatsDb"  id="confirmUseExistingStatsDb" value="true" '.($confirmUseExistingStatsDb?'checked':'').'>'  . "\n"
             .    '<label for="confirmUseExistingStatsDb" >'  . "\n"
             .    '<B>I know, I want to use this database.</B>'  . "\n"
             .    '</label>'  . "\n"
@@ -1145,7 +1163,7 @@ elseif(DISP_DB_NAMES_SETTING == $display )
         .    '<label for="dbStatsForm">'.get_lang('Tracking database').'</label>'  . "\n"
         .    '</td>'  . "\n"
         .    '<td>'  . "\n"
-        .    '<input type="text"  size="25" id="dbStatsForm" name="dbStatsForm" value="'.htmlspecialchars($dbStatsForm).'" />'  . "\n"
+        .    '<input type="text"  size="25" id="dbStatsForm" name="dbStatsForm" value="'.htmlspecialchars($dbStatsForm).'">'  . "\n"
         .    '</td>'  . "\n"
         .    '<td>'  . "\n"
         .    'e.g. \''.$dbStatsForm.'\''  . "\n"        .    '</td>'  . "\n"
@@ -1158,7 +1176,7 @@ elseif(DISP_DB_NAMES_SETTING == $display )
         .    '</label>'  . "\n"
         .    '</td>'  . "\n"
         .    '<td>'  . "\n"
-        .    '<input type="text"  size="5" id="statsTblPrefixForm" name="statsTblPrefixForm" value="'.htmlspecialchars($statsTblPrefixForm).'" />'  . "\n"
+        .    '<input type="text"  size="5" id="statsTblPrefixForm" name="statsTblPrefixForm" value="'.htmlspecialchars($statsTblPrefixForm).'">'  . "\n"
         .    '</td>'  . "\n"
         .    '<td>'  . "\n"
         .    'e.g. \''.$statsTblPrefixForm.'\''  . "\n"
@@ -1182,7 +1200,7 @@ elseif(DISP_DB_NAMES_SETTING == $display )
     .    '</label>'  . "\n"
     .    '</td>'  . "\n"
     .    '<td>'  . "\n"
-    .    '<input type="text"  size="25" id="dbPrefixForm" name="dbPrefixForm" value="'.htmlspecialchars($dbPrefixForm).'" />'  . "\n"
+    .    '<input type="text"  size="25" id="dbPrefixForm" name="dbPrefixForm" value="'.htmlspecialchars($dbPrefixForm).'">'  . "\n"
     .    '</td>'  . "\n"
     .    '<td>'  . "\n"
     .    'e.g. \'' . $dbPrefixForm.'\'' . "\n"
@@ -1218,7 +1236,7 @@ elseif(DISP_DB_NAMES_SETTING == $display )
 elseif(DISP_ADMINISTRATOR_SETTING == $display )
 
 {
-    echo '<input type="hidden" name="fromPanel" value="'.$display.'" />'  . "\n"
+    echo '<input type="hidden" name="fromPanel" value="'.$display.'">'  . "\n"
     .    '<h2>'  . "\n"
     .    get_lang('Step %step of %nb_step : %step_name', array( '%step' => array_search(DISP_ADMINISTRATOR_SETTING, $panelSequence)+1 ,
                                                                 '%nb_step' => count($panelSequence) ,
@@ -1236,7 +1254,7 @@ elseif(DISP_ADMINISTRATOR_SETTING == $display )
     .    '<label for="loginForm">'.get_lang('Login').'</label>'  . "\n"
     .    '</td>' . "\n"
     .    '<td>'  . "\n"
-    .    '<input type="text" size="40" id="loginForm" name="loginForm" value="'.htmlspecialchars($loginForm).'" />'  . "\n"
+    .    '<input type="text" size="40" id="loginForm" name="loginForm" value="'.htmlspecialchars($loginForm).'">'  . "\n"
     .    '</td>' . "\n"
     .    '<td>'  . "\n"
     .    'e.g. jdoe'  . "\n"
@@ -1247,7 +1265,7 @@ elseif(DISP_ADMINISTRATOR_SETTING == $display )
     .    '<label for="passForm">'.get_lang('Password').'</label>'  . "\n"
     .    '</td>' . "\n"
     .    '<td>'  . "\n"
-    .    '<input type="text" size="40" id="passForm" name="passForm" value="'.htmlspecialchars($passForm).'" />'  . "\n"
+    .    '<input type="text" size="40" id="passForm" name="passForm" value="'.htmlspecialchars($passForm).'">'  . "\n"
     .    '</td>' . "\n"
     .    '<td>'  . "\n"
     .    'e.g. ' . generate_passwd(8) . "\n"
@@ -1258,7 +1276,7 @@ elseif(DISP_ADMINISTRATOR_SETTING == $display )
     .    '<label for="adminEmailForm">'.get_lang('Email').'</label>'  . "\n"
     .    '</td>' . "\n"
     .    '<td>'  . "\n"
-    .    '<input type="text" size="40" id="adminEmailForm" name="adminEmailForm" value="'.htmlspecialchars($adminEmailForm).'" />'  . "\n"
+    .    '<input type="text" size="40" id="adminEmailForm" name="adminEmailForm" value="'.htmlspecialchars($adminEmailForm).'">'  . "\n"
     .    '</td>' . "\n"
     .    '<td>'  . "\n"
     .    'e.g. jdoe@mydomain.net'  . "\n"
@@ -1269,7 +1287,7 @@ elseif(DISP_ADMINISTRATOR_SETTING == $display )
     .    '<label for="adminNameForm">'.get_lang('Last name').'</label>'  . "\n"
     .    '</td>' . "\n"
     .    '<td>'  . "\n"
-    .    '<input type="text" size="40" id="adminNameForm" name="adminNameForm" value="'.htmlspecialchars($adminNameForm).'" />'  . "\n"
+    .    '<input type="text" size="40" id="adminNameForm" name="adminNameForm" value="'.htmlspecialchars($adminNameForm).'">'  . "\n"
     .    '</td>' . "\n"
     .    '<td>'  . "\n"
     .    'e.g. Doe'  . "\n"
@@ -1280,7 +1298,7 @@ elseif(DISP_ADMINISTRATOR_SETTING == $display )
     .    '<label for="adminSurnameForm">'.get_lang('First name').'</label>'  . "\n"
     .    '</td>' . "\n"
     .    '<td>'  . "\n"
-    .    '<input type="text" size="40" id="adminSurnameForm" name="adminSurnameForm" value="'.htmlspecialchars($adminSurnameForm).'" />'  . "\n"
+    .    '<input type="text" size="40" id="adminSurnameForm" name="adminSurnameForm" value="'.htmlspecialchars($adminSurnameForm).'">'  . "\n"
     .    '</td>' . "\n"
     .    '<td>'  . "\n"
     .    'e.g. John'  . "\n"
@@ -1296,7 +1314,7 @@ elseif(DISP_ADMINISTRATOR_SETTING == $display )
 
 elseif(DISP_PLATFORM_SETTING == $display)
 {
-    echo '<input type="hidden" name="fromPanel" value="'.$display.'" />' . "\n"
+    echo '<input type="hidden" name="fromPanel" value="'.$display.'">' . "\n"
     .    '<h2>' . "\n"
     .    get_lang('Step %step of %nb_step : %step_name', array( '%step' => array_search(DISP_PLATFORM_SETTING, $panelSequence)+1 ,
                                                                 '%nb_step' => count($panelSequence) ,
@@ -1314,7 +1332,7 @@ elseif(DISP_PLATFORM_SETTING == $display)
     .    '<label for="campusForm">Name</label>' . "\n"
     .    '</td>' . "\n"
     .    '<td colspan="2">' . "\n"
-    .    '<input type="text" size="40" id="campusForm" name="campusForm" value="'.htmlspecialchars($campusForm).'" />' . "\n"
+    .    '<input type="text" size="40" id="campusForm" name="campusForm" value="'.htmlspecialchars($campusForm).'">' . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '<tr>' . "\n"
@@ -1322,7 +1340,7 @@ elseif(DISP_PLATFORM_SETTING == $display)
     .    '<label for="urlForm">Complete URL</label>' . "\n"
     .    '</td>' . "\n"
     .    '<td colspan="2">' . "\n"
-    .    '<input type="text" size="60" id="urlForm" name="urlForm" value="'.htmlspecialchars($urlForm).'" />' . "\n"
+    .    '<input type="text" size="60" id="urlForm" name="urlForm" value="'.htmlspecialchars($urlForm).'">' . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '<tr>' . "\n"
@@ -1334,7 +1352,7 @@ elseif(DISP_PLATFORM_SETTING == $display)
     .    '<td>' . "\n"
     .    '</td>' . "\n"
     .    '<td colspan="2">' . "\n"
-    .    '<input type="text"  size="60" id="courseRepositoryForm" name="courseRepositoryForm" value="'.htmlspecialchars($courseRepositoryForm).'" />' . "\n"
+    .    '<input type="text"  size="60" id="courseRepositoryForm" name="courseRepositoryForm" value="'.htmlspecialchars($courseRepositoryForm).'">' . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '<tr>' . "\n"
@@ -1359,11 +1377,11 @@ elseif(DISP_PLATFORM_SETTING == $display)
     .    'Self-registration' . "\n"
     .    '</td>' . "\n"
     .    '<td>' . "\n"
-    .    '<input type="radio" id="allowSelfReg_1" name="allowSelfReg" value="1" ' . ($allowSelfReg?'checked':'') . ' />' . "\n"
+    .    '<input type="radio" id="allowSelfReg_1" name="allowSelfReg" value="1" '.($allowSelfReg?'checked':'').'>' . "\n"
     .    '<label for="allowSelfReg_1">enabled</label>' . "\n"
     .    '</td>' . "\n"
     .    '<td>' . "\n"
-    .    '<input type="radio" id="allowSelfReg_0" name="allowSelfReg" value="0" '.($allowSelfReg?'':'checked').' />' . "\n"
+    .    '<input type="radio" id="allowSelfReg_0" name="allowSelfReg" value="0" '.($allowSelfReg?'':'checked').'>' . "\n"
     .    '<label for="allowSelfReg_0">disabled</label>' . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
@@ -1372,11 +1390,11 @@ elseif(DISP_PLATFORM_SETTING == $display)
     .    'Password storage' . "\n"
     .    '</td>' . "\n"
     .    '<td>' . "\n"
-    .    '<input type="radio" name="encryptPassForm" id="encryptPassForm_0" value="0"  '.($encryptPassForm?'':'checked') . ' />' . "\n"
+    .    '<input type="radio" name="encryptPassForm" id="encryptPassForm_0" value="0"  '.($encryptPassForm?'':'checked').'>' . "\n"
     .    '<label for="encryptPassForm_0">clear text</label>' . "\n"
     .    '</td>' . "\n"
     .    '<td>' . "\n"
-    .    '<input type="radio" name="encryptPassForm" id="encryptPassForm_1" value="1" ' . ($encryptPassForm?'checked':'') . ' />' . "\n"
+    .    '<input type="radio" name="encryptPassForm" id="encryptPassForm_1" value="1" '.($encryptPassForm?'checked':'').'>' . "\n"
     .    '<label for="encryptPassForm_1">crypted</label>' . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
@@ -1388,7 +1406,7 @@ elseif(DISP_PLATFORM_SETTING == $display)
 ###################################################################
 elseif(DISP_ADMINISTRATIVE_SETTING == $display)
 {
-    echo '<input type="hidden" name="fromPanel" value="' . $display . '" /><h2>'
+    echo '<input type="hidden" name="fromPanel" value="'.$display.'"><h2>'
     .    get_lang('Step %step of %nb_step : %step_name', array( '%step' => array_search(DISP_ADMINISTRATIVE_SETTING, $panelSequence)+1 ,
                                                                 '%nb_step' => count($panelSequence) ,
                                                                 '%step_name' => $panelTitle[DISP_ADMINISTRATIVE_SETTING] ) )
@@ -1408,7 +1426,7 @@ elseif(DISP_ADMINISTRATIVE_SETTING == $display)
     .    '<label for="institutionForm">Name</label>' . "\n"
     .    '</td>' . "\n"
     .    '<td colspan="2">' . "\n"
-    .    '<input type="text" size="40" id="institutionForm" name="institutionForm" value="'.htmlspecialchars($institutionForm) . '" />' . "\n"
+    .    '<input type="text" size="40" id="institutionForm" name="institutionForm" value="'.htmlspecialchars($institutionForm).'">' . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '<tr>' . "\n"
@@ -1416,7 +1434,7 @@ elseif(DISP_ADMINISTRATIVE_SETTING == $display)
     .    '<label for="institutionUrlForm">URL</label>' . "\n"
     .    '</td>' . "\n"
     .    '<td colspan="2">' . "\n"
-    .    '<input type="text" size="40" id="institutionUrlForm" name="institutionUrlForm" value="'.htmlspecialchars($institutionUrlForm) . '" />' . "\n"
+    .    '<input type="text" size="40" id="institutionUrlForm" name="institutionUrlForm" value="'.htmlspecialchars($institutionUrlForm).'">' . "\n"
     .    '<br />' . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
@@ -1433,7 +1451,7 @@ elseif(DISP_ADMINISTRATIVE_SETTING == $display)
     .    '</td>' . "\n"
     .    '' . "\n"
     .    '<td colspan="2">' . "\n"
-    .    '<input type="text" size="40" id="contactNameForm" name="contactNameForm" value="'.htmlspecialchars($contactNameForm) . '"/>' . "\n"
+    .    '<input type="text" size="40" id="contactNameForm" name="contactNameForm" value="'.htmlspecialchars($contactNameForm).'">' . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '<tr>' . "\n"
@@ -1441,7 +1459,7 @@ elseif(DISP_ADMINISTRATIVE_SETTING == $display)
     .    '<label for="contactEmailForm">Email</label>' . "\n"
     .    '</td>' . "\n"
     .    '<td colspan="2">' . "\n"
-    .    '<input type="text" size="40" id="contactEmailForm" name="contactEmailForm" value="'.htmlspecialchars($contactEmailForm) . '"/>' . "\n"
+    .    '<input type="text" size="40" id="contactEmailForm" name="contactEmailForm" value="'.htmlspecialchars($contactEmailForm).'">' . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '<tr>' . "\n"
@@ -1449,7 +1467,7 @@ elseif(DISP_ADMINISTRATIVE_SETTING == $display)
     .    '<label for="contactPhoneForm">Phone</label>' . "\n"
     .    '</td>' . "\n"
     .    '<td colspan="2">' . "\n"
-    .    '<input type="text" size="40" id="contactPhoneForm" name="contactPhoneForm" value="'.htmlspecialchars($contactPhoneForm) . '" />' . "\n"
+    .    '<input type="text" size="40" id="contactPhoneForm" name="contactPhoneForm" value="'.htmlspecialchars($contactPhoneForm).'">' . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '<tr>' . "\n"
@@ -1467,8 +1485,8 @@ elseif(DISP_LAST_CHECK_BEFORE_INSTALL == $display )
 {
     $pathForm = str_replace("\\\\", "/", $pathForm);
     //echo "pathForm $pathForm";
-    echo '<input type="hidden" name="fromPanel" value="'.$display . '" />' . "\n"
-    .    '<h2>'
+    echo '<input type="hidden" name="fromPanel" value="'.$display.'">';
+    echo '<h2>'
     .    get_lang('Step %step of %nb_step : %step_name', array( '%step' => array_search(DISP_LAST_CHECK_BEFORE_INSTALL, $panelSequence)+1 ,
                                                                 '%nb_step' => count($panelSequence) ,
                                                                 '%step_name' => $panelTitle[DISP_LAST_CHECK_BEFORE_INSTALL] ) )
@@ -1532,7 +1550,7 @@ elseif(DISP_LAST_CHECK_BEFORE_INSTALL == $display )
     .    '&nbsp;Phone : '.htmlspecialchars($contactPhoneForm).'<br />' . "\n"
     .    '</FIELDSET>' . "\n"
     .    '</blockquote>' . "\n"
-    .    '<center><input type="submit" name="cmdDoInstall" value="Install Claroline" /></center>' . "\n"
+    .    '<center><input type="submit" name="cmdDoInstall" value="Install Claroline"></center>' . "\n"
     ;
 
 }
@@ -1543,7 +1561,7 @@ elseif(DISP_LAST_CHECK_BEFORE_INSTALL == $display )
 
 elseif($display==DISP_DB_NAMES_SETTING_ERROR)
 {
-    echo '<input type="hidden" name="fromPanel" value="' . $display . '" />' . "\n"
+    echo '<input type="hidden" name="fromPanel" value="' . $display . '">' . "\n"
     .    '<h2>' . "\n"
     .    'Install Problem' . "\n"
     .    '</h2>'
@@ -1557,7 +1575,7 @@ elseif($display==DISP_DB_NAMES_SETTING_ERROR)
         if ($mainDbNameExist)
             echo '<P>' . "\n"
             .    '<B>'.get_lang('Main database').'</B> db (<em>'.$dbNameForm.'</em>) already exist <br />' . "\n"
-            .    '<input type="checkbox" name="confirmUseExistingMainDb"  id="confirmUseExistingMainDb" value="true" '.($confirmUseExistingMainDb?'checked':'').' />' . "\n"
+            .    '<input type="checkbox" name="confirmUseExistingMainDb"  id="confirmUseExistingMainDb" value="true" '.($confirmUseExistingMainDb?'checked':'').'>' . "\n"
             .    '<label for="confirmUseExistingMainDb" >I know, I want use it.</label>' . "\n"
             .    '<br />' . "\n"
             .    '<font color="red">Warning !</font>' . "\n"
@@ -1568,14 +1586,14 @@ elseif($display==DISP_DB_NAMES_SETTING_ERROR)
             echo '<P>' . "\n"
             .    '<B>'.get_lang('Tracking database').'</B> db ('.$dbStatsForm.') already exist' . "\n"
             .    '<br />' . "\n"
-            .    '<input type="checkbox" name="confirmUseExistingStatsDb"  id="confirmUseExistingStatsDb" value="true" '.($confirmUseExistingStatsDb?'checked':'') . ' />' . "\n"
+            .    '<input type="checkbox" name="confirmUseExistingStatsDb"  id="confirmUseExistingStatsDb" value="true" '.($confirmUseExistingStatsDb?'checked':'').'>' . "\n"
             .    '<label for="confirmUseExistingStatsDb" >I know, I want use it.</label><br />' . "\n"
             .    '<font color="red">Warning !</font>' . "\n"
             .    ': this script write in tables use by Claroline.' . "\n"
             .    '</P>'
             ;
         echo '<P>' . "\n"
-        .    'OR <input type="submit" name="cmdDbNameSetting" value="set DB Names" />' . "\n"
+        .    'OR <input type="submit" name="cmdDbNameSetting" value="set DB Names">' . "\n"
         .    '</P>' . "\n"
         .    '<hr />'
         ;
@@ -1585,9 +1603,9 @@ elseif($display==DISP_DB_NAMES_SETTING_ERROR)
         echo '<br />' . $mainDbNameCreationError;
 
     echo '<p align="right">' . "\n"
-    .    '<input type="submit" name="alreadyVisited" value="|&lt; Restart from beginning" />' . "\n"
-    .    '<input type="submit" name="' . $cmdName[$panelSequence[array_search($display, $panelSequence)-1]] . '" value="&lt; Back" />' . "\n"
-    .    '<input type="submit" name="cmdDoInstall" value="Retry" />' . "\n"
+    .    '<input type="submit" name="alreadyVisited" value="|&lt; Restart from beginning">' . "\n"
+    .    '<input type="submit" name="' . $cmdName[$panelSequence[array_search($display, $panelSequence)-1]] . '" value="&lt; Back">' . "\n"
+    .    '<input type="submit" name="cmdDoInstall" value="Retry">' . "\n"
     .    '</p>'
     ;
 }
@@ -1599,7 +1617,7 @@ elseif($display==DISP_DB_NAMES_SETTING_ERROR)
 elseif(DISP_RUN_INSTALL_NOT_COMPLETE == $display)
 {
     echo '
-          <input type="hidden" name="fromPanel" value="'.$display.'" />
+          <input type="hidden" name="fromPanel" value="'.$display.'">
                 <h2>
                     Install Problem
                 </h2>';
@@ -1654,12 +1672,7 @@ elseif(DISP_RUN_INSTALL_NOT_COMPLETE == $display)
             }
             echo '</ul>';
         }
-        else
-        {
-            echo '<br />' . "\n"
-            .    'Unidentified Error on config files creation'
-            ;
-        }
+        else echo '<br />Unidentified Error on config files creation';
 
     }
 
@@ -1687,11 +1700,9 @@ elseif(DISP_RUN_INSTALL_NOT_COMPLETE == $display)
         <b>
             <em>'.$garbageRepositorySys.'</em>
             is Write Protected.
-        </b>' . "\n"
-        .    'Claroline need to have write right to trash courses.' . "\n"
-        .    '<br />' . "\n"
-        .    'change right on this directory and retry.'
-        ;
+        </b>
+        Claroline need to have write right to trash courses.<br />
+        change right on this directory and retry.';
     }
 
     if ($platformConfigRepositorySysMissing)
@@ -1701,21 +1712,21 @@ elseif(DISP_RUN_INSTALL_NOT_COMPLETE == $display)
 
     if ($platformConfigRepositorySysWriteProtected)
     {
-        echo '<br />' . "\n"
-        .    '<b>' . "\n"
-        .    '<em>' . claro_get_conf_repository() . '</em>
-            is Write Protected.' . "\n"
-        .    '</b>' . "\n"
-        .    'Claroline need to have write right to trash courses.' . "\n"
-        .    '<br />' . "\n"
-        .    'change right on this directory and retry.';
+        echo '
+        <br />
+        <b>
+            <em>' . claro_get_conf_repository() . '</em>
+            is Write Protected.
+        </b>
+        Claroline need to have write right to trash courses.<br />
+        change right on this directory and retry.';
     }
 
 
     echo '<p align="right">'
-    .    '<input type="submit" name="alreadyVisited" value="Restart from beginning" />' . "\n"
-    .    '<input type="submit" name="' . $cmdName[$panelSequence[count($panelSequence)-1]] . '" value="&lt; Back" />' . "\n"
-    .    '<input type="submit" name="cmdDoInstall" value="Retry" />' . "\n"
+    .    '<input type="submit" name="alreadyVisited" value="Restart from beginning">' . "\n"
+    .    '<input type="submit" name="' . $cmdName[$panelSequence[count($panelSequence)-1]] . '" value="&lt; Back">' . "\n"
+    .    '<input type="submit" name="cmdDoInstall" value="Retry">' . "\n"
     .    '</p>'
     ;
 
@@ -1733,35 +1744,18 @@ elseif(DISP_RUN_INSTALL_COMPLETE == $display)
     .    '<br />' . "\n"
     .    '<br />' . "\n"
     .    '</form>' . "\n"
-    .    '<form action="../../" method="post">' . "\n"
-    .    '<input type="hidden" name="logout" value="TRUE" />' . "\n"
-    .    '<input type="hidden" name="uidReset" value="TRUE" />' . "\n"
+    .    '<form action="../../" method="POST">' . "\n"
+    .    '<input type="hidden" name="logout" value="TRUE">' . "\n"
+    .    '<input type="hidden" name="uidReset" value="TRUE">' . "\n"
     .    '<center>' . "\n"
-    .    '<input type="submit" value="Go to your newly created campus" />' . "\n"
+    .    '<input type="submit" value="Go to your newly created campus">' . "\n"
     .    '</form>' . "\n"
     .    '<br />' . "\n"
     .    '<br />' . "\n"
-    .    get_lang('Last tip : we highly recommend that you <strong>protect or remove the <em>/claroline/install/</em> directory</strong>.') . "\n"
+    .    'Last tip : we highly recommend that you <strong>protect or remove the <em>/claroline/install/</em> directory</strong>.' . "\n"
+    .    '<br />' . "\n"
     .    '<br />' . "\n"
     .    '</center>' . "\n"
-    .    '<hr />' . "\n"
-    .    get_lang('Todo List after install:')
-    .    '<ul>'
-    .    '<li>'
-    .    get_lang('Protect or remove the <em>/claroline/install/</em> directory</strong>.') . "\n"
-    .    '</li>'
-    .    '<li>'
-    .    get_lang('Tune your install in config in <tt>%administration | %configuration</tt>', array('%administration' => get_lang('Administration'),'%configuration' => get_lang('Configuration'))) . "\n"
-    .    '</li>'
-    .    '<li>'
-    .    get_lang('Build your course category tree in <tt>%administration | %manage course categories</tt>', array('%administration' => get_lang('Administration'),'%manage course categories' => get_lang('Manage course categories'))) . "\n"
-    .    '</li>'
-    .    '<li>'
-    .    get_lang('Edit or clear text Zones in <tt>%administration | %edit text zones</tt>', array('%administration' => get_lang('Administration'),'%edit text zones' => get_lang('Edit text zones'))) . "\n"
-    .    '</li>'
-    .    '</ul>'
-    .    '<br />' . "\n"
-    .    '<br />' . "\n"
     ;
 }    // STEP RUN_INSTALL_COMPLETE
 
@@ -1772,7 +1766,7 @@ else
     .    '<br />' . "\n"
     .    'Error in script. <br />' . "\n"
     .    '<br />' . "\n"
-    .    'Please inform  <a href=mailto:cvs@claroline.net">Claroline team</a> )'
+    .    'Please inform  <a href=mailto:moosh@claroline.net">Claroline team</a> )'
     ;
 }
 

@@ -8,7 +8,7 @@
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
- * @author Piraux Sï¿½bastien <pir@cerdecam.be>
+ * @author Piraux Sébastien <pir@cerdecam.be>
  * @author Lederer Guillaume <led@cerdecam.be>
  *
  * @package CLLNP
@@ -117,8 +117,17 @@ switch ($module['contentType'])
 		} // else anonymous : record nothing
 
 		$startAssetPage = urlencode($assetPath);
-        $moduleStartAssetPage = claro_get_file_download_url( $startAssetPage );
-
+        if ( $GLOBALS['is_Apache'] && get_conf('secureDocumentDownload') )
+        {
+            // slash argument method - only compatible with Apache
+            // str_replace("%2F","/",urlencode($startAssetPage)) is used to avoid problems with accents in filename.
+            $moduleStartAssetPage = get_module_url('CLDOC') . '/goto/index.php'.str_replace('%2F','/',$startAssetPage);
+        }
+        else
+        {
+            // question mark argument method, for IIS ...
+            $moduleStartAssetPage = get_module_url('CLDOC') . '/goto/?url=' . $startAssetPage;
+        }
   		$withFrames = true;
 		break;
 
@@ -155,17 +164,17 @@ switch ($module['contentType'])
    {
 
       include("scormAPI.inc.php");
-      echo '<frameset border="0" cols="0,20%,80%" frameborder="no">
-            <frame src="updateProgress.php" name="upFrame">';
+      echo "<frameset border='0' cols='0,20%,80%' frameborder='no'>
+            <frame src='updateProgress.php' name='upFrame'>";
 
    }
    else
    {
-      echo '<frameset border="0" cols="20%,80%" frameborder="yes">';
+      echo "<frameset border='0' cols='20%,80%' frameborder='yes'>";
    }
 ?>
     <frame src="tableOfContent.php" name="tocFrame" />
-    <frame src="<?php echo $moduleStartAssetPage; ?>" name="scoFrame" />
+    <frame src="<?php echo $moduleStartAssetPage; ?>" name="scoFrame">
 
     </frameset>
   <noframes>

@@ -1,21 +1,15 @@
 <?php // $Id$
-//----------------------------------------------------------------------
-// CLAROLINE
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-Web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
 
-// This page is used to launch an event when a user click to download a document
-
-die("document/goto is deprecated, use claro_get_file_download_url( $file ) function instead");
-
-$tlabelReq = 'CLDOC';
+/**
+ * Download a document
+ *
+ * @version     1.8 $Revision$
+ * @copyright   2001-2007 Universite catholique de Louvain (UCL)
+ * @author      Claroline Team <info@claroline.net>
+ * @license     http://www.gnu.org/copyleft/gpl.html
+ *              GNU GENERAL PUBLIC LICENSE version 2.0
+ * @package     CLDOC
+ */
 
 require '../../inc/claro_init_global.inc.php';
 
@@ -66,21 +60,35 @@ else
 
     if ($courseContext)
     {
-        $courseTblList = claro_sql_get_course_tbl();
-        $tbl_document =  $courseTblList['document'];
-
-        $sql = 'SELECT visibility
-                FROM `'.$tbl_document.'`
-                WHERE path = "'.addslashes($requestUrl).'"';
-
-        $docVisibilityStatus = claro_sql_query_get_single_value($sql);
-
-        if (    ( ! is_null($docVisibilityStatus) ) // hidden document can only be viewed by course manager
-             && $docVisibilityStatus == 'i'
-             && ( ! $is_allowedToEdit ) )
+        // check document visibility only if we are not coming from the Learning Path
+        if ( isset( $_SESSION ) && is_array( $_SESSION ) 
+            && array_key_exists( '_courseTool', $_SESSION ) 
+            && is_array($_SESSION['_courseTool'])
+            && array_key_exists( 'label', $_SESSION['_courseTool'] )
+            && $_SESSION['_courseTool']['label'] == 'CLLNP'
+        )
         {
-            $isDownloadable = false ;
-            $message = get_lang('Not allowed');
+            // do nothing
+        }
+        else
+        {
+            $courseTblList = claro_sql_get_course_tbl();
+            $tbl_document =  $courseTblList['document'];
+
+            $sql = 'SELECT visibility
+                    FROM `'.$tbl_document.'`
+                    WHERE path = "'.addslashes($requestUrl).'"';
+
+            $docVisibilityStatus = claro_sql_query_get_single_value($sql);
+            
+            // hidden document can only be viewed by course manager            
+            if (    ( ! is_null($docVisibilityStatus) ) 
+                 && $docVisibilityStatus == 'i'
+                 && ( ! $is_allowedToEdit ) )
+            {
+                $isDownloadable = false ;
+                $message = get_lang('Not allowed');
+            }
         }
     }
 
@@ -97,14 +105,13 @@ else
     {
         // pretty url
         $pathInfo = realpath(get_path('coursesRepositorySys') . $intermediatePath . '/' . $requestUrl);
-        $pathInfo = str_replace('\\', '/', $pathInfo); // OS harmonize ...
     }
     else
     {
         // TODO check if we can remove rawurldecode
         $pathInfo = get_path('coursesRepositorySys'). $intermediatePath
-                    . implode ( '/',
-                            array_map('rawurldecode', explode('/',$requestUrl)));
+            . implode ( '/',
+                array_map('rawurldecode', explode('/',$requestUrl)));
     }
 
     if (get_conf('CLARO_DEBUG_MODE'))
@@ -129,10 +136,63 @@ else
 
 if ( $isDownloadable )
 {
-    if( claro_send_file( $pathInfo )  > 0 )
+    session_write_close();
+    
+    $extension = get_file_extension($pathInfo);
+    $mimeType = get_mime_on_ext($pathInfo);
+
+    if ( $mimeType == 'text/html' && $extension != 'url' )
     {
-        event_download( $requestUrl );
+        event_download($requestUrl);
+        
+        if (substr(PHP_OS, 0, 3) == "WIN")
+        {
+            $rootSys = strtolower( str_replace('\\', '/', $rootSys) );
+            $pathInfo = strtolower( str_replace('\\', '/', $pathInfo) );
+        }
+
+        // replace rootSys by urlAppend, encode url for ie7, don't encode '/'
+        $document_url = $urlAppend . '/' . rawurlencode(str_replace($rootSys,'',$pathInfo));
+        $document_url = str_replace('%2F', '/', $document_url);
+
+        // redirect to document
+        claro_redirect($document_url);
+       
+        die();
     }
+    else
+    {
+        if( get_conf('useSendfile', true) )
+        {
+            if ( claro_send_file( $pathInfo )  !== false )
+            {
+                event_download( $requestUrl );
+            }
+            else
+            {
+                header('HTTP/1.1 404 Not Found');
+                claro_die( get_lang('File download failed : %failureMSg%',
+                    array( '%failureMsg%' => claro_failure::get_last_failure() ) ) );
+                die();
+            }
+        }
+        else
+        {
+            if (substr(PHP_OS, 0, 3) == "WIN")
+            {
+                $rootSys = strtolower( str_replace('\\', '/', $rootSys) );
+                $pathInfo = strtolower( str_replace('\\', '/', $pathInfo) );
+            }
+            
+            // replace rootSys by urlAppend, encode url for ie7, don't encode '/'
+            $document_url = $urlAppend . '/' . rawurlencode(str_replace($rootSys,'',$pathInfo));
+            $document_url = str_replace('%2F', '/', $document_url);
+
+            claro_redirect($document_url);
+
+            die();
+        }
+    } 
 }
 else
 {

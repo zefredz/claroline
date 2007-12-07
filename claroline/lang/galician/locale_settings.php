@@ -73,9 +73,16 @@ $langMonthNames['long'] = array('xaneiro', 'febreiro', 'marzo', 'abril', 'maio',
 // Voir http://www.php.net/manual/en/function.strftime.php pour la variable
 // ci-dessous
 
-$dateFormatShort =  "%b %d, %y";
+/*$dateFormatShort =  "%b %d, %y";
 $dateFormatLong  = '%A %B %d, %Y';
 $dateTimeFormatLong  = '%B %d, %Y at %I:%M %p';
 $timeNoSecFormat = '%I:%M %p';
+*/
+
+$dateFormatShort 	 =  "%d %b, %y";
+$dateFormatLong  	 = '%A, %d de %B de %Y';
+$dateTimeFormatLong  = '%A, %d de %B de %Y ás %H:%M';
+$dateTimeFormatShort = "%d/%m/%y %H:%M";
+$timeNoSecFormat 	 = '%H:%M';
 
 ?>

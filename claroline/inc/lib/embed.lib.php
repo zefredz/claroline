@@ -6,17 +6,57 @@
     {
         die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
     }
-    
+
     /**
-     *
-     *
-     * @version     1.9 $Revision$
-     * @copyright   2001-2007 Universite catholique de Louvain (UCL)
-     * @author      Frederic Minne <zefredz@claroline.net>
-     * @license     http://www.gnu.org/copyleft/gpl.html
-     *              GNU GENERAL PUBLIC LICENSE
-     * @package     EMBED
+     * @author  Frederic Minne <zefredz@claroline.net>
+     * @copyright Copyright &copy; 2006-2007, Frederic Minne
+     * @license http://www.gnu.org/copyleft/gpl.html GNU General Public License
+     * @version 1.0
+     * @package PlugIt
      */
+
+    /**
+     * Popup helper
+     *
+     * @access public
+     */
+    class PopupWindowHelper
+    {
+        /**
+         * generate window.close() html code
+         *
+         * @access public
+         * @static
+         * @return  string html code of the window.close() link
+         */
+        function windowClose()
+        {
+            return '<p style="text-align:center;"><a href="#" '
+                . 'onclick="window.close()">'
+                . get_lang('Close window')
+                . '</a></p>'
+                . "\n"
+                ;
+        }
+
+        /**
+         * Embed content between window.close() code
+         *
+         * @access  static
+         * @static
+         * @param   string content
+         * @return  string embedded content
+         */
+        function popupEmbed( $content )
+        {
+            $out = PopupWindowHelper::windowClose()
+                . $content
+                . PopupWindowHelper::windowClose()
+                ;
+
+            return $out;
+        }
+    }
 
     /**
      * Embed script output into Claroline layout
@@ -24,14 +64,13 @@
      * @param   bool    $hide_banner hide Claroline banner (opt)
      * @param   bool    $hide_footer hide Claroline banner (opt)
      * @param   bool    $hide_body hide Claroline banner (opt)
-     * @todo    TODO return string instead of echoing it
+     * @return  void
      */
     function claro_embed( $output
         , $inPopup = false
         , $hide_banner = false
         , $hide_footer = false
-        , $hide_body = false
-        , $no_body = false )
+        , $hide_body = false )
     {
         // global variables needed by header and footer...
         // FIXME make global objects with all these craps !!!
@@ -42,7 +81,6 @@
         global $claroBodyOnload, $httpHeadXtra, $htmlHeadXtra, $charset, $interbredcrump,
                $noPHP_SELF, $noQUERY_STRING;
         global $institution_name, $institution_url;
-        global $no_body;
 
         if ( true == $inPopup )
         {
@@ -59,14 +97,11 @@
 
     /**
      * Claroline script embed class
-     *
-     * @access  public
      */
     class ClarolineScriptEmbed
     {
         var $inPopup = false;
         var $inFrame = false;
-        var $inFrameset = false;
         var $hide_footer = false;
         var $hide_banner = false;
         var $hide_body = false;
@@ -74,75 +109,40 @@
 
         // claroline diplay options
 
-        /**
-         * Hide Claroline banner in display
-         *
-         * @access  public
-         */
         function hideBanner()
         {
             $this->hide_banner = true;
         }
-        
-        /**
-         * Hide Claroline footer in display
-         *
-         * @access  public
-         */
         function hideFooter()
         {
             $this->hide_footer = true;
         }
-        
-        /**
-         * Hide Claroline claroBody class div in display
-         *
-         * @access  public
-         */
-        function hideClaroBody()
+        function hideBody()
         {
             $this->hide_body = true;
         }
 
         // display mode
 
-        /**
-         * Set options to display in a popup window
-         *
-         * @access  public
-         */
         function popupMode()
         {
             $this->hideBanner();
             $this->hideFooter();
             $this->inPopup = true;
         }
-        
-        /**
-         * Set options to display in a frame
-         *
-         * @access  public
-         */
         function frameMode()
         {
             $this->hideBanner();
             $this->hideFooter();
             $this->inFrame = true;
         }
-
-        /*function embedInPage()
+        function embedInPage()
         {
             $this->hideBanner();
             $this->hideFooter();
             $this->hideBody();
-        }*/
+        }
 
-        /**
-         * Set page content
-         *
-         * @access  public
-         * @param   string content, page content
-         */
         function setContent( $content )
         {
             $this->content = $content;
@@ -150,45 +150,21 @@
 
         // claroline header methods
 
-        /**
-         * Add extra HTML header elements
-         *
-         * @access  public
-         * @param   string content, page content
-         */
         function addHtmlHeader( $header )
         {
             $GLOBALS['htmlHeadXtra'][] = $header;
         }
-        
-        /**
-         * Add extra HTTP header elements
-         *
-         * @access  public
-         * @param   string content, page content
-         */
         function addHttpHeader( $header )
         {
             $GLOBALS['httpHeadXtra'][] = $header;
         }
-        
-        /**
-         * Add extra javascript executed when body is loaded
-         *
-         * @access  public
-         * @param   string content, page content
-         */
         function addBodyOnloadFunction( $function )
         {
             $GLOBALS['claroBodyOnload'][] = $function;
         }
 
         // output methods
-        /**
-         * Generate and set output to client
-         *
-         * @access  public
-         */
+
         function output()
         {
             if ( $this->inPopup )
@@ -202,17 +178,6 @@
                 , $this->hide_body );
         }
 
-        /**
-         * Embed given contents in Claroline page layout
-         *
-         * @access  public
-         * @static
-         * @param   string output, content to display in page
-         * @param   bool hide_banner, set to true hide Claroline banner
-         * @param   bool hide_footer, set to true hide Claroline footer
-         * @param   bool hide_body, set to true remove Claroline claroBody div
-         * @todo    TODO return string instead of echoing it
-         */
         function embed( $output
             , $hide_banner = false
             , $hide_footer = false

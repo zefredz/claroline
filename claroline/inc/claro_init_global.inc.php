@@ -101,7 +101,6 @@ session_name(get_conf('platform_id','claroline'));
 
 session_start();
 
-
 /*----------------------------------------------------------------------
   Include main library
   ----------------------------------------------------------------------*/
@@ -143,8 +142,6 @@ or die ('<center>'
 // mysql_connect(). mysql_affected_rows() will return then the number of rows
 // matched, even if none are updated.
 
-
-
 $selectResult = mysql_select_db($mainDbName,$db)
 or die ( '<center>'
         .'WARNING ! SYSTEM UNABLE TO SELECT THE MAIN CLAROLINE DATABASE.'
@@ -167,97 +164,11 @@ require get_path('incRepositorySys') . '/lib/events.lib.inc.php';
 
 require get_path('incRepositorySys') . '/claro_init_local.inc.php';
 
-uses('core/claroline.lib');
-
-$claroline = Claroline::getInstance();
-
-
-if ( isset( $tlabelReq ) && !empty( $tlabelReq ) )
-{
-    /*----------------------------------------------------------------------
-        Check tool access right an block unautorised users
-    ----------------------------------------------------------------------*/
-    if ( $tlabelReq !== 'CLGRP' && ! claro_is_module_allowed() )
-    {
-        if ( ! claro_is_user_authenticated() )
-        {
-            claro_disp_auth_form(true);
-        }
-        else
-        {
-            claro_die( get_lang( 'Not allowed' ) );
-        }
-    }
-
-    /*----------------------------------------------------------------------
-        Install module
-    ----------------------------------------------------------------------*/
-    if ( claro_is_in_a_course() )
-    {
-        install_module_database_in_course( $tlabelReq, claro_get_current_course_id() ) ;
-    }
-}
-
 /*----------------------------------------------------------------------
-  Initialize the event manager declarations for the notification system
+  Include the event manager declarations for the notification system
   ----------------------------------------------------------------------*/
 
-// for backward compatibility
-$eventNotifier = $claroline->notifier;
-$claro_notifier = $claroline->notification;
-
-
-// Register listener in the event manager for the NOTIFICATION system :
-// EXAMPLE :
-//
-//  $claroline->notification->addListener( 'document_visible', 'update' );
-//
-// 'update' is the name of the function called in the listener class when the event happens
-// 'document_visible' is the name of the event that you want to track
-
-// register listener for access to platform
-$claroline->notification->addListener( 'platform_access', 'trackPlatformAccess');
-// todo move this to a better place ? like end of script ?
-$claroline->notifier->event( 'platform_access' );
-
-// we must register this listener here else it will not be registered when 'inscription login' will occur
-$claroline->notification->addListener( 'user_login', 'trackInPlatform' );
-
-if ( claro_is_user_authenticated() )
-{
-   //global events (can happen outside of courses too)
-
-   $claroline->notification->addListener( 'course_deleted', 'modificationDelete' );
-}
-
-if ( claro_is_user_authenticated() && claro_is_in_a_course() )
-{
-    //global events IN COURSE only
-
-    $claroline->notification->addListener( 'toollist_changed', 'modificationDefault' );
-    $claroline->notification->addListener( 'introsection_modified', 'modificationDefault' );
-
-    $claroline->notification->addListener( 'course_access', 'trackCourseAccess' );
-    // todo : should move this event to initialisation of course context
-    $claroline->notifier->event( 'course_access' );
-}
-
-if ( claro_is_in_a_group() )
-{
-    $claroline->notification->addListener( 'group_deleted', 'modificationDelete' );
-}
-
-if ( claro_is_in_a_tool() )
-{
-	// generic tool event
-    $claroline->notification->addListener( 'tool_access', 'trackToolAccess' );
-    // todo : should move this event to initialisation of tool context
-    $claroline->notifier->event( 'tool_access' );
-
-    // others
-    load_current_module_listeners();
-
-}
+require get_path('incRepositorySys') . '/lib/event/init_event_manager.inc.php';
 
 /*----------------------------------------------------------------------
   Load language translation and locale settings
@@ -276,7 +187,7 @@ load_module_language();
 // browser. It will nullify all the variables posted to the server by the
 // form, provided this form complies to 2 points :
 //
-// 1. The form is submitted by POST method (<form method="post">). GET
+// 1. The form is submitted by POST method (<form method="POST">). GET
 // method is not taken into account.
 //
 // 2. A unique ID value is provided at form submission that way
@@ -338,15 +249,33 @@ if (file_exists($cacheRepositorySys . $module_cache_filename))
 {
     include $cacheRepositorySys . $module_cache_filename;
 }
-else pushClaroMessage('module_cache not generated : check access right in '.$cacheRepositorySys,'warning');
-
-// Add feed RSS in header
-if ( claro_is_in_a_course() && get_conf('enableRssInCourse', true) )
+else 
 {
-    require claro_get_conf_repository() . 'rss.conf.php';
+    pushClaroMessage('module_cache not generated : check access right in '.$cacheRepositorySys,'warning');
+}
 
-    $claroline->display->header->addHtmlHeader('<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars($_course['name'] . ' - ' . get_conf('siteName')) . '"'
-    .' href="' . get_path('url') . '/claroline/backends/rss.php?cidReq=' . claro_get_current_course_id() . '" />' );
+if ( $logout && $logout_uid ) 
+{
+    $eventNotifier->notifyEvent('user_logout', array('uid' => $logout_uid));
+}
+
+// CHECK ACCESS RIGHTS FOR TOOL
+
+if ( isset( $tlabelReq ) && !empty( $tlabelReq ) )
+{
+    if ( ( $tlabelReq !== 'CLGRP' ) // not the group tool
+        && ! ( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] && $tlabelReq == 'CLQWZ' ) // not a quiz from learning path
+        && ! claro_is_module_allowed() ) // not an allowed module
+    {
+        if ( ! claro_is_user_authenticated() )
+        {
+            claro_disp_auth_form(true);
+        }
+        else
+        {
+            claro_die(get_lang('Not allowed'));
+        }
+    }
 }
 
 ?>
