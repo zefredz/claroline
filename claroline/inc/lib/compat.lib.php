@@ -251,10 +251,26 @@ if(!function_exists("iconv"))
 {
 	function iconv($from, $to, $string)
 	{
-    	$converted = htmlentities($string, ENT_NOQUOTES, $from);
-    	$converted = html_entity_decode($converted, ENT_NOQUOTES, $to);
+		$from = strtoupper($from);
+		$to = strtoupper($to);
+
+		if( $from == $to ) return $string;
+
+		// use native functions when possible
+		if( $from == 'ISO-8859-1' && $to == 'UTF-8' )
+		{
+			$converted = utf8_encode($string);
+		}
+		elseif( $from == 'UTF-8' && $to == 'ISO-8859-1' )
+		{
+			$converted = utf8_decode($string);
+		}
+		else
+		{
+	    	$converted = htmlentities($string, ENT_NOQUOTES, $from);
+	    	$converted = html_entity_decode($converted, ENT_NOQUOTES, $to);
+		}
     	return $converted;
 	}
 }
-
 ?>
