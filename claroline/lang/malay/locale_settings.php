@@ -2,7 +2,7 @@
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -15,20 +15,20 @@ $englishLangName = "Malay";
 $iso639_1_code = "ms";
 $iso639_2_code = "may";
 
-$langNameOfLang['arabic']="arabian";
-$langNameOfLang['brazilian']="brazilian";
-$langNameOfLang['english']="melayu";
-$langNameOfLang['finnish']="finnish";
-$langNameOfLang['french']="french";
-$langNameOfLang['german']="german";
-$langNameOfLang['italian']="italian";
-$langNameOfLang['japanese']="japanese";
-$langNameOfLang['polish']="polish";
-$langNameOfLang['simpl_chinese']="simplified chinese";
-$langNameOfLang['spanish']="spanish";
-$langNameOfLang['swedish']="swedish";
-$langNameOfLang['thai']="thai";
-$langNameOfLang['turkish']="turkish";
+$langNameOfLang[arabic]="arabian";
+$langNameOfLang[brazilian]="brazilian";
+$langNameOfLang[english]="melayu";
+$langNameOfLang[finnish]="finnish";
+$langNameOfLang[french]="french";
+$langNameOfLang[german]="german";
+$langNameOfLang[italian]="italian";
+$langNameOfLang[japanese]="japanese";
+$langNameOfLang[polish]="polish";
+$langNameOfLang[simpl_chinese]="simplified chinese";
+$langNameOfLang[spanish]="spanish";
+$langNameOfLang[swedish]="swedish";
+$langNameOfLang[thai]="thai";
+$langNameOfLang[turkish]="turkish";
 
 $charset = 'iso-8859-1';
 $text_dir = 'ltr'; // ('ltr' for left to right, 'rtl' for right to left)

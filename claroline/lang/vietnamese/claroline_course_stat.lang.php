@@ -1,0 +1,36 @@
+<?php
+$langAddIntro = "Lời giới thiệu";
+$langAgenda = "Agenda (Lịch công tác)";
+$langAnnouncement = "Thông báo";
+$langChat = "Thảo luận";
+$langConfirmYourChoice = "Hãy xác nhận lại lựa chọn của bạn";
+$langCourseManager = "Quản lý khoá họcr";
+$langDay_of_weekNames = "Array";
+$langDelete = "xoá";
+$langDescriptionCours = "Mô tả khoá học";
+$langDocument = "Tài liệu";
+$langExercises = "Bài tập";
+$langForums = "Diễn đàn";
+$langGroups = "Nhóm";
+$langHelp = "Help";
+$langLogin = "login";
+$langLogout = "Logout";
+$langManager = "Người quản lý";
+$langModify = "Modify";
+$langModifyProfile = "Sửa thông tin cá nhân";
+$langMonthNames = "Array";
+$langMyCourses = "Danh mục khoá học";
+$langNotAllowed = "Not allowed";
+$langOk = "Ok";
+$langOtherCourses = "Danh mục khoá học";
+$langPassword = "password";
+$langPoweredBy = "Powered by";
+$langReg = "Đăng ký";
+$langStatsOfCourse = "Thống kê khoá học";
+$langStudent = "học sinh";
+$langSubTitle = "Bạn có thể tạo 1 liên kết tới bất cứ 1 địa chỉ URL hợp lệ nào, liên kết này sẽ đặt tại
+trang chủ của khoá học .<br><font color=Blue><small>Chú ý cách làm nhanh : đi tới trang có địa chỉ cần liên kết, copy địa chỉ URL trong trình duyệt và đưa vào ô Link dưới đây </small></font>";
+$langUserName = "Username";
+$langUsers = "Users";
+$langWork = "Công việc";
+?>

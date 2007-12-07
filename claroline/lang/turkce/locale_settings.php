@@ -1,17 +1,15 @@
 <?php // $Id$
-/**
- * CLAROLINE
- * Turkish Translation
- * @version 1.8 $Revision$
- *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
- *
- * @package LANG-TR
- *
- * @author Claro team <cvs@claroline.net>
- */
+//----------------------------------------------------------------------
+// CLAROLINE
+//----------------------------------------------------------------------
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
+//----------------------------------------------------------------------
+// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
+// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+//----------------------------------------------------------------------
+// Authors: see 'credits' file
+//----------------------------------------------------------------------
 $englishLangName = "Turkish";
 
 $iso639_1_code = "tr";
@@ -42,7 +40,7 @@ $left_font_family = 'verdana, helvetica, arial, geneva, sans-serif';
 $right_font_family = 'helvetica, arial, geneva, sans-serif';
 $number_thousands_separator = ',';
 $number_decimal_separator = '.';
-$byteUnits = array('Byte', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB');
+$byteUnits = array('Bytes', 'KB', 'MB', 'GB');
 
 $langDay_of_weekNames['init'] = array('P', 'Pt', 'S', 'Ç', 'P', 'C', 'Ct');
 $langDay_of_weekNames['short'] = array('Paz', 'Pts', 'Sal', 'Çar', 'Per', 'Cum', 'Cts');

@@ -44,7 +44,7 @@ require_once 'File/Passwd.php';
 * 
 * @author   Michael Wallner <mike@php.net>
 * @package  File_Passwd
-* @version $Revision$
+* @version  $Revision$
 * @access   protected
 * @internal extend this class for your File_Passwd_* class
 */

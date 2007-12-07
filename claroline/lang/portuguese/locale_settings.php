@@ -7,7 +7,7 @@
       +----------------------------------------------------------------------|
       | Translation to European Portuguese (pt_PT):                          |
       | Dionisio Martínez Soler  <dmsoler@edu.xunta.es >                     |
-      |     (Escola Oficial de Idiomas de Vigo, Spain)                   |
+      | 	(Escola Oficial de Idiomas de Vigo, Spain)                   |
       +----------------------------------------------------------------------|
 */
 
@@ -17,20 +17,20 @@ $localLangName = "portugu&ecirc;s";
 $iso639_1_code = "pt";
 $iso639_2_code = "por";
 
-$langNameOfLang['brazilian']="brazilian";
-$langNameOfLang['english']="english";
-$langNameOfLang['finnish']="finnish";
-$langNameOfLang['french']="french";
-$langNameOfLang['german']="german";
-$langNameOfLang['galician']="galician";
-$langNameOfLang['italian']="italian";
-$langNameOfLang['japanese']="japanese";
-$langNameOfLang['polish']="polish";
-$langNameOfLang['portuguese']="portuguese";
-$langNameOfLang['simpl_chinese']="simplified chinese";
-$langNameOfLang['spanish']="spanish";
-$langNameOfLang['swedish']="swedish";
-$langNameOfLang['thai']="thai";
+$langNameOfLang[brazilian]="brazilian";
+$langNameOfLang[english]="english";
+$langNameOfLang[finnish]="finnish";
+$langNameOfLang[french]="french";
+$langNameOfLang[german]="german";
+$langNameOfLang[galician]="galician";
+$langNameOfLang[italian]="italian";
+$langNameOfLang[japanese]="japanese";
+$langNameOfLang[polish]="polish";
+$langNameOfLang[portuguese]="portuguese";
+$langNameOfLang[simpl_chinese]="simplified chinese";
+$langNameOfLang[spanish]="spanish";
+$langNameOfLang[swedish]="swedish";
+$langNameOfLang[thai]="thai";
 
 $charset = 'iso-8859-1';
 $text_dir = 'ltr'; // ('ltr' for left to right, 'rtl' for right to left)

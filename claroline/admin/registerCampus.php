@@ -1,289 +1,283 @@
 <?php // $Id$
-/**
- * CLAROLINE
- *
- * prupose to admin to register  his claroline on claroline.net worldwild list
- *
- * @version 1.8 $Revision$
- *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/index.php/ADMIN
- *
- * @author Claro Team <cvs@claroline.net>
- * @author Sébastien Piraux <pir@claroline.net>
- *
- */
-
+//----------------------------------------------------------------------
+// CLAROLINE
+//----------------------------------------------------------------------
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
+//----------------------------------------------------------------------
+// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
+// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+//----------------------------------------------------------------------
+// Authors: see 'credits' file
+//----------------------------------------------------------------------
 
 $cidReset=true;
 $gidReset=true;
 require '../inc/claro_init_global.inc.php';
 
-$interbredcrump[]   = array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
+$interbredcrump[]   = array ('url'=>$rootAdminWeb, 'name'=> $langAdministration);
 /*--------------------------------------------------------------------
                LIST OF COUNTRY ISO CODES AND COUNTRY NAMES
   --------------------------------------------------------------------*/
 $isoCode = array();
 
 $isoCode['Z1'] = "Other";
-$isoCode['AF'] = "Afghanistan";
-$isoCode['AL'] = "Albania";
-$isoCode['DZ'] = "Algeria";
-$isoCode['AS'] = "American Samoa";
 $isoCode['AD'] = "Andorra";
-$isoCode['AO'] = "Angola";
-$isoCode['AI'] = "Anguilla";
-$isoCode['AQ'] = "Antarctica";
+$isoCode['AE'] = "United Arab Emirates";
+$isoCode['AF'] = "Afghanistan";
 $isoCode['AG'] = "Antigua and Barbuda";
-$isoCode['AR'] = "Argentina";
+$isoCode['AI'] = "Anguilla";
+$isoCode['AL'] = "Albania";
 $isoCode['AM'] = "Armenia";
-$isoCode['AW'] = "Aruba";
+$isoCode['AN'] = "Netherlands Antilles";
+$isoCode['AO'] = "Angola";
 $isoCode['AP'] = "Asia/Pacific Region";
-$isoCode['AU'] = "Australia";
+$isoCode['AQ'] = "Antarctica";
+$isoCode['AR'] = "Argentina";
+$isoCode['AS'] = "American Samoa";
 $isoCode['AT'] = "Austria";
+$isoCode['AU'] = "Australia";
+$isoCode['AW'] = "Aruba";
 $isoCode['AZ'] = "Azerbaijan";
-$isoCode['BS'] = "Bahamas";
-$isoCode['BH'] = "Bahrain";
-$isoCode['BD'] = "Bangladesh";
+$isoCode['BA'] = "Bosnia and Herzegovina";
 $isoCode['BB'] = "Barbados";
-$isoCode['BY'] = "Belarus";
+$isoCode['BD'] = "Bangladesh";
 $isoCode['BE'] = "Belgium";
-$isoCode['BZ'] = "Belize";
+$isoCode['BF'] = "Burkina Faso";
+$isoCode['BG'] = "Bulgaria";
+$isoCode['BH'] = "Bahrain";
+$isoCode['BI'] = "Burundi";
 $isoCode['BJ'] = "Benin";
 $isoCode['BM'] = "Bermuda";
-$isoCode['BT'] = "Bhutan";
-$isoCode['BO'] = "Bolivia";
-$isoCode['BA'] = "Bosnia and Herzegovina";
-$isoCode['BW'] = "Botswana";
-$isoCode['BV'] = "Bouvet Island";
-$isoCode['BR'] = "Brazil";
-$isoCode['IO'] = "British Indian Ocean Territory";
 $isoCode['BN'] = "Brunei Darussalam";
-$isoCode['BG'] = "Bulgaria";
-$isoCode['BF'] = "Burkina Faso";
-$isoCode['BI'] = "Burundi";
-$isoCode['KH'] = "Cambodia";
-$isoCode['CM'] = "Cameroon";
+$isoCode['BO'] = "Bolivia";
+$isoCode['BR'] = "Brazil";
+$isoCode['BS'] = "Bahamas";
+$isoCode['BT'] = "Bhutan";
+$isoCode['BV'] = "Bouvet Island";
+$isoCode['BW'] = "Botswana";
+$isoCode['BY'] = "Belarus";
+$isoCode['BZ'] = "Belize";
 $isoCode['CA'] = "Canada";
-$isoCode['CV'] = "Cape Verde";
-$isoCode['KY'] = "Cayman Islands";
-$isoCode['CF'] = "Central African Republic";
-$isoCode['TD'] = "Chad";
-$isoCode['CL'] = "Chile";
-$isoCode['CN'] = "China";
-$isoCode['CX'] = "Christmas Island";
 $isoCode['CC'] = "Cocos (Keeling) Islands";
-$isoCode['CO'] = "Colombia";
-$isoCode['KM'] = "Comoros";
-$isoCode['CG'] = "Congo";
 $isoCode['CD'] = "Congo, The Democratic Republic of the";
-$isoCode['CK'] = "Cook Islands";
-$isoCode['CR'] = "Costa Rica";
+$isoCode['CF'] = "Central African Republic";
+$isoCode['CG'] = "Congo";
+$isoCode['CH'] = "Switzerland";
 $isoCode['CI'] = "Cote D'Ivoire";
-$isoCode['HR'] = "Croatia";
+$isoCode['CK'] = "Cook Islands";
+$isoCode['CL'] = "Chile";
+$isoCode['CM'] = "Cameroon";
+$isoCode['CN'] = "China";
+$isoCode['CO'] = "Colombia";
+$isoCode['CR'] = "Costa Rica";
 $isoCode['CU'] = "Cuba";
+$isoCode['CV'] = "Cape Verde";
+$isoCode['CX'] = "Christmas Island";
 $isoCode['CY'] = "Cyprus";
 $isoCode['CZ'] = "Czech Republic";
-$isoCode['DK'] = "Denmark";
+$isoCode['DE'] = "Germany";
 $isoCode['DJ'] = "Djibouti";
+$isoCode['DK'] = "Denmark";
 $isoCode['DM'] = "Dominica";
 $isoCode['DO'] = "Dominican Republic";
-$isoCode['TL'] = "East Timor";
+$isoCode['DZ'] = "Algeria";
 $isoCode['EC'] = "Ecuador";
-$isoCode['EG'] = "Egypt";
-$isoCode['SV'] = "El Salvador";
-$isoCode['GQ'] = "Equatorial Guinea";
-$isoCode['ER'] = "Eritrea";
 $isoCode['EE'] = "Estonia";
+$isoCode['EG'] = "Egypt";
+$isoCode['EH'] = "Western Sahara";
+$isoCode['ER'] = "Eritrea";
+$isoCode['ES'] = "Spain";
 $isoCode['ET'] = "Ethiopia";
 $isoCode['EU'] = "Europe";
-$isoCode['FK'] = "Falkland Islands (Malvinas)";
-$isoCode['FO'] = "Faroe Islands";
-$isoCode['FJ'] = "Fiji";
 $isoCode['FI'] = "Finland";
+$isoCode['FJ'] = "Fiji";
+$isoCode['FK'] = "Falkland Islands (Malvinas)";
+$isoCode['FM'] = "Micronesia, Federated States of";
+$isoCode['FO'] = "Faroe Islands";
 $isoCode['FR'] = "France";
 $isoCode['FX'] = "France, Metropolitan";
-$isoCode['GF'] = "French Guiana";
-$isoCode['PF'] = "French Polynesia";
-$isoCode['TF'] = "French Southern Territories";
 $isoCode['GA'] = "Gabon";
-$isoCode['GM'] = "Gambia";
+$isoCode['GD'] = "Grenada";
 $isoCode['GE'] = "Georgia";
-$isoCode['DE'] = "Germany";
+$isoCode['GF'] = "French Guiana";
 $isoCode['GH'] = "Ghana";
 $isoCode['GI'] = "Gibraltar";
-$isoCode['GR'] = "Greece";
 $isoCode['GL'] = "Greenland";
-$isoCode['GD'] = "Grenada";
-$isoCode['GP'] = "Guadeloupe";
-$isoCode['GU'] = "Guam";
-$isoCode['GT'] = "Guatemala";
+$isoCode['GM'] = "Gambia";
 $isoCode['GN'] = "Guinea";
+$isoCode['GP'] = "Guadeloupe";
+$isoCode['GQ'] = "Equatorial Guinea";
+$isoCode['GR'] = "Greece";
+$isoCode['GS'] = "South Georgia and the South Sandwich Islands";
+$isoCode['GT'] = "Guatemala";
+$isoCode['GU'] = "Guam";
 $isoCode['GW'] = "Guinea-Bissau";
 $isoCode['GY'] = "Guyana";
-$isoCode['HT'] = "Haiti";
-$isoCode['HM'] = "Heard Island and McDonald Islands";
-$isoCode['VA'] = "Holy See (Vatican City State)";
-$isoCode['HN'] = "Honduras";
 $isoCode['HK'] = "Hong Kong";
+$isoCode['HM'] = "Heard Island and McDonald Islands";
+$isoCode['HN'] = "Honduras";
+$isoCode['HR'] = "Croatia";
+$isoCode['HT'] = "Haiti";
 $isoCode['HU'] = "Hungary";
-$isoCode['IS'] = "Iceland";
-$isoCode['IN'] = "India";
 $isoCode['ID'] = "Indonesia";
-$isoCode['IR'] = "Iran, Islamic Republic of";
-$isoCode['IQ'] = "Iraq";
 $isoCode['IE'] = "Ireland";
 $isoCode['IL'] = "Israel";
+$isoCode['IN'] = "India";
+$isoCode['IO'] = "British Indian Ocean Territory";
+$isoCode['IQ'] = "Iraq";
+$isoCode['IR'] = "Iran, Islamic Republic of";
+$isoCode['IS'] = "Iceland";
 $isoCode['IT'] = "Italy";
 $isoCode['JM'] = "Jamaica";
-$isoCode['JP'] = "Japan";
 $isoCode['JO'] = "Jordan";
-$isoCode['KZ'] = "Kazakhstan";
+$isoCode['JP'] = "Japan";
 $isoCode['KE'] = "Kenya";
+$isoCode['KG'] = "Kyrgyzstan";
+$isoCode['KH'] = "Cambodia";
 $isoCode['KI'] = "Kiribati";
+$isoCode['KM'] = "Comoros";
+$isoCode['KN'] = "Saint Kitts and Nevis";
 $isoCode['KP'] = "Korea, Democratic People's Republic of";
 $isoCode['KR'] = "Korea, Republic of";
 $isoCode['KW'] = "Kuwait";
-$isoCode['KG'] = "Kyrgyzstan";
+$isoCode['KY'] = "Cayman Islands";
+$isoCode['KZ'] = "Kazakhstan";
 $isoCode['LA'] = "Lao People's Democratic Republic";
-$isoCode['LV'] = "Latvia";
 $isoCode['LB'] = "Lebanon";
-$isoCode['LS'] = "Lesotho";
-$isoCode['LR'] = "Liberia";
-$isoCode['LY'] = "Libyan Arab Jamahiriya";
+$isoCode['LC'] = "Saint Lucia";
 $isoCode['LI'] = "Liechtenstein";
+$isoCode['LK'] = "Sri Lanka";
+$isoCode['LR'] = "Liberia";
+$isoCode['LS'] = "Lesotho";
 $isoCode['LT'] = "Lithuania";
 $isoCode['LU'] = "Luxembourg";
-$isoCode['MO'] = "Macau";
-$isoCode['MK'] = "Macedonia";
+$isoCode['LV'] = "Latvia";
+$isoCode['LY'] = "Libyan Arab Jamahiriya";
+$isoCode['MA'] = "Morocco";
+$isoCode['MC'] = "Monaco";
+$isoCode['MD'] = "Moldova, Republic of";
 $isoCode['MG'] = "Madagascar";
-$isoCode['MW'] = "Malawi";
-$isoCode['MY'] = "Malaysia";
-$isoCode['MV'] = "Maldives";
-$isoCode['ML'] = "Mali";
-$isoCode['MT'] = "Malta";
 $isoCode['MH'] = "Marshall Islands";
+$isoCode['MK'] = "Macedonia";
+$isoCode['ML'] = "Mali";
+$isoCode['MM'] = "Myanmar";
+$isoCode['MN'] = "Mongolia";
+$isoCode['MO'] = "Macau";
+$isoCode['MP'] = "Northern Mariana Islands";
 $isoCode['MQ'] = "Martinique";
 $isoCode['MR'] = "Mauritania";
-$isoCode['MU'] = "Mauritius";
-$isoCode['YT'] = "Mayotte";
-$isoCode['MX'] = "Mexico";
-$isoCode['FM'] = "Micronesia, Federated States of";
-$isoCode['MD'] = "Moldova, Republic of";
-$isoCode['MC'] = "Monaco";
-$isoCode['MN'] = "Mongolia";
 $isoCode['MS'] = "Montserrat";
-$isoCode['MA'] = "Morocco";
+$isoCode['MT'] = "Malta";
+$isoCode['MU'] = "Mauritius";
+$isoCode['MV'] = "Maldives";
+$isoCode['MW'] = "Malawi";
+$isoCode['MX'] = "Mexico";
+$isoCode['MY'] = "Malaysia";
 $isoCode['MZ'] = "Mozambique";
-$isoCode['MM'] = "Myanmar";
 $isoCode['NA'] = "Namibia";
-$isoCode['NR'] = "Nauru";
-$isoCode['NP'] = "Nepal";
-$isoCode['NL'] = "Netherlands";
-$isoCode['AN'] = "Netherlands Antilles";
 $isoCode['NC'] = "New Caledonia";
-$isoCode['NZ'] = "New Zealand";
-$isoCode['NI'] = "Nicaragua";
 $isoCode['NE'] = "Niger";
-$isoCode['NG'] = "Nigeria";
-$isoCode['NU'] = "Niue";
 $isoCode['NF'] = "Norfolk Island";
-$isoCode['MP'] = "Northern Mariana Islands";
+$isoCode['NG'] = "Nigeria";
+$isoCode['NI'] = "Nicaragua";
+$isoCode['NL'] = "Netherlands";
 $isoCode['NO'] = "Norway";
+$isoCode['NP'] = "Nepal";
+$isoCode['NR'] = "Nauru";
+$isoCode['NU'] = "Niue";
+$isoCode['NZ'] = "New Zealand";
 $isoCode['OM'] = "Oman";
-$isoCode['PK'] = "Pakistan";
-$isoCode['PW'] = "Palau";
-$isoCode['PS'] = "Palestinian Territory";
 $isoCode['PA'] = "Panama";
-$isoCode['PG'] = "Papua New Guinea";
-$isoCode['PY'] = "Paraguay";
 $isoCode['PE'] = "Peru";
+$isoCode['PF'] = "French Polynesia";
+$isoCode['PG'] = "Papua New Guinea";
 $isoCode['PH'] = "Philippines";
-$isoCode['PN'] = "Pitcairn";
+$isoCode['PK'] = "Pakistan";
 $isoCode['PL'] = "Poland";
-$isoCode['PT'] = "Portugal";
+$isoCode['PM'] = "Saint Pierre and Miquelon";
+$isoCode['PN'] = "Pitcairn";
 $isoCode['PR'] = "Puerto Rico";
+$isoCode['PS'] = "Palestinian Territory";
+$isoCode['PT'] = "Portugal";
+$isoCode['PW'] = "Palau";
+$isoCode['PY'] = "Paraguay";
 $isoCode['QA'] = "Qatar";
 $isoCode['RE'] = "Reunion";
 $isoCode['RO'] = "Romania";
 $isoCode['RU'] = "Russian Federation";
 $isoCode['RW'] = "Rwanda";
-$isoCode['SH'] = "Saint Helena";
-$isoCode['KN'] = "Saint Kitts and Nevis";
-$isoCode['LC'] = "Saint Lucia";
-$isoCode['PM'] = "Saint Pierre and Miquelon";
-$isoCode['VC'] = "Saint Vincent and the Grenadines";
-$isoCode['WS'] = "Samoa";
-$isoCode['SM'] = "San Marino";
-$isoCode['ST'] = "Sao Tome and Principe";
 $isoCode['SA'] = "Saudi Arabia";
-$isoCode['SN'] = "Senegal";
-$isoCode['SC'] = "Seychelles";
-$isoCode['SL'] = "Sierra Leone";
-$isoCode['SG'] = "Singapore";
-$isoCode['SK'] = "Slovakia";
-$isoCode['SI'] = "Slovenia";
 $isoCode['SB'] = "Solomon Islands";
-$isoCode['SO'] = "Somalia";
-$isoCode['ZA'] = "South Africa";
-$isoCode['GS'] = "South Georgia and the South Sandwich Islands";
-$isoCode['ES'] = "Spain";
-$isoCode['LK'] = "Sri Lanka";
+$isoCode['SC'] = "Seychelles";
 $isoCode['SD'] = "Sudan";
-$isoCode['SR'] = "Suriname";
-$isoCode['SJ'] = "Svalbard and Jan Mayen";
-$isoCode['SZ'] = "Swaziland";
 $isoCode['SE'] = "Sweden";
-$isoCode['CH'] = "Switzerland";
+$isoCode['SG'] = "Singapore";
+$isoCode['SH'] = "Saint Helena";
+$isoCode['SI'] = "Slovenia";
+$isoCode['SJ'] = "Svalbard and Jan Mayen";
+$isoCode['SK'] = "Slovakia";
+$isoCode['SL'] = "Sierra Leone";
+$isoCode['SM'] = "San Marino";
+$isoCode['SN'] = "Senegal";
+$isoCode['SO'] = "Somalia";
+$isoCode['SR'] = "Suriname";
+$isoCode['ST'] = "Sao Tome and Principe";
+$isoCode['SV'] = "El Salvador";
 $isoCode['SY'] = "Syrian Arab Republic";
-$isoCode['TW'] = "Taiwan";
-$isoCode['TJ'] = "Tajikistan";
-$isoCode['TZ'] = "Tanzania, United Republic of";
-$isoCode['TH'] = "Thailand";
-$isoCode['TG'] = "Togo";
-$isoCode['TK'] = "Tokelau";
-$isoCode['TO'] = "Tonga";
-$isoCode['TT'] = "Trinidad and Tobago";
-$isoCode['TN'] = "Tunisia";
-$isoCode['TR'] = "Turkey";
-$isoCode['TM'] = "Turkmenistan";
+$isoCode['SZ'] = "Swaziland";
 $isoCode['TC'] = "Turks and Caicos Islands";
+$isoCode['TD'] = "Chad";
+$isoCode['TF'] = "French Southern Territories";
+$isoCode['TG'] = "Togo";
+$isoCode['TH'] = "Thailand";
+$isoCode['TJ'] = "Tajikistan";
+$isoCode['TK'] = "Tokelau";
+$isoCode['TL'] = "East Timor";
+$isoCode['TM'] = "Turkmenistan";
+$isoCode['TN'] = "Tunisia";
+$isoCode['TO'] = "Tonga";
+$isoCode['TR'] = "Turkey";
+$isoCode['TT'] = "Trinidad and Tobago";
 $isoCode['TV'] = "Tuvalu";
-$isoCode['UG'] = "Uganda";
+$isoCode['TW'] = "Taiwan, Province of China";
+$isoCode['TZ'] = "Tanzania, United Republic of";
 $isoCode['UA'] = "Ukraine";
-$isoCode['AE'] = "United Arab Emirates";
+$isoCode['UG'] = "Uganda";
 $isoCode['UK'] = "United Kingdom";
-$isoCode['US'] = "United States";
 $isoCode['UM'] = "United States Minor Outlying Islands";
+$isoCode['US'] = "United States";
 $isoCode['UY'] = "Uruguay";
 $isoCode['UZ'] = "Uzbekistan";
-$isoCode['VU'] = "Vanuatu";
+$isoCode['VA'] = "Holy See (Vatican City State)";
+$isoCode['VC'] = "Saint Vincent and the Grenadines";
 $isoCode['VE'] = "Venezuela";
-$isoCode['VN'] = "Vietnam";
 $isoCode['VG'] = "Virgin Islands, British";
 $isoCode['VI'] = "Virgin Islands, U.S.";
+$isoCode['VN'] = "Vietnam";
+$isoCode['VU'] = "Vanuatu";
 $isoCode['WF'] = "Wallis and Futuna";
-$isoCode['EH'] = "Western Sahara";
+$isoCode['WS'] = "Samoa";
 $isoCode['YE'] = "Yemen";
+$isoCode['YT'] = "Mayotte";
 $isoCode['YU'] = "Yugoslavia";
-$isoCode['ZR'] = "Zaire";
+$isoCode['ZA'] = "South Africa";
 $isoCode['ZM'] = "Zambia";
+$isoCode['ZR'] = "Zaire";
 $isoCode['ZW'] = "Zimbabwe";
 
 /*---------------------------------------------------------------------*/
+  
+if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
+require_once($includePath.'/lib/nusoap.php');
 
-if(file_exists( get_path('rootSys') . 'platform/currentVersion.inc.php')) include (get_path('rootSys') . 'platform/currentVersion.inc.php');
-require_once(get_path('incRepositorySys').'/lib/nusoap.php');
+//SECURITY CHECK
+$is_allowedToAdmin     = $is_platformAdmin;
+if (!$is_allowedToAdmin) claro_disp_auth_form();
 
-// Security check
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
 // status codes
-// keep in mind that these code must be the same than those in the
+// keep in mind that these code must be the same than those in the 
 // soap server file that is on claroline.net
 define("CAMPUS_ADDED", 1);
 define("LOCAL_URL_ERROR", 2);
@@ -292,128 +286,124 @@ define("SQL_ERROR", 4);
 define("COUNTRY_CODE_ERROR", 5);
 
 /*============================================================================
-                        INIT SOAP CLIENT
+						INIT SOAP CLIENT
   ============================================================================*/
-$soapclient = new nuSoapclient('http://www.claroline.net/worldwide/worldwide_soap.php');
+$soapclient = new soapclient('http://www.claroline.net/worldwide/worldwide_soap.php');
 
 /*============================================================================
-                        COMMANDS
+						COMMANDS
   ============================================================================*/
-
+  
 // -- register campus
 if( isset($_REQUEST['register']) )
 {
-    $country = ( isset($_REQUEST['country']) ) ? $_REQUEST['country']: '' ;
-    $parameters = array('campusName' => addslashes(get_conf('siteName'))
-                      , 'campusUrl' => get_path('rootWeb')
-                      , 'institutionName' => addslashes(get_conf('institution_name'))
-                      , 'institutionUrl' => get_conf('institution_url')
-                      , 'country' => $country
-                      , 'adminEmail' => get_conf('administrator_email')
-                        );
+	$country = ( isset($_REQUEST['country']) ) ? $_REQUEST['country']: '' ;
+	$parameters = array('campusName' => $siteName, 'campusUrl' => $rootWeb,
+						'institutionName' => $institution_name, 'institutionUrl' => $institution_url,
+						'country' => $country, 'adminEmail' => $administrator_email
+						);
 
-    // make the soap call to register the campus
-    $soapResponse = $soapclient->call('registerCampus', $parameters);
+	// make the soap call to register the campus
+	$soapResponse = $soapclient->call('registerCampus', $parameters);
 
-    if( $soapResponse == CAMPUS_ADDED )
-    {
-        $dialogBox = get_lang('Your campus has been submitted and is waiting to be validate by Claroline.net team');
-    }
-    elseif( $soapResponse == LOCAL_URL_ERROR )
-    {
-        $dialogBox = get_block('blockRegisterLocalUrl');
-    }
-    elseif( $soapResponse == CAMPUS_ALREADY_IN_LIST )
-    {
-        $dialogBox = get_lang('It seems that you already have registered your campus.');
-    }
-    elseif( $soapResponse == COUNTRY_CODE_ERROR )
-    {
-        $dialogBox = get_lang('Country code seems to be incorrect.');
-    }
-    else
-    {
-           // unknown soap error
-        $dialogBox = get_lang('An error occurred while contacting Claroline.net');
-    }
+	if( $soapResponse == CAMPUS_ADDED )
+	{
+		$dialogBox = $langCampusRegistrationSubmitted;
+	}
+	elseif( $soapResponse == LOCAL_URL_ERROR )
+	{
+	    $dialogBox = $langRegisterLocalUrl;
+	}
+	elseif( $soapResponse == CAMPUS_ALREADY_IN_LIST )
+	{
+		$dialogBox = $langCampusAlreadyRegistered;
+	}
+	elseif( $soapResponse == COUNTRY_CODE_ERROR )
+	{
+		$dialogBox = $langCountryCodeError;
+	}
+	else
+	{
+		$dialogBox = $langUnkownSOAPError;
+	}
 }
-else
+
+// -- get current status
+if( !isset($_REQUEST['register']) )
 {
-    $parameters = array('campusUrl' => get_path('rootWeb'));
-    $soapResponse = $soapclient->call('getCampusRegistrationStatus', $parameters);
+	$parameters = array('campusUrl' => $rootWeb);
+	$soapResponse = $soapclient->call('getCampusRegistrationStatus', $parameters);
 
-    if( $soapResponse )
-    {
-        $dialogBox = get_lang('Current registration status : ').'<br /><br />'."\n";
+	if( $soapResponse )
+	{
+	    $dialogBox = $langCurrentStatus."<br />\n";
 
-        switch($soapResponse)
-        {
-            case 'SUBMITTED' :
-                $dialogBox .= get_lang('<strong>Submitted</strong><p>Waiting for validation by Claroline.net team.</p>');
-                break;
-            case 'REGISTERED' :
-                $dialogBox .= get_lang('<strong>Approved</strong><p>Your campus registration has been approved by the Claroline.net team.</p>');
-                break;
-            case 'UNREGISTERED' :
-                $dialogBox .= get_lang('<strong>Removed</strong><p>Your campus has been removed from the worldwide page.</p>');
-                break;
-            case 'HIDDEN' :
-                $dialogBox .= get_lang('<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our website) if you think this is an error.</p>');
-                break;
-            default :
-                // unknown status ?
-                break;
-        }
-        $alreadyRegistered = TRUE;
-    }
-    // else : there is no current status or an error occurred so don't show current status
+		switch($soapResponse)
+		{
+		    case 'SUBMITTED' :
+				$dialogBox .= $langCampusSubmitted;
+				break;
+		    case 'REGISTERED' :
+				$dialogBox .= $langCampusRegistered;
+				break;
+		    case 'UNREGISTERED' :
+				$dialogBox .= $langCampusRemoved;
+				break;
+		    case 'HIDDEN' :
+				$dialogBox .= $langCampusDeleted;
+				break;
+			default :
+				// unknown status ?
+				break;
+		}
+		$alreadyRegistered = TRUE;
+	}
+	// else : there is no current status or an erroe occurred so don't show current status
 }
 
 /*============================================================================
-                        DISPLAY
+						DISPLAY
   ============================================================================*/
-$nameTools = get_lang('Register my campus');
+$nameTools = $langRegisterMyCampus;
 // bread crumb à ajouter
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include($includePath."/claro_init_header.inc.php");
 
 $title['mainTitle'] = $nameTools;
-$title['subTitle'] = get_lang('Add my campus on Claroline.net website');
-echo claro_html_tool_title($title);
+$title['subTitle'] = $langAddMyCampusOnClarolineNet;
+claro_disp_tool_title($title);
 
-if( isset($dialogBox) && $dialogBox != '' ) echo claro_html_message_box($dialogBox);
+if( isset($dialogBox) && $dialogBox != '' ) claro_disp_message_box($dialogBox);
 
 if( !isset($_REQUEST['register']) && ! ( isset($alreadyRegistered) && $alreadyRegistered ) )
 {
-    echo '<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
-        .'<ul>'."\n"
-        .'<li>'.get_lang('Campus name').' : '.stripslashes( get_conf('siteName')) . '</li>'."\n"
-        .'<li>'.get_lang('URL').' : <a href="' . get_path('rootWeb') . '">' . get_path('rootWeb') . '</a></li>'."\n"
-        .'<li>'.get_lang('Institution').' : '.stripslashes(get_conf('institution_name')).'</li>'."\n"
-        .'<li>'.get_lang('Institution URL') . ' : <a href="' . get_conf('institution_url') . '">' . get_conf('institution_url') . '</a></li>'."\n"
-        .'<li>'.get_lang('Email').' : ' . get_conf('administrator_email') .'</li>'."\n"
-        .'<li>'
-        .'<label for="country">'.get_lang('Country').' : </label>'."\n"
-        .'<select name="country" id="country">'."\n";
+	echo "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\">\n"
+	    ."<ul>\n"
+		."<li>".$langSiteName." : ".stripslashes($siteName)."</li>\n"
+		."<li>".$langURL."<a href=\"".$rootWeb."\">".$rootWeb."</a></li>\n"
+		."<li>".$langInstitution." : ".stripslashes($institution_name)."</li>\n"
+		."<li>".$langInstitutionUrl." : <a href=\"".$institution_url."\">".$institution_url."</a></li>\n"
+		."<li>".$langEmail." : ".$administrator_email."</li>"
+		."<li>"
+		."<label for=\"country\">".$langCountry." : </label>\n"
+		."<select name=\"country\" id=\"country\" />\n";
 
-    $optionString = "";
-    foreach( $isoCode as $code => $country)
-    {
-        $optionString .= '<option value="'.$code.'">'.$country.'</option>'."\n";
-    }
-
-    echo $optionString
-        .'</select>'."\n"
-        .'</li>'."\n"
-        .'</ul>'."\n"
-        .'<br />'."\n"
-        .'<input type="submit" name="register" value="'.get_lang('Register my campus').'" />'."\n"
-        .'<p>'
-        .'<small>'.get_lang('Please check that your campus URL is reachable from the internet.').'</small>'
-        .'</p>'."\n"
-        .'</form>'."\n"
-        ;
+	$optionString = "";
+	foreach( $isoCode as $code => $country)	
+	{
+		$optionString .= "<option value=\"".$code."\">".$country."</option>\n";
+	}
+	
+	echo $optionString
+		."</select>"
+		."</li>\n"
+	    ."</ul>\n"
+	    ."<br />\n"
+		."<input type=\"submit\" name=\"register\" value=\"".$langRegisterMyCampus."\" />"
+		."</form>\n";
 }
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include($includePath."/claro_init_footer.inc.php");
+
+
 ?>

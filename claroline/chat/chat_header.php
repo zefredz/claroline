@@ -1,39 +1,44 @@
 <?php // $Id$
-/**
- * CLAROLINE
+/** 
+ * CLAROLINE 
  *
- * @version 1.8 $Revision$
+ * @version 1.6 $Revision$
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  *
  * @see http://www.claroline.net/wiki/index.php/CLCHT
  *
- * @package CLCHT
+ * @package CLCHAT
  *
  * @author Claro Team <cvs@claroline.net>
+ * @author Christophe Gesché <moosh@claroline.net>
+ * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
  *
  */
 
-$tlabelReq = 'CLCHT';
+$tlabelReq = 'CLCHT___';
 
 require '../inc/claro_init_global.inc.php';
 
-$nameTools  = get_lang('Chat');
+if(isset($_gid))
+{
+	$interbredcrump[]= array ('url'=>'../group/group.php', 'name'=> $langGroup);
+	$interbredcrump[]= array ('url'=>'../group/group_space.php', 'name'=> $langGroupSpace);
+}
+
+$nameTools  = $langChat;
 $noPHP_SELF = TRUE;
 
-// Turn off session lost
-$warnSessionLost = false ;
+include($includePath.'/claro_init_header.inc.php');
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-$_group = claro_get_current_group_data();
 
 $titleElement['mainTitle'] = $nameTools;
-if ( claro_is_in_a_group() ) $titleElement['supraTitle'] = claro_get_current_group_data('name');
+if ( $_gid ) $titleElement['subTitle'] = $_group['name'];
 
-echo claro_html_tool_title($titleElement);
+claro_disp_tool_title($titleElement);
 
 $hide_footer = TRUE;
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include($includePath.'/claro_init_footer.inc.php');
 ?>

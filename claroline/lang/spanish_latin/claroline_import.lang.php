@@ -1,0 +1,56 @@
+<?php
+$langAddIntro = "Añadir texto introductorio";
+$langAddPage = "Agregar una página";
+$langAgenda = "Agenda";
+$langAnnouncement = "Anuncios";
+$langChat = "Chat";
+$langConfirmYourChoice = "Por favor confirma tú elección";
+$langCouldNot = "El archivo no puede ser enviado";
+$langCourseHome = "Descripción del curso";
+$langCourseManager = "Coordinador de curso";
+$langDay_of_weekNames = "Array";
+$langDelete = "Eliminar";
+$langDescriptionCours = "Descripción del curso";
+$langDocument = "Documentos";
+$langExercises = "Ejercicios";
+$langExplanation = "Una vez que usted haya pulsado OK, será creado in sitio web que incluirá: Foro, 
+                   Lista de enlaces, Ejercicios, Agenda, Lista de documentos... Con su
+                  identificación de usuario, usted podrá modificar su contenido";
+$langForums = "Foros";
+$langGroups = "Grupos";
+$langHelp = "Ayuda";
+$langHome = "Volver a la página principal";
+$langLink = "Ligas";
+$langLinkSite = "Enlazar al sitio";
+$langLinks = "Enlaces";
+$langLogin = "Ingreso";
+$langLogout = "Salir";
+$langManager = "Responsable";
+$langModify = "Modificar";
+$langModifyProfile = "Modificar mis datos";
+$langMonthNames = "Array";
+$langMyAgenda = "Mi agenda";
+$langMyCourses = "Mis cursos";
+$langNotAllowed = "No tienes acceso";
+$langOk = "Aceptar";
+$langOkSent = "Su página ha sido enviada al servidor.<p>Es accesible desde la <a href=../..//index.php>página principal</a> de su curso";
+$langOtherCourses = "Lista de cursos";
+$langPassword = "Contraseña";
+$langPgTitle = "Título de la página";
+$langPlatformAdministration = "Administración de la plataforma";
+$langPoweredBy = "Generado con";
+$langReg = "Inscribirse";
+$langSendPage = "Página a enviar";
+$langStudent = "Estudiante";
+$langSubTitle = "Agregar al Menú Principal de la página de inicio de su curso un enlace a una página, o cualquier URL. Ej: si desea agregar un enlace a una página, vaya a esa página, copie y pegue su dirección en la barra dirección de su programa navegador e inserte el enlaace el el campo 'Enlace' que está abajo.";
+$langTooBig = "Usted no ha seleccionado ningún archivo para enviar, o el archivo es demasiado grande";
+$langUserName = "Usuario";
+$langUsers = "Usuarios";
+$langWork = "Trabajos";
+$lang_click_here = "click here";
+$lang_enter_your_user_name_and_password = "Enter your user name and password";
+$lang_if_you_dont_have_a_user_account_profile_on = "If you don't have a user account on";
+$lang_if_you_wish_to_enroll_to_this_course = "If you wish to enroll to this course";
+$lang_this_course_is_protected = "This course is protected";
+$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "You're user profile doesn't seem to be enrolled to this course";
+?>

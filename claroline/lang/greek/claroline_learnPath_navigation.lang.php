@@ -1,0 +1,33 @@
+<?php
+$langAddComment = "Προσθήκη / αλλαγή σχολίου στο";
+$langAddIntro = "Προσθήκη Εισαγωγικού Κειμένου";
+$langAgenda = "Ατζέντα";
+$langAnnouncement = "Ανακοινώσεις";
+$langBack = "Επιστροφή";
+$langChat = "Κουβεντούλα";
+$langDate = "Ημερομηνία";
+$langDay_of_weekNames = "Array";
+$langDelete = "Διαγραφή";
+$langDocument = "Εγγραφα";
+$langExercise = "Ασκήσεις";
+$langForums = "Περιοχή συζητήσεων";
+$langGroups = "Ομάδες Χρηστών";
+$langHelp = "Βοήθεια";
+$langLogout = "Εξοδος";
+$langManager = "Διαχειριστής";
+$langModify = "Διόρθωση";
+$langModifyProfile = "Αλλαγή του προφίλ μου";
+$langMonthNames = "Array";
+$langMyCourses = "Τα μαθήματά μου";
+$langNotAllowed = "Δεν επιτρέπεται";
+$langOk = "Εντάξει";
+$langOtherCourses = "Λίστα Μαθημάτων";
+$langPoweredBy = "Με τη βοήθεια του";
+$langReg = "Εγγραφή";
+$langSize = "Μέγεθος";
+$langStudent = "φοιτητής";
+$langUp = "Πάνω";
+$langUserName = "Όνομα χρήστη";
+$langUsers = "Χρήστες";
+$langWork = "Εργασίες Φοιτητών";
+?>

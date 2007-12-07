@@ -66,7 +66,7 @@ require_once 'SOAP/Client.php';
  *
  * @author   Bruno Pedro <bpedro@co.sapo.pt>
  * @package  Auth
- * @version $Revision$
+ * @version  $Revision$
  */
 class Auth_Container_SOAP extends Auth_Container
 {

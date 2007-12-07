@@ -1,56 +1,43 @@
-<?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+<?php
 
-unset($tipList);
+unset($titreBloc);
+unset($titreBlocNotEditable);
+unset($questionPlan);
+unset($info2Say);
 
+$titreBloc           [] = $langDescription;
+$titreBlocNotEditable[] = true;
+$questionPlan        [] = $langDescriptionComment1;
+$info2Say            [] = $langDescriptionComment2;
 
-$tipList[] = array( 
-    'title'         => get_block('blockCourseDescriptionDescription'),
-    'isEditable'    => false,
-    'question'      => get_block('blockCourseDescriptionDescriptionComment1'),
-    'information'   => get_block('blockCourseDescriptionDescriptionComment2')
-);
+$titreBloc           [] = $langQualificationsAndGoals;  
+$titreBlocNotEditable[] = true;  
+$questionPlan        [] = $langQualificationsAndGoalsComment1;
+$info2Say            [] = $langQualificationsAndGoalsComment2;  
 
-$tipList[] = array( 
-    'title'         => get_block('blockCourseDescriptionQualificationsAndGoals'),
-    'isEditable'    => false,
-    'question'      => get_block('blockCourseDescriptionQualificationsAndGoalsComment1'),
-    'information'   => get_block('blockCourseDescriptionQualificationsAndGoalsComment2')
-);
+$titreBloc           [] = $langCourseContent;
+$titreBlocNotEditable[] = true;  
+$questionPlan        [] = $langCourseContentComment1;
+$info2Say            [] = $langCourseContentComment2;
 
-$tipList[] = array( 
-    'title'         => get_block('blockCourseDescriptionCourseContent'),
-    'isEditable'    => false,
-    'question'      => get_block('blockCourseDescriptionCourseContentComment1'),
-    'information'   => get_block('blockCourseDescriptionCourseContentComment2')
-);
+$titreBloc           [] = $langTeachingTrainingActivities;  
+$titreBlocNotEditable[] = true;  
+$questionPlan        [] = $langTeachingTrainingActivitiesComment1;  
+$info2Say            [] = $langTeachingTrainingActivitiesComment2;
 
-$tipList[] = array( 
-    'title'         => get_block('blockCourseDescriptionTeachingTrainingActivities'),
-    'isEditable'    => false,
-    'question'      => get_block('blockCourseDescriptionTeachingTrainingActivitiesComment1'),
-    'information'   => get_block('blockCourseDescriptionTeachingTrainingActivitiesComment2')
-);
+$titreBloc           [] = $langSupports;
+$titreBlocNotEditable[] = true;
+$questionPlan        [] = $langSupportsComment1;
+$info2Say            [] = $langSupportsComment2;
 
-$tipList[] = array( 
-    'title'         => get_block('blockCourseDescriptionSupports'),
-    'isEditable'    => false,
-    'question'      => get_block('blockCourseDescriptionSupportsComment1'),
-    'information'   => get_block('blockCourseDescriptionSupportsComment2')
-);
+$titreBloc           [] = $langHumanAndPhysicalRessources;
+$titreBlocNotEditable[] = true;  
+$questionPlan        [] = $langHumanAndPhysicalResourcesComment1;
+$info2Say            [] = $langHumanAndPhysicalResourcesComment2;  
 
-$tipList[] = array( 
-    'title'         => get_block('blockCourseDescriptionHumanAndPhysicalRessources'),
-    'isEditable'    => false,
-    'question'      => get_block('blockCourseDescriptionHumanAndPhysicalResourcesComment1'),
-    'information'   => get_block('blockCourseDescriptionHumanAndPhysicalResourcesComment2')
-);
-
-$tipList[] = array( 
-    'title'         => get_block('blockCourseDescriptionMethodsOfEvaluation'),
-    'isEditable'    => false,
-    'question'      => '',
-    'information'   => get_block('blockCourseDescriptionMethodsOfEvaluationComment1')
-);
+$titreBloc           [] = $langMethodsOfEvaluation;
+$titreBlocNotEditable[] = true;  
+$questionPlan        [] = $langMethodsOfEvaluationComment1;
+$info2Say            [] = $langMethodsOfEvaluationComment1;
 
 ?>

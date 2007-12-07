@@ -1,0 +1,127 @@
+<?php
+$langAction = "Acción";
+$langAddImage = "Incluir foto";
+$langAddIntro = "Añadir texto introductorio";
+$langAddress = "La dirección de";
+$langAdministration = "Administración";
+$langAgain = "&iexcl;Vuelva a comenzar!";
+$langAgenda = "Agenda";
+$langAnnouncement = "Anuncios";
+$langBackToCourseList = "Volver a la lista de cursos del usuario";
+$langBackToUserSettings = "Volver a la configuración del usuario";
+$langCancel = "Cancelar";
+$langCategories = "Crear categoría";
+$langChat = "Debate";
+$langComment = "Comentario";
+$langConfirmYourChoice = "Por favor confirma tú elección";
+$langConfirmation = "confirmaci&oacute;n";
+$langCopy = "Copiar";
+$langCourseHome = "Descripción del curso";
+$langCourseList = "Lista de cursos";
+$langCourseManager = "Responsable del curso";
+$langDay_of_weekNames = "Array";
+$langDear = "Estimado(a)";
+$langDelImage = "Eliminar la imágen";
+$langDelete = "Borrar";
+$langDescriptionCours = "Descripción del curso";
+$langDocument = "Documentos";
+$langEmail = "E-mail";
+$langEmailAddressNotFound = "No existe la cuenta de usuario con este e-mail.";
+$langEmailNotSent = "Si algo no funciona, envie un correo a";
+$langEmailWrong = "La dirección de e-mail no es valida";
+$langEmptyFields = "No ha llenado todos los campos.
+Use el bot&oacute;n de Regresar del navegador y vuelva a intentarlo.";
+$langEnrollAsStudent = "Inscribirse como estudiante";
+$langEnrollAsTeacher = "Inscribirse como Profesor";
+$langEnter2passToChange = "Ingrese su clave de acceso dos veces para que pueda ser cambiada o dejelo vacío si quiere conservar el actual";
+$langEnterMail = "Introduzca su e-mail para que se le envíe a ese correo su clave de acceso.";
+$langExercises = "Ejercicios";
+$langFields = "No ha rellenado todos los campos";
+$langFirstname = "Nombre";
+$langFormula = "Cordialmente, vuestro profesor";
+$langForums = "Foros";
+$langGroups = "Inscripci&oacute;n de los usuarios en los grupos";
+$langHelp = "ayuda";
+$langHome = "Volver a la p&aacute;gina principal";
+$langIs = "es";
+$langLastname = "Apellido";
+$langLearningPath = "Seguimiento de aprendizaje";
+$langLogin = "login";
+$langLoginRequest = "Petici&oacute;n del nombre de usuario";
+$langLogout = "Salir";
+$langLostPassword = "Recordar Contrase&ntilde;a";
+$langManager = "Responsable";
+$langMessageSubscribeDone_p_firstname_lastname = "
+Estimado(a) %s, %s. 
+Sus datos personales han sido registrados y ha sido 
+enviado un correo electr&oacute;nico a su buz&oacute;n
+para recordarle su nombre de usuario y su clave de acceso.<br>
+Seleccione de la lista los cursos a los que desea tener acceso.";
+$langModify = "Modificar";
+$langModifyProfile = "Modificar mis datos";
+$langMonthNames = "Array";
+$langMyAgenda = "Mi agenda";
+$langMyCourses = "Mis cursos";
+$langMyStats = "Ver mis estad&iacute;sticas";
+$langNext = "Siguiente";
+$langNotAllowed = "Usted no est&aacute; identificado como responsable de este curso";
+$langNowGoChooseYourCourses = "ahora puedes ir y seleccionar en la lista los cursos a los que quieres acceder.";
+$langNowGoCreateYourCourse = "ahora puedes ir a crear tu curso";
+$langOfficialCode = "Código Administrativo";
+$langOk = "validar";
+$langOtherCourses = "Lista de cursos";
+$langPassTooEasy = "esta contrase&ntilde;a es demasiado simple. Use una como esta";
+$langPassTwice = "No ha escrito la misma clave de acceso dos veces.
+Use el bot&oacute;n de Regresar del navegador y vuelva a intentarlo.";
+$langPassTwo = "Usted no ha escrito la misma clave de acceso dos veces";
+$langPassword = "password";
+$langPasswordHasBeenEmailed = "Su clave de acceso ha sido enviado al e-mail ";
+$langPhone = "Telefono";
+$langPlatformAdministration = "Administración de la plataforma";
+$langPoweredBy = "Generado con";
+$langProblem = "En caso de tener algún problema, no dude en contactarnos.";
+$langProfileReg = "Su nuevo perfil de usuario ha sido guardado";
+$langReg = "Inscripci&oacute;n";
+$langRegAdmin = "Crear sitios de cursos (Profesor)";
+$langRegStudent = "Inscribirme a cursos (estudiante)";
+$langRegister = "Registrar";
+$langRegistration = "Inscripci&oacute;n";
+$langSaveChanges = "Salvar cambios";
+$langSearch = "Buscar";
+$langSettings = "con los parámetros siguientes:
+
+Nombre de usuario:";
+$langStudent = "Estudiantes";
+$langSubmit = "Asunto";
+$langTo = "para";
+$langUpdateImage = "Cambiar la imágen";
+$langUserName = "User name";
+$langUserTaken = "Este nombre de usuario ya existe";
+$langUsers = "Usuarios";
+$langWork = "Trabajos";
+$langYouAreReg = "Usted ha sido inscrito en";
+$langYourAccountParam = "Este es tu nombre de usuario y contrase&ntilde;a";
+$langYourReg = "Su inscripcion en";
+$lang_already_enrolled = "ya ha sido matriculado";
+$lang_are_you_sure_to_remove_the_course_from_your_list = "¿Está seguro de querer eliminar este curso de su lista?";
+$lang_back_to_my_personnal_course_list = "Volver a mi lista personal de cursos";
+$lang_back_to_parent_category = "Volver a la categoría anterior";
+$lang_click_here = "click here";
+$lang_course_enrollment = "Usuarios del curso";
+$lang_enroll = "Matricularse";
+$lang_enter_your_user_name_and_password = "Enter your user name and password";
+$lang_if_you_dont_have_a_user_account_profile_on = "If you don't have a user account on";
+$lang_if_you_wish_to_enroll_to_this_course = "If you wish to enroll to this course";
+$lang_main_categories_list = "Lista de categor&iacute;s principales";
+$lang_my_personnal_course_list = "Mi lista personal de cursos";
+$lang_no_course_available_fitting_this_keyword = "No hay un curso disponible con esas características";
+$lang_remove_course_from_your_personnal_course_list = "Remover el curso de la lista personal de cursos";
+$lang_select_course_in = "Seleccionar un curso en ";
+$lang_select_course_in_search_results = "Seleccionar un curso entre los resultados de la b&uacute;squeda";
+$lang_this_course_is_protected = "This course is protected";
+$lang_unsubscribe = "Desuscribirse";
+$lang_user_has_been_enrolled_to_the_course = "El usuario ha sido inscrito en el curso";
+$lang_you_have_been_enrolled_to_the_course = "Ha sido inscrito en el cruso";
+$lang_your_enrollment_to_the_course_has_been_removed = "Ha sido removido del curso al que se a inscrito";
+$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "You're user profile doesn't seem to be enrolled to this course";
+?>

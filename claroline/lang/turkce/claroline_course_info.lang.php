@@ -1,0 +1,56 @@
+<?php
+$langAddIntro = "Önsöz metni ekle";
+$langAgenda = "Gündem";
+$langAnnouncement = "Duyurular";
+$langBackHomeOf = "Ana Sayfasýna dön: ";
+$langByDel = "Bu dersin websitesi silindiðinde, içindeki tüm belgeler ve öðrenci kayýtlarý da silinir.<p>Silmek istediðinizden emin misiniz?";
+$langCancel = "Ýptal";
+$langChat = "Tartýþma";
+$langCode = "Ders kodu";
+$langConfTip = "Varsayýlan olarak, dersinizin web sitesine sadece kayýtlý kullanýcýlar girebilir.
+ Eðer gizlilik istiyorsanýz, öðrencilerin kendiliklerinden kaydolabilecekleri bir süre kayýtlarý 
+açýk tutunuz, sonra kapatarak kullanýcý listesinden istemediklerinizi siliniz.";
+$langCopy = "Kopyala";
+$langCourse = "Web sitesi ";
+$langCourseTitle = "Ders baþlýðý";
+$langDay_of_weekNames = "Array";
+$langDelCourse = "Ders sitesini sil";
+$langDelete = "Sil";
+$langDepartmentUrl = "Bölüm URL";
+$langDepartmentUrlName = "Bölüm";
+$langDescriptionCours = "Ders açýklamasý";
+$langDocument = "Belgeler";
+$langEmail = "Epostanýz";
+$langExercises = "Alýþtýrmalar";
+$langForums = "Forumlar";
+$langGroups = "Gruplar";
+$langHasDel = "silindi";
+$langHelp = "Yardým";
+$langHome = "Ana Sayfaya dön";
+$langLanguage = "Language";
+$langLogout = "Çýkýþ";
+$langManager = "Yönetici";
+$langModifDone = "Bilgiler deðiþti";
+$langModify = "Deðiþtir";
+$langModifyProfile = "Profilimi deðiþtir";
+$langMonthNames = "Array";
+$langMyCourses = "Derslerim";
+$langNameOfLang = "Array";
+$langNo = "Hayýr";
+$langNotAllowed = "Ýzin verilmiyor";
+$langOk = "Tamam";
+$langOtherCourses = "Ders listesi";
+$langPoweredBy = "Powered by";
+$langPrivateAccess = "Özel giriþ, kayýtlar kapalýdýr (bu dersin sitesine sadece <a href=../user/user.php>bu listedeki kullanýcýlar girebilir</a>)";
+$langProfessor = "Hoca";
+$langPublicAccess = "Kayýtlý olmadan da Ana Sayfadan giriþ yapýlabilir";
+$langReg = "Kayýt";
+$langStatistics = "Ýstatistikler";
+$langStudent = "öðrenci";
+$langTipLang = "Seçtiðiniz dil her ziyaretçi için geçerli olacaktýr.";
+$langTo = "buraya";
+$langUserName = "Kullanýcý adýnýz";
+$langUsers = "Kullanýcýlar";
+$langWork = "Öðrenci Yazýlarý";
+$langYes = "Evet";
+?>

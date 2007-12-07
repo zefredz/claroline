@@ -1,152 +1,203 @@
 <?php 
-$_lang['&#91;British people&#93; live in &#91;United Kingdom&#93;.'] = '[British people] live in [United Kingdom].';
-$_lang['A list of keys allowing requests to the Claroline SSO server. The SSO client have to provide one of the keys contained into this list to receive any answer from the Claroline SSO server.'] = 'A list of keys allowing requests to the Claroline SSO server. The SSO client have to provide one of the keys contained into this list to receive any answer from the Claroline SSO server.';
-$_lang['A tutor attached to a group can subscribe himself to another group as a simple user.'] = 'A tutor attached to a group can subscribe himself to another group as a simple user.';
-$_lang['Allow a course manager to browse and link external resources reachable by an url'] = 'Allow a course manager to browse and link external resources reachable by an url';
-$_lang['Allow a course manager to browse and link resources in any public course'] = 'Allow a course manager to browse and link resources in any public course';
-$_lang['Allow a course manager to browse and link resources in its other courses'] = 'Allow a course manager to browse and link resources in its other courses';
-$_lang['Allow a course manager to browse and link resources located in a group space and in group tools'] = 'Allow a course manager to browse and link resources located in a group space and in group tools';
-$_lang['Allow course manager to delete their own courses'] = 'Allow course manager to delete their own courses';
-$_lang['Allow external resource linking'] = 'Allow external resource linking';
-$_lang['Allow group resource linking'] = 'Allow group resource linking';
-$_lang['Allow other course resource linking'] = 'Allow other course resource linking';
-$_lang['Allow public course resource linking'] = 'Allow public course resource linking';
-$_lang['Allow teachers to subscribe a user in several groups'] = 'Allow teachers to subscribe a user in several groups';
-$_lang['Assignment property "Default works visibility" acts'] = 'Assignment property "Default works visibility" acts';
-$_lang['Back to user\'s course list'] = 'Back to user\'s course list';
-$_lang['Choose "No" if you use microsoft active directory (by default this authentication system is case-insensitive)'] = 'Choose "No" if you use microsoft active directory (by default this authentication system is case-insensitive)';
-$_lang['Common part of both parameters above.'] = 'Common part of both parameters above.';
-$_lang['Course code case'] = 'Course code case';
-$_lang['Course member (the user is actually enrolled in the course)'] = 'Course member (the user is actually enrolled in the course)';
-$_lang['Definition file doesn\'t exist'] = 'Definition file doesn\'t exist';
-$_lang['Delete all event before %date in statistics'] = 'Delete all event before %date in statistics';
-$_lang['Disk usage'] = 'Disk usage';
-$_lang['Display'] = 'Display';
-$_lang['Display "Request a Course Creator status"'] = 'Display "Request a Course Creator status"';
-$_lang['Display "Request to be deleted from the platform"'] = 'Display "Request to be deleted from the platform"';
-$_lang['Display authentication login form'] = 'Display authentication login form';
-$_lang['Display the field official code in form'] = 'Display the field official code in form';
-$_lang['Dock'] = 'Dock';
-$_lang['Enrolment allowed or not'] = 'Enrolment allowed or not';
-$_lang['Event duration'] = 'Event duration';
-$_lang['File are always created in cache, but if this value is true feed file in cache arent rebuilt on request if exiting in cache.'] = 'File are always created in cache, but if this value is true feed file in cache arent rebuilt on request if exiting in cache.';
-$_lang['Find more available modules on <a href="http://www.claroline.net/">Claroline.net</a>.'] = 'Find more available modules on <a href="http://www.claroline.net/">Claroline.net</a>.';
-$_lang['Folder %folder is not writable'] = 'Folder %folder is not writable';
-$_lang['Force to lowercase the course code'] = 'Force to lowercase the course code';
-$_lang['Force to uppercase the course code'] = 'Force to uppercase the course code';
-$_lang['Give a SMTP server name to turn on SMTP mode. (e.g. smtp1.site.com or smtp1.site.com;smtp2.site.com)'] = 'Give a SMTP server name to turn on SMTP mode. (e.g. smtp1.site.com or smtp1.site.com;smtp2.site.com)';
-$_lang['Host of CAS server'] = 'Host of CAS server';
-$_lang['If after while no message appears confirming the course creation, please click <a href="%url">here</a>'] = 'If after while no message appears confirming the course creation, please click <a href="%url">here</a>';
-$_lang['If false, other field are optional'] = 'If false, other field are optional';
-$_lang['If the name and the firstname are longer than this value, the script reduce it.
-For revelance, it\'s interesting to not work with to little value'] = 'If the name and the firstname are longer than this value, the script reduce it.
-For revelance, it\'s interesting to not work with to little value';
-$_lang['If you do not have the key, please contact the course manager'] = 'If you do not have the key, please contact the course manager';
-$_lang['If you haven\'t a user account yet, use the <a href="%url">the account creation form</a>.'] = 'If you haven\'t a user account yet, use the <a href="%url">the account creation form</a>.';
-$_lang['Imported exercises must be an ims-qti zip file.'] = 'Imported exercises must be an ims-qti zip file.';
-$_lang['Imported modules must consist of a zip file and be compatible with your Claroline version.'] = 'Imported modules must consist of a zip file and be compatible with your Claroline version.';
-$_lang['Impossible to unzip file'] = 'Impossible to unzip file';
-$_lang['In iCal, an event have a duration, but not in claroline. 3600 = 1 Hour.'] = 'In iCal, an event have a duration, but not in claroline. 3600 = 1 Hour.';
-$_lang['Inline quote'] = 'Inline quote';
-$_lang['Invalid matching choice'] = 'Invalid matching choice';
-$_lang['Invalid question'] = 'Invalid question';
-$_lang['Label of the login url to CAS'] = 'Label of the login url to CAS';
-$_lang['Last computing'] = 'Last computing';
-$_lang['Last event length'] = 'Last event length';
-$_lang['Last score'] = 'Last score';
-$_lang['Last submission'] = 'Last submission';
-$_lang['Linker tool'] = 'Linker tool';
-$_lang['Log of user activities  on the whole platform (course access, tool use, ...).'] = 'Log of user activities  on the whole platform (course access, tool use, ...).';
-$_lang['Mathematical renderer URL'] = 'Mathematical renderer URL';
-$_lang['Max length of the \'last events\' displayed content'] = 'Max length of the \'last events\' displayed content';
-$_lang['Maximum conversation lines'] = 'Maximum conversation lines';
-$_lang['Maximum conversation lines displayed to the user. '] = 'Maximum conversation lines displayed to the user.';
-$_lang['Maximum conversation lines in chat file'] = 'Maximum conversation lines in chat file';
-$_lang['Maximum lines in the active chat file. For performance, it\'s interesting to not work with too big file.'] = 'Maximum lines in the active chat file. For performance, it\'s interesting to not work with too big file.';
-$_lang['Module cache update succeeded'] = 'Module cache update succeeded';
-$_lang['Module unpackaging failed'] = 'Module unpackaging failed';
-$_lang['Module upload failed'] = 'Module upload failed';
-$_lang['More verbose when error occurs.'] = 'More verbose when error occurs.';
-$_lang['New window for submitted files'] = 'New window for submitted files';
-$_lang['No file uploaded'] = 'No file uploaded';
-$_lang['No function in this extension'] = 'No function in this extension';
-$_lang['No, rebuild the file on each request'] = 'No, rebuild the file on each request';
-$_lang['Node Moved, relaunch repair process to complete'] = 'Node Moved, relaunch repair process to complete';
-$_lang['Not valid course code'] = 'Not valid course code';
-$_lang['Not valid user id'] = 'Not valid user id';
-$_lang['Note :  this repository should be protected with a .htaccess or
-       be placed outside the web. Because there contain data of private courses.'] = 'Note :  this repository should be protected with a .htaccess or
-       be placed outside the web. Because there contain data of private courses.';
-$_lang['Note : this repository should be protected with a .htaccess or
-       be placed outside the web. Because there contain data of private courses. Claroline Would be able to read and write in this dir'] = 'Note : this repository should be protected with a .htaccess or
-       be placed outside the web. Because there contain data of private courses. Claroline Would be able to read and write in this dir';
-$_lang['Number of seconds before the cookie expires'] = 'Number of seconds before the cookie expires';
-$_lang['OVER QUOTA'] = 'OVER QUOTA';
-$_lang['Once a user logs to the Claroline platform a cookie is sent to the user browser if the authentication process succeeds. The cookie value is also stored in a internal table of the Claroline platform for a certain time. If requested, the Claroline SSO '] = 'Once a user logs to the Claroline platform a cookie is sent to the user browser if the authentication process succeeds. The cookie value is also stored in a internal table of the Claroline platform for a certain time. If requested, the Claroline SSO';
-$_lang['Operation impossible.'] = 'Operation impossible.';
-$_lang['Ordered list'] = 'Ordered list';
-$_lang['Passwords of some of your user account(s) are recorded an in external authentication system outside the platform.'] = 'Passwords of some of your user account(s) are recorded an in external authentication system outside the platform.';
-$_lang['Private access (site accessible only to people on the <a href="%url">user list</a>)'] = 'Private access (site accessible only to people on the <a href="%url">user list</a>)';
-$_lang['Private&nbsp+ New Registration allowed'] = 'Private&nbsp+ New Registration allowed';
-$_lang['Profile SQL in DEBUG MODE.
-Display for each request :duration, counter,  statement '] = 'Profile SQL in DEBUG MODE.
-Display for each request :duration, counter,  statement';
-$_lang['Properties for %config_name, (%config_code) are now effective on server.'] = 'Properties for %config_name, (%config_code) are now effective on server.';
-$_lang['Relative to the complete platform url'] = 'Relative to the complete platform url';
-$_lang['Request to remove this account'] = 'Request to remove this account';
-$_lang['Right list'] = 'Right list';
-$_lang['SSO authentication key list'] = 'SSO authentication key list';
-$_lang['SSO cookie period validity'] = 'SSO cookie period validity';
-$_lang['Sets how the assignment property "default works visibility" acts.  It will change the visibility of all the new submissions or it will change the visibility of all submissions already done in the assignment and the new one. '] = 'Sets how the assignment property "default works visibility" acts.  It will change the visibility of all the new submissions or it will change the visibility of all submissions already done in the assignment and the new one.';
-$_lang['Settings of the right menu elements'] = 'Settings of the right menu elements';
-$_lang['Settings of the user course list'] = 'Settings of the user course list';
-$_lang['Show groups in resource browser'] = 'Show groups in resource browser';
-$_lang['Single'] = 'Single';
-$_lang['Single Sign On'] = 'Single Sign On';
-$_lang['Sql installation query failed'] = 'Sql installation query failed';
-$_lang['Sql installation query succeeded'] = 'Sql installation query succeeded';
-$_lang['Strike'] = 'Strike';
-$_lang['The domain that the cookie is available.  To make the cookie available on all subdomains of example.com, you\'d set it to ".example.com". The . is not required but makes it compatible with more browsers. Setting it to www.example.com  will make the co'] = 'The domain that the cookie is available.  To make the cookie available on all subdomains of example.com, you\'d set it to ".example.com". The . is not required but makes it compatible with more browsers. Setting it to www.example.com  will make the co';
-$_lang['The module has been removed from this dock'] = 'The module has been removed from this dock';
-$_lang['The path on the server in which the cookie will be available on.  If set to "/", the cookie will be available within the entire domain. If set to "/foo/", the cookie will only be available within the /foo/ directory and all sub-directories such as /f'] = 'The path on the server in which the cookie will be available on.  If set to "/", the cookie will be available within the entire domain. If set to "/foo/", the cookie will only be available within the /foo/ directory and all sub-directories such as /f';
-$_lang['The username is case sensitive'] = 'The username is case sensitive';
-$_lang['This option insert a command in the user profile form to request a status of course creator. This request is sent by e-mail to platform administrator.'] = 'This option insert a command in the user profile form to request a status of course creator. This request is sent by e-mail to platform administrator.';
-$_lang['This option insert a command in the user profile form to request the removal of the user from the platform.  This request is sent by e-mail to platform administrator.
-This option allow only to request it, and don\'t prework the answer
-'] = 'This option insert a command in the user profile form to request the removal of the user from the platform.  This request is sent by e-mail to platform administrator.
-This option allow only to request it, and don\'t prework the answer
-';
-$_lang['This prefix could allow to order more easily the tables / DB in the user interface of your server technical back office  '] = 'This prefix could allow to order more easily the tables / DB in the user interface of your server technical back office';
-$_lang['This question is used in several exercises.'] = 'This question is used in several exercises.';
-$_lang['This renderer is used for TEX/LaTEX expressions. It is available into the \'claroline/inc/lib/\' directory and has to be copied on a server location where CGI programs are expected.'] = 'This renderer is used for TEX/LaTEX expressions. It is available into the \'claroline/inc/lib/\' directory and has to be copied on a server location where CGI programs are expected.';
-$_lang['This text layout should be modified to be editable in this editor. Cancel to keep your original text layout.'] = 'This text layout should be modified to be editable in this editor. Cancel to keep your original text layout.';
-$_lang['Time before really compute data. 86400 = 1 day.'] = 'Time before really compute data. 86400 = 1 day.';
-$_lang['Time to automatically refresh the user screen. Each refresh is a request to your server.
-Too low value can be hard for your server. Too high value can be hard for user.
-'] = 'Time to automatically refresh the user screen. Each refresh is a request to your server.
-Too low value can be hard for your server. Too high value can be hard for user.
-';
-$_lang['Tracking database name'] = 'Tracking database name';
-$_lang['Translation'] = 'Translation';
-$_lang['True'] = 'True';
-$_lang['True/False'] = 'True/False';
-$_lang['Tutors can subscribe to a group as a simple member'] = 'Tutors can subscribe to a group as a simple member';
-$_lang['URL trail'] = 'URL trail';
-$_lang['Unknow error during unsubscribing'] = 'Unknow error during unsubscribing';
-$_lang['Unknown question format in file %file'] = 'Unknown question format in file %file';
-$_lang['Use Jpspan mode for the resource linking utility. Warning : Jpspan does not work on IIS web servers.'] = 'Use Jpspan mode for the resource linking utility. Warning : Jpspan does not work on IIS web servers.';
-$_lang['Use it, and build  on change'] = 'Use it, and build  on change';
-$_lang['User id'] = 'User id';
-$_lang['User registred in cours with unexisting (deprecated) status'] = 'User registred in cours with unexisting (deprecated) status';
-$_lang['When iCal File is regenerated, make the RDF version.'] = 'When iCal File is regenerated, make the RDF version.';
-$_lang['When iCal File is regenerated, make the ics version.'] = 'When iCal File is regenerated, make the ics version.';
-$_lang['When iCal File is regenerated, make the xml version.'] = 'When iCal File is regenerated, make the xml version.';
-$_lang['Which parts of the profile can be changed?'] = 'Which parts of the profile can be changed?';
-$_lang['Yes, and rebuild the file on change'] = 'Yes, and rebuild the file on change';
-$_lang['You can force the case  of course code'] = 'You can force the case  of course code';
-$_lang['dont change case'] = 'dont change case';
-$_lang['rebuild file on each request'] = 'rebuild file on each request';
-$_lang['relPath'] = 'relPath';
-$_lang['relpath'] = 'relpath';
-$_lang['write n-1 times without check if (others) cached files are or not deprecated'] = 'write n-1 times without check if (others) cached files are or not deprecated';
+$l_privnotify = "<br>You have %1\$s <a href=\"%2\$s\">new private message(s)</a>.";
+$langAFewSecondsAfterTheLoadOfPageUpgradeToolWillAutomaticallyContinueItsJobIfItDoesntClickOnTheButtonBelow = "In case of interruption <sup>*</sup>, the <em>Claroline Upgrade tool</em> should restart automatically. 
+If it's not the case, click on the button below.";
+$langAddMyCampusOnClarolineNet = "Add my campus on Claroline.net website";
+$langAddedToCreator = "Course Home";
+$langAdminSetting = "Administrator Settings";
+$langAuthentication = "Authentication";
+$langBackTo = "Back to :";
+$langBlankSpace = "(Blank space)";
+$langCampusAlreadyRegistered = "It seems that you already have registered your campus.";
+$langCampusDeleted = "<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our website) if you think this is an error.</p>";
+$langCampusRegistered = "<strong>Approved</strong><p>Your campus registration has been approved by the Claroline.net team.<br />A link to your campus is shown on the Worldwide page of Claroline.net.</p>";
+$langCampusRegistrationSubmitted = "Your campus has been submitted and is waiting to be validate by Claroline.net team";
+$langCampusRemoved = "<strong>Removed</strong><p>Your campus has been removed from the worldwide page.</p>";
+$langCampusSubmitted = "<strong>Submitted</strong><p>Waiting for validation by Claroline.net team.</p>";
+$langClarolineNetNews = "Claroline.net news";
+$langConfigMenuContent = "Configuration Menu";
+$langConfigurationFile = "Configuration file";
+$langCountry = "Country";
+$langCountryCodeError = "Country code seems to be incorrect.";
+$langCreateUserAccount = "Create user account";
+$langCurrentDoc = "Current file";
+$langCurrentStatus = "Current registration status : <br /> <br />
+";
+$langDocumentation = "Documentation";
+$langErrorCannotReadRSSFile = "Error : cannot read RSS feed";
+$langErrorInvalidParms = "Error : Invalid parameter (use numbers only)";
+$langErrorValuesInDouble = "Error : One or more values are doubled";
+$langFiles = "File list";
+$langFillCourses = "Build test courses";
+$langFillTheAreaToExplainTheMotivations = "Fill the area to explain your motivation and submit your request. An e-mail will be sent to platform adminisrator(s).";
+$langFillToolCourses = "Fill tool courses";
+$langFillTree = "Insert categories of course";
+$langFillUsers = "Insert users";
+$langFilling = "Fill with test values";
+$langFirstDefOfThisValue = "!!! First Definition of this value !!!";
+$langFunctions = "Function list";
+$langHelpAssignment = "Help assignment";
+$langHelpAssignmentContent = "<p>
+Assignment tool is a publication area for students. The course manager creates one or several assignment ( different zones of publication ) where the students will be able to publish their work.<br /><br />
+
+Each assignment can have different objectives or requirements : publication must be a file, or a text or a text and a file, publication can be made for a groupe instead of for a single user,...<br /><br />
+
+Students have the ability to modify their work after submission and the course manager can give them a feedback about their submissions.
+</p>
+<hr />
+
+<h4>Create an assignment</h4>
+<p>To create a new assignment course manager must enter in the assignment tool and click on the link \"Create a new assignment\".
+</p>
+<p>The form that is shown ask the course manager for&nbsp;:
+</p>
+<ul><li> a title&nbsp;: the name of the assignment
+</li><li> a description&nbsp;: the statement of the assignment, what learners have to do
+</li><li> a submission type&nbsp;:
+<ul><li> File&nbsp;: any type of file that can be uploaded, keep in mind that there is a size limit that depends on the platform, a text can be joined to describe the file
+
+</li><li> Text only&nbsp;: a text formatted using the wysiwyg editor
+</li><li> Text with an attached file&nbsp;: a text formatted using the wysiwyg editor and a file (file is not required)
+</li></ul>
+</li><li> a start date&nbsp;: date from when the users will be able to post a publication in the assignment
+</li><li> a end date&nbsp;: date until when the users will be able to post a publication in the assignment
+</li><li> the default publications visibility&nbsp;: choose if the publications will be available or not to others users
+</li><li> the assignment type&nbsp;:
+
+<ul><li> individual mode&nbsp;: any authenticated user can post a publication
+</li><li> group mode&nbsp;: the user must be a member of at least one group of the course to publish a work and the work will be posted in the name of the group
+</li></ul>
+</li><li> permission to upload after end date
+</li></ul>
+<p><br />
+<strong>Add an automatic feedback</strong>
+</p>
+<p>A feedback is a correct version of the assignment.  To add an automatic feedback to an assignment enter the assignment and click on the \"Edit automatic feedback\" link.  </p>
+<p>It can be a text or a file or both a text and a file.  The course manager can choose when this automatic feedback will be shown to users ( after assignment end date or after the first submission of the user in this assignment )
+</p>
+
+<hr />
+<h4>Works</h4>
+<p>Works are the publications uploaded by users.</p>
+<p>For each assignment the tool shows a list of all users registered in the course and for each user the title of the first work he published, the number of submissions and the number of feedbacks.
+The list of publications related to the user and the assignment can be view by clicking on the name of the user.</p>
+<p><strong>Submit a work</strong></p>
+<p>If the users has the right to submit a work he will be displayed a link to a submit form.</p>
+<p><strong>Work list</strong></p>
+<p>As a course manager you have the right to edit, delete, make visible/invisible any of the works.  You can also add a feedback for each work.
+</p>
+<ul>
+<li> <strong>Modify</strong>&nbsp;: If this icon appears it means that user can modify the content of the work, it appears when user is the course manager, when user is looking at his works or at his group works.
+
+</li>
+<li> <strong>Delete</strong>&nbsp;: This command allow the course manager to delete a work.
+</li>
+<li> <strong>Visible</strong>&nbsp;: If this icon appears for a work, it means that the work is visible to the learners. This is just like in the document tool of Claroline. You can change this setting by clicking on the icon.
+</li>
+<li> <strong>Invisible</strong>&nbsp;: If this icon appears for a work, it means that the work is invisible to the learners. This is just like in the document tool of Claroline. You can change this setting by clicking on the icon.
+
+</li>
+<li> <strong>Add feedback</strong>&nbsp;: allows the course manager to publish a feedback about the work of the user.  A feedback can be a file or a text or both with a private comment that only course manager(s) will be able to see and a score in pourcent.
+</li>
+</ul>
+
+
+
+";
+$langIfNotRedirect = "If not redirected ";
+$langInstitution = "Institution";
+$langInstitutionUrl = "Institution URL";
+$langLaunchRestoreCourseRepository = "Launch restore of the course repository";
+$langMailSynthaxError = "Mail synthax error.";
+$langMaxAllowedTime = "Maximum allowed time";
+$langMinuteShort = "min.";
+$langModeVerbose = "Mode Verbose";
+$langModifyFormat = "Modify the format";
+$langMultipleAnswers = "Multiple answers";
+$langMysqlNames = "MySQL Database and Table Names";
+$langNameOfLang = "Array";
+$langNever = "Never";
+$langNoFile = "- none -";
+$langNoFunctionInThisSection = "No function in this extension";
+$langNoVisibleAssignment = "There is no visible assignment at the moment.";
+$langNormalUser = "Normal";
+$langNumero = "No.";
+$langPlatformAdministrator = "Platform Administrator";
+$langPopulateTools = "Populate tools in courses";
+$langPropertiesNotIncludeInSections = "Properties not include in sections";
+$langRegisterLocalUrl = "Your campus url seems to be a local url.
+A web accessible url is required to register your site on Claroline.net.<br /><br />
+Check the value of 'Web base' in your Claroline configuration.";
+$langRegisterMyCampus = "Register my campus";
+$langRemainingSteps = "Remaining steps";
+$langRequestOfCourseCreatorStatus = "Request of Course Creator status";
+$langRequestToTheCoderOfThisConfigToAddThesesProportiesInASectionOfTheDefinitionFile = "Request to the coder of this config to add theses proporties in a section of the definition file.";
+$langRestoreCourseRepository = "Restore course repository";
+$langSDK = "SDK";
+$langSearchResult = "Search result";
+$langSecondShort = "sec.";
+$langSiteName = "Site name";
+$langStartAgain = "Start again";
+$langStepNOfN = "Step %d of %d";
+$langSucceeded = "Succeeded";
+$langSummaryNavBar = "Navigation bar";
+$langSupportForum = "Support forum";
+$langThisIsAnErrorInDefinitionFile = "This is an error in definition file.";
+$langTrackAllPath = "Learning paths tracking";
+$langTrackAllPathExplanation = "Progression of users on all learning paths";
+$langUnableDescToAdd = "Unable to add description";
+$langUndist = "Undist";
+$langUniqueAnswer = "Unique answer";
+$langUnkownSOAPError = "An error occurred while contacting Claroline.net";
+$langUpgradeCourseFailed = "Upgrade failed";
+$langUpgradeCourseSucceed = "Upgrade succeeded";
+$langUpgradeSucceed = "The <em>Claroline Upgrade Tool</em> has completly upgraded your platform.";
+$langUserSettings = "User settings";
+$langWiki = "Wiki";
+$lang_CourseHasNoRepository_s_NotFound = "<strong>Course has no repository.</strong>
+<br><small>%s</small> Not found. ";
+$lang_RetryWithMoreDetails = "Retry with more details";
+$lang_TheClarolineMainTablesHaveBeenSuccessfullyUpgraded = "The claroline main tables have been successfully upgraded";
+$lang_UpgradeFailedForCourses = "Upgrade tool is not able to upgrade the following courses :";
+$lang_continueCoursesDataUpgrade = "Continue courses data upgrade";
+$lang_fileUpgrade = "File upgrade :";
+$lang_htAccessIncPath_added = "Folder <em>inc</em> protected";
+$lang_if_you_choose_to_continue_lines_with_errors_will_be_simply_ignored = "if you choose to continue, lines with errors will simply be ignored";
+$lang_no_error_in_file_found = "No error in file found.";
+$lang_oldFileBackup = "Old file backup :";
+$lang_p_CannotCreate_s = "Cannot create %s";
+$lang_p_CannotRename_s_s = "Cannot rename %s to %s";
+$lang_p_ErrorOnBuild_S_for_S = "Error in building of <em>%s</em> for <B>%s</B>";
+$lang_p_PropForConfigCommited = "Properties for %s (%s) are now effective on server.";
+$lang_p_UpgradeMainClarolineDatabase_s = "Upgrading main Claroline database (<em>%s</em>)";
+$lang_p_UpgradingDatabaseOfCourse = "<table><tr valign=\"top\"><td><strong>%1\$s. </strong></td><td>Upgrading database of course <strong>%2\$s</strong><br><small>
+DB Name : %3\$s <br>
+Course ID: %4\$s</small></td></tr></table>";
+$lang_p_YouCan_url_retryToUpgradeTheseCourse = "Fix first the technical problem and <a href=\"%s\">relaunch the upgrade tool</a>.";
+$lang_p_config_file_creation = "Configuration  file creation:<BR> %s";
+$lang_p_d_affected_rows = "%d affected rows";
+$lang_p_d_course = "%2d course";
+$lang_p_d_course_manager = "%2d prof ";
+$lang_p_d_course_managers = "%2d profs ";
+$lang_p_d_course_member = "%2d member";
+$lang_p_d_course_members = "%2d members";
+$lang_p_d_courses = "%2d courses";
+$lang_p_d_coursesToUpgrade = "%s course(s) to upgrade";
+$lang_p_d_errorFound = " %d errors found";
+$lang_p_d_student = "%2d student";
+$lang_p_d_students = "%2d students";
+$lang_p_expectedRemainingTime = " <!-- Execution time for this course [%01.2f s] - average [%01.2f s] - total [%s] - left courses [%d]. --><b>Expected remaining time %s</b>.";
+$lang_p_nothing_to_edit_in_S = "nothing to edit in %s";
+$lang_p_s_s_isInvalid = "%s : %s is invalid";
+$lang_recently = "recently";
+$lang_rules_s_in_s = "Rules : %s in %s";
+$lang_seeInTheStatusBarOfYourBrowser = "(*) see in the status bar of your browser.";
+$lang_theClarolineUpgradeToolHasSuccessfulllyUpgradeAllYourPlatformCourses = "The Claroline upgrade process completed";
+$lang_the_following_errors_were_found = "The following errors were found ";
+$lang_upgradeToolCannotUpgradeThisCourse = "The upgrade tool is not able to upgrade this course.  <br>
+Fix, first, the technical problem and relaunch the upgrade tool.";
+$langpday = "%d&nbsp;day(s)";
+$langphours = "%d&nbsp;hour(s)";
+$langpweek = "%d&nbsp;week(s)";
+$langpyear = "%d&nbsp;year(s)";
 ?>

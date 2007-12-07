@@ -1,37 +1,37 @@
 <?php // $Id$
-/**
- * CLAROLINE
- *
- * @version 1.8 $Revision$
- *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
- *
- * @author: claro team <cvs@claroline.net>
- *
- * @package LANG-FI
- */
+/*
+      +----------------------------------------------------------------------+
+      | CLAROLINE version 1.5.*
+      +----------------------------------------------------------------------+
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
+      +----------------------------------------------------------------------+
 
+      +----------------------------------------------------------------------+
+      |                 Finnish               
+      +----------------------------------------------------------------------+
+*/
 
 $iso639_1_code = "fi";
 $iso639_2_code = "fin";
 
-$langNameOfLang['brazilian']="brazilian";
-$langNameOfLang['english']="english";
-$langNameOfLang['finnish']="finnish";
-$langNameOfLang['french']="french";
-$langNameOfLang['german']="german";
-$langNameOfLang['italian']="italian";
-$langNameOfLang['japanese']="japanese";
-$langNameOfLang['polish']="polish";
-$langNameOfLang['simpl_chinese']="simplified chinese";
-$langNameOfLang['spanish']="spanish";
-$langNameOfLang['swedish']="swedish";
-$langNameOfLang['thai']="thai";
-$langNameOfLang['arabic']="arabian";
-$langNameOfLang['croatian']="croatian";
-$langNameOfLang['dutch']="dutch";
-$langNameOfLang['turkish']="turkish";
-$langNameOfLang['greek']="greek";
+$langNameOfLang[brazilian]="brazilian";
+$langNameOfLang[english]="english";
+$langNameOfLang[finnish]="finnish";
+$langNameOfLang[french]="french";
+$langNameOfLang[german]="german";
+$langNameOfLang[italian]="italian";
+$langNameOfLang[japanese]="japanese";
+$langNameOfLang[polish]="polish";
+$langNameOfLang[simpl_chinese]="simplified chinese";
+$langNameOfLang[spanish]="spanish";
+$langNameOfLang[swedish]="swedish";
+$langNameOfLang[thai]="thai";
+
+$langNameOfLang[arabic]="arabian";
+$langNameOfLang[croatian]="croatian";
+$langNameOfLang[dutch]="dutch";
+$langNameOfLang[turkish]="turkish";
+$langNameOfLang[greek]="greek";
 
 
 $charset = 'iso-8859-1';

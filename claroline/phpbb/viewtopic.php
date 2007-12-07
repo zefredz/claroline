@@ -1,313 +1,206 @@
-<?php // $Id$
-/**
- * CLAROLINE
+<?php
+/***************************************************************************
+                            viewtopic.php  -  description
+                             -------------------
+    begin                : Sat June 17 2000
+    copyright            : (C) 2001 The phpBB Group
+    email                : support@phpbb.com
+ 
+    $Id$
+ 
+ ***************************************************************************/
+
+/***************************************************************************
+ *                                                                                      
+ *   This program is free software; you can redistribute it and/or modify   
+ *   it under the terms of the GNU General Public License as published by  
+ *   the Free Software Foundation; either version 2 of the License, or          
+ *   (at your option) any later version.
  *
- * Script view topic for forum tool
- *
- * @version 1.8 $Revision$
- *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
- * @copyright (C) 2001 The phpBB Group
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @author Claro Team <cvs@claroline.net>
- *
- * @package CLFRM
- *
+ ***************************************************************************/
+
+require 'functions.php';
+require 'config.php';
+
+$pagetitle = $l_topictitle;
+$pagetype  = 'viewtopic';
+
+$topicSettingList = get_topic_settings($topic); 
+
+$forum            = $topicSettingList['forum_id'];
+$topic_subject    = own_stripslashes($topicSettingList['topic_title']);
+$lock_state       = $topicSettingList['topic_status'];
+
+$forumSettingList = get_forum_settings($forum, $topic);
+
+$forum_name       = own_stripslashes($forumSettingList['forum_name']);
+ 
+
+/* 
+ * Check if the topic isn't attached to a group,  or -- if it is attached --, 
+ * check the user is allowed to see the current group forum.
  */
 
-/*=================================================================
-Init Section
-=================================================================*/
-
-$tlabelReq = 'CLFRM';
-
-require '../inc/claro_init_global.inc.php';
-
-if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
-
-claro_set_display_mode_available(true);
-
-/*-----------------------------------------------------------------
-Library
------------------------------------------------------------------*/
-
-include_once get_path('incRepositorySys') . '/lib/forum.lib.php';
-/*-----------------------------------------------------------------
-Initialise variables
------------------------------------------------------------------*/
-
-$last_visit    = claro_get_current_user_data('lastLogin');
-$error         = FALSE;
-$allowed       = TRUE;
-$dialogBox = new DialogBox();
-
-/*=================================================================
-Main Section
-=================================================================*/
-
-// Get params
-
-if ( isset($_REQUEST['topic']) ) $topic_id = (int) $_REQUEST['topic'];
-else                             $topic_id = '';
-
-if ( isset($_REQUEST['cmd']) )   $cmd = $_REQUEST['cmd'];
-else                             $cmd = '';
-
-if ( isset($_REQUEST['start'] ) ) $start = (int) $_REQUEST['start'];
-else                              $start = 0;
-
-$topicSettingList = get_topic_settings($topic_id);
-
-$increaseTopicView = true;
-if ($topicSettingList)
+if (   ! is_null($forumSettingList['idGroup']) 
+    && ( $forumSettingList['idGroup'] != $_gid || ! $is_groupAllowed) )
 {
-    $topic_subject    = $topicSettingList['topic_title' ];
-    $lock_state       = $topicSettingList['topic_status'];
-    $forum_id         = $topicSettingList['forum_id'    ];
+    // NOTE : $forumSettingList['idGroup'] != $_gid is necessary to prevent any hacking 
+    // attempt like rewriting the request without $cidReq. If we are in group 
+    // forum and the group of the concerned forum isn't the same as the session 
+    // one, something weird is happening, indeed ...
 
-    $forumSettingList   = get_forum_settings($forum_id);
-    $forum_name         = $forumSettingList['forum_name'];
-    $forum_cat_id       = $forumSettingList['cat_id'    ];
-    $forum_post_allowed = ( $forumSettingList['forum_access'] != 0 ) ? true : false;
-    $lastPostId         = $topicSettingList['topic_last_post_id'];
+    die ('<center>not allowed</center>');
+}
 
-    /*
-    * Check if the topic isn't attached to a group,  or -- if it is attached --,
-    * check the user is allowed to see the current group forum.
-    */
 
-    if (   ! is_null($forumSettingList['idGroup'])
-    && ! ( ($forumSettingList['idGroup'] == claro_get_current_group_id()) || claro_is_group_allowed()) )
+include('page_header.php');
+
+if ( ! $start) $start = 0;
+
+$postLister = new postLister($topic, $start, $posts_per_page);
+
+$postList   = $postLister->get_post_list();
+
+$pagerUrl = $_SERVER['PHP_SELF']."?topic=".$topic;
+
+$postLister->disp_pager_tool_bar($pagerUrl);
+
+echo "<table class=\"claroTable\" width=\"100%\">"
+    ."<tr align=\"left\">"
+    ."<th class=\"superHeader\">";
+
+/*
+ * EMAIL NOTIFICATION COMMANDS
+ */
+
+// For (Added for claro 1.5) execute notification preference change 
+// if the command was called
+
+if ($cmd && $_uid)
+{
+    switch ($cmd)
     {
-        $allowed = FALSE;
-        $dialogBox->error( get_lang('Not allowed') );
+        case 'exNotify' :
+            request_topic_notification($_uid, $topic);
+            break;
+
+        case 'exdoNotNotify' :
+            cancel_topic_notification($_uid, $topic);
+            break;
     }
-    else
-    {
-        // get post and use pager
-        $postLister = new postLister($topic_id, $start, get_conf('posts_per_page'));
-        $postList   = $postLister->get_post_list();
-        $totalPosts = $postLister->sqlPager->get_total_item_count();
-        $pagerUrl   = $_SERVER['PHP_SELF'] . '?topic=' . $topic_id;
 
-        // EMAIL NOTIFICATION COMMANDS
-        // Execute notification preference change if the command was called
-
-        if ( $cmd && claro_is_user_authenticated() )
-        {
-            switch ($cmd)
-            {
-                case 'exNotify' :
-                    request_topic_notification($topic_id, claro_get_current_user_id());
-                    break;
-
-                case 'exdoNotNotify' :
-                    cancel_topic_notification($topic_id, claro_get_current_user_id());
-                    break;
-            }
-
-            $increaseTopicView = false; // the notification change command doesn't
-            // have to be considered as a new topic
-            // consult
-        }
-
-        // Allow user to be have notification for this topic or disable it
-
-        if ( claro_is_user_authenticated() )  //anonymous user do not have this function
-        {
-            $notification_bloc = '<div style="float: right;">' . "\n"
-            . '<small>';
-
-            if ( is_topic_notification_requested($topic_id, claro_get_current_user_id()) )   // display link NOT to be notified
-            {
-                $notification_bloc .= '<img src="' . get_path('imgRepositoryWeb') . 'email.gif" alt="" />';
-                $notification_bloc .= get_lang('Notify by email when replies are posted');
-                $notification_bloc .= ' [<a href="' . $_SERVER['PHP_SELF'] ;
-                $notification_bloc .= '?forum=' . $forum_id ;
-                $notification_bloc .= '&amp;topic=' . $topic_id ;
-                $notification_bloc .= '&amp;cmd=exdoNotNotify">';
-                $notification_bloc .= get_lang('Disable');
-                $notification_bloc .= '</a>]';
-            }
-            else   //display link to be notified for this topic
-            {
-                $notification_bloc .= '<a href="' . $_SERVER['PHP_SELF'];
-                $notification_bloc .= '?forum=' . $forum_id ;
-                $notification_bloc .= '&amp;topic=' . $topic_id ;
-                $notification_bloc .= '&amp;cmd=exNotify">';
-                $notification_bloc .= '<img src="' . get_path('imgRepositoryWeb') . 'email.gif" alt="" /> ';
-                $notification_bloc .= get_lang('Notify by email when replies are posted');
-                $notification_bloc .= '</a>';
-            }
-
-            $notification_bloc .= '</small>' . "\n"
-            . '</div>' . "\n";
-        } //end not anonymous user
-    }
+    $increaseTopicView = false; // the notification change command doesn't 
+                                // have to be considered as a new topic 
+                                // consult
 }
 else
 {
-    // forum or topic doesn't exist
-    $allowed = false;
-    $dialogBox->error( get_lang('Not allowed') );
+    $increaseTopicView = true;
 }
 
-if ( $increaseTopicView ) increase_topic_view_count($topic_id); // else noop
 
-/*=================================================================
-Display Section
-=================================================================*/
-// Confirm javascript code
 
-$htmlHeadXtra[] =
-"<script type=\"text/javascript\">
-           function confirm_delete()
-           {
-               if (confirm('". clean_str_for_javascript(get_lang('Are you sure to delete')) . " ?'))
-               {return true;}
-               else
-               {return false;}
-           }
-           </script>";
 
-$interbredcrump[] = array ('url' => 'index.php', 'name' => get_lang('Forums'));
-$noPHP_SELF       = true;
-
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-
-if ( ! $allowed )
+// For (Added for claro 1.5) allow user to be have notification for this 
+// topic or disable it
+ 
+if ( isset($_uid) )  //anonymous user do not have this function
 {
-    echo $dialogBox->render();
-}
-else
-{
-    /*-----------------------------------------------------------------
-    Display Forum Header
-    -----------------------------------------------------------------*/
+    echo "<div style=\"float: right;\">\n"
+        ."<small>";
 
-    $pagetype  = 'viewtopic';
-
-    $is_allowedToEdit = claro_is_allowed_to_edit()
-    || ( claro_is_group_tutor() && !claro_is_course_manager());
-
-    echo claro_html_tool_title(get_lang('Forums'),
-    $is_allowedToEdit ? 'help_forum.php' : false);
-
-    echo disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, 0, $topic_subject);
-
-    if ($forum_post_allowed)
+    if (is_topic_notification_requested($_uid, $topic))   // display link NOT to be notified
     {
-        $toolList = disp_forum_toolbar($pagetype, $forum_id, $forum_cat_id, $topic_id);
-        if ( count($postList) > 2 ) // if less than 2 las message is visible
-        {
-            $start_last_message = ( ceil($totalPosts / get_conf('posts_per_page')) -1 ) * get_conf('posts_per_page') ;
-
-            $lastMsgUrl = 'viewtopic.php?forum=' . $forum_id
-            .             '&amp;topic=' . $topic_id
-            .             '&amp;start=' . $start_last_message
-            .             claro_url_relay_context('&amp;')
-            .             '#post' . $lastPostId;
-            $toolList[] = claro_html_cmd_link($lastMsgUrl,get_lang('Last message'));
-        }
-        echo claro_html_menu_horizontal($toolList);
+        echo "<img src=\"".$imgRepositoryWeb."email.gif\">"
+            . $l_notify
+            ." [<a href=\"".$_SERVER['PHP_SELF']."?topic=".$topic."&amp;cmd=exdoNotNotify\">"
+            .$langDisable
+            ."</a>]";
+    }
+    else   //display link to be notified for this topic
+    {
+        echo  "<a href=\"".$_SERVER['PHP_SELF']."?topic=".$topic."&amp;cmd=exNotify\">"
+            ."<img src=\"".$imgRepositoryWeb."email.gif\"> "
+            . $l_notify 
+            ."</a>";
     }
 
-    $postLister->disp_pager_tool_bar($pagerUrl);
+    echo "</small>\n"
+        ."</div>\n";
 
-    echo '<table class="claroTable" width="100%">' . "\n"
-    .    '<tr align="left">' . "\n"
-    .    '<th class="superHeader">'
-    ;
+    } //end not anonymous user
 
-    // display notification link
+   echo $topic_subject
 
-    if ( !empty($notification_bloc) )
-    {
-        echo $notification_bloc;
-    }
+        ."</th>\n"
+        ."</tr>\n";
 
-    echo $topic_subject
-    .    '</th>' . "\n"
-    .    '</tr>' . "\n"
-    ;
-
-    if (claro_is_user_authenticated()) $date = $claro_notifier->get_notification_date(claro_get_current_user_id());
-
-    foreach ( $postList as $thisPost )
+    foreach($postList as $thisPost )
     {
         // Check if the forum post is after the last login
         // and choose the image according this state
 
         $post_time = datetime_to_timestamp($thisPost['post_time']);
 
-        if (claro_is_user_authenticated() && $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $forum_id."-".$topic_id))
-        $postImg = 'post_hot.gif';
-        else
-        $postImg = 'post.gif';
+        if($post_time < $last_visit) $postImg = 'post.gif';
+        else                         $postImg = 'post_hot.gif';
 
-        echo '<tr>' . "\n"
-        .    '<th class="headerX">' . "\n"
-        .    '<a name="post'. $thisPost['post_id'] .'" ></a>' . "\n"
-        .    '<img src="' . get_path('imgRepositoryWeb') . $postImg . '" alt="" />'
-        .    get_lang('Author')
-        .    ' : <b>' . $thisPost['firstname'] . ' ' . $thisPost['lastname'] . '</b> '
-        .    '<small>' . get_lang('Posted') . ' : ' . claro_html_localised_date(get_locale('dateTimeFormatLong'), $post_time) . '</small>' . "\n"
-        .    '  </th>' . "\n"
-        .' </tr>'. "\n"
+        echo "<tr>\n"
 
-        .' <tr>' . "\n"
+            ."<th class=\"headerX\">\n"
+            ."<img src=\"".$imgRepositoryWeb.$postImg."\" alt=\"\">"
+            .$l_author," : <b>",$thisPost['firstname']." ".$thisPost['lastname']."</b> "
+            ."<small>".$l_posted." : ".$thisPost['post_time']."</small>\n"
+            ."</th>\n"
 
-        .'  <td>' . "\n"
-        .claro_parse_user_text($thisPost['post_text']) . "\n";
+            ."</tr>\n"
 
-        if ( $is_allowedToEdit )
+            ."<tr>\n"
+
+            ."<td>\n"
+            .claro_parse_user_text(own_stripslashes($thisPost['post_text']))."\n";
+
+                    // commentedby Thomas 30-11-2001
+                    //  echo "<a href=\"".$url_phpbb."/reply.".$phpEx."?topic=".$topic
+                    //      ."&amp;forum=".$forum."&amp;post=".$thisPost['post_id']."&amp;quote=1\">"
+                    //      .$langQuote
+                    //      ."</a>&nbsp;&nbsp;";
+
+        if($is_allowedToEdit)
         {
-            echo '<p>' . "\n"
+            echo "<p>\n"
 
-            . '<a href="editpost.php?post_id=' . $thisPost['post_id'] . '">'
-            . '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="' . get_lang('Edit') . '" />'
-            . '</a>' . "\n"
+                ."<a href=\"editpost.php"
+                ."?post_id=".$thisPost['post_id']."&amp;topic=".$topic."&amp;forum=".$forum."\">"
+                ."<img src=\"".$imgRepositoryWeb."edit.gif\" border=\"0\" alt=\"".$langEditDel."\">"
+                ."</a>\n"
 
-            . '<a href="editpost.php?post_id=' . $thisPost['post_id'] . '&amp;delete=delete&amp;submit=submit" '
-            . 'onclick="return confirm_delete();" >'
-            . '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />'
-            . '</a>' . "\n"
+                ."<a href=\"editpost.php"
+                ."?post_id=".$thisPost['post_id']."&amp;topic=".$topic."&amp;forum=".$forum
+                ."&amp;delete=delete&amp;submit=submit\">"
+                ."<img src=\"".$imgRepositoryWeb."delete.gif\" "
+                     ."border=\"0\" alt\"".$langEditDel."\">"
+                ."</a>\n"
 
-            . '</p>' . "\n";
+                ."</p>\n";
         }
 
-        echo '</td>' . "\n"
-        .    '</tr>' . "\n"
-        ;
-
+        echo    "</td>\n",
+                "</tr>\n";
     } // end for each
 
-    echo '</table>' . "\n";
-
-    if ($forum_post_allowed)
+    if ($increaseTopicView)
     {
-        $toolBar[] = claro_html_cmd_link( 'reply.php'
-                                        . '?topic=' . $topic_id
-                                        . '&amp;forum=' . $forum_id
-                                        . claro_url_relay_context('&amp;')
-                                        , '<img src="' . get_path('imgRepositoryWeb') . 'reply.gif" />'
-                                        . ' '
-                                        . get_lang('Reply')
-                                        );
-        echo claro_html_menu_horizontal($toolBar);
+         $sql = "UPDATE `".$tbl_topics."`
+                 SET   topic_views = topic_views + 1
+                 WHERE topic_id    = '".$topic."'";
+
+        claro_sql_query($sql);
     }
 
+    echo "</table>\n";
 
-    $postLister->disp_pager_tool_bar($pagerUrl);
+$postLister->disp_pager_tool_bar($pagerUrl);
 
-}
-
-/*-----------------------------------------------------------------
-Display Forum Footer
------------------------------------------------------------------*/
-
-include(get_path('incRepositorySys').'/claro_init_footer.inc.php');
-
+require 'page_tail.php';
 ?>

@@ -1,1185 +1,571 @@
 <?php 
-$_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! Grootte van cursus backup (inbegrepen claroline en vuilnis in oude systemen)';
-$_lang['%1\$s by %2\$s'] = '%1$s door %2$s';
-$_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s gewijzigd op %2$s door %3$s';
-$_lang['(*) anonymous users, users who are not members of this course...'] = '(*) Gasten , gebruikers die niet ingeschreven zijn in deze cursus ...';
-$_lang['(When an user open the index of the campus)'] = '(Als een gebruiker de index van de campus opent)';
-$_lang['(d/m/y hh:mm)'] = '(d/m/y hh:mm)';
-$_lang['(none)'] = '(geen)';
-$_lang['(optional)'] = '(facultatief)';
-$_lang['(version of %1\$s modified by %2\$s)'] = '(versie van %1$s gewijzigt door %2$s)';
-$_lang['- none -'] = '- geen -';
-$_lang['<span class=\"required\">*</span> denotes required field'] = '<span class="required">*</span> Moeten ingevuld zijn';
-$_lang['<strong>Approved</strong><p>Your campus registration has been approved by the Claroline.net team.</p>'] = '<strong>Goedgekeurd</strong><p>uw campus registratie is goedgekeurd door het Claroline.net team.<br />Een link naar uw campus is te zien op de Worldwide page van Claroline.net.</p>';
-$_lang['<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our website) if you think this is an error.</p>'] = '<strong>verwijderd</strong><p>uw campus registratie is gedeactiveerd, contacteer ons (zie onze website) als U denkt dat dit een fout is.</p>';
-$_lang['<strong>Removed</strong><p>Your campus has been removed from the worldwide page.</p>'] = '<strong>Verwijderd</strong><p>Uw campus is verwijderd van de Worldwide pagina.</p>';
-$_lang['<strong>Submitted</strong><p>Waiting for validation by Claroline.net team.</p>'] = '<strong>Voorgelegd</strong><p>Wacht op goedkeuring door het Claroline.net team.</p>';
-$_lang['A file is required'] = 'Een bestand is vereist';
-$_lang['A reply to your topic has been posted'] = 'Er werd een geantwoord op uw onderwerp.';
-$_lang['Access'] = 'Toegankelijkheid';
-$_lang['Access control management'] = 'toegangs controle beheer';
-$_lang['Access count'] = 'Aantal keren bezocht';
-$_lang['Access to campus'] = 'Toegang tot de campus';
-$_lang['Access to courses'] = 'Toegang tot de cursussen';
-$_lang['Access to tools'] = 'Toegang tot modules';
-$_lang['Accounts with same <i>Email</i>'] = 'Accounts met dezelfde <i>Email</i>';
-$_lang['Accounts with same <i>User name</i>'] = 'Accounts met dezelfde <i>Gebruikersnaam</i>';
-$_lang['Accounts with same <i>User name</i> AND same <i>Password</i>'] = 'Accounts with same <i>Username</i> AND same <i>Password</i>';
-$_lang['Action'] = 'Actie';
-$_lang['Add'] = 'Toevoegen';
-$_lang['Add a category'] = 'Categorie toevoegen';
-$_lang['Add a comment'] = 'Commentaar toevoegen/wijzigen';
-$_lang['Add a comment (optionnal) :'] = 'Commentaar toevoegen (optioneel) :';
-$_lang['Add a document'] = 'Voeg een document toe als module';
-$_lang['Add a module of this course'] = 'Module invoegen';
-$_lang['Add a user'] = 'Gebruikers toevoegen';
-$_lang['Add a user list'] = 'Gebruikerslijst toevoegen';
-$_lang['Add a user list in class'] = 'Gebruiker aan klas toevoegen';
-$_lang['Add a user list in course'] = 'Gebruikers uit lijst aan cursus toevoegen';
-$_lang['Add an event'] = 'Gebeurtenis toevoegen';
-$_lang['Add an exercise'] = 'Oefening invoegen';
-$_lang['Add announcement'] = 'Mededeling toevoegen';
-$_lang['Add answ.'] = '+ antwoord';
-$_lang['Add elem.'] = '+ element';
-$_lang['Add external link'] = 'Externe verwijzing toevoegen';
-$_lang['Add feedback'] = 'Opmerking toevoegen';
-$_lang['Add forum'] = 'voeg forum toe';
-$_lang['Add me to this group'] = 'Inschrijven in deze groep';
-$_lang['Add module(s)'] = 'Voeg module(s) toe';
-$_lang['Add my campus on Claroline.net website'] = 'Mijn campus aan Claroline.net website toevoegen';
-$_lang['Add new heading'] = 'Voeg nieuwe opschrift toe';
-$_lang['Add user list'] = 'Gebruikerslijst toevoegen';
-$_lang['Add user manually'] = 'Gebruiker manueel toevoegen';
-$_lang['Add wrong answers for drop down lists <small>(Optionnal. One wrong answer by line.)</small>'] = 'voeg een fout antwoord toe voor de drop down lijst <small>(optioneel. een fout antwoord per lijn)</small>';
-$_lang['Added line'] = 'regel toegevoegd';
-$_lang['Admin'] = 'admin';
-$_lang['Administration'] = 'Administratie';
-$_lang['Administrative code'] = 'Administratieve code';
-$_lang['Administrator'] = 'Administrator';
-$_lang['Advanced'] = 'Uitgebreid';
-$_lang['Advanced course search'] = 'Uitgebreid zoeken naar cursus';
-$_lang['Advanced user search'] = 'Uitgebreid zoeken naar gebruiker';
-$_lang['After last allowed attempt'] = 'Na laatst toegestane poging';
-$_lang['Agenda'] = 'Agenda';
-$_lang['Agenda next events'] = 'Agenda eerstvolgende items';
-$_lang['All'] = 'ALLE';
-$_lang['All exercises'] = 'Alle vragen';
-$_lang['All groups are now empty'] = 'Alle groepen zijn leeg';
-$_lang['All groups have been deleted'] = 'Alle groepen werden verwijderd';
-$_lang['All modules of this course are already used in this learning path.'] = 'Alle modules van deze cursus zijn reeds gebruikt in dit leertraject.';
-$_lang['All pages'] = 'alle pagina\'s';
-$_lang['Allow late upload'] = 'Sta late upload toe';
-$_lang['Allowed'] = 'Toegelaten';
-$_lang['Allowed : do not record usernames in tracking, anonymous users can do the exercise.'] = 'Toegestaan: volg gebruikersnaam niet op, anonieme gebruikers kunnen de oefening maken.';
-$_lang['Already browsed'] = 'U hebt dit reeds bekeken';
-$_lang['Already enroled'] = 'Reeds ingeschreven';
-$_lang['An error occured.  Learning Path import failed.'] = 'Er is een fout opgetreden. Import van leertraject is mislukt.';
-$_lang['An error occurred while contacting Claroline.net'] = 'Er is een fout opgetreden tijdens het contacteren van Claroline.net';
-$_lang['Announcement'] = 'Mededelingen';
-$_lang['Announcement has been added'] = 'Mededeling is toegevoegd';
-$_lang['Announcement has been deleted'] = 'Mededeling verwijderen';
-$_lang['Announcement has been modified'] = 'Mededeling is gewijzigd';
-$_lang['Announcements list has been cleared up'] = 'De aankondigingen werden verwijderd.';
-$_lang['Anonymous'] = 'Anoniem';
-$_lang['Anonymous attempts'] = 'Anonieme pogingen';
-$_lang['Anonymous users access count :'] = 'Pogingen van anonieme gebruikers : ';
-$_lang['Answer'] = 'Antwoord';
-$_lang['Answer is required'] = 'Een antwoord is vereist';
-$_lang['Answer type'] = 'Antwoord type';
-$_lang['Are you sure to delete'] = 'Wilt u dit document verwijderen: ';
-$_lang['Are you sure to delete this group ?'] = 'Bent u zeker om deze groep te verwijderen ?';
-$_lang['Are you sure you want to completely delete this question ?'] = 'Bent U zeker dat U deze vraag wil verwijderen ?';
-$_lang['Are you sure you want to delete all groups ?'] = 'Bent U zeker dat U alle groepen wil verwijderen ?';
-$_lang['Are you sure you want to delete this exercise ?'] = 'Bent U zeker dat U deze oefening wil verwijderen ?';
-$_lang['Are you sure you want to empty all groups ?'] = 'Bent U zeker dat U alle groepen wil leegmaken ?';
-$_lang['Are you sure you want to enrol the whole class on the course ?'] = 'Weet u zeker dat u de hele klas aan deze cursus wilt koppelen ?';
-$_lang['Are you sure you want to remove the following module from the learning path :'] = 'Bent U zeker dat U de volgende module will verwijderen van het leertraject : ';
-$_lang['Are you sure you want to remove this course from your list ?'] = 'Bent U zeker dat U deze cursus uit uw lijst wil verwijderen ?';
-$_lang['Are you sure you want to unregister'] = 'Bent U zeker dat U de inschrijving wil teniet doen ?';
-$_lang['Area for this group'] = 'Ruimte van deze groep';
-$_lang['Assignment'] = 'Taak';
-$_lang['Assignment deleted'] = 'Taak verwijderd';
-$_lang['Assignment modified'] = 'Taak gewijzigd';
-$_lang['Assignment title'] = 'Titel voor de taak';
-$_lang['Assignment title already exists'] = 'Deze titel wordt reeds gebruikt voor een andere taak';
-$_lang['Assignment title required'] = 'Een titel voor de taak is vereist';
-$_lang['Assignment type'] = 'Type taak';
-$_lang['Assignments help'] = 'Help bij taak';
-$_lang['Attach'] = 'Voeg toe';
-$_lang['Attach a file'] = 'Voeg een bestand toe';
-$_lang['Attach an existing resource'] = 'voeg een al bestaande bron toe';
-$_lang['Attached Resources : Add / Delete attachement'] = 'Voeg bron toe : voeg /verwijder een bestand (toe)';
-$_lang['Attached file'] = 'Toegevoegd bestand';
-$_lang['Attached resources'] = 'toegevoegt bron';
-$_lang['Attempt %attemptCount'] = 'Poging %attemptCount';
-$_lang['Attempt %attemptCount on %attempts'] = 'Poging %attemptCount op %attempts';
-$_lang['Attempts'] = 'Pogingen';
-$_lang['Attempts allowed'] = 'pogingen toegestaan';
-$_lang['Authentication'] = 'Authenticatie';
-$_lang['Authentication Required'] = 'Authenticatie Vereist';
-$_lang['Author'] = 'Schrijver';
-$_lang['Author(s)'] = 'Auteur(s)';
-$_lang['Author(s) is(are) required'] = 'Auteur(s) is(zijn) vereist';
-$_lang['Automatically, after each submission'] = 'Automatisch, na indienen';
-$_lang['Automatically, after end date'] = 'Automatisch, na einddatum';
-$_lang['Average Time'] = 'Gemiddelde tijd (s.)';
-$_lang['Average score'] = 'Gemiddelde';
-$_lang['Back'] = 'Terug naar cursuseigenschappen';
-$_lang['Back to Home page'] = 'Terug naar startpagina';
-$_lang['Back to administration page'] = 'Terug naar admin pagina';
-$_lang['Back to class list'] = 'Terug naar de klaslijst';
-$_lang['Back to class members'] = 'Terug naar klasleden';
-$_lang['Back to course list'] = 'terug naar de cursus lijst';
-$_lang['Back to learning path administration'] = 'Terug naar leertraject administratie';
-$_lang['Back to list'] = 'Back to list';
-$_lang['Back to my personal course list'] = 'Terug naar mijn persoonlijke cursus lijst';
-$_lang['Back to page'] = 'terug naar de pagina';
-$_lang['Back to parent category'] = 'Terug naar bovenliggende categorie';
-$_lang['Back to the class'] = 'Terug naar de klas';
-$_lang['Back to the editor'] = 'Terug naar ingave scherm';
-$_lang['Back to user list'] = 'Terug naar gebruikerslijst';
-$_lang['Back to user settings'] = 'Terug naar gebruikersinstellingen';
-$_lang['Best score'] = 'Maximum';
-$_lang['Block'] = 'Blokkeren';
-$_lang['Build language files'] = 'Taal bestand aanmaken';
-$_lang['By deleting a label you will delete all modules or label it contains.'] = 'Door dit label te verwijderen, verwijdert U alle modules en labels eraan verbonden';
-$_lang['CSV file with the user list :'] = 'CSV bestand met gebruikerslijst : ';
-$_lang['Campus name'] = 'Naam Site';
-$_lang['Can have courses'] = 'Kan cursussen hebben : ';
-$_lang['Cancel'] = 'Annuleren';
-$_lang['Cannot copy the file'] = 'Kan het bestand niet kopi&euml;ren.';
-$_lang['Cannot extract manifest from zip file (corrupted file ? ).'] = 'Kan inhoud niet uitpakken uit het zip bestand (corrupt bestand ?).';
-$_lang['Cannot find <i>manifest</i> file in the package.<br /> File not found : imsmanifest.xml'] = 'Kan het <i>manifest</i> bestand niet vinden in het pakket.<br /> Bestand niet gevonden: imsmanifest.xml';
-$_lang['Cannot find secondary initialisation file in the package.<br /> File not found :'] = 'Kan het secundaire initialisatie bestand niet vinden in het pakket.<br /> Bestand niet gevonden : ';
-$_lang['Categories'] = 'Categorie&euml;n';
-$_lang['Category'] = 'Categorie';
-$_lang['Category code'] = 'Code categorie :';
-$_lang['Category code is required'] = 'Code categorie is vereist';
-$_lang['Category created'] = 'Categorie aangemaakt';
-$_lang['Category deleted'] = 'Categorie verwijderd';
-$_lang['Category moved'] = 'Categorie verplaatst';
-$_lang['Category name'] = 'Categorie naam :';
-$_lang['Category name is required'] = 'Categorie naam is vereist';
-$_lang['Category updated'] = 'categorie gewijzigd.';
-$_lang['Change minimum raw mark to pass this module (percentage) :'] = 'Verander minimum om deze module met succes te be&euml;indigen (in procenten) : ';
-$_lang['Changes have been applied to the user settings'] = 'De wijzigingen werden aangebracht aan de gebruikersinstellingen';
-$_lang['Changes have been saved'] = 'Wijzigingen werden bewaard';
-$_lang['Chat'] = 'Online chat';
-$_lang['Chat reset by'] = 'Chat ge-herinitialiseerd door';
-$_lang['Check this box to delete the attached file'] = 'Vink hier aan om het aangehechte bestand te verwijderen.';
-$_lang['Choose a course to access this page.'] = 'Kies een cursus om deze pagina te kunnen bekijken.';
-$_lang['Choose now a username and a password for the user account'] = 'Kies nu een inlognaam en een wachtwoord voor dit account.';
-$_lang['Clarodoc'] = 'Clarodoc';
-$_lang['Claroline help'] = 'Hulp bij het starten met Claroline';
-$_lang['Claroline.net news'] = 'Claroline.net nieuws';
-$_lang['Class members'] = 'Klasleden';
-$_lang['Class registered'] = 'Klas geregistreerd';
-$_lang['Class users'] = 'Gebruikers in klas';
-$_lang['Classes'] = 'Klassen';
-$_lang['Clear up event list'] = 'Lijst opschonen';
-$_lang['Clear up list of announcements'] = 'Alle mededelingen verwijderen';
-$_lang['Click on the month name for more details'] = 'Klik op de naam v.e. maand voor meer informatie';
-$_lang['Close'] = 'Venster sluiten';
-$_lang['Close popup'] = 'sluit popup';
-$_lang['Close window'] = 'Venster sluiten';
-$_lang['Comment'] = 'Commentaar';
-$_lang['Comment modified'] = 'Commentaar is gewijzigd.';
-$_lang['Complete language files'] = 'Volledige taalbestanden';
-$_lang['Configuration'] = 'Configuratie';
-$_lang['Confirmation'] = 'Bevestiging';
-$_lang['Content'] = 'Inhoud';
-$_lang['Continue'] = 'doorgaan';
-$_lang['Copy'] = 'Knippen';
-$_lang['Corresponds to'] = 'Corresponds to';
-$_lang['Country'] = 'Land';
-$_lang['Country code seems to be incorrect.'] = 'Landcode schijnt niet correct te zijn.';
-$_lang['Course'] = 'De cursus ';
-$_lang['Course Home'] = 'Cursus thuisbasis';
-$_lang['Course Repository'] = 'Cursus repository';
-$_lang['Course access'] = 'Toegang tot deze cursus';
-$_lang['Course administrator only'] = 'Alleen voor cursusbeheerder';
-$_lang['Course code'] = 'Cursuscode';
-$_lang['Course code needed'] = 'Cursus code veld moet ingevuld worden';
-$_lang['Course creator'] = 'Cursus creator';
-$_lang['Course description'] = 'Cursus omschrijving';
-$_lang['Course list'] = 'Cursus lijst';
-$_lang['Course manager'] = 'Cursusbeheerder';
-$_lang['Course manager cannot unsubscribe himself'] = 'de cursus begeleider kan zichzelf niet uitschrijven';
-$_lang['Course members'] = 'cursus leden';
-$_lang['Course not found'] = 'cursus niet gevonden';
-$_lang['Course progression'] = 'Cursus vooruitgang';
-$_lang['Course settings'] = 'Eigenschappen cursus';
-$_lang['Course statistics deleted'] = 'Statistieken over cursus verwijderd';
-$_lang['Course title'] = 'Titel';
-$_lang['Course title needed'] = 'Cursus titel vereist';
-$_lang['Course users list'] = 'Gebruikers in cursus';
-$_lang['Courses'] = 'Cursussen';
-$_lang['Courses not used'] = 'Niet gebruikte cursussen';
-$_lang['Courses without a lecturer'] = 'Cursussen zonder lesgever';
-$_lang['Courses without student'] = 'Cursussen zonder student';
-$_lang['Create'] = 'aanmaken';
-$_lang['Create Directory'] = 'Nieuwe map';
-$_lang['Create Document'] = 'Maak een document';
-$_lang['Create Pages'] = 'maak pagina\'s';
-$_lang['Create a category'] = 'Maak een categorie aan';
-$_lang['Create a course site'] = 'Maak een web-cursus';
-$_lang['Create a course website'] = 'Cursussite aanmaken';
-$_lang['Create a new Wiki'] = 'maak een nieuw Wiki';
-$_lang['Create a new assignment'] = 'Maak een nieuwe taak';
-$_lang['Create a new class'] = 'Maak een nieuwe klas';
-$_lang['Create a new label / title in this learning path'] = 'Maak een nieuw label / titel aan in dit leertraject';
-$_lang['Create a new learning path'] = 'Maak een nieuw leertraject';
-$_lang['Create a new user'] = 'Nieuwe gebruiker aanmaken';
-$_lang['Create another new user'] = 'Maak opnieuw een nieuwe gebruiker';
-$_lang['Create category'] = 'Maak categorie';
-$_lang['Create course'] = 'Maak een cursus';
-$_lang['Create first a user account on this platform'] = 'Maak eerst een gebruikers account aan op dit platform';
-$_lang['Create forum'] = 'Maak forum';
-$_lang['Create hyperlink'] = 'Maak een Hyperlink';
-$_lang['Create label'] = 'Nieuw label';
-$_lang['Create new group(s)'] = 'Nieuwe groep(en) aanmaken';
-$_lang['Create user'] = 'Maak een gebruiker aan';
-$_lang['Create user account'] = 'Gebruiker aanmaken';
-$_lang['Create/edit document'] = 'Maak/bewerk document';
-$_lang['Creating course (it may take a while) ...'] = 'Bezig het maken van een course (dit kan enkele ogenblikken duren...)';
-$_lang['Current attached file'] = 'Huidig aangehecht bestand';
-$_lang['Current feedback file'] = 'Huidig commentaar bestand';
-$_lang['Current file'] = 'Huidig bestand';
-$_lang['Current registration status :'] = 'Huidige status registratie : <br /> <br />';
-$_lang['Current time'] = 'Huidige tijd';
-$_lang['Date'] = 'Datum';
-$_lang['Day'] = 'Dag';
-$_lang['Default works visibility'] = 'Standaard zichtbaarheid werkjes';
-$_lang['Define Headings'] = 'Definieer Opschriften';
-$_lang['Delete'] = 'verwijder';
-$_lang['Delete Wiki'] = 'verwijder wiki';
-$_lang['Delete all course statistics'] = 'Verwijder alle statistieken over cursus';
-$_lang['Delete all groups'] = 'Alle groepen verwijderen';
-$_lang['Delete all messages of'] = 'Verwijder alle berichten van';
-$_lang['Delete attached file'] = 'Verwijder aangehecht bestand';
-$_lang['Delete my account'] = 'Mijn account verwijderen';
-$_lang['Delete the whole course website'] = 'Deze cursussite verwijderen';
-$_lang['Delete user'] = 'Gebruiker verwijderen';
-$_lang['Deleted line'] = 'regel verwijderd';
-$_lang['Deletion of the user was done sucessfully'] = 'De gebruiker werd met succes verwijderd';
-$_lang['Denied'] = 'Niet toegelaten';
-$_lang['Department'] = 'Faculteit';
-$_lang['Department URL'] = 'URL van uw faculteit of vakgroep';
-$_lang['Department URL is not valid'] = 'Departement URL is ongeldig';
-$_lang['Description'] = 'Beschrijving';
-$_lang['Description added.'] = 'Omschrijving toegevoegd.';
-$_lang['Description deleted.'] = 'Omschrijving verwijderd.';
-$_lang['Description of the Wiki'] = 'beschrijving van het Wiki';
-$_lang['Description updated'] = 'Omschrijving aangepast.';
-$_lang['Detail'] = 'Detail';
-$_lang['Details'] = 'Details';
-$_lang['Devel Tools'] = 'Gereedschap voor ontwikkelaars';
-$_lang['Differences :'] = 'verschillen :';
-$_lang['Directory created'] = 'Map is aangemaakt';
-$_lang['Disable'] = 'Deactiveren';
-$_lang['Disk Usage'] = 'Schijf gebruik';
-$_lang['Display of detailled answers is not authorized.'] = 'Toon de gedetaileerde antwoorden niet aan onbevoegden';
-$_lang['Do you really want to delete the category'] = 'Categorie verwijderen, bent U zeker ?';
-$_lang['Do you want to continue?'] = 'Wilt U doorgaan?';
-$_lang['Document'] = 'Document';
-$_lang['Document deleted'] = 'Map/Bestand is verwijderd.';
-$_lang['Document in module'] = 'Document in module';
-$_lang['Document name'] = 'Naam van het document : ';
-$_lang['Documents'] = 'Documenten';
-$_lang['Documents and Links'] = 'Documenten';
-$_lang['Documents downloaded by the student'] = 'Documenten gedownload door de student';
-$_lang['Documents help'] = 'Hulp documenten';
-$_lang['Down'] = 'Omlaag';
-$_lang['ERROR: The format you gave is not compatible with Claroline'] = 'ERROR: Het formaat dat U opgaf is niet verenigbaar met Claroline';
-$_lang['Edit'] = 'Wijzigen';
-$_lang['Edit Event'] = 'Gebeurtenis bewerken';
-$_lang['Edit Pages'] = 'wijzig pagina';
-$_lang['Edit Tool list'] = 'Gereedschapsset bewerken';
-$_lang['Edit a category'] = 'Bewerk een categorie';
-$_lang['Edit answers'] = 'Antwoorden bewerken';
-$_lang['Edit automatic feedback'] = 'Commentaar bestand bewerken';
-$_lang['Edit category'] = 'verander category';
-$_lang['Edit conflict'] = 'wijzig probleem';
-$_lang['Edit exercise settings'] = 'Instellingen oefening bewerken';
-$_lang['Edit file content'] = 'Bestandsinhoud bewerken';
-$_lang['Edit format to use'] = 'Te gebruiken formaat bewerken';
-$_lang['Edit last version'] = 'wijzig laatste versie';
-$_lang['Edit post'] = 'Wijzig post';
-$_lang['Edit properties'] = 'wijzig eigenschappen';
-$_lang['Edit question'] = 'Vraag bewerken';
-$_lang['Edit settings'] = 'Voorkeurinstellingen bewerken';
-$_lang['Edit text zone'] = 'Wijzig tekst zone';
-$_lang['Edit text zones'] = 'Wijzig tekst zones';
-$_lang['Edit this group'] = 'Deze groep wijzigen';
-$_lang['Edit this page'] = 'wijzig deze pagina';
-$_lang['Element list'] = 'Elementen lijst';
-$_lang['Element moved'] = 'Map/Bestand is verplaatst.';
-$_lang['Element renamed'] = 'Naam van map/bestand is gewijzigd.';
-$_lang['Email'] = 'Email';
-$_lang['Email needed'] = 'Email mag niet leeg zijn';
-$_lang['Empty'] = 'U hebt niet alle velden ingevuld.<br />Gebruik de TERUG-toets en herbegin.<br />Als U Uw cursuscode niet kent, kunt U de cursussenlijst raadplegen';
-$_lang['Empty all groups'] = 'Alle groepen leegmaken';
-$_lang['Empty language file'] = 'Leeg taalbestand';
-$_lang['End date'] = 'Einddatum';
-$_lang['Enrol as course manager'] = 'Als cursusbeheerder inschrijven';
-$_lang['Enrol as student'] = 'Als student inschrijven';
-$_lang['Enrol as teacher'] = 'Als leraar inschrijven';
-$_lang['Enrol class'] = 'Klas inschrijven';
-$_lang['Enrol on a new course'] = 'Inschrijven in een nieuwe cursus';
-$_lang['Enrol to a new course'] = 'In een nieuwe cursus inschrijven';
-$_lang['Enrol to course not allowed'] = 'Inschrijven voor de cursus is niet toegestaan';
-$_lang['Enroll a user'] = 'Gebruiker inschrijven';
-$_lang['Enrolment'] = 'Inschrijving';
-$_lang['Enter'] = 'Terug naar uw cursussenlijst';
-$_lang['Enter link url'] = 'Typ link url';
-$_lang['Enter new password twice to change, leave empty to keep it'] = 'Geef nieuw wachtwoord twee maal in om te wijzigen, laat leeg om huidige te behouden';
-$_lang['Enter the description of your wiki here'] = 'schrijf een omschrijving van uw wiki hier';
-$_lang['Enter your email so we can send you your password.'] = 'Geef een e-mail adres in zodat we U uw paswoord kunnen opsturen.';
-$_lang['Error : Cannot initialize chat'] = 'Fout: kan de chat niet initializeren';
-$_lang['Error : Name already exists in the learning path or in the module pool'] = 'Fout : De naam bestaat al';
-$_lang['Error : One or more values are doubled'] = 'Fout : een of meer waarden komen dubbel voor';
-$_lang['Error : cannot read RSS feed'] = 'Fout : kan de RSS feed niet lezen';
-$_lang['Error copying existing SCORM content'] = 'Fout tijdens kopiëren SCORM inhoud';
-$_lang['Error in SQL statement'] = 'Fout in het SQL commando';
-$_lang['Error reading <i>manifest</i> file'] = 'Fout bij het lezen van het <i>manifest</i> bestand';
-$_lang['Error reading a secondary initialisation file :'] = 'Fout bij het lezen van het secundaire initialisatie bestand: ';
-$_lang['Error reading zip file.'] = 'Fout bij het lezen van het zip bestand.';
-$_lang['Error when copying needed SCORM files'] = 'Fout tijdens kopiëren van SCORM bestanden';
-$_lang['Error!! you cannot unregister a course manager'] = 'Fout!! U kan een cursus beheerder niet uitschrijven';
-$_lang['ErrorInvalidParms'] = 'Fout: ongeldige parameter (gebruik alleen getallen)';
-$_lang['Event added to the agenda'] = 'Gebeurtenis toegevoegd aan de agenda.';
-$_lang['Event deleted from the agenda'] = 'Gebeurtenis verwijderd uit de agenda.';
-$_lang['Event updated into the agenda'] = 'Gebeurtenis aangepast in de agenda.';
-$_lang['Exercise'] = 'Exercise';
-$_lang['Exercise cancelled, choose a module in the list to continue.'] = 'Oefening geannuleerd, kies een module in de lijst om door te gaan.';
-$_lang['Exercise done, choose a module in the list to continue.'] = 'Uw vooruitgang is genoteerd, kies een module uit de lijst om verder te gaan.';
-$_lang['Exercise in module'] = 'Oefening in module';
-$_lang['Exercise not available'] = 'Oefening niet beschikbaar';
-$_lang['Exercise type'] = 'Oefening type';
-$_lang['Exercises'] = 'Oefeningen';
-$_lang['Exercises help'] = 'Hulp over oefeningen';
-$_lang['Expected choice'] = 'Correcte antwoord';
-$_lang['Export'] = 'Uitvoeren';
-$_lang['External Tool added'] = 'Extern gereedschap toegevoegd.';
-$_lang['External link'] = 'Uitgaande link';
-$_lang['External tool deleted'] = 'Extern gereedschap verwijderd';
-$_lang['External tool updated'] = 'Extern gereedschap gewijzigd';
-$_lang['Extract language variables'] = 'Extraheer taal variabelen';
-$_lang['False'] = 'niet waar';
-$_lang['Feedback'] = 'Commentaar';
-$_lang['Feedback added'] = 'Commentaar toegevoegd';
-$_lang['Feedback file'] = 'Commentaar bestand';
-$_lang['Feedback text'] = 'Commentaar teksten';
-$_lang['Feedbacks'] = 'Commentaren';
-$_lang['Fields enclosed by'] = 'Velden afgebakend door';
-$_lang['Fields separator used'] = 'Gebruikt veldscheidingsteken';
-$_lang['File (file required, description text optional)'] = 'Bestand (bestand is vereist, omschrijving is optioneel)';
-$_lang['File Name or URL is missing.'] = 'Bestandsnaam of URL ontbreekt.';
-$_lang['File content modified'] = 'Bestandsinhoud gewijzigd';
-$_lang['File created'] = 'Bestand aangemaakt';
-$_lang['File description'] = 'Bestandsomschrijving';
-$_lang['File list'] = 'Bestandslijst';
-$_lang['File must be a zip file (.zip)'] = 'Bestand moet een ZIP bestand zijn';
-$_lang['File name is missing'] = 'Bestandsnaam ontbreekt';
-$_lang['Filename'] = 'Bestandsnaam';
-$_lang['Fill groups (automatically)'] = 'Alle groepen invullen';
-$_lang['Fill in blanks'] = 'Invullen';
-$_lang['Fill text field'] = 'vul tekstveld';
-$_lang['Fill the area to explain your motivation and submit your request. An e-mail will be sent to platform adminisrator(s).'] = 'Gebruik deze zone om uw motivatie uit te leggen en dien uw vraag in. Een email zal naar de administrators van het platform verzonden worden.';
-$_lang['Fill type'] = 'vol type';
-$_lang['Filter'] = 'Filter';
-$_lang['Find doubled variables'] = 'Dubbele variabelen zoeken';
-$_lang['Finish'] = 'Stoppen';
-$_lang['First name'] = 'Voornaam';
-$_lang['First submission date'] = 'Eerste&nbsp;datum&nbsp;indiening';
-$_lang['Follow courses'] = 'Registreren voor cursussen';
-$_lang['Forum'] = 'Forum';
-$_lang['Forum created'] = 'forum gemaakt';
-$_lang['Forum deleted'] = 'forum verwijderd';
-$_lang['Forum emptied'] = 'forum leeggemaakt';
-$_lang['Forum updated'] = 'forum geupdated';
-$_lang['Forum usage'] = 'Gebruik forum';
-$_lang['Forums'] = 'Forums';
-$_lang['Forums help'] = 'Hulp forums';
-$_lang['From'] = 'Van';
-$_lang['From language files'] = 'Van taal bestanden';
-$_lang['From script files'] = 'Van script bestanden';
-$_lang['Fullscreen'] = 'Vollegig scherm';
-$_lang['Function list'] = 'Functie lijst';
-$_lang['Get a question from another exercise'] = 'Gebruik een vraag van een andere oefening.';
-$_lang['Get tracking data in a CSV file'] = 'Neem volg data in een CVS bestand';
-$_lang['Go back to the exercise'] = 'Terug naar de oefening';
-$_lang['Go to the account creation page'] = 'Ga naar het account maak pagina';
-$_lang['Group'] = 'Groep';
-$_lang['Group Tutor'] = 'Lesgever';
-$_lang['Group area'] = 'Groepsruimte';
-$_lang['Group deleted'] = 'Groep verwijderd';
-$_lang['Group forums category can\'t be deleted'] = 'Groeps forum categorien kunnen niet worden verwijderd';
-$_lang['Group management'] = 'Groepenbeheer';
-$_lang['Group members'] = 'groeps leden';
-$_lang['Group name'] = 'Naam van de groep';
-$_lang['Group settings have been modified'] = 'De groepseigenschappen werden gewijzigd';
-$_lang['Group settings modified'] = 'Parameters van deze groep zijn gewijzigd.';
-$_lang['Groups'] = 'Groepen';
-$_lang['Groups (from groups tool, only group members can post)'] = 'Groepen (uit groepen, alleen groepsleden kunnen posten)';
-$_lang['Groups have been filled (or completed) by students present in the \'Users\' list.'] = 'De groepen werden aangevuld met de gebruikers uit de lijst \'Gebruikers\'.';
-$_lang['Groups help'] = 'Groepenbeheer';
-$_lang['Groups settings'] = 'Groepseigenschappen';
-$_lang['He or she will receive email confirmation with login and password'] = 'De hier ingevulde gebruikersnaam en wachtwoord zal aan deze gebruiker per e-mail medegedeeld worden.';
-$_lang['Heading'] = 'Titel';
-$_lang['Help'] = 'Help';
-$_lang['Here you can modify the content of the text zones displayed on the platform home page.'] = 'Hier kan U de inhoud van de tekst zones op de home pagina van het platform bewerken.';
-$_lang['Hits'] = 'Hits';
-$_lang['Home page help'] = 'Hulp startpagina';
-$_lang['Hour'] = 'Uur';
-$_lang['Identical content<br />no modification saved'] = 'Geen veranderingen gevonden <br />geen wijzigingen aangebracht';
-$_lang['If you wish to enrol on this course'] = 'Indien U wil inschrijven in deze cursus';
-$_lang['Import'] = 'Import';
-$_lang['Import a learning path'] = 'Importeer een leertraject';
-$_lang['Imported packages must consist of a zip file and be SCORM 1.2 conformable'] = 'Geimporteerde pakketen moeten uit een zip bestand met SCORM 1.2 conforme inhoud';
-$_lang['Impossible to promote group tutor a student already register to group'] = 'Impossible to promote group tutor a student already register to group';
-$_lang['In frames'] = 'In frames';
-$_lang['Individual'] = 'Individueel';
-$_lang['Information'] = 'Informatie';
-$_lang['Information to give to students'] = 'Informatie om mee te delen aan <br />de student';
-$_lang['Insert new name'] = 'Nieuwe naam invoegen';
-$_lang['Institution'] = 'Instituut';
-$_lang['Institution URL'] = 'URL Instituut';
-$_lang['Invalid Wiki Id'] = 'fout Wiki id';
-$_lang['Invalid email address'] = 'geen geldig email adres';
-$_lang['Invalid url'] = 'geen geldig url';
-$_lang['Invalid user : this user doesn\'t exist in your group'] = 'Ongeldige gebruiker : deze gebruiker bestaat niet in uw groep';
-$_lang['Invisible'] = 'Niet zichtbaar';
-$_lang['Is platform admin'] = 'Is platform beheerder';
-$_lang['It seems that you already have registered your campus.'] = 'Het lijkt er op dat uw campus reeds geregistreerd is.';
-$_lang['Keys :'] = 'codes :';
-$_lang['Language'] = 'Taal';
-$_lang['Last 31 days'] = 'Laatste 31 dagen';
-$_lang['Last 7 days'] = 'Laatste 7 dagen';
-$_lang['Last access'] = 'Laatste toegang';
-$_lang['Last active topics'] = 'Laatst actieve topics';
-$_lang['Last attempt'] = 'Laatste pogin';
-$_lang['Last edit date'] = 'Datum laatst bewerkt';
-$_lang['Last message'] = 'Laatste bericht';
-$_lang['Last message was on'] = 'Laatste bericht was op: ';
-$_lang['Last messages'] = 'Laatste berichten';
-$_lang['Last name'] = 'Naam';
-$_lang['Last session time'] = 'Tijd laatste sessie';
-$_lang['Lasting'] = 'Duur';
-$_lang['Late upload'] = 'te laat ingediend';
-$_lang['Latest announcements'] = 'Nieuwste berichten';
-$_lang['Launch restore of the course repository'] = 'Cursus terughalen uit reservekopij';
-$_lang['Learning Path is empty'] = 'Leertraject is leeg';
-$_lang['Learning Path not found'] = 'Leertraject niet gevonden';
-$_lang['Learning path'] = 'Leertraject';
-$_lang['Learning path admin'] = 'Leertraject Admin';
-$_lang['Learning path content'] = 'Leertraject inhoud';
-$_lang['Learning path has been successfully imported.'] = 'Het leertraject werd met succes geimporteerdd.';
-$_lang['Learning path list'] = 'Leertraject Lijst';
-$_lang['Learning path progression :'] = 'Leertraject vooruitgang : ';
-$_lang['Learning paths tracking'] = 'Leertraject opvolging';
-$_lang['Lecturer(s)'] = 'lesgever(s)';
-$_lang['Limit'] = 'Grens';
-$_lang['Line Number'] = 'Lijnnummer';
-$_lang['List of Wiki'] = 'Lijst van Wiki\'s';
-$_lang['List of students in this group'] = 'Lijst van gebruikers in deze groep';
-$_lang['Load default format'] = 'Laad standaard formaat';
-$_lang['Location'] = 'Locatie';
-$_lang['Locked'] = 'gesloten';
-$_lang['Login'] = 'Inloggen';
-$_lang['Login request'] = 'Verzoek tot aanmelden';
-$_lang['Logins'] = 'Logins';
-$_lang['Logins and access to tools'] = 'Logins en toegang tot modules';
-$_lang['Logins not used'] = 'Niet gebruikte logins';
-$_lang['Logout'] = 'Afmelden';
-$_lang['Lost password'] = 'Wachtwoord vergeten';
-$_lang['Mail is already used by another user.'] = 'Mail wordt al gebruikt door een andere gebruiker.';
-$_lang['Mail synthax error.'] = 'Mail syntax fout.';
-$_lang['Main Group Settings'] = 'Hoofd Groepsinstellingen';
-$_lang['Main page'] = 'Hoofd pagina';
-$_lang['Make correspond'] = 'Laat overeenstemmen';
-$_lang['Make invisible'] = 'Onzichtbaar maken';
-$_lang['Make new search'] = 'Opnieuw zoeken : ';
-$_lang['Make search'] = 'Zoeken';
-$_lang['Make visible'] = 'Zichtbaar maken';
-$_lang['Manage classes'] = 'Beheer klassen';
-$_lang['Manage course categories'] = 'Beheer categori&euml;n cursussen';
-$_lang['Manager'] = 'Platformbeheerder';
-$_lang['Manifest found in zip file :'] = 'Inhoud gevonden in zip bestand : ';
-$_lang['Manifest read.'] = 'Inhoud gelezen.';
-$_lang['Matching'] = 'Koppelen (\'matching\')';
-$_lang['Max file size'] = 'Maximum bestandsgrootte is';
-$_lang['Max.'] = 'Maximum';
-$_lang['Memorize them, you will use them the next time you will enter to this site.'] = 'Onthoudt ze, u hebt ze nodig als u de volgende keer wilt inloggen.';
-$_lang['Message body'] = 'Bericht';
-$_lang['Message from your lecturer'] = 'Bericht van uw lesgever';
-$_lang['Messages'] = 'Berichten';
-$_lang['Messages posted'] = 'Verzonden berichten:';
-$_lang['Messages to selected users'] = 'Berichten naar specifieke gebruikers';
-$_lang['Minimum raw to pass has been changed'] = 'Minimum onbeantwoord om te slagen is veranderd';
-$_lang['MinuteShort'] = 'min.';
-$_lang['Missing'] = 'ontbrekend';
-$_lang['Missing field(s)'] = 'Niet ingevuld(e) veld(en)';
-$_lang['Missing images detected'] = 'Ontbrekende plaatjes gedetecteerd';
-$_lang['Missing language files'] = 'Ontbrekende taalbestanden';
-$_lang['Missing value'] = 'Ontbrekende waarde';
-$_lang['Modifies this announcement'] = 'Wijzig deze aankondiging';
-$_lang['Modify'] = 'Wijzigen';
-$_lang['Modify a work'] = 'Werkje aanpassen';
-$_lang['Modify the format'] = 'Formaat wijzigen';
-$_lang['Module'] = 'Module';
-$_lang['Module added :'] = 'Module toegevoegd : ';
-$_lang['Module moved'] = 'Module verplaatst';
-$_lang['Module status'] = 'Module status';
-$_lang['Module type'] = 'Module type';
-$_lang['Modules'] = 'Modules';
-$_lang['Modules of this path will still be available in the pool of modules'] = 'Modules van dit leertraject zullen nog steeds beschikbaar zijn in de verzameling modules';
-$_lang['Month'] = 'Maand';
-$_lang['More replied topics'] = 'Meer antwoorden op topics';
-$_lang['More seen topics'] = 'Meer bekeken topics';
-$_lang['Move'] = 'Verplaatsen';
-$_lang['Move down'] = 'Omlaag';
-$_lang['Move up'] = 'Omhoog';
-$_lang['Moved line'] = 'regel verplaatst';
-$_lang['Multiple choice (Multiple answers)'] = 'Meerkeuze (meerdere antwoorden)';
-$_lang['Multiple choice (Unique answer)'] = 'Meerkeuze (uniek antwoord)';
-$_lang['My User Account'] = 'Mijn profiel';
-$_lang['My calendar'] = 'Mijn agenda';
-$_lang['My course list'] = 'Mijn cursussen';
-$_lang['My other courses'] = 'Mijn andere cursussen';
-$_lang['My personal course list'] = 'Mijn persoonlijke lijst cursussen';
-$_lang['My results'] = 'Mijn resultaten';
-$_lang['Mysql Repository'] = 'Mysql backup';
-$_lang['Name cannot be empty'] = 'De naam moet compleet gemaakt worden';
-$_lang['Name link'] = 'Naam verwijzing';
-$_lang['Name of the class has been changed'] = 'Naam van de klas is veranderd';
-$_lang['Name of the new directory'] = 'Naam van nieuwe map';
-$_lang['Name of the tool'] = 'Modulenaam';
-$_lang['Never browsed'] = 'Nooit bezocht';
-$_lang['Never connected students :'] = 'Nooit aangemelde studenten : ';
-$_lang['Never used'] = 'Nooit gebruikt';
-$_lang['New Class name'] = 'Naam nieuwe klas';
-$_lang['New Wiki'] = 'nieuw wiki';
-$_lang['New assignment created'] = 'Nieuwe taak aangemaakt';
-$_lang['New chat'] = 'Nieuwe chat';
-$_lang['New exercise'] = 'Nieuwe oefening';
-$_lang['New question'] = 'Nieuwe vraag';
-$_lang['New topic'] = 'Nieuw onderwerp';
-$_lang['New users will receive an e-mail with their user name and password'] = 'Nieuwe gebruikers krijgen een e-mail met hun gebruikersnaam en wachtwoord';
-$_lang['Newest first'] = 'Meest recente eerst';
-$_lang['Next'] = 'Volgende';
-$_lang['Next day'] = 'Volgende dag';
-$_lang['Next month'] = 'Volgende maand';
-$_lang['Next week'] = 'Volgende week';
-$_lang['Next year'] = 'Volgend jaar';
-$_lang['No'] = 'Nee';
-$_lang['No Content'] = 'Geen inhoud';
-$_lang['No Wiki'] = 'Geen Wiki';
-$_lang['No announcement'] = 'Geen aankondigingen.';
-$_lang['No change applied'] = 'Verandering niet toegepast';
-$_lang['No change applied.'] = 'Geen wijzigingen aangebracht.';
-$_lang['No closing date'] = 'Geen afsluitdatum';
-$_lang['No course available fitting this keyword'] = 'Geen cursus beschikbaar voor dit trefwoord';
-$_lang['No course to display'] = 'Geen cursus om te tonen';
-$_lang['No email address specified'] = 'Geen emailadres opgegeven';
-$_lang['No error in file found.'] = 'Geen fout gevonden in bestand.';
-$_lang['No event in the agenda'] = 'Geen gebeurtenissen in de agenda';
-$_lang['No forum'] = 'Geen forum aanwezig';
-$_lang['No group deleted'] = 'Geen groep verwijderd';
-$_lang['No image to display'] = 'Geen plaatje om te tonen';
-$_lang['No learning path'] = 'Geen leertraject';
-$_lang['No module'] = 'Geen module';
-$_lang['No module in package'] = 'Geen module in pakket';
-$_lang['No new post allowed'] = 'Geen nieuwe post toegestaan';
-$_lang['No post'] = 'Geen Post';
-$_lang['No quota'] = 'Geen quota';
-$_lang['No result'] = 'Geen resultaat';
-$_lang['No score'] = 'Geen score';
-$_lang['No stats to show.  You haven\'t registered any course.'] = 'Geen statistieken om te tonen.  U heeft geen cursus geregistreerd.';
-$_lang['No time limitation'] = 'Geen tijdslimiet';
-$_lang['No user found'] = 'Geen gebruiker gevonden';
-$_lang['No user to display'] = 'Geen gebruiker om te tonen';
-$_lang['No visible submission'] = 'Geen zichtbare documenten';
-$_lang['No way'] = 'Geen toegang';
-$_lang['No, prevent users submitting work after the end date'] = 'Nee, gebruikers mogen geen werk indienen na de einddatum';
-$_lang['None'] = 'geen enkel';
-$_lang['Not allowed'] = 'Niet toegestaan';
-$_lang['Not allowed : record usernames in tracking, anonymous users cannot do the exercise.'] = 'Niet toegestaan : volg gebruikersnamen op,anonieme gebruikers kunnen de oefening niet maken.';
-$_lang['Not recently connected students :'] = 'Studenten die niet recent aangemeld waren : ';
-$_lang['Notice'] = 'Merk op';
-$_lang['Notify by email when replies are posted'] = 'Mail mij wanneer geantwoord wordt';
-$_lang['Now'] = 'Nu';
-$_lang['Number of courses'] = 'Aantal cursussen';
-$_lang['Number of courses by faculty'] = 'Aantal cursussen per faculteit';
-$_lang['Number of courses by language'] = 'Aantal cursussen per taal';
-$_lang['Number of courses by visibility'] = 'Number of courses by visibility';
-$_lang['Number of learning paths using this module :'] = 'Aantal leertrajecten dat gebruik maakt van deze module : ';
-$_lang['Number of logins'] = 'Aantal logins';
-$_lang['Number of pages'] = 'Aantal pagina\'s';
-$_lang['Number of rows'] = 'Aantal rijen';
-$_lang['Number of users'] = 'Aantal gebruikers';
-$_lang['Number of users by course'] = 'Aantal gebruikers per cursus';
-$_lang['Number of users by faculty'] = 'Aantal gebruikers per faculteit';
-$_lang['Number of users by status'] = 'Aantal gebruikers per status';
-$_lang['Number proposed exceeds max. that you allowed (you can modify it below). Group composition has not been modified'] = 'Het aantal deelnemers overschrijdt het maximum aantal dat U bepaald had.
-	De samenstelling van de groep werd niet gewijzigd. U mag het maximum aantal hieronder wijzigen';
-$_lang['Numero'] = 'Nr.';
-$_lang['Ok'] = 'Ok';
-$_lang['Oldest first'] = 'Oudste eerst';
-$_lang['On'] = 'Op';
-$_lang['On an unique page'] = 'Op 1 pagina';
-$_lang['One question per page (sequential)'] = 'E&eacute;n vraag per pagina (sequentieel)';
-$_lang['Operation impossible'] = 'Niet mogelijk';
-$_lang['Optional'] = 'Optioneel';
-$_lang['Order'] = 'Volgorde';
-$_lang['Orphan questions'] = 'Vragen niet in een oefening (\'wezen\')';
-$_lang['Other'] = 'Andere (vrij in te vullen)';
-$_lang['Others (*)'] = 'Andere (*)';
-$_lang['PHP system information'] = 'PHP systeem informatie';
-$_lang['Page history'] = 'pagina historie';
-$_lang['Page saved'] = 'pagina bewaard';
-$_lang['Parent category'] = 'Bovenligende categorie ';
-$_lang['Password'] = 'Wachtwoord';
-$_lang['Password given is too simple or too close to the username.'] = 'Opgegeven wachtwoord is te eenvoudig of lijkt te veel op de gebruikersnaam.';
-$_lang['Period'] = 'Periode';
-$_lang['PeriodDayShort'] = 'd.';
-$_lang['PeriodHourShort'] = 'u.';
-$_lang['PersonalCourseList'] = 'Persoonlijke cursus lijst';
-$_lang['Phone'] = 'Telefoon';
-$_lang['Platform'] = 'Beheer van het platform';
-$_lang['Platform Administration'] = 'Platform beheer';
-$_lang['Platform Administrator'] = 'Platform beheerder';
-$_lang['Platform statistics'] = 'Platform statistieken';
-$_lang['Please check that your campus URL is reachable from the internet.'] = 'Gelieve te controleren of het campus url bereikbaar is via het internet.';
-$_lang['Please choose a good answer'] = 'Kies aub een goed antwoord';
-$_lang['Please confirm your choice'] = 'Bevestig uw keuze aub';
-$_lang['Please define the options'] = 'Definieer de keuzes';
-$_lang['Please fill the two lists below'] = 'Vul de twee lijsten hieronder aan';
-$_lang['Please give a weighting to each blank'] = 'Geef aub een gewicht aan elke invulruimte';
-$_lang['Please give the answers to the question'] = 'Geef aub de antwoorden op de vraag';
-$_lang['Please type the text'] = 'Tik aub een tekst';
-$_lang['Pool of modules'] = 'Verzameling modules';
-$_lang['Posted'] = 'Geschreven op';
-$_lang['Posts'] = 'berichten';
-$_lang['Powered by'] = 'gebruikt het platform';
-$_lang['Preview'] = 'Voorbeeld op scherm';
-$_lang['Preview :'] = 'voorbeeld :';
-$_lang['Previous'] = 'Vorige';
-$_lang['Previous day'] = 'Vorige dag';
-$_lang['Previous month'] = 'Vorige maand';
-$_lang['Previous week'] = 'Vorige week';
-$_lang['Previous year'] = 'Vorig jaar';
-$_lang['Private'] = 'priv&eacute;';
-$_lang['Private course only'] = 'Alleen Priv&eacute; cursussen';
-$_lang['Private feedback'] = 'Prive commentaar';
-$_lang['Production language files'] = 'Productie taalbestand';
-$_lang['Progress'] = 'Voortgang';
-$_lang['Progress in learning paths'] = 'Vooruitgang in leertraject';
-$_lang['Progression of users on all learning paths'] = 'Vooruitgang gebruikers op alle leertrajecten';
-$_lang['Properties'] = 'instellingen';
-$_lang['Public'] = 'publiek';
-$_lang['Public access from campus home page even without login'] = 'Vrije toegang (vanaf de startpagina, zonder identificatiecode)';
-$_lang['Public course only'] = 'Alleen publieke cursussen';
-$_lang['Public courses'] = 'publieke cursussen';
-$_lang['Publish'] = 'Publiceren';
-$_lang['Published on'] = 'Gepubliceerd op';
-$_lang['Question'] = 'Vraag';
-$_lang['Question pool'] = 'Lijst met alle vragen';
-$_lang['Question title'] = 'Titel vraag';
-$_lang['Question to lecturer'] = 'Vraag over de planning <br />voor de lesgever';
-$_lang['Random questions'] = 'Willekeurige vragen';
-$_lang['Read Pages'] = 'lees pagina\'s';
-$_lang['Recent changes'] = 'recentelijke wijzigingen';
-$_lang['Register a user for this class'] = 'Registreer een gebruiker in deze klas';
-$_lang['Register class for course'] = 'Registreer klas in een cursus';
-$_lang['Register my campus'] = 'Registreer mijn campus';
-$_lang['Register this user to a course'] = 'Schrijf deze gebruiker in in een cursus';
-$_lang['Register to the class'] = 'Inschrijven in de klas';
-$_lang['Register user'] = 'Gebruiker registreren';
-$_lang['Register user to class'] = 'Gebruiker in klas plaatsen';
-$_lang['Registered'] = 'Ingeschreven';
-$_lang['Registration'] = 'Inschrijven';
-$_lang['Registration not allowed on the platform'] = 'Registratie niet toegestaan';
-$_lang['Rem. answ.'] = '- antwoord';
-$_lang['Rem. elem.'] = '- element';
-$_lang['Remove'] = 'Verwijderen';
-$_lang['Remove course enrolment'] = 'Uitschrijven uit cursus';
-$_lang['Remove course from your personal course list'] = 'Uitschrijven uit deze persoonlijke cursus';
-$_lang['Rename'] = 'Hernoemen';
-$_lang['Repair category structure'] = 'Repareer de categorie structuur';
-$_lang['Replies'] = 'Antwoorden';
-$_lang['Reply'] = 'Antwoorden';
-$_lang['Request course creation status'] = 'Verzoek van cursus beheerder status';
-$_lang['Required'] = 'Vereist';
-$_lang['Reset'] = 'Opnieuw instellen';
-$_lang['Restore course repository'] = 'Restore cursus backup';
-$_lang['Result'] = 'Resultaat';
-$_lang['Results of the exercises done'] = 'Resultaten van de gemaakte oefeningen';
-$_lang['Retry'] = 'opnieuw';
-$_lang['Return to the list'] = 'Terug naar de lijst';
-$_lang['Reuse'] = 'Hergebruik';
-$_lang['Role'] = 'Rol';
-$_lang['Root'] = 'basis';
-$_lang['SCORM 1.2 conformable content'] = 'SCORM 1.2 conforme inhoud';
-$_lang['SCORM conformant modules are definitively removed from server when deleted in their learning path.'] = 'SCORM conforme modules worden definitief verwijderd van de server als ze in hun leertraject verwijderd worden.';
-$_lang['SDK'] = 'SDK';
-$_lang['Save'] = 'Opslaan';
-$_lang['Save changes'] = 'Wijzigingen bewaren';
-$_lang['Scan technical fault'] = 'Technische fout zoeken';
-$_lang['Score'] = 'Score';
-$_lang['Score required'] = 'Quotering vereist';
-$_lang['Scores of exercises done'] = 'Scores van gemaakte oefeningen';
-$_lang['Scorm'] = 'Scorm';
-$_lang['Search'] = 'Zoeken';
-$_lang['Search again (advanced)'] = 'Opnieuw zoeken (uitgebreid)';
-$_lang['Search course'] = 'Zoek cursus';
-$_lang['Search from keyword'] = 'Zoeken met trefwoorden';
-$_lang['Search on'] = 'Zoek op';
-$_lang['Search result'] = 'Resultaat zoekbewerking';
-$_lang['Search user'] = 'Zoek gebruiker';
-$_lang['SecondShort'] = 'sec.';
-$_lang['See below the files you can edit from this tool.'] = 'Met deze tool kan u de onderstaande bestanden bewerken.';
-$_lang['See user list'] = 'Bekijk gebruikerslijst';
-$_lang['Seen'] = 'Gelezen';
-$_lang['Select course in'] = 'Kies cursus in ';
-$_lang['Select course in search results'] = 'Kies cursus in zoekresultaten';
-$_lang['Select in drop down list'] = 'selecteer in drop down lijst';
-$_lang['Selected Users'] = 'Geselecteerde gebruikers';
-$_lang['Send account information to user by email'] = 'Stuur accountinformatie naar gebruiker per email';
-$_lang['Send this announcement by email to registered students'] = 'Stuur deze aankondiging per email naar alle studenten';
-$_lang['Show all'] = 'Toon alle';
-$_lang['Show answers'] = 'Toon antwoorden';
-$_lang['Show differences'] = 'Toon verschillen';
-$_lang['Show none'] = 'Toon geen';
-$_lang['Size'] = 'Grootte';
-$_lang['Start Module'] = 'Start Module';
-$_lang['Start date'] = 'Start datum';
-$_lang['Start date must be before end date ...'] = 'Begindatum moet voor einddatum liggen ...';
-$_lang['Statistics'] = 'Statistieken';
-$_lang['Statistics by question'] = 'Statistieken volgens vraag';
-$_lang['Statistics by user'] = 'statistieken volgens gebruiker';
-$_lang['Statistics of exercise'] = 'Statistieken van oefening';
-$_lang['Statistics of exercise attempt'] = 'statistieken van de afgeronde oefeningen';
-$_lang['Statistics of question'] = 'statistieken van de vragen';
-$_lang['Statistics of user'] = 'Statistieken van gebruiker';
-$_lang['Status'] = 'Status';
-$_lang['Store Chat'] = 'Chat opslaan';
-$_lang['Student'] = 'student';
-$_lang['Students are allowed to self-register in groups'] = 'De gebruikers mogen zichzelf in de groepen inschrijven';
-$_lang['Subject'] = 'Onderwerp';
-$_lang['Submission type'] = 'Type ingediende items';
-$_lang['Submissions'] = 'Ingediende items';
-$_lang['Submit'] = 'Verzenden';
-$_lang['Submit a work'] = 'Werk indienen';
-$_lang['Submit feedback'] = 'Commentaar toevoegen';
-$_lang['Support forum'] = 'Ondersteuningsforum';
-$_lang['Technical Tools'] = 'Technische gereedschappen';
-$_lang['Text only (text required, no file)'] = 'Alleen tekst (tekst verplicht, geen bestand)';
-$_lang['Text with attached file (text required, file optional)'] = 'Tekst met aangehecht bestand file (tekst verplicht, bestand is optioneel)';
-$_lang['The changes have been carried out correctly'] = 'De wijzigingen werden correct uitgevoerd';
-$_lang['The course has been successfully deleted'] = 'De cursus is met succes verwijderd';
-$_lang['The email address is not valid'] = 'Het e-mail adres is niet volledig of bevat ongeldige lettertekens';
-$_lang['The file to upload is not valid.'] = 'Het te uploaden bestand is niet geldig.';
-$_lang['The following errors were found'] = 'De volgende fouten werden gevonden ';
-$_lang['The module will still be available in the pool of modules.'] = 'De module zal nog beschikbaar zijn in de verzameling van modules.';
-$_lang['The new category has been created.'] = 'De nieuwe categorie werd aangemaakt.';
-$_lang['The new class has been created'] = 'De nieuwe klas is aangemaakt';
-$_lang['The new user has been sucessfully created'] = 'De nieuwe gebruiker werd met succes aangemaakt';
-$_lang['The upload has failed. There is not enough space in your directory'] = 'Upload is niet geslaagd. Niet genoeg ruimte op de harde schijf.';
-$_lang['The upload is finished'] = 'Upload is geslaagd';
-$_lang['The user has been enroled to the course'] = 'De gebruiker is ingeschreven in de cursus';
-$_lang['The user has been successfully unregistered'] = 'De gebruiker werd met succes uitgeschreven';
-$_lang['The user has been successfully unregistered from course'] = 'De gebruiker werd met succes uitgeschreven uit de cursus';
-$_lang['The user is already enroled in this course'] = 'De gebruiker is reeds ingeschreven in de curus';
-$_lang['The zip file can not contain .PHP files'] = 'Het ZIP bestand mag geen php-bestanden bevatten';
-$_lang['There are no topics for this forum. You can post one'] = 'Er zijn geen onderwerpen in dit forum.';
-$_lang['There is no answer for the moment'] = 'Er is momenteel geen antwoord.';
-$_lang['There is no assignment at the moment'] = 'Er is geen zichtbare taak op dit moment.';
-$_lang['There is no category available !'] = 'Er is geen categorie beschikbaar !';
-$_lang['There is no course matching such criteria'] = 'Er is geen cursus die aan deze criteria voldoet';
-$_lang['There is no exercise for the moment'] = 'Er is momenteel geen oefening.';
-$_lang['There is no start asset defined for this module.'] = 'Geen startvaardigheden gedefinieerd voor deze module.';
-$_lang['There is no user account with this email address.'] = 'Er is geen account met dit email adres.';
-$_lang['This category already exists!'] = 'Deze categorie bestaat al!';
-$_lang['This category contains other categories, you must delete them before !'] = 'Deze categorie bevat andere categorie&eacute;n. U moet deze eerst verwijderen !';
-$_lang['This category contains some courses, you can\'t erase it!'] = 'Deze categorie bevat alleen cursussen, U kan ze niet verwijderen!';
-$_lang['This category include some courses, you must delete or move them before'] = 'Deze categorie bevat enkele cursussen, U moet deze eerst verwijderen of verplaatsen';
-$_lang['This course is currently not described'] = 'Deze cursus heeft nog geen omschrijving';
-$_lang['This day'] = 'Vandaag';
-$_lang['This is the faculty, department or school where the course is delivered'] = 'Hier komt de naam van de faculteit waar de cursus wordt gegeven';
-$_lang['This is the main page of the Wiki %s. Click on \'\'\'Edit\'\'\' to modify the content.'] = 'Dit is de hoofd pagina van Wiki %s. klik op edit om de inhoud te wijziggen';
-$_lang['This is your account Login-Pass'] = 'Dit is uw account Gebruikersnaam/Wachtwoord';
-$_lang['This mail appears already in a previous line of the CSV file.'] = 'Dit mail adres komt reeds voor in een eerder regel van het CSV bestand.';
-$_lang['This official code already appears in a previous line of the CSV file.'] = 'Deze offici&euml;le code komt reeds voor in een vorige regel van het CSV bestand.';
-$_lang['This official code is already used by another user.'] = 'Deze officiele code is reeds in gebruik door een andere gebruiker.';
-$_lang['This page is empty, click on \'Edit this page\' to add a content'] = 'Deze pagina is leeg , klik op \'wijzig deze pagina\' om inhoud toe te voegen';
-$_lang['This user name is already taken'] = 'De gekozen gebruikersnaam is al in gebruik';
-$_lang['This will also delete all works submitted in this assignment !'] = '! Dit zal alle bestanden, ingeleverd voor deze taak, ook verwijderen !';
-$_lang['Thumbnails'] = 'Miniaturen';
-$_lang['Time'] = 'Tijd (s.)';
-$_lang['Time in learning path'] = 'Tijd in leertraject';
-$_lang['Time is over, results not submitted.'] = 'Tijd verstreken, resultaten niet overhandigd.';
-$_lang['Time limit'] = 'Maximaal toegestane tijd';
-$_lang['Title'] = 'Titel';
-$_lang['Title added :'] = 'Titel toegevoegd: ';
-$_lang['Title of the wiki'] = 'Titel van Wiki';
-$_lang['To'] = 'naar';
-$_lang['To send a message, select groups of users (marked with a * in the front) or single users from the list on the left.'] = 'Selecteer een groep gebruikers om een bericht te sturen (selecteer met een * ervoor)
+$l_author = "Auteur";
+$l_banned = "U werd uit dit forum verwijderd. Neem contact op met de systeembeheerder indien u vragen hebt.";
+$l_body = "Bericht";
+$l_by = "van";
+$l_click = "Klik";
+$l_delete = "Dit bericht verwijderen";
+$l_deleted = "Uw bericht werd verwijderd.";
+$l_emptymsg = "U moet een Bericht inbrengen. U mag geen leeg Bericht opsturen.";
+$l_error = "Fout";
+$l_go = "Ga naar";
+$l_guest = "Gast";
+$l_here = "hier";
+$l_indextitle = "Forumindex";
+$l_lastpost = "Laatste bericht";
+$l_nopostlock = "U kan niet op dit onderwerp antwoorden. Dit is afgesloten";
+$l_noposts = "Geen berichten";
+$l_notify = "Verwittigen per e-mail wanneer de antwoorden ingediend worden";
+$l_notifybody = "U krijgt deze e-mail omdat een bericht dat u ingediend had op het forum een antwoord heeft gekregen
+	en u had gevraagd om verwittigd te worden.
 
- of selecteer enkele gebruikers uit de linker lijst.';
-$_lang['Tool'] = 'Gereedschap';
-$_lang['Tools'] = 'Functies';
-$_lang['Topic'] = 'Onderwerp';
-$_lang['Topic review'] = 'Onderwerpsoverzicht';
-$_lang['Topics'] = 'Onderwerpen';
-$_lang['Topics started'] = 'Gestarte onderwerpen';
-$_lang['Total'] = 'Totaal';
-$_lang['Total Clicks'] = 'Totaal muisklikken';
-$_lang['Total Downloads'] = 'Totaal downloads';
-$_lang['Total attempts'] = 'Aantal pogingen';
-$_lang['Total number of connection to this course'] = 'Totaal aantal verbindingen met deze cursus';
-$_lang['Total time'] = 'Totale tijd';
-$_lang['Tracking'] = 'Opvolgen';
-$_lang['Tracking has been disabled by system administrator.'] = 'Opvolgen is uitgeschakeld door de platformbeheerder.';
-$_lang['Traffic Details'] = 'Verkeer details';
-$_lang['Translation Progression'] = 'Vooruitgang vertaling';
-$_lang['Translation Tools'] = 'Vertaalgereedschappen';
-$_lang['True'] = 'Waar';
-$_lang['True/False'] = 'waar/niet waar';
-$_lang['URL link'] = 'URL verwijzing';
-$_lang['Unable to add description'] = 'Kon geen omschrijving toevoegen';
-$_lang['Unable to add external tool'] = 'Kon extern gereedschap niet toevoegen';
-$_lang['Unable to add the event to the agenda'] = 'Kon de gebeurtenis niet aan de agenda toevoegen.';
-$_lang['Unable to copy file :'] = 'Niet gelukt om bestand te kopiëren :';
-$_lang['Unable to create category'] = 'niet mogelijk om deze category te maken';
-$_lang['Unable to create directory :'] = 'Niet mogelijk om Map te maken';
-$_lang['Unable to create file :'] = 'niet mogelijk om bestand te maken';
-$_lang['Unable to create forum'] = 'niet mogelijk om dit forum te maken';
-$_lang['Unable to create frame file'] = 'niet mogelijk om het frame bestand te maken';
-$_lang['Unable to create the SCORM archive'] = 'Niet mogelijk om SCORM archief te maken';
-$_lang['Unable to create the SCORM manifest (imsmanifest.xml)'] = 'niet mogelijk om het SCORM manifest te maken (imsmanifest.xml)';
-$_lang['Unable to delete'] = 'Kon niet verwijderen';
-$_lang['Unable to delete Forum'] = 'niet mogelijk om dit forum te verwijderen';
-$_lang['Unable to delete category'] = 'niet mogelijk om deze category te verwijderen';
-$_lang['Unable to delete event from the agenda'] = 'Kon de gebeurtenis niet uit de agenda verwijderen.';
-$_lang['Unable to delete external tool'] = 'Kon extern gereedschap niet verwijderen';
-$_lang['Unable to empty forum'] = 'niet mogelijk om forum leeg te maken.';
-$_lang['Unable to empty groups'] = 'Niet mogelijk om deze groep leeg te maken';
-$_lang['Unable to enrol you to the course'] = 'Niet mogelijk om u in te schrijven voor deze cursus';
-$_lang['Unable to load exercise\'s question'] = 'Niet mogelijk om de vragen van de oefening te laden';
-$_lang['Unable to load the exercise'] = 'Niet mogelijk om oefeing te laden';
-$_lang['Unable to remove your registration to the course'] = 'niet mogelijk om uw registratie ongedaan te maken voor deze cursus';
-$_lang['Unable to save'] = 'Niet mogelijk om te bewaren';
-$_lang['Unable to update'] = 'Kon niet aanpassen';
-$_lang['Unable to update category'] = 'niet mogelijk om deze categorie te wijzigen';
-$_lang['Unable to update external tool'] = 'Kon het externe gereedschap niet bijwerken.';
-$_lang['Unable to update forum'] = 'niet mogelijk om forum te wijzigen';
-$_lang['Unable to update the event into the agenda'] = 'Kon de gebeurtenis in de agenda niet wijzigen.';
-$_lang['Unamed module'] = 'Onbenoemde module';
-$_lang['Unamed path'] = 'Onbenoemd path';
-$_lang['Unassigned students'] = 'Gebruiker(s) zonder groep';
-$_lang['Unblock'] = 'Niet-blokkerend';
-$_lang['Unchanged line'] = 'regel onveranderd';
-$_lang['Unregister'] = 'Registratie annuleren';
-$_lang['Unregister all students'] = 'verwijder alle geregistreerde studenten';
-$_lang['Unregister from class'] = 'Uitschrijven uit klas';
-$_lang['Unregister user'] = 'Niet-geregistreerde gebruiker';
-$_lang['Unsubscribe'] = 'Uitschrijven';
-$_lang['Until'] = 'tot';
-$_lang['Untitled'] = 'onbenoemd';
-$_lang['Up'] = 'Hoger';
-$_lang['Upgrade'] = 'Bijwerken';
-$_lang['Upload a new file to replace the file'] = 'Stuur een nieuw bestand op om het bestand te vervangen.';
-$_lang['Upload document'] = 'Document opsturen';
-$_lang['Upload file'] = 'Upload volgend bestand naar de server';
-$_lang['Uploaded file'] = 'Opgestuurd bestand';
-$_lang['Use format defined in first line of file'] = 'Gebruik formaat zoals in de eerste regel van het bestand';
-$_lang['User'] = 'Gebruiker';
-$_lang['User Id'] = 'Gebruikers Id';
-$_lang['User access details'] = 'Details toegang gebruiker';
-$_lang['User already in class'] = 'Gebruiker zit reeds in de klas';
-$_lang['User attempts'] = 'Gebruikerspogingen';
-$_lang['User course settings'] = 'Cursussen van de gebruiker';
-$_lang['User has been sucessfully registered to the class'] = 'Gebruiker met succes ingeschreven in de klas';
-$_lang['User has been sucessfully unregistered from the class'] = 'De gebruiker werd met succes uitgeschreven uit de klas';
-$_lang['User is now course manager'] = 'De gebruiker is nu beheerder van de cursus';
-$_lang['User is now student for this course'] = 'De gebruiker is nu student in deze cursus';
-$_lang['User list'] = 'Gebruikerslijst';
-$_lang['User not in the class'] = 'Gebruiker zit niet in de klas';
-$_lang['User registered to the course'] = 'gebruiker geregistreerd in de cursus';
-$_lang['User settings'] = 'Voorkeurinstellingen gebruiker';
-$_lang['User unregistered'] = 'De gebruiker werd uitgeschreven';
-$_lang['User\'s course'] = 'Cursussen van gebruiker';
-$_lang['Username'] = 'Gebruikersnaam (\'login\')';
-$_lang['UsernameAppearAlready'] = 'Deze gebruiker komt reeds voor in een eerdere regel van het CSV bestand.';
-$_lang['UsernameUsed'] = 'Deze gebruikersnaam is reeds in gebruik voor een andere gebruiker.';
-$_lang['Users'] = 'Gebruikers';
-$_lang['Users Downloads'] = 'Downloads door gebruikers';
-$_lang['Users help'] = 'Hulp gebruikers';
-$_lang['Users not in this group'] = 'Deelnemer(s) niet in deze groep';
-$_lang['Users\' Clicks'] = 'Muisklikken van gebruikers';
-$_lang['UsersMin'] = 'gebruikers';
-$_lang['Values'] = 'Values';
-$_lang['Variables with same content and different name'] = 'Variabelen met gelijke inhoud en verschillende naam';
-$_lang['Variables with same name and different content'] = 'Variabelen met gelijke naam en verschillende inhoud';
-$_lang['View'] = 'View';
-$_lang['View by'] = 'View by';
-$_lang['View list of all tools'] = 'Toon lijst van alle modules';
-$_lang['View mode'] = 'Scherm modus';
-$_lang['View my statistics'] = 'Toon mijn statistieken';
-$_lang['Visibility'] = 'Zichtbaarheid';
-$_lang['Visibility modified'] = 'De zichtbaarheid werd gewijzigd.';
-$_lang['Visible'] = 'Zichtbaar';
-$_lang['Visits'] = 'Bezoeken';
-$_lang['WARNING : you are going to delete this wiki and all its pages. Are you sure to want to continue ?'] = 'waarschuwing : u gaat dezez wiki verwijderen en alle pagina\'s van deze wiki. Wilt u doorgaan?';
-$_lang['WARNING: this page is a preview. Your modifications to the wiki has not been saved yet ! To save them do not forget to click on the \'save\' button at the bottom of the page.'] = 'Opgepast : deze pagina is een voorbeeld. Uw wijzigingen zijn nog niet bewaard ! om ze te bewaren vergeet niet om te klikken op de \'bewaar\' knop.';
-$_lang['Week'] = 'Week';
-$_lang['Weighting'] = 'Gewichten';
-$_lang['Wiki'] = 'Wiki';
-$_lang['Wiki : %s'] = 'Wiki : %s';
-$_lang['Wiki : Create new Wiki'] = 'Wiki : Maak een nieuw Wiki';
-$_lang['Wiki : Edit properties'] = 'Wiki : Wijzig instellingen';
-$_lang['Wiki creation succeed'] = 'Wiki is succesvol aagemaakt';
-$_lang['Wiki deletion succeed'] = 'wiki succesvol verwijderd';
-$_lang['Wiki description'] = 'Wiki beschrijving';
-$_lang['Wiki edition succeed'] = 'wiki succesvol gewijzigt';
-$_lang['Wiki syntax'] = 'Wiki syntax';
-$_lang['Work added'] = 'Werk toegevoegd';
-$_lang['Work modified'] = 'Work gewijzigd';
-$_lang['Work title required'] = 'Werk titel vereist';
-$_lang['Work uploaded by the student in the name of \'Authors\''] = 'Werken opgestuurd door de student in de naam van \'Auteurs\'';
-$_lang['Work uploads'] = 'Ingediende taken';
-$_lang['Worst score'] = 'Minimum';
-$_lang['Wrong operation'] = 'Onjuiste bewerking';
-$_lang['Year'] = 'Jaar';
-$_lang['Yes'] = 'Ja';
-$_lang['Yes, allow users to submit works after end date'] = 'Ja, sta gebruikers toe taken in te leveren na einddatum';
-$_lang['Yesterday'] = 'Gisteren';
-$_lang['You are not a member of this group'] = 'U bent geen lid van deze groepen';
-$_lang['You are not allowed to create pages'] = 'Het is niet toegestaan om een pagina aan te maken. U hebt geen toegang daartoe';
-$_lang['You are not allowed to edit this page'] = 'Het is niet toegestaan om deze pagina te wijzigingen. U hebt geen toegang daartoe.';
-$_lang['You are not allowed to read this page'] = 'Het is niet mogelijk om deze pagina te lezen. Het is niet toegestaan';
-$_lang['You are now a member of this group.'] = 'U bent nu deelnemer van deze groep.';
-$_lang['You can choose a title an a description for the wiki :'] = 'U kunt een titel en een beschrijving kiezen voor u Wiki';
-$_lang['You can not change your own settings!'] = 'U kan uw eigen instellingen niet veranderen!';
-$_lang['You can not remove a group forum. You have to remove the group first'] = 'U kunt geen groeps forum verwijderen . U moet eerst de groep verwijderen';
-$_lang['You can now create your  course'] = 'U kunt nu verdergaan om uw cursus aan te maken.';
-$_lang['You can now select, in the list, the courses you want to access'] = 'U mag nu in de lijst de cursussen selecteren die U wenst te gebruiken.';
-$_lang['You can set access rights for users using the following grid :'] = 'u kunt de toegang rechten voor gebruikers wijzigen in de volgende tabel :';
-$_lang['You cannot give a blank name to a class'] = 'U mag geen lege naam aan een klas geven';
-$_lang['You cannot post an empty message'] = 'U moet een Bericht inbrengen. U mag geen leeg Bericht opsturen.';
-$_lang['You cannot unsubscribe the last course manager of the course'] = 'Je kunt niet de laatste cursusbeheerder van deze cursus uitschrijven';
-$_lang['You didnt choose any file to send, or it is too big'] = 'U hebt geen bestand geselecteerd om op te sturen of uw bestand is te groot.';
-$_lang['You have just created the course website'] = 'De site van de cursus is aangemaakt';
-$_lang['You have reached the maximum number of allowed attempts.'] = 'U hebt het maximaal aantal pogingen bereikt.';
-$_lang['You left some required fields empty'] = 'U hebt niet alle velden ingevuld. Gebruik de Back-toets van uw browser, en probeer opnieuw.';
-$_lang['You must introduce the message text'] = 'Geef aub een boodschap om te versturen.';
-$_lang['You must reach the maximum number of allowed attempts to view these statistics.'] = 'U moet de maximum aantal keer geprobeert hebben om de statistieken te kunnen bekijken';
-$_lang['You must select a file'] = 'U moet een bestand selecteren';
-$_lang['You must select a text file'] = 'U moet een tekstbestand selecteren';
-$_lang['You must select some users'] = 'Selecteer eerst gebruikers om de boodschap aan te versturen.';
-$_lang['You must specify the CSV format used in your file'] = 'U moet het CSV formaat, gebruikt in uw bestand, aangeven';
-$_lang['You\'ve been enroled on the course'] = 'U bent ingeschreven in de cursus';
-$_lang['Your best performance'] = 'Uw beste score';
-$_lang['Your browser cannot see frames.'] = 'Uw browser gebruikt geen frames.';
-$_lang['Your campus has been submitted and is waiting to be validate by Claroline.net team'] = 'Uw campus is voorgelegd ter goedkeuring aan het Claroline.net team';
-$_lang['Your daddy is'] = 'Jouw vader is';
-$_lang['Your enrolment on the course has been removed'] = 'U bent uitgeschreven uit de cursus';
-$_lang['Your message has been deleted'] = 'Uw bericht werd verwijderd.';
-$_lang['Your message has been entered'] = 'Uw Bericht werd opgeslagen.';
-$_lang['Your mother is'] = 'Jouw moeder is';
-$_lang['Your password has been emailed to'] = 'Uw wachtwoord is opgezonden naar ';
-$_lang['Your progression in this module'] = 'Uw vooruitgang in deze module';
-$_lang['Your request to become a course creator has been sent to platform administrator(s).'] = 'Uw verzoek cursus beheerder te worden is verzonden';
-$_lang['Your request to remove your account has been sent'] = 'Uw verzoek uw account te verwijderen is verzonden';
-$_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'Uw gebruikersprofiel is niet gekoppeld aan deze cursus';
-$_lang['Zip file uploaded and uncompressed'] = ' ZIP bestand werd opgestuurd en gedecomprimeerd';
-$_lang['Zlib php extension is required to use this tool. Please contact your platform administrator.'] = 'De Zlib php uitbreiding is vereist om deze tool te gebruiken.  Contacteer de platform beheerder.';
-$_lang['archive'] = 'archief';
-$_lang['blockAssignmentsHelp'] = '<p>
-Het taak gereedschap is een publicatiegebied voor studenten.
-De cursusbeheerder maakt een of meerdere taken aan (verschillende publicatie mogelijkheden) waar
-de studenten hun werkjes kunnen publiceren.
-<br /><br />
+U kan het onderwerp zien op:
 
-Elke taak kan meerdere doelen of vereisten hebben:
-Een publicatie moet een bestand en/of tekst zijn, en een publicatie kan in naam van een
-groep worden aangeboden.
- <br /><br />
+%1\$s
 
-Studenten hebben de mogelijkheid hun werk na het indienen nog wijzigen, en de cursusbeheerder
-kan commentaar leveren op het ingediende werk.
-</p>
-<hr />
+Of de forumindex bekijken op
 
-<h4>Een taak aanmaken</h4>
-<p>
-Om een nieuwe taak aan te maken moet de cursus beheerder in het \'taak\' gereedschap de link "Nieuwe taak maken"
-aanklikken.
-<p>Het formulier dat dan getoond wordt vraagt de cursusbeheerder om&nbsp;:
-</p>
-<ul><li> Een titel &nbsp;: De naam van de taak.
-</li><li> Een omschrijving&nbsp;: Wat de taak inhoudt, hetgeen van de studenten verwacht wordt.
-</li><li> Wat dient ingediend:&nbsp;:
-<ul><li> Bestand&nbsp;: elk uploadbaar type bestand. Wees voorzichtig, er is een grens op de grootte van
-de bestanden die men kan uploaden. Er kan een korte omschrijving van het bestand worden meegegegeven bij
-het uploaden.
+%2\$s
 
-</li><li> Alleen tekst&nbsp;: Een tekst (mogelijk met opmaak).
-</li><li> Tekst met toegevoegd bestand&nbsp;: een tekst (mogelijk met opmaak) en een bestand (optioneel)
-</li></ul>
-</li><li> Een begindatum&nbsp;: Datum vanaf wanneer de gebruikers hun werk mogen indienen.
-</li><li> Een einddatum&nbsp;: Datum tot wanneer de gebruikers hun werk mogen indienen.
-</li><li> Standaard zichtbaarheid van de werken&nbsp;: Duid aan of de werken zichtbaar
-zullen zijn voor andere gebruikers of niet.
-</li><li> Type taak&nbsp;:
+Bedankt voor het gebruiken van het forum.
 
-<ul><li> Individueel&nbsp;: Elke gebruiker kan een werk indienen.
-</li><li> Groepswerk&nbsp;: De gebruiker moet lid zijn van minstens een groep in de cursus, het werk wordt ingediend in naam van de groep.
-</li></ul>
-</li><li> Toestemming om werken nog in te dienen na einddatum
-</li></ul>
-<p><br />
-<strong>Automatische commentaar toevoegen</strong>
-</p>
-<p>Een commentaar is een correcte versie van de taak. Om een automatische commentaar toe te voegen, klik
-op de link "Bewerk automatische commentaar".
-<p>Dit kan een tekst en/of een bestand zijn.
-De cursus bereerder kan kiezen wanneer deze automatische commentaat aan de gebruikers getoond wordt:
-Na de einddatum van de taak, of nadat het werk werd ingediend.
-</p>
-
-<hr />
-<h4>Werken</h4>
-<p>Werken zijn de publicaties/teksten die de gebruikers uploaden.</p>
-<p>Voor elke taak toont de gereedschapsset een lijst van alle gebruikes in de cursus, en voor elke
-gebruiker de titel van het eerste werk dat hij heeft ingediend, het aantal ingediende werkjes en
-het aantal commentaren. De lijst van werkjes van een gebruiker kan opgevraagd worden door op de
-gebruikersnaam te klikken.
-</p>
-<p><strong>Een werk indienen</strong></p>
-<p>Indien de gebruiker het recht heeft een werkje in te dienen, wordt er een link naar een formulier getoond.
-</p>
-<p><strong>Lijst werkjes</strong></p>
-<p>De cursusbeheerder heeft het recht elk van de ingediende werkjes te bewerken, verwijderen of (on)zichtbaar te maken.
-Hij kan ook commentaar leveren op werkjes.
-</p>
-<ul>
-<li> <strong>Wijzigen</strong>&nbsp;: Indien dit pictogram verschijnt kan de gebruiker de inhoud van het werk kan wijzige,
-dit is het geval voor de cursusbeheerder, of als de gebruiker naar zijn werkjes kijkt, of de werkjes van een groep waar hij in zit.
-
-</li>
-<li> <strong>Verwijderen</strong>&nbsp;: Hiermee kan de cursusbeheerder een werkje verwijderen.
-</li>
-<li> <strong>Zichtbaar</strong>&nbsp;: Dit pictogram duidt aan dat het werkje zichtbaar is voor alle gebruikers.
-(zoals bij de \'Documenten\'). Op het pictogram klikken maakt het werkje onzichtbaar.
-</li>
-<li> <strong>Onzichtbaar</strong>&nbsp;: Dit pictogram duidt aan dat het werkje onzichtbaar is voor alle gebruikers.
-(zoals bij de \'Documenten\'). Op het pictogram klikken maakt het werkje zichtbaar.
-
-</li>
-<li> <strong>Commentaar toevoegen</strong>&nbsp;: Via deze link kan de cursusbeheerder commentaar toevoegen
-aan een werkje. Dit kan een tekst en/of een bestand zijn, en kan een prive commentaar zijn, zodat enkel
-de cursusbeheerder de commentaar kan zien.
-</li>
-</ul>';
-$_lang['blockClaroMainHelp'] = '<br /><p><b>Student</b></p><p>Om cursussen te bezoeken, die toegankelijk zijn vanaf de Claroline startpagina, is het voldoende te klikken op de code van de cursus in de cursuslijst, zonder dat een voorafgaande registratie noodzakelijk is.</p><p>Om toegang tot de cursussen te krijgen, die niet toegankelijk zijn vanaf de startpagina van de leeromgeving, is het wel noodzakelijk om zich voorafgaand te registreren. <b>Registratie > Vul uw persoonlijke gegevens in > Actie: Registreren voor cursussen > Selecteer de cursussen en klik op Ok.</b></p><p>Een e-mail zal worden opgestuurd waarin uw gebruikersnaam en uw wachtwoord ter herinnering worden meegedeeld.</p><hr noshade size=1><p><b>lesgever</b></p><p><b>Cursussite aanmaken</b></p><p>Zo gaat u te werk: <b>Registratie > Vul alle velden in en kies \'cursussen aanmaken\' als actie > Klik Ok > Voer de naam van de cursus in. Selecteer een faculteit of een vakgroep.  Voer de referentie van de cursus in  > Klik Ok </b>. U komt in uw persoonlijke pagina in Claroline terecht. Hier vindt u de lijst van cursussen waarin u geregistreerd bent.  Klik op de naam van de cursus die u hebt aangemaakt. U komt in een ‘lege’ cursussite terecht.  Leeg in die zin dat er enkel voorbeelditems zijn aangebracht, zodat u niet onwetend bent bij de confrontatie met blanco pagina’s. Bij uw registratie kreeg u een e-mail, waarin uw gebruikersnaam en uw wachtwoord ter herinnering zijn meegedeeld.</p><p>Als er een probleem is, neem contact op met uw Claroline-beheerder. U kunt ook een bericht publiceren op het supportforum van <a href=http://www.claroline.net>http://www.claroline.net</a>.</p>';
-$_lang['blockConfirmBlockingModuleMadeInvisible'] = 'Deze module is blokkerend.</br>Indien U ze onzichtbaar maakt, krijgen studenten toegang tot de volgende modules zonder deze te vervolledigen.<br/>Bevestigen ?';
-$_lang['blockConfirmBlockingPathMadeInvisible'] = 'Dit leertraject is blokkerend.<br/>Indien U het onzichtbaar maakt, krijgen studenten toegang tot de volgende leertrajecten zonder deze te vervolledigen.</br> Bevestigen ?';
-$_lang['blockConfirmDeleteModule'] = 'bent U zeker dat U deze module compleet wil verwijderen ?<br/>Het zal permanent van de server verwijderd worden, en van elk leertraject waar het deel van uitmaakt.<br/>U zal het niet meer kunnen gebruiken in een leertraject. <br />Bevestig verwijderen van : ';
-$_lang['blockConfirmDeleteScorm'] = 'Dit leertraject maakt deel uit van een SCORM import pakket. Als u het verwijdert, worden alle SCORM-conforme modules en gerelateerde bestanden verwijderd van de server.  Bent U zeker dat u dir leertraject wil verwijderen: ';
-$_lang['blockCourseDescriptionCourseContent'] = 'Inhoud van de cursus';
-$_lang['blockCourseDescriptionCourseContentComment1'] = 'Wat is het belang van de inhoud die gedoceerd wordt binnen het kader van de cursus?  Wat is het niveau van de inhoud ?  Hoe is de inhoud gestructureerd?  Wat is de volgorde van de inhoud?  Wat is het doel van de inhoud?';
-$_lang['blockCourseDescriptionCourseContentComment2'] = 'Presentatie van de inhoud van de cursus, structuur van de inhoud, vooruitgang en de kalender';
-$_lang['blockCourseDescriptionDescription'] = 'Beschrijving';
-$_lang['blockCourseDescriptionDescriptionComment1'] = 'Wat is de plaats en de eigenheid van de cursus in het programma?  Zijn er voorvereisten?  Wat is de relatie met andere cursussen?';
-$_lang['blockCourseDescriptionDescriptionComment2'] = 'Informatie die toestaat de cursus te identificeren (initialen, titel, aantal uren, praktijkvak...) en te onderwijzen (naam, voornaam, kantoor, Tel., e-mail, bereikbaarheid).  Algemene voorstelling van de cursus binnen het programma.';
-$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment1'] = 'Wat zijn de beschikbare menselijke en fysieke middelen? Waaruit bestaat de omkadering?  Wat kunnen de studenten verwachten van het organisatie-team en de organisatie van de lesgever?';
-$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment2'] = 'Presentatie van de andere lesgevers die de cursus mee organiseren (assistenten, onderzoekers, studenten-monitors...), de beschikbaarheid van mensen, gebouwen en beschikbare uitrusting of computer uitrusting.';
-$_lang['blockCourseDescriptionHumanAndPhysicalRessources'] = 'Menselijke en fysieke middelen';
-$_lang['blockCourseDescriptionMethodsOfEvaluation'] = 'Evaluatie methodes';
-$_lang['blockCourseDescriptionMethodsOfEvaluationComment1'] = 'Details over de gebruikte evaluatie (geschreven testen, mondeling, projecten, taken...), datums voor testen, datums voor indienen taken, criteria voor evaluaties, mogelijke weging van de criteriae criteria of de categori&euml;en van criteria.';
-$_lang['blockCourseDescriptionQualificationsAndGoals'] = 'Qualificaties en doelstellingen';
-$_lang['blockCourseDescriptionQualificationsAndGoalsComment1'] = 'Wat zijn de doelstellingen?  Welke zijn de capaciteiten en kennis waarover de student zal beschikken aan het eind van de cursus?';
-$_lang['blockCourseDescriptionQualificationsAndGoalsComment2'] = 'Presentatie van de algemene en specifieke doelstellingen van de cursus, van qualificaties tot dewelke het beheersen van het onderwerp leidt';
-$_lang['blockCourseDescriptionSupports'] = ' Ondersteuning ';
-$_lang['blockCourseDescriptionSupportsComment1'] = 'Is er ondersteuning?  Welke soort ondersteuning is er?  Open?  Gesloten?';
-$_lang['blockCourseDescriptionSupportsComment2'] = 'Presentatie van de ondersteuning van de cursus.  Presentatie van de bibliografie, de documenten of een complementaire bibliografie.';
-$_lang['blockCourseDescriptionTeachingTrainingActivities'] = 'Les-training activiteiten';
-$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment1'] = 'Welke methodes en welke activiteiten helpen bij het bereiken van de doelstellingen van de cursus?  Wat is de kalender van activiteiten ?';
-$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment2'] = 'Presentatie van de voorziene activiteiten (Reviews, verwachte deelname van de studenten, practische werkjes, practica, bezoeken, vergaren van informatie ter plekke...).';
-$_lang['blockCourseHomePageIntroduction'] = 'Selecteer de gereedschappen die U aan uw gebruikers ter beschikking wil stellen.
-
-Een onzichtbaar gereedschap wordt uitgevlakt getoond in uw persoonlijke omgeving';
-$_lang['blockCourseSettingsTip'] = 'Standaard bent u de enige gebruiker van uw cursus. Als u een minimum aan privacy wilt, kunt u het beste de registratie gedurende een week openen en aan de studenten vragen om zichzelf in te schrijven. Dan sluit u de registratie en controleert u mogelijke indringers in de gebruikerslijst.';
-$_lang['blockDefaultLearningPathComment'] = 'Dit is de inleidende tekst van dit leertraject. Om het door uw eigen tekst te vervangen, klik op de onderstaande link <b>inleiding toevoegen</b>.';
-$_lang['blockDefaultModuleAddedComment'] = 'Dit is de inleidende tekst van deze module. Deze tekst zal verschijnen in elk leertraject waar de module deel van uitmaakt. Om ze door uw eigen tekst te vervangen, klik op de onderstaande link <b>Inleiding toevoegen</b>.';
-$_lang['blockDefaultModuleComment'] = 'Dit is de inleidende tekst van deze module. Deze tekst zal verschijnen in elk leertraject waar de module deel van uitmaakt. Om ze door uw eigen tekst te vervangen, klik op de onderstaande link <b>Inleiding toevoegen</b>.';
-$_lang['blockDocumentsHelp'] = '<p>De module voor het beheer van documenten (cursusmaterialen) gebeurt op dezelfde wijze als het beheer van uw documenten op een computer.</p><p>U kunt alle types documenten (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.) opslaan. Wees toch voorzichtig. De studenten moeten de juiste programma’s hebben om deze te lezen. <b>Tip:</b> Let er op dat u geen virussen met uw documenten meestuurt. Gebruik een anti-virus software pakket!.</p><p>De documenten worden in alfabetische orde gerangschikt.<br />  <b>Tip: </b>Als U een andere volgorde wenst, kunt u de documenten door een nummer laten voorafgaan. 	Ze zullen op basis van de nummering gerangschikt worden. U kunt documenten ook in mappen organiseren.</p><p>U kunt:</p><h4>Een document uploaden in deze module</h4><ul>  <li>Het document op uw computer selecteren met de hulp van de toets \'Browse\'; <input type=submit value=Browse name=submit2> rechts op Uw scherm.</li>  <li>Upload het bestand de hulp van de toets \'Uploaden\'; 	<input type=submit value=Uploaden name=submit2>	.</li></ul><h4>Een nieuwe naam geven aan een document (of map)</h4><ul>  <li>klik op de toets <img src=../document/img/edit.gif width=20
- height=20 align=baseline> in de kolom \'nieuwe naam\';.</li>
+Tot ziens.";
+$l_notifysubj = "Er werd een antwoord op uw onderwerp ingediend.";
+$l_notopics = "Er zijn geen onderwerpen in dit forum.";
+$l_posted = "Ingediend op";
+$l_poster = "Indiener";
+$l_posts = "berichten";
+$l_privnotify = "<br>U heeft %1\$s <a href=\"%2\$s\">nieuwe priv&eacute; bericht(en)</a>.";
+$l_quotemsg = "[quote]
+Persoon %1\$s, %2\$s heeft geschreven:
+%3\$s
+[/quote]";
+$l_returnindex = "om terug te keren naar de forumindex";
+$l_returntopic = "om terug te keren naar de onderwerpenlijst van het forum.";
+$l_selectforum = "Forum selectioneren";
+$l_separator = "» »";
+$l_stored = "Uw Bericht werd opgeslagen.";
+$l_subject = "Onderwerp";
+$l_topic = "Onderwerp";
+$l_topicreview = "Onderwerpsoverzicht";
+$l_topics = "Onderwerpen";
+$l_topictitle = "Bekijken van Onderwerp";
+$l_viewforum = "Bekijk Forum";
+$l_viewmsg = "om uw Bericht te lezen.";
+$langAccess = "Toegankelijkheid";
+$langAccessExplain = "(Als een gebruiker de index van de campus opent)";
+$langAction = "Actie";
+$langActivate = "Activeren";
+$langAdd = "Toevoegen";
+$langAddAClassToCourse = "Schrijf een klas in voor een cursus";
+$langAddAU = "Gebruikers toevoegen";
+$langAddAnn = "Mededeling toevoegen";
+$langAddCSVUsers = "Gebruikerslijst toevoegen";
+$langAddCSVUsersInClass = "Gebruiker aan klas toevoegen";
+$langAddCSVUsersInCourse = "Gebruikers uit lijst aan cursus toevoegen";
+$langAddCategory = "Categorie toevoegen";
+$langAddClass = "Klas inschrijven";
+$langAddComment = "Commentaar toevoegen/wijzigen";
+$langAddCommentOptionnal = "Commentaar toevoegen (optioneel) :";
+$langAddEvent = "Gebeurtenis toevoegen";
+$langAddExternalTool = "Externe verwijzing toevoegen";
+$langAddFeedback = "Opmerking toevoegen";
+$langAddForCat = "Forum toevoegen aan de categorie";
+$langAddForums = "Om forums toe te voegen, klik op \"Forums\" in de categorie van uw keuze. Een categorie zonder forum zal niet zichtbaar zijn voor studenten";
+$langAddImage = "Beeldje invoegen";
+$langAddIntro = "Inleiding toevoegen";
+$langAddListUser = "Gebruikerslijst toevoegen";
+$langAddLoginPass = "Gebruikersnaam/Wachtwoord toevoegen in .htpassword</a><br>";
+$langAddLoginPassForThisUser = "Gebruikersnaam/paswoord van campus login van deze gebruiker toevoegen aan .htpassword";
+$langAddModifyComment = "Commentaar wijzigen/toevoegen aan";
+$langAddModule = "Add";
+$langAddModulesButton = "Add module(s)";
+$langAddMyCampusOnClarolineNet = "Mijn campus aan Claroline.net website toevoegen";
+$langAddNewHeading = "Voeg nieuwe hoofding toe";
+$langAddOneModuleButton = "Module toevoegen";
+$langAddPage = "Pagina toevoegen";
+$langAddTutors = "Lijst van de lesgevers beheren";
+$langAddUser = "Nieuwe gebruiker aanmaken";
+$langAddUserOneByOne = "Nieuwe gebruikers krijgen een e-mail met hun gebruikersnaam en wachtwoord";
+$langAdd_users = "Gebruikers toevoegen";
+$langAddedExternalTool = "Extern gereedschap toegevoegd.";
+$langAddedToCampus = " is toegevoegd aan de campus";
+$langAddedToCampusAndClass = " is toegevoegd aan de campus en aan de klas";
+$langAddedToCampusAndCourse = " is toegevoegd aan de campus en aan de cursus";
+$langAddedToCourse = "is nu geregistreerd voor uw cursus";
+$langAddedToCreator = "Cursus thuisbasis";
+$langAddress = "Het adres van";
+$langAdm = "Beheren";
+$langAdmin = "admin";
+$langAdminEmail = "Email";
+$langAdminLogin = "Gebruikersnaam";
+$langAdminName = "Familienaam";
+$langAdminPass = "Wachtwoord";
+$langAdminSetting = "Administrator instellingen";
+$langAdminSurname = "Voornaam";
+$langAdministration = "Administratie";
+$langAdministrationClassTools = "Klassen";
+$langAdministrator = "Administrator";
+$langAdminsOfThisCours = "cursusbeheerder(s)";
+$langAdmitError = "Zijn eigen vergissingen erkennen om zijn gesprekspartner uit te nodigen hetzelfde te doen.";
+$langAdvanced = "Gevorderde";
+$langAgain = "Opnieuw!";
+$langAgenda = "Agenda";
+$langAgendaNextEvents = "Agenda eerstvolgende items";
+$langAlertBlockingMakedInvisible = "Deze module is blokkerend.</br>Indien U ze onzichtbaar maakt, krijgen studenten toegang tot de volgende modules zonder deze te vervolledigen.<br/>Bevestigen ?";
+$langAlertBlockingPathMadeInvisible = "Dit leerpad is blokkerend.<br/>Indien U het onzichtbaar maakt, krijgen studenten toegang tot de volgende leerpaden zonder deze te vervolledigen.</br> Bevestigen ?";
+$langAll = "ALLE";
+$langAllExercises = "Alle vragen";
+$langAllRight = "Alles correct";
+$langAllUsersOfThisCourse = "Cursus leden";
+$langAllowAnonymousAttempts = "Anonieme pogingen";
+$langAllowLateUpload = "Ja, sta gebruikers toe taken in te leveren na einddatum";
+$langAllowLateUploadShort = "Sta late upload toe";
+$langAllowed = "Toegelaten";
+$langAllowedTime = "Tijdslimiet";
+$langAlreadyAnswered = "U hebt deze vraag al beantwoord.";
+$langAlreadyBrowsed = "U hebt dit reeds bekeken";
+$langAltClarodoc = "Clarodoc";
+$langAltDocument = "Document";
+$langAltExercise = "Oefening";
+$langAltMakeNotBlocking = "Niet-blokkerend";
+$langAltMakeVisible = "Zichtbaar maken";
+$langAltMove = "Verplaatsen";
+$langAltMoveUp = "Opgaand sorteren";
+$langAltScorm = "Scorm";
+$langAlways = "Steeds";
+$langAmong = "tussen";
+$langAnd = "en";
+$langAnnAdd = "Mededeling is toegevoegd";
+$langAnnDel = "Mededeling verwijderen";
+$langAnnEmpty = "De aankondigingen werden verwijderd.";
+$langAnnModify = "Mededeling is gewijzigd";
+$langAnnouncement = "Ad Valvas";
+$langAnonymous = "Anoniem";
+$langAnonymousAttemptsAllowed = "Toegestaan: volg gebruikersnaam niet op, anonieme gebruikers kunnen de oefening maken.";
+$langAnonymousAttemptsNotAllowed = "Niet toegestaan : volg gebruikersnamen op,anonieme gebruikers kunnen de oefening niet maken.";
+$langAnonymousUserAccessCount = "Pogingen van anonieme gebruikers : ";
+$langAnotherCreateSite = "Maak een nieuwe cursus website aan";
+$langAnswer = "Antwoord";
+$langAnswerRequired = "Een antwoord is vereist";
+$langAnswerType = "Antwoord type";
+$langAntique = "Oude filosofie geschiedenis";
+$langAppliedChange = "De wijzigingen werden aangebracht aan de gebruikersinstellingen";
+$langArchive = "archief";
+$langAreCompulsory = "zijn verplicht";
+$langAreYouSureDeleteModule = "bent U zeker dat U deze module compleet wil verwijderen ?<br/>Het zal permanent van de server verwijderd worden, en van elk leerpad waar het deel van uitmaakt.<br/>U zal het niet meer kunnen gebruiken in een leerpad. <br>Bevestig verwijderen van : ";
+$langAreYouSureToDelete = "Wilt u dit document verwijderen: ";
+$langAreYouSureToDeleteScorm = "Dit leerpad maakt deel uit van een SCORM import pakket. Als u het verwijdert, worden alle SCORM-conforme modules en gerelateerde bestanden verwijderd van de server.  Bent U zeker dat u dir leerpad wil verwijderen: ";
+$langAreYouSureToRemove = "Bent U zeker dat U de volgende module will verwijderen van het leerpad : ";
+$langAreYouSureToRemoveLabel = "Door dit label te verwijderen, verwijdert U alle modules en labels eraan verbonden";
+$langAreYouSureToRemoveSCORM = "SCORM conforme modules worden definitief verwijderd van de server als ze in hun leerpad verwijderd worden.";
+$langAreYouSureToRemoveStd = "De module zal nog beschikbaar zijn in de verzameling van modules.";
+$langAreYouSureToUnsubscribe = "Bent U zeker dat U de inschrijving wil teniet doen ?";
+$langAssignment = "Taak";
+$langAssignmentAdded = "Nieuwe taak aangemaakt";
+$langAssignmentDeleted = "Taak verwijderd";
+$langAssignmentDescription = "Beschrijving";
+$langAssignmentEdited = "Taak gewijzigd";
+$langAssignmentTitle = "Titel voor de taak";
+$langAssignmentTitleAlreadyExists = "Deze titel wordt reeds gebruikt voor een andere taak";
+$langAssignmentTitleRequired = "Een titel voor de taak is vereist";
+$langAssignmentType = "Type taak";
+$langAttachDoc = "Voeg een document toe";
+$langAttachFile = "Voeg een bestand toe";
+$langAttachedFile = "Toegevoegd bestand";
+$langAttempt = "Poging";
+$langAttemptAllowed = "poging toegestaan";
+$langAttempts = "Pogingen";
+$langAttemptsAllowed = "pogingen toegestaan";
+$langAvailableFrom = "Beschikbaar van";
+$langBack = "Terug naar cursuseigenschappen";
+$langBackAndForget = "Annuleren";
+$langBackCat = "terug naar categorie&euml;n";
+$langBackHomeOf = "Terug naar startpagina van ";
+$langBackList = "Terug naar de lijst";
+$langBackModule = "Back to list";
+$langBackTo = "Terug naar :";
+$langBackToAdmin = "Terug naar admin pagina";
+$langBackToClass = "Terug naar de klas";
+$langBackToClassList = "Terug naar de klaslijst";
+$langBackToClassMembers = "Terug naar klasleden";
+$langBackToCourseList = "terug naar de cursus lijst";
+$langBackToEditor = "Terug naar ingave scherm";
+$langBackToLPAdmin = "Terug naar leerpad administratie";
+$langBackToList = "Terug naar gebruikerslijst";
+$langBackToMyCourseList = "terug naar mijn cursuslijst";
+$langBackToUserList = "Terug naar gebruikerslijst";
+$langBackToUserSettings = "Terug naar gebruikersinstellingen";
+$langBackToUsersList = "Terug naar gebruikerslijst";
+$langBlankSpace = "(witruimte)";
+$langBlock = "Blokkeren";
+$langBrowserCannotSeeFrames = "Your browser cannot see frames.";
+$langBuildCompleteLangFile = "Volledige taalbestanden";
+$langBuildEmptyLangFile = "Leeg taalbestand";
+$langBuildLangFile = "Taal bestand aanmaken";
+$langBuildMissingLangFile = "Ontbrekende taalbestanden";
+$langBuildProductionLangFile = "Productie taalbestand";
+$langByDel = "Door deze cursus te verwijderen, zal u alle documenten erin verwijderen. <p>Wenst U deze cursus te verwijderen ?";
+$langByUser = "door de gebruiker";
+$langCSVSeeUserList = "Bekijk gebruikerslijst";
+$langCampusAlreadyRegistered = "Het lijkt er op dat uw capus reeds geregistreerd is.";
+$langCampusDeleted = "<strong>verwijderd</strong><p>uw campus registratie is gedesactiveerd, contacteer ons (zie onze website) als U denkt dat dit een fout is.</p>";
+$langCampusRegistered = "<strong>Goedgekeurd</strong><p>uw campus registratie is goedgekeurd door het Claroline.net team.<br />Een link naar uw campusmpus is shown on the Worldwide page of Claroline.net.</p>";
+$langCampusRegistrationSubmitted = "Uw campus is voorgelegd ter goedkeuring aan het Claroline.net team";
+$langCampusRemoved = "<strong>Verwijderd</strong><p>Uw campus is verwijderd van de wereldwijde pagina.</p>";
+$langCampusSubmitted = "<strong>Voorgelegd</strong><p>Wacht op goedkeuring door het Claroline.net team.</p>";
+$langCancel = "Annuleren";
+$langCannotAddForumInGroups = "Groep forums worden aangemaakt wanneer een groep wordt aangemaakt, en worden verwijderd wanneer de groep wordt verwijderd.";
+$langCannotBeBlank = "U mag geen lege naam aan een klas geven";
+$langCannotBeDeleted = "kan niet verwijderd worden";
+$langCannotCopyFile = "Kan het bestand niet kopi&euml;ren.";
+$langCannotInitChat = "Fout: kan de chat niet initializeren";
+$langCannotMoveGroupForum = "Een groep forum kan niet verplaatst worden";
+$langCatagoryGroup = "Forum groepen";
+$langCatagoryMain = "Algemeen";
+$langCategories = "Categorie&euml;n";
+$langCategory = "Categorie";
+$langCfgSetting = "Platform instellingen";
+$langChangeCat = "Van categorie veranderen";
+$langChangePwdexp = "Geef nieuw wachtwoord twee maal in om te wijzigen, laat leeg om huidige te behouden";
+$langChangeRaw = "Verander ruwe minimum om deze module met succes te be&euml;indigen (in percent) : ";
+$langChangedTool = "Gereedschap toegang gewijzigd";
+$langChat = "Online chat";
+$langChatResetBy = "Chat ge-herinitaliseerd door";
+$langChoice = "Uw keuze";
+$langChooseDateHelper = "(d/m/y hh:mm)";
+$langChooseGoodAnswer = "Kies een goed antwoord";
+$langChooseGoodAnswers = "Kies &eacute;&eacute;n of meerdere goede antwoorden.";
+$langClarContent = "<br><p><b>Student</b></p><p>Om cursussen te bezoeken, die toegankelijk zijn vanaf de Claroline startpagina, is het voldoende te klikken op de code van de cursus in de cursuslijst, zonder dat een voorafgaande registratie noodzakelijk is.</p><p>Om toegang tot de cursussen te krijgen, die niet toegankelijk zijn vanaf de startpagina van de universiteit, is het wel noodzakelijk om zich voorafgaan te registreren. <b>Registratie > Vul uw persoonlijke gegevens in > Actie: Registreren voor cursussen > Selecteer de cursussen en klik op Ok.</b></p><p>Een e-mail zal worden opgestuurd waarin uw gebruikersnaam en uw wachtwoord ter herinnering worden meegedeeld.</p><hr noshade size=1><p><b>lesgever</b></p><p><b>Cursussite aanmaken</b></p><p>Zo gaat u te werk: <b>Registratie > Vul alle velden in en kies 'cursussen aanmaken' als actie > Klik Ok > Voer de naam van de cursus in. Selecteer of een faculteit of een vakgroep.  Voer de referentie van de cursus in  > Klik Ok </b>. U komt in uw persoonlijke pagina in Claroline terecht. Hier vindt u de lijst van cursussen waarin u geregistreerd bent.  Klik op de naam van de cursus die u hebt aangemaakt. U komt in een ‘lege’ cursussite terecht.  Leeg in die zin dat er enkel voorbeelditems zijn aangebracht, zodat het angstzweet u niet uitbreekt bij de confrontatie met blanco pagina’s. Bij uw registratie kreeg u een e-mail, waarin uw gebruikersnaam en uw wachtwoord ter herinnering worden meegedeeld.</p><p>Als er een problem is, neem contact op met uw Claroline-beheerder. U kunt ook een bericht publiceren op het supportforum van <a href=http://www.claroline.net>http://www.claroline.net</a>.</p>";
+$langClarolineNetNews = "Claroline.net nieuws";
+$langClass = "Klassen";
+$langClassMembers = "Klasleden";
+$langClassMoved = "De klas is verplaatst";
+$langClassName = "Klas naam";
+$langClassRegisterUser = "Registreer een gebruiker in deze klas";
+$langClassRegisterWholeClass = "Registreer klas in een cursus";
+$langClassRegisterWholeClassAgain = "Registreer volledige klas voor een andere cursus";
+$langClassRegistered = "Klas geregistreerd";
+$langClearList = "Lijst opkuisen";
+$langClose = "Venster sluiten";
+$langCloseWindow = "Venster sluiten";
+$langCode = "Cursuscode";
+$langCodeAppearAlready = "Deze offici&euml;le code komt reeds voor in een vorige lijn in het CSV bestand.";
+$langCodeCanBeEmpty = "Cursus code veld moet vervolledigd worden";
+$langCodeUsed = "Deze officiele code is reeds in gebruik door een andere gebruiker.";
+$langComMod = "Commentaar is gewijzigd.";
+$langComment = "Commentaar";
+$langConfTip = "Standaard bent u de enige gebruiker van uw cursus. Als u een minimum aan privacy wenst, is het best om de registratie gedurende een week te openen en aan de studenten vragen om zichzelf in te schrijven. Dan sluit u de registratie en controleert u mogelijke indringers in de gebruikerslijst.";
+$langConfiguration = "Configuratie";
+$langConfirm = "Bevestig";
+$langConfirmDeleteExercise = "Bent U zeker dat U deze oefening wil verwijderen ?";
+$langConfirmDeleteGroups = "Bent U zeker dat U alle groepen wil verwijderen ?";
+$langConfirmDeleteQuestion = "Bent U zeker dat U deze vraag wil verwijderen ?";
+$langConfirmDeleteStats = "Indien U de statistieken van deze cursus verwijdert is dit een onomkeerbare actie!<br /><br />Bent U zeker dat U de statistieken wil verwijderen ?";
+$langConfirmEmptyGroups = "Bent U zeker dat U alle groepen wil leegmaken ?";
+$langConfirmEnrollClassToCourse = "Are you sure you want to enrol the whole class on the course ?";
+$langConfirmYourChoice = "Gelieve uw keuze te bevestigen";
+$langConfirmation = "Bevestiging";
+$langContent = "Inhoud";
+$langContradiction = "Het principe van tegenstrijdigheid gebruiken om zijn gesprekspartner in de tang te krijgen.";
+$langCopy = "Knippen";
+$langCopyFailed = "Het kopi&euml;ren van het bestand is mislukt...";
+$langCorrespondsTo = "Corresponds to";
+$langCouldNot = "Bestand kon niet opgestuurd worden";
+$langCountCours = "Aantal cursussen";
+$langCountCourseByFaculte = "Aantal gebruikers per faculteit";
+$langCountCourseByLanguage = "Number of courses by language";
+$langCountCourseByVisibility = "Number of courses by visibility";
+$langCountToolAccess = "Totaal aantal verbindingen met deze cursus";
+$langCountUsers = "Aantal gebruikers";
+$langCountUsersByCourse = "Aantal gebruikers per cursus";
+$langCountUsersByFaculte = "Aantal gebruikers per faculteit";
+$langCountUsersByStatus = "Aantal gebruikers per status";
+$langCountry = "Land";
+$langCountryCodeError = "Landcode schijnt niet correct te zijn.";
+$langCourse = "De cursus ";
+$langCourseAccess = "Toegang tot deze cursus";
+$langCourseAdministratorOnly = "Enkel voor cursusbeheerder";
+$langCourseContent = "Inhoud van de cursus";
+$langCourseContentComment1 = "Wat is het belang van de inhoud die gedoceerd wordt binnen het raamwerk van de cursus?  Wat is het niveau van de inhoud ?  Hoe is de inhoud gestructureerd?  Wat is de volgorde van de inhoud?  Wat is het doel van de inhoud?";
+$langCourseContentComment2 = "Presentatie van de inhoud van de cursus, structuur van de inhoud, vooruitgang en de kalender";
+$langCourseCreate = "Maak een web-cursus";
+$langCourseCreator = "Cursus creator";
+$langCourseDelete = "De cursus is met succes verwijderd";
+$langCourseDescription = "Schrijf hier de beschrijving van de cursus.  Deze zal verschijnen in de cursussenlijst (de inhoud van dit vlak verschijnt nu nergens en bestaat hier als voorbereiding voor een volgende versie van Claroline).";
+$langCourseHome = "Cursus thuisbasis";
+$langCourseList = "Cursus lijst";
+$langCourseManager = "Cursusbeheerder";
+$langCourseManagerStatusToUser = "Cursus creator status naar %s %s";
+$langCourseProgram = "Cursusprogramma";
+$langCourseSettings = "Eigenschappen cursus";
+$langCourseTitle = "Titel";
+$langCourseWithoutAccess = "Niet gebruikte cursussen";
+$langCourseWithoutProf = "Cursussen zonder lesgever";
+$langCourseWithoutStudents = "Cursussen zonder student";
+$langCourse_Repository = "Cursus repository";
+$langCourses = "Cursussen";
+$langCreate = "aanmaken";
+$langCreateAnotherUser = "Maak opnieuw een nieuwe gebruiker";
+$langCreateAssignment = "Maak een nieuwe taak";
+$langCreateCourse = "Maak een cursus";
+$langCreateCourses = "Maak cursussen";
+$langCreateDir = "Nieuwe map";
+$langCreateDocument = "Maak een document";
+$langCreateHyperlink = "Maak een Hyperlink";
+$langCreateLabel = "Nieuw label";
+$langCreateModifyDocument = "Maak/bewerk document";
+$langCreateNewClass = "Maak een nieuwe klas";
+$langCreateNewLearningPath = "Maak een nieuw leerpad";
+$langCreateSite = "Cursussite aanmaken";
+$langCreateUser = "Maak een gebruiker";
+$langCreationMailNotificationBody = "Cursus creatie aan";
+$langCreationMailNotificationSubject = "Cursus creatie";
+$langCurrentAttachedDoc = "Huidig aangehecht bestand";
+$langCurrentDoc = "Huidig bestand";
+$langCurrentStatus = "Huidige status registratie : <br /> <br />";
+$langCurrentTime = "Huidige tijd";
+$langDBConnectionParameters = "Mysql connectie parameters";
+$langDBHost = "Databank machine";
+$langDBLogin = "Databank gebruikersnaam";
+$langDBPassword = "Databank paswoord";
+$langDBSetting = "MySQL databank instellingen";
+$langDBSettingNamesIntro = "
+				<p>
+                Install script will create main claroline databases.
+                You can create different databases for the main tables and for the tracking tables 
+				or use the same database for the two.<br />
+				You can also set an optionnal prefix for the main tables.
+				</p>
+				<p>
+                Afterwards, Claroline will create a new database for each created course.
+                You can specify a prefix for these databanames.
+				</p>
+                <p>
+                If you are allowed to use only one database by your database system administrator,
+                get back to the previous page and select option 'Single' for 'Database mode'.
+                </p>
+                ";
+$langDBUse = "Databank gebruik";
+$langDOCUMENTTypeDesc = "Document";
+$langDate = "Datum";
+$langDateLastWrite = "Laatste bericht was op: ";
+$langDay = "Dag";
+$langDay_of_weekNames = "Array";
+$langDbName = "Databank naam";
+$langDbPrefixForm = "Prefix voor namen van cursus databanken";
+$langDear = "Beste";
+$langDefSubVisibility = "Standaard zichtbaarheid werkjes";
+$langDefaultLearningPathComment = "Dit is de inleidende tekst van dit leerpad. Om het door uw eigen tekst te vervangen, klik op de onderstaande link <b>inleiding toevoegen</b>.";
+$langDefaultModuleAddedComment = "Dit is de inleidende tekst van deze module. Deze tekst zal verschijnen in elk leerpad waar de module deel van uitmaakt. Om ze door uw eigen tekst te vervangen, klik op de onderstaande link <b>Inleiding toevoegen</b>.";
+$langDefaultModuleComment = "Dit is de inleidende tekst van deze module. Deze tekst zal verschijnen in elk leerpad waar de module deel van uitmaakt. Om ze door uw eigen tekst te vervangen, klik op de onderstaande link <b>Inleiding toevoegen</b>.";
+$langDefaultTextInBlanks = "Van alle [Galli&euml;rs] zijn de [Belgen] het dapperst.";
+$langDefcon = "Oooeeps, vreemd antwoord ontdekt !!";
+$langDefineBlanks = "Definieer minstens een plaatshouder met vierkante haakjes [...]";
+$langDefineHeadings = "Definieer Hoofdingen";
+$langDefineOptions = "Definieer de keuzes";
+$langDelAdmin = "Te verwijderen via Forumbeheer";
+$langDelCourse = "Deze cursussite verwijderen";
+$langDelCourseStats = "Verwijder alle statistieken over cursus";
+$langDelCourseStatsDone = "Statistieken over cursus verwijderd";
+$langDelImage = "Werwijder plaatje";
+$langDelete = "Verwijderen";
+$langDeleteAttachedFile = "Verwijder aangehecht bestand";
+$langDeleteCaution = "! Dit zal alle werkjes, ingeleverd voor deze taak, ook verwijderen !";
+$langDeleteGroups = "Alle groepen verwijderen";
+$langDeleteMyAccount = "Mijn account verwijderen";
+$langDeleteUser = "Gebruiker verwijderen";
+$langDeletedExternalTool = "Extern gereedschap verwijderd";
+$langDenied = "Niet toegelaten";
+$langDepartmentUrl = "URL van uw faculteit of vakgroep";
+$langDepartmentUrlName = "Faculteit";
+$langDescAdded = "Omschrijving toegevoegd.";
+$langDescDeleted = "Omschrijving verwijderd.";
+$langDescUnableToDelete = "Kon niet verwijderen";
+$langDescUnableToUpdate = "Kon niet aanpassen";
+$langDescUpdated = "Omschrijving aangepast.";
+$langDescription = "Mogelijke beschrijving";
+$langDescriptionComment1 = "Wat is de plaats en de eigenheid van de cursus in het programma?  Zijn er voorvereisten?  Wat is de relatie met andere cursussen?";
+$langDescriptionComment2 = "Informatie die toestaat de cursus te identificeren (initialen, titel, aantal uren, praktijkvak...) en te onderwijzen (naam, voornaam, kantoor, Tel., e-mail, bereikbaarheid).  Algemene voorstelling van de cursus binnen het programma.";
+$langDescriptionCours = "Cursus omschrijving";
+$langDetail = "Detail";
+$langDetailView = "View by";
+$langDetails = "Details";
+$langDevTools = "Gereedschap voor ontwikkelaars";
+$langDirCr = "Folder is aangemaakt";
+$langDirMv = "Folder/Bestand is verplaatst.";
+$langDisable = "Desactiveren";
+$langDiskUsage = "Schijf gebruik";
+$langDispClassAdded = "Toon de toegevoegde klas";
+$langDocContent = "<p>De module voor het beheer van documenten (cursusmaterialen) gebeurt op dezelfde wijze als het beheer van uw documenten op een computer.</p><p>U kunt alle types documenten (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.) opslaan. Wees toch voorzichtig. De studenten moeten de juiste programma’s hebben om deze te lezen. <b>Tip:</b> Let er op dat u geen virussen met uw documenten meestuurt. Gebruik een anti-virus software pakket!.</p><p>De documenten worden in alfabetische orde gerangschikt.<br>  <b>Tip: </b>Als U een andere volgorde wenst, kunt u de documenten door een nummer laten voorafgaan. 	Ze zullen op basis van de nummering gerangschikt worden. U kunt documenten ook in folders organiseren.</p><p>U kunt:</p><h4>Een document uploaden in deze module</h4><ul>  <li>Het document op uw computer selecteren met de hulp van de toets 'Browse'; <input type=submit value=Browse name=submit2> rechts op Uw scherm.</li>  <li>Upload het bestand de hulp van de toets 'Uploaden'; 	<input type=submit value=Uploaden name=submit2>	.</li></ul><h4>Een nieuwe naam geven aan een document (of folder)</h4><ul>  <li>klik op de toets <img src=../document/img/edit.gif width=20
+ height=20 align=baseline> in de kolom 'nieuwe naam';.</li>
   <li>Breng in de nieuwe naam in de voorbehouden zone links boven</li>
-  <li>Klik op \'OK\'; <input type=submit value=OK name=submit24>. </li></ul>
-<h4>Een document (of map) verwijderen</h4>
+  <li>Klik op 'OK'; <input type=submit value=OK name=submit24>. </li></ul>
+<h4>Een document (of folder) verwijderen</h4>
 <ul>
   <li>Klik op de toets <img src=../document/img/delete.gif width=20
- height=20> in de kolom \'Verwijderen\'.</li></ul>
-<h4>Een document of map onzichtbaar maken voor de studenten</h4>
+ height=20> in de kolom 'Verwijderen'.</li></ul>
+<h4>Een document of folder onzichtbaar maken voor de studenten</h4>
 <ul>
   <li>Klik op <img src=../document/img/visible.gif width=20
- height=20>in de kolom \'Zichtbaar/onzichtbaar\'. Het oog sluit zich. Het document (of de map) bestaat nog, maar is niet meer zichtbaar voor de studenten.</li></ul>
+ height=20>in de kolom 'Zichtbaar/onzichtbaar'. Het oog sluit zich. Het document (of de folder) bestaat nog, maar is niet meer zichtbaar voor de studenten.</li></ul>
 <ul>
-  <li> Als u dit element opnieuw zichtbaar wil maken, klik op de toets <img src=../document/../document/img/invisible.gif width=24 height=20> in de kolom \'Zichtbaar/onzichtbaar\'</li></ul>
+  <li> Als u dit element opnieuw zichtbaar wil maken, klik op de toets <img src=../document/../document/img/invisible.gif width=24 height=20> in de kolom 'Zichtbaar/onzichtbaar'</li></ul>
 <h4>Commentaar op document (of repertorium) toevoegen of wijzigen</h4>
 <ul>
-  <li>Klik op <img src=../document/../document/img/comment.gif width=20 height=20> in de kolom \'Commentaar\'</li>
+  <li>Klik op <img src=../document/../document/img/comment.gif width=20 height=20> in de kolom 'Commentaar'</li>
   <li>Breng de nieuwe commentaar in het kader, dat boven links op het scherm verschijnt.</li>
-  <li>Klik op \'OK\' <input type=submit value=OK name=submit2>.</li></ul>
+  <li>Klik op 'OK' <input type=submit value=OK name=submit2>.</li></ul>
 <ul>
 <p>Als u een commentaar wenst uit te verwijderen, klik op <img
  src=../document/../document/img/comment.gif width=20 height=20>.</li>
-  <li>Wis het oud commentaar uit het kader, dat bovenaan links op het scherm verschijnt, en klik op \'OK\'; <input type=submit value=OK name=submit22>.</hr />
-<p>U kunt ook de inhoud organiseren door de documenten in maps te zetten:</p>
-<h4><b>Maak een map aan:</b></h4>
+  <li>Wis het oud commentaar uit het kader, dat bovenaan links op het scherm verschijnt, en klik op 'OK'; <input type=submit value=OK name=submit22>.</hr>
+<p>U kunt ook de inhoud organiseren door de documenten in folders te zetten:</p>
+<h4><b>Maak een folder aan:</b></h4>
 <ul>
-  <li>Klik op <img src=../document/../document/img/dossier.gif width=20 height=20> (Nieuwe map) bovenaan links op het scherm</li>
-  <li>Geef de nieuwe map een naam in het kader, dat bovenaan links op het scherm verschijnt.</li>
-  <li>Klik op \'OK\'; <input type=submit value=OK name=submit23>.</li></ul>
-<h4>Een document (of een map) verplaatsen</h4>
+  <li>Klik op <img src=../document/../document/img/dossier.gif width=20 height=20> (Nieuwe folder) bovenaan links op het scherm</li>
+  <li>Geef de nieuwe folder een naam in het kader, dat bovenaan links op het scherm verschijnt.</li>
+  <li>Klik op 'OK'; <input type=submit value=OK name=submit23>.</li></ul>
+<h4>Een document (of een folder) verplaatsen</h4>
 <ul>
   <li>Klik op <img
- src=../document/../document/img/deplacer.gif width=34 height=16> in de kolom \'verplaatsen\'</li>
-  <li>Kies de map waarin u het het document of de map wenst te verplaatsen.  Een kader verschijnt bovenaan links op uw scherm. (Nota : het woord ‘basis’ in deze menu staat voor de basis van uw documentmodule).</li>
-  <li>Klik op \'OK\'; <input type=submit value=OK name=submit232>.</li></ul>
+ src=../document/../document/img/deplacer.gif width=34 height=16> in de kolom 'verplaatsen'</li>
+  <li>Kies de folder waarin u het het document of de folder wenst te verplaatsen.  Een kader verschijnt bovenaan links op uw scherm. (Nota : het woord ‘basis’ in deze menu staat voor de basis van uw documentmodule).</li>
+  <li>Klik op 'OK'; <input type=submit value=OK name=submit232>.</li></ul>
 <center>
-</p>';
-$_lang['blockExercisesHelp'] = '<p>De oefeningen module laat u toe om verschillende testen (oefeningen)  te maken die elk zoveel vragen bevatten als u wilt.
-	<i>Terminologie: een &quot;oefening&quot; of &quot;test&quot; bestaat uit een reeks &quot;vragen&quot;.</i><br /><br />
-Er zijn verschillende vraagtypes beschikbaar : <br />
+</p>";
+$langDocDeleted = "Folder/Bestand is verwijderd.";
+$langDocInsertedAsModule = "is toegevoegd als een module";
+$langDocument = "Documenten";
+$langDocumentAlreadyUsed = "Dit document wordt reeds gebruikt als een module in dit leerpad";
+$langDocumentAsModule = "Gebruik een document";
+$langDocumentContent = "Inhoud van het document : ";
+$langDocumentInModule = "Document in module";
+$langDocumentName = "Naam van het document : ";
+$langDocumentation = "Documentatie";
+$langDocuments = "Documenten";
+$langDocumentsAccess = "Documenten";
+$langDocumentsDetails = "Documenten gedownload door de student";
+$langDocumentsTitleCountColumn = "Totaal downloads";
+$langDocumentsTitleDocumentColumn = "Document";
+$langDocumentsTitleUsersColumn = "Downloads door gebruikers";
+$langDone = "Volbrachte stappen";
+$langDown = "Omlaag";
+$langDownloadAttachedFile = "Aangehecht bestand overladen";
+$langEG = "bv.";
+$langEXERCISETypeDesc = "Claroline exercise";
+$langEdit = "Wijzigen";
+$langEditAnswers = "Antwoorden bewerken";
+$langEditCourseProgram = "Aanmaken / aanpassen van cursusinformatie";
+$langEditDel = "Wijzigen/Verwijderen";
+$langEditEvent = "Gebeurtenis bewerken";
+$langEditExercise = "Instellingen oefening bewerken";
+$langEditFileContent = "Bestandsinhoud bewerken";
+$langEditFormat = "Te gebruiken formaat bewerken";
+$langEditGroup = "Deze groep wijzigen";
+$langEditQuestion = "Vraag bewerken";
+$langEditSettings = "Voorkeurinstellingen bewerken";
+$langEditToolList = "Gereedschapsset bewerken";
+$langEditWork = "Werkje aanpassen";
+$langElRen = "Naam van Folder/bestand is gewijzigd.";
+$langElementList = "Elementen lijst";
+$langEmail = "Email";
+$langEmailAddressNotFound = "Er is geen account met dit email adres.";
+$langEmailCanBeEmpty = "Email veld moet opgevuld worden";
+$langEmailNotSent = "Het systeem kan U geen email opsturen. Gelieve contact op te nemen met de ";
+$langEmailOption = "Stuur deze aankondiging per email naar alle studenten";
+$langEmailSent = " en per e-mail opgestuurd naar de ingeschreven studenten.";
+$langEmailWrong = "Het e-mail adres is niet volledig of bevat ongeldige lettertekens";
+$langEmpty = "U hebt niet alle velden ingevuld.<br>Gebruik de TERUG-toets en herbegin.<br>Als U Uw cursuscode niet kent, kunt U de cursussenlijst raadplegen";
+$langEmptyAnn = "Alle mededelingen verwijderen";
+$langEmptyFields = "U hebt niet alle velden ingevuld. Gebruik de Back-toets van uw browser, en probeer opnieuw.";
+$langEmtpyGroups = "Alle groepen leegmaken";
+$langEnable = "Toestaan";
+$langEndDate = "Einddatum";
+$langEnrollAsManager = "Als cursus manager inschrijven";
+$langEnrollAsStudent = "Als student inschrijven";
+$langEnrollAsTeacher = "Als leraar inschrijven";
+$langEnrollClass = "Klas inschrijven";
+$langEnrollToNewCourse = "In een nieuwe cursus inschrijven";
+$langEnrollUser = "Gebruiker inschrijven";
+$langEnter = "Terug naar uw cursussenlijst";
+$langEnter2passToChange = "Paswoord tweemaal ingeven, leeg laten om te behouden";
+$langEnterMail = "Geef een e-mail adres in zodat we U uw paswoord kunnen opsturen.";
+$langErrorAssetNotFound = "Troef niet gevonden : ";
+$langErrorCannotReadRSSFile = "Fout : kan de RSS feed niet lezen";
+$langErrorCategoryEmpty = "Categorie mag niet leeg zijn";
+$langErrorClassNotEmpty = "Deze klas bevat nog steeds sub-klassen, deze moet U eerst verwijderen";
+$langErrorCourseCodeEmpty = "De cursus code mag niet leeg zijn";
+$langErrorCourseTitleEmpty = "De cursus titel mag niet leeg zijn";
+$langErrorDepartmentEmpty = "Departement mag niet leeg zijn";
+$langErrorDepartmentURLEmpty = "Departement URL mag niet leeg zijn";
+$langErrorDepartmentURLWrong = "Departement URL is ongeldig";
+$langErrorEmailEmpty = "Email mag niet leeg zijn";
+$langErrorEmailInvalid = "Email is ongeldig";
+$langErrorEmptyName = "De naam moet vervolledigs worden";
+$langErrorFileMustBeZip = "Bestand moet een ZIP bestand zijn";
+$langErrorFormatCSV = "ERROR: Het format dat U opgaf is niet verenigbaar met Claroline";
+$langErrorInvalidParms = "Fout: ongeldige parameter (gebruik alleen getallen)";
+$langErrorLanguageEmpty = "Taal mag niet leeg zijn";
+$langErrorLecturerEmpty = "Lesgever mag niet leeg zijn";
+$langErrorMove = "U kan een klas niet in zichzelf verplaatsen!";
+$langErrorMyOwnSettings = "U kan uw eigen status niet wijzigen";
+$langErrorNameAlreadyExists = "Fout : De naam bestaat reeds";
+$langErrorNoModuleInPackage = "Geen module in pakket";
+$langErrorNoZlibExtension = "De Zlib php uitbreiding is vereist om deze tool te gebruiken.  Contacteer de platform beheerder.";
+$langErrorOpeningManifest = "Kan het <i>manifest</i> bestand niet vinden in het pakket.<br /> Bestand niet gevonden: imsmanifest.xml";
+$langErrorOpeningXMLFile = "Kan het secundaire initialisatie bestand niet vinden in het pakket.<br /> Bestand niet gevonden : ";
+$langErrorReadingManifest = "Fout bij het lezen van het <i>manifest</i> bestand";
+$langErrorReadingXMLFile = "Fout bij het lezen van het secundaire initialisatie bestand: ";
+$langErrorReadingZipFile = "Fout bij het lezen van het zip bestand.";
+$langErrorSql = "Fout in het SQL commando";
+$langErrorUserNotInGroup = "Ongeldige gebruiker : deze gebruiker bestaat niet in uw groep";
+$langErrorValuesInDouble = "Fout : een of meer waarden komen dubbel voor";
+$langErrortExtractingManifest = "Kan het manifesto niet extraheren uit het zip bestand (corrupt bestand ?).";
+$langEventAdded = "Gebeurtenis toegevoegd aan de agenda.";
+$langEventDeleted = "Gebeurtenis verwijderd uit de agenda.";
+$langEventUpdated = "Gebeurtenis aangepast in de agenda.";
+$langEx = "bijv. <i>Literatuurgeschiedenis</i>";
+$langExAlreadyUsed = "Deze oefening wordt reeds gebruikt als een module in dit leerpad.";
+$langExInsertedAsModule = "is toegevoegd als een module van de cursus en van dit leerpad";
+$langExMessage = "Voorbeeldbericht";
+$langExeAvgTime = "Gemiddelde tijd (s.)";
+$langExeTime = "Tijd (s.)";
+$langExercice = "Oefening";
+$langExerciceEx = "Voorbeeld Oefening";
+$langExercices = "Oefeningen";
+$langExercise = "Oefening";
+$langExerciseAsModule = "Gebruik een oefening";
+$langExerciseCancelled = "Oefening geannuleerd, kies een module in de lijst om door te gaan.";
+$langExerciseClosing = "Oefening eindigt";
+$langExerciseContent = "<p>De oefeningen module laat u toe om verschillende testen (oefeningen)  te maken die elk zoveel vragen bevatten als u wilt.
+	<i>Terminologie: een &quot;oefening&quot; of &quot;test&quot; bestaat uit een reeks &quot;vragen&quot;.</i><br><br>
+Er zijn verschillende vraagtypes beschikbaar : <br>
 <ul>
   <li>Meerkeuze met &eacute;&eacute;n mogelijk antwoord</li>
   <li>Meerkeuze met meerdere mogelijke antwoorden</li>
-  <li>Koppelen (\'matching\')</li>
+  <li>Koppelen ('matching')</li>
   <li>Invullen</li>
 </ul>
 Een oefening verzamelt een aantal vragen met een gemeenschappelijk thema.</p>
-<hr />
+<hr>
 <b>Maken van oefeningen</b>
-<p>Om een oefening te maken: klik op de link &quot;Nieuwe oefening&quot;.<br /><br />
-Geef een naam aan de oefening, alsook een beschrijving (optioneel).<br /><br />
-U kunt ook kiezen tussen twee types oefeningen:<br />
+<p>Om een oefening te maken: klik op de link &quot;Nieuwe oefening&quot;.<br><br>
+Geef een naam aan de oefening, alsook een beschrijving (optioneel).<br><br>
+U kunt ook kiezen tussen twee types oefeningen:<br>
 <ul>
   <li>Alle vragen op &eacute;&eacute;n pagina</li>
   <li>E&eacute;n vraag per pagina (sequenti&euml;le test)</li>
 </ul>
-Tevens kunt u aanduiden of u de vragen in een willekeurige volgorde wilt ordenen als de oefening begint.<br /><br />
+Tevens kunt u aanduiden of u de vragen in een willekeurige volgorde wilt ordenen als de oefening begint.<br><br>
 Klik op &quot;OK&quot; om uw oefening te bewaren. U gaat nu naar het vraagbeheer van de oefening.</p>
-<hr />
+<hr>
 <b>Vragen toevoegen</b>
 <p>U kunt nu vragen toevoegen aan de pas gecreërde oefening. Een beschrijving is optioneel, net als een tekening.</p>
-<hr />
+<hr>
 <b>Meerkeuze vragen</b>
-<p>Dit is het bekende MAQ / MCQ vraagtype (Multiple Answer Question / Multiple Choice Question).<br /><br />
-Om een meerkeuzevraag te maken: <br />
+<p>Dit is het bekende MAQ / MCQ vraagtype (Multiple Answer Question / Multiple Choice Question).<br><br>
+Om een meerkeuzevraag te maken: <br>
 <ul>
   <li>Definieer antwoorden voor uw vraag. U kunt antwoorden toevoegen of verwijderen door op de &quot;+&nbsp;antwoord&quot; of &quot;-&nbsp;antwoord&quot; knoppen te klikken.</li>
   <li>Kruis via de linkerknoppen het (de) juiste antwoord(en) aan.</li>
@@ -1187,64 +573,153 @@ Om een meerkeuzevraag te maken: <br />
   <li>Ken vervolgens een gewicht toe aan elk antwoord. Het gewicht kan elk positief of negatief geheel getal zijn, inclusief nul</li>
   <li>Bewaar de antwoorden door op &quot;OK&quot; te klikken.</li>
 </ul></p>
-<hr />
+<hr>
 <b>Invulvragen</b>
 <p>Hiermee kunt u een tekst met invulruimtes cre&euml;ren. Het doel is om studenten woorden te laten
-	invullen die ontbreken in de tekst.<br /><br />
-	Om een invulruimte te cre&euml;ren, plaatst u een woord tussen vierkante haakjes [zoals hier].<br /><br />
-	<!--Once the text has been typed and blanks defined, you can add a comment that will be seen by the student when it replies to the question.<br /><br />-->
+	invullen die ontbreken in de tekst.<br><br>
+	Om een invulruimte te cre&euml;ren, plaatst u een woord tussen vierkante haakjes [zoals hier].<br><br>
+	<!--Once the text has been typed and blanks defined, you can add a comment that will be seen by the student when it replies to the question.<br><br>-->
 	Bewaar uw tekst, en dan kunt u vervolgens gewichten toekennen aan elke invulruimte.
 	Bijvoorbeeld: voor een vraag die 10 punten waard is, met 5 invulruimtes, kunt u 2 punten toekenen aan iedere invulruimte.
 </p>
-<hr />
+<hr>
 <b>Koppelen (matching)</b>
-<p>Bij dit type vraag is het de bedoeling dat studenten elementen uit een keuzelijst verbinden met elementen uit een andere keuzelijst.<br /><br />
-Het kan ook gebruikt worden om studenten elementen in een bepaalde volgorde te laten sorteren.<br /><br />
+<p>Bij dit type vraag is het de bedoeling dat studenten elementen uit een keuzelijst verbinden met elementen uit een andere keuzelijst.<br><br>
+Het kan ook gebruikt worden om studenten elementen in een bepaalde volgorde te laten sorteren.<br><br>
 U moet voor dit vraagtype te gebruiken twee keuzelijsten invullen. U kunt zoveel elementen toevoegen als u wilt.
-Met de uitschuiflijsten kunt u de elementen uit de ene lijst verbinden met elementen uit de andere lijst.<br /><br />
-Merk op : verschillende elementen van de eerste lijst kunnen wijzen naar hetzelfde element uit de tweede lijst.<br /><br />
+Met de uitschuiflijsten kunt u de elementen uit de ene lijst verbinden met elementen uit de andere lijst.<br><br>
+Merk op : verschillende elementen van de eerste lijst kunnen wijzen naar hetzelfde element uit de tweede lijst.<br><br>
 Geef een gewicht aan elk goed koppel, en dan kunt u uw vraag bewaren.</p>
-<hr />
+<hr>
 <b>Oefeningen wijzigen</b>
-<p>Een oefening wijzigen werkt analoog aan het maken van een nieuwe oefening. Klik op de tekening<img src="img/edit.gif" border="0" align="absmiddle"> naast de oefening om ze te wijzigen. Volg bovenstaande instructies voor het maken van oefeningen.</p>
-<hr />
+<p>Een oefening wijzigen werkt analoog aan het maken van een nieuwe oefening. Klik op de tekening<img src=\"img/edit.gif\" border=\"0\" align=\"absmiddle\"> naast de oefening om ze te wijzigen. Volg bovenstaande instructies voor het maken van oefeningen.</p>
+<hr>
 <b>Oefeningen wissen</b>
-<p>Klik voor het wissen van een oefening op het <img src="img/delete.gif" border="0" align="absmiddle"> ikoontje naast de oefening.</p>
-<hr />
+<p>Klik voor het wissen van een oefening op het <img src=\"img/delete.gif\" border=\"0\" align=\"absmiddle\"> ikoontje naast de oefening.</p>
+<hr>
 <b>Oefeningen activeren</b>
-<p>Om een oefening open te stellen voor studenten, moet u ze activeren door op de <img src="img/invisible.gif" border="0" align="absmiddle"> tekening naast de oefening te klikken.</p>
-<hr />
+<p>Om een oefening open te stellen voor studenten, moet u ze activeren door op de <img src=\"img/invisible.gif\" border=\"0\" align=\"absmiddle\"> tekening naast de oefening te klikken.</p>
+<hr>
 <b>Oefening uitvoeren</b>
 <p>U kunt uw oefening testen door op haar naam te klikken in de oefeningenlijst.</p>
 
-<hr />
+<hr>
 <b>Willekeurige oefeningen</b>
 <p>Als u een oefening aanmaakt of wijzigt, kunt u aanduiden om de vragen in een willekeurige volgorde te plaatsen.
-<br /><br />
+<br><br>
 Door deze optie aan te duiden, krijgt elke student de vragen telkens in een andere volgorde te zien.
-<br /><br />
+<br><br>
 Als u veel vragen hebt, kunt u ook slechts een bepaald aantal vragen laten trekken uit de volledige vragenlijst van de oefening.
 </p>
-<hr />
+<hr>
 <b>Verzameling van alle vragen</b>
 <p>Als u een oefening wist, worden de individuele vragen van die oefening niet mee gewist,
-	zodat ze kunnen hergebruikt worden voor nieuwe oefeningen (via de vragenverzameling).<br /><br />
-Deze algemene lijst van vragen laat u ook toe om een vraag in meerdere oefeningen tegelijk te gebruiken.<br /><br />
+	zodat ze kunnen hergebruikt worden voor nieuwe oefeningen (via de vragenverzameling).<br><br>
+Deze algemene lijst van vragen laat u ook toe om een vraag in meerdere oefeningen tegelijk te gebruiken.<br><br>
 Standaard worden in de lijst alle vragen van uw cursus getoond.
 U kunt dit overzicht verfijnen via het uitschuifmenu &quot;Filter&quot;.
 Bijvoorbeeld: kies de naam van een oefening uit het uitschuifmenu en dan ziet u enkel de vragen verbonden aan die oefening.
-<br /><br />
-U kunt ook de &quot;wees&quot; vragen tonen; dit zijn vragen die niet behoren tot een oefening..</p>';
-$_lang['blockFeedbackHelp'] = 'Commentaar is optioneel. Het is de correcte versie van de taak. Indien niet leeg zal het getoond worden aan de gebruikers volgens de \'toon commentaar\' configuratie.';
-$_lang['blockForumsHelp'] = 'Het forum is een tool waarin gesprekken in de vorm van een geschreven asynchrone tekst kunnen worden gevoerd. Een forum verschilt van e-mails, omdat het gesprek gebeurt in een ruimte met een openbare of semi-openbare modus, waarin in principe een onbeperkt aantal meerdere mensen actief kunnen zijn.</p><p>Om het forum van Claroline te gebruiken, is enkel de internet browser nodig (Netscape, Explorer...), en geen e-mailtool(Eudora, Outlook...).</p><p>Om de forums te organiseren, moet u op \'beheren\' klikken. De post zijn hiërarchisch georganiseerd:<b>Categorie > Forum > Onderwerp > Antwoord</b>.</p><p>Het is aan te raden om het forum, vooraf aan de activering ervan, te organiseren in categorieën en forums, zodat de deelnemers in het forum op een gestructureerde wijze kunnen posten. De deelnemers zelf zijn verantwoordelijk voor de onderwerpen en de antwoorden.</p><p>Testforum onder Hoofdcategorie: het forum bestaat uit de openbare modus, en een voorbeeldonderwerp en een voorbeeldbericht.<p></p>U kunt forums toevoegen in de hoofdcategorie, of de titel wijzigen, of andere categorieën aanmaken in de welke u nieuwe forums moet aanmaken.<p></p>Een categorie zonder forum zal niet verschijnen en is niet bruikbaar.<p></p>Als u bijvoorbeeld een categorie \'gesprekken in kleine groepen\' aanmaakt, dan zal u een aantal forums moeten aanmaken in deze tweede categorie, zoals bijvoorbeeld \'groep 1\', \'groep 2\', \'groep 3\', enz.</p><p>De beschrijving van een groepsforum kan de lijst zijn van de mensen die uitgenodigd zijn om aan de gesprekken deel te nemen, maar ook een uitleg van zijn nut. Als u een \'hulpvragen\'-forum aanmaakt, dan mag u een beschrijving toevoegen zoals : \'Moeilijkheden meedelen qua inhoud of qua inrichting\'.</p>';
-$_lang['blockGroupsHelp'] = '<p><b>Inleiding</b></p>
+<br><br>
+U kunt ook de &quot;wees&quot; vragen tonen; dit zijn vragen die niet behoren tot een oefening..</p>";
+$langExerciseDescription = "Oefening omschrijving";
+$langExerciseDone = "Uw vooruitgang is genoteerd, kies een module uit de lijst om voort te gaan.";
+$langExerciseInModule = "Oefening in module";
+$langExerciseManagement = "Oefeningenbeheer";
+$langExerciseName = "Oefening naam";
+$langExerciseNoMoreAvailable = "Oefening niet langer beschikbaar";
+$langExerciseNotAvailable = "Oefening niet beschikbaar";
+$langExerciseNotFound = "Oefening niet gevonden";
+$langExerciseOpening = "Oefening start:";
+$langExerciseTotalAttempts = "Aantal pogingen";
+$langExerciseType = "Oefening type";
+$langExerciseUsersAttempts = "Gebruikerspogingen";
+$langExercises = "Oefeningen";
+$langExercisesDetails = "Scores van volbrachte oefeningen";
+$langExercisesResults = "Resultaten van de volbrachte oefeningen";
+$langExercisesTitleExerciseColumn = "Oefening";
+$langExistingGroups = "Groepen";
+$langExpectedChoice = "Correcte antwoord";
+$langExplainDeleteFile = "Vink hier aan om het aangehechte bestand te verwijderen.";
+$langExplainReplaceFile = "Stuur een nieuw bestand op om het bestand te vervangen.";
+$langExplanation = "Wanneer U Ok drukt wordt een pagina aangemaakt met o.a. de onderdelen: forum, links, oefeningen, agenda en cursusmateriaal. Met uw login kan U de inhoud later wijzigen";
+$langExternalToolName = "Naam verwijzing";
+$langExternalToolUrl = "URL verwijzing";
+$langExtractFromLangFile = "Van taal bestanden";
+$langExtractFromScriptFile = "Van script bestanden";
+$langExtractLangVariable = "Extraheer taal variabelen";
+$langFailed = "<span style=\"color: red\">Mislukt</span>";
+$langFieldSeparatorUsed = "Gebruikt veldscheidingsteken";
+$langFields = "U hebt niet alle velden ingevuld";
+$langFieldsRequ = "Alle velden moeten ingevuld worden";
+$langFileContentModified = "Bestandsinhoud gewijzigd";
+$langFileCreated = "Bestand aangemaakt";
+$langFileDesc = "Bestandsomschrijving";
+$langFileError = "Het te uploaden bestand is niet geldig.";
+$langFileExists = "Onmogelijk.<br>Er bestaat al een bestand met dezelfde naam.";
+$langFileForCSVUpload = "CSV bestand met gebruikerslijst : ";
+$langFileName = "Bestandsnaam";
+$langFileNameMissing = "Bestandsnaam ontbreekt";
+$langFileNameOrURLMissing = "Bestandsnaam of URL ontbreekt.";
+$langFileOnly = "Bestand (bestand is vereist, omschrijving is optioneel)";
+$langFileRequired = "Een bestand is vereist";
+$langFiles = "Bestandslijst";
+$langFillBlanks = "Invullen";
+$langFillCourses = "Aanmaak test cursussen";
+$langFillGroups = "Alle groepen invullen";
+$langFillLists = "Vul de twee lijsten hieronder aan";
+$langFillTree = "Aanmaak categori&euml;n van cursussen";
+$langFillUsers = "Gebruikers invoegen";
+$langFilled = "U heeft alle velden niet ingevuld.";
+$langFilling = "OPvullen met testwaarden";
+$langFilter = "Filter";
+$langFindDoubledVariable = "Dubbele variabelen zoeken";
+$langFindVarWithSameContentAndDifferentName = "Variabelen met gelijke inhoud en verschillende naam";
+$langFindVarWithSameNameAndDifferentContent = "Variabelen met gelijke naam en verschillende inhoud";
+$langFinish = "Stoppen";
+$langFirstDefOfThisValue = "!!! Eerste definitie van deze waarde !!!";
+$langFirstName = "Voornaam";
+$langFirstSubmission = "Eerste maal ingediend";
+$langFirstname = "Voornaam";
+$langForCat = "Forums van de categorie";
+$langForCategories = "Forums categorie&euml;n";
+$langForContent = "Het forum is een tool waarin gesprekken in de vorm van een geschreven asynchrone tekst kunnen worden gevoerd. Een forum verschilt van e-mails, omdat het gesprek gebeurt in een ruimte met een openbare of semi-openbare modus, waarin in principe een onbeperkt aantal meerdere mensen actief kunnen zijn.</p><p>Om het forum van Claroline te gebruiken, is enkel de internet browser nodig (Netscape, Explorer...), en geen e-mailtool(Eudora, Outlook...).</p><p>Om de forums te organiseren, moet u op 'beheren' klikken. De post zijn hiërarchisch georganiseerd:<b>Categorie > Forum > Onderwerp > Antwoord</b>.</p><p>Het is aan te raden om het forum, vooraf aan de activering ervan, te organiseren in categorieën en forums, zodat de deelnemers in het forum op een gestructureerde wijze kunnen posten. De deelnemers zelf zijn verantwoordelijk voor de onderwerpen en de antwoorden.</p><p>Testforum onder Hoofdcategorie: het forum bestaat uit de openbare modus, en een voorbeeldonderwerp en een voorbeeldbericht.<p></p>U kunt forums toevoegen in de hoofdcategorie, of de titel wijzigen, of andere categorieën aanmaken in de welke u nieuwe forums moet aanmaken.<p></p>Een categorie zonder forum zal niet verschijnen en is niet bruikbaar.<p></p>Als u bijvoorbeeld een categorie 'gesprekken in kleine groepen' aanmaakt, dan zal u een aantal forums moeten aanmaken in deze tweede categorie, zoals bijvoorbeeld 'groep 1', 'groep 2', 'groep 3', enz.</p><p>De beschrijving van een groepsforum kan de lijst zijn van de mensen die uitgenodigd zijn om aan de gesprekken deel te nemen, maar ook een uitleg van zijn nut. Als u een 'hulpvragen'-forum aanmaakt, dan mag u een beschrijving toevoegen zoals : 'Moeilijkheden meedelen qua inhoud of qua inrichting'.</p>";
+$langForName = "Naam van het forum";
+$langForce = "Zijn gesprekspartner dwingen, door een reeks vragen en bijvragen, te erkennen dat hij niet kent wat hij denkt te kennen.";
+$langFormula = "Vriendelijke groeten, Uw lesgever";
+$langForum = "Forum";
+$langForumCategoryDeleted = "Forum categorie verwijderd";
+$langForumDeleted = "Forum verwijderd";
+$langForumGroup = "Groepsforum";
+$langForumModified = "Het forum is gewijzigd";
+$langForums = "Forums";
+$langFree = "Vrij";
+$langFrom = "Van";
+$langFullScreen = "Fullscreen";
+$langGarbage = "Vuilnis";
+$langGetExistingQuestion = "Gebruik een vraag van een andere oefening.";
+$langGiveAdminRight = "Bevorder gebruiker tot admin";
+$langGiveAnswers = "Geef aub de antwoorden op de vraag";
+$langGiveExerciseName = "Geef a.u.b. een naam aan de oefening.";
+$langGiveQuestion = "Stel a.u.b. een vraag";
+$langGiveText = "Tik aub een tekst";
+$langGlobalProgress = "Leerpad vooruitgang : ";
+$langGoBackToEx = "Terug naar de oefening";
+$langGoBackToQuestionList = "Terug naar de vragenlijst van de oefening";
+$langGoBackToQuestionPool = "Terug naar de lijst van alle vragen";
+$langGoToMainUserSettings = "Ga naar ingang gebruikersinstellingen";
+$langGoToUserSettings = "Ga naar gebruikersinstellingen";
+$langGroup = "Groep";
+$langGroupAllowStudentRegistration = "De gebruikers mogen zichzelf in de groepen inschrijven";
+$langGroupAlwaysPrivate = "(steeds priv&eacute;)";
+$langGroupAssignment = "Groepen (uit groepen, alleen groepsleden kunnen posten)";
+$langGroupContent = "<p><b>Inleiding</b></p>
 <p>Deze functie maakt het u mogelijk werk- of studiegroepen aan te maken en te beheren. Deze groepen zijn leeg bij de aanmaak. De lesgever kan de groepen op verschillende manieren invullen:
 <ul>
-  <li>automatisch (\'Alle groepen vullen\'),</li>
-  <li>per groep (\'Wijzigen\'),</li>
-  <li>door de studenten (\'Eigenschappen wijzigen\': \'De studenten mogen zichzelf in de groepen inschrijven\').</li></ul>
+  <li>automatisch ('Alle groepen vullen'),</li>
+  <li>per groep ('Wijzigen'),</li>
+  <li>door de studenten ('Eigenschappen wijzigen': 'De studenten mogen zichzelf in de groepen inschrijven').</li></ul>
 Deze invulmethodes kunnen gecombineerd worden gebruikt.  Bijvoorbeeld: De studenten worden gevraagd om zichzelf in groepen in te schrijven. Als blijkt dat een aantal studenten zich nog niet hebben ingeschreven, kunt u beslissen om het ‘zichzelf registreren van studenten’ uit te zetten en deze studenten zelf aan een groep toe te wijzen.  De samenstelling (via de functie ‘Wijzigen’) van de groepen kan manueel gewijzigd worden, zowel na een automatiche invulling als nadat de studenten zichzelf in groepen hebben ingeschreven.</p>
-<p>Het samenstellen van de groepen, zowel automatisch als handmatig, kan enkel vanaf het moment dat de studenten in de cursus zijn ingeschreven. Dit kan gecheckt worden via de functie <b>\'gebruikers\'</b>.</p><hr noshade size=1>
+<p>Het samenstellen van de groepen, zowel automatisch als handmatig, kan enkel vanaf het moment dat de studenten in de cursus zijn ingeschreven. Dit kan gecheckt worden via de functie <b>'gebruikers'</b>.</p><hr noshade size=1>
 <p><b>Groepen cre&euml;ren</b></p>
 <p>Om nieuwe groepen te creëren, klik op ‘Nieuwe groep(en) aanmaken’ en bepaal het aantal aan te maken groepen. Het maximum aantal deelnemers is facultatief. Als u dit veld leeg laat, dan is de grootte van de groepen onbeperkt.</p><hr noshade size=1>
 <p><b>Groepseigenschappen</b></p>
@@ -1252,23 +727,76 @@ Deze invulmethodes kunnen gecombineerd worden gebruikt.  Bijvoorbeeld: De studen
 <ul>
   <li><b>Studenten kunnen zichzelf in de groepen inschrijven</b>: U maakt lege groepen aan en u laat de studenten zichzelf toevoegen.  Als U een beperkte aantal plaatsen per groep bepaalt, worden in de volledig gevulde groepen geen nieuwe leden meer aanvaard. Deze methode is handig voor de lesgever, die de lijst van studenten niet kent bij het aanmaken van groepen.</li>
   <li><b>Toegang tot de groepen is voorbehouden voor de eigen leden</b>: de leden van andere groepen hebben geen toegang tot forums en documenten van andere groepen. De mogelijkheid bestaat om documenten te laten publiceren buiten de private groepsruimte.</li>
-  <li><b>Werktuigen</b>: iedere groep heeft een forum, of een gedeelde map verbonden met een documentenbeheerder, of (meest frequent) de twee.</li></ul>
+  <li><b>Werktuigen</b>: iedere groep heeft een forum, of een gedeelde folder verbonden met een documentenbeheerder, of (meest frequent) de twee.</li></ul>
 <hr noshade size=1>
 <p><b>Handmatige wijziging</b></p>
 <p>Eens de groepen aangemaakt zijn, ziet u hun lijst verschijnen met hun informatie en functies.
 <ul>
-  <li><b>\'Wijzigen\'</b> maakt het mogelijk om handmatig de samenstelling van de groep te wijzigen.</li>
-  <li><b>\'Verwijderen\'</b> maakt het mogelijk om de groep te verwijderen, <b>inclusief forum en documentenbeheer</b>.</li></ul>
-<hr noshade size=1>';
-$_lang['blockHomepageHelp'] = '
+  <li><b>'Wijzigen'</b> maakt het mogelijk om handmatig de samenstelling van de groep te wijzigen.</li>
+  <li><b>'Verwijderen'</b> maakt het mogelijk om de groep te verwijderen, <b>inclusief forum en documentenbeheer</b>.</li></ul>
+<hr noshade size=1>";
+$langGroupCreation = "Aanmaak van een groep";
+$langGroupDel = "Groep verwijderd";
+$langGroupDescription = "Beschrijving";
+$langGroupDocument = "Documenten";
+$langGroupDocumentAlwaysPrivate = "zijn altijd priv&eacute;.";
+$langGroupDocumentsLink = "Groepsdocumenten";
+$langGroupFilledGroups = "De groepen werden aangevuld met de gebruikers uit de lijst 'Gebruikers'.";
+$langGroupForum = "Forum";
+$langGroupLimit = "Begrenzing";
+$langGroupMembers = "Deelnemer(s) van deze groep";
+$langGroupName = "Naam van de groep";
+$langGroupNoGroup = "gebruiker(s) zonder groep";
+$langGroupNoTutor = "(geen)";
+$langGroupNone = "(geen)";
+$langGroupNoneMasc = "(geen)";
+$langGroupNowMember = "U bent nu deelnemer van deze groep.";
+$langGroupPlacesThis = "plaatsen (facultatief)";
+$langGroupProperties = "Groepseigenschappen";
+$langGroupPropertiesModified = "De groepseigenschappen werden gewijzigd";
+$langGroupSelfRegInf = "zich inschrijven";
+$langGroupSelfRegistration = "Inschrijven";
+$langGroupSettingsModified = "Parameters van deze groep zijn gewijzigd.";
+$langGroupSpace = "Groepsruimte";
+$langGroupSpaceLink = "Ruimte van deze groep";
+$langGroupStudentsInGroup = "gebruiker(s) in de groepen ingeschreven";
+$langGroupStudentsRegistered = "gebruiker(s) voor de cursus ingeschreven";
+$langGroupThisSpace = "Ruimte van deze groep";
+$langGroupTooMuchMembers = "Het aantal deelnemers overschrijdt het maximum aantal dat U bepaald had. 
+	De samenstelling van de groep werd niet gewijzigd. U mag het maximum aantal hieronder wijzigen";
+$langGroupTools = "Functies";
+$langGroupTutor = "Lesgever";
+$langGroupTutors = "Begeleider";
+$langGroupUserManagement = "Groepenbeheer";
+$langGroupUsersList = "zie lijst van <a href=../user/user.php>deelnemers</a>";
+$langGroups = "Groepen";
+$langGroupsAdded = "groep(en) werd(en) toegevoegd";
+$langGroupsDeleted = "Alle groepen werden verwijderd";
+$langGroupsEmptied = "Alle groepen zijn leeg";
+$langHClar = "Hulp bij het starten met Claroline";
+$langHDoc = "Hulp documenten";
+$langHExercise = "Hulp over oefeningen";
+$langHFor = "Hulp forums";
+$langHHome = "Hulp startpagina";
+$langHUser = "Hulp gebruikers";
+$langHasBeenEnrolled = "Is ingeschreven";
+$langHasDel = "werd verwijderd";
+$langHeading = "Titel";
+$langHelp = "Help";
+$langHelpGroups = "Groepenbeheer";
+$langHereyoucanmodifythecontentofthetextzonesdisplayedontheplatformhomepage = "Hier kan U de inhoud van de tekst zones op de home pagina van het platform bewerken.";
+$langHigh_resources = "Veel middelen";
+$langHits = "Hits";
+$langHome = "Terug naar startpagina";
+$langHomeContent = "
 	U bevindt zich op de startpagina van een cursus. Hier ziet u verschillende ikoontjes
-die de cursusonderdelen weergeven: forum, mededelingen, documenten... De
+die de cursusonderdelen weergeven: forum, ad valvas, documenten... De
 meeste onderdelen zijn al ingevuld met voorbeeldmateriaal: een
 korte tekst, een hyperlink.
 Die zijn als voorbeeld gegeven en kunt u zelf wijzigen of verwijderen.</p>
 <p>De startpagina van een cursussite bevat als inleiding ‘Dit is
   de inleidingstekst van uw cursus.’ U
-  kunt deze tekst eenvoudig wijzigen door op het \'editeren\' potlood te
+  kunt deze tekst eenvoudig wijzigen door op het 'editeren' potlood te
   klikken. <b>Tip:
   Gebruik deze tekst om uw studenten wegwijs te maken in uw cursussite. Dit kan
   ook handig zijn voor het melden van nieuwe realisaties in de cursussite</b>.</p>
@@ -1277,155 +805,819 @@ Die zijn als voorbeeld gegeven en kunt u zelf wijzigen of verwijderen.</p>
   Oefeningen...). Het is aanbevolen die functies die u niet gebruikt te inactiveren,
  hierdoor worden ze onzichtbaar voor de studenten en verliezen de gebruikers en bezoekers geen tijd door te zoeken op verkeerde
   plaatsen.</p>
-<p>U kunt ook links en pagina’s toevoegen aan de startpagina. Gebruik daarvoor de tool \'Link toevoegen aan de startpagina\'. De pagina\'s en de links die u toevoegt, kunt u inactiveren en nadien verwijderen.  Dit verschilt van de standaardfuncties, dewelke u kunt inactiveren, maar niet verwijderen.</p><p>U krijgt tevens de keuze uw cursus zichtbaar of onzichtbaar in de cursuslijst te plaatsen. Het kan wenselijk zijn een cursus \'in aanmaak\' niet in de cursuslijst te laten verschijnen (zie functie \'Eigenschappen van de cursus\') en zodoende privé blijft zodat niemand zich kan registreren op de cursussite zolang de cursussite in ontwikkeling is.</p>
-';
-$_lang['blockIntroCourse'] = 'U bent op de home pagina van de cursus.<br /><br />Op deze pagina kan U :
+<p>U kunt ook links en pagina’s toevoegen aan de startpagina. Gebruik daarvoor de tool 'Link toevoegen aan de startpagina'. De pagina's en de links die u toevoegt, kunt u inactiveren en nadien verwijderen.  Dit verschilt van de standaardfuncties, dewelke u kunt inactiveren, maar niet verwijderen.</p><p>U krijgt tevens de keuze uw cursus zichtbaar of onzichtbaar in de cursuslijst te plaatsen. Het kan wenselijk zijn een cursus 'in aanmaak' niet in de cursuslijst te laten verschijnen (zie functie 'Eigenschappen van de cursus') en zodoende privé blijft zodat niemand zich kan registreren op de cursussite zolang de cursussite in ontwikkeling is.</p>
+";
+$langHomePageTextZone = "Home pagina tekst zones";
+$langHour = "Uur";
+$langHumanAndPhysicalResourcesComment1 = "Wat zijn de beschikbare menselijke en fysieke middelen? Waaruit bestaat de omkadering?  Wat kunnen de studenten verwachten van het organisatie-team en de organisatie van de lesgever?";
+$langHumanAndPhysicalResourcesComment2 = "Presentatie van de andere lesgevers die de cursus mee organiseren (assistenten, onderzoekers, studenten-monitors...), de beschikbaarheid van mensen, gebouwen en beschikbare uitrusting of computer uitrusting.";
+$langHumanAndPhysicalRessources = "Menselijke en fysieke middelen";
+$langIfNotRedirect = "Indien niet doorverwezen";
+$langImport = "Import";
+$langImpossible = "Onmogelijk";
+$langIn = "in";
+$langInFrames = "In frames";
+$langIncorrectDate = "Begindatum moet voor einddatum liggen ...";
+$langIndeed = "Juist. Socratische ironie is inderdaad een ondervragende methode. Het Griekse woord \"eirotao\" betekent trouwens \"ondervragen\".";
+$langIndividual = "Individueel";
+$langInfo2Say = "Informatie om mee te delen aan <BR>de student";
+$langInfoProgNameTitle = "Informatie";
+$langInsertMyDocToolName = "Voeg een document toe als module";
+$langInsertMyExerciseToolName = "Oefening invoegen";
+$langInsertMyModuleToolName = "Module invoegen";
+$langInsertMyModulesTitle = "Module uit de cursus invoegen";
+$langInsertNewModuleName = "Nieuwe naam invoegen";
+$langInstalled = "Het leerpad werd met succes geimporteerdd.";
+$langInstitution = "Instituut";
+$langInstitutionUrl = "URL Instituut";
+$langIntroCourse = "U bent op de home pagina van de cursus.<br /><br />Op deze pagina kan U :
 
 <ul>
 
-<li>Gereedschappen activeren of deactiveren (Klik op \'Gereedschapsset bewerken\' onderaan links).</li>
+<li>Gereedschappen activeren of desactiveren (Klik op 'Gereedschapsset bewerken' onderaan links).</li>
 
 <li>Instellingen aanpassen of statistieken bekijken (Klik op de overeenstemmende links onderaan).</li>
 
 </ul>
 
-Om een inleidende tekst die wu cursus beschrijft toe te voegen, klik op deze knop ';
-$_lang['blockIntroLearningPath'] = 'Gebruik dit gereedschap om uw studenten documenten, oefeningen, HTML pagina\'s en links in een bepaalde volgorde aan te bieden.<br /><br /> Om een nieuw leertraject aan te bieden, klik op de onderstaande knop.<br />';
-$_lang['blockModulePoolHelp'] = 'Deze pagina staat U toe alle beschikbare modules in deze cursus te bekijken.<br />
-Elke oefening of document dat werd toegevoegd aan een leertraject verschijnt ook in deze lijst';
-$_lang['blockRegisterLocalUrl'] = 'Uw campus URL lijkt een locale URL.
+Om een inleidende tekst die wu cursus beschrijft toe te voegen, klik op deze knop ";
+$langIntroEditToolList = "Selecteer de gereedschappen die U aan uw gebruikers ter beschikking wil stellen.
+
+Een onzichtbaar gereedschap wordt uitgevlakt getoond in uw persoonlijke omgeving";
+$langIntroLearningPath = "Gebruik dit gereedschap om uw studenten documenten, oefeningen, HTML pagina's en links in een bepaalde volgorde aan te bieden.<br><br> Om een nieuw leerpad aan te bieden, klik op de onderstaande knop.<br>";
+$langIntroStep1 = "<p>De <em>Claroline Upgrade Tool</em> zal nu de belangrijkste instellingen bijwerken.
+
+                Deze instellingen werden bewaard in claroline/include/config.inc.php in uw vorige platform versie.</p>";
+$langIntroStep2 = "<p>Nu zal de <em>Claroline Upgrade Tool</em> de data bijwerken in de belangrijkste Claroline tabellen
+
+                    (Gebruikers, cursus categorieen, gereedschapsset, ...) om ze geschikt te maken voor de nieuwe Claroline versie.</p>
+
+                   <p class=\"help\">Opmerking: Naargelang de snelheid van uw server en de hoeveelheid bewaarde gegevens,
+
+                   kan deze operatie lang duren.</p>";
+$langIntroStep3 = "<p>Nu zal de <em>Claroline Upgrade Tool</em> de cursus data (mappen en databank tabellen) een voor een bijwerken.
+
+                   <p class=\"help\">Note: Naargelang de snelheid van uw server en de hoeveelheid bewaarde gegevens,
+
+                   kan deze operatie lang duren.</p>";
+$langIntroStep3Run = "<p>De <em>Claroline Upgrade Tool</em> werkt nu de gegevens van de cursussen bij</p>";
+$langIntroText = "Selecteer een groep gebruikers om een bericht te sturen (selecteer met een * ervoor)
+
+ of selecteer enkele gebruikers uit de linker lijst.";
+$langIntroWork = "Dit stuk gereedschap staat de lesgever toe opdrachtenaan te maken in dewelke elke student (volgens de instellingen van de taak) een document kan uploaden, of een tekst kan schrijven op de website van de cursus.
+
+<br />U kan een commentaar of quotering aan elk ingediend werk toevoegen.
+
+<br /><br />Indien U deze taak wil tonen aan de studenten of enkele aanbevelingen wil doen, klik op onderstaande knop.<br>";
+$langInvalidId = "Ongeldige log-in. Indien u nog niet ingeschreven bent, gelieve het <a href='claroline/auth/inscription.php'>registratieformulier</a> in te vullen.";
+$langInvisible = "Onzichtbaar";
+$langIs = "is";
+$langIsAlreadyRegistered = "is reeds ingeschreven voor de cursus";
+$langIsNowInYourDocDir = "is nu in uw documenten-onderdeel. <br><B>Opgelet, is nu toegankelijk voor iedereen</B>";
+$langIsNowRegistered = "is nu ingeschreven in de cursus";
+$langJustCreated = "De site van de cursus is aangemaakt";
+$langLabelCanBeEmpty = "Cursus titel vereist";
+$langLanguage = "Taal";
+$langLast31days = "Laatste 31 dagen";
+$langLast7Days = "Laatste 7 dagen";
+$langLastAccess = "Laatste toegang";
+$langLastActiveTopics = "Laatst actieve topics";
+$langLastAttempt = "Laatste pogin";
+$langLastCheck = "Laatste check voor installatie";
+$langLastEditDate = "Datum laatst bewerkt";
+$langLastLogin = "Laatst aangemeld";
+$langLastMsg = "Laatste bericht";
+$langLastMsgs = "Laatste berichten";
+$langLastName = "Naam";
+$langLastSessionTimeSpent = "Tijd laatste sessie";
+$langLasting = "Duur";
+$langLastname = "Familienaam";
+$langLateUpload = "te laat ingediend";
+$langLaunchRestoreCourseRepository = "Cursus terughalen uit reservekopij";
+$langLaunchStep1 = "<p><button onclick=\"document.location='%s';\">Start bijwerken belangrijkste instellingen platform</button></p>";
+$langLaunchStep2 = "<p><button onclick=\"document.location='%s';\">Start bijwerken systeemtabellen van het platform</button></p>";
+$langLaunchStep3 = "<p><button onclick=\"document.location='%s';\">Start bijwerken cursus gegevens</button></p>";
+$langLearnPathDetails = "Vooruitgang in leerpad";
+$langLearningPath = "Leerpad";
+$langLearningPathAdmin = "Leerpad Admin";
+$langLearningPathList = "Leerpad Lijst";
+$langLearningPathName = "Nieuwe leerpad naam : ";
+$langLessAnswers = "- antwoord";
+$langLessElements = "- element";
+$langLessonStatus = "Module status";
+$langLicence = "Licentie";
+$langLine = "lijn";
+$langLineNumber = "Lijnnummer";
+$langLineOrLines = "lijn(en)";
+$langLines = "lijnen";
+$langLink = "Links";
+$langLinkSite = "Link toevoegen op de startpagina";
+$langLinks = "Links";
+$langListAdmin = "Lijst van administratieve gebruikers";
+$langListAllUsers = "Lijst van alle gebruikers";
+$langListClassUser = "Gebruikers in klas";
+$langListCourseUsers = "Gebruikers in cursus";
+$langListHtUsers = "Bekijk .htpassword";
+$langListStudents = "List of students in this group";
+$langListUsers = "Gebruikerslijst";
+$langLoadDefaultFormat = "Laad standaard formaat";
+$langLocation = "Locatie";
+$langLogin = "Inloggen";
+$langLoginBeforePost1 = "Om berichten in het forum te publiceren ";
+$langLoginBeforePost2 = "moet u eerst ";
+$langLoginBeforePost3 = "ingelogd zijn";
+$langLoginRequest = "Verzoek tot aanmelden";
+$langLoginWithoutAccess = "Niet gebruikte logins";
+$langLogins = "Logins";
+$langLoginsAndAccessTools = "Logins en toegang tot modules";
+$langLoginsDetails = "Klik op de naam v.e. maand voor meer informatie";
+$langLoginsTitleCountColumn = "Aantal logins";
+$langLoginsTitleMonthColumn = "Maand";
+$langLogout = "Afmelden";
+$langLostPassword = "Wachtwoord vergeten";
+$langMailAppearAlready = "Dit mail adres komt reeds voor in een eerder lijn van het CSV bestand.";
+$langMailSynthaxError = "Mail syntax fout.";
+$langMailTo = "Mail naar : ";
+$langMailUsed = "Mail wordt reeds gebruikt door een andere gebruiker.";
+$langMainDB = "Systeem database";
+$langMakeABackupBefore = "<p>De <em>Claroline Upgrade Tool</em> zal de gegevens van uw vorige Claroline
+
+installatie ophalen en ze geschikt maken voor de nieuwe Claroline versie. Dit bijwerken verloopt in 3 stappen:</p>
+
+
+
+<ol>
+
+
+
+<li>Systeeminstellingen van het vorige platform ophalen en in nieuwe configuratie bestanden opslaan.</li>
+
+
+
+<li>Het zal de Claroline systeemtabellen (gebruikers, cursus categori&euml;n, cursus lijst, ...) bijwerken zodat ze de nieuwe gegevens structuur hebben.</li>
+
+
+
+<li>Het zal de gegevens van de cursussen een voor een bijwerken (mappen, tabellen, ...)</li>
+
+
+
+</ol>
+
+
+
+<p>Alvorens dit bijwerken te starten:</p>
+
+
+
+<table>
+
+<tbody>
+
+<tr valign=\"top\"><td>-</td><td>Maak een volledige backup van uw platform data (bestanden en databanken)</td><td>%s</td></tr>
+
+
+
+</tbody>
+
+</table>
+
+<p>U mag het bijwerken niet starten zolang deze actie niet volbracht werd.</p>
+
+";
+$langMakeCorrespond = "Laat overeenstemmen";
+$langMakeInvisible = "Onzichtbaar maken";
+$langMakeNewSearch = "Opnieuw zoeken : ";
+$langMakeSearch = "Zoeken";
+$langMakeVisible = "Zichtbaar maken";
+$langManage = "Beheer Campus";
+$langManageClasses = "Beheer klassen";
+$langManageCourseCategories = "Beheer categori&euml;n cursussen";
+$langManager = "Platformbeheerder";
+$langManyAnswers = "(meerdere juiste antwoorden mogelijk)";
+$langMatching = "Koppelen ('matching')";
+$langMax = "Maximum";
+$langMaxAllowedTime = "Maximaal toegestane tijd";
+$langMaxFileSize = "Maximum bestandsgrootte is";
+$langMaxSizeCourseCode = "max. 12 lettertekens, bijv.<i>ROM2121</i>";
+$langMaxStudentGroup = "Maximaal aantal studenten per groep";
+$langMaximum = "Maximum : ";
+$langMessage = "Wanneer U het Testforum verwijdert, zal ook elk onderwerp hierin verwijderd worden.";
+$langMessageSubscribeDone_p_firstname_lastname = "Beste %s, %s.
+Uw persoonlijke gegevens werden opgeslagen en een e-mail werd naar 
+U opgestuurd ter herinnering van uw gebruikersnaam.";
+$langMessageToSelectedUsers = "Berichten naar specifieke gebruikers";
+$langMessages = "Berichten";
+$langMethodsOfEvaluation = "Evaluatie methodes";
+$langMethodsOfEvaluationComment1 = "Details over de gebruikte evaluatie (geschreven testen, mondeling, projecten, taken...), datums voor testen, datums voor indienen taken, criteria voor evaluaties, mogelijke weging van de criteriae criteria of de categori&euml;en van criteria.";
+$langMin = "Minimum : ";
+$langMinute = "Minuten";
+$langMinuteShort = "min.";
+$langMissing = "ontbrekend";
+$langMissingImagesDetected = "Ontbrekende beelden gedetecteerd";
+$langMissingValue = "Ontbrekende waarde";
+$langModCatName = "Naam van de categorie wijzigen";
+$langModifAnn = "Wijzig deze aankondiging";
+$langModifDone = "De eigenschappen werden gewijzigd";
+$langModifUserCourseSettings = "Cursussen van de gebruiker";
+$langModify = "Wijzigen";
+$langModifyInAllExercises = "in alle oefeningen";
+$langModifyInThisExercise = "enkel in de huidige oefening";
+$langModifyProfile = "Mijn profiel";
+$langModule = "Module";
+$langModuleMoved = "Module verplaatst";
+$langModuleOfMyCourse = "Gebruik een module uit deze cursus";
+$langModuleStillInPool = "Modules van dit leerpad zullen nog steeds beschikbaar zijn in de verzameling modules";
+$langModules = "Modules";
+$langModulesPoolToolName = "Verzameling modules";
+$langMonth = "Maand";
+$langMonthNames = "Array";
+$langMoreAnswers = "+ antwoord";
+$langMoreElements = "+ element";
+$langMoreRepliedTopics = "Meer antwoorden op topics";
+$langMoreSeenTopics = "Meer bekeken topics";
+$langMove = "Verplaatsen";
+$langMoveDown = "Omlaag";
+$langMoveUp = "Omhoog";
+$langMsgSent = "Het bericht is verzonden.";
+$langMultipleEmails = "Accounts met dezelfde <i>Email</i>";
+$langMultipleLogins = "Accounts met dezelfde <i>Gebruikersnaam</i>";
+$langMultipleSelect = "Meerkeuze (meerdere antwoorden)";
+$langMultipleUsernameAndPassword = "Accounts with same <i>Username</i> AND same <i>Password</i>";
+$langMustSelectAFile = "U moet een bestand selecteren";
+$langMustSelectATxtFile = "U moet een tekstbestand selecteren";
+$langMyAgenda = "Mijn agenda";
+$langMyCourses = "Mijn cursussen";
+$langMyGroup = "mijn groep";
+$langMyResults = "Mijn resultaten";
+$langMyStats = "Toon mijn statistieken";
+$langMysqlNames = "MySQL Databank en tabelnamen";
+$langMysql_Repository = "Mysql backup";
+$langNULLValue = "Leeg (of NULL)";
+$langName = "Naam";
+$langNameCat = "De naam van de categorie werd gewijzigd";
+$langNameChanged = "Naam van de klas is veranderd";
+$langNameDir = "Naam van nieuwe folder";
+$langNameOfLang = "Array";
+$langNbCoursesUpgraded = "<p style=\"text-align: center\"><strong>%s cursussen op %s reeds bijgewerkt.</strong><br /></p>";
+$langNbLines = "Aantal rijen";
+$langNbrAccess = "Aantal keren bezocht";
+$langNever = "Nooit";
+$langNeverBrowsed = "Nooit bezocht";
+$langNeverConnectedStudents = "Nooit aangemelde studenten : ";
+$langNeverUsed = "Nooit gebruikt";
+$langNewBloc = "Andere (vrij in te vullen)";
+$langNewChat = "Nieuwe chat";
+$langNewClassCreated = "De nieuwe klas is aangemaakt";
+$langNewClassName = "Naam nieuwe klas";
+$langNewEx = "Nieuwe oefening";
+$langNewGroupCreate = "Nieuwe groep(en) aanmaken";
+$langNewGroups = "nieuwe groepen";
+$langNewLabel = "Maak een nieuw label / titel aan in dit leerpad";
+$langNewQu = "Nieuwe vraag";
+$langNewToOld = "Meest recente eerst";
+$langNewTopic = "Nieuw onderwerp";
+$langNewUsersIn = "Nieuwe gebruikers in het platform : ";
+$langNext = "Volgende";
+$langNextDay = "Volgende dag";
+$langNextMonth = "Volgende maand";
+$langNextPage = "Volgende pagina";
+$langNextStep = "<p><button onclick=\"document.location='%s';\">Volgende</button></p>";
+$langNextWeek = "Volgende week";
+$langNextYear = "Volgend jaar";
+$langNo = "Nee";
+$langNoAnnouncement = "Geen aankondigingen.";
+$langNoAnswer = "Er is momenteel geen antwoord.";
+$langNoContent = "Geen inhoud";
+$langNoCourseResult = "Er is geen cursus die aan deze criteria voldoet";
+$langNoEmail = "Geen emailadres opgegeven";
+$langNoEndDate = "Geen afsluitdatum";
+$langNoEventInTheAgenda = "Geen gebeurtenissen in de agenda";
+$langNoEx = "Er is momenteel geen oefening.";
+$langNoFile = "- geen -";
+$langNoGroupStudents = "Gebruiker(s) zonder groep";
+$langNoImage = "Geen plaatje om te tonen";
+$langNoLearningPath = "Geen leerpad";
+$langNoModule = "Geen module";
+$langNoMoreAttemptsAvailable = "U hebt het maximaal aantal pogingen bereikt.";
+$langNoMoreModuleToAdd = "Alle modules van deze cursus zijn reeds gebruikt in dit leerpad.";
+$langNoPost = "Geen Post";
+$langNoPsychology = "Nee. Socratische ironie heeft niets te maken met psychologie maar wel met argumentatie.";
+$langNoQuestion = "Er zijn momenteel geen vragen (in deze categorie)";
+$langNoQuota = "Geen quota";
+$langNoRegisteredCourses = "Geen statistieken om te tonen.  U heeft geen cursus geregistreerd.";
+$langNoResult = "Geen resultaat";
+$langNoResultYet = "Er is nog geen resultaat";
+$langNoScore = "Geen score";
+$langNoSeduction = "Nee. Socratische ironie is geen verleidingsstrategie of een methode gebaseerd op voorbeelden.";
+$langNoSpace = "Upload is niet geslaagd. Niet genoeg ruimte op de harde schijf.";
+$langNoStartAsset = "Geen startvaardigheden gedefinieerd voor deze module.";
+$langNoTimeLimit = "Geen tijdslimiet";
+$langNoUserResult = "Geen gebruiker om te tonen";
+$langNoVisibleSubmission = "Geen zichtbare documenten";
+$langNomPageAddHtPass = "Admin gebruikersbeheer";
+$langNone = "geen enkel";
+$langNormalUser = "Normaal";
+$langNotAllowed = "U bent hier niet toegelaten";
+$langNotFalse = "Dit antwoord is niet onjuist. Het is waar dat het tonen van de onwetendheid van zijn gesprekspartner gebeurt dankzij het tonen van de tegenstrijdige conclusies van zijn veronderstellingen.";
+$langNotGroupMember = "U bent geen lid van deze groepen";
+$langNotInstalled = "Er is een fout opgetreden.  Import van leerpad is mislukt.";
+$langNotRecentlyConnectedStudents = "Studenten die niet recent aangemeld waren : ";
+$langNotUnregYourself = "U kan uw eigen instellingen niet veranderen!";
+$langNotice = "Merk op";
+$langNow = "Nu";
+$langNowGoChooseYourCourses = "U mag nu in de lijst de cursussen selecteren die U wenst te gebruiken.";
+$langNowGoCreateYourCourse = "U kunt nu verdergaan om uw cursus aan te maken.";
+$langNumGroup = "Aantal groepen per cursus";
+$langNumGroupStudent = "Aantal teams in dewelke een student zich kan inschrijven in de cursus";
+$langNumero = "Nr.";
+$langOfficialCode = "Administratieve code";
+$langOk = "Ok";
+$langOkChapterHeadAdded = "Titel toegevoegd: ";
+$langOkDefaultCommentUsed = "Waarschuwing: De installatie kan de omschrijving van het leerpad niet vinden en heeft een standaard waarde gebruikt. U dient die te veranderen.";
+$langOkDefaultTitleUsed = "Waarschuwing: De installatie kan de naam van het leerpad niet vinden en heeft een standaard waarde gebruikt. U dient deze te veranderen.";
+$langOkFileReceived = "Bestand ontvangen : ";
+$langOkManifestFound = "Manifest gevonden in zip bestand : ";
+$langOkManifestRead = "Manifest gelezen.";
+$langOkModuleAdded = "Module toegevoegd : ";
+$langOkSent = "Uw pagina werd opgestuurd.<p>Die is toegankelijk vanaf de <a href=../..//index.php>Homepage</a> van uw cursussite.";
+$langOldToNew = "Oudste eerst";
+$langOn = "Op";
+$langOneByOne = "Gebruiker manueel toevoegen";
+$langOneMyGroups = "onder mijn beheer";
+$langOneResp = "E&eacute;n van de verantwoordelijken voor de Claroline-cursus";
+$langOnly = "Alleen";
+$langOptional = "Optioneel";
+$langOrder = "Volgorde";
+$langOrderUp = "Omhoog";
+$langOrganisation = "Organisatie van de forums";
+$langOrphanQuestions = "Vragen niet in een oefening ('wezen')";
+$langOtherCourses = "Cursusoverzicht";
+$langOtherWorks = "Andere functies";
+$langPassTooEasy = "Dit wachtwoord is te eenvoudig. Kies een ander zoals bijvoorbeeld: ";
+$langPassTwice = "U hebt twee verschillende wachtwoorden ingevuld. Gebruik de Back-toets van uw browser, en probeer opnieuw.";
+$langPassTwo = "U hebt twee verschillende wachtwoorden ingevoerd";
+$langPassword = "Wachtwoord";
+$langPasswordHasBeenEmailed = "Uw wachtwoord is opgezonden naar ";
+$langPasswordSimple = "Opgegeven wachtwoord is te eenvoudig of lijkt te veel op de gebruikersnaam.";
+$langPasswordWrong = "Wachtwoorden moeten identiek zijn om te kunnen wijzigen";
+$langPathContentTitle = "Leerpad inhoud";
+$langPathsInCourseProg = "Cursus vooruitgang";
+$langPerhaps_with_others_directory = "misschien met een andere map";
+$langPeriodDay = "Dag";
+$langPeriodHour = "Uur";
+$langPeriodMonth = "Maand";
+$langPeriodToDisplay = "Periode";
+$langPeriodWeek = "Week";
+$langPeriodYear = "Jaar";
+$langPersoValue = "Values";
+$langPersonalCourseList = "Persoonlijke cursus lijst";
+$langPgTitle = "Titel Pagina";
+$langPhone = "Telefoon";
+$langPlaces = "plaatsen per groep (facultatief)";
+$langPlatform = "Beheer van het platform";
+$langPlatformAccess = "Toegang tot de campus";
+$langPlatformAdministration = "Platform beheer";
+$langPlatformAdministrator = "Platform beheerder";
+$langPlatformCoursesAccess = "Toegang tot de cursussen";
+$langPlatformStats = "Platform statistieken";
+$langPleaseEnterMessage = "Geef aub een boodschap om te versturen.";
+$langPleaseSelectUsers = "Selecteer eerst gebruikers om de boodschap aan te versturen.";
+$langPoweredBy = " gebruikt het platform";
+$langPrefix = "Voorzetsel  : ";
+$langPreventLateUpload = "Nee, gebruikers mogen geen werk indienen na de einddatum";
+$langPreview = "Voorbeeld op scherm";
+$langPrevious = "Vorige";
+$langPreviousDay = "Vorige dag";
+$langPreviousLevel = "Vorig niveau";
+$langPreviousMonth = "Vorige maand";
+$langPreviousPage = "Vorige pagina";
+$langPreviousWeek = "Vorige week";
+$langPreviousYear = "Vorig jaar";
+$langPrintVers = "Afdrukbare versie";
+$langPrivate = "priv&eacute;";
+$langPrivateAccess = "Beperkte toegang, gesloten registratie (site voorbehouden voor mensen die in de lijst vermeld worden <a href=../user/user.php>gebruikers</a>)";
+$langPrivateOnly = "Alleen Priv&eacute; cursussen";
+$langProblem = "In geval van problemen kan u met ons contact opnemen.";
+$langProfessor = "Lesgever";
+$langProfessorMessage = "Bericht van uw lesgever";
+$langProfessors = "lesgever(s)";
+$langProfileReg = "Uw nieuw profiel werd opgeslagen";
+$langProgInModuleTitle = "Uw vooruitgang in deze module";
+$langProgress = "Voortgang";
+$langPropertiesNotIncludeInSections = "Eigenschappen niet in secties";
+$langPubl = "Gepubliceerd op";
+$langPublic = "publiek";
+$langPublicAccess = "Vrije toegang (vanaf de startpagina, zonder identificatiecode)";
+$langPublicOnly = "Alleen publieke cursussen";
+$langPublish = "Publiceren";
+$langQantity = "Hoeveelheid  : ";
+$langQtyOfUserCanSubscribe_PartAfterNumber = "&nbsp;groepen";
+$langQtyOfUserCanSubscribe_PartBeforeNumber = "Een gebruiker kan slechts deelnemer zijn van maximum ";
+$langQualificationsAndGoals = "Qualificaties en doelstellingen";
+$langQualificationsAndGoalsComment1 = "Wat zijn de doelstellingen?  Welke zijn de capaciteiten en kennis waarover de student zal beschikken aan het eind van de cursus?";
+$langQualificationsAndGoalsComment2 = "Presentatie van de algemene en specifieke doelstellingen van de cursus, van qualificaties tot dewelke het beheersen van het onderwerp leidt";
+$langQuestion = "Vraag";
+$langQuestionAnswers = "Antwoorden op de vraag";
+$langQuestionDescription = "Commentaar (optioneel)";
+$langQuestionList = "Vragenlijst van de oefening";
+$langQuestionManagement = "Vragen / Antwoorden beheer";
+$langQuestionNotFound = "Vraag niet gevonden";
+$langQuestionPlan = "Vraag over de planning <BR>voor de lesgever";
+$langQuestionPool = "Lijst met alle vragen";
+$langQuestionTitle = "Titel vraag";
+$langQuestionWeighting = "Gewichten";
+$langQuestions = "Vragen";
+$langQuitViewer = "Back to list";
+$langRandomLanguage = "Willekeurige selectie van beschikbare talen";
+$langRandomQuestions = "Willekeurige vragen";
+$langRawHasBeenChanged = "Ruw minimum om te slagen is veranderd";
+$langReg = "Registratie";
+$langRegAdmin = "Cursussen aanmaken";
+$langRegIntoGroup = "Inschrijven in deze groep";
+$langRegStudent = "Registreren voor cursussen";
+$langRegUser = "ingeschreven gebruikers";
+$langRegYou = "heeft u ingeschreven op";
+$langRegister = "Registreren";
+$langRegisterClass = " klas registreren";
+$langRegisterLocalUrl = "Uw campus URL lijkt een locale URL.
 Een web URL is vereist om uw installatie te registreren bij Claroline.net.<br /><br />
-Ga de waarde na van \'Web basis\' in uw Claroline configuratie.';
-$_lang['blockUsedInSeveralPath'] = 'Deze oefening wordt gebruikt in een of meerdere leertrajecten. Als U het verwijdert, zal het niet langer beschikbaar zijn in het leertraject.';
-$_lang['blockUsersHelp'] = '<b>Beheersrechten</b>
-<p>Om een medelesgever, assistent, tutor of iemand anders toe te laten uw cursussite, al dan niet samen met u, te beheren, moet u eerst deze persoon voor uw cursus inschrijven (of ervoor zorgen hij ingeschreven word).  Vervolgens wijzigt u zijn rechten door te klikken op de wijzigingsfunctie onder ofwel de kolom Tutor of de kolom Beheerder op de rij van de medelesgever.</p><hr />
+Ga de waarde na van 'Web basis' in uw Claroline configuratie.";
+$langRegisterMyCampus = "Registreer mijn campus";
+$langRegisterTheNewUser = "Schrijf deze gebruiker in in een cursus";
+$langRegisterUser = "Inschrijven in nieuwe cursus";
+$langRegisterUserToClass = "Gebruiker in klas plaatsen";
+$langRegistered = "Ingeschreven";
+$langRegistration = "Registratie";
+$langRemove = "Verwijderen";
+$langRemoveAdminLevel = "Niet langer beheerder";
+$langRename = "Hernoemen";
+$langReplaceAttachedFile = "Vervang aangehecht bestand";
+$langReply = "Antwoorden";
+$langRequestToTheCoderOfThisConfigToAddThesesProportiesInASectionOfTheDefinitionFile = "Aanvraag aan coder van deze configuratie om deze eigenschappen toe te voegen in een sectie van het definitie bestand.";
+$langRequired = "Vereist";
+$langRequirements = "Vereisten";
+$langResetChat = "Opnieuw instellen";
+$langRestoreCourseRepository = "Restore cursus backup";
+$langResult = "Resultaat";
+$langReuse = "Hergebruik";
+$langRevoquationOfUser = "Intrekken van %s %s";
+$langRidiculise = "Zijn gesprekspartner belachelijk maken om hem zijn fouten te doen erkennen.";
+$langRole = "Rol";
+$langRoot = "basis";
+$langSCORMTypeDesc = "SCORM 1.2 conforme inhoud";
+$langSDK = "SDK";
+$langSampleDocument = "voorbeeld_document";
+$langSampleDocumentDesc = "U kan elk bestaand document in de verzameling documenten uit deze cursus gebruiken.";
+$langSampleExerciseDesc = "U kan elke oefening uit de verzameling oefeningen van uw cursus gebruiken.";
+$langSampleLearnPath = "Voorbeeld van leerpad";
+$langSampleLearnPathDesc = "Dit is een voorbeeld van een leerpad, het gebruikt de voorbeeld oefening uit de oefeningen en voorbeeld document uit de documenten. Klik op
+                            <b>Wijzigen</b> om deze tekst te veranderen.";
+$langSave = "Opslaan";
+$langSaveChanges = "Wijzigingen bewaren";
+$langScore = "Score";
+$langScoreAvg = "Gemiddelde";
+$langScoreMax = "Maximum";
+$langScoreMin = "Minimum";
+$langScormIntroTextForDummies = "Geimporteerde pakketen moeten uit een zip bestand met SCORM 1.2 conforme inhoud";
+$langSearch = "Zoeken";
+$langSearchAgain = "Opnieuw zoeken (uitgebreid)";
+$langSearchCourse = "Zoek cursus";
+$langSearchCourseAdvanced = "Uitgebreid zoeken naar cursus";
+$langSearchOn = "Zoek op";
+$langSearchUser = "Zoek gebruiker";
+$langSearchUserAdvanced = "Uitgebreid zoeken naar gebruiker";
+$langSecondShort = "sec.";
+$langSeeAgenda = "Bekijk mijn agenda";
+$langSeeUserSettings = "Bekijk gebruikersinstellingen";
+$langSeebelowthefilesyoucaneditfromthistool = "Met deze tool kan U de onderstaande bestanden bewerken.";
+$langSeen = "Gelezen";
+$langSelUser = "Gebruikers";
+$langSelectAUser = "Kies gebruiker";
+$langSelectedUsers = "Geselecteerde gebruikers";
+$langSendPage = "Pagina opsturen";
+$langSendToUserAccountInfoByMail = "Zend account informatie naar gebruiker per email";
+$langSequentialExercise = "E&eacute;n vraag per pagina (sequentieel)";
+$langSetAdmin = "Maak beheerder";
+$langSettings = "met de volgende parameters: Gebruikersnaam:";
+$langShowAll = "Toon alle";
+$langShowAnswers = "Toon antwoorden";
+$langShowAnswersAfterLastTry = "Na laatst toegestane poging";
+$langShowNone = "Toon geen";
+$langSimpleExercise = "Op 1 pagina";
+$langSiteName = "Naam webstek";
+$langSize = "Grootte";
+$langSize_of_claroline_scripts = " grootte van claroline scripts";
+$langSize_of_course_repository = "!!!! Grootte van cursus backup (inbegrepen claroline en vuilnis in oude systemen)";
+$langSize_of_selected_courses = "grootte van geselecteerde cursussen";
+$langSocraticIrony = "Socratische ironie is...";
+$langSpecifyFormat = "U moet het CSV formaat, gebruikt in uw bestand, aanduiden";
+$langStartDate = "Start datum";
+$langStartModule = "Start Module";
+$langStatDB = "Databank voor opvolging";
+$langStatistics = "Statistieken";
+$langStatsOfCampus = "Statistieken van campus";
+$langStatsOfCourse = "Statistieken van cursus";
+$langStatsOfExercise = "Statistieken van oefening";
+$langStatsOfLearnPath = "Statistieken";
+$langStatsOfUser = "Statistieken van gebruiker";
+$langStatus = "Actie";
+$langStatusChangeNotMade = "Verandering niet toegepast";
+$langStepNOfN = "Stap %d van %d";
+$langStoreChat = "Chat opslaan";
+$langStudent = "student";
+$langStudents = "Studenten";
+$langStudentsNotInThisGroups = "Deelnemer(s) niet in deze groep";
+$langSubTitle = "Voegt een link toe in het menu van uw homepagina";
+$langSubTitleChangeParent = "Verander bovenliggende categorie van ";
+$langSubTitleCreate = "Maak een categorie aan";
+$langSubTitleEdit = "Bewerk een categorie";
+$langSubmissionDate = "Eerste&nbsp;datum&nbsp;indiening";
+$langSubmissionType = "Type ingediende items";
+$langSubmissions = "Ingediende items";
+$langSubmit = "Verzenden";
+$langSubmitWork = "Werk indienen";
+$langSubmittedWork = "Werk";
+$langSubscribeClass = "Inschrijven in de klas";
+$langSubscribeToCourse = "Inschrijven in een cursus";
+$langSubscribeUser = "Gebruiker registreren";
+$langSubscribed = "gebruiker(s) ingeschreven voor de cursus";
+$langSubscription = "Inschrijving";
+$langSubscriptionAllowedOnly = "Inschrijving alleen toegestaan ";
+$langSubscriptionDeniedOnly = "Inschrijving alleen verwerpen";
+$langSummaryNavBar = "Navigatiebalk";
+$langSupportForum = "Ondersteuningsforum";
+$langSupports = " Ondersteuning ";
+$langSupportsComment1 = "Is er ondersteuning?  Welke soort ondersteuning is er?  Open?  Gesloten?";
+$langSupportsComment2 = "Presentatie van de ondersteuning van de cursus.  Presentatie van de bibliografie, de documenten of een complementaire bibliografie.";
+$langSwitchEditorToTextConfirm = "Dit commando zal de huidige tekst layout verwijderen. Wilt U verdergaan ?";
+$langTake = "Nemen";
+$langTaken = "is al in gebruik. Kies een ander.";
+$langTargetFac = "Hier komt de naam van de faculteit waar de cursus wordt gegeven";
+$langTeachers = "Lesgevers";
+$langTeachingTrainingActivities = "Les-training activiteiten";
+$langTeachingTrainingActivitiesComment1 = "Welke methodes en welke activiteiten helpen bij het bereiken van de doelstellingen van de cursus?  Wat is de kalender van activiteiten ?";
+$langTeachingTrainingActivitiesComment2 = "Presentatie van de voorziene activiteiten (Reviews, verwachte deelname van de studenten, practische werkjes, practica, bezoeken, vergaren van informatie ter plekke...).";
+$langTechAdmin = "Beheerstechniek";
+$langTechnical = "Technische gereedschappen";
+$langTestForum = "Testforum";
+$langTextEditorDisable = "Desactiveer tekst bewerking";
+$langTextEditorEnable = "Activeer tekst bewerking";
+$langTextFile = "Tekst met aangehecht bestand file (tekst verplicht, bestand is optioneel)";
+$langTextOnly = "Alleen tekst (tekst verplicht, geen bestand)";
+$langTheFields = "De velden";
+$langTheU = "De gebruiker";
+$langThisCourseDescriptionIsEmpty = "Deze cursus heeft nog geen omschrijving";
+$langThisIsAnErrorInDefinitionFile = "Dit is een fout in het definitie bestand.";
+$langThisday = "Vandaag";
+$langThumbnails = "Duimnagels";
+$langTimeInLearnPath = "Tijd in leerpad";
+$langTimeOver = "Tijd verstreken, resultaten niet overhandigd.";
+$langTipLang = "Deze taal zal gelden voor alle bezoekers van uw cursussite.";
+$langTitle = "Titel";
+$langTitleUpgrade = "<h2>Claroline Upgrade Tool<br />van %s naar %s </h2>";
+$langTitular = "Docenten";
+$langTo = "naar";
+$langToDate = "naar";
+$langToday = "Vandaag";
+$langTodo = "Todo";
+$langTooBig = "U hebt geen bestand geselecteerd om op te sturen of uw bestand is te groot.";
+$langTool = "Gereedschap";
+$langToolList = "Lijst van alle modules";
+$langToolTitleCountColumn = "Totaal muisklikken";
+$langToolTitleToolnameColumn = "Modulenaam";
+$langToolTitleUsersColumn = "Muisklikken van gebruikers";
+$langTools = "Werkmiddelen";
+$langToolsAccess = "Toegang tot modules";
+$langTopLevel = "Bovenste niveau";
+$langTopicReplies = "Antwoorden";
+$langTotal = "Totaal";
+$langTotalPlatformAccess = "Totaal";
+$langTotalPlatformLogin = "Totaal";
+$langTotalTimeSpent = "Total time";
+$langTrackForumUsage = "Gebruik forum";
+$langTrackTotalPosts = "Verzonden berichten:";
+$langTrackTotalTopics = "Gestarte onderwerpen";
+$langTracking = "Opvolgen";
+$langTrackingDisabled = "Opvolgen is uitgeschakeld door de platformbeheerder.";
+$langTrafficDetails = "Verkeer details";
+$langTranslationStatistics = "Vooruitgang vertaling";
+$langTranslationTools = "Vertaalgereedschappen";
+$langTranslations = "Vertalingen";
+$langTrue = "Waar";
+$langTypeOfModule = "Module type";
+$langTypeTextBelow = "Tik hieronder uw tekst";
+$langURL = "URL : ";
+$langUnableAddExternalTool = "Kon extern gereedschap niet toevoegen";
+$langUnableChangedTool = "Kon toegang tot extern gereedschap niet veranderen";
+$langUnableDeleteExternalTool = "Kon extern gereedschap niet verwijderen";
+$langUnableDescToAdd = "Kon geen omschrijving toevoegen";
+$langUnableToAdd = "Kon de gebeurtenis niet aan de agenda toevoegen.";
+$langUnableToDelete = "Kon de gebeurtenis niet uit de agenda verwijderen.";
+$langUnableToUpdate = "Kon de gebeurtenis in de agenda niet wijzigen.";
+$langUnableUpdateExternalTool = "Kon get externe gereedschap niet bijwerken.";
+$langUnamedModule = "Onbenoemde module";
+$langUnamedPath = "Onbenoemd path";
+$langUncompress = "ZIP bestand decomprimeren";
+$langUncompulsory = "(facultatief)";
+$langUniqueSelect = "Meerkeuze (uniek antwoord)";
+$langUnkownSOAPError = "Er is een fout opgetreden tijdens het contacteren van Claroline.net";
+$langUnlimitedAttempts = "Onbegrensd aantal pogingen";
+$langUnreg = "Registratie annuleren";
+$langUnsubscribe = "Niet-geregistreerde gebruiker";
+$langUnsubscribeClass = "Uitschrijven uit klas";
+$langUntil = "tot";
+$langUnvalid = "hebben een ongeldig e-mail adres of hebben geen adres";
+$langUp = "Hoger";
+$langUpdateImage = "Plaatje wijzigen";
+$langUpdated = "gewijzigd";
+$langUpdatedExternalTool = "Extern gereedschap gewijzigd";
+$langUpgrade = "Bijwerken";
+$langUpgradeStep0 = "Backup bevestigen";
+$langUpgradeStep1 = "Stap 1 van 3: belangrijkste instellingen van het platform";
+$langUpgradeStep2 = "Stap 2 van 3: Systeemtabellen van het platform bijwerken";
+$langUpgradeStep3 = "Stap 3 van 3: Cursussen bijwerken";
+$langUpload = "Opsturen";
+$langUploadAndZipEnd = " ZIP bestand werd opgestuurd en gedecomprimeerd";
+$langUploadDoc = "Document opsturen";
+$langUploadEnd = "Upload is geslaagd";
+$langUploadFile = "Upload volgend bestand naar de server";
+$langUploadedFile = "Opgestuurd bestand";
+$langUseFollowingFormat = " Gebruik het volgende formaat : ";
+$langUseFormatDefined = "Gebruik formaat zoals in de eerste regel van het bestand";
+$langUseOfPool = "Deze pagina staat U toe alle beschikbare modules in deze cursus te bekijken.<br>
+Elke oefening of document dat werd toegevoegd aan een leerpad verschijnt ook in deze lijst";
+$langUseTagForBlank = "gebruik vierkante haken [...] om een of meerdere invulruimtes te definieren";
+$langUsedInLearningPaths = "Aantal leerpaden dat gebruik maakt van deze module : ";
+$langUsedInSeveralExercises = "Waarschuwing: Deze vraag en zijn antwoorden worden in verschillende oefeningen gebruikt. Wilt u de vraag wijzigen";
+$langUsedInSeveralPath = "Deze oefening wordt gebruikt in een of meerdere leerpaden. Als U het verwijdert, zal het niet langer beschikbaar zijn in het leerpad.";
+$langUser = "Gebruiker";
+$langUserAccessDetails = "Details toegang gebruiker";
+$langUserAlreadyInClass = "Gebruiker zit reeds in de klas";
+$langUserCanCreateCourse = "Kan een cursus aanmaken";
+$langUserContent = "<b>Beheersrechten</b>
+<p>Om een medelesgever, assistent, tutor of iemand anders toe te laten uw cursussite, al dan niet samen met u, te beheren, moet u eerst deze persoon voor uw cursus inschrijven (of ervoor zorgen hij ingeschreven word).  Vervolgens wijzigt u zijn rechten door te klikken op de wijzigingsfunctie onder ofwel de kolom Tutor of de kolom Beheerder op de rij van de medelesgever.</p><hr>
 <b>Medelesgevers</b>
-<p>Om de naam van de medelesgever te laten verschijnen bij de naam van uw cursus in de cursuslijst, gebruik de pagina \'cursuseigenschappen’ op de startpagina van uw cursussite. Deze wijziging toont de medelesgever niet automatisch als een gebruiker van de cursus. Dit zijn twee verschillende stappen</p><hr />
+<p>Om de naam van de medelesgever te laten verschijnen bij de naam van uw cursus in de cursuslijst, gebruik de pagina 'cursuseigenschappen’ op de startpagina van uw cursussite. Deze wijziging toont de medelesgever niet automatisch als een gebruiker van de cursus. Dit zijn twee verschillende stappen</p><hr>
 <b>Gebruiker toevoegen</b>
-<p>Om een gebruiker toe te voegen aan uw cursus, vul de velden in en klik op ‘Ok’. De persoon zal zijn gebruikersnaam en wachtwoord krijgen via e-mail, met de bevestiging van zijn registratie, behalve als u geen e-mailadres hebt ingegeven.</p>';
-$_lang['blockWikiConflictHowTo'] = '<p><strong>wijziging probleem</strong> : De pagina die u probeert te verander blijkt al veranderd te zijn voordat u deze veranderde.<br /><br />
-Wat kunt u nu doen ?<ul>
-<li>U kunt de wijziggingen knippen en plakken in word of een andere aplicatie de laatste versie bekijken en kijken of je deze nog hoeft aan te passen naat u wensen.
-</li>
-<li>Je kunt ook op anuleren drukken om je wijzigingen niet door te voeren.</li>
-</ul></p>';
-$_lang['blockWikiHelpAdminContent'] = '<h3>Wiki administration help</h3>
-<dl class="wikiHelp">
-<dt>Hoe een nieuw wiki maken ?</dt>
-<dd>Klik op \'maak een nieuw wiki\'. En zet dan de instellingen juist :
-<ul>
-<li><b>titel van Wiki</b> : Kies een algemene titel voor je Wiki</li>
-<li><b>Beschrijving van Wiki</b> : Kies een beschrijving van Wiki</li>
-<li><b>Toegangs beheer</b> : Zet de toegangs rechten door het box aan te vinken of uit te vinken</li>
-</ul>
+<p>Om een gebruiker toe te voegen aan uw cursus, vul de velden in en klik op ‘Ok’. De persoon zal zijn gebruikersnaam en wachtwoord krijgen via e-mail, met de bevestiging van zijn registratie, behalve als u geen e-mailadres hebt ingegeven.</p>";
+$langUserCourseList = "Lijst met cursussen van de gebruiker";
+$langUserCreated = "De nieuwe gebruiker werd met succes aangemaakt";
+$langUserDelete = "De gebruiker werd met succes verwijderd";
+$langUserIsNowCourseManager = "De gebruiker is nu beheerder van de cursus";
+$langUserIsNowStudent = "De gebruiker is nu student in deze cursus";
+$langUserIsPlaformAdmin = "Is platform beheerder";
+$langUserName = "Gebruikersnaam ('login')";
+$langUserNameTaken = "Deze gebruikersnaam wordt reeds gebruikt, gelieve een andere gebruikersnaam te kiezen";
+$langUserNo = "De gekozen gebruikersnaam";
+$langUserNoCourseToDisplay = "Geen cursus om te tonen";
+$langUserNotInClass = "Gebruiker zit niet in de klas";
+$langUserNotUnsubscribed = "Uitschrijven mislukt!!! <br> Deze gebruiker kan niet uitgeschreven worden,<br>
 
+                            U kan een cursus beheerder niet uitschrijven, verander de instellingen eerst";
+$langUserNotUnsubscribedFromCourse = "Fout!! U kan een cursus beheerder niet uitschrijven";
+$langUserNumber = "aantal";
+$langUserOneByOneExplanation = "De hier ingevulde gebruikersnaam en wachtwoord zal aan deze gebruiker per e-mail medegedeeld worden.";
+$langUserRegisteredClass = "Gebruiker met succes ingeschreven in de klas";
+$langUserSettings = "Voorkeurinstellingen gebruiker";
+$langUserStatus = "Status";
+$langUserSubscribed = "De gebruiker werd met succes geregistreerd";
+$langUserTaken = "De gekozen gebruikersnaam is al in gebruik";
+$langUserUnregistered = "De gebruiker werd uitgeschreven";
+$langUserUnregisteredFromClass = "De gebruiker werd met succes uitgeschreven uit de klas";
+$langUserUnregisteredFromCourse = "De gebruiker werd uitgeschreven uit de cursus";
+$langUserUnsubscribed = "De gebruiker werd met succes uitgeschreven";
+$langUserUnsubscribedFromCourse = "De gebruiker werd met succes uitgeschreven uit de cursus";
+$langUserid = "Gebruikers Id";
+$langUserlist = "Gebruikerslijst";
+$langUsernameAppearAlready = "Deze gebruiker komt reeds voor in een eerdere regel van het CSV bestand.";
+$langUsernameUsed = "Deze gebruikersnaam is reeds in gebruik voor een andere gebruiker.";
+$langUsers = "Gebruikers";
+$langUsersMin = "gebruikers";
+$langValid = "Ok";
+$langValvas = "Nieuwste berichten";
+$langViMod = "De zichtbaarheid werd gewijzigd.";
+$langView = "View";
+$langViewCourse = "Bekijk cursus";
+$langViewMode = "Scherm modus";
+$langViewPlatFormError = "Technische fout zoeken";
+$langViewPlatFormStatistics = "Platform statistieken";
+$langViewToolList = "Toon lijst van alle modules";
+$langVisibility = "Zichtbaarheid";
+$langVisible = "Zichtbaar";
+$langVisits = "Bezoeken";
+$langWeighting = "Gewicht";
+$langWeightingForEachBlank = "Geef aub een gewicht aan elke invulruimte";
+$langWiki = "Wiki";
+$langWork = "Studenten Box";
+$langWorkAuthors = "Auteurs";
+$langWorkTitle = "Titel";
+$langWorkUploads = "Ingediende taken";
+$langWorksDetails = "Werken opgestuurd door de student in de naam van 'Auteurs'";
+$langWrkAdded = "Werk toegevoegd";
+$langWrkAuthors = "Auteur(s)";
+$langWrkAuthorsRequired = "Auteur(s) is(zijn) vereist";
+$langWrkEdited = "Work gewijzigd";
+$langWrkScoreRequired = "Quotering vereist";
+$langWrkTitle = "Titel";
+$langWrkTitleRequired = "Werk titel vereist";
+$langWrongOperation = "Verkeerde bewerking";
+$langYear = "Jaar";
+$langYes = "Ja";
+$langYesterday = "Gisteren";
+$langYouAreReg = "U bent geregistreerd voor";
+$langYouCannotDelCatOfGroupsForums = "U kan de group forum categorie niet verwijderen.
 
-</dd>
-<dt>Hoe een Wiki bekijken ?</dt>
-<dd>Klik op de titel van het wiki die je in de lijst terug vind.</dd>
-<dt>Hoe de instellingen van een Wiki veranderen ?</dt>
-<dd>Klik op het icoon \'instellingen\' om de instellingen vervolgends te wijziggen .</dd>
-<dt>Hoe gebruik ik de instellingen van toegangs rechten beheer ?</dt>
-<dd>U kunt de toegangsrechten voor gebruikers plaatsen door het vakje in de \'sectie Van het toegangsbeheer\'
-eigenschappen controleren door de boxes aan of uit te vinken Wiki.
-Zo kunt u de toegang geven of weigeren aan de 3 types :<ul>
-<li><b>cursus leden</b> : gebruikers ingeschreven in de cursus , behalve de laarkracht</li>
-<li><b>Groeps leden</b> (aleen beschikbaar binnen een groep) : gebruikers die lid zijn van de groep (met uitzondering van de groepsleiders)</li>
-<li><b>Andere gebruikers :</b> : Andere gebruikers zijn niet ingeschreven in de cursus en zijn dus gast</li></ul>
-Voor ieder type gebruiker kun je verschillende instellingen geven voor de Wiki(*) :<ul>
-<li><b>Lees pagina\'s</b> : Deze insteling zorgt dat dit type kan pagina\'s lezen in het Wiki</li>
-<li><b>Wijzig pagina\'s</b> : Deze insteling zorgt dat dit type kan pagina\'s wijziggen in het Wiki</li>
-<li><b>Maak pagina\'s</b> : Deze insteling zorgt dat dit type kan pagina\'s maken in het Wiki</li>
-</ul><small><em>(*) een gebruiker kan geen nieuwe pagina\'s aanmaken als hij deze niet kan wijziggen , tevens kan hij als hij ze kan maken dan kan hij ze altijd lezen.</em></small></dd>
-<dt>Hoe een Wiki verwijderen ?</dt>
-<dd>klik op \'delete\' om een wiki volledig te verwijderd.</dd>
-<dt>Hoe een lijst krijgen van alle pagina\'s ?</dt>
-<dd>klik op het nummer van de pagina\'s om het te bekijken.</dd>
-<dt>hoe een lijst krijgen van de laast gewijzigde pagina\'s ?</dt>
-<dd>Klik op het icoon laatst gewijzigde pagina\'s.</dd>
-</dl>';
-$_lang['blockWikiHelpSyntaxContent'] = '<h3>Wiki2xhtml syntax</h3>
-<dl class="wikiHelp">
-<dt>Maken van Wiki pagina\'s en link daartussen</dt>
-<dd><ul>
-<li><strong>Wiki woorden</strong> : Wiki woorden zijn woorden als <em>WikiWord</em>.
- Wiki2xhtml herkent deze meteen en zet een link. Om een pagina of link te maken in Wiki, wijzig een bestaant en verander de titel in een WikiWord syntax, bijvoorbeeld <em>Mijnpagina</em>, bewaar dan de pagina. Wiki2xhtml zal meteen het Wiki Word veranderen <em>Mijnpagina</em> met een link naar <em>MijnPagina</em>&nbsp;;</li>
-<li><strong>Wiki links</strong> : Wiki links zijn net Hyperlinks (zie onderaan) verwacht niet dat ze een protocol bevatten (zoals <em>http://</em> of <em>ftp://</em>)
-and thatthey are automaticaly recognise as links to Wiki pages. Om een nieuwe pagina te maken of een link te maken in een bestaand Wiki,wijzig een pagina en voeg toe <code>[page title]</code> of <code>[page title|link text]</code> in deze inhoud.
-om een text te veranderen in een link kunt u ook : <code>[WikiWord|text]</code>.</li>
-</ul></dd>
-<dt>Block elements</dt>
-<dd><ul><li>voeg een nieuwe lijn toe in een lijn<em> van het zelfde type</em>.&nbsp;;</li>
-<li><strong>Paragraph</strong> : typ wat tekst en een nieuw lijn&nbsp;;</li>
-<li><strong>Title</strong> : <code>!!!</code>, <code>!!</code>, <code>!</code> respectively for titles, sub-titles and sub-sub-titles&nbsp;;</li>
-<li><strong>Horizontal line</strong> : <code>----</code>&nbsp;;</li>
-<li><strong>List</strong> : line starting with <code>*</code> or <code>#</code>. You can mix lists (<code>*#*</code>) to create multi-level lists.&nbsp;;</li>
-<li><strong>Preformated text</strong> : add a space before each line of preformated text&nbsp;;</li>
-<li><strong>Cite block</strong> : <code>&gt;</code> ou <code>;:</code> before each line.</li>
-</ul></dd>
-<dt>Inline elements</dt>
-<dd><ul><li>Automatic punctuation correction active : An unbreakable space will precede each of the following symbols ";","?",":" and "!".&nbsp;;</li>
-<li><strong>Emphasis</strong> : surround your text with two single quotes <code>\'\'text\'\'</code>&nbsp;;</li>
-<li><strong>Strong emphasis</strong> : surround your text with three single quotes underscores <code>\'\'\'text\'\'\'</code>&nbsp;;</li>
-<li><strong>Forced line break</strong> : <code>%%%</code>&nbsp;;</li>
-<li><strong>Underline</strong> : surround your text with two underscores <code>__text__</code>&nbsp;;</li>
-<li><strong>Stroke</strong> : surround your text with two minus symbols <code>--text--</code>&nbsp;;</li>
-<li><strong>Hyperlinks</strong> : <code>[url]</code>, <code>[name|url]</code>, <code>[name|url|language]</code> or <code>[name|url|language|title]</code>.&nbsp;;</li>
-<li><strong>Image</strong> : same as Hyperlinks<br />Put a 0 in last argument to avoid image recognition and get an hyperlink to an image. For example <code>[image|image.gif||0]</code> will display a link to image.gif instead of display the imge itself.<br />This syntax is deprecated, consider o use the following one&nbsp;;</li>
-<li><strong>Image</strong> (new syntax) : <code>((url|alternate text))</code>, <code>((url|alternate text|position))</code> ou <code>((url|alternate text|position|long description))</code>. <br />The position argument can take the following values : L (left), R (right) or C (centeré).&nbsp;;</li>
-<li><strong>Named anchor</strong> : <code>~anchor~</code>&nbsp;;</li>
-<li><strong>Acronym</strong> : <code>??acronym??</code> or <code>??acronym|definition??</code>&nbsp;;</li>
-<li><strong>Cite</strong> : <code>{{cite}}</code>, <code>{{citation|language}}</code> or <code>{{citation|language|url}}</code>&nbsp;;</li>
-<li><strong>Code</strong> : <code>@@code here@@</code>&nbsp;;</li>
-<li><strong>Footnote</strong> : <code>$$footnote text$$</code>.</li>
-</ul></dd>
-</dl>';
-$_lang['click here'] = 'Klik hier';
-$_lang['click to zoom in'] = 'Klik om in te zoomen.';
-$_lang['click to zoom out'] = 'Klik om uit te zoomen';
-$_lang['denotes new items'] = 'verwijs naar nieuwe items';
-$_lang['differences between version of %1\$s modified by %2\$s and version of %3\$s modified by %4\$s'] = 'Verschil tussen versie van  %1$s gewijzigd door %2$s en versie van %3$s gewijzigd door %4$s';
-$_lang['e.g. <em>History of Literature</em>'] = 'bijv. <i>Literatuurgeschiedenis</i>';
-$_lang['good looking'] = 'mooi ogend';
-$_lang['if you choose to continue, lines with errors will simply be ignored'] = 'Indien U voortgaat, zullen regels met fouten genegeerd worden';
-$_lang['line'] = 'lijn';
-$_lang['lines'] = 'lijnen';
-$_lang['max. 12 characters, e.g. <em>ROM2121</em>'] = 'max. 12 lettertekens, bijv.<i>ROM2121</i>';
-$_lang['my group'] = 'mijn groep';
-$_lang['my supervision'] = 'onder mijn beheer';
-$_lang['new group(s)'] = 'nieuwe groepen';
-$_lang['number'] = 'aantal';
-$_lang['previous level'] = 'Vorig niveau';
-$_lang['register'] = 'zich inschrijven';
-$_lang['rich'] = 'rijk';
-$_lang['sampleForumDescription'] = 'Te verwijderen via Forumbeheer';
-$_lang['sampleForumGroupCategory'] = 'Forum groepen';
-$_lang['sampleForumMainCategory'] = 'Algemeen';
-$_lang['sampleForumMessage'] = 'Wanneer U het Testforum verwijdert, zal ook elk onderwerp hierin verwijderd worden.';
-$_lang['sampleForumTitle'] = 'Testforum';
-$_lang['sampleForumTopicTitle'] = 'Voorbeeldbericht';
-$_lang['sampleLearnPathDescription'] = 'Dit is een voorbeeld van een leertraject, het gebruikt de voorbeeld oefening uit de oefeningen en voorbeeld document uit de documenten. Klik op
-                            <b>Wijzigen</b> om deze tekst te veranderen.';
-$_lang['sampleLearnPathDocumentDescription'] = 'U kan elk bestaand document in de verzameling documenten uit deze cursus gebruiken.';
-$_lang['sampleLearnPathDocumentTitle'] = 'voorbeeld_document';
-$_lang['sampleLearnPathQuizDescription'] = 'U kan elke oefening uit de verzameling oefeningen van uw cursus gebruiken.';
-$_lang['sampleLearnPathTitle'] = 'Voorbeeld van leertraject';
-$_lang['sampleQuizAnswer1'] = 'Zijn gesprekspartner belachelijk maken om hem zijn fouten te doen erkennen.';
-$_lang['sampleQuizAnswer1Comment'] = 'Nee. Socratische ironie heeft niets te maken met psychologie maar wel met argumentatie.';
-$_lang['sampleQuizAnswer2'] = 'Zijn eigen vergissingen erkennen om zijn gesprekspartner uit te nodigen hetzelfde te doen.';
-$_lang['sampleQuizAnswer2Comment'] = 'Nee. Socratische ironie is geen verleidingsstrategie of een methode gebaseerd op voorbeelden.';
-$_lang['sampleQuizAnswer3'] = 'Zijn gesprekspartner dwingen, door een reeks vragen en bijvragen, te erkennen dat hij niet kent wat hij denkt te kennen.';
-$_lang['sampleQuizAnswer3Comment'] = 'Juist. Socratische ironie is inderdaad een ondervragende methode. Het Griekse woord "eirotao" betekent trouwens "ondervragen".';
-$_lang['sampleQuizAnswer4'] = 'Het principe van tegenstrijdigheid gebruiken om zijn gesprekspartner in de tang te krijgen.';
-$_lang['sampleQuizAnswer4Comment'] = 'Dit antwoord is niet onjuist. Het is waar dat het tonen van de onwetendheid van zijn gesprekspartner gebeurt dankzij het tonen van de tegenstrijdige conclusies van zijn veronderstellingen.';
-$_lang['sampleQuizDescription'] = 'Oude filosofie geschiedenis';
-$_lang['sampleQuizQuestionText'] = '(meerdere juiste antwoorden mogelijk)';
-$_lang['sampleQuizQuestionTitle'] = 'Socratische ironie is...';
-$_lang['sampleQuizTitle'] = 'Voorbeeld Oefening';
-$_lang['seats (optional)'] = 'plaatsen (facultatief)';
-$_lang['seats by groups (optional)'] = 'plaatsen per groep (facultatief)';
-$_lang['to'] = 'tot';
-$_lang['uncompress zipped (.zip) file on the server'] = 'ZIP bestand decomprimeren';
-$_lang['warning : Installation cannot find the description of the learning path and has set a default comment.  You should change it'] = 'Waarschuwing: De installatie kan de omschrijving van het leertraject niet vinden en heeft een standaard waarde gebruikt. U dient die te veranderen.';
-$_lang['warning : Installation cannot find the name of the learning path and has set a default name.  You should change it.'] = 'Waarschuwing: De installatie kan de naam van het leertraject niet vinden en heeft een standaard waarde gebruikt. U dient deze te veranderen.';
+indien U groep forums wilt verwijderen, moet U de groepen verwijderen";
+$langYourAccountParam = "Dit is uw account Gebruikersnaam/Wachtwoord";
+$langYourBestScore = "Uw beste score";
+$langYourReg = "Uw registratie op";
+$langYourRequestToBeCourseManagerIsSent = "Uw verzoek cursus beheerder te worden is verzonden";
+$langYourRequestToRemoveYourAccountIsSent = "Uw verzoek uw account te verwijderen is verzonden";
+$langYourTime = "Uw tijd is";
+$langYourTotalScore = "Uw totale score is";
+$langZipNoPhp = "Het ZIP bestand mag geen php-bestanden bevatten";
+$lang_EditFile_AdministrationTools = "Beheer gereedschappen";
+$lang_EditFile_ModifyOk = "De wijzigingen werden correct uitgevoerd";
+$lang_add_user_list = "Gebruikerslijst toevoegen";
+$lang_already_enrolled = "Reeds ingeschreven";
+$lang_are_you_sure_to_remove_the_course_from_your_list = "Bent U zeker dat U deze cursus uit uw lijst wil verwijderen ?";
+$lang_back_to_my_personnal_course_list = "Terug naar mijn persoonlijke cursus lijst";
+$lang_back_to_parent_category = "Terug naar bovenliggende categorie";
+$lang_click_here = "Klik hier";
+$lang_course_enrollment = "Cursussen van gebruiker";
+$lang_do_you_want_to_continue = "Wilt U voortgaan?";
+$lang_enroll = "Inschrijven";
+$lang_enroll_to_a_new_course = "Inschrijven in een nieuwe cursus";
+$lang_enter_your_user_name_and_password = "Geef gebruikersnaam en wachtwoord";
+$lang_faculty_CanHaveCatCourse = "Kan cursussen hebben : ";
+$lang_faculty_CatHaveCat = "Deze categorie bevat andere categorie&eacute;n. U moet deze eerst verwijderen !";
+$lang_faculty_CatHaveCourses = "Dere categorie bevat enkele cursussen, U kan ze niet verwijderen!";
+$lang_faculty_CodeCat = "Code categorie :";
+$lang_faculty_CodeEmpty = "Code categorie is vereist";
+$lang_faculty_ConfirmDelete = "Categorie verwijderen, bent U zeker ?";
+$lang_faculty_CreateNotOk = "Deze categorie bestaat reeds!";
+$lang_faculty_CreateOk = "Categorie aangemaakt";
+$lang_faculty_DeleteOk = "Categorie verwijderd";
+$lang_faculty_EditOk = "Wijzigingen werden bewaard";
+$lang_faculty_Father = "Bovenligende categorie ";
+$lang_faculty_HaveCourses = "Deze categorie bevat enkele cursussen, U moet deze eerst verwijderen of verplaatsen";
+$lang_faculty_MoveOk = "Categorie verplaatst";
+$lang_faculty_NameCat = "Categorie naam :";
+$lang_faculty_NameEmpty = "Categorie naam is vereist";
+$lang_faculty_NoCat = "Er is geen categorie beschikbaar !";
+$lang_faculty_NoChange = "Geen wijzigingen aangebracht.";
+$lang_faculty_NoMove_1 = "U kan ";
+$lang_faculty_NoMove_2 = " niet verplaatsen in dezelfde categorie !";
+$lang_faculty_imgDown = "Neer";
+$lang_fields_enclosed_by = "Velden afgebakend door";
+$lang_footer_p_CourseManager = "Beheerder(s) voor %s";
+$lang_htAccessIncPath_added = "Map <em>inc</em> is beschermd";
+$lang_if_you_choose_to_continue_lines_with_errors_will_be_simply_ignored = "Indien U voortgaat, zullen regels met fouten genegeerd worden";
+$lang_if_you_dont_have_a_user_account_profile_on = "Indien U geen account hebt op";
+$lang_if_you_wish_to_enroll_to_this_course = "Indien U wil inschrijven in deze cursus";
+$lang_main_categories_list = "Belangrijkste lijst categorie&eacute;n";
+$lang_my_personnal_course_list = "Mijn persoonlijke lijst cursussen";
+$lang_no_access_here = "Geen toegang";
+$lang_no_course_available_fitting_this_keyword = "Geen cursus beschikbaar voor dit trefwoord";
+$lang_no_error_in_file_found = "Geen fout gevonden in bestand.";
+$lang_or_search_from_keyword = "Zoeken met trefwoorden";
+$lang_p_ErrorOnBuild_S_for_S = "Fout bij het samenstellen van <em>%s</em> voor <B>%s</B>";
+$lang_p_PropForConfigCommited = "Eigenschappen van %s (%s) zijn nu effectief op de server.";
+$lang_p_config_file_creation = "Configuratie bestand creatie:<BR> %s";
+$lang_p_d_course = "%2d cursus";
+$lang_p_d_course_manager = "%2d prof ";
+$lang_p_d_course_managers = "%2d profs ";
+$lang_p_d_course_member = "%2d lid";
+$lang_p_d_course_members = "%2d leden";
+$lang_p_d_courses = "%2d cursussen";
+$lang_p_d_student = "%2d student";
+$lang_p_d_students = "%2d studenten";
+$lang_p_nothing_to_edit_in_S = "Niets te bewerken in %s";
+$lang_p_platformManager = "Beheerder voor %s";
+$lang_p_s_s_has_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> werd met succes ingeschreven in de cursus";
+$lang_p_s_s_has_not_been_sucessfully_registered_to_the_course_p_name_firstname = "<i>%s %s</i> kon niet worden ingeschreven in de cursus";
+$lang_php_info = "PHP systeem informatie";
+$lang_recently = "recent";
+$lang_remove_course_enrollment = "Uitschrijven uit cursus";
+$lang_remove_course_from_your_personnal_course_list = "Uitschrijven uit deze persoonlijke cursus";
+$lang_select_course_in = "Kies cursus in ";
+$lang_select_course_in_search_results = "Kies cursus in zoekresultaten";
+$lang_the_following_errors_were_found = "De volgende fouten werden gevonden ";
+$lang_this_course_is_protected = "Deze cursus is beschermd";
+$lang_unsubscribe = "Uitschrijven";
+$lang_user_has_been_enrolled_to_the_course = "De gebruiker is ingeschreven in de cursus";
+$lang_you_had_request = "U vraagt";
+$lang_you_have_been_enrolled_to_the_course = "U bent ingeschreven in de cursus";
+$lang_your_enrollment_to_the_course_has_been_removed = "U bent uitgeschreven uit de cursus";
+$lang_your_user_profile_doesnt_seem_to_be_enrolled_to_this_course = "Your user profile doesn't seem to be enrolled on this course";
+$langcatcreated = "De nieuwe categorie werd aangemaakt.";
+$langemptycatname = "U moet een naam geven aan uw nieuwe categorie!";
+$langemptyforumname = "U moet een naam geven aan uw nieuw forum!";
+$langforumcreated = "Het nieuwe forum is aangemaakt.";
+$langimportLearningPath = "Importeer een leerpad";
+$langpday = "%d&nbsp;dag(en)";
+$langphours = "%d&nbsp;u(u)r(en)";
+$langpweek = "%d&nbsp;we(e)k(en)";
+$langpyear = "%d&nbsp;ja(a)r(en)";
 ?>

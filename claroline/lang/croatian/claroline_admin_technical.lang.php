@@ -1,0 +1,32 @@
+<?php
+$langAddIntro = "dodajte uvodni tekst";
+$langAgenda = "Program rada";
+$langAnnouncement = "Najave- Priopæenja";
+$langChat = "Razgovor - chat";
+$langCopy = "Kopiraj";
+$langCourses = "Predmeti.";
+$langDay_of_weekNames = "Array";
+$langDelete = "Izbriši";
+$langDescriptionCours = "Opis kolegija";
+$langDocument = "Dokumenti";
+$langForums = "Forumi";
+$langGroups = "Grupe";
+$langHelp = "Pomoæ";
+$langLogout = "Odjava";
+$langManager = "Manager";
+$langMissing = "nedostaje";
+$langModify = "Ureðivanje";
+$langModifyProfile = "Izmijeni profil";
+$langMonthNames = "Array";
+$langMyCourses = "Moji predmeti";
+$langNotAllowed = "Nije dozvoljeno";
+$langOk = "Ok";
+$langOtherCourses = "Popis kolegija";
+$langPoweredBy = "Upravljano s ";
+$langReg = "Prijava";
+$langStudent = "student";
+$langTo = "u";
+$langUserName = "Korisnièko ime";
+$langUsers = "Korisnici";
+$langWork = "Studentski Radovi";
+?>

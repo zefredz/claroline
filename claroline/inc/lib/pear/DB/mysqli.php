@@ -33,7 +33,7 @@ require_once 'DB/common.php';
  * Note that persistent connections no longer exist.
  *
  * @package  DB
- * @version $Id$
+ * @version  $Id$
  * @category Database
  * @author   Daniel Convissor <danielc@php.net>
  * @since    Class functional since Release 1.6.3

@@ -1,0 +1,32 @@
+<?php
+$langAddIntro = "Προσθήκη Εισαγωγικού Κειμένου";
+$langAgenda = "Ατζέντα";
+$langAnnouncement = "Ανακοινώσεις";
+$langArchive = "αποθήκευση";
+$langChat = "Κουβεντούλα";
+$langCopyFailed = "Η εκτύπωση απέτυχε";
+$langDay_of_weekNames = "Array";
+$langDelete = "Διαγραφή";
+$langDocument = "Εγγραφα";
+$langForums = "Περιοχή συζητήσεων";
+$langGroup = "ομάδα χρηστών";
+$langGroupSpace = "Περιοχή ομάδας χρηστών";
+$langGroups = "Ομάδες Χρηστών";
+$langHelp = "Βοήθεια";
+$langIsNowInYourDocDir = "είναι τώρα στο εργαλείο των εγγράφων. <br><B>Το αρχείο είναι ορατό</B>";
+$langLogout = "Εξοδος";
+$langManager = "Διαχειριστής";
+$langModify = "Διόρθωση";
+$langModifyProfile = "Αλλαγή του προφίλ μου";
+$langMonthNames = "Array";
+$langMyCourses = "Τα μαθήματά μου";
+$langNotAllowed = "Δεν επιτρέπεται";
+$langOk = "Εντάξει";
+$langOtherCourses = "Λίστα Μαθημάτων";
+$langPoweredBy = "Με τη βοήθεια του";
+$langReg = "Εγγραφή";
+$langStudent = "φοιτητής";
+$langUserName = "Όνομα χρήστη";
+$langUsers = "Χρήστες";
+$langWork = "Εργασίες Φοιτητών";
+?>

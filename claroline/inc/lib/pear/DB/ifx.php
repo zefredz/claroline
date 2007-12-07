@@ -36,7 +36,7 @@ require_once 'DB/common.php';
  * extension.
  *
  * @package  DB
- * @version $Id$
+ * @version  $Id$
  * @category Database
  * @author   Tomas V.V.Cox <cox@idecnet.com>
  */

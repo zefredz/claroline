@@ -30,7 +30,7 @@ require_once 'MDB.php';
  *
  * @author   Lorenzo Alberton <l.alberton@quipo.it>
  * @package  Auth
- * @version $Revision$
+ * @version  $Revision$
  */
 class Auth_Container_MDB extends Auth_Container
 {

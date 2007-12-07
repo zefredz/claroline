@@ -51,7 +51,7 @@ require_once 'File/Passwd/Common.php';
 * 
 * @author   Michael Wallner <mike@php.net>
 * @package  File_Passwd
-* @version $Revision$
+* @version  $Revision$
 * @access   public
 */
 class File_Passwd_Authbasic extends File_Passwd_Common

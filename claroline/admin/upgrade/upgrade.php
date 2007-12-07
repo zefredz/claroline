@@ -1,8 +1,8 @@
 <?php // $Id$
 /**
- * CLAROLINE
+ * CLAROLINE 
  *
- * This script
+ * This script 
  * - read current version
  * - check if update of main conf is needed
  *         whether do it (upgrade_conf.php)
@@ -13,10 +13,11 @@
  * - update course db
  * - update course repository content
  *
- * @version 1.9 $Revision$
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
+ * @version 1.6
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  *
  * @see http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
  *
@@ -30,63 +31,56 @@
 
 /*=====================================================================
   Init Section
- =====================================================================*/
+ =====================================================================*/ 
 
 $cidReset = TRUE;
 $gidReset = TRUE;
-$currentClarolineVersion=null;
-$currentDbVersion=null;
+$platform_id =  md5(realpath('../../inc/conf/def/CLMAIN.def.conf.inc.php'));
+require '../../inc/claro_init_global.inc.php';
+/*---------------------------------------------------------------------
+  Security Check
+ ---------------------------------------------------------------------*/ 
 
-if ( ! file_exists('../../inc/currentVersion.inc.php') )
-{
-    // if this file doesn't exist, the current version is < claroline 1.6
-    $platform_id =  md5(realpath('../../inc/conf/def/CLMAIN.def.conf.inc.php'));
-}
+if (!$is_platformAdmin) claro_disp_auth_form();
 
-// Initialise
-require 'upgrade_init_global.inc.php';
+/*---------------------------------------------------------------------
+  Include version file and initialize variables
+ ---------------------------------------------------------------------*/
+if(file_exists($includePath.'/currentVersion.inc.php')) include ($includePath.'/currentVersion.inc.php');
+include ($includePath.'/installedVersion.inc.php');
 
-// Security Check
-if (!claro_is_platform_admin()) upgrade_disp_auth_form();
+$thisClarolineVersion = $version_file_cvs;
+$thisVersionDb        = $version_db_cvs;
 
-// Pattern for this new stable version
+$patternVarVersion = '/^1.6/';
+$patternSqlVersion = '1.6%';
 
-$patternVarVersion = '/^1.9/';
-$patternSqlVersion = '1.9%';
+$configurationFile = $includePath.'/conf/claro_main.conf.php';
 
-// Display definition
-
+/**#@+
+ * Displays flags
+ * Using __LINE__ to have an arbitrary value
+ */
 define('DISPVAL_upgrade_backup_needed'  ,__LINE__);
 define('DISPVAL_upgrade_main_db_needed' ,__LINE__);
 define('DISPVAL_upgrade_courses_needed' ,__LINE__);
 define('DISPVAL_upgrade_done'           ,__LINE__);
+/**#@-*/
 
 /*=====================================================================
-  Main Section
+  Statements Section
  =====================================================================*/
 
-$reset_confirm_backup = isset($_REQUEST['reset_confirm_backup'])
-                          ? (bool) $_REQUEST['reset_confirm_backup']
-                      : false;
-
-$req_confirm_backup = isset($_REQUEST['confirm_backup'])
-                      ? (bool) $_REQUEST['confirm_backup']
-                      : false;
-
-$is_backup_confirmed = isset($_SESSION['confirm_backup'])
-                      ? (bool) $_SESSION['confirm_backup']
-                      : false;
-
-if ( $reset_confirm_backup || !$is_backup_confirmed )
+if ($_GET['reset_confirm_backup'] == 1 || $_SESSION['confirm_backup'] == 0) 
 {
-    // reset confirm backup
+    // reset confirm backup 
     session_unregister('confirm_backup');
     $confirm_backup = 0;
 }
 
-if ( !isset($_SESSION['confirm_backup']) )
+if (!isset($_SESSION['confirm_backup'])) 
 {
-    if ( $req_confirm_backup )
+    if ($_GET['confirm_backup'] == 1 ) 
     {
         // confirm backup TRUE
         $_SESSION['confirm_backup'] = 1;
@@ -96,8 +90,8 @@ if ( !isset($_SESSION['confirm_backup']) )
     {
         $confirm_backup = 0;
     }
-}
-else
+} 
+else 
 {
     // get value from session
     $confirm_backup  = $_SESSION['confirm_backup'];
@@ -105,30 +99,49 @@ else
 
 /*---------------------------------------------------------------------
   Define Display
- ---------------------------------------------------------------------*/
+ ---------------------------------------------------------------------*/ 
 
-if ( !$confirm_backup )
+/*
+ * Include old configuration file
+ */
+
+if (file_exists($configurationFile))
+{
+    include ($configurationFile); // read Values in sources
+}
+if (file_exists($includePath.'/currentVersion.inc.php'))
+{
+    include ($includePath.'/currentVersion.inc.php');
+}
+
+if (!$confirm_backup) 
 {
     // ask to confirm backup
-    $display = DISPVAL_upgrade_backup_needed;
+    $display = DISPVAL_upgrade_backup_needed;    
 }
-elseif ( !preg_match($patternVarVersion, $currentClarolineVersion) )
+elseif (!preg_match($patternVarVersion,$clarolineVersion))
 {
+    
     // config file not upgraded go to first step
     header("Location: upgrade_conf.php");
 }
-elseif ( !preg_match($patternVarVersion, $currentDbVersion) )
+elseif (!preg_match($patternVarVersion,$versionDb))
 {
     // upgrade of main conf needed.
     $display = DISPVAL_upgrade_main_db_needed;
 }
 else
 {
-    // count course to upgrade
-    $count_course_upgraded = count_course_upgraded($new_version_branch);
-    $count_course_to_upgrade =  $count_course_upgraded['total'] - $count_course_upgraded['upgraded'];
+    // check course table to view wich courses aren't upgraded
+    mysql_connect($dbServer,$dbLogin,$dbPass);
+    $sqlNbCourses = "SELECT count(*) as nb 
+                     FROM `".$mainDbName."`.`".$mainTblPrefix."cours`
+                     WHERE not ( versionDb like '" . $patternSqlVersion . "' )";
 
-    if ( $count_course_to_upgrade > 0 )
+    $res_NbCourses = mysql_query($sqlNbCourses);
+    $nbCourses = mysql_fetch_array($res_NbCourses);
+    
+    if ($nbCourses['nb'] > 0)
     {
         // upgrade of main conf needed.
         $display = DISPVAL_upgrade_courses_needed;
@@ -143,93 +156,112 @@ else
   Display Section
  =====================================================================*/
 
-// Display Header
-echo upgrade_disp_header();
+?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+ 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 
-// Display Content
+<head>
+  <meta http-equiv="Content-Type" content="text/HTML; charset=iso-8859-1"  />
+  <title>-- Claroline upgrade -- version <?php echo $thisClarolineVersion ?></title>  
+  <link rel="stylesheet" type="text/css" href="upgrade.css" media="screen" />
+  <style media="print" >
+    .notethis {    border: thin double Black;    margin-left: 15px;    margin-right: 15px;}
+  </style>
+</head>
+
+<body bgcolor="white" dir="<?php echo $text_dir ?>">
+
+<center>
+
+<table cellpadding="10" cellspacing="0" border="0" width="650" bgcolor="#E6E6E6">
+<tbody>
+<tr bgcolor="navy">
+<td valign="top" align="left">
+<div id="header">
+<?php
+ echo sprintf('<h1>Claroline (%s) - %s</h1>',$thisClarolineVersion,$langUpgrade);
+?>
+</div>
+</td>
+</tr>
+<tr bgcolor="#E6E6E6">
+<td align="left">
+<div id="content">
+<?php
 
 switch ($display)
 {
-
     case DISPVAL_upgrade_backup_needed :
 
-        echo  '<h2>Claroline Upgrade Tool<br />from ' . $currentClarolineVersion . ' to ' . $new_version . '</h2>
-              <form action="' . $_SERVER['PHP_SELF'] . '" method="get">
-              <p>The <em>Claroline Upgrade Tool</em> will retrieve the data of your previous Claroline
-              installation and set them to be compatible with the new Claroline version. This upgrade
-              proceeds in three steps:
-              </p>
-              <ol>
-              <li>It will get your previous platform main settings and put them in a new configuration files</li>
-              <li>It will set the main Claroline tables (user, course categories, course list, ...) to be compatible
-              with the new data structure.</li>
-              <li>It will update one by one each course data (directories, database tables, ...)</li>
-              </ol>
-              <p>Before starting the <em>Claroline Upgrade Tool</em>, we recommend you to make yourself a complete
-              backup of the platform data (files and databases).</p>
-              <table>
-              <tbody>
-              <tr valign="top">
-              <td>The data backup has been done</td>
-              <td>
-              <input type="radio" id="confirm_backup_yes" name="confirm_backup" value="1" />
-              <label for="confirm_backup_yes">Yes</label><br />
-              <input type="radio" id="confirm_backup_no" name="confirm_backup" value="" checked="checked" />
-              <label for="confirm_backup_no">No</label><br />
-              </td>
-              </tr>
-              </tbody>
-              </table>
-              <p>The <em>Claroline Upgrade Tool</em> is not able to start if you do not confirm that the data has been done.</p>
-              <div align="right"><input type="submit" value="Next > " /></div>
-              </form>' . "\n" ;
+        $str_confirm_backup = '<input type="radio" id="confirm_backup_yes" name="confirm_backup" value="1" />'
+                            . '<label for="confirm_backup_yes">' . $langYes . '</label><br>'
+                            . '<input type="radio" id="confirm_backup_no" name="confirm_backup" value="" checked="checked" />'
+                            . '<label for="confirm_backup_no">' . $langNo . '</label><br>'
+                            ;
+
+        echo  sprintf($langTitleUpgrade,'1.5.*','1.6') . "\n"
+            . '<form action="' . $_SERVER['PHP_SELF'] . '" method="GET">' . "\n"
+            . '<p>' . sprintf($langMakeABackupBefore,$str_confirm_backup) . '</p>' . "\n"
+            . '<div align="right"><input type="submit" value="' . $langNext . ' > " /></div>' . "\n"
+            . '</form>' . "\n"
+            ;
 
         break;
 
     case DISPVAL_upgrade_main_db_needed :
 
-
-        echo  '<h2>Claroline Upgrade Tool<br />from ' . $currentClarolineVersion . ' to ' . $new_version . '</h2>
-           <h3>Done: </h3>
-           <ul>
-           <li>Backup confirm (<a href="' . $_SERVER['PHP_SELF'] . '?reset_confirm_backup=1">Cancel</a>)</li>
-           <li>Step 1 of 3: platform main settings (<a href="upgrade_conf.php">Start again</a>)</li>
-           </ul>
-           <h3>To do:</h3>
-           <ul>
-           <li><a href="upgrade_main_db.php">Step 2 of 3: main platform tables upgrade</a></li>
-           <li>Step 3 of 3: courses upgrade</li>
-           </ul>';
+        echo sprintf($langTitleUpgrade,'1.5.*','1.6') . "\n"
+           . '<h2>' . $langDone . ':</h2>' . "\n"
+           . '<ul>' . "\n"
+           . sprintf ('<li>%s (<a href="' . $_SERVER['PHP_SELF'] . '?reset_confirm_backup=1">%s</a>)</li>',$langUpgradeStep0,$langCancel)
+           . sprintf ('<li>%s (<a href="upgrade_conf.php">%s</a>)</li>',$langUpgradeStep1,$langStartAgain)
+           . '</ul>' . "\n"
+           . '<h2>' . $langTodo . ':</h2>' . "\n"
+           . '<ul>' . "\n"
+           . sprintf('<li><a href="upgrade_main_db.php">%s</a></li>',$langUpgradeStep2) . "\n"
+           . '<li>' . $langUpgradeStep3 . '</li>' . "\n"
+           . '</ul>' . "\n"
+           ;
 
         break;
 
     case DISPVAL_upgrade_courses_needed :
 
-        echo  '<h2>Claroline Upgrade Tool<br />from ' . $currentClarolineVersion . ' to ' . $new_version . '</h2>
-            <h3>Done :</h3>
-            <ul>
-            <li>Backup confirm (<a href="' . $_SERVER['PHP_SELF'] . '?reset_confirm_backup=1">Cancel</a>)</li>
-            <li>Step 1 of 3: platform main settings (<a href="upgrade_conf.php">Start again</a>)</li>
-            <li>Step 2 of 3: main platform tables upgrade (<a href="upgrade_main_db.php">%s</a>)</li>
-            </ul>
-            <h3>To do:</h3>
-            <ul>
-            <li><a href="upgrade_courses.php">Step 3 of 3: courses upgrade</a> - ' . $count_course_to_upgrade . 'course(s) to upgrade.</li>
-            </ul>';
+        echo  sprintf($langTitleUpgrade,'1.5.*','1.6') . "\n"
+            . '<h2>' . $langDone . ':</h2>' . "\n"
+            . '<ul>' . "\n"
+            . sprintf ('<li>%s (<a href="' . $_SERVER['PHP_SELF'] . '?reset_confirm_backup=1">'. $langCancel . '</a>)</li>',$langUpgradeStep0) . "\n"
+            . sprintf ('<li>%s (<a href="upgrade_conf.php">%s</a>)</li>',$langUpgradeStep1,$langStartAgain) . "\n"
+            . sprintf ('<li>%s (<a href="upgrade_main_db.php">%s</a>)</li>',$langUpgradeStep2,$langStartAgain) . "\n"
+            . '</ul>' . "\n"
+            . '<h2>' . $langRemainingSteps . ':</h2>' . "\n"
+            . '<ul>' . "\n"
+            . sprintf('<li><a href="upgrade_courses.php">%s</a> - '.$lang_p_d_coursesToUpgrade.'</li>',$langUpgradeStep3,$nbCourses['nb']) . "\n"
+            . '</ul>' . "\n"
+            ;
 
         break;
 
     case DISPVAL_upgrade_done :
 
-        echo  '<h2>Claroline Upgrade Tool<br />from ' . $currentClarolineVersion . ' to ' . $new_version . '</h2>
-
-            <p class="success">The <em>Claroline Upgrade Tool</em> has completly upgraded your platform.</p>
-            <ul>
-            <li><a href="../../../index.php?logout=true">Access to campus</a></li>
-            </ul>' ;
+        echo  sprintf($langTitleUpgrade,'1.5.*','1.6') . "\n"
+            . '<p>' . $langUpgradeSucceed . '</p>' . "\n"
+            . '<ul>' . "\n"
+            . '<li><a href="../../..">' . $langPlatformAccess . '</a></li>' . "\n"
+            . '</ul>' . "\n"
+            ;
 }
 
-// Display footer
-echo upgrade_disp_footer();
 
 ?>
+
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+
+
+</body>
+</html>

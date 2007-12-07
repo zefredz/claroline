@@ -1,0 +1,34 @@
+<?php
+$langAddComment = "Lisää kommentti:";
+$langAddIntro = "Lisää johdantoteksti";
+$langAgenda = "Esityslista";
+$langAnnouncement = "Ilmoitukset";
+$langAnswer = "Vastaus";
+$langBack = "Takaisin kurssin tietoihin";
+$langCopy = "Kopioi";
+$langDate = "Päivä";
+$langDay_of_weekNames = "Array";
+$langDelete = "Poista";
+$langDocument = "Dokumentit";
+$langExercises = "Harjoitukset";
+$langForums = "Foorumit";
+$langHelp = "Apua";
+$langLogout = "Logout";
+$langManager = "Ylläpitäjä";
+$langModify = "Muokkaa";
+$langModifyProfile = "Muokkaa profiiliani";
+$langMonthNames = "Array";
+$langMyCourses = "Kurssini";
+$langNotAllowed = "Ei sallittu";
+$langOk = "Ok";
+$langPoweredBy = "Alusta";
+$langReg = "Rekisteröinti";
+$langSize = "Koko";
+$langStudent = "Opiskelija";
+$langTo = "Hakemistoon";
+$langTooBig = "Et valinnut tiedostoa tai tiedosto on liian suuri.";
+$langUp = "Ylös";
+$langUserName = "Käyttäjänimi";
+$langUsers = "Käyttäjät";
+$langWork = "Opiskelijoiden tehtävät";
+?>

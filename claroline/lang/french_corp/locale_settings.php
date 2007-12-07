@@ -1,4 +1,22 @@
 <?php // $Id$
+/*
+      +----------------------------------------------------------------------+
+      | CLAROLINE version 1.5.*                             |
+      +----------------------------------------------------------------------+
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
+      +----------------------------------------------------------------------+
+      |   $Id$     |
+      +----------------------------------------------------------------------+
+      |   This program is free software; you can redistribute it and/or      |
+      |   modify it under the terms of the GNU General Public License        |
+      |   as published by the Free Software Foundation; either version 2     |
+      |   of the License, or (at your option) any later version.             |
+
+
+
+      |          Olivier Brouckaert <oli.brouckaert@skynet.be>               |
+      +----------------------------------------------------------------------+
+*/
 
 $englishLangName = "french";
 $localLangName = "français";
@@ -6,18 +24,18 @@ $localLangName = "français";
 $iso639_1_code = "fr";
 $iso639_2_code = "fre";
 
-$langNameOfLang['brazilian']="brésilien";
-$langNameOfLang['thai']="thaïlandais";
-$langNameOfLang['english']="anglais";
-$langNameOfLang['finnish']="finlandais";
-$langNameOfLang['french']="français";
-$langNameOfLang['german']="allemand";
-$langNameOfLang['italian']="italien";
-$langNameOfLang['japanese']="japonnais";
-$langNameOfLang['polish']="polonais";
-$langNameOfLang['simpl_chinese']="chinois simple";
-$langNameOfLang['spanish']="espagnol";
-$langNameOfLang['swedish']="suédois";
+$langNameOfLang[brazilian]="brésilien";
+$langNameOfLang[thai]="thaïlandais";
+$langNameOfLang[english]="anglais";
+$langNameOfLang[finnish]="finlandais";
+$langNameOfLang[french]="français";
+$langNameOfLang[german]="allemand";
+$langNameOfLang[italian]="italien";
+$langNameOfLang[japanese]="japonnais";
+$langNameOfLang[polish]="polonais";
+$langNameOfLang[simpl_chinese]="chinois simple";
+$langNameOfLang[spanish]="espagnol";
+$langNameOfLang[swedish]="suédois";
 
 $charset = 'iso-8859-1';
 $text_dir = 'ltr';
