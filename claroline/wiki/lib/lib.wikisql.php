@@ -1,14 +1,18 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 
     // vim: expandtab sw=4 ts=4 sts=4:
 
+    if( (bool) stristr( $_SERVER['PHP_SELF'], basename(__FILE__) ) )
+    {
+        die("This file cannot be accessed directly! Include it in your script instead!");
+    }
+    
     /**
      * CLAROLINE
      *
-     * @version 1.8 $Revision$
+     * @version 1.7 $Revision$
      *
-     * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+     * @copyright 2001-2005 Universite catholique de Louvain (UCL)
      *
      * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
      * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
@@ -33,7 +37,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         $tblWikiPages = $tblList[ 'wiki_pages' ];
         $tblWikiPagesContent = $tblList[ 'wiki_pages_content' ];
         $tblWikiAcls = $tblList[ 'wiki_acls' ];
-
+        
         $con->connect();
 
         // drop tables
@@ -48,7 +52,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
             $sql = "DROP TABLE IF EXISTS `$tblWikiProperties`";
             $con->executeQuery( $sql );
-
+            
             $sql = "DROP TABLE IF EXISTS `$tblWikiAcls`";
             $con->executeQuery( $sql );
         }
@@ -93,7 +97,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             ;
 
         $con->executeQuery( $sql );
-
+        
         $sql = "CREATE TABLE IF NOT EXISTS `$tblWikiAcls` (
                     `wiki_id` INT(11) UNSIGNED NOT NULL,
                     `flag` VARCHAR(255) NOT NULL,
@@ -102,7 +106,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 ;
         $con->executeQuery( $sql );
     }
-
+    
     /**
      * create wiki MainPage
      * @param DatabaseConnection con database connection
@@ -112,24 +116,25 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
      */
     function init_wiki_main_page( &$con, $wikiId, $creatorId, $wikiTitle )
     {
+        global $langWikiMainPageContent;
+        
         $tblList = claro_sql_get_course_tbl();
 
-        $mainPageContent = get_lang("This is the main page of the Wiki %wikiTitle. Click on '''Edit''' to modify the content.", array('%wikiTitle'=>$wikiTitle ));
-
-
+        $mainPageContent = sprintf( $langWikiMainPageContent, $wikiTitle = '' );
+        
         $config = array();
         // use claro functions
         $config["tbl_wiki_pages"] = $tblList[ "wiki_pages" ];
         $config["tbl_wiki_pages_content"] = $tblList[ "wiki_pages_content" ];
-
+        
         $wikiPage = new WikiPage( $con, $config, $wikiId );
-
+        
         $wikiPage->create( $creatorId, '__MainPage__'
             , $mainPageContent, date( "Y-m-d H:i:s" ), true );
-
+            
         return (! ( $wikiPage->hasError() ));
     }
-
+    
 #    /**
 #     * Create a sample wiki in a given course or group
 #     * Not used at this time
@@ -140,8 +145,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 #     */
 #    function create_sample_wiki( &$con, $creatorId, $groupId = 0 )
 #    {
-#        global get_lang('WikiSampleTitle'), get_lang('WikiSampleDescription');
-#
+#        global $langWikiSampleTitle, $langWikiSampleDescription;
+#        
 #        $config = array();
 #        // use claro functions
 #        $tblList = claro_sql_get_course_tbl();
@@ -149,13 +154,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 #        $config["tbl_wiki_pages_content"] = $tblList[ "wiki_pages_content" ];
 #        $config["tbl_wiki_properties"] = $tblList[ "wiki_properties" ];
 #        $config["tbl_wiki_acls"] = $tblList[ "wiki_acls" ];
-#
+#        
 #        $wiki = new Wiki( $con, $config );
-#
-#        $wiki->setTitle( get_lang('WikiSampleTitle') );
-#        $wiki->setDescription( get_lang('WikiSampleDescription') );
+#        
+#        $wiki->setTitle( $langWikiSampleTitle );
+#        $wiki->setDescription( $langWikiSampleDescription );
 #        $wiki->setGroupId( $groupId );
-#
+#        
 #        if ( $groupId != 0 )
 #        {
 #            $acl = array(
@@ -169,7 +174,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 #                'other_edit' => false,
 #                'other_create' => false
 #            );
-#
+#            
 #        }
 #        else
 #        {
@@ -185,10 +190,10 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 #                'other_create' => false
 #            );
 #        }
-#
+#        
 #        $wiki->setACL( $acl );
 #        $wikiId = $wiki->save();
-#
+#        
 #        return init_wiki_main_page( $con, $wikiId, $creatorId );
 #    }
 ?>

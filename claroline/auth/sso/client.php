@@ -1,6 +1,5 @@
-<?php // -$Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
-/**
+<?php # -$Id$
+/*
  * This is an example in PHP and SOAP of a Single Sign On (SSO) client allowing 
  * a system to request user parameter from a cookie retrieved on the user 
  * browser. 
@@ -9,15 +8,20 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * the SOAP client to update the cookie into the user browser.
  */
 
+
 /******************************************************************************
                               SSO CLIENT SETTINGS
  ******************************************************************************/
+
+
+
 
 // SOAP LIBRARY PATH. The script is based on the nuSoap Library 
 // (http://sourceforge.net/projects/nusoap/). Adapt the path of the line below 
 // to fit the location of your own nuSoap library.
 
 $nuSoapPath = '../../inc/lib/nusoap.php';
+
 
 // CLAROLINE SSO SERVER URL. Complete Address of the SSO server contained in 
 // the Claroline platform you want to request on. Adapt this url to fit your 
@@ -58,6 +62,8 @@ $groupId  = '';
  ******************************************************************************/
 
 
+
+
 if ( isset($_COOKIE[$cookieName]) )
 {
 
@@ -72,7 +78,7 @@ if ( isset($_COOKIE[$cookieName]) )
                        'cid'    => $courseId, 
                        'gid'    => $groupId              );
 
-    $client = new nuSoapclient($ssoServerUrl);
+    $client = new soapclient($ssoServerUrl);
 
     $result = $client->call('get_user_info_from_cookie', $paramList);
 
@@ -118,9 +124,16 @@ if ( isset($_COOKIE[$cookieName]) )
     }
     else
     {
-        // AUTHENTICATION FAILED
+    	// AUTHENTICATION FAILED
         echo '<center>Authentication failed</center>';
     }
     
 }
+
+
+
+
+
+
+
 ?>

@@ -1,0 +1,70 @@
+<?php
+$l_click = "Click";
+$l_here = "here";
+$l_notifybody = "You are receiving this Email because a message
+you posted on forums has been replied to, and
+you selected to be notified on this event.
+
+You may view the topic at:
+
+%1\$s
+
+Or view the forum index at
+
+%2\$s
+
+Thank you for using forums.
+
+Have a nice day.";
+$l_notifysubj = "A reply to your topic has been posted.";
+$l_returnindex = "to return to the forum index";
+$l_returntopic = "to return to the forum topic list.";
+$l_separator = "» »";
+$l_viewmsg = "to view your Message.";
+$langAdmitError = "Admit one\'s own errors to invite one\'s interlocutor to do the same.";
+$langAgain = "ºÆÅÙ»î¤·¤Æ¤¯¤À¤µ¤¤!";
+$langAgenda = "Í½Äê";
+$langAnnouncement = "¤ªÃÎ¤é¤»";
+$langAnonymous = "Æ¿Ì¾";
+$langAntique = "¸ÅÂåÅ¯³Ø»Ë";
+$langContradiction = "Use the Principle of Non Contradiction to force one\'s interlocutor into a dead end.";
+$langCopy = "¥³¥Ô¡¼";
+$langCourseDescription = "¥³¡¼¥¹¤Î¥ê¥¹¥È²òÀâ¤ò½ñ¤¤¤Æ¤¯¤À¤µ¤¤¡£";
+$langCreateSite = "¥³¡¼¥¹¤Î¥¦¥¨¥Ö¥µ¥¤¥È¤òºî¤ë";
+$langDay_of_weekNames = "Array";
+$langDear = "·ÉÇò";
+$langDelAdmin = "²ñµÄ¼¼´ÉÍý¼Ô¥Ä¡¼¥ë¤òÍÑ¤¤¤Æºï½ü";
+$langDocument = "Ê¸½ñ¤¿¤Á";
+$langEmail = "Email";
+$langExMessage = "Îã";
+$langExerciceEx = "±é½¬ÌäÂêÎã";
+$langForce = "Compell one\'s interlocutor, by a series of questions and sub-questions, to admit he doesn\'t know what he claims to know.";
+$langForum = "²ñµÄ¼¼";
+$langForums = "²ñµÄ¼¼";
+$langHelp = "¤Ø¥ë¥×";
+$langIndeed = "Indeed. Socratic irony is an interrogative method. The Greek \"eirotao\" means \"ask questions\"";
+$langLogout = "¥í¥°¥¢¥¦¥È";
+$langManager = "±¿ÍÑ¼Ô";
+$langManyAnswers = "(more than one answer can be true)";
+$langMessage = "¥Æ¥¹¥È²ñµÄ¼¼¤òºï½ü¤¹¤ë¤È¤³¤Î¥á¥Ã¥»¡¼¥¸¤âºï½ü¤µ¤ì¤Þ¤¹";
+$langModifyProfile = "¼«Ê¬¤Î¥×¥í¥Õ¥¡¥¤¥ë¤ò½¤Àµ";
+$langMonthNames = "Array";
+$langMyCourses = "¼«Ê¬¤Î¥³¡¼¥¹";
+$langNameOfLang = "Array";
+$langNewTopic = "New topic";
+$langNoPsychology = "No. Socratic irony is not a matter of psychology, it concerns argumentation.";
+$langNoSeduction = "No. Socratic irony is not a seduction strategy or a method based on the example.";
+$langNotAllowed = "¤³¤Î¥³¡¼¥¹¼õ¹Ö¤¬µö²Ä¤µ¤ì¤Æ¤¤¤Þ¤»¤ó";
+$langNotFalse = "This answer is not false. It is true that the revelation of the interlocutor\'s ignorance means showing the contradictory conclusions where lead his premisses.";
+$langOk = "¥ª¥Ã¥±¡¼";
+$langPoweredBy = "Powered by Claroline";
+$langProfessor = "¶µ»Õ";
+$langReply = "Answer";
+$langRidiculise = "Ridiculise one\'s interlocutor in order to have him concede he is wrong.";
+$langSocraticIrony = "Socratic irony is...";
+$langStudent = "student";
+$langTestForum = "¥Æ¥¹¥È²ñµÄ¼¼";
+$langTo = "to";
+$langUsers = "¥æ¡¼¥¶";
+$langWork = "³ØÀ¸¤ÎÊ¸½ñ¤¿¤Á";
+?>

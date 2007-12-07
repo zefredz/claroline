@@ -1,13 +1,12 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
- * CLAROLINE
+ * CLAROLINE 
  *
  * This lib prupose function use by installer.
  *
- * @version 1.8 $Revision$
+ * @version 1.7 $Revision$
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -44,10 +43,10 @@ function warnIfExtNotLoaded($extentionName,$echoWhenOk=false)
         echo '<LI>'
         .    '<font color="red">Warning !</font>'
         .    $extentionName . ' is missing.</font>'
-        .    '<br />'
+        .    '<br>'
         .    'Configure php to use this extention'
-        .    '(see <a href="http://www.php.net/' . $extentionName . '">'
-        .    $extentionName
+        .    '(see <a href="http://www.php.net/' . $extentionName . '">' 
+        .    $extentionName 
         .    ' manual</a>)'
         .    '</LI>'
         ;
@@ -81,12 +80,12 @@ function topRightPath($path='.')
         $search_top_log .= '<dt>' . $pathToCheck . '</dt>'
                         .  '<dd>write:'
                         .  (is_writable($pathToCheck)?'open':'close')
-                        .  ' read:'
-                        .  (is_readable($pathToCheck)?'open':'close')
+                        .  ' read:' 
+                        .  (is_readable($pathToCheck)?'open':'close') 
                         .  '</dd>'
                         ;
-        if (   $pathToCheck != '/'
-           && $pathToCheck != $previousPath
+        if (   $pathToCheck != '/' 
+           && $pathToCheck != $previousPath 
            && (  is_writable($pathToCheck)
               || is_readable($pathToCheck)
               )
@@ -102,7 +101,7 @@ function topRightPath($path='.')
 
     }
     $search_top_log .= '</dl>'
-    .  'topWritablePath = ' . $topWritablePath . '<br />'
+    .  'topWritablePath = ' . $topWritablePath . '<br>'
     .  'topReadablePath = ' . $topReadablePath
     ;
 
@@ -149,7 +148,7 @@ function check_if_db_exist($db_name,$db=null)
 
 function check_claro_table_in_db_exist($dbType,$db=null)
 {
-    $db='no used';
+    GLOBAL $dbName;
     switch ($dbType)
     {
         case 'main' :
@@ -162,35 +161,5 @@ function check_claro_table_in_db_exist($dbType,$db=null)
     }
     return false;
 }
-
-
-/**
- * check current version is equal or greater than required version
- *
- * @param string $currentVersion like  '1.1.1'
- * @param string $requiredVersion like  '1.1.1'
- * @return boolean
- *
- * @todo check if param have a good format
- */
-function checkVersion($currentVersion, $requiredVersion)
-{
-    $currentVersion = explode('.',$currentVersion);
-    $requiredVersion = explode('.',$requiredVersion);
-
-    if ((int) $currentVersion[0] < (int) $requiredVersion[0]) return false;
-    elseif ((int) $currentVersion[0] > (int) $requiredVersion[0]) return true;
-    else
-    {
-        if ((int) $currentVersion[1] < (int) $requiredVersion[1]) return false;
-        elseif ((int) $currentVersion[1] < (int) $requiredVersion[1]) return true;
-        else
-        {
-            if ((int) $currentVersion[2] < (int) $requiredVersion[2]) return false;
-        }
-    }
-    return true;
-}
-
 
 ?>

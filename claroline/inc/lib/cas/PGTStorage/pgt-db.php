@@ -1,12 +1,11 @@
-<?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+<?php
 
 /**
  * @file CAS/PGTStorage/pgt-db.php
  * Basic class for PGT database storage
  */
 
-// include phpDB library (the test was introduced in release 0.4.8 for
+// include phpDB library (the test was introduced in release 0.4.8 for 
 // the integration into Tikiwiki).
 if (!class_exists('DB')) {
   include_once('DB.php');
@@ -14,7 +13,7 @@ if (!class_exists('DB')) {
 
 /**
  * @class PGTStorageDB
- * The PGTStorageDB class is a class for PGT database storage. An instance of
+ * The PGTStorageDB class is a class for PGT database storage. An instance of 
  * this class is returned by CASClient::SetPGTStorageDB().
  *
  * @author Pascal Aubry <pascal.aubry at univ-rennes1.fr>
@@ -24,9 +23,9 @@ if (!class_exists('DB')) {
 
 class PGTStorageDB extends PGTStorage
 {
-  /**
+  /** 
    * @addtogroup internalPGTStorageDB
-   * @{
+   * @{ 
    */
 
   /**
@@ -60,7 +59,7 @@ class PGTStorageDB extends PGTStorage
   var $_link = null;
 
   /**
-   * This method returns the handle of the connection to the database where PGT's are
+   * This method returns the handle of the connection to the database where PGT's are 
    * stored.
    *
    * @return a handle of connection.
@@ -73,7 +72,7 @@ class PGTStorageDB extends PGTStorage
     }
 
   /**
-   * The name of the table where PGT's are stored. Written by
+   * The name of the table where PGT's are stored. Written by 
    * PGTStorageDB::PGTStorageDB(), read by getTable().
    *
    * @hideinitializer
@@ -96,7 +95,7 @@ class PGTStorageDB extends PGTStorage
   // ########################################################################
   //  DEBUGGING
   // ########################################################################
-
+  
   /**
    * This method returns an informational string giving the type of storage
    * used by the object (used for debugging purposes).
@@ -123,7 +122,7 @@ class PGTStorageDB extends PGTStorage
   // ########################################################################
   //  CONSTRUCTOR
   // ########################################################################
-
+  
   /**
    * The class constructor, called by CASClient::SetPGTStorageDB().
    *
@@ -157,11 +156,11 @@ class PGTStorageDB extends PGTStorage
       // XXX should use setURL and setTable
       phpCAS::traceEnd();
     }
-
+  
   // ########################################################################
   //  INITIALIZATION
   // ########################################################################
-
+  
   /**
    * This method is used to initialize the storage. Halts on error.
    *
@@ -175,7 +174,7 @@ class PGTStorageDB extends PGTStorage
 	return;
       // call the ancestor's method (mark as initialized)
       parent::init();
-
+      
       // try to connect to the database
       $this->_link = DB::connect($this->getURL());
       if ( DB::isError($this->_link) ) {

@@ -1,0 +1,109 @@
+<?php
+$l_click = "ýÅÌËÎÉÔÅ";
+$l_here = "ÚÄÅÓØ";
+$l_notifybody = "÷Ù ÐÏÌÕÞÉÌÉ ÜÔÏ ÐÉÓØÍÏ, ÔÁË ËÁË ÐÏÓÔÕÐÉÌ ÏÔ×ÅÔ ÎÁ ÓÏÏÂÝÅÎÉÅ, ËÏÔÏÒÏÅ ×Ù ÒÁÚÍÅÓÔÉÌÉ ÎÁ
+ÆÏÒÕÍÅ, É ×Ù ÐÒÏÓÉÌÉ ÐÒÏÉÎÆÏÒÍÉÒÏ×ÁÔØ ×ÁÓ ÏÂ ÜÔÏÍ.
+
+÷Ù ÍÏÖÅÔÅ Õ×ÉÄÅÔØ ÔÅÍÕ ÐÏ ÁÄÒÅÓÕ:
+
+%1\$s
+
+éÌÉ ÐÒÏÓÍÏÔÒÅÔØ ÏÇÌÁ×ÌÅÎÉÅ ÆÏÒÕÍÁ ÐÏ ÁÄÒÅÓÕ
+
+%2\$s
+
+óÐÁÓÉÂÏ ÚÁ ÉÓÐÏÌØÚÏ×ÁÎÉÅ ÆÏÒÕÍÁ.
+
+äÏ Ó×ÉÄÁÎÉÑ.";
+$l_notifysubj = "ðÏÓÔÕÐÉÌ ÏÔ×ÅÔ ÎÁ ×ÁÛÕ ÔÅÍÕ.";
+$l_returnindex = "ÞÔÏÂÙ ×ÅÒÎÕÔØÓÑ Ë ÏÇÌÁ×ÌÅÎÉÀ ÆÏÒÕÍÁ";
+$l_returntopic = "ÞÔÏÂÙ ×ÅÒÎÕÔØÓÑ Ë ÓÐÉÓËÕ ÔÅÍ ÆÏÒÕÍÁ.";
+$l_separator = " > ";
+$l_viewmsg = "ÞÔÏÂÙ Õ×ÉÄÅÔØ ×ÁÛÅ óÏÏÂÝÅÎÉÅ.";
+$langAccess = "äÏÓÔÕÐ";
+$langAddTutors = "õÐÒÁ×ÌÅÎÉÅ ÓÐÉÓËÏÍ ÔØÀÔÏÒÏ×";
+$langAgenda = "ëÁÌÅÎÄÁÒØ";
+$langAnnouncement = "ïÂßÑ×ÌÅÎÉÑ";
+$langCancel = "ïÔÍÅÎÉÔØ";
+$langChat = "þÁÔ";
+$langCopy = "óËÏÐÉÒÏ×ÁÔØ";
+$langCourseManager = "íÅÎÅÄÖÅÒ ËÕÒÓÁ";
+$langCreate = "õðÿäâæû";
+$langDay_of_weekNames = "Array";
+$langDear = "õ×ÁÖÁÅÍÙÊ(ÁÑ)";
+$langDelete = "ÕÄÁÌÉÔØ";
+$langDeleteGroups = "Èäâíêæû þõå úôèòòý";
+$langDescriptionCours = "ïÐÉÓÁÎÉÅ ËÕÒÓÁ";
+$langDocument = "äÏËÕÍÅÎÔ";
+$langEdit = "Ôåäâìæêôðþâæû";
+$langEditGroup = "Ôåäâìæêôðþâæû úôèòòè";
+$langEmtpyGroups = "Ðàêõæêæû þõå úôèòòý";
+$langExistingGroups = "Úôèòòý";
+$langFillGroups = "ßâòðíïêæû úôèòòè(ý)";
+$langForum = "Öðôèî";
+$langForums = "æÏÒÕÍÙ";
+$langGroup = "Úôèòòâ";
+$langGroupAllowStudentRegistration = "Õæèäåïæâî ôâÿôåùåïð õâîðõæðóæåíûïð ÿâòêõýþâæûõó þ úôèòòý";
+$langGroupDel = "Úôèòòâ èäâíåïâ";
+$langGroupDescription = "Ðòêõâïêå úôèòòý";
+$langGroupDocument = "Èàå÷ïýå îâæåôêâíý";
+$langGroupDocumentsLink = "äÏËÕÍÅÎÔÙ ÇÒÕÐÐÙ";
+$langGroupFilledGroups = "çÒÕÐÐÙ ÂÙÌÉ ÚÁÐÏÌÎÅÎÙ (ÉÌÉ ÕËÏÍÐÌÅËÔÏ×ÁÎÙ) ÓÔÕÄÅÎÔÁÍÉ ÉÚ ÓÐÉÓËÁ 
+'ðÏÌØÚÏ×ÁÔÅÌÉ'.";
+$langGroupForum = "Öðôèî";
+$langGroupMembers = "Èàâõæïêìê úôèòòý";
+$langGroupName = "Ïâÿþâïêå úôèòòý";
+$langGroupNoTutor = "(ÎÅÔ)";
+$langGroupNone = "(ÎÅÔ)";
+$langGroupNoneMasc = "(ÎÅÔ)";
+$langGroupNowMember = "ïÔÎÅÙÎÅ ×Ù Ñ×ÌÑÅÔÅÓØ ÕÞÁÓÔÎÉËÏÍ ÄÁÎÎÏÊ ÇÒÕÐÐÙ";
+$langGroupPlacesThis = "îåõæ (òð ãåíâïêá)";
+$langGroupProperties = "Õþðëõæþâ úôèòò";
+$langGroupPropertiesModified = "Õþðëõæþâ úôèòò ÷ýíê êÿîåïåïý";
+$langGroupSelfRegInf = "úÁÐÉÓÁÔØÓÑ";
+$langGroupSelfRegistration = "úÁÐÉÓØ";
+$langGroupSettingsModified = "Õþðëõæþâ úôèòòý êÿîåïåïý.";
+$langGroupSpaceLink = "ðÒÏÓÔÒÁÎÓÔ×Ï ÇÒÕÐÐÙ";
+$langGroupThisSpace = "Òôðõæôâïõæþð øæðë úôèòòý";
+$langGroupTooMuchMembers = "ëÏÌÉÞÅÓÔ×Ï ÐÒÅÄÌÏÖÅÎÎÙÊ ÕÞÁÓÔÎÉËÏ× ÇÒÕÐÐÙ ÐÒÅ×ÙÛÁÅÔ ÍÁËÓÉÍÕÍ, ÕÓÔÁÎÏ×ÌÅÎÎÙÊ ×ÁÍÉ. 
+óÏÓÔÁ× ÇÒÕÐÐÙ ÎÅ ÂÙÌ ÉÚÍÅÎÅÎ. ÷Ù ÍÏÖÅÔÅ ÉÚÍÅÎÉÔØ ÍÁËÓÉÍÁÌØÎÏÅ ËÏÌÉÞÅÓÔ×Ï ÓÔÕÄÅÎÔÏ× × ÇÒÕÐÐÅ ÎÉÖÅ.";
+$langGroupTools = "Õôåäõæþâ èòôâþíåïêó";
+$langGroupTutor = "ôØÀÔÏÒ";
+$langGroups = "ÚÁÐÉÓØ ÐÏÌØÚÏ×ÁÔÅÌÅÊ × ÇÒÕÐÐÙ";
+$langGroupsAdded = "úôèòòâ(ý) äð÷âþíåïâ(ý)";
+$langGroupsDeleted = "Þõå úôèòòý èäâíåïý";
+$langGroupsEmptied = "Þõå úôèòòý æåòåôû òèõæý";
+$langHelp = "Òðîðüû";
+$langLogin = "÷ÈÏÄ, ÌÏÇÉÎ";
+$langLogout = "÷ÙÊÔÉ";
+$langManager = "ïÔ×ÅÔÓÔ×ÅÎÎÙÊ";
+$langMax = "îâìõêîèî";
+$langModifyProfile = "éÚÍÅÎÉÔØ ÍÏÉ ÎÁÓÔÒÏÊËÉ";
+$langMonthNames = "Array";
+$langMyCourses = "óÐÉÓÏË ÍÏÉÈ ËÕÒÓÏ×";
+$langMyGroup = "ÍÏÑ ÇÒÕÐÐÁ";
+$langNameOfLang = "Array";
+$langNewGroupCreate = "Õðÿäâæû ïðþèá(ýå) úôèòòè(ý)";
+$langNewGroups = "ïðþâó(ýå) úôèòòâ(ý)";
+$langNewTopic = "îÁÞÁÔØ ÎÏ×ÕÀ ÔÅÍÕ";
+$langNoGroupStudents = "Õæèäåïæý ÷åÿ úôèòòý";
+$langNotAllowed = "÷Ù ÎÅ ÚÁÒÅÇÉÓÔÒÉÒÏ×ÁÎÙ ËÁË ÏÔ×ÅÔÓÔ×ÅÎÎÙÊ ÚÁ ËÕÒÓ";
+$langOk = "Ok";
+$langOneMyGroups = "ÏÄÎÁ ÉÚ ÍÏÉÈ ÇÒÕÐÐ";
+$langOtherCourses = "óÐÉÓÏË ËÕÒÓÏ×";
+$langPlaces = "îåõæ ïâ úôèòòè (òð ãåíâïêá)";
+$langPoweredBy = "ÉÓÐÏÌØÚÕÅÔ ÏÂÏÌÏÞËÕ";
+$langPrivate = "ÚÁËÒÙÔ";
+$langPublic = "ÏÔËÒÙÔ ×ÓÅÍ";
+$langQtyOfUserCanSubscribe_PartAfterNumber = "ÇÒÕÐÐÕ";
+$langQtyOfUserCanSubscribe_PartBeforeNumber = "ðÏÌØÚÏ×ÁÔÅÌØ ÍÏÖÅÔ ÂÙÔØ ÚÁÐÉÓÁÎ ×";
+$langRegIntoGroup = "äÏÂÁ×ÉÔØ ÍÅÎÑ × ÜÔÕ ÇÒÕÐÐÕ";
+$langRegistered = "ßâòêõâïý";
+$langReply = "ïÔ×ÅÔÉÔØ";
+$langStudent = "ÓÔÕÄÅÎÔ";
+$langStudentsNotInThisGroups = "ðÏÌØÚÏ×ÁÔÅÌÉ, ÎÅ ÚÁÐÉÓÁÎÎÙÅ × ÜÔÕ ÇÒÕÐÐÕ";
+$langTo = "×";
+$langUncompulsory = "(òð ãåíâïêá)";
+$langUsers = "ðÏÌØÚÏ×ÁÔÅÌÉ";
+$langWork = "úÁÄÁÎÉÑ";
+?>

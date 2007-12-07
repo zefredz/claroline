@@ -1,156 +1,183 @@
 <?php // $Id$
-/**
- * CLAROLINE
- *
- * This tool list classes and prupose to subscribe it  to the current course.
- *
- * @version 1.8 $Revision$
- *
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/index.php/CLUSR
- *
- * @author Claro Team <cvs@claroline.net>
- *
- * @package CLUSR
- *
- */
 
-$tlabelReq = 'CLUSR';
-$gidReset = true;
-$dialogBoxMsg = array();
+
+$tlabelReq = "CLUSR___";
 require '../inc/claro_init_global.inc.php';
 
-if ( ! claro_is_in_a_course() || !claro_is_course_allowed() ) claro_disp_auth_form(true);
+if ( !$_cid || !$is_courseAllowed ) claro_disp_auth_form(true);
+if ( !$is_courseAdmin ) claro_die($langNotAllowed);
 
-$can_import_user_class  = (bool) (claro_is_course_manager()
-                        && get_conf('is_coursemanager_allowed_to_import_user_class') )
-                        || claro_is_platform_admin();
+include($includePath."/lib/admin.lib.inc.php");
+include($includePath."/lib/user.lib.php");
+include($includePath."/lib/class.lib.php");
+include($includePath.'/lib/claro_mail.lib.inc.php');
 
-// TODO replace calro_die by best usage.
+// javascript confirm pop up declaration for header
 
-if ( !$can_import_user_class ) claro_die(get_lang('Not allowed'));
+$htmlHeadXtra[] =
+            "<script>
+            function confirmation (name)
+            {
+                if (confirm(\"" . clean_str_for_javascript($langConfirmEnrollClassToCourse) . "\"))
+                    {return true;}
+                else
+                    {return false;}
+            }
+            </script>";
 
-require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
-require_once get_path('incRepositorySys') . '/lib/user.lib.php';
-require_once get_path('incRepositorySys') . '/lib/class.lib.php';
-require_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
+/*
+ * DB tables definition
+ */
+
+$tbl_cdb_names = claro_sql_get_course_tbl();
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_rel_course_user = $tbl_mdb_names['rel_course_user'  ];
+$tbl_users           = $tbl_mdb_names['user'             ];
+$tbl_courses_users   = $tbl_rel_course_user;
+$tbl_rel_users_groups= $tbl_cdb_names['group_rel_team_user'    ];
+$tbl_groups          = $tbl_cdb_names['group_team'             ];
+$tbl_class           = $tbl_mdb_names['user_category'];
+$tbl_class_user      = $tbl_mdb_names['user_rel_profile_category'];
 
 /*---------------------------------------------------------------------*/
 /*----------------------EXECUTE COMMAND SECTION------------------------*/
 /*---------------------------------------------------------------------*/
 
-$cmd = isset($_REQUEST['cmd'])?$_REQUEST['cmd']:null;
+if (isset($_REQUEST['cmd']))
+     $cmd = $_REQUEST['cmd'];
+else $cmd = null;
+  
+switch ($cmd)
+{  
+  //Open a class in the tree
+  case "exOpen" : 
+    $_SESSION['class_add_visible_class'][$_REQUEST['class']]="open";      
+    break;
+      
+  //Close a class in the tree
+  case "exClose" : 
+    $_SESSION['class_add_visible_class'][$_REQUEST['class']]="close";      
+    break;
+      
+  // subscribe a class to the course    
+  case "subscribe" :           
+    $dialogBox = "<b>Class ".$_REQUEST['classname']." $langHasBeenEnrolled </b><br>";
+    $sql = " SELECT U.`user_id`,
+                    U.`nom` as `lastname` , 
+        		    U.`prenom` as `firstname` , 
+        		    U.`username` , 
+        		    U.`email` , 
+        		    U.`officialCode` , 
+        		    U.`phoneNumber` as `phone` 
+               FROM `".$tbl_class_user."` AS CU,`".$tbl_users."` AS U 
+               WHERE CU.`user_id`=U.`user_id` AND CU.`class_id`='". (int)$_REQUEST['class']."'  
+               ORDER BY U.`nom`";
+    $user_list = claro_sql_query_fetch_all($sql);
+      
+    foreach ($user_list as $user)
+    {        
+        $user_id = $user['user_id'];
 
-$form_data['class_id'] = isset($_REQUEST['class_id'])?$_REQUEST['class_id']:0;
-$form_data['class_name'] = isset($_REQUEST['class_name'])?trim($_REQUEST['class_name']):'';
-
-switch ( $cmd )
-{
-    // Open a class in the tree
-    case 'exOpen' :
-
-        $_SESSION['class_add_visible_class'][$form_data['class_id']] = 'open';
-        break;
-
-    // Close a class in the tree
-    case 'exClose' :
-
-        $_SESSION['class_add_visible_class'][$form_data['class_id']] = 'close';
-        break;
-
-    // Enrol a class to the course
-
-    case 'exEnrol' :
-
-        if ( register_class_to_course( $form_data['class_id'], claro_get_current_course_id()) )
-        {
-            $dialogBoxMsg[]  = get_lang('Class has been enroled') ;
+        if ( user_add_to_course($user['user_id'], $_cid) )
+    	{   
+            // send mail to user
+            user_send_enroll_to_course_mail ($user_id, $user);
+            // add message 
+	        $dialogBox .= $user['firstname']." ".$user['lastname']." $langIsNowRegistered<br>";
         }
-        break;
-
-    // Unenrol a class to the course
-
-    case 'exUnenrol' :
-
-        if ( unregister_class_to_course( $form_data['class_id'], claro_get_current_course_id()) )
-        {
-            $dialogBoxMsg[]  = get_lang('Class has been unenroled') ;
+    	else
+	    {
+            switch (claro_failure::get_last_failure())
+            {
+                case 'already_enrolled_in_course' : 
+	                $dialogBox .= $user['firstname']." ".$user['lastname']." $langIsAlreadyRegistered<br>";
+                    break;
+        	    default: 
+	                $dialogBox .= $user['firstname']." ".$user['lastname']." $langUnableToEnrollInCourse<br>";
+            }            
         }
-        break;
+    }
+      
+    break;   
 }
 
 /*---------------------------------------------------------------------*/
 /*----------------------FIND information SECTION-----------------------*/
 /*---------------------------------------------------------------------*/
 
-$classList = get_class_list_by_course(claro_get_current_course_id());
+$sql = "SELECT * 
+        FROM `".$tbl_class."` 
+        ORDER BY `name`";
+$class_list = claro_sql_query_fetch_all($sql);
 
 /*---------------------------------------------------------------------*/
 /*----------------------DISPLAY SECTION--------------------------------*/
 /*---------------------------------------------------------------------*/
 
+// find which display is to be used
+
+$display = "tree";
+
 // set bredcrump
 
-$nameTools = get_lang('Enrol class');
-$interbredcrump[] = array ('url' => 'user.php' . claro_url_relay_context('?') , 'name' => get_lang('Users'));
-// javascript confirm pop up declaration for header
 
-$htmlHeadXtra[] =
-'<script>
-    function confirmation_enrol (name)
-    {
-        if (confirm("' . clean_str_for_javascript(get_lang('Are you sure you want to enrol the whole class on the course ?')) . '"))
-            {return true;}
-        else
-            {return false;}
-    }
-    function confirmation_unenrol (name)
-    {
-        if (confirm("' . clean_str_for_javascript(get_lang('Are you sure you want to unenrol the whole class on the course ?')) . '"))
-            {return true;}
-        else
-            {return false;}
-    }
-</script>';
-
+$nameTools = $langAddClass;
+$interbredcrump[]    = array ("url"=>"user.php", "name"=> $langUsers);
 
 // display top banner
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include($includePath."/claro_init_header.inc.php");
 
 // Display tool title
 
-echo claro_html_tool_title(get_lang('Enrol class'))
+echo claro_disp_tool_title($langAddAClassToCourse);
 
 // Display Forms or dialog box (if needed)
 
-.    claro_html_msg_list($dialogBoxMsg)
+if(isset($dialogBox)&& $dialogBox!="")
+{
+    echo claro_disp_message_box($dialogBox);
+}
 
-// display tool links
-.    '<p>'
-.    claro_html_cmd_link('user.php'  . claro_url_relay_context('?') , get_lang('Back to list'))
-.    '</p>'
-// display cols headers
-.    '<table class="claroTable" width="100%" border="0" cellspacing="2">' . "\n"
-.    '<thead>' . "\n"
-.    '<tr class="headerX">' . "\n"
-.    '<th>' . get_lang('Classes') . '</th>' . "\n"
-.    '<th>' . get_lang('Users') . '</th>' . "\n"
-.    '<th>' . get_lang('Enrol to course') . '</th>' . "\n"
-.    '</tr>' . "\n"
-.    '</thead>' . "\n"
-.    '<tbody>' . "\n"
-// display Class list (or tree)
-.    display_tree_class_in_user($classList, claro_get_current_course_id())
-.    '</tbody>' . "\n"
-.    '</table>' . "\n"
-;
+switch ($display)
+{
 
-// display footer banner
+    case "tree";
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+    
+    // display tool links
 
+    echo "<a class=\"claroCmd\" href=\"user.php\">".$langBackToList."</a><br><br>";
+
+    // display cols headers
+
+        echo "<table class=\"claroTable\" width=\"100%\" border=\"0\" cellspacing=\"2\">\n"
+            ." <thead>\n"
+            ."  <tr class=\"headerX\">\n"
+            ."    <th>\n"
+            ."      $langClass\n"
+            ."    </th>\n"
+            ."    <th>\n"
+            ."      $langUsers\n"
+            ."    </th>\n"
+            ."    <th>\n"
+            ."      $langSubscribeToCourse\n"
+            ."    </th>\n"
+            ."  </tr>\n"
+            ."</thead>\n";
+
+    // display Class list (or tree)
+        echo "<tbody>\n";
+        display_tree_class_in_user($class_list);
+        echo "</tbody>\n</table>\n";
+        break;
+
+    case "class_added" :
+        echo $langDispClassAdded;
+        break;
+}
+
+// footer banner
+
+include($includePath."/claro_init_footer.inc.php");
 ?>

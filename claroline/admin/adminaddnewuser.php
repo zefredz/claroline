@@ -1,46 +1,50 @@
-<?php // $Id$
-/**
- * CLAROLINE
- *
- * this tool manage the new users
- *
- * @version 1.8 $Revision$
- *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @author Claro Team <cvs@claroline.net>
- */
+<?php # $Id$
+//----------------------------------------------------------------------
+// CLAROLINE 160
+//----------------------------------------------------------------------
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
+//----------------------------------------------------------------------
+// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
+// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+//----------------------------------------------------------------------
+// Authors: see 'credits' file
+//----------------------------------------------------------------------
 
-define('DISP_REGISTRATION_SUCCEED','DISP_REGISTRATION_SUCCEED');
-define('DISP_REGISTRATION_FORM','DISP_REGISTRATION_FORM');
+/*=====================================================================
+ Init Section
+ =====================================================================*/ 
+
 $cidReset = TRUE;
 $gidReset = TRUE;
 $tidReset = TRUE;
+
 require '../inc/claro_init_global.inc.php';
 
 // Security Check
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
 
 // Include library
-require claro_get_conf_repository() . 'user_profile.conf.php';
-
-require_once get_path('incRepositorySys') . '/lib/user.lib.php';
-require_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
+include($includePath.'/conf/user_profile.conf.php');
+include($includePath.'/lib/debug.lib.inc.php');
+include($includePath.'/lib/user.lib.php');
+include($includePath.'/lib/claro_mail.lib.inc.php');
 
 // Initialise variables
-$nameTools = get_lang('Create a new user');
+$nameTools = $langAddUser;
 $error = false;
 $messageList = array();
-$display = DISP_REGISTRATION_FORM;
+
+// DB tables definition
+$tbl_mdb_names = claro_sql_get_main_tbl();
+$tbl_user = $tbl_mdb_names['user'];
 
 /*=====================================================================
   Main Section
- =====================================================================*/
+ =====================================================================*/ 
 
-// Initialise field variable from subscription form
+// Initialise field variable from subscription form 
 $user_data = user_initialise();
 
 if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
@@ -50,18 +54,16 @@ if ( $cmd == 'registration' )
 {
     // get params from the form
 
-    if ( isset($_REQUEST['lastname']) )      $user_data['lastname']      = strip_tags(trim($_REQUEST['lastname'])) ;
-    if ( isset($_REQUEST['firstname']) )     $user_data['firstname']     = strip_tags(trim($_REQUEST['firstname'])) ;
+    if ( isset($_REQUEST['lastname']) )      $user_data['lastname'] = strip_tags(trim($_REQUEST['lastname'])) ;
+    if ( isset($_REQUEST['firstname']) )     $user_data['firstname']  = strip_tags(trim($_REQUEST['firstname'])) ;
     if ( isset($_REQUEST['officialCode']) )  $user_data['officialCode']  = strip_tags(trim($_REQUEST['officialCode'])) ;
-    if ( isset($_REQUEST['username']) )      $user_data['username']      = strip_tags(trim($_REQUEST['username']));
-    if ( isset($_REQUEST['password']) )      $user_data['password']      = trim($_REQUEST['password']);
-    if ( isset($_REQUEST['password_conf']) ) $user_data['password_conf'] = trim($_REQUEST['password_conf']);
-    if ( isset($_REQUEST['email']) )         $user_data['email']         = strip_tags(trim($_REQUEST['email'])) ;
-    if ( isset($_REQUEST['language']) )      $user_data['language']   = trim($_REQUEST['language']);
-    if ( isset($_REQUEST['phone']) )         $user_data['phone']         = trim($_REQUEST['phone']);
-    if ( isset($_REQUEST['isCourseCreator']) ) $user_data['isCourseCreator'] = (int) $_REQUEST['isCourseCreator'];
+    if ( isset($_REQUEST['username']) )      $user_data['username']  = strip_tags(trim($_REQUEST['username']));
+    if ( isset($_REQUEST['password']) )      $user_data['password']  = trim($_REQUEST['password']);
+    if ( isset($_REQUEST['password_conf']) ) $user_data['password_conf']  = trim($_REQUEST['password_conf']);
+    if ( isset($_REQUEST['email']) )         $user_data['email']  = strip_tags(trim($_REQUEST['email'])) ;
+    if ( isset($_REQUEST['phone']) )         $user_data['phone']  = trim($_REQUEST['phone']);
+    if ( isset($_REQUEST['status']) )        $user_data['status']  = (int) $_REQUEST['status'];
 
-    $user_data['language'] = null;
     // validate forum params
 
     $messageList = user_validate_form_registration($user_data);
@@ -69,36 +71,10 @@ if ( $cmd == 'registration' )
     if ( count($messageList) == 0 )
     {
         // register the new user in the claroline platform
-        $inserted_uid = user_create($user_data);
-        if (false===$inserted_uid)
-        {
-            $messageList['error'][] = claro_failure::get_last_failure();
-        }
-        else
-        {
-            $msgList['success'][] = get_lang('The new user has been sucessfully created');
-            $newUserMenu[]= claro_html_cmd_link( '../auth/courses.php?cmd=rqReg&amp;uidToEdit=' . $inserted_uid . '&amp;category=&amp;fromAdmin=settings'
-                                               , get_lang('Register this user to a course'));
-            $newUserMenu[]= claro_html_cmd_link( 'adminprofile.php?uidToEdit=' . $inserted_uid . '&amp;category='
-                                               , get_lang('User settings'));
-            $newUserMenu[]= claro_html_cmd_link( 'adminaddnewuser.php'
-                                               , get_lang('Create another new user'));
-            $newUserMenu[]= claro_html_cmd_link( 'index.php'
-                                               , get_lang('Back to administration page'));
-
-            $display = DISP_REGISTRATION_SUCCEED;
-            // send a mail to the user
-            if (false !== user_send_registration_mail($inserted_uid,$user_data))
-            {
-                $messageList['success'][] = get_lang('Mail sent to user');
-            }
-            else
-            {
-                $messageList['error'][] = get_lang('No mail sent to user');
-                // TODO  display in a popup "To Print" with  content to give to user.
-            };
-
-        }
+        $inserted_uid = user_add($user_data);
+        
+        // send a mail to the user
+        user_send_registration_mail($inserted_uid,$user_data);
     }
     else
     {
@@ -109,37 +85,44 @@ if ( $cmd == 'registration' )
 
 /*=====================================================================
   Display Section
- =====================================================================*/
+ =====================================================================*/ 
 
-$interbredcrump[] = array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
+$interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 $noQUERY_STRING   = TRUE;
 
 // Display Header
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include($includePath."/claro_init_header.inc.php");
 
 // Display title
 
-echo claro_html_tool_title( array('mainTitle'=>$nameTools ) )
-.    claro_html_msg_list($messageList)
-;
+echo claro_disp_tool_title( array('mainTitle'=>$nameTools ) );
 
-if ( $display == DISP_REGISTRATION_SUCCEED )
+if ( $cmd == 'registration' && $error == false )
 {
-    echo claro_html_menu_vertical($newUserMenu);
+    echo '<p>' . $langUserCreated . '</p>'
+        . '<ul>'
+        . '<li><a class="claroCmd" href="../auth/courses.php?cmd=rqReg&uidToEdit=' . $inserted_uid . '&category=&fromAdmin=settings">' . $langRegisterTheNewUser . '</a></li>'
+        . '<li><a class="claroCmd" href="adminprofile.php?uidToEdit=' . $inserted_uid . '&category="> ' . $langGoToUserSettings . '</a></li>'
+        . '<li><a class="claroCmd" href="adminaddnewuser.php"> ' . $langCreateAnotherUser . ' </a></li>'
+        . '<li><a class="claroCmd" href="index.php"> ' . $langBackToAdmin . ' </a></li>'
+        . '</ul>';
 }
-else // $display == DISP_REGISTRATION_FORM;
-
-{
+else
+{    
     //  if registration failed display error message
 
-    echo get_lang('New users will receive an e-mail with their user name and password')
-    .    user_html_form_admin_add_new_user($user_data)
-    ;
+    if ( count($messageList) > 0 ) 
+    {
+        echo claro_disp_message_box( implode('<br />', $messageList) );
+    }
+    
+    echo $langAddUserOneByOne;
+
+    user_display_form_admin_add_new_user($user_data);
 }
 
 // Display footer
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
-
+include($includePath."/claro_init_footer.inc.php");
 ?>

@@ -1,8 +1,8 @@
 <?php // $Id$
 /**
- * CLAROLINE
+ * CLAROLINE 
  *
- * This script
+ * This script 
  * - read current version
  * - check if update of main conf is needed
  *         whether do it (upgrade_conf.php)
@@ -13,10 +13,10 @@
  * - update course db
  * - update course repository content
  *
- * @version 1.9 $Revision$
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
+ * @version 1.7 $Revision$ 
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  *
  * @see http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
  *
@@ -30,12 +30,10 @@
 
 /*=====================================================================
   Init Section
- =====================================================================*/
+ =====================================================================*/ 
 
 $cidReset = TRUE;
 $gidReset = TRUE;
-$currentClarolineVersion=null;
-$currentDbVersion=null;
 
 if ( ! file_exists('../../inc/currentVersion.inc.php') )
 {
@@ -47,12 +45,12 @@ if ( ! file_exists('../../inc/currentVersion.inc.php') )
 require 'upgrade_init_global.inc.php';
 
 // Security Check
-if (!claro_is_platform_admin()) upgrade_disp_auth_form();
+if (!$is_platformAdmin) upgrade_disp_auth_form();
 
 // Pattern for this new stable version
 
-$patternVarVersion = '/^1.9/';
-$patternSqlVersion = '1.9%';
+$patternVarVersion = '/^1.7/';
+$patternSqlVersion = '1.7%';
 
 // Display definition
 
@@ -65,28 +63,28 @@ define('DISPVAL_upgrade_done'           ,__LINE__);
   Main Section
  =====================================================================*/
 
-$reset_confirm_backup = isset($_REQUEST['reset_confirm_backup'])
-                          ? (bool) $_REQUEST['reset_confirm_backup']
+$reset_confirm_backup = isset($_REQUEST['reset_confirm_backup']) 
+                          ? (bool) $_REQUEST['reset_confirm_backup'] 
                       : false;
 
-$req_confirm_backup = isset($_REQUEST['confirm_backup'])
-                      ? (bool) $_REQUEST['confirm_backup']
+$req_confirm_backup = isset($_REQUEST['confirm_backup']) 
+                      ? (bool) $_REQUEST['confirm_backup'] 
                       : false;
-
-$is_backup_confirmed = isset($_SESSION['confirm_backup'])
-                      ? (bool) $_SESSION['confirm_backup']
+                      
+$is_backup_confirmed = isset($_SESSION['confirm_backup']) 
+                      ? (bool) $_SESSION['confirm_backup'] 
                       : false;
 
 if ( $reset_confirm_backup || !$is_backup_confirmed )
 {
-    // reset confirm backup
+    // reset confirm backup 
     session_unregister('confirm_backup');
     $confirm_backup = 0;
 }
 
-if ( !isset($_SESSION['confirm_backup']) )
+if ( !isset($_SESSION['confirm_backup']) ) 
 {
-    if ( $req_confirm_backup )
+    if ( $req_confirm_backup ) 
     {
         // confirm backup TRUE
         $_SESSION['confirm_backup'] = 1;
@@ -96,8 +94,8 @@ if ( !isset($_SESSION['confirm_backup']) )
     {
         $confirm_backup = 0;
     }
-}
-else
+} 
+else 
 {
     // get value from session
     $confirm_backup  = $_SESSION['confirm_backup'];
@@ -105,15 +103,15 @@ else
 
 /*---------------------------------------------------------------------
   Define Display
- ---------------------------------------------------------------------*/
+ ---------------------------------------------------------------------*/ 
 
-if ( !$confirm_backup )
+if ( !$confirm_backup ) 
 {
     // ask to confirm backup
-    $display = DISPVAL_upgrade_backup_needed;
+    $display = DISPVAL_upgrade_backup_needed;    
 }
 elseif ( !preg_match($patternVarVersion, $currentClarolineVersion) )
-{
+{ 
     // config file not upgraded go to first step
     header("Location: upgrade_conf.php");
 }
@@ -127,7 +125,7 @@ else
     // count course to upgrade
     $count_course_upgraded = count_course_upgraded($new_version_branch);
     $count_course_to_upgrade =  $count_course_upgraded['total'] - $count_course_upgraded['upgraded'];
-
+    
     if ( $count_course_to_upgrade > 0 )
     {
         // upgrade of main conf needed.
@@ -150,13 +148,13 @@ echo upgrade_disp_header();
 
 switch ($display)
 {
-
+    
     case DISPVAL_upgrade_backup_needed :
 
         echo  '<h2>Claroline Upgrade Tool<br />from ' . $currentClarolineVersion . ' to ' . $new_version . '</h2>
-              <form action="' . $_SERVER['PHP_SELF'] . '" method="get">
-              <p>The <em>Claroline Upgrade Tool</em> will retrieve the data of your previous Claroline
-              installation and set them to be compatible with the new Claroline version. This upgrade
+              <form action="' . $_SERVER['PHP_SELF'] . '" method="GET">
+              <p>The <em>Claroline Upgrade Tool</em> will retrieve the data of your previous Claroline 
+              installation and set them to be compatible with the new Claroline version. This upgrade 
               proceeds in three steps:
               </p>
               <ol>
@@ -165,7 +163,7 @@ switch ($display)
               with the new data structure.</li>
               <li>It will update one by one each course data (directories, database tables, ...)</li>
               </ol>
-              <p>Before starting the <em>Claroline Upgrade Tool</em>, we recommend you to make yourself a complete
+              <p>Before starting the <em>Claroline Upgrade Tool</em>, we recommend you to make yourself a complete 
               backup of the platform data (files and databases).</p>
               <table>
               <tbody>
@@ -173,9 +171,9 @@ switch ($display)
               <td>The data backup has been done</td>
               <td>
               <input type="radio" id="confirm_backup_yes" name="confirm_backup" value="1" />
-              <label for="confirm_backup_yes">Yes</label><br />
+              <label for="confirm_backup_yes">Yes</label><br>
               <input type="radio" id="confirm_backup_no" name="confirm_backup" value="" checked="checked" />
-              <label for="confirm_backup_no">No</label><br />
+              <label for="confirm_backup_no">No</label><br>
               </td>
               </tr>
               </tbody>
@@ -214,7 +212,7 @@ switch ($display)
             </ul>
             <h3>To do:</h3>
             <ul>
-            <li><a href="upgrade_courses.php">Step 3 of 3: courses upgrade</a> - ' . $count_course_to_upgrade . 'course(s) to upgrade.</li>
+            <li><a href="upgrade_courses.php">Step 3 of 3: courses upgrade</a> - ' . $count_course_to_upgrade . 'course(s) to upgrade.</li> 
             </ul>';
 
         break;

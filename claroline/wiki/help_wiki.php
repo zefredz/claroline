@@ -4,9 +4,9 @@
     /**
      * CLAROLINE
      *
-     * @version 1.8 $Revision$
+     * @version 1.7 $Revision$
      *
-     * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+     * @copyright 2001-2005 Universite catholique de Louvain (UCL)
      *
      * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
      *
@@ -17,7 +17,7 @@
     
     require '../inc/claro_init_global.inc.php';
 
-    $nameTools = get_lang("Wiki");
+    $nameTools = $langWiki;
     $hide_banner=TRUE;
     
     $htmlHeadXtra[] =
@@ -25,33 +25,29 @@
             dt{font-weight:bold;margin-top:5px;}
         </style>';
     
-    require_once get_path('incRepositorySys')."/claro_init_header.inc.php";
+    require_once $includePath."/claro_init_header.inc.php";
     
     $help = ( isset( $_REQUEST['help'] ) ) ? $_REQUEST['help'] : 'syntax';
-    
-    echo '<center><a href="#" onclick="window.close()">'.get_lang("Close window").'</a></center>' . "\n";
     
     switch( $help )
     {
         case 'syntax':
         {
-            echo get_block('blockWikiHelpSyntaxContent');
+            echo $langWikiHelpSyntaxContent;
             break;
         }
         case 'admin':
         {
-            echo get_block('blockWikiHelpAdminContent');
+            echo $langWikiHelpAdminContent;
             break;
         }
         default:
         {
-            echo '<center><h1>'.get_lang('Wrong parameters').'</h1></center>';
+            echo '<center><h1>Missing help request</h1></center>';
         }
     }
     
-    echo '<center><a href="#" onclick="window.close()">'.get_lang("Close window").'</a></center>' . "\n";
-    
     $hide_footer = true;
-    require_once get_path('incRepositorySys')."/claro_init_footer.inc.php";
+    require_once $includePath."/claro_init_footer.inc.php";
     
 ?>

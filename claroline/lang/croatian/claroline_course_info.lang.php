@@ -1,0 +1,50 @@
+<?php
+$langAgenda = "Program rada";
+$langAnnouncement = "Najave- Priopæenja";
+$langBackHomeOf = "Povrat na poèetnu stranicu za ";
+$langByDel = "Brisanje ovog kolegija izbrisati æe sve vezane dokumente i sve studente  (ali ih neæe izbrisati iz drugih kolegija ).<p> Želite li pobrisati kolegij?";
+$langCancel = "Odustanite";
+$langChat = "Razgovor - chat";
+$langCode = "Šifra kolegija";
+$langConfTip = "U standardnoj postavi poèetni i jedini korisnik je onaj koji je otvorio web stranice kolegija.
+Najjednostavniji naèin je otvorite stranice na tjedan dana i dozvoliti studentima da se sami prijave, a potom zakljuèati pristup
+i pregledati popis zbog moguæih nezvanih korisnika.";
+$langCopy = "Kopiraj";
+$langCourse = "Website ";
+$langCourseTitle = "Naziv predmeta";
+$langDay_of_weekNames = "Array";
+$langDelCourse = "Izbriši cijeli website kolegija?";
+$langDepartmentUrl = "URL Odjela (Zavoda,Katedre)";
+$langDepartmentUrlName = "Odjel";
+$langDescriptionCours = "Opis kolegija";
+$langDocument = "Dokumenti";
+$langEmail = "Email";
+$langForums = "Forumi";
+$langGroups = "Grupe";
+$langHasDel = "je izbrisan";
+$langHelp = "Pomoæ";
+$langHome = "Povratak na Poèetnu stranicu";
+$langLanguage = "Jezik";
+$langLogout = "Odjava";
+$langManager = "Manager";
+$langModifDone = "Podaci su promijenjeni";
+$langModifyProfile = "Izmijeni profil";
+$langMonthNames = "Array";
+$langMyCourses = "Moji predmeti";
+$langNameOfLang = "Array";
+$langNo = "Ne";
+$langNotAllowed = "Nije dozvoljeno";
+$langOk = "Ok";
+$langOtherCourses = "Popis kolegija";
+$langPoweredBy = "Upravljano s ";
+$langPrivateAccess = "Ogranièen pristup, prijava ogranièena na osobe iz   <a href=../user/user.php>Users list</a>)";
+$langProfessors = "Nastavnici";
+$langPublicAccess = "Javni pristup bez zaporke ";
+$langStatistics = "Statistika";
+$langStudent = "student";
+$langTipLang = "Ove jeziène postavke vrijede za sve korisnike";
+$langTo = "u";
+$langUsers = "Korisnici";
+$langWork = "Studentski Radovi";
+$langYes = "Da";
+?>

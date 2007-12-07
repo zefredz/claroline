@@ -1,13 +1,13 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+
 /**
  *
  * List of scripts in claroline archive
  *
- * @version 1.8 $Revision$
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @version 1.7 $Revision$ 
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  *
  * @package MAINTENANCE
  *
@@ -260,6 +260,7 @@ $claroline_script[] = "/inc/lib/pear/PEAR.php";
 $claroline_script[] = "/inc/lib/pear/XML/Serializer.php";
 $claroline_script[] = "/inc/lib/pear/XML/Util.php";
 $claroline_script[] = "/inc/lib/profile.lib.php";
+$claroline_script[] = "/inc/lib/rss/write/gencourse_rss.inc.php";
 $claroline_script[] = "/inc/lib/statsUtils.lib.inc.php";
 $claroline_script[] = "/inc/lib/textarea.class.php";
 $claroline_script[] = "/inc/lib/tree.lib.php";
@@ -317,7 +318,7 @@ $claroline_script[] = "/linker/CLWRK___Navigator.php";
 $claroline_script[] = "/linker/CLWRK___Resolver.php";
 $claroline_script[] = "/linker/CRLTool.php";
 $claroline_script[] = "/linker/CourseResolver.php";
-//$claroline_script[] = "/linker/error_handler.php"; // deprecated, removed in 1.7.1
+$claroline_script[] = "/linker/error_handler.php";
 $claroline_script[] = "/linker/jpspan.lib.php";
 $claroline_script[] = "/linker/linker.inc.php";
 $claroline_script[] = "/linker/linker.lib.php";

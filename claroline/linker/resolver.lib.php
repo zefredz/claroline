@@ -1,11 +1,10 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE 
  *
- * @version 1.8 $Revision$
+ * @version 1.7 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  * 
@@ -16,8 +15,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @package CLLINKER
  *
  */
-require_once dirname(__FILE__) . '/linker.lib.php';
-require_once dirname(__FILE__) . '/CRLTool.php';
+require_once ('linker.lib.php');
+require_once ('CRLTool.php');
 require_once dirname(__FILE__) . '/../inc/lib/course_utils.lib.php';
 require_once dirname(__FILE__) . '/../inc/lib/claro_utils.lib.php';
 
@@ -66,7 +65,7 @@ class Resolver
         && !isset( $elementCRLArray['resource_id'] ) )
         {
             $tool = 'CourseResolver';
-            require_once dirname(__FILE__) . '/' . $tool . '.php';
+            require_once($tool . '.php');
             $resolver = new $tool($this->_basePath);
 
             return $resolver->resolve($crl);
@@ -78,7 +77,7 @@ class Resolver
         && !isset( $elementCRLArray['resource_id'] ) )
         {
             $tool = 'CLGRP___Resolver';
-            require_once dirname(__FILE__) . '/' . $tool . '.php';
+            require_once($tool . '.php');
             $resolver = new $tool($this->_basePath);
 
             return $resolver->resolve($crl);
@@ -94,7 +93,7 @@ class Resolver
         else
         {
             $tool =  $elementCRLArray['tool_name'] . 'Resolver';
-            require_once dirname(__FILE__) . '/' . $tool . '.php';
+            require_once($tool . '.php');
             $resolver = new $tool($this->_basePath);
 
             return $resolver->resolve($crl);
@@ -111,9 +110,8 @@ class Resolver
     {
         if( isset( $tool_name ) )
         {
-            $tool_name = str_pad( $tool_name, 8, '_' );
             $tool =  $tool_name . 'Resolver';
-            require_once dirname(__FILE__) . '/' . $tool . '.php';
+            require_once($tool . '.php');
             $resolver = new $tool($this->_basePath);
 
             return $resolver->getResourceId($tool_name);
@@ -140,7 +138,7 @@ class Resolver
         && !isset( $elementCRLArray['resource_id'] ) )
         {
             $tool = 'CourseResolver';
-            require_once dirname(__FILE__) . '/' . $tool . '.php';
+            require_once($tool . '.php');
             $resolver = new $tool($this->_basePath);
 
             return $resolver->getResourceName($crl);
@@ -151,7 +149,7 @@ class Resolver
         && !isset( $elementCRLArray['resource_id'] ) )
         {
             $tool = 'CLGRP___Resolver';
-            require_once dirname(__FILE__) . '/' . $tool . '.php';
+            require_once($tool . '.php');
             $resolver = new $tool($this->_basePath);
 
             return $resolver->getResourceName($crl);
@@ -164,8 +162,8 @@ class Resolver
         }
         else
         {
-            $tool =  str_pad( $elementCRLArray['tool_name'] . 'Resolver', 8, '_' );
-            require_once dirname(__FILE__) . '/' . $tool . '.php';
+            $tool =  $elementCRLArray['tool_name'] . 'Resolver';
+            require_once($tool . '.php');
             $resolver = new $tool($this->_basePath);
 
             return $resolver->getResourceName($crl);
@@ -188,8 +186,8 @@ class Resolver
             {
                 trigger_error('ERROR: tool_name required',E_USER_ERROR);
             }
-            
-            $url = $this->_getToolPath($elementCRLArray['tool_name']);
+
+            $url = $this->_basePath . '/claroline/' . $this->_getToolPath($elementCRLArray['tool_name']);
             $url .= '?cidReq=' . $elementCRLArray['course_sys_code'];
 
             // add the gidReq at the url
@@ -216,10 +214,6 @@ class Resolver
                 .                         '&amp;gidReq=' . $elementCRLArray['team']
                 ;
             }
-            else
-            {
-               $url = $this->_basePath . $url;
-            }
 
             return $url;
 
@@ -238,8 +232,15 @@ class Resolver
      */
     function _getToolPath($toolName)
     {
-        $toolName = rtrim( $toolName, '_' );
-        return get_module_url( $toolName ) . '/' . get_module_entry( $toolName );
+        $tbl_mdb_names = claro_sql_get_main_tbl();
+        $tbl = $tbl_mdb_names['tool'];
+
+        $sql = "SELECT `script_url` 
+                FROM `" . $tbl . "` 
+                WHERE `claro_label`= '" . addslashes($toolName) . "'";
+        $toolPath = claro_sql_query_get_single_value($sql);
+
+        return $toolPath;
     }
 
     /**

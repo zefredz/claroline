@@ -1,0 +1,57 @@
+<?php
+$langAgenda = "Agenda";
+$langAllowed = "Dibenarkan";
+$langAnnouncement = "Pengumuman";
+$langBackHomeOf = "Kembali ke Laman Subjek ";
+$langBackToList = "Kembali ke Senarai Pengguna";
+$langByDel = "Proses ini akan menyebabkan Keseluruhan Kandungan Laman Subjek akan digugurkan dari Pangkalan Data dan akan menggugurkan Pelajar yang berdaftar dengan subjek ini.<p>Anda pasti untuk menggugurkan subjek ini";
+$langCancel = "Batal";
+$langChat = "Perbincangan";
+$langCode = "Kod Subjek";
+$langConfTip = "Secara lalai, subjek anda hanya boleh diakses jika anda pengguna berdaftar. Jika anda inginkan kerahsian,
+cara terbaik ialah membuka pendaftaran
+selama seminggu, dan arahkan Pelajar anda untuk mendaftar sendiri, kemudian tutup Pendaftaran dan periksa samada terdapat Pengguna yang tidak dikenali.";
+$langCopy = "Pindah";
+$langCourse = "Subjek";
+$langCourseAccess = "Capaian untuk Subjek";
+$langCourseManager = "Pentadbir Subjek (Pensyarah)";
+$langCourseTitle = "Tajuk Subjek";
+$langDay_of_weekNames = "Array";
+$langDelCourse = "Gugurkan Subjek dari Pangkalan Data";
+$langDenied = "Tidak dibenarkan";
+$langDepartmentUrl = "URL Pusat Pengajian";
+$langDepartmentUrlName = "Kod Pusat Pengajian";
+$langDescriptionCours = "Penerangan Subjek";
+$langDocument = "Dokumen";
+$langEmail = "Email";
+$langForums = "Forum";
+$langGroups = "Kumpulan";
+$langHasDel = "telah digugurkan";
+$langHelp = "Bantuan";
+$langHome = "Kembali ke Laman Subjek";
+$langLanguage = "Language";
+$langLogin = "Melog Masuk";
+$langLogout = "Melog Keluar";
+$langManager = "Pentadbir Sistem";
+$langModifDone = "Maklumat telah diubahsuai";
+$langModifyProfile = "Ubahsuai Maklumat Peribadi";
+$langMonthNames = "Array";
+$langMyCourses = "Senarai Subjek";
+$langNameOfLang = "Array";
+$langNo = "Tidak";
+$langNotAllowed = "Tidak dibenarkan";
+$langOk = "Proses";
+$langOtherCourses = "Senarai Subjek";
+$langPoweredBy = "Oleh : ";
+$langPrivateAccess = "Capaian terhad (Subjek hanya boleh dicapai oleh pengguna berikut sahaja <a href=../user/user.php>Senarai Pengguna</a>)";
+$langProfessors = "Pensyarah";
+$langPublicAccess = "Capaian Umum (Subjek boleh dicapai tanpa proses <i>login</i>)";
+$langStatistics = "Statistik";
+$langStudent = "Pelajar";
+$langSubscription = "Langganan";
+$langTipLang = "Sila pilih bahasa yang anda kehendaki untuk Laman Subjek.";
+$langTo = "ke";
+$langUsers = "Users";
+$langWork = "Works";
+$langYes = "Ya";
+?>

@@ -1,0 +1,82 @@
+<?php
+$langAddComment = "Engadir/modificar un comentario a";
+$langAddModule = "Engadir";
+$langAddModulesButton = "Engadir modulo(s)";
+$langAddOneModuleButton = "Engadir m&oacute;dulo";
+$langAgenda = "Axenda";
+$langAltClarodoc = "Clarodoc";
+$langAltDocument = "Documento";
+$langAltExercise = "Exercicio";
+$langAltScorm = "Scorm";
+$langAnnouncement = "Anuncios";
+$langBack = "Volver";
+$langBrowserCannotSeeFrames = "O seu navegador web non permite a visi&oacute;n de frames.";
+$langChat = "Chat";
+$langConfirmYourChoice = "Por favor, confirme a s&uacute;a selecci&oacute;n";
+$langCourseHome = "P&aacute;xina de inicio do Curso";
+$langCourseManager = "Xestor do curso";
+$langDate = "Data";
+$langDay_of_weekNames = "Array";
+$langDefaultLearningPathComment = "Este &eacute; o texto introductorio desta secuencia de aprendizaxe. Para reemplazalo
+   										polo seu propio texto, prema abaixo en <b>Modificar</b>.";
+$langDefaultModuleAddedComment = "Este &eacute; un texto introductorio adicional sobre a presencia deste m&oacute;dulo
+   										especializado dentro desta secuencia de aprendizaxe. Para reemprazalo polo seu
+										propio texto, prema abaixo en <b>Modificar</b>.";
+$langDefaultModuleComment = "Este &eacute; o texto introductorio deste m&oacute;dulo, que aparece en cada
+   										secuencia de aprendizaxe que o m&oacute;dulo cont&eacute;n. Para reemprazalo
+										polo seu propio texto, prema abaixo en <b>Modificar</b>.";
+$langDelete = "Eliminar";
+$langDescriptionCours = "Descrici&oacute;n do curso";
+$langDocument = "Documentos e Ligaz&oacute;ns";
+$langErrorInvalidParms = "Erro : par&aacute;metro inv&aacute;lido (empregue s&oacute; n&uacute;meros)";
+$langErrorNameAlreadyExists = "Erro : o nome xa existe";
+$langErrorValuesInDouble = "Erro : un ou m&aacute;is valores est&aacute;n replicados";
+$langExercise = "Exercicio";
+$langExerciseCancelled = "Exercicio canceladdo, escolla un m&oacute;dulo na lista para continuar.";
+$langExerciseDone = "A s&uacute;a progresi&oacute;n foi salvada. Escolla na lista un m&oacute;dulo para continuar.";
+$langExercises = "Exercicios";
+$langForums = "Foros";
+$langFullScreen = "Pantalla completa";
+$langGroups = "Grupos";
+$langHelp = "Axuda";
+$langInFrames = "En marcos";
+$langLearningPath = "Secuencia de aprendizaxe";
+$langLearningPathAdmin = "Administrar secuencias de aprendizaxe";
+$langLearningPathList = "Lista de secuencias de aprendizaxe";
+$langLogin = "nome de usuario";
+$langLogout = "Sa&iacute;r";
+$langManager = "Xestor";
+$langMinuteShort = "min.";
+$langModify = "Modificar";
+$langModifyProfile = "Modifica-lo meu perfil";
+$langModule = "M&oacute;dulo";
+$langMonthNames = "Array";
+$langMyAgenda = "A mi&ntilde;a axenda";
+$langMyCourses = "A mi&ntilde;a lista de cursos";
+$langName = "Nome";
+$langNameOfLang = "Array";
+$langNext = "Seguinte";
+$langNoEx = "Non hai exercicios polo momento";
+$langOk = "Validar";
+$langOtherCourses = "Lista de cursos";
+$langPeriodDayShort = "d.";
+$langPeriodHourShort = "h.";
+$langPlatformAdministration = "Administraci&oacute;n da Plataforma";
+$langPoweredBy = "Emprega a plataforma";
+$langPrevious = "Anterior";
+$langQuitViewer = "Volver &aacute; lista";
+$langSecondShort = "seg.";
+$langSize = "Tama&ntilde;o";
+$langStudent = "Estudante";
+$langSwitchEditorToTextConfirm = "Este comando eliminar&aacute; a actual distribuci&oacute;n do texto. Desexa continuar?";
+$langTextEditorDisable = "Deshabilitar editor de texto";
+$langTextEditorEnable = "Habilitar editor de texto";
+$langUp = "Arriba";
+$langUsers = "Usuarios";
+$langView = "Ver";
+$langViewMode = "Ver modo";
+$langWiki = "Wiki";
+$langWork = "Traballos";
+$lang_footer_p_CourseManager = "Xestor(es) para %s";
+$lang_p_platformManager = "Administrador para %s";
+?>

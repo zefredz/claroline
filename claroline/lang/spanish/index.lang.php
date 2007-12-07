@@ -1,0 +1,64 @@
+<?php
+$langAgenda = "Agenda";
+$langAgendaNextEvents = "Pr&oacute;ximos eventos de la Agenda";
+$langAnnouncement = "Anuncios";
+$langAuthentication = "Autentificaci&oacute;n";
+$langCategories = "Crear categor&iacute;a";
+$langChat = "Debate";
+$langCourseCreate = "Crear un Curso";
+$langCourseHome = "P&aacute;gina de inicio del curso";
+$langCourseList = "Lista de cursos";
+$langCourseManager = "Responsable del curso";
+$langCreateUserAccount = "Crear una cuenta de usuario";
+$langDay_of_weekNames = "Array";
+$langDescriptionCours = "Descripci&oacute;n del curso";
+$langDocument = "Documentos";
+$langDocumentation = "Documentaci&oacute;n";
+$langEditTextZone = "Editar zona de texto";
+$langEnter = "Entrar en el curso";
+$langExercises = "Ejercicios";
+$langForums = "Foros";
+$langGroups = "Grupos";
+$langHelp = "ayuda";
+$langInvalidId = "Nombre de usuario no v&aacute;lido. Si no est&aacute; inscrito, rellene el
+				  <a href='claroline/auth/inscription.php'>formulario de inscripci&oacute;n</a></font color>";
+$langInvalidIdSelfReg = "<b>Fall&oacute el intento de acceso.</b><br />Por favor, int&eacute;ntelo de nuevo.<br />
+
+<small>Si no tiene usted a&uacute;n una cuenta de usuario, cubra el
+
+<a href=claroline/auth/inscription.php>formulario de registro</a></font color></small>.";
+$langLearningPath = "Secuencia de aprendizaje";
+$langLogin = "nombre de usuario";
+$langLogout = "Salir";
+$langLostPassword = "Recordar contrase&ntilde;a";
+$langManager = "Responsable";
+$langMinuteShort = "m&iacute;n.";
+$langModifyProfile = "Modificar mis datos";
+$langMonthNames = "Array";
+$langMyAgenda = "Mi agenda";
+$langMyCourses = "Mis cursos";
+$langNameOfLang = "Array";
+$langNewLegend = "indica nuevos &iacute;tems";
+$langOtherCourses = "Lista de cursos";
+$langPassword = "contraseña";
+$langPeriodDayShort = "d.";
+$langPeriodHourShort = "h.";
+$langPlatformAdministration = "Administraci&oacute;n de la plataforma";
+$langPoweredBy = "Generado con";
+$langPreviousLevel = "Anterior";
+$langSecondShort = "seg.";
+$langStudent = "Estudiante";
+$langSwitchEditorToTextConfirm = "Este comando va a eliminar el formato de texto actual. Desea continuar?";
+$langTextEditorDisable = "Deshabilitar editor de texto";
+$langTextEditorEnable = "Habilitar editor de texto";
+$langUserName = "Nombre de usuario";
+$langUsers = "Usuarios";
+$langValvas = "&Uacute;ltimo comentario";
+$langViewMode = "Modo de vista";
+$langWiki = "Wiki";
+$langWork = "Trabajos";
+$lang_enroll_to_a_new_course = "Inscribirse en un curso nuevo";
+$lang_footer_p_CourseManager = "Gestor(es) para %s";
+$lang_p_platformManager = "Administrador de %s";
+$lang_remove_course_enrollment = "Desinscribirse de un curso ";
+?>

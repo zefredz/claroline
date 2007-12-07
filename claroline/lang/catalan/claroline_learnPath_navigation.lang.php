@@ -1,0 +1,30 @@
+<?php
+$langAddComment = "afegir/modoficar un comentari a";
+$langAgenda = "Agenda";
+$langAnnouncement = "Anuncis";
+$langBack = "Enrere";
+$langChat = "Xat";
+$langDate = "Data";
+$langDay_of_weekNames = "Array";
+$langDelete = "Esborra";
+$langDocument = "Documents";
+$langExercises = "Exercicis";
+$langForums = "Fòrums";
+$langGroups = "Grups";
+$langHelp = "Ajuda";
+$langManager = "El coordinador";
+$langModify = "modifica";
+$langModifyProfile = "Modifica el meu perfil";
+$langMonthNames = "Array";
+$langMyCourses = "Els meus cursos";
+$langNameOfLang = "Array";
+$langNoEx = "No hi ha exercici pel moment";
+$langOk = "D'acord";
+$langOtherCourses = "Llista de cursos";
+$langPoweredBy = "Potenciat per ";
+$langSize = "Mida";
+$langStudent = "estudiant";
+$langUp = "tornar a carregar";
+$langUsers = "Usuaris";
+$langWork = "Treballs dels estudiants";
+?>

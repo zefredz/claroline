@@ -1,0 +1,31 @@
+<?php
+$langAgenda = "Agenda";
+$langAnnouncement = "Pengumuman";
+$langCategories = "Kategori-kategori";
+$langChat = "Diskusi";
+$langCourseCreate = "Buat situs pelajaran";
+$langCourseManager = "Penanggung jawab pelajaran";
+$langDay_of_weekNames = "Array";
+$langDescriptionCours = "Deskripsi pelajaran";
+$langDocument = "Dokumen";
+$langEnter = "Kembali ke daftar pelajaran";
+$langForums = "Forum-forum";
+$langGroups = "inscription des utilisateurs dans les groupes";
+$langHelp = "Pertolongan";
+$langInvalidId = "Login gagal.<BR>Jika anda belum terdaftar, gunakan <a href=claroline/auth/inscription.php>formulir  pendaftaran</a></font color>";
+$langLogin = "login";
+$langLogout = "Logout";
+$langLostPassword = "Lupa Password";
+$langManager = "Pengelola";
+$langModifyProfile = "Ubah profil Ku";
+$langMonthNames = "Array";
+$langMyCourses = "Daftar Pelajaran Ku";
+$langNameOfLang = "Array";
+$langOtherCourses = "Daftar pelajaran";
+$langPassword = "password";
+$langPoweredBy = "Diperkuat oleh";
+$langStudent = "siswa";
+$langUserName = "Nama user";
+$langUsers = "Users";
+$langWork = "Tugad";
+?>

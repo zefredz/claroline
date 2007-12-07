@@ -1,6 +1,6 @@
 <?php // $Id$
 /**
- * CLAROLINE
+ * CLAROLINE 
  *
  * - For a Student -> View agenda Content
  * - For a Prof    -> - View agenda Content
@@ -8,52 +8,36 @@
  *         - Add entries
  *         - generate an "announce" entries about an entries
  *
- * @version 1.9 $Revision$
+ * @version 1.7 $Revision$
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  *
  * @package CLCAL
  *
  * @author Claro Team <cvs@claroline.net>
  */
 
-$tlabelReq = 'CLCAL';
-$gidReset=true;
+$tlabelReq = 'CLCAL___';
+
 require '../inc/claro_init_global.inc.php';
-$_user = claro_get_current_user_data();
-$_course = claro_get_current_course_data();
+require_once($clarolineRepositorySys . '/linker/linker.inc.php');
+require_once($includePath . '/lib/agenda.lib.php');
+require_once($includePath . '/lib/form.lib.php');
 
-//**//
-
-if (claro_is_in_a_group()) $currentContext = claro_get_current_context(array('course','group'));
-else                       $currentContext = claro_get_current_context('course');
-//**/
-
-require_once get_path('clarolineRepositorySys') . '/linker/linker.inc.php';
-require_once './lib/agenda.lib.php';
-require_once get_path('incRepositorySys') . '/lib/form.lib.php';
-
-require claro_get_conf_repository() . 'ical.conf.php';
-require claro_get_conf_repository() . 'rss.conf.php';
-
-$context = claro_get_current_context(CLARO_CONTEXT_COURSE);
 define('CONFVAL_LOG_CALENDAR_INSERT', FALSE);
 define('CONFVAL_LOG_CALENDAR_DELETE', FALSE);
 define('CONFVAL_LOG_CALENDAR_UPDATE', FALSE);
 
-if ( ! claro_is_in_a_course() || !claro_is_course_allowed() ) claro_disp_auth_form(true);
+if ( !$_cid || !$is_courseAllowed ) claro_disp_auth_form(true);
 
-$nameTools = get_lang('Agenda');
+$nameTools = $langAgenda;
 
 claro_set_display_mode_available(TRUE);
 
-$is_allowedToEdit = claro_is_course_manager();
+$is_allowedToEdit   = $is_courseAdmin;
 
-$cmdList[]=  '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '#today">'
-.    get_lang('Today')
-.    '</a>'
-;
 
 if ( $is_allowedToEdit )
 {
@@ -62,49 +46,36 @@ if ( $is_allowedToEdit )
         linker_init_session();
     }
 
-    if( claro_is_jpspan_enabled() )
+    if( $jpspanEnabled )
     {
         linker_set_local_crl( isset ($_REQUEST['id']) );
     }
 
-// 'rqAdd' ,'rqEdit', 'exAdd','exEdit', 'exDelete', 'exDeleteAll', 'mkShow', 'mkHide'
-
-
     if ( isset($_REQUEST['cmd'])
-    && ( 'rqAdd' == $_REQUEST['cmd'] || 'rqEdit' == $_REQUEST['cmd'] )
-    )
+         && ( $_REQUEST['cmd'] == 'rqAdd' || $_REQUEST['cmd'] == 'rqEdit' ) 
+       )
     {
         linker_html_head_xtra();
     }
 }
 
+
+//stats
+include($includePath . '/lib/events.lib.inc.php');
+event_access_tool($_tid, $_courseTool['label']);
+
+
 $tbl_c_names = claro_sql_get_course_tbl();
 $tbl_calendar_event = $tbl_c_names['calendar_event'];
 
-$cmd = ( isset($_REQUEST['cmd']) ) ?$_REQUEST['cmd']: null;
+if ( isset($_REQUEST['cmd']) ) $cmd = $_REQUEST['cmd'];
+else                           $cmd = null;
 
-$dialogBox = new DialogBox();
+$dialogBox = '';
 
-if     ( 'rqAdd' == $cmd ) $subTitle = get_lang('Add an event');
-elseif ( 'rqEdit' == $cmd ) $subTitle = get_lang('Edit Event');
+if     ( $cmd == 'rqAdd' ) $subTitle = $langAddEvent;
+elseif ( $cmd == 'rqEdit') $subTitle = $langEditEvent;
 else                       $subTitle = '&nbsp;';
-
-//-- order direction
-if( !empty($_REQUEST['order']) )
-    $orderDirection = strtoupper($_REQUEST['order']);
-elseif( !empty($_SESSION['orderDirection']) )
-    $orderDirection = strtoupper($_SESSION['orderDirection']);
-else
-    $orderDirection = 'ASC';
-
-$acceptedValues = array('DESC','ASC');
-
-if( ! in_array($orderDirection, $acceptedValues) )
-{
-    $orderDirection = 'ASC';
-}
-
-$_SESSION['orderDirection'] = $orderDirection;
 
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
@@ -128,20 +99,17 @@ if ( $is_allowedToEdit )
 
     $lasting = ( isset($_REQUEST['content']) ? trim($_REQUEST['lasting']) : '');
 
-    $autoExportRefresh = FALSE;
-    if ( 'exAdd' == $cmd )
+    $ex_rss_refresh = FALSE;
+    if ( $cmd == 'exAdd' )
     {
         $date_selection = $_REQUEST['fyear'] . '-' . $_REQUEST['fmonth'] . '-' . $_REQUEST['fday'];
         $hour           = $_REQUEST['fhour'] . ':' . $_REQUEST['fminute'] . ':00';
 
-        $entryId = agenda_add_item($title,$content, $date_selection, $hour, $lasting) ;
-        if ( $entryId != false )
+        $insert_id = agenda_add_item($title,$content, $date_selection, $hour, $lasting) ;
+        if ( $insert_id != false )
         {
-            $dialogBox->success( get_lang('Event added to the agenda') );
-
-            // update linker and get error log
-            $linkerUpdateLog = linker_update();
-            if( !empty($linkerUpdateLog) ) $dialogBox->info( $linkerUpdateLog );
+            $dialogBox .= '<p>' . $langEventAdded . '</p>' . "\n";
+            $dialogBox .= linker_update(); //return textual error msg
 
             if ( CONFVAL_LOG_CALENDAR_INSERT )
             {
@@ -150,13 +118,13 @@ if ( $is_allowedToEdit )
 
             // notify that a new agenda event has been posted
 
-            $eventNotifier->notifyCourseEvent('agenda_event_added', claro_get_current_course_id(), claro_get_current_tool_id(), $entryId, claro_get_current_group_id(), '0');
-            $autoExportRefresh = TRUE;
+            $eventNotifier->notifyCourseEvent('agenda_event_added', $_cid, $_tid, $insert_id, $_gid, '0');
+            $ex_rss_refresh = TRUE;
 
         }
         else
         {
-            $dialogBox->error( get_lang('Unable to add the event to the agenda') );
+            $dialogBox .= '<p>' . $langUnableToAdd . '</p>' . "\n";
         }
     }
 
@@ -165,7 +133,7 @@ if ( $is_allowedToEdit )
     --------------------------------------------------------------------------*/
 
 
-    if ( 'exEdit' == $cmd )
+    if ( $cmd == 'exEdit' )
     {
         $date_selection = $_REQUEST['fyear'] . '-' . $_REQUEST['fmonth'] . '-' . $_REQUEST['fday'];
         $hour           = $_REQUEST['fhour'] . ':' . $_REQUEST['fminute'] . ':00';
@@ -173,19 +141,15 @@ if ( $is_allowedToEdit )
         if ( !empty($id) )
         {
             if ( agenda_update_item($id,$title,$content,$date_selection,$hour,$lasting))
-            {
-                $dialogBox->success( get_lang('Event updated into the agenda') );
-
-				// update linker and get error log
-	            $linkerUpdateLog = linker_update();
-	            if( !empty($linkerUpdateLog) ) $dialogBox->info( $linkerUpdateLog );
-
-                $eventNotifier->notifyCourseEvent('agenda_event_modified', claro_get_current_course_id(), claro_get_current_tool_id(), $id, claro_get_current_group_id(), '0'); // notify changes to event manager
-                $autoExportRefresh = TRUE;
+{
+                $dialogBox .= linker_update(); //return textual error msg
+                $eventNotifier->notifyCourseEvent('agenda_event_modified', $_cid, $_tid, $id, $_gid, '0'); // notify changes to event manager
+                $ex_rss_refresh = TRUE;
+                $dialogBox .= '<p>' . $langEventUpdated . '</p>' . "\n";
             }
             else
             {
-                $dialogBox->error( get_lang('Unable to update the event into the agenda') );
+                $dialogBox .= '<p>' . $langUnableToUpdate . '</p>' . "\n";
             }
         }
     }
@@ -194,15 +158,15 @@ if ( $is_allowedToEdit )
     DELETE EVENT COMMAND
     --------------------------------------------------------------------------*/
 
-    if ( 'exDelete' == $cmd && !empty($id) )
+    if ( $cmd == 'exDelete' && !empty($id) )
     {
 
         if ( agenda_delete_item($id) )
         {
-            $dialogBox->success( get_lang('Event deleted from the agenda') );
-
-            $eventNotifier->notifyCourseEvent('agenda_event_deleted', claro_get_current_course_id(), claro_get_current_tool_id(), $id, claro_get_current_group_id(), '0'); // notify changes to event manager
-            $autoExportRefresh = TRUE;
+            $dialogBox .= '<p>' . $langEventDeleted . '</p>' . "\n";
+            
+            $eventNotifier->notifyCourseEvent('agenda_event_deleted', $_cid, $_tid, $id, $_gid, '0'); // notify changes to event manager
+            $ex_rss_refresh = TRUE;
             if ( CONFVAL_LOG_CALENDAR_DELETE )
             {
                 event_default('CALENDAR',array ('DELETE_ENTRY' => $id));
@@ -210,7 +174,7 @@ if ( $is_allowedToEdit )
         }
         else
         {
-            $dialogBox->error( get_lang('Unable to delete event from the agenda') );
+            $dialogBox = '<p>' . $langUnableToDelete . '</p>' . "\n";
         }
 
         linker_delete_resource();
@@ -220,11 +184,11 @@ if ( $is_allowedToEdit )
     DELETE ALL EVENTS COMMAND
     ----------------------------------------------------------------------------*/
 
-    if ( 'exDeleteAll' == $cmd )
+    if ( $cmd == 'exDeleteAll' )
     {
         if ( agenda_delete_all_items())
         {
-            $dialogBox->success( get_lang('All events deleted from the agenda') );
+            $dialogBox .= '<p>' . $langEventDeleted . '</p>' . "\n";
 
             if ( CONFVAL_LOG_CALENDAR_DELETE )
             {
@@ -233,47 +197,53 @@ if ( $is_allowedToEdit )
         }
         else
         {
-            $dialogBox->error( get_lang('Unable to delete all events from the agenda') );
+            $dialogBox = '<p>' . $langUnableToDelete . '</p>' . "\n";
         }
-
+        
         linker_delete_all_tool_resources();
     }
     /*-------------------------------------------------------------------------
     EDIT EVENT VISIBILITY
     ---------------------------------------------------------------------------*/
 
-    if ( 'mkShow' == $cmd  || 'mkHide' == $cmd )
+
+    if ($cmd == 'mkShow' || $cmd == 'mkHide')
     {
-        if ($cmd == 'mkShow')
+        if ($cmd == 'mkShow')  
         {
             $visibility = 'SHOW';
-            $eventNotifier->notifyCourseEvent('agenda_event_visible', claro_get_current_course_id(), claro_get_current_tool_id(), $id, claro_get_current_group_id(), '0'); // notify changes to event manager
-            $autoExportRefresh = TRUE;
+            $eventNotifier->notifyCourseEvent('agenda_event_visible', $_cid, $_tid, $id, $_gid, '0'); // notify changes to event manager
+            $ex_rss_refresh = TRUE;
         }
-
-        if ($cmd == 'mkHide')
+        
+        if ($cmd == 'mkHide')  
         {
             $visibility = 'HIDE';
-            $eventNotifier->notifyCourseEvent('agenda_event_invisible', claro_get_current_course_id(), claro_get_current_tool_id(), $id, claro_get_current_group_id(), '0'); // notify changes to event manager
-            $autoExportRefresh = TRUE;
+            $eventNotifier->notifyCourseEvent('agenda_event_invisible', $_cid, $_tid, $id, $_gid, '0'); // notify changes to event manager
+            $ex_rss_refresh = TRUE;
         }
 
-        agenda_set_item_visibility($id, $visibility);
+        if ( agenda_set_item_visibility($id, $visibility)  )
+        {
+            $dialogBox = $langViMod;
+        }
+//        else
+//        {
+//            //error on delete
+//        }
     }
 
     /*------------------------------------------------------------------------
     EVENT EDIT
     --------------------------------------------------------------------------*/
 
-    if ( 'rqEdit' == $cmd  || 'rqAdd' == $cmd  )
+    if ( $cmd == 'rqEdit' || $cmd == 'rqAdd' )
     {
-        claro_set_display_mode_available(false);
-
-        if ( 'rqEdit' == $cmd  && !empty($id) )
+    	claro_set_display_mode_available(false);
+        
+        if ( $cmd == 'rqEdit' && !empty($id) )
         {
             $editedEvent = agenda_get_item($id) ;
-            // get date as unixtimestamp for claro_dis_date_form and claro_html_time_form
-            $editedEvent['date'] = strtotime($editedEvent['dayAncient'].' '.$editedEvent['hourAncient']);
             $nextCommand = 'exEdit';
         }
         else
@@ -281,243 +251,258 @@ if ( $is_allowedToEdit )
             $editedEvent['id'            ] = '';
             $editedEvent['title'         ] = '';
             $editedEvent['content'       ] = '';
-            $editedEvent['date'] = time();
+            $editedEvent['dayAncient'    ] = FALSE;
+            $editedEvent['hourAncient'   ] = FALSE;
             $editedEvent['lastingAncient'] = FALSE;
 
             $nextCommand = 'exAdd';
+
         }
-        $display_form =TRUE;
+        $display_form =TRUE; 
     } // end if cmd == 'rqEdit' && cmd == 'rqAdd'
 
 
-    if ('rqEdit' != $cmd  && 'rqAdd' != $cmd ) // display main commands only if we're not in the event form
+    if ($cmd != 'rqEdit' && $cmd != 'rqAdd') // display main commands only if we're not in the event form
     {
         $display_command = TRUE;
     } // end if diplayMainCommands
-
-    if ( $autoExportRefresh)
+    
+    // rss update
+    if ($ex_rss_refresh && file_exists('./agenda.rssgen.inc.php'))
     {
-        // rss update
-        if ( get_conf('enableRssInCourse',1))
-        {
-
-            require_once get_path('incRepositorySys') . '/lib/rss.write.lib.php';
-            build_rss( array(CLARO_CONTEXT_COURSE => claro_get_current_course_id()));
-        }
-
-        // ical update
-        if (get_conf('enableICalInCourse',1) )
-        {
-            require_once get_path('incRepositorySys') . '/lib/ical.write.lib.php';
-            buildICal( array(CLARO_CONTEXT_COURSE => claro_get_current_course_id()));
-        }
+        include('./agenda.rssgen.inc.php');
     }
 
 } // end id is_allowed to edit
 
 /**
  *     DISPLAY SECTION
- *
+ *                    
  */
 
 $noQUERY_STRING = true;
 
-$eventList = agenda_get_item_list($currentContext,$orderDirection);
-
-/**
- * Add event button
- */
-
-$cmdList[]=  '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd">'
-.            '<img src="' . get_conf('imgRepositoryWeb') . 'agenda.gif" alt="" />'
-.            get_lang('Add an event')
-.            '</a>'
-;
-
-/*
-* remove all event button
-*/
-if ( count($eventList) > 0 )
-{
-    $cmdList[]=  '<a class= "claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll" '
-    .    ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('Clear up event list ?')) . '\')) return false;">'
-    .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="" />'
-                                   . get_lang('Clear up event list')
-    .    '</a>'
-    ;
-}
-else
-{
-    $cmdList[]=  '<span class="claroCmdDisabled" >'
-    .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="" />'
-    .    get_lang('Clear up event list')
-    .    '</span>'
-    ;
-}
-
+// Add feed RSS in header
+$htmlHeadXtra[] = '<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars($_course['name'] . ' - ' . $siteName) . '"'
+        .' href="' . $rootWeb . 'claroline/rss/?cidReq=' . $_cid . '" />';
 
 // Display header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include($includePath . '/claro_init_header.inc.php');
 
-echo claro_html_tool_title(array('mainTitle' => $nameTools, 'subTitle' => $subTitle));
+echo claro_disp_tool_title(array('mainTitle' => $nameTools, 'subTitle' => $subTitle));
 
-echo $dialogBox->render();
+if ( !empty($dialogBox) ) echo claro_disp_message_box($dialogBox);
 
 
 if ($display_form)
 {
-    echo '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">'
-    .    claro_form_relay_context()
-    .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'
-    .    '<input type="hidden" name="cmd" value="' . $nextCommand . '" />'
-    .    '<input type="hidden" name="id"  value="' . $editedEvent['id'] . '" />'
-    .    '<table>' . "\n"
-    .    '<tr valign="top">' . "\n"
-    .    '<td align="right">' . get_lang('Date') . ' : '
-    .    '</td>' . "\n"
-    .    '<td>'
-    .    claro_html_date_form('fday', 'fmonth', 'fyear', $editedEvent['date'], 'long' ) . ' '
-    .    claro_html_time_form('fhour','fminute', $editedEvent['date']) . '&nbsp;'
-    .    '<small>' . get_lang('(d/m/y hh:mm)') . '</small>'
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr>' . "\n"
-    .    '<td align="right">'
-    .    '<label for="lasting">' . get_lang('Lasting') . '</label> : '
-    .    '</td>' . "\n"
-    .    '<td>'
-    .    '<input type="text" name="lasting" id="lasting" size="20" maxlength="20" value="' . htmlspecialchars($editedEvent['lastingAncient']) . '" />'
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr valign="top">' . "\n"
-    .    '<td align="right">' . "\n"
-    .    '<label for="title">' . "\n"
-    .    get_lang('Title') . "\n"
-    .    ' : </label>' . "\n"
-    .    '</td>' . "\n"
-    .    '<td>' . "\n"
-    .    '<input size="80" type="text" name="title" id="title" value="'
-    .    htmlspecialchars($editedEvent['title']). '" />' . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr valign="top">' . "\n"
-    .    '<td align="right">' . "\n"
-    .    '<label for="content">' . "\n"
-    .    get_lang('Detail')
-    .    ' : ' . "\n"
-    .    '</label>' . "\n"
-    .    '</td>' . "\n"
-    .    '<td>' . "\n"
-    .    claro_html_textarea_editor('content', $editedEvent['content'], 12, 67 ) . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr valign="top">' . "\n"
-    .    '<td>&nbsp;</td>' . "\n"
-    .    '<td>' . "\n"
-    ;
+?>
+<form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+<input type="hidden" name="claroFormId" value="<?php echo uniqid(''); ?>">
+<input type="hidden" name="cmd" value="<?php echo $nextCommand       ?>"> 
+<input type="hidden" name="id"  value="<?php echo $editedEvent['id'] ?>">
 
+<table>
 
-    //---------------------
-    // linker
+<?php 
 
-    if( claro_is_jpspan_enabled() )
-    {
-        linker_set_local_crl( isset ($_REQUEST['id']) );
-        echo linker_set_display();
-    }
-    else // popup mode
-    {
-        if(isset($_REQUEST['id'])) echo linker_set_display($_REQUEST['id']);
-        else                       echo linker_set_display();
-    }
+$date = date('Y-m-d', mktime( 0,0,0,date('m'), date('d'), date('Y') ) );
+$time = date('H:i:00', mktime( date('H'),date('i'),0) );
 
-    echo '</td></tr>' . "\n"
-    .    '<tr valign="top"><td>&nbsp;</td><td>' . "\n"
-    ;
-
-    if( claro_is_jpspan_enabled() )
-    {
-        echo '<input type="submit" onclick="linker_confirm();"  class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />' . "\n";
-    }
-    else // popup mode
-    {
-        echo '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />' . "\n";
-    }
-
-    // linker
-    //---------------------
-    echo claro_html_button($_SERVER['PHP_SELF'], 'Cancel') . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '</table>' . "\n"
-    .    '</form>' . "\n"
-    ;
+if ($editedEvent['hourAncient'])
+{
+    $time = $editedEvent['hourAncient'];
 }
 
-if ( $display_command ) echo '<p>' . claro_html_menu_horizontal($cmdList) . '</p>';
+if ($editedEvent['dayAncient'])
+{
+    $date = $editedEvent['dayAncient'];
+}
+
+$title   = $editedEvent['title'];
+$content = $editedEvent['content'];
+
+?>
+<tr>
+
+<td>&nbsp;</td>
+
+<td>
+
+<?
+
+
+echo '<tr valign="top">' . "\n"
+    . '<td align="right">' . $langDate . ' : </td>' . "\n"
+    . '<td>' . claro_disp_date_form('fday', 'fmonth', 'fyear', $date, 'long' ) . ' '
+    . claro_disp_time_form('fhour','fminute', $time) 
+    . '&nbsp;<small>' . $langChooseDateHelper . '</small>'
+    . '</td>' . "\n"
+    . '</tr>' . "\n";
+
+echo '<tr>' . "\n"
+    . '<td align="right"><label for="lasting">' . $langLasting . '</label> : </td>' . "\n"
+    . '<td><input type="text" name="lasting" id="lasting" size="20" maxlength="20" value="' . htmlspecialchars($editedEvent['lastingAncient']) . '" ></td>' . "\n"
+    . '</tr>' . "\n";
+
+?>
+
+<tr valign="top">
+<td align="right"><label for="title"><?php echo $langTitle ?> : </label></td>
+<td> <input size="80" type="text" name="title" id="title" value="<?php  echo isset($title) ? htmlspecialchars($title) : '' ?>"></td>
+</tr>
+
+<tr valign="top"> 
+<td align="right">
+<label for="content"><?php echo $langDetail ?> : </label>
+</td>
+<td> 
+<?php echo claro_disp_html_area('content', htmlspecialchars($content), 12, 67, $optAttrib = ' wrap="virtual" '); ?>
+<br />
+</td></tr>
+<tr valign="top">
+<td>&nbsp;</td>
+<td>
+
+<?php 
+//---------------------
+// linker
+
+if( $jpspanEnabled )
+{
+    linker_set_local_crl( isset ($_REQUEST['id']) );
+    linker_set_display();
+}
+else // popup mode
+{
+    if(isset($_REQUEST['id'])) linker_set_display($_REQUEST['id']);
+    else                       linker_set_display();
+}
+
+echo '</td></tr>' . "\n"
+.    '<tr valign="top"><td>&nbsp;</td><td>' . "\n";
+
+if( $jpspanEnabled )
+{
+    echo '<input type="submit" onClick="linker_confirm();"  class="claroButton" name="submitEvent" value="' . $langOk . '">' . "\n";
+}
+else // popup mode
+{
+    echo '<input type="submit" class="claroButton" name="submitEvent" value="' . $langOk . '">' . "\n";
+}
+
+// linker
+//---------------------
+echo claro_disp_button($_SERVER['PHP_SELF'], 'Cancel');
+
+?>
+</td>
+
+</tr>
+
+</table>
+
+</form>
+<?php
+}
+
+if( isset($_REQUEST['order']) && $_REQUEST['order'] == 'desc' )
+{
+    $orderDirection = 'DESC';
+}
+else
+{
+    $orderDirection = 'ASC';
+}
+
+$eventList = agenda_get_item_list($orderDirection);
+
+if ($display_command)
+{
+        echo "\n\n" . '<p>'
+
+        /*
+        * Add event button
+        */
+
+        .    '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=rqAdd">'
+        .    '<img src="'.$imgRepositoryWeb.'agenda.gif" alt="">'
+        .    $langAddEvent
+        .    '</a>'
+        .    ' | ';
+
+        /*
+        * remove all event button
+        */
+        if ( count($eventList) > 0 )
+        {
+	        echo '<a class= "claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=exDeleteAll" '
+	        .    ' onclick="if (confirm(\''.clean_str_for_javascript($langClearList).' ? \')){return true;}else{return false;}">'
+	        .    '<img src="'.$imgRepositoryWeb.'delete.gif" alt="">'
+	        .    $langClearList
+	        .    '</a>'
+	        ;
+		}
+		else
+		{
+	        echo '<span class="claroCmdDisabled" >'
+	        .    '<img src="'.$imgRepositoryWeb.'delete.gif" alt="">'
+	        .    $langClearList
+	        .    '</span>'
+	        ;
+		}
+		echo '</p>' . "\n";
+
+}
 
 $monthBar     = '';
 
 if ( count($eventList) < 1 )
 {
-    echo "\n" . '<br /><blockquote>' . get_lang('No event in the agenda') . '</blockquote>' . "\n";
+    echo "\n" . '<br /><blockquote>' . $langNoEventInTheAgenda . '</blockquote>' . "\n";
 }
 else
 {
     if ( $orderDirection == 'DESC' )
     {
-        echo '<br /><a href="' . $_SERVER['PHP_SELF'] . '?order=asc" >' . get_lang('Oldest first') . '</a>' . "\n";
+        echo '<a href="' . $_SERVER['PHP_SELF'] . '?order=asc" >' . $langOldToNew . '</a>' . "\n";
     }
     else
     {
-        echo '<br /><a href="' . $_SERVER['PHP_SELF'] . '?order=desc" >' . get_lang('Newest first') . '</a>' . "\n";
+        echo '<a href="' . $_SERVER['PHP_SELF'] . '?order=desc" >' . $langNewToOld . '</a>' . "\n";
     }
 
-    echo "\n" . '<table class="claroTable" width="100%">' . "\n";
+	echo "\n" . '<table class="claroTable" width="100%">' . "\n";
 }
 
 $nowBarAlreadyShowed = FALSE;
 
-if (claro_is_user_authenticated()) $date = $claro_notifier->get_notification_date(claro_get_current_user_id());
+if (isset($_uid)) $date = $claro_notifier->get_notification_date($_uid);
 
 foreach ( $eventList as $thisEvent )
 {
 
-    if (('HIDE' == $thisEvent['visibility'] && $is_allowedToEdit) || 'SHOW' == $thisEvent['visibility'])
+    if (($thisEvent['visibility']=='HIDE' && $is_allowedToEdit) || $thisEvent['visibility']=='SHOW')
     {
-        //modify style if the event is recently added since last login
-        if (claro_is_user_authenticated() && $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $thisEvent['id']))
-        {
-            $cssItem = 'item hot';
-        }
-        else
-        {
-            $cssItem = 'item';
-        }
-
-        $cssInvisible = '';
-        if ($thisEvent['visibility'] == 'HIDE')
-        {
-            $cssInvisible = ' invisible';
-        }
+        $style = $thisEvent['visibility']=='HIDE' ?'invisible' : $style='';
 
         // TREAT "NOW" BAR CASE
         if ( ! $nowBarAlreadyShowed )
-        if (( ( strtotime($thisEvent['day'] . ' ' . $thisEvent['hour'] ) > time() ) &&  'ASC' == $orderDirection )
+        if (( ( strtotime($thisEvent['day'] . ' ' . $thisEvent['hour'] ) > time() ) && $orderDirection == 'ASC'  )
         ||
-        ( ( strtotime($thisEvent['day'] . ' ' . $thisEvent['hour'] ) < time() ) &&  'DESC' == $orderDirection )
+        ( ( strtotime($thisEvent['day'] . ' ' . $thisEvent['hour'] ) < time() ) && $orderDirection == 'DESC' )
         )
         {
             if ($monthBar != date('m',time()))
             {
                 $monthBar = date('m',time());
 
-                echo '<tr>' . "\n"
+                echo '<tr>'."\n"
                 .    '<th class="superHeader" colspan="2" valign="top">' . "\n"
-                .    ucfirst(claro_html_localised_date('%B %Y', time()))
+                .    ucfirst(claro_disp_localised_date('%B %Y', time()))
                 .    '</th>' . "\n"
                 .    '</tr>' . "\n"
-                ;
+                ; 
             }
 
 
@@ -525,22 +510,19 @@ foreach ( $eventList as $thisEvent )
 
             echo '<tr>' . "\n"
             .    '<td>' . "\n"
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'pixel.gif" width="20" alt=" " />'
+            .    '<img src="' . $imgRepositoryWeb . 'pixel.gif" width="20" alt=" ">'
             .    '<span class="highlight">'
-            .    '<a name="today">'
             .    '<i>'
-            .    ucfirst(claro_html_localised_date( get_locale('dateFormatLong'))) . ' '
-            .    ucfirst(strftime( get_locale('timeNoSecFormat')))
-            .    ' -- '
-            .    get_lang('Now')
+            .    ucfirst(claro_disp_localised_date( $dateFormatLong)) . ' '
+            .    ucfirst(strftime( $timeNoSecFormat))
+            .    ' -- ' . $langNow
             .    '</i>'
-            .    '</a>'
             .    '</span>' . "\n"
             .    '</td>' . "\n"
             .    '</tr>' . "\n"
             ;
 
-            $nowBarAlreadyShowed = true;
+            $nowBarAlreadyShowed = TRUE;
         }
 
         /*
@@ -553,8 +535,8 @@ foreach ( $eventList as $thisEvent )
             $monthBar = date('m', strtotime($thisEvent['day']));
 
             echo '<tr>' . "\n"
-            .    '<th class="superHeader" valign="top">'
-            .    ucfirst(claro_html_localised_date('%B %Y', strtotime( $thisEvent['day']) ))
+            .    '<th class="superHeader" valign="top">' . "\n"
+            .    ucfirst(claro_disp_localised_date('%B %Y', strtotime( $thisEvent['day']) ))
             .    '</th>' . "\n"
             .    '</tr>' . "\n"
             ;
@@ -563,16 +545,26 @@ foreach ( $eventList as $thisEvent )
         /*
         * Display the event date
         */
+        
+        //modify style if the event is recently added since last login
 
+        if (isset($_uid) && $claro_notifier->is_a_notified_ressource($_cid, $date, $_uid, $_gid, $_tid, $thisEvent['id']))
+        {
+            $classItem=' hot';
+        }
+        else // otherwise just display its name normally
+        {
+            $classItem='';
+        }
+        
+        
         echo '<tr class="headerX" valign="top">' . "\n"
-        .    '<th>' . "\n"
-        .    '<span class="'. $cssItem . $cssInvisible .'">' . "\n"
+        .    '<th class="item'.$classItem.'">' . "\n"
         .    '<a href="#form" name="event' . $thisEvent['id'] . '"></a>' . "\n"
-        .    '<img src="' . get_path('imgRepositoryWeb') . 'agenda.gif" alt=" " />&nbsp;'
-        .    ucfirst(claro_html_localised_date( get_locale('dateFormatLong'), strtotime($thisEvent['day']))) . ' '
-        .    ucfirst( strftime( get_locale('timeNoSecFormat'), strtotime($thisEvent['hour']))) . ' '
-        .    ( empty($thisEvent['lasting']) ? '' : get_lang('Lasting') . ' : ' . $thisEvent['lasting'] )
-        .    '</span>';
+        .    '<img src="' . $imgRepositoryWeb . 'agenda.gif" alt=" ">'
+        .    ucfirst(claro_disp_localised_date( $dateFormatLong, strtotime($thisEvent['day']))).' '
+        .    ucfirst( strftime( $timeNoSecFormat, strtotime($thisEvent['hour']))).' '
+        .    ( empty($thisEvent['lasting']) ? '' : $langLasting.' : '.$thisEvent['lasting'] );
 
         /*
         * Display the event content
@@ -582,49 +574,49 @@ foreach ( $eventList as $thisEvent )
         .    '</tr>' . "\n"
         .    '<tr>' . "\n"
         .    '<td>' . "\n"
-        .    '<div class="content ' . $cssInvisible . '">' . "\n"
+        .    '<div class="content ' . $style . '">' . "\n"
         .    ( empty($thisEvent['title']  ) ? '' : '<p><strong>' . htmlspecialchars($thisEvent['title']) . '</strong></p>' . "\n" )
         .    ( empty($thisEvent['content']) ? '' :  claro_parse_user_text($thisEvent['content']) )
         .    '</div>' . "\n"
         ;
-
-        echo linker_display_resource();
+        linker_display_resource();
     }
-
     if ($is_allowedToEdit)
+
     {
         echo '<a href="' . $_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;id=' . $thisEvent['id'] . '">'
-        .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="' . get_lang('Modify') . '" />'
+        .    '<img src="' . $imgRepositoryWeb.'edit.gif" border="O" alt="' . $langModify . '">'
         .    '</a> '
         .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;id=' . $thisEvent['id'] . '" '
-        .    ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('Are you sure to delete "%title" ?', array('%title' => $thisEvent['title']))) . '\')) return false;">'
-        .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />'
+        .    'onclick="javascript:if(!confirm(\''
+        .    clean_str_for_javascript($langDelete . ' ' . $thisEvent['title'].' ?')
+        .    '\')) {document.location=\'' . $_SERVER['PHP_SELF'] . '\'; return false}" >'
+        .    '<img src="' . $imgRepositoryWeb . 'delete.gif" border="0" alt="' . $langDelete . '">'
         .    '</a>'
         ;
 
         //  Visibility
-        if ('SHOW' == $thisEvent['visibility'])
+        if ($thisEvent['visibility']=='SHOW')
         {
             echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkHide&amp;id=' . $thisEvent['id'] . '">'
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'visible.gif" alt="' . get_lang('Invisible') . '" />'
+            .    '<img src="' . $imgRepositoryWeb . 'visible.gif" alt="' . $langInvisible . '">'
             .    '</a>' . "\n";
         }
         else
         {
             echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkShow&amp;id=' . $thisEvent['id'] . '">'
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'invisible.gif" alt="' . get_lang('Visible') . '" />'
-            .    '</a>' . "\n"
-            ;
+            .    '<img src="' . $imgRepositoryWeb . 'invisible.gif" alt="' . $langVisible . '">'
+            .    '</a>' . "\n";
         }
     }
     echo '</td>'."\n"
-    .    '</tr>'."\n"
+    . '</tr>'."\n"
     ;
 
 }   // end while
 
 if ( count($eventList) > 0 ) echo '</table>';
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include( $includePath . '/claro_init_footer.inc.php' );
 
 ?>

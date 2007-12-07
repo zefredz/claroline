@@ -1,0 +1,85 @@
+<?php
+$langAction = "Funkcja";
+$langAddress = "Adres ";
+$langAgenda = "Terminarz";
+$langAnnouncement = "Og³oszenia";
+$langCancel = "Zrezygnuj";
+$langCategories = "Kategorie/Wydzia³y";
+$langChat = "Chat-room";
+$langComment = "Komentarze";
+$langConfirmation = "Potwierdzenie";
+$langCopy = "Kopiuj";
+$langCourse = "Strona WWW ";
+$langCourseManager = "Administrator";
+$langCreate = "Utwórz";
+$langDay_of_weekNames = "Array";
+$langDear = "";
+$langDescriptionCours = "Opis kursu";
+$langDocument = "Dokumenty";
+$langEmail = "Email";
+$langEmailNotSent = "Co¶ nie dzia³a - wy¶lij mail do ";
+$langEmailWrong = "Adres e-mail jest niekompletny lub zawiera niedozwolone znaki";
+$langEmptyFields = "Zostawi³e¶ puste pola. U¿yj przycisku Wstecz w przegl±darce i spróbuj jeszcze raz.";
+$langFirstname = "Imiê";
+$langFormula = "Z powa¿aniem";
+$langForums = "Forum";
+$langGroupTutor = "Prowadz±cy";
+$langGroups = "inscription des utilisateurs dans les groupes";
+$langHelp = "Pomoc";
+$langHome = "Powrót do strony g³ównej";
+$langIs = "jest";
+$langLastname = "Nazwisko";
+$langLink = "Odno¶niki";
+$langLogin = "Logowanie";
+$langLoginRequest = "Wymagana nazwa u¿ytkownika";
+$langLogout = "Wylogowanie";
+$langLostPassword = "Odzyskiwanie has³a";
+$langManager = "Administrator";
+$langMessageSubscribeDone_p_firstname_lastname = "
+Dear %s, %s. 
+Twoje osobiste ustawienia zosta³y zarejestrowane a 
+Nazwa u¿ytkownika i has³o wys³ane do Ciebie przez e-mail.<br>
+Wybierz z listy kursy, do których chcesz mieæ dostêp.";
+$langModifyProfile = "Modyfikuj Mój profil";
+$langMonthNames = "Array";
+$langMyCourses = "Lista moich kursów";
+$langMyStats = "Zobacz statystykê";
+$langNameOfLang = "Array";
+$langNext = "Dalej";
+$langNo = "Nie";
+$langNowGoChooseYourCourses = "Teraz mo¿esz wybieraæ z listy, kursy do których chcesz mieæ dostêp.";
+$langNowGoCreateYourCourse = "Teraz mo¿esz tworzyæ swoje kursy";
+$langOk = "Ok";
+$langOneResp = "Jeden z administratorów kursu";
+$langOtherCourses = "Lista kursów";
+$langPassTooEasy = "to has³o jest zbyt proste. Spróbuj czegoœ podobnego do ";
+$langPassTwice = "Wpisa³e¶ dwa ró¿ne has³a. U¿yj przycisku Wstecz w przegl±darce i spróbuj jeszcze raz.";
+$langPoweredBy = "Powered by";
+$langProblem = "W przypadku wyst±pienia trudno¶ci, skontaktuj siê z nami.";
+$langProfileReg = "Twój nowy profil zosta³ zapisany";
+$langReg = "Rejestracja";
+$langRegAdmin = "Tworzenie kursu";
+$langRegStudent = "Uczestnictwo w kursie";
+$langRegYou = "zarejestrowa³ Ciê do tego kursu";
+$langSettings = "z nastêpuj±cymi ustawieniami: 
+Username:";
+$langStudent = "student";
+$langTo = "do";
+$langUser = "U¿ytkownicy";
+$langUserName = "Nazwa u¿ytkownika";
+$langUserTaken = "Ta Nazwa u¿ytkownika jest ju¿ u¿ywana";
+$langUsers = "U¿ytkownicy";
+$langWork = "Works";
+$langYes = "Tak";
+$langYouAreReg = "Jeste¶ zarejestrowany jako";
+$langYourAccountParam = "To jest Twoja nazwa u¿ytkownika i has³o";
+$langYourReg = "Twoja rejestracja";
+$lang_already_enrolled = "ju¿ zapisany";
+$lang_back_to_my_personnal_course_list = "Powrót do listy Moje kursy";
+$lang_course_enrollment = "Zapisy do kursów";
+$lang_enroll = "Zapisz";
+$lang_my_personnal_course_list = "Lista moich kursów";
+$lang_select_course_in = "Szukaj kursu w ";
+$lang_select_course_in_search_results = "Wska¿ kurs na li¶cie rezultatów";
+$lang_unsubscribe = "Wypisz";
+?>

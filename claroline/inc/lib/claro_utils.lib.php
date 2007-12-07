@@ -1,9 +1,8 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -12,7 +11,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 // Authors: see 'credits' file
 //----------------------------------------------------------------------
 
-    /**
+	/**
     * cut string allowing word integrity preservation
     *
     * TODO : move to a more accurate library
@@ -23,13 +22,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     * @param  length (int) length of the resulting string
     * @param  allow_cut_word (boolean) allow word cutting default : TRUE
     * @param  extra_length (int) allow extra length to the string to
-    *        preserve word integrity
+    *		preserve word integrity
     * @param  ending (string) append the given string at the end of the
-    *        cutted one
+	*		cutted one
     * @return (string) the cutted string
     */
-    function cutstring( $str, $length, $allow_cut_word = TRUE,
-        $extra_length = 0, $ending = "" )
+    function cutstring( $str, $length, $allow_cut_word = TRUE, 
+		$extra_length = 0, $ending = "" )
     {
         if( $allow_cut_word )
         {
@@ -38,9 +37,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         else
         {
             $words = preg_split( "~\s~", $str );
-
+            
             $ret = "";
-
+            
             foreach( $words as $word )
             {
                 if( strlen( $ret . $word ) + 1 <= $length + $extra_length )
@@ -53,29 +52,29 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                     break;
                 }
             }
-
+            
             return $ret;
         }
     }
-
+    
     /**
     * list the property of a course
     *
-    * @return $array a array
+    * @return $array a array  
     */
     function stripstresses( $str )
     {
-        $str = strtolower( $str );
+    	$str = strtolower( $str );
         $ret = "";
         for( $i = 0; $i < strlen( $str ); $i++ )
         {
-            $chr = substr( $str, $i, 1 );
+        	$chr = substr( $str, $i, 1 );
             $val = ord( $chr );
             if ( $val >= 224 )
             {
                 if ( $val >= 224 && $val <= 229 )
                 {
-                    $chr = 'a';
+                	$chr = 'a';
                 }
                 if ( $val == 231 )
                 {
@@ -106,9 +105,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                     $chr = 'y';
                 }
             };
-
+              
             $ret .= $chr;
         }
         return( $ret );
-    }
+	}
 ?>

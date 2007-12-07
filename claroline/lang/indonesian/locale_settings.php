@@ -4,9 +4,9 @@
  *
  * indonesian translation
  *
- * @version 1.8 $Revision$
+ * @version 1.7 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  *
@@ -57,10 +57,10 @@ $langMonthNames['init']  = array('J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O
 $langMonthNames['short'] = array('Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des');
 $langMonthNames['long'] = array('Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember');
 
-// see http://www.php.net/manual/en/function.strftime.php to edit $date* variables
+// Voir http://www.php.net/manual/en/function.strftime.php pour la variable
 // ci-dessous
 
-$dateFormatShort =  '%b %d, %y';
+$dateFormatShort =  "%b %d, %y";
 $dateFormatLong  = '%A, %d %B %Y';
 $dateTimeFormatLong  = '%d %B, %Y pada %I:%M %p';
 $timeNoSecFormat = '%I:%M %p';

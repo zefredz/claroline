@@ -1,13 +1,12 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
- *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @version 1.7 $Revision$
+ * 
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
+ * 
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  *
  * @see http://www.claroline.net/wiki/CLCRS/
  *
@@ -28,16 +27,16 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 function delete_directory($dir)
 {
     $deleteOk = true;
-
+    
     $current_dir = opendir($dir);
 
       while($entryname = readdir($current_dir))
       {
-         if(is_dir("$dir/$entryname") && ($entryname != "." && $entryname != '..'))
+         if(is_dir("$dir/$entryname") && ($entryname != "." && $entryname!=".."))
          {
                delete_directory("${dir}/${entryname}");
          }
-        elseif($entryname != '.' && $entryname != '..')
+        elseif($entryname != "." && $entryname!="..")
         {
                unlink("${dir}/${entryname}");
          }
@@ -48,11 +47,44 @@ function delete_directory($dir)
       return $deleteOk;
 }
 
+
+/**
+  * Create the command to create a temporary table
+  *
+  * @param string $tbl    the table who exist
+  * @param string $name   the name of the temporary table
+  *
+  * @return nothing
+  *
+  */
+function command_create_temporary_table($tbl, $name )
+{
+    $sql="describe `$tbl`";
+    $res=claro_sql_query_fetch_all($sql);
+
+    global $mainDbName;
+    $com="CREATE TEMPORARY TABLE `" . $mainDbName . "`.`" . $name . "` (";
+    foreach($res as $one_res)
+    {
+        $com.=$one_res['Field'] . ' ' . $one_res['Type'] . ' ';
+        if(strcmp($one_res["Null"],"YES"))
+            $com.="NOT NULL ";
+
+        if(!strcmp($one_res["Null"],"YES") || $one_res["Default"]!=NULL)
+            $com.="default ".($one_res['Default'] == NULL ? "NULL" : "'".$one_res['Default'] . "'");
+
+        $com.=", ";
+    }
+    $com=substr($com,0,strlen($phrase)-2);
+    $com.=");";
+
+    return $com;
+}
+
 /**
   * Create a command to create a selectBox with the language
   * @param string $selected the language selected
   * @return the command to create the selectBox
-  * @todo merge this with  claro_disp_select_box
   */
 
 function create_select_box_language($selected=NULL)
@@ -71,7 +103,7 @@ function create_select_box_language($selected=NULL)
         if (!empty($langNameOfLang[$entries]) && $langNameOfLang[$entries] != '' && $langNameOfLang[$entries] != $entries)
             $selectBox .= ' - ' . $langNameOfLang[$entries];
 
-        $selectBox .= '</option>' . "\n";
+        $selectBox.="</option>\n";
     }
 
     return $selectBox;
@@ -83,7 +115,8 @@ function create_select_box_language($selected=NULL)
   */
 function language_exists()
 {
-    $dirname = get_path('clarolineRepositorySys') . 'lang/';
+    global $clarolineRepositorySys;
+    $dirname = $clarolineRepositorySys.'lang/';
 
     if($dirname[strlen($dirname)-1]!='/')
         $dirname.='/';
@@ -101,7 +134,7 @@ function language_exists()
         //else it is a repertory of a language
         if (is_dir($dirname.$entries))
         {
-            $arrayLanguage[] = $entries;
+            $arrayLanguage[]=$entries;
         }
     }
     closedir($handle);
@@ -113,9 +146,9 @@ function language_exists()
  * build the <option> element with categories where we can create/have courses
  *
  * @param the code of the preselected categorie
- * @param the separator used between a cat and its paretn cat to display in the <select>
- * @return echo all the <option> elements needed for a <select>.
- *
+ * @param the separator used between a cat and its paretn cat to display in the <select> 
+ * @return echo all the <option> elements needed for a <select>. 
+ * 
  */
 
 function build_editable_cat_table($selectedCat = null, $separator = "&gt;")
@@ -124,28 +157,28 @@ function build_editable_cat_table($selectedCat = null, $separator = "&gt;")
     $tbl_category        = $tbl_mdb_names['category'];
 
     $sql = " SELECT code, code_P, name, canHaveCoursesChild
-               FROM `" . $tbl_category . "`
+               FROM `".$tbl_category."`                              
                ORDER BY `name`";
     $result = claro_sql_query($sql);
-    // first we get the categories available in DB from the SQL query result in parameter
+    // first we get the categories available in DB from the SQL query result in parameter    
 
     while ($myfac = mysql_fetch_array($result))
     {
-        $categories[$myfac['code']]['code']   = $myfac['code'];
-        $categories[$myfac['code']]['parent'] = $myfac['code_P'];
-        $categories[$myfac['code']]['name']   = $myfac['name'];
-        $categories[$myfac['code']]['childs'] = $myfac['canHaveCoursesChild'];
+        $categories[$myfac["code"]]["code"]   = $myfac["code"];
+        $categories[$myfac["code"]]["parent"] = $myfac["code_P"];
+        $categories[$myfac["code"]]["name"]   = $myfac["name"];
+        $categories[$myfac["code"]]["childs"] = $myfac["canHaveCoursesChild"];
     }
 
     // then we build the table we need : full path of editable cats in an array
-
+    
     $tableToDisplay = array();
-    echo '<select name="faculte" id="faculte">' . "\n";
+    echo '<select name="faculte" id="faculte">' . "\n";    
     foreach ($categories as $cat)
     {
-        if ( $cat["childs"] == 'TRUE' )
-        {
-
+        if ( $cat["childs"] == 'TRUE' ) 
+        { 
+            
             echo '<option value="' . $cat['code'] . '"';
             if ($cat["code"]==$selectedCat) echo ' selected ';
             echo '>';
@@ -158,7 +191,7 @@ function build_editable_cat_table($selectedCat = null, $separator = "&gt;")
         }
     }
     echo '</select>' . "\n";
-
+    
     return $tableToDisplay;
 }
 
@@ -167,9 +200,9 @@ function build_editable_cat_table($selectedCat = null, $separator = "&gt;")
  * build the <option> element with categories where we can create/have courses
  *
  * @param the code of the preselected categorie
- * @param the separator used between a cat and its paretn cat to display in the <select>
- * @return echo all the <option> elements needed for a <select>.
- *
+ * @param the separator used between a cat and its paretn cat to display in the <select> 
+ * @return echo all the <option> elements needed for a <select>. 
+ * 
  */
 
 
@@ -178,92 +211,82 @@ function claro_get_cat_list()
     $tbl_mdb_names = claro_sql_get_main_tbl();
     $tbl_category  = $tbl_mdb_names['category'];
 
-    $sql = " SELECT code, code_P, name, canHaveCoursesChild, treePos
-               FROM `" . $tbl_category . "`
+    $sql = " SELECT code, code_P, name, canHaveCoursesChild
+               FROM `" . $tbl_category . "` 
                ORDER BY `treePos`";
     return claro_sql_query_fetch_all($sql);
-
+    
 }
 
 
 function claro_get_cat_flat_list($separator = ' > ')
 {
+    
     $fac_list = claro_get_cat_list();
-    $categories = array();
-    $fac_array = array();
+    
     if(is_array($fac_list))
     foreach ($fac_list as $myfac)
     {
-        $categories[$myfac['code']]['treePos'] = $myfac['treePos'];
-        $categories[$myfac['code']]['code']    = $myfac['code'];
-        $categories[$myfac['code']]['parent']  = $myfac['code_P'];
-        $categories[$myfac['code']]['name']    = $myfac['name'];
-        $categories[$myfac['code']]['childs']  = $myfac['canHaveCoursesChild'];
+        $categories[$myfac['code']]['code']   = $myfac['code'];
+        $categories[$myfac['code']]['parent'] = $myfac['code_P'];
+        $categories[$myfac['code']]['name']   = $myfac['name'];
+        $categories[$myfac['code']]['childs'] = $myfac['canHaveCoursesChild'];
     }
 
     // then we build the table we need : full path of editable cats in an array
-
+    
+    if (is_array($categories ))
     foreach ($categories as $cat)
     {
-        if ( $cat['childs'] == 'TRUE' )
-        {
-            $label = '('
-            .   get_full_path($categories, $cat['code'], $separator)
-            .   ') '
-            .   htmlspecialchars($cat['name'])
+        if ( $cat['childs'] == 'TRUE' ) 
+        { 
+            $fac_array[$cat['code']] = '(' 
+            .                          get_full_path($categories, $cat['code'], $separator)
+            .                          ') ' 
+            .                          htmlspecialchars($cat['name'])
             ;
-            
-            $fac_array[$label] = $cat['code'];
         }
     }
-
+    
     return $fac_array;
 }
 
 /**
  * Recursive function to get the full categories path of a specified categorie
  *
- * @param table of all the categories, 2 dimension tables, first dimension for cat codes, second for names,
- *  parent's cat code.
+ * @param table of all the categories, 2 dimension tables, first dimension for cat codes, second for names, 
+ *  parent's cat code. 
  * @param $catcode   string the categorie we want to have its full path from root categorie
- * @param $separator string
+ * @param $separator string 
  * @return void
   */
 
-
+ 
 function get_full_path($categories, $catcode = NULL, $separator = ' > ')
 {
     //Find parent code
-
+    
     $parent = null;
-
+    
     foreach ($categories as $currentCat)
     {
         if (( $currentCat['code'] == $catcode))
         {
-            $parent       = $currentCat['parent'];
-            $childTreePos = $currentCat['treePos']; // for protection anti loop
+            $parent = $currentCat['parent'];  
         }
     }
     // RECURSION : find parent categorie in table
     if ($parent == null)
-    {
+    { 
         return $catcode;
     }
-
+    
     foreach ($categories as $currentCat)
     {
         if (($currentCat['code'] == $parent))
         {
-
-            if ($currentCat['treePos'] >= $childTreePos ) return claro_failure::set_failure('loop_in_structure');
-            if ($parent == $catcode ) return claro_failure::set_failure('loop_in_structure');
-
-            return get_full_path($categories, $parent, $separator)
-            .      $separator
-            .      $catcode
-            ;
-
+            return get_full_path($categories, $parent, $separator).$separator.$catcode;
+            break;
         }
     }
 }
@@ -272,22 +295,22 @@ function get_full_path($categories, $catcode = NULL, $separator = ' > ')
 function claro_get_lang_flat_list()
 {
     $language_array = claro_get_language_list();
-
+    
     // following foreach  build the array of selectable  items
     if(is_array($language_array))
     foreach ($language_array as $languageCode => $this_language)
     {
         $languageLabel = '';
-        if (   !empty($this_language['langNameCurrentLang'])
-            && $this_language['langNameCurrentLang'] != ''
+        if (   !empty($this_language['langNameCurrentLang']) 
+            && $this_language['langNameCurrentLang'] != '' 
             && $this_language['langNameCurrentLang'] != $this_language['langNameLocaleLang'])
             $languageLabel  .=  $this_language['langNameCurrentLang'] . ' - ';
         $languageLabel .=  $this_language['langNameLocaleLang'];
-
-        $language_flat_list[ucwords($languageLabel)] = $languageCode;
+        
+        $language_flat_list[$languageCode] = ucwords($languageLabel);
     }
     asort($language_flat_list);
-    return $language_flat_list;
+    return $language_flat_list; 
 }
 
 ?>

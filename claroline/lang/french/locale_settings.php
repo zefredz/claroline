@@ -1,10 +1,10 @@
 <?php // $Id$
 /**
- * CLAROLINE
+ * CLAROLINE 
  *
- * @version 1.8 $Revision$
+ * @version 1.7 $Revision$
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001, 2005 Universite catholique de Louvain (UCL)
  *
  * @author: claro team <cvs@claroline.net>
  *
@@ -32,8 +32,8 @@ $langNameOfLang['german']        = "allemand";
 $langNameOfLang['greek']         = "grec";
 $langNameOfLang['indonesian']    = "indonesien";
 $langNameOfLang['italian']       = "italien";
-$langNameOfLang['japanese']      = "japonais"; // JCC
-$langNameOfLang['malay']         = "malais";
+$langNameOfLang['japanese']      = "japonais"; // JCC 
+$langNameOfLang['malay']         = "malais"; 
 $langNameOfLang['polish']        = "polonais";
 $langNameOfLang['portuguese']    = "portugais";
 $langNameOfLang['russian']       = "russe";
@@ -44,8 +44,6 @@ $langNameOfLang['swedish']       = "suédois";
 $langNameOfLang['thai']          = "thaïlandais";
 $langNameOfLang['turkish']       = "turc";
 $langNameOfLang['vietnamese']    = "vietnamien";
-$langNameOfLang['zh_tw']         = "chinois traditionnel";
-
 
 $charset = 'iso-8859-1';
 $text_dir = 'ltr';
@@ -56,7 +54,7 @@ $number_decimal_separator = ',';
 $byteUnits = array('Octets', 'Ko', 'Mo', 'Go');
 
 $langDay_of_weekNames['init'] = array('D', 'L', 'M', 'M', 'J', 'V', 'S');
-$langDay_of_weekNames['short'] = array('Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'); // JCC
+$langDay_of_weekNames['short'] = array('Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'); // JCC 
 $langDay_of_weekNames['long'] = array('Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi');
 
 $langMonthNames['init']  = array('J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D');

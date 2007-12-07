@@ -1,14 +1,18 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 
     // vim: expandtab sw=4 ts=4 sts=4:
-
+    
+    if( (bool) stristr( $_SERVER['PHP_SELF'], basename(__FILE__) ) )
+    {
+        die("This file cannot be accessed directly! Include it in your script instead!");
+    }
+    
     /**
      * CLAROLINE
      *
-     * @version 1.8 $Revision$
+     * @version 1.7 $Revision$
      *
-     * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+     * @copyright 2001-2005 Universite catholique de Louvain (UCL)
      *
      * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
      * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
@@ -20,12 +24,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
      * @package Wiki
      */
 
-    class Database_Connection
+    class DatabaseConnection
     {
         var $error = '';
         var $errno = 0;
         var $connected = false;
-
+        
         function setError( $errmsg = '', $errno = 0 )
         {
             trigger_error( "Call to undefined abstract method in "
@@ -54,7 +58,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         {
             return ( $this->error != '' );
         }
-
+        
         function connect()
         {
             trigger_error( "Call to undefined abstract method in "
@@ -62,12 +66,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 , E_USER_ERROR
                 );
         }
-
+        
         function isConnected()
         {
             return $this->connected;
         }
-
+        
         function close()
         {
             trigger_error( "Call to undefined abstract method in "
@@ -115,7 +119,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 , E_USER_ERROR
                 );
         }
-
+        
         function queryReturnsResult( $sql )
         {
             trigger_error( "Call to undefined abstract method in "
@@ -132,15 +136,15 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 );
         }
     }
-
-    class MyDatabaseConnection extends Database_Connection
+    
+    class MyDatabaseConnection extends DatabaseConnection
     {
         var $db_link;
         var $host;
         var $username;
         var $passwd;
         var $dbname;
-
+        
         function MyDatabaseConnection( $host, $username, $passwd, $dbname )
         {
             $this->db_link = null;
@@ -149,7 +153,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             $this->passwd = $passwd;
             $this->dbname = $dbname;
         }
-
+        
         function setError( $errmsg = '', $errno = 0 )
         {
             if ( $errmsg != '' )
@@ -162,10 +166,10 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 $this->error = ( @mysql_error() !== false ) ? @mysql_error() : 'Unknown error';
                 $this->errno = ( @mysql_errno() !== false ) ? @mysql_errno() : 0;
             }
-
+            
             $this->connected = false;
         }
-
+        
         function connect()
         {
             $this->db_link = @mysql_connect( $this->host, $this->username, $this->passwd );
@@ -173,7 +177,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             if( ! $this->db_link )
             {
                 $this->setError();
-
+                
                 return false;
             }
 
@@ -185,11 +189,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             else
             {
                 $this->setError();
-
+                
                 return false;
             }
         }
-
+        
         function close()
         {
             if( $this->db_link != false )
@@ -202,15 +206,15 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             }
             $this->connected = false;
         }
-
+        
         function executeQuery( $sql )
         {
             mysql_query( $sql, $this->db_link );
-
+            
             if( @mysql_errno( $this->db_link ) != 0 )
             {
                 $this->setError();
-
+                
                 return 0;
             }
 
@@ -233,9 +237,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             else
             {
                 $this->setError();
-
+                
                 @mysql_free_result( $result );
-
+                
                 return null;
             }
 
@@ -251,7 +255,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             if ( ( $item = @mysql_fetch_object( $result ) ) != false )
             {
                 @mysql_free_result( $result );
-
+                
                 return $item;
             }
             else
@@ -262,7 +266,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 return null;
             }
         }
-
+        
         function getAllRowsFromQuery( $sql )
         {
             $result = mysql_query( $sql, $this->db_link );
@@ -281,7 +285,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 $this->setError();
 
                 @mysql_free_result( $result );
-
+                
                 return null;
             }
 
@@ -297,7 +301,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             if ( ( $item = @mysql_fetch_array( $result ) ) != false )
             {
                 @mysql_free_result( $result );
-
+                
                 return $item;
             }
             else
@@ -305,15 +309,15 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 $this->setError();
 
                 @mysql_free_result( $result );
-
+                
                 return null;
             }
         }
-
+        
         function queryReturnsResult( $sql )
         {
             $result = mysql_query( $sql, $this->db_link );
-
+            
             if ( @mysql_errno( $this->db_link ) == 0 )
             {
 
@@ -333,7 +337,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             else
             {
                 $this->setError();
-
+                
                 return false;
             }
         }

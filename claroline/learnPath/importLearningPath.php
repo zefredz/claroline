@@ -1,14 +1,14 @@
 <?php // $Id$
 /**
- * CLAROLINE
+ * CLAROLINE 
  *
- * @version 1.8 $Revision$
+ * @version 1.7 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001, 2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
- * @author Piraux Sï¿½bastien <pir@cerdecam.be>
+ * @author Piraux Sébastien <pir@cerdecam.be>
  * @author Lederer Guillaume <led@cerdecam.be>
  *
  * @package CLLNP
@@ -17,18 +17,18 @@
 /*======================================
        CLAROLINE MAIN
   ======================================*/
-$tlabelReq = 'CLLNP';
+$tlabelReq = 'CLLNP___';
 require '../inc/claro_init_global.inc.php';
+   
+$is_AllowedToEdit = $is_courseAdmin;
+if (! $_cid || !$is_courseAllowed ) claro_disp_auth_form(true);
+if (! $is_AllowedToEdit ) claro_die($langNotAllowed);
 
-$is_allowedToEdit = claro_is_course_manager();
-if (! claro_is_in_a_course() || !claro_is_course_allowed() ) claro_disp_auth_form(true);
-if (! $is_allowedToEdit ) claro_die(get_lang('Not allowed'));
-
-$interbredcrump[]= array ('url' => get_module_url('CLLNP') . '/learningPathList.php', 'name' => get_lang('Learning path list'));
-$nameTools = get_lang('Import a learning path');
+$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> $langLearningPathList);
+$nameTools = $langimportLearningPath;
 
 //header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include($includePath."/claro_init_header.inc.php");
 
 /*
 * DB tables definition
@@ -50,10 +50,10 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 
 
 //lib of this tool
-include_once get_path('incRepositorySys') . '/lib/learnPath.lib.inc.php';
-include_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
-include_once get_path('incRepositorySys') . '/lib/fileUpload.lib.php';
-include_once get_path('incRepositorySys') . '/lib/fileDisplay.lib.php';
+include($includePath."/lib/learnPath.lib.inc.php");
+include($includePath."/lib/fileManage.lib.php");
+include($includePath."/lib/fileUpload.lib.php");
+include($includePath."/lib/fileDisplay.lib.php");
 
 
 // error handling
@@ -66,7 +66,7 @@ $errorFound = false;
 /**
  * Function used by the SAX xml parser when the parser meets a opening tag
  * exemple :
- *          <manifest identifier="samplescorm" version="1.1">
+ *          <manifest identifier="samplescorm" version"1.1">
  *      will give
  *          $name == "manifest"
  *          attributes["identifier"] == "samplescorm"
@@ -85,7 +85,7 @@ function startElement($parser,$name,$attributes)
 
 
     array_push($elementsPile,$name);
-
+    
     switch ($name)
     {
         case "MANIFEST" :
@@ -93,7 +93,7 @@ function startElement($parser,$name,$attributes)
             break;
         case "RESOURCES" :
             if (isset($attributes['XML:BASE'])) $manifestData['xml:base']['resources'] = $attributes['XML:BASE'];
-            $flagTag['type'] = "resources";
+            $flagTag['type'] == "resources";
             break;
         case "RESOURCE" :
             if ( isset($attributes['ADLCP:SCORMTYPE']) && $attributes['ADLCP:SCORMTYPE'] == 'sco' )
@@ -114,10 +114,10 @@ function startElement($parser,$name,$attributes)
             {
                 foreach ($manifestData['items'] as $itemToCheck )
                 {
-                    if ( isset($itemToCheck['identifierref']) && $itemToCheck['identifierref'] == $attributes['IDENTIFIER'] )
+                    if ( $itemToCheck['identifierref'] == $attributes['IDENTIFIER'] )
                     {
                         if (isset($attributes['HREF'])) $manifestData['scos'][$attributes['IDENTIFIER']]['href'] = $attributes['HREF'];
-
+                        
                         if (isset($attributes['XML:BASE'])) $manifestData['scos'][$attributes['IDENTIFIER']]['xml:base'] = $attributes['XML:BASE'];
                     }
                 }
@@ -125,36 +125,32 @@ function startElement($parser,$name,$attributes)
             break;
 
         case "ITEM" :
-            if (isset($attributes['IDENTIFIER']))
+            if (isset($attributes['IDENTIFIERREF'])) $manifestData['items'][$attributes['IDENTIFIER']]['identifierref'] = $attributes['IDENTIFIERREF'];
+            if (isset($attributes['PARAMETERS']))    $manifestData['items'][$attributes['IDENTIFIER']]['parameters'] = $attributes['PARAMETERS'];
+            if (isset($attributes['ISVISIBLE']))     $manifestData['items'][$attributes['IDENTIFIER']]['isvisible'] = $attributes['ISVISIBLE'];
+            if (isset($attributes['IDENTIFIER']))    $manifestData['items'][$attributes['IDENTIFIER']]['itemIdentifier'] = $attributes['IDENTIFIER'];
+            
+            if ( count($itemsPile) > 0)
+                $manifestData['items'][$attributes['IDENTIFIER']]['parent'] = $itemsPile[count($itemsPile)-1];
+            
+            array_push($itemsPile, $attributes['IDENTIFIER']);
+            
+            if ( $flagTag['type'] == "item" )
             {
-                   $manifestData['items'][$attributes['IDENTIFIER']]['itemIdentifier'] = $attributes['IDENTIFIER'];
-
-                if (isset($attributes['IDENTIFIERREF'])) $manifestData['items'][$attributes['IDENTIFIER']]['identifierref'] = $attributes['IDENTIFIERREF'];
-                if (isset($attributes['PARAMETERS']))    $manifestData['items'][$attributes['IDENTIFIER']]['parameters'] = $attributes['PARAMETERS'];
-                if (isset($attributes['ISVISIBLE']))     $manifestData['items'][$attributes['IDENTIFIER']]['isvisible'] = $attributes['ISVISIBLE'];
-
-                if ( count($itemsPile) > 0)
-                    $manifestData['items'][$attributes['IDENTIFIER']]['parent'] = $itemsPile[count($itemsPile)-1];
-
-                array_push($itemsPile, $attributes['IDENTIFIER']);
-
-                if ( $flagTag['type'] == "item" )
-                {
-                    $flagTag['deep']++;
-                }
-                else
-                {
-                    $flagTag['type'] = "item";
-                    $flagTag['deep'] = 0;
-                }
-                $manifestData['items'][$attributes['IDENTIFIER']]['deep'] = $flagTag['deep'];
-                $flagTag['value'] = $attributes['IDENTIFIER'];
+                $flagTag['deep']++;
             }
+            else
+            {
+                $flagTag['type'] = "item";
+                $flagTag['deep'] = 0;
+            }
+            $manifestData['items'][$attributes['IDENTIFIER']]['deep'] = $flagTag['deep'];
+            $flagTag['value'] = $attributes['IDENTIFIER'];
             break;
-
+        
         case "ORGANIZATIONS" :
             if( isset($attributes['DEFAULT']) ) $manifestData['defaultOrganization'] = $attributes['DEFAULT'];
-            else                                $manifestData['defaultOrganization'] = '';
+			else                                $manifestData['defaultOrganization'] = '';
             break;
         case "ORGANIZATION" :
             $flagTag['type'] = "organization";
@@ -184,11 +180,11 @@ function endElement($parser,$name)
     global $elementsPile;
     global $itemsPile;
     global $flagTag;
-
+    
     switch($name)
     {
         case "ITEM" :
-            array_pop($itemsPile);
+            $trash = array_pop($itemsPile);
             if ( $flagTag['type'] == "item" && $flagTag['deep'] > 0 )
             {
                 $flagTag['deep']--;
@@ -204,10 +200,10 @@ function endElement($parser,$name)
         case "RESOURCE" :
             $flagTag['type'] = "endResource";
             break;
-
+    
     }
-
-    array_pop($elementsPile);
+    
+    $poped = array_pop($elementsPile);
 }
 
 /**
@@ -222,18 +218,22 @@ function elementData($parser,$data)
     global $itemsPile;
     global $manifestData;
     global $flagTag;
+    global $iterator;
+    global $dialogBox;
     global $errorFound;
+    global $langErrorReadingXMLFile;
     global $zipFile;
     global $errorMsgs,$okMsgs;
     global $pathToManifest;
-
-    $data = trim(claro_utf8_decode($data));
-
+    global $langErrorOpeningXMLFile;
+    
+    $data = trim(utf8_decode_if_is_utf8($data));
+    
     if (!isset($data)) $data="";
-
+    
     switch ( $elementsPile[count($elementsPile)-1] )
     {
-
+    
         case "RESOURCE" :
             //echo "Resource : ".$data;
             break;
@@ -246,8 +246,8 @@ function elementData($parser,$data)
                     if (!isset($manifestData['items'][$flagTag['value']]['title'])) $manifestData['items'][$flagTag['value']]['title'] = "";
                     $manifestData['items'][$flagTag['value']]['title'] .= $data;
                 }
-
-
+                
+                
                 // get title of package if it was not find in the manifest metadata in the default organization
                 if ( $elementsPile[sizeof($elementsPile)-2]  == "ORGANIZATION" && $flagTag['type'] == "organization" && $flagTag['value'] == $manifestData['defaultOrganization'])
                 {
@@ -259,51 +259,80 @@ function elementData($parser,$data)
                 }
             }
             break;
-
+        
         case "ITEM" :
             break;
-
+              
         case "ADLCP:DATAFROMLMS" :
             $manifestData['items'][$flagTag['value']]['datafromlms'] = $data;
             break;
-
+        
         // found a link to another XML file, parse it ...
         case "ADLCP:LOCATION" :
             if (!$errorFound)
-            {
+               {
                 $xml_parser = xml_parser_create();
                 xml_set_element_handler($xml_parser, "startElement", "endElement");
                 xml_set_character_data_handler($xml_parser, "elementData");
-
+            
                 $file = $data; //url of secondary manifest files is relative to the position of the base imsmanifest.xml
-
-				// we try to extract only the required file
+                
+                // PHP extraction of zip file using zlib
                 $unzippingState = $zipFile->extract(PCLZIP_OPT_BY_NAME,$pathToManifest.$file, PCLZIP_OPT_REMOVE_PATH, $pathToManifest);
-
-		        if( $unzippingState != 0 && file_exists( $pathToManifest.$file ) )
-		        {
-		            array_push ($okMsgs, get_lang('Secondary manifest found in zip file : ').$pathToManifest.$file );
-
-					$readData = file_get_contents($pathToManifest.$file);
-
-		            if( !xml_parse($xml_parser, $readData) )
-		            {
-		                // if reading of the xml file in not successfull :
-		                // set errorFound, set error msg, break while statement
-		                $errorFound = true;
-		                array_push ($errorMsgs, get_lang('Error reading a secondary initialisation file : ').$pathToManifest.$file );
-		            }
-		        }
-		        else
-				{
-		            $errorFound = true;
-		            array_push ($errorMsgs, get_lang('Cannot find secondary initialisation file in the package.<br /> File not found : ').$pathToManifest.$file );
-		        }
+                if ( !($fp = @fopen($file, "r")) )
+                {
+                    $errorFound = true;
+                    array_push ($errorMsgs, $langErrorOpeningXMLFile.$pathToManifest.$file );
+                }
+                else
+                {
+                    if (!isset($cache)) $cache = "";
+                    while ($readdata = str_replace("\n","",fread($fp, 4096)))
+                    {
+                        // fix for fread breaking thing 
+                        // msg from "ml at csite dot com" 02-Jul-2003 02:29 on http://www.php.net/xml
+                        // preg expression has been modified to match tag with inner attributes
+                        $readdata = $cache . $readdata;
+                        if (!feof($fp)) 
+                        {
+                            if (preg_match_all("/<[^\>]*.>/", $readdata, $regs)) 
+                            {
+                                $lastTagname = $regs[0][count($regs[0])-1];
+                                $split = false;
+                                for ($i=strlen($readdata)-strlen($lastTagname); $i>=strlen($lastTagname); $i--) 
+                                {
+                                    if ($lastTagname == substr($readdata, $i, strlen($lastTagname))) 
+                                    {
+                                        $cache = substr($readdata, $i, strlen($readdata));
+                                        $readdata = substr($readdata, 0, $i);
+                                        $split = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (!$split) 
+                            {
+                                $cache = $readdata;
+                            }
+                        }
+                        // end of fix 
+                        if (!xml_parse($xml_parser, $readdata, feof($fp)))
+                        {
+                            // if reading of the xml file in not successfull :
+                            // set errorFound, set error msg, break while statement
+                            $errorFound = true;
+                            array_push ($errorMsgs, $langErrorReadingXMLFile.$pathToManifest.$file );
+                            break;
+                        }
+                    } // while $readdata
+                }    //if fopen
+                // close file
+                @fclose($fp);
             }
             break;
-
+        
         case "LANGSTRING" :
-
+            //echo $data."<br>";
             switch ( $flagTag['type'] )
             {
                 case "item" :
@@ -311,7 +340,7 @@ function elementData($parser,$data)
                     // if the langstring tag is a children of a description tag
                     if ( $elementsPile[sizeof($elementsPile)-2] == "DESCRIPTION" && $elementsPile[sizeof($elementsPile)-3] == "GENERAL" )
                     {
-                        if (!isset($manifestData['items'][$flagTag['value']]['description'])) $manifestData['items'][$flagTag['value']]['description'] = "";
+                        if (!isset($manifestData['items'][$flagTag['value']]['description'])) $manifestData['items'][$flagTag['value']]['description'] = ""; 
                         $manifestData['items'][$flagTag['value']]['description'] .= $data;
                     }
                     // title found in metadata of an item (only if we haven't already one title for this sco)
@@ -350,7 +379,7 @@ function elementData($parser,$data)
                         $manifestData['assets'][$flagTag['value']]['description'] .= $data;
                         else
                         $manifestData['assets'][$flagTag['value']]['description'] = $data;
-
+                        
                     }
                     // title found in metadata of an item (only if we haven't already one title for this sco)
                     if(!isset( $manifestData['assets'][$flagTag['value']]['title'] ) || $manifestData['assets'][$flagTag['value']]['title'] == '')
@@ -372,7 +401,7 @@ function elementData($parser,$data)
                         if (!isset($manifestData['packageDesc'])) $manifestData['packageDesc'] = "";
                         $manifestData['packageDesc'] .= $data;
                     }
-
+                    
                     if (!isset($manifestData['packageTitle']) || $manifestData['packageTitle'] == '' )
                     {
                         $posPackageTitle = array("MANIFEST", "METADATA","LOM","GENERAL","TITLE");
@@ -383,11 +412,11 @@ function elementData($parser,$data)
                         }
                     }
                     break;
-
+            
             } // end switch ( $flagTag['type'] )
-
+            
             break;
-
+            
         default :
             break;
     } // end switch ($elementsPile[count($elementsPile)-1] )
@@ -413,6 +442,37 @@ function compareArrays($array1, $array2)
     return true;
 }
 
+/**
+ * This function return true if $Str could be UTF-8, false otehrwise
+ *
+ * function found @ http://www.php.net/manual/en/function.utf8-encode.php
+ */
+function seems_utf8($str) 
+{
+    for ($i=0; $i<strlen($str); $i++) 
+    {
+        if (ord($str[$i]) < 0x80) continue; // 0bbbbbbb
+        elseif ((ord($str[$i]) & 0xE0) == 0xC0) $n=1; // 110bbbbb
+        elseif ((ord($str[$i]) & 0xF0) == 0xE0) $n=2; // 1110bbbb
+        elseif ((ord($str[$i]) & 0xF8) == 0xF0) $n=3; // 11110bbb
+        elseif ((ord($str[$i]) & 0xFC) == 0xF8) $n=4; // 111110bb
+        elseif ((ord($str[$i]) & 0xFE) == 0xFC) $n=5; // 1111110b
+        else return false; // Does not match any model
+        for ($j=0; $j<$n; $j++) // n bytes matching 10bbbbbb follow ?
+        {
+            if ((++$i == strlen($str)) || ((ord($str[$i]) & 0xC0) != 0x80))
+            return false;
+        }
+    }
+    return true;
+}
+
+/**
+ * 
+ */
+function utf8_decode_if_is_utf8($str) {
+    return seems_utf8($str)? utf8_decode($str): $str;
+}
 
 /*======================================
        CLAROLINE MAIN
@@ -420,16 +480,16 @@ function compareArrays($array1, $array2)
 
 // main page
 
-echo claro_html_tool_title(get_lang('Import a learning path'));
+echo claro_disp_tool_title($langimportLearningPath);
 
 // init msg arays
 $okMsgs   = array();
 $errorMsgs = array();
-
+    
 $maxFilledSpace = 100000000;
 
-$courseDir   = claro_get_course_path() . '/scormPackages/';
-$baseWorkDir = get_path('coursesRepositorySys').$courseDir; // path_id
+$courseDir   = $_course['path']."/scormPackages/";
+$baseWorkDir = $coursesRepositorySys.$courseDir; // path_id
 // handle upload
 // if the post is done a second time, the claroformid mecanism
 // will set $_POST to NULL, so we need to check it
@@ -441,7 +501,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
     $insertedModule_id = array();
     $insertedAsset_id = array();
 
-    $lpName = get_lang('Unamed path');
+    $lpName = $langUnamedPath;
 
     // we need a new path_id for this learning path so we prepare a line in DB
     // this line will be removed if an error occurs
@@ -452,17 +512,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
     list($rankMax) = mysql_fetch_row($result);
 
     $sql = "INSERT INTO `".$TABLELEARNPATH."`
-            (`name`,`visibility`,`rank`,`comment`)
-            VALUES ('". addslashes($lpName) ."','HIDE',".($rankMax+1).", '')";
+            (`name`,`visibility`,`rank`)
+            VALUES ('". addslashes($lpName) ."','HIDE',".($rankMax+1).")";
     claro_sql_query($sql);
-
-    $tempPathId = claro_sql_insert_id();
+    
+    $tempPathId = mysql_insert_id();
     $baseWorkDir .= "path_".$tempPathId;
 
-    if (!is_dir($baseWorkDir)) claro_mkdir($baseWorkDir, CLARO_FILE_PERMISSIONS );
+    if (!is_dir($baseWorkDir)) mkdir($baseWorkDir, 0777);
 
     // unzip package
-    include_once get_path('incRepositorySys')."/lib/pclzip/pclzip.lib.php";
+    include($includePath."/lib/pclzip/pclzip.lib.php");
 
     /*
      * Check if the file is valide (not to big and exists)
@@ -470,10 +530,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
     if( !isset($_FILES['uploadedPackage']) || !is_uploaded_file($_FILES['uploadedPackage']['tmp_name']))
     {
         $errorFound = true;
-        array_push ($errorMsgs, get_lang('The file to upload is not valid.') . '<br />'
-                    . get_lang('Max file size : %size', array('%size' => format_file_size( get_max_upload_size($maxFilledSpace,$baseWorkDir) ) ) )
-        		);
-
+        array_push ($errorMsgs, $langFileError.'<br />'.$langNotice.' : '.$langMaxFileSize.' '.get_cfg_var('upload_max_filesize') );
     }
 
     /*
@@ -484,7 +541,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
     elseif ( ! enough_size($_FILES['uploadedPackage']['size'], $baseWorkDir, $maxFilledSpace))
     {
         $errorFound = true;
-        array_push ($errorMsgs, get_lang('The upload has failed. There is not enough space in your directory') ) ;
+        array_push ($errorMsgs, $langNoSpace ) ;
     }
 
     /*
@@ -493,38 +550,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
 
     elseif ( preg_match("/.zip$/i", $_FILES['uploadedPackage']['name']) )
     {
-        array_push ($okMsgs, get_lang('File received : %filename', array('%filename' => basename($_FILES['uploadedPackage']['name']) )));
-
-        if(!function_exists('gzopen'))
+        array_push ($okMsgs, $langOkFileReceived.basename($_FILES['uploadedPackage']['name']) );
+        
+        if (!function_exists('gzopen'))
         {
             $errorFound = true;
-            array_push ($errorMsgs,get_lang('Zlib php extension is required to use this tool. Please contact your platform administrator.') );
+            array_push ($errorMsgs,$langErrorNoZlibExtension );
         }
         else
         {
             $zipFile = new pclZip($_FILES['uploadedPackage']['tmp_name']);
             $is_allowedToUnzip = true ; // default initialisation
-
+ 
             // Check the zip content (real size and file extension)
-
+ 
             $zipContentArray = $zipFile->listContent();
-
+ 
             if ($zipContentArray == 0)
             {
               $errorFound = true;
-              array_push ($errorMsgs,get_lang('Error reading zip file.') );
+              array_push ($errorMsgs,$langErrorReadingZipFile );
             }
-
+            
             $pathToManifest  = ""; // empty by default because we can expect that the manifest.xml is in the root of zip file
             $pathToManifestFound = false;
             $realFileSize = 0;
-
+        
             foreach($zipContentArray as $thisContent)
             {
                 if ( preg_match('/.(php[[:digit:]]?|phtml)$/i', $thisContent['filename']) )
                 {
                         $errorFound = true;
-                        array_push ($errorMsgs, get_lang('The zip file can not contain .PHP files') );
+                        array_push ($errorMsgs, $langZipNoPhp );
                         $is_allowedToUnzip = false;
                         break;
                 }
@@ -533,8 +590,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                 {
                     // this check exists to find the less deep imsmanifest.xml in the zip if there are several imsmanifest.xml
                     // if this is the first imsmanifest.xml we found OR path to the new manifest found is shorter (less deep)
-                    if ( !$pathToManifestFound
-                         || ( count(explode('/', $thisContent['filename'])) < count(explode('/', $pathToManifest."imsmanifest.xml")) )
+                    if ( !$pathToManifestFound 
+                         || ( count(explode('/', $thisContent['filename'])) < count(explode('/', $pathToManifest."imsmanifest.xml")) ) 
                        )
                     {
                         $pathToManifest = substr($thisContent['filename'],0,-15) ;
@@ -549,23 +606,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
             if ( ($realFileSize + $alreadyFilledSpace) > $maxFilledSpace) // check the real size.
             {
                 $errorFound = true;
-                array_push ($errorMsgs, get_lang('The upload has failed. There is not enough space in your directory') ) ;
+                array_push ($errorMsgs, $langNoSpace ) ;
                 $is_allowedToUnzip = false;
             }
-
+ 
             if ($is_allowedToUnzip && !$errorFound)
-            {
+            {        
                 // PHP extraction of zip file using zlib
 
                 chdir($baseWorkDir);
-                // we try to extract the manifest file
                 $unzippingState = $zipFile->extract( PCLZIP_OPT_BY_NAME, $pathToManifest."imsmanifest.xml",
                                                      PCLZIP_OPT_PATH, '',
                                                      PCLZIP_OPT_REMOVE_PATH, $pathToManifest );
-                if ( $unzippingState == 0 )
+                if ( $unzippingState == 0 )  
                 {
                     $errorFound = true;
-                    array_push ($errorMsgs, get_lang('Cannot extract manifest from zip file (corrupted file ? ).') );
+                    array_push ($errorMsgs, $langErrortExtractingManifest );
                 }
             } //end of if ($is_allowedToUnzip)
         } // end of if (!function_exists...
@@ -573,7 +629,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
     else
     {
         $errorFound = true;
-        array_push ($errorMsgs, get_lang('File must be a zip file (.zip)') );
+        array_push ($errorMsgs, $langErrorFileMustBeZip );
     }
     // find xmlmanifest (must be in root else ==> cancel operation, delete files)
 
@@ -591,6 +647,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
         $manifestData['items'] = array(); // item tags content (attributes + some child elements data (title for an example)
         $manifestData['scos'] = array();  // for path of start asset id of each new module to create
 
+        $iterator = 0; // will be used to increment position of paths in manifestData['scosPaths"]
+                       // and to have the names at the same pos if found
+
         $xml_parser = xml_parser_create();
         xml_set_element_handler($xml_parser, "startElement", "endElement");
         xml_set_character_data_handler($xml_parser, "elementData");
@@ -599,41 +658,66 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
         // this file must be in the root the sent zip
         $file = "imsmanifest.xml";
 
-        if( file_exists($file) )
+        if (!($fp = @fopen($file, "r")))
+        {
+            $errorFound = true;
+            array_push ($errorMsgs, $langErrorOpeningManifest );
+        }
+        else
         {
             if (!isset($manifestPath)) $manifestPath = "";
 
-            array_push ($okMsgs, get_lang('Manifest found in zip file : ').$manifestPath."imsmanifest.xml" );
+            array_push ($okMsgs, $langOkManifestFound.$manifestPath."imsmanifest.xml" );
 
-			$data = html_entity_decode(urldecode(file_get_contents($manifestPath.$file)));
-
-            if( !xml_parse($xml_parser, $data) )
+            while ($data = str_replace("\n","",fread($fp, 4096)))
             {
-                // if reading of the xml file in not successfull :
-                // set errorFound, set error msg, break while statement
-
-                $errorFound = true;
-                array_push ($errorMsgs, get_lang('Error reading <i>manifest</i> file') );
-
-                if ( get_conf('CLARO_DEBUG_MODE') )
+                // fix for fread breaking thing 
+                // msg from "ml at csite dot com" 02-Jul-2003 02:29 on http://www.php.net/xml
+                // preg expression has been modified to match tag with inner attributes
+               
+                if (!isset($cache)) $cache = "";
+       
+                $data = $cache . $data;
+                if (!feof($fp)) 
                 {
-                    $debugMessage = strtr( 'Debug : %message (error code %code) on line %line and column %column' ,
-                                 array( '%message' => xml_error_string($xml_parser) ,
-                                        '%code' => xml_get_error_code($xml_parser) ,
-                                        '%line' => xml_get_current_line_number($xml_parser) ,
-                                        '%column' => xml_get_current_column_number($xml_parser) ) );
+                    // search fo opening, closing, empty tags (with or without attributes)
+                    if (preg_match_all("/<[^\>]*.>/", $data, $regs)) 
+                    {
+                        $lastTagname = $regs[0][count($regs[0])-1];
+                        $split = false;
+                        for ($i=strlen($data)-strlen($lastTagname); $i>=strlen($lastTagname); $i--) 
+                        {
+                            if ($lastTagname == substr($data, $i, strlen($lastTagname))) 
+                            {
+                                $cache = substr($data, $i, strlen($data));
+                                $data = substr($data, 0, $i);
+                                $split = true;
+                                break;
+                            }
+                        }
+                    }
 
-                    array_push ($errorMsgs, $debugMessage);
+                    if (!$split) 
+                    {
+                        $cache = $data;
+                    }
                 }
+                // end of fix 
 
+                if (!xml_parse($xml_parser, $data, feof($fp)))
+                {
+                    // if reading of the xml file in not successfull :
+                    // set errorFound, set error msg, break while statement
+                   
+                    $errorFound = true;
+                    array_push ($errorMsgs, $langErrorReadingManifest );
+                    break;
+                }
             }
-        }
-        else
-		{
-            $errorFound = true;
-            array_push ($errorMsgs, get_lang('Cannot find <i>manifest</i> file in the package.<br /> File not found : imsmanifest.xml') );
-        }
-
+            // close file
+            fclose($fp);  
+           
+         }
 
          // liberate parser ressources
          xml_parser_free($xml_parser);
@@ -643,7 +727,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
     // check if all starts assets files exist in the zip file
     if ( !$errorFound )
     {
-        array_push ($okMsgs, get_lang('Manifest read.') );
+        array_push ($okMsgs, $langOkManifestRead );  
         if ( sizeof($manifestData['items']) > 0 )
         {
             // if there is items in manifest we look for sco type resources referenced in idientifierref
@@ -655,10 +739,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
 
                 for ( $i = 0 ; $i < sizeof($zipContentArray) ; $i++)
                 {
-                    if ( isset($zipContentArray[$i]["filename"]) &&
-                        ( ( isset($manifestData['scos'][$item['identifierref']]['href'] )
-                            && $zipContentArray[$i]["filename"] == $pathToManifest.$manifestData['scos'][$item['identifierref']]['href'])
-                         || (isset($manifestData['assets'][$item['identifierref']]['href'])
+                    if ( isset($zipContentArray[$i]["filename"]) && 
+                        ( ( isset($manifestData['scos'][$item['identifierref']]['href'] ) 
+                            && $zipContentArray[$i]["filename"] == $pathToManifest.$manifestData['scos'][$item['identifierref']]['href']) 
+                         || (isset($manifestData['assets'][$item['identifierref']]['href']) 
                          && $zipContentArray[$i]["filename"] == $pathToManifest.$manifestData['assets'][$item['identifierref']]['href'])
                         )
                        )
@@ -667,11 +751,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                         break;
                     }
                 }
-
+                
                 if ( !$scoPathFound )
                 {
                     $errorFound = true;
-                    array_push ($errorMsgs, get_lang('Asset not found : %asset', array('%asset' =>$manifestData['scos'][$item['identifierref']]['href'])) );
+                    array_push ($errorMsgs, $langErrorAssetNotFound.$manifestData['scos'][$item['identifierref']]['href'] );
                     break;
                 }
             }
@@ -706,15 +790,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                 if ( !$scoPathFound )
                 {
                     $errorFound = true;
-                    array_push ($errorMsgs, get_lang('Asset not found : %asset', array('%asset' => $sco['href'])));
+                    array_push ($errorMsgs, $langErrorAssetNotFound.$sco['href'] );
                     break;
                 }
             }
-        } // if sizeof (...ï¿½
+        } // if sizeof (...à
         else
         {
             $errorFound = true;
-            array_push ($errorMsgs, get_lang('No module in package') );
+            array_push ($errorMsgs, $langErrorNoModuleInPackage );
         }
     }// if errorFound
 
@@ -736,26 +820,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
         //        - 1 learning path ( already added because we needed its id to create the package directory )
         //        - n modules
         //        - n asset as start asset of modules
-
-		if( $unzippingState == 0 )
-		{
-			$errorFound = true;
-			array_push ($errorMsgs, get_lang('Cannot extract files.') );
-		}
-        elseif ( sizeof( $manifestData['items'] ) == 0 )
+         
+        if ( sizeof( $manifestData['items'] ) == 0 )
         {
             $errorFound = true;
-            array_push ($errorMsgs, get_lang('No module in package') );
+            array_push ($errorMsgs, $langErrorNoModuleInPackage );
         }
         else
         {
             $i = 0;
-            $insertedLPMid = array(); // array of learnPath_module_id && order of related group
+            $insertedLPMid = array(); // array of learnPath_module_id && order of related group   
             $inRootRank = 1; // default rank for root module (parent == 0)
-
+                   
             foreach ( $manifestData['items'] as $item )
             {
-                if ( isset($item['parent']) && isset($insertedLPMid[$item['parent']]) )
+                if ( isset($item['parent']) && isset($insertedLPMid[$item['parent']]) ) 
                 {
                     $parent = $insertedLPMid[$item['parent']]['LPMid'];
                     $rank = $insertedLPMid[$item['parent']]['rank']++;
@@ -765,30 +844,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                     $parent = 0;
                     $rank = $inRootRank++;
                 }
-
+                 
                 //-------------------------------------------------------------------------------
-                // add chapter head
+                // add chapter head 
                 //-------------------------------------------------------------------------------
 
-                if( (!isset($item['identifierref']) || $item['identifierref'] == '') && isset($item['title']) && $item['title'] !='')
+                if( (!isset($item['identifierref']) || $item['identifierref'] == '') && isset($item['title']) && $item['title'] !='') 
                 {
                     // add title as a module
                     $chapterTitle = $item['title'];
 
                     $sql = "INSERT INTO `".$TABLEMODULE."`
-                            (`name` , `comment`, `contentType`, `launch_data`)
-                            VALUES ('".addslashes($chapterTitle)."' , '', '".CTLABEL_."','')";
+                            (`name` , `comment`, `contentType`)
+                            VALUES ('".addslashes($chapterTitle)."' , '', '".CTLABEL_."')";
 
                     $query = claro_sql_query($sql);
-
-                    if ( claro_sql_error() )
+                    
+                    if ( mysql_error() )
                     {
                         $errorFound = true;
-                        array_push($errorMsgs, get_lang('Error in SQL statement'));
+                        array_push($errorMsgs, $langErrorSql);
                         break;
                     }
-                    $insertedModule_id[$i] = claro_sql_insert_id();  // array of all inserted module ids
-
+                    $insertedModule_id[$i] = mysql_insert_id();  // array of all inserted module ids
+                     
                     // visibility
                     if ( isset($item['isvisible']) && $item['isvisible'] != '' )
                     {
@@ -805,29 +884,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                             (`learnPath_id`, `module_id`,`rank`, `visibility`, `parent`)
                             VALUES ('".$tempPathId."', '".$insertedModule_id[$i]."', ".$rank.", '".$visibility."', ".$parent.")";
                     $query = claro_sql_query($sql);
-
+                     
                     // get the inserted id of the learnPath_module rel to allow 'parent' link in next inserts
-                    $insertedLPMid[$item['itemIdentifier']]['LPMid'] = claro_sql_insert_id();
+                    $insertedLPMid[$item['itemIdentifier']]['LPMid'] = mysql_insert_id();
                     $insertedLPMid[$item['itemIdentifier']]['rank'] = 1;
-
-                    if ( claro_sql_error() )
+                                          
+                    if ( mysql_error() )
                     {
                         $errorFound = true;
-                        array_push($errorMsgs, get_lang('Error in SQL statement'));
+                        array_push($errorMsgs, $langErrorSql);
                         break;
                     }
                     if (!$errorFound)
                     {
-                        array_push ($okMsgs, get_lang('Title added : ')."<i>".$chapterTitle."</i>" ) ;
+                        array_push ($okMsgs, $langOkChapterHeadAdded."<i>".$chapterTitle."</i>" ) ;
                     }
                     $i++;
                     continue;
                 }
-
+                   
                 // use found title of module or use default title
                 if ( !isset( $item['title'] ) || $item['title'] == '')
                 {
-                    $moduleName = get_lang('Unamed module');
+                    $moduleName = $langUnamedModule;
                 }
                 else
                 {
@@ -836,13 +915,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
 
                 // set description as comment or default comment
                 // look fo description in item description or in sco (resource) description
-                // don't remember why I checked for parameters string ... so comment it
+                // don't remember why I checked for parameters string ... so comment it 
                 if ( ( !isset( $item['description'] ) || $item['description'] == '' )
                         &&
                                ( !isset($manifestData['scos'][$item['identifierref']]['description']) /*|| $manifestData['scos'][$item['identifierref']]['parameters'] == ''*/ )
                        )
                 {
-                    $description = get_block('blockDefaultModuleComment');
+                    $description = $langDefaultModuleComment;
                 }
                 else
                 {
@@ -858,7 +937,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
 
                 // insert modules and their start asset
                 // create new module
-
+                
                 if (!isset($item['datafromlms'])) $item['datafromlms'] = "";
 
                 $sql = "INSERT INTO `".$TABLEMODULE."`
@@ -866,26 +945,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                         VALUES ('".addslashes($moduleName)."' , '".addslashes($description)."', '".CTSCORM_."', '".addslashes($item['datafromlms'])."')";
                 $query = claro_sql_query($sql);
 
-                if ( claro_sql_error() )
+                if ( mysql_error() )
                 {
                     $errorFound = true;
-                    array_push($errorMsgs, get_lang('Error in SQL statement'));
+                    array_push($errorMsgs, $langErrorSql);
                     break;
                 }
 
-                $insertedModule_id[$i] = claro_sql_insert_id();  // array of all inserted module ids
+                $insertedModule_id[$i] = mysql_insert_id();  // array of all inserted module ids
 
                 // build asset path
                 // a $manifestData['scos'][$item['identifierref']] __SHOULD__ not exist if a $manifestData['assets'][$item['identifierref']] exists
                 // so according to IMS we can say that one is empty if the other is filled, so we concat them without more verification than if the var exists.
-
+                                   
                 if (!isset($manifestData['xml:base']['manifest']))   $manifestData['xml:base']['manifest'] = "";
                 if (!isset($manifestData['xml:base']['ressources'])) $manifestData['xml:base']['ressources'] = "";
                 if (!isset($manifestData['scos'][$item['identifierref']]['href'])) $manifestData['scos'][$item['identifierref']]['href'] = "";
                 if (!isset($manifestData['assets'][$item['identifierref']]['href'])) $manifestData['assets'][$item['identifierref']]['href'] = "";
                 if (!isset($manifestData['scos'][$item['identifierref']]['parameters'])) $manifestData['scos'][$item['identifierref']]['parameters'] = "";
                 if (!isset($manifestData['assets'][$item['identifierref']]['parameters'])) $manifestData['assets'][$item['identifierref']]['parameters'] = "";
-
+            
                 $assetPath = "/"
                              .$manifestData['xml:base']['manifest']
                              .$manifestData['xml:base']['ressources']
@@ -900,14 +979,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                         VALUES ('". addslashes($assetPath) ."', ".$insertedModule_id[$i]." , '')";
 
                 $query = claro_sql_query($sql);
-                if ( claro_sql_error() )
+                if ( mysql_error() )
                 {
                     $errorFound = true;
-                    array_push($errorMsgs, get_lang('Error in SQL statement'));
+                    array_push($errorMsgs, $langErrorSql);
                     break;
                 }
 
-                $insertedAsset_id[$i] = claro_sql_insert_id(); // array of all inserted asset ids
+                $insertedAsset_id[$i] = mysql_insert_id(); // array of all inserted asset ids
 
                 // update of module with correct start asset id
                 $sql = "UPDATE `".$TABLEMODULE."`
@@ -915,10 +994,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                         WHERE `module_id` = ". (int)$insertedModule_id[$i];
                 $query = claro_sql_query($sql);
 
-                if ( claro_sql_error() )
+                if ( mysql_error() )
                 {
                     $errorFound = true;
-                    array_push($errorMsgs, get_lang('Error in SQL statement'));
+                    array_push($errorMsgs, $langErrorSql);
                     break;
                 }
 
@@ -935,24 +1014,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                 // finally : insert in learning path
                 $sql = "INSERT INTO `".$TABLELEARNPATHMODULE."`
                         (`learnPath_id`, `module_id`, `specificComment`, `rank`, `visibility`, `lock`, `parent`)
-                        VALUES ('".$tempPathId."', '".$insertedModule_id[$i]."','".addslashes(get_block('blockDefaultModuleAddedComment'))."', ".$rank.", '".$visibility."', 'OPEN', ".$parent.")";
+                        VALUES ('".$tempPathId."', '".$insertedModule_id[$i]."','".addslashes($langDefaultModuleAddedComment)."', ".$rank.", '".$visibility."', 'OPEN', ".$parent.")";
                 $query = claro_sql_query($sql);
-
+                    
                 // get the inserted id of the learnPath_module rel to allow 'parent' link in next inserts
-                $insertedLPMid[$item['itemIdentifier']]['LPMid']  = claro_sql_insert_id();
+                $insertedLPMid[$item['itemIdentifier']]['LPMid']  = mysql_insert_id();
                 $insertedLPMid[$item['itemIdentifier']]['rank']  = 1;
-
-
-                if ( claro_sql_error() )
+                      
+                      
+                if ( mysql_error() )
                 {
                     $errorFound = true;
-                    array_push($errorMsgs, get_lang('Error in SQL statement'));
+                    array_push($errorMsgs, $langErrorSql);
                     break;
                 }
-
+                    
                 if (!$errorFound)
                 {
-                    array_push ($okMsgs, get_lang('Module added : ')."<i>".$moduleName."</i>" ) ;
+                    array_push ($okMsgs, $langOkModuleAdded."<i>".$moduleName."</i>" ) ;
                 }
                 $i++;
             }//foreach
@@ -968,7 +1047,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
 
     if ( $errorFound )
     {
-
+           
         // delete all database entries of this "module"
 
         /*
@@ -1030,7 +1109,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
         }
         else
         {
-            array_push($okMsgs, get_lang('warning : Installation cannot find the name of the learning path and has set a default name.  You should change it.') );
+            array_push($okMsgs, $langOkDefaultTitleUsed );
         }
 
         if ( isset($manifestData['packageDesc']) )
@@ -1039,8 +1118,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
         }
         else
         {
-            $lpComment = get_block('blockDefaultLearningPathComment');
-            array_push($okMsgs, get_lang('warning : Installation cannot find the description of the learning path and has set a default comment.  You should change it') );
+            $lpComment = $langDefaultLearningPathComment;
+            array_push($okMsgs, $langOkDefaultCommentUsed );
         }
 
         $sql = "UPDATE `".$TABLELEARNPATH."`
@@ -1057,28 +1136,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
       status messages
      --------------------------------------*/
 
+    echo "\n<!-- Messages -->\n";
     foreach ( $okMsgs as $msg)
     {
-        echo "\n<span class=\"correct\">v</span>&nbsp;&nbsp;&nbsp;".$msg."<br />";
+        echo "\n<b>[</b><span class=\"correct\">ok</span><b>]</b>&nbsp;&nbsp;&nbsp;".$msg."<br />";
     }
 
     foreach ( $errorMsgs as $msg)
     {
-        echo "\n<span class=\"error\">x</span>&nbsp;&nbsp;&nbsp;".$msg."<br />";
+        echo "\n<b>[</b><span class=\"error\">ko</span><b>]</b>&nbsp;&nbsp;&nbsp;".$msg."<br />";
     }
-
+    
+    echo "\n<!-- End messages -->\n";  
+      
     // installation completed or not message
     if ( !$errorFound )
     {
-        echo "\n<br /><center><b>".get_lang('Learning path has been successfully imported.')."</b></center>";
+        echo "\n<br /><center><b>".$langInstalled."</b></center>";
         echo "\n<br /><br ><center><a href=\"learningPathAdmin.php?path_id=".$tempPathId."\">".$lpName."</a></center>";
     }
     else
     {
-        echo "\n<br /><center><b>".get_lang('An error occured.  Learning Path import failed.')."</b></center>";
+        echo "\n<br /><center><b>".$langNotInstalled."</b></center>";
     }
-    echo "\n<br /><a href=\"learningPathList.php\">&lt;&lt; ".get_lang('Back')."</a>";
-
+    echo "\n<br /><a href=\"learningPathList.php\">$langBack</a>";   
+       
 }
 else // if method == 'post'
 {
@@ -1087,26 +1169,22 @@ else // if method == 'post'
     /*--------------------------------------
       UPLOAD FORM
      --------------------------------------*/
-    echo "\n\n".get_lang('Imported packages must consist of a zip file and be SCORM 1.2 conformable');
+    echo "\n\n".$langScormIntroTextForDummies;
     ?>
 <br /><br />
 
 <form enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
-<input type="hidden" name="claroFormId" value="<?php echo uniqid(''); ?>" />
 
-<input type="file" name="uploadedPackage" /><br />
-<small><?php echo get_lang('Max file size : %size', array('%size' => format_file_size( get_max_upload_size($maxFilledSpace,$baseWorkDir) ) ) ); ?></small>
+<input type="hidden" name="claroFormId" value="<?php echo uniqid(''); ?>">
+<input type="file" name="uploadedPackage">
+<input type="submit" value="<?php echo $langImport ?>"><br />
 
-<p>
-<input type="submit" value="<?php echo get_lang('Import') ?>" />&nbsp;
-<?php
-echo claro_html_button( './learningPathList.php', get_lang('Cancel')) . "\n"
-.    '</p>'
-.    '</form>'
-;
+<small><?php echo $langMaxFileSize; ?> <?php echo format_file_size( get_max_upload_size($maxFilledSpace,$baseWorkDir) ); ?></small>
 
+</form>
+
+     <?php
 } // else if method == 'post'
 // footer
-
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include($includePath."/claro_init_footer.inc.php");
 ?>

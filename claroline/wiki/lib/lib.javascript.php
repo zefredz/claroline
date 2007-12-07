@@ -1,14 +1,18 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 
     // vim: expandtab sw=4 ts=4 sts=4:
-
+    
+    if( (bool) stristr( $_SERVER['PHP_SELF'], basename(__FILE__) ) )
+    {
+        die("This file cannot be accessed directly! Include it in your script instead!");
+    }
+    
     /**
      * CLAROLINE
      *
-     * @version 1.8 $Revision$
+     * @version 1.7 $Revision$
      *
-     * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+     * @copyright 2001-2005 Universite catholique de Louvain (UCL)
      *
      * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
      * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
@@ -35,14 +39,14 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     {
         return realpath( str_replace( '\\', '/', $_SERVER['DOCUMENT_ROOT'] ) . dirname( $_SERVER['SCRIPT_NAME'] ) );
     }
-
+    
     // remove from claroline version
-
+    
     function add_check_if_javascript_enabled_js()
     {
         return '<script type="text/javascript">document.cookie="javascriptEnabled=true";</script>';
     }
-
+    
     function is_javascript_enabled()
     {
         return isset( $_COOKIE['javascriptEnabled'] )

@@ -1,0 +1,32 @@
+<?php
+$langAgenda = "Agenda (Lịch công tác)";
+$langAnnouncement = "Thông báo";
+$langCategories = "Danh mục website theo chủ đề";
+$langChat = "Thảo luận";
+$langCourseCreate = "Tạo một khoá học";
+$langCourseManager = "Quản lý khoá họcr";
+$langDay_of_weekNames = "Array";
+$langDescriptionCours = "Mô tả khoá học";
+$langDocument = "Tài liệu";
+$langEnter = "Trở lại danh mục khoá học";
+$langExercises = "Bài tập";
+$langForums = "Diễn đàn";
+$langGroups = "Nhóm";
+$langHelp = "Help";
+$langInvalidId = "<small>Không đăng nhập được.Nếu bạn chưa phải thành viên, hãy <a href=claroline/auth/inscription.php>đăng ký ở đây</a></small></font color>";
+$langLogin = "login";
+$langLogout = "Logout";
+$langLostPassword = "Quên mật khẩu";
+$langManager = "Người quản lý";
+$langModifyProfile = "Sửa thông tin cá nhân";
+$langMonthNames = "Array";
+$langMyCourses = "Danh mục khoá học";
+$langNameOfLang = "Array";
+$langOtherCourses = "Danh mục khoá học";
+$langPassword = "password";
+$langPoweredBy = "Powered by";
+$langStudent = "học sinh";
+$langUserName = "Username";
+$langUsers = "Users";
+$langWork = "Công việc";
+?>

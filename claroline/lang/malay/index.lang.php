@@ -1,0 +1,31 @@
+<?php
+$langAgenda = "Agenda";
+$langAnnouncement = "Pengumuman";
+$langCategories = "Pusat Pengajian";
+$langChat = "Perbincangan";
+$langCourseCreate = "Bina Laman Subjek";
+$langCourseManager = "Pentadbir Subjek (Pensyarah)";
+$langDay_of_weekNames = "Array";
+$langDescriptionCours = "Penerangan Subjek";
+$langDocument = "Dokumen";
+$langEnter = "Masuk";
+$langForums = "Forum";
+$langGroups = "Kumpulan";
+$langHelp = "Bantuan";
+$langInvalidId = "ID Pengguna dan Katalaluan anda tidak sah.Sila login semula atau <a href=claroline/auth/inscription.php>daftar</a> sebagai pengguna baru.</font color>";
+$langLogin = "Melog Masuk";
+$langLogout = "Melog Keluar";
+$langLostPassword = "Lupa Katalaluan";
+$langManager = "Pentadbir Sistem";
+$langModifyProfile = "Ubahsuai Maklumat Peribadi";
+$langMonthNames = "Array";
+$langMyCourses = "Senarai Subjek";
+$langNameOfLang = "Array";
+$langOtherCourses = "Senarai Subjek";
+$langPassword = "katalaluan";
+$langPoweredBy = "Oleh : ";
+$langStudent = "Pelajar";
+$langUserName = "Nama Pengguna";
+$langUsers = "Users";
+$langWork = "Works";
+?>

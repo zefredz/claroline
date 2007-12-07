@@ -1,0 +1,37 @@
+<?php
+$langAdd = "Добави";
+$langAgenda = "График";
+$langAnnouncement = "Обяви";
+$langAreYouSureToDelete = "Сигурен ли сте, че искате да изтриете ";
+$langCancel = "Анулирай";
+$langChat = "Чат";
+$langCourseProgram = "Описание на курса";
+$langDay_of_weekNames = "Array";
+$langDelete = "Изтрий";
+$langDescription = "Описание на документа";
+$langDescriptionCours = "Описание на курса";
+$langDocument = "Документи";
+$langExercises = "Упражнения";
+$langForums = "Форуми";
+$langGroups = "Групи";
+$langHelp = "Помощ";
+$langInfo2Say = "Информация, която да дадете на студентите";
+$langLogout = "Изход";
+$langManager = "Администратор";
+$langModify = "Промени";
+$langModifyProfile = "Промени моя профил";
+$langMonthNames = "Array";
+$langMyCourses = "Моите курсове";
+$langNameOfLang = "Array";
+$langNewBloc = "Други";
+$langOk = "ОК";
+$langOtherCourses = "Списък на курсовете";
+$langPoweredBy = "Powered by";
+$langQuestionPlan = "Въпрос към преподавателя";
+$langStudent = "студент";
+$langThisCourseDescriptionIsEmpty = "Няма описание за този курс";
+$langTitle = "Заглавие";
+$langUsers = "Потребители";
+$langViMod = "Видимостта променена";
+$langWork = "Студентски материали";
+?>

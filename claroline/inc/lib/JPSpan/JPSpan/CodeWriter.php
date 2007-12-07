@@ -1,5 +1,4 @@
-<?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+<?php
 /**
 * @package JPSpan
 * @subpackage CodeWriter
@@ -21,7 +20,7 @@ class JPSpan_CodeWriter {
     * @access private
     */
     var $code = '';
-
+    
     /**
     * Disables further writing of code
     * Used when errors are generated
@@ -41,7 +40,7 @@ class JPSpan_CodeWriter {
             $this->code = $code;
         }
     }
-
+    
     /**
     * Append some code to the existing code
     * @param string

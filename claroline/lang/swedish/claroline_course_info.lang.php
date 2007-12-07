@@ -1,0 +1,58 @@
+<?php
+$langAgenda = "Agenda";
+$langAllowed = "Tillåten";
+$langAnnouncement = "Tillkännagivanden";
+$langBackHomeOf = "Tillbaka till hemsidan för ";
+$langBackToList = "Tillbaka till användarlistan";
+$langByDel = "Att radera denna kurswebbsajt kommer att permanent radera alla dokument som den innehåller och avregistrera alla elever. (inte ta  bort dem från andra kurser).<p>Vill du verkligen radera denna kurs ";
+$langCancel = "Avbryt";
+$langChat = "Diskussion";
+$langCode = "Kurskod";
+$langConfTip = "Som standard kommer din kurs att kunna nås av alla så länge som det är registrerade användare. I händelse av att du har något konfidentiellt, 
+det enklaste är att öppna registrering under
+en vecka, och be studenterna att de registrerar sig själva, därefter stänga registreringen och kontrollera användarlistan efter obehöriga.";
+$langCopy = "Kopiera";
+$langCourse = "Webbsajten ";
+$langCourseAccess = "Åtkomst till denna kurs";
+$langCourseManager = "Kursansvarig";
+$langCourseTitle = "Kurstitel";
+$langDay_of_weekNames = "Array";
+$langDelCourse = "Radera hela kurswebbsajten";
+$langDenied = "Nekad";
+$langDepartmentUrl = "URL";
+$langDepartmentUrlName = "Avdelning";
+$langDescriptionCours = "Kursbeskrivning";
+$langDocument = "Dokument";
+$langEmail = "Emejl";
+$langExercises = "Övningar";
+$langForums = "Forum";
+$langGroups = "instruktion för gruppanvändarna";
+$langHasDel = "har raderats";
+$langHelp = "hjälp";
+$langHome = "Tillbaka till hemsidan";
+$langLanguage = "Språk";
+$langLogin = "Logga in";
+$langLogout = "Logga ut";
+$langManager = "Ansvarig";
+$langModifDone = "Informationen har modifierats";
+$langModifyProfile = "Modifiera min profil";
+$langMonthNames = "Array";
+$langMyCourses = "Mina kurser";
+$langNameOfLang = "Array";
+$langNo = "Nej";
+$langNotAllowed = "Inte tillåtet";
+$langOk = "validate";
+$langOtherCourses = "Kurslista";
+$langPoweredBy = "Med kraft från";
+$langPrivateAccess = "Privat åtkomst, registrering stängd (sajt tillgänglig bara för personer på <a href=../user/user.php>Användarlistan</a>)";
+$langProfessors = "Lärare";
+$langPublicAccess = "Publik åtkomst från campus hemsida även utan inloggning";
+$langStatistics = "Statistik";
+$langStudent = "elev";
+$langSubscription = "Prenumeration";
+$langTipLang = "Detta språk gäller för all besökare som besöker denna kurswebbsajt.";
+$langTo = "till";
+$langUsers = "Användare";
+$langWork = "Elevarbeten";
+$langYes = "Yes";
+?>

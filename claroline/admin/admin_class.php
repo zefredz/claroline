@@ -1,302 +1,313 @@
 <?php // $Id$
+//----------------------------------------------------------------------
+// CLAROLINE
+//----------------------------------------------------------------------
+// Copyright (c) 2001-2004 Universite catholique de Louvain (UCL)
+//----------------------------------------------------------------------
+// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
+// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+//----------------------------------------------------------------------
+// Authors: see 'credits' file
+//----------------------------------------------------------------------
 /**
- * CLAROLINE
+ * Claroline
  *
- * this tool manage the
- *
- * @version 1.8 $Revision$
- *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
- *
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @author Claro Team <cvs@claroline.net>
+ * @version 1.7 $Revision$
  * @author  Guillaume Lederer <lederer@cerdecam.be>
  */
-
 //used libraries
 
 require '../inc/claro_init_global.inc.php';
 
-require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
-require_once get_path('incRepositorySys') . '/lib/class.lib.php';
-require_once get_path('incRepositorySys') . '/lib/user.lib.php';
+include($includePath."/lib/admin.lib.inc.php");
+include($includePath."/lib/class.lib.php");
 
 // Security check
+if ( ! $_uid ) claro_disp_auth_form();
+if ( ! $is_platformAdmin ) claro_die($langNotAllowed);
 
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
-
-// DB tables definition
-
+/*
+ * DB tables definition
+ */
 $tbl_mdb_names = claro_sql_get_main_tbl();
-$tbl_class      = $tbl_mdb_names['user_category'];
+$tbl_user                  = $tbl_mdb_names['user'];
+$tbl_class                 = $tbl_mdb_names['user_category'];
+$tbl_class_user            = $tbl_mdb_names['user_rel_profile_category'];
 
-// USED SESSION VARIABLES
+// USED SESSION VARIABLES 
 
-if ( !isset($_SESSION['admin_visible_class']))
+if (!isset($_SESSION['admin_visible_class'])) 
 {
-    $_SESSION['admin_visible_class'] = array();
+    $_SESSION['admin_visible_class'] = array(); 
 }
 
 // Deal with interbredcrumps  and title variable
-
-$nameTools = get_lang('Classes');
-$interbredcrump[] = array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
+$nameTools = $langAdministrationClassTools;
+$interbredcrump[]    = array ("url"=>$rootAdminWeb, "name"=> $langAdministration);
 
 // javascript confirm pop up declaration for header
 
 $htmlHeadXtra[] =
-'<script>
-function confirmation (name)
+            "<script>
+            function confirmation (name)
+            {
+                if (confirm(\"".clean_str_for_javascript($langAreYouSureToDelete)."\"+' '+ name + \"? \"))
+                    {return true;}
+                else
+                    {return false;}
+            }
+            </script>";
+
+/*-----------------------------------*/
+/*	EXECUTE COMMAND	             */
+/*-----------------------------------*/
+if (isset($_REQUEST['cmd']))
+     $cmd = $_REQUEST['cmd'];
+else $cmd = null;
+
+switch ($cmd)	
 {
-    if (confirm("' . clean_str_for_javascript(get_lang('Are you sure to delete')) . '"+\' \'+ name + "? "))
-        {return true;}
-    else
-        {return false;}
-}
-</script>';
+  //Delete an existing class
+  case "del" :
+  
+    //check if class contains some children
 
-//-------------------------------------------------------
-// Main section
-//-------------------------------------------------------
+	$sql = "SELECT * 
+            FROM `".$tbl_class."`";
+	$class_list = claro_sql_query_fetch_all($sql);
+	$has_children = FALSE;
+	foreach ($class_list as $search_parent)
+	{
+	    if ($_REQUEST['class'] == $search_parent['class_parent_id'])
+	    {    
+	        $has_children = TRUE;
+	        break;
+	    }
+	}
 
-$cmd = isset($_REQUEST['cmd'])?$_REQUEST['cmd']:null;
-
-$form_data['class_id'] = isset($_REQUEST['class_id'])?(int)$_REQUEST['class_id']:0;
-$form_data['class_name'] = isset($_REQUEST['class_name'])?trim($_REQUEST['class_name']):'';
-$form_data['class_parent_id'] = isset($_REQUEST['class_parent_id'])?$_REQUEST['class_parent_id']:0;
-
-switch ( $cmd )
-{
-    // Delete an existing class
-    case 'exDelete' :
-
-        if ( delete_class($form_data['class_id']) )
-        {
-            $dialogBox = get_lang('Class deleted');
-        }
-        else
-        {
-            switch ( claro_failure::get_last_failure() )
-            {
-                case 'class_not_found' :
-                    $dialogBox = get_lang('Error : Class not found');
-                    break;
-                
-                case 'class_has_sub_classes' :
-                    $dialogBox = get_lang('Error : Class has sub-classes');
-                    break;
-            }
-        }
+	// delete the class itself	
+	if (!$has_children) 
+	{  
+	    $sql = "DELETE FROM `".$tbl_class."` 
+                WHERE id='". (int)$_REQUEST['class']."'";      
+        claro_sql_query($sql);
+	}
+	else
+	{
+	    $dialogBox = $langErrorClassNotEmpty;
+	}
 
         break;
-
-    // Display form to create a new class
-    case 'rqAdd' :
-
-        $dialogBox = '<form action="'.$_SERVER['PHP_SELF'].'" method="post" >' . "\n"
-        .            '<input type="hidden" name="cmd" value="exAdd" />' . "\n"
-        .            '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'
-        .            '<table>' . "\n"
-        .            '<tr>' . "\n"
-        .            '<td>' . get_lang('New Class name').' : ' . '</td>' . "\n"
-        .            '<td>' . "\n"
-        .            '<input type="text" name="class_name" />' . "\n"
-        .            '</td>' . "\n"
-        .            '</tr>' . "\n"
-        .            '<tr>' . "\n"
-        .            '<td>'. get_lang('Location').' :' . '</td>' . "\n"
-        .            '<td>' . "\n"
-        .            displaySelectBox()
-        .            '<input type="submit" value=" Ok " />' . "\n"
-        .            '</td>' . "\n"
-        .            '</tr>' . "\n"
-        .            '</table>' . "\n"
-        .            '</form>'."\n "
-        ;
-
+  
+  //Display form to create a new class
+  case "formNew" :
+  	$dialogBox = '<form action="'.$_SERVER['PHP_SELF'].'" method="POST" >'."\n"
+               . '<table>'."\n"
+               . '<tr>'."\n"
+               . '<td>'. $langNewClassName.' : ' . '</td>'."\n"
+               . '<td>'."\n"
+               . '<input type="hidden" name="cmd" value="new">'."\n"
+               . '<input type="text" name="classname">'."\n"
+               . '</td>'."\n"
+               . '</tr>'."\n"
+               . '<tr>'."\n"
+               . '<td>'. $langLocation.' :' . '</td>'."\n"
+               . '<td>'."\n"
+               . displaySelectBox()   
+	           . '<input type="submit" value=" Ok ">'."\n"
+	           . '<input type="hidden" name="claroFormId" value=\"'.uniqid('').'\">'
+		       . '</td>'."\n"
+               . '</tr>'."\n"
+	           . '</table>'."\n"
+	           . '</form>'."\n "
+               ;
         break;
 
-    // Create a new class
-    case 'exAdd' :
-        
-        if ( empty($form_data['class_name']) )
-        {
-            $dialogBox = get_lang('You cannot give a blank name to a class');
-        }
-        else
-        {
-            
-            if ( class_create($form_data['class_name'],$form_data['class_parent_id']) )
-            {
-                $dialogBox = get_lang('The new class has been created');
-            }
+  //Create a new class
+  case "new" :
+  	if ($_REQUEST['classname']=="") 
+	{
+	    $dialogBox = $langCannotBeBlank;
+	}
+	else
+	{
+	    $dialogBox = $langNewClassCreated;
+	    $sql = "INSERT INTO `".$tbl_class."` 
+                SET `name`='". addslashes($_REQUEST['classname']) ."'";
 
-        }
+	    if ($_REQUEST['theclass'] && ($_REQUEST['theclass']!="") && ($_REQUEST['theclass']!="root"))
+	    {
+	        $sql.=", `class_parent_id`='". (int)$_REQUEST['theclass']."'"; 
+        }       
 
-        break;
-
-    // Edit class properties with posted form
-    case 'exEdit' :
-
-        if ( empty($form_data['class_name']) )
-        {
-            $dialogBox = get_lang('You cannot give a blank name to a class');
-        }
-        else
-        {
-            if ( class_set_properties($form_data['class_id'],$form_data['class_name']) ) 
-            {
-                $dialogBox = get_lang('Name of the class has been changed');
-            }
-        }
-
+        claro_sql_query($sql);
+	
+    }
     break;
 
-    // Show form to edit class properties (display form)
-    case 'rqEdit' :
+  //Edit class properties with posted form	
+  case "exEdit" :
+        
+  	if ($_REQUEST['classname']=="") 
+	{
+	    $dialogBox = $langCannotBeBlank;
+	}
+	else
+	{
+	    $sql_update = "UPDATE `".$tbl_class."` 
+                       SET name='". addslashes($_REQUEST['classname']) ."' 
+                       WHERE id='". (int)$_REQUEST['class']."'";
+	    claro_sql_query($sql_update);
+	    $dialogBox = $langNameChanged;
+	
+	}
+    break;
+  
+  //Show form to edit class properties (display form)	
+  case "edit" :
+        
+        $sql = "SELECT name 
+                FROM `".$tbl_class."` 
+                WHERE `id`= '". (int)$_REQUEST['class']."'";
 
-        if ( false !== ($thisClass = class_get_properties($form_data['class_id']) ))
+    	$result =  claro_sql_query_fetch_all($sql);
+        $class_name = $result[0]['name'];
+	
+        $dialogBox= '<form action="'.$_SERVER['PHP_SELF'].'" method="POST" >'."\n"
+        		   .'<table>'."\n"
+        		   .'<tr>'."\n"
+        		   .'<td>'."\n"
+        	       .$langClassName.' : '."\n"
+        		   .'</td>'."\n"
+        		   .'<td>'."\n"
+        		   .'<input type="hidden" name="cmd" value="exEdit">'."\n"
+        		   .'<input type="hidden" name="class" value="'.$_REQUEST['class'].'">'."\n"
+        		   .'<input type="text" name="classname" value="'. htmlspecialchars($class_name) .'">'."\n"
+        		   .'<input type="submit" value=" Ok ">'."\n"
+        		   .'</td>'."\n"
+        		   .'</tr>'."\n"
+        		   .'</table>'."\n"
+        		   .'</form>'."\n "
+                   ;
+        break;
+
+  //Open a class in the tree
+  case "exOpen" : 
+      $_SESSION['admin_visible_class'][$_REQUEST['class']]="open";      
+      break;
+      
+  //Close a class in the tree
+  case "exClose" : 
+      $_SESSION['admin_visible_class'][$_REQUEST['class']]="close";      
+      break;
+  
+  //Move a class in the tree (do it from posted info) 
+  case "exMove" : 
+      
+    if ($_REQUEST['theclass'] ==$_REQUEST['movedClassId']) 
+    {
+        $dialogBox = $langErrorMove;
+    }
+    else
+    {
+        if ($_REQUEST['theclass']=="root")
         {
-            $dialogBox= '<form action="'.$_SERVER['PHP_SELF'].'" method="post" >' . "\n"
-            .           '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
-            .           '<input type="hidden" name="class_id" value="' . $thisClass['id'] . '" />' . "\n"
-            .           '<table>' . "\n"
-            .           '<tr>' . "\n"
-            .           '<td>' . "\n"
-            .           get_lang('Name').' : ' . "\n"
-            .           '</td>' . "\n"
-            .           '<td>' . "\n"
-            .           '<input type="text" name="class_name" value="' . htmlspecialchars($thisClass['name']) . '" />' . "\n"
-            .           '<input type="submit" value=" ' . get_lang('Ok') . ' " />' . "\n"
-            .           '</td>' . "\n"
-            .           '</tr>' . "\n"
-            .           '</table>' . "\n"
-            .           '</form>'."\n "
-            ;
+            $parent="null"; 
         }
         else
-        {
-            switch ( claro_failure::get_last_failure() )
-            {
-                case 'class_not_found' :
-                default :
-                    $dialogBox = get_lang('Error : Class not found');
-                    break;
-            }
+        { 
+            $parent = $_REQUEST['theclass'];
         }
-        break;
-
-    // Open a class in the tree
-    case 'exOpen' :
-
-        $_SESSION['admin_visible_class'][$form_data['class_id']] = 'open';
-        break;
-
-    // Close a class in the tree
-    case 'exClose' :
-
-        $_SESSION['admin_visible_class'][$form_data['class_id']] = 'close';
-        break;
-
-    // Move a class in the tree (do it from posted info)
-    case 'exMove' :
-
-
-        if ( move_class($form_data['class_id'],$form_data['class_parent_id']) )
-        {
-            $dialogBox = get_lang('The class has been moved');
-        }
-        else
-        {
-            switch ( claro_failure::get_last_failure() )
-            {
-                case 'class_not_found' :
-                    $dialogBox = get_lang('Error : Class not found');
-                    break;
-                case 'move_same_class' :
-                    // nothing to do
-                    break;
-            }
-        }
-
-    // Move a class in the tree (display form)
-    case "rqMove" :
-
-        $dialogBox = '<form action="'.$_SERVER['PHP_SELF'].'">'
-        .            '<table>'
-        .            '<tr>' . "\n"
-        .            '<td>' . "\n"
-        .            get_lang('Move') ." ". htmlspecialchars($form_data['class_name']) .' : '
-        .            '</td>' . "\n"
-        .            '<td>' . "\n"
-        .            '<input type="hidden" name="cmd" value="exMove" />' . "\n"
-        .            '<input type="hidden" name="class_id" value="'. $form_data['class_id'] .'" />' . "\n"
-        .            displaySelectBox()
-        .            '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
-        .            '</td>' . "\n"
-        .            '</tr>' . "\n"
-        .            '</table>'
-        .            '</form>' ;
-        break;
-
+        
+        if (!is_null($parent)) $parent = (int) $parent;
+        
+	    $sql_update="UPDATE `".$tbl_class."` 
+                     SET class_parent_id=". $parent." 
+                     WHERE id='". (int)$_REQUEST['movedClassId']."'";
+        claro_sql_query($sql_update);
+        $dialogBox = $langClassMoved;
+    }
+    break;
+      
+  //Move a class in the tree (display form)
+  case "move" : 
+      
+      $dialogBox = '<form action="'.$_SERVER['PHP_SELF'].'">'
+                 . '<table>'
+                 . '<tr>'."\n"
+		         . '<td>'."\n"
+		         . $langMove ." ". $_REQUEST['classname'].' : '
+		         . '</td>'."\n"
+		         . '<td>'."\n"             
+                 . '<input type="hidden" name="cmd" value="exMove">'."\n"
+		         . '<input type="hidden" name="movedClassId" value="'.$_REQUEST['class'].'">'."\n"
+                 . displaySelectBox() 
+                 . '<input type="submit" value=" Ok ">'."\n"
+		         . '</td>'."\n"
+		         . '</tr>'."\n"
+		         . '</table>'
+		         . '</form>'
+                 ;
+      break;
+	
 }
 
-// Get all classes
+/*-----------------------------------*/
+/*	Get information 	             */
+/*-----------------------------------*/
 
-$sql = "SELECT id,
-               class_parent_id,
-               name
-        FROM `" . $tbl_class . "`
+$sql = "SELECT * 
+        FROM `".$tbl_class."` 
         ORDER BY `name`";
-
 $class_list = claro_sql_query_fetch_all($sql);
 
-//-------------------------------------------------------
-// Display section
-//-------------------------------------------------------
+/*-----------------------------------*/
+/*	Display                          */
+/*-----------------------------------*/
 
 // Display Header
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+include($includePath.'/claro_init_header.inc.php');
 
-// Display title
+// display title
 
-echo claro_html_tool_title($nameTools);
+echo claro_disp_tool_title($nameTools);
 
 // display dialog Box (or any forms)
 
-if ( isset($dialogBox) ) echo claro_html_message_box($dialogBox);
+if ( isset($dialogBox))
+{
+    echo claro_disp_message_box($dialogBox);
+    echo '<br>';
+}
 
 //display tool links
 
-echo '<p><a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd">'
-.    '<img src="' . get_path('imgRepositoryWeb') . 'class.gif" />' . get_lang('Create a new class')
-.    '</a>'
-.    '</p>' . "\n";
+echo '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=formNew"><img src="'. $imgRepositoryWeb.'class.gif">'.$langCreateNewClass.'</a>'
+   . '<br><br>'."\n"
+   //display cols headers
+   . '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'."\n"
+   . '<thead>'."\n"
+   . '<tr class="headerX">'
+   . '<th>' . $langClassName . '</th>'
+   . '<th>' . $langUsers . '</th>'
+   . '<th>' . $langEditSettings . '</th>'
+   . '<th>' . $langMove . '</th>'
+   . '<th>' . $langDelete . '</th>'
+   . '</tr>'."\n"
+   . '</thead>'."\n"
+    //display Class list
+   . '<tbody>'."\n";
+   display_tree_class_in_admin($class_list);
+   echo '</tbody>'."\n"
+   . '</table>'
+   ;
 
-//display cols headers
-echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
-.    '<thead>' . "\n"
-.    '<tr class="headerX">'
-.    '<th>' . get_lang('Classes') . '</th>'
-.    '<th>' . get_lang('Users') . '</th>'
-.    '<th>' . get_lang('Courses') . '</th>'
-.    '<th>' . get_lang('Edit settings') . '</th>'
-.    '<th>' . get_lang('Move') . '</th>'
-.    '<th>' . get_lang('Delete') . '</th>'
-.    '</tr>' . "\n"
-.    '</thead>' . "\n"
-.    '<tbody>' . "\n" ;
-
-//display Class list
-echo display_tree_class_in_admin($class_list);
-
-echo '</tbody>' . "\n"
-.    '</table>' ;
 
 // Display footer
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include($includePath.'/claro_init_footer.inc.php');
 
 ?>
