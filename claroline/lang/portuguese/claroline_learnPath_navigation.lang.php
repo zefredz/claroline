@@ -1,0 +1,36 @@
+<?php
+$langAddComment = "acrescentar/alterar um coment&aacute;rio ";
+$langAgenda = "Agenda";
+$langAnnouncement = "An&uacute;ncios";
+$langBack = "Voltar aos par&aacute;metros do curso";
+$langChat = "Debate";
+$langConfirmYourChoice = "Confirme a sua escolha";
+$langCourseManager = "Respons&aacute;vel pelo curso";
+$langDate = "Data";
+$langDay_of_weekNames = "Array";
+$langDelete = "apagar";
+$langDescriptionCours = "Descri&ccedil;&atilde;o do Curso";
+$langDocument = "Documentos";
+$langExercise = "Exerc&iacute;cios";
+$langForums = "Foros";
+$langGroups = "Inscri&ccedil;&atilde;o dos utilizadores nos grupos";
+$langHelp = "ajuda";
+$langLogin = "Nome de utilizador";
+$langLogout = "Sair da Sess&atilde;o";
+$langModify = "alterar";
+$langModifyProfile = "Alterar perfil";
+$langMonthNames = "Array";
+$langMyCourses = "Cursos";
+$langNameOfLang = "Nome da l&iacute;ngua";
+$langNext = "Seguinte";
+$langNoEx = "Actualmente n&atilde;o h&aacute; exerc&iacute;cios";
+$langOk = "validar";
+$langOtherCourses = "Lista de cursos";
+$langPoweredBy = "Utiliza a Plataforma";
+$langSize = "Tamanho";
+$langStudent = "estudante";
+$langUp = "transferir";
+$langUsers = "Utilizadores";
+$langWork = "Trabalhos";
+$lang_enroll = "Inscrever-se";
+?>

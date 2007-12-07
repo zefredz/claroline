@@ -1,11 +1,10 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.7 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -17,37 +16,29 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  */
 
-$formSize = 40;
 
 /**
  * @param string  $dayFieldName attribute name of the input DAY
  * @param string  $monthFieldName attribute name of the input MONTH
  * @param string  $yearFieldName attribute name of the input YEAR
- * @param boolean $unixDate unix timestamp of date to display
+ * @param boolean $selectedDate
  * @param string  $formatMonth display type of month select box : numeric, long, short
  *
- * @author Sébastien Piraux <pir@cerdecam.be>
+ * @author Sébastien Piraux pir@cerdecam.be
  *
  * @return string html stream to output input tag for a date
  *
  */
 
-function claro_disp_date_form($dayFieldName, $monthFieldName, $yearFieldName, $unixDate = 0, $formatMonth = 'numeric' )
+function claro_disp_date_form($dayFieldName, $monthFieldName, $yearFieldName, $selectedDate = 0, $formatMonth = 'numeric' )
 {
-    pushClaroMessage( (function_exists('claro_html_debug_backtrace')
-             ? claro_html_debug_backtrace()
-             : 'claro_html_debug_backtrace() not defined'
-             )
-             .'claro_disp_date_form() is deprecated , use claro_html_date_form()','error');
+    global $langMonthNames;
 
-    return claro_html_date_form($dayFieldName, $monthFieldName, $yearFieldName, $unixDate, $formatMonth );
-}
-
-function claro_html_date_form($dayFieldName, $monthFieldName, $yearFieldName, $unixDate = 0, $formatMonth = 'numeric' )
-{
-    if( $unixDate == 0) $selectedDate = date('Y-m-d');
-    else                $selectedDate = date('Y-m-d', $unixDate);
-
+    if( $selectedDate == 0)
+    {
+        // if not date in parameters us 'today'
+        $selectedDate = date('Y-m-d');
+    }
     // split selectedDate
     list($selYear, $selMonth, $selDay) = split('-', $selectedDate);
 
@@ -63,22 +54,19 @@ function claro_html_date_form($dayFieldName, $monthFieldName, $yearFieldName, $u
     // month field
     if( $formatMonth == 'numeric' )
     {
-        for ($monthCounter=1;$monthCounter <= 12; $monthCounter++)
-          $available_months[$monthCounter] = $monthCounter;
-    }
-    elseif( $formatMonth == 'long' )
-    {
-        $langMonthNames['long'] = get_lang_month_name_list('long');
-
-        for ($monthCounter=1;$monthCounter <= 12; $monthCounter++)
-          $available_months[$langMonthNames['long'][$monthCounter-1]] = $monthCounter;
-    }
-    elseif( $formatMonth == 'short' )
-    {
-        $langMonthNames['short'] = get_lang_month_name_list('short');
-        for ($monthCounter=1;$monthCounter <= 12; $monthCounter++)
-          $available_months[$langMonthNames['short'][$monthCounter-1]] = $monthCounter;
-    }
+	    for ($monthCounter=1;$monthCounter <= 12; $monthCounter++)
+	      $available_months[$monthCounter] = $monthCounter;
+	}
+	elseif( $formatMonth == 'long' )
+	{
+    	for ($monthCounter=1;$monthCounter <= 12; $monthCounter++)
+	      $available_months[$monthCounter] = $langMonthNames['long'][$monthCounter-1];
+	}
+	elseif( $formatMonth == 'short' )
+	{
+		for ($monthCounter=1;$monthCounter <= 12; $monthCounter++)
+	      $available_months[$monthCounter] = $langMonthNames['short'][$monthCounter-1];
+	}
     $monthField = claro_html_form_select( $monthFieldName
                                    , $available_months
                                    , $selMonth
@@ -98,37 +86,23 @@ function claro_html_date_form($dayFieldName, $monthFieldName, $yearFieldName, $u
 }
 
 /**
- * build htmlstream for input form of a time
+ * @param string  $hourFieldName attribute name of the input DAY
+ * @param string  $minuteFieldName attribute name of the input MONTH
+ * @param integer  $selectedTime attribute name of the input YEAR
  *
- * @param string $hourFieldName attribute name of the input Hour
- * @param string $minuteFieldName attribute name of the input minutes
- * @param string $unixDate unix timestamp of date to display
+ * @author Sébastien Piraux pir@cerdecam.be
  *
  * @return string html stream to output input tag for an hour
- *
- * @author Sébastien Piraux <pir@cerdecam.be>
  *
  */
 
 
-function claro_disp_time_form($hourFieldName, $minuteFieldName, $unixDate = 0)
+function claro_disp_time_form($hourFieldName, $minuteFieldName, $selectedTime = 0)
 {
-
-    pushClaroMessage( (function_exists('claro_html_debug_backtrace')
-             ? claro_html_debug_backtrace()
-             : 'claro_html_debug_backtrace() not defined'
-             )
-             .'claro_disp_time_form() is deprecated , use claro_html_time_form()','error');
-
-
-    return claro_html_time_form($hourFieldName, $minuteFieldName, $unixDate);
-}
-
-function claro_html_time_form($hourFieldName, $minuteFieldName, $unixDate = 0)
-{
-    if( $unixDate == 0) $selectedTime = date("H:i");
-    else                $selectedTime = date("H:i",$unixDate);
-
+    if(!$selectedTime)
+    {
+        $selectedTime = date("H:i");
+    }
 
     //split selectedTime
     list($selHour, $selMinute) = split(':',$selectedTime);
@@ -161,25 +135,21 @@ function claro_html_time_form($hourFieldName, $minuteFieldName, $unixDate = 0)
 
 /**
  *
- * @param string $select_name name of the form (other param can be adds with $attr
- * @param array $list_option 2D table where key are labels and value are values
- *  with reverted set to false (default) or key are values and value are labels
- *  with reverted set to true
+ * @param string $name name of the form (other param can be adds with $attr
+ * @param string $list_option 2D table where key are name and value are label
  * @param string $preselect name of the key in $list_option would be preselected
- * @param bool $reverted set the function in reverted mode to use value => label
- *  instead of label => value arrays (default false)
  * @return html output from a 2D table where key are name and value are label
  *
  * @author Christophe Gesché <moosh@claroline.net>
  *
  */
-function claro_html_form_select($select_name,$list_option,$preselect=null,$attr=null, $reverted = false)
+function claro_html_form_select($select_name,$list_option,$preselect=null,$attr=null)
 {
     $html_select = '<select name="' . $select_name . '" ';
     if (is_array($attr)) foreach($attr as $attr_name=>$attr_value)
     $html_select .=' ' . $attr_name . '="' . $attr_value . '" ';
     $html_select .= '>' . "\n"
-    .                claro_html_option_list($list_option,$preselect, $reverted)
+    .                claro_html_option_list($list_option,$preselect)
     .               '</select>' . "\n"
     ;
 
@@ -189,43 +159,28 @@ function claro_html_form_select($select_name,$list_option,$preselect=null,$attr=
 
 /**
  * return a string as html form option list to plce in a <select>
- * @param array $list_option 2D table where key are labels and value are values
- *  with reverted set to false (default) or key are values and value are labels
- *  with reverted set to true
+ * @param string $list_option 2D table where key are name and value are label
  * @param string $preselect name of the key in $list_option would be preselected
- * @param bool $reverted set the function in reverted mode to use value => label
- *  instead of label => value arrays (default false)
- * @return html output of the select options
+ * @return html output from a 2D table where key are name and value are label
  *
  * @author Christophe Gesché <moosh@claroline.net>
  *
  */
-function claro_html_option_list($list_option, $preselect, $reverted = false)
+function claro_html_option_list($list_option, $preselect)
 {
     $html_option_list ='';
     if(is_array($list_option))
     {
-        if ( ! $reverted )
+        foreach($list_option as $option_value => $option_label)
         {
-            foreach($list_option as $option_label => $option_value)
-            {
-                $html_option_list .= '<option value="' . $option_value . '"'
-                .                    ($option_value ==  $preselect ?' selected="selected" ':'') . '>'
-                .                    htmlspecialchars($option_label)
-                .                    '</option >' . "\n"
-                ;
-            }
-        }
-        else
-        {
-            foreach($list_option as $option_value => $option_label)
-            {
-                $html_option_list .= '<option value="' . $option_value . '"'
-                .                    ($option_value ==  $preselect ?' selected="selected" ':'') . '>'
-                .                    htmlspecialchars($option_label)
-                .                    '</option >' . "\n"
-                ;
-            }
+            if(empty($option_label)) $option_label = $option_value;
+            //if(empty($option_label)) $option_label = '-';
+            // stupid empty consider empty(0) as true
+            $html_option_list .= '<option value="' . $option_value . '"'
+            .                    ($option_value ==  $preselect ?' selected="selected" ':'') . '>'
+            .                    htmlspecialchars($option_label)
+            .                    '</option >' . "\n"
+            ;
         }
         return $html_option_list;
     }
@@ -235,138 +190,6 @@ function claro_html_option_list($list_option, $preselect, $reverted = false)
         return false;
     }
 
-}
-
-/**
- * Return html for a field label wich is required.
- *
- * @param string $field field label
- * @return string html for a field label wich is required.
- * @since 1.8
- */
-
-function form_required_field($field)
-{
-    return '<span class="required">*</span>&nbsp;' . $field;
-}
-
-/**
- * Return html for a table row for claro_form_table.
- *
- * @param string $field field label
- * @return string html for a field label wich is required.
- * @since 1.8
- */
-
-function form_row($legend, $element)
-{
-    return '<tr valign="top">' . "\n"
-    .      '<td align="right">' . "\n"
-    .      $legend
-    .      '</td>' . "\n"
-    .      '<td align="left">' . "\n"
-    .      $element . "\n"
-    .      '</td>' . "\n"
-    .      '</tr>' . "\n"
-    ;
-}
-
-/**
- * Prepare an html output of an input wich  would be include in a <form>
- *
- * @param string  $name
- * @param string  $value
- * @param string  $displayedName (default '')
- * @param boolean $required      (default false)
- * @return string html content
- * @since 1.8
- */
-function form_input_text($name, $value, $displayedName = '', $required = false)
-{
-    if ( empty($displayedName) ) $displayedName = $name;
-    if ( $required )             $displayedName = form_required_field($displayedName);
-
-    return form_row( '<label for="' . $name . '">' . $displayedName . '</label>&nbsp;: '
-    ,                '<input type="text" size="' . get_conf('formSize',40) . '"'
-    .                ' id="'.$name.'" name="'.$name.'"'
-    .                ' value="'.htmlspecialchars($value).'" />')
-    ;
-}
-
-/**
- * Prepare an html output of an input wich  would be include in a <form>
- *
- * @param string  $name
- * @param string  $value
- * @param string  $displayedName (default '')
- * @param boolean $required      (default false)
- * @return string html content
- * @since 1.8
- */
-function form_readonly_text($name, $value, $displayedName = '')
-{
-    if ( empty($displayedName) ) $displayedName = $name;
-
-    if ( empty($value) ) $value = '-';
-
-    return form_row( $displayedName . '&nbsp;: '
-    ,                htmlspecialchars($value) ) ;
-}
-
-/**
- * Prepare an html output of an input wich  would be include in a <form>
- *
- * @param string  $name
- * @param string  $value
- * @param string  $displayedName (default '')
- * @param boolean $required      (default false)
- * @return string html content
- * @since 1.8
- */
-function form_input_password($name, $value, $displayedName = '', $required = false)
-{
-    if ( empty($displayedName) ) $displayedName = $name;
-    if ( $required )             $displayedName = form_required_field($displayedName);
-
-    return form_row( '<label for="'.$name.'">'.$displayedName . '</label>&nbsp;: '
-    ,                '<input type="password" size="' . get_conf('formSize',40) . '"'
-    .                ' id="' . $name . '" name="' . $name . '"'
-    .                ' value="' . htmlspecialchars($value) . '" />')
-    ;
-}
-
-/**
- * Prepare an html output of an input hidden wich  would be include in a <form>
- *
- * @param string $name use for name and  by default, id
- * @param string $value
- * @return string : html stream
- */
-function form_input_hidden($name, $value)
-{
-    return '<input type="hidden"' . ' id="'.$name.'" name="'.$name.'"' . ' value="'.htmlspecialchars($value).'" />';
-}
-
-/**
- * Prepare an html output of an textarea wich  would be include in a <form>
- *
- * @param string  $name
- * @param string  $value
- * @param string  $displayedName (default '')
- * @param boolean $required      (default false)
- * @return string html content
- * @since 1.8
- */
-function form_input_textarea($name, $value, $displayedName = '', $required = false, $rows=6)
-{
-    if ( empty($displayedName) ) $displayedName = $name;
-    if ( $required )             $displayedName = form_required_field($displayedName);
-
-    $rows = (int) $rows;
-    return form_row( '<label for="' . $name . '">' . $displayedName . '</label>&nbsp;: '
-    ,                '<textarea cols="' . get_conf('formSize',40) . '" rows="' . $rows . '"  '
-                   . ' id="' . $name . '" name="' . $name . '" >' . htmlspecialchars($value) . '</textarea>' )
-    ;
 }
 
 ?>

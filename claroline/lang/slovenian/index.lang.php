@@ -1,0 +1,30 @@
+<?php
+$langAgenda = "Agenda";
+$langAnnouncement = "Obvestila";
+$langCategories = "Kategorije tecajev";
+$langChat = "Razprava";
+$langCourseCreate = "Tvori spletno stran tecaja";
+$langCourseManager = "Upravnik tecaja";
+$langDay_of_weekNames = "Array";
+$langDescriptionCours = "Opis tecaja";
+$langDocument = "Dokumenti";
+$langEnter = "Vstop";
+$langForums = "Forumi";
+$langGroups = "Skupine";
+$langHelp = "Pomoc";
+$langLogin = "vstop";
+$langLogout = "Izstop";
+$langLostPassword = "Izgubljeno geslo";
+$langModifyProfile = "Spremeni moj profil";
+$langMonthNames = "Array";
+$langMyCourses = "Seznam mojih tecajev";
+$langNameOfLang = "Array";
+$langOtherCourses = "Seznam tecajev";
+$langPassword = "geslo";
+$langPoweredBy = "Powered by";
+$langStudent = "student";
+$langUserName = "User name";
+$langUsers = "Uporabniki";
+$langWork = "Works";
+$lang_enroll = "Vpis";
+?>

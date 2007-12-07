@@ -1,43 +1,42 @@
-<?php // $Id$
-/**
- * CLAROLINE
- *
- * This file display the detailled informations
- * about the use of tool in a course
- * Nothing is displayed if cid is not set and if user is not the courseAdmin
- *
- * @version 1.8 $Revision$
- *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @author see 'credits' file
- *
- * @package CLTRACK
- *
- */
+<?php # $Id$
+//----------------------------------------------------------------------
+// CLAROLINE
+//----------------------------------------------------------------------
+// Copyright (c) 2001-2003 Universite catholique de Louvain (UCL)
+//----------------------------------------------------------------------
+// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
+// as published by the FREE SOFTWARE FOUNDATION. The GPL is available 
+// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
+//----------------------------------------------------------------------
+// Authors: see 'credits' file
+//----------------------------------------------------------------------
+/*
+  DESCRIPTION
+  -------------------
+  This file display the detailled informations about the use of tool in a course
+  Nothing is displayed if cid is not set and if user is not the courseAdmin
+
+*/
 
 require '../inc/claro_init_global.inc.php';
 
-$interbredcrump[]= array ("url"=>"courseLog.php", "name"=> get_lang('Statistics'));
+$interbredcrump[]= array ("url"=>"courseLog.php", "name"=> $langStatistics);
 
-if ( ! claro_is_user_authenticated() || ! claro_is_in_a_course()) claro_disp_auth_form(true);
+if ( !$_uid || !$_cid) claro_disp_auth_form(true);
 
-$nameTools = get_lang('Details');
-$langMonthNames = get_locale('langMonthNames');
+$nameTools = $langDetails;
 
 // main page
-include(get_path('incRepositorySys')."/lib/statsUtils.lib.inc.php");
+include($includePath."/lib/statsUtils.lib.inc.php");
 
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $TABLETRACK_ACCESS = $tbl_cdb_names['track_e_access'];
 
-if( claro_is_in_a_course()) //stats for the current course
+if(isset($_cid)) //stats for the current course
 {
     // to see stats of one course user must be courseAdmin of this course
-    $is_allowedToTrack = claro_is_course_manager();
+    $is_allowedToTrack = $is_courseAdmin;
 }
 else
 {
@@ -45,24 +44,24 @@ else
     $is_allowedToTrack = false;
 }
 
-if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
+if( $is_allowedToTrack && $is_trackingEnabled )
 {
-    // toolId is required, go to the tool list if it is missing
-    if( empty($_REQUEST['toolId']) )
+	// toolId is required, go to the tool list if it is missing
+    if( empty($_REQUEST['toolId']) ) 
     {
-        claro_redirect("./courseLog.php?view=0010000");
+        header("Location: ./courseLog.php?view=0010000");
         exit();
     }
     else
     {
         $toolId = (int)$_REQUEST['toolId'];
     }
+    
 
-
-      if( !isset($_REQUEST['reqdate']) || $_REQUEST['reqdate'] < 0 || $_REQUEST['reqdate'] > 2149372861 )
-        $reqdate = time();  // default value
-    else
-        $reqdate = (int)$_REQUEST['reqdate'];
+  	if( !isset($_REQUEST['reqdate']) || $_REQUEST['reqdate'] < 0 || $_REQUEST['reqdate'] > 2149372861 )
+    	$reqdate = time();  // default value
+	else
+	    $reqdate = (int)$_REQUEST['reqdate'];
 
     if( isset($_REQUEST['period']) )    $period = $_REQUEST['period'];
     else                                $period = "day"; // default value
@@ -71,52 +70,53 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
     $sql = "SELECT `access_tlabel` as `label`
             FROM `".$TABLETRACK_ACCESS."`
             WHERE `access_tid` = ". (int)$toolId ."
-            GROUP BY `access_tid`" ;
+			GROUP BY `access_tid`" ;
 
     $result = claro_sql_query_fetch_all($sql);
-    include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-    $title['mainTitle'] = $nameTools;
+    
+    include($includePath."/claro_init_header.inc.php");
+	$title['mainTitle'] = $nameTools;
+	
+	if( isset($result[0]['label']) )
+		if( isset($toolNameList[$result[0]['label']]) )
+			$title['subTitle'] = $toolNameList[$result[0]['label']];
 
-    if( isset($result[0]['label']) )
-        if( isset($toolNameList[$result[0]['label']]) )
-            $title['subTitle'] = $toolNameList[$result[0]['label']];
+	echo claro_disp_tool_title( $title );
 
-    echo claro_html_tool_title( $title )
-    .    '<table width="100%" cellpadding="2" cellspacing="0" border="0">'."\n\n"
+	echo '<table width="100%" cellpadding="2" cellspacing="0" border="0">'."\n\n";
+
+
     /* ------ display ------ */
     // displayed period
-    .    '<tr>' . "\n" . '<td>' . "\n"
-    ;
-    $langDay_of_weekNames = get_locale('langDay_of_weekNames');
+    echo '<tr>'."\n".'<td>'."\n";
     switch($period)
     {
-        case "month" :
+        case "month" : 
             echo $langMonthNames['long'][date("n", $reqdate)-1].date(" Y", $reqdate);
             break;
-        case "week" :
+        case "week" : 
             $weeklowreqdate = ($reqdate-(86400*date("w" , $reqdate)));
             $weekhighreqdate = ($reqdate+(86400*(6-date("w" , $reqdate)) ));
-            echo '<b>'.get_lang('From').'</b> '.date('d ' , $weeklowreqdate).$langMonthNames['long'][date('n', $weeklowreqdate)-1].date(' Y' , $weeklowreqdate)."\n";
-            echo ' <b>'.get_lang('to').'</b> '.date('d ' , $weekhighreqdate ).$langMonthNames['long'][date('n', $weekhighreqdate)-1].date(' Y' , $weekhighreqdate)."\n";
+            echo '<b>'.$langFrom.'</b> '.date('d ' , $weeklowreqdate).$langMonthNames['long'][date('n', $weeklowreqdate)-1].date(' Y' , $weeklowreqdate)."\n";
+            echo ' <b>'.$langToDate.'</b> '.date('d ' , $weekhighreqdate ).$langMonthNames['long'][date('n', $weekhighreqdate)-1].date(' Y' , $weekhighreqdate)."\n";
             break;
         // default == day
         default :
-            $period = "day";
-        case "day" :
+            $period = "day";            
+        case "day" : 
             echo $langDay_of_weekNames['long'][date('w' , $reqdate)].date(' d ' , $reqdate).$langMonthNames['long'][date('n', $reqdate)-1].date(' Y' , $reqdate)."\n";
             break;
     }
 
-    echo '</td>' . "\n"
-    .    '</tr>' . "\n"
+    echo '</td>'."\n".'</tr>'."\n";
     // periode choice
-    .    '<tr>' . "\n"
-    .    '<td>' . "\n"
-    .    '<small>' . "\n"
-    .    '[<a href="' . $_SERVER['PHP_SELF'] . '?toolId=' . $toolId . '&amp;period=day&amp;reqdate='.$reqdate.'">'.get_lang('Day').'</a>]'."\n"
-        .'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=week&amp;reqdate='.$reqdate.'">'.get_lang('Week').'</a>]'."\n"
-        .'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=month&amp;reqdate='.$reqdate.'">'.get_lang('Month').'</a>]'."\n"
-        .'&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;'."\n";
+    echo '<tr>'."\n"
+		.'<td>'."\n"
+		.'<small>'."\n"
+		.'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=day&amp;reqdate='.$reqdate.'">'.$langPeriodDay.'</a>]'."\n"
+		.'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=week&amp;reqdate='.$reqdate.'">'.$langPeriodWeek.'</a>]'."\n"
+		.'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=month&amp;reqdate='.$reqdate.'">'.$langPeriodMonth.'</a>]'."\n"
+		.'&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;'."\n";
 
     switch($period)
     {
@@ -125,30 +125,30 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
             // 30 days should be a good approximation
             $previousReqDate = mktime(1,1,1,date("m",$reqdate)-1,1,date("Y",$reqdate));
             $nextReqDate = mktime(1,1,1,date("m",$reqdate)+1,1,date("Y",$reqdate));
-            echo '[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=month&amp;reqdate='.$previousReqDate.'">'.get_lang('Previous month').'</a>]'."\n"
-                .'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=month&amp;reqdate='.$nextReqDate.'">'.get_lang('Next month').'</a>]'."\n";
+            echo '[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=month&amp;reqdate='.$previousReqDate.'">'.$langPreviousMonth.'</a>]'."\n"
+                .'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=month&amp;reqdate='.$nextReqDate.'">'.$langNextMonth.'</a>]'."\n";
             break;
         case "week" :
             // previous and next date must be evaluated
             $previousReqDate = $reqdate - 7*86400;
             $nextReqDate = $reqdate + 7*86400;
-            echo '[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=week&amp;reqdate='.$previousReqDate.'">'.get_lang('Previous week').'</a>]'."\n"
-                .'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=week&amp;reqdate='.$nextReqDate.'">'.get_lang('Next week').'</a>]'."\n";
+            echo '[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=week&amp;reqdate='.$previousReqDate.'">'.$langPreviousWeek.'</a>]'."\n"
+                .'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=week&amp;reqdate='.$nextReqDate.'">'.$langNextWeek.'</a>]'."\n";
             break;
         case "day" :
             // previous and next date must be evaluated
             $previousReqDate = $reqdate - 86400;
             $nextReqDate = $reqdate + 86400;
-            echo '[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=day&amp;reqdate='.$previousReqDate.'">'.get_lang('Previous day').'</a>]'."\n"
-                .'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=day&amp;reqdate='.$nextReqDate.'">'.get_lang('Next day').'</a>]'."\n";
+            echo '[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=day&amp;reqdate='.$previousReqDate.'">'.$langPreviousDay.'</a>]'."\n"
+                .'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=day&amp;reqdate='.$nextReqDate.'">'.$langNextDay.'</a>]'."\n";
             break;
     }
-
+    
     echo '&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;'."\n"
-        .'[<a href="./courseLog.php?view=0010000">'.get_lang('View list of all tools').'</a>]'."\n"
-        .'</small>'."\n"
-        .'</td>'."\n"
-        .'</tr>'."\n"."\n";
+		.'[<a href="./courseLog.php?view=0010000">'.$langViewToolList.'</a>]'."\n"
+		.'</small>'."\n"
+		.'</td>'."\n"
+		.'</tr>'."\n"."\n";
     // display information about this period
     switch($period)
     {
@@ -160,9 +160,9 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
                         AND MONTH(`access_date`) = MONTH(FROM_UNIXTIME($reqdate))
                         AND YEAR(`access_date`) = YEAR(FROM_UNIXTIME($reqdate))
                         ORDER BY `access_date` ASC";
-
+            
             $days_array = daysTab($sql);
-            makeHitsTable($days_array,get_lang('Day'));
+            makeHitsTable($days_array,$langDay);
             break;
         // all days
         case "week" :
@@ -174,7 +174,7 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
                         ORDER BY `access_date` ASC";
 
             $days_array = daysTab($sql);
-            makeHitsTable($days_array,get_lang('Day'));
+            makeHitsTable($days_array,$langDay);
             break;
         // all hours
         case "day"  :
@@ -184,28 +184,26 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
                             AND DAYOFYEAR(`access_date`) = DAYOFYEAR(FROM_UNIXTIME($reqdate))
                             AND YEAR(`access_date`) = YEAR(FROM_UNIXTIME($reqdate))
                         ORDER BY `access_date` ASC";
-
+            
             $hours_array = hoursTab($sql,$reqdate);
-            makeHitsTable($hours_array,get_lang('Hour'));
+            makeHitsTable($hours_array,$langHour);
             break;
     }
 }
 else // not allowed to track
 {
-    if(!get_conf('is_trackingEnabled'))
+    if(!$is_trackingEnabled)
     {
-        echo get_lang('Tracking has been disabled by system administrator.');
+        echo $langTrackingDisabled;
     }
     else
     {
-        echo get_lang('Not allowed');
+        echo $langNotAllowed;
     }
 }
-
-
-echo "\n"
-.    '</table>' . "\n\n"
-;
+    
+    
+echo "\n".'</table>'."\n\n";
 // footer
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+include($includePath."/claro_init_footer.inc.php");
 ?>

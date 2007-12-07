@@ -2,38 +2,35 @@
                               MAIN HTML TAGS STYLE
  ******************************************************************************/
 
-body 
-{
-    background-color:#E5E5E5;
-    color:#000;
-    font-family: Verdana, 'bitstream vera sans',Arial,Helvetica,sans-serif;
-    font-size: 85%;
-    padding: 3px;
+body {
+	background-color:#E5E5E5;
+	color:#000;
+	font-family: Verdana, 'bitstream vera sans',Arial,Helvetica,sans-serif;
+	font-size: 85%;
+	padding: 3px;
 }
 
-a, a:link, a:active, a:visited 
-{
-    color: #333;
-    text-decoration: none;
+a, a:link, a:active, a:visited {
+	color: #333;
+	text-decoration: none;
 }
 
-a:hover 
-{
-    text-decoration: underline; 
-    color: #069;
+a:hover {
+	text-decoration: underline; 
+	color: #069;
 }
 
 a img {
-    border:none;
-    text-decoration: none;
+	border:none;
+	text-decoration: none;
 }
 
 .spacer
 {
-    clear: both;
+	clear: both;
 }
 
-h3{    font-size: 110%; }
+h3{	font-size: 110%; }
 /******************************************************************************
                               CLAROLINE TOP BANNER
  ******************************************************************************/
@@ -45,9 +42,9 @@ h3{    font-size: 110%; }
 
 #topBanner
 {
-    background-color: #fff;
-    padding: 0px;
-    position: relative;
+	background-color: #fff;
+	padding: 0px;
+	position: relative;
 }
 
 #topBanner a,
@@ -55,8 +52,8 @@ h3{    font-size: 110%; }
 #topBanner a:link,
 #topBanner a:visited
 {
-    text-decoration:none;
-    color: #333;
+	text-decoration:none;
+	color: #333;
 }
 
 #topBanner a:hover
@@ -70,14 +67,14 @@ h3{    font-size: 110%; }
 
 #platformBanner
 {
-    padding: 5px;
-    border: 1px solid #98AAB1;
+	padding: 5px;
+	border: 1px solid #98AAB1;
 }
 
 #platformBanner h1
 {
-    margin: 0;
-    font-size: 120%;
+	margin: 0;
+	font-size: 120%;
 }
 
 #platformBanner a,
@@ -85,39 +82,32 @@ h3{    font-size: 110%; }
 #platformBanner a:link,
 #platformBanner a:visited
 {
-       color: #333;
+   	color: #333;
     font-weight: bold;
 }
 
 #platformBanner a:hover
 {
-    color: #369;
+	color: #369;
     font-weight: bold;
 }
 
 #platformBanner #siteName
 {
+	position: relative;
+	float: left;
+	text-align: left;
+	margin: 0;
+	font-size: 120%;
 }
 
 #platformBanner #institution
 {
-}
-
-
-#campusBannerRight
-{
-    position: relative;
-    float: right;
-    text-align: right;
-    margin: 0;
-}
-
-#campusBannerLeft
-{
-    position: relative;
-    float: left;
-    text-align: left;
-    margin: 0;
+	position: relative;
+	float: right;
+	text-align: right;
+	margin: 0;
+	font-size: 120%;
 }
 
  /*----------------------------------------------------------------------------
@@ -126,17 +116,17 @@ h3{    font-size: 110%; }
 
 #userBanner
 {
-    padding: 5px;
-    border: 1px solid #98AAB1;
-    border-top: none;
-    font-size: small;
+	padding: 5px;
+	border: 1px solid #98AAB1;
+	border-top: none;
+	font-size: small;
 }
 
 #userBanner #userName
 {
-    margin: 0;
-    padding: 0;
-    font-weight: bold;
+	margin: 0;
+	padding: 0;
+	font-weight: bold;
 }
 
 #userBanner a,
@@ -153,110 +143,72 @@ h3{    font-size: 110%; }
     color: #369;
 
 }
-
-#userBannerRight
-{
-    position: relative;
-    float: right;
-    text-align: right;
-    margin: 0;
-}
-
-#userBannerLeft
-{
-    position: relative;
-    float: left;
-    text-align: left;
-    margin: 0;
-}
-
  /*----------------------------------------------------------------------------
                                   COURSE LINE
  ----------------------------------------------------------------------------*/
  
 #courseBanner
 {
-       padding: 5px;
-    border: 1px solid #98AAB1;
-    border-top: none;
+   	padding: 5px;
+	border: 1px solid #98AAB1;
+	border-top: none;
 }
 
 #courseBanner #course
 {
-    position: relative;
-    float: left;
-    text-align: left;
+	position: relative;
+	float: left;
+	text-align: left;
 }
 
 #courseBanner #course span
 {
-       display: block;
+   	display: block;
 }
 
 #courseBanner #courseToolList
 {
-    position: relative;
-    float: right;
-    text-align: right;
+	position: relative;
+	float: right;
+	text-align: right;
 }
 
-#courseBanner #courseName
-{
-    font-size: 120%;
-    margin: 0;
-    padding: 0;
+#courseBanner #courseName {
+	font-size: 120%;
+	margin: 0;
+	padding: 0;
 }
 
-#courseBanner #courseCode
-{
-    font-size: 80%;
+#courseBanner #courseCode {
+	font-size: 80%;
 }
 
 #courseBanner a,
 #courseBanner a:active,
 #courseBanner a:link,
-#courseBanner a:visited
-{
-    color:#c60;
+#courseBanner a:visited {
+	color:#c60;
 }
 
-#courseBanner a:hover
-{
-    color:#369;
+#courseBanner a:hover {
+	color:#369;
 }
 
 #courseBanner form
 {
-    padding-top: 5px;
-    margin: 0;
+	padding-top: 5px;
+	margin: 0;
 }
-
-#courseBannerRight
-{
-    position: relative;
-    float: right;
-    text-align: right;
-    margin: 0;
-}
-
-#courseBannerLeft
-{
-    position: relative;
-    float: left;
-    text-align: left;
-    margin: 0;
-}
-
  /*----------------------------------------------------------------------------
                                   BREAD CRUMB LINE
  ----------------------------------------------------------------------------*/
 
 #breadcrumbLine
 {
-    height: 1em;
-    background-color: #E5E5E5;
-    border: none;
-    padding-bottom: 5px;
+	height: 1em;
+	background-color: #E5E5E5;
+	border: none;
+	padding-bottom: 5px;
 }
 
 #breadcrumbLine a,
@@ -264,34 +216,34 @@ h3{    font-size: 110%; }
 #breadcrumbLine a:link,
 #breadcrumbLine a:visited
 {
-    color:#333;
+	color:#333;
 }
 
 #breadcrumbLine a:hover
 {
-    color:#369;
+	color:#369;
 }
 
 #breadcrumbLine hr
 {
-    display: none;
+	display: none;
 }
 
-#breadcrumbLine .breadcrumbTrails
+#breadcrumbLine .breadcrumbTrail
 {
-    float: left;
+	float: left;
 }
 
 #breadcrumbLine #toolViewOption
 {
-    font-size: 90%;
-    float: right;
-    text-align: right;
+	font-size: 90%;
+	float: right;
+	text-align: right;
 }
 
-.breadcrumbTrails 
+.breadcrumbTrail 
 {
-    font-size: 90%;
+	font-size: 90%;
 }
 
 /******************************************************************************
@@ -300,180 +252,185 @@ h3{    font-size: 110%; }
 
 #claroBody
 {
-    padding: 5px;
-     background-color: #FFF;
-    border: 1px #98AAB1 solid;
-    background-image: url(./corporate/caliope.png);
-    background-position: top right;
-    background-repeat: no-repeat;
+	padding: 5px;
+ 	background-color: #FFF;
+	border: 1px #98AAB1 solid;
+	background-image: url(./corporate/caliope.png);
+	background-position: top right;
+	background-repeat: no-repeat;
 }
 
 /******************************************************************************
                               CLAROLINE FOOTER
  ******************************************************************************/
 
-#campusFooter
+#footer
 {
-    font-size: small;
+	font-size: small;
 }
 
-#campusFooter hr
+#footer hr
 {
-    display: none;
+	display: none;
 }
 
-#campusFooterRight
+#footer a,
+#footer a:active,
+#footer a:link,
+#footer a:visited
 {
-    float: right;
-    text-align: right;
+	color: #333;
+}
+	
+#footer a:hover
+{
+	color: #333;
 }
 
-#campusFooterLeft
+#footer #platformManager
 {
-    float: left;    
+	float: right;
 }
 
-#campusFooter a,
-#campusFooter a:active,
-#campusFooter a:link,
-#campusFooter a:visited
+#footer #courseManager
 {
-    color: #333;
-}
-    
-#campusFooter a:hover
-{
-    color: #333;
+	float: left;
+	text-align: center;
 }
 
-#campusFooterCenter
+
+#footer #poweredBy 
 {
-    clear: both;
-    border-top: 1px dashed #ccc;
-    text-align: center;
+	clear: both;
+	border-top: 1px dashed #ccc;
+	text-align: center;
 }
 
 /******************************************************************************
-    CLAROLINE COMMAND LINKS
+	CLAROLINE COMMAND LINKS
  ******************************************************************************/
  
 .claroCmd
 {
-        font-size: smaller;
-        font-weight: bold;
-        text-decoration: underline;
+		font-size: smaller;
+		font-weight: bold;
+		text-decoration: underline;
 }
 
 .claroCmdDisabled 
 {
-        color: Gray;
-        font-size: smaller;
-        font-weight: bold;
-        text-decoration: none;
+		color: Gray;
+		font-size: smaller;
+		font-weight: bold;
+		text-decoration: none;
 }
 
 /* Added for document view mode toolbar */
 
 th .claroCmd{
         font-size: smaller;
-        font-weight: bold;
-        text-decoration: underline;
+		font-weight: bold;
+		text-decoration: underline;
 }
 
 th .claroCmdDisabled{
         color: white;
         font-size: smaller;
-        font-weight: bold;
-        text-decoration: none;
+		font-weight: bold;
+		text-decoration: none;
 }
 
 /******************************************************************************
                              CLAROLINE ITEM
  ******************************************************************************/
-.item 
-{
-    padding-left: 16px;
-}
 
-.hot
-{
-    background: url(../img/hot.gif) no-repeat;
-}
+/*
+ * Classes family to emphase some item in the tool interface.
+ * These two classes has to be used together to work correctly.
+ *
+ * SOME EXAMPLES :
+ *
+ *  <a href="0" class="item"><img src="icon.gif" />lorem ipsum</a><br />
+ *  <a href="0" class="item hot"><img src="icon.gif" />lorem ipsum</a><br />
+ *
+ *  <span class="item"><img src="icon.gif" />lorem ipsum</span><br>
+ *  <span class="item hot"><img src="icon.gif" />lorem ipsum<br>
+ *
+ *  <ul style="list-style-image:url(icon.gif);list-style-position:inside">
+ *   <li class="item">lorem ipsum</li>
+ *   <li class="item hot">lorem ipsum</li>
+ *  </ul>
+ */
+
+.item {padding-left:16px}
+.hot  {background:url(../img/hot.gif) no-repeat}
+
 /******************************************************************************
                              CLAROLINE TABLE
  ******************************************************************************/
 
-.claroTable
-{
-    border: 2px solid #98AAB1;
+.claroTable {
+	border: 2px solid #98AAB1;
 }
-.claroTable td, th
-{
-    margin:  1px;
-    padding: 4px;
-    border: none;
+.claroTable td, th {
+	margin:  1px;
+	padding: 4px;
+	border: none;
 }
 
 
-.claroTable .superHeader th, .claroTable th.superHeader
-{
-    color: white;
+.claroTable .superHeader th, .claroTable th.superHeader {
+	color: white;
     background-image: url('corporate/hard.gif');
-    background-color: #03699c;
-    font-weight: bold;
-    text-align: left;
+	background-color: #03699c;
+	font-weight: bold;
+	text-align: left;
 }
 
 .claroTable .superHeader a,
 .claroTable .superHeader a:link,
-.claroTable .superHeader a:visited
-{
-    color: white;
+.claroTable .superHeader a:visited {
+	color: white;
 }
 
 .claroTable .superHeader a:hover { color: #c7d0d7; }
 
 .claroTable th.headerY, .claroTable .headerY th,
-.claroTable th.headerX, .claroTable .headerX th
-{
+.claroTable th.headerX, .claroTable .headerX th {
     background-image: url('corporate/soft.gif');
-    font-weight: normal;
-    text-align: left;
+	font-weight: normal;
+	text-align: left;
 }
 
-.claroTable .headerX th,  .claroTable th.headerX 
-{ background-color: #c7d0d7; }
+.claroTable .headerX th,  .claroTable th.headerX { background-color: #c7d0d7; }
 
 /* extension of claroTable class for Image Viewer */
-.claroTable tr th.toolbar 
-{
-    background: white;
-    font-weight: normal;
+.claroTable tr th.toolbar {
+	background: white;
+	font-weight: normal;
 }
 
 .claroTable tr.toolbar th.prev{
-    text-align:left;
-    font-weight: normal;
+	text-align:left;
+	font-weight: normal;
 }
 
 .claroTable tr.toolbar th.title{
-    font-weight:bold;
-    text-align:center;
+	font-weight:bold;
+	text-align:center;
 }
 
 .claroTable tr.toolbar th.next{
-    text-align:right;
-    font-weight: normal;
+	text-align:right;
+	font-weight: normal;
 }
 
-.emphaseLine tbody td
-{
-    border-bottom: solid #98AAB1 1px ;
+.emphaseLine tbody td {
+	border-bottom: solid #98AAB1 1px ;
 }
 
-.emphaseLine tbody tr:hover
-{
-    background-color: #EEEEEE;
+.emphaseLine tbody tr:hover {
+	background-color: #EEEEEE;
 }
 
 
@@ -487,26 +444,15 @@ th .claroCmdDisabled{
  * Things that are usually displayed in a dialog box into offline applications
  */ 
  
-.claroMessageBox
-{
+.claroMessageBox {
   background-color: #E5ECF9;
   color: #369;
   border: 1px solid #369;
 }
 
-.claroIntroSection
-{ 
-    border: dashed 1px #D8D8D8;
-    padding: 10px;
-    margin-top : 10px;
-    margin-bottom: 10px;
-}
-
-.claroIntroSection hr
-{
-    border: 0;
-    height: 1px;
-    background-color: #D8D8D8;
+.claroIntroSection { 
+  margin-top : 5px;
+  margin-bottom: 5px;
 }
 
 /*
@@ -516,9 +462,8 @@ th .claroCmdDisabled{
  * visible fo the other users
  */
 
-.invisible
-{
-    color: #999;
+.invisible  {
+	color: #999;
 }
 
 .invisible a, 
@@ -527,113 +472,55 @@ th .claroCmdDisabled{
 a.invisible,
 a:link.invisible,
 a:visited.invisible{
-    color: #999;
+	color: #999;
 }
 
 
 /* 'correct' is attached to element that must be highlighted as correct 
-    example : a good score in exercices
+	example : a good score in exercices
 */
-.correct
-{ 
-    color: #090;
-}
+.correct { color: #090; }
 
 /* 'error' is attached to element that must be highlighted as correct
-    example : a wrong score in exercices
-    example : an error message
+	example : a wrong score in exercices
+	example : an error message
 */
-.error
-{
-    color: #900;
-}
+.error { color: #900; }
 
 /* 
 'highlight' 
 */
-.highlight
-{
-    color: #c60;
-}
+.highlight { color: #c60; }
 
 /*
  * 'rightMenu' is mainly use in the platform home page
  */
 
-.claroRightMenu
-{
-    color: #000;
-    background-color: #E5ECF9;    
-    border: 1px solid #808080;
+.claroRightMenu  {
+	color: #000;
+	background-color: #E5ECF9;	
+	border: 1px solid #808080;
 }
 
 .claroRightMenu a,
 .claroRightMenu a:link,
 .claroRightMenu a:visited
 {
-    color: #333;
+	color: #333;
 }
-    
+	
 .claroRightMenu a:hover
 {
-    color:#369;
+	color:#369;
 }
 
-.HelpText
-{
-    color: #ccc;
-}
+.HelpText { color: #ccc; }
 
 /*
  * 'comment' is used for comment of documents, forum description, ...
  */
 
-.comment
-{
+.comment {
     font-size: smaller;
     margin-left: 30px;
-}
-
-
-/*
- * Navigation with tabs : configuration, modules, ...
- */
- 
-#navlist {
-    margin: 10px;
-    padding: 0 0 7px 10px;
-    border-bottom: 1px solid #DEDEDE;   
-}
-
-.tabTitle {
-    padding: 3px 0;
-    margin-left: 0;
-    border-bottom: 1px solid #DEDEDE; 
-}
-
-.tabTitle a {
-    border-bottom: 4px solid #369;
-    text-decoration: none;
-}
-
-#navlist li, .tabTitle li {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: inline;
-}
-
-#navlist li a:link,
-#navlist li a:visited {
-    margin: 0 5px 4px 5px;
-    padding: 3px 0.5em;
-    text-decoration: none;
-}
-
-#navlist li a:hover {
-    border-bottom: 4px solid #DEDEDE;
-}
-
-#navlist li a.current {
-    border-bottom: 4px solid #369;
 }

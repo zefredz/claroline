@@ -1,6 +1,4 @@
-<?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
-
+<?php
 /**
  * @file domxml-php4-php5.php
  * Require PHP5, uses built-in DOM extension.

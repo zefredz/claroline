@@ -1,0 +1,31 @@
+<?php
+$langAgenda = "Agenda";
+$langAnnouncement = "Tillkännagivanden";
+$langCancel = "Avbryt";
+$langChat = "Diskussion";
+$langCopy = "Kopiera";
+$langCourseManager = "Kursansvarig";
+$langCourses = "kurser.";
+$langDay_of_weekNames = "Array";
+$langDescriptionCours = "Kursbeskrivning";
+$langDocument = "Dokument";
+$langExercises = "Övningar";
+$langForums = "Forum";
+$langGroups = "instruktion för gruppanvändarna";
+$langHelp = "hjälp";
+$langLogin = "Logga in";
+$langLogout = "Logga ut";
+$langMissing = "saknas";
+$langModifyProfile = "Modifiera min profil";
+$langMonthNames = "Array";
+$langMyCourses = "Mina kurser";
+$langNameOfLang = "Array";
+$langNotAllowed = "Inte tillåtet";
+$langOk = "validate";
+$langOtherCourses = "Kurslista";
+$langPoweredBy = "Med kraft från";
+$langStudent = "elev";
+$langTo = "till";
+$langUsers = "Användare";
+$langWork = "Elevarbeten";
+?>

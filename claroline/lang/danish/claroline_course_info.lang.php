@@ -1,0 +1,60 @@
+<?php
+$langAgenda = "Kalenderen - Hvad sker der?";
+$langAllowed = "Tilladt";
+$langAnnouncement = "Meddelelser";
+$langBackHomeOf = "Tilbage til min kursusoversigt på ";
+$langBackToList = "Tilbage til deltagerlisten";
+$langByDel = "Ved at slette kursushjemmesiden, fjernes alle dokumenter og tilmeldte studerende (de fjernes ikke fra andre kurser).<p>Ønsker du virkelig at slette kurset?";
+$langCancel = "Fortryd";
+$langChat = "Chat";
+$langCode = "Kursuskode";
+$langConfTip = "Som standard er dit kursus kun tilgængeligt for dig som dets eneste registrerede bruger. Ønsker du en vis fortrolighed omkring adgang til kurset, 
+er det letteste, at du åbner for tilmeldinger i f.eks.
+en uge (vælg: Fortrolig adgang, åben tilmelding), og beder de studerende om i første lektion selv at tilmelde sig indenfor denne tid, og derefter lukker for tilmeldinger (vælg: Fortrolig adgang, tilmeldingen er lukket). Du kan nu se de tilmeldte på deltagerlisten, og slette evt. uvelkomne.
+Kurset er nu kun tilgængeligt via login.";
+$langCopy = "kopi";
+$langCourse = "Kursushjemmesiden ";
+$langCourseAccess = "Kursusadgang";
+$langCourseManager = "Kursusadministrator";
+$langCourseTitle = "Kursustitel";
+$langDay_of_weekNames = "Array";
+$langDelCourse = "Slet hele kursushjemmesiden";
+$langDenied = "Nægtet";
+$langDepartmentUrl = "Institut/Afdeling URL";
+$langDepartmentUrlName = "Institut/Afdeling";
+$langDescriptionCours = "kursusbeskrivelse";
+$langDocument = "Dokumenter";
+$langEmail = "Email";
+$langExercises = "Øvelser";
+$langForums = "Diskussionsforum";
+$langGroups = "inscription des utilisateurs dans les groupes";
+$langHasDel = "er slettet";
+$langHelp = "Hjælp";
+$langHome = "Tilbage til min kursusoversigt";
+$langLanguage = "Sprog";
+$langLogin = "login";
+$langLogout = "Logud";
+$langModifDone = "Informationen er blevet ændret";
+$langModifyProfile = "Ændre min profil";
+$langMonthNames = "Array";
+$langMyCourses = "Mine kurser";
+$langNameOfLang = "Array";
+$langNo = "Nej";
+$langNotAllowed = "Ikke tilladt";
+$langOk = "Ok";
+$langOptional = "Valgfri";
+$langOtherCourses = "Kursusoversigt";
+$langPoweredBy = "Udviklet af";
+$langPrivateAccess = "Fortrolig adgang, tilmeldingen er lukket (kursushjemmesiden er dermed kun åben for deltagere på <a href=../user/user.php>Deltagerlisten</a>)";
+$langProfessors = "Undervisere";
+$langPublicAccess = "Offentlig adgang til kurset fra E-learning's forside selv uden login.";
+$langStatistics = "Statistikker";
+$langStudent = "studerende";
+$langSubscription = "Kursustilmelding";
+$langTipLang = "Kursushjemmesidens sprog";
+$langTo = "til";
+$langUsers = "Deltagerlisten";
+$langWork = "Studerendes Opgaver";
+$langYes = "Ja";
+$lang_enroll = "Tilmeld";
+?>

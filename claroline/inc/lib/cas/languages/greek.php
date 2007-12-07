@@ -1,5 +1,4 @@
-<?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+<?php
 
 /**
  * @file languages/greek.php
@@ -9,17 +8,17 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  */
 
 $this->_strings = array(
- CAS_STR_USING_SERVER
+ CAS_STR_USING_SERVER 
  => 'χρησιμοποιείται ο εξυπηρετητής',
- CAS_STR_AUTHENTICATION_WANTED
+ CAS_STR_AUTHENTICATION_WANTED 
  => 'Απαιτείται η ταυτοποίηση CAS!',
- CAS_STR_LOGOUT
+ CAS_STR_LOGOUT 
  => 'Απαιτείται η αποσύνδεση από CAS!',
- CAS_STR_SHOULD_HAVE_BEEN_REDIRECTED
+ CAS_STR_SHOULD_HAVE_BEEN_REDIRECTED 
  => 'Θα έπρεπε να είχατε ανακατευθυνθεί στον εξυπηρετητή CAS. Κάντε κλίκ <a href="%s">εδώ</a> για να συνεχίσετε.',
- CAS_STR_AUTHENTICATION_FAILED
+ CAS_STR_AUTHENTICATION_FAILED 
  => 'Η ταυτοποίηση CAS απέτυχε!',
- CAS_STR_YOU_WERE_NOT_AUTHENTICATED
+ CAS_STR_YOU_WERE_NOT_AUTHENTICATED 
  => '<p>Δεν ταυτοποιηθήκατε.</p><p>Μπορείτε να ξαναπροσπαθήσετε, κάνοντας κλίκ <a href="%s">εδώ</a>.</p><p>Εαν το πρόβλημα επιμείνει, ελάτε σε επαφή με τον <a href="mailto:%s">διαχειριστή</a>.</p>',
  CAS_STR_SERVICE_UNAVAILABLE
  => 'Η υπηρεσία `<b>%s</b>\' δεν είναι διαθέσιμη (<b>%s</b>).'

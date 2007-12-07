@@ -3,20 +3,20 @@
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.7 $Revision$
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  *
  * @author claro team <info@claroline.net>
  * @author Frederic Minne <zefredz@gmail.com>
  *
  * @package CLLNK
  */
-
+ 
 require_once '../inc/claro_init_global.inc.php';
-
+ 
 $referer = isset( $_SERVER['HTTP_REFERER'] ) ? $_SERVER['HTTP_REFERER'] : '';
 
 $requestedFile = isset( $_REQUEST['requestedFile'] ) ? $_REQUEST['requestedFile'] : 'unknown';
@@ -24,7 +24,7 @@ $requestedFile = isset( $_REQUEST['requestedFile'] ) ? $_REQUEST['requestedFile'
 // $noBanner = true;
 $toolName = 'File not found';
 
-require_once get_path('incRepositorySys') . '/claro_init_header.inc.php';
+require_once $includePath . '/claro_init_header.inc.php';
 
 echo '<p style="text-align: center;padding-top:1em; padding-left: 1em;">'
 .    '<strong>File ' . $requestedFile . ' not found !</strong>'
@@ -38,14 +38,13 @@ echo '<p style="text-align: center;padding-top:1em; padding-left: 1em;" class=""
 ;
 
 echo '<p style="padding-left: 2em;">'
-.    get_lang('Back to :')
+.    'Back to :'
 .    '<ul>'
-.    '<li>'
-.    '<a href="' . get_module_url('CLDOC') . '/document.php">' . get_lang("Documents and Links") . '</a></li>'
-.    ( (! empty($referer)) ? '<li><a href="' . $referer . '">' .  get_lang('Previous page') . '</a></li>' : '' )
+.    '<li><a href="' . $clarolineRepositoryWeb . 'document/document.php">' . $langDocument . '</a></li>'
+.    ( (! empty($referer)) ? '<li><a href="' . $referer . '">Previous page</a></li>' : '' )
 .    '</ul>'
 .    '</p>'
 ;
 
-require_once get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+require_once $includePath . '/claro_init_footer.inc.php';
 ?>

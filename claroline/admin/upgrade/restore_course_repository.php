@@ -4,9 +4,9 @@
  *
  * Try to create main database of claroline without remove existing content
  * 
- * @version 1.8 $Revision$
+ * @version 1.7 $Revision$
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
  *
@@ -21,42 +21,22 @@
  *
  */
 
-/*=====================================================================
-  Init Section
- =====================================================================*/
+// Include library file
 
-// Initialise Upgrade
-require 'upgrade_init_global.inc.php';
+require '../../inc/claro_init_global.inc.php';
+include_once($includePath . '/lib/debug.lib.inc.php');
+include_once($includePath . '/lib/admin.lib.inc.php');
+
+$nameTools = $langRestoreCourseRepository;
 
 // Security Check
-if ( !claro_is_platform_admin() ) upgrade_disp_auth_form();
 
-/*=====================================================================
-  Main Section
- =====================================================================*/
-
-$nameTools = get_lang('Restore course repository');
+if ( !$is_platformAdmin ) claro_disp_auth_form();
 
 // Execute command
 
-if ( isset($_REQUEST['cmd']) 
-     && ( $_REQUEST['cmd'] == 'exRestore'
-          || ( $_REQUEST['cmd'] == 'exMove' && get_path('coursesRepositoryAppend') != 'courses/'  ) ) )
+if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'exRestore' )
 {
-    if ( $_REQUEST['cmd'] == 'exMove' )
-    {
-        $newCourseFolder = get_path('rootSys').'courses/';
-
-        if ( ! is_dir($newCourseFolder) )
-        {
-            if ( mkdir($newCourseFolder) === false )
-            {
-                echo sprintf('Creation of "%s" folder failed',$newCourseFolder);
-            }
-        }
-    }
-
-    // query returns course code and course folder
     $tbl_mdb_names = claro_sql_get_main_tbl();
     
     $tbl_course = $tbl_mdb_names['course'];
@@ -70,109 +50,51 @@ if ( isset($_REQUEST['cmd'])
     if (mysql_num_rows($res_listCourses))
     {
         $restored_courses =  '<ol>' . "\n";
-        $moved_courses =  '<ol>' . "\n";        
         
         while ( ( $course = mysql_fetch_array($res_listCourses)) )
         {
-            $currentcoursePathSys = get_path('coursesRepositorySys') . $course['coursePath'] . '/';
+            $currentcoursePathSys = $coursesRepositorySys . $course['coursePath'] . '/';
             $currentCourseIDsys = $course['sysCode'];
             
-            if ( $_REQUEST['cmd'] == 'exRestore' )
+            if ( restore_course_repository($currentCourseIDsys,$currentcoursePathSys) )
             {
-                if ( restore_course_repository($currentCourseIDsys,$currentcoursePathSys) )
-                {
-                    $restored_courses .= '<li>' . sprintf('Course repository "%s" updated', $currentcoursePathSys) . '</li>' . "\n";       
-                }
+                $restored_courses .= '<li>' . sprintf('Course repository "%s" updated', $currentcoursePathSys) . '</li>' . "\n";       
             }
-            elseif ( $_REQUEST['cmd'] == 'exMove' )
-            {
-                $currentFolder = get_path('coursesRepositorySys') . $course['coursePath'] . '/';
-                $newFolder = get_path('rootSys') . 'courses/' . $course['coursePath'] . '/';
-
-                if ( move_course_folder($currentFolder,$newFolder) === false )
-                {
-                    $moved_courses .= '<li>' . sprintf('Error: Cannot rename "%s" to "%s"', $currentFolder ,$newFolder) . '</li>' . "\n";
-                }
-                else
-                {
-                    $moved_courses.= '<li>' . sprintf('Course repository "%s" moved to "%s"', $currentFolder,$newFolder) . '</li>' . "\n"; 
-                }
-            }        
+        
         }
         $restored_courses .= '</ol>' . "\n";
-        $moved_courses .= '</ol>' . "\n";
-    }
-
-    // TODO if course move succeed, update the value in configuration
-    if ( $_REQUEST['cmd'] == 'exMove' && $error = false )
-    {
-        $_GLOBALS['coursesRepositoryAppend'] = 'courses/';
-
-        $config = new Config('CLMAIN');
-        $config->load();
-        $config->validate(array('coursesRepositoryAppend'=>'courses/'));
-        $config->save();
     }
 }
 
-// Display Header
-echo upgrade_disp_header();
+// Display
 
-echo claro_html_tool_title($nameTools);
+// Deal with interbredcrumps  and title variable
+$interbredcrump[]  = array ('url' => $rootAdminWeb, 'name' => $langAdministration);
+
+include($includePath . '/claro_init_header.inc.php');
+
+echo claro_disp_tool_title($nameTools);
 
 // display result
 
 if (isset($restored_courses)) echo $restored_courses;
-if (isset($moved_courses)) echo $moved_courses;
 
 // display link to launch the restore
-if ( get_path('coursesRepositoryAppend') != 'courses/' )
-{
-    echo '<p><a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMove">' . sprintf('Move "course repository" to folder "%s"', get_path('rootSys') . 'courses/') . '</a></p>';
-}
 
-echo '<p><a href="' . $_SERVER['PHP_SELF'] . '?cmd=exRestore">' . sprintf('Launch restore of the course repository') . '</a></p>';
+echo '<p><a href="' . $_SERVER['PHP_SELF'] . '?cmd=exRestore">' . $langLaunchRestoreCourseRepository . '</a></p>';
 
-// Display footer
-echo upgrade_disp_footer();
+include $includePath . '/claro_init_footer.inc.php';
 
-// move folder to new folder
-// TODO use claro_failure
 
-function move_course_folder ( $currentFolder, $newFolder )
-{
-    if ( ! is_dir($currentFolder) )
-    {
-        // current folder doesn't exist
-        return false ;
-    }
+/**
+ * @global $includePath
+ * @global $clarolineRepositorySys
+ */
 
-    if ( is_dir($newFolder) )
-    {
-        // folder already exists
-        return false ;
-    }
-
-    if ( $currentFolder == $newFolder )
-    {
-        // the currentFolder is the newFolder
-        return false ;
-    }
-                
-    if ( @rename($currentFolder,$newFolder) === false )
-    {
-        return false;
-    }
-    else
-    {
-        return true;
-    }
-}
-
-function restore_course_repository($courseId, $courseRepository)
+function restore_course_repository($courseID, $courseRepository)
 {
 
-    global $urlAppend;
+    global $clarolineRepositorySys, $includePath;
 
     if ( is_writable($courseRepository) )
     {
@@ -187,25 +109,27 @@ function restore_course_repository($courseId, $courseRepository)
         if ( !is_dir($courseRepository . '/modules'       ) ) mkdir($courseRepository . '/modules'       , CLARO_FILE_PERMISSIONS);
         if ( !is_dir($courseRepository . '/scormPackages' ) ) mkdir($courseRepository . '/scormPackages' , CLARO_FILE_PERMISSIONS);
 
+        /**
+         *    add $cidReq in index.php (Missing var in claroline 1.3)
+         */
+
         // build index.php of course
-        $fd = fopen($courseRepository . '/index.php', 'w');
-        if ( ! $fd) return claro_failure::set_failure('CANT_CREATE_COURSE_INDEX');
+        $fd = fopen( $courseRepository . '/index.php', 'w');
 
-        $string = '<?php ' . "\n"
-                . 'header (\'Location: '. $urlAppend . '/claroline/course/index.php?cid=' . htmlspecialchars($courseId) . '\') ;' . "\n"
-              . '?' . '>' . "\n" ;
-
-        if ( ! fwrite($fd, $string) ) return false;
-        if ( ! fclose($fd) )          return false;
-
-        $fd = fopen($courseRepository . '/group/index.php', 'w');
-        if ( ! $fd ) return false;
-
-        $string = '<?php session_start(); ?'.'>';
-
-        if ( ! fwrite($fd, $string) ) return false;
-
-        return true;
+        // str_replace() removes \r that cause squares to appear at the end of each line
+        $string=str_replace("\r","","<?"."php
+              \$cidReq = \"$courseID\";
+              \$claroGlobalPath = \"$includePath\";
+              include(\"".$clarolineRepositorySys."course_home/course_home.php\");
+    ?>");
+        
+        fwrite($fd, "$string");
+        fclose($fd);
+        $fd=fopen($courseRepository."/group/index.php", "w");
+        $string="<"."?"."php"." session_start"."()"."; ?>";
+        fwrite($fd, "$string");
+        fclose($fd);        
+        return 1;
     
     } else {
         printf ('repository %s not writable', $courseRepository);

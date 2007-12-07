@@ -1,5 +1,4 @@
-<?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+<?php
 /**
 * @package JPSpan
 * @subpackage Monitor
@@ -28,21 +27,21 @@ class JPSpan_Monitor {
     * @access private
     */
     var $requestInfo = array('class'=>NULL,'method'=>NULL,'args'=>NULL);
-
+    
     /**
     * Array of response info containing keys 'payload'
     * @var array
     * @access private
     */
     var $responseInfo = array('payload'=>NULL);
-
+    
     /**
     * Objects observing the monitor
     * @var array
     * @access private
     */
     var $observers = array();
-
+    
     /**
     * Register and observer for notifications
     * @see JPSpan_Monitor_Observer
@@ -53,7 +52,7 @@ class JPSpan_Monitor {
     function addObserver(& $Observer) {
         $this->observers[] = & $Observer;
     }
-
+    
     /**
     * Add a value to the request info.
     * @param string key ('class', 'method'  or 'args')
@@ -63,7 +62,7 @@ class JPSpan_Monitor {
     function setRequestInfo($key,$value) {
         $this->requestInfo[$key] = $value;
     }
-
+    
     /**
     * Add a value to the response info.
     * @param string key ('payload')
@@ -73,7 +72,7 @@ class JPSpan_Monitor {
     function setResponseInfo($key,$value) {
         $this->responseInfo[$key] = $value;
     }
-
+    
     /**
     * Captures data about the current environment, before a notification
     * @return array
@@ -81,7 +80,7 @@ class JPSpan_Monitor {
     */
     function prepareData() {
         global $HTTP_RAW_POST_DATA;
-
+        
         $Data = array (
             'timestamp' => time(),
             'gmt' => gmdate("D, d M Y H:i:s", time())." GMT",
@@ -92,14 +91,14 @@ class JPSpan_Monitor {
             'POST'=>$_POST,
             'RAWPOST'=>$HTTP_RAW_POST_DATA,
         );
-
+        
         if ( function_exists('apache_request_headers') ) {
             $Data['requestHeaders']= apache_request_headers();
             $Data['responseHeaders'] = apache_response_headers();
         }
         return $Data;
     }
-
+    
     /**
     * Report and error to observers
     * @param string name of error
@@ -121,7 +120,7 @@ class JPSpan_Monitor {
           $this->observers[$key]->error($Data);
         }
     }
-
+    
     /**
     * Report successful request / response to observers
     * @return void
@@ -164,13 +163,13 @@ class JPSpan_Monitor {
 class JPSpan_Monitor_Null {
 
     function addObserver(& $Observer) {}
-
+    
     function setRequestInfo($key,$value) {}
-
+    
     function setResponseInfo($key,$value) {}
-
+    
     function announceError($name, $code, $message, $file, $line) {}
-
+    
     function announceSuccess() {}
 
 }
@@ -198,5 +197,5 @@ class JPSpan_Monitor_Observer {
     * @access public
     */
     function success($Data) {}
-
+    
 }

@@ -1,0 +1,34 @@
+<?php
+$langAddComment = "เพิ่ม/ปรับปรุงหมายเหตุที่";
+$langAddIntro = "เพิ่มคำนำ";
+$langAgenda = "กำหนดการ";
+$langAnswer = "คำตอบ";
+$langAreYouSureToDelete = "ท่านแน่ใจหรือว่าต้องการลบ";
+$langBack = "ย้อนกลับ";
+$langCancel = "ยกเลิก";
+$langChat = "Chat";
+$langCopy = "ย้าย";
+$langDate = "วันที่";
+$langDay_of_weekNames = "Array";
+$langDelete = "ลบ";
+$langDocument = "เอกสาร";
+$langForums = "กระดานข่าว";
+$langGroups = "กลุ่ม";
+$langHelp = "ช่วยเหลือ";
+$langLogout = "Logout";
+$langModify = "ปรับปรุง";
+$langModifyProfile = "ปรับปรุงข้อมูลส่วนตัว";
+$langMonthNames = "Array";
+$langMyCourses = "My courses";
+$langNameOfLang = "Array";
+$langNoEx = "ขณะนี้ ไม่มีแบบฝึกหัด";
+$langOk = "ตกลง";
+$langOtherCourses = "รายชื่อรายวิชา";
+$langPoweredBy = "Powered by";
+$langSize = "ขนาด";
+$langStudent = "นักศึกษา";
+$langTo = "ไปยัง";
+$langTooBig = "ท่านไม่ได้เลือกไฟล์ใดๆเพื่อส่ง หรือไฟล์มีขนาดใหญ่เกินไป";
+$langUp = "ขึ้น";
+$langUsers = "Users";
+?>

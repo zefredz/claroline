@@ -1,0 +1,36 @@
+<?php
+$langActivate = "Omogoci";
+$langAddIntro = "Dodaj uvodno besedilo";
+$langAgenda = "Agenda";
+$langAnnouncement = "Obvestila";
+$langAreYouSureToDelete = "Ali naj res zbrisem";
+$langCancel = "Prekini";
+$langChat = "Razprava";
+$langConfirmYourChoice = "Potrdi izbiro";
+$langCourseManager = "Upravnik tecaja";
+$langDay_of_weekNames = "Array";
+$langDelete = "Brisi";
+$langDescriptionCours = "Opis tecaja";
+$langDocument = "Dokumenti";
+$langForums = "Forumi";
+$langGroups = "Skupine";
+$langHelp = "Pomoc";
+$langHome = "Povratek na domaco stran";
+$langLogin = "vstop";
+$langLogout = "Izstop";
+$langModify = "Uredi";
+$langModifyProfile = "Spremeni moj profil";
+$langMonthNames = "Array";
+$langMyCourses = "Seznam mojih tecajev";
+$langNameOfLang = "Array";
+$langNotAllowed = "Tu nimas dovoljenja";
+$langOk = "Ok";
+$langOtherCourses = "Seznam tecajev";
+$langPoweredBy = "Powered by";
+$langStatistics = "Statistike";
+$langStudent = "student";
+$langTools = "Orodja";
+$langUsers = "Uporabniki";
+$langWork = "Works";
+$lang_enroll = "Vpis";
+?>

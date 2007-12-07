@@ -1,14 +1,13 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 
     // vim: expandtab sw=4 ts=4 sts=4:
-
+    
     /**
      * CLAROLINE
      *
-     * @version 1.8 $Revision$
+     * @version 1.7 $Revision$
      *
-     * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+     * @copyright 2001-2005 Universite catholique de Louvain (UCL)
      *
      * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
      * This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
@@ -19,7 +18,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
      *
      * @package Wiki
      */
-
+    
     require_once dirname(__FILE__) . "/class.wiki2xhtmlarea.php";
     require_once dirname(__FILE__) . "/class.wikiaccesscontrol.php";
     require_once dirname(__FILE__) . "/lib.url.php";
@@ -39,24 +38,25 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         , $content, $script = null, $showWikiToolBar = true
         , $forcePreview = true )
     {
-
+        global $langPreview, $langCancel, $langSave, $langWikiMainPage;
+        
         // create script
         $script = ( is_null( $script ) ) ? $_SERVER['PHP_SELF'] : $script;
         $script = add_request_variable_to_url( $script, "title", rawurlencode($title) );
-
+        
         // set display title
-        $localtitle = ( $title === '__MainPage__' ) ? get_lang("Main page") : $title;
-
+        $localtitle = ( $title === '__MainPage__' ) ? $langWikiMainPage : $title;
+        
         // display title
         $out = '<div class="wikiTitle">' . "\n";
         $out .= '<h1>'.$localtitle.'</h1>' . "\n";
         $out .= '</div>' . "\n";
 
                 // display editor
-        $out .= '<form method="post" action="'.$script.'"'
+        $out .= '<form method="POST" action="'.$script.'"'
             . ' name="editform" id="editform">' . "\n"
             ;
-
+        
         if ( $showWikiToolBar === true )
         {
             $wikiarea = new Wiki2xhtmlArea( $content, 'content', 80, 15, null );
@@ -66,44 +66,44 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         {
             $out .= '<label>Texte :</label><br />' . "\n";
             $out .= '<textarea name="content" id="content"'
-                 . ' cols="80" rows="15" >'
+                 . ' cols="80" rows="15" wrap="virtual">'
                  ;
             $out .= $content;
             $out .= '</textarea>' . "\n";
         }
-
+        
         $out .= '<div style="padding:10px;">' . "\n";
-
+            
         $out .= '<input type="hidden" name="wikiId" value="'
             . $wikiId
             . '" />' . "\n"
             ;
-
+            
         $out .= '<input type="hidden" name="versionId" value="'
             . $versionId
             . '" />' . "\n"
             ;
-
+        
         $out .= '<input type="submit" name="action[preview]" value="'
-            .get_lang("Preview").'" />' . "\n"
+            .$langPreview.'" />' . "\n"
             ;
-
+        
         if( ! $forcePreview )
         {
             $out .= '<input type="submit" name="action[save]" value="'
-                .get_lang("Save").'" />' . "\n"
+                .$langSave.'" />' . "\n"
                 ;
         }
 
         $location = add_request_variable_to_url( $script, "wikiId", $wikiId );
         $location = add_request_variable_to_url( $location, "action", "show" );
 
-        $out .= claro_html_button ( $location, get_lang("Cancel") );
-
+        $out .= claro_disp_button ( $location, $langCancel );
+        
         $out .= '</div>' . "\n";
 
         $out .= "</form>\n";
-
+        
         return $out;
     }
 
@@ -116,38 +116,40 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
      */
     function claro_disp_wiki_preview( &$wikiRenderer, $title, $content = '' )
     {
+        global $langWikiContentEmpty,$langWikiPreviewTitle
+            ,$langWikiPreviewWarning,$langWikiMainPage;
 
         $out = "<div id=\"preview\" class=\"wikiTitle\">\n";
-
+        
         if( $title === '__MainPage__' )
         {
-            $title = get_lang("Main page");
+            $title = $langWikiMainPage;
         }
         
-        $title = "<h1 class=\"wikiTitle\">" . get_lang('Preview :') . "$title</h1>\n";
-
+        $title = "<h1 class=\"wikiTitle\">$langWikiPreviewTitle$title</h1>\n";
+        
         $out .= $title;
-
+        
         $out .= '</div>' . "\n";
-
-        $out .= claro_html_message_box( '<small>'
-            . get_lang("WARNING: this page is a preview. Your modifications to the wiki has not been saved yet ! To save them do not forget to click on the 'save' button at the bottom of the page.")
-            . '</small>' )
+        
+        $out .= claro_disp_message_box( '<small>'.$langWikiPreviewWarning.'</small>' )
             . "\n";
 
         $out .= '<div class="wiki2xhtml">' . "\n";
-
+        
         if ( $content != '' )
         {
             $out .= $wikiRenderer->render( $content );
         }
         else
         {
-            $out .= get_lang("This page is empty, click on 'Edit this page' to add a content");
+            $out .= $langWikiContentEmpty;
         }
-
+        
         $out .= "</div>\n";
 
+        // $out .= "</div>\n";
+        
         return $out;
     }
 
@@ -161,44 +163,45 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
      */
     function claro_disp_wiki_preview_buttons( $wikiId, $title, $content, $script = null )
     {
+        global $langSave,$langEdit,$langCancel;
+
         $script = ( is_null( $script ) ) ? $_SERVER['PHP_SELF'] : $script;
 
-        $out = '<div style="clear:both;"><form method="post" action="' . $script
+        $out = '<div style="clear:both;"><form method="POST" action="' . $script
             . '" name="previewform" id="previewform">' . "\n"
             ;
         $out .= '<input type="hidden" name="content" value="'
             . htmlspecialchars($content) . '" />' . "\n"
             ;
-
+            
         $out .= '<input type="hidden" name="title" value="'
             . htmlspecialchars($title)
             . '" />' . "\n"
             ;
-
+            
         $out .= '<input type="hidden" name="wikiId" value="'
             . $wikiId
             . '" />' . "\n"
             ;
-
-        $out .= '<input type="submit" name="action[edit]" value="'
-            . get_lang("Edit") . '"/>' . "\n"
-            ;
-
+        
         $out .= '<input type="submit" name="action[save]" value="'
-            . get_lang("Save").'" />' . "\n"
+            . $langSave.'" />' . "\n"
+            ;
+        $out .= '<input type="submit" name="action[edit]" value="'
+            . $langEdit . '"/>' . "\n"
             ;
 
         $location = add_request_variable_to_url( $script, "wikiId", $wikiId );
         $location = add_request_variable_to_url( $location, "title", $title );
         $location = add_request_variable_to_url( $location, "action", "show" );
-
-        $out .= claro_html_button ( $location, get_lang("Cancel") );
-
+        
+        $out .= claro_disp_button ( $location, $langCancel );
+        
         $out .= "</form></div>\n";
-
+        
         return $out;
     }
-
+    
     /**
      * Generate html code of Wiki properties edit form
      * @param int wikiId ID of the wiki
@@ -214,10 +217,18 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         , $title ='', $desc = '', $groupId = 0, $acl = null
         , $script = null )
     {
-        $title = ( $title != '' ) ? $title : get_lang("New Wiki");
-
-        $desc = ( $desc != '' ) ? $desc : get_lang("Enter the description of your wiki here");
-
+        global $langWikiDescriptionForm, $langWikiDescriptionFormText,  $langWikiTitle
+            , $langWikiDescription, $langWikiAccessControl, $langWikiAccessControlText
+            , $langWikiCourseMembers, $langWikiGroupMembers, $langWikiOtherUsers
+            , $langWikiOtherUsersText, $langWikiReadPrivilege, $langWikiEditPrivilege
+            , $langWikiCreatePrivilege, $langCancel, $langSave, $langWikiDefaultTitle
+            , $langWikiDefaultDescription
+            ;
+        
+        $title = ( $title != '' ) ? $title : $langWikiDefaultTitle;
+        
+        $desc = ( $desc != '' ) ? $desc : $langWikiDefaultDescription;
+        
         if ( is_null ( $acl ) && $groupId == 0 )
         {
             $acl = WikiAccessControl::defaultCourseWikiACL();
@@ -226,7 +237,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         {
             $acl = WikiAccessControl::defaultGroupWikiACL();
         }
-
+        
         // process ACL
         $group_read_checked = ( $acl['group_read'] == true ) ? ' checked="checked"' : '';
         $group_edit_checked = ( $acl['group_edit'] == true ) ? ' checked="checked"' : '';
@@ -237,86 +248,82 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         $other_read_checked = ( $acl['other_read'] == true ) ? ' checked="checked"' : '';
         $other_edit_checked = ( $acl['other_edit'] == true ) ? ' checked="checked"' : '';
         $other_create_checked = ( $acl['other_create'] == true ) ? ' checked="checked"' : '';
-
+        
         $script = ( is_null( $script ) ) ? $_SERVER['PHP_SELF'] : $script;
-
-        $form = '<form method="post" id="wikiProperties" action="'.$script.'">' . "\n"
+        
+        $form = '<form method="POST" id="wikiProperties" action="'.$script.'">' . "\n"
             . '<fieldset style="padding: 10px; margin: 10px;">' . "\n"
-            . '<legend>'.get_lang("Wiki description").'</legend>' . "\n"
+            . '<legend>'.$langWikiDescriptionForm.'</legend>' . "\n"
             . '<!-- wikiId = 0 if creation, != 0 if edition  -->' . "\n"
-            . '<p style="font-style: italic;">' . get_lang('You can choose a title an a description for the wiki :') . '</p>' . "\n"
+            . '<p style="font-style: italic;">' . $langWikiDescriptionFormText . '</p>' . "\n"
             . '<input type="hidden" name="wikiId" value="'.$wikiId.'" />' . "\n"
             . '<!-- groupId = 0 if course wiki, != 0 if group_wiki  -->' . "\n"
             . '<input type="hidden" name="groupId" value="'.$groupId.'" />' . "\n"
             . '<div style="padding: 5px">' . "\n"
-            . '<label for="wikiTitle">' . get_lang("Title of the wiki") . ' :</label><br />' . "\n"
+            . '<label for="wikiTitle">' . $langWikiTitle . ' :</label><br />' . "\n"
             . '<input type="text" name="title" id="wikiTitle" size="80" maxlength="254" value="'.htmlspecialchars($title).'" />' . "\n"
             . '</div>' . "\n"
             . '<div style="padding: 5px">' . "\n"
-            . '<label for="wikiDesc">'.get_lang("Description of the Wiki").' :</label><br />' . "\n"
+            . '<label for="wikiDesc">'.$langWikiDescription.' :</label><br />' . "\n"
             . '<textarea id="wikiDesc" name="desc" cols="80" rows="10">'.$desc.'</textarea>' . "\n"
             . '</div>' . "\n"
             . '</fieldset>' . "\n"
             . '<fieldset id="acl" style="padding: 10px;margin: 10px;">' . "\n"
-            . '<legend>' . get_lang("Access control management") . '</legend>' . "\n"
-            . '<p style="font-style: italic;">'
-            . get_lang('You can set access rights for users using the following grid :')
-            . '</p>' . "\n"
+            . '<legend>' . $langWikiAccessControl . '</legend>' . "\n"
+            . '<p style="font-style: italic;">'.$langWikiAccessControlText.'</p>' . "\n"
             . '<table style="text-align: center; padding: 5px;" id="wikiACL">' . "\n"
             . '<tr class="matrixAbs">' . "\n"
             . '<td><!-- empty --></td>' . "\n"
-            . '<td>'.get_lang("Read Pages").'</td>' . "\n"
-            . '<td>'.get_lang("Edit Pages").'</td>' . "\n"
-            . '<td>'.get_lang("Create Pages").'</td>' . "\n"
+            . '<td>'.$langWikiReadPrivilege.'</td>' . "\n"
+            . '<td>'.$langWikiEditPrivilege.'</td>' . "\n"
+            . '<td>'.$langWikiCreatePrivilege.'</td>' . "\n"
             . '</tr>' . "\n"
             . '<tr>' . "\n"
-            . '<td class="matrixOrd">'.get_lang("Course members").'</td>' . "\n"
+            . '<td class="matrixOrd">'.$langWikiCourseMembers.'</td>' . "\n"
             . '<td><input type="checkbox" onclick="updateBoxes(\'course\',\'read\');" id="course_read" name="acl[course_read]"'.$course_read_checked.' /></td>' . "\n"
             . '<td><input type="checkbox" onclick="updateBoxes(\'course\',\'edit\');" id="course_edit" name="acl[course_edit]"'.$course_edit_checked.' /></td>' . "\n"
             . '<td><input type="checkbox" onclick="updateBoxes(\'course\',\'create\');" id="course_create" name="acl[course_create]"'.$course_create_checked.' /></td>' . "\n"
             . '</tr>' . "\n"
             ;
-
+            
         if ( $groupId != 0 )
         {
             $form .= '<!-- group acl row hidden if groupId == 0, set all to false -->' . "\n"
                 . '<tr>' . "\n"
-                . '<td class="matrixOrd">'.get_lang("Group members").'</td>' . "\n"
+                . '<td class="matrixOrd">'.$langWikiGroupMembers.'</td>' . "\n"
                 . '<td><input type="checkbox" onclick="updateBoxes(\'group\',\'read\');" id="group_read" name="acl[group_read]"'.$group_read_checked.' /></td>' . "\n"
                 . '<td><input type="checkbox" onclick="updateBoxes(\'group\',\'edit\');" id="group_edit" name="acl[group_edit]"'.$group_edit_checked.' /></td>' . "\n"
                 . '<td><input type="checkbox" onclick="updateBoxes(\'group\',\'create\');" id="group_create" name="acl[group_create]"'.$group_create_checked.' /></td>' . "\n"
                 . '</tr>' . "\n"
                 ;
         }
-
+        
         $form .= '<tr>' . "\n"
-            . '<td class="matrixOrd">'.get_lang("Others (*)").'</td>' . "\n"
+            . '<td class="matrixOrd">'.$langWikiOtherUsers.'</td>' . "\n"
             . '<td><input type="checkbox" onclick="updateBoxes(\'other\',\'read\');" id="other_read" name="acl[other_read]"'.$other_read_checked.' /></td>' . "\n"
             . '<td><input type="checkbox" onclick="updateBoxes(\'other\',\'edit\');" id="other_edit" name="acl[other_edit]"'.$other_edit_checked.' /></td>' . "\n"
             . '<td><input type="checkbox" onclick="updateBoxes(\'other\',\'create\');" id="other_create" name="acl[other_create]"'.$other_create_checked.' /></td>' . "\n"
             . '</tr>' . "\n"
             . '</table>' . "\n"
-            . '<p style="font-style: italic;">'
-            . get_lang("(*) anonymous users, users who are not members of this course...")
-            . '</p>' . "\n"
+            . '<p style="font-style: italic;">'.$langWikiOtherUsersText.'</p>' . "\n"
             . '</fieldset>' . "\n"
             ;
-
+        
         $form .= '<div style="padding: 10px">' . "\n" ;
-
+        
         if ( $groupId != 0 )
         {
             $form .= '<input type="hidden" name="gidReq" value="' . $groupId  . '" />' . "\n";
         }
-
-        $form .= '<input type="submit" name="action[exEdit]" value="' . get_lang("Ok") . '" />' . "\n"
-            . claro_html_button ( $_SERVER['PHP_SELF'] . '?action=list', get_lang("Cancel") ) . "\n"
+        
+        $form .= '<input type="submit" name="action[exEdit]" value="' . $langSave . '" />' . "\n"
+            . claro_disp_button ( $_SERVER['PHP_SELF'] . '?action=list', $langCancel ) . "\n"
             ;
-
+            
         $form .= '</div>' . "\n"
             . '</form>' . "\n"
             ;
-
+            
         return $form;
     }
 ?>

@@ -1,13 +1,12 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
  * DROP Statistics Tables
  *
- * @version 1.8 $Revision$
+ * @version 1.7 $Revision$
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -24,7 +23,10 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @var $statsTblPrefixForm prefix set during  install, and keep in mainconf
  * @private $sql var where build sql request.
  */
-$dropStatementList[] = "DROP TABLE IF EXISTS `".$statsTblPrefixForm."track_e_default` ";
-$dropStatementList[] = "DROP TABLE IF EXISTS `".$statsTblPrefixForm."track_e_login` ";
-$dropStatementList[] = "DROP TABLE IF EXISTS `".$statsTblPrefixForm."track_e_open` ";
+$sql = "DROP TABLE IF EXISTS `".$statsTblPrefixForm."track_e_default` ";
+claro_sql_query($sql);
+$sql = "DROP TABLE IF EXISTS `".$statsTblPrefixForm."track_e_login` ";
+claro_sql_query($sql);
+$sql = "DROP TABLE IF EXISTS `".$statsTblPrefixForm."track_e_open` ";
+claro_sql_query($sql);
 ?>

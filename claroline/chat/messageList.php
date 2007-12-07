@@ -8,15 +8,15 @@
  * the file  is reserved because always formed
  * with the group id of the current user in the current course.
  *
- * @version 1.8 $Revision$
+ * @version 1.7 $Revision$
  *
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2005 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @see http://www.claroline.net/wiki/index.php/CLCHT
  *
- * @package CLCHT
+ * @package CLCHAT
  *
  * @author Claro Team <cvs@claroline.net>
  * @author Christophe Gesché <moosh@claroline.net>
@@ -25,15 +25,15 @@
  */
 
 // CLAROLINE INIT
-$tlabelReq = 'CLCHT'; // required
+$tlabelReq = 'CLCHT___'; // required
 require '../inc/claro_init_global.inc.php';
 
-if ( ! claro_is_in_a_course() || ( ! claro_is_course_allowed() && ! claro_is_user_authenticated() ) )
+if ( ! $_cid || ( ! $is_courseAllowed && !$_uid ) )
 {
 die ('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">'."\n"
     .'<html>'."\n"
     .'<head>'."\n"
-    .'<title>'.get_lang('Chat').'</title>'."\n"
+    .'<title>'.$langChat.'</title>'."\n"
     .'</head>'."\n"
     .'<body>'."\n"."\n"
     .'<a href="./chat.php" >click</a>' . "\n"
@@ -49,32 +49,30 @@ die ('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www
         CONNECTION BLOC
 ============================================================================*/
 
-$coursePath  = get_path('coursesRepositorySys') . claro_get_course_path();
-$courseId    = claro_get_current_course_id();
-$groupId     = claro_get_current_group_id();
-$_user       = claro_get_current_user_data()
-;
-$_course     = claro_get_current_course_data();
-$_group      = claro_get_current_group_data();
 
-$is_allowedToManage = claro_is_course_manager();
-$is_allowedToStore  = claro_is_course_manager();
-$is_allowedToReset  = claro_is_course_manager();
+$coursePath  = $coursesRepositorySys.$_course['path'];
+$courseId    = $_cid;
+$groupId     = $_gid;
+
+$is_allowedToManage = $is_courseAdmin;
+$is_allowedToStore  = $is_courseAdmin;
+$is_allowedToReset  = $is_courseAdmin;
 
 
 if ( $_user['firstName'] == '' && $_user['lastName'] == '')
 {
-    $nick = get_lang('Anonymous');
+    $nick = $langAnonymous;
 }
 else
 {
     $nick = $_user['firstName'] . ' ' . $_user['lastName'] ;
-    if (strlen($nick) > get_conf('max_nick_length') ) $nick = $_user['firstName'] . ' '. $_user['lastName'][0] . '.' ;
+    if (strlen($nick) > $max_nick_length) $nick = $_user['firstName'] . ' '. $_user['lastName'][0] . '.' ;
 }
 
 
 // theses  line prevent missing config file
-$refresh_display_rate = get_conf('refresh_display_rate',10);
+$refresh_display_rate = (int) $refresh_display_rate;
+if (!isset($refresh_display_rate) || $refresh_display_rate==0)  $refresh_display_rate = 10;
 
 /*============================================================================
         CHAT INIT
@@ -94,24 +92,24 @@ if ( ! is_dir($curChatRep) ) mkdir($curChatRep, CLARO_FILE_PERMISSIONS);
 // DETERMINE IF THE CHAT SYSTEM WILL WORK
 // EITHER AT THE COURSE LEVEL OR THE GROUP LEVEL
 
-if (claro_is_in_a_group())
+if ($_gid)
 {
-    if (claro_is_group_allowed())
+    if ($is_groupAllowed)
     {
         $groupContext  = TRUE;
         $courseContext = FALSE;
 
-        $is_allowedToManage = $is_allowedToManage||  claro_is_group_tutor();
-        $is_allowedToStore  = $is_allowedToStore ||  claro_is_group_tutor();
-        $is_allowedToReset  = $is_allowedToReset ||  claro_is_group_tutor();
+        $is_allowedToManage = $is_allowedToManage|| $is_groupTutor ;
+        $is_allowedToStore  = $is_allowedToStore || $is_groupTutor;
+        $is_allowedToReset  = $is_allowedToReset || $is_groupTutor;
 
         $activeChatFile = $curChatRep.$courseId.'.'.$groupId.'.chat.html';
         $onflySaveFile  = $curChatRep.$courseId.'.'.$groupId.'.tmpChatArchive.html';
-        $exportFile     = $coursePath.'/group/'.claro_get_current_group_data('directory').'/';
+        $exportFile     = $coursePath.'/group/'.$_group['directory'].'/';
     }
     else
     {
-        die('<center>' . get_lang('You are not a member of this group') . '</center>');
+        die('<center>' . $langNotGroupMember . '</center>');
     }
 }
 else
@@ -125,35 +123,49 @@ else
 }
 
 
-$dateNow = claro_html_localised_date(get_locale('dateTimeFormatLong'));
-$timeNow = claro_html_localised_date('[%d/%m/%y %H:%M]');
+$dateNow = claro_disp_localised_date($dateTimeFormatLong);
+$timeNow = claro_disp_localised_date('[%d/%m/%y %H:%M]');
 
 if ( ! file_exists($activeChatFile))
 {
     // create the file
     $fp = @fopen($activeChatFile, 'w')
-    or die ('<center>'.get_lang('Error : Cannot initialize chat').'</center>');
+    or die ('<center>'.$langCannotInitChat.'</center>');
     fclose($fp);
 
-    $dateLastWrite = get_lang('New chat');
+    $dateLastWrite = $langNewChat;
 }
+
+
+
+
+
+
+
 
 /*============================================================================
         COMMANDS
 ============================================================================*/
 
+
+
+
 /*----------------------------------------------------------------------------
         RESET COMMAND
 ----------------------------------------------------------------------------*/
 
+
 if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'reset' && $is_allowedToReset)
 {
     $fchat = fopen($activeChatFile,'w');
-    fwrite($fchat, '<small>'.$timeNow.' -------- '.get_lang('Chat reset by').' '.$nick.' --------</small><br />'."\n");
+    fwrite($fchat, '<small>'.$timeNow.' -------- '.$langChatResetBy.' '.$nick.' --------</small><br />'."\n");
     fclose($fchat);
 
     @unlink($onflySaveFile);
 }
+
+
+
 
 /*----------------------------------------------------------------------------
         STORE COMMAND
@@ -179,20 +191,25 @@ if ( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'store' && $is_allowedToStor
 
     if (copy($onflySaveFile, $exportFile.$saveIn) )
     {
-        $chat_filename = '<a href="../document/document.php" target="blank">' . $saveIn . '</a>' ;
-
         $cmdMsg = "\n"
-                . '<blockquote>'
-                . get_lang('%chat_filename is now in the document tool. (<em>This file is visible</em>)',array('%chat_filename'=>$chat_filename))
-                . '</blockquote>'."\n";
+                . '<blockquote>'."\n"
+                . '<a href="../document/document.php" target="blank">'
+                . '<strong>'.$saveIn.'</strong>'
+                . '</a> '
+                . $langIsNowInYourDocDir."\n"
+                . '</blockquote>'."\n\n"
+                ;
 
         @unlink($onflySaveFile);
     }
     else
     {
-        $cmdMsg = '<blockquote>' . get_lang('Store failed') . '</blockquote>'."\n";
+        $cmdMsg = '<blockquote>' . $langCopyFailed . '</blockquote>'."\n";
     }
 }
+
+
+
 
 /*----------------------------------------------------------------------------
     'ADD NEW LINE' COMMAND
@@ -210,26 +227,37 @@ if ( isset($_REQUEST['chatLine']) && trim($_REQUEST['chatLine']) != "" )
     fclose($fchat);
 }
 
+
+
+
+
+
+
+
 /*============================================================================
 DISPLAY MESSAGE LIST
 ============================================================================*/
 
 if ( !isset($dateLastWrite) )
 {
-    $dateLastWrite = get_lang('Last message was on') . ' : '
-    .                strftime( get_locale('dateTimeFormatLong') , filemtime($activeChatFile) );
+    $dateLastWrite = $langDateLastWrite
+                .strftime( $dateTimeFormatLong , filemtime($activeChatFile) );
 }
+
 
 // WE DON'T SHOW THE COMPLETE MESSAGE LIST.
 // WE TAIL THE LAST LINES
 
+
 $activeLineList  = file($activeChatFile);
 $activeLineCount = count($activeLineList);
 
-$excessLineCount = $activeLineCount - get_conf('max_line_to_display');
+$excessLineCount = $activeLineCount - $max_line_to_display;
 if ($excessLineCount < 0) $excessLineCount = 0;
 $excessLineList = array_splice($activeLineList, 0 , $excessLineCount);
 $curDisplayLineList = $activeLineList;
+
+
 
 // DISPLAY
 
@@ -245,15 +273,15 @@ else
 }
 
 // set http charset
-if (! is_null(get_locale('charset'))) header('Content-Type: text/html; charset='. get_locale('charset'));
+if (isset($charset)) header('Content-Type: text/html; charset='. $charset);
 
 // page header with meta to refresh the page
 echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">'."\n"
     .'<html>'."\n"
     .'<head>'."\n"
-    .'<title>'.get_lang('Chat').'</title>'
-    .'<meta http-equiv="refresh" content="' . $refresh_display_rate . ';url=./messageList.php?x='.$x.'#final">'."\n"
-    .'<link rel="stylesheet" type="text/css" href="'.get_path('clarolineRepositoryWeb').'css/' . get_conf('claro_stylesheet') . '" >'."\n"
+    .'<title>'.$langChat.'</title>'
+    .'<meta http-equiv="refresh" content="'.$refresh_display_rate.';url=./messageList.php?x='.$x.'#final">'."\n"
+    .'<link rel="stylesheet" type="text/css" href="'.$clarolineRepositoryWeb.'css/'.$claro_stylesheet.'" >'."\n"
     .'</head>'."\n"
     .'<body>'."\n"."\n"
     ;
@@ -279,7 +307,7 @@ echo implode("\n", $curDisplayLineList) // LAST LINES
 // POSSIBLE EXPORT FOR DEFINITIVE STORAGE
 
 
-if ($activeLineCount > get_conf('max_line_in_file'))
+if ($activeLineCount > $max_line_in_file)
 {
 
     // STORE THE EXCESS LINES INTO THE 'ON FLY BUFFER'
@@ -303,11 +331,13 @@ if ($activeLineCount > get_conf('max_line_in_file'))
  */
 function buffer($content, $tmpFile)
 {
+    global $langChat, $langArchive;
+
     if ( ! file_exists($tmpFile) )
     {
         $content = '<html>'."\n"
                  . '<head>'."\n"
-                 . '<title>'.get_lang('Chat').' - '.get_lang('archive').'</title>'."\n"
+                 . '<title>'.$langChat.' - '.$langArchive.'</title>'."\n"
                  . '</head>'."\n\n"
                  . '<body>'."\n"
                  . $content

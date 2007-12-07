@@ -1,13 +1,12 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
  * Function to upgrade course tool 1.5 to 1.6
  *
- * @version 1.8 $Revision$
+ * @version 1.7 $Revision$
  * 
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  * 
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -221,13 +220,12 @@ function assignment_upgrade_to_16($course_code)
                 `prefill_submit` enum('ENDDATE','AFTERPOST') NOT NULL default 'ENDDATE',
                 PRIMARY KEY  (`id`)
                 ) TYPE=MyISAM"; 
-/*                      
+                      
             $sql_step1[] = "UPDATE `".$currentCourseDbNameGlu."wrk_assignment` 
                 SET 
                 `end_date` = '".date('Y-m-d H:i:00', mktime( date('H'),date('i'),0,date('m'), date('d'), date('Y')+1 ) )."'
                 WHERE `end_date` = '0000-00-00 00:00:00'
                 ";        
-*/
             $sql_step1[] = "CREATE TABLE IF NOT EXISTS `".$currentCourseDbNameGlu."wrk_submission` (
                 `id` int(11) NOT NULL auto_increment,
                 `assignment_id` int(11) default NULL,
@@ -296,8 +294,10 @@ function assignment_upgrade_to_16($course_code)
                                              " FROM `". $tbl_rel_course_user . "` " .
                                              " WHERE `code_cours` = '".$course_code."' LIMIT 1";
                 
-                $teacher = claro_sql_query_fetch_all($sql_get_id_of_one_teacher);
-
+                $res_id_of_one_teacher = claro_sql_query($sql_get_id_of_one_teacher);
+                
+                $teacher = claro_sql_fetch_all($res_id_of_one_teacher);
+                
                 $teacher_uid = $teacher[0]['uid'];
                 
                 // if no course manager, you are enrolled in as            
@@ -309,7 +309,7 @@ function assignment_upgrade_to_16($course_code)
                                              , `code_cours` = '" . $course_code . "'
                                              , `role` = 'Course missing manager';";
                     if ( ! claro_sql_query($sql_set_teacher) ) return $step;            
-                    log_message('Warning : Course '.$course_code.' has no teacher, you are enrolled in as course manager.');
+                    log_message('Warning : Course '.$currentCourseCode.' has no teacher, you are enrolled in as course manager.');
                 }
     
                 // add old work in submission of course manager

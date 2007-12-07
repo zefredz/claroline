@@ -1,5 +1,4 @@
-<?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+<?php
 
 error_reporting(E_ALL ^ E_NOTICE);
 
@@ -35,7 +34,7 @@ if (version_compare(PHP_VERSION,'5','>=')) {
 /**
  * phpCAS version. accessible for the user by phpCAS::getVersion().
  */
-define('PHPCAS_VERSION','0.4.21-1');
+define('PHPCAS_VERSION','0.4.20-1');
 
 // ------------------------------------------------------------------------
 //  CAS VERSIONS
@@ -944,27 +943,6 @@ class phpCAS
     }
 
   /**
-   * Set the login URL of the CAS server.
-   * @param $url the login URL
-   * @since 0.4.21 by Wyman Chan
-   */
-  function setServerLoginURL($url='')
-   {
-     global $PHPCAS_CLIENT;
-     phpCAS::traceBegin();
-     if ( !is_object($PHPCAS_CLIENT) ) {
-        phpCAS::error('this method should only be called after
-'.__CLASS__.'::client()');
-     }
-     if ( gettype($url) != 'string' ) {
-        phpCAS::error('type mismatched for parameter $url (should be
-`string\')');
-     }
-     $PHPCAS_CLIENT->setServerLoginURL($url);
-     phpCAS::traceEnd();
-   }
-
-  /**
    * This method returns the URL to be used to login.
    * or phpCAS::isAuthenticated().
    *
@@ -978,27 +956,6 @@ class phpCAS
       }
       return $PHPCAS_CLIENT->getServerLogoutURL();
     }
-
-  /**
-   * Set the logout URL of the CAS server.
-   * @param $url the logout URL
-   * @since 0.4.21 by Wyman Chan
-   */
-  function setServerLogoutURL($url='')
-   {
-     global $PHPCAS_CLIENT;
-     phpCAS::traceBegin();
-     if ( !is_object($PHPCAS_CLIENT) ) {
-        phpCAS::error('this method should only be called after
-'.__CLASS__.'::client()');
-     }
-     if ( gettype($url) != 'string' ) {
-        phpCAS::error('type mismatched for parameter $url (should be
-`string\')');
-     }
-     $PHPCAS_CLIENT->setServerLogoutURL($url);
-     phpCAS::traceEnd();
-   }
 
   /**
    * This method is used to logout from CAS. Halts by redirecting to the CAS server.

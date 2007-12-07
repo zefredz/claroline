@@ -1,0 +1,30 @@
+<?php
+$langAgenda = "Agenda";
+$langAnnouncement = "Pengumuman";
+$langCategories = "Pusat Pengajian";
+$langChat = "Perbincangan";
+$langCourseCreate = "Bina Laman Subjek";
+$langCourseManager = "Pentadbir Subjek (Pensyarah)";
+$langDay_of_weekNames = "Array";
+$langDescriptionCours = "Penerangan Subjek";
+$langDocument = "Dokumen";
+$langEnter = "Masuk";
+$langForums = "Forum";
+$langGroups = "Kumpulan";
+$langHelp = "Bantuan";
+$langLogin = "Melog Masuk";
+$langLogout = "Melog Keluar";
+$langLostPassword = "Lupa Katalaluan";
+$langModifyProfile = "Ubahsuai Maklumat Peribadi";
+$langMonthNames = "Array";
+$langMyCourses = "Senarai Subjek";
+$langNameOfLang = "Array";
+$langOtherCourses = "Senarai Subjek";
+$langPassword = "katalaluan";
+$langPoweredBy = "Oleh : ";
+$langStudent = "Pelajar";
+$langUserName = "Nama Pengguna";
+$langUsers = "Users";
+$langWork = "Works";
+$lang_enroll = "Sertai";
+?>

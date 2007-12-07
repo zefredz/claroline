@@ -1,0 +1,36 @@
+<?php
+$langAddComment = "Thêm/Sửa ghi chú";
+$langAgenda = "Agenda (Lịch công tác)";
+$langAnnouncement = "Thông báo";
+$langBack = "Quay lại";
+$langChat = "Thảo luận";
+$langConfirmYourChoice = "Hãy xác nhận lại lựa chọn của bạn";
+$langCourseManager = "Quản lý khoá họcr";
+$langDate = "Ngày";
+$langDay_of_weekNames = "Array";
+$langDelete = "xoá";
+$langDescriptionCours = "Mô tả khoá học";
+$langDocument = "Tài liệu";
+$langExercises = "Bài tập";
+$langForums = "Diễn đàn";
+$langGroups = "Nhóm";
+$langHelp = "Help";
+$langLogin = "login";
+$langLogout = "Logout";
+$langModify = "Modify";
+$langModifyProfile = "Sửa thông tin cá nhân";
+$langMonthNames = "Array";
+$langMyCourses = "Danh mục khoá học";
+$langNameOfLang = "Array";
+$langNext = "Tiếp";
+$langNoEx = "Chưa có bài tập";
+$langOk = "Ok";
+$langOtherCourses = "Danh mục khoá học";
+$langPoweredBy = "Powered by";
+$langSize = "Kích thước";
+$langStudent = "học sinh";
+$langUp = "Up";
+$langUsers = "Users";
+$langWork = "Công việc";
+$lang_enroll = "Tham gia";
+?>

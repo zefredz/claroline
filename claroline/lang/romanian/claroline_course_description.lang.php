@@ -1,0 +1,87 @@
+<?php
+$langAdd = "Adauga";
+$langAgenda = "Agenda";
+$langAnnouncement = "Anunturi";
+$langAreYouSureToDelete = "Esti sigur ca vrei sa stergi";
+$langCancel = "Anuleaza
+";
+$langChat = "Chat";
+$langContent = "Continut";
+$langCourseContent = "Continutul cursului";
+$langCourseContentComment1 = "Care este importanta diferitelor continuturi care vor fi predate in cadrul cursului?
+Care este nivelul de dificultate al acestui continut? Cum va fi structurata materia? Care va fi succesiunea continutului? Care va fi finalitatea continutului?";
+$langCourseContentComment2 = "Prezentarea continutului cursului, structura continutului, desfasurarea si calendarul";
+$langCourseHome = "Inceputul Cursului";
+$langCourseManager = "Administratorul cursului";
+$langCourseProgram = "Descrierea cursului";
+$langDay_of_weekNames = "Array";
+$langDelete = "Sterge";
+$langDescAdded = "Descriere adaugata.";
+$langDescDeleted = "Descriere stearsa.";
+$langDescUnableToDelete = "Imposibil de sters";
+$langDescUnableToUpdate = "Imposibil de actualizat";
+$langDescUpdated = "Descriere actualizata.";
+$langDescription = "Descriere";
+$langDescriptionComment1 = "Care este locul si specificul cursului in cadrul programului? Exista cursuri pre-obligatorii? Care este legatura cu celelalte cursuri? ";
+$langDescriptionComment2 = "Informatii care permit identificarea cursului (initiale, titlu, un numar de ore, participare ) si a profesorului (nume de familie, prenume, serviciu, telefon, e-mail, disponibilitati possibile). Prezentarea generala a cursului in cadrul programului.";
+$langDescriptionCours = "Descrierea cursului";
+$langDocument = "Documente si Linkuri";
+$langExercises = "Exercitii";
+$langForums = "Forumuri";
+$langGroups = "Grupuri";
+$langHelp = "Ajutor
+";
+$langHumanAndPhysicalResourcesComment1 = "Care sunt resursele umane si fizice disponibile? Care va fi natura incadrarii? La ce se pot astepta cursantii din partea echipei de organizare sau de la organizarea profesorului?";
+$langHumanAndPhysicalResourcesComment2 = "Prezentarea celorlalti profesori care vor preda cursul (asistenti, cercetatori, cursanti-monitori...), a disponibilitatii persoanelor, cladirile si echipamentul sau resursele informatice disponibile.";
+$langHumanAndPhysicalRessources = "Resusele umane si fizice disponibile";
+$langInfo2Say = "Informatia pentru cursanti";
+$langInvisible = "Invizibil";
+$langLearningPath = "Parcurs Pedagogic";
+$langLogin = "Logare";
+$langLogout = "Delogare";
+$langMethodsOfEvaluation = "Metodele de evaluare";
+$langMethodsOfEvaluationComment1 = "Detalii precise referitor la metodele de evaluare (examene scrise, orale, proiecte, lucrari repartizate..), data evaluarii formative, data de expirare pentru predarea lucrarilor, cu criteriile de evaluare, posibilitatea ponderarii criteriilor saucategoriilor de criterii.";
+$langMinuteShort = "min.";
+$langModify = "Modifica";
+$langModifyProfile = "Modifica profilul meu";
+$langMonthNames = "Array";
+$langMyAgenda = "Calendarul meu";
+$langMyCourses = "Lista cursurilor mele";
+$langNameOfLang = "Array";
+$langNewBloc = "Altul
+";
+$langOk = "Ok";
+$langOtherCourses = "Lista cursurilor";
+$langPeriodDayShort = "d.";
+$langPeriodHourShort = "h.";
+$langPlatformAdministration = "Administrarea platformei";
+$langPoweredBy = "Bazat pe";
+$langQualificationsAndGoals = "Pregatire si scopuri";
+$langQualificationsAndGoalsComment1 = "Care sunt scopurile vizate? La sfarsitul cursului de ce pregatire, capacitati si cunostinte vor dispune cursantii?";
+$langQualificationsAndGoalsComment2 = "Prezentarea obiectivelor generale si specifice ale cursului precum si a capacitatilor care vor rezulta din atingerea acestora.";
+$langQuestionPlan = "Intrebare adresata lectorului";
+$langSecondShort = "sec.";
+$langStudent = "Cursant";
+$langSupports = "Suport";
+$langSupportsComment1 = "Exista suport de curs? Ce tip de suport trebuie sa dau? Deschis? Inchis?";
+$langSupportsComment2 = "Prezentarea suportului cursului. Prezentarea bibliografiei, a setului de documente sau a bibliografiei complementare. ";
+$langSwitchEditorToTextConfirm = "Aceasta comanada va anula aranjarea in pagina a textului curent. Vrei sa continui?";
+$langTeachingTrainingActivities = "Activitati de predare-instruire";
+$langTeachingTrainingActivitiesComment1 = "Ce metode si ce activitati vor sprijini obiectivele definite ale cursului?
+Care este calendarul activitatilor?";
+$langTeachingTrainingActivitiesComment2 = "Prezentarea activitatilor prevazute (Treceri in revista, participari asteptate ale studentilor, lucrari practice, laboratoare, vizite, culegere de informatii pe teren...).";
+$langTextEditorDisable = "Dezactiveaza editorul de text";
+$langTextEditorEnable = "Activeaza Editorul de text";
+$langThisCourseDescriptionIsEmpty = "Acest curs nu este descris acum";
+$langTitle = "Titlu";
+$langUnableDescToAdd = "Nu poate adauga descriere";
+$langUsers = "Utilizatori";
+$langViMod = "Vizibilitatea modificata";
+$langViewMode = "Modalitatea de vizionare";
+$langVisible = "Vizibil";
+$langWiki = "Wiki";
+$langWork = "Teme";
+$lang_enroll = "Inscriere";
+$lang_footer_p_CourseManager = "Administrator (i) %s";
+$lang_p_platformManager = "Administrator pentru  %s";
+?>

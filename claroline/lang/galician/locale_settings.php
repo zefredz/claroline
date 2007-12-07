@@ -1,27 +1,25 @@
 <?php // $Id$
-/**
- * CLAROLINE
- *
- * @version 1.8 $Revision$
- *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
- *
- * @author: claro team <cvs@claroline.net>
- *
- * @package LANG-GL
- *
- * Copyright (c) 2002, High Sierra Networks, Inc.                       
- * This module was modifyed 2002-02-21 by                               
- *     Mayra Angeles     <mayra.angeles@eduservers.com>            
- *     Jorge Gonzalez    <jgonzalez@eduservers.com>                
- *
- * Translation to Galician                                              
- *     e-learning dept CESGA <teleensino@cesga.es >                         
- *
- * Translation to Galician v.1.6                                        
- *     Servizo de teledocencia. Universidade de Vigo                        
- *     Gerardo Albela González   galbela@uvigo.es - gerardoalbela@yahoo.es  
- */
+/*
+      +----------------------------------------------------------------------+
+      | CLAROLINE version 1.6.*
+      +----------------------------------------------------------------------+
+      | Copyright (c) 2001, 2004 Universite catholique de Louvain (UCL)      |
+      +----------------------------------------------------------------------+
+
+      +----------------------------------------------------------------------+
+      | Copyright (c) 2002, High Sierra Networks, Inc.                       |
+      | This module was modifyed 2002-02-21 by                               |
+      |          Mayra Angeles     <mayra.angeles@eduservers.com>            |
+      |          Jorge Gonzalez    <jgonzalez@eduservers.com>                |
+      +----------------------------------------------------------------------|
+      | Translation to Galician                                              |
+      | e-learning dept CESGA <teleensino@cesga.es >                         |
+      +----------------------------------------------------------------------|
+	  | Translation to Galician v.1.6                                        |
+	  | Servizo de teledocencia. Universidade de Vigo                        |
+	  | Gerardo Albela González   galbela@uvigo.es - gerardoalbela@yahoo.es  |
+	  +----------------------------------------------------------------------|
+*/
 
 
 
@@ -32,25 +30,25 @@ $iso639_1_code = "gl";
 $iso639_2_code = "glg";
 
 
-$langNameOfLang['arabic'        ]="arabian";
-$langNameOfLang['brazilian'        ]="brazilian";
-$langNameOfLang['bulgarian'        ]="bulgarian";
-$langNameOfLang['croatian'        ]="croatian";
-$langNameOfLang['dutch'            ]="dutch";
-$langNameOfLang['english'        ]="english";
-$langNameOfLang['finnish'        ]="finnish";
-$langNameOfLang['french'        ]="french";
-$langNameOfLang['galician'        ]="galician";
-$langNameOfLang['german'        ]="german";
-$langNameOfLang['greek'            ]="greek";
-$langNameOfLang['italian'        ]="italian";
-$langNameOfLang['japanese'        ]="japanese";
-$langNameOfLang['polish'        ]="polish";
-$langNameOfLang['simpl_chinese'    ]="simplified chinese";
-$langNameOfLang['spanish'        ]="spanish";
-$langNameOfLang['swedish'        ]="swedish";
-$langNameOfLang['thai'            ]="thai";
-$langNameOfLang['turkish'        ]="turkish";
+$langNameOfLang['arabic'		]="arabian";
+$langNameOfLang['brazilian'		]="brazilian";
+$langNameOfLang['bulgarian'		]="bulgarian";
+$langNameOfLang['croatian'		]="croatian";
+$langNameOfLang['dutch'			]="dutch";
+$langNameOfLang['english'		]="english";
+$langNameOfLang['finnish'		]="finnish";
+$langNameOfLang['french'		]="french";
+$langNameOfLang['galician'		]="galician";
+$langNameOfLang['german'		]="german";
+$langNameOfLang['greek'			]="greek";
+$langNameOfLang['italian'		]="italian";
+$langNameOfLang['japanese'		]="japanese";
+$langNameOfLang['polish'		]="polish";
+$langNameOfLang['simpl_chinese'	]="simplified chinese";
+$langNameOfLang['spanish'		]="spanish";
+$langNameOfLang['swedish'		]="swedish";
+$langNameOfLang['thai'			]="thai";
+$langNameOfLang['turkish'		]="turkish";
 
 
 

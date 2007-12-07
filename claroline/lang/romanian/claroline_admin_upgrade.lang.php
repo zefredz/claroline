@@ -1,0 +1,50 @@
+<?php
+$langAdministration = "Administratie";
+$langAgenda = "Agenda";
+$langAnnouncement = "Anunturi";
+$langCancel = "Anuleaza
+";
+$langChat = "Chat";
+$langCopy = "Copiaza";
+$langCourseHome = "Inceputul Cursului";
+$langCourseManager = "Administratorul cursului";
+$langDay_of_weekNames = "Array";
+$langDescriptionCours = "Descrierea cursului";
+$langDocument = "Documente si Linkuri";
+$langEmpty = "Goleste";
+$langExercises = "Exercitii";
+$langForums = "Forumuri";
+$langGroups = "Grupuri";
+$langHelp = "Ajutor
+";
+$langLaunchRestoreCourseRepository = "Lanseaza restaurarea dosarului de curs";
+$langLearningPath = "Parcurs Pedagogic";
+$langLogin = "Logare";
+$langLogout = "Delogare";
+$langMinuteShort = "min.";
+$langModifyProfile = "Modifica profilul meu";
+$langMonthNames = "Array";
+$langMyAgenda = "Calendarul meu";
+$langMyCourses = "Lista cursurilor mele";
+$langNameOfLang = "Array";
+$langOk = "Ok";
+$langOtherCourses = "Lista cursurilor";
+$langPeriodDayShort = "d.";
+$langPeriodHourShort = "h.";
+$langPlatformAdministration = "Administrarea platformei";
+$langPoweredBy = "Bazat pe";
+$langRestoreCourseRepository = "Restaureaza dosarul cursului";
+$langSecondShort = "sec.";
+$langStudent = "Cursant";
+$langSwitchEditorToTextConfirm = "Aceasta comanada va anula aranjarea in pagina a textului curent. Vrei sa continui?";
+$langTextEditorDisable = "Dezactiveaza editorul de text";
+$langTextEditorEnable = "Activeaza Editorul de text";
+$langTo = "la";
+$langUsers = "Utilizatori";
+$langViewMode = "Modalitatea de vizionare";
+$langWiki = "Wiki";
+$langWork = "Teme";
+$lang_enroll = "Inscriere";
+$lang_footer_p_CourseManager = "Administrator (i) %s";
+$lang_p_platformManager = "Administrator pentru  %s";
+?>

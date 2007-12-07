@@ -1,13 +1,12 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
- * CLAROLINE
+ * CLAROLINE 
  *
- * @version 1.8 $Revision$
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @version 1.7 $Revision$ 
+ * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE 
+ * 
  * @author claroline Team <cvs@claroline.net>
  * @author Renaud Fallier <renaud.claroline@gmail.com>
  * @author Frédéric Minne <minne@ipm.ucl.ac.be>
@@ -20,19 +19,19 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     require_once (dirname(__FILE__) . '/CLANN___Resolver.php');
 
    /**
-    * Class announcement Navigator
+    * Class announcement Navigator  
     *
-    * @package CLANN
-    * @subpackage CLLINKER
+    * @package CLANN 
+    * @subpackage CLLINKER 
     *
     * @author Fallier Renaud <renaud.claroline@gmail.com>
     */
-    class CLANN___Navigator extends Navigator
+    class CLANN___Navigator extends Navigator  
     {
         /**
          * @var $_claroContainer
          */
-        var $_claroContainer;
+        var $_claroContainer;  
 
         /*----------------------------
                 public method
@@ -41,12 +40,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         /**
         * Constructor
         *
-        * @param   $basePath string path root directory of courses
+        * @param   $basePath string path root directory of courses  
         */
         function CLANN___Navigator($basePath = null)
         {
             global $_course;
-            $this->_claroContainer = FALSE;
+            $this->_claroContainer = FALSE; 
         }
 
         /**
@@ -56,17 +55,21 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         * @return ClaroContainer who contains the objects current node
         * @throws E_USER_ERROR if the node is not intended for the tool forum
         * @throws E_USER_ERROR if the node is empty
+        * @global path rootWeb
         */
         function getResource($node = null)
         {
-            if(!is_null($node))
+            global $rootWeb;
+            
+            // if the node is not null    
+            if($node)
             {
                 // if this node (crl) is for announcement
                 if(CRLTool::isForThisTool($node, 'CLANN___'))
                 {
                      $elementCRLArray = CRLTool::parseCRL($node);
 
-                     if( !isset ($elementCRLArray['resource_id']) )
+                     if( !isset ($elementCRLArray['resource_id']) )               
                      {
                          // listing of annoncouncement
                          $annonce = $this->_listAnnonce($elementCRLArray['course_sys_code']);
@@ -74,22 +77,22 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
                          foreach ($annonce as $itemAnnonce )
                          {
-                             $crl = $node . '/' . $itemAnnonce['id'];
-                             $res = new CLANN___Resolver(get_path('rootWeb'));
-                             $title = $res->getTitle($elementCRLArray['course_sys_code'], $itemAnnonce['id']);
+                             $crl = $node . '/' . $itemAnnonce['id']; 
+                             $res = new CLANN___Resolver($rootWeb); 
+                             $title = $res->getTitle($elementCRLArray['course_sys_code'], $itemAnnonce['id']); 
                              $isVisible = ( $itemAnnonce['visibility'] == 'SHOW');
                              $container = new ClaroObject( $title , $crl , TRUE , FALSE , $isVisible );
-                             $elementList[] = $container ;
+                             $elementList[] = $container ;   
                          }
 
-                         $this->_claroContainer = new ClaroContainer ( '' , $node , $elementList );
+                         $this->_claroContainer = new ClaroContainer ( '' , $node , $elementList );   
 
                          return $this->_claroContainer;
 
                      }
                      else
                      {
-                         trigger_error ("Error : resource_id must be empty", E_USER_ERROR);
+                         trigger_error ("Error : resource_id must be empty", E_USER_ERROR);   
                      }
                 }
                 else
@@ -115,13 +118,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         */
          function _listAnnonce($course_sys_code)
         {
-            $courseInfoArray = get_info_course($course_sys_code);
+            $courseInfoArray = get_info_course($course_sys_code); 
             $tbl_cdb_names = claro_sql_get_course_tbl($courseInfoArray["dbNameGlu"]);
             $tbl_annonce = $tbl_cdb_names['announcement'];
-
-            $sql = 'SELECT `id`,`title` , `visibility` FROM `'.$tbl_annonce.'`';
+            
+            $sql = 'SELECT `id`,`title` , `visibility` FROM `'.$tbl_annonce.'`'; 
             $annonces = claro_sql_query_fetch_all($sql);
-
+            
             return $annonces;
         }
     }
