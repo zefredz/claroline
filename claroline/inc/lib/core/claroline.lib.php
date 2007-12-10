@@ -113,7 +113,7 @@
                     $this->display->frameMode();
                     break;
                 case self::FRAMESET:
-                    $this->display = new ClaroFrameSet;
+                    $this->display = new ClaroFramesetPage;
                     break;
                 default:
                     throw new Exception( 'Invalid display type' );
