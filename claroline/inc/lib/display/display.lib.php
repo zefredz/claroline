@@ -370,7 +370,7 @@
          */
         public function render()
         {
-            $html .= '<frameset '
+            $html = '<frameset '
                 . ( ! empty( $this->rows )
                     ? 'rows="'. implode(',', $this->rows). '" ' : '' )
                 . ( ! empty( $this->cols )
