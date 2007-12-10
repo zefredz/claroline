@@ -396,7 +396,7 @@
      */
     class ClaroFramesetPage extends ClaroFrameset
     {
-        protected $header;
+        public $header;
         
         public function __construct()
         {
