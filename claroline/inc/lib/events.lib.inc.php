@@ -320,7 +320,7 @@ function event_exercise_details($exerciseTrackId,$questionId,$values,$questionRe
           (
               ".(int) $exerciseTrackId.",
                '".(int) $questionId."',
-               '".(int) $questionResult."'
+               '".(float) $questionResult."'
           )";
 
     $details_id = claro_sql_query_insert_id($sql);
