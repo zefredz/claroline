@@ -307,7 +307,7 @@
                 ;
         }
     }
-
+    
     /**
      * Claroline html frameset class
      *
@@ -315,15 +315,9 @@
      */
     class ClaroFrameset implements Display
     {
-        private $frameset = array();
-        private $rows = array();
-        private $cols = array();
-        public $header;
-
-        public function __construct()
-        {
-            $this->header = ClaroHeader::getInstance();
-        }
+        protected $frameset = array();
+        protected $rows = array();
+        protected $cols = array();
 
         /**
          * Add a frame or frameset object to the current frameset
@@ -376,8 +370,6 @@
          */
         public function render()
         {
-            $html = $this->header->render();
-            
             $html .= '<frameset '
                 . ( ! empty( $this->rows )
                     ? 'rows="'. implode(',', $this->rows). '" ' : '' )
@@ -392,6 +384,36 @@
             }
 
             $html .= '</frameset>' . "\n";
+
+            return $html;
+        }
+    }
+
+    /**
+     * Claroline html frameset class
+     *
+     * @access  public
+     */
+    class ClaroFramesetPage extends ClaroFrameset
+    {
+        protected $header;
+        
+        public function __construct()
+        {
+            $this->header = ClaroHeader::getInstance();
+        }
+
+        /**
+         * Render the current frameset to be embedded in another HTML frameset
+         *
+         * @access  public
+         * @see     ClaroFramesetElement::render()
+         */
+        public function render()
+        {
+            $html = $this->header->render();
+            
+            $html .= parent::render();
 
             $html .= '</html>';
 
