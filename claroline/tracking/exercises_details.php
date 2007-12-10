@@ -104,18 +104,22 @@ if ( get_conf('is_trackingEnabled') )
 
     if ( ! isset($exo_scores_details['minimum']) )
     {
-        $exo_scores_details['minimum'] = 0;
-        $exo_scores_details['maximum'] = 0;
-        $exo_scores_details['average'] = 0;
+        $exo_scores_details['minimum'] = '0';
+        $exo_scores_details['maximum'] = '0';
+        $exo_scores_details['average'] = '0';
+        $exo_scores_details['avgTime'] = '0';
     }
     else
     {
         // round average number for a beautifuler display
-        $exo_scores_details['average'] = (round($exo_scores_details['average']*100)/100);
+    	$exo_scores_details['minimum'] = round($exo_scores_details['minimum']*100)/100;
+    	$exo_scores_details['maximum'] = round($exo_scores_details['maximum']*100)/100;
+    	$exo_scores_details['average'] = round($exo_scores_details['average']*100)/100;
+    	$exo_scores_details['avgTime'] = claro_html_duration(floor($exo_scores_details['avgTime']['avgTime']));
     }
 
     if (isset($exo_score_details['weighting']) || $exo_scores_details['weighting'] != '')
-        $displayedWeighting = '/'.$exo_scores_details['weighting'];
+        $displayedWeighting = '/'.round($exo_scores_details['weighting']*100)/100;
     else
         $displayedWeighting = '';
 
@@ -123,7 +127,7 @@ if ( get_conf('is_trackingEnabled') )
     .'<li>'.get_lang('Worst score').' : '.$exo_scores_details['minimum'].$displayedWeighting.'</li>'."\n"
     .'<li>'.get_lang('Best score').' : '.$exo_scores_details['maximum'].$displayedWeighting.'</li>'."\n"
     .'<li>'.get_lang('Average score').' : '.$exo_scores_details['average'].$displayedWeighting.'</li>'."\n"
-    .'<li>'.get_lang('Average Time').' : '.claro_html_duration(floor($exo_scores_details['avgTime'])).'</li>'."\n"
+    .'<li>'.get_lang('Average Time').' : '.$exo_scores_details['avgTime'].'</li>'."\n"
     .'</ul>'."\n\n"
     .'<ul>'."\n"
     .'<li>'.get_lang('User attempts').' : '.$exo_scores_details['users'].'</li>'."\n"
@@ -178,22 +182,25 @@ if ( get_conf('is_trackingEnabled') )
         {
             $exo_users_detail['minimum'] = '-';
             $exo_users_detail['maximum'] = '-';
-            $displayedAverage = '-';
-            $displayedAvgTime = '-';
+            $exo_users_detail['average'] = '-';
+            $exo_users_detail['avgTime'] = '-';
         }
         else
         {
-        	$displayedAverage = round($exo_users_detail['average']*100)/100;
-        	$displayedAvgTime = claro_html_duration(floor($exo_users_detail['avgTime']));
+        	$exo_users_detail['minimum'] = round($exo_users_detail['minimum']*100)/100;
+        	$exo_users_detail['maximum'] = round($exo_users_detail['maximum']*100)/100;
+        	$exo_users_detail['average'] = round($exo_users_detail['average']*100)/100;
+        	$exo_users_detail['avgTime'] = claro_html_duration(floor($exo_users_detail['avgTime']));
         }
+
         echo      '<tr>'."\n"
                   .'<td><a href="userLog.php?uInfo='.$exo_users_detail['user_id'].'&view=0100000&exoDet='.$exercise->getId().'">'."\n"
                 .$exo_users_detail['nom'].' '.$exo_users_detail['prenom'].'</a></td>'."\n"
                   .'<td>'.$exo_users_detail['minimum'].'</td>'."\n"
                   .'<td>'.$exo_users_detail['maximum'].'</td>'."\n"
-                  .'<td>'.$displayedAverage.'</td>'."\n"
+                  .'<td>'.$exo_users_detail['average'].'</td>'."\n"
                   .'<td>'.$exo_users_detail['attempts'].'</td>'."\n"
-                  .'<td>'.$displayedAvgTime.'</td>'."\n"
+                  .'<td>'.$exo_users_detail['avgTime'].'</td>'."\n"
                 .'</tr>'."\n\n";
     }
     // foot of table
@@ -230,16 +237,17 @@ if ( get_conf('is_trackingEnabled') )
     // display tab content
     foreach ( $exo_questions_details as $exo_questions_detail )
     {
-        if ( $exo_questions_detail['minimum'] == '' )
-        {
-            $exo_questions_detail['minimum'] = 0;
-            $exo_questions_detail['maximum'] = 0;
-        }
+
+    	$exo_questions_detail['grade'] = round($exo_questions_detail['grade']*100)/100;
+    	$exo_questions_detail['minimum'] = round($exo_questions_detail['minimum']*100)/100;
+    	$exo_questions_detail['maximum'] = round($exo_questions_detail['maximum']*100)/100;
+    	$exo_questions_detail['average'] = round($exo_questions_detail['average']*100)/100;
+
         echo      '<tr>'."\n"
                   .'<td><a href="questions_details.php?question_id='.$exo_questions_detail['id'].'&exId='.$exId.$src.'">'.$exo_questions_detail['title'].'</a></td>'."\n"
                   .'<td>'.$exo_questions_detail['minimum'].'/'.$exo_questions_detail['grade'].'</td>'."\n"
                   .'<td>'.$exo_questions_detail['maximum'].'/'.$exo_questions_detail['grade'].'</td>'."\n"
-                  .'<td>'.(round($exo_questions_detail['average']*100)/100).'/'.$exo_questions_detail['grade'].'</td>'."\n"
+                  .'<td>'.$exo_questions_detail['average'].'/'.$exo_questions_detail['grade'].'</td>'."\n"
                 .'</tr>'."\n\n";
     }
     // foot of table
