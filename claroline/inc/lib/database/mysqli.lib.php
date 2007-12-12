@@ -78,121 +78,6 @@
     }
     
     /**
-     * Row iterator for Mysqli Driver
-     * @see     DatabaseRowIterator
-     */
-    class MysqliRowsIterator implements DatabaseIterator
-    {
-        protected $_result;
-        protected $_current;
-        protected $_key = 0;
-        
-        /**
-         * Constructor
-         * @param   mysqli_result $result
-         */
-        public function __construct( $result )
-        {
-            $this->_result = $result;
-        }
-        
-        public function current()
-        {
-            return $this->_current;
-        }
-        
-        public function rewind()
-        {
-            $this->_result->data_seek(0);
-            $this->key = -1;
-            $this->next();
-        }
-        
-        public function valid()
-        {
-            return is_array( $this->_current );
-        }
-        
-        public function next()
-        {
-            if ( false !== ( $res = $this->_result->fetch_assoc() ) )
-            {
-                $this->_current = $res;
-                $this->_key++;
-            }
-            else
-            {
-                throw new Exception('No result');
-            }
-        }
-        
-        public function key()
-        {
-            return $this->_key;
-        }
-        
-        public function size()
-        {
-            return $this->_result->num_rows;
-        }
-        
-        public function toArray()
-        {
-            $ret= array();
-                
-            if ( $this->_result->num_rows > 0 )
-            {
-                while ( ( $item = $this->_result->fetch_assoc() ) != false )
-                {
-                    $ret[] = $item;
-                }
-            }
-            
-            return $ret;
-        }
-    }
-    
-    /**
-     * Object iterator for Mysqli Driver
-     * @see     DatabaseRowIterator
-     */
-    class MysqliObjectsIterator extends MysqliRowsIterator
-    {
-        public function next()
-        {
-            if ( false !== ( $res = $this->_result->fetch_object() ) )
-            {
-                $this->_current = $res;
-                $this->_key++;
-            }
-            else
-            {
-                throw new Exception('No result');
-            }
-        }
-        
-        public function valid()
-        {
-            return is_object( $this->_current );
-        }
-        
-        public function toArray()
-        {
-            $ret= array();
-                
-            if ( $this->_result->num_rows > 0 )
-            {
-                while ( ( $item = $this->_result->fetch_object() ) != false )
-                {
-                    $ret[] = $item;
-                }
-            }
-            
-            return $ret;
-        }
-    }
-    
-    /**
      * MySQL database connection class
      * @see     DatabaseConnection
      */
@@ -253,8 +138,15 @@
                 throw new DatabaseException('No database connection to close !');
             }
         }
-
+        
         public function executeQuery( $query )
+        {
+            $this->getQueryResult( $query );
+
+            return $this->getAffectedRows();
+        }
+
+        protected function getQueryResult( $query )
         {
             if ( ! $this->isConnected() )
             {
@@ -275,10 +167,10 @@
         {
             try
             {
-                $result = $this->executeQuery( $query );
+                $result = $this->getQueryResult( $query );
                 $ret= array();
                 
-                if ( $this->result->num_rows > 0 )
+                if ( $result->num_rows > 0 )
                 {
                     while( ( $item = $result->fetch_object() ) != false )
                     {
@@ -300,7 +192,7 @@
         {
             try
             {
-                $result = $this->executeQuery( $query );
+                $result = $this->getQueryResult( $query );
                 
                 if ( false != ( $item = $result->fetch_object() ) )
                 {
@@ -323,7 +215,7 @@
         {
             try
             {
-                $result = $this->executeQuery( $query );
+                $result = $this->getQueryResult( $query );
                 
                 $ret= array();
                 
@@ -349,7 +241,7 @@
         {
             try
             {
-                $result = $this->executeQuery( $query );
+                $result = $this->getQueryResult( $query );
                 
                 if ( false != ( $item = $result->fetch_assoc() ) )
                 {
@@ -372,7 +264,7 @@
         {
             try
             {
-                $result = $this->executeQuery( $query );
+                $result = $this->getQueryResult( $query );
             
                 if ( $result->num_rows > 0 )
                 {
@@ -424,7 +316,7 @@
             $this->profiler = new Profiler;
         }
         
-        public function executeQuery( $query )
+        protected function getQueryResult( $query )
         {
             if ( claro_debug_mode() && get_conf('CLARO_PROFILE_SQL',false) )
             {
@@ -438,7 +330,7 @@
             
             try
             {
-                $result = parent::executeQuery( $query );
+                $result = parent::getQueryResult( $query );
                 if ( claro_debug_mode() && get_conf('CLARO_PROFILE_SQL',false) )
                 {
                     $this->profiler->stop();

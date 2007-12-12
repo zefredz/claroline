@@ -55,123 +55,6 @@
     }
     
     /**
-     * Row iterator for Mysql Driver
-     * @see     DatabaseRowIterator
-     */
-    class MysqlRowsIterator implements DatabaseIterator
-    {
-        protected $_result;
-        protected $_current;
-        protected $_key = 0;
-        protected $_size = 0;
-        
-        /**
-         * Constructor
-         * @param   resource $result
-         */
-        public function __construct( $result )
-        {
-            $this->_result = $result;
-            $this->_size = mysql_num_rows( $result );
-        }
-        
-        public function current()
-        {
-            return $this->_current;
-        }
-        
-        public function rewind()
-        {
-            mysql_data_seek($this->_result, 0);
-            $this->key = -1;
-            $this->next();
-        }
-        
-        public function valid()
-        {
-            return is_array( $this->_current );
-        }
-        
-        public function next()
-        {
-            if ( false !== ( $res = mysql_fetch_assoc( $this->_result ) ) )
-            {
-                $this->_current = $res;
-                $this->_key++;
-            }
-            else
-            {
-                throw new Exception('No result');
-            }
-        }
-        
-        public function key()
-        {
-            return $this->_key;
-        }
-        
-        public function size()
-        {
-            return $this->_size;
-        }
-        
-        public function toArray()
-        {
-            $ret= array();
-                
-            if ( mysql_num_rows( $this->_result ) > 0 )
-            {
-                while ( ( $item = mysql_fetch_assoc( $this->_result ) ) != false )
-                {
-                    $ret[] = $item;
-                }
-            }
-            
-            return $ret;
-        }
-    }
-    
-    /**
-     * Object iterator for Mysql Driver
-     * @see     DatabaseRowIterator
-     */
-    class MysqlObjectsIterator extends MysqlRowsIterator
-    {
-        public function next()
-        {
-            if ( false !== ( $res = mysql_fetch_object( $this->_result ) ) )
-            {
-                $this->_current = $res;
-                $this->_key++;
-            }
-            else
-            {
-                throw new Exception('No result');
-            }
-        }
-        
-        public function valid()
-        {
-            return is_object( $this->_current );
-        }
-        
-        public function toArray()
-        {
-            $ret= array();
-                
-            if ( mysql_num_rows( $this->_result ) > 0 )
-            {
-                while ( ( $item = mysql_fetch_object( $this->_result ) ) != false )
-                {
-                    $ret[] = $item;
-                }
-            }
-            
-            return $ret;
-        }
-    }
-    
-    /**
      * MySQL database connection class
      * @see     DatabaseConnection
      */
@@ -239,6 +122,13 @@
 
         public function executeQuery( $query )
         {
+            $this->getQueryResult( $query );
+
+            return $this->getAffectedRows();
+        }
+        
+        protected function getQueryResult( $query )
+        {
             if ( ! $this->isConnected() )
             {
                 $this->connect();
@@ -258,7 +148,7 @@
         {
             try
             {
-                $result = $this->executeQuery( $query );
+                $result = $this->getQueryResult( $query );
                 $ret= array();
                 
                 if ( @mysql_num_rows( $result ) > 0 )
@@ -283,7 +173,7 @@
         {
             try
             {
-                $result = $this->executeQuery( $query );
+                $result = $this->getQueryResult( $query );
                 
                 if ( false != ( $item = @mysql_fetch_object( $result ) ) )
                 {
@@ -306,7 +196,7 @@
         {
             try
             {
-                $result = $this->executeQuery( $query );
+                $result = $this->getQueryResult( $query );
                 
                 $ret= array();
     
@@ -332,7 +222,7 @@
         {
             try
             {
-                $result = $this->executeQuery( $query );
+                $result = $this->getQueryResult( $query );
                 
                 if ( false != ( $item = @mysql_fetch_assoc( $result ) ) )
                 {
@@ -355,7 +245,7 @@
         {
             try
             {
-                $result = $this->executeQuery( $query );
+                $result = $this->getQueryResult( $query );
             
                 if ( @mysql_num_rows( $result ) > 0 )
                 {
@@ -448,7 +338,7 @@
             }
         }
         
-        public function executeQuery( $query )
+        protected function getQueryResult( $query )
         {
             if ( claro_debug_mode() && get_conf('CLARO_PROFILE_SQL',false) )
             {
@@ -462,7 +352,8 @@
             
             try
             {
-                $result = parent::executeQuery( $query );
+                $result = parent::getQueryResult( $query );
+                
                 if ( claro_debug_mode() && get_conf('CLARO_PROFILE_SQL',false) )
                 {
                     $this->profiler->stop();

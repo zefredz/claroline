@@ -27,16 +27,6 @@
     }
     
     /**
-     * Iterator for database results
-     * @see     Iterator
-     */
-    interface DatabaseIterator extends Iterator
-    {
-        public function size();
-        public function toArray();
-    }
-    
-    /**
      * Database driver management and connection factory class
      * Usage :
      *  1. load driver : Database::loadDriver('mysqli');
@@ -183,10 +173,18 @@
          * execute a query to the database and returns the number of
          * rows affected
          * @param   string $query sql query
-         * @return  resource execution result
+         * @return  int affacted rows
          * @throws  DatabaseException
          */
         abstract public function executeQuery( $query );
+        
+        /**
+         * execute a query to the database and returns the result
+         * @param   string $query sql query
+         * @return  mixed execution result
+         * @throws  DatabaseException
+         */
+        abstract protected function getQueryResult( $query );
 
         /**
          * execute the given query and returns all results as objects in an array
@@ -496,94 +494,94 @@
             return $ret;
         }
         
-        // Prepared queries
-        
-        /**
-         * Prepare a query by replacing the ? by the value 
-         * in the given parameters array in their order of appearance
-         * @param   string $query, the query to prepare
-         * @param   array $params, the parameters to insert in the query
-         * @param   string $formatString, i for int d for float s for string
-         * @return  string the prepared query
-         * @throws  DatabaseException
-         */
-        public function prepareQuery( $query, $params, $formatString )
-        {
-            if ( ! ( is_array( $params ) && count( $params ) > 0 ) )
-            {
-                throw new DatabaseException('Invalid parameters array');
-            }
-            elseif ( count( $params) != strlen( $formatString ) )
-            {
-                throw new DatabaseException('Wrong format string for given parameters');
-            }
-            else
-            {
-                if ( ! $this->isConnected() )
-                {
-                    $this->connect();
-                }
-                
-                for ( $i = 0; $i < count ( $params ); $i++ )
-                {
-                    $value = $params[$i];
-                    $format = $formatString{$i};
-                    
-                    if ( false !== ( $pos = strpos( $query, '?' ) ) )
-                    {
-                        $query = substr( $query, 0, $pos )
-                            . $this->prepareValue($value, $format)
-                            . substr( $query, $pos + 1 )
-                            ;
-                    }
-                    else
-                    {
-                        throw new DatabaseException( "Number of arguments mismatch" );
-                    }
-                }
-                
-                return $query;
-            }
-        }
-        
-        /**
-         * Prepare the values to be used in prepared queries
-         * @param   mixed $value
-         * @param   string $format 'i', 'd' or 's'
-         * @return  mixed prepared value
-         */
-        protected function prepareValue( $value, $format )
-        {
-            if ( false === strpos( 'ids', $format ) )
-            {
-                throw new Exception('Invalid data format ' . $format);
-            }
-            else
-            {
-                if ( 'i' == $format )
-                {
-                    return (int) $value;
-                }
-                elseif ( 'd' == $format )
-                {
-                    return (float) $value;
-                }
-                else
-                {
-                    if ( is_null( $value ) )
-                    {
-                        return 'NULL';
-                    }
-                    elseif ( is_bool( $value ) )
-                    {
-                        return $value ? "'true'" : "'false'";
-                    }
-                    else
-                    {
-                        return "'".$this->escapeString( $value )."'";
-                    }
-                }
-            }
-        }
+//        // Prepared queries
+//        
+//        /**
+//         * Prepare a query by replacing the ? by the value 
+//         * in the given parameters array in their order of appearance
+//         * @param   string $query, the query to prepare
+//         * @param   array $params, the parameters to insert in the query
+//         * @param   string $formatString, i for int d for float s for string
+//         * @return  string the prepared query
+//         * @throws  DatabaseException
+//         */
+//        public function prepareQuery( $query, $params, $formatString )
+//        {
+//            if ( ! ( is_array( $params ) && count( $params ) > 0 ) )
+//            {
+//                throw new DatabaseException('Invalid parameters array');
+//            }
+//            elseif ( count( $params) != strlen( $formatString ) )
+//            {
+//                throw new DatabaseException('Wrong format string for given parameters');
+//            }
+//            else
+//            {
+//                if ( ! $this->isConnected() )
+//                {
+//                    $this->connect();
+//                }
+//                
+//                for ( $i = 0; $i < count ( $params ); $i++ )
+//                {
+//                    $value = $params[$i];
+//                    $format = $formatString{$i};
+//                    
+//                    if ( false !== ( $pos = strpos( $query, '?' ) ) )
+//                    {
+//                        $query = substr( $query, 0, $pos )
+//                            . $this->prepareValue($value, $format)
+//                            . substr( $query, $pos + 1 )
+//                            ;
+//                    }
+//                    else
+//                    {
+//                        throw new DatabaseException( "Number of arguments mismatch" );
+//                    }
+//                }
+//                
+//                return $query;
+//            }
+//        }
+//        
+//        /**
+//         * Prepare the values to be used in prepared queries
+//         * @param   mixed $value
+//         * @param   string $format 'i', 'd' or 's'
+//         * @return  mixed prepared value
+//         */
+//        protected function prepareValue( $value, $format )
+//        {
+//            if ( false === strpos( 'ids', $format ) )
+//            {
+//                throw new Exception('Invalid data format ' . $format);
+//            }
+//            else
+//            {
+//                if ( 'i' == $format )
+//                {
+//                    return (int) $value;
+//                }
+//                elseif ( 'd' == $format )
+//                {
+//                    return (float) $value;
+//                }
+//                else
+//                {
+//                    if ( is_null( $value ) )
+//                    {
+//                        return 'NULL';
+//                    }
+//                    elseif ( is_bool( $value ) )
+//                    {
+//                        return $value ? "'true'" : "'false'";
+//                    }
+//                    else
+//                    {
+//                        return "'".$this->escapeString( $value )."'";
+//                    }
+//                }
+//            }
+//        }
     }
 ?>
