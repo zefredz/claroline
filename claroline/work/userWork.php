@@ -1290,7 +1290,7 @@ if( $dispWrkLst )
         }
     }
 
-    if( $is_allowedToEditAll )
+    if( $is_allowedToSubmit )
     {
         // link to create a new submission
         $cmdMenu = array();
