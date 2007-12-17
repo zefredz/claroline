@@ -730,7 +730,7 @@ echo $workPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?assigId=".$req['assi
 if( $is_allowedToEditAll )
 {
 	echo '<th>'
-	.    '<a href="' . $headerUrl['score'] . '">'
+	.    '<a href="' . $headerUrl['maxScore'] . '">'
 	.    get_lang('Best score')
 	.    '</a>'
 	.    '</th>' . "\n";
