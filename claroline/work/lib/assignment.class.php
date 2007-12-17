@@ -14,7 +14,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @package CLWRK
  *
  * @author Claro Team <cvs@claroline.net>
- * @author Sébastien Piraux <pir@cerdecam.be>
+ * @author Sebastien Piraux <pir@cerdecam.be>
  */
 
 class Assignment
@@ -112,7 +112,7 @@ class Assignment
     /**
      * constructor
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      */
     function Assignment($course_id = null)
     {
@@ -143,7 +143,7 @@ class Assignment
     /**
      * load an assignment from DB
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param integer $assignment_id id of assignment
      * @return boolean load successfull ?
      */
@@ -199,7 +199,7 @@ class Assignment
     /**
      * save assignment to DB
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return mixed false or id of the record
      */
     function save()
@@ -287,30 +287,36 @@ class Assignment
     	}
     }
 
-    /**
+	/**
      * delete assignment from DB
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean
      */
 	function delete()
 	{
-		/*
-		// TODO $this->getSubmissionList() and delete each submission of this assignment using $submission->delete();
-		foreach( $this->getSubmissionList() as $submission )
+		$sql = "DELETE FROM `".$this->tblSubmission."`
+				WHERE `assignment_id` = '".$this->id."'";
+
+		if( claro_sql_query($sql) )
 		{
-			SUBMISSION::delete($submission['id'],$this->assigDirSys.$submission['filename']);
+			$sql = "DELETE FROM `".$this->tblAssignment."`
+					WHERE `id` = '".$this->id."'";
+
+			if( claro_sql_query($sql) )
+			{
+				claro_delete_file($this->assigDirSys);
+			}
+			else
+			{
+				return false;
+			}
 		}
-		// if no error : delete assignment directory
-		//return false; // if error
-		*/
+		else
+		{
+			return false;
+		}
 
-		$sql = "DELETE FROM `".$this->tblAssignment."`
-				WHERE `id` = '".$this->id."'";
-
-		claro_sql_query($sql);
-
-		// is it required to empty the fields of the object ?
 		$this->id = -1;
 		return true;
 	}
@@ -318,7 +324,7 @@ class Assignment
     /**
      * check if data are valide
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean
      */
 	function validate()
@@ -372,7 +378,7 @@ class Assignment
 	/**
      * update visibility of all submissions of the assignment
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param string $visibility
      * @return boolean
      */
@@ -398,7 +404,7 @@ class Assignment
 	/**
      * update visibility of an assignment
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param integer $assignmentId
      * @param string $visibility
      * @return boolean
@@ -427,7 +433,7 @@ class Assignment
 	/**
      * get submission list of assignment for a user/group
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return array
      * @TODO get the full list is authId is not specified (submissions and feedback for all authors)
      */
@@ -449,7 +455,7 @@ class Assignment
 	/**
      * builds required paths and sets values in assigDirSys and assigDirWeb
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      */
 	function buildDirPaths()
 	{
@@ -460,7 +466,7 @@ class Assignment
 	/**
      * get a unique filename for the new file to add
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string unique filename with extension
      */
 	function createUniqueFilename($filename)
@@ -488,7 +494,7 @@ class Assignment
 	/**
      * get title
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
 	function getTitle()
@@ -499,7 +505,7 @@ class Assignment
 	/**
      * set title
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @param string $value
      */
 	function setTitle($value)
@@ -510,7 +516,7 @@ class Assignment
 	/**
      * get description
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
 	function getDescription()
@@ -526,7 +532,7 @@ class Assignment
 	/**
      * get visibility ('VISIBLE', 'INVISIBLE')
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
 	function getVisibility()
@@ -549,7 +555,7 @@ class Assignment
 	/**
      * get default submission visibility ('VISIBLE', 'INVISIBLE')
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
 	function getDefaultSubmissionVisibility()
@@ -572,7 +578,7 @@ class Assignment
 	/**
      * get assignment type ('INDIVIDUAL', 'GROUP')
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
 	function getAssignmentType()
@@ -595,7 +601,7 @@ class Assignment
 	/**
      * get submission type ('TEXT', 'TEXTFILE', 'FILE')
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
 	function getSubmissionType()
@@ -618,7 +624,7 @@ class Assignment
 	/**
      * get value of allow late upload ('YES', 'NO')
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
 	function getAllowLateUpload()
@@ -641,7 +647,7 @@ class Assignment
 	/**
      * get start date (as unix timestamp)
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return integer a unix time stamp
      */
 	function getStartDate()
@@ -657,7 +663,7 @@ class Assignment
 	/**
      * get end date (as unix timestamp)
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return integer a unix time stamp
      */
 	function getEndDate()
@@ -673,7 +679,7 @@ class Assignment
 	/**
      * get text auto submitted feedback
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
 	function getAutoFeedbackText()
@@ -689,7 +695,7 @@ class Assignment
 	/**
      * get filename of a file (if exists) attached to the auto submitted feedback
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
 	function getAutoFeedbackFilename()
@@ -705,7 +711,7 @@ class Assignment
 	/**
      * get the method of submission of auto submitted feedbacks ('ENDDATE', 'AFTERPOST')
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
 	function getAutoFeedbackSubmitMethod()
@@ -728,7 +734,7 @@ class Assignment
 	/**
      * get the full systeme path of the assignment directory
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
 	function getAssigDirSys()
@@ -739,7 +745,7 @@ class Assignment
 	/**
      * get the full web path of the assignment directory
      *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return string
      */
 	function getAssigDirWeb()
@@ -750,7 +756,7 @@ class Assignment
 	/**
 	 * check if the user can upload a submission at this date
 	 *
-     * @author Sébastien Piraux <pir@cerdecam.be>
+     * @author Sebastien Piraux <pir@cerdecam.be>
      * @return boolean
 	 */
 	function isUploadDateOk()
