@@ -340,6 +340,7 @@ if ( ! function_exists( 'replace_dangerous_char' ) )
         $search[] = '[';  $replace[] = '-';
         $search[] = ']';  $replace[] = '-';
         $search[] = '..';  $replace[] = '';
+        $search[] = '°';  $replace[] = 'o';
     
     
         foreach($search as $key=>$char )
