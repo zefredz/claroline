@@ -119,7 +119,6 @@ if( $cmd == 'exPurgeWork' )
 					$dirToDelete = $dir . 'assig_' . $id;
 					$html .= '<li>Delete directory for missing assignment : ' . $dirToDelete . '</li>' . "\n";
 
-/*					// Uncomment bloc
 					// remove dir and submissions, the dir does not match a still existing assignment
 					$sql = "DELETE FROM `".$tbl_submission."`
 							WHERE `assignment_id` = '".$id."'";
@@ -128,7 +127,6 @@ if( $cmd == 'exPurgeWork' )
 					{
 						claro_delete_file($dirToDelete);
 					}
-*/
 				}
 				// assignment exist but not directory
 				elseif( in_array($id, $existingAssignmentList) && !in_array($id, $assignmentDirList) )
@@ -136,8 +134,7 @@ if( $cmd == 'exPurgeWork' )
 					$dirToCreate = $dir . 'assig_' . $id;
 					$html .= '<li>Create missing directory : ' . $dirToCreate . '</li>' . "\n";
 
-					// uncomment next line
-					// claro_mkdir($dirToCreate, CLARO_FILE_PERMISSIONS, true);
+					claro_mkdir($dirToCreate, CLARO_FILE_PERMISSIONS, true);
 				}
 			}
 
