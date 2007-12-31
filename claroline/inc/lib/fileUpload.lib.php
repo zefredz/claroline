@@ -33,7 +33,7 @@ require_once dirname(__FILE__) . '/file.lib.php';
 
 function php2phps ($fileName)
 {
-    $fileName = preg_replace('/\.(php.?|phtml.?)(\.){0,1}.*$/', '.phps', $fileName);
+    $fileName = preg_replace('/\.(php.?|phtml.?)(\.){0,1}.*$/i', '.phps', $fileName);
     return $fileName;
 }
 
