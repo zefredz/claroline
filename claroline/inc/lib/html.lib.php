@@ -8,7 +8,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2008 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -107,6 +107,36 @@ function claro_html_menu_horizontal($itemList)
         return '';
     }
 }
+
+    function prepared_section_to_tabs($section_list, $section_selected='',$url_params = null, $currentClassName='current')
+    {
+        $tabList=array();
+            
+        // Need at least  2 items
+        if ( !empty($section_list) && count($section_list)>2)
+        {
+            //  if no selected take first
+            if ( empty($section_selected) || ! in_array($section_selected,array_keys($section_list)) )
+            {
+                $section_selected = key($section_list);
+            }
+            
+            foreach ( $section_list as $section=>$section_def )
+            {
+                $section_name = $section_def['label'];
+                
+                $tabList[]= '<a ' . ( $section == $section_selected ? ('class="' . $currentClassName . '"') : '' )
+                . ' href="' . $_SERVER['PHP_SELF'] . '?section=' . htmlspecialchars($section) 
+                                                   . htmlspecialchars($url_params). '">'
+                . get_lang($section_name) . '</a>';
+
+            }
+        }
+        return $tabList;
+        
+    }
+    
+
 
 /**
  * Return the claroline sytled url for a link to a tool
@@ -646,6 +676,7 @@ class claro_datagrid
     private $hideColsWithoutTitle = false;
     private $orderCols=DG_ORDER_COLS_BY_GRID;
     private $decorationList = array();
+    private $decorationCBList = array();
     private $dispIdCol = true;
     private $internalKey = 0;
 
@@ -855,11 +886,19 @@ class claro_datagrid
      * @since 1.9
      * @return the current list
      */
+    
     function set_colDecoration($colName,$decorationPattern, $tag)
     {
         $this->decorationList[$colName] = array( 'decorationPattern' => $decorationPattern
                                          , 'tagList' => $tag);
         return $this->decorationList;            
+    }
+    
+    function x($colName,$funcname, $tag)
+    {
+        $this->decorationCBList[$colName] = array( 'funcname' => $funcname
+                                                 , 'tagList' => $tag);
+        return $this->decorationCBList;            
     }
     
     function render()
