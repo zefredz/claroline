@@ -684,7 +684,6 @@ class claro_datagrid
     private $hideColsWithoutTitle = false;
     private $orderCols=DG_ORDER_COLS_BY_GRID;
     private $decorationList = array();
-    private $decorationCBList = array();
     private $dispIdCol = true;
     private $internalKey = 0;
 
@@ -900,13 +899,6 @@ class claro_datagrid
         $this->decorationList[$colName] = array( 'decorationPattern' => $decorationPattern
                                          , 'tagList' => $tag);
         return $this->decorationList;            
-    }
-    
-    function x($colName,$funcname, $tag)
-    {
-        $this->decorationCBList[$colName] = array( 'funcname' => $funcname
-                                                 , 'tagList' => $tag);
-        return $this->decorationCBList;            
     }
     
     function render()
