@@ -108,34 +108,42 @@ function claro_html_menu_horizontal($itemList)
     }
 }
 
-    function prepared_section_to_tabs($section_list, $section_selected='',$url_params = null, $currentClassName='current')
-    {
-        $tabList=array();
-            
-        // Need at least  2 items
-        if ( !empty($section_list) && count($section_list)>2)
-        {
-            //  if no selected take first
-            if ( empty($section_selected) || ! in_array($section_selected,array_keys($section_list)) )
-            {
-                $section_selected = key($section_list);
-            }
-            
-            foreach ( $section_list as $section=>$section_def )
-            {
-                $section_name = $section_def['label'];
-                
-                $tabList[]= '<a ' . ( $section == $section_selected ? ('class="' . $currentClassName . '"') : '' )
-                . ' href="' . $_SERVER['PHP_SELF'] . '?section=' . htmlspecialchars($section) 
-                                                   . htmlspecialchars($url_params). '">'
-                . get_lang($section_name) . '</a>';
-
-            }
-        }
-        return $tabList;
+/**
+ * Prepare an array of link following a list of section
+ *
+ * @param array $section_list array('section_name'=> of section array ('label','description','properties','..'.));
+ * @param string $section_selected  section_name
+ * @param string $url_params query string append
+ * @param string $currentClassName css class name
+ * @return array
+ */function prepared_section_to_tabs($section_list, $section_selected='',$url_params = null, $currentClassName='current')
+{
+    $tabList=array();
         
+    // Need at least  2 items
+    if ( !empty($section_list) && count($section_list)>2)
+    {
+        //  if no selected take first
+        if ( empty($section_selected) || ! in_array($section_selected,array_keys($section_list)) )
+        {
+            $section_selected = key($section_list);
+        }
+        
+        foreach ( $section_list as $section=>$section_def )
+        {
+            $section_name = $section_def['label'];
+            
+            $tabList[]= '<a ' . ( $section == $section_selected ? ('class="' . $currentClassName . '"') : '' )
+            . ' href="' . $_SERVER['PHP_SELF'] . '?section=' . htmlspecialchars($section) 
+                                               . htmlspecialchars($url_params). '">'
+            . get_lang($section_name) . '</a>';
+
+        }
     }
+    return $tabList;
     
+}
+
 
 
 /**
