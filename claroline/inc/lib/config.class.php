@@ -746,8 +746,8 @@ class Config
             $handle = opendir($dirname);
             while ( false !== ($elt = readdir($handle) ) )
             {
-                // skip '.', '..' and 'CVS'
-                if ( $elt == '.' || $elt == '..' || $elt == 'CVS' ) continue;
+                // skip '.', '..' and 'CVS' and .svn
+                if ( $elt == '.' || $elt == '..' || $elt == 'CVS' || $elt == '.svn' ) continue;
 
                 // skip disallowed elt
                 if ( !empty($elt_disallowed) && in_array($elt,$elt_disallowed) ) continue;
