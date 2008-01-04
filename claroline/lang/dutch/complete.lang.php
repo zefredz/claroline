@@ -1,4 +1,4 @@
-<?php 
+<?php
 $_lang[' Main settings'] = ' Hoofdinstellingen';
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! Grootte van cursus backup (inbegrepen claroline en vuilnis in oude systemen)';
 $_lang['%1\$s by %2\$s'] = '%1$s door %2$s';
@@ -54,7 +54,7 @@ $_lang['<label1>Yes</label1>, <label2>take</label2> %nb questions among %total']
 $_lang['<span class="required">*</span> denotes required field'] = '<span class="required">*</span> geeft een verplicht veld aan';
 $_lang['<span class=\"required\">*</span> denotes required field'] = '<span class="required">*</span> duidt een verplicht veld aan';
 $_lang['<strong>Approved</strong><p>Your campus registration has been approved by the Claroline.net team.</p>'] = '<strong>Goedgekeurd</strong><p>uw campus registratie is goedgekeurd door het Claroline.net team.<br />Een link naar uw campus is te zien op de Worldwide page van Claroline.net.</p>';
-$_lang['<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our website) if you think this is an error.</p>'] = '<strong>verwijderd</strong><p>uw campus registratie is gedeactiveerd, contacteer ons (zie onze website) als U denkt dat dit een fout is.</p>';
+$_lang['<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our website) if you think this is an error.</p>'] = '<strong>Verwijderd</strong><p>uw campus registratie is gedeactiveerd, contacteer ons (zie onze website) als U denkt dat dit een fout is.</p>';
 $_lang['<strong>Removed</strong><p>Your campus has been removed from the worldwide page.</p>'] = '<strong>Verwijderd</strong><p>Uw campus is verwijderd van de Worldwide pagina.</p>';
 $_lang['<strong>Submitted</strong><p>Waiting for validation by Claroline.net team.</p>'] = '<strong>Voorgelegd</strong><p>Wacht op goedkeuring door het Claroline.net team.</p>';
 $_lang['A file is required'] = 'Een bestand is vereist';
@@ -1430,7 +1430,7 @@ $_lang['This official code is already used by another user.'] = 'Deze officiele 
 $_lang['This option insert a command in the user profile form to request a status of course creator. This request is sent by e-mail to platform administrator.'] = 'Deze optie schakelt een aanvraagmogelijkheid in het gebruikersprofiel formulier in, om de status van cursusbeheerder aan te vragen. Deze aanvraag wordt per mail naar de beheerder van het platform gestuurd.';
 $_lang['This option insert a command in the user profile form to request the removal of the user from the platform.  This request is sent by e-mail to platform administrator.
 This option allow only to request it, and don\'t prework the answer
-'] = 'Deze optie schakelt een aanvraagmogelijkheid in het gebruikersprofiel formulier in om het verwijderen van de gebruiker van het platform aan te vragen. Deze aanvraag wordt per mail naar de beheerder van het platform gestuurd. 
+'] = 'Deze optie schakelt een aanvraagmogelijkheid in het gebruikersprofiel formulier in om het verwijderen van de gebruiker van het platform aan te vragen. Deze aanvraag wordt per mail naar de beheerder van het platform gestuurd.
 Deze optie staat enkel deze aanvraag toe en doet tot zolang niets speciaals.';
 $_lang['This page is empty, click on \'Edit this page\' to add a content'] = 'Deze pagina is leeg , klik op \'wijzig deze pagina\' om inhoud toe te voegen';
 $_lang['This page is empty, use the editor to add content.'] = 'Deze pagina is leeg, gebruik de editor om ze van inhoud te voorzien.';
