@@ -31,11 +31,11 @@ $_group  = claro_get_current_group_data();
 
 if ( isset($_REQUEST['url']) )
 {
-    $requestUrl = $_REQUEST['url'];
+    $requestUrl = strip_tags($_REQUEST['url']);
 }
 else
 {
-    $requestUrl = get_path_info();
+    $requestUrl = strip_tags(get_path_info());
 }
 
 if ( empty($requestUrl) )
