@@ -416,6 +416,7 @@ class answerFillInBlanks
             }
 
             // get all enclosed answers
+            $blankList = array();
             foreach( $this->answerList as $answer )
             {
                    // filter slashes as they are modifiers in preg expressions
@@ -481,6 +482,7 @@ class answerFillInBlanks
         .    '</tr>' . "\n\n";
 
         // get all enclosed answers
+        $blankList = array();
         foreach( $this->answerList as $answer )
         {
             // filter slashes as they are modifiers in preg expressions
