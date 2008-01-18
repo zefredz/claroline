@@ -47,7 +47,7 @@ Initialise variables
 -----------------------------------------------------------------*/
 
 $last_visit = claro_get_current_user_data('lastLogin');
-$is_allowedToEdit = claro_is_course_manager() ;
+$is_allowedToEdit = claro_is_allowed_to_edit() ;
 $dialogBox = new DialogBox();
 
 /*=================================================================
