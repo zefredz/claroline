@@ -3,9 +3,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2008 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -564,14 +564,14 @@ function claro_sql_query_fetch_all_cols($sqlQuery, $dbHandler = '#')
  * @param  string  $sqlQuery  the sql query
  * @param  handler $dbHandler optional
  * @return associative array containing all the result rows
- * @since  1.5.1
+ * @since  1.9
  * @see    claro_sql_query()
  *
  * @author Hugues Peeters <hugues.peeters@claroline.net>,
  */
 
 
-function claro_sql_query_get_single_value($sqlQuery, $dbHandler = '#')
+function claro_sql_query_fetch_single_value($sqlQuery, $dbHandler = '#')
 {
     $result = claro_sql_query($sqlQuery, $dbHandler);
 
@@ -598,19 +598,41 @@ function claro_sql_query_get_single_value($sqlQuery, $dbHandler = '#')
 }
 
 /**
- * CLAROLINE SQL query wrapper returning only the first row of the result
+ * CLAROLINE SQL query wrapper returning only a single result value.
  * Useful in some cases because, it avoid nested arrays of results.
  *
  * @param  string  $sqlQuery  the sql query
  * @param  handler $dbHandler optional
  * @return associative array containing all the result column
  * @since  1.5.1
- * @see    claro_sql_query()
+ * @see    claro_sql_query_fetch_single_value()
  *
  * @author Hugues Peeters <hugues.peeters@claroline.net>,
  */
 
 
+function claro_sql_query_get_single_value($sqlQuery, $dbHandler = '#')
+{
+    return claro_sql_query_fetch_single_value($sqlQuery, $dbHandler);
+}
+
+/**
+ * CLAROLINE SQL query wrapper returning only the first row of the result
+ * Useful in some cases because, it avoid nested arrays of results.
+ *
+ * @param  string  $sqlQuery  the sql query
+ * @param  handler $dbHandler optional
+ * @return associative array containing all the result column
+ * @since  1.9.*
+ * @see    claro_sql_query_get_single_row()
+ *
+  */
+
+
+function claro_sql_query_fetch_single_row($sqlQuery, $dbHandler = '#')
+{
+    return claro_sql_query_get_single_row($sqlQuery, $dbHandler);
+}
 function claro_sql_query_get_single_row($sqlQuery, $dbHandler = '#')
 {
     $result = claro_sql_query($sqlQuery, $dbHandler);
