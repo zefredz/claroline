@@ -76,7 +76,7 @@ else
 
 if ($disp_form)
 {
-    $course_list = fetchtCourseList($sqlListCoursesSel);
+    $course_list = fetchtCourseList();
 
 
     if (is_array($course_list))
