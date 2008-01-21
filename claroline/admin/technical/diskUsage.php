@@ -30,7 +30,9 @@ $byteUnits = get_locale('byteUnits');
 $interbredcrump[]= array ( 'url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
 $interbredcrump[]= array ( 'url' => 'index.php'  , 'name' => get_lang('Technical Tools'));
 
+
 $disp_form = true;
+if (get_conf('singleDbEnabled') == TRUE ) $msg['warning'][] = get_lang('Cannot compute db size of a course in singleDBMode');
 
 if (isset( $_REQUEST['disp_claro'])) $disp_claro = $_REQUEST['disp_claro'];
 else                                 $disp_claro =  false;
@@ -40,6 +42,9 @@ else                                  $disp_selCrs =  false;
 
 if (isset( $_REQUEST['disp_allcrs'])) $disp_allcrs = $_REQUEST['disp_allcrs'];
 else                                  $disp_allcrs =  false;
+
+
+
 
 if (isset( $_REQUEST['disp_garbage']))
 {
@@ -51,14 +56,28 @@ else
     $disp_garbage =  false;
 }
 
-if (isset( $_REQUEST['coursesToCheck'])) $coursesToCheck =  $_REQUEST['coursesToCheck'];
-else                                     $coursesToCheck =  false;
+$coursesToCheck=array();
+if (isset( $_REQUEST['coursesToCheck']))
+{
+        $course_list = fetchtCourseList();
+
+        foreach($_REQUEST['coursesToCheck'] as $chkCourse)
+        {
+            reset($course_list);
+            foreach($course_list as $existingcourse)
+            if ($chkCourse == $existingcourse['sysCode']) $coursesToCheck[]= $chkCourse;
+        }
+        if (count($coursesToCheck)<1) $coursesToCheck =  false;
+}
+else
+{
+    $coursesToCheck =  false;
+}
 
 if ($disp_form)
 {
+    $course_list = fetchtCourseList();
 
-    $sqlListCoursesSel = "SELECT fake_code officialCode, code sysCode FROM `" . $tbl_course . "` order by trim(fake_code) ASC";
-    $course_list = claro_sql_query_fetch_all($sqlListCoursesSel);
 
     if (is_array($course_list))
     {
@@ -71,13 +90,16 @@ if ($disp_form)
 }
 
 
+$msg['info'][] = get_lang('Course Repository') . ' : ' . get_path('coursesRepositorySys');
+$msg['info'][] = get_lang('Mysql Repository') . ' : ' . (get_conf('mysqlRepositorySys',false) ? get_conf('mysqlRepositorySys') : '!!! ' . get_lang('Missing'));
+
+
 //OUTPUT
 include get_path('incRepositorySys') . '/claro_init_header.inc.php' ;
 
-echo claro_html_tool_title($nameTools);
-
-echo get_lang('Course Repository') . ' : ' . get_path('coursesRepositorySys') . '<br />' . get_lang('Mysql Repository') . ' : ' . (get_conf('mysqlRepositorySys',false) ? get_conf('mysqlRepositorySys') : '!!! ' . get_lang('Missing')) . '<br />';
-
+echo claro_html_tool_title($nameTools)
+.    claro_html_msg_list($msg)
+;
 
 
 if ($disp_form)
@@ -97,28 +119,18 @@ if ($disp_allcrs)
     .    get_lang('Courses : %disk_usage (perhaps with others directory)',
          array ( '%disk_usage' => $diskUsage ) ) . '</li>' ;
 }
-
-if ($disp_garbage )
-    $diskUsage = sprintf('%01.2f', $garbagedisk_usage ) . ' ' . $byteUnits[2];
-    echo '<li>'
-    .    get_lang('Garbage : %disk_usage', array('%disk_usage'=>$diskUsage) )
-    .    '</li>'
-    ;
 ?>
-<li>
+</ul>
 <hr />
 <form  method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-<input type="checkbox" id="disp_claro" name="disp_claro" value="true" >
+<input type="checkbox" id="disp_claro" name="disp_claro" value="true"  />
 <label for="disp_claro"><?php echo ' ' . get_lang('size of claroline scripts') ?></label>
 <br />
-<input type="checkbox" id="disp_allcrs" name="disp_allcrs" value="true" >
+<input type="checkbox" id="disp_allcrs" name="disp_allcrs" value="true"  />
 <label for="disp_allcrs"><?php echo get_lang('!!!! size of course repository (include claroline and garbage in old systems)') ?></label>
 <br />
-<input type="checkbox" id="disp_garbage" name="disp_garbage" value="true" >
-<label for="disp_garbage">size of garbage</label>
-<br />
 
-<input type="checkbox" name="disp_selCrs" id="disp_selCrs" value="true" >
+<input type="checkbox" name="disp_selCrs" id="disp_selCrs" value="true"  />
 <label for="disp_selCrs"><?php echo get_lang('size of selected courses') ?></label><br />
 
 <?php
@@ -128,22 +140,22 @@ echo claro_html_form_select( 'coursesToCheck[]'
                            , array( 'multiple'=>'multiple'
                                   , 'size'=>'' ))
                            ; ?>
-<input type="submit">
+<input type="submit" />
 </form>
 <hr />
-</li>
 <?php
 }
 
 
 if ($disp_selCrs && $coursesToCheck)
 {
-    echo '<li><ol>';
-    $sqlListCourses = "SELECT fake_code code,
-                      directory dir,
-                      dbName db,
-                      diskQuota
-                      FROM `" . $tbl_course . "` ";
+    echo '<ol>';
+    $sqlListCourses = "
+                       SELECT administrativeNumber AS code,
+                              directory            AS dir,
+                              dbName               AS db,
+                              diskQuota
+                         FROM `" . $tbl_course . "` ";
     if($coursesToCheck[0]==" all ")    $sqlListCourses .= " order by dbName";
     elseif (is_array($coursesToCheck)) $sqlListCourses .= " where code in ('".implode( "','", $coursesToCheck )."') order by dbName";
     else unset($sqlListCourses);
@@ -153,11 +165,11 @@ if ($disp_selCrs && $coursesToCheck)
         $resCourses= claro_sql_query($sqlListCourses);
         while (($course = mysql_fetch_array($resCourses,MYSQL_ASSOC)))
         {
+
+
             $duFiles = disk_usage(get_path('coursesRepositorySys') . $course['dir'] . '/','','k');
-            $duBase  = disk_usage(get_path('mysqlRepositorySys') . $course['db'] . '/','','k');
-
-
-//            $duBase  = get_db_size($course["db"],k);
+            if (get_conf('singleDbEnabled') == TRUE ) $duBase=null;
+            else                                      $duBase  = get_db_size($course['db'],'k');
 
             $duTotal = disk_usage(get_path('coursesRepositorySys') . $course['dir'] . '/', get_path('coursesRepositorySys') . $course['db'] . '/' , 'm');
             echo '<p>' . get_path('coursesRepositorySys') . $course['dir'] . '/'
@@ -187,22 +199,34 @@ if ($disp_selCrs && $coursesToCheck)
         }
     }
 
-?>
-        </ol>
-    </li>
-<?php
+    echo '</ol>';
+    
 }
-?>
-</ul>
-
-<?php
 
 include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
 
+function fetchtCourseList()
+{
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+
+    $sqlListCoursesSel = "
+        SELECT fake_code AS officialCode,
+               code      AS sysCode
+          FROM `" .  $tbl_mdb_names['course'] . "`
+      ORDER BY trim(fake_code) ASC
+      ";
+      
+    return claro_sql_query_fetch_all($sqlListCoursesSel);
+
+}
 
 function disk_usage( $dirFiles = '', $dirBase='', $precision='m')
 {
+    $dirFiles = escapeshellarg( $dirFiles );
+    $dirBase = escapeshellarg( $dirBase );
+    $precision = escapeshellarg( $precision );
+    
     // $precision  -> b Bytes, k Kilobyte, m Megabyte
     switch (PHP_OS)
     {
