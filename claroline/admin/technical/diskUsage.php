@@ -222,6 +222,10 @@ return claro_sql_query_fetch_all($sqlListCoursesSel);
 
 function disk_usage( $dirFiles = '', $dirBase='', $precision='m')
 {
+    $dirFiles = escapeshellarg( $dirFiles );
+    $dirBase = escapeshellarg( $dirBase );
+    $precision = escapeshellarg( $precision );
+    
     // $precision  -> b Bytes, k Kilobyte, m Megabyte
     switch (PHP_OS)
     {
