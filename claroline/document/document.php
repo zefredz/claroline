@@ -1794,7 +1794,7 @@ echo claro_html_tool_title($titleElement,
         else
         {
             $docViewToolbar[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
-                 . '?docView=thumbnails&amp;cwd='. rawurlencode($curDirPath) . $searchCmdUrl . '">'
+                 . '?docView=thumbnails&amp;cwd='. rawurlencode($curDirPath . $searchCmdUrl) . '">'
                  . '<img src="' . get_path('imgRepositoryWeb') . 'image.gif" alt="" />' . "\n"
                  . get_lang('Thumbnails').'</a>';
         }
