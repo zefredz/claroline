@@ -86,6 +86,7 @@ $addtoAdvanced = $searchInfo['addtoAdvanced'];
 
 if(count($searchInfo['isSearched']) )
 {
+    $isSearched = array_map( 'strip_tags', $isSearched );
     $isSearchedHTML = implode('<br>', $isSearched);
 }
 else
