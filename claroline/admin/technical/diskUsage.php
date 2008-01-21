@@ -3,8 +3,8 @@
  * Claroline
  *
  * This  tool compute the disk Usage of each course.
- * @version 1.8 $Revision$
- * @copyright 2001-2005 Universite catholique de Louvain (UCL)
+ * @version 1.9 $Revision$
+ * @copyright 2001-2008 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author  Christophe Gesché <moosh@claroline.net>
@@ -30,7 +30,9 @@ $byteUnits = get_locale('byteUnits');
 $interbredcrump[]= array ( 'url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
 $interbredcrump[]= array ( 'url' => 'index.php'  , 'name' => get_lang('Technical Tools'));
 
+
 $disp_form = true;
+if (get_conf('singleDbEnabled') == TRUE ) $msg['warning'][] = get_lang('Cannot compute db size of a course in singleDBMode');
 
 if (isset( $_REQUEST['disp_claro'])) $disp_claro = $_REQUEST['disp_claro'];
 else                                 $disp_claro =  false;
@@ -40,6 +42,9 @@ else                                  $disp_selCrs =  false;
 
 if (isset( $_REQUEST['disp_allcrs'])) $disp_allcrs = $_REQUEST['disp_allcrs'];
 else                                  $disp_allcrs =  false;
+
+
+
 
 if (isset( $_REQUEST['disp_garbage']))
 {
@@ -51,17 +56,28 @@ else
     $disp_garbage =  false;
 }
 
-if (isset( $_REQUEST['coursesToCheck'])) $coursesToCheck =  $_REQUEST['coursesToCheck'];
-else                                     $coursesToCheck =  false;
+$coursesToCheck=array();
+if (isset( $_REQUEST['coursesToCheck']))
+{
+        $course_list = fetchtCourseList();
+
+        foreach($_REQUEST['coursesToCheck'] as $chkCourse)
+        {
+            reset($course_list);
+            foreach($course_list as $existingcourse)
+            if ($chkCourse == $existingcourse['sysCode']) $coursesToCheck[]= $chkCourse;
+        }
+        if (count($coursesToCheck)<1) $coursesToCheck =  false;
+}
+else
+{
+    $coursesToCheck =  false;
+}
 
 if ($disp_form)
 {
+    $course_list = fetchtCourseList($sqlListCoursesSel);
 
-    $sqlListCoursesSel = "SELECT administrativeNumber AS officialCode,
-                                 code                 AS sysCode
-                            FROM `" . $tbl_course . "`
-                           ORDER BY trim(administrativeNumber) ASC";
-    $course_list = claro_sql_query_fetch_all($sqlListCoursesSel);
 
     if (is_array($course_list))
     {
@@ -74,13 +90,16 @@ if ($disp_form)
 }
 
 
+$msg['info'][] = get_lang('Course Repository') . ' : ' . get_path('coursesRepositorySys');
+$msg['info'][] = get_lang('Mysql Repository') . ' : ' . (get_conf('mysqlRepositorySys',false) ? get_conf('mysqlRepositorySys') : '!!! ' . get_lang('Missing'));
+
+
 //OUTPUT
 include get_path('incRepositorySys') . '/claro_init_header.inc.php' ;
 
-echo claro_html_tool_title($nameTools);
-
-echo get_lang('Course Repository') . ' : ' . get_path('coursesRepositorySys') . '<br />' . get_lang('Mysql Repository') . ' : ' . (get_conf('mysqlRepositorySys',false) ? get_conf('mysqlRepositorySys') : '!!! ' . get_lang('Missing')) . '<br />';
-
+echo claro_html_tool_title($nameTools)
+.    claro_html_msg_list($msg)
+;
 
 
 if ($disp_form)
@@ -101,7 +120,7 @@ if ($disp_allcrs)
          array ( '%disk_usage' => $diskUsage ) ) . '</li>' ;
 }
 ?>
-<li>
+</ul>
 <hr />
 <form  method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
 <input type="checkbox" id="disp_claro" name="disp_claro" value="true"  />
@@ -124,14 +143,13 @@ echo claro_html_form_select( 'coursesToCheck[]'
 <input type="submit" />
 </form>
 <hr />
-</li>
 <?php
 }
 
 
 if ($disp_selCrs && $coursesToCheck)
 {
-    echo '<li><ol>';
+    echo '<ol>';
     $sqlListCourses = "
                        SELECT administrativeNumber AS code,
                               directory            AS dir,
@@ -147,8 +165,11 @@ if ($disp_selCrs && $coursesToCheck)
         $resCourses= claro_sql_query($sqlListCourses);
         while (($course = mysql_fetch_array($resCourses,MYSQL_ASSOC)))
         {
+
+
             $duFiles = disk_usage(get_path('coursesRepositorySys') . $course['dir'] . '/','','k');
-            $duBase  = get_db_size($course["db"],'k');
+            if (get_conf('singleDbEnabled') == TRUE ) $duBase=null;
+            else                                      $duBase  = get_db_size($course['db'],'k');
 
             $duTotal = disk_usage(get_path('coursesRepositorySys') . $course['dir'] . '/', get_path('coursesRepositorySys') . $course['db'] . '/' , 'm');
             echo '<p>' . get_path('coursesRepositorySys') . $course['dir'] . '/'
@@ -178,19 +199,26 @@ if ($disp_selCrs && $coursesToCheck)
         }
     }
 
-?>
-        </ol>
-    </li>
-<?php
+    echo '</ol>';
+    
 }
-?>
-</ul>
-
-<?php
 
 include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
 
+function fetchtCourseList()
+{
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+
+    $sqlListCoursesSel = "
+        SELECT administrativeNumber AS officialCode,
+               code                 AS sysCode
+          FROM `" .  $tbl_mdb_names['course'] . "`
+      ORDER BY trim(administrativeNumber) ASC
+      ";
+return claro_sql_query_fetch_all($sqlListCoursesSel);
+
+}
 
 function disk_usage( $dirFiles = '', $dirBase='', $precision='m')
 {
