@@ -2007,7 +2007,7 @@ echo claro_html_tool_title($titleElement,
         else
         {
             $docViewToolbar[] = '<a class="claroCmd" href="' .  $_SERVER['PHP_SELF']
-                 . '?docView=files&amp;cmd=exChDir&amp;file='. $curDirPath . $searchCmdUrl . '">'
+                 . '?docView=files&amp;cmd=exChDir&amp;file='. htmlspecialchars($curDirPath . $searchCmdUrl) . '">'
                  . '<img src="' . get_path('imgRepositoryWeb') . 'document.gif" alt="">' . "\n"
                  . get_lang('File list') .'</a>';
         }
@@ -2020,7 +2020,7 @@ echo claro_html_tool_title($titleElement,
         else
         {
             $docViewToolbar[] = '<a class="claroCmd" href="' .  $_SERVER['PHP_SELF']
-                 . '?docView=thumbnails&cwd='. $curDirPath . $searchCmdUrl .'">'
+                 . '?docView=thumbnails&cwd='. htmlspecialchars($curDirPath . $searchCmdUrl) .'">'
                  . '<img src="' . get_path('imgRepositoryWeb') . 'image.gif" alt="">'
                  . get_lang('Thumbnails').'</a>';
         }
