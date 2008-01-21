@@ -45,7 +45,7 @@ $interbredcrump[]= array ('url' => 'index.php', 'name' => get_lang('Technical To
 if( array_key_exists( 'to', $_REQUEST) )
 {
     $interbredcrump[]= array ('url' => basename($_SERVER['PHP_SELF']), 'name' => get_lang('PHP system information'));
-    $nameTools = $_REQUEST['to'];
+    $nameTools = htmlspecialchars($_REQUEST['to']);
 }
 
 $is_allowedToAdmin = claro_is_platform_admin();
