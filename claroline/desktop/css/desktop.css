@@ -1,16 +1,109 @@
+/* portlet */
+
 .portlet 
 {
-    border: 1px solid #000000;
-    background-color: #ff0000;
+    border: 1px solid #96BB7A;
+    padding: 2px 5px 2px 5px;
+    margin: 15px 0;
+    background-color: #EDF1E3;
 }
 
 .portletTitle
 {
-    color: #ff0000;
+    color: #669933;
+    font-weight: bold;
 }
 
 .portletContent
 {
     margin-top: 1em;
-    color: #cccccc;
+	padding: 5px;
+	background: #FFF;
 }
+
+/* portlet profil */
+ 
+ #portletUser #picture
+ {
+  float: left;
+  width: 105px;
+  margin: 0;
+  padding: 0.3em 1em 0.3em 1em;
+  text-align: center;
+ }
+
+ #portletUser #picture .pic {
+ border: 1px solid #AAA; 
+ background-color: #DDD; 
+ width: 100px; 
+ height: 125px; 
+ margin: auto;
+ font-size: small; 
+ color: #AAA;
+ }
+ 
+ #portletUser #details
+ {
+  margin-left: 140px;
+  padding: 0 1em 0.1em 1em;
+  max-width: 5em;
+  border-left: 1px solid #ccc;
+ }
+
+ #portletUser #details span
+ {
+  font-size: small;
+  font-weight: bold;
+ }
+
+  /* portlet my cours */
+
+.portletMycours 
+{
+list-style-image:url(claroline/img/course.gif);
+list-style-position:inside;
+margin:0.5em 0 0.5em 0;
+padding:0;
+}  
+
+
+ 
+ /* portlet stat */
+
+ .statBlock
+ {
+ 	width: 100%;
+ 	margin-bottom: 1em;
+ }
+
+ .statBlock .blockHeader
+ {
+ 	text-align: left;
+ 	border-bottom: 1px #ccc solid;
+ 	padding: 3px;
+ 	font-weight: bold;
+ }
+
+ .statBlock .blockContent
+ {
+ 	padding: 3px;
+ }
+
+ .statBlock .blockContent table
+ {
+ 	width: 100%;
+ }
+
+ .statBlock .blockFooter
+ {
+ 	text-align: right;
+ 	font-size: small;
+ 	padding: 3px;
+ }
+ 
+ .test {
+float: right;
+margin-right: 10px;
+padding-top: 20px;
+ }
+ 

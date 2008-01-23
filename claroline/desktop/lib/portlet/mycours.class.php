@@ -25,8 +25,6 @@ class mycours extends portlet
 {
     function __construct()
     {
-        
-        
         $output = '';
         
         $personnalCourseList = get_user_course_list(claro_get_current_user_id());
@@ -35,9 +33,10 @@ class mycours extends portlet
         # $date            = $claro_notifier->get_notification_date(claro_get_current_user_id());
         # $modified_course = $claro_notifier->get_notified_courses($date,claro_get_current_user_id());
         
-        if (count($personnalCourseList))
+        if ( count($personnalCourseList) )
         {
-        $output .= '<ul style="list-style-image:url(claroline/img/course.gif);list-style-position:inside">'."\n";
+        
+        $output .= '<ul class="portletMycours">'."\n";
 
         foreach($personnalCourseList as $thisCourse)
         {
@@ -49,7 +48,7 @@ class mycours extends portlet
             # else                                                     $classItem = '';
 
             // show course language if not the same of the platform
-            if ( $platformLanguage!=$thisCourse['language'] )
+            if ( $platformLanguage != $thisCourse['language'] )
             {
                 if ( !empty($langNameOfLang[$thisCourse['language']]) )
                 {
@@ -66,7 +65,7 @@ class mycours extends portlet
             }
 
             $output .= '<li class="item' . $classItem . '">' . "\n"
-            .    '<a href="' .  get_path('url') . '/claroline/course/index.php?cid=' . htmlspecialchars($thisCourse['sysCode']) . '">';
+            .    '<a href="' . get_path('url') . '/claroline/course/index.php?cid=' . htmlspecialchars($thisCourse['sysCode']) . '">';
 
             if ( get_conf('course_order_by') == 'official_code' )
             {
@@ -79,7 +78,7 @@ class mycours extends portlet
 
             if ($thisCourse['isCourseManager'] == 1)
             {
-                $userStatusImg = '<img src="' . get_path('imgRepositoryWeb') . 'manager.gif" alt="'.get_lang('Course manager').'" />';
+                $userStatusImg = '&nbsp;&nbsp;<img src="' . get_path('imgRepositoryWeb') . 'manager.gif" alt="'.get_lang('Course manager').'" />';
             }
             else
             {
@@ -98,21 +97,15 @@ class mycours extends portlet
 
         $output .= '</ul>' . "\n";
         }
-        //display legend if required
         
+        //display legend if required
         # if( !empty($modified_course) )
         # {
         #     $output .= '<br />'
         #     .    '<small><span class="item hot"> '.get_lang('denotes new items').'</span></small>'
         #     .     '</td>' . "\n";
         # }
-        
-        
-        
-        
-        
-        
-        
+                
         $this->title = get_lang('My course list');
         $this->content = $output;
     }

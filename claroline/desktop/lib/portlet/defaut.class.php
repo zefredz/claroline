@@ -24,20 +24,22 @@ class defaut extends portlet
 {
     function __construct()
     {
-        // user's data
+        $output = '';
+        
         $userData = user_get_properties(claro_get_current_user_id());
 
-        $output .= '<div id="userCart">' . "\n"
-        .	 ' <div id="picture"><div style="border: 1px solid #AAA; background-color: #DDD; width: 100px; height: 125px; margin: auto;font-size: small; color: #AAA;"><br /><br /><br />No picture</div></div>' . "\n"
+        $output .= 
+             '<div id="portletUser">' . "\n"
+        .	 ' <div id="picture"><div class="pic"><br /><br /><br />No picture</div></div>' . "\n"
         .	 ' <div id="details">'
-        .	 '  <p><span>' . get_lang('Last name') . '</span><br /> ' . htmlspecialchars($userData['lastname']) . '</p>'
-        .	 '  <p><span>' . get_lang('First name') . '</span><br /> ' . htmlspecialchars($userData['firstname']) . '</p>'
-        .	 '  <p><span>' . get_lang('Email') . '</span><br /> ' . htmlspecialchars($userData['email']) . '</p>'
-        .	 ' </div>' . " \n"
+        .	 '  <p><span>' . get_lang('Last name') . '</span><br /> ' . htmlspecialchars($userData['lastname']) . '</p>' . "\n"
+        .	 '  <p><span>' . get_lang('First name') . '</span><br /> ' . htmlspecialchars($userData['firstname']) . '</p>' . "\n"
+        .	 '  <p><span>' . get_lang('Email') . '</span><br /> ' . htmlspecialchars($userData['email']) . '</p>' . "\n"
+        .	 ' </div>' . "\n"
         .	 '</div>' . "\n"
-        .	 '<div class="spacer"></div>' . "\n";
+        ;
         
-        $this->title = get_lang('My profil');
+        $this->title = get_lang('My profil') . '<span class="test"><a href="../../claroline/auth/profile.php"><img src="' . get_icon('edit') . '" alt="' . get_lang('edit') . '" /></a></span>' . "\n";
         $this->content = $output;
     }
     

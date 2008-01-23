@@ -29,8 +29,7 @@
     if( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 
     // load lib
-    require_once dirname( __FILE__ ) . '/lib/desktop.lib.php';
-	//require_once dirname( __FILE__ ) . '/lib/portlet.lib.php';
+	require_once dirname( __FILE__ ) . '/lib/portlet.lib.php';
     
 	$is_allowedToEdit = claro_is_allowed_to_edit();
 

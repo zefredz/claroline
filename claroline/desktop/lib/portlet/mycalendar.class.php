@@ -19,11 +19,11 @@
  */
 
 
-class stats extends portlet
+class mycalendar extends portlet
 {
     function __construct()
     {
-        $this->title = get_lang('My statistics');
+        $this->title = get_lang('My calendar');
         $this->content = 'le contenu de mon portlet';
     }
     
