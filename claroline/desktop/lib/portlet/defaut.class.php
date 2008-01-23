@@ -39,6 +39,8 @@ class defaut extends portlet
         .	 '</div>' . "\n"
         ;
         
+        
+        
         $this->title = get_lang('My profil') . '<span class="test"><a href="../../claroline/auth/profile.php"><img src="' . get_icon('edit') . '" alt="' . get_lang('edit') . '" /></a></span>' . "\n";
         $this->content = $output;
     }
