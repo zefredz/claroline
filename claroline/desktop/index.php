@@ -23,6 +23,7 @@
 
     // load Claroline kernel
     require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
+    require_once dirname(__FILE__) . '/lib/portlet.lib.php';
 
     // users authentified 
     if( ! claro_is_user_authenticated() ) claro_disp_auth_form();
@@ -46,22 +47,64 @@
 
 // {{{ CONTROLLER
 
+    $classList = array();
+    
+    $allowedExtensions = array('.php','.php3','.php4','.php4','.php6');
 
+    $path = dirname( __FILE__ ) . '/lib/portlet';
+
+    $dirname = realpath($path) . '/' ;
+    if ( is_dir($dirname) )
+    {
+        $handle = opendir($dirname);
+        while ( false !== ($file = readdir($handle) ) )
+        {
+            // skip '.', '..' and 'CVS'
+            if ( file == '.' || $file == '..' || $file == 'CVS' ) continue;
+
+            // skip folders
+            if ( !is_file($dirname.$file) ) continue ;
+
+            // skip file with wrong extension
+            $ext = strrchr($file, '.');
+            if ( !in_array(strtolower($ext),$allowedExtensions) ) continue;
+
+            // add className to array
+            $pos = strpos($file, '.');
+            $classList[] = substr($file, '0', $pos);
+            
+            // add elt to array
+            require_once $path . '/' . $file;
+        }
+    }
+    else
+    {
+        $dialogBox->error( get_lang('Error to load portlet') );
+    }
 
 // }}}
 
 // {{{ VIEW    
 
-	$out = '';
+    $output = '';
     
     $nameTools = get_lang('My Desktop');
 
-	//$out .= claro_html_tool_title($nameTools);
+	$output .= claro_html_tool_title($nameTools);
     
-    $out .= 'rendu';
+    $output .= $dialogBox->render();
     
-    $claroline->display->body->appendContent($out);
-
+    foreach( $classList as $className )
+    {
+        if( !class_exists($className) ) continue;
+        $portlet = new $className();
+        
+        if( !method_exists($portlet, 'render') ) continue;
+        $output .= $portlet->render();
+    }
+        
+    $claroline->display->body->appendContent($output);
+    
     echo $claroline->display->render();
 
 // }}}
