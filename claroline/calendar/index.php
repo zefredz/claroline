@@ -17,7 +17,7 @@
 
 $tlabelReq = 'CLCAL';
 
-require '../inc/claro_init_global.inc.php';
+require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
 
 if ( claro_is_in_a_course() )
 {
