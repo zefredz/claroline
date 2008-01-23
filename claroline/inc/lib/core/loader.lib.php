@@ -35,7 +35,8 @@
             $this->libraries = array();
             $this->pathList = array(
                 get_module_path( get_current_module_label() ) . '/js' => get_module_url( get_current_module_label() ) . '/js',
-                get_path( 'rootSys' ) . 'web/js' => get_path('url') . '/web/js'
+                get_path( 'rootSys' ) . 'web/js' => get_path('url') . '/web/js',
+                './js' => './js'
             );
         }
 
@@ -168,7 +169,8 @@
             $this->pathList = array(
                 get_module_path( get_current_module_label() ) . '/css' => get_module_url( get_current_module_label() ) . '/css',
                 get_path( 'rootSys' ) . 'claroline/css' => get_path('url') . '/claroline/css',
-                get_path( 'rootSys' ) . 'web/css' => get_path('url') . '/web/css'
+                get_path( 'rootSys' ) . 'web/css' => get_path('url') . '/web/css',
+                './css' => './css'
             );
         }
 
