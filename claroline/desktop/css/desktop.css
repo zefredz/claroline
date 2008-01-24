@@ -21,9 +21,9 @@
 	background: #FFF;
 }
 
-/* portlet profil */
+/* portlet myprofil */
  
- #portletUser #picture
+ #portletMyprofil #picture
  {
   float: left;
   width: 105px;
@@ -32,7 +32,7 @@
   text-align: center;
  }
 
- #portletUser #picture .pic {
+ #portletMyprofil #picture .pic {
  border: 1px solid #AAA; 
  background-color: #DDD; 
  width: 100px; 
@@ -42,7 +42,7 @@
  color: #AAA;
  }
  
- #portletUser #details
+ #portletMyprofil #details
  {
   margin-left: 140px;
   padding: 0 1em 0.1em 1em;
@@ -50,15 +50,15 @@
   border-left: 1px solid #ccc;
  }
 
- #portletUser #details span
+ #portletMyprofil #details span
  {
   font-size: small;
   font-weight: bold;
  }
 
-  /* portlet my cours */
+  /* portlet mycours */
 
-.portletMycours 
+#portletMycours 
 {
 list-style-image:url(claroline/img/course.gif);
 list-style-position:inside;
@@ -66,9 +66,26 @@ margin:0.5em 0 0.5em 0;
 padding:0;
 }  
 
+/* portlet mycalendar */
 
+ #portletMycalendar .calendar
+ {
+  float: left;
+  width: 47%;
+  margin: 0;
+  padding: 0.3em 1em 0.3em 1em;
+  text-align: center;
+ }
  
- /* portlet stat */
+ #portletMycalendar .details
+ {
+  margin-left: 50%;
+  padding: 0 1em 0.1em 1em;
+  max-width: 5em;
+  border-left: 1px solid #ccc;
+ }
+ 
+/* portlet stat */
 
  .statBlock
  {

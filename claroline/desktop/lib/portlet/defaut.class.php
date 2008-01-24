@@ -24,12 +24,9 @@ class defaut extends portlet
 {
     function __construct()
     {
-        $output = '';
-        
         $userData = user_get_properties(claro_get_current_user_id());
 
-        $output .= 
-             '<div id="portletUser">' . "\n"
+        $output = '<div id="portletMyprofil">' . "\n"
         .	 ' <div id="picture"><div class="pic"><br /><br /><br />No picture</div></div>' . "\n"
         .	 ' <div id="details">'
         .	 '  <p><span>' . get_lang('Last name') . '</span><br /> ' . htmlspecialchars($userData['lastname']) . '</p>' . "\n"

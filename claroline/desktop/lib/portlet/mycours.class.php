@@ -36,7 +36,7 @@ class mycours extends portlet
         if ( count($personnalCourseList) )
         {
         
-        $output .= '<ul class="portletMycours">'."\n";
+        $output .= '<ul id="portletMycours">'."\n";
 
         foreach($personnalCourseList as $thisCourse)
         {
