@@ -264,7 +264,7 @@ function get_agenda_items($userCourseList, $month, $year)
             $day       = intval($eventDate[2]);
             $eventTime = explode(':', $thisEvent['hour']);
             $time      = $eventTime[0] . ':' . $eventTime[1];
-            $url       = 'agenda.php?cidReq=' . $thisCourse['sysCode'];
+            $url       = get_path('url').'/claroline/calendar/agenda.php?cidReq=' . $thisCourse['sysCode'];
 
             if( ! isset($items[$day][$thisEvent['hour']]) )
             {
@@ -328,7 +328,7 @@ function claro_disp_monthly_calendar($agendaItemList, $month, $year, $weekdaynam
  * @param string $monthName name of the current month
  * @return mixed : whether success html stream or false and error throw claro_failure
  */
-function claro_html_monthly_calendar($agendaItemList, $month, $year, $weekdaynames, $monthName )
+function claro_html_monthly_calendar($agendaItemList, $month, $year, $weekdaynames, $monthName, $compactMode = false )
 {
     $htmlStream = '';
     //Handle leap year
@@ -414,11 +414,29 @@ function claro_html_monthly_calendar($agendaItemList, $month, $year, $weekdaynam
                 $dayheader = $curday ;
 
 
-                $htmlStream .= '<td height="40" width="12%" valign="top" class="' . $weekdayType . '">'
-                .    $dayheader
+                $htmlStream .= '<td height="40" width="12%" valign="top" '
+                .    'class="' . $weekdayType 
+                .    ($compactMode && isset($agendaItemList[$curday]) ? ' dayWithEvent': '') 
+                .    '">'
                 ;
+                
+                if ($compactMode && isset($agendaItemList[$curday]) )
+                {
+                    $matches = array();
+                    
+                    preg_match( '/href="([^"]+)/', $agendaItemList[$curday], $matches );
+                    
+                    $htmlStream .= '<a href="'.$matches[1].'">' . $dayheader .'</a>';
+                }
+                else
+                {
+                    $htmlStream .= $dayheader;
+                }
 
-                if( isset($agendaItemList[$curday]) ) $htmlStream .= $agendaItemList[$curday];
+                if( !$compactMode && isset($agendaItemList[$curday]) )
+                {
+                    $htmlStream .= $agendaItemList[$curday];
+                }
 
                 $htmlStream .= '</td>' . "\n";
 

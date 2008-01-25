@@ -73,6 +73,9 @@ $monthName = $langMonthNames['long'][$month-1];
 
 // Display
 
+
+
+
 // Header
 include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 echo claro_html_tool_title($nameTools)
