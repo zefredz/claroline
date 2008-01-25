@@ -1409,5 +1409,34 @@ function delete_userInfoExtraDefinition($propertyId, $contextScope )
 
 }
 
+function claro_get_user_course_list($user_id = null) 
+{
+    if(is_null($user_id))
+    {
+        $user_id = claro_get_current_user_id();
+    }
+
+    $tbl_mdb_names       = claro_sql_get_main_tbl();
+
+    $tbl_course          = $tbl_mdb_names['course'];
+    $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
+
+    $sql = "SELECT cours.code                 AS sysCode,
+                   cours.administrativeNumber AS officialCode,
+                   cours.intitule             AS title,
+                   cours.titulaires           AS t,
+                   cours.dbName               AS db,
+                   cours.directory            AS dir
+
+            FROM    `" . $tbl_course . "`          AS cours,
+                    `" . $tbl_rel_course_user . "` AS cours_user
+
+            WHERE cours.code         = cours_user.code_cours
+            AND   cours_user.user_id = " . (int) $user_id ;
+
+    $userCourseList = claro_sql_query_fetch_all($sql);
+
+    return $userCourseList;
+}
 
 ?>
