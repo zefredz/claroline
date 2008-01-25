@@ -45,19 +45,20 @@ class mycalendar extends portlet
 
         $monthName = $langMonthNames['long'][$month-1];        
         
-        $output = ''
+        $output = '';
+        
+        $output .= ''
         .    '<div id="portletMycalendar">' . "\n"
         .	 ' <div class="calendar">' . claro_html_monthly_calendar($agendaItemList, $month, $year, $langDay_of_weekNames['init'], $monthName, true) . '</div>' . "\n"
         .	 ' <div class="details">'
-        .	 '  <p><span>' . get_lang('Item 1') . '</span><br /></p>' . "\n"
-        .	 '  <p><span>' . get_lang('Item 2') . '</span><br /></p>' . "\n"
-        .	 '  <p><span>' . get_lang('Item 3') . '</span><br /></p>' . "\n"
-        .	 '  <p><span>' . get_lang('Item 4') . '</span><br /></p>' . "\n"
-        .	 '  <p><span>' . get_lang('Item 5') . '</span><br /></p>' . "\n"
-        .	 '  <p><span>' . get_lang('Item 6') . '</span><br /></p>' . "\n"
-        .	 '  <p><span>' . get_lang('Item 7') . '</span><br /></p>' . "\n"
-        .	 '  <p><span>' . get_lang('Item 8') . '</span><br /></p>' . "\n"
-        .	 '  <p><span>' . get_lang('Item 9') . '</span><br /></p>' . "\n"
+        ;
+        
+        foreach($agendaItemList as $agendaItem)
+        {
+            $output .= '<p>' . $agendaItem . '</p>' . "\n";
+        }
+             
+        $output .= ''
         .	 ' </div>' . "\n"
         .	 '</div>' . "\n"
         .	 '<div style="clear:both;"></div>' . "\n"
