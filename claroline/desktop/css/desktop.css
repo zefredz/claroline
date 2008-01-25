@@ -71,7 +71,7 @@ padding:0;
  #portletMycalendar .calendar
  {
   float: left;
-  width: 47%;
+  max-width: 22%;
   margin: 0;
   padding: 0.3em 1em 0.3em 1em;
   text-align: center;
@@ -79,12 +79,17 @@ padding:0;
  
  #portletMycalendar .details
  {
-  margin-left: 50%;
+  margin-left: 25%;
   padding: 0 1em 0.1em 1em;
   max-width: 5em;
   border-left: 1px solid #ccc;
  }
  
+.dayWithEvent 
+{
+  background-color:silver;
+}
+
 /* portlet stat */
 
  .statBlock

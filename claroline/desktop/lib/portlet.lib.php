@@ -24,19 +24,19 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         private $content = '';
                 
         // render title
-        function renderTitle()
+        public function renderTitle()
         {
             return $this->title;
         }
         
         // render content
-        function renderContent()
+        public function renderContent()
         {
             return $this->content;
         }
 
         // render all
-        function render()
+        public function render()
         {
             return '<div class="portlet"><div class="portletTitle">' . $this->renderTitle() . '</div><div class="portletContent">' . $this->renderContent() . '</div></div>';
         }

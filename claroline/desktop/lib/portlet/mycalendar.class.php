@@ -23,25 +23,31 @@ require_once dirname(__FILE__) . '/../../../../claroline/calendar/lib/agenda.lib
 
 class mycalendar extends portlet
 {
-    function __construct()
+    //protected $userId, $year, $month, $today;
+    
+    function __construct( /*$data*/ )
+    {
+        //$this->userId = $data['userId'];
+        //$this->year = $
+    }
+    
+    function renderContent()
     {
         $today = getdate();
 
         $year = isset($_REQUEST['year']) ? (int) $_REQUEST['year' ] : $today['year'];
         $month = isset($_REQUEST['month']) ? (int) $_REQUEST['month' ] : $today['mon'];
         
-        $agendaItemList = 0;
-        //$agendaItemList = get_agenda_items($userCourseList, $month, $year);
+        $userCourseList = claro_get_user_course_list();
+        $agendaItemList = get_agenda_items($userCourseList, $month, $year);
         $langMonthNames = get_locale('langMonthNames');
         $langDay_of_weekNames = get_locale('langDay_of_weekNames');
 
         $monthName = $langMonthNames['long'][$month-1];        
         
-        //$output = '<div class="portletMycalendar">' . claro_html_monthly_calendar($agendaItemList, $month, $year, $langDay_of_weekNames['long'], $monthName) . '</div>';
-        
         $output = ''
         .    '<div id="portletMycalendar">' . "\n"
-        .	 ' <div class="calendar">' . claro_html_monthly_calendar($agendaItemList, $month, $year, $langDay_of_weekNames['long'], $monthName) . '</div>' . "\n"
+        .	 ' <div class="calendar">' . claro_html_monthly_calendar($agendaItemList, $month, $year, $langDay_of_weekNames['init'], $monthName, true) . '</div>' . "\n"
         .	 ' <div class="details">'
         .	 '  <p><span>' . get_lang('Item 1') . '</span><br /></p>' . "\n"
         .	 '  <p><span>' . get_lang('Item 2') . '</span><br /></p>' . "\n"
@@ -60,10 +66,7 @@ class mycalendar extends portlet
         
         $this->title = get_lang('My calendar');
         $this->content = $output;
-    }
-    
-    function renderContent()
-    {
+        
         return $this->content;
     }
     
