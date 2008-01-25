@@ -228,7 +228,7 @@
         public static function addListener( $eventType, &$listener )
         {
             $mngr = EventManager::getInstance();
-            return $mngr->register($eventType, &$listener);
+            return $mngr->register($eventType, $listener);
         }
 
         /**
