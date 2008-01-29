@@ -356,18 +356,34 @@ function claro_html_monthly_calendar($agendaItemList, $month, $year, $weekdaynam
     $htmlStream .=  '<table class="claroTable" width="100%">' . "\n"
     .    '<tr class="superHeader">' . "\n"
     .    '<th width="13%">'
-    .    '<center>' . "\n"
-    .    '<a href="' . $backwardsURL . '">&lt;&lt;</a>'
-    .    '</center>' . "\n"
-    .    '</th>' . "\n"
+    ;
+    
+    if($compactMode == false)
+    {
+        $htmlStream .= '<center>' . "\n"
+        .    '<a href="' . $backwardsURL . '">&lt;&lt;</a>'
+        .    '</center>' . "\n"
+        ;
+    }
+    
+    $htmlStream .= '</th>' . "\n"
     .    '<th width="65%" colspan="5">'
     .    '<center>'
     .    $monthName . ' ' . $year
     .    '</center>'
     .    '</th>' . "\n"
-    .    '<th width="13%"><center>'
-    .    '<a href="' . $forewardsURL . '">&gt;&gt;</a></center>'
-    .    '</th>' . "\n"
+    .    '<th width="13%">'
+    ;
+    
+    if($compactMode == false)
+    {
+        $htmlStream .= '<center>' . "\n"
+        .    '<a href="' . $forewardsURL . '">&gt;&gt;</a>
+        .    </center>'
+        ;
+    }
+
+    $htmlStream .= '</th>' . "\n"
     .    '</tr>' . "\n"
     .    '<tr class="headerX">' ."\n"
     ;
