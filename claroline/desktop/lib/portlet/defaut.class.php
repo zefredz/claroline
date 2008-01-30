@@ -24,6 +24,10 @@ class defaut extends portlet
 {
     function __construct()
     {
+    }
+    
+    function renderContent()
+    {
         $userData = user_get_properties(claro_get_current_user_id());
 
         $output = '<div id="portletMyprofil">' . "\n"
@@ -36,18 +40,14 @@ class defaut extends portlet
         .	 '</div>' . "\n"
         ;
                 
-        $this->title = get_lang('My profil') . '<span class="test"><a href="../../claroline/auth/profile.php"><img src="' . get_icon('edit') . '" alt="' . get_lang('edit') . '" /></a></span>' . "\n";
         $this->content = $output;
-    }
-    
-    function renderContent()
-    {
+        
         return $this->content;
     }
     
     function renderTitle()
     {
-        return $this->title;
+        return $this->title = get_lang('My profil') . '<span class="test"><a href="../../claroline/auth/profile.php"><img src="' . get_icon('edit') . '" alt="' . get_lang('edit') . '" /></a></span>' . "\n";
     }
 }
 

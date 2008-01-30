@@ -28,7 +28,7 @@ class mycalendar extends portlet
     function __construct( /*$data*/ )
     {
         //$this->userId = $data['userId'];
-        //$this->year = $
+        //$this->year = $data['year'];
     }
     
     function renderContent()
@@ -64,8 +64,6 @@ class mycalendar extends portlet
         .	 '<div style="clear:both;"></div>' . "\n"
         ;
         
-        
-        $this->title = get_lang('My calendar');
         $this->content = $output;
         
         return $this->content;
@@ -73,7 +71,7 @@ class mycalendar extends portlet
     
     function renderTitle()
     {
-        return $this->title;
+        return $this->title = get_lang('My calendar');
     }
 }
 

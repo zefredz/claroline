@@ -25,6 +25,10 @@ class mycours extends portlet
 {
     function __construct()
     {
+    }
+    
+    function renderContent()
+    {
         $output = '';
         
         $personnalCourseList = get_user_course_list(claro_get_current_user_id());
@@ -106,18 +110,14 @@ class mycours extends portlet
         #     .     '</td>' . "\n";
         # }
                 
-        $this->title = get_lang('My course list');
         $this->content = $output;
-    }
-    
-    function renderContent()
-    {
+
         return $this->content;
     }
     
     function renderTitle()
     {
-        return $this->title;
+        return $this->title = get_lang('My course list');
     }
 }
 
