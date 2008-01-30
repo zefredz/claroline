@@ -3,7 +3,7 @@
  * CLAROLINE
  * @version 1.9
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2008 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -118,6 +118,7 @@ $dockname     = (isset($_REQUEST['dockname'])     ? $_REQUEST['dockname']     : 
 $typeReq      = (isset($_REQUEST['typeReq'])      ? $_REQUEST['typeReq']      : 'tool');
 $offset       = (isset($_REQUEST['offset'])       ? $_REQUEST['offset']       : 0 );
 $pagerSortDir = (isset($_REQUEST['dir' ])         ? $_REQUEST['dir' ]         : SORT_ASC);
+$_cleanInput['selectInput'] = (isset($_REQUEST['selectInput'])     ? $_REQUEST['selectInput']     : null );
 
 // var_dump( $_REQUEST['activateOnInstall'] );
 
@@ -396,9 +397,9 @@ switch ( $cmd )
         if (get_conf ( 'can_install_curl_module', false ))
             $inputPackage [] = 'curl' ;
 
-        if ( in_array($_REQUEST['selectInput'],$inputPackage))
+        if ( in_array($_cleanInput['selectInput'],$inputPackage))
         {
-            $selectInput = $_REQUEST['selectInput'];
+            $selectInput = $_cleanInput['selectInput'];
         }
         else
         {
@@ -429,11 +430,13 @@ switch ( $cmd )
     	                          '<input name="selectInput"  value="local" id="packageOnServer" type="radio" />'
                                 . '<label for="packageOnServer" >' . get_lang ( 'Package on server (zipped or not)' ) . '</label>' . '<br />'
                                 :'')
+
     	                        . (get_conf ( 'can_install_upload_module', true ) ?
 
     	                          '<input name="selectInput" value="upload"  id="zipOnYouComputerServer" type="radio" />'
                                 . '<label for="zipOnYouComputerServer" >' . get_lang ( 'Package on your computer (zip only)' ) . '</label>' . '<br />'
                                 :'')
+
                                 . (get_conf ( 'can_install_curl_module', false ) ?
 
     	                          '<input name="selectInput" value="curl" id="zipOnThirdServer" type="radio" />'
@@ -449,7 +452,7 @@ switch ( $cmd )
             }
         }
 
-        switch ( $selectInput)
+        switch ( $_cleanInput['selectInput'])
         {
             case 'upload' :
                 $msgList [ 'warn' ] []
