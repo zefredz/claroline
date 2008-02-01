@@ -212,7 +212,7 @@ class ScormAnswerFillInBlanks extends answerFillInBlanks
 		// get all enclosed answers
 		foreach( $this->answerList as $answer )
 		{
-			$blankList[] = '['.$answer.']';
+			$blankList[] = '/\['.preg_quote($this->answerDecode($answer),'/').'\]/';
 		}
 		$answerCount = count($blankList);
 
@@ -232,7 +232,8 @@ class ScormAnswerFillInBlanks extends answerFillInBlanks
 
 			foreach( $allAnswerList as $answer )
 			{
-				$optionList[$this->answerDecode($answer)] = $this->answerDecode($answer);
+				$optionListValue = $this->answerDecode($answer);
+				$optionList[$optionListValue] = str_replace('"','&quot;',$optionListValue);
 			}
 
 			for( $i = 0; $i < $answerCount; $i++ )
@@ -254,7 +255,6 @@ class ScormAnswerFillInBlanks extends answerFillInBlanks
 			}
 		}
 
-
 		// apply replacement on answer
 		$displayedAnswer = preg_replace( $blankList, $replacementList, claro_parse_user_text($this->answerDecode($this->answerText)), 1 );
 		// some javascript must be added for that kind of questions
@@ -264,7 +264,7 @@ class ScormAnswerFillInBlanks extends answerFillInBlanks
         // Add the data for fillAnswerList
 		for( $i = 0; $i < $answerCount; $i++ )
         {
-            $out .= "    fillAnswerList['fill_" . $this->questionId . "_" . $i . "'] = new Array('" . $this->answerList[$i] . "', '" . $this->gradeList[$i] . "');\n";
+            $out .= "    fillAnswerList['fill_" . $this->questionId . "_" . $i . "'] = new Array('" . str_replace("'", "\'", $this->answerList[$i]) . "', '" . $this->gradeList[$i] . "');\n";
         }
 
     	$out .=
