@@ -10,7 +10,7 @@ if ( count( get_included_files() ) == 1 )
  *
  * @version 1.9 $Revision$
  *
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2008 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -41,7 +41,8 @@ function get_module_info($moduleId)
 {
     $tbl = claro_sql_get_tbl(array('module', 'module_info', 'course_tool'));
 
-    $sql = "SELECT M.`label`  AS label,
+    $sql = "
+        SELECT M.`label`  AS label,
                M.`id`         AS module_id,
                M.`name`       AS module_name,
                M.`activation` AS activation,
@@ -57,20 +58,25 @@ function get_module_info($moduleId)
                MI.description  AS description,
                MI.license      AS license
 
-        FROM `" . $tbl['module']      . "` AS M
+          FROM `" . $tbl['module']      . "` AS M
 
-        LEFT JOIN `" . $tbl['module_info'] . "` AS MI
-              ON M.`id` = MI . `module_id`
+     LEFT JOIN `" . $tbl['module_info'] . "` AS MI
+            ON M.`id` = MI . `module_id`
 
-        LEFT JOIN `" . $tbl['course_tool'] . "` AS CT
-              ON CT.`claro_label`= M.label
+     LEFT JOIN `" . $tbl['course_tool'] . "` AS CT
+            ON CT.`claro_label`= M.label
 
-        WHERE  M.`id` = " . (int) $moduleId;
+         WHERE M.`id` = " . (int) $moduleId;
 
     return claro_sql_query_get_single_row($sql);
 
 }
 
+/**
+* Gest the list of module type already installed
+* @return array of string 
+* 
+*/
 function claro_get_module_types()
 {
     $tbl = claro_sql_get_tbl('module');
@@ -446,10 +452,15 @@ function install_module($modulePath, $skipCheckDir = false)
                 }
 
                 //4- Rename the module repository with label
-                
-                if (!rename( $modulePath, get_module_path($module_info['LABEL']) . '/'))
+                $currentPlace = realpath($modulePath) . '/';
+                $destPath = get_module_path( $module_info['LABEL'] );
+                claro_mkdir(get_path('rootSys') . 'module/', CLARO_FILE_PERMISSIONS, true);
+                if (!@rename( $currentPlace , $destPath ))
                 {
-                   $backlog->failure(get_lang("Error while renaming module folder"));
+                   $backlog->failure(get_lang("Error while renaming module folder").
+                   ' from:' . $currentPlace  .
+                   ' to:' . $destPath  
+                   );
                 }
                 else
                 {
@@ -686,8 +697,8 @@ function uninstall_module($moduleId, $deleteModuleData = true)
     // 0- find info about the module to uninstall
 
     $sql = "SELECT `label`
-            FROM `" . $tbl['module'] . "`
-            WHERE `id` = " . (int) $moduleId;
+              FROM `" . $tbl['module'] . "`
+             WHERE `id` = " . (int) $moduleId;
 
     $module = claro_sql_query_get_single_row($sql);
 
