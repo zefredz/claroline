@@ -387,7 +387,7 @@ class answerFillInBlanks
 				foreach( $allAnswerList as $answer )
 				{
 				    $optionListValue = $this->answerDecode($answer);
-					$optionList[$optionListValue] = $optionListValue;
+					$optionList[$optionListValue] = str_replace('"','&quot;',$optionListValue);
 				}
 
     			for( $i = 0; $i < $answerCount; $i++ )
@@ -420,7 +420,7 @@ class answerFillInBlanks
 			foreach( $this->answerList as $answer )
 			{
    			    // filter slashes as they are modifiers in preg expressions
-				$blankList[] = '/\['.preg_quote($this->answerDecode($this->addslashesEncodedBrackets($answer)),'/').'\]/';
+				$blankList[] = '/\['.preg_quote($this->answerDecode($answer),'/').'\]/';
 			}
 
     		// apply replacement on answer, require limit parameter to replace only the first occurrence in case we
@@ -486,7 +486,7 @@ class answerFillInBlanks
 		foreach( $this->answerList as $answer )
 		{
 		    // filter slashes as they are modifiers in preg expressions
-			$blankList[] = '/\['.preg_quote($this->answerDecode($this->addslashesEncodedBrackets($answer)),'/').'\]/';
+			$blankList[] = '/\['.preg_quote($this->answerDecode($answer),'/').'\]/';
 		}
 		$answerCount = count($blankList);
 
