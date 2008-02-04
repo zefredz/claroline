@@ -65,6 +65,34 @@ else                             $forum_id = 0;
 if ( !empty($_REQUEST['start']) ) $start = (int) $_REQUEST['start'];
 else                              $start = 0;
 
+// Delete a topic
+if ( isset($_REQUEST['cmd']) ) 
+{
+	if ($_REQUEST['cmd'] == 'exDelTopic') 
+	{
+		$topic_id = $_REQUEST['topicId']; 
+		$tbl_cdb_names   = claro_sql_get_course_tbl();
+		$tbl['topics'] = $tbl_cdb_names['bb_topics'];
+		$tbl['rel_topics'] = $tbl_cdb_names['bb_rel_topic_userstonotify'];
+		$tbl['posts'] = $tbl_cdb_names['bb_posts'];
+		$tbl['posts_text'] = $tbl_cdb_names['bb_posts_text'];
+		$sql = "DELETE FROM `".$tbl['topics']."` WHERE topic_id='$topic_id'";
+		$res = mysql_query($sql); 
+		$sql = "DELETE FROM `".$tbl['rel_topics']."` WHERE topic_id='$topic_id'";
+		$res = mysql_query($sql); 
+		$sql = "SELECT post_id FROM `".$tbl['posts']."` WHERE topic_id='$topic_id'";
+		$res = mysql_query($sql);
+		while ($row = mysql_fetch_array($res)) 
+		{
+			$post_id = $row['post_id'];
+			$sql2 = "DELETE FROM `".$tbl['posts_text']."` WHERE post_id='$post_id'";
+			$res2 = mysql_query($sql2); 
+		}
+		$sql = "DELETE FROM `".$tbl['posts']."` WHERE topic_id='$topic_id'";
+		$res = mysql_query($sql); 
+	}	
+}	
+
 // Get forum settings
 $forumSettingList = get_forum_settings($forum_id);
 
@@ -168,23 +196,39 @@ else
         .' </tr>'                                     . "\n"
 
         .' <tr class="headerX" align="left">'                            . "\n"
-        .'  <th>&nbsp;' . get_lang('Topic') . '</th>'                             . "\n"
-        .'  <th width="9%"  align="center">' . get_lang('Posts') . '</th>'        . "\n"
+        .'  <th>&nbsp;' . get_lang('Topic') . '</th>'                             . "\n";
+    // Delete a topic if is CourseAdmin    
+		if ( $is_allowedToEdit ) 
+		{
+			echo '<th align="center">&nbsp;' . get_lang('Delete') . '</th>'; 
+		}
+     echo '  <th width="9%"  align="center">' . get_lang('Posts') . '</th>'        . "\n"
         .'  <th width="20%" align="center">&nbsp;' . get_lang('Author') . '</th>' . "\n"
         .'  <th width="8%"  align="center">' . get_lang('Seen') . '</th>'       . "\n"
         .'  <th width="15%" align="center">' . get_lang('Last message') . '</th>'    . "\n"
-        .' </tr>' . "\n";
+        .' </tr>' . "\n";   
 
     $topics_start = $start;
 
     if ( count($topicList) == 0 )
     {
-        echo '<tr>' . "\n"
-        .    '<td colspan="5" align="center">'
-        .    get_lang('There are no topics for this forum. You can post one')
-        .    '</td>'. "\n"
-        .    '</tr>' . "\n"
-        ;
+        if ( $is_allowedToEdit ) 
+				{
+					echo '<tr>' . "\n"
+	        .    '<td colspan="6" align="center">'
+	        .    get_lang('There are no topics for this forum. You can post one')
+	        .    '</td>'. "\n"
+	        .    '</tr>' . "\n"
+	        ;
+				}
+				else {
+	        echo '<tr>' . "\n"
+	        .    '<td colspan="5" align="center">'
+	        .    get_lang('There are no topics for this forum. You can post one')
+	        .    '</td>'. "\n"
+	        .    '</tr>' . "\n"
+	        ;
+	      }
     }
     else
     {
@@ -228,8 +272,16 @@ else
 
             disp_mini_pager($topic_link, 'start', $replys+1, get_conf('posts_per_page') );
 
-            echo '</td>' . "\n"
-                .'<td align="center"><small>' . $replys . '</small></td>' . "\n"
+            echo '</td>' . "\n"; 
+						 if ( $is_allowedToEdit ) 
+						 {
+						 		echo '<td align="center"> '. '<a href="'.$_SERVER['PHP_SELF'].'?forum='.$forum_id.'&cmd=exDelTopic&amp;topicId='.$thisTopic['topic_id'].'" '
+				        .    'onClick="return confirm_delete(\''. clean_str_for_javascript($thisTopic['topic_id']).'\');" >'
+				        .    '<img src="' . get_path('imgRepositoryWeb') . '/delete.gif" alt="'.get_lang('Delete').'" />'
+				        .    '</a>'
+				        .    '&nbsp; </td>' . "\n";  
+										 }
+             echo '<td align="center"><small>' . $replys . '</small></td>' . "\n"
                 .'<td align="center"><small>' . $thisTopic['prenom'] . ' ' . $thisTopic['nom'] . '<small></td>' . "\n"
                 .'<td align="center"><small>' . $thisTopic['topic_views'] . '<small></td>' . "\n";
 
