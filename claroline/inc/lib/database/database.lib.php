@@ -583,7 +583,10 @@
 //                }
 //            }
 //        }
-
+    }
+    
+    class ClarolineDatabase
+    {
         public static function toClaroQuery( $sql, $courseId = null )
         {
             $courseId = is_null( $courseId ) 

@@ -320,7 +320,10 @@
             
             try
             {
+                $query = ClarolineDatabase::toClaroQuery( $query );
+                
                 $result = parent::getQueryResult( $query );
+                
                 if ( claro_debug_mode() && get_conf('CLARO_PROFILE_SQL',false) )
                 {
                     $this->profiler->stop();
