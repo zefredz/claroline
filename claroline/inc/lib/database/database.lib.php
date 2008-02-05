@@ -583,5 +583,23 @@
 //                }
 //            }
 //        }
+
+        public static function toClaroQuery( $sql, $courseId = null )
+        {
+            $courseId = is_null( $courseId ) 
+                ? claro_get_current_course_id() 
+                : $courseId
+                ;
+            
+            // replace __CL_MAIN__ with main database prefix
+            $sql = str_replace ('__CL_MAIN__',get_conf('mainTblPrefix'), $sql);
+            
+            // replace __CL_COURSE__ with course database prefix
+            $sql = str_replace('__CL_COURSE__'
+                , claro_get_course_db_name_glued( $courseId )
+                , $sql );
+                
+            return $sql;
+        }
     }
 ?>
