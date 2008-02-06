@@ -20,7 +20,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  */
 
 /**
- * display a item list as vertical menu.
+ * Display a item list as vertical menu.
  *
  * @param array $itemList each item are include in a list.
  *
@@ -116,7 +116,9 @@ function claro_html_menu_horizontal($itemList)
  * @param string $url_params query string append
  * @param string $currentClassName css class name
  * @return array
- */function prepared_section_to_tabs($section_list, $section_selected='',$url_params = null, $currentClassName='current')
+ */
+ 
+ function prepared_section_to_tabs($section_list, $section_selected='',$url_params = null, $currentClassName='current')
 {
     $tabList=array();
         
@@ -1005,6 +1007,7 @@ class claro_datagrid
                             $dataCell = $this->decorationList[$colId]['decorationPattern'];
                             foreach ($this->decorationList[$colId]['tagList'] as $tagName) 
                             {
+                                if (isset($dataLine[$tagName]))
                                 $dataCell = str_replace('%'.$tagName,$dataLine[$tagName],$dataCell);
                             }
                         }
