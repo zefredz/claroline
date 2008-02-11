@@ -139,7 +139,7 @@ if ( $isDownloadable )
 
         if (substr(PHP_OS, 0, 3) == "WIN")
         {
-            $rootSys = strtolower( str_replace('\\', '/', $rootSys) );
+            $rootSys =  str_replace( '//', '/', strtolower( str_replace('\\', '/', $rootSys) ) );
             $pathInfo = strtolower( str_replace('\\', '/', $pathInfo) );
         }
 
@@ -170,7 +170,7 @@ if ( $isDownloadable )
         {
             if (substr(PHP_OS, 0, 3) == "WIN")
             {
-                $rootSys = strtolower( str_replace('\\', '/', $rootSys) );
+                $rootSys =  str_replace( '//', '/', strtolower( str_replace('\\', '/', $rootSys) ) );
                 $pathInfo = strtolower( str_replace('\\', '/', $pathInfo) );
             }
 
