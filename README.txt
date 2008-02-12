@@ -1,5 +1,5 @@
 ******************************************
-        CLAROLINE 1.8.8 - README
+        CLAROLINE 1.8.x - README
 ******************************************
 
 TABLE OF CONTENT :
@@ -74,7 +74,7 @@ at :
 7. NEW FEATURES
    ============
 
-NEW FEATURES IN CLAROLINE 1.8.8 SINCE CLAROLINE 1.8.0
+NEW FEATURES IN CLAROLINE 1.8.x SINCE CLAROLINE 1.8.0
 -----------------------------------------------------
 
 * Bug Fixes, new translation ; For more details, see the changelog on our documentation wiki :
@@ -123,7 +123,7 @@ NEW FEATURES IN CLAROLINE 1.7.7 SINCE CLAROLINE 1.7.6
 * Bugs
   * Documents and links : directory named 0 (zero) causes claro_delete_file to exit without deleting all files in a directory (bug #478)
   * Wiki : now wiki page title is always case sensitive
-  * Wiki : fix some javascript warning 
+  * Wiki : fix some javascript warning
 
 NEW FEATURES IN CLAROLINE 1.7.6 SINCE CLAROLINE 1.7.5
 -----------------------------------------------------
