@@ -22,8 +22,6 @@
  *
  * @access  public
  */
- // Modified by Marina Zelwer to avoid php5 warnings
- 
 class zipfile
 {
     /**
@@ -69,12 +67,12 @@ class zipfile
         $timearray = ($unixtime == 0) ? getdate() : getdate($unixtime);
 
         if ($timearray['year'] < 1980) {
-        	$timearray['year']    = 1980;
-        	$timearray['mon']     = 1;
-        	$timearray['mday']    = 1;
-        	$timearray['hours']   = 0;
-        	$timearray['minutes'] = 0;
-        	$timearray['seconds'] = 0;
+            $timearray['year']    = 1980;
+            $timearray['mon']     = 1;
+            $timearray['mday']    = 1;
+            $timearray['hours']   = 0;
+            $timearray['minutes'] = 0;
+            $timearray['seconds'] = 0;
         } // end if
 
         return (($timearray['year'] - 1980) << 25) | ($timearray['mon'] << 21) | ($timearray['mday'] << 16) |
@@ -126,9 +124,11 @@ class zipfile
 
         // "data descriptor" segment (optional but necessary if archive is not
         // served as file)
-        $fr .= pack('V', $crc);                 // crc32
-        $fr .= pack('V', $c_len);               // compressed filesize
-        $fr .= pack('V', $unc_len);             // uncompressed filesize
+        // nijel(2004-10-19): this seems not to be needed at all and causes
+        // problems in some cases (bug #1037737)
+        //$fr .= pack('V', $crc);                 // crc32
+        //$fr .= pack('V', $c_len);               // compressed filesize
+        //$fr .= pack('V', $unc_len);             // uncompressed filesize
 
         // add this entry to array
         $this -> datasec[] = $fr;
@@ -143,14 +143,14 @@ class zipfile
         $cdrec .= pack('V', $crc);           // crc32
         $cdrec .= pack('V', $c_len);         // compressed filesize
         $cdrec .= pack('V', $unc_len);       // uncompressed filesize
-        $cdrec .= pack('v', strlen($name) ); // length of filename
-        $cdrec .= pack('v', 0 );             // extra field length
-        $cdrec .= pack('v', 0 );             // file comment length
-        $cdrec .= pack('v', 0 );             // disk number start
-        $cdrec .= pack('v', 0 );             // internal file attributes
-        $cdrec .= pack('V', 32 );            // external file attributes - 'archive' bit set
+        $cdrec .= pack('v', strlen($name)); // length of filename
+        $cdrec .= pack('v', 0);             // extra field length
+        $cdrec .= pack('v', 0);             // file comment length
+        $cdrec .= pack('v', 0);             // disk number start
+        $cdrec .= pack('v', 0);             // internal file attributes
+        $cdrec .= pack('V', 32);            // external file attributes - 'archive' bit set
 
-        $cdrec .= pack('V', $this -> old_offset ); // relative offset of local header
+        $cdrec .= pack('V', $this -> old_offset); // relative offset of local header
         $this -> old_offset += strlen($fr);
 
         $cdrec .= $name;
