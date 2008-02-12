@@ -213,6 +213,7 @@ if( $cmd == 'exDownload' && $is_allowedToEdit && get_conf('allow_download_all_su
 
 		$assignmentDir = replace_dangerous_char($_cid) . '_' . replace_dangerous_char(get_lang('Assignments')) . $wanted . '/';
 
+
 		foreach($results as $row => $result)
 		{
 			//  count author's submissions for the name of directory
@@ -240,8 +241,10 @@ if( $cmd == 'exDownload' && $is_allowedToEdit && get_conf('allow_download_all_su
 			if(!empty($result['submitted_doc_path']))
 			{
 				if(file_exists($path . $result['submitted_doc_path']))
+				{
 					$zipfile->addFile(file_get_contents($path . $result['submitted_doc_path']),
-									$workDir . '/' . $submissionPrefix . $result['submitted_doc_path']);
+									$workDir . $submissionPrefix . replace_dangerous_char($result['submitted_doc_path']));
+				}
 			}
 
 			// description file
@@ -265,14 +268,14 @@ if( $cmd == 'exDownload' && $is_allowedToEdit && get_conf('allow_download_all_su
 			.	 '</body></html>';
 
 			$zipfile->addFile($htmlContent,
-							$workDir . '/' . $submissionPrefix . $txtFileName);
+							$workDir . $submissionPrefix . replace_dangerous_char($txtFileName));
 		}
 
-		header('Content-type: application/octet-stream');
-		header('Content-Disposition: attachment; filename=' . $assignmentDir . '.zip');
+		header('Content-Type: application/x-zip') ;
+		header('Content-Disposition: inline; filename=' . $assignmentDir . '.zip') ;
 		echo $zipfile->file();
 
-		exit;
+		exit();
 	}
 	else
 	{
