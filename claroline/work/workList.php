@@ -166,7 +166,7 @@ if( $cmd == 'exDownload' && $is_allowedToEditAll && get_conf('allow_download_all
 		$downloadRequestDate = date('Y-m-d G:i:s', $unixRequestDate);
 
 		$wanted = '_' . replace_dangerous_char(get_lang('From')) . '_' . date('Y_m_d', $unixRequestDate) . '_'
-		. replace_dangerous_char(get_lang('To')) . '_' . date('Y_m_d')
+		. replace_dangerous_char(get_lang('To')) . '_' . date('Y_m_d') . '/'
 		;
 		$sqlDateCondition = " AND `last_edit_date` >= '" . $downloadRequestDate . "' ";
 	}
@@ -227,8 +227,10 @@ if( $cmd == 'exDownload' && $is_allowedToEditAll && get_conf('allow_download_all
 			if(!empty($result['submitted_doc_path']))
 			{
 				if(file_exists($path . $result['submitted_doc_path']))
+				{
 					$zipfile->addFile(file_get_contents($path . $result['submitted_doc_path']),
-									$workDir . '/' . $submissionPrefix . $result['submitted_doc_path']);
+									$workDir . $submissionPrefix . replace_dangerous_char($result['submitted_doc_path']));
+				}
 			}
 
 			// description file
@@ -252,12 +254,12 @@ if( $cmd == 'exDownload' && $is_allowedToEditAll && get_conf('allow_download_all
 			.	 '</body></html>';
 
 			$zipfile->addFile($htmlContent,
-							$workDir . '/' . $submissionPrefix . $txtFileName);
+							$workDir . $submissionPrefix . replace_dangerous_char($txtFileName));
 		}
 
 		// send zip file
-		header('Content-type: application/octet-stream');
-		header('Content-Disposition: attachment; filename=' . $workDir . '.zip');
+		header('Content-Type: application/x-zip') ;
+		header('Content-Disposition: inline; filename=' . $workDir . '.zip') ;
 		echo $zipfile->file();
 
 		exit;
