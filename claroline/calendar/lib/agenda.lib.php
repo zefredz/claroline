@@ -300,8 +300,15 @@ function get_agenda_items($userCourseList, $month, $year)
             $agendaItemList[$agendaday] .= $val;
         }
     }
-
+    /*
+    $courseDigestList['date'              ] = '';
+    $courseDigestList['hour'              ] = '';
+    $courseDigestList['courseOfficialCode'] = '';
+    $courseDigestList['courseSysCode'     ] = '';
+    $courseDigestList['content'           ] = '';
+*/
     return $agendaItemList;
+    
 }
 
 
@@ -432,7 +439,7 @@ function claro_html_monthly_calendar($agendaItemList, $month, $year, $weekdaynam
 
                 $htmlStream .= '<td height="40" width="12%" valign="top" '
                 .    'class="' . $weekdayType 
-                .    ($compactMode && isset($agendaItemList[$curday]) ? ' dayWithEvent': '') 
+                .    ($compactMode && isset($agendaItemList[$curday]) ? ' dayWithEvent': '')
                 .    '">'
                 ;
                 
