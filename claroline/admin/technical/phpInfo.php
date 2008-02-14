@@ -70,22 +70,22 @@ if ($is_allowedToAdmin)
 
 <ul id="navlist">
 	<li>
-		<a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=phpinfo" <? echo ($cmd == 'phpinfo')? 'class="current"': ''; ?>>
+		<a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=phpinfo" <?php echo ($cmd == 'phpinfo')? 'class="current"': ''; ?>>
 		<?php echo get_lang('PHP configuration'); ?>
 		</a>
 	</li>
 	<li>
-		<a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=secinfo" <? echo ($cmd == 'secinfo')? 'class="current"': ''; ?>>
+		<a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=secinfo" <?php echo ($cmd == 'secinfo')? 'class="current"': ''; ?>>
 		<?php echo get_lang('PHP security information'); ?>
 		</a>`
 	</li>
 	<li>
-		<a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=extensions" <? echo ($cmd == 'extensions')? 'class="current"': ''; ?>>
+		<a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=extensions" <?php echo ($cmd == 'extensions')? 'class="current"': ''; ?>>
 		<?php echo get_lang('Loaded extensions'); ?>
 		</a>
 	</li>
 	<li>
-		<a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=claroconf" <? echo ($cmd == 'claroconf')? 'class="current"': ''; ?>>
+		<a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=claroconf" <?php echo ($cmd == 'claroconf')? 'class="current"': ''; ?>>
 		<?php echo get_lang('Claroline configuration'); ?>
 		</a>
 	</li>
