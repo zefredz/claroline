@@ -2447,6 +2447,8 @@ $_lang['blockWikiHelpSyntaxContent'] = '<h1>Syntaxe Wiki</h1>
 <dd><code>@@code ici@@</code>&nbsp;;</dd>
 <dt>Ancre</dt>
 <dd><code>~ancre~</code>&nbsp;;</dd>
+<dt>Lien vers une ancre</dt>
+<dd><code>[Titre du lien|#ancre]</code>&nbsp;</dd>
 </dl>
 <h2>Tableaux</h2>
 <dl>
