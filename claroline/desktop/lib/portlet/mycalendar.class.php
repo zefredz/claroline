@@ -43,7 +43,12 @@ class mycalendar extends portlet
         $langMonthNames = get_locale('langMonthNames');
         $langDay_of_weekNames = get_locale('langDay_of_weekNames');
 
-        $monthName = $langMonthNames['long'][$month-1];        
+        $monthName = $langMonthNames['long'][$month-1];
+
+                $itemIcon = 'agenda.gif';
+                $url = get_module_url('CLCAL') . '/agenda.php?cidReq='
+                . $courseDigestList['courseSysCode'][$i];
+                $name = get_lang('Agenda next events');
         
         $output = '';
         
@@ -55,7 +60,28 @@ class mycalendar extends portlet
         
         foreach($agendaItemList as $agendaItem)
         {
+            
+            
+            
             $output .= '<p>' . $agendaItem . '</p>' . "\n";
+        
+            $output .= '<p>' . "\n"
+            .    '<small>'
+            .    '<a href="' . $url . '">'
+            .    '<img src="' . get_path('imgRepositoryWeb') . $itemIcon . '" alt="" />'
+            .    '</a>' . "\n"
+            .    claro_html_localised_date( get_locale('dateFormatLong'),
+            strtotime($courseDigestList['date'][$i]) )
+            .    '<br />' . "\n"
+            .    '<a href="' . $url . '">'
+            .    $courseDigestList['courseOfficialCode'][$i]
+            .    '</a> : ' . "\n"
+            .    '<small>'  . "\n"
+            .    $courseDigestList['content'][$i]  . "\n"
+            .    '</small>' . "\n"
+            .    '</small>' . "\n"
+            .    '</p>' . "\n"
+            ;        
         }
              
         $output .= ''
