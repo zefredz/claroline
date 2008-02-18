@@ -71,13 +71,70 @@
      * @param   array attributes (optional)
      * @return  string
      */
-    function link_to_claro ( $text, $url, $attributes = null )
+    function link_to_claro ( $text, $url = null, $attributes = null )
     {
+        if ( empty ( $url ) )
+        {
+            $url = get_path( 'url' ) . '/index.php';
+        }
+        
         $urlObj = new Url( $url );
         $urlObj->relayCurrentContext();
         
         $url = $urlObj->toUrl();
         
         return link_to ( $text, $url, $attributes );
+    }
+    
+    /**
+     * Create an html link to the given course or course tool
+     * text and attributes
+     * @param   string text
+     * @param   string courseId
+     * @param   array attributes (optional)
+     * @return  string
+     */
+    function link_to_course ( $text, $courseId, $attributes = null )
+    {
+        $url = get_path( 'url' ) . '/claroline/course/index.php?cid='.$courseId;
+        $urlObj = new Url( $url );
+        
+        $url = $urlObj->toUrl();
+        
+        return link_to ( $text, $url, $attributes );
+    }
+    
+    /**
+     * Create an html link to the given course or course tool
+     * text and attributes
+     * @param   string text
+     * @param   string courseId
+     * @param   string toolLabel
+     * @param   array attributes (optional)
+     * @return  string
+     */
+    function link_to_tool ( $text, $toolLabel = null, $context = null, $attributes = null )
+    {
+        $url = get_module_entry_url( $toolLabel );
+        $urlObj = new Url( $url );
+        
+        if ( $context )
+        {
+            $urlObj->relayContext($context);
+        }
+        else
+        {
+            $urlObj->relayCurrentContext();
+        }
+        
+        $url = $urlObj->toUrl();
+        
+        return link_to ( $text, $url, $attributes );
+    }
+    
+    function include_dock( $dockName )
+    {
+        $dock = new ClaroDock( $dockName );
+        return $dock->render();
     }
 ?>
