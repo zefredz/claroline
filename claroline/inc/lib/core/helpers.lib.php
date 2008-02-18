@@ -133,4 +133,12 @@
         $dock = new ClaroDock( $dockName );
         return $dock->render();
     }
+    
+    function link_to_css( $css, $media = 'all' )
+    {
+        return '<link rel="stylesheet" type="text/css" href="' 
+            . get_path('clarolineRepositoryWeb') . 'css/' . $css
+            . '" media="'.$media.'" />'
+            ;
+    }
 ?>
