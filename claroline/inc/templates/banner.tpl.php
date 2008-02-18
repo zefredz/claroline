@@ -5,7 +5,7 @@
 <div id="platformBanner">
     <div id="campusBannerLeft">
         <span id="siteName">
-        <?php echo link_to_claro( $this->campus['siteName'], '', array('target' => '_top') ); ?>
+        <?php echo link_to( $this->campus['siteName'], get_path( 'url' ) . '/index.php', array('target' => '_top') ); ?>
         </span>
         <?php echo include_dock('campusBannerLeft'); ?>
     </div>
