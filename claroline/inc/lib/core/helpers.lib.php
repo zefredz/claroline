@@ -68,6 +68,7 @@
      * text and attributes
      * @param   string text
      * @param   string url inside claroline
+     * @param   array context (cid, gid)
      * @param   array attributes (optional)
      * @return  string
      */
@@ -116,8 +117,8 @@
      * Create an html link to the given course or course tool
      * text and attributes
      * @param   string text
-     * @param   string courseId
      * @param   string toolLabel
+     * @param   array context (cid, gid)
      * @param   array attributes (optional)
      * @return  string
      */
@@ -128,12 +129,23 @@
         return link_to_claro ( $text, $url, $context, $attributes );
     }
     
+    /**
+     * Include the rendering of the given dock
+     * @param string dock name
+     * @return string rendering
+     */
     function include_dock( $dockName )
     {
         $dock = new ClaroDock( $dockName );
         return $dock->render();
     }
     
+    /**
+     * Include the link to a given css
+     * @param name of the css without the complete path
+     * @param css media
+     * @return string
+     */
     function link_to_css( $css, $media = 'all' )
     {
         return '<link rel="stylesheet" type="text/css" href="' 
