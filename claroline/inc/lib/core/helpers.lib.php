@@ -71,7 +71,7 @@
      * @param   array attributes (optional)
      * @return  string
      */
-    function link_to_claro ( $text, $url = null, $attributes = null )
+    function link_to_claro ( $text, $url = null, $context = null, $attributes = null )
     {
         if ( empty ( $url ) )
         {
@@ -79,7 +79,15 @@
         }
         
         $urlObj = new Url( $url );
-        $urlObj->relayCurrentContext();
+        
+        if ( $context )
+        {
+            $urlObj->relayContext($context);
+        }
+        else
+        {
+            $urlObj->relayCurrentContext();
+        }
         
         $url = $urlObj->toUrl();
         
@@ -116,20 +124,8 @@
     function link_to_tool ( $text, $toolLabel = null, $context = null, $attributes = null )
     {
         $url = get_module_entry_url( $toolLabel );
-        $urlObj = new Url( $url );
         
-        if ( $context )
-        {
-            $urlObj->relayContext($context);
-        }
-        else
-        {
-            $urlObj->relayCurrentContext();
-        }
-        
-        $url = $urlObj->toUrl();
-        
-        return link_to ( $text, $url, $attributes );
+        return link_to_claro ( $text, $url, $context, $attributes );
     }
     
     function include_dock( $dockName )
