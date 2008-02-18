@@ -21,22 +21,20 @@
     
     uses( 'core/loader.lib' );
     
-    class ClaroHeader implements Display
+    class ClaroHeader extends CoreTemplate
     {
         private static $instance = false;
         
         private $_htmlXtraHeaders;
         private $_httpXtraHeaders;
-        private $_template;
         
         /**
          * Constructor
          * @param   string pageTitle (optional)
          */
-        private function __construct( $pageTitle = '' )
+        public function __construct( $pageTitle = '' )
         {
-            $file = new ClaroTemplateLoader('header.tpl');
-            $this->_template = $file->load();
+            parent::__construct('header.tpl.php');
             $this->_htmlXtraHeaders = array();
             $this->_httpXtraHeaders = array();
         }
@@ -111,6 +109,7 @@
             }
         }
         
+        
         /**
          * Render the HTML page header
          * @access  public
@@ -134,11 +133,11 @@
 
             $titlePage .= get_conf('siteName');
             
-            $this->_template->addReplacement( 'pageTitle', $titlePage );
+            $this->assign( 'pageTitle', $titlePage );
             
             if ( true === get_conf( 'warnSessionLost', true ) && claro_get_current_user_id() )
             {
-                $this->_template->addReplacement( 'warnSessionLost',
+                $this->assign( 'warnSessionLost',
 "function claro_session_loss_countdown(sessionLifeTime){
     var chrono = setTimeout('claro_warn_of_session_loss()', sessionLifeTime * 1000);
 }
@@ -151,7 +150,7 @@ function claro_warn_of_session_loss() {
             }
             else
             {
-                $this->_template->addReplacement( 'warnSessionLost', '' );
+                $this->assign( 'warnSessionLost', '' );
             }
             
             $htmlXtraHeaders = '';
@@ -167,10 +166,9 @@ function claro_warn_of_session_loss() {
                 $htmlXtraHeaders .= implode ( "\n", $this->_htmlXtraHeaders );
             }
 
-            $this->_template->addReplacement( 'htmlScriptDefinedHeaders',
-                $htmlXtraHeaders );
+            $this->assign( 'htmlScriptDefinedHeaders', $htmlXtraHeaders );
             
-            return $this->_template->render() . "\n";
+            return parent::render() . "\n";
         }
     }
 ?>

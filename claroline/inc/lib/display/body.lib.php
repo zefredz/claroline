@@ -6,12 +6,12 @@
      * Class used to configure and display the page body
      *
      * @version     1.9 $Revision$
-     * @copyright   2001-2007 Universite catholique de Louvain (UCL)
+     * @copyright   2001-2008 Universite catholique de Louvain (UCL)
      * @author      Claroline Team <info@claroline.net>
      * @author      Frederic Minne <zefredz@claroline.net>
      * @license     http://www.gnu.org/copyleft/gpl.html
      *              GNU GENERAL PUBLIC LICENSE version 2 or later
-     * @package     DISPLAY
+     * @package     display
      */
     
     if ( count( get_included_files() ) == 1 )
@@ -19,30 +19,15 @@
         die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
     }
     
-    class ClaroBody implements Display
+    class ClaroBody extends CoreTemplate
     {
-        private static $instance = false;
+        protected $content = '';
+        protected $claroBodyHidden = false;
+        protected $inPopup = false;
         
-        private $content = '';
-        private $claroBodyHidden = false;
-        private $inPopup = false;
-        
-        private $template;
-        
-        private function __construct()
+        public function __construct()
         {
-            $file = new ClaroTemplateLoader('body.tpl');
-            $this->template = $file->load();
-        }
-        
-        public static function getInstance()
-        {
-            if ( ! ClaroBody::$instance )
-            {
-                ClaroBody::$instance = new ClaroBody;
-            }
-
-            return ClaroBody::$instance;
+            parent::__construct('body.tpl.php');
         }
         
         /**
@@ -112,18 +97,18 @@
         {
             if ( ! $this->claroBodyHidden )
             {
-                $this->template->setBlockDisplay('claroBodyStart', true);
-                $this->template->setBlockDisplay('claroBodyEnd', true);
+                $this->assign('claroBodyStart', true);
+                $this->assign('claroBodyEnd', true);
             }
             else
             {
-                $this->template->setBlockDisplay('claroBodyStart', false);
-                $this->template->setBlockDisplay('claroBodyEnd', false);
+                $this->assign('claroBodyStart', false);
+                $this->assign('claroBodyEnd', false);
             }
             
-            $this->template->addReplacement('content', $this->getContent() );
+            $this->assign('content', $this->getContent() );
             
-            $output = $this->template->render();
+            $output = parent::render();
             
             if ( $this->inPopup )
             {

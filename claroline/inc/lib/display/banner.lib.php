@@ -6,12 +6,12 @@
      * Class used to configure and display the page banners
      *
      * @version     1.9 $Revision$
-     * @copyright   2001-2007 Universite catholique de Louvain (UCL)
+     * @copyright   2001-2008 Universite catholique de Louvain (UCL)
      * @author      Claroline Team <info@claroline.net>
      * @author      Frederic Minne <zefredz@claroline.net>
      * @license     http://www.gnu.org/copyleft/gpl.html
      *              GNU GENERAL PUBLIC LICENSE version 2 or later
-     * @package     DISPLAY
+     * @package     display
      */
     
     if ( count( get_included_files() ) == 1 )
@@ -20,33 +20,32 @@
     }
     
     uses ( 'display/breadcrumbs.lib', 'display/viewmode.lib' );
-
-    class ClaroBanner implements Display
+    
+    class ClaroBanner extends CoreTemplate
     {
-        private static $instance = false;
+        protected static $instance = false;
         
-        private $template;
-        private $hidden = false;
-        private $bcHidden = false;
+        protected $hidden = false;
         public $breadcrumbs;
         public $viewmode;
 
-        private function __construct()
+        public function __construct()
         {
             $this->breadcrumbs = ClaroBreadCrumbs::getInstance();
             $this->viewmode = ClaroViewMode::getInstance();
-            $file = new ClaroTemplateLoader('banner.tpl');
-            $this->template = $file->load();
+            parent::__construct('banner.tpl.php');
+            
+            $this->breadcrumbLine = true;
         }
         
         public static function getInstance()
         {
-            if ( ! ClaroBanner::$instance )
+            if ( ! self::$instance )
             {
-                ClaroBanner::$instance = new ClaroBanner;
+                self::$instance = new ClaroBanner;
             }
 
-            return ClaroBanner::$instance;
+            return self::$instance;
         }
         
         /**
@@ -70,7 +69,7 @@
          */
         public function hideBreadcrumbLine()
         {
-            $this->bcHidden = true;
+            $this->breadcrumbLine = false;  
         }
         
         /**
@@ -87,31 +86,10 @@
             $this->_prepareCampusBanner();
             $this->_prepareUserBanner();
             $this->_prepareCourseBanner();
-            $this->_prepareBreadCrumbLine();
             
-            return $this->template->render();;
+            return parent::render();
         }
         
-        /**
-         * Prepare the bread crumps
-         */
-        private function _prepareBreadCrumbLine()
-        {
-            if ( $this->bcHidden )
-            {
-                $this->template->setBlockDisplay('breadcrumbLine', false);
-            }
-            else
-            {
-                $this->template->addReplacement( 'breadcrumbs', $this->breadcrumbs->render() );
-                $this->template->addReplacement( 'viewmode', $this->viewmode->render() );
-                $this->template->setBlockDisplay('breadcrumbLine', true);
-            }
-        }
-        
-        /**
-         * Prepare the course banner
-         */
         private function _prepareCourseBanner()
         {
             if ( claro_is_in_a_course() )
@@ -138,6 +116,7 @@
                         if ($_courseToolList[ $_courseToolKey ] [ 'name' ] =='')
                         $_courseToolList[ $_courseToolKey ] [ 'name' ] = get_lang('No name');
                     }
+                    
                     $courseToolSelector = '<form action="'.get_path('clarolineRepositoryWeb').'redirector.php" name="redirector" method="post">' . "\n"
                     . '<select name="url" size="1" onchange="top.location=redirector.url.options[selectedIndex].value" >' . "\n\n";
 
@@ -197,14 +176,14 @@
                     . '</noscript>' . "\n"
                     . '</form>' . "\n\n";
                     
-                    $this->template->addReplacement('courseToolSelector', $courseToolSelector );
+                    $this->assign('courseToolSelector', $courseToolSelector );
                 }
                 
-                $this->template->setBlockDisplay('courseBanner', true);
+                $this->showBlock('courseBanner');
             }
             else
             {
-                $this->template->setBlockDisplay('courseBanner', false);
+                $this->hideBlock('courseBanner');
             }
         }
         
@@ -251,14 +230,14 @@
                     . get_lang('Logout').'</a>'
                     ;
 
-                $this->template->addReplacement('userToolList'
+                $this->assign('userToolList'
                     , claro_html_menu_horizontal($userToolUrlList));
                     
-                $this->template->setBlockDisplay('userBanner', true);
+                $this->showBlock('userBanner');
             }
             else
             {
-                $this->template->setBlockDisplay('userBanner', false);
+                $this->hideBlock('userBanner');
             }
         }
         
@@ -322,7 +301,7 @@
             
             $campus['institution'] = $institutionNameOutput;
 
-            $this->template->addReplacement( 'campus', $campus );
+            $this->assign( 'campus', $campus );
         }
     }
 ?>

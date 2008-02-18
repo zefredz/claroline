@@ -11,35 +11,33 @@
      * Claroline page footer
      *
      * @version     1.9 $Revision$
-     * @copyright   2001-2007 Universite catholique de Louvain (UCL)
+     * @copyright   2001-2008 Universite catholique de Louvain (UCL)
      * @author      Claroline Team <info@claroline.net>
      * @author      Frederic Minne <zefredz@claroline.net>
      * @license     http://www.gnu.org/copyleft/gpl.html
      *              GNU GENERAL PUBLIC LICENSE version 2 or later
-     * @package     DISPLAY
+     * @package     display
      */
-
-    class ClaroFooter implements Display
+     
+    class ClaroFooter extends CoreTemplate
     {
         private static $instance = false;
         
-        private $template;
         private $hidden = false;
 
-        private function __construct()
+        public function __construct()
         {
-            $file = new ClaroTemplateLoader('footer.tpl');
-            $this->template = $file->load();
+            parent::__construct('footer.tpl.php');
         }
         
         public static function getInstance()
         {
-            if ( ! ClaroFooter::$instance )
+            if ( ! self::$instance )
             {
-                ClaroFooter::$instance = new ClaroFooter;
+                self::$instance = new ClaroFooter;
             }
 
-            return ClaroFooter::$instance;
+            return self::$instance;
         }
         
         function hide()
@@ -60,8 +58,6 @@
             }
             
             $currentCourse =  claro_get_current_course_data();
-            
-            $contact = array();
             
             if ( claro_is_in_a_course() )
             {
@@ -87,11 +83,11 @@
                 
                 $courseManagerOutput .= '</div>';
                 
-                $contact['courseManager'] = $courseManagerOutput;
+                $this->assign( 'courseManager', $courseManagerOutput );
             }
             else
             {
-                $contact['courseManager'] = '';
+                $this->assign( 'courseManager', '' );
             }
             
             $platformManagerOutput = '<div id="platformManager">'
@@ -112,7 +108,7 @@
 
             $platformManagerOutput .= '</div>';
             
-            $contact['platformManager'] = $platformManagerOutput;
+            $this->assign( 'platformManager', $platformManagerOutput );
             
             $poweredByOutput = '<div id="poweredBy">'
                 . get_lang('Powered by')
@@ -120,12 +116,10 @@
                 . '&copy; 2001 - 2008'
                 . '</div>'
                 ;
-                
-            $contact['poweredBy'] = $poweredByOutput;
             
-            $this->template->addReplacement( 'contact', $contact );
+            $this->assign( 'poweredBy', $poweredByOutput );
             
-            return $this->template->render();
+            return parent::render();
         }
-    }
+    } 
 ?>
