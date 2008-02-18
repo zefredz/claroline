@@ -6,12 +6,8 @@
 <meta http-equiv="Content-Script-Type" content="text/javascript" />
 <meta http-equiv="Content-Style-Type" content="text/css" />
 <meta http-equiv="Content-Type" content="text/HTML; charset=<?php echo get_locale('charset');?>"  />
-<link rel="stylesheet" type="text/css" 
-    href="<?php echo get_path('clarolineRepositoryWeb');?>css/<?php echo get_conf('claro_stylesheet');?>" 
-    media="screen, projection, tv" />
-<link rel="stylesheet" type="text/css" 
-    href="<?php echo get_path('clarolineRepositoryWeb');?>css/print.css" 
-    media="print" />
+<?php echo link_to_css( get_conf('claro_stylesheet'), 'screen, projection, tv' );?>
+<?php echo link_to_css( 'print.css', 'print' );?>
 <link rel="top" href="<?php get_path('url'); ?>/index.php" title="" />
 <link href="http://www.claroline.net/documentation.htm" rel="Help" />
 <link href="http://www.claroline.net/credits.htm" rel="Author" />
