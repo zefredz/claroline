@@ -30,6 +30,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @return array of array(`id`, `titre`, `contenu`, `day`, `hour`, `lasting`, `visibility`)
  * @since  1.7
  */
+ 
+function claro_var_dump($dump)
+{
+    print('<pre>'); 
+    var_dump($dump);
+    print('</pre>'); 
+}
 
 function agenda_get_item_list($context, $order='DESC')
 {
@@ -52,7 +59,7 @@ function agenda_get_item_list($context, $order='DESC')
         ORDER BY `day` " . ('DESC' == $order?'DESC':'ASC') . "
         , `hour` " . ('DESC' == $order?'DESC':'ASC');
 
-    return claro_sql_query_fetch_all($sql);
+    return claro_sql_query_fetch_all($sql); 
 }
 
 /**
@@ -225,6 +232,78 @@ function agenda_set_item_visibility($event_id, $visibility, $course_id=NULL)
  * @param integer $year
  * @return array list of items
  */
+ 
+function get_agenda_items_list($thisCourse, $month, $year)
+{
+    // **** Attention !!! A changer ...
+    $tbl = claro_sql_get_course_tbl(get_conf('courseTablePrefix'). $thisCourse['db'].get_conf('dbGlu'));
+    // ****
+    
+    $sql = "SELECT `id`,
+                   `titre`   AS `title`,
+                   `contenu` AS content,
+                                `day`,
+                                `hour`,
+                                `lasting`
+            FROM `" . $tbl['calendar_event'] . "`
+            WHERE MONTH(`day`) = " . (int) $month . "
+              AND YEAR(`day`)  = " . (int) $year  . "
+              AND visibility   = 'SHOW'
+            ORDER BY `day` ASC, `hour` ASC";
+    
+    return claro_sql_query_fetch_all_rows($sql);
+} 
+ 
+function get_agenda_items_compact_mode($userCourseList, $month, $year)
+{
+    
+    $courseDigestList = array();
+    
+    // get agenda-items for every course
+    foreach( $userCourseList as $thisCourse)
+    {
+        
+        $courseEventList = get_agenda_items_list($thisCourse, $month, $year);
+        
+        if ( is_array($courseEventList) )
+        {
+            foreach($courseEventList as $thisEvent )
+            {
+                $eventLine = trim(strip_tags($thisEvent['title']));
+
+                if ( $eventLine == '' )
+                {
+                    $eventContent = trim(strip_tags($thisEvent['content']));
+                    $eventLine    = substr($eventContent, 0, 60) . (strlen($eventContent) > 60 ? ' (...)' : '');
+                }
+                
+                $eventDate = explode('-', $thisEvent['day']);
+                $day       = intval($eventDate[2]);
+                
+                if(!array_key_exists($day, $courseDigestList))
+                {
+                    $courseDigestList[$day] = array();
+                    $courseDigestList[$day]['eventList'] = array();
+                    $courseDigestList[$day]['date'] = $thisEvent['day'];
+                }
+
+                $courseDigestList[$day]['eventList'][] =
+                    array(
+                        'hour' => $thisEvent['hour'],
+                        'courseOfficialCode' => $thisCourse['officialCode'],
+                        'courseSysCode' => $thisCourse['sysCode'],
+                        'content' => $eventLine,
+                        'url' => get_path('url').'/claroline/calendar/agenda.php?cidReq=' . $thisCourse['sysCode'] 
+                    );
+
+            }
+        }
+    }
+
+    return $courseDigestList;
+    
+}
+
 function get_agenda_items($userCourseList, $month, $year)
 {
     $items = array();
@@ -233,21 +312,9 @@ function get_agenda_items($userCourseList, $month, $year)
 
     foreach( $userCourseList as $thisCourse)
     {
-        $tbl = claro_sql_get_course_tbl(get_conf('courseTablePrefix'). $thisCourse['db'].get_conf('dbGlu'));
-
-        $sql = "SELECT `id`,
-                       `titre`   AS `title`,
-                       `contenu` AS content,
-                                    `day`,
-                                    `hour`,
-                                    `lasting`
-                FROM `" . $tbl['calendar_event'] . "`
-                WHERE MONTH(`day`) = " . (int) $month . "
-                  AND YEAR(`day`)  = " . (int) $year  . "
-                  AND visibility   = 'SHOW'";
-
-        $courseEventList = claro_sql_query_fetch_all($sql);
-
+        
+        $courseEventList = get_agenda_items_list($thisCourse, $month, $year);
+        
         if ( is_array($courseEventList) )
 
         foreach($courseEventList as $thisEvent )
@@ -300,13 +367,7 @@ function get_agenda_items($userCourseList, $month, $year)
             $agendaItemList[$agendaday] .= $val;
         }
     }
-    /*
-    $courseDigestList['date'              ] = '';
-    $courseDigestList['hour'              ] = '';
-    $courseDigestList['courseOfficialCode'] = '';
-    $courseDigestList['courseSysCode'     ] = '';
-    $courseDigestList['content'           ] = '';
-*/
+    
     return $agendaItemList;
     
 }
@@ -436,20 +497,15 @@ function claro_html_monthly_calendar($agendaItemList, $month, $year, $weekdaynam
 
                 $dayheader = $curday ;
 
-
                 $htmlStream .= '<td height="40" width="12%" valign="top" '
                 .    'class="' . $weekdayType 
                 .    ($compactMode && isset($agendaItemList[$curday]) ? ' dayWithEvent': '')
                 .    '">'
                 ;
-                
+
                 if ($compactMode && isset($agendaItemList[$curday]) )
                 {
-                    $matches = array();
-                    
-                    preg_match( '/href="([^"]+)/', $agendaItemList[$curday], $matches );
-                    
-                    $htmlStream .= '<a href="'.$matches[1].'">' . $dayheader .'</a>';
+                    $htmlStream .= '<a href="'.$agendaItemList[$curday]['eventList'][0]['url'].'">' . $dayheader .'</a>';    
                 }
                 else
                 {
