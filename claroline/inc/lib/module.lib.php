@@ -565,6 +565,10 @@ function get_module_main_tbl( $arrTblName )
     return $arrToReturn;
 }
 
+/**
+ * Load language file for a module
+ * @param   $module module label (default null for current module)
+ */
 function load_module_language ( $module = null )
 {
     global $_lang ;
@@ -609,6 +613,40 @@ function load_module_language ( $module = null )
     else
     {
         return false;
+    }
+}
+
+/**
+ * Load configuration file for a module
+ * @param   $module module label (default null for current module)
+ */
+function load_module_config ( $moduleLabel = null )
+{
+    if ( !$moduleLabel )
+    {
+        $moduleLabel = get_current_module_label();
+    }
+    
+    // load main config file
+    $mainConfigFile = claro_get_conf_repository() . $moduleLabel . '.conf.php';
+    
+    if ( file_exists( $mainConfigFile ) )
+    {
+        include $mainConfigFile;
+    }
+    
+    // check if config overwritten in course and load config file
+    if ( claro_is_in_a_course() )
+    {
+        $courseConfigFile = get_conf('coursesRepositorySys') 
+            . claro_get_current_course_data('path') 
+            . '/conf/' . $moduleLabel . '.conf.php'
+            ;
+        
+        if ( file_exists($courseConfigFile))
+        {
+            include $courseConfigFile;
+        }
     }
 }
 ?>
