@@ -19,22 +19,9 @@
         die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
     }
     
-    class PHP_Error_Exception extends Exception
-    {
-       public function __construct ( $code, $message, $file, $line )
-       {
-           parent::__construct($message, $code);
-           $this->file = $file;
-           $this->line = $line;
-       }
-    }
+    uses ( 'core/exception.lib' );
     
-    function exception_error_handler( $code, $message, $file, $line )
-    {
-        throw new PHP_Error_Exception( $code, $message, $file, $line );
-    }
-    
-    function ob_exception_handler( $e )
+    function claro_ob_exception_handler( $e )
     {
         ob_end_clean();
         
@@ -45,7 +32,7 @@
     {
         // set error handlers for output buffering :
         set_error_handler('exception_error_handler');
-        set_exception_handler('ob_exception_handler');
+        set_exception_handler('claro_ob_exception_handler');
         // start output buffering
         ob_start();
     }
