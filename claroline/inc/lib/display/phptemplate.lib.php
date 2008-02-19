@@ -19,29 +19,7 @@
         die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
     }
     
-    uses ( 'core/helpers.lib' );
-    
-    class PHP_Error_Exception extends Exception
-    {
-       public function __construct ( $code, $message, $file, $line )
-       {
-           parent::__construct($message, $code);
-           $this->file = $file;
-           $this->line = $line;
-       }
-    }
-    
-    function exception_error_handler( $code, $message, $file, $line )
-    {
-        throw new PHP_Error_Exception( $code, $message, $file, $line );
-    }
-    
-    function ob_exception_handler( $e )
-    {
-        ob_end_clean();
-        
-        echo '<pre>' . $e->__toString() . '</pre>'; 
-    }
+    uses ( 'core/helpers.lib', 'display/ob.lib' );
     
     class PhpTemplate implements Display
     {
@@ -61,18 +39,10 @@
         {
             if ( file_exists( $this->_templatePath ) )
             {
-                // set error handlers for output buffering :
-                set_error_handler('exception_error_handler');
-                set_exception_handler('ob_exception_handler');
-                
-                ob_start();
+                claro_ob_start();
                 include $this->_templatePath;
-                $render = ob_get_contents();
-                ob_end_clean();
-                
-                // restore original error handlers
-                restore_exception_handler();
-                restore_error_handler();
+                $render = claro_ob_get_contents();
+                claro_ob_end_clean();
                 
                 return $render;
             }
