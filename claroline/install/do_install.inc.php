@@ -231,6 +231,13 @@ if ($runfillMainDb && $runfillStatsDb)
     // Build path
 
     $rootSys                    = str_replace("\\","/",realpath($pathForm)."/") ;
+    
+    // remove double-slash at the end of rootSys
+    if ( substr( $rootSys, -2 ) == '//' )
+    {
+        $rootSys = substr($rootSys, 0, -1);
+    }
+    
     $coursesRepositoryAppend    = '';
     $coursesRepositorySys       = $rootSys . $courseRepositoryForm;
     if (! file_exists($coursesRepositorySys)) claro_mkdir($coursesRepositorySys, CLARO_FILE_PERMISSIONS,true);
