@@ -29,86 +29,88 @@ class mycours extends portlet
     
     function renderContent()
     {
+        
+        global $platformLanguage;
+        
         $output = '';
         
         $personnalCourseList = get_user_course_list(claro_get_current_user_id());
 
         // get the list of personnal courses marked as contening new events
-        # $date            = $claro_notifier->get_notification_date(claro_get_current_user_id());
-        # $modified_course = $claro_notifier->get_notified_courses($date,claro_get_current_user_id());
         
         if ( count($personnalCourseList) )
         {
-        
-        $output .= '<ul id="portletMycours">'."\n";
+            $output .= '<dl>'."\n";
 
-        foreach($personnalCourseList as $thisCourse)
-        {
-            // If the course contains new things to see since last user login,
-            // The course name will be displayed with the 'hot' class style in the list.
-            // Otherwise it will name normally be displaied
-
-            # if (in_array ($thisCourse['sysCode'], $modified_course)) $classItem = ' hot';
-            # else                                                     $classItem = '';
-
-            // show course language if not the same of the platform
-            if ( $platformLanguage != $thisCourse['language'] )
-            {
-                if ( !empty($langNameOfLang[$thisCourse['language']]) )
+            foreach($personnalCourseList as $thisCourse)
+            {            
+                if ($thisCourse['isCourseManager'] == 1)
                 {
-                    $course_language_txt = ' - ' . ucfirst($langNameOfLang[$thisCourse['language']]);
+                    $userStatusImg = '&nbsp;&nbsp;<img src="' . get_icon('manager') . '" alt="'.get_lang('Course manager').'" />';
                 }
                 else
                 {
-                    $course_language_txt = ' - ' . ucfirst($thisCourse['language']);
+                    $userStatusImg = '';
                 }
+                
+                // show course language if not the same of the platform
+                if ( $platformLanguage != $thisCourse['language'] )
+                {
+                    if ( !empty($langNameOfLang[$thisCourse['language']]) )
+                    {
+                        $course_language_txt = ' - ' . ucfirst($langNameOfLang[$thisCourse['language']]);
+                    }
+                    else
+                    {
+                        $course_language_txt = ' - ' . ucfirst($thisCourse['language']);
+                    }
+                }
+                else
+                {
+                    $course_language_txt = '';
+                }
+                
+/*            
+                if ( get_conf('course_order_by') == 'official_code' )
+                {
+                    $course_order_by = $thisCourse['officialCode'] . ' - ' . $thisCourse['title'];
+                }
+                else
+                {
+                    $course_order_by = $thisCourse['title'] . ' (' . $thisCourse['officialCode'] . ')';
+                }
+                */
+                
+                $course_order_by = $thisCourse['title'];
+                
+                $url = get_path('url') . '/claroline/course/index.php?cid=' 
+                .    htmlspecialchars($thisCourse['sysCode'])
+                ;
+
+                $output .= '<dt>' . "\n"
+                .    '<img class="iconDefinitionList" src="' . get_icon('course') . '" alt="' . get_lang('Icon course') . '" />'
+                .    '<small>'
+                .    '<a href="' . $url . '">'
+                .    $course_order_by
+                .    $userStatusImg
+                .    '</a>' . "\n"
+                .    '</small>' . "\n"
+                .    '</dt>' . "\n"
+                .    '<dd>'
+                .    '<small>'
+                .    '<a href="' . $url . '">'
+                .    $thisCourse['officialCode'] 
+                .    '</a>' . "\n"
+                .    '<small>' . "\n"
+                .    ' : ' . $thisCourse['titular'] . $course_language_txt
+                .    '</small>' . "\n"
+                .    '</small>' . "\n"
+                .    '</dd>' ."\n"
+                ;
             }
-            else
-            {
-                $course_language_txt = '';
-            }
 
-            $output .= '<li class="item' . $classItem . '">' . "\n"
-            .    '<a href="' . get_path('url') . '/claroline/course/index.php?cid=' . htmlspecialchars($thisCourse['sysCode']) . '">';
-
-            if ( get_conf('course_order_by') == 'official_code' )
-            {
-                $output .= $thisCourse['officialCode'] . ' - ' . $thisCourse['title'];
-            }
-            else
-            {
-                $output .= $thisCourse['title'] . ' (' . $thisCourse['officialCode'] . ')';
-            }
-
-            if ($thisCourse['isCourseManager'] == 1)
-            {
-                $userStatusImg = '&nbsp;&nbsp;<img src="' . get_path('imgRepositoryWeb') . 'manager.gif" alt="'.get_lang('Course manager').'" />';
-            }
-            else
-            {
-                $userStatusImg = '';
-            }
-
-
-            $output .= '</a>'
-            .    $userStatusImg
-            .    '<br />'
-            .    '<small>' . $thisCourse['titular'] . $course_language_txt . '</small>' . "\n"
-            .    '</li>' ."\n"
-            ;
-
-        } // end foreach($personnalCourseList as $thisCourse)
-
-        $output .= '</ul>' . "\n";
+            $output .= '</dl>' . "\n";
         }
-        
-        //display legend if required
-        # if( !empty($modified_course) )
-        # {
-        #     $output .= '<br />'
-        #     .    '<small><span class="item hot"> '.get_lang('denotes new items').'</span></small>'
-        #     .     '</td>' . "\n";
-        # }
                 
         $this->content = $output;
 

@@ -59,7 +59,7 @@
         while ( false !== ($file = readdir($handle) ) )
         {
             // skip '.', '..' and 'CVS'
-            if ( file == '.' || $file == '..' || $file == 'CVS' ) continue;
+            if ( $file == '.' || $file == '..' || $file == 'CVS' ) continue;
 
             // skip folders
             if ( !is_file($dirname.$file) ) continue ;

@@ -19,7 +19,7 @@
  */
 
 
-class mytasks extends portlet
+class mybox extends portlet
 {
     function __construct()
     {
@@ -33,7 +33,7 @@ class mytasks extends portlet
     
     function renderTitle()
     {
-        $this->title = get_lang('My tasks');
+        $this->title = get_lang('My MailBox');
         return $this->title;
     }
 }

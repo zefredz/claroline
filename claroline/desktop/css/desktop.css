@@ -21,6 +21,23 @@
 	background: #FFF;
 }
 
+.portlet dl, .portlet dt, .portlet dd
+{
+    margin: 0;
+	padding: 0;
+}
+
+.portlet dt
+{
+    margin-top: 0.5em;
+}
+
+.portlet .iconDefinitionList
+{
+    list-style-position:inside;
+    margin:0 0.5em 0 0;
+    padding:0;
+}
 /* portlet myprofil */
  
  #portletMyprofil #picture
@@ -56,16 +73,6 @@
   font-weight: bold;
  }
 
-  /* portlet mycours */
-
-#portletMycours 
-{
-list-style-image:url(claroline/img/course.gif);
-list-style-position:inside;
-margin:0.5em 0 0.5em 0;
-padding:0;
-}  
-
 /* portlet mycalendar */
 
  #portletMycalendar .calendar
@@ -81,17 +88,16 @@ padding:0;
  {
   margin-left: 25%;
   padding: 0 1em 0.1em 1em;
-  max-width: 5em;
   border-left: 1px solid #ccc;
  }
  
-.dayWithEvent 
+ #portletMycalendar .dayWithEvent 
 {
   background-color:silver;
 }
 
 /* portlet stat */
-
+/*
  .statBlock
  {
  	width: 100%;
@@ -122,10 +128,3 @@ padding:0;
  	font-size: small;
  	padding: 3px;
  }
- 
- .test {
-float: right;
-margin-right: 10px;
-padding-top: 20px;
- }
- 
