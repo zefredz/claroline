@@ -3,7 +3,7 @@
     // vim: expandtab sw=4 ts=4 sts=4:
     
     /**
-     * Description
+     * PHP-based templating system
      *
      * @version     1.9 $Revision$
      * @copyright   2001-2008 Universite catholique de Louvain (UCL)
@@ -19,22 +19,40 @@
         die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
     }
     
+    // load helpers and output buffering libs
     uses ( 'core/helpers.lib', 'display/ob.lib' );
     
+    /**
+     * Simple PHP-based template class
+     */
     class PhpTemplate implements Display
     {
         protected $_templatePath;
         
+        /**
+         * Constructor
+         * @param   string $templatePath path to the php template file
+         */
         public function __construct( $templatePath )
         {
             $this->_templatePath = $templatePath;
         }
         
+        /**
+         * Assign a value to a variable
+         * @param   string $name
+         * @param   mixed $value
+         */
         public function assign( $name, $value )
         {
             $this->$name = $value;
         }
         
+        /**
+         * Render the template
+         * @return  string
+         * @throws  Exception if file not found or error/exception in the template
+         */
         public function render()
         {
             if ( file_exists( $this->_templatePath ) )
@@ -51,8 +69,35 @@
                 throw new Exception("Template file not found {$this->templatePath}");
             }
         }
+        
+        /**
+         * Show a block in the template given its name 
+         * (ie set the variable with the block name to true)
+         * @param   string $blockName
+         */
+        public function showBlock( $blockName )
+        {
+            $this->$blockName = true;
+        }
+        
+        /**
+         * Hide a block in the template given its name 
+         * (ie set the variable with the block name to false)
+         * @param   string $blockName
+         */
+        public function hideBlock( $blockName )
+        {
+            $this->$blockName = false;
+        }
     }
     
+    /**
+     * Extended PHP-based template class with preloaded variables for
+     *  - current course
+     *  - current user
+     * Search for template files in platform/templates and in claroline/inc/templates
+     * @throws  Exception if template file not found
+     */
     class CoreTemplate extends PhpTemplate
     {
         public function __construct( $templatePath )
@@ -82,16 +127,6 @@
         {
             $this->course = claro_get_current_course_data();
             $this->user = claro_get_current_user_data();
-        }
-        
-        public function showBlock( $blockName )
-        {
-            $this->$blockName = true;
-        }
-        
-        public function hideBlock( $blockName )
-        {
-            $this->$blockName = false;
         }
     }
 ?>
