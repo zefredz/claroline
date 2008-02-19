@@ -37,6 +37,102 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @since  1.7
  */
 
+function announcement_get_course_item_list($thisCourse, $limit = null, $startTime = null, $visibleOnly = true )
+{    
+    // **** Attention !!! A changer ...
+    $tableAnn = get_conf('courseTablePrefix') . $thisCourse['db'] . get_conf('dbGlu') . 'announcement';
+    // ****
+    
+    $sql = "SELECT '" . addslashes($thisCourse['sysCode']     ) ."' AS `courseSysCode`,\n"
+            . "'" . addslashes($thisCourse['officialCode']) ."'     AS `courseOfficialCode`,\n"
+            . "'CLANN'                                              AS `toolLabel`,\n"
+            . "CONCAT(`temps`, ' ', '00:00:00')                     AS `date`,\n"
+            . "CONCAT(`title`,' - ',`contenu`)                      AS `content`\n"
+            . "FROM `" . $tableAnn . "`\n"
+            . "WHERE CONCAT(`title`, `contenu`) != ''\n"
+            . ( $startTime ? '' : "AND DATE_FORMAT( `temps`, '%Y %m %d') >= '".date('Y m d', (double)$startTime)."'\n" )
+            . ( $visibleOnly ? "  AND visibility = 'SHOW'\n" : '' )
+            . "ORDER BY `date` DESC\n"
+            . ( $limit ? "LIMIT " . (int) $limit : '' )
+            ;
+
+    return claro_sql_query_fetch_all_cols($sql);
+} 
+ 
+function announcement_get_course_item_list_portlet($thisCourse, $limit = null, $startTime = null, $visibleOnly = true )
+{    
+    // **** Attention !!! A changer ...
+    $tableAnn = get_conf('courseTablePrefix') . $thisCourse['db'] . get_conf('dbGlu') . 'announcement';
+    // ****
+    
+    $sql = "SELECT '" . addslashes($thisCourse['sysCode']     ) ."' AS `courseSysCode`,\n"
+            . "'" . addslashes($thisCourse['officialCode']) ."'     AS `courseOfficialCode`,\n"
+            . "'CLANN'                                              AS `toolLabel`,\n"
+            . "CONCAT(`temps`, ' ', '00:00:00')                     AS `date`,\n"
+            . "CONCAT(`title`,' - ',`contenu`)                      AS `content`\n"
+            . "FROM `" . $tableAnn . "`\n"
+            . "WHERE CONCAT(`title`, `contenu`) != ''\n"
+            . ( $startTime ? '' : "AND DATE_FORMAT( `temps`, '%Y %m %d') >= '".date('Y m d', (double)$startTime)."'\n" )
+            . ( $visibleOnly ? "  AND visibility = 'SHOW'\n" : '' )
+            . "ORDER BY `date` DESC\n"
+            . ( $limit ? "LIMIT " . (int) $limit : '' )
+            ;
+
+    return claro_sql_query_fetch_all_rows($sql);
+} 
+
+function announcement_get_items_portlet($personnalCourseList)
+{
+    
+    $courseDigestList = array();
+    
+    foreach($personnalCourseList as $thisCourse)
+    {
+        $courseEventList = announcement_get_course_item_list_portlet($thisCourse, get_conf('announcementPortletMaxItems', 3));
+
+        if ( is_array($courseEventList) )
+        {
+            foreach($courseEventList as $thisEvent)
+            {
+                
+                $eventTitle = trim(strip_tags($thisCourse['title']));
+                if ( $eventTitle == '' )
+                {
+                    $eventTitle    = substr($eventTitle, 0, 60) . (strlen($eventTitle) > 60 ? ' (...)' : '');
+                }
+                
+                $eventContent = trim(strip_tags($thisEvent['content']));
+                if ( $eventContent == '' )
+                {
+                    $eventContent    = substr($eventContent, 0, 60) . (strlen($eventContent) > 60 ? ' (...)' : '');
+                }
+              
+                $courseOfficialCode = $thisEvent['courseOfficialCode'];
+
+                if(!array_key_exists($courseOfficialCode, $courseDigestList))
+                {
+                    $courseDigestList[$courseOfficialCode] = array();
+                    $courseDigestList[$courseOfficialCode]['eventList'] = array();
+                    $courseDigestList[$courseOfficialCode]['courseOfficialCode'] = $courseOfficialCode;
+                    $courseDigestList[$courseOfficialCode]['title'] = $eventTitle;
+                    $courseDigestList[$courseOfficialCode]['url'] = get_path('url').'/claroline/announcements/announcements.php?cidReq=' . $thisEvent['courseSysCode'];
+                } 
+                
+                $courseDigestList[$courseOfficialCode]['eventList'][] =
+                    array(
+                        'courseSysCode' => $thisEvent['courseSysCode'],
+                        'toolLabel' => $thisEvent['toolLabel'],
+                        'content' => $eventContent,
+                        'date' => $thisEvent['date']
+                    );
+                
+            }
+        }
+    }  
+    
+    return $courseDigestList;
+}
+ 
 function announcement_get_item_list($context, $order='DESC')
 {
     $tbl = claro_sql_get_course_tbl(claro_get_course_db_name_glued($context[CLARO_CONTEXT_COURSE]));
