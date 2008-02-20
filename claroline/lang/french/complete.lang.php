@@ -133,6 +133,7 @@ $_lang['All modules of this course are already used in this learning path.'] = '
 $_lang['All pages'] = 'Toutes les pages';
 $_lang['All platform courses'] = 'Tous les cours de la plate-forme';
 $_lang['All profiles'] = 'Tous les profils';
+$_lang['All submissions'] = 'Tous les travaux soumis';
 $_lang['All users have been sucessfully unregistered from the class'] = 'Tous les utilisateurs ont été radiés de la classe avec succès';
 $_lang['All visible submissions'] = 'Toutes les soumissions visibles';
 $_lang['Allow a course manager to browse and link external resources reachable by an url'] = 'Autoriser un gestionnaire de cours de parcourir et attacher une ressource accessible par une url';
@@ -388,7 +389,7 @@ $_lang['Course title'] = 'Titre du cours';
 $_lang['Course title needed'] = 'L\'intitulé est obligatoire';
 $_lang['Course tools'] = 'Outils de cours';
 $_lang['Course users list'] = 'Liste des utilisateurs du cours';
-$_lang['Course visitor (the user has an account on the platform, but is not enrolled in the course)'] = 'Visiteur du cours (l\'utilisateur est authentifié, mais n\'est pas inscrit au cours).';
+$_lang['Course visitor (the user has an account on the platform, but is not enrolled in the course)'] = 'Visiteur du cours (l\'utilisateur est authentifié, mais nest pas inscrit au cours).';
 $_lang['Course visitor (the user has no account on the platform)'] = 'Visiteur du cours (l\'utilisateur n\'est pas authentifié)';
 $_lang['Courses'] = 'Cours';
 $_lang['Courses : %disk_usage (perhaps with others directory)'] = 'Cours : %disk_usage (éventuellement avec d\'autres dossiers)';
@@ -520,8 +521,10 @@ $_lang['Documents downloaded by the student'] = 'Documents téléchargés par l\'ét
 $_lang['Documents help'] = 'Aide de l\'outil Documents';
 $_lang['Don\'t display email of the users to anonymous (to avoid spam)'] = 'Ne pas afficher l\'adresse email des utilisateurs aux anonymes (pour éviter les spams)';
 $_lang['Down'] = 'Descendre';
+$_lang['Download'] = 'Télécharger';
 $_lang['Download current directory'] = 'Télécharger ce dossier';
 $_lang['Download file'] = 'Télécharger le fichier';
+$_lang['Download submissions'] = 'Télécharger les travaux soumis';
 $_lang['E-mail'] = 'E-mail';
 $_lang['ERROR: The format you gave is not compatible with Claroline'] = 'ERREUR : le format donné n\'est pas compatible avec Claroline';
 $_lang['Edit'] = 'Éditer';
@@ -993,7 +996,7 @@ $_lang['New topic'] = 'Nouveau sujet';
 $_lang['New users will receive an e-mail with their user name and password'] = 'Les nouveaux utilisateurs recevront un e-mail avec leur identifiant et mot de passe';
 $_lang['New window for documents'] = 'Ouvrir les documents dans une nouvelle fenêtre';
 $_lang['New window for submitted files'] = 'Ouvrir les fichiers dans une nouvelle fenête';
-$_lang['Newest first'] = 'Inverser';
+$_lang['Newest first'] = 'Inverser ordre';
 $_lang['Next'] = 'Suivant';
 $_lang['Next day'] = 'Jour suivant';
 $_lang['Next month'] = 'Mois suivant';
@@ -1093,7 +1096,7 @@ $_lang['Official Code can be empty'] = 'Le code officel peut être vide';
 $_lang['Official Code is unique'] = 'Le code officiel est unique';
 $_lang['Official code'] = 'Code officiel';
 $_lang['Ok'] = 'Ok';
-$_lang['Oldest first'] = 'Inverser';
+$_lang['Oldest first'] = 'Inverser ordre';
 $_lang['On'] = 'Activé';
 $_lang['On an unique page'] = 'Questions sur une seule page';
 $_lang['Once a user logs to the Claroline platform a cookie is sent to the user browser if the authentication process succeeds. The cookie value is also stored in a internal table of the Claroline platform for a certain time. If requested, the Claroline SSO '] = 'Une fois qu\'un utilisateur se loggue à la plate-forme Claroline un cookie est envoyé au navigateur de l\'utilisateur si l\'authentification réussie. La valeur du cookie est aussi stockée dans une table de la plate-forme Claroline pour un certain moment.';
@@ -1352,6 +1355,7 @@ $_lang['Submission'] = 'Soumission';
 $_lang['Submission type'] = 'Type de soumission';
 $_lang['Submission visibility'] = 'Visibilité de la soumission';
 $_lang['Submissions'] = 'Soumissions';
+$_lang['Submissions posted or modified after date :'] = 'Travaux soumis ou modifiés après le :';
 $_lang['Submit'] = 'Envoyer';
 $_lang['Submit a work'] = 'Nouvelle soumission';
 $_lang['Submit all and finish'] = 'Mettre fin au test';
@@ -1411,6 +1415,7 @@ $_lang['There is no category available !'] = 'Aucune faculté n\'est disponible !
 $_lang['There is no course matching such criteria'] = 'Aucun cours à afficher';
 $_lang['There is no exercise for the moment'] = 'Il n\'y a aucun exercice actuellement';
 $_lang['There is no start asset defined for this module.'] = 'Il n\'y a pas de ressource de démarrage définie pour ce module.';
+$_lang['There is no submission available for download with these settings.'] = 'Aucune soumission ne correspond à vos critères';
 $_lang['There is no user account with this email address.'] = 'Il n\'existe aucun compte utilisateur lié à cette adresse.';
 $_lang['These informations are displayed on the footer of the platform'] = 'Ces informations sont affichées dans le bas de page';
 $_lang['This category already exists!'] = 'Cette catégorie existe déjà !';
@@ -1627,6 +1632,7 @@ $_lang['Visible'] = 'Visible';
 $_lang['Visible for all users'] = 'Visible par tous les utilisateurs';
 $_lang['Visits'] = 'visites';
 $_lang['WARNING ! You have just lost your session on the server.'] = 'ATTENTION ! Vous avez perdu votre session sur le serveur.';
+$_lang['Warning : chosen date is in the future'] = 'Attention : la date sélectionnée se situe dans l\'avenir';
 $_lang['WARNING : you are going to delete this wiki and all its pages. Are you sure to want to continue ?'] = 'Attention : vous allez supprimer ce wiki et toutes ses pages. Continuer ?';
 $_lang['WARNING: this page is a preview. Your modifications to the wiki has not been saved yet ! To save them do not forget to click on the \'save\' button at the bottom of the page.'] = 'Attention : cette page n\'est qu\'un aperçu. Vos modifications n\'ont pas encore été enregistrées. Pour les enregistrer, cliquez sur <strong>Enregistrer</strong> au bas de la page.';
 $_lang['Warn users when they loose their session on the platform'] = 'Avertir les utilisateurs (par un popup javascript, quand leur session est perdue';
@@ -2447,8 +2453,6 @@ $_lang['blockWikiHelpSyntaxContent'] = '<h1>Syntaxe Wiki</h1>
 <dd><code>@@code ici@@</code>&nbsp;;</dd>
 <dt>Ancre</dt>
 <dd><code>~ancre~</code>&nbsp;;</dd>
-<dt>Lien vers une ancre</dt>
-<dd><code>[Titre du lien|#ancre]</code>&nbsp;</dd>
 </dl>
 <h2>Tableaux</h2>
 <dl>
