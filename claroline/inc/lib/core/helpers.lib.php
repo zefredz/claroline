@@ -141,6 +141,33 @@
     }
     
     /**
+     * Include a template file
+     * @param   string $template name of the template
+     */
+    function include_template( $template )
+    {
+        $template = secure_file_path( $template );
+        
+        $customTemplatePath = get_path('rootSys') . '/platform/templates/'.$template;
+        $defaultTemplatePath = get_path('includePath') . '/templates/'.$template;
+        
+        if ( file_exists( $customTemplatePath ) )
+        {
+            include $customTemplatePath;
+        }
+        elseif ( file_exists( $defaultTemplatePath ) )
+        {
+            include $defaultTemplatePath;
+        }
+        else
+        {
+            throw new Exception("Template not found {$templatePath} "
+                . "at custom location {$customTemplatePath} "
+                . "or default location {$defaultTemplatePath} !");
+        }
+    }
+    
+    /**
      * Include the link to a given css
      * @param name of the css without the complete path
      * @param css media
