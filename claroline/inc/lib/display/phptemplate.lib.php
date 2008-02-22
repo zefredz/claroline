@@ -100,10 +100,15 @@
      */
     class CoreTemplate extends PhpTemplate
     {
-        public function __construct( $templatePath )
+        /**
+         * @param   string $template name of the template
+         */
+        public function __construct( $template )
         {
-            $customTemplatePath = get_path('rootSys') . '/platform/templates/'.$templatePath;
-            $defaultTemplatePath = get_path('includePath') . '/templates/'.$templatePath;
+            $template = secure_file_path( $template );
+            
+            $customTemplatePath = get_path('rootSys') . '/platform/templates/'.$template;
+            $defaultTemplatePath = get_path('includePath') . '/templates/'.$template;
             
             if ( file_exists( $customTemplatePath ) )
             {
