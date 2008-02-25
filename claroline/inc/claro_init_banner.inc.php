@@ -334,7 +334,7 @@ if( claro_is_in_a_course() || isset($nameTools) || ( isset($interbredcrump) && i
             .'</a>'
             .'</div>'."\n";
     }
-    elseif ( claro_is_in_a_course() && ! claro_is_course_member() && $_course['registrationAllowed'] && ! claro_is_platform_admin() )
+    elseif ( claro_is_in_a_course() && ! claro_is_course_member() && $_course['registrationAllowed'] && get_conf('allowToSelfEnroll',true) && ! claro_is_platform_admin() )
     {
         $clarolineBannerOutput .= '<div id="toolViewOption">'
         .    '<a href="' . $clarolineRepositoryWeb . 'auth/courses.php?cmd=exReg&course='.claro_get_current_course_id().'">'
