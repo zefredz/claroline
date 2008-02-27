@@ -531,6 +531,7 @@ function startElement($parser, $name, $attributes)
         {
             $record_item_body = true;
             $current_question_item_body = '';
+            $prompt = '';
         }
         break;
 
