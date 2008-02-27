@@ -554,6 +554,7 @@ function startElement($parser, $name, $attributes)
         {
             $record_item_body = true;
             $current_question_item_body = '';
+            $prompt = '';
         }
         break;
 
@@ -585,7 +586,7 @@ function endElement($parser,$name)
     global $cardinality;
 
 	$current_element = end($element_pile);
-
+	
     switch ($name)
     {
         case 'ITEMBODY':
