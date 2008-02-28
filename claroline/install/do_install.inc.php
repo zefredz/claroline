@@ -38,9 +38,6 @@ $display = DISP_RUN_INSTALL_COMPLETE; //  if  all is righ $display don't change
  // PATCH TO ACCEPT Prefixed DBs
 $mainDbName     = $dbNameForm;
 $statsDbName    = $dbStatsForm;
-$resBdbHome = @claro_sql_query("SHOW VARIABLES LIKE 'datadir'");
-$mysqlRepositorySys = mysql_fetch_array($resBdbHome,MYSQL_ASSOC);
-$mysqlRepositorySys = $mysqlRepositorySys ['Value'];
 
 $runfillMainDb = FALSE;
 $runfillStatsDb = FALSE;
@@ -276,7 +273,6 @@ if ($runfillMainDb && $runfillStatsDb)
         $form_value_list['singleDbEnabled'] = (bool) ($singleDbForm);
         $form_value_list['courseTablePrefix'] = $singleDbForm && empty($dbPrefixForm)?'crs_':'';
         $form_value_list['dbGlu'] = $singleDbForm?'_':'`.`';
-        $form_value_list['mysqlRepositorySys']= str_replace("\\","/",realpath($mysqlRepositorySys)."/");
         $form_value_list['clarolineRepositoryAppend'] = 'claroline/';
         $form_value_list['coursesRepositoryAppend'] = rtrim($courseRepositoryForm,'/').'/';
         $form_value_list['rootAdminAppend'] = 'admin/';
