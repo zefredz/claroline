@@ -573,10 +573,10 @@ function seems_utf8($str)
  * Returns utf-8 encoded $str. No changes are made if it was already utf-8
  *
  */
-function claro_utf8_encode($str, $toCharset = '' )
+function claro_utf8_encode($str, $fromCharset = '' )
 {
-	if( $toCharset != '' )	$charset = $toCharset;
-	else					$charset = $GLOBALS['charset'];
+	if( $fromCharset != '' )	$charset = $fromCharset;
+	else					    $charset = $GLOBALS['charset'];
 
 
 	if( strtoupper($charset) == 'UTF-8' || seems_utf8($str) )
@@ -593,10 +593,10 @@ function claro_utf8_encode($str, $toCharset = '' )
  * Returns decoded utf-8 $str. No changes are made if it was not utf-8
  *
  */
-function claro_utf8_decode($str, $fromCharset = '')
+function claro_utf8_decode($str, $toCharset = '')
 {
-	if( $fromCharset != '' )$charset = $fromCharset;
-	else					$charset = $GLOBALS['charset'];
+	if( $toCharset != '' )  $charset = $toCharset;
+	else                    $charset = $GLOBALS['charset'];
 
 	if( strtoupper($charset) == 'UTF-8' || !seems_utf8($str) )
     {
