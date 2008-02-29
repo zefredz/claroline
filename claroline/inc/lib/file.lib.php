@@ -241,9 +241,24 @@
             header( 'Expires: ' . gmdate( 'D, d M Y H:i:s', time() + $lifetime ) .' GMT' );
             header( 'Pragma: ' );
             
-            // force file name
-            header('Content-Disposition: inline; filename="' . $name . '"');
-            header('Content-Length: '. filesize( $path ) );
+            // Patch proposed by Diego Conde Pérez <dconde@uvigo.es> - Universidade de Vigo
+            // It seems that with the combination of OfficeXP and Internet Explorer 6 the 
+            // downloading of powerpoints fails sometimes. I captured the network packets 
+            // and the viewer of the office doesn't send all the needed cookies, 
+            // therefore claroline redirects the viewer to the login page because its not 
+            // correctly authenticated. 
+            if ( strtolower( pathinfo( $path, PATHINFO_EXTENSION ) ) == "ppt" )
+            {
+                // force file name for ppt
+                header( 'Content-Disposition: attachment; filename="' . $name . '"' );
+            }
+            else
+            {
+                // force file name for other files
+                header( 'Content-Disposition: inline; filename="' . $name . '"' );
+            } 
+            
+            header( 'Content-Length: '. filesize( $path ) );
             
             return ( claro_readfile( $path ) );
         }
