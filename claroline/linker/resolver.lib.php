@@ -203,14 +203,15 @@ class Resolver
             {
                 $courseInfoArray = get_info_course($elementCRLArray['course_sys_code']);
                 $tbl_cdb_names = claro_sql_get_course_tbl($courseInfoArray['dbNameGlu']);
-                $tbl_group = $tbl_cdb_names['group_team'];
+                $tbl_forums = $tbl_cdb_names['bb_forums'];
 
-                $sql = 'SELECT `forumId` 
-                        FROM `' . $tbl_group . '` 
-                        WHERE `id` =' . (int)$elementCRLArray['team'];
+                $sql = 'SELECT `forum_id` 
+                        FROM `' . $tbl_forums . '` 
+                        WHERE `group_id` =' . (int)$elementCRLArray['team'];
+                        
                 $forumId = claro_sql_query_get_single_value($sql);
 
-                $url = $this->_basePath . '/claroline/phpbb/viewforum.php'
+                $url = get_module_url( 'CLFRM' ) . '/viewforum.php'
                 .                         '?forum=' . $forumId
                 .                         '&amp;cidReq=' . $elementCRLArray['course_sys_code']
                 .                         '&amp;gidReq=' . $elementCRLArray['team']
@@ -218,7 +219,7 @@ class Resolver
             }
             else
             {
-                $url = $this->_basePath . $url;
+                $url = str_replace( get_path( 'url' ), '', $this->_basePath ) . $url;
             }
 
             return $url;
@@ -239,7 +240,7 @@ class Resolver
     function _getToolPath($toolName)
     {
         $toolName = rtrim( $toolName, '_' );
-        return get_module_url( $toolName ) . '/' . get_module_entry( $toolName );
+        return get_module_entry_url( $toolName );
     }
 
     /**
