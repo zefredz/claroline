@@ -195,7 +195,7 @@ class Resolver
             // add the gidReq at the url
             if( isset($elementCRLArray['team']) )
             {
-                $url .= '&amp;gidReq=' . $elementCRLArray['team'];
+                $url .= '&gidReq=' . $elementCRLArray['team'];
             }
 
             // change the url if it is a group forum
@@ -213,8 +213,8 @@ class Resolver
 
                 $url = get_module_url( 'CLFRM' ) . '/viewforum.php'
                 .                         '?forum=' . $forumId
-                .                         '&amp;cidReq=' . $elementCRLArray['course_sys_code']
-                .                         '&amp;gidReq=' . $elementCRLArray['team']
+                .                         '&cidReq=' . $elementCRLArray['course_sys_code']
+                .                         '&gidReq=' . $elementCRLArray['team']
                 ;
             }
             else
