@@ -74,24 +74,24 @@
                     
                     if ( get_conf('javascriptCompression', true) )
                     {
-                        if ( !file_exists( $tryPath . '/' . $lib . '.bin.js' ) )
+                        if ( !file_exists( $tryPath . '/' . $lib . '.min.js' ) )
                 		{
                 			$this->_compressFile( $tryPath . '/' . $lib . '.js'
-                				, $tryPath . '/' . $lib . '.bin.js' );
+                				, $tryPath . '/' . $lib . '.min.js' );
                 		}
                 		else
                 		{
                 			$jsStat = stat( $tryPath . '/' . $lib . '.js' );
-                			$cachedStat = stat( $tryPath . '/' . $lib . '.bin.js' );
+                			$cachedStat = stat( $tryPath . '/' . $lib . '.min.js' );
                 			
                 			if ( $jsStat['mtime'] > $cachedStat['mtime'] )
                 			{
                 				$this->_compressFile( $tryPath . '/' . $lib . '.js'
-                				, $tryPath . '/' . $lib . '.bin.js' );
+                				, $tryPath . '/' . $lib . '.min.js' );
                 			}
                 		}
     
-                        $this->libraries[$lib] = $tryUrl . '/' . $lib . '.bin.js';
+                        $this->libraries[$lib] = $tryUrl . '/' . $lib . '.min.js';
                     }
                     else
                     {
