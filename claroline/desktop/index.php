@@ -24,6 +24,7 @@
     // load Claroline kernel
     require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
     require_once dirname(__FILE__) . '/lib/portlet.lib.php';
+    require_once dirname(__FILE__) . '/lib/portletRightMenu.lib.php';
 
     // users authentified 
     if( ! claro_is_user_authenticated() ) claro_disp_auth_form();
@@ -92,6 +93,9 @@
 	$output .= claro_html_tool_title($nameTools);
     
     $output .= $dialogBox->render();
+        
+    $portletrightmenu = new portletrightmenu();
+    $output .= $portletrightmenu->render();
     
     foreach( $classList as $className )
     {
@@ -101,7 +105,7 @@
         if( !method_exists($portlet, 'render') ) continue;
         $output .= $portlet->render();
     }
-        
+            
     $claroline->display->body->appendContent($output);
     
     echo $claroline->display->render();
