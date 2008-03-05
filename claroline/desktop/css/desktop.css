@@ -4,7 +4,7 @@
 {
     border: 1px solid #96BB7A;
     padding: 2px 5px 2px 5px;
-    margin: 15px 0;
+    margin: 15px 240px 15px 0;
     background-color: #EDF1E3;
 }
 
@@ -16,9 +16,16 @@
 
 .portletContent
 {
-    margin-top: 1em;
+    margin-top: 0.3em;
 	padding: 5px;
 	background: #FFF;
+}
+
+.porletIcon
+{
+    float:right;
+    margin:auto;
+    padding:0;
 }
 
 .portlet dl, .portlet dt, .portlet dd
@@ -38,33 +45,42 @@
     margin:0 0.5em 0 0;
     padding:0;
 }
+
+/* portlet right menu  */
+
+.portletRightMenu
+{
+    border: 1px solid #96BB7A;
+    padding: 2px 5px 2px 5px;
+    margin: 10px 0 0 0;
+    float:right;
+    width:200px;
+    background-color: #EDF1E3;
+}
+
 /* portlet myprofil */
  
  #portletMyprofil #picture
  {
-  float: left;
-  width: 105px;
-  margin: 0;
-  padding: 0.3em 1em 0.3em 1em;
-  text-align: center;
+    margin: 0;
+    padding-top: 0.3em;
+    text-align: center;
  }
 
  #portletMyprofil #picture .pic {
- border: 1px solid #AAA; 
- background-color: #DDD; 
- width: 100px; 
- height: 125px; 
- margin: auto;
- font-size: small; 
- color: #AAA;
+    border: 1px solid #AAA; 
+    background-color: #DDD; 
+    width: 100px; 
+    height: 125px; 
+    margin: auto;
+    font-size: small; 
+    color: #AAA;
  }
  
  #portletMyprofil #details
  {
-  margin-left: 140px;
-  padding: 0 1em 0.1em 1em;
-  max-width: 5em;
-  border-left: 1px solid #ccc;
+  padding-top: 0.5em;
+  clear:both;
  }
 
  #portletMyprofil #details span
@@ -78,7 +94,7 @@
  #portletMycalendar .calendar
  {
   float: left;
-  max-width: 22%;
+  max-width: 30%;
   margin: 0;
   padding: 0.3em 1em 0.3em 1em;
   text-align: center;
@@ -86,7 +102,7 @@
  
  #portletMycalendar .details
  {
-  margin-left: 25%;
+  margin-left: 33%;
   padding: 0 1em 0.1em 1em;
   border-left: 1px solid #ccc;
  }
