@@ -33,10 +33,9 @@ class mystats extends portlet
         $output = '';
         
         $userId = claro_get_current_user_id();
-        $courseId = claro_get_current_course_id();
-        
         $userData = user_get_properties( $userId );
         $userCourseList = get_user_course_list( $userId, true );
+        $courseId = claro_get_current_course_id();
 
     	if( !is_array($userCourseList) )
     	{
