@@ -29,6 +29,37 @@ class mystats extends portlet
     
     function renderContent()
     {
+        
+        $output = '';
+        
+        $userId = claro_get_current_user_id();
+        $courseId = claro_get_current_course_id();
+        
+        $userData = user_get_properties( $userId );
+        $userCourseList = get_user_course_list( $userId, true );
+
+    	if( !is_array($userCourseList) )
+    	{
+    		$userCourseList = array();
+    	}
+        
+        $output .= '<ul id="navlist">' . "\n"
+    	.	 '<li><a '.(empty($courseId)?'class="current"':'').' href="../tracking/userLog.php?userId='.$userId.'">'.get_lang('Platform').'</a></li>' . "\n";
+
+    	foreach( $userCourseList as $course )
+    	{
+    		if( $course['sysCode'] == $courseId ) 	$class = 'class="current"';
+    		else										$class = '';
+
+    		$output .= ' <li>'
+    		.	 '<a '.$class.' href=../tracking/userLog.php?userId='.$userId.'&amp;courseId='.$course['sysCode'].'>'.$course['title'].'</a>'
+    		.	 '</li>' . "\n";
+    	}
+
+    	$output .= '</ul>' . "\n\n";
+        
+        $this->content = $output;
+        
         return $this->content;
     }
     
