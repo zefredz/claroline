@@ -292,32 +292,32 @@
             }
         }
         
-        /**
-         * Get an instance of the given class from the query
-         * @param   string $sql
-         * @param   string $className
-         * @return  object of the class $className
-         * @throws  Exception
-         */
-        public function getClass( $sql, $className )
-        {
-            if ( ! class_exists( $className ) )
-            {
-                throw new Exception("{$className} not found");
-            }
-            elseif ( ! is_callable( array( $className, '__set_state' ) ) )
-            {
-                throw new Exception("Cannot set {$className} state");
-            }
-            else
-            {
-                $state = $this->getRow( $sql );
-                
-                $p = call_user_func( array( $className, '__set_state' ), $state );
-                
-                return $p;
-            }            
-        }
+//        /**
+//         * Get an instance of the given class from the query
+//         * @param   string $sql
+//         * @param   string $className
+//         * @return  object of the class $className
+//         * @throws  Exception
+//         */
+//        public function getClass( $sql, $className )
+//        {
+//            if ( ! class_exists( $className ) )
+//            {
+//                throw new Exception("{$className} not found");
+//            }
+//            elseif ( ! is_callable( array( $className, '__set_state' ) ) )
+//            {
+//                throw new Exception("Cannot set {$className} state");
+//            }
+//            else
+//            {
+//                $state = $this->getRow( $sql );
+//                
+//                $p = call_user_func( array( $className, '__set_state' ), $state );
+//                
+//                return $p;
+//            }            
+//        }
         
         // Multiple queries
         
