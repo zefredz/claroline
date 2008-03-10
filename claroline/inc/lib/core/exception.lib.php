@@ -19,6 +19,8 @@
         die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
     }
     
+    // PHP Error to Exception converter
+    
     /**
      * Class to convert a PHP error to an Exception
      * 
@@ -43,5 +45,15 @@
     function exception_error_handler( $code, $message, $file, $line )
     {
         throw new PHP_Error_Exception( $code, $message, $file, $line );
+    }
+    
+    // Standard Exceptions
+    
+    class FileNotFoundException extends Exception
+    {
+        public function __construct( $filePath )
+        {
+            parent::__construct( "File {$filePath} not found" );
+        }
     }
 ?>
