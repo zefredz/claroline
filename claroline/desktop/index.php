@@ -23,6 +23,7 @@
 
     // load Claroline kernel
     require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
+    require_once get_path( 'includePath' ) . '/lib/user.lib.php';
     require_once dirname(__FILE__) . '/lib/portlet.lib.php';
     require_once dirname(__FILE__) . '/lib/portletRightMenu.lib.php';
 
