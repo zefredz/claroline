@@ -55,36 +55,53 @@ class mycalendar extends portlet
         .	 ' <div class="details">'
         ;
         
-
-        $output .= '<dl>';
-        foreach($agendaItemList as $agendaItem)
+        if($agendaItemList)
         {
-            $output .= '<dt>' . "\n"
+        
+            $output .= '<dl>';
+            
+            
+            foreach($agendaItemList as $agendaItem)
+            {
+                $output .= '<dt>' . "\n"
+                .    '<img class="iconDefinitionList" src="' . get_icon('agenda') . '" alt="' . get_lang('Icon agenda') . '" />'
+                .    '<small>'
+                .    claro_html_localised_date( get_locale('dateFormatLong'),
+                strtotime($agendaItem['date']) )
+                .    '</small>' . "\n"
+                .    '</dt>' . "\n"
+                ;
+             
+                foreach($agendaItem['eventList'] as $agendaEvent)
+                {
+                    $output .= '<dd>'
+                    .    '<small>'  . "\n"
+                    .    '<a href="' . $agendaEvent['url'] . '">'
+                    .    $agendaEvent['courseOfficialCode']
+                    .    '</a> : ' . "\n"
+                    .    '<small>'  . "\n"
+                    .    $agendaEvent['content'] . "\n"
+                    .    '</small>' . "\n"
+                    .    '</small>' . "\n"
+                    .    '</dd>' . "\n"
+                    ; 
+                }
+            }
+            $output .= '</dl>';
+        
+        }
+        else
+        {
+            $output .= '<dl>'
+            .    '<dt>' . "\n"
             .    '<img class="iconDefinitionList" src="' . get_icon('agenda') . '" alt="' . get_lang('Icon agenda') . '" />'
             .    '<small>'
-            .    claro_html_localised_date( get_locale('dateFormatLong'),
-            strtotime($agendaItem['date']) )
+            .    get_lang('No event to display') . "\n"
             .    '</small>' . "\n"
             .    '</dt>' . "\n"
             ;
-         
-            foreach($agendaItem['eventList'] as $agendaEvent)
-            {
-                $output .= '<dd>'
-                .    '<small>'  . "\n"
-                .    '<a href="' . $agendaEvent['url'] . '">'
-                .    $agendaEvent['courseOfficialCode']
-                .    '</a> : ' . "\n"
-                .    '<small>'  . "\n"
-                .    $agendaEvent['content'] . "\n"
-                .    '</small>' . "\n"
-                .    '</small>' . "\n"
-                .    '</dd>' . "\n"
-                ; 
-            }
         }
-        $output .= '</dl>';
-             
+    
         $output .= ''
         .	 ' </div>' . "\n"
         .	 '</div>' . "\n"
