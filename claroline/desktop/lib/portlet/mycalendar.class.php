@@ -57,9 +57,7 @@ class mycalendar extends portlet
         
         if($agendaItemList)
         {
-        
             $output .= '<dl>';
-            
             
             foreach($agendaItemList as $agendaItem)
             {
@@ -88,7 +86,6 @@ class mycalendar extends portlet
                 }
             }
             $output .= '</dl>';
-        
         }
         else
         {
@@ -108,9 +105,7 @@ class mycalendar extends portlet
         .	 '<div style="clear:both;"></div>' . "\n"
         ;
         
-        $this->content = $output;
-        
-        return $this->content;
+        return $output;
     }
     
     function renderTitle()

@@ -36,40 +36,53 @@ class myannouncements extends portlet
         
         $output = '';
         
-        $output .= '<dl>';
-        foreach($annoncementEventList as $annoncementItem)
+        if($annoncementEventList)
         {
-            
-            $output .= '<dt>' . "\n"
+            $output .= '<dl>';
+            foreach($annoncementEventList as $annoncementItem)
+            {
+                
+                $output .= '<dt>' . "\n"
+                .    '<img class="iconDefinitionList" src="' . get_icon('announcement') . '" alt="' . get_lang('Icon announcement') . '" />'
+                .    '<small>'
+                .    '<a href="' . $annoncementItem['url'] . '">'
+                .    $annoncementItem['title']
+                .    '</a>' . "\n"
+                .    '</small>' . "\n"
+                .    '</dt>' . "\n"
+                ;
+             
+                foreach($annoncementItem['eventList'] as $annoncementEvent)
+                {
+                    $output .= '<dd>'
+                    .    '<small>'  . "\n"
+                    .    '<a href="' . $annoncementItem['url'] . '">'
+                    .    $annoncementItem['courseOfficialCode']
+                    .    '</a> : ' . "\n"
+                    .    '<small>'  . "\n"
+                    .    $annoncementEvent['content'] . "\n"
+                    .    '</small>' . "\n"
+                    .    '</small>' . "\n"
+                    .    '</dd>' . "\n"
+                    ; 
+                }
+            }
+            $output .= '</dl>';
+        }
+        else
+        {
+            $output .= '<dl>'
+            .    '<dt>' . "\n"
             .    '<img class="iconDefinitionList" src="' . get_icon('announcement') . '" alt="' . get_lang('Icon announcement') . '" />'
             .    '<small>'
-            .    '<a href="' . $annoncementItem['url'] . '">'
-            .    $annoncementItem['title']
-            .    '</a>' . "\n"
+            .    get_lang('No event to display') . "\n"
             .    '</small>' . "\n"
             .    '</dt>' . "\n"
             ;
-         
-            foreach($annoncementItem['eventList'] as $annoncementEvent)
-            {
-                $output .= '<dd>'
-                .    '<small>'  . "\n"
-                .    '<a href="' . $annoncementItem['url'] . '">'
-                .    $annoncementItem['courseOfficialCode']
-                .    '</a> : ' . "\n"
-                .    '<small>'  . "\n"
-                .    $annoncementEvent['content'] . "\n"
-                .    '</small>' . "\n"
-                .    '</small>' . "\n"
-                .    '</dd>' . "\n"
-                ; 
-            }
         }
-        $output .= '</dl>';
+            
 
-        $this->content = $output;
-
-        return $this->content;
+        return $output;
     }
     
     function renderTitle()
