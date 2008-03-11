@@ -4,7 +4,7 @@
 {
     border: 1px solid #96BB7A;
     padding: 2px 5px 2px 5px;
-    margin: 15px 0;
+    margin: 15px 240px 15px 0;
     background-color: #EDF1E3;
 }
 
@@ -16,46 +16,104 @@
 
 .portletContent
 {
-    margin-top: 1em;
+    margin-top: 0.3em;
 	padding: 5px;
 	background: #FFF;
 }
 
-/* profil */
+.porletIcon
+{
+    float:right;
+    margin:auto;
+    padding:0;
+}
+
+.portlet dl, .portlet dt, .portlet dd
+{
+    margin: 0;
+	padding: 0;
+}
+
+.portlet dt
+{
+    margin-top: 0.5em;
+}
+
+.portlet .iconDefinitionList
+{
+    list-style-position:inside;
+    margin:0 0.5em 0 0;
+    padding:0;
+}
+
+/* portlet right menu  */
+
+.portletRightMenu
+{
+    border: 1px solid #96BB7A;
+    padding: 2px 5px 2px 5px;
+    margin: 10px 0 0 0;
+    float:right;
+    width:200px;
+    background-color: #EDF1E3;
+}
+
+/* portlet myprofil */
  
- #userCart #picture
+ #portletMyprofil #picture
  {
-  float: left;
-  width: 200px;
-  margin: 0;
-  padding: 0.3em 1em 0.3em 1em;
-  text-align: center;
+    margin: 0;
+    padding-top: 0.3em;
+    text-align: center;
  }
 
- #userCart #picture .pic {
- border: 1px solid #AAA; 
- background-color: #DDD; 
- width: 100px; 
- height: 125px; 
- margin: auto;
- font-size: small; 
- color: #AAA;
+ #portletMyprofil #picture .pic {
+    border: 1px solid #AAA; 
+    background-color: #DDD; 
+    width: 100px; 
+    height: 125px; 
+    margin: auto;
+    font-size: small; 
+    color: #AAA;
  }
  
- #userCart #details
+ #portletMyprofil #details
  {
-  margin-left: 240px;
-  padding: 0 1em 1em 1em;
-  max-width: 36em;
-  border-left: 1px solid #ccc;
+  padding-top: 0.5em;
+  clear:both;
  }
 
- #userCart #details span
+ #portletMyprofil #details span
  {
   font-size: small;
   font-weight: bold;
  }
 
+/* portlet mycalendar */
+
+ #portletMycalendar .calendar
+ {
+  float: left;
+  max-width: 30%;
+  margin: 0;
+  padding: 0.3em 1em 0.3em 1em;
+  text-align: center;
+ }
+ 
+ #portletMycalendar .details
+ {
+  margin-left: 33%;
+  padding: 0 1em 0.1em 1em;
+  border-left: 1px solid #ccc;
+ }
+ 
+ #portletMycalendar .dayWithEvent 
+{
+  background-color:silver;
+}
+
+/* portlet stat */
+/*
  .statBlock
  {
  	width: 100%;
@@ -86,4 +144,3 @@
  	font-size: small;
  	padding: 3px;
  }
- 
