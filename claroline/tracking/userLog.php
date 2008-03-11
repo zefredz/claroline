@@ -303,7 +303,8 @@ if( !empty($courseId) )
 	.    '<th>' . get_lang('Average Time').'</th>' . "\n"
 	.    '<th>' . get_lang('Attempts').'</th>' . "\n"
 	.    '<th>' . get_lang('Last attempt').'</th>' . "\n"
-	.    '</tr>';
+	.    '</tr>'
+    ;
 
 	if( !empty($exerciseResults) && is_array($exerciseResults) )
 	{
