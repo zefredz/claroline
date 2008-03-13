@@ -141,6 +141,7 @@ function get_locale($localeInfoName)
                                   'langMonthNames',
                                   'dateFormatShort', // not used
                                   'dateFormatLong', // used
+                                  'dateFormatNumeric',
                                   'dateTimeFormatLong', // used
                                   'dateTimeFormatShort',
                                   'timeNoSecFormat');
@@ -259,7 +260,7 @@ class language
                $langNameOfLang , $langDay_of_weekNames, $langMonthNames, $byteUnits,
                $text_dir, $left_font_family, $right_font_family,
                $number_thousands_separator, $number_decimal_separator,
-               $dateFormatShort, $dateFormatLong, $dateTimeFormatLong, $dateTimeFormatShort, $timeNoSecFormat;
+               $dateFormatShort, $dateFormatLong, $dateTimeFormatLong, $dateFormatNumeric,$dateTimeFormatShort, $timeNoSecFormat;
 
         /*
         * tool specific language translation
