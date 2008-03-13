@@ -289,7 +289,6 @@ if ( $is_allowedToEdit )
         $display_form =TRUE;
     } // end if cmd == 'rqEdit' && cmd == 'rqAdd'
 
-
     if ('rqEdit' != $cmd  && 'rqAdd' != $cmd ) // display main commands only if we're not in the event form
     {
         $display_command = TRUE;

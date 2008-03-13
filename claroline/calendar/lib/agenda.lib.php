@@ -31,13 +31,6 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @since  1.7
  */
  
-function claro_var_dump($dump)
-{
-    print('<pre>'); 
-    var_dump($dump);
-    print('</pre>'); 
-}
-
 function agenda_get_item_list($context, $order='DESC')
 {
 

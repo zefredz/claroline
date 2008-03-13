@@ -70,6 +70,7 @@ $langMonthNames['long'] = array('January', 'February', 'March', 'April', 'May', 
 
 $dateFormatShort =  "%b. %d, %y";
 $dateFormatLong  = '%A %B %d, %Y';
+$dateFormatNumeric =  "%Y/%m/%d";
 $dateTimeFormatLong  = '%B %d, %Y at %I:%M %p';
 $dateTimeFormatShort = "%b. %d, %y %I:%M %p";
 $timeNoSecFormat = '%I:%M %p';
