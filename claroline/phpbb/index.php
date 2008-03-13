@@ -35,6 +35,14 @@ if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_f
 
 claro_set_display_mode_available(true); // view mode
 
+if ( claro_is_in_a_group() 
+    && ( !claro_is_group_allowed() 
+        || ( !claro_is_allowed_to_edit()
+            && !claro_is_module_activated_in_group($tlabelReq) ) ) )
+{
+    claro_die( get_lang( 'Not allowed' ) );
+}
+
 /*-----------------------------------------------------------------
 Stats
 -----------------------------------------------------------------*/
@@ -106,6 +114,8 @@ $is_allowedToEdit = claro_is_allowed_to_edit()
 $is_forumAdmin    = claro_is_allowed_to_edit();
 
 $is_groupPrivate   = claro_get_current_group_properties_data('private');
+
+$is_groupForumActivated = ( claro_is_module_activated_in_group($tlabelReq) );
 
 echo claro_html_tool_title(get_lang('Forums'),
 $is_allowedToEdit ? 'help_forum.php' : false);
@@ -273,10 +283,10 @@ foreach ( $categories as $this_category )
             // Group Category == 1
 
             if ( ! is_null($group_id ) )
-            {
-                if (   in_array($group_id, $userGroupList )
+            {                
+                if ( ( in_array($group_id, $userGroupList ) && $is_groupForumActivated )
                 || in_array($group_id, $tutorGroupList)
-                || ! $is_groupPrivate || $is_forumAdmin
+                || ( !$is_groupPrivate && $is_groupForumActivated ) || $is_forumAdmin
                 )
                 {
                     echo '<a href="viewforum.php?gidReq=' . $group_id

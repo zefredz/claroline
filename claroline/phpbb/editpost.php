@@ -27,6 +27,14 @@ require '../inc/claro_init_global.inc.php';
 
 if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 
+if ( claro_is_in_a_group() 
+    && ( !claro_is_group_allowed() 
+        || ( !claro_is_allowed_to_edit()
+            && !claro_is_module_activated_in_group($tlabelReq) ) ) )
+{
+    claro_die( get_lang( 'Not allowed' ) );
+}
+
 claro_set_display_mode_available(true);
 
 /*-----------------------------------------------------------------

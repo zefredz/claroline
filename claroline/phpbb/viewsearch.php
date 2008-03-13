@@ -5,11 +5,19 @@ $tlabelReq = 'CLFRM';
 require '../inc/claro_init_global.inc.php';
 require get_path('incRepositorySys') .'/lib/forum.lib.php';
 
+if (  !claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
+
+if ( claro_is_in_a_group() 
+    && ( !claro_is_group_allowed() 
+        || ( !claro_is_allowed_to_edit()
+            && !claro_is_module_activated_in_group($tlabelReq) ) ) )
+{
+    claro_die( get_lang( 'Not allowed' ) );
+}
+
 $last_visit        = claro_get_current_user_data('lastLogin');
 $is_groupPrivate   = claro_get_current_group_properties_data('private');
 $is_allowedToEdit  = claro_is_allowed_to_edit();
-
-if (  !claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 
 if ( isset($_REQUEST['searchUser']) )
 {

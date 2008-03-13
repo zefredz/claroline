@@ -31,6 +31,14 @@ $currentContext = ( claro_is_in_a_group() ) ? CLARO_CONTEXT_GROUP : CLARO_CONTEX
 
 claro_set_display_mode_available(true);
 
+if ( claro_is_in_a_group() 
+    && ( !claro_is_group_allowed() 
+        || ( !claro_is_allowed_to_edit()
+            && !claro_is_module_activated_in_group($tlabelReq) ) ) )
+{
+    claro_die( get_lang( 'Not allowed' ) );
+}
+
 /*-----------------------------------------------------------------
   Stats
  -----------------------------------------------------------------*/
