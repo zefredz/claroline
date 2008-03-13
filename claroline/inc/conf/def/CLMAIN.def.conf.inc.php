@@ -595,7 +595,7 @@ $conf_def_property_list['javascriptCompression'] =
 array ('label'       => 'Javascript compression'
       ,'description' => 'Compress javascript files. This option should be set to off only for debugging.'
       ,'type'        => 'boolean'
-      ,'default'     => TRUE
+      ,'default'     => FALSE
       ,'display'     => TRUE
       ,'readonly'    => FALSE
       , 'acceptedValue' => array('TRUE' => 'On', 'FALSE' => 'Off')
