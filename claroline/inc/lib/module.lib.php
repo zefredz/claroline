@@ -552,4 +552,19 @@ function get_module_main_tbl( $arrTblName )
     return $arrToReturn;
 }
 
+function claro_is_module_activated_in_group( $moduleLabel, $courseId = null )
+{
+    $courseId = empty( $courseId )
+        ? claro_get_current_course_id()
+        : $courseId
+        ;
+        
+    $props = claro_get_main_group_properties( $courseId );
+    
+    return ( !empty( $props )
+        && !empty( $props['tools'] )
+        && !empty( $props['tools'][$moduleLabel] )
+        && $props['tools'][$moduleLabel] );
+}
+
 ?>
