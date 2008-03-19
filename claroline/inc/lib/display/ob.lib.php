@@ -51,7 +51,7 @@
     function claro_ob_start()
     {
         // set error handlers for output buffering :
-        set_error_handler('exception_error_handler');
+        set_error_handler('exception_error_handler', error_reporting() & ~E_STRICT);
         set_exception_handler('claro_ob_exception_handler');
         // start output buffering
         ob_start();
