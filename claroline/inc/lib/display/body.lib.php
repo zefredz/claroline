@@ -106,7 +106,8 @@
                 $this->assign('claroBodyEnd', false);
             }
             
-            $this->assign('content', $this->getContent() );
+            // automatic since $this->content already exists
+            // $this->assign('content', $this->getContent() );
             
             $output = parent::render();
             
