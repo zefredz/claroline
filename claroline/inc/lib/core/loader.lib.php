@@ -19,7 +19,7 @@
         die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
     }
 
-    uses('file.lib','thirdparty/jsmin.lib');
+    uses('file.lib');
 
     /**
      * Javascript loader singleton class
@@ -62,44 +62,32 @@
             {
                 if ( claro_debug_mode() )
                 {
-                    pushClaroMessage(__Class__."::Try ".$tryPath.'/' .$lib.'.js', 'debug');
+                    pushClaroMessage(__Class__."::Try to find {$lib} in {$tryPath}", 'debug');
                 }
 
                 if ( file_exists ( $tryPath . '/' . $lib . '.js' ) )
                 {
-                    if ( claro_debug_mode() )
-                    {
-                        pushClaroMessage(__Class__."::Use ".$tryPath.'/' .$lib.'.js', 'debug');
-                    }
-                    
-                    if ( get_conf('javascriptCompression', true) )
-                    {
-                        if ( !file_exists( $tryPath . '/' . $lib . '.min.js' ) )
-                		{
-                			$this->_compressFile( $tryPath . '/' . $lib . '.js'
-                				, $tryPath . '/' . $lib . '.min.js' );
-                		}
-                		else
-                		{
-                			$jsStat = stat( $tryPath . '/' . $lib . '.js' );
-                			$cachedStat = stat( $tryPath . '/' . $lib . '.min.js' );
-                			
-                			if ( $jsStat['mtime'] > $cachedStat['mtime'] )
-                			{
-                				$this->_compressFile( $tryPath . '/' . $lib . '.js'
-                				, $tryPath . '/' . $lib . '.min.js' );
-                			}
-                		}
-    
+                    if ( get_conf('javascriptCompression', true)
+                        && file_exists( $tryUrl . '/' . $lib . '.min.js' )  )
+                    {    
                         $this->libraries[$lib] = $tryUrl . '/' . $lib . '.min.js';
+                        
+                        if ( claro_debug_mode() )
+                        {
+                            pushClaroMessage(__Class__."::Use ".$tryPath.'/' .$lib.'.min.js', 'debug');
+                        }
                     }
                     else
                     {
                         $this->libraries[$lib] = $tryUrl . '/' . $lib . '.js';
+                        
+                        if ( claro_debug_mode() )
+                        {
+                            pushClaroMessage(__Class__."::Use ".$tryPath.'/' .$lib.'.js', 'debug');
+                        }
                     }
                     
                     return true;
-                    // break;
                 }
             }
 
