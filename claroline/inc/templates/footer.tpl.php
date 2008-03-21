@@ -1,3 +1,5 @@
+<?php  if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) ); ?>
+
 <div id="campusFooter">
     <hr />
     <div id="campusFooterLeft">
@@ -12,4 +14,6 @@
         <?php echo include_dock('campusFooterCenter'); ?>
         <?php echo $this->poweredBy;?>
     </div>
+</div>
+<!-- end of claroPage -->
 </div>

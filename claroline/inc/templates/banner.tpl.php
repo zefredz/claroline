@@ -1,3 +1,8 @@
+<?php  if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) ); ?>
+
+<!-- claroPage -->
+<div id="claroPage">
+
 <!-- Banner -->
 <div id="topBanner">
 
