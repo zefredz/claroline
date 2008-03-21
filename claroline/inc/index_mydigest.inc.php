@@ -61,7 +61,7 @@ if (false === $htmlCLCALDIGEST = $Cache_LiteCLCALDIGEST->get('CALDIGEST' . claro
 
             FROM `" . $tableAnn . "`
             WHERE CONCAT(`title`, `contenu`) != ''
-              AND DATE_FORMAT( `temps`, '%Y %m %d') >= '".date('Y m d', $_user['lastLogin'])."'
+              AND DATE_FORMAT( `temps`, '%Y %m %d') >= '".date('Y m d', claro_get_current_user_data('lastLogin'))."'
               AND visibility = 'SHOW'
             ORDER BY `date` DESC
             LIMIT 1";
