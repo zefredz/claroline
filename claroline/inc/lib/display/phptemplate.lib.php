@@ -57,6 +57,7 @@
         {
             if ( file_exists( $this->_templatePath ) )
             {
+                $claroline = Claroline::getInstance();
                 claro_ob_start();
                 include $this->_templatePath;
                 $render = claro_ob_get_contents();
@@ -120,7 +121,7 @@
             }
             else
             {
-                throw new Exception("Template not found {$templatePath} "
+                throw new Exception("Template not found {$template} "
                     . "at custom location {$customTemplatePath} "
                     . "or default location {$defaultTemplatePath} !");
             }
