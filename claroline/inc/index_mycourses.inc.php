@@ -17,8 +17,8 @@ if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 $personnalCourseList = get_user_course_list(claro_get_current_user_id());
 
 // get the list of personnal courses marked as contening new events
-$date            = $claro_notifier->get_notification_date(claro_get_current_user_id());
-$modified_course = $claro_notifier->get_notified_courses($date,claro_get_current_user_id());
+$date            = $claroline->notification->get_notification_date(claro_get_current_user_id());
+$modified_course = $claroline->notification->get_notified_courses($date,claro_get_current_user_id());
 
 
 /******************************************************************************
@@ -43,7 +43,7 @@ foreach($personnalCourseList as $thisCourse)
     else                                                     $classItem = '';
 
     // show course language if not the same of the platform
-    if ( $platformLanguage!=$thisCourse['language'] )
+    if ( get_conf('platformLanguage') != $thisCourse['language'] )
     {
         if ( !empty($langNameOfLang[$thisCourse['language']]) )
         {
