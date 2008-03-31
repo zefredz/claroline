@@ -30,7 +30,7 @@ require '../inc/claro_init_global.inc.php';
 
 if( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 
-$messageList = array();
+$dialogBox = new DialogBox();
 $display = '';
 $error = false;
 
@@ -105,9 +105,9 @@ if ( isset($_REQUEST['applyChange']) )
 
     // validate forum params
 
-    $messageList['warning'] = user_validate_form_profile($user_data, claro_get_current_user_id());
+    $errorMsgList = user_validate_form_profile($user_data, claro_get_current_user_id());
 
-    if ( count($messageList['warning']) == 0 )
+    if ( count($errorMsgList) == 0 )
     {
         // if no error update use setting
         user_set_properties(claro_get_current_user_id(), $user_data);
@@ -117,7 +117,7 @@ if ( isset($_REQUEST['applyChange']) )
 
         $uidReset = true;
         include '../inc/claro_init_local.inc.php';
-        $messageList['info'][] = get_lang('The information have been modified') . '<br />' . "\n";
+        $dialogBox->success( get_lang('The information have been modified') );
 
         // Initialise
         $user_data = user_get_properties(claro_get_current_user_id());
@@ -126,6 +126,10 @@ if ( isset($_REQUEST['applyChange']) )
     else
     {
         // user validate form return error messages
+        foreach( $errorMsgList as $errorMsg )
+        {
+            $dialogBox->error($errorMsg);
+        }
         $error = true;
     }
 
@@ -135,26 +139,29 @@ elseif ( ! claro_is_allowed_to_create_course() && get_conf('can_request_course_c
 {
     // send a request for course creator status
     profile_send_request_course_creator_status($_REQUEST['explanation']);
-    $messageList['info'][] = get_lang('Your request to become a course creator has been sent to platform administrator(s).');
+    $dialogBox->success( get_lang('Your request to become a course creator has been sent to platform administrator(s).') );
 }
 elseif (    get_conf('can_request_revoquation')
 && 'exRevoquation' == $cmd )
 {
     // send a request for revoquation
     if (profile_send_request_revoquation($_REQUEST['explanation'], $_REQUEST['loginToDelete'],$_REQUEST['passwordToDelete']))
-    $messageList['info'][] = get_lang('Your request to remove your account has been sent');
-    else
-    switch (claro_failure::get_last_failure())
     {
-        case 'EXPLANATION_EMPTY' :
-            $messageList['warn'][] = get_lang('You left some required fields empty');
-            $messageList['info'][] = get_lang('Explain cannot be empty');
-            $noQUERY_STRING = TRUE;
-            $interbredcrump[]= array('url'=>$_SERVER['PHP_SELF'],'name' =>$nameTools);
-            $nameTools = get_lang('Request to remove this account');
-            $display = DISP_REQUEST_REVOQUATION;
-        break;
-
+        $dialogBox->success( get_lang('Your request to remove your account has been sent') );
+    }
+    else
+    {
+        switch (claro_failure::get_last_failure())
+        {
+            case 'EXPLANATION_EMPTY' :
+                $dialogBox->error( get_lang('You left some required fields empty') );
+                $noQUERY_STRING = TRUE;
+                $interbredcrump[]= array('url'=>$_SERVER['PHP_SELF'],'name' =>$nameTools);
+                $nameTools = get_lang('Request to remove this account');
+                $display = DISP_REQUEST_REVOQUATION;
+            break;
+    
+        }
     }
 }
 elseif (  ! claro_is_allowed_to_create_course() && get_conf('can_request_course_creator_status')
@@ -245,13 +252,24 @@ switch ( $display )
 /**********************************************************************
 View Section
 **********************************************************************/
+$jsloader = JavascriptLoader::getInstance();
+$jsloader->load('jquery');
+
+$htmlHeadXtra[] =
+'<script type="text/javascript">
+	$(document).ready(
+		function() {
+			$("#password").val("");
+		}
+	);
+</script>';
 
 // display header
 include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 echo claro_html_tool_title($nameTools);
 
-echo claro_html_msg_list($messageList);
+echo $dialogBox->render();
 
 switch ( $display )
 {
