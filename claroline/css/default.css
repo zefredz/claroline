@@ -462,7 +462,7 @@ a.item:visited{
  *Visually the same as the claroTable headerX but can be used outside of a table 
  * best on a block type tag
  */
-.headerX
+.header
 {
 	color: #693;
     font-weight: bold;
