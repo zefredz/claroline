@@ -26,12 +26,11 @@
     require_once get_path( 'includePath' ) . '/lib/user.lib.php';
     require_once dirname(__FILE__) . '/lib/portlet.lib.php';
     require_once dirname(__FILE__) . '/lib/portletRightMenu.lib.php';
+    require_once dirname(__FILE__) . '/lib/filefinder.lib.php';
+    require_once dirname(__FILE__) . '/lib/porletInsertConfigDB.lib.php';
 
     // users authentified 
     if( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-
-    // load lib
-	require_once dirname( __FILE__ ) . '/lib/portlet.lib.php';
     
 	$is_allowedToEdit = claro_is_allowed_to_edit();
 
@@ -48,40 +47,76 @@
 
 // {{{ CONTROLLER
 
-    $classList = array();
+    $i = 1;
     
-    $allowedExtensions = array('.php','.php3','.php4','.php4','.php6');
+    $outPortlet = '';
+    
+    $allowedExtensions = array('.php');
 
     $path = dirname( __FILE__ ) . '/lib/portlet';
-
-    $dirname = realpath($path) . '/' ;
-    if ( is_dir($dirname) )
+    
+    try
     {
-        $handle = opendir($dirname);
-        while ( false !== ($file = readdir($handle) ) )
+        $fileFinder = new ExtensionFileFinder( $path, '.class.php', false );
+
+        foreach ( $fileFinder as $file )
         {
-            // skip '.', '..' and 'CVS'
-            if ( $file == '.' || $file == '..' || $file == 'CVS' ) continue;
-
-            // skip folders
-            if ( !is_file($dirname.$file) ) continue ;
-
-            // skip file with wrong extension
-            $ext = strrchr($file, '.');
-            if ( !in_array(strtolower($ext),$allowedExtensions) ) continue;
-
-            // add className to array
-            $pos = strpos($file, '.');
-            $classList[] = substr($file, '0', $pos);
+            // l'objet $file est de class SplFileInfo
+            // pour la doc voir : http://www.php.net/~helly/php/ext/spl/ 
             
+            $fileName = $file->getFilename();
+            $filePath = $file->getRealPath();
+
             // add elt to array
-            require_once $path . '/' . $file;
-        }
+            require_once $filePath;
+            
+            // add className to array
+            $pos = strpos($fileName, '.');
+            $className = substr($fileName, '0', $pos);
+            
+            // class porletInsertConfigDB
+            $porletInsertConfigDB = new porletInsertConfigDB();
+            
+            // load db
+            $portletInDB = $porletInsertConfigDB->load($className);
+
+            // si present en db on passe
+            if( !$portletInDB )
+            {
+                if( class_exists($className) )
+                {
+                    // insert db
+                    $porletInsertConfigDB->setLabel($className);
+                    $porletInsertConfigDB->setName($className);
+                    $porletInsertConfigDB->setRank($i);
+                    $porletInsertConfigDB->setActivated(true);
+                    $porletInsertConfigDB->save();
+                }
+            }
+                        
+            $i++;
+        }     
     }
-    else
+    catch (Exception $e)
     {
         $dialogBox->error( get_lang('Error to load portlet') );
+        pushClaroMessage($e->__toString());
     }
+    
+    // affichage des portlets
+    
+    $portletList = $porletInsertConfigDB->loadAll();
+    
+    foreach ( $portletList as $portlet )
+    {
+        // load portlet
+        if( !class_exists($portlet['label']) ) continue;
+        $portlet = new $portlet['label']();
+        
+        if( !method_exists($portlet, 'render') ) continue;
+        $outPortlet .= $portlet->render();
+    }
+
 
 // }}}
 
@@ -96,16 +131,10 @@
     $output .= $dialogBox->render();
         
     $portletrightmenu = new portletrightmenu();
+    
     $output .= $portletrightmenu->render();
     
-    foreach( $classList as $className )
-    {
-        if( !class_exists($className) ) continue;
-        $portlet = new $className();
-        
-        if( !method_exists($portlet, 'render') ) continue;
-        $output .= $portlet->render();
-    }
+    $output .= $outPortlet;
             
     $claroline->display->body->appendContent($output);
     

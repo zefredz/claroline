@@ -19,6 +19,7 @@
  */
 
 require_once dirname(__FILE__) . '/../../../../claroline/announcements/lib/announcement.lib.php';
+require_once dirname(__FILE__) . '/../../../../claroline/inc/lib/courselist.lib.php';
 
 class myannouncements extends portlet
 {
