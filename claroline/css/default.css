@@ -458,6 +458,18 @@ a.item:visited{
     color: #369;
 }
 
+/*
+ *Visually the same as the claroTable headerX but can be used outside of a table 
+ * best on a block type tag
+ */
+.headerX
+{
+	color: #693;
+    font-weight: bold;
+    padding: 2px 5px 2px 5px;
+    background-color: #EDF1E3;
+    border: 1px #96BB7A solid;
+}
 /******************************************************************************
                              CLAROLINE TABLE
  ******************************************************************************/
