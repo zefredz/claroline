@@ -934,6 +934,8 @@ if( !$dispWrkForm && !$dispWrkDet )
 /*--------------------------------------------------------------------
                     HEADER
     --------------------------------------------------------------------*/
+$cssLoader = CssLoader::getInstance();
+$cssLoader->load( 'clwrk', 'screen'); 
 
 $htmlHeadXtra[] =
 '<script type="text/javascript">
@@ -1414,11 +1416,11 @@ if( $dispWrkLst )
                     )
                 ;
 
-            if( $thisWrk['visibility'] == "INVISIBLE" && $is_allowedToEditAll )    $visStyle = ' class="invisible"';
+            if( $thisWrk['visibility'] == "INVISIBLE" && $is_allowedToEditAll )    $visStyle = ' invisible ';
             else                                                                $visStyle = '';
 
-            if( $is_feedback )  $feedbackStyle = 'style="padding-left: 35px;"';
-            else                $feedbackStyle = '';
+            if( $is_feedback )  $style = ' feedback ';
+            else                $style = ' work';
 
             // change some displayed text depending on the context
             if( $assignmentContent == "TEXTFILE" || $is_feedback )
@@ -1437,72 +1439,108 @@ if( $dispWrkLst )
                 $txtForText = get_lang('File description');
             }
 
-            if( !$is_feedback ) echo '<hr />';
             // title (and edit links)
-            echo '<h3' . $visStyle . ' ' . $feedbackStyle . '>' . "\n"
+            echo '<div class="'. $visStyle . $style .'">' . "\n"
+            
+            .	 '<h4 '. ( !$is_feedback ? 'class="headerX"':'') . '>' . "\n"
             .    $thisWrk['title'] . "\n"
-            .    '</h3>' . "\n"
-            .    '<div' . $visStyle . ' ' . $feedbackStyle . '>' . "\n"
+            .    '</h4>' . "\n"
             ;
 
             // author
-            echo get_lang('Author(s)') . '&nbsp;: ' . $thisWrk['authors'] . '<br />' . "\n";
+            echo '<div class="workInfo">' . "\n"
+            .	  '<span class="workInfoTitle">' . get_lang('Author(s)') . '&nbsp;: </span>' . "\n"
+            .     '<div class="workInfoValue">' . "\n"
+            .     $thisWrk['authors'] . "\n"
+            .     '</div>' . "\n"
+            .    '</div>' . "\n\n"
+            ;
 
+            // group
             if( $assignment->getAssignmentType() == 'GROUP' && claro_is_user_authenticated() && !$is_feedback )
             {
-                 // display group if this is a group assignment and if this is not a correction
-                 echo get_lang('Group') . '&nbsp;: ' . $allGroupList[$thisWrk['group_id']]['name'].'<br />' . "\n";
+                // display group if this is a group assignment and if this is not a correction
+                echo '<div class="workInfo">' . "\n"
+                .	  '<span class="workInfoTitle">' . get_lang('Group') . '&nbsp;: </span>' . "\n" 
+                .     '<div class="workInfoValue">' . "\n"
+                .     $allGroupList[$thisWrk['group_id']]['name'] . "\n"
+                .     '</div>' . "\n"
+                .    '</div>' . "\n\n"
+                ;
             }
 
+            // file
             if( $assignmentContent != 'TEXT' )
             {
                 if( !empty($thisWrk['submitted_doc_path']) )
                 {
                     $target = ( get_conf('open_submitted_file_in_new_window') ? 'target="_blank"' : '');
                     // show file if this is not a TEXT only work
-                    echo $txtForFile . '&nbsp;: '
-                    .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDownload'
-                    .    '&amp;authId=' . $_REQUEST['authId']
-                    .    '&amp;assigId=' . $assignmentId
-                    .    '&amp;workId=' . $thisWrk['id']
-                    .    '&amp;cidReq=' . claro_get_current_course_id(). '" ' . $target . '>'
-                    .	 $thisWrk['submitted_doc_path']
-                    .    '<img src="' . get_path('imgRepositoryWeb') . 'download.gif" border="0" alt="'.get_lang('Download').'" />'
-                    .	 '</a>'
-                    .	 ' <small>(' . format_file_size(claro_get_file_size($assignment->getAssigDirSys().$thisWrk['submitted_doc_path'])) . ')</small>'
-                    .    '<br />' . "\n"
-                    ;
+                    echo '<div class="workInfo">' . "\n"
+                    .	  '<span class="workInfoTitle">' . $txtForFile . '&nbsp;: </span>' . "\n" 
+                    .     '<div class="workInfoValue">' . "\n"
+                    .     '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDownload'
+                    .     '&amp;authId=' . $_REQUEST['authId']
+                    .     '&amp;assigId=' . $assignmentId
+                    .     '&amp;workId=' . $thisWrk['id']
+                    .     '&amp;cidReq=' . claro_get_current_course_id(). '" ' . $target . '>' . "\n"
+                    .	  $thisWrk['submitted_doc_path'] . "\n"
+                    .     '<img src="' . get_path('imgRepositoryWeb') . 'download.gif" border="0" alt="'.get_lang('Download').'" />' . "\n"
+                    .	  '</a>' . "\n"
+                    .	  '<small>(' . format_file_size(claro_get_file_size($assignment->getAssigDirSys().$thisWrk['submitted_doc_path'])) . ')</small>'
+                    .     '</div>' . "\n"
+                    .    '</div>' . "\n\n"
+                ;
                 }
                 else
                 {
-                     echo $txtForFile . '&nbsp;: '
-                     .     get_lang('- none -')
-                     .    '<br />' . "\n"
-                     ;
+                    echo '<div class="workInfo">' . "\n"
+                    .	  '<span class="workInfoTitle">' . $txtForFile . '&nbsp;: </span>' . "\n"
+                    .     '<div class="workInfoValue">' . "\n" 
+                    .     get_lang('- none -') . "\n"
+                    .     '</div>' . "\n"
+                    .    '</div>' . "\n\n"
+                    ;
                 }
             }
 
-            echo '<br />' . "\n"
-            .    $txtForText . '&nbsp;: ' . '<br />' . "\n"
-            .    '<blockquote>' . $thisWrk['submitted_text'] . '</blockquote>' . "\n"
+            // text
+            echo '<div class="workInfo">' . "\n"
+            .     '<span class="workInfoTitle">' . $txtForText . '&nbsp;: </span>' . "\n"
+            .     '<div class="workInfoValue">' . "\n" 
+            .     '<blockquote>' . "\n" . $thisWrk['submitted_text'] . "\n" . '&nbsp;</blockquote>' . "\n"
+            .     '</div>' . "\n"
+            .    '</div>' . "\n\n"
             ;
 
+            // private feedback
             if( $is_feedback )
             {
                 if( $is_allowedToEditAll )
                 {
-                    echo '<br />' . "\n"
-                    .    '<div>'
-                    .    get_lang('Private feedback') . '&nbsp;:<br />'
-                    .    '<blockquote>' . $thisWrk['private_feedback'] . '</blockquote>' . "\n"
-                    .    '</div>' . "\n"
+                    echo '<div class="workInfo">' . "\n"
+                    .     '<span class="workInfoTitle">' . get_lang('Private feedback') . '&nbsp;: </span>' . "\n"
+                    .     '<div class="workInfoValue">' . "\n" 
+                    .     '<blockquote>' . "\n" . $thisWrk['private_feedback'] . "\n" . '&nbsp;</blockquote>' . "\n"
+                    .     '</div>' . "\n"
+                    .    '</div>' . "\n\n"
                     ;
                 }
-                echo '<br />' . "\n" . get_lang('Score') . '&nbsp;: '
+                
+                // score
+                echo '<div class="workInfo">' . "\n" 
+                .     '<span class="workInfoTitle">' . get_lang('Score') . '&nbsp;: </span>' . "\n"
+                .     '<div class="workInfoValue">' . "\n"
                 .     ( ( $thisWrk['score'] == -1 ) ? get_lang('No score') : $thisWrk['score'].' %' )
-                .     '<br />' . "\n";
+                .     '</div>' . "\n"
+                .    '</div>' . "\n\n"
+                ;
             }
-            echo '<p>' . get_lang('First submission date') . '&nbsp;: '
+            
+            // submission date
+            echo '<div class="workInfo">' . "\n" 
+            .	 '<span class="workInfoTitle">' . get_lang('First submission date') . '&nbsp;: </span>' . "\n"
+            .     '<div class="workInfoValue">' . "\n"
             .    claro_html_localised_date(get_locale('dateTimeFormatLong'), $thisWrk['unix_creation_date'])
             ;
 
@@ -1511,43 +1549,55 @@ if( $dispWrkLst )
             {
                   echo ' <img src="' . get_path('imgRepositoryWeb') . 'caution.gif" border="0" alt="'.get_lang('Late upload').'" />';
             }
-            echo '<br />' . "\n";
 
+            echo '</div>' . "\n" 
+            .	'</div>' . "\n\n";
+            
+            // last edit date
             if( $thisWrk['unix_creation_date'] != $thisWrk['unix_last_edit_date'] )
             {
-                echo get_lang('Last edit date').'&nbsp;: '
-                    .claro_html_localised_date(get_locale('dateTimeFormatLong'), $thisWrk['unix_last_edit_date']);
+                echo '<div class="workInfo">' . "\n"
+                .     '<span class="workInfoTitle">' . get_lang('Last edit date') . '&nbsp;: </span>' . "\n"
+                .     '<div class="workInfoValue">' . "\n" 
+                .    claro_html_localised_date(get_locale('dateTimeFormatLong'), $thisWrk['unix_last_edit_date']);
+                
                 // display an alert if work was submitted after end date and work is not a correction !
                 if( $assignment->getEndDate() < $thisWrk['unix_last_edit_date'] && !$is_feedback )
                 {
                     echo ' <img src="' . get_path('imgRepositoryWeb') . 'caution.gif" border="0" alt="'.get_lang('Late upload').'" />';
                 }
+
+                echo '</div>' . "\n" 
+                .	'</div>' . "\n\n";
             }
-            echo '</p>'."\n";
+            
+            // commands
+            echo '<div class="workCmdList">' . "\n";
+            
             // if user is allowed to edit, display the link to edit it
             if( $is_allowedToEditThisWrk )
-                {
-                    // the work can be edited
-                    echo '<a href="' . $_SERVER['PHP_SELF']
-                    .    '?authId=' . $_REQUEST['authId']
-                    .    '&amp;assigId='.$assignmentId
-                    .    '&amp;cmd=rqEditWrk&amp;wrkId=' . $thisWrk['id'] . '">'
-                    .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="'.get_lang('Modify').'" />'
-                    .    '</a>'
-                    ;
-                }
+            {
+                // the work can be edited
+                echo '<a href="' . $_SERVER['PHP_SELF']
+                .    '?authId=' . $_REQUEST['authId']
+                .    '&amp;assigId='.$assignmentId
+                .    '&amp;cmd=rqEditWrk&amp;wrkId=' . $thisWrk['id'] . '">'
+                .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="'.get_lang('Modify').'" />'
+                .    '</a>' . "\n"
+                ;
+            }
 
-                if( $is_allowedToEditAll )
-                {
-                    echo '<a href="' . $_SERVER['PHP_SELF']
-                    .    '?authId='.$_REQUEST['authId']
-                    .    '&amp;cmd=exRmWrk'
-                    .    '&amp;assigId=' . $assignmentId
-                    .    '&amp;wrkId=' . $thisWrk['id'] . '" '
-                    .    'onclick="return confirmation(\'' . clean_str_for_javascript($thisWrk['title']) . '\');">'
-                    .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="'.get_lang('Delete').'" />'
-                    .    '</a>'
-                    ;
+            if( $is_allowedToEditAll )
+            {
+                echo '<a href="' . $_SERVER['PHP_SELF']
+                .    '?authId='.$_REQUEST['authId']
+                .    '&amp;cmd=exRmWrk'
+                .    '&amp;assigId=' . $assignmentId
+                .    '&amp;wrkId=' . $thisWrk['id'] . '" '
+                .    'onclick="return confirmation(\'' . clean_str_for_javascript($thisWrk['title']) . '\');">'
+                .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="'.get_lang('Delete').'" />'
+                .    '</a>' . "\n"
+                ;
 
                 if ($thisWrk['visibility'] == "INVISIBLE")
                 {
@@ -1557,7 +1607,7 @@ if( $dispWrkLst )
                     .    '&amp;wrkId='.$thisWrk['id']
                     .    '&amp;vis=v">'
                     .    '<img src="' . get_path('imgRepositoryWeb') . 'invisible.gif" border="0" alt="' . get_lang('Make visible') . '" />'
-                    .    '</a>'
+                    .    '</a>' . "\n"
                     ;
                 }
                 else
@@ -1569,9 +1619,10 @@ if( $dispWrkLst )
                     .    '&amp;wrkId='.$thisWrk['id']
                     .    '&amp;vis=i">'
                     .    '<img src="' . get_path('imgRepositoryWeb') . 'visible.gif" border="0" alt="' . get_lang('Make invisible') . '" />'
-                    .    '</a>'
+                    .    '</a>' . "\n"
                     ;
                 }
+                
                 if( ! $is_feedback )
                 {
                     // if there is no correction yet show the link to add a correction if user is course admin
@@ -1581,16 +1632,17 @@ if( $dispWrkLst )
                     .    '&amp;assigId=' . $assignmentId
                     .    '&amp;cmd=rqGradeWrk&amp;gradedWrkId='.$thisWrk['id'] . '">'
                     .    get_lang('Add feedback')
-                    .    '</a>'
+                    .    '</a>' . "\n"
                     ;
                 }
             }
-
-            echo '</div>' . "\n"
-            .    '<br />' . "\n"
-            ;
+            // end of cmdList div
+            echo '</div>' . "\n";
 
             $i++;
+            
+            // end of work div
+            echo '</div>' . "\n";
         }
     }
     else
