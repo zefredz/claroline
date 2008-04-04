@@ -166,6 +166,11 @@
         
         private function autoAppend()
         {
+            // Nothing here
+        }
+        
+        private function autoPrepend()
+        {
             if ( array_key_exists( 'nameTools', $GLOBALS ) )
             {
                 $name = $GLOBALS['nameTools'];
@@ -192,12 +197,9 @@
                     }
                 }
                 
-                $this->appendNode( new BreadCrumbsNode( $name, $url ) );
+                $this->prependNode( new BreadCrumbsNode( $name, $url ) );
             }
-        }
-        
-        private function autoPrepend()
-        {
+            
             if ( claro_is_in_a_group() )
             {
                 $this->prependNode( new BreadCrumbsNode( claro_get_current_group_data('name')
