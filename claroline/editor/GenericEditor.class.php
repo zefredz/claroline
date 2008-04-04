@@ -77,23 +77,36 @@ class GenericEditor
     }
 
     /**
+     * Returns the html code needed to display a simple version of the editor
+     * ! Needs to be overloaded by extending classes
+     * @return string html code needed to display a simple version of the editor
+       */
+    function getSimpleEditor()
+    {
+        return $this->getTextArea();
+    }
+    
+    /**
      * Returns the html code needed to display the default textarea
      *
      * @access private
      * @return string html code needed to display the default textarea
      */
-    function getTextArea()
+    function getTextArea($class = '')
     {
         $textArea = "\n"
-            .'<textarea '
-            .'id="'.$this->name.'" '
-            .'name="'.$this->name.'" '
-            .'style="width:100%" '
-            .'rows="'.$this->rows.'" '
-            .'cols="'.$this->cols.'" '
-            .$this->optAttrib.' >'
-            ."\n".htmlspecialchars($this->content)."\n"
-            .'</textarea>'."\n";
+        .	'<textarea '
+        .	'id="'.$this->name.'" '
+        .	'name="'.$this->name.'" '
+        .	'style="width:100%" ';
+
+        if( !empty($class) ) $textArea .= 'class="'.$class.'" ';
+                
+        $textArea .= 'rows="'.$this->rows.'" '
+        .	'cols="'.$this->cols.'" '
+        .   $this->optAttrib.' >'
+        .	"\n".htmlspecialchars($this->content)."\n"
+        .	'</textarea>'."\n";
 
         return $textArea;
     }
