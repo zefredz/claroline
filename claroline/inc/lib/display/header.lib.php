@@ -155,12 +155,6 @@ function claro_warn_of_session_loss() {
             
             $htmlXtraHeaders = '';
             
-            $cssloader = CssLoader::getInstance();
-            $htmlXtraHeaders .= $cssloader->toHtml() . "\n";
-            
-            $jsloader = JavascriptLoader::getInstance();
-            $htmlXtraHeaders .= $jsloader->toHtml() . "\n";
-            
             if ( !empty( $this->_htmlXtraHeaders ) )
             {
                 $htmlXtraHeaders .= implode ( "\n", $this->_htmlXtraHeaders );

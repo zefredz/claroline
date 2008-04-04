@@ -57,7 +57,7 @@
          * @return  boolean true if the library was found, false else
          */
         public function load( $lib )
-        {
+        {            
             foreach ( $this->pathList as $tryPath => $tryUrl )
             {
                 if ( claro_debug_mode() )
@@ -87,6 +87,10 @@
                         }
                     }
                     
+                    Claroline::getInstance()->display->header->addHtmlHeader(
+                        '<script src="'.$this->libraries[$lib].'" type="text/javascript"></script>'
+                    );
+                    
                     return true;
                 }
             }
@@ -97,41 +101,6 @@
             }
 
             return false;
-        }
-        
-        private function _compressFile( $src, $dest )
-        {
-        	try
-        	{
-        		$js = file_get_contents( $src );
-				$jsMin = JSMin::minify( $js );
-				file_put_contents( $dest, $jsMin );
-				pushClaroMessage(__Class__."::GenerateCache ".$src, 'debug');
-        	}
-        	catch (JSMinException $e )
-        	{
-        		pushClaroMessage("Exception in ".__Class__
-        			."::GenerateCache ".$src." : ".$e->getMessage(), 'error');
-        	}
-        }
-
-        /**
-         * Get HTML code for included libraries
-         * @return  string html code
-         */
-        public function toHtml()
-        {
-            $ret = array();
-            $list = $this->getLibraries();
-
-            foreach ( $list as $url )
-            {
-            	$ret[] = '<script src="'.$url.'" type="text/javascript"></script>';
-            }
-
-            $str = implode ( "\n", $ret );
-
-            return $str;
         }
 
         public static function getInstance()
@@ -200,6 +169,12 @@
                         'url' => $tryUrl . '/' . $css . '.css',
                         'media' => $media
                     );
+                    
+                    Claroline::getInstance()->display->header->addHtmlHeader(
+                        '<link rel="stylesheet" type="text/css"'
+                        . ' href="'. $this->css[$css]['url'].'"'
+                        . ' media="'.$this->css[$css]['media'].'" />'
+                    );
 
                     return true;
                     // break;
@@ -212,28 +187,6 @@
             }
 
             return false;
-        }
-
-        /**
-         * Get HTML code for included libraries
-         * @return  string html code
-         */
-        public function toHtml()
-        {
-            $ret = array();
-            $list = $this->getCss();
-
-            foreach ( $list as $css )
-            {
-                $ret[] = '<link rel="stylesheet" type="text/css"'
-                        . ' href="'. $css['url'].'"'
-                        . ' media="'.$css['media'].'" />'
-                        ;
-            }
-
-            $str = implode ( "\n", $ret );
-
-            return $str;
         }
 
         public static function getInstance()
