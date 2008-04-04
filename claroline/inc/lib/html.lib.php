@@ -583,30 +583,23 @@ function claro_html_mailTo($mail,$mailLabel=null)
 *                                       (wrap, class, ...)
 * @return string html output for standard textarea or Wysiwyg editor
 *
-* @global string rootWeb from claro_main.conf.php
-* @global string rootSys from claro_main.conf.php
-* @global string langTextEditorDisable from lang file
-* @global string langTextEditorEnable from lang file
-* @global string langSwitchEditorToTextConfirm from lang file
-*
 * @author Hugues Peeters <hugues.peeters@claroline.net>
 * @author Sébastien Piraux <pir@cerdecam.be>
 */
 
-function claro_html_textarea_editor($name, $content = '', $rows=20, $cols=80, $optAttrib='')
+function claro_html_textarea_editor($name, $content = '', $rows=20, $cols=80, $optAttrib='',$type='advanced')
 {
-    global $urlAppend, $claro_editor;
-
     if( !get_conf('claro_editor') ) $claro_editor = 'tiny_mce';
-
+    else                            $claro_editor = get_conf('claro_editor');
+    
+    $possibleTypeList = array('advanced', 'simple');
+    if( ! in_array($type, $possibleTypeList) ) $type = 'advanced';
+        
     $returnString = '';
-
-    // get content if in url
-    if( isset($_REQUEST['areaContent']) ) $content = stripslashes($_REQUEST['areaContent']);
 
     // $claro_editor is the directory name of the editor
     $incPath = get_path('rootSys') . 'claroline/editor/' . $claro_editor;
-    $editorPath = $urlAppend . '/claroline/editor/';
+    $editorPath = get_conf('urlAppend') . '/claroline/editor/';
     $webPath = $editorPath . $claro_editor;
 
     if( file_exists($incPath . '/editor.class.php') )
@@ -617,7 +610,14 @@ function claro_html_textarea_editor($name, $content = '', $rows=20, $cols=80, $o
         // editor instance
         $editor = new editor($name,$content,$rows,$cols,$optAttrib,$webPath);
 
-        $returnString .= $editor->getAdvancedEditor();
+        if( $type == 'advanced' )
+        {
+            $returnString .= $editor->getAdvancedEditor();
+        }
+        else
+        {
+            $returnString .= $editor->getSimpleEditor();
+        }
     }
     else
     {
@@ -638,6 +638,15 @@ function claro_html_textarea_editor($name, $content = '', $rows=20, $cols=80, $o
     return $returnString;
 }
 
+function claro_html_simple_textarea($name, $content = '')
+{
+    return claro_html_textarea_editor($name, $content, 20, 80, '', 'simple');
+}
+
+function claro_html_advanced_textarea($name, $content = '')
+{
+    return claro_html_textarea_editor($name, $content, 20, 80, '', 'advanced');
+}
 
 /**
  *
