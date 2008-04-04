@@ -65,7 +65,7 @@
          */
         public function addInlineJavascript( $script )
         {
-            if ( false === strpos( '<script', $script ) )
+            if ( false === strpos( $script, '<script' ) )
             {
                 $script = "<script lang=\"javasript\" type=\"text/javascript\">\n{$script}\n</script>";
             }
@@ -80,7 +80,7 @@
          */
         public function addInlineStyle( $style )
         {
-            if ( false === strpos( '<style', $style ) )
+            if ( false === strpos( $style, '<style' ) )
             {
                 $style = "<style type=\"text/css\">\n{$style}\n</style>";
             }
