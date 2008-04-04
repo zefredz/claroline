@@ -30,9 +30,8 @@
         
         /**
          * Constructor
-         * @param   string pageTitle (optional)
          */
-        public function __construct( $pageTitle = '' )
+        public function __construct()
         {
             parent::__construct('header.tpl.php');
             $this->_htmlXtraHeaders = array();
@@ -52,19 +51,47 @@
         /**
          * Add extra HTML header elements
          *
-         * @access  public
-         * @param   string content, page content
+         * @param   string $header header to add
          */
         public function addHtmlHeader( $header )
         {
             $this->_htmlXtraHeaders[] = $header;
         }
+        
+        /**
+         * Add inline javascript code to HTML head
+         *
+         * @param   string $script javascript code
+         */
+        public function addInlineJavascript( $script )
+        {
+            if ( false === strpos( '<script', $script ) )
+            {
+                $script = "<script lang=\"javasript\" type=\"text/javascript\">\n{$script}\n</script>";
+            }
+            
+            $this->addHtmlHeader( $script );
+        }
+        
+        /**
+         * Add inline css style to HTML head
+         *
+         * @param   string $style css style
+         */
+        public function addInlineStyle( $style )
+        {
+            if ( false === strpos( '<style', $style ) )
+            {
+                $style = "<style type=\"text/css\">\n{$style}\n</style>";
+            }
+            
+            $this->addHtmlHeader( $style );
+        }
 
         /**
          * Add extra HTTP header elements
          *
-         * @access  public
-         * @param   string content, page content
+         * @param   string $header HTTP header
          */
         public function addHttpHeader( $header )
         {
@@ -73,7 +100,6 @@
         
         /**
          * Send HTTP headers to the client
-         * @access  public
          */
         public function sendHttpHeaders()
         {
@@ -94,7 +120,6 @@
         /**
          * Retrieve variables used by the old header script for compatibility
          * with old scripts
-         * @access  private
          */
         private function _globalVarsCompat()
         {
@@ -112,7 +137,6 @@
         
         /**
          * Render the HTML page header
-         * @access  public
          * @return  string
          */
         public function render()
@@ -165,4 +189,3 @@ function claro_warn_of_session_loss() {
             return parent::render() . "\n";
         }
     }
-?>
