@@ -31,6 +31,23 @@ class editor extends GenericEditor
      * @var $_tag metadata comment added to identify editor
      */
     var $_tag;
+    
+    /**
+     * @var $_simpleJsLoaded
+     */
+    var $_defaultJsLoaded;
+    
+    /**
+     * @var $_simpleJsLoaded
+     */
+    var $_simpleJsLoaded;
+    
+	/**
+     * @var $_advancedJsLoaded
+     */
+    var $_advancedJsLoaded;
+    
+    
 
     /**
      * constructor
@@ -50,6 +67,10 @@ class editor extends GenericEditor
         $this->_tag = '<!-- content: html tiny_mce -->';
 
         $this->prepareContent();
+        
+        $this->_defaultJsLoaded = false;
+        $this->_simpleJsLoaded = false;
+        $this->_advancedJsLoaded = false;
     }
 
 
@@ -59,54 +80,120 @@ class editor extends GenericEditor
        */
     function getAdvancedEditor()
     {
-        // TODO limit to one editor object instance that will give output of several textarea instance
-        global $isJsLoaded;
-
         $returnString = '';
 
-        if( !isset($isJsLoaded) )
+        if( ! $this->_advancedJsLoaded )
         {
             $returnString .=
                 "\n\n"
-                .'<script language="javascript" type="text/javascript" src="'.$this->webPath.'/tiny_mce.js"></script>'."\n";
+                .'<script language="javascript" type="text/javascript" src="'.$this->webPath.'/tiny_mce/tiny_mce.js"></script>'."\n";
 
-            $isJsLoaded = true;
+            // configure kompressor
+            $returnString .=
+                "\n"
+                .'<script language="javascript" type="text/javascript">'."\n"
+           /*     .'tinyMCE_GZ.init({
+                	plugins : "style,layer,table,save,advhr,advimage,advlink,emotions,iespell,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras",
+                	themes : "simple,advanced",
+                	languages : "en",
+                	disk_cache : true,
+                	debug : false
+                });'*/
+                // configure this editor instance
+                .'tinyMCE.init({'."\n"
+                .'    mode : "textareas",'."\n"
+                .'    theme : "advanced",'."\n"
+                .'    browsers : "msie,gecko,opera,safari",' . "\n"
+                .'    editor_selector : "advancedMCE",' . "\n"
+                .'    plugins : "media,paste,table",'."\n"
+                .'    theme_advanced_buttons1 : "fontselect,fontsizeselect,formatselect,bold,italic,underline,strikethrough,separator,sub,sup,separator,undo,redo",'."\n"
+                .'    theme_advanced_buttons2 : "cut,copy,paste,pasteword,separator,justifyleft,justifycenter,justifyright,justifyfull,separator,bullist,numlist,separator,outdent,indent,separator,forecolor,backcolor,separator,hr,link,unlink,image,media,code",'."\n"
+                .'    theme_advanced_buttons3 : "tablecontrols,separator,help",'."\n"
+                .'    theme_advanced_toolbar_location : "top",'."\n"
+                .'    theme_advanced_toolbar_align : "left",'."\n"
+                .'    theme_advanced_path : true,'."\n"
+                .'    theme_advanced_path_location : "bottom",'."\n"
+                .'   // theme_advanced_resizing : true,'."\n"
+                .'    apply_source_formatting : true,'."\n"
+                .'	  cleanup_on_startup : true,'."\n"
+                .'    entity_encoding : "raw",'."\n"
+                .'    convert_fonts_to_spans : true,'."\n"
+                .'	  directionality : "'.get_locale("text_dir").'",' . "\n"
+                .'    convert_urls : false,'."\n" // prevent forced conversion to relative url
+                .'    relative_urls : false,'."\n" // prevent forced conversion to relative url
+    			.'    extended_valid_elements : "a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]"'."\n"
+                .'});'."\n\n"
+                .'</script>'."\n\n";
+                
+            $this->_advancedJsLoaded = true;
         }
-
-        // configure this editor instance
-        $returnString .=
-            "\n"
-            .'<script language="javascript" type="text/javascript">'."\n"
-            .'tinyMCE.init({'."\n"
-            .'    mode : "exact",'."\n"
-            .'    elements: "'.$this->name.'",'."\n"
-            .'    theme : "advanced",'."\n"
-            .'    browsers : "msie,gecko,opera",' . "\n" // disable tinymce for safari. default value is "msie,gecko,safari,opera"
-            .'    plugins : "media,paste,table",'."\n"
-            .'    theme_advanced_buttons1 : "fontselect,fontsizeselect,formatselect,bold,italic,underline,strikethrough,separator,sub,sup,separator,undo,redo",'."\n"
-            .'    theme_advanced_buttons2 : "cut,copy,paste,pasteword,separator,justifyleft,justifycenter,justifyright,justifyfull,separator,bullist,numlist,separator,outdent,indent,separator,forecolor,backcolor,separator,hr,link,unlink,image,media,code",'."\n"
-            .'    theme_advanced_buttons3 : "tablecontrols,separator,help",'."\n"
-            .'    theme_advanced_toolbar_location : "top",'."\n"
-            .'    theme_advanced_toolbar_align : "left",'."\n"
-            .'    theme_advanced_path : true,'."\n"
-            .'    theme_advanced_path_location : "bottom",'."\n"
-            .'    apply_source_formatting : true,'."\n"
-            .'	  cleanup_on_startup : true,'."\n"
-            .'    entity_encoding : "raw",'."\n"
-            .'    convert_fonts_to_spans : true,'."\n"
-            .'	  directionality : "'.get_locale("text_dir").'",' . "\n"
-            .'    convert_urls : false,'."\n" // prevent forced conversion to relative url
-            .'    relative_urls : false,'."\n" // prevent forced conversion to relative url
-			.'    extended_valid_elements : "a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]"'."\n"
-            .'});'."\n\n"
-            .'</script>'."\n\n";
-
+        
         // add standard text area
-        $returnString .= $this->getTextArea();
+        $returnString .= $this->getTextArea('advancedMCE');
 
         return  $returnString;
     }
 
+    /**
+     * Returns the html code needed to display a simple version of the editor
+     * @return string html code needed to display a simple version of the editor
+     */
+    function getSimpleEditor()
+    {
+        $returnString = '';
+
+        if( ! $this->_simpleJsLoaded )
+        {
+            $returnString .=
+                "\n\n"
+                .'<script language="javascript" type="text/javascript" src="'.$this->webPath.'/tiny_mce/tiny_mce.js"></script>'."\n";
+
+            // configure kompressor
+            $returnString .=
+                "\n"
+                .'<script language="javascript" type="text/javascript">'."\n"
+          /*      .'tinyMCE_GZ.init({
+                	plugins : "style,layer,table,save,advhr,advimage,advlink,emotions,iespell,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras",
+                	themes : "simple,advanced",
+                	languages : "en",
+                	disk_cache : true,
+                	debug : false
+                });'*/
+                // configure this editor instance
+                .'tinyMCE.init({'."\n"
+                .'    mode : "textareas",'."\n"
+                .'    theme : "advanced",'."\n"
+                .'    browsers : "msie,gecko,opera,safari",' . "\n"
+                .'    editor_selector : "simpleMCE",' . "\n"
+                .'    plugins : "media,paste,table",'."\n"
+                .'    theme_advanced_buttons1 : "bold,italic,underline,separator,strikethrough,justifyleft,justifycenter,justifyright, justifyfull,bullist,numlist,undo,redo,link,unlink",'."\n"
+                .'    theme_advanced_buttons2 : "",'."\n"
+                .'    theme_advanced_buttons3 : "",'."\n"
+                .'    theme_advanced_toolbar_location : "top",'."\n"
+                .'    theme_advanced_toolbar_align : "left",'."\n"
+                .'    theme_advanced_path : true,'."\n"
+                .'    theme_advanced_path_location : "bottom",'."\n"
+                .'	  theme_advanced_statusbar_location : "bottom",'."\n"
+                .'    theme_advanced_resizing : true,'."\n"
+                .'    apply_source_formatting : true,'."\n"
+                .'	  cleanup_on_startup : true,'."\n"
+                .'    entity_encoding : "raw",'."\n"
+                .'    convert_fonts_to_spans : true,'."\n"
+                .'	  directionality : "'.get_locale("text_dir").'",' . "\n"
+                .'    convert_urls : false,'."\n" // prevent forced conversion to relative url
+                .'    relative_urls : false,'."\n" // prevent forced conversion to relative url
+    			.'    extended_valid_elements : "a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]"'."\n"
+                .'});'."\n\n"
+                .'</script>'."\n\n";
+                
+            $this->_simpleJsLoaded = true;
+        }
+        
+        // add standard text area
+        $returnString .= $this->getTextArea('simpleMCE');
+
+        return  $returnString;
+    }
     /**
      * Introduce a comment stating that the content is html and edited with this editor
      *
