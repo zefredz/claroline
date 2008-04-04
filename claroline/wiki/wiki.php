@@ -20,7 +20,6 @@
      */
 
     $tlabelReq = 'CLWIKI';
-
     require_once "../inc/claro_init_global.inc.php";
 
     if ( ! claro_is_tool_allowed() )
@@ -443,32 +442,28 @@
     }
 
     // Breadcrumps
+    $nameTools = get_lang( 'Wiki' );
 
     switch( $action )
     {
         case 'rqEdit':
         {
-            $interbredcrump[]= array ('url' => 'wiki.php', 'name' => get_lang("Wiki") );
             $interbredcrump[]= array ('url' => NULL
                 , 'name' => $wikiTitle);
-            $nameTools = get_lang("Properties");
-            $noPHP_SELF = true;
+            $interbredcrump[]= array ('url' => null, 'name' => get_lang("Properties") );
             break;
         }
         case 'rqDelete':
         {
-            $interbredcrump[]= array ('url' => 'wiki.php', 'name' => get_lang("Wiki") );
             $interbredcrump[]= array ('url' => NULL
                 , 'name' => $wikiTitle);
-            $nameTools = get_lang("Delete");
-            $noPHP_SELF = true;
+            $interbredcrump[]= array ('url' => null, 'name' => get_lang("Delete") );
             break;
         }
         case 'list':
         default:
         {
             $noQUERY_STRING = true;
-            $nameTools = 'Wiki';
         }
     }
 

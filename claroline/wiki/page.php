@@ -20,8 +20,8 @@
      */
 
     $tlabelReq = 'CLWIKI';
-
     require_once '../inc/claro_init_global.inc.php';
+    
     if ( ! claro_is_tool_allowed() )
     {
         if ( ! claro_is_in_a_course() )
@@ -644,8 +644,9 @@
     }
 
     // Breadcrumps
-
-    $interbredcrump[]= array ( 'url' => 'wiki.php', 'name' => get_lang("Wiki"));
+    
+    $nameTools = get_lang( 'Wiki' );
+    // $interbredcrump[]= array ( 'url' => 'wiki.php', 'name' => get_lang("Wiki"));
     $interbredcrump[]= array ( 'url' => $_SERVER['PHP_SELF'] . '?action=show&amp;wikiId=' . (int) $wikiId
         , 'name' => $wiki->getTitle() );
 
@@ -657,20 +658,26 @@
             $interbredcrump[]= array ( 'url' => 'page.php?action=show&amp;wikiId='
                 . $wikiId . '&amp;title=' . $title
                 , 'name' => $dispTitle );
-            $nameTools = get_lang("Edit");
-            $noPHP_SELF = true;
+            $interbredcrump[]= array ( 'url' => null, 'name' => get_lang("Edit") );
+            break;
+        }
+        case 'preview':
+        {
+            $dispTitle = ( '__MainPage__' == $title ) ? get_lang("Main page") : $title;
+            $interbredcrump[]= array ( 'url' => 'page.php?action=show&amp;wikiId='
+                . $wikiId . '&amp;title=' . $title
+                , 'name' => $dispTitle );
+            $interbredcrump[]= array ( 'url' => null, 'name' => get_lang("Preview") );
             break;
         }
         case 'all':
         {
-            $nameTools = get_lang("All pages");
-            $noPHP_SELF = true;
+            $interbredcrump[]= array ( 'url' => null, 'name' => get_lang("All pages") );
             break;
         }
         case 'recent':
         {
-            $nameTools = get_lang("Recent changes");
-            $noPHP_SELF = true;
+            $interbredcrump[]= array ( 'url' => null, 'name' => get_lang("Recent changes") );
             break;
         }
         case 'history':
@@ -679,14 +686,13 @@
             $interbredcrump[]= array ( 'url' => 'page.php?action=show&amp;wikiId='
                 . $wikiId . '&amp;title=' . $title
                 , 'name' => $dispTitle );
-            $nameTools = get_lang("Page history");
-            $noPHP_SELF = true;
+            $interbredcrump[]= array ( 'url' => null, 'name' => get_lang("Page history") );
             break;
         }
         default:
         {
-            $nameTools = ( '__MainPage__' == $title ) ? get_lang("Main page") : $title ;
-            $noPHP_SELF = true;
+            $pageTitle = ( '__MainPage__' == $title ) ? get_lang("Main page") : $title ;
+            $interbredcrump[]= array ( 'url' => null, 'name' => $pageTitle );
         }
     }
 
