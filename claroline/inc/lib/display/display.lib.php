@@ -133,6 +133,31 @@
             {
                 $this->jsBodyOnload = array_merge( $this->jsBodyOnload, $GLOBALS['claroBodyOnload'] );
             }
+            
+            // set shared display variables
+            if( isset( $_REQUEST['inPopup'] )
+                    && 'true' == $_REQUEST['inPopup'] )
+            {
+                $this->popupMode();
+            }
+        
+            if ( isset( $_REQUEST['hide_banner'] )
+                    && 'true' == $_REQUEST['hide_banner'] )
+            {
+                $this->banner->hide();
+            }
+        
+            if( isset( $_REQUEST['hide_footer'] )
+                    && 'true' == $_REQUEST['hide_footer'] )
+            {
+                $this->footer->hide();
+            }
+        
+            if( isset( $_REQUEST['hide_body'] )
+                    && 'true' == $_REQUEST['hide_body'] )
+            {
+                $this->body->hideClaroBody();
+            }
         }
 
         // output methods
