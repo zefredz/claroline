@@ -154,7 +154,6 @@
         {
             $this->_compatVars();
             $this->autoPrepend();
-            $this->autoAppend();
         }
         
         public function render()
@@ -162,11 +161,6 @@
             $this->init();
             
             return parent::render();
-        }
-        
-        private function autoAppend()
-        {
-            // Nothing here
         }
         
         private function autoPrepend()
