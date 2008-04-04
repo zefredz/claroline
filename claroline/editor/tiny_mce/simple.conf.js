@@ -12,7 +12,7 @@ tinyMCE.init({
 
 	//-- general
     mode : "textareas",
-    editor_selector : "advancedMCE",
+    editor_selector : "simpleMCE",
     // plugins must be the same as in tinyMCE_GZ.init
     plugins : "media,paste,table,safari",
     theme : "advanced",
