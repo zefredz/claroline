@@ -20,8 +20,10 @@ var tinyMCE_GZ = {
 		for (i=0; i<nl.length; i++) {
 			n = nl[i];
 
-			if (n.src && n.src.indexOf('tiny_mce') != -1)
+			if (n.src && n.src.indexOf('tiny_mce_gzip') != -1)
+			{
 				t.baseURL = n.src.substring(0, n.src.lastIndexOf('/'));
+			}
 		}
 
 		if (!t.coreLoaded)
