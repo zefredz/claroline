@@ -623,7 +623,9 @@ class answerMultipleChoice
                 if( !$this->multipleAnswer ) break;
             }
         }
-        return $grade;
+        
+        // avoid returning negative val
+        return max(0,$grade);
     }
 
     /**
