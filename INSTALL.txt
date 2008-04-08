@@ -1,5 +1,5 @@
 *****************************************************
-     CLAROLINE 1.8
+     CLAROLINE 1.9
 *****************************************************
 
 Thank you for downloading Claroline 1.8. This text will guide you
