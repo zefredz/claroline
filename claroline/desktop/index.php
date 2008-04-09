@@ -27,7 +27,7 @@
     require_once dirname(__FILE__) . '/lib/portlet.lib.php';
     require_once dirname(__FILE__) . '/lib/portletRightMenu.lib.php';
     require_once dirname(__FILE__) . '/lib/porletInsertConfigDB.lib.php';
-    uses('utils/filefinder.lib.php');
+    uses('utils/finder.lib.php');
 
     // users authentified 
     if( ! claro_is_user_authenticated() ) claro_disp_auth_form();
