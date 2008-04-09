@@ -330,11 +330,11 @@ if ($intro_dispDefault)
                     $section .= '<div class="toolbar">' . "\n";
 
                     $section .= '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
-                    .       '?introCmd=rqEd&introId='.$introId.'">'
+                    .       '?introCmd=rqEd&amp;introId='.$introId.'">'
                     .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="' . get_lang('Edit') . '" border="0">'
                     .    '</a>' . "\n"
                     .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
-                    .      '?introCmd=exDel&introId=' . $introId . '" '
+                    .      '?introCmd=exDel&amp;introId=' . $introId . '" '
                     .      'onclick="javascript:if(!confirm(\''
                     .      clean_str_for_javascript( get_lang('Confirm Operation') . ' : ' . get_lang('Delete') ).'\')) '
                     .      'return false;">'
