@@ -331,7 +331,7 @@ if ($intro_dispDefault)
 
                     $section .= '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
                     .       '?introCmd=rqEd&introId='.$introId.'">'
-                    .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="' . get_lang('Ok') . '" border="0">'
+                    .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="' . get_lang('Edit') . '" border="0">'
                     .    '</a>' . "\n"
                     .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
                     .      '?introCmd=exDel&introId=' . $introId . '" '
