@@ -50,7 +50,7 @@ class mybox extends portlet
         .    '</thead>' . "\n"
         .    '<tbody>' . "\n"
         .      '<tr>' . "\n"
-        .       '<td align="center"><img src="' . get_icon('email') . '" alt="' . get_lang('email') . '" /></td>' . "\n"
+        .       '<td align="center"><img src="' . get_icon('email.png') . '" alt="' . get_lang('email') . '" /></td>' . "\n"
         .       '<td>Marcel</td>' . "\n"
         .       '<td>Promotion</td>' . "\n"
         .       '<td align="center">' . claro_html_localised_date( get_locale('dateFormatLong'), time() ) . '</td>' . "\n"
@@ -60,7 +60,7 @@ class mybox extends portlet
         .      '</tr>' . "\n"
         
         .      '<tr>' . "\n"
-        .       '<td align="center"><img src="' . get_icon('emaillu') . '" alt="' . get_lang('emaillu') . '" /></td>' . "\n"
+        .       '<td align="center"><img src="' . get_icon('emaillu.png') . '" alt="' . get_lang('emaillu') . '" /></td>' . "\n"
         .       '<td>Fred</td>' . "\n"
         .       '<td>Bonjour</td>' . "\n"
         .       '<td align="center">' . claro_html_localised_date( get_locale('dateFormatLong'), time() ) . '</td>' . "\n"
