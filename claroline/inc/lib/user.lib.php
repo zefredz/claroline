@@ -1163,7 +1163,7 @@ function user_html_form($data, $form_type='registration')
 
 /**
  * @param array $criterionList -
- *        Allowed keys are 'name', 'firstname', 'email', 'officialCode'
+ *        Allowed keys are 'name', 'firstname', 'email', 'officialCode','username'
  * @param string $courseId (optional)
  *        permit check if user are already enrolled in the concerned cours
  * @param boolean $allCriterion (optional)
@@ -1176,7 +1176,7 @@ function user_html_form($data, $form_type='registration')
 function user_search( $criterionList = array() , $courseId = null, $allCriterion = true, $strictCompare = false )
 {
     $validatedCritList = array('lastname' => '', 'firstname'    => '',
-    'email' => ''   , 'officialCode' => '');
+    'email' => ''   , 'officialCode' => '','username'=>'');
 
     foreach($criterionList as $thisCritKey => $thisCritValue)
     {
@@ -1198,9 +1198,10 @@ function user_search( $criterionList = array() , $courseId = null, $allCriterion
                     U.prenom        firstname,
                     U.email         email,
                     U.officialCode  officialCode,
+					U.username      username,
                     U.`user_id` AS  uid
                    ". ($courseId ? ', CU.user_id AS registered' : '') . "
-             FROM `" . $tbl_user . "` AS U";
+             FROM `" . $tbl_user . "` AS U ";
 
     if ($courseId) $sql .= " LEFT JOIN `" . $tbl_course_user . "` AS CU
                                     ON CU.`user_id`=U.`user_id`
@@ -1216,6 +1217,8 @@ function user_search( $criterionList = array() , $courseId = null, $allCriterion
     $sqlCritList[] = " U.email  LIKE '". addslashes($validatedCritList['email'       ])   . $wildcard . "'";
     if ($validatedCritList['officialCode'])
     $sqlCritList[] = " U.officialCode = '". addslashes($validatedCritList['officialCode']) .$wildcard . "'";
+	if ($validatedCritList['username'])
+    $sqlCritList[] = " U.username = '". addslashes($validatedCritList['username']) .$wildcard . "'";
 
     if ( count($sqlCritList) > 0) $sql .= 'WHERE ' . implode(" $operator ", $sqlCritList);
 

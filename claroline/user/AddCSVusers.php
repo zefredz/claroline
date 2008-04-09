@@ -207,76 +207,67 @@ switch ($cmd)
 
         //build 2D array with users who will be add, avoiding those with error(s).
 
-        $usersToAdd = array();
+        $usersNotToAdd = array();
+        $newUser = 0;
+        $addUserClass = 0;
+        $addUserCourse = 0;
 
         for ($i=0, $size=sizeof($_SESSION['claro_csv_userlist']); $i<$size; $i++)
         {
-            // user must be added only if we encountered exactly no error
-
-            if (
-            (!isset($_SESSION['claro_mail_synthax_error'][$i])      ||
-            $_SESSION['claro_mail_synthax_error'][$i]==false)       &&
-
-            (!isset($_SESSION['claro_mail_used_error'][$i])         ||
-            $_SESSION['claro_mail_used_error'][$i]==false )         &&
-
-            (!isset($_SESSION['claro_username_used_error'][$i])     ||
-            $_SESSION['claro_username_used_error'][$i]==false)      &&
-
-            (!isset($_SESSION['claro_officialcode_used_error'][$i]) ||
-            $_SESSION['claro_officialcode_used_error'][$i]==false)  &&
-
-            (!isset($_SESSION['claro_password_error'][$i])          ||
-            $_SESSION['claro_password_error'][$i]==false)           &&
-
-            (!isset($_SESSION['claro_mail_duplicate_error'][$i])    ||
-            $_SESSION['claro_mail_duplicate_error'][$i]==false )    &&
-
-            (!isset($_SESSION['claro_username_duplicate_error'][$i])||
-            $_SESSION['claro_username_duplicate_error'][$i]==false) &&
-
-            (!isset($_SESSION['claro_officialcode_duplicate_error'][$i])||
-            $_SESSION['claro_officialcode_duplicate_error'][$i]==false)
-            )
-            {
-                $usersToAdd[] = $_SESSION['claro_csv_userlist'][$i];
-            }
+			$user = $_SESSION['claro_csv_userlist'][$i];
+			
+            if ( ! ( isset($_SESSION['claro_mail_synthax_error'][$i]) 
+                     || isset($_SESSION['claro_officialcode_used_error'][$i])
+                     || isset($_SESSION['claro_password_error'][$i])
+                     || isset($_SESSION['claro_mail_duplicate_error'][$i])
+                     || isset($_SESSION['claro_username_duplicate_error'][$i])
+                     || isset($_SESSION['claro_officialcode_duplicate_error'][$i]) 
+                    )
+               )
+               { 	
+		            if (! (isset($_SESSION['claro_username_used_error'][$i])
+		            	 || isset($_SESSION['claro_mail_used_error'][$i])))
+		            {
+		            	// user must be added only if we encountered exactly no error
+		            	//set empty fields if needed
+			            if (empty($user['phone']))        $user['phone'] = '';
+			            if (empty($user['email']))        $user['email'] = '';
+			            if (empty($user['officialCode'])) $user['officialCode'] = '';
+			            $user_id = user_create($user);
+			            if   ($user_id != 0) $newUser++;      
+			        }    
+					else
+		            {    
+				        $criterionList = array('username' => $user['username']);
+		            	$resultSearch =  user_search($criterionList,null,true,true);
+		            	$user_id  = $resultSearch[0]['uid'];
+		            }
+		            
+			            // for each use case alos perform thze other needed action :
+					if (isset($user_id) && ($user_id != 0))
+					{
+			            switch ($AddType)
+			            {
+			                case 'adminTool':
+			                    //its all done in this case
+			                    break;
+			
+			                case 'adminClassTool':
+			                    user_add_to_class($user_id, $_SESSION['admin_user_class_id']);
+			                    $addUserClass++;
+			                    break;
+			
+			                case 'userTool':
+			                    user_add_to_course($user_id, claro_get_current_course_id(), false, false, false);
+			                    $addUserCourse++;
+			                    break;
+			      		}
+					}
+		      		else $usersNotToAdd[] = $user;
+		      		
+               } else $usersNotToAdd[] = $user;
 
         }
-
-
-        // perform subscriptions of users with 'no error' found.
-
-        foreach ($usersToAdd as $user)
-        {
-
-            //set empty fields if needed
-
-            if (empty($user['phone']))        $user['phone'] = '';
-            if (empty($user['email']))        $user['email'] = '';
-            if (empty($user['officialCode'])) $user['officialCode'] = '';
-
-            $user_id = user_create($user);
-
-            // for each use case alos perform thze other needed action :
-
-            switch ($AddType)
-            {
-                case 'adminTool':
-                    //its all done in this case
-                    break;
-
-                case 'adminClassTool':
-                    user_add_to_class($user_id, $_SESSION['admin_user_class_id']);
-                    break;
-
-                case 'userTool':
-                    user_add_to_course($user_id, claro_get_current_course_id(), false, false, false);
-                    break;
-            }
-        }
-
-
         // notify in session that action was done (to prevent double action if user uses back button of browser
 
         $_SESSION['claro_CSV_done'] = TRUE;
@@ -345,7 +336,7 @@ if (isset($_REQUEST['chformat']) && $_REQUEST['chformat']=='yes')
     .            '<br /><br />' . "\n"
     .            get_lang('The fields <em>%field_list</em> are compulsory', array ('%field_list' => implode(', ',$compulsory_list)) )
     .            '<br /><br />'
-    .            '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">'
+    .            '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '">'
     .            claro_form_relay_context()
     .            '<input type="hidden" name="AddType" value="' . $AddType . '" />' . "\n"
     .            '<input type="text" name="usedFormat" value="' . htmlspecialchars($usedFormat) . '" size="55" />' . "\n"
@@ -410,14 +401,14 @@ switch ( $display )
             echo get_lang('You must specify the CSV format used in your file') . "\n"
             .    ':' . "\n"
             .    '<br /><br />' . "\n"
-            .    '<form enctype="multipart/form-data"  method="post" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
+            .    '<form enctype="multipart/form-data"  method="POST" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
             .    claro_form_relay_context()
             .    '<input type="radio" name="firstLineFormat" value="YES" id="firstLineFormat_YES" />' . "\n"
             .    ' ' . "\n"
             .    '<label for="firstLineFormat_YES">' . "\n"
             .    get_lang('Use format defined in first line of file') . '</label>' . "\n"
             .    '<br /><br />' . "\n"
-            .    '<input type="radio" name="firstLineFormat" value="NO"  checked="checked" id="firstLineFormat_NO" />' . "\n"
+            .    '<input type="radio" name="firstLineFormat" value="NO" checked id="firstLineFormat_NO" />' . "\n"
             .    '<label for="firstLineFormat_NO">' . "\n"
             .    get_lang('Use the following format') . ' : ' . "\n"
             .    '</label>' . "\n"
@@ -449,7 +440,7 @@ switch ( $display )
             echo '<input type="hidden" name="fieldSeparator" value="';
             if (!empty($_SESSION['CSV_fieldSeparator'])) echo $_SESSION['CSV_fieldSeparator'];
             else                                         echo ';';
-            echo '"  />' . "\n"
+            echo '" >' . "\n"
             .    '<input type="hidden" name="enclosedBy" value="' . $_SESSION['CSV_enclosedBy'] . '" />' . "\n"
             .    '<input type="hidden" name="AddType" value="' . $AddType . '" />' . "\n"
             .    '<br />' . "\n"
@@ -503,10 +494,22 @@ switch ( $display )
                 ;
                 if (!$noerror)
                 {
-                    echo '(' . get_lang('if you choose to continue, lines with errors will simply be ignored') . ')<br />';
+                    echo get_lang('The user will be created only if all informations are correct.') . '<br />';
+                    switch ($AddType)
+					{
+    					case 'adminClassTool': 
+    						echo  get_lang('If the user is existing in the platform, he will be added to the class only if his firstname, 
+    									lastname and username are similar.') . '<br />';
+    						break;
+    					case 'userTool': 
+    						echo get_lang('If the user is existing in the platform, he will be added to the course only if his firstname, 
+    									lastname and username are similar.') . '<br />';
+    						break;
+					}
+    					
                 }
                 echo '<br />'
-                .    '<form method="post" action="' . $_SERVER['PHP_SELF'] . '?cmd=exImpSec">' . "\n"
+                .    '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '?cmd=exImpSec">' . "\n"
                 .    '<input type="hidden" name="AddType" value="' . $AddType . '" />'
                 .    '<input type="submit" value="' . get_lang('Continue') .'" />' . "\n"
                 .    claro_html_button($_SERVER['PHP_SELF'] . '?AddType=' . htmlspecialchars($AddType), get_lang('Cancel'))
@@ -523,31 +526,34 @@ switch ( $display )
 
     case 'steptwo' :
 
-        echo '<b>' . get_lang('%nb_user new users in the platform',array( '%nb_user' => sizeof($usersToAdd) ) ) . '</b> <br /><br />';
+        echo '<b>' . get_lang('%nb_user not to add',array( '%nb_user' => sizeof($usersNotToAdd) ) ) . '</b> <br /><br />';
 
-        foreach ($usersToAdd as $user)
+
+
+        //display messages concerning actions done to new users...
+
+        switch ($AddType)
         {
+            case 'adminTool':
+                echo get_lang('%newUser users added to the campus',array('%newUser'=>$newUser)). "<br />\n";
+                break;
 
-            //display messages concerning actions done to new users...
+            case 'adminClassTool':
+            	echo get_lang('%newUser users added to the campus',array('%newUser'=>$newUser)). "<br />\n";
+            	echo get_lang('%addUserClass users added to the class',array('%addUserClass'=>$addUserClass)). "<br />\n";
+                break;
 
-            switch ($AddType)
-            {
-                case 'adminTool':
-                    echo get_lang('%firstname %lastname has been added to the campus', array('%firstname'=>$user['firstname'],
-                    '%lastname'=>$user['lastname']) ). "<br />\n";
-                    break;
-
-                case 'adminClassTool':
-                    echo get_lang('%firstname %lastname has been added to the campus and to the class', array('%firstname'=>$user['firstname'],
-                    '%lastname'=>$user['lastname']) ). "<br />\n";
-                    break;
-
-                case 'userTool':
-                    echo get_lang('%firstname %lastname has been added to the campus and to the course', array('%firstname'=>$user['firstname'],
-                    '%lastname'=>$user['lastname'])). "<br />\n";
-                    break;
-            }
+            case 'userTool':
+            	echo get_lang('%newUser users added to the campus',array('%newUser'=>$newUser)). "<br />\n";
+            	echo get_lang('%addUserCourse users added to the course',array('%addUserCourse'=>$addUserCourse)). "<br />\n";
+                break;
         }
+        
+        foreach ($usersNotToAdd as $user)
+		{
+        		echo get_lang('%firstname %lastname has not been added !', array('%firstname'=>$user['firstname'],
+        			'%lastname'=>$user['lastname']) ). "<br />\n";
+		}        
 
         // display back link at the end of the log
 
