@@ -57,7 +57,7 @@
     
     try
     {
-        $fileFinder = new ExtensionFileFinder( $path, '.class.php', false );
+        $fileFinder = new Claro_FileFinder_Extension( $path, '.class.php', false );
 
         foreach ( $fileFinder as $file )
         {
