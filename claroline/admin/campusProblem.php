@@ -530,6 +530,7 @@ switch ($display)
                        ORDER BY code ASC";
                     $resCourseList = claro_sql_query($sql);
                     $i = 0;
+                    $courseWithoutAccess = array();
                     while ( ($course = mysql_fetch_array($resCourseList) ) )
                     {
                         $TABLEACCESSCOURSE = get_conf('courseTablePrefix') . $course['dbName'] . get_conf('dbGlu') . "track_e_access";
@@ -539,23 +540,22 @@ switch ($display)
                             FROM `" . $TABLEACCESSCOURSE . "`";
                         $coursesNotUsedResult = claro_sql_query($sql);
 
-                        $courseWithoutAccess = array();
+                       
                         if ( ( $courseAccess = mysql_fetch_array($coursesNotUsedResult) ) )
                         {
                             if ( 'recentlyUsedOrNull' == $courseAccess['lastDate'] && 0 != $courseAccess['qty'] ) continue;
                             $courseWithoutAccess[$i][0] = $course['code'];
                             if ( 'recentlyUsedOrNull' == $courseAccess['lastDate'] ) // if no records found ,course was never accessed
                             $courseWithoutAccess[$i][1] = get_lang('Never used');
-                            else                                                   $courseWithoutAccess[$i][1] = $courseAccess['lastDate'];
+                            else    $courseWithoutAccess[$i][1] = $courseAccess['lastDate'];
                         }
 
                         $i++;
                     }
 
-                    $courseWithoutAccess = claro_sql_query_fetch_all($sql);
                     if (!is_array($courseWithoutAccess) || 0 == sizeof($courseWithoutAccess))
                     $courseWithoutAccess[] = array( '-','qty'=>'-');
-                    $dg->set_colTitleList(array(get_lang('Code'), get_lang('Total')));
+                    $dg->set_colTitleList(array(get_lang('Code'), get_lang('Last access')));
                     $dg->set_grid($courseWithoutAccess);
                     $datagrid[$levelView] = '- '
                     .    '&nbsp;&nbsp;'
