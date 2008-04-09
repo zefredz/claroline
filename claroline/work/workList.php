@@ -172,7 +172,7 @@ if( $cmd == 'exDownload' && $is_allowedToEditAll && get_conf('allow_download_all
 	}
 	else // download all
 	{
-		$wanted = '';
+		$wanted = '_';
 
 		$sqlDateCondition = '';
 	}
@@ -219,7 +219,7 @@ if( $cmd == 'exDownload' && $is_allowedToEditAll && get_conf('allow_download_all
 				$i++;
 			}
 
-			$authorsDir = replace_dangerous_char($result['authors']) . '/';
+			$authorsDir = replace_dangerous_char($result['authors'], 'strict') . '/';
 
 			$submissionPrefix = $authorsDir . replace_dangerous_char(get_lang('Submission')) . '_' . $i . '_';
 

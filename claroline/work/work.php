@@ -233,7 +233,7 @@ if( $cmd == 'exDownload' && $is_allowedToEdit && get_conf('allow_download_all_su
 			. replace_dangerous_char(get_lang('Assignment')) . '_' . (int) $result['assignment_id'] . '/'
 			;
 
-			$authorsDir = replace_dangerous_char($result['authors']) . '/';
+			$authorsDir = replace_dangerous_char($result['authors'], 'strict') . '/';
 
 			$submissionPrefix = $authorsDir . replace_dangerous_char(get_lang('Submission')) . '_' . $i . '_';
 
