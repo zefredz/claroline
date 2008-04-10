@@ -1,20 +1,10 @@
-tinyMCE_GZ.init({
-	// plugins must be the same as in tinyMCE.init
-	plugins : "media,paste,table,safari",
-	themes : "advanced",
-	languages : "en",
-	disk_cache : true,
-	debug : false
-});
-
-
 tinyMCE.init({
 
 	//-- general
     mode : "textareas",
     editor_selector : "simpleMCE",
     // plugins must be the same as in tinyMCE_GZ.init
-    plugins : "media,paste,table,safari",
+    plugins : "paste,safari",
     theme : "advanced",
     browsers : "safari,msie,gecko,opera",
 	directionality : text_dir,
@@ -25,7 +15,7 @@ tinyMCE.init({
     relative_urls : false,
     
     //-- advanced theme
-    theme_advanced_buttons1 : "bold,italic,underline,separator,strikethrough,justifyleft,justifycenter,justifyright, justifyfull,bullist,numlist,undo,redo,link,unlink",
+    theme_advanced_buttons1 : "cut,copy,paste,pasteword,bold,italic,underline,separator,strikethrough,justifyleft,justifycenter,justifyright, justifyfull,bullist,numlist,undo,redo,link,unlink",
     theme_advanced_buttons2 : "",
     theme_advanced_buttons3 : "",
     theme_advanced_toolbar_location : "top",

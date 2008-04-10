@@ -32,22 +32,6 @@ class editor extends GenericEditor
      */
     private $_tag;
     
-    /**
-     * @var $_simpleJsLoaded
-     */
-    private $_isDefaultJsLoaded;
-    
-    /**
-     * @var $_simpleJsLoaded
-     */
-    private $_isSimpleJsLoaded;
-    
-	/**
-     * @var $_advancedJsLoaded
-     */
-    private $_isAdvancedJsLoaded;
-    
-    
 
     /**
      * constructor
@@ -67,10 +51,6 @@ class editor extends GenericEditor
         $this->_tag = '<!-- content: html tiny_mce -->';
 
         $this->prepareContent();
-        
-        $this->_isDefaultJsLoaded = false;
-        $this->_isSimpleJsLoaded = false;
-        $this->_isAdvancedJsLoaded = false;
     }
 
 
@@ -80,12 +60,19 @@ class editor extends GenericEditor
        */
     public function getAdvancedEditor()
     {
+        // ok, it's not cool to use global for that but it has to be shared between instances
+        // TODO find a cool way to do that
         global $_isAdvancedJsLoaded;
         
         $returnString = $this->getDefaultJs();
 
         if( !isset($_isAdvancedJsLoaded) )
         {
+            if( get_conf('gzip_editor') )
+            {
+                $returnString .= '<script language="javascript" type="text/javascript" src="'.$this->webPath.'/advanced_gzip.conf.js"></script>'."\n";
+            }
+            
             $returnString .= '<script language="javascript" type="text/javascript" src="'.$this->webPath.'/advanced.conf.js"></script>'."\n";
 
             $_isAdvancedJsLoaded = true;
@@ -103,12 +90,19 @@ class editor extends GenericEditor
      */
     public function getSimpleEditor()
     {
+        // ok, it's not cool to use global for that but it has to be shared between instances
+        // TODO find a cool way to do that
         global $_isSimpleJsLoaded;
         
         $returnString = $this->getDefaultJs();
 
         if( !isset($_isSimpleJsLoaded) )
         {
+            if( get_conf('gzip_editor') )
+            {
+                $returnString .= '<script language="javascript" type="text/javascript" src="'.$this->webPath.'/simple_gzip.conf.js"></script>'."\n";
+            }
+            
             $returnString .= '<script language="javascript" type="text/javascript" src="'.$this->webPath.'/simple.conf.js"></script>'."\n";
                 
             $_isSimpleJsLoaded = true;
@@ -122,13 +116,24 @@ class editor extends GenericEditor
     
     private function getDefaultJs()
     {
+        // ok, it's not cool to use global for that but it has to be shared between instances
+        // TODO find a cool way to do that        
         global $_isDefaultJsLoaded;
+        
+        $returnString = "\n\n";
         
         if( !isset($_isDefaultJsLoaded) )
         {
-            $returnString = "\n\n"
-            .	'<script language="javascript" type="text/javascript" src="'.$this->webPath.'/tiny_mce/tiny_mce_gzip.js"></script>'."\n"
-            .	'<script language="javascript" type="text/javascript">'."\n"
+            if( get_conf('gzip_editor') )
+            {
+                $returnString .= '<script language="javascript" type="text/javascript" src="'.$this->webPath.'/tiny_mce/tiny_mce_gzip.js"></script>'."\n";
+            }
+            else
+            {
+                $returnString .= '<script language="javascript" type="text/javascript" src="'.$this->webPath.'/tiny_mce/tiny_mce.js"></script>'."\n";
+            }
+            
+            $returnString .= '<script language="javascript" type="text/javascript">'."\n"
             .	'var text_dir = "'.get_locale("text_dir").'";' . "\n"
             .	'</script>'."\n\n";
 
