@@ -204,11 +204,13 @@ if ($cmd == 'applySearch')
 
     if ( ! (   empty($userData['lastname'    ])
             && empty($userData['email'       ])
+            && empty($userData['username'    ])
             && empty($userData['officialCode']) ) )
     {
         $userList = user_search( array('lastname'     => $userData['lastname'],
                                        'email'        => $userData['email'],
-                                       'officialCode' => $userData['officialCode']),
+                                       'officialCode' => $userData['officialCode'],
+        							   'username' 	  => $userData['username']),
                                        claro_get_current_course_id());
     }
     else
@@ -277,13 +279,14 @@ else
         .    '<table id="resultTable" class="claroTable emphaseLine" border="0" cellspacing="2">' . "\n"
         .    '<thead>' . "\n"
         .    '<tr class="superHeader">'
-        .    '<th colspan="5">' . get_lang('Search result') . '</th>'
+        .    '<th colspan="6">' . get_lang('Search result') . '</th>'
         .    '</tr>'
         .    '<tr class="headerX" align="center" valign="top">' . "\n"
         .    '<th>' . get_lang('Last name')           . '</th>' . "\n"
         .    '<th>' . get_lang('First name')          . '</th>' . "\n"
-        .    '<th>' . get_lang('Email')               . '</th>' . "\n"
         .    '<th>' . get_lang('Administrative code') . '</th>' . "\n"
+        .    '<th>' . get_lang('Username')               . '</th>' . "\n"
+        .    '<th>' . get_lang('Email')               . '</th>' . "\n"
         .    '<th>' . get_lang('Enrol as student')            . '</th>' . "\n"
         .    '</tr>' . "\n"
         .    '</thead>' . "\n"
@@ -295,8 +298,9 @@ else
            echo '<tr valign="top">' . "\n"
            .    '<td>' . $thisUser['lastname'    ] . '</td>' . "\n"
            .    '<td>' . $thisUser['firstname'   ] . '</td>' . "\n"
-           .    '<td>' . $thisUser['email'       ] . '</td>' . "\n"
            .    '<td>' . $thisUser['officialCode'] . '</td>' . "\n"
+           .    '<td>' . $thisUser['username'   ] . '</td>' . "\n"
+           .    '<td>' . $thisUser['email'       ] . '</td>' . "\n"
            .    '<td align="center">' . "\n"
            ;
 

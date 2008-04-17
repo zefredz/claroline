@@ -1216,9 +1216,9 @@ function user_search( $criterionList = array() , $courseId = null, $allCriterion
     if ($validatedCritList['email'])
     $sqlCritList[] = " U.email  LIKE '". addslashes($validatedCritList['email'       ])   . $wildcard . "'";
     if ($validatedCritList['officialCode'])
-    $sqlCritList[] = " U.officialCode = '". addslashes($validatedCritList['officialCode']) .$wildcard . "'";
+    $sqlCritList[] = " U.officialCode = '". addslashes($validatedCritList['officialCode']) . "'";
 	if ($validatedCritList['username'])
-    $sqlCritList[] = " U.username = '". addslashes($validatedCritList['username']) .$wildcard . "'";
+    $sqlCritList[] = " U.username = '". addslashes($validatedCritList['username']) . "'";
 
     if ( count($sqlCritList) > 0) $sql .= 'WHERE ' . implode(" $operator ", $sqlCritList);
 
