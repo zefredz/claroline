@@ -358,6 +358,7 @@ function get_sql_filtered_user_list()
         $sql .= " AND (U.nom LIKE '%". addslashes(pr_star_replace($_SESSION['admin_user_search'])) ."%'
                   OR U.prenom LIKE '%".addslashes(pr_star_replace($_SESSION['admin_user_search'])) ."%' ";
         $sql .= " OR U.email LIKE '%". addslashes(pr_star_replace($_SESSION['admin_user_search'])) ."%'";
+		$sql .= " OR U.username LIKE '". addslashes(pr_star_replace($_SESSION['admin_user_search'])) ."%'";        
         $sql .= " OR U.officialCode = '". addslashes(pr_star_replace($_SESSION['admin_user_search'])) ."')";
     }
 
@@ -380,7 +381,7 @@ function get_sql_filtered_user_list()
     
     if (isset($_SESSION['admin_user_officialCode']))
     {
-        $sql.= " AND (U.officialCode LIKE '%". addslashes(pr_star_replace($_SESSION['admin_user_officialCode'])) ."%') ";
+        $sql.= " AND (U.officialCode = '". addslashes(pr_star_replace($_SESSION['admin_user_officialCode'])) ."') ";
     }
 
     if (isset($_SESSION['admin_user_mail']))
