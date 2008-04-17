@@ -37,6 +37,7 @@ unset($_SESSION['admin_user_search']);
 unset($_SESSION['admin_user_firstName']);
 unset($_SESSION['admin_user_lastName']);
 unset($_SESSION['admin_user_userName']);
+unset($_SESSION['admin_user_officialCode']);
 unset($_SESSION['admin_user_mail']);
 unset($_SESSION['admin_user_action']);
 unset($_SESSION['admin_order_crit']);
@@ -56,6 +57,7 @@ if (isset($_REQUEST['action']))    $action    = $_REQUEST['action'];    else $ac
 if (isset($_REQUEST['lastName']))  $lastName  = $_REQUEST['lastName'];  else $lastName = '';
 if (isset($_REQUEST['firstName'])) $firstName = $_REQUEST['firstName']; else $firstName = '';
 if (isset($_REQUEST['userName']))  $userName  = $_REQUEST['userName'];  else $userName = '';
+if (isset($_REQUEST['officialCode']))  $userName  = $_REQUEST['officialCode'];  else $officialCode = '';
 if (isset($_REQUEST['mail']))      $mail      = $_REQUEST['mail'];      else $mail = '';
 
 //header and bredcrump display
@@ -103,6 +105,16 @@ echo claro_html_tool_title($nameTools . ' : ');
         </td>
         <td>
             <input type="text" name="userName" id="userName" value="<?php echo htmlspecialchars($userName); ?>"/>
+        </td>
+    </tr>
+    
+    <tr>
+        <td align="right">
+            <label for="officialCode"><?php echo get_lang('Official code') ?></label>
+            :  <br />
+        </td>
+        <td>
+            <input type="text" name="officialCode" id="officialCode" value="<?php echo htmlspecialchars($officialCode); ?>"/>
         </td>
     </tr>
 

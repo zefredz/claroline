@@ -40,6 +40,7 @@ if (isset($_REQUEST['newsearch']) && $_REQUEST['newsearch'] == 'yes')
     unset($_SESSION['admin_user_firstName']);
     unset($_SESSION['admin_user_lastName' ]);
     unset($_SESSION['admin_user_userName' ]);
+    unset($_SESSION['admin_user_officialCode' ]);
     unset($_SESSION['admin_user_mail'     ]);
     unset($_SESSION['admin_user_action'   ]);
     unset($_SESSION['admin_order_crit'    ]);
@@ -53,6 +54,7 @@ if (isset($_REQUEST['search'    ])) $_SESSION['admin_user_search'    ] = trim($_
 if (isset($_REQUEST['firstName' ])) $_SESSION['admin_user_firstName' ] = trim($_REQUEST['firstName' ]);
 if (isset($_REQUEST['lastName'  ])) $_SESSION['admin_user_lastName'  ] = trim($_REQUEST['lastName'  ]);
 if (isset($_REQUEST['userName'  ])) $_SESSION['admin_user_userName'  ] = trim($_REQUEST['userName'  ]);
+if (isset($_REQUEST['officialCode'  ])) $_SESSION['admin_user_officialCode'  ] = trim($_REQUEST['officialCode'  ]);
 if (isset($_REQUEST['mail'      ])) $_SESSION['admin_user_mail'      ] = trim($_REQUEST['mail'      ]);
 if (isset($_REQUEST['action'    ])) $_SESSION['admin_user_action'    ] = trim($_REQUEST['action'    ]);
 
@@ -355,7 +357,8 @@ function get_sql_filtered_user_list()
     {
         $sql .= " AND (U.nom LIKE '%". addslashes(pr_star_replace($_SESSION['admin_user_search'])) ."%'
                   OR U.prenom LIKE '%".addslashes(pr_star_replace($_SESSION['admin_user_search'])) ."%' ";
-        $sql .= " OR U.email LIKE '%". addslashes(pr_star_replace($_SESSION['admin_user_search'])) ."%')";
+        $sql .= " OR U.email LIKE '%". addslashes(pr_star_replace($_SESSION['admin_user_search'])) ."%'";
+        $sql .= " OR U.officialCode = '". addslashes(pr_star_replace($_SESSION['admin_user_search'])) ."')";
     }
 
     //deal with ADVANCED SEARCH parameters call
@@ -373,6 +376,11 @@ function get_sql_filtered_user_list()
     if (isset($_SESSION['admin_user_userName']))
     {
         $sql.= " AND (U.username LIKE '%". addslashes(pr_star_replace($_SESSION['admin_user_userName'])) ."%') ";
+    }
+    
+    if (isset($_SESSION['admin_user_officialCode']))
+    {
+        $sql.= " AND (U.officialCode LIKE '%". addslashes(pr_star_replace($_SESSION['admin_user_officialCode'])) ."%') ";
     }
 
     if (isset($_SESSION['admin_user_mail']))
@@ -420,6 +428,11 @@ function prepare_search()
     {
         $isSearched[] = get_lang('Username') . '=' . $_SESSION['admin_user_userName'];
         $queryStringElementList[] = 'userName=' . urlencode($_SESSION['admin_user_userName']);
+    }
+    if ( !empty($_SESSION['admin_user_officialCode']) )
+    {
+        $isSearched[] = get_lang('Official code') . '=' . $_SESSION['admin_user_officialCode'];
+        $queryStringElementList[] = 'userName=' . urlencode($_SESSION['admin_user_officialCode']);
     }
     if ( !empty($_SESSION['admin_user_mail']) )
     {
