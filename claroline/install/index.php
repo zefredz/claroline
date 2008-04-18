@@ -34,8 +34,8 @@ define ('DISP_RUN_INSTALL_NOT_COMPLETE',__LINE__);
 define ('DISP_RUN_INSTALL_COMPLETE',__LINE__);
 
 $imgStatus['X'] = 'delete.gif';
-$imgStatus['V'] = 'mark.gif';
-$imgStatus['?'] = 'learnpath.gif';
+$imgStatus['V'] = 'checkbox_on.gif';
+$imgStatus['?'] = 'checkbox_off.gif';
 $imgStatus['!'] = 'caution.gif';
 
 $cssStepStatus['X'] = 'error';
@@ -106,7 +106,7 @@ $panelTitle[DISP_DB_CONNECT_SETTING]        = get_lang('MySQL Database Settings'
 $panelTitle[DISP_DB_NAMES_SETTING]          = get_lang('MySQL Database and Table Names');
 $panelTitle[DISP_ADMINISTRATOR_SETTING]     = get_lang('Administrator Account');
 $panelTitle[DISP_PLATFORM_SETTING]          = get_lang('Platform Settings');
-$panelTitle[DISP_ADMINISTRATIVE_SETTING]    = get_lang('Additional Informations <small>(optional)</small>');
+$panelTitle[DISP_ADMINISTRATIVE_SETTING]    = get_lang('Additional Informations');
 $panelTitle[DISP_LAST_CHECK_BEFORE_INSTALL] = get_lang('Last check before install');
 $panelTitle[DISP_RUN_INSTALL_COMPLETE]      = get_lang('Claroline Installation succeeds');
 
@@ -126,10 +126,13 @@ $cmdName[DISP_RUN_INSTALL_COMPLETE]      = 'cmdDoInstall';
 
 // CONTROLER
 // GET cmd,
-
 if($_REQUEST['cmdLicence'])
 {
     $cmd=DISP_LICENSE;
+}
+elseif($_REQUEST['cmdWelcomePanel'])
+{
+    $cmd=DISP_WELCOME;
 }
 //elseif($_REQUEST['cmdFILE_SYSTEM_SETTING'])
 //{
@@ -241,8 +244,7 @@ if($_REQUEST['fromPanel'] == DISP_ADMINISTRATOR_SETTING || $_REQUEST['cmdDoInsta
         if (empty($adminNameForm)) $missing_admin_data[] = 'lastname';
         if (empty($adminEmailForm)) $missing_admin_data[] = 'email';
         if (!empty($adminEmailForm) && !is_well_formed_email_address($adminEmailForm)) $error_in_admin_data[] = 'email';
-        if (is_array ($missing_admin_data))  $msg_missing_admin_data = '<font color="red" >Please, fill in '.implode(', ',$missing_admin_data).'</font><br />';
-        if (is_array ($error_in_admin_data)) $msg_missing_admin_data .= '<font color="red" >Please, check '.implode(', ',$error_in_admin_data).'</font><br />';
+
         if ($cmd>DISP_ADMINISTRATOR_SETTING)
         {
             $display=DISP_ADMINISTRATOR_SETTING;
@@ -261,7 +263,7 @@ if($_REQUEST['fromPanel'] == DISP_ADMINISTRATOR_SETTING || $_REQUEST['cmdDoInsta
 
 if( DISP_ADMINISTRATIVE_SETTING == $_REQUEST['fromPanel'] )
 {
-
+    $check_administrative_data = array();
     $institutionUrlForm = trim($institutionUrlForm);
     $contactNameForm    = trim($contactNameForm);
     $adminNameForm      = trim($adminNameForm);
@@ -279,25 +281,25 @@ if( DISP_ADMINISTRATIVE_SETTING == $_REQUEST['fromPanel'] )
         else
         {
             $administrativeDataMissing = TRUE;
-            $check_administrative_data[] = 'Institution Url';
+            $check_administrative_data[] = get_lang('Institution Url');
         }
     }
 
-    if (empty($contactEmailForm)||empty($contactNameForm)
-        ||!is_well_formed_email_address($contactEmailForm)
+    if (empty($contactEmailForm) || empty($contactNameForm)
+        || !is_well_formed_email_address($contactEmailForm)
     )
     {
         $administrativeDataMissing = TRUE;
         if (empty($contactNameForm))
         {
-            $check_administrative_data[] = 'name of contact ';
+            $check_administrative_data[] = get_lang('Contact name');
             $contactNameForm = $adminNameForm;
         }
 
 
         if (empty($contactEmailForm)||!is_well_formed_email_address($contactEmailForm))
         {
-            $check_administrative_data[] = 'email ';
+            $check_administrative_data[] = get_lang('Contact email');
             if (empty($contactEmailForm))
             {
                 $contactEmailForm = $adminEmailForm;
@@ -312,7 +314,20 @@ if( DISP_ADMINISTRATIVE_SETTING == $_REQUEST['fromPanel'] )
 
     if($administrativeDataMissing)
     {
-        $msg_missing_administrative_data = '<font color="red" >Please check '.implode(', ',$check_administrative_data).'</font><br />';
+        $msg_missing_administrative_data = '<div class="dialogError">'
+        .    '<p>' . "\n"
+        .    '<strong>'.get_lang('Error').'</strong> : '
+        .    get_lang('Please complete following informations')
+        .    '</p>' . "\n"
+        .    '<ul>';
+        foreach ( $check_administrative_data as $missing_administrative_data )
+        {
+            $msg_missing_administrative_data .= '<li>'.$missing_administrative_data.'</li>';
+        }        
+        
+        $msg_missing_administrative_data .= '</ul>'
+        .    '</div>';
+        
         $display =  ( $cmd > DISP_ADMINISTRATIVE_SETTING ) ? DISP_ADMINISTRATIVE_SETTING : $cmd;
         $canRunCmd = FALSE;
         $stepStatus[DISP_ADMINISTRATIVE_SETTING] = 'X';
@@ -334,38 +349,39 @@ if ($_REQUEST['fromPanel'] == DISP_DB_CONNECT_SETTING || $_REQUEST['cmdDoInstall
     {
         $no  = mysql_errno();
         $msg = mysql_error();
-        $msg_no_connection = '
-                <P class="setup_error">
-                    <font color="red">Warning !</font>
-                    <small>[' . $no . '] - ' . $msg . '</small>
-                    <br />';
+        $msg_no_connection = 
+                '<div class="dialogError">'
+                .    '<p>'
+                .	 '<strong>'.get_lang('Error').'</strong> : '
+                .    '</p>';
+                
         if ( '2005' == $no )
         {
-            $msg_no_connection .= 'Wrong  Database Host : <I>'.$dbHostForm.'</I>';
+            $msg_no_connection .= get_lang('Wrong Database Host');
         }
         elseif ( '1045' == $no )
         {
-            $msg_no_connection .= 'Wrong database Login : '
-                                                .  '(<I>' . $dbUsernameForm . '</I>) '
-                                                .  'or Password '
-                                                .  '(<I>'.$dbPassForm.'</I>)'
-                                                ;
+            $msg_no_connection .= get_lang('Wrong database Login or Password');
         }
         else
         {
             $msg_no_connection .= 'Server unavailable. '
+            					. '<p>'
                                .  'Is your MySQL server started ?'
                                .  '<br />'
-                               .  '<font color="blue">'
                                .  'Fix this problem before going further'
-                               .  '</font>'
-                               .  '<br />'
-                               .  '</P>'
+                               .  '</p>'
                                ;
         }
 
+        $msg_no_connection .= '<p>' . "\n" 
+        .    '<small>(Mysql error ' . $no . ' : ' . $msg . ')</small>'
+        .    '</p>'
+        .	 '</div>';
+        
         $databaseParam_ok = FALSE;
         $canRunCmd = FALSE;
+        
         if ($cmd>DISP_DB_CONNECT_SETTING)
         {
             $display=DISP_DB_CONNECT_SETTING;
@@ -479,25 +495,35 @@ if ($_REQUEST['fromPanel'] == DISP_DB_NAMES_SETTING || $_REQUEST['cmdDoInstall']
 
 if($_REQUEST['fromPanel'] == DISP_PLATFORM_SETTING || $_REQUEST['cmdDoInstall'])
 {
-   $stepStatus[DISP_PLATFORM_SETTING] = 'V';
-   $platformDataMissing = FALSE;
-    if (empty($urlForm))
-    {
-        $platformDataMissing = TRUE;
-        $missing_platform_data[] = 'the <B>complete url</b> to your campus (something like <em>http://'.$_SERVER['SERVER_NAME'].$urlAppendPath.'/</em>)';
+    $stepStatus[DISP_PLATFORM_SETTING] = 'V';
 
-    }
+    
 
-    if (empty($campusForm))
+    if(empty($urlForm) || empty($campusForm) )
     {
-        $platformDataMissing = TRUE;
-        $missing_platform_data[]= 'the <B>name</b> of your online campus';
-    }
+        $msg_missing_platform_data = '<div class="dialogError">'
+        .    '<p>' . "\n"
+        .     '<strong>'.get_lang('Error').'</strong> : '
+        .     get_lang('Please complete following informations')
+        .    '</p>' . "\n"
+        .     '<ul>';
+        
+        if (empty($campusForm))
+        {
+            $msg_missing_platform_data .= '<li>'.get_lang('Name').'</li>';
+        }
 
-    if($platformDataMissing)
-    {
+        if (empty($urlForm))
+        {
+            $msg_missing_platform_data .= '<li>'.get_lang('Complete URL').' (Something like : http://'.$_SERVER['SERVER_NAME'].$urlAppendPath.'/)</li>';
+        }
+    
+        
+        $msg_missing_platform_data .= '</ul>' . "\n"
+        .     '</div>';
+        
         $canRunCmd = FALSE;
-        $msg_missing_platform_data = '<font color="red" >Please fill ' . implode(', ',$missing_platform_data) . '</font><br />';
+        
         if ($cmd > DISP_PLATFORM_SETTING)
         {
             $display = DISP_PLATFORM_SETTING;
@@ -549,8 +575,6 @@ if ($canRunCmd)
     }
     elseif($_REQUEST['cmdPlatformSetting'])
     {
-        $includePath = $newIncludePath;
-        $language_list = claro_get_lang_flat_list();
         $display = DISP_PLATFORM_SETTING;
     }
     elseif($_REQUEST['cmdAdministrativeSetting'])
@@ -559,16 +583,18 @@ if ($canRunCmd)
     }
     elseif($_REQUEST['cmdDoInstall'])
     {
+        /*
         $includePath = $newIncludePath;
         $rootSys = realpath($newIncludePath . '/../../');
         include('./do_install.inc.php');
+        */
     }
  }
 
 //PREPARE DISPLAY
 
 
-if (DISP_DB_NAMES_SETTING == $display )
+if( DISP_DB_NAMES_SETTING == $display )
 {
     // GET DB Names  //
     // this is  to prevent duplicate before submit
@@ -581,8 +607,7 @@ if (DISP_DB_NAMES_SETTING == $display )
     }
     unset($__dbName);
 }
-
-if ($display==DISP_ADMINISTRATIVE_SETTING)
+elseif( DISP_ADMINISTRATIVE_SETTING == $display )
 {
     if ($contactNameForm == '*not set*')
     {
@@ -595,6 +620,11 @@ if ($display==DISP_ADMINISTRATIVE_SETTING)
     }
 
 }
+elseif( DISP_PLATFORM_SETTING == $display )
+{
+    $includePath = $newIncludePath;
+    $language_list = claro_get_lang_flat_list();
+}
 
 // BEGIN OUTPUT
 
@@ -605,32 +635,20 @@ echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"'
 .    '<html>' . "\n"
 .    '<head>' . "\n"
 .    '<title>' . "\n"
-.    ' -- Claroline installation'
-.    ' -- version ' . $new_version
-.    ' -- Step  ' . (array_search($display, $panelSequence) + 1)  . "\n"
-.    '</title>' . "\n"
-//.    '<link rel="stylesheet" href="../css/default.css" type="text/css" />' . "\n"
-.    '<link rel="stylesheet" href="./install.css" type="text/css" />' . "\n"
+.    'Claroline installation'
+.    ' - version ' . $new_version
+.    ' - Step  ' . (array_search($display, $panelSequence) + 1)  . "\n"
+.    '</title>' . "\n\n"
+
+.    '<link rel="stylesheet" href="../css/install.css" type="text/css" />' . "\n"
 .    '<style media="print" type="text/css" >' . "\n"
-.    '    .notethis { font-weight : bold;  }' . "\n"
 .    '    .progressPanel{ visibility: hidden;width:0px; }' . "\n"
 .    '</style>' . "\n"
-.    '<style  type="text/css"  >' . "\n"
-.    '    .notethis { font-weight : bold; }' . "\n"
-.    '    .setup_error { background:white; margin-left: 15px;    margin-right: 15px; }' . "\n"
-.    '</style>' . "\n"
 .    '</head>' . "\n"
-.    '<body dir="' . $text_dir . '">' . "\n"
-.    '<center>' . "\n"
-.    '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
-.    '<table id="installer" cellpadding="5" cellspacing="0" border="0"  >' . "\n"
-.    '<tr>' . "\n"
-.    '<th valign="top" colspan="2">' . "\n"
-.    'Claroline ' . $new_version  . ' - Installation' . "\n"
-.    '</th>' . "\n"
-.    '</tr>' . "\n"
-.    '<tr>' . "\n"
-.    '<td valign="top" >' . "\n"
+.    '<body dir="' . $text_dir . '">' . "\n\n"
+.    '<h1>Claroline ' . $new_version  . ' - Installation</h1>' . "\n"
+.    '<div id="installBody">' . "\n\n"
+.    '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n\n"
 ;
 
 
@@ -644,9 +662,8 @@ if (DISP_RUN_INSTALL_COMPLETE != $display )
     foreach ($panelSequence as $stepCount => $thisStep  )
     {
         $stepStyle = ($thisStep == $display) ? 'active' : $cssStepStatus[$stepStatus[$thisStep]];
-        $stepIcon = (($stepStatus[$thisStep] == 'V') ? '<img src="../img/' . $imgStatus['V'] . '" border="0" />':'');
+
         echo '<div class="progress ' . $stepStyle . '"  >'
-        .    $stepIcon
         .    '<b>' . ($stepCount +1) . '</b> '
         .    strip_tags($panelTitle[$thisStep])
         .    '</div>' . "\n"
@@ -656,36 +673,27 @@ if (DISP_RUN_INSTALL_COMPLETE != $display )
     echo '</div>' . "\n";
 }
 
-echo '</td>' . "\n"
-.    '<td valign="top">' . "\n"
-.    '<table class="panel" cellpadding="10" cellspacing="0" border="0">' . "\n"
-.    '<tr>' . "\n"
-.    '<td valign="top">' . "\n"
-;
+echo '<div id="panel">' . "\n\n";
 
 if (DISP_RUN_INSTALL_COMPLETE != $display )
 {
-$htmlNextPrevButton = '<table width="100%">'  . "\n"
-.    '<tr>'  . "\n"
-.    '<td>'  . "\n"
-.    '</td>'  . "\n"
-.    '<td align="right" rowspan="2" valign="bottom">'  . "\n"
-.    ($stepPos !== false && ($stepPos+1 < count($panelSequence)) ? '<input type="submit" name="' . $cmdName[$panelSequence[$stepPos+1]] . '" value="Next &gt; " />' :'')
-.    '</td>' . "\n"
-.    '</tr>' . "\n"
-.    '<tr>' . "\n"
-.    '<td align="left">'  . "\n"
-.    ($stepPos!==false && ( $stepPos > 0 ) ? '<input type="submit" name="' . $cmdName[$panelSequence[$stepPos-1]] . '" value="&lt; Back" />' :'')
-.    '</td>' . "\n"
-.    '</tr>' . "\n"
-.    '</table>'
-;
+    $htmlNextPrevButton = '<div id="navigation">'  . "\n"
+    .    '<div id="navToNext">'  . "\n"
+    .    ($stepPos !== false && ($stepPos+1 < count($panelSequence)) ? '<input type="submit" name="' . $cmdName[$panelSequence[$stepPos+1]] . '" value="Next &gt; " />' :'')
+    .    '</div>' . "\n"
+    .    '<div id="navToPrev">'  . "\n"
+    .    ($stepPos!==false && ( $stepPos > 0 ) ? '<input type="submit" name="' . $cmdName[$panelSequence[$stepPos-1]] . '" value="&lt; Back" />' :'')
+    .    '</div>' . "\n"
+    .    '</div>' . "\n"
+    ;
 }
-else $htmlNextPrevButton ='';
+else $htmlNextPrevButton = '';
 
 
 foreach (array_keys($panelTitle) as $step )
+{
     echo '<input type="hidden" name="stepStatus['.$step.']" value="' . $stepStatus[$step] . '" />'                ."\n";
+}
 
 echo '<input type="hidden" name="alreadyVisited" value="1" />'                                                 ."\n"
 .    '<input type="hidden" name="urlAppendPath"                value="'.$urlAppendPath.'" />'                  ."\n"
@@ -732,9 +740,33 @@ echo '<input type="hidden" name="alreadyVisited" value="1" />'                  
  # Too big to show  in one time.
  # PANEL show some  field to edit, all other are in HIDDEN FIELDS
 ###################################################################
-###### STEP 1 REQUIREMENTS ########################################
+############### STEP 1 LICENSE  ###################################
 ###################################################################
-if ($display == DISP_WELCOME)
+if(DISP_LICENSE == $display)
+{
+    echo '<input type="hidden" name="fromPanel" value="'.$display.'" />'  . "\n"
+    .    '<h2>'  . "\n"
+    .    get_lang('Step %step of %nb_step : %step_name', array( '%step' => array_search(DISP_LICENSE, $panelSequence)+1 ,
+                                                                '%nb_step' => count($panelSequence) ,
+                                                                '%step_name' => $panelTitle[DISP_LICENSE] ) )
+    .    '</h2>'  . "\n"
+    .    '<p>'  . "\n"
+    .    'Claroline is free software, distributed under GNU General Public licence (GPL).<br />'  . "\n"
+    .    'Please read the licence and click &quot;Next &gt;&quot; to accept it.'  . "\n"
+    .    '<a href="../../LICENCE.txt">Printer-friendly version</a>'  . "\n"
+    .    '</p>'  . "\n"
+    .    '<textarea id="license" cols="65" rows="15">'
+    ;
+
+    readfile ('../license/gpl.txt');
+    echo '</textarea>'
+    ;
+
+}
+###################################################################
+###### STEP 2 REQUIREMENTS ########################################
+###################################################################
+elseif ($display == DISP_WELCOME)
 {
     echo '<input type="hidden" name="fromPanel" value="' . $display . '" />'
     .    '<h2>'
@@ -744,19 +776,19 @@ if ($display == DISP_WELCOME)
     .    '</h2>'
     ;
     // check if an claroline configuration file doesn't already exists.
-    if ( file_exists('../inc/conf/claro_main.conf.inc.php')
+    if ( file_exists('../../platform/conf/claro_main.conf.php')
+    ||   file_exists('../inc/conf/claro_main.conf.inc.php')
     ||   file_exists('../inc/conf/claro_main.conf.php')
     ||   file_exists('../inc/conf/config.inc.php')
     ||   file_exists('../include/config.inc.php')
     ||   file_exists('../include/config.php'))
     {
-        echo '<div style="background-color:#FFFFFF;margin:20px;padding:5px">'
-        .    '<b>'
-        .    '<font color="red">Warning !</font> '
-        .    'The installer has detected an existing claroline platform on your system. '
-        .    '<br />'
-        .    '</b>'
-        .    '<ul>'
+        echo '<div class="dialogWarning">'
+        .    '<p>' . "\n"
+        .    '<strong>'.get_lang('Warning !').'</strong>'
+        .    ' : ' . get_lang('The installer has detected an existing claroline platform on your system.') . "\n"
+        .    '</p>' . "\n"
+        .    '<ul>' . "\n"
         ;
         if ($is_upgrade_available)
         {
@@ -775,9 +807,7 @@ if ($display == DISP_WELCOME)
         }
         echo '<li>'
         .    'For a Claroline complete reinstallation click on the "Next" button below.<br />'
-        .    '<font color="red">'
         .    'Be aware that a complete reinstallation will crush the data stored in your previous installed Claroline.'
-        .    '</font>'
         .    '</li>'
         .    '</ul>'
         .    '</div>'
@@ -786,141 +816,167 @@ if ($display == DISP_WELCOME)
 
     if(!$stable)
     {
-        echo '<B>'
-        .    'Notice. This version is not considered as stable '
-        .    'and is not aimed for production.'
-        .    '</B><br />'
-        .    'If  something goes wrong, '
+        echo '<div class="dialogWarning">'
+        .    '<p>' . "\n"
+        .    '<strong>'.get_lang('Warning !').'</strong>'
+        .    ' : ' . get_lang('This version is not considered as stable and is not aimed for production.')
+        .    '</p>' . "\n"
+         .	 '<p>'
+        .    'If something goes wrong, '
         .    'come talk on our support forum at '
-        .    '<a href="http://www.claroline.net/forum/viewforum.php?f=62" '
-        .    'target="_clarodev">http://www.claroline.net'
+        .    '<a href="http://forum.claroline.net/">'
+        .    'http://forum.claroline.net'
         .    '</a>.'
+        .    '</p>'."\n"
+        .    '</div>'."\n\n"
         ;
     }
 
-    if(!isset($SERVER_SOFTWARE) || $SERVER_SOFTWARE == '') $SERVER_SOFTWARE = $_SERVER['SERVER_SOFTWARE'];
-    $WEBSERVER_SOFTWARE = explode(" ",$SERVER_SOFTWARE,2);
     echo '<p>Please, read thoroughly the '
     .    '<a href="../../INSTALL.txt">INSTALL.txt</a> document '
     .    'before proceeding to installation.'
     .    '</p>'
-    .    '<h4>Checking requirements</h4>'
-    .    '<ul>'
-    .    '<li>'
-    .    'Checking PHP extentions.'
-    .    '<UL>'
-    ;
-
-    warnIfExtNotLoaded('standard');
-    warnIfExtNotLoaded('session');
-    warnIfExtNotLoaded('mysql');
-    warnIfExtNotLoaded('zlib');
-    warnIfExtNotLoaded('pcre');
-    warnIfExtNotLoaded('xml');
-    //    warnIfExtNotLoaded('exif'); // exif  would be needed later for pic view properties.
-    //    warnIfExtNotLoaded('nameOfExtention'); // list here http://www.php.net/manual/fr/resources.php
-
-    echo '
-        </UL>
-    </LI>
-    <LI>
-        Checking PHP settings.
-        <UL>
-            ';
-    if (!version_compare(phpversion(), $requiredPhpVersion,'>='))
-    {
-        echo '<li>'
-        .    '<p class="setup_error">' . "\n"
-        .    '<font color="red">Warning !</font>' . "\n"
-        .    'php version is <strong>' . phpversion() . '</strong>.' . "\n"
-        .    '<br />' . "\n"
-        .    'Upgrade your php to <strong>' . $requiredPhpVersion . '</strong><br />' . "\n"
-        .    '</p>' . "\n"
-        .    '</li>' . "\n"
-        ;
-
-
-    }
-
-    if (ini_get('safe_mode') )
-    {
-        echo '<li>'
-        .    '<p class="setup_error">' . "\n"
-        .    '<font color="red">Warning !</font>' . "\n"
-        .    'safe_mode is set to <strong>on</strong>.' . "\n"
-        .    '<br />' . "\n"
-        .    'Change the following parameter in your <i>php.ini</i> file to this value :<br />' . "\n"
-        .    '<font color="blue">' . "\n"
-        .    '<code>safe_mode = off </code>' . "\n"
-        .    '</font>' . "\n"
-        .    '</p>' . "\n"
-        .    '</li>' . "\n"
-        ;
-    }
-
-
-    echo '</UL>'
-    .    '</li>'
-    .    '<li>'
-    .    'Checking file access to web directory.'
-    .    '<ul>'
-    .    (is_writable('../..')
-    ? ''
-    : '</li>'
-    . '<font color="red">Warning !</font> Claroline is not able to write on : <br />'
-    . '<code>' . realpath('../..') . '</code>'
-    . '<br />'
-    . 'Change this file permission the server file system.'
-    . '</li>')
-    .    ' '
-    .    (is_readable('../..')
-    ? ''
-    : '<li>'
-    . '<font color="red">Warning !</font> '
-    . 'Claroline is not able to read on : <br />'
-    . '<code>' . realpath('../..') . '</code>'
-    . '<br />'
-    . 'Change this file permission the server file system.'
-    . '</li>')
-    .    '</ul>'
-    .    '</li>'
-    .    '</ul>'
-    .    '<p>'
-    .    'If the checks above has passed without any problem, '
-    .    'click on the <i>Next</i> button to continue.'
-    ;
-
-}
-
-###################################################################
-############### STEP 2 LICENSE  ###################################
-###################################################################
-
-elseif(DISP_LICENSE == $display)
-{
-    echo '<input type="hidden" name="fromPanel" value="'.$display.'" />'  . "\n"
-    .    '<h2>'  . "\n"
-    .    get_lang('Step %step of %nb_step : %step_name', array( '%step' => array_search(DISP_LICENSE, $panelSequence)+1 ,
-                                                                '%nb_step' => count($panelSequence) ,
-                                                                '%step_name' => $panelTitle[DISP_LICENSE] ) )
-    .    '</h2>'  . "\n"
-    .    '<p>'  . "\n"
-    .    'Claroline is free software, distributed under GNU General Public licence (GPL).'  . "\n"
-    .    'Please read the licence and click &quot;Next &gt;&quot;.'  . "\n"
-    .    '<a href="../../LICENCE.txt">Printer-friendly version</a>'  . "\n"
-    .    '</p>'  . "\n"
-    .    '<textarea  cols="65" rows="15">'
-    ;
-
-    readfile ('../license/gpl.txt');
-    echo '</textarea>'
-    .    '</td>'
+    .    '<fieldset>' . "\n"
+    .	 '<legend>'.get_lang('Server requirements').'</legend>' . "\n"
+    
+    .	 '<table class="requirements">'
+    .    '<tbody>' . "\n"
+    .    '<tr>'
+    .    '<td>Php version >= 5.2</td>' 
+    .    '<td>' . ( version_compare(phpversion(), $requiredPhpVersion, ">=" ) ? '<span class="ok">Ok</span>':'<span class="ko">Ko</span>') . ' (' . phpversion() . ')</td>' 
     .    '</tr>'
     .    '<tr>'
+    .    '<td>MySQL version >= 4.3</td>' 
+    .    '<td>' . ( version_compare(mysql_get_client_info(), $requiredMySqlVersion, ">=" ) ? '<span class="ok">Ok</span>':'<span class="ko">Ko</span>') . ' (' . mysql_get_client_info(). ')</td>' 
+    .    '</tr>' 
+ 
+    .    '<tr>'
+    .    '<th colspan="2">Required extensions</th>' 
+    .    '</tr>'
+    .    '<tr>'
+    .    '<td>MySql</td>' 
+    .    '<td>' . ( extension_loaded('mysql') ? '<span class="ok">Ok</span>':'<span class="ko">Ko</span>') . '</td>'
+    .    '</tr>'
+    .    '<tr>'
+    .    '<td>Zlib compression</td>' 
+    .    '<td>' . ( extension_loaded('zlib') ? '<span class="ok">Ok</span>':'<span class="ko">Ko</span>') . '</td>'
+    .    '</tr>'
+    .    '<tr>'
+    .    '<td>Regular expressions</td>' 
+    .    '<td>' . ( extension_loaded('pcre') ? '<span class="ok">Ok</span>':'<span class="ko">Ko</span>') . '</td>'
+    .    '</tr>'
+    .    '<tr>'
+    .    '<td>XML</td>' 
+    .    '<td>' . ( extension_loaded('xml') ? '<span class="ok">Ok</span>':'<span class="ko">Ko</span>') . '</td>'
+    .    '</tr>'
+    .    '<tr>'
+    .    '<td>mbstring or iconv</td>' 
     .    '<td>'
+    ;
+    if( extension_loaded('mbstring') || extension_loaded('iconv') )
+    {
+        echo '<span class="ok">Ok</span> (';
+        if( extension_loaded('mbstring') ) echo ' mbstring ';
+        if( extension_loaded('iconv') ) echo ' iconv ';        
+        echo ')';
+    }
+    else
+    {
+        echo '<span class="ko">Ko</span>';        
+    }
+    
+    echo '</td>'
+    .    '</tr>'
+     
+    .    '<tr>'
+    .    '<th colspan="2">Optional extensions</th>' 
+    .    '</tr>'    
+    .    '<tr>'
+    .    '<td>GD</td>' 
+    .    '<td>' . ( extension_loaded('gd') ? '<span class="ok">Ok</span>':'<span class="ko">Ko</span>') . '</td>'
+    .    '</tr>'
+    .    '<tr>'
+    .    '<td>LDAP</td>' 
+    .    '<td>' . ( extension_loaded('ldap') ? '<span class="ok">Ok</span>':'<span class="ko">Ko</span>') . '</td>'
+    .    '</tr>'
+    .    '<tr>'
+    .    '<td>OpenSSL</td>' 
+    .    '<td>' . ( extension_loaded('openssl') ? '<span class="ok">Ok</span>':'<span class="ko">Ko</span>') . '</td>'
+    .    '</tr>'
+    .    '</tbody>' . "\n"
+    .    '</table>'
+	.	 '</fieldset>' . "\n\n"
+    
+    .    '<fieldset>' . "\n"
+    .    '<legend>'.get_lang('Recommanded settings').'</legend>' . "\n"
+    .    '<table  class="requirements">' . "\n"
+    .    '<tr>' . "\n"
+    .    '<th>'.get_lang('Setting').'</th>' . "\n" 
+    .    '<th>'.get_lang('Recommended value').'</th>' . "\n"
+    .    '<th>'.get_lang('Current value').'</th>' . "\n"
+    .    '</tr>' . "\n"
+    .    '<tbody>' . "\n"    
+    .    '<tr>' . "\n"
+    .    '<td>Safe mode</td>' . "\n"
+    .    '<td>Off</td>' . "\n"
+    .    '<td>' . check_php_setting('safe_mode', 'OFF') . '</td>' . "\n"
+    .    '</tr>' . "\n"
+    .    '<tr>' . "\n"
+    .    '<td>Display errors</td>' . "\n"
+    .    '<td>Off</td>' . "\n"
+    .	 '<td>' . check_php_setting('display_errors', 'OFF') . '</td>' . "\n"
+    .    '</tr>' . "\n"
+    .    '<tr>' . "\n"
+    .    '<td>Register globals</td>' . "\n" 
+    .    '<td>Off</td>' . "\n"  
+    .	 '<td>' . check_php_setting('register_globals', 'OFF') . '</td>' . "\n"
+    .    '</tr>' . "\n"
+    .    '<tr>' . "\n"
+    .    '<td>Magic quotes GPC</td>' . "\n" 
+    .    '<td>Off</td>' . "\n"  
+    .	 '<td>' . check_php_setting('magic_quotes_gpc', 'OFF') . '</td>' . "\n"
+    .    '</tr>' . "\n"
+    .    '<tr>' . "\n"
+    .    '<td>File uploads</td>' . "\n" 
+    .    '<td>On</td>' . "\n"  
+    .	 '<td>' . check_php_setting('file_uploads', 'ON') . '</td>' . "\n"
+    .    '</tr>' . "\n"
+    .    '<tr>' . "\n"
+    .    '<td>Upload max filesize</td>' . "\n" 
+    .    '<td>8-100M</td>' . "\n"  
+    .	 '<td>' . ini_get('upload_max_filesize') . '</td>' . "\n"
+    .    '</tr>' . "\n"
+    .    '<tr>' . "\n"
+    .    '<td>Post max size</td>' . "\n" 
+    .    '<td>8-100M</td>' . "\n"  
+    .	 '<td>' . ini_get('post_max_size') . '</td>' . "\n"
+    .    '</tr>' . "\n"
+    .    '</tbody>' . "\n"
+    .    '</table>' . "\n\n"
+    ;
+
+    echo '</fieldset>' . "\n\n"
+    
+    .    '<fieldset>' . "\n"
+    .    '<legend>'.get_lang('Directory and file permissions').'</legend>' . "\n"
+    .    '<table class="requirements">' . "\n"
+    .    '<tbody>' . "\n"
+    .    '<tr>' . "\n"
+    .    '<td>Is root folder ('.realpath('../..').') readable ?</td>'  . "\n"
+    .    '<td>' . ( is_readable('../..') ? '<span class="ok">Yes</span>':'<span class="ko">No</span>') . '</td>' . "\n"
+    .    '</tr>'     . "\n"
+    .    '<tr>' . "\n"
+    .    '<td>Is root folder ('.realpath('../..').') writable ?</td>'  . "\n"
+    .    '<td>' . ( is_writable('../..') ? '<span class="ok">Yes</span>':'<span class="ko">No</span>') . '</td>' . "\n"
+    .    '</tr>' . "\n"
+    .    '</tbody>' . "\n"
+    .    '</table>' . "\n"
+	.	 '</fieldset>' . "\n\n"
     ;
 
 }
+
+
 
 ##########################################################################
 ###### STEP 3 MYSQL DATABASE SETTINGS ####################################
@@ -936,82 +992,67 @@ elseif(DISP_DB_CONNECT_SETTING == $display)
                                                                 '%nb_step' => count($panelSequence) ,
                                                                 '%step_name' => $panelTitle[DISP_DB_CONNECT_SETTING] ) )
     .    '</h2>'
-    .    '</td>'
-    .    '</tr>'
-    .    '<tr>'
-    .    '<td>'
-    .    '<h4>'.get_lang('Mysql connection parameters').'</h4>'
-    .    '<p>'
-    .    'Enter here the parameters given by your database server administrator.'
-    .    '</p>'
     .    $msg_no_connection
-    .    '<table width="100%">'
-    .    '<tr>'
-    .    '<td>'
-    .    '<label for="dbHostForm">Database host</label>'
-    .    '</td>'
-    .    '<td>'
-    .    '<input type="text" size="25" id="dbHostForm" name="dbHostForm" value="'.htmlspecialchars($dbHostForm).'" />'
-    .    '</td>'
-    .    '<td>'
-    .    get_lang('EG') . ' localhost'
-    .    '</td>'
-    .    '</tr>'
-    .    '<tr>'
-    .    '<td>'
-    .    '<label for="dbUsernameForm">Database username</label>'
-    .    '</td>'
-    .    '<td>'
-    .    '<input type="text"  size="25" id="dbUsernameForm" name="dbUsernameForm" value="'.htmlspecialchars($dbUsernameForm).'" />'
-    .    '</td>'
-    .    '<td>'
-    .    get_lang('EG').' root'
-    .    '</td>'
-    .    '</tr>'
-    .    '<tr>'
-    .    '<td>'
-    .    '<label for="dbPassForm">Database password</label>'
-    .    '</td>'
-    .    '<td>'
-    .    '<input type="text"  size="25" id="dbPassForm" name="dbPassForm" value="'.htmlspecialchars($dbPassForm).'" />'
-    .    '</td>'
-    .    '<td>'
-    .    get_lang('EG') . ' ' . generate_passwd(8)
-    .    '</td>'
-    .    '</tr>'
-    .    '</table>'
-    .    '<h4>'.get_lang('Database usage').'</h4>'
-    .    '<table width="100%">'
-    .    '<tr>'
-    .    '<td>'
-    .    'Database mode'
-    .    '</td>'
-    .    '<td>'
+    .    '<fieldset>' . "\n"
+    .    '<legend>'.get_lang('Mysql connection parameters').'</legend>' . "\n"
+    .    '<p>'
+    .    get_lang('Enter here the parameters given by your database server administrator.')
+    .    '</p>'
+    
+    
+    .    '<div class="row">' . "\n"
+    .    '<div class="rowTitle">' . "\n"
+    .    '<label for="dbHostForm"><span class="required">*</span> '.get_lang('Database host').'</label>' . "\n"
+    .    '</div>' . "\n"
+    .    '<div class="rowField">' . "\n"
+    .    '<input type="text" size="25" id="dbHostForm" name="dbHostForm" value="'.htmlspecialchars($dbHostForm).'" />' . "\n"
+    .    '<span class="example">' . get_lang('e.g.') . ' localhost' . '</span>' . "\n"
+    .    '</div>' . "\n"
+    .    '</div>' . "\n\n"
+        
+    .    '<div class="row">' . "\n"
+    .    '<div class="rowTitle">' . "\n"
+    .    '<label for="dbUsernameForm"><span class="required">*</span> '.get_lang('Database username').'</label>' . "\n"
+    .    '</div>' . "\n"
+    .    '<div class="rowField">' . "\n"
+    .    '<input type="text"  size="25" id="dbUsernameForm" name="dbUsernameForm" value="'.htmlspecialchars($dbUsernameForm).'" />' . "\n"
+    .    '<span class="example">' . get_lang('e.g.') . ' root' . '</span>' . "\n"
+    .    '</div>' . "\n"
+    .    '</div>' . "\n\n"
+    
+    .    '<div class="row">' . "\n"
+    .    '<div class="rowTitle">' . "\n"
+    .    '<label for="dbPassForm"><span class="required">*</span> '.get_lang('Database password').'</label>' . "\n"
+    .    '</div>' . "\n"
+    .    '<div class="rowField">' . "\n"
+    .    '<input type="text"  size="25" id="dbPassForm" name="dbPassForm" value="'.htmlspecialchars($dbPassForm).'" />' . "\n"
+    .    '<span class="example">' . get_lang('e.g.') . ' ' . generate_passwd(8) . '</span>' . "\n"
+    .    '</div>' . "\n"
+    .    '</div>' . "\n\n"
+    
+    .    '</fieldset>' . "\n\n"
+    
+    .    '<fieldset>' . "\n"
+    .    '<legend>'.get_lang('Database usage').'</legend>' . "\n"  
+
+    .    '<div class="row">' . "\n"
+    .    '<div class="rowTitle">' . "\n"
+    .    '<span class="required">*</span> ' . get_lang('Database mode') . "\n"
+    .    '</div>' . "\n"
+    .    '<div class="rowField">' . "\n"
     .    '<input type="radio" id="singleDbForm_single" name="singleDbForm" value="1" '.($singleDbForm?'checked':'').' />'
-    .    '<label for="singleDbForm_single">'
-    .    'single'
-    .    '</label>'
-    .    '</td>'
-    .    '<td>'
+    .    '<label for="singleDbForm_single">' . get_lang('Single') . '</label>' . "\n"
+    .    '<br />'
     .    '<input type="radio" id="singleDbForm_multi" name="singleDbForm" value="0" '.($singleDbForm?'':'checked').' />'
-    .    '<label for="singleDbForm_multi">'
-    .    'multi '
+    .    '<label for="singleDbForm_multi">' . get_lang('Multi') 
     .    '<small>'
     .    '(a database is created at each course creation)'
-    .    '</small>'
-    .    '</label>'
-    .    '</td>'
-    .    '</tr>'
-    .    '<tr>'
-    .    '<td>'
-    .    '</td>'
-    .    '<td >'
-    .    '&nbsp;'
-    .    '</td>'
-    .    '<td align="right">'
-    .    '</td>'
-    .    '</tr>'
-    .    '</table>'
+    .    '</small>' 
+    .    '</label>' . "\n"
+    .    '</div>' . "\n"
+    .    '</div>' . "\n\n"  
+    .    '</fieldset>' . "\n\n"
+	.    '<small><span class="required">*</span> denotes required field</small>' . "\n"
     ;
 }     // cmdDB_CONNECT_SETTING
 
@@ -1027,173 +1068,148 @@ elseif(DISP_DB_NAMES_SETTING == $display )
                                                                 '%nb_step' => count($panelSequence) ,
                                                                 '%step_name' => $panelTitle[DISP_DB_NAMES_SETTING] ) )
     .    '</h2>'  . "\n"
-    .    ($singleDbForm?'':get_lang('DBSettingNamesIntro'))  . "\n"
-    .    '</td>'  . "\n"
-    .    '</tr>'  . "\n"
-    .    '<tr>'  . "\n"
-    .    '<td>'  . "\n"
-    .    $msg_no_connection.''  . "\n"
-    .    '<table width="100%">'
+    .    $msg_no_connection . ''  . "\n"
     ;
-    if (isset($databaseNameValid) && !$databaseNameValid)
+    
+    if( isset($databaseNameValid) && !$databaseNameValid )
     {
 
-        echo '<tr>'  . "\n"
-        .    '<td colspan="2">'  . "\n"
-        .    '<P class="setup_error">'  . "\n"
-        .    '<font color="red">Warning !</font> '  . "\n"
+        echo '<div class="dialogError">'  . "\n"
+        .    '<p>' . "\n"
+        .    '<strong>Error</strong> '  . "\n"
         .    ' : Database <em>'.$dbNameForm.'</em> is not valid. '  . "\n"
+        .    '</p>' . "\n"
         .    '<ul>'
-        .    ($msgErrorDbMain_dbName?'<LI>Main db<UL>':'')
-        .    ($msgErrorDbMain_dbNameToolLong?'<LI>dbName Too Long':'')
-        .    ($msgErrorDbMain_dbNameInvalid?'<LI>dbName Invalid Check the character (only letter ciffer and _)':'')
-        .    ($msgErrorDbMain_dbNameBadStart?'<LI>dbName Must begin by a letter':'')
-        .    ($msgErrorDbStat_dbName?'</UL><LI>Stat db<UL>':'')
-        .    ($msgErrorDbStat_dbNameToolLong?'<LI>dbName Too Long':'')
-        .    ($msgErrorDbStat_dbNameInvalid?'<LI>dbName Invalid. Check the character (only letter ciffer and _)':'')
-        .    ($msgErrorDbStat_dbNameBadStart?'<LI>dbName Must begin by a letter':'')
-        .    '</UL>'  . "\n"
-        .    '</UL>'  . "\n"
-        .    '</P>'  . "\n"
-        .    '</td>'  . "\n"
-        .    '</tr>'
+        .    ($msgErrorDbMain_dbName?'<li>Main db<ul>':'')
+        .    ($msgErrorDbMain_dbNameToolLong?'<li>dbName Too Long':'')
+        .    ($msgErrorDbMain_dbNameInvalid?'<li>dbName Invalid Check the character (only letter ciffer and _)':'')
+        .    ($msgErrorDbMain_dbNameBadStart?'<li>dbName Must begin by a letter':'')
+        .    ($msgErrorDbStat_dbName?'</ul><li>Stat db<ul>':'')
+        .    ($msgErrorDbStat_dbNameToolLong?'<li>dbName Too Long':'')
+        .    ($msgErrorDbStat_dbNameInvalid?'<li>dbName Invalid. Check the character (only letter ciffer and _)':'')
+        .    ($msgErrorDbStat_dbNameBadStart?'<li>dbName Must begin by a letter':'')
+        .    '</ul>'  . "\n"
+        .    '</ul>'  . "\n"
+        .    '</div>'  . "\n"
         ;
 
     }
+    
     if ($mainDbNameExist)
     {
-        echo '<tr>'  . "\n"
-        .    '<td colspan="2">'  . "\n"
-        .    '<p class="setup_error">'  . "\n"
-        .    '<font color="red">Warning !</font>'  . "\n"
-        .    'Database <em>'.$dbNameForm.'</em> already exists'  . "\n"
-        .    '<br />'  . "\n"
+        echo '<div class="dialogWarning">'  . "\n"
+        .    '<p>' . "\n"
+        .    '<strong>Warning</strong>'  . "\n"
+        .    ' : Database <em>'.$dbNameForm.'</em> already exists.'  . "\n"
+        .    '</p>' . "\n"
+        .    '<p>'  . "\n"
         .    'Claroline may overwrite data previously stored'  . "\n"
         .    'in tables of this database.'  . "\n"
-        .    '<br />'  . "\n"
+        .    '</p>'  . "\n"
+        .    '<p>'  . "\n"
         .    '<input type="checkbox" name="confirmUseExistingMainDb"  id="confirmUseExistingMainDb" value="true" '.($confirmUseExistingMainDb?'checked':'').' />'  . "\n"
         .    '<label for="confirmUseExistingMainDb" >'  . "\n"
-        .    '<B>I know, I want to use this database.</B>'  . "\n"
+        .    '<strong>I know, I want to use this database.</strong>'  . "\n"
         .    '</label>'  . "\n"
         .    '</p>'  . "\n"
-        .    '</td>'  . "\n"
-        .    '</tr>'
+        .    '</div>'  . "\n"
         ;
     }
-    echo '<tr>'  . "\n"
-    .    '<td>'  . "\n"
-    .    '<label for="dbNameForm">'  . "\n"
-    .    ''.($singleDbForm ? get_lang('Database name'):get_lang('Main database')).''  . "\n"
-    .    '</label>'  . "\n"
-    .    '</td>'  . "\n"
-    .    '<td>'  . "\n"
-    .    '<input type="text"  size="25" id="dbNameForm" name="dbNameForm" value="'.htmlspecialchars($dbNameForm).'" />'  . "\n"
-    .    '</td>'  . "\n"
-    .    '<td>'  . "\n"
-    .    'e.g. \''.$dbNameForm.'\''  . "\n"
+    
+    echo '<fieldset>' . "\n"
+    .    '<legend>'.get_lang('Database names').'</legend>' . "\n"
+    .	 '<div class="row">' . "\n"
+    .    '<div class="rowTitle">' . "\n"
+    .    '<label for="dbNameForm"><span class="required">*</span> '.($singleDbForm ? get_lang('Database name'):get_lang('Main database')).'</label>' . "\n"
+    .    '</div>' . "\n"
+    .    '<div class="rowField">' . "\n"
+    .    '<input type="text"  size="25" id="dbNameForm" name="dbNameForm" value="'.htmlspecialchars($dbNameForm).'" />' . "\n"
+    .    '<span class="example">' . get_lang('e.g.') . ' ' . $dbNameForm . '</span>' . "\n"
+    .    '</div>' . "\n"
+    .    '</div>' . "\n\n"
+    
     /*
-    I want  put this in a popup.
+    Moosh would like to put this in a popup.
     .    (is_array($existingDbs) ? (5 > count($existingDbs) ? '<br/><abbr title="&quot;' . implode('&quot;, &quot;', $existingDbs) . '&quot;" >INFO : Existing databases</abbr>' . "\n"
                                                             : '<br/>INFO : ' . count($existingDbs) . ' databases found<br/><select size="8" ><option>' . implode('</option><option>', $existingDbs) . '</option></select>')
                                  : '')
- */
-    .    '</td>'  . "\n"
-    .    '</td>'  . "\n"
-    .    '</tr>'  . "\n"
-    .    '<tr>'  . "\n"
-    .    '<td>'  . "\n"
-    .    '<label for="mainTblPrefixForm">'  . "\n"
-    .    'Prefix for names of main tables'  . "\n"
-    .    '</label>'  . "\n"
-    .    '</td>'  . "\n"
-    .    '<td>'  . "\n"
-    .    '<input type="text"  size="5" id="mainTblPrefixForm" name="mainTblPrefixForm" value="'.htmlspecialchars($mainTblPrefixForm).'" />'  . "\n"
-    .    '</td>'  . "\n"
-    .    '<td>'  . "\n"
-    .    'e.g. \''.$mainTblPrefixForm.'\''  . "\n"        .    '</td>'  . "\n"
-    .    '</td>'  . "\n"
-    .    '</tr>'  . "\n"
-    .    '<tr>'  . "\n"
-    .    '<td colspan="3">'  . "\n"
-    .    '</td>'  . "\n"
-    .    '</tr>'  . "\n"
+ 	*/
+	.	 '<div class="row">' . "\n"
+    .    '<div class="rowTitle">' . "\n"
+    .    '<label for="mainTblPrefixForm">'.get_lang('Prefix for names of main tables').'</label>' . "\n"
+    .    '</div>' . "\n"
+    .    '<div class="rowField">' . "\n"
+    .    '<input type="text"  size="5" id="mainTblPrefixForm" name="mainTblPrefixForm" value="'.htmlspecialchars($mainTblPrefixForm).'" />' . "\n"
+    .    '<span class="example">' . get_lang('e.g.') . ' ' . $mainTblPrefixForm . '</span>' . "\n"
+    .    '</div>' . "\n"
+    .    '</div>' . "\n\n"
     ;
+    
     if (!$singleDbForm)
     {
         if ($statsDbNameExist && $dbStatsForm != $dbNameForm)
         {
-            echo '<tr>'  . "\n"
-            .    '<td colspan="2">'  . "\n"
-            .    '<P class="setup_error">'  . "\n"
-            .    '<font color="red">Warning !</font>'  . "\n"
-            .    'Database <em>'.$dbStatsForm.'</em> already exists'  . "\n"
-            .    '<br />'  . "\n"
+            echo '<div class="dialogWarning">'  . "\n"
+            .    '<p>' . "\n"
+            .    '<strong>Warning</strong>'  . "\n"
+            .    ' : Database <em>'.$dbStatsForm.'</em> already exists'  . "\n"
+            .    '</p>' . "\n"
+            .    '<p>'  . "\n"
             .    'Claroline may overwrite data previously stored'  . "\n"
             .    'in tables of this database.'  . "\n"
-            .    '<br />'  . "\n"
+            .    '</p>'  . "\n"
+            .    '<p>'  . "\n"
             .    '<input type="checkbox" name="confirmUseExistingStatsDb"  id="confirmUseExistingStatsDb" value="true" ' . ($confirmUseExistingStatsDb?'checked':'') . ' />'  . "\n"
             .    '<label for="confirmUseExistingStatsDb" >'  . "\n"
-            .    '<B>I know, I want to use this database.</B>'  . "\n"
+            .    '<strong>I know, I want to use this database.</strong>'  . "\n"
             .    '</label>'  . "\n"
-            .    '</P>'  . "\n"
-            .    '</td>'  . "\n"
-            .    '</tr>'
+            .    '</p>'  . "\n"
+            .    '</div>'  . "\n"
             ;
         }
-        echo '<tr>'  . "\n"
-        .    '<td>'  . "\n"
-        .    '<label for="dbStatsForm">'.get_lang('Tracking database').'</label>'  . "\n"
-        .    '</td>'  . "\n"
-        .    '<td>'  . "\n"
-        .    '<input type="text"  size="25" id="dbStatsForm" name="dbStatsForm" value="'.htmlspecialchars($dbStatsForm).'" />'  . "\n"
-        .    '</td>'  . "\n"
-        .    '<td>'  . "\n"
-        .    'e.g. \''.$dbStatsForm.'\''  . "\n"        .    '</td>'  . "\n"
-        .    '</td>'  . "\n"
-        .    '</tr>'  . "\n"
-        .    '<tr>'  . "\n"
-        .    '<td>'  . "\n"
-        .    '<label for="statsTblPrefixForm">'  . "\n"
-        .    'Prefix for names of tracking tables'  . "\n"
-        .    '</label>'  . "\n"
-        .    '</td>'  . "\n"
-        .    '<td>'  . "\n"
-        .    '<input type="text"  size="5" id="statsTblPrefixForm" name="statsTblPrefixForm" value="'.htmlspecialchars($statsTblPrefixForm).'" />'  . "\n"
-        .    '</td>'  . "\n"
-        .    '<td>'  . "\n"
-        .    'e.g. \''.$statsTblPrefixForm.'\''  . "\n"
-        .    '</td>'  . "\n"
-        .    '</tr>'  . "\n"
-        .    '<tr>'  . "\n"
-        .    '<td colspan="3">'  . "\n"
+        
+        echo '<div class="row">' . "\n"
+        .    '<div class="rowTitle">' . "\n"
+        .    '<label for="dbStatsForm"><span class="required">*</span> '.get_lang('Tracking database').'</label>' . "\n"
+        .    '</div>' . "\n"
+        .    '<div class="rowField">' . "\n"
+        .    '<input type="text"  size="25" id="dbStatsForm" name="dbStatsForm" value="'.htmlspecialchars($dbStatsForm).'" />' . "\n"
+        .    '<span class="example">' . get_lang('e.g.') . ' ' . $dbStatsForm . '</span>' . "\n"
+        .    '</div>' . "\n"
+        .    '</div>' . "\n\n"
+        
+        .    '<div class="row">' . "\n"
+        .    '<div class="rowTitle">' . "\n"
+        .    '<label for="statsTblPrefixForm">'.get_lang('Prefix for names of tracking tables').'</label>' . "\n"
+        .    '</div>' . "\n"
+        .    '<div class="rowField">' . "\n"
+        .    '<input type="text"  size="5" id="statsTblPrefixForm" name="statsTblPrefixForm" value="'.htmlspecialchars($statsTblPrefixForm).'" />' . "\n"
+        .    '<span class="example">' . get_lang('e.g.') . ' ' . $statsTblPrefixForm . '</span>' . "\n"
+        .    '</div>' . "\n"
+        .    '</div>' . "\n\n"
+
         .    '<blockquote><small>'  . "\n"
         .    'Normally, Claroline creates the tracking tables into the main Claroline database. <br />'
         .    'But, if you want, you have the possibility to store tracking data into a separate database <br />'
         .    'or to specify a special prefix for tracking tables.'  . "\n"
         .    '</small></blockquote>'  . "\n"
-        .    '</td>'  . "\n"
-        .    '</tr>'  . "\n"
         ;
     }
-    echo '<tr>'  . "\n"
-    .    '<td>'  . "\n"
-    .    '<label for="dbPrefixForm">'  . "\n"
-    .    ($singleDbForm?'Prefix for names of course tables':get_lang('Prefix for names of course databases')).''  . "\n"
-    .    '</label>'  . "\n"
-    .    '</td>'  . "\n"
-    .    '<td>'  . "\n"
-    .    '<input type="text"  size="25" id="dbPrefixForm" name="dbPrefixForm" value="'.htmlspecialchars($dbPrefixForm).'" />'  . "\n"
-    .    '</td>'  . "\n"
-    .    '<td>'  . "\n"
-    .    'e.g. \'' . $dbPrefixForm.'\'' . "\n"
-    .    '</td>'  . "\n"
-    .    '</tr>'
+    
+    echo '<div class="row">' . "\n"
+    .    '<div class="rowTitle">' . "\n"
+    .    '<label for="dbPrefixForm">'.($singleDbForm?'Prefix for names of course tables':get_lang('Prefix for names of course databases')).'</label>' . "\n"
+    .    '</div>' . "\n"
+    .    '<div class="rowField">' . "\n"
+    .    '<input type="text"  size="25" id="dbPrefixForm" name="dbPrefixForm" value="'.htmlspecialchars($dbPrefixForm).'" />' . "\n"
+    .    '<span class="example">' . get_lang('e.g.') . ' ' . $dbPrefixForm . '</span>' . "\n"
+    .    '</div>' . "\n"
+    .    '</div>' . "\n\n"
     ;
+    
     if (!$singleDbForm)
     {
-        echo '<tr>'  . "\n"
-        .    '<td colspan="3">'  . "\n"
-        .    '<blockquote>'  . "\n"
+        echo '<blockquote>'  . "\n"
         .    '<small>'  . "\n"
         .    '<b>'  . "\n"
         .    'Afterwards, Claroline will create a new database for each newly '  . "\n"
@@ -1203,13 +1219,13 @@ elseif(DISP_DB_NAMES_SETTING == $display )
         .    'You can specify a prefix for these database names.'  . "\n"
         .    '</small>'  . "\n"
         .    '</blockquote>'  . "\n"
-        .    '</td>'  . "\n"
-        .    '</tr>'
         ;
 
     }
-    echo '</table>'
-    ;
+    
+    echo '</fieldset>' . "\n\n"
+    .    '<small><span class="required">*</span> denotes required field</small>' . "\n";
+    
 }     // cmdDB_CONNECT_SETTING
 
 ##########################################################################
@@ -1223,70 +1239,79 @@ elseif(DISP_ADMINISTRATOR_SETTING == $display )
     .    get_lang('Step %step of %nb_step : %step_name', array( '%step' => array_search(DISP_ADMINISTRATOR_SETTING, $panelSequence)+1 ,
                                                                 '%nb_step' => count($panelSequence) ,
                                                                 '%step_name' => $panelTitle[DISP_ADMINISTRATOR_SETTING] ) )
-    .    '</h2>' . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr>'  . "\n"
-    .    '<td>'  . "\n"
-    .    $msg_missing_admin_data. "\n"
-    .    $msg_admin_exist.''  . "\n"
-    .    '<table width="100%">'  . "\n"
-    .    '<tr>'  . "\n"
-    .    '<td>'  . "\n"
-    .    '<label for="loginForm">'.get_lang('Login').'</label>'  . "\n"
-    .    '</td>' . "\n"
-    .    '<td>'  . "\n"
-    .    '<input type="text" size="40" id="loginForm" name="loginForm" value="'.htmlspecialchars($loginForm).'" />'  . "\n"
-    .    '</td>' . "\n"
-    .    '<td>'  . "\n"
-    .    'e.g. jdoe'  . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr>'  . "\n"
-    .    '<td>'  . "\n"
-    .    '<label for="passForm">'.get_lang('Password').'</label>'  . "\n"
-    .    '</td>' . "\n"
-    .    '<td>'  . "\n"
-    .    '<input type="text" size="40" id="passForm" name="passForm" value="'.htmlspecialchars($passForm).'" />'  . "\n"
-    .    '</td>' . "\n"
-    .    '<td>'  . "\n"
-    .    'e.g. ' . generate_passwd(8) . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr>' . "\n"
-    .    '<td>'  . "\n"
-    .    '<label for="adminEmailForm">'.get_lang('Email').'</label>'  . "\n"
-    .    '</td>' . "\n"
-    .    '<td>'  . "\n"
-    .    '<input type="text" size="40" id="adminEmailForm" name="adminEmailForm" value="'.htmlspecialchars($adminEmailForm).'" />'  . "\n"
-    .    '</td>' . "\n"
-    .    '<td>'  . "\n"
-    .    'e.g. jdoe@mydomain.net'  . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr>' . "\n"
-    .    '<td>'  . "\n"
-    .    '<label for="adminNameForm">'.get_lang('Last name').'</label>'  . "\n"
-    .    '</td>' . "\n"
-    .    '<td>'  . "\n"
-    .    '<input type="text" size="40" id="adminNameForm" name="adminNameForm" value="'.htmlspecialchars($adminNameForm).'" />'  . "\n"
-    .    '</td>' . "\n"
-    .    '<td>'  . "\n"
-    .    'e.g. Doe'  . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr>'  . "\n"
-    .    '<td>'  . "\n"
-    .    '<label for="adminSurnameForm">'.get_lang('First name').'</label>'  . "\n"
-    .    '</td>' . "\n"
-    .    '<td>'  . "\n"
-    .    '<input type="text" size="40" id="adminSurnameForm" name="adminSurnameForm" value="'.htmlspecialchars($adminSurnameForm).'" />'  . "\n"
-    .    '</td>' . "\n"
-    .    '<td>'  . "\n"
-    .    'e.g. John'  . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '</table>'  . "\n"
+    .    '</h2>'  . "\n"
+	;
+	
+    if( is_array($missing_admin_data) || is_array($error_in_admin_data) )
+    {
+        echo '<div class="dialogError">'  . "\n"
+        .    '<p>' . "\n"
+        .     '<strong>'.get_lang('Error').'</strong> : '
+        .     get_lang('Please complete following informations')
+        .    '</p>' . "\n"
+        .    '<p>'  . "\n"
+        .    ( is_array($missing_admin_data) ? 'Fill in '.implode(', ',$missing_admin_data) .'<br />' : '' )
+        .    ( is_array($error_in_admin_data) ? 'Check '.implode(', ',$error_in_admin_data) : '' )
+        .    '</p>'  . "\n"
+        .    '</div>'  . "\n"
+        ; 
+    }
+	
+    echo '<fieldset>' . "\n"
+    .    '<legend>'.get_lang('Administrator identity').'</legend>' . "\n"
+
+    .	 '<div class="row">' . "\n"
+    .    '<div class="rowTitle">' . "\n"
+    .    '<label for="loginForm"><span class="required">*</span> '.get_lang('Login').'</label>' . "\n"
+    .    '</div>' . "\n"
+    .    '<div class="rowField">' . "\n"
+    .    '<input type="text" size="40" id="loginForm" name="loginForm" value="'.htmlspecialchars($loginForm).'" />' . "\n"
+    .    '<span class="example">' . get_lang('e.g.') . ' jdoe</span>' . "\n"
+    .    '</div>' . "\n"
+    .    '</div>' . "\n\n"
+    
+    .	 '<div class="row">' . "\n"
+    .    '<div class="rowTitle">' . "\n"
+    .    '<label for="passForm"><span class="required">*</span> '.get_lang('Password').'</label>' . "\n"
+    .    '</div>' . "\n"
+    .    '<div class="rowField">' . "\n"
+    .    '<input type="text" size="40" id="passForm" name="passForm" value="'.htmlspecialchars($passForm).'" />' . "\n"
+    .    '<span class="example">' . get_lang('e.g.') . generate_passwd(8) . '</span>' . "\n"
+    .    '</div>' . "\n"
+    .    '</div>' . "\n\n"
+    
+    .	 '<div class="row">' . "\n"
+    .    '<div class="rowTitle">' . "\n"
+    .    '<label for="adminEmailForm"><span class="required">*</span> '.get_lang('Email').'</label>' . "\n"
+    .    '</div>' . "\n"
+    .    '<div class="rowField">' . "\n"
+    .    '<input type="text" size="40" id="adminEmailForm" name="adminEmailForm" value="'.htmlspecialchars($adminEmailForm).'" />' . "\n"
+    .    '<span class="example">' . get_lang('e.g.') . ' jdoe@mydomain.net</span>' . "\n"
+    .    '</div>' . "\n"
+    .    '</div>' . "\n\n"
+        
+    .	 '<div class="row">' . "\n"
+    .    '<div class="rowTitle">' . "\n"
+    .    '<label for="adminNameForm"><span class="required">*</span> '.get_lang('Last name').'</label>' . "\n"
+    .    '</div>' . "\n"
+    .    '<div class="rowField">' . "\n"
+    .    '<input type="text" size="40" id="adminNameForm" name="adminNameForm" value="'.htmlspecialchars($adminNameForm).'" />' . "\n"
+    .    '<span class="example">' . get_lang('e.g.') . ' Doe</span>' . "\n"
+    .    '</div>' . "\n"
+    .    '</div>' . "\n\n"
+    
+    .	 '<div class="row">' . "\n"
+    .    '<div class="rowTitle">' . "\n"
+    .    '<label for="adminSurnameForm"><span class="required">*</span> '.get_lang('First name').'</label>' . "\n"
+    .    '</div>' . "\n"
+    .    '<div class="rowField">' . "\n"
+    .    '<input type="text" size="40" id="adminSurnameForm" name="adminSurnameForm" value="'.htmlspecialchars($adminSurnameForm).'" />' . "\n"
+    .    '<span class="example">' . get_lang('e.g.') . ' John</span>' . "\n"
+    .    '</div>' . "\n"
+    .    '</div>' . "\n\n"
+    
+    .    '</fieldset>'  . "\n"
+    .    '<small><span class="required">*</span> denotes required field</small>' . "\n"
     ;
 }
 
@@ -1301,86 +1326,85 @@ elseif(DISP_PLATFORM_SETTING == $display)
     .    get_lang('Step %step of %nb_step : %step_name', array( '%step' => array_search(DISP_PLATFORM_SETTING, $panelSequence)+1 ,
                                                                 '%nb_step' => count($panelSequence) ,
                                                                 '%step_name' => $panelTitle[DISP_PLATFORM_SETTING] ) )
-    .    '</h2>' . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr>' . "\n"
-    .    '<td>' . "\n"
-    .    '<h4>Campus</h4>' . "\n"
-    .    ''.$msg_missing_platform_data.'' . "\n"
-    .    '<table >' . "\n"
-    .    '<tr>' . "\n"
-    .    '<td>' . "\n"
-    .    '<label for="campusForm">Name</label>' . "\n"
-    .    '</td>' . "\n"
-    .    '<td colspan="2">' . "\n"
+    .    '</h2>'  . "\n"
+    .    $msg_missing_platform_data . "\n"
+    .    '<fieldset>' . "\n"
+    .    '<legend>'.get_lang('Campus').'</legend>' . "\n"
+
+    .	 '<div class="row">' . "\n"
+    .    '<div class="rowTitle">' . "\n"
+    .    '<label for="campusForm"><span class="required">*</span> '.get_lang('Name').'</label>' . "\n"
+    .    '</div>' . "\n"
+    .    '<div class="rowField">' . "\n"
     .    '<input type="text" size="40" id="campusForm" name="campusForm" value="'.htmlspecialchars($campusForm).'" />' . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr>' . "\n"
-    .    '<td>' . "\n"
-    .    '<label for="urlForm">Complete URL</label>' . "\n"
-    .    '</td>' . "\n"
-    .    '<td colspan="2">' . "\n"
+    .    '</div>' . "\n"
+    .    '</div>' . "\n\n"
+
+    .	 '<div class="row">' . "\n"
+    .    '<div class="rowTitle">' . "\n"
+    .    '<label for="urlForm"><span class="required">*</span> '.get_lang('Complete URL').'</label>' . "\n"
+    .    '</div>' . "\n"
+    .    '<div class="rowField">' . "\n"
     .    '<input type="text" size="60" id="urlForm" name="urlForm" value="'.htmlspecialchars($urlForm).'" />' . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr>' . "\n"
-    .    '<td colspan="3">' . "\n"
-    .    '<label for="courseRepositoryForm">Courses repository path (relative to the URL above) </label><br />' . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr>' . "\n"
-    .    '<td>' . "\n"
-    .    '</td>' . "\n"
-    .    '<td colspan="2">' . "\n"
+    .    '</div>' . "\n"
+    .    '</div>' . "\n\n"    
+
+    .	 '<div class="row">' . "\n"
+    .    '<div class="rowTitle">' . "\n"
+    .    '<label for="courseRepositoryForm">'.get_lang('Courses repository path (relative to the URL above)').'</label>' . "\n"
+    .    '</div>' . "\n"
+    .    '<div class="rowField">' . "\n"
     .    '<input type="text"  size="60" id="courseRepositoryForm" name="courseRepositoryForm" value="'.htmlspecialchars($courseRepositoryForm).'" />' . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr>' . "\n"
-    .    '<td>' . "\n"
-    .    '<label for="languageForm">Main language</label>' . "\n"
-    .    '</td>' . "\n"
-    .    '<td colspan="2">'
+    .    '</div>' . "\n"
+    .    '</div>' . "\n\n"  
+
+    .	 '<div class="row">' . "\n"
+    .    '<div class="rowTitle">' . "\n"
+    .    '<label for="languageForm"><span class="required">*</span> '.get_lang('Main language').'</label>' . "\n"
+    .    '</div>' . "\n"
+    .    '<div class="rowField">' . "\n"
     .    claro_html_form_select( 'languageForm'
                                , $language_list
                                , $languageForm
-                               , array('id'=>'languageForm'))
-    .    '</font>' . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr>' . "\n"
-    .    '<td colspan=3><br />' . "\n"
-    .    '<h4>User </h4>' . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr>' . "\n"
-    .    '<td>' . "\n"
-    .    'Self-registration' . "\n"
-    .    '</td>' . "\n"
-    .    '<td>' . "\n"
+                               , array('id'=>'languageForm')) . "\n"
+    .    '</div>' . "\n"
+    .    '</div>' . "\n\n"  
+    
+    .    '</fieldset>' . "\n\n"
+    
+    .    '<fieldset>' . "\n"
+    .    '<legend>'.get_lang('User').'</legend>' . "\n"
+
+    .	 '<div class="row">' . "\n"
+    .    '<div class="rowTitle">' . "\n"
+    .    '<span class="required">*</span> ' . "\n" 
+    .    get_lang('Self-registration') . "\n"
+    .    '</div>' . "\n"
+    .    '<div class="rowField">' . "\n"
     .    '<input type="radio" id="allowSelfReg_1" name="allowSelfReg" value="1" ' . ($allowSelfReg?'checked':'') . ' />' . "\n"
-    .    '<label for="allowSelfReg_1">enabled</label>' . "\n"
-    .    '</td>' . "\n"
-    .    '<td>' . "\n"
+    .    '<label for="allowSelfReg_1">'.get_lang('Enabled').'</label>' . "\n"
+    .    '<br />' . "\n"
     .    '<input type="radio" id="allowSelfReg_0" name="allowSelfReg" value="0" '.($allowSelfReg?'':'checked').' />' . "\n"
-    .    '<label for="allowSelfReg_0">disabled</label>' . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr>' . "\n"
-    .    '<td>' . "\n"
-    .    'Password storage' . "\n"
-    .    '</td>' . "\n"
-    .    '<td>' . "\n"
+    .    '<label for="allowSelfReg_0">'.get_lang('Disabled').'</label>' . "\n"
+    .    '</div>' . "\n"
+    .    '</div>' . "\n\n"  
+    
+    .	 '<div class="row">' . "\n"
+    .    '<div class="rowTitle">' . "\n"
+    .    '<span class="required">*</span> ' . "\n"
+    .    get_lang('Password storage') . "\n"
+    .    '</div>' . "\n"
+    .    '<div class="rowField">' . "\n"
     .    '<input type="radio" name="encryptPassForm" id="encryptPassForm_0" value="0"  '.($encryptPassForm?'':'checked') . ' />' . "\n"
-    .    '<label for="encryptPassForm_0">clear text</label>' . "\n"
-    .    '</td>' . "\n"
-    .    '<td>' . "\n"
+    .    '<label for="encryptPassForm_0">'.get_lang('Clear text').'</label>' . "\n"
+    .    '<br />' . "\n"
     .    '<input type="radio" name="encryptPassForm" id="encryptPassForm_1" value="1" ' . ($encryptPassForm?'checked':'') . ' />' . "\n"
-    .    '<label for="encryptPassForm_1">crypted</label>' . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '</table>' . "\n"
+    .    '<label for="encryptPassForm_1">'.get_lang('Crypted').'</label>' . "\n"
+    .    '</div>' . "\n"
+    .    '</div>' . "\n\n" 
+   
+    .    '</fieldset>' . "\n"
+    .    '<small><span class="required">*</span> denotes required field</small>' . "\n"
     ;
 }
 ###################################################################
@@ -1392,71 +1416,64 @@ elseif(DISP_ADMINISTRATIVE_SETTING == $display)
     .    get_lang('Step %step of %nb_step : %step_name', array( '%step' => array_search(DISP_ADMINISTRATIVE_SETTING, $panelSequence)+1 ,
                                                                 '%nb_step' => count($panelSequence) ,
                                                                 '%step_name' => $panelTitle[DISP_ADMINISTRATIVE_SETTING] ) )
-    .    '</h2>'
+    .    '</h2>'  . "\n"
     .    $msg_missing_administrative_data
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr>' . "\n"
-    .    '<td>' . $msg_missing_platform_data
-    .    '<table >' . "\n"
-    .    '<tr>' . "\n"
-    .    '<td colspan="3">' . "\n"
-    .    '<H4>Related organisation</H4>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr>' . "\n"
-    .    '<td>' . "\n"
-    .    '<label for="institutionForm">Name</label>' . "\n"
-    .    '</td>' . "\n"
-    .    '<td colspan="2">' . "\n"
+    
+    .	 '<fieldset>' . "\n"
+    .    '<legend>'.get_lang('Related organisation').'</legend>' . "\n"
+    
+    .	 '<div class="row">' . "\n"
+    .    '<div class="rowTitle">' . "\n"
+    .    '<label for="institutionForm">'.get_lang('Institution name').'</label>' . "\n"
+    .    '</div>' . "\n"
+    .    '<div class="rowField">' . "\n"
     .    '<input type="text" size="40" id="institutionForm" name="institutionForm" value="'.htmlspecialchars($institutionForm) . '" />' . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr>' . "\n"
-    .    '<td>' . "\n"
-    .    '<label for="institutionUrlForm">URL</label>' . "\n"
-    .    '</td>' . "\n"
-    .    '<td colspan="2">' . "\n"
+    .    '</div>' . "\n"
+    .    '</div>' . "\n\n"   
+    
+    .	 '<div class="row">' . "\n"
+    .    '<div class="rowTitle">' . "\n"
+    .    '<label for="institutionUrlForm">'.get_lang('Institution url').'</label>' . "\n"
+    .    '</div>' . "\n"
+    .    '<div class="rowField">' . "\n"
     .    '<input type="text" size="40" id="institutionUrlForm" name="institutionUrlForm" value="'.htmlspecialchars($institutionUrlForm) . '" />' . "\n"
-    .    '<br />' . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr>' . "\n"
-    .    '<td colspan="3"><br />' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr>' . "\n"
-    .    '<td colspan="3">' . "\n"
-    .    '<H4>Campus contact</H4>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr>' . "\n"
-    .    '<td>' . "\n"
-    .    '<label for="contactNameForm">Name</label>' . "\n"
-    .    '</td>' . "\n"
-    .    '' . "\n"
-    .    '<td colspan="2">' . "\n"
+    .    '</div>' . "\n"
+    .    '</div>' . "\n\n"       
+
+    .    '</fieldset>' . "\n\n"
+    
+    .    '<fieldset>' . "\n"
+    .    '<legend>'.get_lang('Campus contact').'</legend>' . "\n"
+
+    .	 '<div class="row">' . "\n"
+    .    '<div class="rowTitle">' . "\n"
+    .    '<label for="contactNameForm"><span class="required">*</span> '.get_lang('Contact name').'</label>' . "\n"
+    .    '</div>' . "\n"
+    .    '<div class="rowField">' . "\n"
     .    '<input type="text" size="40" id="contactNameForm" name="contactNameForm" value="'.htmlspecialchars($contactNameForm) . '"/>' . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr>' . "\n"
-    .    '<td>' . "\n"
-    .    '<label for="contactEmailForm">Email</label>' . "\n"
-    .    '</td>' . "\n"
-    .    '<td colspan="2">' . "\n"
+    .    '</div>' . "\n"
+    .    '</div>' . "\n\n"  
+    
+    .	 '<div class="row">' . "\n"
+    .    '<div class="rowTitle">' . "\n"
+    .    '<label for="contactEmailForm"><span class="required">*</span> '.get_lang('Contact email').'</label>' . "\n"
+    .    '</div>' . "\n"
+    .    '<div class="rowField">' . "\n"
     .    '<input type="text" size="40" id="contactEmailForm" name="contactEmailForm" value="'.htmlspecialchars($contactEmailForm) . '"/>' . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr>' . "\n"
-    .    '<td>' . "\n"
-    .    '<label for="contactPhoneForm">Phone</label>' . "\n"
-    .    '</td>' . "\n"
-    .    '<td colspan="2">' . "\n"
+    .    '</div>' . "\n"
+    .    '</div>' . "\n\n"  
+    
+    .	 '<div class="row">' . "\n"
+    .    '<div class="rowTitle">' . "\n"
+    .    '<label for="contactPhoneForm">'.get_lang('Contact phone').'</label>' . "\n"
+    .    '</div>' . "\n"
+    .    '<div class="rowField">' . "\n"
     .    '<input type="text" size="40" id="contactPhoneForm" name="contactPhoneForm" value="'.htmlspecialchars($contactPhoneForm) . '" />' . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '<tr>' . "\n"
-    .    '<td colspan="3"><br />' . "\n"
-    .    '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '</table>' . "\n"
+    .    '</div>' . "\n"
+    .    '</div>' . "\n\n"  
+    
+    .    '</fieldset>' . "\n"
+    .    '<small><span class="required">*</span> denotes required field</small>' . "\n"
     ;
 }
 
@@ -1473,65 +1490,305 @@ elseif(DISP_LAST_CHECK_BEFORE_INSTALL == $display )
                                                                 '%nb_step' => count($panelSequence) ,
                                                                 '%step_name' => $panelTitle[DISP_LAST_CHECK_BEFORE_INSTALL] ) )
     .    '</h2>' . "\n"
+    .    '<p>' . "\n"
     .    'Here are the values you entered <br />' . "\n"
-    .    '<Font color="red">' . "\n"
     .    'Print this page to remember your admin password and other settings' . "\n"
-    .    '</font>' . "\n"
-    .    '<blockquote>' . "\n"
-    .    '<FIELDSET>' . "\n"
-    .    '<LEGEND>'.$panelTitle[DISP_DB_CONNECT_SETTING].'</LEGEND>' . "\n"
-    .    '<EM>Account</EM>' . "\n"
-    .    '<br />' . "\n"
-    .    '&nbsp;Database host          : ' . htmlspecialchars($dbHostForm)     . '<br />' . "\n"
-    .    '&nbsp;Database username      : ' . htmlspecialchars($dbUsernameForm) . '<br />' . "\n"
-    .    '&nbsp;Database password      : ' . htmlspecialchars((empty($dbPassForm) ? '--empty--' : $dbPassForm)) . '<br />' . "\n"
-    .    '&nbsp;Enable single database : ' . ($singleDbForm ? 'yes' : 'no') . '<br />' . "\n"
-    .    '&nbsp;Enable tracking        : ' . ($enableTrackingForm ? 'yes' : 'no').'<br />' . "\n"
-    .    '<EM>Database Names</EM><br />' . "\n"
-    .    '&nbsp;Main database     : ' . htmlspecialchars($dbNameForm) . '<br />' . "\n"
-    .    '&nbsp;Tracking database : ' . htmlspecialchars($dbStatsForm) . '<br />' . "\n"
-    ;
-    if ( '' != $mainTblPrefixForm || '' != $statsTblPrefixForm || '' != $dbPrefixForm)
-        echo '<em>Prefixes</em><br />';
-    if ( '' != $mainTblPrefixForm )
-        echo '&nbsp;Main tables prefix : '.htmlspecialchars($mainTblPrefixForm).'<br />';
-    if ( '' != $statsTblPrefixForm )
-        echo '&nbsp;Tracking tables prefix : '.htmlspecialchars($statsTblPrefixForm).'<br />';
-    if ( '' != $dbPrefixForm )
-        echo '&nbsp;Courses database prefix : '.htmlspecialchars($dbPrefixForm).'<br />';
-    echo '</FIELDSET>' . "\n"
-    .    '<FIELDSET>' . "\n"
-    .    '<LEGEND>'.$panelTitle[DISP_ADMINISTRATOR_SETTING].'</LEGEND>' . "\n"
-    .    '<div class="notethis">' . "\n"
-    .    'Login : '.htmlspecialchars($loginForm).'<br />' . "\n"
-    .    'Password : '.htmlspecialchars((empty($passForm)?"--empty-- <B>&lt;-- Error !</B>":$passForm)) .'<br />' . "\n"
-    .    '</div>' . "\n"
-    .    'Email : '.htmlspecialchars($adminEmailForm).'<br />' . "\n"
-    .    'Lastname : '.htmlspecialchars($adminNameForm).'<br />' . "\n"
-    .    'Firstname : '.htmlspecialchars($adminSurnameForm).'<br />' . "\n"
-    .    '</FIELDSET>' . "\n"
+    .    '</p>' . "\n"
+    .    '<fieldset>' . "\n"
+    .    '<legend>'.$panelTitle[DISP_DB_CONNECT_SETTING] .'</legend>' . "\n"
 
-    .    '<FIELDSET>' . "\n"
-    .    '<LEGEND>'.$panelTitle[DISP_PLATFORM_SETTING].'</LEGEND>' . "\n"
-    .    'Name : '.htmlspecialchars($campusForm).'<br />' . "\n"
-    .    'Complete URL : ' . (empty($urlForm)?"--empty--":$urlForm) . '<br />' . "\n"
-    .    'Main language : ' . ucwords($languageForm) . '<br />' . "\n"
-    .    '' . "\n"
-    .    'Self-registration : '.($allowSelfReg?'enabled':'disabled ').'<br />' . "\n"
-    .    'Password storage : ' .($encryptPassForm ?'crypted ':'clear text').'' . "\n"
-    .    '</FIELDSET>' . "\n"
-    .    '<FIELDSET>' . "\n"
-    .    '<LEGEND>Additional Informations</LEGEND>' . "\n"
-    .    '<em>Related organisation</em><br />' . "\n"
-    .    '&nbsp;Name : '.htmlspecialchars((empty($institutionForm)?"--empty--":$institutionForm)).'<br />' . "\n"
-    .    '&nbsp;URL  : '.(empty($institutionUrlForm)?"--empty--":$institutionUrlForm).'<br />' . "\n"
-    .    '' . "\n"
-    .    '<em>Campus contact</em><br />' . "\n"
-    .    '&nbsp;Name : '.htmlspecialchars((empty($contactNameForm)?"--empty--":$contactNameForm)).'<br />' . "\n"
-    .    '&nbsp;Email : '.htmlspecialchars((empty($contactEmailForm)?$adminEmailForm:$contactEmailForm)).'<br />' . "\n"
-    .    '&nbsp;Phone : '.htmlspecialchars($contactPhoneForm).'<br />' . "\n"
-    .    '</FIELDSET>' . "\n"
-    .    '</blockquote>' . "\n"
+    .    '<p class="checkSubTitle">'.get_lang('Mysql connection parameters').'</p>' . "\n"
+    .    '<ul class="checkList">' . "\n\n"
+    
+    .    '<li class="check">' . "\n"
+    .    '<span class="checkTitle">' . "\n"
+    .    get_lang('Database host') . ' : ' . "\n"
+    .    '</span>' . "\n"
+    .    '<div class="checkValue">' . "\n"
+    .    htmlspecialchars($dbHostForm)
+    .    '</div>' . "\n"
+    .    '</li>' . "\n\n"
+        
+    .    '<li class="check">' . "\n"
+    .    '<span class="checkTitle">' . "\n"
+    .    get_lang('Database username') . ' : ' . "\n"
+    .    '</span>' . "\n"
+    .    '<div class="checkValue">' . "\n"
+    .    htmlspecialchars($dbUsernameForm)
+    .    '</div>' . "\n"
+    .    '</li>' . "\n\n"
+        
+    .    '<li class="check">' . "\n"
+    .    '<span class="checkTitle">' . "\n"
+    .    get_lang('Database password') . ' : ' . "\n"
+    .    '</span>' . "\n"
+    .    '<div class="checkValue">' . "\n"
+    .    htmlspecialchars((empty($dbPassForm) ? '--empty--' : $dbPassForm))
+    .    '</div>' . "\n"
+    .    '</li>' . "\n\n"
+
+    .    '</ul>' . "\n\n"
+    
+    .    '<p class="checkSubTitle">'.get_lang('Database usage').'</p>' . "\n"
+    .    '<ul class="checkList">' . "\n\n"
+        
+    .    '<li class="check">' . "\n"
+    .    '<span class="checkTitle">' . "\n"
+    .    get_lang('Database mode') . ' : ' . "\n"
+    .    '</span>' . "\n"
+    .    '<div class="checkValue">' . "\n"
+    .    ($singleDbForm ? get_lang('Single') : get_lang('Multi'))
+    .    '</div>' . "\n"
+    .    '</li>' . "\n\n"
+   
+    .    '</ul>' . "\n\n"
+    .    '</fieldset>' . "\n"
+    
+    .    '<fieldset>' . "\n"
+    .    '<legend>'.$panelTitle[DISP_DB_NAMES_SETTING] .'</legend>' . "\n"
+    
+    .    '<ul class="checkList">' . "\n\n"
+    
+    .    '<li class="check">' . "\n"
+    .    '<span class="checkTitle">' . "\n"
+    .    get_lang('Main database') . ' : ' . "\n"
+    .    '</span>' . "\n"
+    .    '<div class="checkValue">' . "\n"
+    .    htmlspecialchars($dbNameForm)
+    .    '</div>' . "\n"
+    .    '</li>' . "\n\n"
+    
+    .    '<li class="check">' . "\n"
+    .    '<span class="checkTitle">' . "\n"
+    .    get_lang('Tracking database') . ' : ' . "\n"
+    .    '</span>' . "\n"
+    .    '<div class="checkValue">' . "\n"
+    .    htmlspecialchars($dbStatsForm)
+    .    '</div>' . "\n"
+    .    '</li>' . "\n\n"
+    
+    .    '</ul>' . "\n\n"
+    .    '<p class="checkSubTitle">'.get_lang('Table prefixes').'</p>' . "\n"
+    .    '<ul class="checkList">' . "\n\n"
+  	;
+  	
+    if ( '' != $mainTblPrefixForm )
+    {
+        echo '<li class="check">' . "\n"
+        .    '<span class="checkTitle">' . "\n"
+        .    get_lang('Main tables prefix') . ' : ' . "\n"
+        .    '</span>' . "\n"
+        .    '<div class="checkValue">' . "\n"
+        .    htmlspecialchars($mainTblPrefixForm)
+        .    '</div>' . "\n"
+        .    '</li>' . "\n\n"
+        ;
+    } 
+
+    if ( '' != $statsTblPrefixForm )
+    {
+        echo '<li class="check">' . "\n"
+        .    '<span class="checkTitle">' . "\n"
+        .    get_lang('Tracking tables prefix') . ' : ' . "\n"
+        .    '</span>' . "\n"
+        .    '<div class="checkValue">' . "\n"
+        .    htmlspecialchars($statsTblPrefixForm)
+        .    '</div>' . "\n"
+        .    '</li>' . "\n\n"
+        ;
+    } 
+    
+    if ( '' != $dbPrefixForm )
+    {
+        echo '<li class="check">' . "\n"
+        .    '<span class="checkTitle">' . "\n"
+        .    get_lang('Courses database prefix') . ' : ' . "\n"
+        .    '</span>' . "\n"
+        .    '<div class="checkValue">' . "\n"
+        .    htmlspecialchars($dbPrefixForm)
+        .    '</div>' . "\n"
+        .    '</li>' . "\n\n"
+        ;
+    }     
+        
+    echo '</ul>' . "\n\n"
+    .	 '</fieldset>' . "\n"
+    
+    .    '<ul class="checkList">' . "\n"
+    
+    .    '<fieldset>' . "\n"
+    .    '<legend>'.$panelTitle[DISP_ADMINISTRATOR_SETTING].'</legend>' . "\n"
+    
+    .    '<li class="check">' . "\n"
+    .    '<span class="checkTitle notehis">' . "\n"
+    .    get_lang('Login') . ' : ' . "\n"
+    .    '</span>' . "\n"
+    .    '<div class="checkValue">' . "\n"
+    .    htmlspecialchars($loginForm)
+    .    '</div>' . "\n"
+    .    '</li>' . "\n\n"
+
+    .    '<li class="check">' . "\n"
+    .    '<span class="checkTitle notethis">' . "\n"
+    .    get_lang('Password') . ' : ' . "\n"
+    .    '</span>' . "\n"
+    .    '<div class="checkValue">' . "\n"
+    .    htmlspecialchars((empty($passForm)?"--empty-- <B>&lt;-- Error !</B>":$passForm))
+    .    '</div>' . "\n"
+    .    '</li>' . "\n\n"
+
+    .    '<li class="check">' . "\n"
+    .    '<span class="checkTitle">' . "\n"
+    .    get_lang('Email') . ' : ' . "\n"
+    .    '</span>' . "\n"
+    .    '<div class="checkValue">' . "\n"
+    .    htmlspecialchars($adminEmailForm)
+    .    '</div>' . "\n"
+    .    '</li>' . "\n\n"
+
+    .    '<li class="check">' . "\n"
+    .    '<span class="checkTitle">' . "\n"
+    .    get_lang('Last name') . ' : ' . "\n"
+    .    '</span>' . "\n"
+    .    '<div class="checkValue">' . "\n"
+    .    htmlspecialchars($adminNameForm)
+    .    '</div>' . "\n"
+    .    '</li>' . "\n\n"
+
+    .    '<li class="check">' . "\n"
+    .    '<span class="checkTitle">' . "\n"
+    .    get_lang('First name') . ' : ' . "\n"
+    .    '</span>' . "\n"
+    .    '<div class="checkValue">' . "\n"
+    .    htmlspecialchars($adminSurnameForm)
+    .    '</div>' . "\n"
+    .    '</li>' . "\n\n"
+   
+    .    '</ul>' . "\n\n"
+    
+    .    '</fieldset>' . "\n"
+
+    .    '<fieldset>' . "\n"
+    .    '<legend>'.$panelTitle[DISP_PLATFORM_SETTING].'</legend>' . "\n"
+    
+    .    '<p class="checkSubTitle">'.get_lang('Campus').'</p>' . "\n"
+    .    '<ul class="checkList">' . "\n\n"
+    
+    .    '<li class="check">' . "\n"
+    .    '<span class="checkTitle">' . "\n"
+    .    get_lang('Campus name') . ' : ' . "\n"
+    .    '</span>' . "\n"
+    .    '<div class="checkValue">' . "\n"
+    .    htmlspecialchars($campusForm)
+    .    '</div>' . "\n"
+    .    '</li>' . "\n\n"
+
+    .    '<li class="check">' . "\n"
+    .    '<span class="checkTitle">' . "\n"
+    .    get_lang('Campus url') . ' : ' . "\n"
+    .    '</span>' . "\n"
+    .    '<div class="checkValue">' . "\n"
+    .    (empty($urlForm)?"--empty--":$urlForm)
+    .    '</div>' . "\n"
+    .    '</li>' . "\n\n"
+
+    .    '<li class="check">' . "\n"
+    .    '<span class="checkTitle">' . "\n"
+    .    get_lang('Main language') . ' : ' . "\n"
+    .    '</span>' . "\n"
+    .    '<div class="checkValue">' . "\n"
+    .    ucwords($languageForm)
+    .    '</div>' . "\n"
+    .    '</li>' . "\n\n"
+    
+    .    '</ul>' . "\n\n"
+    
+    .    '<p class="checkSubTitle">'.get_lang('Users').'</p>' . "\n"
+    .    '<ul class="checkList">' . "\n\n"
+
+    .    '<li class="check">' . "\n"
+    .    '<span class="checkTitle">' . "\n"
+    .    get_lang('Self-registration') . ' : ' . "\n"
+    .    '</span>' . "\n"
+    .    '<div class="checkValue">' . "\n"
+    .    ($allowSelfReg?'enabled':'disabled ')
+    .    '</div>' . "\n"
+    .    '</li>' . "\n\n"
+
+    .    '<li class="check">' . "\n"
+    .    '<span class="checkTitle">' . "\n"
+    .    get_lang('Password storage') . ' : ' . "\n"
+    .    '</span>' . "\n"
+    .    '<div class="checkValue">' . "\n"
+    .    ($encryptPassForm ?'crypted ':'clear text')
+    .    '</div>' . "\n"
+    .    '</li>' . "\n\n"
+    
+    .    '</ul>' . "\n\n"
+
+    .    '</fieldset>' . "\n"
+    
+    
+    .    '<fieldset>' . "\n"
+    .    '<legend>'. get_lang('Additional Informations') . '</legend>' . "\n"
+    .    '<p class="checkSubTitle">'.get_lang('Related organisation').'</p>' . "\n"
+    
+    .    '<ul class="checkList">' . "\n\n"
+
+    .    '<li class="check">' . "\n"
+    .    '<span class="checkTitle">' . "\n"
+    .    get_lang('Institution name') . ' : ' . "\n"
+    .    '</span>' . "\n"
+    .    '<div class="checkValue">' . "\n"
+    .    htmlspecialchars((empty($institutionForm)?"--empty--":$institutionForm))
+    .    '</div>' . "\n"
+    .    '</li>' . "\n\n"
+
+    .    '<li class="check">' . "\n"
+    .    '<span class="checkTitle">' . "\n"
+    .    get_lang('Password storage') . ' : ' . "\n"
+    .    '</span>' . "\n"
+    .    '<div class="checkValue">' . "\n"
+    .    (empty($institutionUrlForm)?"--empty--":$institutionUrlForm)
+    .    '</div>' . "\n"
+    .    '</li>' . "\n\n"
+    
+    .    '</ul>' . "\n\n"
+        
+
+    .    '<p class="checkSubTitle">'.get_lang('Campus contact').'</p>' . "\n"
+    
+    .    '<ul class="checkList">' . "\n\n"
+
+    .    '<li class="check">' . "\n"
+    .    '<span class="checkTitle">' . "\n"
+    .    get_lang('Contact name') . ' : ' . "\n"
+    .    '</span>' . "\n"
+    .    '<div class="checkValue">' . "\n"
+    .    htmlspecialchars((empty($contactNameForm)?"--empty--":$contactNameForm))
+    .    '</div>' . "\n"
+    .    '</li>' . "\n\n"
+
+    .    '<li class="check">' . "\n"
+    .    '<span class="checkTitle">' . "\n"
+    .    get_lang('Contact email') . ' : ' . "\n"
+    .    '</span>' . "\n"
+    .    '<div class="checkValue">' . "\n"
+    .    htmlspecialchars((empty($contactEmailForm)?$adminEmailForm:$contactEmailForm))
+    .    '</div>' . "\n"
+    .    '</li>' . "\n\n"
+
+    .    '<li class="check">' . "\n"
+    .    '<span class="checkTitle">' . "\n"
+    .    get_lang('Contact phone') . ' : ' . "\n"
+    .    '</span>' . "\n"
+    .    '<div class="checkValue">' . "\n"
+    .    htmlspecialchars($contactPhoneForm)
+    .    '</div>' . "\n"
+    .    '</li>' . "\n\n"
+    
+    .    '</ul>' . "\n\n"
+    .    '</fieldset>' . "\n"
     .    '<center><input type="submit" name="cmdDoInstall" value="Install Claroline" /></center>' . "\n"
     ;
 
@@ -1730,67 +1987,65 @@ elseif(DISP_RUN_INSTALL_COMPLETE == $display)
     echo '<h2>'
     .    $panelTitle[DISP_RUN_INSTALL_COMPLETE]
     .    '</h2>' . "\n"
-    .    '<br />' . "\n"
-    .    '<br />' . "\n"
-    .    '</form>' . "\n"
+    .    '</form>' . "\n" // close main form to open the redirection one
+    .    '<div class="dialogWarning">'
+    .    '<p>'
+    .	 '<strong>'.get_lang('Warning').'</strong> : '
+    .    get_lang('We highly recommend that you <strong>protect or remove the <em>/claroline/install/</em> directory</strong>.') . "\n"
+    .    '</p>'
+    .    '</div>' . "\n"
+    .    '<fieldset>' . "\n"
+    .    '<legend>'.get_lang('Do not forget to ').'</legend>'
+    .    '<ul>'
+    .    '<li>'
+    .    get_lang('Tune your install in config in %administration | %configuration', array('%administration' => get_lang('Administration'),'%configuration' => get_lang('Configuration'))) . "\n"
+    .    '</li>'
+    .    '<li>'
+    .    get_lang('Build your course category tree in %administration | %manage course categories', array('%administration' => get_lang('Administration'),'%manage course categories' => get_lang('Manage course categories'))) . "\n"
+    .    '</li>'
+    .    '<li>'
+    .    get_lang('Edit or clear text Zones in %administration | %edit text zones', array('%administration' => get_lang('Administration'),'%edit text zones' => get_lang('Edit text zones'))) . "\n"
+    .    '</li>'
+    .    '</ul>' . "\n"
+    .    '</fieldset>' . "\n"
     .    '<form action="../../" method="post">' . "\n"
     .    '<input type="hidden" name="logout" value="TRUE" />' . "\n"
     .    '<input type="hidden" name="uidReset" value="TRUE" />' . "\n"
-    .    '<center>' . "\n"
     .    '<input type="submit" value="Go to your newly created campus" />' . "\n"
     .    '</form>' . "\n"
-    .    '<br />' . "\n"
-    .    '<br />' . "\n"
-    .    get_lang('Last tip : we highly recommend that you <strong>protect or remove the <em>/claroline/install/</em> directory</strong>.') . "\n"
-    .    '<br />' . "\n"
-    .    '</center>' . "\n"
-    .    '<hr />' . "\n"
-    .    get_lang('Todo List after install:')
-    .    '<ul>'
-    .    '<li>'
-    .    get_lang('Protect or remove the <em>/claroline/install/</em> directory</strong>.') . "\n"
-    .    '</li>'
-    .    '<li>'
-    .    get_lang('Tune your install in config in <tt>%administration | %configuration</tt>', array('%administration' => get_lang('Administration'),'%configuration' => get_lang('Configuration'))) . "\n"
-    .    '</li>'
-    .    '<li>'
-    .    get_lang('Build your course category tree in <tt>%administration | %manage course categories</tt>', array('%administration' => get_lang('Administration'),'%manage course categories' => get_lang('Manage course categories'))) . "\n"
-    .    '</li>'
-    .    '<li>'
-    .    get_lang('Edit or clear text Zones in <tt>%administration | %edit text zones</tt>', array('%administration' => get_lang('Administration'),'%edit text zones' => get_lang('Edit text zones'))) . "\n"
-    .    '</li>'
-    .    '</ul>'
-    .    '<br />' . "\n"
-    .    '<br />' . "\n"
     ;
 }    // STEP RUN_INSTALL_COMPLETE
 
 else
 {
-    echo '<pre>' . $display . '</pre>' . "\n"
-    .    'not set.' . "\n"
+    echo 'Error in script. <br />' . "\n"
     .    '<br />' . "\n"
-    .    'Error in script. <br />' . "\n"
-    .    '<br />' . "\n"
-    .    'Please inform  <a href=mailto:cvs@claroline.net">Claroline team</a> )'
+    .    'Please report and explain that failure on <a href="http://forum.claroline.net">Claroline\'s support forums</a> )'
     ;
 }
 
-?>
-</td>
-</tr>
-<tr>
-<td>
-<?php
 echo $htmlNextPrevButton;
 ?>
-</td>
-</tr>
-</table>
-</td>
-</tr>
-</table>
+</div><!-- end of div panel -->
 </form>
-</center>
+</div><!--  end div install -->
+<div id="footer">
+    <hr />
+    <div id="footerLeft">
+		<a href="http://www.claroline.net">http://www.claroline.net</a>		    
+    </div>
+
+
+    <div id="footerRight">
+		<a href="mailto:&#105;&#x6E;&#x66;&#x6F;&#64;&#99;&#x6C;&#x61;&#114;&#x6F;&#108;&#105;&#110;&#x65;&#x2E;&#110;&#101;&#116;">&#105;&#x6E;&#x66;&#x6F;&#64;&#99;&#x6C;&#x61;&#114;&#x6F;&#108;&#105;&#110;&#x65;&#x2E;&#110;&#101;&#116;</a>
+	</div>
+
+
+    <div id="footerCenter">
+	<?php echo get_lang('Powered by'); ?> <a href="http://www.claroline.net" target="_blank">Claroline</a>
+	</div>
+
+    </div>
+</div> 
 </body>
 </html>
