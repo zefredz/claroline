@@ -193,4 +193,30 @@ function checkVersion($currentVersion, $requiredVersion)
 }
 
 
+/**
+ */
+function check_php_setting($php_setting, $recommended)
+{
+	$current = get_php_setting($php_setting);
+	if( $current == strtoupper($recommended) )
+	{
+		return '<span class="ok">'.$current.'</span>';
+	}
+	else
+	{
+		return '<span class="ko">'.$current.'</span>';
+	}
+}
+/**
+ * Enter description here...
+ *
+ * @param string $val a php ini value
+ * @return boolean: ON or OFF
+ * @author Joomla <http://www.joomla.org>
+ */
+function get_php_setting($val) {
+	$r =  (ini_get($val) == '1' ? 1 : 0);
+	return $r ? 'ON' : 'OFF';
+}
+
 ?>
