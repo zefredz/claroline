@@ -1,0 +1,290 @@
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-size: 1em;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    color: #444;
+    background: #FFF;
+    text-align: left;
+    font-family: Arial, Verdana, Helvetica, Sans-Serif;
+    font-size: 1em;
+    height: 100%;
+}
+
+h1 {
+	margin: 0;
+    padding: 10px 15px 10px 15px;
+    color: #fff;
+    font-weight: bold;
+    background: url('default/bg_header.gif') repeat-x top left #c5d4e2;
+    border-top: 3px solid #010065;
+}
+
+#installBody {
+	margin: auto;
+	font-size: 0.9em;
+	width: 100%;    
+	background: url('default/bg_body.jpg') repeat-x top left #fff;
+}
+
+
+#panel {
+	font-size: 0.9em;
+	margin-left: 315px;
+	margin-right: 120px;
+	padding-left: 5px; 
+	border-left: 1px solid #ccc;
+}
+
+.progressPanel {
+	width: 300px;
+	float: left;
+    padding-top: 5px;
+    padding-bottom: 15px;
+    margin: 5px;
+}
+
+.progressPanel IMG{
+    padding-left: 5px;
+    padding-top: 1px;
+    padding-bottom: 3px;
+    float: right;
+}
+
+.progress B
+{
+    font-size: 100%;
+    padding-right: 5px;
+    margin-left: 3px;
+}
+
+.progress{
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    font-size: 90%;
+    background : #fff;
+    padding-top: 3px;
+    border-bottom: 1px solid #ccc;    
+}
+
+.progress.active {
+    font-weight: bold;
+
+}
+
+.progress.success {
+    background : #FFFFFF;
+
+}
+
+.progress.done {
+
+}
+
+.progress.error {
+
+}
+
+.progress.todo {
+    color : #ccc;
+}
+
+.dialogWarning { 
+	margin-top: 2px; 
+	margin-bottom: 2px; 
+	padding: 1px 5px 1px 20px; 
+	border: 1px solid #ccc;
+	border-left: 2px solid #FF6600;
+}
+
+.dialogWarning strong {
+	color: #FF6600;	
+}
+
+.dialogError { 
+	margin-top: 2px; 
+	margin-bottom: 2px; 
+	padding: 1px 5px 1px 20px; 
+	border: 1px solid #ccc;
+	border-left: 2px solid #900;
+}
+
+.dialogError strong {
+	color: #900;	
+}
+
+.ok {
+	color: #693;
+	font-weight: bold;	
+}
+	
+.ko {
+	color: #900;
+	font-weight: bold;	
+}
+
+.warning {
+	padding: 5px;
+    border: 1px solid #999933;
+    background: #E7C7C8;
+    color: #333;
+    margin: 3px;
+}
+
+.noteThis {
+	font-weight: bold;
+}
+
+#license {
+
+}
+
+#navigation {
+	padding-top: 20px;
+	padding-bottom: 5px; 	
+}
+
+#navigation #navToNext{
+	float: right;
+}
+
+#navigation #navToPrev{
+	float: left;
+}
+
+fieldset {
+	border: 1px solid #ccc;
+	background-color: #eee;
+	padding: 20px;
+}
+
+legend {
+	font-weight: bold;		
+}
+
+div.row {
+ 	clear: both;
+	padding-top: 10px;
+}
+
+div.row .rowTitle {
+ 	float: left;
+ 	width: 200px;
+ 	text-align: right;
+ 	padding-right: 0px;
+ 	padding-top: 2px;
+	border-bottom: 1px solid #ccc;
+	margin-right: 5px;
+}
+
+div.row .rowField {
+ 	padding-right: 0px;
+ 	margin-left: 202px;
+ 	padding: 0 3px;
+}
+
+
+div.row .example {
+ 	text-align: left;
+ 	font-size: small;
+ 	display: block;
+}
+
+.required {
+    color: red;
+}
+
+/* requirements */
+table.requirements {
+	width: 100%;
+	margin-bottom: 3px;	
+}
+
+table.requirements td {
+	border-bottom: 1px solid #ccc;	
+}
+
+table.requirements th {
+	border-bottom: 1px solid #333;
+	padding: 3px 0 2px 0;		
+}
+
+/* check list */
+
+ul.checkList {
+	list-style: none;	
+	margin: 0;
+	padding: 0;
+}
+
+ul.checkList li {
+	clear: both;
+}
+
+ul.checkList li .checkTitle {
+ 	float: left;
+ 	width: 30%;
+ 	text-align: right;
+ 	padding-right: 0px;
+ 	padding-top: 2px;
+	border-bottom: 1px solid #ccc;
+	margin-right: 5px;
+}
+
+ul.checkList li .checkValue {
+	padding-right: 0px;
+	padding-top: 2px;
+	font-weight: bold;	
+	margin-left: 202px;
+}
+
+#footer {
+    margin: 0;
+    margin-top : 25px;
+    padding: 5px 15px;
+    font-size: 0.7em;
+    color: #666;
+    background: url('default/bg_footer.jpg') repeat-x top left #fff;
+    clear: both;
+}
+
+#footer a:link,
+#footer a:visited {
+    color: #666;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+#footer a:hover,
+#footer a:active {
+    color: #369;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+#footer hr {
+    display: none;
+}
+
+#footer #footerRight {
+    float: right;
+    text-align: right;
+    padding: 0;
+}
+
+#footer #footerLeft {
+    float: left;
+    padding: 0;
+}
+
+#footer #footerCenter {
+    clear: both;
+    text-align: center;
+}
