@@ -318,7 +318,7 @@ function upgrade_main_database_module_to_18 ()
         case 4 :
             
             // include libray to manage module
-            require_once $GLOBALS['includePath'] . '/lib/module.manage.lib.php'; 
+            require_once $GLOBALS['includePath'] . '/lib/module/manage.lib.php'; 
 
             $error = false ;
 

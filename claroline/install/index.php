@@ -68,7 +68,7 @@ include_once $newIncludePath . 'lib/form.lib.php';
 include_once $newIncludePath . 'lib/course.lib.inc.php';
 include_once $newIncludePath . 'lib/claro_main.lib.php';
 include_once $newIncludePath . 'lib/language.lib.php';
-include_once $newIncludePath . 'lib/module.manage.lib.php';
+include_once $newIncludePath . 'lib/module/manage.lib.php';
 include_once $newIncludePath . 'lib/right/right_profile.lib.php';
 
 /**

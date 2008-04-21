@@ -39,7 +39,7 @@ $tbl_dock        = $tbl_name['dock'];
 
 //NEEDED LIBRAIRIES
 
-require_once get_path('incRepositorySys') . '/lib/module.manage.lib.php';
+require_once get_path('incRepositorySys') . '/lib/module/manage.lib.php';
 require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
 
 $interbredcrump[]= array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));

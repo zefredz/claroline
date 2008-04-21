@@ -27,7 +27,7 @@ require_once get_path ( 'incRepositorySys' ) . '/lib/fileManage.lib.php' ;
 require_once get_path ( 'incRepositorySys' ) . '/lib/fileUpload.lib.php' ;
 require_once get_path ( 'incRepositorySys' ) . '/lib/file.lib.php' ;
 require_once get_path ( 'incRepositorySys' ) . '/lib/html.lib.php' ;
-require_once get_path ( 'incRepositorySys' ) . '/lib/module.manage.lib.php' ;
+require_once get_path ( 'incRepositorySys' ) . '/lib/module/manage.lib.php' ;
 require_once get_path ( 'incRepositorySys' ) . '/lib/backlog.class.php' ;
 
 //OLD TOOLS ;

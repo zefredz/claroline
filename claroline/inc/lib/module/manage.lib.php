@@ -22,11 +22,11 @@ if ( count( get_included_files() ) == 1 )
  *
  */
 
-require_once dirname(__FILE__) . '/fileManage.lib.php';
-require_once dirname(__FILE__) . '/right/profileToolRight.class.php';
-require_once dirname(__FILE__) . '/backlog.class.php';
+require_once dirname(__FILE__) . '/../fileManage.lib.php';
+require_once dirname(__FILE__) . '/../right/profileToolRight.class.php';
+require_once dirname(__FILE__) . '/../backlog.class.php';
 // Manifest Parser and functions
-require_once dirname(__FILE__) . '/module/manifest.lib.php';
+require_once dirname(__FILE__) . '/manifest.lib.php';
 
 // INFORMATION AND UTILITY FUNCTIONS
 
@@ -529,7 +529,7 @@ function install_module($modulePath, $skipCheckDir = false)
                     if ( file_exists( get_module_path($module_info['LABEL'])
                         . '/conf/def/'.$module_info['LABEL'].'.def.conf.inc.php' ) )
                     {
-                        require_once dirname(__FILE__) . '/config.lib.inc.php';
+                        require_once dirname(__FILE__) . '/../config.lib.inc.php';
                         $config = new Config($module_info['LABEL']);
                         list ($confMessage, $status ) = generate_conf($config);
 

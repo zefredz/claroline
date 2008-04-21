@@ -180,7 +180,7 @@ function get_def_folder_list ( $type = 'all' )
 {
     $folderList = array();
 
-    require_once get_path('incRepositorySys') . '/lib/module.manage.lib.php';
+    require_once get_path('incRepositorySys') . '/lib/module/manage.lib.php';
 
     // Kernel folder configuration folder
     if ( $type == 'kernel' || $type == 'all') $folderList[] = get_path('incRepositorySys') . '/conf/def';

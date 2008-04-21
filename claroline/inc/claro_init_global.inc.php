@@ -330,7 +330,7 @@ $module_cache_filename = get_conf('module_cache_filename','moduleCache.inc.php')
 $cacheRepositorySys = get_path('rootSys') . get_conf('cacheRepository', 'tmp/cache/');
 if (!file_exists($cacheRepositorySys . $module_cache_filename))
 {
-    require_once get_path('incRepositorySys') . '/lib/module.manage.lib.php';
+    require_once get_path('incRepositorySys') . '/lib/module/manage.lib.php';
     generate_module_cache();
 }
 

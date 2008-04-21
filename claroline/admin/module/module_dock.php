@@ -22,7 +22,7 @@ if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 //DECLARE NEEDED LIBRARIES
 
 require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
-require_once get_path('incRepositorySys') . '/lib/module.manage.lib.php';
+require_once get_path('incRepositorySys') . '/lib/module/manage.lib.php';
 
 //SQL table name
 
