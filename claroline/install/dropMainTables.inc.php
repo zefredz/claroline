@@ -49,5 +49,7 @@ $dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "right_re
 $dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "right_profile`  ";
 $dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "right_action`  ";
 $dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "rel_course_class`  ";
+$dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "log`  ";
+$dropStatementList[] = "DROP TABLE IF EXISTS `" . $mainTblPrefixForm . "tracking_event`  ";
 
 ?>
