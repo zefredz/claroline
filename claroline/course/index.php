@@ -121,8 +121,8 @@ foreach ($toolList as $thisTool)
 
     if ( ! empty($url) )
     {
-        $toolLinkList[] = '<a class="' . $style . 'item' . $classItem . '" href="' . $url . '">'
-        .                 '<img src="' . $icon . '" alt="" />&nbsp;'
+        $toolLinkList[] = '<a id="' . $thisTool['label'] . '" class="' . $style . 'item' . $classItem . '" href="' . $url . '">'
+        .                 '<img class="clItemTool"  src="' . $icon . '" alt="'.$thisToolName.'" />&nbsp;'
         .                 $toolName
         .                 '</a>' . "\n"
         ;
@@ -130,7 +130,7 @@ foreach ($toolList as $thisTool)
     else
     {
         $toolLinkList[] = '<span ' . $style . '>'
-        .                 '<img src="' . $icon . '" alt="" />&nbsp;'
+        .                 '<img class="clItemTool" src="' . $icon . '" alt="'.$thisToolName.'" />&nbsp;'
         .                 $toolName
         .                 '</span>' . "\n"
         ;
