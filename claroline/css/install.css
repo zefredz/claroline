@@ -23,22 +23,32 @@ h1 {
     font-weight: bold;
     background: url('default/bg_header.gif') repeat-x top left #c5d4e2;
     border-top: 3px solid #010065;
+    font-size: 1.3em;
 }
 
 #installBody {
-	margin: auto;
+	margin-top: 0;
 	font-size: 0.9em;
-	width: 100%;    
 	background: url('default/bg_body.jpg') repeat-x top left #fff;
+	padding: 5px;
 }
 
 
 #panel {
 	font-size: 0.9em;
 	margin-left: 315px;
-	margin-right: 120px;
+	margin-right: 100px;
+	margin-top: 5px;
 	padding-left: 5px; 
 	border-left: 1px solid #ccc;
+}
+
+#endPanel {
+	font-size: 0.9em;
+	margin: auto;
+	margin-top: 5px;
+	padding-left: 5px; 
+	border: none;
 }
 
 .progressPanel {
@@ -56,7 +66,7 @@ h1 {
     float: right;
 }
 
-.progress B
+.progress strong
 {
     font-size: 100%;
     padding-right: 5px;
@@ -143,7 +153,7 @@ h1 {
 }
 
 #license {
-
+	width: 100%;
 }
 
 #navigation {
@@ -243,6 +253,18 @@ ul.checkList li .checkValue {
 	padding-top: 2px;
 	font-weight: bold;	
 	margin-left: 202px;
+}
+
+#goToCampusLink {
+	text-align: center;
+	padding: 30px;
+}
+
+#goToCampusLink a {
+	text-align: center;
+	padding: 20px;
+	font-weight: bold;
+	color: #333;		
 }
 
 #footer {
