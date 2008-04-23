@@ -23,6 +23,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  */
 include_once '../inc/conf/def/CLMAIN.def.conf.inc.php';
 
+/*
+ * 
+ */
+$installLanguage = 'english';
+
 $dbHostForm     = $conf_def_property_list['dbHost']['default'];
 $dbUsernameForm = $conf_def_property_list['dbLogin']['default'];
 
