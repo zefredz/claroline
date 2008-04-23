@@ -776,7 +776,7 @@ class ClaroCourse
 
         $mailBody = get_block('blockCourseCreationEmailMessage', array( '%date' => claro_html_localised_date(get_locale('dateTimeFormatLong')),
                                 '%sitename' => get_conf('siteName'),
-                                '%user_firstName' => $creatorFirstName,
+                                '%user_firstname' => $creatorFirstName,
                                 '%user_lastname' => $creatorLastName,
                                 '%user_email' => $creatorEmail,
                                 '%course_code' => $this->officialCode,
