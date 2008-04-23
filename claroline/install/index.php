@@ -58,8 +58,10 @@ session_destroy();
 $newIncludePath ='../inc/';
 include $newIncludePath . 'installedVersion.inc.php';
 
-include '../lang/english/complete.lang.php';
+
+include '../lang/english/install.lang.php';
 include '../lang/english/locale_settings.php';
+
 
 include_once $newIncludePath . 'lib/user.lib.php'; // needed fo generate_passwd()
 include_once './install.lib.inc.php';
@@ -71,6 +73,13 @@ include_once $newIncludePath . 'lib/language.lib.php';
 include_once $newIncludePath . 'lib/module/manage.lib.php';
 include_once $newIncludePath . 'lib/right/right_profile.lib.php';
 
+$installLanguageList =  get_available_install_language();
+
+if( isset($_REQUEST['installLanguage']) && in_array($_REQUEST['installLanguage'], $installLanguageList) )
+{
+    include '../lang/'.$_REQUEST['installLanguage'].'/install.lang.php';
+    include '../lang/'.$_REQUEST['installLanguage'].'/locale_settings.php';
+}
 /**
  * Unquote GET, POST AND COOKIES if magic quote gpc is enabled in php.ini
  */
@@ -86,6 +95,7 @@ if (count($_SERVER) > 0)   {extract($_SERVER, EXTR_OVERWRITE);}
 
 // LIST OF  VIEW IN ORDER TO SHOW
 $panelSequence  = array(
+DISP_LANG,
 DISP_LICENSE,
 DISP_WELCOME,
 //DISP_FILE_SYSTEM_SETTING,
@@ -99,6 +109,7 @@ DISP_LAST_CHECK_BEFORE_INSTALL);
 
 
 // VIEW TITLE
+$panelTitle[DISP_LANG]                      = get_lang('Installation language');
 $panelTitle[DISP_LICENSE]                   = get_lang('Licence');
 $panelTitle[DISP_WELCOME]                   = get_lang('Requirements');
 //$panelTitle[DISP_FILE_SYSTEM_SETTING]      = get_lang('FileSystemSetting');
@@ -112,6 +123,7 @@ $panelTitle[DISP_RUN_INSTALL_COMPLETE]      = get_lang('Claroline Installation s
 
 //$rootSys="'.realpath($pathForm).'";
 
+$cmdName[DISP_LANG]                      = 'cmdLang';
 $cmdName[DISP_WELCOME]                   = 'cmdWelcomePanel';
 $cmdName[DISP_LICENSE]                   = 'cmdLicence';
 //$cmdName[DISP_FILE_SYSTEM_SETTING]     = 'cmdFILE_SYSTEM_SETTING';
@@ -126,6 +138,10 @@ $cmdName[DISP_RUN_INSTALL_COMPLETE]      = 'cmdDoInstall';
 
 // CONTROLER
 // GET cmd,
+if($_REQUEST['cmdLang'])
+{
+    $cmd=DISP_LANG;
+}
 if($_REQUEST['cmdLicence'])
 {
     $cmd=DISP_LICENSE;
@@ -166,10 +182,6 @@ elseif($_REQUEST['cmdDoInstall'])
 {
     $cmd = DISP_RUN_INSTALL_COMPLETE;
 }
-
-
-
-
 
 
 
@@ -216,6 +228,15 @@ else ###  IF NOT ###
 
 
 $canRunCmd = TRUE;
+if ($_REQUEST['fromPanel'] == DISP_LANG || $_REQUEST['cmdDoInstall'])
+{
+    $stepStatus[DISP_LANG] = 'V';
+    if( isset($_REQUEST['installLanguage']) && in_array($_REQUEST['installLanguage'], $installLanguageList) )
+    {
+        $installLanguage = $_REQUEST['installLanguage'];
+    }
+}
+
 if ($_REQUEST['fromPanel'] == DISP_WELCOME || $_REQUEST['cmdDoInstall'])
 {
     $stepStatus[DISP_WELCOME] = 'V';
@@ -540,6 +561,10 @@ if ($canRunCmd)
 
     // SET default display
     $display = $panelSequence[0];
+    if($_REQUEST['cmdLang'])
+    {
+        $display = DISP_LANG;
+    }
     if($_REQUEST['cmdWelcomePanel'])
     {
         $display = DISP_WELCOME;
@@ -640,7 +665,10 @@ echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"'
 .    '</style>' . "\n"
 .    '</head>' . "\n"
 .    '<body dir="' . $text_dir . '">' . "\n\n"
+.    '<div id="claroPage">' . "\n"
+.    '<div id="installHeader">' . "\n"
 .    '<h1>'.get_lang('Claroline %version installation', array('%version' => $new_version)).'</h1>' . "\n"
+.    '</div>' . "\n"
 .    '<div id="installBody">' . "\n\n"
 .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n\n"
 ;
@@ -701,6 +729,7 @@ foreach (array_keys($panelTitle) as $step )
 }
 
 echo '<input type="hidden" name="alreadyVisited" value="1" />'                                                 ."\n"
+.    '<input type="hidden" name="installLanguage"              value="'.$installLanguage.'" />'                     ."\n"
 .    '<input type="hidden" name="urlAppendPath"                value="'.$urlAppendPath.'" />'                  ."\n"
 .    '<input type="hidden" name="urlEndForm"                   value="'.$urlEndForm.'" />'                     ."\n"
 .    '<input type="hidden" name="courseRepositoryForm"         value="'.$courseRepositoryForm.'" />'           ."\n"
@@ -745,9 +774,43 @@ echo '<input type="hidden" name="alreadyVisited" value="1" />'                  
  # Too big to show  in one time.
  # PANEL show some  field to edit, all other are in HIDDEN FIELDS
 ###################################################################
+############### STEP 0 LANG #######################################
+###################################################################
+if(DISP_LANG == $display)
+{
+    $language_list = claro_get_lang_flat_list();
+    $displayedInstallLanguageList = array_intersect($language_list,$installLanguageList);
+    
+    echo '<input type="hidden" name="fromPanel" value="'.$display.'" />'  . "\n"
+    .    '<h2>'  . "\n"
+    .    get_lang('Step %step of %nb_step : %step_name', array( '%step' => array_search(DISP_LANG, $panelSequence)+1 ,
+                                                                '%nb_step' => count($panelSequence) ,
+                                                                '%step_name' => $panelTitle[DISP_LANG] ) )
+    .    '</h2>'  . "\n"
+    
+    .    '<fieldset>' . "\n"
+    .	 '<legend>'.get_lang('Choose installation language').'</legend>' . "\n"
+    
+    .    '<div class="row">' . "\n"
+    .    '<div class="rowTitle">' . "\n"
+    .    '<label for="dbHostForm"><span class="required">*</span> '.get_lang('Installation language').'</label>' . "\n"
+    .    '</div>' . "\n"
+    .    '<div class="rowField">' . "\n"
+	.    claro_html_form_select( 'installLanguage'
+                               , $displayedInstallLanguageList
+                               , $installLanguage
+                               , array('id'=>'installLanguage')) . "\n"
+    .    '</div>' . "\n"
+    .    '</div>' . "\n\n"
+    .    '</fieldset>' . "\n"
+    .    '<small>'.get_lang('%requiredMark denotes required field', array('%requiredMark' => '<span class="required">*</span>') ).'</small>' . "\n"
+    ;
+
+} 
+###################################################################
 ############### STEP 1 LICENSE  ###################################
 ###################################################################
-if(DISP_LICENSE == $display)
+elseif(DISP_LICENSE == $display)
 {
     echo '<input type="hidden" name="fromPanel" value="'.$display.'" />'  . "\n"
     .    '<h2>'  . "\n"
@@ -2002,9 +2065,9 @@ else
 
 echo $htmlNextPrevButton;
 ?>
-</div><!-- end of div panel -->
+</div><!-- end panel -->
 </form>
-</div><!--  end div install -->
+</div><!--  end install -->
 <div id="footer">
     <hr />
     <div id="footerLeft">
@@ -2022,6 +2085,8 @@ echo $htmlNextPrevButton;
 	</div>
 
     </div>
-</div> 
+</div>
+
+</div><!-- end claroPage --> 
 </body>
 </html>
