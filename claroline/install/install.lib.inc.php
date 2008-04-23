@@ -219,4 +219,29 @@ function get_php_setting($val) {
 	return $r ? 'ON' : 'OFF';
 }
 
+/**
+ * Find all install.lang.php files in lang dirs and returns langs where this file is available
+ *
+ * @return array
+ */
+function get_available_install_language()
+{
+    $languageList = array();
+    
+    $it = new DirectoryIterator('../lang/');
+    
+    foreach( $it as $file )
+    {
+        if( $file->isDir() && !$file->isDot() )
+        {
+            if( file_exists( $file->getRealPath() . '/install.lang.php' ) )
+            {
+                $languageList[] = $file->getFileName();
+            }
+        }
+        
+    }
+    
+    return $languageList;
+}
 ?>
