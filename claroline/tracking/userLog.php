@@ -38,6 +38,7 @@ $tbl_lp_asset                = $tbl_cdb_names['lp_asset'               ];
 $tbl_qwz_exercise            = $tbl_cdb_names['qwz_exercise'		   ];
 $tbl_wrk_assignment          = $tbl_cdb_names['wrk_assignment'         ];
 $tbl_wrk_submission          = $tbl_cdb_names['wrk_submission'         ];
+$tbl_track_e_access          = $tbl_cdb_names['track_e_access'      ];
 $tbl_track_e_downloads       = $tbl_cdb_names['track_e_downloads'      ];
 $tbl_track_e_exercises       = $tbl_cdb_names['track_e_exercices'      ];
 $tbl_track_e_uploads         = $tbl_cdb_names['track_e_uploads'        ];
@@ -214,18 +215,19 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
                 .    '&nbsp;&nbsp;&nbsp;' . get_lang('Click on the month name for more details').'<br />' . "\n"
                 ;
 
-                $sql = "SELECT UNIX_TIMESTAMP(`login_date`) AS `unix_date`, count(`login_date`) AS `nbr_login`
-                            FROM `" . $tbl_track_e_login . "`
-                            WHERE `login_user_id` = " . (int) $_REQUEST['uInfo'] . "
-                            GROUP BY MONTH(`login_date`), YEAR(`login_date`)
-                            ORDER BY `login_date` ASC"
+                $sql = "SELECT UNIX_TIMESTAMP(`access_date`) AS `unix_date`, count(`access_date`) AS `nbr_access`
+                            FROM `" . $tbl_track_e_access . "`
+                            WHERE `access_user_id` = " . (int) $_REQUEST['uInfo'] . "
+                              AND `access_tid` IS NULL 
+                            GROUP BY MONTH(`access_date`), YEAR(`access_date`)
+                            ORDER BY `access_date` ASC"
                 ;
                 $results = claro_sql_query_fetch_all($sql);
 
                 echo '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center">' . "\n"
                 .    '<tr class="headerX">' . "\n"
                 .    '<th>' . get_lang('Month') . '</th>' . "\n"
-                .    '<th>' . get_lang('Number of logins') . '</th>' . "\n"
+                .    '<th>' . get_lang('Number of access') . '</th>' . "\n"
                 .    '</tr>' . "\n"
                 .    '<tbody>' . "\n"
                 ;
@@ -238,10 +240,10 @@ if( ( $is_allowedToTrack || $is_allowedToTrackEverybodyInCourse ) && get_conf('i
                     {
                         echo '<tr>' . "\n"
                         .    '<td><a href="logins_details.php?uInfo='.$_REQUEST['uInfo'].'&reqdate='.$result['unix_date'].'">' . $langLongMonthNames[date('n', $result['unix_date'])-1].' '.date('Y', $result['unix_date']).'</a></td>' . "\n"
-                        .    '<td valign="top" align="right">'.$result['nbr_login'].'</td>' . "\n"
+                        .    '<td valign="top" align="right">'.$result['nbr_access'].'</td>' . "\n"
                         .    '</tr>' . "\n"
                         ;
-                        $total = $total + $result['nbr_login'];
+                        $total = $total + $result['nbr_access'];
                     }
                     echo '</tbody>' . "\n"
                     .    '<tfoot>' . "\n"
