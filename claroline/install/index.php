@@ -110,16 +110,16 @@ DISP_LAST_CHECK_BEFORE_INSTALL);
 
 // VIEW TITLE
 $panelTitle[DISP_LANG]                      = get_lang('Installation language');
-$panelTitle[DISP_LICENSE]                   = get_lang('Licence');
+$panelTitle[DISP_LICENSE]                   = get_lang('License');
 $panelTitle[DISP_WELCOME]                   = get_lang('Requirements');
 //$panelTitle[DISP_FILE_SYSTEM_SETTING]      = get_lang('FileSystemSetting');
 $panelTitle[DISP_DB_CONNECT_SETTING]        = get_lang('MySQL Database Settings');
 $panelTitle[DISP_DB_NAMES_SETTING]          = get_lang('MySQL Database and Table Names');
 $panelTitle[DISP_ADMINISTRATOR_SETTING]     = get_lang('Administrator Account');
 $panelTitle[DISP_PLATFORM_SETTING]          = get_lang('Platform Settings');
-$panelTitle[DISP_ADMINISTRATIVE_SETTING]    = get_lang('Additional Informations');
+$panelTitle[DISP_ADMINISTRATIVE_SETTING]    = get_lang('Additional Information');
 $panelTitle[DISP_LAST_CHECK_BEFORE_INSTALL] = get_lang('Last check before install');
-$panelTitle[DISP_RUN_INSTALL_COMPLETE]      = get_lang('Claroline Installation succeeds');
+$panelTitle[DISP_RUN_INSTALL_COMPLETE]      = get_lang('Claroline setup successful');
 
 //$rootSys="'.realpath($pathForm).'";
 
@@ -338,7 +338,7 @@ if( DISP_ADMINISTRATIVE_SETTING == $_REQUEST['fromPanel'] )
         $msg_missing_administrative_data = '<div class="dialogError">'
         .    '<p>' . "\n"
         .    '<strong>'.get_lang('Error').'</strong> : '
-        .    get_lang('Please complete following informations')
+        .    get_lang('Please enter missing information')
         .    '</p>' . "\n"
         .    '<ul>';
         
@@ -379,11 +379,11 @@ if ($_REQUEST['fromPanel'] == DISP_DB_CONNECT_SETTING || $_REQUEST['cmdDoInstall
                 
         if ( '2005' == $no )
         {
-            $msg_no_connection .= get_lang('Wrong Database Host');
+            $msg_no_connection .= get_lang('Wrong database host');
         }
         elseif ( '1045' == $no )
         {
-            $msg_no_connection .= get_lang('Wrong database Login or Password');
+            $msg_no_connection .= get_lang('Wrong database login or password');
         }
         else
         {
@@ -520,7 +520,7 @@ if($_REQUEST['fromPanel'] == DISP_PLATFORM_SETTING || $_REQUEST['cmdDoInstall'])
         $msg_missing_platform_data = '<div class="dialogError">'
         .    '<p>' . "\n"
         .     '<strong>'.get_lang('Error').'</strong> : '
-        .     get_lang('Please complete following informations')
+        .     get_lang('Please enter missing information')
         .    '</p>' . "\n"
         .     '<ul>';
         
@@ -531,7 +531,7 @@ if($_REQUEST['fromPanel'] == DISP_PLATFORM_SETTING || $_REQUEST['cmdDoInstall'])
 
         if (empty($urlForm))
         {
-            $msg_missing_platform_data .= '<li>'.get_lang('Complete URL').' ('. get_lang('Something like : %exampleUrl', array('%exampleUrl' =>'http://'.$_SERVER['SERVER_NAME'].$urlAppendPath.'/')).'</li>';
+            $msg_missing_platform_data .= '<li>'.get_lang('Absolute URL').' ('. get_lang('Something like : %exampleUrl', array('%exampleUrl' =>'http://'.$_SERVER['SERVER_NAME'].$urlAppendPath.'/')).'</li>';
         }
     
         
@@ -655,7 +655,7 @@ echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"'
 .    '<html>' . "\n"
 .    '<head>' . "\n"
 .    '<title>' . "\n"
-.    get_lang('Claroline %version installation', array('%version' => $new_version))
+.    get_lang('Claroline %version Installation Wizard', array('%version' => $new_version))
 .    ' - ' . get_lang('Step %step', array('%step' => array_search($display, $panelSequence) + 1) ) . "\n"
 .    '</title>' . "\n\n"
 
@@ -667,7 +667,7 @@ echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"'
 .    '<body dir="' . $text_dir . '">' . "\n\n"
 .    '<div id="claroPage">' . "\n"
 .    '<div id="installHeader">' . "\n"
-.    '<h1>'.get_lang('Claroline %version installation', array('%version' => $new_version)).'</h1>' . "\n"
+.    '<h1>'.get_lang('Claroline %version Installation Wizard', array('%version' => $new_version)).'</h1>' . "\n"
 .    '</div>' . "\n"
 .    '<div id="installBody">' . "\n\n"
 .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n\n"
@@ -789,7 +789,7 @@ if(DISP_LANG == $display)
     .    '</h2>'  . "\n"
     
     .    '<fieldset>' . "\n"
-    .	 '<legend>'.get_lang('Choose installation language').'</legend>' . "\n"
+    .	 '<legend>'.get_lang('Please select a language').'</legend>' . "\n"
     
     .    '<div class="row">' . "\n"
     .    '<div class="rowTitle">' . "\n"
@@ -803,7 +803,7 @@ if(DISP_LANG == $display)
     .    '</div>' . "\n"
     .    '</div>' . "\n\n"
     .    '</fieldset>' . "\n"
-    .    '<small>'.get_lang('%requiredMark denotes required field', array('%requiredMark' => '<span class="required">*</span>') ).'</small>' . "\n"
+    .    '<small>'.get_lang('%requiredMark required field', array('%requiredMark' => '<span class="required">*</span>') ).'</small>' . "\n"
     ;
 
 } 
@@ -819,8 +819,8 @@ elseif(DISP_LICENSE == $display)
                                                                 '%step_name' => $panelTitle[DISP_LICENSE] ) )
     .    '</h2>'  . "\n"
     .    '<p>'  . "\n"
-    .    get_lang('Claroline is free software, distributed under GNU General Public license (GPL).') . '<br />'  . "\n"
-    .    get_lang('Please read the license and click &quot;Next &gt;&quot; to accept it.')  . "\n"
+    .    get_lang('Claroline is free software, distributed under the GNU General Public license (GPL).') . '<br />'  . "\n"
+    .    get_lang('Please read the license and click &quot;Next&quot; to accept it.')  . "\n"
     .    '<a href="../../LICENSE.txt">'.get_lang('Printer-friendly version'). '</a>'  . "\n"
     .    '</p>'  . "\n"
     .    '<textarea id="license" cols="65" rows="15">'
@@ -854,27 +854,27 @@ elseif ($display == DISP_WELCOME)
         echo '<div class="dialogWarning">'
         .    '<p>' . "\n"
         .    '<strong>'.get_lang('Warning !').'</strong>'
-        .    ' : ' . get_lang('The installer has detected an existing claroline platform on your system.') . "\n"
+        .    ' : ' . get_lang('The installer has detected an existing Claroline platform on your system.') . "\n"
         .    '</p>' . "\n"
         .    '<ul>' . "\n"
         ;
         if ($is_upgrade_available)
         {
             echo '<li>'
-            .    get_lang('For a Claroline upgrade click <a href="%url">here</a>', array('%url' => '../admin/upgrade/upgrade.php'))
+            .    get_lang('To upgrade Claroline, click <a href="%url">here</a>', array('%url' => '../admin/upgrade/upgrade.php'))
             .    '</li>'
             ;
         }
         else
         {
             echo '<li>'
-            .    get_lang('For a Claroline upgrade, please wait the release of a stable version.')
+            .    get_lang('To upgrade Claroline, please wait for the next stable release.')
             .    '</li>'
             ;
         }
         echo '<li>'
-        .    get_lang('For a Claroline complete reinstallation click on the "Next" button below.') . '<br />'
-        .    get_lang('Be aware that a complete reinstallation will crush the data stored in your previous installed Claroline.')
+        .    get_lang('To perform a full re-installation click on the "Next" button below.') . '<br />'
+        .    get_lang('Be aware that performing a full re-installation will delete all the data stored in your previously installed Claroline platform.')
         .    '</li>'
         .    '</ul>'
         .    '</div>'
@@ -886,10 +886,10 @@ elseif ($display == DISP_WELCOME)
         echo '<div class="dialogWarning">'
         .    '<p>' . "\n"
         .    '<strong>'.get_lang('Warning !').'</strong>'
-        .    ' : ' . get_lang('This version is not considered as stable and is not aimed for production.')
+        .    ' : ' . get_lang('This version is not considered stable and is not intended for production.')
         .    '</p>' . "\n"
         .	 '<p>'
-        .    get_lang('If something goes wrong, come talk on our support forum at %linkTag.', 
+        .    get_lang('If something goes wrong, please report on our support forum at %linkTag.', 
                             array('%linkTag' => '<a href="http://forum.claroline.net/">http://forum.claroline.net</a>'))
         .    '</p>'."\n"
         .    '</div>'."\n\n"
@@ -1059,7 +1059,7 @@ elseif(DISP_DB_CONNECT_SETTING == $display)
     .    '<fieldset>' . "\n"
     .    '<legend>'.get_lang('Mysql connection parameters').'</legend>' . "\n"
     .    '<p>'
-    .    get_lang('Enter here the parameters given by your database server administrator.')
+    .    get_lang('Enter the parameters provided by your database server administrator.')
     .    '</p>'
     
     
@@ -1109,13 +1109,13 @@ elseif(DISP_DB_CONNECT_SETTING == $display)
     .    '<input type="radio" id="singleDbForm_multi" name="singleDbForm" value="0" '.($singleDbForm?'':'checked').' />'
     .    '<label for="singleDbForm_multi">' . get_lang('Multi') 
     .    '<small>'
-    .    '('.get_lang('a database is created at each course creation').')'
+    .    '&nbsp;('.get_lang('a database is created at each course creation').')'
     .    '</small>' 
     .    '</label>' . "\n"
     .    '</div>' . "\n"
     .    '</div>' . "\n\n"  
     .    '</fieldset>' . "\n\n"
-	.    '<small>'.get_lang('%requiredMark denotes required field', array('%requiredMark' => '<span class="required">*</span>') ).'</small>' . "\n"
+	.    '<small>'.get_lang('%requiredMark required field', array('%requiredMark' => '<span class="required">*</span>') ).'</small>' . "\n"
     ;
 }     // cmdDB_CONNECT_SETTING
 
@@ -1144,13 +1144,13 @@ elseif(DISP_DB_NAMES_SETTING == $display )
         .    '</p>' . "\n"
         .    '<ul>'
         .    ($msgErrorDbMain_dbName?'<li>'.get_lang('Main database').'<ul>':'')
-        .    ($msgErrorDbMain_dbNameToolLong?'<li>'.get_lang('Name Too Long'):'')
-        .    ($msgErrorDbMain_dbNameInvalid?'<li>'.get_lang('Invalid name. Use only letters, digits and _'):'')
-        .    ($msgErrorDbMain_dbNameBadStart?'<li>'.get_lang('Name must begin with a letter'):'')
+        .    ($msgErrorDbMain_dbNameToolLong?'<li>'.get_lang('Database name is too Long'):'')
+        .    ($msgErrorDbMain_dbNameInvalid?'<li>'.get_lang('Invalid name. Only letters, digits and _ are allowed'):'')
+        .    ($msgErrorDbMain_dbNameBadStart?'<li>'.get_lang('Database name must begin with a letter'):'')
         .    ($msgErrorDbStat_dbName?'</ul><li>'.get_lang('Tracking database').'<ul>':'')
-        .    ($msgErrorDbStat_dbNameToolLong?'<li>'.get_lang('Name Too Long'):'')
-        .    ($msgErrorDbStat_dbNameInvalid?'<li>'.get_lang('Invalid name. Use only letters, digits and _'):'')
-        .    ($msgErrorDbStat_dbNameBadStart?'<li>'.get_lang('Name must begin with a letter'):'')
+        .    ($msgErrorDbStat_dbNameToolLong?'<li>'.get_lang('Database name is too Long'):'')
+        .    ($msgErrorDbStat_dbNameInvalid?'<li>'.get_lang('Invalid name. Only letters, digits and _ are allowed'):'')
+        .    ($msgErrorDbStat_dbNameBadStart?'<li>'.get_lang('Database name must begin with a letter'):'')
         .    '</ul>'  . "\n"
         .    '</ul>'  . "\n"
         .    '</div>'  . "\n"
@@ -1218,7 +1218,7 @@ elseif(DISP_DB_NAMES_SETTING == $display )
  	*/
 	.	 '<div class="row">' . "\n"
     .    '<div class="rowTitle">' . "\n"
-    .    '<label for="mainTblPrefixForm">'.get_lang('Prefix for names of main tables').'</label>' . "\n"
+    .    '<label for="mainTblPrefixForm">'.get_lang('Prefix for main tables').'</label>' . "\n"
     .    '</div>' . "\n"
     .    '<div class="rowField">' . "\n"
     .    '<input type="text"  size="5" id="mainTblPrefixForm" name="mainTblPrefixForm" value="'.htmlspecialchars($mainTblPrefixForm).'" />' . "\n"
@@ -1241,7 +1241,7 @@ elseif(DISP_DB_NAMES_SETTING == $display )
         
         .    '<div class="row">' . "\n"
         .    '<div class="rowTitle">' . "\n"
-        .    '<label for="statsTblPrefixForm">'.get_lang('Prefix for names of tracking tables').'</label>' . "\n"
+        .    '<label for="statsTblPrefixForm">'.get_lang('Prefix for tracking tables').'</label>' . "\n"
         .    '</div>' . "\n"
         .    '<div class="rowField">' . "\n"
         .    '<input type="text"  size="5" id="statsTblPrefixForm" name="statsTblPrefixForm" value="'.htmlspecialchars($statsTblPrefixForm).'" />' . "\n"
@@ -1250,16 +1250,15 @@ elseif(DISP_DB_NAMES_SETTING == $display )
         .    '</div>' . "\n\n"
 
         .    '<blockquote><small>'  . "\n"
-        .    'Normally, Claroline creates the tracking tables into the main Claroline database. <br />'
-        .    'But, if you want, you have the possibility to store tracking data into a separate database <br />'
-        .    'or to specify a special prefix for tracking tables.'  . "\n"
+        .    get_lang('By default, tracking tables are stored into the main Claroline database.').'<br />'
+        .    get_lang('However, you can record tracking data into a separate database or set <br /> a specific prefix for tracking tables.'). "\n"
         .    '</small></blockquote>'  . "\n"
         ;
     }
     
     echo '<div class="row">' . "\n"
     .    '<div class="rowTitle">' . "\n"
-    .    '<label for="dbPrefixForm">'.($singleDbForm?get_lang('Prefix for courses table names'):get_lang('Prefix for courses database names')).'</label>' . "\n"
+    .    '<label for="dbPrefixForm">'.($singleDbForm?get_lang('Prefix for course tables'):get_lang('Prefix for course databases')).'</label>' . "\n"
     .    '</div>' . "\n"
     .    '<div class="rowField">' . "\n"
     .    '<input type="text"  size="25" id="dbPrefixForm" name="dbPrefixForm" value="'.htmlspecialchars($dbPrefixForm).'" />' . "\n"
@@ -1284,7 +1283,7 @@ elseif(DISP_DB_NAMES_SETTING == $display )
     }
     
     echo '</fieldset>' . "\n\n"
-    .    '<small>'.get_lang('%requiredMark denotes required field', array('%requiredMark' => '<span class="required">*</span>') ).'</small>' . "\n";
+    .    '<small>'.get_lang('%requiredMark required field', array('%requiredMark' => '<span class="required">*</span>') ).'</small>' . "\n";
     
 }     // cmdDB_CONNECT_SETTING
 
@@ -1307,7 +1306,7 @@ elseif(DISP_ADMINISTRATOR_SETTING == $display )
         echo '<div class="dialogError">'  . "\n"
         .    '<p>' . "\n"
         .     '<strong>'.get_lang('Error').'</strong> : '
-        .     get_lang('Please complete following informations')
+        .     get_lang('Please enter missing information')
         .    '</p>' . "\n"
         .    '<p>'  . "\n"
         .    ( is_array($missing_admin_data) ? 'Fill in '.implode(', ',$missing_admin_data) .'<br />' : '' )
@@ -1318,7 +1317,7 @@ elseif(DISP_ADMINISTRATOR_SETTING == $display )
     }
 	
     echo '<fieldset>' . "\n"
-    .    '<legend>'.get_lang('Administrator identity').'</legend>' . "\n"
+    .    '<legend>'.get_lang('Administrator details').'</legend>' . "\n"
 
     .	 '<div class="row">' . "\n"
     .    '<div class="rowTitle">' . "\n"
@@ -1371,7 +1370,7 @@ elseif(DISP_ADMINISTRATOR_SETTING == $display )
     .    '</div>' . "\n\n"
     
     .    '</fieldset>'  . "\n"
-    .    '<small>'.get_lang('%requiredMark denotes required field', array('%requiredMark' => '<span class="required">*</span>') ).'</small>' . "\n"
+    .    '<small>'.get_lang('%requiredMark required field', array('%requiredMark' => '<span class="required">*</span>') ).'</small>' . "\n"
     ;
 }
 
@@ -1402,7 +1401,7 @@ elseif(DISP_PLATFORM_SETTING == $display)
 
     .	 '<div class="row">' . "\n"
     .    '<div class="rowTitle">' . "\n"
-    .    '<label for="urlForm"><span class="required">*</span> '.get_lang('Complete URL').'</label>' . "\n"
+    .    '<label for="urlForm"><span class="required">*</span> '.get_lang('Absolute URL').'</label>' . "\n"
     .    '</div>' . "\n"
     .    '<div class="rowField">' . "\n"
     .    '<input type="text" size="60" id="urlForm" name="urlForm" value="'.htmlspecialchars($urlForm).'" />' . "\n"
@@ -1411,7 +1410,7 @@ elseif(DISP_PLATFORM_SETTING == $display)
 
     .	 '<div class="row">' . "\n"
     .    '<div class="rowTitle">' . "\n"
-    .    '<label for="courseRepositoryForm">'.get_lang('Courses repository path (relative to the URL above)').'</label>' . "\n"
+    .    '<label for="courseRepositoryForm">'.get_lang('Path to courses repository (relative to the URL above)').'</label>' . "\n"
     .    '</div>' . "\n"
     .    '<div class="rowField">' . "\n"
     .    '<input type="text"  size="60" id="courseRepositoryForm" name="courseRepositoryForm" value="'.htmlspecialchars($courseRepositoryForm).'" />' . "\n"
@@ -1459,12 +1458,12 @@ elseif(DISP_PLATFORM_SETTING == $display)
     .    '<label for="encryptPassForm_0">'.get_lang('Clear text').'</label>' . "\n"
     .    '<br />' . "\n"
     .    '<input type="radio" name="encryptPassForm" id="encryptPassForm_1" value="1" ' . ($encryptPassForm?'checked':'') . ' />' . "\n"
-    .    '<label for="encryptPassForm_1">'.get_lang('Crypted').'</label>' . "\n"
+    .    '<label for="encryptPassForm_1">'.get_lang('Encrypted').'</label>' . "\n"
     .    '</div>' . "\n"
     .    '</div>' . "\n\n" 
    
     .    '</fieldset>' . "\n"
-    .    '<small>'.get_lang('%requiredMark denotes required field', array('%requiredMark' => '<span class="required">*</span>') ).'</small>' . "\n"
+    .    '<small>'.get_lang('%requiredMark required field', array('%requiredMark' => '<span class="required">*</span>') ).'</small>' . "\n"
     ;
 }
 ###################################################################
@@ -1480,7 +1479,7 @@ elseif(DISP_ADMINISTRATIVE_SETTING == $display)
     .    $msg_missing_administrative_data
     
     .	 '<fieldset>' . "\n"
-    .    '<legend>'.get_lang('Related organisation').'</legend>' . "\n"
+    .    '<legend>'.get_lang('Related organization').'</legend>' . "\n"
     
     .	 '<div class="row">' . "\n"
     .    '<div class="rowTitle">' . "\n"
@@ -1533,7 +1532,7 @@ elseif(DISP_ADMINISTRATIVE_SETTING == $display)
     .    '</div>' . "\n\n"  
     
     .    '</fieldset>' . "\n"
-    .    '<small>'.get_lang('%requiredMark denotes required field', array('%requiredMark' => '<span class="required">*</span>') ).'</small>' . "\n"
+    .    '<small>'.get_lang('%requiredMark required field', array('%requiredMark' => '<span class="required">*</span>') ).'</small>' . "\n"
     ;
 }
 
@@ -1551,8 +1550,8 @@ elseif(DISP_LAST_CHECK_BEFORE_INSTALL == $display )
                                                                 '%step_name' => $panelTitle[DISP_LAST_CHECK_BEFORE_INSTALL] ) )
     .    '</h2>' . "\n"
     .    '<p>' . "\n"
-    .    get_lang('Here are the values you entered') . '<br />' . "\n"
-    .    get_lang('Print this page to remember your administrator password and other settings') . "\n"
+    .    get_lang('Please check the values you entered.') . '<br />' . "\n"
+    .    get_lang('Print this page to keep your administrator password and other settings.') . "\n"
     .    '</p>' . "\n"
     .    '<fieldset>' . "\n"
     .    '<legend>'.$panelTitle[DISP_DB_CONNECT_SETTING] .'</legend>' . "\n"
@@ -1636,7 +1635,7 @@ elseif(DISP_LAST_CHECK_BEFORE_INSTALL == $display )
     {
         echo '<li class="check">' . "\n"
         .    '<span class="checkTitle">' . "\n"
-        .    get_lang('Main tables prefix') . ' : ' . "\n"
+        .    get_lang('Main tables') . ' : ' . "\n"
         .    '</span>' . "\n"
         .    '<div class="checkValue">' . "\n"
         .    htmlspecialchars($mainTblPrefixForm)
@@ -1649,7 +1648,7 @@ elseif(DISP_LAST_CHECK_BEFORE_INSTALL == $display )
     {
         echo '<li class="check">' . "\n"
         .    '<span class="checkTitle">' . "\n"
-        .    get_lang('Tracking tables prefix') . ' : ' . "\n"
+        .    get_lang('Tracking tables') . ' : ' . "\n"
         .    '</span>' . "\n"
         .    '<div class="checkValue">' . "\n"
         .    htmlspecialchars($statsTblPrefixForm)
@@ -1662,7 +1661,7 @@ elseif(DISP_LAST_CHECK_BEFORE_INSTALL == $display )
     {
         echo '<li class="check">' . "\n"
         .    '<span class="checkTitle">' . "\n"
-        .    get_lang('Courses database prefix') . ' : ' . "\n"
+        .    get_lang('Course databases') . ' : ' . "\n"
         .    '</span>' . "\n"
         .    '<div class="checkValue">' . "\n"
         .    htmlspecialchars($dbPrefixForm)
@@ -1745,7 +1744,7 @@ elseif(DISP_LAST_CHECK_BEFORE_INSTALL == $display )
 
     .    '<li class="check">' . "\n"
     .    '<span class="checkTitle">' . "\n"
-    .    get_lang('Campus url') . ' : ' . "\n"
+    .    get_lang('Campus URL') . ' : ' . "\n"
     .    '</span>' . "\n"
     .    '<div class="checkValue">' . "\n"
     .    (empty($urlForm)?'--'.get_lang('empty').'--':$urlForm)
@@ -1790,8 +1789,8 @@ elseif(DISP_LAST_CHECK_BEFORE_INSTALL == $display )
     
     
     .    '<fieldset>' . "\n"
-    .    '<legend>'. get_lang('Additional Informations') . '</legend>' . "\n"
-    .    '<p class="checkSubTitle">'.get_lang('Related organisation').'</p>' . "\n"
+    .    '<legend>'. get_lang('Additional Information') . '</legend>' . "\n"
+    .    '<p class="checkSubTitle">'.get_lang('Related organization').'</p>' . "\n"
     
     .    '<ul class="checkList">' . "\n\n"
 
@@ -1860,7 +1859,7 @@ elseif(DISP_LAST_CHECK_BEFORE_INSTALL == $display )
 elseif($display==DISP_DB_NAMES_SETTING_ERROR)
 {
     echo '<input type="hidden" name="fromPanel" value="' . $display . '" />' . "\n"
-    .    '<h2>'.get_lang('Install cannot complete').'</h2>';
+    .    '<h2>'.get_lang('Installation failed').'</h2>';
     
     if ( $mainDbNameExist || $statsDbNameExist )
     {
@@ -1881,7 +1880,7 @@ elseif($display==DISP_DB_NAMES_SETTING_ERROR)
             .    '</div>'
             ;
         echo '<p>' . "\n"
-        .    get_lang('or') . ' <input type="submit" name="cmdDbNameSetting" value="'.get_lang('Use other database names').'" />' . "\n"
+        .    get_lang('or') . ' <input type="submit" name="cmdDbNameSetting" value="'.get_lang('Change database names').'" />' . "\n"
         .    '</p>' . "\n"
         .    '<hr />'
         ;
@@ -1893,7 +1892,7 @@ elseif($display==DISP_DB_NAMES_SETTING_ERROR)
     }
 
     echo '<p align="right">' . "\n"
-    .    '<input type="submit" name="alreadyVisited" value="|&lt; '.get_lang('Restart from beginning').'" />' . "\n"
+    .    '<input type="submit" name="alreadyVisited" value="|&lt; '.get_lang('Start again from the beginning').'" />' . "\n"
     .    '<input type="submit" name="cmdDoInstall" value="'.get_lang('Retry').'" />' . "\n"
     .    '</p>'
     ;
@@ -1906,7 +1905,7 @@ elseif($display==DISP_DB_NAMES_SETTING_ERROR)
 elseif(DISP_RUN_INSTALL_NOT_COMPLETE == $display)
 {
     echo '<input type="hidden" name="fromPanel" value="'.$display.'" />'
-    .    '<h2>'.get_lang('Install cannot complete').'</h2>';
+    .    '<h2>'.get_lang('Installation failed').'</h2>';
     
     if($mainDbNameCreationError)
     {
@@ -1938,7 +1937,7 @@ elseif(DISP_RUN_INSTALL_NOT_COMPLETE == $display)
     {
         if(is_array($messageConfigErrorList) && !empty($messageConfigErrorList) )
         {
-            echo '<br />'.get_lang('Error during config files creation').'<ul>';
+            echo '<br />'.get_lang('Error when creating configuration files').'<ul>';
 
             foreach($messageConfigErrorList as $messageConfigError)
             {
@@ -1949,7 +1948,7 @@ elseif(DISP_RUN_INSTALL_NOT_COMPLETE == $display)
         else
         {
             echo '<br />' . "\n"
-            .    get_lang('Unhandled error during config files creation')
+            .    get_lang('Unhandled error during the creation of configuration files')
             ;
         }
 
@@ -1998,7 +1997,7 @@ elseif(DISP_RUN_INSTALL_NOT_COMPLETE == $display)
     }
 
 
-    echo get_lang('Write problems can be related on two possible causes') .' :<br />' . "\n"
+    echo get_lang('Write problems can come from two possible causes') .' :<br />' . "\n"
     .    '<ul>' . "\n"
     .    '<li>' . "\n"
     .    get_lang('Permission problems.') . '<br />' . "\n"
@@ -2012,7 +2011,7 @@ elseif(DISP_RUN_INSTALL_NOT_COMPLETE == $display)
     ;
 
     echo '<p align="right">'
-    .    '<input type="submit" name="alreadyVisited" value="'.get_lang('Restart from beginning').'" />' . "\n"
+    .    '<input type="submit" name="alreadyVisited" value="'.get_lang('Start again from the beginning').'" />' . "\n"
     .    '<input type="submit" name="cmdDoInstall" value="'.get_lang('Retry').'" />' . "\n"
     .    '</p>'
     ;
@@ -2038,18 +2037,18 @@ elseif(DISP_RUN_INSTALL_COMPLETE == $display)
     .    '<legend>'.get_lang('Do not forget to ').'</legend>'
     .    '<ul>'
     .    '<li>'
-    .    get_lang('Tune your install in config in %administration | %configuration', array('%administration' => get_lang('Administration'),'%configuration' => get_lang('Configuration'))) . "\n"
+    .    get_lang('Tune your platform configuration in %administration | %configuration', array('%administration' => get_lang('Administration'),'%configuration' => get_lang('Configuration'))) . "\n"
     .    '</li>'
     .    '<li>'
     .    get_lang('Build your course category tree in %administration | %manage course categories', array('%administration' => get_lang('Administration'),'%manage course categories' => get_lang('Manage course categories'))) . "\n"
     .    '</li>'
     .    '<li>'
-    .    get_lang('Edit or clear text Zones in %administration | %edit text zones', array('%administration' => get_lang('Administration'),'%edit text zones' => get_lang('Edit text zones'))) . "\n"
+    .    get_lang('Edit or clear text zones in %administration | %edit text zones', array('%administration' => get_lang('Administration'),'%edit text zones' => get_lang('Edit text zones'))) . "\n"
     .    '</li>'
     .    '</ul>' . "\n"
     .    '</fieldset>' . "\n"
     .    '<div id="goToCampusLink">' . "\n"
-    .    '<a href="../../index.php?logout=TRUE&amp;uidReset=TRUE">'.get_lang('Go to your newly created campus').'</a>' . "\n"
+    .    '<a href="../../index.php?logout=TRUE&amp;uidReset=TRUE">'.get_lang('Go to your brand new campus').'</a>' . "\n"
     .    '</div>' . "\n"
     ;
 }    // STEP RUN_INSTALL_COMPLETE
@@ -2058,7 +2057,7 @@ else
 {
     echo get_lang('Unhandled error') . '<br />' . "\n"
     .    '<br />' . "\n"
-    .    get_lang('Please report and explain that failure on <a href="%forumUrl">Claroline\'s support forums</a>', 
+    .    get_lang('Please report and explain this issue on <a href="%forumUrl">Claroline\'s support forums</a>', 
             array('%forumUrl' => 'http://forum.claroline.net') )
     ;
 }
