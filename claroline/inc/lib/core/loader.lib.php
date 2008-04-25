@@ -87,7 +87,7 @@
                         }
                     }
                     
-                    Claroline::getInstance()->display->header->addHtmlHeader(
+                    ClaroHeader::getInstance()->addHtmlHeader(
                         '<script src="'.$this->libraries[$lib].'" type="text/javascript"></script>'
                     );
                     
@@ -170,7 +170,7 @@
                         'media' => $media
                     );
                     
-                    Claroline::getInstance()->display->header->addHtmlHeader(
+                    ClaroHeader::getInstance()->addHtmlHeader(
                         '<link rel="stylesheet" type="text/css"'
                         . ' href="'. $this->css[$css]['url'].'"'
                         . ' media="'.$this->css[$css]['media'].'" />'
