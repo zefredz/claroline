@@ -1250,7 +1250,7 @@ elseif(DISP_DB_NAMES_SETTING == $display )
         .    '</div>' . "\n\n"
 
         .    '<blockquote><small>'  . "\n"
-        .    get_lang('By default, tracking tables are stored into the main Claroline database.').'<br />'
+        .    get_lang('Tracking tables are stored by default into the main Claroline database.').'<br />'
         .    get_lang('However, you can record tracking data into a separate database or set <br /> a specific prefix for tracking tables.'). "\n"
         .    '</small></blockquote>'  . "\n"
         ;
@@ -1770,7 +1770,7 @@ elseif(DISP_LAST_CHECK_BEFORE_INSTALL == $display )
     .    get_lang('Self-registration') . ' : ' . "\n"
     .    '</span>' . "\n"
     .    '<div class="checkValue">' . "\n"
-    .    ($allowSelfReg?'enabled':'disabled ')
+    .    ($allowSelfReg? get_lang('Enabled') : get_lang('Disabled'))
     .    '</div>' . "\n"
     .    '</li>' . "\n\n"
 
@@ -1779,7 +1779,7 @@ elseif(DISP_LAST_CHECK_BEFORE_INSTALL == $display )
     .    get_lang('Password storage') . ' : ' . "\n"
     .    '</span>' . "\n"
     .    '<div class="checkValue">' . "\n"
-    .    ($encryptPassForm ?'crypted ':'clear text')
+    .    ($encryptPassForm ? get_lang('Encrypted') : get_lang('Clear text'))
     .    '</div>' . "\n"
     .    '</li>' . "\n\n"
     
