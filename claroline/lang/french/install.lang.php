@@ -143,7 +143,7 @@ $_lang['Edit text zones'] = 'Editer les zones de texte';
 $_lang['Go to your brand new campus'] = 'Visitez votre nouveau campus virtuel';
 $_lang['Unhandled error'] = 'Erreur indéterminée';
 $_lang['Please report and explain this issue on <a href="%forumUrl">Claroline\'s support forums</a>'] = 'Merci de signaler et de décrire le problème rencontré sur <a href=\"%forumUrl\">Claroline\'s support forums</a>';
-$_lang['Powered by'] = 'Powered by';
+$_lang['Powered by'] = 'Utilise la plateforme';
 $_lang['Anonymous'] = 'Anonyme';
 $_lang['Course visitor (the user has no account on the platform)'] = 'Tout qui consulte un cours sans être inscrit sur la plateforme';
 $_lang['Guest'] = 'Invité';
