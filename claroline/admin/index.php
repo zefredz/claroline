@@ -178,7 +178,7 @@ function get_menu_item_list($type)
 
 
         $menu['AdminClaroline'][] = claro_html_tool_link('registerCampus.php',  get_lang('Register my campus'));
-        $menu['AdminClaroline'][] = claro_html_tool_link('http://www.claroline.net/forum', get_lang('Support forum'));
+        $menu['AdminClaroline'][] = claro_html_tool_link('http://forum.claroline.net/', get_lang('Support forum'));
         $menu['AdminClaroline'][] = claro_html_tool_link('clarolinenews.php',              get_lang('Claroline.net news'));
 
         $menu['AdminTechnical'][] = claro_html_tool_link('technical/diskUsage.php',  get_lang('Disk usage'));
