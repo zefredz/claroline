@@ -660,7 +660,7 @@ a.item:visited{
 }
 
 /* specific styling for dialog box messages */
-.dialogInfo { margin-top: 2px; margin-bottom: 2px; padding: 1px 5px 2px 20px; }
+.dialogInfo { margin-top: 2px; margin-bottom: 2px; padding: 1px 5px 2px 20px; background: url('default/info.png') top left no-repeat; }
 .dialogSuccess { margin-top: 2px; margin-bottom: 2px; padding: 1px 5px 2px 20px; background: url('default/success.gif') top left no-repeat; }
 .dialogError { margin-top: 2px; margin-bottom: 2px; padding: 1px 5px 2px 20px; background: url('default/error.png') top left no-repeat; }
 .dialogQuestion { margin-top: 2px; margin-bottom: 2px; padding: 1px 5px 2px 20px; background: url('default/question.png') top left no-repeat; }
