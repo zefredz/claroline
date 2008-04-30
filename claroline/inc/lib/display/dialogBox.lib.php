@@ -18,6 +18,7 @@ if ( count( get_included_files() ) == 1 )
 
 define ( 'DIALOG_INFO',   'DIALOG_INFO' );
 define ( 'DIALOG_SUCCESS', 'DIALOG_SUCCESS' );
+define ( 'DIALOG_WARNING', 'DIALOG_WARNING' );
 define ( 'DIALOG_ERROR', 'DIALOG_ERROR' );
 define ( 'DIALOG_QUESTION', 'DIALOG_QUESTION');
 define ( 'DIALOG_FORM', 'DIALOG_FORM' );
@@ -27,6 +28,7 @@ class DialogBox implements Display
 {
     private $_dialogBox = array();
     private $_size = array();
+    private $_boxType = 'auto';
 
 	/*
 	 * Constructor
@@ -35,6 +37,7 @@ class DialogBox implements Display
     {
         $this->_size[DIALOG_INFO] = 0;
         $this->_size[DIALOG_SUCCESS] = 0;
+        $this->_size[DIALOG_WARNING] = 0;
         $this->_size[DIALOG_ERROR] = 0;
         $this->_size[DIALOG_QUESTION] = 0;
         $this->_size[DIALOG_FORM] = 0;
@@ -61,6 +64,16 @@ class DialogBox implements Display
         $this->_size[DIALOG_SUCCESS]++;
     }
 
+	/*
+	 * Add a success message
+	 * @param $msg string text to show in dialog
+	 */
+    public function warning( $msg )
+    {
+        $this->message( $msg, DIALOG_WARNING );
+        $this->_size[DIALOG_WARNING]++;
+    }
+    
 	/*
 	 * Add an error message
 	 * @param $msg string text to show in dialog
@@ -112,6 +125,15 @@ class DialogBox implements Display
     }
 
 	/*
+	 * Set which style should the box have
+	 * @param $boxType string text to show in dialog
+	 */
+    public function setBoxType( $boxType )
+    {
+        $this->_boxType = $boxType;
+    }
+    
+	/*
 	 * returns html required to display the dialog box
 	 */
     public function render()
@@ -129,47 +151,83 @@ class DialogBox implements Display
 	            {
 	                case DIALOG_INFO:
 	                {
-	                    $class = 'dialogInfo';
+	                    $class = 'msgInfo';
 	                } break;
 	                case DIALOG_SUCCESS:
 	                {
-	                    $class = 'dialogSuccess';
+	                    $class = 'msgSuccess';
+	                } break;
+	                case DIALOG_WARNING:
+	                {
+	                    $class = 'msgWarning';
 	                } break;
 	                case DIALOG_ERROR:
 	                {
-	                    $class = 'dialogError';
+	                    $class = 'msgError';
 	                } break;
 	                case DIALOG_QUESTION:
 	                {
-	                    $class = 'dialogQuestion';
+	                    $class = 'msgQuestion';
 	                } break;
 	                case DIALOG_FORM:
 	                {
 	                	// forms must always be in a div
-	                    $class = 'dialogForm';
+	                    $class = 'msgForm';
 	                } break;
 	                case DIALOG_DEBUG:
 	                {
-	                    $class = 'dialogDebug';
+	                    $class = 'msgDebug';
 	                } break;
 	                default:
 	                {
-	                    $class = 'dialogMessage';
+	                    $class = 'msgMessage';
 	                }
 	            }
 
-	            $out[] = '<div class="' . $class . '">' . $msg . '</div>';
+	            $out[] = '<div class="claroDialogMsg ' . $class . '">' . $msg . '</div>';
 
 	            unset ($type, $msg );
 	        }
 
-	        return '<table class="claroMessageBox" border="0" cellspacing="0" cellpadding="10">' . "\n"
-			.	 '<tr>' . "\n"
-			.	 '<td>' . "\n"
+	        switch( $this->_boxType )
+	        {
+	            case 'auto' :
+	            {
+	                 // order is important
+    	            if( $this->_size[DIALOG_ERROR] > 0 )        { $boxClass = 'boxError'; }
+    	            elseif( $this->_size[DIALOG_WARNING] > 0 )  { $boxClass = 'boxWarning'; }
+	                elseif( $this->_size[DIALOG_SUCCESS] > 0 )  { $boxClass = 'boxSuccess'; }
+	                elseif( $this->_size[DIALOG_INFO] > 0 )     { $boxClass = 'boxInfo'; }
+	                else                                        { $boxClass = ''; }
+	            } break;
+	            case 'info' :
+	            {
+	                $boxClass = 'boxInfo';
+	            } break;
+	            case 'success' :
+	            {
+	                $boxClass = 'boxSuccess';
+	            } break;
+	            case 'warning' :
+	            {
+	                $boxClass = 'boxWarning';
+	            } break;
+	            case 'error' :
+	            {
+	                $boxClass = 'boxError';
+	            } break;
+	            default : 
+	            {
+	                $boxClass = '';
+	            }
+	        }
+       
+            // todo check that the floating div + spacer do not break design 
+	         
+	        return '<div class="claroDialogBox ' . $boxClass . '">' . "\n"
 	        .	 implode( "\n", $out )
-	        .	 '</td>' . "\n"
-	        .	 '</tr>' . "\n"
-	        .	 '</table>' . "\n\n";
+	        .	 '</div>' . "\n\n"
+	        .    '<p class="spacer"></p>' . "\n\n";
     	}
     	else
     	{
