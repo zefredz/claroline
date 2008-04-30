@@ -45,7 +45,6 @@ a img {
 
 ul {
     list-style-type: square;
-    font-size: 0.9em;
 }
 
 
@@ -78,6 +77,13 @@ label {
 }
 
 /******************************************************************************
+                             CLAROLINE PAGE
+ ******************************************************************************/
+#claroPage {
+	
+}
+
+/******************************************************************************
                               CLAROLINE TOP BANNER
  ******************************************************************************/
 
@@ -99,7 +105,7 @@ label {
 #platformBanner a:link,
 #platformBanner a:visited {
     text-decoration: none;
-     color: #fff;
+	color: #fff;
     font-weight: bold;
 }
 
@@ -165,7 +171,7 @@ label {
 
 #userBanner a:hover,
 #userBanner a:active {
-       color: #369;
+    color: #369;
     text-decoration: underline;
     font-weight: normal;
 }
@@ -202,7 +208,7 @@ label {
 
 #courseBanner #courseToolList {
     float: right;
-       text-align: right;
+    text-align: right;
 }
 
 #courseBanner #courseName {
@@ -306,7 +312,7 @@ label {
 
 #claroBody {
     padding:15px;
-    font-size: 0.9em;
+    font-size: 0.8em;
     background: url('default/bg_body.jpg') repeat-x top left #fff;
 }
 
@@ -389,7 +395,7 @@ label {
 
 .claroCmd, .claroCmdDisabled
 {
-    font-size: 0.8em;
+    font-size: 0.9em;
 }
 
 #claroBody .claroCmd,
@@ -546,7 +552,6 @@ a.item:visited{
     vertical-align: middle;
     padding: 2px 5px 2px 5px;
     border: 1px solid #EDEDED;
-    font-size: 0.9em;
 }
 
 .claroTable .superHeader th,
@@ -660,14 +665,47 @@ a.item:visited{
 }
 
 /* specific styling for dialog box messages */
-.dialogInfo { margin-top: 2px; margin-bottom: 2px; padding: 1px 5px 2px 20px; background: url('default/info.png') top left no-repeat; }
-.dialogSuccess { margin-top: 2px; margin-bottom: 2px; padding: 1px 5px 2px 20px; background: url('default/success.gif') top left no-repeat; }
-.dialogError { margin-top: 2px; margin-bottom: 2px; padding: 1px 5px 2px 20px; background: url('default/error.png') top left no-repeat; }
-.dialogQuestion { margin-top: 2px; margin-bottom: 2px; padding: 1px 5px 2px 20px; background: url('default/question.png') top left no-repeat; }
-.dialogForm { padding: 3px 20px; }
-.dialogDebug { margin-top: 2px; margin-bottom: 2px; padding: 1px 5px 2px 20px; }
+.claroDialogBox {	
+	margin-top: 2px; 
+	margin-bottom: 2px; 
+	padding: 5px 5px 5px 20px; 
+	border: 1px solid #ccc;
+	background: #eee;
+	float: left;
+	padding-right: 75px;
+	border-left: 2px solid #ccc;
+}
 
-.warning b, .waring strong {
+.boxInfo {	
+	border-left: 2px solid #ccc;
+	background: #eee url('default/bg_info.gif') bottom right no-repeat;
+}
+
+.boxSuccess {	
+	border-left: 2px solid #090;
+	background: #eee url('default/bg_success.gif') bottom right no-repeat;
+}
+
+.boxWarning {	
+	border-left: 2px solid #900;
+	background: #eee url('default/bg_warning.gif') bottom right no-repeat;
+}
+
+.boxError {	
+	border-left: 2px solid #900;
+	background: #eee url('default/bg_error.gif') bottom right no-repeat;
+}
+
+.claroDialogMsg { padding: 1px 5px 1px 20px; }
+.claroDialogBox .msgInfo { } /* I really don't think there is a need for an icon here */
+.claroDialogBox .msgSuccess { background: url('default/success.gif') top left no-repeat; }
+.claroDialogBox .msgWarning { background: url('default/warning.gif') top left no-repeat; }
+.claroDialogBox .msgError { background: url('default/error.gif') top left no-repeat; }
+.claroDialogBox .msgQuestion { background: url('default/question.gif') top left no-repeat; }
+.claroDialogBox .msgForm { padding: 3px 20px; }
+.claroDialogBox .msgDebug { }
+
+.warning b, .warning strong {
     color: #000;
 }
 
@@ -757,7 +795,6 @@ a:visited.invisible {
     background-color : #EDF1E3;
     border: 1px #693 solid;
     padding: 10px;
-    font-size: 0.9em;
 }
 
 .claroRightMenu a:link,
@@ -799,12 +836,12 @@ a:visited.invisible {
  */
 
 .comment {
-    font-size : 0.85em;
+    font-size : 0.9em;
     margin-left: 30px;
 }
 
 small {
-    font-size : 0.85em;
+    font-size : 0.9em;
 }
 
 /*
