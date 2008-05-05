@@ -265,7 +265,8 @@ if ( claro_is_in_a_tool() )
 
 language::load_translation();
 language::load_locale_settings();
-load_module_language();
+language::load_module_translation();
+// load_module_language();
 
 /*----------------------------------------------------------------------
   Prevent duplicate form submission

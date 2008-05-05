@@ -166,10 +166,9 @@ class language
      *
      */
 
-    function load_translation ($language=null,$mode=null)
+    public static function load_translation ( $language = null )
     {
-        global $_lang ;
-        global $urlAppend ;
+        global $_lang;
 
         /*----------------------------------------------------------------------
           Initialise language array
@@ -178,82 +177,26 @@ class language
         $_lang = array();
 
         if ( is_null($language) ) $language = language::current_language();
-        if ( is_null($mode) )     $mode = get_conf('CLAROLANG');
+        // if ( is_null($mode) )     $mode = get_conf('CLAROLANG');
 
         /*----------------------------------------------------------------------
           Common language properties and generic expressions
           ----------------------------------------------------------------------*/
 
-        // FIXME : force translation mode
+        include(get_path('incRepositorySys') . '/../lang/english/complete.lang.php');
 
-        $mode = 'TRANSLATION';
-
-        if ( $mode == 'TRANSLATION' )
+        if ($language != 'english') // Avoid useless include as English lang is preloaded
         {
-            // TRANSLATION MODE : include the language file with all language variables
+            $language_file = realpath(get_path('incRepositorySys') . '/../lang/' . $language . '/complete.lang.php');
 
-            include(get_path('incRepositorySys') . '/../lang/english/complete.lang.php');
-
-            if ($language != 'english') // Avoid useless include as English lang is preloaded
+            if ( file_exists($language_file) )
             {
-                $language_file = realpath(get_path('incRepositorySys') . '/../lang/' . $language . '/complete.lang.php');
-
-                if ( file_exists($language_file) )
-                {
-                    include($language_file);
-                }
+                include($language_file);
             }
-
         }
-        else
-        {
-            // PRODUCTION MODE : include the language file with variables used by the script
-
-            /*
-             * tool specific language translation
-             */
-
-            // build lang file of the tool
-            $languageFilename = preg_replace('|^'.preg_quote($urlAppend.'/').'|', '',  $_SERVER['PHP_SELF'] );
-            $pos = strpos($languageFilename, 'claroline/');
-
-            if ($pos === FALSE || $pos != 0)
-            {
-                // if the script isn't in the claroline folder the language file base name is index
-                $languageFilename = 'index';
-            }
-            else
-            {
-                // else language file basename is like claroline_folder_subfolder_...
-                $languageFilename = dirname($languageFilename);
-                $languageFilename = str_replace('/','_',$languageFilename);
-            }
-
-            // add extension to file
-            $languageFile = $languageFilename . '.lang.php';
-
-            if ( ! file_exists(get_path('incRepositorySys') . '/../lang/english/' . $languageFile) )
-            {
-                include(get_path('incRepositorySys') . '/../lang/english/complete.lang.php');
-            }
-            else
-            {
-                include(get_path('incRepositorySys') . '/../lang/english/' . $languageFile);
-            }
-
-            // load previously english file to be sure every get_lang('variable')
-            // have at least some content
-
-            if ( $language != 'english' )
-            {
-                @include(get_path('incRepositorySys') . '/../lang/' . $language . '/' . $languageFile);
-            }
-
-        }
-
     }
 
-    function load_locale_settings($language=null)
+    public static function load_locale_settings($language=null)
     {
         global $iso639_1_code, $iso639_2_code, $charset,
                $_locale,
@@ -284,8 +227,79 @@ class language
         $GLOBALS['langMonthNames'] = $langMonthNames;
 
     }
+    
+    public static function load_module_translation( $moduleLabel = null, $language = null )
+    {
+        global $_lang;
+        
+        $moduleLabel = is_null( $moduleLabel ) ? get_current_module_label() : $moduleLabel;
+        
+        // In a module
+        if ( ! empty( $moduleLabel ) )
+        {
+            $module_path = get_module_path( $moduleLabel );
+            $language = is_null( $language ) ? language::current_language() : $language;
+            
+            // load english by default if exists
+            if ( file_exists($module_path.'/lang/lang_english.php' ) )
+            {
+                /* TODO use $_lang instead of $mod_lang in module lang files */
+                $mod_lang = array();
+                include $module_path.'/lang/lang_english.php';
+                $_lang = array_merge($_lang,$mod_lang);
+                
+                if ( claro_debug_mode() )
+                {
+                    pushClaroMessage(__FUNCTION__."::".$moduleLabel.'::'
+                        . 'English lang file loaded', 'debug');
+                }
+            }
+            else
+            {
+                // no language file to load
+                if ( claro_debug_mode() )
+                {
+                    pushClaroMessage(__FUNCTION__."::".$moduleLabel.'::'
+                        . 'English lang file  not found', 'debug');
+                }
+            }
+            
+            // load requested language if exists
+            if ( $language != 'english'
+                && file_exists($module_path.'/lang/lang_'.$language.'.php') )
+            {
+                /* TODO use $_lang instead of $mod_lang in module lang files */
+                $mod_lang = array();
+                include $module_path.'/lang/lang_'.$language.'.php';
+                $_lang = array_merge($_lang,$mod_lang);
+                
+                if ( claro_debug_mode() )
+                {
+                    pushClaroMessage(__FUNCTION__."::".$moduleLabel.'::'
+                        . ucfirst( $language ).' lang file loaded', 'debug');
+                }
+            }
+            elseif ( $language != 'english' )
+            {
+                // no language file to load
+                if ( claro_debug_mode() )
+                {
+                    pushClaroMessage(__FUNCTION__."::".$moduleLabel.'::'
+                        . ucfirst( $language ) .' lang file  not found', 'debug');
+                }
+            }
+            else
+            {
+                // nothing to do
+            }
+        }
+        else
+        {
+            // Not in a module
+        }
+    }
 
-    function current_language()
+    public static function current_language()
     {
         global $_course, $_user, $platformLanguage;
 
