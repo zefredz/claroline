@@ -59,7 +59,7 @@
         <?php echo include_dock('courseBannerLeft'); ?>
     </div>
     <div id="courseBannerRight">
-        <?php echo $this->courseToolSelector; ?>
+        <?php echo claro_is_course_allowed() ? $this->courseToolSelector : ''; ?>
         <?php echo include_dock('courseBannerRight'); ?>
     </div>
 
