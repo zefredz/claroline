@@ -215,8 +215,7 @@ function claro_get_data_path($contextData=array())
 
 function get_module_entry($claroLabel)
 {
-    $moduleData = get_module_data($claroLabel);
-    return $moduleData['entry'];
+    return get_module_data($claroLabel, 'entry' );
 
 }
 
@@ -229,11 +228,12 @@ function get_module_entry($claroLabel)
  */
 function get_module_entry_url($claroLabel)
 {
-    $moduleData = get_module_data($claroLabel);
-    return get_module_url($claroLabel) . '/' . ltrim($moduleData['entry'],'/');
+    return get_module_url($claroLabel) . '/'
+        . ltrim(get_module_entry($claroLabel),'/')
+        ;
 }
 
-function get_module_data( $claroLabel, $ignoreCache = false )
+function get_module_data( $claroLabel, $dataName = null, $ignoreCache = false )
 {
     static $cachedModuleDataList = null;
 
@@ -262,8 +262,15 @@ function get_module_data( $claroLabel, $ignoreCache = false )
 
         $cachedModuleDataList[$claroLabel] = claro_sql_query_get_single_row($sql);
     }
-
-    return $cachedModuleDataList[$claroLabel];
+    
+    if ( !is_null( $dataName ) )
+    {
+        return $cachedModuleDataList[$claroLabel][$dataName];
+    }
+    else
+    {
+        return $cachedModuleDataList[$claroLabel];
+    }
 }
 
 /**
