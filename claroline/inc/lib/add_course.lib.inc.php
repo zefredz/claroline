@@ -541,8 +541,8 @@ function install_module_at_course_creation( $moduleLabel, $courseDbName, $langua
     if ( file_exists( $phpPath ) )
     {
         // include the language file with all language variables
-        language::load_translation($language,'TRANSLATION');
-        language::load_locale_settings($language);
+        language::load_translation( $language );
+        language::load_locale_settings( $language );
         
         // define tables to use in php install scripts
         $courseDbName = get_conf('courseTablePrefix') . $courseDbName.get_conf('dbGlu');
