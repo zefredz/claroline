@@ -1,5 +1,5 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) );
 /**
  * CLAROLINE
  *
@@ -303,33 +303,28 @@ function check_module($modLabel)
 }
 
 /**
+ * Load language file for a module
+ * FIXME : REMOVE !
+ * @deprecated since Claroline 1.9, use language::load_module_translation
+ * @param   $moduleLabel module label (default null for current module)
+ * @param   $language language name (default null for current language)
+ */
+function load_module_language ( $moduleLabel = null, $language = null )
+{
+    language::load_module_translation( $moduleLabel, $language );
+}
+
+/**
  * Merge module lang with lang file
  *
- * @param $moduleLabel label of module
- * @return array
+ * FIXME : REMOVE !
+ * @deprecated since Claroline 1.9, use language::load_module_translation
+ * @param   $moduleLabel module label (default null for current module)
+ * @param   $language language name (default null for current language)
  */
-function add_module_lang_array($moduleLabel)
+function add_module_lang_array( $moduleLabel = null, $language = null )
 {
-    global $_lang;
-
-    $module_uri = get_path('rootSys').'module/'.$moduleLabel.'/';
-
-    $current_lang = language::current_language();
-
-    if ($current_lang != 'english' && file_exists($module_uri.'lang/lang_'.$current_lang.'.php'))
-    {
-        /* TODO use $_lang instead of $mod_lang in module lang files */
-        $mod_lang = array();
-        include $module_uri.'lang/lang_'.$current_lang.'.php';
-        $_lang = array_merge($_lang,$mod_lang);
-    }
-    elseif (file_exists($module_uri.'lang/lang_english.php'))
-    {
-        /* TODO use $_lang instead of $mod_lang in module lang files */
-        $mod_lang = array();
-        include $module_uri.'lang/lang_english.php';
-        $_lang = array_merge($_lang,$mod_lang);
-    }
+    language::load_module_translation( $moduleLabel, $language );
 }
 
 /**
@@ -566,57 +561,6 @@ function get_module_main_tbl( $arrTblName )
 }
 
 /**
- * Load language file for a module
- * @param   $module module label (default null for current module)
- */
-function load_module_language ( $module = null )
-{
-    global $_lang ;
-
-    if ( is_null ( $module ) )
-    {
-        $module = get_current_module_label();
-    }
-
-    if ( ! empty ( $module ) )
-    {
-        $moduleLangPath = get_module_path( $module )
-            . '/lang/lang_'.language::current_language()
-            . '.php'
-            ;
-
-        $moduleLangPath = protect_against_file_inclusion( $moduleLangPath );
-
-        if ( file_exists ( $moduleLangPath ) )
-        {
-            if ( claro_debug_mode() )
-            {
-                pushClaroMessage(__FUNCTION__."::".$module.'::'
-                    . language::current_language().' loaded', 'debug');
-            }
-
-            include $moduleLangPath;
-
-            return true;
-        }
-        else
-        {
-            if ( claro_debug_mode() )
-            {
-                pushClaroMessage(__FUNCTION__."::".$module.'::'
-                    . language::current_language().' not found', 'debug');
-            }
-
-            return false;
-        }
-    }
-    else
-    {
-        return false;
-    }
-}
-
-/**
  * Load configuration file for a module
  * @param   $module module label (default null for current module)
  */
@@ -649,4 +593,3 @@ function load_module_config ( $moduleLabel = null )
         }
     }
 }
-?>
