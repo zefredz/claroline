@@ -486,7 +486,7 @@ else
     .     '<th>' . get_lang('Question') . '</th>' . "\n"
     .     '<th>' . get_lang('Answer type') . '</th>' . "\n"
     .     '<th>' . get_lang('Modify') . '</th>' . "\n"
-    .     '<th>' . get_lang('Remove') . '</th>' . "\n"
+    .     '<th>' . get_lang('Delete') . '</th>' . "\n"
     .     '<th colspan="2">' . get_lang('Order') . '</th>' . "\n"
     .     '</tr>' . "\n"
     .     '</thead>' . "\n\n"
@@ -520,7 +520,7 @@ else
 
             echo '<td align="center">'
             .     '<a href="edit_exercise.php?exId='.$exId.'&amp;cmd=rmQu&amp;quId='.$question['id'].'" onclick="javascript:if(!confirm(\''.clean_str_for_javascript($confirmString).'\')) return false;">'
-            .     '<img src="'.$clarolineRepositoryWeb.'img/delete.gif" border="0" alt="'.get_lang('Remove').'" />'
+            .     '<img src="'.$clarolineRepositoryWeb.'img/delete.gif" border="0" alt="'.get_lang('Delete').'" />'
             .     '</a>'
             .     '</td>' . "\n";
 
