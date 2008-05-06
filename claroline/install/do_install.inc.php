@@ -164,64 +164,14 @@ $tbl_mdb_names = claro_sql_get_main_tbl();
 
 if ($runfillMainDb && $runfillStatsDb)
 {
-    // initialise main database
-
-    mysql_select_db ($mainDbName);
-
-    $dropStatementList = array();
-    include './dropMainTables.inc.php';
-
-    $creationStatementList = array();
-    include './createMainBase.inc.php';
-
-    $fillStatementList = array();
-    include './fillMainBase.inc.php';
-
-    $kernelSetupStatementList = array_merge( $dropStatementList
-                                           , $creationStatementList
-                                           , $fillStatementList);
-
-    foreach ($kernelSetupStatementList as $key => $statement)
-    {
-        if(false === claro_sql_query($statement) )
-        {
-             echo '<hr size="1" noshade>'
-                         .mysql_errno(), " : ", mysql_error(), '<br>'
-                         .'<pre style="color:red">'
-                         .$statement
-                         .'</pre>'
-                         .'<hr size="1" noshade>';
-        }
-    }
-
-    // initialise tracking database
-
-    mysql_select_db ($statsDbName);
-
-    $dropStatementList = array();
-    $creationStatementList = array();
-    $fillStatementList = array();
-
-    include './dropStatTables.inc.php';
-    include './createStatBase.inc.php';
-    include './fillStatBase.inc.php';
-
-    $trackingSetUpStatementList = array_merge( $dropStatementList
-                                , $creationStatementList
-                                , $fillStatementList);
-
-    foreach ($trackingSetUpStatementList as $statement)
-    {
-        if(false === claro_sql_query($statement) )
-        {
-             echo '<hr size="1" noshade>'
-                         .mysql_errno(), " : ", mysql_error(), '<br>'
-                         .'<pre style="color:red">'
-                         .$statement
-                         .'</pre>'
-                         .'<hr size="1" noshade>';
-        }
-    }
+    $installer = new ClaroInstaller(
+        $mainDbName.'`.`'.$mainTblPrefix,
+        $statsDbName.'`.`'.$statsTblPrefix,
+        'displayDbError'
+    );
+    
+    $installer->executeSqlScript( file_get_contents( dirname(__FILE__) . '/uninstall.sql' ) );
+    $installer->executeSqlScript( file_get_contents( dirname(__FILE__) . '/install.sql' ) );
 
     // FILE SYSTEM OPERATION
     //
