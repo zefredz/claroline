@@ -411,7 +411,7 @@ if( !empty($exerciseList) )
             if( $is_allowedToTrack )
             {
                 echo '<td align="center">'
-                .     '<a href="../tracking/exercises_details.php?exId='.$anExercise['id'].'&amp;src=ex">'
+                .     '<a href="track_exercises.php?exId='.$anExercise['id'].'&amp;src=ex">'
                 .     '<img src="' . get_icon_url('statistics') . '" border="0" alt="'.get_lang('Statistics').'" />'
                 .     '</a>'
                 .     '</td>' . "\n";
