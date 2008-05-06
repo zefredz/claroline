@@ -1,5 +1,5 @@
 /**
- * $Id: editor_template_src.js 760 2008-04-01 14:13:07Z spocke $
+ * $Id: editor_template_src.js 829 2008-04-30 14:35:32Z spocke $
  *
  * @author Moxiecode
  * @copyright Copyright © 2004-2008, Moxiecode Systems AB, All rights reserved.
@@ -210,7 +210,7 @@
 		},
 
 		_createFontSizeSelect : function() {
-			var c, t = this, lo = [
+			var t = this, ed = t.editor, c, lo = [
 				"1 (8 pt)",
 				"2 (10 pt)",
 				"3 (12 pt)",
@@ -220,10 +220,10 @@
 				"7 (36 pt)"
 			], fz = [8, 10, 12, 14, 18, 24, 36];
 
-			c = t.editor.controlManager.createListBox('fontsizeselect', {title : 'advanced.font_size', cmd : 'FontSize'});
+			c = ed.controlManager.createListBox('fontsizeselect', {title : 'advanced.font_size', cmd : 'FontSize'});
 			if (c) {
-				each(explode(t.settings.theme_advanced_font_sizes), function(v) {
-					c.add(lo[parseInt(v) - 1], v, {'style' : 'font-size:' + fz[v - 1] + 'pt', 'class' : 'mceFontSize' + v});
+				each(ed.getParam('theme_advanced_font_sizes', t.settings.theme_advanced_font_sizes, 'hash'), function(v, k) {
+					c.add(k != v ? k : lo[parseInt(v) - 1], v, {'style' : 'font-size:' + fz[v - 1] + 'pt', 'class' : 'mceFontSize' + v});
 				});
 			}
 
@@ -519,7 +519,7 @@
 			each(explode(s.theme_advanced_containers || ''), function(c, i) {
 				var v = s['theme_advanced_container_' + c] || '';
 
-				switch (c.toLowerCase()) {
+				switch (v.toLowerCase()) {
 					case 'mceeditor':
 						n = DOM.add(tb, 'tr');
 						n = ic = DOM.add(n, 'td', {'class' : 'mceIframeContainer'});
@@ -530,7 +530,7 @@
 						break;
 
 					default:
-						a = s['theme_advanced_container_' + c + '_align'].toLowerCase();
+						a = (s['theme_advanced_container_' + c + '_align'] || da).toLowerCase();
 						a = 'mce' + t._ufirst(a);
 
 						n = DOM.add(DOM.add(tb, 'tr'), 'td', {
@@ -680,7 +680,7 @@
 						};
 
 						// Start listening
-						mf = Event.add(document, 'mousemove', function(e) {
+						mf = Event.add(DOM.doc, 'mousemove', function(e) {
 							var w, h;
 
 							// Calc delta values
@@ -702,12 +702,12 @@
 							return Event.cancel(e);
 						});
 
-						me = Event.add(document, 'mouseup', function(e) {
+						me = Event.add(DOM.doc, 'mouseup', function(e) {
 							var ifr;
 
 							// Stop listening
-							Event.remove(document, 'mousemove', mf);
-							Event.remove(document, 'mouseup', me);
+							Event.remove(DOM.doc, 'mousemove', mf);
+							Event.remove(DOM.doc, 'mouseup', me);
 
 							c.style.display = '';
 							DOM.remove(p);
@@ -797,7 +797,7 @@
 				c.select(ed.queryCommandValue('FontName'));
 
 			if (c = cm.get('fontsizeselect'))
-				c.select(ed.queryCommandValue('FontSize'));
+				c.select('' + ed.queryCommandValue('FontSize'));
 
 			if (s.theme_advanced_path && s.theme_advanced_statusbar_location) {
 				p = DOM.get(ed.id + '_path') || DOM.add(ed.id + '_path_row', 'span', {id : ed.id + '_path'});
@@ -894,7 +894,7 @@
 					pi = DOM.create('a', {'href' : "javascript:;", onmousedown : "return false;", title : ti, 'class' : 'mcePath_' + (de++)}, na);
 
 					if (p.hasChildNodes()) {
-						p.insertBefore(document.createTextNode(' \u00bb '), p.firstChild);
+						p.insertBefore(DOM.doc.createTextNode(' \u00bb '), p.firstChild);
 						p.insertBefore(pi, p.firstChild);
 					} else
 						p.appendChild(pi);
@@ -1023,7 +1023,9 @@
 			var t = this;
 
 			this._mceColorPicker(0, {
+				color: t.fgColor,
 				func : function(co) {
+					t.fgColor = co;
 					t.editor.execCommand('ForeColor', false, co);
 				}
 			});
@@ -1033,7 +1035,9 @@
 			var t = this;
 
 			this._mceColorPicker(0, {
+				color: t.bgColor,
 				func : function(co) {
+					t.bgColor = co;
 					t.editor.execCommand('HiliteColor', false, co);
 				}
 			});

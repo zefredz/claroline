@@ -1,5 +1,5 @@
 /**
- * $Id: editor_plugin_src.js 755 2008-03-29 19:14:42Z spocke $
+ * $Id: editor_plugin_src.js 809 2008-04-17 14:41:31Z spocke $
  *
  * @author Moxiecode
  * @copyright Copyright © 2004-2008, Moxiecode Systems AB, All rights reserved.
@@ -102,7 +102,7 @@
 				opt += ' mceMovable';
 
 			// Create DOM objects
-			t._addAll(document.body, 
+			t._addAll(DOM.doc.body, 
 				['div', {id : id, 'class' : ed.settings.inlinepopups_skin || 'clearlooks2', style : 'width:100px;height:100px'}, 
 					['div', {id : id + '_wrapper', 'class' : 'mceWrapper' + opt},
 						['div', {id : id + '_top', 'class' : 'mceTop'}, 
@@ -160,8 +160,12 @@
 			DOM.setStyles(id, {top : f.top, left : f.left, width : f.width + dw, height : f.height + dh});
 
 			u = f.url || f.file;
-			if (u && tinymce.relaxedDomain)
-				u += (u.indexOf('?') == -1 ? '?' : '&') + 'mce_rdomain=' + tinymce.relaxedDomain;
+			if (u) {
+				if (tinymce.relaxedDomain)
+					u += (u.indexOf('?') == -1 ? '?' : '&') + 'mce_rdomain=' + tinymce.relaxedDomain;
+
+				u = tinymce._addVer(u);
+			}
 
 			if (!f.type) {
 				DOM.add(id + '_content', 'iframe', {id : id + '_ifr', src : 'javascript:""', frameBorder : 0, style : 'border:0;width:10px;height:10px'});
@@ -300,7 +304,7 @@
 		},
 
 		_startDrag : function(id, se, ac) {
-			var t = this, mu, mm, d = document, eb, w = t.windows[id], we = w.element, sp = we.getXY(), p, sz, ph, cp, vp, sx, sy, sex, sey, dx, dy, dw, dh;
+			var t = this, mu, mm, d = DOM.doc, eb, w = t.windows[id], we = w.element, sp = we.getXY(), p, sz, ph, cp, vp, sx, sy, sex, sey, dx, dy, dw, dh;
 
 			// Get positons and sizes
 //			cp = DOM.getPos(t.editor.getContainer());
@@ -462,7 +466,9 @@
 		},
 
 		close : function(win, id) {
-			var t = this, w, d = document, ix = 0, fw;
+			var t = this, w, d = DOM.doc, ix = 0, fw, id;
+
+			id = t._findId(id || win);
 
 			t.count--;
 
@@ -499,10 +505,12 @@
 			}
 		},
 
-		setTitle : function(ti, id) {
+		setTitle : function(w, ti) {
 			var e;
 
-			if (e = DOM.get(id + '_title'))
+			w = this._findId(w);
+
+			if (e = DOM.get(w + '_title'))
 				e.innerHTML = DOM.encode(ti);
 		},
 
@@ -545,6 +553,24 @@
 		},
 
 		// Internal functions
+
+		_findId : function(w) {
+			var t = this;
+
+			if (typeof(w) == 'string')
+				return w;
+
+			each(t.windows, function(wo) {
+				var ifr = DOM.get(wo.id + '_ifr');
+
+				if (ifr && w == ifr.contentWindow) {
+					w = wo.id;
+					return false;
+				}
+			});
+
+			return w;
+		},
 
 		_fixIELayout : function(id, s) {
 			var w, img;
