@@ -411,7 +411,7 @@ if( get_conf('is_trackingEnabled'))
             foreach( $results as $result )
             {
                     echo '<tr>'."\n"
-                        .'<td><a href="exercises_details.php?exId='.$result['exe_exo_id'].'">'.$result['title'].'</a></td>'."\n"
+                        .'<td><a href="../exercise/track_exercises.php?exId='.$result['exe_exo_id'].'">'.$result['title'].'</a></td>'."\n"
                         .'<td align="right">'.$result['nbr_distinct_user_attempts'].'</td>'."\n"
                         .'<td align="right">'.$result['nbr_total_attempts'].'</td>'."\n"
                         .'</tr>'."\n\n"
