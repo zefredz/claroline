@@ -404,8 +404,8 @@ function prepare_get_filtred_course_list()
     //deal with ADVANCED SEARCH parmaters call
     if (isset($_SESSION['admin_course_intitule'])) $sqlFilter[] = "(C.`intitule` LIKE '%". addslashes(pr_star_replace($_SESSION['admin_course_intitule'])) ."%')";
     if (isset($_SESSION['admin_course_code']))     $sqlFilter[] = "(C.`administrativeNumber` LIKE '%". addslashes(pr_star_replace($_SESSION['admin_course_code'])) ."%')";
-    if (isset($_SESSION['admin_course_category'])) $sqlFilter[] = "(C.`faculte` LIKE '%". addslashes(pr_star_replace($_SESSION['admin_course_category'])) ."%')";
-    if (isset($_SESSION['admin_course_language'])) $sqlFilter[] = "(C.`language` LIKE '%". addslashes($_SESSION['admin_course_language']) ."%')";
+    if (isset($_SESSION['admin_course_category'])) $sqlFilter[] = "(C.`faculte` = '". addslashes(pr_star_replace($_SESSION['admin_course_category'])) ."')";
+    if (isset($_SESSION['admin_course_language'])) $sqlFilter[] = "(C.`language` = '". addslashes($_SESSION['admin_course_language']) ."')";
 
     if (isset($_SESSION['admin_course_visibility']))
     {
