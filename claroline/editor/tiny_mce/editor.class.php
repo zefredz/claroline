@@ -60,28 +60,15 @@ class editor extends GenericEditor
        */
     public function getAdvancedEditor()
     {
-        // ok, it's not cool to use global for that but it has to be shared between instances
-        // TODO find a cool way to do that
-        global $_isAdvancedJsLoaded;
+        $html = '';
+        $html .= $this->getDefaultJs();
         
-        $returnString = $this->getDefaultJs();
-
-        if( !isset($_isAdvancedJsLoaded) )
-        {
-            if( get_conf('gzip_editor') )
-            {
-                $returnString .= '<script language="javascript" type="text/javascript" src="'.$this->webPath.'/advanced_gzip.conf.js"></script>'."\n";
-            }
-            
-            $returnString .= '<script language="javascript" type="text/javascript" src="'.$this->webPath.'/advanced.conf.js"></script>'."\n";
-
-            $_isAdvancedJsLoaded = true;
-        }
+        $html .= $this->getAdvancedJs();
         
         // add standard text area
-        $returnString .= $this->getTextArea('advancedMCE');
+        $html .= $this->getTextArea('advancedMCE');
 
-        return  $returnString;
+        return  $html;
     }
 
     /**
@@ -90,62 +77,94 @@ class editor extends GenericEditor
      */
     public function getSimpleEditor()
     {
+        $html = '';
+        $html .= $this->getDefaultJs();
+        
+        $html .= $this->getSimpleJs();
+        
+        // add standard text area
+        $html .= $this->getTextArea('simpleMCE');
+
+        return  $html;
+    }
+    
+    public function getAdvancedJs()
+    {
         // ok, it's not cool to use global for that but it has to be shared between instances
         // TODO find a cool way to do that
-        global $_isSimpleJsLoaded;
+        global $_isAdvancedJsLoaded;
         
-        $returnString = $this->getDefaultJs();
-
-        if( !isset($_isSimpleJsLoaded) )
+        $html = '';
+        
+        if( !isset($_isAdvancedJsLoaded) )
         {
             if( get_conf('gzip_editor') )
             {
-                $returnString .= '<script language="javascript" type="text/javascript" src="'.$this->webPath.'/simple_gzip.conf.js"></script>'."\n";
+                $html .= '<script language="javascript" type="text/javascript" src="'.$this->webPath.'/advanced_gzip.conf.js"></script>'."\n";
             }
             
-            $returnString .= '<script language="javascript" type="text/javascript" src="'.$this->webPath.'/simple.conf.js"></script>'."\n";
+            $html .= '<script language="javascript" type="text/javascript" src="'.$this->webPath.'/advanced.conf.js"></script>'."\n";
+
+            $_isAdvancedJsLoaded = true;
+        }
+
+        return $html;
+    }
+    
+    public function getSimpleJs()
+    {
+        // ok, it's not cool to use global for that but it has to be shared between instances
+        // TODO find a cool way to do that
+        global $_isSimpleJsLoaded;
+
+        $html = '';
+        
+        if( ! isset($_isSimpleJsLoaded) )
+        {
+            if( get_conf('gzip_editor') )
+            {
+                $html .= '<script language="javascript" type="text/javascript" src="'.$this->webPath.'/simple_gzip.conf.js"></script>'."\n";
+            }
+            
+            $html .= '<script language="javascript" type="text/javascript" src="'.$this->webPath.'/simple.conf.js"></script>'."\n";
                 
             $_isSimpleJsLoaded = true;
         }
         
-        // add standard text area
-        $returnString .= $this->getTextArea('simpleMCE');
-
-        return  $returnString;
+        return $html;
     }
     
-    private function getDefaultJs()
+    public function getDefaultJs()
     {
         // ok, it's not cool to use global for that but it has to be shared between instances
         // TODO find a cool way to do that        
         global $_isDefaultJsLoaded;
         
-        $returnString = "\n\n";
+        $html = '';
         
-        if( !isset($_isDefaultJsLoaded) )
+        if( ! isset($_isDefaultJsLoaded) )
         {
+            $html .= "\n";
+            
             if( get_conf('gzip_editor') )
             {
-                $returnString .= '<script language="javascript" type="text/javascript" src="'.$this->webPath.'/tiny_mce/tiny_mce_gzip.js"></script>'."\n";
+                $html .= '<script language="javascript" type="text/javascript" src="'.$this->webPath.'/tiny_mce/tiny_mce_gzip.js"></script>'."\n";
             }
             else
             {
-                $returnString .= '<script language="javascript" type="text/javascript" src="'.$this->webPath.'/tiny_mce/tiny_mce.js"></script>'."\n";
+                $html .= '<script language="javascript" type="text/javascript" src="'.$this->webPath.'/tiny_mce/tiny_mce.js"></script>'."\n";
             }
             
-            $returnString .= '<script language="javascript" type="text/javascript">'."\n"
+            $html .= '<script language="javascript" type="text/javascript">'."\n"
             .	'var text_dir = "'.get_locale("text_dir").'";' . "\n"
             .	'</script>'."\n\n";
 
             $_isDefaultJsLoaded = true;
-            
-            return  $returnString;
         }
-        else
-        {
-            return '';
-        }
+        
+        return $html;
     }
+    
     
     /**
      * Introduce a comment stating that the content is html and edited with this editor
