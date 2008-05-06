@@ -98,6 +98,9 @@ if( !is_array($userData) )
 /*
  * Output
  */
+$cssLoader = CssLoader::getInstance();
+$cssLoader->load( 'tracking', 'screen');
+
 // initialize output
 $claroline->setDisplayType( CL_PAGE );
 
@@ -108,69 +111,6 @@ $nameTools = get_lang('User statistics');
  * Part zero : prepare to fight
  */
 $html = '';
-
-$styles = '<style type="text/css">
- #userCart #picture
- {
-  float: left;
-  width: 200px;
-  margin: 0;
-  padding: 0.3em 1em 0.3em 1em;
-  text-align: center;
- }
-
- #userCart #details
- {
-  margin-left: 240px;
-  padding: 0 1em 1em 1em;
-  max-width: 36em;
-  border-left: 1px solid #ccc;
- }
-
- #userCart #details span
- {
-  font-size: small;
-  font-weight: bold;
- }
-
- .statBlock
- {
- 	width: 100%;
- 	margin-bottom: 1em;
- }
-
- .statBlock .blockHeader
- {
- 	text-align: left;
- 	border-bottom: 1px #ccc solid;
- 	padding: 3px;
- 	font-weight: bold;
- }
-
- .statBlock .blockContent
- {
- 	padding: 3px;
- }
-
- .statBlock .blockContent table
- {
- 	width: 100%;
- }
-
- .statBlock .blockFooter
- {
- 	text-align: right;
- 	font-size: small;
- 	padding: 3px;
- }
-
-
-
-
-
-</style>' . "\n";
-
-$claroline->display->header->addHtmlHeader($styles);
 
 /*
  * Part one : user information
