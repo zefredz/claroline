@@ -320,10 +320,10 @@ if( !empty($questionList) )
 
         if( !is_null($exId) )
         {
-            // reuse
+            // re-use
             echo '<td align="center">'
             .     '<a href="question_pool.php?exId='.$exId.'&amp;cmd=rqUse&amp;quId='.$question['id'].'">'
-            .     '<img src="' . get_path('imgRepositoryWeb') . '/enroll.gif" border="0" alt="'.get_lang('Modify').'" />'
+            .     '<img src="' . get_icon_url('mark') . '" border="0" alt="'.get_lang('Modify').'" />'
             .     '</a>'
             .     '</td>' . "\n";
         }
@@ -332,7 +332,7 @@ if( !empty($questionList) )
             // edit
             echo '<td align="center">'
             .     '<a href="edit_question.php?quId='.$question['id'].'">'
-            .     '<img src="' . get_path('imgRepositoryWeb') . '/edit.gif" border="0" alt="'.get_lang('Modify').'" />'
+            .     '<img src="' . get_icon_url('edit') . '" border="0" alt="'.get_lang('Modify').'" />'
             .     '</a>'
             .     '</td>' . "\n";
 
@@ -341,7 +341,7 @@ if( !empty($questionList) )
 
             echo '<td align="center">'
             .     '<a href="question_pool.php?exId='.$exId.'&amp;cmd=delQu&amp;quId='.$question['id'].'" onclick="javascript:if(!confirm(\''.clean_str_for_javascript($confirmString).'\')) return false;">'
-            .     '<img src="' . get_path('imgRepositoryWeb') . '/delete.gif" border="0" alt="'.get_lang('Delete').'" />'
+            .     '<img src="' . get_icon_url('delete') . '" border="0" alt="'.get_lang('Delete').'" />'
             .     '</a>'
             .     '</td>' . "\n";
 
@@ -350,7 +350,7 @@ if( !empty($questionList) )
                 // export
                 echo '<td align="center">'
                 .     '<a href="question_pool.php?exId='.$exId.'&amp;cmd=exExport&amp;quId='.$question['id'].'">'
-                .     '<img src="' . get_path('imgRepositoryWeb') . '/export.gif" border="0" alt="'.get_lang('Export').'" />'
+                .     '<img src="' . get_icon_url('export') . '" border="0" alt="'.get_lang('Export').'" />'
                 .     '</a>'
                 .     '</td>' . "\n";
             }

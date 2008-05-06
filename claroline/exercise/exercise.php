@@ -356,7 +356,7 @@ if( !empty($exerciseList) )
         echo '<tr'.$invisibleClass.'>' . "\n"
         .     '<td>'
         .     '<a href="exercise_submit.php?exId='.$anExercise['id'].'" class="item'.$appendToStyle.'">'
-        .     '<img src="' . get_path('imgRepositoryWeb') . '/quiz.gif" alt="" />'
+        .     '<img src="' . get_icon_url('quiz') . '" alt="" />'
         .     $anExercise['title']
         .     '</a>'
         .     '</td>' . "\n";
@@ -365,7 +365,7 @@ if( !empty($exerciseList) )
         {
             echo '<td align="center">'
             .     '<a href="admin/edit_exercise.php?exId='.$anExercise['id'].'">'
-            .     '<img src="'. get_path('imgRepositoryWeb') . '/edit.gif" border="0" alt="'.get_lang('Modify').'" />'
+            .     '<img src="' . get_icon_url('edit') . '" border="0" alt="'.get_lang('Modify').'" />'
             .     '</a>'
             .     '</td>' . "\n";
 
@@ -378,7 +378,7 @@ if( !empty($exerciseList) )
 
             echo '<td align="center">'
             .     '<a href="exercise.php?exId='.$anExercise['id'].'&amp;cmd=exDel" onclick="javascript:if(!confirm(\''.clean_str_for_javascript($confirmString).'\')) return false;">'
-            .     '<img src="' . get_path('imgRepositoryWeb') . '/delete.gif" border="0" alt="'.get_lang('Delete').'" />'
+            .     '<img src="' . get_icon_url('delete') . '" border="0" alt="'.get_lang('Delete').'" />'
             .     '</a>'
             .     '</td>' . "\n";
 
@@ -386,7 +386,7 @@ if( !empty($exerciseList) )
             {
                 echo '<td align="center">'
                 .     '<a href="exercise.php?exId='.$anExercise['id'].'&amp;cmd=exMkInvis">'
-                .     '<img src="' . get_path('imgRepositoryWeb') . '/visible.gif" border="0" alt="'.get_lang('Make invisible').'" />'
+                .     '<img src="' . get_icon_url('visible') . '" border="0" alt="'.get_lang('Make invisible').'" />'
                 .     '</a>'
                 .     '</td>' . "\n";
             }
@@ -394,7 +394,7 @@ if( !empty($exerciseList) )
             {
                 echo '<td align="center">'
                 .     '<a href="exercise.php?exId='.$anExercise['id'].'&amp;cmd=exMkVis">'
-                .     '<img src="' . get_path('imgRepositoryWeb') . '/invisible.gif" border="0" alt="'.get_lang('Make visible').'" />'
+                .     '<img src="' . get_icon_url('invisible') . '" border="0" alt="'.get_lang('Make visible').'" />'
                 .     '</a>'
                 .     '</td>' . "\n";
             }
@@ -403,7 +403,7 @@ if( !empty($exerciseList) )
             {
                 echo '<td align="center">'
                 .     '<a href="exercise.php?exId='.$anExercise['id'].'&amp;cmd=exExport">'
-                .     '<img src="' . get_path('imgRepositoryWeb') . '/export.gif" border="0" alt="'.get_lang('Export').'" />'
+                .     '<img src="' . get_icon_url('export') . '" border="0" alt="'.get_lang('Export').'" />'
                 .     '</a>'
                 .     '</td>' . "\n";
             }
@@ -412,7 +412,7 @@ if( !empty($exerciseList) )
             {
                 echo '<td align="center">'
                 .     '<a href="../tracking/exercises_details.php?exId='.$anExercise['id'].'&amp;src=ex">'
-                .     '<img src="' . get_path('imgRepositoryWeb') . '/statistics.gif" border="0" alt="'.get_lang('Statistics').'" />'
+                .     '<img src="' . get_icon_url('statistics') . '" border="0" alt="'.get_lang('Statistics').'" />'
                 .     '</a>'
                 .     '</td>' . "\n";
             }
