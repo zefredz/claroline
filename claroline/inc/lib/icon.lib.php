@@ -54,9 +54,14 @@
      * @return string icon url
      *         mixed null if icon not found
      */
-    function get_icon_url( $fileName )
+    function get_icon_url( $fileName, $moduleLabel = null )
     {
         $fileInfo = pathinfo( $fileName );
+        
+        $moduleLabel = empty( $moduleLabel )
+            ? get_current_module_label()
+            : $moduleLabel
+            ;
         
         $imgPath = array(
             // claroline theme iconset
@@ -64,9 +69,9 @@
             // claroline web/img
             get_path( 'rootSys' ) . 'web/img' => get_path('url') . '/web/img',
             // module img directory
-            get_module_path(get_current_module_label()).'/img/' => get_module_url(get_current_module_label()).'/img/',
+            get_module_path($moduleLabel).'/img/' => get_module_url($moduleLabel).'/img/',
             // module root directory
-            get_module_path(get_current_module_label()).'/' => get_module_url(get_current_module_label()).'/',
+            get_module_path($moduleLabel).'/' => get_module_url($moduleLabel).'/',
             // img directory in working directory
             './img/' => './img/',
             // working directory
