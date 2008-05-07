@@ -750,8 +750,21 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
         }
 
         echo '<tr ' . $style . '>'."\n"
-        .    '<td>' . "\n"
-        .    '<a href="workList.php?assigId=' . $anAssignment['id'] . '" class="item' . $classItem . '">'
+        .    '<td>' . "\n";
+        
+        $assignmentUrl = 'workList.php?assigId=' . $anAssignment['id'];    
+        
+        if ( isset($_REQUEST['submitGroupWorkUrl']) && !empty($_REQUEST['submitGroupWorkUrl']) )
+        {
+            if( !isset($anAssignment['authorized_content']) || $anAssignment['authorized_content'] != 'TEXT' )
+            {
+                $assignmentUrl = 'workList.php?cmd=rqSubWrk&amp;assigId=' . $anAssignment['id'] 
+                . '&amp;submitGroupWorkUrl=' . urlencode($_REQUEST['submitGroupWorkUrl']) 
+                . '&amp;gidReq=' . claro_get_current_group_id();
+            }
+        }
+        
+        echo '<a href="'.$assignmentUrl.'" class="item' . $classItem . '">'
         .    '<img src="' . get_path('imgRepositoryWeb') . 'assignment.gif" alt="" /> '
         .    $anAssignment['title']
         .    '</a>' . "\n"
@@ -775,7 +788,7 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
             if( !isset($anAssignment['authorized_content']) || $anAssignment['authorized_content'] != 'TEXT' )
             {
                 echo '<td align="center">'
-                .     '<a href="workList.php?cmd=rqSubWrk&amp;assigId=' . $anAssignment['id'] . '&amp;submitGroupWorkUrl=' . urlencode($_REQUEST['submitGroupWorkUrl']) . '&amp;gidReq=' . claro_get_current_group_id() . '">'
+                .     '<a href="'.$assignmentUrl.'">'
                 .      '<small>' . get_lang('Publish') . '</small>'
                 .     '</a>'
                 .     '</td>' . "\n";
