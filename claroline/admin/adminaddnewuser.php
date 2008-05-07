@@ -110,6 +110,19 @@ if ( $cmd == 'registration' )
 /*=====================================================================
   Display Section
  =====================================================================*/
+/* hack to prevent autocompletion from browser */
+$jsloader = JavascriptLoader::getInstance();
+$jsloader->load('jquery');
+
+$htmlHeadXtra[] =
+'<script type="text/javascript">
+	$(document).ready(
+		function() {
+			$("#password").val("");
+		}
+	);
+</script>';
+/* end of hack */
 
 $interbredcrump[] = array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
 $noQUERY_STRING   = TRUE;
