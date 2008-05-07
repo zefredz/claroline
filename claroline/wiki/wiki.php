@@ -602,7 +602,7 @@
                 echo claro_html_cmd_link(
                     $_SERVER['PHP_SELF'] . '?action=rqEdit'
                     . claro_url_relay_context('&amp;')
-                    , '<img src="' . get_path('imgRepositoryWeb') . '/wiki.gif" '
+                    , '<img src="' . get_icon_url('wiki').'" '
                     . ' alt="' . get_lang("Create a new Wiki").'" />'
                     . '&nbsp;'
                     . get_lang("Create a new Wiki"))
@@ -613,7 +613,7 @@
             echo claro_html_cmd_link(
                 $_SERVER['PHP_SELF'] . '?action=rqSearch'
                 . claro_url_relay_context('&amp;')
-                , '<img src="' . get_path('imgRepositoryWeb') . '/search.gif" '
+                , '<img src="' . get_icon_url('search').'" '
                 . ' alt="' . get_lang("Search") . '" />'
                 . '&nbsp;'
                 . get_lang("Search"))
@@ -683,7 +683,7 @@
                     echo '<a class="item'.$classItem.'" href="page.php?wikiId='
                         . $entry['id'].'&amp;action=show'
                         . '">'
-                        . '<img src="' . get_path('imgRepositoryWeb') . '/wiki.gif" alt="'.get_lang("Wiki").'" />&nbsp;'
+                        . '<img src="' . get_icon_url('wiki').'" alt="'.get_lang("Wiki").'" />&nbsp;'
                         . $entry['title'] . '</a>'
                         ;
                         ;
@@ -707,7 +707,7 @@
                     echo '<a href="page.php?wikiId='
                         . $entry['id'].'&amp;action=recent'
                         . '">'
-                        . '<img src="' . get_path('imgRepositoryWeb') . '/history.gif" alt="'.get_lang("Recent changes").'" />'
+                        . '<img src="' . get_icon_url('history').'" alt="'.get_lang("Recent changes").'" />'
                         . '</a>'
                         ;
                         ;
@@ -724,7 +724,7 @@
                         echo '<a href="'.$_SERVER['PHP_SELF'].'?wikiId='
                             . $entry['id'].'&amp;action=rqEdit'
                             . '">'
-                            . '<img src="' . get_path('imgRepositoryWeb') . 'settings.gif" border="0" alt="'
+                            . '<img src="' . get_icon_url('settings').'" border="0" alt="'
                             . get_lang("Edit properties").'" />'
                             . '</a>'
                             ;
@@ -736,7 +736,7 @@
                         echo '<a href="'.$_SERVER['PHP_SELF'].'?wikiId='
                             . $entry['id'].'&amp;action=rqDelete'
                             . '">'
-                            . '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="'.get_lang("Delete").'" />'
+                            . '<img src="' . get_icon_url('delete').'" border="0" alt="'.get_lang("Delete").'" />'
                             . '</a>'
                             ;
                         echo '</td>' . "\n";
@@ -747,7 +747,7 @@
                             echo '<a href="'.$_SERVER['PHP_SELF'].'?wikiId='
                                 . $entry['id'].'&amp;action=exExport'
                                 . '">'
-                                . '<img src="' . get_path('imgRepositoryWeb') . 'export.gif" border="0" alt="'.get_lang("Export").'" />'
+                                . '<img src="' . get_icon_url('export').'" border="0" alt="'.get_lang("Export").'" />'
                                 . '</a>'
                                 ;
                             echo '</td>' . "\n";

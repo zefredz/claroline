@@ -758,7 +758,7 @@
         . '&amp;action=show'
         . '&amp;title=__MainPage__'
         . claro_url_relay_context('&amp;')
-        , '<img src="' . get_path('imgRepositoryWeb') . 'wiki.gif" border="0" alt="edit" />&nbsp;'
+        , '<img src="' . get_icon_url('wiki').'" border="0" alt="edit" />&nbsp;'
         . get_lang("Main page")
         );
 
@@ -767,7 +767,7 @@
         . '?wikiId=' . $wiki->getWikiId()
         . '&amp;action=recent'
         . claro_url_relay_context('&amp;')
-        , '<img src="' . get_path('imgRepositoryWeb') . 'history.gif" '
+        , '<img src="' . get_icon_url('history').'" '
         . ' border="0" alt="recent changes" />&nbsp;'
         . get_lang("Recent changes")
         );
@@ -777,7 +777,7 @@
         . '?wikiId=' . $wiki->getWikiId()
         . '&amp;action=all'
         . claro_url_relay_context('&amp;')
-        , '<img src="' . get_path('imgRepositoryWeb') . 'book.gif" '
+        , '<img src="' . get_icon_url('pages').'" '
         . ' border="0" alt="all pages" />&nbsp;'
         . get_lang("All pages")
         );
@@ -786,7 +786,7 @@
     $cmdWikiNavigationBar[] =
         claro_html_cmd_link( 'wiki.php'
         . claro_url_relay_context('?')
-        , '<img src="' . get_path('imgRepositoryWeb') . 'info.gif" '
+        , '<img src="' . get_icon_url('list').'" '
         . ' border="0" alt="all pages" />'
         . '&nbsp;'
         . get_lang("List of Wiki")
@@ -797,7 +797,7 @@
         . '?wikiId=' . $wiki->getWikiId()
         . '&amp;action=rqSearch'
         . claro_url_relay_context('&amp;')
-        , '<img src="' . get_path('imgRepositoryWeb') . 'search.gif" '
+        , '<img src="' . get_icon_url('search').'" '
         . ' border="0" alt="all pages" />&nbsp;'
         . get_lang("Search")
         );
@@ -817,7 +817,7 @@
                 . '&amp;action=show'
                 . '&amp;title=' . rawurlencode($title)
                 . claro_url_relay_context('&amp;')
-                , '<img src="' . get_path('imgRepositoryWeb') . 'back.gif" border="0" alt="back" />&nbsp;'
+                , '<img src="' . get_icon_url('back').'" border="0" alt="back" />&nbsp;'
                 . get_lang("Back to page")
             );
     }
@@ -825,7 +825,7 @@
     {
             $cmdActions[] =
                   '<span class="claroCmdDisabled">'
-                . '<img src="' . get_path('imgRepositoryWeb') . 'back.gif" border="0" alt="back" />'
+                . '<img src="' . get_icon_url('back').'" border="0" alt="back" />'
                 . '&nbsp;'
                 . get_lang("Back to page")
                 . '</span>'
@@ -845,15 +845,15 @@
                 . '&amp;title=' . rawurlencode( $title )
                 . claro_url_relay_context('&amp;')
                 . '&amp;versionId=' . $versionId
-                                        , '<img src="'.get_path('imgRepositoryWeb').'edit.gif" border="0" alt="edit" />&nbsp;'
-                                        . get_lang("Edit this page")
-                                        );
+                , '<img src="'.get_icon_url('edit').'" border="0" alt="edit" />&nbsp;'
+                . get_lang("Edit this page")
+                );
         }
         // Other contexts
         else
         {
                 $cmdActions[] = '<span class="claroCmdDisabled">'
-                    . '<img src="'.get_path('imgRepositoryWeb').'edit.gif" border="0" alt="edit" />&nbsp;'
+                    . '<img src="'.get_icon_url('edit').'" border="0" alt="edit" />&nbsp;'
                 . get_lang("Edit this page") . '</span>'
                 ;
         }
@@ -861,7 +861,7 @@
     else
     {
             $cmdActions[] = '<span class="claroCmdDisabled">'
-                . '<img src="'.get_path('imgRepositoryWeb').'edit.gif" border="0" alt="edit" />&nbsp;'
+                . '<img src="'.get_icon_url('edit').'" border="0" alt="edit" />&nbsp;'
             . get_lang("Edit this page") . '</span>'
             ;
     }
@@ -877,7 +877,7 @@
                     . '&amp;action=history'
                     . '&amp;title=' . rawurlencode( $title )
                      . claro_url_relay_context('&amp;')
-                    , '<img src="' . get_path('imgRepositoryWeb') . 'version.gif" border="0" alt="history" />&nbsp;'
+                    , '<img src="' . get_icon_url('version').'" border="0" alt="history" />&nbsp;'
                     . get_lang("Page history")
                     );
     }
@@ -885,7 +885,7 @@
     {
         // inactive
             $cmdActions[] = '<span class="claroCmdDisabled">'
-            .    '<img src="'.get_path('imgRepositoryWeb').'version.gif" border="0" alt="history" />&nbsp;'
+            .    '<img src="'.get_icon_url('version').'" border="0" alt="history" />&nbsp;'
             .    get_lang("Page history")
             .    '</span>'
             ;
@@ -897,7 +897,7 @@
                 . 'help_wiki.php?help=syntax' . claro_url_relay_context('&amp;')
             . '\',\'MyWindow\',\'toolbar=no,location=no,directories=no,status=yes,menubar=no'
             . ',scrollbars=yes,resizable=yes,width=350,height=450,left=300,top=10\'); return false;">'
-            . '<img src="' . get_path('imgRepositoryWeb') . 'help_little.gif" border="0" alt="history" />&nbsp;'
+            . '<img src="' . get_icon_url('help_little').'" border="0" alt="help" />&nbsp;'
             . get_lang("Wiki syntax") . '</a>'
             ;
     }
