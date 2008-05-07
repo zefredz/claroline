@@ -234,7 +234,8 @@ function get_available_install_language()
     {
         if( $file->isDir() && !$file->isDot() )
         {
-            if( file_exists( $file->getRealPath() . '/install.lang.php' ) )
+    
+            if( file_exists( '../lang/' . $file->getFileName() . '/install.lang.php' ) )
             {
                 $languageList[] = $file->getFileName();
             }
