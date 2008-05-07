@@ -403,7 +403,7 @@ else
 if ( !empty($_uid) ) // session data refresh requested && uid is given (log in succeeded)
 {
     uses ( 'kernel/user.lib' );
-    $currentUser = new ClaroCurrentUser( $_uid );
+    $currentUser = new ClaroCurrentUser;
     
     // User login
     if ( $uidReset )

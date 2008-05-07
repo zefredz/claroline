@@ -47,6 +47,11 @@ class ClaroUser extends KernelObject
             . "`user`.`isCourseCreator`,\n"
             . "`user`.`isPlatformAdmin`,\n"
             . "`user`.`creatorId` AS creatorId,\n"
+            . "`user`.`officialCode`,\n"
+            . "`user`.`language`,\n"
+            . "`user`.`authSource`,\n"
+            . "`user`.`phoneNumber` AS `phone`,\n"
+            . "`user`.`pictureUri` AS `picture`,\n"
             
             . ( get_conf('is_trackingEnabled')
                 ? "UNIX_TIMESTAMP(`login`.`login_date`) "
@@ -86,6 +91,11 @@ class ClaroUser extends KernelObject
 
 class ClaroCurrentUser extends ClaroUser
 {
+    public function __construct()
+    {
+        parent::__construct( claro_get_current_user_id() );
+    }
+    
     public function loadFromSession()
     {
         if ( !empty($_SESSION['_user']) )
