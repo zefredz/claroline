@@ -1,7 +1,5 @@
 <?php // $Id$
-
-if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) );
-
+if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
@@ -26,7 +24,7 @@ if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) );
  * @see http://www.claroline.net/wiki/index.php/Install
  *
  * @author Claro Team <cvs@claroline.net>
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  *
  * @package INSTALL
  *
@@ -48,14 +46,13 @@ $runfillStatsDb = FALSE;
 // MAIN DB                             //
 // DB with central info  of  Claroline //
 
-mysql_query( "CREATE DATABASE `" . $mainDbName . "`" );
+mysql_query("CREATE DATABASE `" . $mainDbName . "`");
 
-if ( mysql_errno() > 0 )
+if (mysql_errno() >0)
 {
-    if ( mysql_errno() == 1007 )
-    {
-        // DB already exist
-        if ( $confirmUseExistingMainDb )
+    if (mysql_errno() == 1007)
+    {   // DB already exist
+        if ($confirmUseExistingMainDb)
         {
             $runfillMainDb = TRUE;
             $mainDbSuccesfullCreated = TRUE;
@@ -68,22 +65,21 @@ if ( mysql_errno() > 0 )
     }
     else
     {   // other error would  break install
-        $mainDbNameCreationError =
-              '<P class="setup_error">' . "\n"
-            . '<font color="red">Warning !</font>' . "\n"
-            . '<small>[' . mysql_errno() . '] - ' . mysql_error() . '</small>' . "\n"
-            . '<br />' . "\n"
-            . 'Error on creation ' . get_lang('Main database') . ' : <I>' . $dbHostForm . '</I>' . "\n"
-            . '<br />' . "\n"
-            . '<font color="blue">' . "\n"
-            . 'Fix this problem before going further' . "\n"
-            . '</font>' . "\n"
-            . '<P>' . "\n"
-            . '<input type="submit" name="' . $cmdName[DISP_DB_CONNECT_SETTING] . '" value="-&gt; ' . $panelTitle[DISP_DB_CONNECT_SETTING] . '" />' . "\n"
-            . '</P>' . "\n"
-            . '</P>' . "\n"
-            ;
-        
+        $mainDbNameCreationError
+        = '<P class="setup_error">' . "\n"
+        . '<font color="red">Warning !</font>' . "\n"
+        . '<small>[' . mysql_errno() . '] - ' . mysql_error() . '</small>' . "\n"
+        . '<br />' . "\n"
+        . 'Error on creation ' . get_lang('Main database') . ' : <I>' . $dbHostForm . '</I>' . "\n"
+        . '<br />' . "\n"
+        . '<font color="blue">' . "\n"
+        . 'Fix this problem before going further' . "\n"
+        . '</font>' . "\n"
+        . '<P>' . "\n"
+        . '<input type="submit" name="' . $cmdName[DISP_DB_CONNECT_SETTING] . '" value="-&gt; ' . $panelTitle[DISP_DB_CONNECT_SETTING] . '" />' . "\n"
+        . '</P>' . "\n"
+        . '</P>' . "\n"
+        ;
         $display = DISP_RUN_INSTALL_NOT_COMPLETE;
         $stepStatus[DISP_DB_CONNECT_SETTING] = 'X';
     }
@@ -98,17 +94,16 @@ else
 /////////////////////////////////////////
 // STATS DB                            //
 // DB with tracking info of  Claroline //
-
-if( $statsDbName != $mainDbName )
+if($statsDbName != $mainDbName)
 {
-    if( !$singleDbForm )
+    if(!$singleDbForm)
     {
         // multi DB mode AND tracking has its own DB so create it
         claro_sql_query("CREATE DATABASE `" . $statsDbName . "`");
         
-        if ( mysql_errno() > 0 )
+        if (mysql_errno() >0)
         {
-            if ( mysql_errno() == 1007 )
+            if (mysql_errno() == 1007)
             {
                 if ($confirmUseExistingStatsDb)
                 {
@@ -124,22 +119,21 @@ if( $statsDbName != $mainDbName )
             }
             else
             {
-                $statsDbNameCreationError =
-                      '<P class="setup_error">' . "\n"
-                    . '<font color="red">Warning !</font>' . "\n"
-                    . '<small>[' . mysql_errno() . '] - ' . mysql_error() . '</small>' . "\n"
-                    . '<br />' . "\n"
-                    . 'Error on creation ' . get_lang('Tracking database') . ' : <I>' . $dbStatsForm . '</I>' . "\n"
-                    . '<br />' . "\n"
-                    . '<font color="blue">' . "\n"
-                    . 'Fix this problem before going further' . "\n"
-                    . '</font>' . "\n"
-                    . '<p>' . "\n"
-                    . '<input type="submit" name="' . $cmdName[DISP_DB_CONNECT_SETTING] . '" value="-&gt; ' . $panelTitle[DISP_DB_CONNECT_SETTING] . '" />' . "\n"
-                    . '</p>' . "\n"
-                    . '</p>'
-                    ;
-                
+                $statsDbNameCreationError
+                = '<P class="setup_error">' . "\n"
+                . '<font color="red">Warning !</font>' . "\n"
+                . '<small>[' . mysql_errno() . '] - ' . mysql_error() . '</small>' . "\n"
+                . '<br />' . "\n"
+                . 'Error on creation ' . get_lang('Tracking database') . ' : <I>' . $dbStatsForm . '</I>' . "\n"
+                . '<br />' . "\n"
+                . '<font color="blue">' . "\n"
+                . 'Fix this problem before going further' . "\n"
+                . '</font>' . "\n"
+                . '<p>' . "\n"
+                . '<input type="submit" name="' . $cmdName[DISP_DB_CONNECT_SETTING] . '" value="-&gt; ' . $panelTitle[DISP_DB_CONNECT_SETTING] . '" />' . "\n"
+                . '</p>' . "\n"
+                . '</p>'
+                ;
                 $display = DISP_RUN_INSTALL_NOT_COMPLETE;
                 $stepStatus[DISP_DB_CONNECT_SETTING] = 'X';
             }
@@ -170,8 +164,10 @@ $mainTblPrefix  = $mainTblPrefixForm;
 $statsTblPrefix = $statsTblPrefixForm;
 $tbl_mdb_names = claro_sql_get_main_tbl();
 
-if ( $runfillMainDb && $runfillStatsDb )
+if ($runfillMainDb && $runfillStatsDb)
 {
+    // initialise main and stats database
+    
     $installer = new ClaroInstaller(
         $mainDbName.'`.`'.$mainTblPrefix,
         $statsDbName.'`.`'.$statsTblPrefix,
@@ -185,27 +181,20 @@ if ( $runfillMainDb && $runfillStatsDb )
     // FILE SYSTEM OPERATION
     //
     // Build path
+
+    $rootSys = rtrim( str_replace("\\","/",realpath($pathForm)), '/' ) ."/";
     
-    $rootSys = rtrim( str_replace( "\\", "/", realpath($pathForm)), '/' ) ."/";
-    
-    $coursesRepositoryAppend = '';
-    $coursesRepositorySys = $rootSys . $courseRepositoryForm;
-    
-    $clarolineRepositoryAppend = 'claroline/';
-    $clarolineRepositorySys = $rootSys . $clarolineRepositoryAppend;
-    $garbageRepositorySys = $rootSys  . 'tmp/garbage';
-    $platformRepositorySys = $rootSys . 'platform/';
-    
-    $installer->createDirectories( array(
-            $coursesRepositorySys,
-            $garbageRepositorySys,
-            $platformRepositorySys,
-            claro_get_conf_repository()
-        )
-    );
+    $coursesRepositoryAppend    = '';
+    $coursesRepositorySys       = $rootSys . $courseRepositoryForm;
+    if (! file_exists($coursesRepositorySys)) claro_mkdir($coursesRepositorySys, CLARO_FILE_PERMISSIONS,true);
+    $clarolineRepositoryAppend  = 'claroline/';
+    $clarolineRepositorySys     = $rootSys . $clarolineRepositoryAppend;
+    $garbageRepositorySys   = $rootSys  . 'tmp/garbage';
+    if (! file_exists($garbageRepositorySys))       claro_mkdir($garbageRepositorySys, CLARO_FILE_PERMISSIONS,true);
+    if (! file_exists($rootSys . 'platform/'))      claro_mkdir($rootSys . 'platform/', CLARO_FILE_PERMISSIONS,true);
+    if (! file_exists(claro_get_conf_repository())) claro_mkdir( claro_get_conf_repository() , CLARO_FILE_PERMISSIONS,true);
 
     ########################## WRITE claro_main.conf.php ##################################
-    
     // extract the path to append to the url
     // if Claroline is not installed on the web root directory
 
@@ -214,7 +203,8 @@ if ( $runfillMainDb && $runfillStatsDb )
     // here I want find  something to get garbage out of documentRoot
     $configFilePath = claro_get_conf_repository() . $configFileName;
 
-    if ( !is_writeable( $configFilePath ) )
+    $fd = @fopen($configFilePath, 'w');
+    if (!$fd)
     {
         $fileConfigCreationError = true;
         $display = DISP_RUN_INSTALL_NOT_COMPLETE;
@@ -267,54 +257,55 @@ if ( $runfillMainDb && $runfillStatsDb )
          * Config file to undist
          */
 
-        $arr_file_to_undist = array (
-            $newIncludePath . '../auth/extauth/drivers/auth.drivers.conf.php' => $rootSys . 'platform/conf'
+        $arr_file_to_undist =
+        array (
+        $newIncludePath . '../auth/extauth/drivers/auth.drivers.conf.php' => $rootSys . 'platform/conf'
         );
 
-        foreach ( $arr_file_to_undist as $undistFile => $undistPath )
+        foreach ($arr_file_to_undist as $undistFile => $undistPath)
         {
-            claro_undist_file( $undistFile, $undistPath );
+            claro_undist_file($undistFile,$undistPath);
         }
 
         /***
          * Generate kernel conf from definition files.
          */
+
         $includePath = $newIncludePath;
-        
         $config_code_list = get_config_code_list('kernel');
-        $configError = false;
+        $configError=false;
         $messageConfigErrorList = array();
 
-        if ( is_array( $config_code_list ) )
+        if ( is_array($config_code_list) )
         {
             foreach ( $config_code_list as $config_code )
             {
                 // new config object
-                $config = new Config( $config_code );
+                $config = new Config($config_code);
+
                 // generate conf
-                list ( $message, $configKernelError ) = generate_conf( $config, $form_value_list );
-                
+                list ($message, $configKernelError) = generate_conf($config,$form_value_list);
                 if($configKernelError)
                 {
                     $configError = true;
                     $messageConfigErrorList[] = $message;
                 }
+
             }
-            unset( $configToolError );
+            unset($configToolError);
         }
     }
 
 
     // write currentVersion.inc.php
 
-    $currentVersionFilePath = $rootSys . 'platform/currentVersion.inc.php';
-    
-    $currentVersionStr = '<?'.'php
+    $fp_currentVersion = fopen($rootSys . 'platform/currentVersion.inc.php','w');
+    $currentVersionStr = '<?php
     $clarolineVersion = "'.$new_version.'";
     $versionDb = "'.$new_version.'";
-    ?'.'>';
-    
-    file_put_contents( $currentVersionFilePath, $currentVersionStr );
+    ?>';
+    fwrite($fp_currentVersion, $currentVersionStr);
+    fclose($fp_currentVersion);
 
     // Check File System
 
@@ -324,10 +315,9 @@ if ( $runfillMainDb && $runfillStatsDb )
     $garbageRepositorySysMissing        = FALSE;
     $platformConfigRepositorySysWriteProtected = FALSE;
     $platformConfigRepositorySysMissing        = FALSE;
-    
-    if ( file_exists( $coursesRepositorySys ) )
+    if (file_exists($coursesRepositorySys))
     {
-        if ( !is_writable( $coursesRepositorySys ) )
+        if (!is_writable($coursesRepositorySys))
         {
             $coursesRepositorySysWriteProtected = TRUE;
             $display = DISP_RUN_INSTALL_NOT_COMPLETE;
@@ -336,85 +326,75 @@ if ( $runfillMainDb && $runfillStatsDb )
     else
     {
         $coursesRepositorySysMissing = TRUE;
-        $display = DISP_RUN_INSTALL_NOT_COMPLETE;
+        $display=DISP_RUN_INSTALL_NOT_COMPLETE;
     }
 
 
-    if ( file_exists( $garbageRepositorySys ) )
+    if (file_exists($garbageRepositorySys))
     {
-        if ( !is_writable( $garbageRepositorySys ) )
+        if (!is_writable($garbageRepositorySys))
         {
             $garbageRepositorySysWriteProtected = TRUE;
-            $display = DISP_RUN_INSTALL_NOT_COMPLETE;
+            $display=DISP_RUN_INSTALL_NOT_COMPLETE;
         }
     }
     else
     {
         $garbageRepositorySysMissing = TRUE;
-        $display = DISP_RUN_INSTALL_NOT_COMPLETE;
+        $display=DISP_RUN_INSTALL_NOT_COMPLETE;
     }
 
-    if ( file_exists( claro_get_conf_repository() ) )
+    if (file_exists(claro_get_conf_repository()))
     {
-        if ( !is_writable( claro_get_conf_repository() ) )
+        if (!is_writable(claro_get_conf_repository()))
         {
             $platformConfigRepositorySysWriteProtected = TRUE;
-            $display = DISP_RUN_INSTALL_NOT_COMPLETE;
+            $display=DISP_RUN_INSTALL_NOT_COMPLETE;
         }
     }
     else
     {
         $platformConfigRepositorySysMissing = TRUE;
-        $display = DISP_RUN_INSTALL_NOT_COMPLETE;
+        $display=DISP_RUN_INSTALL_NOT_COMPLETE;
     }
 
     /**
      * Initialise right profile
      */
 
-    require_once dirname(__FILE__) . '/init_profile_right.lib.php';
+    include_once('init_profile_right.lib.php');
     create_required_profile();
 
     /**
      * ADD MODULES
      */
 
-    $preInstalledTools = array(
-        'CLDSC',
-        'CLCAL',
-        'CLANN',
-        'CLDOC',
-        'CLQWZ',
-        'CLLNP',
-        'CLWRK',
-        'CLFRM',
-        'CLGRP',
-        'CLUSR',
-        'CLCHT',
-        'CLWIKI'
-    );
+    $preInstalledTools = array('CLDSC',
+                               'CLCAL',
+                               'CLANN',
+                               'CLDOC',
+                               'CLQWZ',
+                               'CLLNP',
+                               'CLWRK',
+                               'CLFRM',
+                               'CLGRP',
+                               'CLUSR',
+                               'CLCHT',
+                               'CLWIKI');
 
-    foreach ( $preInstalledTools as $claroLabel )
+    foreach($preInstalledTools as $claroLabel)
     {
-        $modulePath = get_module_path( $claroLabel );
+        $modulePath = get_module_path($claroLabel);
 
-        if ( file_exists( $modulePath ) )
+        if (file_exists($modulePath))
         {
-            $moduleId = register_module( $modulePath );
-            
-            // FIXME : rewrite module/manage.lib to separate logging from return value !!!!
-            list( $activationSuccess, $log ) = activate_module( $moduleId );
-            
-            if ( ! $activationSuccess )
-            {
-                trigger_error( 'module (id:' . $moduleId . ' ) not activated ', E_USER_WARNING );
-            }
+            $moduleId = register_module($modulePath);
+
+            if (false !== activate_module($moduleId))
+            trigger_error('module (id:' . $moduleId . ' ) not activated ',E_USER_WARNING );
 
         }
-        else
-        {
-            trigger_error( 'module path not found', E_USER_WARNING );
-        }
+        else                          trigger_error('module path not found' ,E_USER_WARNING );
     }
 
     // init default right profile
@@ -426,27 +406,26 @@ if ( $runfillMainDb && $runfillStatsDb )
 
     $config_code_list = get_config_code_list('module');
 
-    if ( is_array( $config_code_list ) )
+    if ( is_array($config_code_list) )
     {
         foreach ( $config_code_list as $config_code )
         {
             // new config object
-            $config = new Config( $config_code );
+            $config = new Config($config_code);
 
             //generate conf
-            list ( $message, $configToolError ) = generate_conf( $config, $form_value_list );
-            
-            if ( $configToolError )
+            list ($message, $configToolError) = generate_conf($config,$form_value_list);
+            if($configToolError)
             {
                 $configError = true;
                 $messageConfigErrorList[] = $message;
             }
+
         }
-        
-        unset( $configToolError );
+        unset($configToolError);
     }
 
-    if ( $configError )
+    if ($configError)
     {
         $display = DISP_RUN_INSTALL_NOT_COMPLETE;
     }
@@ -455,7 +434,7 @@ if ( $runfillMainDb && $runfillStatsDb )
      * Add administrator in user and admin table
      */
 
-    require_once $newIncludePath . 'lib/user.lib.php';
+    include_once($newIncludePath . 'lib/user.lib.php');
 
     $user_data['lastname']      = $adminNameForm;
     $user_data['firstname']     = $adminSurnameForm;
@@ -467,15 +446,8 @@ if ( $runfillMainDb && $runfillStatsDb )
     $user_data['officialCode']  = '';
     $user_data['officialEmail'] = '';
     $user_data['phone']         = '';
-    
-    $id_admin = user_create( $user_data );
-    
-    if ( $id_admin )
-    {
-        user_set_platform_admin( true, $id_admin );
-    }
-    else
-    {
-        echo 'error in admin account creation';
-    }
+    $id_admin = user_create($user_data);
+    if ($id_admin) user_set_platform_admin(true, $id_admin);
+    else echo 'error in admin account creation';
+
 }
