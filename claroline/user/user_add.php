@@ -104,7 +104,7 @@ if ( $cmd == 'registration' )
                            . '<br />' . get_lang('Take one of these options') . ' : '
                            . '<ul>'
                            . '<li>'
-                           . '<a href="#resultTable" onclick="highlight(\'resultTable\');">'
+                           . '<a href="#resultTable">'
                            . get_lang('Click on the enrollment command beside the concerned user')
                            . '</a>'
                            . '</li>'
@@ -234,28 +234,19 @@ if ( $courseRegSucceed )
 /*=====================================================================
  Display Section
  =====================================================================*/
+/* hack to prevent autocompletion from browser */
+$jsloader = JavascriptLoader::getInstance();
+$jsloader->load('jquery');
 
 $htmlHeadXtra[] =
-"<script>
-highlight.previousValue = new Array();
-
-function highlight(elementId)
-{
-	if (highlight.previousValue[elementId] == null)
-	{
-		this.element = document.getElementById(elementId);
-		highlight.previousValue[elementId] = this.element.style.border;
-		this.element.style.border='solid 2px red';
-		setTimeout('highlight(\"' + elementId + '\")', 700);
-	}
-	else
-	{
-		document.getElementById(elementId).style.border=highlight.previousValue[elementId];
-		delete highlight.previousValue[elementId];
-	}
-}
-</script>";
-
+'<script type="text/javascript">
+	$(document).ready(
+		function() {
+			$("#password").val("");
+		}
+	);
+</script>';
+/* end of hack */
 // display header
 include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
