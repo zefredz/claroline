@@ -1,0 +1,276 @@
+<?php // $Id$
+
+// vim: expandtab sw=4 ts=4 sts=4:
+
+/**
+ * class to display messages
+ *
+ * @version     1.9 $Revision$
+ * @copyright   2001-2008 Universite catholique de Louvain (UCL)
+ * @author      Claroline Team <info@claroline.net>
+ * @author      Christophe Mertens <thetotof@gmail.com>
+ * @license     http://www.gnu.org/copyleft/gpl.html
+ *              GNU GENERAL PUBLIC LICENSE version 2 or later
+ * @package     internal_messaging
+ */
+
+
+
+require_once dirname(__FILE__) . '/permission.lib.php';
+
+class DisplayMessage
+{
+    public static function display($message,$action)
+    {
+        if ($message instanceof SentMessage)
+        {
+            return self::displaySentMessage($message,$action);
+        }
+        elseif ($message instanceof ReceivedMessage)
+        {
+            return self::displayReceivedMessage($message,$action);
+        }
+        else
+        {
+            throw new Exception("Unsupported message type, must be SentMessage or ReceivedMessage");
+        }
+    }
+
+    private static function displaySentMessage($message,$action)
+    {
+        $recipientList = $message->getRecipientList();
+        
+        $recipientString = '';
+        
+        if ($recipientList['sentTo'] == 'toUser')
+        {
+            
+            for ($count=0; $count<count($recipientList); $count++)
+            {
+                if ($recipientString != '')
+                {
+                    $recipientString .= ", ";
+                }
+                $recipientString .= htmlspecialchars($recipientList['userList'][$count]['lastName'])." ".htmlspecialchars($recipientList['userList'][$count]['firstName']);
+                if ($count>10 && $count<count($recipientList))
+                {
+                    $recipientString .= ",...";
+                    break;
+                }
+            }
+        }
+        elseif ($recipientList['sentTo'] == 'toCourse')
+        {
+            $recipientString = get_lang('Course: ')." ". $message->getCourseCode();
+        }
+        elseif ($recipientList['sentTo'] == 'toGroup')
+        {
+            $groupInfo = claro_get_group_data(array(CLARO_CONTEXT_COURSE => $message->getCourseCode(),
+            										CLARO_CONTEXT_GROUP => $message->getGroupId()));
+            $recipientString = get_lang('Course: ')." ". $message->getCourseCode() . "; " .get_lang('Group: ')." ". $groupInfo['name'];
+        }
+        elseif ($recipientList['sentTo'] == 'toAll')
+        {
+             $recipientString = get_lang('All users of the plateform');
+        }
+        else
+        {
+            throw new Exception("Unsupported sentTo in recipient list : " . htmlspecialchars($recipientList['sentTo']));
+        }
+        
+
+        $content = '<div id="im_message">'."\n"
+                .  '<h4 class="header">'.htmlspecialchars($message->getSubject()).'</h4>'."\n"
+                .  '<div class="imInfo">'
+                .  		'<span class="imInfoTitle">'.get_lang('Recipient').'</span>'
+                .       '<div class="imInfoValue">'.$recipientString.'</div>'
+                .   '</div>'
+                .  '<div class="imInfo">'
+                .  		'<span class="imInfoTitle">'.get_lang('Date').'</span>'
+                .       '<div class="imInfoValue">'.claro_html_localised_date(get_locale('dateTimeFormatLong'),strtotime($message->getSendTime())).'</div>'
+                .   '</div>'
+                ;
+        if (!is_null($message->getCourseCode()))
+        {
+            $content .='<div class="imInfo">'
+                .  		'<span class="imInfoTitle">'.get_lang('Course').'</span>'
+                .       '<div class="imInfoValue">'
+                ;
+            
+            $courseData = claro_get_course_data($message->getCourseCode());
+            
+            if($courseData)
+            {
+                $content .= $courseData['name'];
+            }
+            else
+            {
+                $content .= get_lang('?');
+            }
+            
+            $content .= '</div>';
+            
+            if (!is_null($message->getGroupId()))
+            {
+                
+                $content .='<div class="imInfo">'
+                .  		'<span class="imInfoTitle">'.get_lang('Group').'</span>'
+                .       '<div class="imInfoValue">'
+                ;
+                               
+                $groupData = claro_get_group_data(array (CLARO_CONTEXT_COURSE => $message->getCourseCode(),
+                                                    CLARO_CONTEXT_GROUP => $message->getGroupId()));
+                                                    
+                if($courseData)
+                {
+                    $content .= $groupData['name'];
+                }
+                else
+                {
+                    $content .= get_lang('?');
+                }
+                $content .= '</div>';
+            }
+            
+            if (!is_null($message->getToolsLabel()))
+            {
+                $content .='<div class="imInfo">'
+                .  		'<span class="imInfoTitle">'.get_lang('Tool').'</span>'
+                .       '<div class="imInfoValue">'
+                ;
+                
+                $md = get_module_data($message->getToolsLabel());
+                
+                if($md)
+                {
+                    $content .= get_lang($md['moduleName']);
+                }
+                else
+                {
+                    $content .= '?';
+                }
+                $content .= '</div>';
+            }
+            
+            
+        }
+        $content .= '<div class="imCmdList">'.$action.'</div>';
+        $content .= '<div class="imInfo">'
+                 .       '<div class="imContent">'.claro_parse_user_text($message->getMessage()).'</div>'
+                .   '</div>'
+                ;
+                  
+        $content .= '</div>'."\n";
+
+        return $content;
+    }
+
+    private static function displayReceivedMessage($message,$action)
+    {
+        
+        $content = '<div id="im_message">'."\n"
+                .  '<h4 class="header">'.htmlspecialchars($message->getSubject()).'</h4>'."\n"
+                .  '<div class="imInfo">'
+                .  		'<span class="imInfoTitle">'.get_lang('Sender').'</span>'
+                .       '<div class="imInfoValue">'.self::dispNameLinkCompose($message->getSender(),$message->getSenderLastName(),$message->getSenderFirstName()).'</div>'
+                .   '</div>'
+                .  '<div class="imInfo">'
+                .  		'<span class="imInfoTitle">'.get_lang('Date').'</span>'
+                .       '<div class="imInfoValue">'.claro_html_localised_date(get_locale('dateTimeFormatLong'),strtotime($message->getSendTime())).'</div>'
+                .   '</div>'
+                ;
+        
+        
+        	
+        if (!is_null($message->getCourseCode()))
+        {
+            $content .= 	'<div class="imInfo">'
+                .  		'<span class="imInfoTitle">'.get_lang('Course').'</span>'
+                .       '<div class="imInfoValue">'
+                ;
+            
+            $courseData = claro_get_course_data($message->getCourseCode());
+            
+            if($courseData)
+            {
+                $content .= $courseData['name'];
+            }
+            else
+            {
+                $content .= '?';
+            }
+            
+            $content .= '</div>';
+            
+            if (!is_null($message->getGroupId()))
+            {
+                $content .= '<div class="imInfo">'
+                .  		'<span class="imInfoTitle">'.get_lang('Group').'</span>'
+                .       '<div class="imInfoValue">'
+                ;
+                
+                $groupData = claro_get_group_data(array (CLARO_CONTEXT_COURSE => $message->getCourseCode(),
+                                                    CLARO_CONTEXT_GROUP => $message->getGroupId()));
+                if($groupData)
+                {
+                     $content .= $groupData['name'];
+                }
+                else
+                {
+                     $content .= '?';
+                }
+                
+                $content .= '</div>';
+            }
+            
+            if (!is_null($message->getToolsLabel()))
+            {
+                $content .= '<div class="imInfo">'
+                .  		'<span class="imInfoTitle">'.get_lang('Tool').'</span>'
+                .       '<div class="imInfoValue">'
+                ;
+                
+                $md = get_module_data($message->getToolsLabel());
+                
+                if($md)
+                {
+                    $content .= get_lang($md['moduleName']);
+                }
+                else
+                {
+                    $content .= '?';
+                }
+                
+                $content .= '</div>';
+            }
+        }
+        
+        $content .= '<div class="imCmdList">'.$action.'</div>';
+        $content .= '<div class="imInfo">'
+                 .       '<div class="imContent">'.claro_parse_user_text($message->getMessage()).'</div>'
+                .   '</div>'
+                ;
+
+        return $content;
+    }
+
+    // display the user as link to compose msg
+    public static function dispNameLinkCompose($id,$lastName,$firstName)
+    {
+        $isAllowed = current_user_is_allowed_to_send_message_to_user($id);
+        
+        if ($isAllowed)
+        {
+            $string = '<a href="sendmessage.php?cmd=rqMessageToUser&amp;userId='.$id.'">';
+        }
+        
+        $string .= htmlspecialchars($lastName)." ".htmlspecialchars($firstName);
+        
+        if ($isAllowed)
+        {
+            $string .= "</a>";
+        }
+
+        return $string;
+    }
+}
