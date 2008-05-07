@@ -196,7 +196,7 @@ if ( $runfillMainDb && $runfillStatsDb )
     $garbageRepositorySys = $rootSys  . 'tmp/garbage';
     $platformRepositorySys = $rootSys . 'platform/';
     
-    $intaller->createDirectories( array(
+    $installer->createDirectories( array(
             $coursesRepositorySys,
             $garbageRepositorySys,
             $platformRepositorySys,
