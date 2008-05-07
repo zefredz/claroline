@@ -264,17 +264,6 @@ class ClaroInstaller
         $this->statsTblPrefix = $statsTblPrefix;
     }
     
-    public function createDirectories( $directoryList )
-    {
-        foreach ( $directoryList as $directory )
-        {
-            if ( ! file_exists( $directory ) )
-            {
-                claro_mkdir( $directory, CLARO_FILE_PERMISSIONS, true );
-            }
-        }
-    }
-    
     public function executeSqlScript( $sqlStr, $onErrorCallback = false )
     {
         $queries = $this->pmaParse( $sqlStr );
