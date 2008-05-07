@@ -1,5 +1,7 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+
+if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) );
+
 /**
  * CLAROLINE
  *
@@ -15,6 +17,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @author Claro Team <cvs@claroline.net>
  * @author Christophe Gesché <moosh@claroline.net>
+ * @author Sebastien Piraux <seb@claroline.net>
+ * @author Frederic Minne <zefredz@claroline.net>
  *
  * @package INSTALL
  *
@@ -23,11 +27,10 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * check extention and  write  if exist  in a  <LI></LI>
  *
- * @param  string	$extentionName 		name  of  php extention to be checked
- * @param  boolean	$echoWhenOk			true => show ok when  extention exist
+ * @param   string $extentionName name  of  php extention to be checked
+ * @param   boolean $echoWhenOk true => show ok when  extention exist
  *
  */
-
 function warnIfExtNotLoaded($extentionName,$echoWhenOk=false)
 {
     if (extension_loaded ($extentionName))
@@ -62,7 +65,6 @@ function warnIfExtNotLoaded($extentionName,$echoWhenOk=false)
  *
  * @var $serchtop log is only use for debug
  */
-
 function topRightPath($path='.')
 {
     $whereIam = getcwd();
@@ -147,23 +149,6 @@ function check_if_db_exist($db_name,$db=null)
     return $foundDbName;
 }
 
-function check_claro_table_in_db_exist($dbType,$db=null)
-{
-    $db='no used';
-    switch ($dbType)
-    {
-        case 'main' :
-
-        break;
-        case 'stat' :
-        break;
-        default :
-        die('error in check_claro_table_in_db_exist function called with an unknow type : "'.$dbType.'"');
-    }
-    return false;
-}
-
-
 /**
  * check current version is equal or greater than required version
  *
@@ -197,16 +182,18 @@ function checkVersion($currentVersion, $requiredVersion)
  */
 function check_php_setting($php_setting, $recommended)
 {
-	$current = get_php_setting($php_setting);
-	if( $current == strtoupper($recommended) )
-	{
-		return '<span class="ok">'.$current.'</span>';
-	}
-	else
-	{
-		return '<span class="ko">'.$current.'</span>';
-	}
+    $current = get_php_setting($php_setting);
+    
+    if( $current == strtoupper($recommended) )
+    {
+        return '<span class="ok">'.$current.'</span>';
+    }
+    else
+    {
+        return '<span class="ko">'.$current.'</span>';
+    }
 }
+
 /**
  * Enter description here...
  *
@@ -214,9 +201,9 @@ function check_php_setting($php_setting, $recommended)
  * @return boolean: ON or OFF
  * @author Joomla <http://www.joomla.org>
  */
-function get_php_setting($val) {
-	$r =  (ini_get($val) == '1' ? 1 : 0);
-	return $r ? 'ON' : 'OFF';
+function get_php_setting( $val )
+{
+    return ( ini_get( $val ) == '1' ) ? 'ON' : 'OFF';
 }
 
 /**
@@ -246,6 +233,12 @@ function get_available_install_language()
     return $languageList;
 }
 
+/**
+ * Display database error
+ * @param   string $query sql query
+ * @param   string $error error message
+ * @param   int $errno error number
+ */
 function displayDbError( $query, $error, $errno )
 {
     echo '<hr size="1" noshade>'
@@ -258,6 +251,9 @@ function displayDbError( $query, $error, $errno )
     return true;
 }
 
+/**
+ * Installer class
+ */
 class ClaroInstaller
 {
     protected $mainTblPrefix, $statsTblPrefix;
@@ -266,6 +262,17 @@ class ClaroInstaller
     {
         $this->mainTblPrefix = $mainTblPrefix;
         $this->statsTblPrefix = $statsTblPrefix;
+    }
+    
+    public function createDirectories( $directoryList )
+    {
+        foreach ( $directoryList as $directory )
+        {
+            if ( ! file_exists( $directory ) )
+            {
+                claro_mkdir( $directory, CLARO_FILE_PERMISSIONS, true );
+            }
+        }
     }
     
     public function executeSqlScript( $sqlStr, $onErrorCallback = false )

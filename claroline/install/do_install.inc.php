@@ -177,42 +177,32 @@ if ( $runfillMainDb && $runfillStatsDb )
         $statsDbName.'`.`'.$statsTblPrefix,
         'displayDbError'
     );
-    
+    // drop existing main and stats database tables
     $installer->executeSqlScript( file_get_contents( dirname(__FILE__) . '/uninstall.sql' ) );
+    // create main and stats database tables
     $installer->executeSqlScript( file_get_contents( dirname(__FILE__) . '/install.sql' ) );
 
     // FILE SYSTEM OPERATION
     //
     // Build path
-
+    
     $rootSys = rtrim( str_replace( "\\", "/", realpath($pathForm)), '/' ) ."/";
     
     $coursesRepositoryAppend = '';
     $coursesRepositorySys = $rootSys . $courseRepositoryForm;
     
-    if ( !file_exists( $coursesRepositorySys ) )
-    {
-        claro_mkdir( $coursesRepositorySys, CLARO_FILE_PERMISSIONS, true );
-    }
-    
     $clarolineRepositoryAppend = 'claroline/';
     $clarolineRepositorySys = $rootSys . $clarolineRepositoryAppend;
     $garbageRepositorySys = $rootSys  . 'tmp/garbage';
+    $platformRepositorySys = $rootSys . 'platform/';
     
-    if ( !file_exists( $garbageRepositorySys)  )
-    {
-        claro_mkdir($garbageRepositorySys, CLARO_FILE_PERMISSIONS, true );
-    }
-    
-    if ( !file_exists( $rootSys . 'platform/' ) )
-    {
-        claro_mkdir( $rootSys . 'platform/', CLARO_FILE_PERMISSIONS, true );
-    }
-    
-    if ( !file_exists( claro_get_conf_repository() ) )
-    {
-        claro_mkdir( claro_get_conf_repository() , CLARO_FILE_PERMISSIONS, true );
-    }
+    $intaller->createDirectories( array(
+            $coursesRepositorySys,
+            $garbageRepositorySys,
+            $platformRepositorySys,
+            claro_get_conf_repository()
+        )
+    );
 
     ########################## WRITE claro_main.conf.php ##################################
     
