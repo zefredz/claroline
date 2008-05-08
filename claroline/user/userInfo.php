@@ -40,6 +40,7 @@ require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php' ;
 require_once get_path('incRepositorySys') . '/lib/user.lib.php';
 require_once get_path('incRepositorySys') . '/lib/course_user.lib.php';
 require_once get_path('incRepositorySys') . '/lib/user_info.lib.php';
+require_once dirname(__FILE__) . '/../messaging/lib/permission.lib.php';
 
 $interbredcrump[]= array ('url' => 'user.php', 'name' => get_lang('Users'));
 
@@ -547,6 +548,11 @@ elseif ($displayMode == "viewContentList") // default display
         if ( claro_is_user_authenticated() || ! get_conf('user_email_hidden_to_anonymous') )
         {
             echo '<p><a href="mailto:'.$mainUserInfo['email'].'">'.$mainUserInfo['email'].'</a></p>';
+        }
+        
+        if(current_user_is_allowed_to_send_message_to_user($userIdViewed))
+        {
+            echo '<p><a href="../messaging/sendmessage.php?cmd=rqMessageToUser&amp;userId='.$userIdViewed.claro_url_relay_context('&amp;').'">'.get_lang('Send a message').'</a></p>';
         }
 
         echo '<hr noshade="noshade" size="1" />' . "\n" ;
