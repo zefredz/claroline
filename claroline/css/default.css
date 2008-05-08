@@ -53,21 +53,21 @@ input, textarea, button, select{
     color: #369;
 }
 
-input[type=submit], input[type=reset], button {
+input[type=submit], input[type=reset], input[type=button], button {
     margin-left: 2px;
     color: #666;
 }
 
-input[type], textarea[name], button {
-    background: #fff;
+input[type], textarea[name], input[type=button], button {
+    /*background: #fff;*/
 }
 
-input[type=submit], input[type=reset], button {
+input[type=submit], input[type=reset], input[type=button], button {
     background: #fff;
     color: #000;
 }
 
-input[type=submit]:hover, button:hover {
+input[type=submit]:hover, button:hover, input[type=button]:hover {
     background-color: #369;
     color: #fff;
 }
@@ -899,3 +899,73 @@ form tr.admin td{
     margin: 0;
     text-align:center;
 }
+
+
+/*
+ * style for internal messaging
+ */
+ 
+ /*TR line for plateform message*/
+ .plateformMessage { 
+ 	background-color: #FBB2D8;
+ }
+ 
+ /*TR line for unread message*/
+ .unreadMessage {
+ 	background-color: #D9D9D9;
+ 	font-weight: bold;
+ }
+ 
+ 
+ .unreadMessage a, 
+ .unreadMessage a:link ,
+ .unreadMessage a:active ,
+ .unreadMessage a:hover ,
+ .unreadMessage a:visited , {
+ 	font-weight: bold;
+ }
+ 
+ .im_context 
+ {
+ 	color: #CCC;
+ }
+ 
+ .im_list_action, .im_list_selection
+ {
+ 	text-align: center;
+ }
+ 
+ #im_paging
+ {
+ 	text-align: center;
+ }
+ 
+ .imInfo .imInfoTitle
+ {
+ 	display: block;
+ 	width: 250px;
+ 	float: left;
+ }
+ .imInfo .imInfoValue
+ {
+	margin-left: 250px;
+ }
+ 
+ .imContent
+ {
+ 	padding: 0 15px;
+ 	border-top: solid 1px #CCC;
+ 	margin-top: 3px;
+ }
+ 
+ .imCmdList
+ {
+	padding-top: 10px; 
+	margin-left: 0px;
+ }
+ 
+ input[type].inputSearch
+ {
+ 	background: url('../img/search.gif') no-repeat top left #fff;
+ 	padding-left: 18px;
+ }
