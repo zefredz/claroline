@@ -289,7 +289,7 @@ CREATE TABLE `__CL_MAIN__im_message_status` (
 CREATE TABLE `__CL_MAIN__im_recipient` (
   `message_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `contexte` enum('toUser','toGroup','toCourse','toAll') NOT NULL,
+  `sent_to` enum('toUser','toGroup','toCourse','toAll') NOT NULL,
   PRIMARY KEY  (`message_id`,`user_id`)
 ) ENGINE=MyISAM ;
 
