@@ -24,6 +24,7 @@ $tlabelReq = 'CLGRP';
 
 require '../inc/claro_init_global.inc.php';
 include_once get_path('incRepositorySys') . '/lib/group.lib.inc.php';
+require_once dirname(__FILE__) . '/../messaging/lib/permission.lib.php';
 
 $toolNameList= claro_get_tool_name_list();
 $toolRepository = get_path('clarolineRepositoryWeb');
@@ -164,12 +165,7 @@ if ( isset($_REQUEST['regDone']) )
 GET GROUP MEMBER LIST
 ----------------------------------------------------------------------------*/
 
-$sql = "SELECT `user_id` AS `id`, `nom` AS `lastName`, `prenom` AS `firstName`, `email`
-        FROM `" . $tbl_user . "` `user`, `" . $tbl_group_rel_team_user . "` `user_group`
-        WHERE `user_group`.`team`= '" . claro_get_current_group_id() . "'
-        AND   `user_group`.`user`= `user`.`user_id`";
-
-$groupMemberList = claro_sql_query_fetch_all($sql);
+$groupMemberList = get_group_user_list(claro_get_current_group_id());
 
 
 /*----------------------------------------------------------------------------
@@ -335,6 +331,14 @@ if ($is_allowedToManage)
                             );
 }
 
+if (current_user_is_allowed_to_send_message_to_current_group())
+{
+    echo '<br />'.claro_html_cmd_link( '../messaging/sendmessage.php?cmd=rqMessageToGroup&amp;'
+                            . claro_url_relay_context('&amp;')
+                            , get_lang("Send a message to group")
+                            );
+}
+
 echo '</td>' . "\n"
 .    '<td width="20">' . "\n"
 .    '&nbsp;' . "\n"
@@ -377,10 +381,17 @@ if (count($tutorDataList) > 0)
     {
         echo '<span class="item">'
         .    $thisTutor['lastName'] . ' ' . $thisTutor['firstName']
-        .    ' - <a class="email" href="mailto:' . $thisTutor['email'] . '">'
-        .    $thisTutor['email']
-        .    '</a>'
-        .    '</span>'
+        ;
+        
+        if(current_user_is_allowed_to_send_message_to_user($thisTutor['id']))
+        {
+            echo ' - <a href="../messaging/sendMessage.php?cmd=rqMessageToUser&amp;userId=' . $thisTutor['id'] . '">'
+              .    'Send a message'
+              .    '</a>'
+              ;
+        }
+          
+        echo '</span>'
         .    '<br />'
         ;
     }
@@ -405,14 +416,16 @@ if(count($groupMemberList) > 0)
     echo '<br /><br />' . "\n";
     foreach($groupMemberList as $thisGroupMember)
     {
-        echo '<a href="../tracking/userLog.php?uInfo=' . $thisGroupMember['id']  . claro_url_relay_context('&amp;') . '" class="item">'
+        echo '<a href="../user/userInfo.php?uInfo=' . $thisGroupMember['id']  . claro_url_relay_context('&amp;') . '" class="item">'
         .    $thisGroupMember['lastName'] . ' ' . $thisGroupMember['firstName']
-        .    '</a> - '
-        .    '<a href="mailto:' . $thisGroupMember['email'] . '">'
-        .    $thisGroupMember['email']
-        .    '</a>'
-        .    '<br />' . "\n"
-        ;
+        .    '</a>';
+        
+        if(current_user_is_allowed_to_send_message_to_user($thisGroupMember['id']))
+        {        
+            echo ' - <a href="../messaging/sendMessage.php?cmd=rqMessageToUser&amp;userId=' . $thisGroupMember['id'] . '">' . get_lang('Send a message') . '</a>';
+        }
+        
+        echo '<br />' . "\n";
     }
 }
 else
