@@ -403,7 +403,6 @@ if ($displayTable)
                .'<td class="im_list_action"><img src="'.get_icon('delete.gif').'" alt="" /></td>'
 			   .'</tr>'
 			   ;
-	        $count++;
        }
        $content .= '<tr><td colspan="6"><input type="submit" value="'.get_lang('Delete message selected').'" /></td></tr>';
    }
@@ -420,11 +419,11 @@ if ($displayTable)
         $arg_paging = makeArgLink($arguments,array('page'));  
         if ($arg_paging == "")
         {
-            $linkPaging = $linkPage."?page=";
+            $linkPaging = $_SERVER['PHP_SELF']."?page=";
         }
         else
         {
-            $linkPaging = $linkPage."?".$arg_paging."&amp;page=";
+            $linkPaging = $_SERVER['PHP_SELF']."?".$arg_paging."&amp;page=";
         }
         
         if(!isset($arguments['page']))
