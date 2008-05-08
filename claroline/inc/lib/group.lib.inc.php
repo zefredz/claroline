@@ -699,4 +699,55 @@ function get_tutor_group_list($uid)
     return $groupList;
 }
 
+/**
+ * return list of user of the group id
+ *
+ * @param int $gid groupe identification
+ * @return array of int: list of user
+ */
+
+function get_group_user_list($gid, $courseId =  NULL)
+{
+	$mainTableName = get_module_main_tbl(array('user'));
+	$courseTableName = get_module_course_tbl(array('group_rel_team_user'), $courseId);
+	
+	$sql = "SELECT `user_id` AS `id`, `nom` AS `lastName`, `prenom` AS `firstName`, `email`
+        FROM `" . $mainTableName['user'] . "` `user`, `" . $courseTableName['group_rel_team_user'] . "` `user_group`
+        WHERE `user_group`.`team`= '" . $gid . "'
+        AND   `user_group`.`user`= `user`.`user_id`";
+	
+	
+	return claro_sql_query_fetch_all($sql);
+}
+
+/**
+ * return list of user of the group id list. All group must be in the same course
+ *
+ * @param int $gidList list of groupe identification
+ * @return array of int: list of user
+ */
+function get_group_list__user_id_list($gidList,$courseId = NULL)
+{
+    $groupIdList = implode(', ',$gidList);
+
+    $courseTableName = get_module_course_tbl(array('group_team','group_rel_team_user'),$courseId);
+    
+    $sql = "SELECT `user`
+            FROM `".$courseTableName['group_rel_team_user']."` AS `user_group`
+            WHERE `team` IN (".$groupIdList.")";
+
+    $groupMemberList = claro_sql_query_fetch_all($sql);
+
+    $userIdList = array();
+    
+    if ( is_array($groupMemberList) && !empty($groupMemberList) )
+    {
+        foreach ( $groupMemberList as $groupMember )
+        {
+            $userIdList[] = $groupMember['user'];
+        }
+    }
+    
+    return $userIdList;
+}
 ?>
