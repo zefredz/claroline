@@ -25,6 +25,7 @@
     {
         // link to delete
         $arg_del = makeArgLink($link_arg,array('cmd'));
+        
         if ($arg_del == "")
         {
             $linkDelete = $linkPage."?";
@@ -33,10 +34,12 @@
         {
             $linkDelete = $linkPage."?".$arg_del."&amp;";
         }
+        
         $linkDelete .= "cmd=exDelete&amp;messageId=".$_REQUEST['messageId'];
         
         // link to back
         $arg_back = makeArgLink($link_arg);
+        
         if ($arg_back == "")
         {
             $linkBack = $linkPage;
@@ -67,16 +70,20 @@
         
         $searchBox = '<form action="'.$linkSearch.'" method="post">'."\n";
         $searchBox .= get_lang("Search").' : <input type="text" name="search" value="';
+        
         if (isset($link_arg['search']))
         {
             $searchBox .= $link_arg['search'];
         }
+        
         $searchBox .= '" /> <br />'."\n";
         $searchBox .= '<input type="checkbox" name="searchStrategy" value="'.get_lang('Match the exact expression').'"';
+        
         if (isset($link_arg['searchStrategy']) && $link_arg['searchStrategy'] == 1)
         {
             $searchBox .= " CHECKED";
         }
+        
         $searchBox .= ' />'.get_lang('Match the exact expression').'<br/><br/>'."\n";
         $searchBox .= '<input type="submit" value="'.get_lang("Search").'" />'."\n";
         $searchBox .= '</form>'."\n";
@@ -94,10 +101,12 @@
         $serachForm = '<form action="'.$linkSearch.'" method="post">'."\n"
                     . '<input type="text" name="search" value="'
                     ;
+                    
         if (isset($link_arg['search']))
         {
             $serachForm .= $link_arg['search'];
         }
+        
         $serachForm .= '" class="inputSearch" />'."\n"
                 . '<input type="submit" value="'.get_lang("Search").'" />'."\n"
                 . '[<a href="'.$linkSearch.'">'.get_lang("Advanced").'</a>]'
@@ -114,6 +123,7 @@
     $content .= "<br />";
     
     $arg_sort = makeArgLink($link_arg,array('fieldOrder','order'));
+    
     if ($arg_sort == "")
     {
         $linkSort = $linkPage."?";
@@ -149,6 +159,7 @@
         $claroline->display->header->addHtmlHeader($javascriptDelete);
         $content .= '<th>'.get_lang("Delete").'</th> '."\n";
     }
+    
     $content .= '</tr>'."\n\n";
     
     if ($box->getNumberOfMessage() == 0)
@@ -192,6 +203,7 @@
                 }
                 $content .= ']</span> ';
             }
+            
             $content .= '<a href="readmessage.php?messageId='.$message->getId().'&amp;type=sent&amp;userId='.$currentUserId.'">';
             $content .=  htmlspecialchars($message->getSubject()).'</a></td>'."\n"
                         .'<td>';
@@ -217,7 +229,7 @@
             elseif ($recipientList['sentTo'] == 'toGroup')
             {
                 $groupInfo = claro_get_group_data(array(CLARO_CONTEXT_COURSE => $message->getCourseCode(),
-                										CLARO_CONTEXT_GROUP => $message->getGroupId()));
+                                                        CLARO_CONTEXT_GROUP => $message->getGroupId()));
                 $courseInfo = claro_get_course_data($message->getCourseCode());
                 if (!$groupInfo)
                 {
@@ -238,11 +250,12 @@
             }
             
             $content .=  '</td>'
-            			.'<td>'.claro_html_localised_date(get_locale('dateTimeFormatLong'),strtotime($message->getSendTime())).'</td>'."\n"
-            			;
+                        .'<td>'.claro_html_localised_date(get_locale('dateTimeFormatLong'),strtotime($message->getSendTime())).'</td>'."\n"
+                        ;
             if ( claro_is_platform_admin() )
             {
                 $arg_sort = makeArgLink($link_arg,array('fieldOrder','order'));
+                
                 if ($arg_sort == "")
                 {
                     $linkDel = $linkPage."?";
@@ -251,14 +264,17 @@
                 {
                     $linkDel = $linkPage."?".$arg_sort."&amp;";
                 }
+                
                 $linkDelete = $linkDel . "cmd=exDelete&amp;messageId=".$message->getId();
                 $linkRqDelete = $linkDel . "cmd=rqDelete&amp;messageId=".$message->getId();
                 $content .=  '<td><a href="'.$linkRqDelete.'"'
-                 	. 'onclick="return deleteSentMessage(\''.$linkDelete.'\')"><img src="' . get_icon('delete.gif') . '" alt = "'.get_lang('Delete').'" /></a></td>';
+                     . 'onclick="return deleteSentMessage(\''.$linkDelete.'\')"><img src="' . get_icon('delete.gif') . '" alt = "'.get_lang('Delete').'" /></a></td>';
             }
+            
             $content .=  '</tr>'."\n\n";
         }
     }
+    
     $content .= '</table>'."\n";
     
     // prepare the link to change of page
@@ -269,7 +285,8 @@
         $nbPageToDisplayBeforeAndAfterCurrentPage = 1;        
         
         $content .= '<div id="im_paging">';
-        $arg_paging = makeArgLink($link_arg,array('page'));  
+        $arg_paging = makeArgLink($link_arg,array('page'));
+        
         if ($arg_paging == "")
         {
             $linkPaging = $linkPage."?page=";
