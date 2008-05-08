@@ -655,22 +655,35 @@ if($is_allowedToEditAll)
 
                 if( is_array($userIdList) )
                 {
-                    // email subject
-                    $emailSubject = '[' . get_conf('siteName') . ' - ' . claro_get_current_course_data('officialCode') . '] ' . get_lang('New assignment feedback posted');
+                    require_once dirname(__FILE__) . '/../messaging/lib/message/messagetosend.lib.php';
+                    require_once dirname(__FILE__) . '/../messaging/lib/recipient/userlistrecipient.lib.php';
+                    
+                    // subject
+                    $subject =  get_lang('New assignment feedback posted');
+                    
                     if( $assignment->getAssignmentType() == 'GROUP' && isset($_REQUEST['wrkGroup']) )
                         $authId = $wrkForm['wrkGroup'];
                     else
                         $authId = $_REQUEST['authId'];
 
                     $url = get_path('rootWeb') . 'claroline/work/userWork.php?authId='.$authId.'&assigId='.$assignmentId.'&cidReq=' . claro_get_current_course_id();
+                    
                     // email content
-                    $emailBody = get_lang('New assignment feedback posted') . "\n\n"
+                    $body = get_lang('New assignment feedback posted') . "\n\n"
                     .            $currentUserFirstName.' '.$currentUserLastName . "\n"
                     .             $submission->getTitle() . "\n"
                     .             $url . "\n"
                     ;
-
-                    claro_mail_user($userIdList, $emailBody, $emailSubject);
+                    
+                    $message = new MessageToSend(claro_get_current_user_id(),$subject,$body);
+                    
+                    $message->setCourse(claro_get_current_course_data('officialCode'));
+                    
+                    $recipient = new UserListRecipient();
+                    $recipient->addUserIdList($userIdList);
+                    
+                    //$message->sendTo($recipient);
+                    $recipient->sendMessage($message);
                 }
             }
             // display flags
