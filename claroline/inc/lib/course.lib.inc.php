@@ -290,4 +290,32 @@ function claro_get_lang_flat_list()
     return $language_flat_list;
 }
 
+/**
+ * return all manager id of a course
+ *
+ * @param string $cid course id
+ * @return array(int) array of int
+ */
+function claro_get_course_manager_id($cid = NULL)
+{
+    if(is_null($cid))
+    {
+        if(!claro_is_in_a_course())
+        {
+            return false;    
+        }
+        
+        $cid = claro_get_current_course_id();
+    }
+    
+     $tableName = get_module_main_tbl(array('cours_user'));
+     
+    $sql = "SELECT user_id "
+    		. " FROM `". $tableName['cours_user']."`"
+    		. " WHERE code_cours='".claro_sql_escape($cid)."'"
+    		.    " AND isCourseManager = 1"
+    		;
+    
+    return claro_sql_query_fetch_all_rows($sql);
+}
 ?>
