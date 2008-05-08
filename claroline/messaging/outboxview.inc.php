@@ -196,15 +196,16 @@
             $content .=  htmlspecialchars($message->getSubject()).'</a></td>'."\n"
                         .'<td>';
                         
-            if ($recipientList['sentTo'] == 'toUser')
+            if ( $recipientList['sentTo'] == 'toUser' )
             {
-                
                 $content .= htmlspecialchars($recipientList['userList'][0]['firstName'])." ".htmlspecialchars($recipientList['userList'][0]['lastName']);
-                if (count($recipientList)>1)
+                
+                if ( count( $recipientList['userList'] ) > 1 )
                 {
                     $content .=  ", ".htmlspecialchars($recipientList['userList'][1]['firstName'])." ".htmlspecialchars($recipientList['userList'][1]['lastName']);
                 }
-                if (count($recipientList)>2)
+                
+                if ( count( $recipientList['userList'] ) > 2 )
                 {
                     $content .= ",...";
                 }
