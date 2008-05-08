@@ -237,18 +237,16 @@ table.requirements th {
 
 /* check list */
 
-ul.checkList {
-	list-style: none;	
+table.checkList {
+	width: 100%;
 	margin: 0;
 	padding: 0;
 }
 
-ul.checkList li {
-	clear: both;
+table.checkList tr {
 }
 
-ul.checkList li .checkTitle {
- 	float: left;
+table.checkList tr .checkTitle {
  	width: 30%;
  	text-align: right;
  	padding-right: 0px;
@@ -257,11 +255,9 @@ ul.checkList li .checkTitle {
 	margin-right: 5px;
 }
 
-ul.checkList li .checkValue {
-	padding-right: 0px;
-	padding-top: 2px;
-	font-weight: bold;	
-	margin-left: 202px;
+table.checkList tr .checkValue {
+	padding: 2px 0 0 15px;
+	font-weight: bold;
 }
 
 #goToCampusLink {

@@ -1556,297 +1556,310 @@ elseif(DISP_LAST_CHECK_BEFORE_INSTALL == $display )
     .    '<fieldset>' . "\n"
     .    '<legend>'.$panelTitle[DISP_DB_CONNECT_SETTING] .'</legend>' . "\n"
 
-    .    '<p class="checkSubTitle">'.get_lang('Mysql connection parameters').'</p>' . "\n"
-    .    '<ul class="checkList">' . "\n\n"
+    .    '<table class="checkList">' . "\n\n"
+    .    '<tr class="checkSubTitle">'
+    .    '<th colspan="2">' . get_lang('Mysql connection parameters') . '</th>'
+    .    '</tr>' . "\n"
     
-    .    '<li class="check">' . "\n"
-    .    '<span class="checkTitle">' . "\n"
+    .    '<tr class="check">' . "\n"
+    .    '<td class="checkTitle">' . "\n"
     .    get_lang('Database host') . ' : ' . "\n"
-    .    '</span>' . "\n"
-    .    '<div class="checkValue">' . "\n"
+    .    '</td>' . "\n"
+    .    '<td class="checkValue">' . "\n"
     .    htmlspecialchars($dbHostForm)
-    .    '</div>' . "\n"
-    .    '</li>' . "\n\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n\n"
         
-    .    '<li class="check">' . "\n"
-    .    '<span class="checkTitle">' . "\n"
+    .    '<tr class="check">' . "\n"
+    .    '<td class="checkTitle">' . "\n"
     .    get_lang('Database username') . ' : ' . "\n"
-    .    '</span>' . "\n"
-    .    '<div class="checkValue">' . "\n"
+    .    '</td>' . "\n"
+    .    '<td class="checkValue">' . "\n"
     .    htmlspecialchars($dbUsernameForm)
-    .    '</div>' . "\n"
-    .    '</li>' . "\n\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n\n"
         
-    .    '<li class="check">' . "\n"
-    .    '<span class="checkTitle">' . "\n"
+    .    '<tr class="check">' . "\n"
+    .    '<td class="checkTitle">' . "\n"
     .    get_lang('Database password') . ' : ' . "\n"
-    .    '</span>' . "\n"
-    .    '<div class="checkValue">' . "\n"
+    .    '</td>' . "\n"
+    .    '<td class="checkValue">' . "\n"
     .    htmlspecialchars((empty($dbPassForm) ? '--empty--' : $dbPassForm))
-    .    '</div>' . "\n"
-    .    '</li>' . "\n\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n\n"
 
-    .    '</ul>' . "\n\n"
+    .    '</table>' . "\n\n"
     
-    .    '<p class="checkSubTitle">'.get_lang('Database usage').'</p>' . "\n"
-    .    '<ul class="checkList">' . "\n\n"
-        
-    .    '<li class="check">' . "\n"
-    .    '<span class="checkTitle">' . "\n"
+    .    '<table class="checkList">' . "\n\n"
+    .    '<tr class="checkSubTitle">'
+    .    '<th colspan="2">' . get_lang('Database usage') . '</th>'
+    .    '<tr>' . "\n"
+            
+    .    '<tr class="check">' . "\n"
+    .    '<td class="checkTitle">' . "\n"
     .    get_lang('Database mode') . ' : ' . "\n"
-    .    '</span>' . "\n"
-    .    '<div class="checkValue">' . "\n"
+    .    '</td>' . "\n"
+    .    '<td class="checkValue">' . "\n"
     .    ($singleDbForm ? get_lang('Single') : get_lang('Multi'))
-    .    '</div>' . "\n"
-    .    '</li>' . "\n\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n\n"
    
-    .    '</ul>' . "\n\n"
+    .    '</table>' . "\n\n"
     .    '</fieldset>' . "\n"
     
     .    '<fieldset>' . "\n"
     .    '<legend>'.$panelTitle[DISP_DB_NAMES_SETTING] .'</legend>' . "\n"
     
-    .    '<ul class="checkList">' . "\n\n"
+    .    '<table class="checkList">' . "\n\n"
     
-    .    '<li class="check">' . "\n"
-    .    '<span class="checkTitle">' . "\n"
+    .    '<tr class="check">' . "\n"
+    .    '<td class="checkTitle">' . "\n"
     .    get_lang('Main database') . ' : ' . "\n"
-    .    '</span>' . "\n"
-    .    '<div class="checkValue">' . "\n"
+    .    '</td>' . "\n"
+    .    '<td class="checkValue">' . "\n"
     .    htmlspecialchars($dbNameForm)
-    .    '</div>' . "\n"
-    .    '</li>' . "\n\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n\n"
     
-    .    '<li class="check">' . "\n"
-    .    '<span class="checkTitle">' . "\n"
+    .    '<tr class="check">' . "\n"
+    .    '<td class="checkTitle">' . "\n"
     .    get_lang('Tracking database') . ' : ' . "\n"
-    .    '</span>' . "\n"
-    .    '<div class="checkValue">' . "\n"
+    .    '</td>' . "\n"
+    .    '<td class="checkValue">' . "\n"
     .    htmlspecialchars($dbStatsForm)
-    .    '</div>' . "\n"
-    .    '</li>' . "\n\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n\n"
     
-    .    '</ul>' . "\n\n"
-    .    '<p class="checkSubTitle">'.get_lang('Table prefixes').'</p>' . "\n"
-    .    '<ul class="checkList">' . "\n\n"
+    .    '</table>' . "\n\n"
+    
+    .    '<table class="checkList">' . "\n\n"
+    .    '<tr class="checkSubTitle">'
+    .    '<th colspan="2">' . get_lang('Table prefixes') . '</th>'
+    .    '<tr>' . "\n"
   	;
   	
     if ( '' != $mainTblPrefixForm )
     {
-        echo '<li class="check">' . "\n"
-        .    '<span class="checkTitle">' . "\n"
+        echo '<tr class="check">' . "\n"
+        .    '<td class="checkTitle">' . "\n"
         .    get_lang('Main tables') . ' : ' . "\n"
-        .    '</span>' . "\n"
-        .    '<div class="checkValue">' . "\n"
+        .    '</td>' . "\n"
+        .    '<td class="checkValue">' . "\n"
         .    htmlspecialchars($mainTblPrefixForm)
-        .    '</div>' . "\n"
-        .    '</li>' . "\n\n"
+        .    '</td>' . "\n"
+        .    '</tr>' . "\n\n"
         ;
     } 
 
     if ( '' != $statsTblPrefixForm )
     {
-        echo '<li class="check">' . "\n"
-        .    '<span class="checkTitle">' . "\n"
+        echo '<tr class="check">' . "\n"
+        .    '<td class="checkTitle">' . "\n"
         .    get_lang('Tracking tables') . ' : ' . "\n"
-        .    '</span>' . "\n"
-        .    '<div class="checkValue">' . "\n"
+        .    '</td>' . "\n"
+        .    '<td class="checkValue">' . "\n"
         .    htmlspecialchars($statsTblPrefixForm)
-        .    '</div>' . "\n"
-        .    '</li>' . "\n\n"
+        .    '</td>' . "\n"
+        .    '</tr>' . "\n\n"
         ;
     } 
     
     if ( '' != $dbPrefixForm )
     {
-        echo '<li class="check">' . "\n"
-        .    '<span class="checkTitle">' . "\n"
+        echo '<tr class="check">' . "\n"
+        .    '<td class="checkTitle">' . "\n"
         .    get_lang('Course databases') . ' : ' . "\n"
-        .    '</span>' . "\n"
-        .    '<div class="checkValue">' . "\n"
+        .    '</td>' . "\n"
+        .    '<td class="checkValue">' . "\n"
         .    htmlspecialchars($dbPrefixForm)
-        .    '</div>' . "\n"
-        .    '</li>' . "\n\n"
+        .    '</td>' . "\n"
+        .    '</tr>' . "\n\n"
         ;
     }     
         
-    echo '</ul>' . "\n\n"
+    echo '</table>' . "\n\n"
     .	 '</fieldset>' . "\n"
-    
-    .    '<ul class="checkList">' . "\n"
-    
+
     .    '<fieldset>' . "\n"
     .    '<legend>'.$panelTitle[DISP_ADMINISTRATOR_SETTING].'</legend>' . "\n"
     
-    .    '<li class="check">' . "\n"
-    .    '<span class="checkTitle notehis">' . "\n"
+    .    '<table class="checkList">' . "\n"
+    
+    .    '<tr class="check">' . "\n"
+    .    '<td class="checkTitle notehis">' . "\n"
     .    get_lang('Login') . ' : ' . "\n"
-    .    '</span>' . "\n"
-    .    '<div class="checkValue">' . "\n"
+    .    '</td>' . "\n"
+    .    '<td class="checkValue">' . "\n"
     .    htmlspecialchars($loginForm)
-    .    '</div>' . "\n"
-    .    '</li>' . "\n\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n\n"
 
-    .    '<li class="check">' . "\n"
-    .    '<span class="checkTitle notethis">' . "\n"
+    .    '<tr class="check">' . "\n"
+    .    '<td class="checkTitle notethis">' . "\n"
     .    get_lang('Password') . ' : ' . "\n"
-    .    '</span>' . "\n"
-    .    '<div class="checkValue">' . "\n"
+    .    '</td>' . "\n"
+    .    '<td class="checkValue">' . "\n"
     .    htmlspecialchars((empty($passForm)?'--'.get_lang('empty').'-- <strong>&lt;-- '.get_lang('Error').'</strong>':$passForm))
-    .    '</div>' . "\n"
-    .    '</li>' . "\n\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n\n"
 
-    .    '<li class="check">' . "\n"
-    .    '<span class="checkTitle">' . "\n"
+    .    '<tr class="check">' . "\n"
+    .    '<td class="checkTitle">' . "\n"
     .    get_lang('Email') . ' : ' . "\n"
-    .    '</span>' . "\n"
-    .    '<div class="checkValue">' . "\n"
+    .    '</td>' . "\n"
+    .    '<td class="checkValue">' . "\n"
     .    htmlspecialchars($adminEmailForm)
-    .    '</div>' . "\n"
-    .    '</li>' . "\n\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n\n"
 
-    .    '<li class="check">' . "\n"
-    .    '<span class="checkTitle">' . "\n"
+    .    '<tr class="check">' . "\n"
+    .    '<td class="checkTitle">' . "\n"
     .    get_lang('Last name') . ' : ' . "\n"
-    .    '</span>' . "\n"
-    .    '<div class="checkValue">' . "\n"
+    .    '</td>' . "\n"
+    .    '<td class="checkValue">' . "\n"
     .    htmlspecialchars($adminNameForm)
-    .    '</div>' . "\n"
-    .    '</li>' . "\n\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n\n"
 
-    .    '<li class="check">' . "\n"
-    .    '<span class="checkTitle">' . "\n"
+    .    '<tr class="check">' . "\n"
+    .    '<td class="checkTitle">' . "\n"
     .    get_lang('First name') . ' : ' . "\n"
-    .    '</span>' . "\n"
-    .    '<div class="checkValue">' . "\n"
+    .    '</td>' . "\n"
+    .    '<td class="checkValue">' . "\n"
     .    htmlspecialchars($adminSurnameForm)
-    .    '</div>' . "\n"
-    .    '</li>' . "\n\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n\n"
    
-    .    '</ul>' . "\n\n"
+    .    '</table>' . "\n\n"
     
     .    '</fieldset>' . "\n"
 
     .    '<fieldset>' . "\n"
     .    '<legend>'.$panelTitle[DISP_PLATFORM_SETTING].'</legend>' . "\n"
     
-    .    '<p class="checkSubTitle">'.get_lang('Campus').'</p>' . "\n"
-    .    '<ul class="checkList">' . "\n\n"
+    .    '<table class="checkList">' . "\n\n"
+    .    '<tr class="checkSubTitle">'
+    .    '<th colspan="2">' . get_lang('Campus') . '</th>'
+    .    '<tr>' . "\n"
     
-    .    '<li class="check">' . "\n"
-    .    '<span class="checkTitle">' . "\n"
+    .    '<tr class="check">' . "\n"
+    .    '<td class="checkTitle">' . "\n"
     .    get_lang('Campus name') . ' : ' . "\n"
-    .    '</span>' . "\n"
-    .    '<div class="checkValue">' . "\n"
+    .    '</td>' . "\n"
+    .    '<td class="checkValue">' . "\n"
     .    htmlspecialchars($campusForm)
-    .    '</div>' . "\n"
-    .    '</li>' . "\n\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n\n"
 
-    .    '<li class="check">' . "\n"
-    .    '<span class="checkTitle">' . "\n"
+    .    '<tr class="check">' . "\n"
+    .    '<td class="checkTitle">' . "\n"
     .    get_lang('Campus URL') . ' : ' . "\n"
-    .    '</span>' . "\n"
-    .    '<div class="checkValue">' . "\n"
+    .    '</td>' . "\n"
+    .    '<td class="checkValue">' . "\n"
     .    (empty($urlForm)?'--'.get_lang('empty').'--':$urlForm)
-    .    '</div>' . "\n"
-    .    '</li>' . "\n\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n\n"
 
-    .    '<li class="check">' . "\n"
-    .    '<span class="checkTitle">' . "\n"
+    .    '<tr class="check">' . "\n"
+    .    '<td class="checkTitle">' . "\n"
     .    get_lang('Main language') . ' : ' . "\n"
-    .    '</span>' . "\n"
-    .    '<div class="checkValue">' . "\n"
+    .    '</td>' . "\n"
+    .    '<td class="checkValue">' . "\n"
     .    ucwords($languageForm)
-    .    '</div>' . "\n"
-    .    '</li>' . "\n\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n\n"
     
-    .    '</ul>' . "\n\n"
+    .    '</table>' . "\n\n"
     
-    .    '<p class="checkSubTitle">'.get_lang('Users').'</p>' . "\n"
-    .    '<ul class="checkList">' . "\n\n"
-
-    .    '<li class="check">' . "\n"
-    .    '<span class="checkTitle">' . "\n"
+    .    '<table class="checkList">' . "\n\n"
+    .    '<tr class="checkSubTitle">'
+    .    '<th colspan="2">' . get_lang('Users') . '</th>'
+    .    '<tr>' . "\n"
+    
+    .    '<tr class="check">' . "\n"
+    .    '<td class="checkTitle">' . "\n"
     .    get_lang('Self-registration') . ' : ' . "\n"
-    .    '</span>' . "\n"
-    .    '<div class="checkValue">' . "\n"
+    .    '</td>' . "\n"
+    .    '<td class="checkValue">' . "\n"
     .    ($allowSelfReg? get_lang('Enabled') : get_lang('Disabled'))
-    .    '</div>' . "\n"
-    .    '</li>' . "\n\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n\n"
 
-    .    '<li class="check">' . "\n"
-    .    '<span class="checkTitle">' . "\n"
+    .    '<tr class="check">' . "\n"
+    .    '<td class="checkTitle">' . "\n"
     .    get_lang('Password storage') . ' : ' . "\n"
-    .    '</span>' . "\n"
-    .    '<div class="checkValue">' . "\n"
+    .    '</td>' . "\n"
+    .    '<td class="checkValue">' . "\n"
     .    ($encryptPassForm ? get_lang('Encrypted') : get_lang('Clear text'))
-    .    '</div>' . "\n"
-    .    '</li>' . "\n\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n\n"
     
-    .    '</ul>' . "\n\n"
+    .    '</table>' . "\n\n"
 
     .    '</fieldset>' . "\n"
     
     
     .    '<fieldset>' . "\n"
     .    '<legend>'. get_lang('Additional Information') . '</legend>' . "\n"
-    .    '<p class="checkSubTitle">'.get_lang('Related organization').'</p>' . "\n"
     
-    .    '<ul class="checkList">' . "\n\n"
-
-    .    '<li class="check">' . "\n"
-    .    '<span class="checkTitle">' . "\n"
+    .    '<table class="checkList">' . "\n\n"
+    .    '<tr class="checkSubTitle">'
+    .    '<th colspan="2">' . get_lang('Related organization') . '</th>'
+    .    '<tr>' . "\n"
+    
+    .    '<tr class="check">' . "\n"
+    .    '<td class="checkTitle">' . "\n"
     .    get_lang('Institution name') . ' : ' . "\n"
-    .    '</span>' . "\n"
-    .    '<div class="checkValue">' . "\n"
+    .    '</td>' . "\n"
+    .    '<td class="checkValue">' . "\n"
     .    htmlspecialchars((empty($institutionForm)?'--'.get_lang('empty').'--':$institutionForm))
-    .    '</div>' . "\n"
-    .    '</li>' . "\n\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n\n"
 
-    .    '<li class="check">' . "\n"
-    .    '<span class="checkTitle">' . "\n"
+    .    '<tr class="check">' . "\n"
+    .    '<td class="checkTitle">' . "\n"
     .    get_lang('Institution URL') . ' : ' . "\n"
-    .    '</span>' . "\n"
-    .    '<div class="checkValue">' . "\n"
+    .    '</td>' . "\n"
+    .    '<td class="checkValue">' . "\n"
     .    (empty($institutionUrlForm)?'--'.get_lang('empty').'--':$institutionUrlForm)
-    .    '</div>' . "\n"
-    .    '</li>' . "\n\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n\n"
     
-    .    '</ul>' . "\n\n"
-        
-
-    .    '<p class="checkSubTitle">'.get_lang('Campus contact').'</p>' . "\n"
+    .    '</table>' . "\n\n"
     
-    .    '<ul class="checkList">' . "\n\n"
-
-    .    '<li class="check">' . "\n"
-    .    '<span class="checkTitle">' . "\n"
+    .    '<table class="checkList">' . "\n\n"
+    .    '<tr class="checkSubTitle">'
+    .    '<th colspan="2">' . get_lang('Campus contact') . '</th>'
+    .    '<tr>' . "\n"
+    
+    .    '<tr class="check">' . "\n"
+    .    '<td class="checkTitle">' . "\n"
     .    get_lang('Contact name') . ' : ' . "\n"
-    .    '</span>' . "\n"
-    .    '<div class="checkValue">' . "\n"
+    .    '</td>' . "\n"
+    .    '<td class="checkValue">' . "\n"
     .    htmlspecialchars((empty($contactNameForm)?'--'.get_lang('empty').'--':$contactNameForm))
-    .    '</div>' . "\n"
-    .    '</li>' . "\n\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n\n"
 
-    .    '<li class="check">' . "\n"
-    .    '<span class="checkTitle">' . "\n"
+    .    '<tr class="check">' . "\n"
+    .    '<td class="checkTitle">' . "\n"
     .    get_lang('Contact email') . ' : ' . "\n"
-    .    '</span>' . "\n"
-    .    '<div class="checkValue">' . "\n"
+    .    '</td>' . "\n"
+    .    '<td class="checkValue">' . "\n"
     .    htmlspecialchars((empty($contactEmailForm)?$adminEmailForm:$contactEmailForm))
-    .    '</div>' . "\n"
-    .    '</li>' . "\n\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n\n"
 
-    .    '<li class="check">' . "\n"
-    .    '<span class="checkTitle">' . "\n"
+    .    '<tr class="check">' . "\n"
+    .    '<td class="checkTitle">' . "\n"
     .    get_lang('Contact phone') . ' : ' . "\n"
-    .    '</span>' . "\n"
-    .    '<div class="checkValue">' . "\n"
+    .    '</td>' . "\n"
+    .    '<td class="checkValue">' . "\n"
     .    htmlspecialchars($contactPhoneForm)
-    .    '</div>' . "\n"
-    .    '</li>' . "\n\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n\n"
     
-    .    '</ul>' . "\n\n"
+    .    '</table>' . "\n\n"
     .    '</fieldset>' . "\n"
     ;
 
@@ -2048,7 +2061,7 @@ elseif(DISP_RUN_INSTALL_COMPLETE == $display)
     .    '</ul>' . "\n"
     .    '</fieldset>' . "\n"
     .    '<div id="goToCampusLink">' . "\n"
-    .    '<a href="../../index.php?logout=TRUE&amp;uidReset=TRUE">'.get_lang('Go to your brand new campus').'</a>' . "\n"
+    .    '<a href="../../index.php">'.get_lang('Go to your brand new campus').'</a>' . "\n"
     .    '</div>' . "\n"
     ;
 }    // STEP RUN_INSTALL_COMPLETE
