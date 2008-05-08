@@ -45,14 +45,16 @@ class DisplayMessage
         if ($recipientList['sentTo'] == 'toUser')
         {
             
-            for ($count=0; $count<count($recipientList); $count++)
+            for ( $count=0; $count < count($recipientList['userList']); $count++ )
             {
-                if ($recipientString != '')
+                if ( $recipientString != '' )
                 {
                     $recipientString .= ", ";
                 }
+                
                 $recipientString .= htmlspecialchars($recipientList['userList'][$count]['lastName'])." ".htmlspecialchars($recipientList['userList'][$count]['firstName']);
-                if ($count>10 && $count<count($recipientList))
+                
+                if ( $count > 10 && $count < count($recipientList) )
                 {
                     $recipientString .= ",...";
                     break;
@@ -66,7 +68,7 @@ class DisplayMessage
         elseif ($recipientList['sentTo'] == 'toGroup')
         {
             $groupInfo = claro_get_group_data(array(CLARO_CONTEXT_COURSE => $message->getCourseCode(),
-            										CLARO_CONTEXT_GROUP => $message->getGroupId()));
+                                                    CLARO_CONTEXT_GROUP => $message->getGroupId()));
             $recipientString = get_lang('Course: ')." ". $message->getCourseCode() . "; " .get_lang('Group: ')." ". $groupInfo['name'];
         }
         elseif ($recipientList['sentTo'] == 'toAll')
@@ -82,18 +84,18 @@ class DisplayMessage
         $content = '<div id="im_message">'."\n"
                 .  '<h4 class="header">'.htmlspecialchars($message->getSubject()).'</h4>'."\n"
                 .  '<div class="imInfo">'
-                .  		'<span class="imInfoTitle">'.get_lang('Recipient').'</span>'
+                .          '<span class="imInfoTitle">'.get_lang('Recipient').'</span>'
                 .       '<div class="imInfoValue">'.$recipientString.'</div>'
                 .   '</div>'
                 .  '<div class="imInfo">'
-                .  		'<span class="imInfoTitle">'.get_lang('Date').'</span>'
+                .          '<span class="imInfoTitle">'.get_lang('Date').'</span>'
                 .       '<div class="imInfoValue">'.claro_html_localised_date(get_locale('dateTimeFormatLong'),strtotime($message->getSendTime())).'</div>'
                 .   '</div>'
                 ;
         if (!is_null($message->getCourseCode()))
         {
             $content .='<div class="imInfo">'
-                .  		'<span class="imInfoTitle">'.get_lang('Course').'</span>'
+                .          '<span class="imInfoTitle">'.get_lang('Course').'</span>'
                 .       '<div class="imInfoValue">'
                 ;
             
@@ -114,7 +116,7 @@ class DisplayMessage
             {
                 
                 $content .='<div class="imInfo">'
-                .  		'<span class="imInfoTitle">'.get_lang('Group').'</span>'
+                .          '<span class="imInfoTitle">'.get_lang('Group').'</span>'
                 .       '<div class="imInfoValue">'
                 ;
                                
@@ -129,13 +131,14 @@ class DisplayMessage
                 {
                     $content .= get_lang('?');
                 }
+                
                 $content .= '</div>';
             }
             
             if (!is_null($message->getToolsLabel()))
             {
                 $content .='<div class="imInfo">'
-                .  		'<span class="imInfoTitle">'.get_lang('Tool').'</span>'
+                .          '<span class="imInfoTitle">'.get_lang('Tool').'</span>'
                 .       '<div class="imInfoValue">'
                 ;
                 
@@ -149,16 +152,18 @@ class DisplayMessage
                 {
                     $content .= '?';
                 }
+                
                 $content .= '</div>';
             }
             
             
         }
+        
         $content .= '<div class="imCmdList">'.$action.'</div>';
         $content .= '<div class="imInfo">'
-                 .       '<div class="imContent">'.claro_parse_user_text($message->getMessage()).'</div>'
-                .   '</div>'
-                ;
+            . '<div class="imContent">'.claro_parse_user_text($message->getMessage()).'</div>'
+            . '</div>'
+            ;
                   
         $content .= '</div>'."\n";
 
@@ -171,21 +176,21 @@ class DisplayMessage
         $content = '<div id="im_message">'."\n"
                 .  '<h4 class="header">'.htmlspecialchars($message->getSubject()).'</h4>'."\n"
                 .  '<div class="imInfo">'
-                .  		'<span class="imInfoTitle">'.get_lang('Sender').'</span>'
+                .          '<span class="imInfoTitle">'.get_lang('Sender').'</span>'
                 .       '<div class="imInfoValue">'.self::dispNameLinkCompose($message->getSender(),$message->getSenderLastName(),$message->getSenderFirstName()).'</div>'
                 .   '</div>'
-                .  '<div class="imInfo">'
-                .  		'<span class="imInfoTitle">'.get_lang('Date').'</span>'
+                .   '<div class="imInfo">'
+                .          '<span class="imInfoTitle">'.get_lang('Date').'</span>'
                 .       '<div class="imInfoValue">'.claro_html_localised_date(get_locale('dateTimeFormatLong'),strtotime($message->getSendTime())).'</div>'
                 .   '</div>'
                 ;
         
         
-        	
+            
         if (!is_null($message->getCourseCode()))
         {
-            $content .= 	'<div class="imInfo">'
-                .  		'<span class="imInfoTitle">'.get_lang('Course').'</span>'
+            $content .=     '<div class="imInfo">'
+                .          '<span class="imInfoTitle">'.get_lang('Course').'</span>'
                 .       '<div class="imInfoValue">'
                 ;
             
@@ -205,7 +210,7 @@ class DisplayMessage
             if (!is_null($message->getGroupId()))
             {
                 $content .= '<div class="imInfo">'
-                .  		'<span class="imInfoTitle">'.get_lang('Group').'</span>'
+                .          '<span class="imInfoTitle">'.get_lang('Group').'</span>'
                 .       '<div class="imInfoValue">'
                 ;
                 
@@ -226,7 +231,7 @@ class DisplayMessage
             if (!is_null($message->getToolsLabel()))
             {
                 $content .= '<div class="imInfo">'
-                .  		'<span class="imInfoTitle">'.get_lang('Tool').'</span>'
+                .          '<span class="imInfoTitle">'.get_lang('Tool').'</span>'
                 .       '<div class="imInfoValue">'
                 ;
                 
