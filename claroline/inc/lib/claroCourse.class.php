@@ -21,6 +21,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 require_once dirname(__FILE__) . '/backlog.class.php';
 require_once dirname(__FILE__) . '/admin.lib.inc.php'; // for delete course function
+require_once dirname(__FILE__) . '/../../messaging/lib/message/messagetosend.lib.php';
+require_once dirname(__FILE__) . '/../../messaging/lib/recipient/userlistrecipient.lib.php';
 
 class ClaroCourse
 {
@@ -771,10 +773,9 @@ class ClaroCourse
 
     function mailAdministratorOnCourseCreation ($creatorFirstName, $creatorLastName, $creatorEmail)
     {
-        $mailSubject = get_lang('%site_name Course creation %course_name',array('%site_name'=> '['.get_conf('siteName').']' ,
-                                                                                    '%course_name'=> $this->title) );
+        $subject = get_lang('Course creation %course_name',array('%course_name'=> $this->title));
 
-        $mailBody = get_block('blockCourseCreationEmailMessage', array( '%date' => claro_html_localised_date(get_locale('dateTimeFormatLong')),
+        $body = get_block('blockCourseCreationEmailMessage', array( '%date' => claro_html_localised_date(get_locale('dateTimeFormatLong')),
                                 '%sitename' => get_conf('siteName'),
                                 '%user_firstname' => $creatorFirstName,
                                 '%user_lastname' => $creatorLastName,
@@ -792,9 +793,14 @@ class ClaroCourse
         $mailToUidList = claro_get_uid_of_system_notification_recipient();
         if(empty($mailToUidList)) $mailToUidList = claro_get_uid_of_platform_admin();
 
-        $platformAdminList = claro_get_uid_of_platform_admin();
-
-        return claro_mail_user( $mailToUidList, $mailBody, $mailSubject);
+        $message = new MessageToSend(claro_get_current_user_id(),$subject,$body);
+        
+        $recipient = new UserListRecipient();
+        $recipient->addUserIdList($mailToUidList);
+        
+        //$message->sendTo($recipient);
+        $recipient->sendMessage($message);
+        
     }
 
     /**
