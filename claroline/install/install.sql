@@ -266,6 +266,33 @@ CREATE TABLE IF NOT EXISTS  `__CL_MAIN__user_property` (
   PRIMARY KEY  (`scope`,`propertyId`,`userId`)
 ) TYPE=MyISAM;
 
+CREATE TABLE `__CL_MAIN__im_message` (
+  `message_id` int(10) unsigned NOT NULL auto_increment,
+  `sender` int(11) NOT NULL,
+  `subject` varchar(100) NOT NULL,
+  `message` text NOT NULL,
+  `send_time` datetime NOT NULL default '0000-00-00 00:00:00',
+  `course` varchar(40) default NULL,
+  `group` int(11) default NULL,
+  `tools` char(8) default NULL,
+  PRIMARY KEY  (`message_id`)
+) ENGINE=MyISAM ;
+
+CREATE TABLE `__CL_MAIN__im_message_status` (
+  `user_id` int(11) NOT NULL,
+  `message_id` int(11) NOT NULL,
+  `is_read` tinyint(4) NOT NULL default '0',
+  `is_deleted` tinyint(4) NOT NULL default '0',
+  PRIMARY KEY  (`user_id`,`message_id`)
+) ENGINE=MyISAM ;
+
+CREATE TABLE `__CL_MAIN__im_recipient` (
+  `message_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `contexte` enum('toUser','toGroup','toCourse','toAll') NOT NULL,
+  PRIMARY KEY  (`message_id`,`user_id`)
+) ENGINE=MyISAM ;
+
 # STATS TABLES
 
 CREATE TABLE IF NOT EXISTS `__CL_STATS__track_e_DEFAULT` (
