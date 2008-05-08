@@ -31,23 +31,24 @@ h1 {
     color: #fff;
     font-weight: bold;
    	background: url('default/claroline_logo_circle.gif') no-repeat top left;
-    
     font-size: 1.5em;
 }
 
-#installBody {
-	margin-top: 0;
-	font-size: 0.9em;
+#installContainer {
 	background: url('default/bg_body.jpg') repeat-x top left #fff;
-	padding: 5px;
+}
+
+#installBody {
+	font-size: 0.9em;
+	width: 90%;
+	margin: 0 auto;
+	padding: 0;
 }
 
 
 #panel {
 	font-size: 0.9em;
-	margin-left: 315px;
-	margin-right: 100px;
-	margin-top: 5px;
+	margin: 5px 0 0 275px;
 	padding-left: 5px; 
 	border-left: 1px solid #ccc;
 }
@@ -61,10 +62,9 @@ h1 {
 }
 
 .progressPanel {
-	width: 300px;
+	width: 250px;
 	float: left;
-    padding-top: 5px;
-    padding-bottom: 15px;
+    padding: 5px 0 15px 0;
     margin: 5px;
 }
 
@@ -162,30 +162,40 @@ h1 {
 }
 
 #license {
-	width: 100%;
+	width: 95%;
 }
 
 #navigation {
 	padding-top: 20px;
 	padding-bottom: 5px; 	
+	position: relative;
 }
 
-#navigation #navToNext{
+#navigation #navToNext input[type=submit]{
 	float: right;
+	position: relative;
 }
 
-#navigation #navToPrev{
+#navigation #navToPrev input[type=submit]{
 	float: left;
+	position: relative;
 }
 
 fieldset {
 	border: 1px solid #ccc;
 	background-color: #eee;
 	padding: 20px;
+	position: relative;
+	margin-top: 20px; 
+	padding-top: 20px;
 }
 
 legend {
-	font-weight: bold;		
+	font-weight: bold;	
+	color: #333;
+	position: absolute;
+	top: -0.5em; 
+	left: 0.5em;	
 }
 
 div.row {
@@ -197,15 +207,13 @@ div.row .rowTitle {
  	float: left;
  	width: 200px;
  	text-align: right;
- 	padding-right: 0px;
- 	padding-top: 2px;
-	border-bottom: 1px solid #ccc;
-	margin-right: 5px;
+ 	padding: 2px 0 0 0 ;
+ 	border-bottom: 1px solid #ccc;
+	margin: 0 5px 0 0;
 }
 
 div.row .rowField {
- 	padding-right: 0px;
- 	margin-left: 202px;
+	margin: 0 0 0 202px;
  	padding: 0 3px;
 }
 

@@ -669,6 +669,7 @@ echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"'
 .    '<div id="installHeader">' . "\n"
 .    '<h1>'.get_lang('Claroline %version Installation Wizard', array('%version' => $new_version)).'</h1>' . "\n"
 .    '</div>' . "\n"
+.    '<div id="installContainer">' . "\n\n" 
 .    '<div id="installBody">' . "\n\n"
 .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n\n"
 ;
@@ -1068,7 +1069,7 @@ elseif(DISP_DB_CONNECT_SETTING == $display)
     .    '<label for="dbHostForm"><span class="required">*</span> '.get_lang('Database host').'</label>' . "\n"
     .    '</div>' . "\n"
     .    '<div class="rowField">' . "\n"
-    .    '<input type="text" size="25" id="dbHostForm" name="dbHostForm" value="'.htmlspecialchars($dbHostForm).'" />' . "\n"
+    .    '<input type="text" size="30" id="dbHostForm" name="dbHostForm" value="'.htmlspecialchars($dbHostForm).'" />' . "\n"
     .    '<span class="example">' . get_lang('e.g.') . ' localhost' . '</span>' . "\n"
     .    '</div>' . "\n"
     .    '</div>' . "\n\n"
@@ -1078,7 +1079,7 @@ elseif(DISP_DB_CONNECT_SETTING == $display)
     .    '<label for="dbUsernameForm"><span class="required">*</span> '.get_lang('Database username').'</label>' . "\n"
     .    '</div>' . "\n"
     .    '<div class="rowField">' . "\n"
-    .    '<input type="text"  size="25" id="dbUsernameForm" name="dbUsernameForm" value="'.htmlspecialchars($dbUsernameForm).'" />' . "\n"
+    .    '<input type="text"  size="30" id="dbUsernameForm" name="dbUsernameForm" value="'.htmlspecialchars($dbUsernameForm).'" />' . "\n"
     .    '<span class="example">' . get_lang('e.g.') . ' root' . '</span>' . "\n"
     .    '</div>' . "\n"
     .    '</div>' . "\n\n"
@@ -1088,7 +1089,7 @@ elseif(DISP_DB_CONNECT_SETTING == $display)
     .    '<label for="dbPassForm"><span class="required">*</span> '.get_lang('Database password').'</label>' . "\n"
     .    '</div>' . "\n"
     .    '<div class="rowField">' . "\n"
-    .    '<input type="text"  size="25" id="dbPassForm" name="dbPassForm" value="'.htmlspecialchars($dbPassForm).'" />' . "\n"
+    .    '<input type="text"  size="30" id="dbPassForm" name="dbPassForm" value="'.htmlspecialchars($dbPassForm).'" />' . "\n"
     .    '<span class="example">' . get_lang('e.g.') . ' ' . generate_passwd(8) . '</span>' . "\n"
     .    '</div>' . "\n"
     .    '</div>' . "\n\n"
@@ -1205,7 +1206,7 @@ elseif(DISP_DB_NAMES_SETTING == $display )
     .    '<label for="dbNameForm"><span class="required">*</span> '.($singleDbForm ? get_lang('Database name'):get_lang('Main database')).'</label>' . "\n"
     .    '</div>' . "\n"
     .    '<div class="rowField">' . "\n"
-    .    '<input type="text"  size="25" id="dbNameForm" name="dbNameForm" value="'.htmlspecialchars($dbNameForm).'" />' . "\n"
+    .    '<input type="text"  size="30" id="dbNameForm" name="dbNameForm" value="'.htmlspecialchars($dbNameForm).'" />' . "\n"
     .    '<span class="example">' . get_lang('e.g.') . ' ' . $dbNameForm . '</span>' . "\n"
     .    '</div>' . "\n"
     .    '</div>' . "\n\n"
@@ -1234,7 +1235,7 @@ elseif(DISP_DB_NAMES_SETTING == $display )
         .    '<label for="dbStatsForm"><span class="required">*</span> '.get_lang('Tracking database').'</label>' . "\n"
         .    '</div>' . "\n"
         .    '<div class="rowField">' . "\n"
-        .    '<input type="text"  size="25" id="dbStatsForm" name="dbStatsForm" value="'.htmlspecialchars($dbStatsForm).'" />' . "\n"
+        .    '<input type="text"  size="30" id="dbStatsForm" name="dbStatsForm" value="'.htmlspecialchars($dbStatsForm).'" />' . "\n"
         .    '<span class="example">' . get_lang('e.g.') . ' ' . $dbStatsForm . '</span>' . "\n"
         .    '</div>' . "\n"
         .    '</div>' . "\n\n"
@@ -1261,7 +1262,7 @@ elseif(DISP_DB_NAMES_SETTING == $display )
     .    '<label for="dbPrefixForm">'.($singleDbForm?get_lang('Prefix for course tables'):get_lang('Prefix for course databases')).'</label>' . "\n"
     .    '</div>' . "\n"
     .    '<div class="rowField">' . "\n"
-    .    '<input type="text"  size="25" id="dbPrefixForm" name="dbPrefixForm" value="'.htmlspecialchars($dbPrefixForm).'" />' . "\n"
+    .    '<input type="text"  size="30" id="dbPrefixForm" name="dbPrefixForm" value="'.htmlspecialchars($dbPrefixForm).'" />' . "\n"
     .    '<span class="example">' . get_lang('e.g.') . ' ' . $dbPrefixForm . '</span>' . "\n"
     .    '</div>' . "\n"
     .    '</div>' . "\n\n"
@@ -1324,7 +1325,7 @@ elseif(DISP_ADMINISTRATOR_SETTING == $display )
     .    '<label for="loginForm"><span class="required">*</span> '.get_lang('Login').'</label>' . "\n"
     .    '</div>' . "\n"
     .    '<div class="rowField">' . "\n"
-    .    '<input type="text" size="40" id="loginForm" name="loginForm" value="'.htmlspecialchars($loginForm).'" />' . "\n"
+    .    '<input type="text" size="30" id="loginForm" name="loginForm" value="'.htmlspecialchars($loginForm).'" />' . "\n"
     .    '<span class="example">' . get_lang('e.g.') . ' jdoe</span>' . "\n"
     .    '</div>' . "\n"
     .    '</div>' . "\n\n"
@@ -1334,7 +1335,7 @@ elseif(DISP_ADMINISTRATOR_SETTING == $display )
     .    '<label for="passForm"><span class="required">*</span> '.get_lang('Password').'</label>' . "\n"
     .    '</div>' . "\n"
     .    '<div class="rowField">' . "\n"
-    .    '<input type="text" size="40" id="passForm" name="passForm" value="'.htmlspecialchars($passForm).'" />' . "\n"
+    .    '<input type="text" size="30" id="passForm" name="passForm" value="'.htmlspecialchars($passForm).'" />' . "\n"
     .    '<span class="example">' . get_lang('e.g.') . generate_passwd(8) . '</span>' . "\n"
     .    '</div>' . "\n"
     .    '</div>' . "\n\n"
@@ -1344,7 +1345,7 @@ elseif(DISP_ADMINISTRATOR_SETTING == $display )
     .    '<label for="adminEmailForm"><span class="required">*</span> '.get_lang('Email').'</label>' . "\n"
     .    '</div>' . "\n"
     .    '<div class="rowField">' . "\n"
-    .    '<input type="text" size="40" id="adminEmailForm" name="adminEmailForm" value="'.htmlspecialchars($adminEmailForm).'" />' . "\n"
+    .    '<input type="text" size="30" id="adminEmailForm" name="adminEmailForm" value="'.htmlspecialchars($adminEmailForm).'" />' . "\n"
     .    '<span class="example">' . get_lang('e.g.') . ' jdoe@mydomain.net</span>' . "\n"
     .    '</div>' . "\n"
     .    '</div>' . "\n\n"
@@ -1354,7 +1355,7 @@ elseif(DISP_ADMINISTRATOR_SETTING == $display )
     .    '<label for="adminNameForm"><span class="required">*</span> '.get_lang('Last name').'</label>' . "\n"
     .    '</div>' . "\n"
     .    '<div class="rowField">' . "\n"
-    .    '<input type="text" size="40" id="adminNameForm" name="adminNameForm" value="'.htmlspecialchars($adminNameForm).'" />' . "\n"
+    .    '<input type="text" size="30" id="adminNameForm" name="adminNameForm" value="'.htmlspecialchars($adminNameForm).'" />' . "\n"
     .    '<span class="example">' . get_lang('e.g.') . ' Doe</span>' . "\n"
     .    '</div>' . "\n"
     .    '</div>' . "\n\n"
@@ -1364,7 +1365,7 @@ elseif(DISP_ADMINISTRATOR_SETTING == $display )
     .    '<label for="adminSurnameForm"><span class="required">*</span> '.get_lang('First name').'</label>' . "\n"
     .    '</div>' . "\n"
     .    '<div class="rowField">' . "\n"
-    .    '<input type="text" size="40" id="adminSurnameForm" name="adminSurnameForm" value="'.htmlspecialchars($adminSurnameForm).'" />' . "\n"
+    .    '<input type="text" size="30" id="adminSurnameForm" name="adminSurnameForm" value="'.htmlspecialchars($adminSurnameForm).'" />' . "\n"
     .    '<span class="example">' . get_lang('e.g.') . ' John</span>' . "\n"
     .    '</div>' . "\n"
     .    '</div>' . "\n\n"
@@ -1395,7 +1396,7 @@ elseif(DISP_PLATFORM_SETTING == $display)
     .    '<label for="campusForm"><span class="required">*</span> '.get_lang('Name').'</label>' . "\n"
     .    '</div>' . "\n"
     .    '<div class="rowField">' . "\n"
-    .    '<input type="text" size="40" id="campusForm" name="campusForm" value="'.htmlspecialchars($campusForm).'" />' . "\n"
+    .    '<input type="text" size="30" id="campusForm" name="campusForm" value="'.htmlspecialchars($campusForm).'" />' . "\n"
     .    '</div>' . "\n"
     .    '</div>' . "\n\n"
 
@@ -1404,7 +1405,7 @@ elseif(DISP_PLATFORM_SETTING == $display)
     .    '<label for="urlForm"><span class="required">*</span> '.get_lang('Absolute URL').'</label>' . "\n"
     .    '</div>' . "\n"
     .    '<div class="rowField">' . "\n"
-    .    '<input type="text" size="60" id="urlForm" name="urlForm" value="'.htmlspecialchars($urlForm).'" />' . "\n"
+    .    '<input type="text" size="30" id="urlForm" name="urlForm" value="'.htmlspecialchars($urlForm).'" />' . "\n"
     .    '</div>' . "\n"
     .    '</div>' . "\n\n"    
 
@@ -1413,7 +1414,7 @@ elseif(DISP_PLATFORM_SETTING == $display)
     .    '<label for="courseRepositoryForm">'.get_lang('Path to courses repository (relative to the URL above)').'</label>' . "\n"
     .    '</div>' . "\n"
     .    '<div class="rowField">' . "\n"
-    .    '<input type="text"  size="60" id="courseRepositoryForm" name="courseRepositoryForm" value="'.htmlspecialchars($courseRepositoryForm).'" />' . "\n"
+    .    '<input type="text" size="30" id="courseRepositoryForm" name="courseRepositoryForm" value="'.htmlspecialchars($courseRepositoryForm).'" />' . "\n"
     .    '</div>' . "\n"
     .    '</div>' . "\n\n"  
 
@@ -1486,7 +1487,7 @@ elseif(DISP_ADMINISTRATIVE_SETTING == $display)
     .    '<label for="institutionForm">'.get_lang('Institution name').'</label>' . "\n"
     .    '</div>' . "\n"
     .    '<div class="rowField">' . "\n"
-    .    '<input type="text" size="40" id="institutionForm" name="institutionForm" value="'.htmlspecialchars($institutionForm) . '" />' . "\n"
+    .    '<input type="text" size="30" id="institutionForm" name="institutionForm" value="'.htmlspecialchars($institutionForm) . '" />' . "\n"
     .    '</div>' . "\n"
     .    '</div>' . "\n\n"   
     
@@ -1495,7 +1496,7 @@ elseif(DISP_ADMINISTRATIVE_SETTING == $display)
     .    '<label for="institutionUrlForm">'.get_lang('Institution URL').'</label>' . "\n"
     .    '</div>' . "\n"
     .    '<div class="rowField">' . "\n"
-    .    '<input type="text" size="40" id="institutionUrlForm" name="institutionUrlForm" value="'.htmlspecialchars($institutionUrlForm) . '" />' . "\n"
+    .    '<input type="text" size="30" id="institutionUrlForm" name="institutionUrlForm" value="'.htmlspecialchars($institutionUrlForm) . '" />' . "\n"
     .    '</div>' . "\n"
     .    '</div>' . "\n\n"       
 
@@ -1509,7 +1510,7 @@ elseif(DISP_ADMINISTRATIVE_SETTING == $display)
     .    '<label for="contactNameForm"><span class="required">*</span> '.get_lang('Contact name').'</label>' . "\n"
     .    '</div>' . "\n"
     .    '<div class="rowField">' . "\n"
-    .    '<input type="text" size="40" id="contactNameForm" name="contactNameForm" value="'.htmlspecialchars($contactNameForm) . '"/>' . "\n"
+    .    '<input type="text" size="30" id="contactNameForm" name="contactNameForm" value="'.htmlspecialchars($contactNameForm) . '"/>' . "\n"
     .    '</div>' . "\n"
     .    '</div>' . "\n\n"  
     
@@ -1518,7 +1519,7 @@ elseif(DISP_ADMINISTRATIVE_SETTING == $display)
     .    '<label for="contactEmailForm"><span class="required">*</span> '.get_lang('Contact email').'</label>' . "\n"
     .    '</div>' . "\n"
     .    '<div class="rowField">' . "\n"
-    .    '<input type="text" size="40" id="contactEmailForm" name="contactEmailForm" value="'.htmlspecialchars($contactEmailForm) . '"/>' . "\n"
+    .    '<input type="text" size="30" id="contactEmailForm" name="contactEmailForm" value="'.htmlspecialchars($contactEmailForm) . '"/>' . "\n"
     .    '</div>' . "\n"
     .    '</div>' . "\n\n"  
     
@@ -1527,7 +1528,7 @@ elseif(DISP_ADMINISTRATIVE_SETTING == $display)
     .    '<label for="contactPhoneForm">'.get_lang('Contact phone').'</label>' . "\n"
     .    '</div>' . "\n"
     .    '<div class="rowField">' . "\n"
-    .    '<input type="text" size="40" id="contactPhoneForm" name="contactPhoneForm" value="'.htmlspecialchars($contactPhoneForm) . '" />' . "\n"
+    .    '<input type="text" size="30" id="contactPhoneForm" name="contactPhoneForm" value="'.htmlspecialchars($contactPhoneForm) . '" />' . "\n"
     .    '</div>' . "\n"
     .    '</div>' . "\n\n"  
     
@@ -2079,7 +2080,8 @@ echo $htmlNextPrevButton;
 ?>
 </div><!-- end panel -->
 </form>
-</div><!--  end install -->
+</div><!--  end installBody -->
+</div><!--  end installContainer -->
 <div id="footer">
     <hr />
     <div id="footerLeft">
