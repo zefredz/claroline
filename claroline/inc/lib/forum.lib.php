@@ -565,34 +565,52 @@ function trig_topic_notification($topicId)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_user_notify = $tbl_cdb_names['bb_rel_topic_userstonotify'];
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tbl_users       = $tbl_mdb_names['user'];
 
     global $_course;
 
-    $sql = "SELECT u.user_id, u.prenom firstname, u.nom lastname
-            FROM `" . $tbl_user_notify . "` AS notif,
-                 `" . $tbl_users . "` AS u
-            WHERE notif.topic_id = " . (int) $topicId . "
-            AND   notif.user_id  = u.user_id";
-
+    $sql = "SELECT notif.user_id
+            FROM `" . $tbl_user_notify . "` AS notif
+            WHERE notif.topic_id = " . (int) $topicId ;
+	
     $notifyResult = claro_sql_query($sql);
+    
+    $courseOfficialCode = claro_get_current_course_data('officialCode');
     $subject      = get_lang('A reply to your topic has been posted');
 
     $url_topic = get_path('rootWeb') . 'claroline/phpbb/viewtopic.php?topic=' .  $topicId . '&cidReq=' . $_course['sysCode'];
     $url_forum = get_path('rootWeb') . 'claroline/phpbb/index.php?cidReq=' . claro_get_current_course_id();
 
     // send mail to registered user for notification
-
+    $message = "Vous avez demandé d'être informé des changements d'un forum.<br/>"
+            . "Une reponse vien d'être postée!<br/><br/>"
+            . "Topic:<br/>"
+            . "<a href=" . $url_topic . ">" . $url_topic . "</a><br/><br/>"
+            . "forum:<br>"
+            . "<a href=" . $url_forum . ">" .$url_forum . "<br/>"
+            ;
+    
+    require_once dirname(__FILE__) . '/../../messaging/lib/recipient/userlistrecipient.lib.php';
+    require_once dirname(__FILE__) . '/../../messaging/lib/message/messagetosend.lib.php';
+    
+    $recipient = new UserListRecipient();
+    
     while ( ( $list = mysql_fetch_array($notifyResult) ) )
     {
-        $message = get_block('blockForumNotificationEmailMessage',array('%firstname' => $list['firstname'],
-                                  '%lastname' => $list['lastname'],
-                                  '%url_topic' => $url_topic,
-                                  '%url_forum' => $url_forum ) );
-
-           claro_mail_user($list['user_id'], $message, $subject);
+        $recipient->addUserId($list['user_id']);
     }
+    
+    
+    $message = new MessageToSend(claro_get_current_user_id(),$subject,$message);
+    $message->setCourse(claro_get_current_course_id());
+    $message->setTools('CLFRM');
+    
+    if(claro_is_in_a_group())
+    {
+        $message->setGroup(claro_get_current_group_id());
+    }
+    
+    //$message->sendTo($recipient);
+    $recipient->sendMessage($message);
 }
 
 
