@@ -31,6 +31,7 @@ require_once get_path('incRepositorySys')  . '/lib/admin.lib.inc.php';
 require_once get_path('incRepositorySys')  . '/lib/user.lib.php';
 require_once get_path('incRepositorySys')  . '/lib/course_user.lib.php';
 require_once get_path('incRepositorySys')  . '/lib/pager.lib.php';
+require_once dirname(__FILE__) . '/../messaging/lib/permission.lib.php';
 
 /*----------------------------------------------------------------------
    Load config
@@ -75,6 +76,7 @@ $can_export_user_list = (bool) (claro_is_course_manager()
 $can_import_user_class = (bool) (claro_is_course_manager()
                      && get_conf('is_coursemanager_allowed_to_import_user_class') )
                      || claro_is_platform_admin();
+$can_send_message_to_course = current_user_is_allowed_to_send_message_to_current_course();
 
 $dialogBox = '';
 
@@ -310,6 +312,15 @@ if ($can_add_single_user)
                                      . claro_url_relay_context('?')
                                      , '<img src="' . get_path('imgRepositoryWeb') . 'settings.gif" alt="" />'
                                      . get_lang("Right Profile")
+                                     );
+}
+
+if ($can_send_message_to_course)
+{
+    // Main group settings
+    $userMenu[] = claro_html_cmd_link( '../messaging/sendmessage.php?cmd=rqMessageToCourse'. claro_url_relay_context('&amp;')
+                                     , '<img src="' . get_path('imgRepositoryWeb') . 'message.gif" alt="" />'
+                                     . get_lang("Send a message to the course")
                                      );
 }
 
