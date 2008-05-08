@@ -85,8 +85,8 @@
         else
         {
             $img = array(
-                $fileName . '.gif',
-                $fileName . '.png'
+                $fileName . '.png',
+                $fileName . '.gif'
             );
         }
         
