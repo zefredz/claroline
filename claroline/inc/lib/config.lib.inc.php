@@ -117,7 +117,7 @@ function trueFalse($booleanState)
 
 function claro_get_conf_def_file($configCode)
 {
-    $centralizedDef = array('CLCRS','CLAUTH', 'CLSSO',  'CLCAS', 'CLHOME', 'CLKCACHE','CLLINKER','CLMAIN','CLPROFIL' ,'CLRSS','CLICAL','CLGRP');
+    $centralizedDef = array('CLCRS','CLAUTH', 'CLMSG', 'CLSSO',  'CLCAS', 'CLHOME', 'CLKCACHE','CLLINKER','CLMAIN','CLPROFIL' ,'CLRSS','CLICAL','CLGRP');
     if(in_array($configCode,$centralizedDef)) return realpath(get_path('incRepositorySys') . '/conf/def/') . '/' ;
     else                                      return get_module_path($configCode) . '/conf/def/';
 }
