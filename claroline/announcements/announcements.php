@@ -110,8 +110,7 @@ $cmdList=array();
 
 if($is_allowedToEdit) // check teacher status
 {
-    $emailNotificationAllowed = claro_get_current_user_data('mail') != '';
-
+    
     //------------------------
     //linker
 
@@ -258,7 +257,7 @@ if($is_allowedToEdit) // check teacher status
 
             $title       = isset($_REQUEST['title'])      ? trim($_REQUEST['title']) : '';
             $content     = isset($_REQUEST['newContent']) ? trim($_REQUEST['newContent']) : '';
-            $emailOption = ($emailNotificationAllowed && isset($_REQUEST['emailOption']))? (int) $_REQUEST['emailOption'] : 0;
+            $emailOption = isset($_REQUEST['emailOption'])? (int) $_REQUEST['emailOption'] : 0;
 
             /* MODIFY ANNOUNCEMENT */
 
@@ -310,81 +309,33 @@ if($is_allowedToEdit) // check teacher status
 
             if ( 1 == $emailOption )
             {
-                // sender name and email
                 $courseSender = claro_get_current_user_data('firstName') . ' ' . claro_get_current_user_data('lastName');
-
-                // email subject
-                $emailSubject = '[' . get_conf('siteName') . ' - ' . claro_get_current_course_data('officialCode') . '] ';
-                if ( !empty($title) ) $emailSubject .= $title ;
-                else                  $emailSubject .= get_lang('Message from your lecturer');
-
-                // email message
+                
+                $courseOfficialCode = claro_get_current_course_data('officialCode');
+                
+                $subject = '';
+                if ( !empty($title) ) $subject .= $title ;
+                else                  $subject .= get_lang('Message from your lecturer');
+                
                 $msgContent = $content;
-
-				// remove html formatting
-				$msgContent = str_replace("\r", " ", $msgContent);
-				$msgContent = str_replace("\n", " ", $msgContent);
-
-				// br tags replacement
-                $msgContent = preg_replace('/<br( \/)?>/',"\n",$msgContent);
-
-				// add some line breaks where required
-                $str_to_search = array('<div>','<p>','<li>','<ul>','<ol>','</li>','</ul>','</ol>');
-                $str_to_replace = array("\n\n", "\n\n","\t* ","\n","\n","\n","\n","\n");
-                $msgContent = str_replace($str_to_search,$str_to_replace,$msgContent);
-
-                // Transform string like this : click <a href="http://www.claroline.net">here</a>
-                // in string like that : click here [ http://www.claroline.net ]
-                $msgContent = preg_replace('|< *a +href *= *["\']([^"\']+)["\'][^>]*>([^<]+)</a>|', '$2 [ $1 ]', $msgContent);
-                $msgContent = str_replace('  ',' ',$msgContent);
-                $msgContent = html_entity_decode( $msgContent, ENT_QUOTES, get_locale('charset') );
-                $msgContent = strip_tags($msgContent);
-
-
+                                               
                 // attached resource
-                $msgAttachement = linker_email_resource();
-
-                $emailBody = $msgContent . "\n" .
-                "\n" .
-                '--' . "\n" .
-                $msgAttachement . "\n" .
-                $courseSender . "\n" .
-                claro_get_current_course_data('name') . ' (' . claro_get_current_course_data('categoryName') . ')' . "\n" .
-                get_conf('siteName') . "\n"
+                $body = $msgContent . "\n" .
+                    "\n" .
+                    linker_display_resource()
                 ;
-
-                // Select students id list
-                $sql = "SELECT u.user_id AS id
-                        FROM `" . $tbl_course_user . "` AS cu
-                           , `" . $tbl_user . "`        AS u
-                        WHERE code_cours='" . addslashes(claro_get_current_course_id()) . "'
-                        AND   cu.user_id = u.user_id";
-
-                $studentIdList  = claro_sql_query_fetch_all_cols($sql);
-                $studentIdList  = $studentIdList['id'];
-                $studentIdCount = count($studentIdList);
-
-                $countEmail    = (is_array($studentIdList)) ? sizeof($studentIdList) : 0;
-                $countUnvalid  = 0;
-                $messageFailed = '';
-
-                $sentMailCount = claro_mail_user($studentIdList, $emailBody,
-                                  $emailSubject, claro_get_current_user_data('mail'), $courseSender);
-
-                $dialogBox->success( get_lang('Message sent') );
-
-                $unsentMailCount = $studentIdCount - $sentMailCount;
-
-                if ( $unsentMailCount > 0)
-                {
-                        $messageUnvalid = get_block('blockUsersWithoutValidEmail',
-                          array('%userQty'        => $studentIdCount,
-                                '%userInvalidQty' => $unsentMailCount,
-                                '%messageFailed'  => $messageFailed
-                                ));
-
-                        $dialogBox->error( $messageUnvalid );
-                }
+              
+                require_once dirname(__FILE__) . '/../messaging/lib/message/messagetosend.lib.php';
+                require_once dirname(__FILE__) . '/../messaging/lib/recipient/courserecipient.lib.php';
+                
+                $courseRecipient = new CourseRecipient($courseOfficialCode);
+                
+                $message = new MessageToSend(claro_get_current_user_id(),$subject,$body);
+                $message->setCourse(claro_get_current_course_id());
+                $message->setTools('CLANN');
+                
+                $messageId = $courseRecipient->sendMessage($message);
+                
             }   // end if $emailOption==1
         }   // end if $submit Announcement
 
@@ -438,22 +389,12 @@ if ( $displayButtonLine )
     .             '</a>' . "\n"
     ;
 
-    if ($emailNotificationAllowed)
-    {
-    $cmdList[] = '<a class="claroCmd" href="messages.php' . claro_url_relay_context('?') . '">'
+    $cmdList[] = '<a class="claroCmd" href="../messaging/messagescourse.php'.claro_url_relay_context('?') . '">'
         .             '<img src="' . get_path('imgRepositoryWeb') . 'email.gif" alt="" />'
     .             get_lang('Messages to selected users')
     .             '</a>' . "\n"
     ;
-    }
-    else
-    {
-    $cmdList[] = '<span class="claroCmdDisabled" title="' . get_lang('You need an email in your profile') . '" >'
-        .             '<img src="' . get_path('imgRepositoryWeb') . 'email.gif" alt="" />'
-    .             get_lang('Messages to selected users')
-    .             '</span>' . "\n"
-    ;
-    }
+    
     if (($announcementQty > 0 ))
     {
         $cmdList[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll' . claro_url_relay_context('&amp;') . '" '
@@ -533,20 +474,16 @@ if ( $displayForm )
     .    '</tr>' . "\n"
     ;
 
-    // TODO :  add else case  wich show disabled version ton show that possible  with a filled email.
-    if ($emailNotificationAllowed)
-    {
-        echo '<tr>'
-        .    '<td>&nbsp;</td>' . "\n"
-        .    '<td>'
-        .    '<input type="checkbox" value="1" name="emailOption" id="emailOption" />'
-        .    '<label for="emailOption">'
-        .    get_lang('Send this announcement by email to registered students')
-        .    '</label>' . "\n"
-        .    '</td>' . "\n"
-        .    '</tr>' . "\n"
-        ;
-    }
+   echo '<tr>'
+    .    '<td>&nbsp;</td>' . "\n"
+    .    '<td>'
+    .    '<input type="checkbox" value="1" name="emailOption" id="emailOption" />'
+    .    '<label for="emailOption">'
+    .    get_lang('Send this announcement by internal message to registered students')
+    .    '</label>' . "\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n"
+    ;
 
     echo '<tr>'
     .    '<td>&nbsp;</td>' . "\n"
