@@ -481,15 +481,18 @@ function user_send_registration_mail ($userId, $data)
 
 function profile_send_request_course_creator_status($explanation)
 {
+    require_once dirname(__FILE__) . '/../../messaging/lib/message/messagetosend.lib.php';
+    require_once dirname(__FILE__) . '/../../messaging/lib/recipient/userlistrecipient.lib.php';
+    
     global $_user;
 
     $mailToUidList = claro_get_uid_of_request_admin();
     if(empty($mailToUidList)) $mailToUidList = claro_get_uid_of_platform_admin();
 
+    
     $requestMessage_Title =
-    get_block('%sitename Request - Course creator status for %firstname %lastname',
-    array('%sitename'  => '['.get_conf('siteName').']',
-    '%firstname' => $_user['firstName'],
+    get_block('Course creator status for %firstname %lastname',
+    array('%firstname' => $_user['firstName'],
     '%lastname' => $_user['lastName'] ) );
 
     $requestMessage_Content =
@@ -504,10 +507,14 @@ function profile_send_request_course_creator_status($explanation)
     )
     );
 
-    claro_mail_user($mailToUidList, $requestMessage_Content,
-    $requestMessage_Title, $_user['mail'], $_user['firstName'] . ' ' . $_user['lastName']);
-
-    return true;
+    $message = new MessageToSend(claro_get_current_user_id(),$requestMessage_Title,$requestMessage_Content);
+    
+    $recipient = new UserListRecipient();
+    $recipient->addUserIdList($mailToUidList);
+    
+    $recipient->sendMessage($message);
+    
+    return true;   
 }
 
 /**
@@ -520,15 +527,17 @@ function profile_send_request_revoquation($explanation,$login,$password)
 {
     if (empty($explanation)) return claro_failure::set_failure('EXPLANATION_EMPTY');
 
+    require_once dirname(__FILE__) . '/../../messaging/lib/message/messagetosend.lib.php';
+    require_once dirname(__FILE__) . '/../../messaging/lib/recipient/userlistrecipient.lib.php';
+    
     $_user = claro_get_current_user_data();
 
     $mailToUidList = claro_get_uid_of_request_admin();
     if(empty($mailToUidList)) $mailToUidList = claro_get_uid_of_platform_admin();
-
+    
     $requestMessage_Title =
-    get_block('%sitename Request - Revocation of %firstname %lastname',
-    array('%sitename'  => '['.get_conf('siteName').']',
-    '%firstname' => $_user['firstName'],
+    get_block('Revocation of %firstname %lastname',
+    array('%firstname' => $_user['firstName'],
     '%lastname' => $_user['lastName'] ) );
 
     $requestMessage_Content =
@@ -545,12 +554,13 @@ function profile_send_request_revoquation($explanation,$login,$password)
     )
     );
 
-    claro_mail_user( $mailToUidList,
-                     $requestMessage_Content,
-                     $requestMessage_Title,
-                     $_user['mail'],
-                     $_user['firstName'] . ' ' . $_user['lastName']);
-
+    $message = new MessageToSend(claro_get_current_user_id(),$requestMessage_Title,$requestMessage_Content);
+    
+    $recipient = new UserListRecipient();
+    $recipient->addUserIdList($mailToUidList);
+    
+    $recipient->sendMessage($message);
+    
     return true;
 }
 
