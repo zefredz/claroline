@@ -433,16 +433,14 @@ function user_set_course_tutor($status , $userId, $courseId)
 
 function user_send_enroll_to_course_mail($userId, $data, $course=null)
 {
-    require_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
-
+    require_once dirname(__FILE__) . '/../../messaging/lib/message/messagetosend.lib.php';
+    require_once dirname(__FILE__) . '/../../messaging/lib/recipient/singleuserrecipient.lib.php';
+    
     $courseData = claro_get_course_data($course);
 
-    if ( ! empty($data['email']) )
-    {
+    $subject  = get_lang('Your registration') ;
 
-        $emailSubject  = '[' .  get_conf('siteName') . '-' . $courseData['officialCode']. '] ' . get_lang('Your registration') ;
-
-        $emailBody = get_block('blockCourseSubscriptionNotification',
+    $body = get_block('blockCourseSubscriptionNotification',
         array(
         '%firstname'=> $data['firstname'],
         '%lastname' => $data['lastname'],
@@ -451,21 +449,21 @@ function user_send_enroll_to_course_mail($userId, $data, $course=null)
         '%coursePath' => get_path('rootWeb') . 'claroline/course/index.php?cid=' . $courseData['sysCode'],
         '%siteName'=> get_conf('siteName'),
         '%rootWeb' => get_path('rootWeb'),
-
         '%administratorName' => get_conf('administrator_name'),
         '%administratorPhone'=> get_conf('administrator_phone'),
         '%administratorEmail'=> get_conf('administrator_email')
         ))
         ;
-
-        if ( claro_mail_user($userId, $emailBody, $emailSubject) ) return true;
-        else                                                        return false;
-
-    }
-    else
-    {
-        return false;
-    }
+    
+    $message = new MessageToSend(claro_get_current_user_id(),$subject,$body);
+    $message->setCourse($courseData['officialCode']);
+    
+    $recipient = new SingleUserRecipient($userId);
+    
+    //$message->sendTo($recipient);
+    $recipient->sendMessage($message);
+    
+    return true;
 }
 
 /**
@@ -608,4 +606,38 @@ function course_user_html_form ( $data, $courseId, $userId, $hiddenParam = null 
     return $form;
 }
 
+/**
+ * return the list of user of the course in parameter. It use by default the 
+ * current course identification
+ *
+ * @param char $courseId course identication
+ * @return array of int
+ */
+function claro_get_course_user_list($courseId = NULL)
+{
+	if($courseId == NULL)
+	{
+		$courseId = claro_get_current_course_id();
+	}
+	
+	$tbl_mdb_names = claro_sql_get_main_tbl();
+
+	$tbl_rel_course_user = $tbl_mdb_names['rel_course_user'  ];
+	$tbl_users           = $tbl_mdb_names['user'             ];
+	
+	$sqlGetUsers = "SELECT `user`.`user_id`      AS `user_id`,
+                       `user`.`nom`          AS `nom`,
+                       `user`.`prenom`       AS `prenom`,
+                       `user`.`email`        AS `email`,
+                       `course_user`.`profile_id`,
+                       `course_user`.`isCourseManager`,
+                       `course_user`.`tutor`  AS `tutor`,
+                       `course_user`.`role`   AS `role`
+               FROM `" . $tbl_users . "`           AS user,
+                    `" . $tbl_rel_course_user . "` AS course_user
+               WHERE `user`.`user_id`=`course_user`.`user_id`
+               AND   `course_user`.`code_cours`='" . addslashes($courseId) . "'";
+	
+	return claro_sql_query_fetch_all_rows($sqlGetUsers);
+}
 ?>
