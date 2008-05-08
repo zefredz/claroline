@@ -41,6 +41,8 @@
     }
     
     $displayForm = FALSE;
+    $content = "";
+    
     //commande
     $acceptedCmdList = array('exSendMessage');
     
@@ -102,7 +104,7 @@
             $dialogBox->success( get_lang('Message sent') );
     
     		$dialogBox->info('<a href="' . $_SERVER['PHP_SELF'] . '">&lt;&lt;&nbsp;' . get_lang('Back') . '</a>');
-    		$content = $dialogBox->render();
+    		$content .= $dialogBox->render();
     
         } // end cmd exSendMessage
         
