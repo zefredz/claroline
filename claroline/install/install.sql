@@ -295,7 +295,7 @@ CREATE TABLE `__CL_MAIN__im_recipient` (
 
 # STATS TABLES
 
-CREATE TABLE IF NOT EXISTS `__CL_STATS__track_e_DEFAULT` (
+CREATE TABLE IF NOT EXISTS `__CL_STATS__track_e_default` (
   `default_id` INT(11) NOT NULL AUTO_INCREMENT,
   `default_user_id` INT(11)  NOT NULL DEFAULT '0',
   `default_cours_code` VARCHAR(40) NOT NULL DEFAULT '',
