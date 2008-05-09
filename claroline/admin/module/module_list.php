@@ -566,10 +566,10 @@ switch ( $cmd )
         {
             $summary  = get_lang('Module installation failed');
             $details = get_lang('Missing module directory');
-        }
-
+            
             $msgList[][] = Backlog_Reporter::report( $summary, $details );
         }
+    }
     break ;
     case 'exLocalInstall' :
         {
