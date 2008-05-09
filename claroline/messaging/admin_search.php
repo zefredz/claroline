@@ -52,6 +52,8 @@ $acceptedCommand = array('rqDeleteSelection','exDeleteSelection');
 $box = new AdminMessageBox();
 $strategy = $box->getSelector();
 
+$JsLoader = JavascriptLoader::getInstance();
+$JsLoader->load('jquery');
 
 if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCommand))
 {
@@ -69,17 +71,17 @@ if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCommand))
             && is_array($_REQUEST['msg']))
     {
         
-        $form =    get_lang('Are you sure to delete selected message?') 
-        		 .	'<form action="" method="post">'
-        		 .  '<input type="hidden" name="cmd" value="exDeleteSelection" />'
+        $form =    get_lang('Are you sure to delete selected message?')."\n"
+        		 .	'<form action="" method="post">'."\n"
+        		 .  '<input type="hidden" name="cmd" value="exDeleteSelection" />'."\n\n"
         		 ;
         foreach ( $_REQUEST['msg'] as $count => $idMessage )
         {
-            $form .= '<input type="hidden" name="msg[]" value="'.$idMessage.'" />';
+            $form .= '<input type="hidden" name="msg[]" value="'.$idMessage.'" />'."\n";
         }
-		$form .= '<input type="submit" value="'.get_lang('Yes').'" /> '
-				 .  '<a href=""><input type="button" value="'.get_lang('No').'" /></a>'        		 
-                 .  '</form>'
+		$form .= '<input type="submit" value="'.get_lang('Yes').'" /> '."\n"
+				 .  '<a href=""><input type="button" value="'.get_lang('No').'" /></a>'   ."\n"     		 
+                 .  '</form>'."\n\n"
         		 ;
         
         $dialbox = new DialogBox();
@@ -225,7 +227,7 @@ if ($_REQUEST['search'] == 'fromUser')
         '<form action="'.$_SERVER['PHP_SELF'].'?search=fromUser" method="post">'."\n"
        .'Name: <input type="text" name="name" value="'.$name.'"/>'."\n"
        .'<input type="submit" value="'.get_lang("Search").'" />'."\n"
-       .'</form>'."\n"
+       .'</form>'."\n\n"
        ;
     $dialbox = new DialogBox();
     $dialbox->form($searchForm);
@@ -248,8 +250,6 @@ if ($_REQUEST['search'] == 'olderThan')
     $CssLoader = CssLoader::getInstance();
     $CssLoader->load('ui.datepicker');
     
-    $JsLoader = JavascriptLoader::getInstance();
-    $JsLoader->load('jquery');
     $JsLoader->load('ui.datepicker');
     
     $javascript = '
@@ -260,11 +260,11 @@ if ($_REQUEST['search'] == 'olderThan')
 		</script>';
     $claroline->display->header->addHtmlHeader($javascript);   
     $disp = '
-    	Select a date:<br />'
-    	. '<form action="'.$_SERVER['PHP_SELF'].'?search=olderThan" method="post">'
-    	. '<input type="text" name="date" value="'.$date.'" id="dateinput" /><br />'
-    	. '<input type="submit" value="'.get_lang('search').'" />'
-    	. '</form>'
+    	Select a date:<br />'."\n"."\n"
+    	. '<form action="'.$_SERVER['PHP_SELF'].'?search=olderThan" method="post">'."\n"
+    	. '<input type="text" name="date" value="'.$date.'" id="dateinput" /><br />'."\n"
+    	. '<input type="submit" value="'.get_lang('search').'" />'."\n"
+    	. '</form>'."\n\n"
     	;
     $dialbox = new DialogBox();
     $dialbox->form($disp);
@@ -288,27 +288,23 @@ if ($_REQUEST['search'] == 'timeInterval')
     $CssLoader = CssLoader::getInstance();
     $CssLoader->load('ui.datepicker');
     
-    $JsLoader = JavascriptLoader::getInstance();
-    $JsLoader->load('jquery');
     $JsLoader->load('ui.datepicker');
     
     $javascript = '
     	<script type="text/javascript" charset="utf-8">
-			jQuery(function($){
+			$(document).ready( function(){
 				$("#dateinput1").datepicker({dateFormat: \'dd/mm/yy\'});
-			});
-			jQuery(function($){
 				$("#dateinput2").datepicker({dateFormat: \'dd/mm/yy\'});
 			});
 		</script>';
     $claroline->display->header->addHtmlHeader($javascript);    
     $disp = '
-    	Select a interval:<br />'
-    	. '<form action="'.$_SERVER['PHP_SELF'].'?search=timeInterval" method="post">'
-    	. get_lang('begin date').': 1<input type="text" name="date1" value="'.$date1.'" id="dateinput1" /><br />'
-    	. get_lang('end date').': <input type="text" name="date2" value="'.$date2.'" id="dateinput2" /><br />'
-    	. '<input type="submit" value="'.get_lang('search').'" />'
-    	. '</form>'
+    	Select a interval:<br />'."\n"
+    	. '<form action="'.$_SERVER['PHP_SELF'].'?search=timeInterval" method="post">'."\n"
+    	. get_lang('begin date').': 1<input type="text" name="date1" value="'.$date1.'" id="dateinput1" /><br />'."\n"
+    	. get_lang('end date').': <input type="text" name="date2" value="'.$date2.'" id="dateinput2" /><br />'."\n"
+    	. '<input type="submit" value="'.get_lang('search').'" />'."\n"
+    	. '</form>'."\n\n"
     	;
     $dialbox = new DialogBox();
     $dialbox->form($disp);
@@ -328,24 +324,12 @@ if ($displayTable)
     }
     $orderLink .= "order=".$nextOrder."&amp;";
     
-    $JsLoader = JavascriptLoader::getInstance();
-    $JsLoader->load('jquery');
     $javascriptDelete = '
     <script type="text/javascript">
-        function countCheckedBox()
-        {
-           var counter = 0;
-        
-           $("input[@type=checkbox][@checked]").each( function() {
-               counter++;
-           });
-        
-           return counter;
-        }
-        
+  
         function deleteSelection ()
         {
-           if ( ! countCheckedBox() )
+           if ( $("input[@type=checkbox][@checked]").size() < 1 )
            {
                alert("No document selected !");
                return false;
@@ -365,11 +349,11 @@ if ($displayTable)
     $claroline->display->header->addHtmlHeader($javascriptDelete);
     $argDeleteSelection = makeArgLink($arguments,array('cmd'));
     $content .= '<form action="'.$_SERVER['PHP_SELF'].'?'.$argDeleteSelection.'" method="post"
-    			onsubmit="return deleteSelection(this)">'
-    		. '<input type="hidden" name="cmd" value="rqDeleteSelection" />'
+    			onsubmit="return deleteSelection(this)">'."\n"
+    		. '<input type="hidden" name="cmd" value="rqDeleteSelection" />'."\n\n"
     		;
     $content .= "<br />"
-       .'<table class="claroTable emphaseLine" width="100%">'."\n"
+       .'<table class="claroTable emphaseLine" width="100%">'."\n\n"
        .'	<tr class ="headerX">'."\n"
        .'		<th>&nbsp;</th>'."\n"
        .'		<th>'.get_lang('Subject').'</th>'."\n"
@@ -377,13 +361,13 @@ if ($displayTable)
        .'		<th><a href="'.$orderLink.'fieldOrder=username">'.get_lang('Username').'</a></th>'."\n"
        .'		<th><a href="'.$orderLink.'fieldOrder=date">'.get_lang('Date').'</a></th>'."\n"
        .'		<th class="im_list_action">'.get_lang('Delete').'</th>'."\n"
-       .'	</tr>'
+       .'	</tr>'."\n\n"
        ;
     if ($box->getNumberOfMessage() == 0)
     {
         $content .= 
-            '<tr>'
-           .'	<td colspan="6">'.get_lang('There is no message corresponding on your request').'</td>'
+            '<tr>'."\n"
+           .'	<td colspan="6">'.get_lang('There is no message corresponding on your request').'</td>'."\n"
            .'</tr>' 
            ;
     }
