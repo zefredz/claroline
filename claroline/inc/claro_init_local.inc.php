@@ -504,10 +504,15 @@ if ( $cidReset ) // course session data refresh requested
         $_course = null;
 
         $_groupProperties ['registrationAllowed'] = false;
-        $_groupProperties ['tools'] ['CLFRM'    ] = false;
-        $_groupProperties ['tools'] ['CLDOC'    ] = false;
-        $_groupProperties ['tools'] ['CLWIKI'   ] = false;
-        $_groupProperties ['tools'] ['CLCHT'    ] = false;
+        
+        $groupToolList = get_group_tool_label_list();
+        
+        foreach ( $groupToolList as $thisGroupTool )
+        {
+            $thisGroupToolLabel = $thisGroupTool['label'];
+            $propertyList['tools'][$thisGroupToolLabel] = false;
+        }
+        
         $_groupProperties ['private'            ] = true;
     }
 

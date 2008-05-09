@@ -37,8 +37,9 @@
 $tlabelReq = 'CLGRP';
 DEFINE('DISP_GROUP_LIST', __LINE__);
 DEFINE('DISP_GROUP_SELECT_FOR_ACTION', __LINE__);
-$gidReq=null;
-$gidReset=true;
+
+$gidReq = null;
+$gidReset = true;
 require '../inc/claro_init_global.inc.php';
 if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 require_once get_path('incRepositorySys') . '/lib/group.lib.inc.php' ;
@@ -93,10 +94,10 @@ if ( ! $nbGroupPerUser )
     $nbGroupPerUser = claro_sql_query_get_single_value($sql);
 }
 
-$tools['forum'   ] = $_groupProperties['tools']['CLFRM' ];
+/*$tools['forum'   ] = $_groupProperties['tools']['CLFRM' ];
 $tools['document'] = $_groupProperties['tools']['CLDOC' ];
 $tools['wiki'    ] = $_groupProperties['tools']['CLWIKI'];
-$tools['chat'    ] = $_groupProperties['tools']['CLCHT' ];
+$tools['chat'    ] = $_groupProperties['tools']['CLCHT' ];*/
 
 //// **************** ACTIONS ***********************
 
@@ -304,33 +305,39 @@ if ( $is_allowedToManage )
         $newPropertyList['private'          ] = isset($_REQUEST['private'] )
                                               ? (int) $_REQUEST['private']
                                               : $private = 0;
+                                              
+        $groupToolList = get_group_tool_label_list();
+        
+        foreach ( $groupToolList as $thisGroupTool )
+        {
+            $thisGroupToolLabel = $thisGroupTool['label'];
+            
+            $newPropertyList[$thisGroupToolLabel] = isset($_REQUEST[$thisGroupToolLabel])
+                ? (int) $_REQUEST[$thisGroupToolLabel]
+                : 0
+                ;
+        }
 
-        $newPropertyList['CLFRM'            ] = isset($_REQUEST['CLFRM'])
-                                              ? (int) $_REQUEST['CLFRM']
-                                              :  0;
-
-        $newPropertyList ['CLDOC'        ] = isset($_REQUEST['CLDOC'])
-                                              ? (int) $_REQUEST['CLDOC']
-                                              : 0;
-
-        $newPropertyList ['CLCHT'            ] = isset($_REQUEST['CLCHT'])
-                                              ? (int) $_REQUEST['CLCHT']
-                                              :  0;
-
-        $newPropertyList['CLWIKI'             ] = isset($_REQUEST['CLWIKI'])
-                                              ? (int) $_REQUEST['CLWIKI']
-                                              : 0;
-
-        foreach($newPropertyList as $propertyName => $propertyValue)
+        foreach ($newPropertyList as $propertyName => $propertyValue)
         {
 
-            if (     is_null($propertyValue)) $sqlReadyPropertyValue = "NULL";
-            elseif ( is_int ($propertyValue)) $sqlReadyPropertyValue = $propertyValue;
-            else                              $sqlReadyPropertyValue = "'" . addslashes($propertyValue) . "'";
+            if ( is_null($propertyValue))
+            {
+                $sqlReadyPropertyValue = "NULL";
+            }
+            elseif ( is_int ($propertyValue))
+            {
+                $sqlReadyPropertyValue = $propertyValue;
+            }
+            else
+            {
+                $sqlReadyPropertyValue = "'" . addslashes($propertyValue) . "'";
+            }
 
             $sql = "UPDATE `".$tbl_course_properties."`
                     SET `value` = " . $sqlReadyPropertyValue . "
                     WHERE `name` = '" . $propertyName . "'";
+                    
             if ( claro_sql_query_affected_rows($sql) > 0 )
             {
                 continue;
@@ -351,6 +358,8 @@ if ( $is_allowedToManage )
 
         $cidReset = TRUE;
         $cidReq   = claro_get_current_course_id();
+        $gidReset = TRUE;
+        $gidReq = null;
 
         include get_path('incRepositorySys') . '/claro_init_local.inc.php';
 
@@ -365,10 +374,10 @@ if ( $is_allowedToManage )
         );
 
         $groupPrivate    = $_groupProperties['private'        ];
-        $groupHaveForum  = $_groupProperties['tools']['CLFRM' ];
+        /* $groupHaveForum  = $_groupProperties['tools']['CLFRM' ];
         $groupHaveDocs   = $_groupProperties['tools']['CLDOC' ];
         $groupHaveWiki   = $_groupProperties['tools']['CLWIKI'];
-        $groupHaveChat   = $_groupProperties['tools']['CLCHT' ];
+        $groupHaveChat   = $_groupProperties['tools']['CLCHT' ];*/
 
     }    // end if $submit
 

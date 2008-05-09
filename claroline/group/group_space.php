@@ -199,7 +199,8 @@ foreach($toolList as $thisTool)
     // special case when display mode is student and tool invisible doesn't display it
     if ( !claro_is_allowed_to_edit() )
     {
-        if(!array_key_exists($thisTool['label'],$_groupProperties['tools']) || !$_groupProperties['tools'][$thisTool['label']])
+        if(!array_key_exists($thisTool['label'],$_groupProperties['tools'])
+           || !$_groupProperties['tools'][$thisTool['label']])
         {
             continue;
         }
@@ -225,11 +226,11 @@ foreach($toolList as $thisTool)
 
     if (! empty($thisTool['icon']))
     {
-        $icon = get_path('imgRepositoryWeb') . $thisTool['icon'];
+        $icon = get_icon_url( $thisTool['icon'], $thisTool['label']);
     }
     else
     {
-        $icon = get_path('imgRepositoryWeb') . 'tool.gif';
+        $icon = get_icon_url( 'tool.gif' );
     }
 
     $style = '';
@@ -237,21 +238,13 @@ foreach($toolList as $thisTool)
     // patchy
     if ( claro_is_platform_admin() || claro_is_course_manager() )
     {
-        if(!array_key_exists($thisTool['label'],$_groupProperties['tools']) || !$_groupProperties['tools'][$thisTool['label']])
+        if(!array_key_exists($thisTool['label'],$_groupProperties['tools'])
+           || !$_groupProperties['tools'][$thisTool['label']])
         {
             $style = 'invisible ';
         }
     }
 
-    /*    if ($accessLevelList[$thisTool['access']] > $accessLevelList['ALL'])
-    {
-    $style = 'invisible ';
-    }
-    else
-    {
-    $style = '';
-    }
-    */
     // see if tool name must be displayed 'as containing new items' (a red ball by default)  or not
     $classItem = '';
     if (in_array($thisTool['id'], $modified_tools)) $classItem = " hot";

@@ -17,6 +17,9 @@
  */
 $tlabelReq = 'CLGRP';
 require '../inc/claro_init_global.inc.php';
+
+// $_groupProperties = claro_get_main_group_properties(claro_get_current_course_id());
+
 include_once get_path('incRepositorySys') . '/lib/group.lib.inc.php';
 
 // display login form
@@ -163,7 +166,8 @@ foreach ($groupToolList as $groupTool)
     .    '<input type="checkbox" name="' . $groupTool['label'] . '" id="' . $groupTool['label'] . '" value="1" '
     ;
 
-    if($_groupProperties['tools'] [$groupTool['label']]) echo "checked";
+    if( isset( $_groupProperties['tools'] [$groupTool['label']] )
+       && $_groupProperties['tools'] [$groupTool['label']]) echo "checked";
     echo '  />' . "\n"
     .    '<label for="' . $groupTool['label'] . '">' . get_lang($toolName)  . '</label>' . "\n"
     .    '</span>' . "\n"

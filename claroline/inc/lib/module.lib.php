@@ -600,3 +600,19 @@ function load_module_config ( $moduleLabel = null )
         }
     }
 }
+
+function get_group_tool_label_list( $activatedOnly = true )
+{
+    $tbl = claro_sql_get_main_tbl();
+    
+    $sql = "SELECT `m`.`label` AS `label`\n"
+        . " FROM `{$tbl['module']}` AS `m`\n"
+        . "LEFT JOIN `{$tbl['module_contexts']}` AS `mc`\n"
+        . " ON `mc`.`module_id` = `m`.`id`\n"
+        . "WHERE `mc`.`context` = 'group' "
+        . " AND `m`.`type` = 'tool' "
+        . ( $activatedOnly ? " AND `m`.`activation` = 'activated' " : '' )
+        ;
+    
+    return claro_sql_query_fetch_all_rows($sql);
+}

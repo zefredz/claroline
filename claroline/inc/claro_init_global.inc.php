@@ -266,7 +266,6 @@ if ( claro_is_in_a_tool() )
 language::load_translation();
 language::load_locale_settings();
 language::load_module_translation();
-// load_module_language();
 
 /*----------------------------------------------------------------------
   Prevent duplicate form submission
@@ -329,6 +328,7 @@ if ( isset($_POST['claroFormId']) )
 
 $module_cache_filename = get_conf('module_cache_filename','moduleCache.inc.php');
 $cacheRepositorySys = get_path('rootSys') . get_conf('cacheRepository', 'tmp/cache/');
+
 if (!file_exists($cacheRepositorySys . $module_cache_filename))
 {
     require_once get_path('incRepositorySys') . '/lib/module/manage.lib.php';
@@ -339,7 +339,10 @@ if (file_exists($cacheRepositorySys . $module_cache_filename))
 {
     include $cacheRepositorySys . $module_cache_filename;
 }
-else pushClaroMessage('module_cache not generated : check access right in '.$cacheRepositorySys,'warning');
+else
+{
+    pushClaroMessage('module_cache not generated : check access right in '.$cacheRepositorySys,'warning');
+}
 
 // Add feed RSS in header
 if ( claro_is_in_a_course() && get_conf('enableRssInCourse', true) )

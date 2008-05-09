@@ -215,12 +215,15 @@ function claro_get_main_group_properties($courseId)
         $propertyList ['nbGroupPerUser'     ] =  $tempList['nbGroupPerUser'];
 
         $propertyList['tools'] = array();
-
-        $propertyList ['tools'] ['CLFRM'    ] =   ($tempList['CLFRM']             == 1);
-        $propertyList ['tools'] ['CLDOC'    ] =   ($tempList['CLDOC']             == 1);
-        $propertyList ['tools'] ['CLWIKI'   ] =   ($tempList['CLWIKI']            == 1);
-        $propertyList ['tools'] ['CLCHT'    ] =   ($tempList['CLCHT']             == 1);
-
+        
+        $groupToolList = get_group_tool_label_list();
+        
+        foreach ( $groupToolList as $thisGroupTool )
+        {
+            $thisGroupToolLabel = $thisGroupTool['label'];
+            $propertyList['tools'][$thisGroupToolLabel] = ($tempList[$thisGroupToolLabel] == 1);
+        }
+        
         return $propertyList;
     }
     else

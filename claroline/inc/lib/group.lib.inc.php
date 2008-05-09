@@ -540,8 +540,6 @@ function get_course_tutor_list($currentCourseId)
     return $resultTutor;
 }
 
-
-
 /**
  * This dirty function is a blackbox to provide normalised output of tool list for a group
  * like  get_course_tool_list($course_id=NULL) in course_home.
@@ -553,8 +551,6 @@ function get_course_tutor_list($currentCourseId)
  * @author Christophe Gesché <moosh@claroline.net>
  * @return array
  */
-
-
 function get_group_tool_list($course_id=NULL,$active = true)
 {
     global $forumId;
@@ -570,7 +566,7 @@ function get_group_tool_list($course_id=NULL,$active = true)
     // managing by module structure
     // It's represent tools aivailable to work in a group context.
 
-    $aivailable_tool_in_group = array('CLFRM','CLCHT','CLDOC','CLWIKI');
+    // $aivailable_tool_in_group = array('CLFRM','CLCHT','CLDOC','CLWIKI');
 
     $sql = "
 SELECT tl.id                               id,
@@ -586,6 +582,9 @@ LEFT JOIN `" . $tbl['tool'] . "` `ct`
 ON        ct.id = tl.tool_id
 LEFT JOIN `" . $tbl['module'] . "` `m`
 ON        m.label = ct.claro_label
+LEFT JOIN `" . $tbl['module_contexts'] . "` `mc`
+ON        m.id = mc.module_id
+WHERE `mc`.`context` = 'group'
 ORDER BY tl.rank
 
 ";
@@ -598,47 +597,25 @@ ORDER BY tl.rank
     {
         $tool['label'] = trim($tool['label'],'_');
 
-        if (in_array($tool['label'],$aivailable_tool_in_group)
-        && ( $active !== true || 'activated' == $tool['activation']))
+        if (/*in_array($tool['label'],$aivailable_tool_in_group)
+        &&*/ ( $active !== true || 'activated' == $tool['activation']))
         switch ($tool['label'])
         {
-            case 'CLDOC' :
-                if($_groupProperties['tools']['CLDOC'] || $isAllowedToEdit)
-                {
-                    $tool['url'] .= claro_url_relay_context('?') ;
-                    $group_tool_list[] = $tool;
-                }
-                break;
-
             case 'CLFRM' :
-
                 if($_groupProperties['tools']['CLFRM'] || $isAllowedToEdit)
                 {
                     $tool['url'] = 'viewforum.php?forum=' . $forumId . claro_url_relay_context('&amp;') ; ;
                     $group_tool_list[] = $tool;
                 }
-
                 break;
-
-            case 'CLWIKI' :
-
-                if($_groupProperties['tools']['CLWIKI'] || $isAllowedToEdit)
+            default :
+                if( ( isset($_groupProperties['tools'][$tool['label']])
+                   && $_groupProperties['tools'][$tool['label']] ) || $isAllowedToEdit )
                 {
                     $tool['url'] .= claro_url_relay_context('?') ;
                     $group_tool_list[] = $tool;
                 }
                 break;
-
-            case 'CLCHT' :
-
-                if($_groupProperties['tools']['CLCHT'] || $isAllowedToEdit)
-                {
-                    $tool['url'] .= claro_url_relay_context('?') ;
-                    $group_tool_list[] = $tool;
-                }
-                break;
-
-
         }
     }
 
