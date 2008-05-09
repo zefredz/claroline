@@ -151,15 +151,32 @@ class ClaroCourse extends KernelObject
         $groupProperties ['private'] =  (bool) ($groupProperties['private'] == 1);
 
         $groupProperties['tools'] = array();
+        
+        $groupToolList = get_group_tool_label_list();
+        
+        foreach ( $groupToolList as $thisGroupTool )
+        {
+            $groupTLabel = $thisGroupTool['label'];
+            
+            if ( array_key_exists( $groupTLabel, $groupProperties ) )
+            {
+                $groupProperties ['tools'] [$groupTLabel] = (bool) ($groupProperties[$groupTLabel] == 1);
+                unset ( $groupProperties[$groupTLabel] );
+            }
+            else
+            {
+                $groupProperties ['tools'] [$groupTLabel] = false;
+            }
+        }
 
-        $groupProperties ['tools'] ['CLFRM'] =  (bool) ($groupProperties['CLFRM'] == 1);
+        /*$groupProperties ['tools'] ['CLFRM'] =  (bool) ($groupProperties['CLFRM'] == 1);
         unset ( $groupProperties['CLFRM'] );
         $groupProperties ['tools'] ['CLDOC'] =  (bool) ($groupProperties['CLDOC'] == 1);
         unset ( $groupProperties['CLDOC'] );
         $groupProperties ['tools'] ['CLWIKI'] =  (bool) ($groupProperties['CLWIKI'] == 1);
         unset ( $groupProperties['CLWIKI'] );
         $groupProperties ['tools'] ['CLCHT'] =  (bool) ($groupProperties['CLCHT'] == 1);
-        unset ( $groupProperties['CLCHT'] );
+        unset ( $groupProperties['CLCHT'] );*/
         
         return $groupProperties;
     }
