@@ -196,11 +196,17 @@
             {
                 $userToolUrlList = array();
                 
+                $userToolUrlList[]  = '<a href="'
+                    . get_path('clarolineRepositoryWeb')
+                    . 'desktop/index.php" target="_top">'
+                    . get_lang('My Desktop').'</a>'
+                    ;
+                
                 $userToolUrlList[]= '<a href="'.  get_path('url')
                     . '/index.php" target="_top">'
                     . get_lang('My course list').'</a>'
                     ;
-                $userToolList = claro_get_user_tool_list();
+                /*$userToolList = claro_get_user_tool_list();
                 
                 foreach ($userToolList as $userTool)
                 {
@@ -208,7 +214,7 @@
                         . '/' . $userTool['entry'] . '" target="_top">'
                         . get_lang('My calendar').'</a>'
                         ;
-                }
+                }*/
                 
                 $userToolUrlList[]  = '<a href="'
                     . get_path('clarolineRepositoryWeb')
