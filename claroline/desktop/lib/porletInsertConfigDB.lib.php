@@ -28,12 +28,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     	public function __construct()
     	{
 	        $tblNameList = array(
-	            'cl_desktop_portlet'
+	            'desktop_portlet'
 	        );
 
 	        // convert to Claroline course table names
-	        $tbl_lp_names = get_module_course_tbl( $tblNameList, claro_get_current_course_id() );
-	        $this->tblDesktopPortlet = $tbl_lp_names['cl_desktop_portlet'];
+	        $tbl_lp_names = get_module_main_tbl( $tblNameList, claro_get_current_course_id() );
+	        $this->tblDesktopPortlet = $tbl_lp_names['desktop_portlet'];
     	}
 
 
