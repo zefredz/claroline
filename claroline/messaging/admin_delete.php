@@ -257,7 +257,7 @@ if($displaySearchUser)
     $form =
          '<form action="" method="post">'
         .get_lang('User').': <input type="text" name="search" value="'.$search.'" class="inputSearch" />'
-        .'<input type="submit" value="'.get_lang('Search').'">' 
+        .'<input type="submit" value="'.get_lang('Search').'" />' 
         .'</form>'
         ;
         
@@ -291,23 +291,23 @@ if ($displayResultUserSearch)
     }
     
     $content .= '<br />'
-       .'<table class="claroTable emphaseLine">'
-       .'<tr class="headerX">'
-       .'<th>'.get_lang('Id').'</td>'
-       .'<th><a href="'.$linkSorting.'name&amp;order='.$nextOrder.'">'.get_lang('Name').'</a></td>'
-       .'<th><a href="'.$linkSorting.'username&amp;order='.$nextOrder.'">'.get_lang('Username').'</a></td>'
-       .'<th>'.get_lang('action').'</td>'
-       .'</tr>' 
+       .'<table class="claroTable emphaseLine">'."\n\n"
+       .'<tr class="headerX">'."\n"
+       .'<th>'.get_lang('Id').'</th>'."\n"
+       .'<th><a href="'.$linkSorting.'name&amp;order='.$nextOrder.'">'.get_lang('Name').'</a></th>'."\n"
+       .'<th><a href="'.$linkSorting.'username&amp;order='.$nextOrder.'">'.get_lang('Username').'</a></th>'."\n"
+       .'<th>'.get_lang('action').'</th>'."\n"
+       .'</tr>'."\n\n"
        ;
      foreach ($userList as $key => $user)
      {
          $content .=
-              '<tr>'
-             .'<td>'.$user['id'].'</td>'
-             .'<td>'.$user['lastname'].' '.$user['firstname'].'</td>'
-             .'<td>'.$user['username'].'</td>'
-             .'<td><a href="'.$linkDelete.$user['id'].'">delete messages</a></td>' 
-             .'</tr>'
+              '<tr>'."\n"
+             .'<td>'.$user['id'].'</td>'."\n"
+             .'<td>'.$user['lastname'].' '.$user['firstname'].'</td>'."\n"
+             .'<td>'.$user['username'].'</td>'."\n"
+             .'<td><a href="'.$linkDelete.$user['id'].'">delete messages</a></td>' ."\n"
+             .'</tr>'."\n\n"
              ; 
      }
      $content .=

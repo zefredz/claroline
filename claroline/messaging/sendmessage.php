@@ -194,7 +194,7 @@
     {
         $content .= "<br/>";
         
-        $content .= '<form method="post" action="sendmessage.php?cmd=exSendMessage'.claro_url_relay_context('&amp').'">';
+        $content .= '<form method="post" action="sendmessage.php?cmd=exSendMessage'.claro_url_relay_context('&amp;').'">';
         $content .= '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />';
         $content .= claro_form_relay_context();
         $content .= '<input type="hidden" name="cmd" value="exSendMessage" />';

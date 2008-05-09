@@ -91,8 +91,8 @@
             
              
             $message = new MessageToSend(claro_get_current_user_id(),$subject,$body);
-            $message->setCourse($_course['officialCode']);
-            $message->setGroup(claro_get_current_group_id());
+            $message->setCourse(claro_get_current_course_id());
+            //$message->setGroup(claro_get_current_group_id());
 
             $recipient = new UserListRecipient();
             $recipient->addUserIdList($userIdList);
@@ -311,6 +311,7 @@
         .    '</div>'
         .    '</div>'
         .    '</form>'
+        .    '</div>'
         ;
         
     }

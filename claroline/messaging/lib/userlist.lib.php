@@ -126,8 +126,7 @@ class UserList implements Iterator
         
         // If message list not loaded, load it !
         $this->loadUserList();
-        
-        return $this->userList[$this->index]['user_id'];
+        return $this->userList[$this->index]['id'];
     }
 
     public function next()

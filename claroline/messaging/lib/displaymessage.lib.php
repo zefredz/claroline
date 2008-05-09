@@ -175,23 +175,22 @@ class DisplayMessage
         
         $content = '<div id="im_message">'."\n"
                 .  '<h4 class="header">'.htmlspecialchars($message->getSubject()).'</h4>'."\n"
-                .  '<div class="imInfo">'
-                .          '<span class="imInfoTitle">'.get_lang('Sender').'</span>'
-                .       '<div class="imInfoValue">'.self::dispNameLinkCompose($message->getSender(),$message->getSenderLastName(),$message->getSenderFirstName()).'</div>'
-                .   '</div>'
-                .   '<div class="imInfo">'
-                .          '<span class="imInfoTitle">'.get_lang('Date').'</span>'
-                .       '<div class="imInfoValue">'.claro_html_localised_date(get_locale('dateTimeFormatLong'),strtotime($message->getSendTime())).'</div>'
-                .   '</div>'
+                .  '<div class="imInfo">'."\n"
+                .          '<span class="imInfoTitle">'.get_lang('Sender').'</span>'."\n"
+                .       '<div class="imInfoValue">'.self::dispNameLinkCompose($message->getSender(),$message->getSenderLastName(),$message->getSenderFirstName()).'</div>'."\n"
+                .   '</div>'."\n\n"
+                .   '<div class="imInfo">'."\n"
+                .          '<span class="imInfoTitle">'.get_lang('Date').'</span>'."\n"
+                .       '<div class="imInfoValue">'.claro_html_localised_date(get_locale('dateTimeFormatLong'),strtotime($message->getSendTime())).'</div>'."\n"
+                .   '</div>'."\n\n"
                 ;
         
-        
-            
         if (!is_null($message->getCourseCode()))
         {
-            $content .=     '<div class="imInfo">'
-                .          '<span class="imInfoTitle">'.get_lang('Course').'</span>'
-                .       '<div class="imInfoValue">'
+            echo $message->getCourseCode();
+            $content .=     '<div class="imInfo">'."\n"
+                .          '<span class="imInfoTitle">'.get_lang('Course').'</span>'."\n"
+                .       '<div class="imInfoValue">'."\n"
                 ;
             
             $courseData = claro_get_course_data($message->getCourseCode());
@@ -205,13 +204,13 @@ class DisplayMessage
                 $content .= '?';
             }
             
-            $content .= '</div>';
+            $content .= '</div>."\n".</div>'."\n\n";
             
             if (!is_null($message->getGroupId()))
             {
-                $content .= '<div class="imInfo">'
-                .          '<span class="imInfoTitle">'.get_lang('Group').'</span>'
-                .       '<div class="imInfoValue">'
+                $content .= '<div class="imInfo">'."\n"
+                .          '<span class="imInfoTitle">'.get_lang('Group').'</span>'."\n"
+                .       '<div class="imInfoValue">'."\n"
                 ;
                 
                 $groupData = claro_get_group_data(array (CLARO_CONTEXT_COURSE => $message->getCourseCode(),
@@ -225,14 +224,14 @@ class DisplayMessage
                      $content .= '?';
                 }
                 
-                $content .= '</div>';
+                $content .= '</div>."\n".</div>'."\n\n";
             }
             
             if (!is_null($message->getToolsLabel()))
             {
-                $content .= '<div class="imInfo">'
-                .          '<span class="imInfoTitle">'.get_lang('Tool').'</span>'
-                .       '<div class="imInfoValue">'
+                $content .= '<div class="imInfo">'."\n"
+                .          '<span class="imInfoTitle">'.get_lang('Tool').'</span>'."\n"
+                .       '<div class="imInfoValue">'."\n"
                 ;
                 
                 $md = get_module_data($message->getToolsLabel());
@@ -246,14 +245,15 @@ class DisplayMessage
                     $content .= '?';
                 }
                 
-                $content .= '</div>';
+                $content .= '</div>."\n"</div>'."\n\n";
+                
             }
         }
         
-        $content .= '<div class="imCmdList">'.$action.'</div>';
-        $content .= '<div class="imInfo">'
-                 .       '<div class="imContent">'.claro_parse_user_text($message->getMessage()).'</div>'
-                .   '</div>'
+        $content .= '<div class="imCmdList">'.$action.'</div>'."\n\n";
+        $content .= '<div class="imInfo">'."\n"
+                 .       '<div class="imContent">'.claro_parse_user_text($message->getMessage()).'</div>'."\n"
+                .   '</div></div>'."\n\n"
                 ;
 
         return $content;

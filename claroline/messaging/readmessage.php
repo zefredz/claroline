@@ -163,7 +163,7 @@
                 
                 $action .= '[<a href="./messagebox.php?box=inbox&amp;userId='.$userId.'">'.get_lang('Back to the list').'</a>]';
                 $action .= ' [<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqDelete&amp;messageId='.$_REQUEST['messageId'].'&amp;type='.$_REQUEST['type'].'&amp;userId='.$userId.'"
-                 onclick="return deleteMessage(\''.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;messageId='.$_REQUEST['messageId'].'&amp;type='.$_REQUEST['type'].'&amp;userId='.$userId.'\')"><img src="img/user-trash-full.gif" alt=""></a>]';
+                 onclick="return deleteMessage(\''.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;messageId='.$_REQUEST['messageId'].'&amp;type='.$_REQUEST['type'].'&amp;userId='.$userId.'\')"><img src="img/user-trash-full.gif" alt="" /></a>]';
             }
         }
         else

@@ -252,7 +252,7 @@ if ($_REQUEST['search'] == 'olderThan')
     $JsLoader->load('jquery');
     $JsLoader->load('ui.datepicker');
     
-    $javascript .= '
+    $javascript = '
     	<script type="text/javascript" charset="utf-8">
 			jQuery(function($){
 				$("#dateinput").datepicker({dateFormat: \'dd/mm/yy\'});
@@ -305,7 +305,7 @@ if ($_REQUEST['search'] == 'timeInterval')
     $disp = '
     	Select a interval:<br />'
     	. '<form action="'.$_SERVER['PHP_SELF'].'?search=timeInterval" method="post">'
-    	. get_lang('begin date').': <input type="text" name="date1" value="'.$date1.'" id="dateinput1" /><br />'
+    	. get_lang('begin date').': 1<input type="text" name="date1" value="'.$date1.'" id="dateinput1" /><br />'
     	. get_lang('end date').': <input type="text" name="date2" value="'.$date2.'" id="dateinput2" /><br />'
     	. '<input type="submit" value="'.get_lang('search').'" />'
     	. '</form>'
@@ -394,17 +394,17 @@ if ($displayTable)
             $userData = user_get_properties($message->getSender());
             
             $content .= 
-                '<tr>'
-               .'<td class="im_list_selection"><input type="checkbox" name="msg[]" value="'.$message->getId().'" /></td>'
-               .'<td>'.htmlspecialchars($message->getSubject()).'</td>'
-               .'<td>'.htmlspecialchars($message->getSenderLastName().' '.$message->getSenderFirstName()).'</td>'
-               .'<td>'.htmlspecialchars($userData['username']).'</td>'
-               .'<td>'.claro_html_localised_date(get_locale('dateTimeFormatLong'),strtotime($message->getSendTime())).'</td>'
-               .'<td class="im_list_action"><img src="'.get_icon('delete.gif').'" alt="" /></td>'
-			   .'</tr>'
+                '<tr>'."\n"
+               .'<td class="im_list_selection"><input type="checkbox" name="msg[]" value="'.$message->getId().'" /></td>'."\n"
+               .'<td>'.htmlspecialchars($message->getSubject()).'</td>'."\n"
+               .'<td>'.htmlspecialchars($message->getSenderLastName().' '.$message->getSenderFirstName()).'</td>'."\n"
+               .'<td>'.htmlspecialchars($userData['username']).'</td>'."\n"
+               .'<td>'.claro_html_localised_date(get_locale('dateTimeFormatLong'),strtotime($message->getSendTime())).'</td>'."\n"
+               .'<td class="im_list_action"><img src="'.get_icon('delete.gif').'" alt="" /></td>'."\n"
+			   .'</tr>'."\n\n"
 			   ;
        }
-       $content .= '<tr><td colspan="6"><input type="submit" value="'.get_lang('Delete message selected').'" /></td></tr>';
+       $content .= '<tr><td colspan="6"><input type="submit" value="'.get_lang('Delete message selected').'" /></td></tr>'."\n\n";
    }
    $content .= '</table>';
    $content .= '</form>';

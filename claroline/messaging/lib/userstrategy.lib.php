@@ -28,6 +28,7 @@ class UserStrategy implements SelectorStrategy
     
     protected $nameSearch = "";
     
+    protected $order = self::ORDER_DESC;
     protected $fieldOrder = self::ORDER_BY_NAME;
     
     protected $numberOfUserPerPage;
