@@ -225,7 +225,7 @@
                 $userToolUrlList[]  = '<a href="'
                     . get_path('clarolineRepositoryWeb')
                     . 'messaging" target="_top">'
-                    . get_lang('My messages').'</a>'
+                    . get_lang('My Messages').'</a>'
                     ;    
                 
                 if(claro_is_platform_admin())
