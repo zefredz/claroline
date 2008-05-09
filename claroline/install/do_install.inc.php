@@ -382,13 +382,16 @@ if ($runfillMainDb && $runfillStatsDb)
                                'CLCHT',
                                'CLWIKI');
     
-    $moduleDirIterator = new DirectoryIterator( get_path('rootSys') . 'module' );
-    
-    foreach ( $moduleDirIterator as $moduleDir )
+    if ( file_exists( get_path('rootSys') . 'module' ) )
     {
-        if ( $moduleDir->isDir() && ! $moduleDir->isDot() )
+        $moduleDirIterator = new DirectoryIterator( get_path('rootSys') . 'module' );
+        
+        foreach ( $moduleDirIterator as $moduleDir )
         {
-            $preInstalledTools[] = $moduleDir->getFilename();
+            if ( $moduleDir->isDir() && ! $moduleDir->isDot() )
+            {
+                $preInstalledTools[] = $moduleDir->getFilename();
+            }
         }
     }
 
