@@ -162,6 +162,7 @@ function claro_sql_get_main_tbl()
         'upgrade_status'            => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'upgrade_status',
         'module'                    => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'module',
         'module_info'               => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'module_info',
+        'module_contexts'           => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'module_contexts',
         'dock'                      => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'dock',
         'right_profile'             => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'right_profile',
         'right_rel_profile_action'  => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'right_rel_profile_action',
@@ -169,7 +170,7 @@ function claro_sql_get_main_tbl()
         'user_property'             => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'user_property',
         'property_definition'       => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'property_definition',
         'tracking_event'            => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'tracking_event',
-        'log'            			=> get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'log',
+        'log'                       => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'log',
         'track_e_default'           => get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . 'track_e_default',
         'track_e_login'             => get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . 'track_e_login',
         'track_e_open'              => get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . 'track_e_open'
