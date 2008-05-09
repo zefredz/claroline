@@ -44,7 +44,7 @@ class myannouncements extends portlet
             {
                 
                 $output .= '<dt>' . "\n"
-                .    '<img class="iconDefinitionList" src="' . get_icon('announcement') . '" alt="' . get_lang('Icon announcement') . '" />'
+                .    '<img class="iconDefinitionList" src="' . get_icon_url('announcement') . '" alt="' . get_lang('Icon announcement') . '" />'
                 .    '<small>'
                 .    '<a href="' . $annoncementItem['url'] . '">'
                 .    $annoncementItem['title']
@@ -74,7 +74,7 @@ class myannouncements extends portlet
         {
             $output .= '<dl>'
             .    '<dt>' . "\n"
-            .    '<img class="iconDefinitionList" src="' . get_icon('announcement') . '" alt="' . get_lang('Icon announcement') . '" />'
+            .    '<img class="iconDefinitionList" src="' . get_icon_url('announcement') . '" alt="' . get_lang('Icon announcement') . '" />'
             .    '<small>'
             .    get_lang('No event to display') . "\n"
             .    '</small>' . "\n"

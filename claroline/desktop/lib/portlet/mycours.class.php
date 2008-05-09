@@ -46,7 +46,7 @@ class mycours extends portlet
             {            
                 if ($thisCourse['isCourseManager'] == 1)
                 {
-                    $userStatusImg = '&nbsp;&nbsp;<img src="' . get_icon('manager') . '" alt="'.get_lang('Course manager').'" />';
+                    $userStatusImg = '&nbsp;&nbsp;<img src="' . get_icon_url('manager') . '" alt="'.get_lang('Course manager').'" />';
                 }
                 else
                 {
@@ -88,7 +88,7 @@ class mycours extends portlet
                 ;
 
                 $output .= '<dt>' . "\n"
-                .    '<img class="iconDefinitionList" src="' . get_icon('course') . '" alt="' . get_lang('Icon course') . '" />'
+                .    '<img class="iconDefinitionList" src="' . get_icon_url('course') . '" alt="' . get_lang('Icon course') . '" />'
                 .    '<small>'
                 .    '<a href="' . $url . '">'
                 .    $course_order_by

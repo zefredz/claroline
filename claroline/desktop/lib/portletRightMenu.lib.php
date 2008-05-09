@@ -37,9 +37,17 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             
             $output = '<div class="portletRightMenu">' . "\n"
             .    '<div class="portletTitle">' . "\n"
-            .      '<a class="porletIcon" href="../../claroline/auth/profile.php">' . "\n"
-            .        '<img src="' . get_icon('edit') . '" alt="' . get_lang('edit') . '" />' . "\n"
+            
+            .    '<span class="porletIcon">' . "\n"
+            .      '<a href="config.php">' . "\n"
+            .        '<img src="' . get_icon_url('config') . '" alt="' . get_lang('config') . '" />' . "\n"
             .      '</a>' . "\n"
+            .      '&nbsp;|&nbsp;' . "\n"
+            .      '<a href="../../claroline/auth/profile.php">' . "\n"
+            .        '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('edit') . '" />' . "\n"
+            .      '</a>' . "\n"
+            .    '</span>' . "\n"
+            
             .      htmlspecialchars($userData['firstname']) . '&nbsp;' . htmlspecialchars($userData['lastname'])
             .    '</div>' . "\n"
             .    '<div class="portletContent" id="portletMyprofil">' . "\n"
@@ -48,8 +56,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             //.	 '      <p><span>' . get_lang('Last name') . '</span><br /> ' . htmlspecialchars($userData['lastname']) . '</p>' . "\n"
             //.	 '      <p><span>' . get_lang('First name') . '</span><br /> ' . htmlspecialchars($userData['firstname']) . '</p>' . "\n"
             .	 '      <p><span>' . get_lang('Email') . '</span><br /> ' . htmlspecialchars($userData['email']) . '</p>' . "\n"
-            .	 '      <p><img src="' . get_icon('sendmail2.png') . '" alt="' . get_lang('config') . '" />&nbsp;<a href="">' . get_lang('Send message') . '</a></p>' . "\n"
-            .	 '      <p><img src="' . get_icon('config.png') . '" alt="' . get_lang('config') . '" />&nbsp;<a href="config.php">' . get_lang('Config') . '</a></p>' . "\n"
+            //.	 '      <p><img src="' . get_icon_url('sendmail2.png') . '" alt="' . get_lang('config') . '" />&nbsp;<a href="">' . get_lang('Send message') . '</a></p>' . "\n"
+            .	 '      <p><img src="' . get_icon_url('config') . '" alt="' . get_lang('config') . '" />&nbsp;<a href="config.php">' . get_lang('Config') . '</a></p>' . "\n"
             .	 '    </div>' . "\n"
             .    '  </div>' . "\n"
             .    '</div>' . "\n"

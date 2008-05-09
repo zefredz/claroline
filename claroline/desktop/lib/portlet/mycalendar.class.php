@@ -62,7 +62,7 @@ class mycalendar extends portlet
             foreach($agendaItemList as $agendaItem)
             {
                 $output .= '<dt>' . "\n"
-                .    '<img class="iconDefinitionList" src="' . get_icon('agenda') . '" alt="' . get_lang('Icon agenda') . '" />'
+                .    '<img class="iconDefinitionList" src="' . get_icon_url('agenda') . '" alt="' . get_lang('Icon agenda') . '" />'
                 .    '<small>'
                 .    claro_html_localised_date( get_locale('dateFormatLong'),
                 strtotime($agendaItem['date']) )
@@ -91,7 +91,7 @@ class mycalendar extends portlet
         {
             $output .= '<dl>'
             .    '<dt>' . "\n"
-            .    '<img class="iconDefinitionList" src="' . get_icon('agenda') . '" alt="' . get_lang('Icon agenda') . '" />'
+            .    '<img class="iconDefinitionList" src="' . get_icon_url('agenda') . '" alt="' . get_lang('Icon agenda') . '" />'
             .    '<small>'
             .    get_lang('No event to display') . "\n"
             .    '</small>' . "\n"
