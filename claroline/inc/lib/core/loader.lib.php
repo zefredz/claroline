@@ -57,7 +57,14 @@
          * @return  boolean true if the library was found, false else
          */
         public function load( $lib )
-        {            
+        {
+            $lib = secure_file_path( $lib );
+            
+            if ( array_key_exists( $lib, $this->libraries ) )
+            {
+                return;
+            }
+            
             foreach ( $this->pathList as $tryPath => $tryUrl )
             {
                 if ( claro_debug_mode() )
@@ -150,6 +157,11 @@
         public function load( $css, $media = 'all' )
         {
             $css = secure_file_path( $css );
+            
+            if ( array_key_exists( $css, $this->css ) )
+            {
+                return;
+            }
 
             foreach ( $this->pathList as $tryPath => $tryUrl )
             {
