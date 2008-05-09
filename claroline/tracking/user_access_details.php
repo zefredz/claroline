@@ -13,7 +13,7 @@ require '../inc/claro_init_global.inc.php';
 
 $nameTools = get_lang('User access details');
 
-$interbredcrump[]= array ("url"=>"courseLog.php", "name"=> get_lang('Statistics'));
+$interbredcrump[]= array ("url"=>"courseReport.php", "name"=> get_lang('Statistics'));
 
 $tbl_mdb_names       = claro_sql_get_main_tbl();
 $TABLEUSER           = $tbl_mdb_names['user'  ];

@@ -132,7 +132,7 @@ else
 //PREPARE DISPLAY
 
 
-$interbredcrump[]= array ('url' => 'courseLog.php', 'name' => get_lang('Statistics'));
+$interbredcrump[]= array ('url' => 'courseReport.php', 'name' => get_lang('Statistics'));
 $nameTools = get_lang('Delete all course statistics');
 
 if (DISP_FORM == $display)

@@ -179,7 +179,7 @@ $links[] = '<a class="claroCmd" href="../group/group_properties.php' . claro_url
 
 if ( get_conf('is_trackingEnabled') )
 {
-    $links[] = '<a class="claroCmd" href="' . get_path('clarolineRepositoryWeb') . 'tracking/courseLog.php' . claro_url_relay_context('?') . '">'
+    $links[] = '<a class="claroCmd" href="' . get_path('clarolineRepositoryWeb') . 'tracking/courseReport.php' . claro_url_relay_context('?') . '">'
     .          '<img src="' . get_path('imgRepositoryWeb') . 'statistics.gif" alt="" />'
     .          get_lang('Statistics')
     .          '</a>' ;

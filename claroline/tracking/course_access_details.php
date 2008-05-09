@@ -16,7 +16,7 @@ if ( ! claro_is_course_manager() ) claro_die(get_lang('Not allowed'));
 
 include_once get_path('incRepositorySys') . '/lib/statsUtils.lib.inc.php';
 
-$interbredcrump[]= array ('url' => 'courseLog.php', 'name' => get_lang('Statistics'));
+$interbredcrump[]= array ('url' => 'courseReport.php', 'name' => get_lang('Statistics'));
 
 $nameTools = get_lang('Traffic Details');
 

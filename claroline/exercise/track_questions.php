@@ -71,7 +71,7 @@ if( isset($_REQUEST['src']) && $_REQUEST['src'] == 'ex' )
 }
 else
 {
-	$interbredcrump[]= array ('url'=>'../tracking/courseLog.php', 'name'=> get_lang('Statistics'));
+	$interbredcrump[]= array ('url'=>'../tracking/courseReport.php', 'name'=> get_lang('Statistics'));
     $src = '';
 }
 $interbredcrump[]= array ('url'=>'track_exercises.php?exId='.$exId.$src, 'name'=> get_lang('Statistics of exercise'));

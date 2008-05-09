@@ -150,7 +150,7 @@ foreach ($toolList as $thisTool)
 
     if( get_conf('is_trackingEnabled') )
     {
-        $courseManageToolLinkList[] =  '<a class="claroCmd" href="' . $toolRepository . 'tracking/courseLog.php' . claro_url_relay_context('?') . '">'
+        $courseManageToolLinkList[] =  '<a class="claroCmd" href="' . $toolRepository . 'tracking/courseReport.php' . claro_url_relay_context('?') . '">'
         .                             '<img src="' . get_path('imgRepositoryWeb') . 'statistics.gif" alt="" /> '
         .                             get_lang('Statistics')
         .                             '</a>'

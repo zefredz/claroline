@@ -20,7 +20,7 @@
 
 require '../inc/claro_init_global.inc.php';
 
-$interbredcrump[]= array ("url"=>"courseLog.php", "name"=> get_lang('Statistics'));
+$interbredcrump[]= array ("url"=>"courseReport.php", "name"=> get_lang('Statistics'));
 
 if ( ! claro_is_user_authenticated() || ! claro_is_in_a_course()) claro_disp_auth_form(true);
 
