@@ -38,9 +38,7 @@ require_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
 $nameTools        = get_lang('Add a user');
 $interbredcrump[] = array ('url' => 'user.php', 'name' => get_lang('Users') );
 
-$messageList = array();
-$messageList['warning'] = array();
-$messageList['error'] = array();
+$dialogBox = new DialogBox();
 
 $platformRegSucceed = false;
 $courseRegSucceed   = false;
@@ -100,7 +98,7 @@ if ( $cmd == 'registration' )
             $userList = user_search( array('officialCode' => $userData['officialCode']),
                                      claro_get_current_course_id(), false, true);
 
-            $messageList['error'][] = get_lang('This official code is already used by another user.')
+            $dialogBox->error(get_lang('This official code is already used by another user.')
                            . '<br />' . get_lang('Take one of these options') . ' : '
                            . '<ul>'
                            . '<li>'
@@ -111,7 +109,8 @@ if ( $cmd == 'registration' )
                            . '<li>'
                            . '<a href="'.$_SERVER['PHP_SELF'].'?cmd=cancel'. claro_url_relay_context('&amp;') . '">' . get_lang('Cancel the operation') . '</a>'
                            . '</li>'
-                           . '</ul>';
+                           . '</ul>'
+                           );
 
              $displayResultTable = true;
         }
@@ -137,28 +136,29 @@ if ( $cmd == 'registration' )
                                        . claro_url_relay_context('&amp;');
 
 
-                 $messageList['warning'][] .= get_lang('Notice') . '. '
-                . get_lang('Users with similar settings exist on the system yet')
-                . '<br />' . get_lang('Take one of these options') . ' : '
-                . '<ul>'
-                . '<li>'
-                . '<a href="#resultTable" onclick="highlight(\'resultTable\');">'
-                . get_lang('Click on the enrollment command beside the concerned user')
-                . '</a>'
-                . '</li>'
-                . '<li>'
-                . '<a href="'.$confirmUserCreateUrl.'">'
-                . get_lang('Confirm the creation of a new user')
-                . '</a>'
-                . '<br /><small>'
-                . $userData['lastname'    ] . ' ' . $userData['firstname']
-                . $userData['officialCode'] . ' ' . $userData['email']
-                . '</small>'
-                . '</li>'
-                . '<li>'
-                . '<a href="'.$_SERVER['PHP_SELF'].'?cmd=cancel'. claro_url_relay_context('&amp;').'">' . get_lang('Cancel the operation') . '</a>'
-                . '</li>'
-                . '</ul>';
+                 $dialogBox->warning( get_lang('Notice') . '. '
+                    . get_lang('Users with similar settings exist on the system yet')
+                    . '<br />' . get_lang('Take one of these options') . ' : '
+                    . '<ul>'
+                    . '<li>'
+                    . '<a href="#resultTable" onclick="highlight(\'resultTable\');">'
+                    . get_lang('Click on the enrollment command beside the concerned user')
+                    . '</a>'
+                    . '</li>'
+                    . '<li>'
+                    . '<a href="'.$confirmUserCreateUrl.'">'
+                    . get_lang('Confirm the creation of a new user')
+                    . '</a>'
+                    . '<br /><small>'
+                    . $userData['lastname'    ] . ' ' . $userData['firstname']
+                    . $userData['officialCode'] . ' ' . $userData['email']
+                    . '</small>'
+                    . '</li>'
+                    . '<li>'
+                    . '<a href="'.$_SERVER['PHP_SELF'].'?cmd=cancel'. claro_url_relay_context('&amp;').'">' . get_lang('Cancel the operation') . '</a>'
+                    . '</li>'
+                    . '</ul>'
+                );
 
                 $displayForm        = false;
                 $displayResultTable = true;
@@ -168,12 +168,13 @@ if ( $cmd == 'registration' )
         {
             $userList = array();
         }
-
-        if ( count($errorMsgList) > 0 && count($userList) == 0 )
+        
+        if( !empty($errorMsgList) && count($userList) == 0 )
         {
-            if (array_key_exists('error', $messageList)) $messageList['error'] = array_merge($messageList['error'], $errorMsgList);
-            else                                         $messageList['error'] = $errorMsgList;
-
+            foreach( $errorMsgList as $errorMsg )
+            {
+                $dialogBox->error($errorMsg);
+            }
         }
     }
 
@@ -224,10 +225,11 @@ if ( $courseRegSucceed )
 
     user_send_enroll_to_course_mail($userId, $userData );
     // display message
-    $messageList['info'][]= get_lang('%firstname %lastname has been registered to your course',
+    $dialogBox->success( get_lang('%firstname %lastname has been registered to your course',
                             array ( '%firstname' => $userData['firstname'],
                                     '%lastname'  => $userData['lastname'])
-                           );
+                           )
+                     );
 }
 
 
@@ -252,7 +254,7 @@ include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 echo claro_html_tool_title(array('mainTitle' =>$nameTools, 'supraTitle' => get_lang('Users')),
                 'help_user.php');
-echo claro_html_msg_list($messageList);
+echo $dialogBox->render();
 
 if ( $courseRegSucceed )
 {
