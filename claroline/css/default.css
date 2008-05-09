@@ -672,31 +672,34 @@ a.item:visited{
 	border: 1px solid #ccc;
 	background: #eee;
 	float: left;
-	padding-right: 75px;
 	border-left: 2px solid #ccc;
 }
 
 .boxInfo {	
 	border-left: 2px solid #ccc;
 	background: #eee url('default/bg_info.gif') bottom right no-repeat;
+	padding-right: 83px;
 }
 
 .boxSuccess {	
 	border-left: 2px solid #090;
 	background: #eee url('default/bg_success.gif') bottom right no-repeat;
+	padding-right: 83px;
 }
 
 .boxWarning {	
 	border-left: 2px solid #900;
 	background: #eee url('default/bg_warning.gif') bottom right no-repeat;
+	padding-right: 83px;
 }
 
 .boxError {	
 	border-left: 2px solid #900;
 	background: #eee url('default/bg_error.gif') bottom right no-repeat;
+	padding-right: 83px;
 }
 
-.claroDialogMsg { padding: 1px 5px 1px 20px; }
+.claroDialogMsg { padding: 2px 5px 1px 20px; }
 .claroDialogBox .msgInfo { } /* I really don't think there is a need for an icon here */
 .claroDialogBox .msgSuccess { background: url('default/success.gif') top left no-repeat; }
 .claroDialogBox .msgWarning { background: url('default/warning.gif') top left no-repeat; }
