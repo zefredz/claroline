@@ -5,6 +5,8 @@
   <license>GPL</license>
   <icon>wiki.gif</icon>
   <type>tool</type>
+  <context>course</context>
+  <context>group</context>
   <web>http://www.claroline.net/wiki/CLWIKI/</web>
   <entry>wiki.php</entry>
 

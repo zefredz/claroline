@@ -5,6 +5,8 @@
  <license>GPL</license>
  <icon>document.gif</icon>
  <type>tool</type>
+ <context>course</context>
+ <context>group</context>
  <web>http://www.claroline.net/wiki/CLDOC/</web>
  <entry>document.php</entry>
   <description>
