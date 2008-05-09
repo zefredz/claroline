@@ -51,7 +51,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             .      htmlspecialchars($userData['firstname']) . '&nbsp;' . htmlspecialchars($userData['lastname'])
             .    '</div>' . "\n"
             .    '<div class="portletContent" id="portletMyprofil">' . "\n"
-            .	 '  <div id="picture"><div class="pic"><br /><br /><br />No picture</div></div>' . "\n"
+            //.	 '  <div id="picture"><div class="pic"><br /><br /><br />No picture</div></div>' . "\n"
+            .	 '  <div id="picture"><img src="' . get_icon_url('Avatar-devilish') . '" alt="' . get_lang('avatar') . '" /></div>' . "\n"
+            
             .	 '    <div id="details">'
             //.	 '      <p><span>' . get_lang('Last name') . '</span><br /> ' . htmlspecialchars($userData['lastname']) . '</p>' . "\n"
             //.	 '      <p><span>' . get_lang('First name') . '</span><br /> ' . htmlspecialchars($userData['firstname']) . '</p>' . "\n"
