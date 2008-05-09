@@ -1055,8 +1055,10 @@ function register_module($modulePath)
     $backlog = new Backlog;
     if (file_exists($modulePath))
     {
-        $parser = new ModuleManifestParser;
-        $module_info = $parser->parse($modulePath.'/manifest.xml');
+        /*$parser = new ModuleManifestParser;
+        $module_info = $parser->parse($modulePath.'/manifest.xml');*/
+        
+        $module_info = readModuleManifest( $modulePath );
         
         if ( false === $module_info )
         {
@@ -1064,9 +1066,11 @@ function register_module($modulePath)
             
             $moduleId = false;
         }
-        elseif (is_array($module_info) && false !== ($moduleId = register_module_core($module_info)))
+        elseif (is_array($module_info)
+            && false !== ($moduleId = register_module_core($module_info)))
         {
-            $backlog->failure(get_lang('Module %claroLabel registered', array('%claroLabel'=>$module_info['LABEL'])));
+            $backlog->failure(get_lang('Module %claroLabel registered',
+                array('%claroLabel'=>$module_info['LABEL'])));
             
             if('TOOL' == strtoupper($module_info['TYPE']))
             {

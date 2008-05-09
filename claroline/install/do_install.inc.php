@@ -394,7 +394,10 @@ if ($runfillMainDb && $runfillStatsDb)
             trigger_error('module (id:' . $moduleId . ' ) not activated ',E_USER_WARNING );
 
         }
-        else                          trigger_error('module path not found' ,E_USER_WARNING );
+        else
+        {
+            trigger_error('module path not found' ,E_USER_WARNING );
+        }
     }
 
     // init default right profile
