@@ -1,10 +1,10 @@
-CREATE TABLE IF NOT EXISTS __CL_COURSE__wiki_acls (
+CREATE TABLE IF NOT EXISTS `__CL_COURSE__wiki_acls` (
   wiki_id int(11) unsigned NOT NULL default '0',
   flag varchar(255) NOT NULL default '',
   `value` enum('false','true') NOT NULL default 'false'
 ) ENGINE=MyISAM;
 
-CREATE TABLE IF NOT EXISTS __CL_COURSE__wiki_pages (
+CREATE TABLE IF NOT EXISTS `__CL_COURSE__wiki_pages` (
   id int(11) unsigned NOT NULL auto_increment,
   wiki_id int(11) unsigned NOT NULL default '0',
   owner_id int(11) unsigned NOT NULL default '0',
@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS __CL_COURSE__wiki_pages (
   PRIMARY KEY  (id)
 ) ENGINE=MyISAM;
 
-CREATE TABLE IF NOT EXISTS __CL_COURSE__wiki_pages_content (
+CREATE TABLE IF NOT EXISTS `__CL_COURSE__wiki_pages_content` (
   id int(11) unsigned NOT NULL auto_increment,
   pid int(11) unsigned NOT NULL default '0',
   editor_id int(11) NOT NULL default '0',
@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS __CL_COURSE__wiki_pages_content (
   PRIMARY KEY  (id)
 ) ENGINE=MyISAM;
 
-CREATE TABLE IF NOT EXISTS __CL_COURSE__wiki_properties (
+CREATE TABLE IF NOT EXISTS `__CL_COURSE__wiki_properties` (
   id int(11) unsigned NOT NULL auto_increment,
   title varchar(255) NOT NULL default '',
   description text,
