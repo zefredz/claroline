@@ -788,6 +788,10 @@ function uninstall_module($moduleId, $deleteModuleData = true)
         $sql = "DELETE FROM `" . $tbl['module_info'] . "`
                 WHERE `module_id` = " . (int) $moduleId;
         claro_sql_query($sql);
+        
+        $sql = "DELETE FROM `" . $tbl['module_contexts'] . "`
+                WHERE `module_id` = " . (int) $moduleId;
+        claro_sql_query($sql);
 
         // 4-Manage right - Delete read action
         $action = new RightToolAction();
@@ -1115,7 +1119,7 @@ function register_module($modulePath)
  */
 function register_module_core($module_info)
 {
-    $tbl             = claro_sql_get_tbl(array('module','module_info','tool'));
+    $tbl             = claro_sql_get_tbl(array('module','module_info','tool','module_contexts'));
     $tbl_name        = claro_sql_get_main_tbl();
 
     $missingElement = array_diff(array('LABEL','NAME','TYPE'),array_keys($module_info));
@@ -1124,7 +1128,7 @@ function register_module_core($module_info)
         return claro_failure::set_failure(get_lang('Missing elements in module Manifest : %MissingElements' , array('%MissingElements' => implode(',',$missingElement))));
     }
 
-    if (isset($module_info['CONTEXT']['COURSE']['LINKS'][0]['PATH']))
+    /*if (isset($module_info['CONTEXT']['COURSE']['LINKS'][0]['PATH']))
     {
         $script_url = $module_info['CONTEXT']['COURSE']['LINKS'][0]['PATH'];
     }
@@ -1132,7 +1136,9 @@ function register_module_core($module_info)
     {
         $script_url = $module_info['CONTEXT']['COURSE']['ENTRY'];
     }
-    elseif (isset($module_info['ENTRY']))
+    else*/
+    
+    if (isset($module_info['ENTRY']))
     {
         $script_url = $module_info['ENTRY'];
     }
@@ -1158,6 +1164,19 @@ function register_module_core($module_info)
                 website        = '" . addslashes($module_info['WEB']) . "',
                 description    = '" . addslashes($module_info['DESCRIPTION']) . "',
                 license        = '" . addslashes($module_info['LICENSE']) . "'";
+    
+    claro_sql_query($sql);
+    
+    foreach ( $module_info['CONTEXTS'] AS $context )
+    {
+        $sql = "INSERT INTO `{$tbl['module_contexts']}`\n"
+            . "SET\n"
+            . "  `module_id` = " . (int) $moduleId . ",\n"
+            . "  `context` = '" . claro_sql_escape( $context ) . "'"
+            ;
+            
+        claro_sql_query($sql);
+    }
 
     claro_sql_query($sql);
 
