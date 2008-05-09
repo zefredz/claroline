@@ -71,7 +71,7 @@ class MailNotifier implements MessagingNotifier
             }
             else
             {
-                $emailSubject .= ' - ' . get_lang('"Course deleted"');
+                $emailSubject .= ' - ' . get_lang('?');
             }
         }
         
@@ -79,12 +79,11 @@ class MailNotifier implements MessagingNotifier
 
         //------------------------------subject
         $altUrl = get_lang('If you can\'t read this message go to: ') . "http://localhost/clarolineSVN/claroline/messaging/readmessage.php?messageId=" . $messageId . "&userId=1&type=received\n\n"
-            . "-------------------------------------------\n"
+            . "--\n"
             . claro_get_current_user_data('lastName') . " " . claro_get_current_user_data('firstName') . "\n"
             . $stringManager
             . "\n\n".get_conf('siteName') ." <" . get_conf('rootWeb') . ">\n"
             . "   " . get_lang('Administrator') . ": " . get_conf('administrator_name') . " <" . get_conf('administrator_email') . ">\n"
-            . "-------------------------------------------\n"
             ;
         
         
@@ -94,13 +93,13 @@ class MailNotifier implements MessagingNotifier
         $emailBody = "<html><head></head><body>" . $msgContent
                     . '<br /><br />'
                // footer
-                    . '<hr />'
+                    . '-- \n'
                     . claro_get_current_user_data('lastName') . " " . claro_get_current_user_data('firstName') . "<br />"
                     .$stringManager
                     . '<br /><br /><a href="' . get_conf('rootWeb') . '">' . get_conf('siteName') . '</a><br />'
         			. '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . get_lang('Administrator')  . ': <a href="mailto:' . get_conf('administrator_email') . '">' . get_conf('administrator_name') . '</a><br />'
-                    . '<hr />'
-                    . "</body></html>";
+                    . "</body></html>"
+                    ;
         //******************************** END BODY
         //******************************************
 
