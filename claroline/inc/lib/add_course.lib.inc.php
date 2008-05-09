@@ -536,7 +536,8 @@ function fill_course_properties( $courseDbName )
         . "INTO `{$currentCourseDbNameGlu}course_properties`(`name`, `value`, `category`)\n"
         . "VALUES\n"
         . "('self_registration', '1', 'GROUP'),\n"
-        . "('nbGroupPerUser'   , '1', 'GROUP')"
+        . "('nbGroupPerUser'   , '1', 'GROUP'),\n"
+        . "('private'          , '1', 'GROUP')"
         ;
         
     $groupToolList = get_group_tool_label_list();
