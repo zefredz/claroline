@@ -1066,8 +1066,8 @@ function register_module($modulePath)
             
             $moduleId = false;
         }
-        elseif (is_array($module_info)
-            && false !== ($moduleId = register_module_core($module_info)))
+        elseif ( is_array($module_info)
+            && false !== ($moduleId = register_module_core($module_info)) )
         {
             $backlog->failure(get_lang('Module %claroLabel registered',
                 array('%claroLabel'=>$module_info['LABEL'])));
@@ -1084,11 +1084,12 @@ function register_module($modulePath)
                     $backlog->failure( get_lang('Cannot register tool %label', array('%label' => $module_info['LABEL'])));
                 }
             }
-            elseif('APPLET' == $module_info['TYPE'])
+            elseif('APPLET' == strtoupper($module_info['TYPE']))
             {
-                if (array_key_exists('DEFAULT_DOCK',$module_info) && is_array($module_info['DEFAULT_DOCK']))
+                if ( array_key_exists('DEFAULT_DOCK',$module_info)
+                    && is_array($module_info['DEFAULT_DOCK']) )
                 {
-                    foreach($module_info['DEFAULT_DOCK'] as $dock)
+                    foreach ( $module_info['DEFAULT_DOCK'] as $dock )
                     {
                         add_module_in_dock($moduleId, $dock);
                             $backlog->failure(get_lang('Module %label added in dock : %dock'
@@ -1131,16 +1132,6 @@ function register_module_core($module_info)
     {
         return claro_failure::set_failure(get_lang('Missing elements in module Manifest : %MissingElements' , array('%MissingElements' => implode(',',$missingElement))));
     }
-
-    /*if (isset($module_info['CONTEXT']['COURSE']['LINKS'][0]['PATH']))
-    {
-        $script_url = $module_info['CONTEXT']['COURSE']['LINKS'][0]['PATH'];
-    }
-    elseif (isset($module_info['CONTEXT']['COURSE']['ENTRY']))
-    {
-        $script_url = $module_info['CONTEXT']['COURSE']['ENTRY'];
-    }
-    else*/
     
     if (isset($module_info['ENTRY']))
     {
@@ -1246,8 +1237,10 @@ function register_module_tool($moduleId,$module_info)
         {
             $profile = new RightProfile();
             $profile->load($profileId);
+            
             $profileRight = new RightProfileToolRight();
             $profileRight->load($profile);
+            
             if ( claro_get_profile_id('manager') == $profileId )
             {
                 $profileRight->setToolRight($tool_id,'manager');
@@ -1256,6 +1249,7 @@ function register_module_tool($moduleId,$module_info)
             {
                 $profileRight->setToolRight($tool_id,'user');
             }
+            
             $profileRight->save();
         }
 
@@ -1277,7 +1271,7 @@ function register_module_tool($moduleId,$module_info)
  *
  * @return handler result of insert
  */
-function add_module_in_dock($moduleId, $newDockName, $context='')
+function add_module_in_dock( $moduleId, $newDockName )
 {
     $tbl = claro_sql_get_main_tbl();
 
@@ -1307,7 +1301,6 @@ function add_module_in_dock($moduleId, $newDockName, $context='')
         $sql = "INSERT INTO `" . $tbl['dock'] . "`
                 SET module_id = " . (int) $moduleId . ",
                     name    = '" . addslashes($newDockName) . "',
-                    #context = '" . addslashes($context) . "',
                     rank    = " . ((int) $max_rank + 1) ;
         $result = claro_sql_query($sql);
 
