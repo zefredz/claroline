@@ -272,7 +272,9 @@ CREATE TABLE IF NOT EXISTS  `__CL_MAIN__user_property` (
   PRIMARY KEY  (`scope`,`propertyId`,`userId`)
 ) TYPE=MyISAM;
 
-CREATE TABLE `__CL_MAIN__im_message` (
+# INTERNAL MESSAGING SYSTEM
+
+CREATE TABLE IF NOT EXISTS `__CL_MAIN__im_message` (
   `message_id` int(10) unsigned NOT NULL auto_increment,
   `sender` int(11) NOT NULL,
   `subject` varchar(100) NOT NULL,
@@ -284,7 +286,7 @@ CREATE TABLE `__CL_MAIN__im_message` (
   PRIMARY KEY  (`message_id`)
 ) ENGINE=MyISAM ;
 
-CREATE TABLE `__CL_MAIN__im_message_status` (
+CREATE TABLE IF NOT EXISTS `__CL_MAIN__im_message_status` (
   `user_id` int(11) NOT NULL,
   `message_id` int(11) NOT NULL,
   `is_read` tinyint(4) NOT NULL default '0',
@@ -292,12 +294,30 @@ CREATE TABLE `__CL_MAIN__im_message_status` (
   PRIMARY KEY  (`user_id`,`message_id`)
 ) ENGINE=MyISAM ;
 
-CREATE TABLE `__CL_MAIN__im_recipient` (
+CREATE TABLE IF NOT EXISTS `__CL_MAIN__im_recipient` (
   `message_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `sent_to` enum('toUser','toGroup','toCourse','toAll') NOT NULL,
   PRIMARY KEY  (`message_id`,`user_id`)
 ) ENGINE=MyISAM ;
+
+# DESKTOP
+
+CREATE TABLE IF NOT EXISTS `__CL_MAIN__desktop_portlet` (
+  `label` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `rank` int(11) NOT NULL,
+  `activated` int(11) NOT NULL,
+  PRIMARY KEY  (`label`)
+) TYPE=MyISAM;
+
+CREATE TABLE IF NOT EXISTS `__CL_MAIN__desktop_portlet_data` (
+  `label` varchar(255) NOT NULL,
+  `idUser` int(11) NOT NULL,
+  `data` text NOT NULL,
+  PRIMARY KEY  (`label`),
+  KEY `label` (`label`,`idUser`)
+) TYPE=MyISAM;
 
 # STATS TABLES
 

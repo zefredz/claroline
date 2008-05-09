@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `__CL_desktop_portlet` (
+CREATE TABLE IF NOT EXISTS `__CL_MAIN__desktop_portlet` (
   `label` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `rank` int(11) NOT NULL,
@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS `__CL_desktop_portlet` (
   PRIMARY KEY  (`label`)
 ) TYPE=MyISAM;
 
-CREATE TABLE IF NOT EXISTS `__CL_desktop_portlet_data` (
+CREATE TABLE IF NOT EXISTS `__CL_MAIN__desktop_portlet_data` (
   `label` varchar(255) NOT NULL,
   `idUser` int(11) NOT NULL,
   `data` text NOT NULL,

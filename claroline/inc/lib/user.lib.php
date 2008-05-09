@@ -1232,7 +1232,7 @@ function user_search( $criterionList = array() , $courseId = null, $allCriterion
 
     if ( count($sqlCritList) > 0) $sql .= 'WHERE ' . implode(" $operator ", $sqlCritList);
 
-    $sql .= " ORDER BY nom, prenom ";
+    $sql .= " ORDER BY ";
 
     return claro_sql_query_fetch_all($sql);
 }
