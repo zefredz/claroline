@@ -381,17 +381,29 @@ if ($runfillMainDb && $runfillStatsDb)
                                'CLUSR',
                                'CLCHT',
                                'CLWIKI');
+    
+    $moduleDirIterator = new DirectoryIterator( get_path('rootSys') . 'module' );
+    
+    foreach ( $moduleDirIterator as $moduleDir )
+    {
+        if ( $moduleDir->isDir() && ! $moduleDir->isDot() )
+        {
+            $preInstalledTools[] = $moduleDir->getFilename();
+        }
+    }
 
-    foreach($preInstalledTools as $claroLabel)
+    foreach ( $preInstalledTools as $claroLabel )
     {
         $modulePath = get_module_path($claroLabel);
 
         if (file_exists($modulePath))
         {
-            $moduleId = register_module($modulePath);
+            $moduleId = register_module( $modulePath );
 
             if (false !== activate_module($moduleId))
-            trigger_error('module (id:' . $moduleId . ' ) not activated ',E_USER_WARNING );
+            {
+                trigger_error('module (id:' . $moduleId . ' ) not activated ',E_USER_WARNING );
+            }
 
         }
         else
@@ -418,7 +430,8 @@ if ($runfillMainDb && $runfillStatsDb)
 
             //generate conf
             list ($message, $configToolError) = generate_conf($config,$form_value_list);
-            if($configToolError)
+            
+            if ($configToolError)
             {
                 $configError = true;
                 $messageConfigErrorList[] = $message;
@@ -449,8 +462,15 @@ if ($runfillMainDb && $runfillStatsDb)
     $user_data['officialCode']  = '';
     $user_data['officialEmail'] = '';
     $user_data['phone']         = '';
+    
     $id_admin = user_create($user_data);
-    if ($id_admin) user_set_platform_admin(true, $id_admin);
-    else echo 'error in admin account creation';
-
+    
+    if ($id_admin)
+    {
+        user_set_platform_admin(true, $id_admin);
+    }
+    else
+    {
+        echo 'error in admin account creation';
+    }
 }
