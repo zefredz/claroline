@@ -617,7 +617,10 @@ if (claro_is_user_authenticated())
     $date = $claro_notifier->get_notification_date(claro_get_current_user_id());
     $modified_groups = $claro_notifier->get_notified_groups(claro_get_current_course_id(), $date);
 }
-else $modified_groups = array();
+else
+{
+    $modified_groups = array();
+}
 
  /*-------------
       DISPLAY

@@ -304,6 +304,11 @@ function install_course_database( $courseDbName )
         return false;
     }
     
+    if ( ! fill_course_properties( $courseDbName ) )
+    {
+        return false;
+    }
+    
     return true;
 }
 
@@ -519,6 +524,32 @@ function create_course_tables( $courseDbName )
     $sqlPath = get_path('clarolineRepositorySys') . 'course/setup/course_database.sql';
     
     return execute_sql_at_course_creation( $sqlPath, $courseDbName );
+}
+
+function fill_course_properties( $courseDbName )
+{
+    $currentCourseDbNameGlu = get_conf('courseTablePrefix')
+        . $courseDbName . get_conf('dbGlu')
+        ;
+        
+    $sql = "INSERT "
+        . "INTO `{$currentCourseDbNameGlu}course_properties`(`name`, `value`, `category`)\n"
+        . "VALUES\n"
+        . "('self_registration', '1', 'GROUP'),\n"
+        . "('nbGroupPerUser'   , '1', 'GROUP')"
+        ;
+        
+    $groupToolList = get_group_tool_label_list();
+    
+    foreach ( $groupToolList as $thisGroupTool )
+    {
+        $sql .= ",\n("
+            . "'".claro_sql_escape($thisGroupTool['label'])."', '1', 'GROUP'"
+            . ")"
+            ;
+    }
+    
+    return claro_sql_query( $sql );
 }
 
 // TODO: use module.lib functions instead (need to update $_course in global namespace)

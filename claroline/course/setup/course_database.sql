@@ -17,15 +17,6 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__course_properties` (
     PRIMARY KEY  (`id`)
 ) TYPE=MyISAM;
 
-INSERT INTO `__CL_COURSE__course_properties`(`name`, `value`, `category`)
-VALUES  ('self_registration', '1', 'GROUP'),
-    ('nbGroupPerUser'   , '1', 'GROUP'),
-    ('private'          , '1', 'GROUP'),
-    ('CLFRM'            , '1', 'GROUP'),
-    ('CLDOC'            , '1', 'GROUP'),
-    ('CLWIKI'           , '1', 'GROUP'),
-    ('CLCHT'            , '1', 'GROUP');
-
 CREATE TABLE IF NOT EXISTS `__CL_COURSE__tool_intro` (
     `id` int(11) NOT NULL auto_increment,
     `tool_id` int(11) NOT NULL default '0',
