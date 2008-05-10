@@ -328,7 +328,7 @@ if($is_allowedToEdit) // check teacher status
                 require_once dirname(__FILE__) . '/../messaging/lib/message/messagetosend.lib.php';
                 require_once dirname(__FILE__) . '/../messaging/lib/recipient/courserecipient.lib.php';
                 
-                $courseRecipient = new CourseRecipient($courseOfficialCode);
+                $courseRecipient = new CourseRecipient(claro_get_current_course_id());
                 
                 $message = new MessageToSend(claro_get_current_user_id(),$subject,$body);
                 $message->setCourse(claro_get_current_course_id());
