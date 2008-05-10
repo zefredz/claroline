@@ -180,9 +180,13 @@
                     }
                     
                     $recipient->sendMessage($message);
+                    $informationString = 
+                         get_lang('Message sent')."<br /><br />"
+                        .'<a href="messagebox.php?box=inbox">'.get_lang('Back to inbox').'</a>'
+                        ;
                     
                     $dialogbox = new DialogBox();
-                    $dialogbox->info(get_lang('Message sent'));
+                    $dialogbox->info($informationString);
                     $content .= $dialogbox->render();
                 }
             }
@@ -194,18 +198,19 @@
     {
         $content .= "<br/>";
         
-        $content .= '<form method="post" action="sendmessage.php?cmd=exSendMessage'.claro_url_relay_context('&amp;').'">';
-        $content .= '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />';
-        $content .= claro_form_relay_context();
-        $content .= '<input type="hidden" name="cmd" value="exSendMessage" />';
-        $content .= '<input type="hidden" name="typeRecipient" value="'.$typeRecipient.'" />';
-        $content .= '<input type="hidden" name="userRecipient" value="'.$userRecipient.'" />';
-        $content .= '<input type="hidden" name="courseRecipient" value="'.$courseRecipient.'" />';
-        $content .= '<input type="hidden" name="groupRecipient" value="'.$groupRecipient.'" />';
-        $content .= '<label>Subject: </label><input type="text" name="subject" value="'.htmlspecialchars($subject).'" /><br/>';
-        $content .= '<label>message</label><br/>'.claro_html_textarea_editor('message', $message).'<br/><br/>';
-        $content .= '<input type="submit" value="Send" name="send" /> <input type="button" value="back" name="back" />';
-        $content .= '</form>';
+        $content .= '<form method="post" action="sendmessage.php?cmd=exSendMessage'.claro_url_relay_context('&amp;').'">'."\n"
+             . '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'."\n"
+         . claro_form_relay_context()."\n"
+         . '<input type="hidden" name="cmd" value="exSendMessage" />'."\n"
+         . '<input type="hidden" name="typeRecipient" value="'.$typeRecipient.'" />'."\n"
+         . '<input type="hidden" name="userRecipient" value="'.$userRecipient.'" />'."\n"
+         . '<input type="hidden" name="courseRecipient" value="'.$courseRecipient.'" />'."\n"
+         . '<input type="hidden" name="groupRecipient" value="'.$groupRecipient.'" />'."\n"
+         . '<label>Subject: </label><input type="text" name="subject" value="'.htmlspecialchars($subject).'" /><br/>'."\n"
+         . '<label>message</label><br/>'.claro_html_textarea_editor('message', $message).'<br/><br/>'."\n"
+         . '<input type="submit" value="Send" name="send" /> <input type="button" value="back" name="back" />'."\n"
+         . '</form>'."\n\n"
+         ;
     }
     
     $claroline->display->body->appendContent(claro_html_tool_title(get_lang('Compose a message')));
