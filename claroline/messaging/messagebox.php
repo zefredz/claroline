@@ -66,17 +66,17 @@
     if ($_REQUEST['box'] == "inbox")
     {
         $title = get_lang('Inbox');
-        include dirname(__FILE__) . '/inboxconroler.inc.php';
+        include dirname(__FILE__) . '/inboxcontroler.inc.php';
     }
     elseif ($_REQUEST['box'] == "outbox")
     {
         $title = get_lang('Outbox');
-        include dirname(__FILE__) . '/outboxconroler.inc.php';
+        include dirname(__FILE__) . '/outboxcontroler.inc.php';
     }
     else
     {
         $title = get_lang('Trashbox');
-        include dirname(__FILE__) . '/trashboxconroler.inc.php';
+        include dirname(__FILE__) . '/trashboxcontroler.inc.php';
     }
     
     $claroline->display->banner->breadcrumbs->append($title,$_SERVER['PHP_SELF'].'?box='.$link_arg['box']);
