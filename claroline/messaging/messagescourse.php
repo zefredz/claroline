@@ -51,7 +51,7 @@
         if ($_REQUEST['cmd'] == 'exSendMessage')
         {
                     
-    		/*
+            /*
              * Explode the values of incorreo in groups and users
              */
             $userIdList = array();
@@ -79,7 +79,7 @@
             
             if ( !empty($groupIdList) )
             {
-                $userIdList = array_merge($userIdList,get_group_list__user_id_list($groupIdList));
+                $userIdList = array_merge($userIdList,get_group_list_user_id_list($groupIdList));
             }
             
             // subject
@@ -103,8 +103,8 @@
             $dialogBox = new DialogBox();
             $dialogBox->success( get_lang('Message sent') );
     
-    		$dialogBox->info('<a href="' . $_SERVER['PHP_SELF'] . '">&lt;&lt;&nbsp;' . get_lang('Back') . '</a>');
-    		$content .= $dialogBox->render();
+            $dialogBox->info('<a href="' . $_SERVER['PHP_SELF'] . '">&lt;&lt;&nbsp;' . get_lang('Back') . '</a>');
+            $content .= $dialogBox->render();
     
         } // end cmd exSendMessage
         
@@ -249,16 +249,15 @@
         
         $content .= get_lang('To send a message, select groups of users (marked with a * in the front) or single users from the list on the left.') . "<br/><br/>\n" ;
     
-        $content .= '<div class="messagesform">';
+        $content .= '<div class="messagesform">'."\n";
         
         $content .= '<form method="post" action="' . $_SERVER['PHP_SELF'] . '" name="datos" '
         .    'onsubmit="return valida();">' . "\n"
-        .    claro_form_relay_context()
-        .    '<div class="userList">'
-        .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'
-        .    claro_form_relay_context()
-        .    '<input type="hidden" name="cmd" value="exSendMessage" />'
-        .    '<table><tr><td>'
+        .    claro_form_relay_context()."\n"
+        .    '<div class="userList">'."\n"
+        .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'."\n"
+        .    '<input type="hidden" name="cmd" value="exSendMessage" />'."\n"
+        .    '<table><tr><td>'."\n"
         .    get_lang('User list') . '<br/>'."\n"
         .    '<select name="nocorreo[]" size="15" multiple="multiple">' . "\n"
         ;
@@ -300,17 +299,18 @@
         .    '<td>'
         .    get_lang('Selected Users')."<br/>" . "\n"
         .    '<select name="incorreo[]" size="15" multiple="multiple" style="width:200" >'
-        .    '</select>'
-        .    '</td></tr></table>'
-        .    '<div class="composeMessage">'
+        .    '</select>'."\n"
+        .    '</td></tr></table>'."\n"
+        .    '<div class="composeMessage">'."\n"
         .    '<br/>'.get_lang('Subject') . "\n"
         .    '<input type="text" name="subject" maxlength="255" size="40" />'
         .    '<br/>'.get_lang('Message') .'<br/>'. "\n"
         .    claro_html_textarea_editor('content', "")
         .    '<br/><input type="submit" name="submitMessage" value="' . get_lang('Submit') . '" />'
-        .    '</div>'
-        .    '</div>'
-        .    '</form>'
+        .    '</div>'."\n"
+        .    '</div>'."\n\n"
+        .    '</form>'."\n\n"
+        
         .    '</div>'
         ;
         

@@ -703,7 +703,7 @@ function get_group_user_list($gid, $courseId =  NULL)
  * @param int $gidList list of groupe identification
  * @return array of int: list of user
  */
-function get_group_list__user_id_list($gidList,$courseId = NULL)
+function get_group_list_user_id_list($gidList,$courseId = NULL)
 {
     $groupIdList = implode(', ',$gidList);
 
