@@ -316,6 +316,9 @@ function claro_get_course_manager_id($cid = NULL)
     		.    " AND isCourseManager = 1"
     		;
     
-    return claro_sql_query_fetch_all_rows($sql);
+    $result = claro_sql_query_fetch_all_cols($sql);
+    
+    return $result['user_id'];
+    
 }
 ?>
