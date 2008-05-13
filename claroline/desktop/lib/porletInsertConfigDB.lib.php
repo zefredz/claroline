@@ -315,6 +315,44 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 }
             }
         }
+    
+        public function saveVisibility( $label )
+        {
+            $sql = "UPDATE `".$this->tblDesktopPortlet."`
+                    SET `visibility` = '" . getVisibility() . "'
+                    WHERE `label` = '" . $label . "'"
+                    ;                            
+                                
+            if( claro_sql_query($sql) == false ) return false;
+
+            return true;
+        }
+        
+        // visibility
+        protected function getVisibility()
+        {
+            return $this->visibility;
+        }
+
+        protected function setVisibility( $visibility )
+        {
+            $this->visibility = ( $visibility === 'INVISIBLE' ) ? 'INVISIBLE' : 'VISIBLE';
+        }
+
+        public function setVisible()
+        {
+            $this->setVisibility('VISIBLE');
+        }
+
+        public function setInvisible()
+        {
+            $this->setVisibility('INVISIBLE');
+        }
+
+        public function isVisible()
+        {
+            return ( $this->getVisibility() === 'VISIBLE' );
+        }    
     }
     
 ?>

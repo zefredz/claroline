@@ -23,7 +23,6 @@ DROP TABLE IF EXISTS `__CL_MAIN__im_recipient`;
 DROP TABLE IF EXISTS `__CL_MAIN__im_message_status`;
 DROP TABLE IF EXISTS `__CL_MAIN__im_message`;
 DROP TABLE IF EXISTS `__CL_MAIN__desktop_portlet`;
-DROP TABLE IF EXISTS `__CL_MAIN__desktop_portlet_avatar`;
 DROP TABLE IF EXISTS `__CL_MAIN__desktop_portlet_data`;
 DROP TABLE IF EXISTS `__CL_STATS__track_e_default`;
 DROP TABLE IF EXISTS `__CL_STATS__track_e_login`;

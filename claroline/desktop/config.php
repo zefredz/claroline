@@ -39,7 +39,9 @@
     'rqAvatar',
     'exAvatar',
     'exDown',
-    'exUp'
+    'exUp',
+    'exVisible',
+    'exInvisible'
     );
     
     if( isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'], $acceptedCmdList) )
@@ -106,9 +108,8 @@
 
 // {{{ CONTROLLER
 
-    // avatar par defaut
+    $PortletConfig = new PortletConfig();
     $porletConfigAvatar = new porletConfigAvatar();
-    //$avatar = $porletConfigAvatar->load();
     
     if( $cmd == 'exAvatar' )
     {
@@ -136,16 +137,30 @@
     
     if( $cmd == 'exUp' )
     {
-        $rank = new PortletConfig();
-        
-        $rank->move_portlet( $label, 'up' );
+        $PortletConfig->move_portlet( $label, 'up' );
     }
 
     if( $cmd == 'exDown' )
     {
-        $rank = new PortletConfig();
+        $PortletConfig->move_portlet( $label, 'down' );
+    }
+    
+    if( $cmd == 'exVisible' )
+    {
         
-        $rank->move_portlet( $label, 'down' );
+        
+        $PortletConfig->setVisible();
+
+        $PortletConfig->saveVisibility();
+    }
+
+    if( $cmd == 'exInvisible' )
+    {
+        
+        
+        $PortletConfig->setInvisible();
+
+        $PortletConfig->saveVisibility();
     }
 
 
@@ -222,7 +237,7 @@
     .    '<thead>' . "\n"
     .      '<tr class="headerX" align="center" valign="top">' . "\n"
     .        '<th>' . get_lang('Nom') . '</th>' . "\n"
-    //.        '<th>' . get_lang('Rank') . '</th>' . "\n"
+    .       '<th>' . get_lang('Visibility') . '</th>' . "\n"
     .       '<th colspan="2">' . get_lang('Ordre') . '</th>' . "\n"
     .      '</tr>' . "\n"
     .    '</thead>' . "\n"
@@ -235,7 +250,7 @@
         .      '<tr>' . "\n"
         .       '<td>' . $portlet['name'] . '</td>' . "\n"
         //.       '<td>' . $portlet['rank'] . '</td>' . "\n"
-        //.       '<td>' . $portlet['rank'] . '</td>' . "\n"
+        .       '<td><img src="' . get_icon_url('visible') . '" alt="' . get_lang('visible') . '" /></td>' . "\n"
         .       '<td><a href="' . $_SERVER['PHP_SELF'] . '?label=' . $portlet['label'] . '&amp;cmd=exUp"><img src="' . get_icon_url('up') . '" alt="' . get_lang('up') . '" /></a></td>' . "\n"
         .       '<td><a href="' . $_SERVER['PHP_SELF'] . '?label=' . $portlet['label'] . '&amp;cmd=exDown"><img src="' . get_icon_url('down') . '" alt="' . get_lang('down') . '" /></a></td>' . "\n"
         .      '</tr>' . "\n"
