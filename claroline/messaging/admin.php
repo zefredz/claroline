@@ -41,25 +41,31 @@ if ( ! claro_is_platform_admin() )
 $content = "";
 
 // ---- display
-$content .= 
-	 '<h4>'.get_lang('Delete').'</h4>'."\n"
-	.'<ul>'."\n"
-	.'	<li><a href="admin_delete.php?cmd=rqDeleteAll">'.get_lang('all messages').'</a></li>' ."\n"
-	.'	<li><a href="admin_delete.php?cmd=rqFromUser">'.get_lang('from a user').'</a></li>' ."\n"
-	.'	<li><a href="admin_delete.php?cmd=rqOlderThan">'.get_lang('older than').'</a></li>' ."\n"
-	.'	<li><a href="admin_delete.php?cmd=rqPlateformMessage">'.get_lang('plateform message').'</a></li>' ."\n"
-	.'</ul>'."\n"
-	;
-	
-$content .= 
-	 '<h4>'.get_lang('Search message').'</h4>'."\n"
-	.'<ul>'."\n"
-	.'	<li><a href="admin_search.php?search=fromUser">'.get_lang('from a user').'</a></li>' ."\n"
-	.'	<li><a href="admin_search.php?search=olderThan">'.get_lang('older than').'</a></li>' ."\n"
-	.'	<li><a href="admin_search.php?search=timeInterval">'.get_lang('Interval of date').'</a></li>' ."\n"
-	.'	<li><a href="admin_search.php?search=plateformMessage">'.get_lang('plateform message').'</a></li>' ."\n"
-	.'</ul>'."\n"
-	;
+
+$warningMessage = get_lang('Warning: All suppression of message in the administration, delete message from <br />ALL message box for ALL users.
+        <br /><br />You cannot retreive message after message after the suppression!');
+
+$dialbox = new DialogBox();
+$dialbox->warning($warningMessage);
+$content .= $dialbox->render();
+
+$content .=
+        '<h4>'.get_lang('Delete').'</h4>'."\n"
+        .'<ul>'."\n"
+        .'<li><a href="admin_delete.php?cmd=rqDeleteAll">'.get_lang('all messages').'</a></li>' ."\n"
+        .'<li><a href="admin_delete.php?cmd=rqFromUser">'.get_lang('message from a user').'</a></li>' ."\n"
+        .'<li><a href="admin_delete.php?cmd=rqOlderThan">'.get_lang('message older than').'</a></li>' ."\n"
+        .'<li><a href="admin_delete.php?cmd=rqPlateformMessage">'.get_lang('plateform message').'</a></li>' ."\n"
+        .'</ul>'."\n"
+
+        . '<h4>'.get_lang('Search').'</h4>'."\n"
+        .'<ul>'."\n"
+        .'	<li><a href="admin_search.php?search=fromUser">'.get_lang('message from a user').'</a></li>' ."\n"
+        .'	<li><a href="admin_search.php?search=olderThan">'.get_lang('message older than').'</a></li>' ."\n"
+        .'	<li><a href="admin_search.php?search=timeInterval">'.get_lang('message in date interval').'</a></li>' ."\n"
+        .'	<li><a href="admin_search.php?search=plateformMessage">'.get_lang('plateform message').'</a></li>' ."\n"
+        .'</ul>'."\n"
+        ;
 
 $claroline->display->banner->breadcrumbs->append(get_lang('My messages'),'index.php');
 $claroline->display->banner->breadcrumbs->append(get_lang('Administration'),'admin.php');
