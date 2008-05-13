@@ -17,12 +17,15 @@ body {
 }
 
 #claroPage {
+	margin: 0;
+	padding: 0;
 }
 
 #installHeader {
 	background: url('default/bg_header.gif') repeat-x top left #c5d4e2;
 	border-top: 3px solid #010065;
 	padding: 10px 15px 0px 15px;
+	margin: 0;
 }
 
 h1 {
@@ -32,6 +35,11 @@ h1 {
     font-weight: bold;
    	background: url('default/claroline_logo_circle.gif') no-repeat top left;
     font-size: 1.5em;
+}
+
+h2 {
+	margin: 0;
+	padding: 3px 0;
 }
 
 #installContainer {
@@ -55,10 +63,9 @@ h1 {
 
 #endPanel {
 	font-size: 0.9em;
-	margin: auto;
-	margin-top: 5px;
-	padding-left: 5px; 
 	border: none;
+	margin: 0;
+	padding: 5px 0 0 0;
 }
 
 .progressPanel {
