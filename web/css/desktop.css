@@ -7,7 +7,7 @@
     margin: 15px 240px 15px 0;
     background-color: #EDF1E3;
 }
-
+/*6F8F50*/
 .portletTitle
 {
     color: #669933;
@@ -111,6 +111,36 @@
 {
   background-color:silver;
 }
+
+fieldset {
+margin-top: 0.7em;
+margin-bottom: 1em;
+margin-right:20px;
+}
+
+legend {
+ margin:0;
+ padding-left: 20px;
+ font-weight:bold;
+ color: #111C99;
+}
+
+.avatar img {
+margin:1em;
+}
+
+.config td {
+text-align:center;
+}
+
+.hideul { 
+ background: transparent url(../../claroline/desktop/img/hide.png) no-repeat top left; 
+}
+
+.showul {
+ background: transparent url(../../claroline/desktop/img/show.png) no-repeat top left; 
+}
+
 
 /* portlet stat */
 /*

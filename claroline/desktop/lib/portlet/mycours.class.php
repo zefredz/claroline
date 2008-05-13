@@ -105,11 +105,25 @@ class MyCours extends Portlet
                 .    ' : ' . $thisCourse['titular'] . $course_language_txt
                 .    '</small>' . "\n"
                 .    '</small>' . "\n"
-                .    '</dd>' ."\n"
+                .    '</dd>' . "\n"
                 ;
             }
 
             $output .= '</dl>' . "\n";
+        }
+        else
+        {
+            $output .= "\n"
+            .    '<dl>' . "\n"
+            .    '<dt>' . "\n"
+            .    '<img class="iconDefinitionList" src="' . get_icon_url('course') . '" alt="' . get_lang('Icon course') . '" />'
+            .    get_lang('No courses !') . "\n"
+            .    '</dt>' . "\n"
+            .    '</dl>' . "\n"
+            ;
+            
+            
+            
         }
                 
         $this->content = $output;

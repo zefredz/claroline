@@ -311,6 +311,12 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__desktop_portlet` (
   PRIMARY KEY  (`label`)
 ) TYPE=MyISAM;
 
+CREATE TABLE IF NOT EXISTS `__CL_MAIN__desktop_portlet_avatar` (
+  `idUser` int(11) NOT NULL,
+  `avatar` varchar(255) NOT NULL,
+  PRIMARY KEY  (`idUser`),
+) TYPE=MyISAM;
+
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__desktop_portlet_data` (
   `label` varchar(255) NOT NULL,
   `idUser` int(11) NOT NULL,
