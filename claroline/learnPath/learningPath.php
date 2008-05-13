@@ -316,7 +316,7 @@ elseif(claro_is_user_authenticated() && $moduleNb > 0)
         .'</tr>'."\n\n"
         // display progression
         .'<tr>'."\n"
-        .'<td align="right" colspan="'.($maxDeep+1).'">'.get_lang('Learning path progression : ').'</td>'."\n"
+        .'<td align="right" colspan="'.($maxDeep+1).'">'.get_lang('Learning path progression :').'</td>'."\n"
         .'<td align="right">'
         .claro_html_progress_bar(round($globalProg / ($moduleNb) ), 1 )
         .'</td>'."\n"
