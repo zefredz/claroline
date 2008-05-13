@@ -41,6 +41,8 @@ include claro_get_conf_repository() . 'user_profile.conf.php'; // find this file
 include_once get_path('incRepositorySys') . '/lib/user.lib.php';
 include_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
 include_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
+include_once get_path('incRepositorySys') . '/lib/fileUpload.lib.php';
+include_once get_path('incRepositorySys') . '/lib/image.lib.php';
 
 $nameTools = get_lang('My User Account');
 
@@ -94,6 +96,77 @@ if ( isset($_REQUEST['applyChange']) )
     if ( isset($_REQUEST['officialEmail']) && in_array('email',$profile_editable) )        $user_data['officialEmail'] = trim($_REQUEST['officialEmail']);
     if ( isset($_REQUEST['phone']) && in_array('phone',$profile_editable) )                $user_data['phone'] = trim($_REQUEST['phone']);
     if ( isset($_REQUEST['language']) && in_array('language',$profile_editable) )          $user_data['language'] = trim($_REQUEST['language']);
+    
+    
+    if ( isset($_REQUEST['delPicture']) && $_REQUEST['delPicture'] =='true' )
+    {
+        $picturePath = get_path('rootSys').'platform/pictures'
+            . '/' . md5($user_data['user_id']) . '/' . $user_data['picture'];
+        
+        claro_delete_file( $picturePath );
+        
+        $user_data['picture'] = '';
+    }
+    
+    // Handle user picture
+    
+    if ( isset($_FILES['picture']['name']) )
+    {
+        $fileName = $_FILES['picture']['name'];
+        $fileTmpName = $_FILES['picture']['tmp_name'];
+        
+        if ( is_uploaded_file( $fileTmpName ) )
+        {
+            if ( is_image( $fileName ) )
+            {
+                list($width, $height, $type, $attr) = getimagesize($fileTmpName);
+                
+                if ( $width > 0 && $width <= get_conf( 'maxUserPictureWidth', 150 )
+                    && $height > 0 && $height <= get_conf( 'maxUserPictureHeight', 200 )
+                    && $_FILES['picture']['size'] <= get_conf( 'maxUserPictureSize', 100*1024 )
+                )
+                {
+                    $uploadDir = get_path('rootSys').'platform/pictures'
+                        . '/' . md5($user_data['user_id']);
+                    
+                    if ( ! file_exists( $uploadDir ) )
+                    {
+                        claro_mkdir( $uploadDir, CLARO_FILE_PERMISSIONS, true );
+                    }
+                    
+                    if ( false !== ( $pictureName = treat_uploaded_file(
+                            $_FILES['picture'],
+                            $uploadDir,
+                            '',
+                            1000000000000 ) ) )
+                    {
+                        // Update Database
+                        $user_data['picture'] = $pictureName;
+                    }
+                    else
+                    {
+                        // Handle Error
+                        var_dump(__LINE__);
+                    }
+                }
+                else
+                {
+                    // Handle error
+                    var_dump(__LINE__);
+                }
+            }
+            else
+            {
+                // Handle error
+                var_dump(__LINE__);
+            }
+        }
+        else
+        {
+            // Handle error
+            var_dump(__LINE__);
+        }
+    }
 
     // manage password.
 
@@ -116,7 +189,7 @@ if ( isset($_REQUEST['applyChange']) )
         // re-init the system to take new settings in account
 
         $uidReset = true;
-        include '../inc/claro_init_local.inc.php';
+        include dirname(__FILE__) . '/../inc/claro_init_local.inc.php';
         $dialogBox->success( get_lang('The information have been modified') );
 
         // Initialise
@@ -257,11 +330,11 @@ $jsloader->load('jquery');
 
 $htmlHeadXtra[] =
 '<script type="text/javascript">
-	$(document).ready(
-		function() {
-			$("#password").val("");
-		}
-	);
+    $(document).ready(
+        function() {
+            $("#password").val("");
+        }
+    );
 </script>';
 
 // display header

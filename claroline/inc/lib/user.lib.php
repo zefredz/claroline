@@ -890,7 +890,7 @@ function user_html_form($data, $form_type='registration')
     }
     else
     {
-        $profile_editable = array('name','official_code','login','password','email','phone','language');
+        $profile_editable = array('name','official_code','login','password','email','phone','language','picture');
     }
 
     // display registration form
@@ -961,6 +961,22 @@ function user_html_form($data, $form_type='registration')
     {
         $html .= form_row('<label for="language_selector">' . get_lang('Language') . '&nbsp;:</label>',
         $language_select_box );
+    }
+    
+    $picture = claro_get_current_user_data('picture');
+    
+    if ( !empty( $picture ) )
+    {
+        $pictureUrl = get_path('rootWeb').'platform/pictures/'.md5($data['user_id']).'/'.$data['picture'];
+        $html .= form_row( get_lang('User picture') . ' :', '<img class="userPicture" src="'.$pictureUrl.'" />');
+        $html .= form_row( '&nbsp;'
+            , '<input type="checkbox" name="delPicture" id="delPicture" value="true" />'
+            . '<label for="delPicture">'.get_lang('Delete picture').'</label>' );
+    }
+    else
+    {
+        $html .= form_input_file( 'picture', get_lang('User picture'), false );
+        $html .= form_row( '&nbsp;', get_lang('No picture') );
     }
 
     if (     isset($data['authsource'])
@@ -1451,5 +1467,3 @@ function claro_get_user_course_list($user_id = null)
 
     return $userCourseList;
 }
-
-?>

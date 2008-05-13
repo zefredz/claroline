@@ -369,4 +369,20 @@ function form_input_textarea($name, $value, $displayedName = '', $required = fal
     ;
 }
 
-?>
+/**
+ * Prepare an html output of an input file wich  would be include in a <form>
+ *
+ * @param string $name use for name and for id
+ * @return string : html stream
+ */
+function form_input_file($name, $displayedName = '', $required = false)
+{
+    if ( empty($displayedName) ) $displayedName = $name;
+    if ( $required )             $displayedName = form_required_field($displayedName);
+
+    return form_row( '<label for="' . $name . '">' . $displayedName . '</label>&nbsp;: '
+    ,                '<input type="file" '
+    .                ' id="'.$name.'" name="'.$name.'"'
+    .                ' />')
+    ;
+}
