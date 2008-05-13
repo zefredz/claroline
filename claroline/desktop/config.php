@@ -235,7 +235,7 @@
     .    '<thead>' . "\n"
     .      '<tr class="headerX" align="center" valign="top">' . "\n"
     .        '<th>' . get_lang('Nom') . '</th>' . "\n"
-    .       '<th>' . get_lang('Visibility') . '</th>' . "\n"
+    // .       '<th>' . get_lang('Visibility') . '</th>' . "\n"
     .       '<th colspan="2">' . get_lang('Ordre') . '</th>' . "\n"
     .      '</tr>' . "\n"
     .    '</thead>' . "\n"
@@ -249,7 +249,7 @@
         .       '<td>' . $portlet['name'] . '</td>' . "\n"
         ;
         
-            if( $portlet['visibility'] == 'VISIBLE' )
+            /*if( $portlet['visibility'] == 'VISIBLE' )
             {
                 $outPortlet .= "\n"
                 .    '<td align="center">' . "\n"
@@ -268,7 +268,7 @@
                 .    '</a>' . "\n"
                 .    '</td>' . "\n"
                 ;
-            }
+            }*/
         
         $outPortlet .= "\n"
         .       '<td><a href="' . $_SERVER['PHP_SELF'] . '?label=' . $portlet['label'] . '&amp;cmd=exUp"><img src="' . get_icon_url('up') . '" alt="' . get_lang('up') . '" /></a></td>' . "\n"
