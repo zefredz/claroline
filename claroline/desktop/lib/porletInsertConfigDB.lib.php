@@ -62,16 +62,18 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             }
         }
         
-        public function loadAll()
+        public function loadAll( $visibility = false )
         {
             $sql = "SELECT
                         `label`,
                         `name`,
                         `rank`,
+                        `visibility`,
                         `activated`
                     FROM `".$this->tblDesktopPortlet."`
-                    WHERE activated = '1'
-                    ORDER BY `rank` ASC"
+                    WHERE activated = '1'"
+                    . ( $visibility == true ? "AND visibility = 'VISIBLE'" : '' ) .
+                    "ORDER BY `rank` ASC"
                     ;
 
             if ( false === ( $data = claro_sql_query_fetch_all_rows($sql) ) )
@@ -316,10 +318,10 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             }
         }
     
-        public function saveVisibility( $label )
+        function saveVisibility( $label )
         {
             $sql = "UPDATE `".$this->tblDesktopPortlet."`
-                    SET `visibility` = '" . getVisibility() . "'
+                    SET `visibility` = '" . $this->getVisibility() . "'
                     WHERE `label` = '" . $label . "'"
                     ;                            
                                 

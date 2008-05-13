@@ -151,16 +151,14 @@
         
         $PortletConfig->setVisible();
 
-        $PortletConfig->saveVisibility();
+        $PortletConfig->saveVisibility($label);
     }
 
     if( $cmd == 'exInvisible' )
     {
-        
-        
         $PortletConfig->setInvisible();
 
-        $PortletConfig->saveVisibility();
+        $PortletConfig->saveVisibility($label);
     }
 
 
@@ -249,8 +247,30 @@
         $outPortlet .= "\n"
         .      '<tr>' . "\n"
         .       '<td>' . $portlet['name'] . '</td>' . "\n"
-        //.       '<td>' . $portlet['rank'] . '</td>' . "\n"
-        .       '<td><img src="' . get_icon_url('visible') . '" alt="' . get_lang('visible') . '" /></td>' . "\n"
+        ;
+        
+            if( $portlet['visibility'] == 'VISIBLE' )
+            {
+                $outPortlet .= "\n"
+                .    '<td align="center">' . "\n"
+                .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exInvisible&amp;label=' . $portlet['label'] . '">'
+                .    claro_html_icon('visible')
+                .    '</a>' . "\n"
+                .    '</td>' . "\n"
+                ;
+            }
+            else
+            {
+                $outPortlet .= "\n"
+                .    '<td align="center">' . "\n"
+                .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exVisible&amp;label=' . $portlet['label'] . '">'
+                .    claro_html_icon('invisible')
+                .    '</a>' . "\n"
+                .    '</td>' . "\n"
+                ;
+            }
+        
+        $outPortlet .= "\n"
         .       '<td><a href="' . $_SERVER['PHP_SELF'] . '?label=' . $portlet['label'] . '&amp;cmd=exUp"><img src="' . get_icon_url('up') . '" alt="' . get_lang('up') . '" /></a></td>' . "\n"
         .       '<td><a href="' . $_SERVER['PHP_SELF'] . '?label=' . $portlet['label'] . '&amp;cmd=exDown"><img src="' . get_icon_url('down') . '" alt="' . get_lang('down') . '" /></a></td>' . "\n"
         .      '</tr>' . "\n"

@@ -109,7 +109,7 @@
     
     // affichage des portlets
     
-    $portletList = $porletInsertConfigDB->loadAll();
+    $portletList = $porletInsertConfigDB->loadAll( true );
     
     foreach ( $portletList as $portlet )
     {
