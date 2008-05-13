@@ -790,7 +790,7 @@ function uninstall_module($moduleId, $deleteModuleData = true)
         claro_sql_query($sql);
         
         $sql = "DELETE FROM `" . $tbl['module_contexts'] . "`
-                WHERE `module_id` = " . (int) $moduleId;
+                WHERE `module_id` = " . (int) $moduleId;        
         claro_sql_query($sql);
 
         // 4-Manage right - Delete read action
@@ -1172,8 +1172,6 @@ function register_module_core($module_info)
             
         claro_sql_query($sql);
     }
-
-    claro_sql_query($sql);
 
     return $moduleId;
 }
