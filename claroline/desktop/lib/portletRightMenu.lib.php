@@ -33,8 +33,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         public function renderContent()
         {
     
-            $avatar = new porletConfigAvatar();
-            $avatar = $avatar->load();
+            //$avatar = new porletConfigAvatar();
+            //$avatar = $avatar->load();
 
             $userData = user_get_properties( claro_get_current_user_id() );
             
@@ -55,8 +55,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             .    '</div>' . "\n"
             .    '<div class="portletContent" id="portletMyprofil">' . "\n"
             //.     '  <div id="picture"><div class="pic"><br /><br /><br />No picture</div></div>' . "\n"
-            .     '  <div id="picture"><img src="' . get_icon_url('Avatar-' . $avatar . '') . '" alt="' . get_lang('avatar') . '" /></div>' . "\n"
-            
+            //.     '  <div id="picture"><img src="' . get_icon_url('Avatar-' . $avatar . '') . '" alt="' . get_lang('avatar') . '" /></div>' . "\n"
+            .     '  <div id="picture"><img src="' . get_icon_url('Avatar-smile') . '" alt="' . get_lang('avatar') . '" /></div>' . "\n"
             .     '    <div id="details">'
             //.     '      <p><span>' . get_lang('Last name') . '</span><br /> ' . htmlspecialchars($userData['lastname']) . '</p>' . "\n"
             //.     '      <p><span>' . get_lang('First name') . '</span><br /> ' . htmlspecialchars($userData['firstname']) . '</p>' . "\n"
