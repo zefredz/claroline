@@ -38,6 +38,16 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
             $userData = user_get_properties( claro_get_current_user_id() );
             
+            if ( ! empty( $userData['picture'] ) )
+            {
+                $pictureUrl = get_path('rootWeb')
+                    .'platform/pictures/'.md5($userData['user_id']).'/'.$userData['picture'];
+            }
+            else
+            {
+                $pictureUrl = get_icon_url('Avatar-smile');
+            }
+            
             $output = '<div class="portletRightMenu">' . "\n"
             .    '<div class="portletTitle">' . "\n"
             
@@ -56,13 +66,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             .    '<div class="portletContent" id="portletMyprofil">' . "\n"
             //.     '  <div id="picture"><div class="pic"><br /><br /><br />No picture</div></div>' . "\n"
             //.     '  <div id="picture"><img src="' . get_icon_url('Avatar-' . $avatar . '') . '" alt="' . get_lang('avatar') . '" /></div>' . "\n"
-            .     '  <div id="picture"><img src="' . get_icon_url('Avatar-smile') . '" alt="' . get_lang('avatar') . '" /></div>' . "\n"
+            .     '  <div id="picture"><img src="' . $pictureUrl . '" alt="' . get_lang('avatar') . '" /></div>' . "\n"
             .     '    <div id="details">'
             //.     '      <p><span>' . get_lang('Last name') . '</span><br /> ' . htmlspecialchars($userData['lastname']) . '</p>' . "\n"
             //.     '      <p><span>' . get_lang('First name') . '</span><br /> ' . htmlspecialchars($userData['firstname']) . '</p>' . "\n"
             .     '      <p><span>' . get_lang('Email') . '</span><br /> ' . htmlspecialchars($userData['email']) . '</p>' . "\n"
             //.     '      <p><img src="' . get_icon_url('sendmail2.png') . '" alt="' . get_lang('config') . '" />&nbsp;<a href="">' . get_lang('Send message') . '</a></p>' . "\n"
-            .     '      <p><img src="' . get_icon_url('config') . '" alt="' . get_lang('config') . '" />&nbsp;<a href="config.php">' . get_lang('Config') . '</a></p>' . "\n"
+            //.     '      <p><img src="' . get_icon_url('config') . '" alt="' . get_lang('config') . '" />&nbsp;<a href="config.php">' . get_lang('Config') . '</a></p>' . "\n"
             .     '    </div>' . "\n"
             .    '  </div>' . "\n"
             .    '</div>' . "\n"
