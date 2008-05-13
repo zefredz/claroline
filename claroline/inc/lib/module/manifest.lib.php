@@ -46,20 +46,23 @@ class ModuleManifestParser
         
         $this->backlog->info( 'Parsing manifest file ' . $manifestPath );
         
-        if (! file_exists( $manifestPath ) )
+        if ( !file_exists( $manifestPath ) )
         {
-            $this->backlog->failure(get_lang('Manifest missing : %filename'
-                ,array('%filename' => $manifestPath)));
+            $this->backlog->failure(
+                  get_lang('Manifest missing : %filename'
+                , array('%filename' => $manifestPath)));
             return false;
         }
 
         $xmlParser = xml_parser_create();
 
-        xml_set_element_handler( $xmlParser
+        xml_set_element_handler(
+              $xmlParser
             , array(&$this, 'startElement')
             , array(&$this, 'endElement') );
 
-        xml_set_character_data_handler( $xmlParser
+        xml_set_character_data_handler(
+              $xmlParser
             , array(&$this, 'elementData') );
 
         // read manifest file
@@ -75,7 +78,7 @@ class ModuleManifestParser
             $data = html_entity_decode(urldecode($data));
         }
 
-        if ( !xml_parse($xmlParser, $data) )
+        if ( !xml_parse( $xmlParser, $data ) )
         {
             // if reading of the xml file in not successfull :
             // set errorFound, set error msg, break while statement
@@ -84,7 +87,75 @@ class ModuleManifestParser
         }
 
         // liberate parser ressources
-        xml_parser_free($xmlParser);
+        xml_parser_free( $xmlParser );
+        
+        // complete module info for missing optional elements
+        
+        if ( ! array_key_exists( 'ENTRY', $this->moduleInfo ) )
+        {
+            $this->moduleInfo['ENTRY'] = entry.php;
+        }
+        
+        // Module License
+        if ( ! array_key_exists( 'LICENSE', $this->moduleInfo ) )
+        {
+            $this->moduleInfo['LICENSE'] = '';
+        }
+        
+        // Module version
+        if ( ! array_key_exists( 'VERSION', $this->moduleInfo ) )
+        {
+            $this->moduleInfo['VERSION'] = '';
+        }
+        
+        // Module description
+        if ( ! array_key_exists( 'DESCRIPTION', $this->moduleInfo ) )
+        {
+            $this->moduleInfo['DESCRIPTION'] = '';
+        }
+        
+        // Author informations
+        if ( ! array_key_exists( 'AUTHOR', $this->moduleInfo ) )
+        {
+            $this->moduleInfo['AUTHOR'] = array();
+        }
+        
+        // Author name
+        if ( ! array_key_exists( 'NAME', $this->moduleInfo['AUTHOR'] ) )
+        {
+            $this->moduleInfo['AUTHOR']['NAME'] = '';
+        }
+        
+        // Author email
+        if ( ! array_key_exists( 'EMAIL', $this->moduleInfo['AUTHOR'] ) )
+        {
+            $this->moduleInfo['AUTHOR']['EMAIL'] = '';
+        }
+        
+        // Author website
+        if ( ! array_key_exists( 'WEB', $this->moduleInfo['AUTHOR'] ) )
+        {
+            $this->moduleInfo['AUTHOR']['WEB'] = '';
+        }
+        
+        // Module website
+        if ( ! array_key_exists( 'WEB', $this->moduleInfo ) )
+        {
+            $this->moduleInfo['WEB'] = '';
+        }
+        
+        // Set default module context
+        if ( ! array_key_exists( 'CONTEXTS', $this->moduleInfo ) )
+        {
+            if ( strtoupper( $this->moduleInfo['TYPE'] ) == 'TOOL' )
+            {
+                $this->moduleInfo['CONTEXTS'] = array('course');
+            }
+            else
+            {
+                $this->moduleInfo['CONTEXTS'] = array('platform');
+            }
+        }
 
         return $this->moduleInfo;
     }
@@ -94,7 +165,7 @@ class ModuleManifestParser
      */
     public function endElement($parser,$name)
     {
-        array_pop($this->elementPile);
+        array_pop( $this->elementPile );
     }
 
     /**
@@ -102,7 +173,7 @@ class ModuleManifestParser
      */
     public function startElement($parser, $name, $attributes)
     {
-        array_push($this->elementPile,$name);
+        array_push( $this->elementPile, $name );
     }
 
     /**
@@ -110,7 +181,7 @@ class ModuleManifestParser
      */
     public function elementData($parser,$data)
     {
-        $currentElement = end($this->elementPile);
+        $currentElement = end( $this->elementPile );
 
         if ( claro_debug_mode() )
         {
@@ -118,7 +189,7 @@ class ModuleManifestParser
                 . ' as been found with value ' . var_export($data,true) );
         }
 
-        switch ($currentElement)
+        switch ( $currentElement )
         {
             case 'TYPE' :
             {
@@ -309,71 +380,15 @@ class ModuleManifestParser
                     $this->moduleInfo['CONTEXTS'] = array();
                 }
                 
-                $this->moduleInfo['CONTEXTS'][] = $data;
-                
-                array_unique( $this->moduleInfo['CONTEXTS'] );
+                if ( ! in_array( $data, $this->moduleInfo['CONTEXTS'] ) )
+                {
+                    $this->moduleInfo['CONTEXTS'][] = $data;
+                }
                 
                 break;
             }
         }
     }
-}
-
-/**
- *  Add missing optional elements to module info
- *  @param   array module_info
- *  @return  array, completed module_info
- */
-function completeModuleInfo( $module_info )
-{
-    // complete module info for missing optional elements
-
-    if ( ! array_key_exists( 'LICENSE', $module_info ) )
-    {
-        $module_info['LICENSE'] = '';
-    }
-
-    if ( ! array_key_exists( 'VERSION', $module_info ) )
-    {
-        $module_info['VERSION'] = '';
-    }
-
-    if ( ! array_key_exists( 'DESCRIPTION', $module_info ) )
-    {
-        $module_info['DESCRIPTION'] = '';
-    }
-
-    if ( ! array_key_exists( 'AUTHOR', $module_info ) )
-    {
-        $module_info['AUTHOR'] = array();
-    }
-
-    if ( ! array_key_exists( 'NAME', $module_info['AUTHOR'] ) )
-    {
-        $module_info['AUTHOR']['NAME'] = '';
-    }
-
-    if ( ! array_key_exists( 'EMAIL', $module_info['AUTHOR'] ) )
-    {
-        $module_info['AUTHOR']['EMAIL'] = '';
-    }
-
-    if ( ! array_key_exists( 'WEB', $module_info['AUTHOR'] ) )
-    {
-        $module_info['AUTHOR']['WEB'] = '';
-    }
-
-    if ( ! array_key_exists( 'WEB', $module_info ) )
-    {
-        $module_info['WEB'] = '';
-    }
-    
-    if ( ! array_key_exists( 'CONTEXTS', $module_info ) )
-    {
-        $module_info['CONTEXTS'] = array('course');
-    }
-    
-    return $module_info;
 }
 
 /**
@@ -389,11 +404,16 @@ function checkModuleInfo ( $module_info )
         return claro_failure::set_failure(get_lang('Empty manifest'));
     }
     
-    $missingElement = array_diff(array('LABEL','NAME','TYPE'),array_keys($module_info));
+    $missingElement = array_diff(
+        array('LABEL','NAME','TYPE'),
+        array_keys($module_info)
+    );
 
-    if (count($missingElement)>0)
+    if ( !empty($missingElement) )
     {
-        return claro_failure::set_failure(get_lang('Missing elements in module Manifest : %MissingElements' , array('%MissingElements' => implode(',',$missingElement))));
+        return claro_failure::set_failure(
+            get_lang( 'Missing elements in module Manifest : %MissingElements'
+                     , array('%MissingElements' => implode(',',$missingElement)) ) );
     }
     else
     {
@@ -411,20 +431,22 @@ function readModuleManifest($modulePath)
     
     if (! file_exists ($manifestPath) )
     {
-        return claro_failure::set_failure(get_lang('Manifest missing : %filename',array('%filename' => $manifestPath)));
+        return claro_failure::set_failure(
+            get_lang( 'Manifest missing : %filename'
+                     , array('%filename' => $manifestPath) ) );
     }
     else
     {
         $parser = new ModuleManifestParser;
-        $module_info = $parser->parse($manifestPath);
+        $moduleInfo = $parser->parse($manifestPath);
         
-        if ( ! checkModuleInfo( $module_info ) )
+        if ( !checkModuleInfo( $moduleInfo ) )
         {
             return false;
         }
         else
         {
-            return completeModuleInfo( $module_info );
+            return $moduleInfo;
         }
     }
 }
