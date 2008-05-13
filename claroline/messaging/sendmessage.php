@@ -192,7 +192,7 @@
             }
         }
     }
-	
+
     // ------------ Prepare display --------------------
     if ($addForm)
     {
@@ -208,14 +208,14 @@
          . '<input type="hidden" name="groupRecipient" value="'.$groupRecipient.'" />'."\n"
          . '<label>Subject: </label><input type="text" name="subject" value="'.htmlspecialchars($subject).'" /><br/>'."\n"
          . '<label>message</label><br/>'.claro_html_textarea_editor('message', $message).'<br/><br/>'."\n"
-         . '<input type="submit" value="Send" name="send" /> <input type="button" value="back" name="back" />'."\n"
+         . '<input type="submit" value="Send" name="send" />'."\n"
          . '</form>'."\n\n"
          ;
     }
-    
+
     $claroline->display->body->appendContent(claro_html_tool_title(get_lang('Compose a message')));
     $claroline->display->body->appendContent($content);
-    
+
     // ------------- Display page -----------------------------
     echo $claroline->display->render();
     // ------------- End of script ----------------------------
