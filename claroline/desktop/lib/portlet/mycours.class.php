@@ -18,10 +18,10 @@
  *
  */
 
-require_once dirname(__FILE__) . '/../../../../claroline/inc/lib/courselist.lib.php';
+require_once get_path( 'includePath' ) . '/lib/courselist.lib.php';
 # require_once dirname(__FILE__) . '/../../../../claroline/inc/lib/core/notify.lib.php';
  
-class mycours extends portlet
+class MyCours extends Portlet
 {
     function __construct()
     {

@@ -31,29 +31,40 @@
     // users authentified 
     if( ! claro_is_user_authenticated() ) claro_disp_auth_form();
     
-	$is_allowedToEdit = claro_is_allowed_to_edit();
+    $is_allowedToEdit = claro_is_allowed_to_edit();
 
-	$dialogBox = new DialogBox();
+    $dialogBox = new DialogBox();
         
     $acceptedCmdList = array(   
     'rqAvatar',
-    'exAvatar'
+    'exAvatar',
+    'exDown',
+    'exUp'
     );
     
     if( isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'], $acceptedCmdList) )
     {
         $cmd = $_REQUEST['cmd'];
     }
-	else
+    else
     {
         $cmd = null;
     }
     
-	if( isset($_REQUEST['avatar']) && !empty($_REQUEST['avatar']) )
+    if( isset($_REQUEST['label']) && !empty($_REQUEST['label']) )
+    {
+        $label = $_REQUEST['label'];
+    }
+    else
+    {
+        $label = NULL;
+    }
+    
+    if( isset($_REQUEST['avatar']) && !empty($_REQUEST['avatar']) )
     {
         $avatar = $_REQUEST['avatar'];
     }
-	else
+    else
     {
         $avatar = 'smile';
     }
@@ -77,12 +88,12 @@
     .   '        var answer = $(this).next();' . "\n"
     .   '        if (answer.is(":visible")) {' . "\n"
     .   '            answer.slideUp("fast");' . "\n"
-    .   '			$(this).removeClass("showul");' . "\n"
-    .   '			$(this).addClass("hideul");' . "\n"
+    .   '            $(this).removeClass("showul");' . "\n"
+    .   '            $(this).addClass("hideul");' . "\n"
     .   '        } else {' . "\n"
     .   '            answer.slideDown("slow");' . "\n"
-    .   '			$(this).removeClass("hideul");' . "\n"
-    .   '			$(this).addClass("showul");' . "\n"
+    .   '            $(this).removeClass("hideul");' . "\n"
+    .   '            $(this).addClass("showul");' . "\n"
     .   '        }' . "\n"
     .   '    });' . "\n"
     .   '});' . "\n"
@@ -114,13 +125,27 @@
     if( $cmd == 'rqAvatar' )
     {
         $htmlConfirmDelete = get_lang('Are you sure to change avatar ?')
-        .	 '<br /><br />'
+        .     '<br /><br />'
         .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exAvatar&amp;avatar='.$_REQUEST['selectAvatar'].'">' . get_lang('Yes') . '</a>'
         .    '&nbsp;|&nbsp;'
         .    '<a href="' . $_SERVER['PHP_SELF'] . '">' . get_lang('No') . '</a>'
         ;
 
         $dialogBox->question( $htmlConfirmDelete );
+    }
+    
+    if( $cmd == 'exUp' )
+    {
+        $rank = new PortletConfig();
+        
+        $rank->move_portlet( $label, 'up' );
+    }
+
+    if( $cmd == 'exDown' )
+    {
+        $rank = new PortletConfig();
+        
+        $rank->move_portlet( $label, 'down' );
     }
 
 
@@ -189,14 +214,16 @@
     $portletList = $porletInsertConfigDB->loadAll();
     
     // Configuration des portlets
+    $outPortlet = '';    
     $outPortlet .= '<fieldset class="config">';
     $outPortlet .= '<legend>' . get_lang('Configuration des portlets') . '</legend>';
     
     $outPortlet .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
     .    '<thead>' . "\n"
     .      '<tr class="headerX" align="center" valign="top">' . "\n"
-    .	    '<th>' . get_lang('Nom :') . '</th>' . "\n"
-    .	    '<th>' . get_lang('Rank : ') . '</th>' . "\n"
+    .        '<th>' . get_lang('Nom') . '</th>' . "\n"
+    //.        '<th>' . get_lang('Rank') . '</th>' . "\n"
+    .       '<th colspan="2">' . get_lang('Ordre') . '</th>' . "\n"
     .      '</tr>' . "\n"
     .    '</thead>' . "\n"
     .    '<tbody>' . "\n"
@@ -207,7 +234,10 @@
         $outPortlet .= "\n"
         .      '<tr>' . "\n"
         .       '<td>' . $portlet['name'] . '</td>' . "\n"
-        .       '<td>' . $portlet['rank'] . '</td>' . "\n"
+        //.       '<td>' . $portlet['rank'] . '</td>' . "\n"
+        //.       '<td>' . $portlet['rank'] . '</td>' . "\n"
+        .       '<td><a href="' . $_SERVER['PHP_SELF'] . '?label=' . $portlet['label'] . '&amp;cmd=exUp"><img src="' . get_icon_url('up') . '" alt="' . get_lang('up') . '" /></a></td>' . "\n"
+        .       '<td><a href="' . $_SERVER['PHP_SELF'] . '?label=' . $portlet['label'] . '&amp;cmd=exDown"><img src="' . get_icon_url('down') . '" alt="' . get_lang('down') . '" /></a></td>' . "\n"
         .      '</tr>' . "\n"
         ;
     }
@@ -218,14 +248,14 @@
     ;
 
     $outPortlet .= '</fieldset>';
+    $outPortlet .= '</form>' . "\n";
     
     // Configuration des avatars
-    
     $outPortlet .= '<form action="' . $_SERVER['PHP_SELF'] . '">' . "\n";
     
     $outPortlet .= '<input type="hidden" name="cmd" value="rqAvatar" />' . "\n";
     
-    $outPortlet .= '<fieldset class="config">';
+    $outPortlet .= '<fieldset class="config avatar">';
     $outPortlet .= '<legend>' . get_lang('Configuration des avatars') . '</legend>';
 
     $outPortlet .= "\n"
@@ -298,9 +328,6 @@
     ;
     
     $outPortlet .= '</fieldset>';
-    
-    $outPortlet .= '</form>' . "\n";
-
 
 // }}}
 
@@ -309,10 +336,10 @@
     $output = '';
     
     $moduleName = get_lang('My Desktop');
-	$interbredcrump[]= array ('url' => './index.php', 'name' => $moduleName);
-	$interbredcrump[]= array ('url' => NULL, 'name' => get_lang('Configuration'));
+    $interbredcrump[]= array ('url' => './index.php', 'name' => $moduleName);
+    $interbredcrump[]= array ('url' => NULL, 'name' => get_lang('Configuration'));
 
-	$output .= claro_html_tool_title($nameTools);
+    $output .= claro_html_tool_title($moduleName);
     
     $output .= $dialogBox->render();
         

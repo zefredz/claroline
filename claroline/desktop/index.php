@@ -104,8 +104,8 @@
     }
     
     // avatar par defaut
-    $porletConfigAvatar = new porletConfigAvatar();
-    $porletConfigAvatar->save();
+    //$porletConfigAvatar = new porletConfigAvatar();
+    //$porletConfigAvatar->save();
     
     // affichage des portlets
     
