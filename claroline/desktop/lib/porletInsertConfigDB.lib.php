@@ -159,4 +159,67 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 	        $this->activated = trim($value);
 	    }
     }
+
+    class porletConfigAvatar
+    {
+    	private $tblDesktopAvatar = '';
+        
+        public function __construct()
+    	{
+	        $tblNameList = array(
+	            'desktop_portlet_avatar'
+	        );
+
+	        // convert to Claroline course table names
+	        $tbl_lp_names = get_module_main_tbl( $tblNameList, claro_get_current_course_id() );
+	        $this->tblDesktopAvatar = $tbl_lp_names['desktop_portlet_avatar'];
+    	}
+        
+    	public function load()
+    	{
+			$sql = "SELECT
+						`avatar`
+                    FROM `".$this->tblDesktopAvatar."`
+					WHERE idUser = '". claro_get_current_user_id() ."'"
+                    ;
+
+			$data = claro_sql_query_get_single_value($sql);
+            
+	        if( !empty($data) )
+	        {
+	            return $data;
+	        }
+	        else
+	        {
+	            return false;
+	        }
+    	}
+        
+        public function save( $avatar = 'smile' )
+    	{
+            // insert
+            $sql = "INSERT INTO `".$this->tblDesktopAvatar."`
+                    SET `idUser` = '" . claro_get_current_user_id() . "',
+                        `avatar` = '" . $avatar . "'"
+                    ;                            
+                    
+	        if( claro_sql_query($sql) == false ) return false;
+
+	        return true;
+    	}
+        
+        public function update( $avatar = 'smile' )
+    	{
+            // insert
+            $sql = "UPDATE `".$this->tblDesktopAvatar."`
+                    SET `avatar` = '" . $avatar . "'
+                    WHERE `idUser` = '" . claro_get_current_user_id() . "'"
+                    ;                            
+                    
+	        if( claro_sql_query($sql) == false ) return false;
+
+	        return true;
+    	}
+    }
+    
 ?>

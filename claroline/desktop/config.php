@@ -34,6 +34,29 @@
 	$is_allowedToEdit = claro_is_allowed_to_edit();
 
 	$dialogBox = new DialogBox();
+        
+    $acceptedCmdList = array(   
+    'rqAvatar',
+    'exAvatar'
+    );
+    
+    if( isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'], $acceptedCmdList) )
+    {
+        $cmd = $_REQUEST['cmd'];
+    }
+	else
+    {
+        $cmd = null;
+    }
+    
+	if( isset($_REQUEST['avatar']) && !empty($_REQUEST['avatar']) )
+    {
+        $avatar = $_REQUEST['avatar'];
+    }
+	else
+    {
+        $avatar = 'smile';
+    }
 
 // }}}
 
@@ -41,11 +64,68 @@
 
     $cssLoader = CssLoader::getInstance();
     $cssLoader->load('desktop','all');
+    
+    $jsloader = JavascriptLoader::getInstance();
+    $jsloader->load('jquery');
+    
+    $htmlHeaders = "\n"   
+    .   '<script type="text/javascript">' . "\n"
+    .   '$(document).ready(function() {' . "\n"
+    .   '$(".config legend").addClass("hideul");' . "\n"
+    .   '$(".config").find("table").hide().end();' . "\n"
+    .   '$(".config").find("legend").click(function() {' . "\n"
+    .   '        var answer = $(this).next();' . "\n"
+    .   '        if (answer.is(":visible")) {' . "\n"
+    .   '            answer.slideUp("fast");' . "\n"
+    .   '			$(this).removeClass("showul");' . "\n"
+    .   '			$(this).addClass("hideul");' . "\n"
+    .   '        } else {' . "\n"
+    .   '            answer.slideDown("slow");' . "\n"
+    .   '			$(this).removeClass("hideul");' . "\n"
+    .   '			$(this).addClass("showul");' . "\n"
+    .   '        }' . "\n"
+    .   '    });' . "\n"
+    .   '});' . "\n"
+    .   '</script>' . "\n"
+    ;
+    
+    $claroline->display->header->addHtmlHeader($htmlHeaders);
 
 // }}}
 
 // {{{ CONTROLLER
 
+    // avatar par defaut
+    $porletConfigAvatar = new porletConfigAvatar();
+    //$avatar = $porletConfigAvatar->load();
+    
+    if( $cmd == 'exAvatar' )
+    {
+        if( $porletConfigAvatar->update( $avatar ) )
+        {
+            $dialogBox->success( get_lang('Avatar changed !') );
+        }
+        else
+        {
+            $dialogBox->error( get_lang('Avatar not changed !') );
+        }
+    }
+
+    if( $cmd == 'rqAvatar' )
+    {
+        $htmlConfirmDelete = get_lang('Are you sure to change avatar ?')
+        .	 '<br /><br />'
+        .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exAvatar&amp;avatar='.$_REQUEST['selectAvatar'].'">' . get_lang('Yes') . '</a>'
+        .    '&nbsp;|&nbsp;'
+        .    '<a href="' . $_SERVER['PHP_SELF'] . '">' . get_lang('No') . '</a>'
+        ;
+
+        $dialogBox->question( $htmlConfirmDelete );
+    }
+
+
+
+/*
     $i = 1;
     
     $outPortlet = '';
@@ -54,7 +134,7 @@
 
     $path = dirname( __FILE__ ) . '/lib/portlet';
     
-    /*
+    
     try
     {
         $fileFinder = new ExtensionFileFinder( $path, '.class.php', false );
@@ -107,7 +187,11 @@
     // class porletInsertConfigDB
     $porletInsertConfigDB = new porletInsertConfigDB();
     $portletList = $porletInsertConfigDB->loadAll();
-
+    
+    // Configuration des portlets
+    $outPortlet .= '<fieldset class="config">';
+    $outPortlet .= '<legend>' . get_lang('Configuration des portlets') . '</legend>';
+    
     $outPortlet .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
     .    '<thead>' . "\n"
     .      '<tr class="headerX" align="center" valign="top">' . "\n"
@@ -133,6 +217,90 @@
     .    '</table>' . "\n"
     ;
 
+    $outPortlet .= '</fieldset>';
+    
+    // Configuration des avatars
+    
+    $outPortlet .= '<form action="' . $_SERVER['PHP_SELF'] . '">' . "\n";
+    
+    $outPortlet .= '<input type="hidden" name="cmd" value="rqAvatar" />' . "\n";
+    
+    $outPortlet .= '<fieldset class="config">';
+    $outPortlet .= '<legend>' . get_lang('Configuration des avatars') . '</legend>';
+
+    $outPortlet .= "\n"
+    .    '<table class="claroTable" width="100%" border="0" cellspacing="2">' . "\n"
+    .    '<tbody>' . "\n"
+   
+    .      '<tr>' . "\n"
+    .      '<td>' . "\n"
+    .       '<img src="' . get_icon_url('Avatar-angel') . '" alt="' . get_lang('avatar') . '" />' . "\n"
+    .       '<input type="radio" name="selectAvatar" value="angel" />' . "\n"
+    .      '</td>' . "\n"
+    .      '<td>' . "\n"
+    .       '<img src="' . get_icon_url('Avatar-crying') . '" alt="' . get_lang('avatar') . '" />' . "\n"
+    .       '<input type="radio" name="selectAvatar" value="crying" />' . "\n"
+    .      '</td>' . "\n"
+    .      '<td>' . "\n"
+    .       '<img src="' . get_icon_url('Avatar-devilish') . '" alt="' . get_lang('avatar') . '" />' . "\n"
+    .       '<input type="radio" name="selectAvatar" value="devilish" />' . "\n"
+    .      '</td>' . "\n"
+    .      '<td>' . "\n"
+    .       '<img src="' . get_icon_url('Avatar-glasses') . '" alt="' . get_lang('avatar') . '" />' . "\n"
+    .       '<input type="radio" name="selectAvatar" value="glasses" />' . "\n"
+    .      '</td>' . "\n"
+    .      '<td>' . "\n"
+    .       '<img src="' . get_icon_url('Avatar-grin') . '" alt="' . get_lang('avatar') . '" />' . "\n"
+    .       '<input type="radio" name="selectAvatar" value="grin" />' . "\n"
+    .      '</td>' . "\n"
+    .      '<td>' . "\n"
+    .       '<img src="' . get_icon_url('Avatar-kiss') . '" alt="' . get_lang('avatar') . '" />' . "\n"
+    .       '<input type="radio" name="selectAvatar" value="kiss" />' . "\n"
+    .      '</td>' . "\n"
+    .      '</tr>' . "\n"
+    
+    .      '<tr>' . "\n"
+    .      '<td>' . "\n"
+    .       '<img src="' . get_icon_url('Avatar-monkey') . '" alt="' . get_lang('avatar') . '" />' . "\n"
+    .       '<input type="radio" name="selectAvatar" value="monkey" />' . "\n"
+    .      '</td>' . "\n"
+    .      '<td>' . "\n"
+    .       '<img src="' . get_icon_url('Avatar-sad') . '" alt="' . get_lang('avatar') . '" />' . "\n"
+    .       '<input type="radio" name="selectAvatar" value="sad" />' . "\n"
+    .      '</td>' . "\n"
+    .      '<td>' . "\n"
+    .       '<img src="' . get_icon_url('Avatar-smile') . '" alt="' . get_lang('avatar') . '" />' . "\n"
+    .       '<input type="radio" name="selectAvatar" value="smile" />' . "\n"
+    .      '</td>' . "\n"
+    .      '<td>' . "\n"
+    .       '<img src="' . get_icon_url('Avatar-smile-big') . '" alt="' . get_lang('avatar') . '" />' . "\n"
+    .       '<input type="radio" name="selectAvatar" value="smile-big" />' . "\n"
+    .      '</td>' . "\n"
+    .      '<td>' . "\n"
+    .       '<img src="' . get_icon_url('Avatar-surprise') . '" alt="' . get_lang('avatar') . '" />' . "\n"
+    .       '<input type="radio" name="selectAvatar" value="surprise" />' . "\n"
+    .      '</td>' . "\n"
+    .      '<td>' . "\n"
+    .       '<img src="' . get_icon_url('Avatar-wink') . '" alt="' . get_lang('avatar') . '" />' . "\n"
+    .       '<input type="radio" name="selectAvatar" value="wink" />' . "\n"
+    .      '</td>' . "\n"
+    .      '</tr>' . "\n"
+    
+    .      '<tr>' . "\n"
+    .      '<td colspan="6">' . "\n"
+    .       '<input type="submit" value="' . get_lang('Save') . '" />' . "\n"
+    .      '</td>' . "\n"
+    .      '</tr>' . "\n"
+    
+    
+    .    '</tbody>' . "\n"
+    .    '</table>' . "\n"
+    ;
+    
+    $outPortlet .= '</fieldset>';
+    
+    $outPortlet .= '</form>' . "\n";
+
 
 // }}}
 
@@ -140,7 +308,9 @@
 
     $output = '';
     
-    $nameTools = get_lang('My Desktop');
+    $moduleName = get_lang('My Desktop');
+	$interbredcrump[]= array ('url' => './index.php', 'name' => $moduleName);
+	$interbredcrump[]= array ('url' => NULL, 'name' => get_lang('Configuration'));
 
 	$output .= claro_html_tool_title($nameTools);
     
@@ -150,7 +320,8 @@
     
     $output .= $portletrightmenu->render();
     
-    $output .= '<div class="portlet"><div class="portletTitle">Configuration des portlets</div><div class="portletContent">' . $outPortlet . '</div></div>';
+    //$output .= '<div class="portlet"><div class="portletTitle">Configuration des portlets</div><div class="portletContent">' . $outPortlet . '</div></div>';
+    $output .= $outPortlet;
     
     $output .= '<div style="clear:both"></div>';
     

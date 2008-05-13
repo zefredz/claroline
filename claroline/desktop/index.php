@@ -103,6 +103,10 @@
         pushClaroMessage($e->__toString());
     }
     
+    // avatar par defaut
+    $porletConfigAvatar = new porletConfigAvatar();
+    $porletConfigAvatar->save();
+    
     // affichage des portlets
     
     $portletList = $porletInsertConfigDB->loadAll();
