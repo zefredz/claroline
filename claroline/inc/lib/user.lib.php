@@ -965,11 +965,12 @@ function user_html_form($data, $form_type='registration')
     
     if ( $form_type == 'profile' )
     {
-        $picture = claro_get_current_user_data('picture');
+        // $picture = claro_get_current_user_data('picture');
+        $picturePath = user_get_picture_path( $data );
         
-        if ( !empty( $picture ) )
+        if ( $picturePath && file_exists( $picturePath ) )
         {
-            $pictureUrl = get_path('rootWeb').'platform/pictures/'.md5($data['user_id']).'/'.$data['picture'];
+            $pictureUrl = user_get_picture_url( $data );
             $html .= form_row( get_lang('User picture') . ' :', '<img class="userPicture" src="'.$pictureUrl.'" />');
             $html .= form_row( '&nbsp;'
                 , '<input type="checkbox" name="delPicture" id="delPicture" value="true" />'
@@ -978,6 +979,13 @@ function user_html_form($data, $form_type='registration')
         else
         {
             $html .= form_input_file( 'picture', get_lang('User picture'), false );
+            $html .= form_row( '&nbsp;'
+                , '<small>'.get_lang("max size %width%x%height%, %size% bytes"
+                    , array(
+                            '%width%' => get_conf( 'maxUserPictureWidth', 150 ),
+                            '%height%' => get_conf( 'maxUserPictureHeight', 200 ),
+                            '%size%' => get_conf( 'maxUserPictureHeight', 100*1024 )
+                        ) ) . '</small>' );
             $html .= form_row( '&nbsp;', get_lang('No picture') );
         }
     }
@@ -1469,4 +1477,41 @@ function claro_get_user_course_list($user_id = null)
     $userCourseList = claro_sql_query_fetch_all($sql);
 
     return $userCourseList;
+}
+
+function user_get_picture_folder( $userId )
+{
+    return get_path('userPictureRepositorySys')
+        . '/' . md5($userId.get_conf('platform_id'))
+        ;
+}
+
+function user_get_picture_path( $userData )
+{
+    if ( !empty( $userData['picture'] ) )
+    {
+        return get_path('userPictureRepositorySys')
+            . '/' . md5($userData['user_id'].get_conf('platform_id'))
+            . '/' . $userData['picture']
+            ;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+function user_get_picture_url( $userData )
+{
+    if ( !empty( $userData['picture'] ) )
+    {
+        return get_path('userPictureRepositoryWeb')
+            . '/' . md5($userData['user_id'].get_conf('platform_id'))
+            . '/' . $userData['picture']
+            ;
+    }
+    else
+    {
+        return false;
+    }
 }

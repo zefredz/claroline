@@ -101,14 +101,18 @@ if ( isset($_REQUEST['applyChange']) )
     
     if ( isset($_REQUEST['delPicture']) && $_REQUEST['delPicture'] =='true' )
     {
-        $picturePath = get_path('rootSys').'platform/pictures'
-            . '/' . md5($user_data['user_id']) . '/' . $user_data['picture'];
+        $picturePath = user_get_picture_path( $user_data );
         
-        claro_delete_file( $picturePath );
-        
-        $user_data['picture'] = '';
-        
-        $dialogBox->success(get_lang("User picture deleted"));
+        if ( $picturePath )
+        {
+            claro_delete_file( $picturePath );
+            $user_data['picture'] = '';
+            $dialogBox->success(get_lang("User picture deleted"));
+        }
+        else
+        {
+            $dialogBox->error(get_lang("Cannot delete user picture"));
+        }
     }
     
     // Handle user picture
@@ -129,8 +133,7 @@ if ( isset($_REQUEST['applyChange']) )
                     && $_FILES['picture']['size'] <= get_conf( 'maxUserPictureSize', 100*1024 )
                 )
                 {
-                    $uploadDir = get_path('rootSys').'platform/pictures'
-                        . '/' . md5($user_data['user_id']);
+                    $uploadDir = user_get_picture_folder($user_data['user_id']);
                     
                     if ( ! file_exists( $uploadDir ) )
                     {

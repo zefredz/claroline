@@ -38,10 +38,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
             $userData = user_get_properties( claro_get_current_user_id() );
             
-            if ( ! empty( $userData['picture'] ) )
+            $picturePath = user_get_picture_path( $userData );
+            
+            if ( $picturePath && file_exists( $picturePath ) )
             {
-                $pictureUrl = get_path('rootWeb')
-                    .'platform/pictures/'.md5($userData['user_id']).'/'.$userData['picture'];
+                $pictureUrl = user_get_picture_url( $userData );
             }
             else
             {

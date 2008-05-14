@@ -72,6 +72,10 @@ function get_path($pathKey)
         // path special case
         $pathList['garbageRepositorySys'] =  get_conf('garbageRepositorySys');
         $pathList['mysqlRepositorySys'] =  get_conf('mysqlRepositorySys');
+        
+        // user picture
+        $pathList['userPictureRepositorySys'] = $pathList['rootSys'].'platform/pictures';
+        $pathList['userPictureRepositoryWeb'] = $pathList['rootWeb'].'platform/pictures';
     }
 
     if ( array_key_exists( $pathKey, $pathList ) )
