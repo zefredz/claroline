@@ -43,6 +43,7 @@ include_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
 include_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
 include_once get_path('incRepositorySys') . '/lib/fileUpload.lib.php';
 include_once get_path('incRepositorySys') . '/lib/image.lib.php';
+include_once get_path('incRepositorySys') . '/lib/display/dialogBox.lib.php';
 
 $nameTools = get_lang('My User Account');
 
@@ -106,6 +107,8 @@ if ( isset($_REQUEST['applyChange']) )
         claro_delete_file( $picturePath );
         
         $user_data['picture'] = '';
+        
+        $dialogBox->success(get_lang("User picture deleted"));
     }
     
     // Handle user picture
@@ -142,29 +145,36 @@ if ( isset($_REQUEST['applyChange']) )
                     {
                         // Update Database
                         $user_data['picture'] = $pictureName;
+                        $dialogBox->success(get_lang("User picture added"));
                     }
                     else
                     {
                         // Handle Error
-                        var_dump(__LINE__);
+                        $dialogBox->error(get_lang("Cannot upload file"));
                     }
                 }
                 else
                 {
                     // Handle error
-                    var_dump(__LINE__);
+                    $dialogBox->error(
+                        get_lang("Image is too big : max size %width%x%height%, %size% bytes"
+                            , array(
+                                    '%width%' => get_conf( 'maxUserPictureWidth', 150 ),
+                                    '%height%' => get_conf( 'maxUserPictureHeight', 200 ),
+                                    '%size%' => get_conf( 'maxUserPictureHeight', 100*1024 )
+                                ) ) );
                 }
             }
             else
             {
                 // Handle error
-                var_dump(__LINE__);
+                $dialBox->error(get_lang("Invalid file format, use gif, jpg or png"));
             }
         }
         else
         {
             // Handle error
-            var_dump(__LINE__);
+            $dialogBox->error(get_lang('Upload failed'));
         }
     }
 
@@ -207,15 +217,16 @@ if ( isset($_REQUEST['applyChange']) )
     }
 
 }
-elseif ( ! claro_is_allowed_to_create_course() && get_conf('can_request_course_creator_status')
-&& 'exCCstatus' == $cmd )
+elseif ( ! claro_is_allowed_to_create_course()
+    && get_conf('can_request_course_creator_status')
+    && 'exCCstatus' == $cmd )
 {
     // send a request for course creator status
     profile_send_request_course_creator_status($_REQUEST['explanation']);
     $dialogBox->success( get_lang('Your request to become a course creator has been sent to platform administrator(s).') );
 }
-elseif (    get_conf('can_request_revoquation')
-&& 'exRevoquation' == $cmd )
+elseif ( get_conf('can_request_revoquation')
+    && 'exRevoquation' == $cmd )
 {
     // send a request for revoquation
     if (profile_send_request_revoquation($_REQUEST['explanation'], $_REQUEST['loginToDelete'],$_REQUEST['passwordToDelete']))
@@ -237,8 +248,9 @@ elseif (    get_conf('can_request_revoquation')
         }
     }
 }
-elseif (  ! claro_is_allowed_to_create_course() && get_conf('can_request_course_creator_status')
-&& 'reqCCstatus' == $cmd )
+elseif (  !claro_is_allowed_to_create_course()
+    && get_conf('can_request_course_creator_status')
+    && 'reqCCstatus' == $cmd )
 {
     // display course creator status form
     $noQUERY_STRING = TRUE;
@@ -247,7 +259,7 @@ elseif (  ! claro_is_allowed_to_create_course() && get_conf('can_request_course_
     $nameTools = get_lang('Request course creation status');
 }
 elseif ( get_conf('can_request_revoquation')
-&& 'reqRevoquation' == $cmd )
+    && 'reqRevoquation' == $cmd )
 {
     // display revoquation form
     $noQUERY_STRING = TRUE;
@@ -255,7 +267,8 @@ elseif ( get_conf('can_request_revoquation')
     $nameTools = get_lang('Request to remove this account');
     $display = DISP_REQUEST_REVOQUATION;
 }
-elseif ( 'editExtraInfo' == $cmd && 0 < count($extraInfoDefList) )
+elseif ( 'editExtraInfo' == $cmd
+    && 0 < count($extraInfoDefList) )
 {
     // display revoquation form
     $noQUERY_STRING = TRUE;
@@ -265,7 +278,8 @@ elseif ( 'editExtraInfo' == $cmd && 0 < count($extraInfoDefList) )
     $userInfo = get_user_property_list(claro_get_current_user_id());
 
 }
-elseif ( 'exMoreInfo' == $cmd && 0 < count($extraInfoDefList)  )
+elseif ( 'exMoreInfo' == $cmd
+    && 0 < count($extraInfoDefList)  )
 {
     if (array_key_exists('extraInfoList',$_REQUEST))
     {
@@ -276,7 +290,6 @@ elseif ( 'exMoreInfo' == $cmd && 0 < count($extraInfoDefList)  )
     }
 }
 
-
 // Initialise
 $user_data['userExtraInfoList'] =  get_user_property_list(claro_get_current_user_id());
 
@@ -285,12 +298,9 @@ $profileMenu =  array();
 switch ( $display )
 {
     case DISP_PROFILE_FORM :
-
-
         // display user tracking link
-
         $profileText = claro_text_zone::get_content('textzone_edit_profile_form');
-
+        
         if( get_conf('is_trackingEnabled') )
         {
             // display user tracking link
@@ -299,14 +309,12 @@ switch ( $display )
             .                 '</a>'
             ;
         }
-
         // display request course creator status
         if ( ! claro_is_allowed_to_create_course() && get_conf('can_request_course_creator_status') )
         {
             $profileMenu[] = claro_html_cmd_link($_SERVER['PHP_SELF'] . '?cmd=reqCCstatus' . claro_url_relay_context('&amp;')
                                                 , get_lang('Request course creation status') );
         }
-
         // display user revoquation
         if ( get_conf('can_request_revoquation') )
         {
@@ -315,15 +323,11 @@ switch ( $display )
                                                  , get_lang('Delete my account')
                                                  ) ;
         }
-
         break;
 }
 
-
-
-
 /**********************************************************************
-View Section
+    View Section
 **********************************************************************/
 $jsloader = JavascriptLoader::getInstance();
 $jsloader->load('jquery');
