@@ -43,6 +43,13 @@ ul {
     list-style-type: square;
 }
 
+/******************************************************************************
+                                    FORMS
+ ******************************************************************************/
+
+label {
+    cursor: pointer;
+}
 
 input, textarea, button, select{
     border: 1px solid #aaa;
@@ -52,10 +59,6 @@ input, textarea, button, select{
 input[type=submit], input[type=reset], input[type=button], button {
     margin-left: 2px;
     color: #666;
-}
-
-input[type], textarea[name], input[type=button], button {
-    /*background: #fff;*/
 }
 
 input[type=submit], input[type=reset], input[type=button], button {
@@ -68,8 +71,10 @@ input[type=submit]:hover, button:hover, input[type=button]:hover {
     color: #fff;
 }
 
-label {
-    cursor: pointer;
+input[type=button].inputSearch
+{
+    background: url('../img/search.gif') no-repeat top left #fff;
+    padding-left: 18px;
 }
 
 /******************************************************************************
@@ -80,12 +85,12 @@ label {
 }
 
 /******************************************************************************
-                              CLAROLINE TOP BANNER
+                              CLAROLINE BANNER
  ******************************************************************************/
 
- /*----------------------------------------------------------------------------
-                                  CAMPUS LINE
- ----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------
+                                  PLATFORM BANNER
+----------------------------------------------------------------------------*/
 
 #platformBanner {
     margin: 0;
@@ -121,6 +126,10 @@ label {
     font-size: 1.3em;
 }
 
+/*----------------------------------------------------------------------------
+                                  CAMPUS BANNER
+----------------------------------------------------------------------------*/
+
 #campusBannerRight {
     float: right;
     text-align: right;
@@ -139,7 +148,7 @@ label {
 
 
  /*----------------------------------------------------------------------------
-                                   USER LINE
+                                   USER BANNER
  ----------------------------------------------------------------------------*/
 
 #userBanner {
@@ -183,7 +192,7 @@ label {
 }
 
  /*----------------------------------------------------------------------------
-                                  COURSE LINE
+                                  COURSE BANNER
  ----------------------------------------------------------------------------*/
 #courseBanner {
     padding: 4px;
@@ -249,21 +258,6 @@ label {
     float: left;
     text-align: left;
     margin: 0;
-}
-
-.debugBar
-{
-    color: #F99;
-    background-color:#A33;
-    padding: 3px;
-    font-size: 70%;
-}
-
-.debugBar a,
-.debugBar a:link,
-.debugBar a:visited
-{
-    color: #E6F;
 }
 
  /*----------------------------------------------------------------------------
@@ -700,23 +694,6 @@ a.item:visited{
     color: #333;
 }
 
-div .wikiTitle h1 {
-    margin: 10px 0 10px 10px;
-    padding: 0;
-    font-size: 0.9em;
-    border-bottom: 1px solid #DEDEDE;
-    color: #666;
-    text-indent: 15px;
-    background-image: url(default/arrow_blue.gif);
-    background-position: left;
-    background-repeat: no-repeat;
-}
-
-div .wiki2xhtml p {
-    font-size: 0.8em;
-    color: #666;
-}
-
 /*
  * 'invisible' is generally attached to element that shouldn't be visible into
  * common user interface but which are visible in course manager or platform
@@ -744,14 +721,16 @@ a:visited.invisible {
 }
 
 
-/* 'correct' is attached to element that must be highlighted as correct
+/*
+    'correct' is attached to element that must be highlighted as correct
     example : a good score in exercices
 */
 .correct {
     color: #090;
 }
 
-/* 'error' is attached to element that must be highlighted as correct
+/*
+    'error' is attached to element that must be highlighted as correct
     example : a wrong score in exercices
     example : an error message
 */
@@ -759,7 +738,8 @@ a:visited.invisible {
     color: #900;
 }
 
-/* 'highlight' is used when something needs to be especially shown to the user
+/*
+    'highlight' is used when something needs to be especially shown to the user
     example : 'today' in the agenda
 */
 .highlight {
@@ -767,7 +747,8 @@ a:visited.invisible {
     font-weight: bold;
 }
 
-/* 'required' is used to set the color of the asterisk displayed before the required form field
+/*
+    'required' is used to set the color of the asterisk displayed before the required form field
 */
 .required {
     color: red;
@@ -886,71 +867,85 @@ form tr.admin td{
 }
 
 
-/*
- * style for internal messaging
- */
- 
- /*TR line for plateform message*/
- .plateformMessage { 
-     background-color: #fee5c3;
- }
- 
- /*TR line for unread message*/
- .unreadMessage {
-     background-color: #e6e5e5;
-     font-weight: bold;
- }
- 
- 
- .unreadMessage a, 
- .unreadMessage a:link ,
- .unreadMessage a:active ,
- .unreadMessage a:hover ,
- .unreadMessage a:visited , {
-     font-weight: bold;
- }
- 
- .im_context 
- {
-     /*color: #CCC;*/
- }
- 
- .im_list_action, .im_list_selection
- {
-     text-align: center;
- }
- 
- #im_paging
- {
-     text-align: center;
- }
- 
- .imInfo .imInfoTitle
- {
-     display: block;
-     width: 250px;
-     float: left;
- }
- .imInfo .imInfoValue
- {
-    margin-left: 250px;
- }
- 
- .imContent
- {
-     padding: 0 15px;
-     border-top: solid 1px #CCC;
-     margin-top: 3px;
- }
- 
- .imCmdList
- {
-    padding-top: 10px; 
-    margin-left: 0px;
- }
- 
- input[type].inputSearch
- {
-     background: url('../img/search.gif') no-repeat top left #fff;
-     padding-left: 18px;
- }
+/******************************************************************************
+                            INTERNAL MESSAGING
+ ******************************************************************************/
+
+/*TR line for plateform message*/
+.plateformMessage { 
+    background-color: #fee5c3;
+}
+
+/*TR line for unread message*/
+.unreadMessage {
+    background-color: #e6e5e5;
+    font-weight: bold;
+}
+
+
+.unreadMessage a, 
+.unreadMessage a:link ,
+.unreadMessage a:active ,
+.unreadMessage a:hover ,
+.unreadMessage a:visited
+{
+    font-weight: bold;
+}
+
+.im_context 
+{
+    /*color: #CCC;*/
+}
+
+.im_list_action, .im_list_selection
+{
+    text-align: center;
+}
+
+#im_paging
+{
+    text-align: center;
+}
+
+.imInfo .imInfoTitle
+{
+    display: block;
+    width: 250px;
+    float: left;
+}
+.imInfo .imInfoValue
+{
+   margin-left: 250px;
+}
+
+.imContent
+{
+    padding: 0 15px;
+    border-top: solid 1px #CCC;
+    margin-top: 3px;
+}
+
+.imCmdList
+{
+   padding-top: 10px; 
+   margin-left: 0px;
+}
+
+/******************************************************************************
+                                    DEBUG BAR
+ ******************************************************************************/
+
+.debugBar
+{
+    color: #F99;
+    background-color:#A33;
+    padding: 3px;
+    font-size: 70%;
+}
+
+.debugBar a,
+.debugBar a:link,
+.debugBar a:visited
+{
+    color: #E6F;
+}
