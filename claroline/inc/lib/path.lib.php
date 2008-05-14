@@ -73,9 +73,9 @@ function get_path($pathKey)
         $pathList['garbageRepositorySys'] =  get_conf('garbageRepositorySys');
         $pathList['mysqlRepositorySys'] =  get_conf('mysqlRepositorySys');
         
-        // user picture
-        $pathList['userRepositorySys'] = $pathList['rootSys'].'platform/users';
-        $pathList['userRepositoryWeb'] = $pathList['rootWeb'].'platform/users';
+        // user folder
+        $pathList['userRepositorySys'] = $pathList['rootSys'].'platform/users/';
+        $pathList['userRepositoryWeb'] = $pathList['rootWeb'].'platform/users/';
     }
 
     if ( array_key_exists( $pathKey, $pathList ) )

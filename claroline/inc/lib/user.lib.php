@@ -1482,14 +1482,14 @@ function claro_get_user_course_list($user_id = null)
 function user_get_private_folder_path( $userId )
 {
     return get_path('userRepositorySys')
-        . '/' . md5($userId.get_conf('platform_id'))
+        . md5($userId.get_conf('platform_id'))
         ;
 }
 
 function user_get_private_folder_url( $userId )
 {
     return get_path('userRepositoryWeb')
-        . '/' . md5($userId.get_conf('platform_id'))
+        . md5($userId.get_conf('platform_id'))
         ;
 }
 
