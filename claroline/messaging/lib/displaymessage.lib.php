@@ -52,7 +52,7 @@ class DisplayMessage
                     $recipientString .= ", ";
                 }
                 
-                $recipientString .= htmlspecialchars($recipientList['userList'][$count]['lastName'])." ".htmlspecialchars($recipientList['userList'][$count]['firstName']);
+                $recipientString .= get_lang('%firstName %lastName', array ('%firstName' =>htmlspecialchars($recipientList['userList'][$count]['firstName']), '%lastName' => htmlspecialchars($recipientList['userList'][$count]['lastName'])));
                 
                 if ( $count > 10 && $count < count($recipientList) )
                 {
@@ -268,7 +268,7 @@ class DisplayMessage
             $string = '<a href="sendmessage.php?cmd=rqMessageToUser&amp;userId='.$id.'">';
         }
         
-        $string .= htmlspecialchars($lastName)." ".htmlspecialchars($firstName);
+        $string .= get_lang('%firstName %lastName', array ('%firstName' =>htmlspecialchars($firstName), '%lastName' => htmlspecialchars($lastName)));
         
         if ($isAllowed)
         {

@@ -301,7 +301,7 @@
             
             $content .= '</td>'."\n"
             // --------------------date
-                .'<td>'.claro_html_localised_date(get_locale('dateTimeFormatLong'),strtotime($message->getSendTime())).'</td>'."\n"
+                .'<td>'.claro_html_localised_date(get_locale('dateTimeFormatShort'),strtotime($message->getSendTime())).'</td>'."\n"
             // ------------------- action
                 .'<td class="im_list_action">';
             if ( ! $message->isPlatformMessage() )
