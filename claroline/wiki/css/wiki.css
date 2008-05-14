@@ -5,32 +5,26 @@
 .wiki2xhtml h1 {
     margin: 10px 0 10px 10px;
     padding: 0;
-    border-bottom: 1px solid #DEDEDE;
+    border-bottom: 1px solid #AAAAAA;
     color: #666;
-    text-indent: 15px;
-    background-image: url(../css/default/arrow_blue.gif);
-    background-position: left;
-    background-repeat: no-repeat;
 }
 
 .wiki2xhtml h2,h3,h4{
+    margin: 10px 0 10px 10px;
+    padding: 0;
     color: #666;
     background: none;
 }
 .wiki2xhtml h2{
-    border-bottom: 1px solid #aaaaaa;
-    font-size:175%;
-    font-weight:bold;
+    border-bottom: 1px solid #DEDEDE;
 }
 
 .wiki2xhtml h3{
-    border-bottom: 1px groove #aaaaaa;
-    font-size:150%;
-    font-weight:bold;
+    border-bottom: 1px groove #DEDEDE;
 }
+
 .wiki2xhtml h4{
-    font-size:125%;
-    font-weight:bold;
+    border-bottom: 1px groove #DEDEDE;
 }
 
 .wiki2xhtml a.wikiEdit{
