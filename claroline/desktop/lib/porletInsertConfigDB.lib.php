@@ -44,6 +44,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                         `label`,
                         `name`,
                         `rank`,
+                        `visibility`,
                         `activated`
                     FROM `".$this->tblDesktopPortlet."`
                     WHERE label = '" . $label . "'"
@@ -68,10 +69,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                         `label`,
                         `name`,
                         `rank`,
+                        `visibility`,
                         `activated`
                     FROM `".$this->tblDesktopPortlet."`
-                    WHERE activated = '1'
-                    ORDER BY `rank` ASC"
+                    WHERE activated = '1'"
+                    . ( $visibility == true ? "AND visibility = 'VISIBLE'" : '' ) .
+                    "ORDER BY `rank` ASC"
                     ;
 
             if ( false === ( $data = claro_sql_query_fetch_all_rows($sql) ) )

@@ -307,6 +307,7 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__desktop_portlet` (
   `label` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `rank` int(11) NOT NULL,
+  `visibility` ENUM ('visible','invisible') DEFAULT 'visible' NOT NULL,
   `activated` int(11) NOT NULL,
   PRIMARY KEY  (`label`)
 ) TYPE=MyISAM;

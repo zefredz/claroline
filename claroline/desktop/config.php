@@ -160,67 +160,6 @@
 
         $PortletConfig->saveVisibility($label);
     }
-
-
-
-/*
-    $i = 1;
-    
-    $outPortlet = '';
-    
-    $allowedExtensions = array('.php');
-
-    $path = dirname( __FILE__ ) . '/lib/portlet';
-    
-    
-    try
-    {
-        $fileFinder = new ExtensionFileFinder( $path, '.class.php', false );
-
-        foreach ( $fileFinder as $file )
-        {
-            // l'objet $file est de class SplFileInfo
-            // pour la doc voir : http://www.php.net/~helly/php/ext/spl/ 
-            
-            $fileName = $file->getFilename();
-            $filePath = $file->getRealPath();
-
-            // add elt to array
-            require_once $filePath;
-            
-            // add className to array
-            $pos = strpos($fileName, '.');
-            $className = substr($fileName, '0', $pos);
-            
-            // class porletInsertConfigDB
-            $porletInsertConfigDB = new porletInsertConfigDB();
-            
-            // load db
-            $portletInDB = $porletInsertConfigDB->load($className);
-
-            // si present en db on passe
-            if( !$portletInDB )
-            {
-                if( class_exists($className) )
-                {
-                    // insert db
-                    $porletInsertConfigDB->setLabel($className);
-                    $porletInsertConfigDB->setName($className);
-                    $porletInsertConfigDB->setRank($i);
-                    $porletInsertConfigDB->setActivated(true);
-                    $porletInsertConfigDB->save();
-                }
-            }
-                        
-            $i++;
-        }     
-    }
-    catch (Exception $e)
-    {
-        $dialogBox->error( get_lang('Error to load portlet') );
-        pushClaroMessage($e->__toString());
-    }
-*/
     
     // class porletInsertConfigDB
     $porletInsertConfigDB = new porletInsertConfigDB();
@@ -235,7 +174,7 @@
     .    '<thead>' . "\n"
     .      '<tr class="headerX" align="center" valign="top">' . "\n"
     .        '<th>' . get_lang('Nom') . '</th>' . "\n"
-    // .       '<th>' . get_lang('Visibility') . '</th>' . "\n"
+    .       '<th>' . get_lang('Visibility') . '</th>' . "\n"
     .       '<th colspan="2">' . get_lang('Ordre') . '</th>' . "\n"
     .      '</tr>' . "\n"
     .    '</thead>' . "\n"
@@ -249,7 +188,7 @@
         .       '<td>' . $portlet['name'] . '</td>' . "\n"
         ;
         
-            /*if( $portlet['visibility'] == 'VISIBLE' )
+            if( $portlet['visibility'] == 'VISIBLE' )
             {
                 $outPortlet .= "\n"
                 .    '<td align="center">' . "\n"
@@ -268,7 +207,7 @@
                 .    '</a>' . "\n"
                 .    '</td>' . "\n"
                 ;
-            }*/
+            }
         
         $outPortlet .= "\n"
         .       '<td><a href="' . $_SERVER['PHP_SELF'] . '?label=' . $portlet['label'] . '&amp;cmd=exUp"><img src="' . get_icon_url('up') . '" alt="' . get_lang('up') . '" /></a></td>' . "\n"
