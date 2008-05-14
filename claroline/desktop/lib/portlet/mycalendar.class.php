@@ -18,19 +18,15 @@
  *
  */
 
- 
-require_once dirname(__FILE__) . '/../../../../claroline/calendar/lib/agenda.lib.php';
+require_once get_path( 'clarolineRepositorySys' ) . '/calendar/lib/agenda.lib.php';
 
-class mycalendar extends portlet
+class MyCalendar extends Portlet
 {
-    //protected $userId, $year, $month, $today;
-    
-    function __construct( /*$data*/ )
+
+    function __construct()
     {
-        //$this->userId = $data['userId'];
-        //$this->year = $data['year'];
     }
-    
+
     function renderContent()
     {
         $today = getdate();
@@ -39,26 +35,26 @@ class mycalendar extends portlet
         $year = isset($_REQUEST['year']) ? (int) $_REQUEST['year' ] : $today['year'];
         $month = isset($_REQUEST['month']) ? (int) $_REQUEST['month' ] : $today['mon'];
         // ****
-        
+
         $userCourseList = claro_get_user_course_list();
         $agendaItemList = get_agenda_items_compact_mode($userCourseList, $month, $year);
         $langMonthNames = get_locale('langMonthNames');
         $langDay_of_weekNames = get_locale('langDay_of_weekNames');
 
         $monthName = $langMonthNames['long'][$month-1];
-        
+
         $output = '';
-        
+
         $output .= ''
         .    '<div id="portletMycalendar">' . "\n"
-        .	 ' <div class="calendar">' . claro_html_monthly_calendar($agendaItemList, $month, $year, $langDay_of_weekNames['init'], $monthName, true) . '</div>' . "\n"
-        .	 ' <div class="details">'
+        .     ' <div class="calendar">' . claro_html_monthly_calendar($agendaItemList, $month, $year, $langDay_of_weekNames['init'], $monthName, true) . '</div>' . "\n"
+        .     ' <div class="details">'
         ;
-        
+
         if($agendaItemList)
         {
             $output .= '<dl>';
-            
+
             foreach($agendaItemList as $agendaItem)
             {
                 $output .= '<dt>' . "\n"
@@ -69,7 +65,7 @@ class mycalendar extends portlet
                 .    '</small>' . "\n"
                 .    '</dt>' . "\n"
                 ;
-             
+
                 foreach($agendaItem['eventList'] as $agendaEvent)
                 {
                     $output .= '<dd>'
@@ -82,7 +78,7 @@ class mycalendar extends portlet
                     .    '</small>' . "\n"
                     .    '</small>' . "\n"
                     .    '</dd>' . "\n"
-                    ; 
+                    ;
                 }
             }
             $output .= '</dl>';
@@ -98,20 +94,19 @@ class mycalendar extends portlet
             .    '</dt>' . "\n"
             ;
         }
-    
+
         $output .= ''
-        .	 ' </div>' . "\n"
-        .	 '</div>' . "\n"
-        .	 '<div style="clear:both;"></div>' . "\n"
+        .     ' </div>' . "\n"
+        .     '</div>' . "\n"
+        .     '<div style="clear:both;"></div>' . "\n"
         ;
-        
+
         return $output;
     }
-    
+
     function renderTitle()
     {
         return $this->title = get_lang('My calendar');
     }
 }
-
 ?>

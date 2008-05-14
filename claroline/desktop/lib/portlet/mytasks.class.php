@@ -18,24 +18,22 @@
  *
  */
 
-
-class mytasks extends portlet
+class MyTasks extends Portlet
 {
     function __construct()
     {
     }
-    
+
     function renderContent()
     {
         $this->content = 'le contenu de mon portlet';
         return $this->content;
     }
-    
+
     function renderTitle()
     {
         $this->title = get_lang('My tasks');
         return $this->title;
     }
 }
-
 ?>

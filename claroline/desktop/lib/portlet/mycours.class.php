@@ -19,31 +19,28 @@
  */
 
 require_once get_path( 'includePath' ) . '/lib/courselist.lib.php';
-# require_once dirname(__FILE__) . '/../../../../claroline/inc/lib/core/notify.lib.php';
- 
+
 class MyCours extends Portlet
 {
     function __construct()
     {
     }
-    
+
     function renderContent()
     {
-        
         global $platformLanguage;
-        
+
         $output = '';
-        
+
         $personnalCourseList = get_user_course_list(claro_get_current_user_id());
 
         // get the list of personnal courses marked as contening new events
-        
         if ( count($personnalCourseList) )
         {
             $output .= '<dl>'."\n";
 
             foreach($personnalCourseList as $thisCourse)
-            {            
+            {
                 if ($thisCourse['isCourseManager'] == 1)
                 {
                     $userStatusImg = '&nbsp;&nbsp;<img src="' . get_icon_url('manager') . '" alt="'.get_lang('Course manager').'" />';
@@ -52,7 +49,7 @@ class MyCours extends Portlet
                 {
                     $userStatusImg = '';
                 }
-                
+
                 // show course language if not the same of the platform
                 if ( $platformLanguage != $thisCourse['language'] )
                 {
@@ -69,21 +66,10 @@ class MyCours extends Portlet
                 {
                     $course_language_txt = '';
                 }
-                
-/*            
-                if ( get_conf('course_order_by') == 'official_code' )
-                {
-                    $course_order_by = $thisCourse['officialCode'] . ' - ' . $thisCourse['title'];
-                }
-                else
-                {
-                    $course_order_by = $thisCourse['title'] . ' (' . $thisCourse['officialCode'] . ')';
-                }
-                */
-                
+
                 $course_order_by = $thisCourse['title'];
-                
-                $url = get_path('url') . '/claroline/course/index.php?cid=' 
+
+                $url = get_path('url') . '/claroline/course/index.php?cid='
                 .    htmlspecialchars($thisCourse['sysCode'])
                 ;
 
@@ -99,7 +85,7 @@ class MyCours extends Portlet
                 .    '<dd>'
                 .    '<small>'
                 .    '<a href="' . $url . '">'
-                .    $thisCourse['officialCode'] 
+                .    $thisCourse['officialCode']
                 .    '</a>' . "\n"
                 .    '<small>' . "\n"
                 .    ' : ' . $thisCourse['titular'] . $course_language_txt
@@ -122,16 +108,15 @@ class MyCours extends Portlet
             .    '</dl>' . "\n"
             ;
         }
-                
+
         $this->content = $output;
 
         return $this->content;
     }
-    
+
     function renderTitle()
     {
         return $this->title = get_lang('My course list');
     }
 }
-
 ?>

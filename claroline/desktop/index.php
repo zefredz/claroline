@@ -15,7 +15,7 @@
  */
 
 // {{{ SCRIPT INITIALISATION
-    
+
     // reset course and groupe
     $cidReset = TRUE;
     $gidReset = TRUE;
@@ -29,12 +29,12 @@
     require_once dirname(__FILE__) . '/lib/porletInsertConfigDB.lib.php';
     uses('utils/finder.lib.php');
 
-    // users authentified 
+    // users authentified
     if( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-    
-	$is_allowedToEdit = claro_is_allowed_to_edit();
 
-	$dialogBox = new DialogBox();
+    $is_allowedToEdit = claro_is_allowed_to_edit();
+
+    $dialogBox = new DialogBox();
 
 // }}}
 
@@ -48,13 +48,13 @@
 // {{{ CONTROLLER
 
     $i = 1;
-    
+
     $outPortlet = '';
-    
+
     $allowedExtensions = array('.php');
 
     $path = dirname( __FILE__ ) . '/lib/portlet';
-    
+
     try
     {
         $fileFinder = new Claro_FileFinder_Extension( $path, '.class.php', false );
@@ -62,21 +62,20 @@
         foreach ( $fileFinder as $file )
         {
             // l'objet $file est de class SplFileInfo
-            // pour la doc voir : http://www.php.net/~helly/php/ext/spl/ 
-            
+            // pour la doc voir : http://www.php.net/~helly/php/ext/spl/
             $fileName = $file->getFilename();
             $filePath = $file->getRealPath();
 
             // add elt to array
             require_once $filePath;
-            
+
             // add className to array
             $pos = strpos($fileName, '.');
             $className = substr($fileName, '0', $pos);
-            
+
             // class porletInsertConfigDB
             $porletInsertConfigDB = new porletInsertConfigDB();
-            
+
             // load db
             $portletInDB = $porletInsertConfigDB->load($className);
 
@@ -93,30 +92,25 @@
                     $porletInsertConfigDB->save();
                 }
             }
-                        
+
             $i++;
-        }     
+        }
     }
     catch (Exception $e)
     {
         $dialogBox->error( get_lang('Error to load portlet') );
         pushClaroMessage($e->__toString());
     }
-    
-    // avatar par defaut
-    //$porletConfigAvatar = new porletConfigAvatar();
-    //$porletConfigAvatar->save();
-    
+
     // affichage des portlets
-    
     $portletList = $porletInsertConfigDB->loadAll( true );
-    
+
     foreach ( $portletList as $portlet )
     {
         // load portlet
         if( !class_exists($portlet['label']) ) continue;
         $portlet = new $portlet['label']();
-        
+
         if( !method_exists($portlet, 'render') ) continue;
         $outPortlet .= $portlet->render();
     }
@@ -124,26 +118,25 @@
 
 // }}}
 
-// {{{ VIEW    
+// {{{ VIEW
 
     $output = '';
-    
+
     $nameTools = get_lang('My Desktop');
 
-	$output .= claro_html_tool_title($nameTools);
-    
+    $output .= claro_html_tool_title($nameTools);
+
     $output .= $dialogBox->render();
-        
+
     $portletrightmenu = new portletrightmenu();
-    
+
     $output .= $portletrightmenu->render();
-    
+
     $output .= $outPortlet;
-            
+
     $claroline->display->body->appendContent($output);
-    
+
     echo $claroline->display->render();
 
 // }}}
-
 ?>

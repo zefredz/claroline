@@ -18,24 +18,22 @@
  *
  */
 
-
-class myfaq extends portlet
+class MyFaq extends Portlet
 {
     function __construct()
     {
     }
-    
+
     function renderContent()
     {
         $this->content = 'Le contenu de mon portlet';
         return $this->content;
     }
-    
+
     function renderTitle()
     {
         $this->title = get_lang('My F.A.Q.');
         return $this->title;
     }
 }
-
 ?>

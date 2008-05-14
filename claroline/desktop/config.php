@@ -15,7 +15,7 @@
  */
 
 // {{{ SCRIPT INITIALISATION
-    
+
     // reset course and groupe
     $cidReset = TRUE;
     $gidReset = TRUE;
@@ -28,14 +28,14 @@
     require_once dirname(__FILE__) . '/lib/portletRightMenu.lib.php';
     require_once dirname(__FILE__) . '/lib/porletInsertConfigDB.lib.php';
 
-    // users authentified 
+    // users authentified
     if( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-    
+
     $is_allowedToEdit = claro_is_allowed_to_edit();
 
     $dialogBox = new DialogBox();
-        
-    $acceptedCmdList = array(   
+
+    $acceptedCmdList = array(
     'rqAvatar',
     'exAvatar',
     'exDown',
@@ -43,7 +43,7 @@
     'exVisible',
     'exInvisible'
     );
-    
+
     if( isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'], $acceptedCmdList) )
     {
         $cmd = $_REQUEST['cmd'];
@@ -52,7 +52,7 @@
     {
         $cmd = null;
     }
-    
+
     if( isset($_REQUEST['label']) && !empty($_REQUEST['label']) )
     {
         $label = $_REQUEST['label'];
@@ -61,7 +61,7 @@
     {
         $label = NULL;
     }
-    
+
     if( isset($_REQUEST['avatar']) && !empty($_REQUEST['avatar']) )
     {
         $avatar = $_REQUEST['avatar'];
@@ -77,11 +77,11 @@
 
     $cssLoader = CssLoader::getInstance();
     $cssLoader->load('desktop','all');
-/*     
+/*
     $jsloader = JavascriptLoader::getInstance();
     $jsloader->load('jquery');
-    
-    $htmlHeaders = "\n"   
+
+    $htmlHeaders = "\n"
     .   '<script type="text/javascript">' . "\n"
     .   '$(document).ready(function() {' . "\n"
     .   '$(".config legend").addClass("hideul");' . "\n"
@@ -101,7 +101,7 @@
     .   '});' . "\n"
     .   '</script>' . "\n"
     ;
-    
+
     $claroline->display->header->addHtmlHeader($htmlHeaders);
  */
 // }}}
@@ -110,7 +110,7 @@
 
     $PortletConfig = new PortletConfig();
     $porletConfigAvatar = new porletConfigAvatar();
-    
+
     if( $cmd == 'exAvatar' )
     {
         if( $porletConfigAvatar->update( $avatar ) )
@@ -134,7 +134,7 @@
 
         $dialogBox->question( $htmlConfirmDelete );
     }
-    
+
     if( $cmd == 'exUp' )
     {
         $PortletConfig->move_portlet( $label, 'up' );
@@ -144,11 +144,11 @@
     {
         $PortletConfig->move_portlet( $label, 'down' );
     }
-    
+
     if( $cmd == 'exVisible' )
     {
-        
-        
+
+
         $PortletConfig->setVisible();
 
         $PortletConfig->saveVisibility($label);
@@ -160,16 +160,16 @@
 
         $PortletConfig->saveVisibility($label);
     }
-    
+
     // class porletInsertConfigDB
     $porletInsertConfigDB = new porletInsertConfigDB();
     $portletList = $porletInsertConfigDB->loadAll();
-    
+
     // Configuration des portlets
-    $outPortlet = '';    
+    $outPortlet = '';
     $outPortlet .= '<fieldset class="config">';
     $outPortlet .= '<legend>' . get_lang('Configuration des portlets') . '</legend>';
-    
+
     $outPortlet .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
     .    '<thead>' . "\n"
     .      '<tr class="headerX" align="center" valign="top">' . "\n"
@@ -180,14 +180,14 @@
     .    '</thead>' . "\n"
     .    '<tbody>' . "\n"
     ;
-    
+
     foreach ( $portletList as $portlet )
     {
         $outPortlet .= "\n"
         .      '<tr>' . "\n"
         .       '<td>' . $portlet['name'] . '</td>' . "\n"
         ;
-        
+
             if( $portlet['visibility'] == 'VISIBLE' )
             {
                 $outPortlet .= "\n"
@@ -208,14 +208,14 @@
                 .    '</td>' . "\n"
                 ;
             }
-        
+
         $outPortlet .= "\n"
         .       '<td><a href="' . $_SERVER['PHP_SELF'] . '?label=' . $portlet['label'] . '&amp;cmd=exUp"><img src="' . get_icon_url('up') . '" alt="' . get_lang('up') . '" /></a></td>' . "\n"
         .       '<td><a href="' . $_SERVER['PHP_SELF'] . '?label=' . $portlet['label'] . '&amp;cmd=exDown"><img src="' . get_icon_url('down') . '" alt="' . get_lang('down') . '" /></a></td>' . "\n"
         .      '</tr>' . "\n"
         ;
     }
-    
+
     $outPortlet .= "\n"
     .    '</tbody>' . "\n"
     .    '</table>' . "\n"
@@ -223,19 +223,25 @@
 
     $outPortlet .= '</fieldset>';
     $outPortlet .= '</form>' . "\n";
-/*    
+/* 
+    // Ajout d'un avatar
+    $outPortlet .= '<fieldset class="config">';
+    $outPortlet .= '<legend>' . get_lang('Ajout d\'un avatar') . '</legend>';
+    $outPortlet .= '</fieldset>';
+ */
+/*
     // Configuration des avatars
     $outPortlet .= '<form action="' . $_SERVER['PHP_SELF'] . '">' . "\n";
-    
+
     $outPortlet .= '<input type="hidden" name="cmd" value="rqAvatar" />' . "\n";
-    
+
     $outPortlet .= '<fieldset class="config avatar">';
     $outPortlet .= '<legend>' . get_lang('Configuration des avatars') . '</legend>';
 
     $outPortlet .= "\n"
     .    '<table class="claroTable" width="100%" border="0" cellspacing="2">' . "\n"
     .    '<tbody>' . "\n"
-   
+
     .      '<tr>' . "\n"
     .      '<td>' . "\n"
     .       '<img src="' . get_icon_url('Avatar-angel') . '" alt="' . get_lang('avatar') . '" />' . "\n"
@@ -262,7 +268,7 @@
     .       '<input type="radio" name="selectAvatar" value="kiss" />' . "\n"
     .      '</td>' . "\n"
     .      '</tr>' . "\n"
-    
+
     .      '<tr>' . "\n"
     .      '<td>' . "\n"
     .       '<img src="' . get_icon_url('Avatar-monkey') . '" alt="' . get_lang('avatar') . '" />' . "\n"
@@ -289,47 +295,46 @@
     .       '<input type="radio" name="selectAvatar" value="wink" />' . "\n"
     .      '</td>' . "\n"
     .      '</tr>' . "\n"
-    
+
     .      '<tr>' . "\n"
     .      '<td colspan="6">' . "\n"
     .       '<input type="submit" value="' . get_lang('Save') . '" />' . "\n"
     .      '</td>' . "\n"
     .      '</tr>' . "\n"
-    
-    
+
+
     .    '</tbody>' . "\n"
     .    '</table>' . "\n"
     ;
-   
+
     $outPortlet .= '</fieldset>';
  */
 // }}}
 
-// {{{ VIEW    
+// {{{ VIEW
 
     $output = '';
-    
+
     $moduleName = get_lang('My Desktop');
     $interbredcrump[]= array ('url' => './index.php', 'name' => $moduleName);
     $interbredcrump[]= array ('url' => NULL, 'name' => get_lang('Configuration'));
 
     $output .= claro_html_tool_title($moduleName);
-    
+
     $output .= $dialogBox->render();
-        
+
     $portletrightmenu = new portletrightmenu();
-    
+
     $output .= $portletrightmenu->render();
-    
+
     //$output .= '<div class="portlet"><div class="portletTitle">Configuration des portlets</div><div class="portletContent">' . $outPortlet . '</div></div>';
     $output .= $outPortlet;
-    
+
     $output .= '<div style="clear:both"></div>';
-    
+
     $claroline->display->body->appendContent($output);
-    
+
     echo $claroline->display->render();
 
 // }}}
-
 ?>

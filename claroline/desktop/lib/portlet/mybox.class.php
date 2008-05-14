@@ -17,15 +17,11 @@
  * @package Auth
  *
  */
- 
+
 require_once get_path( 'clarolineRepositorySys' ) . '/messaging/lib/tools.lib.php';
 require_once get_path( 'clarolineRepositorySys' ) . '/messaging/lib/messagebox/inbox.lib.php';
 
-// require_once get_path( 'clarolineRepositorySys' ) . '/messaging/lib/selectorstrategy/inboxstartegy.lib.php';
-// require_once get_path( 'clarolineRepositorySys' ) . '/messaging/lib/selectorstrategy/outboxstrategy.lib.php';
-// require_once get_path( 'clarolineRepositorySys' ) . '/messaging/lib/selectorstrategy/trashboxstrategy.lib.php';
-
-class mybox extends portlet
+class MyBox extends Portlet
 {
     protected $inbox;
 
@@ -34,13 +30,13 @@ class mybox extends portlet
         $this->inbox = new InBox;
         $this->inbox->getMessageStrategy()->setNumberOfMessagePerPage( get_conf('myboxNumberOfMessage',5) );
     }
-    
+
     function renderContent()
     {
         $output = getBarMessageBox( claro_get_current_user_id(), $displayMenuAdmin = false );
-        
+
         $output .= '<br /><br />';
-        
+
         $output .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
         .    '<thead>' . "\n"
         .      '<tr class="headerX" align="center" valign="top">' . "\n"
@@ -52,7 +48,7 @@ class mybox extends portlet
         .    '</thead>' . "\n"
         .    '<tbody>' . "\n"
         ;
-    
+
         if( $this->inbox->getNumberOfMessage() > 0 )
         {
             foreach( $this->inbox as $message )
@@ -65,9 +61,9 @@ class mybox extends portlet
                 else
                 {
                     ( $message->isRead() ? $classMessage = 'class="readMessage"' : $classMessage = 'class="unreadMessage"' );
-                    ( $message->isRead() ? $iconMessage = '<img src="' . get_icon_url('emaillu') . '" alt="' . get_lang('email') . '" />' : $iconMessage = '<img src="' . get_icon_url('email') . '" alt="' . get_lang('email') . '" />' );                
+                    ( $message->isRead() ? $iconMessage = '<img src="' . get_icon_url('emaillu') . '" alt="' . get_lang('email') . '" />' : $iconMessage = '<img src="' . get_icon_url('email') . '" alt="' . get_lang('email') . '" />' );
                 }
-                
+
                 $output .= "\n"
                 .      '<tr ' . $classMessage . '>' . "\n"
                 .       '<td>' . $iconMessage . '</td>' . "\n"
@@ -95,15 +91,14 @@ class mybox extends portlet
         .    '</tbody>' . "\n"
         .    '</table>' . "\n"
         ;
-        
+
         return $output;
     }
-    
+
     function renderTitle()
     {
         $this->title = get_lang('My MailBox');
         return $this->title;
     }
 }
-
 ?>

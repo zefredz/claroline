@@ -14,12 +14,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @author Claroline team <info@claroline.net>
  *
  */
-    // vim: expandtab sw=4 ts=4 sts=4 foldmethod=marker:
 
-    class porletInsertConfigDB
+    class PorletInsertConfigDB
     {
         private $tblDesktopPortlet = '';
-        
+
         private $label = '';
         private $name = '';
         private $rank = '';
@@ -36,7 +35,6 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             $this->tblDesktopPortlet = $tbl_lp_names['desktop_portlet'];
         }
 
-
         // load
         public function load( $label )
         {
@@ -52,7 +50,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                     ;
 
             $data = claro_sql_query_get_single_row($sql);
-            
+
             if( !empty($data) )
             {
                 return true;
@@ -62,7 +60,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 return false;
             }
         }
-        
+
         public function loadAll( $visibility = false )
         {
             $sql = "SELECT
@@ -96,28 +94,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                         `name` = '" . claro_sql_escape($this->getName()) . "',
                         `rank` = '" . claro_sql_escape($this->getRank()) . "',
                         `activated` = '" . claro_sql_escape($this->getActivated()) . "'"
-                    ;                            
-
-            if( claro_sql_query($sql) == false ) return false;
-
-            return true;
-        }
-/*
-        // delete
-        public function delete()
-        {
-            if( !$this->getLabel() ) return true;
-
-            $sql = "DELETE FROM `" . $this->tblDesktopPortlet . "`
-                    WHERE `label` = '" . $this->getLabel() ."'"
                     ;
 
             if( claro_sql_query($sql) == false ) return false;
 
-            $this->setLabel();
             return true;
         }
-*/
+
         // label
         public function getLabel()
         {
@@ -166,7 +149,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     class porletConfigAvatar
     {
         private $tblDesktopAvatar = '';
-        
+
         public function __construct()
         {
             $tblNameList = array(
@@ -177,7 +160,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             $tbl_lp_names = get_module_main_tbl( $tblNameList, claro_get_current_course_id() );
             $this->tblDesktopAvatar = $tbl_lp_names['desktop_portlet_avatar'];
         }
-        
+
         public function load()
         {
             $sql = "SELECT
@@ -187,7 +170,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                     ;
 
             $data = claro_sql_query_get_single_value($sql);
-            
+
             if( !empty($data) )
             {
                 return $data;
@@ -197,39 +180,39 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 return false;
             }
         }
-        
+
         public function save( $avatar = 'smile' )
         {
             // insert
             $sql = "INSERT INTO `".$this->tblDesktopAvatar."`
                     SET `idUser` = '" . claro_get_current_user_id() . "',
                         `avatar` = '" . $avatar . "'"
-                    ;                            
-                    
+                    ;
+
             if( claro_sql_query($sql) == false ) return false;
 
             return true;
         }
-        
+
         public function update( $avatar = 'smile' )
         {
             // insert
             $sql = "UPDATE `".$this->tblDesktopAvatar."`
                     SET `avatar` = '" . $avatar . "'
                     WHERE `idUser` = '" . claro_get_current_user_id() . "'"
-                    ;                            
-                    
+                    ;
+
             if( claro_sql_query($sql) == false ) return false;
 
             return true;
         }
     }
-    
+
     class PortletConfig
     {
 
         private $tblDesktopPortlet = '';
-        
+
         public function __construct()
         {
             $tblNameList = array(
@@ -240,7 +223,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             $tbl_lp_names = get_module_main_tbl( $tblNameList, claro_get_current_course_id() );
             $this->tblDesktopPortlet = $tbl_lp_names['desktop_portlet'];
         }
-        
+
         function move_portlet($label, $direction)
         {
             switch ($direction)
@@ -252,9 +235,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                             FROM `" . $this->tblDesktopPortlet . "`
                             WHERE `label`='" . addslashes($label) . "'"
                             ;
-                            
+
                     $result = claro_sql_query_get_single_value( $sql );
-                    
+
 
                     //2-move down above module
                     $sql = "UPDATE `" . $this->tblDesktopPortlet . "`
@@ -270,8 +253,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                             SET `rank` = `rank`-1
                             WHERE `label` = '" . addslashes($label) . "'
                             AND `rank` > 1"
-                            ; 
-                            
+                            ;
+
                     claro_sql_query($sql);
 
                     break;
@@ -283,7 +266,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                             FROM `" . $this->tblDesktopPortlet . "`
                             WHERE `label`='" . addslashes($label) . "'"
                             ;
-                            
+
                     $result = claro_sql_query_get_single_value($sql);
 
                     //this second query is to avoid a page refreshment wrong update
@@ -291,9 +274,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                     $sqlmax = "SELECT MAX(`rank`) AS `max_rank`
                               FROM `" . $this->tblDesktopPortlet . "`"
                               ;
-                              
+
                     $resultmax = claro_sql_query_get_single_value( $sqlmax );
-                    
+
                     if ( $resultmax['max_rank'] == $result['rank'] ) break;
 
                     //2-move up above module
@@ -303,7 +286,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                             AND `rank` = " . (int) $result['rank'] . " + 1
                             AND `rank` > 1"
                             ;
-                            
+
                     claro_sql_query($sql);
 
                     //3-move down current module
@@ -311,26 +294,26 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                             SET `rank` = `rank` + 1
                             WHERE `label`='" . addslashes($label) . "'"
                             ;
-                            
+
                     claro_sql_query($sql);
 
                     break;
                 }
             }
         }
-    
+
         function saveVisibility( $label )
         {
             $sql = "UPDATE `".$this->tblDesktopPortlet."`
                     SET `visibility` = '" . $this->getVisibility() . "'
                     WHERE `label` = '" . $label . "'"
-                    ;                            
-                                
+                    ;
+
             if( claro_sql_query($sql) == false ) return false;
 
             return true;
         }
-        
+
         // visibility
         protected function getVisibility()
         {
@@ -355,7 +338,6 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         public function isVisible()
         {
             return ( $this->getVisibility() === 'VISIBLE' );
-        }    
+        }
     }
-    
 ?>

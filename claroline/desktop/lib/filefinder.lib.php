@@ -17,16 +17,16 @@
 class FileFinder extends FilterIterator
 {
     protected $searchString;
-    
+
     public function __construct( $path, $searchString, $recursive = true )
     {
         $this->searchString = $searchString;
-        
+
         if ( ! $recursive )
         {
-            parent::__construct( 
-                new IteratorIterator( 
-                    new DirectoryIterator($path) ) ); 
+            parent::__construct(
+                new IteratorIterator(
+                    new DirectoryIterator($path) ) );
         }
         else
         {
@@ -35,12 +35,12 @@ class FileFinder extends FilterIterator
                     new RecursiveDirectoryIterator($path)));
         }
     }
-    
+
     public function getSearchString()
     {
         return $this->searchString;
     }
-    
+
     public function accept()
     {
         return !strcmp($this->getSearchString(), $this->current() );
@@ -63,3 +63,4 @@ class ExtensionFileFinder extends FileFinder
             == $this->getSearchString() );
     }
 }
+?>

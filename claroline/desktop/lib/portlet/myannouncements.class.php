@@ -21,28 +21,28 @@
 require_once get_path( 'clarolineRepositorySys' ) . '/announcements/lib/announcement.lib.php';
 require_once get_path( 'includePath' ) . '/lib/courselist.lib.php';
 
-class myannouncements extends portlet
+class MyAnnouncements extends Portlet
 {
     function __construct()
     {
         if (file_exists(claro_get_conf_repository() . 'CLANN.conf.php'))
             include claro_get_conf_repository() . 'CLANN.conf.php';
     }
-    
+
     function renderContent()
     {
         $personnalCourseList = get_user_course_list(claro_get_current_user_id());
-        
+
         $annoncementEventList = announcement_get_items_portlet($personnalCourseList);
-        
+
         $output = '';
-        
+
         if($annoncementEventList)
         {
             $output .= '<dl>';
             foreach($annoncementEventList as $annoncementItem)
             {
-                
+
                 $output .= '<dt>' . "\n"
                 .    '<img class="iconDefinitionList" src="' . get_icon_url('announcement') . '" alt="' . get_lang('Icon announcement') . '" />'
                 .    '<small>'
@@ -52,7 +52,7 @@ class myannouncements extends portlet
                 .    '</small>' . "\n"
                 .    '</dt>' . "\n"
                 ;
-             
+
                 foreach($annoncementItem['eventList'] as $annoncementEvent)
                 {
                     $output .= '<dd>'
@@ -65,7 +65,7 @@ class myannouncements extends portlet
                     .    '</small>' . "\n"
                     .    '</small>' . "\n"
                     .    '</dd>' . "\n"
-                    ; 
+                    ;
                 }
             }
             $output .= '</dl>';
@@ -81,15 +81,14 @@ class myannouncements extends portlet
             .    '</dt>' . "\n"
             ;
         }
-            
+
 
         return $output;
     }
-    
+
     function renderTitle()
     {
         return $this->title = get_lang('Latest announcements');
     }
 }
-
 ?>
