@@ -112,13 +112,13 @@
             $recipientList = $message->getRecipientList();
             //var_dump($recipientList);
             $content .= '<tr';
-            if ($recipientList['sentTo'] == 'toAll')
+            if ($message->isPlatformMessage())
             {
                 $content .= ' class="plateformMessage"';
             }
             $content .= '><td>';
 
-            if ($recipientList['sentTo'] == 'toAll')
+            if ($message->isPlatformMessage())
             {
                 $content .= '<img src="img/important.png" alt="" />';
             }
@@ -179,7 +179,7 @@
                     $content .= get_lang('Course: ')." ". $courseInfo['officialCode'] . "; " .get_lang('Group: ')." ". $groupInfo['name'];
                 }
             }
-            elseif ($recipientList['sentTo'] == 'toAll')
+            elseif ($message->isPlatformMessage())
             {
                  $content .= get_lang('All users of the plateform');
             }

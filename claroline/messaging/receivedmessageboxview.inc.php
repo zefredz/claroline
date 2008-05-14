@@ -214,8 +214,7 @@
         foreach ($box as $key => $message)
         {
             $content .= '<tr';
-            if ($message->isPlateformMessage())
-            //if ($message->getRecipient() == 0)
+            if ($message->isPlatformMessage())
             {
                 $content .= ' class="plateformMessage"';
             }
@@ -229,7 +228,8 @@
             }
             // ---------------- sujet
             $content .= '>'."\n".'<td>';
-            if ($message->getRecipient() != 0)
+            
+            if ( ! $message->isPlatformMessage() )
             {
                 if (!$message->isRead())
                 {
@@ -304,7 +304,7 @@
                 .'<td>'.claro_html_localised_date(get_locale('dateTimeFormatLong'),strtotime($message->getSendTime())).'</td>'."\n"
             // ------------------- action
                 .'<td class="im_list_action">';
-            if ($message->getRecipient() != 0)
+            if ( ! $message->isPlatformMessage() )
             {
                 if ($link_arg['box'] == "inbox")
                 {
