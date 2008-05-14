@@ -121,9 +121,6 @@ class MyCours extends Portlet
             .    '</dt>' . "\n"
             .    '</dl>' . "\n"
             ;
-            
-            
-            
         }
                 
         $this->content = $output;

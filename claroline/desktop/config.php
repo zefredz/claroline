@@ -223,7 +223,7 @@
 
     $outPortlet .= '</fieldset>';
     $outPortlet .= '</form>' . "\n";
-    
+/*    
     // Configuration des avatars
     $outPortlet .= '<form action="' . $_SERVER['PHP_SELF'] . '">' . "\n";
     
@@ -300,9 +300,9 @@
     .    '</tbody>' . "\n"
     .    '</table>' . "\n"
     ;
-    
+   
     $outPortlet .= '</fieldset>';
-
+ */
 // }}}
 
 // {{{ VIEW    
