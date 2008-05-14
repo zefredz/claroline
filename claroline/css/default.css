@@ -8,7 +8,6 @@ html {
     margin: 0;
     padding: 0;
     height: 100%;
-    font-size: 1em;
 }
 
 body {
@@ -18,19 +17,16 @@ body {
     background: #FFF;
     text-align: left;
     font-family: Arial, Verdana, Helvetica, Sans-Serif;
-    font-size: 1em;
     height: 100%;
 }
 
 a:link, a:visited  {
     color: #369;
-    font-weight: normal;
     text-decoration: none;
 }
 
 a:hover, a:active {
     color: #111C99;
-    font-weight: normal;
     text-decoration: none;
 }
 
@@ -316,26 +312,14 @@ label {
     background: url('default/bg_body.jpg') repeat-x top left #fff;
 }
 
-#claroBody a:link,
-#claroBody a:visited {
-    font-weight: normal;
-}
-
 #claroBody a:hover,
 #claroBody a:active {
     color: #111C99;
-    font-weight: normal;
-}
-
-#claroBody a.item:link,
-#claroBody a.item:visited {
-    font-weight: normal;
 }
 
 #claroBody a.item:hover,
 #claroBody a.item:active  {
     color: #111C99;
-    font-weight: normal;
 }
 
 /******************************************************************************
