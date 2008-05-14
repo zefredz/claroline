@@ -14,7 +14,7 @@
  * @package     internal_messaging
  */
 
-abstract class MessageBox implements Iterator
+abstract class MessageBox implements Iterator, Countable
 {
     protected $messageFilter = NULL;
     protected $messageList = FALSE;
@@ -131,5 +131,12 @@ abstract class MessageBox implements Iterator
     public function getUserId()
     {
         return $this->userId;
+    }
+    
+    public function count()
+    {
+        $this->loadMessageList();
+        
+        return count($messageList);
     }
 }

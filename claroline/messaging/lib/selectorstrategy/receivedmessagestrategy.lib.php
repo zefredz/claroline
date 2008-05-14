@@ -62,7 +62,7 @@ class ReceivedMessageStrategy extends MessageStrategy
         }
     }
     
-	/**
+    /**
      * return the conditions
      *
      * @return string conditions

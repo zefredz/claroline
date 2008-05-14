@@ -31,11 +31,11 @@ class SentMessage extends StoredMessage
      * create a new SentMessage with the information in parameter
      *
      * @param array $messageData
-     * 		$messageData['message_id'] = message identification
-     * 		$messageData['subject'] = subject of the message
-     * 		$messageData['message'] = content of the message
-     * 		$messageData['sender'] = itendification of the sender
-     * 		$messageData['send_time'] = send time of the message
+     * $messageData['message_id'] = message identification
+     * $messageData['subject'] = subject of the message
+     * $messageData['message'] = content of the message
+     * $messageData['sender'] = itendification of the sender
+     * $messageData['send_time'] = send time of the message
      * @return SentMessage the new message
      */
     public static function fromArray($messageData)
@@ -43,7 +43,7 @@ class SentMessage extends StoredMessage
         $message = new SentMessage($messageData['message_id']);
 
         $message->setFromArray($messageData);
-        	
+
         return $message;
     }
 
@@ -51,10 +51,10 @@ class SentMessage extends StoredMessage
      * return an array of user information
      *
      * @return array
-     * 		['user_id']
-     * 		['lastName']
-     * 		['firstName']
-     * 		['username']
+     * ['user_id']
+     * ['lastName']
+     * ['firstName']
+     * ['username']
      */
     public function getRecipientList()
     {
@@ -71,30 +71,30 @@ class SentMessage extends StoredMessage
      */
     protected function loadRecipientList()
     {
-        	
+        
         $tableName = get_module_main_tbl(array('im_recipient','user'));
-        	
+        
         $recipientListSQL =
                 "SELECT U.user_id, U.nom as lastName, U.prenom as firstName, U.username\n"
                 .    " FROM `" . $tableName['im_recipient'] . "` AS R\n"
                 .    " LEFT JOIN `" . $tableName['user'] . "` AS U ON R.user_id = U.user_id\n"
                 .    " WHERE R.message_id = " . (int) $this->getId()." AND R.user_id > 0\n" 
-				;
-				
-		$userList = claro_sql_query_fetch_all_rows($recipientListSQL);
-		
-		$sentToSQL =
+                ;
+        
+        $userList = claro_sql_query_fetch_all_rows($recipientListSQL);
+
+        $sentToSQL =
                 "SELECT DISTINCT (R.sent_to)\n"
                 .    " FROM `" . $tableName['im_recipient'] . "` AS R\n"
                 .    " WHERE R.message_id = " . (int) $this->getId()."\n"
                 .    " LIMIT 1\n" 
-				;
-				
-		$sentTo = claro_sql_query_fetch_single_value($sentToSQL);
-		
-		$this->recipientList = array();
-		$this->recipientList['sentTo'] = $sentTo;
-		$this->recipientList['userList'] = $userList;		
+                ;
+
+        $sentTo = claro_sql_query_fetch_single_value($sentToSQL);
+
+        $this->recipientList = array();
+        $this->recipientList['sentTo'] = $sentTo;
+        $this->recipientList['userList'] = $userList;
     }
 
     /**
@@ -106,13 +106,13 @@ class SentMessage extends StoredMessage
     public static function fromId($messageId)
     {
         $tableName = get_module_main_tbl(array('im_message'));
-        	
+
         $readDataSQL =
                 "SELECT message_id, sender, subject, message, send_time, course, `group`, tools\n"
                 .   " FROM `" . $tableName['im_message'] . "`\n"
                 .   " WHERE message_id = " . (int) $messageId
                 ; 
-                
+
         return self::fromArray(claro_sql_query_fetch_single_row($readDataSQL));
     }
 
@@ -123,12 +123,12 @@ class SentMessage extends StoredMessage
     {
         $tableName = get_module_main_tbl(array('im_message'));
         $readDataSQL =
-                "SELECT message_id, sender, subject, message, send_time\n"
-                .   " FROM `" . $tableName['im_message'] . "`\n"
-                .   " WHERE message_id = " . (int) $this->messageId
-				;
-				
-		$this->setFromArray(claro_sql_query_fetch_single_row($readDataSQL));
+            "SELECT message_id, sender, subject, message, send_time\n"
+            .   " FROM `" . $tableName['im_message'] . "`\n"
+            .   " WHERE message_id = " . (int) $this->messageId
+            ;
+
+        $this->setFromArray(claro_sql_query_fetch_single_row($readDataSQL));
     }
 
 
@@ -140,26 +140,26 @@ class SentMessage extends StoredMessage
        
         // delete status message (remove from receaved messagebox)
         $sql = 
-        	 "DELETE FROM `" . $tableName['im_message_status'] . "`\n"
-        	."WHERE message_id = " . (int) $this->getId()."\n"
-        	;
-        	
+            "DELETE FROM `" . $tableName['im_message_status'] . "`\n"
+            ."WHERE message_id = " . (int) $this->getId()."\n"
+            ;
+
         claro_sql_query($sql);
         
         // remove all recipient
         $sql = 
-        	 "DELETE FROM `" . $tableName['im_recipient'] . "`\n"
-        	."WHERE message_id = " . (int) $this->getId()."\n"
-        	;
-        	
+            "DELETE FROM `" . $tableName['im_recipient'] . "`\n"
+            ."WHERE message_id = " . (int) $this->getId()."\n"
+            ;
+
         claro_sql_query($sql);
         
         // remove from outbox
         $sql = 
-        	 "DELETE FROM `" . $tableName['im_message'] . "`\n"
-        	."WHERE message_id = " . (int) $this->getId()."\n"
-        	;
-        	
+            "DELETE FROM `" . $tableName['im_message'] . "`\n"
+            ."WHERE message_id = " . (int) $this->getId()."\n"
+            ;
+
         claro_sql_query($sql);
     }
 }

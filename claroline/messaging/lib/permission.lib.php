@@ -75,7 +75,7 @@ function current_user_is_allowed_to_send_message_to_user($userId)
            
         $nbMessage = claro_sql_query_fetch_single_value($select);
         
-        if($nbMessage > 0)
+        if ($nbMessage > 0)
         {
             return true;
         }

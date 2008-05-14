@@ -31,14 +31,14 @@ abstract class StoredMessage extends InternalMessage
      * set the fields of the current message
      *
      * @param array $messageData
-     * 		$messageData['message_id'] = message identification
-     * 		$messageData['subject'] = subject of the message
-     * 		$messageData['message'] = content of the message
-     * 		$messageData['sender'] = itendification of the sender
-     * 		$messageData['send_time'] = send time of the message
-     * 		$messageData['tools'] = send time of the message
-     * 		$messageData['group'] = send time of the message
-     * 		$messageData['course'] = send time of the message
+     * $messageData['message_id'] = message identification
+     * $messageData['subject'] = subject of the message
+     * $messageData['message'] = content of the message
+     * $messageData['sender'] = itendification of the sender
+     * $messageData['send_time'] = send time of the message
+     * $messageData['tools'] = send time of the message
+     * $messageData['group'] = send time of the message
+     * $messageData['course'] = send time of the message
      */
     protected function setFromArray($messageData)
     {
@@ -50,7 +50,7 @@ abstract class StoredMessage extends InternalMessage
         {
             throw new Exception("\$messageData['message_id'] is not defined: All data must be defined");
         }
-        	
+
         if (isset($messageData['subject']) && !is_null($messageData['subject']))
         {
             $this->subject = $messageData['subject'];
@@ -61,7 +61,7 @@ abstract class StoredMessage extends InternalMessage
             if (is_null($messageData['subject'])) echo "is null";
             throw new Exception("\$messageData['subject'] is not defined: All data must be defined");
         }
-        	
+
         if (isset($messageData['message']) && !is_null($messageData['message']))
         {
             $this->message = $messageData['message'];
@@ -70,7 +70,7 @@ abstract class StoredMessage extends InternalMessage
         {
             throw new Exception("\$messageData['message'] is not defined: All data must be defined");
         }
-        	
+
         if (isset($messageData['sender']) && !is_null($messageData['sender']))
         {
             $this->sender = (int)$messageData['sender'];
@@ -79,7 +79,7 @@ abstract class StoredMessage extends InternalMessage
         {
             throw new Exception("\$messageData['sender'] is not defined: All data must be defined");
         }
-        	
+
         if (isset($messageData['send_time']) && !is_null($messageData['send_time']))
         {
             $this->sendTime = $messageData['send_time'];
@@ -88,7 +88,7 @@ abstract class StoredMessage extends InternalMessage
         {
             throw new Exception("\$messageData['send_time'] is not defined: All data must be defined");
         }
-        
+
         if (array_key_exists("course", $messageData))//could be  null
         {
             $this->course = $messageData['course'];
@@ -97,7 +97,7 @@ abstract class StoredMessage extends InternalMessage
         {
             throw new Exception("\$messageData['course'] is not defined: All data must be defined");
         }
-        
+
         if (array_key_exists("group", $messageData))//could be  null
         {
             $this->group = $messageData['group'];
@@ -106,7 +106,7 @@ abstract class StoredMessage extends InternalMessage
         {
             throw new Exception("\$messageData['group'] is not defined: All data must be defined");
         }
-        
+
         if (array_key_exists("tools", $messageData))//could be  null
         {
             $this->tools = $messageData['tools'];
@@ -155,5 +155,25 @@ abstract class StoredMessage extends InternalMessage
     public function getSenderLastName()
     {
         return $this->senderLastName;
+    }
+
+    public function isPlateformMessage()
+    {
+        $tableName = get_module_main_tbl(array('im_recipient'));
+        
+        $sql = "SELECT DISTINCT sent_to \n"
+            ." FROM `".$tableName['im_recipient']."` \n"
+            ." WHERE message_id = ".$this->getId()
+            ;
+        $sentto = claro_sql_query_fetch_single_value($sql);
+        
+        if ($sentto == 'toAll')
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

@@ -151,8 +151,7 @@
     
     // ---------------- set limit -----------------------
     // lets this part after selector/filter nb page depend of the selector/filter
-    
-    
+            
     if (isset($_GET['page']))
     {
         $page = min(array((int)$_REQUEST['page'],$box->getNumberOfPage()));

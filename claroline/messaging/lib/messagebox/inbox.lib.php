@@ -26,9 +26,9 @@ class InBox extends ReceivedMessageBox
      * create a new Inbox
      *
      * @param int $userId user identification
-     * 		if it not defined it use the current user id
+     * if it not defined it use the current user id
      * @param MessageFilter $messageFilter
-     * 		if it not defined it used the default value (deleted, read or unread)
+     * if it not defined it used the default value (deleted, read or unread)
      */
     public function __construct($userId = NULL, $messageFilter = NULL)
     {

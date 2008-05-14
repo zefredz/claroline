@@ -24,7 +24,7 @@ class OutBoxStrategy extends MessageStrategy
 
     /**
      * set the field order
-     * 	accepted value: OutBoxStrategy::ORDER_BY_DATE
+     * accepted value: OutBoxStrategy::ORDER_BY_DATE
      *
      * @param string $fieldOrder constant of the field order
      */
@@ -36,7 +36,7 @@ class OutBoxStrategy extends MessageStrategy
         }
     }
     
-	/**
+    /**
      * return the conditions
      *
      * @return string conditions

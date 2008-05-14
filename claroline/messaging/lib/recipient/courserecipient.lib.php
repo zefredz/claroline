@@ -60,9 +60,9 @@ class CourseRecipient extends RecipientList
         $tableName = get_module_main_tbl(array('im_recipient'));
         
         $sql = "INSERT INTO `".$tableName['im_recipient']."` "
-			. "(message_id, user_id, sent_to) \n"
-			. "VALUES (" . (int)$messageId . ", " . (int)$userId . ", 'toCourse')\n"
-			;
-		claro_sql_query($sql);
+            . "(message_id, user_id, sent_to) \n"
+            . "VALUES (" . (int)$messageId . ", " . (int)$userId . ", 'toCourse')\n"
+            ;
+        claro_sql_query($sql);
     }
 }

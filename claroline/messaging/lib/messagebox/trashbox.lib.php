@@ -25,9 +25,9 @@ class TrashBox extends ReceivedMessageBox
      * construct the trash box
      *
      * @param int $userId user identification
-     * 		if it is not defined it use the current user id
+     * if it is not defined it use the current user id
      * @param MessageFilter $messageFilter
-     * 		if it not defined it use default value for the stratgy
+     * if it not defined it use default value for the stratgy
      */
     public function __construct($userId = NULL, $messageStrategy = NULL)
     {
@@ -35,6 +35,6 @@ class TrashBox extends ReceivedMessageBox
         {
             $messageStrategy = new TrashBoxStrategy();
         }
-        parent::__construct($messageStrategy,$userId);	
+        parent::__construct($messageStrategy,$userId);
     }
 }

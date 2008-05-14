@@ -101,7 +101,7 @@ class DisplayMessage
             
             $courseData = claro_get_course_data($message->getCourseCode());
             
-            if($courseData)
+            if ($courseData)
             {
                 $content .= $courseData['name'];
             }
@@ -123,7 +123,7 @@ class DisplayMessage
                 $groupData = claro_get_group_data(array (CLARO_CONTEXT_COURSE => $message->getCourseCode(),
                                                     CLARO_CONTEXT_GROUP => $message->getGroupId()));
                                                     
-                if($courseData)
+                if ($courseData)
                 {
                     $content .= $groupData['name'];
                 }
@@ -144,7 +144,7 @@ class DisplayMessage
                 
                 $md = get_module_data($message->getToolsLabel());
                 
-                if($md)
+                if ($md)
                 {
                     $content .= get_lang($md['moduleName']);
                 }
@@ -187,7 +187,6 @@ class DisplayMessage
         
         if (!is_null($message->getCourseCode()))
         {
-            echo $message->getCourseCode();
             $content .=     '<div class="imInfo">'."\n"
                 .          '<span class="imInfoTitle">'.get_lang('Course').'</span>'."\n"
                 .       '<div class="imInfoValue">'."\n"
@@ -195,7 +194,7 @@ class DisplayMessage
             
             $courseData = claro_get_course_data($message->getCourseCode());
             
-            if($courseData)
+            if ($courseData)
             {
                 $content .= $courseData['name'];
             }
@@ -204,18 +203,18 @@ class DisplayMessage
                 $content .= '?';
             }
             
-            $content .= '</div>."\n".</div>'."\n\n";
+            $content .= '</div>'."\n".'</div>'."\n\n";
             
             if (!is_null($message->getGroupId()))
             {
                 $content .= '<div class="imInfo">'."\n"
-                .          '<span class="imInfoTitle">'.get_lang('Group').'</span>'."\n"
-                .       '<div class="imInfoValue">'."\n"
-                ;
+                        .'<span class="imInfoTitle">'.get_lang('Group').'</span>'."\n"
+                        .'<div class="imInfoValue">'."\n"
+                        ;
                 
                 $groupData = claro_get_group_data(array (CLARO_CONTEXT_COURSE => $message->getCourseCode(),
                                                     CLARO_CONTEXT_GROUP => $message->getGroupId()));
-                if($groupData)
+                if ($groupData)
                 {
                      $content .= $groupData['name'];
                 }
@@ -224,19 +223,19 @@ class DisplayMessage
                      $content .= '?';
                 }
                 
-                $content .= '</div>."\n".</div>'."\n\n";
+                $content .= '</div>'."\n".'</div>'."\n\n";
             }
             
             if (!is_null($message->getToolsLabel()))
             {
                 $content .= '<div class="imInfo">'."\n"
-                .          '<span class="imInfoTitle">'.get_lang('Tool').'</span>'."\n"
-                .       '<div class="imInfoValue">'."\n"
-                ;
-                
+                            .'<span class="imInfoTitle">'.get_lang('Tool').'</span>'."\n"
+                            .'<div class="imInfoValue">'."\n"
+                            ;
+
                 $md = get_module_data($message->getToolsLabel());
-                
-                if($md)
+
+                if ($md)
                 {
                     $content .= get_lang($md['moduleName']);
                 }
@@ -245,7 +244,7 @@ class DisplayMessage
                     $content .= '?';
                 }
                 
-                $content .= '</div>."\n"</div>'."\n\n";
+                $content .= '</div>'."\n".'</div>'."\n\n";
                 
             }
         }

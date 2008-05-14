@@ -30,7 +30,7 @@ abstract class RecipientList
     
     abstract protected function addRecipient($messageId,$userId);
     
-	/**
+    /**
      * send the current message to the user in the recipientList
      *
      * @param messageToSend 
@@ -39,7 +39,7 @@ abstract class RecipientList
     public final function sendMessage($message)
     {
         $recipientListID = $this->getRecipientList();
-        	
+
         if (!is_array($recipientListID))
         {
             throw new Exception("");
@@ -57,7 +57,7 @@ abstract class RecipientList
         MessagingUserNotifier::notify($recipientListID,$message,$messageId);
 
         return $messageId;
-        	
+
     }
 
     /**
@@ -108,24 +108,24 @@ abstract class RecipientList
         {
             $tools = "NULL";
         }
-        	
+
         // add the message in the table of messages and retrieves the ID
         $addInternalMessageSQL =
-			"INSERT INTO `".$tableName['im_message']."` \n"
-			. "(sender, subject, message, send_time, course, `group` , tools) \n"
-			. "VALUES ($sender,'".$subject."','".$message."', '\n" 
-			. date( "Y-m-d H:i:s", claro_time() ) . "',".$course.",".$group.",".$tools.")\n"
-			;
-					
-		// try to read the last ID inserted if the request pass
-		if (claro_sql_query($addInternalMessageSQL))
-		{
-		    return claro_sql_insert_id();
-		}
-		else
-		{
-		    throw new Exception(claro_sql_errno().":".claro_sql_error());
-		}					
+            "INSERT INTO `".$tableName['im_message']."` \n"
+            . "(sender, subject, message, send_time, course, `group` , tools) \n"
+            . "VALUES ($sender,'".$subject."','".$message."', '\n" 
+            . date( "Y-m-d H:i:s", claro_time() ) . "',".$course.",".$group.",".$tools.")\n"
+            ;
+
+        // try to read the last ID inserted if the request pass
+        if (claro_sql_query($addInternalMessageSQL))
+        {
+            return claro_sql_insert_id();
+        }
+        else
+        {
+            throw new Exception(claro_sql_errno().":".claro_sql_error());
+        }
     }
 
     /**
@@ -142,17 +142,17 @@ abstract class RecipientList
         foreach ($recipientListID as $currentRecipient)
         {
             $addInternalMessageSQL =
-				"INSERT INTO `" . $tableName['im_message_status'] . "` "
+                "INSERT INTO `" . $tableName['im_message_status'] . "` "
                 . "(user_id, message_id, is_read, is_deleted) \n"
                 . "values (" . (int)$currentRecipient . "," . (int)$messageId . ",0 , 0)\n"
                 ;
 
-			if (!claro_sql_query($addInternalMessageSQL))
-			{
-			    throw new Exception(claro_sql_errno().":".claro_sql_error());
-			}
-			
-			$this->addRecipient($messageId,$currentRecipient);
+            if (!claro_sql_query($addInternalMessageSQL))
+            {
+                throw new Exception(claro_sql_errno().":".claro_sql_error());
+            }
+    
+            $this->addRecipient($messageId,$currentRecipient);
         }
     }
 }

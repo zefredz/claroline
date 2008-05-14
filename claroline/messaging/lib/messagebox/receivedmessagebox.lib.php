@@ -23,6 +23,7 @@ require_once dirname(__FILE__) . '/../message/receivedmessage.lib.php';
 class ReceivedMessageBox extends MessageBox
 {
     protected $numberOfUnreadMessage = FALSE;
+    protected $numberOfPlateformMessage = FALSE;
 
     /**
      * mark the message (by the message id) as unread for the user (user identifiation) in parameter
@@ -53,7 +54,7 @@ class ReceivedMessageBox extends MessageBox
      *
      * @param int $messageId message identification
      * @param int $userId user identification
-     * 		if it not defined it use current user id
+     * if it not defined it use current user id
      */
     public function moveMessageToTrashBox($messageId, $userId = NULL)
     {
@@ -66,7 +67,7 @@ class ReceivedMessageBox extends MessageBox
      *
      * @param int $messageId message identification
      * @param int $userId user identification
-     * 		if it not defined it use current user id
+     * if it not defined it use current user id
      */
     public function moveMessageToInBox($messageId, $userId = NULL)
     {
@@ -83,7 +84,7 @@ class ReceivedMessageBox extends MessageBox
         if (!$this->messageList)
         {
             $tableName = get_module_main_tbl(array('im_message','im_message_status','user'));
-            	
+
             if ( ! is_null($this->messageFilter))
             {
                 $strategy = $this->messageFilter->getStrategy();
@@ -98,16 +99,16 @@ class ReceivedMessageBox extends MessageBox
             }
             
             $sql =
-    		"SELECT U.nom AS lastName, U.prenom AS firstName, M.message_id, M.sender, M.subject,\n"
-    		."M.message, M.send_time, R.is_read, R.is_deleted, R.user_id, M.course, M.group, M.tools\n" 
-            .	 " FROM `" . $tableName['im_message'] . "` as M\n"
-            .	 " LEFT JOIN `" . $tableName['im_message_status'] . "` as R ON M.message_id = R.message_id\n"
-            .    " LEFT JOIN `".$tableName['user']."` AS U ON M.sender = U.user_id\n"
-            .	 " WHERE (R.user_id = " . (int)$this->getUserId() . " OR R.user_id = 0) \n" // 0 plateforme message
-            .	     " " . $strategy
-            .    " " . $order
-            .    " " . $limit
-            ;
+                "SELECT U.nom AS lastName, U.prenom AS firstName, M.message_id, M.sender, M.subject,\n"
+                ."M.message, M.send_time, R.is_read, R.is_deleted, R.user_id, M.course, M.group, M.tools\n" 
+                . " FROM `" . $tableName['im_message'] . "` as M\n"
+                . " LEFT JOIN `" . $tableName['im_message_status'] . "` as R ON M.message_id = R.message_id\n"
+                . " LEFT JOIN `".$tableName['user']."` AS U ON M.sender = U.user_id\n"
+                . " WHERE (R.user_id = " . (int)$this->getUserId() . " OR R.user_id = 0) \n" // 0 plateforme message
+                .    " " . $strategy
+                .    " " . $order
+                .    " " . $limit
+                ;
             
             $this->messageList = claro_sql_query_fetch_all_rows($sql);
             
@@ -139,7 +140,7 @@ class ReceivedMessageBox extends MessageBox
     
     protected function loadNumberOfMessage()
     {
-        if(!$this->numberOfMessage)
+        if (!$this->numberOfMessage)
         {
             $tableName = get_module_main_tbl(array('im_message','im_message_status','user'));
                 
@@ -150,15 +151,15 @@ class ReceivedMessageBox extends MessageBox
             else{
                 $strategy = "";
             }
-            	
+
             $sql =
-        		"SELECT count(*)" 
-    	        .	" FROM `" . $tableName['im_message'] . "` as M\n"
-    	        .	" LEFT JOIN `" . $tableName['im_message_status'] . "` as "
-    	        .	"R ON M.message_id = R.message_id\n"
-                .    " LEFT JOIN `".$tableName['user']."` AS U ON M.sender = U.user_id\n"
-    	        .	" WHERE (R.user_id = " . (int)$this->getUserId() . " OR R.user_id = 0) \n"
-                .		" " . $strategy
+                "SELECT count(*)" 
+                ." FROM `" . $tableName['im_message'] . "` as M\n"
+                ." LEFT JOIN `" . $tableName['im_message_status'] . "` as "
+                ."R ON M.message_id = R.message_id\n"
+                ." LEFT JOIN `".$tableName['user']."` AS U ON M.sender = U.user_id\n"
+                ." WHERE (R.user_id = " . (int)$this->getUserId() . " OR R.user_id = 0) \n"
+                ." " . $strategy
                 ;
                 
             $this->numberOfMessage = claro_sql_query_fetch_single_value($sql);
@@ -184,21 +185,51 @@ class ReceivedMessageBox extends MessageBox
             {
                 $strategy = "";
             }
-            	
+
             $sql =
-        		"SELECT count(*)\n" 
-    	        .    " FROM `" . $tableName['im_message'] . "` as M\n"
-    	        .    " LEFT JOIN `" . $tableName['im_message_status'] . "` as R ON M.message_id = R.message_id\n"
-	            .    " LEFT JOIN `".$tableName['user']."` AS U ON M.sender = U.user_id\n"
-    	        .    " WHERE R.user_id = " . (int)$this->getUserId()."\n"
-    	        .    " AND R.is_read = 0\n"
-                .		" " . $strategy
+                "SELECT count(*)\n" 
+                ." FROM `" . $tableName['im_message'] . "` as M\n"
+                ." LEFT JOIN `" . $tableName['im_message_status'] . "` as R ON M.message_id = R.message_id\n"
+                ." LEFT JOIN `".$tableName['user']."` AS U ON M.sender = U.user_id\n"
+                ." WHERE R.user_id = " . (int)$this->getUserId()."\n"
+                ." AND R.is_read = 0\n"
+                ." " . $strategy
                 ;
-                
+
             $this->numberOfUnreadMessage = claro_sql_query_fetch_single_value($sql);
         }
         
         return $this->numberOfUnreadMessage;
+    }
+    
+    public function numberOfPlateformMessage()
+    {
+        if (!$this->numberOfUnreadMessage)
+        {
+            $tableName = get_module_main_tbl(array('im_message','im_message_status','user'));
+            
+            if ( ! is_null($this->messageFilter) )
+            {
+                $strategy = $this->messageFilter->getStrategy();
+            }
+            else
+            {
+                $strategy = "";
+            }
+
+            $sql =
+                "SELECT count(*)\n" 
+                ." FROM `" . $tableName['im_message'] . "` as M\n"
+                ." LEFT JOIN `" . $tableName['im_message_status'] . "` as R ON M.message_id = R.message_id\n"
+                ." LEFT JOIN `".$tableName['user']."` AS U ON M.sender = U.user_id\n"
+                ." WHERE R.user_id = 0"."\n"
+                ." " . $strategy
+                ;
+                
+            $this->numberOfPlateformMessage = claro_sql_query_fetch_single_value($sql);
+        }
+        
+        return $this->numberOfPlateformMessage;
     }
     
     /**
@@ -216,11 +247,11 @@ class ReceivedMessageBox extends MessageBox
         $tableName = get_module_main_tbl(array('im_message_status'));
         
         $sql = 
-        	"DELETE FROM `" . $tableName['im_message_status'] . "`\n"
-        		. " WHERE is_deleted = 1\n"
-        		. 	" AND user_id = " . (int)$this->getUserId()."\n"
-        		;
-        	
+            "DELETE FROM `" . $tableName['im_message_status'] . "`\n"
+            ." WHERE is_deleted = 1\n"
+            ." AND user_id = " . (int)$this->getUserId()."\n"
+            ;
+
         claro_sql_query($sql);
     }
 }

@@ -55,7 +55,7 @@ class ReceivedMessage extends StoredMessage
     
     /**
      * @return bool true if the message is read
-     * 				false if the message is not read
+     * false if the message is not read
      */
     public function isRead()
     {
@@ -73,7 +73,7 @@ class ReceivedMessage extends StoredMessage
     /**
      * 
      * @return bool true if the message is deleted
-     * 				false if the message is not deleted
+     * false if the message is not deleted
      */
     public function isDeleted()
     {
@@ -115,11 +115,11 @@ class ReceivedMessage extends StoredMessage
         $tableName = get_module_main_tbl(array('im_message_status'));
          
         $moveSQL =
-				"UPDATE `".$tableName['im_message_status']."` \n"
-				.	"SET is_deleted = " . (int)$deledeStatus . " \n"
-				.	"WHERE user_id = ".(int)$this->userId." AND message_id = ". (int)$this->getId()."\n"
-				;
-		claro_sql_query($moveSQL);
+             "UPDATE `".$tableName['im_message_status']."` \n"
+            ."SET is_deleted = " . (int)$deledeStatus . " \n"
+            ."WHERE user_id = ".(int)$this->userId." AND message_id = ". (int)$this->getId()."\n"
+            ;
+        claro_sql_query($moveSQL);
     }
 
     /**
@@ -155,11 +155,11 @@ class ReceivedMessage extends StoredMessage
         $tableName = get_module_main_tbl(array('im_message_status'));
          
         $sql =
-				"UPDATE `" . $tableName['im_message_status'] ."`\n"
-                .   " SET is_read = " . (int)$isRead."\n"
-                .   " WHERE user_id = " . (int)$this->userId."\n"
-                .      " AND message_id = " . (int)$this->getId()."\n"
-                ;
+            "UPDATE `" . $tableName['im_message_status'] ."`\n"
+            .   " SET is_read = " . (int)$isRead."\n"
+            .   " WHERE user_id = " . (int)$this->userId."\n"
+            .      " AND message_id = " . (int)$this->getId()."\n"
+            ;
         claro_sql_query($sql);
     }
 
@@ -167,13 +167,13 @@ class ReceivedMessage extends StoredMessage
      * set fields of the current message
      *
      * @param array $messageData
-     * 		$messageData['read_flag'] = read status (0 for unread or 1 for read)
-     * 		$messageData['deleted_flag'] = deleted status (0 for not deleted or 1 for deleted)
-     * 		$messageData['message_id'] = message identification
-     * 		$messageData['subject'] = subject of the message
-     * 		$messageData['message'] = content of the message
-     * 		$messageData['sender'] = itendification of the sender
-     * 		$messageData['send_time'] = send time of the message
+     * $messageData['read_flag'] = read status (0 for unread or 1 for read)
+     * $messageData['deleted_flag'] = deleted status (0 for not deleted or 1 for deleted)
+     * $messageData['message_id'] = message identification
+     * $messageData['subject'] = subject of the message
+     * $messageData['message'] = content of the message
+     * $messageData['sender'] = itendification of the sender
+     * $messageData['send_time'] = send time of the message
      */
     protected function setFromArray($messageData)
     {
@@ -227,14 +227,14 @@ class ReceivedMessage extends StoredMessage
      * create a new ReceviedMessage with the information in the parameter
      *
      * @param array $messageData
-     * 		$messageData['is_read'] = read status (0 for unread or 1 for read)
-     * 		$messageData['id_deleted'] = deleted status (0 for not deleted or 1 for deleted)
-     * 		$messageData['message_id'] = message identification
-     * 		$messageData['subject'] = subject of the message
-     * 		$messageData['message'] = content of the message
-     * 		$messageData['sender'] = itendification of the sender
-     * 		$messageData['send_time'] = send time of the message
-     * 		$messageData['user_id'] = send time of the message
+     * $messageData['is_read'] = read status (0 for unread or 1 for read)
+     * $messageData['id_deleted'] = deleted status (0 for not deleted or 1 for deleted)
+     * $messageData['message_id'] = message identification
+     * $messageData['subject'] = subject of the message
+     * $messageData['message'] = content of the message
+     * $messageData['sender'] = itendification of the sender
+     * $messageData['send_time'] = send time of the message
+     * $messageData['user_id'] = send time of the message
      * @return ReceivedMessage the message created
      */
     public static function fromArray($messageData)
@@ -251,7 +251,7 @@ class ReceivedMessage extends StoredMessage
      *
      * @param int $messageId message identification
      * @param int $userId user identification
-     * 		if it not defined it use the current user identification
+     * if it not defined it use the current user identification
      * @return ReceivedMessage the message created
      */
     public static function fromId($messageId, $userId = NULL)
@@ -264,28 +264,28 @@ class ReceivedMessage extends StoredMessage
         $tableName = get_module_main_tbl(array('im_message','im_message_status','user'));
          
         $messageSQL =
-				"SELECT U.nom AS lastName, U.prenom AS firstName, M.message_id, M.sender,M.subject,  \n"
-				."M.message, M.send_time, R.is_read, R.is_deleted, R.user_id, M.course, M.group, M.tools \n"
+            "SELECT U.nom AS lastName, U.prenom AS firstName, M.message_id, M.sender,M.subject,  \n"
+                ."M.message, M.send_time, R.is_read, R.is_deleted, R.user_id, M.course, M.group, M.tools \n"
                 .    "FROM `" . $tableName['im_message'] . "` as M \n"
                 .    " LEFT JOIN `".$tableName['im_message_status']."` AS R ON M.message_id = R.message_id\n"
                 .    " LEFT JOIN `".$tableName['user']."` AS U ON M.sender = U.user_id\n"
                 .    " WHERE R.user_id = " . (int) $userId ."\n"
                 .        " AND M.message_id = " . (int) $messageId."\n"
-				;
-				
+                ;
+
         $resultMessage = claro_sql_query_fetch_single_row($messageSQL);
         
         if (!$resultMessage)
         {
             $messageSQL =
-				"SELECT U.nom AS lastName, U.prenom AS firstName, M.message_id, M.sender, M.subject, \n"
-				."M.message, M.send_time, R.is_read, R.is_deleted, R.user_id, M.course, M.group, M.tools \n"
-                .    "FROM `" . $tableName['im_message'] . "` as M\n"
-                .    " LEFT JOIN `".$tableName['im_message_status']."` AS R ON M.message_id = R.message_id\n"
-                .    " LEFT JOIN `".$tableName['user']."` AS U ON M.sender = U.user_id\n"
-                .    " WHERE R.user_id = 0" 
-                .        " AND M.message_id = " . (int) $messageId
-				;
+                "SELECT U.nom AS lastName, U.prenom AS firstName, M.message_id, M.sender, M.subject, \n"
+                ."M.message, M.send_time, R.is_read, R.is_deleted, R.user_id, M.course, M.group, M.tools \n"
+                ."FROM `" . $tableName['im_message'] . "` as M\n"
+                ." LEFT JOIN `".$tableName['im_message_status']."` AS R ON M.message_id = R.message_id\n"
+                ." LEFT JOIN `".$tableName['user']."` AS U ON M.sender = U.user_id\n"
+                ." WHERE R.user_id = 0" 
+                ." AND M.message_id = " . (int) $messageId
+                ;
             $resultMessage = claro_sql_query_fetch_single_row($messageSQL);
         }
         
@@ -302,13 +302,13 @@ class ReceivedMessage extends StoredMessage
         $messageSQL =
             "SELECT U.nom AS lastName, U.prenom AS firstName, M.message_id, M.sender, M.subject, \n"
             ."M.message, M.send_time, R.is_read, R.is_deleted, R.user_id , M.course, M.group, M.tools \n"
-            .    " FROM `" . $tableName['im_message'] . "` as M \n"
-            .    " LEFT JOIN `".$tableName['im_message_status'] . "` as R ON M.message_id = R.message_id\n"
-            .    " LEFT JOIN `".$tableName['user']."` AS U ON M.sender = U.user_id\n"
-            .    " WHERE R.user_id = " . (int) $this->userId."\n"
-            .        " AND M.message_id = " . (int) $this->messageId."\n"
-			;
-				
-	    $this->setFromArray(claro_sql_query_fetch_single_row($messageSQL));
+            ." FROM `" . $tableName['im_message'] . "` as M \n"
+            ." LEFT JOIN `".$tableName['im_message_status'] . "` as R ON M.message_id = R.message_id\n"
+            ." LEFT JOIN `".$tableName['user']."` AS U ON M.sender = U.user_id\n"
+            ." WHERE R.user_id = " . (int) $this->userId."\n"
+            ." AND M.message_id = " . (int) $this->messageId."\n"
+            ;
+        
+        $this->setFromArray(claro_sql_query_fetch_single_row($messageSQL));
     }
 }

@@ -130,7 +130,7 @@ class AdminMessageBox implements Iterator
     
     protected function loadNumberOfMessage()
     {
-        if(!$this->numberOfMessage)
+        if (!$this->numberOfMessage)
         {
             $strategy = $this->getSelector();
                 
@@ -175,11 +175,11 @@ class AdminMessageBox implements Iterator
         
         // get all message id sent by the user
         $sql = 
-        	"SELECT message_id\n"
-        	." FROM `".$tableName['im_message']."`\n"
-        	." WHERE sender=".(int)$uid
-        	;
-        	
+            "SELECT message_id\n"
+            ." FROM `".$tableName['im_message']."`\n"
+            ." WHERE sender=".(int)$uid
+            ;
+
         $messageIdList = claro_sql_query_fetch_all_cols($sql);
         
         // delete all message of the trashbox and the inbox
@@ -228,26 +228,26 @@ class AdminMessageBox implements Iterator
         {
             // delete status message (remove from received messagebox)
             $sql = 
-            	 "DELETE FROM `" . $tableName['im_message_status'] . "`\n"
-            	."WHERE message_id IN(".$messageIdString.")"
-            	;
-            	
+                 "DELETE FROM `" . $tableName['im_message_status'] . "`\n"
+                ."WHERE message_id IN(".$messageIdString.")"
+                ;
+
             claro_sql_query($sql);
             
             // remove all recipient
             $sql = 
-            	 "DELETE FROM `" . $tableName['im_recipient'] . "`\n"
-            	."WHERE message_id IN(".$messageIdString.")"
-            	;
-            	
+                "DELETE FROM `" . $tableName['im_recipient'] . "`\n"
+                ."WHERE message_id IN(".$messageIdString.")"
+                ;
+
             claro_sql_query($sql);
             
             // remove from outbox
             $sql = 
-            	 "DELETE FROM `" . $tableName['im_message'] . "`\n"
-            	."WHERE message_id IN(".$messageIdString.")"
-            	;
-            	
+                "DELETE FROM `" . $tableName['im_message'] . "`\n"
+                ."WHERE message_id IN(".$messageIdString.")"
+                ;
+
             claro_sql_query($sql);
         }
     }

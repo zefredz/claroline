@@ -49,10 +49,11 @@ class UserStrategy implements SelectorStrategy
     
     public function getStrategy()
     {
-        if($this->nameSearch == "*")
+        if ($this->nameSearch == "*")
         {
             $this->nameSearch = '';
         }
+        
         return "WHERE nom like '%".$this->nameSearch."%' OR prenom like '%".$this->nameSearch."%' OR username like '%".$this->nameSearch."%' OR "
         ."CONCAT(nom,' ',prenom) like '%".$this->nameSearch."%' OR CONCAT(prenom,' ',nom) like '%".$this->nameSearch."%'";
     }
@@ -80,7 +81,7 @@ class UserStrategy implements SelectorStrategy
     
     public function setFieldOrder($fieldOrder)
     {
-        if($fieldOrder == self::ORDER_BY_NAME || $fieldOrder == self::ORDER_BY_USERNAME)
+        if ($fieldOrder == self::ORDER_BY_NAME || $fieldOrder == self::ORDER_BY_USERNAME)
         {
             $this->fieldOrder = $fieldOrder;
         }
