@@ -80,7 +80,7 @@ label {
                              CLAROLINE PAGE
  ******************************************************************************/
 #claroPage {
-	
+    
 }
 
 /******************************************************************************
@@ -105,7 +105,7 @@ label {
 #platformBanner a:link,
 #platformBanner a:visited {
     text-decoration: none;
-	color: #fff;
+    color: #fff;
     font-weight: bold;
 }
 
@@ -428,8 +428,8 @@ th .claroCmd {
 }
 
 th .claroCmdDisabled {
-	color: #999;
-	font-size: 0.9em;
+    color: #999;
+    font-size: 0.9em;
     font-weight: bold;
     text-decoration: none;
 }
@@ -470,7 +470,7 @@ a.item:visited{
  */
 .header
 {
-	color: #693;
+    color: #693;
     font-weight: bold;
     padding: 2px 5px 2px 5px;
     background-color: #EDF1E3;
@@ -665,38 +665,38 @@ a.item:visited{
 }
 
 /* specific styling for dialog box messages */
-.claroDialogBox {	
-	margin-top: 2px; 
-	margin-bottom: 2px; 
-	padding: 5px 5px 5px 20px; 
-	border: 1px solid #ccc;
-	background: #eee;
-	float: left;
-	border-left: 2px solid #ccc;
+.claroDialogBox {    
+    margin-top: 2px; 
+    margin-bottom: 2px; 
+    padding: 5px 5px 5px 20px; 
+    border: 1px solid #ccc;
+    background: #eee;
+    float: left;
+    border-left: 2px solid #ccc;
 }
 
-.boxInfo {	
-	border-left: 2px solid #ccc;
-	background: #eee url('default/bg_info.gif') bottom right no-repeat;
-	padding-right: 83px;
+.boxInfo {    
+    border-left: 2px solid #ccc;
+    background: #eee url('default/bg_info.gif') bottom right no-repeat;
+    padding-right: 83px;
 }
 
-.boxSuccess {	
-	border-left: 2px solid #090;
-	background: #eee url('default/bg_success.gif') bottom right no-repeat;
-	padding-right: 83px;
+.boxSuccess {    
+    border-left: 2px solid #090;
+    background: #eee url('default/bg_success.gif') bottom right no-repeat;
+    padding-right: 83px;
 }
 
-.boxWarning {	
-	border-left: 2px solid #900;
-	background: #eee url('default/bg_warning.gif') bottom right no-repeat;
-	padding-right: 83px;
+.boxWarning {    
+    border-left: 2px solid #900;
+    background: #eee url('default/bg_warning.gif') bottom right no-repeat;
+    padding-right: 83px;
 }
 
-.boxError {	
-	border-left: 2px solid #900;
-	background: #eee url('default/bg_error.gif') bottom right no-repeat;
-	padding-right: 83px;
+.boxError {    
+    border-left: 2px solid #900;
+    background: #eee url('default/bg_error.gif') bottom right no-repeat;
+    padding-right: 83px;
 }
 
 .claroDialogMsg { padding: 2px 5px 1px 20px; }
@@ -908,13 +908,13 @@ form tr.admin td{
  
  /*TR line for plateform message*/
  .plateformMessage { 
- 	background-color: #FBB2D8;
+     background-color: #fee5c3;
  }
  
  /*TR line for unread message*/
  .unreadMessage {
- 	background-color: #D9D9D9;
- 	font-weight: bold;
+     background-color: #e6e5e5;
+     font-weight: bold;
  }
  
  
@@ -923,50 +923,50 @@ form tr.admin td{
  .unreadMessage a:active ,
  .unreadMessage a:hover ,
  .unreadMessage a:visited , {
- 	font-weight: bold;
+     font-weight: bold;
  }
  
  .im_context 
  {
- 	color: #CCC;
+     color: #CCC;
  }
  
  .im_list_action, .im_list_selection
  {
- 	text-align: center;
+     text-align: center;
  }
  
  #im_paging
  {
- 	text-align: center;
+     text-align: center;
  }
  
  .imInfo .imInfoTitle
  {
- 	display: block;
- 	width: 250px;
- 	float: left;
+     display: block;
+     width: 250px;
+     float: left;
  }
  .imInfo .imInfoValue
  {
-	margin-left: 250px;
+    margin-left: 250px;
  }
  
  .imContent
  {
- 	padding: 0 15px;
- 	border-top: solid 1px #CCC;
- 	margin-top: 3px;
+     padding: 0 15px;
+     border-top: solid 1px #CCC;
+     margin-top: 3px;
  }
  
  .imCmdList
  {
-	padding-top: 10px; 
-	margin-left: 0px;
+    padding-top: 10px; 
+    margin-left: 0px;
  }
  
  input[type].inputSearch
  {
- 	background: url('../img/search.gif') no-repeat top left #fff;
- 	padding-left: 18px;
+     background: url('../img/search.gif') no-repeat top left #fff;
+     padding-left: 18px;
  }

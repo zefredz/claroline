@@ -17,57 +17,81 @@
  * @package Auth
  *
  */
+ 
+require_once get_path( 'clarolineRepositorySys' ) . '/messaging/lib/tools.lib.php';
+require_once get_path( 'clarolineRepositorySys' ) . '/messaging/lib/messagebox/inbox.lib.php';
 
+// require_once get_path( 'clarolineRepositorySys' ) . '/messaging/lib/selectorstrategy/inboxstartegy.lib.php';
+// require_once get_path( 'clarolineRepositorySys' ) . '/messaging/lib/selectorstrategy/outboxstrategy.lib.php';
+// require_once get_path( 'clarolineRepositorySys' ) . '/messaging/lib/selectorstrategy/trashboxstrategy.lib.php';
 
 class mybox extends portlet
 {
+    protected $inbox;
+
     function __construct()
     {
+        $this->inbox = new InBox;
+        $this->inbox->getMessageStrategy()->setNumberOfMessagePerPage( get_conf('myboxNumberOfMessage',5) );
     }
     
     function renderContent()
     {
-	
-        $output = '<ul id="navlist">' . "\n"
-    	.	 '<li><a class="current" href="' . $_SERVER['PHP_SELF'] . '">' . get_lang('Inbox') . '</a></li>' . "\n"
-        .    '<li><a  href="' . $_SERVER['PHP_SELF'] . '">' . get_lang('Outbox') . '</a></li>' . "\n"
-        .    '<li><a  href="' . $_SERVER['PHP_SELF'] . '">' . get_lang('Archives') . '</a></li>' . "\n"
-        .    '<li><a  href="' . $_SERVER['PHP_SELF'] . '">' . get_lang('Bloqués') . '</a></li>' . "\n"
-        .    '</ul>' . "\n\n"
-        ;
+        $output = getBarMessageBox( claro_get_current_user_id(), $displayMenuAdmin = false );
+        
+        $output .= '<br /><br />';
         
         $output .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
-    	.    '<thead>' . "\n"
-    	.      '<tr class="headerX" align="center" valign="top">' . "\n"
-    	.	    '<th>&nbsp;</th>' . "\n"
-    	.	    '<th>' . get_lang('De :') . '</th>' . "\n"
-    	.	    '<th>' . get_lang('Sujet :') . '</th>' . "\n"
-    	.	    '<th>' . get_lang('Reçu : ') . '</th>' . "\n"
-    	.	    '<th>' . get_lang('Archiver') . '</th>' . "\n"
-    	.	    '<th>' . get_lang('Delete') . '</th>' . "\n"
-    	.	    '<th>' . get_lang('Bloquer') . '</th>' . "\n"
+        .    '<thead>' . "\n"
+        .      '<tr class="headerX" align="center" valign="top">' . "\n"
+        .        '<th>&nbsp;</th>' . "\n"
+        .        '<th>' . get_lang('De') . '</th>' . "\n"
+        .        '<th>' . get_lang('Sujet') . '</th>' . "\n"
+        .        '<th>' . get_lang('Reçu') . '</th>' . "\n"
         .      '</tr>' . "\n"
         .    '</thead>' . "\n"
         .    '<tbody>' . "\n"
-        .      '<tr>' . "\n"
-        .       '<td align="center"><img src="' . get_icon_url('email.png') . '" alt="' . get_lang('email') . '" /></td>' . "\n"
-        .       '<td>Marcel</td>' . "\n"
-        .       '<td>Promotion</td>' . "\n"
-        .       '<td align="center">' . claro_html_localised_date( get_locale('dateFormatLong'), time() ) . '</td>' . "\n"
-        .       '<td align="center"><img src="' . get_icon_url('move') . '" alt="' . get_lang('move') . '" /></td>' . "\n"
-        .       '<td align="center"><img src="' . get_icon_url('Delete') . '" alt="' . get_lang('Delete') . '" /></td>' . "\n"
-        .       '<td align="center"><img src="' . get_icon_url('block') . '" alt="' . get_lang('block') . '" /></td>' . "\n"
-        .      '</tr>' . "\n"
-        
-        .      '<tr>' . "\n"
-        .       '<td align="center"><img src="' . get_icon_url('emaillu.png') . '" alt="' . get_lang('emaillu') . '" /></td>' . "\n"
-        .       '<td>Fred</td>' . "\n"
-        .       '<td>Bonjour</td>' . "\n"
-        .       '<td align="center">' . claro_html_localised_date( get_locale('dateFormatLong'), time() ) . '</td>' . "\n"
-        .       '<td align="center"><img src="' . get_icon_url('move') . '" alt="' . get_lang('move') . '" /></td>' . "\n"
-        .       '<td align="center"><img src="' . get_icon_url('Delete') . '" alt="' . get_lang('Delete') . '" /></td>' . "\n"
-        .       '<td align="center"><img src="' . get_icon_url('block') . '" alt="' . get_lang('block') . '" /></td>' . "\n"
-        .      '</tr>' . "\n"
+        ;
+    
+        if( $this->inbox->getNumberOfMessage() > 0 )
+        {
+            foreach( $this->inbox as $message )
+            {
+                if ($message->getRecipient() == 0)
+                {
+                    $classMessage = 'class="plateformMessage"';
+                    $iconMessage = '<img src="' . get_icon_url('important') . '" alt="' . get_lang('important') . '" />';
+                }
+                else
+                {
+                    ( $message->isRead() ? $classMessage = 'class="readMessage"' : $classMessage = 'class="unreadMessage"' );
+                    ( $message->isRead() ? $iconMessage = '<img src="' . get_icon_url('emaillu') . '" alt="' . get_lang('email') . '" />' : $iconMessage = '<img src="' . get_icon_url('email') . '" alt="' . get_lang('email') . '" />' );                
+                }
+                
+                $output .= "\n"
+                .      '<tr ' . $classMessage . '>' . "\n"
+                .       '<td>' . $iconMessage . '</td>' . "\n"
+                .       '<td>' . htmlspecialchars( $message->getSenderLastName() ) . '&nbsp;' . htmlspecialchars( $message->getSenderFirstName() ) . '</td>' . "\n"
+                .       '<td>'
+                .       '<a href="' . get_path( 'clarolineRepositoryWeb' ) . 'messaging/readmessage.php?messageId=' . $message->getId() . '&amp;type=received">'
+                .       htmlspecialchars( $message->getSubject() )
+                .       '</a>' . "\n"
+                .       '</td>' . "\n"
+                .       '<td align="center">' . claro_html_localised_date( get_locale( 'dateFormatLong' ), strtotime( $message->getSendTime() ) ) . '</td>' . "\n"
+                .      '</tr>' . "\n"
+                ;
+            }
+        }
+        else
+        {
+                $output .= "\n"
+                .      '<tr>' . "\n"
+                .       '<td colspan="4" align="center">' . get_lang('Empty') . '</td>' . "\n"
+                .      '</tr>' . "\n"
+                ;
+        }
+
+        $output .= "\n"
         .    '</tbody>' . "\n"
         .    '</table>' . "\n"
         ;

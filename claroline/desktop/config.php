@@ -77,7 +77,7 @@
 
     $cssLoader = CssLoader::getInstance();
     $cssLoader->load('desktop','all');
-    
+/*     
     $jsloader = JavascriptLoader::getInstance();
     $jsloader->load('jquery');
     
@@ -103,7 +103,7 @@
     ;
     
     $claroline->display->header->addHtmlHeader($htmlHeaders);
-
+ */
 // }}}
 
 // {{{ CONTROLLER
