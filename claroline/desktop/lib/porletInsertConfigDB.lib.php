@@ -71,7 +71,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                         `activated`
                     FROM `".$this->tblDesktopPortlet."`
                     WHERE activated = '1'"
-                    . ( $visibility == true ? "AND visibility = 'VISIBLE'" : '' ) .
+                    . ( $visibility == true ? "AND visibility = 'visible'" : '' ) .
                     "ORDER BY `rank` ASC"
                     ;
 

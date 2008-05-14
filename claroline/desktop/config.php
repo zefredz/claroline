@@ -188,7 +188,7 @@
         .       '<td>' . $portlet['name'] . '</td>' . "\n"
         ;
 
-            if( $portlet['visibility'] == 'VISIBLE' )
+            if( $portlet['visibility'] == 'visible' )
             {
                 $outPortlet .= "\n"
                 .    '<td align="center">' . "\n"
