@@ -1479,9 +1479,16 @@ function claro_get_user_course_list($user_id = null)
     return $userCourseList;
 }
 
-function user_get_picture_folder( $userId )
+function user_get_private_folder_path( $userId )
 {
-    return get_path('userPictureRepositorySys')
+    return get_path('userRepositorySys')
+        . '/' . md5($userId.get_conf('platform_id'))
+        ;
+}
+
+function user_get_private_folder_url( $userId )
+{
+    return get_path('userRepositoryWeb')
         . '/' . md5($userId.get_conf('platform_id'))
         ;
 }
@@ -1490,8 +1497,7 @@ function user_get_picture_path( $userData )
 {
     if ( !empty( $userData['picture'] ) )
     {
-        return get_path('userPictureRepositorySys')
-            . '/' . md5($userData['user_id'].get_conf('platform_id'))
+        return user_get_private_folder_path($userData['user_id'])
             . '/' . $userData['picture']
             ;
     }
@@ -1505,8 +1511,7 @@ function user_get_picture_url( $userData )
 {
     if ( !empty( $userData['picture'] ) )
     {
-        return get_path('userPictureRepositoryWeb')
-            . '/' . md5($userData['user_id'].get_conf('platform_id'))
+        return user_get_private_folder_url($userData['user_id'])
             . '/' . $userData['picture']
             ;
     }

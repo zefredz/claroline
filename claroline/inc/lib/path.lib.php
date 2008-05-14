@@ -74,8 +74,8 @@ function get_path($pathKey)
         $pathList['mysqlRepositorySys'] =  get_conf('mysqlRepositorySys');
         
         // user picture
-        $pathList['userPictureRepositorySys'] = $pathList['rootSys'].'platform/pictures';
-        $pathList['userPictureRepositoryWeb'] = $pathList['rootWeb'].'platform/pictures';
+        $pathList['userRepositorySys'] = $pathList['rootSys'].'platform/users';
+        $pathList['userRepositoryWeb'] = $pathList['rootWeb'].'platform/users';
     }
 
     if ( array_key_exists( $pathKey, $pathList ) )
