@@ -24,21 +24,21 @@
      */
     function makeArgLink($paramList,$without = array())
     {
-    	$argString = "";
-    	
-    	foreach ($paramList as $key => $arg)
-    	{
-    	    if (!in_array($key, $without))
-    	    {
-    	        if ($argString != "")
-    	        {
-    	            $argString .= "&amp;";
-    	        }
-    	        $argString .= $key."=".rawurlencode($arg);
-    	    }
-    	}
-    	
-    	return $argString;
+    $argString = "";
+    
+    foreach ($paramList as $key => $arg)
+    {
+        if (!in_array($key, $without))
+        {
+            if ($argString != "")
+            {
+                $argString .= "&amp;";
+            }
+            $argString .= $key."=".rawurlencode($arg);
+        }
+    }
+
+    return $argString;
     }
     
     /**
@@ -52,10 +52,30 @@
         require_once dirname(__FILE__) . '/messagebox/inbox.lib.php';
         
         $inboxWithoutFilter = new InBox($currentUserId);
+
+        if ($currentUserId == claro_get_current_user_id())
+        {
+            $introNameBox = 'My';
+        }
+        else
+        {
+            $introNameBox = 'User\'s';
+        }
         
-        $menu[] = '<a href="' . get_path( 'clarolineRepositoryWeb' ) . 'messaging/messagebox.php?box=inbox&amp;userId='.$currentUserId.'" class="claroCmd">'.get_lang('Inbox').'('.$inboxWithoutFilter->numberOfUnreadMessage().')</a>';
-        $menu[] = '<a href="' . get_path( 'clarolineRepositoryWeb' ) . 'messaging/messagebox.php?box=outbox&amp;userId='.$currentUserId.'" class="claroCmd">'.get_lang('Outbox').'</a>';
-        $menu[] = '<a href="' . get_path( 'clarolineRepositoryWeb' ) . 'messaging/messagebox.php?box=trashbox&amp;userId='.$currentUserId.'" class="claroCmd">'.get_lang('Trashbox').'</a>';
+        $numberOfPlateformMessage = $inboxWithoutFilter->numberOfPlateformMessage();
+        $messagePlateform = "";
+        if ($numberOfPlateformMessage == 0)
+        {
+            $messagePlateform = "";
+        }
+        else
+        {
+            $messagePlateform = ''.$numberOfPlateformMessage." ".get_lang('plateform message');
+        }
+
+        $menu[] = '<a href="' . get_path( 'clarolineRepositoryWeb' ) . 'messaging/messagebox.php?box=inbox&amp;userId='.$currentUserId.'" class="claroCmd">'.get_lang($introNameBox.' inbox').'('.$inboxWithoutFilter->numberOfUnreadMessage().')</a>';
+        $menu[] = '<a href="' . get_path( 'clarolineRepositoryWeb' ) . 'messaging/messagebox.php?box=outbox&amp;userId='.$currentUserId.'" class="claroCmd">'.get_lang($introNameBox.' outbox').'</a>';
+        $menu[] = '<a href="' . get_path( 'clarolineRepositoryWeb' ) . 'messaging/messagebox.php?box=trashbox&amp;userId='.$currentUserId.'" class="claroCmd">'.get_lang($introNameBox.' trashbox').'</a>';
         if ( claro_is_platform_admin() && $displayMenuAdmin === true )
         {
             $menu[] = '<a href="admin.php" class="claroCmd">'.get_lang('Administration').'</a>';
@@ -66,7 +86,7 @@
     function claro_is_user_platform_admin($userId)
     {
         require_once get_path('incRepositorySys') . '/lib/user.lib.php';
-        
+
         $uidAdmin = claro_get_uid_of_platform_admin();
         
         return (in_array($userId,$uidAdmin));
@@ -77,12 +97,12 @@
         $tableName = get_module_main_tbl(array('cours_user'));
         
         $sql = "SELECT count(*)"
-        	.	" FROM `".$tableName['cours_user']."`"
-        	.	" WHERE code_cours = '" . claro_sql_escape($courseCode) . "'"
-        	.		" AND user_id = " . (int)$userId
-        	.		" AND isCourseManager = 1"
-        	;
-        	
+            ." FROM `".$tableName['cours_user']."`"
+            ." WHERE code_cours = '" . claro_sql_escape($courseCode) . "'"
+            ." AND user_id = " . (int)$userId
+            ." AND isCourseManager = 1"
+        ;
+        
         return ( claro_sql_query_fetch_single_value($sql) > 0 );
     }
 
@@ -108,7 +128,7 @@
         
         for ($countPage = $beginPager; $countPage <= $endPager; $countPage++)
         {
-            if($countPage == $currentPage)
+            if ($countPage == $currentPage)
             {
                 $content .= $countPage."\n";
             }
