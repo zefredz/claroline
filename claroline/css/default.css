@@ -912,7 +912,7 @@ form tr.admin td{
  
  .im_context 
  {
-     color: #CCC;
+     /*color: #CCC;*/
  }
  
  .im_list_action, .im_list_selection
