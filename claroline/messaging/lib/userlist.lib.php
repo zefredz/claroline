@@ -17,7 +17,7 @@
 
 require_once dirname(__FILE__) . '/userstrategy.lib.php';
 
-class UserList implements Iterator 
+class UserList implements Iterator, Countable 
 {
 
     protected $userList = FALSE;
@@ -68,15 +68,13 @@ class UserList implements Iterator
             
             
             $sql = 
-             "SELECT user_id AS id, nom AS firstname, prenom AS lastname, username"
+             "SELECT user_id AS id, nom AS lastname, prenom AS firstname, username"
                 ." FROM `".$tableName['user']."`"
                 . " " . $where
                     . " " . $order
                     . " " . $limit
                 ;
             $this->userList = claro_sql_query_fetch_all($sql);
-            
-            $this->loadUserList();
         }
     }
     
@@ -149,5 +147,10 @@ class UserList implements Iterator
         
         return ($this->index < count($this->userList));
     } 
+
+    public function count()
+    {
+        return count($this->userList);
+    }
 }
 ?>
