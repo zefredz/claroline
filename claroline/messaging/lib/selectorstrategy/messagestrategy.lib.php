@@ -57,8 +57,8 @@ abstract class MessageStrategy implements SelectorStrategy
     
     /**
      * set the search strategy
-     * 	MessageStrategy::SEARCH_STRATEGY_EXPRESSION to search the exact expression
-     * 	MessageStrategy::SEARCH_STRATEGY_WORD to search message contain at least 1 word of the string
+     * MessageStrategy::SEARCH_STRATEGY_EXPRESSION to search the exact expression
+     * MessageStrategy::SEARCH_STRATEGY_WORD to search message contain at least 1 word of the string
      *
      * @param unknown_type $searchStrategy
      */
@@ -83,6 +83,16 @@ abstract class MessageStrategy implements SelectorStrategy
         {
             $this->order = $order;
         }
+    }
+    
+    /**
+     * Set the number of message per page (used for the desktop)
+     *
+     * @param int $numberOfPage number of message per page
+     */
+    public function setNumberOfMessagePerPage($numberOfPage)
+    {
+        $this->numberMessagePerPage = (int)$numberOfPage; 
     }
     
     /**
@@ -126,7 +136,7 @@ abstract class MessageStrategy implements SelectorStrategy
             . (int)$this->numberMessagePerPage."\n";
     }
     
-	/**
+    /**
      * return the part of the SQL request to order the result
      *
      * @return string Part of the SQL request to order the result
