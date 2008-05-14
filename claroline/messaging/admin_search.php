@@ -23,6 +23,8 @@ require_once dirname(__FILE__) . '/lib/messagebox/adminmessagebox.lib.php';
 
 require_once dirname(__FILE__) . '/lib/tools.lib.php';
 
+require_once dirname(__FILE__) . '/lib/displaymessage.lib.php';
+
 // search user info
 require_once get_path('incRepositorySys') . '/lib/user.lib.php';
 
@@ -47,49 +49,13 @@ $arguments = array();
 $displayTable = TRUE;
 
 $acceptedSearch = array('fromUser','olderThan','timeInterval','plateformMessage');
-$acceptedCommand = array('rqDeleteSelection','exDeleteSelection');
+$acceptedCommand = array('rqDeleteSelection','exDeleteSelection','rqDeleteMessage','exDeleteMessage');
 
 $box = new AdminMessageBox();
 $strategy = $box->getSelector();
 
 $JsLoader = JavascriptLoader::getInstance();
 $JsLoader->load('jquery');
-
-if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCommand))
-{
-    
-    $cmd = $_REQUEST['cmd'];
-    
-    if ($cmd == "exDeleteSelection" && isset($_REQUEST['msg']) 
-            && is_array($_REQUEST['msg']))
-    {
-        
-        $box->deleteMessageList($_REQUEST['msg']);
-    }
-    
-    if ($cmd == "rqDeleteSelection" && isset($_REQUEST['msg']) 
-            && is_array($_REQUEST['msg']))
-    {
-        
-        $form =    get_lang('Are you sure to delete selected message?')."\n"
-                        .'<form action="" method="post">'."\n"
-                        .'<input type="hidden" name="cmd" value="exDeleteSelection" />'."\n\n"
-                        ;
-        foreach ( $_REQUEST['msg'] as $count => $idMessage )
-        {
-            $form .= '<input type="hidden" name="msg[]" value="'.$idMessage.'" />'."\n";
-        }
-            $form .= '<input type="submit" value="'.get_lang('Yes').'" /> '."\n"
-                    .'<a href=""><input type="button" value="'.get_lang('No').'" /></a>'   ."\n"     		 
-                    .'</form>'."\n\n"
-                    ;
-        
-        $dialbox = new DialogBox();
-        $dialbox->form($form);
-        
-        $content .= $dialbox->render();
-    }
-}
 
 // ---------------- order
 
@@ -196,6 +162,72 @@ if (isset($_REQUEST['search']) && in_array($_REQUEST['search'],$acceptedSearch))
 else
 {
     claro_die("missing search");
+}
+
+if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCommand))
+{
+    
+    $cmd = $_REQUEST['cmd'];
+    
+    if ($cmd == "exDeleteSelection" && isset($_REQUEST['msg']) 
+            && is_array($_REQUEST['msg']))
+    {
+        
+        $box->deleteMessageList($_REQUEST['msg']);
+    }
+    
+    if ($cmd == "rqDeleteSelection" && isset($_REQUEST['msg']) 
+            && is_array($_REQUEST['msg']))
+    {
+        
+        $form =    get_lang('Are you sure to delete selected message?')."\n"
+                        .'<form action="" method="post">'."\n"
+                        .'<input type="hidden" name="cmd" value="exDeleteSelection" />'."\n\n"
+                        ;
+        foreach ( $_REQUEST['msg'] as $count => $idMessage )
+        {
+            $form .= '<input type="hidden" name="msg[]" value="'.$idMessage.'" />'."\n";
+        }
+            $form .= '<input type="submit" value="'.get_lang('Yes').'" /> '."\n"
+                    .'<a href=""><input type="button" value="'.get_lang('No').'" /></a>'   ."\n"     		 
+                    .'</form>'."\n\n"
+                    ;
+        
+        $dialbox = new DialogBox();
+        $dialbox->form($form);
+        
+        $content .= $dialbox->render();
+    }
+    
+    if($cmd == "rqDeleteMessage" && isset($_REQUEST['message_id']))
+    {
+        $argDelete = makeArgLink($arguments);  
+        if ($argDelete == "")
+        {
+            $linkDelete = $_SERVER['PHP_SELF']."?";
+        }
+        else
+        {
+            $linkDelete = $_SERVER['PHP_SELF']."?".$argDelete."&amp;";
+        }
+        
+        $deleteConfirmation = get_lang('Are you sure to delete the message?')
+            . '<br /><br />'
+            . '<a href="'.$linkDelete.'cmd=exDeleteMessage&amp;message_id='.$_REQUEST['message_id'].'">' . get_lang('Yes') . '</a>'
+            .' <a href="'.$linkDelete.'">' . get_lang('No') .'</a>'
+            ;
+            
+        $dialbox = new DialogBox();
+        $dialbox->question($deleteConfirmation);
+        
+        $content .= $dialbox->render(); 
+    }
+    
+    if($cmd == "exDeleteMessage" && isset($_REQUEST['message_id']))
+    {
+        $message = SentMessage::fromId($_REQUEST['message_id']);
+        $message->delete();
+    }
 }
 
 // ---------- paging
@@ -373,6 +405,33 @@ if ($displayTable)
     }
     else 
     {
+        $argDelete = makeArgLink($arguments);  
+        if ($argDelete == "")
+        {
+            $linkDelete = $_SERVER['PHP_SELF']."?";
+        }
+        else
+        {
+            $linkDelete = $_SERVER['PHP_SELF']."?".$argDelete."&amp;";
+        }
+        
+        $javascriptDelete = '
+            <script type="text/javascript">
+            function deleteMessage ( localPath )
+            {
+                if (confirm("'.get_lang('Are you sure to delete the message').'"))
+                {
+                    window.location=localPath;
+                    return false;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            </script>';
+        $claroline->display->header->addHtmlHeader($javascriptDelete);
+        
         foreach ($box as $key => $message)
         {
             $userData = user_get_properties($message->getSender());
@@ -381,10 +440,12 @@ if ($displayTable)
                 '<tr>'."\n"
                 .'<td class="im_list_selection"><input type="checkbox" name="msg[]" value="'.$message->getId().'" /></td>'."\n"
                 .'<td>'.htmlspecialchars($message->getSubject()).'</td>'."\n"
-                .'<td>'.htmlspecialchars($message->getSenderLastName().' '.$message->getSenderFirstName()).'</td>'."\n"
+                .'<td>'.DisplayMessage::dispNameLinkCompose($message->getSender(),$message->getSenderLastName(),$message->getSenderFirstName()).'</td>'."\n"
                 .'<td>'.htmlspecialchars($userData['username']).'</td>'."\n"
                 .'<td>'.claro_html_localised_date(get_locale('dateTimeFormatLong'),strtotime($message->getSendTime())).'</td>'."\n"
-                .'<td class="im_list_action"><img src="'.get_icon('delete.gif').'" alt="" /></td>'."\n"
+                .'<td class="im_list_action"><a href="'.$linkDelete.'cmd=rqDeleteMessage&amp;message_id='.$message->getId().'" '
+                .		'onclick="return deleteMessage(\''.$linkDelete.'cmd=exDeleteMessage&amp;message_id='.$message->getId().'\')"'
+                .	'><img src="'.get_icon('delete.gif').'" alt="" /></a></td>'."\n"
                 .'</tr>'."\n\n"
                 ;
        }
