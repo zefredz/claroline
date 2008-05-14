@@ -411,7 +411,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 case 'toc':
                 {
                     $str = '';
-                    $this->addAtEnd[] = '<script type="text/javascript" src="./lib/javascript/toc.js"></script>';
+                    $this->addAtEnd[] = '<script type="text/javascript" src="./js/toc.js"></script>';
                     $this->addAtEnd[] = '<script type="text/javascript">createTOC();</script>';
                     break;
                 }

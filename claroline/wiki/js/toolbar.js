@@ -51,7 +51,7 @@
 	}
 	</script>";
 	# Fin toolbar */
-var img_path = "toolbar";
+var img_path = "img/toolbar";
  
 function dcToolBar(textarea,format,img_path)
 {

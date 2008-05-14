@@ -436,7 +436,7 @@
 
     if ( $action == 'rqEdit' )
     {
-        $jspath = document_web_path() . '/lib/javascript';
+        $jspath = document_web_path() . '/js';
         $htmlHeadXtra[] = '<script type="text/javascript" src="'.$jspath.'/wiki_acl.js"></script>';
         $claroBodyOnload[] = 'initBoxes();';
     }
