@@ -85,20 +85,20 @@
         {
             $searchForm .= "selected";
         }
-        $searchForm .= '>'.get_lang("All").'</option>'
+        $searchForm .= '>'.get_lang("All messages").'</option>'
                     . '        <option value="read" '
                     ;
         if (isset($link_arg['SelectorReadStatus']) && $link_arg['SelectorReadStatus'] == "read")
         {
             $searchForm .= "selected";
         }
-        $searchForm .= '>'.get_lang("Read").'</option>'
+        $searchForm .= '>'.get_lang("Message read only").'</option>'
                     . '        <option value="unread" ';
         if (isset($link_arg['SelectorReadStatus']) && $link_arg['SelectorReadStatus'] == "unread")
         {
             $searchForm .= "selected";
         }
-        $searchForm .= '>'.get_lang("Unread").'</option>'    
+        $searchForm .= '>'.get_lang("message unread only").'</option>'    
                     . '    </select><br/>'
                     . get_lang("Search").' : <input type="text" name="search" value="'
                     ;
@@ -163,10 +163,10 @@
     
     $content .= '<table class="claroTable emphaseLine" width="100%">'."\n\n";
     $content .= '<tr class ="headerX"> '."\n"
-    			    .'<th>'.get_lang("Subject").'</th>'."\n"
-                    .'<th><a href="'.$linkSort.'fieldOrder=sender&amp;order='.$nextOrder.'">'.get_lang("Sender").'</a></th>'."\n"
-    				.'<th><a href="'.$linkSort.'fieldOrder=date&amp;order='.$nextOrder.'">'.get_lang("Date").'</a></th>'."\n"
-    				.'<th class="im_list_action">';
+                .'<th>'.get_lang("Subject").'</th>'."\n"
+                .'<th><a href="'.$linkSort.'fieldOrder=sender&amp;order='.$nextOrder.'">'.get_lang("Sender").'</a></th>'."\n"
+                .'<th><a href="'.$linkSort.'fieldOrder=date&amp;order='.$nextOrder.'">'.get_lang("Date").'</a></th>'."\n"
+                .'<th class="im_list_action">';
     if ($link_arg['box'] == "inbox")
     {
        $content .= get_lang("Delete"); 
@@ -176,8 +176,8 @@
         $content .= get_lang("Restore"); 
     }
     $content .=      '</th>'."\n"
-    				.'</tr>'."\n\n"
-    				;
+            .'</tr>'."\n\n"
+            ;
     
     if ($box->getNumberOfMessage() == 0)
     {
@@ -214,7 +214,8 @@
         foreach ($box as $key => $message)
         {
             $content .= '<tr';
-            if ($message->getRecipient() == 0)
+            if ($message->isPlateformMessage())
+            //if ($message->getRecipient() == 0)
             {
                 $content .= ' class="plateformMessage"';
             }
@@ -258,7 +259,7 @@
             {
                 $content .= '<span class="im_context">[';
                 $courseData = claro_get_course_data($message->getCourseCode());
-                if($courseData)
+                if ($courseData)
                 {
                     $content .= $courseData['officialCode'];
                 }
@@ -276,7 +277,8 @@
             }
             $content.= '<a href="readmessage.php?messageId='.$message->getId().'&amp;userId='.$currentUserId.'&amp;type=received">';
             $content .= htmlspecialchars($message->getSubject()).'</a></td>'."\n"
-            			    . '<td>';
+                    . '<td>'
+                    ;
             // ------------------ sender
             
             $content .= DisplayMessage::dispNameLinkCompose($message->getSender(),$message->getSenderLastName(),$message->getSenderFirstName());
@@ -299,15 +301,15 @@
             
             $content .= '</td>'."\n"
             // --------------------date
-            			    .'<td>'.claro_html_localised_date(get_locale('dateTimeFormatLong'),strtotime($message->getSendTime())).'</td>'."\n"
-            // ------------------- action			    
-            			    .'<td class="im_list_action">';
+                .'<td>'.claro_html_localised_date(get_locale('dateTimeFormatLong'),strtotime($message->getSendTime())).'</td>'."\n"
+            // ------------------- action
+                .'<td class="im_list_action">';
             if ($message->getRecipient() != 0)
             {
                 if ($link_arg['box'] == "inbox")
                 {
                     $content .= '<a href="'.$link.'cmd=rqDeleteMessage&amp;messageId='.$message->getId().'"'
-                			    .		' onclick="return deleteMessage(\''.$link.'cmd=exDeleteMessage&amp;messageId='.$message->getId().'\')"><img src="img/user-trash-full.gif" alt="" /></a>';
+                        .' onclick="return deleteMessage(\''.$link.'cmd=exDeleteMessage&amp;messageId='.$message->getId().'\')"><img src="img/user-trash-full.gif" alt="" /></a>';
                 }
                 else
                 {
@@ -338,7 +340,7 @@
             $linkPaging = $linkPage."?".$arg_paging."&amp;page=";
         }
         
-        if(!isset($link_arg['page']))
+        if (!isset($link_arg['page']))
         {
             $page=1;
         }
@@ -382,7 +384,7 @@
         
         $content .= "<br />";
         $menu[] = '<a href="'.$linkToRqEmptyTrashBox.'" 
-         	onclick="return emptyTrashBox(\''.$linkToExEmptyTrashBox.'\')" class="claroCmd" >'.get_lang('Empty my trashbox').'</a>';
+                    onclick="return emptyTrashBox(\''.$linkToExEmptyTrashBox.'\')" class="claroCmd" >'.get_lang('Empty my trashbox').'</a>';
         
         $content .= claro_html_menu_horizontal($menu);
         $content .= "<br /><br />\n\n";

@@ -48,12 +48,12 @@ class UserList implements Iterator
     public function loadUserList()
     {
         
-        if(!$this->userList)
+        if (!$this->userList)
         {
             
             $tableName = get_module_main_tbl(array('user'));
             
-            if(!is_null($this->getSelector()))
+            if (!is_null($this->getSelector()))
             {
                 $limit = $this->getSelector()->getLimit();
                 $where = $this->getSelector()->getStrategy();
@@ -68,12 +68,12 @@ class UserList implements Iterator
             
             
             $sql = 
-            	 "SELECT user_id AS id, nom AS firstname, prenom AS lastname, username"
-            	." FROM `".$tableName['user']."`"
-            	. " " . $where
-                . " " . $order
-                . " " . $limit
-            	;
+             "SELECT user_id AS id, nom AS firstname, prenom AS lastname, username"
+                ." FROM `".$tableName['user']."`"
+                . " " . $where
+                    . " " . $order
+                    . " " . $limit
+                ;
             $this->userList = claro_sql_query_fetch_all($sql);
             
             $this->loadUserList();
@@ -93,7 +93,7 @@ class UserList implements Iterator
     {
         $tableName = get_module_main_tbl(array('user'));
         
-        if(!is_null($this->getSelector()))
+        if (!is_null($this->getSelector()))
         {
             $where = $this->getSelector()->getStrategy();
         }
@@ -103,10 +103,10 @@ class UserList implements Iterator
         }
         
         $sql = 
-        	 "SELECT count(*)"
-        	." FROM `".$tableName['user']."`"
-        	. " " . $where
-        	;
+            "SELECT count(*)"
+               ." FROM `".$tableName['user']."`"
+               . " " . $where
+               ;
         $this->numberOfUser = claro_sql_query_fetch_single_value($sql);
     }
     

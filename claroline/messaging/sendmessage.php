@@ -208,7 +208,7 @@
          . '<input type="hidden" name="groupRecipient" value="'.$groupRecipient.'" />'."\n"
          . '<label>Subject: </label><input type="text" name="subject" value="'.htmlspecialchars($subject).'" /><br/>'."\n"
          . '<label>message</label><br/>'.claro_html_textarea_editor('message', $message).'<br/><br/>'."\n"
-         . '<input type="submit" value="Send" name="send" />'."\n"
+         . '<input type="submit" value="'.get_lang('Send').'" name="send" />'."\n"
          . '</form>'."\n\n"
          ;
     }

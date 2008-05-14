@@ -20,47 +20,6 @@
         die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
     }
 
-    // confirmation to delete message
-    if ($deleteConfirmation)
-    {
-        // link to delete
-        $arg_del = makeArgLink($link_arg,array('cmd'));
-        
-        if ($arg_del == "")
-        {
-            $linkDelete = $linkPage."?";
-        }
-        else
-        {
-            $linkDelete = $linkPage."?".$arg_del."&amp;";
-        }
-        
-        $linkDelete .= "cmd=exDelete&amp;messageId=".$_REQUEST['messageId'];
-        
-        // link to back
-        $arg_back = makeArgLink($link_arg);
-        
-        if ($arg_back == "")
-        {
-            $linkBack = $linkPage;
-        }
-        else
-        {
-            $linkBack = $linkPage."?".$arg_sort;
-        }
-        
-        
-        $confirmationString  = get_lang('<strong>Warning:</strong> The suppression of the message will erase all trace. It will deleted from message box of all users');
-        $confirmationString .= '<br /><br />' . get_lang('Are you sure to delete this message');
-        
-        $confirmationString .= '<br /><br /><br /><a href="'.$linkDelete.'">'.get_lang('Yes').'</a> | <a href="'.$linkBack.'">'.get_lang('No').'</a>';
-        
-        $dialBox = new DialogBox();
-        $dialBox->question($confirmationString);
-        $content .= $dialBox->render();
-    }
-    
-    
     
     // -------------------- selector form ----------------
     if (isset($displaySearch) && $displaySearch)
@@ -139,32 +98,12 @@
                     .'<th>'.get_lang("Recipient").'</th> '."\n"
                     .'<th><a href="'.$linkSort.'fieldOrder=date&amp;order='.$nextOrder.'">'.get_lang("Date").'</a></th>'."\n"
                     ;
-    if ( claro_is_platform_admin() )
-    {
-        $javascriptDelete = '
-            <script type="text/javascript">
-            function deleteSentMessage ( localPath )
-            {
-                if (confirm("'.get_lang('Are you sure to delete').'"))
-                {
-                    window.location=localPath;
-                    return false;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            </script>';
-        $claroline->display->header->addHtmlHeader($javascriptDelete);
-        $content .= '<th>'.get_lang("Delete").'</th> '."\n";
-    }
     
     $content .= '</tr>'."\n\n";
     
     if ($box->getNumberOfMessage() == 0)
     {
-        $content .= '<tr><td colspan="4">No message</td></tr>'."\n\n";
+        $content .= '<tr><td colspan="3">'.get_lang('Empty').'</td></tr>'."\n\n";
     }
     else
     {
@@ -188,13 +127,13 @@
             {
                 $content .= '<span class="im_context">[';
                 $courseData = claro_get_course_data($message->getCourseCode());
-                if($courseData)
+                if ($courseData)
                 {
                     $content .= $courseData['officialCode'];
                 }
                 else
                 {
-                    $content .= get_lang('"Course deleted"');
+                    $content .= get_lang('?');
                 }
                 if (!is_null($message->getToolsLabel()))
                 {
@@ -252,25 +191,6 @@
             $content .=  '</td>'
                         .'<td>'.claro_html_localised_date(get_locale('dateTimeFormatLong'),strtotime($message->getSendTime())).'</td>'."\n"
                         ;
-            if ( claro_is_platform_admin() )
-            {
-                $arg_sort = makeArgLink($link_arg,array('fieldOrder','order'));
-                
-                if ($arg_sort == "")
-                {
-                    $linkDel = $linkPage."?";
-                }
-                else
-                {
-                    $linkDel = $linkPage."?".$arg_sort."&amp;";
-                }
-                
-                $linkDelete = $linkDel . "cmd=exDelete&amp;messageId=".$message->getId();
-                $linkRqDelete = $linkDel . "cmd=rqDelete&amp;messageId=".$message->getId();
-                $content .=  '<td><a href="'.$linkRqDelete.'"'
-                     . 'onclick="return deleteSentMessage(\''.$linkDelete.'\')"><img src="' . get_icon('delete.gif') . '" alt = "'.get_lang('Delete').'" /></a></td>';
-            }
-            
             $content .=  '</tr>'."\n\n";
         }
     }
@@ -296,7 +216,7 @@
             $linkPaging = $linkPage."?".$arg_paging."&amp;page=";
         }
         
-        if(!isset($link_arg['page']))
+        if (!isset($link_arg['page']))
         {
             $page=1;
         }
@@ -305,7 +225,6 @@
             $page = $link_arg['page'];
         }
         
-        echo getPager($linkPaging,$page,$box->getNumberOfPage());
         $content .= getPager($linkPaging,$page,$box->getNumberOfPage());
     }
 ?>

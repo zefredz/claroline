@@ -21,6 +21,7 @@
     require_once dirname(__FILE__).'/lib/message/receivedmessage.lib.php';
     require_once dirname(__FILE__).'/lib/message/sentmessage.lib.php';
     require_once dirname(__FILE__).'/lib/permission.lib.php';
+    require_once dirname(__FILE__).'/lib/tools.lib.php';
     
     // move to kernel
     $claroline = Claroline::getInstance();
@@ -136,7 +137,6 @@
         {
             if ($message->isDeleted())
             {
-                $action .= '[<a href="./messagebox.php?box=trashbox&amp;userId='.$userId.'">'.get_lang('Back to the list').'</a>]';
                 if ($message->getRecipient() == $userId || claro_is_platform_admin())
                 {
                     $action .= ' [<a href="'.$_SERVER['PHP_SELF'].'?cmd=exRestore&amp;messageId='.$_REQUEST['messageId'].'&amp;type='.$_REQUEST['type'].'&amp;userId='.$userId.'">'.get_lang('Move to inbox').'</a>]';
@@ -161,24 +161,41 @@
                 </script>';
                 $claroline->display->header->addHtmlHeader($javascriptDelete);
                 
-                $action .= '[<a href="./messagebox.php?box=inbox&amp;userId='.$userId.'">'.get_lang('Back to the list').'</a>]';
                 $action .= ' [<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqDelete&amp;messageId='.$_REQUEST['messageId'].'&amp;type='.$_REQUEST['type'].'&amp;userId='.$userId.'"
                  onclick="return deleteMessage(\''.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;messageId='.$_REQUEST['messageId'].'&amp;type='.$_REQUEST['type'].'&amp;userId='.$userId.'\')"><img src="img/user-trash-full.gif" alt="" /></a>]';
             }
         }
         else
         {
-            $action .= '[<a href="./messagebox.php?box=inbox&amp;userId='.$userId.'">'.get_lang('Back to the list').'</a>]';
+            //tothing to do
         }
     }
     else
     {
-        $action .= '<a href="./messagebox.php?box=outbox&amp;userId='.$userId.'">'.get_lang('Back to the list').'</a>';
+        // nothing to do
     }
     
     $content .= DisplayMessage::display($message,$action);
     
+    if ($_REQUEST['type'] == "received")
+    {
+        if ($message->isDeleted())
+        {
+            $claroline->display->banner->breadcrumbs->append(get_lang('My trashbox'),'./messagebox.php?box=trashbox&amp;userId='.$userId);
+        }
+        else
+        {
+            $claroline->display->banner->breadcrumbs->append(get_lang('My inbox'),'./messagebox.php?box=inbox&amp;userId='.$userId);
+        }
+    }
+    else
+    {
+        $claroline->display->banner->breadcrumbs->append(get_lang('My outbox'),'./messagebox.php?box=outbox&amp;userId='.$userId);
+    }
+    
+    $claroline->display->banner->breadcrumbs->append(get_lang('Read message'));
     $claroline->display->body->appendContent(claro_html_tool_title(get_lang('Read Message')));
+    $claroline->display->body->appendContent(getBarMessageBox($userId));
     $claroline->display->body->appendContent($content);
     
     // ------------- Display page -----------------------------
