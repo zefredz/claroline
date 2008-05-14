@@ -157,7 +157,7 @@ abstract class StoredMessage extends InternalMessage
         return $this->senderLastName;
     }
 
-    public function isPlateformMessage()
+    public function isPlatformMessage()
     {
         $tableName = get_module_main_tbl(array('im_recipient'));
         
