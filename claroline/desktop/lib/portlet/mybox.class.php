@@ -53,7 +53,7 @@ class MyBox extends Portlet
         {
             foreach( $this->inbox as $message )
             {
-                if ($message->getRecipient() == 0)
+                if ( $message->isPlatformMessage() )
                 {
                     $classMessage = 'class="plateformMessage"';
                     $iconMessage = '<img src="' . get_icon_url('important') . '" alt="' . get_lang('important') . '" />';
