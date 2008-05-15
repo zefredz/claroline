@@ -119,8 +119,6 @@ class MyNotes extends Portlet
 
     function save()
     {
-
-        var_dump($this->getId());
         if( ! $this->getId() )
         {
             // insert
