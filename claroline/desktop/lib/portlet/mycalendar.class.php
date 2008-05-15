@@ -85,13 +85,15 @@ class MyCalendar extends Portlet
         }
         else
         {
-            $output .= '<dl>'
+            $output .= "\n"
+            .    '<dl>' . "\n"
             .    '<dt>' . "\n"
             .    '<img class="iconDefinitionList" src="' . get_icon_url('agenda') . '" alt="' . get_lang('Icon agenda') . '" />'
             .    '<small>'
             .    get_lang('No event to display') . "\n"
             .    '</small>' . "\n"
             .    '</dt>' . "\n"
+            .    '</dl>' . "\n"
             ;
         }
 

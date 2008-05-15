@@ -72,13 +72,15 @@ class MyAnnouncements extends Portlet
         }
         else
         {
-            $output .= '<dl>'
+            $output .= "\n"
+            .    '<dl>' . "\n"
             .    '<dt>' . "\n"
             .    '<img class="iconDefinitionList" src="' . get_icon_url('announcement') . '" alt="' . get_lang('Icon announcement') . '" />'
             .    '<small>'
             .    get_lang('No event to display') . "\n"
             .    '</small>' . "\n"
             .    '</dt>' . "\n"
+            .    '</dl>' . "\n"
             ;
         }
 
