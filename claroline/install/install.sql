@@ -313,11 +313,12 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__desktop_portlet` (
 ) TYPE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__desktop_portlet_data` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `label` varchar(255) NOT NULL,
   `idUser` int(11) NOT NULL,
   `data` text NOT NULL,
-  PRIMARY KEY  (`label`),
-  KEY `label` (`label`,`idUser`)
+  PRIMARY KEY  (`id`),
+  KEY `id` (`id`)
 ) TYPE=MyISAM;
 
 # STATS TABLES
