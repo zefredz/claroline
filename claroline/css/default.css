@@ -8,6 +8,8 @@ html {
     margin: 0;
     padding: 0;
     height: 100%;
+    /* IE bug ! */
+    font-size: 1em;
 }
 
 body {
@@ -18,6 +20,8 @@ body {
     text-align: left;
     font-family: Arial, Verdana, Helvetica, Sans-Serif;
     height: 100%;
+    /* IE bug ! */
+    font-size: 1em;
 }
 
 a:link, a:visited  {
