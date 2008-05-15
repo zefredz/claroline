@@ -88,7 +88,7 @@ class CLQWZ_CourseTrackingRenderer extends TrackingRenderer
     }
 }
 
-TrackingRendererRegistry::registerCourse('CLQWZ', 'CLQWZ_CourseTrackingRenderer');
+TrackingRendererRegistry::registerCourse('CLQWZ_CourseTrackingRenderer');
 
 class CLQWZ_UserTrackingRenderer extends TrackingRenderer
 {   
@@ -108,5 +108,5 @@ class CLQWZ_UserTrackingRenderer extends TrackingRenderer
     }
 }
 
-TrackingRendererRegistry::registerUser('CLQWZ', 'CLQWZ_UserTrackingRenderer');
+TrackingRendererRegistry::registerUser('CLQWZ_UserTrackingRenderer');
 ?>

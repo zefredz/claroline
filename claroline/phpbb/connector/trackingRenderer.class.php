@@ -71,7 +71,7 @@ class CLFRM_CourseTrackingRenderer extends TrackingRenderer
             {
                 $html .= '<tr>'."\n"
                     .'<td><a href="../phpbb/viewtopic.php?topic='.$result['topic_id'].'">'.$result['topic_title'].'</a></td>'."\n"
-                    .'<td>'.$result['topic_replies'].'</td>'."\n"
+                    .'<td align="right">'.$result['topic_replies'].'</td>'."\n"
                     .'</tr>'."\n";
             }
             $html .= '</tbody>'."\n";
@@ -106,7 +106,7 @@ class CLFRM_CourseTrackingRenderer extends TrackingRenderer
             {
                 $html .= '<tr>'."\n"
                     .'<td><a href="../phpbb/viewtopic.php?topic='.$result['topic_id'].'">'.$result['topic_title'].'</a></td>'."\n"
-                    .'<td>'.$result['topic_views'].'</td>'."\n"
+                    .'<td align="right">'.$result['topic_views'].'</td>'."\n"
                     .'</tr>'."\n";
             }
             $html .= '</tbody>'."\n";
@@ -145,7 +145,7 @@ class CLFRM_CourseTrackingRenderer extends TrackingRenderer
                 .    '<td>'
                 .    '<a href="../phpbb/viewtopic.php?topic=' . $result['topic_id'].'">' . $result['topic_title'] . '</a>'
                 .    '</td>' . "\n"
-                .    '<td>' . $result['last_message'] . '</td>' . "\n"
+                .    '<td align="right">' . $result['last_message'] . '</td>' . "\n"
                 .    '</tr>' . "\n"
                 ;
             }
@@ -176,7 +176,7 @@ class CLFRM_CourseTrackingRenderer extends TrackingRenderer
     }
 }
 
-TrackingRendererRegistry::registerCourse('CLFRM', 'CLFRM_CourseTrackingRenderer');
+TrackingRendererRegistry::registerCourse('CLFRM_CourseTrackingRenderer');
 
 class CLFRM_UserTrackingRenderer extends TrackingRenderer
 {   
@@ -196,5 +196,5 @@ class CLFRM_UserTrackingRenderer extends TrackingRenderer
     }
 }
 
-TrackingRendererRegistry::registerUser('CLFRM', 'CLFRM_UserTrackingRenderer');
+TrackingRendererRegistry::registerUser('CLFRM_UserTrackingRenderer');
 ?>

@@ -90,7 +90,7 @@ class CLDOC_CourseTrackingRenderer extends TrackingRenderer
     }
 }
 
-TrackingRendererRegistry::registerCourse('CLDOC', 'CLDOC_CourseTrackingRenderer');
+TrackingRendererRegistry::registerCourse('CLDOC_CourseTrackingRenderer');
 
 class CLDOC_UserTrackingRenderer extends TrackingRenderer
 {   
@@ -110,5 +110,5 @@ class CLDOC_UserTrackingRenderer extends TrackingRenderer
     }
 }
 
-TrackingRendererRegistry::registerUser('CLDOC', 'CLDOC_UserTrackingRenderer');
+TrackingRendererRegistry::registerUser('CLDOC_UserTrackingRenderer');
 ?>
