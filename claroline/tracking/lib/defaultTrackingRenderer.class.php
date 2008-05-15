@@ -1,0 +1,215 @@
+<?php // $Id$
+if ( count( get_included_files() ) == 1 ) die( '---' );
+/**
+ * CLAROLINE
+ *
+ * @version 1.8 $Revision$
+ *
+ * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @package CLTRACK
+ *
+ * @author Claro Team <cvs@claroline.net>
+ * @author Sebastien Piraux <pir@cerdecam.be>
+ */
+
+/*
+ * 
+ */
+class CLTRACK_CourseAccess extends TrackingRenderer
+{   
+    private $tbl_user;
+    private $tbl_rel_course_user;
+    private $tbl_course_tracking_event;
+    
+    public function __construct()
+    {
+        $tbl_mdb_names = claro_sql_get_main_tbl();
+        $this->tbl_user = $tbl_mdb_names['user'  ];
+        $this->tbl_rel_course_user = $tbl_mdb_names['rel_course_user'  ];
+        
+        $tbl_cdb_names = claro_sql_get_course_tbl();
+        $this->tbl_course_tracking_event = $tbl_cdb_names['tracking_event'];
+    }
+    
+    protected function renderHeader()
+    {
+        return get_lang('Users access to course');
+    }
+    
+    protected function renderContent()
+    {
+        $html = '';
+        
+        $html .= '<ul>' . "\n";
+
+        //-- Total access
+        $sql = "SELECT count(*)
+                  FROM `".$this->tbl_course_tracking_event."`
+                 WHERE `type` = 'course_access'";
+        $count = claro_sql_query_get_single_value($sql);
+        $html .= '<li>' . get_lang('Total').' : '.$count.'</li>'."\n";
+        
+        // last 31 days
+        $sql = "SELECT count(*)
+                  FROM `".$this->tbl_course_tracking_event."`
+                 WHERE `type` = 'course_access'
+                   AND `date` > DATE_ADD(CURDATE(), INTERVAL -31 DAY)";
+        $count = claro_sql_query_get_single_value($sql);
+        $html .= '<li>' . get_lang('Last 31 days').' : '.$count.'</li>'."\n";
+        
+        // last 7 days
+        $sql = "SELECT count(*)
+                  FROM `".$this->tbl_course_tracking_event."`
+                 WHERE `type` = 'course_access'
+                   AND `date` > DATE_ADD(CURDATE(), INTERVAL -7 DAY)";
+        $count = claro_sql_query_get_single_value($sql);
+        $html .= '<li>' . get_lang('Last 7 days').' : '.$count.'</li>'."\n";
+        
+        // today
+        $sql = "SELECT count(*)
+                  FROM `".$this->tbl_course_tracking_event."`
+                 WHERE `type` = 'course_access'
+                   AND `date` > CURDATE()";
+        $count = claro_sql_query_get_single_value($sql);
+        $html .= '<li>' . get_lang('Today').' : '.$count.'</li>'."\n";
+        
+        //-- students not connected for more than 1 month
+        $sql = "SELECT  U.`user_id`, U.`nom` AS `lastname`, U.`prenom` AS `firstname`, MAX(CTE.`date`) AS `last_access_date`
+            FROM `".$this->tbl_user."` AS U, `".$this->tbl_rel_course_user."` AS CU
+            LEFT JOIN `".$this->tbl_course_tracking_event."` AS `CTE`
+            ON `CTE`.`user_id` = CU.`user_id`
+            WHERE U.`user_id` = CU.`user_id`
+            AND CU.`code_cours` = '" . addslashes(claro_get_current_course_id()) . "'
+            GROUP BY U.`user_id`
+            HAVING  `last_access_date` IS NULL
+                OR  `last_access_date` < ( NOW() - INTERVAL 15 DAY )
+            ";
+        $html .= '<li>' . get_lang('Not recently connected students :');
+        
+        $results = claro_sql_query_fetch_all($sql);
+        if( !empty($results) && is_array($results) )
+        {
+            $content .= '<ul>'."\n";
+            foreach( $results as $result )
+            {
+                $html .= '<li>'
+                .   '<a href="../user/userInfo.php?uInfo='.$result['user_id'].'">'
+                .   $result['firstname'].' '.$result['lastname']
+                .   '</a> ';
+                
+                if( is_null($result['last_access_date']) )
+                {
+                    $html .= '( <b>'.get_lang('Never connected').'</b> )';
+                }
+                else
+                {
+                    $html .= '( '.get_lang('Last access').' : '.$result['last_access_date'].' )';
+                }
+                
+                $html .= '</li>'."\n";
+            }
+            $html .= '</ul>' . "\n";
+        }
+        else
+        {
+            $html .= ' <small>'.get_lang('No result').'</small><br />'."\n";
+        }
+        $html .= '</li>' . "\n";
+        
+        $html .= '<li><a href="course_access_details.php">'.get_lang('Traffic Details').'</a></li>'
+        .    '</ul>' . "\n";
+        
+        return $html;
+    }
+    
+    protected function renderFooter()
+    {
+        return '';
+    }
+}
+
+TrackingRendererRegistry::registerCourse('CLTRACK_CourseAccess');
+
+/*
+ * 
+ */
+class CLTRACK_CourseToolAccess extends TrackingRenderer
+{   
+    private $tbl_course_tracking_event;
+    
+    public function __construct()
+    {
+        $tbl_cdb_names = claro_sql_get_course_tbl();
+        $this->tbl_course_tracking_event = $tbl_cdb_names['tracking_event'];
+    }
+    
+    protected function renderHeader()
+    {
+        return get_lang('Users access to tools');
+    }
+    
+    protected function renderContent()
+    {
+        $html = '';
+        
+        $sql = "SELECT `tool_id`,
+                COUNT(DISTINCT `user_id`) AS `nbr_distinct_users_access`,
+                COUNT( `tool_id` )            AS `nbr_access`
+                    FROM `" . $this->tbl_course_tracking_event . "`
+                    WHERE `type` = 'tool_access'
+                      AND `tool_id` IS NOT NULL
+                      AND `tool_id` <> ''
+                    GROUP BY `tool_id`";
+        
+        $results = claro_sql_query_fetch_all($sql);
+        
+        $html .= '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
+        .   '<tr class="headerX">'."\n"
+        .   '<th>&nbsp;'.get_lang('Name of the tool').'&nbsp;</th>'."\n"
+        .   '<th>&nbsp;'.get_lang('Users\' Clicks').'&nbsp;</th>'."\n"
+        .   '<th>&nbsp;'.get_lang('Total Clicks').'&nbsp;</th>'."\n"
+        .   '</tr>'."\n"
+        .   '<tbody>'."\n";
+        
+        if( !empty($results) && is_array($results))
+        {
+            foreach( $results as $result )
+            {
+                $thisTid = (int) $result['tool_id'];
+        
+                $thisToolName = claro_get_tool_name($thisTid);
+                
+                $html .= '<tr>' . "\n"
+                .    '<td>'
+                .    '<a href="toolaccess_details.php?toolId='.$thisTid.'">'
+                .    $thisToolName . '</a></td>' . "\n"
+                .    '<td align="right"><a href="user_access_details.php?cmd=tool&amp;id='.$thisTid.'">'.(int) $result['nbr_distinct_users_access'] . '</a></td>' . "\n"
+                .    '<td align="right">' . (int) $result['nbr_access'] . '</td>' . "\n"
+                .    '</tr>'
+                .    "\n\n";
+            }
+        
+        }
+        else
+        {
+            $html .= '<tr>'."\n"
+            .    '<td colspan="3"><div align="center">'.get_lang('No result').'</div></td>'."\n"
+            .    '</tr>'."\n";
+        }
+        $html .= '</tbody>'
+        .    '</table>'."\n";
+        
+        return $html;
+    }
+    
+    protected function renderFooter()
+    {
+        return '';
+    }
+}
+
+TrackingRendererRegistry::registerCourse('CLTRACK_CourseToolAccess');
+?>
