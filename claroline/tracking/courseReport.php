@@ -21,13 +21,14 @@ require_once dirname( __FILE__ ) . '../../inc/claro_init_global.inc.php';
 /*
  * Permissions
  */
-if( ! get_conf('is_trackingEnabled') )  
+if( ! get_conf('is_trackingEnabled') ) claro_die(get_lang('Tracking has been disabled by system administrator.')); 
 if( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 if( ! claro_is_course_manager() ) claro_die(get_lang('Not allowed'));
 
 /*
  * Libraries
  */
+
 require_once dirname( __FILE__ ) . '/lib/trackingRenderer.class.php';
 require_once dirname( __FILE__ ) . '/lib/trackingRendererRegistry.class.php';
 /*
@@ -75,7 +76,7 @@ $courseTrackingRendererList = $trackingRendererRegistry->getCourseRendererList()
 
 foreach( $courseTrackingRendererList as $ctr )
 {
-    $renderer = new $ctr();
+    $renderer = new $ctr( claro_get_current_course_id() );
     $html .= $renderer->render();
 }
 
