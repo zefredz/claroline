@@ -351,16 +351,26 @@ class MyNotes extends Portlet
         .    '<tbody>' . "\n"
         ;
 
-        $allNotes = $this->loadAll();
-        foreach( $allNotes as $note )
+        if( $allNotes = $this->loadAll() )
+        {
+            foreach( $allNotes as $note )
+            {
+                $output .= "\n"
+                .      '<tr>' . "\n"
+                .       '<td>' . $note['data'] . '</td>' . "\n"
+                .       '<td align="center"><a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqCreate&amp;id=' . $note['id'] . '"><img src="' . get_icon_url('Edit') . '" alt="' . get_lang('Edit') . '" /></a></td>' . "\n"
+                .       '<td align="center"><a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqDelete&amp;id=' . $note['id'] . '"><img src="' . get_icon_url('Delete') . '" alt="' . get_lang('Delete') . '" /></a></td>' . "\n"
+                .      '</tr>' . "\n"
+                ;
+            }
+        }
+        else
         {
             $output .= "\n"
             .      '<tr>' . "\n"
-            .       '<td>' . $note['data'] . '</td>' . "\n"
-            .       '<td align="center"><a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqCreate&amp;id=' . $note['id'] . '"><img src="' . get_icon_url('Edit') . '" alt="' . get_lang('Edit') . '" /></a></td>' . "\n"
-            .       '<td align="center"><a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqDelete&amp;id=' . $note['id'] . '"><img src="' . get_icon_url('Delete') . '" alt="' . get_lang('Delete') . '" /></a></td>' . "\n"
+            .       '<td align="center" colspan="3">' . get_lang('Empty') . '</td>' . "\n"
             .      '</tr>' . "\n"
-            ;
+            ;        
         }
 
         $output .= "\n"
