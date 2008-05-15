@@ -1566,7 +1566,7 @@ function claro_disp_debug_banner()
 
         foreach ($claroMsgList as $bloc=>$msgList )
         {
-            $html .= Backlog_Reporter::report( $bloc . ' :' . count($msgList),
+            $html .= Backlog_Reporter::report( $bloc . ' : ' . count($msgList),
                                                claro_html_msg_list($msgList),
                                                '+',
                                                true );
