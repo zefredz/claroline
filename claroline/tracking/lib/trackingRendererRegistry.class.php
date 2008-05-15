@@ -9,7 +9,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
- * @package CLPAGES
+ * @package CLTRACK
  *
  * @author Claroline team <info@claroline.net>
  *
@@ -31,20 +31,42 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 			$this->loadAll();
 		}
 
-		public function registerCourse( $label, $className )
+		public function registerCourse( $className )
 		{
-			$this->courseRendererList[$label] = $className;
+			$this->courseRendererList[] = $className;
 		}
 		
-		public function registerUser( $label, $className )
+		public function registerUser( $className )
         {
-            $this->userRendererList[$label] = $className;
+            $this->userRendererList[] = $className;
         }
 
 
 		public function loadAll($cidReq = null)
 		{
-            if( !is_null($cidReq) )
+            $this->loadDefaultRenderer();
+            
+            $this->loadModuleRenderer($cidReq);
+		}
+
+		private function loadDefaultRenderer()
+		{
+		    $file = dirname(__FILE__) . '/defaultTrackingRenderer.class.php';
+		            
+            if( file_exists( $file ) )
+            {
+                require_once $file;
+                if ( claro_debug_mode() ) pushClaroMessage('Tracking : default tracking renderers loaded', 'debug');
+            }
+            else
+            {
+                if ( claro_debug_mode() ) pushClaroMessage('Tracking : cannot find default tracking renderers (file : ' . $file . ')', 'error');
+            }
+		}
+		
+		private function loadModuleRenderer($cidReq = null)
+		{
+		    if( !is_null($cidReq) )
             {
                 $toolList = claro_get_course_tool_list($cidReq);
             }
@@ -62,23 +84,10 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 		            if( file_exists( $file ) )
 		            {
 		                require_once $file;
+		                if ( claro_debug_mode() ) pushClaroMessage('Tracking : '.$tool['label'].' tracking renderers loaded', 'debug');
 		            }
 		        }
 		    }
-		}
-
-		public function getPluginClass( $type )
-		{
-			$type = strtolower($type);
-
-			if( isset($this->plugins[$type]['className']) )
-			{
-				return $this->plugins[$type]['className'];
-			}
-			else
-			{
-				return '';
-			}
 		}
 
 		public function getCourseRendererList()
@@ -100,7 +109,6 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
             return TrackingRendererRegistry::$instance;
         }
-
 	}
 
 ?>
