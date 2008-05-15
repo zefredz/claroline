@@ -15,9 +15,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @author Sebastien Piraux <pir@cerdecam.be>
  */
 
-abstract class TrackingRenderer
+abstract class CourseTrackingRenderer
 {
-    public function __contruct(){}
+    private $courseId;
+    
+    public function __contruct($courseId){}
     
     public function render()
     {
@@ -41,4 +43,32 @@ abstract class TrackingRenderer
     abstract protected function renderFooter();
 }
 
+abstract class UserTrackingRenderer
+{
+    private $courseId;
+    private $userId;
+    
+    public function __contruct($courseId, $userId){}
+    
+    public function render()
+    {
+        $html = '<div class="statBlock">' . "\n"
+        .    ' <div class="blockHeader">' . "\n"
+        .    $this->renderHeader()
+        .    ' </div>' . "\n"
+        .    ' <div class="blockContent">' . "\n"
+        .    $this->renderContent()
+        .    ' </div>' . "\n"
+        .    ' <div class="blockFooter">' . "\n"
+        .    $this->renderFooter()
+        .    ' </div>' . "\n"
+        .    '</div>' . "\n";
+
+        return $html;
+    }
+    
+    abstract protected function renderHeader();
+    abstract protected function renderContent();
+    abstract protected function renderFooter();
+}
 ?>
