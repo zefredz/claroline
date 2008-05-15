@@ -216,10 +216,11 @@ function is_scannable($filePath,
     $parentPath  = str_replace($rootSys, '', $parentPath);
 
     $forbiddenDirNameList    = array_merge( array('claroline/lang',
-                                                  'claroline/install',
                                                   'claroline/inc/conf',
+    											  'claroline/inc/lib/core',
                                                   'courses',
                                                   'platform',
+                                                  'module',
                                                   'tmp',
                                                   'claroline/admin/devTools',
                                                   'claroline/claroline_garbage'),
@@ -273,7 +274,7 @@ function is_scannable($filePath,
 
     return true;
 }
-
+    
 /**
  * Store the name and sourceFile of the language variable in mysql table
  *
