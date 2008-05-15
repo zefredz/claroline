@@ -85,5 +85,3 @@ class RightProfileToolRight extends RightProfileToolAction
         }
     }
 }
-
-?>
