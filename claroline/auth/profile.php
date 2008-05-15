@@ -117,7 +117,8 @@ if ( isset($_REQUEST['applyChange']) )
     
     // Handle user picture
     
-    if ( isset($_FILES['picture']['name']) )
+    if ( isset($_FILES['picture']['name'])
+        && $_FILES['picture']['size'] > 0 )
     {
         $fileName = $_FILES['picture']['name'];
         $fileTmpName = $_FILES['picture']['tmp_name'];
