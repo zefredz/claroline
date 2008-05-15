@@ -34,7 +34,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             }
             else
             {
-                $pictureUrl = get_icon_url('Avatar-smile');
+                $pictureUrl = get_icon_url('nopicture');
             }
 
             $output = '<div class="portletRightMenu">' . "\n"
