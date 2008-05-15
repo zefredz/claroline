@@ -387,5 +387,3 @@ function claro_is_tool_visible ($tid, $courseId)
 
     return (boolean) $tool_visibility ;
 }
-
-?>
