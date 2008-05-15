@@ -18,6 +18,18 @@
  *
  */
 
+
+$jsloader = JavascriptLoader::getInstance();
+$jsloader->load('jquery');
+    
+$htmlHeaders = "\n"   
+.   '<script type="text/javascript">' . "\n"
+.   '$(document).ready( function () {$("#note").focus(); });'
+.   '</script>' . "\n"
+;
+
+$claroline->display->header->addHtmlHeader($htmlHeaders);
+ 
 class MyNotes extends Portlet
 {
 
@@ -223,6 +235,24 @@ class MyNotes extends Portlet
         ( isset($_REQUEST['id']) && is_numeric($_REQUEST['id']) ) ? $id = (int) $_REQUEST['id'] : $id = null;
 
 // }}}
+
+    
+    
+    // $jsloader = JavascriptLoader::getInstance();
+    // $jsloader->load('jquery');
+    // $jsloader->load('Unobtrusivelib');
+    
+    // $htmlHeaders = "\n"   
+    // .   '<script type="text/javascript">' . "\n"
+    // .   'jQuery(function(){'
+    // .       'jQuery.unobtrusivelib();'
+    // .   '});'
+    // .   '</script>' . "\n"
+    // ;
+
+    // $claroline->display->header->addHtmlHeader($htmlHeaders);
+    
+    
 
 // {{{ CONTROLLER
 
