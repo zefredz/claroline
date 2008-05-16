@@ -1,4 +1,4 @@
-<?php // $Id: userLog.php 9858 2008-03-11 07:49:45Z gregk84 $
+<?php // $Id: courseReport.php 9858 2008-03-11 07:49:45Z gregk84 $
 /**
  * CLAROLINE
  *

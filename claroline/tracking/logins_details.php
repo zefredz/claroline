@@ -57,7 +57,7 @@ $is_allowedToTrackEverybodyInCourse = claro_is_course_manager(); // allowed to t
 // check if uid is tutor of this group
 
 $interbredcrump[]= array ('url'=>'../user/user.php', 'name'=> get_lang('Users'));
-$interbredcrump[]= array ('url'=>'../tracking/userLog.php?uInfo=' . $uInfo, 'name'=> get_lang('Statistics of user'));
+$interbredcrump[]= array ('url'=>'../tracking/userReport.php?uInfo=' . $uInfo, 'name'=> get_lang('Statistics of user'));
 $_SERVER['QUERY_STRING'] = 'uInfo=' . $uInfo . '&amp;reqdate=' . $reqdate;
 
 $nameTools = get_lang('Statistics') . ' : ' . get_lang('Logins and access to tools');
@@ -155,7 +155,7 @@ switch ($display)
 
             /******* MENU ********/
             .   '<small>'."\n"
-            .   '[<a href="userLog.php?uInfo=' . $uInfo . '">' . get_lang('Back') . '</a>]' . "\n"
+            .   '[<a href="userReport.php?uInfo=' . $uInfo . '">' . get_lang('Back') . '</a>]' . "\n"
             .   '&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;'."\n"
             .   '[<a href="' . $_SERVER['PHP_SELF'].'?uInfo=' . $uInfo . '&amp;period=week&amp;reqdate='.$reqdate.'">'.get_lang('Week').'</a>]'."\n"
             .   '[<a href="' . $_SERVER['PHP_SELF'].'?uInfo=' . $uInfo . '&amp;period=month&amp;reqdate='.$reqdate.'">'.get_lang('Month').'</a>]'."\n"

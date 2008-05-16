@@ -274,7 +274,7 @@ if( claro_is_user_authenticated() )
 
 $interbredcrump[]= array ('url'=>'../exercise/exercise.php', 'name'=> get_lang('Exercises'));
 
-$backLink = '<p><small><a href="userLog.php?uInfo='.$thisAttemptDetails['user_id'].'&view=0100000&exoDet='.$thisAttemptDetails['id'].'">&lt;&lt;&nbsp;' . get_lang('Back') . '</a></small></p>' . "\n\n";
+$backLink = '<p><small><a href="userReport.php?uInfo='.$thisAttemptDetails['user_id'].'&view=0100000&exoDet='.$thisAttemptDetails['id'].'">&lt;&lt;&nbsp;' . get_lang('Back') . '</a></small></p>' . "\n\n";
 
 $nameTools = get_lang('Statistics of exercise attempt');
 

@@ -30,13 +30,13 @@ require '../inc/claro_init_global.inc.php';
 
 if( empty($_REQUEST['uInfo']) )
 {
-    claro_redirect("./userLog.php");
+    claro_redirect("./userReport.php");
     exit();
 }
     
 if( empty($_REQUEST['path_id']) )
 {
-      claro_redirect("./userLog.php?uInfo=".$_REQUEST['uInfo']."&view=0010000");
+      claro_redirect("./userReport.php?uInfo=".$_REQUEST['uInfo']."&view=0010000");
       exit();
 }
 
@@ -265,7 +265,7 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
           //-- status
           echo '<td>';
           if($module['contentType'] == CTEXERCISE_ && $module['lesson_status'] != "" ) 
-            echo ' <a href="userLog.php?uInfo='.$_REQUEST['uInfo'].'&amp;view=0100000&amp;exoDet='.$module['path'].'">'.strtolower($module['lesson_status']).'</a>';
+            echo ' <a href="userReport.php?uInfo='.$_REQUEST['uInfo'].'&amp;view=0100000&amp;exoDet='.$module['path'].'">'.strtolower($module['lesson_status']).'</a>';
           else
             echo strtolower($module['lesson_status']);
           echo '</td>'."\n";

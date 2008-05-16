@@ -5,7 +5,7 @@
 
 require_once dirname( __FILE__ ) . '../../inc/claro_init_global.inc.php';
 
-$url = './userLog.php?userId=' . claro_get_current_user_id();
+$url = './userReport.php?userId=' . claro_get_current_user_id();
 
 header("Location:".$url);
 
