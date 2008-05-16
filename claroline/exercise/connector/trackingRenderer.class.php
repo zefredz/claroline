@@ -174,7 +174,7 @@ class CLQWZ_UserTrackingRenderer extends UserTrackingRenderer
     	            foreach ( $exerciseDetails as $details )
     	            {
     	                $html .= '<tr>' . "\n"
-    	                .    '<td><small><a href="user_exercise_details.php?trackedExId='.$details['exe_id'].'">'.$details['exe_date'].'</a></small></td>' . "\n"
+    	                .    '<td><small><a href="'.get_module_url('CLQWZ') . '/track_exercise_details.php?trackedExId='.$details['exe_id'].'">'.$details['exe_date'].'</a></small></td>' . "\n"
     	                .    '<td><small>'.$details['exe_result'].'/'.$details['exe_weighting'].'</small></td>' . "\n"
     	                .    '<td><small>'.claro_html_duration($details['exe_time']).'</small></td>' . "\n"
     	                .    '</tr>' . "\n";
