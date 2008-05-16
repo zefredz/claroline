@@ -87,6 +87,48 @@ $noPHP_SELF=true;
 
 switch ( $cmd )
 {
+    case 'courseactiv' :
+    {
+        $tbl_mdb_names        = claro_sql_get_main_tbl();
+        $tbl_tool_list        = $tbl_mdb_names['tool'];
+        
+        $sql = "UPDATE `{$tbl_tool_list}` "
+            . "SET add_in_course = 'AUTOMATIC' "
+            . "WHERE claro_label = '" . claro_sql_escape( $module['label']) . "'"
+            ;
+        
+        if (claro_sql_query($sql))
+        {
+            $dialogBox = get_lang('Module activation at course creation set to AUTOMATIC');
+            $module['activateInCourses']  = 'AUTOMATIC';
+        }
+        else
+        {
+            $dialogBox = get_lang('Cannot change module activation on course creation');
+        }
+        break;
+    }
+    case 'coursedeactiv' :
+    {
+        $tbl_mdb_names        = claro_sql_get_main_tbl();
+        $tbl_tool_list        = $tbl_mdb_names['tool'];
+        
+        $sql = "UPDATE `{$tbl_tool_list}` "
+            . "SET add_in_course = 'MANUAL' "
+            . "WHERE claro_label = '" . claro_sql_escape( $module['label']) . "'"
+            ;
+        
+        if (claro_sql_query($sql))
+        {
+            $dialogBox = get_lang('Module activation at course creation set to MANUAL');
+            $module['activateInCourses']  = 'MANUAL';
+        }
+        else
+        {
+            $dialogBox = get_lang('Cannot change module activation on course creation');
+        }
+        break;
+    }
     case 'activ' :
     {
         if (activate_module($moduleId))
@@ -304,7 +346,8 @@ switch ($item)
                 . '&item=GLOBAL" title="'
                 . get_lang('Activated - Click to deactivate').'">'
                 . '<img src="' . get_path('imgRepositoryWeb')
-                . 'mark.gif" border="0" alt="'. get_lang('Activated') . '" /></a>'
+                . 'mark.gif" border="0" alt="'. get_lang('Activated') . '" /> '
+                . get_lang('Activated') . '</a>'
                 ;
         }
         else
@@ -315,11 +358,13 @@ switch ($item)
                 . $module['module_id'].'&item=GLOBAL" '
                 . 'title="'.get_lang('Deactivated - Click to activate').'">'
                 . '<img src="' . get_path('imgRepositoryWeb')
-                . 'block.gif" border="0" alt="'. get_lang('Deactivated') . '"/></a>';
+                . 'block.gif" border="0" alt="'. get_lang('Deactivated') . '"/> '
+                . get_lang('Deactivated') . '</a>'
+                ;
         }
 
         echo '<td align="right" valign="top">'
-          .    get_lang('Activation')
+          .    get_lang('Platform activation')
           .    ' : ' . "\n"
           .    '</td>' . "\n"
           .    '<td>' . "\n"
@@ -333,8 +378,52 @@ switch ($item)
 
         if ($module['type'] == 'tool')
         {
-            echo '<tr><td>'
-                . get_lang( 'Visibility' )
+            // var_dump($module['activateInCourse']);
+            if (in_array($module['label'],$undeactivable_tool_array))
+            {
+                // do not fuck with cthulhu !
+                $action_link = get_lang('Cannot be changed');
+            }
+            elseif ( 'AUTOMATIC' == $module['activateInCourses'] )
+            {
+                $activ_form  = 'coursedeactiv';
+                $action_link = '<a href="' . $_SERVER['PHP_SELF']
+                    . '?cmd='.$activ_form.'&module_id='.$module['module_id']
+                    . '&item=GLOBAL" title="'
+                    . get_lang('Automatic').'">'
+                    . '<img src="' . get_path('imgRepositoryWeb')
+                    . 'mark.gif" border="0" alt="'. get_lang('Automatic') . '" /> '
+                    . get_lang('Automatic') . '</a>'
+                    ;
+            }
+            else
+            {
+                $activ_form  = 'courseactiv';
+                $action_link = '<a href="' . $_SERVER['PHP_SELF']
+                    . '?cmd='.$activ_form.'&module_id='
+                    . $module['module_id'].'&item=GLOBAL" '
+                    . 'title="'.get_lang('Manual').'">'
+                    . '<img src="' . get_path('imgRepositoryWeb')
+                    . 'block.gif" border="0" alt="'. get_lang('Manual') . '"/> '
+                    . get_lang('Manual') . '</a>'
+                    ;
+            }
+                
+            echo '<td align="right" valign="top">'
+            .    get_lang('Activate on course creation')
+            .    ' : ' . "\n"
+            .    '</td>' . "\n"
+            .    '<td>' . "\n"
+            .    $action_link . "\n"
+            .    '</td>' . "\n"
+            .    '</tr>' . "\n"
+            .    '<tr>' . "\n"
+            .    '<td colspan="2">&nbsp;</td>' . "\n"
+            .    '</tr>' . "\n"
+            ;
+            
+            echo '<tr><td align="right" valign="top">'
+                . get_lang( 'Change visibility in all courses' )
                 . ' : '
                 .    '</td>' . "\n"
                 .    '<td>' . "\n"
@@ -344,7 +433,7 @@ switch ($item)
                 . ' onclick="return confirmMakeVisible();">'
                 . '<img src="' . get_path('imgRepositoryWeb')
                 . 'visible.gif" border="0" alt="'. get_lang('Visible') . '"/> '
-                . get_lang( 'Make visible' )
+                . get_lang( 'Visible' )
                 . '</a></small>'
                 . " | "
                 . '<small><a href="'
@@ -353,7 +442,7 @@ switch ($item)
                 . ' onclick="return confirmMakeInVisible();">'
                 . '<img src="' . get_path('imgRepositoryWeb')
                 . 'invisible.gif" border="0" alt="'. get_lang('Invisible') . '"/> '
-                . get_lang( 'Make invisible' )
+                . get_lang( 'Invisible' )
                 . '</a></small>'
                 . '<td><tr>' . "\n"
                 ;

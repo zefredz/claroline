@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__tool_list` (
     `script_url` varchar(255) default NULL,
     `script_name` varchar(255) default NULL,
     `addedTool` ENUM('YES','NO') DEFAULT 'YES',
+    `activated` ENUM('true','false') NOT NULL DEFAULT 'true',
 PRIMARY KEY  (`id`)
 ) TYPE=MyISAM;
 

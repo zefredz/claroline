@@ -147,7 +147,8 @@ class RightProfileToolRightHtml
                 {
                     $param_append = '?profile_id=' . urlencode($profile_id)
                                   . '&amp;tool_id=' . urlencode($tool_id)
-                                  . '&amp;cmd=set_right' ;
+                                  . '&amp;cmd=set_right'
+                                  ;
 
                     foreach ( $this->urlParamAppendList as $name => $value )
                     {
@@ -204,6 +205,13 @@ class RightProfileToolRightHtml
 
         foreach ( $html_table_row_list as $tool_id => $html_table_row )
         {
+            if ( ! $this->isSetCourseToolInfo()
+                || ! isset( $this->courseToolInfo[$tool_id] ) )
+            {
+                // Not activated in course !
+                continue;
+            }
+            
             $html .= '<tr>' . "\n" ;
 
             if ( $this->isSetCourseToolInfo() )
@@ -228,7 +236,7 @@ class RightProfileToolRightHtml
                 if ( $this->courseToolInfo[$tool_id]['visibility'] == true )
                 {
                     $html .= '<td align="center">'
-                    . '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exInvisible&tool_id=' . $this->courseToolInfo[$tool_id]['tid'] . '" >'
+                    . '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exInvisible&amp;tool_id=' . $this->courseToolInfo[$tool_id]['tid'] . '" >'
                     . '<img src="' . get_path('imgRepositoryWeb') . 'visible.gif" alt="' . get_lang('Visible') . '" />'
                     . '</a>'
                     . '</td>' . "\n";
@@ -236,7 +244,7 @@ class RightProfileToolRightHtml
                 else
                 {
                     $html .= '<td align="center">'
-                    . '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exVisible&tool_id=' . $this->courseToolInfo[$tool_id]['tid'] .'" >'
+                    . '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exVisible&amp;tool_id=' . $this->courseToolInfo[$tool_id]['tid'] .'" >'
                     . '<img src="' . get_path('imgRepositoryWeb') . 'invisible.gif" alt="' . get_lang('Invisible') . '" />'
                     . '</a></td>' . "\n" ;
                 }
@@ -257,5 +265,3 @@ class RightProfileToolRightHtml
     }
 
 }
-
-?>

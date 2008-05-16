@@ -534,11 +534,18 @@ function claro_get_main_course_tool_list ( $force = false )
  * @param  string  $courseIdReq - the requested course id
  *
  * @param  boolean $force (optionnal)  - reset the result cache, default is false
- * @param  boolean $active (optionnal) - get the list of active tool only if set to true (default behaviour)
+ * @param  boolean $active (optionnal) - get the list of active tool only if set
+ *      to true (default behaviour)
+ * @param  mixed $courseActive (optional) - set to true (default behaviour) to get only activated course
+ *      tools, set to false to get all course tools
  * @return array   the course list
  */
 
-function claro_get_course_tool_list($courseIdReq, $profileIdReq, $force = false, $active=true )
+function claro_get_course_tool_list( $courseIdReq,
+                                    $profileIdReq,
+                                    $force = false,
+                                    $active = true,
+                                    $courseActive = true )
 {
     static $courseToolList = null, $courseId = null, $profileId = null;
 
@@ -571,6 +578,7 @@ function claro_get_course_tool_list($courseIdReq, $profileIdReq, $force = false,
                       ISNULL(ctl.tool_id)         AS external,
                       m.activation ,
                       m.name                      AS name,
+                      ctl.activated,
                       IFNULL( ctl.script_url ,
                               pct.script_url )    AS url
                FROM `" . $tbl_course_tool_list . "` AS ctl,
@@ -580,6 +588,7 @@ function claro_get_course_tool_list($courseIdReq, $profileIdReq, $force = false,
                WHERE pct.id = ctl.tool_id
                  AND pct.claro_label = m.label
                  ". ($active ? " AND m.activation = 'activated' " :"") . "
+                 ". ($courseActive ? " AND ctl.activated = 'true' " :"") . "
                ORDER BY external, pct.def_rank, ctl.rank";
 
         $courseToolList = claro_sql_query_fetch_all($sql);
@@ -1603,5 +1612,3 @@ function claro_debug_mode()
 {
     return ( defined ( 'CLARO_DEBUG_MODE' ) && CLARO_DEBUG_MODE );
 }
-
-?>

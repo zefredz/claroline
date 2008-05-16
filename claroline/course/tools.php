@@ -28,6 +28,19 @@ if ( ! claro_is_in_a_course() || ! claro_is_user_authenticated() ) claro_disp_au
 if ( claro_is_course_manager() ) $is_allowedToEdit = TRUE;
 else                   claro_die(get_lang('Not allowed'));
 
+// Prepare menu for claro_html_tabs_bar
+$sectionList = array(
+    'toolRights' => get_lang('Manage tool access rights'),
+    'extLinks' => get_lang('Manage external links'),
+    'toolList' => get_lang('Add or remove tools')
+);
+
+$currentSection = isset( $_REQUEST['section'] )
+    && in_array( $_REQUEST['section'], array_keys($sectionList) )
+    ? $_REQUEST['section']
+    : 'toolRights'
+    ;
+
 $htmlHeadXtra[] =
 '<script type="text/javascript">
 function confirmation (name)
@@ -47,6 +60,7 @@ $currentCourseRepository = claro_get_course_path();
 require_once get_path('incRepositorySys') . '/lib/course_home.lib.php';
 require_once get_path('incRepositorySys') . '/lib/right/courseProfileToolAction.class.php';
 require_once get_path('incRepositorySys') . '/lib/right/profileToolRightHtml.class.php';
+require_once get_path('incRepositorySys') . '/lib/module/manage.lib.php';
 
 /*
  * Language initialisation of the tool names
@@ -62,6 +76,7 @@ $cmd = isset($_REQUEST['cmd'])?$_REQUEST['cmd']:null;
 $tool_id = isset($_REQUEST['tool_id'])?(int)$_REQUEST['tool_id']:null;
 $profile_id = isset($_REQUEST['profile_id'])?$_REQUEST['profile_id']:null;
 $right_value = isset($_REQUEST['right_value'])?$_REQUEST['right_value']:null;
+$toolLabel = isset($_REQUEST['toolLabel'])?$_REQUEST['toolLabel']:null;
 
 $externalLinkName = isset($_REQUEST['toolName'])?$_REQUEST['toolName']:null;
 $externalLinkUrl = isset($_REQUEST['toolUrl'])?$_REQUEST['toolUrl']:null;
@@ -242,6 +257,7 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
     $msg .= "\n".'<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
     .       claro_form_relay_context()
     .       '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
+    .       '<input type="hidden" name="section" value="'.htmlspecialchars($currentSection).'" />'."\n"
     .       '<input type="hidden" name="cmd" value="'.($externalToolId ? 'exEdit' : 'exAdd').'" />'."\n";
 
     if ($externalToolId)
@@ -263,18 +279,109 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
     ;
 }
 
+/*----------------------------------------------------------------------------
+ ADD OR REMOVE A TOOL
+----------------------------------------------------------------------------*/
+
+$undeactivable_tool_array = array('CLDOC',
+                                  'CLGRP',
+                                  'CLUSR'
+                                  );
+
+if ( 'exRmTool' == $cmd )
+{
+    if ( is_null( $toolLabel ) )
+    {
+        $msg .= get_lang('Missing tool label');
+    }
+    elseif ( in_array( $toolLabel, $undeactivable_tool_array ) )
+    {
+        $msg .= get_lang('This tool cannot be removed');
+    }
+    else
+    {
+        // get tool id
+        $toolId = get_tool_id_from_module_label( $toolLabel );
+        
+        if ( $toolId )
+        {
+            // update course_tool.activated
+            if ( update_course_tool_activation_in_course( $toolId,
+                                                         claro_get_current_course_id(),
+                                                         false ) )
+            {
+                $msg .= get_lang('Tool removed from course');
+                $cidReset = TRUE;
+                $cidReq   = claro_get_current_course_id();
+    
+                include get_path('incRepositorySys') . '/claro_init_local.inc.php';
+            }
+            else
+            {
+                $msg .= get_lang('Cannot remove tool from course');
+            }
+        }
+        else
+        {
+            $msg .= get_lang('Not a valid tool');
+        }
+    }
+}
+
+if ( 'exAddTool' == $cmd )
+{
+    if ( is_null( $toolLabel ) )
+    {
+        $msg .= get_lang('Missing tool label');
+    }
+    else
+    {
+        // get tool id
+        $toolId = get_tool_id_from_module_label( $toolLabel );
+        
+        if ( $toolId )
+        {
+            // update course_tool.activated
+            if ( update_course_tool_activation_in_course( $toolId,
+                                                         claro_get_current_course_id(),
+                                                         true ) )
+            {
+                $msg .= get_lang('Tool added to course');
+                $cidReset = TRUE;
+                $cidReq   = claro_get_current_course_id();
+
+                include get_path('incRepositorySys') . '/claro_init_local.inc.php';
+            }
+            else
+            {
+                $msg .= get_lang('Cannot add tool to course');
+            }
+        }
+        else
+        {
+            $msg .= get_lang('Not a valid tool');
+        }
+    }
+}
+
+
 $backLink = '<p>'
             .'<small>'
-            .'<a href="'. get_path('clarolineRepositoryWeb') . 'course/index.php?cidReset=true&amp;cid=' . htmlspecialchars(claro_get_current_course_id()) . '">'
+            .'<a href="'. get_path('clarolineRepositoryWeb')
+            . 'course/index.php?cidReset=true&amp;cid='
+            . htmlspecialchars(claro_get_current_course_id()) . '">'
             .'&lt;&lt;&nbsp;'.get_lang('Back to Home page') . '</a>'
             .'</small>'
-            .'</p>'."\n\n" ;
+            .'</p>'."\n\n"
+            ;
 
 // Build course tool list
 
-// TODO add comment about were is set $_profileId
+// $_profileId is set in claro_init_local
+// get all tools for the course
 
-$toolList = claro_get_course_tool_list(claro_get_current_course_id(),$_profileId);
+$toolList = claro_get_course_tool_list(
+    claro_get_current_course_id(), $_profileId, true, true, false );
 
 $displayToolList = array() ;
 
@@ -307,118 +414,267 @@ include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 echo claro_html_tool_title(get_lang('Edit Tool list'));
 
+echo claro_html_tab_bar($sectionList,$currentSection);
+
 if ($msg) echo claro_html_message_box($msg);
 
-echo '<p>'.get_block('blockCourseHomePageIntroduction').'</p>'."\n" ;
-
-// Display course tool list
-
-// Get all profile
-
-$profileNameList = claro_get_all_profile_name_list();
-$display_profile_list = array_keys($profileNameList);
-
-$profileRightHtml = new RightProfileToolRightHtml();
-$profileRightHtml->setCourseToolInfo($displayToolList);
-
-$profileLegend = array();
-
-foreach ( $display_profile_list as $profileId )
+if ( $currentSection == 'toolRights' )
 {
-    $profile = new RightProfile();
-    if ( $profile->load($profileId) )
+    // echo claro_html_tool_title(get_lang('Manage tool access rights'));
+    echo '<p>'
+        . get_lang('Select the tools you want to make visible for your user.')
+        . get_lang('An invisible tool will be greyed out on your personal interface.')
+        . '<br />'
+        . get_lang('You can also change the access rights for the different user profiles.')
+        .'</p>'."\n"
+        ;
+    
+    // Display course tool list
+    
+    // Get all profile
+    
+    $profileNameList = claro_get_all_profile_name_list();
+    $display_profile_list = array_keys($profileNameList);
+    
+    $profileRightHtml = new RightProfileToolRightHtml();
+    $profileRightHtml->addUrlParam('section', htmlspecialchars($currentSection));
+    $profileRightHtml->setCourseToolInfo($displayToolList);
+    
+    $profileLegend = array();
+    
+    foreach ( $display_profile_list as $profileId )
     {
-        $profileRight = new RightCourseProfileToolRight();
-        $profileRight->setCourseId(claro_get_current_course_id());
-        $profileRight->load($profile);
-        $profileRightHtml->addRightProfileToolRight($profileRight);
-        $profileLegend[] = get_lang($profileNameList[$profileId]['name']) . ' : <em>' . get_lang($profileNameList[$profileId]['description']) . '</em>' ;
+        $profile = new RightProfile();
+        if ( $profile->load($profileId) )
+        {
+            $profileRight = new RightCourseProfileToolRight();
+            $profileRight->setCourseId(claro_get_current_course_id());
+            $profileRight->load($profile);
+            $profileRightHtml->addRightProfileToolRight($profileRight);
+            $profileLegend[] = get_lang($profileNameList[$profileId]['name'])
+                . ' : <em>' . get_lang($profileNameList[$profileId]['description']) . '</em>' ;
+        }
     }
+    
+    echo '<p><small><span style="text-decoration: underline">' . get_lang('Right list') . '</span> : '
+        . '<img src="' . get_path('imgRepositoryWeb') . 'block.gif" alt="' . get_lang('None') . '" /> '
+        . get_lang('No access') . ' - '
+        . '<img src="' . get_path('imgRepositoryWeb') . 'user.gif" alt="' . get_lang('User') . '" />'
+        . get_lang('Access allowed') . ' - '
+        . '<img src="' . get_path('imgRepositoryWeb') . 'manager.gif" alt="' . get_lang('Manager') . '" /> '
+        . get_lang('Edition allowed')
+        . '.</small></p>'
+        ;
+    
+    echo '<p><small><span style="text-decoration: underline">' . get_lang('Profile list')
+        . '</span> : ' . implode($profileLegend,' - ') . '.</small></p>'
+        ;
+    
+    echo '<blockquote>' . "\n"
+        . $profileRightHtml->displayProfileToolRightList()
+        . '</blockquote>' . "\n"
+        ;
 }
-
-echo '<blockquote>' . "\n"
-    . $profileRightHtml->displayProfileToolRightList()
-    . '</blockquote>' . "\n" ;
-
-echo '<p><small><span style="text-decoration: underline">' . get_lang('Right list') . '</span> : '
-    . '<img src="' . get_path('imgRepositoryWeb') . 'block.gif" alt="' . get_lang('None') . '" /> ' . get_lang('No access') . ' - '
-    . '<img src="' . get_path('imgRepositoryWeb') . 'user.gif" alt="' . get_lang('User') . '" />' . get_lang('Access allowed') . ' - '
-    . '<img src="' . get_path('imgRepositoryWeb') . 'manager.gif" alt="' . get_lang('Manager') . '" /> ' . get_lang('Edition allowed')
-    . '.</small></p>';
-
-echo '<p><small><span style="text-decoration: underline">' . get_lang('Profile list') . '</span> : ' . implode($profileLegend,' - ') . '.</small></p>' ;
-
-// Display external link list
-
-echo claro_html_tool_title(get_lang('Manage External link'));
-
-echo '<blockquote>' . "\n"
-.    '<p>' . "\n"
-.    '<a class="claroCmd" href="'
-.    $_SERVER['PHP_SELF']
-.    '?cmd=rqAdd' . claro_url_relay_context('&amp;') . '">'
-.    '<img src="' . get_path('imgRepositoryWeb') . 'link.gif" alt="" />'
-.    get_lang('Add external link')
-.    '</a>' . "\n"
-.    '</p>' . "\n"
-
-.    '<table class="claroTable" >'."\n\n"
-.    '<thead>'."\n"
-.    '<tr class="headerX">'."\n"
-.    '<th>'.get_lang('Tools').'</th>'."\n"
-.    '<th>'.get_lang('Visibility').'</th>'."\n"
-.    '<th>'.get_lang('Edit').'</th>'."\n"
-.    '<th>'.get_lang('Delete').'</th>'."\n"
-.    '</tr>'."\n"
-.    '</thead>'."\n\n"
-.    '<tbody>'."\n" ;
-
-foreach ( $courseExtLinkList as $linkId => $link )
+elseif ( $currentSection == 'extLinks' )
 {
-    echo '<tr>'."\n";
-
-    echo '<td ' . ($link['visibility']?'':'class="invisible"') . '>'
-    . '<img src="'.$link['icon'].'" alt="" />' .$link['name']
-    . '</td>';
-
-    echo '<td align="center">' ;
-
-    if ( $link['visibility'] == true )
+    // Display external link list
+    
+    // echo claro_html_tool_title(get_lang('Manage external links'));
+    echo '<p>'.get_lang('Add external links to your course').'</p>'."\n" ;
+    
+    echo '<blockquote>' . "\n"
+    .    '<p>' . "\n"
+    .    '<a class="claroCmd" href="'
+    .    $_SERVER['PHP_SELF']
+    .    '?cmd=rqAdd' . claro_url_relay_context('&amp;') . '&amp;section='.htmlspecialchars($currentSection).'">'
+    .    '<img src="' . get_path('imgRepositoryWeb') . 'link.gif" alt="" />'
+    .    get_lang('Add external link')
+    .    '</a>' . "\n"
+    .    '</p>' . "\n"
+    
+    .    '<table class="claroTable" >'."\n\n"
+    .    '<thead>'."\n"
+    .    '<tr class="headerX">'."\n"
+    .    '<th>'.get_lang('Tools').'</th>'."\n"
+    .    '<th>'.get_lang('Visibility').'</th>'."\n"
+    .    '<th>'.get_lang('Edit').'</th>'."\n"
+    .    '<th>'.get_lang('Delete').'</th>'."\n"
+    .    '</tr>'."\n"
+    .    '</thead>'."\n\n"
+    .    '<tbody>'."\n"
+    ;
+    
+    if ( !empty( $courseExtLinkList ) )
     {
-        echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exInvisible&tool_id=' . $linkId . '" >'
-        . '<img src="' . get_path('imgRepositoryWeb') . 'visible.gif" alt="' . get_lang('Visible') . '" />'
-        . '</a>';
+        foreach ( $courseExtLinkList as $linkId => $link )
+        {
+            echo '<tr>'."\n";
+        
+            echo '<td ' . ($link['visibility']?'':'class="invisible"') . '>'
+            . '<img src="'.$link['icon'].'" alt="" />' .$link['name']
+            . '</td>';
+        
+            echo '<td align="center">' ;
+        
+            if ( $link['visibility'] == true )
+            {
+                echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exInvisible&amp;tool_id=' . $linkId . '&amp;section='.htmlspecialchars($currentSection).'" >'
+                . '<img src="' . get_path('imgRepositoryWeb') . 'visible.gif" alt="' . get_lang('Visible') . '" />'
+                . '</a>';
+            }
+            else
+            {
+                echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exVisible&amp;tool_id=' . $linkId .'&amp;section='.htmlspecialchars($currentSection).'" >'
+                . '<img src="' . get_path('imgRepositoryWeb') . 'invisible.gif" alt="' . get_lang('Invisible') . '" />'
+                . '</a>';
+        
+            }
+        
+            echo '</td>'."\n";
+        
+            echo '<td align="center">'
+            . '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;externalToolId='.$linkId.'&amp;section='.htmlspecialchars($currentSection).'">'
+            . '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="'.get_lang('Modify').'" />'
+            . '</a></td>' . "\n" ;
+        
+            echo '<td align="center">'
+            .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;externalToolId='.$linkId.'&amp;section='.htmlspecialchars($currentSection).'"'
+            .' onclick="return confirmation(\''.clean_str_for_javascript($link['name']).'\');">'
+            .'<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="'.get_lang('Delete').'" />'
+            .'</a></td>'."\n";
+        
+            echo '</tr>'."\n";
+        }
     }
     else
     {
-        echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exVisible&tool_id=' . $linkId .'" >'
-        . '<img src="' . get_path('imgRepositoryWeb') . 'invisible.gif" alt="' . get_lang('Invisible') . '" />'
-        . '</a>';
-
+        echo '<tr><td colspan="4">'.get_lang('Empty').'</td></tr>' . "\n";
     }
-
-    echo '</td>'."\n";
-
-    echo '<td align="center">'
-    . '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;externalToolId='.$linkId.'">'
-    . '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="'.get_lang('Modify').'" />'
-    . '</a></td>' . "\n" ;
-
-    echo '<td align="center">'
-    .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;externalToolId='.$linkId.'"'
-    .' onclick="return confirmation(\''.clean_str_for_javascript($link['name']).'\');">'
-    .'<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="'.get_lang('Delete').'" />'
-    .'</a></td>'."\n";
-
-    echo '</tr>'."\n";
+    
+    echo '</tbody>' . "\n"
+        . '</table>'."\n\n"
+        . '</blockquote>'
+        . "\n"
+        ;
+}
+elseif ( $currentSection == 'toolList' )
+{
+    // echo claro_html_tool_title(get_lang('Add or remove tools'));
+    echo '<p>'.get_lang('Add or remove tools from your course').'</p>'."\n" ;
+    
+    $activeCourseToolList = module_get_course_tool_list(
+        claro_get_current_course_id(), true, true );
+    
+    $inactiveCourseToolList = module_get_course_tool_list(
+        claro_get_current_course_id(), true, false );
+    
+    echo claro_html_tool_title(get_lang('Tools currently in your course'));
+    
+    echo '<blockquote>' . "\n"
+        . '<table class="claroTable emphaseLine" style="width: 100%" >'."\n\n"
+        . '<thead>'."\n"
+        . '<tr class="headerX">'."\n"
+        . '<th>'.get_lang('Tool').'</th>'."\n"
+        . '<th>'.get_lang('Remove from course').'</th>'."\n"
+        . '</tr>'."\n"
+        . '</thead>'."\n\n"
+        . '<tbody>'."\n"
+        ;
+    
+    if ( !empty( $activeCourseToolList ) )
+    {
+        foreach ( $activeCourseToolList as $activeTool )
+        {
+            if ( ! in_array( $activeTool['label'], $undeactivable_tool_array ) )
+            {
+                $action_link = '<a href="' . $_SERVER['PHP_SELF']
+                    . '?cmd=exRmTool&amp;toolLabel='
+                    . htmlspecialchars($activeTool['label'])
+                    .'&amp;section='.htmlspecialchars($currentSection).'" '
+                    . 'title="'.get_lang('Remove').'">'
+                    . '<img src="' . get_icon_url('delete') . '" border="0" alt="'. get_lang('Remove') . '"/>'
+                    . '</a>'
+                    ;
+            }
+            else
+            {
+                $action_link = '-';
+            }
+            echo '<tr>'
+                . '<td><img src="'
+                . get_module_url($activeTool['label']) . '/' . $activeTool['icon'] . '" alt="" /> '
+                . get_lang(claro_get_tool_name($activeTool['tool_id'])).'</td>'
+                . '<td>'.$action_link.'</td>'
+                . '</tr>' . "\n"
+                ;
+        }
+    }
+    else
+    {
+        echo '<tr><td colspan="2">'.get_lang('Empty').'</td></tr>' . "\n";
+    }
+    
+    echo '</tbody>' . "\n"
+        . '</table>'."\n\n"
+        . '</blockquote>'
+        . "\n"
+        ;
+        
+    echo claro_html_tool_title(get_lang('Available tools to add to your course'));
+        
+    echo '<blockquote>' . "\n"
+        . '<table class="claroTable emphaseLine" style="width: 100%" >'."\n\n"
+        . '<thead>'."\n"
+        . '<tr class="headerX">'."\n"
+        . '<th>'.get_lang('Tool').'</th>'."\n"
+        . '<th>'.get_lang('Add to course').'</th>'."\n"
+        . '</tr>'."\n"
+        . '</thead>'."\n\n"
+        . '<tbody>'."\n"
+        ;
+    
+    if ( !empty( $inactiveCourseToolList ) )
+    {
+        foreach ( $inactiveCourseToolList as $inactiveTool )
+        {
+            $action_link = '<a href="' . $_SERVER['PHP_SELF']
+                . '?cmd=exAddTool&amp;toolLabel='
+                . htmlspecialchars($inactiveTool['label'])
+                .'&amp;section='.htmlspecialchars($currentSection).'" '
+                . 'title="'.get_lang('Add').'">'
+                . '<img src="' . get_icon_url('mark') . '" border="0" alt="'. get_lang('Add') . '"/>'
+                . '</a>'
+                ;
+                
+            echo '<tr>'
+                . '<td><img src="'
+                . get_module_url($inactiveTool['label']) . '/' . $inactiveTool['icon'] . '" alt="" /> '
+                . get_lang(claro_get_tool_name($inactiveTool['tool_id'])).'</td>'
+                . '<td>'.$action_link.'</td>'
+                . '</tr>' . "\n"
+                ;
+        }
+    }
+    else
+    {
+        echo '<tr><td colspan="2">'.get_lang('Empty').'</td></tr>' . "\n";
+    }
+    
+    echo '</tbody>' . "\n"
+        . '</table>'."\n\n"
+        . '</blockquote>'
+        . "\n"
+        ;
+}
+else
+{
+    // should never happen
+    echo get_lang('Invalid section');
 }
 
-echo '</tbody>'."\n"
-.    '</table>'."\n\n"
-.    '</blockquote>' . "\n"
-.    '<hr size="1" noshade="noshade" />' . "\n\n"
-.    $backLink
-;
+echo '<hr size="1" noshade="noshade" />' . "\n\n"
+    . $backLink
+    ;
 
 // Display footer
 

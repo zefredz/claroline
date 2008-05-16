@@ -455,9 +455,9 @@ function get_course_installable_tool_list()
 
     $tbl_courseTool = $tbl_mdb_names['tool'  ];
 
-    $sql = "SELECT id, def_access, def_rank, claro_label "
+    $sql = "SELECT id, def_access, def_rank, claro_label, add_in_course "
         . "FROM `". $tbl_courseTool . "` "
-        . "WHERE add_in_course = 'AUTOMATIC'"
+        // . "WHERE add_in_course = 'AUTOMATIC'"
         ;
 
     $list = claro_sql_query_fetch_all_rows($sql);
@@ -482,10 +482,11 @@ function update_course_tool_list($courseDbName)
     foreach ( $toolList as $courseTool )
     {
         $sql_insert = " INSERT INTO `" . $tbl_courseToolList . "` "
-            . " (tool_id, rank, visibility) "
+            . " (tool_id, rank, visibility, activated) "
             . " VALUES ('" . $courseTool['id'] . "',"
             . "'" . $courseTool['def_rank'] . "',"
-            . "'" .($courseTool['def_access']=='ALL'?1:0) . "')"
+            . "'" .($courseTool['def_access']=='ALL'?1:0) . "',"
+            . "'" .($courseTool['add_in_course']=='AUTOMATIC'?'true':'false') . "')"
             ;
             
         claro_sql_query_insert_id($sql_insert);

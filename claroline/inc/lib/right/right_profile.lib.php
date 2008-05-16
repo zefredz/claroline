@@ -333,7 +333,7 @@ function claro_is_tool_activated ($tid, $courseId)
 
     $sql = " SELECT m.activation
              FROM `" . $tbl_mdb_names['module'] . "` as m,
-                  `" . $tbl_mdb_names['tool'] . "` as t                  
+                  `" . $tbl_mdb_names['tool'] . "` as t
              WHERE t.claro_label = m.label 
              AND t.id = " . $tid ;
 
@@ -341,6 +341,19 @@ function claro_is_tool_activated ($tid, $courseId)
 
     if ( $tool_activation == 'activated' )
     {
+        if ( claro_is_in_a_course())
+        {
+            $tbl_cdb_names = claro_sql_get_course_tbl();
+        
+            $sql = " SELECT ctl.activated
+                     FROM `" . $tbl_cdb_names['tool'] . "` as ctl
+                     WHERE ctl.tool_id = " . $tid ;
+        
+            $tool_activatedInCourse = claro_sql_query_get_single_value($sql);
+            
+            return $tool_activatedInCourse == 'true';
+        }
+        
         return true;
     }
     else
