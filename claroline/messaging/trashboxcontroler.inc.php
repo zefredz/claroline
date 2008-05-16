@@ -26,6 +26,7 @@
     $box = new TrashBox($currentUserId);
     $displayConfimationEmptyTrashbox = false;
     
+    $messageId = isset($_REQUEST['messageId']) ? (int)$_REQUEST['messageId'] : NULL;
     
     $acceptedCmdList = array('exRestoreMessage','exMarkUnread','exMarkRead','rqSearch','rqEmptyTrashBox','exEmptyTrashBox');
     
@@ -36,17 +37,17 @@
             $displaySearch = TRUE;
         }
         
-        if ($_REQUEST['cmd'] == 'exRestoreMessage' && isset($_REQUEST['messageId']))
+        if ($_REQUEST['cmd'] == 'exRestoreMessage' && ! is_null($messageId))
         {
             TrashBox::moveMessageToInBox($_REQUEST['messageId'],$currentUserId);
         }
         
-        if ($_REQUEST['cmd'] == 'exMarkUnread' && isset($_REQUEST['messageId']))
+        if ($_REQUEST['cmd'] == 'exMarkUnread' && ! is_null($messageId))
         {
             TrashBox::markUnread($_REQUEST['messageId'],$currentUserId);
         }
         
-        if ($_REQUEST['cmd'] == 'exMarkRead' && isset($_REQUEST['messageId']))
+        if ($_REQUEST['cmd'] == 'exMarkRead' && ! is_null($messageId))
         {
             TrashBox::markRead($_REQUEST['messageId'],$currentUserId);
         }
@@ -69,12 +70,14 @@
 
     if (isset($_REQUEST['fieldOrder']))
     {
-        $link_arg['fieldOrder'] = $_REQUEST['fieldOrder'];
-        if ($_REQUEST['fieldOrder'] == 'sender')
+        $link_arg['fieldOrder'] = $_REQUEST['fieldOrder'] == 'sender' ? 'sender' : 'date';
+        
+        
+        if ($link_arg['fieldOrder'] == 'sender')
         {
             $messageStategy->setFieldOrder(ReceivedMessageStrategy::ORDER_BY_SENDER);
         }
-        elseif ($_REQUEST['fieldOrder'] == 'date')
+        elseif ($link_arg['fieldOrder'] == 'date')
         {
             $messageStategy->setFieldOrder(ReceivedMessageStrategy::ORDER_BY_DATE);
         }
@@ -82,13 +85,16 @@
     
     if (isset($_REQUEST['order']))
     {
-        $link_arg['order'] = $_REQUEST['order'];
-        if ($_REQUEST['order'] == 'asc')
+        $order = $_REQUEST['order'] == 'asc' ? 'asc' : 'desc';
+        
+        $link_arg['order'] = $order;
+        
+        if ($link_arg['order'] == 'asc')
         {
             $nextOrder = "desc";
             $messageStategy->setOrder(ReceivedMessageStrategy::ORDER_ASC);
         }
-        elseif ($_REQUEST['order'] == 'desc')
+        elseif ($link_arg['order'] == 'desc')
         {
             $nextOrder = "asc";
             $messageStategy->setOrder(ReceivedMessageStrategy::ORDER_DESC);
@@ -100,14 +106,12 @@
     }
     
     // ----- read selector ------------
-    if (isset($_POST['SelectorReadStatus']))
-    {
-        $link_arg['SelectorReadStatus'] = $_POST['SelectorReadStatus'];
-    }
-    elseif (isset($_GET['SelectorReadStatus']))
-    {
-        $link_arg['SelectorReadStatus'] = $_GET['SelectorReadStatus'];
-    }
+    $link_arg['SelectorReadStatus'] = isset( $_REQUEST['SelectorReadStatus'] )
+        && in_array( $_REQUEST['SelectorReadStatus'], array('all','read','unread') )
+        ? $_REQUEST['SelectorReadStatus']
+        : 'all'
+        ;
+        
     if (isset($link_arg['SelectorReadStatus']))
     {
         if ($link_arg['SelectorReadStatus'] == "all")
@@ -127,7 +131,7 @@
     // search
     if (isset($_POST['search']) && $_POST['search'] != "")
     {
-        $link_arg['search'] = $_POST['search'];
+        $link_arg['search'] = strip_tags($_POST['search']);
         if (isset($_POST['searchStrategy']))
         {
             $link_arg['searchStrategy'] = 1;
@@ -139,7 +143,7 @@
     }
     elseif (isset($_GET['search']) && $_GET['search'] != "")
     {
-        $link_arg['search'] = $_GET['search'];
+        $link_arg['search'] = strip_tags($_GET['search']);
         $link_arg['searchStrategy'] = $_GET['searchStrategy'];
     }
     

@@ -54,7 +54,9 @@ $displayRemoveOlderThanValidated = FALSE;
 $displayRemovePlateformMessageConfirmation = FALSE;
 $displayRemovePlateformMessageValidated = FALSE;
 
-//use only the search of user
+$userId = isset($_REQUEST['userId'])? (int)$_REQUEST['userId'] : NULL;
+
+//used for user search
 $arguments = array();
 
 $acceptedCommand = array('rqDeleteAll','exDeleteAll'
@@ -85,7 +87,7 @@ if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCommand))
     {
         $claroline->display->body->appendContent(claro_html_tool_title(get_lang('Internal messaging')." - ".get_lang('Delete all user\'s messages')));
         $arguments['cmd'] = 'rqFromUser';
-        if ( isset($_REQUEST['userId']))
+        if ( ! is_null($userId) )
         {
             $displayRemoveFromUserConfirmation = TRUE;
         }
@@ -93,21 +95,23 @@ if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCommand))
         {
             $displaySearchUser = TRUE;
         }
-        
+        // generate the user list
         if (isset($_REQUEST['search']) && $_REQUEST['search'] != "")
         {
             $displayResultUserSearch = TRUE;
-            $arguments['search'] = $_REQUEST['search'];
+            $arguments['search'] = strip_tags($_REQUEST['search']);
                         
             $userList = new UserList();
             $selector = $userList->getSelector();
             
             //order
-            if (isset($_REQUEST['order']) && ($_REQUEST['order'] == 'asc' || $_REQUEST['order'] == 'desc'))
+            if (isset($_REQUEST['order']))
             {
-                $arguments['order'] = $_REQUEST['order'];
+                $order = $_REQUEST['order'] == 'asc' ? 'asc' : 'desc';
                 
-                if ($_REQUEST['order'] == 'asc')
+                $arguments['order'] = $order;
+                
+                if ($arguments['order'] == 'asc')
                 {
                     $selector->setOrder(UserStrategy::ORDER_ASC);
                     $nextOrder = 'desc';
@@ -123,12 +127,13 @@ if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCommand))
                 $nextOrder = 'desc';
             }
             //orderfield
-            if (isset($_REQUEST['fieldOrder']) && 
-                ($_REQUEST['fieldOrder'] == 'name' || $_REQUEST['fieldOrder'] == 'username'))
+            if (isset($_REQUEST['fieldOrder']))
             {
-                $arguments['fieldOrder'] = $_REQUEST['fieldOrder'];
+                $fieldOrder = $_REQUEST['fieldOrder'] == 'name' ? 'name' : 'username';
                 
-                if ($_REQUEST['fieldOrder'] == 'name')
+                $arguments['fieldOrder'] = $fieldOrder;
+                
+                if ($arguments['fieldOrder'] == 'name')
                 {
                     $selector->setFieldOrder(UserStrategy::ORDER_BY_NAME);
                 }
@@ -138,7 +143,7 @@ if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCommand))
                 }
             }
             //namesearch
-            $selector->setSearch($_REQUEST['search']);
+            $selector->setSearch($arguments['search']);
             //paging
             if (isset($_REQUEST['page']))
             {
@@ -153,11 +158,11 @@ if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCommand))
         }
     }
     
-    if ($_REQUEST['cmd'] == 'exFromUser' && isset($_REQUEST['userId']))
+    if ($_REQUEST['cmd'] == 'exFromUser' && ! is_null($userId))
     {
         $claroline->display->body->appendContent(claro_html_tool_title(get_lang('Internal messaging')." - ".get_lang('Delete all user\'s messages')));
         $box = new AdminMessageBox();
-        $box->deleteAllMessageFromUser($_REQUEST['userId']);
+        $box->deleteAllMessageFromUser($userId);
         $displayRemoveFromUserValidated = TRUE;
     }
     // delete older than
@@ -171,8 +176,21 @@ if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCommand))
     {
         $claroline->display->body->appendContent(claro_html_tool_title(get_lang('Internal messaging')." - ".get_lang('Delete messages older than')));
         $box = new AdminMessageBox();
-        $box->deleteMessageOlderThan(strtotime(substr($_REQUEST['date'],6,4).'-'.substr($_REQUEST['date'],3,2).'-'.substr($_REQUEST['date'],0,2)));
-        $displayRemoveOlderThanValidated = TRUE;
+        
+        list($day,$month,$year) = explode('/',$_REQUEST['date']);
+        
+        if (checkdate($month,$day,$year))
+        {
+            $box->deleteMessageOlderThan(strtotime($year.'-'.$month.'-'.$day));
+            $displayRemoveOlderThanValidated = TRUE;
+        }
+        else
+        {
+            $dialbox = new DialogBox();
+            $dialbox->info(get_lang('invalid date'));
+            $content .= $dialbox->render();
+        }
+        
     }
     
     // -------- delete plateform message
@@ -254,9 +272,9 @@ if ($displayRemoveFromUserValidated)
 
 if ($displaySearchUser)
 {
-    if (isset($_REQUEST['search']))
+    if (isset($arguments['search']))
     {
-        $search = $_REQUEST['search']; 
+        $search = $arguments['search'];
     }
     else
     {
@@ -291,11 +309,11 @@ if ($displayResultUserSearch)
     $arg_delete = makeArgLink($arguments);  
     if ($arg_sorting == "")
     {
-        $linkDelete = $_SERVER['PHP_SELF']."?userId=";
+        $linkDelete = $_SERVER['PHP_SELF']."?";
     }
     else
     {
-        $linkDelete = $_SERVER['PHP_SELF']."?".$arg_delete."&amp;userId=";
+        $linkDelete = $_SERVER['PHP_SELF']."?".$arg_delete."&amp;";
     }
     
     $content .= '<br />'
@@ -307,14 +325,26 @@ if ($displayResultUserSearch)
        .'<th>'.get_lang('action').'</th>'."\n"
        .'</tr>'."\n\n"
        ;
-     foreach ($userList as $key => $user)
+
+     if ( $userList->getNumberOfUser() > 0)
+     {
+         foreach ($userList as $key => $user)
+         {
+             $content .=
+                  '<tr>'."\n"
+                 .'<td>'.$user['id'].'</td>'."\n"
+                 .'<td>'.get_lang('%firstName %lastName', array ('%firstName' =>htmlspecialchars($user['firstname']), '%lastName' => htmlspecialchars($user['lastname']))).'</td>'."\n"
+                 .'<td>'.$user['username'].'</td>'."\n"
+                 .'<td><a href="'.$linkDelete.'cmd=rqDeleteMessageUser">delete messages</a></td>' ."\n"
+                 .'</tr>'."\n\n"
+                 ; 
+         }
+     }
+     else
      {
          $content .=
               '<tr>'."\n"
-             .'<td>'.$user['id'].'</td>'."\n"
-             .'<td>'.$user['lastname'].' '.$user['firstname'].'</td>'."\n"
-             .'<td>'.$user['username'].'</td>'."\n"
-             .'<td><a href="'.$linkDelete.$user['id'].'">delete messages</a></td>' ."\n"
+             .'<td colspan="4">'.get_lang('Empty').'</td>' ."\n"
              .'</tr>'."\n\n"
              ; 
      }
@@ -342,7 +372,11 @@ if ($displayResultUserSearch)
 //--------------- older than
 if ($displayRemoveOlderThanConfirmation)
 {
-    if (!isset($_REQUEST['date']))
+    
+    $date = isset($_REQUEST['date']) ? $_REQUEST['date'] : NULL;
+    
+    
+    if (is_null($date))
     {
         $CssLoader = CssLoader::getInstance();
         $CssLoader->load('ui.datepicker');
@@ -357,11 +391,12 @@ if ($displayRemoveOlderThanConfirmation)
                     $("#dateinput").datepicker({dateFormat: \'dd/mm/yy\'});
                 });
             </script>';
-        $claroline->display->header->addHtmlHeader($javascript);    
+        $claroline->display->header->addHtmlHeader($javascript);
+            
         $disp = '
                 Select a date:<br />'
                 . '<form action="'.$_SERVER['PHP_SELF'].'?cmd=rqOlderThan" method="post">'
-                . '<input type="text" name="date" value="'.date('d/m/Y').'" id="dateinput" /><br />'
+                . '<input type="text" name="date" value="'.date('d/m/Y').'" id="dateinput" /> '.get_lang('(JJ/MM/AAAA)').'<br />'
                 . '<input type="submit" value="delete" />'
                 . '</form>'
                 ;
@@ -375,9 +410,9 @@ if ($displayRemoveOlderThanConfirmation)
         $javascriptDelete = '
             <script type="text/javascript">
             if (confirm("'.get_lang('Are you sure to delete to delete the messages older than %date%?\n\n            			 Warning all data will be deleted from the database',
-                        array('%date%'=>$_REQUEST['date'])).'"));
+                        array('%date%'=>$date)).'"));
             {
-                window.location=\''.$_SERVER['PHP_SELF'].'?cmd=exOlderThan&amp;date='.urlencode($_REQUEST['date']).'\';
+                window.location=\''.$_SERVER['PHP_SELF'].'?cmd=exOlderThan&amp;date='.urlencode($date).'\';
             }
             else
             {
@@ -388,7 +423,7 @@ if ($displayRemoveOlderThanConfirmation)
         
         $dialBoxMsg = get_lang('Are you sure to delete to delete the messages older than %date%?<br /><br />
                          Warning all data will be deleted from the database',
-                        array('%date%'=>$_REQUEST['date']))
+                        array('%date%'=>$date))
              . '<br /><br />'
              . '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exOlderThan&amp;date='.urlencode($_REQUEST['date']).'">' . get_lang('Yes') . '</a> | <a href="admin.php">' . get_lang('No') .'</a>'
              ;
@@ -400,7 +435,8 @@ if ($displayRemoveOlderThanConfirmation)
 
 if ($displayRemoveOlderThanValidated)
 {
-    $dialBoxMsg = get_lang('All messages older than %date% has been deleted',array('%date%' => $_REQUEST['date']))
+    $date = htmlspecialchars($_REQUEST['date']);
+    $dialBoxMsg = get_lang('All messages older than %date% has been deleted',array('%date%' => $date))
          . '<br /><br />'
          . '<a href="admin.php">' . get_lang('Back') .'</a>'
          ;
@@ -450,7 +486,7 @@ if ($displayRemovePlateformMessageValidated)
 // ------------- end plateform message
 
 // ------------------- render ----------------------------
-$claroline->display->banner->breadcrumbs->append(get_lang('My messages'),'index.php');
+$claroline->display->banner->breadcrumbs->append(get_lang('Messages'),'index.php');
 $claroline->display->banner->breadcrumbs->append(get_lang('Administration'),'admin.php');
 $claroline->display->body->appendContent($content);
 

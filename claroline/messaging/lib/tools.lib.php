@@ -47,22 +47,13 @@
      * @param int $currentUserId user identification (used for count of number of message unread
      * @return string HTML source
      */
-    function getBarMessageBox( $currentUserId, $displayMenuAdmin = true )
+    function getBarMessageBox( $currentUserId )
     {
         require_once dirname(__FILE__) . '/messagebox/inbox.lib.php';
         
         $inboxWithoutFilter = new InBox($currentUserId);
 
-        if ($currentUserId == claro_get_current_user_id())
-        {
-            $introNameBox = 'My';
-        }
-        else
-        {
-            $introNameBox = 'User\'s';
-        }
-        
-        $numberOfPlateformMessage = $inboxWithoutFilter->numberOfPlateformMessage();
+        /*$numberOfPlateformMessage = $inboxWithoutFilter->numberOfPlateformMessage();
         $messagePlateform = "";
         if ($numberOfPlateformMessage == 0)
         {
@@ -71,15 +62,12 @@
         else
         {
             $messagePlateform = ''.$numberOfPlateformMessage." ".get_lang('plateform message');
-        }
+        }*/
 
-        $menu[] = '<a href="' . get_path( 'clarolineRepositoryWeb' ) . 'messaging/messagebox.php?box=inbox&amp;userId='.$currentUserId.'" class="claroCmd">'.get_lang($introNameBox.' inbox').'('.$inboxWithoutFilter->numberOfUnreadMessage().')</a>';
-        $menu[] = '<a href="' . get_path( 'clarolineRepositoryWeb' ) . 'messaging/messagebox.php?box=outbox&amp;userId='.$currentUserId.'" class="claroCmd">'.get_lang($introNameBox.' outbox').'</a>';
-        $menu[] = '<a href="' . get_path( 'clarolineRepositoryWeb' ) . 'messaging/messagebox.php?box=trashbox&amp;userId='.$currentUserId.'" class="claroCmd">'.get_lang($introNameBox.' trashbox').'</a>';
-        if ( claro_is_platform_admin() && $displayMenuAdmin === true )
-        {
-            $menu[] = '<a href="admin.php" class="claroCmd">'.get_lang('Administration').'</a>';
-        }
+        $menu[] = '<a href="' . get_path( 'clarolineRepositoryWeb' ) . 'messaging/messagebox.php?box=inbox&amp;userId='.$currentUserId.'" class="claroCmd">'.get_lang('inbox').'('.$inboxWithoutFilter->numberOfUnreadMessage().')</a>';
+        $menu[] = '<a href="' . get_path( 'clarolineRepositoryWeb' ) . 'messaging/messagebox.php?box=outbox&amp;userId='.$currentUserId.'" class="claroCmd">'.get_lang('outbox').'</a>';
+        $menu[] = '<a href="' . get_path( 'clarolineRepositoryWeb' ) . 'messaging/messagebox.php?box=trashbox&amp;userId='.$currentUserId.'" class="claroCmd">'.get_lang('trashbox').'</a>';
+        
         return claro_html_menu_horizontal($menu);
     }
     

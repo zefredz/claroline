@@ -40,8 +40,9 @@
     
     if (isset($_REQUEST['fieldOrder']))
     {
-        $link_arg['fieldOrder'] = $_REQUEST['fieldOrder'];
-        if ($_REQUEST['fieldOrder'] == 'date')
+        $link_arg['fieldOrder'] = $_REQUEST['fieldOrder'] == 'date' ? 'date' : 'date';
+        
+        if ($link_arg['fieldOrder'] == 'date')
         {
             $messageStategy->setFieldOrder(OutBoxStrategy::ORDER_BY_DATE);
         }
@@ -49,13 +50,16 @@
     
     if (isset($_REQUEST['order']))
     {
-        $link_arg['order'] = $_REQUEST['order'];
-        if ($_REQUEST['order'] == 'asc')
+        $order = $_REQUEST['order'] == 'asc' ? 'asc' : 'desc';
+        
+        $link_arg['order'] = $order;
+        
+        if ($link_arg['order'] == 'asc')
         {
             $nextOrder = "desc";
             $messageStategy->setOrder(OutBoxStrategy::ORDER_ASC);
         }
-        elseif ($_REQUEST['order'] == 'desc')
+        else
         {
             $nextOrder = "asc";
             $messageStategy->setOrder(OutBoxStrategy::ORDER_DESC);
@@ -81,8 +85,8 @@
     }
     elseif (isset($_GET['search']) && $_GET['search'] != "")
     {
-        $link_arg['search'] = $_GET['search'];
-        $link_arg['searchStrategy'] = $_GET['searchStrategy'];
+        $link_arg['search'] = strip_tags($_GET['search']);
+        $link_arg['searchStrategy'] = (int)$_GET['searchStrategy'];
     }
     
     if (isset($link_arg['search']))

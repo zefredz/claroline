@@ -57,24 +57,24 @@ $strategy = $box->getSelector();
 $JsLoader = JavascriptLoader::getInstance();
 $JsLoader->load('jquery');
 
+$messageId = isset($_REQUEST['message_id']) ? (int)$_REQUEST['message_id'] : NULL;
+
 // ---------------- order
 
 if (isset($_REQUEST['order']))
 {
-    if ($_REQUEST['order'] == 'asc')
+    $order = $_REQUEST['order'] == 'asc' ? 'asc' : 'desc';
+        
+    $arguments['order'] = $order;
+    
+    if ($arguments['order'] == 'asc')
     {
         $strategy->setOrder(AdminBoxStrategy::ORDER_ASC);
-        $arguments['order'] = $_REQUEST['order'];
         $nextOrder = 'desc';
-    }
-    elseif ($_REQUEST['order'] == 'desc')
-    {
-        $strategy->setOrder(AdminBoxStrategy::ORDER_DESC);
-        $arguments['order'] = $_REQUEST['order'];
-        $nextOrder = 'asc';
     }
     else
     {
+        $strategy->setOrder(AdminBoxStrategy::ORDER_DESC);
         $nextOrder = 'asc';
     }
 }
@@ -85,21 +85,23 @@ else
 
 if (isset($_REQUEST['fieldOrder']))
 {
-    if ($_REQUEST['fieldOrder'] == 'name')
+    $arguments['fieldOrder'] = isset( $_REQUEST['fieldOrder'] )
+        && in_array( $_REQUEST['fieldOrder'], array('name','username','date') )
+        ? $_REQUEST['fieldOrder']
+        : 'date'
+        ;
+    
+    if ($arguments['fieldOrder'] == 'name')
     {
         $strategy->setFieldOrder(AdminBoxStrategy::FIELD_ORDER_NAME);
     }
-    elseif ($_REQUEST['fieldOrder'] == 'username')
+    elseif ($arguments['fieldOrder'] == 'username')
     {
         $strategy->setFieldOrder(AdminBoxStrategy::FIELD_ORDER_USERNAME);
     }
-    elseif ($_REQUEST['fieldOrder'] == 'date')
-    {
-        $strategy->setFieldOrder(AdminBoxStrategy::FIELD_ORDER_DATE);
-    }
     else
     {
-        //nothing to do
+        $strategy->setFieldOrder(AdminBoxStrategy::FIELD_ORDER_DATE);
     }
 }
 
@@ -108,52 +110,103 @@ if (isset($_REQUEST['search']) && in_array($_REQUEST['search'],$acceptedSearch))
 {
     $arguments['search'] = $_REQUEST['search'];
     
-    if ($_REQUEST['search'] == 'fromUser')
+    if ($arguments['search'] == 'fromUser')
     {
+        $name = isset($_REQUEST['name']) ? strip_tags($_REQUEST['name']) : NULL; 
         $title = get_lang("User's messages");
-        if (!isset($_REQUEST['name']) || $_REQUEST['name'] == "")
+        if (is_null($name) || $name == "")
         {
             $displayTable = FALSE;
         }
         else
         {
-            $arguments['name'] = trim($_REQUEST['name']);
+            $arguments['name'] = trim($name);
             $strategy->setStrategy(AdminBoxStrategy::SENT_BY , array('name' => $arguments['name']));
         }
     }
 
-    if ($_REQUEST['search'] == 'olderThan')
+    if ($arguments['search'] == 'olderThan')
     {
         $title = get_lang("Messages older than");
-        if (!isset($_REQUEST['date']))
+        
+        $date = isset($_REQUEST['date']) ? $_REQUEST['date'] : NULL;
+        
+        if (!is_null($date))
+        {
+            
+            list($day,$month,$year) = explode('/',$date);
+            
+            if (!checkdate($month,$day,$year))
+            {
+                $date = null;
+            }
+            else
+            {
+                $date = $day.'/'.$month.'/'.$year;
+            }
+            //echo $date;
+        }
+        
+        if (is_null($date))
         {
             $displayTable = FALSE;
         }
         else
         {
-            $arguments['date'] = $_REQUEST['date'];
-            $strategy->setStrategy(AdminBoxStrategy::OLDER_THAN , array('date' => strtotime(substr($_REQUEST['date'],6,4).'-'.substr($_REQUEST['date'],3,2).'-'.substr($_REQUEST['date'],0,2))));
+            $arguments['date'] = $date;
+            $strategy->setStrategy(AdminBoxStrategy::OLDER_THAN , array('date' => strtotime($year.'-'.$month.'-'.$day)));
         }
     }
     
-    if ($_REQUEST['search'] == 'timeInterval')
+    if ($arguments['search'] == 'timeInterval')
     {
         $title = get_lang("Message dating");
-        if (!isset($_REQUEST['date1']) || !isset($_REQUEST['date2']))
+        
+        $date1 = isset($_REQUEST['date1']) ? $_REQUEST['date1'] : NULL;
+        
+        if (!is_null($date1))
+        {
+            list($day1,$month1,$year1) = explode('/',$date1);
+            
+            if (!checkdate($month1,$day1,$year1))
+            {
+                $date1 = null;
+            }
+            else
+            {
+                $arguments['date1'] = $day1.'/'.$month1.'/'.$year1;
+            }
+        }
+        
+        $date2 = isset($_REQUEST['date2']) ? $_REQUEST['date2'] : NULL;
+        
+        if (!is_null($date2))
+        {
+            list($day2,$month2,$year2) = explode('/',$date2);
+            
+            if (!checkdate($month2,$day2,$year2))
+            {
+                $date2 = null;
+            }
+            else
+            {
+                $arguments['date2'] = $day2.'/'.$month2.'/'.$year2;
+            }
+        }
+        
+        if (!isset($arguments['date1']) || !isset($arguments['date2']))
         {
             $displayTable = FALSE;
         }
         else
         {
-            $arguments['date1'] = $_REQUEST['date1'];
-            $arguments['date2'] = $_REQUEST['date2'];
             $strategy->setStrategy(AdminBoxStrategy::DATED_INTERVAL , 
-                array('date1' => strtotime(substr($_REQUEST['date1'],6,4).'-'.substr($_REQUEST['date1'],3,2).'-'.substr($_REQUEST['date1'],0,2))
-                    ,'date2' => strtotime(substr($_REQUEST['date2'],6,4).'-'.substr($_REQUEST['date2'],3,2).'-'.substr($_REQUEST['date2'],0,2))));
+                array('date1' => strtotime($year1.'-'.$month1.'-'.$day1)
+                    ,'date2' => strtotime($year2.'-'.$month2.'-'.$day2)));
         }
     }
 
-    if ($_REQUEST['search'] == 'plateformMessage')
+    if ($arguments['search'] == 'plateformMessage')
     {
         $title = get_lang("Plateforme messages");
         $strategy->setStrategy(AdminBoxStrategy::PLATFORM_MESSAGE);
@@ -186,12 +239,13 @@ if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCommand))
                         ;
         foreach ( $_REQUEST['msg'] as $count => $idMessage )
         {
-            $form .= '<input type="hidden" name="msg[]" value="'.$idMessage.'" />'."\n";
+            $form .= '<input type="hidden" name="msg[]" value="'.(int)$idMessage.'" />'."\n";
         }
-            $form .= '<input type="submit" value="'.get_lang('Yes').'" /> '."\n"
-                    .'<a href=""><input type="button" value="'.get_lang('No').'" /></a>'   ."\n"     		 
-                    .'</form>'."\n\n"
-                    ;
+        
+        $form .= '<input type="submit" value="'.get_lang('Yes').'" /> '."\n"
+                .'<a href=""><input type="button" value="'.get_lang('No').'" /></a>'   ."\n"     		 
+                .'</form>'."\n\n"
+                ;
         
         $dialbox = new DialogBox();
         $dialbox->form($form);
@@ -199,7 +253,7 @@ if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCommand))
         $content .= $dialbox->render();
     }
     
-    if($cmd == "rqDeleteMessage" && isset($_REQUEST['message_id']))
+    if ($cmd == "rqDeleteMessage" && ! is_null($messageId))
     {
         $argDelete = makeArgLink($arguments);  
         if ($argDelete == "")
@@ -213,8 +267,8 @@ if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCommand))
         
         $deleteConfirmation = get_lang('Are you sure to delete the message?')
             . '<br /><br />'
-            . '<a href="'.$linkDelete.'cmd=exDeleteMessage&amp;message_id='.$_REQUEST['message_id'].'">' . get_lang('Yes') . '</a>'
-            .' <a href="'.$linkDelete.'">' . get_lang('No') .'</a>'
+            . '<a href="'.$linkDelete.'cmd=exDeleteMessage&amp;message_id='.$messageId.'">' . get_lang('Yes') . '</a>'
+            .' | <a href="'.$linkDelete.'">' . get_lang('No') .'</a>'
             ;
             
         $dialbox = new DialogBox();
@@ -223,9 +277,9 @@ if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCommand))
         $content .= $dialbox->render(); 
     }
     
-    if($cmd == "exDeleteMessage" && isset($_REQUEST['message_id']))
+    if ($cmd == "exDeleteMessage" && ! is_null($messageId))
     {
-        $message = SentMessage::fromId($_REQUEST['message_id']);
+        $message = SentMessage::fromId($messageId);
         $message->delete();
     }
 }
@@ -243,12 +297,11 @@ if (isset($_REQUEST['page']))
 
 // ------------- display
 
-if ($_REQUEST['search'] == 'fromUser')
+if ($arguments['search'] == 'fromUser')
 {
-    if (isset($_REQUEST['name']))
+    if (isset($arguments['name']))
     {
-        $name = $_REQUEST['name'];
-        
+        $name = $arguments['name'];
     }
     else
     {
@@ -257,7 +310,7 @@ if ($_REQUEST['search'] == 'fromUser')
     
     $searchForm = 
         '<form action="'.$_SERVER['PHP_SELF'].'?search=fromUser" method="post">'."\n"
-       .'Name: <input type="text" name="name" value="'.$name.'"/>'."\n"
+       .'<input type="text" name="name" value="'.$name.'" class="inputSearch" />'."\n"
        .'<input type="submit" value="'.get_lang("Search").'" />'."\n"
        .'</form>'."\n\n"
        ;
@@ -267,14 +320,9 @@ if ($_REQUEST['search'] == 'fromUser')
     $content .= "<br />".$dialbox->render();
 }
 
-if ($_REQUEST['search'] == 'olderThan')
+if ($arguments['search'] == 'olderThan')
 {
-    if (isset($_REQUEST['date']))
-    {
-        $date = $_REQUEST['date'];
-        
-    }
-    else
+    if (is_null($date))
     {
         $date = date('d/m/Y');
     }
@@ -294,7 +342,7 @@ if ($_REQUEST['search'] == 'olderThan')
     $disp = '
         Select a date:<br />'."\n"."\n"
         . '<form action="'.$_SERVER['PHP_SELF'].'?search=olderThan" method="post">'."\n"
-        . '<input type="text" name="date" value="'.$date.'" id="dateinput" /><br />'."\n"
+        . '<input type="text" name="date" value="'.$date.'" id="dateinput" />'.get_lang('JJ/MM/AAAA').'<br />'."\n"
         . '<input type="submit" value="'.get_lang('search').'" />'."\n"
         . '</form>'."\n\n"
         ;
@@ -304,12 +352,12 @@ if ($_REQUEST['search'] == 'olderThan')
     $content .= $dialbox->render();
 }
 
-if ($_REQUEST['search'] == 'timeInterval')
+if ($arguments['search'] == 'timeInterval')
 {
-    if (isset($_REQUEST['date1']) && isset($_REQUEST['date2']))
+    if (isset($arguments['date1']) && isset($arguments['date2']))
     {
-        $date1 = $_REQUEST['date1'];
-        $date2 = $_REQUEST['date2'];
+        $date1 = $arguments['date1'];
+        $date2 = $arguments['date2'];
     }
     else
     {
@@ -334,7 +382,7 @@ if ($_REQUEST['search'] == 'timeInterval')
         Select a interval:<br />'."\n"
         . '<form action="'.$_SERVER['PHP_SELF'].'?search=timeInterval" method="post">'."\n"
         . get_lang('From').' <input type="text" name="date1" value="'.$date1.'" id="dateinput1" /> '."\n"
-        . get_lang('to').' <input type="text" name="date2" value="'.$date2.'" id="dateinput2" /><br />'."\n"
+        . get_lang('to').' <input type="text" name="date2" value="'.$date2.'" id="dateinput2" /> '.get_lang('(JJ/MM/AAAA)').'<br />'."\n"
         . '<input type="submit" value="'.get_lang('search').'" />'."\n"
         . '</form>'."\n\n"
         ;
@@ -484,7 +532,7 @@ if ($displayTable)
 }
 
 // ------------------- render ----------------------------
-$claroline->display->banner->breadcrumbs->append(get_lang('My messages'),'index.php');
+$claroline->display->banner->breadcrumbs->append(get_lang('Messages'),'index.php');
 $claroline->display->banner->breadcrumbs->append(get_lang('Administration'),'admin.php');
 $claroline->display->banner->breadcrumbs->append(get_lang('Search messages'),'admin_search.php?search='.$arguments['search']);
 

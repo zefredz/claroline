@@ -84,6 +84,11 @@
             
             // subject
             $subject = $_REQUEST['subject'];
+            if (empty($subject))
+            {
+               $subject .= get_lang('Message from your lecturer');
+            }
+            
     
             // content
             $body = $_REQUEST['content'];
@@ -92,12 +97,10 @@
              
             $message = new MessageToSend(claro_get_current_user_id(),$subject,$body);
             $message->setCourse(claro_get_current_course_id());
-            //$message->setGroup(claro_get_current_group_id());
-
+            
             $recipient = new UserListRecipient();
             $recipient->addUserIdList($userIdList);
             
-            //$message->sendTo($recipient);
             $recipient->sendMessage($message);
             
             $dialogBox = new DialogBox();
@@ -302,7 +305,7 @@
         .    '</select>'."\n"
         .    '</td></tr></table>'."\n"
         .    '<div class="composeMessage">'."\n"
-        .    '<br/>'.get_lang('Subject') . "\n"
+        .    '<br/>'.get_lang('Subject') . '<br />' . "\n"
         .    '<input type="text" name="subject" maxlength="255" size="40" />'
         .    '<br/>'.get_lang('Message') .'<br/>'. "\n"
         .    claro_html_textarea_editor('content', "")

@@ -23,6 +23,10 @@
     require_once dirname(__FILE__).'/lib/permission.lib.php';
     require_once dirname(__FILE__).'/lib/tools.lib.php';
     
+    $messageId = isset($_REQUEST['messageId']) ? (int)$_REQUEST['messageId']: NULL;
+    $type = isset($_REQUEST['type']) ? htmlspecialchars($_REQUEST['type']) : NULL;
+    
+    
     // move to kernel
     $claroline = Claroline::getInstance();
     
@@ -39,7 +43,7 @@
 
     if (isset($_REQUEST['userId']))
     {
-        $userId = $_REQUEST['userId'];
+        $userId = (int)$_REQUEST['userId'];
     }
     if ($userId != claro_get_current_user_id() && !claro_is_platform_admin())
     {
@@ -47,17 +51,17 @@
     }
     
     // load the message
-    if (!isset($_REQUEST['messageId']) 
-            || !isset($_REQUEST['type']) 
-            || ($_REQUEST['type'] != "received" && $_REQUEST['type'] != "sent"))
+    if (is_null($messageId) 
+            || is_null($type) 
+            || ($type != "received" && $type != "sent"))
     {
         claro_die(get_lang('Not allowed'));
     }
-    if ($_REQUEST['type'] == "received")
+    if ($type == "received")
     {
         try
         {
-            $message = ReceivedMessage::fromId($_REQUEST['messageId'],$userId);
+            $message = ReceivedMessage::fromId($messageId,$userId);
             
             if (claro_get_current_user_id() == $userId)
             {
@@ -71,7 +75,7 @@
     }
     else
     {
-        $message = SentMessage::fromId($_REQUEST['messageId']);
+        $message = SentMessage::fromId($messageId);
         
         // the sender is different from the current user id
         if ($message->getSender() != $userId)
@@ -85,7 +89,7 @@
     
     if (isset($_REQUEST['cmd']) 
             && in_array($_REQUEST['cmd'],$acceptedCmd) 
-            && $_REQUEST['type'] == "received")
+            && $type == "received")
     {
         if ($_REQUEST['cmd'] == 'exRestore')
         {
@@ -124,14 +128,14 @@
         $content .= '<table class="claroMessageBox" border="0" cellpadding="10" cellspacing="0"><tbody><tr><td>'."\n";
         $content .= '<div class="dialogQuestion">'."\n";
         $content .= get_lang('Are you sure to delete').'<br/><br/>'."\n";
-        $content .= '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;messageId='.$_REQUEST['messageId'].'&amp;type='.$_REQUEST['type'].'&amp;userId='.$userId.'">'.get_lang('Yes').'</a> | <a href="./messagebox.php?box=inbox&amp;userId='.$userId.'">'.get_lang('No').'</a>'."\n";
+        $content .= '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;messageId='.$messageId.'&amp;type='.$type.'&amp;userId='.$userId.'">'.get_lang('Yes').'</a> | <a href="./messagebox.php?box=inbox&amp;userId='.$userId.'">'.get_lang('No').'</a>'."\n";
         $content .= '</div>'."\n";
         $content .= '</td></tr></tbody></table><br/>'."\n\n";
     }
     
     
     $action = '';
-    if ($_REQUEST['type'] == "received")
+    if ($type == "received")
     {
         if ($message->getRecipient() > 0 || claro_is_platform_admin())
         {
@@ -139,7 +143,7 @@
             {
                 if ($message->getRecipient() == $userId || claro_is_platform_admin())
                 {
-                    $action .= ' [<a href="'.$_SERVER['PHP_SELF'].'?cmd=exRestore&amp;messageId='.$_REQUEST['messageId'].'&amp;type='.$_REQUEST['type'].'&amp;userId='.$userId.'">'.get_lang('Move to inbox').'</a>]';
+                    $action .= ' <a href="'.$_SERVER['PHP_SELF'].'?cmd=exRestore&amp;messageId='.$messageId.'&amp;type='.$type.'&amp;userId='.$userId.'">'.get_lang('Move to inbox').'</a>';
                 }
             }
             else
@@ -161,8 +165,8 @@
                 </script>';
                 $claroline->display->header->addHtmlHeader($javascriptDelete);
                 
-                $action .= ' [<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqDelete&amp;messageId='.$_REQUEST['messageId'].'&amp;type='.$_REQUEST['type'].'&amp;userId='.$userId.'"
-                 onclick="return deleteMessage(\''.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;messageId='.$_REQUEST['messageId'].'&amp;type='.$_REQUEST['type'].'&amp;userId='.$userId.'\')"><img src="img/user-trash-full.gif" alt="" /></a>]';
+                $action .= ' <a href="'.$_SERVER['PHP_SELF'].'?cmd=rqDelete&amp;messageId='.$messageId.'&amp;type='.$type.'&amp;userId='.$userId.'"
+                 onclick="return deleteMessage(\''.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;messageId='.$messageId.'&amp;type='.$type.'&amp;userId='.$userId.'\')"><img src="img/user-trash-full.gif" alt="" /></a>';
             }
         }
         else
@@ -177,7 +181,7 @@
     
     $content .= DisplayMessage::display($message,$action);
     
-    if ($_REQUEST['type'] == "received")
+    if ($type == "received")
     {
         if ($message->isDeleted())
         {

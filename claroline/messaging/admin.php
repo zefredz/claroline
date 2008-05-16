@@ -42,8 +42,8 @@ $content = "";
 
 // ---- display
 
-$warningMessage = get_lang('Warning: All suppression of message in the administration, delete message from <br />ALL message box for ALL users.
-        <br /><br />You cannot retreive message after message after the suppression!');
+$warningMessage = get_lang('Warning: When you delete a message keep in mind that it will be deleted for every user.
+        <br /><br />You cannot retrieve deleted messages!');
 
 $dialbox = new DialogBox();
 $dialbox->warning($warningMessage);
@@ -67,7 +67,7 @@ $content .=
         .'</ul>'."\n"
         ;
 
-$claroline->display->banner->breadcrumbs->append(get_lang('My messages'),'index.php');
+$claroline->display->banner->breadcrumbs->append(get_lang('Messages'),'index.php');
 $claroline->display->banner->breadcrumbs->append(get_lang('Administration'),'admin.php');
 
 $claroline->display->body->appendContent(claro_html_tool_title(get_lang('Administration')));

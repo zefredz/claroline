@@ -22,6 +22,10 @@
 
     require_once dirname(__FILE__) . '/lib/displaymessage.lib.php';
     
+    // variable initilization
+    
+    $messageId = (isset($_GET['messageId'])) ? (int)$_GET['messageId']: NULL;
+    
     $content .= "<br />";
         
     if (isset($displayConfimation) && $displayConfimation)
@@ -38,7 +42,7 @@
             $linkDelete = $linkPage."?".$arg_deleting."&amp;";
             $linkBack = $linkPage."?".$arg_paging;
         }
-        $linkDelete .= "cmd=exDeleteMessage&amp;messageId=".$_GET['messageId'];
+        $linkDelete .= "cmd=exDeleteMessage&amp;messageId=".$messageId;
         
         //----------------------- table display --------------------
         
@@ -77,7 +81,13 @@
         $linkSearch = $linkPage."?".$arg_search;
         
         $searchForm = '<form action="'.$linkSearch.'" method="post">'."\n"
-                     . ' readSatus: '
+                    . '<input type="text" name="search" value="'
+                    ;
+        if (isset($link_arg['search']))
+        {
+            $searchForm .= $link_arg['search'];
+        }
+        $searchForm .= '" class="inputSearch" /> '."\n"
                      . '    <select name="SelectorReadStatus" size="1">'
                      . '        <option value="all" '
                      ;
@@ -85,39 +95,31 @@
         {
             $searchForm .= "selected";
         }
-        $searchForm .= '>'.get_lang("All messages").'</option>'
+        $searchForm .= '>'.get_lang("read and unread").'</option>'
                     . '        <option value="read" '
                     ;
         if (isset($link_arg['SelectorReadStatus']) && $link_arg['SelectorReadStatus'] == "read")
         {
             $searchForm .= "selected";
         }
-        $searchForm .= '>'.get_lang("Message read only").'</option>'
+        $searchForm .= '>'.get_lang("read only").'</option>'
                     . '        <option value="unread" ';
         if (isset($link_arg['SelectorReadStatus']) && $link_arg['SelectorReadStatus'] == "unread")
         {
             $searchForm .= "selected";
         }
-        $searchForm .= '>'.get_lang("message unread only").'</option>'    
-                    . '    </select><br/>'
-                    . get_lang("Search").' : <input type="text" name="search" value="'
-                    ;
-        if (isset($link_arg['search']))
-        {
-            $searchForm .= $link_arg['search'];
-        }
-        $searchForm .= '" /> <br />'."\n"
+        $searchForm .= '>'.get_lang("unread only").'</option>'    
+                    . '    </select> '
+                    . '<input type="submit" value="'.get_lang("Search").'" /><br />'."\n"
+                    . '</form>'."\n"
                     . '<input type="checkbox" name="searchStrategy" value="'.get_lang('Match the exact expression').'"'
                     ;
+                    
         if (isset($link_arg['searchStrategy']) && $link_arg['searchStrategy'] == 1)
         {
             $searchForm .= " CHECKED";
         }
-        $searchForm .= ' />'.get_lang('Match the exact expression').'<br/><br/>'."\n"
-                    . '<input type="submit" value="'.get_lang("Search").'" />'."\n"
-                    . '</form>'."\n"
-                    . '[<a href="'.$linkSearch.'">'.get_lang("Simple").'</a>]'
-                    ;
+        $searchForm .= ' />'.get_lang('Exact expression')."\n";
         $dialbox = new DialogBox();
         $dialbox->form($searchForm);
         
@@ -136,7 +138,7 @@
         {
             $serachForm .= $link_arg['search'];
         }
-        $serachForm .= '"  class="inputSearch" />'."\n"
+        $serachForm .= '" class="inputSearch" />'."\n"
                 . '<input type="submit" value="'.get_lang("Search").'" />'."\n"
                 . '[<a href="'.$linkSearch.'&amp;cmd=rqSearch">'.get_lang("Advanced").'</a>]'
                 . '</form>'."\n"

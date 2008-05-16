@@ -17,6 +17,7 @@
 
     $cidReset = TRUE; 
     require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
+    require_once get_path('incRepositorySys') . '/lib/user.lib.php';
 
     // move to kernel
     $claroline = Claroline::getInstance();
@@ -29,11 +30,12 @@
     
     include claro_get_conf_repository() . 'CLMSG.conf.php';
     require_once dirname(__FILE__) . '/lib/permission.lib.php';
-    
+
+    $userId = isset($_REQUEST['userId']) ? (int)$_REQUEST['userId'] : NULL;
     
     $link_arg = array();
     
-    if (isset($_REQUEST['userId']) && !empty($_REQUEST['userId']))
+    if (!is_null($userId) && !empty($userId))
     {
         $currentUserId = (int)$_REQUEST['userId'];
         $link_arg['userId'] = $currentUserId;
@@ -46,6 +48,25 @@
     if ($currentUserId != claro_get_current_user_id() && !claro_is_platform_admin())
     {
         claro_die(get_lang("Not allowed"));
+    }
+    
+    // user exist ?
+    if ($currentUserId != claro_get_current_user_id())
+    {
+        $userData = user_get_properties($currentUserId);
+        if ($userData === false)
+        {
+            claro_die(get_lang("User not found"));        
+        }
+        else
+        {
+            $title = get_lang('messages of ').get_lang('%firstName %lastName', 
+                array ('%firstName' =>htmlspecialchars($userData['firstname']), '%lastName' => htmlspecialchars($userData['lastname'])));
+        }
+    }
+    else
+    {
+        $title = get_lang('My messages');
     }
     
     $cssLoader = CssLoader::getInstance();
@@ -63,24 +84,21 @@
     require_once dirname(__FILE__) . '/lib/tools.lib.php';
     
     $content = "";
-    if ($_REQUEST['box'] == "inbox")
+    if ($link_arg['box'] == "inbox")
     {
-        $title = get_lang('Inbox');
         include dirname(__FILE__) . '/inboxcontroler.inc.php';
     }
-    elseif ($_REQUEST['box'] == "outbox")
+    elseif ($link_arg['box'] == "outbox")
     {
-        $title = get_lang('Outbox');
         include dirname(__FILE__) . '/outboxcontroler.inc.php';
     }
     else
     {
-        $title = get_lang('Trashbox');
         include dirname(__FILE__) . '/trashboxcontroler.inc.php';
     }
     
     $claroline->display->banner->breadcrumbs->append($title,$_SERVER['PHP_SELF'].'?box='.$link_arg['box']);
-    $claroline->display->body->appendContent(claro_html_tool_title(get_lang('My messages')." - ".$title));
+    $claroline->display->body->appendContent(claro_html_tool_title($title));
     $claroline->display->body->appendContent($content);
     // ------------ display ----------------------
     

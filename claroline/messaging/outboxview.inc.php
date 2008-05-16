@@ -28,23 +28,25 @@
         $linkSearch = $linkPage."?".$arg_search;
         
         $searchBox = '<form action="'.$linkSearch.'" method="post">'."\n";
-        $searchBox .= get_lang("Search").' : <input type="text" name="search" value="';
+        $searchBox .= '<input type="text" name="search" value="';
         
         if (isset($link_arg['search']))
         {
             $searchBox .= $link_arg['search'];
         }
         
-        $searchBox .= '" /> <br />'."\n";
+        $searchBox .= '"class="inputSearch" />'."\n";
+        $searchBox .= '<input type="submit" value="'.get_lang("Search").'" /><br />'."\n";
         $searchBox .= '<input type="checkbox" name="searchStrategy" value="'.get_lang('Match the exact expression').'"';
+        
         
         if (isset($link_arg['searchStrategy']) && $link_arg['searchStrategy'] == 1)
         {
             $searchBox .= " CHECKED";
         }
         
-        $searchBox .= ' />'.get_lang('Match the exact expression').'<br/><br/>'."\n";
-        $searchBox .= '<input type="submit" value="'.get_lang("Search").'" />'."\n";
+        $searchBox .= ' />'.get_lang('Exact expression').'<br/><br/>'."\n";
+        
         $searchBox .= '</form>'."\n";
         
         $dialBox = new DialogBox();

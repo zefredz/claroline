@@ -62,12 +62,14 @@
         
         if ($_REQUEST['cmd'] == 'rqMessageToUser' && isset($_REQUEST['userId']))
         {
-            if (!current_user_is_allowed_to_send_message_to_user($_REQUEST['userId']))
+            $userId = (int)$_REQUEST['userId'];
+            
+            if (!current_user_is_allowed_to_send_message_to_user($userId))
             {
                 claro_die("Not Allowed");
             }
             $typeRecipient = 'user';
-            $userRecipient = $_REQUEST['userId'];
+            $userRecipient = $userId;
             $groupRecipient = '';
             $courseRecipient = '';
             
@@ -125,13 +127,16 @@
         if ($_REQUEST['cmd'] == 'exSendMessage')
         {
             if (!isset($_POST['message'])
-                    || !isset($_POST['subject']))
+                    || !isset($_POST['subject'])
+                    || !isset($_POST['typeRecipient'])
+                    || !isset($_POST['userRecipient'])
+                    || !isset($_POST['groupRecipient'])
+                    || !isset($_POST['courseRecipient']))
             {
                  header('Location:./index.php');
             }
             else
             {
-                
                 
                 $message = trim($_POST['message']);
                 $subject = trim($_POST['subject']);
@@ -140,6 +145,12 @@
                 //test subject is fillin
                 if ($subject == "")
                 {
+                    
+                    $typeRecipient = strip_tags($_POST['typeRecipient']);
+                    $userRecipient = (int)$_POST['userRecipient'];
+                    $groupRecipient = (int)$_POST['groupRecipient'];
+                    $courseRecipient = strip_tags($_POST['courseRecipient']);
+                    
                     $dialogBox = new DialogBox();
                     $dialogBox->error(get_lang("Subject couldn't be empty"));
                     $content .= $dialogBox->render();
@@ -178,6 +189,10 @@
                         $message->setCourse($_POST['courseRecipient']);
                         $message->setGroup($_POST['groupRecipient']);
                     }
+                    else
+                    {
+                        claro_die(get_lang('unknow recipient type'));
+                    }
                     
                     $recipient->sendMessage($message);
                     $informationString = 
@@ -206,7 +221,7 @@
          . '<input type="hidden" name="userRecipient" value="'.$userRecipient.'" />'."\n"
          . '<input type="hidden" name="courseRecipient" value="'.$courseRecipient.'" />'."\n"
          . '<input type="hidden" name="groupRecipient" value="'.$groupRecipient.'" />'."\n"
-         . '<label>Subject: </label><input type="text" name="subject" value="'.htmlspecialchars($subject).'" /><br/>'."\n"
+         . '<label>Subject: </label><br/><input type="text" name="subject" value="'.htmlspecialchars($subject).'" maxlength="255" size="40" /><br/>'."\n"
          . '<label>message</label><br/>'.claro_html_textarea_editor('message', $message).'<br/><br/>'."\n"
          . '<input type="submit" value="'.get_lang('Send').'" name="send" />'."\n"
          . '</form>'."\n\n"
