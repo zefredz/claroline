@@ -33,7 +33,7 @@ class MyBox extends Portlet
 
     function renderContent()
     {
-        $output = getBarMessageBox( claro_get_current_user_id(), $displayMenuAdmin = false );
+        $output = getBarMessageBox( claro_get_current_user_id());
 
         $output .= '<br /><br />';
 
