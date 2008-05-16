@@ -63,12 +63,34 @@
         {
             $messagePlateform = ''.$numberOfPlateformMessage." ".get_lang('plateform message');
         }*/
-
+        
+        $sectionList = array(
+            'inbox' => get_lang(get_lang('inbox').'('.$inboxWithoutFilter->numberOfUnreadMessage().')'),
+            'outbox' => get_lang('Outbox'),
+            'trashbox' => get_lang('Trashbox')
+        );
+        
+        $currentSection = isset( $_REQUEST['box'] )
+        && in_array( $_REQUEST['box'], array_keys($sectionList) )
+        ? $_REQUEST['box']
+        : 'inbox'
+        ;
+        
+        $parameter = array();
+        if (isset($_REQUEST['userId']))
+        {
+            $parameter['userId'] = (int)$_REQUEST['userId'];
+        }
+        
+        return claro_html_tab_bar($sectionList,$currentSection, $parameter, 'box');
+        
+        /*
         $menu[] = '<a href="' . get_path( 'clarolineRepositoryWeb' ) . 'messaging/messagebox.php?box=inbox&amp;userId='.$currentUserId.'" class="claroCmd">'.get_lang('inbox').'('.$inboxWithoutFilter->numberOfUnreadMessage().')</a>';
         $menu[] = '<a href="' . get_path( 'clarolineRepositoryWeb' ) . 'messaging/messagebox.php?box=outbox&amp;userId='.$currentUserId.'" class="claroCmd">'.get_lang('outbox').'</a>';
         $menu[] = '<a href="' . get_path( 'clarolineRepositoryWeb' ) . 'messaging/messagebox.php?box=trashbox&amp;userId='.$currentUserId.'" class="claroCmd">'.get_lang('trashbox').'</a>';
         
         return claro_html_menu_horizontal($menu);
+		*/
     }
     
     function claro_is_user_platform_admin($userId)
