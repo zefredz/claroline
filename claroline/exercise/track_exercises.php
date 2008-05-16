@@ -189,7 +189,7 @@ if ( get_conf('is_trackingEnabled') )
         	$displayedAvgTime = claro_html_duration(floor($exo_users_detail['avgTime']));
         }
         echo      '<tr>'."\n"
-                  .'<td><a href="../tracking/userLog.php?uInfo='.$exo_users_detail['user_id'].'&view=0100000&exoDet='.$exercise->getId().'">'."\n"
+                  .'<td><a href="../tracking/userReport.php?uInfo='.$exo_users_detail['user_id'].'&view=0100000&exoDet='.$exercise->getId().'">'."\n"
                 .$exo_users_detail['nom'].' '.$exo_users_detail['prenom'].'</a></td>'."\n"
                   .'<td>'.$exo_users_detail['minimum'].'</td>'."\n"
                   .'<td>'.$exo_users_detail['maximum'].'</td>'."\n"

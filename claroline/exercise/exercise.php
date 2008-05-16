@@ -280,7 +280,7 @@ echo $dialogBox->render();
 $cmd_menu = array();
 if(get_conf('is_trackingEnabled') && claro_is_user_authenticated())
 {
-   $cmd_menu[] = '<a class="claroCmd" href="../tracking/userLog.php?uInfo='.claro_get_current_user_id().'&amp;view=0100000">'.get_lang('My results').'</a>';
+   $cmd_menu[] = '<a class="claroCmd" href="../tracking/userReport.php?uInfo='.claro_get_current_user_id().'&amp;view=0100000">'.get_lang('My results').'</a>';
 }
 
 if($is_allowedToEdit)
