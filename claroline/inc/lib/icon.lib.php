@@ -50,7 +50,8 @@
     /**
      * Returns the url of the given icon
      *
-     * @param string fileName file name with or without extension
+     * @param string $fileName file name with or without extension
+     * @param string $moduleLabel label of the module (optional)
      * @return string icon url
      *         mixed null if icon not found
      */
