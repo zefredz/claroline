@@ -55,6 +55,7 @@ $menu['AdminCourse']    = get_menu_item_list('AdminCourse');
 $menu['AdminClaroline'] = get_menu_item_list('AdminClaroline');
 $menu['AdminPlatform']  = get_menu_item_list('AdminPlatform');
 $menu['AdminTechnical'] = get_menu_item_list('AdminTechnical');
+$menu['Communication']  = get_menu_item_list('Communication');
 
 
 //----------------------------------
@@ -90,6 +91,7 @@ echo claro_html_tool_title($nameTools)
 ;
 
 echo '<table cellspacing="5" align="center">' . "\n"
+
 .    '<tr valign="top">' . "\n"
 .    '<td nowrap="nowrap">' . "\n"
 .    claro_html_tool_title('<img src="' . get_path('imgRepositoryWeb') . 'user.gif" alt="" />&nbsp;'.get_lang('Users'))
@@ -100,6 +102,7 @@ echo '<table cellspacing="5" align="center">' . "\n"
 .    claro_html_menu_vertical($menu['AdminCourse']) . "\n"
 .    '</td>' . "\n"
 .    '</tr>' . "\n"
+
 .    '<tr valign="top">' . "\n"
 .    '<td nowrap="nowrap">' . "\n"
 .    claro_html_tool_title('<img src="' . get_path('imgRepositoryWeb') . 'settings.gif" alt="" />&nbsp;'.get_lang('Platform')) . "\n"
@@ -110,10 +113,15 @@ echo '<table cellspacing="5" align="center">' . "\n"
 .    claro_html_menu_vertical($menu['AdminClaroline'])
 .    '</td>' . "\n"
 .    '</tr>' . "\n"
+
 .    '<tr valign="top">' . "\n"
 .    '<td nowrap="nowrap">' . "\n"
 .    claro_html_tool_title('<img src="' . get_path('imgRepositoryWeb') . 'exe.gif" alt="" />&nbsp;' . get_lang('Tools'))
 .    claro_html_menu_vertical($menu['AdminTechnical'])
+.    '</td>' . "\n"
+.    '<td nowrap="nowrap">' . "\n"
+.    claro_html_tool_title(get_lang('Communication'))
+.    claro_html_menu_vertical($menu['Communication'])
 .    '</td>' . "\n"
 .    '</tr>'
 ;
@@ -147,9 +155,10 @@ function get_menu_item_list($type)
         ;
 
         $menu['AdminUser'][] = claro_html_tool_link('adminusers.php',       get_lang('User list'));
+        $menu['AdminUser'][] = claro_html_tool_link('../messaging/sendmessage.php?cmd=rqMessageToAllUsers', get_lang('Send a message to all user'));
         $menu['AdminUser'][] = claro_html_tool_link('adminaddnewuser.php',  get_lang('Create user'));
-        $menu['AdminUser'][] = claro_html_tool_link('admin_class.php',      get_lang('Manage classes'));
         $menu['AdminUser'][] = claro_html_tool_link('../user/AddCSVusers.php?AddType=adminTool', get_lang('Add a user list'));
+        $menu['AdminUser'][] = claro_html_tool_link('admin_class.php',      get_lang('Manage classes'));
         $menu['AdminUser'][] = claro_html_tool_link('right/profile_list.php', get_lang('Right profile list'));
 
         $menu['AdminCourse'][] = '<form name="searchCourse" action="admincourses.php" method="get" >' . "\n"
@@ -190,7 +199,7 @@ function get_menu_item_list($type)
             $menu['AdminTechnical'][] =  claro_html_tool_link('devTools', get_lang('Devel Tools'));
         }
 
-
+        $menu['Communication'][] = '<a href="../messaging/admin.php?cmd=rqMessageToAllUsers">'.get_lang('Internal message administration').'</a>';
 
     }
 
