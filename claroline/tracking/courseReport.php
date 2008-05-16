@@ -28,17 +28,12 @@ if( ! claro_is_course_manager() ) claro_die(get_lang('Not allowed'));
 /*
  * Libraries
  */
-
 require_once dirname( __FILE__ ) . '/lib/trackingRenderer.class.php';
 require_once dirname( __FILE__ ) . '/lib/trackingRendererRegistry.class.php';
+
 /*
  * Init some other vars
  */
-$tbl_mdb_names = claro_sql_get_main_tbl();
-$tbl_rel_course_user         = $tbl_mdb_names['rel_course_user'  ];
-
-$tbl_cdb_names = claro_sql_get_course_tbl();
-$tbl_course_tracking_event = $tbl_cdb_names['tracking_event'];
 
 
 /*
@@ -80,6 +75,14 @@ foreach( $courseTrackingRendererList as $ctr )
     $html .= $renderer->render();
 }
 
+
+// display link to delete all course stats
+$html .= '<hr />'."\n"
+.    '<a class="claroButton" href="delete_course_stats.php">'
+.    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="" />'
+.    get_lang('Delete all course statistics')
+.    '</a>'."\n"
+;
 
 /*
  * Output rendering
