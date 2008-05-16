@@ -75,7 +75,7 @@ input[type=submit]:hover, button:hover, input[type=button]:hover {
     color: #fff;
 }
 
-input[type=button].inputSearch
+input[type=text].inputSearch
 {
     background: url('../img/search.gif') no-repeat top left #fff;
     padding-left: 18px;
