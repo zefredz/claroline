@@ -77,7 +77,7 @@ class csvUserList extends csv
         if( is_array($userList) && !empty($userList) )
         {
             // add titles at row 0, for that get the keys of the first row of array
-            $this->recordList[0] = array_keys($userList[1]); 
+            $this->recordList[0] = array_keys($userList[0]); 
             $i = 1;
             foreach( $userList as $user )
             {
