@@ -495,7 +495,6 @@ elseif ($displayMode == "viewContentList") // default display
         .    '<th>'.get_lang('Group Tutor').'</th>' . "\n"
         .    '<th>'.get_lang('Course manager').'</th>' . "\n"
         .    ($allowedToEditDef?'<th>'.get_lang('Edit').'</th>' . "\n":'')
-        .    '<th>'.get_lang('Forum posts').'</th>'
         .    ($is_allowedToTrack?"<th>".get_lang('Tracking').'</th>' . "\n":'')
         .    '</tr>' . "\n"
         .    '</thead>' . "\n"
@@ -520,13 +519,6 @@ elseif ($displayMode == "viewContentList") // default display
             ;
         }
 
-        echo '<td>'
-        .    '<a href="' . get_module_url('CLFRM')
-        .    '/viewsearch.php?searchUser='.$userIdViewed
-        .    claro_url_relay_context('&amp;') . '">'
-        .    '<img src="' . get_path('imgRepositoryWeb') . 'post.gif" alt="'.get_lang('Forum posts').'" />'
-        .    '</a>'
-        .    '</td>';
 
         if($is_allowedToTrack)
         {
