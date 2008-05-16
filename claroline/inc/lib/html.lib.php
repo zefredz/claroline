@@ -1634,13 +1634,26 @@ function claro_html_breadcrumb()
 
 function claro_html_tab_bar($section_list,
                              $section_selected_id = null,
-                             $url_params = null,
+                             $url_params = array(),
                              $section_request_var_name = 'section')
 {
     $menu = '';
 
     if ( !empty($section_list) && count($section_list)>2)
     {
+        $extra_url_params = '';
+        
+        if ( ! empty ( $url_params ) )
+        {
+            foreach ( $url_params as $name => $value )
+            {
+                $extra_url_params .= '&amp;'
+                    . htmlspecialchars($name)
+                    . '=' . htmlspecialchars($value)
+                    ;
+            }
+        }
+        
         $menu  = '<div >' . "\n";
         $menu .= '<ul id="navlist">' . "\n";
 
@@ -1655,7 +1668,7 @@ function claro_html_tab_bar($section_list,
                 . '<a ' . ( $section_id == $section_selected_id ? 'class="current"' : '' )
                 . ' href="' . $_SERVER['PHP_SELF']
                 . '?'.htmlspecialchars($section_request_var_name).'='
-                . htmlspecialchars($section_id) . htmlspecialchars($url_params). '" '
+                . htmlspecialchars($section_id) .$extra_url_params. '" '
                 . 'id="'. htmlspecialchars($section_id) .'">'
                 . get_lang($section_label) . '</a>'
                 . '</li>' . "\n"
@@ -1666,5 +1679,6 @@ function claro_html_tab_bar($section_list,
         $menu .= '</ul>' . "\n";
         $menu .= '</div>' . "\n" ;
     }
+    
     return $menu;
 }
