@@ -1654,7 +1654,7 @@ function claro_html_tab_bar($section_list,
             }
         }
         
-        $menu  = '<div >' . "\n";
+        $menu  = '<div>' . "\n";
         $menu .= '<ul id="navlist">' . "\n";
 
         foreach ( $section_list as $section_id => $section_label )
