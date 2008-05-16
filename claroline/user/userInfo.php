@@ -531,7 +531,7 @@ elseif ($displayMode == "viewContentList") // default display
         if($is_allowedToTrack)
         {
             echo '<td>'
-            .    '<a href="' . get_path('clarolineRepositoryWeb') . 'tracking/userLog.php'
+            .    '<a href="' . get_path('clarolineRepositoryWeb') . 'tracking/userReport.php'
             .    '?userId=' . $userIdViewed
             .    claro_url_relay_context('&amp;') . '">'
             .    '<img border="0" alt="' . get_lang('Tracking') . '" src="' . get_path('imgRepositoryWeb') . 'statistics.gif" />'
