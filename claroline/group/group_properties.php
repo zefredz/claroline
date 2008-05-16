@@ -157,6 +157,11 @@ echo '<tr>' . "\n"
 
 foreach ($groupToolList as $groupTool)
 {
+    if( !array_key_exists($groupTool['label'],$_groupProperties['tools']) )
+    {
+        continue;
+    }
+    
     $toolName = claro_get_module_name ( $groupTool['label']);
 
 

@@ -196,11 +196,14 @@ $toolLinkList = array();
 
 foreach($toolList as $thisTool)
 {
+    if( !array_key_exists($thisTool['label'],$_groupProperties['tools']) )
+    {
+        continue;
+    }
     // special case when display mode is student and tool invisible doesn't display it
     if ( !claro_is_allowed_to_edit() )
     {
-        if(!array_key_exists($thisTool['label'],$_groupProperties['tools'])
-           || !$_groupProperties['tools'][$thisTool['label']])
+        if(!$_groupProperties['tools'][$thisTool['label']])
         {
             continue;
         }
@@ -238,8 +241,7 @@ foreach($toolList as $thisTool)
     // patchy
     if ( claro_is_platform_admin() || claro_is_course_manager() )
     {
-        if(!array_key_exists($thisTool['label'],$_groupProperties['tools'])
-           || !$_groupProperties['tools'][$thisTool['label']])
+        if ( !$_groupProperties['tools'][$thisTool['label']])
         {
             $style = 'invisible ';
         }

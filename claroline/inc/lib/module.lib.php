@@ -601,6 +601,90 @@ function load_module_config ( $moduleLabel = null )
     }
 }
 
+function module_get_course_tool_list( $courseIdReq,
+                                    $platformActive = true,
+                                    $courseActive = true,
+                                    $context = null )
+{
+    $tbl_mdb_names        = claro_sql_get_main_tbl();
+    $tbl_tool_list        = $tbl_mdb_names['tool'];
+    $tbl_module           = $tbl_mdb_names['module'];
+    $tbl_module_contexts  = $tbl_mdb_names['module_contexts'];
+    $tbl_cdb_names        = claro_sql_get_course_tbl( claro_get_course_db_name_glued($courseIdReq) );
+    $tbl_course_tool_list = $tbl_cdb_names['tool'];
+    
+    if ( ! is_null ($context) )
+    {
+        $contextJoin = "LEFT JOIN `{$tbl_module_contexts}` AS mc\n"
+            . " ON mc.module_id = `m`.id\n"
+            ;
+        
+        $contextCondition = " AND `mc`.`context` = '"
+            .claro_sql_escape($context)."'"
+            ;
+    }
+    else
+    {
+        $contextJoin = "";
+        $contextCondition = "";
+    }
+    
+    /*
+    * Search all the tool corresponding to this access levels
+    */
+    
+    if ( is_null( $courseActive ) )
+    {
+        $sql_courseActive = '';
+    }
+    else
+    {
+        $sql_courseActive = $courseActive
+            ? " AND ctl.activated = 'true' "
+            : " AND ctl.activated = 'false' "
+            ;
+    }
+    
+    if ( is_null( $platformActive ) )
+    {
+        $sql_platformActive = '';
+    }
+    else
+    {
+        $sql_platformActive = $platformActive
+            ? " AND m.activation = 'activated' "
+            : " AND m.activation = 'deactivated' "
+            ;
+    }
+
+    // find module or claroline existing tools
+
+    $sql = "SELECT DISTINCT ctl.id            AS id,
+                  pct.id                      AS tool_id,
+                  pct.claro_label             AS label,
+                  ctl.script_name             AS external_name,
+                  ctl.visibility              AS visibility,
+                  IFNULL(pct.icon,'tool.gif') AS icon,
+                  ISNULL(ctl.tool_id)         AS external,
+                  m.activation ,
+                  m.name                      AS name,
+                  ctl.activated,
+                  IFNULL( ctl.script_url ,
+                          pct.script_url )    AS url
+           FROM (`" . $tbl_course_tool_list . "` AS ctl,
+                `" . $tbl_module . "`           AS m,
+                `" . $tbl_tool_list . "`        AS pct)\n"
+            . $contextJoin
+           . "WHERE pct.id = ctl.tool_id
+             AND pct.claro_label = m.label
+             ". $sql_platformActive . "
+             ". $sql_courseActive . "
+             ". $contextCondition . "
+           ORDER BY external, pct.def_rank, ctl.rank";
+
+    return claro_sql_query_fetch_all($sql);
+}
+
 function get_group_tool_label_list( $activatedOnly = true )
 {
     $tbl = claro_sql_get_main_tbl();
@@ -615,4 +699,12 @@ function get_group_tool_label_list( $activatedOnly = true )
         ;
     
     return claro_sql_query_fetch_all_rows($sql);
+}
+
+function get_activated_tool_label_list( $courseId )
+{
+    return module_get_course_tool_list( $courseId,
+                                    true,
+                                    true,
+                                    'group' );
 }
