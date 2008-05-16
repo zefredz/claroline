@@ -18,19 +18,21 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /*
  * 
  */
-class CLTRACK_CourseAccess extends TrackingRenderer
+class CLTRACK_CourseAccess extends CourseTrackingRenderer
 {   
     private $tbl_user;
     private $tbl_rel_course_user;
     private $tbl_course_tracking_event;
     
-    public function __construct()
+    public function __construct($courseId)
     {
-        $tbl_mdb_names = claro_sql_get_main_tbl();
-        $this->tbl_user = $tbl_mdb_names['user'  ];
-        $this->tbl_rel_course_user = $tbl_mdb_names['rel_course_user'  ];
+        $this->courseId = (int) $courseId;
         
-        $tbl_cdb_names = claro_sql_get_course_tbl();
+        $tbl_mdb_names = claro_sql_get_main_tbl();
+        $this->tbl_user = $tbl_mdb_names['user'];
+        $this->tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
+        
+        $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($this->courseId));
         $this->tbl_course_tracking_event = $tbl_cdb_names['tracking_event'];
     }
     
@@ -92,7 +94,7 @@ class CLTRACK_CourseAccess extends TrackingRenderer
         $results = claro_sql_query_fetch_all($sql);
         if( !empty($results) && is_array($results) )
         {
-            $content .= '<ul>'."\n";
+            $html .= '<ul>'."\n";
             foreach( $results as $result )
             {
                 $html .= '<li>'
@@ -136,13 +138,15 @@ TrackingRendererRegistry::registerCourse('CLTRACK_CourseAccess');
 /*
  * 
  */
-class CLTRACK_CourseToolAccess extends TrackingRenderer
+class CLTRACK_CourseToolAccess extends CourseTrackingRenderer
 {   
     private $tbl_course_tracking_event;
     
-    public function __construct()
+    public function __construct($courseId)
     {
-        $tbl_cdb_names = claro_sql_get_course_tbl();
+        $this->courseId = (int) $courseId;
+        
+        $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($this->courseId));
         $this->tbl_course_tracking_event = $tbl_cdb_names['tracking_event'];
     }
     
@@ -212,4 +216,113 @@ class CLTRACK_CourseToolAccess extends TrackingRenderer
 }
 
 TrackingRendererRegistry::registerCourse('CLTRACK_CourseToolAccess');
+
+
+
+
+/*
+ * 
+ */
+class CLTRACK_userCourseAccess extends UserTrackingRenderer
+{   
+    private $tbl_course_tracking_event;
+    
+    public function __construct($courseId, $userId)
+    {
+        $this->courseId = (int) $courseId;
+        $this->userId = (int) $userId;
+        
+        $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($this->courseId));
+        $this->tbl_course_tracking_event = $tbl_cdb_names['tracking_event'];
+        
+    }
+    
+    protected function renderHeader()
+    {
+        return get_lang('Access to course');
+    }
+    
+    protected function renderContent()
+    {
+        $courseAccess = $this->prepareContent();
+        
+        $html = '';
+        
+    	$html = '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center">' . "\n"
+    	.    '<tr class="headerX">' . "\n"
+    	.    '<th>' . get_lang('Month') . '</th>' . "\n"
+    	.    '<th>' . get_lang('Number of access') . '</th>' . "\n"
+    	.    '</tr>' . "\n"
+    	.    '<tbody>' . "\n"
+    	;
+    
+    	$total = 0;
+    	if( !empty($courseAccess) && is_array($courseAccess) )
+    	{
+    	    $langLongMonthNames = get_lang_month_name_list('long');
+    	    foreach( $courseAccess as $access )
+    	    {
+    	        $html .= '<tr>' . "\n"
+    	        .    '<td>' . "\n"
+    	        .    '<a href="logins_details.php?uInfo='.$this->userId . '&amp;reqdate='.$access['unix_date'].'">' . $langLongMonthNames[date('n', $access['unix_date'])-1].' '.date('Y', $access['unix_date']).'</a>' . "\n"
+    	        .    '</td>' . "\n"
+    	        .    '<td valign="top" align="right">'
+    	        .    (int) $access['nbr_access']
+    	        .    '</td>' . "\n"
+    	        .    '</tr>' . "\n";
+    
+    	        $total += (int) $access['nbr_access'];
+    	    }
+    	    $html .= '</tbody>' . "\n"
+    	    .    '<tfoot>' . "\n"
+    	    .    '<tr>' . "\n"
+    	    .    '<td>'
+    	    .    get_lang('Total')
+    	    .    '</td>' . "\n"
+    	    .    '<td align="right">'
+    	    .    $total
+    	    .    '</td>' . "\n"
+    	    .    '</tr>' . "\n"
+    	    .    '</tfoot>' . "\n";
+    	}
+    	else
+    	{
+    	    $html .= '<tfoot>' . "\n"
+    	    .    '<tr>' . "\n"
+    	    .    '<td colspan="2">' . "\n"
+    	    .    '<center>'
+    	    .    get_lang('No result')
+    	    .    '</center>' . "\n"
+    	    .    '</td>' . "\n"
+    	    .    '</tr>' . "\n"
+    	    .    '</tfoot>' . "\n";
+    	}
+    	$html .= '</table>' . "\n";
+        
+        return $html;
+    }
+    
+    protected function renderFooter()
+    {
+        return get_lang('Click on the month name for tool access details');
+    }
+    
+    private function prepareContent()
+    {
+    	$sql = "SELECT UNIX_TIMESTAMP(`date`) AS `unix_date`,
+                   count(`date`)          AS `nbr_access`
+                FROM `" . $this->tbl_course_tracking_event . "`
+                WHERE `user_id` = " . $this->userId . "
+                  AND `type` = 'course_access'
+                GROUP BY MONTH(`date`), YEAR(`date`)
+                ORDER BY `date` ASC";
+    
+    	$results = claro_sql_query_fetch_all($sql);
+    
+    	return $results;
+    }
+}
+
+TrackingRendererRegistry::registerUser('CLTRACK_userCourseAccess');
+
 ?>
