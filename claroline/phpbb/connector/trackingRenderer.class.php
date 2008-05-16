@@ -245,7 +245,11 @@ class CLFRM_UserTrackingRenderer extends UserTrackingRenderer
     protected function renderFooter()
     {
         return get_lang('Messages posted') . ' : ' . $this->getUserTotalForumPost() . '<br />' . "\n"
-	    .	 get_lang('Topics started') . ' : ' . $this->getUserTotalForumTopics();
+	    .	get_lang('Topics started') . ' : ' . $this->getUserTotalForumTopics() . '<br />' . "\n"
+	    .	'<a href="' . get_module_url('CLFRM') . '/viewsearch.php?searchUser='.$this->userId . claro_url_relay_context('&amp;') . '" >'
+	    .	get_lang('View all user\'s posts')
+	    . 	'</a>' . "\n"
+	    ;
     }
     
     private function getUserTotalForumPost()
