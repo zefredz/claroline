@@ -47,7 +47,7 @@ require_once get_path('incRepositorySys') . '/lib/claroCourse.class.php';
 define('DISP_COURSE_EDIT_FORM',__LINE__);
 define('DISP_COURSE_RQ_DELETE',__LINE__);
 
-$dialogBox = '';
+$dialogBox = new DialogBox();
 
 $cmd = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : null;
 $adminContext = isset($_REQUEST['adminContext']) ? (bool) $_REQUEST['adminContext'] : null;
@@ -102,8 +102,7 @@ if ( $course->load($current_cid) )
         {
             if ( $course->save() )
             {
-                $dialogBox = get_lang('The information have been modified') . '<br />' . "\n"
-                    . '<a href="' . $backUrl . '">' . get_lang('Continue') . '</a>' ;
+                $dialogBox->success( get_lang('The information have been modified') ) ;
 
                 if ( ! $adminContext )
                 {
@@ -115,12 +114,12 @@ if ( $course->load($current_cid) )
             }
             else
             {
-                $dialogBox = get_lang('Unable to save');
+                $dialogBox->error( get_lang('Unable to save') );
             }
         }
         else
         {
-            $dialogBox = $course->backlog->output();
+            $dialogBox->error( $course->backlog->output() );
         }
     }
 
@@ -140,7 +139,7 @@ if ( $course->load($current_cid) )
         }
         else
         {
-            $dialogBox = get_lang('Unable to save');
+            $dialogBox->error( get_lang('Unable to save') );
         }
     }
 
@@ -217,7 +216,7 @@ include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 echo claro_html_tool_title($nameTools);
 
-if ( ! empty ($dialogBox) ) echo claro_html_message_box($dialogBox);
+echo $dialogBox->render();
 
 echo '<p>' . claro_html_menu_horizontal($links) . '</p>' . "\n\n" ;
 
