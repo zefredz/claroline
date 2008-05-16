@@ -317,8 +317,7 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__desktop_portlet_data` (
   `label` varchar(255) NOT NULL,
   `idUser` int(11) NOT NULL,
   `data` text NOT NULL,
-  PRIMARY KEY  (`id`),
-  KEY `id` (`id`)
+  PRIMARY KEY  (`id`)
 ) TYPE=MyISAM;
 
 # STATS TABLES
