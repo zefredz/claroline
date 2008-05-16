@@ -55,6 +55,7 @@ function confirmation (name)
 $toolRepository = '../';
 
 $currentCourseRepository = claro_get_course_path();
+$dialogBox = new DialogBox();
 
 // Library
 require_once get_path('incRepositorySys') . '/lib/course_home.lib.php';
@@ -80,8 +81,6 @@ $toolLabel = isset($_REQUEST['toolLabel'])?$_REQUEST['toolLabel']:null;
 
 $externalLinkName = isset($_REQUEST['toolName'])?$_REQUEST['toolName']:null;
 $externalLinkUrl = isset($_REQUEST['toolUrl'])?$_REQUEST['toolUrl']:null;
-
-$msg = '';
 
 /*----------------------------------------------------------------------------
  Manage Profile
@@ -147,7 +146,7 @@ if ( $cmd == 'exAdd' )
             // notify that tool list has been changed
             $eventNotifier->notifyCourseEvent('toollist_changed', claro_get_current_course_id(), "0", "0", "0", '0');
 
-            $msg .= get_lang('External Tool added');
+            $dialogBox->success( get_lang('External Tool added') );
 
             $cidReset = TRUE;
             $cidReq   = claro_get_current_course_id();
@@ -157,12 +156,12 @@ if ( $cmd == 'exAdd' )
         }
         else
         {
-            $msg .= get_lang('Unable to add external tool');
+            $dialogBox->error( get_lang('Unable to add external tool') );
         }
     }
     else
     {
-        $msg .= get_lang('Missing value');
+        $dialogBox->error( get_lang('Missing value') );
         $cmd = 'rqAdd';
     }
 }
@@ -181,7 +180,7 @@ if ($cmd == 'exEdit')
 
             $eventNotifier->notifyCourseEvent('toollist_changed', claro_get_current_course_id(), "0", "0", "0", '0');
 
-            $msg .= get_lang('External tool updated');
+            $dialogBox->succes( get_lang('External tool updated') );
             $cidReset = TRUE;
             $cidReq   = claro_get_current_course_id();
 
@@ -191,12 +190,12 @@ if ($cmd == 'exEdit')
         }
         else
         {
-            $msg .= get_lang('Unable to update external tool');
+            $dialogBox->error( get_lang('Unable to update external tool') );
         }
     }
     else
     {
-        $msg .= get_lang('Missing value');
+        $dialogBox->error( get_lang('Missing value') );
         $cmd = 'rqEdit';
     }
 
@@ -212,7 +211,7 @@ if ($cmd == 'exDelete')
     {
         if (delete_course_tool($_REQUEST['externalToolId']) !== false)
         {
-            $msg .= get_lang('External tool deleted');
+            $dialogBox->succes( get_lang('External tool deleted') );
             $cidReset = TRUE;
             $cidReq   = claro_get_current_course_id();
 
@@ -222,12 +221,12 @@ if ($cmd == 'exDelete')
         }
         else
         {
-            $msg .= get_lang('Unable to delete external tool');
+            $dialogBox->error( get_lang('Unable to delete external tool') );
         }
     }
     else
     {
-        $msg .= get_lang('Unable to delete external tool');
+        $dialogBox->error( get_lang('Unable to delete external tool') );
     }
 
 }
@@ -254,7 +253,7 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
         $externalToolId = null;
     }
 
-    $msg .= "\n".'<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
+    $form = "\n".'<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
     .       claro_form_relay_context()
     .       '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
     .       '<input type="hidden" name="section" value="'.htmlspecialchars($currentSection).'" />'."\n"
@@ -262,10 +261,10 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
 
     if ($externalToolId)
     {
-        $msg .= '<input type="hidden" name="externalToolId" value="' . $externalToolId . '" />' . "\n";
+        $form .= '<input type="hidden" name="externalToolId" value="' . $externalToolId . '" />' . "\n";
     }
 
-    $msg .= '<label for="toolName">' . get_lang('Name link') . '</label>'
+    $form .= '<label for="toolName">' . get_lang('Name link') . '</label>'
     .       '<br />' . "\n"
     .       '<input type="text" name="toolName" id="toolName" value="'.htmlspecialchars($externalLinkName).'" />'
     .       '<br />' . "\n"
@@ -277,6 +276,8 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
     .       claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))."\n"
     .       '</form>' . "\n"
     ;
+    
+    $dialogBox->form($form);
 }
 
 /*----------------------------------------------------------------------------
@@ -292,11 +293,11 @@ if ( 'exRmTool' == $cmd )
 {
     if ( is_null( $toolLabel ) )
     {
-        $msg .= get_lang('Missing tool label');
+        $dialogBox->error( get_lang('Missing tool label') );
     }
     elseif ( in_array( $toolLabel, $undeactivable_tool_array ) )
     {
-        $msg .= get_lang('This tool cannot be removed');
+        $dialogBox->error( 'This tool cannot be removed' );
     }
     else
     {
@@ -310,7 +311,7 @@ if ( 'exRmTool' == $cmd )
                                                          claro_get_current_course_id(),
                                                          false ) )
             {
-                $msg .= get_lang('Tool removed from course');
+                $dialogBox->success(get_lang('Tool removed from course') );
                 $cidReset = TRUE;
                 $cidReq   = claro_get_current_course_id();
     
@@ -318,12 +319,12 @@ if ( 'exRmTool' == $cmd )
             }
             else
             {
-                $msg .= get_lang('Cannot remove tool from course');
+                $dialogBox->error( get_lang('Cannot remove tool from course') );
             }
         }
         else
         {
-            $msg .= get_lang('Not a valid tool');
+            $dialogBox->error( get_lang('Not a valid tool') );
         }
     }
 }
@@ -332,7 +333,7 @@ if ( 'exAddTool' == $cmd )
 {
     if ( is_null( $toolLabel ) )
     {
-        $msg .= get_lang('Missing tool label');
+        $dialogBox->error( get_lang('Missing tool label') );
     }
     else
     {
@@ -346,7 +347,7 @@ if ( 'exAddTool' == $cmd )
                                                          claro_get_current_course_id(),
                                                          true ) )
             {
-                $msg .= get_lang('Tool added to course');
+                $dialogBox->success( get_lang('Tool added to course') );
                 $cidReset = TRUE;
                 $cidReq   = claro_get_current_course_id();
 
@@ -354,26 +355,15 @@ if ( 'exAddTool' == $cmd )
             }
             else
             {
-                $msg .= get_lang('Cannot add tool to course');
+                $dialogBox->error( get_lang('Cannot add tool to course') );
             }
         }
         else
         {
-            $msg .= get_lang('Not a valid tool');
+            $dialogBox->error( get_lang('Not a valid tool') );
         }
     }
 }
-
-
-$backLink = '<p>'
-            .'<small>'
-            .'<a href="'. get_path('clarolineRepositoryWeb')
-            . 'course/index.php?cidReset=true&amp;cid='
-            . htmlspecialchars(claro_get_current_course_id()) . '">'
-            .'&lt;&lt;&nbsp;'.get_lang('Back to Home page') . '</a>'
-            .'</small>'
-            .'</p>'."\n\n"
-            ;
 
 // Build course tool list
 
@@ -414,9 +404,10 @@ include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 echo claro_html_tool_title(get_lang('Edit Tool list'));
 
+
 echo claro_html_tab_bar($sectionList,$currentSection);
 
-if ($msg) echo claro_html_message_box($msg);
+echo $dialogBox->render();
 
 if ( $currentSection == 'toolRights' )
 {
@@ -568,7 +559,7 @@ elseif ( $currentSection == 'toolList' )
     $inactiveCourseToolList = module_get_course_tool_list(
         claro_get_current_course_id(), true, false );
     
-    echo claro_html_tool_title(get_lang('Tools currently in your course'));
+    echo '<h3>' . get_lang('Tools currently in your course') . '</h3>' . "\n";
     
     echo '<blockquote>' . "\n"
         . '<table class="claroTable emphaseLine" style="width: 100%" >'."\n\n"
@@ -620,7 +611,7 @@ elseif ( $currentSection == 'toolList' )
         . "\n"
         ;
         
-    echo claro_html_tool_title(get_lang('Available tools to add to your course'));
+    echo '<h3>' . get_lang('Available tools to add to your course') . '</h3>' . "\n";
         
     echo '<blockquote>' . "\n"
         . '<table class="claroTable emphaseLine" style="width: 100%" >'."\n\n"
@@ -672,9 +663,6 @@ else
     echo get_lang('Invalid section');
 }
 
-echo '<hr size="1" noshade="noshade" />' . "\n\n"
-    . $backLink
-    ;
 
 // Display footer
 
