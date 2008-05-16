@@ -221,8 +221,8 @@
          . '<input type="hidden" name="userRecipient" value="'.$userRecipient.'" />'."\n"
          . '<input type="hidden" name="courseRecipient" value="'.$courseRecipient.'" />'."\n"
          . '<input type="hidden" name="groupRecipient" value="'.$groupRecipient.'" />'."\n"
-         . '<label>Subject: </label><br/><input type="text" name="subject" value="'.htmlspecialchars($subject).'" maxlength="255" size="40" /><br/>'."\n"
-         . '<label>message</label><br/>'.claro_html_textarea_editor('message', $message).'<br/><br/>'."\n"
+         . '<label>'.get_lang('Subject').' : </label><br/><input type="text" name="subject" value="'.htmlspecialchars($subject).'" maxlength="255" size="40" /><br/>'."\n"
+         . '<label>'.get_lang('Message').' : </label><br/>'.claro_html_textarea_editor('message', $message).'<br/><br/>'."\n"
          . '<input type="submit" value="'.get_lang('Send').'" name="send" />'."\n"
          . '</form>'."\n\n"
          ;
