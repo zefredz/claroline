@@ -487,5 +487,3 @@ class ConfigHtml extends Config
     }
 
 }
-
-?>
