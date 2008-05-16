@@ -1631,4 +1631,40 @@ function claro_html_breadcrumb()
     }
     return $htmlBC;
 }
-?>
+
+function claro_html_tab_bar($section_list,
+                             $section_selected_id = null,
+                             $url_params = null,
+                             $section_request_var_name = 'section')
+{
+    $menu = '';
+
+    if ( !empty($section_list) && count($section_list)>2)
+    {
+        $menu  = '<div >' . "\n";
+        $menu .= '<ul id="navlist">' . "\n";
+
+        foreach ( $section_list as $section_id => $section_label )
+        {
+            if ( empty( $section_selected_id ) )
+            {
+                $section_selected_id = $section_id;
+            }
+            
+            $menu .=  '<li>'
+                . '<a ' . ( $section_id == $section_selected_id ? 'class="current"' : '' )
+                . ' href="' . $_SERVER['PHP_SELF']
+                . '?'.htmlspecialchars($section_request_var_name).'='
+                . htmlspecialchars($section_id) . htmlspecialchars($url_params). '" '
+                . 'id="'. htmlspecialchars($section_id) .'">'
+                . get_lang($section_label) . '</a>'
+                . '</li>' . "\n"
+                ;
+
+        }
+        
+        $menu .= '</ul>' . "\n";
+        $menu .= '</div>' . "\n" ;
+    }
+    return $menu;
+}
