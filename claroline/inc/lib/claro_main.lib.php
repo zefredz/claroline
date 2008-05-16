@@ -1612,3 +1612,24 @@ function claro_debug_mode()
 {
     return ( defined ( 'CLARO_DEBUG_MODE' ) && CLARO_DEBUG_MODE );
 }
+
+function claro_is_course_tool_activated( $courseId, $toolId )
+{
+    $tbl_cdb_names        = claro_sql_get_course_tbl( claro_get_course_db_name_glued($courseId) );
+    $tbl_course_tool_list = $tbl_cdb_names['tool'];
+
+    /*
+    * Search all the tool corresponding to this access levels
+    */
+
+    // find module or claroline existing tools
+
+    $sql = "SELECT ctl.activated\n"
+        ."FROM `" . $tbl_course_tool_list . "` AS ctl\n"
+        ."WHERE ctl.tool_id = ".(int) $toolId
+        ;
+
+    $activated = claro_sql_query_fetch_single_value($sql);
+    
+    return $activated == 'true';
+}

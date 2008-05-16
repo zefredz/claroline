@@ -888,6 +888,11 @@ $_SESSION['is_groupTutor'  ] = $is_groupTutor;
  Tool in $_cid course allowed to $_uid user
  ---------------------------------------------------------------------------*/
 
+if ( $_cid && $_tid )
+{
+    $is_toolAllowed = $is_toolAllowed && claro_is_course_tool_activated( $_cid, $_tid );
+}
+
 $_SESSION['is_toolAllowed'] = $is_toolAllowed;
 
 /*---------------------------------------------------------------------------
