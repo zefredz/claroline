@@ -93,7 +93,7 @@ class ModuleManifestParser
         
         if ( ! array_key_exists( 'ENTRY', $this->moduleInfo ) )
         {
-            $this->moduleInfo['ENTRY'] = entry.php;
+            $this->moduleInfo['ENTRY'] = 'entry.php';
         }
         
         // Module License
