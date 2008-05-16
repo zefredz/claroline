@@ -17,13 +17,13 @@
  * @package Auth
  *
  */
-
+/*
 class MyStats extends Portlet
 {
     function __construct()
     {
         $this->title = get_lang('My statistics');
-        $this->content = 'le contenu de mon portlet';
+        $this->content = '';
     }
 
     function renderContent()
@@ -41,7 +41,7 @@ class MyStats extends Portlet
         }
 
         $output .= '<ul id="navlist">' . "\n"
-        .     '<li><a '.(empty($courseId)?'class="current"':'').' href="../tracking/userLog.php?userId='.$userId.'">'.get_lang('Platform').'</a></li>' . "\n"
+        .     '<li><a href="../tracking/userReport.php?userId='.$userId.'">'.get_lang('Platform').'</a></li>' . "\n"
         ;
 
         foreach( $userCourseList as $course )
@@ -50,7 +50,7 @@ class MyStats extends Portlet
             else                                        $class = '';
 
             $output .= ' <li>'
-            .     '<a '.$class.' href=../tracking/userLog.php?userId='.$userId.'&amp;courseId='.$course['sysCode'].'>'.$course['title'].'</a>'
+            .     '<a '.$class.' href=../tracking/userReport.php?userId='.$userId.'&amp;courseId='.$course['sysCode'].'>'.$course['title'].'</a>'
             .     '</li>' . "\n"
             ;
         }
@@ -67,4 +67,5 @@ class MyStats extends Portlet
         return $this->title;
     }
 }
+*/
 ?>
