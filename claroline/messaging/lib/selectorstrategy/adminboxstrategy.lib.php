@@ -42,7 +42,7 @@ class AdminBoxStrategy implements SelectorStrategy
     
     public function __construct()
     {
-        $this->numberMessagePerPage = get_conf('messagePerPage',10);
+        $this->numberMessagePerPage = get_conf('messagePerPage',40);
     }
     
     public function setStrategy($strategy,$valuesList = array())
