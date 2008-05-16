@@ -29,7 +29,8 @@ if( is_null($exId) )
     exit();
 }
 
-include('./lib/exercise.class.php');
+include_once dirname(__FILE__) . '/lib/exercise.class.php';
+
 /**
  * DB tables definition
  */
@@ -66,7 +67,7 @@ $nameTools = get_lang('Statistics of exercise');
 // get the tracking of a question as a csv file
 if( get_conf('is_trackingEnabled') && isset($_REQUEST['exportCsv']) )
 {
-    include(get_path('incRepositorySys').'/lib/export_exe_tracking.class.php');
+    include( dirname(__FILE__) . '/lib/export_tracking.class.php');
 
     // contruction of XML flow
     $csv = export_exercise_tracking($exId);
@@ -189,7 +190,7 @@ if ( get_conf('is_trackingEnabled') )
         	$displayedAvgTime = claro_html_duration(floor($exo_users_detail['avgTime']));
         }
         echo      '<tr>'."\n"
-                  .'<td><a href="../tracking/userReport.php?uInfo='.$exo_users_detail['user_id'].'&view=0100000&exoDet='.$exercise->getId().'">'."\n"
+                  .'<td><a href="../tracking/userReport.php?userId='.$exo_users_detail['user_id'].'&amp;exId='.$exercise->getId().'">'."\n"
                 .$exo_users_detail['nom'].' '.$exo_users_detail['prenom'].'</a></td>'."\n"
                   .'<td>'.$exo_users_detail['minimum'].'</td>'."\n"
                   .'<td>'.$exo_users_detail['maximum'].'</td>'."\n"
