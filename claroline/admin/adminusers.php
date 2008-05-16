@@ -146,14 +146,14 @@ foreach ($userList as $userKey => $user)
 {
 
     $userGrid[$userKey]['user_id']   = $user['user_id'];
-    $userGrid[$userKey]['name']      = '<a href="../messaging/sendmessage.php?cmd=rqMessageToUser&amp;userId='.$user['user_id'].'">'.$user['name'].'</a>';
+    $userGrid[$userKey]['name']      = $user['name'];
     $userGrid[$userKey]['firstname'] = $user['firstname'];
     $userEmailLabel=null;
     if ( !empty($_SESSION['admin_user_search']) )
     {
         $bold_search = str_replace('*','.*',$_SESSION['admin_user_search']);
 
-        $userGrid[$userKey]['name'] = '<a href="../messaging/sendmessage.php?cmd=rqMessageToUser&amp;userId='.$user['user_id'].'">'.eregi_replace('(' . $bold_search . ')' , '<b>\\1</b>', $user['name']).'</a>';
+        $userGrid[$userKey]['name'] = eregi_replace('(' . $bold_search . ')' , '<b>\\1</b>', $user['name']);
         $userGrid[$userKey]['firstname'] = eregi_replace('(' . $bold_search . ')' , '<b>\\1</b>', $user['firstname']);
         $userEmailLabel  = eregi_replace('(' . $bold_search . ')', '<b>\\1</b>' , $user['email']);
     }
@@ -268,10 +268,9 @@ echo '<table width="100%">' . "\n"
 .    '<td>' . '<a class="claroCmd" href="adminaddnewuser.php">'
 .    '<img src="' . get_path('imgRepositoryWeb') . 'user.gif" alt="" />'
 .    get_lang('Create user')
-.    '</a></td>' . "\n"
-.	 '<td>' . '<a class="claroCmd" href="../messaging/sendmessage.php?cmd=rqMessageToAllUsers">'
-.    get_lang('Send a message to all users')
-.    '</a></td>' . "\n"
+.    '</a>'
+.	 '</td>' . "\n"
+.	 '<td>' . ''
 .    '<td align="right">' . "\n"
 .    '<form action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
 .    '<label for="search">' . get_lang('Make new search') . '  </label>' . "\n"
