@@ -342,13 +342,14 @@ function form_dir_list($file, $baseWorkDir)
 
     $dirList = index_and_sort_dir($baseWorkDir);
 
-    $dialogBox = "<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\">\n"
+    $dialogBox = '<strong>' . get_lang('Move') . '</strong>' . "\n" 
+    ."<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\">\n"
                  .    claro_form_relay_context()
                  ."<input type=\"hidden\" name=\"cmd\" value=\"exMv\" />\n"
                  ."<input type=\"hidden\" name=\"file\" value=\"".$file."\" />\n"
                  ."<label for=\"destiantion\">"
-                 . get_lang('Copy').' <i>'.basename($file).'</i> '.get_lang('To')." : "
-                 ."</label><br />\n"
+                 . get_lang('Move <i>%filename</i> to', array('%filename' => basename($file) ))
+                 ."</label> \n"
                  ."<select name=\"destination\">\n";
 
     if ( dirname($file) == '/' || dirname($file) == '\\')
@@ -396,7 +397,7 @@ function form_dir_list($file, $baseWorkDir)
 
     $dialogBox .= '</select>' . "\n"
                .  '<br /><br />'
-               .  '<input type="submit" value="'.get_lang('Ok').'" />&nbsp; '
+               .  '<input type="submit" value="'.get_lang('Ok').'" />&nbsp;'
                .  claro_html_button($_SERVER['PHP_SELF'].'?cmd=exChDir&file='.htmlspecialchars(claro_dirname($file)), get_lang('Cancel'))
                .  '</form>' . "\n";
 
