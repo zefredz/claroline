@@ -45,9 +45,9 @@ $content = "";
 $warningMessage = get_lang('Warning: When you delete a message keep in mind that it will be deleted for every user.
         <br /><br />You cannot retrieve deleted messages!');
 
-$dialbox = new DialogBox();
-$dialbox->warning($warningMessage);
-$content .= $dialbox->render();
+$dialogbox = new DialogBox();
+$dialogbox->warning($warningMessage);
+$content .= $dialogbox->render();
 
 $content .=
         '<h4>'.get_lang('Delete').'</h4>'."\n"

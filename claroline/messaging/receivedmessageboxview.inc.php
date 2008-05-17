@@ -49,9 +49,9 @@
         $confirmationDelete = get_lang('Are you sure to move to trashbox').'<br/><br/>'."\n";
         $confirmationDelete .= '<a href="'.$linkDelete.'">'.get_lang('Yes').'</a> | <a href="'.$linkBack.'">'.get_lang('No').'</a>'."\n";
         
-        $dialbox = new DialogBox();
-        $dialbox->question($confirmationDelete);
-        $content .= "<br />" .$dialbox->render();
+        $dialogbox = new DialogBox();
+        $dialogbox->question($confirmationDelete);
+        $content .= "<br />" .$dialogbox->render();
     }
     
     if (isset($displayConfimationEmptyTrashbox) && $displayConfimationEmptyTrashbox)
@@ -69,9 +69,9 @@
             . '<br /><br />'
             . '<a href="'.$linkEmptyTrashBox.'">'.get_lang('Yes').'</a> | <a href="'.$linkBack.'">'.get_lang('No').'</a>'
             ;
-        $dialbox = new DialogBox();
-        $dialbox->question($confirmationEmpty);
-        $content .= $dialbox->render();
+        $dialogbox = new DialogBox();
+        $dialogbox->question($confirmationEmpty);
+        $content .= $dialogbox->render();
     }
     
     // -------------------- selector form ----------------
@@ -120,10 +120,10 @@
             $searchForm .= " CHECKED";
         }
         $searchForm .= ' />'.get_lang('Exact expression')."\n";
-        $dialbox = new DialogBox();
-        $dialbox->form($searchForm);
+        $dialogbox = new DialogBox();
+        $dialogbox->form($searchForm);
         
-        $content .= "<br />".$dialbox->render();
+        $content .= "<br />".$dialogbox->render();
         
     }
     else
@@ -144,10 +144,10 @@
                 . '</form>'."\n"
                 ;
         
-        $dialbox = new DialogBox();
-        $dialbox->form($serachForm);
+        $dialogbox = new DialogBox();
+        $dialogbox->form($serachForm);
         
-        $content .= "<br />".$dialbox->render();
+        $content .= "<br />".$dialogbox->render();
     }
     //----------------------end selector form -----------------
     

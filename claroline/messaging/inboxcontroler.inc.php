@@ -36,10 +36,10 @@
         if ($_REQUEST['cmd'] == 'exDeleteMessage' && !is_null($messageId))
         {
             InBox::moveMessageToTrashBox($messageId,$currentUserId);
-            $dialbox = new DialogBox();
-            $dialbox->success(get_lang('The message in now in your trashbox'));
+            $dialogbox = new DialogBox();
+            $dialogbox->success(get_lang('The message in now in your trashbox'));
             
-            $content .= $dialbox->render();
+            $content .= $dialogbox->render();
         }
         elseif ($_REQUEST['cmd'] == 'rqDeleteMessage' && ! is_null($messageId))
         {

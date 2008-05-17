@@ -49,9 +49,9 @@
         
         $searchBox .= '</form>'."\n";
         
-        $dialBox = new DialogBox();
-        $dialBox->form($searchBox);
-        $content .= "<br /><br />".$dialBox->render();        
+        $dialogbox = new DialogBox();
+        $dialogbox->form($searchBox);
+        $content .= "<br /><br />".$dialogbox->render();        
     }
     else
     {
@@ -74,10 +74,10 @@
                 . '</form>'."\n"
                 ;
         
-        $dialbox = new DialogBox();
-        $dialbox->form($serachForm);
+        $dialogbox = new DialogBox();
+        $dialogbox->form($serachForm);
         
-        $content .= "<br /><br />".$dialbox->render();
+        $content .= "<br /><br />".$dialogbox->render();
     }
     //----------------------end selector form -----------------
     

@@ -247,10 +247,10 @@ if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCommand))
                 .'</form>'."\n\n"
                 ;
         
-        $dialbox = new DialogBox();
-        $dialbox->form($form);
+        $dialogbox = new DialogBox();
+        $dialogbox->form($form);
         
-        $content .= $dialbox->render();
+        $content .= $dialogbox->render();
     }
     
     if ($cmd == "rqDeleteMessage" && ! is_null($messageId))
@@ -271,10 +271,10 @@ if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCommand))
             .' | <a href="'.$linkDelete.'">' . get_lang('No') .'</a>'
             ;
             
-        $dialbox = new DialogBox();
-        $dialbox->question($deleteConfirmation);
+        $dialogbox = new DialogBox();
+        $dialogbox->question($deleteConfirmation);
         
-        $content .= $dialbox->render(); 
+        $content .= $dialogbox->render(); 
     }
     
     if ($cmd == "exDeleteMessage" && ! is_null($messageId))
@@ -314,10 +314,10 @@ if ($arguments['search'] == 'fromUser')
        .'<input type="submit" value="'.get_lang("Search").'" />'."\n"
        .'</form>'."\n\n"
        ;
-    $dialbox = new DialogBox();
-    $dialbox->form($searchForm);
+    $dialogbox = new DialogBox();
+    $dialogbox->form($searchForm);
     
-    $content .= "<br />".$dialbox->render();
+    $content .= "<br />".$dialogbox->render();
 }
 
 if ($arguments['search'] == 'olderThan')
@@ -346,10 +346,10 @@ if ($arguments['search'] == 'olderThan')
         . '<input type="submit" value="'.get_lang('search').'" />'."\n"
         . '</form>'."\n\n"
         ;
-    $dialbox = new DialogBox();
-    $dialbox->form($disp);
+    $dialogbox = new DialogBox();
+    $dialogbox->form($disp);
     
-    $content .= $dialbox->render();
+    $content .= $dialogbox->render();
 }
 
 if ($arguments['search'] == 'timeInterval')
@@ -386,10 +386,10 @@ if ($arguments['search'] == 'timeInterval')
         . '<input type="submit" value="'.get_lang('search').'" />'."\n"
         . '</form>'."\n\n"
         ;
-    $dialbox = new DialogBox();
-    $dialbox->form($disp);
+    $dialogbox = new DialogBox();
+    $dialogbox->form($disp);
     
-    $content .= $dialbox->render();
+    $content .= $dialogbox->render();
 }
 
 
