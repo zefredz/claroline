@@ -53,15 +53,15 @@
         
         $inboxWithoutFilter = new InBox($currentUserId);
 
-        /*$numberOfPlateformMessage = $inboxWithoutFilter->numberOfPlateformMessage();
-        $messagePlateform = "";
-        if ($numberOfPlateformMessage == 0)
+        /*$numberOfPlatformMessage = $inboxWithoutFilter->numberOfPlatformMessage();
+        $messagePlatform = "";
+        if ($numberOfPlatformMessage == 0)
         {
-            $messagePlateform = "";
+            $messagePlatform = "";
         }
         else
         {
-            $messagePlateform = ''.$numberOfPlateformMessage." ".get_lang('plateform message');
+            $messagePlatform = ''.$numberOfPlatformMessage." ".get_lang('platform message');
         }*/
         
         $sectionList = array(

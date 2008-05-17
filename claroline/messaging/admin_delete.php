@@ -51,8 +51,8 @@ $displayResultUserSearch = FALSE;
 $displayRemoveOlderThanConfirmation = FALSE;
 $displayRemoveOlderThanValidated = FALSE;
 
-$displayRemovePlateformMessageConfirmation = FALSE;
-$displayRemovePlateformMessageValidated = FALSE;
+$displayRemovePlatformMessageConfirmation = FALSE;
+$displayRemovePlatformMessageValidated = FALSE;
 
 $userId = isset($_REQUEST['userId'])? (int)$_REQUEST['userId'] : NULL;
 
@@ -62,7 +62,7 @@ $arguments = array();
 $acceptedCommand = array('rqDeleteAll','exDeleteAll'
                         ,'rqFromUser','exFromUser'
                         ,'rqOlderThan','exOlderThan'
-                        ,'rqPlateformMessage','exPlateformMessage');
+                        ,'rqPlatformMessage','exPlatformMessage');
 
 // ------------- display
 if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCommand))
@@ -193,19 +193,19 @@ if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCommand))
         
     }
     
-    // -------- delete plateform message
-    if ($_REQUEST['cmd'] == "rqPlateformMessage")
+    // -------- delete platform message
+    if ($_REQUEST['cmd'] == "rqPlatformMessage")
     {
-        $claroline->display->body->appendContent(claro_html_tool_title(get_lang('Internal messaging')." - ".get_lang('Delete plateform message')));
-        $displayRemovePlateformMessageConfirmation = TRUE;
+        $claroline->display->body->appendContent(claro_html_tool_title(get_lang('Internal messaging')." - ".get_lang('Delete platform message')));
+        $displayRemovePlatformMessageConfirmation = TRUE;
     }
     
-    if ($_REQUEST['cmd'] == "exPlateformMessage")
+    if ($_REQUEST['cmd'] == "exPlatformMessage")
     {
-        $claroline->display->body->appendContent(claro_html_tool_title(get_lang('Internal messaging')." - ".get_lang('Delete plateform message')));
+        $claroline->display->body->appendContent(claro_html_tool_title(get_lang('Internal messaging')." - ".get_lang('Delete platform message')));
         $box = new AdminMessageBox();
-        $box->deletePlateformMessage();
-        $displayRemovePlateformMessageValidated = TRUE;
+        $box->deletePlatformMessage();
+        $displayRemovePlatformMessageValidated = TRUE;
     }
 }
 else
@@ -216,19 +216,6 @@ else
 // ----------- delete all --------------
 if ($displayRemoveAllConfirmation)
 {
-    $javascriptDelete = '
-        <script type="text/javascript">
-        if (confirm("'.get_lang('Are you sure to delete to delete all messages?\n\nWarning all data will be deleted from the database').'"))
-        {
-            window.location=\''.$_SERVER['PHP_SELF'].'?cmd=exDeleteAll'.'\';
-        }
-        else
-        {
-            window.location=\'admin.php\';
-        }
-        </script>';
-    $claroline->display->header->addHtmlHeader($javascriptDelete);
-    
     $dialogboxMsg = get_lang('Are you sure to delete to delete all messages?<br /><br />WARNING all data will be deleted from the database')
          . '<br /><br />'
          . '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDeleteAll">' . get_lang('Yes') . '</a> | <a href="admin.php">' . get_lang('No') .'</a>'
@@ -473,35 +460,22 @@ if ($displayRemoveOlderThanValidated)
 }
 // --------------- end older than
 
-// ------------ plateform message
+// ------------ platform message
 
-if ($displayRemovePlateformMessageConfirmation)
-{
-    $javascriptDelete = '
-        <script type="text/javascript">
-        if (confirm("'.get_lang('Are you sure to delete to delete all palteform messages?\n\nWarning all data will be deleted from the database').'"))
-        {
-            window.location=\''.$_SERVER['PHP_SELF'].'?cmd=exPlateformMessage'.'\';
-        }
-        else
-        {
-            window.location=\'admin.php\';
-        }
-        </script>';
-    $claroline->display->header->addHtmlHeader($javascriptDelete);
-    
+if ($displayRemovePlatformMessageConfirmation)
+{    
     $dialogboxMsg = get_lang('Are you sure to delete to delete all palteform messages?<br /><br />WARNING all data will be deleted from the database')
          . '<br /><br />'
-         . '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exPlateformMessage">' . get_lang('Yes') . '</a> | <a href="admin.php">' . get_lang('No') .'</a>'
+         . '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exPlatformMessage">' . get_lang('Yes') . '</a> | <a href="admin.php">' . get_lang('No') .'</a>'
          ;
     $dialogbox = new DialogBox();
     $dialogbox->question($dialogboxMsg);
     $content .= '<br />'.$dialogbox->render();
 }
 
-if ($displayRemovePlateformMessageValidated)
+if ($displayRemovePlatformMessageValidated)
 {
-    $dialogboxMsg = get_lang('All plateform messages has been deleted')
+    $dialogboxMsg = get_lang('All platform messages has been deleted')
          . '<br /><br />'
          . '<a href="admin.php">' . get_lang('Back') .'</a>'
          ;
@@ -510,7 +484,7 @@ if ($displayRemovePlateformMessageValidated)
     $content .= '<br />'.$dialogbox->render();
 }
 
-// ------------- end plateform message
+// ------------- end platform message
 
 // ------------------- render ----------------------------
 $claroline->display->banner->breadcrumbs->append(get_lang('Messages'),'index.php');

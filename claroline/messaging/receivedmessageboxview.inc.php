@@ -218,7 +218,7 @@
             $content .= '<tr';
             if ($message->isPlatformMessage())
             {
-                $content .= ' class="plateformMessage"';
+                $content .= ' class="platformMessage"';
             }
             elseif (!$message->isRead())
             {

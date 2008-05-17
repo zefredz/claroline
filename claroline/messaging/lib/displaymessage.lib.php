@@ -73,7 +73,7 @@ class DisplayMessage
         }
         elseif ($recipientList['sentTo'] == 'toAll')
         {
-             $recipientString = get_lang('All users of the plateform');
+             $recipientString = get_lang('All users of the platform');
         }
         else
         {

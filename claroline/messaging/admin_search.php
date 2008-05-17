@@ -48,7 +48,7 @@ $arguments = array();
 
 $displayTable = TRUE;
 
-$acceptedSearch = array('fromUser','olderThan','timeInterval','plateformMessage');
+$acceptedSearch = array('fromUser','olderThan','timeInterval','platformMessage');
 $acceptedCommand = array('rqDeleteSelection','exDeleteSelection','rqDeleteMessage','exDeleteMessage');
 
 $box = new AdminMessageBox();
@@ -206,9 +206,9 @@ if (isset($_REQUEST['search']) && in_array($_REQUEST['search'],$acceptedSearch))
         }
     }
 
-    if ($arguments['search'] == 'plateformMessage')
+    if ($arguments['search'] == 'platformMessage')
     {
-        $title = get_lang("Plateforme messages");
+        $title = get_lang("Platform messages");
         $strategy->setStrategy(AdminBoxStrategy::PLATFORM_MESSAGE);
     }    
 }

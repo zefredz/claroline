@@ -49,13 +49,45 @@ $dialogbox = new DialogBox();
 $dialogbox->warning($warningMessage);
 $content .= $dialogbox->render();
 
+$javascriptDelete = '
+    <script type="text/javascript">
+    function deleteAllMessage ( localPath )
+    {
+        if (confirm("'.get_lang('Are you sure to delete the message').'"))
+        {
+            window.location=localPath;
+            return false;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    function deleteAllMessagePlatform ( localPath )
+    {
+        if (confirm("'.get_lang('Are you sure to delete all platform message').'"))
+        {
+            window.location=localPath;
+            return false;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    </script>';
+$claroline->display->header->addHtmlHeader($javascriptDelete);
+
 $content .=
         '<h4>'.get_lang('Delete').'</h4>'."\n"
         .'<ul>'."\n"
-        .'<li><a href="admin_delete.php?cmd=rqDeleteAll">'.get_lang('all messages').'</a></li>' ."\n"
+        .'<li><a href="admin_delete.php?cmd=rqDeleteAll" 
+        		onclick="return deleteAllMessage(\'admin_delete.php?cmd=exDeleteAll\')">'.get_lang('all messages').'</a></li>' ."\n"
         .'<li><a href="admin_delete.php?cmd=rqFromUser">'.get_lang('message from a user').'</a></li>' ."\n"
         .'<li><a href="admin_delete.php?cmd=rqOlderThan">'.get_lang('message older than').'</a></li>' ."\n"
-        .'<li><a href="admin_delete.php?cmd=rqPlateformMessage">'.get_lang('plateform message').'</a></li>' ."\n"
+        .'<li><a href="admin_delete.php?cmd=rqPlatformMessage" 
+        		onclick="return deleteAllMessagePlatform(\'admin_delete.php?cmd=exPlatformMessage\')">'.get_lang('platform message').'</a></li>' ."\n"
         .'</ul>'."\n"
 
         . '<h4>'.get_lang('Search').'</h4>'."\n"
@@ -63,7 +95,7 @@ $content .=
         .'	<li><a href="admin_search.php?search=fromUser">'.get_lang('message from a user').'</a></li>' ."\n"
         .'	<li><a href="admin_search.php?search=olderThan">'.get_lang('message older than').'</a></li>' ."\n"
         .'	<li><a href="admin_search.php?search=timeInterval">'.get_lang('message in date interval').'</a></li>' ."\n"
-        .'	<li><a href="admin_search.php?search=plateformMessage">'.get_lang('plateform message').'</a></li>' ."\n"
+        .'	<li><a href="admin_search.php?search=platformMessage">'.get_lang('platform message').'</a></li>' ."\n"
         .'</ul>'."\n"
         ;
 

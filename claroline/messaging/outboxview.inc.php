@@ -116,7 +116,7 @@
             $content .= '<tr';
             if ($message->isPlatformMessage())
             {
-                $content .= ' class="plateformMessage"';
+                $content .= ' class="platformMessage"';
             }
             $content .= '><td>';
 
@@ -183,7 +183,7 @@
             }
             elseif ($message->isPlatformMessage())
             {
-                 $content .= get_lang('All users of the plateform');
+                 $content .= get_lang('All users of the platform');
             }
             else
             {

@@ -23,7 +23,7 @@ require_once dirname(__FILE__) . '/../message/receivedmessage.lib.php';
 class ReceivedMessageBox extends MessageBox
 {
     protected $numberOfUnreadMessage = FALSE;
-    protected $numberOfPlateformMessage = FALSE;
+    protected $numberOfPlatformMessage = FALSE;
 
     /**
      * mark the message (by the message id) as unread for the user (user identifiation) in parameter
@@ -104,7 +104,7 @@ class ReceivedMessageBox extends MessageBox
                 . " FROM `" . $tableName['im_message'] . "` as M\n"
                 . " LEFT JOIN `" . $tableName['im_message_status'] . "` as R ON M.message_id = R.message_id\n"
                 . " LEFT JOIN `".$tableName['user']."` AS U ON M.sender = U.user_id\n"
-                . " WHERE (R.user_id = " . (int)$this->getUserId() . " OR R.user_id = 0) \n" // 0 plateforme message
+                . " WHERE (R.user_id = " . (int)$this->getUserId() . " OR R.user_id = 0) \n" // 0 platforme message
                 .    " " . $strategy
                 .    " " . $order
                 .    " " . $limit
@@ -202,7 +202,7 @@ class ReceivedMessageBox extends MessageBox
         return $this->numberOfUnreadMessage;
     }
     
-    public function numberOfPlateformMessage()
+    public function numberOfPlatformMessage()
     {
         if (!$this->numberOfUnreadMessage)
         {
@@ -226,10 +226,10 @@ class ReceivedMessageBox extends MessageBox
                 ." " . $strategy
                 ;
                 
-            $this->numberOfPlateformMessage = claro_sql_query_fetch_single_value($sql);
+            $this->numberOfPlatformMessage = claro_sql_query_fetch_single_value($sql);
         }
         
-        return $this->numberOfPlateformMessage;
+        return $this->numberOfPlatformMessage;
     }
     
     /**

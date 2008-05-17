@@ -202,7 +202,7 @@ class AdminMessageBox implements Iterator
         $this->deleteMessageList($messageId['message_id']);
     }
 
-    public function deletePlateformMessage()
+    public function deletePlatformMessage()
     {
         $tableName = get_module_main_tbl(array('im_message_status','im_recipient','im_message'));
         $sql =
