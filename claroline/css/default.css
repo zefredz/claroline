@@ -875,8 +875,8 @@ form tr.admin td{
                             INTERNAL MESSAGING
  ******************************************************************************/
 
-/*TR line for plateform message*/
-.plateformMessage { 
+/*TR line for platform message*/
+.platformMessage { 
     background-color: #fee5c3;
 }
 
