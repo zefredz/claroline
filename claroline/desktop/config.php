@@ -316,8 +316,8 @@
     $output = '';
 
     $moduleName = get_lang('My Desktop');
-    $interbredcrump[]= array ('url' => './index.php', 'name' => $moduleName);
-    $interbredcrump[]= array ('url' => NULL, 'name' => get_lang('Configuration'));
+    ClaroBreadCrumbs::getInstance()->append( $moduleName, './index.php' );
+    ClaroBreadCrumbs::getInstance()->append( get_lang('Configuration') );
 
     $output .= claro_html_tool_title($moduleName);
 

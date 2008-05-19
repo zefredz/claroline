@@ -135,7 +135,7 @@ Define bredcrumps
 
 if ( isset($_REQUEST['addNewCourse']) )
 {
-    $interbredcrump[] = array('url' => $_SERVER['PHP_SELF'], 'name' => get_lang('My personal course list'));
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('My personnal course list'), $_SERVER['PHP_SELF'] );
 }
 
 /*---------------------------------------------------------------------
@@ -146,7 +146,7 @@ if ( !empty($fromAdmin) )
 {
     if ( $fromAdmin == 'settings' || $fromAdmin == 'usercourse' || $fromAdmin == 'class' )
     {
-        $interbredcrump[]= array ('url' => get_path('rootAdminWeb') , 'name' => get_lang('Administration'));
+        ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
     }
 
     if ( $fromAdmin == 'class' )

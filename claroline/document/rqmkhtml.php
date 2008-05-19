@@ -26,13 +26,13 @@ if (claro_is_in_a_group() && claro_is_group_allowed())
 {
     $_group = claro_get_current_group_data();
     $courseDir         = claro_get_course_path() .'/group/'.claro_get_current_group_data('directory');
-    $interbredcrump[]  = array ('url' => '../group/group.php', 'name' => get_lang('Groups'));
-    $interbredcrump[] = array ('url' => 'document.php', 'name' => get_lang('Documents and Links'));
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Documents and Links'), 'document.php' );
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Groups'), '../group/group.php' );
 }
 else
 {
     $courseDir   = claro_get_course_path() .'/document';
-    $interbredcrump[] = array ('url' => 'document.php', 'name' => get_lang('Documents and Links'));
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Documents and Links'), 'document.php' );
 }
 
 $noPHP_SELF = true;

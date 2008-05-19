@@ -200,7 +200,7 @@ if ( $adminContext && claro_is_platform_admin() )
 {
     // switch to admin breadcrumb
 
-    $interbredcrump[]= array ('url' => get_path('rootAdminWeb') , 'name' => get_lang('Administration'));
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
     unset($_cid);
 
     $links[] = '<a class="claroCmd" href="' . $backUrl . '">'

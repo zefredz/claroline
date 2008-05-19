@@ -136,7 +136,7 @@ if( $cmd == 'rqProgress' )
 
 if ( $adminContext && claro_is_platform_admin() )
 {
-    $interbredcrump[] = array ('url' => get_path('rootAdminWeb') , 'name' => get_lang('Administration'));
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
     $backUrl =  get_path('rootAdminWeb') ;
 }
 else

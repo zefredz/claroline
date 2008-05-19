@@ -26,7 +26,7 @@ $nameTools = get_lang('Display file');
 
 $noPHP_SELF=true;
 
-$interbredcrump[]= array ('url' => '../document.php', 'name' => get_lang('Documents and Links'));
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Documents and Links'), '../document.php' );
 
 $isDownloadable = true ;
 

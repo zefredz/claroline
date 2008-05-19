@@ -21,8 +21,6 @@ $nameTools = get_lang('Display file');
 
 $noPHP_SELF=true;
 
-// $interbredcrump[]= array ('url' => get_module_entry_url('CLDOC'), 'name' => get_lang('Documents and Links'));
-
 $isDownloadable = true ;
 
 if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);

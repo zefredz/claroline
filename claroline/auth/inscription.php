@@ -166,7 +166,7 @@ else
 Display Section
 = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 
-$interbredcrump[]= array ('url' => 'inscription.php', 'name' => get_lang('Create user account'));
+ClaroBreadCrumbs::getInstance()->append( get_lang('Create user account'), 'inscription.php' );
 
 // Display Header
 

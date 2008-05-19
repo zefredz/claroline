@@ -244,7 +244,7 @@ elseif ( get_conf('can_request_revoquation')
             case 'EXPLANATION_EMPTY' :
                 $dialogBox->error( get_lang('You left some required fields empty') );
                 $noQUERY_STRING = TRUE;
-                $interbredcrump[]= array('url'=>$_SERVER['PHP_SELF'],'name' =>$nameTools);
+                ClaroBreadCrumbs::getInstance()->prepend( $nameTools, $_SERVER['PHP_SELF'] );
                 $nameTools = get_lang('Request to remove this account');
                 $display = DISP_REQUEST_REVOQUATION;
             break;
@@ -259,7 +259,7 @@ elseif (  !claro_is_allowed_to_create_course()
     // display course creator status form
     $noQUERY_STRING = TRUE;
     $display = DISP_REQUEST_COURSE_CREATOR_STATUS;
-    $interbredcrump[]= array('url'=>$_SERVER['PHP_SELF'],'name' =>$nameTools);
+    ClaroBreadCrumbs::getInstance()->prepend( $nameTools, $_SERVER['PHP_SELF'] );
     $nameTools = get_lang('Request course creation status');
 }
 elseif ( get_conf('can_request_revoquation')
@@ -267,7 +267,7 @@ elseif ( get_conf('can_request_revoquation')
 {
     // display revoquation form
     $noQUERY_STRING = TRUE;
-    $interbredcrump[]= array('url'=>$_SERVER['PHP_SELF'],'name' =>$nameTools);
+    ClaroBreadCrumbs::getInstance()->prepend( $nameTools, $_SERVER['PHP_SELF'] );
     $nameTools = get_lang('Request to remove this account');
     $display = DISP_REQUEST_REVOQUATION;
 }
@@ -277,7 +277,7 @@ elseif ( 'editExtraInfo' == $cmd
     // display revoquation form
     $noQUERY_STRING = TRUE;
     $display = DISP_MOREINFO_FORM;
-    $interbredcrump[]= array('url'=>$_SERVER['PHP_SELF'],'name' =>$nameTools);
+    ClaroBreadCrumbs::getInstance()->prepend( $nameTools, $_SERVER['PHP_SELF'] );
     $nameTools = get_lang('Complementary fields');
     $userInfo = get_user_property_list(claro_get_current_user_id());
 
