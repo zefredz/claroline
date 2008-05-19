@@ -32,7 +32,7 @@ if ( ! claro_is_allowed_to_edit() )
 }
 
 $nameTools = get_lang("Groups settings");
-$interbredcrump[]= array ('url' => 'group.php', 'name' => get_lang("Groups"));
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Groups'), 'group.php' );
 
 $_groupProperties = claro_get_main_group_properties(claro_get_current_course_id());
 

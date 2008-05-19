@@ -172,7 +172,7 @@ $htmlHeadXtra[] =
            }
            </script>";
 
-$interbredcrump[] = array ('url' => 'index.php', 'name' => get_lang('Forums'));
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Forums'), 'index.php' );
 $noPHP_SELF       = true;
 
 include get_path('incRepositorySys') . '/claro_init_header.inc.php';
