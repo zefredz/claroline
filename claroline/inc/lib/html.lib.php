@@ -1635,9 +1635,20 @@ function claro_html_breadcrumb()
 function claro_html_tab_bar($section_list,
                              $section_selected_id = null,
                              $url_params = array(),
+                             $baseUrl = null,
                              $section_request_var_name = 'section')
 {
+    $baseUrl = empty( $baseUrl )
+        ? $_SERVER['PHP_SELF']
+        : $baseUrl
+        ;
+        
     $menu = '';
+    
+    $baseUrl .= ( false !== strpos($baseUrl, '?' ) )
+        ? '&amp;'
+        : '?'
+        ;
 
     if ( !empty($section_list) && count($section_list)>2)
     {
@@ -1666,8 +1677,8 @@ function claro_html_tab_bar($section_list,
             
             $menu .=  '<li>'
                 . '<a ' . ( $section_id == $section_selected_id ? 'class="current"' : '' )
-                . ' href="' . $_SERVER['PHP_SELF']
-                . '?'.htmlspecialchars($section_request_var_name).'='
+                . ' href="' . $baseUrl
+                . htmlspecialchars($section_request_var_name).'='
                 . htmlspecialchars($section_id) .$extra_url_params. '" '
                 . 'id="'. htmlspecialchars($section_id) .'">'
                 . get_lang($section_label) . '</a>'
