@@ -22,7 +22,7 @@ define ( 'DIALOG_WARNING', 'DIALOG_WARNING' );
 define ( 'DIALOG_ERROR', 'DIALOG_ERROR' );
 define ( 'DIALOG_QUESTION', 'DIALOG_QUESTION');
 define ( 'DIALOG_FORM', 'DIALOG_FORM' );
-define ( 'DIALOG_DEBUG',   'DIALOG_DEBUG' );
+define ( 'DIALOG_TITLE',   'DIALOG_TITLE' );
 
 class DialogBox implements Display
 {
@@ -41,7 +41,7 @@ class DialogBox implements Display
         $this->_size[DIALOG_ERROR] = 0;
         $this->_size[DIALOG_QUESTION] = 0;
         $this->_size[DIALOG_FORM] = 0;
-        $this->_size[DIALOG_DEBUG] = 0;
+        $this->_size[DIALOG_TITLE] = 0;
     }
 
 	/*
@@ -105,13 +105,13 @@ class DialogBox implements Display
     }
 
 	/*
-	 * Add a debug message
+	 * Add a title message
 	 * @param $msg string text to show in dialog
 	 */
-    public function debug( $msg )
+    public function title( $msg )
     {
-        $this->message( $msg, DIALOG_DEBUG );
-        $this->_size[DIALOG_DEBUG]++;
+        $this->message( $msg, DIALOG_TITLE );
+        $this->_size[DIALOG_TITLE]++;
     }
 
 	/*
@@ -174,9 +174,9 @@ class DialogBox implements Display
 	                	// forms must always be in a div
 	                    $class = 'msgForm';
 	                } break;
-	                case DIALOG_DEBUG:
+	                case DIALOG_TITLE:
 	                {
-	                    $class = 'msgDebug';
+	                    $class = 'msgTitle';
 	                } break;
 	                default:
 	                {
@@ -193,7 +193,7 @@ class DialogBox implements Display
 	        {
 	            case 'auto' :
 	            {
-	                 // order is important
+	                 // order is important first meet is choosed
     	            if( $this->_size[DIALOG_ERROR] > 0 )        { $boxClass = 'boxError'; }
     	            elseif( $this->_size[DIALOG_WARNING] > 0 )  { $boxClass = 'boxWarning'; }
 	                elseif( $this->_size[DIALOG_SUCCESS] > 0 )  { $boxClass = 'boxSuccess'; }
