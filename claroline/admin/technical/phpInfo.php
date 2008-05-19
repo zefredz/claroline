@@ -39,14 +39,15 @@ if( ! isset($clarolineVersion) )  $clarolineVersion= 'X';
 
 
 $nameTools = get_lang('PHP system information');
-$interbredcrump[]= array ('url' => '..', 'name' => get_lang('Admin'));
-$interbredcrump[]= array ('url' => 'index.php', 'name' => get_lang('Technical Tools'));
 
 if( array_key_exists( 'to', $_REQUEST) )
 {
-    $interbredcrump[]= array ('url' => basename($_SERVER['PHP_SELF']), 'name' => get_lang('PHP system information'));
     $nameTools = htmlspecialchars($_REQUEST['to']);
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('PHP system information'), basename($_SERVER['PHP_SELF']) );
 }
+
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Technical Tools'), get_path('rootAdminWeb').'technical' );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
 $is_allowedToAdmin = claro_is_platform_admin();
 if ($is_allowedToAdmin)

@@ -25,7 +25,7 @@ if (! $is_allowedToUseSDK) claro_disp_auth_form();
 
 $nameTools = get_lang('Technical Tools');
 
-$interbredcrump[]= array ('url' => '../index.php', 'name' => get_lang('Admin'));
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
 include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 

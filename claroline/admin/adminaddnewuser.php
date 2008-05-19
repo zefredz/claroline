@@ -124,7 +124,7 @@ $htmlHeadXtra[] =
 </script>';
 /* end of hack */
 
-$interbredcrump[] = array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 $noQUERY_STRING   = TRUE;
 
 // Display Header

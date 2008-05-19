@@ -93,11 +93,9 @@ if ( empty($display_profile_list) )
 //=================================
 
 // define bredcrumb
-$interbredcrump[] = array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
-$interbredcrump[] = array ('url' => get_path('rootAdminWeb') . 'right/profile_list.php', 'name' => get_lang('Course profile list'));
-
-$interbredcrump[] = array ('url' => get_path('rootAdminWeb') . 'right/profile.php?display_profile=' . $display_profile_url_param
-                         , 'name' => get_lang('Right') ); 
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Right'), get_path('rootAdminWeb').'right/profile.php?display_profile=' . $display_profile_url_param );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Course profile list'), get_path('rootAdminWeb').'right/profile_list.php' );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
 // Display header
 

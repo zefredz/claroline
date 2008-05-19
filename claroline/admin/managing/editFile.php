@@ -125,7 +125,7 @@ if ( !is_null($fileId) )
 // DISPLAY
 
 $nameTools = get_lang('Edit text zones');
-$interbredcrump[] = array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 $noQUERY_STRING = true;
 
 include get_path('incRepositorySys') . '/claro_init_header.inc.php';

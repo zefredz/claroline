@@ -77,8 +77,7 @@ $toolNameList = claro_get_tool_name_list();
 $limitBeforeUnused = "INTERVAL 6 MONTH";
 
 // Prepare output
-$interbredcrump[] = array ('url' => 'index.php', 'name' => get_lang('Administration'));
-
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 $nameTools = get_lang('Scan technical fault');
 
 $htmlHeadXtra[] = "

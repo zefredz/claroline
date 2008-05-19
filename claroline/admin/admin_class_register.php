@@ -139,10 +139,11 @@ if ( !empty($class_id) )
 //------------------------------------
 
 // Deal with interbredcrumps
+// We have to prepend in reverse order !!!
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Class users'), get_path('rootAdminWeb') . 'admin_class_user.php?class_id='.$class_id );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Classes'), get_path('rootAdminWeb') . 'admin_class.php' );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
-$interbredcrump[]= array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
-$interbredcrump[]= array ('url' => get_path('rootAdminWeb') . 'admin_class.php', 'name' => get_lang('Classes'));
-$interbredcrump[]    = array ('url' => get_path('rootAdminWeb') . 'admin_class_user.php?class_id='.$class_id, 'name' => get_lang('Class users'));
 $nameTools = get_lang('Register user to class');
 
 // Header

@@ -176,8 +176,8 @@ else
 
 //display title
 // initialisation of global variables and used libraries
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 $nameTools = get_lang('User Course list') . ' : ' . $userData['firstname'] . ' ' . $userData['lastname'];
-$interbredcrump[]= array ( 'url' => get_conf('rootAdminWeb'), 'name' => get_lang('Administration'));
 
 // javascript confirm pop up declaration
 $htmlHeadXtra[] =

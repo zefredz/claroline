@@ -45,8 +45,8 @@ else
     $nameTools = get_lang('Dock');
 }
 
-$interbredcrump[]= array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
-$interbredcrump[]= array ('url' => 'module_list.php','name' => get_lang('Module list'));
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Module list'), get_path('rootAdminWeb').'module/module_list.php' );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
 //CONFIG and DEVMOD vars :
 

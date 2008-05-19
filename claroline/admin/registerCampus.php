@@ -22,7 +22,8 @@ $cidReset=true;
 $gidReset=true;
 require '../inc/claro_init_global.inc.php';
 
-$interbredcrump[]   = array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
+
 /*--------------------------------------------------------------------
                LIST OF COUNTRY ISO CODES AND COUNTRY NAMES
   --------------------------------------------------------------------*/

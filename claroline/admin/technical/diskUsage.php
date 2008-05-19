@@ -27,9 +27,8 @@ $tbl_course = $tbl_mdb_names['course'];
 $nameTools = get_lang('Disk Usage');
 $byteUnits = get_locale('byteUnits');
 
-$interbredcrump[]= array ( 'url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
-$interbredcrump[]= array ( 'url' => 'index.php'  , 'name' => get_lang('Technical Tools'));
-
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Technical Tools'), get_path('rootAdminWeb').'technical/index.php' );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
 $disp_form = true;
 if (get_conf('singleDbEnabled') == TRUE ) $msg['warning'][] = get_lang('Cannot compute db size of a course in singleDBMode');

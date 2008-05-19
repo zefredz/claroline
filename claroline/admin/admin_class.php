@@ -42,7 +42,7 @@ if ( !isset($_SESSION['admin_visible_class']))
 // Deal with interbredcrumps  and title variable
 
 $nameTools = get_lang('Classes');
-$interbredcrump[] = array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
 // javascript confirm pop up declaration for header
 

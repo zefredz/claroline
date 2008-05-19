@@ -31,7 +31,9 @@ if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 $nameTools = get_lang('User settings');
 $dialogBox = '';
 
-$interbredcrump[]= array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
+// BC
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
+
 $user_id = $_REQUEST['uidToEdit'];
 
 //------------------------------------

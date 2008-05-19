@@ -31,10 +31,11 @@ if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
 include_once get_path('incRepositorySys') . '/lib/course.lib.inc.php';
 include_once get_path('incRepositorySys') . '/lib/faculty.lib.inc.php';
+
 // build bredcrump
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Categories'), get_path('rootAdminWeb').'admincats.php' );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 $nameTools        = get_lang('Repair category structure');
-$interbredcrump[] = array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
-$interbredcrump[] = array ('url' => get_path('rootAdminWeb'). '/admincats.php', 'name' => get_lang('Categories'));
 
 $htmlHeadXtra[] = '
 <STYLE>

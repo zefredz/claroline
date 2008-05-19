@@ -106,12 +106,13 @@ if ( isset($_REQUEST['applyChange']) )  //for formular modification
  * PREPARE DISPLAY
  */
 
-$interbredcrump[]= array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
-
+// Prepend in reverse order !!!
 if( isset($_REQUEST['cfrom']) && $_REQUEST['cfrom'] == 'ulist')
 {
-    $interbredcrump[]= array ('url' => get_path('rootAdminWeb') . 'adminusers.php', 'name' => get_lang('User list'));
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('User list'), get_path('rootAdminWeb') . 'adminusers.php' );
 }
+
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
 $htmlHeadXtra[] =
             "<script>

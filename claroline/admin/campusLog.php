@@ -23,8 +23,7 @@ require '../inc/claro_init_global.inc.php';
 if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
-$interbredcrump[]= array ('url' => 'index.php', 'name' => get_lang('Administration'));
-
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 $nameTools = get_lang('Platform statistics');
 
 // regroup table names for maintenance purpose

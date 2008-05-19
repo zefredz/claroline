@@ -28,9 +28,8 @@ if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
 //bredcrump
-
-$nameTools=get_lang('Class registered');
-$interbredcrump[]= array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Class registered'));
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
+$nameTools = get_lang('Class registered');
 
 $cmd = isset($_REQUEST['cmd'])?$_REQUEST['cmd']:null;
 $class_id = isset($_REQUEST['class_id'])?$_REQUEST['class_id']:0;

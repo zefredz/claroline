@@ -35,8 +35,8 @@ include_once get_path('incRepositorySys') . '/lib/course.lib.inc.php';
 include_once get_path('incRepositorySys') . '/lib/faculty.lib.inc.php';
 
 // build bredcrump
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 $nameTools        = get_lang('Categories');
-$interbredcrump[] = array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
 
 // get table name
 $tbl_mdb_names   = claro_sql_get_main_tbl();

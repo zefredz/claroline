@@ -26,7 +26,7 @@ if (!claro_is_platform_admin()) claro_disp_auth_form();
 // DISPLAY
 
 // Deal with interbredcrumps  and title variable
-$interbredcrump[]  = array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
 include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 

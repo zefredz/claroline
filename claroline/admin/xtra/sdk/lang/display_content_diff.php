@@ -54,9 +54,10 @@ $nameTools = 'Display different variables with the same content';
 
 $urlSDK = $rootAdminWeb . 'xtra/sdk/'; 
 $urlTranslation = $urlSDK . 'translation_index.php';
-$interbredcrump[] = array ("url"=>$rootAdminWeb, "name"=> get_lang('Administration'));
-$interbredcrump[] = array ("url"=>$urlSDK, "name"=> get_lang('SDK'));
-$interbredcrump[] = array ("url"=>$urlTranslation, "name"=> get_lang('Translation Tools'));
+
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Translation Tools'), $urlTranslation );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('SDK'), $urlSDK );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
 include($includePath."/claro_init_header.inc.php");
 

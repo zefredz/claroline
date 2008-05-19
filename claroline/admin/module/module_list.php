@@ -80,10 +80,8 @@ $tbl_dock        = $tbl_name['dock'];
 $tbl_course_tool = $tbl_name['tool'];
 $tbl = claro_sql_get_tbl(array('module_tool'));
 
-
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );$msgList= array();
 $nameTools = get_lang('Modules');
-$interbredcrump[]= array ('url' => get_path('rootAdminWeb'),'name' => get_lang('Administration'));
-$msgList= array();
 
 $htmlHeadXtra[] =
 "<script type=\"text/javascript\">

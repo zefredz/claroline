@@ -38,8 +38,7 @@ $tbl_mdb_names = claro_sql_get_main_tbl();
 unset($_SESSION['userEdit']);
 
 $nameTools=get_lang('User course settings');
-
-$interbredcrump[]= array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
 
 // see which user we are working with ...

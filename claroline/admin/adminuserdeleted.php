@@ -31,8 +31,8 @@ require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
 require_once get_path('incRepositorySys') . '/lib/user.lib.php';
 include claro_get_conf_repository() . 'user_profile.conf.php'; // find this file to modify values.
 
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 $nameTools=get_lang('User settings');
-$interbredcrump[]= array ('url' => get_conf(get_path('rootAdminWeb')), 'name' => get_lang('Administration'));
 
 //------------------------------------
 // Execute COMMAND section

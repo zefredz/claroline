@@ -48,7 +48,7 @@ $tbl_course_nodes = $tbl_mdb_names['category'];
 
 // Deal with interbredcrumps  and title variable
 
-$interbredcrump[]= array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 $nameTools = get_lang('Advanced user search');
 
 //retrieve needed parameters from URL to prefill search form

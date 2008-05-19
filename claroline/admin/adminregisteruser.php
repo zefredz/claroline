@@ -49,7 +49,7 @@ $user_id = isset( $_REQUEST['user_id'] ) ? $_REQUEST['user_id'] : null ;
 if ($cidToEdit=='') { $dialogBox ='ERROR : NO USER SET!!!'; }
 
 // Deal with interbredcrumps
-$interbredcrump[]= array ( 'url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 $nameTools = get_lang('Enroll a user');
 
 //TABLES

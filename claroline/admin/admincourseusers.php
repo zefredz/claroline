@@ -206,7 +206,8 @@ $dg_opt_list['caption'] = '<img src="' . get_conf('imgRepositoryWeb') . 'user.gi
 $nameTools = get_lang('Course members');
 $nameTools .= " : ".$courseData['name'];
 // Deal with interbredcrumps
-$interbredcrump[]= array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
+
 $command_list[] = '<a class="claroCmd" href="adminregisteruser.php'
 .    '?cidToEdit=' . $cidToEdit . '">'
 .    get_lang('Enroll a user')

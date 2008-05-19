@@ -59,7 +59,7 @@ function confirmation (name)
 
 // Deal with interbredcrumps
 
-$interbredcrump[]= array ('url' => get_conf('rootAdminWeb') , 'name' => get_lang('Administration'));
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 $nameTools = get_lang('Course list');
 
 //------------------------

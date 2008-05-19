@@ -42,8 +42,6 @@ $tbl_dock        = $tbl_name['dock'];
 require_once get_path('incRepositorySys') . '/lib/module/manage.lib.php';
 require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
 
-$interbredcrump[]= array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
-
 $undeactivable_tool_array = array('CLDOC',
                                   'CLGRP'
                                  );
@@ -76,8 +74,12 @@ $section_selected = (isset($_REQUEST['section'])? $_REQUEST['section'] : null);
 $moduleId = (isset($_REQUEST['module_id'])? $_REQUEST['module_id'] : null);
 $module = get_module_info($moduleId);
 $dockList = get_dock_list($module['type']);
-$interbredcrump[]= array ('url' => 'module_list.php?typeReq=' . $module['type'], 'name' => get_lang('Module list'));
-$interbredcrump[]= array ('url' =>'','name' => get_lang($module['module_name']));
+
+// FIXME : BAD use of get_lang !!!!!
+ClaroBreadCrumbs::getInstance()->prepend( get_lang($module['module_name']) );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Module list'), get_path('rootAdminWeb').'module/module_list.php?typeReq=' . $module['type'] );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
+
 $nameTools = get_lang('Module settings');
 $noPHP_SELF=true;
 

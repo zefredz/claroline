@@ -19,8 +19,9 @@ $tbl_track_e_open = $tbl_mdb_names['track_e_open'];
 
 $is_allowedToTrack = claro_is_platform_admin();
 
-$interbredcrump[]= array ('url' => "index.php", 'name' => get_lang('Administration'));
-$interbredcrump[]= array ('url' => "campusLog.php", 'name' => get_lang('Platform statistics'));
+// BC - prepend in reverse order
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Platform statistics'), get_path('rootAdminWeb').'campusLog.php' );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
 $nameTools = get_lang('Traffic Details');
 

@@ -57,7 +57,7 @@ if ( isset($_REQUEST['cmd']) )  //for formular modification
  * PREPARE DISPLAY
  */
 
-$interbredcrump[]= array ('url' => get_conf('rootAdminWeb'), 'name' => get_lang('Administration'));
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
 $contactUidList = claro_get_uid_of_platform_contact();
 $requestUidList = claro_get_uid_of_request_admin();

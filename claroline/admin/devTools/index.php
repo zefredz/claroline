@@ -35,7 +35,7 @@ if ( get_conf('DEVEL_MODE',false))
 
 $nameTools = get_lang('Devel Tools');
 
-$interbredcrump[]= array ('url' => '../index.php', 'name' => get_lang('Admin'));
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
 include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 

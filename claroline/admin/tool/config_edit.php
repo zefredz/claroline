@@ -169,8 +169,8 @@ else
 /*************************************************************************** */
 
 // define bredcrumb
-$interbredcrump[] = array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
-$interbredcrump[] = array ('url' => get_path('rootAdminWeb') . 'tool/config_list.php', 'name' => get_lang('Configuration'));
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Configuration'), get_path('rootAdminWeb').'tool/config_list.php' );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
 // display claroline header
 include get_path('incRepositorySys') . '/claro_init_header.inc.php';

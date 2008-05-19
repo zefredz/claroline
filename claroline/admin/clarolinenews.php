@@ -30,7 +30,7 @@ require get_path('incRepositorySys') . '/lib/lastRSS/lastRSS.php';
 
 
 $nameTools = get_lang('Claroline.net news');
-$interbredcrump[] = array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 $noQUERY_STRING   = TRUE;
 
 

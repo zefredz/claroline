@@ -43,12 +43,11 @@ if ( mysql_errno() == 1146 ) $table_exists = FALSE;
 
 // Deal with interbredcrumps  and title variable
 
-$interbredcrump[] = array ('url' => get_path('rootAdminWeb'), 'name' => get_lang('Administration'));
-$interbredcrump[] = array ('url' => $urlSDK, 'name' => get_lang('SDK'));
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('SDK'), $urlSDK );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
 include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
-// echo claro_html_tool_title('<img src="lang/language.png" style="vertical-align: middle;" alt="" /> '.$nameTools);
 echo claro_html_tool_title($nameTools);
 ?>
 <h4><?php echo get_lang('Extract language variables')?></h4>
