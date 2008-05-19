@@ -646,53 +646,62 @@
     // Breadcrumps
     
     $nameTools = get_lang( 'Wiki' );
-    // $interbredcrump[]= array ( 'url' => 'wiki.php', 'name' => get_lang("Wiki"));
-    $interbredcrump[]= array ( 'url' => $_SERVER['PHP_SELF'] . '?action=show&amp;wikiId=' . (int) $wikiId
-        , 'name' => $wiki->getTitle() );
+    ClaroBreadCrumbs::getInstance()->append(
+        htmlspecialchars($wiki->getTitle()),
+        $_SERVER['PHP_SELF'] . '?action=show&amp;wikiId=' . (int) $wikiId );
 
     switch( $action )
     {
         case 'edit':
         {
             $dispTitle = ( '__MainPage__' == $title ) ? get_lang("Main page") : $title;
-            $interbredcrump[]= array ( 'url' => 'page.php?action=show&amp;wikiId='
-                . $wikiId . '&amp;title=' . $title
-                , 'name' => $dispTitle );
-            $interbredcrump[]= array ( 'url' => null, 'name' => get_lang("Edit") );
+            ClaroBreadCrumbs::getInstance()->append(
+                htmlspecialchars($dispTitle),
+                'page.php?action=show&amp;wikiId='
+                    . $wikiId . '&amp;title=' . $title );
+            ClaroBreadCrumbs::getInstance()->append(
+                htmlspecialchars('Edit') );
             break;
         }
         case 'preview':
         {
             $dispTitle = ( '__MainPage__' == $title ) ? get_lang("Main page") : $title;
-            $interbredcrump[]= array ( 'url' => 'page.php?action=show&amp;wikiId='
-                . $wikiId . '&amp;title=' . $title
-                , 'name' => $dispTitle );
-            $interbredcrump[]= array ( 'url' => null, 'name' => get_lang("Preview") );
+            ClaroBreadCrumbs::getInstance()->append(
+                htmlspecialchars($dispTitle),
+                'page.php?action=show&amp;wikiId='
+                    . $wikiId . '&amp;title=' . $title );
+            ClaroBreadCrumbs::getInstance()->append(
+                htmlspecialchars('Preview') );
             break;
         }
         case 'all':
         {
-            $interbredcrump[]= array ( 'url' => null, 'name' => get_lang("All pages") );
+            ClaroBreadCrumbs::getInstance()->append(
+                htmlspecialchars('All pages') );
             break;
         }
         case 'recent':
         {
-            $interbredcrump[]= array ( 'url' => null, 'name' => get_lang("Recent changes") );
+            ClaroBreadCrumbs::getInstance()->append(
+                htmlspecialchars('Recent changes') );
             break;
         }
         case 'history':
         {
             $dispTitle = ( '__MainPage__' == $title ) ? get_lang("Main page") : $title;
-            $interbredcrump[]= array ( 'url' => 'page.php?action=show&amp;wikiId='
-                . $wikiId . '&amp;title=' . $title
-                , 'name' => $dispTitle );
-            $interbredcrump[]= array ( 'url' => null, 'name' => get_lang("Page history") );
+            ClaroBreadCrumbs::getInstance()->append(
+                htmlspecialchars($dispTitle),
+                'page.php?action=show&amp;wikiId='
+                    . $wikiId . '&amp;title=' . $title );
+            ClaroBreadCrumbs::getInstance()->append(
+                htmlspecialchars('History') );
             break;
         }
         default:
         {
             $pageTitle = ( '__MainPage__' == $title ) ? get_lang("Main page") : $title ;
-            $interbredcrump[]= array ( 'url' => null, 'name' => $pageTitle );
+            ClaroBreadCrumbs::getInstance()->append(
+                htmlspecialchars($pageTitle) );
         }
     }
 

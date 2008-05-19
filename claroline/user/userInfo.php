@@ -42,7 +42,7 @@ require_once get_path('incRepositorySys') . '/lib/course_user.lib.php';
 require_once get_path('incRepositorySys') . '/lib/user_info.lib.php';
 require_once dirname(__FILE__) . '/../messaging/lib/permission.lib.php';
 
-$interbredcrump[]= array ('url' => 'user.php', 'name' => get_lang('Users'));
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users'), 'user.php' );
 
 $nameTools = get_lang('User');
 

@@ -95,7 +95,8 @@ $classList = get_class_list_by_course(claro_get_current_course_id());
 // set bredcrump
 
 $nameTools = get_lang('Enrol class');
-$interbredcrump[] = array ('url' => 'user.php' . claro_url_relay_context('?') , 'name' => get_lang('Users'));
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users'), 'user.php'. claro_url_relay_context('?') );
+
 // javascript confirm pop up declaration for header
 
 $htmlHeadXtra[] =

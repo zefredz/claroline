@@ -448,16 +448,18 @@
     {
         case 'rqEdit':
         {
-            $interbredcrump[]= array ('url' => NULL
-                , 'name' => $wikiTitle);
-            $interbredcrump[]= array ('url' => null, 'name' => get_lang("Properties") );
+            ClaroBreadCrumbs::getInstance()->append(
+                $wikiTitle );
+            ClaroBreadCrumbs::getInstance()->append(
+                htmlspecialchars('Properties') );
             break;
         }
         case 'rqDelete':
         {
-            $interbredcrump[]= array ('url' => NULL
-                , 'name' => $wikiTitle);
-            $interbredcrump[]= array ('url' => null, 'name' => get_lang("Delete") );
+            ClaroBreadCrumbs::getInstance()->append(
+                $wikiTitle );
+            ClaroBreadCrumbs::getInstance()->append(
+                htmlspecialchars('Delete') );
             break;
         }
         case 'list':

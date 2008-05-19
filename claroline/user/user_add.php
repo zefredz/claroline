@@ -36,7 +36,7 @@ require_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
 
 // Initialise variables
 $nameTools        = get_lang('Add a user');
-$interbredcrump[] = array ('url' => 'user.php', 'name' => get_lang('Users') );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users'), 'user.php' );
 
 $dialogBox = new DialogBox();
 

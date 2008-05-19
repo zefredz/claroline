@@ -296,23 +296,23 @@ switch ($AddType)
         {
             $noQUERY_STRING   = true;
             $nameTools        = get_lang('Add a user list');
-            $interbredcrump[] = array ('url'=>get_path('rootAdminWeb') . claro_url_relay_context('?') , 'name'=> get_lang('Administration'));
+            ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') . claro_url_relay_context('?') );
         }   break;
 
     case 'adminClassTool' :
         {
             $noQUERY_STRING      = true;
             $nameTools           = get_lang('Add a user list in class');
-            $interbredcrump[]    = array ('url'=>get_path('rootAdminWeb') . claro_url_relay_context('?') , 'name'=> get_lang('Administration'));
-            $interbredcrump[]    = array ('url'=>get_path('rootAdminWeb').'admin_class.php' . claro_url_relay_context('?') , 'name'=> get_lang('Classes'));
-            $interbredcrump[]    = array ('url'=>get_path('rootAdminWeb').'admin_class_user.php?class_id='. $_SESSION['admin_user_class_id'] . claro_url_relay_context('&amp;') , 'name'=> get_lang('Class members'));
+            ClaroBreadCrumbs::getInstance()->prepend( get_lang('Class members'), get_path('rootAdminWeb') . 'admin_class_user.php?class_id='. $_SESSION['admin_user_class_id'] . claro_url_relay_context('&amp;') );
+            ClaroBreadCrumbs::getInstance()->prepend( get_lang('Classes'), get_path('rootAdminWeb').'admin_class.php' . claro_url_relay_context('?') );
+            ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') . claro_url_relay_context('?') );
         }   break;
 
     case 'userTool':
         {
             $noQUERY_STRING   = true;
             $nameTools        = get_lang('Add a user list in course');
-            $interbredcrump[] = array ('url'=>'user.php' . claro_url_relay_context('?') , 'name'=> get_lang('Users'));
+            ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users'), 'user.php'.claro_url_relay_context('?') );
         }   break;
 }
 
