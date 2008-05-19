@@ -1632,11 +1632,23 @@ function claro_html_breadcrumb()
     return $htmlBC;
 }
 
-function claro_html_tab_bar($section_list,
+/**
+ * Create a navigation tab bar
+ * 
+ * @param array $section_list associative array of tabs tab id => tab label
+ * @param string $section_selected_id selected tab id
+ * @param array $url_params associative array of additionnal parameters
+ *      name => value
+ * @param string $section_request_var_name name of the HTTP GET variable
+ *      to store the current tab id
+ * @param string $baseUrl base url of the navigation tab bar
+ * @return string html navigation tab bar
+ */
+function claro_html_tab_bar( $section_list,
                              $section_selected_id = null,
                              $url_params = array(),
-                             $baseUrl = null,
-                             $section_request_var_name = 'section')
+                             $section_request_var_name = 'section',
+                             $baseUrl = null )
 {
     $baseUrl = empty( $baseUrl )
         ? $_SERVER['PHP_SELF']
