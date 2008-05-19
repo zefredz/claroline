@@ -155,7 +155,7 @@ function get_menu_item_list($type)
         ;
 
         $menu['AdminUser'][] = claro_html_tool_link('adminusers.php',       get_lang('User list'));
-        $menu['AdminUser'][] = claro_html_tool_link('../messaging/sendmessage.php?cmd=rqMessageToAllUsers', get_lang('Send a message to all user'));
+        $menu['AdminUser'][] = claro_html_tool_link('../messaging/sendmessage.php?cmd=rqMessageToAllUsers', get_lang('Send a message to all users'));
         $menu['AdminUser'][] = claro_html_tool_link('adminaddnewuser.php',  get_lang('Create user'));
         $menu['AdminUser'][] = claro_html_tool_link('../user/AddCSVusers.php?AddType=adminTool', get_lang('Add a user list'));
         $menu['AdminUser'][] = claro_html_tool_link('admin_class.php',      get_lang('Manage classes'));
