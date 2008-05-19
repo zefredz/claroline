@@ -55,7 +55,7 @@ define('DISP_COURSE_CREATION_PROGRESS' ,__LINE__);
 
 $display = DISP_COURSE_CREATION_FORM; // default display
 
-$dialogBox = '' ;
+$dialogBox = new DialogBox();
 
 $cmd = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : null;
 $adminContext = isset($_REQUEST['adminContext']) ? (bool) $_REQUEST['adminContext'] : null;
@@ -84,20 +84,20 @@ if ( $cmd == 'exEdit' )
 
             $course->mailAdministratorOnCourseCreation($thisUser['firstName'], $thisUser['lastName'], $thisUser['mail']);
 
-            $dialogBox = get_lang('You have just created the course website')
-            .            ' : ' . '<strong>' . $course->officialCode . '</strong>' . "\n";
+            $dialogBox->success( get_lang('You have just created the course website')
+            .            ' : ' . '<strong>' . $course->officialCode . '</strong>' );
 
             $display = DISP_COURSE_CREATION_SUCCEED;
         }
         else
         {
-            $dialogBox .= $course->backlog->output();
+            $dialogBox->error( $course->backlog->output() );
             $display = DISP_COURSE_CREATION_FAILED;
         }
     }
     else
     {
-        $dialogBox .= $course->backlog->output();
+        $dialogBox->error( $course->backlog->output() );
         $display = DISP_COURSE_CREATION_FAILED;
     }
 }
@@ -114,11 +114,20 @@ if( $cmd == 'rqProgress' )
 
         $htmlHeadXtra[] = '<meta http-equiv="REFRESH" content="0; URL=' . $progressUrl . '">';
 
+        // display "progression" page
+        $dialogBox->info( get_lang('Creating course (it may take a while) ...') . '<br />' . "\n"
+        .      '<p align="center">'
+        .      '<img src="' . get_path('imgRepositoryWeb') . '/processing.gif" alt="" />'
+        .      '</p>' . "\n"
+        .      '<p>'
+        .      get_lang('If after while no message appears confirming the course creation, please click <a href="%url">here</a>',array('%url' => $progressUrl))
+        .      '</p>' );
+        
         $display = DISP_COURSE_CREATION_PROGRESS;
     }
     else
     {
-           $dialogBox .= $course->backlog->output();
+        $dialogBox->error( $course->backlog->output() );
         $display = DISP_COURSE_CREATION_FAILED;
     }
 }
@@ -143,8 +152,7 @@ include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 echo claro_html_tool_title(get_lang('Create a course website'));
 
-if ( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
-
+echo $dialogBox->render();
 
 if( $display == DISP_COURSE_CREATION_FORM || $display == DISP_COURSE_CREATION_FAILED )
 {
@@ -153,25 +161,13 @@ if( $display == DISP_COURSE_CREATION_FORM || $display == DISP_COURSE_CREATION_FA
 }
 elseif ( $display == DISP_COURSE_CREATION_PROGRESS )
 {
-    // display "progression" page
-    $msg = get_lang('Creating course (it may take a while) ...') . '<br />' . "\n"
-    .      '<p align="center">'
-    .      '<img src="' . get_path('imgRepositoryWeb') . '/processing.gif" alt="" />'
-    .      '</p>' . "\n"
-    .      '<p>'
-    .      get_lang('If after while no message appears confirming the course creation, please click <a href="%url">here</a>',array('%url' => $progressUrl))
-    .      '</p>' . "\n\n"
-    ;
-
-    echo claro_html_message_box( $msg );
+    // do nothing except displaying dialogBox content
 }
 elseif ( $display == DISP_COURSE_CREATION_SUCCEED )
 {
-    // display confirmation
+    // display back link
     echo '<p>'
-    .    claro_html_cmd_link( $backUrl
-                            , get_lang('Continue')
-                            )
+    .    claro_html_cmd_link( $backUrl, get_lang('Continue') )
     .     '</p>' . "\n"
     ;
 }
