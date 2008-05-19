@@ -28,6 +28,7 @@ require_once dirname(__FILE__) . '/../messaging/lib/permission.lib.php';
 
 $toolNameList= claro_get_tool_name_list();
 $toolRepository = get_path('clarolineRepositoryWeb');
+$dialogBox = new DialogBox();
 
 if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 
@@ -129,7 +130,7 @@ if( isset($_REQUEST['registration']) )
         }
         else // Confirm reg
         {
-            $message = get_lang('Confirm your subscription to the group &quot;<b>%group_name</b>&quot;',array('%group_name'=>claro_get_current_group_data('name'))) . "\n"
+            $dialogBox->form( get_lang('Confirm your subscription to the group &quot;<b>%group_name</b>&quot;',array('%group_name'=>claro_get_current_group_data('name'))) . "\n"
             .          '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
             .          claro_form_relay_context()
             .          '<input type="hidden" name="registration" value="1" />' . "\n"
@@ -138,7 +139,7 @@ if( isset($_REQUEST['registration']) )
             .          '<input type="submit" value="' . get_lang("Ok") . '" />' . "\n"
             .          claro_html_button($_SERVER['PHP_SELF'] , get_lang("Cancel")) . "\n"
             .          '</form>' . "\n"
-            ;
+            );
 
 
 
@@ -152,7 +153,7 @@ if( isset($_REQUEST['registration']) )
 
 if ( isset($_REQUEST['regDone']) )
 {
-    $message = get_lang("You are now a member of this group.");
+    $dialogBox->error( get_lang("You are now a member of this group.") );
 }
 
 
@@ -280,10 +281,7 @@ include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 echo claro_html_tool_title( array('supraTitle'=> get_lang("Groups"),
                                   'mainTitle' => claro_get_current_group_data('name') . ' <img src="' . get_path('imgRepositoryWeb') . 'group.gif" alt="" />'));
 
-if ( !empty($message) )
-{
-    echo claro_html_message_box($message);
-}
+echo $dialogBox->render();
 
 
 if($is_allowedToSelfRegInGroup && !array_key_exists('registration',$_REQUEST))

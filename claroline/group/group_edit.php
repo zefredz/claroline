@@ -32,6 +32,7 @@ if ( ! $is_allowedToManage )
     claro_die(get_lang("Not allowed"));
 }
 
+$dialogBox = new DialogBox();
 $nameTools = get_lang("Edit this group");
 
 $htmlHeadXtra[]='
@@ -160,7 +161,7 @@ if ( isset($_REQUEST['modify']) && $is_allowedToManage )
     if ( $maxMember < $numberMembers AND $maxMember != '0' )
     {
         // Too much members compared to max members allowed
-        $messageGroupEdited = get_lang('Number proposed exceeds max. that you allowed (you can modify it below). Group composition has not been modified');
+        $dialogBox->error( get_lang('Number proposed exceeds max. that you allowed (you can modify it below). Group composition has not been modified') );
     }
     else
     {
@@ -179,7 +180,7 @@ if ( isset($_REQUEST['modify']) && $is_allowedToManage )
             $registerUserGroup = claro_sql_query($sql);
         }
 
-        $messageGroupEdited = get_lang("Group settings modified");
+        $dialogBox->success( get_lang("Group settings modified") );
 
     }    // else
 
@@ -257,7 +258,7 @@ include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 echo claro_html_tool_title(array('supraTitle' => get_lang("Groups"), 'mainTitle' => $nameTools));
 
-if ( isset($messageGroupEdited) ) echo claro_html_message_box($messageGroupEdited);
+echo $dialogBox->render();
 
 echo '<form name="groupedit" method="post" action="' . $_SERVER['PHP_SELF'] . '?edit=yes&amp;gidReq=' . claro_get_current_group_id() . '">' . "\n"
 .    claro_form_relay_context()

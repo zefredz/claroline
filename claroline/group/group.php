@@ -99,6 +99,7 @@ $tools['document'] = $_groupProperties['tools']['CLDOC' ];
 $tools['wiki'    ] = $_groupProperties['tools']['CLWIKI'];
 $tools['chat'    ] = $_groupProperties['tools']['CLCHT' ];*/
 
+$dialogBox = new DialogBox();
 //// **************** ACTIONS ***********************
 
 $display_groupadmin_manager = (bool) $is_allowedToManage;
@@ -147,7 +148,7 @@ if ( $is_allowedToManage )
             $groupCreatedList[] = $groupId;
         }
 
-        $message= get_lang("%groupQty group(s) has (have) been added", array('%groupQty' => count($groupCreatedList)));
+        $dialogBox->success( get_lang("%groupQty group(s) has (have) been added", array('%groupQty' => count($groupCreatedList))) );
 
         event_default( 'GROUPMANAGING' , array ('CREATE_GROUP' => $groupQuantity) );
 
@@ -155,10 +156,10 @@ if ( $is_allowedToManage )
 
     if ('rqMkGroup' == $cmd )
     {
-        $message = '<b>' . get_lang("Create new group(s)") . '</b>'
+        $dialogBox->title( get_lang("Create new group(s)") );
 
 
-        .          '<form method="post" action="group.php">'                         ."\n"
+        $dialogBox->form( '<form method="post" action="group.php">'                         ."\n"
         .          claro_form_relay_context()
         .          '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />' ."\n"
         .          '<input type="hidden" name="cmd" value="exMkGroup" />'
@@ -199,7 +200,7 @@ if ( $is_allowedToManage )
 
         .          '</table>'                                                        ."\n"
         .          '</form>'                                                         ."\n"
-        ;
+        );
     }
 
     if ( $cmd == 'exDelGroup')
@@ -246,12 +247,12 @@ if ( $is_allowedToManage )
         if (empty_group())
         {
             event_default('GROUPMANAGING',array ('EMPTY_GROUP' => TRUE));
-            $message = get_lang("All groups are now empty");
+            $dialogBox->success( get_lang("All groups are now empty") );
         }
         else
         {
             echo claro_failure::get_last_failure();
-            $message = get_lang("Unable to empty groups");
+            $dialogBox->error( get_lang("Unable to empty groups") );
         }
 
     }
@@ -265,7 +266,7 @@ if ( $is_allowedToManage )
         fill_in_groups($nbGroupPerUser, claro_get_current_course_id());
         event_default('GROUPMANAGING',array ('FILL_GROUP' => TRUE));
 
-        $message = get_lang("Groups have been filled (or completed) by students present in the 'Users' list.");
+        $dialogBox->success( get_lang("Groups have been filled (or completed) by students present in the 'Users' list.") );
 
     }    // end FILL
 
@@ -353,7 +354,7 @@ if ( $is_allowedToManage )
             }
         }
 
-        $message  = get_lang("Group settings have been modified");
+        $dialogBox->success( get_lang("Group settings have been modified") );
         event_default('GROUPMANAGING',array ('CONFIG_GROUP' => TRUE));
 
         $cidReset = TRUE;
@@ -533,7 +534,7 @@ echo claro_html_tool_title($nameTools);
   MESSAGE BOX
  -------------*/
 
-if ( !empty($message) ) echo claro_html_message_box($message);
+echo $dialogBox->render();
 
 /*==========================
 COURSE ADMIN ONLY
