@@ -167,13 +167,19 @@ class ReceivedMessage extends StoredMessage
      * set fields of the current message
      *
      * @param array $messageData
-     * $messageData['read_flag'] = read status (0 for unread or 1 for read)
-     * $messageData['deleted_flag'] = deleted status (0 for not deleted or 1 for deleted)
-     * $messageData['message_id'] = message identification
-     * $messageData['subject'] = subject of the message
-     * $messageData['message'] = content of the message
-     * $messageData['sender'] = itendification of the sender
-     * $messageData['send_time'] = send time of the message
+     *   $messageData['message_id']
+     *   $messageData['subject']
+     *   $messageData['message']
+     *   $messageData['sender']
+     *   $messageData['send_time']
+     *   $messageData['course']
+     *   $messageData['group']
+     *   $messageData['tools']
+     *   $messageData['is_read']
+     *   $messageData['is_deleted']
+     *   $messageData['user_id']
+     *   $messageData['firstName']
+     *   $messageData['lastName']
      */
     protected function setFromArray($messageData)
     {
@@ -227,14 +233,20 @@ class ReceivedMessage extends StoredMessage
      * create a new ReceviedMessage with the information in the parameter
      *
      * @param array $messageData
-     * $messageData['is_read'] = read status (0 for unread or 1 for read)
-     * $messageData['id_deleted'] = deleted status (0 for not deleted or 1 for deleted)
-     * $messageData['message_id'] = message identification
-     * $messageData['subject'] = subject of the message
-     * $messageData['message'] = content of the message
-     * $messageData['sender'] = itendification of the sender
-     * $messageData['send_time'] = send time of the message
-     * $messageData['user_id'] = send time of the message
+     *   $messageData['message_id']
+     *   $messageData['subject']
+     *   $messageData['message']
+     *   $messageData['sender']
+     *   $messageData['send_time']
+     *   $messageData['course']
+     *   $messageData['group']
+     *   $messageData['tools']
+     *   $messageData['is_read']
+     *   $messageData['is_deleted']
+     *   $messageData['user_id']
+     *   $messageData['firstName']
+     *   $messageData['lastName']
+     * 
      * @return ReceivedMessage the message created
      */
     public static function fromArray($messageData)

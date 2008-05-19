@@ -41,12 +41,19 @@ class UserStrategy implements SelectorStrategy
         $this->numberOfUserPerPage = get_conf('userPerPage',25);
     }
     
+    /**
+     * return the number of user per page
+     *
+     * @return int number of user per page
+     */
     public function getNumberOfUserPerPage()
     {
         return $this->numberOfUserPerPage;
     }
     
-    
+    /**
+     * @see SelectorStrategy
+     */
     public function getStrategy()
     {
         if ($this->nameSearch == "*")
@@ -58,6 +65,11 @@ class UserStrategy implements SelectorStrategy
         ."CONCAT(nom,' ',prenom) like '%".$this->nameSearch."%' OR CONCAT(prenom,' ',nom) like '%".$this->nameSearch."%'";
     }
     
+    /**
+     * Set the page to display. Begin by 1
+     *
+     * @param int $page page to display
+     */
     public function setPageToDisplay($page)
     {
         $this->pageToDisplay = $page;
@@ -79,6 +91,12 @@ class UserStrategy implements SelectorStrategy
             . (int)$this->numberOfUserPerPage."\n";
     }
     
+    /**
+     * Set the filed order. 
+     * accepter values: UserStrategy::ORDER_BY_NAME or UserStrategy::ORDER_BY_USERNAME
+     *
+     * @param string $fieldOrder 
+     */
     public function setFieldOrder($fieldOrder)
     {
         if ($fieldOrder == self::ORDER_BY_NAME || $fieldOrder == self::ORDER_BY_USERNAME)
@@ -105,6 +123,9 @@ class UserStrategy implements SelectorStrategy
         }
     }
     
+    /**
+     * @see SelectorStrategy
+     */
     public function getOrder()
     {
         $orderString = $this->fieldOrder;
@@ -112,6 +133,11 @@ class UserStrategy implements SelectorStrategy
         return " ORDER BY ".$orderString."\n";
     }
     
+    /**
+     * Set the name to search
+     *
+     * @param string $name name search
+     */
     public function setSearch($name)
     {
         $this->nameSearch = $name; 

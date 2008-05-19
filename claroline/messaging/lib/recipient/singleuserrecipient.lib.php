@@ -39,6 +39,9 @@ class SingleUserRecipient extends RecipientList
         return array($this->userId);
     }
     
+    /**
+     * @see RecpientList
+     */
     protected function addRecipient($messageId,$userId)
     {
         $tableName = get_module_main_tbl(array('im_recipient'));

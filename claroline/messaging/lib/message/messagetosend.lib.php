@@ -76,7 +76,7 @@ class MessageToSend extends InternalMessage
     }
 
     /**
-     * set the message of the current message
+     * set the content of the current message
      *
      * @param string $message message 
      */
@@ -86,7 +86,7 @@ class MessageToSend extends InternalMessage
     }
 
     /**
-     * set the context of course of the current message
+     * set the course id of the current message
      *
      * @param string $course course identification
      */
@@ -96,7 +96,7 @@ class MessageToSend extends InternalMessage
     }
     
     /**
-     * set the conctext of group of the current message
+     * set the group id of the current message
      *
      * @param int $group groupe identification
      */
@@ -106,7 +106,7 @@ class MessageToSend extends InternalMessage
     }
     
     /**
-     * set the context of tool of the current message
+     * set the Tlabel of tool of the current message
      *
      * @param string $tools course identification
      */

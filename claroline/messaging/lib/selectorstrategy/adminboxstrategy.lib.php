@@ -45,6 +45,17 @@ class AdminBoxStrategy implements SelectorStrategy
         $this->numberMessagePerPage = get_conf('messagePerPage',40);
     }
     
+    /**
+     * Set the strategy to apply to the message list
+     *
+     * @param string $strategy 
+     * 			accepted value:
+     * 				AdminBoxStrategy::OLDER_THAN  argument: date 
+     * 				AdminBoxStrategy::DATED_INTERVAL  argument: date1 date 2 
+     * 				AdminBoxStrategy::SENT_BY  argument: name
+     * 				AdminBoxStrategy::PLATFORM_MESSAGE
+     * @param array $valuesList value of the strategy
+     */
     public function setStrategy($strategy,$valuesList = array())
     {
         if ($strategy == self::OLDER_THAN || $strategy == self::SENT_BY
@@ -61,6 +72,9 @@ class AdminBoxStrategy implements SelectorStrategy
         }
     }
     
+    /**
+     * @see SelectorStrategy
+     */
     public function getStrategy()
     {
         $condition = $this->strategy;
@@ -73,6 +87,9 @@ class AdminBoxStrategy implements SelectorStrategy
         return " WHERE ".$condition."\n";
     }
     
+    /**
+     * @see SelectorStrategy
+     */
     public function getLimit()
     {
         if ($this->numberMessagePerPage <= 0)
@@ -89,6 +106,14 @@ class AdminBoxStrategy implements SelectorStrategy
             . (int)$this->numberMessagePerPage."\n";
     }
     
+    /**
+     * set the field order
+     *
+     * @param string $fieldOrder
+     * 		accepted value: AdminBoxStrategy::FIELD_ORDER_NAME
+    						AdminBoxStrategy::FIELD_ORDER_USERNAME
+    						AdminBoxStrategy::FIELD_ORDER_DATE
+     */
     public function setFieldOrder($fieldOrder)
     {
         if ($fieldOrder == self::FIELD_ORDER_DATE
@@ -99,6 +124,13 @@ class AdminBoxStrategy implements SelectorStrategy
         }
     }
     
+    /**
+     * Set the order to apply
+     *
+     * @param string $order
+     * 		accepted value: AdminBoxStrategy::ORDER_DESC
+    						AdminBoxStrategy::ORDER_ASC
+     */
     public function setOrder($order)
     {
         if ($order == self::ORDER_ASC
@@ -108,6 +140,9 @@ class AdminBoxStrategy implements SelectorStrategy
         }
     }
     
+    /**
+     * @see SelectorStrategy
+     */
     public function getOrder()
     {
         $orderString = $this->orderField;

@@ -33,9 +33,18 @@ class ReceivedMessageStrategy extends MessageStrategy
     protected $readStrategy = self::NO_FILTER;
     protected $deletedStrategy = self::NO_FILTER;
     
+    /**
+     * set read strategy
+     *
+     * @param string $readStrategy
+     * 			accepted value: 
+     * 				ReceivedMessageStrategy::ONLY_READ
+     * 				ReceivedMessageStrategy::ONLY_UNREAD
+     * 				MessageStrategy::NO_FILTER
+     */
     public function setReadStrategy($readStrategy)
     {
-        if ( $readStrategy == self::NO_FILTER
+        if ( $readStrategy == parent::NO_FILTER
             || $readStrategy == self::ONLY_READ
             || $readStrategy == self::ONLY_UNREAD)
         {
@@ -43,6 +52,15 @@ class ReceivedMessageStrategy extends MessageStrategy
         }
     }
 
+     /**
+     * set deleted strategy
+     *
+     * @param string $deletedStrategy
+     * 			accepted value: 
+     * 				ReceivedMessageStrategy::ONLY_DELETED
+     * 				ReceivedMessageStrategy::ONLY_NOT_DELETED
+     * 				MessageStrategy::NO_FILTER
+     */
     public function setDeletedStrategy($deletedStrategy)
     {
         if ( $deletedStrategy == self::NO_FILTER
@@ -53,6 +71,13 @@ class ReceivedMessageStrategy extends MessageStrategy
         }
     }
 
+    /**
+     * set the field order
+     *
+     * @param string $fieldOrder
+     * 		accepted value: ReceivedMessageStrategy::ORDER_BY_DATE
+     * 						ReceivedMessageStrategy::ORDER_BY_SENDER
+     */
     public function setFieldOrder($fieldOrder)
     {
         if ($fieldOrder == self::ORDER_BY_DATE

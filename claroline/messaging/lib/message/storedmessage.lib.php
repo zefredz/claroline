@@ -31,14 +31,15 @@ abstract class StoredMessage extends InternalMessage
      * set the fields of the current message
      *
      * @param array $messageData
-     * $messageData['message_id'] = message identification
-     * $messageData['subject'] = subject of the message
-     * $messageData['message'] = content of the message
-     * $messageData['sender'] = itendification of the sender
-     * $messageData['send_time'] = send time of the message
-     * $messageData['tools'] = send time of the message
-     * $messageData['group'] = send time of the message
-     * $messageData['course'] = send time of the message
+     *  $messageData['message_id']
+     *  $messageData['subject']
+     *  $messageData['message']
+     *  $messageData['sender']
+     *  $messageData['send_time']
+     *  $messageData['course']
+     *  $messageData['group']
+     *  $messageData['tools']
+     * 
      */
     protected function setFromArray($messageData)
     {
@@ -157,6 +158,13 @@ abstract class StoredMessage extends InternalMessage
         return $this->senderLastName;
     }
 
+    /**
+     * return true if the current message is a platform message, 
+     * false if this is not a platform message
+     *
+     * @return boolean true if the current message is a platform message
+     * 				   false if the current message is not a platform message	
+     */
     public function isPlatformMessage()
     {
         $tableName = get_module_main_tbl(array('im_recipient'));

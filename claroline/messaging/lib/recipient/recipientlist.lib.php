@@ -28,6 +28,12 @@ abstract class RecipientList
      */
     abstract public function getRecipientList();
     
+    /**
+     * add the userId as recpient of the message id
+     *
+     * @param int $messageId message id
+     * @param int $userId user id
+     */
     abstract protected function addRecipient($messageId,$userId);
     
     /**
@@ -134,12 +140,12 @@ abstract class RecipientList
      * @param array of userId $recipientListID list of user identification
      * @param int $messageId message identification
      */
-    private final function sendMessageToUser($recipientListID,$messageId)
+    private final function sendMessageToUser($recipientListId,$messageId)
     {
         $tableName = get_module_main_tbl(array('im_message_status'));
         
         //send a message to each user
-        foreach ($recipientListID as $currentRecipient)
+        foreach ($recipientListId as $currentRecipient)
         {
             $addInternalMessageSQL =
                 "INSERT INTO `" . $tableName['im_message_status'] . "` "

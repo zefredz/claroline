@@ -20,7 +20,7 @@
      *
      * @param array of string $paramList array of all argument
      * @param array of string $without array of argument name to don't add to the link
-     * @return unknown
+     * @return string arguments of the url
      */
     function makeArgLink($paramList,$without = array())
     {
@@ -44,7 +44,7 @@
     /**
      * return the HTML source for the menu bar (to navigate between message box)
      *
-     * @param int $currentUserId user identification (used for count of number of message unread
+     * @param int $currentUserId user identification (the admin read message box of an other user)
      * @return string HTML source
      */
     function getBarMessageBox( $currentUserId )
@@ -53,17 +53,6 @@
         
         $inboxWithoutFilter = new InBox($currentUserId);
 
-        /*$numberOfPlatformMessage = $inboxWithoutFilter->numberOfPlatformMessage();
-        $messagePlatform = "";
-        if ($numberOfPlatformMessage == 0)
-        {
-            $messagePlatform = "";
-        }
-        else
-        {
-            $messagePlatform = ''.$numberOfPlatformMessage." ".get_lang('platform message');
-        }*/
-        
         $sectionList = array(
             'inbox' => get_lang(get_lang('inbox').'('.$inboxWithoutFilter->numberOfUnreadMessage().')'),
             'outbox' => get_lang('Outbox'),
@@ -83,16 +72,15 @@
         }
         
         return claro_html_tab_bar($sectionList,$currentSection, $parameter, 'box', get_path('clarolineRepositoryWeb') . "messaging/messagebox.php");
-        
-        /*
-        $menu[] = '<a href="' . get_path( 'clarolineRepositoryWeb' ) . 'messaging/messagebox.php?box=inbox&amp;userId='.$currentUserId.'" class="claroCmd">'.get_lang('inbox').'('.$inboxWithoutFilter->numberOfUnreadMessage().')</a>';
-        $menu[] = '<a href="' . get_path( 'clarolineRepositoryWeb' ) . 'messaging/messagebox.php?box=outbox&amp;userId='.$currentUserId.'" class="claroCmd">'.get_lang('outbox').'</a>';
-        $menu[] = '<a href="' . get_path( 'clarolineRepositoryWeb' ) . 'messaging/messagebox.php?box=trashbox&amp;userId='.$currentUserId.'" class="claroCmd">'.get_lang('trashbox').'</a>';
-        
-        return claro_html_menu_horizontal($menu);
-		*/
     }
     
+    /**
+     * return true if the user in parameter is admin, false is the user in parameter is not admin
+     *
+     * @param int $userId
+     * @return bool true if the user is admin
+     * 				false if the user is not admin
+     */
     function claro_is_user_platform_admin($userId)
     {
         require_once get_path('incRepositorySys') . '/lib/user.lib.php';
@@ -102,6 +90,14 @@
         return (in_array($userId,$uidAdmin));
     }
     
+    /**
+     * return true if the user in parameter is manager of the course in 2nd parameters
+     *
+     * @param int $userId user id
+     * @param string $courseCode syscode du cours
+     * @return boolean true if the user is manager of the course
+     * 				   false if the user is not manager of the course
+     */
     function claro_is_user_course_manager($userId,$courseCode)
     {
         $tableName = get_module_main_tbl(array('cours_user'));
@@ -116,6 +112,14 @@
         return ( claro_sql_query_fetch_single_value($sql) > 0 );
     }
 
+    /**
+     * return the pager
+     *
+     * @param string $link link of the page to display(without page=x)
+     * @param int $currentPage current page
+     * @param int $totalPage number of page
+     * @return string HTML source of the pager
+     */
     function getPager($link,$currentPage,$totalPage)
     {
         // number of page to display in the page before and after thecurrent page

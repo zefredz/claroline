@@ -105,6 +105,12 @@ function current_user_is_allowed_to_send_message_to_current_course()
     return false;
 }
 
+/**
+ * return the autorisation of the current user to send a message to the current group
+ *
+ * @return bool true if the current user is autorised do send a message to the current group
+ * 				false if the current user is not autorised do send a message to the current group
+ */
 function current_user_is_allowed_to_send_message_to_current_group()
 {
     if (claro_is_platform_admin())

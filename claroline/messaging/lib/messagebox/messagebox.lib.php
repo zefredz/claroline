@@ -26,7 +26,8 @@ abstract class MessageBox implements Iterator, Countable
      * create an object MessageBox for the user in parameters and with strategy
      *
      * @param MessageStrategy $strategy strategy to apply
-     * @param unknown_type $userId user identification of the message box
+     * @param int $userId user identification of the message box (optionnal, default: current_user_id())
+     * 	
      */
     public function __construct($strategy, $userId = NULL)
     {
@@ -133,6 +134,11 @@ abstract class MessageBox implements Iterator, Countable
         return $this->userId;
     }
     
+    /**
+     * return the number of message of the iterator
+     *
+     * @return int return the number of message of the iterator
+     */
     public function count()
     {
         $this->loadMessageList();

@@ -20,6 +20,13 @@ require_once dirname(__FILE__) . '/permission.lib.php';
 
 class DisplayMessage
 {
+    /**
+     * display the message
+     *
+     * @param Message $message Message to display
+     * @param string $action list of action autorised on the message
+     * @return string HTML source
+     */
     public static function display($message,$action)
     {
         if ($message instanceof SentMessage)
@@ -36,6 +43,13 @@ class DisplayMessage
         }
     }
 
+    /**
+     * diplay a sent message
+     *
+     * @param SentMessage $message Message to display
+     * @param string $action list of action autorised on the message
+     * @return string HTML source
+     */
     private static function displaySentMessage($message,$action)
     {
         $recipientList = $message->getRecipientList();
@@ -170,6 +184,13 @@ class DisplayMessage
         return $content;
     }
 
+    /**
+     * diplay a received message
+     *
+     * @param ReceivedMessage $message Message to display
+     * @param string $action list of action autorised on the message
+     * @return string HTML source
+     */
     private static function displayReceivedMessage($message,$action)
     {
         
@@ -258,7 +279,7 @@ class DisplayMessage
         return $content;
     }
 
-    // display the user as link to compose msg
+    // display the user as link if the current user is autorise to compose msg
     public static function dispNameLinkCompose($id,$lastName,$firstName)
     {
         $isAllowed = current_user_is_allowed_to_send_message_to_user($id);

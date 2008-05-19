@@ -29,6 +29,12 @@ class AllUsersRecipient extends RecipientList
         return $this->userIdList;
     }
     
+    /**
+     * add a user in the table of recipient
+     *
+     * @param int $messageId message id
+     * @param int $userId user id (recipient id)
+     */
     protected function addRecipient($messageId,$userId)
     {
         $tableName = get_module_main_tbl(array('im_recipient'));

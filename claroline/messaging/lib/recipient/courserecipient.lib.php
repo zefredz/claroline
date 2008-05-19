@@ -55,6 +55,9 @@ class CourseRecipient extends RecipientList
         return $userList;
     }
 
+    /**
+     * @see RecpientList
+     */
     protected function addRecipient($messageId,$userId)
     {
         $tableName = get_module_main_tbl(array('im_recipient'));

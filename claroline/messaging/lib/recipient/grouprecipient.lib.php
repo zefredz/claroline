@@ -78,6 +78,9 @@ class GroupRecipient extends RecipientList
         return $userList;
     }
 
+    /**
+     * @see RecipientList
+     */
     protected function addRecipient($messageId,$userId)
     {
         $tableName = get_module_main_tbl(array('im_recipient'));

@@ -30,12 +30,15 @@ class SentMessage extends StoredMessage
     /**
      * create a new SentMessage with the information in parameter
      *
-     * @param array $messageData
-     * $messageData['message_id'] = message identification
-     * $messageData['subject'] = subject of the message
-     * $messageData['message'] = content of the message
-     * $messageData['sender'] = itendification of the sender
-     * $messageData['send_time'] = send time of the message
+     * @param array $messageData 
+     *  $messageData['message_id']
+     *  $messageData['subject']
+     *  $messageData['message']
+     *  $messageData['sender']
+     *  $messageData['send_time']
+     *  $messageData['course']
+     *  $messageData['group']
+     *  $messageData['tools']
      * @return SentMessage the new message
      */
     public static function fromArray($messageData)

@@ -201,7 +201,12 @@ class ReceivedMessageBox extends MessageBox
         
         return $this->numberOfUnreadMessage;
     }
-    
+
+    /**
+     * return the number of platform message
+     * 
+     * @return int the number of platform message
+     */    
     public function numberOfPlatformMessage()
     {
         if (!$this->numberOfUnreadMessage)
@@ -242,6 +247,10 @@ class ReceivedMessageBox extends MessageBox
         return ceil($this->getNumberOfMessage() / $this->getMessageStrategy()->getNumberOfMessagePerPage());
     }
 
+    /**
+     * empty the trashbox
+     *
+     */
     public function empyTrashBox()
     {
         $tableName = get_module_main_tbl(array('im_message_status'));

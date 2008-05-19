@@ -36,11 +36,6 @@ class AdminMessageBox implements Iterator
         $this->selector = $selector;
     }
     
-    /**
-     * return the selector (false if its not set)
-     *
-     * @return unknown
-     */
     public function getSelector()
     {
         if ( ! $this->selector )
@@ -89,6 +84,10 @@ class AdminMessageBox implements Iterator
         return ($this->index < count($this->messageList));
     } 
     
+    /**
+     * load the message list if it is not loaded
+     *
+     */
     protected function loadMessageList()
     {
         // If message list not loaded, load it !
@@ -128,6 +127,10 @@ class AdminMessageBox implements Iterator
         return $this->numberOfMessage;
     }
     
+    /**
+     * load the number of message the message box
+     *
+     */
     protected function loadNumberOfMessage()
     {
         if (!$this->numberOfMessage)
@@ -155,6 +158,10 @@ class AdminMessageBox implements Iterator
         return ceil( $this->getNumberOfMessage() / $this->getSelector()->getNumberOfMessagePerPage() );
     }
     
+    /**
+     * delete from the database all messages
+     *
+     */
     public function deleteAllMessages()
     {
         $tableName = get_module_main_tbl(array('im_message_status','im_recipient','im_message'));
@@ -169,6 +176,11 @@ class AdminMessageBox implements Iterator
         claro_sql_query($sql);
     }
     
+     /**
+      * delete message all user's messages (user in parameter) 
+      *
+      * @param int $uid user di
+      */
     public function deleteAllMessageFromUser($uid)
     {
         $tableName = get_module_main_tbl(array('im_message_status','im_recipient','im_message'));
@@ -189,6 +201,11 @@ class AdminMessageBox implements Iterator
         $this->deleteMessageList($messageIdList);
     }
     
+    /**
+     * delete all message older than 
+     *
+     * @param int $date date in unixtime format
+     */
     public function deleteMessageOlderThan($date) // timestamp
     {
         $tableName = get_module_main_tbl(array('im_message_status','im_recipient','im_message'));
@@ -202,6 +219,10 @@ class AdminMessageBox implements Iterator
         $this->deleteMessageList($messageId['message_id']);
     }
 
+    /**
+     * delete all platform message
+     *
+     */
     public function deletePlatformMessage()
     {
         $tableName = get_module_main_tbl(array('im_message_status','im_recipient','im_message'));
@@ -215,6 +236,12 @@ class AdminMessageBox implements Iterator
         $this->deleteMessageList($messageId['message_id']);
     }
     
+    
+    /**
+     * delete all message of the list in parameter
+     *
+     * @param array of int $messageIdList array of message_id
+     */
     public function deleteMessageList($messageIdList)
     {
         $tableName = get_module_main_tbl(array('im_message_status','im_recipient','im_message'));
