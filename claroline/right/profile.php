@@ -100,7 +100,7 @@ if ( empty($display_profile_list) )
 //=================================
 
 // define bredcrumb
-$interbredcrump[] = array ('url' => 'profile_list.php', 'name' => get_lang('Course profile list'));
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Course profile list'), 'profile_list.php' );
 
 // Display header
 
