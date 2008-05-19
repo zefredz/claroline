@@ -682,13 +682,13 @@ a.item:visited{
 }
 
 .claroDialogMsg { padding: 2px 5px 1px 20px; }
-.claroDialogBox .msgInfo { } /* I really don't think there is a need for an icon here */
+.claroDialogBox .msgInfo { } /* I _really_ don't think there is a need for an icon here */
 .claroDialogBox .msgSuccess { background: url('default/success.gif') top left no-repeat; }
 .claroDialogBox .msgWarning { background: url('default/warning.gif') top left no-repeat; }
 .claroDialogBox .msgError { background: url('default/error.gif') top left no-repeat; }
 .claroDialogBox .msgQuestion { background: url('default/question.gif') top left no-repeat; }
 .claroDialogBox .msgForm { padding: 3px 20px; }
-.claroDialogBox .msgDebug { }
+.claroDialogBox .msgTitle { font-weight: bold; }
 
 .warning b, .warning strong {
     color: #000;
