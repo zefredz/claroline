@@ -77,13 +77,47 @@ class DisplayMessage
         }
         elseif ($recipientList['sentTo'] == 'toCourse')
         {
-            $recipientString = get_lang('Course: ')." ". $message->getCourseCode();
+            $courseData = claro_get_course_data($message->getCourseCode());
+            
+            $recipientString = get_lang('Course: ')." ";
+            
+            if ($courseData)
+            {
+                $recipientString .= $courseData['name'];
+            }
+            else
+            {
+                $recipientString .= '?';
+            }
         }
         elseif ($recipientList['sentTo'] == 'toGroup')
         {
             $groupInfo = claro_get_group_data(array(CLARO_CONTEXT_COURSE => $message->getCourseCode(),
                                                     CLARO_CONTEXT_GROUP => $message->getGroupId()));
-            $recipientString = get_lang('Course: ')." ". $message->getCourseCode() . "; " .get_lang('Group: ')." ". $groupInfo['name'];
+            $courseData = claro_get_course_data($message->getCourseCode());
+            
+            $recipientString = get_lang('Course: ')." ";
+            
+            if ($courseData)
+            {
+                $recipientString .= $courseData['officialCode'];
+            }
+            else
+            {
+                $recipientString .= '?';
+            }
+            
+            $recipientString .= '; '.get_lang('Group: ')." ";
+            
+            if ($groupInfo)
+            {
+                $recipientString .= $groupInfo['name'];
+            }
+            else
+            {
+                $recipientString .= '?'; 
+            }
+            
         }
         elseif ($recipientList['sentTo'] == 'toAll')
         {
@@ -198,7 +232,31 @@ class DisplayMessage
                 .  '<h4 class="header">'.htmlspecialchars($message->getSubject()).'</h4>'."\n"
                 .  '<div class="imInfo">'."\n"
                 .          '<span class="imInfoTitle">'.get_lang('Sender').'</span>'."\n"
-                .       '<div class="imInfoValue">'.self::dispNameLinkCompose($message->getSender(),$message->getSenderLastName(),$message->getSenderFirstName()).'</div>'."\n"
+                .       '<div class="imInfoValue">'.self::dispNameLinkCompose($message->getSender(),$message->getSenderLastName(),$message->getSenderFirstName())
+                ;
+
+        $isManager = FALSE;
+        $isAdmin = claro_is_user_platform_admin($message->getSender());
+        if (!is_null($message->getCourseCode()))
+        {
+            $isManager = claro_is_user_course_manager($message->getSender(),$message->getCourseCode());
+        }
+        
+        if ($isManager)
+        {
+            $content .= '&nbsp;<img src="' . get_icon('manager.gif') . '" alt="" />';
+        }
+        elseif ($isAdmin)
+        {
+            $content .= '&nbsp;<img src="' . get_icon('platformadmin.gif') . '" alt="" />';
+        }
+        else
+        {
+            $content .= '&nbsp;<img src="' . get_icon('user.gif') . '" alt="" />';
+        }
+        
+        $content .= ''      
+                .       '</div>'."\n"
                 .   '</div>'."\n\n"
                 .   '<div class="imInfo">'."\n"
                 .          '<span class="imInfoTitle">'.get_lang('Date').'</span>'."\n"
@@ -217,7 +275,7 @@ class DisplayMessage
             
             if ($courseData)
             {
-                $content .= $courseData['name'];
+                $content .= htmlspecialchars($courseData['officialCode']).' - '.htmlspecialchars($courseData['name']);
             }
             else
             {
