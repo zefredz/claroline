@@ -185,20 +185,20 @@
     {
         if ($message->isDeleted())
         {
-            $claroline->display->banner->breadcrumbs->append(get_lang('My trashbox'),'./messagebox.php?box=trashbox&amp;userId='.$userId);
+            $claroline->display->banner->breadcrumbs->append(get_lang('My messages'),'./messagebox.php?box=trashbox&amp;userId='.$userId);
         }
         else
         {
-            $claroline->display->banner->breadcrumbs->append(get_lang('My inbox'),'./messagebox.php?box=inbox&amp;userId='.$userId);
+            $claroline->display->banner->breadcrumbs->append(get_lang('My messages'),'./messagebox.php?box=inbox&amp;userId='.$userId);
         }
     }
     else
     {
-        $claroline->display->banner->breadcrumbs->append(get_lang('My outbox'),'./messagebox.php?box=outbox&amp;userId='.$userId);
+        $claroline->display->banner->breadcrumbs->append(get_lang('My messages'),'./messagebox.php?box=outbox&amp;userId='.$userId);
     }
     
-    $claroline->display->banner->breadcrumbs->append(get_lang('Read message'));
-    $claroline->display->body->appendContent(claro_html_tool_title(get_lang('Read Message')));
+    $claroline->display->banner->breadcrumbs->append(get_lang('Message'));
+    $claroline->display->body->appendContent(claro_html_tool_title(get_lang('Message')));
     $claroline->display->body->appendContent(getBarMessageBox($userId));
     $claroline->display->body->appendContent($content);
     
