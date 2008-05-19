@@ -82,7 +82,7 @@
             $parameter['userId'] = (int)$_REQUEST['userId'];
         }
         
-        return claro_html_tab_bar($sectionList,$currentSection, $parameter, 'box');
+        return claro_html_tab_bar($sectionList,$currentSection, $parameter, 'box', get_path('clarolineRepositoryWeb') . "messaging/messagebox.php");
         
         /*
         $menu[] = '<a href="' . get_path( 'clarolineRepositoryWeb' ) . 'messaging/messagebox.php?box=inbox&amp;userId='.$currentUserId.'" class="claroCmd">'.get_lang('inbox').'('.$inboxWithoutFilter->numberOfUnreadMessage().')</a>';
