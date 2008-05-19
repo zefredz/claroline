@@ -21,7 +21,10 @@
      
     class BreadCrumbs implements Display
     {
-        private $breadCrumbs = array();
+        // protected $breadCrumbs = array();
+        protected $prependBc = array();
+        protected $currentNode = array();
+        protected $appendBc = array();
         
         public function render()
         {
@@ -30,14 +33,19 @@
                 return '';
             }
             
-            $lastNode = count( $this->breadCrumbs ) - 1;
+            $breadCrumbs = array_merge(
+                array_reverse($this->prependBc),
+                $this->currentNode,
+                $this->appendBc );
+            
+            $lastNode = count( $breadCrumbs ) - 1;
             $currentNode = 0;
 
             $out = '';
 
             $nodeList = array();
 
-            foreach ( $this->breadCrumbs as $node )
+            foreach ( $breadCrumbs as $node )
             {
                 $nodeStr = '';
 
@@ -74,32 +82,45 @@
         
         public function append( $name, $url = null, $icon = null )
         {
-            $this->breadCrumbs[] = new BreadCrumbsNode( $name, $url, $icon );
+            $this->appendNode( new BreadCrumbsNode( $name, $url, $icon ) );
         }
 
         public function prepend( $name, $url = null, $icon = null )
         {
-            array_unshift ( $this->breadCrumbs, new BreadCrumbsNode( $name, $url, $icon ) );
+            $this->prependNode( new BreadCrumbsNode( $name, $url, $icon ) );
+        }
+        
+        public function setCurrent( $name, $url = null, $icon = null )
+        {
+            $this->setCurrentNode( new BreadCrumbsNode( $name, $url, $icon ) );
+        }
+        
+        public function setCurrentNode( $node )
+        {
+            $this->currentNode = array( $node );
         }
 
         public function appendNode( $node )
         {
-            $this->breadCrumbs[] = $node;
+            $this->appendBc[] = $node;
         }
 
         public function prependNode( $node )
         {
-            array_unshift ( $this->breadCrumbs, $node );
+            $this->prependBc[] = $node;
         }
         
         public function size()
         {
-            return count( $this->breadCrumbs );
+            return count( $this->prependBc ) +
+                count( $this->currentNode ) +
+                count( $this->appendBc )
+                ;
         }
         
         public function isEmpty()
         {
-            return empty( $this->breadCrumbs );
+            return $this->size() == 0;
         }
     }
     
@@ -191,7 +212,7 @@
                     }
                 }
                 
-                $this->prependNode( new BreadCrumbsNode( $name, $url ) );
+                $this->setCurrentNode( new BreadCrumbsNode( $name, $url ) );
             }
             
             if ( claro_is_in_a_group() )
