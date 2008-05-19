@@ -388,8 +388,8 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
              * the form.
              */
 
-            $form = '<strong>' . get_lang('Upload file') . '</strong>' . "\n"
-            .	'<form action="' . $_SERVER['PHP_SELF'] . '" method="post" enctype="multipart/form-data">'
+            $dialogBox->title( get_lang('Upload file') );
+            $form = '<form action="' . $_SERVER['PHP_SELF'] . '" method="post" enctype="multipart/form-data">'
             .	claro_form_relay_context()
             .	'<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n"
             .	'<input type="hidden" name="cmd" value="exUpload" />' . "\n"
@@ -614,8 +614,8 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
 
     if ('rqMkUrl' == $cmd )
     {
-        $form = '<strong>' . get_lang('Create hyperlink') . '</strong>' . "\n"
-		.  	'<form action="'.$_SERVER['PHP_SELF'].'" method="post">' . "\n"
+        $dialogBox->title( get_lang('Create hyperlink') );
+        $form = '<form action="'.$_SERVER['PHP_SELF'].'" method="post">' . "\n"
         .  	claro_form_relay_context()
         .  	'<input type="hidden" name="cmd" value="exMkUrl" />' . "\n"
         .	'<input type="hidden" name="cwd" value="'. htmlspecialchars($cwd).'" />' . "\n"
@@ -825,8 +825,8 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
     {
         $fileName = basename($_REQUEST['file']);
 
-        $form = '<strong>' . get_lang('Edit <i>%filename</i>', array ('%filename' => htmlspecialchars($fileName) ) ) . '</strong>' . "\n" 
-        .	'<form action="' . $_SERVER['PHP_SELF'] . '" method="post">'
+        $dialogBox->title( get_lang('Edit <i>%filename</i>', array ('%filename' => htmlspecialchars($fileName) ) ) );
+        $form = '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">'
         .             claro_form_relay_context()
         .             '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
         .             '<input type="hidden" name="file" value="' . $_REQUEST['file'] . '" />' . "\n"
@@ -953,8 +953,8 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
 
     if ('rqMkDir' == $cmd )
     {
-        $form = '<strong>' . get_lang('Create directory') . '</strong>' . "\n"
-        .	 '<form>' . "\n"
+        $dialogBox->title( get_lang('Create directory') );
+        $form = '<form>' . "\n"
 		.	 '<input type="hidden" name="cmd" value="exMkDir" />' . "\n"
         .	 '<input type="hidden" name="cwd" value="'. htmlspecialchars($cwd).'" />' . "\n"
         // directory name
