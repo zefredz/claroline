@@ -16,10 +16,11 @@ $nameTools = get_lang('User access details');
 $interbredcrump[]= array ("url"=>"courseReport.php", "name"=> get_lang('Statistics'));
 
 $tbl_mdb_names       = claro_sql_get_main_tbl();
-$TABLEUSER           = $tbl_mdb_names['user'  ];
-$tbl_cdb_names       = claro_sql_get_course_tbl();
-$TABLETRACK_ACCESS        = $tbl_cdb_names['track_e_access'];
-$TABLETRACK_DOWNLOADS        = $tbl_cdb_names['track_e_downloads'];
+$tbl_user           = $tbl_mdb_names['user'  ];
+
+$tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued(claro_get_current_course_id()));
+$tbl_course_tracking_event = $tbl_cdb_names['tracking_event'];
+
 
 include get_path('incRepositorySys') . '/lib/statsUtils.lib.inc.php';
 
@@ -31,47 +32,39 @@ include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
 {
-     if( isset($_REQUEST['cmd']) && ( $_REQUEST['cmd'] == 'tool' && !empty($_REQUEST['id']) ) )
+    if( isset($_REQUEST['cmd']) && ( $_REQUEST['cmd'] == 'tool' && !empty($_REQUEST['id']) ) )
     {
-            // set the subtitle for the echo claro_html_tool_title function
-            $sql = "SELECT `access_tlabel` AS `label`
-                    FROM `" . $TABLETRACK_ACCESS . "`
-                    WHERE `access_tid` = ". (int)$_REQUEST['id']."
-                    GROUP BY `access_tid`" ;
-
-            $viewedToolLabel = claro_sql_query_get_single_row($sql);
-
-            if( isset($viewedToolLabel['label']) && isset($toolNameList[$viewedToolLabel['label']]) )
-                    $toolTitle['subTitle'] = get_lang('Tool')." : ".$toolNameList[$viewedToolLabel['label']];
+        $toolTitle['subTitle'] = claro_get_tool_name((int)$_REQUEST['id']);
 
 
-            // prepare SQL query
-            $sql = "SELECT `nom` AS `lastName`,
-                        `prenom` AS `firstName`,
-                        MAX(UNIX_TIMESTAMP(`access_date`)) AS `data`,
-                        COUNT(`access_date`) AS `nbr`
-                    FROM `".$TABLETRACK_ACCESS."`
-                    LEFT JOIN `".$TABLEUSER."`
-                    ON `access_user_id` = `user_id`
-                    WHERE `access_tid` = '". (int)$_REQUEST['id']."'
-                    GROUP BY `nom`, `prenom`
-                    ORDER BY `nom`, `prenom`";
+        // prepare SQL query
+        $sql = "SELECT `U`.`nom` AS `lastName`,
+                       `U`.`prenom` AS `firstName`,
+                        MAX(UNIX_TIMESTAMP(`TE`.`date`)) AS `data`,
+                        COUNT(`TE`.`date`) AS `nbr`
+                  FROM `".$tbl_course_tracking_event."` AS `TE`
+             LEFT JOIN `".$tbl_user."` AS `U`
+                    ON `TE`.`user_id` = `U`.`user_id`
+                 WHERE `TE`.`tool_id` = '". (int)$_REQUEST['id']."'
+              GROUP BY `U`.`nom`, `U`.`prenom`
+              ORDER BY `U`.`nom`, `U`.`prenom`";
     }
     elseif( isset($_REQUEST['cmd']) && ( $_REQUEST['cmd'] == 'doc' && !empty($_REQUEST['path']) ) )
     {
-            // set the subtitle for the echo claro_html_tool_title function
-            $toolTitle['subTitle'] = get_lang('Documents and Links')." : ". htmlspecialchars($_REQUEST['path']);
-            // prepare SQL query
-            $sql = "SELECT `nom` as `lastName`,
-                        `prenom` as `firstName`,
-                        MAX(UNIX_TIMESTAMP(`down_date`)) AS `data`,
-                        COUNT(`down_date`) AS `nbr`
-                    FROM `".$TABLETRACK_DOWNLOADS."`
-                    LEFT JOIN `".$TABLEUSER."`
-                    ON `down_user_id` = `user_id`
-                    WHERE `down_doc_path` = '". addslashes($_REQUEST['path']) ."'
-                    GROUP BY `nom`, `prenom`
-                    ORDER BY `nom`, `prenom`";
+        // FIXME : fix query, probably not a good idea to use like to find a match inside serialized data
+        // set the subtitle for the echo claro_html_tool_title function
+        $toolTitle['subTitle'] = get_lang('Documents and Links')." : ". htmlspecialchars($_REQUEST['path']);
+        // prepare SQL query
+        $sql = "SELECT `U`.`nom` as `lastName`,
+                       `U`.`prenom` as `firstName`,
+                        MAX(UNIX_TIMESTAMP(`TE`.`date`)) AS `data`,
+                        COUNT(`TE`.`date`) AS `nbr`
+                  FROM `".$tbl_course_tracking_event."` AS `TE`
+             LEFT JOIN `".$tbl_user."` AS `U`
+                    ON `U`.`user_id` = `TE`.`user_id`
+                 WHERE `TE`.`data` LIKE '%". addslashes($_REQUEST['path']) ."%'
+              GROUP BY `U`.`nom`, `U`.`prenom`
+              ORDER BY `U`.`nom`, `U`.`prenom`";
     }
     else
     {

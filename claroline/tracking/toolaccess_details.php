@@ -73,7 +73,7 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
     include get_path('incRepositorySys') . '/claro_init_header.inc.php';
     
     $title['mainTitle'] = $nameTools;
-    $title['subTitle'] = claro_get_tool_name($toolId);;
+    $title['subTitle'] = claro_get_tool_name($toolId);
 
     echo claro_html_tool_title( $title )
     .    '<table width="100%" cellpadding="2" cellspacing="0" border="0">'."\n\n"
