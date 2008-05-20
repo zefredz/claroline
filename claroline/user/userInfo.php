@@ -406,19 +406,19 @@ elseif ($displayMode == "viewDefList")
 
             .    '<a href="'.$_SERVER['PHP_SELF'] . '?removeDef=' . $thisCat['catId']
             .    claro_url_relay_context('&amp;') . '">'
-            .    '<img src="' . get_path('imgRepositoryWeb') . '/delete.gif" border="0" alt="'.get_lang('Delete').'" />'
+            .    '<img src="' . get_icon_url('delete') . '" alt="'.get_lang('Delete').'" />'
             .    '</a>' . "\n"
             .    '<a href="'.$_SERVER['PHP_SELF'].'?editDef='.$thisCat['catId']
             .    claro_url_relay_context('&amp;') . '">'
-            .    '<img src="' . get_path('imgRepositoryWeb') . '/edit.gif" border="0" alt="'.get_lang('Edit').'" />'
+            .    '<img src="' . get_icon_url('edit') . '" alt="'.get_lang('Edit').'" />'
             .    '</a>' . "\n"
             .    '<a href="'.$_SERVER['PHP_SELF'].'?moveUpDef='.$thisCat['catId']
             .    claro_url_relay_context('&amp;') . '">'
-            .    '<img src="' . get_path('imgRepositoryWeb') . '/up.gif" border="0" alt="'.get_lang('Move up').'" />'
+            .    '<img src="' . get_icon_url('up') . '" alt="'.get_lang('Move up').'" />'
             .    '</a>' . "\n"
             .    '<a href="'.$_SERVER['PHP_SELF'].'?moveDownDef='.$thisCat['catId']
             .    claro_url_relay_context('&amp;') . '">'
-            .    '<img src="' . get_path('imgRepositoryWeb') . '/down.gif" border="0" alt="'.get_lang('Move down').'" />'
+            .    '<img src="' . get_icon_url('down') . '" alt="'.get_lang('Move down').'" />'
             .    '</a>' . "\n"
             .    '</div>' . "\n"
             ;

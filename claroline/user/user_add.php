@@ -304,7 +304,7 @@ else
                 echo '<a href="' . $_SERVER['PHP_SELF']
                 .    '?cmd=registration'
                 .    '&amp;userId=' . $thisUser['uid'] . $regUrlAddParam . claro_url_relay_context('&amp;'). '">'
-                .    '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" alt="' . get_lang('Enrol as student') . '" />'
+                .    '<img src="' . get_icon_url('enroll') . '" alt="' . get_lang('Enrol as student') . '" />'
                 .    '</a>'
                 ;
             }

@@ -726,7 +726,7 @@
                         echo '<a href="'.$_SERVER['PHP_SELF'].'?wikiId='
                             . $entry['id'].'&amp;action=rqEdit'
                             . '">'
-                            . '<img src="' . get_icon_url('settings').'" border="0" alt="'
+                            . '<img src="' . get_icon_url('settings').'" alt="'
                             . get_lang("Edit properties").'" />'
                             . '</a>'
                             ;
@@ -738,7 +738,7 @@
                         echo '<a href="'.$_SERVER['PHP_SELF'].'?wikiId='
                             . $entry['id'].'&amp;action=rqDelete'
                             . '">'
-                            . '<img src="' . get_icon_url('delete').'" border="0" alt="'.get_lang("Delete").'" />'
+                            . '<img src="' . get_icon_url('delete').'" alt="'.get_lang("Delete").'" />'
                             . '</a>'
                             ;
                         echo '</td>' . "\n";
@@ -749,7 +749,7 @@
                             echo '<a href="'.$_SERVER['PHP_SELF'].'?wikiId='
                                 . $entry['id'].'&amp;action=exExport'
                                 . '">'
-                                . '<img src="' . get_icon_url('export').'" border="0" alt="'.get_lang("Export").'" />'
+                                . '<img src="' . get_icon_url('export').'" alt="'.get_lang("Export").'" />'
                                 . '</a>'
                                 ;
                             echo '</td>' . "\n";
