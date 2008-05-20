@@ -1661,7 +1661,10 @@ if( $dispWrkLst )
     }
     else
     {
-        echo claro_html_message_box(get_lang('No visible submission'));
+        // FIXME use only one dialogBox instance in the script :o
+        $dialogBox = new DialogBox();
+        $dialogBox->warning( get_lang('No visible submission') );
+        echo $dialogBox->render();
     }
 }
 // FOOTER
