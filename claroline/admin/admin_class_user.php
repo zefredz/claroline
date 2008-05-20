@@ -115,7 +115,7 @@ if ( !empty($class_id) )
         $sql .= " AND (U.nom LIKE '%". $search ."%'
                   OR U.prenom LIKE '%". $search ."%' ";
         $sql .= " OR U.email LIKE '%".  $search ."%'";
-		$sql .= " OR U.username LIKE '".  $search ."%'";        
+        $sql .= " OR U.username LIKE '".  $search ."%'";        
         $sql .= " OR U.officialCode = '".  $search ."')";
     }
 
@@ -231,18 +231,18 @@ if ( !empty($class_id) )
     echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?class_id='.$class_id);
 
     //Display search form
-	echo '<div style="text-align:right"><form action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
-	.    '<label for="search">' . get_lang('Make new search') . '  </label>' . "\n"
-	.    '<input type="text" value="' . htmlspecialchars($search).'" name="search" id="search" />' . "\n"
-	.    '<input type="submit" value=" ' . get_lang('Ok') . ' " />' . "\n"
-	.    '<input type="hidden" name="class_id" value="'.$class_id. '" />' . "\n"
-	.    '</form></div>' . "\n"
-	;
+    echo '<div style="text-align:right"><form action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
+    .    '<label for="search">' . get_lang('Make new search') . '  </label>' . "\n"
+    .    '<input type="text" value="' . htmlspecialchars($search).'" name="search" id="search" />' . "\n"
+    .    '<input type="submit" value=" ' . get_lang('Ok') . ' " />' . "\n"
+    .    '<input type="hidden" name="class_id" value="'.$class_id. '" />' . "\n"
+    .    '</form></div>' . "\n"
+    ;
     
     // Display list of users
 
     // start table...
-	echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
+    echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
     .    '<thead>'
     .    '<tr class="headerX" align="center" valign="top">'
     .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;order_crit=user_id&amp;chdir=yes">' . get_lang('User Id') . '</a></th>'

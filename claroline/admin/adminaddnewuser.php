@@ -116,11 +116,11 @@ $jsloader->load('jquery');
 
 $htmlHeadXtra[] =
 '<script type="text/javascript">
-	$(document).ready(
-		function() {
-			$("#password").val("");
-		}
-	);
+    $(document).ready(
+        function() {
+            $("#password").val("");
+        }
+    );
 </script>';
 /* end of hack */
 

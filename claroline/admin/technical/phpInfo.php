@@ -28,7 +28,7 @@ $claroCreditFilePath = get_path('rootSys').'CREDITS.txt';
 
 if( file_exists(get_path('rootSys').'platform/currentVersion.inc.php') )
 {
-	include (get_path('rootSys').'platform/currentVersion.inc.php');
+    include (get_path('rootSys').'platform/currentVersion.inc.php');
 }
 
 if( ! claro_is_platform_admin() ) claro_disp_auth_form();
@@ -57,8 +57,8 @@ if ($is_allowedToAdmin)
 
     echo claro_html_tool_title( array( 'mainTitle'=>$nameTools, 'subTitle'=> get_conf('siteName') ) );
 
-	$cmd = array_key_exists( 'cmd', $_REQUEST ) ? $_REQUEST['cmd'] : 'phpinfo';
-	$ext = array_key_exists( 'ext', $_REQUEST ) ? $_REQUEST['ext'] : '';
+    $cmd = array_key_exists( 'cmd', $_REQUEST ) ? $_REQUEST['cmd'] : 'phpinfo';
+    $ext = array_key_exists( 'ext', $_REQUEST ) ? $_REQUEST['ext'] : '';
 
 ?>
 
@@ -70,79 +70,79 @@ if ($is_allowedToAdmin)
 </div>
 
 <ul id="navlist">
-	<li>
-		<a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=phpinfo" <?php echo ($cmd == 'phpinfo')? 'class="current"': ''; ?>>
-		<?php echo get_lang('PHP configuration'); ?>
-		</a>
-	</li>
-	<li>
-		<a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=secinfo" <?php echo ($cmd == 'secinfo')? 'class="current"': ''; ?>>
-		<?php echo get_lang('PHP security information'); ?>
-		</a>`
-	</li>
-	<li>
-		<a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=extensions" <?php echo ($cmd == 'extensions')? 'class="current"': ''; ?>>
-		<?php echo get_lang('Loaded extensions'); ?>
-		</a>
-	</li>
-	<li>
-		<a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=claroconf" <?php echo ($cmd == 'claroconf')? 'class="current"': ''; ?>>
-		<?php echo get_lang('Claroline configuration'); ?>
-		</a>
-	</li>
+    <li>
+        <a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=phpinfo" <?php echo ($cmd == 'phpinfo')? 'class="current"': ''; ?>>
+        <?php echo get_lang('PHP configuration'); ?>
+        </a>
+    </li>
+    <li>
+        <a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=secinfo" <?php echo ($cmd == 'secinfo')? 'class="current"': ''; ?>>
+        <?php echo get_lang('PHP security information'); ?>
+        </a>`
+    </li>
+    <li>
+        <a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=extensions" <?php echo ($cmd == 'extensions')? 'class="current"': ''; ?>>
+        <?php echo get_lang('Loaded extensions'); ?>
+        </a>
+    </li>
+    <li>
+        <a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=claroconf" <?php echo ($cmd == 'claroconf')? 'class="current"': ''; ?>>
+        <?php echo get_lang('Claroline configuration'); ?>
+        </a>
+    </li>
 </ul>
 
 
 <div class="phpInfoContents">
 <?php
 
-	if( $cmd == 'extensions' )
-	{
-	    $extensions = @get_loaded_extensions();
-	    echo count($extensions) . ' ' . get_lang('Loaded extensions') . '<br /><br />';
-	    @sort($extensions);
+    if( $cmd == 'extensions' )
+    {
+        $extensions = @get_loaded_extensions();
+        echo count($extensions) . ' ' . get_lang('Loaded extensions') . '<br /><br />';
+        @sort($extensions);
 
-	    foreach($extensions as $extension)
-	    {
-	        echo $extension.' &nbsp; <a href="'.$_SERVER['PHP_SELF'].'?cmd=ext&amp;ext='.$extension.'" >'.get_lang('Function list').'</a><br />'."\n";
-	        if( $extension == $ext )
-	        {
-	            $functions = @get_extension_funcs($ext);
-	            @sort($functions);
-	            if( is_array($functions) )
-	            {
-	                echo '<ol>';
-	                foreach($functions as $function)
-	                {
-	                    print '<li>' . $function . '</li>';
-	                }
-	                echo '</ol>';
-	            }
-	            else
-	            {
-	                echo get_lang('No function in this extension') . '<br />';
-	            }
-	        }
-	    }
-	}
-	elseif( $cmd == 'phpinfo' )
-	{
-	    echo '<div class="center">';
-	    echo phpinfoNoHtml();
-	    echo '</div>';
-	}
-	elseif( $cmd == 'secinfo' )
-	{
-	    require_once('./lib/PhpSecInfo.lib.php');
-	    phpsecinfo();
+        foreach($extensions as $extension)
+        {
+            echo $extension.' &nbsp; <a href="'.$_SERVER['PHP_SELF'].'?cmd=ext&amp;ext='.$extension.'" >'.get_lang('Function list').'</a><br />'."\n";
+            if( $extension == $ext )
+            {
+                $functions = @get_extension_funcs($ext);
+                @sort($functions);
+                if( is_array($functions) )
+                {
+                    echo '<ol>';
+                    foreach($functions as $function)
+                    {
+                        print '<li>' . $function . '</li>';
+                    }
+                    echo '</ol>';
+                }
+                else
+                {
+                    echo get_lang('No function in this extension') . '<br />';
+                }
+            }
+        }
+    }
+    elseif( $cmd == 'phpinfo' )
+    {
+        echo '<div class="center">';
+        echo phpinfoNoHtml();
+        echo '</div>';
+    }
+    elseif( $cmd == 'secinfo' )
+    {
+        require_once('./lib/PhpSecInfo.lib.php');
+        phpsecinfo();
 
-	}
-	elseif( $cmd == 'claroconf' )
-	{
-	    echo '<div style="background-color: #dfdfff;">';
-	    highlight_file(claro_get_conf_repository() . 'claro_main.conf.php');
-	    echo '<hr /></div>';
-	}
+    }
+    elseif( $cmd == 'claroconf' )
+    {
+        echo '<div style="background-color: #dfdfff;">';
+        highlight_file(claro_get_conf_repository() . 'claro_main.conf.php');
+        echo '<hr /></div>';
+    }
 }
 else // is not allowed
 {

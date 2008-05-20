@@ -743,19 +743,7 @@ switch ($display)
                 ;
             }
             echo '</p>' . "\n\n";
-
-
-
-
-
-
-
-
-
-
-
         }
-
         break;
     default:trigger_error('display (' . $display . ') unknown', E_USER_NOTICE);
 }

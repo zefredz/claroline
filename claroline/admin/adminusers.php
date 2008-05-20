@@ -270,8 +270,8 @@ echo '<table width="100%">' . "\n"
 .    '<img src="' . get_path('imgRepositoryWeb') . 'user.gif" alt="" />'
 .    get_lang('Create user')
 .    '</a>'
-.	 '</td>' . "\n"
-.	 '<td>' . ''
+.     '</td>' . "\n"
+.     '<td>' . ''
 .    '<td align="right">' . "\n"
 .    '<form action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
 .    '<label for="search">' . get_lang('Make new search') . '  </label>' . "\n"
@@ -361,7 +361,7 @@ function get_sql_filtered_user_list()
         $sql .= " AND (U.nom LIKE '%". addslashes(pr_star_replace($_SESSION['admin_user_search'])) ."%'
                   OR U.prenom LIKE '%".addslashes(pr_star_replace($_SESSION['admin_user_search'])) ."%' ";
         $sql .= " OR U.email LIKE '%". addslashes(pr_star_replace($_SESSION['admin_user_search'])) ."%'";
-		$sql .= " OR U.username LIKE '". addslashes(pr_star_replace($_SESSION['admin_user_search'])) ."%'";        
+        $sql .= " OR U.username LIKE '". addslashes(pr_star_replace($_SESSION['admin_user_search'])) ."%'";        
         $sql .= " OR U.officialCode = '". addslashes(pr_star_replace($_SESSION['admin_user_search'])) ."')";
     }
 
