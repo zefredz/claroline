@@ -685,16 +685,16 @@ function get_tutor_group_list($uid)
 
 function get_group_user_list($gid, $courseId =  NULL)
 {
-	$mainTableName = get_module_main_tbl(array('user'));
-	$courseTableName = get_module_course_tbl(array('group_rel_team_user'), $courseId);
-	
-	$sql = "SELECT `user_id` AS `id`, `nom` AS `lastName`, `prenom` AS `firstName`, `email`
+    $mainTableName = get_module_main_tbl(array('user'));
+    $courseTableName = get_module_course_tbl(array('group_rel_team_user'), $courseId);
+    
+    $sql = "SELECT `user_id` AS `id`, `nom` AS `lastName`, `prenom` AS `firstName`, `email`
         FROM `" . $mainTableName['user'] . "` `user`, `" . $courseTableName['group_rel_team_user'] . "` `user_group`
         WHERE `user_group`.`team`= '" . $gid . "'
         AND   `user_group`.`user`= `user`.`user_id`";
-	
-	
-	return claro_sql_query_fetch_all($sql);
+    
+    
+    return claro_sql_query_fetch_all($sql);
 }
 
 /**

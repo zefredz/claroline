@@ -134,7 +134,7 @@ if( isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'generate' )
 else
 {
     echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=generate">'
-    .	 'Generate it, it will overwrite previous /lang/english/install.lang.php file'
+    .     'Generate it, it will overwrite previous /lang/english/install.lang.php file'
     .    '</a>';
 }
 // display footer

@@ -572,7 +572,7 @@ function trig_topic_notification($topicId)
     $sql = "SELECT notif.user_id
             FROM `" . $tbl_user_notify . "` AS notif
             WHERE notif.topic_id = " . (int) $topicId ;
-	
+    
     $notifyResult = claro_sql_query($sql);
     
     $courseOfficialCode = claro_get_current_course_data('officialCode');

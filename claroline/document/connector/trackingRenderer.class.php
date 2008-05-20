@@ -125,40 +125,40 @@ class CLDOC_UserTrackingRenderer extends UserTrackingRenderer
         $html = '';
         
         $html .= '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center">' . "\n"
-    	.    '<tr class="headerX">' . "\n"
-    	.    '<th>' . get_lang('Document').'</th>' . "\n"
-    	.    '<th>' . get_lang('Last download').'</th>' . "\n"
-    	.    '<th>' . get_lang('Downloads').'</th>' . "\n"
-    	.    '</tr>';
+        .    '<tr class="headerX">' . "\n"
+        .    '<th>' . get_lang('Document').'</th>' . "\n"
+        .    '<th>' . get_lang('Last download').'</th>' . "\n"
+        .    '<th>' . get_lang('Downloads').'</th>' . "\n"
+        .    '</tr>';
     
-    	if( !empty($documentDownloads) && is_array($documentDownloads) )
-    	{
-    	    $html .= '<tbody>' . "\n";
-    	    foreach( $documentDownloads as $download )
-    	    {
-    	        $data = unserialize($download['data']);
+        if( !empty($documentDownloads) && is_array($documentDownloads) )
+        {
+            $html .= '<tbody>' . "\n";
+            foreach( $documentDownloads as $download )
+            {
+                $data = unserialize($download['data']);
                 if( !empty( $data['url']) )
                 {
                     $path = $data['url']; // TODO make document path shorter if needed
                     
-        	        $html .= '<tr>' . "\n"
-        	        .    '<td>'.$path.'</td>' . "\n"
-        	        .    '<td>'.claro_html_localised_date( get_locale('dateFormatLong'), $download['unix_date']).'</td>' . "\n"
-        	        .    '<td>'.$download['downloads'].'</td>' . "\n"
-        	        .    '</tr>' . "\n";
+                    $html .= '<tr>' . "\n"
+                    .    '<td>'.$path.'</td>' . "\n"
+                    .    '<td>'.claro_html_localised_date( get_locale('dateFormatLong'), $download['unix_date']).'</td>' . "\n"
+                    .    '<td>'.$download['downloads'].'</td>' . "\n"
+                    .    '</tr>' . "\n";
                 }
-    	    }
-    	    $html .= '</tbody>' . "\n";
-    	}
-    	else
-    	{
-    	    $html .= '<tfoot>' . "\n"
-    	    .    '<tr>' . "\n"
-    	    .    '<td colspan="3" align="center">' . get_lang('No result').'</td>' . "\n"
-    	    .    '</tr>' . "\n"
-    	    .    '</tfoot>' . "\n";
-    	}
-    	$html .= '</table>' . "\n\n";
+            }
+            $html .= '</tbody>' . "\n";
+        }
+        else
+        {
+            $html .= '<tfoot>' . "\n"
+            .    '<tr>' . "\n"
+            .    '<td colspan="3" align="center">' . get_lang('No result').'</td>' . "\n"
+            .    '</tr>' . "\n"
+            .    '</tfoot>' . "\n";
+        }
+        $html .= '</table>' . "\n\n";
         
         return $html;
     }
@@ -170,18 +170,18 @@ class CLDOC_UserTrackingRenderer extends UserTrackingRenderer
     
     private function prepareContent()
     {    
-    	$sql = "SELECT `data`,
-    				UNIX_TIMESTAMP(`date`) AS `unix_date`,
-    				COUNT(`user_id`) AS `downloads`
-    	        FROM `" . $this->tbl_course_tracking_event . "`
-    	        WHERE `user_id` = '". (int) $this->userId."'
-    	          AND `type` = 'download'
-    	        GROUP BY `data`
-    	        ORDER BY `data` ASC,`date` ASC";
+        $sql = "SELECT `data`,
+                    UNIX_TIMESTAMP(`date`) AS `unix_date`,
+                    COUNT(`user_id`) AS `downloads`
+                FROM `" . $this->tbl_course_tracking_event . "`
+                WHERE `user_id` = '". (int) $this->userId."'
+                  AND `type` = 'download'
+                GROUP BY `data`
+                ORDER BY `data` ASC,`date` ASC";
     
-    	$results = claro_sql_query_fetch_all($sql);
+        $results = claro_sql_query_fetch_all($sql);
     
-    	return $results;
+        return $results;
     }
     
 }

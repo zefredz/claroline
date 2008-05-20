@@ -419,33 +419,33 @@ switch ( $cmd )
                 default : // SELECT ONE
                     pushClaroMessage(__LINE__ . '@' . time(),'profile');
                      $msgList [ 'form' ] []
-    	                        = '<form action="' . $_SERVER [ 'PHP_SELF' ] . '" method="GET">' . "\n"
-    	                        . '<input type="hidden" name="claroFormId" value="' . uniqid ( '' ) . '" />'
-    	                        . '<input name="cmd" type="hidden" value="rqInstall" />' . "\n"
-    	                        . get_lang('Where is your package ?')  . '<br />' . "\n"
-    	                        . (get_conf ( 'can_install_local_module', true ) ?
+                                = '<form action="' . $_SERVER [ 'PHP_SELF' ] . '" method="GET">' . "\n"
+                                . '<input type="hidden" name="claroFormId" value="' . uniqid ( '' ) . '" />'
+                                . '<input name="cmd" type="hidden" value="rqInstall" />' . "\n"
+                                . get_lang('Where is your package ?')  . '<br />' . "\n"
+                                . (get_conf ( 'can_install_local_module', true ) ?
 
-    	                          '<input name="selectInput"  value="local" id="packageOnServer" type="radio" />'
+                                  '<input name="selectInput"  value="local" id="packageOnServer" type="radio" />'
                                 . '<label for="packageOnServer" >' . get_lang ( 'Package on server (zipped or not)' ) . '</label>' . '<br />'
                                 :'')
 
-    	                        . (get_conf ( 'can_install_upload_module', true ) ?
+                                . (get_conf ( 'can_install_upload_module', true ) ?
 
-    	                          '<input name="selectInput" value="upload"  id="zipOnYouComputerServer" type="radio" />'
+                                  '<input name="selectInput" value="upload"  id="zipOnYouComputerServer" type="radio" />'
                                 . '<label for="zipOnYouComputerServer" >' . get_lang ( 'Package on your computer (zip only)' ) . '</label>' . '<br />'
                                 :'')
 
                                 . (get_conf ( 'can_install_curl_module', false ) ?
 
-    	                          '<input name="selectInput" value="curl" id="zipOnThirdServer" type="radio" />'
+                                  '<input name="selectInput" value="curl" id="zipOnThirdServer" type="radio" />'
                                 . '<label for="zipOnThirdServer" >' . get_lang ( 'Package on the net (zip only)' ) . '</label>' . '<br />'
                                 :'')
-    	                        . '<br />' . "\n"
-    	                        . '<br />' . "\n"
-    	                        . '<input value="' . get_lang ( 'Next' ) . '" type="submit" />&nbsp;' . "\n"
-    	                        . claro_html_button ( $_SERVER [ 'PHP_SELF' ], get_lang ( 'Cancel' ) )
-    	                        . '</form>' . "\n"
-    	                        ;
+                                . '<br />' . "\n"
+                                . '<br />' . "\n"
+                                . '<input value="' . get_lang ( 'Next' ) . '" type="submit" />&nbsp;' . "\n"
+                                . claro_html_button ( $_SERVER [ 'PHP_SELF' ], get_lang ( 'Cancel' ) )
+                                . '</form>' . "\n"
+                                ;
 
             }
         }

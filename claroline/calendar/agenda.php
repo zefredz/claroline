@@ -176,9 +176,9 @@ if ( $is_allowedToEdit )
             {
                 $dialogBox->success( get_lang('Event updated into the agenda') );
 
-				// update linker and get error log
-	            $linkerUpdateLog = linker_update();
-	            if( !empty($linkerUpdateLog) ) $dialogBox->info( $linkerUpdateLog );
+                // update linker and get error log
+                $linkerUpdateLog = linker_update();
+                if( !empty($linkerUpdateLog) ) $dialogBox->info( $linkerUpdateLog );
 
                 $eventNotifier->notifyCourseEvent('agenda_event_modified', claro_get_current_course_id(), claro_get_current_tool_id(), $id, claro_get_current_group_id(), '0'); // notify changes to event manager
                 $autoExportRefresh = TRUE;

@@ -116,7 +116,7 @@ class PGTStorageFile extends PGTStorage
 
       // check that the path is an absolute path
       if ( $path[0] != '/' ) {
-	phpCAS::error('an absolute path is needed for PGT storage to file');
+    phpCAS::error('an absolute path is needed for PGT storage to file');
       }
 
       // store the path (with a leading and trailing '/')
@@ -128,10 +128,10 @@ class PGTStorageFile extends PGTStorage
       switch ($format) {
       case CAS_PGT_STORAGE_FILE_FORMAT_PLAIN:
       case CAS_PGT_STORAGE_FILE_FORMAT_XML:
-	$this->_format = $format;
-	break;
+    $this->_format = $format;
+    break;
       default:
-	phpCAS::error('unknown PGT file storage format (`'.CAS_PGT_STORAGE_FILE_FORMAT_PLAIN.'\' and `'.CAS_PGT_STORAGE_FILE_FORMAT_XML.'\' allowed)');
+    phpCAS::error('unknown PGT file storage format (`'.CAS_PGT_STORAGE_FILE_FORMAT_PLAIN.'\' and `'.CAS_PGT_STORAGE_FILE_FORMAT_XML.'\' allowed)');
       }
       phpCAS::traceEnd();
     }
@@ -150,7 +150,7 @@ class PGTStorageFile extends PGTStorage
       phpCAS::traceBegin();
       // if the storage has already been initialized, return immediatly
       if ( $this->isInitialized() )
-	return;
+    return;
       // call the ancestor's method (mark as initialized)
       parent::init();
       phpCAS::traceEnd();
@@ -189,12 +189,12 @@ class PGTStorageFile extends PGTStorage
       phpCAS::traceBegin();
       $fname = $this->getPGTIouFilename($pgt_iou);
       if ( $f=fopen($fname,"w") ) {
-	if ( fputs($f,$pgt) === FALSE ) {
-	  phpCAS::error('could not write PGT to `'.$fname.'\'');
-	}
-	fclose($f);
+    if ( fputs($f,$pgt) === FALSE ) {
+      phpCAS::error('could not write PGT to `'.$fname.'\'');
+    }
+    fclose($f);
       } else {
-	phpCAS::error('could not open `'.$fname.'\'');
+    phpCAS::error('could not open `'.$fname.'\'');
       }
       phpCAS::traceEnd();
     }
@@ -215,12 +215,12 @@ class PGTStorageFile extends PGTStorage
       $pgt = FALSE;
       $fname = $this->getPGTIouFilename($pgt_iou);
       if ( !($f=fopen($fname,"r")) ) {
-	phpCAS::trace('could not open `'.$fname.'\'');
+    phpCAS::trace('could not open `'.$fname.'\'');
       } else {
-	if ( ($pgt=fgets($f)) === FALSE ) {
-	  phpCAS::trace('could not read PGT from `'.$fname.'\'');
-	}
-	fclose($f);
+    if ( ($pgt=fgets($f)) === FALSE ) {
+      phpCAS::trace('could not read PGT from `'.$fname.'\'');
+    }
+    fclose($f);
       }
 
       // delete the PGT file

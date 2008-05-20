@@ -156,8 +156,8 @@ class editor extends GenericEditor
             }
             
             $html .= '<script language="javascript" type="text/javascript">'."\n"
-            .	'var text_dir = "'.get_locale("text_dir").'";' . "\n"
-            .	'</script>'."\n\n";
+            .    'var text_dir = "'.get_locale("text_dir").'";' . "\n"
+            .    '</script>'."\n\n";
 
             $_isDefaultJsLoaded = true;
         }

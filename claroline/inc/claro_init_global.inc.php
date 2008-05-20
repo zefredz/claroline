@@ -249,7 +249,7 @@ if ( claro_is_in_a_group() )
 
 if ( claro_is_in_a_tool() )
 {
-	// generic tool event
+    // generic tool event
     $claroline->notification->addListener( 'tool_access', 'trackToolAccess' );
     // todo : should move this event to initialisation of tool context
     $claroline->notifier->event( 'tool_access' );

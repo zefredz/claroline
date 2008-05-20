@@ -142,7 +142,7 @@ class ImsAssessmentItem
                . $this->end_item()
              . $foot;
 
-     	return claro_utf8_encode($out);
+         return claro_utf8_encode($out);
      }
 }
 

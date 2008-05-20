@@ -110,7 +110,7 @@ class CLQWZ_UserTrackingRenderer extends UserTrackingRenderer
         
         $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($this->courseId));
         $this->tbl_qwz_exercise = $tbl_cdb_names['qwz_exercise'];
-	    $this->tbl_track_e_exercises = $tbl_cdb_names['track_e_exercices'];
+        $this->tbl_track_e_exercises = $tbl_cdb_names['track_e_exercices'];
         
     }
     
@@ -128,76 +128,76 @@ class CLQWZ_UserTrackingRenderer extends UserTrackingRenderer
         
         $html = '';
         
-    	$html = '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center">' . "\n"
-    	.    '<tr class="headerX">' . "\n"
-    	.    '<th>' . get_lang('Exercises').'</th>' . "\n"
-    	.    '<th>' . get_lang('Worst score').'</th>' . "\n"
-    	.    '<th>' . get_lang('Best score').'</th>' . "\n"
-    	.    '<th>' . get_lang('Average score').'</th>' . "\n"
-    	.    '<th>' . get_lang('Average Time').'</th>' . "\n"
-    	.    '<th>' . get_lang('Attempts').'</th>' . "\n"
-    	.    '<th>' . get_lang('Last attempt').'</th>' . "\n"
-    	.    '</tr>'
+        $html = '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center">' . "\n"
+        .    '<tr class="headerX">' . "\n"
+        .    '<th>' . get_lang('Exercises').'</th>' . "\n"
+        .    '<th>' . get_lang('Worst score').'</th>' . "\n"
+        .    '<th>' . get_lang('Best score').'</th>' . "\n"
+        .    '<th>' . get_lang('Average score').'</th>' . "\n"
+        .    '<th>' . get_lang('Average Time').'</th>' . "\n"
+        .    '<th>' . get_lang('Attempts').'</th>' . "\n"
+        .    '<th>' . get_lang('Last attempt').'</th>' . "\n"
+        .    '</tr>'
         ;
     
-    	if( !empty($exerciseResults) && is_array($exerciseResults) )
-    	{
-    	    $html .= '<tbody>' . "\n";
-    	    foreach( $exerciseResults as $result )
-    	    {
-    	        $html .= '<tr>' . "\n"
-    	        .    '<td><a href="userReport.php?userId='.(int) $this->userId.'&amp;cidReq='.$this->courseId.'&amp;exId='.(int) $result['id'].'">'.htmlspecialchars($result['title']).'</td>' . "\n"
-    	        .    '<td>'.(int) $result['minimum'].'</td>' . "\n"
-    	        .    '<td>'.(int) $result['maximum'].'</td>' . "\n"
-    	        .    '<td>'.(round($result['average']*10)/10).'</td>' . "\n"
-    	        .    '<td>'.claro_html_duration(floor($result['avgTime'])).'</td>' . "\n"
-    	        .    '<td>'.(int) $result['attempts'].'</td>' . "\n"
-    	        .    '<td>'.$result['lastAttempt'].'</td>' . "\n"
-    	        .    '</tr>' . "\n";
+        if( !empty($exerciseResults) && is_array($exerciseResults) )
+        {
+            $html .= '<tbody>' . "\n";
+            foreach( $exerciseResults as $result )
+            {
+                $html .= '<tr>' . "\n"
+                .    '<td><a href="userReport.php?userId='.(int) $this->userId.'&amp;cidReq='.$this->courseId.'&amp;exId='.(int) $result['id'].'">'.htmlspecialchars($result['title']).'</td>' . "\n"
+                .    '<td>'.(int) $result['minimum'].'</td>' . "\n"
+                .    '<td>'.(int) $result['maximum'].'</td>' . "\n"
+                .    '<td>'.(round($result['average']*10)/10).'</td>' . "\n"
+                .    '<td>'.claro_html_duration(floor($result['avgTime'])).'</td>' . "\n"
+                .    '<td>'.(int) $result['attempts'].'</td>' . "\n"
+                .    '<td>'.$result['lastAttempt'].'</td>' . "\n"
+                .    '</tr>' . "\n";
     
-    	        // display details of the exercise, all attempts
-    	        if ( isset($exId) && $exId == $result['id'])
-    	        {
-    				$exerciseDetails = $this->getUserExerciceDetails($exId);
+                // display details of the exercise, all attempts
+                if ( isset($exId) && $exId == $result['id'])
+                {
+                    $exerciseDetails = $this->getUserExerciceDetails($exId);
     
-    	            $html .= '<tr>'
-    	            .    '<td class="noHover">&nbsp;</td>' . "\n"
-    	            .    '<td colspan="6" class="noHover">' . "\n"
-    	            .    '<table class="claroTable emphaseLine" cellspacing="1" cellpadding="2" border="0" width="100%">' . "\n"
-    	            .    '<tr class="headerX">' . "\n"
-    	            .    '<th><small>' . get_lang('Date').'</small></th>' . "\n"
-    	            .    '<th><small>' . get_lang('Score').'</small></th>' . "\n"
-    	            .    '<th><small>' . get_lang('Time').'</small></th>' . "\n"
-    	            .    '</tr>' . "\n"
-    	            .    '<tbody>' . "\n";
+                    $html .= '<tr>'
+                    .    '<td class="noHover">&nbsp;</td>' . "\n"
+                    .    '<td colspan="6" class="noHover">' . "\n"
+                    .    '<table class="claroTable emphaseLine" cellspacing="1" cellpadding="2" border="0" width="100%">' . "\n"
+                    .    '<tr class="headerX">' . "\n"
+                    .    '<th><small>' . get_lang('Date').'</small></th>' . "\n"
+                    .    '<th><small>' . get_lang('Score').'</small></th>' . "\n"
+                    .    '<th><small>' . get_lang('Time').'</small></th>' . "\n"
+                    .    '</tr>' . "\n"
+                    .    '<tbody>' . "\n";
     
-    	            foreach ( $exerciseDetails as $details )
-    	            {
-    	                $html .= '<tr>' . "\n"
-    	                .    '<td><small><a href="'.get_module_url('CLQWZ') . '/track_exercise_details.php?trackedExId='.$details['exe_id'].'">'.$details['exe_date'].'</a></small></td>' . "\n"
-    	                .    '<td><small>'.$details['exe_result'].'/'.$details['exe_weighting'].'</small></td>' . "\n"
-    	                .    '<td><small>'.claro_html_duration($details['exe_time']).'</small></td>' . "\n"
-    	                .    '</tr>' . "\n";
-    	            }
-    	            $html .= '</tbody>' . "\n"
-    	            .    '</table>' . "\n\n"
-    	            .    '</td>' . "\n"
-    	            .    '</tr>' . "\n";
+                    foreach ( $exerciseDetails as $details )
+                    {
+                        $html .= '<tr>' . "\n"
+                        .    '<td><small><a href="'.get_module_url('CLQWZ') . '/track_exercise_details.php?trackedExId='.$details['exe_id'].'">'.$details['exe_date'].'</a></small></td>' . "\n"
+                        .    '<td><small>'.$details['exe_result'].'/'.$details['exe_weighting'].'</small></td>' . "\n"
+                        .    '<td><small>'.claro_html_duration($details['exe_time']).'</small></td>' . "\n"
+                        .    '</tr>' . "\n";
+                    }
+                    $html .= '</tbody>' . "\n"
+                    .    '</table>' . "\n\n"
+                    .    '</td>' . "\n"
+                    .    '</tr>' . "\n";
     
-    	        }
+                }
     
-    	    }
-    	    $html .= '</tbody>' . "\n";
-    	}
-    	else
-    	{
-    	    $html .= '<tfoot>' . "\n"
-    	    .    '<tr>' . "\n"
-    	    .    '<td colspan="7" align="center">' . get_lang('No result').'</td>' . "\n"
-    	    .    '</tr>' . "\n"
-    	    .    '</tfoot>' . "\n";
-    	}
-    	$html .= '</table>' . "\n\n";
+            }
+            $html .= '</tbody>' . "\n";
+        }
+        else
+        {
+            $html .= '<tfoot>' . "\n"
+            .    '<tr>' . "\n"
+            .    '<td colspan="7" align="center">' . get_lang('No result').'</td>' . "\n"
+            .    '</tr>' . "\n"
+            .    '</tfoot>' . "\n";
+        }
+        $html .= '</table>' . "\n\n";
         
         return $html;
     }
@@ -209,7 +209,7 @@ class CLQWZ_UserTrackingRenderer extends UserTrackingRenderer
     
     private function prepareContent()
     {
-    	$sql = "SELECT `E`.`title`,
+        $sql = "SELECT `E`.`title`,
                        `E`.`id`,
                        MIN(`TEX`.`exe_result`)    AS `minimum`,
                        MAX(`TEX`.`exe_result`)    AS `maximum`,
@@ -232,7 +232,7 @@ class CLQWZ_UserTrackingRenderer extends UserTrackingRenderer
     
     private function getUserExerciceDetails($exerciseId)
     {
-    	$sql = "SELECT `exe_id`, `exe_date`, `exe_result`, `exe_weighting`, `exe_time`
+        $sql = "SELECT `exe_id`, `exe_date`, `exe_result`, `exe_weighting`, `exe_time`
                 FROM `" . $this->tbl_track_e_exercises . "`
                 WHERE `exe_exo_id` = ". (int) $exerciseId."
                 AND `exe_user_id` = ". (int) $this->userId."

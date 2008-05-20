@@ -70,7 +70,7 @@ if ( file_exists('./textzone_top.inc.html') )
 else
 {
     echo '<div style="text-align: center">'
-    .    '<img src="./claroline/img/logo.gif" border="0" alt="Claroline logo" />' . "\n"
+    .    '<img src="' . get_icon_url('logo') . '" alt="Claroline logo" />' . "\n"
     .    '<p><strong>Claroline Open Source e-Learning</strong></p>' . "\n"
     .    '</div>'
     ;
@@ -87,7 +87,7 @@ if( claro_is_platform_admin() )
 {
     echo '<p>'
     .    '<a href="claroline/admin/managing/editFile.php?cmd=rqEdit&amp;file=0">'
-    .    '<img src="claroline/img/edit.gif" alt="" />'
+    .    '<img src="' . get_icon_url('edit') . '" alt="" />'
     .    get_lang('Edit text zone')
     .    '</a>'
     .    '</p>' . "\n"
@@ -104,7 +104,7 @@ if(claro_is_user_authenticated())
         {
             echo '<p>'
             .    '<a href="claroline/admin/managing/editFile.php?cmd=rqEdit&amp;file=2">'
-            .    '<img src="claroline/img/edit.gif" alt="" />' . get_lang('Edit text zone')
+            .    '<img src="' . get_icon_url('edit') . '" alt="" />' . get_lang('Edit text zone')
             .    '</a>'
             .    '</p>' . "\n";
         }
@@ -133,14 +133,14 @@ if ( claro_is_user_authenticated() )
     $userCommands = array();
 
     $userCommands[] = '<a href="' . $_SERVER['PHP_SELF'] . '" class="claroCmd">'
-    .    '<img src="' . get_path('imgRepositoryWeb') . 'course.gif" alt="" /> '
+    .    '<img src="' . get_icon_url('course') . '" alt="" /> '
     .    get_lang('My course list')
     .    '</a>';
 
     if (claro_is_allowed_to_create_course()) // 'Create Course Site' command. Only available for teacher.
     {
         $userCommands[] = '<a href="claroline/course/create.php" class="claroCmd">'
-        .    '<img src="' . get_path('imgRepositoryWeb') . 'course.gif" alt="" /> '
+        .    '<img src="' . get_icon_url('course') . '" alt="" /> '
         .    get_lang('Create a course site')
         .    '</a>';
     }
@@ -148,18 +148,18 @@ if ( claro_is_user_authenticated() )
     if (get_conf('allowToSelfEnroll',true))
     {
         $userCommands[] = '<a href="claroline/auth/courses.php?cmd=rqReg&amp;category=" class="claroCmd">'
-        .    '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" alt="" /> '
+        .    '<img src="' . get_icon_url('enroll') . '" alt="" /> '
         .    get_lang('Enrol on a new course')
         .    '</a>';
 
         $userCommands[] = '<a href="claroline/auth/courses.php?cmd=rqUnreg" class="claroCmd">'
-        .    '<img src="' . get_path('imgRepositoryWeb') . 'unenroll.gif" alt="" /> '
+        .    '<img src="' . get_icon_url('unenroll') . '" alt="" /> '
         .    get_lang('Remove course enrolment')
         .    '</a>';
     }
 
     $userCommands[] = '<a href="'.$_SERVER['PHP_SELF'].'?category=" class="claroCmd">'
-    .                 '<img src="' . get_path('imgRepositoryWeb') . 'course.gif" alt="" /> '
+    .                 '<img src="' . get_icon_url('course') . '" alt="" /> '
     .     get_lang('All platform courses')
     .                 '</a>'
     ;
@@ -235,7 +235,7 @@ if(claro_is_platform_admin())
 {
     echo '<p>'
     .    '<a href="claroline/admin/managing/editFile.php?cmd=rqEdit&amp;file=3">'
-    .    '<img src="claroline/img/edit.gif" alt="" />' . get_lang('Edit text zone')
+    .    '<img src="' . get_icon_url('edit') . '" alt="" />' . get_lang('Edit text zone')
     .    '</a>'
     .    '</p>' . "\n";
 }

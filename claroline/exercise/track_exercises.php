@@ -20,7 +20,7 @@ if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_f
 if ( ! claro_is_course_manager() ) claro_die(get_lang('Not allowed'));
 
 if( isset($_REQUEST['exId']) && is_numeric($_REQUEST['exId']) ) $exId = (int) $_REQUEST['exId'];
-else															$exId = null;
+else                                                            $exId = null;
 
 // exId is required
 if( is_null($exId) )
@@ -39,9 +39,9 @@ $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'  ];
 $tbl_user            = $tbl_mdb_names['user'             ];
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
-$tbl_qwz_exercise            	= $tbl_cdb_names['qwz_exercise'];
-$tbl_qwz_question 				= $tbl_cdb_names['qwz_question'];
-$tbl_qwz_rel_exercise_question 	= $tbl_cdb_names['qwz_rel_exercise_question'];
+$tbl_qwz_exercise                = $tbl_cdb_names['qwz_exercise'];
+$tbl_qwz_question                 = $tbl_cdb_names['qwz_question'];
+$tbl_qwz_rel_exercise_question     = $tbl_cdb_names['qwz_rel_exercise_question'];
 
 $tbl_track_e_exercises     = $tbl_cdb_names['track_e_exercices'];
 $tbl_track_e_exe_details = $tbl_cdb_names['track_e_exe_details'];
@@ -186,8 +186,8 @@ if ( get_conf('is_trackingEnabled') )
         }
         else
         {
-        	$displayedAverage = round($exo_users_detail['average']*100)/100;
-        	$displayedAvgTime = claro_html_duration(floor($exo_users_detail['avgTime']));
+            $displayedAverage = round($exo_users_detail['average']*100)/100;
+            $displayedAvgTime = claro_html_duration(floor($exo_users_detail['avgTime']));
         }
         echo      '<tr>'."\n"
                   .'<td><a href="../tracking/userReport.php?userId='.$exo_users_detail['user_id'].'&amp;exId='.$exercise->getId().'">'."\n"

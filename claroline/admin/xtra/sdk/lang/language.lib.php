@@ -217,7 +217,7 @@ function is_scannable($filePath,
 
     $forbiddenDirNameList    = array_merge( array('claroline/lang',
                                                   'claroline/inc/conf',
-    											  'claroline/inc/lib/core',
+                                                  'claroline/inc/lib/core',
                                                   'courses',
                                                   'platform',
                                                   'module',

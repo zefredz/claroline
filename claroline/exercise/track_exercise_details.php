@@ -28,128 +28,128 @@ include_once dirname(__FILE__) . '/lib/answer_matching.class.php';
  */
 class TrackQuestion extends Question
 {
-	/**
-	 * Include the correct answer class and create answer
-	 */
-	function setAnswer()
-	{
-		switch($this->type)
-		{
-			case 'MCUA' :
-				$this->answer = new TrackAnswerMultipleChoice($this->id, false);
-				break;
-			case 'MCMA' :
-				$this->answer = new TrackAnswerMultipleChoice($this->id, true);
-				break;
-			case 'TF' :
-				$this->answer = new TrackAnswerTrueFalse($this->id);
-				break;
-			case 'FIB' :
-				$this->answer = new TrackAnswerFillInBlanks($this->id);
-				break;
-			case 'MATCHING' :
-				$this->answer = new TrackAnswerMatching($this->id);
-				break;
-			default :
-				$this->answer = null;
-				break;
-		}
+    /**
+     * Include the correct answer class and create answer
+     */
+    function setAnswer()
+    {
+        switch($this->type)
+        {
+            case 'MCUA' :
+                $this->answer = new TrackAnswerMultipleChoice($this->id, false);
+                break;
+            case 'MCMA' :
+                $this->answer = new TrackAnswerMultipleChoice($this->id, true);
+                break;
+            case 'TF' :
+                $this->answer = new TrackAnswerTrueFalse($this->id);
+                break;
+            case 'FIB' :
+                $this->answer = new TrackAnswerFillInBlanks($this->id);
+                break;
+            case 'MATCHING' :
+                $this->answer = new TrackAnswerMatching($this->id);
+                break;
+            default :
+                $this->answer = null;
+                break;
+        }
 
-		return true;
-	}
+        return true;
+    }
 }
 
 class TrackAnswerMultipleChoice extends answerMultipleChoice
 {
-	function extractResponseFromTracking( $attemptDetailsId )
-	{
-		$tbl_cdb_names = claro_sql_get_course_tbl();
-		$tblTrackAnswers = $tbl_cdb_names['track_e_exe_answers'];
+    function extractResponseFromTracking( $attemptDetailsId )
+    {
+        $tbl_cdb_names = claro_sql_get_course_tbl();
+        $tblTrackAnswers = $tbl_cdb_names['track_e_exe_answers'];
 
-		// get the answers the user has gaven for this question
-		$sql = "SELECT `answer`
-		        FROM `" . $tblTrackAnswers . "`
-		        WHERE `details_id` = " . (int) $attemptDetailsId;
+        // get the answers the user has gaven for this question
+        $sql = "SELECT `answer`
+                FROM `" . $tblTrackAnswers . "`
+                WHERE `details_id` = " . (int) $attemptDetailsId;
 
-		$trackedAnswers = claro_sql_query_fetch_all($sql);
+        $trackedAnswers = claro_sql_query_fetch_all($sql);
 
-		$this->response = array();
+        $this->response = array();
 
         foreach( $trackedAnswers as $trackedAnswer )
         {
             foreach( $this->answerList as $answer )
-        	{
-        		if( $answer['answer'] == $trackedAnswer['answer'] )
+            {
+                if( $answer['answer'] == $trackedAnswer['answer'] )
                 {
                     $this->response[$answer['id']] = true;
                 }
-        	}
-    	}
+            }
+        }
 
-		return true;
-	}
+        return true;
+    }
 }
 
 class TrackAnswerTrueFalse extends answerTrueFalse
 {
-	function extractResponseFromTracking( $attemptDetailsId )
-	{
-		$tbl_cdb_names = claro_sql_get_course_tbl();
-		$tblTrackAnswers = $tbl_cdb_names['track_e_exe_answers'];
+    function extractResponseFromTracking( $attemptDetailsId )
+    {
+        $tbl_cdb_names = claro_sql_get_course_tbl();
+        $tblTrackAnswers = $tbl_cdb_names['track_e_exe_answers'];
 
-		// get the answers the user has gaven for this question
-		$sql = "SELECT `answer`
-		        FROM `" . $tblTrackAnswers . "`
-		        WHERE `details_id` = " . (int) $attemptDetailsId;
+        // get the answers the user has gaven for this question
+        $sql = "SELECT `answer`
+                FROM `" . $tblTrackAnswers . "`
+                WHERE `details_id` = " . (int) $attemptDetailsId;
 
-		$this->response = claro_sql_query_get_single_value($sql);
+        $this->response = claro_sql_query_get_single_value($sql);
 
-		return true;
-	}
+        return true;
+    }
 }
 
 class TrackAnswerFillInBlanks extends answerFillInBlanks
 {
-	function extractResponseFromTracking( $attemptDetailsId )
-	{
-		$tbl_cdb_names = claro_sql_get_course_tbl();
-		$tblTrackAnswers = $tbl_cdb_names['track_e_exe_answers'];
+    function extractResponseFromTracking( $attemptDetailsId )
+    {
+        $tbl_cdb_names = claro_sql_get_course_tbl();
+        $tblTrackAnswers = $tbl_cdb_names['track_e_exe_answers'];
 
-		// get the answers the user has gaven for this question
-		$sql = "SELECT `answer`
-		        FROM `" . $tblTrackAnswers . "`
-		        WHERE `details_id` = " . (int) $attemptDetailsId;
+        // get the answers the user has gaven for this question
+        $sql = "SELECT `answer`
+                FROM `" . $tblTrackAnswers . "`
+                WHERE `details_id` = " . (int) $attemptDetailsId;
 
-		$answers = claro_sql_query_fetch_all($sql);
+        $answers = claro_sql_query_fetch_all($sql);
 
-		foreach( $answers as $answer )
-		{
-			$this->response[] = $answer['answer'];
-		}
+        foreach( $answers as $answer )
+        {
+            $this->response[] = $answer['answer'];
+        }
 
-		return true;
-	}
+        return true;
+    }
 }
 
 class TrackAnswerMatching extends answerMatching
 {
-	function extractResponseFromTracking( $attemptDetailsId )
-	{
-		$tbl_cdb_names = claro_sql_get_course_tbl();
-		$tblTrackAnswers = $tbl_cdb_names['track_e_exe_answers'];
+    function extractResponseFromTracking( $attemptDetailsId )
+    {
+        $tbl_cdb_names = claro_sql_get_course_tbl();
+        $tblTrackAnswers = $tbl_cdb_names['track_e_exe_answers'];
 
-		// get the answers the user has gaven for this question
-		$sql = "SELECT `answer`
-		        FROM `" . $tblTrackAnswers . "`
-		        WHERE `details_id` = " . (int) $attemptDetailsId;
+        // get the answers the user has gaven for this question
+        $sql = "SELECT `answer`
+                FROM `" . $tblTrackAnswers . "`
+                WHERE `details_id` = " . (int) $attemptDetailsId;
 
-		$trackedAnswers = claro_sql_query_fetch_all($sql);
+        $trackedAnswers = claro_sql_query_fetch_all($sql);
 
-		$answerCount = count($this->leftList);
+        $answerCount = count($this->leftList);
 
-		foreach( $trackedAnswers as $trackedAnswer )
-		{
-			list($leftProposal, $rightProposal) = explode(' -> ',$trackedAnswer['answer']);
+        foreach( $trackedAnswers as $trackedAnswer )
+        {
+            list($leftProposal, $rightProposal) = explode(' -> ',$trackedAnswer['answer']);
 
             // find corresponding right code if exists
             $rightCode = '';
@@ -165,17 +165,17 @@ class TrackAnswerMatching extends answerMatching
                 }
             }
 
-	    	for( $i = 0; $i < $answerCount ; $i++ )
-	    	{
-	    		if( $this->leftList[$i]['answer'] == $leftProposal )
-	    		{
-	    			$this->leftList[$i]['response'] = $rightCode;
-					break;
-	    		}
-	    	}
-		}
-		return true;
-	}
+            for( $i = 0; $i < $answerCount ; $i++ )
+            {
+                if( $this->leftList[$i]['answer'] == $leftProposal )
+                {
+                    $this->leftList[$i]['response'] = $rightCode;
+                    break;
+                }
+            }
+        }
+        return true;
+    }
 }
 
 /**
@@ -186,7 +186,7 @@ $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'  ];
 $tbl_user            = $tbl_mdb_names['user'             ];
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
-$tbl_qwz_exercise 				= $tbl_cdb_names['qwz_exercise'];
+$tbl_qwz_exercise                 = $tbl_cdb_names['qwz_exercise'];
 
 $tbl_track_e_exercices = $tbl_cdb_names['track_e_exercices'];
 $tbl_track_e_exe_details = $tbl_cdb_names['track_e_exe_details'];
@@ -197,11 +197,11 @@ $tbl_track_e_exe_answers = $tbl_cdb_names['track_e_exe_answers'];
 // all I need from REQUEST is the track_id and it is required
 if( isset($_REQUEST['trackedExId']) && is_numeric($_REQUEST['trackedExId']) )
 {
-	$trackedExId = (int) $_REQUEST['trackedExId'];
+    $trackedExId = (int) $_REQUEST['trackedExId'];
 }
 else
 {
-	claro_redirect("./exercise.php");
+    claro_redirect("./exercise.php");
     exit();
 }
 
@@ -299,36 +299,36 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
     $i = 0;
     $totalResult = 0;
     $totalGrade = 0;
-	$questionList = array();
+    $questionList = array();
 
     // for each question the user get
     foreach( $trackedQuestionList as $trackedQuestion )
-	{
-		$question = new TrackQuestion();
+    {
+        $question = new TrackQuestion();
 
-		if( $question->load($trackedQuestion['question_id']) )
-		{
-			// required by getGrade and getQuestionFeedbackHtml
-			$question->answer->extractResponseFromTracking($trackedQuestion['trackId']);
+        if( $question->load($trackedQuestion['question_id']) )
+        {
+            // required by getGrade and getQuestionFeedbackHtml
+            $question->answer->extractResponseFromTracking($trackedQuestion['trackId']);
 
-			$questionResult[$i] = $question->answer->gradeResponse();
-			$questionGrade[$i] = $question->getGrade();
+            $questionResult[$i] = $question->answer->gradeResponse();
+            $questionGrade[$i] = $question->getGrade();
 
-			// sum of score
-			$totalResult += $questionResult[$i];
-			$totalGrade += $questionGrade[$i];
+            // sum of score
+            $totalResult += $questionResult[$i];
+            $totalGrade += $questionGrade[$i];
 
-			// save question object in a list to reuse it later
-			$questionList[$i] = $question;
+            // save question object in a list to reuse it later
+            $questionList[$i] = $question;
 
-			$i++;
-		}
-		// else skip question
-	}
+            $i++;
+        }
+        // else skip question
+    }
 
-	// display
+    // display
 
-	// display infos about the details ...
+    // display infos about the details ...
     echo '<ul>' . "\n"
     .    '<li>' . get_lang('Last name') . ' : '.$thisAttemptDetails['lastname'] . '</li>' . "\n"
     .    '<li>' . get_lang('First name') . ' : '.$thisAttemptDetails['firstname'] . '</li>' . "\n"
@@ -340,38 +340,38 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
 
     echo "\n" . '<table width="100%" border="0" cellpadding="1" cellspacing="0" class="claroTable">' . "\n\n";
 
-	if( !empty($questionList) )
-	{
-		// foreach question
-		$questionIterator = 1;
-		$i = 0;
+    if( !empty($questionList) )
+    {
+        // foreach question
+        $questionIterator = 1;
+        $i = 0;
 
-	    foreach( $questionList as $question )
-		{
-			echo '<tr class="headerX">' . "\n"
-			.	 '<th>'
-			.	 get_lang('Question') . ' ' . $questionIterator
-			.	 '</th>' . "\n"
-			.	 '</tr>' . "\n\n";
+        foreach( $questionList as $question )
+        {
+            echo '<tr class="headerX">' . "\n"
+            .     '<th>'
+            .     get_lang('Question') . ' ' . $questionIterator
+            .     '</th>' . "\n"
+            .     '</tr>' . "\n\n";
 
-			echo '<tr>'
-			.	 '<td>' . "\n";
+            echo '<tr>'
+            .     '<td>' . "\n";
 
-			echo $question->getQuestionFeedbackHtml();
+            echo $question->getQuestionFeedbackHtml();
 
-			echo '</td>' . "\n"
-			.	 '</tr>' . "\n\n"
+            echo '</td>' . "\n"
+            .     '</tr>' . "\n\n"
 
-			.	 '<tr>'
-			.	 '<td align="right">' . "\n"
-			.	 '<strong>'.get_lang('Score').' : '.$questionResult[$i].'/'.$questionGrade[$i].'</strong>'
-			.	 '</td>' . "\n"
-			.	 '</tr>' . "\n\n";
+            .     '<tr>'
+            .     '<td align="right">' . "\n"
+            .     '<strong>'.get_lang('Score').' : '.$questionResult[$i].'/'.$questionGrade[$i].'</strong>'
+            .     '</td>' . "\n"
+            .     '</tr>' . "\n\n";
 
-			$questionIterator++;
-			$i++;
-		}
-	}
+            $questionIterator++;
+            $i++;
+        }
+    }
 
     echo '</table>' . "\n\n";
 

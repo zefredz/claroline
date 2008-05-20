@@ -95,18 +95,18 @@ class GenericEditor
     function getTextArea($class = '')
     {
         $textArea = "\n"
-        .	'<textarea '
-        .	'id="'.$this->name.'" '
-        .	'name="'.$this->name.'" '
-        .	'style="width:100%" ';
+        .    '<textarea '
+        .    'id="'.$this->name.'" '
+        .    'name="'.$this->name.'" '
+        .    'style="width:100%" ';
 
         if( !empty($class) ) $textArea .= 'class="'.$class.'" ';
                 
         $textArea .= 'rows="'.$this->rows.'" '
-        .	'cols="'.$this->cols.'" '
+        .    'cols="'.$this->cols.'" '
         .   $this->optAttrib.' >'
-        .	"\n".htmlspecialchars($this->content)."\n"
-        .	'</textarea>'."\n";
+        .    "\n".htmlspecialchars($this->content)."\n"
+        .    '</textarea>'."\n";
 
         return $textArea;
     }

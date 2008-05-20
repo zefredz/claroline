@@ -269,8 +269,8 @@ if($is_allowedToEdit) // check teacher status
                     $dialogBox->success( get_lang('Announcement has been modified') );
 
                     // update linker and get error log
-	            	$linkerUpdateLog = linker_update();
-	            	if( !empty($linkerUpdateLog) ) $dialogBox->info( $linkerUpdateLog );
+                    $linkerUpdateLog = linker_update();
+                    if( !empty($linkerUpdateLog) ) $dialogBox->info( $linkerUpdateLog );
 
                     $eventNotifier->notifyCourseEvent('anouncement_modified', claro_get_current_course_id(), claro_get_current_tool_id(), $id, claro_get_current_group_id(), '0');
                     if (CONFVAL_LOG_ANNOUNCEMENT_UPDATE)event_default('ANNOUNCEMENT', array ('UPDATE_ENTRY'=>$_REQUEST['id']));
@@ -290,8 +290,8 @@ if($is_allowedToEdit) // check teacher status
                     $dialogBox->success( get_lang('Announcement has been added') );
 
                     // update linker and get error log
-	            	$linkerUpdateLog = linker_update();
-	            	if( !empty($linkerUpdateLog) ) $dialogBox->info( $linkerUpdateLog );
+                    $linkerUpdateLog = linker_update();
+                    if( !empty($linkerUpdateLog) ) $dialogBox->info( $linkerUpdateLog );
 
                     $eventNotifier->notifyCourseEvent('anouncement_added',claro_get_current_course_id(), claro_get_current_tool_id(), $insert_id, claro_get_current_group_id(), '0');
                     if (CONFVAL_LOG_ANNOUNCEMENT_INSERT) event_default('ANNOUNCEMENT',array ('INSERT_ENTRY'=>$insert_id));

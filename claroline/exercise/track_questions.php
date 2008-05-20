@@ -29,11 +29,11 @@ define('TRUEFALSE',     5);
 
 if( isset($_REQUEST['exId']) && is_numeric($_REQUEST['exId']) )
 {
-	$exId = (int) $_REQUEST['exId'];
+    $exId = (int) $_REQUEST['exId'];
 }
 else
 {
-	header("Location: ../exercise/exercise.php");
+    header("Location: ../exercise/exercise.php");
     exit();
 }
 
@@ -49,13 +49,13 @@ $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'  ];
 $tbl_user            = $tbl_mdb_names['user'             ];
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
-$tbl_qwz_question 				= $tbl_cdb_names['qwz_question'];
-$tbl_qwz_rel_exercise_question 	= $tbl_cdb_names['qwz_rel_exercise_question'];
+$tbl_qwz_question                 = $tbl_cdb_names['qwz_question'];
+$tbl_qwz_rel_exercise_question     = $tbl_cdb_names['qwz_rel_exercise_question'];
 //$tbl_quiz_answer        = $tbl_cdb_names['quiz_answer'          ];
-$tbl_qwz_answer_multiple_choice 	= $tbl_cdb_names['qwz_answer_multiple_choice'];
-$tbl_qwz_answer_truefalse 			= $tbl_cdb_names['qwz_answer_truefalse'];
-$tbl_qwz_answer_fib 				= $tbl_cdb_names['qwz_answer_fib'];
-$tbl_qwz_answer_matching 			= $tbl_cdb_names['qwz_answer_matching'];
+$tbl_qwz_answer_multiple_choice     = $tbl_cdb_names['qwz_answer_multiple_choice'];
+$tbl_qwz_answer_truefalse             = $tbl_cdb_names['qwz_answer_truefalse'];
+$tbl_qwz_answer_fib                 = $tbl_cdb_names['qwz_answer_fib'];
+$tbl_qwz_answer_matching             = $tbl_cdb_names['qwz_answer_matching'];
 
 $tbl_track_e_exercises     = $tbl_cdb_names['track_e_exercices'];
 $tbl_track_e_exe_details = $tbl_cdb_names['track_e_exe_details'];
@@ -71,7 +71,7 @@ if( isset($_REQUEST['src']) && $_REQUEST['src'] == 'ex' )
 }
 else
 {
-	$interbredcrump[]= array ('url'=>'../tracking/courseReport.php', 'name'=> get_lang('Statistics'));
+    $interbredcrump[]= array ('url'=>'../tracking/courseReport.php', 'name'=> get_lang('Statistics'));
     $src = '';
 }
 $interbredcrump[]= array ('url'=>'track_exercises.php?exId='.$exId.$src, 'name'=> get_lang('Statistics of exercise'));
@@ -112,13 +112,13 @@ echo $backLink;
 
 if($is_allowedToTrack && get_conf('is_trackingEnabled'))
 {
-	echo "\n"
-	.	 '<table width="100%" border="0" cellpadding="1" cellspacing="0" class="claroTable">' . "\n";
+    echo "\n"
+    .     '<table width="100%" border="0" cellpadding="1" cellspacing="0" class="claroTable">' . "\n";
 
-	if( count($questionIdsToShow) > 1 )
-	{
-		$questionIterator = 1;
-	}
+    if( count($questionIdsToShow) > 1 )
+    {
+        $questionIterator = 1;
+    }
 
     foreach( $questionIdsToShow as $questionId )
     {
@@ -142,7 +142,7 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
                         AND `TE`.`exe_exo_id` = ".(int) $exId."
                     GROUP BY `TEA`.`answer`";
 
-			$trackedAnswers = claro_sql_query_fetch_all($sql);
+            $trackedAnswers = claro_sql_query_fetch_all($sql);
 
             // we need to know the total number of answer given
             $multipleChoiceTotal = 0;
@@ -183,10 +183,10 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
                     WHERE `Q`.`id` = `RTQ`.`questionId`
                         AND `Q`.`id` = ".(int) $questionId."
                         AND `RTQ`.`exerciseId` = ".(int) $exId."
-						AND ( `TEA`.`answer` = 'TRUE' OR `TEA`.`answer` = 'FALSE' )
+                        AND ( `TEA`.`answer` = 'TRUE' OR `TEA`.`answer` = 'FALSE' )
                     GROUP BY `TEA`.`answer`";
 
-			$results = claro_sql_query_fetch_all($sql);
+            $results = claro_sql_query_fetch_all($sql);
 
             // we need to know the total number of answer given
             $multipleChoiceTotal = 0;
@@ -223,19 +223,19 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
 
             $answers_details = claro_sql_query_fetch_all($sql);
 
-			$answerText = $question->answer->answerText;
-			$answerList = $question->answer->answerList;
+            $answerText = $question->answer->answerText;
+            $answerList = $question->answer->answerList;
 
-			$nbrBlanks = count($answerList);
+            $nbrBlanks = count($answerList);
 
 
             $fillInBlanksTotal = array();
             $results = array();
-			// in $answers_details we have the list of answers given, each line is one blank filling
-			// all blanks of each answers are in the list so we have
-			// attempt-blank1 ; attempt1-blank2; attempt2-blank1; attempt2-blank2; ...
-			// so we will have to extract and group all blank1 and blank2
-			$i = 1;
+            // in $answers_details we have the list of answers given, each line is one blank filling
+            // all blanks of each answers are in the list so we have
+            // attempt-blank1 ; attempt1-blank2; attempt2-blank1; attempt2-blank2; ...
+            // so we will have to extract and group all blank1 and blank2
+            $i = 1;
             foreach( $answers_details as $detail )
             {
                 if( !isset($results[$i][$detail['answer']]) )
@@ -261,35 +261,35 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
         }
         elseif( $question->getType() == 'MATCHING' )
         {
-			$displayedStatement = $question->getDescription();
+            $displayedStatement = $question->getDescription();
 
             // get left and right proposals
-			$leftList = $question->answer->leftList;
-			$rightList = $question->answer->rightList;
+            $leftList = $question->answer->leftList;
+            $rightList = $question->answer->rightList;
 
             $nbrColumn = 0; // at least one column for headers
             $nbrRow = 0; // at least one row for headers
 
             foreach( $rightList as $rightElt )
             {
-            	$nbrColumn++;
+                $nbrColumn++;
 
                 // right column , will be displayed in top headers
                 $columnTitlePosition[$rightElt['code']] = $nbrColumn;// to know in which column is which id
                 $results[0][$nbrColumn] = $rightElt['answer'];
-			}
+            }
 
-			foreach( $leftList as $leftElt )
-			{
-				$nbrRow++;
+            foreach( $leftList as $leftElt )
+            {
+                $nbrRow++;
 
                 // left column , will be displayed in left headers
                 $rowTitlePosition[$leftElt['code']] = $nbrRow; // to know in which row is which id
                 $results[$nbrRow][0] = $leftElt['answer'];
-			}
+            }
 
 
-			// get given answers
+            // get given answers
             $sql = "SELECT `TEA`.`answer`, COUNT(`TEA`.`answer`) as `nbr`
                         FROM (`".$tbl_qwz_question."` AS `Q` ,
                             `".$tbl_qwz_rel_exercise_question."` AS `RTQ`)
@@ -343,36 +343,36 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
 
                     if( !empty($rightCode) && !empty($leftCode) )
                     {
-						if( isset($rowTitlePosition[$leftCode]) && isset($columnTitlePosition[$rightCode]) )
-						{
-                        	$results[$rowTitlePosition[$leftCode]][$columnTitlePosition[$rightCode]] = $trackedAnswer['nbr'];
-						}
+                        if( isset($rowTitlePosition[$leftCode]) && isset($columnTitlePosition[$rightCode]) )
+                        {
+                            $results[$rowTitlePosition[$leftCode]][$columnTitlePosition[$rightCode]] = $trackedAnswer['nbr'];
+                        }
                     }
-				}
+                }
             }
         }
 
 
         //-- DISPLAY (common)
-		//-- display a resume of the selected question
+        //-- display a resume of the selected question
 
         // several questions have to be shown on the page
-		if( isset($questionIterator) )
-		{
-			echo '<tr class="headerX">' . "\n"
-			.	 '<th>'
-			.	 get_lang('Question') . ' ' . $questionIterator
-			.	 '</th>' . "\n"
-			.	 '</tr>' . "\n\n"
-			.	 '<tr>'
-			.	 '<td>' . "\n";
+        if( isset($questionIterator) )
+        {
+            echo '<tr class="headerX">' . "\n"
+            .     '<th>'
+            .     get_lang('Question') . ' ' . $questionIterator
+            .     '</th>' . "\n"
+            .     '</tr>' . "\n\n"
+            .     '<tr>'
+            .     '<td>' . "\n";
 
-			$questionIterator++;
-		}
+            $questionIterator++;
+        }
 
         echo '<p><strong>'.$question->getTitle().'</strong></p>'."\n"
-        .	 '<blockquote>'.$displayedStatement.'</blockquote>'."\n\n"
-        .	 '<center>';
+        .     '<blockquote>'.$displayedStatement.'</blockquote>'."\n\n"
+        .     '<center>';
         //-- DISPLAY (by question type)
         // prepare list to display
         if( $question->getType() == 'MCUA' || $question->getType() == 'MCMA' )
@@ -409,7 +409,7 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
                 echo ' />';
 
                 // compute pourcentage
-                if( $result['nbr'] == 0 )	$pourcent = 0;
+                if( $result['nbr'] == 0 )    $pourcent = 0;
                 else                        $pourcent = round(100 * $result['nbr'] / $multipleChoiceTotal);
 
                 echo '</td>' . "\n"
@@ -447,24 +447,24 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
             .    '<tbody>' . "\n\n"
             ;
 
-			$truePourcent = 0; $trueSelected = 0;
-			$falsePourcent = 0; $falseSelected = 0;
+            $truePourcent = 0; $trueSelected = 0;
+            $falsePourcent = 0; $falseSelected = 0;
             foreach( $results as $result )
             {
-            	if( $result['answer'] == 'TRUE' )
-            	{
-            		// compute pourcentage
-		            if( $result['nbr'] > 0 ) $truePourcent = round(100 * $result['nbr'] / $multipleChoiceTotal);
-		            $trueSelected = $result['nbr'];
+                if( $result['answer'] == 'TRUE' )
+                {
+                    // compute pourcentage
+                    if( $result['nbr'] > 0 ) $truePourcent = round(100 * $result['nbr'] / $multipleChoiceTotal);
+                    $trueSelected = $result['nbr'];
 
-            	}
-            	elseif( $result['answer'] == 'FALSE' )
-            	{
-            		// compute pourcentage
-		            if( $result['nbr'] > 0 ) $falsePourcent = round(100 * $result['nbr'] / $multipleChoiceTotal);
-		            $falseSelected = $result['nbr'];
-            	}
-            	// else ignore
+                }
+                elseif( $result['answer'] == 'FALSE' )
+                {
+                    // compute pourcentage
+                    if( $result['nbr'] > 0 ) $falsePourcent = round(100 * $result['nbr'] / $multipleChoiceTotal);
+                    $falseSelected = $result['nbr'];
+                }
+                // else ignore
             }
 
             // TRUE
@@ -476,7 +476,7 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
             // choose image to display
 
             if( $question->answer->correctAnswer == 'TRUE' )    echo get_icon_url('radio_on').'" alt="(X)"';
-            else												echo get_icon_url('radio_off').'" alt="( )"';
+            else                                                echo get_icon_url('radio_off').'" alt="( )"';
 
             echo ' />';
 
@@ -499,7 +499,7 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
             // choose image to display
 
             if( $question->answer->correctAnswer == 'FALSE' )   echo get_icon_url('radio_on').'" alt="(X)"';
-            else												echo get_icon_url('radio_off').'" alt="( )"';
+            else                                                echo get_icon_url('radio_off').'" alt="( )"';
 
             echo ' />';
 
@@ -603,13 +603,13 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
 
         // several questions have to be shown on the page
         if( isset($questionIterator) )
-		{
-			echo '</td>' . "\n"
-			.	 '</tr>' . "\n\n";
-		}
+        {
+            echo '</td>' . "\n"
+            .     '</tr>' . "\n\n";
+        }
     } // end of foreach( $questionIdsToShow as $questionId )
 
-	echo '</table>' . "\n";
+    echo '</table>' . "\n";
 
     echo $backLink;
 }

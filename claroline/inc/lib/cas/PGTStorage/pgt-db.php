@@ -172,14 +172,14 @@ class PGTStorageDB extends PGTStorage
       phpCAS::traceBegin();
       // if the storage has already been initialized, return immediatly
       if ( $this->isInitialized() )
-	return;
+    return;
       // call the ancestor's method (mark as initialized)
       parent::init();
 
       // try to connect to the database
       $this->_link = DB::connect($this->getURL());
       if ( DB::isError($this->_link) ) {
-	phpCAS::error('could not connect to database ('.DB::errorMessage($this->_link).')');
+    phpCAS::error('could not connect to database ('.DB::errorMessage($this->_link).')');
       }
       var_dump($this->_link);
       phpCAS::traceBEnd();

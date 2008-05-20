@@ -30,7 +30,7 @@ $conf_def['section']['main']['label']='Main settings';
 //$conf_def['section']['main']['description']='';
 $conf_def['section']['main']['properties'] =
 array ( 
-	'messagePerPage',
+    'messagePerPage',
     'mailNotfication'
 );
 
