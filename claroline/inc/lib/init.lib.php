@@ -1,21 +1,21 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
+
 /**
  * CLAROLINE
  *
  * Get and set value of current session.
  *
- * @version 1.9 $Revision$
- *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @author see 'credits' file
- *
- * @since claroline 1.8.3
- *
- * @package KERNEL
+ * @version     1.9 $Revision$
+ * @copyright   (c) 2001-2008 Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @author      see 'credits' file
+ * @since       claroline 1.8.3
+ * @package     KERNEL
  *
  */
 
@@ -654,5 +654,3 @@ function claro_get_course_user_properties($cid,$uid,$ignoreCache=false)
     return array('data' =>$course_user_data, 'privilege' => $course_user_privilege);
 
 }
-
-?>

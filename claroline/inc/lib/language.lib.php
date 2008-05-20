@@ -1,17 +1,22 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
+
 /**
  * CLAROLINE
  *
  * language library
  * contains function to manage l10n
  *
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- * @see http://www.claroline.net/wiki/CLUSR
- * @package CLUSR
- * @author Claro Team <cvs@claroline.net>
- *
+ * @version     1.9 $Revision$
+ * @copyright   2001-2008 Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see         http://www.claroline.net/wiki/CLUSR
+ * @package     CLUSR
+ * @author      Claro Team <cvs@claroline.net>
  */
 
 /**
@@ -590,17 +595,17 @@ function seems_utf8($str)
  */
 function claro_utf8_encode($str, $fromCharset = '' )
 {
-	if( $fromCharset != '' )	$charset = $fromCharset;
-	else					    $charset = $GLOBALS['charset'];
+    if( $fromCharset != '' )    $charset = $fromCharset;
+    else                        $charset = $GLOBALS['charset'];
 
 
-	if( strtoupper($charset) == 'UTF-8' || seems_utf8($str) )
+    if( strtoupper($charset) == 'UTF-8' || seems_utf8($str) )
     {
         return $str;
     }
     else
     {
-    	return iconv( $charset, 'UTF-8//TRANSLIT', $str );
+        return iconv( $charset, 'UTF-8//TRANSLIT', $str );
     }
 }
 
@@ -610,17 +615,15 @@ function claro_utf8_encode($str, $fromCharset = '' )
  */
 function claro_utf8_decode($str, $toCharset = '')
 {
-	if( $toCharset != '' )  $charset = $toCharset;
-	else                    $charset = $GLOBALS['charset'];
+    if( $toCharset != '' )  $charset = $toCharset;
+    else                    $charset = $GLOBALS['charset'];
 
-	if( strtoupper($charset) == 'UTF-8' || !seems_utf8($str) )
+    if( strtoupper($charset) == 'UTF-8' || !seems_utf8($str) )
     {
         return $str;
     }
     else
     {
-    	return iconv( 'UTF-8', $charset.'//TRANSLIT', $str );
+        return iconv( 'UTF-8', $charset.'//TRANSLIT', $str );
     }
 }
-
-?>
