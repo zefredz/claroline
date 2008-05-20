@@ -48,7 +48,7 @@ unset($_SESSION['admin_user_mail']);
 unset($_SESSION['admin_user_action']);
 unset($_SESSION['admin_order_crit']);
 
-$controlMsg = array();
+$dialogBox = new DialogBox();
 
 $menu['AdminUser']      = get_menu_item_list('AdminUser');
 $menu['AdminCourse']    = get_menu_item_list('AdminCourse');
@@ -73,7 +73,7 @@ $is_allowedToAdmin     = claro_is_platform_admin();
 // ----- is install visible ----- begin
 if ( file_exists('../install/index.php') && ! file_exists('../install/.htaccess'))
 {
-    $controlMsg['warning'][] = get_block('blockWarningRemoveInstallDirectory');
+    $dialogBox->warning( get_block('blockWarningRemoveInstallDirectory') );
 }
 
 // ----- is install visible ----- end
@@ -82,12 +82,12 @@ $register_globals_value = ini_get('register_globals');
 
 if ( ! empty($register_globals_value) && strtolower($register_globals_value) != 'off' )
 {
-    $controlMsg['warning'][] = get_lang('<b>Security :</b> We recommend to set register_globals to off in php.ini');
+    $dialogBox->warning( get_lang('<b>Security :</b> We recommend to set register_globals to off in php.ini') );
 }
 
 include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 echo claro_html_tool_title($nameTools)
-.    claro_html_msg_list( $controlMsg,1) . "\n\n"
+.    $dialogBox->render() . "\n\n"
 ;
 
 echo '<table cellspacing="5" align="center">' . "\n"
