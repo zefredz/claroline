@@ -18,7 +18,7 @@ require '../inc/claro_init_global.inc.php';
 
 if ( !claro_is_in_a_course() || !claro_is_course_allowed() ) claro_disp_auth_form(true);
 
-$message = '';
+$dialogBox = new DialogBox();
 $is_allowedToEdit = claro_is_allowed_to_edit();
 
 // tool libraries
@@ -66,22 +66,22 @@ if ( $cmd == 'download' )
                 }
                 else
                 {
-                    $message = get_lang('Not found');
+                    $dialogBox->error( get_lang('Not found') );
                 }                
             }
             else
             {
-                 $message = get_lang('Not found');
+                 $dialogBox->error( get_lang('Not found') );
             }
         }
         else
         {
-            $message = get_lang('Not allowed');
+            $dialogBox->error( get_lang('Not allowed') );
         }
     }
     else
     {
-        $message = get_lang('Not found');
+        $dialogBox->error( get_lang('Not found') );
     }    
 }
 
@@ -91,7 +91,7 @@ header('HTTP/1.1 404 Not Found');
 
 include get_path('incRepositorySys')  . '/claro_init_header.inc.php';
 
-echo claro_html_message_box($message);
+echo $dialogBox->render();
 
 include get_path('incRepositorySys')  . '/claro_init_footer.inc.php';
 
