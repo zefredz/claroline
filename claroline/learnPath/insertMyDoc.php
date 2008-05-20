@@ -237,7 +237,7 @@ while ($iterator <= $_REQUEST['maxDocForm'])
                 }
                 else
                 {
-                	$dialogBox .= get_lang("%moduleName is already used as a module in this learning path", array('%moduleName' => $basename)).'<br />' . "\n";
+                    $dialogBox .= get_lang("%moduleName is already used as a module in this learning path", array('%moduleName' => $basename)).'<br />' . "\n";
                 }
             }
         }

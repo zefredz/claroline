@@ -88,8 +88,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             $this->setOpt( 'inline_html_allowed', 0 );
             // use macros
             $this->setOpt( 'active_macros', 1 );
-			// use tables
-			$this->setOpt( 'active_tables', 1 );
+            // use tables
+            $this->setOpt( 'active_tables', 1 );
         }
 
         /**
@@ -207,9 +207,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 $type = 'pre';
                 $line = $cap[1];
             }
-			# tables
-			elseif ($this->getOpt('active_tables'))
-			{
+            # tables
+            elseif ($this->getOpt('active_tables'))
+            {
                 # table start
                 if ( preg_match('/^\s*{\|(.+)\s*/', $line, $cap) )
                 {
@@ -224,28 +224,28 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                     $line = '<table>';
                 }
                 # table end
-				elseif ( preg_match('/^\s*\|}\s*$/', $line, $cap) )
-				{
-					$type = null;
-					$line = '</table>';
-				}
+                elseif ( preg_match('/^\s*\|}\s*$/', $line, $cap) )
+                {
+                    $type = null;
+                    $line = '</table>';
+                }
                 # table row
-				elseif( preg_match('/^\s*\|\|(.*)\|\|\s*$/', $line, $cap) )
-				{
-					$type = null;
-					
+                elseif( preg_match('/^\s*\|\|(.*)\|\|\s*$/', $line, $cap) )
+                {
+                    $type = null;
+                    
                     $line = trim( $cap[1] );
 
-					$line = $this->__inlineWalk( $line );
-					
-					$line = $this->_parseTableLine($line);
-				}
+                    $line = $this->__inlineWalk( $line );
+                    
+                    $line = $this->_parseTableLine($line);
+                }
                 else
                 {
                     $type = 'p';
                     $line = trim($line);
                 }
-			}
+            }
             # Paragraphe
             else
             {
@@ -553,53 +553,53 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             }
         }
 
-		/**
+        /**
          * Overwrite wiki2xhtml __inlineWalk method
          * @access private
          * @see class.wiki2xhtml.php
          */
-		function __inlineWalk($str,$allow_only=NULL)
-		{
-    		$tree = preg_split($this->tag_pattern,$str,-1,PREG_SPLIT_DELIM_CAPTURE);
+        function __inlineWalk($str,$allow_only=NULL)
+        {
+            $tree = preg_split($this->tag_pattern,$str,-1,PREG_SPLIT_DELIM_CAPTURE);
 
-    		$res = '';
-    		for ($i=0; $i<count($tree); $i++)
-    		{
-    			$attr = '';
+            $res = '';
+            for ($i=0; $i<count($tree); $i++)
+            {
+                $attr = '';
 
-    			if (in_array($tree[$i],array_values($this->open_tags)) &&
-    			($allow_only == NULL || in_array(array_search($tree[$i],$this->open_tags),$allow_only)))
-    			{
-    				$tag = array_search($tree[$i],$this->open_tags);
-    				$tag_type = 'open';
+                if (in_array($tree[$i],array_values($this->open_tags)) &&
+                ($allow_only == NULL || in_array(array_search($tree[$i],$this->open_tags),$allow_only)))
+                {
+                    $tag = array_search($tree[$i],$this->open_tags);
+                    $tag_type = 'open';
 
-    				if (($tidy = $this->__makeTag($tree,$tag,$i,$i,$attr,$tag_type)) !== false)
-    				{
-    					if ($tag != '') {
-    						$res .= '<'.$tag.$attr;
-    						$res .= ($tag_type == 'open') ? '>' : ' />';
-    					}
-    					$res .= $tidy;
-    				}
-    				else
-    				{
-    					$res .= $tree[$i];
-    				}
-    			}
-    			else
-    			{
-    				$res .= $tree[$i];
-    			}
-    		}
+                    if (($tidy = $this->__makeTag($tree,$tag,$i,$i,$attr,$tag_type)) !== false)
+                    {
+                        if ($tag != '') {
+                            $res .= '<'.$tag.$attr;
+                            $res .= ($tag_type == 'open') ? '>' : ' />';
+                        }
+                        $res .= $tidy;
+                    }
+                    else
+                    {
+                        $res .= $tree[$i];
+                    }
+                }
+                else
+                {
+                    $res .= $tree[$i];
+                }
+            }
 
-    		# Suppression des echappements
-    		$res = str_replace($this->escape_table,$this->all_tags,$res);
+            # Suppression des echappements
+            $res = str_replace($this->escape_table,$this->all_tags,$res);
             # Unescape table tags
             
             $res = str_replace(array('\\{|', '\\|}'),array('{|', '|}'),$res);
 
-    		return $res;
-		}
+            return $res;
+        }
 
         /**
          * Render the given string using the wiki2xhtml renderer

@@ -31,8 +31,8 @@ class CLWRK_UserTrackingRenderer extends UserTrackingRenderer
 
         $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($this->courseId));
         $this->tbl_wrk_assignment = $tbl_cdb_names['wrk_assignment'];
-    	$this->tbl_wrk_submission = $tbl_cdb_names['wrk_submission'];
-    	$this->tbl_group_team = $tbl_cdb_names['group_team'];
+        $this->tbl_wrk_submission = $tbl_cdb_names['wrk_submission'];
+        $this->tbl_group_team = $tbl_cdb_names['group_team'];
     }
     
     protected function renderHeader()
@@ -46,72 +46,72 @@ class CLWRK_UserTrackingRenderer extends UserTrackingRenderer
         
         $html = '';
         
-    	$html .= '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center">' . "\n"
-    	.    '<tr class="headerX">' . "\n"
-    	.    '<th>' . get_lang('Assignment').'</th>' . "\n"
-    	.    '<th>' . get_lang('Work title').'</th>' . "\n"
-    	.    '<th>' . get_lang('Author(s)').'</th>' . "\n"
-    	.    '<th>' . get_lang('Score').'</th>' . "\n"
-    	.    '<th>' . get_lang('Date').'</th>' . "\n"
-    	.    '</tr>' . "\n";
+        $html .= '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center">' . "\n"
+        .    '<tr class="headerX">' . "\n"
+        .    '<th>' . get_lang('Assignment').'</th>' . "\n"
+        .    '<th>' . get_lang('Work title').'</th>' . "\n"
+        .    '<th>' . get_lang('Author(s)').'</th>' . "\n"
+        .    '<th>' . get_lang('Score').'</th>' . "\n"
+        .    '<th>' . get_lang('Date').'</th>' . "\n"
+        .    '</tr>' . "\n";
     
-    	if( !empty($submittedWorks) && is_array($submittedWorks) )
-    	{
-    	    $html .= '<tbody>' . "\n";
+        if( !empty($submittedWorks) && is_array($submittedWorks) )
+        {
+            $html .= '<tbody>' . "\n";
     
-    	    $prevAssignmentTitle = "";
-    	    foreach($submittedWorks as $work)
-    	    {
-    	        if( $work['a_title'] == $prevAssignmentTitle )
-    	        {
-    	            $assignmentTitle = "&nbsp;";
-    	        }
-    	        else
-    	        {
-    	            $assignmentTitle = $work['a_title'];
-    	            $prevAssignmentTitle = $work['a_title'];
-    	        }
+            $prevAssignmentTitle = "";
+            foreach($submittedWorks as $work)
+            {
+                if( $work['a_title'] == $prevAssignmentTitle )
+                {
+                    $assignmentTitle = "&nbsp;";
+                }
+                else
+                {
+                    $assignmentTitle = $work['a_title'];
+                    $prevAssignmentTitle = $work['a_title'];
+                }
     
-    	        if( $work['score'] != 0 )
-    	        {
-    	            $displayedScore = $work['score']." %";
-    	        }
-    	        else
-    	        {
-    	            $displayedScore  = get_lang('No score');
-    	        }
+                if( $work['score'] != 0 )
+                {
+                    $displayedScore = $work['score']." %";
+                }
+                else
+                {
+                    $displayedScore  = get_lang('No score');
+                }
     
-    	        if( isset($work['g_name']) )
-    	        {
-    	            $authors = $work['authors']."( ".$work['g_name']." )";
-    	        }
-    	        else
-    	        {
-    	            $authors = $work['authors'];
-    	        }
+                if( isset($work['g_name']) )
+                {
+                    $authors = $work['authors']."( ".$work['g_name']." )";
+                }
+                else
+                {
+                    $authors = $work['authors'];
+                }
     
-    	        $timestamp = strtotime($work['last_edit_date']);
-    	        $beautifulDate = claro_html_localised_date(get_locale('dateTimeFormatLong'),$timestamp);
+                $timestamp = strtotime($work['last_edit_date']);
+                $beautifulDate = claro_html_localised_date(get_locale('dateTimeFormatLong'),$timestamp);
     
     
-    	        $html .= '<tr>' . "\n"
-    	        .    '<td>'.$assignmentTitle.'</td>' . "\n"
-    	        .    '<td>'.$work['s_title'].'</td>' . "\n"
-    	        .    '<td>'.$authors.'</td>' . "\n"
-    	        .    '<td>'.$displayedScore.'</td>' . "\n"
-    	        .    '<td><small>'.$beautifulDate.'</small></td>' . "\n"
-    	        .    '</tr>' . "\n";
-    	    }
-    	    $html .= '</tbody>' . "\n";
+                $html .= '<tr>' . "\n"
+                .    '<td>'.$assignmentTitle.'</td>' . "\n"
+                .    '<td>'.$work['s_title'].'</td>' . "\n"
+                .    '<td>'.$authors.'</td>' . "\n"
+                .    '<td>'.$displayedScore.'</td>' . "\n"
+                .    '<td><small>'.$beautifulDate.'</small></td>' . "\n"
+                .    '</tr>' . "\n";
+            }
+            $html .= '</tbody>' . "\n";
     
-    	}
-    	else
-    	{
-    	    $html .= '<tfoot><tr>' . "\n"
-    	    .    '<td colspan="5" align="center">' . get_lang('No result').'</td>' . "\n"
-    	    .    '</tr></tfoot>' . "\n";
-    	}
-    	$html .= '</table>' . "\n";
+        }
+        else
+        {
+            $html .= '<tfoot><tr>' . "\n"
+            .    '<td colspan="5" align="center">' . get_lang('No result').'</td>' . "\n"
+            .    '</tr></tfoot>' . "\n";
+        }
+        $html .= '</table>' . "\n";
         
         return $html;
     }
@@ -143,29 +143,29 @@ class CLWRK_UserTrackingRenderer extends UserTrackingRenderer
 
         $results = claro_sql_query_fetch_all($sql);
     
-    	$submissionList = array();
+        $submissionList = array();
     
-    	// store submission details in list
-    	foreach( $results as $submission )
-    	{
-    		if( empty($submission['parent_id']) )
-    		{
-    			// is a submission
-    			$submissionList[$submission['id']] = $submission;
-    		}
-    	}
+        // store submission details in list
+        foreach( $results as $submission )
+        {
+            if( empty($submission['parent_id']) )
+            {
+                // is a submission
+                $submissionList[$submission['id']] = $submission;
+            }
+        }
     
-    	// get scores
-    	foreach( $results as $submission )
-    	{
-    		if( !empty($submission['parent_id']) && isset($submissionList[$submission['parent_id']]) && is_array($submissionList[$submission['parent_id']]) )
-    		{
-    			// is a feedback
-    			$submissionList[$submission['parent_id']]['score'] = $submission['score'];
-    		}
-    	}
+        // get scores
+        foreach( $results as $submission )
+        {
+            if( !empty($submission['parent_id']) && isset($submissionList[$submission['parent_id']]) && is_array($submissionList[$submission['parent_id']]) )
+            {
+                // is a feedback
+                $submissionList[$submission['parent_id']]['score'] = $submission['score'];
+            }
+        }
 
-    	return $submissionList;
+        return $submissionList;
     }
     
 }

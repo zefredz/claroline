@@ -166,10 +166,10 @@ a.wikiEdit{
 }
 
 table {
-	border: black outset 1px;
+    border: black outset 1px;
 }
 td {
-	border: black inset 1px;
+    border: black inset 1px;
 }
 </style>' . "\n";
 

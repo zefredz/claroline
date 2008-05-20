@@ -37,10 +37,10 @@ class ReceivedMessageStrategy extends MessageStrategy
      * set read strategy
      *
      * @param string $readStrategy
-     * 			accepted value: 
-     * 				ReceivedMessageStrategy::ONLY_READ
-     * 				ReceivedMessageStrategy::ONLY_UNREAD
-     * 				MessageStrategy::NO_FILTER
+     *             accepted value: 
+     *                 ReceivedMessageStrategy::ONLY_READ
+     *                 ReceivedMessageStrategy::ONLY_UNREAD
+     *                 MessageStrategy::NO_FILTER
      */
     public function setReadStrategy($readStrategy)
     {
@@ -56,10 +56,10 @@ class ReceivedMessageStrategy extends MessageStrategy
      * set deleted strategy
      *
      * @param string $deletedStrategy
-     * 			accepted value: 
-     * 				ReceivedMessageStrategy::ONLY_DELETED
-     * 				ReceivedMessageStrategy::ONLY_NOT_DELETED
-     * 				MessageStrategy::NO_FILTER
+     *             accepted value: 
+     *                 ReceivedMessageStrategy::ONLY_DELETED
+     *                 ReceivedMessageStrategy::ONLY_NOT_DELETED
+     *                 MessageStrategy::NO_FILTER
      */
     public function setDeletedStrategy($deletedStrategy)
     {
@@ -75,8 +75,8 @@ class ReceivedMessageStrategy extends MessageStrategy
      * set the field order
      *
      * @param string $fieldOrder
-     * 		accepted value: ReceivedMessageStrategy::ORDER_BY_DATE
-     * 						ReceivedMessageStrategy::ORDER_BY_SENDER
+     *         accepted value: ReceivedMessageStrategy::ORDER_BY_DATE
+     *                         ReceivedMessageStrategy::ORDER_BY_SENDER
      */
     public function setFieldOrder($fieldOrder)
     {

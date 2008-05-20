@@ -79,7 +79,7 @@
      *
      * @param int $userId
      * @return bool true if the user is admin
-     * 				false if the user is not admin
+     *                 false if the user is not admin
      */
     function claro_is_user_platform_admin($userId)
     {
@@ -96,7 +96,7 @@
      * @param int $userId user id
      * @param string $courseCode syscode du cours
      * @return boolean true if the user is manager of the course
-     * 				   false if the user is not manager of the course
+     *                    false if the user is not manager of the course
      */
     function claro_is_user_course_manager($userId,$courseCode)
     {

@@ -277,28 +277,28 @@ function elementData($parser,$data)
 
                 $file = $data; //url of secondary manifest files is relative to the position of the base imsmanifest.xml
 
-				// we try to extract only the required file
+                // we try to extract only the required file
                 $unzippingState = $zipFile->extract(PCLZIP_OPT_BY_NAME,$pathToManifest.$file, PCLZIP_OPT_REMOVE_PATH, $pathToManifest);
 
-		        if( $unzippingState != 0 && file_exists( $pathToManifest.$file ) )
-		        {
-		            array_push ($okMsgs, get_lang('Secondary manifest found in zip file : ').$pathToManifest.$file );
+                if( $unzippingState != 0 && file_exists( $pathToManifest.$file ) )
+                {
+                    array_push ($okMsgs, get_lang('Secondary manifest found in zip file : ').$pathToManifest.$file );
 
-					$readData = file_get_contents($pathToManifest.$file);
+                    $readData = file_get_contents($pathToManifest.$file);
 
-		            if( !xml_parse($xml_parser, $readData) )
-		            {
-		                // if reading of the xml file in not successfull :
-		                // set errorFound, set error msg, break while statement
-		                $errorFound = true;
-		                array_push ($errorMsgs, get_lang('Error reading a secondary initialisation file : ').$pathToManifest.$file );
-		            }
-		        }
-		        else
-				{
-		            $errorFound = true;
-		            array_push ($errorMsgs, get_lang('Cannot find secondary initialisation file in the package.<br /> File not found : ').$pathToManifest.$file );
-		        }
+                    if( !xml_parse($xml_parser, $readData) )
+                    {
+                        // if reading of the xml file in not successfull :
+                        // set errorFound, set error msg, break while statement
+                        $errorFound = true;
+                        array_push ($errorMsgs, get_lang('Error reading a secondary initialisation file : ').$pathToManifest.$file );
+                    }
+                }
+                else
+                {
+                    $errorFound = true;
+                    array_push ($errorMsgs, get_lang('Cannot find secondary initialisation file in the package.<br /> File not found : ').$pathToManifest.$file );
+                }
             }
             break;
 
@@ -472,7 +472,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
         $errorFound = true;
         array_push ($errorMsgs, get_lang('The file to upload is not valid.') . '<br />'
                     . get_lang('Max file size : %size', array('%size' => format_file_size( get_max_upload_size($maxFilledSpace,$baseWorkDir) ) ) )
-        		);
+                );
 
     }
 
@@ -605,7 +605,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
 
             array_push ($okMsgs, get_lang('Manifest found in zip file : ').$manifestPath."imsmanifest.xml" );
 
-			$data = html_entity_decode(urldecode(file_get_contents($manifestPath.$file)));
+            $data = html_entity_decode(urldecode(file_get_contents($manifestPath.$file)));
 
             if( !xml_parse($xml_parser, $data) )
             {
@@ -629,7 +629,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
             }
         }
         else
-		{
+        {
             $errorFound = true;
             array_push ($errorMsgs, get_lang('Cannot find <i>manifest</i> file in the package.<br /> File not found : imsmanifest.xml') );
         }
@@ -737,11 +737,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
         //        - n modules
         //        - n asset as start asset of modules
 
-		if( $unzippingState == 0 )
-		{
-			$errorFound = true;
-			array_push ($errorMsgs, get_lang('Cannot extract files.') );
-		}
+        if( $unzippingState == 0 )
+        {
+            $errorFound = true;
+            array_push ($errorMsgs, get_lang('Cannot extract files.') );
+        }
         elseif ( sizeof( $manifestData['items'] ) == 0 )
         {
             $errorFound = true;

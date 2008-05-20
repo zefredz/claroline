@@ -24,7 +24,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
     class ClarolineDatabaseConnection extends Database_Connection
     {
-  	
+      
         function ClarolineDatabaseConnection()
         {
             // use only in claroline tools

@@ -423,7 +423,7 @@ if ($displayRemoveOlderThanConfirmation)
     {
         $javascriptDelete = '
             <script type="text/javascript">
-            if (confirm("'.get_lang('Are you sure to delete to delete the messages older than %date%?\n\n            			 Warning all data will be deleted from the database',
+            if (confirm("'.get_lang('Are you sure to delete to delete the messages older than %date%?\n\n                         Warning all data will be deleted from the database',
                         array('%date%'=>$date)).'"));
             {
                 window.location=\''.$_SERVER['PHP_SELF'].'?cmd=exOlderThan&amp;date='.urlencode($date).'\';

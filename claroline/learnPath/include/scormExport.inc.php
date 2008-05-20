@@ -42,18 +42,18 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 function getIdCounter()
 {
-	global $idCounter;
+    global $idCounter;
 
-	if( !isset($idCounter) || $idCounter < 0 )
-	{
-		$idCounter = 0;
-	}
-	else
-	{
-		$idCounter++;
-	}
+    if( !isset($idCounter) || $idCounter < 0 )
+    {
+        $idCounter = 0;
+    }
+    else
+    {
+        $idCounter++;
+    }
 
-	return $idCounter;
+    return $idCounter;
 }
 
 
@@ -301,13 +301,13 @@ if ( !class_exists('ScormExport') )
 
                 $pageBody .=
                     '<tr class="headerX">' . "\n"
-                .	'<th>'.get_lang('Question').' '.$questionCount.'</th>' . "\n"
-                .	'</tr>' . "\n";
+                .    '<th>'.get_lang('Question').' '.$questionCount.'</th>' . "\n"
+                .    '</tr>' . "\n";
 
                 $pageBody .=
                     '<tr>' . "\n" . '<td>' . "\n"
-                .	$scormQuestion->export() . "\n"
-                .	'</td>' . "\n" . '</tr>' . "\n";
+                .    $scormQuestion->export() . "\n"
+                .    '</td>' . "\n" . '</tr>' . "\n";
 /*
                 if( !empty($scormQuestion->getAttachment()) )
                 {

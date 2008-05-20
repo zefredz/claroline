@@ -163,7 +163,7 @@ abstract class StoredMessage extends InternalMessage
      * false if this is not a platform message
      *
      * @return boolean true if the current message is a platform message
-     * 				   false if the current message is not a platform message	
+     *                    false if the current message is not a platform message    
      */
     public function isPlatformMessage()
     {

@@ -36,7 +36,7 @@ $tbl_group_rel_team_user     = $tbl_cdb_names['group_rel_team_user'    ];
 $tbl_track_e_downloads       = $tbl_cdb_names['track_e_downloads'      ];
 $tbl_track_e_access          = $tbl_cdb_names['track_e_access'         ];
 $tbl_track_e_exercises       = $tbl_cdb_names['track_e_exercices'      ];
-$tbl_qwz_exercise			 = $tbl_cdb_names['qwz_exercise'];
+$tbl_qwz_exercise             = $tbl_cdb_names['qwz_exercise'];
 $tbl_bb_topics               = $tbl_cdb_names['bb_topics'                ];
 $tbl_bb_posts                = $tbl_cdb_names['bb_posts'                ];
 

@@ -248,56 +248,56 @@ class CLTRACK_userCourseAccess extends UserTrackingRenderer
         
         $html = '';
         
-    	$html = '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center">' . "\n"
-    	.    '<tr class="headerX">' . "\n"
-    	.    '<th>' . get_lang('Month') . '</th>' . "\n"
-    	.    '<th>' . get_lang('Number of access') . '</th>' . "\n"
-    	.    '</tr>' . "\n"
-    	.    '<tbody>' . "\n"
-    	;
+        $html = '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center">' . "\n"
+        .    '<tr class="headerX">' . "\n"
+        .    '<th>' . get_lang('Month') . '</th>' . "\n"
+        .    '<th>' . get_lang('Number of access') . '</th>' . "\n"
+        .    '</tr>' . "\n"
+        .    '<tbody>' . "\n"
+        ;
     
-    	$total = 0;
-    	if( !empty($courseAccess) && is_array($courseAccess) )
-    	{
-    	    $langLongMonthNames = get_lang_month_name_list('long');
-    	    foreach( $courseAccess as $access )
-    	    {
-    	        $html .= '<tr>' . "\n"
-    	        .    '<td>' . "\n"
-    	        .    '<a href="logins_details.php?uInfo='.$this->userId . '&amp;reqdate='.$access['unix_date'].'">' . $langLongMonthNames[date('n', $access['unix_date'])-1].' '.date('Y', $access['unix_date']).'</a>' . "\n"
-    	        .    '</td>' . "\n"
-    	        .    '<td valign="top" align="right">'
-    	        .    (int) $access['nbr_access']
-    	        .    '</td>' . "\n"
-    	        .    '</tr>' . "\n";
+        $total = 0;
+        if( !empty($courseAccess) && is_array($courseAccess) )
+        {
+            $langLongMonthNames = get_lang_month_name_list('long');
+            foreach( $courseAccess as $access )
+            {
+                $html .= '<tr>' . "\n"
+                .    '<td>' . "\n"
+                .    '<a href="logins_details.php?uInfo='.$this->userId . '&amp;reqdate='.$access['unix_date'].'">' . $langLongMonthNames[date('n', $access['unix_date'])-1].' '.date('Y', $access['unix_date']).'</a>' . "\n"
+                .    '</td>' . "\n"
+                .    '<td valign="top" align="right">'
+                .    (int) $access['nbr_access']
+                .    '</td>' . "\n"
+                .    '</tr>' . "\n";
     
-    	        $total += (int) $access['nbr_access'];
-    	    }
-    	    $html .= '</tbody>' . "\n"
-    	    .    '<tfoot>' . "\n"
-    	    .    '<tr>' . "\n"
-    	    .    '<td>'
-    	    .    get_lang('Total')
-    	    .    '</td>' . "\n"
-    	    .    '<td align="right">'
-    	    .    $total
-    	    .    '</td>' . "\n"
-    	    .    '</tr>' . "\n"
-    	    .    '</tfoot>' . "\n";
-    	}
-    	else
-    	{
-    	    $html .= '<tfoot>' . "\n"
-    	    .    '<tr>' . "\n"
-    	    .    '<td colspan="2">' . "\n"
-    	    .    '<center>'
-    	    .    get_lang('No result')
-    	    .    '</center>' . "\n"
-    	    .    '</td>' . "\n"
-    	    .    '</tr>' . "\n"
-    	    .    '</tfoot>' . "\n";
-    	}
-    	$html .= '</table>' . "\n";
+                $total += (int) $access['nbr_access'];
+            }
+            $html .= '</tbody>' . "\n"
+            .    '<tfoot>' . "\n"
+            .    '<tr>' . "\n"
+            .    '<td>'
+            .    get_lang('Total')
+            .    '</td>' . "\n"
+            .    '<td align="right">'
+            .    $total
+            .    '</td>' . "\n"
+            .    '</tr>' . "\n"
+            .    '</tfoot>' . "\n";
+        }
+        else
+        {
+            $html .= '<tfoot>' . "\n"
+            .    '<tr>' . "\n"
+            .    '<td colspan="2">' . "\n"
+            .    '<center>'
+            .    get_lang('No result')
+            .    '</center>' . "\n"
+            .    '</td>' . "\n"
+            .    '</tr>' . "\n"
+            .    '</tfoot>' . "\n";
+        }
+        $html .= '</table>' . "\n";
         
         return $html;
     }
@@ -309,7 +309,7 @@ class CLTRACK_userCourseAccess extends UserTrackingRenderer
     
     private function prepareContent()
     {
-    	$sql = "SELECT UNIX_TIMESTAMP(`date`) AS `unix_date`,
+        $sql = "SELECT UNIX_TIMESTAMP(`date`) AS `unix_date`,
                    count(`date`)          AS `nbr_access`
                 FROM `" . $this->tbl_course_tracking_event . "`
                 WHERE `user_id` = " . $this->userId . "
@@ -317,9 +317,9 @@ class CLTRACK_userCourseAccess extends UserTrackingRenderer
                 GROUP BY MONTH(`date`), YEAR(`date`)
                 ORDER BY `date` ASC";
     
-    	$results = claro_sql_query_fetch_all($sql);
+        $results = claro_sql_query_fetch_all($sql);
     
-    	return $results;
+        return $results;
     }
 }
 

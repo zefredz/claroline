@@ -211,7 +211,7 @@ if ($cmd == 'applySearch')
         $userList = user_search( array('lastname'     => $userData['lastname'],
                                        'email'        => $userData['email'],
                                        'officialCode' => $userData['officialCode'],
-        							   'username' 	  => $userData['username']),
+                                       'username'       => $userData['username']),
                                        claro_get_current_course_id());
     }
     else
@@ -242,11 +242,11 @@ $jsloader->load('jquery');
 
 $htmlHeadXtra[] =
 '<script type="text/javascript">
-	$(document).ready(
-		function() {
-			$("#password").val("");
-		}
-	);
+    $(document).ready(
+        function() {
+            $("#password").val("");
+        }
+    );
 </script>';
 /* end of hack */
 // display header

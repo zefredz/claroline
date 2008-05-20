@@ -214,8 +214,8 @@ switch ($cmd)
 
         for ($i=0, $size=sizeof($_SESSION['claro_csv_userlist']); $i<$size; $i++)
         {
-			$user = $_SESSION['claro_csv_userlist'][$i];
-			
+            $user = $_SESSION['claro_csv_userlist'][$i];
+            
             if ( ! ( isset($_SESSION['claro_mail_synthax_error'][$i]) 
                      || isset($_SESSION['claro_officialcode_used_error'][$i])
                      || isset($_SESSION['claro_password_error'][$i])
@@ -224,47 +224,47 @@ switch ($cmd)
                      || isset($_SESSION['claro_officialcode_duplicate_error'][$i]) 
                     )
                )
-               { 	
-		            if (! (isset($_SESSION['claro_username_used_error'][$i])
-		            	 || isset($_SESSION['claro_mail_used_error'][$i])))
-		            {
-		            	// user must be added only if we encountered exactly no error
-		            	//set empty fields if needed
-			            if (empty($user['phone']))        $user['phone'] = '';
-			            if (empty($user['email']))        $user['email'] = '';
-			            if (empty($user['officialCode'])) $user['officialCode'] = '';
-			            $user_id = user_create($user);
-			            if   ($user_id != 0) $newUser++;      
-			        }    
-					else
-		            {    
-				        $criterionList = array('username' => $user['username']);
-		            	$resultSearch =  user_search($criterionList,null,true,true);
-		            	$user_id  = $resultSearch[0]['uid'];
-		            }
-		            
-			            // for each use case alos perform thze other needed action :
-					if (isset($user_id) && ($user_id != 0))
-					{
-			            switch ($AddType)
-			            {
-			                case 'adminTool':
-			                    //its all done in this case
-			                    break;
-			
-			                case 'adminClassTool':
-			                    user_add_to_class($user_id, $_SESSION['admin_user_class_id']);
-			                    $addUserClass++;
-			                    break;
-			
-			                case 'userTool':
-			                    user_add_to_course($user_id, claro_get_current_course_id(), false, false, false);
-			                    $addUserCourse++;
-			                    break;
-			      		}
-					}
-		      		else $usersNotToAdd[] = $user;
-		      		
+               {     
+                    if (! (isset($_SESSION['claro_username_used_error'][$i])
+                         || isset($_SESSION['claro_mail_used_error'][$i])))
+                    {
+                        // user must be added only if we encountered exactly no error
+                        //set empty fields if needed
+                        if (empty($user['phone']))        $user['phone'] = '';
+                        if (empty($user['email']))        $user['email'] = '';
+                        if (empty($user['officialCode'])) $user['officialCode'] = '';
+                        $user_id = user_create($user);
+                        if   ($user_id != 0) $newUser++;      
+                    }    
+                    else
+                    {    
+                        $criterionList = array('username' => $user['username']);
+                        $resultSearch =  user_search($criterionList,null,true,true);
+                        $user_id  = $resultSearch[0]['uid'];
+                    }
+                    
+                        // for each use case alos perform thze other needed action :
+                    if (isset($user_id) && ($user_id != 0))
+                    {
+                        switch ($AddType)
+                        {
+                            case 'adminTool':
+                                //its all done in this case
+                                break;
+            
+                            case 'adminClassTool':
+                                user_add_to_class($user_id, $_SESSION['admin_user_class_id']);
+                                $addUserClass++;
+                                break;
+            
+                            case 'userTool':
+                                user_add_to_course($user_id, claro_get_current_course_id(), false, false, false);
+                                $addUserCourse++;
+                                break;
+                          }
+                    }
+                      else $usersNotToAdd[] = $user;
+                      
                } else $usersNotToAdd[] = $user;
 
         }
@@ -496,17 +496,17 @@ switch ( $display )
                 {
                     echo get_lang('The user will be created only if all informations are correct.') . '<br />';
                     switch ($AddType)
-					{
-    					case 'adminClassTool': 
-    						echo  get_lang('If the user is existing in the platform, he will be added to the class only if his firstname, 
-    									lastname and username are similar.') . '<br />';
-    						break;
-    					case 'userTool': 
-    						echo get_lang('If the user is existing in the platform, he will be added to the course only if his firstname, 
-    									lastname and username are similar.') . '<br />';
-    						break;
-					}
-    					
+                    {
+                        case 'adminClassTool': 
+                            echo  get_lang('If the user is existing in the platform, he will be added to the class only if his firstname, 
+                                        lastname and username are similar.') . '<br />';
+                            break;
+                        case 'userTool': 
+                            echo get_lang('If the user is existing in the platform, he will be added to the course only if his firstname, 
+                                        lastname and username are similar.') . '<br />';
+                            break;
+                    }
+                        
                 }
                 echo '<br />'
                 .    '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '?cmd=exImpSec">' . "\n"
@@ -539,21 +539,21 @@ switch ( $display )
                 break;
 
             case 'adminClassTool':
-            	echo get_lang('%newUser users added to the campus',array('%newUser'=>$newUser)). "<br />\n";
-            	echo get_lang('%addUserClass users added to the class',array('%addUserClass'=>$addUserClass)). "<br />\n";
+                echo get_lang('%newUser users added to the campus',array('%newUser'=>$newUser)). "<br />\n";
+                echo get_lang('%addUserClass users added to the class',array('%addUserClass'=>$addUserClass)). "<br />\n";
                 break;
 
             case 'userTool':
-            	echo get_lang('%newUser users added to the campus',array('%newUser'=>$newUser)). "<br />\n";
-            	echo get_lang('%addUserCourse users added to the course',array('%addUserCourse'=>$addUserCourse)). "<br />\n";
+                echo get_lang('%newUser users added to the campus',array('%newUser'=>$newUser)). "<br />\n";
+                echo get_lang('%addUserCourse users added to the course',array('%addUserCourse'=>$addUserCourse)). "<br />\n";
                 break;
         }
         
         foreach ($usersNotToAdd as $user)
-		{
-        		echo get_lang('%firstname %lastname has not been added !', array('%firstname'=>$user['firstname'],
-        			'%lastname'=>$user['lastname']) ). "<br />\n";
-		}        
+        {
+                echo get_lang('%firstname %lastname has not been added !', array('%firstname'=>$user['firstname'],
+                    '%lastname'=>$user['lastname']) ). "<br />\n";
+        }        
 
         // display back link at the end of the log
 

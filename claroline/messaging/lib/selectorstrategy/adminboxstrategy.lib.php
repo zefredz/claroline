@@ -49,11 +49,11 @@ class AdminBoxStrategy implements SelectorStrategy
      * Set the strategy to apply to the message list
      *
      * @param string $strategy 
-     * 			accepted value:
-     * 				AdminBoxStrategy::OLDER_THAN  argument: date 
-     * 				AdminBoxStrategy::DATED_INTERVAL  argument: date1 date 2 
-     * 				AdminBoxStrategy::SENT_BY  argument: name
-     * 				AdminBoxStrategy::PLATFORM_MESSAGE
+     *             accepted value:
+     *                 AdminBoxStrategy::OLDER_THAN  argument: date 
+     *                 AdminBoxStrategy::DATED_INTERVAL  argument: date1 date 2 
+     *                 AdminBoxStrategy::SENT_BY  argument: name
+     *                 AdminBoxStrategy::PLATFORM_MESSAGE
      * @param array $valuesList value of the strategy
      */
     public function setStrategy($strategy,$valuesList = array())
@@ -110,9 +110,9 @@ class AdminBoxStrategy implements SelectorStrategy
      * set the field order
      *
      * @param string $fieldOrder
-     * 		accepted value: AdminBoxStrategy::FIELD_ORDER_NAME
-    						AdminBoxStrategy::FIELD_ORDER_USERNAME
-    						AdminBoxStrategy::FIELD_ORDER_DATE
+     *         accepted value: AdminBoxStrategy::FIELD_ORDER_NAME
+                            AdminBoxStrategy::FIELD_ORDER_USERNAME
+                            AdminBoxStrategy::FIELD_ORDER_DATE
      */
     public function setFieldOrder($fieldOrder)
     {
@@ -128,8 +128,8 @@ class AdminBoxStrategy implements SelectorStrategy
      * Set the order to apply
      *
      * @param string $order
-     * 		accepted value: AdminBoxStrategy::ORDER_DESC
-    						AdminBoxStrategy::ORDER_ASC
+     *         accepted value: AdminBoxStrategy::ORDER_DESC
+                            AdminBoxStrategy::ORDER_ASC
      */
     public function setOrder($order)
     {

@@ -20,7 +20,7 @@
  *
  * @param int $userId user id of the recipient
  * @return bool true if the current user is autorised do send a message to the user in parameter
- * 				flase if the current user is not autorised do send a message to the user in parameter
+ *                 flase if the current user is not autorised do send a message to the user in parameter
  */
 function current_user_is_allowed_to_send_message_to_user($userId)
 {
@@ -88,7 +88,7 @@ function current_user_is_allowed_to_send_message_to_user($userId)
  * return the autorisation of the current user to send a message to the current course
  *
  * @return bool true if the current user is autorised do send a message to the current course
- * 				false if the current user is not autorised do send a message to the current course
+ *                 false if the current user is not autorised do send a message to the current course
  */
 function current_user_is_allowed_to_send_message_to_current_course()
 {
@@ -109,7 +109,7 @@ function current_user_is_allowed_to_send_message_to_current_course()
  * return the autorisation of the current user to send a message to the current group
  *
  * @return bool true if the current user is autorised do send a message to the current group
- * 				false if the current user is not autorised do send a message to the current group
+ *                 false if the current user is not autorised do send a message to the current group
  */
 function current_user_is_allowed_to_send_message_to_current_group()
 {

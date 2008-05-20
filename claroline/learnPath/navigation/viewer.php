@@ -28,10 +28,10 @@ define ( 'USE_FRAMES' , 1 );
 
 /*
 if(isset ($_GET['path_id']) && $_GET['path_id'] != '')
-	$_SESSION['path_id'] = $_GET['path_id'];
+    $_SESSION['path_id'] = $_GET['path_id'];
 
 if(isset ($_GET['viewModule_id']) && $_GET['viewModule_id'] != '')
-	$_SESSION['module_id'] = $_GET['viewModule_id'];
+    $_SESSION['module_id'] = $_GET['viewModule_id'];
 */
 $nameTools = get_lang('Learning path');
 

@@ -65,7 +65,7 @@ if ( $cmd == 'rqMkCat' )
                .  '</form>'
                .  "\n";
 
-	$dialogBox->form($htmlAddCat);
+    $dialogBox->form($htmlAddCat);
 }
 
 if ( $cmd == 'exMkForum' )
@@ -145,7 +145,7 @@ if ( $cmd == 'rqMkForum' )
                . claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
                .'</form>'."\n\n";
 
-	$dialogBox->form($htmlAddForum);
+    $dialogBox->form($htmlAddForum);
 }
 
 if ( $cmd == 'exEdCat' )
@@ -187,7 +187,7 @@ if ( $cmd == 'rqEdCat' )
                .  '</form>'."\n"
                .  "\n";
 
-		$dialogBox->form($htmlEditCat);
+        $dialogBox->form($htmlEditCat);
     }
 }
 
@@ -281,7 +281,7 @@ if ( $cmd == 'rqEdForum' )
                . claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
                .'</form>'."\n\n";
 
-	$dialogBox->form($htmlEditForum);
+    $dialogBox->form($htmlEditForum);
 
 }
 

@@ -27,7 +27,7 @@ abstract class MessageBox implements Iterator, Countable
      *
      * @param MessageStrategy $strategy strategy to apply
      * @param int $userId user identification of the message box (optionnal, default: current_user_id())
-     * 	
+     *     
      */
     public function __construct($strategy, $userId = NULL)
     {

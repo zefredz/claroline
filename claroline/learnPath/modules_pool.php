@@ -35,9 +35,9 @@ $htmlHeadXtra[] =
         function confirmation (name, timeUsed)
         {
             if (confirm("'.clean_str_for_javascript(get_block('blockConfirmDeleteModule'))
-            			. ' \n" + name + "\n '
-            			. clean_str_for_javascript(get_lang('Number of learning paths using this module : '))
-            			. '" + timeUsed))
+                        . ' \n" + name + "\n '
+                        . clean_str_for_javascript(get_lang('Number of learning paths using this module : '))
+                        . '" + timeUsed))
                 {return true;}
             else
                 {return false;}
@@ -152,14 +152,14 @@ switch( $cmd )
         $result = claro_sql_query($query);
         $list = mysql_fetch_array($result);
         echo "\n"
-        .	 '<form method="post" name="rename" action="'.$_SERVER['PHP_SELF'].'">' . "\n"
+        .     '<form method="post" name="rename" action="'.$_SERVER['PHP_SELF'].'">' . "\n"
         .    claro_form_relay_context()
-		.	 '<label for="newName">'.get_lang('Insert new name').'</label> :' . "\n"
-		.	 '<input type="text" name="newName" id="newName" value="'.htmlspecialchars($list['name']).'" />' . "\n"
-		.	 '<input type="submit" value="'.get_lang('Ok').'" name="submit" />' . "\n"
-		.	 '<input type="hidden" name="cmd" value="exRename" />' . "\n"
-		.	 '<input type="hidden" name="module_id" value="'.$_REQUEST['module_id'].'" />' . "\n"
-		.	 '</form>' . "\n\n";
+        .     '<label for="newName">'.get_lang('Insert new name').'</label> :' . "\n"
+        .     '<input type="text" name="newName" id="newName" value="'.htmlspecialchars($list['name']).'" />' . "\n"
+        .     '<input type="submit" value="'.get_lang('Ok').'" name="submit" />' . "\n"
+        .     '<input type="hidden" name="cmd" value="exRename" />' . "\n"
+        .     '<input type="hidden" name="module_id" value="'.$_REQUEST['module_id'].'" />' . "\n"
+        .     '</form>' . "\n\n";
         break;
 
      //try to change name for selected module
@@ -278,26 +278,26 @@ while ($list = mysql_fetch_array($result))
     $contentType_img = selectImage($list['contentType']);
     $contentType_alt = selectAlt($list['contentType']);
     echo '<tr>' . "\n"
-	.	 '<td align="left">' . "\n"
-	.	 '<img src="' . get_icon_url( $contentType_img ) . '" alt="'.$contentType_alt.'" />'.$list['name'] . "\n"
-	.	 '</td>' . "\n"
-	.	 '<td align="center">' . "\n"
-	.	 '<a href="'.$_SERVER['PHP_SELF'].'?cmd=eraseModule&amp;cmdid='.$list['module_id'].'"'
-	.	 ' onclick="return confirmation(\''.clean_str_for_javascript($list['name']).'\', \''.$list['timesUsed'] .'\');">'
-	.	 '<img src="' . get_icon_url('delete') . '" alt="'.get_lang('Delete').'" />'
-	.	 '</a>' . "\n"
-	.	 '</td>' . "\n"
-	.	 '<td align="center">' . "\n"
-	.	 '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqRename&amp;module_id='.$list['module_id'].'">'
-	.    '<img src="' . get_icon_url('edit') . '" alt="'.get_lang('Rename').'" />'
-	.    '</a>' . "\n"
-	.	 '</td>' . "\n"
-	.	 '<td align="center">' . "\n"
-	.	 '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqComment&amp;module_id='.$list['module_id'].'">'
-	.    '<img src="' . get_icon_url('comment') . '" alt="'.get_lang('Comment').'" />'
-	.    '</a>' . "\n"
-	.	 '</td>' . "\n"
-	.	 '</tr>' . "\n\n";
+    .     '<td align="left">' . "\n"
+    .     '<img src="' . get_icon_url( $contentType_img ) . '" alt="'.$contentType_alt.'" />'.$list['name'] . "\n"
+    .     '</td>' . "\n"
+    .     '<td align="center">' . "\n"
+    .     '<a href="'.$_SERVER['PHP_SELF'].'?cmd=eraseModule&amp;cmdid='.$list['module_id'].'"'
+    .     ' onclick="return confirmation(\''.clean_str_for_javascript($list['name']).'\', \''.$list['timesUsed'] .'\');">'
+    .     '<img src="' . get_icon_url('delete') . '" alt="'.get_lang('Delete').'" />'
+    .     '</a>' . "\n"
+    .     '</td>' . "\n"
+    .     '<td align="center">' . "\n"
+    .     '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqRename&amp;module_id='.$list['module_id'].'">'
+    .    '<img src="' . get_icon_url('edit') . '" alt="'.get_lang('Rename').'" />'
+    .    '</a>' . "\n"
+    .     '</td>' . "\n"
+    .     '<td align="center">' . "\n"
+    .     '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqComment&amp;module_id='.$list['module_id'].'">'
+    .    '<img src="' . get_icon_url('comment') . '" alt="'.get_lang('Comment').'" />'
+    .    '</a>' . "\n"
+    .     '</td>' . "\n"
+    .     '</tr>' . "\n\n";
 
     if ( isset($list['comment']) )
     {
@@ -315,7 +315,7 @@ while ($list = mysql_fetch_array($result))
 
 if ($atleastOne == false)
 {
-	echo '<tr><td align="center" colspan="5">'.get_lang('No module').'</td></tr>' . "\n";
+    echo '<tr><td align="center" colspan="5">'.get_lang('No module').'</td></tr>' . "\n";
 }
 
 // Display button to add selected modules

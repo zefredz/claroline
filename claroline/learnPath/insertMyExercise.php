@@ -86,9 +86,9 @@ foreach( $exerciseList as $exercise )
                   AND M.`contentType` = '".CTEXERCISE_."'";
 
 
-		$existingModule = claro_sql_query_get_single_row($sql);
+        $existingModule = claro_sql_query_get_single_row($sql);
 
-		// no module exists using this exercise
+        // no module exists using this exercise
         if( !$existingModule )
         {
             // create new module
@@ -106,7 +106,7 @@ foreach( $exerciseList as $exercise )
 
             $assetId = claro_sql_query_insert_id($sql);
 
-			// update start asset id in module
+            // update start asset id in module
             $sql = "UPDATE `".$TABLEMODULE."`
                        SET `startAsset_id` = ". (int)$assetId."
                      WHERE `module_id` = ". (int)$moduleId;
@@ -115,7 +115,7 @@ foreach( $exerciseList as $exercise )
 
             // determine the default order of this Learning path
             $sql = "SELECT MAX(`rank`)
-					FROM `".$TABLELEARNPATHMODULE."`";
+                    FROM `".$TABLELEARNPATHMODULE."`";
 
             $orderMax = claro_sql_query_get_single_value($sql);
 

@@ -119,7 +119,7 @@ if( $is_allowedToEdit && $isFeedbackSubmitted && $assignmentId  )
             // -- create a unique file name to avoid any conflict
             // there can be only one automatic feedback but the file is put in the
             // assignments directory
-			$autoFeedbackFilename = $assignment->createUniqueFilename($newFileName);
+            $autoFeedbackFilename = $assignment->createUniqueFilename($newFileName);
 
             $tmpWorkUrl = $assignment->getAssigDirSys().$autoFeedbackFilename;
 
@@ -138,7 +138,7 @@ if( $is_allowedToEdit && $isFeedbackSubmitted && $assignmentId  )
             {
                 if( file_exists($assignment->getAssigDirSys().$assignment->getAutoFeedbackFilename()) )
                 {
-                	claro_delete_file($assignment->getAssigDirSys().$assignment->getAutoFeedbackFilename());
+                    claro_delete_file($assignment->getAssigDirSys().$assignment->getAutoFeedbackFilename());
                 }
             }
 
@@ -149,9 +149,9 @@ if( $is_allowedToEdit && $isFeedbackSubmitted && $assignmentId  )
     elseif( isset($_REQUEST['delFeedbackFile']) )
     {
         // delete the file was requested
-		if( file_exists($assignment->getAssigDirSys().$assignment->getAutoFeedbackFilename()) )
+        if( file_exists($assignment->getAssigDirSys().$assignment->getAutoFeedbackFilename()) )
         {
-        	claro_delete_file($assignment->getAssigDirSys().$assignment->getAutoFeedbackFilename());
+            claro_delete_file($assignment->getAssigDirSys().$assignment->getAutoFeedbackFilename());
         }
         $autoFeedbackFilename = '';
     }
@@ -175,9 +175,9 @@ if($is_allowedToEdit)
     // edit an assignment / form has been sent
     if( $cmd == 'exEditFeedback' )
     {
-    	$assignment->setAutoFeedbackText($autoFeedbackText);
-    	$assignment->setAutoFeedbackFilename($autoFeedbackFilename);
-    	$assignment->setAutoFeedbackSubmitMethod($autoFeedbackSubmitMethod);
+        $assignment->setAutoFeedbackText($autoFeedbackText);
+        $assignment->setAutoFeedbackFilename($autoFeedbackFilename);
+        $assignment->setAutoFeedbackSubmitMethod($autoFeedbackSubmitMethod);
 
         // form data have been handled before this point if the form was sent
         if( $formCorrectlySent && $assignment->save() )
@@ -208,31 +208,31 @@ if($is_allowedToEdit)
         if( !$isFeedbackSubmitted )
         {
             // feedback
-            $form['autoFeedbackText'] 			= $assignment->getAutoFeedbackText();
-            $form['autoFeedbackFilename'] 		= $assignment->getAutoFeedbackFilename();
-            $form['autoFeedbackSubmitMethod'] 	= $assignment->getAutoFeedbackSubmitMethod();
+            $form['autoFeedbackText']             = $assignment->getAutoFeedbackText();
+            $form['autoFeedbackFilename']         = $assignment->getAutoFeedbackFilename();
+            $form['autoFeedbackSubmitMethod']     = $assignment->getAutoFeedbackSubmitMethod();
         }
         else
         {
             // there was an error in the form
-            $form['autoFeedbackText'] 			= $_REQUEST['autoFeedbackText'];
-        	$form['autoFeedbackFilename'] 		= (!empty($_REQUEST['autoFeedbackFilename'])?$_REQUEST['autoFeedbackFilename']:'');
-            $form['autoFeedbackSubmitMethod'] 	= $_REQUEST['autoFeedbackSubmitMethod'];
+            $form['autoFeedbackText']             = $_REQUEST['autoFeedbackText'];
+            $form['autoFeedbackFilename']         = (!empty($_REQUEST['autoFeedbackFilename'])?$_REQUEST['autoFeedbackFilename']:'');
+            $form['autoFeedbackSubmitMethod']     = $_REQUEST['autoFeedbackSubmitMethod'];
         }
 
         // end date (as a reminder for the "after end date" option
-		$form['unix_end_date']				= $assignment->getEndDate();
+        $form['unix_end_date']                = $assignment->getEndDate();
 
         // ask the display of the form
         if($form['autoFeedbackSubmitMethod'] == 'ENDDATE')
         {
-        	$prefillSubmitEndDateCheckStatus 	= 'checked="checked"';
-        	$prefillSubmitAfterPostCheckStatus 	= '';
+            $prefillSubmitEndDateCheckStatus     = 'checked="checked"';
+            $prefillSubmitAfterPostCheckStatus     = '';
         }
         elseif($form['autoFeedbackSubmitMethod'] == 'AFTERPOST')
         {
-        	$prefillSubmitEndDateCheckStatus 	= '';
-        	$prefillSubmitAfterPostCheckStatus 	= 'checked="checked"';
+            $prefillSubmitEndDateCheckStatus     = '';
+            $prefillSubmitAfterPostCheckStatus     = 'checked="checked"';
         }
 
         $displayFeedbackForm = true;
@@ -296,7 +296,7 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
 
     if( !empty($form['autoFeedbackFilename']) )
     {
-    	$target = ( get_conf('open_submitted_file_in_new_window') ? 'target="_blank"' : '');
+        $target = ( get_conf('open_submitted_file_in_new_window') ? 'target="_blank"' : '');
         $completeFileUrl = $assignment->getAssigDirWeb() . $form['autoFeedbackFilename'];
 
         echo '<tr>' . "\n"

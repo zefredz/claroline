@@ -1082,7 +1082,7 @@ $_lang['Number of users by course'] = 'Aantal gebruikers per cursus';
 $_lang['Number of users by faculty'] = 'Aantal gebruikers per ';
 $_lang['Number of users by status'] = 'Aantal gebruikers per status';
 $_lang['Number proposed exceeds max. that you allowed (you can modify it below). Group composition has not been modified'] = 'Het aantal deelnemers overschrijdt het maximum aantal dat U bepaald had.
-	De samenstelling van de groep werd niet gewijzigd. U mag het maximum aantal hieronder wijzigen';
+    De samenstelling van de groep werd niet gewijzigd. U mag het maximum aantal hieronder wijzigen';
 $_lang['Numero'] = 'Nr.';
 $_lang['OVER QUOTA'] = 'OVER QUOTA';
 $_lang['Off'] = 'Uit';
@@ -1895,7 +1895,7 @@ E-mail : %administratorEmail
 $_lang['blockDefaultLearningPathComment'] = 'Dit is de inleidende tekst van dit leertraject. Om het door uw eigen tekst te vervangen, klik op de onderstaande link <b>inleiding toevoegen</b>.';
 $_lang['blockDefaultModuleAddedComment'] = 'Dit is de inleidende tekst van deze module. Deze tekst zal verschijnen in elk leertraject waar de module deel van uitmaakt. Om ze door uw eigen tekst te vervangen, klik op de onderstaande link <b>Inleiding toevoegen</b>.';
 $_lang['blockDefaultModuleComment'] = 'Dit is de inleidende tekst van deze module. Deze tekst zal verschijnen in elk leertraject waar de module deel van uitmaakt. Om ze door uw eigen tekst te vervangen, klik op de onderstaande link <b>Inleiding toevoegen</b>.';
-$_lang['blockDocumentsHelp'] = '<p>De module voor het beheer van documenten (cursusmaterialen) gebeurt op dezelfde wijze als het beheer van uw documenten op een computer.</p><p>U kunt alle types documenten (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.) opslaan. Wees toch voorzichtig. De studenten moeten de juiste programma’s hebben om deze te lezen. <b>Tip:</b> Let er op dat u geen virussen met uw documenten meestuurt. Gebruik een anti-virus software pakket!.</p><p>De documenten worden in alfabetische orde gerangschikt.<br />  <b>Tip: </b>Als U een andere volgorde wenst, kunt u de documenten door een nummer laten voorafgaan. 	Ze zullen op basis van de nummering gerangschikt worden. U kunt documenten ook in mappen organiseren.</p><p>U kunt:</p><h4>Een document uploaden in deze module</h4><ul>  <li>Het document op uw computer selecteren met de hulp van de toets \'Browse\'; <input type=submit value=Browse name=submit2> rechts op Uw scherm.</li>  <li>Upload het bestand de hulp van de toets \'Uploaden\'; 	<input type=submit value=Uploaden name=submit2>	.</li></ul><h4>Een nieuwe naam geven aan een document (of map)</h4><ul>  <li>klik op de toets <img src=../document/img/edit.gif width=20
+$_lang['blockDocumentsHelp'] = '<p>De module voor het beheer van documenten (cursusmaterialen) gebeurt op dezelfde wijze als het beheer van uw documenten op een computer.</p><p>U kunt alle types documenten (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.) opslaan. Wees toch voorzichtig. De studenten moeten de juiste programma’s hebben om deze te lezen. <b>Tip:</b> Let er op dat u geen virussen met uw documenten meestuurt. Gebruik een anti-virus software pakket!.</p><p>De documenten worden in alfabetische orde gerangschikt.<br />  <b>Tip: </b>Als U een andere volgorde wenst, kunt u de documenten door een nummer laten voorafgaan.     Ze zullen op basis van de nummering gerangschikt worden. U kunt documenten ook in mappen organiseren.</p><p>U kunt:</p><h4>Een document uploaden in deze module</h4><ul>  <li>Het document op uw computer selecteren met de hulp van de toets \'Browse\'; <input type=submit value=Browse name=submit2> rechts op Uw scherm.</li>  <li>Upload het bestand de hulp van de toets \'Uploaden\';     <input type=submit value=Uploaden name=submit2>    .</li></ul><h4>Een nieuwe naam geven aan een document (of map)</h4><ul>  <li>klik op de toets <img src=../document/img/edit.gif width=20
  height=20 align=baseline> in de kolom \'nieuwe naam\';.</li>
   <li>Breng in de nieuwe naam in de voorbehouden zone links boven</li>
   <li>Klik op \'OK\'; <input type=submit value=OK name=submit24>. </li></ul>
@@ -1933,7 +1933,7 @@ $_lang['blockDocumentsHelp'] = '<p>De module voor het beheer van documenten (cur
 <center>
 </p>';
 $_lang['blockExercisesHelp'] = '<p>De oefeningen module laat u toe om verschillende testen (oefeningen)  te maken die elk zoveel vragen bevatten als u wilt.
-	<i>Terminologie: een &quot;oefening&quot; of &quot;test&quot; bestaat uit een reeks &quot;vragen&quot;.</i><br /><br />
+    <i>Terminologie: een &quot;oefening&quot; of &quot;test&quot; bestaat uit een reeks &quot;vragen&quot;.</i><br /><br />
 Er zijn verschillende vraagtypes beschikbaar : <br />
 <ul>
   <li>Meerkeuze met &eacute;&eacute;n mogelijk antwoord</li>
@@ -1970,11 +1970,11 @@ Om een meerkeuzevraag te maken: <br />
 <hr />
 <b>Invulvragen</b>
 <p>Hiermee kunt u een tekst met invulruimtes cre&euml;ren. Het doel is om studenten woorden te laten
-	invullen die ontbreken in de tekst.<br /><br />
-	Om een invulruimte te cre&euml;ren, plaatst u een woord tussen vierkante haakjes [zoals hier].<br /><br />
-	<!--Once the text has been typed and blanks defined, you can add a comment that will be seen by the student when it replies to the question.<br /><br />-->
-	Bewaar uw tekst, en dan kunt u vervolgens gewichten toekennen aan elke invulruimte.
-	Bijvoorbeeld: voor een vraag die 10 punten waard is, met 5 invulruimtes, kunt u 2 punten toekenen aan iedere invulruimte.
+    invullen die ontbreken in de tekst.<br /><br />
+    Om een invulruimte te cre&euml;ren, plaatst u een woord tussen vierkante haakjes [zoals hier].<br /><br />
+    <!--Once the text has been typed and blanks defined, you can add a comment that will be seen by the student when it replies to the question.<br /><br />-->
+    Bewaar uw tekst, en dan kunt u vervolgens gewichten toekennen aan elke invulruimte.
+    Bijvoorbeeld: voor een vraag die 10 punten waard is, met 5 invulruimtes, kunt u 2 punten toekenen aan iedere invulruimte.
 </p>
 <hr />
 <b>Koppelen (matching)</b>
@@ -2008,7 +2008,7 @@ Als u veel vragen hebt, kunt u ook slechts een bepaald aantal vragen laten trekk
 <hr />
 <b>Verzameling van alle vragen</b>
 <p>Als u een oefening wist, worden de individuele vragen van die oefening niet mee gewist,
-	zodat ze kunnen hergebruikt worden voor nieuwe oefeningen (via de vragenverzameling).<br /><br />
+    zodat ze kunnen hergebruikt worden voor nieuwe oefeningen (via de vragenverzameling).<br /><br />
 Deze algemene lijst van vragen laat u ook toe om een vraag in meerdere oefeningen tegelijk te gebruiken.<br /><br />
 Standaard worden in de lijst alle vragen van uw cursus getoond.
 U kunt dit overzicht verfijnen via het uitschuifmenu &quot;Filter&quot;.
@@ -2054,7 +2054,7 @@ Deze invulmethodes kunnen gecombineerd worden gebruikt.  Bijvoorbeeld: De studen
   <li><b>\'Verwijderen\'</b> maakt het mogelijk om de groep te verwijderen, <b>inclusief forum en documentenbeheer</b>.</li></ul>
 <hr noshade size=1>';
 $_lang['blockHomepageHelp'] = '
-	U bevindt zich op de startpagina van een cursus. Hier ziet u verschillende ikoontjes
+    U bevindt zich op de startpagina van een cursus. Hier ziet u verschillende ikoontjes
 die de cursusonderdelen weergeven: forum, mededelingen, documenten... De
 meeste onderdelen zijn al ingevuld met voorbeeldmateriaal: een
 korte tekst, een hyperlink.

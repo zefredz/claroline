@@ -175,7 +175,7 @@ echo claro_html_tool_title(get_lang('Forums'), $is_allowedToEdit ? 'help_forum.p
 
 if ( ! $allowed )
 {
-	echo $dialogBox->render();
+    echo $dialogBox->render();
 }
 else
 {

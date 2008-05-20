@@ -27,7 +27,7 @@ class MessageToSend extends InternalMessage
      * create an message to send with the information in parameters
      *
      * @param int $sender user identification
-     * 		if it's not defined it use the current user id
+     *         if it's not defined it use the current user id
      * @param string $subject subject of the message
      * @param string $message content of the message
      */

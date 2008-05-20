@@ -49,34 +49,34 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 include(get_path('incRepositorySys')."/lib/learnPath.lib.inc.php");
 
 if(isset ($_GET['viewModule_id']) && $_GET['viewModule_id'] != '')
-	$_SESSION['module_id'] = $_GET['viewModule_id'];
+    $_SESSION['module_id'] = $_GET['viewModule_id'];
 
 // SET USER_MODULE_PROGRESS IF NOT SET
 if(claro_is_user_authenticated()) // if not anonymous
 {
-	// check if we have already a record for this user in this module
-	$sql = "SELECT COUNT(LPM.`learnPath_module_id`)
-	        FROM `".$TABLEUSERMODULEPROGRESS."` AS UMP, `".$TABLELEARNPATHMODULE."` AS LPM
-	       WHERE UMP.`user_id` = '" . (int)claro_get_current_user_id() . "'
-	         AND UMP.`learnPath_module_id` = LPM.`learnPath_module_id`
-	         AND LPM.`learnPath_id` = ". (int)$_SESSION['path_id']."
-	         AND LPM.`module_id` = ". (int)$_SESSION['module_id'];
-	$num = claro_sql_query_get_single_value($sql);
+    // check if we have already a record for this user in this module
+    $sql = "SELECT COUNT(LPM.`learnPath_module_id`)
+            FROM `".$TABLEUSERMODULEPROGRESS."` AS UMP, `".$TABLELEARNPATHMODULE."` AS LPM
+           WHERE UMP.`user_id` = '" . (int)claro_get_current_user_id() . "'
+             AND UMP.`learnPath_module_id` = LPM.`learnPath_module_id`
+             AND LPM.`learnPath_id` = ". (int)$_SESSION['path_id']."
+             AND LPM.`module_id` = ". (int)$_SESSION['module_id'];
+    $num = claro_sql_query_get_single_value($sql);
 
-	$sql = "SELECT `learnPath_module_id`
-	        FROM `".$TABLELEARNPATHMODULE."`
-	       WHERE `learnPath_id` = ". (int)$_SESSION['path_id']."
-	         AND `module_id` = ". (int)$_SESSION['module_id'];
-	$learnPathModuleId = claro_sql_query_get_single_value($sql);
+    $sql = "SELECT `learnPath_module_id`
+            FROM `".$TABLELEARNPATHMODULE."`
+           WHERE `learnPath_id` = ". (int)$_SESSION['path_id']."
+             AND `module_id` = ". (int)$_SESSION['module_id'];
+    $learnPathModuleId = claro_sql_query_get_single_value($sql);
 
-	// if never intialised : create an empty user_module_progress line
-	if( !$num || $num == 0 )
-	{
-	    $sql = "INSERT INTO `".$TABLEUSERMODULEPROGRESS."`
-	            ( `user_id` , `learnPath_id` , `learnPath_module_id`, `suspend_data` )
-	            VALUES ( " . (int)claro_get_current_user_id() . " , ". (int)$_SESSION['path_id']." , ". (int)$learnPathModuleId.", '')";
-	    claro_sql_query($sql);
-	}
+    // if never intialised : create an empty user_module_progress line
+    if( !$num || $num == 0 )
+    {
+        $sql = "INSERT INTO `".$TABLEUSERMODULEPROGRESS."`
+                ( `user_id` , `learnPath_id` , `learnPath_module_id`, `suspend_data` )
+                VALUES ( " . (int)claro_get_current_user_id() . " , ". (int)$_SESSION['path_id']." , ". (int)$learnPathModuleId.", '')";
+        claro_sql_query($sql);
+    }
 }  // else anonymous : record nothing !
 
 
@@ -100,46 +100,46 @@ $withFrames = false;
 
 switch ($module['contentType'])
 {
-	case CTDOCUMENT_ :
-		if(claro_is_user_authenticated())
-		{
-		    // if credit was already set this query changes nothing else it update the query made at the beginning of this script
-		    $sql = "UPDATE `".$TABLEUSERMODULEPROGRESS."`
-		               SET `credit` = 1,
-		                   `raw` = 100,
-		                   `lesson_status` = 'completed',
-		                   `scoreMin` = 0,
-		                   `scoreMax` = 100
-		             WHERE `user_id` = " . (int)claro_get_current_user_id() . "
-		               AND `learnPath_module_id` = ". (int)$learnPathModuleId;
+    case CTDOCUMENT_ :
+        if(claro_is_user_authenticated())
+        {
+            // if credit was already set this query changes nothing else it update the query made at the beginning of this script
+            $sql = "UPDATE `".$TABLEUSERMODULEPROGRESS."`
+                       SET `credit` = 1,
+                           `raw` = 100,
+                           `lesson_status` = 'completed',
+                           `scoreMin` = 0,
+                           `scoreMax` = 100
+                     WHERE `user_id` = " . (int)claro_get_current_user_id() . "
+                       AND `learnPath_module_id` = ". (int)$learnPathModuleId;
 
-		    claro_sql_query($sql);
-		} // else anonymous : record nothing
+            claro_sql_query($sql);
+        } // else anonymous : record nothing
 
-		$startAssetPage = urlencode($assetPath);
+        $startAssetPage = urlencode($assetPath);
         $moduleStartAssetPage = claro_get_file_download_url( $startAssetPage );
 
-  		$withFrames = true;
-		break;
+          $withFrames = true;
+        break;
 
-	case CTEXERCISE_ :
-		// clean session vars of exercise
-		unset($_SESSION['serializedExercise']);
-		unset($_SESSION['serializedQuestionList']);
-		unset($_SESSION['exeStartTime'	]);
+    case CTEXERCISE_ :
+        // clean session vars of exercise
+        unset($_SESSION['serializedExercise']);
+        unset($_SESSION['serializedQuestionList']);
+        unset($_SESSION['exeStartTime'    ]);
 
-		$_SESSION['inPathMode'] = true;
-		$startAssetpage = get_module_url('CLQWZ') . '/exercise_submit.php';
-		$moduleStartAssetPage = $startAssetpage . '?exId=' . $assetPath;
-		break;
-	case CTSCORM_ :
-		// real scorm content method
-		$startAssetPage = $assetPath;
-		$modulePath     = 'path_' . $_SESSION['path_id'];
-		$moduleStartAssetPage = get_path('coursesRepositoryWeb') . claro_get_course_path() . '/scormPackages/' . $modulePath . $startAssetPage;
-		break;
-	case CTCLARODOC_ :
-		break;
+        $_SESSION['inPathMode'] = true;
+        $startAssetpage = get_module_url('CLQWZ') . '/exercise_submit.php';
+        $moduleStartAssetPage = $startAssetpage . '?exId=' . $assetPath;
+        break;
+    case CTSCORM_ :
+        // real scorm content method
+        $startAssetPage = $assetPath;
+        $modulePath     = 'path_' . $_SESSION['path_id'];
+        $moduleStartAssetPage = get_path('coursesRepositoryWeb') . claro_get_course_path() . '/scormPackages/' . $modulePath . $startAssetPage;
+        break;
+    case CTCLARODOC_ :
+        break;
 } // end switch
 
 ?>

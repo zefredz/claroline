@@ -243,7 +243,7 @@ if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCommand))
         }
         
         $form .= '<input type="submit" value="'.get_lang('Yes').'" /> '."\n"
-                .'<a href=""><input type="button" value="'.get_lang('No').'" /></a>'   ."\n"     		 
+                .'<a href=""><input type="button" value="'.get_lang('No').'" /></a>'   ."\n"              
                 .'</form>'."\n\n"
                 ;
         
@@ -492,8 +492,8 @@ if ($displayTable)
                 .'<td>'.htmlspecialchars($userData['username']).'</td>'."\n"
                 .'<td>'.claro_html_localised_date(get_locale('dateTimeFormatLong'),strtotime($message->getSendTime())).'</td>'."\n"
                 .'<td class="im_list_action"><a href="'.$linkDelete.'cmd=rqDeleteMessage&amp;message_id='.$message->getId().'" '
-                .		'onclick="return deleteMessage(\''.$linkDelete.'cmd=exDeleteMessage&amp;message_id='.$message->getId().'\')"'
-                .	'><img src="' . get_icon_url('delete') . '" alt="" /></a></td>'."\n"
+                .        'onclick="return deleteMessage(\''.$linkDelete.'cmd=exDeleteMessage&amp;message_id='.$message->getId().'\')"'
+                .    '><img src="' . get_icon_url('delete') . '" alt="" /></a></td>'."\n"
                 .'</tr>'."\n\n"
                 ;
        }
