@@ -1,5 +1,10 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) );
+
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
+
 /**
  * CLAROLINE
  *
@@ -9,18 +14,12 @@ if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) );
  * Provide also some function making abstracation
  * for transition between structures before and after modularity
  *
- * @version 1.9 $Revision$
- *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @author see 'credits' file
- *
- * @package KERNEL
- *
- * @since 1.8
- *
+ * @version     1.9 $Revision$
+ * @copyright   (c) 2001-2008 Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @author      see 'credits' file
+ * @package     KERNEL
+ * @since       1.8
  */
 
 defined('CLARO_CONTEXT_PLATFORM')     || define('CLARO_CONTEXT_PLATFORM','platform');

@@ -1,25 +1,21 @@
 <?php // $Id$
+
 if ( count( get_included_files() ) == 1 )
 {
     die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
 }
+
 /**
  * CLAROLINE
  *
  * manage module of the system
  *
- * @version 1.9 $Revision$
- *
- * @copyright 2001-2008 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/index.php/Install
- *
- * @author Claro Team <cvs@claroline.net>
- *
- * @package MODULES
- *
+ * @version     1.9 $Revision$
+ * @copyright   2001-2008 Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see         http://www.claroline.net/wiki/index.php/Install
+ * @author      Claro Team <cvs@claroline.net>
+ * @package     MODULES
  */
 
 require_once dirname(__FILE__) . '/../fileManage.lib.php';
@@ -1691,8 +1687,8 @@ function get_course_tool_min_rank()
  */
 function is_package_file($packagePath)
 {
-	 $packagePath= realpath($packagePath);
-	 if (!file_exists($packagePath)) return false;
+     $packagePath= realpath($packagePath);
+     if (!file_exists($packagePath)) return false;
      if (!is_file($packagePath)) return false;
      if (is_dir($packagePath)) return false;
      if ('.zip' == strtolower(substr($packagePath,-4,4))) return true;
