@@ -322,7 +322,7 @@ class XML_Util {
                 foreach ($attributes as $key => $value) {
                     if ($entities != XML_UTIL_ENTITIES_NONE) {
                         if ($entities === XML_UTIL_CDATA_SECTION) {
-                        	$entities = XML_UTIL_ENTITIES_XML;
+                            $entities = XML_UTIL_ENTITIES_XML;
                         }
                         $value = XML_Util::replaceEntities($value, $entities);
                     }

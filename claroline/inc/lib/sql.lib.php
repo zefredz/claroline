@@ -235,14 +235,14 @@ function claro_sql_get_course_tbl($dbNameGlued = null)
               'lp_rel_learnPath_module'=> $courseDbInCache . 'lp_rel_learnPath_module',
               'lp_user_module_progress'=> $courseDbInCache . 'lp_user_module_progress',
               'lp_module'              => $courseDbInCache . 'lp_module',
-              'lp_asset'			   => $courseDbInCache . 'lp_asset',
-              'qwz_exercise'              	=> $courseDbInCache . 'qwz_exercise' ,
-              'qwz_question'          		=> $courseDbInCache . 'qwz_question',
-              'qwz_rel_exercise_question' 	=> $courseDbInCache . 'qwz_rel_exercise_question',
-              'qwz_answer_truefalse'		=> $courseDbInCache . 'qwz_answer_truefalse',
-              'qwz_answer_multiple_choice'	=> $courseDbInCache . 'qwz_answer_multiple_choice',
-              'qwz_answer_fib'            	=> $courseDbInCache . 'qwz_answer_fib',
-              'qwz_answer_matching'       	=> $courseDbInCache . 'qwz_answer_matching',
+              'lp_asset'               => $courseDbInCache . 'lp_asset',
+              'qwz_exercise'                  => $courseDbInCache . 'qwz_exercise' ,
+              'qwz_question'                  => $courseDbInCache . 'qwz_question',
+              'qwz_rel_exercise_question'     => $courseDbInCache . 'qwz_rel_exercise_question',
+              'qwz_answer_truefalse'        => $courseDbInCache . 'qwz_answer_truefalse',
+              'qwz_answer_multiple_choice'    => $courseDbInCache . 'qwz_answer_multiple_choice',
+              'qwz_answer_fib'                => $courseDbInCache . 'qwz_answer_fib',
+              'qwz_answer_matching'           => $courseDbInCache . 'qwz_answer_matching',
               'tool_intro'             => $courseDbInCache . 'tool_intro',
               'tool'                   => $courseDbInCache . 'tool_list',
               'track_e_access'         => $courseDbInCache . 'track_e_access',
@@ -251,7 +251,7 @@ function claro_sql_get_course_tbl($dbNameGlued = null)
               'track_e_exe_answers'    => $courseDbInCache . 'track_e_exe_answers',
               'track_e_exercices'      => $courseDbInCache . 'track_e_exercices',
               'track_e_uploads'        => $courseDbInCache . 'track_e_uploads',
-              'tracking_event' 		   => $courseDbInCache . 'tracking_event',
+              'tracking_event'            => $courseDbInCache . 'tracking_event',
               'userinfo_content'       => $courseDbInCache . 'userinfo_content',
               'userinfo_def'           => $courseDbInCache . 'userinfo_def',
               'wrk_assignment'         => $courseDbInCache . 'wrk_assignment',
@@ -338,13 +338,13 @@ function claro_sql_query($sqlQuery, $dbHandler = '#' )
 
 function claro_sql_errno($dbHandler = '#')
 {
-	if ( $dbHandler == '#' )
+    if ( $dbHandler == '#' )
     {
-    	return mysql_errno();
+        return mysql_errno();
     }
     else
     {
-	    return mysql_errno($dbHandler);
+        return mysql_errno($dbHandler);
     }
 }
 
@@ -355,13 +355,13 @@ function claro_sql_errno($dbHandler = '#')
 
 function claro_sql_error($dbHandler = '#')
 {
-	if ( $dbHandler == '#' )
+    if ( $dbHandler == '#' )
     {
-    	return mysql_error();
+        return mysql_error();
     }
     else
     {
-	    return mysql_error($dbHandler);
+        return mysql_error($dbHandler);
     }
 }
 
@@ -372,13 +372,13 @@ function claro_sql_error($dbHandler = '#')
 
 function claro_sql_select_db($dbName, $dbHandler = '#')
 {
-	if ( $dbHandler == '#' )
+    if ( $dbHandler == '#' )
     {
-    	return mysql_select_db($dbName);
+        return mysql_select_db($dbName);
     }
     else
     {
-	    return mysql_select_db($dbName, $dbHandler);
+        return mysql_select_db($dbName, $dbHandler);
     }
 }
 
@@ -389,13 +389,13 @@ function claro_sql_select_db($dbName, $dbHandler = '#')
 
 function claro_sql_affected_rows($dbHandler = '#')
 {
-	if ( $dbHandler == '#' )
+    if ( $dbHandler == '#' )
     {
-    	return mysql_affected_rows();
+        return mysql_affected_rows();
     }
     else
     {
-	    return mysql_affected_rows($dbHandler);
+        return mysql_affected_rows($dbHandler);
     }
 }
 
@@ -406,13 +406,13 @@ function claro_sql_affected_rows($dbHandler = '#')
 
 function claro_sql_insert_id($dbHandler = '#')
 {
-	if ( $dbHandler == '#' )
+    if ( $dbHandler == '#' )
     {
-    	return mysql_insert_id();
+        return mysql_insert_id();
     }
     else
     {
-	    return mysql_insert_id($dbHandler);
+        return mysql_insert_id($dbHandler);
     }
 }
 

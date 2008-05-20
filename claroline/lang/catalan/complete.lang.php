@@ -108,7 +108,7 @@ $_lang['Not allowed'] = 'Vosté no ha estat identificat com a responsable d\'aque
 $_lang['Notify by email when replies are posted'] = 'Notifica\'m per correu-e quan es publiquin respostes';
 $_lang['Now'] = 'Ara';
 $_lang['Number proposed exceeds max. that you allowed (you can modify it below). Group composition has not been modified'] = 'Nombre proposat excedeix el màx. que has permès (pots modificar-ho a sota). 
-				La composició del grup no ha estat modificada';
+                La composició del grup no ha estat modificada';
 $_lang['Ok'] = 'D\'acord';
 $_lang['Oldest first'] = 'Més antics primer';
 $_lang['On'] = 'Sobre';

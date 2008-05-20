@@ -362,11 +362,11 @@ class Cache_Lite
                     return true;
                 }
             }
-	    if ($this->_automaticCleaningFactor>0) {
+        if ($this->_automaticCleaningFactor>0) {
                 $rand = rand(1, $this->_automaticCleaningFactor);
-	        if ($rand==1) {
-	            $this->clean(false, 'old');
-		}
+            if ($rand==1) {
+                $this->clean(false, 'old');
+        }
             }
             if ($this->_writeControl) {
                 if (!$this->_writeAndControl($data)) {
@@ -376,8 +376,8 @@ class Cache_Lite
                     return true;
                 }
             } else {
-	        return $this->_write($data);
-	    }
+            return $this->_write($data);
+        }
         }
         return false;
     }

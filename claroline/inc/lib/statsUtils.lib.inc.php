@@ -28,19 +28,19 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  */
 function renderStatBlock($header,$content,$footer = '')
 {
-	$html = '<div class="statBlock">' . "\n"
-	.	 ' <div class="blockHeader">' . "\n"
-	.	 $header
-	.	 ' </div>' . "\n"
-	.	 ' <div class="blockContent">' . "\n"
-	.	 $content
-	.	 ' </div>' . "\n"
-	.	 ' <div class="blockFooter">' . "\n"
-	.	 $footer
-	.	 ' </div>' . "\n"
-	.	 '</div>' . "\n";
+    $html = '<div class="statBlock">' . "\n"
+    .     ' <div class="blockHeader">' . "\n"
+    .     $header
+    .     ' </div>' . "\n"
+    .     ' <div class="blockContent">' . "\n"
+    .     $content
+    .     ' </div>' . "\n"
+    .     ' <div class="blockFooter">' . "\n"
+    .     $footer
+    .     ' </div>' . "\n"
+    .     '</div>' . "\n";
 
-	return $html;
+    return $html;
 }
 
 /**

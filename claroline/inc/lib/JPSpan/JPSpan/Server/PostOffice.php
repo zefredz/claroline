@@ -322,9 +322,9 @@ if ( $this->RequestEncoding == 'xml' ) {
     * @access private
     */
     function generateHandleClient(& $Code, & $Description) {
-		$url = $this->serverUrl;
-		$url .= strpos($url, '?') ? '&' : '?';
-		$url .= 'object='.$Description->Class;
+        $url = $this->serverUrl;
+        $url .= strpos($url, '?') ? '&' : '?';
+        $url .= 'object='.$Description->Class;
 
         ob_start();
 ?>

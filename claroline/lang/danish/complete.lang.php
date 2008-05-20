@@ -203,7 +203,7 @@ $_lang['Number of users by course'] = 'Antal deltagere efter kursus';
 $_lang['Number of users by faculty'] = 'Antal deltagere efter fakultet';
 $_lang['Number of users by status'] = 'Antal deltagere efter stilling';
 $_lang['Number proposed exceeds max. that you allowed (you can modify it below). Group composition has not been modified'] = 'Antal foreslåede overstiger det max. som du tillod (du kan ændre det nedenfor). 
-				Gruppesammensætningen er ikke blevet ændret';
+                Gruppesammensætningen er ikke blevet ændret';
 $_lang['Ok'] = 'Ok';
 $_lang['Oldest first'] = 'Ældste først';
 $_lang['On'] = 'Til';
@@ -368,107 +368,107 @@ $_lang['blockDocumentsHelp'] = '<p>Dokumentværktøjet svarer til filhåndtering på
 <ul>
   <li>Vælg en fil på din computer ved at bruge Browerserfunktionen <input
  type=submit value=Browse name=submit2>
-	til højre på din skærm.</li>
-		<li>
-			Iværksæt udlægning af dokument med Upload <input type=submit value=Upload name=submit2>.
-		</li>
-	</ul>
-	<h4>
-		Omdøb dokumentnavn (eller en mappe)
-	</h4>
-	<ul>
-		<li>
-			klik på omdøb <img src=../document/img/edit.gif width=20 height=20 align=baseline> 
-			i omdøb kolonnen
-		</li>
-		<li>
-			Skriv det nye navn i feltet (øverst til venstre)
-		</li>
-		<li>
-			udfør ved at klikke <input type=submit value=Ok name=submit24>.
-		</li>
-	</ul>
-		<h4>
-			Slet et dokument (eller en mappe)
-		</h4>
-		<ul>
-			<li>
-				Klik på <img src=../document/img/delete.gif width=20 height=20> 
-				i kolonnen \'slet\'.
-			</li>
-		</ul>
-		<h4>
-			Gør et dokument (eller en mappe) usynlig for de studerende
-		</h4>
-		<ul>
-			<li>
-				Klik på <img src=../document/img/visible.gif width=20 height=20>
-				i kolonnen \'synlig/usynlig\'.
-			</li>
-			<li>
-				Dokumentet (eller mappen) eksisterer stadig men er ikke synlig for de studerende mere.
-			</li>
-			<li>
-				For at gøre det synligt igen, klik på 
-				<img src=../img/invisible.gif width=24 height=20> 
-				i kolonnen \'synlig/usynlig\'
-			</li>
-		</ul>
-		<h4>
-			Tilføj eller fjern en kommentar til et dokument (eller en mappe)
-		</h4>
-		<ul>
-			<li>
-				Klik på <img src=../img/comment.gif width=20 height=20> in column \'Comment\'
-			</li>
-			<li>
-				Skriv en ny kommentar i det korresponderende felt (øverst til højre).
-			</li>
-			<li>
-				Udfør ved at klikke <input type=submit value=OK name=submit2>
-			.</li>
-		</ul>
-		<p>
-		For at fjerne en kommentar, klik på <img src=../img/comment.gif width=20 height=20>, 
-		slet den gamle kommentar i feltet og klik 
-		<input type=submit value=OK name=submit22>.
-		<hr />
-		<p>
-			Du kan organisere dit indhold gennem arkivering. Gør følgende:
-		</p>
-		<h4>
-			<b>
-				Opret en mappe
-			</b>
-		</h4>
-		<ul>
-			<li>
-				klik på 
-				<img src=../img/folder.gif>
-				\'Opret en mape\' (øverst til venstre)
-			</li>
-			<li>
-				Skriv navnet på den nye mappe i det korresponderende felt (øverst til venstre)
-			</li>
-			<li>
-				udfør ved at klikke <input type=submit value=OK name=submit23>.
-			</li>
-		</ul>
-		<h4>
-			Flyt et dokument (eller en mappe)
-		</h4>
-		<ul>
-			<li>
-				Klik på <img src=../img/deplacer.gif width=34 height=16> 
-				i kolonnen \'Flyt\'
-			</li>
-			<li>
-				vælg den mappe du ønsker at flytte dokumentet til (eller mappe) i den korresponderende scrolling menu (øverst til venstre) (bemærk: ordet \'root\' betyder at du ikke kan gå højere op i dokumenthierarkiet på serveren).
-			</li>
-			<li>
-				udfør ved at klikke <input type=submit value=OK name=submit232>.
-			</li>
-		</ul>
+    til højre på din skærm.</li>
+        <li>
+            Iværksæt udlægning af dokument med Upload <input type=submit value=Upload name=submit2>.
+        </li>
+    </ul>
+    <h4>
+        Omdøb dokumentnavn (eller en mappe)
+    </h4>
+    <ul>
+        <li>
+            klik på omdøb <img src=../document/img/edit.gif width=20 height=20 align=baseline> 
+            i omdøb kolonnen
+        </li>
+        <li>
+            Skriv det nye navn i feltet (øverst til venstre)
+        </li>
+        <li>
+            udfør ved at klikke <input type=submit value=Ok name=submit24>.
+        </li>
+    </ul>
+        <h4>
+            Slet et dokument (eller en mappe)
+        </h4>
+        <ul>
+            <li>
+                Klik på <img src=../document/img/delete.gif width=20 height=20> 
+                i kolonnen \'slet\'.
+            </li>
+        </ul>
+        <h4>
+            Gør et dokument (eller en mappe) usynlig for de studerende
+        </h4>
+        <ul>
+            <li>
+                Klik på <img src=../document/img/visible.gif width=20 height=20>
+                i kolonnen \'synlig/usynlig\'.
+            </li>
+            <li>
+                Dokumentet (eller mappen) eksisterer stadig men er ikke synlig for de studerende mere.
+            </li>
+            <li>
+                For at gøre det synligt igen, klik på 
+                <img src=../img/invisible.gif width=24 height=20> 
+                i kolonnen \'synlig/usynlig\'
+            </li>
+        </ul>
+        <h4>
+            Tilføj eller fjern en kommentar til et dokument (eller en mappe)
+        </h4>
+        <ul>
+            <li>
+                Klik på <img src=../img/comment.gif width=20 height=20> in column \'Comment\'
+            </li>
+            <li>
+                Skriv en ny kommentar i det korresponderende felt (øverst til højre).
+            </li>
+            <li>
+                Udfør ved at klikke <input type=submit value=OK name=submit2>
+            .</li>
+        </ul>
+        <p>
+        For at fjerne en kommentar, klik på <img src=../img/comment.gif width=20 height=20>, 
+        slet den gamle kommentar i feltet og klik 
+        <input type=submit value=OK name=submit22>.
+        <hr />
+        <p>
+            Du kan organisere dit indhold gennem arkivering. Gør følgende:
+        </p>
+        <h4>
+            <b>
+                Opret en mappe
+            </b>
+        </h4>
+        <ul>
+            <li>
+                klik på 
+                <img src=../img/folder.gif>
+                \'Opret en mape\' (øverst til venstre)
+            </li>
+            <li>
+                Skriv navnet på den nye mappe i det korresponderende felt (øverst til venstre)
+            </li>
+            <li>
+                udfør ved at klikke <input type=submit value=OK name=submit23>.
+            </li>
+        </ul>
+        <h4>
+            Flyt et dokument (eller en mappe)
+        </h4>
+        <ul>
+            <li>
+                Klik på <img src=../img/deplacer.gif width=34 height=16> 
+                i kolonnen \'Flyt\'
+            </li>
+            <li>
+                vælg den mappe du ønsker at flytte dokumentet til (eller mappe) i den korresponderende scrolling menu (øverst til venstre) (bemærk: ordet \'root\' betyder at du ikke kan gå højere op i dokumenthierarkiet på serveren).
+            </li>
+            <li>
+                udfør ved at klikke <input type=submit value=OK name=submit232>.
+            </li>
+        </ul>
 <center>
 <p>';
 $_lang['blockExercisesHelp'] = '<p>Øvelsesværktøjet tillader dig at oprette øvelser med lige så mange spørgsmål, som du ønker.<br /><br />

@@ -406,10 +406,10 @@ function claro_user_info_get_course_user_info($user_id, $course_id=NULL)
                AND content.user_id = " . (int) $user_id . "
             ORDER BY cat.rank, content.id";
 
-	$userInfos = claro_sql_query_fetch_all_rows($sql);
-	
-	if( ! empty($userInfos) )  return $userInfos;
-	else                       return false;
+    $userInfos = claro_sql_query_fetch_all_rows($sql);
+    
+    if( ! empty($userInfos) )  return $userInfos;
+    else                       return false;
 }
 
 /**
@@ -440,9 +440,9 @@ function claro_user_info_get_cat_content($userId, $catId, $course_id = NULL)
             AND content.user_id = " . (int) $userId . "
             WHERE cat.id = " . (int) $catId ;
 
-	$catContent = claro_sql_query_get_single_row($sql);
-	
-	return $catContent;
+    $catContent = claro_sql_query_get_single_row($sql);
+    
+    return $catContent;
 }
 
 /**
@@ -460,9 +460,9 @@ function claro_user_info_get_cat_def($catId, $course_id=NULL)
             FROM `" . $tbl_userinfo_def . "`
             WHERE id = " . (int) $catId;
 
-	$catDef = claro_sql_query_get_single_row($sql);
-	
-	return $catDef;
+    $catDef = claro_sql_query_get_single_row($sql);
+    
+    return $catDef;
 }
 
 
@@ -487,10 +487,10 @@ function claro_user_info_claro_user_info_get_cat_def_list($course_id=NULL)
     .      "ORDER BY rank"
     ;
 
-	$cat_def_list = claro_sql_query_fetch_all_rows($sql);
-	
-	if( ! empty($cat_def_list) )  return $cat_def_list;
-	else                          return false;
+    $cat_def_list = claro_sql_query_fetch_all_rows($sql);
+    
+    if( ! empty($cat_def_list) )  return $cat_def_list;
+    else                          return false;
 }
 
 

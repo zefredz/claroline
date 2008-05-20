@@ -23,13 +23,13 @@ function xmlentities( $string, $quote_style = ENT_QUOTES )
 {
     static $trans;
 
-	// remove all html entities before xml encoding
-	// must convert all quotes to avoid remaining html entity in code
-	$string = html_entity_decode($string, ENT_QUOTES);
+    // remove all html entities before xml encoding
+    // must convert all quotes to avoid remaining html entity in code
+    $string = html_entity_decode($string, ENT_QUOTES);
 
-	// xml encoding
+    // xml encoding
     if ( ! isset( $trans ) )
-	{
+    {
         $trans = get_html_translation_table( HTML_ENTITIES, $quote_style );
         foreach ( array_keys($trans) as $key )
         {
@@ -37,7 +37,7 @@ function xmlentities( $string, $quote_style = ENT_QUOTES )
         }
         // dont translate the '&' in case it is part of &xxx;
         $trans[chr(38)] = '&';
-	}
+    }
 
     // after the initial translation, _do_ map standalone '&' into '&#38;'
     return preg_replace( "/&(?![A-Za-z]{0,4}\w{2,3};|#[0-9]{2,3};)/"

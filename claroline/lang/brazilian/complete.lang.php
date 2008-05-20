@@ -539,7 +539,7 @@ $_lang['Number of users by course'] = 'Número de usuários por curso';
 $_lang['Number of users by faculty'] = 'Número de usuários por faculdade';
 $_lang['Number of users by status'] = 'Número de usuários por status';
 $_lang['Number proposed exceeds max. that you allowed (you can modify it below). Group composition has not been modified'] = 'O número proposto excede o máx. que você permitiu (você pode modificar isso abaixo).
-				A composição do grupo não foi modificada';
+                A composição do grupo não foi modificada';
 $_lang['Numero'] = 'Não.';
 $_lang['Ok'] = 'validar';
 $_lang['Oldest first'] = 'Antigos primeiro';
@@ -981,10 +981,10 @@ $_lang['blockDocumentsHelp'] = '<p>A ferramenta Documentos é similar ao gerencia
 <ul>
   <li>Select the file on your computer using the Browse button <input
  type=submit value=Browse name=submit2>
-	on the right of your screen.</li>
+    on the right of your screen.</li>
   <li>Launch the upload with the Upload Button <input type=submit
  value=Upload name=submit2>
-	.</li>
+    .</li>
 </ul>
 <h4>Rename a document (a directory)</h4>
 <ul>
@@ -993,64 +993,64 @@ $_lang['blockDocumentsHelp'] = '<p>A ferramenta Documentos é similar ao gerencia
   the Rename column</li>
   <li>Type the new name in the field (top left)</li>
   <li>Validate by clicking <input type=submit value=Ok name=submit24>
-	.
+    .
 </ul>
-	<h4>Delete a document (or a directory)</h4>
-	<ul>
+    <h4>Delete a document (or a directory)</h4>
+    <ul>
 
   <li>Click on <img src=../document/img/supprimer.gif width=20 height=20 />
-	in column \'Delete\'.</li>
-	</ul>
-	<h4>Make a document (or directory) invisible to students</h4>
-	<ul>
+    in column \'Delete\'.</li>
+    </ul>
+    <h4>Make a document (or directory) invisible to students</h4>
+    <ul>
 
   <li>Click on <img src=../document/img/visible.gif width=20 height=20>in
  column \'Visible/invisible\'.</li>
-	  <li>The document (or directory) still exists but it is not visible by
+      <li>The document (or directory) still exists but it is not visible by
  students anymore.</li>
   <li>To make it invisible back again, click on <img
  src=../img/invisible.gif width=24 height=20>
-	in column \'Visible/invisible\'</li>
-	</ul>
-	<h4>Add or modify a comment to a document (or a directory)</h4>
-	<ul>
+    in column \'Visible/invisible\'</li>
+    </ul>
+    <h4>Add or modify a comment to a document (or a directory)</h4>
+    <ul>
   <li>Click on <img src=../img/comment.gif width=20
  height=20>
-	in column \'Comment\'</li>
-	  <li>Type new comment in the corresponding field (top right).</li>
-	  <li>Validate by clicking <input type=submit value=OK name=submit2>
-		.</li>
-	</ul>
-	<p>To delete a comment, click on <img
+    in column \'Comment\'</li>
+      <li>Type new comment in the corresponding field (top right).</li>
+      <li>Validate by clicking <input type=submit value=OK name=submit2>
+        .</li>
+    </ul>
+    <p>To delete a comment, click on <img
  src=../img/comment.gif width=20 height=20>,
-	  delete the old comment in the field and click <input type=submit
+      delete the old comment in the field and click <input type=submit
  value=OK name=submit22>
-	  .
-	<hr />
-	<p>You can organise your content through filing. For this:</p>
-	<h4><b>Create a directory</b></h4>
-	<ul>
-	  <li>Click on <img src=../img/folder.gif> \'Create a directory\' (top left)</li>
-	  <li>Type the name of your new directory in the corresponding field (top
+      .
+    <hr />
+    <p>You can organise your content through filing. For this:</p>
+    <h4><b>Create a directory</b></h4>
+    <ul>
+      <li>Click on <img src=../img/folder.gif> \'Create a directory\' (top left)</li>
+      <li>Type the name of your new directory in the corresponding field (top
  left)</li>
-	  <li>Validate by clicking <input type=submit value=OK
+      <li>Validate by clicking <input type=submit value=OK
  name=submit23>.</li>
-	</ul>
-	<h4>Move a document (or directory)</h4>
-	<ul>
-	  <li>Cllick on button <img src=../img/deplacer.gif
+    </ul>
+    <h4>Move a document (or directory)</h4>
+    <ul>
+      <li>Cllick on button <img src=../img/deplacer.gif
  width=34 height=16>
-		in column \'Move\'</li>
-	  <li>Choose the directory into which you want to move the document (or
+        in column \'Move\'</li>
+      <li>Choose the directory into which you want to move the document (or
  directory) in the
-	  corresponding scrolling menu (top left) (note: the word \'root\' means you
+      corresponding scrolling menu (top left) (note: the word \'root\' means you
  cannot go
-	  upper than that level in the document tree of the server).</li>
-	  <li>Validate by clicking on <input type=submit value=OK
+      upper than that level in the document tree of the server).</li>
+      <li>Validate by clicking on <input type=submit value=OK
  name=submit232>.</li>
-	</ul>
-	<center>
-	  <p>';
+    </ul>
+    <center>
+      <p>';
 $_lang['blockExercisesHelp'] = '<h4>Qual é o tipo de exercício ?</h4>
 Nesta seção você pode criar exercícios compostos de várias questões para solução on-line. As questões podem ser de tipos diferentes. O estudante cadastrado ao realizar os exercícios terá suas notas registradas e apresentadas na estatística do curso.
 

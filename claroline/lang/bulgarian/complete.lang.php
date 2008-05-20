@@ -955,7 +955,7 @@ $_lang['Number of users by faculty'] = 'Брой потребители по преподавател';
 $_lang['Number of users by status'] = 'Брой потребители по статут';
 $_lang['Number proposed exceeds max. that you allowed (you can modify it below). Group composition has not been modified'] = 'Броят на желаещите надхвърля разрешения брой (може да го промениш отдолу).
 
-				Състава на групата не е променен';
+                Състава на групата не е променен';
 $_lang['Numero'] = 'No.';
 $_lang['OVER QUOTA'] = 'НАД ЛИМИТА';
 $_lang['Off'] = 'Изкл.';

@@ -1236,7 +1236,7 @@ function user_search( $criterionList = array() , $courseId = null, $allCriterion
                     U.prenom        firstname,
                     U.email         email,
                     U.officialCode  officialCode,
-					U.username      username,
+                    U.username      username,
                     U.`user_id` AS  uid
                    ". ($courseId ? ', CU.user_id AS registered' : '') . "
              FROM `" . $tbl_user . "` AS U ";
@@ -1255,7 +1255,7 @@ function user_search( $criterionList = array() , $courseId = null, $allCriterion
     $sqlCritList[] = " U.email  LIKE '". addslashes($validatedCritList['email'       ])   . $wildcard . "'";
     if ($validatedCritList['officialCode'])
     $sqlCritList[] = " U.officialCode = '". addslashes($validatedCritList['officialCode']) . "'";
-	if ($validatedCritList['username'])
+    if ($validatedCritList['username'])
     $sqlCritList[] = " U.username = '". addslashes($validatedCritList['username']) . "'";
 
     if ( count($sqlCritList) > 0) $sql .= 'WHERE ' . implode(" $operator ", $sqlCritList);
