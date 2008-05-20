@@ -194,7 +194,7 @@ while ($list=mysql_fetch_array($result))
         .'</td>'."\n"
         .'<td align="left">'."\n"
         .'<label for="check_' . $list['module_id'] . '" >'
-        .'<img src="' . get_path('imgRepositoryWeb') . $moduleImg.'" alt="' . $contentType_alt . '" />'
+        .'<img src="' . get_icon_url( $moduleImg ) . '" alt="' . $contentType_alt . '" />'
         . $list['name']
         . '</label>' . "\n"
         .'</td>'."\n"

@@ -204,11 +204,11 @@ function commentBox($type, $mode)
                 echo '<p>' . "\n"
                 .    '<small>' . "\n"
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=update' . $col_name . '">' . "\n"
-                .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="' . get_lang('Modify') . '" border="0" />' . "\n"
+                .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Modify') . '" />' . "\n"
                 .    '</a>' . "\n"
                 .    '<a href="' . $_SERVER['PHP_SELF'].'?cmd=del' . $col_name . '" '
                 .    ' onclick="javascript:if(!confirm(\''.clean_str_for_javascript(get_lang('Please confirm your choice')).'\')) return false;">' . "\n"
-                .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="' . get_lang('Delete') . '" border="0" />' . "\n"
+                .    '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />' . "\n"
                 .    '</a>' . "\n"
                 .    '</small>' . "\n"
                 .    '</p>' . "\n"
@@ -320,7 +320,7 @@ function nameBox($type, $mode)
 
         if ( $is_allowedToEdit )
             echo '<br /><a href="' . $_SERVER['PHP_SELF'] . '?cmd=updateName">'
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="' . get_lang('Modify') . '" border="0" />'
+            .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Modify') . '" />'
             .    '</a>' . "\n";
         echo '</h4>'."\n\n";
     }
@@ -531,7 +531,7 @@ function display_path_content()
 
             $contentType_alt = selectAlt($module['contentType']);
 
-            echo '<img src="' . get_path('imgRepositoryWeb') . $moduleImg . '" alt="' .$contentType_alt.'" border="0" />'
+            echo '<img src="' . get_icon_url($moduleImg) . '" alt="' .$contentType_alt.'" />'
             .    $module['name']
             ;
         }
@@ -682,7 +682,7 @@ function display_my_exercises($dialogBox)
             .    '</td>'."\n"
             .    '<td align="left">'
             .    '<label for="check_'.$exercise['id'].'" >'
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'quiz.gif" alt="' . get_lang('Exercises') . '" />'
+            .    '<img src="' . get_icon_url('quiz') . '" alt="' . get_lang('Exercises') . '" />'
             .    $exercise['title']
             .    '</label>'
             .    '</td>'."\n"
@@ -791,7 +791,7 @@ function display_my_documents($dialogBox)
     and we can't go to a parent dir */
     {
         echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exChDir&amp;file=' . $cmdParentDir . '">' . "\n"
-        .    '<img src="' . get_path('imgRepositoryWeb') . 'parent.gif" border="0" align="absbottom" hspace="5" alt="" />'."\n"
+        .    '<img src="' . get_icon_url('parent') . '" hspace="5" alt="" />'."\n"
         .    '<small>' . get_lang('Up') . '</small>' . "\n"
         .    '</a>' . "\n"
         ;
@@ -804,7 +804,7 @@ function display_my_documents($dialogBox)
         echo '<!-- current dir name -->' . "\n"
         .    '<tr>' . "\n"
         .    '<th class="superHeader" colspan="' . $colspan . '" align="left">'. "\n"
-        .    '<img src="' . get_path('imgRepositoryWeb') . 'opendir.gif" align="absbottom" vspace=2 hspace=5 alt="" />' . "\n"
+        .    '<img src="' . get_icon_url('opendir') . '" vspace=2 hspace=5 alt="" />' . "\n"
         .    $dspCurDirName . "\n"
         .    '</td>' . "\n"
         .    '</tr>' . "\n"
@@ -895,7 +895,7 @@ function display_my_documents($dialogBox)
             }
             echo '<td align="left">'
             .    '<a href="' . $urlFileName . '" ' . $style . '>'
-            .    '<img src="' . get_path('imgRepositoryWeb') . $image . '" border="0" hspace="5" alt="" />' . $dspFileName . '</a>'
+            .    '<img src="' . get_icon_url( $image ) . '" hspace="5" alt="" />' . $dspFileName . '</a>'
             .    '</td>'."\n"
             .    '<td><small>' . $size . '</small></td>' . "\n"
             .    '<td><small>' . $date . '</small></td>' . "\n"

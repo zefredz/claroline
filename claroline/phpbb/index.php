@@ -144,7 +144,7 @@ foreach ( $categories as $this_category )
         echo '<div style="float:right">'
         .    '<a href="' . $_SERVER['PHP_SELF']
         .    '?cmd=rqEdCat&amp;catId=' . $this_category['cat_id'] . '">'
-        .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="' . get_lang('Edit') . '" />'
+        .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Edit') . '" />'
         .    '</a>'
         .    '&nbsp;'
         ;
@@ -152,14 +152,14 @@ foreach ( $categories as $this_category )
         if ( $this_category['cat_id'] != GROUP_FORUMS_CATEGORY )
         echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelCat&amp;catId='.$this_category['cat_id'].'" '
         .    'onclick="return confirm_delete(\''. clean_str_for_javascript($this_category['cat_title']).'\');" >'
-        .    '<img src="' . get_path('imgRepositoryWeb') . '/delete.gif" alt="'.get_lang('Delete').'" />'
+        .    '<img src="' . get_icon_url('delete') . '" alt="'.get_lang('Delete').'" />'
         .    '</a>'
         .    '&nbsp;'
         ;
 
         if ( $categoryIterator > 1)
         echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exMvUpCat&amp;catId='.$this_category['cat_id'].'">'
-        .    '<img src="' . get_path('imgRepositoryWeb') . '/up.gif" alt="'.get_lang('Move up').'" />'
+        .    '<img src="' . get_icon_url('up') . '" alt="'.get_lang('Move up').'" />'
         .    '</a>'
         ;
 
@@ -168,7 +168,7 @@ foreach ( $categories as $this_category )
             echo '<a href="' . $_SERVER['PHP_SELF']
             .    '?cmd=exMvDownCat'
             .    '&amp;catId=' . $this_category['cat_id'] . '">'
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'down.gif" alt="' . get_lang('Move down') . '" />'
+            .    '<img src="' . get_icon_url('down') . '" alt="' . get_lang('Move down') . '" />'
             .    '</a>'
             ;
         }
@@ -183,7 +183,7 @@ foreach ( $categories as $this_category )
     {
         echo '&nbsp;'
         .    '<a href="' . get_module_url('CLGRP') . '/group.php">'
-        .    '<img src="' . get_path('imgRepositoryWeb') . '/group.gif" alt="' . get_lang('Groups') . '">'
+        .    '<img src="' . get_icon_url('group') . '" alt="' . get_lang('Groups') . '">'
         .    '</a>'
         ;
     }
@@ -256,11 +256,11 @@ foreach ( $categories as $this_category )
             }
             else
             {
-                $locked_string = ' <img src="' . get_path('imgRepositoryWeb') . '/locked.gif" alt="'.get_lang('Locked').'" title="'.get_lang('Locked').'" /> <small>('.get_lang('No new post allowed').')</small>';
+                $locked_string = ' <img src="' . get_icon_url('locked') . '" alt="'.get_lang('Locked').'" title="'.get_lang('Locked').'" /> <small>('.get_lang('No new post allowed').')</small>';
             }
 
             echo '<td>'                                               . "\n"
-            .    '<img src="' . get_path('imgRepositoryWeb') . $forum_img . '" alt="" />' . "\n"
+            .    '<img src="' . get_icon_url( $forum_img ) . '" alt="" />' . "\n"
             .    '&nbsp;'                                             . "\n"
             ;
 
@@ -283,7 +283,7 @@ foreach ( $categories as $this_category )
                     .    '&nbsp;' . "\n"
 
                     .    '<a href="' . get_module_url('CLGRP') . '/group_space.php?gidReq=' . $group_id . '">'
-                    .    '<img src="' . get_path('imgRepositoryWeb') .  '/group.gif" alt="' . get_lang('Group area') . '" />'
+                    .    '<img src="' . get_icon_url('group') .  '" alt="' . get_lang('Group area') . '" />'
                     .    '</a>' . "\n"
                     ;
 
@@ -340,7 +340,7 @@ foreach ( $categories as $this_category )
                 if ( is_null($group_id ) )
                 {
                     echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqEdForum&amp;forumId='.$forum_id.'">'
-                    .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="'.get_lang('Edit').'" />'
+                    .    '<img src="' . get_icon_url('edit') . '" alt="'.get_lang('Edit').'" />'
                     .    '</a>'
                     ;
                 }
@@ -354,7 +354,7 @@ foreach ( $categories as $this_category )
                 .    '<td align="center">'
                 .    '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exEmptyForum&amp;forumId='.$forum_id.'" '
                 .    'onclick="return confirm_empty(\''. clean_str_for_javascript($forum_name).'\');" >'
-                .    '<img src="' . get_path('imgRepositoryWeb') . 'sweep.gif" alt="'.get_lang('Empty').'" />'
+                .    '<img src="' . get_icon_url('sweep') . '" alt="'.get_lang('Empty').'" />'
                 .    '</a>'
                 .    '</td>'
 
@@ -364,7 +364,7 @@ foreach ( $categories as $this_category )
                 {
                     echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelForum&amp;forumId='.$forum_id.'" '
                     .    'onclick="return confirm_delete(\''. clean_str_for_javascript($forum_name).'\');" >'
-                    .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="'.get_lang('Delete').'" />'
+                    .    '<img src="' . get_icon_url('delete') . '" alt="'.get_lang('Delete').'" />'
                     .    '</a>';
                 }
                 else echo '&nbsp;';
@@ -376,7 +376,7 @@ foreach ( $categories as $this_category )
                 if ($forumIterator > 1)
                 {
                     echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exMvUpForum&amp;forumId='.$forum_id.'">'
-                    .    '<img src="' . get_path('imgRepositoryWeb') . 'up.gif" alt="'.get_lang('Move up').'" />'
+                    .    '<img src="' . get_icon_url('up') . '" alt="'.get_lang('Move up').'" />'
                     .    '</a>';
                 }
                 else echo '&nbsp;';
@@ -388,7 +388,7 @@ foreach ( $categories as $this_category )
                 if ( $forumIterator < $this_category['forum_count'] )
                 {
                     echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exMvDownForum&amp;forumId='.$forum_id.'">'
-                    .    '<img src="' . get_path('imgRepositoryWeb') . 'down.gif" alt="'.get_lang('Move down').'" />'
+                    .    '<img src="' . get_icon_url('down') . '" alt="'.get_lang('Move down').'" />'
                     .    '</a>';
                 }
                 else echo '&nbsp;';

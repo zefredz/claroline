@@ -79,7 +79,7 @@ foreach( $courseTrackingRendererList as $ctr )
 // display link to delete all course stats
 $html .= '<hr />'."\n"
 .    '<a class="claroButton" href="delete_course_stats.php">'
-.    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="" />'
+.    '<img src="' . get_icon_url('delete') . '" alt="" />'
 .    get_lang('Delete all course statistics')
 .    '</a>'."\n"
 ;

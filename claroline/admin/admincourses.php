@@ -250,12 +250,12 @@ if ( count($advanced_search_query_string) > 0 ) $addtoAdvanced = '?' . implode('
 else                                            $addtoAdvanced = '';
 
 
-$imgVisibilityStatus['visible'] = 'visible.gif';
-$imgVisibilityStatus['invisible'] = 'invisible.gif';
-$imgAccessStatus['private'] = 'access_locked.gif';
-$imgAccessStatus['public'] = 'access_open.gif';
-$imgRegistrationStatus['open'] = 'enroll_open.gif';
-$imgRegistrationStatus['close'] = 'enroll_locked.gif';
+$imgVisibilityStatus['visible'] = 'visible';
+$imgVisibilityStatus['invisible'] = 'invisible';
+$imgAccessStatus['private'] = 'access_locked';
+$imgAccessStatus['public'] = 'access_open';
+$imgRegistrationStatus['open'] = 'enroll_open';
+$imgRegistrationStatus['close'] = 'enroll_locked';
 
 $courseDataList=array();
 // Now read datas and rebuild cell content to set datagrid to display.
@@ -296,13 +296,13 @@ foreach($courseList as $numLine => $courseLine)
     // Course Settings
     $courseDataList[$numLine]['cmdSetting'] = '<a href="' . get_path('clarolineRepositoryWeb') . 'course/settings.php?adminContext=1'
     .                                         '&amp;cidReq=' . $courseLine['sysCode'] . $addToURL . '&amp;cfrom=clist">'
-    .                                         '<img align="absmiddle" src="' . get_conf('imgRepositoryWeb') . 'settings.gif" alt="' . get_lang('Course settings'). '" />'
+    .                                         '<img src="' . get_icon_url('settings') . '" alt="' . get_lang('Course settings'). '" />'
     .                                         '</a>'
     .                                         '(<a href="' . get_path('clarolineRepositoryWeb') . 'course/settings.php?adminContext=1'
     .                                         '&amp;cidReq=' . $courseLine['sysCode'] . $addToURL . '&amp;cfrom=clist">'
-    .                                         '<img align="absmiddle" src="' . get_conf('imgRepositoryWeb') . $imgVisibilityStatus[$courseLine['visibility']] . '" alt="' . get_lang('Course settings'). '" />'
-    .                                         '<img align="absmiddle" src="' . get_conf('imgRepositoryWeb') . $imgAccessStatus[$courseLine['access']] . '" alt="' . get_lang('Course settings'). '" />'
-    .                                         '<img align="absmiddle" src="' . get_conf('imgRepositoryWeb') . $imgRegistrationStatus[$courseLine['registration']] . '" alt="' . get_lang('enrolment'). '" />'
+    .                                         '<img src="' . get_icon_url( $imgVisibilityStatus[$courseLine['visibility']] ) . '" alt="' . get_lang('Course settings'). '" />'
+    .                                         '<img src="' . get_icon_url( $imgAccessStatus[$courseLine['access']] ) . '" alt="' . get_lang('Course settings'). '" />'
+    .                                         '<img src="' . get_icon_url( $imgRegistrationStatus[$courseLine['registration']] ) . '" alt="' . get_lang('Enrollment'). '" />'
     .                                         '</a>)'
     ;
 
@@ -310,7 +310,7 @@ foreach($courseList as $numLine => $courseLine)
     $courseDataList[$numLine]['cmdDelete'] = '<a href="' . $_SERVER['PHP_SELF']
     .                                        '?cmd=delete&amp;delCode=' . $courseLine['sysCode'] . $addToURL . '" '
     .                                        ' onclick="return confirmation(\'' . clean_str_for_javascript($courseLine['intitule']) . '\');">' . "\n"
-    .                                        '<img src="' . get_conf('imgRepositoryWeb') . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />' . "\n"
+    .                                        '<img src="' . get_icon_url('delete') . '" border="0" alt="' . get_lang('Delete') . '" />' . "\n"
     .                                        '</a>' . "\n"
     ;
 }
@@ -360,7 +360,7 @@ echo '<table width="100%">' . "\n\n"
 .    '<tr>' . "\n"
 .    '<td align="left" valign="top">' . "\n"
 .    '<a class="claroCmd" href="../course/create.php?adminContext=1">'
-.    '<img src="' . get_path('imgRepositoryWeb') . 'course.gif" alt="" />'
+.    '<img src="' . get_icon_url('course') . '" alt="' . get_lang('Create course') . '" />'
 .    get_lang('Create course')
 .    '</a>'
 .    '</td>' . "\n"

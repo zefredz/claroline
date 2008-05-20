@@ -166,7 +166,7 @@
                 $claroline->display->header->addHtmlHeader($javascriptDelete);
                 
                 $action .= ' <a href="'.$_SERVER['PHP_SELF'].'?cmd=rqDelete&amp;messageId='.$messageId.'&amp;type='.$type.'&amp;userId='.$userId.'"
-                 onclick="return deleteMessage(\''.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;messageId='.$messageId.'&amp;type='.$type.'&amp;userId='.$userId.'\')"><img src="img/user-trash-full.gif" alt="" /></a>';
+                 onclick="return deleteMessage(\''.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;messageId='.$messageId.'&amp;type='.$type.'&amp;userId='.$userId.'\')"><img src="' . get_icon_url('user-trash-full') . '" alt="" /></a>';
             }
         }
         else

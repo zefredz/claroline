@@ -207,7 +207,7 @@ else
          {
              echo '<td align="center">' . "\n"
              .    '<a href="' . $_SERVER['PHP_SELF'] . '?class_id=' . $class_id . '&amp;cmd=subscribe&user_id=' . $list['user_id'].'&amp;offset=' . $offset . '#u' . $list['user_id'] . '">' . "\n"
-             .    '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" border="0" alt="' . get_lang('Register to the class') . '" />' . "\n"
+             .    '<img src="' . get_icon_url('enroll') . '" alt="' . get_lang('Register to the class') . '" />' . "\n"
              .    '</a>' . "\n"
              .    '</td>' . "\n"
              ;
@@ -226,7 +226,7 @@ else
          {
              echo '<td align="center">' . "\n"
              .    '<a href="'.$_SERVER['PHP_SELF'].'?class_id='.$class_id.'&amp;cmd=unsubscribe&user_id='.$list['user_id'].'&amp;offset='.$offset.'#u'.$list['user_id'].'">' . "\n"
-             .    '<img src="' . get_path('imgRepositoryWeb') . 'unenroll.gif" border="0" alt="' . get_lang('Unregister from class').'" />' . "\n"
+             .    '<img src="' . get_icon_url('unenroll') . '" alt="' . get_lang('Unregister from class').'" />' . "\n"
              .    '</a>' . "\n"
              .    '</td>' . "\n"
              ;

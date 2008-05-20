@@ -279,22 +279,22 @@ while ($list = mysql_fetch_array($result))
     $contentType_alt = selectAlt($list['contentType']);
     echo '<tr>' . "\n"
 	.	 '<td align="left">' . "\n"
-	.	 '<img src="' . get_path('imgRepositoryWeb') . $contentType_img.'" alt="'.$contentType_alt.'" />'.$list['name'] . "\n"
+	.	 '<img src="' . get_icon_url( $contentType_img ) . '" alt="'.$contentType_alt.'" />'.$list['name'] . "\n"
 	.	 '</td>' . "\n"
 	.	 '<td align="center">' . "\n"
 	.	 '<a href="'.$_SERVER['PHP_SELF'].'?cmd=eraseModule&amp;cmdid='.$list['module_id'].'"'
 	.	 ' onclick="return confirmation(\''.clean_str_for_javascript($list['name']).'\', \''.$list['timesUsed'] .'\');">'
-	.	 '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="'.get_lang('Delete').'" />'
+	.	 '<img src="' . get_icon_url('delete') . '" alt="'.get_lang('Delete').'" />'
 	.	 '</a>' . "\n"
 	.	 '</td>' . "\n"
 	.	 '<td align="center">' . "\n"
 	.	 '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqRename&amp;module_id='.$list['module_id'].'">'
-	.    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="'.get_lang('Rename').'" />'
+	.    '<img src="' . get_icon_url('edit') . '" alt="'.get_lang('Rename').'" />'
 	.    '</a>' . "\n"
 	.	 '</td>' . "\n"
 	.	 '<td align="center">' . "\n"
 	.	 '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqComment&amp;module_id='.$list['module_id'].'">'
-	.    '<img src="' . get_path('imgRepositoryWeb') . 'comment.gif" border="0" alt="'.get_lang('Comment').'" />'
+	.    '<img src="' . get_icon_url('comment') . '" alt="'.get_lang('Comment').'" />'
 	.    '</a>' . "\n"
 	.	 '</td>' . "\n"
 	.	 '</tr>' . "\n\n";

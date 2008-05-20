@@ -234,7 +234,7 @@ foreach($toolList as $thisTool)
     }
     else
     {
-        $icon = get_icon_url( 'tool.gif' );
+        $icon = get_icon_url( 'tool' );
     }
 
     $style = '';
@@ -279,7 +279,7 @@ foreach($toolList as $thisTool)
 include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 echo claro_html_tool_title( array('supraTitle'=> get_lang("Groups"),
-                                  'mainTitle' => claro_get_current_group_data('name') . ' <img src="' . get_path('imgRepositoryWeb') . 'group.gif" alt="" />'));
+                                  'mainTitle' => claro_get_current_group_data('name') . ' <img src="' . get_icon_url('group') . '" alt="" />'));
 
 echo $dialogBox->render();
 
@@ -289,7 +289,7 @@ if($is_allowedToSelfRegInGroup && !array_key_exists('registration',$_REQUEST))
     echo '<p>' . "\n"
     .    claro_html_cmd_link( $_SERVER['PHP_SELF'] . '?registration=1'
                             . claro_url_relay_context('&amp;')
-                            , '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif"'
+                            , '<img src="' . get_icon_url('enroll') . '"'
                             .     ' alt="' . get_lang("Add me to this group") . '" />'
     .                       get_lang("Add me to this group")
                             )
@@ -318,7 +318,7 @@ if ($is_allowedToManage)
 {
     echo claro_html_cmd_link( 'group_edit.php'
                             . claro_url_relay_context('?')
-                            , '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif"'
+                            , '<img src="' . get_icon_url('edit') . '"'
                             .     ' alt="' . get_lang("Edit this group") . '" />'
                             .    get_lang("Edit this group")
                             );

@@ -419,14 +419,14 @@ class answerMultipleChoice
         if( $this->multipleAnswer )
         {
             $questionTypeLang = get_lang('Multiple choice (Multiple answers)');
-            $imgOnHtml = '<img src="' . get_icon_url('checkbox_on') . '" border="0" alt="[X]" />';
-            $imgOffHtml = '<img src="' . get_icon_url('checkbox_off') . '" border="0" alt="[ ]" />';
+            $imgOnHtml = '<img src="' . get_icon_url('checkbox_on') . '" alt="[X]" />';
+            $imgOffHtml = '<img src="' . get_icon_url('checkbox_off') . '" alt="[ ]" />';
         }
         else
         {
             $questionTypeLang = get_lang('Multiple choice (Unique answer)');
-            $imgOnHtml = '<img src="' . get_icon_url('radio_on') . '" border="0" alt="(X)" />';
-            $imgOffHtml = '<img src="' . get_icon_url('radio_off') . '" border="0" alt="( )" />';
+            $imgOnHtml = '<img src="' . get_icon_url('radio_on') . '" alt="(X)" />';
+            $imgOffHtml = '<img src="' . get_icon_url('radio_off') . '" alt="( )" />';
         }
 
         $html =

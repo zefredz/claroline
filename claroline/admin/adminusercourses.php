@@ -118,15 +118,15 @@ foreach ($userCourseList as $courseKey => $course)
 
     if ( $course['isCourseManager'] )
     {
-        $userCourseGrid[$courseKey]['isCourseManager'] = '<img src="' . get_path('imgRepositoryWeb') . 'manager.gif" alt="' . get_lang('Course manager') . '" border="0" />';
+        $userCourseGrid[$courseKey]['isCourseManager'] = '<img src="' . get_icon_url('manager') . '" alt="' . get_lang('Course manager') . '" />';
     }
     else
     {
-        $userCourseGrid[$courseKey]['isCourseManager'] = '<img src="' . get_path('imgRepositoryWeb') . 'user.gif" alt="' . get_lang('Student') . '" border="0" />';
+        $userCourseGrid[$courseKey]['isCourseManager'] = '<img src="' . get_icon_url('user') . '" alt="' . get_lang('Student') . '" />';
     }
 
     $userCourseGrid[$courseKey]['edit_course_user'] = '<a href="adminUserCourseSettings.php?cidToEdit='.$course['sysCode'].'&amp;uidToEdit='.$uidToEdit.'&amp;ccfrom=uclist">'
-    .                                                 '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="' . get_lang('Course manager') . '" border="0" title="' . get_lang('User\'s course settings') . '" />'
+    .                                                 '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Course manager') . '" title="' . get_lang('User\'s course settings') . '" />'
     .                                                 '</a>'
     ;
 
@@ -137,7 +137,7 @@ foreach ($userCourseList as $courseKey => $course)
     .    '&amp;courseId=' . htmlspecialchars($course['sysCode'])
     .    '&amp;offset=' . $offset . '"'
     .    ' onclick="return confirmationUnReg(\''.clean_str_for_javascript($userData['firstname'] . ' ' . $userData['lastname']).'\');">' . "\n"
-    .    '<img src="' . get_path('imgRepositoryWeb') . 'unenroll.gif" border="0" alt="' . get_lang('Delete') . '" />' . "\n"
+    .    '<img src="' . get_icon_url('unenroll') . '" alt="' . get_lang('Delete') . '" />' . "\n"
     .    '</a>' . "\n"
     ;
 
@@ -158,7 +158,7 @@ $userCourseDataGrid->set_colTitleList(array (
 ,'delete'   => get_lang('Unregister user')
 ));
 
-$userCourseDataGrid->set_caption('<img src="' . get_path('imgRepositoryWeb') . 'user.gif" alt="' . get_lang('Student') . '" border="0" >' . get_lang('Student') . ' - <img src="' . get_path('imgRepositoryWeb') . 'manager.gif" alt="' . get_lang('Course Manager') . '" border="0" />&nbsp;' . get_lang('Course manager'));
+$userCourseDataGrid->set_caption('<img src="' . get_icon_url('user') . '" alt="' . get_lang('Student') . '" />' . get_lang('Student') . ' - <img src="' . get_icon_url('manager') . '" alt="' . get_lang('Course Manager') . '" />&nbsp;' . get_lang('Course manager'));
 
 if ( 0 == count($userCourseGrid)  )
 {

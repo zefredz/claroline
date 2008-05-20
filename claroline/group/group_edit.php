@@ -272,7 +272,7 @@ echo '<form name="groupedit" method="post" action="' . $_SERVER['PHP_SELF'] . '?
 .    '</td>' . "\n"
 .    '<td>' . "\n"
 .    '<a href="group_space.php?gidReq=' . claro_get_current_group_id() . '">' . "\n"
-.    '<img src="' . get_path('imgRepositoryWeb') . 'group.gif" />' . "\n"
+.    '<img src="' . get_icon_url('group') . '" alt="" />' . "\n"
 .    '&nbsp;' . get_lang("Area for this group") . '</a>' . "\n"
 .    '</td>' . "\n"
 .    '</tr>' . "\n"

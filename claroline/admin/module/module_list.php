@@ -860,7 +860,7 @@ foreach($moduleList as $module)
         {
             echo '<td align="center">'
             .    '<a href="module_list.php?courseToolId='.$module['courseToolId'].'&amp;cmd=mvUp">'
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'up.gif" alt="'.get_lang('Move up').'" />'
+            .    '<img src="' . get_icon_url('up') . '" alt="'.get_lang('Move up').'" />'
             .    '</a>'
             .    '</td>' . "\n";
         }
@@ -874,7 +874,7 @@ foreach($moduleList as $module)
         {
             echo '<td align="center">'
             .    '<a href="module_list.php?courseToolId='.$module['courseToolId'].'&amp;cmd=mvDown">'
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'down.gif" alt="'.get_lang('Move down').'" />'
+            .    '<img src="' . get_icon_url('down') . '" alt="'.get_lang('Move down').'" />'
             .    '</a>'
             .    '</td>' . "\n";
         }
@@ -888,7 +888,7 @@ foreach($moduleList as $module)
 
     echo '<td align="center">'
     .    '<a href="module.php?module_id='.$module['id'].'">'
-    .    '<img src="' . get_path('imgRepositoryWeb') . 'settings.gif" border="0" alt="' . get_lang('Properties') . '" />'
+    .    '<img src="' . get_icon_url('settings') . '" alt="' . get_lang('Properties') . '" />'
     .    '</a>'
     .    '</td>' . "\n";
 
@@ -900,7 +900,7 @@ foreach($moduleList as $module)
         // .    '<a href="module_list.php?module_id=' . $module['id'] . '&amp;typeReq='.$typeReq.'&amp;cmd=exUninstall"'
         // .    ' onclick="return confirmation(\'' . $module['name'].'\');">'
         .    '<a href="module_list.php?module_id=' . $module['id'] . '&amp;typeReq='.$typeReq.'&amp;cmd=rqUninstall" />'
-        .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />'
+        .    '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />'
         .    '</a>'
         .    '</td>' . "\n";
         ;
@@ -926,8 +926,8 @@ foreach($moduleList as $module)
             echo '<a href="module_list.php?cmd=desactiv&amp;module_id='
             . $module['id'] . '&amp;typeReq=' . $typeReq .'" '
             . 'title="'.get_lang('Activated - Click to deactivate').'">'
-            . '<img src="' . get_path('imgRepositoryWeb')
-            . 'mark.gif" border="0" alt="'. get_lang('Activated') . '" /></a>'
+            . '<img src="' . get_icon_url('mark')
+            . '" alt="'. get_lang('Activated') . '" /></a>'
             ;
         }
         else
@@ -935,8 +935,8 @@ foreach($moduleList as $module)
             echo '<a href="module_list.php?cmd=activ&amp;module_id='
             . $module['id'] . '&amp;typeReq='.$typeReq.'" '
             . 'title="'.get_lang('Deactivated - Click to activate').'">'
-            . '<img src="' . get_path('imgRepositoryWeb')
-            . 'block.gif" border="0" alt="'. get_lang('Deactivated') . '"/></a>';
+            . '<img src="' . get_icon_url('block')
+            . '" alt="'. get_lang('Deactivated') . '"/></a>';
         }
     }
     echo '</td>' . "\n"

@@ -384,25 +384,25 @@ if ( count($descList) )
                 echo '<p>' . "\n"
                 // edit
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;descId=' . $thisDesc['id'] . '">'
-                .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="' . get_lang('Modify') . '" />'
+                .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Modify') . '" />'
                 .    '</a>' . "\n"
                 // delete
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;descId=' . $thisDesc['id'] . '"'
                 .    ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('Are you sure to delete "%title" ?', array('%title' => $thisDesc['title']))) . '\')) return false;">'
-                .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="' . get_lang('Delete') . '" />'
+                .    '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />'
                 .    '</a>' . "\n";
 
                 // visibility
                 if ($thisDesc['visibility'] == 'VISIBLE')
                 {
                     echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkInvis&amp;descId=' . $thisDesc['id'] . '">'
-                    .    '<img src="' . get_path('imgRepositoryWeb') . 'visible.gif" alt="' . get_lang('Invisible') . '" />'
+                    .    '<img src="' . get_icon_url('visible') . '" alt="' . get_lang('Invisible') . '" />'
                     .    '</a>' . "\n";
                 }
                 else
                 {
                     echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkVis&amp;descId=' . $thisDesc['id'] . '">'
-                    .    '<img src="' . get_path('imgRepositoryWeb') . 'invisible.gif" alt="' . get_lang('Visible') . '" />'
+                    .    '<img src="' . get_icon_url('invisible') . '" alt="' . get_lang('Visible') . '" />'
                     .    '</a>' . "\n";
                 }
 

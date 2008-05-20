@@ -230,7 +230,7 @@ foreach ($flatElementList as $module)
 
         $contentType_alt = selectAlt($module['contentType']);
         echo '<a href="module.php?module_id='.$module['module_id'].'">'
-            .'<img src="' . get_path('imgRepositoryWeb') . $moduleImg.'" alt="'.$contentType_alt.'" border="0" />'
+            .'<img src="' . get_icon_url( $moduleImg ) . '" alt="'.$contentType_alt.'" border="0" />'
             .htmlspecialchars($module['name']).'</a>'."\n";
         // a module ALLOW access to the following modules if
         // document module : credit == CREDIT || lesson_status == 'completed'
@@ -265,7 +265,7 @@ foreach ($flatElementList as $module)
             $moduleImg = choose_image(basename($module['path']));
         }
 
-        echo '<img src="' . get_path('imgRepositoryWeb') . $moduleImg.'" alt="'.$contentType_alt.'" border="0" />'."\n"
+        echo '<img src="' . get_icon_url( $moduleImg ) . '" alt="'.$contentType_alt.'" border="0" />'."\n"
              .htmlspecialchars($module['name']);
     }
     echo '</td>'."\n";

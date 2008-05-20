@@ -271,8 +271,9 @@ if ( isset($dialogBox) ) echo claro_html_message_box($dialogBox);
 
 //display tool links
 
-echo '<p><a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd">'
-.    '<img src="' . get_path('imgRepositoryWeb') . 'class.gif" />' . get_lang('Create a new class')
+echo '<p>'
+.    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd">'
+.    '<img src="' . get_icon_url('class') . '" />' . get_lang('Create a new class')
 .    '</a>'
 .    '</p>' . "\n";
 

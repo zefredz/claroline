@@ -1167,7 +1167,7 @@ function user_html_form($data, $form_type='registration')
     {
         $html .= form_row('&nbsp;',
         '<a href="adminusercourses.php?uidToEdit=' . $data['user_id'] . '">'
-        . '<img src="' . get_path('imgRepositoryWeb') . 'course.gif" alt="" />' . get_lang('PersonalCourseList')
+        . '<img src="' . get_icon_url('course') . '" alt="" />' . get_lang('PersonalCourseList')
         . '</a>');
     }
 
@@ -1187,7 +1187,7 @@ function user_html_form($data, $form_type='registration')
         $html .= form_row( ''
                          , claro_html_cmd_link( $_SERVER['PHP_SELF'] . '?cmd=editExtraInfo'
                                               . claro_url_relay_context('&amp;')
-                                              , '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="' . get_lang('Modify') . '" />'
+                                              , '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Modify') . '" />'
                                               )
                          );
     }

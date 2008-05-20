@@ -132,21 +132,21 @@ foreach($userList as $lineId => $user)
 
     if ( $user['isCourseManager'] )
     {
-        $userDataList[$lineId]['isCourseManager'] = '<img src="' . get_conf('imgRepositoryWeb') .'manager.gif" '
-                                                  . ' alt="' . get_lang('Course Manager') . '" border="0"  hspace="4" '
+        $userDataList[$lineId]['isCourseManager'] = '<img src="' . get_icon_url('manager') . '" '
+                                                  . ' alt="' . get_lang('Course Manager') . '" hspace="4" '
                                                   . ' title="' . get_lang('Course Manager') . '" />' ;
     }
     else
     {
-        $userDataList[$lineId]['isCourseManager'] = '<img src="' . get_conf('imgRepositoryWeb') .'user.gif" '
-                                                  . ' alt="' . get_lang('Student') . '" border="0"  hspace="4" '
+        $userDataList[$lineId]['isCourseManager'] = '<img src="' . get_icon_url('user') . '" '
+                                                  . ' alt="' . get_lang('Student') . '" hspace="4" '
                                                   . ' title="' . get_lang('Student') . '" />' ;
     }
 
     $userDataList[$lineId]['cmd_cu_edit'] = '<a href="adminUserCourseSettings.php'
                                             . '?cidToEdit=' . $cidToEdit
                                             . '&amp;uidToEdit=' . $user['user_id'] . '&amp;ccfrom=culist">'
-                                            . '<img src="' . get_conf('imgRepositoryWeb') .'edit.gif" alt="' . get_lang('Edit') . '"/>'
+                                            . '<img src="' . get_icon_url('edit') .'" alt="' . get_lang('Edit') . '"/>'
                                             . '</a>';
 
     $userDataList[$lineId]['cmd_cu_unenroll']  = '<a href="' . $_SERVER['PHP_SELF']
@@ -154,7 +154,7 @@ foreach($userList as $lineId => $user)
     .                                            '&amp;cmd=unsub&amp;user_id=' . $user['user_id']
     .                                            '&amp;pager_offset=' . $pager_offset . '" '
     .                                            ' onclick="return confirmationReg(\'' . clean_str_for_javascript($user['username']) . '\');">' . "\n"
-    .                                            '<img src="' . get_conf('imgRepositoryWeb') . 'unenroll.gif" border="0" alt="' . get_lang('Unregister user') . '" />' . "\n"
+    .                                            '<img src="' . get_icon_url('unenroll') . '" alt="' . get_lang('Unregister user') . '" />' . "\n"
     .                                            '</a>' . "\n";
 
 } // end display users table
@@ -195,11 +195,11 @@ $dg_opt_list['colAttributeList'] = array ( 'user_id'   => array ('align' => 'cen
                                          , 'cmd_cu_unenroll' => array ('align' => 'center')
 );
 
-$dg_opt_list['caption'] = '<img src="' . get_conf('imgRepositoryWeb') . 'user.gif" '
-.                         ' alt="' . get_lang('Student') . '" border="0" title="' . get_lang('Student') . '" />'
+$dg_opt_list['caption'] = '<img src="' . get_icon_url('user') . '" '
+.                         ' alt="' . get_lang('Student') . '" title="' . get_lang('Student') . '" />'
 .                         get_lang('Student')
-.                         ' - <img src="' . get_conf('imgRepositoryWeb') . 'manager.gif" '
-.                         ' alt="' . get_lang('Course manager') . '" border="0" title="' . get_lang('Course manager') . '" />'
+.                         ' - <img src="' . get_icon_url('manager') . '" '
+.                         ' alt="' . get_lang('Course manager') . '" title="' . get_lang('Course manager') . '" />'
 .                         get_lang('Course manager')
 ;
 

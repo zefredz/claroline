@@ -129,11 +129,11 @@ $html .= '<div id="userCart">' . "\n"
 
 if( $pictureUrl = user_get_picture_url( $userData ) )
 {
-    $html .= '<img src="'.$pictureUrl.'" class="userPicture" alt="" />';
+    $html .= '<img src="' . $pictureUrl . '" class="userPicture" alt="" />';
 }
 else
 {
-    $html .= '<img src="'.get_icon_url('nopicture').'" class="userPicture" alt="" />';
+    $html .= '<img src="' . get_icon_url('nopicture') . '" class="userPicture" alt="" />';
 }
 
 

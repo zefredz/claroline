@@ -328,7 +328,7 @@ $eventList = agenda_get_item_list($currentContext,$orderDirection);
  */
 
 $cmdList[]=  '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd">'
-.            '<img src="' . get_conf('imgRepositoryWeb') . 'agenda.gif" alt="" />'
+.            '<img src="' . get_icon_url('agenda') . '" alt="" />'
 .            get_lang('Add an event')
 .            '</a>'
 ;
@@ -340,15 +340,15 @@ if ( count($eventList) > 0 )
 {
     $cmdList[]=  '<a class= "claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll" '
     .    ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('Clear up event list ?')) . '\')) return false;">'
-    .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="" />'
-                                   . get_lang('Clear up event list')
+    .    '<img src="' . get_icon_url('delete') . '" alt="" />'
+    .    get_lang('Clear up event list')
     .    '</a>'
     ;
 }
 else
 {
     $cmdList[]=  '<span class="claroCmdDisabled" >'
-    .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="" />'
+    .    '<img src="' . get_icon_url('delete') . '" alt="" />'
     .    get_lang('Clear up event list')
     .    '</span>'
     ;
@@ -524,7 +524,7 @@ foreach ( $eventList as $thisEvent )
 
             echo '<tr>' . "\n"
             .    '<td>' . "\n"
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'pixel.gif" width="20" alt=" " />'
+            .    '<img src="' . get_icon_url('pixel') . '" width="20" alt=" " />'
             .    '<span class="highlight">'
             .    '<a name="today">'
             .    '<i>'
@@ -567,7 +567,7 @@ foreach ( $eventList as $thisEvent )
         .    '<th>' . "\n"
         .    '<span class="'. $cssItem . $cssInvisible .'">' . "\n"
         .    '<a href="#form" name="event' . $thisEvent['id'] . '"></a>' . "\n"
-        .    '<img src="' . get_path('imgRepositoryWeb') . 'agenda.gif" alt=" " />&nbsp;'
+        .    '<img src="' . get_icon_url('agenda') . '" alt=" " />&nbsp;'
         .    ucfirst(claro_html_localised_date( get_locale('dateFormatLong'), strtotime($thisEvent['day']))) . ' '
         .    ucfirst( strftime( get_locale('timeNoSecFormat'), strtotime($thisEvent['hour']))) . ' '
         .    ( empty($thisEvent['lasting']) ? '' : get_lang('Lasting') . ' : ' . $thisEvent['lasting'] )
@@ -593,11 +593,11 @@ foreach ( $eventList as $thisEvent )
     if ($is_allowedToEdit)
     {
         echo '<a href="' . $_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;id=' . $thisEvent['id'] . '">'
-        .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="' . get_lang('Modify') . '" />'
+        .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Modify') . '" />'
         .    '</a> '
         .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;id=' . $thisEvent['id'] . '" '
         .    ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('Are you sure to delete "%title" ?', array('%title' => $thisEvent['title']))) . '\')) return false;">'
-        .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />'
+        .    '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />'
         .    '</a>'
         ;
 
@@ -605,13 +605,13 @@ foreach ( $eventList as $thisEvent )
         if ('SHOW' == $thisEvent['visibility'])
         {
             echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkHide&amp;id=' . $thisEvent['id'] . '">'
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'visible.gif" alt="' . get_lang('Invisible') . '" />'
+            .    '<img src="' . get_icon_url('visible') . '" alt="' . get_lang('Invisible') . '" />'
             .    '</a>' . "\n";
         }
         else
         {
             echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkShow&amp;id=' . $thisEvent['id'] . '">'
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'invisible.gif" alt="' . get_lang('Visible') . '" />'
+            .    '<img src="' . get_icon_url('invisible') . '" alt="' . get_lang('Visible') . '" />'
             .    '</a>' . "\n"
             ;
         }

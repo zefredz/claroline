@@ -171,7 +171,7 @@ foreach ($userList as $userKey => $user)
     $userGrid[$userKey]['settings'] = '<a href="adminprofile.php'
     .                                 '?uidToEdit=' . $user['user_id']
     .                                 '&amp;cfrom=ulist' . $addToURL . '">'
-    .                                 '<img src="' . get_path('imgRepositoryWeb') . 'usersetting.gif" border="0" alt="' . get_lang('User settings') . '" />'
+    .                                 '<img src="' . get_icon_url('usersetting') . '" alt="' . get_lang('User settings') . '" />'
     .    '</a>';
 
 
@@ -186,7 +186,7 @@ foreach ($userList as $userKey => $user)
     .                               '?cmd=delete&amp;user_id=' . $user['user_id']
     .                               '&amp;offset=' . $offset . $addToURL . '" '
     .                               ' onclick="return confirmation(\'' . clean_str_for_javascript(' ' . $user['firstname'] . ' ' . $user['name']).'\');">' . "\n"
-    .                               '<img src="' . get_path('imgRepositoryWeb') . 'deluser.gif" border="0" alt="' . get_lang('Delete') . '" />' . "\n"
+    .                               '<img src="' . get_icon_url('deluser') . '" alt="' . get_lang('Delete') . '" />' . "\n"
     .                               '</a> '."\n"
     ;
 
@@ -267,7 +267,7 @@ if ( !empty($isSearchedHTML) )
 echo '<table width="100%">' . "\n"
 .    '<tr>' . "\n"
 .    '<td>' . '<a class="claroCmd" href="adminaddnewuser.php">'
-.    '<img src="' . get_path('imgRepositoryWeb') . 'user.gif" alt="" />'
+.    '<img src="' . get_icon_url('user') . '" alt="" />'
 .    get_lang('Create user')
 .    '</a>'
 .     '</td>' . "\n"

@@ -71,7 +71,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                .    '?cmd=delete'
                .    '&amp;crl=' . $content["crl"][$i]
                .    '&amp;current_crl=' . urlencode($current_crl) . '" class="claroCmd">'
-               .    '<img src="' . get_path('imgRepositoryWeb') . '/delete.gif" alt='.get_lang("Delete").'" />'
+               .    '<img src="' . get_icon_url('delete') . '" alt='.get_lang("Delete").'" />'
                .    '</a>' . "\n"
                .    '</td>' . "\n"
                .    '</tr>' . "\n"
@@ -329,14 +329,14 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                                     .    '?fct=add'
                                     .    '&amp;cmd=browse'
                                     . '&amp;current_crl=' . urlencode ($crlParent)
-                                    , '<img src="' . get_path('imgRepositoryWeb') . 'parent.gif" border="0" alt="" />'
+                                    , '<img src="' . get_icon_url('parent') . '" alt="" />'
                                     .    get_lang("Up")
                                     );
         }
         else
         {
             echo '<span class="claroCmdDisabled">'
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'parentdisabled.gif" border="0" alt="" />'
+            .    '<img src="' . get_icon_url('parentdisabled') . '" alt="" />'
             .    get_lang("Up")
             .    '</span>'
             ;

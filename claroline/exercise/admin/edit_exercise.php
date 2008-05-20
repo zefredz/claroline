@@ -468,7 +468,7 @@ else
                 . '&lt;&lt; ' . get_lang('Back to the exercise list')
                 . '</a>';
     $cmd_menu[] = '<a class="claroCmd" href="./edit_exercise.php?exId='.$exId.'&amp;cmd=rqEdit'. claro_url_relay_context('&amp;') .'">'
-                . '<img src="' . get_icon_url('edit') . '" border="0" alt="" />'
+                . '<img src="' . get_icon_url('edit') . '" alt="" />'
                 . get_lang('Edit exercise settings')
                 . '</a>';
     $cmd_menu[] = '<a class="claroCmd" href="./edit_question.php?exId='.$exId.'&amp;cmd=rqEdit">'.get_lang('New question').'</a>';
@@ -511,7 +511,7 @@ else
             // edit
             echo '<td align="center">'
             .     '<a href="edit_question.php?exId='.$exId.'&amp;quId='.$question['id'].'">'
-            .     '<img src="' . get_icon_url('edit') . '" border="0" alt="'.get_lang('Modify').'" />'
+            .     '<img src="' . get_icon_url('edit') . '" alt="'.get_lang('Modify').'" />'
             .     '</a>'
             .     '</td>' . "\n";
 
@@ -520,7 +520,7 @@ else
 
             echo '<td align="center">'
             .     '<a href="edit_exercise.php?exId='.$exId.'&amp;cmd=rmQu&amp;quId='.$question['id'].'" onclick="javascript:if(!confirm(\''.clean_str_for_javascript($confirmString).'\')) return false;">'
-            .     '<img src="' . get_icon_url('delete') . '" border="0" alt="'.get_lang('Delete').'" />'
+            .     '<img src="' . get_icon_url('delete') . '" alt="'.get_lang('Delete').'" />'
             .     '</a>'
             .     '</td>' . "\n";
 
@@ -530,7 +530,7 @@ else
             if( $questionIterator > 1 )
             {
                 echo '<a href="edit_exercise.php?exId='.$exId.'&amp;quId='.$question['id'].'&amp;cmd=mvUp">'
-                .     '<img src="' . get_icon_url('up') . '" border="0" alt="'.get_lang('Move up').'" />'
+                .     '<img src="' . get_icon_url('up') . '" alt="'.get_lang('Move up').'" />'
                 .     '</a>';
             }
             else
@@ -543,7 +543,7 @@ else
             if( $questionIterator < count($questionList) )
             {
                 echo '<a href="edit_exercise.php?exId='.$exId.'&amp;quId='.$question['id'].'&amp;cmd=mvDown">'
-                .     '<img src="' . get_icon_url('down') . '" border="0" alt="'.get_lang('Move down').'" />'
+                .     '<img src="' . get_icon_url('down') . '" alt="'.get_lang('Move down').'" />'
                 .     '</a>';
             }
             else

@@ -151,7 +151,7 @@ else
     // TODO claro_html_menu
     echo '<p><a class="claroCmd" href="' . get_path('clarolineRepositoryWeb').'auth/courses.php'
     .    '?cmd=rqReg&amp;fromAdmin=class&amp;class_id='.$class_id.'">'
-    .    '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" border="0" /> '
+    .    '<img src="' . get_icon_url('enroll') . '" /> '
     .    get_lang('Register class for course')
     .    '</a>'
     .    '</p>';
@@ -191,14 +191,14 @@ else
         .    '<a href="../course/settings.php?adminContext=1'
         // TODO cfrom=xxx is probably a hack
         .    '&amp;cidReq=' . $list['code'] . '&amp;cfrom=xxx">'
-        .    '<img src="' . get_path('imgRepositoryWeb') . 'settings.gif" alt="' . get_lang('Course settings') . '" />'
+        .    '<img src="' . get_icon_url('settings') . '" alt="' . get_lang('Course settings') . '" />'
         .    '</a>'
         .    '</td>'
         .    '<td align="center">'
         .    '<a href="'.$_SERVER['PHP_SELF']
         .    '?cmd=unsubscribe&amp;class_id='.$class_id.'&amp;offset='.$offset.'&amp;course_id='.$list['code'].'" '
         .    ' onclick="return confirmationUnReg(\''.clean_str_for_javascript($list['code']).'\');">'
-        .    '<img src="' . get_path('imgRepositoryWeb') . 'unenroll.gif" border="0" alt="" />'
+        .    '<img src="' . get_icon_url('unenroll') . '" alt="" />'
         .    '</a>'
         .    '</td>'
         .    '</tr>';

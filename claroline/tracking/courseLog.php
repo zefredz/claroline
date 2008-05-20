@@ -598,7 +598,7 @@ if( get_conf('is_trackingEnabled'))
     // display link to delete all course stats
     echo '<hr />'."\n"
     .    '<a class="claroButton" href="delete_course_stats.php">'
-    .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="" />'
+    .    '<img src="' . get_icon_url('delete') . '" alt="" />'
     .    get_lang('Delete all course statistics')
     .    '</a>'."\n"
     ;

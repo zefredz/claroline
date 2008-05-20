@@ -448,11 +448,11 @@ if ( $currentSection == 'toolRights' )
     }
     
     echo '<p><small><span style="text-decoration: underline">' . get_lang('Right list') . '</span> : '
-        . '<img src="' . get_path('imgRepositoryWeb') . 'block.gif" alt="' . get_lang('None') . '" /> '
+        . '<img src="' . get_icon_url('block') . '" alt="' . get_lang('None') . '" /> '
         . get_lang('No access') . ' - '
-        . '<img src="' . get_path('imgRepositoryWeb') . 'user.gif" alt="' . get_lang('User') . '" />'
+        . '<img src="' . get_icon_url('user') . '" alt="' . get_lang('User') . '" />'
         . get_lang('Access allowed') . ' - '
-        . '<img src="' . get_path('imgRepositoryWeb') . 'manager.gif" alt="' . get_lang('Manager') . '" /> '
+        . '<img src="' . get_icon_url('manager') . '" alt="' . get_lang('Manager') . '" /> '
         . get_lang('Edition allowed')
         . '.</small></p>'
         ;
@@ -478,7 +478,7 @@ elseif ( $currentSection == 'extLinks' )
     .    '<a class="claroCmd" href="'
     .    $_SERVER['PHP_SELF']
     .    '?cmd=rqAdd' . claro_url_relay_context('&amp;') . '&amp;section='.htmlspecialchars($currentSection).'">'
-    .    '<img src="' . get_path('imgRepositoryWeb') . 'link.gif" alt="" />'
+    .    '<img src="' . get_icon_url('link') . '" alt="" />'
     .    get_lang('Add external link')
     .    '</a>' . "\n"
     .    '</p>' . "\n"
@@ -510,13 +510,13 @@ elseif ( $currentSection == 'extLinks' )
             if ( $link['visibility'] == true )
             {
                 echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exInvisible&amp;tool_id=' . $linkId . '&amp;section='.htmlspecialchars($currentSection).'" >'
-                . '<img src="' . get_path('imgRepositoryWeb') . 'visible.gif" alt="' . get_lang('Visible') . '" />'
+                . '<img src="' . get_icon_url('visible') . '" alt="' . get_lang('Visible') . '" />'
                 . '</a>';
             }
             else
             {
                 echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exVisible&amp;tool_id=' . $linkId .'&amp;section='.htmlspecialchars($currentSection).'" >'
-                . '<img src="' . get_path('imgRepositoryWeb') . 'invisible.gif" alt="' . get_lang('Invisible') . '" />'
+                . '<img src="' . get_icon_url('invisible') . '" alt="' . get_lang('Invisible') . '" />'
                 . '</a>';
         
             }
@@ -525,13 +525,13 @@ elseif ( $currentSection == 'extLinks' )
         
             echo '<td align="center">'
             . '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;externalToolId='.$linkId.'&amp;section='.htmlspecialchars($currentSection).'">'
-            . '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="'.get_lang('Modify').'" />'
+            . '<img src="' . get_icon_url('edit') . '" alt="'.get_lang('Modify').'" />'
             . '</a></td>' . "\n" ;
         
             echo '<td align="center">'
             .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;externalToolId='.$linkId.'&amp;section='.htmlspecialchars($currentSection).'"'
             .' onclick="return confirmation(\''.clean_str_for_javascript($link['name']).'\');">'
-            .'<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="'.get_lang('Delete').'" />'
+            .'<img src="' . get_icon_url('delete') . '" alt="'.get_lang('Delete').'" />'
             .'</a></td>'."\n";
         
             echo '</tr>'."\n";
@@ -633,7 +633,7 @@ elseif ( $currentSection == 'toolList' )
                 . htmlspecialchars($inactiveTool['label'])
                 .'&amp;section='.htmlspecialchars($currentSection).'" '
                 . 'title="'.get_lang('Add').'">'
-                . '<img src="' . get_icon_url('mark') . '" border="0" alt="'. get_lang('Add') . '"/>'
+                . '<img src="' . get_icon_url('mark') . '" alt="'. get_lang('Add') . '"/>'
                 . '</a>'
                 ;
                 

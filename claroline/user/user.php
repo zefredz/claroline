@@ -267,7 +267,7 @@ if ($can_add_single_user)
 
     // Add a user link
     $userMenu[] = claro_html_cmd_link( 'user_add.php' . claro_url_relay_context('?')
-                                     , '<img src="' . get_path('imgRepositoryWeb') . 'user.gif" alt="" />'
+                                     , '<img src="' . get_icon_url('user') . '" alt="" />'
                                      . get_lang('Add a user')
                                      )
                                      ;
@@ -279,7 +279,7 @@ if ($can_import_user_list)
     $userMenu[] = claro_html_cmd_link( 'AddCSVusers.php'
                                      . '?AddType=userTool'
                                      . claro_url_relay_context('&amp;')
-                                     , '<img src="' . get_path('imgRepositoryWeb') . 'importlist.gif" alt="" />'
+                                     , '<img src="' . get_icon_url('importlist') . '" alt="" />'
                                      . get_lang('Add a user list')
                                      );
 }
@@ -290,7 +290,7 @@ if ($can_export_user_list)
     $userMenu[] = claro_html_cmd_link( $_SERVER['PHP_SELF']
                                      . '?cmd=export'
                                      . claro_url_relay_context('&amp;')
-                                     , '<img src="' . get_path('imgRepositoryWeb') . 'export.gif" alt="" />'
+                                     , '<img src="' . get_icon_url('export') . '" alt="" />'
                                      . get_lang('Export user list')
                                      );
 }
@@ -300,7 +300,7 @@ if ($can_import_user_class)
     // Add a class link
     $userMenu[] = claro_html_cmd_link( 'class_add.php'
                                      . claro_url_relay_context('?')
-                                     , '<img src="' . get_path('imgRepositoryWeb') . 'class.gif" alt="" />'
+                                     , '<img src="' . get_icon_url('class') . '" alt="" />'
                                      . get_lang('Enrol class')
                                      );
 }
@@ -310,7 +310,7 @@ if ($can_add_single_user)
     // Main group settings
     $userMenu[] = claro_html_cmd_link( '../right/profile_list.php'
                                      . claro_url_relay_context('?')
-                                     , '<img src="' . get_path('imgRepositoryWeb') . 'settings.gif" alt="" />'
+                                     , '<img src="' . get_icon_url('settings') . '" alt="" />'
                                      . get_lang("Right Profile")
                                      );
 }
@@ -319,21 +319,21 @@ if ($can_send_message_to_course)
 {
     // Main group settings
     $userMenu[] = claro_html_cmd_link( '../messaging/sendmessage.php?cmd=rqMessageToCourse'. claro_url_relay_context('&amp;')
-                                     , '<img src="' . get_path('imgRepositoryWeb') . 'message.gif" alt="" />'
+                                     , '<img src="' . get_icon_url('message') . '" alt="" />'
                                      . get_lang("Send a message to the course")
                                      );
 }
 
 $userMenu[] = claro_html_cmd_link( '../group/group.php'
                                  . claro_url_relay_context('?')
-                                 , '<img src="' . get_path('imgRepositoryWeb') . 'group.gif" alt="" />'
+                                 , '<img src="' . get_icon_url('group') . '" alt="" />'
                                  . get_lang('Group management')
                                  );
 
 $userMenu[] = claro_html_cmd_link( $_SERVER['PHP_SELF']
                                  . '?cmd=unregister&amp;user_id=allStudent'
                                  . claro_url_relay_context('&amp;')
-                                 , '<img src="' . get_path('imgRepositoryWeb') . 'unenroll.gif" alt="" />'
+                                 , '<img src="' . get_icon_url('unenroll') . '" alt="" />'
                                  . get_lang('Unregister all students')
                                  , array('onclick'=>"return confirmation('" . clean_str_for_javascript(get_lang('all students')) . "')")
                                  );
@@ -406,7 +406,7 @@ foreach ( $userList as $thisUser )
     $i++;
     echo '<tr align="center" valign="top">'."\n"
        . '<td align="left">'
-       . '<img src="' . get_path('imgRepositoryWeb') . '/user.gif" alt="" />'."\n"
+       . '<img src="' . get_icon_url('user') . '" alt="" />'."\n"
        . '<small>' . $i . '</small>'."\n"
        . '&nbsp;';
 
@@ -493,7 +493,7 @@ foreach ( $userList as $thisUser )
         echo '<td>'
         .    '<a href="userInfo.php?editMainUserInfo='.$thisUser['user_id']
         .    claro_url_relay_context('&amp;') . '">'
-        .    '<img border="0" alt="'.get_lang('Edit').'" src="' . get_path('imgRepositoryWeb') . '/edit.gif" />'
+        .    '<img alt="'.get_lang('Edit').'" src="' . get_icon_url('edit') . '" />'
         .    '</a>'
         .    '</td>' . "\n"
 
@@ -507,7 +507,7 @@ foreach ( $userList as $thisUser )
             .    '?cmd=unregister&amp;user_id=' . $thisUser['user_id']
             .    claro_url_relay_context('&amp;') . '" '
             .    'onclick="return confirmation(\''.clean_str_for_javascript(get_lang('Unregister') .' '.$thisUser['nom'].' '.$thisUser['prenom']).'\');">'
-            .    '<img border="0" alt="' . get_lang('Unregister') . '" src="' . get_path('imgRepositoryWeb') . '/unenroll.gif" />'
+            .    '<img alt="' . get_lang('Unregister') . '" src="' . get_icon_url('unenroll') . '" />'
             .    '</a>'
             ;
         }

@@ -319,11 +319,11 @@ else
 {
     $cmd_menu = array();
     $cmd_menu[] = '<a class="claroCmd" href="./edit_question.php?exId='.$exId.'&amp;cmd=rqEdit&amp;quId='.$quId.'">'
-                . '<img src="' . get_icon_url('edit') . '" border="0" alt="" />'
+                . '<img src="' . get_icon_url('edit') . '" alt="" />'
                 . get_lang('Edit question')
                 . '</a>';
     $cmd_menu[] = '<a class="claroCmd" href="./edit_answers.php?exId='.$exId.'&amp;cmd=rqEdit&amp;quId='.$quId.'">'
-                . '<img src="' . get_icon_url('edit') . '" border="0" alt="" />'
+                . '<img src="' . get_icon_url('edit') . '" alt="" />'
                 . get_lang('Edit answers')
                 . '</a>';
 

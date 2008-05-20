@@ -894,7 +894,7 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 
             $toolList[] =
             claro_html_cmd_link( 'newtopic.php?forum=' . $forum_id . claro_url_relay_context('&amp;')
-                               , '<img src="' . get_path('imgRepositoryWeb') . 'topic.gif" /> '
+                               , '<img src="' . get_icon_url('topic') . '" alt="" /> '
                                . get_lang('New topic')
                                );
             break;
@@ -904,7 +904,7 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 
             $toolList[] =
             claro_html_cmd_link( 'reply.php?topic=' . $topic_id . '&amp;forum=' . $forum_id . claro_url_relay_context('&amp;')
-                               , '<img src="' . get_path('imgRepositoryWeb') . 'reply.gif" alt="' . get_lang('Reply') . '" /> '
+                               , '<img src="' . get_icon_url('reply') . '" alt="' . get_lang('Reply') . '" /> '
                                . get_lang('Reply')
                                );
 
@@ -928,7 +928,7 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
                 claro_html_cmd_link( $_SERVER['PHP_SELF']
                                    . '?cmd=rqMkForum'
                                    . claro_url_relay_context('&amp;')
-                                   , '<img src="' . get_path('imgRepositoryWeb') . 'forum.gif" /> '
+                                   , '<img src="' . get_icon_url('forum') . '" alt="" /> '
                           .  get_lang('Create forum')
                                    );
             }
@@ -937,7 +937,7 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
 
     if ( ! in_array($pagetype, array('newtopic', 'reply','editpost') ) )
         $toolList[] = claro_html_cmd_link( 'index.php?cmd=rqSearch'
-                                         , '<img src="' . get_path('imgRepositoryWeb') . 'search.gif" />'
+                                         , '<img src="' . get_icon_url('search') . '" alt="" />'
         .            get_lang('Search')
                                          );
     return $toolList;
@@ -1041,7 +1041,7 @@ function forum_group_tool_list($gid, $active = true)
 
     $toolList[] =
     claro_html_cmd_link( '../group/group_space.php?gidReq=' . (int) $gid
-                       , '<img src="' . get_path('imgRepositoryWeb') . 'group.gif" />&nbsp;'
+                       , '<img src="' . get_icon_url('group') . '" alt="" />&nbsp;'
         . get_lang('Group area')
                        );
 
@@ -1054,7 +1054,7 @@ function forum_group_tool_list($gid, $active = true)
                            . '/' . $groupTool['url']
                            . claro_url_relay_context('&amp;')
                            . '?gidReq=' . (int) $gid
-                           , '<img src="' . get_path('imgRepositoryWeb') . $groupTool['icon'] . '" />'
+                           , '<img src="' . get_icon_url($groupTool['icon']) . '" alt="" />'
                            . '&nbsp;'
                            . claro_get_tool_name ($groupTool['label'])
                            , array('class' => $groupTool['visibility'] ? 'visible':'invisible')

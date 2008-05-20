@@ -117,7 +117,7 @@ if( $cmd == 'rqProgress' )
         // display "progression" page
         $dialogBox->info( get_lang('Creating course (it may take a while) ...') . '<br />' . "\n"
         .      '<p align="center">'
-        .      '<img src="' . get_path('imgRepositoryWeb') . '/processing.gif" alt="" />'
+        .      '<img src="' . get_icon_url('processing') . '" alt="" />'
         .      '</p>' . "\n"
         .      '<p>'
         .      get_lang('If after while no message appears confirming the course creation, please click <a href="%url">here</a>',array('%url' => $progressUrl))

@@ -122,7 +122,7 @@
 
             if ($message->isPlatformMessage())
             {
-                $content .= '<img src="img/important.gif" alt="" />';
+                $content .= '<img src="' . get_icon_url('important') . '" alt="" />';
             }
             
             if (!is_null($message->getCourseCode()))

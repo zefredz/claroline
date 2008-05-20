@@ -184,12 +184,12 @@ if( $display==DISP_FILE_LIST || $display==DISP_EDIT_FILE || $display==DISP_VIEW_
                        ? $textZone['desc'] : ''). '</td>' . "\n"
         .    '<td align="center">' . "\n"
         .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;file=' . $idFile . '">'
-        .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="' . get_lang('Edit') . '" />' . "\n"
+        .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Edit') . '" />' . "\n"
         .    '</a>' . "\n"
         .    '</td>' . "\n"
         .    '<td align="center">' . "\n"
         .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exView&amp;file=' . $idFile . '">'
-        .    '<img src="' . get_path('imgRepositoryWeb') . 'preview.gif" border="0" alt="' . get_lang('Preview') . '" />' . "\n"
+        .    '<img src="' . get_icon_url('preview') . '" alt="' . get_lang('Preview') . '" />' . "\n"
         .    '</a>' . "\n"
         .    '</td>' . "\n"
         .    '</tr>' . "\n"

@@ -129,17 +129,17 @@ echo claro_html_menu_horizontal(disp_forum_toolbar($pagetype, null))
             // and choose the image according this state
             $post_time = datetime_to_timestamp($thisPost['post_time']);
 
-            if($post_time < $last_visit) $postImg = 'post.gif';
-            else                         $postImg = 'post_hot.gif';
+            if($post_time < $last_visit) $postImg = 'post';
+            else                         $postImg = 'post_hot';
 
             echo '<tr>'                                                   . "\n"
 
             .   '<th class="headerX">'                                    . "\n"
-            .   '<img src="' . get_path('imgRepositoryWeb') . 'topic.gif" alt="" />'
+            .   '<img src="' . get_icon_url('topic') . '" alt="" />'
             .   '<a href="viewtopic.php?topic='.$thisPost['topic_id'].'">'
             .   $thisPost['topic_title']
             .   '</a><br />'                                              . "\n"
-            .   '<img src="' . get_path('imgRepositoryWeb') . $postImg . '" alt="" />'
+            .   '<img src="' . get_icon_url( $postImg ) . '" alt="" />'
             .   get_lang('Author') . ' : <b>' . $thisPost['firstname'] . ' ' . $thisPost['lastname'] . '</b> '
             .   '<small>' . get_lang('Posted') . ' : ' . $thisPost['post_time'] . '</small>' . "\n"
             .   '</th>'                                                  . "\n"

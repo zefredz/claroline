@@ -76,14 +76,14 @@ foreach ( $profileList as $thisProfile )
 
     if ( $thisProfile['locked'] == '1' )
     {
-        echo '&nbsp;<img src="' . get_path('imgRepositoryWeb') . 'locked.gif" alt="' . get_lang('Lock') . '" />';
+        echo '&nbsp;<img src="' . get_icon_url('locked') . '" alt="' . get_lang('Lock') . '" />';
     }
 
     echo '<br />' . "\n"
     .    '<em>' . get_lang($thisProfile['description']) . '</em>' . "\n"
     .    '<td>' . "\n"
     .    '<a href="profile.php?cmd=rqEdit&display_profile='. $thisProfile['id'].'">' 
-    .    '<img src="' .  get_path('imgRepositoryWeb') . 'settings.gif" alt="' . get_lang('Rights') . '" />' . "\n"
+    .    '<img src="' .  get_icon_url('settings') . '" alt="' . get_lang('Rights') . '" />' . "\n"
     .    '</a>' . "\n" 
     .    '</td>' . "\n" 
     .    '</tr>' . "\n\n"

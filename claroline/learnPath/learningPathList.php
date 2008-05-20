@@ -578,8 +578,8 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
     if ( !$is_blocked )
     {
         echo "<td align=\"left\"><a class=\"item".$classItem."\" href=\"learningPath.php?path_id="
-        .$list['learnPath_id']."\"><img src=\"" . get_path('imgRepositoryWeb') . "learnpath.gif\" alt=\"\"
-            border=\"0\" />  ".htmlspecialchars($list['name'])."</a></td>";
+        .$list['learnPath_id']."\"><img src=\"" . get_icon_url('learnpath') . "\" alt=\"\"
+             />  ".htmlspecialchars($list['name'])."</a></td>";
 
         /*
         if( $list['lock'] == 'CLOSE' && ( $list['minRaw'] == -1 || $list['minRaw'] == "" ) )
@@ -735,7 +735,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
     else   //else of !$is_blocked condition , we have already been blocked before, so we continue beeing blocked : we don't display any links to next paths any longer
     {
         echo '<td align="left">'
-        .    '<img src="' . get_path('imgRepositoryWeb') . 'learnpath.gif" alt="" border="0" />'
+        .    '<img src="' . get_icon_url('learnpath') . '" alt="" />'
         .    $list['name']
         .    $list['minRaw']
         .    '</td>' . "\n"
@@ -751,7 +751,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         // Modify command / go to other page
         echo '<td>' . "\n"
         .    '<a href="learningPathAdmin.php?path_id=' . $list['learnPath_id'] . '">' . "\n"
-        .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="' . get_lang('Modify') . '" />' . "\n"
+        .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Modify') . '" />' . "\n"
         .    '</a>'
         .    '</td>' . "\n"
         ;
@@ -766,7 +766,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
             echo '<td>' . "\n"
             .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=delete&amp;del_path_id=' . $list['learnPath_id'] . '" '
             .    ' onclick="return scormConfirmation(\'' . clean_str_for_javascript($list['name']) . '\');">' . "\n"
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />' . "\n"
+            .    '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />' . "\n"
             .    '</a>' . "\n"
             .    '</td>' . "\n"
             ;
@@ -777,7 +777,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
             echo '<td>' . "\n"
             .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=delete&amp;del_path_id=' . $list['learnPath_id'] . '" '
             .    'onclick="return confirmation(\'' . clean_str_for_javascript($list['name']) . '\');">' . "\n"
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />' . "\n"
+            .    '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />' . "\n"
             .    '</a>' . "\n"
             .    '</td>' . "\n"
             ;
@@ -793,15 +793,15 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
             echo '<a href="' . $_SERVER['PHP_SELF']
             .    '?cmd=mkBlock'
             .    '&amp;cmdid=' . $list['learnPath_id'] . '">' . "\n"
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'unblock.gif" '
-            .    'alt="' . get_lang('Block') . '" border="0" />'. "\n"
+            .    '<img src="' . get_icon_url('unblock') . '" '
+            .    'alt="' . get_lang('Block') . '" />'. "\n"
             .    '</a>' . "\n"
             ;
         }
         else
         {
             echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkUnblock&amp;cmdid=' . $list['learnPath_id'] . '">' . "\n"
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'block.gif" alt="' . get_lang('Unblock') . '" border="0" />' . "\n"
+            .    '<img src="' . get_icon_url('block') . '" alt="' . get_lang('Unblock') . '" />' . "\n"
             .    '</a>' . "\n"
             ;
         }
@@ -815,7 +815,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         {
 
             echo '<a href="' . $_SERVER['PHP_SELF'] .  '?cmd=mkVisibl&amp;visibility_path_id=' . $list['learnPath_id'] . '">' . "\n"
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'invisible.gif" alt="' . get_lang('Make visible') . '" border="0" />' . "\n"
+            .    '<img src="' . get_icon_url('invisible') . '" alt="' . get_lang('Make visible') . '" />' . "\n"
             .    '</a>' . "\n"
             ;
         }
@@ -831,7 +831,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
             }
 
             echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkInvisibl&amp;visibility_path_id=' . $list['learnPath_id'] . '" ' . $onclick . ' >' . "\n"
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'visible.gif" alt="' . get_lang('Make invisible') . '" border="0" />' . "\n"
+            .    '<img src="' . get_icon_url('visible') . '" alt="' . get_lang('Make invisible') . '" />' . "\n"
             .    '</a>' . "\n"
             ;
         }
@@ -844,7 +844,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         {
             echo '<td>' . "\n"
             .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=moveUp&amp;move_path_id=' . $list['learnPath_id'] . '">' . "\n"
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'up.gif" alt="' . get_lang('Move up') . '" border="0" />' . "\n"
+            .    '<img src="' . get_icon_url('up') . '" alt="' . get_lang('Move up') . '" />' . "\n"
             .    '</a>' . "\n"
             .    '</td>' . "\n"
             ;
@@ -859,7 +859,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         {
             echo '<td>' . "\n"
             .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=moveDown&amp;move_path_id=' . $list['learnPath_id'] . '">' . "\n"
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'down.gif" alt="' . get_lang('Move down') . '" border="0" />' . "\n"
+            .    '<img src="' . get_icon_url('down') . 'down.gif" alt="' . get_lang('Move down') . '" />' . "\n"
             .    '</a>' . "\n"
             .    '</td>' . "\n"
             ;
@@ -872,7 +872,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         // EXPORT links
         echo '<td>' . "\n"
         .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=export&amp;path_id=' . $list['learnPath_id'] . '" >'
-        .    '<img src="' . get_path('imgRepositoryWeb') . 'export.gif" alt="' . get_lang('Export') . '" border="0" />'
+        .    '<img src="' . get_icon_url('export') . '" alt="' . get_lang('Export') . '" />'
         .    '</a>' . "\n"
         .    '</td>' . "\n"
         ;
@@ -882,7 +882,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
             // statistics links
             echo '<td>' . "\n"
             .    '<a href="' . get_path('clarolineRepositoryWeb') . 'tracking/learnPath_details.php?path_id=' . $list['learnPath_id'] . '">' . "\n"
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'statistics.gif" border="0" alt="' . get_lang('Tracking') . '" />'
+            .    '<img src="' . get_icon_url('statistics') . '" alt="' . get_lang('Tracking') . '" />'
             .    '</a>' . "\n"
             .    '</td>'. "\n"
             ;

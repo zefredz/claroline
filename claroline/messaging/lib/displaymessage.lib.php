@@ -244,15 +244,15 @@ class DisplayMessage
         
         if ($isManager)
         {
-            $content .= '&nbsp;<img src="' . get_icon('manager.gif') . '" alt="" />';
+            $content .= '&nbsp;<img src="' . get_icon_url('manager') . '" alt="" />';
         }
         elseif ($isAdmin)
         {
-            $content .= '&nbsp;<img src="' . get_icon('platformadmin.gif') . '" alt="" />';
+            $content .= '&nbsp;<img src="' . get_icon_url('platformadmin') . '" alt="" />';
         }
         else
         {
-            $content .= '&nbsp;<img src="' . get_icon('user.gif') . '" alt="" />';
+            $content .= '&nbsp;<img src="' . get_icon_url('user') . '" alt="" />';
         }
         
         $content .= ''      

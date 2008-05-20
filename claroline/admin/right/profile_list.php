@@ -177,12 +177,12 @@ switch ( $display )
             echo '<tr align="center">' . "\n"
                 . '<td align="left">' . get_lang($thisProfile['name']) . '</td>' . "\n"
                 . '<td align="left">' . get_lang($thisProfile['description']) . '</td>' . "\n"
-                . '<td><a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&profile_id='. $thisProfile['id'].'"><img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="' . get_lang('Edit') . '" /></td>' . "\n"
-                . '<td><a href="profile.php?display_profile='. $thisProfile['id'].'"><img src="' .  get_path('imgRepositoryWeb') . 'settings.gif" alt="' . get_lang('Edit') . '" /></td>' . "\n" ;
+                . '<td><a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&profile_id='. $thisProfile['id'].'"><img src="' . get_icon_url('edit') . '" alt="' . get_lang('Edit') . '" /></td>' . "\n"
+                . '<td><a href="profile.php?display_profile='. $thisProfile['id'].'"><img src="' .  get_icon_url('settings') . '" alt="' . get_lang('Edit') . '" /></td>' . "\n" ;
 
             if ( $thisProfile['required'] == '0' )
             {
-                echo '<td><a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&profile_id='. $thisProfile['id'].'&amp;offset='.$offset.'"><img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="' . get_lang('Delete') . '" /></td>' . "\n";
+                echo '<td><a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&profile_id='. $thisProfile['id'].'&amp;offset='.$offset.'"><img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" /></td>' . "\n";
             }
             else
             {
@@ -191,11 +191,11 @@ switch ( $display )
 
             if ( $thisProfile['locked'] == '0' )
             {
-                echo '<td><a href="' . $_SERVER['PHP_SELF'] . '?cmd=exLock&profile_id='. $thisProfile['id'].'&amp;offset='.$offset.'"><img src="' . get_path('imgRepositoryWeb') . 'unlock.gif" alt="' . get_lang('Lock') . '" /></td>' . "\n";
+                echo '<td><a href="' . $_SERVER['PHP_SELF'] . '?cmd=exLock&profile_id='. $thisProfile['id'].'&amp;offset='.$offset.'"><img src="' . get_icon_url('unlock') . '" alt="' . get_lang('Lock') . '" /></td>' . "\n";
             }
             else
             {
-                echo '<td><a href="' . $_SERVER['PHP_SELF'] . '?cmd=exUnlock&profile_id='. $thisProfile['id'].'&amp;offset='.$offset.'"><img src="' . get_path('imgRepositoryWeb') . 'locked.gif" alt="' . get_lang('Unlock') . '" /></td>' . "\n";
+                echo '<td><a href="' . $_SERVER['PHP_SELF'] . '?cmd=exUnlock&profile_id='. $thisProfile['id'].'&amp;offset='.$offset.'"><img src="' . get_icon_url('locked') . '" alt="' . get_lang('Unlock') . '" /></td>' . "\n";
             }
             echo '</tr>' . "\n\n";
         }

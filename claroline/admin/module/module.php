@@ -347,8 +347,8 @@ switch ($item)
                 . '?cmd='.$activ_form.'&module_id='.$module['module_id']
                 . '&item=GLOBAL" title="'
                 . get_lang('Activated - Click to deactivate').'">'
-                . '<img src="' . get_path('imgRepositoryWeb')
-                . 'mark.gif" border="0" alt="'. get_lang('Activated') . '" /> '
+                . '<img src="' . get_icon_url('mark')
+                . '" alt="'. get_lang('Activated') . '" /> '
                 . get_lang('Activated') . '</a>'
                 ;
         }
@@ -359,8 +359,8 @@ switch ($item)
                 . '?cmd='.$activ_form.'&module_id='
                 . $module['module_id'].'&item=GLOBAL" '
                 . 'title="'.get_lang('Deactivated - Click to activate').'">'
-                . '<img src="' . get_path('imgRepositoryWeb')
-                . 'block.gif" border="0" alt="'. get_lang('Deactivated') . '"/> '
+                . '<img src="' . get_icon_url('block')
+                . '" alt="'. get_lang('Deactivated') . '"/> '
                 . get_lang('Deactivated') . '</a>'
                 ;
         }
@@ -393,8 +393,8 @@ switch ($item)
                     . '?cmd='.$activ_form.'&module_id='.$module['module_id']
                     . '&item=GLOBAL" title="'
                     . get_lang('Automatic').'">'
-                    . '<img src="' . get_path('imgRepositoryWeb')
-                    . 'mark.gif" border="0" alt="'. get_lang('Automatic') . '" /> '
+                    . '<img src="' . get_icon_url('mark')
+                    . '" alt="'. get_lang('Automatic') . '" /> '
                     . get_lang('Automatic') . '</a>'
                     ;
             }
@@ -405,8 +405,8 @@ switch ($item)
                     . '?cmd='.$activ_form.'&module_id='
                     . $module['module_id'].'&item=GLOBAL" '
                     . 'title="'.get_lang('Manual').'">'
-                    . '<img src="' . get_path('imgRepositoryWeb')
-                    . 'block.gif" border="0" alt="'. get_lang('Manual') . '"/> '
+                    . '<img src="' . get_icon_url('block')
+                    . '" alt="'. get_lang('Manual') . '"/> '
                     . get_lang('Manual') . '</a>'
                     ;
             }
@@ -433,8 +433,8 @@ switch ($item)
                 . $_SERVER['PHP_SELF'] . '?module_id=' . $module['module_id'].'&amp;cmd=makeVisible&amp;item=GLOBAL"'
                 . 'title="'.get_lang( 'Make module visible in all courses' ).'"'
                 . ' onclick="return confirmMakeVisible();">'
-                . '<img src="' . get_path('imgRepositoryWeb')
-                . 'visible.gif" border="0" alt="'. get_lang('Visible') . '"/> '
+                . '<img src="' . get_icon_url('visible')
+                . '" alt="'. get_lang('Visible') . '"/> '
                 . get_lang( 'Visible' )
                 . '</a></small>'
                 . " | "
@@ -442,8 +442,8 @@ switch ($item)
                 . $_SERVER['PHP_SELF'] . '?module_id=' . $module['module_id'].'&amp;cmd=makeInvisible&amp;item=GLOBAL"'
                 . 'title="'.get_lang( 'Make module invisible in all courses' ).'"'
                 . ' onclick="return confirmMakeInVisible();">'
-                . '<img src="' . get_path('imgRepositoryWeb')
-                . 'invisible.gif" border="0" alt="'. get_lang('Invisible') . '"/> '
+                . '<img src="' . get_icon_url('invisible')
+                . '" alt="'. get_lang('Invisible') . '"/> '
                 . get_lang( 'Invisible' )
                 . '</a></small>'
                 . '<td><tr>' . "\n"

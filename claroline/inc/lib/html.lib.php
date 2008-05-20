@@ -336,7 +336,7 @@ function claro_html_tool_title($titlePart, $helpUrl = false)
         $string .= "<a href='#' onclick=\"MyWindow=window.open('". get_path('clarolineRepositoryWeb') . "help/" .$helpUrl
         ."','MyWindow','toolbar=no,location=no,directories=no,status=yes,menubar=no,scrollbars=yes,resizable=yes,width=350,height=450,left=300,top=10'); return false;\">"
 
-        .'<img src="' . get_path('imgRepositoryWeb') . '/help.gif" '
+        .'<img src="' . get_icon_url('help') . '" '
         .' alt ="'.get_lang('Help').'"'
         .' align="right"'
         .' hspace="30" />'
@@ -432,7 +432,7 @@ function claro_html_breadcrumbtrail($nameList, $urlList, $separator = ' &gt; ', 
     .'</strong>' . "\n";
 
     return  '<div class="breadcrumbTrail">' . "\n"
-    . ( is_null($homeImg) ? '' : '<img src="' . $homeImg . '" alt="" /> ' . "\n" )
+    . ( is_null($homeImg) ? '' : '<img src="' . get_icon_url( $homeImg ) . '" alt="" /> ' . "\n" )
     . implode($separator . "\n", $breadCrumbList)
     . '</div>' . "\n";
 }
@@ -455,19 +455,19 @@ function claro_html_progress_bar ($progress, $factor)
 
     // display progress bar
     // origin of the bar
-    $progressBar = '<img src="' . get_path('imgRepositoryWeb') . 'bar_1.gif" width="1" height="12" alt="" />';
+    $progressBar = '<img src="' . get_icon_url('bar_1') . '" width="1" height="12" alt="" />';
 
     if($progress != 0)
-    $progressBar .= '<img src="' . get_path('imgRepositoryWeb') . 'bar_1u.gif" width="' . $barwidth . '" height="12" alt="" />';
+    $progressBar .= '<img src="' . get_icon_url('bar_1u') . '" width="' . $barwidth . '" height="12" alt="" />';
     // display 100% bar
 
     if($progress!= 100 && $progress != 0)
-    $progressBar .= '<img src="' . get_path('imgRepositoryWeb') . 'bar_1m.gif" width="1" height="12" alt="" />';
+    $progressBar .= '<img src="' . get_icon_url('bar_1m') . '" width="1" height="12" alt="" />';
 
     if($progress != 100)
-    $progressBar .= '<img src="' . get_path('imgRepositoryWeb') . 'bar_1r.gif" width="' . ($maxSize - $barwidth) . '" height="12" alt="" />';
+    $progressBar .= '<img src="' . get_icon_url('bar_1r') . '" width="' . ($maxSize - $barwidth) . '" height="12" alt="" />';
     // end of the bar
-    $progressBar .=  '<img src="' . get_path('imgRepositoryWeb') . 'bar_1.gif" width="1" height="12" alt="" />';
+    $progressBar .=  '<img src="' . get_icon_url('bar_1') . '" width="1" height="12" alt="" />';
 
     return $progressBar;
 }
@@ -1586,7 +1586,7 @@ function claro_html_breadcrumb()
         {
             $htmlBC .= '<div id="toolViewOption">'
             .    '<a href="' . get_path('clarolineRepositoryWeb') . 'auth/courses.php?cmd=exReg&course='.claro_get_current_course_id().'">'
-            .     '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" alt="" /> '
+            .     '<img src="' . get_icon_url('enroll') . '" alt="" /> '
             .    '<b>' . get_lang('Enrolment') . '</b>'
             .    '</a>'
             .    '</div>' . "\n"
@@ -1610,7 +1610,7 @@ function claro_html_breadcrumb()
             if ( claro_is_platform_admin() && ! claro_is_course_member() )
             {
                 $htmlBC .= ' | <a href="' . get_path('clarolineRepositoryWeb') . 'auth/courses.php?cmd=exReg&course='.claro_get_current_course_id().'">';
-                $htmlBC .= '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" alt="" /> ';
+                $htmlBC .= '<img src="' . get_icon_url('enroll') . '" alt="" /> ';
                 $htmlBC .= '<b>' . get_lang('Enrolment') . '</b>';
                 $htmlBC .= '</a>';
             }

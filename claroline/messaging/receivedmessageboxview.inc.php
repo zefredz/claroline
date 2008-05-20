@@ -238,23 +238,23 @@
                     if (claro_get_current_user_id() == $currentUserId)
                     {
                         $content .= '<a href="'.$link.'cmd=exMarkRead&amp;messageId='.$message->getId().'">';
-                        $content .= '<img src="img/unreadmessage.gif" alt="'.get_lang("Unread message").'" /></a>&nbsp;';
+                        $content .= '<img src="' . get_icon_url('unreadmessage') . '" alt="'.get_lang("Unread message").'" /></a>&nbsp;';
                     }
                     //if admin read messagebox of a other user he cannot change status
                     else
                     {
-                        $content .= '<img src="img/unreadmessage.gif" alt="'.get_lang("Unread message").'" />&nbsp;';    
+                        $content .= '<img src="' . get_icon_url('unreadmessage') . '" alt="'.get_lang("Unread message").'" />&nbsp;';    
                     }
                 }
                 else
                 {
                     $content .= '<a href="'.$link.'cmd=exMarkUnread&amp;messageId='.$message->getId().'">';
-                    $content .= '<img src="img/readmessage.gif" alt="'.get_lang("read").'" /></a>&nbsp;';
+                    $content .= '<img src="' . get_icon_url('readmessage') . '" alt="'.get_lang("read").'" /></a>&nbsp;';
                 }
             }
             else
             {
-                $content .= '<img src="img/important.gif" alt="" />&nbsp;';
+                $content .= '<img src="' . get_icon_url('important') . '" alt="" />&nbsp;';
             }
             
             if (!is_null($message->getCourseCode()))
@@ -294,11 +294,11 @@
             
             if ($isManager)
             {
-                $content .= '&nbsp;<img src="' . get_icon('manager.gif') . '" alt="" />';
+                $content .= '&nbsp;<img src="' . get_icon_url('manager') . '" alt="" />';
             }
             elseif ($isAdmin)
             {
-                $content .= '&nbsp;<img src="' . get_icon('platformadmin.gif') . '" alt="" />';
+                $content .= '&nbsp;<img src="' . get_icon_url('platformadmin') . '" alt="" />';
             }
             
             $content .= '</td>'."\n"
@@ -311,7 +311,7 @@
                 if ($link_arg['box'] == "inbox")
                 {
                     $content .= '<a href="'.$link.'cmd=rqDeleteMessage&amp;messageId='.$message->getId().'"'
-                        .' onclick="return deleteMessage(\''.$link.'cmd=exDeleteMessage&amp;messageId='.$message->getId().'\')"><img src="img/user-trash-full.gif" alt="" /></a>';
+                        .' onclick="return deleteMessage(\''.$link.'cmd=exDeleteMessage&amp;messageId='.$message->getId().'\')"><img src="' . get_icon_url('user-trash-full') . '" alt="" /></a>';
                 }
                 else
                 {

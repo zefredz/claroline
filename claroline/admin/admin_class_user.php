@@ -176,19 +176,19 @@ $nameTools = get_lang('Class members');
 
 $cmdList[] = '<a class="claroCmd" href="' . get_path('clarolineRepositoryWeb') . 'admin/admin_class_register.php'
 .             '?class_id=' . $classinfo['id'] . '">'
-.             '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" border="0"/> '
+.             '<img src="' . get_icon_url('enroll') . '" /> '
 .             get_lang('Register a user for this class') . '</a>'
 ;
 $cmdList[] = '<a class="claroCmd" href="' . get_path('clarolineRepositoryWeb').'auth/courses.php'
 .             '?cmd=rqReg&amp;fromAdmin=class&amp;class_id='.$class_id.'">'
-.             '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" border="0" /> '
+.             '<img src="' . get_icon_url('enroll') . '" /> '
 .             get_lang('Register class for course')
 .             '</a>'
 ;
 
 $cmdList[] = '<a class="claroCmd" href="' . get_path('clarolineRepositoryWeb').'user/AddCSVusers.php'
 .             '?AddType=adminClassTool&amp;class_id='.$class_id.'">'
-.             '<img src="' . get_path('imgRepositoryWeb') . 'importlist.gif" border="0" /> '
+.             '<img src="' . get_icon_url('importlist') . '" /> '
 .             get_lang('Add a user list in class')
 .             '</a>'
 ;
@@ -196,7 +196,7 @@ if ( !empty($resultList) )
 {
     $cmdList[] = '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'] . '?cmd=unsubscribe_all&amp;class_id='.$class_id.'"'
     .    ' onclick="if (confirm(\'' . clean_str_for_javascript(get_lang('Unregister all users ?')) . '\')){return true;}else{return false;}">'
-    .             '<img src="' . get_path('imgRepositoryWeb') . 'deluser.gif" border="0" /> '
+    .             '<img src="' . get_icon_url('deluser') . '" /> '
     .             get_lang('Unregister all users')
     .             '</a>'
     ;
@@ -204,7 +204,7 @@ if ( !empty($resultList) )
 else
 {
     $cmdList[] = '<span class="claroCmdDisabled" >'
-    .    '<img src="' . get_path('imgRepositoryWeb') . 'deluser.gif" alt="" />'
+    .    '<img src="' . get_icon_url('deluser') . '" alt="" />'
     .    get_lang('Unregister all users')
     .    '</span>'
     ;
@@ -272,7 +272,7 @@ if ( !empty($class_id) )
          .    '<a href="'.$_SERVER['PHP_SELF']
          .    '?cmd=unsubscribe&amp;offset='.$offset.'&amp;user_id='.$list['user_id'].'&amp;class_id='.$class_id.'" '
          .    ' onclick="return confirmationUnReg(\''.clean_str_for_javascript($list['prenom'] . ' ' . $list['nom']).'\');">' . "\n"
-         .    '<img src="' . get_path('imgRepositoryWeb') . 'unenroll.gif" border="0" alt="" />' . "\n"
+         .    '<img src="' . get_icon_url('unenroll') . '" alt="" />' . "\n"
          .    '</a>' . "\n"
          .    '</td></tr>' . "\n"
          ;

@@ -493,7 +493,7 @@ if ($displayTable)
                 .'<td>'.claro_html_localised_date(get_locale('dateTimeFormatLong'),strtotime($message->getSendTime())).'</td>'."\n"
                 .'<td class="im_list_action"><a href="'.$linkDelete.'cmd=rqDeleteMessage&amp;message_id='.$message->getId().'" '
                 .		'onclick="return deleteMessage(\''.$linkDelete.'cmd=exDeleteMessage&amp;message_id='.$message->getId().'\')"'
-                .	'><img src="'.get_icon('delete.gif').'" alt="" /></a></td>'."\n"
+                .	'><img src="' . get_icon_url('delete') . '" alt="" /></a></td>'."\n"
                 .'</tr>'."\n\n"
                 ;
        }

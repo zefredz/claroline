@@ -751,14 +751,14 @@ function display_tree_class_in_admin ($class_list, $parent_class = null, $deep =
                 if (isset($_SESSION['admin_visible_class'][$cur_class['id']]) && $_SESSION['admin_visible_class'][$cur_class['id']]=="open")
                 {
                     $open_close_link = '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exClose&amp;class_id=' . $cur_class['id'] . '">' . "\n"
-                    .                  '<img src="' . get_path('imgRepositoryWeb') . 'minus.gif" border="0" />' . "\n"
+                    .                  '<img src="' . get_icon_url('minus') . '" alt="" />' . "\n"
                     .                  '</a>' . "\n"
                     ;
                 }
                 else
                 {
                     $open_close_link = '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exOpen&amp;class_id=' . $cur_class['id'] . '">' . "\n"
-                    .                  '<img src="' . get_path('imgRepositoryWeb') . 'plus.gif" border="0" />' . "\n"
+                    .                  '<img src="' . get_icon_url('plus') . '" alt="" />' . "\n"
                     .                  '</a>' . "\n"
                     ;
                 }
@@ -780,30 +780,30 @@ function display_tree_class_in_admin ($class_list, $parent_class = null, $deep =
                 .    '</td>' . "\n"
                 .    '<td align="center">' . "\n"
                 .    '<a href="' . get_path('clarolineRepositoryWeb') . 'admin/admin_class_user.php?class_id=' . $cur_class['id'] . '">' . "\n"
-                .    '<img src="' . get_path('imgRepositoryWeb') . 'user.gif" border="0" />' . "\n"
+                .    '<img src="' . get_icon_url('user') . '" alt="" />' . "\n"
                 .    '(' . $qty_user . '  ' . get_lang('UsersMin') . ')' . "\n"
                 .    '</a>' . "\n"
                 .    '</td>' . "\n"
                 .    '<td align="center">' . "\n"
                   .    '<a href="'.get_path('clarolineRepositoryWeb').'admin/admin_class_cours.php?class_id='.$cur_class['id'].'">' . "\n"
-                  .    '<img src="' . get_path('imgRepositoryWeb') . 'course.gif" border="0"> '
+                  .    '<img src="' . get_icon_url('course') . '" alt="" /> '
                   .    '('.$qty_cours.'  '.get_lang('Course').') ' . "\n"
                   .    '</a>' . "\n"
                   .    '</td>' . "\n"
                 .    '<td align="center">' . "\n"
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;class_id=' . $cur_class['id'] . '">' . "\n"
-                .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" />' . "\n"
+                .    '<img src="' . get_icon_url('edit') . '" alt="" />' . "\n"
                 .    '</a>' . "\n"
                 .    '</td>' . "\n"
                 .    '<td align="center">' . "\n"
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqMove&amp;class_id=' . $cur_class['id'] . '&class_name=' . $cur_class['name'] . '">' . "\n"
-                .    '<img src="' . get_path('imgRepositoryWeb') . 'move.gif" border="0" />' . "\n"
+                .    '<img src="' . get_icon_url('move') . '" alt="" />' . "\n"
                 .    '</a>' . "\n"
                 .    '</td>' . "\n"
                 .    '<td align="center">' . "\n"
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;class_id=' . $cur_class['id'] . '"'
                 .    ' onclick="return confirmation(\'' . clean_str_for_javascript($cur_class['name']) . '\');">' . "\n"
-                .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" />' . "\n"
+                .    '<img src="' . get_icon_url('delete') . '" alt="" />' . "\n"
                 .    '</a>' . "\n"
                 .    '</td>' . "\n"
                 .    '</tr>' . "\n"
@@ -950,14 +950,14 @@ function display_tree_class_in_user($class_list, $course_code, $parent_class = n
                 {
                     $open_close_link = '<a href="' . $_SERVER['PHP_SELF']
                     .                  '?cmd=exClose&amp;class_id=' . $cur_class['id'] . '">' . "\n"
-                    .                  '<img src="' . get_path('imgRepositoryWeb') . 'minus.gif" border="0" />' . "\n"
+                    .                  '<img src="' . get_icon_url('minus') . '" alt="" />' . "\n"
                     .                  '</a>' . "\n"
                     ;
                 }
                 else
                 {
                     $open_close_link = '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exOpen&amp;class_id=' . $cur_class['id'] . '">' . "\n"
-                    .                  '<img src="' . get_path('imgRepositoryWeb') . 'plus.gif" border="0" />' . "\n"
+                    .                  '<img src="' . get_icon_url('plus') . '" alt="" />' . "\n"
                     .                  '</a>' . "\n"
                     ;
                 }
@@ -984,14 +984,14 @@ function display_tree_class_in_user($class_list, $course_code, $parent_class = n
             {
                 $html_form .= '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exEnrol&amp;class_id=' . $cur_class['id'] . '"'
                 .    ' onclick="return confirmation_enrol(\'' . clean_str_for_javascript($cur_class['name']) . '\');">'
-                .    '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" border="0" alt="' . get_lang('Enrol to course') . '" />' . "\n"
+                .    '<img src="' . get_icon_url('enroll') . '" alt="' . get_lang('Enrol to course') . '" />' . "\n"
                 .    '</a>' . "\n";
             }
             else
             {
                 $html_form .= '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exUnenrol&amp;class_id=' . $cur_class['id'] . '"'
                 .    ' onclick="return confirmation_unenrol(\'' . clean_str_for_javascript($cur_class['name']) . '\');">'
-                .    '<img src="' . get_path('imgRepositoryWeb') . 'unenroll.gif" border="0" alt="' . get_lang('Unenrol from course') . '" />' . "\n"
+                .    '<img src="' . get_icon_url('unenroll') . '" alt="' . get_lang('Unenrol from course') . '" />' . "\n"
                 .    '</a>' . "\n";
             }
 

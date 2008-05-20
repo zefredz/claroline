@@ -331,28 +331,28 @@ if ($intro_dispDefault)
 
                     $section .= '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
                     .       '?introCmd=rqEd&amp;introId='.$introId.'">'
-                    .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="' . get_lang('Edit') . '" border="0" />'
+                    .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Edit') . '" />'
                     .    '</a>' . "\n"
                     .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
                     .      '?introCmd=exDel&amp;introId=' . $introId . '" '
                     .      'onclick="javascript:if(!confirm(\''
                     .      clean_str_for_javascript( get_lang('Confirm Operation') . ' : ' . get_lang('Delete') ).'\')) '
                     .      'return false;">'
-                    .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="' . get_lang('Delete') . '" border="0" />'
+                    .    '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />'
                     .    '</a>' . "\n"
                     ;
 
                     if ($thisIntroKey > 0 )
                     {
                         $section .= '<a href="'.$_SERVER['PHP_SELF'].'?introCmd=exMvUp&introId='.$introId.'">'
-                        .    '<img src="' . get_path('imgRepositoryWeb') . 'up.gif" alt="'.get_lang('Move up').'" />'
+                        .    '<img src="' . get_icon_url('up') . '" alt="'.get_lang('Move up').'" />'
                         .    '</a> ';
                     }
 
                     if ($thisIntroKey + 1 < $introListCount )
                     {
                         $section .= ' <a href="'.$_SERVER['PHP_SELF'].'?introCmd=exMvDown&introId='.$introId.'">'
-                        .    '<img src="' . get_path('imgRepositoryWeb') . 'down.gif" alt="'.get_lang('Move down').'" />'
+                        .    '<img src="' . get_icon_url('down') . '" alt="'.get_lang('Move down').'" />'
                         .    '</a>';
                     }
 
@@ -365,8 +365,8 @@ if ($intro_dispDefault)
                             . $introId . '" title="'
                             . get_lang( 'Click to make invisible' ).'">'
                             ;
-                        $section .= '<img src="' . get_path('imgRepositoryWeb')
-                            . 'visible.gif" alt="'
+                        $section .= '<img src="' . get_icon_url('visible')
+                            . '" alt="'
                             . get_lang('Visible') . '" />'
                             ;
                         $section .= '</a>' . "\n";
@@ -378,8 +378,8 @@ if ($intro_dispDefault)
                             . $introId . '" title="'
                             . get_lang( 'Click to make visible' ).'">'
                             ;
-                        $section .= '<img src="' . get_path('imgRepositoryWeb')
-                            . 'invisible.gif" alt="'
+                        $section .= '<img src="' . get_icon_url('invisible')
+                            . '" alt="'
                             . get_lang('Invisible') . '" />'
                             ;
                         $section .= '</a>' . "\n";
@@ -408,7 +408,7 @@ if ($intro_dispDefault)
     {
         echo '<p>' . "\n"
         .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?introCmd=rqAdd">'
-        .    '<img src="' . get_path('imgRepositoryWeb') . '/textzone.gif" alt="" border="0" />'
+        .    '<img src="' . get_icon_url('textzone') . '" alt="" />'
         .    get_lang('Add Text')
         .    '</a>' . "\n"
         .    '</p>' . "\n\n"

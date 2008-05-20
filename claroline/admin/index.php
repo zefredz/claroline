@@ -94,29 +94,29 @@ echo '<table cellspacing="5" align="center">' . "\n"
 
 .    '<tr valign="top">' . "\n"
 .    '<td nowrap="nowrap">' . "\n"
-.    claro_html_tool_title('<img src="' . get_path('imgRepositoryWeb') . 'user.gif" alt="" />&nbsp;'.get_lang('Users'))
+.    claro_html_tool_title('<img src="' . get_icon_url('user') . '" alt="" />&nbsp;'.get_lang('Users'))
 .    claro_html_menu_vertical($menu['AdminUser'])
 .    '</td>' . "\n"
 .    '<td nowrap="nowrap">'
-.    claro_html_tool_title('<img src="' . get_path('imgRepositoryWeb') . 'course.gif" alt="" />&nbsp;'.get_lang('Courses'))
+.    claro_html_tool_title('<img src="' . get_icon_url('course') . '" alt="" />&nbsp;'.get_lang('Courses'))
 .    claro_html_menu_vertical($menu['AdminCourse']) . "\n"
 .    '</td>' . "\n"
 .    '</tr>' . "\n"
 
 .    '<tr valign="top">' . "\n"
 .    '<td nowrap="nowrap">' . "\n"
-.    claro_html_tool_title('<img src="' . get_path('imgRepositoryWeb') . 'settings.gif" alt="" />&nbsp;'.get_lang('Platform')) . "\n"
+.    claro_html_tool_title('<img src="' . get_icon_url('settings') . '" alt="" />&nbsp;'.get_lang('Platform')) . "\n"
 .    claro_html_menu_vertical($menu['AdminPlatform']) . "\n"
 .    '</td>' . "\n"
 .    '<td nowrap="nowrap">' . "\n"
-.    claro_html_tool_title('<img src="' . get_path('imgRepositoryWeb') . 'claroline.gif" alt="" />&nbsp;Claroline.net')
+.    claro_html_tool_title('<img src="' . get_icon_url('claroline') . '" alt="" />&nbsp;Claroline.net')
 .    claro_html_menu_vertical($menu['AdminClaroline'])
 .    '</td>' . "\n"
 .    '</tr>' . "\n"
 
 .    '<tr valign="top">' . "\n"
 .    '<td nowrap="nowrap">' . "\n"
-.    claro_html_tool_title('<img src="' . get_path('imgRepositoryWeb') . 'exe.gif" alt="" />&nbsp;' . get_lang('Tools'))
+.    claro_html_tool_title('<img src="' . get_icon_url('exe') . '" alt="" />&nbsp;' . get_lang('Tools'))
 .    claro_html_menu_vertical($menu['AdminTechnical'])
 .    '</td>' . "\n"
 .    '<td nowrap="nowrap">' . "\n"

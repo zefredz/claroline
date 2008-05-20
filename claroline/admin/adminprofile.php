@@ -133,7 +133,7 @@ $cmd_menu[] = '<a class="claroCmd" href="../auth/courses.php'
 .             '&amp;uidToEdit=' . $userId
 .             '&amp;fromAdmin=settings'
 .             '&amp;category=" >'
-.             '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" />'
+.             '<img src="' . get_icon_url('enroll') . '" />'
 .             get_lang('Enrol to a new course')
 .             '</a>'
 
@@ -142,7 +142,7 @@ $cmd_menu[] = '<a class="claroCmd" href="../auth/courses.php'
 $cmd_menu[] = '<a class="claroCmd" href="../auth/lostPassword.php'
 .             '?Femail=' . urlencode($user_data['email'])
 .             '&amp;searchPassword=1" >'
-.             '<img src="' . get_path('imgRepositoryWeb') . 'email.gif" />'
+.             '<img src="' . get_icon_url('email') . '" />'
 .             get_lang('Send account information to user by email')
 .             '</a>'
 ;
@@ -151,7 +151,7 @@ $cmd_menu[] = '<a class="claroCmd" href="adminuserdeleted.php'
 .             '?uidToEdit=' . $userId
 .             '&amp;cmd=delete" '
 .             'onclick="return confirmation(\'' . clean_str_for_javascript(get_lang('Are you sure to delete') . ' ' . $user_data['username']) . '\');" >'
-.             '<img src="' . get_path('imgRepositoryWeb') . 'deluser.gif" /> '
+.             '<img src="' . get_icon_url('deluser') . '" /> '
 .             get_lang('Delete user')
 .             '</a>'
 

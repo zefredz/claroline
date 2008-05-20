@@ -186,7 +186,7 @@ if ( !empty($dock) )
         if (!($iteration==1))
         {
             echo '<a href="module_dock.php?cmd=up&amp;module_id=' . $module['id'] . '&amp;dock='.urlencode($dock).'">'
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'up.gif" border="0" alt="' . get_lang('Up') . '" />'
+            .    '<img src="' . get_icon_url('up') . '" alt="' . get_lang('Up') . '" />'
             .    '</a>' . "\n"
             ;
         }
@@ -202,7 +202,7 @@ if ( !empty($dock) )
         if ($iteration != $enditeration)
         {
             echo '<a href="module_dock.php?cmd=down&amp;module_id=' . $module['id'] . '&amp;dock=' . urlencode($dock) . '">'
-            .    '<img src="' . get_path('imgRepositoryWeb') . 'down.gif" border="0" alt="' . get_lang('Down') . '" />'
+            .    '<img src="' . get_icon_url('down') . '" alt="' . get_lang('Down') . '" />'
             .    '</a>'
             ;
         }        
@@ -216,7 +216,7 @@ if ( !empty($dock) )
 
         echo '<td align="center">' . "\n"
         .    '<a href="module_dock.php?cmd=remove&amp;module_id=' . $module['id'] . '&amp;dock=' . urlencode($dock) . '">'
-        .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />'
+        .    '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />'
         .    '</a>'
         .    '</td>' . "\n";
 

@@ -387,8 +387,8 @@ class answerTrueFalse
     {
         global $imgRepositoryWeb;
 
-        $imgOnHtml = '<img src="' . get_icon_url('radio_on') . '" border="0" alt="(X)" />';
-        $imgOffHtml = '<img src="' . get_icon_url('radio_off') . '" border="0" alt="( )" />';
+        $imgOnHtml = '<img src="' . get_icon_url('radio_on') . '" alt="(X)" />';
+        $imgOffHtml = '<img src="' . get_icon_url('radio_off') . '" alt="( )" />';
 
         $html =
             '<table width="100%">' . "\n\n"

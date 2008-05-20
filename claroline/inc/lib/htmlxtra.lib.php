@@ -50,7 +50,7 @@ function claro_html_media_player($filePath, $fileUrl)
         case 'gif' :
         case 'png' :
         case 'bmp' :
-            $returnedString .= '<img src="'.$fileUrl.'" border="0" alt="'.$basename.'" />'."\n";
+            $returnedString .= '<img src="'.$fileUrl.'" alt="'.$basename.'" />'."\n";
             break;
 
         //-- flash animation

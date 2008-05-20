@@ -202,7 +202,7 @@ foreach ($flatElementList as $module)
 				$nextModule = $module['module_id'];
 			}
 			echo '<a href="startModule.php?viewModule_id='.$module['module_id'].'" target="mainFrame" title="'.htmlspecialchars($module['name']).'">'
-				.'<img src="' . get_path('imgRepositoryWeb') . $moduleImg.'" alt="'.$contentType_alt.' : '.$module['name'].'" border="0" />'.$displayedName.'</a>';
+				.'<img src="' . get_icon_url( $moduleImg ) . '" alt="'.$contentType_alt.' : '.$module['name'].'" border="0" />'.$displayedName.'</a>';
 		}
         // a module ALLOW access to the following modules if
         // document module : credit == CREDIT || lesson_status == 'completed'
@@ -236,7 +236,7 @@ foreach ($flatElementList as $module)
 			else
 				$displayedName = $module['name'];
 
-			echo '<img src="' . get_path('imgRepositoryWeb') . $moduleImg.'" alt="'.$contentType_alt.'" border="0" />'.$displayedName;
+			echo '<img src="' . get_icon_url( $moduleImg ) . '" alt="'.$contentType_alt.'" border="0" />'.$displayedName;
 		}
 	}
 
@@ -255,7 +255,7 @@ foreach ($flatElementList as $module)
 
 		if($module['credit'] == 'CREDIT' || $module['lesson_status'] == 'COMPLETED' || $module['lesson_status'] == 'PASSED')
 		{
-			echo '<img src="' . get_path('imgRepositoryWeb') . 'mark.gif" alt="'.$module['lesson_status'].'" />';
+			echo '<img src="' . get_icon_url('mark') . '" alt="'.$module['lesson_status'].'" />';
 		}
 		else
 		{

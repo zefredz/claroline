@@ -199,12 +199,12 @@ else
 
             if (claro_is_user_authenticated() && $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $forum_id."-".$thisTopic['topic_id'],FALSE))
             {
-                $image = get_path('imgRepositoryWeb') . 'topic_hot.gif';
+                $image = get_icon_url('topic_hot');
                 $alt='';
             }
             else
             {
-                $image = get_path('imgRepositoryWeb') . 'topic.gif';
+                $image = get_icon_url('topic');
                 $alt   = 'new post';
             }
 

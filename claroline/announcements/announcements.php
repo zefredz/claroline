@@ -384,13 +384,13 @@ if ( $displayButtonLine )
 {
     $cmdList[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
     .            '?cmd=rqCreate' . claro_url_relay_context('&amp;') . '">'
-    .             '<img src="' . get_path('imgRepositoryWeb') . 'announcement.gif" alt="" />'
+    .             '<img src="' . get_icon_url('announcement') . '" alt="" />'
     .             get_lang('Add announcement')
     .             '</a>' . "\n"
     ;
 
     $cmdList[] = '<a class="claroCmd" href="../messaging/messagescourse.php'.claro_url_relay_context('?') . '">'
-        .             '<img src="' . get_path('imgRepositoryWeb') . 'email.gif" alt="" />'
+        .             '<img src="' . get_icon_url('email') . '" alt="" />'
     .             get_lang('Messages to selected users')
     .             '</a>' . "\n"
     ;
@@ -399,7 +399,7 @@ if ( $displayButtonLine )
     {
         $cmdList[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll' . claro_url_relay_context('&amp;') . '" '
         .             ' onclick="if (confirm(\'' . clean_str_for_javascript(get_lang('Clear up list of announcements')) . ' ?\')){return true;}else{return false;}">'
-        .             '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="" />'
+        .             '<img src="' . get_icon_url('delete') . '" alt="" />'
         .             get_lang('Clear up list of announcements')
         .             '</a>' . "\n"
         ;
@@ -407,7 +407,7 @@ if ( $displayButtonLine )
     else
     {
         $cmdList[] = '<span class="claroCmdDisabled" >'
-        .             '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="" />'
+        .             '<img src="' . get_icon_url('delete') . '" alt="" />'
         .             get_lang('Clear up list of announcements')
         .             '</span>' . "\n"
         ;
@@ -574,14 +574,11 @@ if ($displayList)
                 $content = make_clickable(claro_parse_user_text($thisAnnouncement['content']));
                 $last_post_date = $thisAnnouncement['time']; // post time format date de mysql
 
-                $imageFile = 'announcement.gif';
-                $altImg    = '';
-
                 echo '<tr class="headerX">'."\n"
                 .    '<th>'."\n"
                 .    '<span class="'. $cssItem . $cssInvisible .'">' . "\n"
                 .    '<a href="#" name="ann' . $thisAnnouncement['id'] . '"></a>'. "\n"
-                .    '<img src="' . get_path('imgRepositoryWeb') . $imageFile . '" alt="' . $altImg . '" />' . "\n"
+                .    '<img src="' . get_icon_url('announcement') . '" alt="" />' . "\n"
                 .    get_lang('Published on')
                 .    ' : ' . claro_html_localised_date( get_locale('dateFormatLong'), strtotime($last_post_date))
                 .    '</span>'
@@ -604,12 +601,12 @@ if ($displayList)
                     echo '<p>'
                     // EDIT Request LINK
                     .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;id=' . $thisAnnouncement['id'] . '">'
-                    .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" alt="' . get_lang('Modify') . '" />'
+                    .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Modify') . '" />'
                     .    '</a>' . "\n"
                     // DELETE  Request LINK
                     .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;id=' . $thisAnnouncement['id'] . '" '
                     .    ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('Please confirm your choice')) . '\')) return false;">'
-                    .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" alt="' . get_lang('Delete') . '" border="0" />'
+                    .    '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />'
                     .    '</a>' . "\n"
                     ;
 
@@ -620,7 +617,7 @@ if ($displayList)
                         // echo    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvUp&amp;id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
                         // the anchor dont refreshpage.
                         echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMvUp&amp;id=' . $thisAnnouncement['id'] . '">'
-                        .    '<img src="' . get_path('imgRepositoryWeb') . 'up.gif" alt="' . get_lang('Move up') . '" />'
+                        .    '<img src="' . get_icon_url('up') . '" alt="' . get_lang('Move up') . '" />'
                         .    '</a>' . "\n"
                         ;
                     }
@@ -632,7 +629,7 @@ if ($displayList)
                         // echo    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvDown&amp;id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
                         // the anchor dont refreshpage.
                         echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMvDown&amp;id=' . $thisAnnouncement['id'] . '">'
-                        .    '<img src="' . get_path('imgRepositoryWeb') . 'down.gif" alt="' . get_lang('Move down') . '" />'
+                        .    '<img src="' . get_icon_url('down') . '" alt="' . get_lang('Move down') . '" />'
                         .    '</a>' . "\n"
                         ;
                     }
@@ -641,14 +638,14 @@ if ($displayList)
                     if ($thisAnnouncement['visibility']=='SHOW')
                     {
                         echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkHide&amp;id=' . $thisAnnouncement['id'] . '">'
-                        .    '<img src="' . get_path('imgRepositoryWeb') . 'visible.gif" alt="' . get_lang('Visible').'" />'
+                        .    '<img src="' . get_icon_url('visible') . '" alt="' . get_lang('Visible').'" />'
                         .    '</a>' . "\n"
                         ;
                     }
                     else
                     {
                         echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkShow&amp;id=' . $thisAnnouncement['id'] . '">'
-                        .    '<img src="' . get_path('imgRepositoryWeb') . 'invisible.gif" alt="' . get_lang('Invisible') . '" />'
+                        .    '<img src="' . get_icon_url('invisible') . '" alt="' . get_lang('Invisible') . '" />'
                         .    '</a>' . "\n"
                         ;
                     }

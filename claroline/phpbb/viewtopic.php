@@ -122,7 +122,7 @@ if ($topicSettingList)
 
             if ( is_topic_notification_requested($topic_id, claro_get_current_user_id()) )   // display link NOT to be notified
             {
-                $notification_bloc .= '<img src="' . get_path('imgRepositoryWeb') . 'email.gif" alt="" />';
+                $notification_bloc .= '<img src="' . get_icon_url('email') . '" alt="" />';
                 $notification_bloc .= get_lang('Notify by email when replies are posted');
                 $notification_bloc .= ' [<a href="' . $_SERVER['PHP_SELF'] ;
                 $notification_bloc .= '?forum=' . $forum_id ;
@@ -137,7 +137,7 @@ if ($topicSettingList)
                 $notification_bloc .= '?forum=' . $forum_id ;
                 $notification_bloc .= '&amp;topic=' . $topic_id ;
                 $notification_bloc .= '&amp;cmd=exNotify">';
-                $notification_bloc .= '<img src="' . get_path('imgRepositoryWeb') . 'email.gif" alt="" /> ';
+                $notification_bloc .= '<img src="' . get_icon_url('email') . '" alt="" /> ';
                 $notification_bloc .= get_lang('Notify by email when replies are posted');
                 $notification_bloc .= '</a>';
             }
@@ -243,14 +243,14 @@ else
         $post_time = datetime_to_timestamp($thisPost['post_time']);
 
         if (claro_is_user_authenticated() && $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $forum_id."-".$topic_id))
-        $postImg = 'post_hot.gif';
+        $postImg = 'post_hot';
         else
-        $postImg = 'post.gif';
+        $postImg = 'post';
 
         echo '<tr>' . "\n"
         .    '<th class="headerX">' . "\n"
         .    '<a name="post'. $thisPost['post_id'] .'" ></a>' . "\n"
-        .    '<img src="' . get_path('imgRepositoryWeb') . $postImg . '" alt="" />'
+        .    '<img src="' . get_icon_url( $postImg ) . '" alt="" />'
         .    get_lang('Author')
         .    ' : <b>' . $thisPost['firstname'] . ' ' . $thisPost['lastname'] . '</b> '
         .    '<small>' . get_lang('Posted') . ' : ' . claro_html_localised_date(get_locale('dateTimeFormatLong'), $post_time) . '</small>' . "\n"
@@ -267,12 +267,12 @@ else
             echo '<p>' . "\n"
 
             . '<a href="editpost.php?post_id=' . $thisPost['post_id'] . '">'
-            . '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="' . get_lang('Edit') . '" />'
+            . '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Edit') . '" />'
             . '</a>' . "\n"
 
             . '<a href="editpost.php?post_id=' . $thisPost['post_id'] . '&amp;delete=delete&amp;submit=submit" '
             . 'onclick="return confirm_delete();" >'
-            . '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" />'
+            . '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />'
             . '</a>' . "\n"
 
             . '</p>' . "\n";
@@ -292,7 +292,7 @@ else
                                         . '?topic=' . $topic_id
                                         . '&amp;forum=' . $forum_id
                                         . claro_url_relay_context('&amp;')
-                                        , '<img src="' . get_path('imgRepositoryWeb') . 'reply.gif" />'
+                                        , '<img src="' . get_icon_url('reply') . '" />'
                                         . ' '
                                         . get_lang('Reply')
                                         );

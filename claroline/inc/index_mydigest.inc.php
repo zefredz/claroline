@@ -125,14 +125,14 @@ if (false === $htmlCLCALDIGEST = $Cache_LiteCLCALDIGEST->get('CALDIGEST' . claro
         switch ($courseDigestList['toolLabel'][$i])
         {
             case 'CLANN':
-                $itemIcon = 'announcement.gif';
+                $itemIcon = 'announcement';
                 $url = get_module_url('CLANN') . '/announcements.php?cidReq='
                 . $courseDigestList['courseSysCode'][$i];
                 $name = get_lang('Latest announcements');
                 break;
 
             case 'CLCAL':
-                $itemIcon = 'agenda.gif';
+                $itemIcon = 'agenda';
                 $url = get_module_url('CLCAL') . '/agenda.php?cidReq='
                 . $courseDigestList['courseSysCode'][$i];
                 $name = get_lang('Agenda next events');
@@ -152,7 +152,7 @@ if (false === $htmlCLCALDIGEST = $Cache_LiteCLCALDIGEST->get('CALDIGEST' . claro
         $htmlCLCALDIGEST .= '<p>' . "\n"
         .    '<small>'
         .    '<a href="' . $url . '">'
-        .    '<img src="' . get_path('imgRepositoryWeb') . $itemIcon . '" alt="" />'
+        .    '<img src="' . get_icon_url( $itemIcon ) . '" alt="" />'
         .    '</a>' . "\n"
 
         .    claro_html_localised_date( get_locale('dateFormatLong'),

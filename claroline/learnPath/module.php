@@ -262,7 +262,7 @@ if($module['contentType'] != CTLABEL_) //
         //display type of the module
         echo '<tr>'."\n"
             .'<td>'.get_lang('Module type').'</td>'."\n"
-            .'<td><img src="' . get_path('imgRepositoryWeb') . $contentType_img.'" alt="'.$contentType_alt.'" border="0" />'.$contentDescType.'</td>'."\n"
+            .'<td><img src="' . get_icon_url( $contentType_img ) . '" alt="'.$contentType_alt.'" />'.$contentDescType.'</td>'."\n"
             .'</tr>'."\n\n";
 
         //display total time already spent in the module

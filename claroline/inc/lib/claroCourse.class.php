@@ -543,12 +543,12 @@ class ClaroCourse
         $html .= '<tr valign="top" >' . "\n"
             . '<td align="right" nowrap="nowrap">' . get_lang('Course access') . '&nbsp;:</td>'
             . '<td>'
-            . '<img src="' . get_path('imgRepositoryWeb') . 'access_open.gif" alt="' . get_lang('open') . '" />'
+            . '<img src="' . get_icon_url('access_open') . '" alt="' . get_lang('open') . '" />'
             . '<input type="radio" id="access_true" name="course_access" value="1" ' . ($this->access ? 'checked="checked"':'') . ' />'
             . '&nbsp;'
             . '<label for="access_true">' . get_lang('Public access from campus home page even without login') . '</label>'
             . '<br />' . "\n"
-            . '<img src="' . get_path('imgRepositoryWeb') . 'access_locked.gif"  alt="' . get_lang('locked') . '" />'
+            . '<img src="' . get_icon_url('access_locked') . '"  alt="' . get_lang('locked') . '" />'
             . '<input type="radio" id="access_false" name="course_access" value="0" ' . ( ! $this->access ? 'checked="checked"':'' ) . ' />'
             . '&nbsp;'
             . '<label for="access_false">';
@@ -567,7 +567,7 @@ class ClaroCourse
         $html .= '<tr valign="top">' . "\n"
             . '<td align="right">' . get_lang('Enrolment') . '&nbsp;:</td>'
             . '<td>'
-            . '<img src="' . get_path('imgRepositoryWeb') . 'enroll_open.gif"  alt="' . get_lang('open') . '" />'
+            . '<img src="' . get_icon_url('enroll_open') . '"  alt="' . get_lang('open') . '" />'
             . '<input type="radio" id="registration_true" name="course_registration" value="1" ' . ($this->registration?'checked="checked"':'') . ' />'
             . '&nbsp;'
             . '<label for="registration_true">' . get_lang('Allowed') . '</label>'
@@ -576,7 +576,7 @@ class ClaroCourse
             . '</label>'
             . '<input type="text" id="registrationKey" name="course_registrationKey" value="' . htmlspecialchars($this->registrationKey) . '" />'
             . '<br />' . "\n"
-            . '<img src="' . get_path('imgRepositoryWeb') . 'enroll_locked.gif"  alt="' . get_lang('locked') . '" />'
+            . '<img src="' . get_icon_url('enroll_locked') . '"  alt="' . get_lang('locked') . '" />'
             . '<input type="radio" id="registration_false"  name="course_registration" value="0" ' . ( ! $this->registration ?'checked="checked"':'') . ' />'
             . '&nbsp;'
             . '<label for="registration_false">' . get_lang('Denied') . '</label>'
@@ -596,11 +596,11 @@ class ClaroCourse
         $html .= '<tr valign="top" class="admin" >' . "\n"
         .        '<td align="right" nowrap>' . get_lang('Course visibility') . '&nbsp;:</td>'
             . '<td>'
-            . '<img src="' . get_path('imgRepositoryWeb') . '/visible.gif" />'
+            . '<img src="' . get_icon_url('visible') . '" alt="" />'
             . '<input type="radio" id="visibility_show" name="course_visibility" value="1" ' . ($this->visibility ? 'checked="checked"':'') . '>&nbsp;'
             . '<label for="visibility_show">' . get_lang('The course is shown in the courses listing') . '</label>'
             . '<br />' . "\n"
-            . '<img src="' . get_path('imgRepositoryWeb') . 'invisible.gif" />'
+            . '<img src="' . get_icon_url('invisible') . '" alt="" />'
             . '<input type="radio" id="visibility_hidden" name="course_visibility" value="0" ' . ( ! $this->visibility ? 'checked="checked"':'' ) . '>&nbsp;'
             . '<label for="visibility_hidden">'
             . get_lang('Visible only to people on the user list')

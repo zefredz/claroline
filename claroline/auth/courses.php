@@ -550,11 +550,11 @@ switch ( $displayMode )
 
                         echo '<td valign="top" align="center">' . "\n"
                         .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exReg&amp;course=' . $thisCourse['sysCode'] . $inURL . '">'
-                        .    '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" alt="' . get_lang('Enrol as student') . '" />'
+                        .    '<img src="' . get_icon_url('enroll') . '" alt="' . get_lang('Enrol as student') . '" />'
                         .    '</a></td>' . "\n"
                         .    '<td valign="top" align="center">' . "\n"
                         .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exReg&amp;asTeacher=true&amp;course=' . $thisCourse['sysCode'] .$inURL . '">'
-                        .    '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif"  alt="' . get_lang('Enrol as teacher') . '" />'
+                        .    '<img src="' . get_icon_url('enroll') . '"  alt="' . get_lang('Enrol as teacher') . '" />'
                         .    '</a>'
                         .    '</td>' . "\n"
                         ;
@@ -567,7 +567,7 @@ switch ( $displayMode )
                     .    '?cmd=exReg'
                     .    '&amp;course_id=' . $thisCourse['sysCode']
                     .    '&amp;class_id=' . $classinfo['id'] . $inURL . '">'
-                    .    '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" border="0" alt="' . get_lang('Enrol class') . '" />'
+                    .    '<img src="' . get_icon_url('enroll') . '" alt="' . get_lang('Enrol class') . '" />'
                     .     '</a>'
                     .     '</td>' . "\n"
                     ;
@@ -583,7 +583,7 @@ switch ( $displayMode )
                     {
                         echo '<a href="' . $_SERVER['PHP_SELF']
                         .    '?cmd=exReg&amp;course=' . $thisCourse['sysCode'] . $inURL . '">'
-                        .    '<img src="' . get_path('imgRepositoryWeb') . 'enroll.gif" border="0" alt="' . get_lang('Enrolment') . '" />'
+                        .    '<img src="' . get_icon_url('enroll') . '" alt="' . get_lang('Enrolment') . '" />'
                         .    '</a>'
                         ;
                     }
@@ -591,7 +591,7 @@ switch ( $displayMode )
                     {
                         echo '<a href="' . $_SERVER['PHP_SELF']
                         .    '?cmd=exReg&amp;course=' . $thisCourse['sysCode'] . $inURL . '">'
-                        .    '<img src="' . get_path('imgRepositoryWeb') . 'locked.gif" border="0" alt="' . get_lang('Locked') . '" />'
+                        .    '<img src="' . get_icon_url('locked') . '" alt="' . get_lang('Locked') . '" />'
                         .    '</a>'
                         ;
                     }
@@ -681,7 +681,7 @@ switch ( $displayMode )
                     .    ' onclick="javascript:if(!confirm(\''
                     .    clean_str_for_javascript(get_lang('Are you sure you want to remove this course from your list ?'))
                     .    '\')) return false;">' . "\n"
-                    .    '<img src="' . get_path('imgRepositoryWeb') . 'unenroll.gif" border="0" alt="' . get_lang('Unsubscribe') . '" />' . "\n"
+                    .    '<img src="' . get_icon_url('unenroll') . '" alt="' . get_lang('Unsubscribe') . '" />' . "\n"
                     .    '</a>' . "\n"
                     ;
                 }

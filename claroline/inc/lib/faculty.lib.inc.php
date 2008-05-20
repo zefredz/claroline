@@ -54,8 +54,8 @@ function claro_disp_tree($elem,$father,$space)
                         echo '<a href="' . $_SERVER['PHP_SELF']
                         .    '?id=' . $one_faculty['id'] . '"> '
                         .    ( $one_faculty['visible']
-                             ?    '<img src="' . get_path('imgRepositoryWeb') . 'minus.gif" border="0" alt="-"  />'
-                             :    '<img src="' . get_path('imgRepositoryWeb') . 'plus.gif" border="0" alt="+"  />'
+                             ?    '<img src="' . get_icon_url('minus') . '" alt="-"  />'
+                             :    '<img src="' . get_icon_url('plus') . '" alt="+"  />'
                              )
                         .    '</a> '
                         .    '&nbsp;'
@@ -85,17 +85,17 @@ function claro_disp_tree($elem,$father,$space)
                     echo '</td>'
                         . '<td  align="center">'
                         . '<a href="' . $_SERVER['PHP_SELF'] . '?id=' . $one_faculty['id'] . '&amp;cmd=rqEdit" >'
-                        . '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="' . get_lang('Edit') . '" /></a>'
+                        . '<img src="' . get_icon_url('edit') . '"alt="' . get_lang('Edit') . '" /></a>'
                         . '</td>'
                     . '<td align="center">'
                     . '<a href="' . $_SERVER['PHP_SELF'] . '?id='.$one_faculty['id'].'&amp;cmd=rqMove" >'
-                    . '<img src="' . get_path('imgRepositoryWeb') . 'move.gif" border="0" alt="' . get_lang('Move') . '"  /></a>'
+                    . '<img src="' . get_icon_url('move') . '" alt="' . get_lang('Move') . '"  /></a>'
                     . '</td>'
                     . '<td align="center">'
                     . '<a href="' . $_SERVER['PHP_SELF'] . '?id='.$one_faculty['id'].'&amp;cmd=exDelete"'
                     . 'onclick="javascript:if(!confirm(\''
                     . clean_str_for_javascript(get_lang('Do you really want to delete the category ').' '.$one_faculty['code'].' ?') . '\')) return false" >'
-                    . '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="' . get_lang('Delete') . '" /> </a>'
+                    . '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" /> </a>'
                     . '</td>';
 
                     //Search nbChild of the father
@@ -115,7 +115,7 @@ function claro_disp_tree($elem,$father,$space)
                         if ($num>1)
                         {
                             echo '<a href="' . $_SERVER['PHP_SELF'] . '?id='.$one_faculty['id'].'&amp;cmd=exUp">'
-                            . '<img src="' . get_path('imgRepositoryWeb') . 'up.gif" border="0" alt="' . get_lang('Up') .'" /></a>';
+                            . '<img src="' . get_icon_url('up') . '" alt="' . get_lang('Up') .'" /></a>';
                         }
                         else
                         {
@@ -130,7 +130,7 @@ function claro_disp_tree($elem,$father,$space)
                         if ($num<$nbChild)
                         {
                             echo '<a href="' . $_SERVER['PHP_SELF'] . '?id=' . $one_faculty['id'] . '&amp;cmd=exDown">'
-                            . '<img src="' . get_path('imgRepositoryWeb') . 'down.gif" border="0" alt="' . get_lang('Move down') . '"  /> </a>';
+                            . '<img src="' . get_icon_url('down') . '" alt="' . get_lang('Move down') . '"  /> </a>';
                         }
                         else
                         {
