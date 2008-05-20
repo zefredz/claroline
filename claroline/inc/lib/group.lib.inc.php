@@ -1,21 +1,21 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
+
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
- *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/index.php/CLGRP
- *
- * @package CLGRP
- *
- * @author Claro Team <cvs@claroline.net>
- * @author Christophe Gesché <moosh@claroline.net>
- * @author Hugues Peeters <hugues.peeters@claroline.net>
+ * @version     1.9 $Revision$
+ * @copyright   2001-2008 Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see         http://www.claroline.net/wiki/index.php/CLGRP
+ * @package     CLGRP
+ * @author      Claro Team <cvs@claroline.net>
+ * @author      Christophe Gesché <moosh@claroline.net>
+ * @author      Hugues Peeters <hugues.peeters@claroline.net>
  *
  */
 
@@ -727,4 +727,3 @@ function get_group_list_user_id_list($gidList,$courseId = NULL)
     
     return $userIdList;
 }
-?>
