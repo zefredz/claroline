@@ -1,13 +1,15 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
-define ('DATAVALIDATOR_STRICT_MODE', true);
+
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
 
 /**
+ * DataValidator class
  * Validates the content of data chained into an array according to a set
  * of defined rules. You can define your own validation rules (by creating
  * functions) but the class also provides a list of predefined rules.
- *
- * @author Hugues Peeters <hugues.peeters@advalvas.be>
  *
  * Example :
  *
@@ -30,6 +32,21 @@ define ('DATAVALIDATOR_STRICT_MODE', true);
  *   {
  *     echo explode(', ', $validator->getErrorList() );
  *   }
+ *   
+ * @version     1.9 $Revision$
+ * @copyright   2001-2008 Universite catholique de Louvain (UCL)
+ * @author      Claroline Team <info@claroline.net>
+ * @author      Hugues Peeters <hugues.peeters@advalvas.be>
+ * @license     http://www.gnu.org/copyleft/gpl.html
+ *              GNU GENERAL PUBLIC LICENSE version 2 or later
+ * @package     KERNEL
+ * @deprecated  since 1.9, use utils/validator.lib instead
+ */
+
+define ('DATAVALIDATOR_STRICT_MODE', true);
+
+/**
+
  */
 
 class DataValidator
@@ -439,4 +456,3 @@ class DataValidator
                || preg_match($localNameRx, $data);
     }
 }
-?>

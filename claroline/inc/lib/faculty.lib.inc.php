@@ -1,21 +1,21 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
+
 /**
  * CLAROLINE
  *
  * This is lib for manage course tree with tree structure version 1
  *
- * @version 1.8 $Revision$
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/index.php/CLTREE
- *
- * @package CLTREE
- *
- * @author Claro Team <cvs@claroline.net>
- *
+ * @version     1.9 $Revision$
+ * @copyright   2001-2008 Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see         http://www.claroline.net/wiki/index.php/CLTREE
+ * @package     CLTREE
+ * @author      Claro Team <cvs@claroline.net>
  */
 
 /**
@@ -614,7 +614,3 @@ function repairTree()
     if ($node_moved) return claro_failure::set_failure('node_moved');
     else             return true;
 };
-
-
-
-?>

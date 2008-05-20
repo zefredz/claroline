@@ -1,22 +1,22 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
+
 /**
  * CLAROLINE
  *
  * debug functions
- *
  * All this  function output only  if  debugClaro is on
  *
- * @version 1.8 $Revision$
- *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @package KERNEL
- *
- * @author Claro Team <cvs@claroline.net>
- * @author Christophe Gesché <moosh@claroline.net>
+ * @version     1.9 $Revision$
+ * @copyright   (c) 2001-2008 Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package     KERNEL
+ * @author      Claro Team <cvs@claroline.net>
+ * @author      Christophe Gesché <moosh@claroline.net>
  */
 
 defined ( 'PRINT_DEBUG_INFO' ) || define ( 'PRINT_DEBUG_INFO', false ) ;
@@ -29,75 +29,75 @@ defined ( 'PRINT_DEBUG_INFO' ) || define ( 'PRINT_DEBUG_INFO', false ) ;
  */
 function echo_session_value()
 {
-	$infoResult = "" ;
-	GLOBAL $statuts, $statut, $status, $is_admin ;
-	if (! isset ( $is_admin ) || ! $is_admin)
-	{
-		exit ( 'not aivailable' ) ;
-	}
-	
-	$infoResult .= '
+    $infoResult = "" ;
+    GLOBAL $statuts, $statut, $status, $is_admin ;
+    if (! isset ( $is_admin ) || ! $is_admin)
+    {
+        exit ( 'not aivailable' ) ;
+    }
+    
+    $infoResult .= '
     <hr />
     <a href="../claroline/admin/phpInfo.php">phpInfo Claroline</a>
     <PRE><strong>PHP Version</strong> : ' . phpversion () . '
     <strong>nivo d\'err</strong> : ' . error_reporting ( 2039 ) ;
-	if (isset ( $statuts ))
-	{
-		$infoResult .= '
+    if (isset ( $statuts ))
+    {
+        $infoResult .= '
     <strong>statut</strong> : ';
         print_r($statuts);
-	}
+    }
     if (isset($statut))
-	{
-		$infoResult .= '
+    {
+        $infoResult .= '
     <strong>statut</strong> : ';
         print_r($statut);
-	}
+    }
     if (isset($status))
-	{
-		$infoResult .= "
+    {
+        $infoResult .= "
     <strong>status</strong> : ";
         print_r($status);
-	}
-	
+    }
+    
     if ('' != trim(get_conf('dbHost')) || '' != trim(get_conf('dbLogin')))
-	{
-		$infoResult .= '
+    {
+        $infoResult .= '
     <strong>mysql param</strong> :
      Serveur : ' . get_conf ( 'dbHost' ) . '
      User    : ' . get_conf ( 'dbLogin' ) ;
-	}
+    }
     if (isset($_SESSION))
-	{
-		$infoResult .= "
+    {
+        $infoResult .= "
     <strong>session</strong> : ";
         print_r($_SESSION);
-	}
+    }
     if (isset($_POST))
-	{
-		$infoResult .= "
+    {
+        $infoResult .= "
     <strong>Post</strong> : ";
         print_r($_POST);
-	}
+    }
     if (isset($_GET))
-	{
-		$infoResult .= "
+    {
+        $infoResult .= "
     <strong>GET</strong> : ";
         print_r($_GET);
-	}
-	
-	$infoResult .= "
+    }
+    
+    $infoResult .= "
     <strong>Contantes</strong> : ";
     print_r(get_defined_constants());
     get_current_user();
-	$infoResult .= "
+    $infoResult .= "
     <strong>Fichiers inclus</strong> : ";
     print_r(get_included_files());
-	$infoResult .= "
+    $infoResult .= "
     <strong>Magic quote gpc</strong> : " . get_magic_quotes_gpc () . "
     <strong>Magig quote runtime</strong> : " . get_magic_quotes_runtime () . "
     <strong>date de dernière modification de la page</strong> : " . date ( "j-m-Y", getlastmod () ) ;
-	/*
+    /*
     get_cfg_var -- Retourne la valeur d'une option de PHP
     getenv -- Retourne la valeur de la variable d'environnement.
     ini_alter -- Change la valeur d'une option de configuration
@@ -109,7 +109,7 @@ function echo_session_value()
     set_magic_quotes_runtime --  Active/désactive l'option magic_quotes_runtime.
     set_time_limit -- Fixe le temps maximum d'exécution d'un script.
     */
-	$infoResult .= "
+    $infoResult .= "
     <strong>Type d'interface utilisé entre le serveur web et PHP</strong> : " . php_sapi_name () . "
     <strong>informations OS</strong> : " . php_uname () . "
     <strong>Version courante du moteur Zend</strong> : " . zend_version () . "
@@ -118,17 +118,17 @@ function echo_session_value()
     <strong>numéro de processus courant</strong> : " . getmypid () . "
     <strong>UID du propriétaire du script actuel</strong> : " . getmyuid () . "
     <strong>niveau d'utilisation des ressources</strong> : " ;
-	print_r ( @getrusage () ) ;
-	
-	$infoResult .= "
+    print_r ( @getrusage () ) ;
+    
+    $infoResult .= "
     </PRE>
     <hr />
         ";
-	if (PRINT_DEBUG_INFO)
-	{
-		echo $infoResult ;
+    if (PRINT_DEBUG_INFO)
+    {
+        echo $infoResult ;
     }
-	return $infoResult ;
+    return $infoResult ;
 }
 
 /**
@@ -142,14 +142,14 @@ function claro_call_function( $info, $paramList = null )
 {
     static $disabled_function = null;
     if (is_null($disabled_function)) $disabled_function = ini_get('disable_functions');
-	
+    
     if(false===strpos($disabled_function,$info))
-	{
+    {
         if (function_exists($info))
         if (is_null($paramList)) return call_user_func($info);
         else                     return call_user_func($info,$paramList);
-	}
-	
+    }
+    
     return '';
 }
 
@@ -216,34 +216,34 @@ function debug_IO($file = '')
     if ( claro_call_function('is_executable', $file ) ) $infoResult .=  '-X-';
     if ( is_readable(   $file ) ) $infoResult .=  '-R-';
     if ( is_writeable(  $file ) ) $infoResult .=  '-W-';
-	
-	if (PRINT_DEBUG_INFO)
-		echo $infoResult ;
-	return $infoResult ;
+    
+    if (PRINT_DEBUG_INFO)
+        echo $infoResult ;
+    return $infoResult ;
 
 }
 
 function display_perms( $mode )
 {
-	/* Determine Type */
-	if ($mode & 0x1000)
-		$type = 'p' ; /* FIFO pipe */
+    /* Determine Type */
+    if ($mode & 0x1000)
+        $type = 'p' ; /* FIFO pipe */
     elseif ($mode & 0x2000)
-		$type = 'c' ; /* Character special */
+        $type = 'c' ; /* Character special */
     elseif ($mode & 0x4000)
-		$type = 'd' ; /* Directory */
+        $type = 'd' ; /* Directory */
     elseif ($mode & 0x6000)
-		$type = 'b' ; /* Block special */
+        $type = 'b' ; /* Block special */
     elseif ($mode & 0x8000)
-		$type = '-' ; /* Regular */
+        $type = '-' ; /* Regular */
     elseif ($mode & 0xA000)
-		$type = 'l' ; /* Symbolic Link */
+        $type = 'l' ; /* Symbolic Link */
     elseif ($mode & 0xC000)
-		$type = 's' ; /* Socket */
+        $type = 's' ; /* Socket */
     else
     $type='u'; /* UNKNOWN */
-	
-	/* Determine permissions */
+    
+    /* Determine permissions */
     $owner['read'   ] = ($mode & 00400) ? 'r' : '-';
     $owner['write'  ] = ($mode & 00200) ? 'w' : '-';
     $owner['execute'] = ($mode & 00100) ? 'x' : '-';
@@ -253,8 +253,8 @@ function display_perms( $mode )
     $world['read'   ] = ($mode & 00004) ? 'r' : '-';
     $world['write'  ] = ($mode & 00002) ? 'w' : '-';
     $world['execute'] = ($mode & 00001) ? 'x' : '-';
-	
-	/* Adjust for SUID, SGID and sticky bit */
+    
+    /* Adjust for SUID, SGID and sticky bit */
     if( $mode & 0x800 )
     $owner['execute'] = ($owner[execute]=='x') ? 's' : 'S';
     if( $mode & 0x400 )
@@ -273,8 +273,8 @@ function display_perms( $mode )
 function printVar($var, $varName="@")
 {
     GLOBAL $DEBUG;
-	if ($DEBUG)
-	{
+    if ($DEBUG)
+    {
         echo '<blockquote>' . "\n"
         .    '<b>[' . $varName . ']</b>' . "\n"
         .    '<hr noshade="noshade" size="1" style="color:blue">' . "\n"
@@ -286,11 +286,11 @@ function printVar($var, $varName="@")
         ;
     }
     else
-	{
+    {
         echo '<!-- DEBUG is OFF -->' . "\n"
         .    'DEBUG is OFF'
         ;
-	}
+    }
 }
 
 function printInit($selection="*")
@@ -303,21 +303,21 @@ function printInit($selection="*")
     $_courseTool,
     $_SESSION,
     $_claro_local_run;
-	
-	if ($_claro_local_run)
-	{
+    
+    if ($_claro_local_run)
+    {
         echo "local init runned";
     }
     else
-	{
+    {
         echo '<font color="red"> local init never runned during this script </font>';
-	}
-	echo '
+    }
+    echo '
 <table width="100%" border="1" cellspacing="4" cellpadding="1" bordercolor="#808080" bgcolor="#C0C0C0" lang="en">
     <TR>';
     if($selection == "*" or strstr($selection,"u"))
-	{
-		echo '
+    {
+        echo '
         <TD valign="top" >
             <strong>User</strong> :
             (_uid)             : '.var_export(claro_get_current_user_id(),1).' |
@@ -329,10 +329,10 @@ function printInit($selection="*")
             <br />is_platformAdmin            :'.var_export(claro_is_platform_admin(),1).'
             <br />is_allowedCreateCourse    :'.var_export(claro_is_allowed_to_create_course(),1).'
         </TD>';
-	}
+    }
     if($selection == "*" or strstr($selection,"c"))
-	{
-		echo "
+    {
+        echo "
         <TD valign=\"top\" >
             <strong>Course</strong> : (_cid)".var_export(claro_get_current_course_id(),1)."
             <br />
@@ -345,12 +345,12 @@ function printInit($selection="*")
                 ".var_export(claro_get_current_group_properties_data(),1)."
             </PRE>
         </TD>";
-	}
-	echo '
+    }
+    echo '
     </TR>
     <TR>';
     if($selection == "*" or strstr($selection,"g"))
-	{
+    {
         echo '<TD valign="top" ><strong>Group</strong> : (_gid) '
         .    var_export(claro_get_current_group_id(),1) . '<br />
         reset = ' . var_export($GLOBALS['gidReset'],1) . ' | req = ' . var_export($gidReq,1)."<br />
@@ -366,10 +366,10 @@ function printInit($selection="*")
         <br />
         _tool :' . var_export(get_init('_tool'),1).
         "</TD>";
-	}
+    }
     echo "</TR>";
     if($selection == "*" or (strstr($selection,"u")&&strstr($selection,"c")))
-	{
+    {
         echo '<TR><TD valign="top" colspan="2"><strong>Course-User</strong>';
         if (claro_is_user_authenticated()) echo '<br /><strong>User</strong> :'.var_export(claro_is_in_a_course(),1);
         if (claro_is_in_a_course()) echo ' in '.var_export(claro_get_current_course_id(),1).'<br />';
@@ -395,11 +395,11 @@ function printInit($selection="*")
         .    '<br />is_groupAllowed:' . var_export(claro_is_group_allowed(),1)
         .    '</TD>'
         .    '</tr>';
-	}
+    }
     if($selection == "*" or (strstr($selection,"c")&&strstr($selection,"t")))
-	{
-		
-		echo '<tr>
+    {
+        
+        echo '<tr>
         <TD valign="top" colspan="2" ><strong>Course-Tool</strong><br />';
         if (claro_get_current_tool_id()) echo 'Tool :'.claro_get_current_tool_id();
         if ( claro_is_in_a_course() ) echo ' in '.claro_get_current_course_id().'<br />';
@@ -407,7 +407,7 @@ function printInit($selection="*")
         if (claro_get_current_tool_id()) echo "_courseTool    : <pre>".var_export($_courseTool,1).'</pre><br />';
         echo 'is_toolAllowed : '.var_export(claro_is_tool_allowed(),1);
         echo "</TD>";
-	}
+    }
     echo "</TR></TABLE>";
 }
 
@@ -415,7 +415,7 @@ function printConfig()
 {
     GLOBAL $clarolineVersion, $versionDb, $urlAppend, $serverAddress, $checkEmailByHAshSent             , $ShowEmailnotcheckedToStudent     , $userPasswordCrypted             , $userPasswordCrypted            , $platformLanguage     , $siteName                   , $clarolineRepositoryAppend;
     echo "<table width=\"100%\" border=\"1\" cellspacing=\"1\" cellpadding=\"1\" bordercolor=\"#808080\" bgcolor=\"#C0C0C0\" lang=\"en\"><TR>";
-	echo "
+    echo "
     <tr><td colspan=2><strong>Mysql</strong></td></tr>
     <tr><td>dbHost</TD><TD>" . get_conf('dbHost') . "</td></tr>
     <tr><td>get_conf('dbLogin')     </TD><TD>" . get_conf('dbLogin') . "</td></tr>
@@ -464,41 +464,41 @@ function claro_html_debug_backtrace()
     $cbt = '<pre style="color:gray">' . "\n";
     $bt = array_reverse($bt);
     foreach ($bt as $btLevel)
-	{
+    {
         if ($btLevel['function'] == __FUNCTION__) continue;
-		
+        
         $cbt .= 'L'.str_pad($btLevel['line'],5,' ',STR_PAD_LEFT) . ':'  ;
         $cbt .= '<a href="'.$btLevel['file'].'">#</a> ' ;
         $cbt .= str_pad(basename($btLevel['file']),30,' ', STR_PAD_BOTH) . '| ';
         $cbt .= '<b>' . $btLevel['function'] . '()</b>' . "\n";
-	
-	}
+    
+    }
     return $cbt . '</pre>';
 }
 
 function profilePoint()
 {
-	static $start = null ;
-	$bt = debug_backtrace () ;
-	
-	$line = '<tt>L' . str_pad ( $bt [ 0 ] [ 'line' ], 5, ' ', STR_PAD_LEFT ) . ':' ;
-	$line .= '<abbr title="'.$bt [ 0 ] [ 'file' ].'">' . str_pad (  substr(basename ($bt [ 0 ] [ 'file' ]),0,30), 30, ' ', STR_PAD_BOTH ) . '</abbr>:' ;
-	if (isset($bt [ 1 ]))
-	{
-    	$line .= '<abbr title="' . str_pad ( $bt [ 1 ] [ 'line' ], 5, ' ', STR_PAD_LEFT ) . ':'.$bt [ 1 ] [ 'function' ].'() in '.$bt [ 1 ] [ 'file' ].'">-1</abbr>:' ;
-	}
-	if (isset($bt [ 2 ]))
-	{
-    	$line .= '<abbr title="' . str_pad ( $bt [ 2 ] [ 'line' ], 5, ' ', STR_PAD_LEFT ) . ':'.$bt [ 1 ] [ 'function' ].'() in '.$bt [ 2 ] [ 'file' ].'">-2</abbr>:' ;
-	}
-	if (is_null ( $start ))
-	{ 
-		$start = microtime();
-		pushClaroMessage ( $line . '</tt>@' . date('H:i:s'), 'profile' ) ;
-	} 
-	else
-	{
-		pushClaroMessage ( $line . '</tt>@ (+ ' . (sprintf('%01.4f',microtime() -$start )) . 'ms)', 'profile' ) ;
-	}
+    static $start = null ;
+    $bt = debug_backtrace () ;
+    
+    $line = '<tt>L' . str_pad ( $bt [ 0 ] [ 'line' ], 5, ' ', STR_PAD_LEFT ) . ':' ;
+    $line .= '<abbr title="'.$bt [ 0 ] [ 'file' ].'">' . str_pad (  substr(basename ($bt [ 0 ] [ 'file' ]),0,30), 30, ' ', STR_PAD_BOTH ) . '</abbr>:' ;
+    if (isset($bt [ 1 ]))
+    {
+        $line .= '<abbr title="' . str_pad ( $bt [ 1 ] [ 'line' ], 5, ' ', STR_PAD_LEFT ) . ':'.$bt [ 1 ] [ 'function' ].'() in '.$bt [ 1 ] [ 'file' ].'">-1</abbr>:' ;
+    }
+    if (isset($bt [ 2 ]))
+    {
+        $line .= '<abbr title="' . str_pad ( $bt [ 2 ] [ 'line' ], 5, ' ', STR_PAD_LEFT ) . ':'.$bt [ 1 ] [ 'function' ].'() in '.$bt [ 2 ] [ 'file' ].'">-2</abbr>:' ;
+    }
+    if (is_null ( $start ))
+    { 
+        $start = microtime();
+        pushClaroMessage ( $line . '</tt>@' . date('H:i:s'), 'profile' ) ;
+    } 
+    else
+    {
+        pushClaroMessage ( $line . '</tt>@ (+ ' . (sprintf('%01.4f',microtime() -$start )) . 'ms)', 'profile' ) ;
+    }
 }
 ?>
