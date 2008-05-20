@@ -318,17 +318,17 @@ if ( $cmd == 'exDownload' )
             }
             else
             {
-                $message = get_lang('Not found');
+                $dialogBox->error( get_lang('Not found') );
             }
         }
         else
         {
-            $message = get_lang('Not allowed');
+            $dialogBox->error( get_lang('Not allowed') );
         }
     }
     else
     {
-        $message = get_lang('Not found');
+        $dialogBox->error( get_lang('Not found') );
     }
 
     // Submission not found or not allowed
@@ -337,7 +337,7 @@ if ( $cmd == 'exDownload' )
     $interbredcrump[]= array ('url' => "../work/work.php", 'name' => get_lang('Assignments'));
     $interbredcrump[]= array ('url' => "../work/workList.php?authId=".$_REQUEST['authId']."&amp;assigId=".$assignmentId, 'name' => get_lang('Assignment'));
     include get_path('incRepositorySys')  . '/claro_init_header.inc.php';
-    echo claro_html_message_box($message);
+    echo $dialogBox->render();
     include get_path('incRepositorySys')  . '/claro_init_footer.inc.php';
     die();
 }
