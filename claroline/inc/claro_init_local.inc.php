@@ -1,10 +1,14 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
 
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2008 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -914,5 +918,3 @@ if (isset($_cid) && $_courseTool['label'])
     if ( claro_is_in_a_course() && file_exists(get_conf('coursesRepositorySys') . $_course['path'] . '/conf/' . $config_code . '.conf.php'))
         require get_conf('coursesRepositorySys') . $_course['path'] . '/conf/' . $config_code . '.conf.php';
 }
-
-?>

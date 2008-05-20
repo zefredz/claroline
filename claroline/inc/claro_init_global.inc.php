@@ -1,9 +1,19 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
-// Prevent direct call of this file from the web
-// NOTE. The use of PHP_SELF is not appropriate in this case
-// as PHP_SELF can also contain the path info ...
 
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
+
+/**
+ * CLAROLINE
+ *
+ * @version     1.9 $Revision$
+ * @copyright   2001-2008 Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package     CLKERNEL
+ * @author      Claro Team <cvs@claroline.net>
+ */
 
 // The CLARO_INCLUDE_ALLOWED constant allows to include PHP file further in the
 // code. Files which are meant to be included check if this constant is defined.
@@ -352,5 +362,3 @@ if ( claro_is_in_a_course() && get_conf('enableRssInCourse', true) )
     $claroline->display->header->addHtmlHeader('<link rel="alternate" type="application/rss+xml" title="' . htmlspecialchars($_course['name'] . ' - ' . get_conf('siteName')) . '"'
     .' href="' . get_path('url') . '/claroline/backends/rss.php?cidReq=' . claro_get_current_course_id() . '" />' );
 }
-
-?>
