@@ -1,5 +1,7 @@
 <?php // $Id$
+
 if ( count( get_included_files() ) == 1 ) die( '---' );
+
 /**
  * CLAROLINE
  *
@@ -7,16 +9,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.9 $Revision$
  *
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
- *
+ * @copyright 2001-2008 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
  * @package Kernel
- *
  * @author Claro Team <cvs@claroline.net>
  * @author Mathieu Laurent <laurent@cerdecam.be>
  * @author Sebastien Piraux <piraux@cerdecam.be>
- *
  */
 
 require_once dirname(__FILE__) . '/backlog.class.php';
@@ -440,7 +438,7 @@ class ClaroCourse
 
             . $this->getHtmlParamList('POST')
 
-        	. '<table cellpadding="3" border="0">' . "\n" ;
+            . '<table cellpadding="3" border="0">' . "\n" ;
 
         // Course title
 
@@ -698,7 +696,7 @@ class ClaroCourse
         {
             foreach ( $this->htmlParamList as $name => $value )
             {
-	    		$html .= '<input type="hidden" name="' . htmlspecialchars($name) . '" value="' . htmlspecialchars($value) . '" />' . "\n" ;
+                $html .= '<input type="hidden" name="' . htmlspecialchars($name) . '" value="' . htmlspecialchars($value) . '" />' . "\n" ;
             }
         }
         else // GET
@@ -838,5 +836,3 @@ class ClaroCourse
         return $url;
     }
 }
-
-?>

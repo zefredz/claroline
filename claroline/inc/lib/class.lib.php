@@ -1,19 +1,17 @@
 <?php // $Id$
+
 if ( count( get_included_files() ) == 1 ) die( '---' );
+
 /**
  * CLAROLINE
  *
  * Library for class
  *
- * @version 1.8 $Revision$
- *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)c
- *
+ * @version 1.9 $Revision$
+ * @copyright 2001-2008 Universite catholique de Louvain (UCL)c
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
  * @author Claro Team <cvs@claroline.net>
  * @author Guillaume Lederer <guillaume@claroline.net>
- *
  * @since 1.6
  */
 
@@ -1132,6 +1130,3 @@ function get_class_list_by_course($courseId)
         ORDER BY C.`name`";
     return claro_sql_query_fetch_all($sql);
 }
-
-
-?>

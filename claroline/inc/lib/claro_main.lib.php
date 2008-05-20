@@ -1,5 +1,7 @@
 <?php // $Id$
+
 if ( count( get_included_files() ) == 1 ) die( '---' );
+
 /**
  * CLAROLINE
  *
@@ -7,13 +9,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * This is not a thematic lib
  *
  * @version 1.9 $Revision$
- *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
- *
+ * @copyright (c) 2001-2008 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
  * @author see 'credits' file
- *
  * @package KERNEL
  *
  */
