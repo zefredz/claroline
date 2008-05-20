@@ -1203,18 +1203,19 @@ if( $is_allowedToSubmit )
                     // Secure download
                     $file = $submitGroupWorkUrl;
 
+                    // FIXME : secureDocumentDownload ?
                     if ( $GLOBALS['is_Apache'] && get_conf('secureDocumentDownload') )
                     {
-                        $groupWorkUrl = 'goto/index.php'.str_replace('%2F', '/', rawurlencode($file)) . '?cidReq=' . urlencode(claro_get_current_course_id()).'&amp;gidReq=' . claro_get_current_group_id();
+                        $groupWorkUrl = 'backends/download.php'.str_replace('%2F', '/', rawurlencode($file)) . '?cidReq=' . urlencode(claro_get_current_course_id()).'&amp;gidReq=' . claro_get_current_group_id();
                     }
                     else
                     {
-                        $groupWorkUrl = 'goto/?url=' . rawurlencode($file) . '&amp;cidReq=' . urlencode(claro_get_current_course_id()).'&amp;gidReq=' . claro_get_current_group_id();
+                        $groupWorkUrl = 'backends/download.php?url=' . rawurlencode($file) . '&amp;cidReq=' . urlencode(claro_get_current_course_id()).'&amp;gidReq=' . claro_get_current_group_id();
                     }
 
                     echo '<td>'
                         .'<input type="hidden" name="submitGroupWorkUrl" value="'.htmlspecialchars($submitGroupWorkUrl).'" />'
-                        .'<a href="' . get_conf('urlAppend')  . '/claroline/document/'. $groupWorkUrl .'">'.basename($file).'</a>'
+                        .'<a href="' . get_path('clarolineRepositoryWeb') . $groupWorkUrl .'">'.basename($file).'</a>'
                         .'</td>'."\n";
                 }
                 else
