@@ -3,6 +3,13 @@
  * The miss named class bufferize dock output.
  * Docks areone of the module type aivailable in claroline
  *
+ *
+ * @version     1.9 $Revision$
+ * @copyright   2001-2008 Universite catholique de Louvain (UCL)
+ * @author      Claroline Team <info@claroline.net>
+ * @license     http://www.gnu.org/copyleft/gpl.html
+ *              GNU GENERAL PUBLIC LICENSE version 2 or later
+ * @package     KERNEL
  */
 if ( count( get_included_files() ) == 1 ) die( '---' );
 
@@ -182,4 +189,3 @@ class Dock
         return $claro_buffer->getContent();
     }
 }
-?>
