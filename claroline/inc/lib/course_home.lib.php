@@ -1,16 +1,17 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
+
 /**
  * CLAROLINE
  *
  * @version 1.8 $Revision$
- *
  * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
- *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
  * @package CLHOME
- *
  * @author Claro Team <cvs@claroline.net>
  */
 
@@ -360,28 +361,3 @@ function move_course_tool($reqToolId, $moveDirection)
         } // end foreach toolList as thisTool
     } // end if sortDirection
 }
-
-
-
-//////////////////////////////////////////////////////////////////////////////
-
-//insert_course_tool('CLDOC');
-//insert_course_tool('CLDOC');
-//insert_course_tool('CLXXX');
-//echo  get_next_course_tool_rank();
-//set_course_visibility(2,true);
-//enable_course_tool(2);
-//insert_local_course_tool('yahoo', 'http://www.yahoo.com');
-//delete_course_tool(10);
-//set_local_course_tool(9, 'IPM', 'http://www.ipm/ucl.ac.be');
-//move_down_course_tool(9);
-
-//$toolList = get_course_tool_list('ALL');
-//
-//// DEBUG START ------------------------------
-//echo "\n<pre style='color:red;font-weight:bold'>";
-//var_dump($toolList);
-//echo "</pre>";
-//// DEBUG END ------------------------------
-
-?>

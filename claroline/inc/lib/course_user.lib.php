@@ -1,18 +1,19 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
+
 /**
  * CLAROLINE
  *
  * Course user library contains function to manage users registration and properties in course
  *
  * @version 1.9 $Revision$
- *
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
- *
+ * @copyright 2001-2008 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
  * @package CLUSR
- *
  * @author Claro Team <cvs@claroline.net>
  * @author Christophe Gesché <moosh@claroline.net>
  * @author Mathieu Laurent <laurent@cerdecam.be>
@@ -615,17 +616,17 @@ function course_user_html_form ( $data, $courseId, $userId, $hiddenParam = null 
  */
 function claro_get_course_user_list($courseId = NULL)
 {
-	if($courseId == NULL)
-	{
-		$courseId = claro_get_current_course_id();
-	}
-	
-	$tbl_mdb_names = claro_sql_get_main_tbl();
+    if($courseId == NULL)
+    {
+        $courseId = claro_get_current_course_id();
+    }
+    
+    $tbl_mdb_names = claro_sql_get_main_tbl();
 
-	$tbl_rel_course_user = $tbl_mdb_names['rel_course_user'  ];
-	$tbl_users           = $tbl_mdb_names['user'             ];
-	
-	$sqlGetUsers = "SELECT `user`.`user_id`      AS `user_id`,
+    $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'  ];
+    $tbl_users           = $tbl_mdb_names['user'             ];
+    
+    $sqlGetUsers = "SELECT `user`.`user_id`      AS `user_id`,
                        `user`.`nom`          AS `nom`,
                        `user`.`prenom`       AS `prenom`,
                        `user`.`email`        AS `email`,
@@ -637,7 +638,6 @@ function claro_get_course_user_list($courseId = NULL)
                     `" . $tbl_rel_course_user . "` AS course_user
                WHERE `user`.`user_id`=`course_user`.`user_id`
                AND   `course_user`.`code_cours`='" . addslashes($courseId) . "'";
-	
-	return claro_sql_query_fetch_all_rows($sqlGetUsers);
+    
+    return claro_sql_query_fetch_all_rows($sqlGetUsers);
 }
-?>

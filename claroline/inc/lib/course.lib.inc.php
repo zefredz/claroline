@@ -1,21 +1,20 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
+
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
- *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
- *
+ * @version 1.9 $Revision$
+ * @copyright (c) 2001-2008 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
  * @see http://www.claroline.net/wiki/CLCRS/
- *
  * @package COURSE
- *
- * @author Claro Team <cvs@claroline.net>
- * @author Muret Benoît <muret_ben@hotmail.com>
- *
+ * @author  Claro Team <cvs@claroline.net>
+ * @author  Muret Benoît <muret_ben@hotmail.com>
  */
 
 /**
@@ -311,14 +310,13 @@ function claro_get_course_manager_id($cid = NULL)
      $tableName = get_module_main_tbl(array('cours_user'));
      
     $sql = "SELECT user_id "
-    		. " FROM `". $tableName['cours_user']."`"
-    		. " WHERE code_cours='".claro_sql_escape($cid)."'"
-    		.    " AND isCourseManager = 1"
-    		;
+            . " FROM `". $tableName['cours_user']."`"
+            . " WHERE code_cours='".claro_sql_escape($cid)."'"
+            .    " AND isCourseManager = 1"
+            ;
     
     $result = claro_sql_query_fetch_all_cols($sql);
     
     return $result['user_id'];
     
 }
-?>

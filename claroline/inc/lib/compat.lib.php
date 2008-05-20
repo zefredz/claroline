@@ -1,18 +1,19 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
+
 /**
- * CLAROLINE
- *
  * PHP COMPAT For PHP backward compatibility
  *
- * @version 1.8 $Revision$
- *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @author see 'credits' file
- *
+ * @version     1.9 $Revision$
+ * @copyright   2001-2008 Universite catholique de Louvain (UCL)
+ * @author      Claroline Team <info@claroline.net>
+ * @license     http://www.gnu.org/copyleft/gpl.html
+ *              GNU GENERAL PUBLIC LICENSE version 2 or later
+ * @package     KERNEL
  */
 
 /**
@@ -317,28 +318,27 @@ if ( !function_exists('htmlspecialchars_decode') )
  */
 if(!function_exists("iconv"))
 {
-	function iconv($from, $to, $string)
-	{
-		$from = strtoupper($from);
-		$to = strtoupper($to);
+    function iconv($from, $to, $string)
+    {
+        $from = strtoupper($from);
+        $to = strtoupper($to);
 
-		if( $from == $to ) return $string;
+        if( $from == $to ) return $string;
 
-		// use native functions when possible
-		if( $from == 'ISO-8859-1' && $to == 'UTF-8' )
-		{
-			$converted = utf8_encode($string);
-		}
-		elseif( $from == 'UTF-8' && $to == 'ISO-8859-1' )
-		{
-			$converted = utf8_decode($string);
-		}
-		else
-		{
-	    	$converted = htmlentities($string, ENT_NOQUOTES, $from);
-	    	$converted = html_entity_decode($converted, ENT_NOQUOTES, $to);
-		}
-    	return $converted;
-	}
+        // use native functions when possible
+        if( $from == 'ISO-8859-1' && $to == 'UTF-8' )
+        {
+            $converted = utf8_encode($string);
+        }
+        elseif( $from == 'UTF-8' && $to == 'ISO-8859-1' )
+        {
+            $converted = utf8_decode($string);
+        }
+        else
+        {
+            $converted = htmlentities($string, ENT_NOQUOTES, $from);
+            $converted = html_entity_decode($converted, ENT_NOQUOTES, $to);
+        }
+        return $converted;
+    }
 }
-?>

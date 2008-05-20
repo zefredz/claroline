@@ -1,19 +1,23 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
-/*
-+----------------------------------------------------------------------+
-| CLAROLINE 1.6                                                        |
-+----------------------------------------------------------------------+
-| Copyright (c) 2001-2006 Universite catholique de Louvain (UCL)      |
-+----------------------------------------------------------------------+
-|   This program is free software; you can redistribute it and/or
-|   modify it under the terms of the GNU General Public License
-|   as published by the Free Software Foundation; either version 2
-|   of the License, or (at your option) any later version.
-+----------------------------------------------------------------------+
-| Authors: Sébastien Piraux
-+----------------------------------------------------------------------+
-*/
+
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
+
+/**
+ * CLAROLINE
+ *
+ * CSV class
+ *
+ * @version 1.9 $Revision$
+ * @copyright (c) 2001-2008 Universite catholique de Louvain (UCL)
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package KERNEL
+ * @author Claro Team <cvs@claroline.net>
+ */
+
+
 class csv
 {
     var $separator; // ; or ,
@@ -85,5 +89,3 @@ class csv
         else                        return "";
     }
 }
-
-?>

@@ -1,21 +1,19 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
-//----------------------------------------------------------------------
-// CLAROLINE 1.6
-//----------------------------------------------------------------------
-// Copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
-//----------------------------------------------------------------------
-// This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
-// as published by the FREE SOFTWARE FOUNDATION. The GPL is available
-// through the world-wide-web at http://www.gnu.org/copyleft/gpl.html
-//----------------------------------------------------------------------
-// Authors: see 'credits' file
-//----------------------------------------------------------------------
+
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
 
 /**
+ * Tree class
  *
- *
- *
+ * @version     1.9 $Revision$
+ * @copyright   2001-2008 Universite catholique de Louvain (UCL)
+ * @author      Claroline Team <info@claroline.net>
+ * @license     http://www.gnu.org/copyleft/gpl.html
+ *              GNU GENERAL PUBLIC LICENSE version 2 or later
+ * @package     KERNEL
  */
 
 class Tree
@@ -375,5 +373,3 @@ class Tree
     }
 
 }
-
-?>

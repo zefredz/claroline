@@ -1,24 +1,23 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
+
 /**
  * CLAROLINE
  *
  * Config lib contain function to manage conf file
  *
  * @version 1.8 $Revision$
- *
  * @copyright 2001-2006 Universite catholique de Louvain (UCL)
- *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/config_def/
- *
+ * @see     http://www.claroline.net/wiki/config_def/
  * @package CONFIG
- *
- * @author Claro Team <cvs@claroline.net>
- * @author Christophe Gesché <moosh@claroline.net>
- * @author Mathieu Laurent <laurent@cerdecam.be>
- *
+ * @author  Claro Team <cvs@claroline.net>
+ * @author  Christophe Gesché <moosh@claroline.net>
+ * @author  Mathieu Laurent <laurent@cerdecam.be>
  */
 
 require_once dirname(__FILE__) . '/config.class.php';

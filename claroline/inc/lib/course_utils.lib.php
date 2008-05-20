@@ -1,20 +1,19 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
+
 /**
  * CLAROLINE
- *
- * @version 1.8 $Revision$
- *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
- *
+ * 
+ * @version 1.9 $Revision$
+ * @copyright (c) 2001-2008 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
  * @see http://www.claroline.net/wiki/CLCRS/
- *
  * @package CLCRS
- *
  * @author Claro Team <cvs@claroline.net>
- *
  */
 
 /**
@@ -141,29 +140,28 @@ function get_course_tool_list($cid)
 
                            ORDER BY ctl.rank";
 
-            $result = claro_sql_query($sql)  or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
+        $result = claro_sql_query($sql)  or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);
 
-             while( $tlistData = mysql_fetch_array($result) )
-            {
-                $courseToolList[] = $tlistData;
-               }
+         while( $tlistData = mysql_fetch_array($result) )
+        {
+            $courseToolList[] = $tlistData;
+           }
 
-               $tmp = array();
+           $tmp = array();
 
-               foreach($courseToolList as $courseTool)
+           foreach($courseToolList as $courseTool)
+           {
+               if( isset($courseTool['label']) )
                {
-                   if( isset($courseTool['label']) )
-                   {
-                       $label = $courseTool['label'];
-                       $courseTool['name'] = $toolNameList[$label];
-                   }
-                   $tmp[] = $courseTool;
+                   $label = $courseTool['label'];
+                   $courseTool['name'] = $toolNameList[$label];
                }
+               $tmp[] = $courseTool;
+           }
 
-               $courseToolList = $tmp;
-               unset( $tmp );
-        }
-
-        return $courseToolList;
+           $courseToolList = $tmp;
+           unset( $tmp );
     }
-?>
+
+    return $courseToolList;
+}
