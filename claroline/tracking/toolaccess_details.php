@@ -107,10 +107,16 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
     .    '<tr>' . "\n"
     .    '<td>' . "\n"
     .    '<small>' . "\n"
-        .'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=month&amp;reqdate='.$reqdate.'">'.get_lang('Month').'</a>]'."\n"
-        .'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=week&amp;reqdate='.$reqdate.'">'.get_lang('Week').'</a>]'."\n"
-    .    '[<a href="' . $_SERVER['PHP_SELF'] . '?toolId=' . $toolId . '&amp;period=day&amp;reqdate='.$reqdate.'">'.get_lang('Day').'</a>]'."\n"
-        .'&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;'."\n";
+    .   '[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=month&amp;reqdate='.$reqdate.'">'
+    .   ( $period == 'month' ? '<strong>' . get_lang('Month') . '</strong>' : get_lang('Month') )
+    .   '</a>]'."\n"
+    .   '[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=week&amp;reqdate='.$reqdate.'">'
+    .   ( $period == 'week' ? '<strong>' . get_lang('Week') . '</strong>' : get_lang('Week') )
+    .   '</a>]'."\n"
+    .   '[<a href="' . $_SERVER['PHP_SELF'] . '?toolId=' . $toolId . '&amp;period=day&amp;reqdate='.$reqdate.'">'
+    .   ( $period == 'day' ? '<strong>' . get_lang('Day') . '</strong>' : get_lang('Day') )
+    .   '</a>]'."\n"
+    .   '&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;'."\n";
 
     switch($period)
     {
