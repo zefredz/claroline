@@ -21,9 +21,14 @@ function get_slashed_argument($completePath, $baseFile)
 
         $questionMarkPos = strpos($argument, '?');
 
-        if (is_int($questionMarkPos)) return substr($argument, 0, $questionMarkPos);
-        else                          return $argument;
-
+        if (is_int($questionMarkPos))
+        {
+            return substr($argument, 0, $questionMarkPos);
+        }
+        else
+        {
+            return $argument;
+        }
     }
     else
     {
@@ -90,8 +95,6 @@ function get_path_info()
     else
     {
         return urldecode( get_slashed_argument( get_request_uri(), 
-            'document/goto/index.php' ) );
+            'backends/download.php' ) );
     }
 }
-
-?>
