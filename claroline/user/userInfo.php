@@ -513,7 +513,7 @@ elseif ($displayMode == "viewContentList") // default display
             .    '<a href="' . $_SERVER['PHP_SELF']
             .    '?editMainUserInfo=' . $userIdViewed
             .    claro_url_relay_context('&amp;') . '">'
-            .    '<img border="0" alt="'.get_lang('Edit').'" src="' . get_path('imgRepositoryWeb') . 'edit.gif" />'
+            .    '<img alt="'.get_lang('Edit').'" src="' . get_icon_url('edit') . '" />'
             .    '</a>'
             .    '</td>' . "\n"
             ;
@@ -526,7 +526,7 @@ elseif ($displayMode == "viewContentList") // default display
             .    '<a href="' . get_path('clarolineRepositoryWeb') . 'tracking/userReport.php'
             .    '?userId=' . $userIdViewed
             .    claro_url_relay_context('&amp;') . '">'
-            .    '<img border="0" alt="' . get_lang('Tracking') . '" src="' . get_path('imgRepositoryWeb') . 'statistics.gif" />'
+            .    '<img alt="' . get_lang('Tracking') . '" src="' . get_icon_url('statistics') . '" />'
             .    '</a>'
             .    '</td>' . "\n"
             ;
@@ -592,7 +592,7 @@ elseif ($displayMode == "viewContentList") // default display
                 .    '?editContent=' . $thisCat['catId']
                 .    '&amp;uInfo=' . $userIdViewed
                 .    claro_url_relay_context('&amp;') . '">'
-                .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="' . get_lang('Edit') . '" />'
+                .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Edit') . '" />'
                 .    '</a>' . "\n"
                 ;
             }
