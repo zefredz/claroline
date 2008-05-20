@@ -979,7 +979,7 @@ function user_html_form($data, $form_type='registration')
         else
         {
             $html .= form_input_file( 'picture', get_lang('User picture'), false );
-            $html .= form_row( '&nbsp;', '<img class="userPicture" src="'.get_icon_url('nopicture').'" />');
+            // $html .= form_row( '&nbsp;', '<img class="userPicture" src="'.get_icon_url('nopicture').'" />');
             $html .= form_row( '&nbsp;'
                 , '<small>'.get_lang("max size %width%x%height%, %size% bytes"
                     , array(
