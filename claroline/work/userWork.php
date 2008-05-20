@@ -1231,82 +1231,83 @@ if( $is_allowedToSubmit )
 
             if( $assignmentContent == "FILE" && !$is_feedback )
             {
-                  // display standard html textarea
-                  // used for description of an uploaded file
-                  echo '<tr>'."\n"
-                        .'<td valign="top">'
-                        .'<label for="wrkTxt">'
-                        .get_lang('File description')
-                        .'&nbsp;:<br /></label></td>'
-                        .'<td>'."\n"
-                        .'<textarea name="wrkTxt" cols="40" rows="10">'.$form['wrkTxt'].'</textarea>'
-                        .'</td>'."\n"
-                        .'</tr>'."\n\n";
+                // display standard html textarea
+                // used for description of an uploaded file
+                echo '<tr>'."\n"
+                .    '<td valign="top">'
+                .    '<label for="wrkTxt">'
+                .    get_lang('File description')
+                .    '&nbsp;:<br /></label></td>'
+                .    '<td>'."\n"
+                .    '<textarea name="wrkTxt" cols="40" rows="10">'.$form['wrkTxt'].'</textarea>'
+                .    '</td>'."\n"
+                .    '</tr>'."\n\n";
             }
             elseif( $assignmentContent == "TEXT" || $assignmentContent == "TEXTFILE" || $is_feedback )
             {
-                  // display enhanced textarea using claro_html_textarea_editor
-                  echo '<tr>'."\n"
-                        .'<td valign="top">'
-                        .'<label for="wrkTxt">'
-                        .get_lang('Answer')
-                        .'&nbsp;*&nbsp;:</label></td>'."\n"
-                        .'<td>'
-                        .claro_html_textarea_editor('wrkTxt', $form['wrkTxt'])
-                        .'</td>'."\n"
-                        .'</tr>'."\n\n";
+                // display enhanced textarea using claro_html_textarea_editor
+                echo '<tr>'."\n"
+                .    '<td valign="top">'
+                .    '<label for="wrkTxt">'
+                .    get_lang('Answer')
+                .    '&nbsp;*&nbsp;:</label></td>'."\n"
+                .    '<td>'
+                .    claro_html_textarea_editor('wrkTxt', $form['wrkTxt'])
+                .    '</td>'."\n"
+                .    '</tr>'."\n\n";
             }
 
             if( $is_feedback )
             {
                 echo '<tr>'."\n"
-                        .'<td valign="top">'
-                        .'<label for="wrkPrivFbk">'
-                        .get_lang('Private feedback')
-                        .'&nbsp;:<br />'
-                        .'<small>'.get_lang('Course administrator only').'</small>'
-                        .'</label></td>'
-                        .'<td>'."\n"
-                        .'<textarea name="wrkPrivFbk" cols="40" rows="10">'.$form['wrkPrivFbk'].'</textarea>'
-                        .'</td>'."\n"
-                        .'</tr>'."\n\n";
-                  // if this is a correction we have to add an input for the score/grade/results/points
-                  $wrkScoreField = '<select name="wrkScore" id="wrkScore">'."\n"
+                .    '<td valign="top">'
+                .    '<label for="wrkPrivFbk">'
+                .    get_lang('Private feedback')
+                .    '&nbsp;:<br />'
+                .    '<small>'.get_lang('Course administrator only').'</small>'
+                .    '</label></td>'
+                .    '<td>'."\n"
+                .    '<textarea name="wrkPrivFbk" cols="40" rows="10">'.$form['wrkPrivFbk'].'</textarea>'
+                .    '</td>'."\n"
+                .    '</tr>'."\n\n";
+                
+                // if this is a correction we have to add an input for the score/grade/results/points
+                $wrkScoreField = '<select name="wrkScore" id="wrkScore">'."\n"
                                     .'<option value="-1"';
-                  // add selected attribute if needed
-                  if( $form['wrkScore'] == -1 )
-                  {
-                        $wrkScoreField .= ' selected="selected"';
-                  }
-                  $wrkScoreField .= '>'.get_lang('No score').'</option>'."\n";
+                // add selected attribute if needed
+                if( $form['wrkScore'] == -1 )
+                {
+                    $wrkScoreField .= ' selected="selected"';
+                }
+                $wrkScoreField .= '>'.get_lang('No score').'</option>'."\n";
 
-                  for($i=0;$i <= 100; $i++)
-                  {
-                        $wrkScoreField .= '<option value="'.$i.'"';
-                        if($i == $form['wrkScore'])
-                        {
-                            $wrkScoreField .= ' selected="selected"';
-                        }
-                        $wrkScoreField .= '>'.$i.'</option>'."\n";
-                  }
-                  $wrkScoreField .= '</select> %';
-                  echo '<tr>'."\n"
-                        .'<td valign="top"><label for="wrkScore">'.get_lang('Score').'&nbsp;&nbsp;:</label></td>'."\n"
-                        .'<td>'
-                        .$wrkScoreField
-                        .'</td>'
-                        .'</tr>'."\n\n";
+                for($i=0;$i <= 100; $i++)
+                {
+                    $wrkScoreField .= '<option value="'.$i.'"';
+                    if($i == $form['wrkScore'])
+                    {
+                        $wrkScoreField .= ' selected="selected"';
+                    }
+                    $wrkScoreField .= '>'.$i.'</option>'."\n";
+                }
+                $wrkScoreField .= '</select> %';
+                echo '<tr>'."\n"
+                .    '<td valign="top"><label for="wrkScore">'.get_lang('Score').'&nbsp;&nbsp;:</label></td>'."\n"
+                .    '<td>'
+                .    $wrkScoreField
+                .    '</td>'
+                .    '</tr>'."\n\n";
             }
 
             echo '<tr>'."\n"
-                    .'<td>&nbsp;</td>'."\n"
-                    .'<td>'
-                    .'<input type="submit" name="submitWrk" value="'.get_lang('Ok').'" />'."\n"
-                    .'</td>'."\n"
-                    .'</tr>'."\n\n"
-                    .'</table>'."\n\n"
-                    .'</form>'
-                    .'<small>* : '.get_lang('Required').'</small>';
+            .    '<td>&nbsp;</td>'."\n"
+            .    '<td>'
+            .    '<input type="submit" name="submitWrk" value="'.get_lang('Ok').'" />'."\n"
+            .    '</td>'."\n"
+            .    '</tr>'."\n\n"
+            .    '</table>'."\n\n"
+            .    '</form>'
+            .    '<small>* : '.get_lang('Required').'</small>';
       }
 }
 
@@ -1456,17 +1457,17 @@ if( $dispWrkLst )
             // title (and edit links)
             echo '<div class="'. $visStyle . $style .'">' . "\n"
             
-            .     '<h4 '. ( !$is_feedback ? 'class="header"':'') . '>' . "\n"
+            .    '<h4 '. ( !$is_feedback ? 'class="header"':'') . '>' . "\n"
             .    $thisWrk['title'] . "\n"
             .    '</h4>' . "\n"
             ;
 
             // author
             echo '<div class="workInfo">' . "\n"
-            .      '<span class="workInfoTitle">' . get_lang('Author(s)') . '&nbsp;: </span>' . "\n"
-            .     '<div class="workInfoValue">' . "\n"
-            .     $thisWrk['authors'] . "\n"
-            .     '</div>' . "\n"
+            .    '<span class="workInfoTitle">' . get_lang('Author(s)') . '&nbsp;: </span>' . "\n"
+            .    '<div class="workInfoValue">' . "\n"
+            .    $thisWrk['authors'] . "\n"
+            .    '</div>' . "\n"
             .    '</div>' . "\n\n"
             ;
 
@@ -1475,10 +1476,10 @@ if( $dispWrkLst )
             {
                 // display group if this is a group assignment and if this is not a correction
                 echo '<div class="workInfo">' . "\n"
-                .      '<span class="workInfoTitle">' . get_lang('Group') . '&nbsp;: </span>' . "\n" 
-                .     '<div class="workInfoValue">' . "\n"
-                .     $allGroupList[$thisWrk['group_id']]['name'] . "\n"
-                .     '</div>' . "\n"
+                .    '<span class="workInfoTitle">' . get_lang('Group') . '&nbsp;: </span>' . "\n" 
+                .    '<div class="workInfoValue">' . "\n"
+                .    $allGroupList[$thisWrk['group_id']]['name'] . "\n"
+                .    '</div>' . "\n"
                 .    '</div>' . "\n\n"
                 ;
             }
@@ -1491,28 +1492,28 @@ if( $dispWrkLst )
                     $target = ( get_conf('open_submitted_file_in_new_window') ? 'target="_blank"' : '');
                     // show file if this is not a TEXT only work
                     echo '<div class="workInfo">' . "\n"
-                    .      '<span class="workInfoTitle">' . $txtForFile . '&nbsp;: </span>' . "\n" 
-                    .     '<div class="workInfoValue">' . "\n"
-                    .     '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDownload'
-                    .     '&amp;authId=' . $_REQUEST['authId']
-                    .     '&amp;assigId=' . $assignmentId
-                    .     '&amp;workId=' . $thisWrk['id']
-                    .     '&amp;cidReq=' . claro_get_current_course_id(). '" ' . $target . '>' . "\n"
-                    .      $thisWrk['submitted_doc_path'] . "\n"
-                    .     '<img src="' . get_icon_url('download') . '" alt="'.get_lang('Download').'" />' . "\n"
-                    .      '</a>' . "\n"
-                    .      '<small>(' . format_file_size(claro_get_file_size($assignment->getAssigDirSys().$thisWrk['submitted_doc_path'])) . ')</small>'
-                    .     '</div>' . "\n"
+                    .    '<span class="workInfoTitle">' . $txtForFile . '&nbsp;: </span>' . "\n" 
+                    .    '<div class="workInfoValue">' . "\n"
+                    .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDownload'
+                    .    '&amp;authId=' . $_REQUEST['authId']
+                    .    '&amp;assigId=' . $assignmentId
+                    .    '&amp;workId=' . $thisWrk['id']
+                    .    '&amp;cidReq=' . claro_get_current_course_id(). '" ' . $target . '>' . "\n"
+                    .    $thisWrk['submitted_doc_path'] . "\n"
+                    .    '<img src="' . get_icon_url('download') . '" alt="'.get_lang('Download').'" />' . "\n"
+                    .    '</a>' . "\n"
+                    .    '<small>(' . format_file_size(claro_get_file_size($assignment->getAssigDirSys().$thisWrk['submitted_doc_path'])) . ')</small>'
+                    .    '</div>' . "\n"
                     .    '</div>' . "\n\n"
                 ;
                 }
                 else
                 {
                     echo '<div class="workInfo">' . "\n"
-                    .      '<span class="workInfoTitle">' . $txtForFile . '&nbsp;: </span>' . "\n"
-                    .     '<div class="workInfoValue">' . "\n" 
-                    .     get_lang('- none -') . "\n"
-                    .     '</div>' . "\n"
+                    .    '<span class="workInfoTitle">' . $txtForFile . '&nbsp;: </span>' . "\n"
+                    .    '<div class="workInfoValue">' . "\n" 
+                    .    get_lang('- none -') . "\n"
+                    .    '</div>' . "\n"
                     .    '</div>' . "\n\n"
                     ;
                 }
@@ -1520,10 +1521,10 @@ if( $dispWrkLst )
 
             // text
             echo '<div class="workInfo">' . "\n"
-            .     '<span class="workInfoTitle">' . $txtForText . '&nbsp;: </span>' . "\n"
-            .     '<div class="workInfoValue">' . "\n" 
-            .     '<blockquote>' . "\n" . $thisWrk['submitted_text'] . "\n" . '&nbsp;</blockquote>' . "\n"
-            .     '</div>' . "\n"
+            .    '<span class="workInfoTitle">' . $txtForText . '&nbsp;: </span>' . "\n"
+            .    '<div class="workInfoValue">' . "\n" 
+            .    '<blockquote>' . "\n" . $thisWrk['submitted_text'] . "\n" . '&nbsp;</blockquote>' . "\n"
+            .    '</div>' . "\n"
             .    '</div>' . "\n\n"
             ;
 
@@ -1533,28 +1534,28 @@ if( $dispWrkLst )
                 if( $is_allowedToEditAll )
                 {
                     echo '<div class="workInfo">' . "\n"
-                    .     '<span class="workInfoTitle">' . get_lang('Private feedback') . '&nbsp;: </span>' . "\n"
-                    .     '<div class="workInfoValue">' . "\n" 
-                    .     '<blockquote>' . "\n" . $thisWrk['private_feedback'] . "\n" . '&nbsp;</blockquote>' . "\n"
-                    .     '</div>' . "\n"
+                    .    '<span class="workInfoTitle">' . get_lang('Private feedback') . '&nbsp;: </span>' . "\n"
+                    .    '<div class="workInfoValue">' . "\n" 
+                    .    '<blockquote>' . "\n" . $thisWrk['private_feedback'] . "\n" . '&nbsp;</blockquote>' . "\n"
+                    .    '</div>' . "\n"
                     .    '</div>' . "\n\n"
                     ;
                 }
                 
                 // score
                 echo '<div class="workInfo">' . "\n" 
-                .     '<span class="workInfoTitle">' . get_lang('Score') . '&nbsp;: </span>' . "\n"
-                .     '<div class="workInfoValue">' . "\n"
-                .     ( ( $thisWrk['score'] == -1 ) ? get_lang('No score') : $thisWrk['score'].' %' )
-                .     '</div>' . "\n"
+                .    '<span class="workInfoTitle">' . get_lang('Score') . '&nbsp;: </span>' . "\n"
+                .    '<div class="workInfoValue">' . "\n"
+                .    ( ( $thisWrk['score'] == -1 ) ? get_lang('No score') : $thisWrk['score'].' %' )
+                .    '</div>' . "\n"
                 .    '</div>' . "\n\n"
                 ;
             }
             
             // submission date
             echo '<div class="workInfo">' . "\n" 
-            .     '<span class="workInfoTitle">' . get_lang('First submission date') . '&nbsp;: </span>' . "\n"
-            .     '<div class="workInfoValue">' . "\n"
+            .    '<span class="workInfoTitle">' . get_lang('First submission date') . '&nbsp;: </span>' . "\n"
+            .    '<div class="workInfoValue">' . "\n"
             .    claro_html_localised_date(get_locale('dateTimeFormatLong'), $thisWrk['unix_creation_date'])
             ;
 
