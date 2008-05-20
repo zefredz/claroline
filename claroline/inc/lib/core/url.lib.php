@@ -1,199 +1,198 @@
 <?php // $Id$
 
-    // vim: expandtab sw=4 ts=4 sts=4:
-    
-    if ( count( get_included_files() ) == 1 )
+// vim: expandtab sw=4 ts=4 sts=4:
+
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
+
+/**
+ * Url manipulation library
+ *
+ * @version     1.9 $Revision$
+ * @copyright   2001-2008 Universite catholique de Louvain (UCL)
+ * @author      Claroline Team <info@claroline.net>
+ * @author      Frederic Minne <zefredz@claroline.net>
+ * @license     http://www.gnu.org/copyleft/gpl.html
+ *              GNU GENERAL PUBLIC LICENSE version 2 or later
+ * @package     KERNEL
+ */
+
+/**
+ * Class to manipulate Urls
+ */
+class Url
+{
+    private $url = '';
+
+    /**
+     * Constructor
+     * @param   string url base url (use PHP_SELF if missing)
+     */
+    public function __construct( $url = '' )
     {
-        die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+        $url = htmlspecialchars_decode( $url );
+
+        $this->url = empty($url)
+            ? $_SERVER['PHP_SELF']
+            : $url
+            ;
+    }
+
+    /**
+     * Relay Claroline current context in urls
+     */
+    public function relayCurrentContext()
+    {
+        $paramToAdd = array();
+
+        if (claro_is_in_a_course())
+        {
+            $paramToAdd['cidReq'] = claro_get_current_course_id();
+        }
+
+        if (claro_is_in_a_group())
+        {
+            $paramToAdd['gidReq'] = claro_get_current_group_id();
+        }
+
+        $this->addParamList( $paramToAdd );
     }
     
     /**
-     * Url manipulation library
-     *
-     * @version     1.9 $Revision$
-     * @copyright   2001-2007 Universite catholique de Louvain (UCL)
-     * @author      Claroline Team <info@claroline.net>
-     * @author      Frederic Minne <zefredz@claroline.net>
-     * @license     http://www.gnu.org/copyleft/gpl.html
-     *              GNU GENERAL PUBLIC LICENSE version 2 or later
-     * @package     CORE
+     * Relay Claroline current context in urls
+     * @param   array context
      */
+    public function relayContext( $context )
+    {
+        $paramToAdd = array();
+
+        if ( array_key_exists( 'cid', $context ) )
+        {
+            $paramToAdd['cidReq'] = $context['cid'];
+        }
+
+        if ( array_key_exists( 'gid', $context ) )
+        {
+            $paramToAdd['gidReq'] = $context['gid'];
+        }
+
+        $this->addParamList( $paramToAdd );
+    }
 
     /**
-     * Class to manipulate Urls
+     * Add a list of parameters to the current url
+     * @param   array paramList associative array of parameters name=>value
      */
-    class Url
+    public function addParamList( $paramList )
     {
-        private $url = '';
-
-        /**
-         * Constructor
-         * @param   string url base url (use PHP_SELF if missing)
-         */
-        public function __construct( $url = '' )
+        if ( !empty( $paramList ) && is_array( $paramList ) )
         {
-            $url = htmlspecialchars_decode( $url );
+            $paramListToAdd = array();
 
-            $this->url = empty($url)
-                ? $_SERVER['PHP_SELF']
-                : $url
-                ;
-        }
-
-        /**
-         * Relay Claroline current context in urls
-         */
-        public function relayCurrentContext()
-        {
-            $paramToAdd = array();
-
-            if (claro_is_in_a_course())
+            foreach ( $paramList as $name => $value )
             {
-                $paramToAdd['cidReq'] = claro_get_current_course_id();
-            }
-
-            if (claro_is_in_a_group())
-            {
-                $paramToAdd['gidReq'] = claro_get_current_group_id();
-            }
-
-            $this->addParamList( $paramToAdd );
-        }
-        
-        /**
-         * Relay Claroline current context in urls
-         * @param   array context
-         */
-        public function relayContext( $context )
-        {
-            $paramToAdd = array();
-
-            if ( array_key_exists( 'cid', $context ) )
-            {
-                $paramToAdd['cidReq'] = $context['cid'];
-            }
-
-            if ( array_key_exists( 'gid', $context ) )
-            {
-                $paramToAdd['gidReq'] = $context['gid'];
-            }
-
-            $this->addParamList( $paramToAdd );
-        }
-
-        /**
-         * Add a list of parameters to the current url
-         * @param   array paramList associative array of parameters name=>value
-         */
-        public function addParamList( $paramList )
-        {
-            if ( !empty( $paramList ) && is_array( $paramList ) )
-            {
-                $paramListToAdd = array();
-
-                foreach ( $paramList as $name => $value )
+                if ( !preg_match( '/%\d\d/', $value ) )
                 {
-                    if ( !preg_match( '/%\d\d/', $value ) )
-                    {
-                        $value = rawurlencode( $value );
-                    }
-
-                    $paramListToAdd[] = "$name=$value";
+                    $value = rawurlencode( $value );
                 }
 
-                $paramListToAdd = implode ( '&', $paramListToAdd );
-
-                if ( strpos ( $this->url, '?' ) === false )
-                {
-                    $this->url .= '?' . $paramListToAdd;
-                }
-                else
-                {
-                    $this->url .= '&' . $paramListToAdd;
-                }
-            }
-        }
-
-        /**
-         * Add one parameter to the current url
-         * @param   string name parameter name
-         * @param   string value parameter value
-         */
-        public function addParam( $name, $value )
-        {
-            if ( !preg_match( '/%\d\d/', $value ) )
-            {
-                $value = rawurlencode( $value );
+                $paramListToAdd[] = "$name=$value";
             }
 
-            $paramToAdd = "$name=$value";
+            $paramListToAdd = implode ( '&', $paramListToAdd );
 
             if ( strpos ( $this->url, '?' ) === false )
             {
-                $this->url .= '?' . $paramToAdd;
+                $this->url .= '?' . $paramListToAdd;
             }
             else
             {
-                $this->url .= '&' . $paramToAdd;
+                $this->url .= '&' . $paramListToAdd;
             }
-        }
-
-        /**
-         * Replace the value of the given parameter with the given value
-         * @param   string name parameter name
-         * @param   string value parameter value
-         * @param   boolean addIfMissing add the parameter if missing (default false)
-         * @return  boolean true if replaced or added, else false
-         */
-        public function replaceParam( $name, $value, $addIfMissing = false )
-        {
-            if ( !preg_match( '/%\d\d/', $value ) )
-            {
-                $value = rawurlencode( $value );
-            }
-
-            if ( preg_match( "/(&|\?)($name=)([^&])+/", $this->url ) )
-            {
-                $this->url = preg_replace( "/(&|\?)($name=)([^&])+/", "$1$2$value", $this->url );
-
-                return true;
-            }
-            elseif ( $addIfMissing )
-            {
-                $this->addParam( $name, $value );
-
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        /**
-         * Remove the given parameter
-         * @param   string name parameter name
-         * @return  boolean true if removed, else false
-         */
-        public function removeParam( $name )
-        {
-            if ( preg_match( "/(&|\?)($name=)[^&]/", $this->url ) )
-            {
-                $this->url = preg_replace( "/&$name=[^&]*/", "", $this->url );
-                $this->url = preg_replace( "/\?$name=[^&]*/", "?", $this->url );
-                $this->url = str_replace( '?&', '?', $this->url );
-
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        public function toUrl()
-        {
-            return $this->url;
         }
     }
-?>
+
+    /**
+     * Add one parameter to the current url
+     * @param   string name parameter name
+     * @param   string value parameter value
+     */
+    public function addParam( $name, $value )
+    {
+        if ( !preg_match( '/%\d\d/', $value ) )
+        {
+            $value = rawurlencode( $value );
+        }
+
+        $paramToAdd = "$name=$value";
+
+        if ( strpos ( $this->url, '?' ) === false )
+        {
+            $this->url .= '?' . $paramToAdd;
+        }
+        else
+        {
+            $this->url .= '&' . $paramToAdd;
+        }
+    }
+
+    /**
+     * Replace the value of the given parameter with the given value
+     * @param   string name parameter name
+     * @param   string value parameter value
+     * @param   boolean addIfMissing add the parameter if missing (default false)
+     * @return  boolean true if replaced or added, else false
+     */
+    public function replaceParam( $name, $value, $addIfMissing = false )
+    {
+        if ( !preg_match( '/%\d\d/', $value ) )
+        {
+            $value = rawurlencode( $value );
+        }
+
+        if ( preg_match( "/(&|\?)($name=)([^&])+/", $this->url ) )
+        {
+            $this->url = preg_replace( "/(&|\?)($name=)([^&])+/", "$1$2$value", $this->url );
+
+            return true;
+        }
+        elseif ( $addIfMissing )
+        {
+            $this->addParam( $name, $value );
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    /**
+     * Remove the given parameter
+     * @param   string name parameter name
+     * @return  boolean true if removed, else false
+     */
+    public function removeParam( $name )
+    {
+        if ( preg_match( "/(&|\?)($name=)[^&]/", $this->url ) )
+        {
+            $this->url = preg_replace( "/&$name=[^&]*/", "", $this->url );
+            $this->url = preg_replace( "/\?$name=[^&]*/", "?", $this->url );
+            $this->url = str_replace( '?&', '?', $this->url );
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public function toUrl()
+    {
+        return $this->url;
+    }
+}
