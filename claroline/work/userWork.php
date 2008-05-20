@@ -1456,14 +1456,14 @@ if( $dispWrkLst )
             // title (and edit links)
             echo '<div class="'. $visStyle . $style .'">' . "\n"
             
-            .	 '<h4 '. ( !$is_feedback ? 'class="header"':'') . '>' . "\n"
+            .     '<h4 '. ( !$is_feedback ? 'class="header"':'') . '>' . "\n"
             .    $thisWrk['title'] . "\n"
             .    '</h4>' . "\n"
             ;
 
             // author
             echo '<div class="workInfo">' . "\n"
-            .	  '<span class="workInfoTitle">' . get_lang('Author(s)') . '&nbsp;: </span>' . "\n"
+            .      '<span class="workInfoTitle">' . get_lang('Author(s)') . '&nbsp;: </span>' . "\n"
             .     '<div class="workInfoValue">' . "\n"
             .     $thisWrk['authors'] . "\n"
             .     '</div>' . "\n"
@@ -1475,7 +1475,7 @@ if( $dispWrkLst )
             {
                 // display group if this is a group assignment and if this is not a correction
                 echo '<div class="workInfo">' . "\n"
-                .	  '<span class="workInfoTitle">' . get_lang('Group') . '&nbsp;: </span>' . "\n" 
+                .      '<span class="workInfoTitle">' . get_lang('Group') . '&nbsp;: </span>' . "\n" 
                 .     '<div class="workInfoValue">' . "\n"
                 .     $allGroupList[$thisWrk['group_id']]['name'] . "\n"
                 .     '</div>' . "\n"
@@ -1491,17 +1491,17 @@ if( $dispWrkLst )
                     $target = ( get_conf('open_submitted_file_in_new_window') ? 'target="_blank"' : '');
                     // show file if this is not a TEXT only work
                     echo '<div class="workInfo">' . "\n"
-                    .	  '<span class="workInfoTitle">' . $txtForFile . '&nbsp;: </span>' . "\n" 
+                    .      '<span class="workInfoTitle">' . $txtForFile . '&nbsp;: </span>' . "\n" 
                     .     '<div class="workInfoValue">' . "\n"
                     .     '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDownload'
                     .     '&amp;authId=' . $_REQUEST['authId']
                     .     '&amp;assigId=' . $assignmentId
                     .     '&amp;workId=' . $thisWrk['id']
                     .     '&amp;cidReq=' . claro_get_current_course_id(). '" ' . $target . '>' . "\n"
-                    .	  $thisWrk['submitted_doc_path'] . "\n"
-                    .     '<img src="' . get_path('imgRepositoryWeb') . 'download.gif" border="0" alt="'.get_lang('Download').'" />' . "\n"
-                    .	  '</a>' . "\n"
-                    .	  '<small>(' . format_file_size(claro_get_file_size($assignment->getAssigDirSys().$thisWrk['submitted_doc_path'])) . ')</small>'
+                    .      $thisWrk['submitted_doc_path'] . "\n"
+                    .     '<img src="' . get_icon_url('download') . '" alt="'.get_lang('Download').'" />' . "\n"
+                    .      '</a>' . "\n"
+                    .      '<small>(' . format_file_size(claro_get_file_size($assignment->getAssigDirSys().$thisWrk['submitted_doc_path'])) . ')</small>'
                     .     '</div>' . "\n"
                     .    '</div>' . "\n\n"
                 ;
@@ -1509,7 +1509,7 @@ if( $dispWrkLst )
                 else
                 {
                     echo '<div class="workInfo">' . "\n"
-                    .	  '<span class="workInfoTitle">' . $txtForFile . '&nbsp;: </span>' . "\n"
+                    .      '<span class="workInfoTitle">' . $txtForFile . '&nbsp;: </span>' . "\n"
                     .     '<div class="workInfoValue">' . "\n" 
                     .     get_lang('- none -') . "\n"
                     .     '</div>' . "\n"
@@ -1553,7 +1553,7 @@ if( $dispWrkLst )
             
             // submission date
             echo '<div class="workInfo">' . "\n" 
-            .	 '<span class="workInfoTitle">' . get_lang('First submission date') . '&nbsp;: </span>' . "\n"
+            .     '<span class="workInfoTitle">' . get_lang('First submission date') . '&nbsp;: </span>' . "\n"
             .     '<div class="workInfoValue">' . "\n"
             .    claro_html_localised_date(get_locale('dateTimeFormatLong'), $thisWrk['unix_creation_date'])
             ;
@@ -1561,11 +1561,11 @@ if( $dispWrkLst )
             // display an alert if work was submitted after end date and work is not a correction !
             if( $assignment->getEndDate() < $thisWrk['unix_creation_date'] && !$is_feedback )
             {
-                  echo ' <img src="' . get_path('imgRepositoryWeb') . 'caution.gif" border="0" alt="'.get_lang('Late upload').'" />';
+                  echo ' <img src="' . get_icon_url('caution') . '" alt="'.get_lang('Late upload').'" />';
             }
 
             echo '</div>' . "\n" 
-            .	'</div>' . "\n\n";
+            .    '</div>' . "\n\n";
             
             // last edit date
             if( $thisWrk['unix_creation_date'] != $thisWrk['unix_last_edit_date'] )
@@ -1578,11 +1578,11 @@ if( $dispWrkLst )
                 // display an alert if work was submitted after end date and work is not a correction !
                 if( $assignment->getEndDate() < $thisWrk['unix_last_edit_date'] && !$is_feedback )
                 {
-                    echo ' <img src="' . get_path('imgRepositoryWeb') . 'caution.gif" border="0" alt="'.get_lang('Late upload').'" />';
+                    echo ' <img src="' . get_icon_url('caution') . '" alt="'.get_lang('Late upload').'" />';
                 }
 
                 echo '</div>' . "\n" 
-                .	'</div>' . "\n\n";
+                .    '</div>' . "\n\n";
             }
             
             // commands
@@ -1596,7 +1596,7 @@ if( $dispWrkLst )
                 .    '?authId=' . $_REQUEST['authId']
                 .    '&amp;assigId='.$assignmentId
                 .    '&amp;cmd=rqEditWrk&amp;wrkId=' . $thisWrk['id'] . '">'
-                .    '<img src="' . get_path('imgRepositoryWeb') . 'edit.gif" border="0" alt="'.get_lang('Modify').'" />'
+                .    '<img src="' . get_icon_url('edit') . '" alt="'.get_lang('Modify').'" />'
                 .    '</a>' . "\n"
                 ;
             }
@@ -1609,7 +1609,7 @@ if( $dispWrkLst )
                 .    '&amp;assigId=' . $assignmentId
                 .    '&amp;wrkId=' . $thisWrk['id'] . '" '
                 .    'onclick="return confirmation(\'' . clean_str_for_javascript($thisWrk['title']) . '\');">'
-                .    '<img src="' . get_path('imgRepositoryWeb') . 'delete.gif" border="0" alt="'.get_lang('Delete').'" />'
+                .    '<img src="' . get_icon_url('delete') . '" alt="'.get_lang('Delete').'" />'
                 .    '</a>' . "\n"
                 ;
 
@@ -1620,7 +1620,7 @@ if( $dispWrkLst )
                     .    '&amp;cmd=exChVis&amp;assigId='.$assignmentId
                     .    '&amp;wrkId='.$thisWrk['id']
                     .    '&amp;vis=v">'
-                    .    '<img src="' . get_path('imgRepositoryWeb') . 'invisible.gif" border="0" alt="' . get_lang('Make visible') . '" />'
+                    .    '<img src="' . get_icon_url('invisible') . '" alt="' . get_lang('Make visible') . '" />'
                     .    '</a>' . "\n"
                     ;
                 }
@@ -1632,7 +1632,7 @@ if( $dispWrkLst )
                     .    '&amp;assigId=' . $assignmentId
                     .    '&amp;wrkId='.$thisWrk['id']
                     .    '&amp;vis=i">'
-                    .    '<img src="' . get_path('imgRepositoryWeb') . 'visible.gif" border="0" alt="' . get_lang('Make invisible') . '" />'
+                    .    '<img src="' . get_icon_url('visible') . '" alt="' . get_lang('Make invisible') . '" />'
                     .    '</a>' . "\n"
                     ;
                 }
