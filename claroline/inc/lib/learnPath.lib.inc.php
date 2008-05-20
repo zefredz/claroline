@@ -868,7 +868,7 @@ function display_my_documents($dialogBox)
                     $doc_url = '?url=' . $cmdFileName;
                 }
 
-                $urlFileName = '../document/goto/index.php'.$doc_url;
+                $urlFileName = get_path('clarolineRepositoryWeb') . 'backends/download.php'.$doc_url;
             }
             elseif ($fileList['type'][$fileKey] == A_DIRECTORY)
             {
