@@ -1,22 +1,22 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
+
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
- *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @package CLRSS
- * @since 1.8
- *
- * @author Claro Team <cvs@claroline.net>
- *
- * @see http://www.stervinou.com/projets/rss/
- * @see http://feedvalidator.org/
- * @see http://rss.scripting.com/
+ * @version     1.9 $Revision$
+ * @copyright   (c) 2001-2008 Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @package     CLRSS
+ * @since       1.8
+ * @author      Claro Team <cvs@claroline.net>
+ * @see         http://www.stervinou.com/projets/rss/
+ * @see         http://feedvalidator.org/
+ * @see         http://rss.scripting.com/
  */
 
 
@@ -226,4 +226,3 @@ function rss_get_tool_compatible_list()
 
     return $rssToolList;
 }
-?>

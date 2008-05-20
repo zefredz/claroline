@@ -1,19 +1,18 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
+
 /**
  *
- * @version CLAROLINE 1.8 $Revision$
- *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @author Christophe Gesché <moosh@claroline.net>
- *
- * @since 1.8.1
- *
- * @package CLKERNEL
- *
+ * @version     1.9 $Revision$
+ * @copyright   (c) 2001-2008 Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @author      Christophe Gesché <moosh@claroline.net>
+ * @since       1.8.1
+ * @package     KERNEL
  */
 
 
@@ -91,4 +90,3 @@ class claro_text_zone
         return $content;
     }
 }
-?>

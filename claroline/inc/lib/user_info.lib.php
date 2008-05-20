@@ -1,23 +1,22 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
+
 /**
  * CLAROLINE
  *
- * Provide function to work on  personnal editable info  of each user.
- *
- * @version version 1.8 $Revision$
- *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @author Claroline Team <info@claroline.net>
- *
- * @package CLUSR
- *
- * @author Christophe Gesché <moosh@claroline.net>
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
- *
+ * Provide function to work on  personnal editable info  of each user
+ * 
+ * @version     1.9 $Revision$
+ * @copyright   2001-2008 Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @author      Claroline Team <info@claroline.net>
+ * @author      Christophe Gesché <moosh@claroline.net>
+ * @author      Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @package     CLUSR
  */
 
 
@@ -492,6 +491,3 @@ function claro_user_info_claro_user_info_get_cat_def_list($course_id=NULL)
     if( ! empty($cat_def_list) )  return $cat_def_list;
     else                          return false;
 }
-
-
-?>
