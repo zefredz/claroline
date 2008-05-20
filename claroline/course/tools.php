@@ -502,7 +502,7 @@ elseif ( $currentSection == 'extLinks' )
             echo '<tr>'."\n";
         
             echo '<td ' . ($link['visibility']?'':'class="invisible"') . '>'
-            . '<img src="'.$link['icon'].'" alt="" />' .$link['name']
+            . '<img src="' . get_icon_url( $link['icon'] ) . '" alt="" />' .$link['name']
             . '</td>';
         
             echo '<td align="center">' ;
