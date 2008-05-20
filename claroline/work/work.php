@@ -148,7 +148,7 @@ if( !is_null($cmd) )
 /*============================================================================
                 DOWNLOAD SUBMISSIONS (thanks to UJM)
   =============================================================================*/
-if( $cmd == 'exDownload' && $is_allowedToEdit && get_conf('allow_download_all_submissions') ) // UJM
+if( $is_allowedToEdit && $cmd == 'exDownload' && get_conf('allow_download_all_submissions') ) // UJM
 {
 	require_once('lib/zip.lib.php');
 
@@ -276,6 +276,25 @@ if( $cmd == 'exDownload' && $is_allowedToEdit && get_conf('allow_download_all_su
 	{
 		$dialogBox->error( get_lang('There is no submission available for download with these settings.') );
 	}
+}
+
+// Submission download requested
+if( $is_allowedToEdit && $cmd == 'rqDownload' && get_conf('allow_download_all_submissions') )
+{
+	include($includePath . '/lib/form.lib.php');
+    
+	$dialogBox->title( get_lang('Download') );
+	$dialogBox->form( '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
+	.    claro_form_relay_context()
+	.    '<input type="hidden" name="cmd" value="exDownload" />' . "\n"
+	.	 '<input type="radio" name="downloadMode" id="downloadMode_from" value="from" checked /><label for="downloadMode_from">' . get_lang('Submissions posted or modified after date :') . '</label><br />' . "\n"
+	.	 claro_html_date_form('day', 'month', 'year', time(), 'long') . ' '
+	.	 claro_html_time_form('hour', 'minute', time() - fmod(time(), 86400) - 3600) . '<small>' . get_lang('(d/m/y hh:mm)') . '</small>' . '<br /><br />' . "\n"
+	.	 '<input type="radio" name="downloadMode" id="downloadMode_all" value="all" /><label for="downloadMode_all">' . get_lang('All submissions') . '</label><br /><br />' . "\n"
+	.	 '<input type="submit" value="'.get_lang('OK').'" />&nbsp;' . "\n"
+	.    claro_html_button('work.php', get_lang('Cancel'))
+	.	 '</form>'."\n"
+	);
 }
 
 if ($is_allowedToEdit)
@@ -640,27 +659,6 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
     $cmdMenu = array();
     if( $is_allowedToEdit )
     {
-    	// Submission download requested
-		if( $cmd == 'rqDownload' && get_conf('allow_download_all_submissions') )
-		{
-			include($includePath . '/lib/form.lib.php');
-
-			$downloadForm = '<strong>' . get_lang('Download').'</strong>' . "\n"
-			.	 '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
-			.    claro_form_relay_context()
-			.    '<input type="hidden" name="cmd" value="exDownload" />' . "\n"
-			.	 '<input type="radio" name="downloadMode" id="downloadMode_from" value="from" checked /><label for="downloadMode_from">' . get_lang('Submissions posted or modified after date :') . '</label><br />' . "\n"
-			.	 claro_html_date_form('day', 'month', 'year', time(), 'long') . ' '
-			.	 claro_html_time_form('hour', 'minute', time() - fmod(time(), 86400) - 3600) . '<small>' . get_lang('(d/m/y hh:mm)') . '</small>' . '<br /><br />' . "\n"
-			.	 '<input type="radio" name="downloadMode" id="downloadMode_all" value="all" /><label for="downloadMode_all">' . get_lang('All submissions') . '</label><br /><br />' . "\n"
-			.	 '<input type="submit" value="'.get_lang('OK').'" />&nbsp;' . "\n"
-			.    claro_html_button('work.php', get_lang('Cancel'))
-			.	 '</form>'."\n"
-			;
-
-			echo claro_html_message_box($downloadForm);
-		}
-
         // link to create a new assignment
         $cmdMenu[] =  claro_html_cmd_link( $_SERVER['PHP_SELF']
                                          . '?cmd=rqMkAssig'
