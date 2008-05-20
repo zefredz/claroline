@@ -31,8 +31,8 @@ $langMonthNames = get_locale('langMonthNames');
 include(get_path('incRepositorySys')."/lib/statsUtils.lib.inc.php");
 
 
-$tbl_cdb_names = claro_sql_get_course_tbl();
-$TABLETRACK_ACCESS = $tbl_cdb_names['track_e_access'];
+$tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued(claro_get_current_course_id()));
+$tbl_course_tracking_event = $tbl_cdb_names['tracking_event'];
 
 if( claro_is_in_a_course()) //stats for the current course
 {
@@ -50,11 +50,12 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
     // toolId is required, go to the tool list if it is missing
     if( empty($_REQUEST['toolId']) )
     {
-        claro_redirect("./courseLog.php?view=0010000");
+        claro_redirect("./courseReport.php");
         exit();
     }
     else
     {
+    	// FIXME what if tool do not exists anymore ? is not in course tool list ? is deactivated ?
         $toolId = (int)$_REQUEST['toolId'];
     }
 
@@ -68,18 +69,11 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
     else                                $period = "day"; // default value
 
 
-    $sql = "SELECT `access_tlabel` as `label`
-            FROM `".$TABLETRACK_ACCESS."`
-            WHERE `access_tid` = ". (int)$toolId ."
-            GROUP BY `access_tid`" ;
 
-    $result = claro_sql_query_fetch_all($sql);
     include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+    
     $title['mainTitle'] = $nameTools;
-
-    if( isset($result[0]['label']) )
-        if( isset($toolNameList[$result[0]['label']]) )
-            $title['subTitle'] = $toolNameList[$result[0]['label']];
+    $title['subTitle'] = claro_get_tool_name($toolId);;
 
     echo claro_html_tool_title( $title )
     .    '<table width="100%" cellpadding="2" cellspacing="0" border="0">'."\n\n"
@@ -113,16 +107,15 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
     .    '<tr>' . "\n"
     .    '<td>' . "\n"
     .    '<small>' . "\n"
-    .    '[<a href="' . $_SERVER['PHP_SELF'] . '?toolId=' . $toolId . '&amp;period=day&amp;reqdate='.$reqdate.'">'.get_lang('Day').'</a>]'."\n"
-        .'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=week&amp;reqdate='.$reqdate.'">'.get_lang('Week').'</a>]'."\n"
         .'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=month&amp;reqdate='.$reqdate.'">'.get_lang('Month').'</a>]'."\n"
+        .'[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=week&amp;reqdate='.$reqdate.'">'.get_lang('Week').'</a>]'."\n"
+    .    '[<a href="' . $_SERVER['PHP_SELF'] . '?toolId=' . $toolId . '&amp;period=day&amp;reqdate='.$reqdate.'">'.get_lang('Day').'</a>]'."\n"
         .'&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;'."\n";
 
     switch($period)
     {
         case "month" :
             // previous and next date must be evaluated
-            // 30 days should be a good approximation
             $previousReqDate = mktime(1,1,1,date("m",$reqdate)-1,1,date("Y",$reqdate));
             $nextReqDate = mktime(1,1,1,date("m",$reqdate)+1,1,date("Y",$reqdate));
             echo '[<a href="'.$_SERVER['PHP_SELF'].'?toolId='.$toolId.'&amp;period=month&amp;reqdate='.$previousReqDate.'">'.get_lang('Previous month').'</a>]'."\n"
@@ -145,7 +138,7 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
     }
 
     echo '&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;'."\n"
-        .'[<a href="./courseLog.php?view=0010000">'.get_lang('View list of all tools').'</a>]'."\n"
+        .'[<a href="./courseReport.php">'.get_lang('View list of all tools').'</a>]'."\n"
         .'</small>'."\n"
         .'</td>'."\n"
         .'</tr>'."\n"."\n";
@@ -154,36 +147,39 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
     {
         // all days
         case "month" :
-            $sql = "SELECT UNIX_TIMESTAMP(`access_date`)
-                    FROM `$TABLETRACK_ACCESS`
-                    WHERE `access_tid` = '". (int)$toolId ."'
-                        AND MONTH(`access_date`) = MONTH(FROM_UNIXTIME($reqdate))
-                        AND YEAR(`access_date`) = YEAR(FROM_UNIXTIME($reqdate))
-                        ORDER BY `access_date` ASC";
+            $sql = "SELECT UNIX_TIMESTAMP(`date`)
+                    FROM `".$tbl_course_tracking_event."`
+                    WHERE `type` = 'tool_access'
+                      AND `tool_id` = '". (int) $toolId ."'
+                      AND MONTH(`date`) = MONTH(FROM_UNIXTIME($reqdate))
+                      AND YEAR(`date`) = YEAR(FROM_UNIXTIME($reqdate))
+                    ORDER BY `date` ASC";
 
             $days_array = daysTab($sql);
             makeHitsTable($days_array,get_lang('Day'));
             break;
         // all days
         case "week" :
-            $sql = "SELECT UNIX_TIMESTAMP(`access_date`)
-                    FROM `$TABLETRACK_ACCESS`
-                    WHERE `access_tid` = '". (int)$toolId ."'
-                        AND WEEK(`access_date`) = WEEK(FROM_UNIXTIME($reqdate))
-                        AND YEAR(`access_date`) = YEAR(FROM_UNIXTIME($reqdate))
-                        ORDER BY `access_date` ASC";
+            $sql = "SELECT UNIX_TIMESTAMP(`date`)
+                    FROM `".$tbl_course_tracking_event."`
+                    WHERE `type` = 'tool_access'
+                      AND `tool_id` = '". (int)$toolId ."'
+                      AND WEEK(`date`) = WEEK(FROM_UNIXTIME($reqdate))
+                      AND YEAR(`date`) = YEAR(FROM_UNIXTIME($reqdate))
+                    ORDER BY `date` ASC";
 
             $days_array = daysTab($sql);
             makeHitsTable($days_array,get_lang('Day'));
             break;
         // all hours
         case "day"  :
-            $sql = "SELECT UNIX_TIMESTAMP(`access_date`)
-                        FROM `$TABLETRACK_ACCESS`
-                        WHERE `access_tid` = '". $toolId ."'
-                            AND DAYOFYEAR(`access_date`) = DAYOFYEAR(FROM_UNIXTIME($reqdate))
-                            AND YEAR(`access_date`) = YEAR(FROM_UNIXTIME($reqdate))
-                        ORDER BY `access_date` ASC";
+            $sql = "SELECT UNIX_TIMESTAMP(`date`)
+                        FROM `".$tbl_course_tracking_event."`
+                        WHERE `type` = 'tool_access'
+                          AND `tool_id` = '". $toolId ."'
+                          AND DAYOFYEAR(`date`) = DAYOFYEAR(FROM_UNIXTIME($reqdate))
+                          AND YEAR(`date`) = YEAR(FROM_UNIXTIME($reqdate))
+                        ORDER BY `date` ASC";
 
             $hours_array = hoursTab($sql,$reqdate);
             makeHitsTable($hours_array,get_lang('Hour'));
