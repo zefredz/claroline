@@ -963,7 +963,7 @@ function user_html_form($data, $form_type='registration')
         $language_select_box );
     }
     
-    if ( $form_type == 'profile' )
+    if ( $form_type == 'profile' || $form_type == 'admin_user_profile' )
     {
         // $picture = claro_get_current_user_data('picture');
         $picturePath = user_get_picture_path( $data );
