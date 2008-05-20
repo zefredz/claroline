@@ -1,376 +1,387 @@
 <?php  // $Id$
-    
-    // vim: expandtab sw=4 ts=4 sts=4:
-    
-    if ( count( get_included_files() ) == 1 )
-    {
-        die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-    }
 
-    uses ( 'core/url.lib' );
-    
-    function file_upload_failed( $file )
+// vim: expandtab sw=4 ts=4 sts=4:
+
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
+
+/**
+ * File handling functions
+ *
+ * @version     1.9 $Revision$
+ * @copyright   2001-2008 Universite catholique de Louvain (UCL)
+ * @author      Claroline Team <info@claroline.net>
+ * @license     http://www.gnu.org/copyleft/gpl.html
+ *              GNU GENERAL PUBLIC LICENSE version 2 or later
+ * @package     KERNEL
+ */
+
+uses ( 'core/url.lib' );
+
+function file_upload_failed( $file )
+{
+    return get_file_upload_errno( $file ) > 0;
+}
+
+function get_file_upload_errno( $file )
+{
+    return (int) $file['error'];
+}
+
+function get_file_upload_error_message( $file )
+{
+    return get_file_upload_errstring_from_errno( get_file_upload_errno( $file ) );
+}
+
+function get_file_upload_errstring_from_errno( $errorLevel )
+{
+    if ( !defined( 'UPLOAD_ERR_CANT_WRITE' ) )
     {
-        return get_file_upload_errno( $file ) > 0;
+        // Introduced in PHP 5.1.0
+        define( 'UPLOAD_ERR_CANT_WRITE', 5 );
     }
     
-    function get_file_upload_errno( $file )
+    switch( $errorLevel )
     {
-        return (int) $file['error'];
-    }
-    
-    function get_file_upload_error_message( $file )
-    {
-        return get_file_upload_errstring_from_errno( get_file_upload_errno( $file ) );
-    }
-    
-    function get_file_upload_errstring_from_errno( $errorLevel )
-    {
-        if ( !defined( 'UPLOAD_ERR_CANT_WRITE' ) )
+        case UPLOAD_ERR_OK: 
         {
-            // Introduced in PHP 5.1.0
-            define( 'UPLOAD_ERR_CANT_WRITE', 5 );
+            $details = get_lang('No error');
         }
-        
-        switch( $errorLevel )
+        case UPLOAD_ERR_INI_SIZE: 
         {
-            case UPLOAD_ERR_OK: 
-            {
-                $details = get_lang('No error');
-            }
-            case UPLOAD_ERR_INI_SIZE: 
-            {
-                $details = get_lang('File too large. Notice : Max file size %size', array ( '%size' => get_cfg_var('upload_max_filesize')) );
-            }   break;
-            case UPLOAD_ERR_FORM_SIZE: 
-            {
-                $details = get_lang('File size exceeds');
-            }   break;
-            case UPLOAD_ERR_PARTIAL: 
-            {
-                $details = get_lang('File upload incomplete');
-            }   break;
-            case UPLOAD_ERR_NO_FILE: 
-            {
-                $details = get_lang('No file uploaded');
-            }   break;
-            case UPLOAD_ERR_NO_TMP_DIR: 
-            {
-                $details = get_lang('Temporary folder missing');
-            }   break;
-            case UPLOAD_ERR_CANT_WRITE: 
-            {
-                $details = get_lang('Failed to write file to disk');
-            }   break;
-            default: 
-            {
-                $details = get_lang('Unknown error code %errCode%'
-                    , array('%errCode%' => $errorLevel ));
-            }   break;
-        }
-        
-        return $details;
+            $details = get_lang('File too large. Notice : Max file size %size', array ( '%size' => get_cfg_var('upload_max_filesize')) );
+        }   break;
+        case UPLOAD_ERR_FORM_SIZE: 
+        {
+            $details = get_lang('File size exceeds');
+        }   break;
+        case UPLOAD_ERR_PARTIAL: 
+        {
+            $details = get_lang('File upload incomplete');
+        }   break;
+        case UPLOAD_ERR_NO_FILE: 
+        {
+            $details = get_lang('No file uploaded');
+        }   break;
+        case UPLOAD_ERR_NO_TMP_DIR: 
+        {
+            $details = get_lang('Temporary folder missing');
+        }   break;
+        case UPLOAD_ERR_CANT_WRITE: 
+        {
+            $details = get_lang('Failed to write file to disk');
+        }   break;
+        default: 
+        {
+            $details = get_lang('Unknown error code %errCode%'
+                , array('%errCode%' => $errorLevel ));
+        }   break;
     }
     
-    /**
-     * Extract the extention of the filename
+    return $details;
+}
 
-     * @param string $fileName name of the file
-     * @return string extension
-     */
-    function get_file_extension ( $fileName )
-    {
-        $fileExtension = strtolower( pathinfo( $fileName, PATHINFO_EXTENSION ) );
+/**
+ * Extract the extention of the filename
 
-        return $fileExtension;
-    }
-    
-    /**
-     * Get file MIME type from file name based on extension
-     * @param string $fileName name of the file
-     * @return string file MIME type
-     * 
+ * @param string $fileName name of the file
+ * @return string extension
+ */
+function get_file_extension ( $fileName )
+{
+    $fileExtension = strtolower( pathinfo( $fileName, PATHINFO_EXTENSION ) );
+
+    return $fileExtension;
+}
+
+/**
+ * Get file MIME type from file name based on extension
+ * @param string $fileName name of the file
+ * @return string file MIME type
+ * 
+ */
+function get_mime_on_ext($fileName)
+{
+    $mimeType = null;
+
+    /*
+     * Check if the file has an extension AND if the browser has send a MIME Type
      */
-    function get_mime_on_ext($fileName)
-    {
-        $mimeType = null;
+     
+    $fileExtension = strtolower( pathinfo( $fileName, PATHINFO_EXTENSION ) );
     
+    $defaultMimeType = 'document/unknown';
+
+    if( $fileExtension )
+    {
         /*
-         * Check if the file has an extension AND if the browser has send a MIME Type
+         * Build a "MIME-types / extensions" connection table
          */
-         
-        $fileExtension = strtolower( pathinfo( $fileName, PATHINFO_EXTENSION ) );
-        
-        $defaultMimeType = 'document/unknown';
-    
-        if( $fileExtension )
-        {
-            /*
-             * Build a "MIME-types / extensions" connection table
-             */
-    
-            $mimeTypeList = array(
-                'aif'   => 'audio/x-aiff',
-                'avi'   => 'video/x-msvideo',
-                'bmp'   => 'image/bmp',
-                'css'   => 'text/css',
-                'doc'   => 'application/msword',
-                'fla'   => 'application/octet-stream',
-                'gif'   => 'image/gif',
-                'gz'    => 'application/x-gzip',
-                'htm'   => 'text/html',
-                'html'  => 'text/html',
-                'hqx'   => 'application/mac-binhex40',
-                'jpg'   => 'image/jpeg',
-                'jpeg'  => 'image/jpeg',
-                'js'    => 'text/javascript',
-                'm3u'   => 'audio/x-mpegurl',
-                'mid'   => 'audio/midi',
-                'mov'   => 'video/quicktime',
-                'mp3'   => 'audio/mpeg',
-                'mp4'   => 'video/mp4',
-                'mpg'   => 'video/mpeg',
-                'mpeg'  => 'video/mpeg',
-                'ogg'   => 'application/x-ogg',
-                
-                # Open Document Formats
-                'odt'   => 'application/vnd.oasis.opendocument.text',
-                'ott'   => 'application/vnd.oasis.opendocument.text-template',
-                'oth'   => 'application/vnd.oasis.opendocument.text-web',
-                'odm'   => 'application/vnd.oasis.opendocument.text-master',
-                'odg'   => 'application/vnd.oasis.opendocument.graphics',
-                'otg'   => 'application/vnd.oasis.opendocument.graphics-template',
-                'odp'   => 'application/vnd.oasis.opendocument.presentation',
-                'otp'   => 'application/vnd.oasis.opendocument.presentation-template',
-                'ods'   => 'application/vnd.oasis.opendocument.spreadsheet',
-                'ots'   => 'application/vnd.oasis.opendocument.spreadsheet-template',
-                'odc'   => 'application/vnd.oasis.opendocument.chart',
-                'odf'   => 'application/vnd.oasis.opendocument.formula',
-                'odb'   => 'application/vnd.oasis.opendocument.database',
-                'odi'   => 'application/vnd.oasis.opendocument.image',
-                
-                'pdf'   => 'application/pdf',
-                'png'   => 'image/png',
-                'ppt'   => 'application/vnd.ms-powerpoint',
-                'pps'   => 'application/vnd.ms-powerpoint',
-                'ps'    => 'application/postscript',
-                'ra'    => 'audio/x-realaudio',
-                'ram'   => 'audio/x-pn-realaudio',
-                'rm'    => 'audio/x-pn-realaudio',
-                'rpm'   => 'audio/x-pn-realaudio-plugin',
-                'rtf'   => 'application/rtf',
-                'sit'   => 'application/x-stuffit',
-                'svg'   => 'image/svg+xml',
-                'swf'   => 'application/x-shockwave-flash',
-                
-                # Open Office 1 Documents
-                'sxw'   => 'application/vnd.sun.xml.writer',
-                'stw'   => 'application/vnd.sun.xml.writer.template',
-                'sxc'   => 'application/vnd.sun.xml.calc',
-                'stc'   => 'application/vnd.sun.xml.calc.template',
-                'sxd'   => 'application/vnd.sun.xml.draw',
-                'std'   => 'application/vnd.sun.xml.draw.template',
-                'sxi'   => 'application/vnd.sun.xml.impress',
-                'sti'   => 'application/vnd.sun.xml.impress.template',
-                'sxg'   => 'application/vnd.sun.xml.writer.global',
-                'sxm'   => 'application/vnd.sun.xml.math',
-                
-                'tar'   => 'application/x-tar',
-                'tex'   => 'application/x-tex',
-                'tgz'   => 'application/x-gzip',
-                'tif'   => 'image/tiff',
-                'tiff'  => 'image/tiff',
-                'txt'   => 'text/plain',
-                'url'   => 'text/html',
-                'wav'   => 'audio/x-wav',
-                'wmv'   => 'video/x-ms-wmv',
-                'xml'   => 'application/xml',
-                'xls'   => 'application/vnd.ms-excel',
-                'xsl'   => 'text/xml',
-                'zip'   => 'application/zip',
-                
-                # Syndication
-                'ics'   => 'text/Calendar',
-                'xcs'   => 'text/Calendar',
-                'rdf'   => 'text/xml',
-                'rss'   => 'application/rss+xml',
-                'opml'  => 'text/x-opml',
-            );
-    
-            $mimeType = array_key_exists( $fileExtension, $mimeTypeList )
-                ? $mimeTypeList[$fileExtension]
-                : $defaultMimeType
-                ;
-        }
-        else
-        {
-            $mimeType = $defaultMimeType;
-        }
-    
-        return $mimeType;
-    }
-    
-    /**
-     * Send a file over HTTP
-     * @param   string $path file path
-     * @param   string $name file name to force (optional)
-     * @return  true on success,
-     *          false if file not found or file empty, 
-     *          set a claro_failure if file not found 
-     */
-    function claro_send_file( $path, $name = '', $charset = null )
-    {
-        if ( file_exists( $path ) )
-        {
-            if ( empty( $name ) ) $name = basename( $path );
-            $charset = empty( $charset )
-                ? ''
-                : '; charset=' . $charset
-                ;
-            
-            $mimeType = get_mime_on_ext( $path );
-        
-            header( 'Content-Type: ' . $mimeType . $charset );
-                
-            // IE no-cache bug
-            
-            // TODO move $lifetime to config
-            $lifetime = 60;
-            
-            header( 'Cache-Control: max-age=' . $lifetime );
-            header( 'Expires: ' . gmdate( 'D, d M Y H:i:s', time() + $lifetime ) .' GMT' );
-            header( 'Pragma: ' );
-            
-            // Patch proposed by Diego Conde Pérez <dconde@uvigo.es> - Universidade de Vigo
-            // It seems that with the combination of OfficeXP and Internet Explorer 6 the 
-            // downloading of powerpoints fails sometimes. I captured the network packets 
-            // and the viewer of the office doesn't send all the needed cookies, 
-            // therefore claroline redirects the viewer to the login page because its not 
-            // correctly authenticated. 
-            if ( strtolower( pathinfo( $path, PATHINFO_EXTENSION ) ) == "ppt" )
-            {
-                // force file name for ppt
-                header( 'Content-Disposition: attachment; filename="' . $name . '"' );
-            }
-            else
-            {
-                // force file name for other files
-                header( 'Content-Disposition: inline; filename="' . $name . '"' );
-            } 
-            
-            header( 'Content-Length: '. filesize( $path ) );
-            
-            return ( claro_readfile( $path ) );
-        }
-        else
-        {
-            return claro_failure::set_failure( 'FILE_NOT_FOUND' );
-        }
-    }
-    
-    /**
-     * Remove /.. ../ from file path
-     * @param   string $path file path
-     * @return  string, clean file path
-     */
-    function secure_file_path( $path )
-    {
-        while ( strpos( $path, '..') || strpos( $path, '://' ) )
-        {
-            $path = str_replace( '..', '', $path );
-            $path = str_replace( '://', '', $path );
-        }
-        
-        return $path; 
-    }
-    
-    /**
-     * Read a file from the file system and echo it
-     * 
-     * Workaround for the readfile bug in PHP 5.0.4 and with host where
-     * PHP readfile is deactivated
-     * 
-     * @param   string $path file path
-     * @param   boolean $retbytes return file length (default true)
-     * @return  int file length if $retbytes
-     *          boolean true on success if not $retbytes
-     *          boolean false on failure
-     *          set claro_failure on failure
-     */
-    function claro_readfile( $path, $retbytes = true )
-    {
-        if ( ! file_exists( $path ) )
-        {
-            return claro_failure::set_failure( 'FILE_NOT_FOUND' );
-        }
-        
-        $chunksize = 1*(1024*1024); // how many bytes per chunk
-        $buffer = '';
-        $cnt =0;
-        
-        $handle = fopen( $path, 'rb' );
-        
-        if ( ! $handle )
-        {
-            return claro_failure::set_failure( 'CANNOT_OPEN_FILE' );
-        }
-        
-        while (!feof($handle))
-        {
-            $buffer = fread($handle, $chunksize);
-            
-            if ( $buffer === false )
-            {
-                return claro_failure::set_failure( 'CANNOT_READ_FILE' );
-            }
-            
-            echo $buffer;
-            
-            if ( $retbytes )
-            {
-                $cnt += strlen($buffer);
-            }
-        }
-        
-        $status = fclose( $handle );
-        
-        if ( $retbytes && $status )
-        {
-            return $cnt;
-        }
-        else
-        {
-            return $status;
-        }
-    }
-    
-    function claro_get_file_download_url( $file, $context = null )
-    {
-        if ( $GLOBALS['is_Apache'] && get_conf('usePrettyUrl', false) )
-        {
-            // slash argument method - only compatible with Apache
-            $url = get_path('url') . '/claroline/backends/download.php'.str_replace('%2F', '/', $file);
-        }
-        else
-        {
-            // question mark argument method, for IIS ...
-            $url = get_path('url') . '/claroline/backends/download.php?url=' . $file;
-        }
-        
-        $urlObj = new Url( $url );
-        
-        if ( !empty ( $context ) )
-        {
-            $urlObj->relayContext( $context );
-        }
-        else
-        {
-            $urlObj->relayCurrentContext();
-        }
 
-        return $urlObj->toUrl();
+        $mimeTypeList = array(
+            'aif'   => 'audio/x-aiff',
+            'avi'   => 'video/x-msvideo',
+            'bmp'   => 'image/bmp',
+            'css'   => 'text/css',
+            'doc'   => 'application/msword',
+            'fla'   => 'application/octet-stream',
+            'gif'   => 'image/gif',
+            'gz'    => 'application/x-gzip',
+            'htm'   => 'text/html',
+            'html'  => 'text/html',
+            'hqx'   => 'application/mac-binhex40',
+            'jpg'   => 'image/jpeg',
+            'jpeg'  => 'image/jpeg',
+            'js'    => 'text/javascript',
+            'm3u'   => 'audio/x-mpegurl',
+            'mid'   => 'audio/midi',
+            'mov'   => 'video/quicktime',
+            'mp3'   => 'audio/mpeg',
+            'mp4'   => 'video/mp4',
+            'mpg'   => 'video/mpeg',
+            'mpeg'  => 'video/mpeg',
+            'ogg'   => 'application/x-ogg',
+            
+            # Open Document Formats
+            'odt'   => 'application/vnd.oasis.opendocument.text',
+            'ott'   => 'application/vnd.oasis.opendocument.text-template',
+            'oth'   => 'application/vnd.oasis.opendocument.text-web',
+            'odm'   => 'application/vnd.oasis.opendocument.text-master',
+            'odg'   => 'application/vnd.oasis.opendocument.graphics',
+            'otg'   => 'application/vnd.oasis.opendocument.graphics-template',
+            'odp'   => 'application/vnd.oasis.opendocument.presentation',
+            'otp'   => 'application/vnd.oasis.opendocument.presentation-template',
+            'ods'   => 'application/vnd.oasis.opendocument.spreadsheet',
+            'ots'   => 'application/vnd.oasis.opendocument.spreadsheet-template',
+            'odc'   => 'application/vnd.oasis.opendocument.chart',
+            'odf'   => 'application/vnd.oasis.opendocument.formula',
+            'odb'   => 'application/vnd.oasis.opendocument.database',
+            'odi'   => 'application/vnd.oasis.opendocument.image',
+            
+            'pdf'   => 'application/pdf',
+            'png'   => 'image/png',
+            'ppt'   => 'application/vnd.ms-powerpoint',
+            'pps'   => 'application/vnd.ms-powerpoint',
+            'ps'    => 'application/postscript',
+            'ra'    => 'audio/x-realaudio',
+            'ram'   => 'audio/x-pn-realaudio',
+            'rm'    => 'audio/x-pn-realaudio',
+            'rpm'   => 'audio/x-pn-realaudio-plugin',
+            'rtf'   => 'application/rtf',
+            'sit'   => 'application/x-stuffit',
+            'svg'   => 'image/svg+xml',
+            'swf'   => 'application/x-shockwave-flash',
+            
+            # Open Office 1 Documents
+            'sxw'   => 'application/vnd.sun.xml.writer',
+            'stw'   => 'application/vnd.sun.xml.writer.template',
+            'sxc'   => 'application/vnd.sun.xml.calc',
+            'stc'   => 'application/vnd.sun.xml.calc.template',
+            'sxd'   => 'application/vnd.sun.xml.draw',
+            'std'   => 'application/vnd.sun.xml.draw.template',
+            'sxi'   => 'application/vnd.sun.xml.impress',
+            'sti'   => 'application/vnd.sun.xml.impress.template',
+            'sxg'   => 'application/vnd.sun.xml.writer.global',
+            'sxm'   => 'application/vnd.sun.xml.math',
+            
+            'tar'   => 'application/x-tar',
+            'tex'   => 'application/x-tex',
+            'tgz'   => 'application/x-gzip',
+            'tif'   => 'image/tiff',
+            'tiff'  => 'image/tiff',
+            'txt'   => 'text/plain',
+            'url'   => 'text/html',
+            'wav'   => 'audio/x-wav',
+            'wmv'   => 'video/x-ms-wmv',
+            'xml'   => 'application/xml',
+            'xls'   => 'application/vnd.ms-excel',
+            'xsl'   => 'text/xml',
+            'zip'   => 'application/zip',
+            
+            # Syndication
+            'ics'   => 'text/Calendar',
+            'xcs'   => 'text/Calendar',
+            'rdf'   => 'text/xml',
+            'rss'   => 'application/rss+xml',
+            'opml'  => 'text/x-opml',
+        );
+
+        $mimeType = array_key_exists( $fileExtension, $mimeTypeList )
+            ? $mimeTypeList[$fileExtension]
+            : $defaultMimeType
+            ;
+    }
+    else
+    {
+        $mimeType = $defaultMimeType;
+    }
+
+    return $mimeType;
+}
+
+/**
+ * Send a file over HTTP
+ * @param   string $path file path
+ * @param   string $name file name to force (optional)
+ * @return  true on success,
+ *          false if file not found or file empty, 
+ *          set a claro_failure if file not found 
+ */
+function claro_send_file( $path, $name = '', $charset = null )
+{
+    if ( file_exists( $path ) )
+    {
+        if ( empty( $name ) ) $name = basename( $path );
+        $charset = empty( $charset )
+            ? ''
+            : '; charset=' . $charset
+            ;
+        
+        $mimeType = get_mime_on_ext( $path );
+    
+        header( 'Content-Type: ' . $mimeType . $charset );
+            
+        // IE no-cache bug
+        
+        // TODO move $lifetime to config
+        $lifetime = 60;
+        
+        header( 'Cache-Control: max-age=' . $lifetime );
+        header( 'Expires: ' . gmdate( 'D, d M Y H:i:s', time() + $lifetime ) .' GMT' );
+        header( 'Pragma: ' );
+        
+        // Patch proposed by Diego Conde Pérez <dconde@uvigo.es> - Universidade de Vigo
+        // It seems that with the combination of OfficeXP and Internet Explorer 6 the 
+        // downloading of powerpoints fails sometimes. I captured the network packets 
+        // and the viewer of the office doesn't send all the needed cookies, 
+        // therefore claroline redirects the viewer to the login page because its not 
+        // correctly authenticated. 
+        if ( strtolower( pathinfo( $path, PATHINFO_EXTENSION ) ) == "ppt" )
+        {
+            // force file name for ppt
+            header( 'Content-Disposition: attachment; filename="' . $name . '"' );
+        }
+        else
+        {
+            // force file name for other files
+            header( 'Content-Disposition: inline; filename="' . $name . '"' );
+        } 
+        
+        header( 'Content-Length: '. filesize( $path ) );
+        
+        return ( claro_readfile( $path ) );
+    }
+    else
+    {
+        return claro_failure::set_failure( 'FILE_NOT_FOUND' );
+    }
+}
+
+/**
+ * Remove /.. ../ from file path
+ * @param   string $path file path
+ * @return  string, clean file path
+ */
+function secure_file_path( $path )
+{
+    while ( strpos( $path, '..') || strpos( $path, '://' ) )
+    {
+        $path = str_replace( '..', '', $path );
+        $path = str_replace( '://', '', $path );
     }
     
+    return $path; 
+}
+
+/**
+ * Read a file from the file system and echo it
+ * 
+ * Workaround for the readfile bug in PHP 5.0.4 and with host where
+ * PHP readfile is deactivated
+ * 
+ * @param   string $path file path
+ * @param   boolean $retbytes return file length (default true)
+ * @return  int file length if $retbytes
+ *          boolean true on success if not $retbytes
+ *          boolean false on failure
+ *          set claro_failure on failure
+ */
+function claro_readfile( $path, $retbytes = true )
+{
+    if ( ! file_exists( $path ) )
+    {
+        return claro_failure::set_failure( 'FILE_NOT_FOUND' );
+    }
+    
+    $chunksize = 1*(1024*1024); // how many bytes per chunk
+    $buffer = '';
+    $cnt =0;
+    
+    $handle = fopen( $path, 'rb' );
+    
+    if ( ! $handle )
+    {
+        return claro_failure::set_failure( 'CANNOT_OPEN_FILE' );
+    }
+    
+    while (!feof($handle))
+    {
+        $buffer = fread($handle, $chunksize);
+        
+        if ( $buffer === false )
+        {
+            return claro_failure::set_failure( 'CANNOT_READ_FILE' );
+        }
+        
+        echo $buffer;
+        
+        if ( $retbytes )
+        {
+            $cnt += strlen($buffer);
+        }
+    }
+    
+    $status = fclose( $handle );
+    
+    if ( $retbytes && $status )
+    {
+        return $cnt;
+    }
+    else
+    {
+        return $status;
+    }
+}
+
+function claro_get_file_download_url( $file, $context = null )
+{
+    if ( $GLOBALS['is_Apache'] && get_conf('usePrettyUrl', false) )
+    {
+        // slash argument method - only compatible with Apache
+        $url = get_path('url') . '/claroline/backends/download.php'.str_replace('%2F', '/', $file);
+    }
+    else
+    {
+        // question mark argument method, for IIS ...
+        $url = get_path('url') . '/claroline/backends/download.php?url=' . $file;
+    }
+    
+    $urlObj = new Url( $url );
+    
+    if ( !empty ( $context ) )
+    {
+        $urlObj->relayContext( $context );
+    }
+    else
+    {
+        $urlObj->relayCurrentContext();
+    }
+
+    return $urlObj->toUrl();
+}
+
 if ( ! function_exists( 'replace_dangerous_char' ) )
 {
     /**
@@ -423,4 +434,3 @@ if ( ! function_exists( 'replace_dangerous_char' ) )
         return $string;
     }
 }
-?>

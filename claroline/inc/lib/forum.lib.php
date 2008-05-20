@@ -1,21 +1,22 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
+
 /**
  * CLAROLINE
  *
  * Library for forum tool
  *
- * @version 1.8 $Revision$
- *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
- * @copyright (C) 2001 The phpBB Group
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @author Claro Team <cvs@claroline.net>
- *
- * @package CLFRM
- * @since 1.6
+ * @version     1.9 $Revision$
+ * @copyright   2001-2008 Universite catholique de Louvain (UCL)
+ * @copyright   (C) 2001 The phpBB Group
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @author      Claro Team <cvs@claroline.net>
+ * @package     CLFRM
+ * @since       1.6
  */
 
 /**

@@ -1,20 +1,20 @@
 <?php // $Id$
-if ( count( get_included_files() ) == 1 ) die( '---' );
+
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
+
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
- *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/config_def/
- *
- * @package KERNEL
- *
- * @author Claro Team <cvs@claroline.net>
- * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @version     1.9 $Revision$
+ * @copyright   (c) 2001-2008 Universite catholique de Louvain (UCL)
+ * @license     http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ * @see         http://www.claroline.net/wiki/config_def/
+ * @package     KERNEL
+ * @author      Claro Team <cvs@claroline.net>
+ * @author      Hugues Peeters <peeters@ipm.ucl.ac.be>
  *
  */
 
@@ -888,5 +888,3 @@ function get_html_body_content($html)
 
     return $html;
 }
-
-?>
