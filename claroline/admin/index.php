@@ -87,7 +87,8 @@ if ( ! empty($register_globals_value) && strtolower($register_globals_value) != 
 
 include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 echo claro_html_tool_title($nameTools)
-.    $dialogBox->render() . "\n\n"
+.    $dialogBox->render()Ê
+ . "\n\n"
 ;
 
 echo '<table cellspacing="5" align="center">' . "\n"
