@@ -10,6 +10,26 @@ if ( count( get_included_files() ) == 1 )
 /**
  * Breadcrumps
  *
+ *  Usage :
+ *
+ *      ClaroBreadCrumbs::getInstance()->prepend( $name, $url );
+ *      ClaroBreadCrumbs::getInstance()->current( $name, $url );
+ *      ClaroBreadCrumbs::getInstance()->append( $name, $url );
+ *
+ *      Platform, course and group are added automaticaly
+ *
+ *  Sample :
+ *
+ *      ClaroBreadCrumbs::getInstance()->prepend( 'b' );
+ *      ClaroBreadCrumbs::getInstance()->prepend( 'a' );
+ *      ClaroBreadCrumbs::getInstance()->current( 'c' );
+ *      ClaroBreadCrumbs::getInstance()->prepend( 'd' );
+ *      ClaroBreadCrumbs::getInstance()->prepend( 'e' );
+ *
+ *      --> a > b > c > d > e
+ *
+ * FIXME : reverse order for prepend !!!!
+ *  
  * @version     1.9 $Revision$
  * @copyright   2001-2008 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
