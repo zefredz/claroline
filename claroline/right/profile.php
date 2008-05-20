@@ -5,7 +5,7 @@
  * This tool manage profile of the course
  *
  * @version 1.8 $Revision$
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2008 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -18,7 +18,7 @@
 require '../inc/claro_init_global.inc.php';
 
 $nameTools = get_lang('Course profile');
-$dialogBox = '';
+$dialogBox = new DialogBox();
 $tidReset = true;
 
 if ( ! claro_is_in_a_course() || ! claro_is_user_authenticated()) claro_disp_auth_form(true);
@@ -128,7 +128,8 @@ foreach ( $display_profile_list as $profileId )
 
 if ( $profileFoundCount == 0 )
 {
-    echo claro_html_message_box(get_lang('Profile not found'));
+    $dialogBox->error( get_lang('Profile not found') );
+    echo $dialogBox->render();
 }
 else
 {
