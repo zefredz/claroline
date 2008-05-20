@@ -183,7 +183,7 @@ class CLTRACK_CourseToolAccess extends CourseTrackingRenderer
             foreach( $results as $result )
             {
                 $thisTid = (int) $result['tool_id'];
-        
+                // FIXME check that claro_get_tool_name returns a toolname... check that tool exists
                 $thisToolName = claro_get_tool_name($thisTid);
                 
                 $html .= '<tr>' . "\n"
