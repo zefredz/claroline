@@ -1521,3 +1521,28 @@ function user_get_picture_url( $userData )
         return false;
     }
 }
+
+function user_get_extra_data($userId)
+{
+    $extraInfo = array();
+    $extraInfoDefList = get_userInfoExtraDefinitionList();
+    $userInfo = get_user_property_list($userId);
+
+/**
+    $extraInfo['user_id']['label'] = get_lang('User id');
+    $extraInfo['user_id']['value'] = $userId;
+*/
+
+    foreach ($extraInfoDefList as $extraInfoDef)
+    {
+        $currentValue = array_key_exists($extraInfoDef['propertyId'],$userInfo)
+            ? $userInfo[$extraInfoDef['propertyId']]
+            : $extraInfoDef['defaultValue'];
+
+            // propertyId, label, type, defaultValue, required
+            $extraInfo[$extraInfoDef['propertyId']]['label'] = $extraInfoDef['label'];
+            $extraInfo[$extraInfoDef['propertyId']]['value'] = $currentValue;
+
+    }
+    return $extraInfo;
+}
