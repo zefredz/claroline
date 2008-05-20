@@ -125,5 +125,3 @@ echo "\n" . '<blockquote>' . "\n"
 .    '</blockquote>' . "\n";
 
 echo $backCommandLine;
-
-?>

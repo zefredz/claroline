@@ -36,13 +36,12 @@ if( get_conf('claro_displayLocalAuthForm') )
     ;
 
 
-if( get_conf('allowSelfReg') )
-{
-    echo '<!-- "Create user Account" -->' . "\n"
-    .    '<p>' . "\n"
-    .    '<a href="claroline/auth/inscription.php">' . get_lang('Create user account') . '</a>' . "\n"
-    .    '</p>' . "\n"
-    ;
-}
+    if( get_conf('allowSelfReg') )
+    {
+        echo '<!-- "Create user Account" -->' . "\n"
+        .    '<p>' . "\n"
+        .    '<a href="claroline/auth/inscription.php">' . get_lang('Create user account') . '</a>' . "\n"
+        .    '</p>' . "\n"
+        ;
+    }
 } // end else if claro_displayLocalAuthForm
-?>
