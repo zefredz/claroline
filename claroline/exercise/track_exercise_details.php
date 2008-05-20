@@ -205,6 +205,8 @@ else
     exit();
 }
 
+$dialogBox = new DialogBox();
+
 
 //-- get infos
 // get infos about the exercise
@@ -258,14 +260,14 @@ if( claro_is_user_authenticated() )
             }
             else
             {
-                $dialogBox = get_lang('You must reach the maximum number of allowed attempts to view these statistics.');
+                $dialogBox->error( get_lang('You must reach the maximum number of allowed attempts to view these statistics.') );
             }
 
         }
         else
         {
               // user cannot see its full results if show_answer == 'NEVER'
-            $dialogBox = get_lang('Display of detailled answers is not authorized.');
+            $dialogBox->error( get_lang('Display of detailled answers is not authorized.') );
         }
     }
 }
@@ -379,9 +381,9 @@ else
 {
     if(!get_conf('is_trackingEnabled'))
     {
-        $dialogBox = get_lang('Tracking has been disabled by system administrator.');
+        $dialogBox->error( get_lang('Tracking has been disabled by system administrator.') );
     }
-    echo claro_html_message_box($dialogBox);
+    echo $dialogBox->render();
 }
 
 include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
