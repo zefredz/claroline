@@ -102,7 +102,7 @@ foreach ($toolList as $thisTool)
         if ( ! empty($thisTool['external_name'])) $toolName = $thisTool['external_name'];
         else $toolName = '<i>no name</i>';
         $url           = trim($thisTool['url']);
-        $icon = get_path('imgRepositoryWeb') . '/tool.gif';
+        $icon = get_module_url('tool');
         $removableTool = true;
     }
 
