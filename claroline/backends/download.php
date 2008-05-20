@@ -19,6 +19,8 @@ require_once get_path('incRepositorySys') . '/lib/file.lib.php';
 
 $nameTools = get_lang('Display file');
 
+$dialogBox = new DialogBox();
+
 $noPHP_SELF=true;
 
 $isDownloadable = true ;
@@ -42,7 +44,7 @@ else
 if ( empty($requestUrl) )
 {
     $isDownloadable = false ;
-    $message = get_lang('Missing parameters');
+    $dialogBox->error( get_lang('Missing parameters') );
 }
 else
 {
@@ -75,7 +77,7 @@ else
              && ( ! $is_allowedToEdit ) )
         {
             $isDownloadable = false ;
-            $message = get_lang('Not allowed');
+            $dialogBox->error( get_lang('Not allowed') );
         }
     }
 
@@ -114,9 +116,9 @@ else
     {
         $isDownloadable = false ;
 
-        $message = '<h1>' . get_lang('Not found') . '</h1>' . "\n"
-            . '<p>' . get_lang('The requested file <strong>%file</strong> was not found on the platform.',
-                                array('%file' => basename($pathInfo) ) ) . '</p>' ;
+        $dialogBox->title( get_lang('Not found') );
+        $dialogBox->error( get_lang('The requested file <strong>%file</strong> was not found on the platform.',
+                                array('%file' => basename($pathInfo) ) ) );
     }
 }
 
@@ -187,10 +189,7 @@ else
 
     include get_path('incRepositorySys')  . '/claro_init_header.inc.php';
 
-    if ( ! empty($message) )
-    {
-        echo claro_html_message_box($message);
-    }
+    echo $dialogBox->render();
 
     include get_path('incRepositorySys')  . '/claro_init_footer.inc.php';
 
