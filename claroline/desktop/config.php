@@ -109,31 +109,6 @@
 // {{{ CONTROLLER
 
     $PortletConfig = new PortletConfig();
-    $porletConfigAvatar = new porletConfigAvatar();
-
-    if( $cmd == 'exAvatar' )
-    {
-        if( $porletConfigAvatar->update( $avatar ) )
-        {
-            $dialogBox->success( get_lang('Avatar changed !') );
-        }
-        else
-        {
-            $dialogBox->error( get_lang('Avatar not changed !') );
-        }
-    }
-
-    if( $cmd == 'rqAvatar' )
-    {
-        $htmlConfirmDelete = get_lang('Are you sure to change avatar ?')
-        .     '<br /><br />'
-        .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exAvatar&amp;avatar='.$_REQUEST['selectAvatar'].'">' . get_lang('Yes') . '</a>'
-        .    '&nbsp;|&nbsp;'
-        .    '<a href="' . $_SERVER['PHP_SELF'] . '">' . get_lang('No') . '</a>'
-        ;
-
-        $dialogBox->question( $htmlConfirmDelete );
-    }
 
     if( $cmd == 'exUp' )
     {
@@ -167,27 +142,31 @@
 
     // Configuration des portlets
     $outPortlet = '';
-    $outPortlet .= '<fieldset class="config">';
-    $outPortlet .= '<legend>' . get_lang('Configuration des portlets') . '</legend>';
-
+    $outPortlet .= '<div class="config">' . "\n";
     $outPortlet .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
     .    '<thead>' . "\n"
-    .      '<tr class="headerX" align="center" valign="top">' . "\n"
-    .        '<th>' . get_lang('Nom') . '</th>' . "\n"
-    .       '<th>' . get_lang('Visibility') . '</th>' . "\n"
-    .       '<th colspan="2">' . get_lang('Ordre') . '</th>' . "\n"
-    .      '</tr>' . "\n"
+    .    '<tr class="headerX" align="center" valign="top">' . "\n"
+    .    '<th>' . get_lang('Title') . '</th>' . "\n"
+    .    '<th>' . get_lang('Visibility') . '</th>' . "\n"
+    .    '<th colspan="2">' . get_lang('Order') . '</th>' . "\n"
+    .    '</tr>' . "\n"
     .    '</thead>' . "\n"
     .    '<tbody>' . "\n"
     ;
 
-    foreach ( $portletList as $portlet )
+    if( is_array($portletList) && !empty($portletList) )
     {
-        $outPortlet .= "\n"
-        .      '<tr>' . "\n"
-        .       '<td>' . $portlet['name'] . '</td>' . "\n"
-        ;
-
+        $portletListSize = count($portletList);
+        $i = 0;
+        
+        foreach ( $portletList as $portlet )
+        {
+            $i++;
+            $outPortlet .= "\n"
+            .      '<tr>' . "\n"
+            .      '<td>' . $portlet['name'] . '</td>' . "\n"
+            ;
+    
             if( $portlet['visibility'] == 'visible' )
             {
                 $outPortlet .= "\n"
@@ -208,107 +187,35 @@
                 .    '</td>' . "\n"
                 ;
             }
-
-        $outPortlet .= "\n"
-        .       '<td><a href="' . $_SERVER['PHP_SELF'] . '?label=' . $portlet['label'] . '&amp;cmd=exUp"><img src="' . get_icon_url('up') . '" alt="' . get_lang('up') . '" /></a></td>' . "\n"
-        .       '<td><a href="' . $_SERVER['PHP_SELF'] . '?label=' . $portlet['label'] . '&amp;cmd=exDown"><img src="' . get_icon_url('down') . '" alt="' . get_lang('down') . '" /></a></td>' . "\n"
-        .      '</tr>' . "\n"
-        ;
+    
+            if( $i > 1 )
+            {
+                $outPortlet .= '<td><a href="' . $_SERVER['PHP_SELF'] . '?label=' . $portlet['label'] . '&amp;cmd=exUp"><img src="' . get_icon_url('up') . '" alt="' . get_lang('up') . '" /></a></td>' . "\n";
+            }
+            else
+            {
+                $outPortlet .= '<td>&nbsp;</td>' . "\n";
+            }
+            
+            if( $i < $portletListSize )
+            {
+                $outPortlet .= '<td><a href="' . $_SERVER['PHP_SELF'] . '?label=' . $portlet['label'] . '&amp;cmd=exDown"><img src="' . get_icon_url('down') . '" alt="' . get_lang('down') . '" /></a></td>' . "\n";
+            }
+            else
+            {
+                $outPortlet .= '<td>&nbsp;</td>' . "\n";
+            }
+            
+            $outPortlet .= '</tr>' . "\n";
+            
+        }
     }
 
     $outPortlet .= "\n"
     .    '</tbody>' . "\n"
     .    '</table>' . "\n"
+    .    '</div>' . "\n\n"
     ;
-
-    $outPortlet .= '</fieldset>';
-    $outPortlet .= '</form>' . "\n";
-/* 
-    // Ajout d'un avatar
-    $outPortlet .= '<fieldset class="config">';
-    $outPortlet .= '<legend>' . get_lang('Ajout d\'un avatar') . '</legend>';
-    $outPortlet .= '</fieldset>';
- */
-/*
-    // Configuration des avatars
-    $outPortlet .= '<form action="' . $_SERVER['PHP_SELF'] . '">' . "\n";
-
-    $outPortlet .= '<input type="hidden" name="cmd" value="rqAvatar" />' . "\n";
-
-    $outPortlet .= '<fieldset class="config avatar">';
-    $outPortlet .= '<legend>' . get_lang('Configuration des avatars') . '</legend>';
-
-    $outPortlet .= "\n"
-    .    '<table class="claroTable" width="100%" border="0" cellspacing="2">' . "\n"
-    .    '<tbody>' . "\n"
-
-    .      '<tr>' . "\n"
-    .      '<td>' . "\n"
-    .       '<img src="' . get_icon_url('Avatar-angel') . '" alt="' . get_lang('avatar') . '" />' . "\n"
-    .       '<input type="radio" name="selectAvatar" value="angel" />' . "\n"
-    .      '</td>' . "\n"
-    .      '<td>' . "\n"
-    .       '<img src="' . get_icon_url('Avatar-crying') . '" alt="' . get_lang('avatar') . '" />' . "\n"
-    .       '<input type="radio" name="selectAvatar" value="crying" />' . "\n"
-    .      '</td>' . "\n"
-    .      '<td>' . "\n"
-    .       '<img src="' . get_icon_url('Avatar-devilish') . '" alt="' . get_lang('avatar') . '" />' . "\n"
-    .       '<input type="radio" name="selectAvatar" value="devilish" />' . "\n"
-    .      '</td>' . "\n"
-    .      '<td>' . "\n"
-    .       '<img src="' . get_icon_url('Avatar-glasses') . '" alt="' . get_lang('avatar') . '" />' . "\n"
-    .       '<input type="radio" name="selectAvatar" value="glasses" />' . "\n"
-    .      '</td>' . "\n"
-    .      '<td>' . "\n"
-    .       '<img src="' . get_icon_url('Avatar-grin') . '" alt="' . get_lang('avatar') . '" />' . "\n"
-    .       '<input type="radio" name="selectAvatar" value="grin" />' . "\n"
-    .      '</td>' . "\n"
-    .      '<td>' . "\n"
-    .       '<img src="' . get_icon_url('Avatar-kiss') . '" alt="' . get_lang('avatar') . '" />' . "\n"
-    .       '<input type="radio" name="selectAvatar" value="kiss" />' . "\n"
-    .      '</td>' . "\n"
-    .      '</tr>' . "\n"
-
-    .      '<tr>' . "\n"
-    .      '<td>' . "\n"
-    .       '<img src="' . get_icon_url('Avatar-monkey') . '" alt="' . get_lang('avatar') . '" />' . "\n"
-    .       '<input type="radio" name="selectAvatar" value="monkey" />' . "\n"
-    .      '</td>' . "\n"
-    .      '<td>' . "\n"
-    .       '<img src="' . get_icon_url('Avatar-sad') . '" alt="' . get_lang('avatar') . '" />' . "\n"
-    .       '<input type="radio" name="selectAvatar" value="sad" />' . "\n"
-    .      '</td>' . "\n"
-    .      '<td>' . "\n"
-    .       '<img src="' . get_icon_url('Avatar-smile') . '" alt="' . get_lang('avatar') . '" />' . "\n"
-    .       '<input type="radio" name="selectAvatar" value="smile" />' . "\n"
-    .      '</td>' . "\n"
-    .      '<td>' . "\n"
-    .       '<img src="' . get_icon_url('Avatar-smile-big') . '" alt="' . get_lang('avatar') . '" />' . "\n"
-    .       '<input type="radio" name="selectAvatar" value="smile-big" />' . "\n"
-    .      '</td>' . "\n"
-    .      '<td>' . "\n"
-    .       '<img src="' . get_icon_url('Avatar-surprise') . '" alt="' . get_lang('avatar') . '" />' . "\n"
-    .       '<input type="radio" name="selectAvatar" value="surprise" />' . "\n"
-    .      '</td>' . "\n"
-    .      '<td>' . "\n"
-    .       '<img src="' . get_icon_url('Avatar-wink') . '" alt="' . get_lang('avatar') . '" />' . "\n"
-    .       '<input type="radio" name="selectAvatar" value="wink" />' . "\n"
-    .      '</td>' . "\n"
-    .      '</tr>' . "\n"
-
-    .      '<tr>' . "\n"
-    .      '<td colspan="6">' . "\n"
-    .       '<input type="submit" value="' . get_lang('Save') . '" />' . "\n"
-    .      '</td>' . "\n"
-    .      '</tr>' . "\n"
-
-
-    .    '</tbody>' . "\n"
-    .    '</table>' . "\n"
-    ;
-
-    $outPortlet .= '</fieldset>';
- */
 // }}}
 
 // {{{ VIEW
