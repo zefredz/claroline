@@ -481,11 +481,6 @@ elseif ($displayMode == "viewContentList") // default display
         $mainUserInfo['tutor'] = ($mainUserInfo['isTutor'] == 1 ? get_lang('Group Tutor') : ' - ');
         $mainUserInfo['isCourseManager'] = ($mainUserInfo['isCourseManager'] == 1 ? get_lang('Course manager') : ' - ');
 
-        if ($mainUserInfo['picture'] != '')
-        {
-            echo '<img src="' . get_path('imgRepositoryWeb') . 'users/' . $mainUserInfo['picture'] . '" border="1" />';
-        }
-
         echo '<table class="claroTable" width="80%" border="0">' . "\n"
         .    '<thead>' . "\n"
         .    '<tr class="headerX">' . "\n"
