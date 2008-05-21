@@ -99,8 +99,8 @@ $content .=
         .'</ul>'."\n"
         ;
 
-$claroline->display->banner->breadcrumbs->append(get_lang('Messages'),'index.php');
-$claroline->display->banner->breadcrumbs->append(get_lang('Administration'),'admin.php');
+$nameTools = get_lang('Messages');
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
 $claroline->display->body->appendContent(claro_html_tool_title(get_lang('Administration')));
 $claroline->display->body->appendContent($content);

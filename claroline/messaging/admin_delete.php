@@ -487,8 +487,11 @@ if ($displayRemovePlatformMessageValidated)
 // ------------- end platform message
 
 // ------------------- render ----------------------------
-$claroline->display->banner->breadcrumbs->append(get_lang('Messages'),'index.php');
-$claroline->display->banner->breadcrumbs->append(get_lang('Administration'),'admin.php');
+
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Messages') );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
+ClaroBreadCrumbs::getInstance()->setCurrent(get_lang('Delete messages') );
+
 $claroline->display->body->appendContent($content);
 
 echo $claroline->display->render();

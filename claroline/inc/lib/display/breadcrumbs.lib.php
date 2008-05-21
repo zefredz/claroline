@@ -33,7 +33,7 @@ if ( count( get_included_files() ) == 1 )
  *
  *      ClaroBreadCrumbs::getInstance()->prepend( 'b' );
  *      ClaroBreadCrumbs::getInstance()->prepend( 'a' );
- *      ClaroBreadCrumbs::getInstance()->current( 'c' );
+ *      ClaroBreadCrumbs::getInstance()->setCurrent( 'c' );
  *      ClaroBreadCrumbs::getInstance()->prepend( 'd' );
  *      ClaroBreadCrumbs::getInstance()->prepend( 'e' );
  *

@@ -535,9 +535,9 @@ if ($displayTable)
 }
 
 // ------------------- render ----------------------------
-$claroline->display->banner->breadcrumbs->append(get_lang('Messages'),'index.php');
-$claroline->display->banner->breadcrumbs->append(get_lang('Administration'),'admin.php');
-$claroline->display->banner->breadcrumbs->append(get_lang('Search messages'),'admin_search.php?search='.$arguments['search']);
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Messages') );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
+ClaroBreadCrumbs::getInstance()->setCurrent(get_lang('Search messages'),'admin_search.php?search='.$arguments['search']);
 
 $claroline->display->body->appendContent(claro_html_tool_title($title));
 $claroline->display->body->appendContent($content);
