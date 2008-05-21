@@ -283,7 +283,19 @@
                     ;
             // ------------------ sender
             
-            $content .= DisplayMessage::dispNameLinkCompose($message->getSender(),$message->getSenderLastName(),$message->getSenderFirstName());
+            $isAllowed = current_user_is_allowed_to_send_message_to_user($message->getSender());
+            
+            if ($isAllowed)
+            {
+                $content .= '<a href="sendmessage.php?cmd=rqMessageToUser&amp;userId='.$message->getSender().'">';
+            }
+            
+            $content .= get_lang('%firstName %lastName', array ('%firstName' =>htmlspecialchars($message->getSenderFirstName()), '%lastName' => htmlspecialchars($message->getSenderLastName())));
+            
+            if ($isAllowed)
+            {
+                $content .= "</a>";
+            }
             
             $isManager = FALSE;
             $isAdmin = claro_is_user_platform_admin($message->getSender());

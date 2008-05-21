@@ -488,7 +488,10 @@ if ($displayTable)
                 '<tr>'."\n"
                 .'<td class="im_list_selection"><input type="checkbox" name="msg[]" value="'.$message->getId().'" /></td>'."\n"
                 .'<td>'.htmlspecialchars($message->getSubject()).'</td>'."\n"
-                .'<td>'.DisplayMessage::dispNameLinkCompose($message->getSender(),$message->getSenderLastName(),$message->getSenderFirstName()).'</td>'."\n"
+                .'<td><a href="sendmessage.php?cmd=rqMessageToUser&amp;userId='.$message->getSender().'">'
+                        .get_lang('%firstName %lastName', array ('%firstName' =>htmlspecialchars($message->getSenderFirstName()), '%lastName' => htmlspecialchars($message->getSenderLastName())))
+                .     '</a>'
+                .'</td>'
                 .'<td>'.htmlspecialchars($userData['username']).'</td>'."\n"
                 .'<td>'.claro_html_localised_date(get_locale('dateTimeFormatLong'),strtotime($message->getSendTime())).'</td>'."\n"
                 .'<td class="im_list_action"><a href="'.$linkDelete.'cmd=rqDeleteMessage&amp;message_id='.$message->getId().'" '

@@ -126,3 +126,19 @@ function current_user_is_allowed_to_send_message_to_current_group()
     return false;
     
 }
+
+function can_answer_message($messageId)
+{
+    $tableName = get_module_main_tbl(array('im_message_status'));
+        
+        $select =
+           "SELECT count(*)\n"
+           .    " FROM `" . $tableName['im_message_status'] . "` as M\n"
+           .    " WHERE (M.user_id = " . (int)claro_get_current_user_id() . " OR M.user_id = 0)\n"
+           .        " AND M.message_id = " . (int)$messageId
+           ;
+           
+    
+    $nbMessage = claro_sql_query_fetch_single_value($select);
+    return $nbMessage>0? true : false;
+}

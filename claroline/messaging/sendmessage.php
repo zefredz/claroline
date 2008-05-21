@@ -29,6 +29,7 @@
     
     include claro_get_conf_repository() . 'CLMSG.conf.php';
     require_once dirname(__FILE__).'/lib/message/messagetosend.lib.php';
+    require_once dirname(__FILE__).'/lib/message/receivedmessage.lib.php';
     require_once dirname(__FILE__).'/lib/recipient/singleuserrecipient.lib.php';
     require_once dirname(__FILE__).'/lib/recipient/courserecipient.lib.php';
     require_once dirname(__FILE__).'/lib/recipient/grouprecipient.lib.php';
@@ -73,6 +74,34 @@
             $groupRecipient = '';
             $courseRecipient = '';
             
+            if (isset($_REQUEST['messageId']))
+            {
+                if (can_answer_message((int)$_REQUEST['messageId']))
+                {
+                    $responseTo = (int)$_REQUEST['messageId'];
+                    $messageParent = ReceivedMessage::fromId((int)$_REQUEST['messageId'],claro_get_current_user_id());
+                    
+                    if (!isset($_REQUEST['subject']))
+                    {
+                        $subject = get_lang('RE:').strip_tags($messageParent->getSubject());
+                    }
+                    
+                    if (!isset($_REQUEST['message']))
+                    {
+                        $message = "<br /><br />-----------------------------<br />".$messageParent->getMessage();
+                    }
+                }
+                else
+                {
+                    claro_die(get_lang('Not allowed'));
+                }
+            }
+            else
+            {
+                $responseTo = '';
+            }
+          
+            
             $addForm = TRUE;
         }
         
@@ -91,6 +120,7 @@
             $userRecipient = '';
             $groupRecipient = '';
             $courseRecipient = claro_get_current_course_id();
+            $responseTo = '';
             
             $addForm = TRUE;
         }
@@ -120,6 +150,7 @@
             $userRecipient = '';
             $groupRecipient = claro_get_current_group_id();
             $courseRecipient = claro_get_current_course_id();
+            $responseTo = '';
             
             $addForm = TRUE;
         }
@@ -150,6 +181,7 @@
                     $userRecipient = (int)$_POST['userRecipient'];
                     $groupRecipient = (int)$_POST['groupRecipient'];
                     $courseRecipient = strip_tags($_POST['courseRecipient']);
+                    $responseTo = (int)$_POST['responseTo'];
                     
                     $dialogBox = new DialogBox();
                     $dialogBox->error(get_lang("Subject couldn't be empty"));
@@ -163,16 +195,39 @@
                     {
                         $recipient = new SingleUserRecipient($_POST['userRecipient']);
                         
-                        if (claro_is_in_a_course())
+                        if (claro_is_in_a_group())
+                        {
+                            $message->setCourse(claro_get_current_course_id());
+                            $message->setGroup(claro_get_current_group_id());
+                        }
+                        elseif (claro_is_in_a_course())
                         {
                             $message->setCourse(claro_get_current_course_id());
                         }
-                        
-                        if (claro_is_in_a_group())
+                        elseif (!empty($_POST['responseTo']))
                         {
-                            $message->setCourse(claro_get_current_group_id());
+                            if (can_answer_message((int)$_POST['responseTo']))
+                            {
+                                $messageParent = ReceivedMessage::fromId((int)$_POST['responseTo'], claro_get_current_user_id());
+                                if (!is_null($messageParent->getCourseCode()))
+                                {
+                                    $message->setCourse($messageParent->getCourseCode());
+                                }
+                                
+                                if (!is_null($messageParent->getGroupId()))
+                                {
+                                    $message->setGroup($messageParent->getGroupId());
+                                }
+                            }
+                            else
+                            {
+                                claro_die(get_lang('Not allowed'));
+                            }
                         }
-                        
+                        else
+                        {
+                            //No context to load
+                        }
                     }
                     elseif ( $_REQUEST['typeRecipient'] == "course" )
                     {
@@ -221,6 +276,7 @@
          . '<input type="hidden" name="userRecipient" value="'.$userRecipient.'" />'."\n"
          . '<input type="hidden" name="courseRecipient" value="'.$courseRecipient.'" />'."\n"
          . '<input type="hidden" name="groupRecipient" value="'.$groupRecipient.'" />'."\n"
+         . '<input type="hidden" name="responseTo" value="'.$responseTo.'" />'."\n"
          . '<label>'.get_lang('Subject').' : </label><br/><input type="text" name="subject" value="'.htmlspecialchars($subject).'" maxlength="255" size="40" /><br/>'."\n"
          . '<label>'.get_lang('Message').' : </label><br/>'.claro_html_textarea_editor('message', $message).'<br/><br/>'."\n"
          . '<input type="submit" value="'.get_lang('Send').'" name="send" />'."\n"

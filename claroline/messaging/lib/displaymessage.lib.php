@@ -232,9 +232,21 @@ class DisplayMessage
                 .  '<h4 class="header">'.htmlspecialchars($message->getSubject()).'</h4>'."\n"
                 .  '<div class="imInfo">'."\n"
                 .          '<span class="imInfoTitle">'.get_lang('Sender').'</span>'."\n"
-                .       '<div class="imInfoValue">'.self::dispNameLinkCompose($message->getSender(),$message->getSenderLastName(),$message->getSenderFirstName())
+                .       '<div class="imInfoValue">'
                 ;
-
+        $isAllowed = current_user_is_allowed_to_send_message_to_user($message->getSender());
+        
+        if ($isAllowed)
+        {
+            $content .= '<a href="sendmessage.php?cmd=rqMessageToUser&amp;userId='.$message->getSender().'">';
+        }
+        
+        $content .= get_lang('%firstName %lastName', array ('%firstName' =>htmlspecialchars($message->getSenderFirstName()), '%lastName' => htmlspecialchars($message->getSenderLastName())));
+        
+        if ($isAllowed)
+        {
+            $content .= "</a>";
+        }
         $isManager = FALSE;
         $isAdmin = claro_is_user_platform_admin($message->getSender());
         if (!is_null($message->getCourseCode()))
@@ -337,23 +349,4 @@ class DisplayMessage
         return $content;
     }
 
-    // display the user as link if the current user is autorise to compose msg
-    public static function dispNameLinkCompose($id,$lastName,$firstName)
-    {
-        $isAllowed = current_user_is_allowed_to_send_message_to_user($id);
-        
-        if ($isAllowed)
-        {
-            $string = '<a href="sendmessage.php?cmd=rqMessageToUser&amp;userId='.$id.'">';
-        }
-        
-        $string .= get_lang('%firstName %lastName', array ('%firstName' =>htmlspecialchars($firstName), '%lastName' => htmlspecialchars($lastName)));
-        
-        if ($isAllowed)
-        {
-            $string .= "</a>";
-        }
-
-        return $string;
-    }
 }

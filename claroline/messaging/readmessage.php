@@ -62,6 +62,10 @@
         try
         {
             $message = ReceivedMessage::fromId($messageId,$userId);
+            if($message === false)
+            {
+                claro_die('Message not found');
+            }
             
             if (claro_get_current_user_id() == $userId)
             {
@@ -76,6 +80,10 @@
     else
     {
         $message = SentMessage::fromId($messageId);
+        if($message === false)
+        {
+            claro_die('Message not found');
+        }
         
         // the sender is different from the current user id
         if ($message->getSender() != $userId)
@@ -172,6 +180,11 @@
         else
         {
             //tothing to do
+        }
+        
+        if (current_user_is_allowed_to_send_message_to_user($message->getSender()) )
+        {
+            $action .= ' | <a href="sendmessage.php?cmd=rqMessageToUser&amp;messageId='.$message->getId().'&amp;userId='.$message->getSender().'">'.get_lang('Reply').'</a>';
         }
     }
     else
