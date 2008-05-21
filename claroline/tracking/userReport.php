@@ -19,15 +19,14 @@ require_once dirname( __FILE__ ) . '../../inc/claro_init_global.inc.php';
 
 
 /*
- * Permissions
+ * Usual check
  */
-if( ! get_conf('is_trackingEnabled') ) claro_die(get_lang('Tracking has been disabled by system administrator.')); 
-if( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
+if( ! get_conf('is_trackingEnabled') ) claro_die(get_lang('Tracking has been disabled by system administrator.'));
 
 /*
  * Libraries
  */
-uses( 'user.lib' );
+uses( 'user.lib', 'courselist.lib' );
 
 require_once dirname( __FILE__ ) . '/lib/trackingRenderer.class.php';
 require_once dirname( __FILE__ ) . '/lib/trackingRendererRegistry.class.php';
@@ -41,11 +40,11 @@ else                                                                  $userId = 
 
 if( isset($_REQUEST['courseId']) && !empty($_REQUEST['courseId']) )
 {
-    $courseId = $_REQUEST['courseId'];
+	$courseId = $_REQUEST['courseId'];
 }
 else
 {
-    if( claro_is_in_a_course() ) $courseId = claro_get_current_course_id();
+	if( claro_is_in_a_course() ) $courseId = claro_get_current_course_id();
     else                         $courseId = null;
 }
 
@@ -84,8 +83,6 @@ if( claro_is_in_a_course() )
  * Init some other vars
  */
 
-$dialogBox = '';
-
 // user's course list
 if( $canSwitchCourses )
 {
@@ -103,7 +100,7 @@ $userData = user_get_properties($userId);
 
 if( !is_array($userData) )
 {
-    $dialogBox .= get_lang('Cannot find user.') ;
+    claro_die( get_lang('Cannot find user.') );
 }
 
 /*
@@ -112,8 +109,9 @@ if( !is_array($userData) )
 $cssLoader = CssLoader::getInstance();
 $cssLoader->load( 'tracking', 'screen');
 
-// initialize output
 $claroline->setDisplayType( CL_PAGE );
+
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users'), 'user.php' );
 
 $nameTools = get_lang('User statistics');
 
@@ -129,11 +127,11 @@ $html .= '<div id="userCart">' . "\n"
 
 if( $pictureUrl = user_get_picture_url( $userData ) )
 {
-    $html .= '<img src="' . $pictureUrl . '" class="userPicture" alt="" />';
+    $html .= '<img src="'.$pictureUrl.'" class="userPicture" alt="" />';
 }
 else
 {
-    $html .= '<img src="' . get_icon_url('nopicture') . '" class="userPicture" alt="" />';
+    $html .= '<img src="'.get_icon_url('nopicture').'" class="userPicture" alt="" />';
 }
 
 
@@ -152,7 +150,7 @@ $html .= '</div>' . "\n"
 if( $canSwitchCourses )
 {
     $html .= '<ul id="navlist">' . "\n"
-    .     ' <li><a '.(empty($courseId)?'class="current"':'').' href="userLog.php?userId='.$userId.'">'.get_lang('Platform').'</a></li>' . "\n";
+    .     ' <li><a '.(empty($courseId)?'class="current"':'').' href="userReport.php?userId='.$userId.'">'.get_lang('Platform').'</a></li>' . "\n";
 
 
     foreach( $userCourseList as $course )
@@ -161,7 +159,7 @@ if( $canSwitchCourses )
         else                                        $class = '';
 
         $html .= ' <li>'
-        .     '<a '.$class.' href=userLog.php?userId='.$userId.'&amp;courseId='.$course['sysCode'].'>'.$course['title'].'</a>'
+        .     '<a '.$class.' href=userReport.php?userId='.$userId.'&amp;courseId='.$course['sysCode'].'>'.$course['title'].'</a>'
         .     '</li>' . "\n";
     }
 
@@ -186,13 +184,17 @@ else
 // get all renderers by using registry
 $trackingRendererRegistry = TrackingRendererRegistry::getInstance();
 
-// here we need course tracking renderers
-$userTrackingRendererList = $trackingRendererRegistry->getUserRendererList();
-
-foreach( $userTrackingRendererList as $ctr )
-{
-    $renderer = new $ctr( claro_get_current_course_id(), $userId );
-    $html .= $renderer->render();
+// FIXME do something when courseId is null
+if( ! is_null($courseId) )
+{ 
+    // here we need user tracking renderers
+    $userTrackingRendererList = $trackingRendererRegistry->getUserRendererList();
+    
+    foreach( $userTrackingRendererList as $ctr )
+    {
+        $renderer = new $ctr( $courseId, $userId );
+        $html .= $renderer->render();
+    }
 }
 
 
