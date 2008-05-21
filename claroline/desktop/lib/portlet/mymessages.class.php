@@ -1,22 +1,24 @@
 <?php // $Id$
+
+// vim: expandtab sw=4 ts=4 sts=4:
+
+if ( count( get_included_files() ) == 1 )
+{
+    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
+}
+
 /**
- * CLAROLINE
- *
- * This script prupose to user to edit his own profile
- *
- * @version 1.8 $Revision$
- *
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @see http://www.claroline.net/wiki/Auth/
- *
- * @author Claro Team <cvs@claroline.net>
- *
- * @package Auth
- *
- */
+* CLAROLINE
+*
+* User desktop : internal messaging portlet
+*
+* @version      1.9 $Revision$
+* @copyright    (c) 2001-2008 Universite catholique de Louvain (UCL)
+* @license      http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+* @package      DESKTOP
+* @author       Claroline team <info@claroline.net>
+*
+*/
 
 require_once get_path( 'clarolineRepositorySys' ) . '/messaging/lib/tools.lib.php';
 require_once get_path( 'clarolineRepositorySys' ) . '/messaging/lib/messagebox/inbox.lib.php';
@@ -100,4 +102,3 @@ class MyMessages extends Portlet
         return get_lang('My messages');
     }
 }
-?>

@@ -1,18 +1,19 @@
 <?php // $Id$
+
+// vim: expandtab sw=4 ts=4 sts=4:
+
 /**
- * CLAROLINE
- *
- * $Revision$
- *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
- *
- * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
- *
- * @package Desktop
- *
- * @author Claroline team <info@claroline.net>
- *
- */
+* CLAROLINE
+*
+* User desktop index
+*
+* @version      1.9 $Revision$
+* @copyright    (c) 2001-2008 Universite catholique de Louvain (UCL)
+* @license      http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+* @package      DESKTOP
+* @author       Claroline team <info@claroline.net>
+*
+*/
 
 // {{{ SCRIPT INITIALISATION
 
@@ -24,14 +25,14 @@
     // load Claroline kernel
     require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
     
+    if( ! claro_is_user_authenticated() ) claro_disp_auth_form();
+    
     // load libraries
     require_once dirname(__FILE__) . '/lib/portlet.lib.php';
     require_once dirname(__FILE__) . '/lib/portletRightMenu.lib.php';
     require_once dirname(__FILE__) . '/lib/portletInsertConfigDB.lib.php';
     
     uses('user.lib', 'utils/finder.lib');
-
-    if( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 
     $dialogBox = new DialogBox();
 
