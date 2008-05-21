@@ -41,9 +41,6 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             .    '<div class="header portletTitle">' . "\n"
 
             .    '<span class="porletIcon">' . "\n"
-            .      '<a href="config.php">' . "\n"
-            .        '<img src="' . get_icon_url('config') . '" alt="' . get_lang('config') . '" />' . "\n"
-            .      '</a>' . "\n"
             .      '<a href="../../claroline/auth/profile.php">' . "\n"
             .        '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('edit') . '" />' . "\n"
             .      '</a>' . "\n"

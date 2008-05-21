@@ -23,16 +23,15 @@
 
     // load Claroline kernel
     require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
-    require_once get_path( 'includePath' ) . '/lib/user.lib.php';
+    
+    // load libraries
     require_once dirname(__FILE__) . '/lib/portlet.lib.php';
     require_once dirname(__FILE__) . '/lib/portletRightMenu.lib.php';
-    require_once dirname(__FILE__) . '/lib/porletInsertConfigDB.lib.php';
-    uses('utils/finder.lib.php');
+    require_once dirname(__FILE__) . '/lib/portletInsertConfigDB.lib.php';
+    
+    uses('user.lib', 'utils/finder.lib');
 
-    // users authentified
     if( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-
-    $is_allowedToEdit = claro_is_allowed_to_edit();
 
     $dialogBox = new DialogBox();
 
@@ -61,8 +60,6 @@
 
         foreach ( $fileFinder as $file )
         {
-            // l'objet $file est de class SplFileInfo
-            // pour la doc voir : http://www.php.net/~helly/php/ext/spl/
             $fileName = $file->getFilename();
             $filePath = $file->getRealPath();
 
@@ -73,11 +70,10 @@
             $pos = strpos($fileName, '.');
             $className = substr($fileName, '0', $pos);
 
-            // class porletInsertConfigDB
-            $porletInsertConfigDB = new porletInsertConfigDB();
+            $portletInsertConfigDB = new PortletInsertConfigDB();
 
             // load db
-            $portletInDB = $porletInsertConfigDB->load($className);
+            $portletInDB = $portletInsertConfigDB->load($className);
 
             // si present en db on passe
             if( !$portletInDB )
@@ -85,11 +81,10 @@
                 if( class_exists($className) )
                 {
                     // insert db
-                    $porletInsertConfigDB->setLabel($className);
-                    $porletInsertConfigDB->setName($className);
-                    $porletInsertConfigDB->setRank($i);
-                    $porletInsertConfigDB->setActivated(true);
-                    $porletInsertConfigDB->save();
+                    $portletInsertConfigDB->setLabel($className);
+                    $portletInsertConfigDB->setName($className);
+                    $portletInsertConfigDB->setRank($i);
+                    $portletInsertConfigDB->save();
                 }
             }
 
@@ -98,12 +93,11 @@
     }
     catch (Exception $e)
     {
-        $dialogBox->error( get_lang('Error to load portlet') );
+        $dialogBox->error( get_lang('Cannot load portlets') );
         pushClaroMessage($e->__toString());
     }
 
-    // affichage des portlets
-    $portletList = $porletInsertConfigDB->loadAll( true );
+    $portletList = $portletInsertConfigDB->loadAll( true );
 
     foreach ( $portletList as $portlet )
     {

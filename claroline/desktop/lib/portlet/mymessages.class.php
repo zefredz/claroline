@@ -21,17 +21,17 @@
 require_once get_path( 'clarolineRepositorySys' ) . '/messaging/lib/tools.lib.php';
 require_once get_path( 'clarolineRepositorySys' ) . '/messaging/lib/messagebox/inbox.lib.php';
 
-class MyBox extends Portlet
+class MyMessages extends Portlet
 {
     protected $inbox;
 
-    function __construct()
+    public function __construct()
     {
         $this->inbox = new InBox;
         $this->inbox->getMessageStrategy()->setNumberOfMessagePerPage( get_conf('myboxNumberOfMessage',5) );
     }
 
-    function renderContent()
+    public function renderContent()
     {
         $output = getBarMessageBox( claro_get_current_user_id());
 
@@ -41,9 +41,9 @@ class MyBox extends Portlet
         .    '<thead>' . "\n"
         .      '<tr class="headerX" align="center" valign="top">' . "\n"
         .        '<th>&nbsp;</th>' . "\n"
-        .        '<th>' . get_lang('De') . '</th>' . "\n"
-        .        '<th>' . get_lang('Sujet') . '</th>' . "\n"
-        .        '<th>' . get_lang('Reçu') . '</th>' . "\n"
+        .        '<th>' . get_lang('From') . '</th>' . "\n"
+        .        '<th>' . get_lang('Subject') . '</th>' . "\n"
+        .        '<th>' . get_lang('Date') . '</th>' . "\n"
         .      '</tr>' . "\n"
         .    '</thead>' . "\n"
         .    '<tbody>' . "\n"
@@ -60,8 +60,8 @@ class MyBox extends Portlet
                 }
                 else
                 {
-                    ( $message->isRead() ? $classMessage = 'class="readMessage"' : $classMessage = 'class="unreadMessage"' );
-                    ( $message->isRead() ? $iconMessage = '<img src="' . get_icon_url('emaillu') . '" alt="' . get_lang('email') . '" />' : $iconMessage = '<img src="' . get_icon_url('email') . '" alt="' . get_lang('email') . '" />' );
+                    $classMessage = ( $message->isRead() ? 'class="readMessage"' : 'class="unreadMessage"' );
+                    $iconMessage = ( $message->isRead() ? '<img src="' . get_icon_url('readmessage') . '" alt="" />' : '<img src="' . get_icon_url('unreadmessage') . '" alt="" />' );
                 }
 
                 $output .= "\n"
@@ -95,10 +95,9 @@ class MyBox extends Portlet
         return $output;
     }
 
-    function renderTitle()
+    public function renderTitle()
     {
-        $this->title = get_lang('My MailBox');
-        return $this->title;
+        return get_lang('My messages');
     }
 }
 ?>

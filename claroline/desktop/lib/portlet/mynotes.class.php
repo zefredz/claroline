@@ -18,7 +18,7 @@
  *
  */
 
-
+// FIXME : MVC + ajax handling 
 $jsloader = JavascriptLoader::getInstance();
 $jsloader->load('jquery');
     
@@ -32,12 +32,11 @@ $claroline->display->header->addHtmlHeader($htmlHeaders);
  
 class MyNotes extends Portlet
 {
-
     private $id = 0;
     private $note = '';
     private $label = 'Mynotes';
 
-    function __construct()
+    public function __construct()
     {
         $tblNameList = array(
             'desktop_portlet_data'
@@ -48,37 +47,37 @@ class MyNotes extends Portlet
         $this->tblnote = $tbl_lp_names['desktop_portlet_data'];
     }
 
-    public function getId()
+    protected function getId()
     {
         return (int) $this->id;
     }
 
-    public function setId( $id )
+    protected function setId( $id )
     {
         $this->id = (int) $id;
     }
 
-    public function getLabel()
+    protected function getLabel()
     {
         return $this->label;
     }
 
-    public function setLabel( $value )
+    protected function setLabel( $value )
     {
         $this->label = trim($value);
     }
 
-    public function getNote()
+    protected function getNote()
     {
         return $this->note;
     }
 
-    public function setNote( $value )
+    protected function setNote( $value )
     {
         $this->note = trim($value);
     }
 
-    public function load()
+    protected function load()
     {
         $sql = "SELECT
                     `id`,
@@ -107,7 +106,7 @@ class MyNotes extends Portlet
         }
     }
 
-    function loadAll()
+    protected function loadAll()
     {
         $sql = "SELECT
                     `id`,
@@ -129,7 +128,7 @@ class MyNotes extends Portlet
         }
     }
 
-    function save()
+    protected function save()
     {
         if( ! $this->getId() )
         {
@@ -177,7 +176,7 @@ class MyNotes extends Portlet
         }
      }
 
-    function delete()
+    protected function delete()
     {
          if( !$this->getId() ) return true;
 
@@ -192,7 +191,7 @@ class MyNotes extends Portlet
         return true;
     }
 
-    function validate()
+    protected function validate()
     {
         $errorForm = null;
 
@@ -214,7 +213,7 @@ class MyNotes extends Portlet
     }
 
 
-    function renderContent()
+    public function renderContent()
     {
 
 // {{{ SCRIPT INITIALISATION
@@ -411,7 +410,7 @@ class MyNotes extends Portlet
         return $output;
     }
 
-    function renderTitle()
+    public function renderTitle()
     {
         return get_lang('My Notes');
     }

@@ -23,11 +23,7 @@ require_once get_path( 'clarolineRepositorySys' ) . '/calendar/lib/agenda.lib.ph
 class MyCalendar extends Portlet
 {
 
-    function __construct()
-    {
-    }
-
-    function renderContent()
+    public function renderContent()
     {
         $today = getdate();
 
@@ -106,9 +102,9 @@ class MyCalendar extends Portlet
         return $output;
     }
 
-    function renderTitle()
+    public function renderTitle()
     {
-        return $this->title = get_lang('My calendar');
+        return get_lang('My calendar');
     }
 }
 ?>

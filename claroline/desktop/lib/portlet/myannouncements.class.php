@@ -23,45 +23,47 @@ require_once get_path( 'includePath' ) . '/lib/courselist.lib.php';
 
 class MyAnnouncements extends Portlet
 {
-    function __construct()
+    public function __construct()
     {
         if (file_exists(claro_get_conf_repository() . 'CLANN.conf.php'))
+        {
             include claro_get_conf_repository() . 'CLANN.conf.php';
+        }
     }
 
-    function renderContent()
+    public function renderContent()
     {
         $personnalCourseList = get_user_course_list(claro_get_current_user_id());
 
-        $annoncementEventList = announcement_get_items_portlet($personnalCourseList);
+        $announcementEventList = announcement_get_items_portlet($personnalCourseList);
 
         $output = '';
 
-        if($annoncementEventList)
+        if($announcementEventList)
         {
             $output .= '<dl>';
-            foreach($annoncementEventList as $annoncementItem)
+            foreach($announcementEventList as $announcementItem)
             {
 
                 $output .= '<dt>' . "\n"
-                .    '<img class="iconDefinitionList" src="' . get_icon_url('announcement') . '" alt="' . get_lang('Icon announcement') . '" />'
+                .    '<img class="iconDefinitionList" src="' . get_icon_url('announcement') . '" alt="" />'
                 .    '<small>'
-                .    '<a href="' . $annoncementItem['url'] . '">'
-                .    $annoncementItem['title']
+                .    '<a href="' . $announcementItem['url'] . '">'
+                .    $announcementItem['title']
                 .    '</a>' . "\n"
                 .    '</small>' . "\n"
                 .    '</dt>' . "\n"
                 ;
 
-                foreach($annoncementItem['eventList'] as $annoncementEvent)
+                foreach($announcementItem['eventList'] as $announcementEvent)
                 {
                     $output .= '<dd>'
                     .    '<small>'  . "\n"
-                    .    '<a href="' . $annoncementItem['url'] . '">'
-                    .    $annoncementItem['courseOfficialCode']
+                    .    '<a href="' . $announcementItem['url'] . '">'
+                    .    $announcementItem['courseOfficialCode']
                     .    '</a> : ' . "\n"
                     .    '<small>'  . "\n"
-                    .    $annoncementEvent['content'] . "\n"
+                    .    $announcementEvent['content'] . "\n"
                     .    '</small>' . "\n"
                     .    '</small>' . "\n"
                     .    '</dd>' . "\n"
@@ -75,7 +77,7 @@ class MyAnnouncements extends Portlet
             $output .= "\n"
             .    '<dl>' . "\n"
             .    '<dt>' . "\n"
-            .    '<img class="iconDefinitionList" src="' . get_icon_url('announcement') . '" alt="' . get_lang('Icon announcement') . '" />'
+            .    '<img class="iconDefinitionList" src="' . get_icon_url('announcement') . '" alt="" />'
             .    '<small>'
             .    get_lang('No event to display') . "\n"
             .    '</small>' . "\n"
@@ -84,13 +86,12 @@ class MyAnnouncements extends Portlet
             ;
         }
 
-
         return $output;
     }
 
-    function renderTitle()
+    public function renderTitle()
     {
-        return $this->title = get_lang('Latest announcements');
+        return get_lang('Latest announcements');
     }
 }
 ?>

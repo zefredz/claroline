@@ -16,27 +16,25 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  */
     // vim: expandtab sw=4 ts=4 sts=4 foldmethod=marker:
 
-    class Portlet
+    abstract class Portlet
     {
-        private $title = '';
-        private $content = '';
-
         // render title
-        public function renderTitle()
-        {
-            return $this->title;
-        }
+        abstract public function renderTitle();
 
         // render content
-        public function renderContent()
-        {
-            return $this->content;
-        }
+        abstract public function renderContent();
 
         // render all
         public function render()
         {
-            return '<div class="portlet"><div class="header">' . $this->renderTitle() . '</div><div class="portletContent">' . $this->renderContent() . '</div></div>';
+            return '<div class="portlet">' . "\n"
+            .   '<div class="header">' . "\n"
+            .   $this->renderTitle() . "\n"
+            .   '</div>' . "\n"
+            .   '<div class="portletContent">' . "\n"
+            .   $this->renderContent()
+            .   '</div>' . "\n" 
+            .   '</div>' . "\n\n";
         }
     }
 ?>

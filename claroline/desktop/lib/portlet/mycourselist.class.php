@@ -20,13 +20,9 @@
 
 require_once get_path( 'includePath' ) . '/lib/courselist.lib.php';
 
-class MyCours extends Portlet
+class MyCourseList extends Portlet
 {
-    function __construct()
-    {
-    }
-
-    function renderContent()
+    public function renderContent()
     {
         global $platformLanguage;
 
@@ -114,9 +110,9 @@ class MyCours extends Portlet
         return $this->content;
     }
 
-    function renderTitle()
+    public function renderTitle()
     {
-        return $this->title = get_lang('My course list');
+        return get_lang('My course list');
     }
 }
 ?>

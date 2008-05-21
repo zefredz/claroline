@@ -26,18 +26,16 @@
     require_once get_path( 'includePath' ) . '/lib/user.lib.php';
     require_once dirname(__FILE__) . '/lib/portlet.lib.php';
     require_once dirname(__FILE__) . '/lib/portletRightMenu.lib.php';
-    require_once dirname(__FILE__) . '/lib/porletInsertConfigDB.lib.php';
+    require_once dirname(__FILE__) . '/lib/portletInsertConfigDB.lib.php';
 
     // users authentified
     if( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 
-    $is_allowedToEdit = claro_is_allowed_to_edit();
+    if( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed') );
 
     $dialogBox = new DialogBox();
 
     $acceptedCmdList = array(
-    'rqAvatar',
-    'exAvatar',
     'exDown',
     'exUp',
     'exVisible',
@@ -62,14 +60,6 @@
         $label = NULL;
     }
 
-    if( isset($_REQUEST['avatar']) && !empty($_REQUEST['avatar']) )
-    {
-        $avatar = $_REQUEST['avatar'];
-    }
-    else
-    {
-        $avatar = 'smile';
-    }
 
 // }}}
 
@@ -77,33 +67,7 @@
 
     $cssLoader = CssLoader::getInstance();
     $cssLoader->load('desktop','all');
-/*
-    $jsloader = JavascriptLoader::getInstance();
-    $jsloader->load('jquery');
 
-    $htmlHeaders = "\n"
-    .   '<script type="text/javascript">' . "\n"
-    .   '$(document).ready(function() {' . "\n"
-    .   '$(".config legend").addClass("hideul");' . "\n"
-    .   '$(".config").find("table").hide().end();' . "\n"
-    .   '$(".config").find("legend").click(function() {' . "\n"
-    .   '        var answer = $(this).next();' . "\n"
-    .   '        if (answer.is(":visible")) {' . "\n"
-    .   '            answer.slideUp("fast");' . "\n"
-    .   '            $(this).removeClass("showul");' . "\n"
-    .   '            $(this).addClass("hideul");' . "\n"
-    .   '        } else {' . "\n"
-    .   '            answer.slideDown("slow");' . "\n"
-    .   '            $(this).removeClass("hideul");' . "\n"
-    .   '            $(this).addClass("showul");' . "\n"
-    .   '        }' . "\n"
-    .   '    });' . "\n"
-    .   '});' . "\n"
-    .   '</script>' . "\n"
-    ;
-
-    $claroline->display->header->addHtmlHeader($htmlHeaders);
- */
 // }}}
 
 // {{{ CONTROLLER
@@ -112,38 +76,42 @@
 
     if( $cmd == 'exUp' )
     {
-        $PortletConfig->move_portlet( $label, 'up' );
+        $PortletConfig->moveUp( $label );
     }
 
     if( $cmd == 'exDown' )
     {
-        $PortletConfig->move_portlet( $label, 'down' );
+        $PortletConfig->moveDown( $label );
     }
 
     if( $cmd == 'exVisible' )
     {
-
-
-        $PortletConfig->setVisible();
-
-        $PortletConfig->saveVisibility($label);
+        $PortletConfig->setVisible( $label );
     }
 
     if( $cmd == 'exInvisible' )
     {
-        $PortletConfig->setInvisible();
-
-        $PortletConfig->saveVisibility($label);
+        $PortletConfig->setInvisible( $label );
     }
 
-    // class porletInsertConfigDB
-    $porletInsertConfigDB = new porletInsertConfigDB();
-    $portletList = $porletInsertConfigDB->loadAll();
+    $portletInsertConfigDB = new PortletInsertConfigDB();
+    $portletList = $portletInsertConfigDB->loadAll();
 
-    // Configuration des portlets
-    $outPortlet = '';
-    $outPortlet .= '<div class="config">' . "\n";
-    $outPortlet .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
+// }}}
+
+// {{{ VIEW
+
+    $output = '';
+
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
+    
+    $nameTools = get_lang('Manage user desktop');
+
+    $output .= claro_html_tool_title($nameTools);
+
+    $output .= $dialogBox->render();
+    
+    $output .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
     .    '<thead>' . "\n"
     .    '<tr class="headerX" align="center" valign="top">' . "\n"
     .    '<th>' . get_lang('Title') . '</th>' . "\n"
@@ -156,22 +124,23 @@
 
     if( is_array($portletList) && !empty($portletList) )
     {
+        // only used to hide first up and last down commands
         $portletListSize = count($portletList);
         $i = 0;
         
         foreach ( $portletList as $portlet )
         {
             $i++;
-            $outPortlet .= "\n"
+            $output .= "\n"
             .      '<tr>' . "\n"
-            .      '<td>' . $portlet['name'] . '</td>' . "\n"
+            .      '<td>' . htmlspecialchars($portlet['name']) . '</td>' . "\n"
             ;
     
             if( $portlet['visibility'] == 'visible' )
             {
-                $outPortlet .= "\n"
+                $output .= "\n"
                 .    '<td align="center">' . "\n"
-                .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exInvisible&amp;label=' . $portlet['label'] . '">'
+                .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exInvisible&amp;label=' . htmlspecialchars($portlet['label']) . '">'
                 .    claro_html_icon('visible')
                 .    '</a>' . "\n"
                 .    '</td>' . "\n"
@@ -179,9 +148,9 @@
             }
             else
             {
-                $outPortlet .= "\n"
+                $output .= "\n"
                 .    '<td align="center">' . "\n"
-                .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exVisible&amp;label=' . $portlet['label'] . '">'
+                .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exVisible&amp;label=' . htmlspecialchars($portlet['label']) . '">'
                 .    claro_html_icon('invisible')
                 .    '</a>' . "\n"
                 .    '</td>' . "\n"
@@ -190,54 +159,40 @@
     
             if( $i > 1 )
             {
-                $outPortlet .= '<td><a href="' . $_SERVER['PHP_SELF'] . '?label=' . $portlet['label'] . '&amp;cmd=exUp"><img src="' . get_icon_url('up') . '" alt="' . get_lang('up') . '" /></a></td>' . "\n";
+                $output .= '<td align="center">'
+                .    '<a href="' . $_SERVER['PHP_SELF'] . '?label=' . htmlspecialchars($portlet['label']) . '&amp;cmd=exUp">'
+                .    '<img src="' . get_icon_url('up') . '" alt="' . get_lang('up') . '" />'
+                .    '</a>'
+                .    '</td>' . "\n";
             }
             else
             {
-                $outPortlet .= '<td>&nbsp;</td>' . "\n";
+                $output .= '<td>&nbsp;</td>' . "\n";
             }
             
             if( $i < $portletListSize )
             {
-                $outPortlet .= '<td><a href="' . $_SERVER['PHP_SELF'] . '?label=' . $portlet['label'] . '&amp;cmd=exDown"><img src="' . get_icon_url('down') . '" alt="' . get_lang('down') . '" /></a></td>' . "\n";
+                $output .= '<td align="center">'
+                .    '<a href="' . $_SERVER['PHP_SELF'] . '?label=' . htmlspecialchars($portlet['label']) . '&amp;cmd=exDown">'
+                .    '<img src="' . get_icon_url('down') . '" alt="' . get_lang('down') . '" />'
+                .    '</a>'
+                .    '</td>' . "\n";
             }
             else
             {
-                $outPortlet .= '<td>&nbsp;</td>' . "\n";
+                $output .= '<td>&nbsp;</td>' . "\n";
             }
             
-            $outPortlet .= '</tr>' . "\n";
+            $output .= '</tr>' . "\n";
             
         }
     }
 
-    $outPortlet .= "\n"
+    $output .= "\n"
     .    '</tbody>' . "\n"
     .    '</table>' . "\n"
-    .    '</div>' . "\n\n"
     ;
-// }}}
 
-// {{{ VIEW
-
-    $output = '';
-
-    $moduleName = get_lang('My Desktop');
-    ClaroBreadCrumbs::getInstance()->append( $moduleName, './index.php' );
-    ClaroBreadCrumbs::getInstance()->append( get_lang('Configuration') );
-
-    $output .= claro_html_tool_title($moduleName);
-
-    $output .= $dialogBox->render();
-
-    $portletrightmenu = new portletrightmenu();
-
-    $output .= $portletrightmenu->render();
-
-    //$output .= '<div class="portlet"><div class="portletTitle">Configuration des portlets</div><div class="portletContent">' . $outPortlet . '</div></div>';
-    $output .= $outPortlet;
-
-    $output .= '<div style="clear:both"></div>';
 
     $claroline->display->body->appendContent($output);
 
