@@ -158,7 +158,7 @@ if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCommand))
         }
     }
     
-    if ($_REQUEST['cmd'] == 'exFromUser' && ! is_null($userId))
+    if ( 'exFromUser' == $_REQUEST['cmd'] && ! is_null($userId))
     {
         $claroline->display->body->appendContent(claro_html_tool_title(get_lang('Internal messaging')." - ".get_lang('Delete all user\'s messages')));
         $box = new AdminMessageBox();
@@ -166,13 +166,13 @@ if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCommand))
         $displayRemoveFromUserValidated = TRUE;
     }
     // delete older than
-    if ($_REQUEST['cmd'] == 'rqOlderThan')
+    if ( 'rqOlderThan' == $_REQUEST['cmd'] )
     {
         $claroline->display->body->appendContent(claro_html_tool_title(get_lang('Internal messaging')." - ".get_lang('Delete messages older than')));
         $displayRemoveOlderThanConfirmation = TRUE;
     }
     
-    if ($_REQUEST['cmd'] == 'exOlderThan' && isset($_REQUEST['date']))
+    if ( 'exOlderThan' == $_REQUEST['cmd'] && isset($_REQUEST['date']))
     {
         $claroline->display->body->appendContent(claro_html_tool_title(get_lang('Internal messaging')." - ".get_lang('Delete messages older than')));
         $box = new AdminMessageBox();
@@ -194,13 +194,12 @@ if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCommand))
     }
     
     // -------- delete platform message
-    if ($_REQUEST['cmd'] == "rqPlatformMessage")
+    if ( 'rqPlatformMessage' == $_REQUEST['cmd'] )
     {
         $claroline->display->body->appendContent(claro_html_tool_title(get_lang('Internal messaging')." - ".get_lang('Delete platform message')));
         $displayRemovePlatformMessageConfirmation = TRUE;
-    }
-    
-    if ($_REQUEST['cmd'] == "exPlatformMessage")
+    }  
+    elseif ( 'exPlatformMessage' == $_REQUEST['cmd'] )
     {
         $claroline->display->body->appendContent(claro_html_tool_title(get_lang('Internal messaging')." - ".get_lang('Delete platform message')));
         $box = new AdminMessageBox();
@@ -210,7 +209,7 @@ if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCommand))
 }
 else
 {
-    claro_die("missing command");
+    claro_die('missing command');
 }
 
 // ----------- delete all --------------
@@ -299,26 +298,26 @@ if ($displayResultUserSearch)
     }
     else
     {
-        $linkSorting = $_SERVER['PHP_SELF']."?".$arg_sorting."&amp;fieldOrder=";
+        $linkSorting = $_SERVER['PHP_SELF'] . '?' . $arg_sorting . '&amp;fieldOrder=';
     }
     $arg_delete = makeArgLink($arguments);  
     if ($arg_sorting == "")
     {
-        $linkDelete = $_SERVER['PHP_SELF']."?";
+        $linkDelete = $_SERVER['PHP_SELF'] . '?';
     }
     else
     {
-        $linkDelete = $_SERVER['PHP_SELF']."?".$arg_delete."&amp;";
+        $linkDelete = $_SERVER['PHP_SELF'] . '?' . $arg_delete . '&amp;';
     }
     
     $content .= '<br />'
-       .'<table class="claroTable emphaseLine">'."\n\n"
-       .'<tr class="headerX">'."\n"
-       .'<th>'.get_lang('Id').'</th>'."\n"
-       .'<th><a href="'.$linkSorting.'name&amp;order='.$nextOrder.'">'.get_lang('Name').'</a></th>'."\n"
-       .'<th><a href="'.$linkSorting.'username&amp;order='.$nextOrder.'">'.get_lang('Username').'</a></th>'."\n"
-       .'<th>'.get_lang('action').'</th>'."\n"
-       .'</tr>'."\n\n"
+       .'<table class="claroTable emphaseLine">' . "\n\n"
+       .'<tr class="headerX">' . "\n"
+       .'<th>' . get_lang('Id') . '</th>' . "\n"
+       .'<th><a href="' . $linkSorting . 'name&amp;order='.$nextOrder.'">' . get_lang('Name') . '</a></th>'."\n"
+       .'<th><a href="' . $linkSorting . 'username&amp;order='.$nextOrder.'">' . get_lang('Username') . '</a></th>'."\n"
+       .'<th>' . get_lang('action') . '</th>'."\n"
+       .'</tr>' . "\n\n"
        ;
 
      if ( $userList->getNumberOfUser() > 0)
@@ -340,19 +339,20 @@ if ($displayResultUserSearch)
             </script>';
         $claroline->display->header->addHtmlHeader($javascriptDelete);
  
-         foreach ($userList as $key => $user)
-         {
-             $content .=
-                  '<tr>'."\n"
-                 .'<td>'.$user['id'].'</td>'."\n"
-                 .'<td>'.get_lang('%firstName %lastName', array ('%firstName' =>htmlspecialchars($user['firstname']), '%lastName' => htmlspecialchars($user['lastname']))).'</td>'."\n"
-                 .'<td>'.$user['username'].'</td>'."\n"
-                 .'<td><a href="'.$linkDelete.'cmd=rqFromUser&amp;userId='.$user['id'].'" '
-                 .' onclick="return deleteMessageFromUser(\''.$linkDelete.'cmd=exFromUser&amp;userId='.$user['id'].'\')">'
-                 .'delete messages</a></td>' ."\n"
-                 .'</tr>'."\n\n"
-                 ; 
-         }
+        foreach ($userList as $user)
+        {
+            $content .=
+                  '<tr>' . "\n"
+                . '<td>' . $user['id'] . '</td>' . "\n"
+                . '<td>' . get_lang('%firstName %lastName', array ('%firstName' =>htmlspecialchars($user['firstname']), '%lastName' => htmlspecialchars($user['lastname']))).'</td>'."\n"
+                . '<td>' . $user['username'] . '</td>' . "\n"
+                . '<td>' 
+                . '<a href="' . $linkDelete . 'cmd=rqFromUser&amp;userId=' . $user['id'] . '" '
+                . ' onclick="return deleteMessageFromUser(\'' . $linkDelete . 'cmd=exFromUser&amp;userId=' . $user['id'] . '\')">'
+                . 'delete messages</a></td>' . "\n"
+                . '</tr>' . "\n\n"
+                ; 
+        }
      }
      else
      {
@@ -466,7 +466,7 @@ if ($displayRemovePlatformMessageConfirmation)
 {    
     $dialogboxMsg = get_lang('Are you sure to delete to delete all palteform messages?<br /><br />WARNING all data will be deleted from the database')
          . '<br /><br />'
-         . '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exPlatformMessage">' . get_lang('Yes') . '</a> | <a href="admin.php">' . get_lang('No') .'</a>'
+         . '<a href="'.$_SERVER['PHP_SELF'] . '?cmd=exPlatformMessage">' . get_lang('Yes') . '</a> | <a href="admin.php">' . get_lang('No') .'</a>'
          ;
     $dialogbox = new DialogBox();
     $dialogbox->question($dialogboxMsg);
