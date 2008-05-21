@@ -2,10 +2,8 @@
 
 .portlet 
 {
-    border: 1px solid #96BB7A;
-    padding: 2px 5px 2px 5px;
+    padding: 2px;
     margin: 15px 240px 15px 0;
-    background-color: #EDF1E3;
 }
 /*6F8F50*/
 .portletTitle
@@ -50,12 +48,10 @@
 
 .portletRightMenu
 {
-    border: 1px solid #96BB7A;
-    padding: 2px 5px 2px 5px;
+    padding: 2px;
     margin: 10px 0 0 0;
     float:right;
     width:200px;
-    background-color: #EDF1E3;
 }
 
 /* portlet myprofil */
@@ -112,25 +108,18 @@
   background-color:silver;
 }
 
-fieldset {
-margin-top: 0.7em;
-margin-bottom: 1em;
-margin-right:20px;
-}
-
-legend {
- margin:0;
- padding-left: 20px;
- font-weight:bold;
- color: #111C99;
-}
 
 .avatar img {
-margin:1em;
+    margin:1em;
+}
+
+.config {
+    padding: 0;
+    margin: 15px 240px 15px 0;
 }
 
 .config td {
-text-align:center;
+    text-align:center;
 }
 
 .hideul { 
@@ -152,25 +141,25 @@ text-align:center;
 
  .statBlock .blockHeader
  {
- 	text-align: left;
- 	border-bottom: 1px #ccc solid;
- 	padding: 3px;
- 	font-weight: bold;
+     text-align: left;
+     border-bottom: 1px #ccc solid;
+     padding: 3px;
+     font-weight: bold;
  }
 
  .statBlock .blockContent
  {
- 	padding: 3px;
+     padding: 3px;
  }
 
  .statBlock .blockContent table
  {
- 	width: 100%;
+     width: 100%;
  }
 
  .statBlock .blockFooter
  {
- 	text-align: right;
- 	font-size: small;
- 	padding: 3px;
+     text-align: right;
+     font-size: small;
+     padding: 3px;
  }
