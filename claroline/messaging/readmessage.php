@@ -184,7 +184,7 @@
         
         if (current_user_is_allowed_to_send_message_to_user($message->getSender()) )
         {
-            $action .= ' | <a href="sendmessage.php?cmd=rqMessageToUser&amp;messageId='.$message->getId().'&amp;userId='.$message->getSender().'">'.get_lang('Reply').'</a>';
+            $action .= ' | <a href="sendmessage.php?cmd=rqMessageToUser&amp;messageId='.$message->getId().'&amp;userId='.$message->getSender().'"><img src="'.get_icon_url('replymessage').'" alt=""></a>';
         }
     }
     else
