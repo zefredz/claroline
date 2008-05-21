@@ -135,6 +135,7 @@
             $userRecipient = '';
             $groupRecipient = '';
             $courseRecipient = '';
+            $responseTo = '';
             
             $addForm = TRUE;
         }
