@@ -19,15 +19,11 @@
     {
         die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
     }
-
     require_once dirname(__FILE__) . '/lib/displaymessage.lib.php';
-    
     // variable initilization
     
     $messageId = (isset($_GET['messageId'])) ? (int)$_GET['messageId']: NULL;
-    
-    $content .= "<br />";
-        
+
     if (isset($displayConfimation) && $displayConfimation)
     {
         // link to delete
@@ -51,7 +47,7 @@
         
         $dialogbox = new DialogBox();
         $dialogbox->question($confirmationDelete);
-        $content .= "<br />" .$dialogbox->render();
+        $content .= $dialogbox->render();
     }
     
     if (isset($displayConfimationEmptyTrashbox) && $displayConfimationEmptyTrashbox)
@@ -123,7 +119,7 @@
         $dialogbox = new DialogBox();
         $dialogbox->form($searchForm);
         
-        $content .= "<br />".$dialogbox->render();
+        $content .= $dialogbox->render();
         
     }
     else
@@ -147,11 +143,10 @@
         $dialogbox = new DialogBox();
         $dialogbox->form($serachForm);
         
-        $content .= "<br />".$dialogbox->render();
+        $content .= $dialogbox->render();
     }
     //----------------------end selector form -----------------
-    
-    $content .= "<br />";
+
 
     $arg_sort = makeArgLink($link_arg,array('fieldOrder','order'));
     if ($arg_sort == "")
