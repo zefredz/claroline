@@ -21,7 +21,7 @@ class CLDOC_CourseTrackingRenderer extends CourseTrackingRenderer
     
     public function __construct($courseId)
     {
-        $this->courseId = (int) $courseId;
+        $this->courseId = $courseId;
 
         $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($this->courseId));
         $this->tbl_course_tracking_event = $tbl_cdb_names['tracking_event'];
@@ -105,7 +105,7 @@ class CLDOC_UserTrackingRenderer extends UserTrackingRenderer
     
     public function __construct($courseId, $userId)
     {
-        $this->courseId = (int) $courseId;
+        $this->courseId = $courseId;
         $this->userId = (int) $userId;
 
         $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($this->courseId));

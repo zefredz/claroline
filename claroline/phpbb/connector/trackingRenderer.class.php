@@ -22,7 +22,7 @@ class CLFRM_CourseTrackingRenderer extends CourseTrackingRenderer
     
     public function __construct($courseId)
     {
-        $this->courseId = (int) $courseId;
+        $this->courseId = $courseId;
         
         $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($this->courseId));
         $this->tbl_bb_topics = $tbl_cdb_names['bb_topics'];
@@ -189,7 +189,7 @@ class CLFRM_UserTrackingRenderer extends UserTrackingRenderer
     
     public function __construct($courseId, $userId)
     {
-        $this->courseId = (int) $courseId;
+        $this->courseId = $courseId;
         $this->userId = (int) $userId;
 
         $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($this->courseId));

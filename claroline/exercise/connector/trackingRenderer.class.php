@@ -22,7 +22,7 @@ class CLQWZ_CourseTrackingRenderer extends CourseTrackingRenderer
     
     public function __construct($courseId)
     {
-        $this->courseId = (int) $courseId;
+        $this->courseId = $courseId;
         
         $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($this->courseId));
         $this->tbl_qwz_exercise = $tbl_cdb_names['qwz_exercise'];
@@ -105,7 +105,7 @@ class CLQWZ_UserTrackingRenderer extends UserTrackingRenderer
     
     public function __construct($courseId, $userId)
     {
-        $this->courseId = (int) $courseId;
+        $this->courseId = $courseId;
         $this->userId = (int) $userId;
         
         $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($this->courseId));
