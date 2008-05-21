@@ -300,8 +300,14 @@ class ReceivedMessage extends StoredMessage
                 ;
             $resultMessage = claro_sql_query_fetch_single_row($messageSQL);
         }
-        
-        return self::fromArray(claro_sql_query_fetch_single_row($messageSQL));
+        if(!$resultMessage)
+        {
+            return false;
+        }
+        else
+        {
+            return self::fromArray($resultMessage);
+        }
     }
 
     /**
