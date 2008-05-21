@@ -36,7 +36,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         // render all
         public function render()
         {
-            return '<div class="portlet"><div class="portletTitle">' . $this->renderTitle() . '</div><div class="portletContent">' . $this->renderContent() . '</div></div>';
+            return '<div class="portlet"><div class="header">' . $this->renderTitle() . '</div><div class="portletContent">' . $this->renderContent() . '</div></div>';
         }
     }
 ?>

@@ -38,7 +38,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             }
 
             $output = '<div class="portletRightMenu">' . "\n"
-            .    '<div class="portletTitle">' . "\n"
+            .    '<div class="header portletTitle">' . "\n"
 
             .    '<span class="porletIcon">' . "\n"
             .      '<a href="config.php">' . "\n"
