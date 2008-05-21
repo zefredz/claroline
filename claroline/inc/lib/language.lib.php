@@ -144,6 +144,7 @@ function get_locale($localeInfoName)
                                   'byteUnits',
                                   'langDay_of_weekNames',
                                   'langMonthNames',
+                                  'dateFormatCompact',
                                   'dateFormatShort', // not used
                                   'dateFormatLong', // used
                                   'dateFormatNumeric',
@@ -152,11 +153,12 @@ function get_locale($localeInfoName)
                                   'timeNoSecFormat');
 
     if(!in_array($localeInfoName, $initValueList )) trigger_error( htmlentities($localeInfoName) . ' is not a know locale value name ', E_USER_NOTICE);
-                                 //TODO create a real auth function to eval this state
+    
+    //TODO create a real auth function to eval this state
 
-                                 if ( array_key_exists($localeInfoName,$GLOBALS) )  return $GLOBALS[$localeInfoName];
-                                 elseif ( defined($localeInfoName)         )        return constant($localeInfoName);
-                                 return null;
+    if ( array_key_exists($localeInfoName,$GLOBALS) )  return $GLOBALS[$localeInfoName];
+    elseif ( defined($localeInfoName)         )        return constant($localeInfoName);
+    else return null;
 
 }
 
@@ -208,7 +210,7 @@ class language
                $langNameOfLang , $langDay_of_weekNames, $langMonthNames, $byteUnits,
                $text_dir, $left_font_family, $right_font_family,
                $number_thousands_separator, $number_decimal_separator,
-               $dateFormatShort, $dateFormatLong, $dateTimeFormatLong, $dateFormatNumeric,$dateTimeFormatShort, $timeNoSecFormat;
+               $dateFormatCompact, $dateFormatShort, $dateFormatLong, $dateTimeFormatLong, $dateFormatNumeric,$dateTimeFormatShort, $timeNoSecFormat;
 
         /*
         * tool specific language translation
