@@ -51,7 +51,7 @@
         
         $dialogbox = new DialogBox();
         $dialogbox->form($searchBox);
-        $content .= "<br /><br />".$dialogbox->render();        
+        $content .= $dialogbox->render();        
     }
     else
     {
@@ -77,11 +77,9 @@
         $dialogbox = new DialogBox();
         $dialogbox->form($serachForm);
         
-        $content .= "<br /><br />".$dialogbox->render();
+        $content .= $dialogbox->render();
     }
     //----------------------end selector form -----------------
-    
-    $content .= "<br />";
     
     $arg_sort = makeArgLink($link_arg,array('fieldOrder','order'));
     
