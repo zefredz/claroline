@@ -114,9 +114,18 @@ class SentMessage extends StoredMessage
                 "SELECT message_id, sender, subject, message, send_time, course, `group`, tools\n"
                 .   " FROM `" . $tableName['im_message'] . "`\n"
                 .   " WHERE message_id = " . (int) $messageId
-                ; 
-
-        return self::fromArray(claro_sql_query_fetch_single_row($readDataSQL));
+                ;
+        
+        $result = claro_sql_query_fetch_single_row($readDataSQL);
+        
+        if (!$result)
+        {
+            return false;
+        }
+        else
+        {
+            return self::fromArray($result);
+        }
     }
 
     /**
