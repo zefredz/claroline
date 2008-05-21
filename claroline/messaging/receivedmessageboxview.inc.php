@@ -36,7 +36,7 @@
         else
         {
             $linkDelete = $linkPage."?".$arg_deleting."&amp;";
-            $linkBack = $linkPage."?".$arg_paging;
+            $linkBack = $linkPage."?".$arg_deleting;
         }
         $linkDelete .= "cmd=exDeleteMessage&amp;messageId=".$messageId;
         

@@ -83,12 +83,15 @@
                     
                     if (!isset($_REQUEST['subject']))
                     {
-                        $subject = get_lang('RE:').strip_tags($messageParent->getSubject());
+                        $subject = get_lang('RE:').' '.strip_tags($messageParent->getSubject());
                     }
                     
                     if (!isset($_REQUEST['message']))
                     {
-                        $message = "<br /><br />-----------------------------<br />".$messageParent->getMessage();
+                        $message = "<br /><br />----------------------------------------------------<br />"
+                        . get_lang('%firstName %lastName', array ('%firstName' =>htmlspecialchars($messageParent->getSenderFirstName()), '%lastName' => htmlspecialchars($messageParent->getSenderLastName()))).' '.get_lang('wrote').':<br />'
+                        . $messageParent->getMessage()
+                        ;
                     }
                 }
                 else
@@ -177,7 +180,6 @@
                 //test subject is fillin
                 if ($subject == "")
                 {
-                    
                     $typeRecipient = strip_tags($_POST['typeRecipient']);
                     $userRecipient = (int)$_POST['userRecipient'];
                     $groupRecipient = (int)$_POST['groupRecipient'];
