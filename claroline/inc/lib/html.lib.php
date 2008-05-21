@@ -1569,7 +1569,7 @@ function claro_html_breadcrumb()
         }
 
         $htmlBC .= claro_html_breadcrumbtrail($breadcrumbNameList, $breadcrumbUrlList,
-        ' &gt; ', get_path('imgRepositoryWeb') . 'home.gif');
+        ' &gt; ', get_icon_url('home'));
 
 
         if ( !claro_is_user_authenticated() )

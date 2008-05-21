@@ -82,7 +82,7 @@ if ( count($courseList) > 0 )
     }
 
     echo '<h4>'.get_lang('Course list').'</h4>' . "\n"
-    .    '<ul style="list-style-image:url(claroline/img/course.gif);">' . "\n";
+    .    '<ul style="list-style-image:url(' .get_icon_url('course') . ');">' . "\n";
 
     foreach($courseList as $thisCourse)
     {

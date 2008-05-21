@@ -31,7 +31,7 @@ echo claro_html_tool_title(get_lang('My course list'));
 
 if (count($personnalCourseList))
 {
-echo '<ul style="list-style-image:url(claroline/img/course.gif);list-style-position:inside">'."\n";
+echo '<ul style="list-style-image:url(' .get_icon_url('course') . ');list-style-position:inside">'."\n";
 
 foreach($personnalCourseList as $thisCourse)
 {

@@ -70,7 +70,7 @@
                 $out .= ' | <a href="' . get_path('clarolineRepositoryWeb')
                     . 'auth/courses.php?cmd=exReg&course='
                     . claro_get_current_course_id().'">'
-                    . claro_html_icon( 'enroll.gif' )
+                    . claro_html_icon( 'enroll' )
                     . '<b>' . get_lang('Enrolment') . '</b>'
                     . '</a>'
                     ;
@@ -88,7 +88,7 @@
                 . get_path('clarolineRepositoryWeb')
                 . 'auth/courses.php?cmd=exReg&course='.claro_get_current_course_id()
                 . '">'
-                . claro_html_icon( 'enroll.gif' )
+                . claro_html_icon( 'enroll' )
                 . '<b>' . get_lang('Enrolment') . '</b>'
                 . '</a>'
                 . '</div>' . "\n"
