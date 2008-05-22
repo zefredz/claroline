@@ -2113,6 +2113,7 @@ echo claro_html_tool_title($titleElement,
                 }
                 elseif ($thisFile['type'] == A_DIRECTORY)
                 {
+                    $image       = 'folder';
                     $size        = '&nbsp;';
                     $date        = '&nbsp;';
                     $urlFileName = $_SERVER['PHP_SELF'].'?cmd=exChDir&amp;file='.$cmdFileName;
@@ -2134,7 +2135,7 @@ echo claro_html_tool_title($titleElement,
                         echo '<a class="'.$style.' item'.$classItem.'" href="'.$urlFileName.'" '.$target.' >';
                 } // end if is_image
 
-                echo '<img src="' . get_icon_url('folder') . '" alt="" />'.$dspFileName.'</a>';
+                echo '<img src="' . get_icon_url($image) . '" alt="" />'.$dspFileName.'</a>';
 
                 echo '</td>' . "\n"
 
