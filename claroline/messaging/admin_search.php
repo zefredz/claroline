@@ -112,7 +112,7 @@ if (isset($_REQUEST['search']) && in_array($_REQUEST['search'],$acceptedSearch))
     
     if ($arguments['search'] == 'fromUser')
     {
-        $name = isset($_REQUEST['name']) ? strip_tags($_REQUEST['name']) : NULL; 
+        $name = isset($_REQUEST['name']) ? trim(strip_tags($_REQUEST['name'])) : NULL; 
         $title = get_lang("User's messages");
         if (is_null($name) || $name == "")
         {
@@ -120,7 +120,7 @@ if (isset($_REQUEST['search']) && in_array($_REQUEST['search'],$acceptedSearch))
         }
         else
         {
-            $arguments['name'] = trim($name);
+            $arguments['name'] = $name;
             $strategy->setStrategy(AdminBoxStrategy::SENT_BY , array('name' => $arguments['name']));
         }
     }
