@@ -27,12 +27,15 @@ include claro_get_conf_repository() . 'user_profile.conf.php';
 
 // Include libraries
 require_once get_path('incRepositorySys') . '/lib/user.lib.php';
-
+require_once get_path('incRepositorySys') . '/lib/file.lib.php';
+require_once get_path('incRepositorySys') . '/lib/image.lib.php';
+require_once get_path('incRepositorySys') . '/lib/fileUpload.lib.php';
+require_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
+require_once get_path('incRepositorySys') . '/lib/display/dialogBox.lib.php';
 
 // Initialise variables
 $nameTools = get_lang('User settings');
-$error = false;
-$messageList = array();
+$dialogBox = new DialogBox;
 
 /*=====================================================================
   Main Section
@@ -46,12 +49,15 @@ else                                 $userId = $_REQUEST['uidToEdit'];
 $user_data = user_get_properties($userId);
 
 $user_extra_data = user_get_extra_data($userId);
-$dgExtra =null;
+
 if (count($user_extra_data))
 {
     $dgExtra = new claro_datagrid(user_get_extra_data($userId));
 }
-
+else
+{
+    $dgExtra = null;
+}
 
 if ( isset($_REQUEST['applyChange']) )  //for formular modification
 {
@@ -68,6 +74,89 @@ if ( isset($_REQUEST['applyChange']) )  //for formular modification
     if ( isset($_REQUEST['language']) )       $user_data['language'] = trim($_REQUEST['language']);
     if ( isset($_REQUEST['isCourseCreator'])) $user_data['isCourseCreator'] = (int) $_REQUEST['isCourseCreator'];
     if ( isset($_REQUEST['is_admin']) )       $user_data['is_admin'] = (bool) $_REQUEST['is_admin'];
+    
+    if ( isset($_REQUEST['delPicture']) && $_REQUEST['delPicture'] =='true' )
+    {
+        $picturePath = user_get_picture_path( $user_data );
+        
+        if ( $picturePath )
+        {
+            claro_delete_file( $picturePath );
+            $user_data['picture'] = '';
+            $dialogBox->success(get_lang("User picture deleted"));
+        }
+        else
+        {
+            $dialogBox->error(get_lang("Cannot delete user picture"));
+        }
+    }
+    
+    // Handle user picture
+    
+    if ( isset($_FILES['picture']['name'])
+        && $_FILES['picture']['size'] > 0 )
+    {
+        $fileName = $_FILES['picture']['name'];
+        $fileTmpName = $_FILES['picture']['tmp_name'];
+        
+        if ( is_uploaded_file( $fileTmpName ) )
+        {
+            if ( is_image( $fileName ) )
+            {
+                list($width, $height, $type, $attr) = getimagesize($fileTmpName);
+                
+                if ( $width > 0 && $width <= get_conf( 'maxUserPictureWidth', 150 )
+                    && $height > 0 && $height <= get_conf( 'maxUserPictureHeight', 200 )
+                    && $_FILES['picture']['size'] <= get_conf( 'maxUserPictureSize', 100*1024 )
+                )
+                {
+                    $uploadDir = user_get_private_folder_path($user_data['user_id']);
+                    
+                    if ( ! file_exists( $uploadDir ) )
+                    {
+                        claro_mkdir( $uploadDir, CLARO_FILE_PERMISSIONS, true );
+                    }
+                    
+                    if ( false !== ( $pictureName = treat_uploaded_file(
+                            $_FILES['picture'],
+                            $uploadDir,
+                            '',
+                            1000000000000 ) ) )
+                    {
+                        // Update Database
+                        $user_data['picture'] = $pictureName;
+                        $dialogBox->success(get_lang("User picture added"));
+                    }
+                    else
+                    {
+                        // Handle Error
+                        $dialogBox->error(get_lang("Cannot upload file"));
+                    }
+                }
+                else
+                {
+                    // Handle error
+                    $dialogBox->error(
+                        get_lang("Image is too big : max size %width%x%height%, %size% bytes"
+                            , array(
+                                    '%width%' => get_conf( 'maxUserPictureWidth', 150 ),
+                                    '%height%' => get_conf( 'maxUserPictureHeight', 200 ),
+                                    '%size%' => get_conf( 'maxUserPictureHeight', 100*1024 )
+                                ) ) );
+                }
+            }
+            else
+            {
+                // Handle error
+                $dialBox->error(get_lang("Invalid file format, use gif, jpg or png"));
+            }
+        }
+        else
+        {
+            // Handle error
+            $dialogBox->error(get_lang('Upload failed'));
+        }
+    }
 
     // validate forum params
 
@@ -85,18 +174,23 @@ if ( isset($_REQUEST['applyChange']) )  //for formular modification
             include get_path('incRepositorySys') . '/claro_init_local.inc.php';
         }
 
-        $classMsg = 'success';
-        $dialogBox = get_lang('Changes have been applied to the user settings');
+        //$classMsg = 'success';
+        $dialogBox->success( get_lang('Changes have been applied to the user settings') );
 
         // set user admin parameter
         if ( $user_data['is_admin'] ) user_set_platform_admin(true, $userId);
         else                          user_set_platform_admin(false, $userId);
 
-        $messageList[] = get_lang('Changes have been applied to the user settings');
+        //$messageList[] = get_lang('Changes have been applied to the user settings');
     }
     else // user validate form return error messages
     {
-        $error = true;
+        // $error = true;
+        $dialogBox->error( get_lang('Changes have not been applied to the user settings') );
+        foreach ( $messageList as $message )
+        {
+            $dialogBox->error( $message );
+        }
     }
 
 } // if apply changes
@@ -154,10 +248,14 @@ $cmd_menu[] = '<a class="claroCmd" href="adminuserdeleted.php'
 .             '<img src="' . get_icon_url('deluser') . '" /> '
 .             get_lang('Delete user')
 .             '</a>'
-
 ;
 
-$cmd_menu[] = '<a class="claroCmd" href="../messaging/sendmessage.php?cmd=rqMessageToUser&amp;userId='.$userId.'">'.get_lang('Send a message to the user').'</a>';
+$cmd_menu[] = '<a class="claroCmd" href="../messaging/sendmessage.php'
+.             '?cmd=rqMessageToUser'
+.             '&amp;userId='.$userId.'">'
+.             get_lang('Send a message to the user')
+.             '</a>'
+;
 
 if (isset($_REQUEST['cfrom']) && $_REQUEST['cfrom'] == 'ulist' ) // if we come form user list, we must display go back to list
 {
@@ -173,8 +271,8 @@ include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 // Display tool title
 echo claro_html_tool_title($nameTools)
-.    claro_html_msg_list($messageList)
-
+//.    claro_html_msg_list($messageList)
+.   $dialogBox->render()
 // Display "form and info" about the user
 .    '<p>'
 .    claro_html_menu_horizontal($cmd_menu)
