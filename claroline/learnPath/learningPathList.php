@@ -859,7 +859,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         {
             echo '<td>' . "\n"
             .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=moveDown&amp;move_path_id=' . $list['learnPath_id'] . '">' . "\n"
-            .    '<img src="' . get_icon_url('down') . 'down.gif" alt="' . get_lang('Move down') . '" />' . "\n"
+            .    '<img src="' . get_icon_url('down') . '" alt="' . get_lang('Move down') . '" />' . "\n"
             .    '</a>' . "\n"
             .    '</td>' . "\n"
             ;
