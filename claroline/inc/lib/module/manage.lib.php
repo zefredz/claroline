@@ -1706,8 +1706,41 @@ function get_tool_id_from_module_label( $moduleLabel )
     return claro_sql_query_fetch_single_value($sql);
 }
 
+function get_module_label_from_tool_id( $toolId )
+{
+    $tbl = claro_sql_get_main_tbl();
+    
+    $sql = "SELECT claro_label
+              FROM `" . $tbl['tool']."`
+             WHERE id = ".(int)$toolId;
+             
+    return claro_sql_query_fetch_single_value($sql);
+}
+
+function course_tool_already_installed($toolId,$courseId)
+{
+    $tbl_cdb_names = claro_sql_get_course_tbl( claro_get_course_db_name_glued($courseId) );
+    $tblCourseToolList = $tbl_cdb_names['tool'];
+    
+    $sql = "SELECT `installed`\n"
+        . "FROM `{$tblCourseToolList}`\n"
+        . "WHERE tool_id = " . (int) $toolId
+        ;
+    
+    return claro_sql_query_fetch_single_value($sql) == 'true';
+}
+
 function update_course_tool_activation_in_course( $toolId, $courseId, $activated )
 {
+    if ( $activated && !course_tool_already_installed($toolId,$courseId) )
+    {
+        if ( $tLabel = get_module_label_from_tool_id( $toolId ) )
+        {
+            install_module_in_course( $tLabel, $courseId );
+            update_tool_installation_in_course( $toolId, $courseId );
+        }
+    }
+    
     $sql_activated = $activated ? "'true'" : "'false'";
     
     $tbl_cdb_names = claro_sql_get_course_tbl( claro_get_course_db_name_glued($courseId) );
@@ -1715,6 +1748,26 @@ function update_course_tool_activation_in_course( $toolId, $courseId, $activated
     
     $sql = "UPDATE `{$tblCourseToolList}`\n"
         . "SET `activated` = " . $sql_activated . "\n"
+        . "WHERE tool_id = " . (int) $toolId
+        ;
+        
+    if ( claro_sql_query( $sql ) )
+    {
+        return claro_sql_affected_rows() == 1;
+    }
+    else
+    {
+        false;
+    }
+}
+
+function update_tool_installation_in_course( $toolId, $courseId )
+{
+    $tbl_cdb_names = claro_sql_get_course_tbl( claro_get_course_db_name_glued($courseId) );
+    $tblCourseToolList = $tbl_cdb_names['tool'];
+    
+    $sql = "UPDATE `{$tblCourseToolList}`\n"
+        . "SET `installed` = 'true'\n"
         . "WHERE tool_id = " . (int) $toolId
         ;
         

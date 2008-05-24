@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__tool_list` (
     `script_name` varchar(255) default NULL,
     `addedTool` ENUM('YES','NO') DEFAULT 'YES',
     `activated` ENUM('true','false') NOT NULL DEFAULT 'true',
+    `installed` ENUM('true','false') NOT NULL DEFAULT 'true',
 PRIMARY KEY  (`id`)
 ) TYPE=MyISAM;
 
@@ -117,4 +118,12 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__tracking_event` (
   `type` varchar(60) NOT NULL DEFAULT '',
   `data` text NOT NULL DEFAULT '',
   PRIMARY KEY  (`id`)
+) TYPE=MyISAM;
+
+CREATE TABLE IF NOT EXISTS `__CL_COURSE__document` (
+    `id` int(4) NOT NULL auto_increment,
+    `path` varchar(255) NOT NULL,
+    `visibility` char(1) DEFAULT 'v' NOT NULL,
+    `comment` varchar(255),
+    PRIMARY KEY (id)
 ) TYPE=MyISAM;

@@ -322,12 +322,12 @@ function install_course_database( $courseDbName )
  */
 function install_course_tools( $courseDbName, $language, $courseDirectory )
 {
+    update_course_tool_list($courseDbName);
+    
     if ( ! setup_course_tools( $courseDbName, $language, $courseDirectory ) )
     {
         return false;
     }
-    
-    update_course_tool_list($courseDbName);
     
     return true;
 }
@@ -347,12 +347,15 @@ function setup_course_tools( $courseDbName, $language, $courseDirectory )
     {
         foreach ( $installableToolList as $tool )
         {
-            if ( ! install_module_at_course_creation( $tool['claro_label']
-                , $courseDbName, $language, $courseDirectory ) )
+            if ( $tool['add_in_course'] == 'AUTOMATIC' )
             {
-                return claro_failure::set_failure(
-                    get_lang('Unable to database tables for %label%'
-                        , array('%label%' => $tool['claro_label'] ) ) );
+                if ( ! install_module_at_course_creation( $tool['claro_label']
+                    , $courseDbName, $language, $courseDirectory ) )
+                {
+                    return claro_failure::set_failure(
+                        get_lang('Unable to database tables for %label%'
+                            , array('%label%' => $tool['claro_label'] ) ) );
+                }
             }
         }
     }
@@ -457,7 +460,6 @@ function get_course_installable_tool_list()
 
     $sql = "SELECT id, def_access, def_rank, claro_label, add_in_course "
         . "FROM `". $tbl_courseTool . "` "
-        // . "WHERE add_in_course = 'AUTOMATIC'"
         ;
 
     $list = claro_sql_query_fetch_all_rows($sql);
@@ -482,11 +484,12 @@ function update_course_tool_list($courseDbName)
     foreach ( $toolList as $courseTool )
     {
         $sql_insert = " INSERT INTO `" . $tbl_courseToolList . "` "
-            . " (tool_id, rank, visibility, activated) "
+            . " (tool_id, rank, visibility, activated, installed) "
             . " VALUES ('" . $courseTool['id'] . "',"
             . "'" . $courseTool['def_rank'] . "',"
             . "'" .($courseTool['def_access']=='ALL'?1:0) . "',"
-            . "'" .($courseTool['add_in_course']=='AUTOMATIC'?'true':'false') . "')"
+            . "'" .($courseTool['add_in_course']=='AUTOMATIC'?'true':'false') . "',"
+            . "'" .($courseTool['add_in_course']=='AUTOMATIC'?'true':'false') . "' )"
             ;
             
         claro_sql_query_insert_id($sql_insert);
@@ -616,5 +619,3 @@ function execute_sql_at_course_creation( $sqlPath, $courseDbName )
         return claro_failure::set_failure( 'SQL_FILE_NOT_FOUND' );
     }
 }
-
-?>
