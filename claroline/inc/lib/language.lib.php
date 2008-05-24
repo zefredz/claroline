@@ -605,9 +605,22 @@ function claro_utf8_encode($str, $fromCharset = '' )
     {
         return $str;
     }
-    else
+    elseif ( strtoupper($charset) == 'ISO-8859-1' )
+    {
+        return utf8_encode( $str );
+    }
+    elseif ( function_exists('mb_convert_encoding') )
+    {
+        return mb_convert_encoding( $str, $charset, 'UTF-8' );
+    }
+    elseif ( function_exists('iconv'))
     {
         return iconv( $charset, 'UTF-8//TRANSLIT', $str );
+    }
+    else
+    {
+        $converted = htmlentities( $string, ENT_NOQUOTES, $charset );
+        return html_entity_decode( $converted, ENT_NOQUOTES, 'UTF-8' );
     }
 }
 
@@ -624,8 +637,21 @@ function claro_utf8_decode($str, $toCharset = '')
     {
         return $str;
     }
-    else
+    elseif ( strtoupper($charset) == 'ISO-8859-1' )
+    {
+        return utf8_decode( $str );
+    }
+    elseif ( function_exists('mb_convert_encoding') )
+    {
+        return mb_convert_encoding( $str, 'UTF-8', $charset );
+    }
+    elseif ( function_exists('iconv'))
     {
         return iconv( 'UTF-8', $charset.'//TRANSLIT', $str );
+    }
+    else
+    {
+        $converted = htmlentities( $string, ENT_NOQUOTES, 'UTF-8' );
+        return html_entity_decode( $converted, ENT_NOQUOTES, $charset );
     }
 }
