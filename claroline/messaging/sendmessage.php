@@ -90,7 +90,7 @@
                     {
                         $message = "<br /><br />----------------------------------------------------<br />"
                         . get_lang('%firstName %lastName', array ('%firstName' =>htmlspecialchars($messageParent->getSenderFirstName()), '%lastName' => htmlspecialchars($messageParent->getSenderLastName()))).' '.get_lang('wrote').':<br />'
-                        . $messageParent->getMessage()
+                        . claro_parse_user_text($messageParent->getMessage())
                         ;
                     }
                 }
