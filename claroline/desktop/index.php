@@ -29,8 +29,7 @@
     
     // load libraries
     require_once dirname(__FILE__) . '/lib/portlet.lib.php';
-    require_once dirname(__FILE__) . '/lib/portletRightMenu.lib.php';
-    // require_once dirname(__FILE__) . '/lib/portletInsertConfigDB.lib.php';
+    require_once dirname(__FILE__) . '/lib/userprofilebox.lib.php';
     
     uses('user.lib', 'utils/finder.lib');
 
@@ -115,9 +114,9 @@
 
     $output .= $dialogBox->render();
 
-    $portletrightmenu = new portletrightmenu();
+    $userProfileBox = new UserProfileBox();
 
-    $output .= $portletrightmenu->render();
+    $output .= $userProfileBox->render();
 
     $output .= $outPortlet;
 

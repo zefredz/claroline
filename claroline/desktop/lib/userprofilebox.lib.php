@@ -21,13 +21,13 @@ if ( count( get_included_files() ) == 1 )
 *
 */
 
-class PortletRightMenu
+class UserProfileBox implements Display
 {
 
     private $content = '';
 
     // render content
-    public function renderContent()
+    public function render()
     {
 
         $userData = user_get_properties( claro_get_current_user_id() );
@@ -66,11 +66,4 @@ class PortletRightMenu
 
         return $this->content;
     }
-
-    // render all
-    public function render()
-    {
-        return $this->renderContent();
-    }
-
 }
