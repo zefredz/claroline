@@ -30,10 +30,7 @@
 
     if( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed') );
     
-    require_once get_path( 'includePath' ) . '/lib/user.lib.php';
     require_once dirname(__FILE__) . '/lib/portlet.lib.php';
-    require_once dirname(__FILE__) . '/lib/portletRightMenu.lib.php';
-    // require_once dirname(__FILE__) . '/lib/portletInsertConfigDB.lib.php';
 
     $dialogBox = new DialogBox();
 
