@@ -106,14 +106,17 @@ class PortletList
     // save
     public function addPortlet( $label, $name, $rank = null, $visible = true )
     {
+        $sql = "SELECT MAX(rank) FROM  `" . $this->tblDesktopPortlet . "`";
+        $maxRank = claro_sql_query_get_single_value($sql);
+        
         $sqlRank = empty( $rank )
-            ? 'MAX(rank)+1'
+            ? $maxRank + 1
             : (int) $rank
             ;
             
         $sqlVisibility = $visible
-            ? "'visible'"
-            : "'invisible'"
+            ? "visible"
+            : "invisible"
             ;
             
         // insert
