@@ -54,6 +54,8 @@
 
     try
     {
+        $portletList = new PortletList;
+        
         $fileFinder = new Claro_FileFinder_Extension( $path, '.class.php', false );
 
         foreach ( $fileFinder as $file )
@@ -68,8 +70,6 @@
             $pos = strpos($fileName, '.');
             $className = substr($fileName, '0', $pos);
 
-            $portletList = new PortletList;
-
             // load db
             $portletInDB = $portletList->loadPortlet($className);
 
@@ -79,6 +79,31 @@
                 if( class_exists($className) )
                 {
                     $portletList->addPortlet( $className, $className );
+                }
+            }
+        }
+        
+        $moduleList = get_module_label_list();
+        
+        foreach ( $moduleList as $moduleId => $moduleLabel )
+        {
+            $portletPath = get_module_path( $moduleLabel ) . '/connector/portlet.cnr.php';
+            
+            if ( file_exists( $portletPath ) )
+            {
+                require_once $portletPath;
+                
+                $label = strtolower("{$moduleLabel}_Portlet");
+                
+                $portletInDB = $portletList->loadPortlet($label);
+
+                // si present en db on passe
+                if( !$portletInDB )
+                {
+                    if ( class_exists("{$moduleLabel}_Portlet") )
+                    {
+                        $portletList->addPortlet( $label, "{$moduleLabel}_Portlet" );
+                    }
                 }
             }
         }
