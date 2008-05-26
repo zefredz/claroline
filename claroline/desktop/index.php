@@ -30,7 +30,7 @@
     // load libraries
     require_once dirname(__FILE__) . '/lib/portlet.lib.php';
     require_once dirname(__FILE__) . '/lib/portletRightMenu.lib.php';
-    require_once dirname(__FILE__) . '/lib/portletInsertConfigDB.lib.php';
+    // require_once dirname(__FILE__) . '/lib/portletInsertConfigDB.lib.php';
     
     uses('user.lib', 'utils/finder.lib');
 
@@ -46,8 +46,6 @@
 // }}}
 
 // {{{ CONTROLLER
-
-    $i = 1;
 
     $outPortlet = '';
 
@@ -71,25 +69,19 @@
             $pos = strpos($fileName, '.');
             $className = substr($fileName, '0', $pos);
 
-            $portletInsertConfigDB = new PortletInsertConfigDB();
+            $portletList = new PortletList;
 
             // load db
-            $portletInDB = $portletInsertConfigDB->load($className);
+            $portletInDB = $portletList->loadPortlet($className);
 
             // si present en db on passe
             if( !$portletInDB )
             {
                 if( class_exists($className) )
                 {
-                    // insert db
-                    $portletInsertConfigDB->setLabel($className);
-                    $portletInsertConfigDB->setName($className);
-                    $portletInsertConfigDB->setRank($i);
-                    $portletInsertConfigDB->save();
+                    $portletList->addPortlet( $className, $className );
                 }
             }
-
-            $i++;
         }
     }
     catch (Exception $e)
@@ -98,7 +90,7 @@
         pushClaroMessage($e->__toString());
     }
 
-    $portletList = $portletInsertConfigDB->loadAll( true );
+    $portletList = $portletList->loadAll( true );
 
     foreach ( $portletList as $portlet )
     {

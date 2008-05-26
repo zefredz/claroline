@@ -33,7 +33,7 @@
     require_once get_path( 'includePath' ) . '/lib/user.lib.php';
     require_once dirname(__FILE__) . '/lib/portlet.lib.php';
     require_once dirname(__FILE__) . '/lib/portletRightMenu.lib.php';
-    require_once dirname(__FILE__) . '/lib/portletInsertConfigDB.lib.php';
+    // require_once dirname(__FILE__) . '/lib/portletInsertConfigDB.lib.php';
 
     $dialogBox = new DialogBox();
 
@@ -74,30 +74,29 @@
 
 // {{{ CONTROLLER
 
-    $PortletConfig = new PortletConfig();
+    $portletList = new PortletList;
 
     if( $cmd == 'exUp' )
     {
-        $PortletConfig->moveUp( $label );
+        $portletList->moveUp( $label );
     }
 
     if( $cmd == 'exDown' )
     {
-        $PortletConfig->moveDown( $label );
+        $portletList->moveDown( $label );
     }
 
     if( $cmd == 'exVisible' )
     {
-        $PortletConfig->setVisible( $label );
+        $portletList->setVisible( $label );
     }
 
     if( $cmd == 'exInvisible' )
     {
-        $PortletConfig->setInvisible( $label );
+        $portletList->setInvisible( $label );
     }
-
-    $portletInsertConfigDB = new PortletInsertConfigDB();
-    $portletList = $portletInsertConfigDB->loadAll();
+    
+    $portletList = $portletList->loadAll();
 
 // }}}
 
