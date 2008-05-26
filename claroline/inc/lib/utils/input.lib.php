@@ -143,7 +143,15 @@ class Claro_Input_Validator implements Claro_Input
     {
         $tainted = $this->input->get( $name, $default );
         
-        return $this->filter( $name, $tainted );
+        if ( ( is_null( $default ) && is_null( $tainted ) )
+            || $tainted == $default )
+        {
+            return $default;
+        }
+        else
+        {
+            return $this->filter( $name, $tainted );
+        }
     }
     
     /**
