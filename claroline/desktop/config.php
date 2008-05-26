@@ -15,186 +15,183 @@
 *
 */
 
-// {{{ SCRIPT INITIALISATION
+// reset course and groupe
+$cidReset = TRUE;
+$gidReset = TRUE;
+$uidRequired = TRUE;
 
-    // reset course and groupe
-    $cidReset = TRUE;
-    $gidReset = TRUE;
-    $uidRequired = TRUE;
+// load Claroline kernel
+require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
 
-    // load Claroline kernel
-    require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
-    
-    // users authentified
-    if( ! claro_is_user_authenticated() ) claro_disp_auth_form();
+// users authentified
+if( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 
-    if( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed') );
-    
-    require_once dirname(__FILE__) . '/lib/portlet.lib.php';
+if( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed') );
 
-    $dialogBox = new DialogBox();
+require_once dirname(__FILE__) . '/lib/portlet.lib.php';
+uses( 'utils/input.lib', 'utils/validator.lib' );
 
-    $acceptedCmdList = array(
+$dialogBox = new DialogBox;
+
+// Get user input data
+
+$userInput = Claro_UserInput::getInstance();
+
+$acceptedCmdList = array(
     'exDown',
     'exUp',
     'exVisible',
     'exInvisible'
-    );
+);
 
-    if( isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'], $acceptedCmdList) )
-    {
-        $cmd = $_REQUEST['cmd'];
-    }
-    else
-    {
-        $cmd = null;
-    }
+$userInput->setValidator('cmd',
+    new Claro_Validator_AllowedList( $acceptedCmdList ) );
 
-    if( isset($_REQUEST['label']) && !empty($_REQUEST['label']) )
-    {
-        $label = $_REQUEST['label'];
-    }
-    else
-    {
-        $label = NULL;
-    }
+$cmd = $userInput->get( 'cmd', null );
+$label = $userInput->get( 'label', null );
 
+// Execute commands
 
-// }}}
+$portletList = new PortletList;
 
-// {{{ MODEL
+if( $cmd == 'exUp' )
+{
+    $portletList->moveUp( $label );
+}
 
-    $cssLoader = CssLoader::getInstance();
-    $cssLoader->load('desktop','all');
+if( $cmd == 'exDown' )
+{
+    $portletList->moveDown( $label );
+}
 
-// }}}
+if( $cmd == 'exVisible' )
+{
+    $portletList->setVisible( $label );
+}
 
-// {{{ CONTROLLER
+if( $cmd == 'exInvisible' )
+{
+    $portletList->setInvisible( $label );
+}
 
-    $portletList = new PortletList;
+$portletList = $portletList->loadAll();
 
-    if( $cmd == 'exUp' )
-    {
-        $portletList->moveUp( $label );
-    }
+// Display
 
-    if( $cmd == 'exDown' )
-    {
-        $portletList->moveDown( $label );
-    }
+$cssLoader = CssLoader::getInstance();
+$cssLoader->load('desktop','all');
 
-    if( $cmd == 'exVisible' )
-    {
-        $portletList->setVisible( $label );
-    }
+ClaroBreadCrumbs::getInstance()->prepend(
+    get_lang('Administration'),
+    get_path('rootAdminWeb') );
 
-    if( $cmd == 'exInvisible' )
-    {
-        $portletList->setInvisible( $label );
-    }
-    
-    $portletList = $portletList->loadAll();
+$nameTools = get_lang('Manage user desktop');
 
-// }}}
+$output = '';
+$output .= claro_html_tool_title($nameTools);
 
-// {{{ VIEW
+$output .= $dialogBox->render();
 
-    $output = '';
-
-    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
-    
-    $nameTools = get_lang('Manage user desktop');
-
-    $output .= claro_html_tool_title($nameTools);
-
-    $output .= $dialogBox->render();
-    
-    $output .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
-    .    '<thead>' . "\n"
-    .    '<tr class="headerX" align="center" valign="top">' . "\n"
-    .    '<th>' . get_lang('Title') . '</th>' . "\n"
-    .    '<th>' . get_lang('Visibility') . '</th>' . "\n"
-    .    '<th colspan="2">' . get_lang('Order') . '</th>' . "\n"
-    .    '</tr>' . "\n"
-    .    '</thead>' . "\n"
-    .    '<tbody>' . "\n"
+$output .= '<table class="claroTable emphaseLine" '
+    .   'width="100%" border="0" cellspacing="2">' . "\n"
+    . '<thead>' . "\n"
+    . '<tr class="headerX" align="center" valign="top">' . "\n"
+    . '<th>' . get_lang('Title') . '</th>' . "\n"
+    . '<th>' . get_lang('Visibility') . '</th>' . "\n"
+    . '<th colspan="2">' . get_lang('Order') . '</th>' . "\n"
+    . '</tr>' . "\n"
+    . '</thead>' . "\n"
+    . '<tbody>' . "\n"
     ;
 
-    if( is_array($portletList) && !empty($portletList) )
+if( is_array($portletList) && !empty($portletList) )
+{
+    // only used to hide first up and last down commands
+    $portletListSize = count($portletList);
+    $i = 0;
+    
+    foreach ( $portletList as $portlet )
     {
-        // only used to hide first up and last down commands
-        $portletListSize = count($portletList);
-        $i = 0;
-        
-        foreach ( $portletList as $portlet )
-        {
-            $i++;
-            $output .= "\n"
-            .      '<tr>' . "\n"
-            .      '<td>' . htmlspecialchars($portlet['name']) . '</td>' . "\n"
+        $i++;
+        $output .= "\n"
+            . '<tr>' . "\n"
+            . '<td>' . htmlspecialchars($portlet['name']) . '</td>' . "\n"
             ;
-    
-            if( $portlet['visibility'] == 'visible' )
-            {
-                $output .= "\n"
-                .    '<td align="center">' . "\n"
-                .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exInvisible&amp;label=' . htmlspecialchars($portlet['label']) . '">'
-                .    claro_html_icon('visible')
-                .    '</a>' . "\n"
-                .    '</td>' . "\n"
-                ;
-            }
-            else
-            {
-                $output .= "\n"
-                .    '<td align="center">' . "\n"
-                .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exVisible&amp;label=' . htmlspecialchars($portlet['label']) . '">'
-                .    claro_html_icon('invisible')
-                .    '</a>' . "\n"
-                .    '</td>' . "\n"
-                ;
-            }
-    
-            if( $i > 1 )
-            {
-                $output .= '<td align="center">'
-                .    '<a href="' . $_SERVER['PHP_SELF'] . '?label=' . htmlspecialchars($portlet['label']) . '&amp;cmd=exUp">'
-                .    '<img src="' . get_icon_url('up') . '" alt="' . get_lang('up') . '" />'
-                .    '</a>'
-                .    '</td>' . "\n";
-            }
-            else
-            {
-                $output .= '<td>&nbsp;</td>' . "\n";
-            }
-            
-            if( $i < $portletListSize )
-            {
-                $output .= '<td align="center">'
-                .    '<a href="' . $_SERVER['PHP_SELF'] . '?label=' . htmlspecialchars($portlet['label']) . '&amp;cmd=exDown">'
-                .    '<img src="' . get_icon_url('down') . '" alt="' . get_lang('down') . '" />'
-                .    '</a>'
-                .    '</td>' . "\n";
-            }
-            else
-            {
-                $output .= '<td>&nbsp;</td>' . "\n";
-            }
-            
-            $output .= '</tr>' . "\n";
-            
-        }
-    }
 
-    $output .= "\n"
-    .    '</tbody>' . "\n"
-    .    '</table>' . "\n"
+        if( $portlet['visibility'] == 'visible' )
+        {
+            $output .= "\n"
+                . '<td align="center">' . "\n"
+                . '<a href="' . $_SERVER['PHP_SELF']
+                .   '?cmd=exInvisible&amp;label='
+                .   htmlspecialchars($portlet['label']) . '">'
+                . claro_html_icon('visible')
+                . '</a>' . "\n"
+                . '</td>' . "\n"
+                ;
+        }
+        else
+        {
+            $output .= "\n"
+                . '<td align="center">' . "\n"
+                . '<a href="' . $_SERVER['PHP_SELF']
+                .   '?cmd=exVisible&amp;label='
+                .   htmlspecialchars($portlet['label']) . '">'
+                . claro_html_icon('invisible')
+                . '</a>' . "\n"
+                . '</td>' . "\n"
+                ;
+        }
+
+        if( $i > 1 )
+        {
+            $output .= '<td align="center">'
+                . '<a href="' . $_SERVER['PHP_SELF']
+                .   '?label=' . htmlspecialchars($portlet['label'])
+                .   '&amp;cmd=exUp">'
+                . '<img src="' . get_icon_url('up')
+                .   '" alt="' . get_lang('up') . '" />'
+                . '</a>'
+                . '</td>' . "\n"
+                ;
+        }
+        else
+        {
+            $output .= '<td>&nbsp;</td>' . "\n";
+        }
+        
+        if( $i < $portletListSize )
+        {
+            $output .= '<td align="center">'
+                . '<a href="' . $_SERVER['PHP_SELF']
+                .   '?label=' . htmlspecialchars($portlet['label'])
+                .   '&amp;cmd=exDown">'
+                . '<img src="' . get_icon_url('down')
+                .   '" alt="' . get_lang('down') . '" />'
+                . '</a>'
+                . '</td>' . "\n"
+                ;
+        }
+        else
+        {
+            $output .= '<td>&nbsp;</td>' . "\n";
+        }
+        
+        $output .= '</tr>' . "\n";
+        
+    }
+}
+else
+{
+    $output .= '<tr><td colspan="4">'.get_lang('Empty').'</tr></td>' . "\n";
+}
+
+$output .= "\n"
+    . '</tbody>' . "\n"
+    . '</table>' . "\n"
     ;
 
 
-    $claroline->display->body->appendContent($output);
+$claroline->display->body->appendContent($output);
 
-    echo $claroline->display->render();
-
-// }}}
-?>
+echo $claroline->display->render();
