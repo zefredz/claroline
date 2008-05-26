@@ -94,15 +94,16 @@
                 require_once $portletPath;
                 
                 $label = strtolower("{$moduleLabel}_Portlet");
+                $className = "{$moduleLabel}_Portlet";
                 
                 $portletInDB = $portletList->loadPortlet($label);
 
                 // si present en db on passe
                 if( !$portletInDB )
                 {
-                    if ( class_exists("{$moduleLabel}_Portlet") )
+                    if ( class_exists($className) )
                     {
-                        $portletList->addPortlet( $label, "{$moduleLabel}_Portlet" );
+                        $portletList->addPortlet( $label, $className );
                     }
                 }
             }
