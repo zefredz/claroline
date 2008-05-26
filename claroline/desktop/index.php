@@ -43,26 +43,28 @@ try
 
     foreach ( $fileFinder as $file )
     {
-        $fileName = $file->getFilename();
-        $filePath = $file->getRealPath();
+        // Require portlet file
+        require_once $file->getRealPath();
 
-        // add elt to array
-        require_once $filePath;
+        // Compute portlet class name from file name
+        $pos = strpos( $file->getFilename(), '.' );
+        $className = substr( $file->getFilename(), '0', $pos );
 
-        // add className to array
-        $pos = strpos($fileName, '.');
-        $className = substr($fileName, '0', $pos);
+        // Load portlet from database
+        $portletInDB = $portletList->loadPortlet( $className );
 
-        // load db
-        $portletInDB = $portletList->loadPortlet($className);
-
-        // si present en db on passe
         if( !$portletInDB )
         {
             if( class_exists($className) )
             {
-                $portletList->addPortlet( $className, $className );
+                $portlet = new $className();
+                
+                $portletList->addPortlet( $className, $portlet->renderTitle() );
             }
+        }
+        else
+        {
+            continue;
         }
     }
     
@@ -79,16 +81,16 @@ try
             require_once $portletPath;
             
             $className = "{$moduleLabel}_Portlet";
-            $label = strtolower($className);
             
-            $portletInDB = $portletList->loadPortlet($label);
+            $portletInDB = $portletList->loadPortlet($className);
 
             // si present en db on passe
             if( !$portletInDB )
             {
                 if ( class_exists($className) )
                 {
-                    $portletList->addPortlet( $label, $className );
+                    $portlet = new $className();
+                    $portletList->addPortlet( $className, $portlet->renderTitle() );
                 }
             }
         }
@@ -109,10 +111,20 @@ $portletList = $portletList->loadAll( true );
 foreach ( $portletList as $portlet )
 {
     // load portlet
-    if( !class_exists($portlet['label']) ) continue;
+    if( ! class_exists( $portlet['label'] ) )
+    {
+        pushClaroMessage("User desktop : class {$portlet['label']} not found !");
+        continue;
+    }
+    
     $portlet = new $portlet['label']();
 
-    if( !method_exists($portlet, 'render') ) continue;
+    if( ! $portlet instanceof UserDesktopPortlet )
+    {
+        pushClaroMessage("{$portlet['label']} is not a valid user desktop portlet !");
+        continue;
+    }
+    
     $outPortlet .= $portlet->render();
 }
 
@@ -138,5 +150,3 @@ $output .= $outPortlet;
 $claroline->display->body->appendContent($output);
 
 echo $claroline->display->render();
-
-?>
