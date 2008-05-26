@@ -22,7 +22,7 @@ if ( count( get_included_files() ) == 1 )
 
 require_once get_path( 'includePath' ) . '/lib/courselist.lib.php';
 
-class MyCourseList extends Portlet
+class MyCourseList extends UserDesktopPortlet
 {
     public function renderContent()
     {

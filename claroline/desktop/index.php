@@ -15,140 +15,128 @@
 *
 */
 
-// {{{ SCRIPT INITIALISATION
+// reset course and groupe
+$cidReset = TRUE;
+$gidReset = TRUE;
+$uidRequired = TRUE;
 
-    // reset course and groupe
-    $cidReset = TRUE;
-    $gidReset = TRUE;
-    $uidRequired = TRUE;
+// load Claroline kernel
+require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
 
-    // load Claroline kernel
-    require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
+if( ! claro_is_user_authenticated() ) claro_disp_auth_form();
+
+// load libraries
+uses('user.lib', 'utils/finder.lib');
+require_once dirname(__FILE__) . '/lib/portlet.lib.php';
+require_once dirname(__FILE__) . '/lib/userprofilebox.lib.php';
+
+$dialogBox = new DialogBox();
+
+define( 'KERNEL_PORTLETS_PATH', dirname( __FILE__ ) . '/lib/portlet' );
+
+// Load and register (if needed) portlets
+try
+{
+    $portletList = new PortletList;
     
-    if( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-    
-    // load libraries
-    require_once dirname(__FILE__) . '/lib/portlet.lib.php';
-    require_once dirname(__FILE__) . '/lib/userprofilebox.lib.php';
-    
-    uses('user.lib', 'utils/finder.lib');
+    $fileFinder = new Claro_FileFinder_Extension( KERNEL_PORTLETS_PATH, '.class.php', false );
 
-    $dialogBox = new DialogBox();
-
-// }}}
-
-// {{{ MODEL
-
-    $cssLoader = CssLoader::getInstance();
-    $cssLoader->load('desktop','all');
-
-// }}}
-
-// {{{ CONTROLLER
-
-    $outPortlet = '';
-
-    $allowedExtensions = array('.php');
-
-    $path = dirname( __FILE__ ) . '/lib/portlet';
-
-    try
+    foreach ( $fileFinder as $file )
     {
-        $portletList = new PortletList;
-        
-        $fileFinder = new Claro_FileFinder_Extension( $path, '.class.php', false );
+        $fileName = $file->getFilename();
+        $filePath = $file->getRealPath();
 
-        foreach ( $fileFinder as $file )
+        // add elt to array
+        require_once $filePath;
+
+        // add className to array
+        $pos = strpos($fileName, '.');
+        $className = substr($fileName, '0', $pos);
+
+        // load db
+        $portletInDB = $portletList->loadPortlet($className);
+
+        // si present en db on passe
+        if( !$portletInDB )
         {
-            $fileName = $file->getFilename();
-            $filePath = $file->getRealPath();
-
-            // add elt to array
-            require_once $filePath;
-
-            // add className to array
-            $pos = strpos($fileName, '.');
-            $className = substr($fileName, '0', $pos);
-
-            // load db
-            $portletInDB = $portletList->loadPortlet($className);
+            if( class_exists($className) )
+            {
+                $portletList->addPortlet( $className, $className );
+            }
+        }
+    }
+    
+    $moduleList = get_module_label_list();
+    
+    foreach ( $moduleList as $moduleId => $moduleLabel )
+    {
+        $portletPath = get_module_path( $moduleLabel )
+            . '/connector/desktop.cnr.php'
+            ;
+        
+        if ( file_exists( $portletPath ) )
+        {
+            require_once $portletPath;
+            
+            $className = "{$moduleLabel}_Portlet";
+            $label = strtolower($className);
+            
+            $portletInDB = $portletList->loadPortlet($label);
 
             // si present en db on passe
             if( !$portletInDB )
             {
-                if( class_exists($className) )
+                if ( class_exists($className) )
                 {
-                    $portletList->addPortlet( $className, $className );
-                }
-            }
-        }
-        
-        $moduleList = get_module_label_list();
-        
-        foreach ( $moduleList as $moduleId => $moduleLabel )
-        {
-            $portletPath = get_module_path( $moduleLabel ) . '/connector/desktop.cnr.php';
-            
-            if ( file_exists( $portletPath ) )
-            {
-                require_once $portletPath;
-                
-                $label = strtolower("{$moduleLabel}_Portlet");
-                $className = "{$moduleLabel}_Portlet";
-                
-                $portletInDB = $portletList->loadPortlet($label);
-
-                // si present en db on passe
-                if( !$portletInDB )
-                {
-                    if ( class_exists($className) )
-                    {
-                        $portletList->addPortlet( $label, $className );
-                    }
+                    $portletList->addPortlet( $label, $className );
                 }
             }
         }
     }
-    catch (Exception $e)
-    {
-        $dialogBox->error( get_lang('Cannot load portlets') );
-        pushClaroMessage($e->__toString());
-    }
+}
+catch (Exception $e)
+{
+    $dialogBox->error( get_lang('Cannot load portlets') );
+    pushClaroMessage($e->__toString());
+}
 
-    $portletList = $portletList->loadAll( true );
+// Generate Output from Portlet
 
-    foreach ( $portletList as $portlet )
-    {
-        // load portlet
-        if( !class_exists($portlet['label']) ) continue;
-        $portlet = new $portlet['label']();
+$outPortlet = '';
 
-        if( !method_exists($portlet, 'render') ) continue;
-        $outPortlet .= $portlet->render();
-    }
+$portletList = $portletList->loadAll( true );
 
+foreach ( $portletList as $portlet )
+{
+    // load portlet
+    if( !class_exists($portlet['label']) ) continue;
+    $portlet = new $portlet['label']();
 
-// }}}
+    if( !method_exists($portlet, 'render') ) continue;
+    $outPortlet .= $portlet->render();
+}
 
-// {{{ VIEW
+// Generate Script Output
 
-    $output = '';
+$cssLoader = CssLoader::getInstance();
+$cssLoader->load('desktop','all');
 
-    $nameTools = get_lang('My Desktop');
+$output = '';
 
-    $output .= claro_html_tool_title($nameTools);
+$nameTools = get_lang('My desktop');
 
-    $output .= $dialogBox->render();
+$output .= claro_html_tool_title($nameTools);
 
-    $userProfileBox = new UserProfileBox();
+$output .= $dialogBox->render();
 
-    $output .= $userProfileBox->render();
+$userProfileBox = new UserProfileBox();
 
-    $output .= $outPortlet;
+$output .= $userProfileBox->render();
 
-    $claroline->display->body->appendContent($output);
+$output .= $outPortlet;
 
-    echo $claroline->display->render();
+$claroline->display->body->appendContent($output);
 
-// }}}
+echo $claroline->display->render();
+
 ?>

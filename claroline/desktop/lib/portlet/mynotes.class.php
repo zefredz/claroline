@@ -11,7 +11,7 @@ if ( count( get_included_files() ) == 1 )
 * CLAROLINE
 *
 * User desktop : notepad portlet
-* FIXME : MVC + ajax handling 
+* FIXME : MVC + ajax handling + Move to own module !!!
 *
 * @version      1.9 $Revision$
 * @copyright    (c) 2001-2008 Universite catholique de Louvain (UCL)
@@ -20,19 +20,8 @@ if ( count( get_included_files() ) == 1 )
 * @author       Claroline team <info@claroline.net>
 *
 */
-
-$jsloader = JavascriptLoader::getInstance();
-$jsloader->load('jquery');
-    
-$htmlHeaders = "\n"   
-.   '<script type="text/javascript">' . "\n"
-.   '$(document).ready( function () {$("#note").focus(); });'
-.   '</script>' . "\n"
-;
-
-$claroline->display->header->addHtmlHeader($htmlHeaders);
  
-class MyNotes extends Portlet
+class MyNotes extends UserDesktopPortlet
 {
     private $id = 0;
     private $note = '';
@@ -40,12 +29,18 @@ class MyNotes extends Portlet
 
     public function __construct()
     {
-        $tblNameList = array(
-            'desktop_portlet_data'
-        );
+        $jsloader = JavascriptLoader::getInstance();
+        $jsloader->load('jquery');
+            
+        $htmlHeaders = "\n"   
+        .   '<script type="text/javascript">' . "\n"
+        .   '$(document).ready( function () {$("#note").focus(); });'
+        .   '</script>' . "\n"
+        ;
+        
+        ClaroHeader::getInstance()->addHtmlHeader($htmlHeaders);
 
-        // convert to Claroline course table names
-        $tbl_lp_names = get_module_main_tbl( $tblNameList, claro_get_current_course_id() );
+        $tbl_lp_names = get_module_main_tbl( array('desktop_portlet_data') );
         $this->tblnote = $tbl_lp_names['desktop_portlet_data'];
     }
 

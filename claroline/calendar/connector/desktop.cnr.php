@@ -23,7 +23,7 @@ if ( count( get_included_files() ) == 1 )
 
 require_once get_module_path( 'CLCAL' ) . '/lib/agenda.lib.php';
 
-class CLCAL_Portlet extends Portlet
+class CLCAL_Portlet extends UserDesktopPortlet
 {
 
     public function renderContent()

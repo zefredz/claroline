@@ -24,7 +24,7 @@ if ( count( get_included_files() ) == 1 )
 require_once get_module_path( 'CLANN' ) . '/lib/announcement.lib.php';
 require_once get_path( 'includePath' ) . '/lib/courselist.lib.php';
 
-class CLANN_Portlet extends Portlet
+class CLANN_Portlet extends UserDesktopPortlet
 {
     public function __construct()
     {

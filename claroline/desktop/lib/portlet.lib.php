@@ -20,7 +20,7 @@ if ( count( get_included_files() ) == 1 )
 *
 */
 
-abstract class Portlet
+abstract class UserDesktopPortlet
 {
     // render title
     abstract public function renderTitle();
@@ -54,7 +54,7 @@ class PortletList
     public function __construct()
     {
         // convert to Claroline course table names
-        $tbl_lp_names = get_module_main_tbl( array('desktop_portlet'), claro_get_current_course_id() );
+        $tbl_lp_names = get_module_main_tbl( array('desktop_portlet') );
         $this->tblDesktopPortlet = $tbl_lp_names['desktop_portlet'];
     }
 

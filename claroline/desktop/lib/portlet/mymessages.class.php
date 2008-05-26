@@ -23,7 +23,7 @@ if ( count( get_included_files() ) == 1 )
 require_once get_path( 'clarolineRepositorySys' ) . '/messaging/lib/tools.lib.php';
 require_once get_path( 'clarolineRepositorySys' ) . '/messaging/lib/messagebox/inbox.lib.php';
 
-class MyMessages extends Portlet
+class MyMessages extends UserDesktopPortlet
 {
     protected $inbox;
 
