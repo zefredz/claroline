@@ -1313,29 +1313,13 @@ function get_conf($param, $default = null)
 
 function claro_die($message)
 {
-    global $includePath, $claro_stylesheet, $urlAppend ,
-           $siteName, $text_dir, $_uid, $_cid, $administrator_name, $administrator_email;
-    global $_course, $_user, $_courseToolList, $coursesRepositoryWeb,
-           $is_courseAllowed, $_tid, $is_courseMember, $_gid;
-    global $claroBodyOnload, $httpHeadXtra, $htmlHeadXtra, $charset, $interbredcrump,
-           $noPHP_SELF, $noQUERY_STRING;
-    global $institution_name, $institution_url, $hide_banner, $hide_footer, $hide_body;
-    global $clarolineRepositoryWeb, $imgRepositoryWeb;
-
-    if ( ! headers_sent () )
-    {
-        // display header
-        require get_path('incRepositorySys') . '/claro_init_header.inc.php';
-    }
-
-    echo '<table align="center">'
-    .    '<tr><td>'
-    .    claro_html_message_box($message)
-    .    '</td></tr>'
-    .    '</table>'
-    ;
-
-    require get_path('incRepositorySys') . '/claro_init_footer.inc.php' ;
+    uses( 'display/dialogBox.lib' );
+    $dialogBox = new DialogBox;
+    $dialogBox->error( $message );
+    
+    Claroline::getInstance()->display->setContent( $dialogBox->render() );
+    
+    echo Claroline::getInstance()->display->render();
 
     die(); // necessary to prevent any continuation of the application
 }
