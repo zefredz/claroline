@@ -87,7 +87,7 @@
         
         foreach ( $moduleList as $moduleId => $moduleLabel )
         {
-            $portletPath = get_module_path( $moduleLabel ) . '/connector/portlet.cnr.php';
+            $portletPath = get_module_path( $moduleLabel ) . '/connector/desktop.cnr.php';
             
             if ( file_exists( $portletPath ) )
             {
