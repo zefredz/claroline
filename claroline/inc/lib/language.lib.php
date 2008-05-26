@@ -203,36 +203,42 @@ class language
         }
     }
 
-    public static function load_locale_settings($language=null)
+    public static function load_locale_settings( $language = null )
     {
-        global $iso639_1_code, $iso639_2_code, $charset,
-               $_locale,
+        global $_locale, $charset,
+               // FIXME : The following line MUST be removed use $_locale array instead
+               $iso639_1_code, $iso639_2_code,
                $langNameOfLang , $langDay_of_weekNames, $langMonthNames, $byteUnits,
                $text_dir, $left_font_family, $right_font_family,
                $number_thousands_separator, $number_decimal_separator,
-               $dateFormatCompact, $dateFormatShort, $dateFormatLong, $dateTimeFormatLong, $dateFormatNumeric,$dateTimeFormatShort, $timeNoSecFormat;
-
-        /*
-        * tool specific language translation
-        */
-
-        if ( is_null($language) ) $language = language::current_language();
-
-        // include the locale settings language
-        include(get_path('incRepositorySys').'/../lang/english/locale_settings.php');
-        if ( $language != 'english' ) // Avoid useless include as English lang is preloaded
+               $dateFormatCompact, $dateFormatShort, $dateFormatLong, $dateTimeFormatLong,
+               $dateFormatNumeric,$dateTimeFormatShort, $timeNoSecFormat;
+        
+        if ( is_null( $language ) )
         {
-            $locale_settings_file = realpath(get_path('incRepositorySys') . '/../lang/' . $language . '/locale_settings.php');
-            if ( file_exists($locale_settings_file) )
-            {
-                include($locale_settings_file);
-            }
+            $language = language::current_language();
         }
 
+        // include the default locale_settings
+        include get_path('incRepositorySys').'/../lang/english/locale_settings.php';
+        
+        // include the language specific locale_settings
+        if ( $language != 'english' ) // Avoid useless include as English lang is preloaded
+        {
+            $locale_settings_file = get_path('incRepositorySys')
+                . '/../lang/' . $language . '/locale_settings.php'
+                ;
+            
+            if ( file_exists($locale_settings_file) )
+            {
+                include $locale_settings_file;
+            }
+        }
+        
+        // FIXME: IS this code mandatory ?!?
         $GLOBALS['langNameOfLang'] = $langNameOfLang;
         $GLOBALS['langDay_of_weekNames'] = $langDay_of_weekNames;
         $GLOBALS['langMonthNames'] = $langMonthNames;
-
     }
     
     public static function load_module_translation( $moduleLabel = null, $language = null )
@@ -245,14 +251,20 @@ class language
         if ( ! empty( $moduleLabel ) )
         {
             $module_path = get_module_path( $moduleLabel );
-            $language = is_null( $language ) ? language::current_language() : $language;
+            
+            $language = is_null( $language )
+                ? language::current_language()
+                : $language
+                ;
             
             // load english by default if exists
-            if ( file_exists($module_path.'/lang/lang_english.php' ) )
+            if ( file_exists( $module_path.'/lang/lang_english.php' ) )
             {
-                /* TODO use $_lang instead of $mod_lang in module lang files */
+                /* FIXME : DEPRECATED !!!!! */
                 $mod_lang = array();
+                
                 include $module_path.'/lang/lang_english.php';
+                
                 $_lang = array_merge($_lang,$mod_lang);
                 
                 if ( claro_debug_mode() )
@@ -275,9 +287,12 @@ class language
             if ( $language != 'english'
                 && file_exists($module_path.'/lang/lang_'.$language.'.php') )
             {
-                /* TODO use $_lang instead of $mod_lang in module lang files */
+                /* FIXME : CODE DUPLICATION see 263-274 !!!!! */
+                /* FIXME : DEPRECATED !!!!! */
                 $mod_lang = array();
+                
                 include $module_path.'/lang/lang_'.$language.'.php';
+                
                 $_lang = array_merge($_lang,$mod_lang);
                 
                 if ( claro_debug_mode() )
@@ -308,6 +323,7 @@ class language
 
     public static function current_language()
     {
+        // FIXME : use init.lib instead of global variables !!!
         global $_course, $_user, $platformLanguage;
 
         if ( claro_is_in_a_course() && isset($_course['language']) )
@@ -367,14 +383,15 @@ function get_language_list()
 
     if ( is_dir($language_dirname) )
     {
+        // TODO : use DirectoryIterator
         $handle = opendir($language_dirname);
+        
         while ( $elt = readdir($handle) )
         {
-            // skip '.', '..' and 'CVS'
-            if ( $elt == '.' || $elt == '..' || $elt == 'CVS' ) continue;
+            if ( $elt == '.' || $elt == '..' || $elt == '.svn' ) continue;
 
             // skip if not a dir
-            if ( is_dir($language_dirname.$elt) )
+            if ( is_dir( $language_dirname.$elt ) )
             {
                 $elt_key = $elt;
                 $elt_value = get_translation_of_language($elt_key);
