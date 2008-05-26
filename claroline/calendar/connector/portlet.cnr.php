@@ -21,9 +21,9 @@ if ( count( get_included_files() ) == 1 )
 *
 */
 
-require_once get_path( 'clarolineRepositorySys' ) . '/calendar/lib/agenda.lib.php';
+require_once get_module_path( 'CLCAL' ) . '/lib/agenda.lib.php';
 
-class MyCalendar extends Portlet
+class CLCAL_Portlet extends Portlet
 {
 
     public function renderContent()

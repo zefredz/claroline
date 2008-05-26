@@ -21,10 +21,10 @@ if ( count( get_included_files() ) == 1 )
 *
 */
 
-require_once get_path( 'clarolineRepositorySys' ) . '/announcements/lib/announcement.lib.php';
+require_once get_module_path( 'CLANN' ) . '/lib/announcement.lib.php';
 require_once get_path( 'includePath' ) . '/lib/courselist.lib.php';
 
-class MyAnnouncements extends Portlet
+class CLANN_Portlet extends Portlet
 {
     public function __construct()
     {
