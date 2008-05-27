@@ -32,6 +32,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  */
 
+include_once dirname(__FILE__) . '/installer.class.php';
+
 ! defined( 'CLARO_FILE_PERMISSIONS' ) && define( 'CLARO_FILE_PERMISSIONS', 0777 );
 $display = DISP_RUN_INSTALL_COMPLETE; //  if  all is righ $display don't change
 
