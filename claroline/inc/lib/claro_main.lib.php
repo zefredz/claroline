@@ -214,7 +214,7 @@ function claro_get_main_group_properties($courseId)
 
         $propertyList['tools'] = array();
         
-        $groupToolList = get_activated_tool_label_list( $courseId );
+        $groupToolList = get_activated_group_tool_label_list( $courseId );
         
         foreach ( $groupToolList as $thisGroupTool )
         {
