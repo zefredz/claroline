@@ -7,9 +7,9 @@ if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) );
  *
  * This lib prupose function use by installer.
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2008 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
