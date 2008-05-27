@@ -20,7 +20,7 @@ if ( count( get_included_files() ) == 1 )
 *
 */
 
-require_once get_path( 'includePath' ) . '/lib/courselist.lib.php';
+uses('courselist.lib');
 
 class MyCourseList extends UserDesktopPortlet
 {
