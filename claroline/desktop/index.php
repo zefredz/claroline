@@ -44,7 +44,7 @@ try
     foreach ( $fileFinder as $file )
     {
         // Require portlet file
-        require_once $file->getRealPath();
+        require_once $file->getPathname();
 
         // Compute portlet class name from file name
         $pos = strpos( $file->getFilename(), '.' );
