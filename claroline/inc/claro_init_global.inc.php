@@ -51,7 +51,17 @@ else
 
 // Most PHP package has increase the error reporting.
 // The line below set the error reporting to the most fitting one for Claroline
-if( !CLARO_DEBUG_MODE ) error_reporting(error_reporting() & ~ E_NOTICE);
+if( claro_debug_mode() )
+{
+    // Make sure all errors are reported
+    error_reporting( E_ALL );
+    
+    // Active assertions
+    assert_options(ASSERT_ACTIVE, 1);
+    assert_options(ASSERT_WARNING, 0);
+    assert_options(ASSERT_QUIET_EVAL, 1);
+    assert_options(ASSERT_CALLBACK, 'claro_debug_assertion_handler');
+}
 
 /*----------------------------------------------------------------------
   Various Path Init

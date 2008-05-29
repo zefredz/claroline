@@ -501,4 +501,8 @@ function profilePoint()
         pushClaroMessage ( $line . '</tt>@ (+ ' . (sprintf('%01.4f',microtime() -$start )) . 'ms)', 'profile' ) ;
     }
 }
-?>
+
+function claro_debug_assertion_handler($file, $line, $code)
+{
+    pushClaroMessage( htmlspecialchars("Assertion failed in {$file} at lin {$line} : $code"), 'assert' );
+}
