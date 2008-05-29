@@ -112,7 +112,7 @@ class Claro_Input_Validator implements Claro_Input
     }
     
     /**
-     * Set a filter for the given variable
+     * Set a validator for the given variable
      * @param   string $name variable name
      * @param   Claro_Validator $validator validator object
      * @throws  Claro_Input_Exception if the filter callback is not callable
