@@ -34,7 +34,7 @@ class MessagingUserNotifier
         
         foreach ( $notifierFile as $file )
         {
-            require_once $file->getRealPath();
+            require_once $file->getPathname();
             
             //take the name of the class  
             // convention file: name.lib.php classe: name
