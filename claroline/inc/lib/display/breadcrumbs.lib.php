@@ -217,7 +217,8 @@ class ClaroBreadCrumbs extends BreadCrumbs
     
     private function autoPrepend()
     {
-        if ( array_key_exists( 'nameTools', $GLOBALS ) )
+        if ( empty( $this->currentNode )
+            && array_key_exists( 'nameTools', $GLOBALS ) )
         {
             $name = $GLOBALS['nameTools'];
             
