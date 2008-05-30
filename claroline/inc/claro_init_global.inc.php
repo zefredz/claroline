@@ -320,12 +320,12 @@ if ( isset($_POST['claroFormId']) )
     }
     elseif ( in_array($_POST['claroFormId'], $_SESSION['claroFormIdList']) )
     {
-        foreach($_POST as $thisPostKey => $thisPostValue)
+        foreach( $_POST as $thisPostKey => $thisPostValue )
         {
             $_REQUEST[$thisPostKey] = null;
         }
 
-        $_POST = null;
+        $_POST = array();
     }
     else
     {
