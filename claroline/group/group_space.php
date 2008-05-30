@@ -153,7 +153,7 @@ if( isset($_REQUEST['registration']) )
 
 if ( isset($_REQUEST['regDone']) )
 {
-    $dialogBox->error( get_lang("You are now a member of this group.") );
+    $dialogBox->success( get_lang("You are now a member of this group.") );
 }
 
 
