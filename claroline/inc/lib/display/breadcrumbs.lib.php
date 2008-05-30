@@ -72,7 +72,7 @@ class BreadCrumbs implements Display
         $lastNode = count( $breadCrumbs ) - 1;
         $currentNode = 0;
 
-        $out = '';
+        $out = '<ul class="breadCrumbs">' . "\n";
 
         $nodeList = array();
 
@@ -82,21 +82,28 @@ class BreadCrumbs implements Display
 
             if ( $currentNode == $lastNode )
             {
-                $nodeStr .= '<span class="lastBreadCrumbsNode">';
+                $nodeStr .= '<li class="breadCrumbsNode lastBreadCrumbsNode">';
             }
             elseif ( $currentNode == 0 )
             {
-                $nodeStr .= '<span class="firstBreadCrumbsNode">';
+                $nodeStr .= '<li class="breadCrumbsNode firstBreadCrumbsNode">';
+            }
+            else
+            {
+                $nodeStr .= '<li class="breadCrumbsNode">';
             }
 
             // var_dump( $node );
 
             $nodeStr .= $node->render();
 
-            if ( $currentNode == $lastNode
-                || $currentNode == 0 )
+            if ( $currentNode == $lastNode )
             {
-                $nodeStr .= '</span>';
+                $nodeStr .= '</li>';
+            }
+            else
+            {
+                $nodeStr .= '&nbsp;&gt;&nbsp;</li>';
             }
 
             $nodeList[] = $nodeStr;
@@ -104,9 +111,9 @@ class BreadCrumbs implements Display
             $currentNode++;
         }
 
-        $out .= implode ( "&nbsp;&gt;&nbsp;", $nodeList );
+        $out .= implode ( "\n", $nodeList );
 
-        $out .= "\n";
+        $out .= "\n" . '</ul>' . "\n";
 
         return $out;
     }

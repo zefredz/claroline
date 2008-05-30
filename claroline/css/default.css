@@ -300,6 +300,28 @@ input[type=text].inputSearch
     font-weight: normal;
 }
 
+ul.breadCrumbs {
+    padding:0;
+    margin:0;
+    /* list-style: none; */
+    display:inline;
+}
+
+li.breadCrumbsNode {
+    display:inline;
+    list-style: none
+}
+
+li.firstBreadCrumbsNode {
+    display:inline;
+    list-style: none;
+}
+
+li.lastBreadCrumbsNode {
+    display:inline;
+    list-style: none;
+}
+
 /******************************************************************************
                              CLAROLINE BODY
  ******************************************************************************/
