@@ -227,18 +227,18 @@ function makeHitsTable($period_array,$periodTitle,$linkOnPeriod = "???")
  */
 function buildTab2Col($results, $leftTitle = "", $rightTitle = "")
 {
-    echo '<table class="claroTable" cellpadding="2" cellspacing="1" align="center">' . "\n";
+    $out = '<table class="claroTable" cellpadding="2" cellspacing="1" align="center">' . "\n";
 
     if($leftTitle != '' || $rightTitle != '')
     {
-        echo '<tr class="headerX">' . "\n"
+        $out .= '<tr class="headerX">' . "\n"
         .    '<th>&nbsp;' . $leftTitle .' </th>' . "\n"
         .    '<th>&nbsp;' . $rightTitle . '</th>' . "\n"
         .    '</tr>' . "\n"
         ;
     }
 
-    echo '<tr class="headerX">' . "\n"
+    $out .= '<tr class="headerX">' . "\n"
     .    '<th colspan="2">' . get_lang('Number of rows') . ' : ' . count($results) . ' </th>' . "\n"
     .    '</tr>' . "\n\n"
     .    '<tbody>' . "\n\n"
@@ -248,7 +248,7 @@ function buildTab2Col($results, $leftTitle = "", $rightTitle = "")
         foreach( $results as $result )
         {
             $keys = array_keys($result);
-            echo '<tr>' . "\n"
+            $out .= '<tr>' . "\n"
             .    '<td>' . $result[$keys[0]] . '</td>' . "\n"
             .    '<td align="right">' . $result[$keys[1]] . '</td>' . "\n"
             .    '</tr>' . "\n\n"
@@ -258,15 +258,16 @@ function buildTab2Col($results, $leftTitle = "", $rightTitle = "")
     }
     else
     {
-        echo '<tr>' . "\n"
+        $out .= '<tr>' . "\n"
         .    '<td colspan="2"><center>'.get_lang('No result').'</center></td>' . "\n"
         .    '</tr>' . "\n\n"
         ;
     }
-    echo '</tbody>' . "\n"
+    $out .= '</tbody>' . "\n"
     .    '</table>' . "\n\n"
     ;
-
+    
+    return $out;
 }
 
 /**
