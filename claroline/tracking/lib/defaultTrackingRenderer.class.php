@@ -188,7 +188,7 @@ class CLTRACK_CourseToolAccess extends CourseTrackingRenderer
                 
                 $html .= '<tr>' . "\n"
                 .    '<td>'
-                .    '<a href="toolaccess_details.php?toolId='.$thisTid.'">'
+                .    '<a href="tool_access_details.php?toolId='.$thisTid.'">'
                 .    $thisToolName . '</a></td>' . "\n"
                 .    '<td align="right"><a href="user_access_details.php?cmd=tool&amp;id='.$thisTid.'">'.(int) $result['nbr_distinct_users_access'] . '</a></td>' . "\n"
                 .    '<td align="right">' . (int) $result['nbr_access'] . '</td>' . "\n"
