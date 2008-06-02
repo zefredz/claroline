@@ -618,11 +618,11 @@ class answerFillInBlanks
 
             // answer
             $text = $this->addslashesEncodedBrackets($this->answerText);
-            $text = htmlspecialchars($this->answerDecode($text));
+            $text = $this->answerDecode($text);
 
             $html .= '<p>' . get_lang('Please type your text below, use brackets %mask to define one or more blanks', array('%mask'=>'&#91;...&#93;'))   . ' :</p>' . "\n"
 
-            .    '<textarea name="answer" cols="65" rows="6">'.$text.'</textarea>' . "\n"
+            .    claro_html_textarea_editor('answer',$text) . "\n"
 
             // fill type
             .    '<p>' . get_lang('Fill type') . '&nbsp;:</p>' . "\n"
