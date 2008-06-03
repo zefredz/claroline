@@ -63,15 +63,15 @@ include '../lang/english/install.lang.php';
 include '../lang/english/locale_settings.php';
 
 
-include_once $newIncludePath . 'lib/user.lib.php'; // needed fo generate_passwd()
-include_once dirname(__FILE__) . '/install.lib.inc.php';
+require_once $newIncludePath . 'lib/user.lib.php'; // needed fo generate_passwd()
+require_once dirname(__FILE__) . '/install.lib.inc.php';
 require_once $newIncludePath . 'lib/config.lib.inc.php';
-include_once $newIncludePath . 'lib/form.lib.php';
-include_once $newIncludePath . 'lib/course.lib.inc.php';
-include_once $newIncludePath . 'lib/claro_main.lib.php';
-include_once $newIncludePath . 'lib/language.lib.php';
-include_once $newIncludePath . 'lib/module/manage.lib.php';
-include_once $newIncludePath . 'lib/right/right_profile.lib.php';
+require_once $newIncludePath . 'lib/form.lib.php';
+require_once $newIncludePath . 'lib/course.lib.inc.php';
+require_once $newIncludePath . 'lib/claro_main.lib.php';
+require_once $newIncludePath . 'lib/language.lib.php';
+require_once $newIncludePath . 'lib/module/manage.lib.php';
+require_once $newIncludePath . 'lib/right/right_profile.lib.php';
 
 $installLanguageList =  get_available_install_language();
 
