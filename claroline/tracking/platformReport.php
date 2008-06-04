@@ -35,25 +35,15 @@ uses( 'user.lib', 'courselist.lib' );
 require_once get_path('incRepositorySys') . '/lib/statsUtils.lib.inc.php';
 
 
-// regroup table names for maintenance purpose
 /*
  * DB tables definition
  */
-
 $tbl_mdb_names       = claro_sql_get_main_tbl();
-$tbl_cdb_names       = claro_sql_get_course_tbl();
 $tbl_course          = $tbl_mdb_names['course'           ];
 $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'  ];
 $tbl_user            = $tbl_mdb_names['user'             ];
-$tbl_track_e_default = $tbl_mdb_names['track_e_default'];
-$tbl_track_e_login   = $tbl_mdb_names['track_e_login'];
-$tbl_track_e_open    = $tbl_mdb_names['track_e_open'];
+$tbl_tracking_event  = $tbl_mdb_names['tracking_event'];
 
-$tbl_tracking_event = $tbl_mdb_names['tracking_event'];
-
-$tbl_document        = $tbl_cdb_names['document'];
-
-$toolNameList = claro_get_tool_name_list();
 
 
 /*
@@ -62,7 +52,6 @@ $toolNameList = claro_get_tool_name_list();
 $cssLoader = CssLoader::getInstance();
 $cssLoader->load( 'tracking', 'screen');
 
-$claroline->setDisplayType( CL_PAGE );
 
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 $nameTools = get_lang('Platform statistics');
