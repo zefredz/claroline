@@ -6,7 +6,7 @@
  *
  * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
- * @author Sebastien Piraux <piraux_seb@hotmail.com>
+ * @author Sebastien Piraux <seb@claroline.net>
  *
  * @package CLTRACK
  */
