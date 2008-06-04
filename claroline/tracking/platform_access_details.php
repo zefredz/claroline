@@ -1,216 +1,235 @@
 <?php // $Id$
 /**
- * Claroline
+ * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
  * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ *
+ * @author Sebastien Piraux <piraux_seb@hotmail.com>
+ *
+ * @package CLTRACK
  */
 
-require '../inc/claro_init_global.inc.php';
+/*
+ * Kernel
+ */
+require_once dirname( __FILE__ ) . '/../inc/claro_init_global.inc.php';
 
-// Security check
-if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
+
+/*
+ * Permissions
+ */
+if( ! get_conf('is_trackingEnabled') ) claro_die(get_lang('Tracking has been disabled by system administrator.'));
+
+if( ! claro_is_user_authenticated() ) claro_disp_auth_form();
+if( ! claro_is_platform_admin() ) claro_die( get_lang('Not allowed') );
+
+/*
+ * Libraries
+ */
 require_once get_path('incRepositorySys') . '/lib/statsUtils.lib.inc.php';
+
+/*
+ * DB tables definition
+ */
 $tbl_mdb_names    = claro_sql_get_main_tbl();
-$tbl_track_e_open = $tbl_mdb_names['track_e_open'];
+$tbl_tracking_event = $tbl_mdb_names['tracking_event'];
 
-$is_allowedToTrack = claro_is_platform_admin();
+/*
+ * Input
+ */
+if( !empty($_REQUEST['displayType']) && in_array($_REQUEST['displayType'], array('month','day','hour')) )
+{
+    $displayType = $_REQUEST['displayType'];
+}
+else
+{
+    $displayType = '';
+}
 
-// BC - prepend in reverse order
+if( !empty($_REQUEST['period']) && in_array($_REQUEST['period'], array('year','month','day')) )
+{
+    $period = $_REQUEST['period'];
+}
+else
+{
+    $period = 'day';
+}
+
+if( !empty($_REQUEST['reqdate']) )
+{
+    $reqdate = (int) $_REQUEST['reqdate'];
+}
+else
+{
+    $reqdate = time();
+}
+
+/*
+ * Output
+ */
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Platform statistics'), get_path('rootAdminWeb').'campusLog.php' );
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
 $nameTools = get_lang('Traffic Details');
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-echo claro_html_tool_title($nameTools)
-.    '<table width="100%" cellpadding="2" cellspacing="3" border="0">'
-;
-if( $is_allowedToTrack && get_conf('is_trackingEnabled'))
+$html = '';    
+
+$html .= claro_html_tool_title( $nameTools );
+
+$html .= '<p><strong>';
+
+switch($period)
 {
-    if( !isset($_REQUEST['reqdate']) || $_REQUEST['reqdate'] < 0 || $_REQUEST['reqdate'] > 2149372861 )
+    case 'year' :
     {
-        $reqdate = time();  // default value
-    }
-    else $reqdate = (int)$_REQUEST['reqdate'];
-
-    if( isset($_REQUEST['period']) ) $period = $_REQUEST['period'];
-    else                             $period = 'day'; // default value
-
-    if( isset($_REQUEST['displayType']) ) $displayType = $_REQUEST['displayType'];
-    else                                  $displayType = ''; // default value
-
-    // dislayed period
-    echo '<tr><td><b>';
-
-    switch($period)
+        $html .= date('Y', $reqdate);
+    }   break;
+    case 'month' :
     {
-        case 'year' :
-        {
-            echo date('Y', $reqdate);
-        }   break;
-        case 'month' :
-        {
-            echo claro_html_localised_date('%B %Y',$reqdate);
-        }   break;
-        default :
-        {
-            $period = 'day'; // if $period has no correct value
-        }
-        case 'day' :
-        {
-            echo claro_html_localised_date('%A %d %B %Y',$reqdate);
-        }   break;
-    }
-
-    echo '</b></tr></td>' . "\n"
-    .    '<tr>' . "\n"
-    .    '<td>' . "\n"
-    .    '<small>' . "\n"
-    .    get_lang('Period')
-    .    ' : ' . "\n"
-    .    '[<a href="' . $_SERVER['PHP_SELF'] . '?period=year&amp;reqdate=' . $reqdate . '" >' . get_lang('Year') . '</a>]' . "\n"
-    .    '[<a href="' . $_SERVER['PHP_SELF'] . '?period=month&amp;reqdate=' . $reqdate . '" >' . get_lang('Month') . '</a>]' . "\n"
-    .    '[<a href="' . $_SERVER['PHP_SELF'] . '?period=day&amp;reqdate=' . $reqdate . ' ">' . get_lang('Day') . '</a>]' . "\n"
-    .    '&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;' . "\n"
-    .    get_lang('View by') . "\n"
-    .    ' :' . "\n"
-    ;
-    switch($period)
+        $html .= claro_html_localised_date('%B %Y',$reqdate);
+    }   break;
+    case 'day' :
     {
-        case 'year' :
-        {
-        //-- if period is "year" display can be by month, day or hour
-        echo '[<a href="' . $_SERVER['PHP_SELF'] . '?period=' . $period . '&amp;reqdate=' . $reqdate . '&amp;displayType=month" >' . get_lang('Month') . '</a>]';
-        }
-        case 'month' :
-        {
+        $html .= claro_html_localised_date('%A %d %B %Y',$reqdate);
+    }   break;
+}
+
+$html .= '</strong></p>'."\n\n";
+
+$html .= '<p><small>'."\n";
+$html .= get_lang('Period').' : ' 
+.   '[<a href="'.$_SERVER['PHP_SELF'].'?period=year&reqdate='.$reqdate.'&displayType=month">'
+.   ( $period == 'year' ? '<strong>' . get_lang('Year') . '</strong>' : get_lang('Year') )
+.    '</a>]'."\n"
+.   '[<a href="'.$_SERVER['PHP_SELF'].'?period=month&reqdate='.$reqdate.'&displayType=day">'
+.   ( $period == 'month' ? '<strong>' . get_lang('Month') . '</strong>' : get_lang('Month') )
+.   '</a>]'."\n"
+.   '[<a href="'.$_SERVER['PHP_SELF'].'?period=day&reqdate='.$reqdate.'">'
+.   ( $period == 'day' ? '<strong>' . get_lang('Day') . '</strong>' : get_lang('Day') )
+.   '</a>]'."\n"
+.   '&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;'."\n"
+.   get_lang('View by').' : ';
+
+switch($period)
+{
+    case 'year' :
+            //-- if period is "year" display can be by month, day or hour
+            $html .= '  [<a href="'.$_SERVER['PHP_SELF'].'?period='.$period.'&reqdate='.$reqdate.'&displayType=month">'
+            .   ( $displayType == 'month' ? '<strong>' . get_lang('Month') . '</strong>' : get_lang('Month') )
+            .   '</a>]'."\n";
+    case 'month' :
             //-- if period is "month" display can be by day or hour
-            echo '[<a href="' . $_SERVER['PHP_SELF'] . '?period=' . $period . '&amp;reqdate=' . $reqdate . '&amp;displayType=day" >' . get_lang('Day') . '</a>]';
-        }
-        case 'day' :
-        {
+            $html .= '  [<a href="'.$_SERVER['PHP_SELF'].'?period='.$period.'&reqdate='.$reqdate.'&displayType=day">'
+            .   ( $displayType == 'day' ? '<strong>' . get_lang('Day') . '</strong>' : get_lang('Day') )
+            .   '</a>]'."\n";
+    case 'day' :
             //-- if period is "day" display can only be by hour
-            echo '[<a href="' . $_SERVER['PHP_SELF'] . '?period=' . $period . '&amp;reqdate=' . $reqdate . '&amp;displayType=hour" >' . get_lang('Hour') . '</a>]';
-        } break;
-    }
+            $html .= '  [<a href="'.$_SERVER['PHP_SELF'].'?period='.$period.'&reqdate='.$reqdate.'&displayType=hour">'
+            .   ( $displayType == 'hour' ? '<strong>' . get_lang('Hour') . '</strong>' : get_lang('Hour') )
+            .   '</a>]'."\n";
+            break;
+}
 
-    echo '&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;';
+$html .= '&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;'."\n";
 
-    switch($period)
-    {
-        case 'year' :
-        {
-            // previous and next date must be evaluated
-            // 30 days should be a good approximation
-            $previousReqDate = mktime(1,1,1,1,1,date("Y",$reqdate)-1);
-            $nextReqDate = mktime(1,1,1,1,1,date("Y",$reqdate)+1);
-            echo '[<a href="' . $_SERVER['PHP_SELF'].  '?period=' . $period . '&amp;reqdate=' . $previousReqDate . '&amp;displayType=' . $displayType . '" >' . get_lang('Previous year') . '</a>]'
-            .    '[<a href="' . $_SERVER['PHP_SELF'] . '?period=' . $period . '&amp;reqdate=' . $nextReqDate . '&amp;displayType=' . $displayType . '" >' . get_lang('Next year') . '</a>]'
-            ;
-        }   break;
-        case 'month' :
-        {
+switch($period)
+{
+    case 'year' :
+        // previous and next date must be evaluated
+        // 30 days should be a good approximation
+        $previousReqDate = mktime(1,1,1,1,1,date('Y',$reqdate)-1);
+        $nextReqDate = mktime(1,1,1,1,1,date('Y',$reqdate)+1);
+        $html .= '[<a href="'.$_SERVER['PHP_SELF'].'?period='.$period.'&reqdate='.$previousReqDate.'&displayType='.$displayType.'">'.get_lang('Previous year').'</a>]'."\n"
+            .'[<a href="'.$_SERVER['PHP_SELF'].'?period='.$period.'&reqdate='.$nextReqDate.'&displayType='.$displayType.'">'.get_lang('Next year').'</a>]'."\n";
+        break;
+    case 'month' :
         // previous and next date must be evaluated
         // 30 days should be a good approximation
         $previousReqDate = mktime(1,1,1,date("m",$reqdate)-1,1,date("Y",$reqdate));
         $nextReqDate = mktime(1,1,1,date("m",$reqdate)+1,1,date("Y",$reqdate));
-        echo   "
-                    [<a href='".$_SERVER['PHP_SELF']."?period=".$period."&reqdate=".$previousReqDate."&displayType=".$displayType."' >".get_lang('Previous month')."</a>]
-                    [<a href='".$_SERVER['PHP_SELF']."?period=".$period."&reqdate=".$nextReqDate."&displayType=".$displayType."' >".get_lang('Next month')."</a>]
-                ";
-        }   break;
-        case 'day' :
-        {
+        $html .= '[<a href="'.$_SERVER['PHP_SELF'].'?period='.$period.'&reqdate='.$previousReqDate.'&displayType='.$displayType.'">'.get_lang('Previous month').'</a>]'."\n"
+            .'[<a href="'.$_SERVER['PHP_SELF'].'?period='.$period.'&reqdate='.$nextReqDate.'&displayType='.$displayType.'">'.get_lang('Next month').'</a>]'."\n";
+        break;
+    case 'day' :
         // previous and next date must be evaluated
         $previousReqDate = $reqdate - 86400;
         $nextReqDate = $reqdate + 86400;
-        echo   "
-                    [<a href='".$_SERVER['PHP_SELF']."?period=".$period."&reqdate=".$previousReqDate."&displayType=" . $displayType . "' >" . get_lang('Previous day') . "</a>]
-                    [<a href='".$_SERVER['PHP_SELF']."?period=".$period."&reqdate=".$nextReqDate."&displayType=" . $displayType . "' >" . get_lang('Next day') . "</a>]
-                   ";
-        }   break;
-    }
-    echo "  </small>
-                </td>
-              </tr>
-        ";
-    //**
-    // display information about this period
-    switch($period)
-    {
-        // all days
-        case "year" :
-        $sql = "SELECT UNIX_TIMESTAMP( `open_date` )
-                            FROM `".$tbl_track_e_open."`
-                            WHERE YEAR( `open_date` ) = YEAR( FROM_UNIXTIME( ".(int)$reqdate." ) ) ";
+        $html .= '[<a href="'.$_SERVER['PHP_SELF'].'?period='.$period.'&reqdate='.$previousReqDate.'&displayType='.$displayType.'">'.get_lang('Previous day').'</a>]'."\n"
+            .'[<a href="'.$_SERVER['PHP_SELF'].'?period='.$period.'&reqdate='.$nextReqDate.'&displayType='.$displayType.'">'.get_lang('Next day').'</a>]'."\n";
+        break;
+}
+$html .= '</small></p>' . "\n\n";
+
+
+// display information about this period
+switch($period)
+{
+    // all days
+    case "year" :
+        $sql = "SELECT UNIX_TIMESTAMP( `date` )
+                            FROM `".$tbl_tracking_event."`
+                            WHERE `type` = 'platform_access'
+                              AND YEAR( `date` ) = YEAR( FROM_UNIXTIME( ".(int)$reqdate." ) ) ";
         if( $displayType == "month" )
         {
-            $sql .= "ORDER BY UNIX_TIMESTAMP( `open_date`)";
+            $sql .= "ORDER BY UNIX_TIMESTAMP( `date`)";
             $month_array = monthTab($sql);
-            makeHitsTable($month_array,get_lang('Month'));
+            $html .= makeHitsTable($month_array,get_lang('Month'));
         }
         elseif( $displayType == "day" )
         {
-            $sql .= "ORDER BY DAYOFYEAR( `open_date`)";
+            $sql .= "ORDER BY DAYOFYEAR( `date`)";
             $days_array = daysTab($sql);
-            makeHitsTable($days_array,get_lang('Day'));
+            $html .= makeHitsTable($days_array,get_lang('Day'));
         }
         else // by hours by default
         {
-            $sql .= "ORDER BY HOUR( `open_date`)";
+            $sql .= "ORDER BY HOUR( `date`)";
             $hours_array = hoursTab($sql);
-            makeHitsTable($hours_array,get_lang('Hour'));
+            $html .= makeHitsTable($hours_array,get_lang('Hour'));
         }
         break;
-        // all days
-        case "month" :
-        $sql = "SELECT UNIX_TIMESTAMP( `open_date` )
-                            FROM `".$tbl_track_e_open."`
-                            WHERE MONTH(`open_date`) = MONTH (FROM_UNIXTIME( $reqdate ) )
-                                AND YEAR( `open_date` ) = YEAR( FROM_UNIXTIME( $reqdate ) ) ";
+    // all days
+    case "month" :
+        $sql = "SELECT UNIX_TIMESTAMP( `date` )
+                            FROM `".$tbl_tracking_event."`
+                            WHERE `type` = 'platform_access'
+                              AND MONTH(`date`) = MONTH (FROM_UNIXTIME( $reqdate ) )
+                                AND YEAR( `date` ) = YEAR( FROM_UNIXTIME( $reqdate ) ) ";
         if( $displayType == "day" )
         {
-            $sql .= "ORDER BY DAYOFYEAR( `open_date`)";
+            $sql .= "ORDER BY DAYOFYEAR( `date`)";
             $days_array = daysTab($sql);
-            makeHitsTable($days_array,get_lang('Day'));
+            $html .= makeHitsTable($days_array,get_lang('Day'));
         }
         else // by hours by default
         {
-            $sql .= "ORDER BY HOUR( `open_date`)";
+            $sql .= "ORDER BY HOUR( `date`)";
             $hours_array = hoursTab($sql);
-            makeHitsTable($hours_array,get_lang('Hour'));
+            $html .= makeHitsTable($hours_array,get_lang('Hour'));
         }
         break;
-        // all hours
-        case "day"  :
-        $sql = "SELECT UNIX_TIMESTAMP( `open_date` )
-                            FROM `".$tbl_track_e_open."`
-                            WHERE DAYOFMONTH(`open_date`) = DAYOFMONTH(FROM_UNIXTIME( $reqdate ) )
-                                AND MONTH(`open_date`) = MONTH (FROM_UNIXTIME( $reqdate ) )
-                                AND YEAR( `open_date` ) = YEAR( FROM_UNIXTIME( $reqdate ) )
-                            ORDER BY HOUR( `open_date` )";
+    // all hours
+    case "day"  :
+        $sql = "SELECT UNIX_TIMESTAMP( `date` )
+                            FROM `".$tbl_tracking_event."`
+                            WHERE `type` = 'platform_access'
+                              AND DAYOFMONTH(`date`) = DAYOFMONTH(FROM_UNIXTIME( $reqdate ) )
+                                AND MONTH(`date`) = MONTH (FROM_UNIXTIME( $reqdate ) )
+                                AND YEAR( `date` ) = YEAR( FROM_UNIXTIME( $reqdate ) )
+                            ORDER BY HOUR( `date` )";
         $hours_array = hoursTab($sql,$reqdate);
-        makeHitsTable($hours_array,get_lang('Hour'));
+        $html .= makeHitsTable($hours_array,get_lang('Hour'));
         break;
-    }
-}
-else // not allowed to track
-{
-    if(!get_conf('is_trackingEnabled'))
-    {
-        echo get_lang('Tracking has been disabled by system administrator.');
-    }
-    else
-    {
-        echo get_lang('Not allowed');
-    }
 }
 
+/*
+ * Output rendering
+ */
+$claroline->display->body->setContent($html);
 
-echo '</table>';
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+echo $claroline->display->render();
 ?>
