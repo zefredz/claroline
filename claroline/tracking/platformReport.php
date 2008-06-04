@@ -49,14 +49,11 @@ $tbl_track_e_default = $tbl_mdb_names['track_e_default'];
 $tbl_track_e_login   = $tbl_mdb_names['track_e_login'];
 $tbl_track_e_open    = $tbl_mdb_names['track_e_open'];
 
+$tbl_tracking_event = $tbl_mdb_names['tracking_event'];
+
 $tbl_document        = $tbl_cdb_names['document'];
 
 $toolNameList = claro_get_tool_name_list();
-
-
-// used in strange cases, a course is unused if not used since $limitBeforeUnused
-// INTERVAL SQL expr. see http://www.mysql.com/doc/en/Date_and_time_functions.html
-$limitBeforeUnused = "INTERVAL 6 MONTH";
 
 
 /*
@@ -81,42 +78,54 @@ $html .= claro_html_tool_title( $nameTools );
 
 $header = get_lang('Access');
 
-$content = '';
+$content = '<ul>';
 
 //--  all
 $sql = "SELECT count(*)
-            FROM `".$tbl_track_e_open."`";
+          FROM `".$tbl_tracking_event."`
+         WHERE `type` = 'platform_access'";
+
 $count = claro_sql_query_get_single_value($sql);
-$content .= '&nbsp;&nbsp;&nbsp;'.get_lang('Total').' : '.$count.'<br />'."\n";
+$content .= '<li>'.get_lang('Total').' : '.$count.'</li>'."\n";
 
 //--  last 31 days
 $sql = "SELECT count(*)
-          FROM `" . $tbl_track_e_open . "`
-         WHERE (`open_date` > DATE_ADD(CURDATE(), INTERVAL -31 DAY))";
+          FROM `" . $tbl_tracking_event . "`
+         WHERE `type` = 'platform_access'
+           AND (`date` > DATE_ADD(CURDATE(), INTERVAL -31 DAY))";
+
 $count = claro_sql_query_get_single_value($sql);
-$content .= '&nbsp;&nbsp;&nbsp;'.get_lang('Last 31 days').' : '.$count.'<br />'."\n";
+$content .= '<li>'.get_lang('Last 31 days').' : '.$count.'</li>'."\n";
 
 //--  last 7 days
 $sql = "SELECT count(*)
-            FROM `".$tbl_track_e_open."`
-            WHERE (`open_date` > DATE_ADD(CURDATE(), INTERVAL -7 DAY))";
+          FROM `".$tbl_tracking_event."`
+         WHERE `type` = 'platform_access'
+           AND (`date` > DATE_ADD(CURDATE(), INTERVAL -7 DAY))";
+
 $count = claro_sql_query_get_single_value($sql);
-$content .= '&nbsp;&nbsp;&nbsp;'.get_lang('Last 7 days').' : '.$count.'<br />'."\n";
+$content .= '<li>'.get_lang('Last 7 days').' : '.$count.'</li>'."\n";
 
 //--  yesterday
 $sql = "SELECT count(*)
-            FROM `".$tbl_track_e_open."`
-            WHERE (`open_date` > DATE_ADD(CURDATE(), INTERVAL -1 DAY))
-              AND (`open_date` < CURDATE() )";
+          FROM `".$tbl_tracking_event."`
+         WHERE `type` = 'platform_access'
+           AND (`date` > DATE_ADD(CURDATE(), INTERVAL -1 DAY))
+           AND (`date` < CURDATE() )";
+
 $count = claro_sql_query_get_single_value($sql);
-$content .= '&nbsp;&nbsp;&nbsp;'.get_lang('Yesterday').' : '.$count.'<br />'."\n";
+$content .= '<li>'.get_lang('Yesterday').' : '.$count.'</li>'."\n";
 
 //--  today
 $sql = "SELECT count(*)
-            FROM `".$tbl_track_e_open."`
-            WHERE (`open_date` > CURDATE() )";
+          FROM `".$tbl_tracking_event."`
+         WHERE `type` = 'platform_access'
+           AND (`date` > CURDATE() )";
+
 $count = claro_sql_query_get_single_value($sql);
-$content .= '&nbsp;&nbsp;&nbsp;'.get_lang('This day').' : '.$count.'<br />'."\n";
+$content .= '<li>'.get_lang('This day').' : '.$count.'</li>'."\n";
+
+$content .= '</ul>' . "\n";
 
 $footer = '<a href="platform_access_details.php">'.get_lang('Traffic Details').'</a>';
 
@@ -125,42 +134,54 @@ $html .= renderStatBlock( $header, $content, $footer);
 //----------------------------  logins
 $header = get_lang('Logins');
 
-$content = '';
+$content = '<ul>';
 
 //--  all
 $sql = "SELECT count(*)
-            FROM `".$tbl_track_e_login."`";
+          FROM `".$tbl_tracking_event."`
+         WHERE `type` = 'user_login'";
+
 $count = claro_sql_query_get_single_value($sql);
-$content .= '&nbsp;&nbsp;&nbsp;'.get_lang('Total').' : '.$count.'<br />'."\n";
+$content .= '<li>'.get_lang('Total').' : '.$count.'</li>'."\n";
 
 //--  last 31 days
 $sql = "SELECT count(*)
-            FROM `".$tbl_track_e_login."`
-            WHERE (`login_date` > DATE_ADD(CURDATE(), INTERVAL -31 DAY))";
+          FROM `".$tbl_tracking_event."`
+         WHERE `type` = 'user_login'
+           AND (`date` > DATE_ADD(CURDATE(), INTERVAL -31 DAY))";
+
 $count = claro_sql_query_get_single_value($sql);
-$content .= '&nbsp;&nbsp;&nbsp;'.get_lang('Last 31 days').' : '.$count.'<br />'."\n";
+$content .= '<li>'.get_lang('Last 31 days').' : '.$count.'</li>'."\n";
 
 //--  last 7 days
 $sql = "SELECT count(*)
-            FROM `".$tbl_track_e_login."`
-            WHERE (`login_date` > DATE_ADD(CURDATE(), INTERVAL -7 DAY))";
+          FROM `".$tbl_tracking_event."`
+         WHERE `type` = 'user_login'
+           AND (`date` > DATE_ADD(CURDATE(), INTERVAL -7 DAY))";
+
 $count = claro_sql_query_get_single_value($sql);
-$content .= '&nbsp;&nbsp;&nbsp;'.get_lang('Last 7 days').' : '.$count.'<br />'."\n";
+$content .= '<li>'.get_lang('Last 7 days').' : '.$count.'</li>'."\n";
 
 //--  yesterday
 $sql = "SELECT count(*)
-            FROM `".$tbl_track_e_login."`
-            WHERE (`login_date` > DATE_ADD(CURDATE(), INTERVAL -1 DAY))
-              AND (`login_date` < CURDATE() )";
+          FROM `".$tbl_tracking_event."`
+         WHERE `type` = 'user_login'
+           AND (`date` > DATE_ADD(CURDATE(), INTERVAL -1 DAY))
+           AND (`date` < CURDATE() )";
+
 $count = claro_sql_query_get_single_value($sql);
-$content .= '&nbsp;&nbsp;&nbsp;'.get_lang('Yesterday').' : '.$count.'<br />'."\n";
+$content .= '<li>'.get_lang('Yesterday').' : '.$count.'</li>'."\n";
 
 //--  today
 $sql = "SELECT count(*)
-            FROM `".$tbl_track_e_login."`
-            WHERE (`login_date` > CURDATE() )";
+          FROM `".$tbl_tracking_event."`
+         WHERE `type` = 'user_login'
+           AND (`date` > CURDATE() )";
+
 $count = claro_sql_query_get_single_value($sql);
-$content .= '&nbsp;&nbsp;&nbsp;'.get_lang('This day').' : '.$count.'<br />'."\n";
+$content .= '<li>'.get_lang('This day').' : '.$count.'</li>'."\n";
+
+$content .= '</ul>' . "\n";
 
 $footer = '';
 
@@ -187,14 +208,8 @@ $sql = "SELECT `faculte`, count( * ) AS `nbr`
           FROM `" . $tbl_course . "`
          WHERE `faculte` IS NOT NULL
          GROUP BY `faculte`";
-$results = claro_sql_query_fetch_all($sql);
-$content .= '&nbsp;&nbsp;&nbsp;'
-.    get_lang('Number of courses by faculty')
-.    ' : '
-.    '<br />' . "\n"
-;
-$content .= buildTab2Col($results);
-$content .= '<br />'."\n";
+
+$content .= buildTab2Col($sql, get_lang('Number of courses by faculty'));
 
 //--  number of courses by language
 $sql = "SELECT `language`, count( * ) AS `nbr`
@@ -202,20 +217,15 @@ $sql = "SELECT `language`, count( * ) AS `nbr`
          WHERE `language` IS NOT NULL
          GROUP BY `language`";
 
-$results = claro_sql_query_fetch_all($sql);
-$content .= '&nbsp;&nbsp;&nbsp;'.get_lang('Number of courses by language').' : <br />'."\n";
-$content .= buildTab2Col($results);
-$content .= '<br />'."\n";
+$content .= buildTab2Col($sql,get_lang('Number of courses by language'));
+
 //--  number of courses by access
 $sql = "SELECT `access`, count( * ) AS `nbr`
             FROM `" . $tbl_course . "`
             WHERE `access` IS NOT NULL
             GROUP BY `access`";
 
-$results = claro_sql_query_fetch_all($sql);
-$content .= '&nbsp;&nbsp;&nbsp;'.get_lang('Number of courses by access').' : <br />'."\n";
-$content .= buildTab2Col($results);
-$content .= '<br />'."\n";
+$content .= buildTab2Col($sql, get_lang('Number of courses by access'));
 
 //--  number of courses by registration
 $sql = "SELECT `registration`, count( * ) AS `nbr`
@@ -223,10 +233,7 @@ $sql = "SELECT `registration`, count( * ) AS `nbr`
             WHERE `registration` IS NOT NULL
             GROUP BY `registration`";
 
-$results = claro_sql_query_fetch_all($sql);
-$content .= '&nbsp;&nbsp;&nbsp;'.get_lang('Number of courses by enrollment').' : <br />'."\n";
-$content .= buildTab2Col($results);
-$content .= '<br />'."\n";
+$content .= buildTab2Col($sql, get_lang('Number of courses by enrollment'));
 
 //--  number of courses by visibility
 $sql = "SELECT `visibility`, count( * ) AS `nbr`
@@ -234,10 +241,7 @@ $sql = "SELECT `visibility`, count( * ) AS `nbr`
             WHERE `visibility` IS NOT NULL
             GROUP BY `visibility`";
 
-$results = claro_sql_query_fetch_all($sql);
-$content .= '&nbsp;&nbsp;&nbsp;'.get_lang('Number of courses by visibility').' : <br />'."\n";
-$content .= buildTab2Col($results);
-$content .= '<br />'."\n";
+$content .= buildTab2Col($sql, get_lang('Number of courses by visibility'));
 
 $footer = '';
 
@@ -260,10 +264,8 @@ $sql = "SELECT C.`code`, count( CU.user_id ) as `nb`
                 AND `code` IS NOT NULL
             GROUP BY C.`code`
             ORDER BY nb DESC";
-$results = claro_sql_query_fetch_all($sql);
-$content .= '&nbsp;&nbsp;&nbsp;' . get_lang('Number of users by course') . ' : <br />'."\n";
-$content .= buildTab2Col($results);
-$content .= '<br />'."\n";
+
+$content .= buildTab2Col($sql, get_lang('Number of users by course'));
 
 //--  number of users by faculte
 $sql = "SELECT C.`faculte`, count( CU.`user_id` ) AS `nbr`
@@ -271,19 +273,16 @@ $sql = "SELECT C.`faculte`, count( CU.`user_id` ) AS `nbr`
             WHERE CU.`code_cours` = C.`code`
                 AND C.`faculte` IS NOT NULL
             GROUP BY C.`faculte`";
-$results = claro_sql_query_fetch_all($sql);
-$content .= '&nbsp;&nbsp;&nbsp;'.get_lang('Number of users by faculty').' : <br />'."\n";
-$content .= buildTab2Col($results);
-$content .= '<br />'."\n";
+
+$content .= buildTab2Col($sql, get_lang('Number of users by faculty'));
 
 //--  number of users by status
 $sql = "SELECT `isCourseCreator`, count( `user_id` ) AS `nbr`
             FROM `".$tbl_user."`
             WHERE `isCourseCreator` IS NOT NULL
             GROUP BY `isCourseCreator`";
-$results = claro_sql_query_fetch_all($sql);
-$content .= '&nbsp;&nbsp;&nbsp;'.get_lang('Number of users by status').' : <br />'."\n";
-$content .= buildTab2Col($results);
+
+$content .= buildTab2Col($sql, get_lang('Number of users by status'));
 
 $footer = '';
 

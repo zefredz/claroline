@@ -215,6 +215,7 @@ function makeHitsTable($period_array,$periodTitle,$linkOnPeriod = "???")
           .'</tfoot>' . "\n\n"
           .'</table>' . "\n\n";
 }
+
 /**
  * Display a 2 column tab from an array
  * this tab has no title
@@ -225,21 +226,12 @@ function makeHitsTable($period_array,$periodTitle,$linkOnPeriod = "???")
  *
  * @return
  */
-function buildTab2Col($results, $leftTitle = "", $rightTitle = "")
+function buildTab2Col($sql, $title = "")
 {
-    $out = '<table class="claroTable" cellpadding="2" cellspacing="1" align="center">' . "\n";
-
-    if($leftTitle != '' || $rightTitle != '')
-    {
-        $out .= '<tr class="headerX">' . "\n"
-        .    '<th>&nbsp;' . $leftTitle .' </th>' . "\n"
-        .    '<th>&nbsp;' . $rightTitle . '</th>' . "\n"
-        .    '</tr>' . "\n"
-        ;
-    }
-
-    $out .= '<tr class="headerX">' . "\n"
-    .    '<th colspan="2">' . get_lang('Number of rows') . ' : ' . count($results) . ' </th>' . "\n"
+    $results = claro_sql_query_fetch_all($sql);
+    $out = '<table class="claroTable" cellpadding="2" cellspacing="1" align="center">' . "\n"
+    .    '<tr class="headerX">' . "\n"
+    .    '<th colspan="2">' . htmlspecialchars($title) .' (' . get_lang('%x rows', array('%x' => count($results))). ') </th>' . "\n"
     .    '</tr>' . "\n\n"
     .    '<tbody>' . "\n\n"
     ;
@@ -268,38 +260,6 @@ function buildTab2Col($results, $leftTitle = "", $rightTitle = "")
     ;
     
     return $out;
-}
-
-/**
- * Complete the content of visibility column a with the litteral meaning
- *
- * @param results
- *
- * @return array
- *
- * @author Christophe Gesch� <moosh@claroline.net>
- *
- */
-function changeResultOfVisibility($results)
-{
-    $visibilityLabel[0] = 'closed - hide';
-    $visibilityLabel[1] = 'open - hide';
-    $visibilityLabel[2] = 'open - visible';
-    $visibilityLabel[3] = 'closed - visible';
-
-    if( !empty($results) && is_array($results) )
-    {
-        $i = 0;
-        foreach( $results as $result )
-        {
-            $keys = array_keys($result);
-
-            $resultsChanged[$i][$keys[0]] = $result[$keys[0]] . ' <small>(' . $visibilityLabel[$result[$keys[0]]] . ')</small>';
-            $resultsChanged[$i][$keys[1]] = $result[$keys[1]];
-            $i++;
-        }
-    }
-    return $resultsChanged;
 }
 
 /**
