@@ -173,11 +173,11 @@ function monthTab($sql)
  */
 function makeHitsTable($period_array,$periodTitle,$linkOnPeriod = "???")
 {
-
-
-    echo '<table class="claroTable emphaseLine" width="100%" cellpadding="0" cellspacing="1" align="center">' . "\n";
+    $out = '';
+    
+    $out .= '<table class="claroTable emphaseLine" width="100%" cellpadding="0" cellspacing="1" align="center">' . "\n";
     // titles
-    echo '<tr class="headerX">' . "\n"
+    $out .= '<tr class="headerX">' . "\n"
     .    '<th width="15%">' . $periodTitle . '</th>' . "\n"
     .    '<th width="60%">&nbsp;</th>' . "\n"
     .    '<th width="10%">' . get_lang('Hits') . '</th>' . "\n"
@@ -194,7 +194,7 @@ function makeHitsTable($period_array,$periodTitle,$linkOnPeriod = "???")
             if($period_array['total'] == 0 ) $pourcent = 0;
             else                             $pourcent = round(100 * $cpt / $period_array['total']);
 
-            echo '<tr>' . "\n"
+            $out .= '<tr>' . "\n"
                 .'<td align="center" width="15%">'.$periodPiece.'</td>' . "\n"
                 .'<td width="60%" align="center">'.claro_html_progress_bar($pourcent, 4).'</td>' . "\n"
                 .'<td align="center" width="10%">'.$cpt.'</td>' . "\n"
@@ -204,7 +204,7 @@ function makeHitsTable($period_array,$periodTitle,$linkOnPeriod = "???")
     }
 
     // footer
-    echo '</tbody>' . "\n\n"
+    $out .= '</tbody>' . "\n\n"
           .'<tfoot>' . "\n"
           .'<tr>' . "\n"
           .'<td width="15%" align="center">'.get_lang('Total').'</td>' . "\n"
@@ -214,6 +214,8 @@ function makeHitsTable($period_array,$periodTitle,$linkOnPeriod = "???")
           .'</tr>' . "\n"
           .'</tfoot>' . "\n\n"
           .'</table>' . "\n\n";
+          
+    return $out;
 }
 
 /**
