@@ -171,26 +171,6 @@ function export_exercise($exerciseId, $standalone = true)
 }
 
 /**
- * Returns the XML flow corresponding to one question
- *
- * @param int The question ID
- * @param bool standalone (ie including XML tag, DTD declaration, etc)
- */
-function export_question($questionId, $standalone = true)
-{
-    $question = new Qti2Question();
-    if( !$question->load($questionId) )
-    {
-        return '';
-    }
-
-    $ims = new ImsAssessmentItem($question);
-
-    return $ims->export($standalone);
-
-}
-
-/**
  * Send a zip file for download,
  *
  * @param string name of the downloaded file (without extension)
