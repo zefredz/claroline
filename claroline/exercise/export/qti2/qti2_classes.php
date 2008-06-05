@@ -25,7 +25,7 @@ class Qti2Question extends Question
     /**
      * Include the correct answer class and create answer
      */
-    function setAnswer()
+    public function setAnswer()
     {
         switch($this->type)
         {
@@ -36,7 +36,7 @@ class Qti2Question extends Question
                 $this->answer = new Qti2AnswerMultipleChoice($this->id, true);
                 break;
             case 'TF' :
-                $this->answer = new Qti2AnswerTrueFalse($this->id, false);
+                $this->answer = new Qti2AnswerTrueFalse($this->id);
                 break;
             case 'FIB' :
                 $this->answer = new Qti2AnswerFillInBlanks($this->id);
@@ -51,13 +51,20 @@ class Qti2Question extends Question
 
         return true;
     }
+    
+    public function export($standalone = true)
+    {
+        $ims = new ImsAssessmentItem($this);
+
+        return $ims->export($standalone);
+    }
     /**
      * allow to import the question
      *
      * @param questionArray is an array that must contain all the information needed to build the question
      */
 
-    function import($questionInfo)
+    public function import($questionInfo)
     {
         if( is_array($questionInfo) )
         {
@@ -76,7 +83,7 @@ class Qti2Question extends Question
         }
     }
 
-    function importAttachment($importedFilePath)
+    public function importAttachment($importedFilePath)
     {
         // copy file in a tmp directory known by object,
         // attached file will be copied to its final destination when saving question
@@ -111,7 +118,7 @@ class Qti2AnswerMultipleChoice extends answerMultipleChoice
      * Return the XML flow for the possible answers.
      *
      */
-    function qti2ExportResponses($questionIdent, $questionStatment)
+    public function qti2ExportResponses($questionIdent, $questionStatment)
     {
         $out = "\n" . '    <![CDATA[' . $questionStatment . ']]>' . "\n";
         $out .= '    <choiceInteraction responseIdentifier="' . $questionIdent . '" >' . "\n";
@@ -135,7 +142,7 @@ class Qti2AnswerMultipleChoice extends answerMultipleChoice
      * Return the XML flow of answer ResponsesDeclaration
      *
      */
-    function qti2ExportResponsesDeclaration($questionIdent)
+    public function qti2ExportResponsesDeclaration($questionIdent)
     {
 
         if ($this->multipleAnswer == 'MCMA')  $cardinality = 'multiple'; else $cardinality = 'single';
@@ -179,7 +186,7 @@ class Qti2AnswerMultipleChoice extends answerMultipleChoice
 
      */
 
-    function import($questionArray)
+    public function import($questionArray)
     {
         $answerArray = $questionArray['answer'];
 
@@ -225,7 +232,7 @@ class Qti2AnswerTrueFalse extends AnswerTrueFalse
      * Return the XML flow for the possible answers.
      *
      */
-    function qti2ExportResponses($questionIdent, $questionStatment)
+    public function qti2ExportResponses($questionIdent, $questionStatment)
     {
         $out = "\n" . '    <![CDATA[' . $questionStatment . ']]>'. "\n";
         $out .= '    <choiceInteraction responseIdentifier="' . $questionIdent . '" >' . "\n";
@@ -253,7 +260,7 @@ class Qti2AnswerTrueFalse extends AnswerTrueFalse
         return $out;
     }
 
-    function qti2ExportResponsesDeclaration($questionIdent)
+    public function qti2ExportResponsesDeclaration($questionIdent)
     {
         $out = '  <responseDeclaration identifier="' . $questionIdent . '" cardinality="single" baseType="identifier">' . "\n";
 
@@ -305,7 +312,7 @@ class Qti2AnswerFillInBlanks extends answerFillInBlanks
      *
      *
      */
-    function qti2ExportResponses($questionIdent, $questionStatment)
+    public function qti2ExportResponses($questionIdent, $questionStatment)
     {
         $out = '';
 
@@ -371,7 +378,7 @@ class Qti2AnswerFillInBlanks extends answerFillInBlanks
     /**
      *
      */
-    function qti2ExportResponsesDeclaration($questionIdent)
+    public function qti2ExportResponsesDeclaration($questionIdent)
     {
 
         $out = '';
@@ -420,7 +427,7 @@ class Qti2AnswerFillInBlanks extends answerFillInBlanks
 
      */
 
-    function import($questionArray)
+    public function import($questionArray)
     {
         // $questionArray['answer'] should be empty for this question type
         $this->answerText = $questionArray['response_text'];
@@ -452,7 +459,7 @@ class Qti2AnswerMatching extends answerMatching
     /**
      * Export the question part as a matrix-choice, with only one possible answer per line.
      */
-    function qti2ExportResponses($questionIdent, $questionStatment)
+    public function qti2ExportResponses($questionIdent, $questionStatment)
     {
         $maxAssociation = max(count($this->leftList), count($this->rightList));
 
@@ -494,7 +501,7 @@ class Qti2AnswerMatching extends answerMatching
     /**
      *
      */
-    function qti2ExportResponsesDeclaration($questionIdent)
+    public function qti2ExportResponsesDeclaration($questionIdent)
     {
         $out =  '  <responseDeclaration identifier="' . $questionIdent . '" cardinality="multiple" baseType="identifier">' . "\n";
         $out .= '    <correctResponse>' . "\n";
@@ -534,7 +541,7 @@ class Qti2AnswerMatching extends answerMatching
 
      */
 
-    function import($questionArray)
+    public function import($questionArray)
     {
         $answerArray = $questionArray['answer'];
 
