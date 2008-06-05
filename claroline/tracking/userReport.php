@@ -111,7 +111,7 @@ $cssLoader->load( 'tracking', 'screen');
 
 $claroline->setDisplayType( CL_PAGE );
 
-ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users'), 'user.php' );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users'), '../user/user.php' );
 
 $nameTools = get_lang('User statistics');
 
