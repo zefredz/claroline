@@ -35,17 +35,17 @@
             $searchBox .= $link_arg['search'];
         }
         
-        $searchBox .= '"class="inputSearch" />'."\n";
+        $searchBox .= '" class="inputSearch" />'."\n";
         $searchBox .= '<input type="submit" value="'.get_lang("Search").'" /><br />'."\n";
         $searchBox .= '<input type="checkbox" name="searchStrategy" value="'.get_lang('Match the exact expression').'"';
         
         
         if (isset($link_arg['searchStrategy']) && $link_arg['searchStrategy'] == 1)
         {
-            $searchBox .= " CHECKED";
+            $searchBox .= ' checked="checked"';
         }
         
-        $searchBox .= ' />'.get_lang('Exact expression').'<br/><br/>'."\n";
+        $searchBox .= ' />'.get_lang('Exact expression')."\n";
         
         $searchBox .= '</form>'."\n";
         
@@ -57,7 +57,7 @@
     {
         $arg_search = makeArgLink($link_arg,array('SelectorReadStatus','search','searchStrategy'));
         $linkSearch = $linkPage."?".$arg_search;
-        $linkSearch .= "&amp;cmd=rqSearch";
+        $linkSearch .= '&amp;cmd=rqSearch';
         
         $serachForm = '<form action="'.$linkSearch.'" method="post">'."\n"
                     . '<input type="text" name="search" value="'
