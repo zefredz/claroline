@@ -61,7 +61,7 @@ class MyMessages extends UserDesktopPortlet
                 else
                 {
                     $classMessage = ( $message->isRead() ? 'class="readMessage"' : 'class="unreadMessage"' );
-                    $iconMessage = ( $message->isRead() ? '<img src="' . get_icon_url('readmessage') . '" alt="" />' : '<img src="' . get_icon_url('unreadmessage') . '" alt="" />' );
+                    $iconMessage = ( $message->isRead() ? '<img src="' . get_icon_url('mail_open') . '" alt="" />' : '<img src="' . get_icon_url('mail_close') . '" alt="" />' );
                 }
 
                 $output .= "\n"

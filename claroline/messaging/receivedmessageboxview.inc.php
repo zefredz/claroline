@@ -233,18 +233,18 @@
                     if (claro_get_current_user_id() == $currentUserId)
                     {
                         $content .= '<a href="'.$link.'cmd=exMarkRead&amp;messageId='.$message->getId().'">';
-                        $content .= '<img src="' . get_icon_url('unreadmessage') . '" alt="'.get_lang("Unread message").'" /></a>&nbsp;';
+                        $content .= '<img src="' . get_icon_url('mail_close') . '" alt="'.get_lang("Unread").'" /></a>&nbsp;';
                     }
                     //if admin read messagebox of a other user he cannot change status
                     else
                     {
-                        $content .= '<img src="' . get_icon_url('unreadmessage') . '" alt="'.get_lang("Unread message").'" />&nbsp;';    
+                        $content .= '<img src="' . get_icon_url('mail_close') . '" alt="'.get_lang("Unread").'" />&nbsp;';    
                     }
                 }
                 else
                 {
                     $content .= '<a href="'.$link.'cmd=exMarkUnread&amp;messageId='.$message->getId().'">';
-                    $content .= '<img src="' . get_icon_url('readmessage') . '" alt="'.get_lang("read").'" /></a>&nbsp;';
+                    $content .= '<img src="' . get_icon_url('mail_open') . '" alt="'.get_lang("Read").'" /></a>&nbsp;';
                 }
             }
             else
