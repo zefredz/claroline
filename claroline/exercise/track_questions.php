@@ -63,19 +63,21 @@ $tbl_track_e_exe_answers = $tbl_cdb_names['track_e_exe_answers'];
 
 $is_allowedToTrack = claro_is_course_manager();
 
-// bredcrump
 if( isset($_REQUEST['src']) && $_REQUEST['src'] == 'ex' )
 {
-    $interbredcrump[]= array ('url'=>'exercise.php', 'name'=> get_lang('Exercises'));
     $src = '&src=ex';
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Statistics of exercise'), './track_exercises.php?exId='.$exId . $src );
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), './exercise.php' );
+    
 }
 else
 {
-    $interbredcrump[]= array ('url'=>'../tracking/courseReport.php', 'name'=> get_lang('Statistics'));
     $src = '';
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Statistics of exercise'), './track_exercises.php?exId='.$exId);
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Statistics'), '../tracking/courseReport.php' );
 }
-$interbredcrump[]= array ('url'=>'track_exercises.php?exId='.$exId.$src, 'name'=> get_lang('Statistics of exercise'));
 $nameTools = get_lang('Statistics of question');
+ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, './track_questions.php?exId='.$exId . $src );
 
 
 // if the question_id is not set display the stats of all questions of this exercise

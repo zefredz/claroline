@@ -18,7 +18,7 @@ require '../inc/claro_init_global.inc.php';
 
 if ( ! claro_is_in_a_course() || !claro_is_course_allowed() ) claro_disp_auth_form(true);
 
-claro_set_display_mode_available(false);
+claro_set_display_mode_available(true);
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
 
@@ -292,8 +292,7 @@ else                                $step++;
 /*
  * Output
  */
-
-$interbredcrump[] = array("url" => "exercise.php","name" => get_lang('Exercises'));
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), 'exercise.php' );
 
 $nameTools = $exercise->getTitle();
 

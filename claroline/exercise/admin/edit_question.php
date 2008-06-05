@@ -183,18 +183,33 @@ if( $cmd == 'rqEdit' )
 /*
  * Output
  */
+if( is_null($quId) )
+{
+    $nameTools = get_lang('New question');
+    ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, './edit_question.php?exId='.$exId . '&amp;cmd=rqEdit' );
+}
+elseif( $cmd == 'rqEdit' )
+{
+    $nameTools = get_lang('Edit question');
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Question'), './edit_question.php?exId='.$exId.'&amp;quId='.$quId );
+    ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, './edit_question.php?exId='.$exId.'&amp;quId='.$quId.'&amp;cmd=rqEdit' );
+}
+else
+{
+    $nameTools = get_lang('Question');
+    ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, './edit_question.php?exId='.$exId.'&amp;quId='.$quId );
+}
 
-$interbredcrump[] = array ('url' => '../exercise.php', 'name' => get_lang('Exercises'));
+if( !is_null($exId) )
+{
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercise'), './edit_exercise.php?exId='.$exId );
+}
+else
+{
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Question pool'), './question_pool.php' );
+}
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), '../exercise.php' );
 
-if( !is_null($exId) )     $interbredcrump[] = array ('url' => './edit_exercise.php?exId='.$exId, 'name' => get_lang('Exercise').' : '.$exercise->getTitle());
-else                    $interbredcrump[] = array ('url' => './question_pool.php', 'name' => get_lang('Question pool'));
-
-if( !is_null($quId) )     $_SERVER['QUERY_STRING'] = 'exId='.$exId.'&amp;quId='.$quId;
-else                    $_SERVER['QUERY_STRING'] = '';
-
-if( is_null($quId) )        $nameTools = get_lang('New question');
-elseif( $cmd == 'rqEdit' )    $nameTools = get_lang('Edit question');
-else                        $nameTools = get_lang('Question');
 
 
 include(get_path('incRepositorySys').'/claro_init_header.inc.php');

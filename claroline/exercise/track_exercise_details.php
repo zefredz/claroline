@@ -273,9 +273,9 @@ if( claro_is_user_authenticated() )
 }
 
 
-$interbredcrump[]= array ('url'=>'./exercise.php', 'name'=> get_lang('Exercises'));
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), './exercise.php' );
 
-$backLink = '<p><small><a href="../userReport.php?uInfo='.$thisAttemptDetails['user_id'].'&view=0100000&exoDet='.$thisAttemptDetails['id'].'">&lt;&lt;&nbsp;' . get_lang('Back') . '</a></small></p>' . "\n\n";
+$backLink = '<p><small><a href="../tracking/userReport.php?userId='.$thisAttemptDetails['user_id'].'&amp;exId='.$thisAttemptDetails['id'].'">&lt;&lt;&nbsp;' . get_lang('Back') . '</a></small></p>' . "\n\n";
 
 $nameTools = get_lang('Statistics of exercise attempt');
 

@@ -105,11 +105,11 @@ if( $cmd == 'exExport' && get_conf('enableExerciseExportQTI') )
     require_once get_path('incRepositorySys') . '/lib/file.lib.php';
     require_once get_path('incRepositorySys') . '/lib/pclzip/pclzip.lib.php';
 
-    $question = new Question();
+    $question = new Qti2Question();
     $question->load($quId);
 
     // contruction of XML flow
-    $xml = export_question($quId);
+    $xml = $question->export();
 
     // remove trailing slash
     if( substr($question->questionDirSys, -1) == '/' )
@@ -226,18 +226,20 @@ $questionList = $myPager->get_result_list();
 /*
  * Output
  */
-$interbredcrump[]= array ('url' => '../exercise.php', 'name' => get_lang('Exercises'));
+
 if( !is_null($exId) )
 {
-    $interbredcrump[] = array ('url' => './edit_exercise.php?exId='.$exId, 'name' => get_lang('Exercise').' : '.$exercise->getTitle());
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercise'), './edit_exercise.php?exId='.$exId );
+    ClaroBreadCrumbs::getInstance()->setCurrent( get_lang('Question pool'), $_SERVER['PHP_SELF'].'?exId='.$exId );
     $pagerUrl = $_SERVER['PHP_SELF'].'?exId='.$exId;
 }
 else
 {
+    ClaroBreadCrumbs::getInstance()->setCurrent( get_lang('Question pool'), $_SERVER['PHP_SELF'] );
     $pagerUrl = $_SERVER['PHP_SELF'];
 }
 
-$noQUERY_STRING = true;
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), '../exercise.php' );
 
 $nameTools = get_lang('Question pool');
 

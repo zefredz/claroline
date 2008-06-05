@@ -53,16 +53,19 @@ $exercise->load($exId);
 
 if( isset($_REQUEST['src']) && $_REQUEST['src'] == 'ex' )
 {
-    $interbredcrump[]= array ("url"=>"exercise.php", "name"=> get_lang('Exercises'));
-    $src = '&src=ex';
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), './exercise.php' );
+    $src = '&amp;src=ex';
 }
 else
 {
-    $interbredcrump[]= array ("url"=>"../tracking/courseReport.php", "name"=> get_lang('Statistics'));
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Statistics'), '../tracking/courseReport.php' );
     $src = '';
 }
 
 $nameTools = get_lang('Statistics of exercise');
+
+ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, './track_exercises.php?exId='.$exId . $src );
+
 
 // get the tracking of a question as a csv file
 if( get_conf('is_trackingEnabled') && isset($_REQUEST['exportCsv']) )

@@ -193,29 +193,31 @@ if( $cmd == 'rqEdit' )
  * Output
  */
 
-$interbredcrump[]= array ('url' => '../exercise.php', 'name' => get_lang('Exercises'));
-
-if( !is_null($exId) )     $_SERVER['QUERY_STRING'] = 'exId='.$exId;
-else                    $_SERVER['QUERY_STRING'] = '';
 
 if( is_null($exId) )
 {
     $nameTools = get_lang('New exercise');
     $toolTitle = $nameTools;
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), '../exercise.php' );
+    ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, './edit_exercise.php?cmd=rqEdit' );
 }
 elseif( $cmd == 'rqEdit' )
 {
     $nameTools = get_lang('Edit exercise');
     $toolTitle['mainTitle'] = $nameTools;
     $toolTitle['subTitle'] = $exercise->getTitle();
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercise'), './edit_exercise.php?exId='.$exId );
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), '../exercise.php' );
+    ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, './edit_exercise.php?cmd=rqEdit&amp;exId='.$exId );
 }
 else
 {
     $nameTools = get_lang('Exercise');
     $toolTitle['mainTitle'] = $nameTools;
     $toolTitle['subTitle'] = $exercise->getTitle();
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), '../exercise.php' );
+    ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, './edit_exercise.php?exId='.$exId );
 }
-
 
 include($includePath.'/claro_init_header.inc.php');
 
@@ -530,7 +532,7 @@ else
             if( $questionIterator > 1 )
             {
                 echo '<a href="edit_exercise.php?exId='.$exId.'&amp;quId='.$question['id'].'&amp;cmd=mvUp">'
-                .     '<img src="' . get_icon_url('up') . '" alt="'.get_lang('Move up').'" />'
+                .     '<img src="' . get_icon_url('move_up') . '" alt="'.get_lang('Move up').'" />'
                 .     '</a>';
             }
             else
@@ -543,7 +545,7 @@ else
             if( $questionIterator < count($questionList) )
             {
                 echo '<a href="edit_exercise.php?exId='.$exId.'&amp;quId='.$question['id'].'&amp;cmd=mvDown">'
-                .     '<img src="' . get_icon_url('down') . '" alt="'.get_lang('Move down').'" />'
+                .     '<img src="' . get_icon_url('move_down') . '" alt="'.get_lang('Move down').'" />'
                 .     '</a>';
             }
             else

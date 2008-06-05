@@ -134,10 +134,17 @@ if( $cmd == 'exEdit' )
  * Output
  */
 
-$interbredcrump[] = array ('url' => '../exercise.php', 'name' => get_lang('Exercises'));
+if( !is_null($exId) )
+{
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Question'), './edit_question.php?exId='.$exId.'&amp;quId='.$quId );
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercise'), './edit_exercise.php?exId='.$exId );
+}
+else
+{
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Question pool'), './question_pool.php' );
+}
 
-if( !is_null($exId) )     $interbredcrump[] = array ('url' => './edit_exercise.php?exId='.$exId, 'name' => get_lang('Exercise').' : '.$exercise->getTitle());
-else                    $interbredcrump[] = array ('url' => './question_pool.php', 'name' => get_lang('Question pool'));
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), 'exercise.php' );
 
 if( !is_null($quId) )     $_SERVER['QUERY_STRING'] = 'exId='.$exId.'&amp;quId='.$quId;
 else                    $_SERVER['QUERY_STRING'] = '';
