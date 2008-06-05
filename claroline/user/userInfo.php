@@ -414,11 +414,11 @@ elseif ($displayMode == "viewDefList")
             .    '</a>' . "\n"
             .    '<a href="'.$_SERVER['PHP_SELF'].'?moveUpDef='.$thisCat['catId']
             .    claro_url_relay_context('&amp;') . '">'
-            .    '<img src="' . get_icon_url('up') . '" alt="'.get_lang('Move up').'" />'
+            .    '<img src="' . get_icon_url('move_up') . '" alt="'.get_lang('Move up').'" />'
             .    '</a>' . "\n"
             .    '<a href="'.$_SERVER['PHP_SELF'].'?moveDownDef='.$thisCat['catId']
             .    claro_url_relay_context('&amp;') . '">'
-            .    '<img src="' . get_icon_url('down') . '" alt="'.get_lang('Move down').'" />'
+            .    '<img src="' . get_icon_url('move_down') . '" alt="'.get_lang('Move down').'" />'
             .    '</a>' . "\n"
             .    '</div>' . "\n"
             ;

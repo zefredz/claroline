@@ -186,7 +186,7 @@ if ( !empty($dock) )
         if (!($iteration==1))
         {
             echo '<a href="module_dock.php?cmd=up&amp;module_id=' . $module['id'] . '&amp;dock='.urlencode($dock).'">'
-            .    '<img src="' . get_icon_url('up') . '" alt="' . get_lang('Up') . '" />'
+            .    '<img src="' . get_icon_url('move_up') . '" alt="' . get_lang('Move up') . '" />'
             .    '</a>' . "\n"
             ;
         }
@@ -202,7 +202,7 @@ if ( !empty($dock) )
         if ($iteration != $enditeration)
         {
             echo '<a href="module_dock.php?cmd=down&amp;module_id=' . $module['id'] . '&amp;dock=' . urlencode($dock) . '">'
-            .    '<img src="' . get_icon_url('down') . '" alt="' . get_lang('Down') . '" />'
+            .    '<img src="' . get_icon_url('move_down') . '" alt="' . get_lang('Move down') . '" />'
             .    '</a>'
             ;
         }        

@@ -860,7 +860,7 @@ foreach($moduleList as $module)
         {
             echo '<td align="center">'
             .    '<a href="module_list.php?courseToolId='.$module['courseToolId'].'&amp;cmd=mvUp">'
-            .    '<img src="' . get_icon_url('up') . '" alt="'.get_lang('Move up').'" />'
+            .    '<img src="' . get_icon_url('move_up') . '" alt="'.get_lang('Move up').'" />'
             .    '</a>'
             .    '</td>' . "\n";
         }
@@ -874,7 +874,7 @@ foreach($moduleList as $module)
         {
             echo '<td align="center">'
             .    '<a href="module_list.php?courseToolId='.$module['courseToolId'].'&amp;cmd=mvDown">'
-            .    '<img src="' . get_icon_url('down') . '" alt="'.get_lang('Move down').'" />'
+            .    '<img src="' . get_icon_url('move_down') . '" alt="'.get_lang('Move down').'" />'
             .    '</a>'
             .    '</td>' . "\n";
         }

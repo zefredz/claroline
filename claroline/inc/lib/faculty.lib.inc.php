@@ -115,7 +115,7 @@ function claro_disp_tree($elem,$father,$space)
                         if ($num>1)
                         {
                             echo '<a href="' . $_SERVER['PHP_SELF'] . '?id='.$one_faculty['id'].'&amp;cmd=exUp">'
-                            . '<img src="' . get_icon_url('up') . '" alt="' . get_lang('Up') .'" /></a>';
+                            . '<img src="' . get_icon_url('move_up') . '" alt="' . get_lang('Move up') .'" /></a>';
                         }
                         else
                         {
@@ -130,7 +130,7 @@ function claro_disp_tree($elem,$father,$space)
                         if ($num<$nbChild)
                         {
                             echo '<a href="' . $_SERVER['PHP_SELF'] . '?id=' . $one_faculty['id'] . '&amp;cmd=exDown">'
-                            . '<img src="' . get_icon_url('down') . '" alt="' . get_lang('Move down') . '"  /> </a>';
+                            . '<img src="' . get_icon_url('move_down') . '" alt="' . get_lang('Move down') . '"  /> </a>';
                         }
                         else
                         {

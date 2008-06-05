@@ -658,7 +658,7 @@ foreach ($flatElementList as $module)
     {
         echo "<td>".
              "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=moveUp&cmdid=".$module['learnPath_module_id']."\">".
-             "<img src=\"" . get_icon_url('up') . "\" alt=\"" . get_lang('Move up') . "\" />".
+             "<img src=\"" . get_icon_url('move_up') . "\" alt=\"" . get_lang('Move up') . "\" />".
              "</a>".
              "</td>";
     }
@@ -672,7 +672,7 @@ foreach ($flatElementList as $module)
     {
         echo "<td>".
              "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=moveDown&cmdid=".$module['learnPath_module_id']."\">".
-             "<img src=\"" . get_icon_url('down') . "\" alt=\"" . get_lang('Move down') . "\" />".
+             "<img src=\"" . get_icon_url('move_down') . "\" alt=\"" . get_lang('Move down') . "\" />".
              "</a>".
              "</td>";
     }

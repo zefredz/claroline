@@ -347,14 +347,14 @@ if ($intro_dispDefault)
                     if ($thisIntroKey > 0 )
                     {
                         $section .= '<a href="'.$_SERVER['PHP_SELF'].'?introCmd=exMvUp&introId='.$introId.'">'
-                        .    '<img src="' . get_icon_url('up') . '" alt="'.get_lang('Move up').'" />'
+                        .    '<img src="' . get_icon_url('move_up') . '" alt="'.get_lang('Move up').'" />'
                         .    '</a> ';
                     }
 
                     if ($thisIntroKey + 1 < $introListCount )
                     {
                         $section .= ' <a href="'.$_SERVER['PHP_SELF'].'?introCmd=exMvDown&introId='.$introId.'">'
-                        .    '<img src="' . get_icon_url('down') . '" alt="'.get_lang('Move down').'" />'
+                        .    '<img src="' . get_icon_url('move_down') . '" alt="'.get_lang('Move down').'" />'
                         .    '</a>';
                     }
 

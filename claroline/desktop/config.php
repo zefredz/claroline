@@ -149,8 +149,8 @@ if( is_array($portletList) && !empty($portletList) )
                 . '<a href="' . $_SERVER['PHP_SELF']
                 .   '?label=' . htmlspecialchars($portlet['label'])
                 .   '&amp;cmd=exUp">'
-                . '<img src="' . get_icon_url('up')
-                .   '" alt="' . get_lang('up') . '" />'
+                . '<img src="' . get_icon_url('move_up')
+                .   '" alt="' . get_lang('Move up') . '" />'
                 . '</a>'
                 . '</td>' . "\n"
                 ;
@@ -166,8 +166,8 @@ if( is_array($portletList) && !empty($portletList) )
                 . '<a href="' . $_SERVER['PHP_SELF']
                 .   '?label=' . htmlspecialchars($portlet['label'])
                 .   '&amp;cmd=exDown">'
-                . '<img src="' . get_icon_url('down')
-                .   '" alt="' . get_lang('down') . '" />'
+                . '<img src="' . get_icon_url('move_down')
+                .   '" alt="' . get_lang('Move down') . '" />'
                 . '</a>'
                 . '</td>' . "\n"
                 ;

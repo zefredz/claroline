@@ -159,7 +159,7 @@ foreach ( $categories as $this_category )
 
         if ( $categoryIterator > 1)
         echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exMvUpCat&amp;catId='.$this_category['cat_id'].'">'
-        .    '<img src="' . get_icon_url('up') . '" alt="'.get_lang('Move up').'" />'
+        .    '<img src="' . get_icon_url('move_up') . '" alt="'.get_lang('Move up').'" />'
         .    '</a>'
         ;
 
@@ -168,7 +168,7 @@ foreach ( $categories as $this_category )
             echo '<a href="' . $_SERVER['PHP_SELF']
             .    '?cmd=exMvDownCat'
             .    '&amp;catId=' . $this_category['cat_id'] . '">'
-            .    '<img src="' . get_icon_url('down') . '" alt="' . get_lang('Move down') . '" />'
+            .    '<img src="' . get_icon_url('move_down') . '" alt="' . get_lang('Move down') . '" />'
             .    '</a>'
             ;
         }

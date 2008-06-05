@@ -844,7 +844,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         {
             echo '<td>' . "\n"
             .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=moveUp&amp;move_path_id=' . $list['learnPath_id'] . '">' . "\n"
-            .    '<img src="' . get_icon_url('up') . '" alt="' . get_lang('Move up') . '" />' . "\n"
+            .    '<img src="' . get_icon_url('move_up') . '" alt="' . get_lang('Move up') . '" />' . "\n"
             .    '</a>' . "\n"
             .    '</td>' . "\n"
             ;
@@ -859,7 +859,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         {
             echo '<td>' . "\n"
             .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=moveDown&amp;move_path_id=' . $list['learnPath_id'] . '">' . "\n"
-            .    '<img src="' . get_icon_url('down') . '" alt="' . get_lang('Move down') . '" />' . "\n"
+            .    '<img src="' . get_icon_url('move_down') . '" alt="' . get_lang('Move down') . '" />' . "\n"
             .    '</a>' . "\n"
             .    '</td>' . "\n"
             ;
