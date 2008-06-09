@@ -38,8 +38,8 @@ include_once './lib/answer_matching.class.php';
 include_once get_path('incRepositorySys') . '/lib/htmlxtra.lib.php';
 include_once get_path('incRepositorySys') . '/lib/form.lib.php';
 
-$tbl_cdb_names = claro_sql_get_course_tbl();
-$tbl_track_e_exercises         = $tbl_cdb_names['track_e_exercices'];
+$tblList = get_module_course_tbl( array( 'qwz_tracking' ), claro_get_current_course_id() );
+$tbl_qwz_tracking = $tblList['qwz_tracking'];
 
 if( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] )
 {
@@ -148,11 +148,11 @@ $now = time();
 if( claro_is_user_authenticated() )
 {
     // count number of attempts of the user
-    $sql="SELECT count(`exe_result`) AS `tryQty`
-            FROM `".$tbl_track_e_exercises."`
-           WHERE `exe_user_id` = '".(int) claro_get_current_user_id()."'
-             AND `exe_exo_id` = ".(int) $exId."
-           GROUP BY `exe_user_id`";
+    $sql="SELECT count(`result`) AS `tryQty`
+            FROM `".$tbl_qwz_tracking."`
+           WHERE `user_id` = '".(int) claro_get_current_user_id()."'
+             AND `exo_id` = ".(int) $exId."
+           GROUP BY `user_id`";
 
     $userAttemptCount = claro_sql_query_get_single_value($sql);
 
@@ -247,11 +247,11 @@ if( isset($_REQUEST['cmdOk']) && $_REQUEST['cmdOk'] && $exerciseIsAvailable )
         // if anonymous attempts are authorised : record anonymous user stats, record authentified user stats without uid
         if ( $exercise->getAnonymousAttempts() == 'ALLOWED' )
         {
-            $exerciseTrackId = event_exercice($exId,$totalResult,$totalGrade,$timeToCompleteExe );
+            $exerciseTrackId = track_exercice($exId,$totalResult,$totalGrade,$timeToCompleteExe );
         }
         elseif( claro_is_in_a_course() ) // anonymous attempts not allowed, record stats with uid only if uid is set
         {
-            $exerciseTrackId = event_exercice($exId,$totalResult,$totalGrade,$timeToCompleteExe, claro_get_current_user_id() );
+            $exerciseTrackId = track_exercice($exId,$totalResult,$totalGrade,$timeToCompleteExe, claro_get_current_user_id() );
         }
 
         if( isset($exerciseTrackId) && $exerciseTrackId && !empty($questionList) )
@@ -259,7 +259,7 @@ if( isset($_REQUEST['cmdOk']) && $_REQUEST['cmdOk'] && $exerciseIsAvailable )
             $i = 0;
             foreach ( $questionList as $question )
             {
-                event_exercise_details($exerciseTrackId,$question->getId(),$question->answer->getTrackingValues(),$questionResult[$i]);
+                track_exercise_details($exerciseTrackId,$question->getId(),$question->answer->getTrackingValues(),$questionResult[$i]);
                 $i++;
             }
         }

@@ -38,13 +38,19 @@ $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'  ];
 $tbl_user            = $tbl_mdb_names['user'             ];
 
-$tbl_cdb_names = claro_sql_get_course_tbl();
-$tbl_qwz_exercise                = $tbl_cdb_names['qwz_exercise'];
-$tbl_qwz_question                 = $tbl_cdb_names['qwz_question'];
-$tbl_qwz_rel_exercise_question     = $tbl_cdb_names['qwz_rel_exercise_question'];
-
-$tbl_track_e_exercises     = $tbl_cdb_names['track_e_exercices'];
-$tbl_track_e_exe_details = $tbl_cdb_names['track_e_exe_details'];
+$tbl_cdb_names = get_module_course_tbl( array( 'qwz_exercise',
+                                               'qwz_question',
+                                               'qwz_rel_exercise_question',
+                                               'qwz_tracking', 
+                                               'qwz_tracking_questions' 
+                                        ), 
+                                        claro_get_current_course_id() );
+                                        
+$tbl_qwz_exercise = $tbl_cdb_names['qwz_exercise'];
+$tbl_qwz_question = $tbl_cdb_names['qwz_question'];
+$tbl_qwz_rel_exercise_question = $tbl_cdb_names['qwz_rel_exercise_question'];
+$tbl_qwz_tracking = $tbl_cdb_names['qwz_tracking'];
+$tbl_qwz_tracking_questions = $tbl_cdb_names['qwz_tracking_questions'];
 
 
 // get exercise details
@@ -95,16 +101,16 @@ echo claro_html_tool_title($titleTab);
 if ( get_conf('is_trackingEnabled') )
 {
     // get global infos about scores in the exercise
-    $sql = "SELECT  MIN(TEX.`exe_result`) AS `minimum`,
-                MAX(TEX.`exe_result`) AS `maximum`,
-                AVG(TEX.`exe_result`) AS `average`,
-                MAX(TEX.`exe_weighting`) AS `weighting` ,
-                COUNT(DISTINCT TEX.`exe_user_id`) AS `users`,
-                COUNT(TEX.`exe_user_id`) AS `tusers`,
-                AVG(`TEX`.`exe_time`) AS `avgTime`
-        FROM `".$tbl_track_e_exercises."` AS TEX
-        WHERE TEX.`exe_exo_id` = ". (int)$exercise->getId()."
-                AND TEX.`exe_user_id` IS NOT NULL";
+    $sql = "SELECT  MIN(TEX.`result`) AS `minimum`,
+                MAX(TEX.`result`) AS `maximum`,
+                AVG(TEX.`result`) AS `average`,
+                MAX(TEX.`weighting`) AS `weighting` ,
+                COUNT(DISTINCT TEX.`user_id`) AS `users`,
+                COUNT(TEX.`user_id`) AS `tusers`,
+                AVG(`TEX`.`time`) AS `avgTime`
+        FROM `".$tbl_qwz_tracking."` AS TEX
+        WHERE TEX.`exo_id` = ". (int)$exercise->getId()."
+                AND TEX.`user_id` IS NOT NULL";
 
     $exo_scores_details = claro_sql_query_get_single_row($sql);
 
@@ -142,21 +148,21 @@ if ( get_conf('is_trackingEnabled') )
 
     //-- display details : USERS VIEW
     $sql = "SELECT `U`.`nom`, `U`.`prenom`, `U`.`user_id`,
-            MIN(TE.`exe_result`) AS `minimum`,
-            MAX(TE.`exe_result`) AS `maximum`,
-            AVG(TE.`exe_result`) AS `average`,
-            COUNT(TE.`exe_result`) AS `attempts`,
-            AVG(TE.`exe_time`) AS `avgTime`
+            MIN(TE.`result`) AS `minimum`,
+            MAX(TE.`result`) AS `maximum`,
+            AVG(TE.`result`) AS `average`,
+            COUNT(TE.`result`) AS `attempts`,
+            AVG(TE.`time`) AS `avgTime`
     FROM (`".$tbl_user."` AS `U`, `".$tbl_rel_course_user."` AS `CU`, `".$tbl_qwz_exercise."` AS `QT`)
-    LEFT JOIN `".$tbl_track_e_exercises."` AS `TE`
-          ON `CU`.`user_id` = `TE`.`exe_user_id`
-          AND `QT`.`id` = `TE`.`exe_exo_id`
+    LEFT JOIN `".$tbl_qwz_tracking."` AS `TE`
+          ON `CU`.`user_id` = `TE`.`user_id`
+          AND `QT`.`id` = `TE`.`exo_id`
     WHERE `CU`.`user_id` = `U`.`user_id`
       AND `CU`.`code_cours` = '" . addslashes(claro_get_current_course_id()) . "'
       AND (
-            `TE`.`exe_exo_id` = ". (int)$exercise->getId()."
+            `TE`.`exo_id` = ". (int)$exercise->getId()."
             OR
-            `TE`.`exe_exo_id` IS NULL
+            `TE`.`exo_id` IS NULL
           )
     GROUP BY `U`.`user_id`
     ORDER BY `U`.`nom` ASC, `U`.`prenom` ASC";
@@ -211,10 +217,10 @@ if ( get_conf('is_trackingEnabled') )
                 MAX(TED.`result`) AS `maximum`,
                 AVG(TED.`result`) AS `average`
         FROM (`".$tbl_qwz_question."` AS `Q`, `".$tbl_qwz_rel_exercise_question."` AS `RTQ`)
-        LEFT JOIN `".$tbl_track_e_exercises."` AS `TE`
-            ON `TE`.`exe_exo_id` = `RTQ`.`exerciseId`
-        LEFT JOIN `".$tbl_track_e_exe_details."` AS `TED`
-              ON `TED`.`exercise_track_id` = `TE`.`exe_id`
+        LEFT JOIN `".$tbl_qwz_tracking."` AS `TE`
+            ON `TE`.`exo_id` = `RTQ`.`exerciseId`
+        LEFT JOIN `".$tbl_qwz_tracking_questions."` AS `TED`
+              ON `TED`.`exercise_track_id` = `TE`.`id`
             AND `TED`.`question_id` = `Q`.`id`
         WHERE `Q`.`id` = `RTQ`.`questionId`
             AND `RTQ`.`exerciseId` = ". (int)$exercise->getId()."

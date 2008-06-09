@@ -18,15 +18,15 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 class CLQWZ_CourseTrackingRenderer extends CourseTrackingRenderer
 {   
     private $tbl_qwz_exercise;
-    private $tbl_track_exercises;
+    private $tbl_qwz_tracking;
     
     public function __construct($courseId)
     {
         $this->courseId = $courseId;
         
-        $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($this->courseId));
+        $tbl_cdb_names = get_module_course_tbl( array( 'qwz_exercise', 'qwz_tracking' ), claro_get_current_course_id() );
         $this->tbl_qwz_exercise = $tbl_cdb_names['qwz_exercise'];
-        $this->tbl_track_exercises = $tbl_cdb_names['track_e_exercices'];
+        $this->tbl_qwz_tracking = $tbl_cdb_names['qwz_tracking'];
     }
     
     protected function renderHeader()
@@ -38,13 +38,13 @@ class CLQWZ_CourseTrackingRenderer extends CourseTrackingRenderer
     {
         $html = '';
         
-        $sql = "SELECT TEX.`exe_exo_id`,
-                    COUNT(DISTINCT TEX.`exe_user_id`) AS `nbr_distinct_user_attempts`,
-                    COUNT(TEX.`exe_exo_id`) AS `nbr_total_attempts`,
+        $sql = "SELECT TEX.`exo_id`,
+                    COUNT(DISTINCT TEX.`user_id`) AS `nbr_distinct_user_attempts`,
+                    COUNT(TEX.`exo_id`) AS `nbr_total_attempts`,
                     EX.`title`
-                FROM `".$this->tbl_track_exercises."` AS TEX, `".$this->tbl_qwz_exercise."` AS EX
-                WHERE TEX.`exe_exo_id` = EX.`id`
-                GROUP BY TEX.`exe_exo_id`";
+                FROM `".$this->tbl_qwz_tracking."` AS TEX, `".$this->tbl_qwz_exercise."` AS EX
+                WHERE TEX.`exo_id` = EX.`id`
+                GROUP BY TEX.`exo_id`";
 
         $results = claro_sql_query_fetch_all($sql);
         
@@ -108,9 +108,9 @@ class CLQWZ_UserTrackingRenderer extends UserTrackingRenderer
         $this->courseId = $courseId;
         $this->userId = (int) $userId;
         
-        $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($this->courseId));
+        $tbl_cdb_names = get_module_course_tbl( array( 'qwz_exercise', 'qwz_tracking' ), claro_get_current_course_id() );
         $this->tbl_qwz_exercise = $tbl_cdb_names['qwz_exercise'];
-        $this->tbl_track_e_exercises = $tbl_cdb_names['track_e_exercices'];
+        $this->tbl_qwz_tracking = $tbl_cdb_names['qwz_tracking'];
         
     }
     
@@ -174,9 +174,9 @@ class CLQWZ_UserTrackingRenderer extends UserTrackingRenderer
                     foreach ( $exerciseDetails as $details )
                     {
                         $html .= '<tr>' . "\n"
-                        .    '<td><small><a href="'.get_module_url('CLQWZ') . '/track_exercise_details.php?trackedExId='.$details['exe_id'].'">'.$details['exe_date'].'</a></small></td>' . "\n"
-                        .    '<td><small>'.$details['exe_result'].'/'.$details['exe_weighting'].'</small></td>' . "\n"
-                        .    '<td><small>'.claro_html_duration($details['exe_time']).'</small></td>' . "\n"
+                        .    '<td><small><a href="'.get_module_url('CLQWZ') . '/track_exercise_details.php?trackedExId='.$details['id'].'">'.$details['date'].'</a></small></td>' . "\n"
+                        .    '<td><small>'.$details['result'].'/'.$details['weighting'].'</small></td>' . "\n"
+                        .    '<td><small>'.claro_html_duration($details['time']).'</small></td>' . "\n"
                         .    '</tr>' . "\n";
                     }
                     $html .= '</tbody>' . "\n"
@@ -211,18 +211,18 @@ class CLQWZ_UserTrackingRenderer extends UserTrackingRenderer
     {
         $sql = "SELECT `E`.`title`,
                        `E`.`id`,
-                       MIN(`TEX`.`exe_result`)    AS `minimum`,
-                       MAX(`TEX`.`exe_result`)    AS `maximum`,
-                       AVG(`TEX`.`exe_result`)    AS `average`,
-                       MAX(`TEX`.`exe_weighting`) AS `weighting`,
-                       COUNT(`TEX`.`exe_user_id`) AS `attempts`,
-                       MAX(`TEX`.`exe_date`)      AS `lastAttempt`,
-                       AVG(`TEX`.`exe_time`)      AS `avgTime`
+                       MIN(`TEX`.`result`)    AS `minimum`,
+                       MAX(`TEX`.`result`)    AS `maximum`,
+                       AVG(`TEX`.`result`)    AS `average`,
+                       MAX(`TEX`.`weighting`) AS `weighting`,
+                       COUNT(`TEX`.`user_id`) AS `attempts`,
+                       MAX(`TEX`.`date`)      AS `lastAttempt`,
+                       AVG(`TEX`.`time`)      AS `avgTime`
                   FROM `" . $this->tbl_qwz_exercise . "` AS `E`
-                     , `" . $this->tbl_track_e_exercises . "` AS `TEX`
-            WHERE `TEX`.`exe_user_id` = " . (int) $this->userId . "
-                AND `TEX`.`exe_exo_id` = `E`.`id`
-            GROUP BY `TEX`.`exe_exo_id`
+                     , `" . $this->tbl_qwz_tracking . "` AS `TEX`
+            WHERE `TEX`.`user_id` = " . (int) $this->userId . "
+                AND `TEX`.`exo_id` = `E`.`id`
+            GROUP BY `TEX`.`exo_id`
             ORDER BY `E`.`title` ASC";
     
         $results = claro_sql_query_fetch_all($sql);
@@ -232,11 +232,11 @@ class CLQWZ_UserTrackingRenderer extends UserTrackingRenderer
     
     private function getUserExerciceDetails($exerciseId)
     {
-        $sql = "SELECT `exe_id`, `exe_date`, `exe_result`, `exe_weighting`, `exe_time`
-                FROM `" . $this->tbl_track_e_exercises . "`
-                WHERE `exe_exo_id` = ". (int) $exerciseId."
-                AND `exe_user_id` = ". (int) $this->userId."
-                ORDER BY `exe_date` ASC";
+        $sql = "SELECT `id`, `date`, `result`, `weighting`, `time`
+                FROM `" . $this->tbl_qwz_tracking . "`
+                WHERE `exo_id` = ". (int) $exerciseId."
+                AND `user_id` = ". (int) $this->userId."
+                ORDER BY `date` ASC";
     
         $results = claro_sql_query_fetch_all($sql);
     

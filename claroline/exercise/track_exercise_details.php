@@ -63,12 +63,12 @@ class TrackAnswerMultipleChoice extends answerMultipleChoice
 {
     function extractResponseFromTracking( $attemptDetailsId )
     {
-        $tbl_cdb_names = claro_sql_get_course_tbl();
-        $tblTrackAnswers = $tbl_cdb_names['track_e_exe_answers'];
+        $tbl_cdb_names = get_module_course_tbl( array( 'qwz_tracking_answers' ), claro_get_current_course_id() );
+        $tbl_qwz_tracking_answers = $tbl_cdb_names['qwz_tracking_answers'];
 
         // get the answers the user has gaven for this question
         $sql = "SELECT `answer`
-                FROM `" . $tblTrackAnswers . "`
+                FROM `" . $tbl_qwz_tracking_answers . "`
                 WHERE `details_id` = " . (int) $attemptDetailsId;
 
         $trackedAnswers = claro_sql_query_fetch_all($sql);
@@ -94,12 +94,12 @@ class TrackAnswerTrueFalse extends answerTrueFalse
 {
     function extractResponseFromTracking( $attemptDetailsId )
     {
-        $tbl_cdb_names = claro_sql_get_course_tbl();
-        $tblTrackAnswers = $tbl_cdb_names['track_e_exe_answers'];
+        $tbl_cdb_names = get_module_course_tbl( array( 'qwz_tracking_answers' ), claro_get_current_course_id() );
+        $tbl_qwz_tracking_answers = $tbl_cdb_names['qwz_tracking_answers'];
 
         // get the answers the user has gaven for this question
         $sql = "SELECT `answer`
-                FROM `" . $tblTrackAnswers . "`
+                FROM `" . $tbl_qwz_tracking_answers . "`
                 WHERE `details_id` = " . (int) $attemptDetailsId;
 
         $this->response = claro_sql_query_get_single_value($sql);
@@ -112,12 +112,12 @@ class TrackAnswerFillInBlanks extends answerFillInBlanks
 {
     function extractResponseFromTracking( $attemptDetailsId )
     {
-        $tbl_cdb_names = claro_sql_get_course_tbl();
-        $tblTrackAnswers = $tbl_cdb_names['track_e_exe_answers'];
+        $tbl_cdb_names = get_module_course_tbl( array( 'qwz_tracking_answers' ), claro_get_current_course_id() );
+        $tbl_qwz_tracking_answers = $tbl_cdb_names['qwz_tracking_answers'];
 
         // get the answers the user has gaven for this question
         $sql = "SELECT `answer`
-                FROM `" . $tblTrackAnswers . "`
+                FROM `" . $tbl_qwz_tracking_answers . "`
                 WHERE `details_id` = " . (int) $attemptDetailsId;
 
         $answers = claro_sql_query_fetch_all($sql);
@@ -135,12 +135,12 @@ class TrackAnswerMatching extends answerMatching
 {
     function extractResponseFromTracking( $attemptDetailsId )
     {
-        $tbl_cdb_names = claro_sql_get_course_tbl();
-        $tblTrackAnswers = $tbl_cdb_names['track_e_exe_answers'];
+        $tbl_cdb_names = get_module_course_tbl( array( 'qwz_tracking_answers' ), claro_get_current_course_id() );
+        $tbl_qwz_tracking_answers = $tbl_cdb_names['qwz_tracking_answers'];
 
         // get the answers the user has gaven for this question
         $sql = "SELECT `answer`
-                FROM `" . $tblTrackAnswers . "`
+                FROM `" . $tbl_qwz_tracking_answers . "`
                 WHERE `details_id` = " . (int) $attemptDetailsId;
 
         $trackedAnswers = claro_sql_query_fetch_all($sql);
@@ -185,12 +185,13 @@ $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'  ];
 $tbl_user            = $tbl_mdb_names['user'             ];
 
-$tbl_cdb_names = claro_sql_get_course_tbl();
-$tbl_qwz_exercise                 = $tbl_cdb_names['qwz_exercise'];
 
-$tbl_track_e_exercices = $tbl_cdb_names['track_e_exercices'];
-$tbl_track_e_exe_details = $tbl_cdb_names['track_e_exe_details'];
-$tbl_track_e_exe_answers = $tbl_cdb_names['track_e_exe_answers'];
+$tbl_cdb_names = get_module_course_tbl( array( 'qwz_exercise', 'qwz_tracking', 'qwz_tracking_questions','qwz_tracking_answers' ), claro_get_current_course_id() );
+$tbl_qwz_exercise = $tbl_cdb_names['qwz_exercise'];
+
+$tbl_qwz_tracking = $tbl_cdb_names['qwz_tracking'];
+$tbl_qwz_tracking_questions = $tbl_cdb_names['qwz_tracking_questions'];
+$tbl_qwz_tracking_answers = $tbl_cdb_names['qwz_tracking_answers'];
 
 
 
@@ -214,12 +215,12 @@ $dialogBox = new DialogBox();
 // get infos about the exercise attempt
 $sql = "SELECT `E`.`id`, `E`.`title`, `E`.`showAnswers`, `E`.`attempts`,
                 `U`.`user_id`, `U`.`nom` as `lastname`, `U`.`prenom` as `firstname`,
-                `TE`.`exe_exo_id`, `TE`.`exe_result`, `TE`.`exe_time`, `TE`.`exe_weighting`,
-                UNIX_TIMESTAMP(`TE`.`exe_date`) AS `unix_exe_date`
-        FROM `".$tbl_qwz_exercise."` as `E`, `".$tbl_track_e_exercices."` as `TE`, `".$tbl_user."` as `U`
-        WHERE `E`.`id` = `TE`.`exe_exo_id`
-        AND `TE`.`exe_user_id` = `U`.`user_id`
-        AND `TE`.`exe_id` = ". $trackedExId;
+                `TE`.`exo_id`, `TE`.`result`, `TE`.`time`, `TE`.`weighting`,
+                UNIX_TIMESTAMP(`TE`.`date`) AS `unix_exe_date`
+        FROM `".$tbl_qwz_exercise."` as `E`, `".$tbl_qwz_tracking."` as `TE`, `".$tbl_user."` as `U`
+        WHERE `E`.`id` = `TE`.`exo_id`
+        AND `TE`.`user_id` = `U`.`user_id`
+        AND `TE`.`id` = ". $trackedExId;
 
 if( ! $thisAttemptDetails = claro_sql_query_get_single_row($sql) )
 {
@@ -248,10 +249,10 @@ if( claro_is_user_authenticated() )
         elseif( $thisAttemptDetails['showAnswers'] == 'LASTTRY' )
         {
             // we must check that user has at least "max_attempt" results
-            $sql = "SELECT COUNT(`exe_id`)
-                    FROM `".$tbl_track_e_exercices."`
-                    WHERE `exe_user_id` = " . (int) claro_get_current_user_id() . "
-                    AND `exe_exo_id` = ".$thisAttemptDetails['exe_exo_id'];
+            $sql = "SELECT COUNT(`id`)
+                    FROM `".$tbl_qwz_tracking."`
+                    WHERE `user_id` = " . (int) claro_get_current_user_id() . "
+                    AND `exo_id` = ".$thisAttemptDetails['exo_id'];
             $userAttempts = claro_sql_query_get_single_value($sql);
 
             if( $userAttempts >= $thisAttemptDetails['attempts'] )
@@ -291,7 +292,7 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
 {
     // get all question that user get for this attempt
     $sql = "SELECT TD.`id` as `trackId`, TD.`question_id`, TD.`result`
-            FROM `".$tbl_track_e_exe_details."` as TD
+            FROM `".$tbl_qwz_tracking_questions."` as TD
             WHERE `exercise_track_id` = ". $trackedExId;
 
     $trackedQuestionList = claro_sql_query_fetch_all($sql);
@@ -333,8 +334,8 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
     .    '<li>' . get_lang('Last name') . ' : '.$thisAttemptDetails['lastname'] . '</li>' . "\n"
     .    '<li>' . get_lang('First name') . ' : '.$thisAttemptDetails['firstname'] . '</li>' . "\n"
     .    '<li>' . get_lang('Date') . ' : ' . claro_html_localised_date(get_locale('dateTimeFormatLong'),$thisAttemptDetails['unix_exe_date']) . '</li>' . "\n"
-    .    '<li>' . get_lang('Score') . ' : ' . $thisAttemptDetails['exe_result'] . '/' . $thisAttemptDetails['exe_weighting'] . '</li>' . "\n"
-    .    '<li>' . get_lang('Time') . ' : ' . claro_html_duration($thisAttemptDetails['exe_time']) . '</li>' . "\n"
+    .    '<li>' . get_lang('Score') . ' : ' . $thisAttemptDetails['result'] . '/' . $thisAttemptDetails['weighting'] . '</li>' . "\n"
+    .    '<li>' . get_lang('Time') . ' : ' . claro_html_duration($thisAttemptDetails['time']) . '</li>' . "\n"
     .    '</ul>' . "\n\n"
     ;
 

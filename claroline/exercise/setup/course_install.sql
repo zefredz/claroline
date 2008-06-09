@@ -71,18 +71,18 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__qwz_answer_matching` (
     PRIMARY KEY  (`id`)
 ) TYPE=MyISAM;
 
-CREATE TABLE IF NOT EXISTS `__CL_COURSE__track_e_exercices` (
-    `exe_id` int(11) NOT NULL auto_increment,
-    `exe_user_id` int(10) default NULL,
-    `exe_date` datetime NOT NULL default '0000-00-00 00:00:00',
-    `exe_exo_id` int(11) NOT NULL default '0',
-    `exe_result` float NOT NULL default '0',
-    `exe_time`    mediumint(8) NOT NULL default '0',
-    `exe_weighting` float NOT NULL default '0',
-    PRIMARY KEY  (`exe_id`)
+CREATE TABLE IF NOT EXISTS `__CL_COURSE__qwz_tracking` (
+    `id` int(11) NOT NULL auto_increment,
+    `user_id` int(10) default NULL,
+    `date` datetime NOT NULL default '0000-00-00 00:00:00',
+    `exo_id` int(11) NOT NULL default '0',
+    `result` float NOT NULL default '0',
+    `time`    mediumint(8) NOT NULL default '0',
+    `weighting` float NOT NULL default '0',
+    PRIMARY KEY  (`id`)
 ) TYPE=MyISAM  COMMENT='Record informations about exercices';
 
-CREATE TABLE IF NOT EXISTS `__CL_COURSE__track_e_exe_details` (
+CREATE TABLE IF NOT EXISTS `__CL_COURSE__qwz_tracking_questions` (
     `id` int(11) NOT NULL auto_increment,
     `exercise_track_id` int(11) NOT NULL default '0',
     `question_id` int(11) NOT NULL default '0',
@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__track_e_exe_details` (
     PRIMARY KEY  (`id`)
 ) TYPE=MyISAM  COMMENT='Record answers of students in exercices';
 
-CREATE TABLE IF NOT EXISTS `__CL_COURSE__track_e_exe_answers` (
+CREATE TABLE IF NOT EXISTS `__CL_COURSE__qwz_tracking_answers` (
     `id` int(11) NOT NULL auto_increment,
     `details_id` int(11) NOT NULL default '0',
     `answer` text NOT NULL,

@@ -38,40 +38,41 @@ class csvTrackTrueFalse extends csv
         $tbl_user = $tbl_mdb_names['user'];
         
         
-        $tbl_cdb_names = claro_sql_get_course_tbl();
+        $tbl_cdb_names = get_module_course_tbl( array( 'qwz_exercise', 'qwz_rel_exercise_question', 'qwz_tracking', 'qwz_tracking_questions', 'qwz_tracking_answers' ), claro_get_current_course_id() );
+        
         $tbl_quiz_rel_test_question = $tbl_cdb_names['qwz_rel_exercise_question'];
         $tbl_quiz_question = $this->question->tblQuestion;
         
-        $tbl_track_e_exercises      = $tbl_cdb_names['track_e_exercices'    ];
-        $tbl_track_e_exe_details    = $tbl_cdb_names['track_e_exe_details'    ];
-        $tbl_track_e_exe_answers    = $tbl_cdb_names['track_e_exe_answers'    ];
+        $tbl_qwz_tracking = $tbl_cdb_names['qwz_tracking'    ];
+        $tbl_qwz_tracking_questions = $tbl_cdb_names['qwz_tracking_questions'    ];
+        $tbl_qwz_tracking_answers = $tbl_cdb_names['qwz_tracking_answers'    ];
 
         
         
         // this query doesn't show attempts without any answer
-        $sql = "SELECT `TE`.`exe_date`,
+        $sql = "SELECT `TE`.`date`,
                         CONCAT(`U`.`prenom`,' ',`U`.`nom`) AS `name`,
                         `Q`.`title`,
                         `TEA`.`answer`
                 FROM (
                     `".$tbl_quiz_question."` AS `Q`,
                     `".$tbl_quiz_rel_test_question."` AS `RTQ`,
-                    `".$tbl_track_e_exercises."` AS `TE`,
-                    `".$tbl_track_e_exe_details."` AS `TED`,
+                    `".$tbl_qwz_tracking."` AS `TE`,
+                    `".$tbl_qwz_tracking_questions."` AS `TED`,
                     `".$tbl_user."` AS `U`
                     )
-                LEFT JOIN `".$tbl_track_e_exe_answers."` AS `TEA`
+                LEFT JOIN `".$tbl_qwz_tracking_answers."` AS `TEA`
                     ON `TEA`.`details_id` = `TED`.`id`
                 WHERE `RTQ`.`questionId` = `Q`.`id`
-                    AND `RTQ`.`exerciseId` = `TE`.`exe_exo_id`
-                    AND `TE`.`exe_id` = `TED`.`exercise_track_id`
-                    AND `U`.`user_id` = `TE`.`exe_user_id`
+                    AND `RTQ`.`exerciseId` = `TE`.`exo_id`
+                    AND `TE`.`id` = `TED`.`exercise_track_id`
+                    AND `U`.`user_id` = `TE`.`user_id`
                     AND `TED`.`question_id` = `Q`.`id`
                     AND `Q`.`id` = ".$this->question->getId();
 
         if( !empty($this->exerciseId) ) $sql .= " AND `RTQ`.`exercice_id` = ".$this->exerciseId;
 
-        $sql .= " ORDER BY `TE`.`exe_date` ASC, `name` ASC";
+        $sql .= " ORDER BY `TE`.`date` ASC, `name` ASC";
 
         $attempts = claro_sql_query_fetch_all($sql);
 
@@ -121,38 +122,40 @@ class csvTrackMultipleChoice extends csv
         $tbl_mdb_names = claro_sql_get_main_tbl();
         $tbl_user = $tbl_mdb_names['user'];
 
-        $tbl_cdb_names = claro_sql_get_course_tbl();
-        $tbl_quiz_rel_test_question    = $tbl_cdb_names['qwz_rel_exercise_question'];
+        $tbl_cdb_names = get_module_course_tbl( array( 'qwz_exercise', 'qwz_rel_exercise_question', 'qwz_tracking', 'qwz_tracking_questions', 'qwz_tracking_answers' ), claro_get_current_course_id() );
+        
+        $tbl_quiz_rel_test_question = $tbl_cdb_names['qwz_rel_exercise_question'];
         $tbl_quiz_question = $this->question->tblQuestion;
         
-        $tbl_track_e_exercises        = $tbl_cdb_names['track_e_exercices'    ];
-        $tbl_track_e_exe_details    = $tbl_cdb_names['track_e_exe_details'    ];
-        $tbl_track_e_exe_answers    = $tbl_cdb_names['track_e_exe_answers'    ];
+        $tbl_qwz_tracking = $tbl_cdb_names['qwz_tracking'    ];
+        $tbl_qwz_tracking_questions = $tbl_cdb_names['qwz_tracking_questions'    ];
+        $tbl_qwz_tracking_answers = $tbl_cdb_names['qwz_tracking_answers'    ];
+
 
         // this query doesn't show attempts without any answer
-        $sql = "SELECT `TE`.`exe_date`,
+        $sql = "SELECT `TE`.`date`,
                         CONCAT(`U`.`prenom`,' ',`U`.`nom`) AS `name`,
                         `Q`.`title`,
                         `TEA`.`answer`
                 FROM (
                     `".$tbl_quiz_question."` AS `Q`,
                     `".$tbl_quiz_rel_test_question."` AS `RTQ`,
-                    `".$tbl_track_e_exercises."` AS `TE`,
-                    `".$tbl_track_e_exe_details."` AS `TED`,
+                    `".$tbl_qwz_tracking."` AS `TE`,
+                    `".$tbl_qwz_tracking_questions."` AS `TED`,
                     `".$tbl_user."` AS `U`
                     )
-                LEFT JOIN `".$tbl_track_e_exe_answers."` AS `TEA`
+                LEFT JOIN `".$tbl_qwz_tracking_answers."` AS `TEA`
                     ON `TEA`.`details_id` = `TED`.`id`
                 WHERE `RTQ`.`questionId` = `Q`.`id`
-                    AND `RTQ`.`exerciseId` = `TE`.`exe_exo_id`
-                    AND `TE`.`exe_id` = `TED`.`exercise_track_id`
-                    AND `U`.`user_id` = `TE`.`exe_user_id`
+                    AND `RTQ`.`exerciseId` = `TE`.`exo_id`
+                    AND `TE`.`id` = `TED`.`exercise_track_id`
+                    AND `U`.`user_id` = `TE`.`user_id`
                     AND `TED`.`question_id` = `Q`.`id`
                     AND `Q`.`id` = ".$this->question->getId();
 
         if( !empty($this->exerciseId) ) $sql .= " AND `RTQ`.`exercice_id` = ".$this->exerciseId;
 
-        $sql .= " ORDER BY `TE`.`exe_date` ASC, `name` ASC";
+        $sql .= " ORDER BY `TE`.`date` ASC, `name` ASC";
 
         $attempts = claro_sql_query_fetch_all($sql);
 
@@ -196,38 +199,39 @@ class csvTrackFIB extends csv
         $tbl_mdb_names = claro_sql_get_main_tbl();
         $tbl_user = $tbl_mdb_names['user'];
 
-        $tbl_cdb_names = claro_sql_get_course_tbl();
-        $tbl_quiz_rel_test_question    = $tbl_cdb_names['qwz_rel_exercise_question'];
+        $tbl_cdb_names = get_module_course_tbl( array( 'qwz_exercise', 'qwz_rel_exercise_question', 'qwz_tracking', 'qwz_tracking_questions', 'qwz_tracking_answers' ), claro_get_current_course_id() );
+        
+        $tbl_quiz_rel_test_question = $tbl_cdb_names['qwz_rel_exercise_question'];
         $tbl_quiz_question = $this->question->tblQuestion;
         
-        $tbl_track_e_exercises        = $tbl_cdb_names['track_e_exercices'    ];
-        $tbl_track_e_exe_details    = $tbl_cdb_names['track_e_exe_details'    ];
-        $tbl_track_e_exe_answers    = $tbl_cdb_names['track_e_exe_answers'    ];
+        $tbl_qwz_tracking = $tbl_cdb_names['qwz_tracking'    ];
+        $tbl_qwz_tracking_questions = $tbl_cdb_names['qwz_tracking_questions'    ];
+        $tbl_qwz_tracking_answers = $tbl_cdb_names['qwz_tracking_answers'    ];
 
         // this query doesn't show attempts without any answer
-        $sql = "SELECT `TE`.`exe_date`,
+        $sql = "SELECT `TE`.`date`,
                         CONCAT(`U`.`prenom`,' ',`U`.`nom`) AS `name`,
                         `Q`.`title`,
                         `TEA`.`answer`
                 FROM (
                     `".$tbl_quiz_question."` AS `Q`,
                     `".$tbl_quiz_rel_test_question."` AS `RTQ`,
-                    `".$tbl_track_e_exercises."` AS `TE`,
-                    `".$tbl_track_e_exe_details."` AS `TED`,
+                    `".$tbl_qwz_tracking."` AS `TE`,
+                    `".$tbl_qwz_tracking_questions."` AS `TED`,
                     `".$tbl_user."` AS `U`
                     )
-                LEFT JOIN `".$tbl_track_e_exe_answers."` AS `TEA`
+                LEFT JOIN `".$tbl_qwz_tracking_answers."` AS `TEA`
                     ON `TEA`.`details_id` = `TED`.`id`
                 WHERE `RTQ`.`questionId` = `Q`.`id`
-                    AND `RTQ`.`exerciseId` = `TE`.`exe_exo_id`
-                    AND `TE`.`exe_id` = `TED`.`exercise_track_id`
-                    AND `U`.`user_id` = `TE`.`exe_user_id`
+                    AND `RTQ`.`exerciseId` = `TE`.`exo_id`
+                    AND `TE`.`id` = `TED`.`exercise_track_id`
+                    AND `U`.`user_id` = `TE`.`user_id`
                     AND `TED`.`question_id` = `Q`.`id`
                     AND `Q`.`id` = ".$this->question->getId();
 
         if( !empty($this->exerciseId) ) $sql .= " AND `RTQ`.`exercice_id` = ".$this->exerciseId;
 
-        $sql .= " ORDER BY `TE`.`exe_date` ASC, `name` ASC";
+        $sql .= " ORDER BY `TE`.`date` ASC, `name` ASC";
 
         $attempts = claro_sql_query_fetch_all($sql);
 
@@ -270,38 +274,39 @@ class csvTrackMatching extends csv
         $tbl_mdb_names = claro_sql_get_main_tbl();
         $tbl_user = $tbl_mdb_names['user'];
 
-        $tbl_cdb_names = claro_sql_get_course_tbl();
-        $tbl_quiz_rel_test_question    = $tbl_cdb_names['qwz_rel_exercise_question'];
+        $tbl_cdb_names = get_module_course_tbl( array( 'qwz_exercise', 'qwz_rel_exercise_question', 'qwz_tracking', 'qwz_tracking_questions', 'qwz_tracking_answers' ), claro_get_current_course_id() );
+        
+        $tbl_quiz_rel_test_question = $tbl_cdb_names['qwz_rel_exercise_question'];
         $tbl_quiz_question = $this->question->tblQuestion;
         
-        $tbl_track_e_exercises        = $tbl_cdb_names['track_e_exercices'    ];
-        $tbl_track_e_exe_details    = $tbl_cdb_names['track_e_exe_details'    ];
-        $tbl_track_e_exe_answers    = $tbl_cdb_names['track_e_exe_answers'    ];
+        $tbl_qwz_tracking = $tbl_cdb_names['qwz_tracking'    ];
+        $tbl_qwz_tracking_questions = $tbl_cdb_names['qwz_tracking_questions'    ];
+        $tbl_qwz_tracking_answers = $tbl_cdb_names['qwz_tracking_answers'    ];
 
         // this query doesn't show attempts without any answer
-        $sql = "SELECT `TE`.`exe_date`,
+        $sql = "SELECT `TE`.`date`,
                         CONCAT(`U`.`prenom`,' ',`U`.`nom`) AS `name`,
                         `Q`.`title`,
                         `TEA`.`answer`
                 FROM (
                     `".$tbl_quiz_question."` AS `Q`,
                     `".$tbl_quiz_rel_test_question."` AS `RTQ`,
-                    `".$tbl_track_e_exercises."` AS `TE`,
-                    `".$tbl_track_e_exe_details."` AS `TED`,
+                    `".$tbl_qwz_tracking."` AS `TE`,
+                    `".$tbl_qwz_tracking_questions."` AS `TED`,
                     `".$tbl_user."` AS `U`
                     )
-                LEFT JOIN `".$tbl_track_e_exe_answers."` AS `TEA`
+                LEFT JOIN `".$tbl_qwz_tracking_answers."` AS `TEA`
                     ON `TEA`.`details_id` = `TED`.`id`
                 WHERE `RTQ`.`questionId` = `Q`.`id`
-                    AND `RTQ`.`exerciseId` = `TE`.`exe_exo_id`
-                    AND `TE`.`exe_id` = `TED`.`exercise_track_id`
-                    AND `U`.`user_id` = `TE`.`exe_user_id`
+                    AND `RTQ`.`exerciseId` = `TE`.`exo_id`
+                    AND `TE`.`id` = `TED`.`exercise_track_id`
+                    AND `U`.`user_id` = `TE`.`user_id`
                     AND `TED`.`question_id` = `Q`.`id`
                     AND `Q`.`id` = ".$this->question->getId();
 
         if( !empty($this->exerciseId) ) $sql .= " AND `RTQ`.`exercice_id` = ".$this->exerciseId;
 
-        $sql .= " ORDER BY `TE`.`exe_date` ASC, `name` ASC";
+        $sql .= " ORDER BY `TE`.`date` ASC, `name` ASC";
 
         $attempts = claro_sql_query_fetch_all($sql);
 

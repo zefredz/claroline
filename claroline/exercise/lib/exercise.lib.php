@@ -211,4 +211,87 @@ function castToFloat($value)
     
     return $value;
 }
+
+
+/**
+ * Record result of user when an exercice was done
+ * @param exercise_id ( id in courseDb exercices table )
+ * @param result ( score @ exercice )
+ * @param weighting ( higher score )
+ *
+ * @return inserted id or false if the query cannot be done
+ *
+ * @author Sebastien Piraux <seb@claroline.net>
+*/
+function track_exercice($exercise_id, $score, $weighting, $time, $uid = "")
+{
+    // get table names
+    $tblList = get_module_course_tbl( array( 'qwz_tracking' ), claro_get_current_course_id() );
+    $tbl_qwz_tracking = $tblList['qwz_tracking'];
+
+    if( $uid != "" )
+    {
+        $user_id = "'".(int) $uid."'";
+    }
+    else // anonymous
+    {
+        $user_id = "NULL";
+    }
+
+    $sql = "INSERT INTO `".$tbl_qwz_tracking."`
+               SET `user_id` = ".$user_id.",
+                   `exo_id` = '".(int) $exercise_id."',
+                   `result` = '".(float) $score."',
+                   `weighting` = '".(float) $weighting."',
+                   `date` = FROM_UNIXTIME(".time()."),
+                   `time` = '".(int) $time."'";
+
+
+    return claro_sql_query_insert_id($sql);
+}
+
+/**
+ * Record result of user when an exercice was done
+ * @param exerciseTrackId id in qwz_tracking table
+ * @param questionId id of the question
+ * @param values array with user answers
+ * @param questionResult result of this question
+ *
+ * @author Sebastien Piraux <seb@claroline.net>
+*/
+function track_exercise_details($exerciseTrackId, $questionId, $values, $questionResult)
+{
+    // get table names
+    $tblList = get_module_course_tbl( array( 'qwz_tracking_questions', 'qwz_tracking_answers' ), claro_get_current_course_id() );
+    $tbl_qwz_tracking_questions  = $tblList['qwz_tracking_questions'];
+    $tbl_qwz_tracking_answers  = $tblList['qwz_tracking_answers'];
+
+    // add the answer tracking informations
+    $sql = "INSERT INTO `".$tbl_qwz_tracking_questions."`
+               SET `exercise_track_id` = ".(int) $exerciseTrackId.",
+                   `question_id` = '".(int) $questionId."',
+                   `result` = '".(int) $questionResult."'";
+
+    $details_id = claro_sql_query_insert_id($sql);
+
+    // check if previous query succeed to add answers
+    if( $details_id && is_array($values) )
+    {
+        // add, if needed, the different answers of the user
+        // one line by answer
+        // each entry of $values should be correctly formatted depending on the question type
+
+        foreach( $values as $answer )
+        {
+            $sql = "INSERT INTO `".$tbl_qwz_tracking_answers."`
+                       SET `details_id` =  ". (int)$details_id.",
+                           `answer` = '".addslashes($answer)."'";
+
+            claro_sql_query($sql);
+        }
+    }
+    return 1;
+}
+
+
 ?>

@@ -48,18 +48,30 @@ $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'  ];
 $tbl_user            = $tbl_mdb_names['user'             ];
 
-$tbl_cdb_names = claro_sql_get_course_tbl();
+
+$tbl_cdb_names = get_module_course_tbl( array( 'qwz_exercise',
+                                               'qwz_question',
+                                               'qwz_rel_exercise_question',
+                                               'qwz_answer_multiple_choice',
+                                               'qwz_answer_truefalse',
+                                               'qwz_answer_fib',
+                                               'qwz_answer_fib',
+                                               'qwz_tracking', 
+                                               'qwz_tracking_questions',
+                                               'qwz_tracking_answers'
+                                        ), 
+                                        claro_get_current_course_id() );
+
 $tbl_qwz_question                 = $tbl_cdb_names['qwz_question'];
 $tbl_qwz_rel_exercise_question     = $tbl_cdb_names['qwz_rel_exercise_question'];
-//$tbl_quiz_answer        = $tbl_cdb_names['quiz_answer'          ];
 $tbl_qwz_answer_multiple_choice     = $tbl_cdb_names['qwz_answer_multiple_choice'];
 $tbl_qwz_answer_truefalse             = $tbl_cdb_names['qwz_answer_truefalse'];
 $tbl_qwz_answer_fib                 = $tbl_cdb_names['qwz_answer_fib'];
-$tbl_qwz_answer_matching             = $tbl_cdb_names['qwz_answer_matching'];
+$tbl_qwz_answer_matching             = $tbl_cdb_names['qwz_answer_fib'];
 
-$tbl_track_e_exercises     = $tbl_cdb_names['track_e_exercices'];
-$tbl_track_e_exe_details = $tbl_cdb_names['track_e_exe_details'];
-$tbl_track_e_exe_answers = $tbl_cdb_names['track_e_exe_answers'];
+$tbl_qwz_tracking     = $tbl_cdb_names['qwz_tracking'];
+$tbl_qwz_tracking_questions = $tbl_cdb_names['qwz_tracking_questions'];
+$tbl_qwz_tracking_answers = $tbl_cdb_names['qwz_tracking_answers'];
 
 $is_allowedToTrack = claro_is_course_manager();
 
@@ -84,7 +96,7 @@ ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, './track_questions.php?
 if( empty($_REQUEST['question_id']) )
 {
     // show the list of all question when no one is specified
-    // a contribution of Jérémy Audry
+    // a contribution of Jeremy Audry
     $sql = "SELECT `questionId`
             FROM `".$tbl_qwz_rel_exercise_question."`
             WHERE `exerciseId` = ".(int) $exId;
@@ -135,13 +147,13 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
         {
             // get the list of all possible answer and the number of times it was choose
             $sql = "SELECT `TEA`.`answer`, COUNT(`TEA`.`answer`) as `nbr`
-                        FROM `".$tbl_track_e_exercises."` AS `TE`
-                    LEFT JOIN `".$tbl_track_e_exe_details."` AS `TED`
-                        ON `TED`.`exercise_track_id` = `TE`.`exe_id`
-                    LEFT JOIN `".$tbl_track_e_exe_answers."` AS `TEA`
+                        FROM `".$tbl_qwz_tracking."` AS `TE`
+                    LEFT JOIN `".$tbl_qwz_tracking_questions."` AS `TED`
+                        ON `TED`.`exercise_track_id` = `TE`.`id`
+                    LEFT JOIN `".$tbl_qwz_tracking_answers."` AS `TEA`
                         ON `TEA`.`details_id` = `TED`.`id`
                     WHERE `TED`.`question_id` = ".(int) $questionId."
-                        AND `TE`.`exe_exo_id` = ".(int) $exId."
+                        AND `TE`.`exo_id` = ".(int) $exId."
                     GROUP BY `TEA`.`answer`";
 
             $trackedAnswers = claro_sql_query_fetch_all($sql);
@@ -175,12 +187,12 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
             $sql = "SELECT `TEA`.`answer`, COUNT(`TEA`.`answer`) as `nbr`
                         FROM (`".$tbl_qwz_question."` AS `Q` ,
                             `".$tbl_qwz_rel_exercise_question."` AS `RTQ`)
-                    LEFT JOIN `".$tbl_track_e_exercises."` AS `TE`
-                        ON `TE`.`exe_exo_id` = `RTQ`.`exerciseId`
-                    LEFT JOIN `".$tbl_track_e_exe_details."` AS `TED`
-                        ON `TED`.`exercise_track_id` = `TE`.`exe_id`
+                    LEFT JOIN `".$tbl_qwz_tracking."` AS `TE`
+                        ON `TE`.`exo_id` = `RTQ`.`exerciseId`
+                    LEFT JOIN `".$tbl_qwz_tracking_questions."` AS `TED`
+                        ON `TED`.`exercise_track_id` = `TE`.`id`
                         AND `TED`.`question_id` = `Q`.`id`
-                    LEFT JOIN `".$tbl_track_e_exe_answers."` AS `TEA`
+                    LEFT JOIN `".$tbl_qwz_tracking_answers."` AS `TEA`
                         ON `TEA`.`details_id` = `TED`.`id`
                     WHERE `Q`.`id` = `RTQ`.`questionId`
                         AND `Q`.`id` = ".(int) $questionId."
@@ -208,18 +220,18 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
                     FROM (
                         `".$tbl_qwz_rel_exercise_question."` AS `RTQ`,
                         `".$tbl_qwz_answer_fib."` AS `A`,
-                        `".$tbl_track_e_exercises."` AS `TE`,
-                        `".$tbl_track_e_exe_details."` AS `TED`,
+                        `".$tbl_qwz_tracking."` AS `TE`,
+                        `".$tbl_qwz_tracking_questions."` AS `TED`,
                         `".$tbl_user."` AS `U`
                        )
-                    LEFT JOIN `".$tbl_track_e_exe_answers."` AS `TEA`
+                    LEFT JOIN `".$tbl_qwz_tracking_answers."` AS `TEA`
                         ON `TEA`.`details_id` = `TED`.`id`
                     WHERE `RTQ`.`questionId` = ".(int) $questionId."
                         AND `RTQ`.`questionId` = `A`.`questionId`
                         AND `RTQ`.`questionId` = `TED`.`question_id`
-                        AND `RTQ`.`exerciseId` = `TE`.`exe_exo_id`
-                        AND `TE`.`exe_id` = `TED`.`exercise_track_id`
-                        AND `U`.`user_id` = `TE`.`exe_user_id`
+                        AND `RTQ`.`exerciseId` = `TE`.`exo_id`
+                        AND `TE`.`id` = `TED`.`exercise_track_id`
+                        AND `U`.`user_id` = `TE`.`user_id`
                         AND `RTQ`.`exerciseId` = '".(int) $exId."'
                     ORDER BY `TED`.`id` ASC, `TEA`.`id` ASC";
 
@@ -295,12 +307,12 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
             $sql = "SELECT `TEA`.`answer`, COUNT(`TEA`.`answer`) as `nbr`
                         FROM (`".$tbl_qwz_question."` AS `Q` ,
                             `".$tbl_qwz_rel_exercise_question."` AS `RTQ`)
-                    LEFT JOIN `".$tbl_track_e_exercises."` AS `TE`
-                        ON `TE`.`exe_exo_id` = `RTQ`.`exerciseId`
-                    LEFT JOIN `".$tbl_track_e_exe_details."` AS `TED`
-                        ON `TED`.`exercise_track_id` = `TE`.`exe_id`
+                    LEFT JOIN `".$tbl_qwz_tracking."` AS `TE`
+                        ON `TE`.`exo_id` = `RTQ`.`exerciseId`
+                    LEFT JOIN `".$tbl_qwz_tracking_questions."` AS `TED`
+                        ON `TED`.`exercise_track_id` = `TE`.`id`
                         AND `TED`.`question_id` = `Q`.`id`
-                    LEFT JOIN `".$tbl_track_e_exe_answers."` AS `TEA`
+                    LEFT JOIN `".$tbl_qwz_tracking_answers."` AS `TEA`
                         ON `TEA`.`details_id` = `TED`.`id`
                     WHERE `Q`.`id` = `RTQ`.`questionId`
                         AND `Q`.`id` = ".(int) $questionId."
