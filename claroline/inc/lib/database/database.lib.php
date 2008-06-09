@@ -616,7 +616,7 @@ class ClarolineDatabase
 {
     public static function toClaroQuery( $sql, $courseId = null )
     {
-        $courseId = is_null( $courseId ) 
+        $courseId = is_null( $courseId ) && claro_is_in_a_course()
             ? claro_get_current_course_id() 
             : $courseId
             ;
@@ -625,10 +625,14 @@ class ClarolineDatabase
         $sql = str_replace ('__CL_MAIN__',get_conf('mainTblPrefix'), $sql);
         
         // replace __CL_COURSE__ with course database prefix
-        $sql = str_replace('__CL_COURSE__'
-            , claro_get_course_db_name_glued( $courseId )
-            , $sql );
+        if ( !empty($courseId) )
+        {
+            $sql = str_replace('__CL_COURSE__'
+                , claro_get_course_db_name_glued( $courseId )
+                , $sql );
             
+        }
+        
         return $sql;
     }
 }
