@@ -105,7 +105,7 @@ class Exercise
         $this->attempts = 0;
         $this->anonymousAttempts = 'NOTALLOWED';
 
-        $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
+        $tbl_cdb_names = get_module_course_tbl( array( 'qwz_exercise', 'qwz_question', 'qwz_rel_exercise_question' ), $course_id );
         $this->tblExercise = $tbl_cdb_names['qwz_exercise'];
         $this->tblQuestion = $tbl_cdb_names['qwz_question'];
         $this->tblRelExerciseQuestion = $tbl_cdb_names['qwz_rel_exercise_question'];
@@ -304,7 +304,7 @@ class Exercise
     function updateExerciseVisibility($exerciseId, $visibility)
     {
         // this method is not used in object context so we cannot access $this->$tblAssignment
-        $tbl_cdb_names = claro_sql_get_course_tbl();
+        $tbl_cdb_names = get_module_course_tbl( array( 'qwz_exercise' ), claro_get_current_course_id() );
         $tblExercise = $tbl_cdb_names['qwz_exercise'];
 
         $acceptedValues = array('VISIBLE', 'INVISIBLE');

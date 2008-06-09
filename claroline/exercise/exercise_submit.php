@@ -38,8 +38,11 @@ include_once './lib/answer_matching.class.php';
 include_once get_path('incRepositorySys') . '/lib/htmlxtra.lib.php';
 include_once get_path('incRepositorySys') . '/lib/form.lib.php';
 
+// TODO find a better way to get table from this module and from LP module
 $tblList = get_module_course_tbl( array( 'qwz_tracking' ), claro_get_current_course_id() );
 $tbl_qwz_tracking = $tblList['qwz_tracking'];
+
+$tbl_cdb_names = claro_sql_get_course_tbl();
 
 if( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] )
 {

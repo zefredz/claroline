@@ -21,7 +21,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  */
 function get_filter_list($excludeId = '')
 {
-    $tbl_cdb_names = claro_sql_get_course_tbl();
+    $tbl_cdb_names = get_module_course_tbl( array( 'qwz_exercise' ), claro_get_current_course_id() );
     $tbl_quiz_exercise = $tbl_cdb_names['qwz_exercise'];
 
     $filterList[get_lang('All exercises')] = 'all';
@@ -72,7 +72,7 @@ function get_localized_question_type()
  */
 function count_exercise_using_question($quId)
 {
-    $tbl_cdb_names = claro_sql_get_course_tbl();
+    $tbl_cdb_names = get_module_course_tbl( array( 'qwz_rel_exercise_question' ), claro_get_current_course_id() );
     $tbl_quiz_rel_exercise_question = $tbl_cdb_names['qwz_rel_exercise_question']; 
     
     $sql = "SELECT COUNT(`exerciseId`)
@@ -87,7 +87,7 @@ function count_exercise_using_question($quId)
 
 function set_learning_path_progression($totalResult,$totalGrade,$timeToCompleteExe,$_uid)
 {
-    $tbl_cdb_names = claro_sql_get_course_tbl();
+    $tbl_cdb_names = get_module_course_tbl( array( 'lp_rel_learnPath_module', 'lp_user_module_progress' ), claro_get_current_course_id() );
     $tbl_lp_rel_learnPath_module = $tbl_cdb_names['lp_rel_learnPath_module'];
     $tbl_lp_user_module_progress = $tbl_cdb_names['lp_user_module_progress'];
     

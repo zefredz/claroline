@@ -102,7 +102,7 @@ class Question
         
         $this->tmpQuestionDirSys = get_conf('coursesRepositorySys').$_course['path'].'/'.'exercise/tmp'.uniqid('').'/';
 
-        $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
+        $tbl_cdb_names = get_module_course_tbl( array( 'qwz_question', 'qwz_rel_exercise_question' ), $course_id );
         $this->tblQuestion = $tbl_cdb_names['qwz_question'];
         $this->tblRelExerciseQuestion = $tbl_cdb_names['qwz_rel_exercise_question'];
     }    

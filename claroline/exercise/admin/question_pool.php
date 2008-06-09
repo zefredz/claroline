@@ -40,7 +40,7 @@ include_once get_path('incRepositorySys').'/lib/fileManage.lib.php';
 /*
  * DB tables definition for list query
  */
-$tbl_cdb_names = claro_sql_get_course_tbl();
+$tbl_cdb_names = get_module_course_tbl( array( 'qwz_exercise', 'qwz_question', 'qwz_rel_exercise_question' ), claro_get_current_course_id() );
 $tbl_quiz_exercise = $tbl_cdb_names['qwz_exercise'];
 $tbl_quiz_question = $tbl_cdb_names['qwz_question'];
 $tbl_quiz_rel_exercise_question = $tbl_cdb_names['qwz_rel_exercise_question'];

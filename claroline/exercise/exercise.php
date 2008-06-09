@@ -34,9 +34,10 @@ include_once get_path('incRepositorySys').'/lib/pager.lib.php';
  * DB tables definition
  */
 
-$tbl_cdb_names = claro_sql_get_course_tbl();
+$tbl_cdb_names = get_module_course_tbl( array( 'qwz_exercise', 'qwz_question', 'qwz_rel_exercise_question' ), claro_get_current_course_id() );
 $tbl_quiz_exercise = $tbl_cdb_names['qwz_exercise'];
 
+$tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_lp_module = $tbl_cdb_names['lp_module'];
 $tbl_lp_asset = $tbl_cdb_names['lp_asset'];
 
