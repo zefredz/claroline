@@ -1608,9 +1608,9 @@ function claro_is_course_tool_activated( $courseId, $toolId )
 
     $sql = "SELECT ctl.activated\n"
         ."FROM `" . $tbl_course_tool_list . "` AS ctl\n"
-        ."WHERE ctl.tool_id = ".(int) $toolId
+        ."WHERE ctl.id = ".(int) $toolId
         ;
-
+    
     $activated = claro_sql_query_fetch_single_value($sql);
     
     return $activated == 'true';
