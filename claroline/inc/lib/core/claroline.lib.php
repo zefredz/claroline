@@ -58,27 +58,8 @@ class Claroline
     {
         try
         {
-            // Load database driver
-            /* if ( extension_loaded( 'pdo' ) && extension_loaded('pdo_mysql') )
-            {
-                Console::debug('use pdo mysql database driver');
-                Database::loadDriver( 'pdomysql' );
-            }
-            elseif ( extension_loaded( 'mysqli' ) )
-            {
-                Console::debug('use mysqli database driver');
-                Database::loadDriver( 'mysqli' );
-            }
-            else
-            {
-                Console::debug('use mysql database driver');
-                Database::loadDriver( 'mysql' );
-            }*/
-            
-            Database::loadDriver('claroline');
-            Console::debug('use claroline database driver');
-            
             // Create main database connection
+            Database::loadDriver('claroline');
             $this->database = Database::getMainConnection();
         
             // initialize the event manager and notification classes
