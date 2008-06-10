@@ -22,7 +22,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
     require_once dirname(__FILE__) . "/class.dbconnection.php";
 
-    class ClarolineDatabaseConnection extends Database_Connection
+    class ClarolineDatabaseConnection extends CLWIKI_Database_Connection
     {
       
         function ClarolineDatabaseConnection()

@@ -20,7 +20,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
      * @package Wiki
      */
 
-    class Database_Connection
+    class CLWIKI_Database_Connection
     {
         var $error = '';
         var $errno = 0;
@@ -133,7 +133,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         }
     }
 
-    class MyDatabaseConnection extends Database_Connection
+    class MyDatabaseConnection extends CLWIKI_Database_Connection
     {
         var $db_link;
         var $host;
