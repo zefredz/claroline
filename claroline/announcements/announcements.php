@@ -49,7 +49,6 @@
 define('CONFVAL_LOG_ANNOUNCEMENT_INSERT', FALSE);
 define('CONFVAL_LOG_ANNOUNCEMENT_DELETE', FALSE);
 define('CONFVAL_LOG_ANNOUNCEMENT_UPDATE', FALSE);
-define('HIDE_LIST_WHEN_DISP_FORM', FALSE);
 
 /**
  *  CLAROLINE MAIN SETTINGS
@@ -153,22 +152,20 @@ if($is_allowedToEdit) // check teacher status
          */
         if ( 'exDelete' == $cmd )
         {
-
             if ( announcement_delete_item($id) )
             {
                 $dialogBox->success( get_lang('Announcement has been deleted') );
 
-                if ( CONFVAL_LOG_ANNOUNCEMENT_DELETE ) event_default('ANNOUNCEMENT',array('DELETE_ENTRY'=>$id));
+                if ( CONFVAL_LOG_ANNOUNCEMENT_DELETE ) $claroline->log('ANNOUNCEMENT',array('DELETE_ENTRY'=>$id));
                 $eventNotifier->notifyCourseEvent('anouncement_deleted', claro_get_current_course_id(), claro_get_current_tool_id(), $id, claro_get_current_group_id(), '0');
                 $autoExportRefresh = TRUE;
 
                 linker_delete_resource();
             }
-//          else
-//          {
-//              //error on delete
-//              //claro_failure::set_failure('CLANN:announcement '.var_dump((int) $_REQUEST['id']).' can be delete '.mysql_error());
-//          }
+            else
+            {
+                $dialogBox->error( get_lang('Cannot delete announcement') );
+            }
         }
 
         /**
@@ -182,17 +179,16 @@ if($is_allowedToEdit) // check teacher status
             {
                 $dialogBox->success( get_lang('Announcements list has been cleared up') );
 
-                if ( CONFVAL_LOG_ANNOUNCEMENT_DELETE ) event_default('ANNOUNCEMENT',array ('DELETE_ENTRY' => 'ALL'));
+                if ( CONFVAL_LOG_ANNOUNCEMENT_DELETE ) $claroline->log('ANNOUNCEMENT',array ('DELETE_ENTRY' => 'ALL'));
                 $eventNotifier->notifyCourseEvent('all_anouncement_deleted', claro_get_current_course_id(), claro_get_current_tool_id(), $announcementList , claro_get_current_group_id(), '0');
                 $autoExportRefresh = TRUE;
 
                 linker_delete_all_tool_resources();
             }
-//          else
-//          {
-//              //error on delete
-//              //claro_failure::set_failure('CLANN:announcement can delete all items '.mysql_error());
-//          }
+            else
+            {
+                $dialogBox->error( get_lang('Cannot delete announcement list') );
+            }
         }
 
         /**
@@ -273,7 +269,7 @@ if($is_allowedToEdit) // check teacher status
                     if( !empty($linkerUpdateLog) ) $dialogBox->info( $linkerUpdateLog );
 
                     $eventNotifier->notifyCourseEvent('anouncement_modified', claro_get_current_course_id(), claro_get_current_tool_id(), $id, claro_get_current_group_id(), '0');
-                    if (CONFVAL_LOG_ANNOUNCEMENT_UPDATE)event_default('ANNOUNCEMENT', array ('UPDATE_ENTRY'=>$_REQUEST['id']));
+                    if (CONFVAL_LOG_ANNOUNCEMENT_UPDATE) $claroling->log('ANNOUNCEMENT', array ('UPDATE_ENTRY'=>$_REQUEST['id']));
                     $autoExportRefresh = TRUE;
                 }
             }
@@ -294,7 +290,7 @@ if($is_allowedToEdit) // check teacher status
                     if( !empty($linkerUpdateLog) ) $dialogBox->info( $linkerUpdateLog );
 
                     $eventNotifier->notifyCourseEvent('anouncement_added',claro_get_current_course_id(), claro_get_current_tool_id(), $insert_id, claro_get_current_group_id(), '0');
-                    if (CONFVAL_LOG_ANNOUNCEMENT_INSERT) event_default('ANNOUNCEMENT',array ('INSERT_ENTRY'=>$insert_id));
+                    if (CONFVAL_LOG_ANNOUNCEMENT_INSERT) $claroline->log('ANNOUNCEMENT',array ('INSERT_ENTRY'=>$insert_id));
                     $autoExportRefresh = TRUE;
                 }
 //                else
@@ -365,15 +361,11 @@ if($is_allowedToEdit) // check teacher status
 
 
 // PREPARE DISPLAYS
-
-if ($displayForm && HIDE_LIST_WHEN_DISP_FORM) $displayList = FALSE;
-
 if ($displayList)
 {
     // list
     $announcementList = announcement_get_item_list($context);
     $bottomAnnouncement = $announcementQty = count($announcementList);
-    //stats
 }
 
 
