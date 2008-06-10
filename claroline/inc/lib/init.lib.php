@@ -654,3 +654,19 @@ function claro_get_course_user_properties($cid,$uid,$ignoreCache=false)
     return array('data' =>$course_user_data, 'privilege' => $course_user_privilege);
 
 }
+
+/**
+ * Get the profile id of the current user in a given course
+ * @param   string $courseId id (sysCode) of the course
+ * @return  int id of the current user's profile in the course
+ */
+function claro_get_current_user_profile_id_in_course( $courseId = null )
+{
+    $courseId = empty( $courseId ) ? claro_get_current_course_id() : $courseId;
+    
+    $userPrivilege = claro_get_course_user_privilege(
+        $courseId,
+        claro_get_current_user_id() );
+    
+    return $userPrivilege['_profileId'];
+}

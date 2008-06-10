@@ -1615,3 +1615,35 @@ function claro_is_course_tool_activated( $courseId, $toolId )
     
     return $activated == 'true';
 }
+
+/**
+ * Get the main tool_id for a given course tool from its tid in the course
+ * @param   int $tid id of the tool instance in the course
+ * @param   string $courseId id (sysCode) of the course (optional, current course used if missing)
+ * @param   int $profileId profile of the user to get the tool list from (optional, current user used if missing)
+ * @return  int tool_id, main tool id
+ */
+function claro_get_tool_id_from_course_tid( $tid, $courseId = null, $profileId = null )
+{
+    $courseId = empty( $courseId )
+        ? claro_get_current_course_id()
+        : $courseId
+        ;
+    
+    $profileId = empty( $profileId )
+        ? claro_get_current_user_profile_id_in_course( $courseId )
+        : $profileId
+        ;
+    
+    $courseToolList = claro_get_course_tool_list( $courseId, $profileId );
+    
+    foreach ( $courseToolList as $courseTool )
+    {
+        if ( $courseTool['id'] == $tid )
+        {
+            return $courseTool['tool_id'];
+        }
+    }
+    
+    return false;
+}
