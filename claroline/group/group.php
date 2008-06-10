@@ -150,7 +150,7 @@ if ( $is_allowedToManage )
 
         $dialogBox->success( get_lang("%groupQty group(s) has (have) been added", array('%groupQty' => count($groupCreatedList))) );
 
-        event_default( 'GROUPMANAGING' , array ('CREATE_GROUP' => $groupQuantity) );
+        $claroline->log( 'GROUPMANAGING' , array ('CREATE_GROUP' => $groupQuantity) );
 
     }    // end if $submit
 
@@ -215,7 +215,7 @@ if ( $is_allowedToManage )
 
             if ($nbGroupDeleted > 0) $message = get_lang("All groups have been deleted");
             else                     $message = get_lang("No group deleted");
-            event_default('GROUPMANAGING',array ('DELETE_GROUP' => $nbGroupDeleted));
+            $claroline->log('GROUPMANAGING',array ('DELETE_GROUP' => $nbGroupDeleted));
 
         }
         elseif(0 < (int)$_REQUEST['id'])
@@ -246,7 +246,7 @@ if ( $is_allowedToManage )
 
         if (empty_group())
         {
-            event_default('GROUPMANAGING',array ('EMPTY_GROUP' => TRUE));
+            $claroline->log('GROUPMANAGING',array ('EMPTY_GROUP' => TRUE));
             $dialogBox->success( get_lang("All groups are now empty") );
         }
         else
@@ -264,7 +264,7 @@ if ( $is_allowedToManage )
     elseif ( 'exFillGroup' == $cmd  )
     {
         fill_in_groups($nbGroupPerUser, claro_get_current_course_id());
-        event_default('GROUPMANAGING',array ('FILL_GROUP' => TRUE));
+        $claroline->log('GROUPMANAGING',array ('FILL_GROUP' => TRUE));
 
         $dialogBox->success( get_lang("Groups have been filled (or completed) by students present in the 'Users' list.") );
 
@@ -355,7 +355,7 @@ if ( $is_allowedToManage )
         }
 
         $dialogBox->success( get_lang("Group settings have been modified") );
-        event_default('GROUPMANAGING',array ('CONFIG_GROUP' => TRUE));
+        $claroline->log('GROUPMANAGING',array ('CONFIG_GROUP' => TRUE));
 
         $cidReset = TRUE;
         $cidReq   = claro_get_current_course_id();
