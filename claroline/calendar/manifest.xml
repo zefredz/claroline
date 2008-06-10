@@ -3,7 +3,7 @@
   <name>Agenda</name>
   <version>3.0</version>
   <license>GPL</license>
-  <icon>icon.png</icon>
+  <icon>calendar.gif</icon>
   <type>tool</type>
 
   <web>http://www.claroline.net/wiki/CLCAL/</web>
