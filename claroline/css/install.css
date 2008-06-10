@@ -122,29 +122,48 @@ h2 {
     color : #ccc;
 }
 
-.dialogWarning { 
-	margin-top: 2px; 
-	margin-bottom: 2px; 
-	padding: 1px 5px 1px 20px; 
-	border: 1px solid #ccc;
-	border-left: 2px solid #FF6600;
+/* specific styling for dialog box messages */
+.claroDialogBox {    
+    margin-top: 10px; 
+    margin-bottom: 10px; 
+    padding: 5px 5px 5px 20px; 
+    border: 1px solid #ccc;
+    background: #eee;
+    border-left: 2px solid #ccc;
 }
 
-.dialogWarning strong {
-	color: #FF6600;	
+.boxInfo {    
+    border-left: 2px solid #ccc;
+    background: #eee url('default/bg_info.gif') bottom right no-repeat;
+    padding-right: 83px;
 }
 
-.dialogError { 
-	margin-top: 2px; 
-	margin-bottom: 2px; 
-	padding: 1px 5px 1px 20px; 
-	border: 1px solid #ccc;
-	border-left: 2px solid #900;
+.boxSuccess {    
+    border-left: 2px solid #090;
+    background: #eee url('default/bg_success.gif') bottom right no-repeat;
+    padding-right: 83px;
 }
 
-.dialogError strong {
-	color: #900;	
+.boxWarning {    
+    border-left: 2px solid #900;
+    background: #eee url('default/bg_warning.gif') bottom right no-repeat;
+    padding-right: 83px;
 }
+
+.boxError {    
+    border-left: 2px solid #900;
+    background: #eee url('default/bg_error.gif') bottom right no-repeat;
+    padding-right: 83px;
+}
+
+.claroDialogMsg { padding: 2px 5px 1px 20px; }
+.claroDialogBox .msgInfo { } /* I _really_ don't think there is a need for an icon here */
+.claroDialogBox .msgSuccess { background: url('default/success.gif') top left no-repeat; }
+.claroDialogBox .msgWarning { background: url('default/warning.gif') top left no-repeat; }
+.claroDialogBox .msgError { background: url('default/error.gif') top left no-repeat; }
+.claroDialogBox .msgQuestion { background: url('default/question.gif') top left no-repeat; }
+.claroDialogBox .msgForm { padding: 3px 20px; }
+.claroDialogBox .msgTitle { font-weight: bold; }
 
 .ok {
 	color: #693;
