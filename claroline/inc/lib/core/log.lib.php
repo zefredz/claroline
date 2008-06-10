@@ -15,7 +15,7 @@ class Logger
         $cid        = claro_get_current_course_id();
         $tid        = claro_get_current_tool_id();
         $uid        = claro_get_current_user_id();
-        $date       = claro_date("Y-m-d H:i:00");
+        $date       = claro_date("Y-m-d H:i:s");
 
         $ip         = !empty( $_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null;
 

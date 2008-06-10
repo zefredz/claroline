@@ -139,7 +139,7 @@ class ClaroNotification extends EventDriven
         $tid        = array_key_exists('tid', $event_args) ? $event_args['tid'] : null;
         $gid        = array_key_exists('gid', $event_args) ? $event_args['gid'] : null;
         $uid        = array_key_exists('uid', $event_args) ? $event_args['uid'] : null;
-        $date         = array_key_exists('date', $event_args )  ? $event_args['date']: claro_date("Y-m-d H:i:00");
+        $date         = array_key_exists('date', $event_args )  ? $event_args['date']: claro_date("Y-m-d H:i:s");
 
         if( array_key_exists('data', $event_args) )
         {
@@ -188,7 +188,7 @@ class ClaroNotification extends EventDriven
         $cid        = array_key_exists('cid', $event_args) ? $event_args['cid'] : null;
         $tid        = array_key_exists('tid', $event_args) ? $event_args['tid'] : null;
         $uid        = array_key_exists('uid', $event_args) ? $event_args['uid'] : null;
-        $date         = array_key_exists('date', $event_args )  ? $event_args['date']: claro_date("Y-m-d H:i:00");
+        $date         = array_key_exists('date', $event_args )  ? $event_args['date']: claro_date("Y-m-d H:i:s");
 
         if( array_key_exists('data', $event_args) )
         {
