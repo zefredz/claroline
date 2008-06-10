@@ -3,7 +3,7 @@
   <name>Wiki</name>
   <version>2.0</version>
   <license>GPL</license>
-  <icon>wiki.gif</icon>
+  <icon>icon.png</icon>
   <type>tool</type>
   <context>course</context>
   <context>group</context>

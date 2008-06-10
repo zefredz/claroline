@@ -133,14 +133,14 @@ if ( claro_is_user_authenticated() )
     $userCommands = array();
 
     $userCommands[] = '<a href="' . $_SERVER['PHP_SELF'] . '" class="claroCmd">'
-    .    '<img src="' . get_icon_url('course') . '" alt="" /> '
+    .    '<img src="' . get_icon_url('mycourses') . '" alt="" /> '
     .    get_lang('My course list')
     .    '</a>';
 
     if (claro_is_allowed_to_create_course()) // 'Create Course Site' command. Only available for teacher.
     {
         $userCommands[] = '<a href="claroline/course/create.php" class="claroCmd">'
-        .    '<img src="' . get_icon_url('course') . '" alt="" /> '
+        .    '<img src="' . get_icon_url('courseadd') . '" alt="" /> '
         .    get_lang('Create a course site')
         .    '</a>';
     }

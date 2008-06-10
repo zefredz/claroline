@@ -3,7 +3,7 @@
   <name>Users</name>
   <version>4.0</version>
   <license>GPL</license>
-  <icon>user.gif</icon>
+  <icon>icon.png</icon>
   <type>tool</type>
   <web>http://www.claroline.net/wiki/CLUSR/</web>
   <entry>user.php</entry>

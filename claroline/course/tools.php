@@ -448,7 +448,7 @@ if ( $currentSection == 'toolRights' )
     }
     
     echo '<p><small><span style="text-decoration: underline">' . get_lang('Right list') . '</span> : '
-        . '<img src="' . get_icon_url('block') . '" alt="' . get_lang('None') . '" /> '
+        . '<img src="' . get_icon_url('forbiden') . '" alt="' . get_lang('None') . '" /> '
         . get_lang('No access') . ' - '
         . '<img src="' . get_icon_url('user') . '" alt="' . get_lang('User') . '" />'
         . get_lang('Access allowed') . ' - '
@@ -633,7 +633,7 @@ elseif ( $currentSection == 'toolList' )
                 . htmlspecialchars($inactiveTool['label'])
                 .'&amp;section='.htmlspecialchars($currentSection).'" '
                 . 'title="'.get_lang('Add').'">'
-                . '<img src="' . get_icon_url('mark') . '" alt="'. get_lang('Add') . '"/>'
+                . '<img src="' . get_icon_url('select') . '" alt="'. get_lang('Add') . '"/>'
                 . '</a>'
                 ;
                 

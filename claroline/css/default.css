@@ -472,6 +472,20 @@ a.item:visited{
  *Visually the same as the claroTable headerX but can be used outside of a table 
  * best on a block type tag
  */
+ 
+ 
+/* debut greg */
+.header
+{
+    color: #369;
+    border-bottom: 1px solid #369;
+    font-weight: bold;
+    padding: 2px 5px 2px 5px;
+    background: #ffffff url(../img/tableaux.png) repeat-x;
+}
+/* fin greg */
+
+ /*
 .header
 {
     color: #693;
@@ -480,6 +494,9 @@ a.item:visited{
     background-color: #EDF1E3;
     border: 1px #96BB7A solid;
 }
+*/
+
+
 /******************************************************************************
                              CLAROLINE TABLE
  ******************************************************************************/
@@ -571,6 +588,18 @@ a.item:visited{
     color: #693;
 }
 
+/* debut greg */
+.claroTable .headerY th,
+.claroTable .headerX th {
+    color: #666666;
+    font-weight: bold;
+    padding: 2px 5px 2px 5px;
+    background-color: #EDEDED;
+    border: 1px #666666 solid;
+}
+/* fin greg */
+
+/*
 .claroTable .headerY th,
 .claroTable .headerX th {
     color: #693;
@@ -579,6 +608,7 @@ a.item:visited{
     background-color: #EDF1E3;
     border: 1px #96BB7A solid;
 }
+*/
 
 .claroTable .headerX th a
 {

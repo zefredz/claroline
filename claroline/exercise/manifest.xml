@@ -3,7 +3,7 @@
   <name>Exercises</name>
   <version>1.8</version>
   <license>GPL</license>
-  <icon>quiz.gif</icon>
+  <icon>icon.png</icon>
   <type>tool</type>
   <web>http://www.claroline.net/wiki/CLQWZ/</web>
   <entry>exercise.php</entry>

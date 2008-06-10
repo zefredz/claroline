@@ -1562,7 +1562,7 @@ if( $dispWrkLst )
             // display an alert if work was submitted after end date and work is not a correction !
             if( $assignment->getEndDate() < $thisWrk['unix_creation_date'] && !$is_feedback )
             {
-                  echo ' <img src="' . get_icon_url('caution') . '" alt="'.get_lang('Late upload').'" />';
+                  echo ' <img src="' . get_icon_url('warning') . '" alt="'.get_lang('Late upload').'" />';
             }
 
             echo '</div>' . "\n" 
@@ -1579,7 +1579,7 @@ if( $dispWrkLst )
                 // display an alert if work was submitted after end date and work is not a correction !
                 if( $assignment->getEndDate() < $thisWrk['unix_last_edit_date'] && !$is_feedback )
                 {
-                    echo ' <img src="' . get_icon_url('caution') . '" alt="'.get_lang('Late upload').'" />';
+                    echo ' <img src="' . get_icon_url('warning') . '" alt="'.get_lang('Late upload').'" />';
                 }
 
                 echo '</div>' . "\n" 

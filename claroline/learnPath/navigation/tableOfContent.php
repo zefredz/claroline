@@ -255,7 +255,7 @@ foreach ($flatElementList as $module)
 
         if($module['credit'] == 'CREDIT' || $module['lesson_status'] == 'COMPLETED' || $module['lesson_status'] == 'PASSED')
         {
-            echo '<img src="' . get_icon_url('mark') . '" alt="'.$module['lesson_status'].'" />';
+            echo '<img src="' . get_icon_url('select') . '" alt="'.$module['lesson_status'].'" />';
         }
         else
         {

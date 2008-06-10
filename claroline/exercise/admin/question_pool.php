@@ -325,7 +325,7 @@ if( !empty($questionList) )
             // re-use
             echo '<td align="center">'
             .     '<a href="question_pool.php?exId='.$exId.'&amp;cmd=rqUse&amp;quId='.$question['id'].'">'
-            .     '<img src="' . get_icon_url('mark') . '" alt="'.get_lang('Modify').'" />'
+            .     '<img src="' . get_icon_url('select') . '" alt="'.get_lang('Modify').'" />'
             .     '</a>'
             .     '</td>' . "\n";
         }

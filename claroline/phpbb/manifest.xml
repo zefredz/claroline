@@ -3,7 +3,7 @@
   <name>Forums</name>
   <version>1.8</version>
   <license>GPL</license>
-  <icon>forum.gif</icon>
+  <icon>icon.png</icon>
   <type>tool</type>
   <context>course</context>
   <context>group</context>

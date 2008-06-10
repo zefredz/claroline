@@ -160,7 +160,7 @@ class RightProfileToolRightHtml
                 if ( $action_right == 'none' )
                 {
                     $action_param_value = 'user';
-                    $html_right = '<img src="' . get_icon_url('block') . '" alt="' . get_lang('None') . '" />' . "\n" ;
+                    $html_right = '<img src="' . get_icon_url('forbiden') . '" alt="' . get_lang('None') . '" />' . "\n" ;
                 }
                 elseif ( $action_right == 'user' )
                 {

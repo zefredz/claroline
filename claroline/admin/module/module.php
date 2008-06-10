@@ -347,7 +347,7 @@ switch ($item)
                 . '?cmd='.$activ_form.'&module_id='.$module['module_id']
                 . '&item=GLOBAL" title="'
                 . get_lang('Activated - Click to deactivate').'">'
-                . '<img src="' . get_icon_url('mark')
+                . '<img src="' . get_icon_url('select')
                 . '" alt="'. get_lang('Activated') . '" /> '
                 . get_lang('Activated') . '</a>'
                 ;
@@ -359,7 +359,7 @@ switch ($item)
                 . '?cmd='.$activ_form.'&module_id='
                 . $module['module_id'].'&item=GLOBAL" '
                 . 'title="'.get_lang('Deactivated - Click to activate').'">'
-                . '<img src="' . get_icon_url('block')
+                . '<img src="' . get_icon_url('forbiden')
                 . '" alt="'. get_lang('Deactivated') . '"/> '
                 . get_lang('Deactivated') . '</a>'
                 ;
@@ -393,7 +393,7 @@ switch ($item)
                     . '?cmd='.$activ_form.'&module_id='.$module['module_id']
                     . '&item=GLOBAL" title="'
                     . get_lang('Automatic').'">'
-                    . '<img src="' . get_icon_url('mark')
+                    . '<img src="' . get_icon_url('select')
                     . '" alt="'. get_lang('Automatic') . '" /> '
                     . get_lang('Automatic') . '</a>'
                     ;
@@ -405,7 +405,7 @@ switch ($item)
                     . '?cmd='.$activ_form.'&module_id='
                     . $module['module_id'].'&item=GLOBAL" '
                     . 'title="'.get_lang('Manual').'">'
-                    . '<img src="' . get_icon_url('block')
+                    . '<img src="' . get_icon_url('forbiden')
                     . '" alt="'. get_lang('Manual') . '"/> '
                     . get_lang('Manual') . '</a>'
                     ;
