@@ -79,7 +79,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             {
                 if( !is_null($tool['label']) )
                 {
-                    $file = get_module_path($tool['label']) . '/connector/trackingRenderer.class.php';
+                    $file = get_module_path($tool['label']) . '/connector/tracking.cnr.php';
                     
                     if( file_exists( $file ) )
                     {

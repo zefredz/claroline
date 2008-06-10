@@ -1,4 +1,4 @@
-<?php // $Id: chatMsgList.class.php 415 2008-03-31 13:32:19Z fragile_be $
+<?php // $Id$
 if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
