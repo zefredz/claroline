@@ -68,7 +68,7 @@ function get_icon_url( $fileName, $moduleLabel = null )
         // claroline theme iconset
         get_current_iconset_path() => get_current_iconset_url(),
         // claroline web/img
-        get_path( 'rootSys' ) . 'web/img' => get_path('url') . '/web/img',
+        get_path( 'rootSys' ) . 'web/img/' => get_path('url') . '/web/img/',
         // module img directory
         get_module_path($moduleLabel).'/img/' => get_module_url($moduleLabel).'/img/',
         // module root directory
