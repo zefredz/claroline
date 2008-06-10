@@ -24,7 +24,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     require_once dirname(__FILE__) . '/class.wikistore.php';
     require_once dirname(__FILE__) . '/class.wikipage.php';
 
-    require_once dirname(__FILE__) . '/class.html_sanitizer.php';
+    uses( 'utils/htmlsanitizer.lib' );
 
     // PHP < 4.3.0
     if ( ! function_exists('html_entity_decode') )
@@ -65,7 +65,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             wiki2xhtml::wiki2xhtml();
 
             $this->wiki =& $wiki;
-            $this->san = new HTML_Sanitizer;
+            $this->san = new Claro_Html_Sanitizer;
 
             // set wiki rendering options
             // use wikiwords to link wikipages
