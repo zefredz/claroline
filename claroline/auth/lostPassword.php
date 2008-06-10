@@ -34,7 +34,7 @@ include_once(get_path('incRepositorySys') . '/lib/sendmail.lib.php');
 
 // Initialise variables
 
-$msg = '';
+$dialogBox = new DialogBox();
 $extAuthPasswordCount = 0;
 $passwordFound = false;
 $userAccountList = array();
@@ -129,44 +129,37 @@ if ( isset($_REQUEST['searchPassword']) && !empty($emailTo) )
             // send message
             if( claro_mail_user($userList[0]['uid'], $emailBody, $emailSubject) )
             {
-                $msg = get_lang('Your password has been emailed to'). ' : ' . $emailTo;
+                $dialogBox->success( get_lang('Your password has been emailed to'). ' : ' . $emailTo );
             }
             else
             {
-                $msg = get_lang('The system is unable to send you an e-mail.') . '<br />'
+                $dialogBox->error( get_lang('The system is unable to send you an e-mail.') . '<br />'
                 .   get_lang('Please contact') . ' : '
                 .   '<a href="mailto:' . get_conf('administrator_email') . '?BODY=' . $emailTo . '">'
                 .   get_lang('Platform Administrator')
-                .   '</a>';
+                .   '</a>' );
             }
         }
     }
     else
     {
-        $msg = '<p>' . get_lang('There is no user account with this email address.') . '</p>';
+        $dialogBox->error( get_lang('There is no user account with this email address.') );
     }
 
     if ($extAuthPasswordCount > 0 )
     {
         if ( $extAuthPasswordCount == count($userList) )
         {
-            $msg .= '<p>'
-                 . get_lang('Your password(s) is (are) recorded in an external authentication system outside the platform.') . '<br />'
-                 . get_lang('For more information take contact with the platform administrator.')
-                 . '</p>';
+            $dialogBox->warning( get_lang('Your password(s) is (are) recorded in an external authentication system outside the platform.') );
+            
         }
         else
         {
-            $msg .= '<p>'
-                 . get_lang('Passwords of some of your user account(s) are recorded an in external authentication system outside the platform.') . '<br />'
-                 . get_lang('For more information take contact with the platform administrator.')
-                 .  '</p>';
+            $dialogBox->warning( get_lang('Passwords of some of your user account(s) are recorded an in external authentication system outside the platform.') );
+
         }
+        $dialogBox->info( get_lang('For more information take contact with the platform administrator.') );
     }
-}
-else
-{
-    $msg = '<p>' . get_lang('Enter your email so we can send you your password.') . '</p>';
 }
 
 
@@ -183,7 +176,9 @@ echo claro_html_tool_title($nameTools);
 
 if ( ! $passwordFound )
 {
-    $msg .= '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">'
+    $dialogBox->title( get_lang('Enter your email so we can send you your password.') );
+    
+    $dialogBox->form( '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">'
     .       '<input type="hidden" name="searchPassword" value="1" />'
     .       '<label for="Femail">' . get_lang('Email') . ' : </label>'
     .       '<br />'
@@ -192,10 +187,10 @@ if ( ! $passwordFound )
     .       '<input type="submit" name="retrieve" value="' . get_lang('Ok') . '" />&nbsp; '
     .       claro_html_button(get_conf('urlAppend') . '/index.php', get_lang('Cancel'))
     .       '</form>'
-    ;
+    );
 }
 
-if ( ! empty($msg) ) echo claro_html_message_box($msg);
+echo $dialogBox->render();
 
 // display form
 
