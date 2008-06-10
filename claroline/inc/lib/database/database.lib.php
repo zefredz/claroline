@@ -3,10 +3,29 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * Light Object-Oriented Database Layer for Claroline
+ * Light-weight and extensible Object-Oriented Database Layer for Claroline
+ * the main goal is to have some of the advantages of mysqli or pdo
+ * and being compatible to the old Claroline kernel database connection.
  *
- * FIXME : move to inc/lib/database/database.lib.php and
- * replace old object-oriented database layer
+ * This library provides the following interfaces :
+ * 
+ * 1. Database_Connection interface provided to allow implementation of other
+ * database connections
+ * 2. Database_ResultSet interface provided to allow implementation of other
+ * database result sets
+ * 
+ * This library provides the following classes :
+ * 
+ * 1. Claroline_Database_Connection is an adapter build upon the Claroline
+ * kernel database connection and provided by the Claroline core class through
+ * Claroline::getDatabase()
+ * 2. Mysql_Database_connection is an adapater build upon the mysql extension
+ * provided to connect to other databases
+ * 3. Mysql_ResultSet implementation of Database_ResultSet to store and access
+ * database query result based on mysql extension and used by both
+ * Mysql_Database_Connection and Claroline_Database_Connection
+ * 4. Database_Connection_Exception exception class specific to database
+ * connections
  *
  * @version     1.9 $Revision$
  * @copyright   2001-2008 Universite catholique de Louvain (UCL)
@@ -18,7 +37,7 @@
  */
 
 /**
- * Specific Exception
+ * Database Specific Exception
  */
 class Database_Connection_Exception extends Exception{};
 
@@ -49,7 +68,7 @@ interface Database_Connection
     
     /**
      * Execute a query and returns the result set
-     * @return  MysqlResultSet
+     * @return  Mysql_ResultSet
      * @throws  Database_Connection_Exception
      */
     public function query( $sql );
@@ -210,7 +229,7 @@ class Mysql_Database_Connection implements Database_Connection
             throw new Database_Connection_Exception( "Error in {$sql} : ".@mysql_error($this->dbLink), @mysql_errno($this->dbLink) );
         }
         
-        $tmp = new MysqlResultSet( $res );
+        $tmp = new Mysql_ResultSet( $res );
         
         return $tmp;
     }
@@ -295,7 +314,7 @@ class Claroline_Database_Connection implements Database_Connection
             throw new Database_Connection_Exception( "Error in {$sql} : ".claro_sql_error(), claro_sql_errno() );
         }
         
-        $tmp = new MysqlResultSet( $result );
+        $tmp = new Mysql_ResultSet( $result );
         
         return $tmp;
     }
@@ -318,18 +337,10 @@ class Claroline_Database_Connection implements Database_Connection
 }
 
 /**
- * Mysql _Database_Connection Result Set class
- * implements iterator and countable interfaces for
- * array-like behaviour.
+ * Database_ResultSet generic interface
  */
-class MysqlResultSet implements Iterator, Countable
+interface Database_ResultSet extends SeekableIterator, Countable
 {
-    protected $mode;
-    protected $idx;
-    protected $valid;
-    protected $numrows;
-    protected $resultSet;
-    
     /**
      * Associative array fetch mode constant
      */
@@ -356,6 +367,49 @@ class MysqlResultSet implements Iterator, Countable
     const FETCH_VALUE = 'FETCH_VALUE';
     
     /**
+     * Set fetch mode
+     * @param   mixed $mode fetch mode
+     */
+    public function setFetchMode( $mode );
+    
+    /**
+     * Get the next row in the Result Set
+     * @param   mixed $mode fetch mode (optional, use internal fetch mode :
+     *      FETCH_ASSOC by default or set by setFetchMode())
+     * @return  mixed result row, returned data type depends on fetch mode :
+     *      FETCH_ASSOC, FETCH_NUM or FETCH_BOTH : array
+     *      FETCH_OBJECT : object representation of the current row
+     *      FETCH_VALUE : value of the first field in the current row
+     */
+    public function fetch( $mode = null );
+    
+    /**
+     * Get the number of rows in the result set
+     * @return  int
+     */
+    public function numRows();
+    
+    /**
+     * Check if the result set is empty
+     * @return  boolean
+     */
+    public function isEmpty();
+}
+
+/**
+ * Mysql _Database_Connection Result Set class
+ * implements iterator and countable interfaces for
+ * array-like behaviour.
+ */
+class Mysql_ResultSet implements Database_ResultSet
+{
+    protected $mode;
+    protected $idx;
+    protected $valid;
+    protected $numrows;
+    protected $resultSet;
+    
+    /**
      * @param   resource $result Mysql native resultset
      * @param   mixed $mode fetch mode (optional, default FETCH_ASSOC)
      */
@@ -378,9 +432,12 @@ class MysqlResultSet implements Iterator, Countable
         unset( $this->idx );
     }
     
+    // --- Database_ResultSet  ---
+    
     /**
-     * Set fetch mode
-     * @param   mixed $mode fetch mode
+     * Set the fetch mode
+     * @see     Database_ResultSet
+     * @return  void
      */
     public function setFetchMode( $mode )
     {
@@ -389,6 +446,7 @@ class MysqlResultSet implements Iterator, Countable
     
     /**
      * Get the number of rows in the result set
+     * @see     Database_ResultSet
      * @return  int
      */
     public function numRows()
@@ -398,6 +456,7 @@ class MysqlResultSet implements Iterator, Countable
     
     /**
      * Check if the result set is empty
+     * @see     Database_ResultSet
      * @return  boolean
      */
     public function isEmpty()
@@ -407,10 +466,18 @@ class MysqlResultSet implements Iterator, Countable
     
     /**
      * Get the next row in the Result Set
-     * @param   mixed $mode fetch mode (optional, default FETCH_ASSOC)
+     * @see     Database_ResultSet
+     * @param   mixed $mode fetch mode (optional, use internal fetch mode :
+     *      FETCH_ASSOC by default or set by setFetchMode())
+     * @return  mixed result row, returned data type depends on fetch mode :
+     *      FETCH_ASSOC, FETCH_NUM or FETCH_BOTH : array
+     *      FETCH_OBJECT : object representation of the current row
+     *      FETCH_VALUE : value of the first field in the current row
      */
-    public function fetch( $mode = self::FETCH_ASSOC )
+    public function fetch( $mode = null )
     {
+        $mode = empty( $mode ) ? $this->mode : $mode;
+        
         if ( $mode == self::FETCH_OBJECT )
         {
             return mysql_fetch_object( $this->resultSet );
@@ -428,20 +495,27 @@ class MysqlResultSet implements Iterator, Countable
         }
     }
     
-    // --- Countable methods ---
+    // --- Countable  ---
     
     /**
+     * Count the number of rows in the result set
+     * Usage :
+     *      $size = count( $resultSet );
+     * 
      * @see     Countable
+     * @return  int size of the result set (ie number of rows)
      */
     public function count()
     {
         return $this->numRows();
     }
     
-    // --- Iterator methods ---
+    // --- Iterator ---
     
     /**
+     * Check if the current position in the result set is valid
      * @see     Iterator
+     * @return  boolean
      */
     public function valid()
     {
@@ -449,26 +523,31 @@ class MysqlResultSet implements Iterator, Countable
     }
     
     /**
+     * Return the current row
      * @see     Iterator
+     * @see     Database_ResultSet::fetch() for return value data type
+     * @return  mixed, current row
      */
     public function current()
     {
         // Go to the correct data
-        @mysql_data_seek( $this->resultSet, $this->idx );
+        $this->seek( $this->idx );
         
         return $this->fetch( $this->mode );
     }
     
     /**
+     * Advance to the next row in the result set
      * @see     Iterator
      */
     public function next()
     {
         $this->idx++;
-        $this->valid = $this->idx < $this->numrows;
+        $this->valid = $this->idx < $this->numRows();
     }
     
     /**
+     * Rewind to the first row
      * @see     Iterator
      */
     public function rewind()
@@ -478,10 +557,37 @@ class MysqlResultSet implements Iterator, Countable
     }
     
     /**
+     * Return the index of the current row
      * @see     Iterator
+     * @return  int
      */
     public function key()
     {
         return $this->idx;
+    }
+    
+    // --- SeekableIterator ---
+    
+    /**
+     * Usage :
+     *      $resultSet->seek( 5 );
+     *      $r = $resultSet->fetch();
+     *      
+     * @see     SeekableIterator
+     * @param   int $idx
+     * @return  void
+     * @throws  OutOfBoundsException if invalid index
+     */
+    public function seek( $idx )
+    {
+        if ( $idx < $this->numRows() && $idx >= 0 && ! $this->isEmpty() && $this->valid() )
+        {
+            $this->idx = $idx;
+            @mysql_data_seek( $this->resultSet, $this->idx );
+        }
+        else
+        {
+            throw new OutOfBoundsException('Invalid seek position');
+        }
     }
 }
