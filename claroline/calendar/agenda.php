@@ -145,7 +145,7 @@ if ( $is_allowedToEdit )
 
             if ( CONFVAL_LOG_CALENDAR_INSERT )
             {
-                event_default('CALENDAR', array ('ADD_ENTRY' => $entryId));
+                $claroline->log('CALENDAR', array ('ADD_ENTRY' => $entryId));
             }
 
             // notify that a new agenda event has been posted
@@ -205,7 +205,7 @@ if ( $is_allowedToEdit )
             $autoExportRefresh = TRUE;
             if ( CONFVAL_LOG_CALENDAR_DELETE )
             {
-                event_default('CALENDAR',array ('DELETE_ENTRY' => $id));
+                $claroline->log('CALENDAR',array ('DELETE_ENTRY' => $id));
             }
         }
         else
@@ -228,7 +228,7 @@ if ( $is_allowedToEdit )
 
             if ( CONFVAL_LOG_CALENDAR_DELETE )
             {
-                event_default('CALENDAR', array ('DELETE_ENTRY' => 'ALL') );
+                $claroline->log('CALENDAR', array ('DELETE_ENTRY' => 'ALL') );
             }
         }
         else
