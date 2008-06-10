@@ -314,51 +314,6 @@ class ClaroNotification extends EventDriven
         return false;
     }
 
-    public function log( $event )
-    {
-        // même table que tracking platform mais on stocke aussi ip !
-        $event_args = $event->getArgs();
-
-        $cid        = array_key_exists('cid', $event_args) ? $event_args['cid'] : null;
-        $tid        = array_key_exists('tid', $event_args) ? $event_args['tid'] : null;
-        $uid        = array_key_exists('uid', $event_args) ? $event_args['uid'] : null;
-        $date         = array_key_exists('date', $event_args )  ? $event_args['date']: claro_date("Y-m-d H:i:00");
-
-        $ip         = !empty( $_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null;
-
-        if( array_key_exists('data', $event_args) )
-        {
-            $data = serialize( $event_args['data'] );
-        }
-        else
-        {
-            $data = '';
-        }
-
-        $eventType  = $event->getEventType();
-
-        if ( claro_debug_mode() )
-        {
-            Console::message( 'Data logged '
-                    . $eventType . ' : '
-                    . var_export( $event, true ) );
-        }
-
-        $tbl_mdb_names = claro_sql_get_main_tbl();
-        $tbl_log  = $tbl_mdb_names['log'];
-
-        $sql = "INSERT INTO `" . $tbl_log . "`
-                SET `course_code` = " . ( is_null($cid) ? "NULL" : "'" . addslashes($cid) . "'" ) . ",
-                    `tool_id` = ". ( is_null($tid) ? "NULL" : "'" . addslashes($tid) . "'" ) . ",
-                    `user_id` = ". ( is_null($uid) ? "NULL" : "'" . addslashes($uid) . "'" ) . ",
-                    `ip` = ". ( is_null($ip) ? "NULL" : "'" . addslashes($ip) . "'" ) . ",
-                    `date` = '" . $date . "',
-                    `type` = '" . addslashes($eventType) . "',
-                    `data` = '" . addslashes($data) . "'";
-
-        return claro_sql_query($sql);
-    }
-
     /*
      * About the red ball
      */
