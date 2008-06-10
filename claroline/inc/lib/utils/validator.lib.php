@@ -89,13 +89,13 @@ class Claro_Validator_ValueType implements Claro_Validator
      */    
     public function __construct( $type )
     {
-        if ( array_key_exists( $this->type, self::$supportedType ) )
+        if ( array_key_exists( $type, self::$supportedType ) )
         {
             $this->type = $type;
         }
         else
         {
-            throw new Claro_Validator_Exception("Unsupported type {$this->type}");
+            throw new Claro_Validator_Exception("Unsupported type {$type}");
         }
     }
     
