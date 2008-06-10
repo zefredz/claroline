@@ -300,7 +300,7 @@ class MyNotes extends UserDesktopPortlet
                 {
                     if( is_null($id) )
                     {
-                        $dialogBox->success( get_lang('Empty note successfully created') );
+                        $dialogBox->success( get_lang('Note successfully created') );
                         $id = $insertedId;
                     }
                     else
