@@ -240,7 +240,7 @@ function user_delete($userId)
     else
     {
         foreach ($courseList['code'] as $k=>$courseCode) $log['course_' . $k] = $courseCode;
-        event_default( 'UNROL_USER_COURS' , array_merge( array ('USER' => $userId ) ,$log));
+        $claroline->log( 'UNROL_USER_COURS' , array_merge( array ('USER' => $userId ) ,$log));
     }
     $sqlList = array(
 
@@ -254,7 +254,7 @@ function user_delete($userId)
     "UPDATE `" . $tbl['user'] . "` SET `creatorId` = NULL WHERE `creatorId` = " . (int) $userId
 
     );
-    event_default( 'USER_DELETED' , array_merge( array ('USER' => $userId ) ));
+    $claroline->log( 'USER_DELETED' , array_merge( array ('USER' => $userId ) ));
 
     foreach($sqlList as $thisSql)
     {
