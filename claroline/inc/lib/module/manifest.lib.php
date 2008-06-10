@@ -145,7 +145,8 @@ class ModuleManifestParser
         }
         
         // Set default module context
-        if ( ! array_key_exists( 'CONTEXTS', $this->moduleInfo ) )
+        if ( ! array_key_exists( 'CONTEXTS', $this->moduleInfo )
+            || empty($this->moduleInfo['CONTEXTS']) )
         {
             if ( strtoupper( $this->moduleInfo['TYPE'] ) == 'TOOL' )
             {
