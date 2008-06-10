@@ -24,7 +24,7 @@ class CLQWZ_CourseTrackingRenderer extends CourseTrackingRenderer
     {
         $this->courseId = $courseId;
         
-        $tbl_cdb_names = get_module_course_tbl( array( 'qwz_exercise', 'qwz_tracking' ), claro_get_current_course_id() );
+        $tbl_cdb_names = get_module_course_tbl( array( 'qwz_exercise', 'qwz_tracking' ), $courseId );
         $this->tbl_qwz_exercise = $tbl_cdb_names['qwz_exercise'];
         $this->tbl_qwz_tracking = $tbl_cdb_names['qwz_tracking'];
     }
@@ -62,7 +62,7 @@ class CLQWZ_CourseTrackingRenderer extends CourseTrackingRenderer
             foreach( $results as $result )
             {
                     $html .= '<tr>'."\n"
-                    .   '<td><a href="../exercise/track_exercises.php?exId='.$result['exe_exo_id'].'">'.$result['title'].'</a></td>'."\n"
+                    .   '<td><a href="../exercise/track_exercises.php?exId='.$result['exo_id'].'">'.$result['title'].'</a></td>'."\n"
                     .   '<td align="right">'.$result['nbr_distinct_user_attempts'].'</td>'."\n"
                     .   '<td align="right">'.$result['nbr_total_attempts'].'</td>'."\n"
                     .   '</tr>'."\n\n"
@@ -108,7 +108,7 @@ class CLQWZ_UserTrackingRenderer extends UserTrackingRenderer
         $this->courseId = $courseId;
         $this->userId = (int) $userId;
         
-        $tbl_cdb_names = get_module_course_tbl( array( 'qwz_exercise', 'qwz_tracking' ), claro_get_current_course_id() );
+        $tbl_cdb_names = get_module_course_tbl( array( 'qwz_exercise', 'qwz_tracking' ), $courseId );
         $this->tbl_qwz_exercise = $tbl_cdb_names['qwz_exercise'];
         $this->tbl_qwz_tracking = $tbl_cdb_names['qwz_tracking'];
         
@@ -126,9 +126,21 @@ class CLQWZ_UserTrackingRenderer extends UserTrackingRenderer
         
         $exerciseResults = $this->prepareContent();
         
-        $html = '';
+        $jsloader = JavascriptLoader::getInstance();
+        $jsloader->load('jquery');
         
-        $html = '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center">' . "\n"
+        $html = '<script language="javascript" type="text/javascript">' . "\n"
+        .    ' $(document).ready(function() {'
+        .    '  $(\'.exerciseDetails\').hide();'
+        .    '  $(\'.exerciseDetailsToggle\').click( function()'
+        .    '  {'
+        .    '   $(this).next(".exerciseDetails").toggle();'
+        .    '   return false;'
+        .    '  });'
+        .    ' });' 
+        .    '</script>'."\n\n";
+        
+        $html .= '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center">' . "\n"
         .    '<tr class="headerX">' . "\n"
         .    '<th>' . get_lang('Exercises').'</th>' . "\n"
         .    '<th>' . get_lang('Worst score').'</th>' . "\n"
@@ -145,8 +157,8 @@ class CLQWZ_UserTrackingRenderer extends UserTrackingRenderer
             $html .= '<tbody>' . "\n";
             foreach( $exerciseResults as $result )
             {
-                $html .= '<tr>' . "\n"
-                .    '<td><a href="userReport.php?userId='.(int) $this->userId.'&amp;cidReq='.$this->courseId.'&amp;exId='.(int) $result['id'].'">'.htmlspecialchars($result['title']).'</td>' . "\n"
+                $html .= '<tr class="exerciseDetailsToggle">' . "\n"
+                .    '<td><a href="#">'.htmlspecialchars($result['title']).'</td>' . "\n"
                 .    '<td>'.(int) $result['minimum'].'</td>' . "\n"
                 .    '<td>'.(int) $result['maximum'].'</td>' . "\n"
                 .    '<td>'.(round($result['average']*10)/10).'</td>' . "\n"
@@ -155,13 +167,13 @@ class CLQWZ_UserTrackingRenderer extends UserTrackingRenderer
                 .    '<td>'.$result['lastAttempt'].'</td>' . "\n"
                 .    '</tr>' . "\n";
     
-                // display details of the exercise, all attempts
-                if ( isset($exId) && $exId == $result['id'])
-                {
-                    $exerciseDetails = $this->getUserExerciceDetails($exId);
+                // details
+                $exerciseDetails = $this->getUserExerciceDetails($result['id']);
     
-                    $html .= '<tr>'
-                    .    '<td class="noHover">&nbsp;</td>' . "\n"
+                if( is_array($exerciseDetails) && !empty($exerciseDetails) )
+                {
+                    $html .= '<tr class="exerciseDetails" >'
+                    .    '<td>&nbsp;</td>' . "\n"
                     .    '<td colspan="6" class="noHover">' . "\n"
                     .    '<table class="claroTable emphaseLine" cellspacing="1" cellpadding="2" border="0" width="100%">' . "\n"
                     .    '<tr class="headerX">' . "\n"
@@ -183,7 +195,6 @@ class CLQWZ_UserTrackingRenderer extends UserTrackingRenderer
                     .    '</table>' . "\n\n"
                     .    '</td>' . "\n"
                     .    '</tr>' . "\n";
-    
                 }
     
             }
