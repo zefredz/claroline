@@ -108,7 +108,7 @@ else
 if( $is_allowedToTrack )
 {
     $title['mainTitle'] = $nameTools;
-    $title['subTitle'] = claro_get_tool_name($toolId);
+    $title['subTitle'] = claro_get_tool_name(claro_get_tool_id_from_course_tid($toolId));
 
     $html .= claro_html_tool_title( $title );
     

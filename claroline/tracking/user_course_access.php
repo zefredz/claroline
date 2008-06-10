@@ -216,13 +216,13 @@ if( !empty($accessList) && is_array($accessList) )
                 FROM `".$tbl_course_tracking_event."`
                 WHERE `user_id` = '". (int) $userId."'
                     AND `type` = 'tool_access'
-                    AND `date` > '" . $accessList[$i]['date'] . "'
+                    AND `date` >= '" . $accessList[$i]['date'] . "'
                     AND `date` < '" . $limit . "'
                 GROUP BY `tool_id`
                 ORDER BY `tool_id` ASC";
 
         $toolAccess = claro_sql_query_fetch_all($sql);
-
+        
         if( !empty($toolAccess) && is_array($toolAccess) )
         {
             $html .= '<tr>' . "\n"
@@ -232,7 +232,7 @@ if( !empty($accessList) && is_array($accessList) )
             foreach( $toolAccess as $aToolAccess )
             {
                 $html .= '<tr>' . "\n"
-                .    '<td width="70%"><small>' . claro_get_tool_name($aToolAccess['tool_id']) . '</small></td>' . "\n"
+                .    '<td width="70%"><small>' . claro_get_tool_name(claro_get_tool_id_from_course_tid($aToolAccess['tool_id'])) . '</small></td>' . "\n"
                 .    '<td width="30%" align="right"><small>' . $aToolAccess['nbr_access'] . ' ' . get_lang('Visits').'</small></td>' . "\n"
                 .    '</tr>' . "\n"
                 ;

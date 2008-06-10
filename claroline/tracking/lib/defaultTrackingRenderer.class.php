@@ -3,9 +3,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2008 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -184,7 +184,7 @@ class CLTRACK_CourseToolAccess extends CourseTrackingRenderer
             {
                 $thisTid = (int) $result['tool_id'];
                 // FIXME check that claro_get_tool_name returns a toolname... check that tool exists
-                $thisToolName = claro_get_tool_name($thisTid);
+                $thisToolName = claro_get_tool_name(claro_get_tool_id_from_course_tid($thisTid));
                 
                 $html .= '<tr>' . "\n"
                 .    '<td>'
