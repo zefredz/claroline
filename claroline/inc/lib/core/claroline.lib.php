@@ -22,7 +22,8 @@ if ( count( get_included_files() ) == 1 )
 }
 
 uses( 'core/debug.lib', 'core/console.lib', 'core/event.lib'
-    , 'core/notify.lib', 'display/display.lib', 'database/database.lib' );
+    , 'core/notify.lib', 'display/display.lib', 'database/database.lib'
+    , 'core/log.lib' );
 
 define ( 'CL_PAGE',     'CL_PAGE' );
 define ( 'CL_FRAMESET', 'CL_FRAMESET' );
@@ -52,6 +53,8 @@ class Claroline
     public $notifier;
     // Display object
     public $display;
+    // logger
+    public $logger;
     
     // this class is a singleton, use static method getInstance()
     private function __construct()
@@ -70,6 +73,9 @@ class Claroline
             $this->eventManager = EventManager::getInstance();
             $this->notification = ClaroNotification::getInstance();
             $this->notifier = ClaroNotifier::getInstance();
+            
+            // initialize logger
+            $this->logger = new Logger();
             
             // initialize set the default display mode
             $this->setDisplayType();
@@ -132,5 +138,10 @@ class Claroline
     public static function getDatabase()
     {
         return self::getInstance()->database;
+    }
+    
+    public static function log( $type, $data )
+    {
+        self::getInstance()->logger->log($type, $data);
     }
 }
