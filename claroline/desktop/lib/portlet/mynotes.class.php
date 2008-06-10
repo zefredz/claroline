@@ -315,7 +315,7 @@ class MyNotes extends UserDesktopPortlet
             }
             else
             {
-                $dialogBox->error( get_lang('Le champ Note est requis !') );
+                $dialogBox->error( get_lang('The fields Notes is required !') );
                 $cmd = 'rqCreate';
             }
         }
@@ -338,8 +338,8 @@ class MyNotes extends UserDesktopPortlet
 
             // note
             $htmlEditForm .= "\n"
-            .    '<strong>' . get_lang('Ajout d\'une note') . ' : </strong><br />' . "\n"
-            .    '<label for="note">' . get_lang('Note') . '</label>&nbsp;<span class="required">*</span> : ' . "\n"
+            .    '<strong>' . get_lang('Add note') . ' : </strong><br />' . "\n"
+            .    '<label for="note">' . get_lang('Notes') . '</label>&nbsp;<span class="required">*</span> : ' . "\n"
             .    '<textarea name="note" id="note" cols="50" rows="5">' . $this->getNote() . '</textarea>' . "\n"
             .    '<br /><br />' . "\n"
             // end form
