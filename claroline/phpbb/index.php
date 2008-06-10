@@ -376,7 +376,7 @@ foreach ( $categories as $this_category )
                 if ($forumIterator > 1)
                 {
                     echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exMvUpForum&amp;forumId='.$forum_id.'">'
-                    .    '<img src="' . get_icon_url('up') . '" alt="'.get_lang('Move up').'" />'
+                    .    '<img src="' . get_icon_url('move_up') . '" alt="'.get_lang('Move up').'" />'
                     .    '</a>';
                 }
                 else echo '&nbsp;';
@@ -388,7 +388,7 @@ foreach ( $categories as $this_category )
                 if ( $forumIterator < $this_category['forum_count'] )
                 {
                     echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exMvDownForum&amp;forumId='.$forum_id.'">'
-                    .    '<img src="' . get_icon_url('down') . '" alt="'.get_lang('Move down').'" />'
+                    .    '<img src="' . get_icon_url('move_down') . '" alt="'.get_lang('Move down').'" />'
                     .    '</a>';
                 }
                 else echo '&nbsp;';
