@@ -335,7 +335,7 @@ if( DISP_ADMINISTRATIVE_SETTING == $_REQUEST['fromPanel'] )
 
     if($administrativeDataMissing)
     {
-        $msg_missing_administrative_data = '<div class="dialogError">'
+        $msg_missing_administrative_data = '<div class="claroDialogBox boxError">'
         .    '<p>' . "\n"
         .    '<strong>'.get_lang('Error').'</strong> : '
         .    get_lang('Please enter missing information')
@@ -372,7 +372,7 @@ if ($_REQUEST['fromPanel'] == DISP_DB_CONNECT_SETTING || $_REQUEST['cmdDoInstall
         $no  = mysql_errno();
         $msg = mysql_error();
         $msg_no_connection = 
-                '<div class="dialogError">'
+                '<div class="claroDialogBox boxError">'
                 .    '<p>'
                 .     '<strong>'.get_lang('Error').'</strong> : '
                 .    '</p>';
@@ -517,7 +517,7 @@ if($_REQUEST['fromPanel'] == DISP_PLATFORM_SETTING || $_REQUEST['cmdDoInstall'])
 
     if(empty($urlForm) || empty($campusForm) )
     {
-        $msg_missing_platform_data = '<div class="dialogError">'
+        $msg_missing_platform_data = '<div class="claroDialogBox boxError">'
         .    '<p>' . "\n"
         .     '<strong>'.get_lang('Error').'</strong> : '
         .     get_lang('Please enter missing information')
@@ -852,7 +852,7 @@ elseif ($display == DISP_WELCOME)
     ||   file_exists('../include/config.inc.php')
     ||   file_exists('../include/config.php'))
     {
-        echo '<div class="dialogWarning">'
+        echo '<div class="claroDialogBox boxWarning">'
         .    '<p>' . "\n"
         .    '<strong>'.get_lang('Warning !').'</strong>'
         .    ' : ' . get_lang('The installer has detected an existing Claroline platform on your system.') . "\n"
@@ -884,7 +884,7 @@ elseif ($display == DISP_WELCOME)
 
     if(!$stable)
     {
-        echo '<div class="dialogWarning">'
+        echo '<div class="claroDialogBox boxWarning">'
         .    '<p>' . "\n"
         .    '<strong>'.get_lang('Warning !').'</strong>'
         .    ' : ' . get_lang('This version is not considered stable and is not intended for production.')
@@ -1138,7 +1138,7 @@ elseif(DISP_DB_NAMES_SETTING == $display )
     if( isset($databaseNameValid) && !$databaseNameValid )
     {
 
-        echo '<div class="dialogError">'  . "\n"
+        echo '<div class="claroDialogBox boxError">'  . "\n"
         .    '<p>' . "\n"
         .    '<strong>'.get_lang('Error').'</strong> '  . "\n"
         .    ' : ' . get_lang('Database <em>%dbName</em> is not valid.', array('%dbName' => $dbNameForm) ) . "\n"
@@ -1161,7 +1161,7 @@ elseif(DISP_DB_NAMES_SETTING == $display )
     
     if ($mainDbNameExist)
     {
-        echo '<div class="dialogWarning">'  . "\n"
+        echo '<div class="claroDialogBox boxWarning">'  . "\n"
         .    '<p>' . "\n"
         .    '<strong>'.get_lang('Warning').'</strong>'  . "\n"
         .    ' : ' . get_lang('Database <em>%dbName</em> already exists.', array('%dbName' => $dbNameForm) ) . "\n"
@@ -1181,7 +1181,7 @@ elseif(DISP_DB_NAMES_SETTING == $display )
     
     if (!$singleDbForm && ($statsDbNameExist && $dbStatsForm != $dbNameForm) )
     {
-        echo '<div class="dialogWarning">'  . "\n"
+        echo '<div class="claroDialogBox boxWarning">'  . "\n"
         .    '<p>' . "\n"
         .    '<strong>'.get_lang('Warning').'</strong>'  . "\n"
         .    ' : ' . get_lang('Database <em>%dbName</em> already exists.', array('%dbName' => $dbStatsForm) )   . "\n"
@@ -1304,7 +1304,7 @@ elseif(DISP_ADMINISTRATOR_SETTING == $display )
     
     if( is_array($missing_admin_data) || is_array($error_in_admin_data) )
     {
-        echo '<div class="dialogError">'  . "\n"
+        echo '<div class="claroDialogBox boxError">'  . "\n"
         .    '<p>' . "\n"
         .     '<strong>'.get_lang('Error').'</strong> : '
         .     get_lang('Please enter missing information')
@@ -1879,14 +1879,14 @@ elseif($display==DISP_DB_NAMES_SETTING_ERROR)
     {
         echo "<hr />";
         if ($mainDbNameExist)
-            echo '<div class="dialogWarning">' . "\n"
+            echo '<div class="claroDialogBox boxWarning">' . "\n"
             .    '<strong>'.get_lang('Warning').'</strong> : '.get_lang('Database (<em>%dbName</em>) already exists', array('%dbName' => $dbNameForm)) . '<br />' . "\n"
             .    '<input type="checkbox" name="confirmUseExistingMainDb"  id="confirmUseExistingMainDb" value="true" '.($confirmUseExistingMainDb?'checked':'').' />' . "\n"
             .    '<label for="confirmUseExistingMainDb" >'.get_lang('I know, I want to use this database as "%fieldname"', array( '%fieldname' => get_lang('Main database'))).'</label>' . "\n"
             .    '</div>'
             ;
         if ($statsDbNameExist && $dbStatsForm!=$dbNameForm)
-            echo '<div class="dialogWarning">' . "\n"
+            echo '<div class="claroDialogBox boxWarning">' . "\n"
             .    '<strong>'.get_lang('Warning').'</strong> : '.get_lang('Database (<em>%dbName</em>) already exists', array('%dbName' => $dbStatsForm)) . '<br />' . "\n"
             .    '<br />' . "\n"
             .    '<input type="checkbox" name="confirmUseExistingStatsDb"  id="confirmUseExistingStatsDb" value="true" '.($confirmUseExistingStatsDb?'checked':'') . ' />' . "\n"
@@ -2041,7 +2041,7 @@ elseif(DISP_RUN_INSTALL_COMPLETE == $display)
     echo '<h2>'
     .    $panelTitle[DISP_RUN_INSTALL_COMPLETE]
     .    '</h2>' . "\n"
-    .    '<div class="dialogWarning">'
+    .    '<div class="claroDialogBox boxWarning">'
     .    '<p>'
     .     '<strong>'.get_lang('Warning').'</strong> : '
     .    get_lang('We highly recommend that you <strong>protect or remove the <em>/claroline/install/</em> directory</strong>.') . "\n"
