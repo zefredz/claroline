@@ -34,7 +34,7 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
 {
     if( isset($_REQUEST['cmd']) && ( $_REQUEST['cmd'] == 'tool' && !empty($_REQUEST['id']) ) )
     {
-        $toolTitle['subTitle'] = claro_get_tool_name((int)$_REQUEST['id']);
+        $toolTitle['subTitle'] = claro_get_tool_name(claro_get_tool_id_from_course_tid((int)$_REQUEST['id']));
 
 
         // prepare SQL query
