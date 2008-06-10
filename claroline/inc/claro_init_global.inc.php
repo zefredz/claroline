@@ -176,12 +176,6 @@ if ($statsDbName == '')
 }
 
 /*----------------------------------------------------------------------
-  Include the events library for tracking
-  ----------------------------------------------------------------------*/
-
-require get_path('incRepositorySys') . '/lib/events.lib.inc.php';
-
-/*----------------------------------------------------------------------
   Include the local (contextual) parameters of this course or section
   ----------------------------------------------------------------------*/
 
@@ -233,8 +227,8 @@ $claro_notifier = $claroline->notification;
 //
 //  $claroline->notification->addListener( 'document_visible', 'update' );
 //
-// 'update' is the name of the function called in the listener class when the event happens
 // 'document_visible' is the name of the event that you want to track
+// 'update' is the name of the function called in the listener class when the event happens
 
 // register listener for access to platform
 $claroline->notification->addListener( 'platform_access', 'trackPlatformAccess');
