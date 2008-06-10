@@ -59,8 +59,12 @@ class Claroline
         try
         {
             // Create main database connection
-            Database::loadDriver('claroline');
-            $this->database = Database::getMainConnection();
+            // Database::loadDriver('claroline');
+            // $this->database = Database::getMainConnection();
+
+            $this->database = new Claroline_Database_Connection;
+            // not mandatory for Claroline_Database_Connection but API needs it
+            $this->database->connect();
         
             // initialize the event manager and notification classes
             $this->eventManager = EventManager::getInstance();
@@ -119,9 +123,14 @@ class Claroline
     {
         if ( ! self::$instance )
         {
-            self::$instance = new Claroline;
+            self::$instance = new self;
         }
 
         return self::$instance;
+    }
+
+    public static function getDatabase()
+    {
+        return self::getInstance()->database;
     }
 }
