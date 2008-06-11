@@ -2135,7 +2135,7 @@ echo claro_html_tool_title($titleElement,
                         echo '<a class="'.$style.' item'.$classItem.'" href="'.$urlFileName.'" '.$target.' >';
                 } // end if is_image
 
-                echo '<img src="' . get_icon_url($image) . '" alt="" />'.$dspFileName.'</a>';
+                echo '<img src="' . get_icon_url($image) . '" alt="" /> '.$dspFileName.'</a>';
 
                 echo '</td>' . "\n"
 
