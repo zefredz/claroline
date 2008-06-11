@@ -35,39 +35,74 @@ function choose_image($fileName)
 
     if (!$type || !$image)
     {
-        $type['word'      ] = array('doc', 'dot', 'rtf', 'mcw', 'wps');
-        $type['web'       ] = array('htm', 'html', 'htx', 'xml', 'xsl', 'php');
-        $type['image'     ] = array('gif', 'jpg', 'png', 'bmp', 'jpeg');
-        $type['audio'     ] = array('wav', 'midi', 'mp2', 'mp3', 'mp4', 'vqf');
-        $type['excel'     ] = array('xls', 'xlt');
-        $type['compressed'] = array('zip', 'tar', 'rar', 'gz');
-        $type['code'      ] = array('js', 'cpp', 'c', 'java');
-        $type['acrobat'   ] = array('pdf');
-        $type['powerpoint'] = array('ppt', 'pps');
-        $type['link'      ] = array('url');
-        $type['writer'      ] = array('odt');
-        $type['calc'      ] = array('ods');
-        $type['base'      ] = array('odb');
-        $type['draw'      ] = array('odg');
-        $type['impress'      ] = array('odp');
-        $type['math'      ] = array('odf');
+        $type['package']    = array("gz", "bz2", "zip", "tar", "rar");
+        $image['package']   = "package-x-generic";
+        
+        $type['pgp']        = array("pgp");
+        $image['pgp']       = "text-x-pgp";
 
-        $image['word'      ] = 'doc.gif';
-        $image['web'       ] = 'html.gif';
-        $image['image'     ] = 'gif.gif';
-        $image['audio'     ] = 'wav.gif';
-        $image['excel'     ] = 'xls.gif';
-        $image['compressed'] = 'zip.gif';
-        $image['code'      ] = 'js.gif';
-        $image['acrobat'   ] = 'pdf.gif';
-        $image['powerpoint'] = 'ppt.gif';
-        $image['link'      ] = 'link.gif';
-        $image['writer'    ] = 'odt.png';
-        $image['calc'      ] = 'ods.png';
-        $image['base'      ] = 'odb.png';
-        $image['draw'      ] = 'odg.png';
-        $image['impress'   ] = 'odp.png';
-        $image['math'      ] = 'odf.png';
+        $type['link']       = array("url", "htm", "html", "htx", "swf");
+        $image['link']      = "link";
+
+        $type['exe']        = array("sh", "exe");
+        $image['exe']       = "applications-system";
+        
+        $type['script']     = array("js", "css", "xsl", "pl", "plm", "ml" ,"lsp", "cls");
+        $image['script']    = "text-x-script";
+        
+        $type['php']        = array("php");
+        $image['php']       = "application-x-php";
+        
+        $type['python']     = array("py");
+        $image['python']    = "text-x-python";
+        
+        $type['ruby']       = array("rb");
+        $image['ruby']      = "application-x-ruby";
+        
+        $type['code']       = array("c", "h", "cpp", "java");
+        $image['code']      = "text-x-code";
+
+        $type['text']       = array("xml", "tex", "txt", "rtf");
+        $image['text']      = "text-x-generic";
+
+        $type['pdf']        = array("pdf");
+        $image['pdf']       = "pdf";
+        
+        $type['ps']         = array("ps");
+        $image['ps']        = "x-office-document";
+
+        $type['audio']      = array("ogg", "wav", "midi", "mp2", "mp3", "mp4", "vqf");
+        $image['audio']     = "audio-x-generic";
+        
+        $type['video']      = array("avi", "mpg", "mpeg", "mov", "wmv");
+        $image['video']     = "video-x-generic";
+
+        $type['image']      = array("png", "jpeg", "jpg", "xcf", "gif", "bmp");
+        $image['image']     = "image-x-generic";
+        
+        $type['drawing']    = array("svg", "odg");
+        $image['drawing']   = "x-office-drawing";
+
+        $type['model']      = array("step", "stp", "iges", "igs", "e3", "sldprt", "sldasm","3dm");
+        $image['model']     = "model-generic";
+        
+        $type['model-facet'] = array("blend", "stl", "wrl", "obj");
+        $image['model-facet'] = "model-facet";
+        
+        $type['odt']        = array("odt", "doc", "docx", "dot", "mcw", "wps");
+        $image['odt']       = "x-office-document";
+        
+        $type['ods']        = array("ods", "xls", "xlsx", "xlt");
+        $image['ods']       = "x-office-spreadsheet";
+        
+        $type['odp']        = array("odp", "ppt", "pptx", "pps");
+        $image['odp']       = "x-office-presentation";
+        
+        $type['odf']        = array("odf");
+        $image['odf']       = "x-office-formula";
+
+        $type['font']       = array("ttf");
+        $image['font']      = "font-x-generic";        
     }
 
     /* FUNCTION CORE */
@@ -81,12 +116,12 @@ function choose_image($fileName)
         {
             if (in_array($extension[1], $typeList))
             {
-                return$image[$genericType];
+                return 'mine/' . $image[$genericType];
             }
         }
     }
 
-    return 'default.gif';
+    return 'mine/default';
 }
 
 //------------------------------------------------------------------------------
