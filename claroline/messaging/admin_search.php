@@ -113,7 +113,7 @@ if (isset($_REQUEST['search']) && in_array($_REQUEST['search'],$acceptedSearch))
     if ($arguments['search'] == 'fromUser')
     {
         $name = isset($_REQUEST['name']) ? trim(strip_tags($_REQUEST['name'])) : NULL; 
-        $title = get_lang("User's messages");
+        $title = get_lang('All messages from a user');
         if (is_null($name) || $name == "")
         {
             $displayTable = FALSE;
@@ -127,7 +127,7 @@ if (isset($_REQUEST['search']) && in_array($_REQUEST['search'],$acceptedSearch))
 
     if ($arguments['search'] == 'olderThan')
     {
-        $title = get_lang("Messages older than");
+        $title = get_lang('All messages older than');
         
         $date = isset($_REQUEST['date']) ? $_REQUEST['date'] : NULL;
         
@@ -160,7 +160,7 @@ if (isset($_REQUEST['search']) && in_array($_REQUEST['search'],$acceptedSearch))
     
     if ($arguments['search'] == 'timeInterval')
     {
-        $title = get_lang("Message dating");
+        $title = get_lang('All messages in date interval');
         
         $date1 = isset($_REQUEST['date1']) ? $_REQUEST['date1'] : NULL;
         
@@ -208,13 +208,13 @@ if (isset($_REQUEST['search']) && in_array($_REQUEST['search'],$acceptedSearch))
 
     if ($arguments['search'] == 'platformMessage')
     {
-        $title = get_lang("Platform messages");
+        $title = get_lang('All messages older than');
         $strategy->setStrategy(AdminBoxStrategy::PLATFORM_MESSAGE);
     }    
 }
 else
 {
-    claro_die("missing search");
+    claro_redirect('./admin.php');
 }
 
 if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCommand))
@@ -317,7 +317,7 @@ if ($arguments['search'] == 'fromUser')
     $dialogbox = new DialogBox();
     $dialogbox->form($searchForm);
     
-    $content .= "<br />".$dialogbox->render();
+    $content .= $dialogbox->render();
 }
 
 if ($arguments['search'] == 'olderThan')
@@ -373,16 +373,20 @@ if ($arguments['search'] == 'timeInterval')
     $javascript = '
         <script type="text/javascript" charset="utf-8">
             $(document).ready( function(){
-                $("#dateinput1").datepicker({dateFormat: \'dd/mm/yy\'});
-                $("#dateinput2").datepicker({dateFormat: \'dd/mm/yy\'});
+                $(".daterange").datepicker({dateFormat: \'dd/mm/yy\', beforeShow: customRange});
+                
+                function customRange(input) { 
+                    return {minDate: (input.id == \'dateinput2\' ? $(\'#dateinput1\').datepicker(\'getDate\') : null), 
+                    maxDate: (input.id == \'dateinput1\' ? $(\'#dateinput2\').datepicker(\'getDate\') : null)}; 
+                } 
             });
         </script>';
     $claroline->display->header->addHtmlHeader($javascript);    
     $disp = '
         Select a interval:<br />'."\n"
         . '<form action="'.$_SERVER['PHP_SELF'].'?search=timeInterval" method="post">'."\n"
-        . get_lang('From').' <input type="text" name="date1" value="'.$date1.'" id="dateinput1" /> '."\n"
-        . get_lang('to').' <input type="text" name="date2" value="'.$date2.'" id="dateinput2" /> '.get_lang('(JJ/MM/AAAA)').'<br />'."\n"
+        . get_lang('From').' <input type="text" name="date1" value="'.$date1.'" class="daterange" id="dateinput1" /> '."\n"
+        . get_lang('to').' <input type="text" name="date2" value="'.$date2.'" class="daterange" id="dateinput2" /> '.get_lang('(jj/mm/aaaa)').'<br />'."\n"
         . '<input type="submit" value="'.get_lang('search').'" />'."\n"
         . '</form>'."\n\n"
         ;
@@ -411,7 +415,6 @@ if ($displayTable)
         {
            if ( $("input[@type=checkbox][@checked]").size() < 1 )
            {
-               alert("No document selected !");
                return false;
            }
         
@@ -432,7 +435,7 @@ if ($displayTable)
                     onsubmit="return deleteSelection(this)">'."\n"
             . '<input type="hidden" name="cmd" value="rqDeleteSelection" />'."\n\n"
             ;
-    $content .= "<br />"
+    $content .= '<br />'
        .'<table class="claroTable emphaseLine" width="100%">'."\n\n"
        .'<tr class ="headerX">'."\n"
        .'<th>&nbsp;</th>'."\n"
@@ -445,10 +448,12 @@ if ($displayTable)
        ;
     if ($box->getNumberOfMessage() == 0)
     {
-        $content .= 
-            '<tr>'."\n"
-           .'<td colspan="6">'.get_lang('There is no message corresponding on your request').'</td>'."\n"
-           .'</tr>' 
+        $content .= '<tfoot>' . "\n" 
+        .   '<tr>' . "\n"
+        .   '<td colspan="6">' . get_lang('No result') . '</td>' . "\n"
+        .   '</tr>' . "\n"
+        .   '</tfoot>' . "\n"
+        .   '</table>' . "\n"   
            ;
     }
     else 
@@ -500,9 +505,10 @@ if ($displayTable)
                 .'</tr>'."\n\n"
                 ;
        }
-       $content .= '<tr><td colspan="6"><input type="submit" value="'.get_lang('Delete message selected').'" /></td></tr>'."\n\n";
+       $content .= '</table>'
+       .    '<input type="submit" value="'.get_lang('Delete selected message(s)').'" />'."\n\n";
    }
-   $content .= '</table>';
+
    $content .= '</form>';
     // prepare the link to change of page
     if ($box->getNumberOfPage()>1)
