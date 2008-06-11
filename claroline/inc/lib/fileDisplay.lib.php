@@ -116,12 +116,12 @@ function choose_image($fileName)
         {
             if (in_array($extension[1], $typeList))
             {
-                return 'mine/' . $image[$genericType];
+                return 'mime/' . $image[$genericType];
             }
         }
     }
 
-    return 'mine/default';
+    return 'mime/default';
 }
 
 //------------------------------------------------------------------------------
