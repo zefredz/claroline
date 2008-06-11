@@ -117,7 +117,7 @@ class RightProfileToolRightHtml
         $html = '';
         $html_table_header_list = array();
         $html_table_row_list = array();
-
+        
         foreach ( $this->rightProfileToolRightList as $profile_id => $rightProfileToolRight )
         {
             $isLocked = $rightProfileToolRight->profile->isLocked();
@@ -137,7 +137,7 @@ class RightProfileToolRightHtml
             {
                 $displayMode = $this->displayMode;
             }
-
+            
             foreach ( $rightProfileToolRight->toolActionList as $tool_id => $action_list )
             {
                 $action_right = $rightProfileToolRight->getToolRight($tool_id);
@@ -206,8 +206,9 @@ class RightProfileToolRightHtml
 
         foreach ( $html_table_row_list as $tool_id => $html_table_row )
         {
-            if ( ! $this->isSetCourseToolInfo()
-                || ! isset( $this->courseToolInfo[$tool_id] ) )
+            if ( claro_is_in_a_course()
+                && ( ! $this->isSetCourseToolInfo()
+                || ! isset( $this->courseToolInfo[$tool_id] ) ) )
             {
                 // Not activated in course !
                 continue;
