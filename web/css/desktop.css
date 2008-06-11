@@ -8,8 +8,8 @@
 /*6F8F50*/
 .portletTitle
 {
-    color: #669933;
-    font-weight: bold;
+    /*color: #669933;
+    font-weight: bold;*/
 }
 
 .portletContent
@@ -86,9 +86,10 @@
  }
 
 /* portlet mycalendar */
-
+ 
  #portletMycalendar .calendar
  {
+  min-width: 250px;
   float: left;
   max-width: 30%;
   margin: 0;
@@ -98,6 +99,7 @@
  
  #portletMycalendar .details
  {
+  min-width: 200px;
   margin-left: 33%;
   padding: 0 1em 0.1em 1em;
   border-left: 1px solid #ccc;
