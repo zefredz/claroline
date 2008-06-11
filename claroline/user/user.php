@@ -305,7 +305,7 @@ if ($can_import_user_class)
                                      );
 }
 
-if ($can_add_single_user)
+/*if ($can_add_single_user)
 {
     // Main group settings
     $userMenu[] = claro_html_cmd_link( '../right/profile_list.php'
@@ -313,7 +313,7 @@ if ($can_add_single_user)
                                      , '<img src="' . get_icon_url('settings') . '" alt="" />'
                                      . get_lang("Right Profile")
                                      );
-}
+}*/
 
 if ($can_send_message_to_course)
 {
