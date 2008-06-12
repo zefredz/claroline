@@ -169,8 +169,8 @@ function claro_sql_get_main_tbl()
         'right_action'              => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'right_action',
         'user_property'             => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'user_property',
         'property_definition'       => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'property_definition',
-        'tracking_event'            => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'tracking_event',
-        'log'                       => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'log'
+        'tracking_event'            => get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . 'tracking_event',
+        'log'                       => get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . 'log'
         );
 
     }
