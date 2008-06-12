@@ -750,14 +750,15 @@ class ClaroNotification extends EventDriven
     public function getLastLoginBeforeToday($user_id)
     {
         $tbl_mdb_names        = claro_sql_get_main_tbl();
-        $tbl_track_e_login    = $tbl_mdb_names['track_e_login'];
+        $tbl_tracking_event   = $tbl_mdb_names['tracking_event'];
 
         $today = date('Y-m-d 00:00:00');
 
-        $sql = "SELECT MAX(`login_date`) AS THEDAY
-                  FROM `" . $tbl_track_e_login . "` AS N
-                 WHERE N.`login_user_id` = " . (int) $user_id . "
-                   AND N.`login_date` < '" . $today . "'";
+        $sql = "SELECT MAX(`date`) AS THEDAY
+                  FROM `" . $tbl_tracking_event . "`
+                 WHERE `type` = 'user_login'
+                   AND `user_id` = " . (int) $user_id . "
+                   AND `date` < '" . $today . "'";
 
         $theday = claro_sql_query_get_single_value($sql);
 
@@ -801,13 +802,15 @@ class ClaroNotification extends EventDriven
         {
 
             $tbl_c_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued($course['code_cours']));
-
+            $tbl_course_tracking_event = $tbl_c_names['tracking_event'];  
+            
             $sqlMaxDate = "SELECT MAX(`access_date`) AS MAXDATE
-                      FROM `" . $tbl_c_names['track_e_access'] . "` AS STAT,
+                      FROM `" . $tbl_course_tracking_event . "` AS STAT,
                            `" . $tbl_rel_course_user . "` AS CU
-                     WHERE STAT.`access_user_id` = " . (int) $user_id . "
-                       AND STAT.`access_user_id` = CU.`user_id`
-                       AND CU.`user_id`          = " . (int) $user_id;
+                     WHERE `type` = 'course_access'
+                       AND STAT.`user_id` = " . (int) $user_id . "
+                       AND STAT.`user_id` = CU.`user_id`
+                       AND CU.`user_id` = " . (int) $user_id;
             $maxDate = claro_sql_query_get_single_value($sqlMaxDate);
 
 
