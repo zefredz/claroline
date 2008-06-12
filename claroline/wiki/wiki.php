@@ -604,7 +604,7 @@
                 echo claro_html_cmd_link(
                     $_SERVER['PHP_SELF'] . '?action=rqEdit'
                     . claro_url_relay_context('&amp;')
-                    , '<img src="' . get_icon_url('wiki').'" '
+                    , '<img src="' . get_icon_url('wiki_new').'" '
                     . ' alt="' . get_lang("Create a new Wiki").'" />'
                     . '&nbsp;'
                     . get_lang("Create a new Wiki"))
