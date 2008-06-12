@@ -359,7 +359,7 @@ switch ($item)
                 . '?cmd='.$activ_form.'&module_id='
                 . $module['module_id'].'&item=GLOBAL" '
                 . 'title="'.get_lang('Deactivated - Click to activate').'">'
-                . '<img src="' . get_icon_url('forbiden')
+                . '<img src="' . get_icon_url('forbidden')
                 . '" alt="'. get_lang('Deactivated') . '"/> '
                 . get_lang('Deactivated') . '</a>'
                 ;
@@ -405,7 +405,7 @@ switch ($item)
                     . '?cmd='.$activ_form.'&module_id='
                     . $module['module_id'].'&item=GLOBAL" '
                     . 'title="'.get_lang('Manual').'">'
-                    . '<img src="' . get_icon_url('forbiden')
+                    . '<img src="' . get_icon_url('forbidden')
                     . '" alt="'. get_lang('Manual') . '"/> '
                     . get_lang('Manual') . '</a>'
                     ;

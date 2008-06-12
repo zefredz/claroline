@@ -983,7 +983,7 @@ foreach($moduleList as $module)
             echo '<a href="module_list.php?cmd=activ&amp;module_id='
             . $module['id'] . '&amp;typeReq='.$typeReq.'" '
             . 'title="'.get_lang('Deactivated - Click to activate').'">'
-            . '<img src="' . get_icon_url('forbiden')
+            . '<img src="' . get_icon_url('forbidden')
             . '" alt="'. get_lang('Deactivated') . '"/></a>';
         }
     }

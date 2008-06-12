@@ -448,7 +448,7 @@ if ( $currentSection == 'toolRights' )
     }
     
     echo '<p><small><span style="text-decoration: underline">' . get_lang('Right list') . '</span> : '
-        . '<img src="' . get_icon_url('forbiden') . '" alt="' . get_lang('None') . '" /> '
+        . '<img src="' . get_icon_url('forbidden') . '" alt="' . get_lang('None') . '" /> '
         . get_lang('No access') . ' - '
         . '<img src="' . get_icon_url('user') . '" alt="' . get_lang('User') . '" />'
         . get_lang('Access allowed') . ' - '

@@ -576,7 +576,7 @@ class ClaroCourse
             . '</label>'
             . '<input type="text" id="registrationKey" name="course_registrationKey" value="' . htmlspecialchars($this->registrationKey) . '" />'
             . '<br />' . "\n"
-            . '<img src="' . get_icon_url('forbiden') . '"  alt="' . get_lang('locked') . '" />'
+            . '<img src="' . get_icon_url('forbidden') . '"  alt="' . get_lang('locked') . '" />'
             . '<input type="radio" id="registration_false"  name="course_registration" value="0" ' . ( ! $this->registration ?'checked="checked"':'') . ' />'
             . '&nbsp;'
             . '<label for="registration_false">' . get_lang('Denied') . '</label>'
