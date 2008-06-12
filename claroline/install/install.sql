@@ -144,31 +144,6 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__notify` (
   KEY `course_id` (`course_code`)
 ) TYPE=MyISAM;
 
-CREATE TABLE IF NOT EXISTS `__CL_MAIN__tracking_event` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `course_code` VARCHAR(40) NULL DEFAULT NULL,
-  `tool_id` INT(11) NULL DEFAULT NULL,
-  `user_id` INT(11) NULL DEFAULT NULL,
-  `date` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `type` VARCHAR(60) NOT NULL DEFAULT '',
-  `data` TEXT NOT NULL DEFAULT '',
-  PRIMARY KEY  (`id`),
-  KEY `course_id` (`course_code`)
-) TYPE=MyISAM;
-
-CREATE TABLE IF NOT EXISTS `__CL_MAIN__log` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `course_code` VARCHAR(40) NULL DEFAULT NULL,
-  `tool_id` INT(11) NULL DEFAULT NULL,
-  `user_id` INT(11) NULL DEFAULT NULL,
-  `ip` VARCHAR(15) NULL DEFAULT NULL,
-  `date` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `type` VARCHAR(60) NOT NULL DEFAULT '',
-  `data` text NOT NULL DEFAULT '',
-  PRIMARY KEY  (`id`),
-  KEY `course_id` (`course_code`)
-) TYPE=MyISAM;
-
 CREATE TABLE IF NOT EXISTS `__CL_MAIN__upgrade_status` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
     `cid` VARCHAR( 40 ) NOT NULL ,
@@ -320,34 +295,32 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__desktop_portlet_data` (
   PRIMARY KEY  (`id`)
 ) TYPE=MyISAM;
 
-# STATS TABLES
+# STATS TABLE
+CREATE TABLE IF NOT EXISTS `__CL_MAIN__tracking_event` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `course_code` VARCHAR(40) NULL DEFAULT NULL,
+  `tool_id` INT(11) NULL DEFAULT NULL,
+  `user_id` INT(11) NULL DEFAULT NULL,
+  `date` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `type` VARCHAR(60) NOT NULL DEFAULT '',
+  `data` TEXT NOT NULL DEFAULT '',
+  PRIMARY KEY  (`id`),
+  KEY `course_id` (`course_code`)
+) TYPE=MyISAM;
 
-CREATE TABLE IF NOT EXISTS `__CL_STATS__track_e_default` (
-  `default_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `default_user_id` INT(11)  NOT NULL DEFAULT '0',
-  `default_cours_code` VARCHAR(40) NOT NULL DEFAULT '',
-  `default_date` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `default_event_type` VARCHAR(20) NOT NULL DEFAULT '',
-  `default_value_type` VARCHAR(20) NOT NULL DEFAULT '',
-  `default_value` TINYTEXT NOT NULL,
-  PRIMARY KEY  (`default_id`),
-  KEY `default_user_id` (`default_user_id`)
-) TYPE=MyISAM COMMENT='Use for other developpers users';
-
-CREATE TABLE IF NOT EXISTS `__CL_STATS__track_e_login` (
-  `login_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `login_user_id` INT(11)  NOT NULL DEFAULT '0',
-  `login_date` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `login_ip` VARCHAR(15) NOT NULL DEFAULT '',
-  PRIMARY KEY  (`login_id`),
-  KEY `login_user_id` (`login_user_id`)
-) TYPE=MyISAM COMMENT='Record informations about logins';
-
-CREATE TABLE IF NOT EXISTS `__CL_STATS__track_e_open` (
-  `open_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `open_date` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY  (`open_id`)
-) TYPE=MyISAM COMMENT='Record informations about software used by users';
+# LOG TABLE
+CREATE TABLE IF NOT EXISTS `__CL_MAIN__log` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `course_code` VARCHAR(40) NULL DEFAULT NULL,
+  `tool_id` INT(11) NULL DEFAULT NULL,
+  `user_id` INT(11) NULL DEFAULT NULL,
+  `ip` VARCHAR(15) NULL DEFAULT NULL,
+  `date` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `type` VARCHAR(60) NOT NULL DEFAULT '',
+  `data` text NOT NULL DEFAULT '',
+  PRIMARY KEY  (`id`),
+  KEY `course_id` (`course_code`)
+) TYPE=MyISAM;
 
 # INSERT COMMANDS
 
