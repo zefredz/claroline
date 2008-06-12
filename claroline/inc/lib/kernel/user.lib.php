@@ -34,6 +34,7 @@ class ClaroUser extends KernelObject
     public function loadFromDatabase()
     {
         $tbl = claro_sql_get_main_tbl();
+        $tbl_tracking_event = $tbl['tracking_event'];
         
         $sqlUserId = (int) $this->_userId;
         
@@ -54,21 +55,22 @@ class ClaroUser extends KernelObject
             . "`user`.`pictureUri` AS `picture`,\n"
             
             . ( get_conf('is_trackingEnabled')
-                ? "UNIX_TIMESTAMP(`login`.`login_date`) "
+                ? "UNIX_TIMESTAMP(`tracking`.`date`) "
                 : "DATE_SUB(CURDATE(), INTERVAL 1 DAY) " )
                 
             . "AS lastLogin\n"
             . "FROM `{$tbl['user']}` AS `user`\n"
             
             . ( get_conf('is_trackingEnabled')
-                ? "LEFT JOIN `{$tbl['track_e_login']}` AS `login`\n"
-                . "ON `user`.`user_id`  = `login`.`login_user_id`\n"
+                ? "LEFT JOIN `".$tbl_tracking_event."` AS `tracking`\n"
+                . "ON `user`.`user_id`  = `tracking`.`user_id`\n"
                 : '')
                 
-            . "WHERE `user`.`user_id` = {$sqlUserId}\n"
+            . "WHERE `user`.`user_id` = ".$sqlUserId."\n"
             
             . ( get_conf('is_trackingEnabled')
-                ? "ORDER BY `login`.`login_date` DESC LIMIT 1"
+                ? "AND `type` = 'user_login'\n"
+                . "ORDER BY `tracking`.`date` DESC LIMIT 1"
                 : '')
             ;
 
