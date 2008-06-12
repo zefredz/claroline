@@ -64,13 +64,13 @@ class ClaroUser extends KernelObject
             . ( get_conf('is_trackingEnabled')
                 ? "LEFT JOIN `".$tbl_tracking_event."` AS `tracking`\n"
                 . "ON `user`.`user_id`  = `tracking`.`user_id`\n"
+                . "AND `tracking`.`type` = 'user_login'\n"
                 : '')
                 
             . "WHERE `user`.`user_id` = ".$sqlUserId."\n"
             
             . ( get_conf('is_trackingEnabled')
-                ? "AND `type` = 'user_login'\n"
-                . "ORDER BY `tracking`.`date` DESC LIMIT 1"
+                ? "ORDER BY `tracking`.`date` DESC LIMIT 1"
                 : '')
             ;
 
