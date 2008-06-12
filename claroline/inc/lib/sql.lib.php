@@ -170,10 +170,7 @@ function claro_sql_get_main_tbl()
         'user_property'             => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'user_property',
         'property_definition'       => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'property_definition',
         'tracking_event'            => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'tracking_event',
-        'log'                       => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'log',
-        'track_e_default'           => get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . 'track_e_default',
-        'track_e_login'             => get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . 'track_e_login',
-        'track_e_open'              => get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . 'track_e_open'
+        'log'                       => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'log'
         );
 
     }
@@ -209,7 +206,7 @@ function claro_sql_get_course_tbl($dbNameGlued = null)
 
     if ( count($courseTblList) == 0 || $forceTableSet )
     {
-
+        // FIXME remove tables of up to date modules
         $courseTblList = array(
 
               'announcement'           => $courseDbInCache . 'announcement',
@@ -236,22 +233,16 @@ function claro_sql_get_course_tbl($dbNameGlued = null)
               'lp_user_module_progress'=> $courseDbInCache . 'lp_user_module_progress',
               'lp_module'              => $courseDbInCache . 'lp_module',
               'lp_asset'               => $courseDbInCache . 'lp_asset',
-              'qwz_exercise'                  => $courseDbInCache . 'qwz_exercise' ,
-              'qwz_question'                  => $courseDbInCache . 'qwz_question',
+              'qwz_exercise'           => $courseDbInCache . 'qwz_exercise' ,
+              'qwz_question'           => $courseDbInCache . 'qwz_question',
               'qwz_rel_exercise_question'     => $courseDbInCache . 'qwz_rel_exercise_question',
-              'qwz_answer_truefalse'        => $courseDbInCache . 'qwz_answer_truefalse',
+              'qwz_answer_truefalse'   => $courseDbInCache . 'qwz_answer_truefalse',
               'qwz_answer_multiple_choice'    => $courseDbInCache . 'qwz_answer_multiple_choice',
-              'qwz_answer_fib'                => $courseDbInCache . 'qwz_answer_fib',
-              'qwz_answer_matching'           => $courseDbInCache . 'qwz_answer_matching',
+              'qwz_answer_fib'         => $courseDbInCache . 'qwz_answer_fib',
+              'qwz_answer_matching'    => $courseDbInCache . 'qwz_answer_matching',
               'tool_intro'             => $courseDbInCache . 'tool_intro',
               'tool'                   => $courseDbInCache . 'tool_list',
-              'track_e_access'         => $courseDbInCache . 'track_e_access',
-              'track_e_downloads'      => $courseDbInCache . 'track_e_downloads',
-              'track_e_exe_details'    => $courseDbInCache . 'track_e_exe_details',
-              'track_e_exe_answers'    => $courseDbInCache . 'track_e_exe_answers',
-              'track_e_exercices'      => $courseDbInCache . 'track_e_exercices',
-              'track_e_uploads'        => $courseDbInCache . 'track_e_uploads',
-              'tracking_event'            => $courseDbInCache . 'tracking_event',
+              'tracking_event'         => $courseDbInCache . 'tracking_event',
               'userinfo_content'       => $courseDbInCache . 'userinfo_content',
               'userinfo_def'           => $courseDbInCache . 'userinfo_def',
               'wrk_assignment'         => $courseDbInCache . 'wrk_assignment',
