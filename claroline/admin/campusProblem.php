@@ -68,7 +68,7 @@ $tbl_cdb_names       = claro_sql_get_course_tbl();
 $tbl_course          = $tbl_mdb_names['course'];
 $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
 $tbl_user            = $tbl_mdb_names['user'];
-$tbl_track_e_login   = $tbl_mdb_names['track_e_login'];
+$tbl_tracking_event  = $tbl_mdb_names['tracking_event'];
 $tbl_document        = $tbl_cdb_names['document'];
 $toolNameList = claro_get_tool_name_list();
 
@@ -403,12 +403,12 @@ switch ($display)
                 if (false === $datagrid[$levelView] = $Cache_Lite->get($levelView))
                 {
                     $sql = "SELECT `us`.`username`,
-                               MAX(`lo`.`login_date`) AS qty
+                               MAX(`tr`.`date`) AS qty
                     FROM `" . $tbl_user . "`               AS us
-                    LEFT JOIN `" . $tbl_track_e_login . "` AS lo
-                    ON`lo`.`login_user_id` = `us`.`user_id`
+                    LEFT JOIN `" . $tbl_tracking_event . "` AS tr
+                    ON`tr`.`user_id` = `us`.`user_id`
                     GROUP BY `us`.`username`
-                    HAVING ( MAX(`lo`.`login_date`) < (NOW() - " . $limitBeforeUnused . " ) ) OR MAX(`lo`.`login_date`) IS NULL
+                    HAVING ( MAX(`tr`.`date`) < (NOW() - " . $limitBeforeUnused . " ) ) OR MAX(`tr`.`date`) IS NULL
                         LIMIT 100";
 
 
@@ -532,11 +532,11 @@ switch ($display)
                     $courseWithoutAccess = array();
                     while ( ($course = mysql_fetch_array($resCourseList) ) )
                     {
-                        $TABLEACCESSCOURSE = get_conf('courseTablePrefix') . $course['dbName'] . get_conf('dbGlu') . "track_e_access";
-                        $sql = "SELECT IF( MAX(`access_date`)  < (NOW() - " . $limitBeforeUnused . " ), MAX(`access_date`) , 'recentlyUsedOrNull' )
+                        $tbl_course_tracking_event = get_conf('courseTablePrefix') . $course['dbName'] . get_conf('dbGlu') . "tracking_event";
+                        $sql = "SELECT IF( MAX(`date`)  < (NOW() - " . $limitBeforeUnused . " ), MAX(`date`) , 'recentlyUsedOrNull' )
                                                          AS lastDate
-                                  , count(`access_date`) AS qty
-                            FROM `" . $TABLEACCESSCOURSE . "`";
+                                  , count(`date`) AS qty
+                            FROM `" . $tbl_course_tracking_event . "`";
                         $coursesNotUsedResult = claro_sql_query($sql);
 
                        
