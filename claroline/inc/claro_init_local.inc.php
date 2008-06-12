@@ -246,7 +246,6 @@ $password = isset($_REQUEST['password']) ? trim( $_REQUEST['password'] ) : null;
 $tbl_mdb_names = claro_sql_get_main_tbl();
 
 $tbl_user            = $tbl_mdb_names['user'           ];
-$tbl_track_e_login   = $tbl_mdb_names['track_e_login'  ];
 $tbl_course          = $tbl_mdb_names['course'         ];
 $tbl_category        = $tbl_mdb_names['category'       ];
 $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
