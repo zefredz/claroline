@@ -376,7 +376,7 @@ if ( $displayButtonLine )
 {
     $cmdList[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
     .            '?cmd=rqCreate' . claro_url_relay_context('&amp;') . '">'
-    .             '<img src="' . get_icon_url('announcement') . '" alt="" />'
+    .             '<img src="' . get_icon_url('announcement_new') . '" alt="" />'
     .             get_lang('Add announcement')
     .             '</a>' . "\n"
     ;
