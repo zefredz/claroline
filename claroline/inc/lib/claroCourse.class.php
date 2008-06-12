@@ -567,7 +567,7 @@ class ClaroCourse
         $html .= '<tr valign="top">' . "\n"
             . '<td align="right">' . get_lang('Enrolment') . '&nbsp;:</td>'
             . '<td>'
-            . '<img src="' . get_icon_url('enroll_open') . '"  alt="' . get_lang('open') . '" />'
+            . '<img src="' . get_icon_url('success') . '"  alt="' . get_lang('open') . '" />'
             . '<input type="radio" id="registration_true" name="course_registration" value="1" ' . ($this->registration?'checked="checked"':'') . ' />'
             . '&nbsp;'
             . '<label for="registration_true">' . get_lang('Allowed') . '</label>'
@@ -576,7 +576,7 @@ class ClaroCourse
             . '</label>'
             . '<input type="text" id="registrationKey" name="course_registrationKey" value="' . htmlspecialchars($this->registrationKey) . '" />'
             . '<br />' . "\n"
-            . '<img src="' . get_icon_url('enroll_locked') . '"  alt="' . get_lang('locked') . '" />'
+            . '<img src="' . get_icon_url('forbiden') . '"  alt="' . get_lang('locked') . '" />'
             . '<input type="radio" id="registration_false"  name="course_registration" value="0" ' . ( ! $this->registration ?'checked="checked"':'') . ' />'
             . '&nbsp;'
             . '<label for="registration_false">' . get_lang('Denied') . '</label>'
