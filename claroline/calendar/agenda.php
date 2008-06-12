@@ -328,7 +328,7 @@ $eventList = agenda_get_item_list($currentContext,$orderDirection);
  */
 
 $cmdList[]=  '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd">'
-.            '<img src="' . get_icon_url('agenda') . '" alt="" />'
+.            '<img src="' . get_icon_url('agenda_new') . '" alt="" />'
 .            get_lang('Add an event')
 .            '</a>'
 ;
