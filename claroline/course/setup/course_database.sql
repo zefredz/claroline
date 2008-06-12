@@ -69,31 +69,6 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__group_rel_team_user` (
 PRIMARY KEY  (id)
 ) TYPE=MyISAM;
 
-CREATE TABLE IF NOT EXISTS `__CL_COURSE__track_e_access` (
-    `access_id` int(11) NOT NULL auto_increment,
-    `access_user_id` int(10) default NULL,
-    `access_date` datetime NOT NULL default '0000-00-00 00:00:00',
-    `access_tid` int(10) default NULL,
-    `access_tlabel` varchar(8) default NULL,
-PRIMARY KEY  (`access_id`)
-) TYPE=MyISAM  COMMENT='Record informations about access to course or tools';
-
-CREATE TABLE IF NOT EXISTS `__CL_COURSE__track_e_downloads` (
-    `down_id` int(11) NOT NULL auto_increment,
-    `down_user_id` int(10) default NULL,
-    `down_date` datetime NOT NULL default '0000-00-00 00:00:00',
-    `down_doc_path` varchar(255) NOT NULL default '0',
-PRIMARY KEY  (`down_id`)
-) TYPE=MyISAM  COMMENT='Record informations about downloads';
-
-CREATE TABLE IF NOT EXISTS `__CL_COURSE__track_e_uploads` (
-    `upload_id` int(11) NOT NULL auto_increment,
-    `upload_user_id` int(10) default NULL,
-    `upload_date` datetime NOT NULL default '0000-00-00 00:00:00',
-    `upload_work_id` int(11) NOT NULL default '0',
-PRIMARY KEY  (`upload_id`)
-) TYPE=MyISAM  COMMENT='Record some more informations about uploaded works';
-
 CREATE TABLE IF NOT EXISTS `__CL_COURSE__lnk_links` (
     `id` int(11) NOT NULL auto_increment,
     `src_id` int(11) NOT NULL default '0',
