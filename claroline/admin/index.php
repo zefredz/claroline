@@ -121,7 +121,7 @@ echo '<table cellspacing="5" align="center">' . "\n"
 .    claro_html_menu_vertical($menu['AdminTechnical'])
 .    '</td>' . "\n"
 .    '<td nowrap="nowrap">' . "\n"
-.    claro_html_tool_title('<img src="' . get_icon_url('email') . '" alt="" />&nbsp;'.get_lang('Communication'))
+.    claro_html_tool_title('<img src="' . get_icon_url('mail_close') . '" alt="" />&nbsp;'.get_lang('Communication'))
 .    claro_html_menu_vertical($menu['Communication'])
 .    '</td>' . "\n"
 .    '</tr>'
