@@ -101,7 +101,7 @@ TrackingRendererRegistry::registerCourse('CLQWZ_CourseTrackingRenderer');
 class CLQWZ_UserTrackingRenderer extends UserTrackingRenderer
 {   
     private $tbl_qwz_exercise;
-    private $tbl_track_e_exercises;
+    private $tbl_qwz_tracking;
     
     public function __construct($courseId, $userId)
     {
