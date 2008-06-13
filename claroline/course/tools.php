@@ -180,7 +180,7 @@ if ($cmd == 'exEdit')
 
             $eventNotifier->notifyCourseEvent('toollist_changed', claro_get_current_course_id(), "0", "0", "0", '0');
 
-            $dialogBox->succes( get_lang('External tool updated') );
+            $dialogBox->success( get_lang('External tool updated') );
             $cidReset = TRUE;
             $cidReq   = claro_get_current_course_id();
 
@@ -211,7 +211,7 @@ if ($cmd == 'exDelete')
     {
         if (delete_course_tool($_REQUEST['externalToolId']) !== false)
         {
-            $dialogBox->succes( get_lang('External tool deleted') );
+            $dialogBox->success( get_lang('External tool deleted') );
             $cidReset = TRUE;
             $cidReq   = claro_get_current_course_id();
 
