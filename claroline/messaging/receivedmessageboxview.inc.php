@@ -223,17 +223,19 @@
             {
                 $content .= ' class="readMessage"';
             }
-            // ---------------- sujet
-            $content .= '>'."\n".'<td>';
+            $content .= '>'."\n";
             
+            // ---------------- sujet
+            $content .= '<td>' . "\n";
             if ( ! $message->isPlatformMessage() )
             {
                 if (!$message->isRead())
                 {
                     if (claro_get_current_user_id() == $currentUserId)
                     {
-                        $content .= '<a href="'.$link.'cmd=exMarkRead&amp;messageId='.$message->getId().'">';
-                        $content .= '<img src="' . get_icon_url('mail_close') . '" alt="'.get_lang("Unread").'" /></a>&nbsp;';
+                        $content .= '<a href="'.$link.'cmd=exMarkRead&amp;messageId='.$message->getId().'">'
+                        .   '<img src="' . get_icon_url('mail_close') . '" alt="'.get_lang("Unread").'" />'
+                        .   '</a>&nbsp;';
                     }
                     //if admin read messagebox of a other user he cannot change status
                     else
@@ -243,8 +245,9 @@
                 }
                 else
                 {
-                    $content .= '<a href="'.$link.'cmd=exMarkUnread&amp;messageId='.$message->getId().'">';
-                    $content .= '<img src="' . get_icon_url('mail_open') . '" alt="'.get_lang("Read").'" /></a>&nbsp;';
+                    $content .= '<a href="'.$link.'cmd=exMarkUnread&amp;messageId='.$message->getId().'">'
+                    .    '<img src="' . get_icon_url('mail_open') . '" alt="'.get_lang("Read").'" />'
+                    .    '</a>&nbsp;';
                 }
             }
             else
@@ -254,30 +257,29 @@
             
             if (!is_null($message->getCourseCode()))
             {
-                $content .= '<span class="im_context">[';
                 $courseData = claro_get_course_data($message->getCourseCode());
                 if ($courseData)
                 {
-                    $content .= $courseData['officialCode'];
+                    $content .= '<span class="im_context">'
+                    .   '[' . $courseData['officialCode'];
+                    
+                    if (!is_null($message->getToolsLabel()))
+                    {
+                        $md = get_module_data($message->getToolsLabel());
+                        $content .= ' - '.get_lang($md['moduleName']);
+                    }
+                    
+                    $content .= ']</span> ';
                 }
-                else
-                {
-                    $content .= '?';
-                }
-                
-                if (!is_null($message->getToolsLabel()))
-                {
-                    $md = get_module_data($message->getToolsLabel());
-                    $content .= ' - '.get_lang($md['moduleName']);
-                }
-                $content .= ']</span>&nbsp;';
             }
-            $content.= '<a href="readmessage.php?messageId='.$message->getId().'&amp;userId='.$currentUserId.'&amp;type=received">';
-            $content .= htmlspecialchars($message->getSubject()).'</a></td>'."\n"
-                    . '<td>'
-                    ;
-            // ------------------ sender
             
+            $content.= '<a href="readmessage.php?messageId='.$message->getId().'&amp;userId='.$currentUserId.'&amp;type=received">'
+            .   htmlspecialchars($message->getSubject())
+            .   '</a>'
+            .   '</td>'."\n";
+            
+            // ------------------ sender
+            $content .= '<td>' . "\n";
             $isAllowed = current_user_is_allowed_to_send_message_to_user($message->getSender());
             
             if ($isAllowed)
@@ -318,11 +320,13 @@
                 if ($link_arg['box'] == "inbox")
                 {
                     $content .= '<a href="'.$link.'cmd=rqDeleteMessage&amp;messageId='.$message->getId().'"'
-                        .' onclick="return deleteMessage(\''.$link.'cmd=exDeleteMessage&amp;messageId='.$message->getId().'\')"><img src="' . get_icon_url('user-trash-full') . '" alt="" /></a>';
+                    .    ' onclick="return deleteMessage(\''.$link.'cmd=exDeleteMessage&amp;messageId='.$message->getId().'\')">'
+                    .    '<img src="' . get_icon_url('user-trash-full') . '" alt="" />'
+                    .    '</a>';
                 }
                 else
                 {
-                    $content .= '<a href="'.$link.'cmd=exRestoreMessage&amp;messageId='.$message->getId().'">'.get_lang('Move to inBox').'</a>';
+                    $content .= '<a href="'.$link.'cmd=exRestoreMessage&amp;messageId='.$message->getId().'">'.get_lang('Restore').'</a>';
                 }
             }
             else
@@ -360,7 +364,8 @@
         
         $content .= getPager($linkPaging,$page,$box->getNumberOfPage());
     }
-//------------------ function of the trashbox
+    
+    //------------------ function of the trashbox
     if ($link_arg['box'] == "trashbox")
     {
         // ---------- generate the link

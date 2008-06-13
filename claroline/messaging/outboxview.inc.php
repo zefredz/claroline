@@ -125,22 +125,20 @@
             
             if (!is_null($message->getCourseCode()))
             {
-                $content .= '<span class="im_context">[';
                 $courseData = claro_get_course_data($message->getCourseCode());
                 if ($courseData)
                 {
-                    $content .= $courseData['officialCode'];
+                    $content .= '<span class="im_context">'
+                    .   '[' . $courseData['officialCode'];
+                    
+                    if (!is_null($message->getToolsLabel()))
+                    {
+                        $md = get_module_data($message->getToolsLabel());
+                        $content .= ' - '.get_lang($md['moduleName']);
+                    }
+                    
+                    $content .= ']</span>';
                 }
-                else
-                {
-                    $content .= get_lang('?');
-                }
-                if (!is_null($message->getToolsLabel()))
-                {
-                    $md = get_module_data($message->getToolsLabel());
-                    $content .= ' - '.get_lang($md['moduleName']);
-                }
-                $content .= ']</span> ';
             }
             
             $content .= '<a href="readmessage.php?messageId='.$message->getId().'&amp;type=sent&amp;userId='.$currentUserId.'">';
