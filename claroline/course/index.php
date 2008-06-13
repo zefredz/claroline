@@ -95,14 +95,16 @@ foreach ($toolList as $thisTool)
 
         $url = get_module_url($thisTool['label']) . '/' . $thisTool['url'];
         $icon = get_module_url($thisTool['label']) .'/'. $thisTool['icon'];
+        $htmlId = 'id="' . $thisTool['label'] . '"';
         $removableTool = false;
     }
     else   // external tool added by course manager
     {
         if ( ! empty($thisTool['external_name'])) $toolName = $thisTool['external_name'];
         else $toolName = '<i>no name</i>';
-        $url           = trim($thisTool['url']);
-        $icon = get_module_url('tool');
+        $url = htmlspecialchars( trim($thisTool['url']) );
+        $icon = get_icon_url('link');
+        $htmlId = '';
         $removableTool = true;
     }
 
@@ -121,7 +123,7 @@ foreach ($toolList as $thisTool)
 
     if ( ! empty($url) )
     {
-        $toolLinkList[] = '<a id="' . $thisTool['label'] . '" class="' . $style . 'item' . $classItem . '" href="' . $url . '">'
+        $toolLinkList[] = '<a '.$htmlId.'class="' . $style . 'item' . $classItem . '" href="' . $url . '">'
         .                 '<img class="clItemTool"  src="' . $icon . '" alt="" />&nbsp;'
         .                 $toolName
         .                 '</a>' . "\n"
