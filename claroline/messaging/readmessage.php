@@ -26,9 +26,7 @@
     $messageId = isset($_REQUEST['messageId']) ? (int)$_REQUEST['messageId']: NULL;
     $type = isset($_REQUEST['type']) ? htmlspecialchars($_REQUEST['type']) : NULL;
     
-    
-    // move to kernel
-    $claroline = Claroline::getInstance();
+    $dialogBox = new DialogBox();
     
     // ------------- Business Logic ---------------------------
     if ( ! claro_is_user_authenticated() )
@@ -39,7 +37,7 @@
     
     
     $userId = claro_get_current_user_id();
-    $displayConfimation = FALSE;
+    $displayConfirmation = FALSE;
 
     if (isset($_REQUEST['userId']))
     {
@@ -111,7 +109,7 @@
         }
         elseif ($_REQUEST['cmd'] == 'rqDelete')
         {
-            $displayConfimation = true;
+            $displayConfirmation = true;
         }
         elseif ($_REQUEST['cmd'] == 'markUnread')
         {
@@ -131,27 +129,34 @@
     // ------------ Prepare display --------------------
     $content = "";
     
-    if ($displayConfimation)
+    if ($displayConfirmation)
     {
-        $content .= '<table class="claroMessageBox" border="0" cellpadding="10" cellspacing="0"><tbody><tr><td>'."\n";
-        $content .= '<div class="dialogQuestion">'."\n";
-        $content .= get_lang('Are you sure to delete').'<br/><br/>'."\n";
-        $content .= '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;messageId='.$messageId.'&amp;type='.$type.'&amp;userId='.$userId.'">'.get_lang('Yes').'</a> | <a href="./messagebox.php?box=inbox&amp;userId='.$userId.'">'.get_lang('No').'</a>'."\n";
-        $content .= '</div>'."\n";
-        $content .= '</td></tr></tbody></table><br/>'."\n\n";
+        $dialogBox->question( get_lang('Are you sure to delete').'<br/><br/>'."\n"
+        .    '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;messageId='.$messageId.'&amp;type='.$type.'&amp;userId='.$userId.'">'.get_lang('Yes').'</a>'
+        .    ' | '
+        .    '<a href="'.$_SERVER['PHP_SELF'].'?messageId='.$messageId.'&amp;type='.$type.'&amp;userId='.$userId.'">'.get_lang('No').'</a>'."\n");
     }
     
+    $content .= $dialogBox->render();
     
-    $action = '';
+    $action = array();
     if ($type == "received")
     {
+        if (current_user_is_allowed_to_send_message_to_user($message->getSender()) )
+        {
+            $action[] = '<a href="sendmessage.php?cmd=rqMessageToUser&amp;messageId='.$message->getId().'&amp;userId='.$message->getSender().'">'
+            .    '<img src="'.get_icon_url('replymessage').'" alt="">'
+            .    get_lang('Reply')
+            .    '</a>';
+        }
+        
         if ($message->getRecipient() > 0 || claro_is_platform_admin())
         {
             if ($message->isDeleted())
             {
                 if ($message->getRecipient() == $userId || claro_is_platform_admin())
                 {
-                    $action .= ' <a href="'.$_SERVER['PHP_SELF'].'?cmd=exRestore&amp;messageId='.$messageId.'&amp;type='.$type.'&amp;userId='.$userId.'">'.get_lang('Move to inbox').'</a>';
+                    $action[] = ' <a href="'.$_SERVER['PHP_SELF'].'?cmd=exRestore&amp;messageId='.$messageId.'&amp;type='.$type.'&amp;userId='.$userId.'">'.get_lang('Restore').'</a>';
                 }
             }
             else
@@ -173,18 +178,16 @@
                 </script>';
                 $claroline->display->header->addHtmlHeader($javascriptDelete);
                 
-                $action .= ' <a href="'.$_SERVER['PHP_SELF'].'?cmd=rqDelete&amp;messageId='.$messageId.'&amp;type='.$type.'&amp;userId='.$userId.'"
-                 onclick="return deleteMessage(\''.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;messageId='.$messageId.'&amp;type='.$type.'&amp;userId='.$userId.'\')"><img src="' . get_icon_url('user-trash-full') . '" alt="" /></a>';
+                $action[] = ' <a href="'.$_SERVER['PHP_SELF'].'?cmd=rqDelete&amp;messageId='.$messageId.'&amp;type='.$type.'&amp;userId='.$userId.'"
+                 onclick="return deleteMessage(\''.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;messageId='.$messageId.'&amp;type='.$type.'&amp;userId='.$userId.'\')">'
+                .    '<img src="' . get_icon_url('user-trash-full') . '" alt="" />'
+                .    get_lang('Move to trash')
+                .    '</a>';
             }
         }
         else
         {
             //tothing to do
-        }
-        
-        if (current_user_is_allowed_to_send_message_to_user($message->getSender()) )
-        {
-            $action .= ' | <a href="sendmessage.php?cmd=rqMessageToUser&amp;messageId='.$message->getId().'&amp;userId='.$message->getSender().'"><img src="'.get_icon_url('mail_reply').'" alt=""></a>';
         }
     }
     else
@@ -192,7 +195,7 @@
         // nothing to do
     }
     
-    $content .= DisplayMessage::display($message,$action);
+    $content .= DisplayMessage::display($message, claro_html_menu_horizontal($action));
     
     if ($type == "received")
     {
