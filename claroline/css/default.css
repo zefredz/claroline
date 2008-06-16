@@ -461,7 +461,7 @@ th .claroCmdDisabled {
 }
 
 .hot {
-    background: url(../img/hot.gif) no-repeat;
+    background: url(../img/hot.png) no-repeat top left;
 }
 
 a.item:visited{
@@ -933,28 +933,42 @@ form tr.admin td{
     text-align: center;
 }
 
+.imInfoBlock 
+{
+    background: #eee;
+    border-left: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;	
+    padding: 5px 10px;
+    margin: 0;
+}
+
+#im_message .header
+{
+    margin: 0;	
+}
+
 .imInfo .imInfoTitle
 {
-    display: block;
-    width: 250px;
-    float: left;
+    font-weight: bold;
+    padding-right: 5px;
 }
+
 .imInfo .imInfoValue
 {
-   margin-left: 250px;
 }
 
 .imContent
 {
     padding: 0 15px;
-    border-top: solid 1px #CCC;
     margin-top: 3px;
 }
 
 .imCmdList
 {
-   padding-top: 10px; 
+   padding-top: 3px; 
    margin-left: 0px;
+   float: right;
 }
 
 /******************************************************************************
