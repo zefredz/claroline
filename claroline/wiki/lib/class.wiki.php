@@ -342,8 +342,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                     . "`title`,`description`,`group_id`"
                     . ") "
                     . "VALUES("
-                    . "'". addslashes( $this->getTitle() ) ."', "
-                    . "'" . addslashes( $this->getDescription() ) . "', "
+                    . "'". claro_sql_escape( $this->getTitle() ) ."', "
+                    . "'" . claro_sql_escape( $this->getDescription() ) . "', "
                     . "'" . (int) $this->getGroupId() . "'"
                     . ")"
                     ;
@@ -363,8 +363,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 // UPDATE PROPERTIES
                 $sql = "UPDATE `" . $this->config['tbl_wiki_properties'] . "` "
                     . "SET "
-                    . "`title`='".addslashes($this->getTitle())."', "
-                    . "`description`='".addslashes($this->getDescription())."', "
+                    . "`title`='".claro_sql_escape($this->getTitle())."', "
+                    . "`description`='".claro_sql_escape($this->getDescription())."', "
                     . "`group_id`='". (int) $this->getGroupId()."' "
                     . "WHERE `id`=" . (int) $this->getWikiId()
                     ;
@@ -390,7 +390,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
             $sql = "SELECT `id` "
                 . "FROM `".$this->config['tbl_wiki_pages']."` "
-                . "WHERE BINARY `title` = '".addslashes($title)."' "
+                . "WHERE BINARY `title` = '".claro_sql_escape($title)."' "
                 . "AND `wiki_id` = " . (int) $this->wikiId
                 ;
 
@@ -412,7 +412,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
             $sql = "SELECT `id` "
                 . "FROM `".$this->config['tbl_wiki_properties']."` "
-                . "WHERE `title` = '".addslashes($title)."'"
+                . "WHERE `title` = '".claro_sql_escape($title)."'"
                 ;
 
             return $this->con->queryReturnsResult( $sql );

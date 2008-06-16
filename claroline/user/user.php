@@ -136,7 +136,7 @@ if ( $is_allowedToEdit )
         {
             // TODO : add a function to unenroll all users from a course
             $sql = "DELETE FROM `" . $tbl_rel_course_user . "`
-                    WHERE `code_cours` = '" . addslashes(claro_get_current_course_id()) . "'
+                    WHERE `code_cours` = '" . claro_sql_escape(claro_get_current_course_id()) . "'
                      AND `isCourseManager` = 0";
 
             $unregisterdUserCount = claro_sql_query_affected_rows($sql);
@@ -199,7 +199,7 @@ $sqlGetUsers = "SELECT `user`.`user_id`      AS `user_id`,
                FROM `" . $tbl_users . "`           AS user,
                     `" . $tbl_rel_course_user . "` AS course_user
                WHERE `user`.`user_id`=`course_user`.`user_id`
-               AND   `course_user`.`code_cours`='" . addslashes(claro_get_current_course_id()) . "'";
+               AND   `course_user`.`code_cours`='" . claro_sql_escape(claro_get_current_course_id()) . "'";
 
 $myPager = new claro_sql_pager($sqlGetUsers, $offset, $userPerPage);
 

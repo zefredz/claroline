@@ -343,7 +343,7 @@ if( $assignment->getAssignmentType() == 'INDIVIDUAL' )
             #ONLY FROM COURSE
             INNER JOIN  `" . $tbl_rel_course_user . "` AS `CU`
                     ON  `U`.`user_id` = `CU`.`user_id`
-                   AND `CU`.`code_cours` = '" . addslashes(claro_get_current_course_id()) . "'
+                   AND `CU`.`code_cours` = '" . claro_sql_escape(claro_get_current_course_id()) . "'
 
             # SEARCH ON SUBMISSIONS
             LEFT JOIN `" . $tbl_wrk_submission . "` AS `S`

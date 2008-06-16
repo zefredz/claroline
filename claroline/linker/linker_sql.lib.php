@@ -34,7 +34,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         // 1. get resource id
         
         $get_resourceId = "SELECT `id` FROM `".$tbl_resources."` "
-            . "WHERE `crl` = '" . addslashes( $resourceCRL ) . "'"
+            . "WHERE `crl` = '" . claro_sql_escape( $resourceCRL ) . "'"
             ;
             
         $resourceId = claro_sql_query_get_single_value( $get_resourceId );
@@ -42,7 +42,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         // 2. delete resource itself
         
         $remove_resource = "DELETE FROM `".$tbl_resources."` "
-            . "WHERE `crl` = '" . addslashes( $resourceCRL ) . "' "
+            . "WHERE `crl` = '" . claro_sql_escape( $resourceCRL ) . "' "
             ;
             
         claro_sql_query( $remove_resource );
@@ -70,7 +70,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         // 1. get resource id for the tool expect the tool itself
 
         $get_resourceId = "SELECT `id` FROM `".$tbl_resources."` "
-            . "WHERE `crl` LIKE '%" . addslashes( $toolCRL ) . "/%'"
+            . "WHERE `crl` LIKE '%" . claro_sql_escape( $toolCRL ) . "/%'"
             ;
 
         $resourceIdList = claro_sql_query_fetch_all( $get_resourceId );
@@ -91,7 +91,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         // 3. delete resources themselves but not the tool resource itself
 
         $remove_resources = "DELETE FROM `".$tbl_resources."` "
-            . "WHERE `crl` LIKE '%" . addslashes( $toolCRL ) . "/%' "
+            . "WHERE `crl` LIKE '%" . claro_sql_escape( $toolCRL ) . "/%' "
             ;
 
         claro_sql_query( $remove_resources );
@@ -297,7 +297,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         
         $sql = 'SELECT `id` 
                 FROM `'.$tbl_resources.'` 
-                WHERE `crl` = "'.addslashes($crlSource).'"';
+                WHERE `crl` = "'.claro_sql_escape($crlSource).'"';
         $result = claro_sql_query_fetch_all($sql);
         
         if( isset($result[0]) )
@@ -307,7 +307,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         
         $sql = 'SELECT `id` 
                 FROM `'.$tbl_resources.'` 
-                WHERE `crl` = "'.addslashes($crlDestination).'"';
+                WHERE `crl` = "'.claro_sql_escape($crlDestination).'"';
         $result = claro_sql_query_fetch_all($sql);
         
         if( isset($result[0]) )
@@ -348,7 +348,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         $tbl_resources = $tbl_cdb_names['resources'];
         
         $sql = "SELECT `id` FROM `" . $tbl_resources . "`
-                WHERE `crl` = '".addslashes($resource) . "'";
+                WHERE `crl` = '".claro_sql_escape($resource) . "'";
         $result = claro_sql_query_fetch_all($sql);
         
         if( isset($result[0]) )
@@ -363,7 +363,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             $title = $res->getResourceName($resource);
             
             $sql = "INSERT INTO `".$tbl_resources."` (`id`, `crl`, `title`) 
-                    VALUES ('', '".addslashes($resource)."' , '".addslashes($title)."')";
+                    VALUES ('', '".claro_sql_escape($resource)."' , '".claro_sql_escape($title)."')";
             $resource_id = claro_sql_query_insert_id($sql);
         }
         else
@@ -385,7 +385,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         $tbl_cdb_names = claro_sql_get_course_tbl();
         $tbl_resources = $tbl_cdb_names['resources'];
         
-        $sql = 'SELECT `id` FROM `'.$tbl_resources.'` WHERE `crl` LIKE "'.addslashes($resource).'"';
+        $sql = 'SELECT `id` FROM `'.$tbl_resources.'` WHERE `crl` LIKE "'.claro_sql_escape($resource).'"';
         $result = claro_sql_query_fetch_all($sql);    
         
         if( isset($result[0]) )
@@ -412,13 +412,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
         $sql = 'SELECT `id` 
                 FROM `'.$tbl_resources.'` 
-                WHERE `course` = "'. addslashes($course_sys_code).'"';
+                WHERE `course` = "'. claro_sql_escape($course_sys_code).'"';
         $result = claro_sql_query_get_single_value($sql);
          
         if( $result == FALSE )
         {
             $sql = "INSERT INTO `".$tbl_resources."` (`id`, `course`) 
-                    VALUES ('', '" . addslashes($course_sys_code) . "')";
+                    VALUES ('', '" . claro_sql_escape($course_sys_code) . "')";
             $resource_id = claro_sql_query_insert_id($sql);        
             
             return $resource_id;
@@ -444,7 +444,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
         $sql = "SELECT `dest`.`crl`,`dest`.`title` 
                 FROM `".$tbl_links."` as `l`,`".$tbl_resources."` as `dest`,`".$tbl_resources."` as `src` 
-                WHERE `src`.`crl` = '". addslashes($crl_source) ."' 
+                WHERE `src`.`crl` = '". claro_sql_escape($crl_source) ."' 
                   AND `dest`.`id` = `l`.`dest_id` 
                   AND `src`.`id` = `l`.`src_id`";
         $linkList = claro_sql_query_fetch_all($sql); 

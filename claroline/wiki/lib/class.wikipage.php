@@ -245,7 +245,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                         . "VALUES("
                         . (int) $this->getWikiId() . ", "
                         . (int) $this->getOwnerId() . ", "
-                        . "'" . addslashes( $this->getTitle() ) . "', "
+                        . "'" . claro_sql_escape( $this->getTitle() ) . "', "
                         . "'" . $this->getCreationTime() . "', "
                         . "'" . $this->getLastEditTime() . "'"
                         . ")"
@@ -349,7 +349,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
             $sql = "SELECT `id` "
                 . "FROM `".$this->config['tbl_wiki_pages']."` "
-                . "WHERE BINARY `title` = '". addslashes( $title )."' "
+                . "WHERE BINARY `title` = '". claro_sql_escape( $title )."' "
                 . "AND `wiki_id` = " . (int) $this->getWikiId();
                 ;
 
@@ -377,7 +377,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 . "c.`editor_id`, c.`content` "
                 . "FROM `".$this->config['tbl_wiki_pages']."` p"
                 . ", `".$this->config['tbl_wiki_pages_content']."` c "
-                . "WHERE BINARY p.`title` = '".addslashes( $title )."' "
+                . "WHERE BINARY p.`title` = '".claro_sql_escape( $title )."' "
                 . "AND c.`id` = p.`last_version` "
                 . "AND `wiki_id` = " . (int) $this->getWikiId();
                 ;
@@ -471,7 +471,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                     . (int) $this->getPageId() . ", "
                     . "'" . (int) $this->getEditorId() . "', "
                     . "'" . $this->getLastEditTime() . "', "
-                    . "'" . addslashes( $this->getContent() ) . "'"
+                    . "'" . claro_sql_escape( $this->getContent() ) . "'"
                     . ")"
                     ;
 

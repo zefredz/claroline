@@ -33,10 +33,10 @@ elseif ( isset($_REQUEST['searchPattern']) )
             $thisSearchPattern = str_replace('*', '%' , $thisSearchPattern);
 
             $sqlClauseList[] =
-            "   pt.post_text  LIKE '%".addslashes($thisSearchPattern)."%'
-             OR p.nom           LIKE '%".addslashes($thisSearchPattern)."%'
-             OR p.prenom        LIKE '%".addslashes($thisSearchPattern)."%'
-             OR t.topic_title   LIKE '%".addslashes($thisSearchPattern)."%'";
+            "   pt.post_text  LIKE '%".claro_sql_escape($thisSearchPattern)."%'
+             OR p.nom           LIKE '%".claro_sql_escape($thisSearchPattern)."%'
+             OR p.prenom        LIKE '%".claro_sql_escape($thisSearchPattern)."%'
+             OR t.topic_title   LIKE '%".claro_sql_escape($thisSearchPattern)."%'";
         }
 
         $sqlClauseString = implode("\n OR \n", $sqlClauseList);

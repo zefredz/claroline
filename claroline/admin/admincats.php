@@ -150,8 +150,8 @@ else
                 .                " , canHaveCatChild"
                 .                " , treePos "
                 .                " , code_P )"
-                .                " VALUES ('" . addslashes($nameCat) . "'"
-                .                " ,'" . addslashes($codeCat) . "'"
+                .                " VALUES ('" . claro_sql_escape($nameCat) . "'"
+                .                " ,'" . claro_sql_escape($codeCat) . "'"
                 .                " , 0"
                 .                " , '" . $canHaveCoursesChild . "'"
                 .                " , 'TRUE'"
@@ -163,7 +163,7 @@ else
                 }
                 else
                 {
-                    $sql_InsertCat .= ",'".addslashes($fatherCat)."')";
+                    $sql_InsertCat .= ",'".claro_sql_escape($fatherCat)."')";
                 }
 
                 claro_sql_query($sql_InsertCat);
@@ -318,7 +318,7 @@ else
             // Look if they aren't courses in this category
             $sql_courseQty= "SELECT count(cours_id) num
                                  FROM `" . $tbl_course . "`
-                                 WHERE faculte='" . addslashes($code_cat) . "'";
+                                 WHERE faculte='" . claro_sql_escape($code_cat) . "'";
             $courseQty= claro_sql_query_get_single_value($sql_courseQty);
 
             if ($courseQty > 0)
@@ -419,7 +419,7 @@ else
                 {
                     $sql_SearchCourses= " SELECT count(cours_id) num"
                     .                    " FROM `" . $tbl_course . "`"
-                    .                    " WHERE faculte='" . addslashes($facultyEdit['code']) . "'"
+                    .                    " WHERE faculte='" . claro_sql_escape($facultyEdit['code']) . "'"
                     ;
                     $res_SearchCourses = claro_sql_query_get_single_value($sql_SearchCourses);
     
@@ -456,7 +456,7 @@ else
                     {
                         $sql_SearchCourses = " SELECT count(cours_id) num"
                         .                    " FROM `" . $tbl_course . "`"
-                        .                    " WHERE faculte = '" . addslashes( $facultyEdit['code']) . "'";
+                        .                    " WHERE faculte = '" . claro_sql_escape( $facultyEdit['code']) . "'";
     
                         $array=claro_sql_query_fetch_all($sql_SearchCourses);
     
@@ -468,8 +468,8 @@ else
                         else
                         {
                             $sql_ChangeInfoFaculty= " UPDATE `" . $tbl_course_node . "`
-                                                      SET name='" . addslashes($_REQUEST['nameCat']) . "',
-                                                          code='" . addslashes($_REQUEST['codeCat']) . "',
+                                                      SET name='" . claro_sql_escape($_REQUEST['nameCat']) . "',
+                                                          code='" . claro_sql_escape($_REQUEST['codeCat']) . "',
                                                           canHaveCoursesChild='" . $canHaveCoursesChild . "'
                                                       WHERE id='" . (int) $_REQUEST['id'] . "'";
                             claro_sql_query($sql_ChangeInfoFaculty);
@@ -479,8 +479,8 @@ else
                     else
                     {
                         $sql_ChangeInfoFaculty= " UPDATE `" . $tbl_course_node . "`
-                                                  SET name='". addslashes($_REQUEST["nameCat"]) ."',
-                                                      code='". addslashes($_REQUEST["codeCat"]) ."',
+                                                  SET name='". claro_sql_escape($_REQUEST["nameCat"]) ."',
+                                                      code='". claro_sql_escape($_REQUEST["codeCat"]) ."',
                                                       canHaveCoursesChild='".$canHaveCoursesChild."'
                                                       WHERE id='". (int)$_REQUEST["id"]."'";
                         claro_sql_query($sql_ChangeInfoFaculty);
@@ -489,8 +489,8 @@ else
                         if($_REQUEST['codeCat'] != $facultyEdit['code'])
                         {
                             $sql_ChangeCodeParent= " UPDATE `" . $tbl_course_node . "`
-                                                     SET code_P='" . addslashes($_REQUEST['codeCat']) . "'
-                                                     WHERE code_P='" . addslashes($facultyEdit['code']) . "'";
+                                                     SET code_P='" . claro_sql_escape($_REQUEST['codeCat']) . "'
+                                                     WHERE code_P='" . claro_sql_escape($facultyEdit['code']) . "'";
                             claro_sql_query($sql_ChangeCodeParent);
                         }
     
@@ -502,8 +502,8 @@ else
                     if($facultyEdit['code'] != $_REQUEST['codeCat'])
                     {
                         $sql_ChangeInfoFaculty=" UPDATE `" . $tbl_course . "`
-                                                 SET faculte='" . addslashes($_REQUEST['codeCat']) . "'
-                                                 WHERE faculte='" . addslashes($facultyEdit['code']) . "'";
+                                                 SET faculte='" . claro_sql_escape($_REQUEST['codeCat']) . "'
+                                                 WHERE faculte='" . claro_sql_escape($facultyEdit['code']) . "'";
     
                         claro_sql_query($sql_ChangeInfoFaculty);
                     }
@@ -610,7 +610,7 @@ else
                     }
                     else
                     {
-                        $sql_ChangeInfoFaculty .= "SET code_P = '" . addslashes($_REQUEST['fatherCat']) . "' ";
+                        $sql_ChangeInfoFaculty .= "SET code_P = '" . claro_sql_escape($_REQUEST['fatherCat']) . "' ";
                     }
     
                     $sql_ChangeInfoFaculty .= " WHERE id='" . (int) $_REQUEST['id'] . "'";

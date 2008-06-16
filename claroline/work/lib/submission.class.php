@@ -182,19 +182,19 @@ class Submission
         {
             // insert
             $sql = "INSERT INTO `".$this->tblSubmission."`
-                    SET `assignment_id` = '".addslashes($this->assignmentId)."',
+                    SET `assignment_id` = '".claro_sql_escape($this->assignmentId)."',
                         `user_id` = ".(is_null($this->userId)?'NULL':$this->userId).",
                         `group_id` = ".(is_null($this->groupId)?'NULL':$this->groupId).",
-                        `title` = '".addslashes($this->title)."',
-                        `visibility` = '".addslashes($this->visibility)."',
+                        `title` = '".claro_sql_escape($this->title)."',
+                        `visibility` = '".claro_sql_escape($this->visibility)."',
                         `creation_date` = NOW(),
                         `last_edit_date` = NOW(),
-                        `authors` = '".addslashes($this->author)."',
-                        `submitted_text` = '".addslashes($this->submittedText)."',
-                        `submitted_doc_path` = '".addslashes($this->submittedFilename)."',
+                        `authors` = '".claro_sql_escape($this->author)."',
+                        `submitted_text` = '".claro_sql_escape($this->submittedText)."',
+                        `submitted_doc_path` = '".claro_sql_escape($this->submittedFilename)."',
                         `parent_id` = ".(is_null($this->parentId)?'NULL':$this->parentId).",
                         `original_id` = ".(is_null($this->originalId)?'NULL':$this->originalId).",
-                        `private_feedback` = '".addslashes($this->privateFeedback)."',
+                        `private_feedback` = '".claro_sql_escape($this->privateFeedback)."',
                         `score` = ".(is_null($this->score)?'NULL':$this->score);
 
             // execute the creation query and get id of inserted assignment
@@ -215,18 +215,18 @@ class Submission
         {
             // update
             $sql = "UPDATE `".$this->tblSubmission."`
-                    SET `assignment_id` = '".addslashes($this->assignmentId)."',
+                    SET `assignment_id` = '".claro_sql_escape($this->assignmentId)."',
                         `user_id` = ".(is_null($this->userId)?'NULL':$this->userId).",
                         `group_id` = ".(is_null($this->groupId)?'NULL':$this->groupId).",
-                        `title` = '".addslashes($this->title)."',
-                        `visibility` = '".addslashes($this->visibility)."',
+                        `title` = '".claro_sql_escape($this->title)."',
+                        `visibility` = '".claro_sql_escape($this->visibility)."',
                         `last_edit_date` = NOW(),
-                        `authors` = '".addslashes($this->author)."',
-                        `submitted_text` = '".addslashes($this->submittedText)."',
-                        `submitted_doc_path` = '".addslashes($this->submittedFilename)."',
+                        `authors` = '".claro_sql_escape($this->author)."',
+                        `submitted_text` = '".claro_sql_escape($this->submittedText)."',
+                        `submitted_doc_path` = '".claro_sql_escape($this->submittedFilename)."',
                         `parent_id` = ".(is_null($this->parentId)?'NULL':$this->parentId).",
                         `original_id` = ".(is_null($this->originalId)?'NULL':$this->originalId).",
-                        `private_feedback` = '".addslashes($this->privateFeedback)."',
+                        `private_feedback` = '".claro_sql_escape($this->privateFeedback)."',
                         `score` = ".(is_null($this->score)?'NULL':$this->score)."
                     WHERE `id` = '".$this->id."'";
 

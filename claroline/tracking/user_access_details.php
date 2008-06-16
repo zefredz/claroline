@@ -62,7 +62,7 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
                   FROM `".$tbl_course_tracking_event."` AS `TE`
              LEFT JOIN `".$tbl_user."` AS `U`
                     ON `U`.`user_id` = `TE`.`user_id`
-                 WHERE `TE`.`data` LIKE '%". addslashes($_REQUEST['path']) ."%'
+                 WHERE `TE`.`data` LIKE '%". claro_sql_escape($_REQUEST['path']) ."%'
               GROUP BY `U`.`nom`, `U`.`prenom`
               ORDER BY `U`.`nom`, `U`.`prenom`";
     }

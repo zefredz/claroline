@@ -48,13 +48,13 @@
 
         // HANDMADE module type are not used for first version of claroline 1.5 beta so we don't show any exemple!
 
-        claro_sql_query("INSERT INTO `".$TABLELEARNPATH."` VALUES ('1', '".addslashes(get_lang('sampleLearnPathTitle'))."', '".addslashes(get_lang('sampleLearnPathDescription'))."', 'OPEN', 'SHOW', '1')");
+        claro_sql_query("INSERT INTO `".$TABLELEARNPATH."` VALUES ('1', '".claro_sql_escape(get_lang('sampleLearnPathTitle'))."', '".claro_sql_escape(get_lang('sampleLearnPathDescription'))."', 'OPEN', 'SHOW', '1')");
 
         claro_sql_query("INSERT INTO `".$TABLELEARNPATHMODULE."` VALUES ('1', '1', '1', 'OPEN', 'SHOW', '', '1', '0', '50')");
         claro_sql_query("INSERT INTO `".$TABLELEARNPATHMODULE."` VALUES ('2', '1', '2', 'OPEN', 'SHOW', '', '2', '0', '50')");
 
-        claro_sql_query("INSERT INTO `".$TABLEMODULE."` VALUES ('1', '".addslashes(get_lang('sampleLearnPathDocumentTitle'))."', '".addslashes(get_lang('sampleLearnPathDocumentDescription'))."', 'PRIVATE', '1', 'DOCUMENT', '')");
-        claro_sql_query("INSERT INTO `".$TABLEMODULE."` VALUES ('2', '".addslashes(get_lang('sampleQuizTitle'))."', '".addslashes(get_lang('sampleLearnPathQuizDescription'))."', 'PRIVATE', '2', 'EXERCISE', '')");
+        claro_sql_query("INSERT INTO `".$TABLEMODULE."` VALUES ('1', '".claro_sql_escape(get_lang('sampleLearnPathDocumentTitle'))."', '".claro_sql_escape(get_lang('sampleLearnPathDocumentDescription'))."', 'PRIVATE', '1', 'DOCUMENT', '')");
+        claro_sql_query("INSERT INTO `".$TABLEMODULE."` VALUES ('2', '".claro_sql_escape(get_lang('sampleQuizTitle'))."', '".claro_sql_escape(get_lang('sampleLearnPathQuizDescription'))."', 'PRIVATE', '2', 'EXERCISE', '')");
 
         claro_sql_query("INSERT INTO `".$TABLEASSET."` VALUES ('1', '1', '/Example_document.pdf', '')");
         claro_sql_query("INSERT INTO `".$TABLEASSET."` VALUES ('2', '2', '".$exerciseId."', '')");

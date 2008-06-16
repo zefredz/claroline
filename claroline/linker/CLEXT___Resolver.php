@@ -126,7 +126,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             $tbl_extern = $tbl_cdb_names['tool'];
 
 
-            $sql = "SELECT `script_name` FROM `".$tbl_extern."` WHERE `script_url` = '".addslashes($url)."'";
+            $sql = "SELECT `script_name` FROM `".$tbl_extern."` WHERE `script_url` = '".claro_sql_escape($url)."'";
             $name = claro_sql_query_get_single_value($sql);
 
             return $name;

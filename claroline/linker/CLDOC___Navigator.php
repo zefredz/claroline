@@ -224,7 +224,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         */
         function _isVisible($filePath , $course_sys_code)
         {
-            $filePath = addslashes($filePath);
+            $filePath = claro_sql_escape($filePath);
             $isVisible = TRUE;
 
             $course = get_info_course($course_sys_code);

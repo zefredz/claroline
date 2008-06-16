@@ -104,7 +104,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
             $sql = "SELECT `id` "
                 . "FROM `".$this->config['tbl_wiki_pages']."` "
-                . "WHERE BINARY `title` = '".addslashes( $title )."' "
+                . "WHERE BINARY `title` = '".claro_sql_escape( $title )."' "
                 . "AND `wiki_id` = " . (int) $wikiId
                 ;
 

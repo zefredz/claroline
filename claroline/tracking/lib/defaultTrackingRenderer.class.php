@@ -84,7 +84,7 @@ class CLTRACK_CourseAccess extends CourseTrackingRenderer
             LEFT JOIN `".$this->tbl_course_tracking_event."` AS `CTE`
             ON `CTE`.`user_id` = CU.`user_id`
             WHERE U.`user_id` = CU.`user_id`
-            AND CU.`code_cours` = '" . addslashes(claro_get_current_course_id()) . "'
+            AND CU.`code_cours` = '" . claro_sql_escape(claro_get_current_course_id()) . "'
             GROUP BY U.`user_id`
             HAVING  `last_access_date` IS NULL
                 OR  `last_access_date` < ( NOW() - INTERVAL 15 DAY )

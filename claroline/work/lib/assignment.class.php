@@ -209,18 +209,18 @@ class Assignment
         {
             // insert
             $sql = "INSERT INTO `".$this->tblAssignment."`
-                    SET `title` = '".addslashes($this->title)."',
-                        `description` = '".addslashes($this->description)."',
-                        `visibility` = '".addslashes($this->visibility)."',
-                        `def_submission_visibility` = '".addslashes($this->defaultSubmissionVisibility)."',
-                        `assignment_type` = '".addslashes($this->assignmentType)."',
-                        `authorized_content` = '".addslashes($this->submissionType)."',
-                        `allow_late_upload` = '".addslashes($this->allowLateUpload)."',
-                        `start_date` = FROM_UNIXTIME('".addslashes($this->startDate)."'),
-                        `end_date` = FROM_UNIXTIME('".addslashes($this->endDate)."'),
-                        `prefill_text` = '".addslashes($this->autoFeedbackText)."',
-                        `prefill_doc_path` = '".addslashes($this->autoFeedbackFilename)."',
-                        `prefill_submit` = '".addslashes($this->autoFeedbackSubmitMethod)."'";
+                    SET `title` = '".claro_sql_escape($this->title)."',
+                        `description` = '".claro_sql_escape($this->description)."',
+                        `visibility` = '".claro_sql_escape($this->visibility)."',
+                        `def_submission_visibility` = '".claro_sql_escape($this->defaultSubmissionVisibility)."',
+                        `assignment_type` = '".claro_sql_escape($this->assignmentType)."',
+                        `authorized_content` = '".claro_sql_escape($this->submissionType)."',
+                        `allow_late_upload` = '".claro_sql_escape($this->allowLateUpload)."',
+                        `start_date` = FROM_UNIXTIME('".claro_sql_escape($this->startDate)."'),
+                        `end_date` = FROM_UNIXTIME('".claro_sql_escape($this->endDate)."'),
+                        `prefill_text` = '".claro_sql_escape($this->autoFeedbackText)."',
+                        `prefill_doc_path` = '".claro_sql_escape($this->autoFeedbackFilename)."',
+                        `prefill_submit` = '".claro_sql_escape($this->autoFeedbackSubmitMethod)."'";
 
             // execute the creation query and get id of inserted assignment
             $insertedId = claro_sql_query_insert_id($sql);
@@ -261,18 +261,18 @@ class Assignment
 
             // update, main query
             $sql = "UPDATE `".$this->tblAssignment."`
-                    SET `title` = '".addslashes($this->title)."',
-                        `description` = '".addslashes($this->description)."',
-                        `visibility` = '".addslashes($this->visibility)."',
-                        `def_submission_visibility` = '".addslashes($this->defaultSubmissionVisibility)."',
-                        `assignment_type` = '".addslashes($this->assignmentType)."',
-                        `authorized_content` = '".addslashes($this->submissionType)."',
-                        `allow_late_upload` = '".addslashes($this->allowLateUpload)."',
-                        `start_date` = FROM_UNIXTIME('".addslashes($this->startDate)."'),
-                        `end_date` = FROM_UNIXTIME('".addslashes($this->endDate)."'),
-                        `prefill_text` = '".addslashes($this->autoFeedbackText)."',
-                        `prefill_doc_path` = '".addslashes($this->autoFeedbackFilename)."',
-                        `prefill_submit` = '".addslashes($this->autoFeedbackSubmitMethod)."'
+                    SET `title` = '".claro_sql_escape($this->title)."',
+                        `description` = '".claro_sql_escape($this->description)."',
+                        `visibility` = '".claro_sql_escape($this->visibility)."',
+                        `def_submission_visibility` = '".claro_sql_escape($this->defaultSubmissionVisibility)."',
+                        `assignment_type` = '".claro_sql_escape($this->assignmentType)."',
+                        `authorized_content` = '".claro_sql_escape($this->submissionType)."',
+                        `allow_late_upload` = '".claro_sql_escape($this->allowLateUpload)."',
+                        `start_date` = FROM_UNIXTIME('".claro_sql_escape($this->startDate)."'),
+                        `end_date` = FROM_UNIXTIME('".claro_sql_escape($this->endDate)."'),
+                        `prefill_text` = '".claro_sql_escape($this->autoFeedbackText)."',
+                        `prefill_doc_path` = '".claro_sql_escape($this->autoFeedbackFilename)."',
+                        `prefill_submit` = '".claro_sql_escape($this->autoFeedbackSubmitMethod)."'
                     WHERE `id` = '".$this->id."'";
 
             // execute and return main query
@@ -345,14 +345,14 @@ class Assignment
                 // insert
                 $sql = "SELECT `title`
                         FROM `" . $this->tblAssignment . "`
-                        WHERE `title` = '" . addslashes($this->title) . "'";
+                        WHERE `title` = '" . claro_sql_escape($this->title) . "'";
             }
             else
             {
                 // update
                 $sql = "SELECT `title`
                         FROM `".$this->tblAssignment."`
-                        WHERE `title` = '" . addslashes($this->title) . "'
+                        WHERE `title` = '" . claro_sql_escape($this->title) . "'
                         AND `id` != " . (int) $this->id;
             }
 
@@ -391,9 +391,9 @@ class Assignment
             // adapt visibility of all submissions of the assignment
             // according to the default submission visibility
             $sql = "UPDATE `".$this->tblSubmission."`
-                    SET `visibility` = '".addslashes($visibility)."'
+                    SET `visibility` = '".claro_sql_escape($visibility)."'
                     WHERE `assignment_id` = ".$this->id."
-                    AND `visibility` != '".addslashes($visibility)."'";
+                    AND `visibility` != '".claro_sql_escape($visibility)."'";
 
             return claro_sql_query ($sql);
         }

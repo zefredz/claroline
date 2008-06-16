@@ -67,7 +67,7 @@ class csvUserList extends csv
                LEFT JOIN `" . $tbl_team . "` AS `G`
                 ON `GU`.`team` = `G`.`id`
                WHERE `U`.`user_id` = `CU`.`user_id`
-               AND   `CU`.`code_cours`= '" . addslashes($this->course_id) . "'
+               AND   `CU`.`code_cours`= '" . claro_sql_escape($this->course_id) . "'
                GROUP BY U.`user_id`
                ORDER BY U.`user_id`";
 

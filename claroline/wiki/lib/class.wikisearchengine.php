@@ -217,7 +217,7 @@
          */
         function splitPattern( $pattern, $mode = CLWIKI_SEARCH_ANY )
         {
-            $pattern = addslashes( $pattern );
+            $pattern = claro_sql_escape( $pattern );
             $pattern = str_replace('_', '\_', $pattern);
             $pattern = str_replace('%', '\%', $pattern);
             $pattern = str_replace('?', '_' , $pattern);
