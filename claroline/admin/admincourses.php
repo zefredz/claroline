@@ -156,7 +156,7 @@ if (is_array($courseList))
     AS `qty_cm`
     #count only lines where statut of user is 1
            FROM  `" . $tbl_mdb_names['rel_course_user'] . "`
-           WHERE code_cours  = '". addslashes($course['sysCode']) ."'
+           WHERE code_cours  = '". claro_sql_escape($course['sysCode']) ."'
           GROUP BY code_cours";
 
 
@@ -396,16 +396,16 @@ function prepare_get_filtred_course_list()
 
     $sqlFilter = array();
     // Prepare filter deal with KEY WORDS classification call
-    if (isset($_SESSION['admin_course_search']))   $sqlFilter[]="(  C.`intitule`  LIKE '%". addslashes(pr_star_replace($_SESSION['admin_course_search'])) ."%'
-                                                                 OR C.`administrativeNumber` LIKE '%". addslashes(pr_star_replace($_SESSION['admin_course_search'])) ."%'
-                                                                 OR C.`faculte`   LIKE '%". addslashes(pr_star_replace($_SESSION['admin_course_search'])) ."%'
+    if (isset($_SESSION['admin_course_search']))   $sqlFilter[]="(  C.`intitule`  LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_course_search'])) ."%'
+                                                                 OR C.`administrativeNumber` LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_course_search'])) ."%'
+                                                                 OR C.`faculte`   LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_course_search'])) ."%'
                                                              )";
 
     //deal with ADVANCED SEARCH parmaters call
-    if (isset($_SESSION['admin_course_intitule'])) $sqlFilter[] = "(C.`intitule` LIKE '%". addslashes(pr_star_replace($_SESSION['admin_course_intitule'])) ."%')";
-    if (isset($_SESSION['admin_course_code']))     $sqlFilter[] = "(C.`administrativeNumber` LIKE '%". addslashes(pr_star_replace($_SESSION['admin_course_code'])) ."%')";
-    if (isset($_SESSION['admin_course_category'])) $sqlFilter[] = "(C.`faculte` = '". addslashes(pr_star_replace($_SESSION['admin_course_category'])) ."')";
-    if (isset($_SESSION['admin_course_language'])) $sqlFilter[] = "(C.`language` = '". addslashes($_SESSION['admin_course_language']) ."')";
+    if (isset($_SESSION['admin_course_intitule']) && !empty($_SESSION['admin_course_intitule']) ) $sqlFilter[] = "(C.`intitule` LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_course_intitule'])) ."%')";
+    if (isset($_SESSION['admin_course_code']) && !empty($_SESSION['admin_course_code']) )     $sqlFilter[] = "(C.`administrativeNumber` LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_course_code'])) ."%')";
+    if (isset($_SESSION['admin_course_category']) && !empty($_SESSION['admin_course_category'])) $sqlFilter[] = "(C.`faculte` = '". claro_sql_escape(pr_star_replace($_SESSION['admin_course_category'])) ."')";
+    if (isset($_SESSION['admin_course_language'])) $sqlFilter[] = "(C.`language` = '". claro_sql_escape($_SESSION['admin_course_language']) ."')";
 
     if (isset($_SESSION['admin_course_visibility']))
     {
