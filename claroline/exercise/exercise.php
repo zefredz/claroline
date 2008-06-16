@@ -281,14 +281,14 @@ echo $dialogBox->render();
 $cmd_menu = array();
 if(get_conf('is_trackingEnabled') && claro_is_user_authenticated())
 {
-    $cmd_menu[] = '<a class="claroCmd" href="../tracking/userReport.php?userId='.claro_get_current_user_id().'">'.get_lang('My results').'</a>';
+    $cmd_menu[] = '<a class="claroCmd" href="../tracking/userReport.php?userId='.claro_get_current_user_id().'"><img src="' . get_icon_url('statistics') . '" alt="" />'.get_lang('My results').'</a>';
 }
 
 if($is_allowedToEdit)
 {
-    $cmd_menu[] = '<a class="claroCmd" href="admin/edit_exercise.php?cmd=rqEdit">'.get_lang('New exercise').'</a>';
+    $cmd_menu[] = '<a class="claroCmd" href="admin/edit_exercise.php?cmd=rqEdit"><img src="' . get_icon_url('quiz_new') . '" alt="" />' . get_lang('New exercise').'</a>';
     $cmd_menu[] = '<a class="claroCmd" href="admin/question_pool.php">'.get_lang('Question pool').'</a>';
-    $cmd_menu[] = '<a class="claroCmd" href="exercise.php?cmd=rqImport">'.get_lang('Import exercise').'</a>';
+    $cmd_menu[] = '<a class="claroCmd" href="exercise.php?cmd=rqImport"><img src="' . get_icon_url('import') . '" alt="" />'.get_lang('Import exercise').'</a>';
 }
 
 echo '<p>' . claro_html_menu_horizontal($cmd_menu) . '</p>' . "\n";
