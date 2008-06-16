@@ -79,16 +79,16 @@ if($_POST['ump_id'])
   
   $sql = "UPDATE `".$TABLEUSERMODULEPROGRESS."` 
             SET 
-                `lesson_location` = '". addslashes($_POST['lesson_location'])."',
-                `lesson_status` = '". addslashes($lesson_status_value) ."',
-                `entry` = '". addslashes($entry_value) ."',
+                `lesson_location` = '". claro_sql_escape($_POST['lesson_location'])."',
+                `lesson_status` = '". claro_sql_escape($lesson_status_value) ."',
+                `entry` = '". claro_sql_escape($entry_value) ."',
                 `raw` = '". (int)$_POST['raw']."',
                 `scoreMin` = '".(int)$_POST['scoreMin']."',
                 `scoreMax` = '". (int)$_POST['scoreMax']."',
-                `total_time` = '". addslashes($total_time_value) ."',
-                `session_time` = '". addslashes($_POST['session_time']) ."',
-                `suspend_data` = '". addslashes($_POST['suspend_data'])."',
-                `credit` = '". addslashes($credit_value) ."'
+                `total_time` = '". claro_sql_escape($total_time_value) ."',
+                `session_time` = '". claro_sql_escape($_POST['session_time']) ."',
+                `suspend_data` = '". claro_sql_escape($_POST['suspend_data'])."',
+                `credit` = '". claro_sql_escape($credit_value) ."'
           WHERE `user_module_progress_id` = ". (int)$_POST['ump_id'];
   claro_sql_query($sql);
 }

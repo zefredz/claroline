@@ -686,8 +686,8 @@ function update_db_info($action, $filePath, $newParamList = array())
     if ($action == 'delete') // case for a delete
     {
         $theQuery = "DELETE FROM `".$dbTable."`
-                     WHERE path=\"".addslashes($filePath)."\"
-                     OR    path LIKE \"".addslashes($filePath)."/%\"";
+                     WHERE path=\"".claro_sql_escape($filePath)."\"
+                     OR    path LIKE \"".claro_sql_escape($filePath)."/%\"";
 
         claro_sql_query($theQuery);
     }
@@ -697,7 +697,7 @@ function update_db_info($action, $filePath, $newParamList = array())
 
         $sql = "SELECT path, comment, visibility
                 FROM `".$dbTable."`
-                WHERE path=\"".addslashes($filePath)."\"";
+                WHERE path=\"".claro_sql_escape($filePath)."\"";
 
         $result = claro_sql_query_fetch_all($sql);
         if ( count($result) > 0 ) list($oldAttributeList) = $result;
@@ -711,9 +711,9 @@ function update_db_info($action, $filePath, $newParamList = array())
                 $insertedPath = ( $newPath ? $newPath : $filePath);
 
                 $theQuery = "INSERT INTO `".$dbTable."`
-                             SET path       = \"".addslashes($insertedPath)."\",
-                                 comment    = \"".addslashes($newComment)."\",
-                                 visibility = \"".addslashes($newVisibility)."\"";
+                             SET path       = \"".claro_sql_escape($insertedPath)."\",
+                                 comment    = \"".claro_sql_escape($newComment)."\",
+                                 visibility = \"".claro_sql_escape($newVisibility)."\"";
             } // else noop
 
         }
@@ -731,9 +731,9 @@ function update_db_info($action, $filePath, $newParamList = array())
             else
             {
                 $theQuery = "UPDATE `" . $dbTable . "`
-                             SET   comment    = '" . addslashes($newComment) . "',
-                                   visibility = '" . addslashes($newVisibility) . "'
-                             WHERE path     = '" . addslashes($filePath) . "'";
+                             SET   comment    = '" . claro_sql_escape($newComment) . "',
+                                   visibility = '" . claro_sql_escape($newVisibility) . "'
+                             WHERE path     = '" . claro_sql_escape($filePath) . "'";
             }
         } // end else if ! $oldAttributeList
 
@@ -742,10 +742,10 @@ function update_db_info($action, $filePath, $newParamList = array())
         if ( $newPath )
         {
             $theQuery = "UPDATE `" . $dbTable . "`
-                        SET path = CONCAT('" . addslashes($newPath) . "',
-                                   SUBSTRING(path, LENGTH('" . addslashes($filePath) . "')+1) )
-                        WHERE path = '" . addslashes($filePath) . "'
-                        OR path LIKE '" . addslashes($filePath) . "/%'";
+                        SET path = CONCAT('" . claro_sql_escape($newPath) . "',
+                                   SUBSTRING(path, LENGTH('" . claro_sql_escape($filePath) . "')+1) )
+                        WHERE path = '" . claro_sql_escape($filePath) . "'
+                        OR path LIKE '" . claro_sql_escape($filePath) . "/%'";
 
             claro_sql_query($theQuery);
         }
@@ -767,9 +767,9 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
                   // Find and update assets that are concerned by this move
 
                   $sql = "UPDATE `" . $TABLEASSET . "`
-                          SET `path` = CONCAT('" . addslashes($newPath) . "',
-                                              SUBSTRING(`path`, LENGTH('" . addslashes($oldPath) . "')+1) )
-                          WHERE `path` LIKE '" . addslashes($oldPath) . "%'";
+                          SET `path` = CONCAT('" . claro_sql_escape($newPath) . "',
+                                              SUBSTRING(`path`, LENGTH('" . claro_sql_escape($oldPath) . "')+1) )
+                          WHERE `path` LIKE '" . claro_sql_escape($oldPath) . "%'";
 
                   claro_sql_query($sql);
 
@@ -783,7 +783,7 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
 
                   $sql ="SELECT *
                          FROM `" . $TABLEASSET . "`
-                         WHERE `path` LIKE '" . addslashes($oldPath) . "%'
+                         WHERE `path` LIKE '" . claro_sql_escape($oldPath) . "%'
                          ";
 
                   $result = claro_sql_query($sql);
@@ -847,7 +847,7 @@ function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
                         $sql ="DELETE
                                FROM `" . $TABLEASSET . "`
                                WHERE
-                               `path` LIKE '" . addslashes($oldPath) . "%'
+                               `path` LIKE '" . claro_sql_escape($oldPath) . "%'
                                ";
 
                         claro_sql_query($sql);

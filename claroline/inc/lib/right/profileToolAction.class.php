@@ -78,7 +78,7 @@ class RightProfileToolAction
         $sql = " SELECT A.id, A.name, A.tool_id, CT.claro_label
                  FROM `" . $this->tbl['action'] . "` `A`,
                       `" . $this->tbl['course_tool'] . "` `CT`
-                 WHERE type = '" . addslashes($this->profile->type) . "'
+                 WHERE type = '" . claro_sql_escape($this->profile->type) . "'
                     AND A.tool_id = CT.id
                  ORDER BY CT.def_rank" ;
 

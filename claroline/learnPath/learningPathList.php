@@ -320,7 +320,7 @@ switch ( $cmd )
             // check if name already exists
             $sql = "SELECT `name`
                          FROM `".$TABLELEARNPATH."`
-                        WHERE `name` = '". addslashes($_POST['newPathName']) ."'";
+                        WHERE `name` = '". claro_sql_escape($_POST['newPathName']) ."'";
             $query = claro_sql_query($sql);
             $num = mysql_num_rows($query);
             if($num == 0 ) // "name" doesn't already exist
@@ -336,7 +336,7 @@ switch ( $cmd )
                 $sql = "INSERT
                               INTO `".$TABLELEARNPATH."`
                                      (`name`, `comment`, `rank`)
-                              VALUES ('". addslashes($_POST['newPathName']) ."','" . addslashes(trim($_POST['newComment']))."',".(int)$order.")";
+                              VALUES ('". claro_sql_escape($_POST['newPathName']) ."','" . claro_sql_escape(trim($_POST['newComment']))."',".(int)$order.")";
                 //echo $sql;
                 $lp_id = claro_sql_query_insert_id($sql);
 

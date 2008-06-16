@@ -129,7 +129,7 @@ function commentBox($type, $mode)
         if ( isset($_POST['insertCommentBox']) )
         {
             $sql = "UPDATE `" . $tbl_name . "`
-                           SET `" . $col_name . "` = \"". addslashes($_POST['insertCommentBox'])."\"
+                           SET `" . $col_name . "` = \"". claro_sql_escape($_POST['insertCommentBox'])."\"
                          WHERE " . $where_cond;
             claro_sql_query($sql);
 
@@ -266,7 +266,7 @@ function nameBox($type, $mode)
 
             $sql = "SELECT COUNT(`" . $col_name . "`)
                                  FROM `" . $tbl_name . "`
-                                WHERE `" . $col_name . "` = '" . addslashes($_POST['newName']) . "'
+                                WHERE `" . $col_name . "` = '" . claro_sql_escape($_POST['newName']) . "'
                                   AND !(" . $where_cond . ")";
             $num = claro_sql_query_get_single_value($sql);
 
@@ -274,7 +274,7 @@ function nameBox($type, $mode)
             {
 
                 $sql = "UPDATE `" . $tbl_name . "`
-                                      SET `" . $col_name . "` = '" . addslashes($_POST['newName']) ."'
+                                      SET `" . $col_name . "` = '" . claro_sql_escape($_POST['newName']) ."'
                                     WHERE " . $where_cond;
 
                 claro_sql_query($sql);
@@ -1086,9 +1086,9 @@ function set_module_tree_visibility($module_tree, $visibility)
         if($module['visibility'] != $visibility)
         {
             $sql = "UPDATE `" . $tbl_lp_rel_learnPath_module . "`
-                        SET `visibility` = '" . addslashes($visibility) . "'
+                        SET `visibility` = '" . claro_sql_escape($visibility) . "'
                         WHERE `learnPath_module_id` = " . (int) $module['learnPath_module_id'] . "
-                          AND `visibility` != '" . addslashes($visibility) . "'";
+                          AND `visibility` != '" . claro_sql_escape($visibility) . "'";
             claro_sql_query ($sql);
         }
         if (isset($module['children']) && is_array($module['children']) ) set_module_tree_visibility($module['children'], $visibility);

@@ -100,7 +100,7 @@ function get_installed_module_list($type = null)
 
     if (!is_null($type))
     {
-        $sql.= " WHERE `type`= '" . addslashes($type) . "'";
+        $sql.= " WHERE `type`= '" . claro_sql_escape($type) . "'";
     }
 
     $moduleList = claro_sql_query_fetch_all_cols($sql);
@@ -1140,22 +1140,22 @@ function register_module_core($module_info)
     }
 
     $sql = "INSERT INTO `" . $tbl['module'] . "`
-            SET label      = '" . addslashes($module_info['LABEL'      ]) . "',
-                name       = '" . addslashes($module_info['NAME']) . "',
-                type       = '" . addslashes($module_info['TYPE']) . "',
-                script_url = '" . addslashes($script_url)."'
+            SET label      = '" . claro_sql_escape($module_info['LABEL'      ]) . "',
+                name       = '" . claro_sql_escape($module_info['NAME']) . "',
+                type       = '" . claro_sql_escape($module_info['TYPE']) . "',
+                script_url = '" . claro_sql_escape($script_url)."'
                 ";
     $moduleId = claro_sql_query_insert_id($sql);
 
     $sql = "INSERT INTO `" . $tbl['module_info'] . "`
             SET module_id      = " . (int) $moduleId . ",
-                version        = '" . addslashes($module_info['VERSION']) . "',
-                author         = '" . addslashes($module_info['AUTHOR']['NAME']) . "',
-                author_email   = '" . addslashes($module_info['AUTHOR']['EMAIL']) . "',
-                author_website = '" . addslashes($module_info['AUTHOR']['WEB']) . "',
-                website        = '" . addslashes($module_info['WEB']) . "',
-                description    = '" . addslashes($module_info['DESCRIPTION']) . "',
-                license        = '" . addslashes($module_info['LICENSE']) . "'";
+                version        = '" . claro_sql_escape($module_info['VERSION']) . "',
+                author         = '" . claro_sql_escape($module_info['AUTHOR']['NAME']) . "',
+                author_email   = '" . claro_sql_escape($module_info['AUTHOR']['EMAIL']) . "',
+                author_website = '" . claro_sql_escape($module_info['AUTHOR']['WEB']) . "',
+                website        = '" . claro_sql_escape($module_info['WEB']) . "',
+                description    = '" . claro_sql_escape($module_info['DESCRIPTION']) . "',
+                license        = '" . claro_sql_escape($module_info['LICENSE']) . "'";
     
     claro_sql_query($sql);
     
@@ -1187,7 +1187,10 @@ function register_module_tool($moduleId,$module_info)
 
     if ( is_array($module_info) )
     {
-        $icon = array_key_exists('ICON',$module_info) ? "'" . addslashes($module_info['ICON']) . "'" :'NULL';
+        $icon = array_key_exists('ICON',$module_info)
+            ? "'" . claro_sql_escape($module_info['ICON']) . "'"
+            : 'NULL'
+            ;
 
         if ( !isset($module_info['ENTRY'])) $module_info['ENTRY'] = 'entry.php';
 
@@ -1200,8 +1203,8 @@ function register_module_tool($moduleId,$module_info)
 
         $sql = "INSERT INTO `" . $tbl['course_tool'] ."`
                 SET
-                claro_label = '". addslashes($module_info['LABEL']) ."',
-                script_url = '". addslashes($module_info['ENTRY']) ."',
+                claro_label = '". claro_sql_escape($module_info['LABEL']) ."',
+                script_url = '". claro_sql_escape($module_info['ENTRY']) ."',
                 icon = " . $icon . ",
                 def_access = 'ALL',
                 def_rank = (". (int) $maxresult['maxrank']."+1),
@@ -1295,7 +1298,7 @@ function add_module_in_dock( $moduleId, $newDockName )
 
         $sql = "INSERT INTO `" . $tbl['dock'] . "`
                 SET module_id = " . (int) $moduleId . ",
-                    name    = '" . addslashes($newDockName) . "',
+                    name    = '" . claro_sql_escape($newDockName) . "',
                     rank    = " . ((int) $max_rank + 1) ;
         $result = claro_sql_query($sql);
 
@@ -1386,14 +1389,14 @@ function move_module_in_dock($moduleId, $dockName, $direction)
             $sql = "SELECT `rank`
                     FROM `" . $tbl['dock'] . "`
                     WHERE `module_id`=" . (int) $moduleId . "
-                    AND `name`='" . addslashes($dockName) . "'";
+                    AND `name`='" . claro_sql_escape($dockName) . "'";
             $result=claro_sql_query_get_single_value($sql);
 
             //2-move down above module
             $sql = "UPDATE `" . $tbl['dock'] . "`
                     SET `rank` = `rank`+1
                     WHERE `module_id` != " . (int) $moduleId . "
-                    AND `name`       = '" . addslashes($dockName) . "'
+                    AND `name`       = '" . claro_sql_escape($dockName) . "'
                     AND `rank`       = " . (int) $result['rank'] . " -1 ";
 
             claro_sql_query($sql);
@@ -1402,7 +1405,7 @@ function move_module_in_dock($moduleId, $dockName, $direction)
             $sql = "UPDATE `" . $tbl['dock'] . "`
                     SET `rank` = `rank`-1
                     WHERE `module_id` = " . (int) $moduleId . "
-                    AND `name`      = '" .  addslashes($dockName) . "'
+                    AND `name`      = '" .  claro_sql_escape($dockName) . "'
                     AND `rank` > 1"; // this last condition is to avoid wrong update due to a page refreshment
             claro_sql_query($sql);
 
@@ -1414,14 +1417,14 @@ function move_module_in_dock($moduleId, $dockName, $direction)
             $sql = "SELECT `rank`
                     FROM `" . $tbl['dock'] . "`
                     WHERE `module_id`=" . (int) $moduleId . "
-                    AND `name`='" . addslashes($dockName) . "'";
+                    AND `name`='" . claro_sql_escape($dockName) . "'";
             $result=claro_sql_query_get_single_value($sql);
 
             //this second query is to avoid a page refreshment wrong update
 
             $sqlmax= "SELECT MAX(`rank`) AS `max_rank`
                       FROM `" . $tbl['dock'] . "`
-                      WHERE `name`='" .  addslashes($dockName) . "'";
+                      WHERE `name`='" .  claro_sql_escape($dockName) . "'";
             $resultmax=claro_sql_query_get_single_value($sqlmax);
 
             if ($resultmax['max_rank'] == $result['rank']) break;
@@ -1430,7 +1433,7 @@ function move_module_in_dock($moduleId, $dockName, $direction)
             $sql = "UPDATE `" . $tbl['dock'] . "`
                     SET `rank` = `rank` - 1
                     WHERE `module_id` != " . $moduleId . "
-                    AND `name` = '" . addslashes($dockName) . "'
+                    AND `name` = '" . claro_sql_escape($dockName) . "'
                     AND `rank` = " . (int) $result['rank'] . " + 1
                     AND `rank` > 1";
             claro_sql_query($sql);
@@ -1439,7 +1442,7 @@ function move_module_in_dock($moduleId, $dockName, $direction)
             $sql = "UPDATE `" . $tbl['dock'] . "`
                     SET `rank` = `rank` + 1
                     WHERE `module_id`=" . (int) $moduleId . "
-                    AND `name`='" .  addslashes($dockName) . "'";
+                    AND `name`='" .  claro_sql_escape($dockName) . "'";
             claro_sql_query($sql);
 
             break;
@@ -1463,7 +1466,7 @@ function get_max_rank_in_dock($dockName)
 
     $sql = "SELECT MAX(rank) AS mrank
             FROM `" . $tbl['dock'] . "` AS D
-            WHERE D . `name` = '" . addslashes($dockName) . "'";
+            WHERE D . `name` = '" . claro_sql_escape($dockName) . "'";
     $max_rank = claro_sql_query_get_single_value($sql);
     return (int) $max_rank;
 }
@@ -1701,7 +1704,7 @@ function get_tool_id_from_module_label( $moduleLabel )
     
     $sql = "SELECT id
               FROM `" . $tbl['tool']."`
-             WHERE claro_label = '".$moduleLabel."'";
+             WHERE claro_label = '".claro_sql_escape($moduleLabel)."'";
              
     return claro_sql_query_fetch_single_value($sql);
 }

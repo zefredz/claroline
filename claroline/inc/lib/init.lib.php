@@ -625,7 +625,7 @@ function claro_get_course_user_properties($cid,$uid,$ignoreCache=false)
                        role
                 FROM `" . $tbl['cours_user'] . "` `cours_user`
                 WHERE `user_id`  = '" . (int) $uid . "'
-                AND `code_cours` = '" . addslashes($cid) . "'";
+                AND `code_cours` = '" . claro_sql_escape($cid) . "'";
 
         $cuData = claro_sql_query_get_single_row($sql);
 

@@ -165,12 +165,12 @@ class ClaroNotification extends EventDriven
             $tbl_tracking_event  = $tbl_cdb_names['tracking_event'];
 
             $sql = "INSERT INTO `" . $tbl_tracking_event . "`
-                    SET `tool_id` = ". ( is_null($tid) ? "NULL" : "'" . addslashes($tid) . "'" ). ",
-                        `group_id` = ". ( is_null($gid) ? "NULL" : "'" . addslashes($gid) . "'" ). ",
-                        `user_id` = ". ( is_null($uid) ? "NULL" : "'" . addslashes($uid) . "'" ). ",
+                    SET `tool_id` = ". ( is_null($tid) ? "NULL" : "'" . claro_sql_escape($tid) . "'" ). ",
+                        `group_id` = ". ( is_null($gid) ? "NULL" : "'" . claro_sql_escape($gid) . "'" ). ",
+                        `user_id` = ". ( is_null($uid) ? "NULL" : "'" . claro_sql_escape($uid) . "'" ). ",
                         `date` = '" . $date . "',
-                        `type` = '" . addslashes($eventType) . "',
-                        `data` = '" . addslashes($data) . "'";
+                        `type` = '" . claro_sql_escape($eventType) . "',
+                        `data` = '" . claro_sql_escape($data) . "'";
 
             return claro_sql_query($sql);
         }
@@ -212,12 +212,12 @@ class ClaroNotification extends EventDriven
         $tbl_tracking_event  = $tbl_mdb_names['tracking_event'];
 
         $sql = "INSERT INTO `" . $tbl_tracking_event . "`
-                SET `course_code` = " . ( is_null($cid) ? "NULL" : "'" . addslashes($cid) . "'" ) . ",
-                    `tool_id` = ". ( is_null($tid) ? "NULL" : "'" . addslashes($tid) . "'" ) . ",
-                    `user_id` = ". ( is_null($uid) ? "NULL" : "'" . addslashes($uid) . "'" ) . ",
+                SET `course_code` = " . ( is_null($cid) ? "NULL" : "'" . claro_sql_escape($cid) . "'" ) . ",
+                    `tool_id` = ". ( is_null($tid) ? "NULL" : "'" . claro_sql_escape($tid) . "'" ) . ",
+                    `user_id` = ". ( is_null($uid) ? "NULL" : "'" . claro_sql_escape($uid) . "'" ) . ",
                     `date` = '" . $date . "',
-                    `type` = '" . addslashes($eventType) . "',
-                    `data` = '" . addslashes($data) . "'";
+                    `type` = '" . claro_sql_escape($eventType) . "',
+                    `data` = '" . claro_sql_escape($data) . "'";
 
         return claro_sql_query($sql);
     }
@@ -339,9 +339,9 @@ class ClaroNotification extends EventDriven
             // 1- check if row already exists
 
             $sql = "SELECT count(`id`) FROM `" . $tbl_notify . "`
-                         WHERE `course_code`= '".addslashes($cid)."'
+                         WHERE `course_code`= '".claro_sql_escape($cid)."'
                            AND `tool_id`= ". (int) $tid . "
-                           AND `ressource_id`= '". addslashes($rid) . "'
+                           AND `ressource_id`= '". claro_sql_escape($rid) . "'
                            AND `group_id` = ". (int) $gid . "
                            AND `user_id` = ". (int) $uid;
 
@@ -354,20 +354,20 @@ class ClaroNotification extends EventDriven
             if ($do_update)
             {
                 $sqlDoUpdate = "UPDATE `" . $tbl_notify . "`
-                     SET `date` = '" . addslashes($now) . "'
-                     WHERE `course_code` = '" . addslashes($cid) . "'
+                     SET `date` = '" . claro_sql_escape($now) . "'
+                     WHERE `course_code` = '" . claro_sql_escape($cid) . "'
                        AND `tool_id`     =  " . (int) $tid . "
-                       AND `ressource_id`= '" . addslashes($rid) . "'
+                       AND `ressource_id`= '" . claro_sql_escape($rid) . "'
                        AND `group_id`    =  " . (int) $gid . "
                        AND `user_id`     =  " . (int) $uid;
             }
             else
             {
                 $sqlDoUpdate = "INSERT INTO `" . $tbl_notify . "`
-                            SET   `course_code`  = '" . addslashes($cid) . "',
+                            SET   `course_code`  = '" . claro_sql_escape($cid) . "',
                                   `tool_id`      =  " . (int) $tid . ",
-                                  `date`         = '" . addslashes($now) . "',
-                                  `ressource_id` = '" . addslashes($rid) . "',
+                                  `date`         = '" . claro_sql_escape($now) . "',
+                                  `ressource_id` = '" . claro_sql_escape($rid) . "',
                                   `group_id`     =  " . (int) $gid . ",
                                   `user_id`      =  " . (int) $uid ;
 
@@ -403,10 +403,10 @@ class ClaroNotification extends EventDriven
         // update ressource_id
 
         $sql = "UPDATE `" . $tbl_notify . "`
-                SET `ressource_id`= '" . addslashes($newResourceId) . "'
-                WHERE `course_code`='". addslashes($cid) ."'
+                SET `ressource_id`= '" . claro_sql_escape($newResourceId) . "'
+                WHERE `course_code`='". claro_sql_escape($cid) ."'
                   AND `tool_id`= ". (int) $tid."
-                  AND `ressource_id`= '". addslashes($oldResourceId) ."'
+                  AND `ressource_id`= '". claro_sql_escape($oldResourceId) ."'
                   AND `group_id` = ". (int) $gid;
 
         claro_sql_query($sql);
@@ -435,23 +435,23 @@ class ClaroNotification extends EventDriven
         if ($eventType == 'course_deleted')
         {
             $sql = "DELETE FROM `" . $tbl_notify . "`
-                    WHERE `course_code`='". addslashes($cid)."'";
+                    WHERE `course_code`='". claro_sql_escape($cid)."'";
         }
 
         // in case of a complete deletion of a GROUP, all event regarding this group must be deleted
         elseif ($eventType == 'group_deleted')
         {
             $sql = "DELETE FROM `" . $tbl_notify . "`
-                    WHERE `course_code`='" . addslashes($cid) . "'
+                    WHERE `course_code`='" . claro_sql_escape($cid) . "'
                       AND `group_id` = ". (int) $gid;
         }
         // otherwise, just delete event concerning the tool or the ressource in the course
         else
         {
             $sql = "DELETE FROM `" . $tbl_notify . "`
-                      WHERE `course_code`='". addslashes($cid) ."'
+                      WHERE `course_code`='". claro_sql_escape($cid) ."'
                         AND `tool_id`= ". (int) $tid."
-                        AND `ressource_id`= '". addslashes($rid) ."'
+                        AND `ressource_id`= '". claro_sql_escape($rid) ."'
                         AND `group_id` = ". (int) $gid;
         }
 
@@ -552,7 +552,7 @@ class ClaroNotification extends EventDriven
 
             $sql = "SELECT `tool_id`, `date`, `group_id`, `course_code`, `ressource_id`
                     FROM `".$tbl_notify."` AS N
-                    WHERE N.`course_code` = '".addslashes($course_id)."'
+                    WHERE N.`course_code` = '".claro_sql_escape($course_id)."'
                     AND N.`date` > '".$date."'
                     ".$toadd."
                     AND (N.`group_id` = '".$group_id."')
@@ -604,8 +604,8 @@ class ClaroNotification extends EventDriven
 
         $sql = "SELECT `group_id`, `date`, `ressource_id`, `tool_id`, `course_code`
                     FROM `" . $tbl_notify . "` AS N
-                    WHERE N.`course_code` = '" . addslashes($course_id) . "'
-                    AND N.`date` > '" . addslashes($date) . "'
+                    WHERE N.`course_code` = '" . claro_sql_escape($course_id) . "'
+                    AND N.`date` > '" . claro_sql_escape($date) . "'
                     AND (N.`group_id` != '0')
                     GROUP BY `group_id`
                     ";
@@ -729,11 +729,11 @@ class ClaroNotification extends EventDriven
         {
             $sql = "SELECT `ressource_id`, `date`
                     FROM `" . $tbl_notify . "` AS N
-                    WHERE  N.`course_code`     = '" . addslashes($course_id) . "'
-                      AND  N.`date`            > '" . addslashes($date) . "'
+                    WHERE  N.`course_code`     = '" . claro_sql_escape($course_id) . "'
+                      AND  N.`date`            > '" . claro_sql_escape($date) . "'
                       AND (N.`user_id`  = '0' OR N.`user_id`  = " . (int) $user_id . ")
                       AND (N.`group_id` = '0' OR N.`group_id` = " . (int) $gid . ")
-                      AND (N.`tool_id`  = '" . addslashes($tid) . "')";
+                      AND (N.`tool_id`  = '" . claro_sql_escape($tid) . "')";
             $ressourceList = claro_sql_query_fetch_all($sql);
 
             foreach($ressourceList as $ressourceItem)

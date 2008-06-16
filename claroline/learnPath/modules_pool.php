@@ -170,7 +170,7 @@ switch( $cmd )
             //check if newname is not already used in another module of the same course
             $sql="SELECT `name`
                   FROM `".$TABLEMODULE."`
-                  WHERE `name` = '". addslashes($_POST['newName'])."'
+                  WHERE `name` = '". claro_sql_escape($_POST['newName'])."'
                     AND `module_id` != '". (int)$_REQUEST['module_id']."'";
 
             $query = claro_sql_query($sql);
@@ -179,7 +179,7 @@ switch( $cmd )
             {
                 // if no error occurred, update module's name in the database
                 $query="UPDATE `".$TABLEMODULE."`
-                        SET `name`= '". addslashes($_POST['newName'])."'
+                        SET `name`= '". claro_sql_escape($_POST['newName'])."'
                         WHERE `module_id` = '". (int)$_REQUEST['module_id']."'";
 
                 $result = claro_sql_query($query);
@@ -229,7 +229,7 @@ switch( $cmd )
         if( isset($_REQUEST['module_id']) && isset($_REQUEST['comment']) )
         {
             $sql = "UPDATE `".$TABLEMODULE."`
-                    SET `comment` = '". addslashes($_REQUEST['comment']) . "'
+                    SET `comment` = '". claro_sql_escape($_REQUEST['comment']) . "'
                     WHERE `module_id` = " . (int)$_REQUEST['module_id'];
             claro_sql_query($sql);
         }

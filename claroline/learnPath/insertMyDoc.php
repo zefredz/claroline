@@ -159,7 +159,7 @@ while ($iterator <= $_REQUEST['maxDocForm'])
             $sql = "SELECT *
                     FROM `".$TABLEMODULE."` AS M, `".$TABLEASSET."` AS A
                     WHERE A.`module_id` = M.`module_id`
-                      AND A.`path` LIKE \"". addslashes($insertDocument)."\"
+                      AND A.`path` LIKE \"". claro_sql_escape($insertDocument)."\"
                       AND M.`contentType` = \"".CTDOCUMENT_."\"";
             $query = claro_sql_query($sql);
             $num = mysql_num_rows($query);
@@ -170,7 +170,7 @@ while ($iterator <= $_REQUEST['maxDocForm'])
                 // create new module
                 $sql = "INSERT INTO `".$TABLEMODULE."`
                         (`name` , `comment`, `contentType`, `launch_data`)
-                        VALUES ('". addslashes($basename) ."' , '". addslashes(get_block('blockDefaultModuleComment')) . "', '".CTDOCUMENT_."', '' )";
+                        VALUES ('". claro_sql_escape($basename) ."' , '". claro_sql_escape(get_block('blockDefaultModuleComment')) . "', '".CTDOCUMENT_."', '' )";
                 $query = claro_sql_query($sql);
 
                 $insertedModule_id = claro_sql_insert_id();
@@ -178,7 +178,7 @@ while ($iterator <= $_REQUEST['maxDocForm'])
                 // create new asset
                 $sql = "INSERT INTO `".$TABLEASSET."`
                         (`path` , `module_id` , `comment`)
-                        VALUES ('". addslashes($insertDocument)."', " . (int)$insertedModule_id . ", '')";
+                        VALUES ('". claro_sql_escape($insertDocument)."', " . (int)$insertedModule_id . ", '')";
                 $query = claro_sql_query($sql);
 
                 $insertedAsset_id = claro_sql_insert_id();
@@ -199,7 +199,7 @@ while ($iterator <= $_REQUEST['maxDocForm'])
                 // finally : insert in learning path
                 $sql = "INSERT INTO `".$TABLELEARNPATHMODULE."`
                         (`learnPath_id`, `module_id`, `specificComment`, `rank`, `lock`)
-                        VALUES ('". (int)$_SESSION['path_id']."', '".(int)$insertedModule_id."','".addslashes(get_block('blockDefaultModuleAddedComment'))."', ".(int)$order.", 'OPEN')";
+                        VALUES ('". (int)$_SESSION['path_id']."', '".(int)$insertedModule_id."','".claro_sql_escape(get_block('blockDefaultModuleAddedComment'))."', ".(int)$order.", 'OPEN')";
                 $query = claro_sql_query($sql);
 
                 $dialogBox .= get_lang("%moduleName has been added as module", array('%moduleName' => $basename)).'<br />' . "\n";
@@ -213,7 +213,7 @@ while ($iterator <= $_REQUEST['maxDocForm'])
                              `".$TABLEASSET."` AS A
                         WHERE M.`module_id` =  LPM.`module_id`
                           AND M.`startAsset_id` = A.`asset_id`
-                          AND A.`path` = '". addslashes($insertDocument)."'
+                          AND A.`path` = '". claro_sql_escape($insertDocument)."'
                           AND LPM.`learnPath_id` = ". (int)$_SESSION['path_id'];
                 $query2 = claro_sql_query($sql);
                 $num = mysql_num_rows($query2);
@@ -230,7 +230,7 @@ while ($iterator <= $_REQUEST['maxDocForm'])
                     // finally : insert in learning path
                     $sql = "INSERT INTO `".$TABLELEARNPATHMODULE."`
                             (`learnPath_id`, `module_id`, `specificComment`, `rank`,`lock`)
-                            VALUES ('". (int)$_SESSION['path_id']."', '". (int)$thisDocumentModule['module_id']."','".addslashes(get_block('blockDefaultModuleAddedComment'))."', ".(int)$order.",'OPEN')";
+                            VALUES ('". (int)$_SESSION['path_id']."', '". (int)$thisDocumentModule['module_id']."','".claro_sql_escape(get_block('blockDefaultModuleAddedComment'))."', ".(int)$order.",'OPEN')";
                     $query = claro_sql_query($sql);
 
                     $dialogBox .= get_lang("%moduleName has been added as module", array('%moduleName' => $basename)).'<br />' . "\n";
@@ -291,8 +291,8 @@ if ($parentDir == "/" || $parentDir == "\\")
 
 $sql = "SELECT *
         FROM `".$TABLEDOCUMENT."`
-        WHERE `path` LIKE '". addslashes($curDirPath) ."/%'
-        AND `path` NOT LIKE '". addslashes($curDirPath) ."/%/%'";
+        WHERE `path` LIKE '". claro_sql_escape($curDirPath) ."/%'
+        AND `path` NOT LIKE '". claro_sql_escape($curDirPath) ."/%/%'";
 $result = claro_sql_query($sql);
 $attribute = array();
 
@@ -414,7 +414,7 @@ if (isset($attribute))
 
         for ($i=0; $i < $nbrRecToDel ;$i++)
         {
-            $queryClause .= "path LIKE \"". addslashes($recToDel[$i]) ."%\"";
+            $queryClause .= "path LIKE \"". claro_sql_escape($recToDel[$i]) ."%\"";
             if ($i < $nbrRecToDel-1)
             {
                 $queryClause .=" OR ";

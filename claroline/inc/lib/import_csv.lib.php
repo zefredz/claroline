@@ -353,7 +353,7 @@ function check_username_used_userlist($userlist)
     {
         if (!empty($userlist['username'][$i]) && ($userlist['username'][$i]!=''))
         {
-            $sql .= ' OR username="'.addslashes($userlist['username'][$i]).'"';
+            $sql .= ' OR username="'.claro_sql_escape($userlist['username'][$i]).'"';
         }
     }
 
@@ -406,7 +406,7 @@ function check_officialcode_used_userlist($userlist)
     {
         if (!empty($userlist['officialCode'][$i]) )
         {
-            $sql .= ' OR officialCode="'.addslashes($userlist['officialCode'][$i]).'"';
+            $sql .= ' OR officialCode="'.claro_sql_escape($userlist['officialCode'][$i]).'"';
         }
     }
 
@@ -487,7 +487,7 @@ function check_mail_used_userlist($userlist)
     {
         if (!empty($userlist['email'][$i]) && ($userlist['email'][$i]!=''))
         {
-            $sql .= ' OR email="'.addslashes($userlist['email'][$i]).'"';
+            $sql .= ' OR email="'.claro_sql_escape($userlist['email'][$i]).'"';
         }
     }
 

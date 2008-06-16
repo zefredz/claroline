@@ -29,13 +29,13 @@ class Logger
         }
 
         $sql = "INSERT INTO `" . $this->tbl_log . "`
-                SET `course_code` = " . ( is_null($cid) ? "NULL" : "'" . addslashes($cid) . "'" ) . ",
-                    `tool_id` = ". ( is_null($tid) ? "NULL" : "'" . addslashes($tid) . "'" ) . ",
-                    `user_id` = ". ( is_null($uid) ? "NULL" : "'" . addslashes($uid) . "'" ) . ",
-                    `ip` = ". ( is_null($ip) ? "NULL" : "'" . addslashes($ip) . "'" ) . ",
+                SET `course_code` = " . ( is_null($cid) ? "NULL" : "'" . claro_sql_escape($cid) . "'" ) . ",
+                    `tool_id` = ". ( is_null($tid) ? "NULL" : "'" . claro_sql_escape($tid) . "'" ) . ",
+                    `user_id` = ". ( is_null($uid) ? "NULL" : "'" . claro_sql_escape($uid) . "'" ) . ",
+                    `ip` = ". ( is_null($ip) ? "NULL" : "'" . claro_sql_escape($ip) . "'" ) . ",
                     `date` = '" . $date . "',
-                    `type` = '" . addslashes($type) . "',
-                    `data` = '" . addslashes($data) . "'";
+                    `type` = '" . claro_sql_escape($type) . "',
+                    `data` = '" . claro_sql_escape($data) . "'";
 
         return claro_sql_query($sql);
     }

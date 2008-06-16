@@ -178,7 +178,7 @@ class ExternalAuthentication
         {
             if ( ! is_null($userAttrList[$claroAttribName]) )
             {
-                $sqlPrepareList[] = $dbFieldName. ' = "'.addslashes($userAttrList[$claroAttribName]).'"';
+                $sqlPrepareList[] = $dbFieldName. ' = "'.claro_sql_escape($userAttrList[$claroAttribName]).'"';
             }
         }
 

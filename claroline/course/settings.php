@@ -127,7 +127,7 @@ if ( $course->load($current_cid) )
     {
         if ( $course->delete() )
         {
-            $claroline->log( 'DELETION COURSE' , array ('courseName' => addslashes($course->title), 'uid' => claro_get_current_user_id()));
+            $claroline->log( 'DELETION COURSE' , array ('courseName' => $course->title, 'uid' => claro_get_current_user_id()));
             if( $adminContext )
             {
                 claro_redirect( get_path('rootAdminWeb') . '/admincourses.php');

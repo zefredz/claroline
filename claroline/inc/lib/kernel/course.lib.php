@@ -46,7 +46,7 @@ class ClaroCourse extends KernelObject
         $tblCourse = $tbl['cours'];
         $tblCat = $tbl['faculte'];
         
-        $sqlCourseId = addslashes($this->_courseId);
+        $sqlCourseId = claro_sql_escape($this->_courseId);
 
         $sql_getCourseData =  "SELECT\n"
             . "\tc.code                 AS courseId,\n"

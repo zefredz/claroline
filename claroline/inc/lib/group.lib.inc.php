@@ -276,7 +276,7 @@ function fill_in_groups($nbGroupPerUser, $course_id )
             FROM `" . $tbl_CoursUsers . "` AS cu
             LEFT JOIN  `" . $tbl_groupsUsers . "` AS ug
             ON    `ug`.`user`      = `cu`.`user_id`
-            WHERE `cu`.`code_cours`='" . addslashes($course_id) . "'
+            WHERE `cu`.`code_cours`='" . claro_sql_escape($course_id) . "'
             AND   `cu`.`isCourseManager`    = 0 #no teacher
             AND   `cu`.`tutor`     = 0 #no tutor
             GROUP BY (cu.user_id)
@@ -385,7 +385,7 @@ function group_count_students_in_course($course_id)
 
     $sql = "SELECT COUNT(user_id) AS qty
             FROM `" . $tbl_mdb_names['rel_course_user'] . "`
-            WHERE  code_cours = '" . addslashes($course_id) . "'
+            WHERE  code_cours = '" . claro_sql_escape($course_id) . "'
             AND    isCourseManager = 0 AND tutor = 0";
 
     return claro_sql_query_get_single_value($sql);
@@ -462,7 +462,7 @@ function create_group($prefixGroupName, $maxMember)
     $tbl_groups    = $tbl_cdb_names['group_team'];
 
     // Check name of group
-    $sql ="SELECT name FROM  `" . $tbl_groups . "` WHERE name LIKE  '" . addslashes($prefixGroupName) . "%'";
+    $sql ="SELECT name FROM  `" . $tbl_groups . "` WHERE name LIKE  '" . claro_sql_escape($prefixGroupName) . "%'";
     $existingGroupList = claro_sql_query_fetch_all_cols($sql);
     $existingGroupList = $existingGroupList['name'];
     $i=1;
@@ -495,7 +495,7 @@ function create_group($prefixGroupName, $maxMember)
     $sql = "INSERT INTO `" . $tbl_groups . "`
             SET name = '" . $groupName . "',
                `maxStudent`  = ". (is_null($maxMember) ? 'NULL' : "'" . (int) $maxMember ."'") .",
-                secretDirectory = '" . addslashes($groupRepository) . "'";
+                secretDirectory = '" . claro_sql_escape($groupRepository) . "'";
 
     $createdGroupId = claro_sql_query_insert_id($sql);
 

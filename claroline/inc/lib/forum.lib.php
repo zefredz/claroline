@@ -310,13 +310,13 @@ function create_new_topic($subject, $time, $forumId
     $tbl_topics  = $tbl_cdb_names['bb_topics'];
 
     $sql = "INSERT INTO `" . $tbl_topics . "`
-            SET topic_title  = '" . addslashes($subject) . "',
+            SET topic_title  = '" . claro_sql_escape($subject) . "',
                 topic_poster = " . (int) $userId . ",
                 forum_id     = " . (int) $forumId . ",
-                topic_time   = '" . addslashes($time) . "',
+                topic_time   = '" . claro_sql_escape($time) . "',
                 topic_notify = 1,
-                nom          = '" . addslashes($userLastname) . "',
-                prenom       = '" . addslashes($userFirstname) . "'";
+                nom          = '" . claro_sql_escape($userLastname) . "',
+                prenom       = '" . claro_sql_escape($userFirstname) . "'";
     $topicId = claro_sql_query_insert_id($sql);
 
     // UPDATE THE TOPIC STATUS FOR THE CURRENT FORUM
@@ -384,10 +384,10 @@ function create_new_post($topicId, $forumId, $userId, $time, $posterIp
             SET topic_id  = '" . (int) $topicId . "',
                 forum_id  = '" . (int) $forumId . "',
                 poster_id = '" . (int) $userId . "',
-                post_time = '" . addslashes($time) . "',
-                poster_ip = '" . addslashes($posterIp) . "',
-                nom       = '" . addslashes($userLastname) . "',
-                prenom    = '" . addslashes($userFirstname) . "'";
+                post_time = '" . claro_sql_escape($time) . "',
+                poster_ip = '" . claro_sql_escape($posterIp) . "',
+                nom       = '" . claro_sql_escape($userLastname) . "',
+                prenom    = '" . claro_sql_escape($userFirstname) . "'";
 
     $postId = claro_sql_query_insert_id($sql);
 
@@ -397,7 +397,7 @@ function create_new_post($topicId, $forumId, $userId, $time, $posterIp
 
         $sql = "INSERT INTO `" . $tbl_posts_text . "`
                 SET post_id   = '" . (int) $postId . "',
-                    post_text = '" . addslashes($message) . "'";
+                    post_text = '" . claro_sql_escape($message) . "'";
 
         claro_sql_query($sql);
 
@@ -406,7 +406,7 @@ function create_new_post($topicId, $forumId, $userId, $time, $posterIp
         $sql = "UPDATE `" . $tbl_topics . "`
                 SET   topic_replies      =  topic_replies+1, # should be transformed into `topic_posts`
                       topic_last_post_id = '" .(int) $postId . "',
-                      topic_time         = '" .addslashes($time) . "'
+                      topic_time         = '" .claro_sql_escape($time) . "'
                 WHERE topic_id = '" . (int) $topicId . "'";
 
         claro_sql_query($sql);
@@ -443,7 +443,7 @@ function update_post($post_id, $topic_id, $message, $subject = '')
     $tbl_posts_text = $tbl_cdb_names['bb_posts_text'];
 
     $sql = "UPDATE `" . $tbl_posts_text . "`
-            SET post_text = '" . addslashes($message) . "'
+            SET post_text = '" . claro_sql_escape($message) . "'
             WHERE post_id = '" . (int) $post_id . "'";
 
     claro_sql_query($sql);
@@ -452,7 +452,7 @@ function update_post($post_id, $topic_id, $message, $subject = '')
     {
 
         $sql = "UPDATE `" . $tbl_topics . "`
-                SET topic_title  = '" . addslashes($subject) . "'
+                SET topic_title  = '" . claro_sql_escape($subject) . "'
                 WHERE topic_id = '" . (int) $topic_id . "'";
 
         claro_sql_query($sql);
@@ -1143,7 +1143,7 @@ function update_category_title( $catId, $catTitle )
     if ( !empty($catTitle) )
     {
         $sql = "UPDATE `" . $tbl['bb_categories'] . "`
-            SET   cat_title = '". addslashes($catTitle) . "'
+            SET   cat_title = '". claro_sql_escape($catTitle) . "'
             WHERE cat_id    = ".(int) $catId;
 
         if (claro_sql_query($sql) != false) return true;
@@ -1168,8 +1168,8 @@ function update_forum_settings($forum_id, $forum_name, $forum_desc, $forum_post_
     $tbl_cdb_names        = claro_sql_get_course_tbl();
     $tbl_forum_forums     = $tbl_cdb_names['bb_forums'];
     $sql = "UPDATE `" . $tbl_forum_forums . "`
-            SET `forum_name`     = '" . addslashes($forum_name) . "',
-                `forum_desc`     = '" . addslashes($forum_desc) . "',
+            SET `forum_name`     = '" . claro_sql_escape($forum_name) . "',
+                `forum_desc`     = '" . claro_sql_escape($forum_desc) . "',
                 `forum_access`   = " . ($forum_post_allowed ? 2 : 0) . ",
                 `forum_moderator`= 1,
                 `cat_id`         = " . (int) $cat_id . ",
@@ -1200,7 +1200,7 @@ function create_category($cat_title, $course_id=NULL)
     $order = $orderMax + 1;
 
     $sql = 'INSERT INTO `' . $tbl_forum_categories . '`
-            SET `cat_title` = "'. addslashes($cat_title) .'",
+            SET `cat_title` = "'. claro_sql_escape($cat_title) .'",
                 `cat_order` = '. (int) $order;
 
     $catId = claro_sql_query_insert_id($sql);
@@ -1313,9 +1313,9 @@ function create_forum($forum_name, $forum_desc, $forum_post_allowed, $cat_id, $g
     // add new forum in DB
 
     $sql = "INSERT INTO `" . $tbl_forum_forums . "`
-            SET forum_name      = '" . addslashes($forum_name) . "',
+            SET forum_name      = '" . claro_sql_escape($forum_name) . "',
                 group_id        = " . (is_null($group_id) ? "NULL" : (int) $group_id) . ",
-                forum_desc      = '" . addslashes($forum_desc) . "',
+                forum_desc      = '" . claro_sql_escape($forum_desc) . "',
                 forum_access    = " . ($forum_post_allowed ? 2 : 0) . ",
                 forum_moderator = 1,
                 cat_id          = " . (int) $cat_id . ",

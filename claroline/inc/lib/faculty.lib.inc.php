@@ -219,7 +219,7 @@ function delete_qty_child_father($node_code, $childQty)
     {
         $sql_DeleteNbChildFather= " UPDATE `". $tbl_course_node . "`
                                         SET nb_childs=nb_childs-".(int) $childQty."
-                                        WHERE code='" . addslashes($node_code) . "'";
+                                        WHERE code='" . claro_sql_escape($node_code) . "'";
 
         claro_sql_query($sql_DeleteNbChildFather);
 
@@ -451,7 +451,7 @@ function get_node_children_count_course($node)
 
     $sql = "SELECT COUNT( `courses`.`cours_id` ) `nbCourse`
             FROM `" . $tbl_course . "` `courses`
-            WHERE `courses`.`faculte` = '". addslashes($node) ."'";
+            WHERE `courses`.`faculte` = '". claro_sql_escape($node) ."'";
 
     return claro_sql_query_get_single_value($sql);
 }
@@ -585,7 +585,7 @@ function repairTree()
             $sql = "UPDATE  `" . $tbl_category . "` "
             . ($cat['newCode_P']==' root ' ? "   SET code_P = null "
                                           : "   SET code_P = " . (int) $cat['newCode_P'])
-            .      " WHERE code = '" . addslashes($cat['code']) . "'"
+            .      " WHERE code = '" . claro_sql_escape($cat['code']) . "'"
             ;
             $node_moved=true; // repair ownance but brok countchild
             claro_sql_query($sql);
@@ -594,7 +594,7 @@ function repairTree()
         {
             $sql = "UPDATE  `" . $tbl_category . "` "
             .      "   SET nb_childs = " . (int) $cat['newNb_childs']
-            .      " WHERE code = '" . addslashes($cat['code']) . "'"
+            .      " WHERE code = '" . claro_sql_escape($cat['code']) . "'"
             ;
             claro_sql_query($sql);
         }
@@ -603,7 +603,7 @@ function repairTree()
         {
             $sql = "UPDATE  `" . $tbl_category . "` "
             .      "   SET treePos = " . (int) $cat['newTreePos']
-            .      " WHERE code = '" . addslashes($cat['code']) . "'"
+            .      " WHERE code = '" . claro_sql_escape($cat['code']) . "'"
             ;
 
             claro_sql_query($sql);

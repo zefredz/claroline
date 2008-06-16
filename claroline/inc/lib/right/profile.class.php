@@ -182,10 +182,10 @@ class RightProfile
         {
             // insert
             $sql = "INSERT INTO `" . $this->tbl['profile'] . "`
-                    SET `name` = '" . addslashes($this->name) . "',
-                        `label` = '" . addslashes($this->label) . "',
-                        `description` = '" . addslashes($this->description) . "',
-                        `type` = '" . addslashes($this->type) . "',
+                    SET `name` = '" . claro_sql_escape($this->name) . "',
+                        `label` = '" . claro_sql_escape($this->label) . "',
+                        `description` = '" . claro_sql_escape($this->description) . "',
+                        `type` = '" . claro_sql_escape($this->type) . "',
                         `courseManager` = " . (int) $this->isCourseManager . ",
                         `mailingList` = " . (int) $this->isEmailNotify . ",
                         `userlistPublic` = " . (int) $this->isUserPublic . ",
@@ -211,10 +211,10 @@ class RightProfile
         {
             // update, main query
             $sql = "UPDATE `". $this->tbl['profile'] ."`
-                    SET `name` = '" . addslashes($this->name) . "',
-                        `label` = '" . addslashes($this->label) . "',
-                        `description` = '" . addslashes($this->description) . "',
-                        `type` = '" . addslashes($this->type) . "',
+                    SET `name` = '" . claro_sql_escape($this->name) . "',
+                        `label` = '" . claro_sql_escape($this->label) . "',
+                        `description` = '" . claro_sql_escape($this->description) . "',
+                        `type` = '" . claro_sql_escape($this->type) . "',
                         `courseManager` = " . (int) $this->isCourseManager . ",
                         `mailingList` = " . (int) $this->isEmailNotify . ",
                         `userlistPublic` = " . (int) $this->isUserPublic . ",

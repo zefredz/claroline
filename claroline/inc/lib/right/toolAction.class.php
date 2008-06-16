@@ -60,7 +60,7 @@ class RightToolAction
                        tool_id,
                        type
                 FROM `" . $this->tbl['action'] . "`
-                WHERE name = '" . addslashes($actionName) . "'
+                WHERE name = '" . claro_sql_escape($actionName) . "'
                 AND `tool_id` =  " . (int) $toolId ;
 
         $data = claro_sql_query_get_single_row($sql);
@@ -96,9 +96,9 @@ class RightToolAction
         {
             // insert action
             $sql = "INSERT INTO `" . $this->tbl['action'] . "`
-                    SET `name` = '" . addslashes($this->name) . "',
-                        `description` = '" . addslashes($this->description) . "',
-                        `type` = '" . addslashes($this->type) . "',
+                    SET `name` = '" . claro_sql_escape($this->name) . "',
+                        `description` = '" . claro_sql_escape($this->description) . "',
+                        `type` = '" . claro_sql_escape($this->type) . "',
                         `tool_id` =" . (int)$this->toolId ;
 
             return claro_sql_query($sql);
@@ -107,9 +107,9 @@ class RightToolAction
         {
             // update action
             $sql = "UPDATE `" . $this->tbl['action'] . "`
-                    SET `description` = '" . addslashes($this->description) . "'
-                    WHERE name ='" . addslashes($this->name) . "' AND
-                          type ='" . addslashes($this->type) . "' AND
+                    SET `description` = '" . claro_sql_escape($this->description) . "'
+                    WHERE name ='" . claro_sql_escape($this->name) . "' AND
+                          type ='" . claro_sql_escape($this->type) . "' AND
                           tool_id = " . (int) $this->toolId ;
 
             return claro_sql_query($sql);
@@ -146,8 +146,8 @@ class RightToolAction
     {
         $sql = " SELECT count(*)
                  FROM `" . $this->tbl['action'] . "`
-                 WHERE name ='" . addslashes($this->name) . "' AND
-                       type ='" . addslashes($this->type) . "' AND
+                 WHERE name ='" . claro_sql_escape($this->name) . "' AND
+                       type ='" . claro_sql_escape($this->type) . "' AND
                        tool_id = " . (int) $this->toolId ;
 
         if ( claro_sql_query_get_single_value($sql) == 0 ) return false;

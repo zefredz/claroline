@@ -67,7 +67,7 @@ class RightCourseProfileToolRight extends RightProfileToolRight
                       `" . $this->tbl['action'] . "` `A`
                  WHERE PA.profile_id = " . $this->profile->id . "
                  AND PA.action_id = A.id
-                 AND PA.courseId = '" . addslashes($this->courseId) . "'";
+                 AND PA.courseId = '" . claro_sql_escape($this->courseId) . "'";
 
         $action_list = claro_sql_query_fetch_all($sql);
 
@@ -109,7 +109,7 @@ class RightCourseProfileToolRight extends RightProfileToolRight
         // delete all relation
         $sql = "DELETE FROM `" . $this->tbl['rel_profile_action'] . "`
                 WHERE profile_id=" . $this->profile->id . "
-                AND courseId = '" . addslashes($this->courseId) . "'";
+                AND courseId = '" . claro_sql_escape($this->courseId) . "'";
 
         claro_sql_query($sql);
 
@@ -137,7 +137,7 @@ class RightCourseProfileToolRight extends RightProfileToolRight
                             SET profile_id = " . $this->profile->id . ",
                             action_id = " . $actionId . ",
                             value = " . $actionValue . ",
-                            courseId = '" . addslashes($this->courseId) . "'";
+                            courseId = '" . claro_sql_escape($this->courseId) . "'";
 
                     claro_sql_query($sql);
                 }
@@ -179,7 +179,7 @@ class RightCourseProfileToolRight extends RightProfileToolRight
         // Delete all relations
         $sql = "DELETE FROM `" . $this->tbl['rel_profile_action'] . "`
                 WHERE profile_id=" . $this->profile->id . "
-                AND courseId = '" . addslashes($this->courseId) . "'";
+                AND courseId = '" . claro_sql_escape($this->courseId) . "'";
 
         return claro_sql_query($sql);
     }
@@ -198,7 +198,7 @@ class RightCourseProfileToolRight extends RightProfileToolRight
     
         // Delete all relations
         $sql = "DELETE FROM `" . $tbl_rel_profile_action . "`
-                WHERE courseId = '" . addslashes($courseId) . "'";
+                WHERE courseId = '" . claro_sql_escape($courseId) . "'";
 
         return claro_sql_query($sql);
     }

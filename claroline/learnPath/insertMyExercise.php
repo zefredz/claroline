@@ -94,7 +94,7 @@ foreach( $exerciseList as $exercise )
             // create new module
             $sql = "INSERT INTO `".$TABLEMODULE."`
                     (`name` , `comment`, `contentType`, `launch_data`)
-                    VALUES ('".addslashes($exercise['title'])."' , '".addslashes(get_block('blockDefaultModuleComment'))."', '".CTEXERCISE_."', '')";
+                    VALUES ('".claro_sql_escape($exercise['title'])."' , '".claro_sql_escape(get_block('blockDefaultModuleComment'))."', '".CTEXERCISE_."', '')";
 
             $moduleId = claro_sql_query_insert_id($sql);
 
@@ -124,7 +124,7 @@ foreach( $exerciseList as $exercise )
             // finally : insert in learning path
             $sql = "INSERT INTO `".$TABLELEARNPATHMODULE."`
                     (`learnPath_id`, `module_id`, `specificComment`, `rank`, `lock`)
-                    VALUES ('". (int)$_SESSION['path_id']."', '".(int)$moduleId."','".addslashes(get_block('blockDefaultModuleAddedComment'))."', ".$order.",'OPEN')";
+                    VALUES ('". (int)$_SESSION['path_id']."', '".(int)$moduleId."','".claro_sql_escape(get_block('blockDefaultModuleAddedComment'))."', ".$order.",'OPEN')";
             claro_sql_query($sql);
 
             $msgList['info'][] = get_lang("%moduleName has been added as module", array('%moduleName' => $exercise['title'])).'<br />' . "\n";
@@ -156,7 +156,7 @@ foreach( $exerciseList as $exercise )
                 // finally : insert in learning path
                 $sql = "INSERT INTO `".$TABLELEARNPATHMODULE."`
                         (`learnPath_id`, `module_id`, `specificComment`, `rank`, `lock`)
-                        VALUES (".(int)$_SESSION['path_id'].", ".(int)$existingModule['module_id'].",'".addslashes(get_block('blockDefaultModuleAddedComment'))."', ".$order.", 'OPEN')";
+                        VALUES (".(int)$_SESSION['path_id'].", ".(int)$existingModule['module_id'].",'".claro_sql_escape(get_block('blockDefaultModuleAddedComment'))."', ".$order.", 'OPEN')";
                 $query = claro_sql_query($sql);
 
                 $msgList['info'][] = get_lang("%moduleName has been added as module", array('%moduleName' => $exercise['title'])).'<br />' . "\n";

@@ -1209,7 +1209,7 @@ function clean_str_for_javascript( $str )
     $output = $str;
     // 1. addslashes, prevent problems with quotes
     // must be before the str_replace to avoid double backslash for \n
-    $output = addslashes($output);
+    $output = claro_sql_escape($output);
     // 2. turn windows CR into *nix CR
     $output = str_replace("\r", '', $output);
     // 3. replace "\n" by uninterpreted '\n'

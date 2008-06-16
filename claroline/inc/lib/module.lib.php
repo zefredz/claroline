@@ -257,7 +257,7 @@ function get_module_data( $claroLabel, $dataName = null, $ignoreCache = false )
         FROM `" . $tbl['module'] . "` AS M
         LEFT JOIN `" . $tbl['course_tool'] . "` AS CT
             ON CT.`claro_label`= M.label
-        WHERE  M.`label` = '" . addslashes($claroLabel) . "'";
+        WHERE  M.`label` = '" . claro_sql_escape($claroLabel) . "'";
 
         $cachedModuleDataList[$claroLabel] = claro_sql_query_get_single_row($sql);
     }

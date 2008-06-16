@@ -56,8 +56,8 @@ function claro_user_info_create_cat_def($title='', $comment='', $nbline='5', $co
     $comment = trim($comment);
 
     $sql = "INSERT INTO `" . $tbl_userinfo_def."` SET
-            `title`        = '" . addslashes($title) . "',
-            `comment`      = '" . addslashes($comment) . "',
+            `title`        = '" . claro_sql_escape($title) . "',
+            `comment`      = '" . claro_sql_escape($comment) . "',
             `nbline`       = " . (int) $nbline . ",
             `rank`         = " . (int) $thisRank ;
 
@@ -88,8 +88,8 @@ function claro_user_info_edit_cat_def($id, $title, $comment, $nbline, $course_id
     $comment = trim($comment);
 
     $sql = "UPDATE `" . $tbl_userinfo_def."` SET
-            `title`      = '" . addslashes($title) . "',
-            `comment` = '" . addslashes($comment) . "',
+            `title`      = '" . claro_sql_escape($title) . "',
+            `comment` = '" . claro_sql_escape($comment) . "',
             `nbline`  = " . (int) $nbline . "
             WHERE id  = " . (int) $id;
 
@@ -293,7 +293,7 @@ function claro_user_info_fill_new_cat_content($def_id, $user_id, $content="", $u
     }
 
     $sql = "INSERT INTO `" . $tbl_userinfo_content . "` SET
-            `content`    = '" . addslashes($content) . "',
+            `content`    = '" . claro_sql_escape($content) . "',
             `def_id`     = " . (int) $def_id . ",
             `user_id`    = " . (int) $user_id . ",
             `ed_ip`      = '" . $user_ip . "',
@@ -338,7 +338,7 @@ function claro_user_info_edit_cat_content($def_id, $user_id, $content ="", $user
     }
 
     $sql= "UPDATE `" . $tbl_userinfo_content . "` SET
-            `content`    = '" . addslashes($content) . "',
+            `content`    = '" . claro_sql_escape($content) . "',
             `ed_ip`        = '" . $user_ip . "',
             `ed_date`    = now()
             WHERE def_id = " . (int) $def_id . "

@@ -124,15 +124,15 @@ function user_create($settingList, $creatorId = null)
     $tbl = claro_sql_get_main_tbl();
 
     $sql = "INSERT INTO `" . $tbl['user'] . "`
-            SET nom             = '". addslashes($settingList['lastname'     ]) ."',
-                prenom          = '". addslashes($settingList['firstname'    ]) ."',
-                username        = '". addslashes($settingList['username'     ]) ."',
-                language        = '". addslashes($settingList['language'     ]) ."',
-                email           = '". addslashes($settingList['email'        ]) ."',
-                officialCode    = '". addslashes($settingList['officialCode' ]) ."',
-                officialEmail   = '". addslashes($settingList['officialEmail']) ."',
-                phoneNumber     = '". addslashes($settingList['phone'        ]) ."',
-                password        = '". addslashes($password) . "',
+            SET nom             = '". claro_sql_escape($settingList['lastname'     ]) ."',
+                prenom          = '". claro_sql_escape($settingList['firstname'    ]) ."',
+                username        = '". claro_sql_escape($settingList['username'     ]) ."',
+                language        = '". claro_sql_escape($settingList['language'     ]) ."',
+                email           = '". claro_sql_escape($settingList['email'        ]) ."',
+                officialCode    = '". claro_sql_escape($settingList['officialCode' ]) ."',
+                officialEmail   = '". claro_sql_escape($settingList['officialEmail']) ."',
+                phoneNumber     = '". claro_sql_escape($settingList['phone'        ]) ."',
+                password        = '". claro_sql_escape($password) . "',
                 isCourseCreator = " . (int) $settingList['isCourseCreator'] . ",
                 isPlatformAdmin = 0,
                 creatorId    = " . ($creatorId > 0 ? (int) $creatorId : 'NULL');
@@ -791,7 +791,7 @@ function is_username_available($username, $userId = null)
 
     $sql = "SELECT COUNT(username)
             FROM `" . $tbl['user'] . "`
-            WHERE username='" . addslashes($username) . "' ";
+            WHERE username='" . claro_sql_escape($username) . "' ";
 
     if ( ! is_null($userId) ) $sql .= " AND user_id <> "  . (int) $userId ;
 
@@ -814,7 +814,7 @@ function is_official_code_available($official_code, $userId=null)
 
     $sql = "SELECT COUNT(officialCode)
             FROM `" . $tbl['user'] . "`
-            WHERE officialCode = '" . addslashes($official_code) . "' ";
+            WHERE officialCode = '" . claro_sql_escape($official_code) . "' ";
 
     if ( ! is_null($userId) ) $sql .= " AND user_id <> "  . (int) $userId ;
 
@@ -1253,15 +1253,15 @@ function user_search( $criterionList = array() , $courseId = null, $allCriterion
     $sqlCritList = array();
 
     if ($validatedCritList['lastname'])
-    $sqlCritList[] = " U.nom    LIKE '". addslashes($validatedCritList['lastname'    ])   . $wildcard . "'";
+    $sqlCritList[] = " U.nom    LIKE '". claro_sql_escape($validatedCritList['lastname'    ])   . $wildcard . "'";
     if ($validatedCritList['firstname'   ])
-    $sqlCritList[] = " U.prenom LIKE '". addslashes($validatedCritList['firstname'   ])   . $wildcard . "'";
+    $sqlCritList[] = " U.prenom LIKE '". claro_sql_escape($validatedCritList['firstname'   ])   . $wildcard . "'";
     if ($validatedCritList['email'])
-    $sqlCritList[] = " U.email  LIKE '". addslashes($validatedCritList['email'       ])   . $wildcard . "'";
+    $sqlCritList[] = " U.email  LIKE '". claro_sql_escape($validatedCritList['email'       ])   . $wildcard . "'";
     if ($validatedCritList['officialCode'])
-    $sqlCritList[] = " U.officialCode = '". addslashes($validatedCritList['officialCode']) . "'";
+    $sqlCritList[] = " U.officialCode = '". claro_sql_escape($validatedCritList['officialCode']) . "'";
     if ($validatedCritList['username'])
-    $sqlCritList[] = " U.username = '". addslashes($validatedCritList['username']) . "'";
+    $sqlCritList[] = " U.username = '". claro_sql_escape($validatedCritList['username']) . "'";
 
     if ( count($sqlCritList) > 0) $sql .= 'WHERE ' . implode(" $operator ", $sqlCritList);
 
@@ -1363,7 +1363,7 @@ function get_user_property($userId,$propertyId, $force = false)
         $sql = "SELECT propertyValue
                 FROM `" . $tbl['user_property'] . "`
                 WHERE userId = " . (int) $userId . "
-                  AND propertyId = '" . addslashes($propertyId) . "'";
+                  AND propertyId = '" . claro_sql_escape($propertyId) . "'";
         $userPropertyList[$userId][$propertyId] = claro_sql_query_get_single_value($sql);
     }
     return $userPropertyList[$userId][$propertyId];
@@ -1374,9 +1374,9 @@ function set_user_property($userId,$propertyId,$propertyValue, $scope='')
     $tbl = claro_sql_get_tbl('user_property');
     $sql = "REPLACE INTO `" . $tbl['user_property'] . "` SET
                 userId        =  " . (int) $userId              . ",
-                propertyId    = '" . addslashes($propertyId)    . "',
-                propertyValue = '" . addslashes($propertyValue) . "',
-                scope         = '" . addslashes($scope) . "'";
+                propertyId    = '" . claro_sql_escape($propertyId)    . "',
+                propertyValue = '" . claro_sql_escape($propertyValue) . "',
+                scope         = '" . claro_sql_escape($scope) . "'";
 
     return claro_sql_query($sql);
 }
@@ -1422,14 +1422,14 @@ function update_userInfoExtraDefinition($propertyId, $label, $type, $defaultValu
     $tbl = claro_sql_get_tbl('property_definition');
 
     $sql = "REPLACE INTO `" . $tbl['property_definition'] . "`
-            SET propertyId   = '" . addslashes($propertyId) . "',
-                label        = '" . addslashes($label) . "',
-                type         = '" . addslashes($type) . "',
-                defaultValue = '" . addslashes($defaultValue) . "',
-                contextScope = '" . addslashes($contextScope) . "',
+            SET propertyId   = '" . claro_sql_escape($propertyId) . "',
+                label        = '" . claro_sql_escape($label) . "',
+                type         = '" . claro_sql_escape($type) . "',
+                defaultValue = '" . claro_sql_escape($defaultValue) . "',
+                contextScope = '" . claro_sql_escape($contextScope) . "',
                 rank         = " . (int) $rank . ",
-                required     = '" . addslashes($required) . "'
-             WHERE propertyId = '" . addslashes($propertyId) . "'
+                required     = '" . claro_sql_escape($required) . "'
+             WHERE propertyId = '" . claro_sql_escape($propertyId) . "'
              ";
 
     return claro_sql_query($sql);
@@ -1448,8 +1448,8 @@ function delete_userInfoExtraDefinition($propertyId, $contextScope )
     $tbl = claro_sql_get_tbl('property_definition');
 
     $sql = "DELETE FROM `" . $tbl['property_definition'] . "`
-            WHERE propertyId = '" . addslashes($propertyId) . "'
-            AND  contextScope = '" . addslashes($contextScope) . "'";
+            WHERE propertyId = '" . claro_sql_escape($propertyId) . "'
+            AND  contextScope = '" . claro_sql_escape($contextScope) . "'";
 
     return claro_sql_query($sql);
 
