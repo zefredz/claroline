@@ -298,7 +298,7 @@ else
                 FROM `' . $tbl_user . '`
                 WHERE '
              . ( get_conf('claro_authUsernameCaseSensitive',true) ? 'BINARY' : '')
-             . ' username = "'. addslashes($login) .'"'
+             . ' username = "'. claro_sql_escape($login) .'"'
              ;
 
         $result = claro_sql_query($sql);
@@ -617,7 +617,7 @@ if ( $tidReset || $cidReset ) // session data refresh requested
 
                WHERE `ctl`.`tool_id` = `pct`.`id`
                  AND (`ctl`.`id`      = '". (int) $tidReq."'
-                       OR   (".(int) is_null($tidReq)." AND pct.claro_label = '". addslashes($tlabelReq) ."')
+                       OR   (".(int) is_null($tidReq)." AND pct.claro_label = '". claro_sql_escape($tlabelReq) ."')
                      )";
 
         // Note : 'ctl' stands for  'course tool list' and  'pct' for 'platform course tool'

@@ -437,22 +437,22 @@ function upgrade_main_database_module_to_19 ()
                 // code from register_module_core from inc/lib/module.manage.lib.php
 
                 $sql = "INSERT INTO `" . $tbl_mdb_names['module'] . "`
-                        SET label      = '" . addslashes($toolInfo['LABEL']) . "',
-                            name       = '" . addslashes($toolInfo['NAME']) . "',
-                            type       = '" . addslashes($toolInfo['TYPE']) . "',
+                        SET label      = '" . claro_sql_escape($toolInfo['LABEL']) . "',
+                            name       = '" . claro_sql_escape($toolInfo['NAME']) . "',
+                            type       = '" . claro_sql_escape($toolInfo['TYPE']) . "',
                             activation = 'activated' ,
-                            script_url = '" . addslashes($script_url). "'";
+                            script_url = '" . claro_sql_escape($script_url). "'";
 
                 $moduleId = claro_sql_query_insert_id($sql);
 
                 $sql = "INSERT INTO `" . $tbl_mdb_names['module_info'] . "`
                         SET module_id    = " . (int) $moduleId . ",
-                            version      = '" . addslashes($toolInfo['VERSION']) . "',
-                            author       = '" . addslashes($toolInfo['AUTHOR']['NAME'  ]) . "',
-                            author_email = '" . addslashes($toolInfo['AUTHOR']['EMAIL' ]) . "',
-                            website      = '" . addslashes($toolInfo['AUTHOR']['WEB'   ]) . "',
-                            description  = '" . addslashes($toolInfo['DESCRIPTION'     ]) . "',
-                            license      = '" . addslashes($toolInfo['LICENSE'         ]) . "'";
+                            version      = '" . claro_sql_escape($toolInfo['VERSION']) . "',
+                            author       = '" . claro_sql_escape($toolInfo['AUTHOR']['NAME'  ]) . "',
+                            author_email = '" . claro_sql_escape($toolInfo['AUTHOR']['EMAIL' ]) . "',
+                            website      = '" . claro_sql_escape($toolInfo['AUTHOR']['WEB'   ]) . "',
+                            description  = '" . claro_sql_escape($toolInfo['DESCRIPTION'     ]) . "',
+                            license      = '" . claro_sql_escape($toolInfo['LICENSE'         ]) . "'";
 
                 if ( upgrade_sql_query($sql) === false )
                 {

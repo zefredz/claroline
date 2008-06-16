@@ -53,8 +53,8 @@ if (false === $htmlCLCALDIGEST = $Cache_LiteCLCALDIGEST->get('CALDIGEST' . claro
 
         $tableAnn = get_conf('courseTablePrefix') . $thisCourse['db'] . get_conf('dbGlu') . 'announcement';
 
-        $sql = "SELECT '" . addslashes($thisCourse['sysCode']     ) ."' AS `courseSysCode`,
-                   '" . addslashes($thisCourse['officialCode']) ."' AS `courseOfficialCode`,
+        $sql = "SELECT '" . claro_sql_escape($thisCourse['sysCode']     ) ."' AS `courseSysCode`,
+                   '" . claro_sql_escape($thisCourse['officialCode']) ."' AS `courseOfficialCode`,
                    'CLANN'                                          AS `toolLabel`,
                    CONCAT(`temps`, ' ', '00:00:00')                 AS `date`,
                    CONCAT(`title`,' - ',`contenu`)                  AS `content`
@@ -80,8 +80,8 @@ if (false === $htmlCLCALDIGEST = $Cache_LiteCLCALDIGEST->get('CALDIGEST' . claro
 
         $tableCal = get_conf('courseTablePrefix') . $thisCourse['db'] . get_conf('dbGlu') . 'calendar_event';
 
-        $sql = "SELECT '". addslashes($thisCourse['sysCode']     ) ."' AS `courseSysCode`,
-                   '". addslashes($thisCourse['officialCode']) ."' AS `courseOfficialCode`,
+        $sql = "SELECT '". claro_sql_escape($thisCourse['sysCode']     ) ."' AS `courseSysCode`,
+                   '". claro_sql_escape($thisCourse['officialCode']) ."' AS `courseOfficialCode`,
                    'CLCAL' AS `toolLabel`,
             CONCAT(`day`, ' ',`hour`) AS `date`,
             CONCAT(`titre`,' - ',`contenu`) AS `content`

@@ -67,14 +67,14 @@ function delete_course($code)
     // Remove any recording in rel_cours_class
 
       $sql = "DELETE FROM `" . $tbl_course_class . "`
-              WHERE courseId ='" . addslashes($currentCourseId) . "'";
+              WHERE courseId ='" . claro_sql_escape($currentCourseId) . "'";
 
       claro_sql_query($sql);
 
     // DELETE THE COURSE INSIDE THE PLATFORM COURSE REGISTERY
 
     $sql = 'DELETE FROM `' . $tbl_course . '`
-            WHERE code= "' . addslashes($currentCourseId) . '"';
+            WHERE code= "' . claro_sql_escape($currentCourseId) . '"';
 
     claro_sql_query($sql);
 
@@ -178,7 +178,7 @@ function is_registered_to($user_id, $course_id)
 
     $sql = "SELECT count(*) `user_reg`
                  FROM `" . $tbl_rel_course_user . "`
-                 WHERE `code_cours` = '" . addslashes($course_id) . "' AND `user_id` = '" . (int)$user_id . "'";
+                 WHERE `code_cours` = '" . claro_sql_escape($course_id) . "' AND `user_id` = '" . (int)$user_id . "'";
     $res = claro_sql_query_fetch_all($sql);
     return (bool) ($res[0]['user_reg']>0);
 }

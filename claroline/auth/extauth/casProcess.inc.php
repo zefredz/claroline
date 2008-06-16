@@ -92,7 +92,7 @@ if (   ! isset($_SESSION['init_CasCheckinDone'] )
     {
             $sql = "SELECT user_id  AS userId
                 FROM `" . $tbl_user . "`
-                WHERE username = '" . addslashes(phpCAS::getUser()) . "'
+                WHERE username = '" . claro_sql_escape(phpCAS::getUser()) . "'
                 AND   authSource = 'CAS'";
 
         $uData = claro_sql_query_fetch_all($sql);

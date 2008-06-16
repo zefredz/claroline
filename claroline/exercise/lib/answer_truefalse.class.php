@@ -148,11 +148,11 @@ class answerTrueFalse
             // insert
             $sql = "INSERT INTO `".$this->tblAnswer."`
                     SET `questionId` = ".(int) $this->questionId.",
-                        `trueFeedback` = '".addslashes($this->trueFeedback)."',
-                        `trueGrade` = '".addslashes($this->trueGrade)."',
-                        `falseFeedback` = '".addslashes($this->falseFeedback)."',
-                        `falseGrade` = '".addslashes($this->falseGrade)."',
-                        `correctAnswer` = '".addslashes($this->correctAnswer)."'";
+                        `trueFeedback` = '".claro_sql_escape($this->trueFeedback)."',
+                        `trueGrade` = '".claro_sql_escape($this->trueGrade)."',
+                        `falseFeedback` = '".claro_sql_escape($this->falseFeedback)."',
+                        `falseGrade` = '".claro_sql_escape($this->falseGrade)."',
+                        `correctAnswer` = '".claro_sql_escape($this->correctAnswer)."'";
 
             // execute the creation query and get id of inserted assignment
             $insertedId = claro_sql_query_insert_id($sql);
@@ -172,11 +172,11 @@ class answerTrueFalse
         {
             // update
             $sql = "UPDATE `".$this->tblAnswer."`
-                    SET `trueFeedback` = '".addslashes($this->trueFeedback)."',
-                        `trueGrade` = '".addslashes($this->trueGrade)."',
-                        `falseFeedback` = '".addslashes($this->falseFeedback)."',
-                        `falseGrade` = '".addslashes($this->falseGrade)."',
-                        `correctAnswer` = '".addslashes($this->correctAnswer)."'
+                    SET `trueFeedback` = '".claro_sql_escape($this->trueFeedback)."',
+                        `trueGrade` = '".claro_sql_escape($this->trueGrade)."',
+                        `falseFeedback` = '".claro_sql_escape($this->falseFeedback)."',
+                        `falseGrade` = '".claro_sql_escape($this->falseGrade)."',
+                        `correctAnswer` = '".claro_sql_escape($this->correctAnswer)."'
                     WHERE `id` = ".(int) $this->id;
 
             // execute and return main query

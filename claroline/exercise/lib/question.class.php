@@ -168,11 +168,11 @@ class Question
         {
             // insert    
             $sql = "INSERT INTO `".$this->tblQuestion."`
-                    SET `title` = '".addslashes($this->title)."',
-                        `description` = '".addslashes($this->description)."',
-                        `attachment` = '".addslashes($this->attachment)."',
-                        `type` = '".addslashes($this->type)."',
-                        `grade` = '".addslashes($this->grade)."'";
+                    SET `title` = '".claro_sql_escape($this->title)."',
+                        `description` = '".claro_sql_escape($this->description)."',
+                        `attachment` = '".claro_sql_escape($this->attachment)."',
+                        `type` = '".claro_sql_escape($this->type)."',
+                        `grade` = '".claro_sql_escape($this->grade)."'";
         
             // execute the creation query and get id of inserted assignment
             $insertedId = claro_sql_query_insert_id($sql);
@@ -203,10 +203,10 @@ class Question
             // update
             // never update the type of the exercise !
             $sql = "UPDATE `".$this->tblQuestion."`
-                    SET `title` = '".addslashes($this->title)."',
-                        `description` = '".addslashes($this->description)."',
-                        `attachment` = '".addslashes($this->attachment)."',
-                        `grade` = '".addslashes($this->grade)."'
+                    SET `title` = '".claro_sql_escape($this->title)."',
+                        `description` = '".claro_sql_escape($this->description)."',
+                        `attachment` = '".claro_sql_escape($this->attachment)."',
+                        `grade` = '".claro_sql_escape($this->grade)."'
                     WHERE `id` = '".$this->id."'";
         
             // execute and return main query

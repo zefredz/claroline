@@ -118,7 +118,7 @@ FROM  `" . $tbl_user . "` AS U";
 $toAdd = "
 LEFT JOIN `" . $tbl_course_user . "` AS CU
     ON             CU.`user_id`=U.`user_id`
-            AND CU.`code_cours` = '" . addslashes($cidToEdit) . "'
+            AND CU.`code_cours` = '" . claro_sql_escape($cidToEdit) . "'
         ";
 
 $sql.=$toAdd;
@@ -128,7 +128,7 @@ $sql.=$toAdd;
 if (isset($_GET['letter']))
 {
     $toAdd = "
-            AND U.`nom` LIKE '" . addslashes($_GET['letter']) . "%' ";
+            AND U.`nom` LIKE '" . claro_sql_escape($_GET['letter']) . "%' ";
     $sql .= $toAdd;
 }
 
@@ -136,9 +136,9 @@ if (isset($_GET['letter']))
 
 if ( isset( $_REQUEST['search'] ) && $_REQUEST['search'] != '' )
 {
-    $toAdd = " WHERE (U.`nom` LIKE '" . addslashes($_REQUEST['search']) . "%'
-              OR U.`username` LIKE '" . addslashes($_REQUEST['search']) . "%'
-              OR U.`prenom` LIKE '" . addslashes($_REQUEST['search']) . "%') " ;
+    $toAdd = " WHERE (U.`nom` LIKE '" . claro_sql_escape($_REQUEST['search']) . "%'
+              OR U.`username` LIKE '" . claro_sql_escape($_REQUEST['search']) . "%'
+              OR U.`prenom` LIKE '" . claro_sql_escape($_REQUEST['search']) . "%') " ;
 
     $sql .= $toAdd;
 }

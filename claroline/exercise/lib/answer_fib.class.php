@@ -161,9 +161,9 @@ class answerFillInBlanks
             // insert
             $sql = "INSERT INTO `".$this->tblAnswer."`
                     SET `questionId` = ".(int) $this->questionId.",
-                        `answer` = '".addslashes($this->answerText)."',
-                        `gradeList` = '".addslashes($sqlGradeList)."',
-                        `wrongAnswerList` = '".addslashes($sqlWrongAnswerList)."',
+                        `answer` = '".claro_sql_escape($this->answerText)."',
+                        `gradeList` = '".claro_sql_escape($sqlGradeList)."',
+                        `wrongAnswerList` = '".claro_sql_escape($sqlWrongAnswerList)."',
                         `type` = ".(int) $this->type;
 
             // execute the creation query and get id of inserted assignment
@@ -184,9 +184,9 @@ class answerFillInBlanks
         {
             // update
             $sql = "UPDATE `".$this->tblAnswer."`
-                    SET `answer` = '".addslashes($this->answerText)."',
-                        `gradeList` = '".addslashes($sqlGradeList)."',
-                        `wrongAnswerList` = '".addslashes($sqlWrongAnswerList)."',
+                    SET `answer` = '".claro_sql_escape($this->answerText)."',
+                        `gradeList` = '".claro_sql_escape($sqlGradeList)."',
+                        `wrongAnswerList` = '".claro_sql_escape($sqlWrongAnswerList)."',
                         `type` = ".(int) $this->type."
                     WHERE `id` = ".(int) $this->id;
 

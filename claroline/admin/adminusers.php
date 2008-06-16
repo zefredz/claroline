@@ -358,38 +358,38 @@ function get_sql_filtered_user_list()
 
     if (isset($_SESSION['admin_user_search']))
     {
-        $sql .= " AND (U.nom LIKE '%". addslashes(pr_star_replace($_SESSION['admin_user_search'])) ."%'
-                  OR U.prenom LIKE '%".addslashes(pr_star_replace($_SESSION['admin_user_search'])) ."%' ";
-        $sql .= " OR U.email LIKE '%". addslashes(pr_star_replace($_SESSION['admin_user_search'])) ."%'";
-        $sql .= " OR U.username LIKE '". addslashes(pr_star_replace($_SESSION['admin_user_search'])) ."%'";        
-        $sql .= " OR U.officialCode = '". addslashes(pr_star_replace($_SESSION['admin_user_search'])) ."')";
+        $sql .= " AND (U.nom LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_user_search'])) ."%'
+                  OR U.prenom LIKE '%".claro_sql_escape(pr_star_replace($_SESSION['admin_user_search'])) ."%' ";
+        $sql .= " OR U.email LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_user_search'])) ."%'";
+        $sql .= " OR U.username LIKE '". claro_sql_escape(pr_star_replace($_SESSION['admin_user_search'])) ."%'";        
+        $sql .= " OR U.officialCode = '". claro_sql_escape(pr_star_replace($_SESSION['admin_user_search'])) ."')";
     }
 
     //deal with ADVANCED SEARCH parameters call
 
     if (isset($_SESSION['admin_user_firstName']))
     {
-        $sql .= " AND (U.prenom LIKE '%". addslashes(pr_star_replace($_SESSION['admin_user_firstName'])) ."%') ";
+        $sql .= " AND (U.prenom LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_user_firstName'])) ."%') ";
     }
 
     if (isset($_SESSION['admin_user_lastName']))
     {
-        $sql .= " AND (U.nom LIKE '%". addslashes(pr_star_replace($_SESSION['admin_user_lastName']))."%') ";
+        $sql .= " AND (U.nom LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_user_lastName']))."%') ";
     }
 
     if (isset($_SESSION['admin_user_userName']))
     {
-        $sql.= " AND (U.username LIKE '%". addslashes(pr_star_replace($_SESSION['admin_user_userName'])) ."%') ";
+        $sql.= " AND (U.username LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_user_userName'])) ."%') ";
     }
     
     if (isset($_SESSION['admin_user_officialCode']))
     {
-        $sql.= " AND (U.officialCode = '". addslashes(pr_star_replace($_SESSION['admin_user_officialCode'])) ."') ";
+        $sql.= " AND (U.officialCode = '". claro_sql_escape(pr_star_replace($_SESSION['admin_user_officialCode'])) ."') ";
     }
 
     if (isset($_SESSION['admin_user_mail']))
     {
-        $sql.= " AND (U.email LIKE '%". addslashes(pr_star_replace($_SESSION['admin_user_mail'])) ."%') ";
+        $sql.= " AND (U.email LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_user_mail'])) ."%') ";
     }
 
     if ($filterOnStatus== 'createcourse' )

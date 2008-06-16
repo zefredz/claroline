@@ -148,19 +148,19 @@ class answerMatching
         foreach( $this->leftList as $leftElt )
         {
             $sql .= "(".(int) $this->questionId.","
-                    ."'".addslashes($leftElt['answer'])."',"
-                    ."'".addslashes($leftElt['match'])."',"
-                    ."'".addslashes($leftElt['grade'])."',"
-                    ."'".addslashes($leftElt['code'])."'),";
+                    ."'".claro_sql_escape($leftElt['answer'])."',"
+                    ."'".claro_sql_escape($leftElt['match'])."',"
+                    ."'".claro_sql_escape($leftElt['grade'])."',"
+                    ."'".claro_sql_escape($leftElt['code'])."'),";
         }
 
         foreach( $this->rightList as $rightElt )
         {
             $sql .= "(".(int) $this->questionId.","
-                    ."'".addslashes($rightElt['answer'])."',"
+                    ."'".claro_sql_escape($rightElt['answer'])."',"
                     ."NULL,"
                     ."'0',"
-                    ."'".addslashes($rightElt['code'])."'),";
+                    ."'".claro_sql_escape($rightElt['code'])."'),";
         }
 
         $sql = substr($sql,0,-1); // remove trailing ,

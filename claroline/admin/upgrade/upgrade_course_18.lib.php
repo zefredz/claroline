@@ -496,10 +496,10 @@ function quiz_upgrade_to_18 ($course_code)
                             (`questionId`,`answer`, `gradeList`,`wrongAnswerList`,`type`)
                             VALUES
                             ('" . $row['id'] . "',
-                             '" . addslashes($answer) . "',
-                             '" . addslashes($gradeList) . "',
-                             '" . addslashes($wrongAnswerList) . "',
-                             '" . addslashes($type) . "'
+                             '" . claro_sql_escape($answer) . "',
+                             '" . claro_sql_escape($gradeList) . "',
+                             '" . claro_sql_escape($wrongAnswerList) . "',
+                             '" . claro_sql_escape($type) . "'
                             )";
 
                     if ( ! upgrade_sql_query($sql) )  
@@ -562,7 +562,7 @@ function quiz_upgrade_to_18 ($course_code)
                             (`questionId`,`answer`, `match`,`grade`,`code`)
                             VALUES
                             ('" . $answer['questionId'] . "',
-                             '" . addslashes($answer['answer']) . "',
+                             '" . claro_sql_escape($answer['answer']) . "',
                              " . ($answer['match']==0?'NULL':"'".$answer['match']."'"). ",
                              '" . $answer['grade'] . "',
                              '" . $answer['code'] . "'                            
@@ -617,9 +617,9 @@ function quiz_upgrade_to_18 ($course_code)
                             (`questionId`,`trueFeedback`, `trueGrade`,`falseFeedback`,`falseGrade`,`correctAnswer`)
                             VALUES
                             ('" . $answer['questionId'] . "',
-                             '" . addslashes($answer['trueFeedback']) . "',
+                             '" . claro_sql_escape($answer['trueFeedback']) . "',
                              '" . $answer['trueGrade'] . "',
-                             '" . addslashes($answer['falseFeedback']) . "',
+                             '" . claro_sql_escape($answer['falseFeedback']) . "',
                              '" . $answer['falseGrade'] . "',                             
                              '" . $answer['correctAnswer'] . "'                         
                             )";

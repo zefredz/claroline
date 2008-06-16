@@ -332,7 +332,7 @@ if ( $is_allowedToManage )
             }
             else
             {
-                $sqlReadyPropertyValue = "'" . addslashes($propertyValue) . "'";
+                $sqlReadyPropertyValue = "'" . claro_sql_escape($propertyValue) . "'";
             }
 
             $sql = "UPDATE `".$tbl_course_properties."`

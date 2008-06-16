@@ -217,14 +217,14 @@ else
         {
             $sql = "SELECT user_id, username, password, authSource, creatorId
                         FROM `".$tbl_user."` `user`, `" . $tbl_admin . "` `admin`
-                        WHERE BINARY username = '". addslashes($login) ."'
+                        WHERE BINARY username = '". claro_sql_escape($login) ."'
                         AND `user`.`user_id` = `admin`.`idUser` ";
         }
         else
         {
             $sql = "SELECT user_id, username, password, authSource, creatorId, isPlatformAdmin
                 FROM `".$tbl_user."` `user`
-                WHERE BINARY username = '". addslashes($login) ."'
+                WHERE BINARY username = '". claro_sql_escape($login) ."'
                 AND `user`.`isPlatformAdmin` = '1' ";
         }
         $result = claro_sql_query($sql) or die ('WARNING !! DB QUERY FAILED ! '.__LINE__);

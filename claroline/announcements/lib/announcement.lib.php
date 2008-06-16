@@ -43,8 +43,8 @@ function announcement_get_course_item_list($thisCourse, $limit = null, $startTim
     $tableAnn = get_conf('courseTablePrefix') . $thisCourse['db'] . get_conf('dbGlu') . 'announcement';
     // ****
     
-    $sql = "SELECT '" . addslashes($thisCourse['sysCode']     ) ."' AS `courseSysCode`,\n"
-            . "'" . addslashes($thisCourse['officialCode']) ."'     AS `courseOfficialCode`,\n"
+    $sql = "SELECT '" . claro_sql_escape($thisCourse['sysCode']     ) ."' AS `courseSysCode`,\n"
+            . "'" . claro_sql_escape($thisCourse['officialCode']) ."'     AS `courseOfficialCode`,\n"
             . "'CLANN'                                              AS `toolLabel`,\n"
             . "CONCAT(`temps`, ' ', '00:00:00')                     AS `date`,\n"
             . "CONCAT(`title`,' - ',`contenu`)                      AS `content`\n"
@@ -65,8 +65,8 @@ function announcement_get_course_item_list_portlet($thisCourse, $limit = null, $
     $tableAnn = get_conf('courseTablePrefix') . $thisCourse['db'] . get_conf('dbGlu') . 'announcement';
     // ****
     
-    $sql = "SELECT '" . addslashes($thisCourse['sysCode']     ) ."' AS `courseSysCode`,\n"
-            . "'" . addslashes($thisCourse['officialCode']) ."'     AS `courseOfficialCode`,\n"
+    $sql = "SELECT '" . claro_sql_escape($thisCourse['sysCode']     ) ."' AS `courseSysCode`,\n"
+            . "'" . claro_sql_escape($thisCourse['officialCode']) ."'     AS `courseOfficialCode`,\n"
             . "'CLANN'                                              AS `toolLabel`,\n"
             . "CONCAT(`temps`, ' ', '00:00:00')                     AS `date`,\n"
             . "CONCAT(`title`,' - ',`contenu`)                      AS `content`\n"
@@ -215,8 +215,8 @@ function announcement_add_item($title='',$content='', $visibility='SHOW', $time=
     // INSERT ANNOUNCEMENT
 
     $sql = "INSERT INTO `" . $tbl['announcement'] . "`
-            SET title ='" . addslashes(trim($title)) . "',
-                contenu = '" . addslashes(trim($content)) . "',
+            SET title ='" . claro_sql_escape(trim($title)) . "',
+                contenu = '" . claro_sql_escape(trim($content)) . "',
                 visibility = '" . ($visibility=='HIDE'?'HIDE':'SHOW') . "',
              ". $sqlTime ."
             ordre ='" . (int) $nextRank . "'";
@@ -239,8 +239,8 @@ function announcement_update_item($announcement_id, $title=NULL, $content=NULL, 
 {
     $tbl= claro_sql_get_course_tbl(claro_get_course_db_name_glued($course_id));
     $sqlSet = array();
-    if(!is_null($title))      $sqlSet[] = " title = '" . addslashes(trim($title)) . "' ";
-    if(!is_null($content))    $sqlSet[] = " contenu = '" . addslashes(trim($content)) . "' ";
+    if(!is_null($title))      $sqlSet[] = " title = '" . claro_sql_escape(trim($title)) . "' ";
+    if(!is_null($content))    $sqlSet[] = " contenu = '" . claro_sql_escape(trim($content)) . "' ";
     if(!is_null($visibility)) $sqlSet[] = " visibility = '" . ($visibility=='HIDE'?'HIDE':'SHOW') . "' ";
     if(!is_null($time))       $sqlSet[] = " temps = from_unixtime('".(int)$time."') ";
 

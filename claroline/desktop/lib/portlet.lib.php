@@ -138,7 +138,7 @@ class PortletList
                 //1-find value of current module rank in the dock
                 $sql = "SELECT `rank`
                         FROM `" . $this->tblDesktopPortlet . "`
-                        WHERE `label`='" . addslashes($label) . "'"
+                        WHERE `label`='" . claro_sql_escape($label) . "'"
                         ;
 
                 $result = claro_sql_query_get_single_value( $sql );
@@ -146,7 +146,7 @@ class PortletList
                 //2-move down above module
                 $sql = "UPDATE `" . $this->tblDesktopPortlet . "`
                         SET `rank` = `rank`+1
-                        WHERE `label` != '" . addslashes($label) . "'
+                        WHERE `label` != '" . claro_sql_escape($label) . "'
                         AND `rank`       = " . (int) $result['rank'] . " -1 "
                         ;
 
@@ -155,7 +155,7 @@ class PortletList
                 //3-move up current module
                 $sql = "UPDATE `" . $this->tblDesktopPortlet . "`
                         SET `rank` = `rank`-1
-                        WHERE `label` = '" . addslashes($label) . "'
+                        WHERE `label` = '" . claro_sql_escape($label) . "'
                         AND `rank` > 1"
                         ;
 
@@ -168,7 +168,7 @@ class PortletList
                 //1-find value of current module rank in the dock
                 $sql = "SELECT `rank`
                         FROM `" . $this->tblDesktopPortlet . "`
-                        WHERE `label`='" . addslashes($label) . "'"
+                        WHERE `label`='" . claro_sql_escape($label) . "'"
                         ;
 
                 $result = claro_sql_query_get_single_value($sql);
@@ -186,7 +186,7 @@ class PortletList
                 //2-move up above module
                 $sql = "UPDATE `" . $this->tblDesktopPortlet . "`
                         SET `rank` = `rank` - 1
-                        WHERE `label` != '" . addslashes($label) . "'
+                        WHERE `label` != '" . claro_sql_escape($label) . "'
                         AND `rank` = " . (int) $result['rank'] . " + 1
                         AND `rank` > 1"
                         ;
@@ -196,7 +196,7 @@ class PortletList
                 //3-move down current module
                 $sql = "UPDATE `" . $this->tblDesktopPortlet . "`
                         SET `rank` = `rank` + 1
-                        WHERE `label`='" . addslashes($label) . "'"
+                        WHERE `label`='" . claro_sql_escape($label) . "'"
                         ;
 
                 claro_sql_query($sql);

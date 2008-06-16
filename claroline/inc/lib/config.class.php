@@ -631,7 +631,7 @@ class Config
 
         $sql = "SELECT config_hash
                 FROM `" . $tbl['config_file'] . "`
-                WHERE config_code = '". addslashes($this->config_code) . "'";
+                WHERE config_code = '". claro_sql_escape($this->config_code) . "'";
 
         $result = claro_sql_query($sql);
 
@@ -683,15 +683,15 @@ class Config
         {
             // insert md5 in database
             $sql = "INSERT IGNORE INTO `" . $tbl_config_file  . "`
-                    SET config_hash = '" . addslashes($new_md5) . "',
-                        config_code = '" . addslashes($this->config_code) . "'";
+                    SET config_hash = '" . claro_sql_escape($new_md5) . "',
+                        config_code = '" . claro_sql_escape($this->config_code) . "'";
         }
         else
         {
             // update md5 in database
             $sql = "UPDATE `" . $tbl_config_file  . "`
-                    SET config_hash = '" . addslashes($new_md5) . "'
-                    WHERE config_code = '" . addslashes($this->config_code) . "'" ;
+                    SET config_hash = '" . claro_sql_escape($new_md5) . "'
+                    WHERE config_code = '" . claro_sql_escape($this->config_code) . "'" ;
         }
 
         // execute sql query

@@ -194,19 +194,19 @@ class ClaroCourse
             $tbl_course_properties = $tbl_cdb_names['course_properties'];
 
             $sql = "UPDATE `" . $tbl_course . "`
-                    SET `intitule`             = '" . addslashes($this->title) . "',
-                        `faculte`              = '" . addslashes($this->category) . "',
-                        `titulaires`           = '" . addslashes($this->titular) . "',
-                        `administrativeNumber` = '" . addslashes($this->officialCode) . "',
-                        `language`             = '" . addslashes($this->language) . "',
-                        `extLinkName`          = '" . addslashes($this->departmentName) . "',
-                        `extLinkUrl`           = '" . addslashes($this->extLinkUrl) . "',
-                        `email`                = '" . addslashes($this->email) . "',
+                    SET `intitule`             = '" . claro_sql_escape($this->title) . "',
+                        `faculte`              = '" . claro_sql_escape($this->category) . "',
+                        `titulaires`           = '" . claro_sql_escape($this->titular) . "',
+                        `administrativeNumber` = '" . claro_sql_escape($this->officialCode) . "',
+                        `language`             = '" . claro_sql_escape($this->language) . "',
+                        `extLinkName`          = '" . claro_sql_escape($this->departmentName) . "',
+                        `extLinkUrl`           = '" . claro_sql_escape($this->extLinkUrl) . "',
+                        `email`                = '" . claro_sql_escape($this->email) . "',
                         `visibility`           = '" . ($this->visibility ? 'VISIBLE':'INVISIBLE') . "',
                         `access`               = '" . ($this->access     ? 'PUBLIC':'PRIVATE') . "',
                         `registration`         = '" . ($this->registration ? 'OPEN':'CLOSE') . "',
-                        `registrationKey`      = '" . addslashes($this->registrationKey) . "'
-                    WHERE code='" . addslashes($this->courseId) . "'";
+                        `registrationKey`      = '" . claro_sql_escape($this->registrationKey) . "'
+                    WHERE code='" . claro_sql_escape($this->courseId) . "'";
 
             return claro_sql_query($sql);
         }

@@ -325,7 +325,7 @@ function register_tool_in_main_database ( $claro_label, $script_url, $icon, $def
 
     $sql = "SELECT `id`
             FROM `" . $tbl_tool . "`
-            WHERE `claro_label` = '" . addslashes($claro_label) . "'";
+            WHERE `claro_label` = '" . claro_sql_escape($claro_label) . "'";
 
     $result = upgrade_sql_query($sql);
 
@@ -345,9 +345,9 @@ function register_tool_in_main_database ( $claro_label, $script_url, $icon, $def
         $sql = "INSERT INTO `" . $tbl_tool . "`
                (`claro_label`,`script_url`,`icon`,`def_access`,`def_rank`,`add_in_course`,`access_manager`)
                VALUES
-               ('" . addslashes($claro_label) . "','" . addslashes($script_url) . "','" . addslashes($icon) . "',
-                '" . addslashes($default_access) .  "','" . addslashes($default_rank) . "',
-                '" . addslashes($add_in_course) . "','" . addslashes($access_manager) . "')";
+               ('" . claro_sql_escape($claro_label) . "','" . claro_sql_escape($script_url) . "','" . claro_sql_escape($icon) . "',
+                '" . claro_sql_escape($default_access) .  "','" . claro_sql_escape($default_rank) . "',
+                '" . claro_sql_escape($add_in_course) . "','" . claro_sql_escape($access_manager) . "')";
 
         return claro_sql_query_insert_id($sql);
 
@@ -387,7 +387,7 @@ function add_tool_in_course_tool_list ( $claro_label, $access = null , $courseDb
     // get id of tool on the platform and default access
     $sql = "SELECT `id`, `def_access`
             FROM `" . $tbl_course_tool . "`
-            WHERE `claro_label` = '" . addslashes($claro_label) . "'";
+            WHERE `claro_label` = '" . claro_sql_escape($claro_label) . "'";
 
     $result = upgrade_sql_query($sql);
 
@@ -431,7 +431,7 @@ function save_course_current_version ( $course_code, $fileVersion )
     // query to update version of course
 
     $sql = " UPDATE `" . $tbl_mdb_names['course'] . "`
-             SET versionClaro = '" . addslashes($fileVersion) . "'
+             SET versionClaro = '" . claro_sql_escape($fileVersion) . "'
              WHERE code = '". $course_code ."'";
 
     return claro_sql_query($sql);

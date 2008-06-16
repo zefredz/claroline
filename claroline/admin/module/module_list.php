@@ -144,11 +144,11 @@ $deleteModuleDatabase = ( array_key_exists( 'deleteModuleDatabase', $_REQUEST )
     : false
     ;
 
-/*$autoActivateInCourses = ( array_key_exists( 'autoActivateInCourses', $_REQUEST )
+$autoActivateInCourses = ( array_key_exists( 'autoActivateInCourses', $_REQUEST )
     && $_REQUEST['autoActivateInCourses'] == 'on' )
     ? true
     : false
-    ;*/
+    ;
 
 
 //----------------------------------
@@ -501,8 +501,8 @@ switch ( $cmd )
                     . '<input name="uploadedModule" type="file" /><br />' . "\n"
                     . '<input name="activateOnInstall" id="activateOnInstall" type="checkbox" />'  . "\n"
                     . '<label for="activateOnInstall" >' . get_lang ( 'Activate module on install' ) . '</label>' . '<br />' . "\n"
-                    //. '<input name="autoActivateInCourses" id="autoActivateInCourses" type="checkbox" />'  . "\n"
-                    //. '<label for="autoActivateInCourses" >' . get_lang ( 'Activate automaticaly in courses <small>(course tool only)</small>' ) . '</label>' . '<br />' . "\n"
+                    // . '<input name="autoActivateInCourses" id="autoActivateInCourses" type="checkbox" />'  . "\n"
+                    // . '<label for="autoActivateInCourses" >' . get_lang ( 'Activate automaticaly in courses <small>(course tool only)</small>' ) . '</label>' . '<br />' . "\n"
                     . '<input name="visibleOnInstall" id="visibleOnInstall" type="checkbox" />'  . "\n"
                     . '<label for="visibleOnInstall" >' . get_lang ( 'Visible in all courses on install <small>(course tool only)</small>' ) . '</label>'
                     . '<br />' . "\n"
@@ -529,6 +529,8 @@ switch ( $cmd )
                     . '<input size="80" name="packageCandidatePath" type="text" /><br />' . "\n"
                     . '<input name="activateOnInstall"  id="activateOnInstall" type="checkbox" />'
                     . '<label for="activateOnInstall" >' . get_lang ( 'Activate module on install' ) . '</label>' . '<br />'
+                    // . '<input name="autoActivateInCourses" id="autoActivateInCourses" type="checkbox" />'  . "\n"
+                    // . '<label for="autoActivateInCourses" >' . get_lang ( 'Activate automaticaly in courses <small>(course tool only)</small>' ) . '</label>' . '<br />' . "\n"
                     . '<input name="visibleOnInstall"  id="visibleOnInstall" type="checkbox" />'
                     . '<label for="visibleOnInstall" >' . get_lang ( 'Visible on  each course on install <small>(tool only)</small>' ) . '</label>'
                     . '<br />' . "\n"
@@ -558,6 +560,8 @@ switch ( $cmd )
                     . '<input name="packageCandidateUrl" size="80" type="text" /><br />' . "\n"
                     . '<input name="activateOnInstall"  id="activateOnInstall" type="checkbox" />'
                     . '<label for="activateOnInstall" >' . get_lang ( 'Activate module on install' ) . '</label>' . '<br />'
+                    // . '<input name="autoActivateInCourses" id="autoActivateInCourses" type="checkbox" />'  . "\n"
+                    // . '<label for="autoActivateInCourses" >' . get_lang ( 'Activate automaticaly in courses <small>(course tool only)</small>' ) . '</label>' . '<br />' . "\n"
                     . '<input name="visibleOnInstall"  id="visibleOnInstall" type="checkbox" />'
                     . '<label for="visibleOnInstall" >' . get_lang ( 'Visible on  each course on install <small>(tool only)</small>' ) . '</label>'
                     . '<br />' . "\n"
@@ -709,7 +713,7 @@ $sql = "
            M.`type`            AS `type`
       FROM `" . $tbl_module . "` AS M
             " . $sqlJoinType . "
-     WHERE M.`type` = '" . addslashes ( $typeReq ) . "'
+     WHERE M.`type` = '" . claro_sql_escape ( $typeReq ) . "'
   GROUP BY `id`
   " . $orderType . "
   " ;

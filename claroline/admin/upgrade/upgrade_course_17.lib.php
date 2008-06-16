@@ -432,7 +432,7 @@ function introtext_upgrade_to_17($course_code)
                     $sql = "INSERT INTO `" . $currentCourseDbNameGlu . "tool_intro`
                             (`tool_id`,`content`)
                             VALUES
-                            ('" . $row['id'] . "','" . addslashes($row['texte_intro']) . "')";
+                            ('" . $row['id'] . "','" . claro_sql_escape($row['texte_intro']) . "')";
 
                     if ( ! upgrade_sql_query($sql) )  
                     {

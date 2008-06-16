@@ -158,10 +158,10 @@ class CourseDescription
            // insert
         $sql = "INSERT INTO `".$this->tblCourseDescription."`
                 SET `category` = ".$this->getCategory().", 
-                    `title` = '".addslashes($this->getTitle())."',
-                    `content` = '".addslashes($this->getContent())."',
+                    `title` = '".claro_sql_escape($this->getTitle())."',
+                    `content` = '".claro_sql_escape($this->getContent())."',
                     `lastEditDate` = NOW(),
-                    `visibility` = '".addslashes($this->getVisibility())."'";
+                    `visibility` = '".claro_sql_escape($this->getVisibility())."'";
 
         // execute the creation query and get id of inserted assignment
         $insertedId = claro_sql_query_insert_id($sql);
@@ -191,10 +191,10 @@ class CourseDescription
         // update, main query
         $sql = "UPDATE `".$this->tblCourseDescription."`
                 SET `category` = ".$this->getCategory().", 
-                    `title` = '".addslashes($this->getTitle())."',
-                    `content` = '".addslashes($this->getContent())."',
+                    `title` = '".claro_sql_escape($this->getTitle())."',
+                    `content` = '".claro_sql_escape($this->getContent())."',
                     `lastEditDate` = NOW(),
-                    `visibility` = '".addslashes($this->getVisibility())."'
+                    `visibility` = '".claro_sql_escape($this->getVisibility())."'
                 WHERE `id` = ".$this->getId();
 
         // execute and return main query

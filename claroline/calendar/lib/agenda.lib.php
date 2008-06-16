@@ -113,12 +113,12 @@ function agenda_add_item($title='',$content='', $day=NULL, $hour=NULL, $lasting=
     if (is_null($day)) $day = date('Y-m-d');
     if (is_null($hour)) $hour =  date('H:i:s');
     $sql = "INSERT INTO `" . $tbl_calendar_event . "`
-        SET   titre   = '" . addslashes(trim($title)) . "',
-              contenu = '" . addslashes(trim($content)) . "',
+        SET   titre   = '" . claro_sql_escape(trim($title)) . "',
+              contenu = '" . claro_sql_escape(trim($content)) . "',
               day     = '" . $day . "',
               hour    = '" . $hour . "',
               visibility = '" . ($visibility=='HIDE'?'HIDE':'SHOW') . "',
-              lasting = '" . addslashes(trim($lasting)) . "'";
+              lasting = '" . claro_sql_escape(trim($lasting)) . "'";
 
     return claro_sql_query_insert_id($sql);
 }
@@ -142,11 +142,11 @@ function agenda_update_item($event_id, $title=NULL,$content=NULL, $day=NULL, $ho
     $tbl_calendar_event = $tbl_c_names['calendar_event'];
 
     $sqlSet = array();
-    if(!is_null($title))      $sqlSet[] = " `titre` = '" . addslashes(trim($title)) . "' ";
-    if(!is_null($content))    $sqlSet[] = " `contenu` = '" . addslashes(trim($content)) . "' ";
-    if(!is_null($day))        $sqlSet[] = " `day` = '" . addslashes(trim($day)) . "' ";
-    if(!is_null($hour))       $sqlSet[] = " `hour` = '" . addslashes(trim($hour)) . "' ";
-    if(!is_null($lasting))    $sqlSet[] = " `lasting` = '" . addslashes(trim($lasting)) . "' ";
+    if(!is_null($title))      $sqlSet[] = " `titre` = '" . claro_sql_escape(trim($title)) . "' ";
+    if(!is_null($content))    $sqlSet[] = " `contenu` = '" . claro_sql_escape(trim($content)) . "' ";
+    if(!is_null($day))        $sqlSet[] = " `day` = '" . claro_sql_escape(trim($day)) . "' ";
+    if(!is_null($hour))       $sqlSet[] = " `hour` = '" . claro_sql_escape(trim($hour)) . "' ";
+    if(!is_null($lasting))    $sqlSet[] = " `lasting` = '" . claro_sql_escape(trim($lasting)) . "' ";
     if(!is_null($visibility)) $sqlSet[] = " `visibility` = '" . ($visibility=='HIDE'?'HIDE':'SHOW') . "' ";
 
     if (count($sqlSet)>0)

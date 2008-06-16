@@ -50,7 +50,7 @@ function user_add_to_course($userId, $courseCode, $admin = false, $tutor = false
         $sql = "SELECT count_user_enrol, count_class_enrol
                 FROM `" . $tbl_rel_course_user . "`
                 WHERE user_id = " . (int) $userId . "
-                  AND code_cours ='" . addslashes($courseCode) . "'";
+                  AND code_cours ='" . claro_sql_escape($courseCode) . "'";
 
         $course_user_list = claro_sql_query_get_single_row($sql);
 
@@ -67,7 +67,7 @@ function user_add_to_course($userId, $courseCode, $admin = false, $tutor = false
                     SET `count_user_enrol` = " . $count_user_enrol . ",
                         `count_class_enrol` = " . $count_class_enrol . "
                     WHERE `user_id` = ". (int)$userId . "
-                    AND  `code_cours` = '" . addslashes($courseCode) . "'";
+                    AND  `code_cours` = '" . claro_sql_escape($courseCode) . "'";
             if ( claro_sql_query($sql) ) return true;
             else                         return false;
         }
@@ -85,7 +85,7 @@ function user_add_to_course($userId, $courseCode, $admin = false, $tutor = false
             else          $profileId = claro_get_profile_id('user');
 
             $sql = "INSERT INTO `" . $tbl_rel_course_user . "`
-                    SET code_cours = '" . addslashes($courseCode) . "',
+                    SET code_cours = '" . claro_sql_escape($courseCode) . "',
                         user_id    = " . (int) $userId . ",
                         profile_id = " . (int) $profileId . ",
                         isCourseManager = " . (int) ($admin ? 1 : 0 ) . ",
@@ -113,7 +113,7 @@ function is_course_registration_allowed($courseId)
 
     $sql = " SELECT count(*) AS registration_allowed
              FROM `" . $tbl_course . "`
-             WHERE  `code` = '" . addslashes($courseId) . "'
+             WHERE  `code` = '" . claro_sql_escape($courseId) . "'
              AND    `registration` = 'open'" ;
 
     $courseRegistrationList = claro_sql_query_get_single_value($sql);
@@ -133,7 +133,7 @@ function get_course_registration_key($courseId)
 
     $sql = " SELECT registrationKey
              FROM `" . $tbl['course'] . "`
-             WHERE  code = '" . addslashes($courseId) . "'";
+             WHERE  code = '" . claro_sql_escape($courseId) . "'";
 
     $registrationKey = claro_sql_query_get_single_value($sql);
 
@@ -176,7 +176,7 @@ function user_remove_from_course( $userId, $courseCodeList = array(), $force = f
                 FROM `" . $tbl['rel_course_user'] . "`
                 WHERE user_id = ". (int) $userId ."
                   AND isCourseManager = 1
-                  AND code_cours IN ('" . implode("', '", array_map('addslashes', $courseCodeList) ) . "') ";
+                  AND code_cours IN ('" . implode("', '", array_map('claro_sql_escape', $courseCodeList) ) . "') ";
 
         if ( claro_sql_query_get_single_value($sql)  > 0 )
         {
@@ -187,7 +187,7 @@ function user_remove_from_course( $userId, $courseCodeList = array(), $force = f
 
     $sql = "SELECT code_cours , count_user_enrol, count_class_enrol
             FROM `" . $tbl['rel_course_user'] . "`
-            WHERE `code_cours` IN ('" . implode("', '", array_map('addslashes', $courseCodeList) ) . "')
+            WHERE `code_cours` IN ('" . implode("', '", array_map('claro_sql_escape', $courseCodeList) ) . "')
             AND   `user_id` = " . $userId ;
 
     $userEnrolCourseList = claro_sql_query_fetch_all($sql);
@@ -231,7 +231,7 @@ function user_remove_from_course( $userId, $courseCodeList = array(), $force = f
 
             $sql = "DELETE FROM `" . $tbl['rel_course_user'] . "`
                 WHERE user_id = " . (int) $userId . "
-                  AND code_cours = '" . addslashes($thisCourseCode) . "'";
+                  AND code_cours = '" . claro_sql_escape($thisCourseCode) . "'";
 
             if ( claro_sql_query($sql) == false ) return false;
         }
@@ -247,7 +247,7 @@ function user_remove_from_course( $userId, $courseCodeList = array(), $force = f
                       SET `count_user_enrol` = '" . $count_user_enrol . "',
                         `count_class_enrol` = '" . $count_class_enrol . "'
                       WHERE `user_id`   =  " . (int) $userId . "
-                      AND  `code_cours` = '" . addslashes($thisCourseCode) . "'";
+                      AND  `code_cours` = '" . claro_sql_escape($thisCourseCode) . "'";
 
             if ( claro_sql_query($sql) ) return true;
             else                         return false;
@@ -366,7 +366,7 @@ function user_set_course_properties($userId, $courseId, $propertyList)
 
     if ( array_key_exists('role', $propertyList) )
     {
-        $setList[] = "role = '" . addslashes($propertyList['role']) . "'";
+        $setList[] = "role = '" . claro_sql_escape($propertyList['role']) . "'";
     }
 
     if ( count($setList) > 0 )
@@ -374,7 +374,7 @@ function user_set_course_properties($userId, $courseId, $propertyList)
         $sql = "UPDATE `" . $tbl['rel_course_user'] . "`
                 SET " . implode(', ', $setList) ."
                 WHERE   `user_id`    = " . (int) $userId . "
-                AND     `code_cours` = '" . addslashes($courseId) . "'";
+                AND     `code_cours` = '" . claro_sql_escape($courseId) . "'";
 
         if ( claro_sql_query_affected_rows($sql) > 0 ) return true;
         else                                           return false;
@@ -501,7 +501,7 @@ function course_user_get_properties($userId, $courseId)
                     `" . $tbl_course . "` AS c
             WHERE   u.user_id = cu.user_id
             AND     u.user_id = " . (int) $userId . "
-            AND     cu.code_cours = '" . addslashes($courseId) . "'
+            AND     cu.code_cours = '" . claro_sql_escape($courseId) . "'
             AND     c.code = cu.code_cours ";
 
     $result = claro_sql_query($sql);
@@ -637,7 +637,7 @@ function claro_get_course_user_list($courseId = NULL)
                FROM `" . $tbl_users . "`           AS user,
                     `" . $tbl_rel_course_user . "` AS course_user
                WHERE `user`.`user_id`=`course_user`.`user_id`
-               AND   `course_user`.`code_cours`='" . addslashes($courseId) . "'";
+               AND   `course_user`.`code_cours`='" . claro_sql_escape($courseId) . "'";
     
     return claro_sql_query_fetch_all_rows($sqlGetUsers);
 }

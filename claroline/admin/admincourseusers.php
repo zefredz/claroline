@@ -108,7 +108,7 @@ $sql = "SELECT U.user_id  AS user_id,
         FROM  `" . $tbl_mdb_names['user'] . "` AS U
             , `" . $tbl_mdb_names['rel_course_user'] . "` AS CU
           WHERE CU.`user_id` = U.`user_id`
-            AND CU.`code_cours` = '" . addslashes($cidToEdit) . "'";
+            AND CU.`code_cours` = '" . claro_sql_escape($cidToEdit) . "'";
 
 $myPager = new claro_sql_pager($sql, $pager_offset, get_conf('userPerPage',20));
 

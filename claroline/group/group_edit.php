@@ -134,8 +134,8 @@ else                               $ingroup = array();
 if ( isset($_REQUEST['modify']) && $is_allowedToManage )
 {
     $sql = "UPDATE`" . $tbl_group_team . "`
-            SET `name`        = '" . addslashes($name) . "',
-                `description` = '" . addslashes($description) . "',
+            SET `name`        = '" . claro_sql_escape($name) . "',
+                `description` = '" . claro_sql_escape($description) . "',
                 `maxStudent`  = " . (is_null($maxMember) ? 'NULL' : "'" . (int) $maxMember . "'") .",
                 `tutor`       = '" . (int) $tutor ."'
             WHERE `id`        = '" . (int) claro_get_current_group_id() . "'";
@@ -146,7 +146,7 @@ if ( isset($_REQUEST['modify']) && $is_allowedToManage )
 
     // UPDATE FORUM NAME
     $sql = 'UPDATE `' . $tbl_bb_forum . '`
-            SET `forum_name` ="' . addslashes($name).'"
+            SET `forum_name` ="' . claro_sql_escape($name).'"
             WHERE `forum_id` ="' . $myStudentGroup['forumId'] . '"';
 
     claro_sql_query($sql);

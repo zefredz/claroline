@@ -59,7 +59,7 @@ if ( isset($_REQUEST['searchPassword']) && !empty($emailTo) )
                     `authSource`            ,
                     `creatorId`
              FROM `" . $tbl_user . "`
-             WHERE LOWER(email) = '" . addslashes($emailTo) . "'";
+             WHERE LOWER(email) = '" . claro_sql_escape($emailTo) . "'";
 
     $userList = claro_sql_query_fetch_all($sql);
 
@@ -84,7 +84,7 @@ if ( isset($_REQUEST['searchPassword']) && !empty($emailTo) )
                     // UPDATE THE DB WITH THE NEW GENERATED PASSWORD
 
                     $sql = 'UPDATE `' . $tbl_user . '`
-                            SET   `password` = "'. addslashes(md5($user['password'])) .'"
+                            SET   `password` = "'. claro_sql_escape(md5($user['password'])) .'"
                              WHERE `user_id` = "'.$user['uid'].'"';
 
                     if ( claro_sql_query($sql) === false )

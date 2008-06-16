@@ -68,7 +68,7 @@ else
 
         $sql = 'SELECT visibility
                 FROM `'.$tbl_document.'`
-                WHERE path = "'.addslashes($requestUrl).'"';
+                WHERE path = "'.claro_sql_escape($requestUrl).'"';
 
         $docVisibilityStatus = claro_sql_query_get_single_value($sql);
 

@@ -140,10 +140,10 @@ class answerMultipleChoice
         foreach($this->answerList as $anAnswer)
         {
             $sql .= "(".(int) $this->questionId.",
-                    '".addslashes($anAnswer['answer'])."',
+                    '".claro_sql_escape($anAnswer['answer'])."',
                     ".(int) $anAnswer['correct'].",
-                    '".addslashes($anAnswer['grade'])."',
-                    '".addslashes($anAnswer['comment'])."'),";
+                    '".claro_sql_escape($anAnswer['grade'])."',
+                    '".claro_sql_escape($anAnswer['comment'])."'),";
         }
 
         $sql = substr($sql,0,-1); // remove trailing ,

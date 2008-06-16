@@ -181,17 +181,17 @@ class Exercise
         {
             // insert
             $sql = "INSERT INTO `".$this->tblExercise."`
-                    SET `title` = '".addslashes($this->title)."',
-                        `description` = '".addslashes($this->description)."',
-                        `visibility` = '".addslashes($this->visibility)."',
-                        `displayType` = '".addslashes($this->displayType)."',
+                    SET `title` = '".claro_sql_escape($this->title)."',
+                        `description` = '".claro_sql_escape($this->description)."',
+                        `visibility` = '".claro_sql_escape($this->visibility)."',
+                        `displayType` = '".claro_sql_escape($this->displayType)."',
                         `shuffle` = ".(int) $this->shuffle.",
-                        `showAnswers` = '".addslashes($this->showAnswers)."',
-                        `startDate` = FROM_UNIXTIME(".addslashes($this->startDate)."),
-                        `endDate` = ".(is_null($this->endDate)?"'0000-00-00 00:00:00'":"FROM_UNIXTIME(".addslashes($this->endDate).")").",
+                        `showAnswers` = '".claro_sql_escape($this->showAnswers)."',
+                        `startDate` = FROM_UNIXTIME(".claro_sql_escape($this->startDate)."),
+                        `endDate` = ".(is_null($this->endDate)?"'0000-00-00 00:00:00'":"FROM_UNIXTIME(".claro_sql_escape($this->endDate).")").",
                         `timeLimit` = ".(int) $this->timeLimit.",
                         `attempts` = ".(int) $this->attempts.",
-                        `anonymousAttempts` = '".addslashes($this->anonymousAttempts)."'";
+                        `anonymousAttempts` = '".claro_sql_escape($this->anonymousAttempts)."'";
 
             // execute the creation query and get id of inserted assignment
             $insertedId = claro_sql_query_insert_id($sql);
@@ -211,17 +211,17 @@ class Exercise
         {
             // update, main query
             $sql = "UPDATE `".$this->tblExercise."`
-                    SET `title` = '".addslashes($this->title)."',
-                        `description` = '".addslashes($this->description)."',
-                        `visibility` = '".addslashes($this->visibility)."',
-                        `displayType` = '".addslashes($this->displayType)."',
+                    SET `title` = '".claro_sql_escape($this->title)."',
+                        `description` = '".claro_sql_escape($this->description)."',
+                        `visibility` = '".claro_sql_escape($this->visibility)."',
+                        `displayType` = '".claro_sql_escape($this->displayType)."',
                         `shuffle` = ".(int) $this->shuffle.",
-                        `showAnswers` = '".addslashes($this->showAnswers)."',
-                        `startDate` = FROM_UNIXTIME('".addslashes($this->startDate)."'),
-                        `endDate` = ".(is_null($this->endDate)?"'0000-00-00 00:00:00'":"FROM_UNIXTIME(".addslashes($this->endDate).")").",
+                        `showAnswers` = '".claro_sql_escape($this->showAnswers)."',
+                        `startDate` = FROM_UNIXTIME('".claro_sql_escape($this->startDate)."'),
+                        `endDate` = ".(is_null($this->endDate)?"'0000-00-00 00:00:00'":"FROM_UNIXTIME(".claro_sql_escape($this->endDate).")").",
                         `timeLimit` = ".(int) $this->timeLimit.",
                         `attempts` = ".(int) $this->attempts.",
-                        `anonymousAttempts` = '".addslashes($this->anonymousAttempts)."'
+                        `anonymousAttempts` = '".claro_sql_escape($this->anonymousAttempts)."'
                     WHERE `id` = '".$this->id."'";
 
             // execute and return main query

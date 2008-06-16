@@ -42,7 +42,7 @@ function insert_course_tool($tool_label)
                     add_in_course, access_manager
 
             FROM `" . $tbl_tool_list . "` `course_tool`
-            WHERE claro_label = '" . addslashes($tool_label) . "'";
+            WHERE claro_label = '" . claro_sql_escape($tool_label) . "'";
 
     list($defaultToolSettingList) = claro_sql_query_fetch_all($sql);
 
@@ -163,8 +163,8 @@ function set_local_course_tool($toolId, $name, $url)
     {
 
         $sql = "UPDATE `" . $tbl_course_tool_list . "`
-                SET script_name = '" . addslashes($name) . "',
-                    script_url  = '" . addslashes($url) . "'
+                SET script_name = '" . claro_sql_escape($name) . "',
+                    script_url  = '" . claro_sql_escape($url) . "'
                 WHERE id        = " . (int) $toolId . "
                 AND   tool_id IS NULL";
 
@@ -207,8 +207,8 @@ function insert_local_course_tool($name, $url, $visibility = true)
 
         $sql = "INSERT INTO `" . $tbl_course_tool_list . "`
                 SET
-                script_name = '" . addslashes($name) . "',
-                script_url  = '" . addslashes($url) . "',
+                script_name = '" . claro_sql_escape($name) . "',
+                script_url  = '" . claro_sql_escape($url) . "',
                 visibility  = '" . ($visibility?1:0) . "',
                 rank        = "  . (int) $nextRank ;
 

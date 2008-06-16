@@ -126,7 +126,7 @@ function claro_get_course_data($courseId = NULL, $force = false )
                     FROM      `" . $tbl['cours'] . "`   AS c
                     LEFT JOIN `" . $tbl['faculte'] . "` AS cat
                             ON c.faculte =  cat.code
-                    WHERE c.code = '" . addslashes($courseId) . "'";
+                    WHERE c.code = '" . claro_sql_escape($courseId) . "'";
 
             $courseDataList = claro_sql_query_get_single_row($sql);
 

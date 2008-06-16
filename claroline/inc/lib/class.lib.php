@@ -56,7 +56,7 @@ function class_create ( $className, $parentId )
     $parentId = (int) $parentId;
 
     $sql = "INSERT INTO `" . $tbl['class'] . "`
-            SET `name`='". addslashes($className) ."'";
+            SET `name`='". claro_sql_escape($className) ."'";
 
     if ( $parentId != 0 )
     {
@@ -81,7 +81,7 @@ function class_set_properties ( $classId, $className, $parentId = 0 )
     $className = trim($className);
 
     $sql = "UPDATE `". $tbl_class ."`
-            SET name='". addslashes($className) ."'";
+            SET name='". claro_sql_escape($className) ."'";
 
     if ( $parentId != 0 )
     {
@@ -288,7 +288,7 @@ function register_class_to_course($class_id, $course_code)
 
     $sql = "SELECT `code`
                 FROM `".$tbl_course."`
-                WHERE `code` = '". addslashes($course_code) ."'";
+                WHERE `code` = '". claro_sql_escape($course_code) ."'";
 
     $course_identifier = claro_sql_query_fetch_all($sql);
 
@@ -345,7 +345,7 @@ function register_class_to_course($class_id, $course_code)
     // check if link already exist
     $sql = "SELECT `courseId`
                 FROM `".$tbl_course_class."`
-                WHERE `courseId` = '". addslashes($course_code) ."'
+                WHERE `courseId` = '". claro_sql_escape($course_code) ."'
                 AND `classId` = ".$class_id;
 
     $result = claro_sql_query_fetch_all($sql);
@@ -354,7 +354,7 @@ function register_class_to_course($class_id, $course_code)
     {
         // Insert value in table if not exist
         $sql = "INSERT INTO `".$tbl_course_class."` (`courseId`,`classId`)
-        VALUES ('".addslashes($course_code)."', '".$class_id."')";
+        VALUES ('".claro_sql_escape($course_code)."', '".$class_id."')";
 
         claro_sql_query($sql);
     }
@@ -423,7 +423,7 @@ function unregister_class_to_course($class_id, $course_code)
 
     $sql = "SELECT `cours_id`
                 FROM `".$tbl_course."`
-                WHERE `code` = '". addslashes($course_code) ."'";
+                WHERE `code` = '". claro_sql_escape($course_code) ."'";
 
     $course_id = claro_sql_query_get_single_value($sql);
 
@@ -461,7 +461,7 @@ function unregister_class_to_course($class_id, $course_code)
     // 5 - Remove link between class and course in rel_course_class
 
     $sql = "DELETE FROM `".$tbl_course_class."`
-            WHERE `courseId` = '". addslashes($course_code) ."'
+            WHERE `courseId` = '". claro_sql_escape($course_code) ."'
             AND `classId` = '".$class_id."'";
 
     claro_sql_query($sql);
@@ -1126,7 +1126,7 @@ function get_class_list_by_course($courseId)
         FROM `" . $tbl['class'] . "` C
         LEFT JOIN `" . $tbl['rel_course_class'] . "` CC
                ON CC.`classId` = C.`id`
-              AND CC.`courseId` = '" . addslashes($courseId) . "'
+              AND CC.`courseId` = '" . claro_sql_escape($courseId) . "'
         ORDER BY C.`name`";
     return claro_sql_query_fetch_all($sql);
 }

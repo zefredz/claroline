@@ -285,7 +285,7 @@ function track_exercise_details($exerciseTrackId, $questionId, $values, $questio
         {
             $sql = "INSERT INTO `".$tbl_qwz_tracking_answers."`
                        SET `details_id` =  ". (int)$details_id.",
-                           `answer` = '".addslashes($answer)."'";
+                           `answer` = '".claro_sql_escape($answer)."'";
 
             claro_sql_query($sql);
         }

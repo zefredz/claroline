@@ -865,7 +865,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
             /* Search the old comment */
             $sql = "SELECT comment
                     FROM `".$dbTable."`
-                    WHERE path = \"". addslashes($_REQUEST['file']) ."\"";
+                    WHERE path = \"". claro_sql_escape($_REQUEST['file']) ."\"";
 
             $result = claro_sql_query ($sql);
 
@@ -1262,7 +1262,7 @@ for ($i =0; $i < count($filePathList); $i++ )
 if ($cmd == 'exSearch' && $courseContext)
 {
     $sql = "SELECT path FROM `".$dbTable."`
-            WHERE comment LIKE '%".addslashes($searchPatternSql)."%'";
+            WHERE comment LIKE '%".claro_sql_escape($searchPatternSql)."%'";
 
     $dbSearchResult = claro_sql_query_fetch_all_cols($sql);
 
@@ -1299,7 +1299,7 @@ if ( count($filePathList) > 0 )
     {
         $sql = "SELECT `path`, `visibility`, `comment`
                 FROM `".$dbTable."`
-                WHERE path IN ('".implode("', '", array_map('addslashes', $filePathList) )."')";
+                WHERE path IN ('".implode("', '", array_map('claro_sql_escape', $filePathList) )."')";
 
         $xtraAttributeList = claro_sql_query_fetch_all_cols($sql);
     }

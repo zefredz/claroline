@@ -158,7 +158,7 @@ if ( get_conf('is_trackingEnabled') )
           ON `CU`.`user_id` = `TE`.`user_id`
           AND `QT`.`id` = `TE`.`exo_id`
     WHERE `CU`.`user_id` = `U`.`user_id`
-      AND `CU`.`code_cours` = '" . addslashes(claro_get_current_course_id()) . "'
+      AND `CU`.`code_cours` = '" . claro_sql_escape(claro_get_current_course_id()) . "'
       AND (
             `TE`.`exo_id` = ". (int)$exercise->getId()."
             OR

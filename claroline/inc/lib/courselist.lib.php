@@ -49,8 +49,8 @@ class category_browser
 
         if ($categoryCode)
         {
-            $sql .= "WHERE UPPER(`faculte`.`code_P`) = UPPER('" . addslashes($categoryCode) . "')
-                        OR UPPER(`faculte`.`code`)   = UPPER('" . addslashes($categoryCode) . "') \n";
+            $sql .= "WHERE UPPER(`faculte`.`code_P`) = UPPER('" . claro_sql_escape($categoryCode) . "')
+                        OR UPPER(`faculte`.`code`)   = UPPER('" . claro_sql_escape($categoryCode) . "') \n";
         }
         else
         {
@@ -120,7 +120,7 @@ class category_browser
                    "
                  : " ")
 
-              . "WHERE c.`faculte` = '" . addslashes($this->categoryCode) . "'
+              . "WHERE c.`faculte` = '" . claro_sql_escape($this->categoryCode) . "'
                  AND (visibility = 'VISIBLE' "
                  . ($this->userId ? "OR NOT (cu.user_id IS NULL)" :"") .
                  ")
@@ -151,7 +151,7 @@ function search_course($keyword, $userId = null)
 
     if (empty($keyword) ) return array();
 
-    $upperKeyword = addslashes(strtoupper($keyword));
+    $upperKeyword = claro_sql_escape(strtoupper($keyword));
 
     $sql = "SELECT c.intitule             AS title,
                    c.titulaires           AS titular,

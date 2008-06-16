@@ -89,7 +89,7 @@ if ($intro_editAllowed)
             $intro_content = trim($_REQUEST['intro_content']);
 
             $sql = "INSERT INTO `" . $TBL_INTRODUCTION . "`
-                    SET content = '" . addslashes($intro_content) . "',
+                    SET content = '" . claro_sql_escape($intro_content) . "',
                         rank = " . (int) $nextRank;
 
            $introId = claro_sql_query_insert_id($sql);
@@ -112,7 +112,7 @@ if ($intro_editAllowed)
         if ( ! empty($intro_content) )
         {
             $sql = "UPDATE `" . $TBL_INTRODUCTION . "`
-                    SET   `content` = '" . addslashes($intro_content) . "'
+                    SET   `content` = '" . claro_sql_escape($intro_content) . "'
                     WHERE `id` = ".(int)$introId;
 
            if ( claro_sql_query($sql) != false)
