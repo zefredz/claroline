@@ -127,7 +127,7 @@ function delete_course($code)
             }
             if (sizeof($tblSurvivor) > 0)
             {
-                $claroline->log( 'DELETE_COURSE'
+                Claroline::getInstance()->log( 'DELETE_COURSE'
                 , array_merge(array ('DELETED_COURSE_CODE'=>$code
                 ,'UNDELETED_TABLE_COUNTER'=>sizeof($tblSurvivor)
                 )
