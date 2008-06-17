@@ -62,7 +62,7 @@ $gidReset=TRUE;
 
 require '../../inc/claro_init_global.inc.php';
 $error = false ;
-$message = array();
+$dialogBox = new DialogBox();
 
 // Security check
 if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
@@ -82,7 +82,7 @@ $form = '';
 
 if ( !isset($_REQUEST['config_code']) )
 {
-    $message[] = get_lang('Wrong parameters');
+    $dialogBox->error( get_lang('Wrong parameters') );
 }
 else
 {
@@ -113,20 +113,20 @@ else
                     // save config file
                     if ( $config->save() )
                     {
-                        $message[] = get_lang('Properties for %config_name, (%config_code) are now effective on server.'
-                    , array('%config_name' => get_lang($config_name), '%config_code' => $config_code));
+                        $dialogBox->success( get_lang('Properties for %config_name, (%config_code) are now effective on server.'
+                    , array('%config_name' => get_lang($config_name), '%config_code' => $config_code)));
                     }
                     else
                     {
                         $error = true ;
-                        $message[] = $config->backlog->output();
+                        $dialogBox->error( $config->backlog->output() );
                     }
                 }
                 else
                 {
                     // no valid
                     $error = true ;
-                    $message[] = $config->backlog->output();
+                    $dialogBox->error( $config->backlog->output() );
                 }
             }
             // display form
@@ -142,12 +142,12 @@ else
     {
         // error loading the configuration
         $error = true ;
-        $message[] = $config->backlog->output();
+        $dialogBox->error( $config->backlog->output() );
     }
 
     if ( $config->is_modified() )
     {
-        $message[] = 'Note. This configuration file has been manually changed. The system will try to retrieve all the configuration values, but it can not guarantee to retrieve additional settings manually inserted.<br />';
+        $dialogBox->warning( 'Note. This configuration file has been manually changed. The system will try to retrieve all the configuration values, but it can not guarantee to retrieve additional settings manually inserted');
     }
 
 }
@@ -179,7 +179,7 @@ include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 echo claro_html_tool_title(array('mainTitle'=>get_lang('Configuration'),'subTitle'=>$nameTools)) ;
 
 // display error message
-if ( ! empty($message) ) echo claro_html_message_box(implode('<br />',$message));
+echo $dialogBox->render();
 
 // display edition form
 if ( !empty($form) )
