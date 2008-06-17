@@ -978,7 +978,7 @@ foreach($moduleList as $module)
             echo '<a href="module_list.php?cmd=desactiv&amp;module_id='
             . $module['id'] . '&amp;typeReq=' . $typeReq .'" '
             . 'title="'.get_lang('Activated - Click to deactivate').'">'
-            . '<img src="' . get_icon_url('select')
+            . '<img src="' . get_icon_url('on')
             . '" alt="'. get_lang('Activated') . '" /></a>'
             ;
         }
@@ -987,7 +987,7 @@ foreach($moduleList as $module)
             echo '<a href="module_list.php?cmd=activ&amp;module_id='
             . $module['id'] . '&amp;typeReq='.$typeReq.'" '
             . 'title="'.get_lang('Deactivated - Click to activate').'">'
-            . '<img src="' . get_icon_url('forbidden')
+            . '<img src="' . get_icon_url('off')
             . '" alt="'. get_lang('Deactivated') . '"/></a>';
         }
     }
