@@ -144,10 +144,20 @@
                             }
 
                             //find correct url for icon of the tool
-
-                            if (isset($_courseToolData['icon']))
+                            // External tool
+                            if( empty($_courseToolData['label']) )
+                            {
+                                $_toolIconUrl = get_icon_url('link');
+                            }
+                            // Declared icon
+                            elseif (isset($_courseToolData['icon']))
                             {
                                 $_toolIconUrl = get_module_url($_courseToolData['label']).'/'.$_courseToolData['icon'];
+                            }
+                            // Default icon
+                            else
+                            {
+                                $_toolIconUrl = get_icon_url('tool');
                             }
 
                             // select "groups" in group context instead of tool
