@@ -510,7 +510,7 @@ function claro_get_main_course_tool_list ( $force = false )
             }
             else
             {
-                $courseToolList[$toolId]['icon'] = $GLOBALS['imgRepositoryWeb'] .'/tool.gif';
+                $courseToolList[$toolId]['icon'] = $GLOBALS['imgRepositoryWeb'] .'/tool.png';
             }
 
             if ( $courseTool['activation'] == 'activated' )
@@ -572,7 +572,7 @@ function claro_get_course_tool_list( $courseIdReq,
                       pct.claro_label             AS label,
                       ctl.script_name             AS external_name,
                       ctl.visibility              AS visibility,
-                      IFNULL(pct.icon,'tool.gif') AS icon,
+                      IFNULL(pct.icon,'tool.png') AS icon,
                       ISNULL(ctl.tool_id)         AS external,
                       m.activation ,
                       m.name                      AS name,
@@ -617,7 +617,7 @@ function claro_get_course_tool_list( $courseIdReq,
                       NULL                        AS label,
                       ctl.script_name             AS external_name,
                       ctl.visibility              AS visibility,
-                      'tool.gif'                  AS icon,
+                      'tool.png'                  AS icon,
                       ISNULL(ctl.tool_id)         AS external,
                       NULL                        AS name,
                       ctl.script_url              AS url
@@ -687,7 +687,7 @@ function claro_get_course_external_link_list ( $courseIdReq = null, $force = fal
             $id = $courseExtLink['id'];
             $courseExtLinkList[$id]['name'] = $courseExtLink['script_name'];
             $courseExtLinkList[$id]['url'] = $courseExtLink['script_url'];
-            $courseExtLinkList[$id]['icon'] = $GLOBALS['imgRepositoryWeb'] .'/tool.gif';
+            $courseExtLinkList[$id]['icon'] = $GLOBALS['imgRepositoryWeb'] .'/tool.png';
             $courseExtLinkList[$id]['visibility'] = (bool) $courseExtLink['visibility'];
         }
     }
