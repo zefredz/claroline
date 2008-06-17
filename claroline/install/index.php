@@ -33,10 +33,10 @@ define ('DISP_LAST_CHECK_BEFORE_INSTALL',__LINE__);
 define ('DISP_RUN_INSTALL_NOT_COMPLETE',__LINE__);
 define ('DISP_RUN_INSTALL_COMPLETE',__LINE__);
 
-$imgStatus['X'] = 'delete.gif';
-$imgStatus['V'] = 'checkbox_on.gif';
-$imgStatus['?'] = 'checkbox_off.gif';
-$imgStatus['!'] = 'caution.gif';
+$imgStatus['X'] = 'delete.png';
+$imgStatus['V'] = 'checkbox_on.png';
+$imgStatus['?'] = 'checkbox_off.png';
+$imgStatus['!'] = 'caution.png';
 
 $cssStepStatus['X'] = 'error';
 $cssStepStatus['V'] = 'done';
