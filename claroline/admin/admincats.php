@@ -43,7 +43,7 @@ $tbl_mdb_names   = claro_sql_get_main_tbl();
 $tbl_course      = $tbl_mdb_names['course'  ];
 $tbl_course_node = $tbl_mdb_names['category'];
 
-$controlMsg = array();
+$dialogBox = new DialogBox();
 
 // Display variables
 
@@ -103,7 +103,7 @@ else
             if (isset($cat_data['code']))
             {
                 // Error message for attempt to create a duplicate
-                $controlMsg['info'][] = get_lang('This category already exists!');
+                $dialogBox->error( get_lang('This category already exists!') );
             }
             else
             {
@@ -169,17 +169,17 @@ else
                 claro_sql_query($sql_InsertCat);
 
                 // Confirm creating
-                $controlMsg['info'][] = get_lang('Category created');
+                $dialogBox->success( get_lang('Category created') );
 
             }
         }
         else // if the new category don't have a name or a code or she can't have child (categories or courses)
         {
             if(empty($_REQUEST['nameCat']))
-            $controlMsg['error'][] = get_lang('Category name is required');
+            $dialogBox->error( get_lang('Category name is required') );
 
             if(empty($_REQUEST['codeCat']))
-            $controlMsg['error'][] = get_lang('Category code is required');
+            $dialogBox->error( get_lang('Category code is required') );
         }
     }
 
@@ -238,8 +238,7 @@ else
                     claro_sql_query($sql_Update) ;
                 }
 
-                // Confirm move
-                $controlMsg['info'][] = get_lang('Category moved');
+                //$dialogBox->success( get_lang('Category moved') );
             }
         }
 
@@ -281,11 +280,9 @@ else
                     claro_sql_query($sql_Update) ;
                 }
 
-                //Confirm move
-                $controlMsg['info'][] = get_lang('Category moved');
+                //$dialogBox->success( get_lang('Category moved') );
             }
         }
-
     }
 
     /**
@@ -311,7 +308,7 @@ else
             // Look if there isn't any subcategory in this category first
             if($nb_childs > 0)
             {
-                $controlMsg['error'][]=get_lang('This category contains other categories, you must delete them before !');
+                $dialogBox->error( get_lang('This category contains other categories, you must delete them before !') );
                 $delok = FALSE;
             }
 
@@ -323,14 +320,14 @@ else
 
             if ($courseQty > 0)
             {
-                $controlMsg['error'][]=get_lang("This category contains some courses, you can't erase it!");
+                $dialogBox->error( get_lang("This category contains some courses, you can't erase it!") );
                 $delok = FALSE;
             }
 
             if ($delok == TRUE)
             {
-                if (delete_node( $_REQUEST['id'] )) $controlMsg['info'][] = get_lang('Category deleted');
-                else                                $controlMsg['info'][] = get_lang('Unable to delete category');
+                if (delete_node( $_REQUEST['id'] )) $dialogBox->success( get_lang('Category deleted') );
+                else                                $dialogBox->error( get_lang('Unable to delete category') );
             }
         }
 
@@ -425,14 +422,14 @@ else
     
                     if($res_SearchCourses > 0)
                     {
-                        $controlMsg['warning'][] = get_lang('This category include some courses, you must delete or move them before');
+                        $dialogBox->warning( get_lang('This category include some courses, you must delete or move them before') );
                         $doChange = false;
                     }
                 }
             }
             else
             {
-                $controlMsg['warning'][] = get_lang('There is no category available !');
+                $dialogBox->error( get_lang('There is no category available !'));
                 $doChange = false;
             }
     
@@ -447,7 +444,7 @@ else
                 if(($facultyEdit['name'] != $_REQUEST['nameCat']) && ($facultyEdit['code'] != $_REQUEST['codeCat'])
                 && ($facultyEdit['canHaveCoursesChild'] != $canHaveCoursesChild) )
                 {
-                    $controlMsg['warning'][] = get_lang('No change applied.');
+                     $dialogBox->info( get_lang('No change applied.') );
                 }
                 else
                 {
@@ -462,7 +459,7 @@ else
     
                         if($array[0]['num'] > 0)
                         {
-                            $controlMsg['warning'][] = get_lang('This category include some courses, you must delete or move them before');
+                            $dialogBox->error( get_lang('This category include some courses, you must delete or move them before') );
                             $canHaveCoursesChild = "TRUE";
                         }
                         else
@@ -473,7 +470,7 @@ else
                                                           canHaveCoursesChild='" . $canHaveCoursesChild . "'
                                                       WHERE id='" . (int) $_REQUEST['id'] . "'";
                             claro_sql_query($sql_ChangeInfoFaculty);
-                            $controlMsg['warning'][]=get_lang('Changes have been saved');
+                            $dialogBox->success( get_lang('Changes have been saved') );
                         }
                     }
                     else
@@ -495,7 +492,7 @@ else
                         }
     
                         // Confirm edition
-                        $controlMsg['info'][] = get_lang('Changes have been saved');
+                        $dialogBox->success( get_lang('Changes have been saved') );
                     }
     
                     //Change the code of the faculte in the table cours
@@ -512,7 +509,7 @@ else
             elseif(!strcmp($facultyEdit['code_P'],$_REQUEST['fatherCat']) ||
                   ($_REQUEST["fatherCat"] == 'NULL' && $facultyEdit['code_P']==NULL))
             {
-                $controlMsg['warning'][]=get_lang('No change applied.');
+                $dialogBox->info( get_lang('No change applied.') );
             }
             else
             {
@@ -539,7 +536,7 @@ else
     
                 if($error)
                 {
-                    $controlMsg['error'][] = get_lang("You can't move %facultyCode in the same category !", array('%facultyCode'=>$facultyEdit['code']));
+                    $dialogBox->error( get_lang("You can't move %facultyCode in the same category !", array('%facultyCode'=>$facultyEdit['code'])) );
                 }
                 else
                 {
@@ -670,7 +667,7 @@ else
                         }
     
                         // Confirm move
-                        $controlMsg['info'][]=get_lang('Category moved');
+                        $dialogBox->success( get_lang('Category moved') );
                     }
                 }
             }
@@ -678,10 +675,10 @@ else
         else // if the new category don't have a name or a code or she can't have child (categories or courses)
         {
             if(empty($_REQUEST['nameCat']))
-            $controlMsg['error'][] = get_lang('Category name is required');
+            $dialogBox->error( get_lang('Category name is required') );
 
             if(empty($_REQUEST['codeCat']))
-            $controlMsg['error'][] = get_lang('Category code is required');
+            $dialogBox->error( get_lang('Category code is required') );
         }
     }
 
@@ -726,7 +723,7 @@ else
     }
     else
     {
-        $controlMsg['warning'][] = get_lang('There is no category available !');
+        $dialogBox->info( get_lang('There is no category available !') );
 
         $categories=NULL;
         $_SESSION['categories'] = $categories;
@@ -753,47 +750,22 @@ else
     $category_array = array_merge(array('--'=>'choose_one'),$category_array);
 }
 
-
-/**
- * Display
- */
-
-// display claroline header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-
-/**
-  * Information edit for create or edit a category
-  */
-
 switch ($display_form)
 {
     case DISP_FORM_CREATE :
     {
+        $dialogBox->title( get_lang('Create a category') );
+        
         $form = '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
         .    '<input type="hidden" name="cmd" value="exCreate"  />' . "\n"
         .     '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />' . "\n"
-        .    '<table border="0">' . "\n"
-        .    '<tr>' . "\n"
-        .    '<td >' . "\n"
-        .    '<label for="nameCat"> ' .  get_lang('Category name') . ' : </label >' . "\n"
-        .    '</td>' . "\n"
-        .    '<td>' . "\n"
-        .    '<input type="texte" name="nameCat" id="nameCat" value="' .  htmlspecialchars($editedCat_Name) . '" size="20" maxlength="100" />' . "\n"
-        .    '</td>' . "\n"
-        .    '</tr>' . "\n"
-        .    '<tr>' . "\n"
-        .    '<td >' . "\n"
-        .    '<label for="codeCat"> ' . get_lang('Category code') . ' : </label >' . "\n"
-        .    '</td>' . "\n"
-        .    '<td>' . "\n"
-        .    '<input type="texte" name="codeCat" id="codeCat" value="' . htmlspecialchars($editedCat_Code) . '" size="20" maxlength="40" />' . "\n"
-        .    '</td>' . "\n"
-        .    '</tr>' . "\n"
-        .    '<tr>' . "\n"
-        .    '<td>' . "\n"
-        .    '<label for="canHaveCoursesChild">' .  get_lang('Can have courses') . ' : </label>' . "\n"
-        .    '</td>' . "\n"
-        .    '<td>' . "\n"
+        .    '<label for="nameCat"> ' .  get_lang('Category name') . '<span class="required">*</span></label><br />' . "\n"
+        .    '<input type="texte" name="nameCat" id="nameCat" value="' .  htmlspecialchars($editedCat_Name) . '" size="30" maxlength="100" /><br /><br />' . "\n"
+
+        .    '<label for="codeCat"> ' . get_lang('Category code') . '<span class="required">*</span></label><br />' . "\n"
+        .    '<input type="texte" name="codeCat" id="codeCat" value="' . htmlspecialchars($editedCat_Code) . '" size="30" maxlength="40" /><br /><br />' . "\n"
+
+        .    '<label for="canHaveCoursesChild">' .  get_lang('Can have courses') . '<span class="required">*</span></label><br />' . "\n"
         .    '<input type="radio" name="canHaveCoursesChild" id="canHaveCoursesChild_1" '
         .    (isset($editedCat_CanHaveCoursesChild)
              ?    (!strcmp($editedCat_CanHaveCoursesChild,"TRUE")?'checked':'')
@@ -810,49 +782,30 @@ switch ($display_form)
         $form .= ' value="0" />' . "\n"
         .    ' ' . "\n"
         .    '<label for="canHaveCoursesChild_0">' .  get_lang('No') . '</label>' . "\n"
-        .    '</td>' . "\n"
-        .    '</tr>' . "\n"
-        .    '<tr>' . "\n"
-        .    '<td>' . "\n"
-        .    '<label for="fatherCat"> ' .  get_lang('Parent category') . '</label >' . "\n"
-        .    '</td>' . "\n"
-        .    '<td>' . "\n"
+        .    '<br /><br />' . "\n"
+        .    '<label for="fatherCat"> ' .  get_lang('Parent category') . ' </label>' . "\n"
         .    '<select name="fatherCat" id="fatherCat">' . "\n"
         .    '<option value="NULL" > &nbsp;&nbsp;&nbsp;' .  get_conf('siteName') . '</option>'
-        ;
 
         // Display each category in the select
-        $form .= build_select_faculty($categories,null,null,'');
+        .   build_select_faculty($categories,null,null,'')
 
-        $form .= '</select>' . "\n"
-        .    '</td>' . "\n"
-        .    '</tr>' . "\n"
-        .    '<tr>' . "\n"
-        .    '<td><br />' . "\n"
-        .    '</td>' . "\n"
-        .    '</tr>' . "\n"
-        .    '<tr>' . "\n"
-        .    '<td>' . "\n"
-        .    '</td>' . "\n"
-        .    '<td>' . "\n"
-        .    '<input type="submit" value="Ok" />' . "\n"
-        .    '</td>' . "\n"
-        .    '</tr>' . "\n"
-        .    '</table>' . "\n"
+        .    '</select>' . "\n"
+        .    '<br /><br />' . "\n"
+        .    '<span class="required">*</span>&nbsp;'.get_lang('Denotes required fields') . '<br />' . "\n"
+
+        .    '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
+        .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
         .    '</form>' . "\n"
         ;
 
-        echo claro_html_tool_title(array( 'mainTitle' => $nameTools,'subTitle' => get_lang('Create a category'))) ;
-
-        echo claro_html_msg_list($controlMsg,1);
-
-        echo claro_html_message_box ($form) ;
+        $dialogBox->form( $form );
 
     }
     break;
     case DISP_FORM_EDIT :
     {
-
+        $dialogBox->title( get_lang('Edit a category') );
         /**
          * Display information to edit a category and the bom of categories
          */
@@ -860,28 +813,12 @@ switch ($display_form)
         $form = '<form action="' .  $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
         .    '<input type="hidden" name="cmd" value="exChange" />' . "\n"
         .    '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />' . "\n"
-        .    '<table border="0">' . "\n"
-        .    '<tr>' . "\n"
-        .    '<td >' . "\n"
-        .    '<label for="nameCat"> ' .  get_lang('Category name') . ' : </label >' . "\n"
-        .    '</td>' . "\n"
-        .    '<td>' . "\n"
-        .    '<input type="texte" name="nameCat" id="nameCat" value="' .  htmlspecialchars($editedCat_Name) . '" size="20" maxlength="100" />' . "\n"
-        .    '</td>' . "\n"
-        .    '</tr>' . "\n"
-        .    '<tr>' . "\n"
-        .    '<td >' . "\n"
-        .    '<label for="codeCat"> ' .  get_lang('Category code') . ' : </label >' . "\n"
-        .    '</td>' . "\n"
-        .    '<td>' . "\n"
-        .    '<input type="texte" name="codeCat" id="codeCat" value="' .  htmlspecialchars($editedCat_Code) . '" size="20" maxlength="40" />' . "\n"
-        .    '</td>' . "\n"
-        .    '</tr>' . "\n"
-        .    '<tr>' . "\n"
-        .    '<td>' . "\n"
-        .    '<label for="canHaveCoursesChild"> ' .  get_lang('Can have courses') . ' : </label>' . "\n"
-        .    '</td>' . "\n"
-        .    '<td>' . "\n"
+        .    '<input type="hidden" name="id" value="' .  $editedCat_Id .'" />' . "\n"
+        .    '<label for="nameCat"> ' .  get_lang('Category name') . '<span class="required">*</span></label ><br />' . "\n"
+        .    '<input type="texte" name="nameCat" id="nameCat" value="' .  htmlspecialchars($editedCat_Name) . '" size="30" maxlength="100" /><br /><br />' . "\n"
+        .    '<label for="codeCat"> ' .  get_lang('Category code') . '<span class="required">*</span></label ><br />' . "\n"
+        .    '<input type="texte" name="codeCat" id="codeCat" value="' .  htmlspecialchars($editedCat_Code) . '" size="30" maxlength="40" /><br /><br />' . "\n"
+        .    '<label for="canHaveCoursesChild"> ' .  get_lang('Can have courses') . '<span class="required">*</span></label><br />' . "\n"
         .    '<input type="radio" name="canHaveCoursesChild" id="canHaveCoursesChild_1"' . "\n"
         ;
 
@@ -901,30 +838,15 @@ switch ($display_form)
 
         $form .= ' value="0" />' . "\n"
         .    '<label for="canHaveCoursesChild_0">' .  get_lang('No') . '</label>' . "\n"
-        .    '</td>' . "\n"
-        .    '</tr>' . "\n"
-        .    '<tr>' . "\n"
-        .    '<td><br />' . "\n"
-        .    '</td>' . "\n"
-        .    '</tr>' . "\n"
-        .    '<input type="hidden" name="id" value="' .  $editedCat_Id .'" />' . "\n"
-        .    '<tr>' . "\n"
-        .    '<td>' . "\n"
-        .    '</td>' . "\n"
-        .    '<td>' . "\n"
+        .    '<br /><br />' . "\n"
+        .    '<span class="required">*</span>&nbsp;'.get_lang('Denotes required fields') . '<br />' . "\n"
+
         .    '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
-        .    '</td>' . "\n"
-        .    '</tr>' . "\n"
-        .    '</table>' . "\n"
+        .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
         .    '</form>' . "\n"
-        .    '<br />' . "\n"
         ;
 
-        echo claro_html_tool_title(array('mainTitle' => $nameTools,'subTitle' => get_lang('Edit a category'))) ;
-
-        echo claro_html_msg_list($controlMsg,1) ;
-
-        echo claro_html_message_box($form);
+        $dialogBox->form( $form );
 
     }
     break;
@@ -933,18 +855,14 @@ switch ($display_form)
         /**
          * Display information to change root of the category
          */
-
+        $dialogBox->title( get_lang("Change parent's category of %catCode", array('%catCode' => $editedCat_Code)) );
         $form = '<form action=" ' .  $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
+        .    '<input type="hidden" name="id" value="' .  $editedCat_Id . '" />' . "\n"
         .    '<input type="hidden" name="cmd" value="exChange" />' . "\n"
         .    '<input type="hidden" name="nameCat" value="'.$editedCat_Name.'" />' . "\n"
         .    '<input type="hidden" name="codeCat" value="'.$editedCat_Code.'" />' . "\n"
         .    '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />' . "\n"
-        .    '<table border="0">' . "\n"
-        .    '<tr>' . "\n"
-        .    '<td>' . "\n"
         .    '<label for="fatherCat"> ' .  get_lang('Parent category ') . ' </label >' . "\n"
-        .    '</td>' . "\n"
-        .    '<td align="RIGHT">' . "\n"
         .    '<select name="fatherCat">' . "\n"
         .    '<option value="NULL" > &nbsp;&nbsp;&nbsp;' .  get_conf('siteName') . ' </option>' . "\n"
         ;
@@ -952,46 +870,35 @@ switch ($display_form)
         //Display each category in the select
         $form .= build_select_faculty($categories,NULL,$editFather, '');
 
-        $form .= '</select>' . "\n"
-        .    '</td>' . "\n"
-        .    '</tr>' . "\n"
-        .    '<tr>' . "\n"
-        .    '<td>' . "\n"
-        .    '<br />' . "\n"
-        .    '</td>' . "\n"
-        .    '</tr>' . "\n"
-        .    '<tr>' . "\n"
-        .    '<td>' . "\n"
-        .    '</td>' . "\n"
-        .    '<td>' . "\n"
-        .    '<input type="hidden" name="id" value="' .  $editedCat_Id . '" />' . "\n"
-        .    '<input type="submit" value="Ok" />' . "\n"
-        .    '</td>' . "\n"
-        .    '</tr>' . "\n"
-        .    '</table>' . "\n"
+        $form .= '</select><br /><br />' . "\n"
+        .    '<input type="submit" value="'.get_lang('Ok').'" />' . "\n"
+        .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
         .    '</form>' . "\n"
-        .    '<br />' . "\n"
         ;
 
-        echo claro_html_tool_title(array('mainTitle'=>$nameTools,'subTitle'=>get_lang("Change parent's category of %catCode", array('%catCode' => $editedCat_Code))));
+        $dialogBox->form( $form );
 
-        echo claro_html_msg_list($controlMsg,1);
-
-        echo claro_html_message_box($form);
     }
     break;
     default :
     {
-        echo claro_html_tool_title(array( 'mainTitle'=>$nameTools,'subTitle'=>get_lang('Manage course categories')))
-        .    claro_html_msg_list($controlMsg,1)
-        ;
-
-
+        //
     }
 }
 
 /**
- * Display the bom of categories and the button to create a new category
+ * Output
+ */
+
+// display claroline header
+include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+
+echo claro_html_tool_title($nameTools);
+
+echo $dialogBox->render();
+
+/** 
+ * Command and list
  */
 
 echo '<p>' . "\n"
