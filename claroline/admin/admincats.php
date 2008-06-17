@@ -99,7 +99,7 @@ else
         if( !empty($_REQUEST['nameCat']) && !empty($_REQUEST['codeCat']) )
         {
             // If a category with the same code already exists we only display an error message
-            $cat_data = get_cat_data(get_cat_id_from_code(addslashes($_REQUEST['codeCat'])));
+            $cat_data = get_cat_data(get_cat_id_from_code($_REQUEST['codeCat']));
             if (isset($cat_data['code']))
             {
                 // Error message for attempt to create a duplicate
@@ -122,7 +122,7 @@ else
                 // If the parent of the new category isn't root
                 if(strcmp($fatherCat, 'NULL'))
                 {
-                    $cat_data = get_cat_data(get_cat_id_from_code(addslashes($fatherCat)));
+                    $cat_data = get_cat_data(get_cat_id_from_code($fatherCat));
 
                     // The treePos from the new category (treePos from this father + nb_childs from this father)
                     $treePosCat = $cat_data['treePos'] + $cat_data['nb_childs'];
@@ -936,6 +936,8 @@ switch ($display_form)
 
         $form = '<form action=" ' .  $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
         .    '<input type="hidden" name="cmd" value="exChange" />' . "\n"
+        .    '<input type="hidden" name="nameCat" value="'.$editedCat_Name.'" />' . "\n"
+        .    '<input type="hidden" name="codeCat" value="'.$editedCat_Code.'" />' . "\n"
         .    '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />' . "\n"
         .    '<table border="0">' . "\n"
         .    '<tr>' . "\n"
