@@ -721,3 +721,18 @@ function is_tool_activated_in_course( $toolId, $courseId )
         
     return ( false != claro_sql_query_fetch_single_value($sql) );
 }
+
+function is_tool_activated_in_groups( $courseId, $toolLabel )
+{
+    $activatedGroupToolList = get_activated_group_tool_label_list( $courseId );
+    
+    foreach ( $activatedGroupToolList as $groupTool )
+    {
+        if ( $groupTool['label'] = $toolLabel )
+        {
+            return true;
+        }
+    }
+    
+    return false;
+}

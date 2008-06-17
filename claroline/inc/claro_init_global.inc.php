@@ -203,6 +203,14 @@ if ( isset( $tlabelReq ) && !empty( $tlabelReq ) )
             claro_die( get_lang( 'Not allowed' ) );
         }
     }
+    
+    if ( claro_is_in_a_group() 
+        && ( !claro_is_group_allowed() 
+        || ( !claro_is_allowed_to_edit()
+            && !is_tool_activated_in_groups($_cid, $tlabelReq) ) ) )
+    {
+        claro_die( get_lang( 'Not allowed' ) );
+    }
 
     /*----------------------------------------------------------------------
         Install module
