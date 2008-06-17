@@ -120,7 +120,7 @@
                     $courseToolSelector = '<form action="'.get_path('clarolineRepositoryWeb').'redirector.php" name="redirector" method="post">' . "\n"
                     . '<select name="url" size="1" onchange="top.location=redirector.url.options[selectedIndex].value" >' . "\n\n";
 
-                    $courseToolSelector .= '<option value="' . get_path('clarolineRepositoryWeb') . 'course/index.php?cid=' . htmlspecialchars(claro_get_current_course_id()) .'" style="padding-left:22px;background:url(' . get_path('imgRepositoryWeb') . '/course.gif) no-repeat">' . get_lang('Course Home') . '</option>' . "\n";
+                    $courseToolSelector .= '<option value="' . get_path('clarolineRepositoryWeb') . 'course/index.php?cid=' . htmlspecialchars(claro_get_current_course_id()) .'" style="padding-left:22px;background:url(' . get_icon_url('course') . ') no-repeat">' . get_lang('Course Home') . '</option>' . "\n";
 
                     if (is_array($_courseToolList))
                     {
