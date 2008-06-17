@@ -751,7 +751,7 @@ function display_tree_class_in_admin ($class_list, $parent_class = null, $deep =
                 if (isset($_SESSION['admin_visible_class'][$cur_class['id']]) && $_SESSION['admin_visible_class'][$cur_class['id']]=="open")
                 {
                     $open_close_link = '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exClose&amp;class_id=' . $cur_class['id'] . '">' . "\n"
-                    .                  '<img src="' . get_icon_url('collaps') . '" alt="" />' . "\n"
+                    .                  '<img src="' . get_icon_url('collapse') . '" alt="" />' . "\n"
                     .                  '</a>' . "\n"
                     ;
                 }
@@ -950,7 +950,7 @@ function display_tree_class_in_user($class_list, $course_code, $parent_class = n
                 {
                     $open_close_link = '<a href="' . $_SERVER['PHP_SELF']
                     .                  '?cmd=exClose&amp;class_id=' . $cur_class['id'] . '">' . "\n"
-                    .                  '<img src="' . get_icon_url('collaps') . '" alt="" />' . "\n"
+                    .                  '<img src="' . get_icon_url('collapse') . '" alt="" />' . "\n"
                     .                  '</a>' . "\n"
                     ;
                 }

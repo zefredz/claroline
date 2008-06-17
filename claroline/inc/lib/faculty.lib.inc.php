@@ -54,7 +54,7 @@ function claro_disp_tree($elem,$father,$space)
                         echo '<a href="' . $_SERVER['PHP_SELF']
                         .    '?id=' . $one_faculty['id'] . '"> '
                         .    ( $one_faculty['visible']
-                             ?    '<img src="' . get_icon_url('collaps') . '" alt="-"  />'
+                             ?    '<img src="' . get_icon_url('collapse') . '" alt="-"  />'
                              :    '<img src="' . get_icon_url('expand') . '" alt="+"  />'
                              )
                         .    '</a> '
