@@ -765,7 +765,7 @@ else
     {
         echo "\n"
         . '<tr>'
-        . '<td colspan="5" style="text-align:center;">'
+        . '<td colspan="5" class="contentCenter">'
         . get_lang('Empty')
         . '</td>'
         . '</tr>'
@@ -775,7 +775,7 @@ else
     {
         echo "\n"
         . '<tr>'
-        . '<td colspan="3" style="text-align:center;">'
+        . '<td colspan="3" class="contentCenter">'
         . get_lang('Empty')
         . '</td>'
         . '</tr>'
