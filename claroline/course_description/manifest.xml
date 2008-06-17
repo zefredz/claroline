@@ -3,7 +3,7 @@
   <name>Course description</name>
   <version>1.9</version>
   <license>GPL</license>
-  <icon>info.gif</icon>
+  <icon>icon.png</icon>
   <type>tool</type>
   <web>http://www.claroline.net/wiki/CLDSC/</web>
   <entry>index.php</entry>
