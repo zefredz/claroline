@@ -233,7 +233,10 @@ else
     .    '</tr>' . "\n"
     ;
 
-    if (claro_is_user_authenticated()) $date = $claro_notifier->get_notification_date(claro_get_current_user_id());
+    if (claro_is_user_authenticated())
+    {
+        $date = $claro_notifier->get_notification_date(claro_get_current_user_id());
+    }
 
     foreach ( $postList as $thisPost )
     {
@@ -242,18 +245,25 @@ else
 
         $post_time = datetime_to_timestamp($thisPost['post_time']);
 
-        if (claro_is_user_authenticated() && $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $forum_id."-".$topic_id))
-        $postImg = 'post_hot';
+        if (claro_is_user_authenticated()
+            && $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $forum_id."-".$topic_id))
+        {
+            $class = 'item hot';
+        }
         else
-        $postImg = 'post';
-
+        {
+            $class = 'item';
+        }
+        
         echo '<tr>' . "\n"
         .    '<th class="headerX">' . "\n"
         .    '<a name="post'. $thisPost['post_id'] .'" ></a>' . "\n"
-        .    '<img src="' . get_icon_url( $postImg ) . '" alt="" />'
+        .    '<span class="'.$class.'">'
+        .    '<img src="' . get_icon_url( 'post' ) . '" alt="" />'
         .    get_lang('Author')
         .    ' : <b>' . $thisPost['firstname'] . ' ' . $thisPost['lastname'] . '</b> '
         .    '<small>' . get_lang('Posted') . ' : ' . claro_html_localised_date(get_locale('dateTimeFormatLong'), $post_time) . '</small>' . "\n"
+        .    '</span>'
         .    '  </th>' . "\n"
         .' </tr>'. "\n"
 
