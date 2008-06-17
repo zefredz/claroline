@@ -457,6 +457,12 @@ th .claroCmdDisabled {
     text-decoration: none;
 }
 
+.claroCmd img,
+.claroCmdDisabled img
+{
+	vertical-align: text-bottom;
+	padding: 0 1px;
+}
 /*
  * Classes family to emphase some item in the tool interface.
  * These two classes has to be used together to work correctly.
