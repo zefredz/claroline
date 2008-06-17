@@ -786,7 +786,7 @@
         . '?wikiId=' . $wiki->getWikiId()
         . '&amp;action=all'
         . claro_url_relay_context('&amp;')
-        , '<img src="' . get_icon_url('pages').'" '
+        , '<img src="' . get_icon_url('allpages').'" '
         . ' alt="all pages" />&nbsp;'
         . get_lang("All pages")
         );
@@ -826,7 +826,7 @@
                 . '&amp;action=show'
                 . '&amp;title=' . rawurlencode($title)
                 . claro_url_relay_context('&amp;')
-                , '<img src="' . get_icon_url('back').'" alt="back" />&nbsp;'
+                , '<img src="' . get_icon_url('go_left').'" alt="back" />&nbsp;'
                 . get_lang("Back to page")
             );
     }
@@ -886,7 +886,7 @@
                     . '&amp;action=history'
                     . '&amp;title=' . rawurlencode( $title )
                      . claro_url_relay_context('&amp;')
-                    , '<img src="' . get_icon_url('version').'" alt="history" />&nbsp;'
+                    , '<img src="' . get_icon_url('versions').'" alt="history" />&nbsp;'
                     . get_lang("Page history")
                     );
     }
@@ -906,7 +906,7 @@
                 . 'help_wiki.php?help=syntax' . claro_url_relay_context('&amp;')
             . '\',\'MyWindow\',\'toolbar=no,location=no,directories=no,status=yes,menubar=no'
             . ',scrollbars=yes,resizable=yes,width=350,height=450,left=300,top=10\'); return false;">'
-            . '<img src="' . get_icon_url('help_little').'" alt="help" />&nbsp;'
+            . '<img src="' . get_icon_url('help').'" alt="help" />&nbsp;'
             . get_lang("Wiki syntax") . '</a>'
             ;
     }
