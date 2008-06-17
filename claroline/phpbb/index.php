@@ -183,7 +183,7 @@ foreach ( $categories as $this_category )
     {
         echo '&nbsp;'
         .    '<a href="' . get_module_url('CLGRP') . '/group.php">'
-        .    '<img src="' . get_icon_url('group') . '" alt="' . get_lang('Groups') . '">'
+        .    '<img src="' . get_icon_url('group') . '" alt="' . get_lang('Groups') . '" />'
         .    '</a>'
         ;
     }
@@ -241,13 +241,14 @@ foreach ( $categories as $this_category )
 
             echo '<tr align="left" valign="top">' . "\n";
 
-            if (claro_is_user_authenticated() && $claro_notifier->is_a_notified_forum(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $this_forum['forum_id']))
+            if ( claro_is_user_authenticated()
+                && $claro_notifier->is_a_notified_forum(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $this_forum['forum_id']))
             {
-                $class = 'forum_hot';
+                $class = 'item hot';
             }
             else
             {
-                $forum_img = 'forum';
+                $class = 'item';
             }
 
             if ( $forum_post_allowed)
@@ -260,6 +261,7 @@ foreach ( $categories as $this_category )
             }
 
             echo '<td>'                                               . "\n"
+            .    '<span class="'.$class.'">'
             .    '<img src="' . get_icon_url( 'forum', 'CLFRM' ) . '" alt="" />' . "\n"
             .    '&nbsp;'                                             . "\n"
             ;
@@ -310,6 +312,8 @@ foreach ( $categories as $this_category )
             }
 
             echo $locked_string;
+            
+            echo '</span>';
 
             echo '<br /><div class="comment">' . $forum_desc . '</div>' . "\n"
             .    '</td>' . "\n"

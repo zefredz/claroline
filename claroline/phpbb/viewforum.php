@@ -192,24 +192,24 @@ else
             $topic_time     = $thisTopic['topic_time'   ];
             $last_post_time = datetime_to_timestamp( $thisTopic['post_time']);
             $last_post      = datetime_to_timestamp( $thisTopic['post_time'] );
+            
             if ( empty($last_post_time) )
             {
                 $last_post_time = datetime_to_timestamp($topic_time);
             }
 
-            if (claro_is_user_authenticated() && $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $forum_id."-".$thisTopic['topic_id'],FALSE))
+            if ( claro_is_user_authenticated() && $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $forum_id."-".$thisTopic['topic_id'],FALSE))
             {
-                $image = get_icon_url('topic_hot');
-                $alt='';
+                $class = 'item hot';
             }
             else
             {
-                $image = get_icon_url('topic');
-                $alt   = 'new post';
+                $class = 'item';
             }
 
             echo '<td>'
-            .    '<img src="' . $image . '" alt="' . $alt . '" />'
+            .    '<span class="'.$class.'">'
+            .    '<img src="' . get_icon_url('topic') . '" alt="" />'
             ;
 
             $topic_title = $thisTopic['topic_title'];
@@ -218,7 +218,10 @@ else
                            '' : '&amp;gidReq ='.$forumSettingList['idGroup']);
 
             echo '&nbsp;'
-            .    '<a href="' . $topic_link . '">' . $topic_title . '</a>&nbsp;&nbsp;';
+            .    '<a href="' . $topic_link . '">' . $topic_title . '</a>'
+            .    '</span>'
+            .    '&nbsp;&nbsp;'
+            ;
 
             disp_mini_pager($topic_link, 'start', $replys+1, get_conf('posts_per_page') );
 
