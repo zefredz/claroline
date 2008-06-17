@@ -33,6 +33,12 @@
             $displaySearch = TRUE;
         }
     }
+    
+    $currentSection = isset( $_REQUEST['box'] )
+        ? $_REQUEST['box']
+        : 'inbox'
+        ;
+    
     // create box
     $box = new OutBox($currentUserId);
     
@@ -114,7 +120,7 @@
         $messageStategy->setPageToDisplay($link_arg['page']);
     }
     
-    $content .= getBarMessageBox($currentUserId);
+    $content .= getBarMessageBox($currentUserId, $currentSection);
     
     include "outboxview.inc.php";
 ?>

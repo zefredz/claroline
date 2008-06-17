@@ -24,21 +24,21 @@
      */
     function makeArgLink($paramList,$without = array())
     {
-    $argString = "";
-    
-    foreach ($paramList as $key => $arg)
-    {
-        if (!in_array($key, $without))
+        $argString = "";
+        
+        foreach ($paramList as $key => $arg)
         {
-            if ($argString != "")
+            if (!in_array($key, $without))
             {
-                $argString .= "&amp;";
+                if ($argString != "")
+                {
+                    $argString .= "&amp;";
+                }
+                $argString .= $key."=".rawurlencode($arg);
             }
-            $argString .= $key."=".rawurlencode($arg);
         }
-    }
-
-    return $argString;
+    
+        return $argString;
     }
     
     /**
@@ -47,25 +47,25 @@
      * @param int $currentUserId user identification (the admin read message box of an other user)
      * @return string HTML source
      */
-    function getBarMessageBox( $currentUserId )
+    function getBarMessageBox( $currentUserId, $currentSection )
     {
         require_once dirname(__FILE__) . '/messagebox/inbox.lib.php';
         
         $inboxWithoutFilter = new InBox($currentUserId);
 
         $sectionList = array(
-            'inbox' => get_lang(get_lang('inbox').'('.$inboxWithoutFilter->numberOfUnreadMessage().')'),
+            'inbox' => get_lang(get_lang('Inbox').'('.$inboxWithoutFilter->numberOfUnreadMessage().')'),
             'outbox' => get_lang('Outbox'),
             'trashbox' => get_lang('Trashbox')
         );
         
-        $currentSection = isset( $_REQUEST['box'] )
-        && in_array( $_REQUEST['box'], array_keys($sectionList) )
-        ? $_REQUEST['box']
-        : 'inbox'
-        ;
+        if ( !in_array( $currentSection, array_keys( $sectionList ) ) )
+        {
+            $currentSection = 'inbox';
+        }
         
         $parameter = array();
+        
         if (isset($_REQUEST['userId']))
         {
             $parameter['userId'] = (int)$_REQUEST['userId'];

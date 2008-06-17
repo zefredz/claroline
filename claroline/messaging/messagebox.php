@@ -78,6 +78,7 @@
     {
         $_REQUEST['box'] = "inbox";
     }
+    
     $link_arg['box'] = $_REQUEST['box'];
     
     

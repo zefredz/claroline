@@ -64,6 +64,10 @@
         }
     }
     
+    $currentSection = isset( $_REQUEST['box'] )
+        ? $_REQUEST['box']
+        : 'inbox'
+        ;
     
     // set the order
     $messageStategy = $box->getMessageStrategy();
@@ -176,7 +180,7 @@
     // ------------ set the strategy
     $box->setMessageStrategy($messageStategy);
     
-    $content .= getBarMessageBox($currentUserId);
+    $content .= getBarMessageBox($currentUserId, $currentSection);
     
     include "receivedmessageboxview.inc.php";
 ?>

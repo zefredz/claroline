@@ -38,6 +38,7 @@
     
     $userId = claro_get_current_user_id();
     $displayConfirmation = FALSE;
+    $currentSection = 'inbox';
 
     if (isset($_REQUEST['userId']))
     {
@@ -53,13 +54,24 @@
             || is_null($type) 
             || ($type != "received" && $type != "sent"))
     {
-        claro_die(get_lang('Not allowed'));
+        claro_die(get_lang('Missing parameter : %param%', array('%param%' => get_lang('message id'))));
     }
+    
     if ($type == "received")
     {
         try
         {
             $message = ReceivedMessage::fromId($messageId,$userId);
+            
+            if ( $message->isDeleted() )
+            {
+                $currentSection = 'trashbox';
+            }
+            else
+            {
+                $currentSection = 'inbox';
+            }
+            
             if($message === false)
             {
                 claro_die('Message not found');
@@ -78,6 +90,9 @@
     else
     {
         $message = SentMessage::fromId($messageId);
+        
+        $currentSection = 'outbox';
+        
         if($message === false)
         {
             claro_die('Message not found');
@@ -215,7 +230,7 @@
     
     $claroline->display->banner->breadcrumbs->append(get_lang('Message'));
     $claroline->display->body->appendContent(claro_html_tool_title(get_lang('Message')));
-    $claroline->display->body->appendContent(getBarMessageBox($userId));
+    $claroline->display->body->appendContent(getBarMessageBox($userId, $currentSection ));
     $claroline->display->body->appendContent($content);
     
     // ------------- Display page -----------------------------

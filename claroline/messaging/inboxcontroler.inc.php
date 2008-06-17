@@ -25,6 +25,11 @@
     
     $messageId = isset($_REQUEST['messageId']) ? (int)$_REQUEST['messageId'] : NULL;
     
+    $currentSection = isset( $_REQUEST['box'] )
+        ? $_REQUEST['box']
+        : 'inbox'
+        ;
+    
     $acceptedCmdList = array('rqDeleteMessage','exDeleteMessage','exMarkUnread','exMarkRead','rqSearch');
     
     if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'], $acceptedCmdList))
@@ -170,7 +175,7 @@
     // ------------ set the strategy
     $box->setMessageStrategy($messageStategy);
     
-    $content .= getBarMessageBox($currentUserId);
+    $content .= getBarMessageBox($currentUserId, $currentSection);
     
     include "receivedmessageboxview.inc.php";
 ?>

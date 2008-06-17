@@ -35,7 +35,7 @@ class MyMessages extends UserDesktopPortlet
 
     public function renderContent()
     {
-        $output = getBarMessageBox( claro_get_current_user_id());
+        $output = getBarMessageBox( claro_get_current_user_id(), 'inbox' );
 
         $output .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
         .    '<thead>' . "\n"
