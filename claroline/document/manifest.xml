@@ -3,7 +3,7 @@
  <name>Documents and Links</name>
  <version>4.0</version>
  <license>GPL</license>
- <icon>document.gif</icon>
+ <icon>icon.png</icon>
  <type>tool</type>
  <context>course</context>
  <context>group</context>
