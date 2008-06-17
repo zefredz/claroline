@@ -331,7 +331,7 @@ function get_cat_id_from_code($cat_code)
 
     $sql_get_cat_id = " SELECT id
                                        FROM `" . $tbl_course_node . "`
-                                       WHERE code='". $cat_code."'";
+                                       WHERE code='". claro_sql_escape( $cat_code ) ."'";
     return claro_sql_query_get_single_value($sql_get_cat_id);
 
 }
