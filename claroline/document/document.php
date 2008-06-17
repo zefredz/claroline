@@ -1931,7 +1931,7 @@ echo claro_html_tool_title($titleElement,
             /* CREATE DIRECTORY - UPLOAD FILE - CREATE HYPERLINK */
 
             $links[] = '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=rqUpload&amp;cwd='.$cmdCurDirPath.'">'
-                .'<img src="' . get_icon_url('download') . '" alt="" />&nbsp;'
+                .'<img src="' . get_icon_url('upload') . '" alt="" />&nbsp;'
                 .get_lang('Upload file')
                 .'</a>';
 
