@@ -274,7 +274,7 @@ class ClaroBreadCrumbs extends BreadCrumbs
             
         $this->prependNode( new BreadCrumbsNode( get_conf('siteName')
             , get_path('url') . '/index.php'
-            , 'home.gif' ) );
+            , get_icon_url('home') ) );
     }
     
     private function _compatVars()
