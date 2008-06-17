@@ -626,137 +626,162 @@ else
  /*-------------
       DISPLAY
    -------------*/
-
-foreach ($groupList as $thisGroup)
+if( $groupList ) 
 {
-    // COLUMN 1 - NAME OF GROUP + If open LINK.
-
-    echo '<tr align="center">' . "\n"
-    .    '<td align="left">'
-    ;
-    /**
-         * Note : student are allowed to enter into group only if they are
-         * group member.
-         * Tutors are allowed to enter in any groups, they
-         * are also able to notice whose groups they are responsible
-         */
-    if( claro_is_user_authenticated() && ( $is_allowedToManage
-    ||   $thisGroup['id_tutor'] == claro_get_current_user_id()
-    ||   $thisGroup['is_member']
-    || ! $_groupProperties['private']) )
+    foreach ($groupList as $thisGroup)
     {
-        // see if group name must be displayed as "containing new item" or not
+        // COLUMN 1 - NAME OF GROUP + If open LINK.
 
-        if (in_array($thisGroup['id'], $modified_groups))
-        {
-            $classItem = '<div class="item hot">';
-        }
-        else // otherwise just display its name normally
-        {
-            $classItem = '<div class="item">';
-        }
-
-        echo $classItem . '<img src="' . get_icon_url('group') . '" alt="" /> '
-        .    '<a href="group_space.php?gidReq=' . $thisGroup['id'] . claro_url_relay_context('&amp;') . '">'
-        .    $thisGroup['name']
-        .    '</a>'
-        .    '</div>'
+        echo '<tr align="center">' . "\n"
+        .    '<td align="left">'
         ;
-
-        if     (claro_is_user_authenticated() && (claro_get_current_user_id() == $thisGroup['id_tutor'] )) echo ' (' . get_lang("my supervision") . ')';
-        elseif ($thisGroup['is_member'])
+        /**
+             * Note : student are allowed to enter into group only if they are
+             * group member.
+             * Tutors are allowed to enter in any groups, they
+             * are also able to notice whose groups they are responsible
+             */
+        if( claro_is_user_authenticated() && ( $is_allowedToManage
+        ||   $thisGroup['id_tutor'] == claro_get_current_user_id()
+        ||   $thisGroup['is_member']
+        || ! $_groupProperties['private']) )
         {
-            echo ' (' . get_lang("my group") . ')';
+            // see if group name must be displayed as "containing new item" or not
+
+            if (in_array($thisGroup['id'], $modified_groups))
+            {
+                $classItem = '<div class="item hot">';
+            }
+            else // otherwise just display its name normally
+            {
+                $classItem = '<div class="item">';
+            }
+
+            echo $classItem . '<img src="' . get_icon_url('group') . '" alt="" /> '
+            .    '<a href="group_space.php?gidReq=' . $thisGroup['id'] . claro_url_relay_context('&amp;') . '">'
+            .    $thisGroup['name']
+            .    '</a>'
+            .    '</div>'
+            ;
+
+            if     (claro_is_user_authenticated() && (claro_get_current_user_id() == $thisGroup['id_tutor'] )) echo ' (' . get_lang("my supervision") . ')';
+            elseif ($thisGroup['is_member'])
+            {
+                echo ' (' . get_lang("my group") . ')';
+            }
         }
+        else
+        {
+            echo '<img src="' . get_icon_url('group') . '" alt="" /> '
+            .    $thisGroup['name']
+            ;
+        }
+
+        echo '</td>' . "\n";
+
+        /*----------------------------
+        COLUMN 2 - SELF REGISTRATION
+        ----------------------------*/
+
+        if (! $is_allowedToManage)
+        {
+            if($isGroupRegAllowed)
+            {
+                echo '<td align="center">';
+
+                if( (! claro_is_user_authenticated())
+                OR ( $thisGroup['is_member'])
+                OR ( claro_get_current_user_id() == $thisGroup['id_tutor'])
+                OR (!is_null($thisGroup['maxStudent']) //unlimited
+                AND ($thisGroup['nbMember'] >= $thisGroup['maxStudent']) // still free place
+                ))
+                {
+                    echo '&nbsp;-';
+                }
+                else
+                {
+                    echo '&nbsp;'
+                    .    '<a href="group_space.php?registration=1&amp;selfReg=1&amp;gidReq=' . $thisGroup['id']  . claro_url_relay_context('&amp;') . '">'
+                    .    '<img src="' . get_icon_url('enroll') . '" alt="' . get_lang("register") . '" />'
+                    .    '</a>'
+                    ;
+                }
+                echo '</td>' . "\n";
+            }    // end If $isGroupRegAllowed
+        }
+
+        /*------------------
+        MEMBER NUMBER
+        ------------------*/
+
+        echo    '<td>' . $thisGroup['nbMember'] . '</td>' . "\n";
+
+        /*------------------
+        MAX MEMBER NUMBER
+        ------------------*/
+
+        if (is_null($thisGroup['maxStudent'])) echo '<td> - </td>' . "\n";
+        else                                   echo '<td>' . $thisGroup['maxStudent'] . '</td>' . "\n";
+
+        if ($is_allowedToManage)
+        {
+            echo '<td>'
+            .    '<a href="group_edit.php?gidReq=' . $thisGroup['id']  . claro_url_relay_context('&amp;') . '">'
+            .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang("Edit") . '" />'
+            .    '</a>'
+            .    '</td>' . "\n"
+            .    '<td>'
+            .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelGroup&amp;id=' . $thisGroup['id']  . claro_url_relay_context('&amp;') . '" '
+            .    ' onclick="return confirmationDeleteThisGroup(\'' . clean_str_for_javascript($thisGroup['name']) . '\');">'
+            .    '<img src="' . get_icon_url('delete') . '" alt="' . get_lang("Delete") . '" />'
+            .    '</a>'
+            .    '</td>' . "\n"
+            ;
+        }
+
+        echo '</tr>' . "\n\n";
+
+        if (   ! is_null($thisGroup['description'])
+        && trim($thisGroup['description']) != '' )
+        {
+            echo '<tr>' . "\n"
+            .    '<td colspan="5">' . "\n"
+            .    '<div class="comment">'
+            .    $thisGroup['description']
+            .    '</div>'
+            .    '</td>' . "\n"
+            .    '</tr>' . "\n"
+            ;
+        }
+
+
+        $totalRegistered = $totalRegistered + $thisGroup['nbMember'];
+
+    }    // while loop
+}
+else
+{
+    if ( $is_allowedToManage )
+    {
+        echo "\n"
+        . '<tr>'
+        . '<td colspan="5" style="text-align:center;">'
+        . get_lang('Empty')
+        . '</td>'
+        . '</tr>'
+        ;
     }
     else
     {
-        echo '<img src="' . get_icon_url('group') . '" alt="" /> '
-        .    $thisGroup['name']
+        echo "\n"
+        . '<tr>'
+        . '<td colspan="3" style="text-align:center;">'
+        . get_lang('Empty')
+        . '</td>'
+        . '</tr>'
         ;
     }
-
-    echo '</td>' . "\n";
-
-    /*----------------------------
-    COLUMN 2 - SELF REGISTRATION
-    ----------------------------*/
-
-    if (! $is_allowedToManage)
-    {
-        if($isGroupRegAllowed)
-        {
-            echo '<td align="center">';
-
-            if( (! claro_is_user_authenticated())
-            OR ( $thisGroup['is_member'])
-            OR ( claro_get_current_user_id() == $thisGroup['id_tutor'])
-            OR (!is_null($thisGroup['maxStudent']) //unlimited
-            AND ($thisGroup['nbMember'] >= $thisGroup['maxStudent']) // still free place
-            ))
-            {
-                echo '&nbsp;-';
-            }
-            else
-            {
-                echo '&nbsp;'
-                .    '<a href="group_space.php?registration=1&amp;selfReg=1&amp;gidReq=' . $thisGroup['id']  . claro_url_relay_context('&amp;') . '">'
-                .    '<img src="' . get_icon_url('enroll') . '" alt="' . get_lang("register") . '" />'
-                .    '</a>'
-                ;
-            }
-            echo '</td>' . "\n";
-        }    // end If $isGroupRegAllowed
-    }
-
-    /*------------------
-    MEMBER NUMBER
-    ------------------*/
-
-    echo    '<td>' . $thisGroup['nbMember'] . '</td>' . "\n";
-
-    /*------------------
-    MAX MEMBER NUMBER
-    ------------------*/
-
-    if (is_null($thisGroup['maxStudent'])) echo '<td> - </td>' . "\n";
-    else                                   echo '<td>' . $thisGroup['maxStudent'] . '</td>' . "\n";
-
-    if ($is_allowedToManage)
-    {
-        echo '<td>'
-        .    '<a href="group_edit.php?gidReq=' . $thisGroup['id']  . claro_url_relay_context('&amp;') . '">'
-        .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang("Edit") . '" />'
-        .    '</a>'
-        .    '</td>' . "\n"
-        .    '<td>'
-        .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelGroup&amp;id=' . $thisGroup['id']  . claro_url_relay_context('&amp;') . '" '
-        .    ' onclick="return confirmationDeleteThisGroup(\'' . clean_str_for_javascript($thisGroup['name']) . '\');">'
-        .    '<img src="' . get_icon_url('delete') . '" alt="' . get_lang("Delete") . '" />'
-        .    '</a>'
-        .    '</td>' . "\n"
-        ;
-    }
-
-    echo '</tr>' . "\n\n";
-
-    if (   ! is_null($thisGroup['description'])
-    && trim($thisGroup['description']) != '' )
-    {
-        echo '<tr>' . "\n"
-        .    '<td colspan="5">' . "\n"
-        .    '<div class="comment">'
-        .    $thisGroup['description']
-        .    '</div>'
-        .    '</td>' . "\n"
-        .    '</tr>' . "\n"
-        ;
-    }
-
-
-    $totalRegistered = $totalRegistered + $thisGroup['nbMember'];
-
-}    // while loop
+}
 
 echo '</tbody>' . "\n"
 .     '</table>' . "\n"
