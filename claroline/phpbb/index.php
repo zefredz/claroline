@@ -243,11 +243,11 @@ foreach ( $categories as $this_category )
 
             if (claro_is_user_authenticated() && $claro_notifier->is_a_notified_forum(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $this_forum['forum_id']))
             {
-                $forum_img = 'forum_hot.gif';
+                $class = 'forum_hot';
             }
             else
             {
-                $forum_img = 'forum.gif';
+                $forum_img = 'forum';
             }
 
             if ( $forum_post_allowed)
@@ -260,7 +260,7 @@ foreach ( $categories as $this_category )
             }
 
             echo '<td>'                                               . "\n"
-            .    '<img src="' . get_icon_url( $forum_img ) . '" alt="" />' . "\n"
+            .    '<img src="' . get_icon_url( 'forum', 'CLFRM' ) . '" alt="" />' . "\n"
             .    '&nbsp;'                                             . "\n"
             ;
 
