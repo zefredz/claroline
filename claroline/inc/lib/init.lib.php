@@ -338,8 +338,15 @@ function claro_get_current_course_tool_data($dataName=null)
 function claro_get_current_course_tool_list_data($dataName=null)
 {
     $ctl = get_init('_courseToolList');
-    if (is_null($dataName)) return $ctl;
-    elseif (is_array($ctl) && array_key_exists($dataName,$ctl)) return $ctl[$dataName];
+    
+    if ( is_null($dataName) )
+    {
+        return $ctl;
+    }
+    elseif ( is_array($ctl) && array_key_exists($dataName,$ctl) )
+    {
+        return $ctl[$dataName];
+    }
     else
     {
         pushClaroMessage(claro_html_debug_backtrace(),'error');
