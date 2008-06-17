@@ -1,7 +1,7 @@
 /* Main Style Sheet for jQuery UI date picker */
 #datepicker_div, .datepicker_inline {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 14px;
+	font-family: Arial, Verdana, Helvetica, Sans-Serif;
+	font-size: 0.8em;
 	padding: 0;
 	margin: 0;
 	background: #ddd;
@@ -9,7 +9,7 @@
 }
 #datepicker_div {
 	display: none;
-	border: 1px solid #777;
+	border: 1px solid #ccc;
 	z-index: 9999; /*must have*/
 }
 .datepicker_inline {
@@ -44,19 +44,22 @@ img.datepicker_trigger {
 	clear: both;
 	float: left;
 	width: 100%;
-	color: #fff;
+	color: #693;
 }
 .datepicker_control {
-	background: #400;
+	background: #DEEECE;
 	padding: 2px 0px;
+	border-top: 1px #87B665 solid;
+	border-bottom: 1px #87B665 solid;
 }
 .datepicker_links {
-	background: #000;
+	background: #EDF1E3;
 	padding: 2px 0px;
+	border-bottom: 1px #96BB7A solid;
 }
 .datepicker_control, .datepicker_links {
 	font-weight: bold;
-	font-size: 80%;
+	font-size: 90%;
 	letter-spacing: 1px;
 }
 .datepicker_links label { /* disabled links */
@@ -87,16 +90,14 @@ img.datepicker_trigger {
 }
 .datepicker_header {
 	padding: 1px 0 3px;
-	background: #333;
+	background: #fff;
 	text-align: center;
 	font-weight: bold;
 	height: 1.3em;
 }
 .datepicker_header select {
-	background: #333;
-	color: #fff;
-	border: 0px;
-	font-weight: bold;
+	background: #fff;
+	color: #333;
 }
 .datepicker {
 	background: #ccc;
@@ -108,10 +109,12 @@ img.datepicker_trigger {
 	width: 100%;
 }
 .datepicker_titleRow {
-	background: #777;
+	background: #EDF1E3;
+	border-top: 1px #96BB7A solid;
+	border-bottom: 1px #96BB7A solid;
 }
 .datepicker_daysRow {
-	background: #eee;
+	background: #fff;
 	color: #666;
 }
 .datepicker_weekCol {
@@ -120,7 +123,7 @@ img.datepicker_trigger {
 }
 .datepicker_daysCell {
 	color: #000;
-	border: 1px solid #ddd;
+	border: 1px solid #ccc;
 }
 .datepicker_daysCell a{
 	display: block;
@@ -129,11 +132,11 @@ img.datepicker_trigger {
 	background: #ddd;
 }
 .datepicker_titleRow .datepicker_weekEndCell {
-	background: #777;
+	background: #EDF1E3;
 }
 .datepicker_daysCellOver {
-	background: #fff;
-	border: 1px solid #777;
+	background: #ccc;
+	border: 1px solid #ccc;
 }
 .datepicker_unselectable {
 	color: #888;
@@ -164,20 +167,30 @@ img.datepicker_trigger {
 .datepicker_inline .datepicker_links a {
 	padding: 0 5px !important;
 }
-.datepicker_control a, .datepicker_links a {
+.datepicker_control a
+{
+    padding: 2px 5px !important;
+    color: #693 !important;
+}
+
+.datepicker_links a {
 	padding: 2px 5px !important;
-	color: #eee !important;
+	color: #693 !important;
 }
 .datepicker_titleRow a {
-	color: #eee !important;
+	color: #693 !important;
 }
 .datepicker_control a:hover {
+	/*
 	background: #fdd !important;
-	color: #333 !important;
+	*/
+	color: #ccc !important;
 }
 .datepicker_links a:hover, .datepicker_titleRow a:hover {
+	/*
 	background: #ddd !important;
-	color: #333 !important;
+	*/
+	color: #ccc !important;
 }
 
 /* ___________ MULTIPLE MONTHS _________*/
