@@ -122,7 +122,7 @@ if ($topicSettingList)
 
             if ( is_topic_notification_requested($topic_id, claro_get_current_user_id()) )   // display link NOT to be notified
             {
-                $notification_bloc .= '<img src="' . get_icon_url('email') . '" alt="" />';
+                $notification_bloc .= '<img src="' . get_icon_url('mail_close') . '" alt="" />';
                 $notification_bloc .= get_lang('Notify by email when replies are posted');
                 $notification_bloc .= ' [<a href="' . $_SERVER['PHP_SELF'] ;
                 $notification_bloc .= '?forum=' . $forum_id ;
@@ -137,7 +137,7 @@ if ($topicSettingList)
                 $notification_bloc .= '?forum=' . $forum_id ;
                 $notification_bloc .= '&amp;topic=' . $topic_id ;
                 $notification_bloc .= '&amp;cmd=exNotify">';
-                $notification_bloc .= '<img src="' . get_icon_url('email') . '" alt="" /> ';
+                $notification_bloc .= '<img src="' . get_icon_url('mail_close') . '" alt="" /> ';
                 $notification_bloc .= get_lang('Notify by email when replies are posted');
                 $notification_bloc .= '</a>';
             }
