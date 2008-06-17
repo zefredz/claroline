@@ -50,7 +50,7 @@ class CLANN_Portlet extends UserDesktopPortlet
             {
 
                 $output .= '<dt>' . "\n"
-                .    '<img class="iconDefinitionList" src="' . get_icon_url('announcement') . '" alt="" />'
+                .    '<img class="iconDefinitionList" src="' . get_icon_url('announcement', 'CLANN') . '" alt="" />'
                 .    '<small>'
                 .    '<a href="' . $announcementItem['url'] . '">'
                 .    $announcementItem['title']
@@ -81,7 +81,7 @@ class CLANN_Portlet extends UserDesktopPortlet
             $output .= "\n"
             .    '<dl>' . "\n"
             .    '<dt>' . "\n"
-            .    '<img class="iconDefinitionList" src="' . get_icon_url('announcement') . '" alt="" />'
+            .    '<img class="iconDefinitionList" src="' . get_icon_url('announcement', 'CLANN') . '" alt="" />'
             .    '<small>'
             .    get_lang('No event to display') . "\n"
             .    '</small>' . "\n"
