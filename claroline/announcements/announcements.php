@@ -382,7 +382,7 @@ if ( $displayButtonLine )
     ;
 
     $cmdList[] = '<a class="claroCmd" href="../messaging/messagescourse.php'.claro_url_relay_context('?') . '">'
-        .             '<img src="' . get_icon_url('email') . '" alt="" />'
+        .             '<img src="' . get_icon_url('mail_close') . '" alt="" />'
     .             get_lang('Messages to selected users')
     .             '</a>' . "\n"
     ;
