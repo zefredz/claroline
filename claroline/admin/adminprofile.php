@@ -236,7 +236,7 @@ $cmd_menu[] = '<a class="claroCmd" href="../auth/courses.php'
 $cmd_menu[] = '<a class="claroCmd" href="../auth/lostPassword.php'
 .             '?Femail=' . urlencode($user_data['email'])
 .             '&amp;searchPassword=1" >'
-.             '<img src="' . get_icon_url('email') . '" />'
+.             '<img src="' . get_icon_url('mail_close') . '" />'
 .             get_lang('Send account information to user by email')
 .             '</a>'
 ;
