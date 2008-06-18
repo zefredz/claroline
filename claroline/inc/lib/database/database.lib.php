@@ -150,7 +150,7 @@ class Mysql_Database_Connection implements Database_Connection
         
         if ( !empty( $this->database ) )
         {
-            $this->selectDatabase( $database );
+            $this->selectDatabase( $this->database );
         }
     }
     
@@ -168,6 +168,8 @@ class Mysql_Database_Connection implements Database_Connection
         {
             throw new Database_Connection_Exception("Cannot select database {$database} on {$this->username}@{$this->host}");
         }
+        
+        $this->database = $database;
     }
     
     /**
