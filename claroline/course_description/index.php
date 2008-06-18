@@ -1,4 +1,5 @@
 <?php // $Id$
+
 /**
  * CLAROLINE
  *
@@ -6,9 +7,9 @@
  *
  * If ist's the admin, he can access to the editing
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2008 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -19,6 +20,7 @@
  * @package CLDSC
  *
  */
+
 // TODO add config var to allow multiple post of same type
 $tlabelReq = 'CLDSC';
 
@@ -41,14 +43,33 @@ $tipList = get_tiplistinit();
  * init request vars
  */
 $acceptedCmdList = array('rqEdit', 'exEdit', 'exDelete', 'mkVis','mkInvis');
-if ( isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'], $acceptedCmdList) )   $cmd = $_REQUEST['cmd'];
-else                                                                             $cmd = null;
 
-if ( isset($_REQUEST['descId']) && is_numeric($_REQUEST['descId']) ) $descId = (int) $_REQUEST['descId'];
-else                                                                 $descId = null;
+if ( isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'], $acceptedCmdList) )
+{
+    $cmd = $_REQUEST['cmd'];
+}   
+else
+{
+    $cmd = null;
+}
 
-if ( isset($_REQUEST['category']) && $_REQUEST['category'] >= 0 )    $category = $_REQUEST['category'];
-else                                                                 $category = -1;
+if ( isset($_REQUEST['descId']) && is_numeric($_REQUEST['descId']) )
+{
+    $descId = (int) $_REQUEST['descId'];
+}
+else
+{
+    $descId = null;
+}
+
+if ( isset($_REQUEST['category']) && $_REQUEST['category'] >= 0 )
+{
+    $category = $_REQUEST['category'];
+}
+else
+{
+    $category = -1;
+}
 
 /*
  * init other vars
@@ -71,9 +92,20 @@ if ( $is_allowedToEdit && !is_null($cmd) )
 
     if ( $cmd == 'exEdit' )
     {
-        if ( isset($_REQUEST['descTitle']) )     $description->setTitle($_REQUEST['descTitle']);
-        if ( isset($_REQUEST['descContent']) )   $description->setContent($_REQUEST['descContent']);
-        if ( isset($_REQUEST['descCategory']) )  $description->setCategory($_REQUEST['descCategory']);
+        if ( isset($_REQUEST['descTitle']) )
+        {
+            $description->setTitle($_REQUEST['descTitle']);
+        }
+        
+        if ( isset($_REQUEST['descContent']) )
+        {
+            $description->setContent($_REQUEST['descContent']);
+        }
+        
+        if ( isset($_REQUEST['descCategory']) )
+        {
+            $description->setCategory($_REQUEST['descCategory']);
+        }
 
         if ( $description->validate() )
         {
@@ -111,17 +143,41 @@ if ( $is_allowedToEdit && !is_null($cmd) )
     {
         claro_set_display_mode_available(false);
 
-        if ( isset($tipList[$category]['isEditable']) )  $tipIsTitleEditable = $tipList[$category]['isEditable'];
-        else                                            $tipIsTitleEditable = true;
+        if ( isset($tipList[$category]['isEditable']) )
+        {
+            $tipIsTitleEditable = $tipList[$category]['isEditable'];
+        }
+        else
+        {
+            $tipIsTitleEditable = true;
+        }
 
-        if ( !empty($tipList[$category]['title']) )      $tipPresetTitle = $tipList[$category]['title'];
-        else                                            $tipPresetTitle = '';
+        if ( !empty($tipList[$category]['title']) )
+        {
+            $tipPresetTitle = $tipList[$category]['title'];
+        }
+        else
+        {
+            $tipPresetTitle = '';
+        }
 
-        if ( !empty($tipList[$category]['question']) )   $tipQuestion = $tipList[$category]['question'];
-        else                                            $tipQuestion = '';
+        if ( !empty($tipList[$category]['question']) )
+        {
+            $tipQuestion = $tipList[$category]['question'];
+        }
+        else
+        {
+            $tipQuestion = '';
+        }
 
-        if ( !empty($tipList[$category]['information']) )$tipInformation = $tipList[$category]['information'];
-        else                                            $tipInformation = '';
+        if ( !empty($tipList[$category]['information']) )
+        {
+            $tipInformation = $tipList[$category]['information'];
+        }
+        else
+        {
+            $tipInformation = '';
+        }
 
 
         $displayForm = true;
@@ -184,12 +240,14 @@ $nameTools = get_lang('Course description');
 
 $noQUERY_STRING = true; // to remove parameters in the last breadcrumb link
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+// include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
-echo claro_html_tool_title($nameTools);
+$out = '';
+
+$out .= claro_html_tool_title($nameTools);
 
 //-- dialogBox
-echo $dialogBox->render();
+$out .= $dialogBox->render();
 
 if ( $is_allowedToEdit )
 {
@@ -199,22 +257,22 @@ if ( $is_allowedToEdit )
 
     if ( isset($displayForm) && $displayForm )
     {
-        echo '<form  method="post" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
+        $out .= '<form  method="post" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
         .    claro_form_relay_context() . "\n"
         .    '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
         .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n";
 
         if ( !is_null($descId) )
         {
-            echo '<input type="hidden" name="descId" value="' . $descId . '" />' . "\n"
+            $out .= '<input type="hidden" name="descId" value="' . $descId . '" />' . "\n"
             .    '<input type="hidden" name="descCategory" value="' . $description->getCategory() . '" />' . "\n";
         }
         else
         {
-             echo '<input type="hidden" name="descCategory" value="' . $category . '" />' . "\n";
+             $out .= '<input type="hidden" name="descCategory" value="' . $category . '" />' . "\n";
         }
 
-        echo "\n" . '<table border="0">' . "\n"
+        $out .= "\n" . '<table border="0">' . "\n"
         .    '<tr>' . "\n"
         .    '<td colspan="2">' . "\n\n"
 
@@ -228,15 +286,15 @@ if ( $is_allowedToEdit )
 
         if ( $tipIsTitleEditable )
         {
-            echo '<input type="text" name="descTitle" id="descTitle" size="50" value="' . htmlspecialchars($description->getTitle()) . '" />' . "\n";
+            $out .= '<input type="text" name="descTitle" id="descTitle" size="50" value="' . htmlspecialchars($description->getTitle()) . '" />' . "\n";
         }
         else
         {
-            echo htmlspecialchars($tipPresetTitle) . "\n"
+            $out .= htmlspecialchars($tipPresetTitle) . "\n"
             .    '<input type="hidden" name="descTitle" value="'. htmlspecialchars($tipPresetTitle) .'" />' . "\n";
         }
 
-        echo '</p>' . "\n\n"
+        $out .= '</p>' . "\n\n"
 
         .    '<p>' . "\n"
         .    '<label for="descContent">' . "\n"
@@ -263,20 +321,20 @@ if ( $is_allowedToEdit )
 
         if ( !empty($tipQuestion) )
         {
-            echo "\n" . '<h4>' . get_lang("Question to lecturer") . '</h4>' . "\n"
+            $out .= "\n" . '<h4>' . get_lang("Question to lecturer") . '</h4>' . "\n"
             .    '<p>' . $tipQuestion . '</p>' . "\n\n"
             ;
         }
 
         if ( !empty($tipInformation) )
         {
-            echo "\n" . '<h4>' . get_lang("Information to give to students") . '</h4>' . "\n"
+            $out .= "\n" . '<h4>' . get_lang("Information to give to students") . '</h4>' . "\n"
             .    '<p>' . $tipInformation . '</p>' . "\n\n"
             ;
         }
 
 
-        echo '</td>' . "\n"
+        $out .= '</td>' . "\n"
         .    '</tr>'   . "\n"
         .    '</table>'. "\n"
         .    '</form>' . "\n"
@@ -290,7 +348,7 @@ if ( $is_allowedToEdit )
         ADD FORM DISPLAY
         **************************************************************************/
 
-        echo "\n\n"
+        $out .= "\n\n"
         .    '<br />' . "\n"
         .    '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
         .    claro_form_relay_context()
@@ -314,12 +372,12 @@ if ( $is_allowedToEdit )
 
                 if ( ($alreadyUsed) == false)
                 {
-                    echo '<option value="' . $key . '">' . htmlspecialchars($tip['title']) . '</option>' . "\n";
+                    $out .= '<option value="' . $key . '">' . htmlspecialchars($tip['title']) . '</option>' . "\n";
                 }
             }
         }
 
-        echo '<option value="-1">' . get_lang("Other") . '</option>' . "\n"
+        $out .= '<option value="-1">' . get_lang("Other") . '</option>' . "\n"
         .    '</select>' . "\n"
         .    '<input type="submit" name="add" value="' . get_lang('Add') . '" />' . "\n"
         .    '</form>' . "\n"
@@ -337,7 +395,7 @@ if ( count($descList) )
 {
     if (claro_is_user_authenticated()) $date = $claro_notifier->get_notification_date(claro_get_current_user_id());
 
-    echo '<table class="claroTable" width="100%">' . "\n";
+    $out .= '<table class="claroTable" width="100%">' . "\n";
 
     foreach ( $descList as $thisDesc )
     {
@@ -359,16 +417,16 @@ if ( count($descList) )
                 $cssInvisible = ' invisible';
             }
 
-            echo '<tr class="headerX">'
+            $out .= '<tr class="headerX">'
             .    '<th>'
             .    '<span class="'. $cssItem . $cssInvisible .'">';
 
             if ( trim($thisDesc['title']) == '' )
-                echo '&nbsp;';
+                $out .= '&nbsp;';
             else
-                echo htmlspecialchars($thisDesc['title']);
+                $out .= htmlspecialchars($thisDesc['title']);
 
-            echo '</span>'
+            $out .= '</span>'
             .    '</th>'
             .    '</tr>' . "\n"
             .    '<tr>'
@@ -381,7 +439,7 @@ if ( count($descList) )
 
             if ( $is_allowedToEdit )
             {
-                echo '<p>' . "\n"
+                $out .= '<p>' . "\n"
                 // edit
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;descId=' . $thisDesc['id'] . '">'
                 .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Modify') . '" />'
@@ -395,33 +453,35 @@ if ( count($descList) )
                 // visibility
                 if ($thisDesc['visibility'] == 'VISIBLE')
                 {
-                    echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkInvis&amp;descId=' . $thisDesc['id'] . '">'
+                    $out .= '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkInvis&amp;descId=' . $thisDesc['id'] . '">'
                     .    '<img src="' . get_icon_url('visible') . '" alt="' . get_lang('Invisible') . '" />'
                     .    '</a>' . "\n";
                 }
                 else
                 {
-                    echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkVis&amp;descId=' . $thisDesc['id'] . '">'
+                    $out .= '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkVis&amp;descId=' . $thisDesc['id'] . '">'
                     .    '<img src="' . get_icon_url('invisible') . '" alt="' . get_lang('Visible') . '" />'
                     .    '</a>' . "\n";
                 }
 
-                echo '</p>' . "\n";
+                $out .= '</p>' . "\n";
             }
 
-            echo '</td>'
+            $out .= '</td>'
             .    '</tr>' . "\n" . "\n";
         }
 
     }
-    echo '</table>'."\n\n";
+    $out .= '</table>'."\n\n";
 }
 
 if ( !$hasDisplayedItems )
 {
-    echo "\n" . '<p>' . get_lang("This course is currently not described") . '</p>' . "\n";
+    $out .= "\n" . '<p>' . get_lang("This course is currently not described") . '</p>' . "\n";
 }
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+Claroline::getInstance()->display->setContent($out);
+
+echo Claroline::getInstance()->display->render();
 
 ?>

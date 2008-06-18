@@ -4,9 +4,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2008 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -21,10 +21,10 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
     -   'upDate' becomes 'lastEditDate'
     
     
-CREATE TABLE `c_IMSQTI_course_description` (
+CREATE TABLE `__CL_COURSE__course_description` (
   `id` int(11) NOT NULL auto_increment,
   `category` int(11) NOT NULL default '-1',
-  `title` varchar(255) default NULL,
+  `title` protectedchar(255) default NULL,
   `content` text,
   `lastEditDate` DATETIME NOT NULL,
   `visibility` enum('VISIBLE','INVISIBLE') NOT NULL default 'VISIBLE',
@@ -37,34 +37,34 @@ CREATE TABLE `c_IMSQTI_course_description` (
 class CourseDescription
 {
     /**
-     * @var $id id of description, -1 if description doesn't exist already
+     * @protected $id id of description, -1 if description doesn't exist already
      */
-    var $id;
+    protected $id;
 
     /**
-     * @var $category id of predefined 'type' of description, > 0 for predefined categories, -1 for "others"
+     * @protected $category id of predefined 'type' of description, > 0 for predefined categories, -1 for "others"
      */ 
-    var $category;
+    protected $category;
      
     /**
-     * @var $title name of the description
+     * @protected $title name of the description
      */
-    var $title;
+    protected $title;
 
     /**
-     * @var $content description text
+     * @protected $content description text
      */
-    var $content;
+    protected $content;
    
     /**
-     * @var $lastEditDate last edition date of the description timestamp
+     * @protected $lastEditDate last edition date of the description timestamp
      */
-    var $lastEditDate;
+    protected $lastEditDate;
 
     /**
-     * @var $visibility
+     * @protected $visibility
      */
-    var $visibility;    
+    protected $visibility;    
     
     
     /** 
@@ -73,7 +73,7 @@ class CourseDescription
      * @param $course_id
      */
      
-    function CourseDescription($course_id = null)
+    public function __construct($course_id = null)
     {
         $this->id = (int) -1;
         $this->category = -1;
@@ -95,7 +95,7 @@ class CourseDescription
      * @author Sebastien Piraux <pir@cerdecam.be>
      */   
       
-    function load($id)
+    public function load($id)
     {
            $sql = "SELECT `id`,
                        `category`,
@@ -133,7 +133,7 @@ class CourseDescription
      * @author Sebastien Piraux <pir@cerdecam.be>
      */
      
-    function save()
+    public function save()
     {
         if( $this->id == -1 )
         {
@@ -153,7 +153,7 @@ class CourseDescription
      * @author Sebastien Piraux <pir@cerdecam.be>
      */
      
-    function insert()
+    public function insert()
     {
            // insert
         $sql = "INSERT INTO `".$this->tblCourseDescription."`
@@ -186,7 +186,7 @@ class CourseDescription
      * @author Sebastien Piraux <pir@cerdecam.be>     
      */
      
-    function update()
+    public function update()
     {
         // update, main query
         $sql = "UPDATE `".$this->tblCourseDescription."`
@@ -216,7 +216,7 @@ class CourseDescription
      * @author Sebastien Piraux <pir@cerdecam.be>     
      */ 
         
-    function delete()
+    public function delete()
     {
         $sql = "DELETE FROM `".$this->tblCourseDescription."`
                 WHERE `id` = ".$this->getId();
@@ -239,7 +239,7 @@ class CourseDescription
      * @author Sebastien Piraux <pir@cerdecam.be>     
      */   
      
-    function validate()
+    public function validate()
     {
         // there is nothing to validate at this time as a course description
         // is valide without title or content
@@ -259,7 +259,7 @@ class CourseDescription
      * @author Sebastien Piraux <pir@cerdecam.be>  
      */
      
-    function getId()
+    public function getId()
     {
         return (int) $this->id;
     }
@@ -272,7 +272,7 @@ class CourseDescription
      * @author Sebastien Piraux <pir@cerdecam.be>  
      */
      
-    function setId($id)
+    public function setId($id)
     {
         $this->id = (int) $id;
     }
@@ -285,7 +285,7 @@ class CourseDescription
      * @author Sebastien Piraux <pir@cerdecam.be>  
      */
 
-    function getCategory()
+    public function getCategory()
     {
         return (int) $this->category;
     }
@@ -298,7 +298,7 @@ class CourseDescription
      * @author Sebastien Piraux <pir@cerdecam.be>  
      */
      
-    function setCategory($category)
+    public function setCategory($category)
     {
         if( $category < 0 ) $this->category = (int) -1;
         else                $this->category = (int) $category;
@@ -312,7 +312,7 @@ class CourseDescription
      * @author Sebastien Piraux <pir@cerdecam.be>  
      */
 
-    function getTitle()
+    public function getTitle()
     {
         return $this->title;
     }
@@ -324,7 +324,7 @@ class CourseDescription
      * @author Sebastien Piraux <pir@cerdecam.be>  
      */
      
-    function setTitle($title)
+    public function setTitle($title)
     {
         $this->title = trim($title);
     }
@@ -337,7 +337,7 @@ class CourseDescription
      * @author Sebastien Piraux <pir@cerdecam.be>  
      */
 
-    function getContent()
+    public function getContent()
     {
         return $this->content;
     }
@@ -349,7 +349,7 @@ class CourseDescription
      * @author Sebastien Piraux <pir@cerdecam.be>  
      */
          
-    function setContent($content)
+    public function setContent($content)
     {
         $this->content = trim($content);
     }
@@ -362,7 +362,7 @@ class CourseDescription
      * @author Sebastien Piraux <pir@cerdecam.be>  
      */
 
-    function getLastEditDate()
+    public function getLastEditDate()
     {
         return $this->lastEditDate;
     }
@@ -375,7 +375,7 @@ class CourseDescription
      * @author Sebastien Piraux <pir@cerdecam.be>  
      */
      
-    function setLastEditDate($date)
+    public function setLastEditDate($date)
     {
         $this->lastEditDate = $date;
     }
@@ -388,7 +388,7 @@ class CourseDescription
      * @author Sebastien Piraux <pir@cerdecam.be>  
      */
     
-    function getVisibility()
+    public function getVisibility()
     {
         return $this->visibility;
     }
@@ -400,7 +400,7 @@ class CourseDescription
      * @author Sebastien Piraux <pir@cerdecam.be>  
      */
      
-    function setVisibility($visibility)
+    public function setVisibility($visibility)
     {
         $acceptedValues = array('VISIBLE', 'INVISIBLE');
 
@@ -412,5 +412,3 @@ class CourseDescription
         return false;
     }
 }
-
-?>
