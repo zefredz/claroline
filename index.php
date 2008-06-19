@@ -121,7 +121,7 @@ else
 }
 // Dock - Campus homepage - Top
 
-$campusHomePageTop = new Dock('campusHomePageTop');
+$campusHomePageTop = new ClaroDock('campusHomePageTop');
 
 echo $campusHomePageTop->render();
 
@@ -191,7 +191,7 @@ else
 
 // Dock - Campus homepage - Bottom
 
-$campusHomePageBottom = new Dock('campusHomePageBottom');
+$campusHomePageBottom = new ClaroDock('campusHomePageBottom');
 
 echo $campusHomePageBottom->render();
 
@@ -215,7 +215,7 @@ else
 
 //RIGHT MENU DOCK declaration
 
-$homePageRightMenu = new Dock('campusHomePageRightMenu');
+$homePageRightMenu = new ClaroDock('campusHomePageRightMenu');
 
 echo $homePageRightMenu->render();
 
