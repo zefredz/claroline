@@ -64,20 +64,25 @@ function get_icon_url( $fileName, $moduleLabel = null )
         : $moduleLabel
         ;
     
-    $imgPath = array(
-        // claroline theme iconset
-        get_current_iconset_path() => get_current_iconset_url(),
-        // claroline web/img
-        get_path( 'rootSys' ) . 'web/img/' => get_path('url') . '/web/img/',
+    $imgPath = array();
+    
+    // claroline theme iconset
+    $imgPath[get_current_iconset_path()] = get_current_iconset_url();
+    // claroline web/img
+    $imgPath[get_path( 'rootSys' ) . 'web/img/'] = get_path('url') . '/web/img/';
+    
+    if ( !empty($moduleLabel) )
+    {
         // module img directory
-        get_module_path($moduleLabel).'/img/' => get_module_url($moduleLabel).'/img/',
+        $imgPath[get_module_path($moduleLabel).'/img/'] = get_module_url($moduleLabel).'/img/';
         // module root directory
-        get_module_path($moduleLabel).'/' => get_module_url($moduleLabel).'/',
-        // img directory in working directory
-        './img/' => './img/',
-        // working directory
-        './' => './',
-    );
+        $imgPath[get_module_path($moduleLabel).'/'] = get_module_url($moduleLabel).'/';
+    }
+    
+    // img directory in working directory
+    $imgPath['./img/'] = './img/';
+    // working directory
+    $imgPath['./'] = './';
     
     if ( !empty( $fileInfo['extension'] ) )
     {
