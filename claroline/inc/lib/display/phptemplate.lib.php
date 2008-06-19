@@ -20,7 +20,7 @@
     }
     
     // load helpers and output buffering libs
-    uses ( 'core/helpers.lib', 'display/ob.lib' );
+    FromKernel::uses ( 'core/helpers.lib', 'display/ob.lib' );
     
     /**
      * Simple PHP-based template class

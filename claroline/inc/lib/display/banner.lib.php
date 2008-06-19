@@ -19,7 +19,7 @@
         die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
     }
     
-    uses ( 'display/breadcrumbs.lib', 'display/viewmode.lib' );
+    FromKernel::uses ( 'display/breadcrumbs.lib', 'display/viewmode.lib' );
     
     class ClaroBanner extends CoreTemplate
     {

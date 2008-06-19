@@ -181,7 +181,7 @@ if ($statsDbName == '')
 
 require get_path('incRepositorySys') . '/claro_init_local.inc.php';
 
-uses('core/claroline.lib');
+FromKernel::uses('core/claroline.lib');
 
 $claroline = Claroline::getInstance();
 

@@ -21,7 +21,7 @@
     }
     
     // load exception_error_handler
-    uses ( 'core/exception.lib' );
+    FromKernel::uses ( 'core/exception.lib' );
     
     /**
      * Exception handler to be used inside an output buffer

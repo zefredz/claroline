@@ -19,7 +19,7 @@
         die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
     }
     
-    uses( 'core/loader.lib' );
+    FromKernel::uses( 'core/loader.lib' );
     
     class ClaroHeader extends CoreTemplate
     {

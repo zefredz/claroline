@@ -18,7 +18,7 @@ if ( count( get_included_files() ) == 1 )
  * @package     KERNEL
  */
 
-uses ( 'core/url.lib' );
+FromKernel::uses( 'core/url.lib' );
 
 function file_upload_failed( $file )
 {

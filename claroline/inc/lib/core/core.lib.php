@@ -163,7 +163,7 @@ function uses()
             $lib = protect_against_file_inclusion( $lib );
             
             $kernelPath = INCLUDES . '/' . $lib;
-            $localPath = get_module_path(get_current_module_label()) . '/lib/' . $lib;
+            $localPath = get_module_path(Claroline::getInstance()->currentModuleLabel()) . '/lib/' . $lib;
             
             if ( file_exists( $localPath ) )
             {
@@ -187,6 +187,37 @@ function uses()
     }
     
     return $notFound;
+}
+
+class FromKernel
+{
+    public static function uses()
+    {
+        $args = func_get_args();
+        
+        defined('INCLUDES') || define ( 'INCLUDES', dirname(__FILE__) . '/..');
+        
+        foreach ( $args as $lib )
+        {
+            if ( substr($lib, -4) !== '.php' )
+            {
+                $lib .= '.php';
+            }
+            
+            $lib = protect_against_file_inclusion( $lib );
+            
+            $kernelPath = INCLUDES . '/' . $lib;
+            
+            if ( file_exists( $kernelPath ) )
+            {
+                require_once $kernelPath;
+            }
+            else
+            {
+                throw new Exception( "Lib not found $lib" );
+            }
+        }
+    }
 }
 
 class From

@@ -22,7 +22,7 @@ if ( count( get_included_files() ) == 1 )
  * @deprecated  since 1.9, use utils/controller.lib instead
  */
 
-// uses ( 'core/error.lib' );
+// FromKernel::uses ( 'core/error.lib' );
 
 /**
  * Abstract Service

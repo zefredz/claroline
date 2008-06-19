@@ -19,7 +19,7 @@ if ( count( get_included_files() ) == 1 )
  * @package     display
  */
 
-uses( 'display/phptemplate.lib', 'display/header.lib', 'display/body.lib'
+FromKernel::uses( 'display/phptemplate.lib', 'display/header.lib', 'display/body.lib'
     , 'display/footer.lib', 'display/dock.lib', 'display/banner.lib'
     , 'display/dialogBox.lib' );
 

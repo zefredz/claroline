@@ -1313,7 +1313,7 @@ function get_conf($param, $default = null)
 
 function claro_die($message)
 {
-    uses( 'display/dialogBox.lib' );
+    FromKernel::uses( 'display/dialogBox.lib' );
     $dialogBox = new DialogBox;
     $dialogBox->error( $message );
     

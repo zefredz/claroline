@@ -405,7 +405,7 @@ else
 
 if ( !empty($_uid) ) // session data refresh requested && uid is given (log in succeeded)
 {
-    uses ( 'kernel/user.lib' );
+    FromKernel::uses ( 'kernel/user.lib' );
     $currentUser = new ClaroCurrentUser;
     
     // User login
@@ -443,7 +443,7 @@ if ( !empty($_uid) ) // session data refresh requested && uid is given (log in s
             // $ssoEnabled set in conf/auth.sso.conf.php
             if ( get_conf('ssoEnabled',false ))
             {
-                uses ( 'sso/cookie.lib' );
+                FromKernel::uses ( 'sso/cookie.lib' );
                 $boolCookie = SingleSignOnCookie::setForUser( $currentUser->userId );
             } // end if ssoEnabled
         }

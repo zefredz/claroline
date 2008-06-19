@@ -19,7 +19,7 @@ if ( count( get_included_files() ) == 1 )
  * @package     KERNEL
  */
 
-uses ( 'core/url.lib' );
+FromKernel::uses ( 'core/url.lib' );
 
 /**
  * Create an html attribute list from an associative array attribute=>value

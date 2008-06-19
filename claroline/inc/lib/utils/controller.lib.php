@@ -14,7 +14,7 @@
  * @package     utils
  */
  
-uses ( 'utils/input.lib', 'display/ob.lib' );
+FromKernel::uses ( 'utils/input.lib', 'display/ob.lib' );
 
 /**
  * Rudimentary controller interface

@@ -16,7 +16,7 @@
  * @package     utils
  */
  
-uses ( 'utils/validator.lib' );
+FromKernel::uses ( 'utils/validator.lib' );
 
 /**
  * Data Input Exception, thrown when an input value does not match

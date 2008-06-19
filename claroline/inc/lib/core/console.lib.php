@@ -19,7 +19,7 @@
      * @package     KERNEL
      */
 
-    uses ('core/debug.lib');
+    FromKernel::uses('core/debug.lib');
 
     class Console
     {
