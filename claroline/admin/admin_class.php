@@ -292,7 +292,18 @@ echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing=
 .    '<tbody>' . "\n" ;
 
 //display Class list
-echo display_tree_class_in_admin($class_list);
+if(display_tree_class_in_admin($class_list))
+{
+    echo display_tree_class_in_admin($class_list);
+}
+else
+{
+    echo "\n"
+    .    '<tr class="headerX">'
+    .    '<td colspan="6" class="centerContent">' . get_lang('Empty') . '</td>'
+    .    '</tr>' . "\n"
+    ;
+}
 
 echo '</tbody>' . "\n"
 .    '</table>' ;
