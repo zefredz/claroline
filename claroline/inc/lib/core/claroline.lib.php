@@ -21,7 +21,7 @@ if ( count( get_included_files() ) == 1 )
     die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
 }
 
-uses( 'core/debug.lib', 'core/console.lib', 'core/event.lib'
+FromKernel::uses( 'core/debug.lib', 'core/console.lib', 'core/event.lib'
     , 'core/notify.lib', 'display/display.lib', 'database/database.lib'
     , 'core/log.lib' );
 
@@ -56,6 +56,8 @@ class Claroline
     // logger
     public $logger;
     
+    protected $moduleLabelStack;
+    
     // this class is a singleton, use static method getInstance()
     private function __construct()
     {
@@ -77,12 +79,41 @@ class Claroline
             // initialize logger
             $this->logger = new Logger();
             
+            $this->moduleLabelStack = array();
+            
+            if ( claro_is_in_a_tool() )
+            {
+                $this->pushModuleLabel($GLOBALS['tlabelReq']);
+            }
+            
             // initialize set the default display mode
             $this->setDisplayType();
         }
         catch ( Exception $e )
         {
             die( $e );
+        }
+    }
+    
+    public function pushModuleLabel( $label )
+    {
+        array_push( $this->moduleLabelStack, $label );
+    }
+    
+    public function popModuleLabel()
+    {
+        array_pop( $this->moduleLabelStack );
+    }
+    
+    public function currentModuleLabel()
+    {
+        if ( empty( $this->moduleLabelStack ) )
+        {
+            return false;
+        }
+        else
+        {
+           return $this->moduleLabelStack[count($this->moduleLabelStack)-1];
         }
     }
     

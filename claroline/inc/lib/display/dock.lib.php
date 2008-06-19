@@ -165,6 +165,9 @@
             
             foreach ( $this->appletList as $applet )
             {
+                Claroline::getInstance()->pushModuleLabel( $applet['label'] );
+                
+                pushClaroMessage('Current module label set to : ' . Claroline::getInstance()->currentModuleLabel(), 'debug');
                 // install course applet
                 if ( claro_is_in_a_course() )
                 {
@@ -181,6 +184,8 @@
                 {
                     Console::error( "Applet not found " . $applet['label'] );
                 }
+                Claroline::getInstance()->popModuleLabel();
+                pushClaroMessage('Current module label set to : ' . Claroline::getInstance()->currentModuleLabel(), 'debug');
             }
 
             $claro_buffer->append("\n".'<!-- End of '.$this->name.' -->'."\n");

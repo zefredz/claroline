@@ -19,20 +19,20 @@ if ( count( get_included_files() ) == 1 )
     die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
 }
 
-uses ( 'core/event.lib' );
+FromKernel::uses ( 'core/event.lib' );
 
 function load_current_module_listeners()
 {
     $claroline = Claroline::getInstance();
 
-    $path = get_module_path( get_current_module_label() )
+    $path = get_module_path( Claroline::getInstance()->currentModuleLabel() )
         . '/connector/eventlistener.cnr.php';
 
     if ( file_exists( $path ) )
     {
         if ( claro_debug_mode() )
         {
-            pushClaroMessage( 'Load listeners for : ' . get_current_module_label(), 'debug' );
+            pushClaroMessage( 'Load listeners for : ' . Claroline::getInstance()->currentModuleLabel(), 'debug' );
         }
 
         include $path;
@@ -41,7 +41,7 @@ function load_current_module_listeners()
     {
         if ( claro_debug_mode() )
         {
-            pushClaroMessage( 'No listeners for : ' . get_current_module_label(), 'warning' );
+            pushClaroMessage( 'No listeners for : ' . Claroline::getInstance()->currentModuleLabel(), 'warning' );
         }
     }
 }

@@ -139,28 +139,7 @@ function claro_get_current_tool_id()
  */
 function get_current_module_label()
 {
-    // set by module (hack for applets !!!)
-    if ( isset( $GLOBALS['currentModuleLabel'] ) && ! empty( $GLOBALS['currentModuleLabel'] ) )
-    {
-        return $GLOBALS['currentModuleLabel'];
-    }
-    // course module
-    elseif ( isset( $GLOBALS['_courseTool'] )
-        && is_array( $GLOBALS['_courseTool'] )
-        && array_key_exists( 'label', $GLOBALS['_courseTool'] ) )
-    {
-        return $GLOBALS['_courseTool']['label'];
-    }
-    // non-course module (hack !!!!)
-    elseif ( isset( $GLOBALS['tlabelReq'] ) && ! empty( $GLOBALS['tlabelReq'] ) )
-    {
-        return $GLOBALS['tlabelReq'];
-    }
-    // not in a module
-    else
-    {
-        return false;
-    }
+    return Claroline::getInstance()->currentModuleLabel();
 }
 
 /**
@@ -174,7 +153,7 @@ function set_current_module_label( $label )
 {
     $old = get_current_module_label();
     
-    $GLOBALS['currentModuleLabel'] = $label;
+    Claroline::getInstance()->pushModuleLabel( $label );
     
     return $old;
 }
@@ -187,7 +166,7 @@ function set_current_module_label( $label )
  */
 function clear_current_module_label()
 {
-    return set_current_module_label( null );
+    return Claroline::getInstance()->popModuleLabel();
 }
 
 /**
