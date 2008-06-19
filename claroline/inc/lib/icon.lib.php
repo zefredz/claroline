@@ -59,12 +59,11 @@ function get_icon_url( $fileName, $moduleLabel = null )
 {
     $fileInfo = pathinfo( $fileName );
     
-    $moduleLabel = empty( $moduleLabel )
-        ? get_current_module_label()
-        : $moduleLabel
-        ;
+    $currentModuleLabel = get_current_module_label();
     
     $imgPath = array();
+    
+    // Search kernel first for performance !
     
     // claroline theme iconset
     $imgPath[get_current_iconset_path()] = get_current_iconset_url();
@@ -77,6 +76,14 @@ function get_icon_url( $fileName, $moduleLabel = null )
         $imgPath[get_module_path($moduleLabel).'/img/'] = get_module_url($moduleLabel).'/img/';
         // module root directory
         $imgPath[get_module_path($moduleLabel).'/'] = get_module_url($moduleLabel).'/';
+    }
+    
+    if ( !empty( $currentModuleLabel ) )
+    {
+        // module img directory
+        $imgPath[get_module_path($currentModuleLabel).'/img/'] = get_module_url($currentModuleLabel).'/img/';
+        // module root directory
+        $imgPath[get_module_path($currentModuleLabel).'/'] = get_module_url($currentModuleLabel).'/';
     }
     
     // img directory in working directory
