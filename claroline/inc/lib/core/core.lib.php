@@ -189,8 +189,17 @@ function uses()
     return $notFound;
 }
 
+/**
+ * Kernel library loader
+ */
 class FromKernel
 {
+    /**
+     * Load a list of kernel libraries
+     * Usage : FromKernel::uses( list of libraries );
+     * @params  list of libraries
+     * @throws  Exception if a library is not found
+     */
     public static function uses()
     {
         $args = func_get_args();
@@ -220,6 +229,9 @@ class FromKernel
     }
 }
 
+/**
+ * Module library loader
+ */
 class From
 {
     protected $moduleLabel;
@@ -229,6 +241,12 @@ class From
         $this->moduleLabel = $moduleLabel;
     }
     
+    /**
+     * Load a list of libraries from a given module
+     * Usage : From::module(ModuleLable)->uses( list of libraries );
+     * @params  list of libraries
+     * @return  array of not found libraries
+     */
     public function uses()
     {
         $args = func_get_args();
@@ -295,6 +313,11 @@ class From
         }
     }
     
+    /**
+     * Get the loader for a given module
+     * @param   string $moduleLabel
+     * @return  Loader instance
+     */
     public static function module( $moduleLabel )
     {
         $module = new self($moduleLabel);
