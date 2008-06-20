@@ -1,0 +1,136 @@
+<?php // $Id$
+/**
+ * CLAROLINE
+ *
+ * $Revision$
+ *
+ * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
+ *
+ * @package CLPAGES
+ *
+ * @author Claroline team <info@claroline.net>
+ *
+ */
+    // load Claroline kernel
+    require_once dirname(__FILE__) . '/../../../../../inc/claro_init_global.inc.php';
+    
+    require get_path('incRepositorySys') . '/lib/fileDisplay.lib.php';
+    
+    /*
+     * init request vars
+     */
+    $acceptedCmdList = array( 'getFileList' );
+    
+    if( isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCmdList) ) 
+    {
+        $cmd = $_REQUEST['cmd'];
+    }
+    else                
+    {
+        $cmd = null;
+    }
+    
+    if( isset($_REQUEST['relPath'])  )
+    {
+        $relPath = str_replace('..', '', $_REQUEST['relPath']);
+    }
+    else
+    {
+        $relPath = '';
+    }
+    
+    /*
+     * Init other vars
+     */
+    if( claro_is_in_a_course() )
+    {
+        $course_data = claro_get_course_data();
+        // course context
+        $is_allowedToEdit = claro_is_allowed_to_edit();
+        $pathSys = get_path('coursesRepositorySys') . claro_get_course_path().'/document/img/';
+        $pathWeb = get_path('coursesRepositoryWeb') . claro_get_course_path() . '/document/img/';
+    }
+    else
+    {
+        // platform context
+        $is_allowedToEdit = claro_is_platform_admin();
+        $pathSys = get_path('rootSys') . 'platform/img/';
+        $pathWeb = get_path('rootWeb') . 'platform/img/';
+    }
+    
+    if( claro_is_user_authenticated() && !$is_allowedToEdit )
+    {
+        claro_disp_auth_form(true);
+    }
+    
+    /*
+     * Libraries
+     */
+    include_once($includePath.'/lib/fileUpload.lib.php');
+    include_once($includePath.'/lib/fileManage.lib.php');
+    
+    if( !file_exists($pathSys) )
+    {
+        claro_mkdir($pathSys);
+    }
+    
+
+    
+    
+    
+    header('Content-Type: text/html; charset=UTF-8'); // Charset
+    header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+    header("Expires: Mon, 26 Jul 1997 05:00:00 GMT"); // Date in the past
+    
+    
+    if( $cmd == 'getFileList' )
+    {
+        $it = new DirectoryIterator($pathSys . $relPath);
+        /*
+         * Output
+         */
+        
+        $out = "\n" . '<ul id="files">' . "\n";;
+        
+        if( $relPath != '' )
+        {
+            $parentPath = dirname($relPath);
+            $out .= '<li>'  . "\n"
+            .    '<a href="#" onclick="setFileList(\''.$parentPath.'\')">'
+            .    '<img src="'.get_icon_url('parent').'" />'
+            .    '..'
+            .    '</a>'
+            .    '</li>' . "\n";
+        }
+                
+        foreach( $it as $file )
+        {
+            if( $file->isFile() && !$file->isDot() )
+            {
+                $out .= '<li>'  . "\n"
+                .    '<a href="#" onclick="selectImage(\''.$pathWeb . $relPath .'/'. $file->getFileName() .'\')">'
+                .    '<img src="'.get_icon_url( choose_image($file->getFileName()) ).'" />' 
+                .    htmlspecialchars($file->getFileName())
+                .    '</a>'
+                .    '</li>' . "\n";
+            }
+            elseif( $file->isDir() && !$file->isDot() )
+            {
+                // get relative path from allowed root (document/img or platform/img) to target
+                $relativePath = str_replace($pathSys,'',$file->getRealPath());
+                $out .= '<li>'  . "\n"
+                .    '<a href="#" class="selectFolder" onclick="setFileList(\''.$relativePath.'\')">'
+                .    '<img src="'.get_icon_url('folder').'" />'
+                .    htmlspecialchars($file->getFileName()) 
+                .    '</a>'
+                .    '</li>' . "\n";
+            }
+        }
+        
+        $out .= '</ul>' . "\n";
+        
+        echo $out;
+    }
+?>
