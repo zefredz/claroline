@@ -17,7 +17,7 @@
     require_once dirname(__FILE__) . '/../../../../../inc/claro_init_global.inc.php';
     
     require get_path('incRepositorySys') . '/lib/fileDisplay.lib.php';
-    
+    require get_path('incRepositorySys') . '/lib/image.lib.php';
     /*
      * init request vars
      */
@@ -32,9 +32,9 @@
         $cmd = null;
     }
     
-    if( isset($_REQUEST['relPath'])  )
+    if( !empty($_REQUEST['relPath'])  )
     {
-        $relPath = str_replace('..', '', $_REQUEST['relPath']);
+        $relPath = str_replace('..', '', $_REQUEST['relPath']).'/';
     }
     else
     {
@@ -94,7 +94,7 @@
         
         $out = "\n" . '<ul id="files">' . "\n";;
         
-        if( $relPath != '' )
+        if( !empty($relPath) )
         {
             $parentPath = dirname($relPath);
             $out .= '<li>'  . "\n"
@@ -104,19 +104,11 @@
             .    '</a>'
             .    '</li>' . "\n";
         }
-                
+
+        // directories
         foreach( $it as $file )
         {
-            if( $file->isFile() && !$file->isDot() )
-            {
-                $out .= '<li>'  . "\n"
-                .    '<a href="#" onclick="selectImage(\''.$pathWeb . $relPath .'/'. $file->getFileName() .'\')">'
-                .    '<img src="'.get_icon_url( choose_image($file->getFileName()) ).'" />' 
-                .    htmlspecialchars($file->getFileName())
-                .    '</a>'
-                .    '</li>' . "\n";
-            }
-            elseif( $file->isDir() && !$file->isDot() )
+            if( $file->isDir() && !$file->isDot() )
             {
                 // get relative path from allowed root (document/img or platform/img) to target
                 $relativePath = str_replace($pathSys,'',$file->getRealPath());
@@ -124,6 +116,20 @@
                 .    '<a href="#" class="selectFolder" onclick="setFileList(\''.$relativePath.'\')">'
                 .    '<img src="'.get_icon_url('folder').'" />'
                 .    htmlspecialchars($file->getFileName()) 
+                .    '</a>'
+                .    '</li>' . "\n";
+            }
+        }
+        
+        // then the files
+        foreach( $it as $file )
+        {
+            if( $file->isFile() && !$file->isDot() && is_image($file->getFileName()) )
+            {
+                $out .= '<li>'  . "\n"
+                .    '<a href="#" onclick="selectImage(\''.$pathWeb . $relPath . $file->getFileName() .'\')">'
+                .    '<img src="'.get_icon_url( choose_image($file->getFileName()) ).'" />' 
+                .    htmlspecialchars($file->getFileName())
                 .    '</a>'
                 .    '</li>' . "\n";
             }
