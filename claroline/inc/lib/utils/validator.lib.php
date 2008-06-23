@@ -76,6 +76,7 @@ class Claro_Validator_ValueType implements Claro_Validator
         'int'       => 'is_int',
         'lower'     => 'ctype_lower',
         'null'      => 'is_null',
+        'numeric'   => 'is_numeric',
         'object'    => 'is_object',
         'space'     => 'ctype_space',
         'string'    => 'is_string',
