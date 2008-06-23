@@ -24,6 +24,8 @@
     require_once dirname(__FILE__) . '/../../../../../inc/claro_init_global.inc.php';
     
     require get_path('incRepositorySys') . '/lib/fileDisplay.lib.php';
+    require get_path('incRepositorySys') . '/lib/image.lib.php';
+    
     /*
      * Permissions
      */
@@ -32,7 +34,7 @@
     {
         // course context
         $is_allowedToEdit = claro_is_allowed_to_edit();
-        $pathSys = claro_get_course_path().'/document/img/';
+        $pathSys = get_path('coursesRepositorySys') . claro_get_course_path().'/document/img/';
         $pathWeb = get_path('coursesRepositoryWeb') . claro_get_course_path() . '/document/img/';
     }
     else
@@ -49,12 +51,10 @@
     }
     elseif( ! $is_allowedToEdit )
     {
-        // TODO to not display icon if user is not allowed
+        // TODO to not display icon in editor if user is not allowed
         claro_die( get_lang('Not allowed') );      
     }
-    
-    $pathSys = get_path('coursesRepositorySys') . $pathSys;
-    
+        
     /*
      * Libraries
      */
@@ -69,7 +69,11 @@
         claro_mkdir($pathSys);
     }
     
-    if( isset($_REQUEST['relativePath']) )
+    
+    /*
+     * Init request vars
+     */
+    if( !empty($_REQUEST['relativePath']) )
     {
         $relativePath = str_replace('..','',$_REQUEST['relativePath']) . '/';    
     }
@@ -79,7 +83,7 @@
     }
     
     /*
-     * Handle commands
+     * Handle upload 
      */
     if( isset($_FILES['sentFile']['tmp_name']) && is_uploaded_file($_FILES['sentFile']['tmp_name']) )
     {
@@ -87,31 +91,41 @@
         $imgFile['name'] = replace_dangerous_char($imgFile['name'],'strict');
         $imgFile['name'] = get_secure_file_name($imgFile['name']);
         
-        if(file_exists($pathSys . '/' . $imgFile['name']))
+        if( is_image($imgFile['name']) )
         {
-            $pieceList = explode('.', $imgFile['name']);
-            $base = $pieceList[0];
-            $ext = $pieceList[1];
-            $i=1;
-            while(file_exists($pathSys . '/' . $relativePath . $base . '_' . $i . '.' .  $ext))
+            // rename if file already exists
+            if(file_exists($pathSys . '/' . $imgFile['name']))
             {
-                $i++;
+                $pieceList = explode('.', $imgFile['name']);
+                $base = $pieceList[0];
+                $ext = $pieceList[1];
+                $i=1;
+                while(file_exists($pathSys . '/' . $relativePath . $base . '_' . $i . '.' .  $ext))
+                {
+                    $i++;
+                }
+                $imgFile['name'] = $base . '_' . $i . '.' .  $ext;
+                $alertMessage = get_lang('A file with this name already exists.\n')
+                .    get_lang('Your file has been renamed to %filename', array('%filename' => $imgFile['name']) );
             }
-            $imgFile['name'] = $base . '_' . $i . '.' .  $ext;
-            $alertMessage = get_lang('A file with this name already exists.\n')
-            .    get_lang('Your file has been renamed to %filename', array('%filename' => $imgFile['name']) );
-        }
-        
-        if ( move_uploaded_file($imgFile['tmp_name'], $pathSys . '/' . $relativePath . $imgFile['name'] ) )
-        {
-            $imgUrl = $pathWeb . '/' . $relativePath . $imgFile['name'];
-            $alertMessage = $imgUrl;
             
+            if ( move_uploaded_file($imgFile['tmp_name'], $pathSys . '/' . $relativePath . $imgFile['name'] ) )
+            {
+                $imgUrl = $pathWeb . $relativePath . $imgFile['name'];
+                //$alertMessage = $imgUrl;
+                
+            }
+            else
+            {
+                $imgUrl = null;
+                $alertMessage = get_lang('Cannot upload file');
+            }
         }
         else
         {
             $imgUrl = null;
-            $alertMessage = get_lang('Cannot upload file');
+            $alertMessage = get_lang('Uploaded file should be an image');
+            
         }
     }
 
@@ -123,7 +137,6 @@
 <head>
 	<title><?php echo get_lang('Image manager'); ?></title>
 	<script type="text/javascript" src="<?php echo get_path('rootWeb'); ?>/web/js/jquery.js"></script>
-	<script type="text/javascript" src="<?php echo get_path('rootWeb'); ?>/web/js/jquery.livequery.js"></script>
 	<script type="text/javascript" src="../../tiny_mce_popup.js"></script>
 	<script type="text/javascript" src="../../utils/mctabs.js"></script>
 	<script type="text/javascript" src="../../utils/form_utils.js"></script>
@@ -132,18 +145,17 @@
 	<script type="text/javascript" src="js/image.js"></script>
 	<script type="text/javascript" src="js/ajax.js"></script>
 	<script type="text/javascript">
-	   var backendUrl = '<?php echo dirname(__FILE__); ?>';
-	   var relativePath = '<?php echo $relativePath; ?>';
+	   var relativePath = '<?php echo addslashes($relativePath); ?>';
 	   <?php
-            if( isset($imgUrl) && !empty($imgUrl) )
+            if( !empty($imgUrl) )
             {
-                echo 'selectImage( "'.$imgUrl.'" );';
+                echo 'selectImage( "'.$imgUrl.'" );'. "\n";
             }
        ?>
 	   <?php
-            if( isset($alertMessage) && !empty($alertMessage) )
+            if( !empty($alertMessage) )
             {
-                echo 'alert("'.$alertMessage.'");';
+                echo 'alert("'.$alertMessage.'");' . "\n";
             }
 	   ?>
 	</script>
@@ -211,15 +223,15 @@
                         <tr> 
                             <td class="column1"><label id="alignlabel" for="align"><?php echo get_lang('Alignment'); ?></label></td> 
                             <td><select id="align" name="align" onchange="ImageDialog.updateStyle('align');ImageDialog.changeAppearance();"> 
-                                    <option value="">{#not_set}</option> 
-                                    <option value="baseline">{#advimage_dlg.align_baseline}</option>
-                                    <option value="top">{#advimage_dlg.align_top}</option>
-                                    <option value="middle">{#advimage_dlg.align_middle}</option>
-                                    <option value="bottom">{#advimage_dlg.align_bottom}</option>
-                                    <option value="text-top">{#advimage_dlg.align_texttop}</option>
-                                    <option value="text-bottom">{#advimage_dlg.align_textbottom}</option>
-                                    <option value="left">{#advimage_dlg.align_left}</option>
-                                    <option value="right">{#advimage_dlg.align_right}</option>
+                                    <option value=""><?php echo get_lang('-- not set --') ?></option> 
+                                    <option value="baseline"><?php echo get_lang('Baseline') ?></option>
+                                    <option value="top"><?php echo get_lang('Top') ?></option>
+                                    <option value="middle"><?php echo get_lang('Middle') ?></option>
+                                    <option value="bottom"><?php echo get_lang('Bottom') ?></option>
+                                    <option value="text-top"><?php echo get_lang('Text top') ?></option>
+                                    <option value="text-bottom"><?php echo get_lang('Text bottom') ?></option>
+                                    <option value="left"><?php echo get_lang('Left') ?></option>
+                                    <option value="right"><?php echo get_lang('Right') ?></option>
                                 </select> 
                             </td>
                             <td rowspan="6" valign="top">
