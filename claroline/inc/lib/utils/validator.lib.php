@@ -71,10 +71,12 @@ class Claro_Validator_ValueType implements Claro_Validator
         'alpha'     => 'ctype_alpha',
         'array'     => 'is_array',
         'bool'      => 'is_bool',
-        'boolean'   => array(Claro_Validator_ValueType, 'booleanString'),
+        'boolstr'   => array('Claro_Validator_ValueType', 'booleanString'),
         'digit'     => 'ctype_digit',
         'float'     => 'is_float',
+        'floatstr'  => array('Claro_Validator_ValueType', 'floatString'),
         'int'       => 'is_int',
+        'intstr'    => array('Claro_Validator_ValueType', 'integerString'),
         'lower'     => 'ctype_lower',
         'null'      => 'is_null',
         'numeric'   => 'is_numeric',
@@ -91,10 +93,12 @@ class Claro_Validator_ValueType implements Claro_Validator
      *  - alpha     : the value only containes alphabetical chars
      *  - array     : the value is an array
      *  - bool      : the value is a boolean
-     *  - boolean   : the value is the string 'true' or 'false'
+     *  - boolstr   : the value is the string 'true' or 'false'
      *  - digit     : the value is a string containing only digits
      *  - float     : the value is a float
+     *  - floatstr  : the value is a float or the string representation of a float
      *  - int       : the value is an integer
+     *  - intstr    : the value is a integer or the string representation of an integer
      *  - lower     : ths value is a lower case string
      *  - null      : the value is null
      *  - numeric   : the value is a number or a string representation of a number
@@ -103,6 +107,8 @@ class Claro_Validator_ValueType implements Claro_Validator
      *  - string    : the value is a string
      *  - upper     : the value is an upper case
      *  - xdigit    : the value is a string representation of an hexadecimal number
+     * WARNING : do not use int, float, bool for strings representations, it will
+     * fail. Use digit, numeric, intstr, floatstr and boolstr instead.
      * @param   string $type;
      * @throws  Claro_Validator_Exception if $type is not supported
      */    
@@ -136,6 +142,16 @@ class Claro_Validator_ValueType implements Claro_Validator
     private static function booleanString( $value )
     {
         return strtolower( $value ) == 'true' || strtolower( $value ) == 'false';
+    }
+    
+    private static function floatString( $value )
+    {
+        return is_numeric( $value ) && (float) $value == $value;
+    }
+    
+    private static function integerString( $value )
+    {
+        return is_numeric( $value ) && (int) $value == $value;
     }
 }
 
