@@ -178,8 +178,9 @@ class Claro_Input_Validator implements Claro_Input
             {
                 if ( ! call_user_func( $filterCallback, $tainted ) )
                 {
-                    throw new Claro_Input_Exception( "{$name} does not pass the validator "
-                        . get_class( $filterCallback[0] ) . " !" );
+                    throw new Claro_Input_Exception(
+                        get_class( $filterCallback[0] )
+                        . " : {$name} does not pass the validator !" );
                 }
             }
         }
