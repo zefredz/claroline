@@ -16,8 +16,8 @@
 
                 ed.windowManager.open({
                     file : url + '/image.php',
-                    width : 480 + parseInt(ed.getLang('advimage.delta_width', 0)),
-                    height : 385 + parseInt(ed.getLang('advimage.delta_height', 0)),
+                    width : 640 + parseInt(ed.getLang('advimage.delta_width', 0)),
+                    height : 560 + parseInt(ed.getLang('advimage.delta_height', 0)),
                     inline : 1
                 }, {
                     plugin_url : url
@@ -28,7 +28,7 @@
             ed.addButton('claroimage', {
                 title : 'advimage.image_desc',
                 cmd : 'mceClaroImage',
-                image : url + '/img/image-x-generic.png'
+                image : url + '/img/icon.png'
             });
         },
 
