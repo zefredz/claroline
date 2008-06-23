@@ -60,6 +60,7 @@ function uses()
             if ( file_exists( $kernelPath )
                 && is_dir( $kernelPath )
                 && is_readable( $kernelPath )
+                && $dir != '.'  // do not allow loading all files in inc/lib !!!
             )
             {
                 $path = $kernelPath;
