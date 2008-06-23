@@ -6,7 +6,7 @@ tinyMCE.init({
     mode : "textareas",
     editor_selector : "advancedMCE",
     // plugins must be the same as in tinyMCE_GZ.init
-    plugins : "template,media,paste,table,safari",
+    plugins : "template,media,paste,table,safari,claroimage",
     theme : "advanced",
     browsers : "safari,msie,gecko,opera",
 	directionality : text_dir,
@@ -18,7 +18,7 @@ tinyMCE.init({
     
     //-- advanced theme
     theme_advanced_buttons1 : "fontselect,fontsizeselect,formatselect,bold,italic,underline,strikethrough,separator,sub,sup,separator,undo,redo",
-    theme_advanced_buttons2 : "cut,copy,paste,pasteword,separator,justifyleft,justifycenter,justifyright,justifyfull,separator,bullist,numlist,separator,outdent,indent,separator,forecolor,backcolor,separator,hr,link,unlink,image,media,template,code",
+    theme_advanced_buttons2 : "cut,copy,paste,pasteword,separator,justifyleft,justifycenter,justifyright,justifyfull,separator,bullist,numlist,separator,outdent,indent,separator,forecolor,backcolor,separator,hr,link,unlink,claroimage,media,template,code",
     theme_advanced_buttons3 : "tablecontrols,separator,help",
     theme_advanced_toolbar_location : "top",
     theme_advanced_toolbar_align : "left",
