@@ -63,24 +63,6 @@ class Claro_Validator_Callback implements Claro_Validator
 
 /**
  * Validator that checks the data type of a value
- *
- * Allowed types are
- *  - alnum     : the value is an alpha-numeric string
- *  - alpha     : the value only containes alphabetical chars
- *  - array     : the value is an array
- *  - bool      : the value is a boolean
- *  - boolean   : the value is the string 'true' or 'false'
- *  - digit     : the value is a string containing only digits
- *  - float     : the value is a float
- *  - int       : the value is an integer
- *  - lower     : ths value is a lower case string
- *  - null      : the value is null
- *  - numeric   : the value is a number or a string representation of a number
- *  - object    : the value is an object
- *  - space     : the value is a string only containing white spaces
- *  - string    : the value is a string
- *  - upper     : the value is an upper case
- *  - xdigit    : the value is a string representation of an hexadecimal number
  */
 class Claro_Validator_ValueType implements Claro_Validator
 {
@@ -104,6 +86,23 @@ class Claro_Validator_ValueType implements Claro_Validator
         );
     
     /**
+     * Allowed types are
+     *  - alnum     : the value is an alpha-numeric string
+     *  - alpha     : the value only containes alphabetical chars
+     *  - array     : the value is an array
+     *  - bool      : the value is a boolean
+     *  - boolean   : the value is the string 'true' or 'false'
+     *  - digit     : the value is a string containing only digits
+     *  - float     : the value is a float
+     *  - int       : the value is an integer
+     *  - lower     : ths value is a lower case string
+     *  - null      : the value is null
+     *  - numeric   : the value is a number or a string representation of a number
+     *  - object    : the value is an object
+     *  - space     : the value is a string only containing white spaces
+     *  - string    : the value is a string
+     *  - upper     : the value is an upper case
+     *  - xdigit    : the value is a string representation of an hexadecimal number
      * @param   string $type;
      * @throws  Claro_Validator_Exception if $type is not supported
      */    
