@@ -34,7 +34,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         // 1. get resource id
         
         $get_resourceId = "SELECT `id` FROM `".$tbl_resources."` "
-            . "WHERE `crl` = '" . claro_sql_escape( $resourceCRL ) . "'"
+            . "WHERE BINARY `crl` = '" . claro_sql_escape( $resourceCRL ) . "'"
             ;
             
         $resourceId = claro_sql_query_get_single_value( $get_resourceId );
@@ -42,7 +42,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         // 2. delete resource itself
         
         $remove_resource = "DELETE FROM `".$tbl_resources."` "
-            . "WHERE `crl` = '" . claro_sql_escape( $resourceCRL ) . "' "
+            . "WHERE BINARY `crl` = '" . claro_sql_escape( $resourceCRL ) . "' "
             ;
             
         claro_sql_query( $remove_resource );
@@ -297,7 +297,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         
         $sql = 'SELECT `id` 
                 FROM `'.$tbl_resources.'` 
-                WHERE `crl` = "'.claro_sql_escape($crlSource).'"';
+                WHERE BINARY `crl` = "'.claro_sql_escape($crlSource).'"';
         $result = claro_sql_query_fetch_all($sql);
         
         if( isset($result[0]) )
@@ -307,7 +307,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         
         $sql = 'SELECT `id` 
                 FROM `'.$tbl_resources.'` 
-                WHERE `crl` = "'.claro_sql_escape($crlDestination).'"';
+                WHERE BINARY `crl` = "'.claro_sql_escape($crlDestination).'"';
         $result = claro_sql_query_fetch_all($sql);
         
         if( isset($result[0]) )
@@ -348,7 +348,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         $tbl_resources = $tbl_cdb_names['resources'];
         
         $sql = "SELECT `id` FROM `" . $tbl_resources . "`
-                WHERE `crl` = '".claro_sql_escape($resource) . "'";
+                WHERE BINARY `crl` = '".claro_sql_escape($resource) . "'";
         $result = claro_sql_query_fetch_all($sql);
         
         if( isset($result[0]) )
