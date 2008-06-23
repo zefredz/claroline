@@ -1,10 +1,5 @@
     $(document).ready( function ()
     {
-        // bind events
-        // use livequery so that binding is automatically added on new DOM elements (list is build dynamically)
-        //$('a.selectImage').livequery('click', selectImage);
-        //$('a.selectFolder').livequery('click', setFileList);
-
         // init file list.  After an upload we have to display the correct list so pass it directly 
         setFileList(relativePath);
     });
@@ -29,10 +24,8 @@
         });
     }
     
-    function selectImage(imageUrl)
+    function selectImage(imageUrl, elem)
     {
-        $('.selectedImage').removeClass('selectedImage');
-        $(this).addClass('selectedImage');
         $('#src').val(imageUrl);
-        ImageDialog.showPreviewImage(imageUrl);
+        ImageDialog.showPreviewImage(imageUrl, 1);
     }
