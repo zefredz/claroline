@@ -52,6 +52,7 @@ interface Claro_Input
 class Claro_Input_Array implements Claro_Input
 {
     protected $input;
+    protected $_notSet;
     
     /**
      * @param   array $input
@@ -59,6 +60,7 @@ class Claro_Input_Array implements Claro_Input
     public function __construct( $input )
     {
         $this->input = $input;
+        $this->_notSet = (object) null;
     }
     
     /**
@@ -81,9 +83,10 @@ class Claro_Input_Array implements Claro_Input
      */
     public function getMandatory( $name )
     {
-        $ret = $this->get( $name );
+        $ret = $this->get( $name, $this->_notSet );
         
-        if ( !is_numeric($ret) && empty( $ret ) )
+        // if ( !is_numeric($ret) && !is_bool($ret) && !is_array($ret) && empty( $ret ) )
+        if ( $ret === $this->_notSet )
         {
             throw new Claro_Input_Exception( "{$name} not found in ".get_class($this)." !" );
         }
