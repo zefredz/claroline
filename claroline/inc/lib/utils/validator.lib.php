@@ -233,7 +233,7 @@ class Claro_Validator_FileExtension implements Claro_Validator
 }
 
 /**
- * Validator that checks if a value is not empty
+ * Validator that checks if a value is not empty based on PHP's empty()
  */
 class Claro_Validator_NotEmpty implements Claro_Validator
 {
@@ -243,5 +243,20 @@ class Claro_Validator_NotEmpty implements Claro_Validator
     public function isValid( $value )
     {
         return ( !empty( $value ) );
+    }
+}
+
+/**
+ * Validator that checks if a value is not empty but considers
+ * '0', 0 and false as not empty !
+ */
+class Claro_Validator_CustomNotEmpty implements Claro_Validator
+{
+    /**
+     * @see     Claro_Validator
+     */
+    public function isValid( $value )
+    {
+        return ( is_numeric($ret) || is_bool($ret) || !empty( $value ) );
     }
 }
