@@ -60,6 +60,10 @@ class Claro_Input_Array implements Claro_Input
     public function __construct( $input )
     {
         $this->input = $input;
+        // create a singleton object for the getMandatory method
+        // this object will be used to check if a value is defined
+        // in the input data in order to avoid pitfalls with the empty()
+        // PHP function
         $this->_notSet = (object) null;
     }
     
@@ -83,11 +87,18 @@ class Claro_Input_Array implements Claro_Input
      */
     public function getMandatory( $name )
     {
+        // get the value of the requested variable and give the _notSet
+        // singleton object as the default value so we can check if the
+        // varaible was set without having issues with the empty() function
         $ret = $this->get( $name, $this->_notSet );
         
+        // check if $ret is the instance of the _notSet singleton object
+        // if it is the case, the requested variable has not been set
+        // in the input data so we have to throw an exception
         if ( $ret === $this->_notSet )
         {
-            throw new Claro_Input_Exception( "{$name} not found in ".get_class($this)." !" );
+            throw new Claro_Input_Exception(
+                "{$name} not found in ".get_class($this)." !" );
         }
         else
         {
@@ -170,7 +181,8 @@ class Claro_Input_Validator implements Claro_Input
     /**
      * @param   string $name
      * @param   mixed $tainted value
-     * @throws  Claro_Input_Exception if $value does not pass the filter for $name
+     * @throws  Claro_Input_Exception if $value does not pass the
+     * filter for $name
      */
     public function filter( $name, $tainted )
     {
@@ -206,6 +218,8 @@ class Claro_UserInput
     {
         if ( ! self::$instance )
         {
+            // Create an input validator instance using the $_GET
+            // and $_POST super arrays
             self::$instance = new Claro_Input_Validator( 
                 new Claro_Input_Array( array_merge( $_GET, $_POST ) ) );
         }
