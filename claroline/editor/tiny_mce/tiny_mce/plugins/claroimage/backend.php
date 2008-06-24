@@ -32,7 +32,7 @@
         $cmd = null;
     }
     
-    if( !empty($_REQUEST['relPath'])  )
+    if( !empty($_REQUEST['relPath']) && $_REQUEST['relPath'] != '/' && $_REQUEST['relPath'] != '.' )
     {
         $relPath = str_replace('..', '', $_REQUEST['relPath']).'/';
     }
@@ -49,8 +49,8 @@
         $course_data = claro_get_course_data();
         // course context
         $is_allowedToEdit = claro_is_allowed_to_edit();
-        $pathSys = get_path('coursesRepositorySys') . claro_get_course_path().'/document/img/';
-        $pathWeb = get_path('coursesRepositoryWeb') . claro_get_course_path() . '/document/img/';
+        $pathSys = get_path('coursesRepositorySys') . claro_get_course_path().'/document/';
+        $pathWeb = get_path('coursesRepositoryWeb') . claro_get_course_path() . '/document/';
     }
     else
     {
@@ -79,7 +79,6 @@
 
     
     
-    
     header('Content-Type: text/html; charset=UTF-8'); // Charset
     header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
     header("Expires: Mon, 26 Jul 1997 05:00:00 GMT"); // Date in the past
@@ -104,7 +103,8 @@
             .    '</a>'
             .    '</li>' . "\n";
         }
-
+        
+        
         // directories
         foreach( $it as $file )
         {
