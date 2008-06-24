@@ -19,6 +19,7 @@
                         $("#image_list").empty();
                         $("#image_list").append(response);
                         $("#relativePath").val(relPath);
+                        $("#displayedPath #path").html(relPath);
                     }
                     // hide processing icon after receiving ajax response
                     $("#processing").hide();
