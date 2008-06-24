@@ -111,7 +111,8 @@
             if( $file->isDir() && !$file->isDot() )
             {
                 // get relative path from allowed root (document/img or platform/img) to target
-                $relativePath = str_replace($pathSys,'',$file->getRealPath());
+                $relativePath = str_replace(realpath($pathSys),'',realpath($file->getRealPath()));
+                
                 $out .= '<li>'  . "\n"
                 .    '<a href="#" class="selectFolder" onclick="setFileList(\''.$relativePath.'\')">'
                 .    '<img src="'.get_icon_url('folder').'" />'
