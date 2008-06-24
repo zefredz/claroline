@@ -85,7 +85,6 @@ class Claro_Input_Array implements Claro_Input
     {
         $ret = $this->get( $name, $this->_notSet );
         
-        // if ( !is_numeric($ret) && !is_bool($ret) && !is_array($ret) && empty( $ret ) )
         if ( $ret === $this->_notSet )
         {
             throw new Claro_Input_Exception( "{$name} not found in ".get_class($this)." !" );
