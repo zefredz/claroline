@@ -13,7 +13,7 @@ input[type=text] { width:280px;}
 #id, #dir, #lang, #usemap, #longdesc {width:200px;}
 
 /****/
-#image_list { height: 235px; width: 99%; overflow: auto; border: 1px solid #000; }
+#image_list { height: 223px; width: 99%; overflow: auto; border: 1px solid #000; }
 .selectedImage { background-color: #ccc; }
 ul#files { margin: 5px; padding: 1px; }
 ul#files li { list-style: none; border-bottom: 1px dashed #ccc; padding: 2px; }
