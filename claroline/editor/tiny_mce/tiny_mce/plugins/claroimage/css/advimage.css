@@ -21,3 +21,4 @@ ul#files li:hover { list-style: none; border-bottom: 1px dashed #333; background
 ul#files a { display: block; text-decoration: none; }
 ul#files img { padding-right: 3px; border: 0; vertical-align:text-bottom; }
 ul#files a.selectedImage { background-color: #369; color: #fff; }
+#processing { float:right; margin: 2px 0; padding: 0; }
