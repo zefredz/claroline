@@ -34,8 +34,8 @@
     {
         // course context
         $is_allowedToEdit = claro_is_allowed_to_edit();
-        $pathSys = get_path('coursesRepositorySys') . claro_get_course_path().'/document/img/';
-        $pathWeb = get_path('coursesRepositoryWeb') . claro_get_course_path() . '/document/img/';
+        $pathSys = get_path('coursesRepositorySys') . claro_get_course_path().'/document/';
+        $pathWeb = get_path('coursesRepositoryWeb') . claro_get_course_path() . '/document/';
     }
     else
     {
@@ -45,14 +45,11 @@
         $pathWeb = get_path('rootWeb') . 'platform/img/';
     }
     
-    if( claro_is_user_authenticated() && !$is_allowedToEdit )
+    if( !$is_allowedToEdit )
     {
-        claro_disp_auth_form(true);
-    }
-    elseif( ! $is_allowedToEdit )
-    {
-        // TODO to not display icon in editor if user is not allowed
-        claro_die( get_lang('Not allowed') );      
+        // should use ../../themes/advanced/image.htm instead but should therefore find a way to load language
+        claro_redirect( '../advimage/image.htm' );
+        exit();     
     }
         
     /*
@@ -79,7 +76,7 @@
     }
     else
     {
-        $relativePath = '';
+        $relativePath = '/';
     }
     
     /*
@@ -94,13 +91,13 @@
         if( is_image($imgFile['name']) )
         {
             // rename if file already exists
-            if(file_exists($pathSys . '/' . $imgFile['name']))
+            if(file_exists($pathSys . $relativePath .  $imgFile['name']))
             {
                 $pieceList = explode('.', $imgFile['name']);
                 $base = $pieceList[0];
                 $ext = $pieceList[1];
                 $i=1;
-                while(file_exists($pathSys . '/' . $relativePath . $base . '_' . $i . '.' .  $ext))
+                while(file_exists($pathSys . $relativePath . $base . '_' . $i . '.' .  $ext))
                 {
                     $i++;
                 }
@@ -109,7 +106,7 @@
                 .    get_lang('Your file has been renamed to %filename', array('%filename' => $imgFile['name']) );
             }
             
-            if ( move_uploaded_file($imgFile['tmp_name'], $pathSys . '/' . $relativePath . $imgFile['name'] ) )
+            if ( move_uploaded_file($imgFile['tmp_name'], $pathSys .  $relativePath . $imgFile['name'] ) )
             {
                 $imgUrl = $pathWeb . $relativePath . $imgFile['name'];
                 //$alertMessage = $imgUrl;
@@ -170,15 +167,16 @@
 				<li id="advanced_tab"><span><a href="javascript:mcTabs.displayTab('advanced_tab','advanced_panel');" onmousedown="return false;"><?php echo get_lang('Advanced'); ?></a></span></li>
 			</ul>
 		</div>
-
 		<div class="panel_wrapper">
 			<div id="general_panel" class="panel current">
 				<fieldset>
 						<legend><?php echo get_lang('Available images'); ?></legend>
+                        <div id="displayedPath"><?php echo get_lang('Path'); ?>: <span id="path"></span></div>
                         <div id="image_list">
                         </div>
 						<div>
-						  <label for="sentfile"><?php echo get_lang('Add an image'); ?></label><br />
+                            <div id="processing"><img src="<?php echo get_icon_url('processing_ajax'); ?>" /></div>
+                            <label for="sentfile"><?php echo get_lang('Add an image'); ?></label><br />
 						    <input type="hidden" id="relativePath" name="relativePath" value="<?php echo $relativePath ?>" />
                             <input id="sentFile" type="file" name="sentFile" size="25" value="" />
                             <input id="upload" type="submit" name="upload" value="<?php echo get_lang('Upload'); ?>" />
