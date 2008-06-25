@@ -593,15 +593,15 @@ class ClaroCourse
 
         // Course visibility
         if (claro_is_platform_admin())
-        $html .= '<tr valign="top" class="admin" >' . "\n"
-        .        '<td align="right" nowrap>' . get_lang('Course visibility') . '&nbsp;:</td>'
+        $html .= '<tr valign="top">' . "\n"
+        .        '<td align="right">' . get_lang('Course visibility') . '&nbsp;:</td>'
             . '<td>'
             . '<img src="' . get_icon_url('visible') . '" alt="" />'
-            . '<input type="radio" id="visibility_show" name="course_visibility" value="1" ' . ($this->visibility ? 'checked="checked"':'') . '>&nbsp;'
+            . '<input type="radio" id="visibility_show" name="course_visibility" value="1" ' . ($this->visibility ? 'checked="checked"':'') . ' />&nbsp;'
             . '<label for="visibility_show">' . get_lang('The course is shown in the courses listing') . '</label>'
             . '<br />' . "\n"
             . '<img src="' . get_icon_url('invisible') . '" alt="" />'
-            . '<input type="radio" id="visibility_hidden" name="course_visibility" value="0" ' . ( ! $this->visibility ? 'checked="checked"':'' ) . '>&nbsp;'
+            . '<input type="radio" id="visibility_hidden" name="course_visibility" value="0" ' . ( ! $this->visibility ? 'checked="checked"':'' ) . ' />&nbsp;'
             . '<label for="visibility_hidden">'
             . get_lang('Visible only to people on the user list')
             . '</label>'
