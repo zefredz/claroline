@@ -260,3 +260,26 @@ class Claro_Validator_CustomNotEmpty implements Claro_Validator
         return ( is_numeric($value) || is_bool($value) || !empty( $value ) );
     }
 }
+
+// for debugging :
+class Claro_Validator_AlwaysFail implements Claro_Validator
+{
+    /**
+     * @see     Claro_Validator
+     */
+    public function isValid( $value )
+    {
+        return false;
+    }
+}
+
+class Claro_Validator_AlwaysSucceed implements Claro_Validator
+{
+    /**
+     * @see     Claro_Validator
+     */
+    public function isValid( $value )
+    {
+        return true;
+    }
+}
