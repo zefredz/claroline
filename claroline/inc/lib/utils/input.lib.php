@@ -259,6 +259,8 @@ class Claro_UserInput
             // and $_POST super arrays
             self::$instance = new Claro_Input_Validator( 
                 new Claro_Input_Array( array_merge( $_GET, $_POST ) ) );
+            
+            self::$instance->setValidatorForAll( new Claro_Validator_CustomNotEmpty() );
         }
         
         return self::$instance;
