@@ -38,7 +38,8 @@ interface Claro_Input
      */
     public function get( $name, $default = null );
     /**
-     * Get a value given its name
+     * Get a value given its name, the value must be set in the data
+     * but can be empty
      * @param   string $name variable name
      * @return  mixed value of $name
      * @throws  Claro_Input_Exception on failure or if $name is missing
@@ -112,7 +113,8 @@ class Claro_Input_Array implements Claro_Input
  */
 class Claro_Input_Validator implements Claro_Input
 {
-    protected $filters;
+    protected $validators;
+    protected $validatorsForAll;
     protected $input;
     
     /**
@@ -120,7 +122,8 @@ class Claro_Input_Validator implements Claro_Input
      */
     public function __construct( Claro_Input $input )
     {
-        $this->filters = array();
+        $this->validators = array();
+        $this->validatorsForAll = array();
         $this->input = $input;
     }
     
@@ -132,20 +135,39 @@ class Claro_Input_Validator implements Claro_Input
      */
     public function setValidator( $name, Claro_Validator $validator )
     {
-        if ( ! array_key_exists( $name, $this->filters ) )
+        if ( ! array_key_exists( $name, $this->validators ) )
         {
-            $this->filters[$name] = array();
+            $this->validators[$name] = array();
         }
         
-        $filtercallback = array( $validator, 'isValid' );
+        $validatorCallback = array( $validator, 'isValid' );
         
-        if ( ! is_callable( $filtercallback ) )
+        if ( ! is_callable( $validatorCallback ) )
         {
-            throw new Claro_Input_Exception ("Invalid filter callback : " 
-                . $this->getFilterCallbackString($filtercallback));
+            throw new Claro_Input_Exception ("Invalid validator callback : " 
+                . $this->getFilterCallbackString($validatorCallback));
         }
         
-        $this->filters[$name][] = $filtercallback;
+        $this->validators[$name][] = $validatorCallback;
+    }
+    
+    /**
+     * Set a validator for all variables
+     * @param   string $name variable name
+     * @param   Claro_Validator $validator validator object
+     * @throws  Claro_Input_Exception if the filter callback is not callable
+     */
+    public function setValidatorForAll( Claro_Validator $validator )
+    {
+        $validatorCallback = array( $validator, 'isValid' );
+        
+        if ( ! is_callable( $validatorCallback ) )
+        {
+            throw new Claro_Input_Exception ("Invalid validator callback : " 
+                . $this->getFilterCallbackString($validatorCallback));
+        }
+        
+        $this->validatorsForAll[] = $validatorCallback;
     }
     
     /**
@@ -163,7 +185,7 @@ class Claro_Input_Validator implements Claro_Input
         }
         else
         {
-            return $this->filter( $name, $tainted );
+            return $this->validate( $name, $tainted );
         }
     }
     
@@ -175,25 +197,40 @@ class Claro_Input_Validator implements Claro_Input
     {
         $tainted = $this->input->getMandatory( $name );
         
-        return $this->filter( $name, $tainted );
+        return $this->validate( $name, $tainted );
     }
     
     /**
      * @param   string $name
      * @param   mixed $tainted value
-     * @throws  Claro_Input_Exception if $value does not pass the
+     * @throws  Claro_Validator_Exception if $value does not pass the
      * filter for $name
      */
-    public function filter( $name, $tainted )
+    public function validate( $name, $tainted )
     {
-        if ( array_key_exists( $name, $this->filters ) )
+        // validators for all variables if any
+        if ( !empty ($this->validatorsForAll ) )
         {
-            foreach ( $this->filters[$name] as $filterCallback )
+            foreach ( $this->validatorsForAll as $validatorForAllCallback )
             {
-                if ( ! call_user_func( $filterCallback, $tainted ) )
+                if ( ! call_user_func( $validatorForAllCallback, $tainted ) )
                 {
-                    throw new Claro_Input_Exception(
-                        get_class( $filterCallback[0] )
+                    throw new Claro_Validator_Exception(
+                        get_class( $validatorForAllCallback[0] )
+                        . " : {$name} does not pass the validator !" );
+                }
+            }
+        }
+        
+        // validators for the requested variable
+        if ( array_key_exists( $name, $this->validators ) )
+        {
+            foreach ( $this->validators[$name] as $validatorCallback )
+            {
+                if ( ! call_user_func( $validatorCallback, $tainted ) )
+                {
+                    throw new Claro_Validator_Exception(
+                        get_class( $validatorCallback[0] )
                         . " : {$name} does not pass the validator !" );
                 }
             }
