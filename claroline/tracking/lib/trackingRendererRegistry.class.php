@@ -15,40 +15,70 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  */
     // vim: expandtab sw=4 ts=4 sts=4 foldmethod=marker:
-
+    
+    /**
+     * Singleton class used to load all available tracking renderer connector
+     * and to keep the list of available tracking rendering classes found in
+     * connectors 
+     */
     class TrackingRendererRegistry
     {
         private static $instance = false;
 
+        private $courseId;
         private $courseRendererList;
         private $userRendererList;
 
-        public function __construct()
+        /**
+         * Construtor
+         *
+         */
+        public function __construct($courseId = null)
         {
+            $this->courseId = $courseId;
             $this->courseRendererList = array();
             $this->userRendererList = array();
 
             $this->loadAll();
         }
 
+        /**
+         * Add $className to the list of course tracking renderers
+         *
+         * @param string $className
+         */
         public function registerCourse( $className )
         {
             $this->courseRendererList[] = $className;
         }
         
+        /**
+         * Add $className to the list of user tracking renderers
+         *
+         * @param string $className
+         */
         public function registerUser( $className )
         {
             $this->userRendererList[] = $className;
         }
 
-
-        public function loadAll($cidReq = null)
+        /**
+         * Load all tracking renderers
+         *
+         * @param string $cidReq
+         */
+        public function loadAll()
         {
             $this->loadDefaultRenderer();
             
-            $this->loadModuleRenderer($cidReq);
+            $this->loadModuleRenderer();
         }
 
+        /**
+         * Load the default tracking renderers.  These are the renderers not related to 
+         * any module such as course access and tool access
+         *
+         */
         private function loadDefaultRenderer()
         {
             $file = dirname(__FILE__) . '/defaultTrackingRenderer.class.php';
@@ -64,16 +94,24 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             }
         }
         
-        private function loadModuleRenderer($cidReq = null)
+        /**
+         * Search in all activated modules 
+         *
+         * @param string $cidReq
+         */
+        private function loadModuleRenderer()
         {
-            if( !is_null($cidReq) )
+            if( !is_null($this->courseId) )
             {
-                $toolList = claro_get_course_tool_list($cidReq);
+                $profileId = claro_get_current_user_profile_id_in_course($cidReq);
+                $toolList = claro_get_course_tool_list($this->courseId, $profileId);
             }
             else
             {
+                
                 $toolList = claro_get_main_course_tool_list();
             }
+            
             
             foreach( $toolList as $tool )
             {
@@ -90,16 +128,31 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             }
         }
 
+        /**
+         * Returns array of available course tracking renderers
+         *
+         * @return array list of classnames
+         */
         public function getCourseRendererList()
         {
             return $this->courseRendererList;
         }
         
+        /**
+         * Returns array of available user tracking renderers
+         *
+         * @return array list of class names
+         */
         public function getUserRendererList()
         {
             return $this->userRendererList;
         }
 
+        /**
+         * singleton method
+         *
+         * @return instance
+         */
         public static function getInstance()
         {
             if ( ! TrackingRendererRegistry::$instance )
