@@ -11,197 +11,185 @@
  *
  */
 
-define('DISP_FORM', __LINE__);
-define('DISP_FLUSH_RESULT', __LINE__);
-$msg = array();
+/*
+ * Kernel
+ */
+require_once dirname( __FILE__ ) . '../../inc/claro_init_global.inc.php';
 
-require '../inc/claro_init_global.inc.php';
+/*
+ * Libraries
+ */
 require_once get_path('incRepositorySys') . '/lib/form.lib.php';
+require dirname(__FILE__) . '/lib/trackingManager.class.php';
+require dirname(__FILE__) . '/lib/trackingManagerRegistry.class.php';
 
-if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
-if ( ! claro_is_course_manager() ) claro_die(get_lang('Not allowed'));
+/*
+ * Init request vars
+ */
+// cmd
+$acceptedCmdList = array( 'exDelete' );
 
-$validCmdList = array('delete');
-$cmd = isset($_REQUEST['cmd'] ) && in_array($_REQUEST['cmd'],$validCmdList) ? $_REQUEST['cmd'] : null;
-$validScopeList=array('ALL','BEFORE');
-$scope = isset($_REQUEST['scope'] ) && in_array($_REQUEST['scope'], $validScopeList) ? $_REQUEST['scope'] : null;
+if( isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'], $acceptedCmdList) )
+{
+    $cmd = $_REQUEST['cmd'];
+}
+else
+{
+    $cmd = null;
+}
 
- if ( isset($_REQUEST['beforeDate'])
+// scope
+$acceptedScopeList = array( 'ALL', 'BEFORE' );
+
+if( isset($_REQUEST['scope']) && in_array($_REQUEST['scope'], $acceptedScopeList) )
+{
+    $scope = $_REQUEST['scope'];
+}
+else
+{
+    $scope = null;
+}
+
+// date
+if ( isset($_REQUEST['beforeDate'])
     && is_array($_REQUEST['beforeDate'])
     && array_key_exists('day',$_REQUEST['beforeDate'])
     && array_key_exists('month',$_REQUEST['beforeDate'])
     && array_key_exists('year',$_REQUEST['beforeDate'])
     && (bool) checkdate( $_REQUEST['beforeDate']['month'], $_REQUEST['beforeDate']['day'], $_REQUEST['beforeDate']['year'] ))
-$beforeDate = mktime(0,0,0, $_REQUEST['beforeDate']['month'], $_REQUEST['beforeDate']['day'], $_REQUEST['beforeDate']['year'] );
-else  $beforeDate = null;
-
-// mktime($beforeDate[])
-// regroup table names for maintenance purpose
-$tbl_cdb_names = claro_sql_get_course_tbl();
-$tbl_track_e_access          = $tbl_cdb_names['track_e_access'];
-$tbl_track_e_downloads       = $tbl_cdb_names['track_e_downloads'];
-$tbl_track_e_uploads         = $tbl_cdb_names['track_e_uploads'];
-$tbl_track_e_exercices       = $tbl_cdb_names['track_e_exercices'];
-$tbl_track_e_exe_details     = $tbl_cdb_names['track_e_exe_details'];
-$tbl_track_e_exe_answers     = $tbl_cdb_names['track_e_exe_answers'];
-$tbl_lp_user_module_progress = $tbl_cdb_names['lp_user_module_progress'];
-
-if( 'delete' == $cmd && 'BEFORE' == $scope )
 {
-    $msg['info'][] = get_block('Delete all event before %date in statistics',array('%date' => claro_html_localised_date(get_locale('dateFormatLong'), $beforeDate)));
+    $beforeDate = mktime(0,0,0, $_REQUEST['beforeDate']['month'], $_REQUEST['beforeDate']['day'], $_REQUEST['beforeDate']['year'] );
+}
+else
+{
+    $beforeDate = null;
+}
 
-    if(!is_null($beforeDate))
+
+/*
+ * Init other vars
+ */
+
+define('DISP_FORM', __LINE__);
+define('DISP_FLUSH_RESULT', __LINE__);
+
+$dialogBox = new DialogBox();
+
+// default display
+$display = DISP_FORM;
+
+/*
+ * Permissions
+ */
+if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
+if ( ! claro_is_course_manager() ) claro_die(get_lang('Not allowed'));
+
+if( 'exDelete' == $cmd && 'BEFORE' == $scope )
+{
+    
+    if( !is_null($beforeDate) )
     {
-        // do delete
+        // load all available managers
+        $trackingManagerRegistry = TrackingManagerRegistry::getInstance();
+        
+        // get the loaded list
+        $trackingManagerList = $trackingManagerRegistry->getManagerList();
+        
+        // perform delete on each manager found
+        foreach( $trackingManagerList as $ctr )
+        {
+            $manager = new $ctr( claro_get_current_course_id() );
+            
+            $manager->deleteBefore( $beforeDate );
+        }
 
-        $sql = "DELETE FROM `" . $tbl_track_e_access . "` WHERE UNIX_TIMESTAMP(access_date) < " . (int) $beforeDate;
-        claro_sql_query($sql);
-        $sql = "DELETE FROM `" . $tbl_track_e_downloads . "` WHERE UNIX_TIMESTAMP(down_date) < " . (int) $beforeDate ;
-        claro_sql_query($sql);
-        $sql = "DELETE FROM `" . $tbl_track_e_uploads . "` WHERE  UNIX_TIMESTAMP(upload_date)  < " . (int) $beforeDate ;
-        claro_sql_query($sql);
-
-        $sql = "SELECT `exe_id` FROM `" . $tbl_track_e_exercices . "` WHERE  UNIX_TIMESTAMP(exe_date)  < " . (int) $beforeDate;
-        $exeList = claro_sql_query_fetch_all_cols($sql);
-        $exeList = $exeList['exe_id'];
-
-        $sql = "DELETE FROM `" . $tbl_track_e_exercices . "` WHERE  UNIX_TIMESTAMP(exe_date)  < " . (int) $beforeDate;
-        claro_sql_query($sql);
-
-        $sql = "SELECT `id` FROM `".$tbl_track_e_exe_details."` WHERE `exercise_track_id` IN ('" . implode("', '",$exeList) . "')";
-        $detailList = claro_sql_query_fetch_all_cols($sql);
-        $detailList = $detailList['id'];
-        $sql = "DELETE FROM `" . $tbl_track_e_exe_details . "` WHERE `exercise_track_id` IN ('" . implode("', '",$exeList) . "')";
-        claro_sql_query($sql);
-
-        $sql = "DELETE FROM `" . $tbl_track_e_exe_answers . "` WHERE details_id  IN ('" . implode("', '",$detailList) . "')";
-        claro_sql_query($sql);
-
-
-        /*
-        $sql = "DELETE FROM `".$tbl_lp_user_module_progress."` WHERE date < '" . $beforeDate . "'";
-        claro_sql_query($sql);
-        */
-
+        $dialogBox->success( get_block('All events before %date have been successfully deleted', array('%date' => claro_html_localised_date(get_locale('dateFormatLong'), $beforeDate))));
     }
     else
     {
-        $msg['error'][] = get_block('%date not valid',array('%date'=>claro_html_localised_date(get_locale('dateFormatLong'))));
+        $dialogBox->error( get_block('%date not valid',array('%date'=>claro_html_localised_date(get_locale('dateFormatLong')))));
     }
 
     $display = DISP_FLUSH_RESULT;
 
 }
 
-if( 'delete' == $cmd && 'ALL' == $scope )
+if( 'exDelete' == $cmd && 'ALL' == $scope )
 {
-    // do delete
-    $sql = "TRUNCATE TABLE `".$tbl_track_e_access."`";
-    claro_sql_query($sql);
+    // load all available managers
+    $trackingManagerRegistry = TrackingManagerRegistry::getInstance();
+    
+    // get the loaded list
+    $trackingManagerList = $trackingManagerRegistry->getManagerList();
+    
+    // perform delete on each manager found
+    foreach( $trackingManagerList as $ctr )
+    {
+        $manager = new $ctr( claro_get_current_course_id() );
+        
+        $manager->deleteAll();
+    }
 
-    $sql = "TRUNCATE TABLE `".$tbl_track_e_downloads."`";
-    claro_sql_query($sql);
-
-    $sql = "TRUNCATE TABLE `".$tbl_track_e_uploads."`";
-    claro_sql_query($sql);
-
-    $sql = "TRUNCATE TABLE `".$tbl_track_e_exercices."`";
-    claro_sql_query($sql);
-
-    $sql = "TRUNCATE TABLE `".$tbl_track_e_exe_details."`";
-    claro_sql_query($sql);
-
-    $sql = "TRUNCATE TABLE `".$tbl_track_e_exe_answers."`";
-    claro_sql_query($sql);
-
-    $sql = "TRUNCATE TABLE `".$tbl_lp_user_module_progress."`";
-    claro_sql_query($sql);
+    $dialogBox->success(get_lang('Course statistics are now empty'));
 
     $display = DISP_FLUSH_RESULT;
+}
 
 
-}                    // end if $delete
-else
-{
-    // ASK DELETE CONFIRMATION TO THE USER
-    $display = DISP_FORM;
-}        // end else if $delete
-
-
-
-//PREPARE DISPLAY
-
-
-$interbredcrump[]= array ('url' => 'courseReport.php', 'name' => get_lang('Statistics'));
+/*
+ * Prepare output
+ */
 $nameTools = get_lang('Delete all course statistics');
 
-if (DISP_FORM == $display)
-{
-    if (is_null($beforeDate))
-    {
-        $beforeDate  = time();
-        $sql = "SELECT min(UNIX_TIMESTAMP(access_date)) FROM `".$tbl_track_e_access."`";
-        $min = claro_sql_query_get_single_value($sql);
-        if(!is_null($min) && $beforeDate > $min) $beforeDate  = $min;
-        $sql = "SELECT min(UNIX_TIMESTAMP(down_date)) FROM `".$tbl_track_e_downloads."`";
-        $min = claro_sql_query_get_single_value($sql);
-        if(!is_null($min) && $beforeDate > $min) $beforeDate  = $min;
-        $sql = "SELECT min(UNIX_TIMESTAMP(upload_date)) FROM `".$tbl_track_e_uploads."`";
-        $min = claro_sql_query_get_single_value($sql);
-        if(!is_null($min) && $beforeDate > $min) $beforeDate  = $min;
-        $sql = "SELECT min(UNIX_TIMESTAMP(exe_date)) FROM `".$tbl_track_e_exercices."`";
-        $min = claro_sql_query_get_single_value($sql);
-        if(!is_null($min) && $beforeDate > $min) $beforeDate  = $min;
 
-    }
-}
+/*
+ * Output
+ */
+$html = '';
 
-// RUN DISPLAY
+$html .= claro_html_tool_title($nameTools);
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-
-echo claro_html_tool_title($nameTools);
-echo claro_html_msg_list($msg);
 
 if  ( DISP_FLUSH_RESULT == $display)
 {
     // display confirm msg and back link
-    echo get_lang('Course statistics deleted')."\n"
-    .    '<br /><br />' . "\n"
-    .    '<small>'
-    .    '<a href="courseLog.php">'
+    $dialogBox->info( '<small>'
+    .    '<a href="courseReport.php">'
     .    '&lt;&lt;&nbsp;'
     .    get_lang('Back')
     .    '</a>'
     .    '</small>' . "\n"
-    ;
+    );
 
 } elseif  ( DISP_FORM == $display)
 {
-    // ASK DELETE CONFIRMATION TO THE USER
+    $dialogBox->warning(get_lang('Delete is definitive.  There is no way to get your data back after delete.'));
 
-    echo '<p>' . "\n"
-    .    '<form action="' . $_SERVER['PHP_SELF'] . '">'
-    .    get_lang('Delete all course statistics')
-    .    '<br />'
-    .    '<br />'
-    .    '<input type="radio" name="scope" id="scope_all" value="ALL" />'
-    .    '<label for="scope_all">' . get_lang('All') . '</label>'
-    .    '<br />'
-    .    '<input type="radio" name="scope" id="scope_before" value="BEFORE" checked="checked" />'
-    .    '<label for="scope_before" >' . get_lang('Before') . '</label> '
-    .    claro_html_date_form('beforeDate[day]', 'beforeDate[month]', 'beforeDate[year]', $beforeDate, 'short' )
-    .    '<input type="hidden" name="cmd" value="delete" />'
-    .    '<br />'
-    .    '<br />'
+    $dialogBox->form('<form action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
+    .    claro_form_relay_context()
+    .    '<input type="hidden" name="cmd" value="exDelete" />' . "\n"
+    .    '<input type="radio" name="scope" id="scope_all" value="ALL" />' . "\n"
+    .    '<label for="scope_all">' . get_lang('All') . '</label>' . "\n"
+    .    '<br />' . "\n"
+    .    '<input type="radio" name="scope" id="scope_before" value="BEFORE" checked="checked" />' . "\n"
+    .    '<label for="scope_before" >' . get_lang('Before') . '</label> ' . "\n"
+    .    claro_html_date_form('beforeDate[day]', 'beforeDate[month]', 'beforeDate[year]', time(), 'short' )
+    .    '<br /><br />' . "\n"
     .    '<input type="submit" name="action" value="' . get_lang('Ok') . '" />&nbsp; '
-    .    claro_html_button('courseLog.php', get_lang('Cancel') )
-    .    '<br />'
-    .    '<br />'
-    .    '</p>' . "\n"
-    ;
+    .    claro_html_button('courseReport.php', get_lang('Cancel') )
+    .    '</form>' . "\n"
+    );
 
 }        // end else if $delete
 
-include ( get_path('incRepositorySys') . '/claro_init_footer.inc.php' );
+$html .= $dialogBox->render();
+
+/*
+ * Output rendering
+ */
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Statistics'), 'courseReport.php' );
+
+$claroline->display->body->setContent($html);
+
+echo $claroline->display->render();
 ?>
