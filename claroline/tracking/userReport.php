@@ -180,7 +180,7 @@ else
  * Modify the registry to change the load order if required
  */
 // get all renderers by using registry
-$trackingRendererRegistry = TrackingRendererRegistry::getInstance();
+$trackingRendererRegistry = TrackingRendererRegistry::getInstance(claro_get_current_course_id());
 
 // FIXME do something when courseId is null
 if( ! is_null($courseId) )

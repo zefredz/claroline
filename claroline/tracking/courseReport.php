@@ -64,7 +64,7 @@ $html .= claro_html_tool_title(
  * Modify the registry to change the load order if required
  */
 // get all renderers by using registry
-$trackingRendererRegistry = TrackingRendererRegistry::getInstance();
+$trackingRendererRegistry = TrackingRendererRegistry::getInstance(claro_get_current_course_id());
 
 // here we need course tracking renderers
 $courseTrackingRendererList = $trackingRendererRegistry->getCourseRendererList();
