@@ -103,7 +103,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         {
             if( !is_null($this->courseId) )
             {
-                $profileId = claro_get_current_user_profile_id_in_course($cidReq);
+                $profileId = claro_get_current_user_profile_id_in_course($this->courseId);
                 $toolList = claro_get_course_tool_list($this->courseId, $profileId);
             }
             else
@@ -153,11 +153,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
          *
          * @return instance
          */
-        public static function getInstance()
+        public static function getInstance($courseId)
         {
             if ( ! TrackingRendererRegistry::$instance )
             {
-                TrackingRendererRegistry::$instance = new TrackingRendererRegistry;
+                TrackingRendererRegistry::$instance = new TrackingRendererRegistry($courseId);
             }
 
             return TrackingRendererRegistry::$instance;
