@@ -15,60 +15,102 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @author Sebastien Piraux <pir@cerdecam.be>
  */
 
-abstract class CourseTrackingRenderer
-{
-    private $courseId;
-    
-    public function __contruct($courseId){}
-    
-    public function render()
+    /**
+     * This class defines main methods used in the tracking renderers for 
+     * course related tracking data
+     * 
+     * @abstract
+     */
+    abstract class CourseTrackingRenderer
     {
-        $html = '<div class="statBlock">' . "\n"
-        .    ' <div class="blockHeader">' . "\n"
-        .    $this->renderHeader()
-        .    ' </div>' . "\n"
-        .    ' <div class="blockContent">' . "\n"
-        .    $this->renderContent()
-        .    ' </div>' . "\n"
-        .    ' <div class="blockFooter">' . "\n"
-        .    $this->renderFooter()
-        .    ' </div>' . "\n"
-        .    '</div>' . "\n";
-
-        return $html;
+        private $courseId;
+        
+        public function __contruct($courseId){}
+        
+        public function render()
+        {
+            $html = '<div class="statBlock">' . "\n"
+            .    ' <div class="blockHeader">' . "\n"
+            .    $this->renderHeader()
+            .    ' </div>' . "\n"
+            .    ' <div class="blockContent">' . "\n"
+            .    $this->renderContent()
+            .    ' </div>' . "\n"
+            .    ' <div class="blockFooter">' . "\n"
+            .    $this->renderFooter()
+            .    ' </div>' . "\n"
+            .    '</div>' . "\n";
+    
+            return $html;
+        }
+        
+        
+        /**
+         * Render part of display (header) used in render class
+         * @abstract
+         */
+        abstract protected function renderHeader();
+        
+        /**
+         * Render part of display (content) used in render class
+         * @abstract
+         */
+        abstract protected function renderContent();
+        
+        /**
+         * Render part of display(footer) used in render class
+         * @abstract
+         */
+        abstract protected function renderFooter();
     }
     
-    abstract protected function renderHeader();
-    abstract protected function renderContent();
-    abstract protected function renderFooter();
-}
-
-abstract class UserTrackingRenderer
-{
-    private $courseId;
-    private $userId;
-    
-    public function __contruct($courseId, $userId){}
-    
-    public function render()
+    /**
+     * This class defines main methods used in the tracking renderers for 
+     * user related tracking data in course
+     * 
+     * @abstract
+     */
+    abstract class UserTrackingRenderer
     {
-        $html = '<div class="statBlock">' . "\n"
-        .    ' <div class="blockHeader">' . "\n"
-        .    $this->renderHeader()
-        .    ' </div>' . "\n"
-        .    ' <div class="blockContent">' . "\n"
-        .    $this->renderContent()
-        .    ' </div>' . "\n"
-        .    ' <div class="blockFooter">' . "\n"
-        .    $this->renderFooter()
-        .    ' </div>' . "\n"
-        .    '</div>' . "\n";
-
-        return $html;
-    }
+        private $courseId;
+        private $userId;
+        
+        public function __contruct($courseId, $userId){}
+        
+        public function render()
+        {
+            $html = '<div class="statBlock">' . "\n"
+            .    ' <div class="blockHeader">' . "\n"
+            .    $this->renderHeader()
+            .    ' </div>' . "\n"
+            .    ' <div class="blockContent">' . "\n"
+            .    $this->renderContent()
+            .    ' </div>' . "\n"
+            .    ' <div class="blockFooter">' . "\n"
+            .    $this->renderFooter()
+            .    ' </div>' . "\n"
+            .    '</div>' . "\n";
     
-    abstract protected function renderHeader();
-    abstract protected function renderContent();
-    abstract protected function renderFooter();
-}
+            return $html;
+        }
+        
+        /**
+         * Render part of display (header) used in render class
+         * @abstract
+         */        
+        abstract protected function renderHeader();
+        
+        /**
+         * Render part of display (header) used in render class
+         * @abstract
+         */        
+        abstract protected function renderContent();
+        
+        /**
+         * Render part of display (header) used in render class
+         * @abstract
+         */        
+        abstract protected function renderFooter();
+    }
+
 ?>
