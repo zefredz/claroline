@@ -70,7 +70,7 @@
     /*
      * Init request vars
      */
-    if( !empty($_REQUEST['relativePath']) )
+    if( !empty($_REQUEST['relativePath']) && $_REQUEST['relativePath'] != '/' && $_REQUEST['relativePath'] != '.' )
     {
         $relativePath = str_replace('..','',$_REQUEST['relativePath']) . '/';    
     }
