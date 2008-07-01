@@ -34,6 +34,7 @@ Library
 -----------------------------------------------------------------*/
 
 include_once get_path('incRepositorySys') . '/lib/forum.lib.php';
+include_once get_path('incRepositorySys') . '/lib/user.lib.php';
 /*-----------------------------------------------------------------
 Initialise variables
 -----------------------------------------------------------------*/
@@ -118,11 +119,11 @@ if ($topicSettingList)
         if ( claro_is_user_authenticated() )  //anonymous user do not have this function
         {
             $notification_bloc = '<div style="float: right;">' . "\n"
-            . '<small>';
+            . '<span class="claroCmd">';
 
             if ( is_topic_notification_requested($topic_id, claro_get_current_user_id()) )   // display link NOT to be notified
             {
-                $notification_bloc .= '<img src="' . get_icon_url('mail_close') . '" alt="" />';
+                $notification_bloc .= '<img src="' . get_icon_url('mail_close') . '" alt="" style="vertical-align: text-bottom" />';
                 $notification_bloc .= get_lang('Notify by email when replies are posted');
                 $notification_bloc .= ' [<a href="' . $_SERVER['PHP_SELF'] ;
                 $notification_bloc .= '?forum=' . $forum_id ;
@@ -175,6 +176,9 @@ $htmlHeadXtra[] =
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Forums'), 'index.php' );
 $noPHP_SELF       = true;
 
+$cssLoader = CssLoader::getInstance();
+$cssLoader->load( 'clfrm', 'screen');
+
 include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 if ( ! $allowed )
@@ -216,21 +220,17 @@ else
 
     $postLister->disp_pager_tool_bar($pagerUrl);
 
-    echo '<table class="claroTable" width="100%">' . "\n"
-    .    '<tr align="left">' . "\n"
-    .    '<th class="superHeader">'
-    ;
+    echo '<h4 class="header">' . "\n";
 
     // display notification link
 
     if ( !empty($notification_bloc) )
     {
-        echo $notification_bloc;
+        echo $notification_bloc . "\n";
     }
 
-    echo $topic_subject
-    .    '</th>' . "\n"
-    .    '</tr>' . "\n"
+    echo $topic_subject . "\n"
+    .    '</h4>' . "\n"
     ;
 
     if (claro_is_user_authenticated())
@@ -240,9 +240,7 @@ else
 
     foreach ( $postList as $thisPost )
     {
-        // Check if the forum post is after the last login
-        // and choose the image according this state
-
+        // notify if is new message
         $post_time = datetime_to_timestamp($thisPost['post_time']);
 
         if (claro_is_user_authenticated()
@@ -255,22 +253,34 @@ else
             $class = 'item';
         }
         
-        echo '<tr>' . "\n"
-        .    '<th class="headerX">' . "\n"
-        .    '<a name="post'. $thisPost['post_id'] .'" ></a>' . "\n"
-        .    '<span class="'.$class.'">'
-        .    '<img src="' . get_icon_url( 'post' ) . '" alt="" />'
-        .    get_lang('Author')
-        .    ' : <b>' . $thisPost['firstname'] . ' ' . $thisPost['lastname'] . '</b> '
-        .    '<small>' . get_lang('Posted') . ' : ' . claro_html_localised_date(get_locale('dateTimeFormatLong'), $post_time) . '</small>' . "\n"
-        .    '</span>'
-        .    '  </th>' . "\n"
-        .' </tr>'. "\n"
+        // get user picture
+        $userData = user_get_properties( $thisPost['poster_id'] );
 
-        .' <tr>' . "\n"
+        $picturePath = user_get_picture_path( $userData );
 
-        .'  <td>' . "\n"
-        .claro_parse_user_text($thisPost['post_text']) . "\n";
+        if ( $picturePath && file_exists( $picturePath ) )
+        {
+            $pictureUrl = user_get_picture_url( $userData );
+        }
+        else
+        {
+            $pictureUrl = null;
+        }
+        
+        echo '<div id="post'. $thisPost['post_id'] .'" class="threadPost">'
+        .    '<div class="threadPostInfo">'
+        .    ( !is_null($pictureUrl) ?'<div class="threadPosterPicture"><img src="' . $pictureUrl . '" alt=" " /></div>':'' ) . "\n"
+        .    '<b>' . $thisPost['firstname'] . ' ' . $thisPost['lastname'] . '</b> '
+        .    '<br />'
+        .    '<small>' . claro_html_localised_date(get_locale('dateTimeFormatLong'), $post_time) . '</small>' . "\n"
+        ;
+
+        
+        echo '  </div>' . "\n"
+
+        .    '<div class="threadPostContent">' . "\n"
+        .    '<span class="threadPostIcon '.$class.'"><img src="' . get_icon_url( 'post' ) . '" alt="" /></span><br />' . "\n"
+        .    claro_parse_user_text($thisPost['post_text']) . "\n";
 
         if ( $is_allowedToEdit )
         {
@@ -288,13 +298,12 @@ else
             . '</p>' . "\n";
         }
 
-        echo '</td>' . "\n"
-        .    '</tr>' . "\n"
+        echo '</div>' . "\n"
+        .    '<br class="spacer" />' . "\n\n"
+        .    '</div>' . "\n"
         ;
 
     } // end for each
-
-    echo '</table>' . "\n";
 
     if ($forum_post_allowed)
     {
