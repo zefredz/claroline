@@ -223,7 +223,7 @@ else
             .    '&nbsp;&nbsp;'
             ;
 
-            disp_mini_pager($topic_link, 'start', $replys+1, get_conf('posts_per_page') );
+            disp_mini_pager($topic_link, 'start', $replys, get_conf('posts_per_page') );
 
             echo '</td>' . "\n"
                 .'<td align="center"><small>' . $replys . '</small></td>' . "\n"
