@@ -21,13 +21,6 @@ class Logger
 
         $data = serialize( $data );
 
-        if ( claro_debug_mode() )
-        {
-            Console::message( 'Data logged '
-                    . $type . ' : '
-                    . var_export( $data, true ) );
-        }
-
         $sql = "INSERT INTO `" . $this->tbl_log . "`
                 SET `course_code` = " . ( is_null($cid) ? "NULL" : "'" . claro_sql_escape($cid) . "'" ) . ",
                     `tool_id` = ". ( is_null($tid) ? "NULL" : "'" . claro_sql_escape($tid) . "'" ) . ",
