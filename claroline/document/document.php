@@ -1059,7 +1059,7 @@ if ('exDownload' == $cmd )
     require_once get_path('incRepositorySys') . '/lib/pclzip/pclzip.lib.php';
 
     // Build archive in tmp course folder
-    $downloadArchivePath = get_path('coursesRepositorySys') . claro_get_course_path() . '/tmp';
+    $downloadArchivePath = get_path('coursesRepositorySys') . claro_get_course_path() . '/tmp/zip';
     $downloadArchiveFile = $downloadArchivePath . '/' . uniqid('') . '.zip';
 
     // Create the temp dir if it doesn't exist
