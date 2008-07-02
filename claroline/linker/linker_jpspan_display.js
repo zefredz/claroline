@@ -108,7 +108,7 @@
                     var title = shopping_cart[i]["title"];
                     line += '<tr><td>' + title + '</td><td>';
                     line += '&nbsp;<a href=\"http://claroline.net\" class=\"claroCmd\"  onclick=\"detach(\''+crl+'\');return false;\">';
-                    line += '<img src=\"'+img_repository_web+'delete.gif\" border=\"0\" alt=\"'+lang_delete+'\" /></a>&nbsp;\n'+'</td></tr>\n';
+                    line += '<img src=\"'+img_repository_web+'delete.png\" border=\"0\" alt=\"'+lang_delete+'\" /></a>&nbsp;\n'+'</td></tr>\n';
                 }
 
                 line += '</table>\n';
@@ -367,11 +367,11 @@
 
                if( parent_crl )
                {
-                    print('courseBar','<a href=\"http://claroline.net\" class=\"claroCmd\" onclick=\"display_navigator(\''+parent_crl+'\');return false;\"><img src=\"'+img_repository_web+'parent.gif\" border=\"0\" alt=\"\" />'+lang_up+'</a>');
+                    print('courseBar','<a href=\"http://claroline.net\" class=\"claroCmd\" onclick=\"display_navigator(\''+parent_crl+'\');return false;\"><img src=\"'+img_repository_web+'parent.png\" border=\"0\" alt=\"\" />'+lang_up+'</a>');
                }
                else
                {
-                   print('courseBar','<img src=\"'+img_repository_web+'parentdisabled.gif\" border=\"0\" alt=\"\" />'+lang_up);
+                   print('courseBar','<img src=\"'+img_repository_web+'parentdisabled.png\" border=\"0\" alt=\"\" />'+lang_up);
                }
 
                print('courseBar','<br /><br />');
