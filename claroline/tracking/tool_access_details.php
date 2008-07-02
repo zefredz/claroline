@@ -87,9 +87,6 @@ $nameTools = get_lang('Details');
 
 $html = '';    
 
-$html .= claro_html_tool_title( $nameTools );
-
-
 $langMonthNames = get_locale('langMonthNames');
 
 
