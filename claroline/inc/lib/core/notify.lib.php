@@ -636,7 +636,34 @@ class ClaroNotification extends EventDriven
     public function isANotifiedRessource($course_id, $date, $user_id, $group_id, $tool_id, $ressourceId,$setAsViewed=TRUE)
     {
         // global $fileList, $fileKey; //needed for the document tool
-        global $thisFile;
+        $keysStrings = $course_id . ':' . $tool_id . ':' . $group_id . ':';
+
+        // see if the ressource is new AND not consulted yet
+
+        if (!isset($this->toolNotifiedRessourceList))
+        {
+            $this->toolNotifiedRessourceList = $this->getNotifiedRessources($course_id, $date, $user_id, $group_id, $tool_id);
+        }
+
+
+        // compare table result with SESSION information
+
+        if (isset($this->toolNotifiedRessourceList[$ressourceId])
+             && !isset($_SESSION['ConsultedRessourceList'][$keysStrings . $ressourceId . ':' . $this->toolNotifiedRessourceList[$ressourceId]['date']]))
+
+        {
+            //now, the ressource is seen
+
+            if ($setAsViewed) $_SESSION['ConsultedRessourceList'][$keysStrings . $ressourceId . ':' . $this->toolNotifiedRessourceList[$ressourceId]['date']] = TRUE;
+
+            return true;
+        }
+        else return false;
+    }
+    
+    public function isANotifiedDocument($course_id, $date, $user_id, $group_id, $tool_id, $thisFile,$setAsViewed=TRUE)
+    {
+        // global $fileList, $fileKey; //needed for the document tool
         $keysStrings = $course_id . ':' . $tool_id . ':' . $group_id . ':';
 
         // see if the ressource is new AND not consulted yet
@@ -663,7 +690,7 @@ class ClaroNotification extends EventDriven
                 if (!isset($_SESSION['ConsultedRessourceList'][$ressource_identification])
                 && preg_match($pattern,$ressource_identification))
                 {
-                    if ($ressource_identification == $keysStrings . $ressourceId . ':' . $ressource['date'])
+                    if ($ressource_identification == $keysStrings . $thisFile['path'] . ':' . $ressource['date'])
                     //in case the new item is the folder itself only
                     {
                         $_SESSION['ConsultedRessourceList'][$ressource_identification] = TRUE;
@@ -677,13 +704,13 @@ class ClaroNotification extends EventDriven
 
         // compare table result with SESSION information
 
-        if (isset($this->toolNotifiedRessourceList[$ressourceId])
-             && !isset($_SESSION['ConsultedRessourceList'][$keysStrings . $ressourceId . ':' . $this->toolNotifiedRessourceList[$ressourceId]['date']]))
+        if (isset($this->toolNotifiedRessourceList[$thisFile['path']])
+             && !isset($_SESSION['ConsultedRessourceList'][$keysStrings . $thisFile['path'] . ':' . $this->toolNotifiedRessourceList[$thisFile['path']]['date']]))
 
         {
             //now, the ressource is seen
 
-            if ($setAsViewed) $_SESSION['ConsultedRessourceList'][$keysStrings . $ressourceId . ':' . $this->toolNotifiedRessourceList[$ressourceId]['date']] = TRUE;
+            if ($setAsViewed) $_SESSION['ConsultedRessourceList'][$keysStrings . $thisFile['path'] . ':' . $this->toolNotifiedRessourceList[$thisFile['path']]['date']] = TRUE;
 
             return true;
         }
@@ -862,6 +889,11 @@ class ClaroNotification extends EventDriven
     public function is_a_notified_forum( $course_id, $date, $user_id, $group_id, $tool_id, $forumId )
     {
         return $this->isANotifiedForum( $course_id, $date, $user_id, $group_id, $tool_id, $forumId );
+    }
+    
+    public function is_a_notified_document( $course_id, $date, $user_id, $group_id, $tool_id, $fileInfo )
+    {
+        return $this->isANotifiedDocument( $course_id, $date, $user_id, $group_id, $tool_id, $fileInfo );
     }
 
     public function get_notified_ressources( $course_id, $date, $user_id, $gid, $tid )
