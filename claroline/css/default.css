@@ -160,8 +160,8 @@ input[type=text].inputSearch
     font-weight: bold;
     font-size: 0.8em;
     padding: 1px 5px;
-    background: #ddd;
-    border-top: 1px #999 solid;
+    background: url('default/bg_userbanner.png') repeat-x top left #fdf4de;
+    /*border-top: 1px #999 solid;*/
 }
 
 #userBanner #userName {
@@ -262,6 +262,19 @@ input[type=text].inputSearch
     float: left;
     text-align: left;
     margin: 0;
+}
+
+#courseBannerRight #redirector select
+{
+	padding: 0;
+	margin: 0;
+}
+
+#courseBannerRight #redirector option
+{
+	margin: 2px 1px;
+	padding: 1px 0 1px 0;
+	padding-left: 20px;
 }
 
  /*----------------------------------------------------------------------------
@@ -504,7 +517,10 @@ a.item:visited{
     padding: 2px 5px 2px 5px;
     background-color: #EDF1E3;
     border: 1px #96BB7A solid;
+    margin: 3px 0px;
+    
 }
+
 /******************************************************************************
                              CLAROLINE TABLE
  ******************************************************************************/
