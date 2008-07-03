@@ -117,11 +117,9 @@
                         $_courseToolList[ $_courseToolKey ] [ 'name' ] = get_lang('No name');
                     }
                     
-                    $courseToolSelector = '<form action="'.get_path('clarolineRepositoryWeb').'redirector.php" name="redirector" method="post">' . "\n"
-                    . '<select name="url" size="1" onchange="top.location=redirector.url.options[selectedIndex].value" >' . "\n\n";
-
-                    $courseToolSelector .= '<option value="' . get_path('clarolineRepositoryWeb') . 'course/index.php?cid=' . htmlspecialchars(claro_get_current_course_id()) .'" style="padding-left:22px;background:url(' . get_icon_url('course') . ') no-repeat">' . get_lang('Course Home') . '</option>' . "\n";
-
+                    // default option
+                    $courseToolSelectorOptions = '<option value="' . get_path('clarolineRepositoryWeb') . 'course/index.php?cid=' . htmlspecialchars(claro_get_current_course_id()) .'" style="background:url(' . get_icon_url('course') . ') no-repeat;">' . get_lang('Course Home') . '</option>' . "\n";
+                    
                     if (is_array($_courseToolList))
                     {
                         foreach($_courseToolList as $_courseToolKey => $_courseToolData)
@@ -159,11 +157,11 @@
                             {
                                 $_toolIconUrl = get_icon_url('tool');
                             }
-
+                            
                             // select "groups" in group context instead of tool
                             if ( claro_is_in_a_group() )
                             {
-                                $toolSelected = $_courseToolData['label'] == 'CLGRP___' ? 'selected="selected"' : '';
+                                $toolSelected = $_courseToolData['label'] == 'CLGRP' ? 'selected="selected"' : '';
                             }
                             else
                             {
@@ -171,15 +169,18 @@
                             }
 
                             $_courseToolDataName = $_courseToolData['name'];
-                            $courseToolSelector .= '<option value="' . $_toolDataUrl . '" '
+                            $courseToolSelectorOptions .= '<option value="' . $_toolDataUrl . '" '
                             .   $toolSelected
-                            .   'style="padding-left:22px;background:url('.$_toolIconUrl.') no-repeat">'
+                            .   'style="background:url('.$_toolIconUrl.') no-repeat;">'
                             .    get_lang($_courseToolDataName)
                             .    '</option>'."\n"
                             ;
                         }
                     } // end if is_array _courseToolList
-                    $courseToolSelector .= "\n"
+                    
+                    $courseToolSelector = '<form action="'.get_path('clarolineRepositoryWeb').'redirector.php" name="redirector" id="redirector" method="post">' . "\n"
+                    . '<select name="url" size="1" onchange="top.location=redirector.url.options[selectedIndex].value" >' . "\n\n"
+                    . $courseToolSelectorOptions . "\n"
                     . '</select>' . "\n"
                     . '<noscript>' . "\n"
                     . '<input type="submit" name="gotool" value="go" />' . "\n"
