@@ -774,8 +774,10 @@ class ClaroNotification extends EventDriven
 
     public function getLastActionBeforeLoginDate($user_id)
     {
-        global $_user;
-        global $tbl_rel_course_user;
+        $tbl_mdb_names = claro_sql_get_main_tbl();
+        $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
+        
+        $_user = claro_get_current_user_data();
 
         //if we already knwo in session what is the last action date, just retrieve it from the session
 
