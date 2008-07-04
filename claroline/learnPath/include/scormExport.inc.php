@@ -680,7 +680,7 @@ if ( !class_exists('ScormExport') )
                         if ( !$this->createFrameFile($framefile, 'Documents'.$module['path'])) return false;
 
                         // Add the resource to the manifest
-                        $manifest_resources .= '<resource identifier="R_' . $module['ID'] . '" type="Webcontent"  adlcp:scormtype="sco" '
+                        $manifest_resources .= '<resource identifier="R_' . $module['ID'] . '" type="webcontent"  adlcp:scormType="sco" '
                             . ' href="' . basename($framefile) . '">' . "\n"
                             . '  <file href="' . basename($framefile) . '" />' . "\n"
                             . '  <file href="' . $targetfile . '" />' . "\n"
@@ -692,7 +692,7 @@ if ( !class_exists('ScormExport') )
                         $targetfile = $module['fileName'];
 
                         // Add the resource to the manifest
-                        $manifest_resources .= '<resource identifier="R_' . $module['ID'] . '" type="Webcontent"  adlcp:scormtype="sco" '
+                        $manifest_resources .= '<resource identifier="R_' . $module['ID'] . '" type="webcontent"  adlcp:scormType="sco" '
                             . ' href="' . $targetfile . '" >' . "\n"
                             . '  <file href="' . $targetfile . '" />' . "\n"
                             . $this->makeMetaData($module['name'], $module['resourceComment'])
@@ -704,7 +704,7 @@ if ( !class_exists('ScormExport') )
                         // Add the resource to the manifest
                         // TODO $path is unused
                         $path = 'OrigScorm';
-                        $manifest_resources .= '<resource identifier="R_' . $module['ID'] . '" type="Webcontent"  adlcp:scormtype="sco" '
+                        $manifest_resources .= '<resource identifier="R_' . $module['ID'] . '" type="webcontent"  adlcp:scormType="sco" '
                             . ' href="OrigScorm' . $module['path'] . '">' . "\n"
                             . '  <file href="OrigScorm' . $module['path'] . '" />' . "\n"
                             . $this->makeMetaData($module['name'], $module['resourceComment'])
