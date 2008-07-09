@@ -924,6 +924,7 @@ function claro_html_tool_view_option($viewModeRequested = false)
      * convert & to &amp;
      */
 
+    $url = str_replace( '&amp;', '&', $url );
     $url = htmlspecialchars( strip_tags( $url ) );
 
     /*
@@ -932,8 +933,6 @@ function claro_html_tool_view_option($viewModeRequested = false)
 
     $url = str_replace('&amp;viewMode=STUDENT'     , '', $url);
     $url = str_replace('&amp;viewMode=COURSE_ADMIN', '', $url);
-    
-    $url = $url;
 
     /*------------------------------------------------------------------------
     INIT BUTTONS
