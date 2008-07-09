@@ -37,6 +37,13 @@
 $tlabelReq = 'CLGRP';
 DEFINE('DISP_GROUP_LIST', __LINE__);
 DEFINE('DISP_GROUP_SELECT_FOR_ACTION', __LINE__);
+
+// Workaround for SQL Injection through X_FORWARDED_FOR
+if (isset($_SERVER["HTTP_X_FORWARDED_FOR"]))
+{
+    $_SERVER["HTTP_X_FORWARDED_FOR"] = null;
+}
+
 $gidReq=null;
 $gidReset=true;
 require '../inc/claro_init_global.inc.php';
@@ -335,8 +342,8 @@ if ( $is_allowedToManage )
         {
 
             if (     is_null($propertyValue)) $sqlReadyPropertyValue = "NULL";
-            elseif ( is_int ($propertyValue)) $sqlReadyPropertyValue = $propertyValue;
-            else                              $sqlReadyPropertyValue = "'" . addslashes($propertyValue) . "'";
+            elseif ( is_numeric ($propertyValue)) $sqlReadyPropertyValue = (int) $propertyValue;
+            else                              $sqlReadyPropertyValue = "'" . claro_sql_escape($propertyValue) . "'";
 
             $sql = "UPDATE `".$tbl_course_properties."`
                     SET `value` = " . $sqlReadyPropertyValue . "
