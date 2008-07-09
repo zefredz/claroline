@@ -14,7 +14,7 @@ require '../inc/claro_init_global.inc.php';
 $interbredcrump[]= array ('url'=>'../user/user.php', 'name'=> get_lang('Users'));
 
 if( !empty($_REQUEST['uInfo']) )
-$interbredcrump[]= array ('url' => '../user/userInfo.php?uInfo=' . $_REQUEST['uInfo'], 'name' => get_lang('User'));
+$interbredcrump[]= array ('url' => '../user/userInfo.php?uInfo=' . strip_tags($_REQUEST['uInfo']), 'name' => get_lang('User'));
 
 $nameTools = get_lang('Statistics');
 

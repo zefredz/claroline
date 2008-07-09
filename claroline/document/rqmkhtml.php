@@ -58,7 +58,7 @@ if ($cmd ==  'rqMkHtml' )
 {
     ?><form action="document.php" method="post">
     <input type="hidden" name="cmd" value="exMkHtml" />
-    <input type="hidden" name="cwd" value="<?php echo $cwd; ?>" />
+    <input type="hidden" name="cwd" value="<?php echo htmlspecialchars(strip_tags($cwd)); ?>" />
     <p>
     <b><?php echo get_lang('Document name') ?>&nbsp;: </b><br />
     <input type="text" name="fileName" size="80" />
@@ -76,7 +76,7 @@ if ($cmd ==  'rqMkHtml' )
     ?>
     <p>
     <input type="submit" value="<?php echo get_lang('Ok'); ?>" />&nbsp;
-    <?php echo claro_html_button('./document.php?cmd=exChDir&amp;file='.$cwd, get_lang('Cancel')); ?>
+    <?php echo claro_html_button('./document.php?cmd=exChDir&amp;file='.htmlspecialchars(strip_tags($cwd)), get_lang('Cancel')); ?>
     </p>
     </form>
     <?php
