@@ -98,7 +98,7 @@ class editor extends GenericEditor
         
         if( !isset($_isAdvancedJsLoaded) )
         {
-            if( get_conf('gzip_editor') )
+            if( get_conf('useTinyMCECompressor') )
             {
                 $html .= '<script language="javascript" type="text/javascript" src="'.$this->webPath.'/advanced_gzip.conf.js"></script>'."\n";
             }
@@ -121,7 +121,7 @@ class editor extends GenericEditor
         
         if( ! isset($_isSimpleJsLoaded) )
         {
-            if( get_conf('gzip_editor') )
+            if( get_conf('useTinyMCECompressor') )
             {
                 $html .= '<script language="javascript" type="text/javascript" src="'.$this->webPath.'/simple_gzip.conf.js"></script>'."\n";
             }
@@ -146,7 +146,7 @@ class editor extends GenericEditor
         {
             $html .= "\n";
             
-            if( get_conf('gzip_editor') )
+            if( get_conf('useTinyMCECompressor') )
             {
                 $html .= '<script language="javascript" type="text/javascript" src="'.$this->webPath.'/tiny_mce/tiny_mce_gzip.js"></script>'."\n";
             }
