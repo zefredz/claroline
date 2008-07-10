@@ -4,7 +4,7 @@
  *
  * @version 1.8 $Revision$
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2008 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -71,7 +71,7 @@ if ( isset($_REQUEST['applyChange']) )  //for formular modification
 
     // validate forum params
 
-    $messageList = user_validate_form_profile($user_data, $userId);
+    $messageList = user_validate_form_admin_user_profile($user_data, $userId);
 
     if ( count($messageList) == 0 )
     {

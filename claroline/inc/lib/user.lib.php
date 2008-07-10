@@ -5,7 +5,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * User lib contains function to manage users on the platform
  * @version 1.8 $Revision$
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2008 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @package CLUSR
  * @author Claro Team <cvs@claroline.net>
@@ -649,6 +649,11 @@ function user_validate_form_profile($data, $userId)
     return user_validate_form('profile', $data, $userId);
 }
 
+function user_validate_form_admin_user_profile($data, $userId)
+{
+    return user_validate_form('admin_user_profile', $data, $userId);
+}
+
 /**
  * validate user form
  * @author Hugues Peeters <hugues.peeters@claroline.net>
@@ -681,6 +686,17 @@ function user_validate_form($formMode, $data, $userId = null)
 
     if(array_key_exists('password',$data) || array_key_exists('password_conf',$data))
     {
+        if ( $formMode != 'registration'
+            && $formMode != 'admin_user_profile' )
+        {
+            $validator->addRule('old_password', get_lang('You left some required fields empty'), 'required' );
+            $validator->addRule('old_password',
+                get_lang('Old password is wrong'),
+                'user_check_authentication',
+                array( $data['username'] )
+            );
+        }
+            
         if ( get_conf('SECURE_PASSWORD_REQUIRED') )
         {
             $validator->addRule('password',
@@ -732,6 +748,96 @@ function user_validate_form($formMode, $data, $userId = null)
 
     if ( $validator->validate() ) return array();
     else return array_unique($validator->getErrorList());
+}
+
+function user_check_authentication( $password, $login )
+{
+        $claro_loginSucceeded = false;
+        
+        $tbl_mdb_names = claro_sql_get_main_tbl();
+        $tbl_user = $tbl_mdb_names['user'           ];
+        
+        $sql = 'SELECT user_id, username, password, authSource
+                FROM `' . $tbl_user . '`
+                WHERE '
+             . ( get_conf('claro_authUsernameCaseSensitive',true) ? 'BINARY' : '')
+             . ' username = "'. addslashes($login) .'"'
+             ;
+
+        $result = claro_sql_query($sql);
+
+        if ( mysql_num_rows($result) > 0)
+        {
+            while ( ( $uData = mysql_fetch_array($result) ) && ! $claro_loginSucceeded )
+            {
+                if ( $uData['authSource'] == 'claroline' )
+                {
+                    // the authentification of this user is managed by claroline itself
+
+                    // determine first if the password needs to be crypted before checkin
+                    // $userPasswordCrypted is set in main configuration file
+
+                    if ( get_conf('userPasswordCrypted',false) ) $password = md5($password);
+
+                    // check the user's password
+                    if ( $password == $uData['password'] )
+                    {
+                        $claro_loginSucceeded = true;
+                    }
+                    else // abnormal login -> login failed
+                    {
+                        $claro_loginSucceeded = false;
+                    }
+                }
+                else // no standard claroline login - try external authentification
+                {
+                    /*
+                     * Process external authentication
+                     * on the basis of the given login name
+                     */
+
+                    $key = $uData['authSource'];
+
+                    $_uid = include_once($extAuthSource[$key]['login']);
+
+                    if ( $_uid !== true && $_uid > 0 )
+                    {
+                        $claro_loginSucceeded = true;
+                    }
+                    else
+                    {
+                        $claro_loginSucceeded = false;
+                    }
+                } // end try external authentication
+            } // end while
+        }
+        /*else // login failed, mysql_num_rows($result) <= 0
+        {
+            $claro_loginSucceeded = false;
+
+            if (isset($extAuthSource) && is_array($extAuthSource))
+            {
+                foreach($extAuthSource as $thisAuthSource)
+                {
+                    $_uid = include_once($thisAuthSource['newUser']);
+
+                    if ( $_uid !== true && $_uid > 0 )
+                    {
+                        $claro_loginSucceeded = true;
+                        break;
+                    }
+                    else
+                    {
+                        $claro_loginSucceeded = false;
+                    }
+                }
+            } //end if is_array($extAuthSource)
+
+        } //end else login failed*/
+        
+        // var_dump($claro_loginSucceeded);
+        
+        return $claro_loginSucceeded;
 }
 
 /**
@@ -984,6 +1090,15 @@ function user_html_form($data, $form_type='registration')
             .'</small>');
 
             $required_password = false;
+
+            if ( strtolower($form_type) == 'admin_user_profile' )
+            {
+                $old_password_required_to_change = false;
+            }
+            else
+            {
+                $old_password_required_to_change = true;
+            }
         }
         else
         {
@@ -997,6 +1112,7 @@ function user_html_form($data, $form_type='registration')
             }
 
             $required_password = true;
+            $old_password_required_to_change = false;
         }
 
         if ( $required_password )
@@ -1019,6 +1135,12 @@ function user_html_form($data, $form_type='registration')
 
         if ( in_array('password',$profile_editable) )
         {
+            if ( $old_password_required_to_change )
+            {
+                $html .= form_row('<label for="old_password">' . get_lang('Old password') . '&nbsp;:</label>',
+                '<input type="password" size="40" id="old_password" name="old_password"  autocomplete="off" />');
+            }
+            
             // password
             $html .= form_row('<label for="password">' . $password_label . '&nbsp;:</label>',
             '<input type="password" size="40" id="password" name="password"  autocomplete="off" />');
