@@ -3,7 +3,7 @@
  * CLAROLINE
  *
  * @version 1.8 $Revision$
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2008 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -14,9 +14,11 @@
  * @author Claro Team <cvs@claroline.net>
  *
  */
+ 
+die('---');
 
 // duplicated from claro_main.lib.php to avoid loading unwanted functions.
-function http_response_splitting_workaround( $str )
+/* function http_response_splitting_workaround( $str )
 {
     $pattern = '~(\r\n|\r|\n|%0a|%0d|%0D|%0A)~';
     return preg_replace( $pattern, '', $str );
@@ -27,6 +29,6 @@ $url = isset( $_REQUEST['url'] )
     : '../'
     ;
 
-header( 'Location: ' . $url );
+header( 'Location: ' . $url ); */
 
 ?>

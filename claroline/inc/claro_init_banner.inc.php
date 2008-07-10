@@ -188,8 +188,11 @@ if (claro_is_in_a_course())
             if ($_courseToolList[ $_courseToolKey ] [ 'name' ] =='')
                 $_courseToolList[ $_courseToolKey ] [ 'name' ] = get_lang('No name');
         }
-        $courseToolSelector = '<form action="'.$clarolineRepositoryWeb.'redirector.php" name="redirector" method="POST">' . "\n"
-        . '<select name="url" size="1" onchange="top.location=redirector.url.options[selectedIndex].value" >' . "\n\n";
+        
+        $courseToolSelector = '<form action="" name="redirector" method="POST">' . "\n"
+            . '<select name="url" size="1" onchange="top.location=redirector.url.options[selectedIndex].value" >'
+            . "\n\n"
+            ;
 
         $courseToolSelector .= '<option value="' . $clarolineRepositoryWeb . 'course/index.php?cid=' . htmlspecialchars(claro_get_current_course_id()) .'" style="padding-left:22px;background:url('.$imgRepositoryWeb.'course.gif) no-repeat">' . get_lang('Course Home') . '</option>' . "\n";
 
