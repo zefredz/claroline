@@ -113,7 +113,7 @@ $conf_def['section']['ADVANCED']['label']='Advanced settings';
 $conf_def['section']['ADVANCED']['properties'] =
 array ( 'userPasswordCrypted'
       , 'is_trackingEnabled'
-      , 'claro_editor'
+      , 'useTinyMCECompressor'
       , 'claro_texRendererUrl'
       , 'platform_id'
       , 'CLARO_DEBUG_MODE'
@@ -438,15 +438,15 @@ array ('label'       => 'Theme'
       ,'readonly'    => FALSE
       );
 
-$conf_def_property_list['claro_editor'] =
-array ('label'       => 'Editor'
-      ,'description' => 'Set the editor that will replace standard html textarea.'
-      ,'default'     => 'tiny_mce'
-      ,'type'        => 'enum'
-      ,'acceptedValueType' => 'editor'
+$conf_def_property_list['useTinyMCECompressor'] =
+array ('label'       => 'Use TinyMCE editor compressor'
+      ,'description' => 'Makes TinyMCE 75% smaller and a lot faster to load.'
+      ,'type'        => 'boolean'
+      ,'default'     => TRUE
       ,'display'     => TRUE
       ,'readonly'    => FALSE
-      );
+      , 'acceptedValue' => array('TRUE' => 'On', 'FALSE' => 'Off')
+      );      
 
 // Administrator
 
