@@ -190,7 +190,7 @@ class ClaroBanner extends CoreTemplate
                     }
                 } // end if is_array _courseToolList
                 
-                $courseToolSelector = '<form action="'.get_path('clarolineRepositoryWeb').'redirector.php" name="redirector" id="redirector" method="post">' . "\n"
+                $courseToolSelector = '<form action="" name="redirector" id="redirector" method="post">' . "\n"
                 . '<select name="url" size="1" onchange="top.location=redirector.url.options[selectedIndex].value" >' . "\n\n"
                 . $courseToolSelectorOptions . "\n"
                     . '</select>' . "\n"
