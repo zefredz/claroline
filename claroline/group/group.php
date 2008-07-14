@@ -38,16 +38,12 @@ $tlabelReq = 'CLGRP';
 DEFINE('DISP_GROUP_LIST', __LINE__);
 DEFINE('DISP_GROUP_SELECT_FOR_ACTION', __LINE__);
 
-// Workaround for SQL Injection through X_FORWARDED_FOR
-if (isset($_SERVER["HTTP_X_FORWARDED_FOR"]))
-{
-    $_SERVER["HTTP_X_FORWARDED_FOR"] = null;
-}
-
 $gidReq=null;
 $gidReset=true;
 require '../inc/claro_init_global.inc.php';
+
 if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
+
 require_once get_path('incRepositorySys') . '/lib/group.lib.inc.php' ;
 require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
 
