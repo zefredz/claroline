@@ -246,27 +246,20 @@ function claro_html_link($url,$label,$attributeList=array())
 function claro_html_button($url, $text, $confirmMessage = '')
 {
 
-    if (   claro_is_javascript_enabled()
-    && ! preg_match('~^Mozilla/4\.[1234567]~', $_SERVER['HTTP_USER_AGENT']))
+    if ($confirmMessage != '')
     {
-        if ($confirmMessage != '')
-        {
-            $onClickCommand = "if(confirm('" . clean_str_for_javascript($confirmMessage) . "')){document.location='" . $url . "';return false}";
-        }
-        else
-        {
-            $onClickCommand = "document.location='".$url."';return false";
-        }
-
-        return '<button class="claroButton" onclick="' . $onClickCommand . '">'
-        .      $text
-        .      '</button>&nbsp;' . "\n"
-        ;
+        $onClickCommand = "if(confirm('" . clean_str_for_javascript($confirmMessage) . "')){document.location='" . $url . "';return false}";
     }
     else
     {
-        return '[ <a href="' . $url . '">' . $text . '</a> ]';
+        $onClickCommand = "document.location='".$url."';return false";
     }
+
+    return '<a href="'.$url.'">'
+    . '<input type="button" onclick="' . $onClickCommand . '" '
+    .      'value="'.$text.'" />'
+    .      '</a>' . "\n"
+    ;
 }
 
 
