@@ -22,7 +22,7 @@
 </div>
 <!-- End of Platform Banner -->
 
-<?php if ( $this->userBanner ): ?>
+<?php if ( $this->userBanner && property_exists($this, 'user') ): ?>
 <!-- User Banner -->
 <div id="userBanner">
     <div id="userBannerLeft">
