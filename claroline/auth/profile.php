@@ -91,6 +91,7 @@ if ( isset($_REQUEST['applyChange']) )
     if ( isset($_REQUEST['firstname']) && in_array('name',$profile_editable) )             $user_data['firstname'] = trim($_REQUEST['firstname']);
     if ( isset($_REQUEST['officialCode']) && in_array('official_code',$profile_editable) ) $user_data['officialCode'] = trim($_REQUEST['officialCode']);
     if ( isset($_REQUEST['username']) && in_array('login',$profile_editable) )             $user_data['username'] = trim($_REQUEST['username' ]);
+    if ( isset($_REQUEST['old_password']) && in_array('password',$profile_editable) )      $user_data['old_password'] = trim($_REQUEST['old_password']);
     if ( isset($_REQUEST['password']) && in_array('password',$profile_editable) )          $user_data['password'] = trim($_REQUEST['password']);
     if ( isset($_REQUEST['password_conf']) && in_array('password',$profile_editable) )     $user_data['password_conf'] = trim($_REQUEST['password_conf']);
     if ( isset($_REQUEST['email']) && in_array('email',$profile_editable) )                $user_data['email'] = trim($_REQUEST['email']);

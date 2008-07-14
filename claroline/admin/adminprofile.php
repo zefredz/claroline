@@ -160,7 +160,7 @@ if ( isset($_REQUEST['applyChange']) )  //for formular modification
 
     // validate forum params
 
-    $messageList = user_validate_form_profile($user_data, $userId);
+    $messageList = user_validate_form_admin_user_profile($user_data, $userId);
 
     if ( count($messageList) == 0 )
     {
