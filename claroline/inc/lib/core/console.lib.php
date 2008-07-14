@@ -19,46 +19,53 @@
      * @package     KERNEL
      */
 
-    FromKernel::uses('core/debug.lib');
+FromKernel::uses('core/debug.lib');
 
-    class Console
+class Console
+{
+    public static function message( $message )
     {
-        public static function message( $message )
-        {
-            pushClaroMessage( $message, 'message' );
-        }
-
-        public static function debug( $message )
-        {
-            pushClaroMessage( $message, 'debug' );
-        }
-        
-        public static function warning( $message )
-        {
-            pushClaroMessage( $message, 'warning' );
-        }
-
-        public static function info( $message )
-        {
-            pushClaroMessage( $message, 'info' );
-        }
-
-        public static function success( $message )
-        {
-            pushClaroMessage( $message, 'success' );
-        }
-
-        public static function error( $message )
-        {
-            claro_failure::set_failure( $message );
-            pushClaroMessage( $message, 'error' );
-        }
-        
-        public static function log( $message, $type )
-        {
-            pushClaroMessage( $message, $type );
-        }
+        pushClaroMessage( $message, 'message' );
+        Claroline::log( 'message', $message );
     }
 
-    // class DebugBar extends Console {}
-?>
+    public static function debug( $message )
+    {
+        if ( claro_debug_mode() )
+        {
+            pushClaroMessage( $message, 'debug' );
+            Claroline::log( 'debug', $message );
+        }
+    }
+    
+    public static function warning( $message )
+    {
+        pushClaroMessage( $message, 'warning' );
+        Claroline::log( 'warning', $message );
+    }
+
+    public static function info( $message )
+    {
+        pushClaroMessage( $message, 'info' );
+        Claroline::log( 'info', $message );
+    }
+
+    public static function success( $message )
+    {
+        pushClaroMessage( $message, 'success' );
+        Claroline::log( 'success', $message );
+    }
+
+    public static function error( $message )
+    {
+        // claro_failure::set_failure( $message );
+        pushClaroMessage( $message, 'error' );
+        Claroline::log( 'error', $message );
+    }
+    
+    public static function log( $message, $type )
+    {
+        pushClaroMessage( $message, $type );
+        Claroline::log( $type, $message );
+    }
+}
