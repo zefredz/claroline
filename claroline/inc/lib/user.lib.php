@@ -1115,13 +1115,27 @@ function user_html_form($data, $form_type='registration')
             $old_password_required_to_change = false;
         }
 
-        if ( $required_password )
+        if ( 'registration' == $form_type )
         {
-            $password_label = form_required_field(get_lang('Password'));
+            if ( $required_password )
+            {
+                $password_label = form_required_field(get_lang('Password'));
+            }
+            else
+            {
+                $password_label = get_lang('Password');
+            }
         }
         else
         {
-            $password_label = get_lang('Password');
+            if ( $required_password )
+            {
+                $password_label = form_required_field(get_lang('New password'));
+            }
+            else
+            {
+                $password_label = get_lang('New password');
+            }
         }
 
         if ( in_array('login',$profile_editable) )
