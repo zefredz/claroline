@@ -63,14 +63,15 @@ $langDay_of_weekNames['short'] = array('Vas', 'Hét', 'Kedd', 'Sze', 'Csü', 'Pén'
 $langDay_of_weekNames['long'] = array('Vasárnap', 'Hétfõ', 'Kedd', 'Szerda', 'Csütörtök', 'Péntek', 'Szombat');
 
 $langMonthNames['init']  = array('J', 'F', 'M', 'Á', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D');
-$langMonthNames['short'] = array('Jan', 'Feb', 'Már', 'Ápr', 'Máj', 'Jún', 'Júl', 'Aug', 'Sze', 'Okt', 'Nov', 'Dec');
-$langMonthNames['long'] = array('Január', 'Február', 'Március', 'Április', 'Május', 'Június', 'Július', 'Augusztus', 'Szeptember', 'Október', 'November', 'December');
+$langMonthNames['short'] = array('jan', 'feb', 'már', 'ápr', 'máj', 'jún', 'júl', 'aug', 'sze', 'okt', 'nov', 'dec');
+$langMonthNames['long'] = array('január', 'február', 'március', 'április', 'május', 'június', 'július', 'augusztus', 'szeptember', 'október', 'november', 'december');
 
 // see http://www.php.net/manual/en/function.strftime.php 
 
 $dateFormatShort =  "%b. %d, %y";
 $dateFormatLong  = '%A %B %d, %Y';
-$dateTimeFormatLong  = '%B %d, %Y at %I:%M %p'; // <- Don't forget to translate _at_
+$dateTimeFormatLong  = '%B %d, %Y %H:%M'; // <- Don't forget to translate _at_
+// $dateTimeFormatLong  = '%B %d, %Y at %I:%M %p'; // <- Don't forget to translate _at_
 $dateTimeFormatShort = "%b. %d, %y %I:%M %p";
 $timeNoSecFormat = '%I:%M %p';
 
