@@ -15,6 +15,8 @@
  *
  */
 
+die('---');
+
 // duplicated from claro_main.lib.php to avoid loading unwanted functions.
 function http_response_splitting_workaround( $str )
 {
