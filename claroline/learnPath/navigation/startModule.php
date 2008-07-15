@@ -126,7 +126,7 @@ switch ($module['contentType'])
         else
         {
             // question mark argument method, for IIS ...
-            $moduleStartAssetPage = get_module_url('CLDOC') . '/goto/?url=' . $startAssetPage;
+            $moduleStartAssetPage = get_module_url('CLDOC') . '/goto/index.php?url=' . $startAssetPage;
         }
   		$withFrames = true;
 		break;
