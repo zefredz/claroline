@@ -1151,7 +1151,7 @@ function user_html_form($data, $form_type='registration')
         {
             if ( $old_password_required_to_change )
             {
-                $html .= form_row('<label for="old_password">' . get_lang('Old password') . '&nbsp;:</label>',
+                $html .= form_row('<label for="old_password">' . get_lang('Password') . '&nbsp;:</label>',
                 '<input type="password" size="40" id="old_password" name="old_password"  autocomplete="off" />');
             }
             

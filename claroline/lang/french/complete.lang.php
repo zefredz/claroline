@@ -990,6 +990,7 @@ $_lang['New assignment created'] = 'Nouveau travail créé';
 $_lang['New assignment feedback posted'] = 'Une nouvelle correction a été postée pour votre travail';
 $_lang['New chat'] = 'Nouvelle discussion';
 $_lang['New exercise'] = 'Nouvel exercice';
+$_lang['New password'] = 'Nouveau mot de passe';
 $_lang['New question'] = 'Nouvelle question';
 $_lang['New submission posted in assignment tool.'] = 'Une nouvelle soumission a été postée dans l\'outil de travaux';
 $_lang['New topic'] = 'Nouveau sujet';

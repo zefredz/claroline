@@ -990,6 +990,7 @@ $_lang['New assignment created'] = 'New assignment created';
 $_lang['New assignment feedback posted'] = 'New assignment feedback posted';
 $_lang['New chat'] = 'New chat';
 $_lang['New exercise'] = 'New exercise';
+$_lang['New password'] = 'New password';
 $_lang['New question'] = 'New question';
 $_lang['New submission posted in assignment tool.'] = 'New submission posted in assignment tool.';
 $_lang['New topic'] = 'New topic';
