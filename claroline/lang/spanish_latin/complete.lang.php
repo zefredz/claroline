@@ -2441,4 +2441,82 @@ $_lang['urlpath'] = 'rutaURL';
 $_lang['warning : Installation cannot find the description of the learning path and has set a default comment.  You should change it'] = 'Advertencia : La instalación no puede encontrar la descripción de la Ruta de Aprendizaje y ha asignado un comentario por defecto.  Usted puede cambiarlo';
 $_lang['warning : Installation cannot find the name of the learning path and has set a default name.  You should change it.'] = 'La instalación no puede encontrar El nombre de la Ruta de Aprendizaje y ha asignado uno comentario por defecto.  Usted puede cambiarlo';
 $_lang['write n-1 times without check if (others) cached files are or not deprecated'] = 'escribe n-1 veces sin verificar si (otros) archivos en cache están o no desaprobados';
+$_lang['%name should be an array'] = '%name deberia ser un arreglo';
+$_lang['%name should be boolean'] = '%name deberia ser booleano';
+$_lang['%name should be integer'] = '%name deberia ser entero';
+$_lang['%name should be integer inferior or equal to %value'] = '%name deberia ser entero inferior o igual a %value';
+$_lang['%name should be integer superior or equal to %value'] = '%name deberia ser entero superior o igual a %value';
+$_lang['%name should be match %regular_expression'] = '%name deberia ser igual a %regular_expression';
+$_lang['%value should be in enum list of %name'] = '%value  deberia de estar en enum lista de %name';
+$_lang['%value should be in the accepted value list of %name'] = '%value deberia estar en la lista de valores aceptados de %name';
+$_lang['Advanced Settings'] = 'Ajustes Avanzados';
+$_lang['CAS (Central Authentication Service)'] = 'SAC (Servicio de Autenticacion Central)';
+$_lang['Course %course_code doesn\'t exist'] = 'El curso %course_code no existe';
+$_lang['Email can be empty'] = 'El correo electrónico puede estar vacío';
+$_lang['Encrypt exported password using md5 algorithm'] = 'Cifrar contraseña exportada usando el algoritmo md5';
+$_lang['Export password'] = 'Exportar contraseña';
+$_lang['Export user list'] = 'Exportar lista de usuarios';
+$_lang['Export username'] = 'Exportar nombre de usuario';
+$_lang['If the name and the firstname are longer than this value, the script reduce it.
+For revelance, it\'s interesting to not work with to little value'] = 'Si el nombre y el Primer nombre son mas largos que este valor, el script lo acorta.
+para la revelacion, es interesante el no trabajar con valores muy pequeños';
+$_lang['LCS'] = 'LCS';
+$_lang['Logout user from CAS server when user logout from Claroline'] = 'Cerrar sesión de usuario del servidor SAC cuando el usuario cierre sesión de Claroline';
+$_lang['Note :  this repository should be protected with a .htaccess or
+       be placed outside the web. Because there contain data of private courses.'] = 'Nota: este archivo debe ser protegido con un .Htaccess o
+       debe situarse al margen de la web. Debido a que contiene datos de cursos privados.';
+$_lang['Note : this repository should be protected with a .htaccess or
+       be placed outside the web. Because there contain data of private courses. Claroline Would be able to read and write in this dir'] = 'Nota: este archivo debe ser protegido con un .Htaccess o
+       debe situarse al margen de la web. Debido a que contiene datos de cursos privados. Claroline deberia poder leer y escribir a esta direccion';
+$_lang['Number of assignment per page'] = 'Número de asignación por página';
+$_lang['Number of columns'] = 'Número de columnas';
+$_lang['Number of columns displayed per page'] = 'Número de columnas mostradas por página';
+$_lang['Number of courses'] = 'Número de cursos';
+$_lang['Number of courses by faculty'] = 'Número de cursos por facultad';
+$_lang['Number of courses by language'] = 'Número de cursos por idioma';
+$_lang['Number of courses by visibility'] = 'Número de cursos por visibilidad';
+$_lang['Number of exercices per page'] = 'Número de ejercicios por página';
+$_lang['Number of learning paths using this module :'] = '
+Número de secuencias de aprendizaje utilizando este módulo : ';
+$_lang['Number of logins'] = 'Número de accesos';
+$_lang['Number of pages'] = 'Número de páginas';
+$_lang['Number of posts per page'] = 'Número de avisos(posts) por página';
+$_lang['Number of rows'] = 'Número de filas';
+$_lang['Number of rows displayed per page'] = 'Número de filas desplegadas por página';
+$_lang['Number of seconds before the cookie expires'] = 'Número de segundos antes de que expire la cookie';
+$_lang['Number of topics per page'] = 'Número de temas por página';
+$_lang['Number of user per page'] = 'Número de usuario por página';
+$_lang['Number of users'] = 'Número de usuarios';
+$_lang['Number of users by course'] = 'Número de usuarios por curso';
+$_lang['Number of users by faculty'] = 'Número de usuarios por facultad';
+$_lang['Number of users by status'] = 'Número de usuarios por estatus';
+$_lang['Official Code can be empty'] = 'El Código Oficial puede estar vacío';
+$_lang['Official Code is unique'] = 'El Código Oficial es único';
+$_lang['Operation impossible.'] = 'Operación imposible.';
+$_lang['Private&nbsp+ New Registration allowed'] = 'Privado + Nuevo registro permitido';
+$_lang['Private&nbsp;+ New registration denied'] = 'Privado + Nuevo registro negado';
+$_lang['Profile SQL in DEBUG MODE.
+Display for each request :duration, counter,  statement '] = 'Perfil SQL en el modo de depuración.
+Despliega para cada solicitud: duración, contador, declaración';
+$_lang['Quota for courses'] = 'cuota para cursos';
+$_lang['Shibboleth'] = 'Palabra clave';
+$_lang['This option insert a command in the user profile form to request the removal of the user from the platform.  This request is sent by e-mail to platform administrator.
+This option allow only to request it, and don\'t prework the answer
+'] = 'Esta opción inserta un comando en el formulario de perfil de usuario para solicitar la eliminación del usuario de la plataforma.  Esta solicitud es enviada por correo electrónico al administrador de la plataforma.
+Esta opcion solo permite el pedirlo, y no a elaborar una respuesta con anticipación
+'; 
+$_lang['This text layout should be modified to be editable in this editor. Cancel to keep your original text layout.'] = 'Este diseño de texto debe modificarse para ser editable en este editor. Cancele para mantener el diseño de su texto original.';
+$_lang['Time to automatically refresh the user screen. Each refresh is a request to your server.
+Too low value can be hard for your server. Too high value can be hard for user.
+'] = 'Tiempo para que se actualice automáticamente la pantalla del usuario. Cada actualización es una petición a su servidor.
+Un valor demasiado bajo puede ser difícil para su servidor. Un valor demasiado alto puede ser difícil para el usuario.
+';
+$_lang['Translation: use a single language file
+Production: each script use its own language file.'] = 'Traducción: utiliza un solo archivo de idioma
+Producción: cada script utiliza su propio archivo de idioma.';
+$_lang['Unregister all courses ?'] = 'Desasignar todos los cursos ?';
+$_lang['Unregister class from all courses'] = 'Desasignar clase de todos los cursos';
+$_lang['Use SSO system'] = 'Usar systema SSO';
+$_lang['delete failed for module %module'] = 'Fallo en la eliminacion del modulo %module';
+$_lang['delete succeeded for module %module'] = 'Eliminacion exitosa del modulo %module';
 ?>
