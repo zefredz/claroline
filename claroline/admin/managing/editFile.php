@@ -30,31 +30,31 @@ if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
 $controlMsg = array();
 
-$textZoneList[] = array( 'filename' => get_path('rootSys') . 'textzone_top.inc.html',
+$textZoneList['textzone_top.inc.html'] = array( 'filename' => get_path('rootSys') . 'textzone_top.inc.html',
                          'desc' => get_lang('Welcome text displayed on the homepage'));
 
-$textZoneList[] = array( 'filename' => get_path('rootSys') . 'platform/textzone/' . 'textzone_top.anonymous.inc.html',
+$textZoneList['textzone_top.anonymous.inc.html'] = array( 'filename' => get_path('rootSys') . 'platform/textzone/textzone_top.anonymous.inc.html',
                          'desc' => get_lang('Welcome text displayed to anonymous users'));
 
-$textZoneList[] = array( 'filename' => get_path('rootSys') . 'platform/textzone/' . 'textzone_top.authenticated.inc.html',
+$textZoneList['textzone_top.authenticated.inc.html'] = array( 'filename' => get_path('rootSys') . 'platform/textzone/textzone_top.authenticated.inc.html',
                          'desc' => get_lang('Welcome text displayed to authenticated users'));
 
-$textZoneList[] = array( 'filename' => get_path('rootSys') . 'textzone_right.inc.html',
+$textZoneList['textzone_right.inc.html'] = array( 'filename' => get_path('rootSys') . 'textzone_right.inc.html',
                          'desc' => get_lang('Text displayed on the right column'));
 
-$textZoneList[] = array( 'filename' => get_path('rootSys') . 'platform/textzone/course_subscription_locked.inc.html',
+$textZoneList['course_subscription_locked.inc.html'] = array( 'filename' => get_path('rootSys') . 'platform/textzone/course_subscription_locked.inc.html',
                          'desc' => get_lang('Text displayed if a user tries to enrol in a locked course'));
 
-$textZoneList[] = array( 'filename' => get_path('rootSys') . 'platform/textzone/course_subscription_locked_by_key.inc.html',
+$textZoneList['course_subscription_locked_by_key.inc.html'] = array( 'filename' => get_path('rootSys') . 'platform/textzone/course_subscription_locked_by_key.inc.html',
                          'desc' => get_lang('Text displayed if a user tries to enrol in a course requiring a key'));
 
-$textZoneList[] = array( 'filename' => get_path('rootSys') . 'platform/textzone/textzone_inscription.inc.html',
+$textZoneList['textzone_inscription.inc.html'] = array( 'filename' => get_path('rootSys') . 'platform/textzone/textzone_inscription.inc.html',
                          'desc' => get_lang('Agreement text displayed before the "Create user account" page'));
 
-$textZoneList[] = array( 'filename' => get_path('rootSys') . 'platform/textzone/textzone_inscription_form.inc.html',
+$textZoneList['textzone_inscription_form.inc.html'] = array( 'filename' => get_path('rootSys') . 'platform/textzone/textzone_inscription_form.inc.html',
                          'desc' => get_lang('Text displayed on the "Create user account" page'));
 
-$textZoneList[] = array( 'filename' => get_path('rootSys') . 'platform/textzone/textzone_edit_profile_form.inc.html',
+$textZoneList['textzone_edit_profile_form.inc.html'] = array( 'filename' => get_path('rootSys') . 'platform/textzone/textzone_edit_profile_form.inc.html',
                          'desc' => get_lang('Text displayed on the "My user account" page'));
 
 $display = DISP_FILE_LIST;
@@ -66,7 +66,7 @@ $cmd = (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$validCmdList)? $_R
 
 // input Datas
 $fileId = (int) isset($_REQUEST['file']) ? $_REQUEST['file'] : null;
-if (!in_array($fileId,array_keys($textZoneList)))
+if( !empty($fileId) && ! array_key_exists($fileId,$textZoneList) )
 {
     $fileId=null;
     $controlMsg['error'][] = get_lang('Wrong parameters');
@@ -162,7 +162,7 @@ elseif( $display == DISP_VIEW_FILE )
 
 }
 
-if( $display==DISP_FILE_LIST || $display==DISP_EDIT_FILE || $display==DISP_VIEW_FILE )
+if( $display == DISP_FILE_LIST || $display == DISP_EDIT_FILE || $display == DISP_VIEW_FILE )
 {
    echo '<p>'
    .    get_lang('Here you can modify the content of the text zones displayed on the platform home page.')
@@ -177,7 +177,7 @@ if( $display==DISP_FILE_LIST || $display==DISP_EDIT_FILE || $display==DISP_VIEW_
    .    '</tr>' . "\n"
    ;
 
-    foreach($textZoneList as $idFile => $textZone)
+    foreach ( $textZoneList as $idFile => $textZone )
     {
         echo '<tr>' . "\n"
         .    '<td >' . ( array_key_exists('desc', $textZone)
