@@ -685,7 +685,7 @@ class ClaroNotification extends EventDriven
                 .                           $ressource['ressource_id'] . ':'
                 .                           $ressource['date']
                 ;
-                $pattern = '/' . $keysStrings . preg_quote($ressourceId, '/') . '.*:' . $ressource['date'] . '/';
+                $pattern = '/' . $keysStrings . preg_quote($thisFile['path'], '/') . '.*:' . $ressource['date'] . '/';
 
                 if (!isset($_SESSION['ConsultedRessourceList'][$ressource_identification])
                 && preg_match($pattern,$ressource_identification))
