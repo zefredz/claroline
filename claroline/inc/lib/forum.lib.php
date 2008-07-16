@@ -676,7 +676,7 @@ function disp_mini_pager($url, $offsetParam, $total, $step, $pageMax = 3)
     $pageNum   = 1;
     $skip      = false;
 
-    if ( $total < $step      ) return; // no need to go further
+    if ( $total == 0 || $total < $step      ) return; // no need to go further
     if ( ! strpos($url, '?') ) $glue = '?';
     else                       $glue = '&amp;';
 
@@ -700,9 +700,14 @@ function disp_mini_pager($url, $offsetParam, $total, $step, $pageMax = 3)
         $pageNum++;
     }
 
-    if (count($pageList) > 0)
+    // no need to display it with only a page
+    if (count($pageList) > 1) 
     {
         echo '<small>(' . implode(', ', $pageList) . ')</small>';
+    }
+    else
+    {
+        echo '';
     }
 }
 
