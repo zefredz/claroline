@@ -168,6 +168,61 @@ function include_template( $template )
 }
 
 /**
+ * Include a textzone file
+ * @param   string $textzone name of the textzone
+ * @param   string $defaultContent content displayed if textzone cannot be found or doesn't exist
+ */
+function include_textzone( $textzone, $defaultContent = null )
+{
+    $textzone = secure_file_path( $textzone );
+    // find correct path where the file is
+    // FIXME : move ALL textzones to the same location !
+    if( file_exists( get_path('rootSys') . './platform/textzone/'.$textzone) )
+    {
+        $textzonePath = get_path('rootSys') . './platform/textzone/'.$textzone;
+    }
+    elseif( file_exists( get_path('rootSys') . './'.$textzone) )
+    {
+        $textzonePath = get_path('rootSys') . './'.$textzone;
+    }
+    else
+    {
+        $textzonePath = null;
+    }
+    
+    // textzone content
+    if ( !is_null( $textzonePath ) )
+    {
+        include $textzonePath;
+    }
+    else
+    {    
+        if( !is_null( $defaultContent) )
+        {
+            echo $defaultContent;
+        }
+        
+        if( claro_is_platform_admin() )
+        {
+            // help tip for administrator
+            echo '<p>'
+            .    get_lang('blockTextZoneHelp', array('%textZoneFile' => $textzone))
+            .    '</p>';
+        }
+    }
+    
+    // edit link
+    if( claro_is_platform_admin() )
+    {
+        echo '<p>' . "\n"
+        .    '<a href="claroline/admin/managing/editFile.php?cmd=rqEdit&amp;file='.$textzone.'">' . "\n"
+        .    '<img src="'.get_icon_url('edit').'" alt="" />' . get_lang('Edit text zone') . "\n"
+        .    '</a>' . "\n"
+        .    '</p>' . "\n";
+    }
+}
+
+/**
  * Include the link to a given css
  * @param name of the css without the complete path
  * @param css media
