@@ -173,7 +173,7 @@ if ( isset($_REQUEST['applyChange']) )
             else
             {
                 // Handle error
-                $dialBox->error(get_lang("Invalid file format, use gif, jpg or png"));
+                $dialogBox->error(get_lang("Invalid file format, use gif, jpg or png"));
             }
         }
         else
