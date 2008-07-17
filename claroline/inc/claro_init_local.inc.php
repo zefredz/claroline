@@ -406,7 +406,7 @@ else
 if ( !empty($_uid) ) // session data refresh requested && uid is given (log in succeeded)
 {
     FromKernel::uses ( 'kernel/user.lib' );
-    $currentUser = new ClaroCurrentUser;
+    $currentUser = new Claro_CurrentUser;
     
     // User login
     if ( $uidReset )
