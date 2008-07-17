@@ -44,7 +44,7 @@ claro_set_display_mode_available(TRUE);
 if (      isset( $_REQUEST['introCmd'] )
      && ( $_REQUEST['introCmd']== 'rqEd' || $_REQUEST['introCmd'] == 'rqAdd') )
 {
-    $introId = isset ($_REQUEST['introId']) ? $_REQUEST['introId'] : null;
+    $GLOBALS['introId'] = isset ($_REQUEST['introId']) ? $_REQUEST['introId'] : null;
     linker_init_session();
     if (claro_is_jpspan_enabled())
     {
@@ -66,14 +66,16 @@ if (claro_is_user_authenticated())
     $date = $claro_notifier->get_notification_date(claro_get_current_user_id());
     $modified_tools = $claro_notifier->get_notified_tools(claro_get_current_course_id(), $date, claro_get_current_user_id());
 }
-else $modified_tools = array();
+else
+{
+    $modified_tools = array();
+}
 
 /**
  * TOOL LIST
  */
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
-$disp_edit_command = $is_allowedToEdit;
 
 $toolList = claro_get_course_tool_list(claro_get_current_course_id(),$_profileId,true);
 $toolLinkList = array();
@@ -120,7 +122,7 @@ foreach ($toolList as $thisTool)
         $groups = $claro_notifier->get_notified_groups(claro_get_current_course_id(), $date);
         $classItem = ( ! empty($groups) ) ? ' hot ' : '';
     }
-
+    
     if ( ! empty($url) )
     {
         $toolLinkList[] = '<a '.$htmlId.'class="' . $style . 'item' . $classItem . '" href="' . $url . '">'
@@ -161,45 +163,12 @@ foreach ($toolList as $thisTool)
 
 // Display header
 
-include(get_path('incRepositorySys') . '/claro_init_header.inc.php');
+$template = new CoreTemplate('course_index.tpl.php');
+$template->assign('toolLinkList', $toolLinkList);
+$template->assign('courseManageToolLinkList', $courseManageToolLinkList);
 
-echo '<table border="0" cellspacing="10" cellpadding="10" width="100%">' . "\n"
-.    '<tr>' . "\n"
-.    '<td valign="top" style="border-right: gray solid 1px;" width="220">' . "\n"
-.    claro_html_menu_vertical_br($toolLinkList, array('id'=>'commonToolList'))
-.    '<br />'
-;
+$claroline->display->body->setContent($template->render());
 
-if ($disp_edit_command) echo claro_html_menu_vertical_br($courseManageToolLinkList,  array('id'=>'courseManageToolList'));
 
-if ( claro_is_user_authenticated() && !empty($modified_tools) )
-{
-    echo '<br /><small><span class="item hot"> '
-    .    get_lang('denotes new items')
-    .    '</span></small>'
-    ;
-}
-
-echo '</td>' . "\n"
-.    '<td width="20">' . "\n"
-.    '&nbsp;' . "\n"
-.    '</td>' . "\n"
-.    '<td valign="top">' . "\n"
-;
-
-/*----------------------------------------------------------------------------
-INTRODUCTION TEXT SECTION
-----------------------------------------------------------------------------*/
-// the module id for course_home equal -1 (course_home is not a tool in tool_list)
-
-$moduleId = -1;
-$helpAddIntroText = get_block('blockIntroCourse');
-include(get_path('incRepositorySys') . '/introductionSection.inc.php');
-
-echo '</td>' . "\n"
-.    '</tr>' . "\n"
-.    '</table>' . "\n"
-;
-
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+echo $claroline->display->render();
 ?>
