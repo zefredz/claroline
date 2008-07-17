@@ -14,32 +14,26 @@
  * @package     PACKAGE_NAME
  */
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
+FromKernel::uses ( 'kernel/object.lib', 'core/claroline.lib', 'database/database.lib' );
 
-FromKernel::uses ( 'kernel/object.lib' );
-
-class ClaroUser extends KernelObject
+class Claro_User extends KernelObject
 {
     protected $_userId;
     
     public function __construct( $userId )
     {
         $this->_userId = $userId;
-        // $this->load();
     }
     
     public function loadFromDatabase()
     {
         $tbl = claro_sql_get_main_tbl();
-        $tbl_tracking_event = $tbl['tracking_event'];
         
         $sqlUserId = (int) $this->_userId;
         
         $sql = "SELECT "
             . "`user`.`user_id` AS userId,\n"
+            // . "`user`.`username`,\n"
             . "`user`.`prenom` AS firstName,\n"
             . "`user`.`nom` AS lastName,\n"
             . "`user`.`email`AS `mail`,\n"
@@ -62,7 +56,7 @@ class ClaroUser extends KernelObject
             . "FROM `{$tbl['user']}` AS `user`\n"
             
             . ( get_conf('is_trackingEnabled')
-                ? "LEFT JOIN `".$tbl_tracking_event."` AS `tracking`\n"
+                ? "LEFT JOIN `{$tbl['tracking_event']}` AS `tracking`\n"
                 . "ON `user`.`user_id`  = `tracking`.`user_id`\n"
                 . "AND `tracking`.`type` = 'user_login'\n"
                 : '')
@@ -74,7 +68,7 @@ class ClaroUser extends KernelObject
                 : '')
             ;
 
-        $userData = claro_sql_query_get_single_row($sql);
+        $userData = Claroline::getDatabase()->query( $sql )->fetch();
         
         if ( ! $userData )
         {
@@ -87,15 +81,65 @@ class ClaroUser extends KernelObject
             
             $this->_rawData = $userData;
             pushClaroMessage( "User {$this->_userId} loaded from database", 'debug' );
+            
+            $this->loadUserProperties();
+        }
+    }
+    
+    public function loadUserProperties()
+    {
+        $tbl = claro_sql_get_main_tbl();
+        
+        $sqlUserId = (int) $this->_userId;
+        
+        $sql = "SELECT propertyId AS name, propertyValue AS value, scope\n"
+            . "FROM `{$tbl['user_property']}`\n"
+            . "WHERE userId = " . $sqlUserId
+            ;
+            
+            
+        $userProperties = Claroline::getDatabase()->query( $sql );
+        $userProperties->setFetchMode(Database_ResultSet::FETCH_OBJECT);
+        
+        $this->_rawData['userProperties'] = array();
+        
+        foreach ( $userProperties as $property )
+        {
+            if ( ! array_key_exists( $property->name, $this->_rawData['userProperties'] )
+                || ! is_array( $this->_rawData['userProperties'][$property->name] ) )
+            {
+                $this->_rawData['userProperties'][$property->name] = array();
+            }
+            
+            $this->_rawData['userProperties'][$property->name][$property->scope] = $property->value;
+        }
+    }
+    
+    public function getUserProperty( $name, $scope )
+    {
+        if ( array_key_exists( $name, $this->_rawData['userProperties'] )
+            && array_key_exists( $scope, $this->_rawData['userProperties'][$property->name] )
+        )
+        {
+            return $this->_rawData['userProperties'][$property->name][$property->scope];
+        }
+        else
+        {
+            return null;
         }
     }
 }
 
-class ClaroCurrentUser extends ClaroUser
+class Claro_CurrentUser extends Claro_User
 {
-    public function __construct()
+    public function __construct( $userId = null )
     {
-        parent::__construct( claro_get_current_user_id() );
+        $userId = empty( $userId )
+            ? claro_get_current_user_id()
+            : $userId
+            ;
+            
+        parent::__construct( $userId );
     }
     
     public function loadFromSession()
@@ -132,6 +176,27 @@ class ClaroCurrentUser extends ClaroUser
             
         pushClaroMessage( "Creator id updated for user {$this->_userId}", 'debug' );
     
-        return claro_sql_query($sql);
+        return Claroline::getDatabase()->exec($sql);
+    }
+    
+    protected static $instance = false;
+    
+    public static function getInstance( $uid = null )
+    {
+        if ( ! self::$instance )
+        {
+            self::$instance = new self( $uid );
+            
+            if ( claro_is_user_authenticated() )
+            {
+                self::$instance->loadFromSession();
+            }
+            else
+            {
+                self::$instance->loadFromDatabase();
+            }
+        }
+        
+        return self::$instance;
     }
 }
