@@ -217,7 +217,7 @@ function user_delete($userId)
 {
     require_once get_path('incRepositorySys') . '/lib/course_user.lib.php';
 
-    if ( $GLOBALS['_uid'] == $userId ) // user cannot remove himself of the platform
+    if ( claro_get_current_user_id() == $userId ) // user cannot remove himself of the platform
     {
         return claro_failure::set_failure('user_cannot_remove_himself');
     }
@@ -240,13 +240,12 @@ function user_delete($userId)
     else
     {
         foreach ($courseList['code'] as $k=>$courseCode) $log['course_' . $k] = $courseCode;
-        $claroline->log( 'UNROL_USER_COURS' , array_merge( array ('USER' => $userId ) ,$log));
+        Claroline::log( 'UNROL_USER_COURS' , array_merge( array ('USER' => $userId ) ,$log));
     }
     $sqlList = array(
 
     "DELETE FROM `" . $tbl['user']            . "` WHERE user_id         = " . (int) $userId ,
-    "DELETE FROM `" . $tbl['track_e_default'] . "` WHERE default_user_id = " . (int) $userId ,
-    "DELETE FROM `" . $tbl['track_e_login']   . "` WHERE login_user_id   = " . (int) $userId ,
+    "DELETE FROM `" . $tbl['tracking_event']   . "` WHERE user_id   = " . (int) $userId ,
     "DELETE FROM `" . $tbl['rel_class_user']  . "` WHERE user_id         = " . (int) $userId ,
     "DELETE FROM `" . $tbl['sso']             . "` WHERE user_id         = " . (int) $userId ,
 
@@ -254,7 +253,7 @@ function user_delete($userId)
     "UPDATE `" . $tbl['user'] . "` SET `creatorId` = NULL WHERE `creatorId` = " . (int) $userId
 
     );
-    $claroline->log( 'USER_DELETED' , array_merge( array ('USER' => $userId ) ));
+    Claroline::log( 'USER_DELETED' , array_merge( array ('USER' => $userId ) ));
 
     foreach($sqlList as $thisSql)
     {
