@@ -12,36 +12,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @author Claro Team <cvs@claroline.net>
  */
+global $introId;
+$GLOBALS['moduleId'] = -1;
 
-/*
- * The INTRODUCTION MICRO MODULE is used to insert and edit
- * an introduction section on a Claroline Module.
- * It can be inserted on any Claroline Module, provided a connection
- * to a course Database is already active.
- *
- * The introduction content are stored on a table called "introduction"
- * in the course Database. Each module introduction has an Id stored on
- * the table. It is this id that can make correspondance to a specific module.
- *
- * 'introduction' table description
- *   id : int
- *   texte_intro :text
- *
- *
- * usage :
- *
- * $moduleId = XX // specifying the module Id
- * include(moduleIntro.inc.php);
- */
-
-// New trable sructure for intro section v2
-//
-// CREATE TABLE `c_ctc01_tool_intro` (
-//   `id` int(11) NOT NULL auto_increment,
-//   `content` text,
-//   `rank` int(11) default NULL,
-//   PRIMARY KEY  (`id`)
-// ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
 
 
 require_once get_path('clarolineRepositorySys') . 'linker/linker.inc.php';
@@ -50,6 +23,7 @@ $tbl_cdb_names = claro_sql_get_course_tbl();
 $TBL_INTRODUCTION = $tbl_cdb_names['tool_intro'];
 
 $intro_editAllowed = claro_is_allowed_to_edit();
+
 
 
 if ( isset($_REQUEST['introCmd']) && $intro_editAllowed )
@@ -117,9 +91,9 @@ if ($intro_editAllowed)
 
            if ( claro_sql_query($sql) != false)
            {
-                 linker_update('CLINTRO_');
+                linker_update('CLINTRO_');
                 // notify that a new introsection has been posted
-                $eventNotifier->notifyCourseEvent('introsection_modified', claro_get_current_course_id(), claro_get_current_tool_id(), $moduleId, claro_get_current_group_id(), '0');
+                $claroline->notifier->notifyCourseEvent('introsection_modified', claro_get_current_course_id(), claro_get_current_tool_id(), $GLOBALS['moduleId'], claro_get_current_group_id(), '0');
            }
            else
            {
@@ -297,7 +271,7 @@ if ($intro_dispDefault)
     if ( $introListCount == 0 && $intro_editAllowed )
     {
         echo '<div class="HelpText">' . "\n"
-        .    $helpAddIntroText        . "\n"
+        .    get_block('blockIntroCourse') . "\n"
         .    '</div>'                 . "\n";
     }
     else
