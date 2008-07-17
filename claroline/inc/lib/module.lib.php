@@ -708,7 +708,7 @@ function get_activated_group_tool_label_list( $courseId )
                                     'group' );
 }
 
-function is_tool_activated_in_course( $toolId, $courseId )
+function is_tool_activated_in_course( $toolId, $courseIdReq )
 {
     $tbl_cdb_names        = claro_sql_get_course_tbl( claro_get_course_db_name_glued($courseIdReq) );
     $tbl_course_tool_list = $tbl_cdb_names['tool'];
