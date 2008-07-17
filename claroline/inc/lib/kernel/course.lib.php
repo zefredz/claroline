@@ -21,7 +21,7 @@ if ( count( get_included_files() ) == 1 )
 
 FromKernel::uses ( 'kernel/object.lib' );
 
-class ClaroCourse extends KernelObject
+class Claro_Course extends KernelObject
 {
     protected $_courseId;
     
@@ -31,18 +31,18 @@ class ClaroCourse extends KernelObject
         $this->load();
     }
     
-    protected function load()
+    protected function loadFromDatabase()
     {
         $this->_rawData = $this->loadCourseKernelData();
-        $this->_rawData['courseProperties'] = $this->loadCourseProperties();
-        $this->_rawData['groupProperties'] = $this->loadGroupProperties();
+        $this->loadCourseProperties();
+        $this->loadGroupProperties();
     }
     
     protected function loadCourseKernelData()
     {
         // get course data from main
         $tbl =  claro_sql_get_tbl(array('cours','faculte',));
-        // TODO : change table names to english !!!!
+        
         $tblCourse = $tbl['cours'];
         $tblCat = $tbl['faculte'];
         
@@ -99,10 +99,8 @@ class ClaroCourse extends KernelObject
         // get extra course properties
         $tbl = claro_sql_get_course_tbl( $this->_rawData['dbNameGlu'] );
         
-        $tblCourseProperties = $tbl['course_properties'];
-        
         $sql_getCourseProperties = "SELECT name, value\n"
-            . "FROM `{$tblCourseProperties}`\n"
+            . "FROM `{$tbl['course_properties']}`\n"
             . "WHERE category = 'MAIN'"
             ;
 
@@ -118,17 +116,15 @@ class ClaroCourse extends KernelObject
             }
         }
         
-        return $coursePropertyList;
+        $this->_rawData['courseProperties'] = $coursePropertyList;
     }
     
     protected function loadGroupProperties()
     {
         $tbl = claro_sql_get_course_tbl( $this->_rawData['dbNameGlu'] );
         
-        $tblCourseProperties = $tbl['course_properties'];
-        
         $sql_getGroupProperties = "SELECT name, value\n"
-            . "FROM `{$tblCourseProperties}`\n"
+            . "FROM `{$tbl['course_properties']}`\n"
             . "WHERE category = 'GROUP'"
             ;
 
@@ -168,21 +164,64 @@ class ClaroCourse extends KernelObject
                 $groupProperties ['tools'] [$groupTLabel] = false;
             }
         }
-
-        /*$groupProperties ['tools'] ['CLFRM'] =  (bool) ($groupProperties['CLFRM'] == 1);
-        unset ( $groupProperties['CLFRM'] );
-        $groupProperties ['tools'] ['CLDOC'] =  (bool) ($groupProperties['CLDOC'] == 1);
-        unset ( $groupProperties['CLDOC'] );
-        $groupProperties ['tools'] ['CLWIKI'] =  (bool) ($groupProperties['CLWIKI'] == 1);
-        unset ( $groupProperties['CLWIKI'] );
-        $groupProperties ['tools'] ['CLCHT'] =  (bool) ($groupProperties['CLCHT'] == 1);
-        unset ( $groupProperties['CLCHT'] );*/
         
-        return $groupProperties;
+        $this->_rawData['groupProperties'] = $groupProperties;
     }
     
     public function getGroupProperties()
     {
         return $this->_rawData['groupProperties'];
     }
-}  
+    
+    public function getCourseProperties()
+    {
+        return $this->_rawData['courseProperties'];
+    }
+    
+    public function __get( $nm )
+    {
+        if ( isset ( $this->_rawData[$nm] ) )
+        {
+            return $this->_rawData[$nm];
+        }
+        elseif ( isset ( $this->_rawData['courseProperties'][$nm] ) )
+        {
+            return $this->_rawData['courseProperties'][$nm];
+        }
+        else
+        {
+            return null;
+        }
+    }
+}
+
+class Claro_CurrentCourse extends Claro_Course
+{
+    public function __construct( $courseId = null )
+    {
+        $courseId = empty( $courseId )
+            ? claro_get_current_course_id()
+            : $courseId
+            ;
+            
+        parent::__construct( $courseId );
+    }
+    
+    public function loadFromSession()
+    {
+        if ( !empty($_SESSION['_course']) )
+        {
+            $this->_rawData = $_SESSION['_course'];
+            pushClaroMessage( "Course {$this->_courseId} loaded from session", 'debug' );
+        }
+        else
+        {
+            throw new Exception("Cannot load course data from session for {$this->_courseId}");
+        }
+    }
+    
+    public function saveToSession()
+    {
+        $_SESSION['_course'] = $this->_rawData;
+    }
+}
