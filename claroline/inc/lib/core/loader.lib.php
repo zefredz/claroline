@@ -60,11 +60,6 @@ class JavascriptLoader
     {
         $lib = secure_file_path( $lib );
         
-        if ( array_key_exists( $lib, $this->libraries ) )
-        {
-            return;
-        }
-        
         foreach ( $this->pathList as $tryPath => $tryUrl )
         {
             if ( claro_debug_mode() )
@@ -74,10 +69,15 @@ class JavascriptLoader
 
             if ( file_exists ( $tryPath . '/' . $lib . '.js' ) )
             {
+                if ( array_key_exists( $tryPath . '/' . $lib . '.js', $this->libraries ) )
+                {
+                    return false;
+                }
+                
                 if ( get_conf('javascriptCompression', true)
                     && file_exists( $tryUrl . '/' . $lib . '.min.js' )  )
                 {    
-                    $this->libraries[$lib] = $tryUrl . '/' . $lib . '.min.js';
+                    $this->libraries[$tryPath . '/' . $lib . '.js'] = $tryUrl . '/' . $lib . '.min.js';
                     
                     if ( claro_debug_mode() )
                     {
@@ -86,7 +86,7 @@ class JavascriptLoader
                 }
                 else
                 {
-                    $this->libraries[$lib] = $tryUrl . '/' . $lib . '.js';
+                    $this->libraries[$tryPath . '/' . $lib . '.js'] = $tryUrl . '/' . $lib . '.js';
                     
                     if ( claro_debug_mode() )
                     {
@@ -95,7 +95,7 @@ class JavascriptLoader
                 }
                 
                 ClaroHeader::getInstance()->addHtmlHeader(
-                    '<script src="'.$this->libraries[$lib].'" type="text/javascript"></script>'
+                    '<script src="'.$this->libraries[$tryPath . '/' . $lib . '.js'].'" type="text/javascript"></script>'
                 );
                 
                 return true;
@@ -108,6 +108,49 @@ class JavascriptLoader
         }
 
         return false;
+    }
+    
+    public function loadFromModule( $moduleLabel, $lib )
+    {
+        $lib = secure_file_path( $lib );
+        
+        if ( claro_debug_mode() )
+        {
+            pushClaroMessage(__Class__."::Try to find {$lib} in {$moduleLabel}", 'debug');
+        }
+        
+        $path = get_module_path( $moduleLabel ) . '/js/' . $lib . '.js';
+        $url = get_module_url( $moduleLabel ) . '/js/' . $lib . '.js';
+        
+        if ( file_exists( $path ) )
+        {
+            if ( array_key_exists( $path, $this->libraries ) )
+            {
+                return false;
+            }
+            
+            $this->libraries[$path] = $url;
+            
+            if ( claro_debug_mode() )
+            {
+                pushClaroMessage(__Class__."::Use {$path}::{$url}", 'debug');
+            }
+            
+            ClaroHeader::getInstance()->addHtmlHeader(
+                '<script src="'.$url.'" type="text/javascript"></script>'
+            );
+            
+            return true;
+        }
+        else
+        {
+            if ( claro_debug_mode() )
+            {
+                pushClaroMessage(__Class__."::Cannot found {$lib} in {$moduleLabel}", 'error');
+            }
+            
+            return false;
+        }
     }
 
     public static function getInstance()
@@ -157,11 +200,6 @@ class CssLoader
     public function load( $css, $media = 'all' )
     {
         $css = secure_file_path( $css );
-        
-        if ( array_key_exists( $css, $this->css ) )
-        {
-            return;
-        }
 
         foreach ( $this->pathList as $tryPath => $tryUrl )
         {
@@ -172,20 +210,25 @@ class CssLoader
 
             if ( file_exists ( $tryPath . '/' . $css . '.css' ) )
             {
+                if ( array_key_exists( $tryPath . '/' . $css . '.css', $this->css ) )
+                {
+                    return false;
+                }
+                
                 if ( claro_debug_mode() )
                 {
                     pushClaroMessage(__Class__."::Use ".$tryPath.'/'.$css.'.css', 'debug');
                 }
 
-                $this->css[$css] = array(
+                $this->css[$tryPath . '/' . $css . '.css'] = array(
                     'url' => $tryUrl . '/' . $css . '.css',
                     'media' => $media
                 );
                 
                 ClaroHeader::getInstance()->addHtmlHeader(
                     '<link rel="stylesheet" type="text/css"'
-                    . ' href="'. $this->css[$css]['url'].'"'
-                    . ' media="'.$this->css[$css]['media'].'" />'
+                    . ' href="'. $this->css[$tryPath . '/' . $css . '.css']['url'].'"'
+                    . ' media="'.$this->css[$tryPath . '/' . $css . '.css']['media'].'" />'
                 );
 
                 return true;
@@ -199,6 +242,54 @@ class CssLoader
         }
 
         return false;
+    }
+    
+    public function loadFromModule( $moduleLabel, $lib, $media = 'all' )
+    {
+        $lib = secure_file_path( $lib );
+        
+        if ( claro_debug_mode() )
+        {
+            pushClaroMessage(__Class__."::Try to find {$lib} in {$moduleLabel}", 'debug');
+        }
+        
+        $path = get_module_path( $moduleLabel ) . '/css/' . $lib . '.css';
+        $url = get_module_url( $moduleLabel ) . '/css/' . $lib . '.css';
+        
+        if ( file_exists( $path ) )
+        {
+            if ( array_key_exists( $path, $this->css ) )
+            {
+                return false;
+            }
+            
+            $this->css[$path] = array(
+                'url' => $url,
+                'media' => $media
+            );
+            
+            if ( claro_debug_mode() )
+            {
+                pushClaroMessage(__Class__."::Use {$path}::{$url}", 'debug');
+            }
+            
+            ClaroHeader::getInstance()->addHtmlHeader(
+                '<link rel="stylesheet" type="text/css"'
+                . ' href="'. $url.'"'
+                . ' media="'.$media.'" />'
+            );
+            
+            return true;
+        }
+        else
+        {
+            if ( claro_debug_mode() )
+            {
+                pushClaroMessage(__Class__."::Cannot found {$lib} in {$moduleLabel}", 'error');
+            }
+            
+            return false;
+        }
     }
 
     public static function getInstance()
