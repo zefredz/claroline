@@ -408,7 +408,7 @@ class PearAuthDriver extends AbstractAuthDriver
             // to return attributes to a format compatible with the attribute
             // format of the other AUTH containers
 
-            $this->authOptionList ['attrformat'] = 'AUTH';
+            $this->extAuthOptionList ['attrformat'] = 'AUTH';
         }
         
         require_once 'Auth/Auth.php';
@@ -433,22 +433,9 @@ class PearAuthDriver extends AbstractAuthDriver
 
         foreach($this->extAuthAttribNameList as $claroAttribName => $extAuthAttribName)
         {
-            // FIXME issue with the attrmode
             if ( ! is_null($extAuthAttribName) )
             {
-                $attributes = $this->auth->getAuthData('attributes');
-                
-                if ( $this->authType == 'LDAP' && !is_null( $attributes ) )
-                {
-                    if ( isset ( $attributes[$extAuthAttribName] ) )
-                    {
-                        $userAttrList[$claroAttribName] = $attributes[$extAuthAttribName][0];
-                    }
-                }
-                else
-                {
-                    $userAttrList[$claroAttribName] = $this->auth->getAuthData($extAuthAttribName);
-                }
+                $userAttrList[$claroAttribName] = $this->auth->getAuthData($extAuthAttribName);
             }
         }
         
