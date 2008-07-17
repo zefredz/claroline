@@ -36,6 +36,8 @@
  * @package     database
  */
 
+FromKernel::uses('database/pager.lib');
+
 /**
  * Database Specific Exception
  */
@@ -68,10 +70,17 @@ interface Database_Connection
     
     /**
      * Execute a query and returns the result set
-     * @return  Mysql_ResultSet
+     * @return  Database_ResultSet
      * @throws  Database_Connection_Exception
      */
     public function query( $sql );
+    
+    /**
+     * Get a pager for the query
+     * @return  Database_Pager
+     * @throws  Database_Connection_Exception
+     */
+    public function pager( $sql );
     
     /**
      * Returns the number of rows affected by the last query
@@ -239,6 +248,21 @@ class Mysql_Database_Connection implements Database_Connection
     /**
      * @see Database_Connection
      */
+    public function pager( $sql )
+    {
+        if ( ! $this->isConnected() )
+        {
+            throw new Database_Connection_Exception("No connection found to database server, please connect first");
+        }
+        
+        $pager = new Mysql_Pager( $sql, $this );
+        
+        return $pager;
+    }
+    
+    /**
+     * @see Database_Connection
+     */
     public function escape( $str )
     {
         return mysql_real_escape_string( $str, $this->dbLink );
@@ -319,6 +343,21 @@ class Claroline_Database_Connection implements Database_Connection
         $tmp = new Mysql_ResultSet( $result );
         
         return $tmp;
+    }
+    
+    /**
+     * @see Database_Connection
+     */
+    public function pager( $sql )
+    {
+        if ( ! $this->isConnected() )
+        {
+            throw new Database_Connection_Exception("No connection found to database server, please connect first");
+        }
+        
+        $pager = new Mysql_Pager( $sql, $this );
+        
+        return $pager;
     }
     
     /**
@@ -482,18 +521,18 @@ class Mysql_ResultSet implements Database_ResultSet
         
         if ( $mode == self::FETCH_OBJECT )
         {
-            return mysql_fetch_object( $this->resultSet );
+            return @mysql_fetch_object( $this->resultSet );
         }
         elseif ( $mode == self::FETCH_VALUE )
         {
-            $res = mysql_fetch_array( $this->resultSet, self::FETCH_NUM );
+            $res = @mysql_fetch_array( $this->resultSet, self::FETCH_NUM );
             
             // use side effect of the [] operator : will return null if !$res
             return $res[0];
         }
         else
         {
-            return mysql_fetch_array( $this->resultSet, $mode );
+            return @mysql_fetch_array( $this->resultSet, $mode );
         }
     }
     
