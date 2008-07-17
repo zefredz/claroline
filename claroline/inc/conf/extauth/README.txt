@@ -123,5 +123,5 @@ parameters of an existing driver, do not edit this one
 
 For more information : http://forum.claroline.net
 
-Created by Hugues Peeters <peeters@ipm.ucl.ac.be>
-New system written and maintaned by Frederic Minne <zefredz@claroline.net>
+Originaly created by Hugues Peeters <peeters@ipm.ucl.ac.be>
+New system written and maintained by the Claroline Team <info@claroline.net>
