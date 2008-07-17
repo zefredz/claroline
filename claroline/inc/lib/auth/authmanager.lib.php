@@ -145,6 +145,7 @@ class AuthDriverManager
         
         if ( ! file_exists ( get_path('rootSys') . 'platform/conf/extauth' ) )
         {
+            FromKernel::uses('fileManage.lib');
             claro_mkdir(get_path('rootSys') . 'platform/conf/extauth', CLARO_FILE_PERMISSIONS, true );
         }
         
