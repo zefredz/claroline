@@ -56,7 +56,11 @@ $driverConfig['extAuthAttribNameList'] = array(
     'status'       => 'statut'
 );
 
-$driver['extAuthAttribTreatmentList'] = array (
+$driverConfig['extAuthAttribTreatmentList'] = array (
     'status' => 'manage_user_status_from_spip_to_claroline'
+);
+
+$driverConfig['extAuthAttribToIgnore'] = array(
+    'isCourseCreator'
 );
 ?>
