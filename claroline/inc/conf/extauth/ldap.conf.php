@@ -32,7 +32,7 @@ $driverConfig['extAuthOptionList'] = array(
     'useroc' => 'person',
     'attributes' => array('sn','givenName','telephoneNumber','mail'),
     'attrformat' => 'AUTH_LDAP_ATTR_AUTH_STYLE',
-    //'debug' = true
+    //'debug' => true
 );
 
 $driverConfig['extAuthAttribNameList'] = array(
