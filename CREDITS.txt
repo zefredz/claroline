@@ -1,5 +1,5 @@
 *******************************************************************************
-                            CLAROLINE 1.8 - CREDITS
+                            CLAROLINE 1.9 - CREDITS
 *******************************************************************************
 
 The Claroline project was initiated in 2000 at the Catholic University of
@@ -9,22 +9,27 @@ financially supported by the Louvain Foundation.
 Since 2004, the main code of Claroline is co-developed with CERDECAM, research
 center of ECAM (Engineering higher school - Belgium).
 
-Claroline Core Team :           Hugues Peeters     (peeters@ipm.ucl.ac.be)
-                                Christophe Gesché  (gesche@ipm.ucl.ac.be) aka Moosh
-                                Frédéric Minne     (minne@ipm.ucl.ac.be) aka ZeFredz
-
+Claroline Core Team :           Frédéric Minne     (frederic.minne@uclouvain.be) aka ZeFredz
+                                Sebastien Piraux   (sebastien.piraux@uclouvain.be)
+                                Grégory Koch       (gregory.koch@uclouvain.be)
+                                
 Team from Cerdecam :            Philippe Dekimpe (dkp@ecam.be)
-http://www.cerdecam.be          Mathieu Laurent (laurent@cerdecam.be)
-                                Nicolas Leblanc (leblanc@cerdecam.be)
-                                Guillaume Lederer (lederer@cerdecam.be)
-                                Sebastien Piraux (piraux@cerdecam.be)
+http://www.cerdecam.be
+
+Active contributors :           Christophe Gesché  (gesche@ipm.ucl.ac.be) aka Moosh
+                                Marina Zelwer      (marina.zelwer@univ-st-etienne.fr)
+
+Former developers :             Hugues Peeters     (peeters@ipm.ucl.ac.be)
+                                Mathieu Laurent    (laurent@cerdecam.be)
+                                Nicolas Leblanc    (leblanc@cerdecam.be)
+                                Guillaume Lederer  (lederer@cerdecam.be)
                                 Aurelien Van Hamme (vanhamme@cerdecam.be)
-
-
 
 ------------------------------------------------------------------------------
                           SPECIFIC CODE CONTRIBUTIONS
 ------------------------------------------------------------------------------
+
+Internal Messaging :            Christophe Mertens (thetotof@gmail.com)
 
 Linker feature :                Renaud Fallier (captren@gmail.com)
 
@@ -128,6 +133,7 @@ Greek translation:              Costas Tsibanis (costas@noc.uoa.gr)
                                                     http://www.image.ece.ntua.gr/
 
 Hungarian translation :         Balázs Györök (gyorok.balazs@vgszi.szie.hu)
+                                Maxigas <maxigas@anargeek.net>
 
 Italian translation :           Maurizio Guercio  (mguercio@libero.it),
                                 Furio Petrossi  (Furio.Petrossi@scuolefvg.org)
@@ -160,6 +166,7 @@ Spanish translation :           Xavier Casassas (xcc@mail.ics.co.at)
                                 Gerardo Albela Gonzalez (galbela@uvigo.es)
 
 Spanish_Latin :                 Carlos Brys (brys@fce.unam.edu.ar)
+                                Mario Augusto Mendez Secaira <mendezsecaira@galileo.edu>
 
 Thaï translation :              Sutas Jitchuen (dtsjc@mucc.mahidol.ac.th)
 
@@ -181,6 +188,10 @@ Claroline Documentation :       Andrew Lynn (alynn@strathclyde.ac.be)
 Zone-H Team :                   Deepfear
                                 Netcraft
                                 Siegfried
+
+Digital Security Research Group [DSecRG] : http://www.dsec.ru
+
+Fernando Munoz on the Claroline.net forum
 
 =========================================================================
                 Europe, Belgium, Louvain-la-Neuve - August 28 2006
