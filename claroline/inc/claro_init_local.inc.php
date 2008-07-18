@@ -311,24 +311,24 @@ else
 
 if ( !empty($_uid) ) // session data refresh requested && uid is given (log in succeeded)
 {
-    if ( !$currentUser )
+    try
     {
-        $currentUser = Claro_CurrentUser::getInstance($_uid);
-    }
-    
-    // User login
-    if ( $uidReset )
-    {
-        // Update the current session id with a newly generated one ( PHP >= 4.3.2 )
-        // This function is vital in preventing session fixation attacks
-        // function_exists('session_regenerate_id') && session_regenerate_id();
-    
-        $cidReset = true;
-        $gidReset = true;
-        
-        try
+        if ( !$currentUser )
         {
-            // $currentUser->loadFromDatabase();
+            $currentUser = Claro_CurrentUser::getInstance($_uid);
+        }
+        
+        // User login
+        if ( $uidReset )
+        {
+            // Update the current session id with a newly generated one ( PHP >= 4.3.2 )
+            // This function is vital in preventing session fixation attacks
+            // function_exists('session_regenerate_id') && session_regenerate_id();
+        
+            $cidReset = true;
+            $gidReset = true;
+            
+            $currentUser->loadFromDatabase();
             $_user = $currentUser->getRawData();
     
             // Extracting the user data
@@ -357,23 +357,23 @@ if ( !empty($_uid) ) // session data refresh requested && uid is given (log in s
                 $boolCookie = SingleSignOnCookie::setForUser( $currentUser->userId );
             } // end if ssoEnabled
         }
-        catch ( Exception $e )
+        // User in session
+        else
         {
-            exit('WARNING UNDEFINED UID !! The requested user doesn\'t exist ');
+            try
+            {
+                $currentUser->loadFromSession();
+                $_user = $currentUser->getRawData();
+            }
+            catch ( Exception $e )
+            {
+                $_user = null;
+            }
         }
     }
-    // User in session
-    else
+    catch ( Exception $e )
     {
-        try
-        {
-            $currentUser->loadFromSession();
-            $_user = $currentUser->getRawData();
-        }
-        catch ( Exception $e )
-        {
-            $_user = null;
-        }
+        exit('WARNING UNDEFINED UID !! The requested user doesn\'t exist ');
     }
 }
 else
