@@ -287,14 +287,23 @@ else
     {
         $claro_loginRequested = true;
         
-        if ( $currentUser = AuthManager::authenticate($login, $password) )
+        try
         {
-            $_uid = (int)$currentUser->userId;
-            $uidReset = true;
-            $claro_loginSucceeded = true;
+            if ( $currentUser = AuthManager::authenticate($login, $password) )
+            {
+                $_uid = (int)$currentUser->userId;
+                $uidReset = true;
+                $claro_loginSucceeded = true;
+            }
+            else
+            {
+                $_uid = null;
+                $claro_loginSucceeded = false;
+            }
         }
-        else
+        catch (Exception $e)
         {
+            Console::error("Cannot authenticate user : " . $e->__toString());
             $_uid = null;
             $claro_loginSucceeded = false;
         }
