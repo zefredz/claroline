@@ -759,8 +759,14 @@ function user_validate_form($formMode, $data, $userId = null)
         $validator->addRule('username'     , get_lang('This user name is already taken'), 'is_username_available', $userId);
     }
 
-    if ( $validator->validate() ) return array();
-    else return array_unique($validator->getErrorList());
+    if ( $validator->validate() )
+    {
+        return array();
+    }
+    else
+    {
+        return array_unique($validator->getErrorList());
+    }
 }
 
 /**
@@ -775,92 +781,22 @@ function user_validate_form($formMode, $data, $userId = null)
  */
 function user_check_authentication( $password, $login )
 {
-        $claro_loginSucceeded = false;
-        
-        $tbl_mdb_names = claro_sql_get_main_tbl();
-        $tbl_user = $tbl_mdb_names['user'           ];
-        
-        $sql = 'SELECT user_id, username, password, authSource
-                FROM `' . $tbl_user . '`
-                WHERE '
-             . ( get_conf('claro_authUsernameCaseSensitive',true) ? 'BINARY' : '')
-             . ' username = "'. addslashes($login) .'"'
-             ;
-
-        $result = claro_sql_query($sql);
-
-        if ( mysql_num_rows($result) > 0)
+    try
+    {
+        if ( false !== AuthManager::authenticate( $login, $password ) )
         {
-            while ( ( $uData = mysql_fetch_array($result) ) && ! $claro_loginSucceeded )
-            {
-                if ( $uData['authSource'] == 'claroline' )
-                {
-                    // the authentification of this user is managed by claroline itself
-
-                    // determine first if the password needs to be crypted before checkin
-                    // $userPasswordCrypted is set in main configuration file
-
-                    if ( get_conf('userPasswordCrypted',false) ) $password = md5($password);
-
-                    // check the user's password
-                    if ( $password == $uData['password'] )
-                    {
-                        $claro_loginSucceeded = true;
-                    }
-                    else // abnormal login -> login failed
-                    {
-                        $claro_loginSucceeded = false;
-                    }
-                }
-                else // no standard claroline login - try external authentification
-                {
-                    /*
-                     * Process external authentication
-                     * on the basis of the given login name
-                     */
-
-                    $key = $uData['authSource'];
-
-                    $_uid = include_once($extAuthSource[$key]['login']);
-
-                    if ( $_uid !== true && $_uid > 0 )
-                    {
-                        $claro_loginSucceeded = true;
-                    }
-                    else
-                    {
-                        $claro_loginSucceeded = false;
-                    }
-                } // end try external authentication
-            } // end while
+            return true;
         }
-        /*else // login failed, mysql_num_rows($result) <= 0
+        else
         {
-            $claro_loginSucceeded = false;
-
-            if (isset($extAuthSource) && is_array($extAuthSource))
-            {
-                foreach($extAuthSource as $thisAuthSource)
-                {
-                    $_uid = include_once($thisAuthSource['newUser']);
-
-                    if ( $_uid !== true && $_uid > 0 )
-                    {
-                        $claro_loginSucceeded = true;
-                        break;
-                    }
-                    else
-                    {
-                        $claro_loginSucceeded = false;
-                    }
-                }
-            } //end if is_array($extAuthSource)
-
-        } //end else login failed*/
-        
-        // var_dump($claro_loginSucceeded);
-        
-        return $claro_loginSucceeded;
+            return false;
+        }
+    }
+    catch (Exception $e)
+    {
+        Console::error("Cannot authentified user : " . $e->__toString());
+        return false;
+    }
 }
 
 /**
