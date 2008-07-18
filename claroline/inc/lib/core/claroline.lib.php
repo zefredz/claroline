@@ -175,4 +175,52 @@ class Claroline
     {
         self::getInstance()->logger->log($type, $data);
     }
+    
+    protected static $db = false;
+    
+    public static function initMainDatabase()
+    {
+        if ( self::$db )
+        {
+            return;
+        }
+        
+        if ( ! defined('CLIENT_FOUND_ROWS') ) define('CLIENT_FOUND_ROWS', 2);
+        // NOTE. For some reasons, this flag is not always defined in PHP.
+        
+        self::$db = @mysql_connect(
+            get_conf('dbHost'),
+            get_conf('dbLogin'),
+            get_conf('dbPass'),
+            false,
+            CLIENT_FOUND_ROWS );
+        
+        if ( ! self::$db )
+        {
+            throw new Exception ( 'FATAL ERROR ! SYSTEM UNABLE TO CONNECT TO THE DATABASE SERVER.' );
+        }
+        
+        // NOTE. CLIENT_FOUND_ROWS is required to make claro_sql_query_affected_rows()
+        // work properly. When using UPDATE, MySQL will not update columns where the new
+        // value is the same as the old value. This creates the possiblity that
+        // mysql_affected_rows() may not actually equal the number of rows matched,
+        // only the number of rows that were literally affected by the query.
+        // But this behavior can be changed by setting the CLIENT_FOUND_ROWS flag in
+        // mysql_connect(). mysql_affected_rows() will return then the number of rows
+        // matched, even if none are updated.
+        
+        
+        
+        $selectResult = mysql_select_db( get_conf('mainDbName'), self::$db);
+        
+        if ( ! $selectResult )
+        {
+            throw new Exception ( 'FATAL ERROR ! SYSTEM UNABLE TO SELECT THE MAIN CLAROLINE DATABASE.' );
+        }
+        
+        if ($GLOBALS['statsDbName'] == '')
+        {
+            $GLOBALS['statsDbName'] = get_conf('mainDbName');
+        }
+    }
 }

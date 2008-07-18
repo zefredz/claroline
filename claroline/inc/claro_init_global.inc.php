@@ -144,34 +144,18 @@ claro_unquote_gpc();
   Connect to the server database and select the main claroline DB
   ----------------------------------------------------------------------*/
 
+FromKernel::uses('core/claroline.lib');
 
-if ( ! defined('CLIENT_FOUND_ROWS') ) define('CLIENT_FOUND_ROWS', 2);
-// NOTE. For some reasons, this flag is not always defined in PHP.
-
-$db = @mysql_connect($dbHost, $dbLogin, $dbPass, false, CLIENT_FOUND_ROWS)
-or die ('<center>'
-       .'WARNING ! SYSTEM UNABLE TO CONNECT TO THE DATABASE SERVER.'
-       .'</center>');
-
-// NOTE. CLIENT_FOUND_ROWS is required to make claro_sql_query_affected_rows()
-// work properly. When using UPDATE, MySQL will not update columns where the new
-// value is the same as the old value. This creates the possiblity that
-// mysql_affected_rows() may not actually equal the number of rows matched,
-// only the number of rows that were literally affected by the query.
-// But this behavior can be changed by setting the CLIENT_FOUND_ROWS flag in
-// mysql_connect(). mysql_affected_rows() will return then the number of rows
-// matched, even if none are updated.
-
-
-
-$selectResult = mysql_select_db($mainDbName,$db)
-or die ( '<center>'
-        .'WARNING ! SYSTEM UNABLE TO SELECT THE MAIN CLAROLINE DATABASE.'
-        .'</center>');
-
-if ($statsDbName == '')
+try
 {
-    $statsDbName = $mainDbName;
+    Claroline::initMainDatabase();
+}
+catch ( Exception $e )
+{
+    Console::error( $e->__toString() );
+    die ('<center>'
+        .$e->getMessage()
+        .'</center>');
 }
 
 /*----------------------------------------------------------------------
@@ -180,10 +164,7 @@ if ($statsDbName == '')
 
 require get_path('incRepositorySys') . '/claro_init_local.inc.php';
 
-FromKernel::uses('core/claroline.lib');
-
 $claroline = Claroline::getInstance();
-
 
 if ( isset( $tlabelReq ) && !empty( $tlabelReq ) )
 {
