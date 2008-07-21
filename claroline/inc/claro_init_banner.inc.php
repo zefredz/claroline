@@ -318,7 +318,7 @@ if( claro_is_in_a_course() || isset($nameTools) || ( isset($interbredcrump) && i
             {
                 // set Query string to empty if not exists
                 if (!isset($_SERVER['QUERY_STRING'])) $_SERVER['QUERY_STRING'] = '';
-                $breadcrumbUrlList[] = $_SERVER['PHP_SELF'] .'?'. $_SERVER['QUERY_STRING'];
+                $breadcrumbUrlList[] = $_SERVER['PHP_SELF'] .'?'. htmlspecialchars(strip_tags($_SERVER['QUERY_STRING']));
             }
         }
 
