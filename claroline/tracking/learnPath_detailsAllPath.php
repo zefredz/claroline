@@ -108,7 +108,7 @@ if ( get_conf('is_trackingEnabled') )
         {
             $total = round($globalprog/($iterator-1));
             echo '<tr>'."\n"
-                .'<td><a href="'.get_path('clarolineRepositoryWeb').'tracking/userReport.php?uInfo='.$user['user_id'].'&amp;view=0010000">'.$user['nom'].' '.$user['prenom'].'</a></td>'."\n"
+                .'<td><a href="'.get_path('clarolineRepositoryWeb').'tracking/userReport.php?userId='.$user['user_id'].'">'.$user['nom'].' '.$user['prenom'].'</a></td>'."\n"
                 .'<td align="right">'
                 .claro_html_progress_bar($total, 1)
                 .'</td>'."\n"
