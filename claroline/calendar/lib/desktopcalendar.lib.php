@@ -222,6 +222,7 @@ var UserDesktopCalendar = {
             }
             $htmlStream .= '</tr>' . "\n\n";
         }
+        
         $htmlStream .= '</table>';
         
         return $htmlStream;
