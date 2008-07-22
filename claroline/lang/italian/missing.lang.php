@@ -49,7 +49,6 @@ $_lang['Course Administrator'] = 'Course Administrator';
 $_lang['Course Title is'] = 'Course Title is';
 $_lang['Course code case'] = 'Course code case';
 $_lang['Course email is'] = 'Course email is';
-$_lang['Course main settings'] = 'Course main settings';
 $_lang['Course member (the user is actually enrolled in the course)'] = 'Course member (the user is actually enrolled in the course)';
 $_lang['Course options'] = 'Course options';
 $_lang['Course tools'] = 'Course tools';
@@ -90,7 +89,6 @@ $_lang['Don\'t display email of the users to anonymous (to avoid spam)'] = 'Don\
 $_lang['E-mail'] = 'E-mail';
 $_lang['Edit text zones'] = 'Edit text zones';
 $_lang['Edition allowed'] = 'Edition allowed';
-$_lang['Editor'] = 'Editor';
 $_lang['Email is'] = 'Email is';
 $_lang['Enable CAS system'] = 'Enable CAS system';
 $_lang['Enable IMS-QTI Export'] = 'Enable IMS-QTI Export';
@@ -139,7 +137,6 @@ $_lang['Image Viewer'] = 'Image Viewer';
 $_lang['Import failed'] = 'Import failed';
 $_lang['Imported exercises must be an ims-qti zip file.'] = 'Imported exercises must be an ims-qti zip file.';
 $_lang['In iCal, an event have a duration, but not in claroline. 3600 = 1 Hour.'] = 'In iCal, an event have a duration, but not in claroline. 3600 = 1 Hour.';
-$_lang['Increase the security of file download. This option only works on Apache Server. To be really secure, this option have to be completed by an .htaccess file on the course folders.'] = 'Increase the security of file download. This option only works on Apache Server. To be really secure, this option have to be completed by an .htaccess file on the course folders.';
 $_lang['Information about your platform and your organisation'] = 'Information about your platform and your organisation';
 $_lang['Invalid answer'] = 'Invalid answer';
 $_lang['Invalid question'] = 'Invalid question';
@@ -224,7 +221,6 @@ $_lang['Prefix for main table names'] = 'Prefix for main table names';
 $_lang['Prefix for tracking table names'] = 'Prefix for tracking table names';
 $_lang['Preview : %textZone'] = 'Preview : %textZone';
 $_lang['Previous page'] = 'Previous page';
-$_lang['Private&nbsp+ New Registration allowed'] = 'Private&nbsp+ New Registration allowed';
 $_lang['Production'] = 'Production';
 $_lang['Profile SQL'] = 'Profile SQL';
 $_lang['Profile SQL in DEBUG MODE.
@@ -232,8 +228,6 @@ Display for each request :duration, counter,  statement '] = 'Profile SQL in DEB
 Display for each request :duration, counter,  statement';
 $_lang['Profile form'] = 'Profile form';
 $_lang['Profile list'] = 'Profile list';
-$_lang['Public&nbsp;&nbsp;+ New Registration allowed'] = 'Public&nbsp;&nbsp;+ New Registration allowed';
-$_lang['Public&nbsp;&nbsp;+ New Registration denied'] = 'Public&nbsp;&nbsp;+ New Registration denied';
 $_lang['Quota for courses'] = 'Quota for courses';
 $_lang['Quota for groups'] = 'Quota for groups';
 $_lang['Refresh time'] = 'Refresh time';
@@ -255,11 +249,9 @@ $_lang['SSO cookie name'] = 'SSO cookie name';
 $_lang['SSO cookie path'] = 'SSO cookie path';
 $_lang['SSO cookie period validity'] = 'SSO cookie period validity';
 $_lang['SSO settings'] = 'SSO settings';
-$_lang['Secure document download'] = 'Secure document download';
 $_lang['Session lost warning'] = 'Session lost warning';
 $_lang['Set the Cascading Style Sheet (CSS) layout.'] = 'Set the Cascading Style Sheet (CSS) layout.';
 $_lang['Set the default language of the platform. It doesn\'t prevent course managers to set an other language for each course they create.'] = 'Set the default language of the platform. It doesn\'t prevent course managers to set an other language for each course they create.';
-$_lang['Set the editor that will replace standard html textarea.'] = 'Set the editor that will replace standard html textarea.';
 $_lang['Sets how the assignment property "default works visibility" acts.  It will change the visibility of all the new submissions or it will change the visibility of all submissions already done in the assignment and the new one. '] = 'Sets how the assignment property "default works visibility" acts.  It will change the visibility of all the new submissions or it will change the visibility of all submissions already done in the assignment and the new one.';
 $_lang['Sets if user can see only his own submissions (or those from his groups) or if he can see every visible submission.'] = 'Sets if user can see only his own submissions (or those from his groups) or if he can see every visible submission.';
 $_lang['Settings for tutors of group'] = 'Settings for tutors of group';
@@ -300,6 +292,7 @@ This option allow only to request it, and don\'t prework the answer
 '] = 'This option insert a command in the user profile form to request the removal of the user from the platform.  This request is sent by e-mail to platform administrator.
 This option allow only to request it, and don\'t prework the answer
 ';
+$_lang['This password is too simple or too close to the username, first name or last name.<br> Use a password like this <code>%passProposed</code>'] = 'This password is too simple or too close to the username, first name or last name.<br> Use a password like this <code>%passProposed</code>';
 $_lang['This prefix could allow to order more easily the tables / DB in the user interface of your server technical back office  '] = 'This prefix could allow to order more easily the tables / DB in the user interface of your server technical back office';
 $_lang['This renderer is used for TEX/LaTEX expressions. It is available into the \'claroline/inc/lib/\' directory and has to be copied on a server location where CGI programs are expected.'] = 'This renderer is used for TEX/LaTEX expressions. It is available into the \'claroline/inc/lib/\' directory and has to be copied on a server location where CGI programs are expected.';
 $_lang['This zone is empty'] = 'This zone is empty';
@@ -320,6 +313,7 @@ Production: each script use its own language file.';
 $_lang['Tutors'] = 'Tutors';
 $_lang['Tutors can subscribe to a group as a simple member'] = 'Tutors can subscribe to a group as a simple member';
 $_lang['URL trail'] = 'URL trail';
+$_lang['Unable to copy file : %filename'] = 'Unable to copy file : %filename';
 $_lang['Unable to create course database'] = 'Unable to create course database';
 $_lang['Unable to create file %file'] = 'Unable to create file %file';
 $_lang['Unable to create folder %folder'] = 'Unable to create folder %folder';

@@ -16,7 +16,6 @@ $_lang['Claroline help'] = 'เริ่มต้น หน้าช่วยเ
 $_lang['Close'] = 'ປິດໜ້ານີ້';
 $_lang['Comment'] = 'ຄຳອະທິບາຍເພີ່ມເຕີມ';
 $_lang['Confirmation'] = 'ຢືນຢັນລະຫັດຜ່ານ';
-$_lang['Copy'] = 'ຍ້າຍ';
 $_lang['Course code'] = 'ລະຫັດວິຊາ';
 $_lang['Course title'] = 'ຊື່ວິຊາ';
 $_lang['Create a course website'] = 'ສ້າງລາຍວິຊາ';
@@ -79,14 +78,12 @@ $_lang['Unregister'] = 'ຖອນການລົງທະບຽນ';
 $_lang['Up'] = 'ຂຶ້ນ';
 $_lang['Username'] = 'ຊື່ຜູ້ໃຊ້';
 $_lang['Users help'] = 'ระบบช่วยเหลือ \'Users\'';
-$_lang['Visibility modified'] = 'ປັບປຸງການໃຫ້ເຫັນເອກສານແລ້ວ';
 $_lang['Yes'] = 'ແມ່ນແລ້ວ';
 $_lang['You cannot post an empty message'] = 'ເຈົ້າຕ້ອງພິມຂໍ້ຄວາມ ເຈົ້າບໍສາມາດສົ່ງຂໍ້ຄວາມເປົ່າໄດ້';
 $_lang['You didnt choose any file to send, or it is too big'] = 'ທ່ານບໍ່ໄດ້ເລືອກໄຟລ໌ ໃດເພື່ອສົ່ງຫຼືໄຟລ໌ມີຂະໜາດໃຫຍ່ເກີນໄປ';
 $_lang['You left some required fields empty'] = 'ທ່ານປ່ອຍໃຫ້ບາງຊ່ອງໄວ້ຫວ່າງເປົ່າ ຄລິກປຸ່ມກັບຄືນ ແລ້ວລອງໃຫມ່ອີກເທື່ອຫນຶ່ງ';
 $_lang['Your message has been deleted'] = 'Post ຖືກລຶບແລ້ວ';
 $_lang['Your message has been entered'] = 'ຂໍ້ມູນຂອງທ່ານໄດ້ເກັບໄວ້ໃນຖານຂໍ້ມູນຮຽບຮ້ອຍແລ້ວ';
-$_lang['blockCourseDescriptionDescription'] = 'ຄຳອະທິບາຍ';
 $_lang['blockForumsHelp'] = 'ກະດານຂ່າວເປັນຮູບແບບຂອງການສົນທະນາແບບກຸ່ມ ເຊິ່ງແຕກຕ່າງຈາກ ອີເມວທີ່ສາມາດລົມກັນໄດ້ແຕ່ຕົວໜັງສືເທົ່ານັ້ນ</p><p>ເທັກນິກການໃຊ້ກະດານຂ່າວ - ນັກສຶກສາພຽງແຕ່ໃຊ້ browser 
 ເປີດອ່ານ, ຂຽນ, ຫຼືຕອບກະທູ້ທີ່ຕ້ອງການ</P><p>ສຳລັບການເບິ່ງແຍງຄຸ້ມຄອງກະດານຂ່າວ, ຄລິກທີ່ \'admin\'(ກ້ອງຫົວຂໍກະດານຂ່າວ) ເພື່ອເຂົ້າສູ່ລະບົບບໍລິຫານກະດານຂ່າວ ເຊິ່ງມີເມນູຄຳສັ່ງຕ່າງໆດັ່ງນີ້
 :</p><p><b>ສ້າງໝວດໝູ່ > ສ້າງກະດານຂ່າວ > ຂຽນກະທູ້ > ຕອບຫຼືລຶບກະທູ້</b></p>

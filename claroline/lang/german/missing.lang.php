@@ -19,7 +19,6 @@ $_lang['Common part of both parameters above.'] = 'Common part of both parameter
 $_lang['Course code case'] = 'Course code case';
 $_lang['Course member (the user is actually enrolled in the course)'] = 'Course member (the user is actually enrolled in the course)';
 $_lang['Definition file doesn\'t exist'] = 'Definition file doesn\'t exist';
-$_lang['Delete all event before %date in statistics'] = 'Delete all event before %date in statistics';
 $_lang['Disk usage'] = 'Disk usage';
 $_lang['Display'] = 'Display';
 $_lang['Display "Request a Course Creator status"'] = 'Display "Request a Course Creator status"';
@@ -53,7 +52,6 @@ $_lang['Invalid question'] = 'Invalid question';
 $_lang['Label of the login url to CAS'] = 'Label of the login url to CAS';
 $_lang['Last computing'] = 'Last computing';
 $_lang['Last event length'] = 'Last event length';
-$_lang['Last score'] = 'Last score';
 $_lang['Last submission'] = 'Last submission';
 $_lang['Linker tool'] = 'Linker tool';
 $_lang['Log of user activities  on the whole platform (course access, tool use, ...).'] = 'Log of user activities  on the whole platform (course access, tool use, ...).';
@@ -83,11 +81,9 @@ $_lang['Note : this repository should be protected with a .htaccess or
 $_lang['Number of seconds before the cookie expires'] = 'Number of seconds before the cookie expires';
 $_lang['OVER QUOTA'] = 'OVER QUOTA';
 $_lang['Once a user logs to the Claroline platform a cookie is sent to the user browser if the authentication process succeeds. The cookie value is also stored in a internal table of the Claroline platform for a certain time. If requested, the Claroline SSO '] = 'Once a user logs to the Claroline platform a cookie is sent to the user browser if the authentication process succeeds. The cookie value is also stored in a internal table of the Claroline platform for a certain time. If requested, the Claroline SSO';
-$_lang['Operation impossible.'] = 'Operation impossible.';
 $_lang['Ordered list'] = 'Ordered list';
 $_lang['Passwords of some of your user account(s) are recorded an in external authentication system outside the platform.'] = 'Passwords of some of your user account(s) are recorded an in external authentication system outside the platform.';
 $_lang['Private access (site accessible only to people on the <a href="%url">user list</a>)'] = 'Private access (site accessible only to people on the <a href="%url">user list</a>)';
-$_lang['Private&nbsp+ New Registration allowed'] = 'Private&nbsp+ New Registration allowed';
 $_lang['Profile SQL in DEBUG MODE.
 Display for each request :duration, counter,  statement '] = 'Profile SQL in DEBUG MODE.
 Display for each request :duration, counter,  statement';
@@ -116,10 +112,10 @@ This option allow only to request it, and don\'t prework the answer
 '] = 'This option insert a command in the user profile form to request the removal of the user from the platform.  This request is sent by e-mail to platform administrator.
 This option allow only to request it, and don\'t prework the answer
 ';
+$_lang['This password is too simple or too close to the username, first name or last name.<br> Use a password like this <code>%passProposed</code>'] = 'This password is too simple or too close to the username, first name or last name.<br> Use a password like this <code>%passProposed</code>';
 $_lang['This prefix could allow to order more easily the tables / DB in the user interface of your server technical back office  '] = 'This prefix could allow to order more easily the tables / DB in the user interface of your server technical back office';
 $_lang['This question is used in several exercises.'] = 'This question is used in several exercises.';
 $_lang['This renderer is used for TEX/LaTEX expressions. It is available into the \'claroline/inc/lib/\' directory and has to be copied on a server location where CGI programs are expected.'] = 'This renderer is used for TEX/LaTEX expressions. It is available into the \'claroline/inc/lib/\' directory and has to be copied on a server location where CGI programs are expected.';
-$_lang['This text layout should be modified to be editable in this editor. Cancel to keep your original text layout.'] = 'This text layout should be modified to be editable in this editor. Cancel to keep your original text layout.';
 $_lang['Time before really compute data. 86400 = 1 day.'] = 'Time before really compute data. 86400 = 1 day.';
 $_lang['Time to automatically refresh the user screen. Each refresh is a request to your server.
 Too low value can be hard for your server. Too high value can be hard for user.
@@ -132,6 +128,7 @@ $_lang['True'] = 'True';
 $_lang['True/False'] = 'True/False';
 $_lang['Tutors can subscribe to a group as a simple member'] = 'Tutors can subscribe to a group as a simple member';
 $_lang['URL trail'] = 'URL trail';
+$_lang['Unable to copy file : %filename'] = 'Unable to copy file : %filename';
 $_lang['Unknow error during unsubscribing'] = 'Unknow error during unsubscribing';
 $_lang['Unknown question format in file %file'] = 'Unknown question format in file %file';
 $_lang['Use Jpspan mode for the resource linking utility. Warning : Jpspan does not work on IIS web servers.'] = 'Use Jpspan mode for the resource linking utility. Warning : Jpspan does not work on IIS web servers.';

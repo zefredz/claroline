@@ -4,7 +4,6 @@ $_lang['!!!! size of course repository (include claroline and garbage in old sys
 $_lang['%1\$s by %2\$s'] = '%1$s ojapóva %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s omoambue %2\%s péva: %3$s';
 $_lang['(*) anonymous users, users who are not members of this course...'] = '(*) poruhára ndojekuaáiva, poruhára no&#297;riva ko mbo\'esyrýpe...';
-$_lang['(When an user open the index of the campus)'] = '(Poruhára oipe\'a vove mbo\'e renda rogue ypyr&#361;)';
 $_lang['(d/m/y hh:mm)'] = '(ára/jasy/ary aravo:aravo\'i)';
 $_lang['(none)'] = '(avave)';
 $_lang['(optional)'] = '(reipotár&otilde;nte)';
@@ -25,9 +24,6 @@ $_lang['A reply to your topic has been posted'] = 'Oñembou marandu ne téma omboh
 $_lang['Access'] = 'Jeikeha';
 $_lang['Access control management'] = 'Jeikeha reko mba\'ekuaa';
 $_lang['Access count'] = 'Mboy jeiképa';
-$_lang['Access to campus'] = 'Mbo\'e rendápe jeike';
-$_lang['Access to courses'] = 'Mbo\'esyrýpe jeike';
-$_lang['Access to tools'] = 'Tembiporúpe jeike';
 $_lang['Accounts with same <i>Email</i>'] = 'Kuénta orekóva <i>Pareha</i> pete&#297;cha';
 $_lang['Accounts with same <i>User name</i>'] = 'Kuénta orekóva <i>Poruhára réra</i> pete&#297;cha';
 $_lang['Accounts with same <i>User name</i> AND same <i>Password</i>'] = 'Kuénta orekóva <i>Poruhára réra</i> ha <i>Ñe\'&#7869;kañy</i> pete&#297;cha';
@@ -35,7 +31,6 @@ $_lang['Action'] = 'Apopy';
 $_lang['Add'] = 'Emo&#297;';
 $_lang['Add a category'] = 'Emo&#297; kategoria pyahu';
 $_lang['Add a comment'] = 'Emo&#297; tér&atilde; emoambue jehai joapy';
-$_lang['Add a comment (optionnal) :'] = 'Emo&#297; jehai joapy (remo&#297;sér&otilde;):';
 $_lang['Add a document'] = 'Emoinge kuatia tembiporur&atilde;, tekombo\'e voréramo';
 $_lang['Add a module of this course'] = 'Emoinge che rekombo\'e vore';
 $_lang['Add a user'] = 'Emoinge pete&#297; poruhára';
@@ -59,7 +54,6 @@ $_lang['Add user manually'] = 'Emoinge poruhára pete&#297;te&#297;me';
 $_lang['Add wrong answers for drop down lists <small>(Optionnal. One wrong answer by line.)</small>'] = 'Emo&#297; ñembovair&atilde; o&#297; vaíva, oñemo&#297; ha&#285;ua tysyi\'ípe
  <small>(Remo&#297;sér&otilde;. Pete&#297; ñembohovair&atilde;, tairysýi ñav&otilde;me.)</small>';
 $_lang['Added line'] = 'Tairysýi oñemo&#297;';
-$_lang['Admin'] = 'Ñangarekohára';
 $_lang['Administration'] = 'Ñangarekoha';
 $_lang['Administrative code'] = 'Ñangarekoha papanga';
 $_lang['Administrator'] = 'Ñangarekohára';
@@ -129,13 +123,11 @@ $_lang['Authentication'] = 'Añetegua jehechauka';
 $_lang['Authentication Required'] = 'Tekotev&#7869; ojehechauka añeteguaha';
 $_lang['Author'] = 'Omboukáva';
 $_lang['Author(s)'] = 'Apohára';
-$_lang['Author(s) is(are) required'] = 'Tekotev&otilde; oñemo&#297; apohára réra (kuéra)';
 $_lang['Automatically, after each submission'] = 'Ijeheguirei, ñemondo ñav&otilde; rire';
 $_lang['Automatically, after end date'] = 'Ijeheguirei, arange paha rire';
 $_lang['Average Time'] = 'Ára mbytegua (aravo\'ivépe)';
 $_lang['Average score'] = 'Mbyteygua';
 $_lang['Back'] = 'Eguevi';
-$_lang['Back to Home page'] = 'Eguevi togue ypyr&#361;me';
 $_lang['Back to administration page'] = 'Eho jey Ñangarekohára roguépe';
 $_lang['Back to class list'] = 'Eho jey mbo\'epy rysýipe';
 $_lang['Back to class members'] = 'Eho jey mbo\'epy o&#297;vape';
@@ -193,7 +185,6 @@ $_lang['Class users'] = 'Mbo\'epy poruhára';
 $_lang['Classes'] = 'Mbo\'epy';
 $_lang['Clear up event list'] = 'Emopot&#297; evénto rysýi (ehundípaite evénto kuéra)';
 $_lang['Clear up list of announcements'] = 'Emopot&#297; kuaauka rysýi (ehundipaite)';
-$_lang['Click on the month name for more details'] = 'Eikutu jasy rérape rehechave ha&#285;ua';
 $_lang['Close'] = 'Emboty';
 $_lang['Close popup'] = 'Emboty ovet&atilde; opóva';
 $_lang['Close window'] = 'Emboty ovet&atilde;';
@@ -204,7 +195,6 @@ $_lang['Configuration'] = 'Teko mba\'ekuaa';
 $_lang['Confirmation'] = 'O&#297; por&atilde;mbápa';
 $_lang['Content'] = 'Techaukaha';
 $_lang['Continue'] = 'Eho hese';
-$_lang['Copy'] = 'Ekopia';
 $_lang['Corresponds to'] = 'Péva kóva rehegua:';
 $_lang['Country'] = 'Tet&atilde;';
 $_lang['Country code seems to be incorrect.'] = 'Ñemo\'&atilde;vako ko tet&atilde; papanga o&#297; vaíva.';
@@ -224,7 +214,6 @@ $_lang['Course members'] = 'Mávapa o&#297; mbo\'esyrýpe';
 $_lang['Course not found'] = 'Ndojejuhúi upe mbo\'esyry';
 $_lang['Course progression'] = 'Mbo\'esyry ohoháicha ';
 $_lang['Course settings'] = 'Mbo\'esyry reko mba\'ekuaa';
-$_lang['Course statistics deleted'] = 'Oñehundipaitéma papy\'aporeko ko mbo\'esyry rehegua';
 $_lang['Course title'] = 'Mbo\'esyry moak&atilde;ha';
 $_lang['Course title needed'] = 'Oñekotev&#7869; mbo\'esyry moak&atilde;ha';
 $_lang['Course users list'] = 'Mbo\'esyry poruhára rysýi';
@@ -282,7 +271,6 @@ $_lang['Department'] = 'Mbo\'ehao vore réra';
 $_lang['Department URL'] = 'Mbo\'ehao vore URL';
 $_lang['Department URL is not valid'] = 'Mbo\'ehao vore URL ndovaléi (no&#297; por&atilde;i)';
 $_lang['Description'] = 'Mombe\'uanga';
-$_lang['Description added.'] = 'Mombe\'uanga oñemo&#297;ma.';
 $_lang['Description deleted.'] = 'Mombe\'uanga oñehundíma.';
 $_lang['Description of the Wiki'] = 'Guíki mombe\'uanga';
 $_lang['Description updated'] = 'Mombe\'uanga oñemoambuéma.';
@@ -300,11 +288,8 @@ $_lang['Document'] = 'Kuatia';
 $_lang['Document deleted'] = 'Kuatia oñehundíma';
 $_lang['Document in module'] = 'Kuatia tekombo\'e vorépe';
 $_lang['Document name'] = 'Kuatia réra: ';
-$_lang['Documents'] = 'Kuatia jeike ha&#285;ua';
 $_lang['Documents and Links'] = 'Kuatia ha joajuha kuéra';
-$_lang['Documents downloaded by the student'] = 'Kuatia omboguejy va\'ekue temimbo\'e';
 $_lang['Documents help'] = 'Kuatiáre ñepytyv&otilde;';
-$_lang['Down'] = 'Embohysýi yvy gotyo';
 $_lang['ERROR: The format you gave is not compatible with Claroline'] = 'JAVY: ñongatu lája oñemo&#297; va\'ekue ndaikatúi oiporu Claroline';
 $_lang['Edit'] = 'Ehai';
 $_lang['Edit Event'] = 'Ehai evénto';
@@ -353,7 +338,6 @@ $_lang['Enter your email so we can send you your password.'] = 'Ehai nde pareha,
 $_lang['Error : Cannot initialize chat'] = 'Javy: ndaikatúi oñemoñepyr&#361; ñomongeta';
 $_lang['Error : Name already exists in the learning path or in the module pool'] = 'Javy: pe téra o&#297;ma (ojeporúma ambue tendápe)';
 $_lang['Error : One or more values are doubled'] = 'Javy: O&#297; tepy ojo\'áva';
-$_lang['Error : cannot read RSS feed'] = 'Javy: ndaikatúi ojelee RSS';
 $_lang['Error copying existing SCORM content'] = 'Ndaikatúi ojekopia pe o&#297;va SCORM ñongatuha ryepýpe';
 $_lang['Error in SQL statement'] = 'O&#297; javy SQL ñe\'&#7869;joajúpe';
 $_lang['Error reading <i>manifest</i> file'] = 'Ndaikatúi ojelee <i>kuaaukaha</i> ñongatuha';
@@ -414,7 +398,6 @@ $_lang['Forum created'] = 'Ojejapóma jehaiaty pyahu';
 $_lang['Forum deleted'] = 'Oñehundíma jehaiaty';
 $_lang['Forum emptied'] = 'Oñemonandíma jehaiaty';
 $_lang['Forum updated'] = 'Oñemoambuéma jehaiaty';
-$_lang['Forum usage'] = 'Jehaiaty jeporu';
 $_lang['Forums'] = 'Jehaiaty kuéra';
 $_lang['Forums help'] = 'Jehaiatýre ñepytyv&otilde;';
 $_lang['From'] = 'Mávagui';
@@ -469,7 +452,6 @@ $_lang['Institution URL'] = 'Mbo\'ehao URL';
 $_lang['Invalid Wiki Id'] = 'Guíki papanga ndoikói';
 $_lang['Invalid email address'] = 'Pareha ohohápe ndoikói';
 $_lang['Invalid url'] = 'URL ndoikói';
-$_lang['Invalid user : this user doesn\'t exist in your group'] = 'Poruhára ndokuaitái (ndovaléi): ko poruhára naipóri nde atýpe';
 $_lang['Invisible'] = 'Ojehecha\'&#7929;va';
 $_lang['Is platform admin'] = 'Ha\'e Claroline ñangarekohára';
 $_lang['It seems that you already have registered your campus.'] = 'Ñemo\'&atilde;vako ne mbo\'e renda oñeapuntáma kuri.';
@@ -478,18 +460,15 @@ $_lang['Language'] = 'Ñe\'&#7869;';
 $_lang['Last 31 days'] = '31 ára ohasa ramóvape';
 $_lang['Last 7 days'] = '7 ára ohasa ramóvape';
 $_lang['Last access'] = 'Jeike pahague';
-$_lang['Last active topics'] = 'Téma pahague oñemboty\'&#7929;va';
 $_lang['Last attempt'] = 'Ñeha\'&atilde; pahague';
 $_lang['Last edit date'] = 'Ñemoambue paha arange';
 $_lang['Last message'] = 'Marandu pahague';
 $_lang['Last message was on'] = 'Marandu ipaháva ojerahauka:';
-$_lang['Last messages'] = 'Marandu pahague';
 $_lang['Last name'] = 'Téra';
 $_lang['Last session time'] = 'Apo\'ára pahague pukukue';
 $_lang['Lasting'] = 'Ára pukukue';
 $_lang['Late upload'] = 'Jehupi pahague';
 $_lang['Latest announcements'] = 'Kuaauka kuéra ipyahuvéva';
-$_lang['Launch restore of the course repository'] = 'Emo&#297; jey mbo\'esyry renda o&#297; haguéicha';
 $_lang['Learning Path is empty'] = 'Jehekombo\'e rape nandi';
 $_lang['Learning Path not found'] = 'Jehekombo\'e rape niko ndojejuhúi';
 $_lang['Learning path'] = 'Jehekombo\'e rape';
@@ -503,14 +482,12 @@ $_lang['Lecturer(s)'] = 'Mbo\'ehára';
 $_lang['Limit'] = 'Mboy pevépa';
 $_lang['Line Number'] = 'Tai rysýi papa';
 $_lang['List of Wiki'] = 'Guíki rysýi';
-$_lang['List of students in this group'] = 'Temimbo\'e rysýi ko aty rehegua';
 $_lang['Load default format'] = 'Ehupi ysaja ypyr&atilde;';
 $_lang['Location'] = 'Tenda';
 $_lang['Locked'] = 'Oñemboty';
 $_lang['Login'] = 'Jeikeha réra';
 $_lang['Login request'] = 'Jeikeha réra jerure';
 $_lang['Logins'] = 'Jeikeha réra kuéra';
-$_lang['Logins and access to tools'] = 'Jeikeha réra ha tembiporu jeiporu';
 $_lang['Logins not used'] = 'Jeikeha réra ndojeporúiva';
 $_lang['Logout'] = 'Ñes&#7869;ha';
 $_lang['Lost password'] = 'Ñe\'&#7869;kañy ñemomandu\'a';
@@ -558,8 +535,6 @@ $_lang['Modules'] = 'Tekombo\'e vore kuéra';
 $_lang['Modules of this path will still be available in the pool of modules'] = 'Tekombo\'e vore kuéra ko tape rehegua, o&#297;ta gueteri
  tekombo\'e vore ryrúpe, ojeiporu jey ha&#285;uáicha.';
 $_lang['Month'] = 'Jasy';
-$_lang['More replied topics'] = 'Téma kuéra oñembohovaivéva';
-$_lang['More seen topics'] = 'Téma kuéra oñemoñe\'&#7869;véva';
 $_lang['Move'] = 'Erova';
 $_lang['Move down'] = 'Erova iguy gotyo';
 $_lang['Move up'] = 'Erova yvate gotyo';
@@ -570,16 +545,13 @@ $_lang['My User Account'] = 'Emoambue che remimba\'ekuaa';
 $_lang['My calendar'] = 'Che ahénda';
 $_lang['My course list'] = 'Che mbo\'esyry kuéra';
 $_lang['My other courses'] = 'Che mbo\'esyry ambue';
-$_lang['My personal course list'] = 'Che mbo\'esysy rysýi';
 $_lang['My results'] = 'Che rembiapógui os&#7869;va';
 $_lang['Mysql Repository'] = 'MySQL renda';
 $_lang['Name cannot be empty'] = 'Téra oñemo&#297;mbámante va\'er&atilde;';
 $_lang['Name link'] = 'Joajuha réra';
 $_lang['Name of the class has been changed'] = 'Mbo\'epy réra oñemoambuéma';
-$_lang['Name of the new directory'] = 'Ñongatuha renda pyahu réra';
 $_lang['Name of the tool'] = 'Tembiporu réra';
 $_lang['Never browsed'] = 'Araka\'eve ndojehechái';
-$_lang['Never connected students :'] = 'Temimbo\'e araka\'eve noñekoneytávai: ';
 $_lang['Never used'] = 'Araka\'eve ndojeporúi';
 $_lang['New Class name'] = 'Mbo\'epy pyahu réra';
 $_lang['New Wiki'] = 'Guíki pyahu';
@@ -606,7 +578,6 @@ $_lang['No closing date'] = 'Ndaipóri arange oñemboty ha\'ára';
 $_lang['No course available fitting this keyword'] = 'Naipóri mbo\'esyry ojojáva
  ko\'&atilde; ñe\'&#7869;re';
 $_lang['No course to display'] = 'Ndaipóri mbo\'esyry ojehecha ha&#285;ua';
-$_lang['No email address specified'] = 'Noñemo&#297;ri pareha oho ha&#285;uáme';
 $_lang['No error in file found.'] = 'Ndojejuhúi ojejavyha ko ñongatuhápe';
 $_lang['No event in the agenda'] = 'Ndaipóri evénto ahéndape';
 $_lang['No forum'] = 'Ndaipóri jehaiaty';
@@ -620,8 +591,6 @@ $_lang['No post'] = 'Naipóri marandu';
 $_lang['No quota'] = 'Ohasáma kuóta';
 $_lang['No result'] = 'Nos&#7869;i mba\'eve';
 $_lang['No score'] = 'Ndaipóri tembiapopy ra\'&atilde;';
-$_lang['No stats to show.  You haven\'t registered any course.'] = 'Ndaipóri papy\'aporeko ojehechauka ha&#285;ua.
- Nde nereiméi mba\'eve mbo\'esyrýpe.';
 $_lang['No time limitation'] = 'Ndaipóri ára apýra (límite)';
 $_lang['No user found'] = 'Ndojejuhúi poruhára';
 $_lang['No user to display'] = 'Ndaipóri poruhára ojehechauka ha&#285;ua';
@@ -641,7 +610,6 @@ $_lang['Number of courses by faculty'] = 'Mbo\'esyry papapy mbo\'ehao ñav&otilde
 $_lang['Number of courses by language'] = 'Mbo\'esyry papapy ñe\'&#7869;te ñav&otilde;me';
 $_lang['Number of courses by visibility'] = 'Mbo\'esyry papapy jehechapy ñav&otilde;me';
 $_lang['Number of learning paths using this module :'] = 'Jehekombo\'e rape papa ojeporúva ko tekombo\'e vorépe: ';
-$_lang['Number of logins'] = 'Jeike papa';
 $_lang['Number of pages'] = 'Togue papapy';
 $_lang['Number of rows'] = 'Mboy tysýipa';
 $_lang['Number of users'] = 'Poruhára papapy';
@@ -656,7 +624,6 @@ $_lang['Oldest first'] = 'Oñepyr&#361; itujavéva rehe';
 $_lang['On'] = 'O&#297;';
 $_lang['On an unique page'] = 'Pete&#297; togue añóme';
 $_lang['One question per page (sequential)'] = 'Pete&#297; porandu togue ñav&otilde;me (ojoakykuéri)';
-$_lang['Operation impossible'] = 'Ndaikatúi ojejapo';
 $_lang['Optional'] = 'Reipotár&otilde;nte';
 $_lang['Order'] = 'Embohysýi';
 $_lang['Orphan questions'] = 'Porandu tyre\'&#7929;';
@@ -701,7 +668,6 @@ $_lang['Private course only'] = 'Mbo\'esyry kañyhápe';
 $_lang['Private feedback'] = 'Temimo\'&atilde; mondo kañyhápe';
 $_lang['Production language files'] = 'Ñongatuha ñe\'&#7869; rehegua ojejapóva';
 $_lang['Progress'] = 'Jeho háicha';
-$_lang['Progress in learning paths'] = 'Mba\'éichapa oho jehekombo\'e rape';
 $_lang['Progression of users on all learning paths'] = 'Mba\'éichapa temimbo\'e oho jehekombo\'e rape kuérape';
 $_lang['Properties'] = 'Temimba\'ekuaa';
 $_lang['Public'] = 'Mayma mba\'éva';
@@ -742,9 +708,7 @@ $_lang['Required'] = 'Oñemo&#297;mante va\'er&atilde;';
 $_lang['Reset'] = 'Emoñepyr&#361; jey';
 $_lang['Restore course repository'] = 'Eheja jey mbo\'esyry renda o&#297; haguéicha';
 $_lang['Result'] = 'Os&#7869; va\'ekue';
-$_lang['Results of the exercises done'] = 'Tembiapopy ra\'&atilde; (jehepyme\'&#7869;) o&#297;mbáma';
 $_lang['Retry'] = 'Eha\'&atilde; jey';
-$_lang['Return to the list'] = 'Eho jey tysýipe';
 $_lang['Reuse'] = 'Eiporu jey';
 $_lang['Role'] = 'Mba\'e apoha';
 $_lang['Root'] = 'tapo';
@@ -757,7 +721,6 @@ $_lang['Save changes'] = 'Eñongatu oñemoambuéva';
 $_lang['Scan technical fault'] = 'Eheka aporape o&#297; vaihápe';
 $_lang['Score'] = 'Tembiapopy ra\'&atilde;';
 $_lang['Score required'] = 'Tekotev&#7869; oñemo&#297; tembiapopyra\'&atilde;r&atilde;';
-$_lang['Scores of exercises done'] = 'Tembiapo kuéra ojehepyme\'&#7869;mbáma';
 $_lang['Scorm'] = '<i>Scorm</i>';
 $_lang['Search'] = 'Eheka';
 $_lang['Search again (advanced)'] = 'Eheka jey (mbarete)';
@@ -776,7 +739,6 @@ $_lang['Select course in search results'] = 'Eiporavo mbo\'esyry jejuhu apytégui
 $_lang['Select in drop down list'] = 'Eiporavomi tysýi jepysópe';
 $_lang['Selected Users'] = 'Poruhára poravo pyre';
 $_lang['Send account information to user by email'] = 'Erahauka poruhárape ikuénta mba\'ekuaa, pareha rupi';
-$_lang['Send this announcement by email to registered students'] = 'Erahauka ko kuaauka temimbo\'e kuérape ikuatiavukáva, pareha rupi';
 $_lang['Show all'] = 'Ehechauka paite';
 $_lang['Show answers'] = 'Ehechauka Ñembohovái';
 $_lang['Show differences'] = 'Ehechauka ojoja\'&#7929;hápe';
@@ -791,7 +753,6 @@ $_lang['Statistics by user'] = 'Papy\'aporeko poruhára ñav&otilde;';
 $_lang['Statistics of exercise'] = 'Tembiapor&atilde; papy\'aporeko';
 $_lang['Statistics of exercise attempt'] = 'Tembiapopy ñeha\'&atilde; papy\'aporeko';
 $_lang['Statistics of question'] = 'Porandu papy\'aporeko';
-$_lang['Statistics of user'] = 'Poruhára papy\'aporeko';
 $_lang['Status'] = 'O&#297; háicha';
 $_lang['Store Chat'] = 'Eñongatu ñomongeta';
 $_lang['Student'] = 'Temimbo\'e';
@@ -875,7 +836,6 @@ $_lang['Total'] = 'Mboýpa';
 $_lang['Total Clicks'] = 'Mboy jekutu';
 $_lang['Total Downloads'] = 'Ñemboguejy papaha';
 $_lang['Total attempts'] = 'Ñeha\'&atilde; papaha';
-$_lang['Total number of connection to this course'] = 'Mbo\'esyrýpe oñekoneytáva papapy';
 $_lang['Total time'] = 'Mboy árapa';
 $_lang['Tracking'] = 'Jesegiha';
 $_lang['Tracking has been disabled by system administrator.'] = 'Ndoikói, ñangarekohára ombogue kuri jesegiha.';
@@ -885,10 +845,8 @@ $_lang['Translation Tools'] = 'Ñe\'&#7869;mbohasa rembiporu';
 $_lang['True'] = 'Añete';
 $_lang['True/False'] = 'Añete/Japu';
 $_lang['URL link'] = 'Ambuére joajuha URL';
-$_lang['Unable to add description'] = 'Ndaikatúi oñembojoapy mombe\'uanga';
 $_lang['Unable to add external tool'] = 'Ndaikatúi oñembojoapy tembiporu okapeygua';
 $_lang['Unable to add the event to the agenda'] = 'Ndaikatúi oñemo&#297; evénto pyahu ahéndape.';
-$_lang['Unable to copy file :'] = 'Ndaikatúi ojekopia ko ñongatuha: ';
 $_lang['Unable to create category'] = 'Ndaikatúi ojejapo kategoria pyahu';
 $_lang['Unable to create directory :'] = 'Ndaikatúi ojejapo ko ñongatuha renda: ';
 $_lang['Unable to create file :'] = 'Ndaikatúi ojejapo ko ñongatuha:';
@@ -967,7 +925,6 @@ $_lang['View list of all tools'] = 'Embohysyipaite tembiporu o&#297;va guive';
 $_lang['View mode'] = 'Jehechauka lája';
 $_lang['View my statistics'] = 'Jahecha che papy\'aporeko';
 $_lang['Visibility'] = 'Techa/techa\'&#7929;';
-$_lang['Visibility modified'] = 'Ojehecha lája oñemboambue';
 $_lang['Visible'] = 'Ojehecha';
 $_lang['Visits'] = 'andu';
 $_lang['WARNING : you are going to delete this wiki and all its pages. Are you sure to want to continue ?'] = 'CHÁKE: Nde rehundi potáma ko Guíki ha hogue kuéra
@@ -989,8 +946,6 @@ $_lang['Wiki syntax'] = 'Guíki ñe\'&#7869;joajungatu';
 $_lang['Work added'] = 'Tembiapo oñembojoapýva';
 $_lang['Work modified'] = 'Tembiampo oñemoambuéma';
 $_lang['Work title required'] = 'Tekotev&#7869; oñemo&#297; tembiapo moak&atilde;ha';
-$_lang['Work uploaded by the student in the name of \'Authors\''] = 'Tembiapo ohupíva temimbo\'e héra o&#297;va he\'ihápe \'Apohára\'';
-$_lang['Work uploads'] = 'Tembiapo ojehupímava';
 $_lang['Worst score'] = 'Ivaivéva';
 $_lang['Wrong operation'] = 'Péva ndaikatúi ojejapo';
 $_lang['Year'] = 'Ary';
@@ -1171,56 +1126,6 @@ $_lang['blockConfirmDeleteScorm'] = 'Ko jekekombo\'e rape ojegueru kuri pete&#29
  jokuapýpe. Nde rehundír&otilde; ko jekekombo\'e rape, opaite tekombo\'e vore hesegua o&#297;va
  <i>SCORM</i> ryepýpe oñehundietéta avei.
  Reipotápa añete oñehundiete ko jehekombo\'e rape hérava:';
-$_lang['blockCourseDescriptionCourseContent'] = 'Mbo\'esyry rechaukaha';
-$_lang['blockCourseDescriptionCourseContentComment1'] = 'Emombe\'umi mba\'e mba\'épa ko mbo\'esyry rechaukaha
- apytépe oñemomba\'e guasuve va\'er&atilde;,
- mba\'éicha pevépa hypy\'&#361; umi mba\'e o&#297;va ipype,
- mba\'éichapa oñemohenda hyepýpe o&#297;va,
- mba\'épa oñekotev&#7869; ojeho por&atilde; ha&#285;ua,
- mamo mevépa oñe&#285;uah&#7869;se, ha mba\'e';
-$_lang['blockCourseDescriptionCourseContentComment2'] = 'Mba\'éichapa ko mbo\'esyry oñekuave\'&#7869;,
- mba\'e mba\'épa oreko, mba\'eichaitépa ha mboy árapepa oñemohu\'&atilde; va\'er&atilde;';
-$_lang['blockCourseDescriptionDescription'] = 'Taréa mohesak&atilde;';
-$_lang['blockCourseDescriptionDescriptionComment1'] = 'Emombe\'umive mba\'e tendápepa o&#297; ko mbo\'esyry
- ijapor&atilde;me, o&#297;pa ambue mbo\'esyry ojejapo ra&#7869;mante va\'er&atilde;,
- mba\'éichapa ko mbo\'esyry ojoaju ambue mbo\'esyry ndive, ha mba\'e.';
-$_lang['blockCourseDescriptionDescriptionComment2'] = 'Oimera&#7869; mba\'e oñemombe\'usevéva mbo\'esyry rehegua
- (héra mbyky, mba\'éichapa hi\'aréta, ha mba\'e) ha mbo\'ehára rehegua (héra,
- ipumbyry papa, ipareha, mba\'e aravópepa ikatúne oñehenói, ha mba\'e).
- Oñemo&#297;kuaa avei mba\'éichapa ojeraha va\'er&atilde; ko mbo\'esyry.';
-$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment1'] = 'Mba\'e mba\'épa ojeguereko, máva mávapa
- o&#297; ko\'ápe, mba\'épa ojejapo, mba\'éichapa oñemba\'apo. Mba\'épa temimbo\'e kuéra
- ikatukuaa oha\'ar&otilde; ko tendágui téra mbo\'ehára kuéragui';
-$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment2'] = 'Ambue mbo\'ehára o&#297;va ko\'ápe, ha ava
- ojapóva ko tenda (pytyv&otilde;hára, ñangarekohára, terekua, ha mba\'e), mba\'éichapa
- oñeñe\'&#7869;kuaa hendive kuéra ndive, óga ha ekípo ojerekóva, ha ambue mba\'ekuaar&atilde;
- oñemo&#297;séva guive.';
-$_lang['blockCourseDescriptionHumanAndPhysicalRessources'] = 'Mba\'épa ojeguereko, mávapa o&#297;';
-$_lang['blockCourseDescriptionMethodsOfEvaluation'] = 'Tembiapopy ra\'&atilde; rapereko';
-$_lang['blockCourseDescriptionMethodsOfEvaluationComment1'] = 'Ehesa\'&#7929;ijo mba\'éichaitépa ojejapóta aranduchauka
- kuéra (jehai rupi, ñe\'&#7869;hápe, tembiapo rupi, ha mba\'e), mba\'e mba\'e árapepa oikota
- umi aranduchauka, mba\'e ára pevépa ikatu ojeruka tembiapo kuéra, mba\'éichapa
- oñembohepyra\'&atilde;ta ha oñembopohýita tembiapo, ha mba\'e.';
-$_lang['blockCourseDescriptionQualificationsAndGoals'] = 'Katupyry ha mba\'epota ru\'&atilde;';
-$_lang['blockCourseDescriptionQualificationsAndGoalsComment1'] = 'Mba\'e mba\'épepa oipytyv&otilde; tekombo\'e.
- Opávove mbo\'esyry, mba\'eichagua katupyry ha arandúpa o&#285;uah&#7869;ta
- temimbo\'épe, mba\'épepa ha\'e iñaranduvéta';
-$_lang['blockCourseDescriptionQualificationsAndGoalsComment2'] = 'Ojehechauka va\'er&atilde; mba\'épa
- oikuave\'&#7869; ko mbo\'esyry, mba\'e mba\'épa oñeme\'&#7869;se, ha
- mamo mevépa (arandu ha katupyrýpe) o&#285;uah&#7869;se.';
-$_lang['blockCourseDescriptionSupports'] = ' Pytyv&otilde;r&atilde; ';
-$_lang['blockCourseDescriptionSupportsComment1'] = 'O&#297;tapa pytyv&otilde; mbo\'esyrýpe. Mba\'eichagua pytyv&otilde;pa oñeme\'&#7869;ta,
- oñembotýva tér&atilde; ojepe\'áva.';
-$_lang['blockCourseDescriptionSupportsComment2'] = 'Ehesa\'&#7929;ijo mba\'éichatapa oñepytyv&otilde;ta mbo\'esyrýpe.
- Embotysýi mba\'e mba\'e arandukápa ojeporukuaa, tér&atilde; ambue kuatia kuéra.';
-$_lang['blockCourseDescriptionTeachingTrainingActivities'] = 'Tekombo\'e - Ñemoarandu rembiapo';
-$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment1'] = 'Mmba\'eichagua tembiapo kuérapa ojejapóta
- oñemotenonde ha&#285;ua mbo\'esyry. Mba\'e mba\'e árapepa ojejapóta umi tembiapo';
-$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment2'] = 'Tembiapo kuéra rechaukaha (kuaara\'&atilde; nguéra,
- mba\'éichapa temimbo\'e omba\'apóta, tembiapo kuéra ógape &#285;uar&atilde;, mamóma oñembyatýta,
- temiandu kuéra, ha mba\'e).';
-$_lang['blockCourseHomePageIntroduction'] = 'Eiporavo tembiporu kuéra reipotáva ne remimbo\'e ohecha.
- Tembiporu ojehechakuua\'&#7929;va oñemongañy gua\'úta ne myas&atilde;ihápe.';
 $_lang['blockCourseSettingsTip'] = 'Ñepyryr&atilde;, oimera&#7869;va ikatúta oike ko ne mbo\'esyrýpe, oimera&#7869;va oiporukuaa.
  Nde ndereipotáiramo opaichaguarei ava oike, ikatu reheja tojepe\'a ojekuatiavuka
  ha&#285;ua poruhára oikeséva, pete&#297; arapok&otilde;indy (semána) pukukue jave mba\'e, ha upekuévo
@@ -1742,7 +1647,6 @@ $_lang['blockWikiHelpSyntaxContent'] = '<h1>Guiki_XHTML_pe ñe\'&#7869;joajungatu
  <dt>jokoha hérava <i>(named anchor)</i></dt>
  <dd><code>~jokoha~</code>&nbsp;;</dd>
  </dl>';
-$_lang['click here'] = 'ejopy ko\'ápe';
 $_lang['click to zoom in'] = 'Eikutu embotuichave ha&#285;ua';
 $_lang['click to zoom out'] = 'Eikutu emomich&#297;ve ha&#285;ua';
 $_lang['denotes new items'] = 'he\'ise mba\'e ipyahúva';
@@ -1750,8 +1654,6 @@ $_lang['differences between version of %1\$s modified by %2\$s and version of %3
  %2$s, ha %3$s -gui, omoambuéva %4$s';
 $_lang['e.g. <em>History of Literature</em>'] = 'techapyr&atilde; <i>Haipyrepor&atilde; Rembiasa</i>';
 $_lang['good looking'] = 'ipor&atilde;';
-$_lang['if you choose to continue, lines with errors will simply be ignored'] = 'nde
- rekontinuaséramo, noñepena mo\'&atilde;inte umi tairysýire ojejavyhápe';
 $_lang['line'] = 'tai rysýi';
 $_lang['lines'] = 'tai rysýi';
 $_lang['max. 12 characters, e.g. <em>ROM2121</em>'] = '12 tai pevénte, tembiechar&atilde; <i>ROM2121</i>';

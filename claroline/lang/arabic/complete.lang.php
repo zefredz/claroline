@@ -3,7 +3,6 @@ $_lang['!!!! size of course repository (include claroline and garbage in old sys
 $_lang['%1\$s by %2\$s'] = '%1$s من قبل %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s تم تعديلها بتاريخ %2$s من قبل %3$s';
 $_lang['(*) anonymous users, users who are not members of this course...'] = '(*) مستخدمون مجهولون , المستخدمون ممن ليسوا أعضاء ضمن المقرر';
-$_lang['(When an user open the index of the campus)'] = '(عندما يقوم المستخدم باستعراض فهرس الموقع)';
 $_lang['(d/m/y hh:mm)'] = '(d/m/y hh:mm)';
 $_lang['(none)'] = '(لا يوجد)';
 $_lang['(optional)'] = '(اختياري)';
@@ -19,9 +18,6 @@ $_lang['A reply to your topic has been posted'] = 'تم إرسال رد على �
 $_lang['Access'] = 'الوصول';
 $_lang['Access control management'] = 'إدارة التحكم بالوصول';
 $_lang['Access count'] = 'عدد مرات الوصول';
-$_lang['Access to campus'] = 'الوصول لموقع الجامعة';
-$_lang['Access to courses'] = 'الوصول للمقررات';
-$_lang['Access to tools'] = 'استخدام الأدوات';
 $_lang['Accounts with same <i>Email</i>'] = 'حسابات لها نفس  <i>البريد الإلكتروني</i>';
 $_lang['Accounts with same <i>User name</i>'] = 'حسابات لها نفس <i>اسم المستخدم</i>';
 $_lang['Accounts with same <i>User name</i> AND same <i>Password</i>'] = 'حسابات لها نفس  <i>اسم المستخدم</i> و نفس <i>كلمة السر</i>';
@@ -29,7 +25,6 @@ $_lang['Action'] = 'عمل';
 $_lang['Add'] = 'إضافة';
 $_lang['Add a category'] = 'إضافة تصنيف';
 $_lang['Add a comment'] = 'إضافة ملاحظة';
-$_lang['Add a comment (optionnal) :'] = 'إضافة ملاحظة ( إختياري) :';
 $_lang['Add a document'] = 'إدراج مستند كوحدة';
 $_lang['Add a module of this course'] = 'إدخال الوحدة الخاصة بي';
 $_lang['Add a user'] = 'إضافة مستخدم';
@@ -52,7 +47,6 @@ $_lang['Add user list'] = 'إضافة قائمة مستخدمين';
 $_lang['Add user manually'] = 'إضافة مستخدم بشكل يدوي';
 $_lang['Add wrong answers for drop down lists <small>(Optionnal. One wrong answer by line.)</small>'] = 'إضافة الأجوبة الخاطئة للقوائم المنسدلة <small> (اختياري:سؤال غير صحيح واحد ضمن كل سطر)</small>';
 $_lang['Added line'] = 'الأسطر المضافة';
-$_lang['Admin'] = 'مدير';
 $_lang['Administration'] = 'المدير';
 $_lang['Administrative code'] = 'الرقم  او الرمز الإداري';
 $_lang['Administrator'] = 'المدير';
@@ -117,13 +111,11 @@ $_lang['Authentication'] = 'تسجيل الدخول للأعضاء';
 $_lang['Authentication Required'] = 'التحقق من اسم المستخدم و كلمة السر مطلبو';
 $_lang['Author'] = 'المرسل';
 $_lang['Author(s)'] = 'المؤلف ( المؤلفون)';
-$_lang['Author(s) is(are) required'] = 'يجب كتابة اسم المؤلف ( المؤلفون)';
 $_lang['Automatically, after each submission'] = 'بشكل تلقائي,بعد كل إرسال';
 $_lang['Automatically, after end date'] = 'بشكل تلقائي , بعد تاريخ النهاية';
 $_lang['Average Time'] = 'معدل الوقت (ثانية)';
 $_lang['Average score'] = 'المعدل';
 $_lang['Back'] = 'للخلف';
-$_lang['Back to Home page'] = 'العودة للصفحة الأساسية';
 $_lang['Back to administration page'] = 'العودة لصفحة المدير';
 $_lang['Back to class list'] = 'العودة لقائمة الصفوف';
 $_lang['Back to class members'] = 'العودة لاعضاء الصف';
@@ -176,7 +168,6 @@ $_lang['Class users'] = 'المستخدمين في الصف';
 $_lang['Classes'] = 'الصفوف';
 $_lang['Clear up event list'] = 'مسح قائمة جدول الأعمال';
 $_lang['Clear up list of announcements'] = 'مسح قائمة الإعلانات';
-$_lang['Click on the month name for more details'] = 'انقر على اسم الشهر للحصول على معلومات تفصيلية';
 $_lang['Close'] = 'إغلاق';
 $_lang['Close popup'] = 'اغلاق النوافذ المنبثقة';
 $_lang['Close window'] = 'إغلاق النافذة';
@@ -187,7 +178,6 @@ $_lang['Configuration'] = 'الإعدادات';
 $_lang['Confirmation'] = 'تأكيد كلمة السر';
 $_lang['Content'] = 'المضمون';
 $_lang['Continue'] = 'متابعة';
-$_lang['Copy'] = 'نسخ';
 $_lang['Corresponds to'] = 'الموافق ل';
 $_lang['Country'] = 'البلد';
 $_lang['Country code seems to be incorrect.'] = 'يبدو ان رمز البلد غير صحيح.';
@@ -207,7 +197,6 @@ $_lang['Course members'] = 'أعضاء المقرر';
 $_lang['Course not found'] = 'لم يتم العثور على المقرر';
 $_lang['Course progression'] = 'مستوى التقدم في المقرر ';
 $_lang['Course settings'] = 'خصائص و إعدادات المقرر';
-$_lang['Course statistics deleted'] = 'تم حذف الإحصائيات الخاصة بالمقرر';
 $_lang['Course title'] = 'اسم المقرر التعليمي';
 $_lang['Course title needed'] = 'يجب تحديد اسم المقرر';
 $_lang['Course users list'] = 'قائمة مقررات المستخدمين';
@@ -266,7 +255,6 @@ $_lang['Department'] = 'القسم';
 $_lang['Department URL'] = 'عنوان القسم';
 $_lang['Department URL is not valid'] = 'عنوان URL القسم غير صالح';
 $_lang['Description'] = 'الوصف';
-$_lang['Description added.'] = 'تم إضافة الوصف';
 $_lang['Description deleted.'] = 'تم حذف الوصف';
 $_lang['Description of the Wiki'] = 'وصف الويكي';
 $_lang['Description updated'] = 'تم تحديث الوصف.';
@@ -284,11 +272,8 @@ $_lang['Document'] = 'الوثيقة';
 $_lang['Document deleted'] = 'تم حذف الوثيقة';
 $_lang['Document in module'] = 'مستند في وحدة';
 $_lang['Document name'] = 'اسم الوثيقة : ';
-$_lang['Documents'] = 'الوثائق';
 $_lang['Documents and Links'] = 'وثائق و وصلات';
-$_lang['Documents downloaded by the student'] = 'الوثائق التي تم تحميلها من قبل الطلاب';
 $_lang['Documents help'] = 'ملفات المساعدة';
-$_lang['Down'] = 'ترتيب تنازلي';
 $_lang['ERROR: The format you gave is not compatible with Claroline'] = 'خطاً: التنسيق الذي أعطيته غير متوافق مع Claroline';
 $_lang['Edit'] = 'تعديل';
 $_lang['Edit Event'] = 'تحرير حدث';
@@ -336,7 +321,6 @@ $_lang['Enter your email so we can send you your password.'] = 'أدخل عنو�
 $_lang['Error : Cannot initialize chat'] = 'خطأ:فشل في تجهيز ملفات الدردشة';
 $_lang['Error : Name already exists in the learning path or in the module pool'] = 'خطأ : اسم موجود سابقاً في المسار التعليمية أو في مخزن الوحدات';
 $_lang['Error : One or more values are doubled'] = 'خطأ: يوجد قيمة أو أكثر مكررة';
-$_lang['Error : cannot read RSS feed'] = 'خطأ : لا يمكن قراءة مصدر RSS';
 $_lang['Error copying existing SCORM content'] = 'حصل خطأ أثناء نسخ محتويات ال SCORM';
 $_lang['Error in SQL statement'] = 'خطأ في تعليمة ال  SQL';
 $_lang['Error reading <i>manifest</i> file'] = 'خطأ أثناء قراءة ملف المينافست manifest ';
@@ -396,7 +380,6 @@ $_lang['Forum created'] = 'تم إنشاء المنتدى';
 $_lang['Forum deleted'] = 'تم حذف المنتدى';
 $_lang['Forum emptied'] = 'تم تفريغ المنتدى';
 $_lang['Forum updated'] = 'تم تعديل المنتدى';
-$_lang['Forum usage'] = 'استخدام المنتدى';
 $_lang['Forums'] = 'المنتديات';
 $_lang['Forums help'] = 'منتديات المساعدة';
 $_lang['From'] = 'من';
@@ -446,7 +429,6 @@ $_lang['Institution URL'] = 'عنوان المعهد على الانترنت URL
 $_lang['Invalid Wiki Id'] = 'رقم ويكي غير صحيح';
 $_lang['Invalid email address'] = 'عنوان بريد الكتروني غير صحيح';
 $_lang['Invalid url'] = 'غير صحيحة url';
-$_lang['Invalid user : this user doesn\'t exist in your group'] = 'خطأ في المستخدم:هذا المستخدم غير موجود ضمن مجموعتك';
 $_lang['Invisible'] = 'مخفي';
 $_lang['Is platform admin'] = 'هو مدير الموقع';
 $_lang['It seems that you already have registered your campus.'] = 'يبدو  أنك قد سجلت مسبقاً جامعتك.';
@@ -455,18 +437,15 @@ $_lang['Language'] = 'اللغة';
 $_lang['Last 31 days'] = 'أخر 31 يوم';
 $_lang['Last 7 days'] = 'أخر 7 أيام';
 $_lang['Last access'] = 'أخر مرة قام بتسجيل الدخول';
-$_lang['Last active topics'] = 'المشاركات الأخيرة';
 $_lang['Last attempt'] = 'اخر محاولة';
 $_lang['Last edit date'] = 'تاريخ أخر تعديل';
 $_lang['Last message'] = 'أخر رسالة';
 $_lang['Last message was on'] = 'اخر رسالة كانت بتاريخ: ';
-$_lang['Last messages'] = 'أخر الرسائل';
 $_lang['Last name'] = 'الاسم';
 $_lang['Last session time'] = 'وقت أخر جلسة ';
 $_lang['Lasting'] = 'باق';
 $_lang['Late upload'] = 'تحميل متاخر';
 $_lang['Latest announcements'] = 'الإعلانات السابقة';
-$_lang['Launch restore of the course repository'] = 'تشغيل مسترجع مخزن المقرر';
 $_lang['Learning Path is empty'] = 'مسار التعليم فارغ';
 $_lang['Learning Path not found'] = 'لم يتم العثور على مسار التعليم';
 $_lang['Learning path'] = 'مسار التعليم';
@@ -480,14 +459,12 @@ $_lang['Lecturer(s)'] = 'اسم المدرس او المدرسون';
 $_lang['Limit'] = 'الحد الأقصى';
 $_lang['Line Number'] = 'رقم السطر';
 $_lang['List of Wiki'] = 'قائمة بالويكي';
-$_lang['List of students in this group'] = 'قائمة الطلاب في هذه المجموعة';
 $_lang['Load default format'] = 'تحميل التنسيق الافتراضي';
 $_lang['Location'] = 'الموقع';
 $_lang['Locked'] = 'مقفول';
 $_lang['Login'] = 'تسجيل الدخول';
 $_lang['Login request'] = 'طلب تسجيل دخول';
 $_lang['Logins'] = 'الدخول';
-$_lang['Logins and access to tools'] = 'عمليات الدخول للموقع و استخدام الأدوات';
 $_lang['Logins not used'] = 'تسجيل دخول غير مستخدم';
 $_lang['Logout'] = 'خروج';
 $_lang['Lost password'] = 'هل نسيت كلمة السر؟';
@@ -533,8 +510,6 @@ $_lang['Module type'] = 'نوع الوحدة';
 $_lang['Modules'] = 'الوحدات';
 $_lang['Modules of this path will still be available in the pool of modules'] = 'وحدات هذا المسار ستبقى متاحة ضمن مخزن الوحدات';
 $_lang['Month'] = 'الشهر';
-$_lang['More replied topics'] = 'المداخلات التي تضم العدد الأكبر من الردود';
-$_lang['More seen topics'] = 'المداخلات الاكثر قراءة';
 $_lang['Move'] = 'نقل';
 $_lang['Move down'] = 'نقل للأسفل';
 $_lang['Move up'] = 'نقل للأعلى';
@@ -545,16 +520,13 @@ $_lang['My User Account'] = 'تعديل معلوماتي';
 $_lang['My calendar'] = 'جدول أعمالي';
 $_lang['My course list'] = 'مقرراتي';
 $_lang['My other courses'] = 'بقية مقرراتي';
-$_lang['My personal course list'] = 'قائمة المقررات الخاصة بي';
 $_lang['My results'] = 'نتائجي';
 $_lang['Mysql Repository'] = 'Mysql مخزن';
 $_lang['Name cannot be empty'] = 'يجب إكمال الاسم';
 $_lang['Name link'] = 'وصلة جديدة';
 $_lang['Name of the class has been changed'] = 'تم تعديل اسم المقرر';
-$_lang['Name of the new directory'] = 'اسم المجلد الجديد';
 $_lang['Name of the tool'] = 'اسم الأداة';
 $_lang['Never browsed'] = 'لم يتم استعراضه أبداً';
-$_lang['Never connected students :'] = 'طلاب لم يقوموا بدخول موقع المقرر أبداً : ';
 $_lang['Never used'] = 'لم يتم استخدامه أبداً';
 $_lang['New Class name'] = 'اسم الصف الجديد';
 $_lang['New Wiki'] = 'ويكي جديدة';
@@ -579,7 +551,6 @@ $_lang['No change applied.'] = 'ام يتم تطبيق أي تعديلات';
 $_lang['No closing date'] = 'لم يتم تحديد تاريخ الإغلاق';
 $_lang['No course available fitting this keyword'] = 'لا يوجد أي مقرر موافق لكلمة البحث التي أدخلتها';
 $_lang['No course to display'] = 'لا يوجد مقررات';
-$_lang['No email address specified'] = 'لم يتم تحديد البريد الالكتروني';
 $_lang['No error in file found.'] = 'لم يتم العثور على أخطاء ضمن الملف';
 $_lang['No event in the agenda'] = 'لا يوجد أي حدث ضمن جدول الأعمال';
 $_lang['No forum'] = 'لا يوجد منتدى';
@@ -593,7 +564,6 @@ $_lang['No post'] = 'لا يوجد مشاركة';
 $_lang['No quota'] = 'لايوجد مساحة مخصصة';
 $_lang['No result'] = 'لا يوجد نتائج';
 $_lang['No score'] = 'لا يوجد';
-$_lang['No stats to show.  You haven\'t registered any course.'] = 'لم تقم بالتسجيل بأي مقرر ,لا يمكن عرض الحالة';
 $_lang['No time limitation'] = 'الوقت غير محدود';
 $_lang['No user found'] = 'لم يتم العثور على مستخدم';
 $_lang['No user to display'] = 'لا يوجد مستخدمين';
@@ -612,7 +582,6 @@ $_lang['Number of courses by faculty'] = 'عدد المقررات في كل كل
 $_lang['Number of courses by language'] = 'عدد المقررات حسب اللغة';
 $_lang['Number of courses by visibility'] = 'عدد المقررات المرئية و المخفية';
 $_lang['Number of learning paths using this module :'] = 'عدد مسارات التعليم التي تستخدم هذه الوحدة:';
-$_lang['Number of logins'] = 'عدد مرات الدخول';
 $_lang['Number of pages'] = 'عدد الصفحات';
 $_lang['Number of rows'] = 'عدد الأسطر';
 $_lang['Number of users'] = 'عدد المستخدمين';
@@ -626,7 +595,6 @@ $_lang['Oldest first'] = 'الأقدم اولاً';
 $_lang['On'] = 'On';
 $_lang['On an unique page'] = 'ضمن صفحة واحدة';
 $_lang['One question per page (sequential)'] = 'سؤال واحد في كل صفحة ( اسئلة متتابعة)';
-$_lang['Operation impossible'] = 'العملية غير ممكنة';
 $_lang['Optional'] = 'اختياري';
 $_lang['Order'] = 'الترتيب';
 $_lang['Orphan questions'] = 'اسئلة وحيدة';
@@ -671,7 +639,6 @@ $_lang['Private course only'] = 'مقرر خاص فقط';
 $_lang['Private feedback'] = 'مراجعة خاصة';
 $_lang['Production language files'] = 'إنشاء ملفات اللغة';
 $_lang['Progress'] = 'مستوى التقدم';
-$_lang['Progress in learning paths'] = 'نسبة الإنجاز في مسار التعلم';
 $_lang['Progression of users on all learning paths'] = 'مستوى التقدم لجميع المستخدمين ضمن مسارت التعلم';
 $_lang['Properties'] = 'الخصائص';
 $_lang['Public'] = 'عام';
@@ -711,9 +678,7 @@ $_lang['Required'] = 'مطلوب';
 $_lang['Reset'] = 'البدء من جديد';
 $_lang['Restore course repository'] = 'استرجاع مخزن المقرر';
 $_lang['Result'] = 'النتيجة';
-$_lang['Results of the exercises done'] = 'نتائج التمارين التي تم تنفيذها';
 $_lang['Retry'] = 'إعادة المحاولة';
-$_lang['Return to the list'] = 'العودة للقائمة';
 $_lang['Reuse'] = 'إعادة استخدام';
 $_lang['Role'] = 'الوظيفة';
 $_lang['Root'] = 'جذر';
@@ -725,7 +690,6 @@ $_lang['Save changes'] = 'حفظ التعديلات';
 $_lang['Scan technical fault'] = 'البحث عن العيوب و الأخطاء التقنية';
 $_lang['Score'] = 'مجموع النقاط';
 $_lang['Score required'] = 'المعدل المطلوب';
-$_lang['Scores of exercises done'] = 'نتائج التمارين';
 $_lang['Scorm'] = 'Scorm ';
 $_lang['Search'] = 'بحث';
 $_lang['Search again (advanced)'] = 'البحث مجدداً (بحث متقدم)';
@@ -743,7 +707,6 @@ $_lang['Select course in search results'] = 'اختر المقرر من نتيج
 $_lang['Select in drop down list'] = 'الاختيار من قائمة منسدلة';
 $_lang['Selected Users'] = 'المستخدمون المختارون';
 $_lang['Send account information to user by email'] = 'إرسال معلومات الحساب للمستخدم بالبريد الالكتروني';
-$_lang['Send this announcement by email to registered students'] = 'إرسال هذا الإعلان بواسطة البريد الإلكتروني للطلاب المسجلين';
 $_lang['Show all'] = 'إظهار الكل';
 $_lang['Show answers'] = 'عرض الأجابات';
 $_lang['Show differences'] = 'عرض الاختلافات';
@@ -758,7 +721,6 @@ $_lang['Statistics by user'] = 'الإحصائيات حسب المستخدم';
 $_lang['Statistics of exercise'] = 'إحصائيات تمرين';
 $_lang['Statistics of exercise attempt'] = 'الإحصائيات حول عدد المحاولات لحل التمرين';
 $_lang['Statistics of question'] = 'إحصائيات سؤال';
-$_lang['Statistics of user'] = 'إحصائيات مستخدم';
 $_lang['Status'] = 'المنزلة';
 $_lang['Store Chat'] = 'حفظ الدردشة';
 $_lang['Student'] = 'طالب';
@@ -832,7 +794,6 @@ $_lang['Total'] = 'الكلي';
 $_lang['Total Clicks'] = 'العدد الكلي للنقرات';
 $_lang['Total Downloads'] = 'عدد مرات التحميل ';
 $_lang['Total attempts'] = 'العدد الكلي للمحاولات';
-$_lang['Total number of connection to this course'] = 'عدد مرات الاتصال بموقع هذا المقرر';
 $_lang['Total time'] = 'إجمالي الوقت';
 $_lang['Tracking'] = 'تتبع';
 $_lang['Tracking has been disabled by system administrator.'] = 'تم إيقاف عملية المتابعة من قبل مدير النظام';
@@ -842,10 +803,8 @@ $_lang['Translation Tools'] = 'ادوات الترجمة';
 $_lang['True'] = 'صحيح';
 $_lang['True/False'] = 'صح/خطأ';
 $_lang['URL link'] = 'URL وصلة';
-$_lang['Unable to add description'] = 'فشل في إضافة الوصف';
 $_lang['Unable to add external tool'] = 'فشل في إضافة الأداة الخارجية';
 $_lang['Unable to add the event to the agenda'] = 'فشل في إضافة الحدث لجدول الأعمال';
-$_lang['Unable to copy file :'] = 'فشل في نسخ الملف : ';
 $_lang['Unable to create category'] = 'فشل في إنشاء تصنيف';
 $_lang['Unable to create directory :'] = 'فشل في إنشاء المجلد:';
 $_lang['Unable to create file :'] = 'فشل في إنشاء الملف :';
@@ -923,7 +882,6 @@ $_lang['View list of all tools'] = 'عرض قائمة بجميع الأدوات'
 $_lang['View mode'] = 'نمط العرض';
 $_lang['View my statistics'] = 'استعراض الإحصائيات الخاصة بي';
 $_lang['Visibility'] = 'مرئي/مخفي';
-$_lang['Visibility modified'] = 'تم تعديل حالة الظهور/ الإخفاء';
 $_lang['Visible'] = 'مرئي';
 $_lang['Visits'] = 'الزيارات';
 $_lang['WARNING : you are going to delete this wiki and all its pages. Are you sure to want to continue ?'] = 'تحذير : سيتم حذف هذه الويكي و جميع محتوياتها هل تريد المتابعة بعملية الحذف ؟';
@@ -942,8 +900,6 @@ $_lang['Wiki syntax'] = 'Wiki الصيغ المستخدمة لكتابة ';
 $_lang['Work added'] = 'تم إرسال العمل بنجاح';
 $_lang['Work modified'] = 'تم تعديل العمل';
 $_lang['Work title required'] = 'عنوان العمل مطلوب';
-$_lang['Work uploaded by the student in the name of \'Authors\''] = 'الاعمال التي قام الطلاب بتحميلها للموقع حسب أسماء المؤلفين';
-$_lang['Work uploads'] = 'تحميل ملفات الوظائف';
 $_lang['Worst score'] = 'العلامة الأدنى';
 $_lang['Wrong operation'] = 'عملية خاطئة';
 $_lang['Year'] = 'السنة';
@@ -1054,27 +1010,6 @@ $_lang['blockConfirmDeleteModule'] = 'هل أنت متأكد من مسح هذه 
 لن تستطيع أن تستخدمها في أي مسار تعليمي.
 التأكيد على مسح : ';
 $_lang['blockConfirmDeleteScorm'] = 'إن هذا المسار التعليمي هو جزء من حزمة استيراد SCORM. إذا مسحت هذا المسار، كل وحدات SCORM الموافقة و الملفات المرتبطة سيتم حذفها من هذه المنصة. هل أنت متأكد بأنك تريد حذف المسار التعليمي المسمى ';
-$_lang['blockCourseDescriptionCourseContent'] = 'مضمون المقرر التعليمي';
-$_lang['blockCourseDescriptionCourseContentComment1'] = 'ما أهمية أن يتم تدريس المحتويات المتنوعة ضمن إطار هذا المقرر؟ ما هو مستوى صعوبة هذه المحتويات؟ ما هي هيكلية الوحدة؟ ما هو تسلسل المحتويات؟ إلى ماذا تؤدي المحتويات؟';
-$_lang['blockCourseDescriptionCourseContentComment2'] = 'عرض محتويات المقرر، هيكلية المحتويات، التقدم و التقويم';
-$_lang['blockCourseDescriptionDescription'] = 'الوصف';
-$_lang['blockCourseDescriptionDescriptionComment1'] = 'ما هو مكان و مخصص المقرر في هذا البرنامج؟ هل يوجد مقررات مطلوبة قبله؟ ما هي علاقاته بالمقررات الأخرى؟';
-$_lang['blockCourseDescriptionDescriptionComment2'] = 'معلومات تسمح بتعريف المقرر (حروف بادئة, عنوان, عدد ساعات, عملي...) و تدريسه (الكنية, الاسم, المكتب, الهاتف, البريد الإلكتروني, الاتاحية).  عرض عام للمقرر ضمن البرنامج.';
-$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment1'] = 'ما هي الموارد البشرية و المادية المتاحة؟ ماذا يمكن للطلاب ان يتوقعوا من فريق التنظيم أو ما يمكن ان يقوم المدرس بتنظيمه؟';
-$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment2'] = 'تقديم للمدرسين الأخرين الذين سيقومون بتنظيم المقرر ( مساعدين مدرسين, باحثين..إلخ)  و عرض ما هو متوفر من الإمكانيات البشرية , الأبنية , المعدات , تجهيزات الكومبيوتر المتاحة';
-$_lang['blockCourseDescriptionHumanAndPhysicalRessources'] = 'الموارد البشرية و المادية';
-$_lang['blockCourseDescriptionMethodsOfEvaluation'] = 'طرق التقييم';
-$_lang['blockCourseDescriptionMethodsOfEvaluationComment1'] = 'معلومات تفصيلية و دقيقة عن وسائل التقييم كالامتحانات الكتابية , الشفهية , المشاريع , الوظائف ....تاريخ المقابلات و تاريخ انتهاء موعد تسليم الوظائف مع شرح لمعايير التقييم بشكل كامل';
-$_lang['blockCourseDescriptionQualificationsAndGoals'] = 'المؤهلات المكتسبة و الأهداف';
-$_lang['blockCourseDescriptionQualificationsAndGoalsComment1'] = 'ماهي أهداف التدريس ؟ ما هي المؤهلات و المعرفة التي سيكتسبها الطلاب في نهاية المقرر';
-$_lang['blockCourseDescriptionQualificationsAndGoalsComment2'] = 'عرض للأهداف العامة و الخاصة للمقرر و ما هي المؤهلات  و الكفاءات التي يمكن الوصول لها عند تحقيق هذه الأهداف';
-$_lang['blockCourseDescriptionSupports'] = ' دعم ';
-$_lang['blockCourseDescriptionSupportsComment1'] = 'هل هناك دعم فني خاص بالمقرر؟ ما هو شكل الدعم الذي أقدمه ؟ دعم مفتوح؟ أم دعم مغلق؟';
-$_lang['blockCourseDescriptionSupportsComment2'] = 'Presentation of the support of course.  Presentation of the bibliography, the set of documents or a complementary bibliography.';
-$_lang['blockCourseDescriptionTeachingTrainingActivities'] = 'أنشطة التدريس و التدريب';
-$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment1'] = 'What methods and which activities will support the objectives defined for the course?  What is the calendar of activities?';
-$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment2'] = 'Presentation of the activities envisaged (authoritative reviews, participation expected of the students, practical work, laboratory meetings, visits, collection of information on the ground...).';
-$_lang['blockCourseHomePageIntroduction'] = 'قم باختيار الأدوات التي تريد ان تكون ظاهرة و فعالة للمستخدمين<br /> الأدوات التي ستكون غير فعالة ستظهر بلون رمادي عند استعراضك للصفحة الخاصة بك ';
 $_lang['blockCourseSettingsTip'] = 'بشكل افتراضي فإن موقع المقرر يكون متاحاً للجميع . الطريقة الأبسط للقيام بعمليات التسجيل هي إتاحة فرصة التسجيل خلال فترة اسبوع واحد و إبلاغ الطلاب بان يقوموا بعملية التسجيل بأنفسهم و من ثم يتم إغلاق باب التسجيل و تدقيق بيانات الطلاب للتحقق من عدم وجود متطفلين او عابثين';
 $_lang['blockDefaultLearningPathComment'] = 'هذه المقدمة لمسار التعليم الحالي, لاستبدالها  قم بالنقر  على <b> تعديل</b>';
 $_lang['blockDefaultModuleAddedComment'] = 'هذا هو نص المقدمة الإضافي حول وجود هذه الوحدة خصوصاً ضمن هذا المسار التعليمي. لاستبداله بنصك الخاص، اضفط بالأسفل على <b>تعديل</b>.';
@@ -1470,14 +1405,12 @@ $_lang['blockWikiHelpSyntaxContent'] = '<h3>Wiki2xhtml syntax</h3>
 <li><strong>Footnote</strong> : <code>$$footnote text$$</code>.</li>
 </ul></dd>
 </dl>';
-$_lang['click here'] = 'انقر هنا';
 $_lang['click to zoom in'] = 'انقر للتكبير';
 $_lang['click to zoom out'] = 'انقر للتصغير';
 $_lang['denotes new items'] = 'للدلالة على العناصر الجديدة';
 $_lang['differences between version of %1\$s modified by %2\$s and version of %3\$s modified by %4\$s'] = 'الاختلافات بين الإصدار  %1$s المعدل من قبل %2$s  و الإصدار %3$s المعدل من قبل %4$s';
 $_lang['e.g. <em>History of Literature</em>'] = 'مثال<i>برمجة الحاسوب</i>';
 $_lang['good looking'] = 'جميل المظهر';
-$_lang['if you choose to continue, lines with errors will simply be ignored'] = 'إذا اخترت المتابعة سيتم تجاهل الأسطر التي تحوي أخطاء';
 $_lang['line'] = 'السطر';
 $_lang['lines'] = 'الأسطر';
 $_lang['max. 12 characters, e.g. <em>ROM2121</em>'] = '12 حرف على الأكثر , مثال <em>CAD1</em> استخدم أحرف أجنبية فقط و بدون فراغات';

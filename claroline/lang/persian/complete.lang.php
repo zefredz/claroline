@@ -2,7 +2,6 @@
 $_lang['%1\$s by %2\$s'] = '%1$s by %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s تغییر داده شده در %2$s توسط %3$s';
 $_lang['(*) anonymous users, users who are not members of this course...'] = '(*) کاربران ناشناس، کاربرانی که عضو این درسی نیستند...';
-$_lang['(When an user open the index of the campus)'] = '(وقتی که کاربر نمایه‌ی دانشگاه را باز می‌کند)';
 $_lang['(d/m/y hh:mm)'] = '(روز/ماه/سال ساعت:دقیقه)';
 $_lang['(none)'] = '(هیچ‌کدام)';
 $_lang['(optional)'] = '(اختیاری)';
@@ -18,9 +17,6 @@ $_lang['A reply to your topic has been posted'] = 'پاسخی به موضوع ش
 $_lang['Access'] = 'دسترسی';
 $_lang['Access control management'] = 'مدیریت کنترل دسترسی';
 $_lang['Access count'] = 'شمارش دسترسی';
-$_lang['Access to campus'] = 'دسترسی به دانشگاه';
-$_lang['Access to courses'] = 'دسترسی به درس‌ها';
-$_lang['Access to tools'] = 'دسترسی به ابزارها';
 $_lang['Accounts with same <i>Email</i>'] = 'حساب‌هایی با <i>پست الکترونیکی</i> یکسان';
 $_lang['Accounts with same <i>User name</i>'] = 'حساب‌هایی با <i>نام کاربری</i> یکسان';
 $_lang['Accounts with same <i>User name</i> AND same <i>Password</i>'] = 'حساب‌هایی با <i>نام کاربری</i> یکسان و <i>گذرواژه‌ی</i> یکسان';
@@ -28,7 +24,6 @@ $_lang['Action'] = 'کنش';
 $_lang['Add'] = 'اضافه کردن';
 $_lang['Add a category'] = 'اضافه کردن مقوله';
 $_lang['Add a comment'] = 'اضافه کردن توضیح';
-$_lang['Add a comment (optionnal) :'] = 'اضافه کردن توضیح (اختیاری) :';
 $_lang['Add a document'] = 'درج نوشتار به عنوان پیمانه';
 $_lang['Add a module of this course'] = 'درج پیمانه‌ی من';
 $_lang['Add a user'] = 'اضافه کردن کاربر';
@@ -51,7 +46,6 @@ $_lang['Add user list'] = 'اضافه کردن فهرست کاربران';
 $_lang['Add user manually'] = 'کاربر به طور دستی اضافه شود';
 $_lang['Add wrong answers for drop down lists <small>(Optionnal. One wrong answer by line.)</small>'] = 'اضافه کردن جواب‌های غلط برای فهرست‌های بازشونده <small>(اختیاری. یک جواب غلط در هر خط.)</small>';
 $_lang['Added line'] = 'خط اضافه شده';
-$_lang['Admin'] = 'مدیر';
 $_lang['Administration'] = 'مدیریت';
 $_lang['Administrative code'] = 'کد مدیریتی';
 $_lang['Administrator'] = 'مدیر';
@@ -114,13 +108,11 @@ $_lang['Attempts allowed'] = 'تلاش‌های مجاز';
 $_lang['Authentication'] = 'تشخیص هویت';
 $_lang['Author'] = 'فرستنده';
 $_lang['Author(s)'] = 'مؤلف(ها)';
-$_lang['Author(s) is(are) required'] = 'مؤلف لازم است';
 $_lang['Automatically, after each submission'] = 'به طور خودکار، بعد از هر فرستادن';
 $_lang['Automatically, after end date'] = 'به طور خودکار، بعد از تاریخ پایان';
 $_lang['Average Time'] = 'زمان متوسط';
 $_lang['Average score'] = 'نمره‌ی متوسط';
 $_lang['Back'] = 'برگشت';
-$_lang['Back to Home page'] = 'برگشت به صفحه‌ی اصلی';
 $_lang['Back to administration page'] = 'برگشت به صفحه‌ی مدیر';
 $_lang['Back to class list'] = 'برگشت به فهرست کلاس‌ها';
 $_lang['Back to class members'] = 'برگشت به اعضای کلاس';
@@ -168,7 +160,6 @@ $_lang['Class users'] = 'کاربران کلاس';
 $_lang['Classes'] = 'کلاس‌ها';
 $_lang['Clear up event list'] = 'تمیز کردن فهرست رویدادها';
 $_lang['Clear up list of announcements'] = ' پاک کردن فهرست اعلان‌ها';
-$_lang['Click on the month name for more details'] = 'برای جزئیات بیشتر روی نام ماه کلیک کنید';
 $_lang['Close'] = 'بستن';
 $_lang['Close popup'] = 'واشو بسته شود';
 $_lang['Close window'] = 'بستن پنجره';
@@ -179,7 +170,6 @@ $_lang['Configuration'] = 'پیکربندی';
 $_lang['Confirmation'] = 'تأیید';
 $_lang['Content'] = 'محتوا';
 $_lang['Continue'] = 'ادامه';
-$_lang['Copy'] = 'نسخه‌برداری';
 $_lang['Country'] = 'کشور';
 $_lang['Country code seems to be incorrect.'] = 'کد کشور احتمالاً نادرست است.';
 $_lang['Course'] = 'درس';
@@ -198,7 +188,6 @@ $_lang['Course members'] = 'اعضای درس';
 $_lang['Course not found'] = 'درس پیدا نشد';
 $_lang['Course progression'] = 'پیشرفت درس ';
 $_lang['Course settings'] = 'تنظیمات درس';
-$_lang['Course statistics deleted'] = 'آمار درس حذف شد';
 $_lang['Course title'] = 'عنوان درس';
 $_lang['Course title needed'] = 'عنوان درس لازم است';
 $_lang['Course users list'] = 'فهرست کاربران کلاس';
@@ -254,7 +243,6 @@ $_lang['Deleted line'] = 'خط حذف شده';
 $_lang['Deletion of the user was done sucessfully'] = 'حذف کاربر با موفقیت انجام شد';
 $_lang['Denied'] = 'اجازه داده نشد';
 $_lang['Description'] = 'شرح';
-$_lang['Description added.'] = 'شرح اضافه شد.';
 $_lang['Description deleted.'] = 'شرح حذف شد.';
 $_lang['Description of the Wiki'] = 'شرح ویکی';
 $_lang['Description updated'] = 'شرح به روز شد.';
@@ -271,9 +259,7 @@ $_lang['Do you want to continue?'] = 'آیا می‌خواهید ادامه ده
 $_lang['Document'] = 'نوشتار';
 $_lang['Document deleted'] = 'نوشتار حذف شد';
 $_lang['Document name'] = 'نام نوشتار : ';
-$_lang['Documents'] = 'نوشتارها';
 $_lang['Documents and Links'] = 'نوشتارها و پیوندها';
-$_lang['Documents downloaded by the student'] = 'نوشتارهای بارگیری شده از روی دانشجو';
 $_lang['Documents help'] = 'راهنمای نوشتارها';
 $_lang['ERROR: The format you gave is not compatible with Claroline'] = 'خطا: قالبی که شما داده‌اید با Claroline سازگار نیست';
 $_lang['Edit'] = 'ویرایش';
@@ -319,7 +305,6 @@ $_lang['Enter new password twice to change, leave empty to keep it'] = 'برای
 $_lang['Enter the description of your wiki here'] = 'شرح ویکی‌تان را اینجا وارد کنید';
 $_lang['Enter your email so we can send you your password.'] = 'پست الکترونیکی‌تان را وارد کنید تا بتوانیم گذرواژه‌تان را برایتان بفرستیم. ';
 $_lang['Error : Cannot initialize chat'] = 'خطا : راه‌اندازی گپ ممکن نیست';
-$_lang['Error : cannot read RSS feed'] = 'خطا : خواندن خورد RSS ممکن نیست';
 $_lang['Error copying existing SCORM content'] = 'خطای نسخه‌برداری محتوای SCORM فعلی';
 $_lang['Error in SQL statement'] = 'خطا در وضعیت  SQL';
 $_lang['Error reading zip file.'] = 'خطا هنگام خواندن پرونده‌ی zip.';
@@ -373,7 +358,6 @@ $_lang['Forum created'] = 'فوروم ایجاد شد.';
 $_lang['Forum deleted'] = 'فوروم حذف شد.';
 $_lang['Forum emptied'] = 'فوروم خالی شد.';
 $_lang['Forum updated'] = 'فوروم به روز شد.';
-$_lang['Forum usage'] = 'استفاده از فوروم';
 $_lang['Forums'] = 'فوروم‌ها';
 $_lang['Forums help'] = 'راهنمای فوروم‌ها';
 $_lang['From'] = 'از';
@@ -416,7 +400,6 @@ $_lang['Institution URL'] = 'نشانی اینترنتی مؤسسه';
 $_lang['Invalid Wiki Id'] = 'شناسه‌ی ویکی نامعتبر';
 $_lang['Invalid email address'] = 'آدرس پست الکترونیکی نامعتبر';
 $_lang['Invalid url'] = 'نشانی اینترنتی نامعتبر';
-$_lang['Invalid user : this user doesn\'t exist in your group'] = 'کاربر نامعتبر : این کاربر در گروه شما وجود ندارد';
 $_lang['Invisible'] = 'نامرئی';
 $_lang['Is platform admin'] = 'مدیر سیستم است';
 $_lang['It seems that you already have registered your campus.'] = 'به نظر می‌رسد شما قبلاً دانشگاه‌تان را ثبت کرده‌اید.';
@@ -425,17 +408,14 @@ $_lang['Language'] = 'زبان';
 $_lang['Last 31 days'] = '۳۱ روز گذشته';
 $_lang['Last 7 days'] = '۷ روز گذشته';
 $_lang['Last access'] = 'آخرین دسترسی';
-$_lang['Last active topics'] = 'آخرین موضوعات فعال';
 $_lang['Last attempt'] = 'آخرین تلاش';
 $_lang['Last edit date'] = 'تاریخ آخرین ویرایش';
 $_lang['Last message'] = 'آخرین پیغام';
 $_lang['Last message was on'] = 'آخرین پیغام در : ';
-$_lang['Last messages'] = 'آخرین پیغام‌ها';
 $_lang['Last name'] = 'نام';
 $_lang['Last session time'] = 'زمان آخرین نشست';
 $_lang['Late upload'] = 'آخرین بارگیری';
 $_lang['Latest announcements'] = 'آخرین اعلان‌ها';
-$_lang['Launch restore of the course repository'] = 'راه‌اندازی بازیابی منبع درس‌ها';
 $_lang['Learning Path is empty'] = 'برنامه‌ی آموزشی خالی است';
 $_lang['Learning Path not found'] = 'برنامه‌ی آموزشی پیدا نشد';
 $_lang['Learning path'] = 'برنامه‌ی آموزشی';
@@ -449,14 +429,12 @@ $_lang['Lecturer(s)'] = 'مربی(ها)';
 $_lang['Limit'] = 'حد';
 $_lang['Line Number'] = 'شماره‌ی خط';
 $_lang['List of Wiki'] = 'فهرست ویکی‌ها';
-$_lang['List of students in this group'] = 'فهرست دانشجویان این گروه';
 $_lang['Load default format'] = 'بارکردن قالب پیش‌فرض';
 $_lang['Location'] = 'مکان';
 $_lang['Locked'] = 'قفل شده';
 $_lang['Login'] = 'ورود به سیستم';
 $_lang['Login request'] = 'درخواست ورود به سیستم';
 $_lang['Logins'] = 'ورودها به سیستم';
-$_lang['Logins and access to tools'] = 'ورودها به سیستم و دسترسی ابزارها';
 $_lang['Logout'] = 'خروج از سیستم';
 $_lang['Mail is already used by another user.'] = 'کاربر دیگری قبلاً  از نامه استفاده کرده است.';
 $_lang['Main Group Settings'] = 'تنظیمات گروه اصلی';
@@ -494,8 +472,6 @@ $_lang['Module type'] = 'نوع پیمانه';
 $_lang['Modules'] = 'پیمانه‌ها';
 $_lang['Modules of this path will still be available in the pool of modules'] = 'پیمانه‌های این مسیر همچنان در مخزن پیمانه‌ها موجود خواهد بود';
 $_lang['Month'] = 'ماه';
-$_lang['More replied topics'] = 'موضوعات پاسخ داده شده‌ی دیگر';
-$_lang['More seen topics'] = 'موضوعات بازدید شده‌ی دیگر';
 $_lang['Move'] = 'جابه‌جایی';
 $_lang['Move down'] = 'به پایین جابه‌جا شود';
 $_lang['Move up'] = 'به بالا جابه‌جا شود';
@@ -506,15 +482,12 @@ $_lang['My User Account'] = 'تغییر مجموعه تنظیمات من';
 $_lang['My calendar'] = 'تقویم من';
 $_lang['My course list'] = 'فهرست درس‌های من';
 $_lang['My other courses'] = 'درس‌های دیگر من';
-$_lang['My personal course list'] = 'فهرست درس‌های من';
 $_lang['My results'] = 'نتایج من';
 $_lang['Mysql Repository'] = 'مخزن Mysql';
 $_lang['Name cannot be empty'] = 'نام باید کامل شود';
 $_lang['Name of the class has been changed'] = 'نام کلاس تغییر کرده است';
-$_lang['Name of the new directory'] = 'نام شاخه‌ی جدید';
 $_lang['Name of the tool'] = 'نام ابزار';
 $_lang['Never browsed'] = 'هرگز مرور نشده است';
-$_lang['Never connected students :'] = 'دانشجویانی که هرگز متصل نشده‌اند : ';
 $_lang['Never used'] = 'هیچ وقت استفاده نشد';
 $_lang['New Class name'] = 'نام کلاس جدید';
 $_lang['New Wiki'] = 'ویکی جدید';
@@ -539,7 +512,6 @@ $_lang['No change applied.'] = 'هیچ تغییری اِعمال نشد.';
 $_lang['No closing date'] = 'تاریخ پایانی وجود ندارد';
 $_lang['No course available fitting this keyword'] = 'هیچ درسی مطابق با این کلمه جستجو وجود ندارد';
 $_lang['No course to display'] = 'درسی برای نمایش نیست';
-$_lang['No email address specified'] = 'هیچ آدرس پست الکترونیکی‌ای مشخص نشده است';
 $_lang['No error in file found.'] = 'خطایی در پرونده پیدا نشد.';
 $_lang['No event in the agenda'] = 'هیچ رویدادی در دستور کار نیست';
 $_lang['No forum'] = 'بدون فوروم';
@@ -552,7 +524,6 @@ $_lang['No post'] = 'بدون پست';
 $_lang['No quota'] = 'بدون نقل قول';
 $_lang['No result'] = 'بدون نتیجه';
 $_lang['No score'] = 'بدون امتیاز';
-$_lang['No stats to show.  You haven\'t registered any course.'] = 'آماری برای نمایش نیست. شما در هیچ درسی ثبت نام نکرده‌اید.';
 $_lang['No time limitation'] = 'بدون محدودیت زمانی';
 $_lang['No user found'] = 'کاربری پیدا نشد';
 $_lang['No user to display'] = 'کاربری برای نمایش نیست';
@@ -570,7 +541,6 @@ $_lang['Number of courses by faculty'] = 'تعداد درس‌ها از روی �
 $_lang['Number of courses by language'] = 'تعداد درس‌ها از روی زبان';
 $_lang['Number of courses by visibility'] = 'تعداد درس‌ها از روی مرئی بودن';
 $_lang['Number of learning paths using this module :'] = 'تعداد برنامه‌های آموزشی استفاده کننده از این پیمانه: ';
-$_lang['Number of logins'] = 'تعداد ورودها به سیستم';
 $_lang['Number of pages'] = 'تعداد صفحات';
 $_lang['Number of rows'] = 'تعداد سطرها';
 $_lang['Number of users'] = 'تعداد کاربران';
@@ -580,7 +550,6 @@ $_lang['Number of users by status'] = 'تعداد کاربران از روی و�
 $_lang['Numero'] = 'شماره';
 $_lang['Ok'] = 'بسیار خوب';
 $_lang['One question per page (sequential)'] = 'یک سئوال در هر صفحه (به ترتیب)';
-$_lang['Operation impossible'] = 'عملیات ممکن نیست';
 $_lang['Optional'] = 'اختیاری';
 $_lang['Order'] = 'ترتیب';
 $_lang['Other'] = 'سایر';
@@ -623,7 +592,6 @@ $_lang['Private'] = 'خصوصی';
 $_lang['Private course only'] = 'فقط درس خصوصی';
 $_lang['Private feedback'] = 'بازخورد خصوصی';
 $_lang['Progress'] = 'پیشرفت';
-$_lang['Progress in learning paths'] = 'پیشرفت در برنامه‌ی آموزشی';
 $_lang['Progression of users on all learning paths'] = 'پیشرفت کاربران در تمام برنامه‌های آموزشی';
 $_lang['Properties'] = 'مشخصات';
 $_lang['Public'] = 'عمومی';
@@ -661,9 +629,7 @@ $_lang['Required'] = 'لازم است';
 $_lang['Reset'] = 'تنظیم مجدد';
 $_lang['Restore course repository'] = 'بازیابی منبع درس';
 $_lang['Result'] = 'نتیجه';
-$_lang['Results of the exercises done'] = 'امتیاز تمرین‌های انجام شده';
 $_lang['Retry'] = 'تلاش دوباره';
-$_lang['Return to the list'] = 'بازگشت به فهرست';
 $_lang['Reuse'] = 'دوباره استفاده شود';
 $_lang['Role'] = 'نقض';
 $_lang['Root'] = 'ریشه';
@@ -672,7 +638,6 @@ $_lang['Save changes'] = 'ذخیره‌ی تغییرات';
 $_lang['Scan technical fault'] = 'Scan technical fault';
 $_lang['Score'] = 'نمره';
 $_lang['Score required'] = 'Score required';
-$_lang['Scores of exercises done'] = 'امتیاز تمرین‌ها انجام داده شده';
 $_lang['Scorm'] = 'Scorm';
 $_lang['Search'] = 'جستجو';
 $_lang['Search again (advanced)'] = 'دوباره جستجو شود (پیشرفته)';
@@ -690,7 +655,6 @@ $_lang['Select course in search results'] = 'انتخاب درس از نتایج
 $_lang['Select in drop down list'] = 'از فهرست بازشونده انتخاب کنید';
 $_lang['Selected Users'] = 'کاربران انتخاب شده';
 $_lang['Send account information to user by email'] = 'فرستادن اطلاعات حساب برای کاربر با پست الکترونیکی';
-$_lang['Send this announcement by email to registered students'] = 'این اعلان با پست الکترونیکی برای دانشجویان ثبت نام شده فرستاده شود ';
 $_lang['Show all'] = 'نمایش همه';
 $_lang['Show answers'] = 'نمایش پاسخ‌ها';
 $_lang['Show differences'] = 'نمایش تفاوت‌ها';
@@ -703,7 +667,6 @@ $_lang['Statistics by question'] = 'آمار از روی سئوال';
 $_lang['Statistics by user'] = 'آمار از روی کاربر';
 $_lang['Statistics of exercise'] = 'آمار از روی تمرین';
 $_lang['Statistics of question'] = 'آمار سئوال';
-$_lang['Statistics of user'] = 'آمار کاربر';
 $_lang['Status'] = 'وضعیت';
 $_lang['Store Chat'] = 'ذخیره‌ی گپ';
 $_lang['Student'] = 'دانشجو';
@@ -774,7 +737,6 @@ $_lang['Total'] = 'مجموع';
 $_lang['Total Clicks'] = 'مجموع کلیک‌ها';
 $_lang['Total Downloads'] = 'مجموع بارگیری‌ها';
 $_lang['Total attempts'] = 'مجموع تلاش‌ها';
-$_lang['Total number of connection to this course'] = 'تعداد کل اتصال‌ها با این درس';
 $_lang['Total time'] = 'مجموع زمان';
 $_lang['Tracking'] = 'ردیابی';
 $_lang['Tracking has been disabled by system administrator.'] = 'ردیابی توسط مدیر سیستم از کار انداخته شده است.';
@@ -783,10 +745,8 @@ $_lang['Translation Progression'] = 'پیشرفت ترجمه';
 $_lang['Translation Tools'] = 'ابزارهای ترجمه';
 $_lang['True'] = 'درست';
 $_lang['True/False'] = 'درست/غلط';
-$_lang['Unable to add description'] = 'اضافه کردن شرح ممکن نیست';
 $_lang['Unable to add external tool'] = 'اضافه کردن ابزار خارجی ممکن نیست';
 $_lang['Unable to add the event to the agenda'] = 'اضافه کردن رویداد به دستورکار ممکن نیست.';
-$_lang['Unable to copy file :'] = 'نسخه‌برداری پرونده ممکن نیست : ';
 $_lang['Unable to create category'] = 'ایجاد مقوله ممکن نیست';
 $_lang['Unable to create directory :'] = 'ایجاد شاخه ممکن نیست : ';
 $_lang['Unable to create file :'] = 'ایجاد پرونده ممکن نیست : ';
@@ -862,7 +822,6 @@ $_lang['View list of all tools'] = 'نمایش فهرست همه‌ی ابزار
 $_lang['View mode'] = 'حالت نمایش';
 $_lang['View my statistics'] = 'نمایش آمار من';
 $_lang['Visibility'] = 'حالت مرئی بودن';
-$_lang['Visibility modified'] = 'حالت مرئی بودن تعییر کرد';
 $_lang['Visible'] = 'مرئی';
 $_lang['Visits'] = 'بازدیدها';
 $_lang['WARNING : you are going to delete this wiki and all its pages. Are you sure to want to continue ?'] = 'اخطار : شما در آستانه‌ی حذف ویکی و تمام صفحات آن هستید. آیا مطمئنید که می‌خواهید ادامه دهید ؟';
@@ -880,8 +839,6 @@ $_lang['Wiki edition succeed'] = 'ویرایش ویکی با موفقیت انج
 $_lang['Work added'] = 'کار اضافه شد';
 $_lang['Work modified'] = 'کار تغییر کرد';
 $_lang['Work title required'] = 'عنوان کار لازم است';
-$_lang['Work uploaded by the student in the name of \'Authors\''] = 'کارهای بارگذاری شده توسط کاربران از روی نام \'مؤلف\'';
-$_lang['Work uploads'] = 'بارگذاری‌های کار';
 $_lang['Worst score'] = 'بدترین نمره';
 $_lang['Wrong operation'] = 'عملیات غلط';
 $_lang['Year'] = 'سال';
@@ -991,21 +948,6 @@ $_lang['blockConfirmDeleteModule'] = 'آیا مطمئنید که می‌خواه
 پیمانه به طور کامل از کارگزار و از همه‌ی برنامه‌های آموزشی‌ای که از استفاده می‌کنند، حذف خواهد شد.
 شما نخواهید توانست از آن در هیچ برنامه‌ی آموزشی‌ای استفاده کنید.
 تأیید حذف:';
-$_lang['blockCourseDescriptionCourseContent'] = 'محتوای درس';
-$_lang['blockCourseDescriptionCourseContentComment1'] = 'اهمیت محتوا مختلف آموزش داده شده در چارچوب این درس چیست؟ سطح سختی این محتوا چطور است؟ این واحد چطور ساختار یافته است؟ ترتیب محتوا چگونه است و به کجا منتهی می‌شود؟';
-$_lang['blockCourseDescriptionCourseContentComment2'] = 'ارائه‌ی محتوای درس، ساختار محتوا، پیشرفت و تقویم';
-$_lang['blockCourseDescriptionDescription'] = 'شرح';
-$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment1'] = 'منابع مادی و انسانی موجود چیست؟  ویژگی‌ها و ساختار آن‌ها چیست؟  دانشجویان چه انتظاری می‌توانند از تیم سازمان یا آموزگار سازمان داشته باشند؟';
-$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment2'] = 'معرفی سایر آموزگارانی که درس را اداره می‌کنند (استادیاران، محقق‌ها، حل تمرین‌ها...)، در دسترس بودن آن‌ها، محل‌ها، ابزارها یا کامپیوترهای موجود.';
-$_lang['blockCourseDescriptionHumanAndPhysicalRessources'] = 'منابع مادی و انسانی';
-$_lang['blockCourseDescriptionMethodsOfEvaluation'] = 'روش‌های ارزیابی';
-$_lang['blockCourseDescriptionQualificationsAndGoals'] = 'شرایط لازم و اهداف';
-$_lang['blockCourseDescriptionQualificationsAndGoalsComment1'] = 'اهداف آموزشی چیست؟ در پایان درس دانشجویان چه توانایی‌هایی، اطلاعاتی و ظرفیت‌هایی خواهند داشت؟';
-$_lang['blockCourseDescriptionQualificationsAndGoalsComment2'] = 'ارائه اهداف عمومی و خاص درس، و توانایی‌هایی که کنترل این اهداف به آن‌ها منجر می‌شود.';
-$_lang['blockCourseDescriptionSupports'] = ' پشتیبانی ';
-$_lang['blockCourseDescriptionTeachingTrainingActivities'] = 'فعالیت‌های درسی-آموزشی';
-$_lang['blockCourseHomePageIntroduction'] = 'ابزارهایی را که می‌خواهید برای کاربران‌تان مرئی باشد انتخاب کنید.
-ابزارهای نامرئی در رابط شخصی شما طوسی می‌شوند';
 $_lang['blockCourseSettingsTip'] = 'به طور پیش‌فرض، همه به درس شما دسترسی دارند.  اگر نمی‌خواهید این طور باشد ساده‌ترین کار این است که به مدت یک هفته ثبت نام را آزاد بگذارید و از همه‌ی دانشجویان بخواهید خود را ثبت نام کنند؛ سپس ثبت نام را ببندید و در فهرست کاربران به دنبال کسانی که نمی‌خواهید ثبت نام باشند بگردید.';
 $_lang['blockDefaultLearningPathComment'] = 'این متن مقدمه‌ی برنامه‌ی آموزشی است. برای جای‌گزین کردن آن به متن خودتان، روی  <b>تغییر</b> در زیر کلیک کنید.';
 $_lang['blockDocumentsHelp'] = '<p>ابزار نوشتار شبیه مدیر پرونده‌ی کامپیوتر رومیزی‌تان است.</p><p>می‌توانید انواع پرونده‌ها را بارگذاری کنید  (HTML، Word، Powerpoint، Excel، Acrobat ،Flash، Quicktime، غیره.). فقط باید توجه داشته باشید که دانشجویان‌تان نرم‌افزار لازم برای خواندن آن‌ها را داشته باشند. بعضی از انواع پرونده‌ها می‌توانند ویروس داشته باشند. وظیفه‌ی شما است که پرونده‌هایی ویروسی را بارگذاری نکنید. احتیاط آن است که نوشتارها را قبل از بارگذاری با نرم‌افزارهای ضدویروس بررسی کنید.</p>
@@ -1296,14 +1238,12 @@ $_lang['blockUsersHelp'] = '<p>ابزار \'کاربران\' اطلاعات کا
 To mention in the header of the course web site the name of a co-chairman, use the tool \'Modify course information\' (orange tools). This modification does not register your co-chairman as a user of the course. The field \'Lecturers\' is completely independent of the Users list.
 Add a user
 </p>';
-$_lang['click here'] = 'اینجا کلیک کنید';
 $_lang['click to zoom in'] = 'برای زوم به داخل کلیک کنید';
 $_lang['click to zoom out'] = 'برای زوم به خارج کلیک کنید';
 $_lang['denotes new items'] = 'مشخص‌کردن موردهای جدید';
 $_lang['differences between version of %1\$s modified by %2\$s and version of %3\$s modified by %4\$s'] = 'تفاوت‌های نسخه‌ی %1$s تغییر داده شده توسط %2$s و نسخه‌ی %3$s تغییر داده شده توسط %4$s';
 $_lang['e.g. <em>History of Literature</em>'] = 'مثلاً <i>تاریخ ادبیات</i>';
 $_lang['good looking'] = 'خوش‌قیافه است';
-$_lang['if you choose to continue, lines with errors will simply be ignored'] = 'اگر ادامه دهید، خط‌هایی که خطا دارند نادیده گرفته می‌شوند';
 $_lang['line'] = 'خط';
 $_lang['lines'] = 'خط';
 $_lang['max. 12 characters, e.g. <em>ROM2121</em>'] = 'حداکثر ۱۲ نویسه مثلاً <em>ROM2121</em>';
