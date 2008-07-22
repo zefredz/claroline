@@ -148,6 +148,7 @@ FromKernel::uses('core/claroline.lib');
 
 try
 {
+    // Initialize the main database connection
     Claroline::initMainDatabase();
 }
 catch ( Exception $e )
@@ -164,6 +165,9 @@ catch ( Exception $e )
 
 require get_path('incRepositorySys') . '/claro_init_local.inc.php';
 
+// Initialize the claroline display
+Claroline::initDisplay();
+// Assign the Claroline singleton to a variable for more convenience
 $claroline = Claroline::getInstance();
 
 if ( isset( $tlabelReq ) && !empty( $tlabelReq ) )
