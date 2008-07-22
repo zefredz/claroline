@@ -70,67 +70,46 @@ $sql = "CREATE TABLE ". $tbl_used_lang ." (
 
 mysql_query ($sql) or die($problemMessage . __LINE__);
 
-// Get Files and subfolders
+// get lang vars from fies in claroline folder
+$it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(get_path('clarolineRepositorySys')) );
 
-$scan=scan_dir (get_path('rootSys'),$recurse=TRUE);
+$allLanguageVarList = array();
 
-$files = $scan['files'];
-
-$total_var_count = 0;
-
-foreach ($files as $file)
+foreach( $it as $file )
 {
+    if( $file->isFile() && substr($file->getFilename(), -17) == '.def.conf.inc.php' )
+    {
+        echo '<h4>DEF ' . $file->getPathname() . '</h4>' . "\n";
+    
+        $languageVarList = get_lang_vars_from_deffile($file->getPathname());
+    
+        echo 'Found ' . count($languageVarList) . ' Variables' . "\n";
+        
+        // add in main array to compute total number of vars
+        $allLanguageVarList = array_merge($allLanguageVarList, $languageVarList);
+    
+        store_lang_used_in_script($languageVarList,str_replace('\\', '/', realpath($file->getPathname())));
+    }
+    elseif( $file->isFile() && substr($file->getFilename(), -4) == '.php' )
+    {
+        echo "<h4>" . $file->getPathname() . "</h4>\n";
+        
+        $languageVarList = get_lang_vars_from_file($file->getPathname());  
 
-    echo "<h4>" . $file . "</h4>\n";
-
-    // extract variables
-
-    $scannedFileList = array(); // re init the scannedFileList for each new script
-
-    $languageVarList = get_lang_vars_from_file($file);
-
-    echo 'Found ' . count($languageVarList) . ' Variables' . "\n";
-    // display variables
-
-    $var_count = 0;
-
-    foreach($languageVarList as $varName) ++$var_count;
-    $total_var_count += $var_count;
-    echo 'Variables: ' . $var_count;
-
-    // update table
-    store_lang_used_in_script($languageVarList,$file);
-
-} // end foreach
-
-$defCodeList = get_config_code_list();
-foreach ($defCodeList as $configCode)
-{
-    $file = claro_get_conf_def_file($configCode). '/' . $configCode . '.def.conf.inc.php';
-    echo '<h4>DEF ' . $file . '</h4>' . "\n";
+        echo 'Found ' . count($languageVarList) . ' Variables' . "\n";
+        
+        // add in main array to compute total number of vars
+        $allLanguageVarList = array_merge($allLanguageVarList, $languageVarList);
+    
+        // update table
+        store_lang_used_in_script($languageVarList,str_replace('\\', '/', realpath($file->getPathname())));
+    }
+}
 
 
-    $languageVarList = get_lang_vars_from_deffile($file);
+$allLanguageVarList = array_unique($allLanguageVarList);
 
-    echo 'Found ' . count($languageVarList) . ' Variables' . "\n";
-
-    // display variables
-
-    $var_count = 0;
-
-    foreach($languageVarList as $varName) ++$var_count;
-    $total_var_count += $var_count;
-    echo "Variables: " . $var_count;
-
-    // update table
-    $file = realpath(dirname(__FILE__) . '/../../../' .  '/tool/config_edit.php');
-    $file = str_replace('\\','/',$file);
-
-    store_lang_used_in_script($languageVarList,$file);
-
-} // end foreach
-
-echo "<p>Total variables: " . $total_var_count . "</p>";
+echo "<p>Total variables: " . count($allLanguageVarList) . "</p>";
 
 // end time
 $endtime = get_time();

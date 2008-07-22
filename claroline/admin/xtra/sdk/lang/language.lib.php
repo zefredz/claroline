@@ -386,81 +386,18 @@ function detect_included_files(&$tokenList)
 
 function get_lang_vars_from_file($file)
 {
-    global $scannedFileList;
-    global $parsingFileList;
+    $languageVarList = array();
 
-//    var_dump($GLOBALS['scannedFileList']);
-
-    if ( ! isset($scannedFileList) ) $scannedFileList = array();
-
-    // add file in parsing list
-    $parsingFileList[] = $file;
-
-    // *** OPTIMISATION : start *** //
-    if ( isset($GLOBALS[$file]) )
+    $fileContent = file_get_contents($file);
+    
+    // to speed up script to not try to detect all get_lang if there is none
+    if( preg_match('/get_lang/',$fileContent) )
     {
-        array_pop($parsingFileList);
-        return $GLOBALS[$file];
-    }
-    // *** OPTIMISATION : end *** //
-
-    if ( is_scannable( realpath($file) ) )
-    {
-        $languageVarList      = array();
-        $includeStatementList = array();
-        $includedFileList     = array();
-
-        $sourceFile = file_get_contents($file);
-        $tokenList  = token_get_all($sourceFile);
-
-        //$languageVarList      = detect_lang_var($tokenList);
-        $languageVarList      = detect_get_lang($tokenList);
-        $includeStatementList = detect_included_files($tokenList);
-
-        foreach ( $includeStatementList as $thisIncludeStatement )
-        {
-            $includeRealPath= get_real_path_from_statement($thisIncludeStatement, $file);
-
-            if ( $includeRealPath && is_file($includeRealPath) )
-            {
-                 $includedFileList[] = $includeRealPath;
-            }
-        }
-
-        if ( count($includedFileList) > 0 )
-        {
-            foreach($includedFileList as $thisIncludedFile)
-            {
-                if ( ! in_array( $thisIncludedFile, $scannedFileList) && ! in_array( $thisIncludedFile, $parsingFileList) )
-                {
-                    $includedLangVarList = get_lang_vars_from_file($thisIncludedFile);
-                    $scannedFileList[]   = $thisIncludedFile;
-
-                    if ( is_array($includedLangVarList)  )
-                    {
-                        $languageVarList =  array_merge($languageVarList, $includedLangVarList);
-                    }
-                }
-            }
-        }
-
+        $languageVarList = detect_get_lang($fileContent);
         $languageVarList = array_unique($languageVarList);
-
-        // *** OPTIMISATION : start *** //
-        $GLOBALS[$file] = $languageVarList;
-        // *** OPTIMISATION : end *** //
-
-        // remove file from parsing list
-        array_pop($parsingFileList);
-
-        return $languageVarList;
-
-    } // end if scannable
-    else
-    {
-        array_pop($parsingFileList);
-        return false;
     }
+
+    return $languageVarList;
 
 }
 
@@ -471,10 +408,11 @@ function get_lang_vars_from_file($file)
  * @param  - array $tokenList
  */
 
-function detect_get_lang($tokenList)
+function detect_get_lang($fileContent)
 {
     $languageVarList = array();
 
+    $tokenList  = token_get_all($fileContent);
     $total_token = count($tokenList);
 
     $i = 0;
@@ -693,7 +631,7 @@ function get_lang_path_list($path_lang)
 
     while ($element = readdir($handle) )
     {
-        if ( $element == "." || $element == ".." || $element == "CVS"
+        if ( $element == "." || $element == ".." || $element == "CVS" || $element == ".svn"
             || strstr($element,"~") || strstr($element,"#")
            )
         {
