@@ -64,7 +64,7 @@ if ( $table_exists == TRUE )
 <h4><?php echo get_lang('Build language files')?></h4>
 <ul>
 <li><a href="lang/build_devel_lang_file.php"><?php echo get_lang('Complete language files')?></a></li>
-<li><a href="lang/build_prod_lang_file.php"><?php echo get_lang('Production language files')?></a></li>
+<!-- <li><a href="lang/build_prod_lang_file.php"><?php echo get_lang('Production language files')?></a></li> -->
 <li><a href="lang/build_missing_lang_file.php"><?php echo get_lang('Missing language files')?></a></li>
 <li><a href="lang/build_empty_lang_file.php"><?php echo get_lang('Empty language file')?></a></li>
 </ul>
