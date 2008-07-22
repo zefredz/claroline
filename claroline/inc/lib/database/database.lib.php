@@ -282,6 +282,13 @@ class Mysql_Database_Connection implements Database_Connection
  */
 class Claroline_Database_Connection implements Database_Connection
 {
+    protected $dbLink;
+    
+    public function __construct( $dbLink )
+    {
+        $this->dbLink = $dbLink;
+    }
+    
     /**
      * @see Database_Connection
      */
@@ -295,7 +302,7 @@ class Claroline_Database_Connection implements Database_Connection
      */
     public function selectDatabase( $database )
     {
-        if ( ! claro_sql_select_db( $database ) )
+        if ( ! claro_sql_select_db( $database, $this->dbLink ) )
         {
             throw new Database_Connection_Exception("Cannot select database {$database} on {$this->username}@{$this->host}");
         }
@@ -306,7 +313,7 @@ class Claroline_Database_Connection implements Database_Connection
      */
     public function affectedRows()
     {
-        return claro_sql_affected_rows();
+        return claro_sql_affected_rows( $this->dbLink );
     }
     
     /**
@@ -314,7 +321,7 @@ class Claroline_Database_Connection implements Database_Connection
      */
     public function insertId()
     {
-        return claro_sql_insert_id();
+        return claro_sql_insert_id( $this->dbLink );
     }
     
     /**
@@ -322,7 +329,7 @@ class Claroline_Database_Connection implements Database_Connection
      */
     public function exec( $sql )
     {
-        if ( ! claro_sql_query( $sql ) )
+        if ( ! claro_sql_query( $sql, $this->dbLink ) )
         {
             throw new Database_Connection_Exception( "Error in {$sql} : ".claro_sql_error(), claro_sql_errno() );
         }
@@ -335,7 +342,7 @@ class Claroline_Database_Connection implements Database_Connection
      */
     public function query( $sql )
     {
-        if ( false === ( $result = claro_sql_query( $sql ) ) )
+        if ( false === ( $result = claro_sql_query( $sql, $this->dbLink ) ) )
         {
             throw new Database_Connection_Exception( "Error in {$sql} : ".claro_sql_error(), claro_sql_errno() );
         }
@@ -365,7 +372,7 @@ class Claroline_Database_Connection implements Database_Connection
      */
     public function escape( $str )
     {
-        return claro_sql_escape( $str );
+        return claro_sql_escape( $str, $this->dbLink );
     }
     
     /**
@@ -373,7 +380,7 @@ class Claroline_Database_Connection implements Database_Connection
      */
     public function quote( $str )
     {
-        return "'".claro_sql_escape($str)."'";
+        return "'".claro_sql_escape( $str, $this->dbLink )."'";
     }
 }
 
