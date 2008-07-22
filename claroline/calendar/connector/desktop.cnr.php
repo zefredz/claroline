@@ -25,82 +25,20 @@ require_once get_module_path( 'CLCAL' ) . '/lib/agenda.lib.php';
 
 class CLCAL_Portlet extends UserDesktopPortlet
 {
-
     public function renderContent()
     {
-        $today = getdate();
-
-        // **** Attention !!! A changer ...
-        $year = isset($_REQUEST['year']) ? (int) $_REQUEST['year' ] : $today['year'];
-        $month = isset($_REQUEST['month']) ? (int) $_REQUEST['month' ] : $today['mon'];
-        // ****
-
-        $userCourseList = claro_get_user_course_list();
-        $agendaItemList = get_agenda_items_compact_mode($userCourseList, $month, $year);
-        $langMonthNames = get_locale('langMonthNames');
-        $langDay_of_weekNames = get_locale('langDay_of_weekNames');
-
-        $monthName = $langMonthNames['long'][$month-1];
-
-        $output = '';
-
-        $output .= ''
-        .    '<div id="portletMycalendar">' . "\n"
-        .     ' <div class="calendar">' . claro_html_monthly_calendar($agendaItemList, $month, $year, $langDay_of_weekNames['init'], $monthName, true) . '</div>' . "\n"
-        .     ' <div class="details">'
-        ;
-
-        if($agendaItemList)
-        {
-            $output .= '<dl>';
-
-            foreach($agendaItemList as $agendaItem)
-            {
-                $output .= '<dt>' . "\n"
-                .    '<img class="iconDefinitionList" src="' . get_icon_url('agenda', 'CLCAL') . '" alt="' . get_lang('Icon agenda') . '" />'
-                .    '<small>'
-                .    claro_html_localised_date( get_locale('dateFormatLong'),
-                strtotime($agendaItem['date']) )
-                .    '</small>' . "\n"
-                .    '</dt>' . "\n"
-                ;
-
-                foreach($agendaItem['eventList'] as $agendaEvent)
-                {
-                    $output .= '<dd>'
-                    .    '<small>'  . "\n"
-                    .    '<a href="' . $agendaEvent['url'] . '">'
-                    .    $agendaEvent['courseOfficialCode']
-                    .    '</a> : ' . "\n"
-                    .    '<small>'  . "\n"
-                    .    $agendaEvent['content'] . "\n"
-                    .    '</small>' . "\n"
-                    .    '</small>' . "\n"
-                    .    '</dd>' . "\n"
-                    ;
-                }
-            }
-            $output .= '</dl>';
-        }
-        else
-        {
-            $output .= "\n"
-            .    '<dl>' . "\n"
-            .    '<dt>' . "\n"
-            .    '<img class="iconDefinitionList" src="' . get_icon_url('agenda', 'CLCAL') . '" alt="' . get_lang('Icon agenda') . '" />'
-            .    '<small>'
-            .    get_lang('No event to display') . "\n"
-            .    '</small>' . "\n"
-            .    '</dt>' . "\n"
-            .    '</dl>' . "\n"
+        $output = '<div id="portletMycalendar">' . "\n"
+            . '<img src="'.get_icon_url('loading').'" alt="" />' . "\n"
+            . '</div>' . "\n"
+            . '<div style="clear:both;"></div>' . "\n"
             ;
-        }
-
-        $output .= ''
-        .     ' </div>' . "\n"
-        .     '</div>' . "\n"
-        .     '<div style="clear:both;"></div>' . "\n"
-        ;
+        
+        $output .= "<script type=\"text/javascript\">
+$(document).ready( function(){
+    $('#portletMycalendar').load('"
+        .get_module_url('CLCAL')."/ajaxHandler.php');
+});
+</script>";
 
         return $output;
     }
