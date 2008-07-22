@@ -43,8 +43,6 @@ class Claroline
     const FRAME = 'CL_FRAME';
     
     // Kernel objects
-    // Database link
-    public $database;
     // Event manager
     public $eventManager;
     // Notification manager
@@ -63,14 +61,6 @@ class Claroline
     {
         try
         {
-            // Create main database connection
-            // Database::loadDriver('claroline');
-            // $this->database = Database::getMainConnection();
-
-            $this->database = new Claroline_Database_Connection;
-            // not mandatory for Claroline_Database_Connection but API needs it
-            $this->database->connect();
-        
             // initialize the event manager and notification classes
             $this->eventManager = EventManager::getInstance();
             $this->notification = ClaroNotification::getInstance();
@@ -85,9 +75,6 @@ class Claroline
             {
                 $this->pushModuleLabel($GLOBALS['tlabelReq']);
             }
-            
-            // initialize set the default display mode
-            $this->setDisplayType();
         }
         catch ( Exception $e )
         {
@@ -165,10 +152,10 @@ class Claroline
 
         return self::$instance;
     }
-
-    public static function getDatabase()
+    
+    public static function initDisplay( $displayType = self::PAGE )
     {
-        return self::getInstance()->database;
+        self::getInstance()->setDisplayType( $displayType );
     }
     
     public static function log( $type, $data )
@@ -177,6 +164,20 @@ class Claroline
     }
     
     protected static $db = false;
+    // Database link
+    protected static $database = false;
+    
+    public static function getDatabase()
+    {
+        if ( ! self::$database )
+        {
+            // self::initMainDatabase();
+            self::$database = new Claroline_Database_Connection(self::$db);
+            self::$database->connect();
+        }
+        
+        return self::$database;
+    }
     
     public static function initMainDatabase()
     {
