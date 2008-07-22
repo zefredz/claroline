@@ -247,7 +247,7 @@ class ClaroBreadCrumbs extends BreadCrumbs
                 }
                 else
                 {
-                    $url  = $_SERVER['PHP_SELF'] .'?'. $_SERVER['QUERY_STRING'];
+                    $url  = $_SERVER['PHP_SELF'] .'?'. htmlspecialchars(strip_tags($_SERVER['QUERY_STRING']));
                 }
             }
             
