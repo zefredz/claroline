@@ -159,8 +159,6 @@ class AuthDriverManager
             {
                 include $file->getPathname();
                 
-                // var_dump( $driverConfig );
-                
                 if ( $driverConfig['driver']['enabled'] == true )
                 {
                     if ( $driverConfig['driver']['class'] == 'PearAuthDriver' )
@@ -216,12 +214,6 @@ abstract class AbstractAuthDriver
     
     protected function registerUser( $userAttrList, $uid = null )
     {
-        ////////////////////
-        // var_dump( $userAttrList );
-        // session_destroy();
-        // die();
-        ////////////////////
-        
         $preparedList = array();
         
         // Map database fields
@@ -254,10 +246,7 @@ abstract class AbstractAuthDriver
             . "SET " . implode(",\n", $preparedList ) . "\n"
             . ( $uid ? "WHERE  user_id = " . (int) $uid : '' )
             ;
-            
-        //echo '<pre>'; var_dump($sql); echo '</pre>';
-        //die();
-            
+        
         try
         {
             Claroline::getDatabase()->exec($sql);
