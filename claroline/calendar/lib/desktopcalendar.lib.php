@@ -232,17 +232,6 @@ var UserDesktopCalendar = {
     {
         $userCourseList = claro_get_user_course_list();
         $agendaItemList = get_agenda_items_compact_mode($userCourseList, $this->month, $this->year);
-        $langMonthNames = get_locale('langMonthNames');
-        $langDay_of_weekNames = get_locale('langDay_of_weekNames');
-        $monthName = $langMonthNames['long'][$this->month -1];
-        
-        /*$miniCalendar = claro_html_monthly_calendar(
-            $agendaItemList,
-            $this->month,
-            $this->year,
-            $langDay_of_weekNames['init'],
-            $monthName,
-            true );*/
 
         $output = '';
 
