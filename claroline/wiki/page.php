@@ -1030,18 +1030,18 @@
 
             echo '<p>'
                 . '<a href="'.$script.'&amp;offset='
-                . $first .'&amp;step=' . (int) $step .'">&lt;&lt; First</a>'
+                . $first .'&amp;step=' . (int) $step .'">&lt;&lt; '.get_lang('First').'</a>'
                 . ( $previous !== false
                     ? ' ' . '<a href="'.$script.'&amp;offset='
-                      . $previous .'&amp;step=' . (int) $step .'">&lt; Previous</a>'
+                      . $previous .'&amp;step=' . (int) $step .'">&lt; '.get_lang('Previous').'</a>'
                     : ' &lt; Previous' )
-                . ' ' . '<a href="'.$script.'&amp;offset=0&amp;step=0">All</a>'
+                . ' ' . '<a href="'.$script.'&amp;offset=0&amp;step=0">'.get_lang('All').'</a>'
                 . ( $next !== false
                     ? ' ' . '<a href="'.$script.'&amp;offset='
-                      . $next .'&amp;step=' . (int) $step .'">Next &gt;</a>'
+                      . $next .'&amp;step=' . (int) $step .'">'.get_lang('Next').' &gt;</a>'
                     : ' Next &gt;' )
                 . ' ' . '<a href="'.$script.'&amp;offset='
-                . $last . '&amp;step=' . (int) $step .'">Last &gt;&gt;</a>'
+                . $last . '&amp;step=' . (int) $step .'">'.get_lang('Last').' &gt;&gt;</a>'
                 . '</p>'
                 ;
 
