@@ -63,8 +63,14 @@ if( get_conf('is_trackingEnabled'))
         .'</small>'."\n\n"
         ;
 
-    if( isset($_REQUEST['view']))   $view = $_REQUEST['view'];
-    else                            $view ="0000000";
+    if( isset($_REQUEST['view']) && preg_match( '/^[01]{7}$/', $_REQUEST['view'] ) )
+    {
+        $view = $_REQUEST['view'];
+    }
+    else
+    {
+        $view ="0000000";
+    }
 
     $viewLevel = -1; //  position of the flag of the view in the $view array/string
     /***************************************************************************
