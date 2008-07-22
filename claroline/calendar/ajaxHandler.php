@@ -33,6 +33,6 @@ if ( isset($_REQUEST['month']) )
     $cal->setMonth( (int) $_REQUEST['month'] );
 }
 
-echo $cal->render();
+echo claro_utf8_encode( $cal->render(), get_conf('charset') );
 
 ?>
