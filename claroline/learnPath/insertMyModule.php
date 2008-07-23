@@ -182,9 +182,9 @@ while ($list=mysql_fetch_array($result))
 {
     //CHECKBOX, NAME, RENAME, COMMENT
     if($list['contentType'] == CTEXERCISE_ )
-        $moduleImg = "quiz.gif";
+        $moduleImg = get_icon_url( 'quiz', 'CLQWZ' );
     else
-        $moduleImg = choose_image(basename($list['path']));
+        $moduleImg = get_icon_url( choose_image(basename($list['path'])) );
 
     $contentType_alt = selectAlt($list['contentType']);
 
@@ -194,7 +194,7 @@ while ($list=mysql_fetch_array($result))
         .'</td>'."\n"
         .'<td align="left">'."\n"
         .'<label for="check_' . $list['module_id'] . '" >'
-        .'<img src="' . get_icon_url( $moduleImg ) . '" alt="' . $contentType_alt . '" />'
+        .'<img src="' . $moduleImg . '" alt="' . $contentType_alt . '" />'
         . $list['name']
         . '</label>' . "\n"
         .'</td>'."\n"

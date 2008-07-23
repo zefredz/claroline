@@ -220,17 +220,13 @@ foreach ($flatElementList as $module)
     elseif ( !$is_blocked )
     {
         if($module['contentType'] == CTEXERCISE_ )
-        {
-            $moduleImg = 'quiz.gif';
-        }
+            $moduleImg = get_icon_url( 'quiz', 'CLQWZ' );
         else
-        {
-            $moduleImg = choose_image(basename($module['path']));
-        }
+            $moduleImg = get_icon_url( choose_image(basename($module['path'])) );
 
         $contentType_alt = selectAlt($module['contentType']);
         echo '<a href="module.php?module_id='.$module['module_id'].'">'
-            .'<img src="' . get_icon_url( $moduleImg ) . '" alt="'.$contentType_alt.'" border="0" />'
+            .'<img src="' . $moduleImg . '" alt="'.$contentType_alt.'" border="0" />'
             .htmlspecialchars($module['name']).'</a>'."\n";
         // a module ALLOW access to the following modules if
         // document module : credit == CREDIT || lesson_status == 'completed'
@@ -257,15 +253,11 @@ foreach ($flatElementList as $module)
     else
     {
         if($module['contentType'] == CTEXERCISE_ )
-        {
-            $moduleImg = 'quiz.gif';
-        }
+            $moduleImg = get_icon_url( 'quiz', 'CLQWZ' );
         else
-        {
-            $moduleImg = choose_image(basename($module['path']));
-        }
+            $moduleImg = get_icon_url( choose_image(basename($module['path'])) );
 
-        echo '<img src="' . get_icon_url( $moduleImg ) . '" alt="'.$contentType_alt.'" border="0" />'."\n"
+        echo '<img src="' . $moduleImg . '" alt="'.$contentType_alt.'" border="0" />'."\n"
              .htmlspecialchars($module['name']);
     }
     echo '</td>'."\n";
