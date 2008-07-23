@@ -979,7 +979,7 @@ function user_html_form($data, $form_type='registration')
     if ( 'admin_user_profile' == $form_type )
     {
         $html .= form_input_hidden('uidToEdit', $data['user_id']);
-        $html .= form_row( get_lang('User Id') . '&nbsp;: ', $data['user_id']);
+        $html .= form_row( get_lang('User id') . '&nbsp;: ', $data['user_id']);
 
     }
 

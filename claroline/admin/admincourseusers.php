@@ -180,7 +180,7 @@ $htmlHeadXtra[] =
 $sortUrlList = $myPager->get_sort_url_list($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit);
 
 $dg_opt_list['idLineShift'] = $myPager->offset + 1;
-$dg_opt_list['colTitleList'] = array ( 'user_id'  => '<a href="' . $sortUrlList['user_id'] . '">' . get_lang('User Id') . '</a>'
+$dg_opt_list['colTitleList'] = array ( 'user_id'  => '<a href="' . $sortUrlList['user_id'] . '">' . get_lang('User id') . '</a>'
                                      , 'name'     => '<a href="' . $sortUrlList['name'] . '">' . get_lang('Last name') . '</a>'
                                      , 'firstname'=> '<a href="' . $sortUrlList['firstname'] . '">' . get_lang('First name') . '</a>'
                                      , 'profileId'=> '<a href="' . $sortUrlList['profileId'] . '">' . get_lang('Profile') . '</a>'

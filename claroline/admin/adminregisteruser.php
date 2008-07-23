@@ -271,7 +271,7 @@ echo '<table width="100%" class="claroTableForm" >'
 
 .    '<a href="' . $_SERVER['PHP_SELF']
 .    '?order_crit=user_id&amp;chdir=yes&amp;search=' . $search . '&amp;cidToEdit=' . $cidToEdit . '">'
-.    get_lang('User Id')
+.    get_lang('User id')
 .    '</a>'
 .    '</th>' . "\n"
 
