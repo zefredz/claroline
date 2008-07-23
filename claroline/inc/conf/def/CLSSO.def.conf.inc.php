@@ -94,7 +94,7 @@ $conf_def_property_list['ssoCookiePath'] =
 array ( 'label'         => 'SSO cookie path'
       , 'description'   => 'The path on the server in which the cookie will be available on.  If set to "/", the cookie will be available within the entire domain. If set to "/foo/", the cookie will only be available within the /foo/ directory and all sub-directories such as /foo/bar/ of domain. The default value is the current directory that the cookie is being set in.'
       , 'default'       => '/'
-      , 'type'          => 'relPath'
+      , 'type'          => 'relpath'
       );
 
 $conf_def_property_list['ssoAuthenticationKeyList'] =
