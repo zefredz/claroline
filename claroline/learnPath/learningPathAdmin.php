@@ -8,8 +8,7 @@
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
- * @author Piraux Sébastien <pir@cerdecam.be>
- * @author Lederer Guillaume <led@cerdecam.be>
+ * @author Claroline team
  *
  * @package CLLNP
  *
@@ -561,13 +560,13 @@ foreach ($flatElementList as $module)
     else // module
     {
         if($module['contentType'] == CTEXERCISE_ )
-            $moduleImg = "quiz.gif";
+            $moduleImg = get_icon_url( 'quiz', 'CLQWZ' );
         else
-            $moduleImg = choose_image(basename($module['path']));
+            $moduleImg = get_icon_url( choose_image(basename($module['path'])) );
 
         $contentType_alt = selectAlt($module['contentType']);
         echo "<a href=\"module.php?module_id=".$module['module_id']."\">"
-            . "<img src=\"" . get_icon_url( $moduleImg ) . "\" alt=\"".$contentType_alt."\" >"
+            . "<img src=\"" . $moduleImg . "\" alt=\"".$contentType_alt."\" >"
             . htmlspecialchars($module['name'])
             . "</a>";
     }
