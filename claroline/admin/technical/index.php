@@ -39,7 +39,7 @@ echo claro_html_tool_title(
 // TODO : cuse claro disp menu v
 ?>
 <ul>
- <li><a href="./diskUsage.php"><?php echo get_lang('Disk Usage') ?></a></li>
+ <li><a href="./diskUsage.php"><?php echo get_lang('Disk usage') ?></a></li>
  <li><a href="./phpInfo.php"><?php echo get_lang('PHP system information') ?></a></li>
 </ul>
 

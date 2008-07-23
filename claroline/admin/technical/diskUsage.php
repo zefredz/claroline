@@ -24,7 +24,7 @@ require_once get_path('incRepositorySys') . '/lib/form.lib.php';
 $tbl_mdb_names = claro_sql_get_main_tbl();
 $tbl_course = $tbl_mdb_names['course'];
 
-$nameTools = get_lang('Disk Usage');
+$nameTools = get_lang('Disk usage');
 $byteUnits = get_locale('byteUnits');
 
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Technical Tools'), get_path('rootAdminWeb').'technical/index.php' );
