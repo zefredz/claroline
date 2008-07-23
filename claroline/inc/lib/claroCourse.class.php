@@ -611,7 +611,7 @@ class ClaroCourse
 
         $html .= '<tr>' . "\n"
             . '<td>&nbsp;</td>'
-            . '<td>' . get_lang('<span class=\"required\">*</span> denotes required field') . '</td>'
+            . '<td>' . get_lang('<span class="required">*</span> denotes required field') . '</td>'
             . '</tr>' . "\n" ;
 
         $html .= '<tr>' . "\n"
