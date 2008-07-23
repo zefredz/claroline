@@ -32,7 +32,7 @@ array ( 'refresh_display_rate' ,
         'max_line_to_display'
       );
 
-$conf_def['section']['advanced']['label']='Advanced Settings';
+$conf_def['section']['advanced']['label']='Advanced settings';
 $conf_def['section']['advanced']['properties'] =
 array ( 'max_line_in_file' );
 
