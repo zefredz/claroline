@@ -367,7 +367,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
          *  enabled macros are :
          *      - """start_html"""  : start of html block, the block begins on the next line
          *      - """end_html"""    : end of html block
-         *      - """home""" or """main""" : link to Main Page
+         *      - """home""" or """main""" : link to Main page
          *      - default           : the surrounded string is interpreted as embedded html
          * @access private
          * @see class.wiki2xhtml.php

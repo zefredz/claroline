@@ -86,7 +86,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
                     if ( '__MainPage__' === $pgTitle )
                     {
-                        $pgTitle = get_lang( 'Main Page' );
+                        $pgTitle = get_lang( 'Main page' );
                     }
 
                     $result .= '<h2><a name="'

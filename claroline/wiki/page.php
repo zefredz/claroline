@@ -1407,7 +1407,7 @@
             {
                 if ( '__MainPage__' == $page['title'] )
                 {
-                    $title = get_lang( "Main Page" );
+                    $title = get_lang( "Main page" );
                 }
                 else
                 {
