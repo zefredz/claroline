@@ -574,7 +574,7 @@ class RightProfile
         // Display 'is course manager'
         $form .= '
             <tr valign="top">
-            <td align="right"><label for="isCourseManager">' . get_lang('Course Manager') . ' :</label></td>
+            <td align="right"><label for="isCourseManager">' . get_lang('Course manager') . ' :</label></td>
             <td><input type="checkbox" id="isCourseManager" name="isCourseManager" value="1" ' . ($this->isCourseManager?'checked="checked"':'') . '/></td>
             </tr>';
 

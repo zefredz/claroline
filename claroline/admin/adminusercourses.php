@@ -158,7 +158,7 @@ $userCourseDataGrid->set_colTitleList(array (
 ,'delete'   => get_lang('Unregister user')
 ));
 
-$userCourseDataGrid->set_caption('<img src="' . get_icon_url('user') . '" alt="' . get_lang('Student') . '" />' . get_lang('Student') . ' - <img src="' . get_icon_url('manager') . '" alt="' . get_lang('Course Manager') . '" />&nbsp;' . get_lang('Course manager'));
+$userCourseDataGrid->set_caption('<img src="' . get_icon_url('user') . '" alt="' . get_lang('Student') . '" />' . get_lang('Student') . ' - <img src="' . get_icon_url('manager') . '" alt="' . get_lang('Course manager') . '" />&nbsp;' . get_lang('Course manager'));
 
 if ( 0 == count($userCourseGrid)  )
 {

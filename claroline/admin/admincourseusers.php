@@ -133,8 +133,8 @@ foreach($userList as $lineId => $user)
     if ( $user['isCourseManager'] )
     {
         $userDataList[$lineId]['isCourseManager'] = '<img src="' . get_icon_url('manager') . '" '
-                                                  . ' alt="' . get_lang('Course Manager') . '" hspace="4" '
-                                                  . ' title="' . get_lang('Course Manager') . '" />' ;
+                                                  . ' alt="' . get_lang('Course manager') . '" hspace="4" '
+                                                  . ' title="' . get_lang('Course manager') . '" />' ;
     }
     else
     {
@@ -184,7 +184,7 @@ $dg_opt_list['colTitleList'] = array ( 'user_id'  => '<a href="' . $sortUrlList[
                                      , 'name'     => '<a href="' . $sortUrlList['name'] . '">' . get_lang('Last name') . '</a>'
                                      , 'firstname'=> '<a href="' . $sortUrlList['firstname'] . '">' . get_lang('First name') . '</a>'
                                      , 'profileId'=> '<a href="' . $sortUrlList['profileId'] . '">' . get_lang('Profile') . '</a>'
-                                     , 'isCourseManager'  => '<a href="' . $sortUrlList['isCourseManager'] . '">' . get_lang('Course Manager') . '</a>'
+                                     , 'isCourseManager'  => '<a href="' . $sortUrlList['isCourseManager'] . '">' . get_lang('Course manager') . '</a>'
                                      , 'cmd_cu_edit'  => get_lang('Edit')
                                      , 'cmd_cu_unenroll' => get_lang('Unregister user')
 );
