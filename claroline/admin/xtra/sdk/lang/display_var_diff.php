@@ -51,7 +51,7 @@ else
 }
 
 // start content
-
+$dialogBox = new DialogBox();
 $nameTools = 'Display variables difference';
 
 $urlSDK = $rootAdminWeb . 'xtra/sdk/'; 
@@ -65,6 +65,7 @@ include($includePath."/claro_init_header.inc.php");
 
 echo claro_html_tool_title($nameTools);
 
+$dialogBox->title('Change language');
 // start form
 
 $form = "<form action=\"" . $_SERVER['PHP_SELF'] . "\" method=\"GET\">";
@@ -78,19 +79,15 @@ else
     $language = DEFAULT_LANGUAGE ;
 }
 
-$form .= "<p>Language: $language</p>";
-
-// display select box with tables in the database
-
 // display select box with language in the table
 
-$form .= "<p>Change Language: ";
-$form .= "<select name=\"language\">";
+
 $sql = "SELECT DISTINCT language 
         FROM ". $tbl_translation . "
         ORDER BY language ";
 $results = claro_sql_query($sql);
 
+$form .= "<select name=\"language\">";
 while($result=mysql_fetch_row($results))
 {
     if ($result[0] == $language) 
@@ -102,12 +99,14 @@ while($result=mysql_fetch_row($results))
         $form .= "<option value=$result[0]>" . $result[0] . "</option>";
     }
 }
-$form .= "</select></p>";
+$form .= "</select>";
 
-$form .= "<p><input type=\"submit\" value=\"OK\" /></p>";
+$form .= "<input type=\"submit\" value=\"OK\" />";
 $form .= "</form>";
 
-echo claro_html_message_box($form);
+
+$dialogBox->form($form);
+echo $dialogBox->render();
 
 // find all variables with same names and different content
 
