@@ -129,9 +129,9 @@ $nextModule = ""; // module id that will be used in the next link
 foreach ($flatElementList as $module)
 {
     if($module['contentType'] == CTEXERCISE_ )
-        $moduleImg = 'quiz.gif';
+        $moduleImg = get_icon_url( 'quiz', 'CLQWZ' );
     else
-        $moduleImg = choose_image(basename($module['path']));
+        $moduleImg = get_icon_url( choose_image(basename($module['path'])) );
 
     $contentType_alt = selectAlt($module['contentType']);
     if( $module['scoreMax'] > 0 && $module['raw'] > 0)
@@ -202,7 +202,7 @@ foreach ($flatElementList as $module)
                 $nextModule = $module['module_id'];
             }
             echo '<a href="startModule.php?viewModule_id='.$module['module_id'].'" target="mainFrame" title="'.htmlspecialchars($module['name']).'">'
-                .'<img src="' . get_icon_url( $moduleImg ) . '" alt="'.$contentType_alt.' : '.$module['name'].'" border="0" />'.$displayedName.'</a>';
+                .'<img src="' . $moduleImg . '" alt="'.$contentType_alt.' " border="0" />'.$displayedName.'</a>';
         }
         // a module ALLOW access to the following modules if
         // document module : credit == CREDIT || lesson_status == 'completed'
