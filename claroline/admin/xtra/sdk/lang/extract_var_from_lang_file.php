@@ -76,36 +76,22 @@ claro_sql_query($sql);
 
 $path_lang = get_path('rootSys') . "claroline/lang";
 
-chdir ($path_lang);
+$it = new DirectoryIterator($path_lang);
 
-$handle = opendir($path_lang);
-
-while ($element = readdir($handle) )
+echo '<ol>' . "\n";
+foreach( $it as $file )
 {
-    if ( $element == "." || $element == ".." || $element == "CVS" 
-        || strstr($element,"~") || strstr($element,"#") 
-       )
+    if( $file->isDir() && !$file->isDot() && $file->getFilename() != '.svn' )
     {
-        continue; // skip current and parent directories
-    }
-    if ( is_dir($element) )
-    {
-        $languageAttribute['path'] = $path_lang . '/' . $element;
-        $elements                  = explode (".", $element);
-        $languageAttribute['name'] = reset( $elements );
-        $languageList     []       = $languageAttribute;
-    }
+        $completeFile = $file->getPathname() . '/complete.lang.php';
+        if( file_exists( $completeFile ) )
+        {
+            retrieve_lang_var($completeFile, $file->getFilename());
+            echo '<li>' . $completeFile . '</li>' . "\n";
+        }
+    }    
 }
-
-if ( sizeof($languageList) > 0)
-{
-    foreach($languageList as $thisLangList)
-    {
-        echo "<h4>" . $thisLangList['name'] . "</h4>\n";
-        glance_through_dir_lang($thisLangList['path'], $thisLangList['name']);
-        echo "<hr />\n";
-    }
-}
+echo '</ol>' . "\n";
 
 // get and display end time
 
