@@ -126,7 +126,7 @@ $results = $myPager->get_result_list();
 
 // display nb results
 
-echo '<p>' . get_lang('Total') . ': ' . $myPager->totalResultCount . '</p>' ;
+echo '<p>' . get_lang('Total') . ': ' . $myPager->totalItemCount . '</p>' ;
 
 // display pager
 
@@ -181,7 +181,7 @@ echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?language='.$language);
 
 // display nb results
 
-echo '<p>' . get_lang('Total') . ': ' . $myPager->totalResultCount . '</p>' ;
+echo '<p>' . get_lang('Total') . ': ' . $myPager->totalItemCount . '</p>' ;
 
 // get end time
 $endtime = get_time();
