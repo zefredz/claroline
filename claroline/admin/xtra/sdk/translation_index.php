@@ -71,7 +71,6 @@ if ( $table_exists == TRUE )
 
 <h4><?php echo get_lang('Find doubled variables')?></h4>
 <ul>
-<li><a href="lang/display_var_diff.php"><?php echo get_lang('Variables with same name and different content')?></a></li>
 <li><a href="lang/display_content_diff.php"><?php echo get_lang('Variables with same content and different name')?></a></li>
 </ul>
 
