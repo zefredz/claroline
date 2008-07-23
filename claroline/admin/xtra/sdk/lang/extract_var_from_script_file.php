@@ -75,15 +75,14 @@ $it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(get_path('cla
 
 $allLanguageVarList = array();
 
+echo '<ul>' . "\n";
 foreach( $it as $file )
 {
     if( $file->isFile() && substr($file->getFilename(), -17) == '.def.conf.inc.php' )
     {
-        echo '<h4>DEF ' . $file->getPathname() . '</h4>' . "\n";
-    
         $languageVarList = get_lang_vars_from_deffile($file->getPathname());
     
-        echo 'Found ' . count($languageVarList) . ' Variables' . "\n";
+        echo '<li>' . count($languageVarList) . ' in DEF file <b>' . $file->getPathname() . '</b></li>' . "\n";
         
         // add in main array to compute total number of vars
         $allLanguageVarList = array_merge($allLanguageVarList, $languageVarList);
@@ -92,11 +91,9 @@ foreach( $it as $file )
     }
     elseif( $file->isFile() && substr($file->getFilename(), -4) == '.php' )
     {
-        echo "<h4>" . $file->getPathname() . "</h4>\n";
-        
         $languageVarList = get_lang_vars_from_file($file->getPathname());  
 
-        echo 'Found ' . count($languageVarList) . ' Variables' . "\n";
+        echo '<li>' . count($languageVarList) . ' in <b>' . $file->getPathname() . '</b></li>' . "\n";
         
         // add in main array to compute total number of vars
         $allLanguageVarList = array_merge($allLanguageVarList, $languageVarList);
@@ -105,7 +102,7 @@ foreach( $it as $file )
         store_lang_used_in_script($languageVarList,str_replace('\\', '/', realpath($file->getPathname())));
     }
 }
-
+echo '</ul>' . "\n\n";
 
 $allLanguageVarList = array_unique($allLanguageVarList);
 
