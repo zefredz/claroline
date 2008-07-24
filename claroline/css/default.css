@@ -77,7 +77,7 @@ input[type=submit]:hover, button:hover, input[type=button]:hover {
 
 input[type=text].inputSearch
 {
-    background: url('../img/search.gif') no-repeat top left #fff;
+    background: url('../img/search.png') no-repeat top left #fff;
     padding-left: 18px;
 }
 
@@ -722,34 +722,40 @@ a.item:visited{
 
 .boxInfo {    
     border-left: 2px solid #ccc;
-    background: #eee url('default/bg_info.gif') bottom right no-repeat;
+    background: #eee url('default/bg_boxinfo.png') bottom right no-repeat;
     padding-right: 83px;
 }
 
 .boxSuccess {    
     border-left: 2px solid #090;
-    background: #eee url('default/bg_success.gif') bottom right no-repeat;
+    background: #eee url('default/bg_boxsuccess.png') bottom right no-repeat;
     padding-right: 83px;
 }
 
 .boxWarning {    
     border-left: 2px solid #900;
-    background: #eee url('default/bg_warning.gif') bottom right no-repeat;
+    background: #eee url('default/bg_boxwarning.png') bottom right no-repeat;
     padding-right: 83px;
 }
 
 .boxError {    
     border-left: 2px solid #900;
-    background: #eee url('default/bg_error.gif') bottom right no-repeat;
+    background: #eee url('default/bg_boxerror.png') bottom right no-repeat;
+    padding-right: 83px;
+}
+
+.boxQuestion {    
+    border-left: 2px solid #369;
+    background: #eee url('default/bg_boxquestion.png') bottom right no-repeat;
     padding-right: 83px;
 }
 
 .claroDialogMsg { padding: 2px 5px 1px 20px; }
 .claroDialogBox .msgInfo { } /* I _really_ don't think there is a need for an icon here */
-.claroDialogBox .msgSuccess { background: url('default/success.gif') top left no-repeat; }
-.claroDialogBox .msgWarning { background: url('default/warning.gif') top left no-repeat; }
-.claroDialogBox .msgError { background: url('default/error.gif') top left no-repeat; }
-.claroDialogBox .msgQuestion { background: url('default/question.gif') top left no-repeat; }
+.claroDialogBox .msgSuccess { background: url('../img/success.png') top left no-repeat; }
+.claroDialogBox .msgWarning { background: url('../img/warning.png') top left no-repeat; }
+.claroDialogBox .msgError { background: url('../img/error.png') top left no-repeat; }
+.claroDialogBox .msgQuestion { background: url('../img/question.png') top left no-repeat; }
 .claroDialogBox .msgForm { padding: 3px 20px; }
 .claroDialogBox .msgTitle { font-weight: bold; }
 
