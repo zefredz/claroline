@@ -186,9 +186,9 @@ if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCommand))
         }
         else
         {
-            $dialogbox = new DialogBox();
-            $dialogbox->info(get_lang('invalid date'));
-            $content .= $dialogbox->render();
+            $dialogBox = new DialogBox();
+            $dialogBox->info(get_lang('Invalid date'));
+            $content .= $dialogBox->render();
         }
         
     }
@@ -196,12 +196,12 @@ if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCommand))
     // -------- delete platform message
     if ( 'rqPlatformMessage' == $_REQUEST['cmd'] )
     {
-        $claroline->display->body->appendContent(claro_html_tool_title(get_lang('Internal messaging')." - ".get_lang('Delete platform message')));
+        $claroline->display->body->appendContent(claro_html_tool_title(get_lang('Internal messaging')." - ".get_lang('Delete platform messages')));
         $displayRemovePlatformMessageConfirmation = TRUE;
     }  
     elseif ( 'exPlatformMessage' == $_REQUEST['cmd'] )
     {
-        $claroline->display->body->appendContent(claro_html_tool_title(get_lang('Internal messaging')." - ".get_lang('Delete platform message')));
+        $claroline->display->body->appendContent(claro_html_tool_title(get_lang('Internal messaging')." - ".get_lang('Delete platform messages')));
         $box = new AdminMessageBox();
         $box->deletePlatformMessage();
         $displayRemovePlatformMessageValidated = TRUE;
@@ -215,24 +215,27 @@ else
 // ----------- delete all --------------
 if ($displayRemoveAllConfirmation)
 {
-    $dialogboxMsg = get_lang('Are you sure to delete to delete all messages?<br /><br />WARNING all data will be deleted from the database')
-         . '<br /><br />'
+    $dialogBox = new DialogBox();
+    $dialogBox->question( get_lang('Are you sure to delete all messages?') );
+    $dialogBox->warning( get_lang('There is no way to restore deleted messages.') );
+
+    $dialogBox->info( '<br /><br />'
          . '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDeleteAll">' . get_lang('Yes') . '</a> | <a href="admin.php">' . get_lang('No') .'</a>'
-         ;
-    $dialogbox = new DialogBox();
-    $dialogbox->question($dialogboxMsg);
-    $content .= '<br />'.$dialogbox->render();
+         );
+
+    $dialogBox->setBoxType('question');
+    $content .= '<br />'.$dialogBox->render();
 }
 
 if ($displayRemoveAllValidated)
 {
-    $dialogboxMsg = get_lang('All messages has been deleted')
+    $dialogBoxMsg = get_lang('All messages have been deleted')
          . '<br /><br />'
          . '<a href="admin.php">' . get_lang('Back') .'</a>'
          ;
-    $dialogbox = new DialogBox();
-    $dialogbox->info($dialogboxMsg);
-    $content .= '<br />'.$dialogbox->render();
+    $dialogBox = new DialogBox();
+    $dialogBox->success($dialogBoxMsg);
+    $content .= '<br />'.$dialogBox->render();
 }
 
 // ----------- end delete all
@@ -248,20 +251,20 @@ if ($displayRemoveFromUserConfirmation)
         .'<br /><br />'
         .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=exFromUser&amp;userId='.$userId.'">'.get_lang('Yes').'</a> | <a href="admin.php">'.get_lang('No').'</a>' 
         ;
-    $dialogbox = new DialogBox();
-    $dialogbox->question($confirmation);
-    $content .= $dialogbox->render();
+    $dialogBox = new DialogBox();
+    $dialogBox->question($confirmation);
+    $content .= $dialogBox->render();
 }
 
 if ($displayRemoveFromUserValidated)
 {
-    $dialogboxMsg = get_lang('All user\'s message hs been deleted')
+    $dialogBoxMsg = get_lang('All user\'s message have been deleted')
          . '<br /><br />'
          . '<a href="admin.php">' . get_lang('Back') .'</a>'
          ;
-    $dialogbox = new DialogBox();
-    $dialogbox->info($dialogboxMsg);
-    $content .= '<br />'.$dialogbox->render();
+    $dialogBox = new DialogBox();
+    $dialogBox->success($dialogBoxMsg);
+    $content .= '<br />'.$dialogBox->render();
 }
 
 if ($displaySearchUser)
@@ -281,10 +284,10 @@ if ($displaySearchUser)
         .'</form>'
         ;
         
-    $dialogbox = new DialogBox();
-    $dialogbox->form($form);
+    $dialogBox = new DialogBox();
+    $dialogBox->form($form);
     
-    $content .= $dialogbox->render();
+    $content .= $dialogBox->render();
     
 }
 
@@ -316,7 +319,7 @@ if ($displayResultUserSearch)
        .'<th>' . get_lang('Id') . '</th>' . "\n"
        .'<th><a href="' . $linkSorting . 'name&amp;order='.$nextOrder.'">' . get_lang('Name') . '</a></th>'."\n"
        .'<th><a href="' . $linkSorting . 'username&amp;order='.$nextOrder.'">' . get_lang('Username') . '</a></th>'."\n"
-       .'<th>' . get_lang('action') . '</th>'."\n"
+       .'<th>' . get_lang('Action') . '</th>'."\n"
        .'</tr>' . "\n\n"
        ;
 
@@ -326,7 +329,7 @@ if ($displayResultUserSearch)
             <script type="text/javascript">
             function deleteMessageFromUser ( localPath )
             {
-                if (confirm("'.get_lang('Are you sure to delete the message from user').'"))
+                if (confirm("'.get_lang('Are you sure to delete all messages from this user').'"))
                 {
                     window.location=localPath;
                     return false;
@@ -407,24 +410,23 @@ if ($displayRemoveOlderThanConfirmation)
             </script>';
         $claroline->display->header->addHtmlHeader($javascript);
             
-        $disp = '
-                Select a date:<br />'
+        $disp = get_lang('Choose a date')
+                .' :<br />'
                 . '<form action="'.$_SERVER['PHP_SELF'].'?cmd=rqOlderThan" method="post">'
                 . '<input type="text" name="date" value="'.date('d/m/Y').'" id="dateinput" /> '.get_lang('(jj/mm/aaaa)').'<br />'
                 . '<input type="submit" value="delete" />'
                 . '</form>'
                 ;
-        $dialogbox = new DialogBox();
-        $dialogbox->form($disp);
+        $dialogBox = new DialogBox();
+        $dialogBox->form($disp);
         
-        $content .= $dialogbox->render();
+        $content .= $dialogBox->render();
     }
     else
     {
         $javascriptDelete = '
             <script type="text/javascript">
-            if (confirm("'.get_lang('Are you sure to delete to delete the messages older than %date%?\n\n                         Warning all data will be deleted from the database',
-                        array('%date%'=>$date)).'"));
+            if (confirm("'.get_lang('Are you sure to delete all messages older than %date?', array('%date'=>$date)). "\n\n" . get_lang('There is no way to restore deleted messages.') .'"));
             {
                 window.location=\''.$_SERVER['PHP_SELF'].'?cmd=exOlderThan&amp;date='.urlencode($date).'\';
             }
@@ -435,28 +437,25 @@ if ($displayRemoveOlderThanConfirmation)
             </script>';
         $claroline->display->header->addHtmlHeader($javascriptDelete);
         
-        $dialogboxMsg = get_lang('Are you sure to delete to delete the messages older than %date%?<br /><br />
-                         Warning all data will be deleted from the database',
-                        array('%date%'=>$date))
-             . '<br /><br />'
-             . '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exOlderThan&amp;date='.urlencode($_REQUEST['date']).'">' . get_lang('Yes') . '</a> | <a href="admin.php">' . get_lang('No') .'</a>'
-             ;
-        $dialogbox = new DialogBox();
-        $dialogbox->question($dialogboxMsg);
-        $content .= '<br />'.$dialogbox->render();
+        $dialogBox = new DialogBox();
+        $dialogBox->setBoxType('question');
+        $dialogBox->question(get_lang('Are you sure to delete all messages older than %date?', array('%date'=>$date)) );
+        $dialogBox->warning(get_lang('There is no way to restore deleted messages.'));     
+        $dialogBox->info('<br /><br /><a href="'.$_SERVER['PHP_SELF'].'?cmd=exOlderThan&amp;date='.urlencode($_REQUEST['date']).'">' . get_lang('Yes') . '</a> | <a href="admin.php">' . get_lang('No') .'</a>');
+        $content .= '<br />'.$dialogBox->render();
     }
 }
 
 if ($displayRemoveOlderThanValidated)
 {
     $date = htmlspecialchars($_REQUEST['date']);
-    $dialogboxMsg = get_lang('All messages older than %date% has been deleted',array('%date%' => $date))
+    $dialogBox = new DialogBox();
+    $dialogBoxMsg = get_lang('All messages older than %date% have been deleted',array('%date%' => $date))
          . '<br /><br />'
          . '<a href="admin.php">' . get_lang('Back') .'</a>'
          ;
-    $dialogbox = new DialogBox();
-    $dialogbox->info($dialogboxMsg);
-    $content .= '<br />'.$dialogbox->render();
+    $dialogBox->success($dialogBoxMsg);
+    $content .= '<br />'.$dialogBox->render();
 }
 // --------------- end older than
 
@@ -464,24 +463,24 @@ if ($displayRemoveOlderThanValidated)
 
 if ($displayRemovePlatformMessageConfirmation)
 {    
-    $dialogboxMsg = get_lang('Are you sure to delete to delete all palteform messages?<br /><br />WARNING all data will be deleted from the database')
-         . '<br /><br />'
-         . '<a href="'.$_SERVER['PHP_SELF'] . '?cmd=exPlatformMessage">' . get_lang('Yes') . '</a> | <a href="admin.php">' . get_lang('No') .'</a>'
-         ;
-    $dialogbox = new DialogBox();
-    $dialogbox->question($dialogboxMsg);
-    $content .= '<br />'.$dialogbox->render();
+    
+    $dialogBox = new DialogBox();
+    $dialogBox->setBoxType('question');
+    $dialogBox->question(get_lang('Are you sure to delete all platform messages?') );
+    $dialogBox->warning(get_lang('There is no way to restore deleted messages.'));     
+    $dialogBox->info('<br /><br /><a href="'.$_SERVER['PHP_SELF'] . '?cmd=exPlatformMessage">' . get_lang('Yes') . '</a> | <a href="admin.php">' . get_lang('No') .'</a>');
+    $content .= '<br />'.$dialogBox->render();
 }
 
 if ($displayRemovePlatformMessageValidated)
 {
-    $dialogboxMsg = get_lang('All platform messages has been deleted')
+    $dialogBoxMsg = get_lang('All platform messages have been deleted')
          . '<br /><br />'
          . '<a href="admin.php">' . get_lang('Back') .'</a>'
          ;
-    $dialogbox = new DialogBox();
-    $dialogbox->info($dialogboxMsg);
-    $content .= '<br />'.$dialogbox->render();
+    $dialogBox = new DialogBox();
+    $dialogBox->info($dialogBoxMsg);
+    $content .= '<br />'.$dialogBox->render();
 }
 
 // ------------- end platform message
