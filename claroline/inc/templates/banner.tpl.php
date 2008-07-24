@@ -27,9 +27,9 @@
 <div id="userBanner">
     <div id="userBannerLeft">
         <span id="userName">
-        <?php echo get_lang( '%firstName% %lastName%'
-            , array(  '%firstName%' => $this->user['firstName']
-                    , '%lastName%' => $this->user['lastName'] ) ) ?> : 
+        <?php echo get_lang( '%firstName %lastName'
+            , array(  '%firstName' => $this->user['firstName']
+                    , '%lastName' => $this->user['lastName'] ) ) ?> : 
         </span>
         <?php echo $this->userToolList; ?>
         <?php echo include_dock('userBannerLeft'); ?>
