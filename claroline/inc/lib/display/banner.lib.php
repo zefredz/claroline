@@ -223,7 +223,7 @@ class ClaroBanner extends CoreTemplate
             $userToolUrlList[]  = '<a href="'
                 . get_path('clarolineRepositoryWeb')
                 . 'desktop/index.php" target="_top">'
-                . get_lang('My Desktop').'</a>'
+                . get_lang('My desktop').'</a>'
                 ;
             
             $userToolUrlList[]= '<a href="'.  get_path('url')
@@ -234,13 +234,13 @@ class ClaroBanner extends CoreTemplate
             $userToolUrlList[]  = '<a href="'
                 . get_path('clarolineRepositoryWeb')
                 . 'auth/profile.php" target="_top">'
-                . get_lang('My User Account').'</a>'
+                . get_lang('My user account').'</a>'
                 ;
 
             $userToolUrlList[]  = '<a href="'
                 . get_path('clarolineRepositoryWeb')
                 . 'messaging" target="_top">'
-                . get_lang('My Messages').'</a>'
+                . get_lang('My messages').'</a>'
                 ;    
             
             if(claro_is_platform_admin())
@@ -248,7 +248,7 @@ class ClaroBanner extends CoreTemplate
                 $userToolUrlList[] = '<a href="'
                     . get_path('clarolineRepositoryWeb')
                     .'admin/" target="_top">'
-                    . get_lang('Platform Administration'). '</a>'
+                    . get_lang('Platform administration'). '</a>'
                     ;
             }
 
