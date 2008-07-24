@@ -42,7 +42,7 @@
         
         //----------------------- table display --------------------
         
-        $confirmationDelete = get_lang('Are you sure to move to trashbox').'<br/><br/>'."\n";
+        $confirmationDelete = get_lang('Move to trashbox?').'<br/><br/>'."\n";
         $confirmationDelete .= '<a href="'.$linkDelete.'">'.get_lang('Yes').'</a> | <a href="'.$linkBack.'">'.get_lang('No').'</a>'."\n";
         
         $dialogbox = new DialogBox();
@@ -61,7 +61,7 @@
         }
         $linkEmptyTrashBox = $linkEmptyTrashBox."cmd=exEmptyTrashBox";
 
-        $confirmationEmpty = get_lang('Are you sure to empty you trash box')
+        $confirmationEmpty = get_lang('Empty your trashbox?')
             . '<br /><br />'
             . '<a href="'.$linkEmptyTrashBox.'">'.get_lang('Yes').'</a> | <a href="'.$linkBack.'">'.get_lang('No').'</a>'
             ;
@@ -383,7 +383,7 @@
             <script type="text/javascript">
             function emptyTrashBox ( localPath )
             {
-                if (confirm("'.get_lang('Are you sure to empty trashbox').'"))
+                if (confirm("'.get_lang('Empty your trashbox?').'"))
                 {
                     window.location=localPath;
                     return false;
