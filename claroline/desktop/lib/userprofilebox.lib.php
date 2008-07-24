@@ -48,7 +48,7 @@ class UserProfileBox implements Display
 
         .    '<span class="porletIcon">' . "\n"
         .      '<a href="../../claroline/auth/profile.php">' . "\n"
-        .        '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('edit') . '" />' . "\n"
+        .        '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Edit') . '" />' . "\n"
         .      '</a>' . "\n"
         .    '</span>' . "\n"
         .      htmlspecialchars($userData['firstname']) . '&nbsp;' . htmlspecialchars($userData['lastname'])
