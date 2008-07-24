@@ -1,9 +1,9 @@
 <?php if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) ); ?>
 
-<?php if ( get_conf('claro_CasEnabled') ) : // CAS is a special case of external authentication ?>
+<?php if ( get_conf('claro_CasEnabled') ) : ?>
 <!-- CAS login hyperlink -->
 <div align="center">
-<a href="' . get_path('clarolineRepositoryWeb') . 'auth/login.php?authModeReq=CAS">
+<a href="<?php echo get_path('clarolineRepositoryWeb'); ?>auth/login.php?authModeReq=CAS">
 <?php echo get_conf('claro_CasLoginString'); ?>
 </a>
 </div>
