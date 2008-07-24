@@ -221,7 +221,7 @@
                         <tr> 
                             <td class="column1"><label id="alignlabel" for="align"><?php echo get_lang('Alignment'); ?></label></td> 
                             <td><select id="align" name="align" onchange="ImageDialog.updateStyle('align');ImageDialog.changeAppearance();"> 
-                                    <option value=""><?php echo get_lang('-- not set --') ?></option> 
+                                    <option value=""></option> 
                                     <option value="baseline"><?php echo get_lang('Baseline') ?></option>
                                     <option value="top"><?php echo get_lang('Top') ?></option>
                                     <option value="middle"><?php echo get_lang('Middle') ?></option>
