@@ -60,7 +60,7 @@
         }
         else
         {
-            $title = get_lang('messages of ').get_lang('%firstName %lastName', 
+            $title = get_lang('Messages of %firstName %lastName', 
                 array ('%firstName' =>htmlspecialchars($userData['firstname']), '%lastName' => htmlspecialchars($userData['lastname'])));
         }
     }
