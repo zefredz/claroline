@@ -56,7 +56,7 @@ class MyMessages extends UserDesktopPortlet
                 if ( $message->isPlatformMessage() )
                 {
                     $classMessage = 'class="platformMessage"';
-                    $iconMessage = '<img src="' . get_icon_url('important') . '" alt="' . get_lang('important') . '" />';
+                    $iconMessage = '<img src="' . get_icon_url('important') . '" alt="' . get_lang('Important') . '" />';
                 }
                 else
                 {
