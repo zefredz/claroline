@@ -72,7 +72,7 @@ class MyCourseList extends UserDesktopPortlet
                 ;
 
                 $output .= '<dt>' . "\n"
-                .    '<img class="iconDefinitionList" src="' . get_icon_url('course') . '" alt="' . get_lang('Icon course') . '" />'
+                .    '<img class="iconDefinitionList" src="' . get_icon_url('course') . '" alt="" />'
                 .    '<small>'
                 .    '<a href="' . $url . '">'
                 .    $course_order_by
@@ -100,8 +100,8 @@ class MyCourseList extends UserDesktopPortlet
             $output .= "\n"
             .    '<dl>' . "\n"
             .    '<dt>' . "\n"
-            .    '<img class="iconDefinitionList" src="' . get_icon_url('course') . '" alt="' . get_lang('Icon course') . '" />'
-            .    get_lang('No courses !') . "\n"
+            .    '<img class="iconDefinitionList" src="' . get_icon_url('course') . '" alt="" />'
+            .    get_lang('No courses') . "\n"
             .    '</dt>' . "\n"
             .    '</dl>' . "\n"
             ;
