@@ -342,7 +342,7 @@ if ($arguments['search'] == 'olderThan')
     $disp = '
         Select a date:<br />'."\n"."\n"
         . '<form action="'.$_SERVER['PHP_SELF'].'?search=olderThan" method="post">'."\n"
-        . '<input type="text" name="date" value="'.$date.'" id="dateinput" />'.get_lang('JJ/MM/AAAA').'<br />'."\n"
+        . '<input type="text" name="date" value="'.$date.'" id="dateinput" />'.get_lang('(jj/mm/aaaa)').'<br />'."\n"
         . '<input type="submit" value="'.get_lang('search').'" />'."\n"
         . '</form>'."\n\n"
         ;

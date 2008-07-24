@@ -410,7 +410,7 @@ if ($displayRemoveOlderThanConfirmation)
         $disp = '
                 Select a date:<br />'
                 . '<form action="'.$_SERVER['PHP_SELF'].'?cmd=rqOlderThan" method="post">'
-                . '<input type="text" name="date" value="'.date('d/m/Y').'" id="dateinput" /> '.get_lang('(JJ/MM/AAAA)').'<br />'
+                . '<input type="text" name="date" value="'.date('d/m/Y').'" id="dateinput" /> '.get_lang('(jj/mm/aaaa)').'<br />'
                 . '<input type="submit" value="delete" />'
                 . '</form>'
                 ;
