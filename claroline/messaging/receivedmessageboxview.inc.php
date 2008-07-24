@@ -91,20 +91,20 @@
         {
             $searchForm .= "selected";
         }
-        $searchForm .= '>'.get_lang("read and unread").'</option>'
+        $searchForm .= '>'.get_lang("All (Read or not)").'</option>'
                     . '        <option value="read" '
                     ;
         if (isset($link_arg['SelectorReadStatus']) && $link_arg['SelectorReadStatus'] == "read")
         {
             $searchForm .= "selected";
         }
-        $searchForm .= '>'.get_lang("read only").'</option>'
+        $searchForm .= '>'.get_lang("Only read").'</option>'
                     . '        <option value="unread" ';
         if (isset($link_arg['SelectorReadStatus']) && $link_arg['SelectorReadStatus'] == "unread")
         {
             $searchForm .= "selected";
         }
-        $searchForm .= '>'.get_lang("unread only").'</option>'    
+        $searchForm .= '>'.get_lang("Only not read").'</option>'    
                     . '    </select> '
                     . '<input type="submit" value="'.get_lang("Search").'" /><br />'."\n"
                     . '</form>'."\n"
