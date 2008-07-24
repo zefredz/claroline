@@ -197,6 +197,7 @@ class DialogBox implements Display
                     if( $this->_size[DIALOG_ERROR] > 0 )        { $boxClass = 'boxError'; }
                     elseif( $this->_size[DIALOG_WARNING] > 0 )  { $boxClass = 'boxWarning'; }
                     elseif( $this->_size[DIALOG_SUCCESS] > 0 )  { $boxClass = 'boxSuccess'; }
+                    elseif( $this->_size[DIALOG_QUESTION] > 0 ) { $boxClass = 'boxQuestion'; }
                     elseif( $this->_size[DIALOG_INFO] > 0 )     { $boxClass = 'boxInfo'; }
                     else                                        { $boxClass = ''; }
                 } break;
@@ -215,6 +216,10 @@ class DialogBox implements Display
                 case 'error' :
                 {
                     $boxClass = 'boxError';
+                } break;
+                case 'question' :
+                {
+                    $boxClass = 'boxQuestion';
                 } break;
                 default : 
                 {
