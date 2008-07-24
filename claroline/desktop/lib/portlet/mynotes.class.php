@@ -409,7 +409,7 @@ class MyNotes extends UserDesktopPortlet
 
     public function renderTitle()
     {
-        return get_lang('My Notes');
+        return get_lang('My notes');
     }
 }
 ?>
