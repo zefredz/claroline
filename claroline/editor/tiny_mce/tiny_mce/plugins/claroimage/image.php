@@ -102,7 +102,7 @@
                     $i++;
                 }
                 $imgFile['name'] = $base . '_' . $i . '.' .  $ext;
-                $alertMessage = get_lang('A file with this name already exists.\n')
+                $alertMessage = get_lang('A file with this name already exists.') . "\n"
                 .    get_lang('Your file has been renamed to %filename', array('%filename' => $imgFile['name']) );
             }
             
