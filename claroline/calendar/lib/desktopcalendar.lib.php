@@ -246,7 +246,7 @@ var UserDesktopCalendar = {
             foreach($agendaItemList as $agendaItem)
             {
                 $output .= '<dt>' . "\n"
-                .    '<img class="iconDefinitionList" src="' . get_icon_url('agenda', 'CLCAL') . '" alt="' . get_lang('Icon agenda') . '" />'
+                .    '<img class="iconDefinitionList" src="' . get_icon_url('agenda', 'CLCAL') . '" alt="" />'
                 .    '<small>'
                 .    claro_html_localised_date( get_locale('dateFormatLong'),
                 strtotime($agendaItem['date']) )
@@ -276,7 +276,7 @@ var UserDesktopCalendar = {
             $output .= "\n"
             .    '<dl>' . "\n"
             .    '<dt>' . "\n"
-            .    '<img class="iconDefinitionList" src="' . get_icon_url('agenda', 'CLCAL') . '" alt="' . get_lang('Icon agenda') . '" />'
+            .    '<img class="iconDefinitionList" src="' . get_icon_url('agenda', 'CLCAL') . '" alt="" />'
             .    '<small>'
             .    get_lang('No event to display') . "\n"
             .    '</small>' . "\n"
