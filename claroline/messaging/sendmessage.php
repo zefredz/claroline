@@ -141,6 +141,9 @@
             $responseTo = '';
             
             $addForm = TRUE;
+            
+            // breadcrump
+            $claroline->display->banner->breadcrumbs->append(get_lang('Administration'),get_path('rootAdminWeb'));
         }
         
         if ($_REQUEST['cmd'] ==  'rqMessageToGroup')
@@ -240,6 +243,9 @@
                     elseif ($_REQUEST['typeRecipient'] == "all" )
                     {
                         $recipient = new AllUsersRecipient();
+                        
+                        // breadcrump 
+                        $claroline->display->banner->breadcrumbs->append(get_lang('Administration'),get_path('rootAdminWeb'));
                     }
                     elseif ($_REQUEST['typeRecipient'] == 'group')
                     {
