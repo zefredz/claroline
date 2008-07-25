@@ -14,8 +14,11 @@
 // Files and path
 
 define ('LANG_COMPLETE_FILENAME','complete.lang.php'); 
+define ('LANG_INSTALL_FILENAME', 'install.lang.php');
 define ('LANG_MISSING_FILENAME','missing.lang.php'); 
-define ('LANG_EMPTY_FILENAME','new.lang.txt'); 
+define ('LANG_INSTALL_MISSING_FILENAME','missing.install.lang.php');
+define ('LANG_EMPTY_FILENAME','new.complete.file.txt'); 
+define ('LANG_EMPTY_INSTALL_FILENAME', 'new.install.file.txt');
 
 // Default values 
 
