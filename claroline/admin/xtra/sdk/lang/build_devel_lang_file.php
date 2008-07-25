@@ -115,14 +115,17 @@ if (isset($_REQUEST['lang']))
 
         // get language name and display it
 
-        echo "<li><strong>" . $language . "</strong> ";
+        echo '<li><strong>' . $language . '</strong>' . "\n"
+        .    '<ul>' . "\n";
 
+        //--- BUILD COMPLETE
         // get the different variables
 
         $sql = " SELECT DISTINCT used.varName, trans.varFullContent
                 FROM " . $tbl_used_lang . " used, " . $tbl_translation  . " trans
                 WHERE trans.language = '$language'
                   AND used.varName = trans.varName
+                  AND used.sourceFile NOT LIKE '%/install/%' 
                 ORDER BY used.varName, trans.varContent";
 
         $result = claro_sql_query($sql) or die ("QUERY FAILED: " .  __LINE__);
@@ -142,9 +145,9 @@ if (isset($_REQUEST['lang']))
 
         chdir ($languagePath);
 
-        echo "- Create file: " . $languagePath . "/" . LANG_COMPLETE_FILENAME;
+        echo '<li>Create file: ' . $languagePath . '/' . LANG_COMPLETE_FILENAME . '</li>';
 
-        $fileHandle = fopen(LANG_COMPLETE_FILENAME, 'w') or die("FILE OPEN FAILED: ". __LINE__);
+        $fileHandle = fopen(LANG_COMPLETE_FILENAME, 'w') or die("FILE OPEN FAILED FOR ".$languagePath." AT LINE ". __LINE__);
 
         // build language files
 
@@ -155,15 +158,63 @@ if (isset($_REQUEST['lang']))
             foreach($languageVarList as $thisLangVar)
             {
                 $string = build_translation_line_file($thisLangVar['name'],$thisLangVar['content']) ;
-                fwrite($fileHandle, $string) or die ("FILE WRITE FAILED: ". __LINE__);
+                fwrite($fileHandle, $string) or die ("FILE WRITE FAILED FOR ".$languagePath." AT LINE ". __LINE__);
             }
 
             fwrite($fileHandle, "?>");
         }
 
-        fclose($fileHandle) or die ("FILE CLOSE FAILED: ". __LINE__);
+        fclose($fileHandle) or die ("FILE CLOSE FAILED FOR ".$languagePath." AT LINE ". __LINE__);
 
-        echo "</li>\n";
+        //--- BUILD INSTALL
+        // get the different variables
+
+        $sql = " SELECT DISTINCT used.varName, trans.varFullContent
+                FROM " . $tbl_used_lang . " used, " . $tbl_translation  . " trans
+                WHERE trans.language = '$language'
+                  AND used.varName = trans.varName
+                  AND used.sourceFile LIKE '%/install/%' 
+                ORDER BY used.varName, trans.varContent";
+
+        $result = claro_sql_query($sql) or die ("QUERY FAILED: " .  __LINE__);
+
+        if ($result)
+        {
+            $languageVarList = array();
+
+            while ($row = mysql_fetch_array($result))
+            {
+                $thisLangVar['name'   ] = $row['varName'       ];
+                $thisLangVar['content'] = $row['varFullContent'];
+
+                $languageVarList[] = $thisLangVar;
+            }
+        }
+
+        chdir ($languagePath);
+
+        echo '<li>Create file: ' . $languagePath . '/' . LANG_INSTALL_FILENAME . '</li>';
+
+        $fileHandle = fopen(LANG_INSTALL_FILENAME, 'w') or die("FILE OPEN FAILED FOR ".$languagePath." AT LINE ". __LINE__);
+
+        // build language files
+
+        if ($fileHandle && count($languageVarList) > 0)
+        {
+            fwrite($fileHandle, "<?php \n");
+
+            foreach($languageVarList as $thisLangVar)
+            {
+                $string = build_translation_line_file($thisLangVar['name'],$thisLangVar['content']) ;
+                fwrite($fileHandle, $string) or die ("FILE WRITE FAILED FOR ".$languagePath." AT LINE ". __LINE__);
+            }
+
+            fwrite($fileHandle, "?>");
+        }
+
+        fclose($fileHandle) or die ("FILE CLOSE FAILED FOR ".$languagePath." AT LINE ". __LINE__);
+        
+        echo '</ul>' . "\n" . '</li>' . "\n";
 
     }
     echo "</ol>\n";
@@ -174,7 +225,8 @@ if (isset($_REQUEST['lang']))
 $endtime = get_time();
 $totaltime = ($endtime - $starttime);
 
-echo "<p><em>Execution time: $totaltime</em></p>\n";
+echo "<p><em>Execution time: $totaltime</em></p>\n"
+.    '<a href="'.$urlTranslation.'">&lt;&lt; Back</a>' . "\n";
 
 // display footer
 
