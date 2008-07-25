@@ -83,11 +83,18 @@ foreach( $it as $file )
 {
     if( $file->isDir() && !$file->isDot() && $file->getFilename() != '.svn' )
     {
-        $completeFile = $file->getPathname() . '/complete.lang.php';
+        $completeFile = $file->getPathname() . '/' . LANG_COMPLETE_FILENAME;
         if( file_exists( $completeFile ) )
         {
             retrieve_lang_var($completeFile, $file->getFilename());
             echo '<li>' . $completeFile . '</li>' . "\n";
+        }
+    
+        $installFile = $file->getPathname() . '/' . LANG_INSTALL_FILENAME;
+        if( file_exists( $installFile ) )
+        {
+            retrieve_lang_var($installFile, $file->getFilename());
+            echo '<li>' . $installFile . '</li>' . "\n";
         }
     }    
 }
