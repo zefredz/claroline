@@ -54,14 +54,15 @@ $path_lang = $rootSys . "claroline/lang";
 chdir ($path_lang);
 
 
-// get the different variables
-$sql = " SELECT DISTINCT u.varName
+//-- COMPLETE
+$sqlComplete = " SELECT DISTINCT u.varName
          FROM ". $tbl_used_lang . " u
+         WHERE u.sourceFile NOT LIKE '%/install/%'
          ORDER BY u.varName";
 
-$result = mysql_query($sql) or die ("QUERY FAILED: " .  __LINE__);
+$completeVarList = claro_sql_query_fetch_all_rows($sqlComplete);
 
-if ($result)
+if ( is_array($completeVarList) )
 {
     echo '<p>Create file: ' . $path_lang . '/' . LANG_EMPTY_FILENAME . '</p>' . "\n";
 
@@ -69,15 +70,22 @@ if ($result)
     if ($fileHandle)
     {
         fwrite($fileHandle, "<?php \n");
-
-        while ( $row=mysql_fetch_array($result) )
+        
+        if ( !empty($completeVarList) )
         {
-            $string = build_translation_line_file($row['varName'],'') ;
-            fwrite($fileHandle, $string) or die ("FILE WRITE FAILED: ". __LINE__);
+            foreach( $completeVarList as $completeVar )
+            {
+                $string = build_translation_line_file($completeVar['varName'],'') ;
+                fwrite($fileHandle, $string) or die ("FILE WRITE FAILED: ". __LINE__);
+            }
         }
 
         fwrite($fileHandle, "?>");
     }
+}
+else
+{
+    die ("QUERY FAILED: " .  __LINE__);
 }
 
 // build language files
@@ -85,11 +93,52 @@ fclose($fileHandle) or die ("FILE CLOSE FAILED: ". __LINE__);
 
 echo '<p><a href="' . $urlAppend . '/claroline/lang/' . LANG_EMPTY_FILENAME . '">Download it</a></p>';
 
+
+
+//-- INSTALL
+$sqlInstall = "SELECT DISTINCT u.varName
+         FROM ". $tbl_used_lang . " u
+         WHERE u.sourceFile LIKE '%/install/%'
+         ORDER BY u.varName";
+
+$installVarList = claro_sql_query_fetch_all_rows($sqlInstall);
+
+if ( is_array($installVarList)  )
+{
+    echo '<p>Create file: ' . $path_lang . '/' . LANG_EMPTY_INSTALL_FILENAME . '</p>' . "\n";
+
+    $fileHandle = fopen(LANG_EMPTY_INSTALL_FILENAME, 'w') or die("FILE OPEN FAILED: ". __LINE__);
+    if ($fileHandle)
+    {
+        fwrite($fileHandle, "<?php \n");
+        if ( !empty($installVarList) )
+        {
+            foreach( $installVarList as $installVar )
+            {
+                $string = build_translation_line_file($installVar['varName'],'') ;
+                fwrite($fileHandle, $string) or die ("FILE WRITE FAILED: ". __LINE__);
+            }
+        }
+
+        fwrite($fileHandle, "?>");
+    }
+}
+else
+{
+    die ("QUERY FAILED: " .  __LINE__);
+}
+
+// build language files
+fclose($fileHandle) or die ("FILE CLOSE FAILED: ". __LINE__);
+
+echo '<p><a href="' . $urlAppend . '/claroline/lang/' . LANG_EMPTY_INSTALL_FILENAME . '">Download it</a></p>';
+
 // get end time
 $endtime = get_time();
 $totaltime = ($endtime - $starttime);
 
-echo "<p><em>Execution time: $totaltime</em></p>\n";
+echo "<p><em>Execution time: $totaltime</em></p>\n"
+.    '<a href="'.$urlTranslation.'">&lt;&lt; Back</a>' . "\n";
 
 // display footer
 include($includePath."/claro_init_footer.inc.php");
