@@ -115,10 +115,11 @@ if (isset($_REQUEST['lang']))
 
         // get language name and display it
 
-        echo "<li><strong>" . $language . "</strong> ";
+        echo "<li><strong>" . $language . "</strong>\n"
+        .    '<ul>' . "\n";
 
         // get the different variables
-
+        
         if ($language == DEFAULT_LANGUAGE )
         {
             $sql = " select distinct u.varName
@@ -129,6 +130,7 @@ if (isset($_REQUEST['lang']))
                     and t.language=\"" . $language . "\"
                  )
                  where t.varcontent is null
+                   and u.sourceFile NOT LIKE '%/install/%'
                  order by u.varname";
         }
         else
@@ -140,9 +142,10 @@ if (isset($_REQUEST['lang']))
                     u.varname = t2.varname
                     and t2.language=\"" . $language . "\"
                  )
-                 where t2.varcontent is null and
-                       t1.language = '" . DEFAULT_LANGUAGE . "' and
-                       t1.varName = u.varName
+                 where t2.varcontent is null 
+                   and t1.language = '" . DEFAULT_LANGUAGE . "' 
+                   and t1.varName = u.varName
+                   and u.sourceFile NOT LIKE '%/install/%'
                  order by u.varname";
         }
 
@@ -173,7 +176,7 @@ if (isset($_REQUEST['lang']))
 
         chdir ($languagePath);
 
-        echo "- Create file: " . $languagePath . "/" . LANG_MISSING_FILENAME ;
+        echo "<li>Create file: " . $languagePath . "/" . LANG_MISSING_FILENAME . '</li>' . "\n" ;
 
         $fileHandle = fopen(LANG_MISSING_FILENAME, 'w') or die("FILE OPEN FAILED: ". __LINE__);
 
@@ -194,7 +197,87 @@ if (isset($_REQUEST['lang']))
 
         fclose($fileHandle) or die ("FILE CLOSE FAILED: ". __LINE__);
 
-        echo "</li>\n";
+        // install missing file        
+        
+        if ($language == DEFAULT_LANGUAGE )
+        {
+            $sql = " select distinct u.varName
+                 from ". $tbl_used_lang . " u
+                 left join " . $tbl_translation . " t on
+                 (
+                    u.varname = t.varname
+                    and t.language=\"" . $language . "\"
+                 )
+                 where t.varcontent is null
+                   and u.sourceFile LIKE '%/install/%'
+                 order by u.varname";
+        }
+        else
+        {
+            $sql = " select distinct u.varName, t1.varFullContent
+                 from " . $tbl_translation . " t1,   ". $tbl_used_lang . " u
+                 left join " . $tbl_translation . " t2 on
+                 (
+                    u.varname = t2.varname
+                    and t2.language=\"" . $language . "\"
+                 )
+                 where t2.varcontent is null 
+                   and t1.language = '" . DEFAULT_LANGUAGE . "' 
+                   and t1.varName = u.varName
+                   and u.sourceFile LIKE '%/install/%'
+                 order by u.varname";
+        }
+
+        $result = mysql_query($sql) or die ("QUERY FAILED: " .  __LINE__);
+
+        if ($result)
+        {
+            $languageVarList = array();
+
+            while ($row=mysql_fetch_array($result))
+            {
+                $thisLangVar['name'   ] = $row['varName'       ];
+                if ( isset($row['varFullContent']) )
+                {
+                    $thisLangVar['content'] = $row['varFullContent'];
+                }
+                elseif ( $language == DEFAULT_LANGUAGE )
+                {
+                    $thisLangVar['content'] = $thisLangVar['name'] ;
+                }
+                else
+                {
+                    $thisLangVar['content'] = '';
+                }
+                $languageVarList[] = $thisLangVar;
+            }
+        }
+
+        chdir ($languagePath);
+
+        echo "<li>Create file: " . $languagePath . "/" . LANG_INSTALL_MISSING_FILENAME . '</li>' . "\n" ;
+
+        $fileHandle = fopen(LANG_INSTALL_MISSING_FILENAME, 'w') or die("FILE OPEN FAILED: ". __LINE__);
+
+        // build language files
+
+        if ($fileHandle && count($languageVarList) > 0)
+        {
+            fwrite($fileHandle, "<?php \n");
+
+            foreach($languageVarList as $thisLangVar)
+            {
+                $string = build_translation_line_file($thisLangVar['name'],$thisLangVar['content']) ;
+                fwrite($fileHandle, $string) or die ("FILE WRITE FAILED: ". __LINE__);
+            }
+
+            fwrite($fileHandle, "?>");
+        }
+
+        fclose($fileHandle) or die ("FILE CLOSE FAILED: ". __LINE__);
+        
+        echo '</ul>' . "\n"
+        .    '</li>' . "\n";
 
     }
     echo "</ol>\n";
@@ -205,7 +288,8 @@ if (isset($_REQUEST['lang']))
 $endtime = get_time();
 $totaltime = ($endtime - $starttime);
 
-echo "<p><em>Execution time: $totaltime</em></p>\n";
+echo "<p><em>Execution time: $totaltime</em></p>\n"
+.    '<a href="'.$urlTranslation.'">&lt;&lt; Back</a>' . "\n";
 
 // display footer
 
