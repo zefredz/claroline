@@ -855,7 +855,7 @@ elseif ($display == DISP_WELCOME)
     {
         echo '<div class="claroDialogBox boxWarning">'
         .    '<p>' . "\n"
-        .    '<strong>'.get_lang('Warning !').'</strong>'
+        .    '<strong>'.get_lang('Warning').'</strong>'
         .    ' : ' . get_lang('The installer has detected an existing Claroline platform on your system.') . "\n"
         .    '</p>' . "\n"
         .    '<ul>' . "\n"
@@ -887,7 +887,7 @@ elseif ($display == DISP_WELCOME)
     {
         echo '<div class="claroDialogBox boxWarning">'
         .    '<p>' . "\n"
-        .    '<strong>'.get_lang('Warning !').'</strong>'
+        .    '<strong>'.get_lang('Warning').'</strong>'
         .    ' : ' . get_lang('This version is not considered stable and is not intended for production.')
         .    '</p>' . "\n"
         .     '<p>'
@@ -1253,7 +1253,7 @@ elseif(DISP_DB_NAMES_SETTING == $display )
 
         .    '<blockquote><small>'  . "\n"
         .    get_lang('Tracking tables are stored by default into the main Claroline database.').'<br />'
-        .    get_lang('However, you can record tracking data into a separate database or set <br /> a specific prefix for tracking tables.'). "\n"
+        .    get_lang('However, you can record tracking data into a separate database or set a specific prefix for tracking tables.'). "\n"
         .    '</small></blockquote>'  . "\n"
         ;
     }
@@ -1881,14 +1881,16 @@ elseif($display==DISP_DB_NAMES_SETTING_ERROR)
         echo "<hr />";
         if ($mainDbNameExist)
             echo '<div class="claroDialogBox boxWarning">' . "\n"
-            .    '<strong>'.get_lang('Warning').'</strong> : '.get_lang('Database (<em>%dbName</em>) already exists', array('%dbName' => $dbNameForm)) . '<br />' . "\n"
+            .    '<strong>'.get_lang('Warning') . '</strong>' . "\n"
+            .    ' : '.get_lang('Database <em>%dbName</em> already exists', array('%dbName' => $dbNameForm)) . '<br />' . "\n"
             .    '<input type="checkbox" name="confirmUseExistingMainDb"  id="confirmUseExistingMainDb" value="true" '.($confirmUseExistingMainDb?'checked':'').' />' . "\n"
             .    '<label for="confirmUseExistingMainDb" >'.get_lang('I know, I want to use this database as "%fieldname"', array( '%fieldname' => get_lang('Main database'))).'</label>' . "\n"
             .    '</div>'
             ;
         if ($statsDbNameExist && $dbStatsForm!=$dbNameForm)
             echo '<div class="claroDialogBox boxWarning">' . "\n"
-            .    '<strong>'.get_lang('Warning').'</strong> : '.get_lang('Database (<em>%dbName</em>) already exists', array('%dbName' => $dbStatsForm)) . '<br />' . "\n"
+            .    '<strong>'.get_lang('Warning').'</strong>' . "\n"
+            .    ' : '.get_lang('Database (<em>%dbName</em>) already exists', array('%dbName' => $dbStatsForm)) . '<br />' . "\n"
             .    '<br />' . "\n"
             .    '<input type="checkbox" name="confirmUseExistingStatsDb"  id="confirmUseExistingStatsDb" value="true" '.($confirmUseExistingStatsDb?'checked':'') . ' />' . "\n"
             .    '<label for="confirmUseExistingStatsDb" >'.get_lang('I know, I want to use this database as "%fieldname"', array( '%fieldname' => get_lang('Tracking database'))).'</label><br />' . "\n"
@@ -2044,8 +2046,8 @@ elseif(DISP_RUN_INSTALL_COMPLETE == $display)
     .    '</h2>' . "\n"
     .    '<div class="claroDialogBox boxWarning">'
     .    '<p>'
-    .     '<strong>'.get_lang('Warning').'</strong> : '
-    .    get_lang('We highly recommend that you <strong>protect or remove the <em>/claroline/install/</em> directory</strong>.') . "\n"
+    .     '<strong>'.get_lang('Warning').'</strong>' . "\n" 
+    .    ' : ' . get_lang('We highly recommend that you <strong>protect or remove the <em>/claroline/install/</em> directory</strong>.') . "\n"
     .    '</p>'
     .    '</div>' . "\n"
     .    '<fieldset>' . "\n"
@@ -2096,7 +2098,7 @@ echo $htmlNextPrevButton;
 
 
     <div id="footerCenter">
-    <?php echo get_lang('Powered by'); ?> <a href="http://www.claroline.net" target="_blank">Claroline</a> &copy; 2001 - 2008
+    <?php echo get_lang('Powered by %clarolineLink', array('%clarolineLink' => '<a href="http://www.claroline.net" target="_blank">Claroline</a>')); ?> &copy; 2001 - 2008
     </div>
 
     </div>
