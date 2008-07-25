@@ -21,15 +21,19 @@ class AuthManager
 {
     public function authenticate( $username, $password )
     {
-        $authSource = AuthDriverManager::getAuthSource( $username );
-        
-        // if there is a local profile use the profile auth source
-        if ( $authSource )
+        if ( $authSource = AuthDriverManager::getAuthSource( $username ) )
         {
-            Console::debug("Try authentication source {$authSource}");
-            
-            $driver = AuthDriverManager::getDriver( $authSource );
-            
+            Console::debug("Found authentication source {$authSource}");
+            $driverList = array( AuthDriverManager::getDriver( $authSource ) );
+        }
+        else
+        {
+            $authSource = null;
+            $driverList = AuthDriverManager::getRegisteredDrivers();
+        }
+        
+        foreach ( $driverList as $driver )
+        {
             if ( $driver->authenticate( $username, $password ) )
             {
                 if ( $uid = AuthManager::registered( $username, $authSource ) )
@@ -45,41 +49,19 @@ class AuthManager
                     return $driver->getUser();
                 }
             }
-            else
-            {
-                // authentication failed
-                return false;
-            }
         }
-        // else try all authentication drivers and create the local profile
-        else
-        {
-            foreach ( AuthDriverManager::getRegisteredDrivers() as $driver )
-            {
-                if ( $driver->authenticate( $username, $password ) )
-                {
-                    if ( $uid = AuthManager::registered( $username, $authSource ) )
-                    {
-                        $driver->update( $uid );
-                        
-                        return $driver->getUser();
-                    }
-                    else
-                    {
-                        $driver->register();
-                        
-                        return $driver->getUser();
-                    }
-                }
-            }
-            
-            // authentication failed
-            return false;
-        }
+        
+        // authentication failed
+        return false;
     }
     
-    public static function registered( $username, $authSourceName )
+    public static function registered( $username, $authSourceName = null )
     {
+        if ( is_null( $authSourceName ) )
+        {
+            return false;
+        }
+        
         $tbl = claro_sql_get_main_tbl();
         
         $sql = "SELECT user_id\n"
