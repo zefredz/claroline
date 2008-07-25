@@ -21,7 +21,7 @@ class AuthManager
 {
     public function authenticate( $username, $password )
     {
-        if ( $authSource = AuthDriverManager::getAuthSource( $username ) )
+        if ( $authSource = self::getAuthSource( $username ) )
         {
             Console::debug("Found authentication source {$authSource}");
             $driverList = array( AuthDriverManager::getDriver( $authSource ) );
@@ -36,7 +36,7 @@ class AuthManager
         {
             if ( $driver->authenticate( $username, $password ) )
             {
-                if ( $uid = AuthManager::registered( $username, $authSource ) )
+                if ( $uid = self::registered( $username, $authSource ) )
                 {
                     $driver->update( $uid );
                     
@@ -57,7 +57,7 @@ class AuthManager
     
     public static function registered( $username, $authSourceName = null )
     {
-        if ( is_null( $authSourceName ) )
+        if ( empty( $authSourceName ) )
         {
             return false;
         }
@@ -83,6 +83,20 @@ class AuthManager
         {
             return false;
         }
+    }
+    
+    public static function getAuthSource( $username )
+    {
+        $tbl = claro_sql_get_main_tbl();
+        
+        $sql = "SELECT authSource\n"
+            . "FROM `{$tbl['user']}`\n"
+            . "WHERE "
+            . ( get_conf('claro_authUsernameCaseSensitive',true) ? "BINARY " : "" )
+            . "username = ". Claroline::getDatabase()->quote($username)
+            ;
+            
+        return Claroline::getDatabase()->query( $sql )->fetch(Database_ResultSet::FETCH_VALUE);
     }
 }
 
@@ -170,20 +184,6 @@ class AuthDriverManager
             
             $driverConfig = array();
         }
-    }
-    
-    public static function getAuthSource( $username )
-    {
-        $tbl = claro_sql_get_main_tbl();
-        
-        $sql = "SELECT authSource\n"
-            . "FROM `{$tbl['user']}`\n"
-            . "WHERE "
-            . ( get_conf('claro_authUsernameCaseSensitive',true) ? "BINARY " : "" )
-            . "username = ". Claroline::getDatabase()->quote($username)
-            ;
-            
-        return Claroline::getDatabase()->query( $sql )->fetch(Database_ResultSet::FETCH_VALUE);
     }
 }
 
