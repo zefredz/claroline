@@ -31,6 +31,8 @@ $conf_def['section']['main']['label']='Main settings';
 $conf_def['section']['main']['properties'] =
 array ( 'claro_authUsernameCaseSensitive'
       , 'claro_displayLocalAuthForm'
+      , 'claro_secureLogin'
+      , 'claro_displayLostPasswordLink'
       );
 
 //PROPERTIES
@@ -47,7 +49,27 @@ array ( 'label'         => 'The username is case sensitive'
 
 $conf_def_property_list['claro_displayLocalAuthForm'] =
 array ('label'         => 'Display authentication login form'
-      ,'description'   => ''
+      ,'description'   => 'If you are not using the local Claroline password to identify a user, disable this option so the authentication form will not be displayed on the campus homepage'
+      ,'default'       => TRUE
+      ,'type'          => 'boolean'
+      ,'acceptedValue' => array ('TRUE'  => 'Yes'
+                                ,'FALSE' => 'No'
+                                )
+      );
+
+$conf_def_property_list['claro_secureLogin'] =
+array ('label'         => 'Use SSL secure connection for login'
+      ,'description'   => 'You also need to configure your web server to allow SSL connections to the auth/login.php script !'
+      ,'default'       => FALSE
+      ,'type'          => 'boolean'
+      ,'acceptedValue' => array ('TRUE'  => 'Yes'
+                                ,'FALSE' => 'No'
+                                )
+      );
+
+$conf_def_property_list['claro_displayLostPasswordLink'] =
+array ('label'         => 'Display a link to the lost password form'
+      ,'description'   => 'Disable this option if you are not using the local Claroline password to identify a user'
       ,'default'       => TRUE
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'

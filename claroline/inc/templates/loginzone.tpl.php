@@ -11,9 +11,12 @@
 
 
 <?php if( get_conf('claro_displayLocalAuthForm') ) : ?>
-
+<?php if( get_conf('claro_secureLogin', false) ) : ?>
  <!-- Authentication Form -->
-<form class="claroLoginForm" action ="<?php echo get_path('clarolineRepositoryWeb'); ?>auth/login.php" method="post">
+<form class="claroLoginForm" action="<?php echo 'https://'.$_SERVER['HTTP_HOST'] . get_path('clarolineRepositoryWeb'); ?>auth/login.php" method="post">
+<?php else: ?>
+<form class="claroLoginForm" action="<?php echo get_path('clarolineRepositoryWeb'); ?>auth/login.php" method="post">
+<?php endif; ?>
 <fieldset style="padding: 7px;">
 <legend><?php echo get_lang('Authentication'); ?> : </legend>
 <label for="login">
