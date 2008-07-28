@@ -415,7 +415,7 @@ class ConfigHtml extends Config
             $elt_form = '<tr style="vertical-align: top">' . "\n"
                 . '<td style="text-align: right" width="25%">' . $form_title . '&nbsp;:</td>' . "\n"
                 . '<td nowrap="nowrap" width="25%">' . $form_value . '</td>' . "\n"
-                . '<td width="50%"><em><small>' . $html['description'] . '</small></em></td>' . "\n"
+                . '<td width="50%">' . ( !empty($html['description'])  ? '<em><small>' . $html['description']. '</small></em>' : '&nbsp;' ) .'</td>' . "\n"
                 . '</tr>' . "\n" ;
         }
 
