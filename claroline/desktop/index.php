@@ -93,6 +93,9 @@ try
                     $portletList->addPortlet( $className, $portlet->renderTitle() );
                 }
             }
+            
+            load_module_config($moduleLabel);
+            Language::load_module_translation($moduleLabel);
         }
     }
 }

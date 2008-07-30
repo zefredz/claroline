@@ -166,7 +166,9 @@
             foreach ( $this->appletList as $applet )
             {
                 set_current_module_label( $applet['label'] );
+                
                 pushClaroMessage('Current module label set to : ' . get_current_module_label(), 'debug');
+                
                 // install course applet
                 if ( claro_is_in_a_course() )
                 {
@@ -177,18 +179,22 @@
                 if ( $applet['activation'] == 'activated'
                     && file_exists( $applet['path'] ) )
                 {
+                    load_module_config();
+                    Language::load_module_translation();
+                
                     include $applet['path'];
                 }
                 else
                 {
-                    Console::error( "Applet not found " . $applet['label'] );
+                    Console::debug( "Applet not found or not activated : " . $applet['label'] );
                 }
+                
                 clear_current_module_label();
                 pushClaroMessage('Current module label set to : ' . get_current_module_label(), 'debug');
             }
-
+            
             $claro_buffer->append("\n".'<!-- End of '.$this->name.' -->'."\n");
-
+            
             return $claro_buffer->getContent();
         }
     }
