@@ -226,8 +226,7 @@ if ( isset($_REQUEST['embedded']) && $_REQUEST['embedded'] == 'true' )
     $hide_footer = true;
     
     // fashion victim method
-    $claroline->display->banner->hide();
-    $claroline->display->footer->hide();
+    $claroline->setDisplayType(Claroline::FRAME);
 }
 /*----------------------------------------------------------------------
   Initialize the event manager declarations for the notification system
