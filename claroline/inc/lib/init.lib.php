@@ -529,6 +529,7 @@ function get_init($param)
     , 'is_groupTutor'          // claro_is_groupTutor()
     , 'is_groupAllowed'        // claro_is_groupAllowed()
     , 'is_toolAllowed'         // claro_is_toolAllowed()
+    , 'calledFrom'             // claro_called_from()
     );
 
     if(!in_array($param, $initValueList )) trigger_error( htmlentities($param) . ' is not a know init value name ', E_USER_NOTICE);
@@ -655,4 +656,14 @@ function claro_get_current_user_profile_id_in_course( $courseId = null )
         claro_get_current_user_id() );
     
     return $userPrivilege['_profileId'];
+}
+
+/**
+ * Get the context from where the page is called
+ * e.g.: if a tool is called from another tool
+ * @return mixed tlabel or false if not called from a specific tool or whatever
+ */
+function claro_called_from()
+{
+    return get_init('calledFrom');
 }
