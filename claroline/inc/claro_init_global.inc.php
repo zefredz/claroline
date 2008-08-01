@@ -206,6 +206,30 @@ if ( isset( $tlabelReq ) && !empty( $tlabelReq ) )
 }
 
 /*----------------------------------------------------------------------
+  Context from URL
+  ----------------------------------------------------------------------*/
+// if page is called from another tool ... (from LP for an example)
+if ( isset($_REQUEST['calledFrom']) )
+{
+    $calledFrom = $_REQUEST['calledFrom'];
+}
+else
+{
+    $calledFrom = false;
+}
+
+// if page is embedded hide banner and footer
+if ( isset($_REQUEST['embedded']) && $_REQUEST['embedded'] == 'true' )
+{
+    // old school method
+    $hide_banner = true;
+    $hide_footer = true;
+    
+    // fashion victim method
+    $claroline->display->banner->hide();
+    $claroline->display->footer->hide();
+}
+/*----------------------------------------------------------------------
   Initialize the event manager declarations for the notification system
   ----------------------------------------------------------------------*/
 
