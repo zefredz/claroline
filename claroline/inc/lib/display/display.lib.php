@@ -122,7 +122,6 @@ class ClaroPage implements Display
 
     public function frameMode()
     {
-        $this->body->hideClaroBody();
         $this->banner->hide();
         $this->footer->hide();
     }
