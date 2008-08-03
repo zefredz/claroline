@@ -1251,7 +1251,8 @@ function user_html_form($data, $form_type='registration')
     {
         $html .= form_row('<label for="applyChange">' . get_lang('Save changes') . ' : </label>',
         ' <input type="submit" name="applyChange" id="applyChange" value="' . get_lang('Ok') . '" />&nbsp;'
-        . claro_html_button($_SERVER['HTTP_REFERER'], get_lang('Cancel')) );
+		// @TODO : if $_SERVER['HTTP_REFERER'] not set find a best value than '' 
+        . claro_html_button(isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:'', get_lang('Cancel')) );
     }
 
     $html .= form_row('&nbsp;', '<small>' . get_lang('<span class="required">*</span> denotes required field') . '</small>');
