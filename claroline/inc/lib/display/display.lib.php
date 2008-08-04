@@ -139,6 +139,18 @@ class ClaroPage implements Display
         {
             $this->popupMode();
         }
+        
+        if( isset( $_REQUEST['inFrame'] )
+                && 'true' == $_REQUEST['inFrame'] )
+        {
+            $this->frameMode();
+        }
+        
+        if( isset( $_REQUEST['embedded'] )
+                && 'true' == $_REQUEST['embedded'] )
+        {
+            $this->frameMode();
+        }
     
         if ( isset( $_REQUEST['hide_banner'] )
                 && 'true' == $_REQUEST['hide_banner'] )
