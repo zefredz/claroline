@@ -36,6 +36,9 @@
         $is_allowedToEdit = claro_is_allowed_to_edit();
         $pathSys = get_path('coursesRepositorySys') . claro_get_course_path().'/document/';
         $pathWeb = get_path('coursesRepositoryWeb') . claro_get_course_path() . '/document/';
+        
+        require claro_get_conf_repository() . 'CLDOC.conf.php';
+        $maxFilledSpace = get_conf('maxFilledSpace_for_course');
     }
     else
     {
@@ -78,7 +81,7 @@
     {
         $relativePath = '/';
     }
-    
+
     /*
      * Handle upload 
      */
@@ -88,7 +91,16 @@
         $imgFile['name'] = replace_dangerous_char($imgFile['name'],'strict');
         $imgFile['name'] = get_secure_file_name($imgFile['name']);
         
-        if( is_image($imgFile['name']) )
+        if( claro_is_in_a_course() )
+        {
+            $enoughSize = enough_size($_FILES['sentFile']['size'], $pathSys, $maxFilledSpace);
+        }
+        else
+        {
+            $enoughSize = true;
+        }
+        
+        if( is_image($imgFile['name']) && $enoughSize )
         {
             // rename if file already exists
             if(file_exists($pathSys . $relativePath .  $imgFile['name']))
@@ -108,9 +120,7 @@
             
             if ( move_uploaded_file($imgFile['tmp_name'], $pathSys .  $relativePath . $imgFile['name'] ) )
             {
-                $imgUrl = $pathWeb . $relativePath . $imgFile['name'];
-                //$alertMessage = $imgUrl;
-                
+                $imgUrl = str_replace('//','/', $pathWeb . $relativePath . $imgFile['name']);
             }
             else
             {
@@ -121,7 +131,15 @@
         else
         {
             $imgUrl = null;
-            $alertMessage = get_lang('Uploaded file should be an image');
+            
+            if( ! $enoughSize )
+            {
+                $alertMessage = get_lang('The upload has failed. There is not enough space in your directory');
+            }
+            else
+            {
+                $alertMessage = get_lang('Uploaded file should be an image');
+            }
             
         }
     }
@@ -144,17 +162,16 @@
 	<script type="text/javascript">
 	   var relativePath = '<?php echo addslashes($relativePath); ?>';
 	   <?php
+            if( !empty($alertMessage) )
+            {
+                echo 'alert("'.clean_str_for_javascript($alertMessage).'");' . "\n";
+            }
+
             if( !empty($imgUrl) )
             {
                 echo 'selectImage( "'.$imgUrl.'" );'. "\n";
             }
        ?>
-	   <?php
-            if( !empty($alertMessage) )
-            {
-                echo 'alert("'.$alertMessage.'");' . "\n";
-            }
-	   ?>
 	</script>
 	<link href="css/advimage.css" rel="stylesheet" type="text/css" />
 	<base target="_self" />
