@@ -1519,7 +1519,7 @@ function claro_form_relay_context($context=null)
     
     foreach ( $context as $key => $value )
     {
-        $html .= '<input type="hidden" name="'.htmlspecialchars(strip_tags($name)).'" value="'.htmlspecialchars(strip_tags($value)).'" />';
+        $html .= '<input type="hidden" name="'.htmlspecialchars(strip_tags($key)).'" value="'.htmlspecialchars(strip_tags($value)).'" />';
     }
 
     return $html;
