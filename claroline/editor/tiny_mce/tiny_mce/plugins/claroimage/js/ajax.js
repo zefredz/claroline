@@ -32,7 +32,7 @@
 
     }
     
-    function selectImage(imageUrl, elem)
+    function selectImage(imageUrl)
     {
         // set src 
         $('#src').val(imageUrl);
