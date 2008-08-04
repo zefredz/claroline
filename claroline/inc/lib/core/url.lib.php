@@ -2,11 +2,6 @@
 
 // vim: expandtab sw=4 ts=4 sts=4:
 
-if ( count( get_included_files() ) == 1 )
-{
-    die( 'The file ' . basename(__FILE__) . ' cannot be accessed directly, use include instead' );
-}
-
 /**
  * Url manipulation library
  *
@@ -45,19 +40,21 @@ class Url
      */
     public function relayCurrentContext()
     {
-        $paramToAdd = array();
-
-        if (claro_is_in_a_course())
+        $context = Claroline::getCurrentContext();
+        
+        if ( array_key_exists( 'cid', $context )
+            && ! array_key_exists( 'cidReq', $context ) )
         {
-            $paramToAdd['cidReq'] = claro_get_current_course_id();
+            $context['cidReq'] = $context['cid'];
         }
 
-        if (claro_is_in_a_group())
+        if ( array_key_exists( 'gid', $context )
+            && ! array_key_exists( 'gidReq', $context ) )
         {
-            $paramToAdd['gidReq'] = claro_get_current_group_id();
+            $context['gidReq'] = $context['gid'];
         }
-
-        $this->addParamList( $paramToAdd );
+        
+        $this->addParamList( $context );
     }
     
     /**
@@ -66,19 +63,19 @@ class Url
      */
     public function relayContext( $context )
     {
-        $paramToAdd = array();
-
-        if ( array_key_exists( 'cid', $context ) )
+        if ( array_key_exists( 'cid', $context )
+            && ! array_key_exists( 'cidReq', $context ) )
         {
-            $paramToAdd['cidReq'] = $context['cid'];
+            $context['cidReq'] = $context['cid'];
         }
 
-        if ( array_key_exists( 'gid', $context ) )
+        if ( array_key_exists( 'gid', $context )
+            && ! array_key_exists( 'gidReq', $context ) )
         {
-            $paramToAdd['gidReq'] = $context['gid'];
+            $context['gidReq'] = $context['gid'];
         }
 
-        $this->addParamList( $paramToAdd );
+        $this->addParamList( $context );
     }
 
     /**
