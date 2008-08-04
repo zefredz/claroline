@@ -51,6 +51,6 @@ class Claro_Context
             $context['calledFrom'] = $moduleLabel;
         }
         
-        return $context();
+        return $context;
     }
 }

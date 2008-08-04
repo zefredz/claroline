@@ -84,18 +84,20 @@ class Url
      */
     public function relayCurrentContext()
     {
-        $context = Claroline::getCurrentContext();
+        $context = Claro_Context::getCurrentContext();
         
         if ( array_key_exists( 'cid', $context )
             && ! array_key_exists( 'cidReq', $context ) )
         {
             $context['cidReq'] = $context['cid'];
+            unset( $context['cid'] );
         }
 
         if ( array_key_exists( 'gid', $context )
             && ! array_key_exists( 'gidReq', $context ) )
         {
             $context['gidReq'] = $context['gid'];
+            unset( $context['gid'] );
         }
         
         $this->addParamList( $context );
@@ -111,12 +113,14 @@ class Url
             && ! array_key_exists( 'cidReq', $context ) )
         {
             $context['cidReq'] = $context['cid'];
+            unset( $context['cid'] );
         }
 
         if ( array_key_exists( 'gid', $context )
             && ! array_key_exists( 'gidReq', $context ) )
         {
             $context['gidReq'] = $context['gid'];
+            unset( $context['gid'] );
         }
 
         $this->addParamList( $context );

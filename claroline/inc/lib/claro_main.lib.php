@@ -17,6 +17,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  */
  
 require_once(dirname(__FILE__) . '/core/core.lib.php');
+require_once(dirname(__FILE__) . '/core/context.lib.php');
 
 /**
  * SECTION :  Function to access the sql datas
@@ -1499,16 +1500,26 @@ function claro_form_relay_context($context=null)
     $html ='';
     if(is_null($context))
     {
-        if (claro_is_in_a_course())
-            $html .= '<input type="hidden" name="cidReq" value="' . claro_get_current_course_id() . '" />';
-
-        if (claro_is_in_a_group())
-            $html .= '<input type="hidden" name="gidReq" value="' . claro_get_current_group_id()  . '" />';
+        $context = Claro_Context::getCurrentContext();
     }
-    else
+    
+    if ( array_key_exists( 'cid', $context )
+        && ! array_key_exists( 'cidReq', $context ) )
     {
-        if (array_key_exists(CLARO_CONTEXT_COURSE,$context)) $html .= '<input type="hidden" name="cidReq" value="' . $context[CLARO_CONTEXT_COURSE] . '" />';
-        if (array_key_exists(CLARO_CONTEXT_GROUP,$context)) $html .= '<input type="hidden" name="gidReq" value="' . $context[CLARO_CONTEXT_GROUP] . '" />';
+        $context['cidReq'] = $context['cid'];
+        unset( $context['cid'] );
+    }
+
+    if ( array_key_exists( 'gid', $context )
+        && ! array_key_exists( 'gidReq', $context ) )
+    {
+        $context['gidReq'] = $context['gid'];
+        unset( $context['gid'] );
+    }
+    
+    foreach ( $context as $key => $value )
+    {
+        $html .= '<input type="hidden" name="'.htmlspecialchars(strip_tags($name)).'" value="'.htmlspecialchars(strip_tags($value)).'" />';
     }
 
     return $html;
@@ -1516,26 +1527,26 @@ function claro_form_relay_context($context=null)
 
 function claro_url_relay_context($prepend='',$context=null)
 {
-    $urlParam = array();
     if(is_null($context))
     {
-        if (claro_is_in_a_course())
-            $urlParam[] = 'cidReq=' . claro_get_current_course_id();
-
-        if (claro_is_in_a_group())
-            $urlParam[] = 'gidReq=' . claro_get_current_group_id();
-
+        $context = Claro_Context::getCurrentContext();
     }
-    else
+    
+    if ( array_key_exists( 'cid', $context )
+        && ! array_key_exists( 'cidReq', $context ) )
     {
-        if (array_key_exists(CLARO_CONTEXT_COURSE,$context))
-            $urlParam[] = 'cidReq=' . $context[CLARO_CONTEXT_COURSE];
-
-        if (array_key_exists(CLARO_CONTEXT_GROUP,$context))
-            $urlParam[] = 'gidReq=' . $context[CLARO_CONTEXT_GROUP];
+        $context['cidReq'] = $context['cid'];
+        unset( $context['cid'] );
     }
 
-    if (count($urlParam)>0) return $prepend . implode($urlParam,'&');
+    if ( array_key_exists( 'gid', $context )
+        && ! array_key_exists( 'gidReq', $context ) )
+    {
+        $context['gidReq'] = $context['gid'];
+        unset( $context['gid'] );
+    }
+
+    if (count($context)>0) return $prepend . http_build_query($context);
     else                    return '';
 }
 
