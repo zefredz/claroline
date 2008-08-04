@@ -19,7 +19,17 @@
  */
 class Url
 {
-    private $url = '';
+    protected $url = array(
+        'scheme' => '',
+        'host' => '',
+        'port' => '',
+        'user' => '',
+        'pass' => '',
+        'path' => '',
+        'query' => array(),
+        'fragment' => ''
+    );
+    
 
     /**
      * Constructor
@@ -27,12 +37,46 @@ class Url
      */
     public function __construct( $url = '' )
     {
-        $url = htmlspecialchars_decode( $url );
-
-        $this->url = empty($url)
+        $url = empty($url)
             ? $_SERVER['PHP_SELF']
             : $url
             ;
+            
+        $url = htmlspecialchars_decode( $url );
+        
+        $urlArr = @parse_url( $url );
+        
+        $queryArr = array();
+        
+        if ( !empty($urlArr['query']) )
+        {
+            @parse_str($urlArr['query'], $queryArr );
+        }
+        
+        unset ($urlArr['suery']);
+        
+        $this->url = array_merge( $this->url, $urlArr );
+        $this->url['query'] = $queryArr;
+    }
+    
+    public function __get( $name )
+    {
+        if ( isset( $this->url[$name] ) )
+        {
+            return $this->url[$name];
+        }
+        else
+        {
+            return null;
+        }
+    }
+    
+    public function __set( $name, $value )
+    {
+        if ( isset( $this->url[$name] ) )
+        {
+            $this->url[$name] = $value;
+        }
     }
 
     /**
@@ -86,27 +130,9 @@ class Url
     {
         if ( !empty( $paramList ) && is_array( $paramList ) )
         {
-            $paramListToAdd = array();
-
             foreach ( $paramList as $name => $value )
             {
-                if ( !preg_match( '/%\d\d/', $value ) )
-                {
-                    $value = rawurlencode( $value );
-                }
-
-                $paramListToAdd[] = "$name=$value";
-            }
-
-            $paramListToAdd = implode ( '&', $paramListToAdd );
-
-            if ( strpos ( $this->url, '?' ) === false )
-            {
-                $this->url .= '?' . $paramListToAdd;
-            }
-            else
-            {
-                $this->url .= '&' . $paramListToAdd;
+                $this->addParam( $name, $value );
             }
         }
     }
@@ -118,21 +144,7 @@ class Url
      */
     public function addParam( $name, $value )
     {
-        if ( !preg_match( '/%\d\d/', $value ) )
-        {
-            $value = rawurlencode( $value );
-        }
-
-        $paramToAdd = "$name=$value";
-
-        if ( strpos ( $this->url, '?' ) === false )
-        {
-            $this->url .= '?' . $paramToAdd;
-        }
-        else
-        {
-            $this->url .= '&' . $paramToAdd;
-        }
+        $this->url['query'][$name] = $value;
     }
 
     /**
@@ -144,21 +156,9 @@ class Url
      */
     public function replaceParam( $name, $value, $addIfMissing = false )
     {
-        if ( !preg_match( '/%\d\d/', $value ) )
-        {
-            $value = rawurlencode( $value );
-        }
-
-        if ( preg_match( "/(&|\?)($name=)([^&])+/", $this->url ) )
-        {
-            $this->url = preg_replace( "/(&|\?)($name=)([^&])+/", "$1$2$value", $this->url );
-
-            return true;
-        }
-        elseif ( $addIfMissing )
+        if ( array_key_exists( $name, $this->url['query'] ) )
         {
             $this->addParam( $name, $value );
-
             return true;
         }
         else
@@ -174,12 +174,9 @@ class Url
      */
     public function removeParam( $name )
     {
-        if ( preg_match( "/(&|\?)($name=)[^&]/", $this->url ) )
+        if ( array_key_exists( $name, $this->url['query'] ) )
         {
-            $this->url = preg_replace( "/&$name=[^&]*/", "", $this->url );
-            $this->url = preg_replace( "/\?$name=[^&]*/", "?", $this->url );
-            $this->url = str_replace( '?&', '?', $this->url );
-
+            unset( $this->url['query'] );
             return true;
         }
         else
@@ -190,6 +187,64 @@ class Url
 
     public function toUrl()
     {
-        return $this->url;
+        $url = '';
+        
+        if ( !empty($this->url['scheme']) )
+        {
+            if ( $this->url['scheme'] != 'mailto' )
+            {
+                $url .= $this->url['scheme'] . '://';
+            }
+            else
+            {
+                $url .= $this->url['scheme'] . ':';
+            }
+        }
+        
+        if ( !empty( $this->url['user'] ) )
+        {
+            $url .= $this->url['user'];
+            
+            if ( !empty( $this->url['pass'] ) )
+            {
+                $url .= ":{$this->url['pass']}";
+            }
+            
+            $url .= '@';
+        }
+        
+        if ( !empty ( $this->url['host']))
+        {
+            $url .= $this->url['host'];
+        }
+        
+        if ( !empty ( $this->url['port']))
+        {
+            $url .= ':'.$this->url['port'];
+        }
+        
+        if ( !empty ( $this->url['path']))
+        {
+            $url .= $this->url['path'];
+        }
+        
+        if ( !empty($this->url['query']) )
+        {
+            $url .= '?' . http_build_query( $this->url['query'] );
+        }
+        
+        if ( !empty ( $this->url['fragment']))
+        {
+            $url .= '#' . $this->url['fragment'];
+        }
+        
+        return $url;
     }
 }
+
+/*$url = new Url('http://www.claroline.net?forum_id=3&plop=gnome#4');
+$url->addParam('path','/img/blue.gif');
+
+$url->port=3306;
+
+var_Dump($url->toUrl());*/
