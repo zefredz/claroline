@@ -1183,6 +1183,12 @@ if ($curDirPath == '/' || $curDirPath == '\\' || strstr($curDirPath, '..'))
      */
 }
 
+if ( !file_exists($baseWorkDir.'/'.$curDirPath) || ! is_dir($baseWorkDir.'/'.$curDirPath) )
+{
+    $dialogBox->error("The requested folder does not exists");
+    $curDirPath = ''; // back to root directory
+}
+
 $curDirName = basename($curDirPath);
 $parentDir  = dirname($curDirPath);
 
