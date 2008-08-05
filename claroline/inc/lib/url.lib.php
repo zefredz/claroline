@@ -114,3 +114,35 @@ function get_path_info()
             'backends/download.php' ) );
     }
 }
+
+function is_base64_encoded( $str )
+{
+    $str = ltrim($str, '/');
+    return preg_match("!^[0-9a-zA-Z\+/=]{20,}$!", $str);
+}
+
+function base64_url_encode( $str )
+{
+    if ( get_conf('usePrettyUrl', false) )
+    {
+        $str = ltrim($str, '/');
+        return '/' . rawurlencode(base64_encode( $str ) );
+    }
+    else
+    {
+        return rawurlencode(base64_encode( $str ) );
+    }
+}
+
+function base64_url_decode( $str )
+{
+    if ( get_conf('usePrettyUrl', false) )
+    {
+        $str = ltrim($str, '/');
+        return '/' . base64_decode( $str );
+    }
+    else
+    {
+        return base64_decode( $str );
+    }
+}

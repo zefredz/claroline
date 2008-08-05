@@ -87,6 +87,7 @@ require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
 require_once get_path('incRepositorySys') . '/lib/fileDisplay.lib.php';
 require_once get_path('incRepositorySys')  . '/lib/fileManage.lib.php';
 require_once get_path('incRepositorySys')  . '/lib/file.lib.php';
+require_once get_path('incRepositorySys')  . '/lib/url.lib.php';
 
 /*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
                      FILEMANAGER BASIC VARIABLES DEFINITION
@@ -2068,7 +2069,7 @@ echo claro_html_tool_title($titleElement,
                 // a single element
 
                 $dspFileName = htmlspecialchars( basename($thisFile['path']) );
-                $cmdFileName = rawurlencode($thisFile['path']);
+                $cmdFileName = base64_url_encode($thisFile['path']);
 
                 if ( $thisFile['visibility'] == 'i')
                 {
