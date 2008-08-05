@@ -356,8 +356,42 @@ function claro_readfile( $path, $retbytes = true )
     }
 }
 
+function is_download_url_encoded( $str )
+{
+    $str = ltrim($str, '/');
+    return preg_match("!^[0-9a-zA-Z\+/=]{20,}$!", $str);
+}
+
+function download_url_encode( $str )
+{
+    if ( $GLOBALS['is_Apache'] && get_conf('usePrettyUrl', false) )
+    {
+        $str = ltrim($str, '/');
+        return '/' . rawurlencode(base64_encode( $str ) );
+    }
+    else
+    {
+        return rawurlencode(base64_encode( $str ) );
+    }
+}
+
+function download_url_decode( $str )
+{
+    if ( $GLOBALS['is_Apache'] && get_conf('usePrettyUrl', false) )
+    {
+        $str = ltrim($str, '/');
+        return '/' . base64_decode( $str );
+    }
+    else
+    {
+        return base64_decode( $str );
+    }
+}
+
 function claro_get_file_download_url( $file, $context = null )
 {
+    $file = download_url_encode( $file );
+    
     if ( $GLOBALS['is_Apache'] && get_conf('usePrettyUrl', false) )
     {
         // slash argument method - only compatible with Apache

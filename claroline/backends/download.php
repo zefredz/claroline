@@ -41,9 +41,9 @@ else
     $requestUrl = strip_tags(get_path_info());
 }
 
-if ( is_base64_encoded($requestUrl) )
+if ( is_download_url_encoded($requestUrl) )
 {
-    $requestUrl = base64_url_decode( $requestUrl );
+    $requestUrl = download_url_decode( $requestUrl );
 }
 
 if ( empty($requestUrl) )
