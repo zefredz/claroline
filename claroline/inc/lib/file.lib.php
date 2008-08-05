@@ -271,7 +271,7 @@ function claro_send_file( $path, $name = '', $charset = null )
         
         header( 'Content-Length: '. filesize( $path ) );
         
-        return ( claro_readfile( $path ) );
+        return ( readfile( $path ) );
     }
     else
     {
@@ -307,6 +307,7 @@ function secure_file_path( $path )
  *          boolean true on success if not $retbytes
  *          boolean false on failure
  *          set claro_failure on failure
+ * @deprecated since Claroline 1.9 and PHP 5.1
  */
 function claro_readfile( $path, $retbytes = true )
 {
