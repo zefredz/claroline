@@ -182,8 +182,6 @@ else                           $cmd = null;
 if ( isset($_REQUEST['docView']) ) $docView = $_REQUEST['docView'];
 else                               $docView = 'files';
 
-if ( isset($_REQUEST['file']) ) $_REQUEST['file'] = $_REQUEST['file'];
-
 /* > > > > > > MAIN SECTION  < < < < < < <*/
 
 if ( $is_allowedToEdit ) // Document edition are reserved to certain people
@@ -2069,7 +2067,7 @@ echo claro_html_tool_title($titleElement,
                 // a single element
 
                 $dspFileName = htmlspecialchars( basename($thisFile['path']) );
-                $cmdFileName = base64_url_encode($thisFile['path']);
+                $cmdFileName = rawurlencode($thisFile['path']);
 
                 if ( $thisFile['visibility'] == 'i')
                 {
@@ -2106,7 +2104,7 @@ echo claro_html_tool_title($titleElement,
                     $size        = format_file_size($thisFile['size']);
                     $date        = format_date($thisFile['date']);
 
-                    $urlFileName = claro_get_file_download_url( $cmdFileName );
+                    $urlFileName = claro_get_file_download_url( base64_url_encode($thisFile['path']) );
 
                     //$urlFileName = "goto/?doc_url=".rawurlencode($cmdFileName);
                     //format_url($baseServUrl.$courseDir.$curDirPath."/".$fileName));
@@ -2118,7 +2116,7 @@ echo claro_html_tool_title($titleElement,
                     $image       = 'folder';
                     $size        = '&nbsp;';
                     $date        = '&nbsp;';
-                    $urlFileName = $_SERVER['PHP_SELF'].'?cmd=exChDir&amp;file='.$cmdFileName;
+                    $urlFileName = $_SERVER['PHP_SELF'].'?cmd=exChDir&amp;file='.rawurlencode($thisFile['path']);
 
                     $target = '';
                 }
