@@ -49,7 +49,7 @@ array ( 'label'         => 'The username is case sensitive'
 
 $conf_def_property_list['claro_displayLocalAuthForm'] =
 array ('label'         => 'Display authentication login form'
-      ,'description'   => 'If you are not using the local Claroline password to identify a user, disable this option so the authentication form will not be displayed on the campus homepage'
+      ,'description'   => 'If you are not using the local Claroline password to identify a user, disable this option so the access authentication form will not be available'
       ,'default'       => TRUE
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
