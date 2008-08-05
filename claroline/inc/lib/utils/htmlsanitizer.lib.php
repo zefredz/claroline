@@ -412,3 +412,16 @@ function claro_html_sanitize_all( $str )
     
     return $san->sanitize( $str );
 }
+
+function claro_html_sanitize_editor( $str )
+{
+    static $san = null;
+    
+    if ( empty( $san ) )
+    {
+        $san = new Claro_Html_Sanitizer;
+        $san->allowObjects();
+    }
+    
+    return $san->sanitize( $str );
+}
