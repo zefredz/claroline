@@ -15,7 +15,7 @@
  */
 
 
-    // initializtion
+    // initialization
     require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
     
     // move to kernel
@@ -197,7 +197,7 @@
                 else
                 {
                     $message = new MessageToSend(claro_get_current_user_id(),$subject,$message);
-                    if ($_REQUEST['typeRecipient'] == "user")
+                    if ($_REQUEST['typeRecipient'] == 'user')
                     {
                         $recipient = new SingleUserRecipient($_POST['userRecipient']);
                         
@@ -235,12 +235,12 @@
                             //No context to load
                         }
                     }
-                    elseif ( $_REQUEST['typeRecipient'] == "course" )
+                    elseif ( $_REQUEST['typeRecipient'] == 'course' )
                     {
                         $recipient = new CourseRecipient($_POST['courseRecipient']);
                         $message->setCourse($_POST['courseRecipient']);
                     }
-                    elseif ($_REQUEST['typeRecipient'] == "all" )
+                    elseif ($_REQUEST['typeRecipient'] == 'all' )
                     {
                         $recipient = new AllUsersRecipient();
                         
@@ -260,7 +260,7 @@
                     
                     $recipient->sendMessage($message);
                     $informationString = 
-                         get_lang('Message sent')."<br /><br />"
+                         get_lang('Message sent') . '<br /><br />'
                         .'<a href="messagebox.php?box=inbox">'.get_lang('Back to inbox').'</a>'
                         ;
                     
@@ -286,8 +286,8 @@
          . '<input type="hidden" name="courseRecipient" value="'.$courseRecipient.'" />'."\n"
          . '<input type="hidden" name="groupRecipient" value="'.$groupRecipient.'" />'."\n"
          . '<input type="hidden" name="responseTo" value="'.$responseTo.'" />'."\n"
-         . '<label>'.get_lang('Subject').' : </label><br/><input type="text" name="subject" value="'.htmlspecialchars($subject).'" maxlength="255" size="40" /><br/>'."\n"
-         . '<label>'.get_lang('Message').' : </label><br/>'.claro_html_textarea_editor('message', $message).'<br/><br/>'."\n"
+         . '<label for="message_subject">'.get_lang('Subject').' : </label><br/><input type="text" id="message_subject" name="subject" value="'.htmlspecialchars($subject).'" maxlength="255" size="40" /><br/>'."\n"
+         . '<label for="message">'.get_lang('Message').' : </label><br/>'.claro_html_textarea_editor('message', $message).'<br/><br/>'."\n"
          . '<input type="submit" value="'.get_lang('Send').'" name="send" />'."\n"
          . '</form>'."\n\n"
          ;
