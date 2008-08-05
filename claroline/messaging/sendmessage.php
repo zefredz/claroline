@@ -17,6 +17,7 @@
 
     // initialization
     require_once dirname(__FILE__) . '/../../claroline/inc/claro_init_global.inc.php';
+    FromKernel::uses('utils/htmlsanitizer.lib');
     
     // move to kernel
     $claroline = Claroline::getInstance();
@@ -275,6 +276,8 @@
     // ------------ Prepare display --------------------
     if ($addForm)
     {
+        $message = claro_html_sanitize_all($message);
+        
         $content .= "<br/>";
         
         $content .= '<form method="post" action="sendmessage.php?cmd=exSendMessage'.claro_url_relay_context('&amp;').'">'."\n"

@@ -17,6 +17,7 @@
 
 
 require_once dirname(__FILE__) . '/permission.lib.php';
+FromKernel::uses('utils/htmlsanitizer.lib');
 
 class DisplayMessage
 {
@@ -211,9 +212,11 @@ class DisplayMessage
             
             
         }
+        $body = $message->getMessage();
+        $body = claro_html_sanitize_all($body);
         
         $content .= '</div>' . "\n" // end of imInfoBlock 
-        .    '<div class="imContent">'.claro_parse_user_text($message->getMessage()).'</div>'
+        .    '<div class="imContent">'.claro_parse_user_text($body).'</div>'
         .    '</div>'."\n";
 
         return $content;
@@ -350,8 +353,11 @@ class DisplayMessage
             }
         }
         
+        $body = $message->getMessage();
+        $body = claro_html_sanitize_all($body);
+        
         $content .= '</div>' . "\n" // end of imInfoBlock 
-        .   '<div class="imContent">'.claro_parse_user_text($message->getMessage()).'</div>'."\n"
+        .   '<div class="imContent">'.claro_parse_user_text($body).'</div>'."\n"
         .   '</div>'."\n\n"
         ;
 
