@@ -301,7 +301,7 @@ function generate_module_cache()
             if ( false !== ( $handle = fopen($module_cache_filepath, 'w') ) )
             {
                 $cache = '<?php #auto created by claroline modify it at your own risks'."\n";
-                $cache .= 'if ((bool) stristr($_SERVER[\'PHP_SELF\'], basename(__FILE__))) die();'."\n";
+                $cache .= 'if (count( get_included_files() ) == 1) die();'."\n";
                 $cache .= "\n" . '# ---- start of cache ----'."\n\n";
 
                 foreach($module_list as $module)
@@ -311,8 +311,8 @@ function generate_module_cache()
                     if (file_exists( $functionsFilePath ))
                     {
                         $cache .= '# ' . $module['label'] . "\n" ;
-                        $cache .= 'if (file_exists("' . $functionsFilePath . '") ) ';
-                        $cache .= 'require "' . $functionsFilePath . '";' . "\n";
+                        $cache .= 'if (file_exists(\'' . $functionsFilePath . '\') ) ';
+                        $cache .= 'require \'' . $functionsFilePath . '\';' . "\n";
                     }
                 }
 
