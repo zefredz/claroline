@@ -1484,15 +1484,22 @@ function claro_get_user_tool_list($activeOnly=true)
 
 function claro_redirect($location)
 {
-    global $is_IIS;
-
-    $location = http_response_splitting_workaround($location);
-
-    if ($is_IIS)
+    // IIS prefers Refresh over Location
+    if ( $GLOBALS['is_IIS'] )
     {
         header("Refresh: 0;url=$location");
     }
-    header("Location: $location");
+    
+    // Issue with non utf-8 url under Apache 2 on Windows
+    if ( $GLOBALS['is_Apache2'] )
+    {
+        if ( strtolower( substr( PHP_OS, 0, 3) ) == 'win' )
+        {
+            $location = utf8_encode($location);
+        }
+    }
+    
+    header("Location: " . $location);
 }
 
 function claro_form_relay_context($context=null)
