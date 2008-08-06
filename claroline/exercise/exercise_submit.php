@@ -37,6 +37,7 @@ include_once './lib/answer_matching.class.php';
 // claroline libraries
 include_once get_path('incRepositorySys') . '/lib/htmlxtra.lib.php';
 include_once get_path('incRepositorySys') . '/lib/form.lib.php';
+include_once get_path('incRepositorySys') . '/lib/module.lib.php';
 
 // TODO find a better way to get table from this module and from LP module
 $tblList = get_module_course_tbl( array( 'qwz_tracking' ), claro_get_current_course_id() );
@@ -44,6 +45,10 @@ $tbl_qwz_tracking = $tblList['qwz_tracking'];
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
 
+// learning path 
+// new module CLLP
+$inLP = (claro_called_from() == 'CLLP')? true : false;
+// old learning path tool 
 if( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] )
 {
     require_once get_path('incRepositorySys') . '/lib/learnPath.lib.inc.php';
@@ -54,9 +59,9 @@ if( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] )
     $tbl_lp_module               = $tbl_cdb_names['lp_module'              ];
     $tbl_lp_asset                = $tbl_cdb_names['lp_asset'               ];
 
-    $hide_banner = true;
-    $hide_footer = true;
+    $claroline->setDisplayType(Claroline::FRAME);
 }
+
 
 
 /*
@@ -68,7 +73,10 @@ else                                                            $exId = null;
 if( isset($_REQUEST['step']) && is_numeric($_REQUEST['step']) ) $step = (int) $_REQUEST['step'];
 else                                                            $step = 0;
 
-if( !isset($_SESSION['serializedExercise']) )
+$resetQuestionList = false;
+// if exercise is not in session try to load it.
+// if exId has been defined in request force refresh of exercise in session
+if( !isset($_SESSION['serializedExercise']) || !is_null($exId) )
 {
     $exercise = new Exercise();
 
@@ -84,7 +92,9 @@ if( !isset($_SESSION['serializedExercise']) )
     {
         // load successfull
         // exercise must be visible or in learning path to be displayed to a student
-        if( $exercise->getVisibility() != 'VISIBLE' && !$is_allowedToEdit && ( ! isset($_SESSION['inPathMode']) || ! $_SESSION['inPathMode'] ) )
+        if( $exercise->getVisibility() != 'VISIBLE' && !$is_allowedToEdit 
+        && ( ! isset($_SESSION['inPathMode']) || ! $_SESSION['inPathMode'] || ! $inLP )
+         )
         {
             // exercise is required
             unset($_SESSION['serializedExercise']);
@@ -95,16 +105,18 @@ if( !isset($_SESSION['serializedExercise']) )
         else
         {
             $_SESSION['serializedExercise'] = serialize($exercise);
+            $resetQuestionList = true;
         }
     }
 }
 else
 {
     $exercise = unserialize($_SESSION['serializedExercise']);
+    $exId = $exercise->getId();
 }
 
 //-- get question list
-if( !isset($_SESSION['serializedQuestionList']) || !is_array($_SESSION['serializedQuestionList']) )
+if( $resetQuestionList || !isset($_SESSION['serializedQuestionList']) || !is_array($_SESSION['serializedQuestionList']) )
 {
     if( $exercise->getShuffle() == 0 )
     {
@@ -267,11 +279,54 @@ if( isset($_REQUEST['cmdOk']) && $_REQUEST['cmdOk'] && $exerciseIsAvailable )
             }
         }
 
+        // learning path 
+        // new module CLLP
+        if( $inLP )
+        {
+            // include some utils functions
+            include_once get_module_path('CLLP') . '/lib/utils.lib.php';
+            if( $totalGrade > 0 )
+            {
+                $scoreRaw = $totalResult / $totalGrade * 100;
+                $scoreMin = 0;
+                $scoreMax = 100;
+            }
+            else
+            {
+                $scoreRaw = $scoreMin = $scoreMax = 0;
+                $completionStatus = 'incomplete';
+            }
+
+            if( $scoreRaw > 50 )
+            {
+                $completionStatus = 'completed';
+            }
+            else
+            {
+                $completionStatus = 'incomplete';
+            }
+            
+            $sessionTime = unixToScormTime($timeToCompleteExe);
+            
+            $jsForLP = ''
+            .   'doSetValue("cmi.score.raw","'.$scoreRaw.'")' . "\n"
+            .   'doSetValue("cmi.score.min","'.$scoreMin.'")' . "\n"
+            .   'doSetValue("cmi.score.max","'.$scoreMax.'")' . "\n"
+            .   'doSetValue("cmi.session_time","'.$sessionTime.'")' . "\n"
+            .   'doSetValue("cmi.completion_status","'.$completionStatus.'")' . "\n"
+            
+            .   'doCommit()' . "\n"
+            .   'doTerminate()' . "\n";
+        }
+        // old learning path tool
         if( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] )
         {
             set_learning_path_progression($totalResult,$totalGrade,$timeToCompleteExe,claro_get_current_user_id());
         }
     }
+    
+
+    
 }
 elseif( ! $exerciseIsAvailable )
 {
@@ -295,85 +350,111 @@ else                                $step++;
 /*
  * Output
  */
+
+// learning path 
+// new module CLLP
+if( $inLP )
+{
+    $jsloader = JavascriptLoader::getInstance();
+    $jsloader->load('jquery');
+    // load functions required to be able to discuss with API
+    $jsloader->loadFromModule('CLLP', 'connector13');
+
+    $jsloader->load('cllp.cnr');
+    
+    if( !empty($jsForLP) )
+    {
+        $claroline->display->header->addInlineJavascript($jsForLP);
+    }
+}
+
+
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), 'exercise.php' );
+
+$out = '';
 
 $nameTools = $exercise->getTitle();
 
-include(get_path('incRepositorySys').'/claro_init_header.inc.php');
 
 //-- title
 if( $showResult )
 {
-    echo claro_html_tool_title(get_lang('Exercise results') . ' : ' . $nameTools);
+    $out .= claro_html_tool_title(get_lang('Exercise results') . ' : ' . $nameTools);
 }
 else
 {
-    echo claro_html_tool_title(get_lang('Exercise') . ' : ' . $nameTools);
+    $out .= claro_html_tool_title(get_lang('Exercise') . ' : ' . $nameTools);
 }
-
 
 //-- display properties
 if( trim($exercise->getDescription()) != '' )
 {
-    echo '<blockquote>' . "\n" . claro_parse_user_text($exercise->getDescription()) . "\n" . '</blockquote>' . "\n";
+    $out .= '<blockquote>' . "\n" . claro_parse_user_text($exercise->getDescription()) . "\n" . '</blockquote>' . "\n";
 }
 
-echo '<ul style="font-size:small">' . "\n";
+$out .= '<ul style="font-size:small">' . "\n";
 if( $exercise->getDisplayType() == 'SEQUENTIAL' )
 {
-    echo '<li>' . get_lang('Current time')." : ". claro_html_duration($now - $_SESSION['exeStartTime']) . '</li>' . "\n";
+    $out .= '<li>' . get_lang('Current time')." : ". claro_html_duration($now - $_SESSION['exeStartTime']) . '</li>' . "\n";
 }
 
 if( $exercise->getTimeLimit() > 0 )
 {
-    echo '<li>' . get_lang('Time limit')." : ".claro_html_duration($exercise->getTimeLimit()) . '</li>' . "\n";
+    $out .= '<li>' . get_lang('Time limit')." : ".claro_html_duration($exercise->getTimeLimit()) . '</li>' . "\n";
 }
 else
 {
-    echo '<li>' . get_lang('No time limitation') . '</li>' . "\n";
+    $out .= '<li>' . get_lang('No time limitation') . '</li>' . "\n";
 }
 
 if( claro_is_user_authenticated() && isset($userAttemptCount) )
 {
-    echo '<li>';
+    $out .= '<li>';
     if ( $exercise->getAttempts() > 0 )
     {
-        echo get_lang('Attempt %attemptCount on %attempts', array('%attemptCount'=> $userAttemptCount, '%attempts' =>$exercise->getAttempts())) ;
+        $out .= get_lang('Attempt %attemptCount on %attempts', array('%attemptCount'=> $userAttemptCount, '%attempts' =>$exercise->getAttempts())) ;
     }
     else
     {
-        echo get_lang('Attempt %attemptCount', array('%attemptCount'=> $userAttemptCount)) ;
+        $out .= get_lang('Attempt %attemptCount', array('%attemptCount'=> $userAttemptCount)) ;
     }
-    echo '</li>' . "\n";
+    $out .= '</li>' . "\n";
 }
 
-echo '<li>'
+$out .= '<li>'
 .    get_lang('Available from %startDate', array('%startDate' => claro_html_localised_date(get_locale('dateTimeFormatLong'), $exercise->getStartDate())));
 
 if( !is_null($exercise->getEndDate()) )
 {
-    echo ' ' . get_lang('Until') . ' ' . claro_html_localised_date(get_locale('dateTimeFormatLong'),$exercise->getEndDate());
+    $out .= ' ' . get_lang('Until') . ' ' . claro_html_localised_date(get_locale('dateTimeFormatLong'),$exercise->getEndDate());
 }
-echo '</li>' . "\n";
+$out .= '</li>' . "\n";
 
-echo '</ul>' .  "\n\n";
+$out .= '</ul>' .  "\n\n";
+
 
 if( $showResult )
 {
-    if( !isset($_SESSION['inPathMode']) || !$_SESSION['inPathMode'] )
+    if( $inLP )
     {
-        // Exercise mode
-        echo '<form method="get" action="exercise.php">';
+        // FIXME !
+        // new module CLLP
+        $out .= '<form method="get" action="../learnPath/navigation/backFromExercise.php">' . "\n"
+        .    '<input type="hidden" name="op" value="finish" />';
+    }
+    elseif( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] )
+    {
+        // old learning path tool
+        $out .= '<form method="get" action="../learnPath/navigation/backFromExercise.php">' . "\n"
+        .    '<input type="hidden" name="op" value="finish" />';
     }
     else
     {
-        // Learning path mode
-        echo '<form method="get" action="../learnPath/navigation/backFromExercise.php">' . "\n"
-        .    '<input type="hidden" name="op" value="finish" />'
-        ;
+        // standard exercise mode
+        $out .= '<form method="get" action="exercise.php">';
     }
 
-    echo "\n" . '<table width="100%" border="0" cellpadding="1" cellspacing="0" class="claroTable">' . "\n\n";
+    $out .= "\n" . '<table width="100%" border="0" cellpadding="1" cellspacing="0" class="claroTable">' . "\n\n";
 
     //-- question(s)
     if( !empty($questionList) )
@@ -386,18 +467,18 @@ if( $showResult )
         {
             if( $showAnswers )
             {
-                echo '<tr class="headerX">' . "\n"
+                $out .= '<tr class="headerX">' . "\n"
                 .     '<th>'
                 .     get_lang('Question') . ' ' . $questionIterator
                 .     '</th>' . "\n"
                 .     '</tr>' . "\n\n";
 
-                echo '<tr>'
+                $out .= '<tr>'
                 .     '<td>' . "\n";
 
-                echo $question->getQuestionFeedbackHtml();
+                $out .= $question->getQuestionFeedbackHtml();
 
-                echo '</td>' . "\n"
+                $out .= '</td>' . "\n"
                 .     '</tr>' . "\n\n"
 
                 .     '<tr>'
@@ -412,7 +493,7 @@ if( $showResult )
     }
 
     // table footer, form footer
-    echo '<tr>' . "\n"
+    $out .= '<tr>' . "\n"
     .     '<td align="center">'
     .     get_lang('Your time is %time', array('%time' => claro_html_duration($timeToCompleteExe)) )
     .     '<br />' . "\n"
@@ -420,14 +501,14 @@ if( $showResult )
 
     if( $recordResults )
     {
-        echo get_lang('Your total score is %score', array('%score' => $totalResult."/".$totalGrade ) );
+        $out .= get_lang('Your total score is %score', array('%score' => $totalResult."/".$totalGrade ) );
     }
     else
     {
-        echo get_lang('Time is over, results not submitted.');
+        $out .= get_lang('Time is over, results not submitted.');
     }
 
-    echo '</strong>'
+    $out .= '</strong>'
     .     '</td>' . "\n"
     .     '</tr>' . "\n\n"
     .     '<tr>' . "\n"
@@ -445,14 +526,15 @@ elseif( $showSubmitForm )
     if( !empty($questionList) )
     {
         // form header, table header
-        echo '<form method="post" action="./exercise_submit.php?exId='.$exId.'">' . "\n";
+        $out .= '<form method="post" action="./exercise_submit.php">' . "\n"
+        .   claro_form_relay_context() . "\n";
 
         if( $exercise->getDisplayType() == 'SEQUENTIAL' )
         {
-            echo '<input type="hidden" name="step" value="'.$step.'" />' . "\n";
+            $out .= '<input type="hidden" name="step" value="'.$step.'" />' . "\n";
         }
 
-        echo "\n" . '<table width="100%" border="0" cellpadding="1" cellspacing="0" class="claroTable">' . "\n\n";
+        $out .= "\n" . '<table width="100%" border="0" cellpadding="1" cellspacing="0" class="claroTable">' . "\n\n";
 
         // foreach question
         $questionIterator = 0;
@@ -469,18 +551,18 @@ elseif( $showSubmitForm )
                 if( $step != $questionIterator )
                 {
                     // only echo hidden form field
-                    echo $question->answer->getHiddenAnswerHtml();
+                    $out .= $question->answer->getHiddenAnswerHtml();
                 }
                 else
                 {
-                    echo '<tr class="headerX">' . "\n"
+                    $out .= '<tr class="headerX">' . "\n"
                     .     '<th>'
                     .     get_lang('Question') . ' ' . $questionIterator
                     .     ' / '.$questionCount
                     .     '</th>' . "\n"
                     .     '</tr>' . "\n\n";
 
-                    echo '<tr>'
+                    $out .= '<tr>'
                     .     '<td>' . "\n"
 
                     .     $question->getQuestionAnswerHtml()
@@ -491,13 +573,13 @@ elseif( $showSubmitForm )
             }
             else // all questions on on page
             {
-                echo '<tr class="headerX">' . "\n"
+                $out .= '<tr class="headerX">' . "\n"
                 .     '<th>'
                 .     get_lang('Question') . ' ' . $questionIterator
                 .     '</th>' . "\n"
                 .     '</tr>' . "\n\n";
 
-                echo '<tr>'
+                $out .= '<tr>'
                 .     '<td>' . "\n"
 
                 .     $question->getQuestionAnswerHtml()
@@ -508,29 +590,29 @@ elseif( $showSubmitForm )
 
         }
         // table footer, form footer
-        echo '<tr>' . "\n"
+        $out .= '<tr>' . "\n"
         .     '<td align="center">';
 
         if( $exercise->getDisplayType() == 'SEQUENTIAL' )
         {
             if( $step > 1 )
             {
-                echo '<input type="submit" name="cmdBack" value="&lt; '.get_lang('Previous question').'" />&nbsp;' . "\n";
+                $out .= '<input type="submit" name="cmdBack" value="&lt; '.get_lang('Previous question').'" />&nbsp;' . "\n";
             }
 
             if( $step < $questionCount )
             {
-                echo '<input type="submit" name="cmdNext" value="'.get_lang('Next question').' &gt;" />' . "\n";
+                $out .= '<input type="submit" name="cmdNext" value="'.get_lang('Next question').' &gt;" />' . "\n";
             }
 
-            echo '<p><input type="submit" name="cmdOk" value="'.get_lang('Submit all and finish').'" /></p>' . "\n";
+            $out .= '<p><input type="submit" name="cmdOk" value="'.get_lang('Submit all and finish').'" /></p>' . "\n";
         }
         else
         {
-            echo '<input type="submit" name="cmdOk" value="'.get_lang('Finish the test').'" />' . "\n";
+            $out .= '<input type="submit" name="cmdOk" value="'.get_lang('Finish the test').'" />' . "\n";
         }
 
-        echo '</td>' . "\n"
+        $out .= '</td>' . "\n"
         .     '</tr>' . "\n\n"
         .     '</table>' . "\n\n"
         .     '</form>' . "\n\n";
@@ -543,8 +625,11 @@ else // ! $showSubmitForm
     {
         $dialogBox->info('<a href="./exercise.php">&lt;&lt; '.get_lang('Back').'</a>');
     }
-    echo $dialogBox->render();
+    $out .= $dialogBox->render();
 }
 
-include(get_path('incRepositorySys').'/claro_init_footer.inc.php');
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
+
 ?>
