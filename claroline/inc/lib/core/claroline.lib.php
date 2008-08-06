@@ -23,7 +23,7 @@ if ( count( get_included_files() ) == 1 )
 
 FromKernel::uses( 'core/debug.lib', 'core/console.lib', 'core/event.lib'
     , 'core/notify.lib', 'display/display.lib', 'database/database.lib'
-    , 'core/log.lib' );
+    , 'core/log.lib', 'core/url.lib' );
 
 define ( 'CL_PAGE',     'CL_PAGE' );
 define ( 'CL_FRAMESET', 'CL_FRAMESET' );
