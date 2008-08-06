@@ -383,37 +383,39 @@ if ( $is_allowedToManage )
     }    // end if $submit
 
     // Create new groups
-    $groupadmin_manager_menu[] =  claro_html_cmd_link( $_SERVER['PHP_SELF']
-                                                     . '?cmd=rqMkGroup' . claro_url_relay_context('&amp;')
+    $groupadmin_manager_menu[] =  claro_html_cmd_link( htmlspecialchars( Url::Contextualize(
+                                                        $_SERVER['PHP_SELF']
+                                                     . '?cmd=rqMkGroup' ))
                                                      , '<img src="' . get_icon_url('group') . '" alt="" />'
     .                            get_lang("Create new group(s)")
                                                      );
     // Delete all groups
-    $groupadmin_manager_menu[] =  claro_html_cmd_link( $_SERVER['PHP_SELF']
-                                                     . '?cmd=exDelGroup&id=ALL'
-                                                     . claro_url_relay_context('&amp;')
+    $groupadmin_manager_menu[] =  claro_html_cmd_link( htmlspecialchars( Url::Contextualize(
+                                                    $_SERVER['PHP_SELF']
+                                                     . '?cmd=exDelGroup&id=ALL' ))
                                                      , '<img src="' . get_icon_url('delete') . '" alt="" />'
     .                            get_lang("Delete all groups")
                                                      , array('onclick'=>'return confirmationDelete();')
                                                      );
     // Fill groups
-    $groupadmin_manager_menu[] = claro_html_cmd_link( $_SERVER['PHP_SELF']
-                                                    . '?cmd=exFillGroup'
-                                                    . claro_url_relay_context('&amp;')
+    $groupadmin_manager_menu[] = claro_html_cmd_link( htmlspecialchars( Url::Contextualize(
+                                                    $_SERVER['PHP_SELF']
+                                                    . '?cmd=exFillGroup' ))
                                                     , '<img src="' . get_icon_url('fill') . '" alt="" />'
     .                            get_lang("Fill groups (automatically)")
                                                     , array('onclick'=>'return confirmationFill()')
                                                     );
     // Empty all groups
-    $groupadmin_manager_menu[] = claro_html_cmd_link( $_SERVER['PHP_SELF']
-                                                     . '?cmd=exEmptyGroup'
-                                                     . claro_url_relay_context('&amp;')
+    $groupadmin_manager_menu[] = claro_html_cmd_link( htmlspecialchars( Url::Contextualize(
+                                                     $_SERVER['PHP_SELF']
+                                                     . '?cmd=exEmptyGroup' ))
                                                      , '<img src="' . get_icon_url('sweep') . '" alt="" />'
     .                            get_lang("Empty all groups")
                                                      , array('onclick' => 'return confirmationEmpty();')
                                                      );
     // Main group settings
-    $groupadmin_manager_menu[] =  claro_html_cmd_link( 'group_properties.php' . claro_url_relay_context('?')
+    $groupadmin_manager_menu[] =  claro_html_cmd_link( htmlspecialchars( Url::Contextualize(
+                                                     'group_properties.php' ))
                                                       , '<img src="' . get_icon_url('settings') . '" alt="" />'
                                                       . get_lang("Main Group Settings"));
 
@@ -575,7 +577,8 @@ if ( is_integer($nbGroupPerUser) )
 echo $groupPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 echo                                                         "\n"
-.    '<table class="claroTable emphaseLine" width="100%">' . "\n";
+.    '<table class="claroTable emphaseLine" width="100%">' . "\n"
+.    '<thead>'. "\n";
 
  /*-------------
       HEADINGS
@@ -606,6 +609,7 @@ if ( $is_allowedToManage ) // only for course administrator
 }
 
 echo '</tr>' . "\n"
+.    '</thead>'
 .    '<tbody>' . "\n"
 ;
 
@@ -658,7 +662,10 @@ if( $groupList )
             }
 
             echo $classItem . '<img src="' . get_icon_url('group') . '" alt="" /> '
-            .    '<a href="group_space.php?gidReq=' . $thisGroup['id'] . claro_url_relay_context('&amp;') . '">'
+            .    '<a href="'
+            .    htmlspecialchars(Url::Contextualize(
+                    'group_space.php?gidReq=' . $thisGroup['id'] ))
+            .    '">'
             .    $thisGroup['name']
             .    '</a>'
             .    '</div>'
@@ -701,7 +708,9 @@ if( $groupList )
                 else
                 {
                     echo '&nbsp;'
-                    .    '<a href="group_space.php?registration=1&amp;selfReg=1&amp;gidReq=' . $thisGroup['id']  . claro_url_relay_context('&amp;') . '">'
+                    .    '<a href="'
+                    .    htmlspecialchars( Url::Contextualize(
+                            'group_space.php?registration=1&amp;selfReg=1&amp;gidReq=' . (int) $thisGroup['id'] )) . '">'
                     .    '<img src="' . get_icon_url('enroll') . '" alt="' . get_lang("register") . '" />'
                     .    '</a>'
                     ;
@@ -726,12 +735,12 @@ if( $groupList )
         if ($is_allowedToManage)
         {
             echo '<td>'
-            .    '<a href="group_edit.php?gidReq=' . $thisGroup['id']  . claro_url_relay_context('&amp;') . '">'
+            .    '<a href="'.htmlspecialchars( Url::Contextualize('group_edit.php?gidReq=' . $thisGroup['id'])) . '">'
             .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang("Edit") . '" />'
             .    '</a>'
             .    '</td>' . "\n"
             .    '<td>'
-            .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelGroup&amp;id=' . $thisGroup['id']  . claro_url_relay_context('&amp;') . '" '
+            .    '<a href="' . htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exDelGroup&amp;id=' . $thisGroup['id'] )) . '" '
             .    ' onclick="return confirmationDeleteThisGroup(\'' . clean_str_for_javascript($thisGroup['name']) . '\');">'
             .    '<img src="' . get_icon_url('delete') . '" alt="' . get_lang("Delete") . '" />'
             .    '</a>'
