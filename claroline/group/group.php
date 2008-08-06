@@ -520,7 +520,7 @@ if (DISP_GROUP_LIST == $display )
 }
 
 $htmlHeadXtra[] =
-'<style type=text/css>
+'<style type="text/css">
 <!--
 .comment { margin-left: 30px}
 -->
