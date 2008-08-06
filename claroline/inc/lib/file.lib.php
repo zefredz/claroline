@@ -359,7 +359,7 @@ function claro_readfile( $path, $retbytes = true )
 function is_download_url_encoded( $str )
 {
     $str = ltrim($str, '/');
-    return preg_match("!^[0-9a-zA-Z\+/=]{20,}$!", $str);
+    return preg_match("!^[0-9a-zA-Z\+/=]+$!", $str);
 }
 
 function download_url_encode( $str )
