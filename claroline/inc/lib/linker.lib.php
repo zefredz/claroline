@@ -369,7 +369,7 @@ class ResourceLinkerResolver
             //  1.1 if Module
             if ( $locator->inModule() )
             {
-                $resolver = $this->loadModuleResolver( $locator );
+                $resolver = $this->loadModuleResolver( $locator->getModuleLabel() );
             }
             //  1.2 elseif Group
             elseif ( $locator->inGroup() )
@@ -389,8 +389,10 @@ class ResourceLinkerResolver
             }
             else
             {
-                $url = new Url( get_path('rootWeb') );
+                $url = get_path('rootWeb');
             }
+            
+            $urlObj = new Url( $url );
             
             // 2. add context information
             $context = Claro_Context::getCurrentContext();
@@ -405,13 +407,13 @@ class ResourceLinkerResolver
                 $context['cid'] = $locator->getCourseId();
             }
             
-            $url->relayContext( $context );
+            $urlObj->relayContext( $context );
             
-            return $url;
+            return $urlObj->toUrl();
         }
     }
     
-    protected static function loadModuleNavigator( $moduleLabel )
+    protected function loadModuleResolver( $moduleLabel )
     {
         $resolverClass = $moduleLabel . '_Resolver';
         
@@ -477,7 +479,7 @@ class CourseResolver
 {
     public function resolve( ResourceLocator $locator )
     {
-        return get_path('clarolineRepositoryWeb') . '/course/index.php'; 
+        return get_path('clarolineRepositoryWeb') . 'course/index.php?cid='.$locator->getCourseId(); 
     }
     
     public function getResourceName( ResourceLocator $locator )
@@ -495,7 +497,7 @@ class GroupResolver
 {
     public function resolve( ResourceLocator $locator )
     {
-        return get_path('clarolineRepositoryWeb') . '/group/group_space.php';
+        return get_path('clarolineRepositoryWeb') . 'group/group_space.php';
     }
     
     public function getResourceName( ResourceLocator $locator )
