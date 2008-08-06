@@ -244,6 +244,15 @@ class Url
         
         return $url;
     }
+    
+    public static function Contextualize( $url )
+    {
+        $urlObj = new self($url);
+        
+        $urlObj->relayCurrentContext();
+        
+        return $urlObj->toUrl();
+    }
 }
 
 /*$url = new Url('http://www.claroline.net?forum_id=3&plop=gnome#4');
