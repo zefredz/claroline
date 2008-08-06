@@ -251,29 +251,31 @@ class ClaroBreadCrumbs extends BreadCrumbs
                 }
             }
             
+            $url = htmlspecialchars( Url::Contextualize( $url ) );
+            
             $this->setCurrentNode( new BreadCrumbsNode( $name, $url ) );
         }
         
         if ( claro_is_in_a_group() )
         {
             $this->prependNode( new BreadCrumbsNode( claro_get_current_group_data('name')
-                , get_module_url('CLGRP') . '/group_space.php?cidReq='
+                , htmlspecialchars( get_module_url('CLGRP') . '/group_space.php?cidReq='
                     . htmlspecialchars(claro_get_current_course_id())
-                    .'&gidReq=' . (int) claro_get_current_group_id() ) );
+                    .'&gidReq=' . (int) claro_get_current_group_id() ) ) );
             $this->prependNode( new BreadCrumbsNode( get_lang('Groups')
-                , get_module_url('CLGRP') . '/index.php?cidReq='
-                    . htmlspecialchars(claro_get_current_course_id()) ) );
+                , htmlspecialchars( get_module_url('CLGRP') . '/index.php?cidReq='
+                    . htmlspecialchars(claro_get_current_course_id()) ) ) );
         }
         
         if ( claro_is_in_a_course() )
         {
             $this->prependNode( new BreadCrumbsNode( claro_get_current_course_data('officialCode')
-                , get_path('clarolineRepositoryWeb') . 'course/index.php?cid='
-                    . htmlspecialchars(claro_get_current_course_id()) ) );
+                , htmlspecialchars( get_path('clarolineRepositoryWeb') . 'course/index.php?cid='
+                    . claro_get_current_course_id() ) ) );
         }
             
         $this->prependNode( new BreadCrumbsNode( get_conf('siteName')
-            , get_path('url') . '/index.php'
+            , htmlspecialchars( get_path('url') . '/index.php' )
             , get_icon_url('home') ) );
     }
     
