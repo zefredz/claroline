@@ -148,18 +148,7 @@ function get_image_thumbnail_url( $file, $context = null )
 {
     $url = get_path('url') . '/claroline/backends/thumbnail.php?img=' . rawurlencode($file);
     
-    $urlObj = new Url( $url );
-
-    if ( !empty ( $context ) )
-    {
-        $urlObj->relayContext( $context );
-    }
-    else
-    {
-        $urlObj->relayCurrentContext();
-    }
-
-    return $urlObj->toUrl();
+    return Url::Contextualize( $url );
 }
 
 // THE EVIL NASTY ONE !
@@ -202,7 +191,7 @@ function create_thumbnail($file, $thumbWidth, $title = '')
 
     $img_url = get_image_thumbnail_url( $file );
 
-    return '<img src="' . $img_url . '"
+    return '<img src="' . htmlspecialchars( $img_url ) . '"
                  width="' . $thumbWidth . '"
                  height="' . $newHeight . '"
                  ' . $title . '
@@ -559,13 +548,21 @@ function display_thumbnails($imageList, $fileList, $page
             }
 
             // display thumbnail
-            echo "<td style=\"text-align: center;\" style=\"width:"
+            /*echo "<td style=\"text-align: center;\" style=\"width:"
                 . $colWidth . "%;\">\n"
+                ;*/
+            
+            // omit colwidth since already in th
+                
+            echo "<td style=\"text-align: center;\">\n"
                 ;
 
-            echo "<a href=\"". $_SERVER['PHP_SELF'] . "?docView=image&file="
-                . urlencode($fileName)
-                . "&cwd=". $curDirPath . $searchCmdUrl ."\">"
+            echo "<a href=\""
+                . htmlspecialchars(
+                    Url::Contextualize( $_SERVER['PHP_SELF'] . "?docView=image&file="
+                    . urlencode($fileName)
+                    . "&cwd=". $curDirPath . $searchCmdUrl ))
+                ."\">"
                 ;
 
             // display image description using title attribute

@@ -1393,7 +1393,7 @@ $fileList = $fileLister->get_result_list();
   = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
 
 $htmlHeadXtra[] =
-"<script>
+"<script type=\"text/javascript\">
 function confirmation (name)
 {
     if (confirm(\" ".clean_str_for_javascript(get_lang('Are you sure to delete'))." \"+ name + \" ?\"))
@@ -1407,7 +1407,7 @@ if ( $docView == 'image' )
 {
     $noQUERY_STRING = true;
     $htmlHeadXtra[] =
-"<script>
+"<script type=\"text/javascript\">
 var nOriginalHeight;
 var nOriginalWidth;
 
@@ -1496,7 +1496,11 @@ $cmdParentDir  = rawurlencode($parentDir);
 //display toot title and subtitl)e
 
 $titleElement['mainTitle'] = get_lang("Documents and Links");
-if ( claro_is_in_a_group() && claro_is_group_allowed()) $titleElement['supraTitle'] = claro_get_current_group_data('name');
+
+if ( claro_is_in_a_group() && claro_is_group_allowed())
+{
+    $titleElement['supraTitle'] = claro_get_current_group_data('name');
+}
 
 echo claro_html_tool_title($titleElement,
                       $is_allowedToEdit ? 'help_document.php' : false);
@@ -1591,8 +1595,11 @@ echo claro_html_tool_title($titleElement,
         }
         else
         {
-            $docViewToolbar[] = '<a class="claroCmd" href="' .  $_SERVER['PHP_SELF']
-                 . '?docView=files&amp;cmd=exChDir&amp;file='. rawurlencode($curDirPath) . $searchCmdUrl . '">'
+            $docViewToolbar[] = '<a class="claroCmd" href="'
+                 . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                    . '?docView=files&amp;cmd=exChDir&amp;file='
+                    . rawurlencode($curDirPath) . $searchCmdUrl ))
+                 . '">'
                  . '<img src="' . get_icon_url('document') . '" alt="" />'
                  . get_lang('File list')
                  . '</a>';
@@ -1606,8 +1613,11 @@ echo claro_html_tool_title($titleElement,
         }
         else
         {
-            $docViewToolbar[] = '<a class="claroCmd" href="' .  $_SERVER['PHP_SELF']
-                 . '?docView=thumbnails&amp;cwd=' . rawurlencode($curDirPath) . $searchCmdUrl . '">'
+            $docViewToolbar[] = '<a class="claroCmd" href="'
+                 .  htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                    . '?docView=thumbnails&amp;cwd='
+                    . rawurlencode($curDirPath) . $searchCmdUrl ))
+                 . '">'
                  . '<img src="' . get_icon_url('image') . '" alt="" />'
                  . get_lang('Thumbnails').'</a>';
         }
@@ -1652,7 +1662,6 @@ echo claro_html_tool_title($titleElement,
         display_link_to_next_image($imageList, $fileList, $current);
 
         echo '</tr>' . "\n"
-
         .    '</table>' . "\n"
         ;
 
@@ -1686,11 +1695,11 @@ echo claro_html_tool_title($titleElement,
         $depth = get_image_color_depth( $imgPath );
 
         // display image
-        echo '<p><center><a href="#"><img id="mainImage" src="' . $doc_url . '" alt="' . $fileName . '" /></a></center></p>' . "\n" ;
+        echo '<p style="text-align: center;"><a href="#"><img id="mainImage" src="' . htmlspecialchars($doc_url) . '" alt="' . $fileName . '" /></a></p>' . "\n" ;
 
-        echo '<p><center>'
-            . '<a href="' . $doc_url . '">' . get_lang('Direct link to image') . '</a>'
-            . '</center></p>' . "\n"
+        echo '<p style="text-align: center;">'
+            . '<a href="' . htmlspecialchars($doc_url) . '">' . get_lang('Direct link to image') . '</a>'
+            . '</p>' . "\n"
             ;
 
         // display image info
@@ -1770,8 +1779,11 @@ echo claro_html_tool_title($titleElement,
         }
         else
         {
-            $docViewToolbar[] = '<a class="claroCmd" href="' .  $_SERVER['PHP_SELF']
-                 . '?docView=files&amp;cmd=exChDir&amp;file='. rawurlencode($curDirPath . $searchCmdUrl) . '">'
+            $docViewToolbar[] = '<a class="claroCmd" href="'
+                 . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                    . '?docView=files&amp;cmd=exChDir&amp;file='
+                    . rawurlencode($curDirPath . $searchCmdUrl) ))
+                 . '">'
                  . '<img src="' . get_icon_url('document') . '" alt="" />' . "\n"
                  . get_lang('File list') . '</a>';
         }
@@ -1784,8 +1796,11 @@ echo claro_html_tool_title($titleElement,
         }
         else
         {
-            $docViewToolbar[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
-                 . '?docView=thumbnails&amp;cwd='. rawurlencode($curDirPath . $searchCmdUrl) . '">'
+            $docViewToolbar[] = '<a class="claroCmd" href="'
+                 . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+                    . '?docView=thumbnails&amp;cwd='
+                    . rawurlencode($curDirPath . $searchCmdUrl) ))
+                 . '">'
                  . '<img src="' . get_icon_url('image') . '" alt="" />' . "\n"
                  . get_lang('Thumbnails').'</a>';
         }
@@ -1820,9 +1835,11 @@ echo claro_html_tool_title($titleElement,
             if(has_previous_page($imageList, $page))
             {
                 // link to previous page
-                  echo '<a href="'.$_SERVER['PHP_SELF']
-                    . '?docView=thumbnails&amp;cwd=' . rawurlencode($curDirPath)
-                    . '&amp;page=' . ($page - 1) . $searchCmdUrl . '">&lt;&lt;&nbsp;&nbsp;page&nbsp;'
+                  echo '<a href="'
+                    . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                        . '?docView=thumbnails&amp;cwd=' . rawurlencode($curDirPath)
+                        . '&amp;page=' . ($page - 1) . $searchCmdUrl ))
+                    . '">&lt;&lt;&nbsp;&nbsp;page&nbsp;'
                     . ($page - 1) . '</a>' . "\n"
                     ;
             }
@@ -1844,9 +1861,11 @@ echo claro_html_tool_title($titleElement,
             if(has_next_page($imageList, $page))
             {
                 // link to next page
-                echo '<a href="'.$_SERVER['PHP_SELF']
-                    . '?docView=thumbnails&amp;cwd=' . rawurlencode($curDirPath)
-                    . '&amp;page=' . ($page + 1) . $searchCmdUrl . '">'. get_lang('Page') .'&nbsp;'
+                echo '<a href="'
+                    . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                        . '?docView=thumbnails&amp;cwd=' . rawurlencode($curDirPath)
+                        . '&amp;page=' . ($page + 1) . $searchCmdUrl ))
+                    . '">'. get_lang('Page') .'&nbsp;'
                     . ($page + 1) . '&nbsp;&nbsp;&gt;&gt;</a>' . "\n"
                     ;
             }
@@ -1888,7 +1907,10 @@ echo claro_html_tool_title($titleElement,
         if ($curDirName || $cmd == 'exSearch') /* if the $curDirName is empty, we're in the root point
                                                   and we can't go to a parent dir */
         {
-            $links[] = '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=exChDir&amp;file='.$cmdParentDir.'">' . "\n"
+            $links[] = '<a class="claroCmd" href="'
+                     . htmlspecialchars(Url::Contextualize(
+                        $_SERVER['PHP_SELF'].'?cmd=exChDir&amp;file='.$cmdParentDir))
+                     .'">' . "\n"
                      . '<img src="'. get_icon_url('parent') . '" alt="" />&nbsp;'
                      . get_lang('Up')
                      . '</a>'
@@ -1904,7 +1926,10 @@ echo claro_html_tool_title($titleElement,
 
 
 
-        $links[] = '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=rqSearch&amp;cwd='.$cmdCurDirPath.'">&nbsp;'
+        $links[] = '<a class="claroCmd" href="'
+            . htmlspecialchars(Url::Contextualize(
+                $_SERVER['PHP_SELF'].'?cmd=rqSearch&amp;cwd='.$cmdCurDirPath ))
+            . '">&nbsp;'
             .      '<img src="' . get_icon_url('search') . '" alt="" />&nbsp;'
             .      get_lang('Search')
             .      '</a>'
@@ -1916,7 +1941,10 @@ echo claro_html_tool_title($titleElement,
         if ( isset($fileList) && count($fileList) > 0 )
         {
             // Download current folder
-           $links[] = '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=exDownload&amp;'.$downloadArgument.'">'
+           $links[] = '<a class="claroCmd" href="'
+                . htmlspecialchars(Url::Contextualize(
+                    $_SERVER['PHP_SELF'].'?cmd=exDownload&amp;'.$downloadArgument ))
+                .'">'
                 .'<img src="' . get_icon_url('save') . '" alt="" />&nbsp;'
                 .get_lang('Download current directory')
                 .'</a>';
@@ -1935,22 +1963,32 @@ echo claro_html_tool_title($titleElement,
         {
             /* CREATE DIRECTORY - UPLOAD FILE - CREATE HYPERLINK */
 
-            $links[] = '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=rqUpload&amp;cwd='.$cmdCurDirPath.'">'
+            $links[] = '<a class="claroCmd" href="'
+                .htmlspecialchars(Url::Contextualize(
+                    $_SERVER['PHP_SELF'].'?cmd=rqUpload&amp;cwd='.$cmdCurDirPath ))
+                .'">'
                 .'<img src="' . get_icon_url('upload') . '" alt="" />&nbsp;'
                 .get_lang('Upload file')
                 .'</a>';
 
-            $links[] = '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=rqMkDir&amp;cwd='.$cmdCurDirPath.'">'
+            $links[] = '<a class="claroCmd" href="'
+                .htmlspecialchars(Url::Contextualize(
+                    $_SERVER['PHP_SELF'].'?cmd=rqMkDir&amp;cwd='.$cmdCurDirPath ))
+                .'">'
                 .'<img src="' . get_icon_url('folder') . '" alt="" />&nbsp;'
                 .get_lang('Create Directory')
                 .'</a>';
 
-            $links[] = '<a class="claroCmd" href="'.$_SERVER['PHP_SELF'].'?cmd=rqMkUrl&amp;cwd='.$cmdCurDirPath.'">'
+            $links[] = '<a class="claroCmd" href="'
+                .htmlspecialchars(Url::Contextualize(
+                    $_SERVER['PHP_SELF'].'?cmd=rqMkUrl&amp;cwd='.$cmdCurDirPath ))
+                .'">'
                 .'<img src="' . get_icon_url('link') . '" alt="" />&nbsp;'
                 .get_lang('Create hyperlink')
                 .'</a>';
 
-            $links[] = '<a class="claroCmd" href="rqmkhtml.php?cmd=rqMkHtml&amp;cwd='.$cmdCurDirPath.'">'
+            $links[] = '<a class="claroCmd" href="'
+                .htmlspecialchars(Url::Contextualize( 'rqmkhtml.php?cmd=rqMkHtml&amp;cwd='.$cmdCurDirPath )).'">'
                 .'<img src="' . get_icon_url('html') . '" alt="" />&nbsp;'
                 .get_lang('Create Document')
                 .'</a>';
@@ -1960,7 +1998,9 @@ echo claro_html_tool_title($titleElement,
 
         echo claro_html_document_breadcrumb($curDirPath);
 
-        echo '<table class="claroTable emphaseLine" width="100%">' . "\n";
+        echo '<table class="claroTable emphaseLine" width="100%">'
+            . '<thead>'
+            . "\n";
 
         /* CURRENT DIRECTORY LINE */
 
@@ -1987,8 +2027,10 @@ echo claro_html_tool_title($titleElement,
         }
         else
         {
-            $docViewToolbar[] = '<a class="claroCmd" href="' .  $_SERVER['PHP_SELF']
-                 . '?docView=files&amp;cmd=exChDir&amp;file='. $curDirPath . $searchCmdUrl . '">'
+            $docViewToolbar[] = '<a class="claroCmd" href="'
+                 . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                 . '?docView=files&amp;cmd=exChDir&amp;file='. $curDirPath . $searchCmdUrl ))
+                 . '">'
                  . '<img src="' . get_icon_url('document') . '" alt="" />' . "\n"
                  . get_lang('File list') .'</a>';
         }
@@ -2000,8 +2042,10 @@ echo claro_html_tool_title($titleElement,
         }
         else
         {
-            $docViewToolbar[] = '<a class="claroCmd" href="' .  $_SERVER['PHP_SELF']
-                 . '?docView=thumbnails&cwd='. $curDirPath . $searchCmdUrl .'">'
+            $docViewToolbar[] = '<a class="claroCmd" href="'
+                 .  htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                 . '?docView=thumbnails&cwd='. $curDirPath . $searchCmdUrl ))
+                 .'">'
                  . '<img src="' . get_icon_url('image') . '" alt="" />'
                  . get_lang('Thumbnails').'</a>';
         }
@@ -2020,9 +2064,9 @@ echo claro_html_tool_title($titleElement,
         # FIXME find a more elegant way to solve the problem
         if ( count( $sortUrlList ) > 0 )
         {
-            echo '<th><a href="'.$sortUrlList['path'].'">'.get_lang('Name').'</a></th>' . "\n"
-            .    '<th><a href="'.$sortUrlList['size'].'">'.get_lang('Size').'</a></th>' . "\n"
-            .    '<th><a href="'.$sortUrlList['date'].'">'.get_lang('Date').'</a></th>' . "\n"
+            echo '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['path'])).'">'.get_lang('Name').'</a></th>' . "\n"
+            .    '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['size'])).'">'.get_lang('Size').'</a></th>' . "\n"
+            .    '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['date'])).'">'.get_lang('Date').'</a></th>' . "\n"
             ;
         }
         else
@@ -2050,6 +2094,7 @@ echo claro_html_tool_title($titleElement,
         }
 
         echo '</tr>' . "\n"
+            . '</thead>'
             .'<tbody>';
 
         /*------------------------------------------------------------------------
@@ -2122,7 +2167,9 @@ echo claro_html_tool_title($titleElement,
                     $image       = 'folder';
                     $size        = '&nbsp;';
                     $date        = '&nbsp;';
-                    $urlFileName = $_SERVER['PHP_SELF'].'?cmd=exChDir&amp;file='.rawurlencode($thisFile['path']);
+                    $urlFileName = htmlspecialchars(Url::Contextualize(
+                        $_SERVER['PHP_SELF'].'?cmd=exChDir&amp;file='
+                        .rawurlencode($thisFile['path']) ));
 
                     $target = '';
                 }
@@ -2132,9 +2179,11 @@ echo claro_html_tool_title($titleElement,
 
                 if( is_image( $thisFile['path'] ) )
                 {
-                    echo '<a class="'.$style.' item'.$classItem.'" href="'. $_SERVER['PHP_SELF'] .
+                    echo '<a class="'.$style.' item'.$classItem.'" href="'
+                        . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] .
                         '?docView=image&amp;file=' . rawurlencode($thisFile['path']) . '&amp;cwd='
-                        . $curDirPath . $searchCmdUrl .'">';
+                        . $curDirPath . $searchCmdUrl ))
+                        .'">';
                 }
                 else
                 {
@@ -2157,7 +2206,9 @@ echo claro_html_tool_title($titleElement,
                     /* EDIT COMMAND */
 
                     echo '<td>'
-                        .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;file='.$cmdFileName.'">'
+                        .'<a href="'.htmlspecialchars(Url::Contextualize(
+                            $_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;file='.$cmdFileName ))
+                        .'">'
                         .'<img src="' . get_icon_url('edit') . '" alt="'.get_lang('Modify').'" />'
                         .'</a>'
                         .'</td>' . "\n";
@@ -2165,7 +2216,9 @@ echo claro_html_tool_title($titleElement,
                     /* DELETE COMMAND */
 
                     echo '<td>'
-                        .'<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exRm&amp;file=' . $cmdFileName . '" '
+                        .'<a href="' . htmlspecialchars(Url::Contextualize(
+                            $_SERVER['PHP_SELF'] . '?cmd=exRm&amp;file=' . $cmdFileName ))
+                        . '" '
                         .'onclick="return confirmation(\''.clean_str_for_javascript($dspFileName).'\');">'
                         .'<img src="' . get_icon_url('delete') . '" alt="'.get_lang('Delete').'" />'
                         .'</a>'
@@ -2173,7 +2226,9 @@ echo claro_html_tool_title($titleElement,
 
                     /* MOVE COMMAND */
                     echo '<td>'
-                        .'<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqMv&amp;file=' . $cmdFileName . '">'
+                        .'<a href="' . htmlspecialchars(Url::Contextualize(
+                            $_SERVER['PHP_SELF'] . '?cmd=rqMv&amp;file=' . $cmdFileName ))
+                        . '">'
                         .'<img src="' . get_icon_url('move') . '" alt="'.get_lang('Move').'" />'
                         .'</a>'
                         .'</td>' . "\n";
@@ -2187,8 +2242,10 @@ echo claro_html_tool_title($titleElement,
 
                         if ($thisFile['type'] == A_FILE)
                         {
-                            echo '<a href="../work/work.php?'
-                                .'submitGroupWorkUrl='.$cmdFileName.'&amp;gidReq=' . claro_get_current_group_id() . '">'
+                            echo '<a href="'
+                                .htmlspecialchars(Url::Contextualize( '../work/work.php?'
+                                .'submitGroupWorkUrl='.$cmdFileName ))
+                                . '">'
                                 .'<small>'.get_lang('Publish').'</small>'
                                 .'</a>';
                         }
@@ -2200,13 +2257,19 @@ echo claro_html_tool_title($titleElement,
 
                         if ($thisFile['visibility'] == "i")
                         {
-                            echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exChVis&amp;file=' . $cmdFileName . '&amp;vis=v">'
+                            echo '<a href="'
+                                . htmlspecialchars(Url::Contextualize(
+                                    $_SERVER['PHP_SELF'] . '?cmd=exChVis&amp;file=' . $cmdFileName . '&amp;vis=v'))
+                                .'">'
                                 .'<img src="' . get_icon_url('invisible') . '" alt="'.get_lang('Make visible').'" />'
                                 .'</a>';
                         }
                         else
                         {
-                            echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exChVis&amp;file=' . $cmdFileName . '&amp;vis=i">'
+                            echo '<a href="'
+                                . htmlspecialchars(Url::Contextualize(
+                                    $_SERVER['PHP_SELF'] . '?cmd=exChVis&amp;file=' . $cmdFileName . '&amp;vis=i'))
+                                .'">'
                                 .'<img src="' . get_icon_url('visible') . '" alt="'.get_lang('Make invisible').'" />'
                                 .'</a>';
                         }
