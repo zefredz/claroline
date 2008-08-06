@@ -131,13 +131,13 @@ if( isset($_REQUEST['registration']) )
         else // Confirm reg
         {
             $dialogBox->form( get_lang('Confirm your subscription to the group &quot;<b>%group_name</b>&quot;',array('%group_name'=>claro_get_current_group_data('name'))) . "\n"
-            .          '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
+            .          '<form action="' . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])) . '" method="post">' . "\n"
             .          claro_form_relay_context()
             .          '<input type="hidden" name="registration" value="1" />' . "\n"
             .          '<input type="hidden" name="doReg" value="1" />' . "\n"
             .          '<br />' . "\n"
             .          '<input type="submit" value="' . get_lang("Ok") . '" />' . "\n"
-            .          claro_html_button($_SERVER['PHP_SELF'] , get_lang("Cancel")) . "\n"
+            .          claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])) , get_lang("Cancel")) . "\n"
             .          '</form>' . "\n"
             );
 
@@ -254,7 +254,7 @@ foreach($toolList as $thisTool)
 
     if ( ! empty($url) )
     {
-        $toolLinkList[] = '<a class="' . $style . ' item' . $classItem . '" href="' . $url . '">'
+        $toolLinkList[] = '<a class="' . $style . ' item' . $classItem . '" href="' . htmlspecialchars(Url::Contextualize($url)) . '">'
         .                 '<img src="' . $icon . '" alt="" />&nbsp;'
         .                 $toolName
         .                 '</a>' . "\n"
@@ -287,8 +287,8 @@ echo $dialogBox->render();
 if($is_allowedToSelfRegInGroup && !array_key_exists('registration',$_REQUEST))
 {
     echo '<p>' . "\n"
-    .    claro_html_cmd_link( $_SERVER['PHP_SELF'] . '?registration=1'
-                            . claro_url_relay_context('&amp;')
+    .    claro_html_cmd_link( htmlspecialchars(Url::Contextualize(
+                            $_SERVER['PHP_SELF'] . '?registration=1' ))
                             , '<img src="' . get_icon_url('enroll') . '"'
                             .     ' alt="' . get_lang("Add me to this group") . '" />'
     .                       get_lang("Add me to this group")
@@ -316,8 +316,7 @@ echo '<table cellpadding="5" cellspacing="0" border="0">'  . "\n"
 
 if ($is_allowedToManage)
 {
-    echo claro_html_cmd_link( 'group_edit.php'
-                            . claro_url_relay_context('?')
+    echo claro_html_cmd_link( htmlspecialchars(Url::Contextualize('group_edit.php'))
                             , '<img src="' . get_icon_url('edit') . '"'
                             .     ' alt="' . get_lang("Edit this group") . '" />'
                             .    get_lang("Edit this group")
@@ -326,8 +325,8 @@ if ($is_allowedToManage)
 
 if (current_user_is_allowed_to_send_message_to_current_group())
 {
-    echo '<br />'.claro_html_cmd_link( '../messaging/sendmessage.php?cmd=rqMessageToGroup&amp;'
-                            . claro_url_relay_context('&amp;')
+    echo '<br />'.claro_html_cmd_link( htmlspecialchars(Url::Contextualize(
+                            '../messaging/sendmessage.php?cmd=rqMessageToGroup&amp;' ))
                             , get_lang("Send a message to group")
                             );
 }
@@ -373,12 +372,14 @@ if (count($tutorDataList) > 0)
     foreach($tutorDataList as $thisTutor)
     {
         echo '<span class="item">'
-        .    $thisTutor['lastName'] . ' ' . $thisTutor['firstName']
+        .    htmlspecialchars( $thisTutor['lastName'] . ' ' . $thisTutor['firstName'] )
         ;
         
         if(current_user_is_allowed_to_send_message_to_user($thisTutor['id']))
         {
-            echo ' - <a href="../messaging/sendMessage.php?cmd=rqMessageToUser&amp;userId=' . $thisTutor['id'] . '">'
+            echo ' - <a href="'.htmlspecialchars(Url::Contextualize(
+              '../messaging/sendMessage.php?cmd=rqMessageToUser&amp;userId=' . (int)$thisTutor['id'] ))
+              . '">'
               .    'Send a message'
               .    '</a>'
               ;
@@ -409,13 +410,19 @@ if(count($groupMemberList) > 0)
     echo '<br /><br />' . "\n";
     foreach($groupMemberList as $thisGroupMember)
     {
-        echo '<a href="../user/userInfo.php?uInfo=' . $thisGroupMember['id']  . claro_url_relay_context('&amp;') . '" class="item">'
+        echo '<a href="'
+        .    htmlspecialchars(Url::Contextualize('../user/userInfo.php?uInfo=' . $thisGroupMember['id']  ))
+        .    '" class="item">'
         .    $thisGroupMember['lastName'] . ' ' . $thisGroupMember['firstName']
         .    '</a>';
         
         if(current_user_is_allowed_to_send_message_to_user($thisGroupMember['id']))
         {        
-            echo ' - <a href="../messaging/sendMessage.php?cmd=rqMessageToUser&amp;userId=' . $thisGroupMember['id'] . '">' . get_lang('Send a message') . '</a>';
+            echo ' - <a href="'
+                . htmlspecialchars(Url::Contextualize(
+                    '../messaging/sendMessage.php?cmd=rqMessageToUser&amp;userId=' . (int) $thisGroupMember['id'] ))
+                . '">' . get_lang('Send a message') . '</a>'
+                ;
         }
         
         echo '<br />' . "\n";
