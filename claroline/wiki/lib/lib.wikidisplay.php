@@ -53,7 +53,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         $out .= '</div>' . "\n";
 
                 // display editor
-        $out .= '<form method="post" action="'.$script.'"'
+        $out .= '<form method="post" action="'.htmlspecialchars($script).'"'
             . ' name="editform" id="editform">' . "\n"
             ;
 
@@ -98,7 +98,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         $location = add_request_variable_to_url( $script, "wikiId", $wikiId );
         $location = add_request_variable_to_url( $location, "action", "show" );
 
-        $out .= claro_html_button ( $location, get_lang("Cancel") );
+        $out .= claro_html_button ( htmlspecialchars($location), get_lang("Cancel") );
 
         $out .= '</div>' . "\n";
 
@@ -161,7 +161,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
      */
     function claro_disp_wiki_preview_buttons( $wikiId, $title, $content, $script = null )
     {
-        $script = ( is_null( $script ) ) ? $_SERVER['PHP_SELF'] : $script;
+        $script = ( is_null( $script ) ) ? htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])) : $script;
 
         $out = '<div style="clear:both;"><form method="post" action="' . $script
             . '" name="previewform" id="previewform">' . "\n"
@@ -176,7 +176,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             ;
 
         $out .= '<input type="hidden" name="wikiId" value="'
-            . $wikiId
+            . (int)$wikiId
             . '" />' . "\n"
             ;
 
@@ -192,7 +192,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         $location = add_request_variable_to_url( $location, "title", $title );
         $location = add_request_variable_to_url( $location, "action", "show" );
 
-        $out .= claro_html_button ( $location, get_lang("Cancel") );
+        $out .= claro_html_button ( htmlspecialchars($location), get_lang("Cancel") );
 
         $out .= "</form></div>\n";
 
@@ -238,7 +238,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         $other_edit_checked = ( $acl['other_edit'] == true ) ? ' checked="checked"' : '';
         $other_create_checked = ( $acl['other_create'] == true ) ? ' checked="checked"' : '';
 
-        $script = ( is_null( $script ) ) ? $_SERVER['PHP_SELF'] : $script;
+        $script = ( is_null( $script ) ) ? htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])) : $script;
 
         $form = '<form method="post" id="wikiProperties" action="'.$script.'">' . "\n"
             . '<fieldset style="padding: 10px; margin: 10px;">' . "\n"
@@ -310,7 +310,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         }
 
         $form .= '<input type="submit" name="action[exEdit]" value="' . get_lang("Ok") . '" />' . "\n"
-            . claro_html_button ( $_SERVER['PHP_SELF'] . '?action=list', get_lang("Cancel") ) . "\n"
+            . claro_html_button (
+                htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?action=list' )),
+                get_lang("Cancel") ) . "\n"
             ;
 
         $form .= '</div>' . "\n"

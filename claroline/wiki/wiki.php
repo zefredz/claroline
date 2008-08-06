@@ -517,7 +517,7 @@
         }
     }
 
-    echo claro_html_tool_title( $toolTitle, "../wiki/help_wiki.php?help=admin" ) . "\n";
+    echo claro_html_tool_title( $toolTitle, Url::Contextualize("../wiki/help_wiki.php?help=admin") ) . "\n";
 
     if ( ! empty( $message ) )
     {
@@ -538,13 +538,13 @@
                     , array( '%TITLE%' => $wikiTitle ) )
                 . '</blockquote>'
                 . '<p>'
-                . claro_html_cmd_link( get_module_url('CLDOC')
-                                     . '/document.php?gidReset=1'
-                                     . claro_url_relay_context('&amp;')
+                . claro_html_cmd_link( Url::Contextualize( get_module_url('CLDOC')
+                                     . '/document.php?gidReset=1' )
+                                     // . claro_url_relay_context('&amp;')
                                      , get_lang("Go to documents tool"))
                 . '&nbsp;|&nbsp;'
-                . claro_html_cmd_link( $_SERVER['PHP_SELF']
-                                     . claro_url_relay_context('?')
+                . claro_html_cmd_link( Url::Contextualize( $_SERVER['PHP_SELF'] )
+                                     // . claro_url_relay_context('?')
                                      , get_lang("Go back to Wiki list"))
                 . '</p>'
                 . "\n"
@@ -564,7 +564,7 @@
         case 'rqDelete':
         {
             echo '<form method="post" action="'
-                . $_SERVER['PHP_SELF']
+                . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']))
                 . '" id="rqDelete">'
                 . "\n"
                 ;
@@ -572,7 +572,7 @@
             echo '<div style="padding: 5px">'
                 . '<input type="hidden" name="wikiId" value="' . $wikiId . '" />' . "\n"
                 . '<input type="submit" name="action[exDelete]" value="' . get_lang("Continue") . '" />' . "\n"
-                . claro_html_button ($_SERVER['PHP_SELF'], get_lang("Cancel") )
+                . claro_html_button (Url::Contextualize($_SERVER['PHP_SELF']), get_lang("Cancel") )
                 . '</div>'
                 ;
 
@@ -602,8 +602,8 @@
             if ( ( $groupId && claro_is_group_member() ) || $is_allowedToAdmin )
             {
                 echo claro_html_cmd_link(
-                    $_SERVER['PHP_SELF'] . '?action=rqEdit'
-                    . claro_url_relay_context('&amp;')
+                    Url::Contextualize( $_SERVER['PHP_SELF'] . '?action=rqEdit' )
+                    // . claro_url_relay_context('&amp;')
                     , '<img src="' . get_icon_url('wiki_new').'" '
                     . ' alt="' . get_lang("Create a new Wiki").'" />'
                     . '&nbsp;'
@@ -613,8 +613,8 @@
             }
 
             echo claro_html_cmd_link(
-                $_SERVER['PHP_SELF'] . '?action=rqSearch'
-                . claro_url_relay_context('&amp;')
+                Url::Contextualize( $_SERVER['PHP_SELF'] . '?action=rqSearch' )
+                // . claro_url_relay_context('&amp;')
                 , '<img src="' . get_icon_url('search').'" '
                 . ' alt="' . get_lang("Search") . '" />'
                 . '&nbsp;'
@@ -682,8 +682,9 @@
 
                     // display direct link to main page
 
-                    echo '<a class="item'.$classItem.'" href="page.php?wikiId='
-                        . $entry['id'].'&amp;action=show'
+                    echo '<a class="item'.$classItem.'" href="'
+                        . htmlspecialchars(Url::Contextualize('page.php?wikiId='
+                            . (int)$entry['id'].'&amp;action=show' ) )
                         . '">'
                         . '<img src="' . get_icon_url('wiki').'" alt="'.get_lang("Wiki").'" />&nbsp;'
                         . $entry['title'] . '</a>'
@@ -694,7 +695,11 @@
 
                     echo '<td style="text-align: center;">';
 
-                    echo '<a href="page.php?wikiId=' . $entry['id'] . '&amp;action=all">';
+                    echo '<a href="'
+                        .htmlspecialchars(Url::Contextualize(
+                            'page.php?wikiId=' . (int) $entry['id'] . '&amp;action=all' ) )
+                        .'">'
+                        ;
 
                     echo $wikiStore->getNumberOfPagesInWiki( $entry['id'] );
 
@@ -706,8 +711,9 @@
 
                     // display direct link to main page
 
-                    echo '<a href="page.php?wikiId='
-                        . $entry['id'].'&amp;action=recent'
+                    echo '<a href="'
+                        . htmlspecialchars(Url::Contextualize('page.php?wikiId='
+                            . (int) $entry['id'].'&amp;action=recent' ) )
                         . '">'
                         . '<img src="' . get_icon_url('history').'" alt="'.get_lang("Recent changes").'" />'
                         . '</a>'
@@ -723,8 +729,9 @@
                         // edit link
 
                         echo '<td style="text-align:center;">';
-                        echo '<a href="'.$_SERVER['PHP_SELF'].'?wikiId='
-                            . $entry['id'].'&amp;action=rqEdit'
+                        echo '<a href="'
+                            . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?wikiId='
+                                . (int) $entry['id'].'&amp;action=rqEdit' ) )
                             . '">'
                             . '<img src="' . get_icon_url('settings').'" alt="'
                             . get_lang("Edit properties").'" />'
@@ -735,8 +742,9 @@
                         // delete link
 
                         echo '<td style="text-align:center;">';
-                        echo '<a href="'.$_SERVER['PHP_SELF'].'?wikiId='
-                            . $entry['id'].'&amp;action=rqDelete'
+                        echo '<a href="'
+                            . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?wikiId='
+                                . (int) $entry['id'].'&amp;action=rqDelete' ))
                             . '">'
                             . '<img src="' . get_icon_url('delete').'" alt="'.get_lang("Delete").'" />'
                             . '</a>'
@@ -746,8 +754,9 @@
                         if ( true === $is_allowedToAdmin )
                         {
                             echo '<td style="text-align:center;">';
-                            echo '<a href="'.$_SERVER['PHP_SELF'].'?wikiId='
-                                . $entry['id'].'&amp;action=exExport'
+                            echo '<a href="'
+                                . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?wikiId='
+                                    . (int)$entry['id'].'&amp;action=exExport' ))
                                 . '">'
                                 . '<img src="' . get_icon_url('export').'" alt="'.get_lang("Export").'" />'
                                 . '</a>'
@@ -814,7 +823,7 @@
         }
         default:
         {
-            trigger_error( "Invalid action supplied to " . $_SERVER['PHP_SELF']
+            trigger_error( "Invalid action supplied to " . htmlspecialchars( $_SERVER['PHP_SELF'] )
                 , E_USER_ERROR
                 );
         }

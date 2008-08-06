@@ -27,9 +27,9 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
       * @param string value value of the variable
       * @return string url
       */
-    function add_request_variable_to_url( &$url, $name, $value )
+    function add_request_variable_to_url( $url, $name, $value )
     {
-        if ( strstr( $url, "?" ) != false )
+        /* if ( strstr( $url, "?" ) != false )
         {
             $url .= "&amp;$name=$value";
         }
@@ -38,7 +38,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             $url .= "?$name=$value";
         }
 
-        return $url;
+        return $url;*/
+        
+        $urlObj = new Url( $url );
+        $urlObj->addParam( $name, $value );
+        
+        return $urlObj->toUrl();
     }
 
     /**
@@ -47,13 +52,18 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
       * @param array variableList list of the request variables to add
       * @return string url
       */
-    function add_request_variable_list_to_url( &$url, $variableList )
+    function add_request_variable_list_to_url( $url, $variableList )
     {
-        foreach ( $variableList as $name => $value )
+        /* foreach ( $variableList as $name => $value )
         {
             $url = add_request_variable_to_url( $url, $name, $value );
         }
 
-        return $url;
+        return $url;*/
+        
+        $urlObj = new Url( $url );
+        $urlObj->addParamList( $variableList );
+        
+        return $urlObj->toUrl();
     }
 ?>
