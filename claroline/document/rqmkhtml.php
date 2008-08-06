@@ -56,7 +56,7 @@ CREATE DOCUMENT
 
 if ($cmd ==  'rqMkHtml' )
 {
-    ?><form action="document.php" method="post">
+    ?><form action="<?php echo htmlspecialchars(Url::Contextualize(get_module_entry_url('CLDOC')));?>" method="post">
     <input type="hidden" name="cmd" value="exMkHtml" />
     <input type="hidden" name="cwd" value="<?php echo htmlspecialchars(strip_tags($cwd)); ?>" />
     <p>
@@ -74,9 +74,10 @@ if ($cmd ==  'rqMkHtml' )
     // get to the editor because of an error at creation
     // (eg forgot to give a file name)
     ?>
+    </p>
     <p>
     <input type="submit" value="<?php echo get_lang('Ok'); ?>" />&nbsp;
-    <?php echo claro_html_button('./document.php?cmd=exChDir&amp;file='.htmlspecialchars(strip_tags($cwd)), get_lang('Cancel')); ?>
+    <?php echo claro_html_button(htmlspecialchars(Url::Contextualize('./document.php?cmd=exChDir&amp;file='.strip_tags($cwd))), get_lang('Cancel')); ?>
     </p>
     </form>
     <?php
@@ -95,9 +96,9 @@ elseif($cmd == "rqEditHtml" && !empty($_REQUEST['file']) )
 
     $fileContent = get_html_body_content($fileContent)
 
-    ?><form action="document.php" method="post">
+    ?><form action="<?php echo htmlspecialchars(Url::Contextualize(get_module_entry_url('CLDOC')));?>" method="post">
     <input type="hidden" name="cmd" value="exEditHtml" />
-    <input type="hidden" name="file" value="<?php echo $_REQUEST['file']; ?>" />
+    <input type="hidden" name="file" value="<?php echo htmlspecialchars($_REQUEST['file']); ?>" />
     <b><?php echo get_lang('Document name') ?> : </b><br />
     <?php echo $_REQUEST['file']?>
     </p>
@@ -106,9 +107,10 @@ elseif($cmd == "rqEditHtml" && !empty($_REQUEST['file']) )
     <?php
     echo claro_html_textarea_editor('htmlContent', $fileContent );
     ?>
+    </p>
     <p>
     <input type="submit" value="<?php echo get_lang('Ok'); ?>" />&nbsp;
-    <?php echo claro_html_button('./document.php?cmd=rqEdit&file='.$_REQUEST['file'], get_lang('Cancel')); ?>
+    <?php echo claro_html_button(htmlspecialchars(Url::Contextualize('./document.php?cmd=rqEdit&file='.$_REQUEST['file'])), get_lang('Cancel')); ?>
     </p>
     </form>
     <?php
