@@ -517,7 +517,7 @@
         }
     }
 
-    echo claro_html_tool_title( $toolTitle, Url::Contextualize("../wiki/help_wiki.php?help=admin") ) . "\n";
+    echo claro_html_tool_title( $toolTitle, htmlspecialchars(Url::Contextualize("../wiki/help_wiki.php?help=admin")) ) . "\n";
 
     if ( ! empty( $message ) )
     {
@@ -538,12 +538,12 @@
                     , array( '%TITLE%' => $wikiTitle ) )
                 . '</blockquote>'
                 . '<p>'
-                . claro_html_cmd_link( Url::Contextualize( get_module_url('CLDOC')
-                                     . '/document.php?gidReset=1' )
+                . claro_html_cmd_link( htmlspecialchars(Url::Contextualize( get_module_url('CLDOC')
+                                     . '/document.php?gidReset=1' ))
                                      // . claro_url_relay_context('&amp;')
                                      , get_lang("Go to documents tool"))
                 . '&nbsp;|&nbsp;'
-                . claro_html_cmd_link( Url::Contextualize( $_SERVER['PHP_SELF'] )
+                . claro_html_cmd_link( htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] ))
                                      // . claro_url_relay_context('?')
                                      , get_lang("Go back to Wiki list"))
                 . '</p>'
@@ -572,7 +572,7 @@
             echo '<div style="padding: 5px">'
                 . '<input type="hidden" name="wikiId" value="' . $wikiId . '" />' . "\n"
                 . '<input type="submit" name="action[exDelete]" value="' . get_lang("Continue") . '" />' . "\n"
-                . claro_html_button (Url::Contextualize($_SERVER['PHP_SELF']), get_lang("Cancel") )
+                . claro_html_button (htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])), get_lang("Cancel") )
                 . '</div>'
                 ;
 
@@ -602,7 +602,7 @@
             if ( ( $groupId && claro_is_group_member() ) || $is_allowedToAdmin )
             {
                 echo claro_html_cmd_link(
-                    Url::Contextualize( $_SERVER['PHP_SELF'] . '?action=rqEdit' )
+                    htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?action=rqEdit' ) )
                     // . claro_url_relay_context('&amp;')
                     , '<img src="' . get_icon_url('wiki_new').'" '
                     . ' alt="' . get_lang("Create a new Wiki").'" />'
@@ -613,7 +613,7 @@
             }
 
             echo claro_html_cmd_link(
-                Url::Contextualize( $_SERVER['PHP_SELF'] . '?action=rqSearch' )
+                htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?action=rqSearch' ) )
                 // . claro_url_relay_context('&amp;')
                 , '<img src="' . get_icon_url('search').'" '
                 . ' alt="' . get_lang("Search") . '" />'
