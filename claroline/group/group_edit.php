@@ -83,7 +83,7 @@ function move( inBox, outBox )
 </script>
 
 <script type="text/javascript" language="JavaScript">
-
+<!-- 
 function selectAll(cbList,bSelect) {
   for (var i=0; i<cbList.length; i++)
     cbList[i].selected = cbList[i].checked = bSelect
@@ -95,6 +95,7 @@ function reverseAll(cbList) {
     cbList[i].selected = !(cbList[i].selected)
   }
 }
+ -->
 </script>
 ';
 
@@ -260,7 +261,10 @@ echo claro_html_tool_title(array('supraTitle' => get_lang("Groups"), 'mainTitle'
 
 echo $dialogBox->render();
 
-echo '<form name="groupedit" method="post" action="' . $_SERVER['PHP_SELF'] . '?edit=yes&amp;gidReq=' . claro_get_current_group_id() . '">' . "\n"
+echo '<form name="groupedit" method="post" action="'
+.    htmlspecialchars(
+        $_SERVER['PHP_SELF'] . '?edit=yes&amp;gidReq=' . claro_get_current_group_id() )
+.    '">' . "\n"
 .    claro_form_relay_context()
 .    '<table border="0" cellspacing="3" cellpadding="5">' . "\n"
 .    '<tr valign="top">' . "\n"
@@ -281,6 +285,7 @@ echo '<form name="groupedit" method="post" action="' . $_SERVER['PHP_SELF'] . '?
 .    '<label for="description">' . "\n"
 .    get_lang("Description") . ' ' . get_lang("(optional)") . "\n"
 .    '</label> :' . "\n"
+.    '</td>' . "\n"
 .    '<td colspan="3">' . "\n"
 .    '<textarea name="description" id="description" rows="4 "cols="70" >' . "\n"
 .    htmlspecialchars($myStudentGroup['description']) . "\n"
@@ -301,10 +306,11 @@ echo '<form name="groupedit" method="post" action="' . $_SERVER['PHP_SELF'] . '?
 .    get_lang("User list")
 .    '</a>'
 .    '</small>'
+.    '</td>'
 .    '<td>'
 .    '<label for="maxMember">' . get_lang("Max.") . '</label> '
 
-.   '<input type="text" name="maxMember" id="maxMember" size="2" value="' .  htmlspecialchars($thisGroupMaxMember) . '" / >' . "\n"
+.   '<input type="text" name="maxMember" id="maxMember" size="2" value="' .  htmlspecialchars($thisGroupMaxMember) . '" />' . "\n"
 
 .    get_lang("seats (optional)")
 .    '</td>'
@@ -312,14 +318,14 @@ echo '<form name="groupedit" method="post" action="' . $_SERVER['PHP_SELF'] . '?
 ################### STUDENTS IN AND OUT GROUPS #######################
 .    '<tr valign="top">'
 .    '<td align="right">'
-.    '<label for="inGroup">' . get_lang("Group members") . '</label>'
+.    '<label for="ingroup">' . get_lang("Group members") . '</label>'
 .    ' : '
 .    '</td>' . "\n"
 .    '<td>'
 .    claro_html_form_select('ingroup[]',$usersInGroupList,'',array('id'=>'ingroup', 'size'=>'8', 'multiple'=>'multiple'),true)
 .    '<br />' . "\n"
 .    '<br />' . "\n"
-.    '<input type=submit value="' . get_lang("Ok") . '" name="modify" onclick="selectAll(this.form.elements[\'ingroup\'],true)" />' . "\n"
+.    '<input type="submit" value="' . get_lang("Ok") . '" name="modify" onclick="selectAll(this.form.elements[\'ingroup\'],true)" />' . "\n"
 .    '</td>' . "\n"
 .    '<td>' . "\n"
 .    '<!-- ' . "\n"
@@ -330,7 +336,7 @@ echo '<form name="groupedit" method="post" action="' . $_SERVER['PHP_SELF'] . '?
 .    '<br />' . "\n"
 .    '<input type="button" onclick="move(this.form.elements[\'ingroup\'],this.form.elements[\'nogroup\'])" value="   >>   " />' . "\n"
 .    '<br />' . "\n"
-.    '<input type="button" onclick="move(this.form.elements[\'nogroup\'],this.form.elements[\'ingroup\'])" value="   <<   " / >' . "\n"
+.    '<input type="button" onclick="move(this.form.elements[\'nogroup\'],this.form.elements[\'ingroup\'])" value="   <<   " />' . "\n"
 .    '</td>' . "\n"
 .    '<td>' . "\n"
 .    claro_html_form_select('nogroup[]',$userNotInGroupList,'',array('id'=>'nogroup', 'size'=>'8', 'multiple'=>'multiple'), true) . "\n"
