@@ -182,6 +182,11 @@ else                           $cmd = null;
 if ( isset($_REQUEST['docView']) ) $docView = $_REQUEST['docView'];
 else                               $docView = 'files';
 
+if ( isset($_REQUEST['file']) && is_download_url_encoded($_REQUEST['file']) )
+{
+    $_REQUEST['file'] = download_url_decode( $_REQUEST['file'] );
+}
+
 /* > > > > > > MAIN SECTION  < < < < < < <*/
 
 if ( $is_allowedToEdit ) // Document edition are reserved to certain people
@@ -2118,7 +2123,7 @@ echo claro_html_tool_title($titleElement,
                 // a single element
 
                 $dspFileName = htmlspecialchars( basename($thisFile['path']) );
-                $cmdFileName = rawurlencode($thisFile['path']);
+                $cmdFileName = download_url_encode($thisFile['path']);
 
                 if ( $thisFile['visibility'] == 'i')
                 {
@@ -2169,7 +2174,7 @@ echo claro_html_tool_title($titleElement,
                     $date        = '&nbsp;';
                     $urlFileName = htmlspecialchars(Url::Contextualize(
                         $_SERVER['PHP_SELF'].'?cmd=exChDir&amp;file='
-                        .rawurlencode($thisFile['path']) ));
+                        .$cmdFileName ));
 
                     $target = '';
                 }
