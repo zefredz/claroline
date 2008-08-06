@@ -91,7 +91,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
                 ;
             $toolbar .= "<script type=\"text/javascript\">if (document.getElementById) {
         var tb = new dcToolBar(document.getElementById('".$this->attributeList['id']."'),
-        'wiki','".document_web_path()."/toolbar/');
+        'wiki','".get_module_url('CLWIKI')."/img/toolbar/');
 
         tb.btStrong('".get_lang('Bold')."');
         tb.btEm('".get_lang('Italic')."');
