@@ -1681,9 +1681,9 @@ function claro_html_tab_bar( $section_list,
             
             $menu .=  '<li>'
                 . '<a ' . ( $section_id == $section_selected_id ? 'class="current"' : '' )
-                . ' href="' . $baseUrl
+                . ' href="' . htmlspecialchars(Url::Contextualize( $baseUrl
                 . htmlspecialchars($section_request_var_name).'='
-                . htmlspecialchars($section_id) .$extra_url_params. '" '
+                . htmlspecialchars($section_id) .$extra_url_params )) . '" '
                 . 'id="'. htmlspecialchars($section_id) .'">'
                 . get_lang($section_label) . '</a>'
                 . '</li>' . "\n"

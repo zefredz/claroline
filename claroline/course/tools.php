@@ -253,7 +253,7 @@ if ($cmd == 'rqAdd' || $cmd == 'rqEdit')
         $externalToolId = null;
     }
 
-    $form = "\n".'<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
+    $form = "\n".'<form action="'.htmlspecialchars( $_SERVER['PHP_SELF'] ).'" method="post">'."\n"
     .       claro_form_relay_context()
     .       '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />'."\n"
     .       '<input type="hidden" name="section" value="'.htmlspecialchars($currentSection).'" />'."\n"
@@ -476,8 +476,8 @@ elseif ( $currentSection == 'extLinks' )
     echo '<blockquote>' . "\n"
     .    '<p>' . "\n"
     .    '<a class="claroCmd" href="'
-    .    $_SERVER['PHP_SELF']
-    .    '?cmd=rqAdd' . claro_url_relay_context('&amp;') . '&amp;section='.htmlspecialchars($currentSection).'">'
+    .    htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+    .    '?cmd=rqAdd&section='.htmlspecialchars($currentSection) )).'">'
     .    '<img src="' . get_icon_url('link') . '" alt="" />'
     .    get_lang('Add external link')
     .    '</a>' . "\n"
@@ -502,20 +502,20 @@ elseif ( $currentSection == 'extLinks' )
             echo '<tr>'."\n";
         
             echo '<td ' . ($link['visibility']?'':'class="invisible"') . '>'
-            . '<img src="' . get_icon_url( $link['icon'] ) . '" alt="" />' .$link['name']
+            . '<img src="' . get_icon_url( 'link' ) . '" alt="" />' .$link['name']
             . '</td>';
         
             echo '<td align="center">' ;
         
             if ( $link['visibility'] == true )
             {
-                echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exInvisible&amp;tool_id=' . $linkId . '&amp;section='.htmlspecialchars($currentSection).'" >'
+                echo '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exInvisible&amp;tool_id=' . $linkId . '&amp;section='.htmlspecialchars($currentSection) )).'" >'
                 . '<img src="' . get_icon_url('visible') . '" alt="' . get_lang('Visible') . '" />'
                 . '</a>';
             }
             else
             {
-                echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exVisible&amp;tool_id=' . $linkId .'&amp;section='.htmlspecialchars($currentSection).'" >'
+                echo '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exVisible&amp;tool_id=' . $linkId .'&amp;section='.htmlspecialchars($currentSection) )).'" >'
                 . '<img src="' . get_icon_url('invisible') . '" alt="' . get_lang('Invisible') . '" />'
                 . '</a>';
         
@@ -524,12 +524,12 @@ elseif ( $currentSection == 'extLinks' )
             echo '</td>'."\n";
         
             echo '<td align="center">'
-            . '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;externalToolId='.$linkId.'&amp;section='.htmlspecialchars($currentSection).'">'
+            . '<a href="'.htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;externalToolId='.$linkId.'&amp;section='.htmlspecialchars($currentSection) )).'">'
             . '<img src="' . get_icon_url('edit') . '" alt="'.get_lang('Modify').'" />'
             . '</a></td>' . "\n" ;
         
             echo '<td align="center">'
-            .'<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;externalToolId='.$linkId.'&amp;section='.htmlspecialchars($currentSection).'"'
+            .'<a href="'.htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?cmd=exDelete&amp;externalToolId='.$linkId.'&amp;section='.htmlspecialchars($currentSection) )).'"'
             .' onclick="return confirmation(\''.clean_str_for_javascript($link['name']).'\');">'
             .'<img src="' . get_icon_url('delete') . '" alt="'.get_lang('Delete').'" />'
             .'</a></td>'."\n";
@@ -578,10 +578,10 @@ elseif ( $currentSection == 'toolList' )
         {
             if ( ! in_array( $activeTool['label'], $undeactivable_tool_array ) )
             {
-                $action_link = '<a href="' . $_SERVER['PHP_SELF']
+                $action_link = '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
                     . '?cmd=exRmTool&amp;toolLabel='
                     . htmlspecialchars($activeTool['label'])
-                    .'&amp;section='.htmlspecialchars($currentSection).'" '
+                    .'&amp;section='.htmlspecialchars($currentSection) )).'" '
                     . 'title="'.get_lang('Remove').'">'
                     . '<img src="' . get_icon_url('delete') . '" border="0" alt="'. get_lang('Remove') . '"/>'
                     . '</a>'
@@ -628,10 +628,10 @@ elseif ( $currentSection == 'toolList' )
     {
         foreach ( $inactiveCourseToolList as $inactiveTool )
         {
-            $action_link = '<a href="' . $_SERVER['PHP_SELF']
+            $action_link = '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
                 . '?cmd=exAddTool&amp;toolLabel='
                 . htmlspecialchars($inactiveTool['label'])
-                .'&amp;section='.htmlspecialchars($currentSection).'" '
+                .'&amp;section='.htmlspecialchars($currentSection) )).'" '
                 . 'title="'.get_lang('Add').'">'
                 . '<img src="' . get_icon_url('select') . '" alt="'. get_lang('Add') . '"/>'
                 . '</a>'
