@@ -394,16 +394,16 @@ class ResourceLinkerResolver
             $urlObj = new Url( $url );
             
             // 2. add context information
-            $context = Claro_Context::getCurrentContext();
+            $context = Claro_Context::getCurrentUrlContext();
             
             if ( $locator->inGroup() )
             {
-                $context['gid'] = $locator->getGroupId();
+                $context['gidReq'] = $locator->getGroupId();
             }
             
             if ( $locator->inCourse() )
             {
-                $context['cid'] = $locator->getCourseId();
+                $context['cidReq'] = $locator->getCourseId();
             }
             
             $urlObj->relayContext( $context );
