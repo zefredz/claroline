@@ -944,15 +944,4 @@ class ResourceLinker
     {
         return self::$Resolver->getResourceName( ClarolineResourceLocator::parse($crl) );
     }
-    
-    
-    /**
-     * Get a list of urls related to a document
-     *
-     * @param string $crl
-     */
-    public static function getLinkList( $crl )
-    {
-        
-    }
 }
