@@ -526,7 +526,19 @@ class CLEXT_ResourceResolver implements ModuleResourceResolver
     
     public function getResourceName( ResourceLocator $locator )
     {
-        return $locator->getResourceId();
+        $externalCourseToolList = claro_get_course_external_link_list( $locator->getCourseId() );
+        
+        $url = $locator->getResourceId();
+        
+        foreach ( $externalCourseToolList as $externalCourseTool )
+        {
+            if ( $externalCourseTool['script_url'] == $url )
+            {
+                return $externalCourseTool['script_name'];
+            }
+        }
+        
+        return $url;
     }
 }
 
