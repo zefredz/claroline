@@ -517,6 +517,19 @@ interface ModuleResourceResolver
     public function getResourceName( ResourceLocator $locator );
 }
 
+class CLEXT_ResourceResolver implements ModuleResourceResolver
+{
+    public function resolve( ResourceLocator $locator )
+    {
+        return $locator->getResourceId();
+    }
+    
+    public function getResourceName( ResourceLocator $locator )
+    {
+        return $locator->getResourceId();
+    }
+}
+
 /**
  * Returns the list of available resources from a locator
  *
