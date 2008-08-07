@@ -167,7 +167,7 @@ elseif ( $display == DISP_COURSE_CREATION_SUCCEED )
 {
     // display back link
     echo '<p>'
-    .    claro_html_cmd_link( $backUrl, get_lang('Continue') )
+    .    claro_html_cmd_link( htmlspecialchars( $backUrl ), get_lang('Continue') )
     .     '</p>' . "\n"
     ;
 }
