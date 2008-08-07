@@ -1507,7 +1507,7 @@ function claro_form_relay_context($context=null)
     $html ='';
     if(is_null($context))
     {
-        $context = Claro_Context::getCurrentContext();
+        $context = Claro_Context::getCurrentUrlContext();
     }
     
     if ( array_key_exists( 'cid', $context )
@@ -1536,7 +1536,7 @@ function claro_url_relay_context($prepend='',$context=null)
 {
     if(is_null($context))
     {
-        $context = Claro_Context::getCurrentContext();
+        $context = Claro_Context::getCurrentUrlContext();
     }
     
     if ( array_key_exists( 'cid', $context )
