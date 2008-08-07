@@ -95,7 +95,7 @@ foreach ($toolList as $thisTool)
 
         //trick to find how to build URL, must be IMPROVED
 
-        $url = get_module_url($thisTool['label']) . '/' . $thisTool['url'];
+        $url = Url::Contextualize( get_module_url($thisTool['label']) . '/' . $thisTool['url'] );
         $icon = get_module_url($thisTool['label']) .'/'. $thisTool['icon'];
         $htmlId = 'id="' . $thisTool['label'] . '"';
         $removableTool = false;
