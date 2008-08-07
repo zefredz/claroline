@@ -294,7 +294,7 @@ class LinkerResourceIterator
     
     public function last()
     {
-        $this->seek(count($this) - 1);
+        $this->seek( count( $this->elementList ) - 1 );
         return $this->current();
     }
     
