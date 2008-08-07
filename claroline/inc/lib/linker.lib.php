@@ -413,7 +413,7 @@ class ResourceLinkerResolver
         }
     }
     
-    protected function loadModuleResolver( $moduleLabel )
+    public function loadModuleResolver( $moduleLabel )
     {
         $resolverClass = $moduleLabel . '_Resolver';
         
@@ -570,7 +570,7 @@ class ResourceLinkerNavigator
         return $resource;
     }
     
-    protected static function loadModuleNavigator( $moduleLabel )
+    public static function loadModuleNavigator( $moduleLabel )
     {
         $navigatorClass = $moduleLabel . '_Navigator';
         
@@ -677,8 +677,6 @@ class CourseNavigator implements ResourceNavigator
             claro_get_current_user_profile_id_in_course( $rootNodeLocator->getCourseId() )
         );
         
-        $course = new ClaroCourse( $rootNodeLocator->getCourseId() );
-        
         $courseResource = new LinkerResourceIterator();
         
         foreach ( $courseToolList as $courseTool )
@@ -728,14 +726,20 @@ class GroupNavigator implements ResourceNavigator
 {
     public function getResourceList( ResourceLocator $rootNodeLocator )
     {
-        $groupToolList = get_group_tool_list( $rootNodeLocator->getCourseId() );
+        $groupToolList = get_activated_group_tool_label_list( $rootNodeLocator->getCourseId() );
+        $groupProperties = claro_get_main_group_properties($rootNodeLocator->getCourseId());
         
-        $course = new ClaroCourse( $rootNodeLocator->getCourseId() );
-        
-        $courseResource = new LinkerResourceIterator();
+        $groupResource = new LinkerResourceIterator();
         
         foreach ( $groupToolList as $groupTool )
         {
+            // skip disabled group tools
+            if ( ! array_key_exists( $groupTool['label'], $groupProperties['tools'] )
+                || ! $groupProperties['tools'][$groupTool['label']] )
+            {
+                continue;
+            }
+            
             $locator = new ClarolineResourceLocator(
                 $rootNodeLocator->getCourseId(),
                 $groupTool['label'],
@@ -760,10 +764,10 @@ class GroupNavigator implements ResourceNavigator
                 $isNavigable
             );
             
-            $courseResource->addResource( $resource );
+            $groupResource->addResource( $resource );
         }
         
-        return $courseResource;
+        return $groupResource;
     }
 }
 
@@ -836,9 +840,20 @@ class ResourceLinker
      */
     public static function getResourceList( $crl )
     {
-        $locator = ClarolineResourceLocator::parse($crl);
-        return self::$Navigator->getResourceList( $locator );
+        return self::$Navigator->getResourceList( ClarolineResourceLocator::parse($crl) );
     }
+    
+    /**
+     * Get resources available
+     *
+     * @param string $crl
+     * @return LinkerResource list of availble resources
+     */
+    public static function getResourceName( $crl )
+    {
+        return self::$Resolver->getResourceName( ClarolineResourceLocator::parse($crl) );
+    }
+    
     
     /**
      * Get a list of urls related to a document
