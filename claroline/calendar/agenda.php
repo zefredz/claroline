@@ -50,10 +50,11 @@ claro_set_display_mode_available(TRUE);
 
 $is_allowedToEdit = claro_is_course_manager();
 
-$cmdList[]=  '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '#today">'
-.    get_lang('Today')
-.    '</a>'
-;
+$cmdList[]=  '<a class="claroCmd" href="'
+    . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']. '#today' )) .'">'
+    . get_lang('Today')
+    . '</a>'
+    ;
 
 if ( $is_allowedToEdit )
 {
@@ -327,31 +328,33 @@ $eventList = agenda_get_item_list($currentContext,$orderDirection);
  * Add event button
  */
 
-$cmdList[]=  '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd">'
-.            '<img src="' . get_icon_url('agenda_new') . '" alt="" />'
-.            get_lang('Add an event')
-.            '</a>'
-;
+$cmdList[]= '<a class="claroCmd" href="'
+    . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=rqAdd' )) . '">'
+    . '<img src="' . get_icon_url('agenda_new') . '" alt="" />'
+    . get_lang('Add an event')
+    . '</a>'
+    ;
 
 /*
 * remove all event button
 */
 if ( count($eventList) > 0 )
 {
-    $cmdList[]=  '<a class= "claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll" '
-    .    ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('Clear up event list ?')) . '\')) return false;">'
-    .    '<img src="' . get_icon_url('delete') . '" alt="" />'
-    .    get_lang('Clear up event list')
-    .    '</a>'
-    ;
+    $cmdList[]=  '<a class= "claroCmd" href="'
+        . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll' )) . '" '
+        . ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('Clear up event list ?')) . '\')) return false;">'
+        . '<img src="' . get_icon_url('delete') . '" alt="" />'
+        . get_lang('Clear up event list')
+        . '</a>'
+        ;
 }
 else
 {
     $cmdList[]=  '<span class="claroCmdDisabled" >'
-    .    '<img src="' . get_icon_url('delete') . '" alt="" />'
-    .    get_lang('Clear up event list')
-    .    '</span>'
-    ;
+        . '<img src="' . get_icon_url('delete') . '" alt="" />'
+        . get_lang('Clear up event list')
+        . '</span>'
+        ;
 }
 
 
@@ -365,7 +368,7 @@ echo $dialogBox->render();
 
 if ($display_form)
 {
-    echo '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">'
+    echo '<form method="post" action="' . htmlspecialchars( $_SERVER['PHP_SELF'] ) . '">'
     .    claro_form_relay_context()
     .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'
     .    '<input type="hidden" name="cmd" value="' . $nextCommand . '" />'
@@ -465,11 +468,17 @@ else
 {
     if ( $orderDirection == 'DESC' )
     {
-        echo '<br /><a href="' . $_SERVER['PHP_SELF'] . '?order=asc" >' . get_lang('Oldest first') . '</a>' . "\n";
+        echo '<br /><a href="'
+            . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?order=asc' ))
+            .'" >' . get_lang('Oldest first') . '</a>' . "\n"
+            ;
     }
     else
     {
-        echo '<br /><a href="' . $_SERVER['PHP_SELF'] . '?order=desc" >' . get_lang('Newest first') . '</a>' . "\n";
+        echo '<br /><a href="'
+            . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?order=desc' ))
+            . '" >' . get_lang('Newest first') . '</a>' . "\n"
+            ;
     }
 
     echo "\n" . '<table class="claroTable" width="100%">' . "\n";
@@ -482,10 +491,12 @@ if (claro_is_user_authenticated()) $date = $claro_notifier->get_notification_dat
 foreach ( $eventList as $thisEvent )
 {
 
-    if (('HIDE' == $thisEvent['visibility'] && $is_allowedToEdit) || 'SHOW' == $thisEvent['visibility'])
+    if (('HIDE' == $thisEvent['visibility'] && $is_allowedToEdit)
+        || 'SHOW' == $thisEvent['visibility'])
     {
         //modify style if the event is recently added since last login
-        if (claro_is_user_authenticated() && $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $thisEvent['id']))
+        if (claro_is_user_authenticated()
+            && $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $thisEvent['id']))
         {
             $cssItem = 'item hot';
         }
@@ -592,10 +603,10 @@ foreach ( $eventList as $thisEvent )
 
     if ($is_allowedToEdit)
     {
-        echo '<a href="' . $_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;id=' . $thisEvent['id'] . '">'
+        echo '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;id=' . $thisEvent['id'] )) . '">'
         .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Modify') . '" />'
         .    '</a> '
-        .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;id=' . $thisEvent['id'] . '" '
+        .    '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;id=' . $thisEvent['id'] )) . '" '
         .    ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('Are you sure to delete "%title" ?', array('%title' => $thisEvent['title']))) . '\')) return false;">'
         .    '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />'
         .    '</a>'
@@ -604,13 +615,13 @@ foreach ( $eventList as $thisEvent )
         //  Visibility
         if ('SHOW' == $thisEvent['visibility'])
         {
-            echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkHide&amp;id=' . $thisEvent['id'] . '">'
+            echo '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=mkHide&amp;id=' . $thisEvent['id'] )) . '">'
             .    '<img src="' . get_icon_url('visible') . '" alt="' . get_lang('Invisible') . '" />'
             .    '</a>' . "\n";
         }
         else
         {
-            echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkShow&amp;id=' . $thisEvent['id'] . '">'
+            echo '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=mkShow&amp;id=' . $thisEvent['id'] )) . '">'
             .    '<img src="' . get_icon_url('invisible') . '" alt="' . get_lang('Visible') . '" />'
             .    '</a>' . "\n"
             ;
