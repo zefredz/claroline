@@ -1404,7 +1404,7 @@ function claro_unquote_gpc()
  */
 function claro_get_current_context($contextKeys = null)
 {
-    $currentKeys = array();
+    /* $currentKeys = array();
 
     if(!is_null($contextKeys) && !is_array($contextKeys)) $contextKeys = array($contextKeys);
 
@@ -1414,7 +1414,9 @@ function claro_get_current_context($contextKeys = null)
     //if((is_null($contextKeys) || in_array('session',$contextKeys))      && !is_null($GLOBALS['_sid']))  $currentKeys['session']       = get_init('_sid');
     if((is_null($contextKeys) || in_array('toolInstance',$contextKeys)) && !is_null($GLOBALS['_tid'])) $currentKeys['toolInstance'] = claro_get_current_tool_id();
 
-    return $currentKeys;
+    return $currentKeys;*/
+
+    return Claro_Context::getCurrentContext();
 }
 
 
