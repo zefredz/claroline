@@ -2160,7 +2160,7 @@ echo claro_html_tool_title($titleElement,
                     $size        = format_file_size($thisFile['size']);
                     $date        = format_date($thisFile['date']);
 
-                    $urlFileName = claro_get_file_download_url( $thisFile['path'] );
+                    $urlFileName = htmlspecialchars( claro_get_file_download_url( $thisFile['path'] ) );
 
                     //$urlFileName = "goto/?doc_url=".rawurlencode($cmdFileName);
                     //format_url($baseServUrl.$courseDir.$curDirPath."/".$fileName));
