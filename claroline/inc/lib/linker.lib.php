@@ -18,7 +18,6 @@ FromKernel::uses('core/url.lib', 'group.lib.inc');
 
 interface ResourceLocator 
 {
-    
 }
 
 /**
@@ -822,14 +821,106 @@ class ResourceLinker
         return self::$Navigator->getLocator( $params );
     }
     
-    public static function addResource( $crlFrom, $crlTo )
+    public static function getLocatorIdAndAddIfMissing( $crl )
     {
+        $tbl = claro_sql_get_course_tbl();
         
+        $sql = "SELECT `id` FROM `{$tbl['links']}`\n"
+            . "WHERE BINARY `crl` = " . Claroline::getDatabase()->quote($crl)
+            ;
+        
+        $res = Claroline::getDatabase()->query( $sql );
+        
+        if ( $res->numRows() )
+        {
+            return (int) $res->fetch( Database_ResultSet::FETCH_VALUE );
+        }
+        else
+        {
+            $sql = "INSERT INTO `{$tbl['resources']}`\n"
+                . "SET\n"
+                . "`crl` = " . Claroline::getDatabase()->quote($crl) ."\n"
+                . ",\n"
+                . "`title` = " . Claroline::getDatabase()->quote(
+                    self::getResourceName(
+                        ClarolineResourceLocator::parse( $crl ) ) )
+                ;
+            
+            Claroline::getDatabase()->exec ( $sql );
+            
+            return (int) Claroline::getDatabase()->insertId();
+        }
     }
     
-    public static function removeResource( $crlFrom, $crlTo )
+    public static function addLink( $crlFrom, $crlTo )
     {
+        $crlFromId = self::getLocatorIdAndAddIfMissing( $crlFrom );
+        $crlToId = self::getLocatorIdAndAddIfMissing( $crlTo );
         
+        $tbl = claro_sql_get_course_tbl();
+        
+        $sql = "SELECT `id` FROM `{$tbl['links']}`\n"
+            . "WHERE `src_id` = " . Claroline::getDatabase()->escape( $crlFromId ) ."\n"
+            . "AND\n"
+            . "`dest_id` = " . Claroline::getDatabase()->escape( $crlToId )
+            ;
+        
+        $res = Claroline::getDatabase()->query( $sql );
+        
+        if ( $res->numRows() )
+        {
+            return false;
+        }
+        else
+        {
+            $sql = "INSERT INTO `{$tbl['links']}`\n"
+                . "SET\n"
+                . "`src_id` = " . Claroline::getDatabase()->escape( $crlFromId ) ."\n"
+                . ",\n"
+                . "`dest_id` = " . Claroline::getDatabase()->escape( $crlToId )
+                ;
+            
+            Claroline::getDatabase()->exec ( $sql );
+            
+            return true;
+        }
+    }
+    
+    public static function removeLink( $crlFrom, $crlTo )
+    {
+        $crlFromId = self::getLocatorIdAndAddIfMissing( $crlFrom );
+        $crlToId = self::getLocatorIdAndAddIfMissing( $crlTo );
+        
+        $tbl = claro_sql_get_course_tbl();
+        
+        $sql = "DELETE FROM `{$tbl['links']}`\n"
+            . "WHERE\n"
+            . "`src_id` = " . Claroline::getDatabase()->escape( $crlFromId ) . "\n"
+            . "AND\n"
+            . "`dest_id` = " . Claroline::getDatabase()->escape( $crlToId )
+            ;
+        
+        Claroline::getDatabase()->exec ( $sql );
+        
+        return Claroline::getDatabase()->affectedRows();
+    }
+    
+    public static function getLinkList( $crlFrom )
+    {
+        $tbl = claro_sql_get_course_tbl();
+        
+        $sql = "SELECT `dest`.`crl`, `dest`.`title`\n"
+            . "FROM `{$tbl['links']}` AS `lnk`,\n"
+            . "`{$tbl['resources']}` AS `dest`,\n"
+            . "`{$tbl['resources']}` AS `src`\n"
+            . "WHERE `src`.`crl` = " . Claroline::getDatabase()->quote( $crlFrom ) . "\n"
+            . "AND `dest`.`id` = `lnk`.`dest_id`\n"
+            . "AND `src`.`id` = `lnk`.`src_id`\n"
+            ;
+            
+        $res = Claroline::getDatabase()->query( $sql );
+        
+        return $res;
     }
     
     /**
