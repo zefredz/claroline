@@ -141,12 +141,12 @@ foreach ($toolList as $thisTool)
     }
 }
 
-    $courseManageToolLinkList[] = '<a class="claroCmd" href="' . get_path('clarolineRepositoryWeb')  . 'course/tools.php' . claro_url_relay_context('?') . '">'
+    $courseManageToolLinkList[] = '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb')  . 'course/tools.php' )) . '">'
     .                             '<img src="' . get_icon_url('edit') . '" alt="" /> '
     .                             get_lang('Edit Tool list')
     .                             '</a>'
     ;
-    $courseManageToolLinkList[] = '<a class="claroCmd" href="' . $toolRepository . 'course/settings.php' . claro_url_relay_context('?') . '">'
+    $courseManageToolLinkList[] = '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( $toolRepository . 'course/settings.php' )) . '">'
     .                             '<img src="' . get_icon_url('settings') . '" alt="" /> '
     .                             get_lang('Course settings')
     .                             '</a>'
@@ -154,7 +154,7 @@ foreach ($toolList as $thisTool)
 
     if( get_conf('is_trackingEnabled') )
     {
-        $courseManageToolLinkList[] =  '<a class="claroCmd" href="' . $toolRepository . 'tracking/courseReport.php' . claro_url_relay_context('?') . '">'
+        $courseManageToolLinkList[] =  '<a class="claroCmd" href="' . htmlspecialchars(Url::Contextualize( $toolRepository . 'tracking/courseReport.php' )) . '">'
         .                             '<img src="' . get_icon_url('statistics') . '" alt="" /> '
         .                             get_lang('Statistics')
         .                             '</a>'
