@@ -137,6 +137,15 @@ class ClaroBanner extends CoreTemplate
                             if (!empty($_courseToolData['label']))
                             {
                                 $_courseToolData['url'] = get_module_url($_courseToolData['label']) . '/' . $_courseToolData['url'];
+                                
+                                if ( strpos( $_courseToolData['url'], '?' ) )
+                                {
+                                    $_courseToolData['url'] .= '&' . claro_get_current_course_id();
+                                }
+                                else
+                                {
+                                    $_courseToolData['url'] .= '?' . claro_get_current_course_id();
+                                }
                             }
                             
                             // reset group to access course tool
