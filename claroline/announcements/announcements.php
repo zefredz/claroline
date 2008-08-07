@@ -374,35 +374,37 @@ $displayButtonLine = (bool) $is_allowedToEdit && ( empty($cmd) || $cmd != 'rqEdi
 
 if ( $displayButtonLine )
 {
-    $cmdList[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
-    .            '?cmd=rqCreate' . claro_url_relay_context('&amp;') . '">'
-    .             '<img src="' . get_icon_url('announcement_new') . '" alt="" />'
-    .             get_lang('Add announcement')
-    .             '</a>' . "\n"
-    ;
+    $cmdList[] = '<a class="claroCmd" href="'
+        . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=rqCreate' )) . '">'
+        . '<img src="' . get_icon_url('announcement_new') . '" alt="" />'
+        . get_lang('Add announcement')
+        . '</a>' . "\n"
+        ;
 
-    $cmdList[] = '<a class="claroCmd" href="../messaging/messagescourse.php'.claro_url_relay_context('?') . '">'
-        .             '<img src="' . get_icon_url('mail_close') . '" alt="" />'
-    .             get_lang('Messages to selected users')
-    .             '</a>' . "\n"
-    ;
+    $cmdList[] = '<a class="claroCmd" href="'
+        . htmlspecialchars(Url::Contextualize( get_path('clarolineRepositoryWeb') . 'messaging/messagescourse.php')) . '">'
+        . '<img src="' . get_icon_url('mail_close') . '" alt="" />'
+        . get_lang('Messages to selected users')
+        . '</a>' . "\n"
+        ;
     
     if (($announcementQty > 0 ))
     {
-        $cmdList[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll' . claro_url_relay_context('&amp;') . '" '
-        .             ' onclick="if (confirm(\'' . clean_str_for_javascript(get_lang('Clear up list of announcements')) . ' ?\')){return true;}else{return false;}">'
-        .             '<img src="' . get_icon_url('delete') . '" alt="" />'
-        .             get_lang('Clear up list of announcements')
-        .             '</a>' . "\n"
-        ;
+        $cmdList[] = '<a class="claroCmd" href="'
+            . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exDeleteAll' )) . '" '
+            . ' onclick="if (confirm(\'' . clean_str_for_javascript(get_lang('Clear up list of announcements')) . ' ?\')){return true;}else{return false;}">'
+            . '<img src="' . get_icon_url('delete') . '" alt="" />'
+            . get_lang('Clear up list of announcements')
+            . '</a>' . "\n"
+            ;
     }
     else
     {
         $cmdList[] = '<span class="claroCmdDisabled" >'
-        .             '<img src="' . get_icon_url('delete') . '" alt="" />'
-        .             get_lang('Clear up list of announcements')
-        .             '</span>' . "\n"
-        ;
+            . '<img src="' . get_icon_url('delete') . '" alt="" />'
+            . get_lang('Clear up list of announcements')
+            . '</span>' . "\n"
+            ;
     }
 
 }
@@ -418,7 +420,14 @@ $noQUERY_STRING = true;
 // Display header
 include get_path('incRepositorySys') . '/claro_init_header.inc.php' ;
 
-echo claro_html_tool_title(array('mainTitle' => $nameTools, 'subTitle' => $subTitle));
+if ( !empty( $subTitle ) )
+{
+    echo claro_html_tool_title(array('mainTitle' => $nameTools, 'subTitle' => $subTitle));
+}
+else
+{
+    echo claro_html_tool_title( $nameTools );
+}
 
 echo $dialogBox->render();
 
@@ -436,7 +445,7 @@ if ( $displayForm )
 
     // DISPLAY ADD ANNOUNCEMENT COMMAND
 
-    echo '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">'."\n"
+    echo '<form method="post" action="' . htmlspecialchars( $_SERVER['PHP_SELF'] ) . '">'."\n"
     .    claro_form_relay_context()
     .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'
     .    '<input type="hidden" name="cmd" value="' . $nextCommand . '" />'
@@ -512,12 +521,12 @@ if ( $displayForm )
         echo '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />'."\n";
     }
 
-    echo claro_html_button($_SERVER['PHP_SELF'], 'Cancel')
-    .    '</td>'
-    .    '</tr>' . "\n"
-    .    '</table>'
-    .    '</form>' . "\n"
-    ;
+    echo claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])), 'Cancel')
+        . '</td>'
+        . '</tr>' . "\n"
+        . '</table>'
+        . '</form>' . "\n"
+        ;
 }
 
 
@@ -591,16 +600,23 @@ if ($displayList)
                 if ($is_allowedToEdit)
                 {
                     echo '<p>'
-                    // EDIT Request LINK
-                    .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;id=' . $thisAnnouncement['id'] . '">'
-                    .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Modify') . '" />'
-                    .    '</a>' . "\n"
-                    // DELETE  Request LINK
-                    .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;id=' . $thisAnnouncement['id'] . '" '
-                    .    ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('Please confirm your choice')) . '\')) return false;">'
-                    .    '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />'
-                    .    '</a>' . "\n"
-                    ;
+                        // EDIT Request LINK
+                        . '<a href="'
+                        . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                            . '?cmd=rqEdit&amp;id=' . $thisAnnouncement['id'] ))
+                        . '">'
+                        . '<img src="' . get_icon_url('edit') . '" alt="'
+                        . get_lang('Modify') . '" />'
+                        . '</a>' . "\n"
+                        // DELETE  Request LINK
+                        . '<a href="'
+                        . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                            . '?cmd=exDelete&amp;id=' . $thisAnnouncement['id'] ))
+                        . '" '
+                        . ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('Please confirm your choice')) . '\')) return false;">'
+                        . '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />'
+                        . '</a>' . "\n"
+                        ;
 
                     // DISPLAY MOVE UP COMMAND only if it is not the top announcement
 
@@ -608,10 +624,10 @@ if ($displayList)
                     {
                         // echo    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvUp&amp;id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
                         // the anchor dont refreshpage.
-                        echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMvUp&amp;id=' . $thisAnnouncement['id'] . '">'
-                        .    '<img src="' . get_icon_url('move_up') . '" alt="' . get_lang('Move up') . '" />'
-                        .    '</a>' . "\n"
-                        ;
+                        echo '<a href="'. htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exMvUp&amp;id=' . $thisAnnouncement['id'] )) . '">'
+                            . '<img src="' . get_icon_url('move_up') . '" alt="' . get_lang('Move up') . '" />'
+                            . '</a>' . "\n"
+                            ;
                     }
 
                     // DISPLAY MOVE DOWN COMMAND only if it is not the bottom announcement
@@ -620,23 +636,24 @@ if ($displayList)
                     {
                         // echo    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvDown&amp;id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
                         // the anchor dont refreshpage.
-                        echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exMvDown&amp;id=' . $thisAnnouncement['id'] . '">'
-                        .    '<img src="' . get_icon_url('move_down') . '" alt="' . get_lang('Move down') . '" />'
-                        .    '</a>' . "\n"
-                        ;
+                        echo '<a href="'
+                            . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exMvDown&amp;id=' . $thisAnnouncement['id'] )) . '">'
+                            . '<img src="' . get_icon_url('move_down') . '" alt="' . get_lang('Move down') . '" />'
+                            . '</a>' . "\n"
+                            ;
                     }
 
                     //  Visibility
                     if ($thisAnnouncement['visibility']=='SHOW')
                     {
-                        echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkHide&amp;id=' . $thisAnnouncement['id'] . '">'
+                        echo '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=mkHide&amp;id=' . $thisAnnouncement['id'] )) . '">'
                         .    '<img src="' . get_icon_url('visible') . '" alt="' . get_lang('Visible').'" />'
                         .    '</a>' . "\n"
                         ;
                     }
                     else
                     {
-                        echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkShow&amp;id=' . $thisAnnouncement['id'] . '">'
+                        echo '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=mkShow&amp;id=' . $thisAnnouncement['id'] )) . '">'
                         .    '<img src="' . get_icon_url('invisible') . '" alt="' . get_lang('Invisible') . '" />'
                         .    '</a>' . "\n"
                         ;
