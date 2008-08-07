@@ -438,22 +438,38 @@ class ResourceLinkerResolver
     
     public function getResourceName( ResourceLocator $locator )
     {
-     if ( $locator instanceof ExternalResourceLocator )
+        if ( $locator instanceof ExternalResourceLocator )
         {
             return $locator->__toString();
         }
         else // ClarolineResourceLocator
         {
-            if ( $locator->inModule() && ! $locator->hasResourceId() )
+            $nameParts = array();
+            
+            if ( $locator->inCourse() )
             {
-                return get_module_data($locator->getModuleLabel(), 'moduleName' );
+                $resolver = new CourseResolver;
+                $nameParts[] = $resolver->getResourceName( $locator );
             }
-            elseif( $locator->inModule() && $locator->hasResourceId() )
+            
+            if ( $locator->inGroup() )
+            {
+                $resolver = new GroupResolver;
+                $nameParts[] = $resolver->getResourceName( $locator );
+            }
+            
+            if ( $locator->inModule() )
+            {
+                $nameParts[] = get_module_data($locator->getModuleLabel(), 'moduleName' );
+            }
+            
+            if( $locator->inModule() && $locator->hasResourceId() )
             {
                 $resolver = $this->loadModuleResolver( $locator->getModuleLabel() );
-                return $resolver->getResourceName( $locator );
+                $nameParts[] = $resolver->getResourceName( $locator );
             }
-            elseif ( $locator->inGroup() )
+            
+            /* elseif ( $locator->inGroup() )
             {
                 $resolver = new GroupResolver;
                 return $resolver->getResourceName( $locator );
@@ -466,7 +482,9 @@ class ResourceLinkerResolver
             else
             {
                 return false; 
-            }
+            }*/
+            
+            return implode(' > ', $nameParts);
         }
     }
 }
@@ -501,9 +519,11 @@ class GroupResolver
     
     public function getResourceName( ResourceLocator $locator )
     {
-        $courseData = claro_get_course_data( $locator->getCourseId() );
+        $groupData = claro_get_group_data( array(
+            CLARO_CONTEXT_COURSE => $locator->getCourseId(),
+            CLARO_CONTEXT_GROUP => $locator->getGroupId() ) );
         
-        return $courseData['officialCode'] . ' : ' . $courseData['name'];
+        return $groupData['name'];
     }
 }
 
