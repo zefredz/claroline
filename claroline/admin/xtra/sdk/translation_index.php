@@ -82,6 +82,7 @@ if ( $table_exists == TRUE )
 <h4><?php echo get_lang('Conversion')?></h4>
 <ul>
 <!-- <li><a href="lang/convert_lang_17_to_18.php"><?php echo get_lang('Conversion 1.7 to 1.8')?></a></li> -->
+<li><a href="lang/compare_lang_18_to_19.php"><?php echo get_lang('Compare 1.8 to 1.9')?></a></li>
 <li><a href="lang/convert_lang_18_to_19.php"><?php echo get_lang('Conversion 1.8 to 1.9')?></a></li>
 </ul>
 <?php
