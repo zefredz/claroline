@@ -94,7 +94,7 @@ array ('label'       => 'Default course access'
       );
 */
 $conf_def_property_list['defaultVisibilityOnCourseCreation'] =
-array ('label'       => 'Default course Visibility'
+array ('label'       => 'Default course visibility'
       ,'description' => 'This is probably a bad idea to set as hidden'
       ,'default'     => TRUE
       ,'type'        => 'boolean'
