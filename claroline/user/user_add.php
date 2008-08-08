@@ -129,11 +129,10 @@ if ( $cmd == 'registration' )
                     $confirmUserCreateUrl[] = $thisDataKey .'=' . urlencode($thisDataValue);
                  }
 
-                 $confirmUserCreateUrl = $_SERVER['PHP_SELF']
+                 $confirmUserCreateUrl = Url::Contextualize( $_SERVER['PHP_SELF']
                                        . '?cmd=registration&amp;'
                                        . implode('&amp;', $confirmUserCreateUrl)
-                                       . '&amp;confirmUserCreate=1'
-                                       . claro_url_relay_context('&amp;');
+                                       . '&amp;confirmUserCreate=1' );
 
 
                  $dialogBox->warning( get_lang('Notice') . '. '
@@ -146,7 +145,7 @@ if ( $cmd == 'registration' )
                     . '</a>'
                     . '</li>'
                     . '<li>'
-                    . '<a href="'.$confirmUserCreateUrl.'">'
+                    . '<a href="'.htmlspecialchars( $confirmUserCreateUrl ).'">'
                     . get_lang('Confirm the creation of a new user')
                     . '</a>'
                     . '<br /><small>'
@@ -155,7 +154,8 @@ if ( $cmd == 'registration' )
                     . '</small>'
                     . '</li>'
                     . '<li>'
-                    . '<a href="'.$_SERVER['PHP_SELF'].'?cmd=cancel'. claro_url_relay_context('&amp;').'">' . get_lang('Cancel the operation') . '</a>'
+                    . '<a href="'.htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?cmd=cancel' )) .'">'
+                    . get_lang('Cancel the operation') . '</a>'
                     . '</li>'
                     . '</ul>'
                 );
@@ -258,7 +258,7 @@ echo $dialogBox->render();
 
 if ( $courseRegSucceed )
 {
-    echo '<p><a href="user.php' . claro_url_relay_context('?') . '">&lt;&lt; ' . get_lang('Back to user list') . '</a></p>' . "\n";
+    echo '<p><a href="' . htmlspecialchars(Url::Contextualize( get_module_entry_url('CLUSR') ) ) . '">&lt;&lt; ' . get_lang('Back to user list') . '</a></p>' . "\n";
 }
 else
 {
@@ -289,11 +289,11 @@ else
         foreach ($userList as $thisUser)
         {
            echo '<tr valign="top">' . "\n"
-           .    '<td>' . $thisUser['lastname'    ] . '</td>' . "\n"
-           .    '<td>' . $thisUser['firstname'   ] . '</td>' . "\n"
-           .    '<td>' . $thisUser['officialCode'] . '</td>' . "\n"
-           .    '<td>' . $thisUser['username'   ] . '</td>' . "\n"
-           .    '<td>' . $thisUser['email'       ] . '</td>' . "\n"
+           .    '<td>' . htmlspecialchars($thisUser['lastname'    ]) . '</td>' . "\n"
+           .    '<td>' . htmlspecialchars($thisUser['firstname'   ]) . '</td>' . "\n"
+           .    '<td>' . htmlspecialchars($thisUser['officialCode']) . '</td>' . "\n"
+           .    '<td>' . htmlspecialchars($thisUser['username'   ]) . '</td>' . "\n"
+           .    '<td>' . htmlspecialchars($thisUser['email'       ]) . '</td>' . "\n"
            .    '<td align="center">' . "\n"
            ;
 
@@ -301,9 +301,9 @@ else
 
             if ( empty($thisUser['registered']) )
             {
-                echo '<a href="' . $_SERVER['PHP_SELF']
+                echo '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
                 .    '?cmd=registration'
-                .    '&amp;userId=' . $thisUser['uid'] . $regUrlAddParam . claro_url_relay_context('&amp;'). '">'
+                .    '&amp;userId=' . $thisUser['uid'] . $regUrlAddParam )) . '">'
                 .    '<img src="' . get_icon_url('enroll') . '" alt="' . get_lang('Enrol as student') . '" />'
                 .    '</a>'
                 ;

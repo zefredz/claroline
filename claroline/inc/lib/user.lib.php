@@ -958,7 +958,7 @@ function user_html_form($data, $form_type='registration')
     }
 
     // display registration form
-    $html = '<form action="' . $_SERVER['PHP_SELF'] . '" method="post" enctype="multipart/form-data" >' . "\n"
+    $html = '<form action="' . htmlspecialchars( $_SERVER['PHP_SELF'] ) . '" method="post" enctype="multipart/form-data" >' . "\n"
     .       claro_form_relay_context()
 
     // hidden fields
@@ -1181,11 +1181,11 @@ function user_html_form($data, $form_type='registration')
         $html .= form_row(get_lang('Group Tutor') . '&nbsp;: ',
 
         '<input type="radio" name="tutor" value="1" id="tutorYes" '
-        . ($data['tutor']?'checked':'') . ' />'
+        . ($data['tutor']?'checked="checked"':'') . ' />'
         . '<label for="tutorYes">' . get_lang('Yes') . '</label>'
 
         . '<input type="radio" name="tutor" value="0"  id="tutorNo" '
-        . (!$data['tutor']?'checked':'') . ' />'
+        . (!$data['tutor']?'checked="checked"':'') . ' />'
         . '<label for="tutorNo">' . get_lang('No') . '</label>');
     }
 
@@ -1194,10 +1194,10 @@ function user_html_form($data, $form_type='registration')
     {
         $html .= form_row(get_lang('Manager') . '&nbsp;: ',
         '<input type="radio" name="courseAdmin" value="1" id="courseAdminYes" '
-        . ($data['courseAdmin'] ? 'checked' : '') . ' />'
+        . ($data['courseAdmin'] ? 'checked="checked"' : '') . ' />'
         . '<label for="courseAdminYes">' . get_lang('Yes') . '</label>'
         . '<input type="radio" name="courseAdmin" value="0" id="courseAdminNo" '
-        . ($data['courseAdmin'] ? '' : 'checked') . ' />'
+        . ($data['courseAdmin'] ? '' : 'checked="checked"') . ' />'
         . '<label for="courseAdminNo">' . get_lang('No') . '</label>');
     }
 
@@ -1237,22 +1237,22 @@ function user_html_form($data, $form_type='registration')
     {
         $html .= form_row( get_lang('Create') . '&nbsp;: ' ,
         '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp;'
-        . claro_html_button($_SERVER['HTTP_REFERER'], get_lang('Cancel')) );
+        . claro_html_button(htmlspecialchars(Url::Contextualize( $_SERVER['HTTP_REFERER'] )), get_lang('Cancel')) );
     }
     elseif ('add_new_user' == $form_type )
     {
         $html .= form_row( '<label for="applyChange">' . get_lang('Save changes') . ' : </label>'
                          , '<input type="submit" name="applyChange" id="applyChange" value="' . get_lang('Ok') . '" />&nbsp;'
                          . '<input type="submit" name="applySearch" id="applySearch" value="' . get_lang('Search') . '" />&nbsp;'
-                         . claro_html_button($_SERVER['HTTP_REFERER'], get_lang('Cancel'))
+                         . claro_html_button(htmlspecialchars(Url::Contextualize( $_SERVER['HTTP_REFERER'] )), get_lang('Cancel'))
                          );
     }
     else
     {
         $html .= form_row('<label for="applyChange">' . get_lang('Save changes') . ' : </label>',
         ' <input type="submit" name="applyChange" id="applyChange" value="' . get_lang('Ok') . '" />&nbsp;'
-		// @TODO : if $_SERVER['HTTP_REFERER'] not set find a best value than '' 
-        . claro_html_button(isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:'', get_lang('Cancel')) );
+        // @TODO : if $_SERVER['HTTP_REFERER'] not set find a best value than '' 
+        . claro_html_button(isset($_SERVER['HTTP_REFERER'])?htmlspecialchars(Url::Contextualize($_SERVER['HTTP_REFERER'])):'', get_lang('Cancel')) );
     }
 
     $html .= form_row('&nbsp;', '<small>' . get_lang('<span class="required">*</span> denotes required field') . '</small>');
@@ -1280,8 +1280,7 @@ function user_html_form($data, $form_type='registration')
 
         if ( 0 < count($extraInfoDefList))
         $html .= form_row( ''
-                         , claro_html_cmd_link( $_SERVER['PHP_SELF'] . '?cmd=editExtraInfo'
-                                              . claro_url_relay_context('&amp;')
+                         , claro_html_cmd_link( htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=editExtraInfo' ))
                                               , '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Modify') . '" />'
                                               )
                          );

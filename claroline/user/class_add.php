@@ -100,7 +100,7 @@ ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users'), 'user.php'. claro_u
 // javascript confirm pop up declaration for header
 
 $htmlHeadXtra[] =
-'<script>
+'<script type="text/javascript">
     function confirmation_enrol (name)
     {
         if (confirm("' . clean_str_for_javascript(get_lang('Are you sure you want to enrol the whole class on the course ?')) . '"))
@@ -145,7 +145,9 @@ echo claro_html_tool_title(get_lang('Enrol class'))
 .    '</thead>' . "\n"
 .    '<tbody>' . "\n"
 // display Class list (or tree)
-.    display_tree_class_in_user($classList, claro_get_current_course_id())
+.    ( empty($classList)
+        ? '<tr><td colspan="3">'.get_lang('Nothing to display').'</td></tr>'
+        : display_tree_class_in_user($classList, claro_get_current_course_id()) )
 .    '</tbody>' . "\n"
 .    '</table>' . "\n"
 ;

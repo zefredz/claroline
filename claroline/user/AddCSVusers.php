@@ -321,14 +321,14 @@ switch ($AddType)
 
 if (isset($_REQUEST['chformat']) && $_REQUEST['chformat']=='yes')
 {
-    if (!empty($_SESSION['CSV_enclosedBy']) && $_SESSION['CSV_enclosedBy']=='dbquote') $dbquote_selected = 'selected'; else $dbquote_selected = '';
-    if (!empty($_SESSION['CSV_enclosedBy']) && $_SESSION['CSV_enclosedBy']=='')   $blank_selected   = 'selected'; else $blank_selected   = '';
-    if (!empty($_SESSION['CSV_enclosedBy']) && $_SESSION['CSV_enclosedBy']==',')  $coma_selected    = 'selected'; else $coma_selected    = '';
-    if (!empty($_SESSION['CSV_enclosedBy']) && $_SESSION['CSV_enclosedBy']=='.')  $dot_selected     = 'selected'; else $dot_selected     = '';
+    if (!empty($_SESSION['CSV_enclosedBy']) && $_SESSION['CSV_enclosedBy']=='dbquote') $dbquote_selected = 'selected="selected"'; else $dbquote_selected = '';
+    if (!empty($_SESSION['CSV_enclosedBy']) && $_SESSION['CSV_enclosedBy']=='')   $blank_selected   = 'selected="selected"'; else $blank_selected   = '';
+    if (!empty($_SESSION['CSV_enclosedBy']) && $_SESSION['CSV_enclosedBy']==',')  $coma_selected    = 'selected="selected"'; else $coma_selected    = '';
+    if (!empty($_SESSION['CSV_enclosedBy']) && $_SESSION['CSV_enclosedBy']=='.')  $dot_selected     = 'selected="selected"'; else $dot_selected     = '';
 
-    if (!empty($_SESSION['CSV_fieldSeparator']) && $_SESSION['CSV_fieldSeparator']==';')  $dot_coma_selected_sep = 'selected'; else $dot_coma_selected_sep = '';
-    if (!empty($_SESSION['CSV_fieldSeparator']) && $_SESSION['CSV_fieldSeparator']==',')  $coma_selected_sep     = 'selected'; else $coma_selected_sep = '';
-    if (!empty($_SESSION['CSV_fieldSeparator']) && $_SESSION['CSV_fieldSeparator']=='')   $blank_selected_sep    = 'selected'; else $blank_selected_sep = '';
+    if (!empty($_SESSION['CSV_fieldSeparator']) && $_SESSION['CSV_fieldSeparator']==';')  $dot_coma_selected_sep = 'selected="selected"'; else $dot_coma_selected_sep = '';
+    if (!empty($_SESSION['CSV_fieldSeparator']) && $_SESSION['CSV_fieldSeparator']==',')  $coma_selected_sep     = 'selected="selected"'; else $coma_selected_sep = '';
+    if (!empty($_SESSION['CSV_fieldSeparator']) && $_SESSION['CSV_fieldSeparator']=='')   $blank_selected_sep    = 'selected="selected"'; else $blank_selected_sep = '';
 
     $compulsory_list = array('firstname','lastname','username','password');
 
@@ -336,7 +336,7 @@ if (isset($_REQUEST['chformat']) && $_REQUEST['chformat']=='yes')
     .            '<br /><br />' . "\n"
     .            get_lang('The fields <em>%field_list</em> are compulsory', array ('%field_list' => implode(', ',$compulsory_list)) )
     .            '<br /><br />'
-    .            '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '">'
+    .            '<form method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '">'
     .            claro_form_relay_context()
     .            '<input type="hidden" name="AddType" value="' . $AddType . '" />' . "\n"
     .            '<input type="text" name="usedFormat" value="' . htmlspecialchars($usedFormat) . '" size="55" />' . "\n"
@@ -385,15 +385,15 @@ switch ( $display )
             unset($_SESSION['claro_csv_userlist']);
             if (claro_is_in_a_course())
             {
-                $backButtonUrl = get_module_url('CLUSR') . '/user.php' . claro_url_relay_context('?') ;
+                $backButtonUrl = Url::Contextualize( get_module_entry_url('CLUSR') );
             }
             elseif (isset($addType) && $addType =='adminClassTool') //tricky fix, the use of addtype should be avoided
             {
-                $backButtonUrl = get_path('clarolineRepositoryWeb').'admin/admin_class_user.php?class_id='.$_SESSION['admin_user_class_id']  . claro_url_relay_context('&amp;') ;
+                $backButtonUrl = Url::Contextualize( get_path('clarolineRepositoryWeb').'admin/admin_class_user.php?class_id='.$_SESSION['admin_user_class_id'] );
             }
             elseif (claro_is_platform_admin())
             {
-                $backButtonUrl = get_path('clarolineRepositoryWeb') . 'admin/'  . claro_url_relay_context('?') ;
+                $backButtonUrl = Url::Contextualize( get_path('clarolineRepositoryWeb') . 'admin/' );
             }
 
             $_SESSION['claro_CSV_done'] = FALSE;
@@ -401,14 +401,14 @@ switch ( $display )
             echo get_lang('You must specify the CSV format used in your file') . "\n"
             .    ':' . "\n"
             .    '<br /><br />' . "\n"
-            .    '<form enctype="multipart/form-data"  method="POST" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
+            .    '<form enctype="multipart/form-data"  method="post" action="' . htmlspecialchars( $_SERVER['PHP_SELF'] ) . '">' . "\n"
             .    claro_form_relay_context()
             .    '<input type="radio" name="firstLineFormat" value="YES" id="firstLineFormat_YES" />' . "\n"
             .    ' ' . "\n"
             .    '<label for="firstLineFormat_YES">' . "\n"
             .    get_lang('Use format defined in first line of file') . '</label>' . "\n"
             .    '<br /><br />' . "\n"
-            .    '<input type="radio" name="firstLineFormat" value="NO" checked id="firstLineFormat_NO" />' . "\n"
+            .    '<input type="radio" name="firstLineFormat" value="NO" checked="checked" id="firstLineFormat_NO" />' . "\n"
             .    '<label for="firstLineFormat_NO">' . "\n"
             .    get_lang('Use the following format') . ' : ' . "\n"
             .    '</label>' . "\n"
@@ -419,36 +419,34 @@ switch ( $display )
             .    '</b>' . "\n"
             .    '<br /><br />' . "\n"
             .    '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . "\n"
-            .    claro_html_cmd_link( $_SERVER['PHP_SELF']
+            .    claro_html_cmd_link( htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF']
                                     . '?display=default'
                                     . '&amp;loadDefault=yes'
-                                    . '&amp;AddType=' . $AddType
-                                    . claro_url_relay_context('&amp;')
+                                    . '&amp;AddType=' . $AddType ))
                                     , get_lang('Load default format')
                                     ) . "\n"
             .    ' | '
-            .    claro_html_cmd_link( $_SERVER['PHP_SELF']
+            .    claro_html_cmd_link( htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF']
                                     . '?display=default'
                                     . '&amp;chformat=yes'
-                                    . '&amp;AddType=' . $AddType
-                                    . claro_url_relay_context('&amp;')
+                                    . '&amp;AddType=' . $AddType ))
                                     , get_lang('Edit format to use')
                                     ) . "\n"
             .    '<br /><br />' . "\n"
             .    '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . "\n"
             ;
             echo '<input type="hidden" name="fieldSeparator" value="';
-            if (!empty($_SESSION['CSV_fieldSeparator'])) echo $_SESSION['CSV_fieldSeparator'];
+            if (!empty($_SESSION['CSV_fieldSeparator'])) echo htmlspecialchars( $_SESSION['CSV_fieldSeparator'] );
             else                                         echo ';';
-            echo '" >' . "\n"
-            .    '<input type="hidden" name="enclosedBy" value="' . $_SESSION['CSV_enclosedBy'] . '" />' . "\n"
-            .    '<input type="hidden" name="AddType" value="' . $AddType . '" />' . "\n"
+            echo '" />' . "\n"
+            .    '<input type="hidden" name="enclosedBy" value="' . htmlspecialchars( $_SESSION['CSV_enclosedBy'] ) . '" />' . "\n"
+            .    '<input type="hidden" name="AddType" value="' . htmlspecialchars( $AddType ) . '" />' . "\n"
             .    '<br />' . "\n"
             .    get_lang('CSV file with the user list : ')
             .    '<input type="file" name="CSVfile" />' . "\n"
             .    '<br /><br />' . "\n"
             .    '<input type="submit" name="submitCSV" value="' . get_lang('Add user list') . '" />' . "\n"
-            .    claro_html_button($backButtonUrl,get_lang('Cancel'))  . "\n"
+            .    claro_html_button(htmlspecialchars( $backButtonUrl ),get_lang('Cancel'))  . "\n"
             .    '<input type="hidden" name="cmd" value="exImp" />' . "\n"
             .    '</form>' . "\n"
             ;
@@ -509,16 +507,16 @@ switch ( $display )
                         
                 }
                 echo '<br />'
-                .    '<form method="POST" action="' . $_SERVER['PHP_SELF'] . '?cmd=exImpSec">' . "\n"
+                .    '<form method="post" action="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exImpSec' )) . '">' . "\n"
                 .    '<input type="hidden" name="AddType" value="' . $AddType . '" />'
                 .    '<input type="submit" value="' . get_lang('Continue') .'" />' . "\n"
-                .    claro_html_button($_SERVER['PHP_SELF'] . '?AddType=' . htmlspecialchars($AddType), get_lang('Cancel'))
+                .    claro_html_button( htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?AddType=' . $AddType )), get_lang('Cancel'))
                 .   '</form>' . "\n";
 
             }
             else
             {
-                echo '<br />' . claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel')) . '<br />';
+                echo '<br />' . claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])), get_lang('Cancel')) . '<br />';
             }
         } break;
 
@@ -562,7 +560,7 @@ switch ( $display )
             case 'adminTool' :
                 {
                     echo '<br />'
-                    .    '<a href="../admin/adminusers.php' . claro_url_relay_context('?') . '">&gt;&gt; '
+                    .    '<a href="'. htmlspecialchars( Url::Contextualize( get_path('clarolineRepositoryWeb') . 'admin/adminusers.php' )) . '">&gt;&gt; '
                     .    get_lang('See user list')
                     .    '</a>'
                     ;
@@ -571,7 +569,7 @@ switch ( $display )
             case 'adminClassTool' :
                 {
                     echo '<br />'
-                    .    '<a href="../admin/admin_class.php' . claro_url_relay_context('?') . '">&gt;&gt; '
+                    .    '<a href="'.htmlspecialchars( Url::Contextualize( get_path('clarolineRepositoryWeb') . 'admin/admin_class.php' )) . '">&gt;&gt; '
                     .    get_lang('Back to class list')
                     .    '</a>'
                     ;
@@ -580,7 +578,7 @@ switch ( $display )
             case 'userTool' :
                 {
                     echo '<br />'
-                    .    '<a href="user.php' . claro_url_relay_context('?') . '">&lt;&lt; ' . get_lang('Back to user list') . '</a>'
+                    .    '<a href="'.htmlspecialchars( Url::Contextualize( get_module_entry_url('CLUSR') )) . '">&lt;&lt; ' . get_lang('Back to user list') . '</a>'
                     ;
                 }   break;
         }
