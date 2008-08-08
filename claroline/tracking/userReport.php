@@ -100,7 +100,7 @@ $userData = user_get_properties($userId);
 
 if( !is_array($userData) )
 {
-    claro_die( get_lang('Cannot find user.') );
+    claro_die( get_lang('Cannot find user') );
 }
 
 /*
