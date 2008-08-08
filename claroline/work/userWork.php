@@ -352,7 +352,7 @@ if( isset($_REQUEST['submitWrk']) )
     {
         if( !isset( $_REQUEST['wrkTxt'] ) || trim( strip_tags( $_REQUEST['wrkTxt'] ), $allowedTags ) == "" )
         {
-            $dialogBox->error( get_lang('Answer is required') );
+            $dialogBox->error( get_lang('Field \'%name\' is required', array('%name' => get_lang('Answer'))) );
             $formCorrectlySent = false;
             $wrkForm['wrkTxt'] = '';
         }
@@ -379,7 +379,7 @@ if( isset($_REQUEST['submitWrk']) )
     // check if a title has been given
     if( ! isset($_REQUEST['wrkTitle']) || trim($_REQUEST['wrkTitle']) == "" )
     {
-        $dialogBox->error( get_lang('Work title required') );
+        $dialogBox->error( get_lang('Field \'%name\' is required', array('%name' => get_lang('Work title'))) );
         $formCorrectlySent = false;
         $wrkForm['wrkTitle'] = '';
     }
@@ -399,7 +399,7 @@ if( isset($_REQUEST['submitWrk']) )
         }
         else
         {
-            $dialogBox->error( get_lang('Author(s) is a required field') );
+            $dialogBox->error( get_lang('Field \'%name\' is required', array('%name' => get_lang('Author(s)'))) );
             $formCorrectlySent = false;
             $wrkForm['wrkAuthors'] = '';
         }
@@ -415,7 +415,7 @@ if( isset($_REQUEST['submitWrk']) )
     {
         if( $_REQUEST['wrkScore'] < -1 || $_REQUEST['wrkScore'] > 100 )
         {
-            $dialogBox->error( get_lang('Score required') );
+            $dialogBox->error( get_lang('Field \'%name\' is required', array('%name' => get_lang('Score'))) );
             $formCorrectlySent = false;
         }
         else
@@ -536,7 +536,7 @@ if( isset($_REQUEST['submitWrk']) )
             elseif( $submission->getParentId() == 0 ) // do not display an error if this a feedback (file not required)
             {
                 // if the main thing to provide is a file and that no file was sent
-                $dialogBox->error( get_lang('A file is required') );
+                $dialogBox->error( get_lang('Field \'%name\' is required', array('%name' => get_lang('A file'))) );
                 $formCorrectlySent = false;
             }
         }
