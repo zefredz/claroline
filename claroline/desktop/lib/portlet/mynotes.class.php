@@ -345,7 +345,7 @@ class MyNotes extends UserDesktopPortlet
             // end form
             .    '<span class="required">*</span>&nbsp;'.get_lang('Denotes required fields') . '<br />' . "\n"
             .    '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp;' . "\n"
-            .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
+            .    claro_html_button(htmlspecialchars( $_SERVER['PHP_SELF'] ), get_lang('Cancel'))
             .    '</form>' . "\n"
             ;
 
@@ -355,7 +355,7 @@ class MyNotes extends UserDesktopPortlet
 
 // {{{ VIEW
 
-        $menu[] = '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqCreate" class="claroCmd">' . get_lang('Add note') . '</a>' . "\n";
+        $menu[] = '<a href="' . htmlspecialchars( $_SERVER['PHP_SELF'] . '?cmd=rqCreate' ) . '" class="claroCmd">' . get_lang('Add note') . '</a>' . "\n";
 
         $output = claro_html_menu_horizontal( $menu );
 
@@ -384,8 +384,8 @@ class MyNotes extends UserDesktopPortlet
                 $output .= "\n"
                 .      '<tr>' . "\n"
                 .       '<td>' . $note['data'] . '</td>' . "\n"
-                .       '<td align="center"><a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqCreate&amp;id=' . $note['id'] . '"><img src="' . get_icon_url('Edit') . '" alt="' . get_lang('Edit') . '" /></a></td>' . "\n"
-                .       '<td align="center"><a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqDelete&amp;id=' . $note['id'] . '"><img src="' . get_icon_url('Delete') . '" alt="' . get_lang('Delete') . '" /></a></td>' . "\n"
+                .       '<td align="center"><a href="' . htmlspecialchars( $_SERVER['PHP_SELF'] . '?cmd=rqCreate&amp;id=' . (int)$note['id'] ) . '"><img src="' . get_icon_url('Edit') . '" alt="' . get_lang('Edit') . '" /></a></td>' . "\n"
+                .       '<td align="center"><a href="' . htmlspecialchars( $_SERVER['PHP_SELF'] . '?cmd=rqDelete&amp;id=' . (int)$note['id'] ) . '"><img src="' . get_icon_url('Delete') . '" alt="' . get_lang('Delete') . '" /></a></td>' . "\n"
                 .      '</tr>' . "\n"
                 ;
             }

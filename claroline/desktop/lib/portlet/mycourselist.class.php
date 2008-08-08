@@ -74,7 +74,7 @@ class MyCourseList extends UserDesktopPortlet
                 $output .= '<dt>' . "\n"
                 .    '<img class="iconDefinitionList" src="' . get_icon_url('course') . '" alt="" />'
                 .    '<small>'
-                .    '<a href="' . $url . '">'
+                .    '<a href="' . htmlspecialchars( $url ) . '">'
                 .    $course_order_by
                 .    $userStatusImg
                 .    '</a>' . "\n"
@@ -83,10 +83,10 @@ class MyCourseList extends UserDesktopPortlet
                 .    '<dd>'
                 .    '<small>'
                 .    '<a href="' . $url . '">'
-                .    $thisCourse['officialCode']
+                .    htmlspecialchars( $thisCourse['officialCode'] )
                 .    '</a>' . "\n"
                 .    '<small>' . "\n"
-                .    ' : ' . $thisCourse['titular'] . $course_language_txt
+                .    ' : ' . htmlspecialchars( $thisCourse['titular'] . $course_language_txt )
                 .    '</small>' . "\n"
                 .    '</small>' . "\n"
                 .    '</dd>' . "\n"

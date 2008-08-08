@@ -257,19 +257,19 @@ if ( $is_allowedToEdit )
 
     if ( isset($displayForm) && $displayForm )
     {
-        $out .= '<form  method="post" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
+        $out .= '<form  method="post" action="' . htmlspecialchars( $_SERVER['PHP_SELF'] ) . '">' . "\n"
         .    claro_form_relay_context() . "\n"
         .    '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
         .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n";
 
         if ( !is_null($descId) )
         {
-            $out .= '<input type="hidden" name="descId" value="' . $descId . '" />' . "\n"
-            .    '<input type="hidden" name="descCategory" value="' . $description->getCategory() . '" />' . "\n";
+            $out .= '<input type="hidden" name="descId" value="' . (int) $descId . '" />' . "\n"
+            .    '<input type="hidden" name="descCategory" value="' . htmlspecialchars( $description->getCategory() ) . '" />' . "\n";
         }
         else
         {
-             $out .= '<input type="hidden" name="descCategory" value="' . $category . '" />' . "\n";
+             $out .= '<input type="hidden" name="descCategory" value="' . htmlspecialchars( $category ) . '" />' . "\n";
         }
 
         $out .= "\n" . '<table border="0">' . "\n"
@@ -311,7 +311,7 @@ if ( $is_allowedToEdit )
 
         .    '<p>' . "\n"
         .    '<input type="submit" name="save" value="' . get_lang('Ok') . '" />&nbsp; ' . "\n"
-        .    claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
+        .    claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])), get_lang('Cancel'))
         .    '</p>' . "\n"
 
         .    '</td>'  . "\n"
@@ -350,7 +350,7 @@ if ( $is_allowedToEdit )
 
         $out .= "\n\n"
         .    '<br />' . "\n"
-        .    '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
+        .    '<form method="post" action="' . htmlspecialchars( $_SERVER['PHP_SELF'] ) . '">' . "\n"
         .    claro_form_relay_context()
         .    '<input type="hidden" name="cmd" value="rqEdit" />' . "\n"
         .    '<select name="category">' . "\n"
@@ -441,11 +441,11 @@ if ( count($descList) )
             {
                 $out .= '<p>' . "\n"
                 // edit
-                .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;descId=' . $thisDesc['id'] . '">'
+                .    '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;descId=' . (int) $thisDesc['id'] )) . '">'
                 .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Modify') . '" />'
                 .    '</a>' . "\n"
                 // delete
-                .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;descId=' . $thisDesc['id'] . '"'
+                .    '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;descId=' . (int) $thisDesc['id'] )) . '"'
                 .    ' onclick="javascript:if(!confirm(\'' . clean_str_for_javascript(get_lang('Are you sure to delete "%title" ?', array('%title' => $thisDesc['title']))) . '\')) return false;">'
                 .    '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />'
                 .    '</a>' . "\n";
@@ -453,13 +453,13 @@ if ( count($descList) )
                 // visibility
                 if ($thisDesc['visibility'] == 'VISIBLE')
                 {
-                    $out .= '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkInvis&amp;descId=' . $thisDesc['id'] . '">'
+                    $out .= '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=mkInvis&amp;descId=' . (int) $thisDesc['id'] )) . '">'
                     .    '<img src="' . get_icon_url('visible') . '" alt="' . get_lang('Invisible') . '" />'
                     .    '</a>' . "\n";
                 }
                 else
                 {
-                    $out .= '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkVis&amp;descId=' . $thisDesc['id'] . '">'
+                    $out .= '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=mkVis&amp;descId=' . (int) $thisDesc['id'] )) . '">'
                     .    '<img src="' . get_icon_url('invisible') . '" alt="' . get_lang('Visible') . '" />'
                     .    '</a>' . "\n";
                 }

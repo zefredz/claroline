@@ -588,7 +588,7 @@ $sortUrlList = $groupPager->get_sort_url_list($_SERVER['PHP_SELF']);
 
 echo '<tr class="headerX" align="center">' . "\n"
 .    '<th align="left">'
-.    '&nbsp;<a href="'.$sortUrlList['name'].'">'.get_lang("Groups") . '</a>'
+.    '&nbsp;<a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['name']).'">'.get_lang("Groups") . '</a>'
 .    '</th>'                               . "\n"
 ;
 
@@ -597,8 +597,8 @@ if($isGroupRegAllowed && ! $is_allowedToManage) // If self-registration allowed
     echo '<th align="left">' . get_lang("Registration") . '</th>' . "\n"  ;
 }
 
-echo '<th><a href="'.$sortUrlList['nbMember'].'">' . get_lang("Registered") . '</a></th>' . "\n"
-.    '<th><a href="'.$sortUrlList['maxStudent'].'">' . get_lang("Max.") . '</a></th>' . "\n"
+echo '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['nbMember']).'">' . get_lang("Registered") . '</a></th>' . "\n"
+.    '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['maxStudent']).'">' . get_lang("Max.") . '</a></th>' . "\n"
 ;
 
 if ( $is_allowedToManage ) // only for course administrator
