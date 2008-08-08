@@ -69,10 +69,6 @@ class MailNotifier implements MessagingNotifier
             {
                 $emailSubject .= ' - ' . $courseData['officialCode'];
             }
-            else
-            {
-                $emailSubject .= ' - ' . get_lang('?');
-            }
         }
         
         $emailSubject .= '] '.$message->getSubject();

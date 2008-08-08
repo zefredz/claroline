@@ -158,7 +158,7 @@ class DisplayMessage
             }
             else
             {
-                $content .= get_lang('?');
+                $content .= '&nbsp;';
             }
             
             $content .= '</span>'
@@ -181,7 +181,7 @@ class DisplayMessage
                 }
                 else
                 {
-                    $content .= get_lang('?');
+                    $content .= '&nbsp;';
                 }
                 
                 $content .= '</span>'
