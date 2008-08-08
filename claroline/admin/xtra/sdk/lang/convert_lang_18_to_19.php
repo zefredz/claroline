@@ -60,7 +60,7 @@ if ( sizeof($languagePathList) > 0)
 {
     echo "<form action=\"" . $_SERVER['PHP_SELF'] . "\" method=\"GET\">";
     echo "<select name=\"lang\">";
-//    echo '<option value="all" selected="selected">' . get_lang('All') . '</option>'. "\n";
+    echo '<option value="all" selected="selected">' . get_lang('All') . '</option>'. "\n";
     foreach($languagePathList as $key => $languagePath)
     {
 
