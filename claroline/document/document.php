@@ -423,7 +423,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                 if (!isset($oldComment)) $oldComment = "";
                 // comment
                 $form .= '<p>' . "\n"
-                .    '<label for="comment">'.get_lang('Add a comment (optionnal)').'</label><br />' . "\n"
+                .    '<label for="comment">'.get_lang('Add a comment (optional)').'</label><br />' . "\n"
                 .    '<textarea rows=2 cols=50 id="comment" name="comment">' . htmlspecialchars($oldComment) . '</textarea><br />' . "\n" 
                 .    '</p>' . "\n";
             }
