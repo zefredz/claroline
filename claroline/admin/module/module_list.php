@@ -566,7 +566,7 @@ switch ( $cmd )
                     . '<label for="visibleOnInstall" >' . get_lang ( 'Visible on  each course on install <small>(tool only)</small>' ) . '</label>'
                     . '<br />' . "\n"
                     . '<br />' . "\n"
-                    . '<input value="' . get_lang ( 'Fetch and Install module' ) . '" type="submit" />&nbsp;' . "\n"
+                    . '<input value="' . get_lang ( 'Fetch and install module' ) . '" type="submit" />&nbsp;' . "\n"
                     . claro_html_button ( $_SERVER [ 'PHP_SELF' ], get_lang ( 'Cancel' ) )
                     . '</form>' . "\n"
                 );
