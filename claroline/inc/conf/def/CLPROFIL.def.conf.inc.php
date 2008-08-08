@@ -57,7 +57,7 @@ array ( 'profile_editable'
       );
 
 $conf_def_property_list['userOfficialCodeCanBeEmpty'] =
-array ( 'label'         => 'Official Code is'
+array ( 'label'         => 'Official code is'
       , 'default'       => TRUE
       , 'type'          => 'boolean'
       , 'acceptedValue' => array ('TRUE'  => 'Optional'
@@ -91,7 +91,7 @@ array ( 'label'         => 'Profile form'
       , 'default'       => array('name','official_code','login','password','email','phone','language')
       , 'type'          => 'multi'
       , 'acceptedValue' => array ('name' => 'Name'
-                                 ,'official_code' => 'Official Code'
+                                 ,'official_code' => 'Official code'
                                  ,'login' => 'Login'
                                  ,'password' => 'Password'
                                  ,'email' => 'Email'
