@@ -97,7 +97,7 @@ class DisplayMessage
                                                     CLARO_CONTEXT_GROUP => $message->getGroupId()));
             $courseData = claro_get_course_data($message->getCourseCode());
             
-            $recipientString = get_lang('Course: ')." ";
+            $recipientString = get_lang('Course').' : ';
             
             if ($courseData)
             {
@@ -108,7 +108,7 @@ class DisplayMessage
                 $recipientString .= '?';
             }
             
-            $recipientString .= '; '.get_lang('Group: ')." ";
+            $recipientString .= '; '.get_lang('Group'). ' : ';
             
             if ($groupInfo)
             {

@@ -170,11 +170,11 @@
                 $courseInfo = claro_get_course_data($message->getCourseCode());
                 if (!$groupInfo)
                 {
-                    $content .= get_lang('Course: ')." ".get_lang('"course deleted"'). "; " .get_lang('Group: ')." ".get_lang('unknown');
+                    $content .= get_lang('Course').' : '.get_lang('unknown'). "; " .get_lang('Group').' : '.get_lang('unknown');
                 }
                 else
                 {
-                    $content .= get_lang('Course: ')." ". $courseInfo['officialCode'] . "; " .get_lang('Group: ')." ". $groupInfo['name'];
+                    $content .= get_lang('Course').' : ' . $courseInfo['officialCode'] . "; " .get_lang('Group').' : '. $groupInfo['name'];
                 }
             }
             elseif ($message->isPlatformMessage())
