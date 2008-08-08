@@ -532,7 +532,7 @@ function course_user_html_form ( $data, $courseId, $userId, $hiddenParam = null 
 
     $form = '';
 
-    $form .= '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
+    $form .= '<form action="' . htmlspecialchars( $_SERVER['PHP_SELF'] ) . '" method="post">' . "\n"
     .        claro_form_relay_context()
     .        '<input type="hidden" name="cmd" value="exUpdateCourseUserProperties" />' . "\n"
     ;
@@ -563,7 +563,7 @@ function course_user_html_form ( $data, $courseId, $userId, $hiddenParam = null 
 
     if ( $userId == $GLOBALS['_uid'] )
     {
-        $form .= htmlspecialchars($profileList[$selectedProfileId]['name']) ;
+        $form .= '<input type="text" name="profileIdDisabled" value="'.htmlspecialchars($profileList[$selectedProfileId]['name']).'" disabled="disabled" id="profileId" />' ;
     }
     else
     {
@@ -598,7 +598,7 @@ function course_user_html_form ( $data, $courseId, $userId, $hiddenParam = null 
     $form .= '<tr >' . "\n"
     .  '<td align="right"><label for="applyChange">' . get_lang('Save changes') . '</label> :</td>' . "\n"
     .  '<td><input type="submit" name="applyChange" id="applyChange" value="'.get_lang('Ok').'" />&nbsp;'
-    . claro_html_button($_SERVER['HTTP_REFERER'], get_lang('Cancel')) . '</td>' . "\n"
+    . claro_html_button(htmlspecialchars(Url::Contextualize( $_SERVER['HTTP_REFERER'] )), get_lang('Cancel')) . '</td>' . "\n"
     .  '</tr>' . "\n";
 
     $form .= '</table>' . "\n"
