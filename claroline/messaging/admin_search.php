@@ -472,7 +472,7 @@ if ($displayTable)
             <script type="text/javascript">
             function deleteMessage ( localPath )
             {
-                if (confirm("'.get_lang('Are you sure to delete the message').'"))
+                if (confirm("'.get_lang('Are you sure to delete the message?').'"))
                 {
                     window.location=localPath;
                     return false;
