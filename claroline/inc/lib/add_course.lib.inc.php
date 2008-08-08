@@ -353,7 +353,7 @@ function setup_course_tools( $courseDbName, $language, $courseDirectory )
                     , $courseDbName, $language, $courseDirectory ) )
                 {
                     return claro_failure::set_failure(
-                        get_lang('Unable to database tables for %label%'
+                        get_lang('Unable to create database tables for %label%'
                             , array('%label%' => $tool['claro_label'] ) ) );
                 }
             }
