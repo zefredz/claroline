@@ -771,7 +771,7 @@ class ClaroCourse
 
     function mailAdministratorOnCourseCreation ($creatorFirstName, $creatorLastName, $creatorEmail)
     {
-        $subject = get_lang('Course creation %course_name',array('%course_name'=> $this->title));
+        $subject = get_lang('Course created : %course_name',array('%course_name'=> $this->title));
 
         $body = get_block('blockCourseCreationEmailMessage', array( '%date' => claro_html_localised_date(get_locale('dateTimeFormatLong')),
                                 '%sitename' => get_conf('siteName'),
