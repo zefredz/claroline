@@ -460,7 +460,7 @@ class Config
             case 'wwwpath' :
                 if ( empty($value) )
                 {
-                    $this->backlog->failure( get_lang('%name is required', array('%name' => $label)) );
+                    $this->backlog->failure( get_lang('Field \'%name\' is required', array('%name' => $label)) );
                     $valid = false;
                 }
                 break;
