@@ -303,7 +303,7 @@ if( DISP_ADMINISTRATIVE_SETTING == $_REQUEST['fromPanel'] )
         else
         {
             $administrativeDataMissing = TRUE;
-            $check_administrative_data[] = get_lang('Institution Url');
+            $check_administrative_data[] = get_lang('Institution URL');
         }
     }
 
