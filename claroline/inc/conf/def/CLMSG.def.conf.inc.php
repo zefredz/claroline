@@ -21,7 +21,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 // TOOL
 $conf_def['config_code'] = 'CLMSG';
 $conf_def['config_file'] = 'CLMSG.conf.php';
-$conf_def['config_name'] = 'Internal Messaging System';
+$conf_def['config_name'] = 'Internal messaging system';
 $conf_def['config_class']= 'kernel';
 
 
