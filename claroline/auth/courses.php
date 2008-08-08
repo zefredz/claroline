@@ -135,7 +135,7 @@ else
 
 if ( isset($_REQUEST['addNewCourse']) )
 {
-    ClaroBreadCrumbs::getInstance()->prepend( get_lang('My personnal course list'), $_SERVER['PHP_SELF'] );
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('My personal course list'), $_SERVER['PHP_SELF'] );
 }
 
 /*---------------------------------------------------------------------
