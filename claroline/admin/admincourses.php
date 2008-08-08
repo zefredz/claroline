@@ -302,7 +302,7 @@ foreach($courseList as $numLine => $courseLine)
     .                                         '&amp;cidReq=' . $courseLine['sysCode'] . $addToURL . '&amp;cfrom=clist">'
     .                                         '<img src="' . get_icon_url( $imgVisibilityStatus[$courseLine['visibility']] ) . '" alt="' . get_lang('Course settings'). '" />'
     .                                         '<img src="' . get_icon_url( $imgAccessStatus[$courseLine['access']] ) . '" alt="' . get_lang('Course settings'). '" />'
-    .                                         '<img src="' . get_icon_url( $imgRegistrationStatus[$courseLine['registration']] ) . '" alt="' . get_lang('Enrollment'). '" />'
+    .                                         '<img src="' . get_icon_url( $imgRegistrationStatus[$courseLine['registration']] ) . '" alt="' . get_lang('Enrolment'). '" />'
     .                                         '</a>)'
     ;
 
