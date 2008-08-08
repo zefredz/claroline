@@ -2,28 +2,51 @@
                             CLAROLINE 1.9 - CREDITS
 *******************************************************************************
 
+------------------------------------------------------------------------------
+                          PROJECT HISTORY
+------------------------------------------------------------------------------
+
 The Claroline project was initiated in 2000 at the Catholic University of
 Louvain (Belgium - http://www.ucl.ac.be/) by Thomas De Praetere and was
 financially supported by the Louvain Foundation.
 
-Since 2004, the main code of Claroline is co-developed with CERDECAM, research
-center of ECAM (Engineering higher school - Belgium).
+In 2004, the CERDECAM, research center of ECAM (Engineering higher school -
+Belgium) joined the development team.
 
-Claroline Core Team :           Frédéric Minne     (frederic.minne@uclouvain.be) aka ZeFredz
-                                Sebastien Piraux   (sebastien.piraux@uclouvain.be)
-                                Grégory Koch       (gregory.koch@uclouvain.be)
-                                
-Team from Cerdecam :            Philippe Dekimpe (dkp@ecam.be)
-http://www.cerdecam.be
+Since 2007, the development of the project is made under the direction of the
+Claroline Consortium involving several institutions over the world
+(for more details see http://www.claroline.net/en/consortium/consortium-3.html).
 
-Active contributors :           Christophe Gesché  (gesche@ipm.ucl.ac.be) aka Moosh
-                                Marina Zelwer      (marina.zelwer@univ-st-etienne.fr)
+------------------------------------------------------------------------------
+                          CLAROLINE TEAM
+------------------------------------------------------------------------------
 
-Former developers :             Hugues Peeters     (peeters@ipm.ucl.ac.be)
-                                Mathieu Laurent    (laurent@cerdecam.be)
-                                Nicolas Leblanc    (leblanc@cerdecam.be)
-                                Guillaume Lederer  (lederer@cerdecam.be)
-                                Aurelien Van Hamme (vanhamme@cerdecam.be)
+Claroline Core Team :
+
+    Frédéric Minne      (zefredz@claroline.net) aka ZeFredz
+    Sebastien Piraux    (seb@claroline.net)
+    Grégory Koch        (gregory.koch@uclouvain.be)
+
+Team from Cerdecam http://www.cerdecam.be :
+
+    Philippe Dekimpe    (dkp@ecam.be)
+
+Active contributors :
+
+    Christophe Gesché   (moosh@claroline.net) aka Moosh
+    Marina Zelwer       (marina.zelwer@univ-st-etienne.fr)
+    Jean-Roch Meurisse
+    Laurence Dumortier
+
+Former members of the Claroline Team :
+
+    Anais Hulet         (Communication - CERDECAM)
+    Florence Hortmans   (Communication - CERDECAM)
+    Mathieu Laurent     (Core Developer - CERDECAM)
+    Guillaume Lederer   (Core Developer - CERDECAM)
+    Nicolas Leblanc     (Core Developer - CERDECAM)
+    Hugues Peeters      (Core Developer and Project Manager - UCL)
+    Aurelien Van Hamme  (Core Developer - CERDECAM)
 
 ------------------------------------------------------------------------------
                           SPECIFIC CODE CONTRIBUTIONS
@@ -66,6 +89,10 @@ User Image :                    Miguel (miguel@cesga.es)
 Upgrade tool :                  Mathieu Laurent (laurent@cerdecam.be)
                                 Christophe Gesché (gesche@ipm.ucl.ac.be)
 
+------------------------------------------------------------------------------
+                          EXTERNAL CODE
+------------------------------------------------------------------------------
+
 Forum tool :                    adpated from PHPBB 1.4 (http://www.phpbb.com)
 
 Zip / unzipping option  :       PclZip library - Vincent Blavet
@@ -74,13 +101,20 @@ Zip / unzipping option  :       PclZip library - Vincent Blavet
 CAS system :                    based on phpCas library from ESUP-Portail project
                                 (http://esup-phpcas.sourceforge.net/)
 
+External Authentication :       based on PEAR_Auth http://pear.php.net
 
+SOAP Support :                  based on NuSOAP SOAP library by NuSphere and
+                                Dietrich Ayala
+                                http://sourceforge.net/projects/nusoap/
 
+iCal support :                  based on Michael Wimmer <flaimo@gmx.net> iCal
+                                PHP Classes
+
+RSS reader :                    based on LastRSS by http://lastrss.oslab.net/
 
 ------------------------------------------------------------------------------
                                   TRANSLATIONS
 ------------------------------------------------------------------------------
-
 
 Arab translation :              Yassine Jelman (yjelmam@myrealbox.com)
                                 Eng.Ali Ismaeel (ali@parmaja.com,a-s-is@scs-net.org)
@@ -185,14 +219,13 @@ Claroline Documentation :       Andrew Lynn (alynn@strathclyde.ac.be)
 ------------------------------------------------------------------------------
                                 SECURITY
 ------------------------------------------------------------------------------
-Zone-H Team :                   Deepfear
-                                Netcraft
-                                Siegfried
 
-Digital Security Research Group [DSecRG] : http://www.dsec.ru
+Deepfear, Netcraft and Siegfried from the Zone-H Team
+
+The Digital Security Research Group [DSecRG] <http://www.dsec.ru>
 
 Fernando Munoz on the Claroline.net forum
 
 =========================================================================
-                Europe, Belgium, Louvain-la-Neuve - August 28 2006
+                Europe, Belgium, Louvain-la-Neuve - August 08 2008
 ================================== END ===================================
