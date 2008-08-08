@@ -61,7 +61,6 @@ $_lang['Install Claroline'] = 'Install Claroline';
 $_lang['Installation failed'] = 'Installation failed';
 $_lang['Installation language'] = 'Installation language';
 $_lang['Institution URL'] = 'Institution URL';
-$_lang['Institution Url'] = 'Institution Url';
 $_lang['Institution name'] = 'Institution name';
 $_lang['Invalid name. Only letters, digits and _ are allowed'] = 'Invalid name. Only letters, digits and _ are allowed';
 $_lang['Ko'] = 'Ko';
