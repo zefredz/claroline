@@ -1,5 +1,5 @@
 ******************************************
-        CLAROLINE 1.9 alpha - README
+        CLAROLINE 1.9 - README
 ******************************************
 
 TABLE OF CONTENT :
@@ -23,7 +23,7 @@ The system provides group management, forums, document repositories, calendar,
 chat, assignment areas, links, user profile administration on a single and
 highly integrated package.
 
-Claroline is translated in 34 languages and used by hundreds of institutions
+Claroline is translated in 35 languages and used by hundreds of institutions
 around world. The software was initially started by the University of Louvain
 (Belgium) and released under Open Source licence (GPL). Since then, a
 community of developers around the world contributes to its development.
@@ -62,20 +62,28 @@ at :
 6. CONTACT
    =======
 
-        Université catholique de Louvain
-        54 grand Rue 1348 Louvain-la-Neuve BELGIUM
+        Consortium Claroline
+        IPM
+        54 Grand-Rue
+        1348 Louvain-la-Neuve
+        BELGIUM
 
-        phone : 32 (0) 10 47 85 48
         email : info@claroline.net
         web   : http://www.claroline.net
+        phone : 32 (0) 10 47 85 48
         Fax   : 32 (0) 47 89 39
 
 
 7. NEW FEATURES
    ============
+   
+NEW FEATURES IN CLAROLINE 1.9 SINCE CLAROLINE 1.8
+-------------------------------------------------
 
-NEW FEATURES IN CLAROLINE 1.8.3 SINCE CLAROLINE 1.8.0
------------------------------------------------------
+* See http://www.claroline.net/wiki/index.php/Changelog_1.9.x
+
+NEW FEATURES IN CLAROLINE 1.8.11 SINCE CLAROLINE 1.8.0
+------------------------------------------------------
 
 * Bug Fixes ; For more details, see the changelog on our documentation wiki :
   http://www.claroline.net/wiki/index.php/Changelog_1.8.x
@@ -486,5 +494,5 @@ is taken into account, at what stage and by who.
 
 
 =========================================================================
-                Europe, Belgium, Louvain-la-Neuve - October 25 2006
+                Europe, Belgium, Louvain-la-Neuve - August 08 2008
 ================================== END ===================================
