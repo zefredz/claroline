@@ -383,7 +383,7 @@
             <script type="text/javascript">
             function emptyTrashBox ( localPath )
             {
-                if (confirm("'.get_lang('Empty your trashbox?').'"))
+                if (confirm("'.get_lang('Are you sure to empty trashbox ?').'"))
                 {
                     window.location=localPath;
                     return false;
@@ -398,7 +398,7 @@
         
         $content .= "<br />";
         $menu[] = '<a href="'.$linkToRqEmptyTrashBox.'" 
-                    onclick="return emptyTrashBox(\''.$linkToExEmptyTrashBox.'\')" class="claroCmd" >'.get_lang('Empty my trashbox').'</a>';
+                    onclick="return emptyTrashBox(\''.$linkToExEmptyTrashBox.'\')" class="claroCmd" >'.get_lang('Empty trashbox').'</a>';
         
         $content .= claro_html_menu_horizontal($menu);
         $content .= "<br /><br />\n\n";
