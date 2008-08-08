@@ -83,6 +83,7 @@ $_lang['OVER QUOTA'] = 'OVER QUOTA';
 $_lang['Once a user logs to the Claroline platform a cookie is sent to the user browser if the authentication process succeeds. The cookie value is also stored in a internal table of the Claroline platform for a certain time. If requested, the Claroline SSO '] = 'Once a user logs to the Claroline platform a cookie is sent to the user browser if the authentication process succeeds. The cookie value is also stored in a internal table of the Claroline platform for a certain time. If requested, the Claroline SSO';
 $_lang['Ordered list'] = 'Ordered list';
 $_lang['Passwords of some of your user account(s) are recorded an in external authentication system outside the platform.'] = 'Passwords of some of your user account(s) are recorded an in external authentication system outside the platform.';
+$_lang['Platform administration'] = 'Platform administration';
 $_lang['Private access (site accessible only to people on the <a href="%url">user list</a>)'] = 'Private access (site accessible only to people on the <a href="%url">user list</a>)';
 $_lang['Profile SQL in DEBUG MODE.
 Display for each request :duration, counter,  statement '] = 'Profile SQL in DEBUG MODE.
@@ -143,7 +144,6 @@ $_lang['Yes, and rebuild the file on change'] = 'Yes, and rebuild the file on ch
 $_lang['You can force the case  of course code'] = 'You can force the case  of course code';
 $_lang['dont change case'] = 'dont change case';
 $_lang['rebuild file on each request'] = 'rebuild file on each request';
-$_lang['relPath'] = 'relPath';
 $_lang['relpath'] = 'relpath';
 $_lang['write n-1 times without check if (others) cached files are or not deprecated'] = 'write n-1 times without check if (others) cached files are or not deprecated';
 ?>
