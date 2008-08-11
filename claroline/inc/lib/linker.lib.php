@@ -814,7 +814,7 @@ class ResourceLinker
     
     public static function init()
     {
-        if ( ! self::$_initiated )
+        if ( ! self::$_initialized )
         {
             self::$Navigator = new ResourceLinkerNavigator;
             self::$Resolver = new ResourceLinkerResolver;
@@ -856,7 +856,7 @@ class ResourceLinker
     {
         $tbl = claro_sql_get_course_tbl();
         
-        $sql = "SELECT `id` FROM `{$tbl['links']}`\n"
+        $sql = "SELECT `id` FROM `{$tbl['resources']}`\n"
             . "WHERE BINARY `crl` = " . Claroline::getDatabase()->quote($crl)
             ;
         
