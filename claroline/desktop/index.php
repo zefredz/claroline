@@ -133,6 +133,9 @@ foreach ( $portletList as $portlet )
 
 // Generate Script Output
 
+$jsloader = JavascriptLoader::getInstance();
+$jsloader->load('jquery');
+
 $cssLoader = CssLoader::getInstance();
 $cssLoader->load('desktop','all');
 
