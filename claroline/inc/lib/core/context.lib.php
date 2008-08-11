@@ -59,16 +59,35 @@ class Claro_Context
     
     public static function getCurrentUrlContext()
     {
+        $givenContext = self::getCurrentContext();
+        
+        return self::getUrlContext( $givenContext );
+    }
+    
+    public static function getUrlContext( $givenContext )
+    {
         $context = array();
         
-        if (claro_is_in_a_course())
+        if ( ( claro_is_in_a_group() && !isset($givenContext[CLARO_CONTEXT_GROUP]) )
+            || isset($givenContext[CLARO_CONTEXT_GROUP]) )
         {
-            $context['cidReq'] = claro_get_current_course_id();
+            $context['gidReset'] = 'true';
         }
-
-        if (claro_is_in_a_group())
+        
+        if ( ( claro_is_in_a_course() && !isset($givenContext[CLARO_CONTEXT_COURSE]) )
+            || isset($givenContext[CLARO_CONTEXT_COURSE]) )
         {
-            $context['gidReq'] = claro_get_current_group_id();
+            $context['cidReset'] = 'true';
+        }
+        
+        if ( isset($givenContext[CLARO_CONTEXT_COURSE]) )
+        {
+            $context['cidReq'] = $givenContext[CLARO_CONTEXT_COURSE];
+        }
+        
+        if ( isset($givenContext[CLARO_CONTEXT_GROUP]) )
+        {
+            $context['gidReq'] = $givenContext[CLARO_CONTEXT_GROUP];
         }
         
         if( isset( $_REQUEST['inPopup'] ) )
