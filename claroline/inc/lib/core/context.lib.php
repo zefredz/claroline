@@ -25,6 +25,8 @@ class Claro_Context
 {
     public static function getCurrentContext()
     {
+        $context = array();
+        
         if (claro_is_in_a_course())
         {
             $context[CLARO_CONTEXT_COURSE] = claro_get_current_course_id();
