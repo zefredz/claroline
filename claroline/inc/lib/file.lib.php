@@ -362,16 +362,20 @@ function is_download_url_encoded( $str )
     return preg_match("!^[0-9a-zA-Z\+/=]+$!", $str);
 }
 
+/**
+ * WARNING : DO NOT USE IN Url OBJET : ALREADY URLENCODED
+ *  USE BASE64_ENCODE INSTEAD !
+ */
 function download_url_encode( $str )
 {
     if ( $GLOBALS['is_Apache'] && get_conf('usePrettyUrl', false) )
     {
         $str = ltrim($str, '/');
-        return '/' . rawurlencode(base64_encode( $str ) );
+        return '/' . urlencode(base64_encode( $str ) );
     }
     else
     {
-        return rawurlencode(base64_encode( $str ) );
+        return urlencode(base64_encode( $str ) );
     }
 }
 
@@ -407,7 +411,7 @@ function claro_get_file_download_url( $file, $context = null )
     
     if ( !empty ( $context ) )
     {
-        $urlObj->relayContext( $context );
+        $urlObj->relayContext( Claro_Context::getUrlContext( $context ) );
     }
     else
     {
