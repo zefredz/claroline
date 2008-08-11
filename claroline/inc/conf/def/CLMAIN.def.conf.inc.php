@@ -46,7 +46,6 @@ $conf_def['section']['LANGUAGE']['description']='';
 $conf_def['section']['LANGUAGE']['properties'] =
 array ( 'platformLanguage'
       , 'language_to_display'
-      , 'CLAROLANG'
       );
 
 $conf_def['section']['ADMINISTRATOR_SETTING']['label']='Contact';
@@ -191,19 +190,6 @@ array ('label'         => 'Personal language selector'
       ,'acceptedValueType' => 'lang'
       ,'readonly'      => FALSE
       );
-
-$conf_def_property_list['CLAROLANG'] =
-array('label'         => 'Language mode'
-     ,'description'   => 'Translation: use a single language file'."\n".'Production: each script use its own language file.'
-     ,'default'       => 'TRANSLATION'
-     ,'type'          => 'enum'
-     ,'display'       => TRUE
-     ,'readonly'      => FALSE
-     ,'container'     => 'CONST'
-     ,'acceptedValue' => array ('TRANSLATION'=>'Translation'
-                               ,'PRODUCTION'=>'Production'
-                               )
-     );
 
 // Database settings
 
