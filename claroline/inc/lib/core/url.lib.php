@@ -122,7 +122,10 @@ class Url
         {
             foreach ( $paramList as $name => $value )
             {
-                $this->addParam( $name, $value );
+                if ( !empty( $value ) )
+                {
+                    $this->addParam( $name, $value );
+                }
             }
         }
     }
