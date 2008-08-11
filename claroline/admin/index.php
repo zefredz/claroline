@@ -196,9 +196,9 @@ function get_menu_item_list($type)
         $menu['AdminTechnical'][] = claro_html_tool_link('technical/diskUsage.php',  get_lang('Disk usage'));
         $menu['AdminTechnical'][] = claro_html_tool_link('technical/phpInfo.php',    get_lang('System Info'));
 
-        if ( defined('CLAROLANG') && CLAROLANG == 'TRANSLATION') $menu['AdminTechnical'][] = claro_html_tool_link('xtra/sdk/translation_index.php', get_lang('Translation Tools'));
         if ( get_conf('DEVEL_MODE', false) == TRUE )
         {
+            $menu['AdminTechnical'][] = claro_html_tool_link('xtra/sdk/translation_index.php', get_lang('Translation Tools'));
             $menu['AdminTechnical'][] =  claro_html_tool_link('devTools', get_lang('Devel Tools'));
         }
 
