@@ -240,16 +240,16 @@ foreach($AllowedPhpRequestList as $thisPhpRequestName)
     }
 }
 
-if ( isset( $_REQUEST['cidReq'] )
+if ( isset( $cidReq )
     && isset( $_SESSION['_cid'] )
-    && $_REQUEST['cidReq'] != $_SESSION['_cid'] )
+    && $cidReq != $_SESSION['_cid'] )
 {
     $cidReset = true;
 }
 
-if ( isset( $_REQUEST['gidReq'] )
+if ( isset( $gidReq )
     && isset( $_SESSION['_gid'] )
-    && $_REQUEST['gidReq'] != $_SESSION['_gid'] )
+    && $gidReq != $_SESSION['_gid'] )
 {
     $gidReset = true;
 }
