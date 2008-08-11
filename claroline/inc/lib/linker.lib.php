@@ -395,19 +395,27 @@ class ResourceLinkerResolver
             $urlObj = new Url( $url );
             
             // 2. add context information
-            $context = Claro_Context::getCurrentUrlContext();
+            $context = Claro_Context::getCurrentContext();
             
             if ( $locator->inGroup() )
             {
-                $context['gidReq'] = $locator->getGroupId();
+                $context[CLARO_CONTEXT_GROUP] = $locator->getGroupId();
+            }
+            else
+            {
+                $context[CLARO_CONTEXT_GROUP] = null;
             }
             
             if ( $locator->inCourse() )
             {
-                $context['cidReq'] = $locator->getCourseId();
+                $context[CLARO_CONTEXT_COURSE] = $locator->getCourseId();
+            }
+            else
+            {
+                $context[CLARO_CONTEXT_COURSE] = null;
             }
             
-            $urlObj->relayContext( $context );
+            $urlObj->relayContext( Claro_Context::getUrlContext( $context ) );
             
             return $urlObj->toUrl();
         }
@@ -974,5 +982,10 @@ class ResourceLinker
     public static function getResourceName( $crl )
     {
         return self::$Resolver->getResourceName( ClarolineResourceLocator::parse($crl) );
+    }
+    
+    public static function resolve( $crl )
+    {
+        return self::$Resolver->resolve( ClarolineResourceLocator::parse($crl) );
     }
 }
