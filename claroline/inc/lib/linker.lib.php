@@ -140,7 +140,7 @@ class ClarolineResourceLocator implements ResourceLocator
     public static function parse( $locatorString )
     {
         if ( ! preg_match( '~^crl\://~', $locatorString )
-            && preg_match( '~^([a-zA-Z]\://|mailto\:)~', $locatorString ) )
+            && preg_match( '~^([a-zA-Z0-9]\://|[a-zA-Z0-9]\:)~', $locatorString ) )
         {
             return new ExternalResourceLocator( $url );
         }
@@ -151,24 +151,25 @@ class ClarolineResourceLocator implements ResourceLocator
         
         if ( preg_match( '~^crl://claroline\.net/(\w+)/(\w+)$~', $locatorString, $matches ) )
         {
-            // a course
+            // course
             $locator = new self( $matches[2] );
             $locator->setPlatformId( $matches[1] );
         }
         elseif ( preg_match( '~^crl://claroline\.net/(\w+)/(\w+)/groups/(\d+)$~', $locatorString, $matches ) )
         {
+            // course and group
             $locator = new self( $matches[2], null, null, $matches[3] );
             $locator->setPlatformId( $matches[1] );
         }
         elseif ( preg_match( '~^crl://claroline\.net/(\w+)/(\w+)/groups/(\d+)/(\w+)$~', $locatorString, $matches ) )
         {
-            // a group and tool
+            // course, group and tool
             $locator = new self( $matches[2], $matches[4], null, $matches[3] );
             $locator->setPlatformId( $matches[1] );
         }
         elseif ( preg_match( '~^crl://claroline\.net/(\w+)/(\w+)/groups/(\d+)/(\w+)/(.+)$~', $locatorString, $matches ) )
         {
-            // a group, tool and resource
+            // course, group, tool and resource
             $locator = new self( $matches[2], $matches[4], $matches[5], $matches[3] );
             $locator->setPlatformId( $matches[1] );
         }
@@ -186,7 +187,7 @@ class ClarolineResourceLocator implements ResourceLocator
         }
         elseif ( preg_match( '~^crl://claroline\.net/(\w+)$~', $locatorString, $matches ) )
         {
-            // a course and a tool
+            // the platform itself
             $locator = new self();
             $locator->setPlatformId( $matches[1] );
         }
@@ -458,7 +459,7 @@ class ResourceLinkerResolver
                 $nameParts[] = $resolver->getResourceName( $locator );
             }
             
-            if ( $locator->inModule() )
+            if ( $locator->inModule() && get_module_data($locator->getModuleLabel() ) )
             {
                 $nameParts[] = get_module_data($locator->getModuleLabel(), 'moduleName' );
             }
@@ -468,21 +469,6 @@ class ResourceLinkerResolver
                 $resolver = $this->loadModuleResolver( $locator->getModuleLabel() );
                 $nameParts[] = $resolver->getResourceName( $locator );
             }
-            
-            /* elseif ( $locator->inGroup() )
-            {
-                $resolver = new GroupResolver;
-                return $resolver->getResourceName( $locator );
-            }
-            elseif ( $locator->inCourse() )
-            {
-                $resolver = new CourseResolver;
-                return $resolver->getResourceName( $locator );
-            }
-            else
-            {
-                return false; 
-            }*/
             
             return implode(' > ', $nameParts);
         }
@@ -537,7 +523,7 @@ interface ModuleResourceResolver
     public function getResourceName( ResourceLocator $locator );
 }
 
-class CLEXT_ResourceResolver implements ModuleResourceResolver
+class CLEXT_Resolver implements ModuleResourceResolver
 {
     public function resolve( ResourceLocator $locator )
     {
@@ -552,9 +538,9 @@ class CLEXT_ResourceResolver implements ModuleResourceResolver
         
         foreach ( $externalCourseToolList as $externalCourseTool )
         {
-            if ( $externalCourseTool['script_url'] == $url )
+            if ( $externalCourseTool['url'] == $url )
             {
-                return $externalCourseTool['script_name'];
+                return $externalCourseTool['name'];
             }
         }
         
