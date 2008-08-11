@@ -331,8 +331,10 @@ class ClarolineLocalAuthDriver extends AbstractAuthDriver
         {
             $this->password = md5($password);
         }
-        
-        $this->password = $password;
+        else
+        {
+            $this->password = $password;
+        }
     }
     
     public function authenticate()
