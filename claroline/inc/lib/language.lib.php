@@ -184,7 +184,6 @@ class language
         $_lang = array();
 
         if ( is_null($language) ) $language = language::current_language();
-        // if ( is_null($mode) )     $mode = get_conf('CLAROLANG');
 
         /*----------------------------------------------------------------------
           Common language properties and generic expressions
