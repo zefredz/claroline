@@ -677,7 +677,7 @@ interface ResourceNavigator
  */
 interface ModuleResourceNavigator extends ResourceNavigator
 {
-    public function getCurrentResourceId( $params = array() );
+    public function getResourceId( $params = array() );
 }
 
 /**
@@ -691,7 +691,7 @@ class CLHOME_Navigator implements ModuleResourceNavigator
         // should not be called
     }
     
-    public function getCurrentResourceId( $params = array() )
+    public function getResourceId( $params = array() )
     {
         if ( ! isset($params['id']) )
         {
