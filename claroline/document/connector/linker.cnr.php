@@ -90,8 +90,20 @@ class CLDOC_Resolver implements ModuleResourceResolver
  *
  * @author Fallier Renaud <renaud.claroline@gmail.com>
  */
-class CLDOC_Navigator implements ResourceNavigator
+class CLDOC_Navigator implements ModuleResourceNavigator
 {
+    public function getResourceId( $params = array() )
+    {
+        if ( empty( $params ) || !isset($params['path']) )
+        {
+            return false;
+        }
+        else
+        {
+            return $params['path'];
+        }
+    }
+    
     public function getResourceList( ResourceLocator $locator )
     {
         // in a course
