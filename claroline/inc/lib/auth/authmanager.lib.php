@@ -21,7 +21,7 @@ class AuthManager
 {
     public function authenticate( $username, $password )
     {
-        if ( $authSource = self::getAuthSource( $username ) )
+        if ( !empty($username) && $authSource = self::getAuthSource( $username ) )
         {
             Console::debug("Found authentication source {$authSource}");
             $driverList = array( AuthDriverManager::getDriver( $authSource ) );
@@ -34,7 +34,9 @@ class AuthManager
         
         foreach ( $driverList as $driver )
         {
-            if ( $driver->authenticate( $username, $password ) )
+            $driver->setAuthenticationParams( $username, $password );
+            
+            if ( $driver->authenticate() )
             {
                 if ( $uid = self::registered( $username, $authSource ) )
                 {
@@ -135,8 +137,7 @@ class AuthDriverManager
     {
         // todo : get from config
         self::$drivers = array(
-            'claroline' => new ClarolineLocalAuthDriver(),
-            'clarocrypted' => new ClarolineLocalAuthDriver(true)
+            'claroline' => new ClarolineLocalAuthDriver()
         );
         
         if ( ! file_exists ( get_path('rootSys') . 'platform/conf/extauth' ) )
@@ -163,20 +164,43 @@ class AuthDriverManager
                     }
                     else
                     {
-                        if ( class_exists( $driverConfig['driver']['class'] ) )
+                        $driverClass = $driverConfig['driver']['class'];
+                        
+                        if ( class_exists( $driverClass ) )
                         {
-                            $driverClass = $driverConfig['driver']['class'];
-                            
                             self::$drivers[$driverConfig['driver']['authSourceName']] = new $driverClass( $driverConfig );
                         }
                         else
                         {
-                            if ( claro_debug_mode() )
-                            {
-                                throw new Exception("Driver class {$driverClass} not found");
-                            }
+                            $driverPath = dirname(__FILE__). '/drivers/' . strtolower($driverClass).'.lib.php';
                             
-                            Console::error( "Driver class {$driverClass} not found" );
+                            if ( file_exists($driverPath) )
+                            {
+                                require_once $driverPath;
+                                
+                                if ( class_exists( $driverClass ) )
+                                {
+                                    self::$drivers[$driverConfig['driver']['authSourceName']] = new $driverClass( $driverConfig );
+                                }
+                                else
+                                {
+                                    if ( claro_debug_mode() )
+                                    {
+                                        throw new Exception("Driver class {$driverClass} not found");
+                                    }
+                                    
+                                    Console::error( "Driver class {$driverClass} not found" );
+                                }
+                            }
+                            else
+                            {
+                                if ( claro_debug_mode() )
+                                {
+                                    throw new Exception("Driver class {$driverClass} not found");
+                                }
+                                
+                                Console::error( "Driver class {$driverClass} not found" );
+                            }
                         }
                     }
                 }
@@ -187,12 +211,31 @@ class AuthDriverManager
     }
 }
 
-abstract class AbstractAuthDriver
+interface AuthDriver
+{
+    public function setAuthenticationParams( $username, $password );
+    public function authenticate();
+    public function update( $uid );
+    public function register();
+    public function getUSerData();
+    public function getUser();
+    public function getUserId();
+    public function getAuthSource();
+}
+
+abstract class AbstractAuthDriver implements AuthDriver
 {
     protected $userId = null;
     protected $extAuthIgnoreUpdateList = array();
+    protected $username = null, $password = null;
     
-    abstract public function getUserData();
+    // abstract public function getUserData();
+    
+    public function setAuthenticationParams( $username, $password )
+    {
+        $this->username = $username;
+        $this->password = $password;
+    }
     
     protected function registerUser( $userAttrList, $uid = null )
     {
@@ -275,20 +318,38 @@ class ClarolineLocalAuthDriver extends AbstractAuthDriver
 {
     protected $alwaysCrypted = false;
     
-    public function __construct( $alwaysCrypted = false )
+    public function getAuthSource()
     {
-        $this->alwaysCrypted = $alwaysCrypted;
+        return 'claroline';
     }
     
-    public function authenticate( $username, $password )
+    public function setAuthenticationParams( $username, $password )
     {
+        $this->username = $username;
+        
+        if ( get_conf('userPasswordCrypted',false) )
+        {
+            $this->password = md5($password);
+        }
+        
+        $this->password = $password;
+    }
+    
+    public function authenticate()
+    {
+        if ( empty( $this->username ) || empty( $this->password ) )
+        {
+            return false;
+        }
+        
         $tbl = claro_sql_get_main_tbl();
         
         $sql = "SELECT user_id, username, password, authSource\n"
             . "FROM `{$tbl['user']}`\n"
             . "WHERE "
             . ( get_conf('claro_authUsernameCaseSensitive',true) ? 'BINARY ' : '')
-            . "username = ". Claroline::getDatabase()->quote($username)
+            . "username = ". Claroline::getDatabase()->quote($this->username) . "\n"
+            . "AND authSource = 'claroline'"
             ;
             
         $userDataList = Claroline::getDatabase()->query( $sql );
@@ -297,12 +358,7 @@ class ClarolineLocalAuthDriver extends AbstractAuthDriver
         {
             foreach ( $userDataList as $userData )
             {
-                if ( $this->alwaysCrypted || get_conf('userPasswordCrypted',false) )
-                {
-                    $password = md5($password);
-                }
-                
-                if ( $password === $userData['password'] )
+                if ( $this->password === $userData['password'] )
                 {
                     $this->userId = $userData['user_id'];
                     return true;
@@ -330,7 +386,7 @@ class ClarolineLocalAuthDriver extends AbstractAuthDriver
         return !empty($userId);
     }
     
-    public function update()
+    public function update( $uid )
     {
         return $this->getUserId();
     }
@@ -367,10 +423,20 @@ class PearAuthDriver extends AbstractAuthDriver
         $this->extAuthIgnoreUpdateList = $extAuthIgnoreUpdateList;
     }
     
-    public function authenticate( $username, $password )
+    public function getAuthSource()
     {
-        $_POST['username'] = $username;
-        $_POST['password'] = $password;
+        return $this->authSourceName;
+    }
+    
+    public function authenticate()
+    {
+        if ( empty( $this->username ) || empty( $this->password ) )
+        {
+            return false;
+        }
+        
+        $_POST['username'] = $this->username;
+        $_POST['password'] = $this->password;
         
         if ( $this->authType === 'LDAP')
         {
