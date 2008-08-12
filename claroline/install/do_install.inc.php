@@ -381,7 +381,6 @@ if ($runfillMainDb && $runfillStatsDb)
                                'CLFRM',
                                'CLGRP',
                                'CLUSR',
-                               'CLCHT',
                                'CLWIKI');
     
     if ( file_exists( get_path('rootSys') . 'module' ) )
