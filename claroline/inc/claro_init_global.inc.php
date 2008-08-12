@@ -189,7 +189,8 @@ if ( isset( $tlabelReq ) && !empty( $tlabelReq ) )
         }
     }
     
-    if ( claro_is_in_a_group() 
+    if ( $tlabelReq !== 'CLGRP'
+        && claro_is_in_a_group() 
         && ( !claro_is_group_allowed() 
         || ( !claro_is_allowed_to_edit()
             && !is_tool_activated_in_groups($_cid, $tlabelReq) ) ) )
