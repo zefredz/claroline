@@ -450,16 +450,16 @@ function claro_html_progress_bar ($progress, $factor)
     $progressBar = '<img src="' . get_icon_url('bar_1') . '" width="1" height="12" alt="" />';
 
     if($progress != 0)
-    $progressBar .= '<img src="' . get_icon_url('bar_1u') . '" width="' . $barwidth . '" height="12" alt="" />';
+    $progressBar .= '<img src="' . get_icon_url('bar_1u') . '" style="width:' . $barwidth . 'px; height: 12px;" alt="" />';
     // display 100% bar
 
     if($progress!= 100 && $progress != 0)
-    $progressBar .= '<img src="' . get_icon_url('bar_1m') . '" width="1" height="12" alt="" />';
+    $progressBar .= '<img src="' . get_icon_url('bar_1m') . '" style="width: 1px; height: 12px;" alt="" />';
 
     if($progress != 100)
-    $progressBar .= '<img src="' . get_icon_url('bar_1r') . '" width="' . ($maxSize - $barwidth) . '" height="12" alt="" />';
+    $progressBar .= '<img src="' . get_icon_url('bar_1r') . '" style="width: ' . ($maxSize - $barwidth) . 'px; height: 12px;" alt="" />';
     // end of the bar
-    $progressBar .=  '<img src="' . get_icon_url('bar_1') . '" width="1" height="12" alt="" />';
+    $progressBar .=  '<img src="' . get_icon_url('bar_1') . '" style="width:1px; height:12px;" alt="" />';
 
     return $progressBar;
 }
