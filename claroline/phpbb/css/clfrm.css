@@ -2,6 +2,7 @@
 {
     border: 1px #ccc solid;
     margin: 2px;
+    background: transparent url('../img/post_bg.png') repeat-y top left;
 }
 
 .threadPostIcon
@@ -12,8 +13,6 @@
 .threadPostInfo
 {
 	width: 200px;
-	background-color: #eee;
-	border-right: 1px #CCC solid;
 	float: left;
 	padding: 3px;
 	height: 100%;
@@ -30,5 +29,4 @@
     align: top;
     margin-left: 210px;
     padding: 3px;
-    background-color: #fff;
 }
