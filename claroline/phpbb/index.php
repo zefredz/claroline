@@ -142,32 +142,36 @@ foreach ( $categories as $this_category )
     if($is_allowedToEdit)
     {
         echo '<div style="float:right">'
-        .    '<a href="' . $_SERVER['PHP_SELF']
-        .    '?cmd=rqEdCat&amp;catId=' . $this_category['cat_id'] . '">'
+        .    '<a href="' . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+        .    '?cmd=rqEdCat&amp;catId=' . $this_category['cat_id'])) . '">'
         .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Edit') . '" />'
         .    '</a>'
         .    '&nbsp;'
         ;
 
         if ( $this_category['cat_id'] != GROUP_FORUMS_CATEGORY )
-        echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelCat&amp;catId='.$this_category['cat_id'].'" '
-        .    'onclick="return confirm_delete(\''. clean_str_for_javascript($this_category['cat_title']).'\');" >'
-        .    '<img src="' . get_icon_url('delete') . '" alt="'.get_lang('Delete').'" />'
-        .    '</a>'
-        .    '&nbsp;'
-        ;
+        {
+            echo '<a href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=exDelCat&amp;catId='.$this_category['cat_id'])).'" '
+            .    'onclick="return confirm_delete(\''. clean_str_for_javascript($this_category['cat_title']).'\');" >'
+            .    '<img src="' . get_icon_url('delete') . '" alt="'.get_lang('Delete').'" />'
+            .    '</a>'
+            .    '&nbsp;'
+            ;
+        }
 
         if ( $categoryIterator > 1)
-        echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exMvUpCat&amp;catId='.$this_category['cat_id'].'">'
-        .    '<img src="' . get_icon_url('move_up') . '" alt="'.get_lang('Move up').'" />'
-        .    '</a>'
-        ;
+        {
+            echo '<a href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=exMvUpCat&amp;catId='.$this_category['cat_id'])).'">'
+            .    '<img src="' . get_icon_url('move_up') . '" alt="'.get_lang('Move up').'" />'
+            .    '</a>'
+            ;
+        }
 
         if ( $categoryIterator < $total_categories)
         {
-            echo '<a href="' . $_SERVER['PHP_SELF']
+            echo '<a href="' . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
             .    '?cmd=exMvDownCat'
-            .    '&amp;catId=' . $this_category['cat_id'] . '">'
+            .    '&amp;catId=' . $this_category['cat_id'])) . '">'
             .    '<img src="' . get_icon_url('move_down') . '" alt="' . get_lang('Move down') . '" />'
             .    '</a>'
             ;
@@ -182,7 +186,7 @@ foreach ( $categories as $this_category )
     if ( $this_category['cat_id'] == GROUP_FORUMS_CATEGORY)
     {
         echo '&nbsp;'
-        .    '<a href="' . get_module_url('CLGRP') . '/group.php">'
+        .    '<a href="' . htmlspecialchars(Url::Contextualize(get_module_url('CLGRP') . '/group.php')).'">'
         .    '<img src="' . get_icon_url('group') . '" alt="' . get_lang('Groups') . '" />'
         .    '</a>'
         ;
@@ -277,14 +281,14 @@ foreach ( $categories as $this_category )
                 || ! $is_groupPrivate || $is_forumAdmin
                 )
                 {
-                    echo '<a href="viewforum.php?gidReq=' . $group_id
-                    .    '&amp;forum=' . $forum_id . '">'
+                    echo '<a href="'. htmlspecialchars(Url::Contextualize(get_module_url('CLFRM').'/viewforum.php?gidReq=' . $group_id
+                    .    '&amp;forum=' . $forum_id  )). '">'
                     .    $forum_name
                     .    '</a>' . "\n"
 
                     .    '&nbsp;' . "\n"
 
-                    .    '<a href="' . get_module_url('CLGRP') . '/group_space.php?gidReq=' . $group_id . '">'
+                    .    '<a href="' . htmlspecialchars(Url::Contextualize(get_module_url('CLGRP') . '/group_space.php?gidReq=' . $group_id )) . '">'
                     .    '<img src="' . get_icon_url('group') .  '" alt="' . get_lang('Group area') . '" />'
                     .    '</a>' . "\n"
                     ;
@@ -306,7 +310,7 @@ foreach ( $categories as $this_category )
             }
             else
             {
-                echo '<a href="viewforum.php?forum=' . $forum_id . '">'
+                echo '<a href="'.htmlspecialchars(Url::Contextualize(get_module_url('CLFRM') . '/viewforum.php?forum=' . $forum_id )) . '">'
                 .    $forum_name
                 .    '</a> ';
             }
@@ -343,7 +347,7 @@ foreach ( $categories as $this_category )
 
                 if ( is_null($group_id ) )
                 {
-                    echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=rqEdForum&amp;forumId='.$forum_id.'">'
+                    echo '<a href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=rqEdForum&amp;forumId='.$forum_id)).'">'
                     .    '<img src="' . get_icon_url('edit') . '" alt="'.get_lang('Edit').'" />'
                     .    '</a>'
                     ;
@@ -356,7 +360,7 @@ foreach ( $categories as $this_category )
                 echo '</td>'
 
                 .    '<td align="center">'
-                .    '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exEmptyForum&amp;forumId='.$forum_id.'" '
+                .    '<a href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=exEmptyForum&amp;forumId='.$forum_id)).'" '
                 .    'onclick="return confirm_empty(\''. clean_str_for_javascript($forum_name).'\');" >'
                 .    '<img src="' . get_icon_url('sweep') . '" alt="'.get_lang('Empty').'" />'
                 .    '</a>'
@@ -366,7 +370,7 @@ foreach ( $categories as $this_category )
 
                 if ( is_null($group_id ) )
                 {
-                    echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelForum&amp;forumId='.$forum_id.'" '
+                    echo '<a href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=exDelForum&amp;forumId='.$forum_id)).'" '
                     .    'onclick="return confirm_delete(\''. clean_str_for_javascript($forum_name).'\');" >'
                     .    '<img src="' . get_icon_url('delete') . '" alt="'.get_lang('Delete').'" />'
                     .    '</a>';
@@ -379,7 +383,7 @@ foreach ( $categories as $this_category )
 
                 if ($forumIterator > 1)
                 {
-                    echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exMvUpForum&amp;forumId='.$forum_id.'">'
+                    echo '<a href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=exMvUpForum&amp;forumId='.$forum_id)).'">'
                     .    '<img src="' . get_icon_url('move_up') . '" alt="'.get_lang('Move up').'" />'
                     .    '</a>';
                 }
@@ -391,7 +395,7 @@ foreach ( $categories as $this_category )
 
                 if ( $forumIterator < $this_category['forum_count'] )
                 {
-                    echo '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exMvDownForum&amp;forumId='.$forum_id.'">'
+                    echo '<a href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=exMvDownForum&amp;forumId='.$forum_id)).'">'
                     .    '<img src="' . get_icon_url('move_down') . '" alt="'.get_lang('Move down').'" />'
                     .    '</a>';
                 }

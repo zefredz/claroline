@@ -87,7 +87,7 @@ if ( $forumSettingList )
 
         $topicLister = new topicLister($forum_id, $start, get_conf('topics_per_page') );
         $topicList   = $topicLister->get_topic_list();
-        $pagerUrl = 'viewforum.php?forum=' . $forum_id . '&gidReq=' . (int) claro_get_current_group_id();
+        $pagerUrl = htmlspecialchars(Url::Contextualize( get_module_url('CLFRM') . '/viewforum.php?forum=' . $forum_id ) );
     }
 }
 else
@@ -213,9 +213,9 @@ else
             ;
 
             $topic_title = $thisTopic['topic_title'];
-            $topic_link  = 'viewtopic.php?topic='.$thisTopic['topic_id']
+            $topic_link  = htmlspecialchars(Url::Contextualize( get_module_url('CLFRM') . '/viewtopic.php?topic='.$thisTopic['topic_id']
                         .  (is_null($forumSettingList['idGroup']) ?
-                           '' : '&amp;gidReq ='.$forumSettingList['idGroup']);
+                           '' : '&amp;gidReq ='.$forumSettingList['idGroup']) ));
 
             echo '&nbsp;'
             .    '<a href="' . $topic_link . '">' . $topic_title . '</a>'

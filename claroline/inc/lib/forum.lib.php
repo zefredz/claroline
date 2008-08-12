@@ -899,20 +899,24 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
         case 'viewforum':
 
             $toolList[] =
-            claro_html_cmd_link( 'newtopic.php?forum=' . $forum_id . claro_url_relay_context('&amp;')
-                               , '<img src="' . get_icon_url('topic') . '" alt="" /> '
-                               . get_lang('New topic')
-                               );
+            claro_html_cmd_link(
+                htmlspecialchars(Url::Contextualize( get_module_url('CLFRM')
+                    . '/newtopic.php?forum=' . $forum_id ) )
+                , '<img src="' . get_icon_url('topic') . '" alt="" /> '
+                . get_lang('New topic')
+                );
             break;
 
         case 'viewtopic':
 
 
             $toolList[] =
-            claro_html_cmd_link( 'reply.php?topic=' . $topic_id . '&amp;forum=' . $forum_id . claro_url_relay_context('&amp;')
-                               , '<img src="' . get_icon_url('reply') . '" alt="' . get_lang('Reply') . '" /> '
-                               . get_lang('Reply')
-                               );
+            claro_html_cmd_link(
+                htmlspecialchars(Url::Contextualize( get_module_url('CLFRM')
+                    . '/reply.php?topic=' . $topic_id . '&amp;forum=' . $forum_id ))
+               , '<img src="' . get_icon_url('reply') . '" alt="' . get_lang('Reply') . '" /> '
+               . get_lang('Reply')
+               );
 
             break;
 
@@ -924,28 +928,30 @@ function disp_forum_toolbar($pagetype, $forum_id, $cat_id = 0, $topic_id = 0)
             {
 
                 $toolList[] =
-                claro_html_cmd_link( $_SERVER['PHP_SELF']
-                                   . '?cmd=rqMkCat'
-                                   . claro_url_relay_context('&amp;')
-                                   , get_lang('Create category')
-                                   );
+                claro_html_cmd_link(
+                    htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                   . '?cmd=rqMkCat' ))
+                   , get_lang('Create category')
+                   );
 
                 $toolList[] =
-                claro_html_cmd_link( $_SERVER['PHP_SELF']
-                                   . '?cmd=rqMkForum'
-                                   . claro_url_relay_context('&amp;')
-                                   , '<img src="' . get_icon_url('forum') . '" alt="" /> '
-                          .  get_lang('Create forum')
-                                   );
+                claro_html_cmd_link(
+                    htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                    . '?cmd=rqMkForum' ))
+                    , '<img src="' . get_icon_url('forum') . '" alt="" /> '
+                    . get_lang('Create forum')
+                );
             }
             break;
     }
 
     if ( ! in_array($pagetype, array('newtopic', 'reply','editpost') ) )
-        $toolList[] = claro_html_cmd_link( 'index.php?cmd=rqSearch'
-                                         , '<img src="' . get_icon_url('search') . '" alt="" />'
-        .            get_lang('Search')
-                                         );
+        $toolList[] = claro_html_cmd_link(
+            htmlspecialchars(Url::Contextualize( get_module_url('CLFRM') . '/index.php?cmd=rqSearch' ))
+            , '<img src="' . get_icon_url('search') . '" alt="" />'
+            . get_lang('Search')
+        );
+        
     return $toolList;
 }
 
@@ -954,13 +960,13 @@ function disp_search_box()
     if (isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'rqSearch' )
     {
         return claro_html_message_box(
-        '<form action="viewsearch.php" method="post">'
-        .    claro_form_relay_context()
-        .            get_lang('Search') . ' : <br />'
-        .            '<input type="text" name="searchPattern" /><br />'
-        .            '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp; '
-        .            claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
-        .            '</form>'
+            '<form action="'.htmlspecialchars(get_module_url('CLFRM') . '/viewsearch.php').'" method="post">'
+            . claro_form_relay_context()
+            . get_lang('Search') . ' : <br />'
+            . '<input type="text" name="searchPattern" /><br />'
+            . '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp; '
+            . claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])), get_lang('Cancel'))
+            . '</form>'
         );
     }
     else
@@ -994,22 +1000,29 @@ function disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_id=0, $
                 break;
 
             case 'newtopic' :
-                $bc->appendNode( new BreadCrumbsNode( get_lang('New topic') ) );
+                $bc->appendNode( new BreadCrumbsNode(
+                    get_lang('New topic')
+                ));
                 break ;
 
             case 'editpost' :
-                $bc->appendNode( new BreadCrumbsNode( $topic_name,
-                    get_module_url('CLFRM') . '/viewtopic.php?topic=' . $topic_id
-                        . (claro_is_in_a_group()
-                            ? '&amp;gidReq=' . claro_get_current_group_id()
-                            : '') ) );
-                $bc->appendNode( new BreadCrumbsNode( get_lang('Edit post') ) );
+                $bc->appendNode( new BreadCrumbsNode(
+                    $topic_name,
+                    htmlspecialchars(Url::Contextualize( get_module_url('CLFRM')
+                        . '/viewtopic.php?topic=' . $topic_id ) )
+                ));
+                $bc->appendNode( new BreadCrumbsNode(
+                    get_lang('Edit post')
+                ));
                 break ;
 
             case 'reply' :
-                $bc->appendNode( new BreadCrumbsNode( $topic_name,
-                    get_module_url('CLFRM') . '/viewtopic.php?topic=' . $topic_id
-                        . (claro_is_in_a_group() ? '&amp;gidReq=' . claro_get_current_group_id() : '') ) );
+                $bc->appendNode( new BreadCrumbsNode(
+                    $topic_name,
+                    htmlspecialchars(Url::Contextualize(
+                        get_module_url('CLFRM')
+                        . '/viewtopic.php?topic=' . $topic_id ) )
+                ));
 
                 $bc->appendNode( new BreadCrumbsNode( get_lang('Reply') ) );
                 break ;
@@ -1046,25 +1059,26 @@ function forum_group_tool_list($gid, $active = true)
     // group space links
 
     $toolList[] =
-    claro_html_cmd_link( '../group/group_space.php?gidReq=' . (int) $gid
-                       , '<img src="' . get_icon_url('group') . '" alt="" />&nbsp;'
+    claro_html_cmd_link(
+        htmlspecialchars(Url::Contextualize( get_module_url('CLGRP').'/group_space.php' ))
+        , '<img src="' . get_icon_url('group') . '" alt="" />&nbsp;'
         . get_lang('Group area')
-                       );
+    );
 
 
     foreach ($groupToolList as $groupTool)
     {
         if ('CLFRM' !== $groupTool['label'])
         $toolList[] =
-        claro_html_cmd_link( get_module_url($groupTool['label'])
-                           . '/' . $groupTool['url']
-                           . claro_url_relay_context('&amp;')
-                           . '?gidReq=' . (int) $gid
-                           , '<img src="' . get_icon_url($groupTool['icon']) . '" alt="" />'
-                           . '&nbsp;'
-                           . claro_get_tool_name ($groupTool['label'])
-                           , array('class' => $groupTool['visibility'] ? 'visible':'invisible')
-                           );
+        claro_html_cmd_link(
+            htmlspecialchars(Url::Contextualize(
+            get_module_url($groupTool['label'])
+            . '/' . $groupTool['url'] ))
+            , '<img src="' . get_icon_url($groupTool['icon']) . '" alt="" />'
+            . '&nbsp;'
+            . claro_get_tool_name ($groupTool['label'])
+            , array('class' => $groupTool['visibility'] ? 'visible':'invisible')
+        );
     }
 
     return $toolList;
@@ -1650,4 +1664,3 @@ function get_group_forum_list ($groupId)
     return claro_sql_query_fetch_all_rows($sql);
 
 }
-?>
