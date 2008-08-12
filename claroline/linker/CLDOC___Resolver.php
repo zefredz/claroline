@@ -103,12 +103,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
                             if ( array_key_exists( 'team', $elementCRLArray ) )
                             {
-                                $context['gid'] = $elementCRLArray["team"];
+                                $context[CLARO_CONTEXT_GROUP] = $elementCRLArray["team"];
                             }
 
                             if ( array_key_exists( 'course_sys_code', $elementCRLArray ) )
                             {
-                                $context['cid'] = $elementCRLArray["course_sys_code"];
+                                $context[CLARO_CONTEXT_COURSE] = $elementCRLArray["course_sys_code"];
                             }
 
                             $file = '/' . $elementCRLArray['resource_id'];
