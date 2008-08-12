@@ -253,6 +253,11 @@ if ( is_null( $cidReset ) )
     {
         $cidReset = true;
     }
+    elseif ( !isset( $cidReq )
+        && isset( $_SESSION['_cid'] ) )
+    {
+        $cidReset = true;
+    }
 }
 
 if ( is_null( $gidReset ) )
@@ -265,6 +270,11 @@ if ( is_null( $gidReset ) )
     }
     elseif ( isset( $gidReq )
         && ! isset( $_SESSION['_gid'] ) )
+    {
+        $gidReset = true;
+    }
+    elseif ( ! isset( $gidReq )
+        && isset( $_SESSION['_gid'] ) )
     {
         $gidReset = true;
     }
