@@ -26,11 +26,11 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die('---');
 
 $stable = false;
-$is_upgrade_available = true;
+$is_upgrade_available = false;
 
 // var version_db  max. 10 chars
 
-$new_version = '1.9.cvs';
+$new_version = '1.9-beta2';
 $new_version_branch = '1.9';
 
 if (!$is_upgrade_available)
