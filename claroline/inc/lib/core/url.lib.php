@@ -116,15 +116,19 @@ class Url
      * Add a list of parameters to the current url
      * @param   array paramList associative array of parameters name=>value
      */
-    public function addParamList( $paramList )
+    public function addParamList( $paramList, $overwrite = false )
     {
         if ( !empty( $paramList ) && is_array( $paramList ) )
         {
             foreach ( $paramList as $name => $value )
             {
-                if ( !empty( $value ) )
+                if ( !$overwrite && !empty( $value ) )
                 {
                     $this->addParam( $name, $value );
+                }
+                elseif ( $overwrite )
+                {
+                    $this->replaceParam( $name, $value, true );
                 }
             }
         }
@@ -137,7 +141,10 @@ class Url
      */
     public function addParam( $name, $value )
     {
-        $this->url['query'][$name] = $value;
+        if ( !array_key_exists($name, $this->url['query'] ) )
+        {
+            $this->url['query'][$name] = $value;
+        }
     }
 
     /**
@@ -149,7 +156,7 @@ class Url
      */
     public function replaceParam( $name, $value, $addIfMissing = false )
     {
-        if ( array_key_exists( $name, $this->url['query'] ) )
+        if ( $addIfMissing || array_key_exists( $name, $this->url['query'] ) )
         {
             $this->addParam( $name, $value );
             return true;
@@ -234,11 +241,18 @@ class Url
         return $url;
     }
     
-    public static function Contextualize( $url )
+    public static function Contextualize( $url, $context = null )
     {
         $urlObj = new self($url);
         
-        $urlObj->relayCurrentContext();
+        if ( empty( $context ) )
+        {
+            $urlObj->relayCurrentContext();
+        }
+        else
+        {
+            $urlObj->relayContext( $context );
+        }
         
         return $urlObj->toUrl();
     }
