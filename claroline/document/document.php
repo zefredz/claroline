@@ -1190,7 +1190,7 @@ if ($curDirPath == '/' || $curDirPath == '\\' || strstr($curDirPath, '..'))
 
 if ( !file_exists($baseWorkDir.'/'.$curDirPath) || ! is_dir($baseWorkDir.'/'.$curDirPath) )
 {
-    $dialogBox->error("The requested folder does not exists");
+    $dialogBox->error("The requested folder ".$baseWorkDir.'/'.$curDirPath." does not exists");
     $curDirPath = ''; // back to root directory
 }
 
@@ -1603,7 +1603,7 @@ echo claro_html_tool_title($titleElement,
             $docViewToolbar[] = '<a class="claroCmd" href="'
                  . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
                     . '?docView=files&amp;cmd=exChDir&amp;file='
-                    . rawurlencode($curDirPath) . $searchCmdUrl ))
+                    . base64_encode($curDirPath) . $searchCmdUrl ))
                  . '">'
                  . '<img src="' . get_icon_url('document') . '" alt="" />'
                  . get_lang('File list')
@@ -1787,7 +1787,7 @@ echo claro_html_tool_title($titleElement,
             $docViewToolbar[] = '<a class="claroCmd" href="'
                  . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
                     . '?docView=files&amp;cmd=exChDir&amp;file='
-                    . rawurlencode($curDirPath . $searchCmdUrl) ))
+                    . base64_encode($curDirPath) . $searchCmdUrl ))
                  . '">'
                  . '<img src="' . get_icon_url('document') . '" alt="" />' . "\n"
                  . get_lang('File list') . '</a>';
@@ -2034,7 +2034,7 @@ echo claro_html_tool_title($titleElement,
         {
             $docViewToolbar[] = '<a class="claroCmd" href="'
                  . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
-                 . '?docView=files&amp;cmd=exChDir&amp;file='. $curDirPath . $searchCmdUrl ))
+                 . '?docView=files&amp;cmd=exChDir&amp;file='. base_64_encode($curDirPath) . $searchCmdUrl ))
                  . '">'
                  . '<img src="' . get_icon_url('document') . '" alt="" />' . "\n"
                  . get_lang('File list') .'</a>';
