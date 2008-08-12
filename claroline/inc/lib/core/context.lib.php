@@ -70,7 +70,7 @@ class Claro_Context
     {
         $context = array();
         
-        if ( ( claro_is_in_a_group() && !isset($givenContext[CLARO_CONTEXT_GROUP]) )
+        /*if ( ( claro_is_in_a_group() && !isset($givenContext[CLARO_CONTEXT_GROUP]) )
             || isset($givenContext[CLARO_CONTEXT_GROUP]) )
         {
             $context['gidReset'] = 'true';
@@ -80,7 +80,7 @@ class Claro_Context
             || isset($givenContext[CLARO_CONTEXT_COURSE]) )
         {
             $context['cidReset'] = 'true';
-        }
+        }*/
         
         if ( isset($givenContext[CLARO_CONTEXT_COURSE]) )
         {

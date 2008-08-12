@@ -240,18 +240,34 @@ foreach($AllowedPhpRequestList as $thisPhpRequestName)
     }
 }
 
-if ( isset( $cidReq )
-    && isset( $_SESSION['_cid'] )
-    && $cidReq != $_SESSION['_cid'] )
+if ( is_null( $cidReset ) )
 {
-    $cidReset = true;
+    if ( isset( $cidReq )
+        && isset( $_SESSION['_cid'] )
+        && $cidReq != $_SESSION['_cid'] )
+    {
+        $cidReset = true;
+    }
+    elseif ( isset( $cidReq )
+        && !isset( $_SESSION['_cid'] ) )
+    {
+        $cidReset = true;
+    }
 }
 
-if ( isset( $gidReq )
-    && isset( $_SESSION['_gid'] )
-    && $gidReq != $_SESSION['_gid'] )
+if ( is_null( $gidReset ) )
 {
-    $gidReset = true;
+    if ( isset( $gidReq )
+        && isset( $_SESSION['_gid'] )
+        && $gidReq != $_SESSION['_gid'] )
+    {
+        $gidReset = true;
+    }
+    elseif ( isset( $gidReq )
+        && ! isset( $_SESSION['_gid'] ) )
+    {
+        $gidReset = true;
+    }
 }
 
 $login    = isset($_REQUEST['login'   ]) ? trim( $_REQUEST['login'   ] ) : null;
