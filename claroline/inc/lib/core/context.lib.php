@@ -70,17 +70,17 @@ class Claro_Context
     {
         $context = array();
         
-        /*if ( ( claro_is_in_a_group() && !isset($givenContext[CLARO_CONTEXT_GROUP]) )
+        if ( ( claro_is_in_a_group() && !isset($givenContext[CLARO_CONTEXT_GROUP]) )
             || isset($givenContext[CLARO_CONTEXT_GROUP]) )
         {
             $context['gidReset'] = 'true';
         }
         
         if ( ( claro_is_in_a_course() && !isset($givenContext[CLARO_CONTEXT_COURSE]) )
-            || isset($givenContext[CLARO_CONTEXT_COURSE]) )
+            || isset($givenContext[CLARO_CONTEXT_COURSE]))
         {
             $context['cidReset'] = 'true';
-        }*/
+        }
         
         if ( isset($givenContext[CLARO_CONTEXT_COURSE]) )
         {

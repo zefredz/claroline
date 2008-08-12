@@ -240,6 +240,7 @@ foreach($AllowedPhpRequestList as $thisPhpRequestName)
     }
 }
 
+/*
 if ( is_null( $cidReset ) )
 {
     if ( isset( $cidReq )
@@ -278,7 +279,7 @@ if ( is_null( $gidReset ) )
     {
         $gidReset = true;
     }
-}
+}*/
 
 $login    = isset($_REQUEST['login'   ]) ? trim( $_REQUEST['login'   ] ) : null;
 $password = isset($_REQUEST['password']) ? trim( $_REQUEST['password'] ) : null;
