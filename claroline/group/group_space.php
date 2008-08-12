@@ -118,7 +118,9 @@ if( isset($_REQUEST['registration']) )
 
                 $sql = "INSERT INTO `" . $tbl_group_rel_team_user . "`
                 SET `user` = " . (int) claro_get_current_user_id() . ",
-                    `team` = " . (int) claro_get_current_group_id() ;
+                    `team` = " . (int) claro_get_current_group_id()
+                    ;
+                    
                 if (claro_sql_query($sql))
                 {
                     // REFRESH THE SCRIPT TO COMPUTE NEW PERMISSIONS ON THE BASSIS OF THIS CHANGE
@@ -131,7 +133,7 @@ if( isset($_REQUEST['registration']) )
         else // Confirm reg
         {
             $dialogBox->form( get_lang('Confirm your subscription to the group &quot;<b>%group_name</b>&quot;',array('%group_name'=>claro_get_current_group_data('name'))) . "\n"
-            .          '<form action="' . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])) . '" method="post">' . "\n"
+            .          '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">' . "\n"
             .          claro_form_relay_context()
             .          '<input type="hidden" name="registration" value="1" />' . "\n"
             .          '<input type="hidden" name="doReg" value="1" />' . "\n"
@@ -327,7 +329,7 @@ if (current_user_is_allowed_to_send_message_to_current_group())
 {
     echo '<br />'.claro_html_cmd_link( htmlspecialchars(Url::Contextualize(
                             '../messaging/sendmessage.php?cmd=rqMessageToGroup&amp;' ))
-                            , get_lang("Send a message to group")
+                            , '<img src="' . get_icon_url('mail_send') . '" alt="" />' . get_lang("Send a message to group")
                             );
 }
 
@@ -380,8 +382,9 @@ if (count($tutorDataList) > 0)
             echo ' - <a href="'.htmlspecialchars(Url::Contextualize(
               '../messaging/sendMessage.php?cmd=rqMessageToUser&amp;userId=' . (int)$thisTutor['id'] ))
               . '">'
-              .    'Send a message'
-              .    '</a>'
+              // . '<img src="' . get_icon_url('mail_send') . '" alt="" />'
+              . 'Send a message'
+              . '</a>'
               ;
         }
           
@@ -421,7 +424,10 @@ if(count($groupMemberList) > 0)
             echo ' - <a href="'
                 . htmlspecialchars(Url::Contextualize(
                     '../messaging/sendMessage.php?cmd=rqMessageToUser&amp;userId=' . (int) $thisGroupMember['id'] ))
-                . '">' . get_lang('Send a message') . '</a>'
+                . '">'
+                . get_lang('Send a message')
+                // . '<img src="' . get_icon_url('mail_send') . '" alt="" />'
+                . '</a>'
                 ;
         }
         
