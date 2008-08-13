@@ -405,7 +405,7 @@ function claro_get_module_name_list($active = true)
 
     if( ! isset( $toolNameList ) )
     {
-        $toolNameList = array('CLANN' => 'Announcement'
+        $toolNameList = array('CLANN' => 'Announcements'
         ,                     'CLFRM' => 'Forums'
         ,                     'CLCAL' => 'Agenda'
         ,                     'CLCHT' => 'Chat'
