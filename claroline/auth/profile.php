@@ -45,7 +45,7 @@ include_once get_path('incRepositorySys') . '/lib/fileUpload.lib.php';
 include_once get_path('incRepositorySys') . '/lib/image.lib.php';
 include_once get_path('incRepositorySys') . '/lib/display/dialogBox.lib.php';
 
-$nameTools = get_lang('My User Account');
+$nameTools = get_lang('My user account');
 
 // define display
 define('DISP_PROFILE_FORM',__LINE__);
