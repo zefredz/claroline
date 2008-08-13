@@ -391,7 +391,7 @@ function get_lang_vars_from_file($file)
     $fileContent = file_get_contents($file);
     
     // to speed up script to not try to detect all get_lang if there is none
-    if( preg_match('/get_lang/',$fileContent) )
+    if( preg_match('/get_lang|get_block/',$fileContent) )
     {
         $languageVarList = detect_get_lang($fileContent);
         $languageVarList = array_unique($languageVarList);
@@ -439,7 +439,6 @@ function detect_get_lang($fileContent)
                 while ($i < $total_token)
                 {
                     $thisToken = $tokenList[$i];
-
                     if ( is_string($thisToken) && $thisToken == '(')
                     {
                         // bracket open - begin parsong of parameters
