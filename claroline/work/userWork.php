@@ -536,7 +536,7 @@ if( isset($_REQUEST['submitWrk']) )
             elseif( $submission->getParentId() == 0 ) // do not display an error if this a feedback (file not required)
             {
                 // if the main thing to provide is a file and that no file was sent
-                $dialogBox->error( get_lang('Field \'%name\' is required', array('%name' => get_lang('A file'))) );
+                $dialogBox->error( get_lang('Field \'%name\' is required', array('%name' => get_lang('File'))) );
                 $formCorrectlySent = false;
             }
         }
