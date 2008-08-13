@@ -1882,7 +1882,7 @@ elseif($display==DISP_DB_NAMES_SETTING_ERROR)
         if ($mainDbNameExist)
             echo '<div class="claroDialogBox boxWarning">' . "\n"
             .    '<strong>'.get_lang('Warning') . '</strong>' . "\n"
-            .    ' : '.get_lang('Database <em>%dbName</em> already exists', array('%dbName' => $dbNameForm)) . '<br />' . "\n"
+            .    ' : '.get_lang('Database <em>%dbName</em> already exists.', array('%dbName' => $dbNameForm)) . '<br />' . "\n"
             .    '<input type="checkbox" name="confirmUseExistingMainDb"  id="confirmUseExistingMainDb" value="true" '.($confirmUseExistingMainDb?'checked':'').' />' . "\n"
             .    '<label for="confirmUseExistingMainDb" >'.get_lang('I know, I want to use this database as "%fieldname"', array( '%fieldname' => get_lang('Main database'))).'</label>' . "\n"
             .    '</div>'
@@ -1890,7 +1890,7 @@ elseif($display==DISP_DB_NAMES_SETTING_ERROR)
         if ($statsDbNameExist && $dbStatsForm!=$dbNameForm)
             echo '<div class="claroDialogBox boxWarning">' . "\n"
             .    '<strong>'.get_lang('Warning').'</strong>' . "\n"
-            .    ' : '.get_lang('Database <em>%dbName</em> already exists', array('%dbName' => $dbStatsForm)) . '<br />' . "\n"
+            .    ' : '.get_lang('Database <em>%dbName</em> already exists.', array('%dbName' => $dbStatsForm)) . '<br />' . "\n"
             .    '<br />' . "\n"
             .    '<input type="checkbox" name="confirmUseExistingStatsDb"  id="confirmUseExistingStatsDb" value="true" '.($confirmUseExistingStatsDb?'checked':'') . ' />' . "\n"
             .    '<label for="confirmUseExistingStatsDb" >'.get_lang('I know, I want to use this database as "%fieldname"', array( '%fieldname' => get_lang('Tracking database'))).'</label><br />' . "\n"
