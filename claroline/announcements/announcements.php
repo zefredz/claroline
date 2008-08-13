@@ -414,7 +414,7 @@ if ( $displayButtonLine )
  */
 
 
-$nameTools = get_lang('Announcement');
+$nameTools = get_lang('Announcements');
 $noQUERY_STRING = true;
 
 // Display header
