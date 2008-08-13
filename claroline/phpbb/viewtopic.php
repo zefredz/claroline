@@ -118,8 +118,7 @@ if ($topicSettingList)
 
         if ( claro_is_user_authenticated() )  //anonymous user do not have this function
         {
-            $notification_bloc = '<div style="float: right;">' . "\n"
-            . '<span class="claroCmd">';
+            $notification_bloc = '<span style="float: right;" class="claroCmd">';
 
             if ( is_topic_notification_requested($topic_id, claro_get_current_user_id()) )   // display link NOT to be notified
             {
@@ -143,8 +142,7 @@ if ($topicSettingList)
                 $notification_bloc .= '</a>';
             }
 
-            $notification_bloc .= '</small>' . "\n"
-            . '</div>' . "\n";
+            $notification_bloc .= '</span>' . "\n";
         } //end not anonymous user
     }
 }
