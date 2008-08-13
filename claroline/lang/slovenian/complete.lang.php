@@ -613,7 +613,6 @@ $_lang['PeriodHourShort'] = 'h.';
 $_lang['PersonalCourseList'] = 'Osebni seznam teèajev';
 $_lang['Phone'] = 'Telefon';
 $_lang['Platform'] = 'Sistem';
-$_lang['Platform administrator'] = 'Skrbnik sistema';
 $_lang['Platform statistics'] = 'Statistike sistema';
 $_lang['Please check that your campus URL is reachable from the internet.'] = 'Prosim preverite, ali je URL va¹ega kampusa dostopen iz Interneta.';
 $_lang['Please choose a good answer'] = 'Izberite dober odgovor';

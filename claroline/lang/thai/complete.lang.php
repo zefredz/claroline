@@ -1,5 +1,4 @@
 <?php 
-$_lang[' Main settings'] = ' หน้าหลักศูนย์รวมการตั้งค่าเว็ปไซท์';
 $_lang['%1\$s by %2\$s'] = '%1$s โดย %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s แก้ไขเมื่อ %2$s by %3$s';
 $_lang['%delay ago'] = '%delay ที่ผ่านมา';
@@ -806,7 +805,6 @@ $_lang['Phone : %phone_number'] = 'โทรศัพท์ : %phone_number';
 $_lang['Platform'] = 'ระบบ';
 $_lang['Platform Courses'] = 'วิชาที่มีในระบบ';
 $_lang['Platform Settings'] = 'ตั้งค่าระบบ';
-$_lang['Platform administrator'] = 'ผู้จัดการระบบ';
 $_lang['Platform language'] = 'ภาษาหลักของเว็ปไซท์';
 $_lang['Platform local path '] = 'เส้นทางที่เก็บไฟล์ระบบ';
 $_lang['Platform logo url'] = 'ที่อยู่ url ไฟล์ภาพสัญลักษณ์(Logo)ของเว็ปไซท์';

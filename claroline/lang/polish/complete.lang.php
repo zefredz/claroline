@@ -1,5 +1,4 @@
 <?php 
-$_lang[' Main settings'] = 'Ustawienia g³ówne';
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = 'rozmiar katalogu kursu (zawiera Claroline i kosz w starych systemach)';
 $_lang['%1\$s by %2\$s'] = '%1\$s przez %2\$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1\$s zmodyfikowane %2\$s przez %3\$s';
@@ -74,7 +73,6 @@ $_lang['Add a user'] = 'Dodaj u¿ytkownika';
 $_lang['Add a user list'] = 'Dodaj listê u¿ytkowników';
 $_lang['Add a user list in class'] = 'Dodaj listê u¿ytkowników klasy';
 $_lang['Add a user list in course'] = 'Dodaj listê u¿ytkowników kursu';
-$_lang['Add addtionnal tools in the SDK section of the platform administration.'] = 'Dodawanie dodatkowych narzêdzi w sekcji SDK administracji platformy';
 $_lang['Add an event'] = 'Dodaj termin';
 $_lang['Add an exercise'] = 'Wstaw moje æwiczenie';
 $_lang['Add announcement'] = 'Dodaj og³oszenie';
@@ -1071,7 +1069,6 @@ $_lang['Phone : %phone_number'] = 'Telefon: %phone_number';
 $_lang['Platform'] = 'Platforma';
 $_lang['Platform Courses'] = 'Dostêpne kursy';
 $_lang['Platform Settings'] = 'Ustawienia platformy';
-$_lang['Platform administrator'] = 'Administrator platformy';
 $_lang['Platform language'] = 'Jêzyk platformy';
 $_lang['Platform local path '] = 'Lokalna ¶cie¿ka platformy';
 $_lang['Platform logo url'] = 'URL logo platformy';

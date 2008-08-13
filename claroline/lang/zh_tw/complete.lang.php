@@ -609,7 +609,6 @@ $_lang['PeriodHourShort'] = '小時';
 $_lang['PersonalCourseList'] = '個人課程列表';
 $_lang['Phone'] = '電話';
 $_lang['Platform'] = '平台';
-$_lang['Platform administrator'] = '平台管理者';
 $_lang['Platform statistics'] = '平台統計';
 $_lang['Please check that your campus URL is reachable from the internet.'] = '請檢查您的校園連結是否能通過因特網訪問。';
 $_lang['Please choose a good answer'] = '請選擇一個正確答案';

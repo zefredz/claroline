@@ -520,7 +520,6 @@ $_lang['Period'] = 'Period';
 $_lang['PersonalCourseList'] = 'Popis predmeta na koje je korisnik prijavljen';
 $_lang['Phone'] = 'Telefon';
 $_lang['Platform'] = 'Sustav';
-$_lang['Platform administrator'] = 'Administrator sustava';
 $_lang['Platform statistics'] = 'Statistike sustava';
 $_lang['Please choose a good answer'] = 'Odaberite ispravni odgovor';
 $_lang['Please confirm your choice'] = 'Molimo Vas da potvrdite odabir';

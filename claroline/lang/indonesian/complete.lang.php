@@ -614,7 +614,6 @@ $_lang['PeriodHourShort'] = 'j.';
 $_lang['PersonalCourseList'] = 'Daftar mata kuliah pribadi';
 $_lang['Phone'] = 'Telepon';
 $_lang['Platform'] = 'Platform';
-$_lang['Platform administrator'] = 'Administrasi Platform';
 $_lang['Platform statistics'] = 'Statistik situs elearning';
 $_lang['Please check that your campus URL is reachable from the internet.'] = 'Silahkan periksa apakah URL kampus Anda dapat diakses dari Internet.';
 $_lang['Please choose a good answer'] = 'Silahkan pilih sebuah jawaban yang tepat';

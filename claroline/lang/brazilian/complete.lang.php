@@ -525,7 +525,6 @@ $_lang['Period'] = 'Período';
 $_lang['PersonalCourseList'] = 'Lista de cursos pessoal';
 $_lang['Phone'] = 'Telefone';
 $_lang['Platform'] = 'Plataforma';
-$_lang['Platform administrator'] = 'Administrador da Plataforma';
 $_lang['Platform statistics'] = 'Estatísticas da plataforma';
 $_lang['Please choose a good answer'] = 'Por favor escolha uma boa resposta';
 $_lang['Please confirm your choice'] = 'Por favor confirme a sua escolha';

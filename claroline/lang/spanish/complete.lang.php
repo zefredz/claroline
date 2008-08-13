@@ -612,7 +612,6 @@ $_lang['PeriodHourShort'] = 'h.';
 $_lang['PersonalCourseList'] = 'Lista de miembros del curso';
 $_lang['Phone'] = 'Tel&eacute;fono';
 $_lang['Platform'] = 'Plataforma';
-$_lang['Platform administrator'] = 'Administrador de la plataforma';
 $_lang['Platform statistics'] = 'Estad&iacute;sticas de la Plataforma';
 $_lang['Please check that your campus URL is reachable from the internet.'] = 'Por favor, verifique que la URL de su campus es accesible desde internet';
 $_lang['Please choose a good answer'] = 'Elija la respuesta correcta';

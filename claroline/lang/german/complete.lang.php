@@ -1,5 +1,4 @@
 <?php 
-$_lang[' Main settings'] = ' Einstellungen';
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! Größe des Kurs-Katalogs (incl. Claroline und Mülleimer alter Installationen)';
 $_lang['%1\$s by %2\$s'] = '%1$s von %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s geändert am %2$s von %3$s';
@@ -70,7 +69,6 @@ $_lang['Add a user'] = 'Benutzer hinzufügen';
 $_lang['Add a user list'] = 'Benutzer aus einer csv-Datei eintragen';
 $_lang['Add a user list in class'] = 'Eine Liste von Benutzern in die Klasse eintragen';
 $_lang['Add a user list in course'] = 'Einen Benutzer in einen Kurs eintragen';
-$_lang['Add addtionnal tools in the SDK section of the platform administration.'] = 'Fügt ein zusätzliches Tool in der SDK-Sektion des Plattform-Administrators zu.';
 $_lang['Add an event'] = 'Termin hinzufügen';
 $_lang['Add an exercise'] = 'Test einfügen';
 $_lang['Add announcement'] = 'Ankündigung hinzufügen';
@@ -978,7 +976,6 @@ $_lang['Phone : %phone_number'] = 'TelefonNr : %phone_number';
 $_lang['Platform'] = 'System';
 $_lang['Platform Courses'] = 'Plattform Kurse';
 $_lang['Platform Settings'] = 'Plattform Einstellungen';
-$_lang['Platform administrator'] = 'Plattform Administrator';
 $_lang['Platform language'] = 'Platform Sprache';
 $_lang['Platform local path '] = 'Lokaler Pfad der Plattform';
 $_lang['Platform logo url'] = 'Logo URL der Plattform';

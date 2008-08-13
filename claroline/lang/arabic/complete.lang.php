@@ -609,7 +609,6 @@ $_lang['PeriodHourShort'] = 'h.';
 $_lang['PersonalCourseList'] = 'قائمة المقررات الشخصية';
 $_lang['Phone'] = 'رقم الهاتف';
 $_lang['Platform'] = 'المنصة';
-$_lang['Platform administrator'] = 'إدارة الموقع';
 $_lang['Platform statistics'] = 'إحصائيات الموقع';
 $_lang['Please check that your campus URL is reachable from the internet.'] = 'يرجى التاكد من إمكانية الوصول لموقع الجامعة الخاص بك من خلال الانترنت';
 $_lang['Please choose a good answer'] = 'قم باختيار الجواب الصحيح من فضلك';

@@ -1,5 +1,4 @@
 <?php 
-$_lang[' Main settings'] = ' Βασικές ρυθμίσεις';
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! μέγεθος πηγής πληροφοριών μαθήματος (συμπεριλαμβάνεται το claroline και άχρηστα σε παλιά συστήματα)';
 $_lang['%1\$s by %2\$s'] = '%1$s απο %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s τροποποιήθηκε στις %2$s από %3$s';
@@ -73,7 +72,6 @@ $_lang['Add a user'] = 'Προσθέστε ένα χρήστη';
 $_lang['Add a user list'] = 'Πρόσθεσε λίστα χρηστών';
 $_lang['Add a user list in class'] = 'Πρόσθεσε λίστα χρηστών στην τάξη ';
 $_lang['Add a user list in course'] = 'Πρόσθεσε λίστα χρηστών στο μάθημα';
-$_lang['Add addtionnal tools in the SDK section of the platform administration.'] = 'Πρόσθεσε επιπρόσθετα εργαλεία στον τομέα SDK της διαχείρισης της πλατφόρμας.';
 $_lang['Add an event'] = 'Προσθήκη ενός γεγονότος';
 $_lang['Add an exercise'] = 'Εισαγωγή της άσκησης μου';
 $_lang['Add announcement'] = 'Προσθήκη Ανακοίνωσης';
@@ -1064,7 +1062,6 @@ $_lang['Phone : %phone_number'] = 'Τηλέφωνο : %phone_number';
 $_lang['Platform'] = 'Πλατφόρμα';
 $_lang['Platform Courses'] = 'Μαθήματα Πλατφόρμας';
 $_lang['Platform Settings'] = 'Ρυθμίσεις Πλατφόρμας';
-$_lang['Platform administrator'] = 'Διαχειριστής Πλατφόρμας';
 $_lang['Platform language'] = 'Γλώσσα Πλατφόρμας';
 $_lang['Platform local path '] = 'Τοπική διαδρομή για την πλατφόρμα';
 $_lang['Platform logo url'] = 'Διεύθυνση url για το εικονίδιο της πλατφόρμας';

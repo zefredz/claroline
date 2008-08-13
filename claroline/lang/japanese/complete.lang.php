@@ -240,7 +240,6 @@ $_lang['Other'] = '項目追加';
 $_lang['Password'] = 'パスワード';
 $_lang['PersonalCourseList'] = '受講科目リスト';
 $_lang['Phone'] = '電話番号';
-$_lang['Platform administrator'] = 'サイト管理者';
 $_lang['Please confirm your choice'] = '実行してよいですか';
 $_lang['Posted'] = '投稿日時';
 $_lang['Posts'] = '投稿数';

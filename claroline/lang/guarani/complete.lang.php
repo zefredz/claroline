@@ -638,7 +638,6 @@ $_lang['PeriodHourShort'] = 'aravo';
 $_lang['PersonalCourseList'] = 'Mbo\'esyrýpe o&#297;va rysýi';
 $_lang['Phone'] = 'Pumbyry';
 $_lang['Platform'] = 'Tendaguasu';
-$_lang['Platform administrator'] = 'Tendaguasu ñangarekohára';
 $_lang['Platform statistics'] = 'Claroline papy\'aporeko';
 $_lang['Please check that your campus URL is reachable from the internet.'] = 'Etanteamína ko ne mbo\'e ñanduti rendápepa ikatu ojeike Internet guive';
 $_lang['Please choose a good answer'] = 'Eiporavo pete&#297; ñembohovair&atilde; o&#297; por&atilde;va';

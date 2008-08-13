@@ -1,5 +1,4 @@
 <?php 
-$_lang[' Main settings'] = ' Hoofdinstellingen';
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! Grootte van cursus backup (inbegrepen claroline en vuilnis in oude systemen)';
 $_lang['%1\$s by %2\$s'] = '%1$s door %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s gewijzigd op %2$s door %3$s';
@@ -72,7 +71,6 @@ $_lang['Add a user'] = 'Gebruikers toevoegen';
 $_lang['Add a user list'] = 'Gebruikerslijst toevoegen';
 $_lang['Add a user list in class'] = 'Gebruiker aan klas toevoegen';
 $_lang['Add a user list in course'] = 'Gebruikers uit lijst aan cursus toevoegen';
-$_lang['Add addtionnal tools in the SDK section of the platform administration.'] = 'Voeg extra tools toe in de SDK sectie van de platformadministratie.';
 $_lang['Add an event'] = 'Gebeurtenis toevoegen';
 $_lang['Add an exercise'] = 'Oefening invoegen';
 $_lang['Add announcement'] = 'Mededeling toevoegen';
@@ -1064,7 +1062,6 @@ $_lang['Phone : %phone_number'] = 'Telefoon : %phone_number';
 $_lang['Platform'] = 'Beheer van het platform';
 $_lang['Platform Courses'] = 'Alle bestaande cursussen';
 $_lang['Platform Settings'] = 'Platforminstellingen';
-$_lang['Platform administrator'] = 'Platform beheerder';
 $_lang['Platform language'] = 'Taal van het platform';
 $_lang['Platform local path '] = 'Locaal path van het platform';
 $_lang['Platform logo url'] = 'Logo URL van het platform';

@@ -617,7 +617,6 @@ $_lang['PeriodHourShort'] = 'h.';
 $_lang['PersonalCourseList'] = 'Lista personala de cursuri';
 $_lang['Phone'] = 'Telefonul';
 $_lang['Platform'] = 'Platforma';
-$_lang['Platform administrator'] = 'Administratorul platformei';
 $_lang['Platform statistics'] = 'Statisticile platformei';
 $_lang['Please check that your campus URL is reachable from the internet.'] = 'Verifica accesibilitatea campusului tau de pe internet.';
 $_lang['Please choose a good answer'] = 'Alege un raspuns corect';

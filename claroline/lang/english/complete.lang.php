@@ -1,5 +1,4 @@
 <?php 
-$_lang[' Main settings'] = ' Main settings';
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! size of course repository (include claroline and garbage in old systems)';
 $_lang['%1\$s by %2\$s'] = '%1$s by %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s modified on %2$s by %3$s';
@@ -53,7 +52,6 @@ $_lang['<strong>Approved</strong><p>Your campus registration has been approved b
 $_lang['<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our website) if you think this is an error.</p>'] = '<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our website) if you think this is an error.</p>';
 $_lang['<strong>Removed</strong><p>Your campus has been removed from the worldwide page.</p>'] = '<strong>Removed</strong><p>Your campus has been removed from the worldwide page.</p>';
 $_lang['<strong>Submitted</strong><p>Waiting for validation by Claroline.net team.</p>'] = '<strong>Submitted</strong><p>Waiting for validation by Claroline.net team.</p>';
-$_lang['A file'] = 'A file';
 $_lang['A file with this name already exists.'] = 'A file with this name already exists.';
 $_lang['A list of keys allowing requests to the Claroline SSO server. The SSO client have to provide one of the keys contained into this list to receive any answer from the Claroline SSO server.'] = 'A list of keys allowing requests to the Claroline SSO server. The SSO client have to provide one of the keys contained into this list to receive any answer from the Claroline SSO server.';
 $_lang['A reply to your topic has been posted'] = 'A reply to your topic has been posted.';
@@ -88,7 +86,6 @@ $_lang['Add a user'] = 'Add a user';
 $_lang['Add a user list'] = 'Add a user list';
 $_lang['Add a user list in class'] = 'Add a user list in class';
 $_lang['Add a user list in course'] = 'Add a user list in course';
-$_lang['Add addtionnal tools in the SDK section of the platform administration.'] = 'Add addtionnal tools in the SDK section of the platform administration.';
 $_lang['Add an event'] = 'Add an event';
 $_lang['Add an exercise'] = 'Add an exercise';
 $_lang['Add an image'] = 'Add an image';
@@ -1302,7 +1299,6 @@ $_lang['Platform Courses'] = 'Platform Courses';
 $_lang['Platform Settings'] = 'Platform Settings';
 $_lang['Platform activation'] = 'Platform activation';
 $_lang['Platform administration'] = 'Platform administration';
-$_lang['Platform administrator'] = 'Platform Administrator';
 $_lang['Platform language'] = 'Platform language';
 $_lang['Platform local path '] = 'Platform local path';
 $_lang['Platform logo url'] = 'Platform logo url';

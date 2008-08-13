@@ -27,7 +27,6 @@ $_lang['Contact name'] = 'Nom';
 $_lang['Contact phone'] = 'Téléphone';
 $_lang['Course databases'] = 'Base de données des cours';
 $_lang['Current value'] = 'Valeur actuelle';
-$_lang['Database <em>%dbName</em> already exists'] = 'La base de données <em>%dbName</em> existe déjà';
 $_lang['Database <em>%dbName</em> already exists.'] = 'La base de données <em>%dbName</em> existe déjà.';
 $_lang['Database <em>%dbName</em> is not valid.'] = 'Le nom choisi pour la base de données (<em>%dbName</em>) est invalide.';
 $_lang['Database host'] = 'Adresse de la BD';

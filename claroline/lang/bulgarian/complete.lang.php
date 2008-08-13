@@ -1,5 +1,4 @@
 <?php 
-$_lang[' Main settings'] = ' Основни настройки';
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! големина на пространството за курса (включително кларолайн и боклуците при стари системи)';
 $_lang['%1\$s by %2\$s'] = '%1$s от %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s променяно на %2$s by %3$s';
@@ -72,7 +71,6 @@ $_lang['Add a user'] = 'Добави потребител';
 $_lang['Add a user list'] = 'Добави списък потреб.';
 $_lang['Add a user list in class'] = 'Добави потреб. в клас';
 $_lang['Add a user list in course'] = 'Списък потреб. в курса';
-$_lang['Add addtionnal tools in the SDK section of the platform administration.'] = 'Добави още инструменти в SDK секцията на административната платформа.';
 $_lang['Add an event'] = 'Добави събитие';
 $_lang['Add an exercise'] = 'Включи мое упражнение';
 $_lang['Add announcement'] = 'Добави обява';
@@ -940,7 +938,6 @@ $_lang['Phone : %phone_number'] = 'Телефон : %phone_number';
 $_lang['Platform'] = 'Платформа';
 $_lang['Platform Courses'] = 'Курсове на училището';
 $_lang['Platform Settings'] = 'Настройки на училището';
-$_lang['Platform administrator'] = 'Администратор на платформата';
 $_lang['Platform language'] = 'Език на платформата';
 $_lang['Platform statistics'] = 'Статистики на платформата';
 $_lang['Please check that your campus URL is reachable from the internet.'] = 'Моля проверете дали URL на сайта е достъпен по интернет.';

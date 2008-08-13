@@ -607,7 +607,6 @@ $_lang['PeriodHourShort'] = '小时';
 $_lang['PersonalCourseList'] = '个人课程列表';
 $_lang['Phone'] = '电话';
 $_lang['Platform'] = '平台';
-$_lang['Platform administrator'] = '平台管理者';
 $_lang['Platform statistics'] = '平台统计';
 $_lang['Please check that your campus URL is reachable from the internet.'] = '请检查您的校园链接是否能通过因特网访问。';
 $_lang['Please choose a good answer'] = '请选择一个正确答案';

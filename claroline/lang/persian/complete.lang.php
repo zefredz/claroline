@@ -563,7 +563,6 @@ $_lang['PeriodHourShort'] = 'س.';
 $_lang['PersonalCourseList'] = 'فهرست درس‌های شخصی';
 $_lang['Phone'] = 'تلفن';
 $_lang['Platform'] = 'سیستم';
-$_lang['Platform administrator'] = 'مدیر سیستم';
 $_lang['Platform statistics'] = 'آمار سیستم';
 $_lang['Please check that your campus URL is reachable from the internet.'] = 'لطفاً بررسی کنید که نشانی اینترنتی دانشگاه شما از اینترنت قابل دسترسی باشد.';
 $_lang['Please choose a good answer'] = 'لطفاً جواب مناسب را انتخاب کنید';

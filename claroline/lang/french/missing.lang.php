@@ -7,7 +7,6 @@ $_lang['%nb_user not to add'] = '%nb_user not to add';
 $_lang['%newUser users added to the campus'] = '%newUser users added to the campus';
 $_lang['%x rows'] = '%x rows';
 $_lang['(jj/mm/aaaa)'] = '(jj/mm/aaaa)';
-$_lang['A file'] = 'A file';
 $_lang['Access to course'] = 'Access to course';
 $_lang['Accounts to merge'] = 'Accounts to merge';
 $_lang['Activate module on install'] = 'Activate module on install';

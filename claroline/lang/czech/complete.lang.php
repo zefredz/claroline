@@ -865,7 +865,6 @@ $_lang['Phone'] = 'Telefon';
 $_lang['Platform'] = 'Platforma';
 $_lang['Platform Courses'] = 'Kurzy platformy';
 $_lang['Platform Settings'] = 'Nastavení platformy';
-$_lang['Platform administrator'] = 'Správce platformy';
 $_lang['Platform statistics'] = 'Statistika platformy';
 $_lang['Please check that your campus URL is reachable from the internet.'] = 'Prosím zkontrolujte, zda je Vá¹ kampus pøístupný z Internetu.';
 $_lang['Please choose a good answer'] = 'Vyberte správnou odpovìï';

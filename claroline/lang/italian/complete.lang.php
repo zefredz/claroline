@@ -856,7 +856,6 @@ $_lang['Phone'] = 'Telefono';
 $_lang['Platform'] = 'Piattaforma';
 $_lang['Platform Courses'] = 'Corsi della piattaforma';
 $_lang['Platform Settings'] = 'Impostazioni della piattaforma';
-$_lang['Platform administrator'] = 'Amministratore della piattaforma';
 $_lang['Platform statistics'] = 'Statistiche della piattaforma';
 $_lang['Please check that your campus URL is reachable from the internet.'] = 'Per favore controlla che il tuo campus è accessibile dal web prima di inviarlo';
 $_lang['Please choose a good answer'] = 'Scegli una risposta corretta';
