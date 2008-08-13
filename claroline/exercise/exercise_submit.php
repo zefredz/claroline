@@ -309,14 +309,14 @@ if( isset($_REQUEST['cmdOk']) && $_REQUEST['cmdOk'] && $exerciseIsAvailable )
             $sessionTime = unixToScormTime($timeToCompleteExe);
             
             $jsForLP = ''
-            .   'doSetValue("cmi.score.raw","'.$scoreRaw.'")' . "\n"
-            .   'doSetValue("cmi.score.min","'.$scoreMin.'")' . "\n"
-            .   'doSetValue("cmi.score.max","'.$scoreMax.'")' . "\n"
-            .   'doSetValue("cmi.session_time","'.$sessionTime.'")' . "\n"
-            .   'doSetValue("cmi.completion_status","'.$completionStatus.'")' . "\n"
+            .   'doSetValue("cmi.score.raw","'.$scoreRaw.'");' . "\n"
+            .   'doSetValue("cmi.score.min","'.$scoreMin.'");' . "\n"
+            .   'doSetValue("cmi.score.max","'.$scoreMax.'");' . "\n"
+            .   'doSetValue("cmi.session_time","'.$sessionTime.'");' . "\n"
+            .   'doSetValue("cmi.completion_status","'.$completionStatus.'");' . "\n"
             
-            .   'doCommit()' . "\n"
-            .   'doTerminate()' . "\n";
+            .   'doCommit();' . "\n"
+            .   'doTerminate();' . "\n";
         }
         // old learning path tool
         if( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] )
