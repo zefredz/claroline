@@ -196,7 +196,9 @@ if ( isset($_REQUEST['lang']) )
 $endtime = get_time();
 $totaltime = ($endtime - $starttime);
 
-echo "<p><em>Execution time: $totaltime</em></p>\n";
+echo "<p><em>Execution time: $totaltime</em></p>\n"
+.    '<a href="'.$urlTranslation.'">&lt;&lt; Back</a>' . "\n";
+
 
 // display footer
 
