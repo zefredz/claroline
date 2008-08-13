@@ -366,7 +366,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
             $remainingDiskSpace = 0;
 
             $adminEmailUrl = '<a href="mailto:'.get_conf('administrator_email').'">'
-                . get_lang('Platform Administrator') . '</a>';
+                . get_lang('Platform administrator') . '</a>';
             $dialogBox->error('<p>' . get_lang( 'Disk quota exceeded, please contact the %administrator',
                     array ( '%administrator' => $adminEmailUrl ) ) . '<br />' . "\n"
             .     '<small>' . get_lang('Maximum disk space : %size',array('%size'=>format_file_size($maxFilledSpace))) . '</small><br />' . "\n"
@@ -1983,7 +1983,7 @@ echo claro_html_tool_title($titleElement,
                     $_SERVER['PHP_SELF'].'?cmd=rqMkDir&amp;cwd='.$cmdCurDirPath ))
                 .'">'
                 .'<img src="' . get_icon_url('folder') . '" alt="" />&nbsp;'
-                .get_lang('Create Directory')
+                .get_lang('Create directory')
                 .'</a>';
 
             $links[] = '<a class="claroCmd" href="'

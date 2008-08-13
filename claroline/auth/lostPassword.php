@@ -136,7 +136,7 @@ if ( isset($_REQUEST['searchPassword']) && !empty($emailTo) )
                 $dialogBox->error( get_lang('The system is unable to send you an e-mail.') . '<br />'
                 .   get_lang('Please contact') . ' : '
                 .   '<a href="mailto:' . get_conf('administrator_email') . '?BODY=' . $emailTo . '">'
-                .   get_lang('Platform Administrator')
+                .   get_lang('Platform administrator')
                 .   '</a>' );
             }
         }

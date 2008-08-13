@@ -456,7 +456,7 @@ function prepare_search()
     }
     elseif (isset($_SESSION['admin_user_action']) && ($_SESSION['admin_user_action']=='plateformadmin'))
     {
-        $isSearched[] = '<b>' . get_lang('Platform Administrator') . '  </b> ';
+        $isSearched[] = '<b>' . get_lang('Platform administrator') . '  </b> ';
         $queryStringElementList[] = 'action=' . urlencode($_SESSION['admin_user_action']);
     }
     else $queryStringElementList[] = 'action=all';

@@ -138,7 +138,7 @@ echo claro_html_tool_title($nameTools . ' : ');
 $action_list[get_lang('All')] = 'all';
 $action_list[get_lang('Student')] = 'followcourse';
 $action_list[get_lang('Course creator')] = 'createcourse';
-$action_list[get_lang('Platform Administrator')] = 'plateformadmin';
+$action_list[get_lang('Platform administrator')] = 'plateformadmin';
 
 echo claro_html_form_select( 'action'
                             , $action_list
