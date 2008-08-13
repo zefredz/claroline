@@ -636,18 +636,18 @@ function disp_confirmation_message ($message, $forumId = false, $topicId = false
 
     if ($forumId && $topicId)
     {
-        $url = 'viewtopic.php?topic=' . $topicId . '&amp;forum=' . $forumId ;
-        echo '<p>' . get_lang('Click <a href="%url">here</a> to view your message', array( '%url' => $url ) ). '</p>' . "\n" ;
+        $url = Url::Contextualize( get_module_url('CLFRM') . '/viewtopic.php?topic=' . $topicId . '&amp;forum=' . $forumId );
+        echo '<p>' . get_lang('Click <a href="%url">here</a> to view your message', array( '%url' => htmlspecialchars($url) ) ). '</p>' . "\n" ;
     }
 
     if ($forumId)
     {
-        $url = 'viewforum.php?forum=' . $forumId ;
-        echo '<p>' . get_lang('Click <a href="%url">here</a> to return to the forum topic list', array( '%url' => $url ) ). '</p>' . "\n" ;
+        $url = Url::Contextualize( get_module_url('CLFRM') . '/viewforum.php?forum=' . $forumId );
+        echo '<p>' . get_lang('Click <a href="%url">here</a> to return to the forum topic list', array( '%url' => htmlspecialchars($url) ) ). '</p>' . "\n" ;
     }
 
-    $url = 'index.php' ;
-    echo '<p>' . get_lang('Click <a href="%url">here</a> to return to the forum index', array( '%url' => $url ) ). '</p>' . "\n" ;
+    $url = Url::Contextualize( get_module_entry_url('CLFRM') );
+    echo '<p>' . get_lang('Click <a href="%url">here</a> to return to the forum index', array( '%url' => htmlspecialchars( $url ) ) ). '</p>' . "\n" ;
 
     echo '</center>' . "\n"
         . '</td>' . "\n"
@@ -979,16 +979,18 @@ function disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_id=0, $
 {
     $bc = new BreadCrumbs;
 
-    $bc->appendNode( new BreadCrumbsNode( 'Forum Index'
-        , get_module_entry_url('CLFRM') ) );
+    $bc->appendNode( new BreadCrumbsNode(
+        'Forum Index',
+        htmlspecialchars( Url::Contextualize( get_module_entry_url('CLFRM') ))
+    ));
 
     if ( in_array($pagetype, array('viewforum', 'viewtopic', 'editpost', 'reply', 'newtopic') ) )
     {
-        $bc->appendNode( new BreadCrumbsNode( $forum_name
-            , get_module_url('CLFRM') . '/viewforum.php?forum=' . $forum_id
-                . (claro_is_in_a_group()
-                    ? '&amp;gidReq=' . claro_get_current_group_id()
-                    : '') ) );
+        $bc->appendNode( new BreadCrumbsNode(
+            $forum_name,
+            htmlspecialchars(Url::Contextualize(
+                get_module_url('CLFRM') . '/viewforum.php?forum=' . $forum_id ))
+        ));
 
         switch ( $pagetype )
         {
@@ -1074,7 +1076,7 @@ function forum_group_tool_list($gid, $active = true)
             htmlspecialchars(Url::Contextualize(
             get_module_url($groupTool['label'])
             . '/' . $groupTool['url'] ))
-            , '<img src="' . get_icon_url($groupTool['icon']) . '" alt="" />'
+            , '<img src="' . get_module_url($groupTool['label']) . '/' . ($groupTool['icon']) . '" alt="" />'
             . '&nbsp;'
             . claro_get_tool_name ($groupTool['label'])
             , array('class' => $groupTool['visibility'] ? 'visible':'invisible')
