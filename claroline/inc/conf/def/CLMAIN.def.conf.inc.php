@@ -589,7 +589,7 @@ array ('label'       => 'Javascript compression'
 
 $conf_def_property_list['DEVEL_MODE'] =
 array ('label'       => 'Development mode'
-      ,'description' => 'Add addtionnal tools in the SDK section of the platform administration.'
+      ,'description' => 'Add additional tools in the SDK section of the platform administration.'
       ,'type'        => 'boolean'
       ,'default'     => false
       ,'container'   => 'CONST'
