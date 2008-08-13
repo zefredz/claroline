@@ -752,7 +752,6 @@ $_lang['Kernel'] = 'Kernel';
 $_lang['Keys :'] = 'Claves :';
 $_lang['Label of the login url to CAS'] = 'Etiqueta de la URL de registro al CAS';
 $_lang['Language'] = 'Idioma';
-$_lang['Language mode'] = 'Modo del idioma';
 $_lang['Language needed'] = 'Se necesita un idioma';
 $_lang['Language packs'] = 'paquetes de idioma';
 $_lang['Last 31 days'] = 'Ultimos 31 días';
@@ -909,6 +908,7 @@ $_lang['Multiple choice (Unique answer)'] = 'Opciones múltiples (Respuesta única
 $_lang['My calendar'] = 'Mi agenda';
 $_lang['My course list'] = 'Mi lista de cursos';
 $_lang['My other courses'] = 'Mis otros cursos';
+$_lang['My personal course list'] = 'Mi lista personal de cursos';
 $_lang['My results'] = 'Mis resultados';
 $_lang['My user account'] = 'Modificar mis datos';
 $_lang['MySQL database settings'] = 'Config. de la BD MySQL ';
@@ -1068,6 +1068,7 @@ $_lang['Phone : %phone_number'] = 'Teléfono : %phone_number';
 $_lang['Platform'] = 'Plataforma';
 $_lang['Platform Courses'] = 'Cursos de la Plataforma';
 $_lang['Platform Settings'] = 'Configuarción de la Platforma';
+$_lang['Platform administrator'] = 'Administrador de la Plataforma';
 $_lang['Platform language'] = 'Idioma de la plataforma';
 $_lang['Platform local path '] = 'Ruta local de la platforma';
 $_lang['Platform logo url'] = 'URL del logo para la platforma';
@@ -1112,7 +1113,6 @@ $_lang['Private access (site accessible only to people on the <a href="%url">use
 $_lang['Private access (site accessible only to people on the user list)'] = 'Acceso privado (sitio accesible sólo por las personas en la list de usuarios)';
 $_lang['Private course only'] = 'Curso Privado solamente';
 $_lang['Private feedback'] = 'Contestación privada';
-$_lang['Production'] = 'Producción';
 $_lang['Production language files'] = 'Producción archivo de idiomas';
 $_lang['Profile'] = 'Perfil';
 $_lang['Profile SQL'] = 'Perfil SQL';
@@ -1398,12 +1398,8 @@ $_lang['Tracking'] = 'Seguimiento';
 $_lang['Tracking database name'] = 'Nombre de la base de datos de seguimiento';
 $_lang['Tracking has been disabled by system administrator.'] = 'El seguimiento ha sido deshabilitado por el administrador del sistema.';
 $_lang['Traffic Details'] = 'Detalles del Tráfico';
-$_lang['Translation'] = 'Traducción';
 $_lang['Translation Progression'] = 'Progreso de la Traducción';
 $_lang['Translation Tools'] = 'Herramientas de Traducción';
-$_lang['Translation: use a single language file
-Production: each script use its own language file.'] = 'Traducción: utiliza un solo archivo de idioma
-Producción: cada script utiliza su propio archivo de idioma.';
 $_lang['True'] = 'Verdadero';
 $_lang['True/False'] = 'Verdadero/Falso';
 $_lang['Tutors'] = 'Tutores';
@@ -1755,6 +1751,25 @@ Email : %course_email
 Categoría : %course_category
 Idioma : %course_language
 URL : %course_url';
+$_lang['blockCourseDescriptionCourseContent'] = 'Contenido del Curso';
+$_lang['blockCourseDescriptionCourseContentComment1'] = '¿Cuál es la importancia de distintos contenidos que serán enseñados en el marco del curso? ¿Cuál es el nivel de dificultad de este contenido? ¿Cómo está estructurada la unidad? ¿Cuál será la secuencia del contenido?';
+$_lang['blockCourseDescriptionCourseContentComment2'] = 'Presentación del contenido del curso, la estructura del contenido, el progreso y el calendario';
+$_lang['blockCourseDescriptionDescriptionComment1'] = 'Que es El place y El specificity de El curso en El programme?  Do there existe pre-required cursos?  Que are El relationships to otro cursos?';
+$_lang['blockCourseDescriptionDescriptionComment2'] = 'Information todosowing El curso estar identified (initials, título, un Número de hours, hands-on...) y teaching it (surname, Primer nombre, office, Tel., e-mail, possible availabilities).  General presentation de El curso en El program.';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment1'] = '¿Qué son los recursos humanos y físicos disponibles?  ¿Cuál es la naturaleza de la formación?  Lo que los estudiantes pueden esperar desde el equipo organizativo o la organisacion del profesor?';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment2'] = 'Presentación de los otros profesores quienes organizarán el curso (asistentes, investigadores, tutores...), de la disponibilidad de personal, construcciones y el equipamiento o equipos de computación disponible.';
+$_lang['blockCourseDescriptionHumanAndPhysicalRessources'] = 'Recursos humanos y físicos ';
+$_lang['blockCourseDescriptionMethodsOfEvaluation'] = 'Métodos de evaluación';
+$_lang['blockCourseDescriptionMethodsOfEvaluationComment1'] = 'Precise los detalles como la dedida de evaluación (examinations written, oral, projects, trabajo estar darn...), date de formatoive evaluación preview(s), expiry dates for El handing-over de trabajo, con El criteria de evaluación, possibly El peso de El criteria o El categorías de criteria.';
+$_lang['blockCourseDescriptionQualificationsAndGoals'] = 'Calificaciones y Objetivos';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment1'] = '¿Cuales son los objetivos de la enseñanza?  Al final del curso, que calificaciones, capacidades y conocimientos podrán controlar los estudiantes, para movilizar?';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment2'] = 'La presentación de los objetivos generales y específicos del curso, de calificaciones para las cuales el control de tales objetivos podría conducir.';
+$_lang['blockCourseDescriptionSupports'] = 'Soporte ';
+$_lang['blockCourseDescriptionSupportsComment1'] = '¿Existe soporte para el curso?  ¿Que tipo de suporte da?  ¿Abierto?  ¿Cerrado?';
+$_lang['blockCourseDescriptionSupportsComment2'] = 'Presentación del suporte del curso.  Presentación de la bibliografía, el conjunto de Documentos o una bibliografía complementaria.';
+$_lang['blockCourseDescriptionTeachingTrainingActivities'] = 'Actividades de Enseñanza-Aprendizaje';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment1'] = '¿Que métodos y cuales actividades soportarán los objetivos definidos en el curso?  ¿Que es el calendario de actividades?';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment2'] = 'Presentación de las actividades previstas (revisiones obligatorias, participación esperada de los estudiantes, trabajos prácticos, reuniones de laboratorio, visitas, recolección de información on el campo...).';
 $_lang['blockCourseSettingsTip'] = 'Por defecto, su curso es accesible por todos. Si usted  busca cierta privacidad,
 El medio más simple es abrir la registración durante
 una semana, avisar a los estudiantes que se registren por ellos mismos, entonces cerrar la registración e identificar a los posibles intrusos en la lista de usuarios.';

@@ -74,7 +74,7 @@ $_lang['Delete the whole course website'] = 'Gugurkan Subjek dari Pangkalan Data
 $_lang['Denied'] = 'Tidak dibenarkan';
 $_lang['Department'] = 'Kod Pusat Pengajian';
 $_lang['Department URL'] = 'URL Pusat Pengajian';
-$_lang['Description'] = 'Penerangan';
+$_lang['Description'] = 'Ringkasan Tugasan';
 $_lang['Detail'] = 'Keterangan';
 $_lang['Details'] = 'Keterangan Lanjut';
 $_lang['Directory created'] = 'Direktori dibina';
@@ -160,6 +160,7 @@ $_lang['Move up'] = 'Ke atas';
 $_lang['Multiple choice (Multiple answers)'] = 'Pelbagai Jawapan (Lebih dari satu jawapan)';
 $_lang['Multiple choice (Unique answer)'] = 'Pelbagai Jawapan (Satu Jawapan)';
 $_lang['My course list'] = 'Senarai Subjek';
+$_lang['My personal course list'] = 'Senarai Subjek Individu';
 $_lang['My user account'] = 'Ubahsuai Maklumat Peribadi';
 $_lang['Name of the tool'] = 'Bilangan Alat Bantu';
 $_lang['New exercise'] = 'Latihan baru';
@@ -310,6 +311,7 @@ $_lang['blockClaroMainHelp'] = 'eLearning@kukum membenarkan pensyarah membina da
 <p>Jika anda seorang pensyarah, anda juga perlu mendaftar dengan memilih status \'Pensyarah\' dan mengisi borang mencipta laman subjek. Apabila pendaftaran anda sah, anda dapat mencapai laman subjek yang telah dibina dan anda mempunyai capaian untuk mengubahsuai kandungan berdasarkan keperluan anda.</p>
 <p>Pautan \'Aduan dan Cadangan\' memberi kemudahan kepada anda untuk membuat aduan atau cadangan kepada pentadbir sistem.</p>
 <b>ID Pengguna</b><p>Pada kunjungan anda yang seterusnya ke eLearning@kukum, sila masukkan ID Pengguna dan katalaluan serta sahkan capaian anda ke laman subjek tersebut.</p><p><b>Teori Pembelajaran</b><p>Untuk pensyarah, menyediakan program di Internet merupakan persoalan kepada teori pembelajaran.';
+$_lang['blockCourseDescriptionCourseContent'] = 'Contenu du cours';
 $_lang['blockCourseSettingsTip'] = 'Secara lalai, subjek anda hanya boleh diakses jika anda pengguna berdaftar. Jika anda inginkan kerahsian,
 cara terbaik ialah membuka pendaftaran
 selama seminggu, dan arahkan Pelajar anda untuk mendaftar sendiri, kemudian tutup Pendaftaran dan periksa samada terdapat Pengguna yang tidak dikenali.';

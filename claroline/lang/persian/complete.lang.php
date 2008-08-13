@@ -477,6 +477,7 @@ $_lang['Multiple choice (Unique answer)'] = 'چند گزینه‌ای (یک جو
 $_lang['My calendar'] = 'تقویم من';
 $_lang['My course list'] = 'فهرست درس‌های من';
 $_lang['My other courses'] = 'درس‌های دیگر من';
+$_lang['My personal course list'] = 'فهرست درس‌های من';
 $_lang['My results'] = 'نتایج من';
 $_lang['My user account'] = 'تغییر مجموعه تنظیمات من';
 $_lang['Mysql Repository'] = 'مخزن Mysql';
@@ -562,6 +563,7 @@ $_lang['PeriodHourShort'] = 'س.';
 $_lang['PersonalCourseList'] = 'فهرست درس‌های شخصی';
 $_lang['Phone'] = 'تلفن';
 $_lang['Platform'] = 'سیستم';
+$_lang['Platform administrator'] = 'مدیر سیستم';
 $_lang['Platform statistics'] = 'آمار سیستم';
 $_lang['Please check that your campus URL is reachable from the internet.'] = 'لطفاً بررسی کنید که نشانی اینترنتی دانشگاه شما از اینترنت قابل دسترسی باشد.';
 $_lang['Please choose a good answer'] = 'لطفاً جواب مناسب را انتخاب کنید';
@@ -938,6 +940,18 @@ $_lang['blockConfirmDeleteModule'] = 'آیا مطمئنید که می‌خواه
 پیمانه به طور کامل از کارگزار و از همه‌ی برنامه‌های آموزشی‌ای که از استفاده می‌کنند، حذف خواهد شد.
 شما نخواهید توانست از آن در هیچ برنامه‌ی آموزشی‌ای استفاده کنید.
 تأیید حذف:';
+$_lang['blockCourseDescriptionCourseContent'] = 'محتوای درس';
+$_lang['blockCourseDescriptionCourseContentComment1'] = 'اهمیت محتوا مختلف آموزش داده شده در چارچوب این درس چیست؟ سطح سختی این محتوا چطور است؟ این واحد چطور ساختار یافته است؟ ترتیب محتوا چگونه است و به کجا منتهی می‌شود؟';
+$_lang['blockCourseDescriptionCourseContentComment2'] = 'ارائه‌ی محتوای درس، ساختار محتوا، پیشرفت و تقویم';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment1'] = 'منابع مادی و انسانی موجود چیست؟  ویژگی‌ها و ساختار آن‌ها چیست؟  دانشجویان چه انتظاری می‌توانند از تیم سازمان یا آموزگار سازمان داشته باشند؟';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment2'] = 'معرفی سایر آموزگارانی که درس را اداره می‌کنند (استادیاران، محقق‌ها، حل تمرین‌ها...)، در دسترس بودن آن‌ها، محل‌ها، ابزارها یا کامپیوترهای موجود.';
+$_lang['blockCourseDescriptionHumanAndPhysicalRessources'] = 'منابع مادی و انسانی';
+$_lang['blockCourseDescriptionMethodsOfEvaluation'] = 'روش‌های ارزیابی';
+$_lang['blockCourseDescriptionQualificationsAndGoals'] = 'شرایط لازم و اهداف';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment1'] = 'اهداف آموزشی چیست؟ در پایان درس دانشجویان چه توانایی‌هایی، اطلاعاتی و ظرفیت‌هایی خواهند داشت؟';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment2'] = 'ارائه اهداف عمومی و خاص درس، و توانایی‌هایی که کنترل این اهداف به آن‌ها منجر می‌شود.';
+$_lang['blockCourseDescriptionSupports'] = ' پشتیبانی ';
+$_lang['blockCourseDescriptionTeachingTrainingActivities'] = 'فعالیت‌های درسی-آموزشی';
 $_lang['blockCourseSettingsTip'] = 'به طور پیش‌فرض، همه به درس شما دسترسی دارند.  اگر نمی‌خواهید این طور باشد ساده‌ترین کار این است که به مدت یک هفته ثبت نام را آزاد بگذارید و از همه‌ی دانشجویان بخواهید خود را ثبت نام کنند؛ سپس ثبت نام را ببندید و در فهرست کاربران به دنبال کسانی که نمی‌خواهید ثبت نام باشند بگردید.';
 $_lang['blockDefaultLearningPathComment'] = 'این متن مقدمه‌ی برنامه‌ی آموزشی است. برای جای‌گزین کردن آن به متن خودتان، روی  <b>تغییر</b> در زیر کلیک کنید.';
 $_lang['blockDocumentsHelp'] = '<p>ابزار نوشتار شبیه مدیر پرونده‌ی کامپیوتر رومیزی‌تان است.</p><p>می‌توانید انواع پرونده‌ها را بارگذاری کنید  (HTML، Word، Powerpoint، Excel، Acrobat ،Flash، Quicktime، غیره.). فقط باید توجه داشته باشید که دانشجویان‌تان نرم‌افزار لازم برای خواندن آن‌ها را داشته باشند. بعضی از انواع پرونده‌ها می‌توانند ویروس داشته باشند. وظیفه‌ی شما است که پرونده‌هایی ویروسی را بارگذاری نکنید. احتیاط آن است که نوشتارها را قبل از بارگذاری با نرم‌افزارهای ضدویروس بررسی کنید.</p>

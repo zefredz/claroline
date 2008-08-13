@@ -149,7 +149,7 @@ $_lang['An email has been sent to help you remember your user name and password.
 $_lang['An error occured.  Learning Path import failed.'] = 'An error occured.  Learning Path import failed.';
 $_lang['An error occurred while contacting Claroline.net'] = 'An error occurred while contacting Claroline.net';
 $_lang['An invisible tool will be greyed out on your personal interface.'] = 'An invisible tool will be greyed out on your personal interface.';
-$_lang['Announcement'] = 'Announcement';
+$_lang['Announcements'] = 'Announcements';
 $_lang['Anonymous attempts'] = 'Anonymous attempts';
 $_lang['Anonymous users access count :'] = 'Anonymous users access count : ';
 $_lang['Applets'] = 'Applets';
@@ -398,7 +398,6 @@ $_lang['Course:'] = 'Course:';
 $_lang['Courses : %disk_usage (perhaps with others directory)'] = 'Courses : %disk_usage (perhaps with others directory)';
 $_lang['Courses with unexisting users registered'] = 'Courses with unexisting users registered';
 $_lang['Courses without student'] = 'Courses without student';
-$_lang['Create Directory'] = 'Create Directory';
 $_lang['Create Document'] = 'Create Document';
 $_lang['Create Pages'] = 'Create Pages';
 $_lang['Create a category'] = 'Create a category';
@@ -411,6 +410,7 @@ $_lang['Create a new user'] = 'Create a new user';
 $_lang['Create another new user'] = 'Create another new user';
 $_lang['Create category'] = 'Create category';
 $_lang['Create course'] = 'Create course';
+$_lang['Create directory'] = 'Create directory';
 $_lang['Create fake categories'] = 'Create fake categories';
 $_lang['Create fake courses'] = 'Create fake courses';
 $_lang['Create fake users'] = 'Create fake users';
@@ -788,7 +788,6 @@ $_lang['Javascript compression'] = 'Javascript compression';
 $_lang['Kernel'] = 'Kernel';
 $_lang['Keys :'] = 'Keys :';
 $_lang['Label of the login url to CAS'] = 'Label of the login url to CAS';
-$_lang['Language mode'] = 'Language mode';
 $_lang['Language needed'] = 'Language needed';
 $_lang['Language packs'] = 'Language packs';
 $_lang['Last'] = 'Last';
@@ -949,13 +948,12 @@ $_lang['Move to trash'] = 'Move to trash';
 $_lang['Move to trashbox?'] = 'Move to trashbox?';
 $_lang['Moved line'] = 'Moved line';
 $_lang['Multiple'] = 'Multiple';
-$_lang['My User Account'] = 'My User Account';
 $_lang['My calendar'] = 'My calendar';
 $_lang['My desktop'] = 'My desktop';
 $_lang['My messages'] = 'My messages';
 $_lang['My other courses'] = 'My other courses';
-$_lang['My personal course list'] = 'My personal course list';
 $_lang['My results'] = 'My results';
+$_lang['My user account'] = 'My User account';
 $_lang['MySQL database settings'] = 'MySQL database settings';
 $_lang['Mysql Repository'] = 'Mysql Repository';
 $_lang['Name'] = 'Name';
@@ -1137,7 +1135,6 @@ $_lang['Private access (site accessible only to people on the <a href="%url">use
 $_lang['Private access (site accessible only to people on the user list)'] = 'Private access (site accessible only to people on the user list)';
 $_lang['Private course only'] = 'Private course only';
 $_lang['Private feedback'] = 'Private feedback';
-$_lang['Production'] = 'Production';
 $_lang['Production language files'] = 'Production language files';
 $_lang['Profile'] = 'Profile';
 $_lang['Profile SQL'] = 'Profile SQL';
@@ -1409,12 +1406,8 @@ $_lang['Topics started'] = 'Topics started';
 $_lang['Total attempts'] = 'Total attempts';
 $_lang['Total time'] = 'Total time';
 $_lang['Tracking database name'] = 'Tracking database name';
-$_lang['Translation'] = 'Translation';
 $_lang['Translation Progression'] = 'Translation Progression';
 $_lang['Translation Tools'] = 'Translation Tools';
-$_lang['Translation: use a single language file
-Production: each script use its own language file.'] = 'Translation: use a single language file
-Production: each script use its own language file.';
 $_lang['Translations'] = 'Translations';
 $_lang['Trashbox'] = 'Trashbox';
 $_lang['True/False'] = 'True/False';
@@ -1755,6 +1748,24 @@ Email : %course_email
 Category : %course_category
 Language : %course_language
 Url : %course_url';
+$_lang['blockCourseDescriptionCourseContentComment1'] = 'What is the importance of the various content to be taught within the framework of the course?  What is the level of difficulty of this content?  How is the unit structured?  What will be the sequence of the content?  What does content lead to?';
+$_lang['blockCourseDescriptionCourseContentComment2'] = 'Presentation of the content of the course, the structuring of the content, the progression and the calendar';
+$_lang['blockCourseDescriptionDescriptionComment1'] = 'What is the place and the specificity of the course in the programme?  Do there exist pre-required courses?  What are the relationships to other courses?';
+$_lang['blockCourseDescriptionDescriptionComment2'] = 'Information allowing the course to be identified (initials, title, a number of hours, hands-on...) and teaching it (surname, first name, office, Tel., e-mail, possible availabilities).  General presentation of the course in the program.';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment1'] = 'What are the human and physical resources available?  What will be the nature of the framing?  What can the students expect from of the organisation team or the organisation of the teacher?';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment2'] = 'Presentation of the other teachers who will organise the course (assistants, researchers, student-monitors...), of the availability of the people, the buildings and the equipment or computer equipement available.';
+$_lang['blockCourseDescriptionHumanAndPhysicalRessources'] = 'Human and Physical Resources';
+$_lang['blockCourseDescriptionMethodsOfEvaluation'] = 'Methods of evaluation';
+$_lang['blockCourseDescriptionMethodsOfEvaluationComment1'] = 'Precise details as to the means of evaluation (examinations written, oral, projects, work to be given...), date of formative evaluation preview(s), expiry dates for the handing-over of work, with the criteria of evaluation, possibly the weighting of the criteria or the categories of criteria.';
+$_lang['blockCourseDescriptionQualificationsAndGoals'] = 'Qualifications and Goals';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment1'] = 'What are the teaching aims?  At the end of the course, what qualifications, capacities and knowledge will students be able to control, to mobilize?';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment2'] = 'Presentation of the general and specific objectives of the course, of qualifications for which the control of such objectives could lead.';
+$_lang['blockCourseDescriptionSupports'] = ' Support ';
+$_lang['blockCourseDescriptionSupportsComment1'] = 'Does course support exist?  What type of support do I give?  Opened?  Closed?';
+$_lang['blockCourseDescriptionSupportsComment2'] = 'Presentation of the support of course.  Presentation of the bibliography, the set of documents or a complementary bibliography.';
+$_lang['blockCourseDescriptionTeachingTrainingActivities'] = 'Teaching-training activities';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment1'] = 'What methods and which activities will support the objectives defined for the course?  What is the calendar of activities?';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment2'] = 'Presentation of the activities envisaged (authoritative reviews, participation expected of the students, practical work, laboratory meetings, visits, collection of information on the ground...).';
 $_lang['blockCourseSubscriptionNotification'] = '
 
 Dear %firstname %lastname,

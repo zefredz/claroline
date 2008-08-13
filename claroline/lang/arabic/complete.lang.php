@@ -515,6 +515,7 @@ $_lang['Multiple choice (Unique answer)'] = 'عدة اختيارات (جواب �
 $_lang['My calendar'] = 'جدول أعمالي';
 $_lang['My course list'] = 'مقرراتي';
 $_lang['My other courses'] = 'بقية مقرراتي';
+$_lang['My personal course list'] = 'قائمة المقررات الخاصة بي';
 $_lang['My results'] = 'نتائجي';
 $_lang['My user account'] = 'تعديل معلوماتي';
 $_lang['Mysql Repository'] = 'Mysql مخزن';
@@ -608,6 +609,7 @@ $_lang['PeriodHourShort'] = 'h.';
 $_lang['PersonalCourseList'] = 'قائمة المقررات الشخصية';
 $_lang['Phone'] = 'رقم الهاتف';
 $_lang['Platform'] = 'المنصة';
+$_lang['Platform administrator'] = 'إدارة الموقع';
 $_lang['Platform statistics'] = 'إحصائيات الموقع';
 $_lang['Please check that your campus URL is reachable from the internet.'] = 'يرجى التاكد من إمكانية الوصول لموقع الجامعة الخاص بك من خلال الانترنت';
 $_lang['Please choose a good answer'] = 'قم باختيار الجواب الصحيح من فضلك';
@@ -1000,6 +1002,25 @@ $_lang['blockConfirmDeleteModule'] = 'هل أنت متأكد من مسح هذه 
 لن تستطيع أن تستخدمها في أي مسار تعليمي.
 التأكيد على مسح : ';
 $_lang['blockConfirmDeleteScorm'] = 'إن هذا المسار التعليمي هو جزء من حزمة استيراد SCORM. إذا مسحت هذا المسار، كل وحدات SCORM الموافقة و الملفات المرتبطة سيتم حذفها من هذه المنصة. هل أنت متأكد بأنك تريد حذف المسار التعليمي المسمى ';
+$_lang['blockCourseDescriptionCourseContent'] = 'مضمون المقرر التعليمي';
+$_lang['blockCourseDescriptionCourseContentComment1'] = 'ما أهمية أن يتم تدريس المحتويات المتنوعة ضمن إطار هذا المقرر؟ ما هو مستوى صعوبة هذه المحتويات؟ ما هي هيكلية الوحدة؟ ما هو تسلسل المحتويات؟ إلى ماذا تؤدي المحتويات؟';
+$_lang['blockCourseDescriptionCourseContentComment2'] = 'عرض محتويات المقرر، هيكلية المحتويات، التقدم و التقويم';
+$_lang['blockCourseDescriptionDescriptionComment1'] = 'ما هو مكان و مخصص المقرر في هذا البرنامج؟ هل يوجد مقررات مطلوبة قبله؟ ما هي علاقاته بالمقررات الأخرى؟';
+$_lang['blockCourseDescriptionDescriptionComment2'] = 'معلومات تسمح بتعريف المقرر (حروف بادئة, عنوان, عدد ساعات, عملي...) و تدريسه (الكنية, الاسم, المكتب, الهاتف, البريد الإلكتروني, الاتاحية).  عرض عام للمقرر ضمن البرنامج.';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment1'] = 'ما هي الموارد البشرية و المادية المتاحة؟ ماذا يمكن للطلاب ان يتوقعوا من فريق التنظيم أو ما يمكن ان يقوم المدرس بتنظيمه؟';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment2'] = 'تقديم للمدرسين الأخرين الذين سيقومون بتنظيم المقرر ( مساعدين مدرسين, باحثين..إلخ)  و عرض ما هو متوفر من الإمكانيات البشرية , الأبنية , المعدات , تجهيزات الكومبيوتر المتاحة';
+$_lang['blockCourseDescriptionHumanAndPhysicalRessources'] = 'الموارد البشرية و المادية';
+$_lang['blockCourseDescriptionMethodsOfEvaluation'] = 'طرق التقييم';
+$_lang['blockCourseDescriptionMethodsOfEvaluationComment1'] = 'معلومات تفصيلية و دقيقة عن وسائل التقييم كالامتحانات الكتابية , الشفهية , المشاريع , الوظائف ....تاريخ المقابلات و تاريخ انتهاء موعد تسليم الوظائف مع شرح لمعايير التقييم بشكل كامل';
+$_lang['blockCourseDescriptionQualificationsAndGoals'] = 'المؤهلات المكتسبة و الأهداف';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment1'] = 'ماهي أهداف التدريس ؟ ما هي المؤهلات و المعرفة التي سيكتسبها الطلاب في نهاية المقرر';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment2'] = 'عرض للأهداف العامة و الخاصة للمقرر و ما هي المؤهلات  و الكفاءات التي يمكن الوصول لها عند تحقيق هذه الأهداف';
+$_lang['blockCourseDescriptionSupports'] = ' دعم ';
+$_lang['blockCourseDescriptionSupportsComment1'] = 'هل هناك دعم فني خاص بالمقرر؟ ما هو شكل الدعم الذي أقدمه ؟ دعم مفتوح؟ أم دعم مغلق؟';
+$_lang['blockCourseDescriptionSupportsComment2'] = 'Presentation of the support of course.  Presentation of the bibliography, the set of documents or a complementary bibliography.';
+$_lang['blockCourseDescriptionTeachingTrainingActivities'] = 'أنشطة التدريس و التدريب';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment1'] = 'What methods and which activities will support the objectives defined for the course?  What is the calendar of activities?';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment2'] = 'Presentation of the activities envisaged (authoritative reviews, participation expected of the students, practical work, laboratory meetings, visits, collection of information on the ground...).';
 $_lang['blockCourseSettingsTip'] = 'بشكل افتراضي فإن موقع المقرر يكون متاحاً للجميع . الطريقة الأبسط للقيام بعمليات التسجيل هي إتاحة فرصة التسجيل خلال فترة اسبوع واحد و إبلاغ الطلاب بان يقوموا بعملية التسجيل بأنفسهم و من ثم يتم إغلاق باب التسجيل و تدقيق بيانات الطلاب للتحقق من عدم وجود متطفلين او عابثين';
 $_lang['blockDefaultLearningPathComment'] = 'هذه المقدمة لمسار التعليم الحالي, لاستبدالها  قم بالنقر  على <b> تعديل</b>';
 $_lang['blockDefaultModuleAddedComment'] = 'هذا هو نص المقدمة الإضافي حول وجود هذه الوحدة خصوصاً ضمن هذا المسار التعليمي. لاستبداله بنصك الخاص، اضفط بالأسفل على <b>تعديل</b>.';

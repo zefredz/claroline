@@ -65,7 +65,7 @@ $_lang['Delete the whole course website'] = 'Xoá toàn bộ website của khoá
 $_lang['Denied'] = 'Bị cấm';
 $_lang['Department'] = 'Trường/Khoa';
 $_lang['Department URL'] = 'Địa chỉ URL của trường/khoa';
-$_lang['Description'] = 'Description';
+$_lang['Description'] = 'Mô tả tóm tắt';
 $_lang['Detail'] = 'Nội dung';
 $_lang['Details'] = 'Chi tiết';
 $_lang['Directory created'] = 'Thư mục đã tạo';
@@ -150,6 +150,7 @@ $_lang['Move up'] = 'Di chuyển lên';
 $_lang['Multiple choice (Multiple answers)'] = 'Nhiều lựa chọn đúng';
 $_lang['Multiple choice (Unique answer)'] = 'Một lựa chọn đúng';
 $_lang['My course list'] = 'Danh mục khoá học';
+$_lang['My personal course list'] = 'Danh mục khoá học cá nhân';
 $_lang['My user account'] = 'Sửa thông tin cá nhân';
 $_lang['Name of the tool'] = 'Tên công cụ';
 $_lang['New exercise'] = 'Bài tập mới';
@@ -315,6 +316,7 @@ post a message there.</p>
 <p>The link to Registration (if present) is on the Home Page of the campus
  (top right).</p><b>Login</b><p>On your next visits, type login/password
  and Ok to access your courses. The URL of the site is';
+$_lang['blockCourseDescriptionCourseContent'] = 'Nội dung khoá học';
 $_lang['blockCourseSettingsTip'] = 'By default, you course is only accessible to you as its only registered user. If you want some confidentiality,
 the simplest way is to open registration during
 one week, ask the students to register themselves, then close registration and check for possible intruders in the user list.';

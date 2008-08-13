@@ -750,7 +750,6 @@ $_lang['Kernel'] = 'Kernel';
 $_lang['Keys :'] = 'codes :';
 $_lang['Label of the login url to CAS'] = 'Label van de login url naar CAS';
 $_lang['Language'] = 'Taal';
-$_lang['Language mode'] = 'Taal mode';
 $_lang['Language needed'] = 'Taal vereist';
 $_lang['Language packs'] = 'Taalpakketten';
 $_lang['Last 31 days'] = 'Laatste 31 dagen';
@@ -907,6 +906,7 @@ $_lang['Multiple choice (Unique answer)'] = 'Meerkeuze (uniek antwoord)';
 $_lang['My calendar'] = 'Mijn agenda';
 $_lang['My course list'] = 'Mijn cursussen';
 $_lang['My other courses'] = 'Mijn andere cursussen';
+$_lang['My personal course list'] = 'Mijn persoonlijke lijst cursussen';
 $_lang['My results'] = 'Mijn resultaten';
 $_lang['My user account'] = 'Mijn profiel';
 $_lang['MySQL database settings'] = 'Instellingen MySQL database';
@@ -1019,7 +1019,7 @@ $_lang['Number of users by course'] = 'Aantal gebruikers per cursus';
 $_lang['Number of users by faculty'] = 'Aantal gebruikers per ';
 $_lang['Number of users by status'] = 'Aantal gebruikers per status';
 $_lang['Number proposed exceeds max. that you allowed (you can modify it below). Group composition has not been modified'] = 'Het aantal deelnemers overschrijdt het maximum aantal dat U bepaald had.
-    De samenstelling van de groep werd niet gewijzigd. U mag het maximum aantal hieronder wijzigen';
+	De samenstelling van de groep werd niet gewijzigd. U mag het maximum aantal hieronder wijzigen';
 $_lang['Numero'] = 'Nr.';
 $_lang['OVER QUOTA'] = 'OVER QUOTA';
 $_lang['Off'] = 'Uit';
@@ -1064,6 +1064,7 @@ $_lang['Phone : %phone_number'] = 'Telefoon : %phone_number';
 $_lang['Platform'] = 'Beheer van het platform';
 $_lang['Platform Courses'] = 'Alle bestaande cursussen';
 $_lang['Platform Settings'] = 'Platforminstellingen';
+$_lang['Platform administrator'] = 'Platform beheerder';
 $_lang['Platform language'] = 'Taal van het platform';
 $_lang['Platform local path '] = 'Locaal path van het platform';
 $_lang['Platform logo url'] = 'Logo URL van het platform';
@@ -1108,7 +1109,6 @@ $_lang['Private access (site accessible only to people on the <a href="%url">use
 $_lang['Private access (site accessible only to people on the user list)'] = 'Privé toegang (site enkel toegankelijk voor mensen in de gebruikerslijst)';
 $_lang['Private course only'] = 'Alleen Priv&eacute; cursussen';
 $_lang['Private feedback'] = 'Prive commentaar';
-$_lang['Production'] = 'Productie';
 $_lang['Production language files'] = 'Productie taalbestand';
 $_lang['Profile'] = 'Profiel';
 $_lang['Profile SQL'] = 'Profiel SQL';
@@ -1393,12 +1393,8 @@ $_lang['Tracking'] = 'Opvolgen';
 $_lang['Tracking database name'] = 'Tracking database naam';
 $_lang['Tracking has been disabled by system administrator.'] = 'Opvolgen is uitgeschakeld door de platformbeheerder.';
 $_lang['Traffic Details'] = 'Verkeer details';
-$_lang['Translation'] = 'Vertaling';
 $_lang['Translation Progression'] = 'Vooruitgang vertaling';
 $_lang['Translation Tools'] = 'Vertaalgereedschappen';
-$_lang['Translation: use a single language file
-Production: each script use its own language file.'] = 'Vertaling: gebruik één enkel taalbestand
-Productie: elk script gebruikt zijn eigen taalbestand.';
 $_lang['True'] = 'Waar';
 $_lang['True/False'] = 'waar/niet waar';
 $_lang['Tutors'] = 'Begeleiders';
@@ -1752,6 +1748,25 @@ E-mail : %course_email
 Categorie : %course_category
 Taal : %course_language
 Url : %course_url';
+$_lang['blockCourseDescriptionCourseContent'] = 'Inhoud van de cursus';
+$_lang['blockCourseDescriptionCourseContentComment1'] = 'Wat is het belang van de inhoud die gedoceerd wordt binnen het kader van de cursus?  Wat is het niveau van de inhoud ?  Hoe is de inhoud gestructureerd?  Wat is de volgorde van de inhoud?  Wat is het doel van de inhoud?';
+$_lang['blockCourseDescriptionCourseContentComment2'] = 'Presentatie van de inhoud van de cursus, structuur van de inhoud, vooruitgang en de kalender';
+$_lang['blockCourseDescriptionDescriptionComment1'] = 'Wat is de plaats en de eigenheid van de cursus in het programma?  Zijn er voorvereisten?  Wat is de relatie met andere cursussen?';
+$_lang['blockCourseDescriptionDescriptionComment2'] = 'Informatie die toestaat de cursus te identificeren (initialen, titel, aantal uren, praktijkvak...) en te onderwijzen (naam, voornaam, kantoor, Tel., e-mail, bereikbaarheid).  Algemene voorstelling van de cursus binnen het programma.';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment1'] = 'Wat zijn de beschikbare menselijke en fysieke middelen? Waaruit bestaat de omkadering?  Wat kunnen de studenten verwachten van het organisatie-team en de organisatie van de lesgever?';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment2'] = 'Presentatie van de andere lesgevers die de cursus mee organiseren (assistenten, onderzoekers, studenten-monitors...), de beschikbaarheid van mensen, gebouwen en beschikbare uitrusting of computer uitrusting.';
+$_lang['blockCourseDescriptionHumanAndPhysicalRessources'] = 'Menselijke en fysieke middelen';
+$_lang['blockCourseDescriptionMethodsOfEvaluation'] = 'Evaluatie methodes';
+$_lang['blockCourseDescriptionMethodsOfEvaluationComment1'] = 'Details over de gebruikte evaluatie (geschreven testen, mondeling, projecten, taken...), datums voor testen, datums voor indienen taken, criteria voor evaluaties, mogelijke weging van de criteriae criteria of de categori&euml;en van criteria.';
+$_lang['blockCourseDescriptionQualificationsAndGoals'] = 'Qualificaties en doelstellingen';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment1'] = 'Wat zijn de doelstellingen?  Welke zijn de capaciteiten en kennis waarover de student zal beschikken aan het eind van de cursus?';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment2'] = 'Presentatie van de algemene en specifieke doelstellingen van de cursus, van qualificaties tot dewelke het beheersen van het onderwerp leidt';
+$_lang['blockCourseDescriptionSupports'] = ' Ondersteuning ';
+$_lang['blockCourseDescriptionSupportsComment1'] = 'Is er ondersteuning?  Welke soort ondersteuning is er?  Open?  Gesloten?';
+$_lang['blockCourseDescriptionSupportsComment2'] = 'Presentatie van de ondersteuning van de cursus.  Presentatie van de bibliografie, de documenten of een complementaire bibliografie.';
+$_lang['blockCourseDescriptionTeachingTrainingActivities'] = 'Les-training activiteiten';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment1'] = 'Welke methodes en welke activiteiten helpen bij het bereiken van de doelstellingen van de cursus?  Wat is de kalender van activiteiten ?';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment2'] = 'Presentatie van de voorziene activiteiten (Reviews, verwachte deelname van de studenten, practische werkjes, practica, bezoeken, vergaren van informatie ter plekke...).';
 $_lang['blockCourseSettingsTip'] = 'Standaard bent u de enige gebruiker van uw cursus. Als u een minimum aan privacy wilt, kunt u het beste de registratie gedurende een week openen en aan de studenten vragen om zichzelf in te schrijven. Dan sluit u de registratie en controleert u mogelijke indringers in de gebruikerslijst.';
 $_lang['blockCourseSubscriptionNotification'] = '
 Beste %firstname %lastname,
@@ -1775,7 +1790,7 @@ E-mail : %administratorEmail
 $_lang['blockDefaultLearningPathComment'] = 'Dit is de inleidende tekst van dit leertraject. Om het door uw eigen tekst te vervangen, klik op de onderstaande link <b>inleiding toevoegen</b>.';
 $_lang['blockDefaultModuleAddedComment'] = 'Dit is de inleidende tekst van deze module. Deze tekst zal verschijnen in elk leertraject waar de module deel van uitmaakt. Om ze door uw eigen tekst te vervangen, klik op de onderstaande link <b>Inleiding toevoegen</b>.';
 $_lang['blockDefaultModuleComment'] = 'Dit is de inleidende tekst van deze module. Deze tekst zal verschijnen in elk leertraject waar de module deel van uitmaakt. Om ze door uw eigen tekst te vervangen, klik op de onderstaande link <b>Inleiding toevoegen</b>.';
-$_lang['blockDocumentsHelp'] = '<p>De module voor het beheer van documenten (cursusmaterialen) gebeurt op dezelfde wijze als het beheer van uw documenten op een computer.</p><p>U kunt alle types documenten (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.) opslaan. Wees toch voorzichtig. De studenten moeten de juiste programma’s hebben om deze te lezen. <b>Tip:</b> Let er op dat u geen virussen met uw documenten meestuurt. Gebruik een anti-virus software pakket!.</p><p>De documenten worden in alfabetische orde gerangschikt.<br />  <b>Tip: </b>Als U een andere volgorde wenst, kunt u de documenten door een nummer laten voorafgaan.     Ze zullen op basis van de nummering gerangschikt worden. U kunt documenten ook in mappen organiseren.</p><p>U kunt:</p><h4>Een document uploaden in deze module</h4><ul>  <li>Het document op uw computer selecteren met de hulp van de toets \'Browse\'; <input type=submit value=Browse name=submit2> rechts op Uw scherm.</li>  <li>Upload het bestand de hulp van de toets \'Uploaden\';     <input type=submit value=Uploaden name=submit2>    .</li></ul><h4>Een nieuwe naam geven aan een document (of map)</h4><ul>  <li>klik op de toets <img src=../document/img/edit.gif width=20
+$_lang['blockDocumentsHelp'] = '<p>De module voor het beheer van documenten (cursusmaterialen) gebeurt op dezelfde wijze als het beheer van uw documenten op een computer.</p><p>U kunt alle types documenten (HTML, Word, Powerpoint, Excel, Acrobat, Flash, Quicktime, etc.) opslaan. Wees toch voorzichtig. De studenten moeten de juiste programma’s hebben om deze te lezen. <b>Tip:</b> Let er op dat u geen virussen met uw documenten meestuurt. Gebruik een anti-virus software pakket!.</p><p>De documenten worden in alfabetische orde gerangschikt.<br />  <b>Tip: </b>Als U een andere volgorde wenst, kunt u de documenten door een nummer laten voorafgaan. 	Ze zullen op basis van de nummering gerangschikt worden. U kunt documenten ook in mappen organiseren.</p><p>U kunt:</p><h4>Een document uploaden in deze module</h4><ul>  <li>Het document op uw computer selecteren met de hulp van de toets \'Browse\'; <input type=submit value=Browse name=submit2> rechts op Uw scherm.</li>  <li>Upload het bestand de hulp van de toets \'Uploaden\'; 	<input type=submit value=Uploaden name=submit2>	.</li></ul><h4>Een nieuwe naam geven aan een document (of map)</h4><ul>  <li>klik op de toets <img src=../document/img/edit.gif width=20
  height=20 align=baseline> in de kolom \'nieuwe naam\';.</li>
   <li>Breng in de nieuwe naam in de voorbehouden zone links boven</li>
   <li>Klik op \'OK\'; <input type=submit value=OK name=submit24>. </li></ul>
@@ -1813,7 +1828,7 @@ $_lang['blockDocumentsHelp'] = '<p>De module voor het beheer van documenten (cur
 <center>
 </p>';
 $_lang['blockExercisesHelp'] = '<p>De oefeningen module laat u toe om verschillende testen (oefeningen)  te maken die elk zoveel vragen bevatten als u wilt.
-    <i>Terminologie: een &quot;oefening&quot; of &quot;test&quot; bestaat uit een reeks &quot;vragen&quot;.</i><br /><br />
+	<i>Terminologie: een &quot;oefening&quot; of &quot;test&quot; bestaat uit een reeks &quot;vragen&quot;.</i><br /><br />
 Er zijn verschillende vraagtypes beschikbaar : <br />
 <ul>
   <li>Meerkeuze met &eacute;&eacute;n mogelijk antwoord</li>
@@ -1850,11 +1865,11 @@ Om een meerkeuzevraag te maken: <br />
 <hr />
 <b>Invulvragen</b>
 <p>Hiermee kunt u een tekst met invulruimtes cre&euml;ren. Het doel is om studenten woorden te laten
-    invullen die ontbreken in de tekst.<br /><br />
-    Om een invulruimte te cre&euml;ren, plaatst u een woord tussen vierkante haakjes [zoals hier].<br /><br />
-    <!--Once the text has been typed and blanks defined, you can add a comment that will be seen by the student when it replies to the question.<br /><br />-->
-    Bewaar uw tekst, en dan kunt u vervolgens gewichten toekennen aan elke invulruimte.
-    Bijvoorbeeld: voor een vraag die 10 punten waard is, met 5 invulruimtes, kunt u 2 punten toekenen aan iedere invulruimte.
+	invullen die ontbreken in de tekst.<br /><br />
+	Om een invulruimte te cre&euml;ren, plaatst u een woord tussen vierkante haakjes [zoals hier].<br /><br />
+	<!--Once the text has been typed and blanks defined, you can add a comment that will be seen by the student when it replies to the question.<br /><br />-->
+	Bewaar uw tekst, en dan kunt u vervolgens gewichten toekennen aan elke invulruimte.
+	Bijvoorbeeld: voor een vraag die 10 punten waard is, met 5 invulruimtes, kunt u 2 punten toekenen aan iedere invulruimte.
 </p>
 <hr />
 <b>Koppelen (matching)</b>
@@ -1888,7 +1903,7 @@ Als u veel vragen hebt, kunt u ook slechts een bepaald aantal vragen laten trekk
 <hr />
 <b>Verzameling van alle vragen</b>
 <p>Als u een oefening wist, worden de individuele vragen van die oefening niet mee gewist,
-    zodat ze kunnen hergebruikt worden voor nieuwe oefeningen (via de vragenverzameling).<br /><br />
+	zodat ze kunnen hergebruikt worden voor nieuwe oefeningen (via de vragenverzameling).<br /><br />
 Deze algemene lijst van vragen laat u ook toe om een vraag in meerdere oefeningen tegelijk te gebruiken.<br /><br />
 Standaard worden in de lijst alle vragen van uw cursus getoond.
 U kunt dit overzicht verfijnen via het uitschuifmenu &quot;Filter&quot;.
@@ -1921,7 +1936,7 @@ Deze invulmethodes kunnen gecombineerd worden gebruikt.  Bijvoorbeeld: De studen
   <li><b>\'Verwijderen\'</b> maakt het mogelijk om de groep te verwijderen, <b>inclusief forum en documentenbeheer</b>.</li></ul>
 <hr noshade size=1>';
 $_lang['blockHomepageHelp'] = '
-    U bevindt zich op de startpagina van een cursus. Hier ziet u verschillende ikoontjes
+	U bevindt zich op de startpagina van een cursus. Hier ziet u verschillende ikoontjes
 die de cursusonderdelen weergeven: forum, mededelingen, documenten... De
 meeste onderdelen zijn al ingevuld met voorbeeldmateriaal: een
 korte tekst, een hyperlink.

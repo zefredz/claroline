@@ -75,7 +75,7 @@ $_lang['Delete the whole course website'] = 'Удалить весь курс целиком';
 $_lang['Denied'] = 'Запрещен';
 $_lang['Department'] = 'Кафедра';
 $_lang['Department URL'] = 'URL кафедры';
-$_lang['Description'] = 'пРЙУБОЙЕ ЗТХРРЩ';
+$_lang['Description'] = 'Описание (по желанию)';
 $_lang['Detail'] = 'Подробности';
 $_lang['Details'] = 'Подробности';
 $_lang['Directory created'] = 'папка создана';
@@ -165,6 +165,7 @@ $_lang['Move up'] = 'Вверх';
 $_lang['Multiple choice (Multiple answers)'] = 'Множественный выбор (несколько правильных ответов)';
 $_lang['Multiple choice (Unique answer)'] = 'Множественный выбор (один правильный ответ)';
 $_lang['My course list'] = 'Список моих курсов';
+$_lang['My personal course list'] = 'Мой личный список курсов';
 $_lang['My user account'] = 'Изменить мои настройки';
 $_lang['Name of the tool'] = 'Название средства';
 $_lang['New exercise'] = 'Новый тест';
@@ -338,6 +339,7 @@ $_lang['blockClaroMainHelp'] = '<br /><p><b>Студент</b></p>
 за электронный кампус университета. Вы также можете разместить сообщение 
 на форуме поддержки платформы <a href=http://www.claroline.net>http://www.claroline.net</a>.
 </p>';
+$_lang['blockCourseDescriptionCourseContent'] = 'Содержание курса';
 $_lang['blockCourseSettingsTip'] = 'По умолчанию, курс доступен только вам, так как вы являетесь его единственным пользователем.
 Если вы хотите минимум конфиденциальности, самым простым решением будет открыть регистрацию в течение недели
 , попросить студентов зарегистрироваться самостоятельно, а затем закрыть регистрацию и проверить список пользователей

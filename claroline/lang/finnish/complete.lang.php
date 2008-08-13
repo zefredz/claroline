@@ -33,6 +33,7 @@ $_lang['Date'] = 'Päivä';
 $_lang['Day'] = 'Päivä';
 $_lang['Delete'] = 'Poista';
 $_lang['Delete the whole course website'] = 'Poista kurssin koko sivusto';
+$_lang['Description'] = 'tehtävän kuvaus';
 $_lang['Detail'] = 'Yksityiskohdat';
 $_lang['Directory created'] = 'Hakemisto on luotu';
 $_lang['Document deleted'] = 'Dokumentti on poistettu';

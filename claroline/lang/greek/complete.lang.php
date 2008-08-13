@@ -748,7 +748,6 @@ $_lang['Kernel'] = 'Πυρήνας';
 $_lang['Keys :'] = ' Κλειδιά :';
 $_lang['Label of the login url to CAS'] = 'Ετικέτα της διεύθυνσης url σύνδεσης στο CAS';
 $_lang['Language'] = 'Γλώσσα';
-$_lang['Language mode'] = 'Λειτουργία γλώσσας';
 $_lang['Language needed'] = 'Γλώσσα που απαιτείται';
 $_lang['Language packs'] = 'Πακέτα γλωσσών';
 $_lang['Last 31 days'] = 'Τελευταίες 31 ημέρες';
@@ -904,6 +903,7 @@ $_lang['Multiple choice (Unique answer)'] = 'Πόλλαπλές επιλογές (Μοναδική απάντη
 $_lang['My calendar'] = 'Το ημερολόγιό μου';
 $_lang['My course list'] = 'Τα μαθήματά μου';
 $_lang['My other courses'] = 'Τα άλλα μου μαθήματα';
+$_lang['My personal course list'] = 'Η προσωπική μου λίστα μαθήματος';
 $_lang['My results'] = 'Τα αποτελέσματά μου';
 $_lang['My user account'] = 'Αλλαγή του προφίλ μου';
 $_lang['MySQL database settings'] = 'Ρυθμίσεις της βάσης δεδομένων MySQL';
@@ -1064,6 +1064,7 @@ $_lang['Phone : %phone_number'] = 'Τηλέφωνο : %phone_number';
 $_lang['Platform'] = 'Πλατφόρμα';
 $_lang['Platform Courses'] = 'Μαθήματα Πλατφόρμας';
 $_lang['Platform Settings'] = 'Ρυθμίσεις Πλατφόρμας';
+$_lang['Platform administrator'] = 'Διαχειριστής Πλατφόρμας';
 $_lang['Platform language'] = 'Γλώσσα Πλατφόρμας';
 $_lang['Platform local path '] = 'Τοπική διαδρομή για την πλατφόρμα';
 $_lang['Platform logo url'] = 'Διεύθυνση url για το εικονίδιο της πλατφόρμας';
@@ -1108,7 +1109,6 @@ $_lang['Private access (site accessible only to people on the <a href="%url">use
 $_lang['Private access (site accessible only to people on the user list)'] = 'Ιδιωτική πρόσβαση (η ιστοσελίδα είναι προσβάσιμη μόνο σε άτομα που βρίσκονται στην λίστα χρηστών)';
 $_lang['Private course only'] = 'Προσωπικό μάθημα μόνο';
 $_lang['Private feedback'] = 'Προσωπική επικοινωνία';
-$_lang['Production'] = 'Παραγωγή';
 $_lang['Production language files'] = 'Παραγωγή αρχείων γλώσσας';
 $_lang['Profile'] = 'Προφίλ';
 $_lang['Profile SQL'] = 'Προφίλ SQL';
@@ -1395,12 +1395,8 @@ $_lang['Tracking'] = 'Παρακολουθηση';
 $_lang['Tracking database name'] = 'Όνομα βάσης δεδομένων παρακολούθησης';
 $_lang['Tracking has been disabled by system administrator.'] = 'Η παρακολούθηση (Tracking) έχει απενεργοποιηθεί (disabled) απο τον διαχειριστή του συστήματος.';
 $_lang['Traffic Details'] = 'Λεπτομέρειες κίνησης';
-$_lang['Translation'] = 'Μετάφραση';
 $_lang['Translation Progression'] = 'Πρόοδος μετάφρασης';
 $_lang['Translation Tools'] = 'Εργαλεία μετάφρασης';
-$_lang['Translation: use a single language file
-Production: each script use its own language file.'] = 'Μετάφραση: χρησιμοποιείστε ένα απλό αρχείο γλώσσας
-Παραγωγή: κάθε αρχείο script χρησιμοποιεί το δικό του αρχείο γλώσσας.';
 $_lang['True'] = 'Σωστό';
 $_lang['True/False'] = 'Σωστό/Λάθος';
 $_lang['Tutors'] = 'Καθηγητές';
@@ -1760,6 +1756,25 @@ Email : %course_email
 Κατηγορία : %course_category
 Γλώσσα : %course_language
 Url : %course_url';
+$_lang['blockCourseDescriptionCourseContent'] = 'Περιεχόμενο/αντικείμενο μαθήματος (course)';
+$_lang['blockCourseDescriptionCourseContentComment1'] = 'Ποιά η σπουδαιότητα του ποικίλου περιεχόμενου να διαδαχτεί μέσα στα πλαίσια του μαθήματος?  Ποιό το επίπεδο δυσκολίας του περιεχομένου/αντικειμένου αυτού?  Πως είναι δομημένη η ενότητα?  Ποια θα είναι η συνέχεια του περιεχομένου?  Που οδηγεί το περιεχόμενο';
+$_lang['blockCourseDescriptionCourseContentComment2'] = 'Παρουσίαση του αντικειμένου του μαθήματος, της δομής του αντικειμένου, της προόδου και της χρονολογικής τάξης ';
+$_lang['blockCourseDescriptionDescriptionComment1'] = 'Ποιό είναι το μέρος και ποια η ιδιαιτερότητα του μαθήματος στο πρόγραμμα?  Υπάρχουν προ-απαιτούμενα μαθήματα?  Ποιές σχέσεις έχει με τα άλλα μαθήματα?';
+$_lang['blockCourseDescriptionDescriptionComment2'] = 'Πληροφορίες που επιτρέπουν στο μάθημα να αναγνωρισθεί (ρυθμίσεις έναρξης, τίτλος, αριθμός ωρών, παραδόσεις...) και η διδασκαλία του (επώνυμο, μικρό όνομα, γραφείο, τηλ., e-mail, πιθανές διαθεσιμότητες).  Γενική παρουσίαση του μαθήματος στο πρόγραμμα.';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment1'] = 'Ποιοι είναι οι διαθέσιμοι ανθρώπινοι και φυσικού πόροι?  Ποία είναι η φύση πλαισιου(???????)?  Τι μπορούν να περιμένουν οι μαθητές απο τον οργανισμό ομάδας ή τον οργανισμό δασκάλων?';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment2'] = 'Παρουσίαση άλλων δασκάλων που θα οργανώσουν το μάθημα (βοηθοί, ερευνητές, μαθητές -οθόνες...), της διαθεσιμότητας των ατόμων, τα κτίρια και τον εξοπλισμό ή εξοπλισμό computer διαθέσιμα.';
+$_lang['blockCourseDescriptionHumanAndPhysicalRessources'] = 'Ανθρώπινοι και φυσικοί πόροι';
+$_lang['blockCourseDescriptionMethodsOfEvaluation'] = 'Mέθοδοι αξιολόγησης';
+$_lang['blockCourseDescriptionMethodsOfEvaluationComment1'] = 'Ακριβείς λεπτομέρειες όπως είναι τα μέσα αξιολόγησης (γραπτές εξετάσεις, προφορικές, εργασίες (projects), ανάθεση εργασίας...), ημερομηνία προβολής αξιολόγησης  , ημερομηνίες προσθεσμίας για τις παραδόσεις εργασιών, με το κριτήριο της αξιολόγησης, πιθανό ζύγισμα κριτηρίων ή κατηγορίες κριτηρίων.';
+$_lang['blockCourseDescriptionQualificationsAndGoals'] = 'Προϋποθέσεις και στόχοι';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment1'] = 'Ποιοί ελιναι οι στόχοι διδασκαλίας?  Στο τέλος του μαθήματος, ποιά απαιτούμενα προσόντα,ποιές ικανότητες και γνώσεις θα μπορούν οι μαθητές να έχουν και να κινητοποιήσουν?';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment2'] = 'Παρουσίαση των γενικών και ειδικών αντικειμένων του μαθήματος, προσόντα στα οποία θα οδηγήσει ο έλεγχος αυτών των αντικειμένων.';
+$_lang['blockCourseDescriptionSupports'] = ' Υποστήριξη ';
+$_lang['blockCourseDescriptionSupportsComment1'] = 'Υπάρχει η υποστήριξη μαθήματος?  Τί είδος υποστήριξη πρέπει να δώσω?  Ανοιχτή?  Κλειστή?';
+$_lang['blockCourseDescriptionSupportsComment2'] = 'Παρουσίαση της υποστήριξης του μαθήματος.  Παρουσίαση της βιβλιογραφίας, πακέτα εγγράφων ή συμπληρωματικής βιβλιογραφίας.';
+$_lang['blockCourseDescriptionTeachingTrainingActivities'] = 'Δραστηριότητες διδασκαλίας - εκπαίδευσης';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment1'] = 'Ποιές μεθόδους και ποιές δραστηριότητες θα υποστηρίξουν τα  αντικείμενα που έχουν οριστεί για το μάθημα?  Ποιές είναι οι δραστηριότητες του ημερολογίου?';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment2'] = 'Παρουσίαση των εξεταζόμενων δραστηριοτήτων (έγγυρες κριτικές, αναμενόμενη συμμετοχή μαθητών, πρακτική άσκηση, εργαστηριακές συναντήσεις, επισκέψεις, συλλογή πληροφοριών...).';
 $_lang['blockCourseSettingsTip'] = 'Εξ\' ορισμού, το μάθημα είναι προσπελάσιμο μόνο από εσάς. Αν θέλετε ελεγχόμενη πρόσβαση, μπορείτε να επιλέξετε \'Ελεγχόμενη Προσβαση με ανοιχτή
 εγγραφή\' και να ζητήσετε από τους χρήστες να γραφτούν. Μόλις τελειώσει η εγγραφή μπορείτε να επιλέξετε \'Ελεγχομενη προσβαση\'.';
 $_lang['blockCourseSubscriptionNotification'] = '

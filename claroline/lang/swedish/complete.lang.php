@@ -72,7 +72,7 @@ $_lang['Delete the whole course website'] = 'Radera hela kurswebbsajten';
 $_lang['Denied'] = 'Nekad';
 $_lang['Department'] = 'Avdelning';
 $_lang['Department URL'] = 'URL';
-$_lang['Description'] = 'Beskrivning';
+$_lang['Description'] = 'Uppgiftsbeskrivning';
 $_lang['Detail'] = 'Detalj';
 $_lang['Details'] = 'Detaljer';
 $_lang['Directory created'] = 'mapp skapad';
@@ -298,6 +298,7 @@ $_lang['Your message has been entered'] = 'Ditt inlägg har sparats i databasen.'
 $_lang['Zip file uploaded and uncompressed'] = '.ZIP-fil uppladdad och dekomprimerad';
 $_lang['archive'] = 'arkiv';
 $_lang['blockClaroMainHelp'] = 'Här kan, lärare och assistenter skapa och administrera kurswebbsajter. Studenter kan läsa (dokument, agendor och annan information) och ibland göra övningar, publicera arbeten samt delta i forumdiskusioner...</p><b>Registrering</b><p>Följande instruktioner gäller bara om din version av Claroline tillåter självregistrering (vissa sajter registrerar dig automatiskt). Om du är elev, behöver du bara registrera dig på kursen genom att välja \'Följ kurser (elev)\', därefter väljer du de kurser du vill delta i.</p><p>Om du är lärare eller assistent, registrera dig också, välj \'Skapa kurswebbsajter(lärare)\'. Du kommer sedan att få fylla i Kurskod, Fakultet och Kurstitel. När allt godkänts tas du till den sajt som du nyss har skapat för att modifiera dess innehåll och organisation efter dina önskemål. </p><p>Om denna portal inte passar för dina ändamål, kontakta oss genom länken \'Att göra\' som finns på campusens hemsida (när du loggat in).</p><p>Länken till Registrering hittar du på Campusens hemsida (överst till höger).</p><b>Login</b><p>När beöker sajten nästa gång, skriv in inloggnngsnamn/lösenord och godkänn för att få åtkomst till dina kurser. URL:en för sajten är';
+$_lang['blockCourseDescriptionCourseContent'] = 'Kursinnehåll';
 $_lang['blockCourseSettingsTip'] = 'Som standard kommer din kurs att kunna nås av alla så länge som det är registrerade användare. I händelse av att du har något konfidentiellt, 
 det enklaste är att öppna registrering under
 en vecka, och be studenterna att de registrerar sig själva, därefter stänga registreringen och kontrollera användarlistan efter obehöriga.';

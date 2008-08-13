@@ -221,7 +221,7 @@ $_lang['Denied'] = 'Negado';
 $_lang['Department'] = 'Departmento';
 $_lang['Department URL'] = 'URL do Departamento';
 $_lang['Department URL is not valid'] = 'URL inválida, favor verificar';
-$_lang['Description'] = 'Descrição';
+$_lang['Description'] = 'Descrever';
 $_lang['Description deleted.'] = 'Descrição apagada.';
 $_lang['Description updated'] = 'Descrição atualizada.';
 $_lang['Detail'] = 'Detalhe';
@@ -441,6 +441,7 @@ $_lang['Multiple choice (Multiple answers)'] = 'Múltipla escolha (Múltiplas resp
 $_lang['Multiple choice (Unique answer)'] = 'Múltipla escolha (Resposta única)';
 $_lang['My calendar'] = 'Minha agenda';
 $_lang['My course list'] = 'Minha lista de cursos';
+$_lang['My personal course list'] = 'Minha lista de cursos pessoal';
 $_lang['My results'] = 'Meus resultados';
 $_lang['My user account'] = 'Modificar meu perfíl';
 $_lang['Mysql Repository'] = 'RepositÃ³rio Mysql';
@@ -505,7 +506,7 @@ $_lang['Number of users by course'] = 'Número de usuários por curso';
 $_lang['Number of users by faculty'] = 'Número de usuários por faculdade';
 $_lang['Number of users by status'] = 'Número de usuários por status';
 $_lang['Number proposed exceeds max. that you allowed (you can modify it below). Group composition has not been modified'] = 'O número proposto excede o máx. que você permitiu (você pode modificar isso abaixo).
-                A composição do grupo não foi modificada';
+				A composição do grupo não foi modificada';
 $_lang['Numero'] = 'Não.';
 $_lang['Ok'] = 'validar';
 $_lang['Oldest first'] = 'Antigos primeiro';
@@ -524,6 +525,7 @@ $_lang['Period'] = 'Período';
 $_lang['PersonalCourseList'] = 'Lista de cursos pessoal';
 $_lang['Phone'] = 'Telefone';
 $_lang['Platform'] = 'Plataforma';
+$_lang['Platform administrator'] = 'Administrador da Plataforma';
 $_lang['Platform statistics'] = 'Estatísticas da plataforma';
 $_lang['Please choose a good answer'] = 'Por favor escolha uma boa resposta';
 $_lang['Please confirm your choice'] = 'Por favor confirme a sua escolha';
@@ -885,6 +887,25 @@ Você não terá mais como utilizá-lo em qualquer rota de aprendizagem.
 
 Confirmar a remoção de : ';
 $_lang['blockConfirmDeleteScorm'] = 'Essa rota de aprendizagem é resultado de parte das informações importadas de um pacote SCORM. Se você deletar essa rota todos os seus módulos que estiverem em conformidade com o SCORM e arquivos relacionados serão deletados da plataforma.  Você tem certeza que quer deletar a rota de aprendizagem chamada ';
+$_lang['blockCourseDescriptionCourseContent'] = 'Conteúdo do curso';
+$_lang['blockCourseDescriptionCourseContentComment1'] = ' Qual a importância dos vários conteúdos para o ensino a distância para este curso?  Qual o nível de dificuldade para este conteúdo?  Como as unidades apresentam-se estruturadas e interligadas?  Qual será a sequência do conteúdo?  A que este conteúdo se aplica?';
+$_lang['blockCourseDescriptionCourseContentComment2'] = 'Apresentação do conteúdo do curso, estruturação do conteúdo, o cronograma do curso';
+$_lang['blockCourseDescriptionDescriptionComment1'] = ' A que  áreas e especificidades o programa deste curso se aplica?  Existem pré-requisitos?  Qual a relação com os outros cursos?';
+$_lang['blockCourseDescriptionDescriptionComment2'] = 'Informações utilizadas na indentificação: (a) do curso - iniciais (código), título, carga horária, cronograma...;  e (b) do professor (sobrenome, primeiro nome, gabinete, Tel., e-mail, horários disponíveis).  Uma apresentação em linhas gerais sobre o curso que faz parte da programação';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment1'] = 'Quais são os recursos humanos e físicos disponíveis?  qual será a natureza da estrutura?  O que o estudante pode esperar da Instituição, da equipe de professores e administradores?';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment2'] = 'Apresentação dos professores que trabalham no curso como também os assistentes, pesquisadores e monitores. Deve ser ressaltada a disponibilida de horários das pessoas que trabalham no curso, das salas e laboratórios, dos equipamentos, ou de computadores.';
+$_lang['blockCourseDescriptionHumanAndPhysicalRessources'] = 'Recursos Humanos e Físicos';
+$_lang['blockCourseDescriptionMethodsOfEvaluation'] = 'Métodos de Avaliação';
+$_lang['blockCourseDescriptionMethodsOfEvaluationComment1'] = 'Detalhes precisos sobre as formas de avaliação (avaliações escritas, orais, projetos, trabalhos a serem definidos...), datas de revisão de provas e trabalhos, datas limites de entrega de trabalhos e atividades, critérios de avaliação, pesos nas avaliações ou conceitos.';
+$_lang['blockCourseDescriptionQualificationsAndGoals'] = 'Metas e Qualificaçõe';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment1'] = 'qual o objetivo do professor?  No final do curso, que qualificações, habilidades e conhecimentoos estudantes serão mobilizados para adquirir,?';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment2'] = 'Apresentação geral e específica dos objetivos do curso, as qualificações que cada objetivo conduzirá.';
+$_lang['blockCourseDescriptionSupports'] = ' Suporte ';
+$_lang['blockCourseDescriptionSupportsComment1'] = 'É permitido desistir do curso?  Qual tipo de suporte vou oferecer?  Integral?  Específica?';
+$_lang['blockCourseDescriptionSupportsComment2'] = 'Apresenteação do suporte disponibilizado pelo curso.  Apresentação da bibliografia, o material a ser disponibilizado e bibliografias complementares.';
+$_lang['blockCourseDescriptionTeachingTrainingActivities'] = 'Atividades de Aprendizado';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment1'] = 'Quais os métodos e tipos de atividades que serão utilizados no desenvolvimento do curso?  Qual é o cronograma de atividades?';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment2'] = 'Apresentação de atividades a serem executadas pelos estudantes (revisões bibliográficas,  trabalhos práticos, práticas em laboratórios, visitas, coleta de dados em grupo...).';
 $_lang['blockCourseSettingsTip'] = 'Por padrão seu curso está acessível apenas para você como seu único usuário inscrito. No caso de você necessitar de algum sigilo,
 o modo mais simples é abrir as inscrições durante
 uma semana, pedir aos estudantes que se inscrevam, então fechar as inscrições e checar possíveis intrusos na lista de usuários.';
@@ -907,10 +928,10 @@ $_lang['blockDocumentsHelp'] = '<p>A ferramenta Documentos é similar ao gerencia
 <ul>
   <li>Select the file on your computer using the Browse button <input
  type=submit value=Browse name=submit2>
-    on the right of your screen.</li>
+	on the right of your screen.</li>
   <li>Launch the upload with the Upload Button <input type=submit
  value=Upload name=submit2>
-    .</li>
+	.</li>
 </ul>
 <h4>Rename a document (a directory)</h4>
 <ul>
@@ -919,64 +940,64 @@ $_lang['blockDocumentsHelp'] = '<p>A ferramenta Documentos é similar ao gerencia
   the Rename column</li>
   <li>Type the new name in the field (top left)</li>
   <li>Validate by clicking <input type=submit value=Ok name=submit24>
-    .
+	.
 </ul>
-    <h4>Delete a document (or a directory)</h4>
-    <ul>
+	<h4>Delete a document (or a directory)</h4>
+	<ul>
 
   <li>Click on <img src=../document/img/supprimer.gif width=20 height=20 />
-    in column \'Delete\'.</li>
-    </ul>
-    <h4>Make a document (or directory) invisible to students</h4>
-    <ul>
+	in column \'Delete\'.</li>
+	</ul>
+	<h4>Make a document (or directory) invisible to students</h4>
+	<ul>
 
   <li>Click on <img src=../document/img/visible.gif width=20 height=20>in
  column \'Visible/invisible\'.</li>
-      <li>The document (or directory) still exists but it is not visible by
+	  <li>The document (or directory) still exists but it is not visible by
  students anymore.</li>
   <li>To make it invisible back again, click on <img
  src=../img/invisible.gif width=24 height=20>
-    in column \'Visible/invisible\'</li>
-    </ul>
-    <h4>Add or modify a comment to a document (or a directory)</h4>
-    <ul>
+	in column \'Visible/invisible\'</li>
+	</ul>
+	<h4>Add or modify a comment to a document (or a directory)</h4>
+	<ul>
   <li>Click on <img src=../img/comment.gif width=20
  height=20>
-    in column \'Comment\'</li>
-      <li>Type new comment in the corresponding field (top right).</li>
-      <li>Validate by clicking <input type=submit value=OK name=submit2>
-        .</li>
-    </ul>
-    <p>To delete a comment, click on <img
+	in column \'Comment\'</li>
+	  <li>Type new comment in the corresponding field (top right).</li>
+	  <li>Validate by clicking <input type=submit value=OK name=submit2>
+		.</li>
+	</ul>
+	<p>To delete a comment, click on <img
  src=../img/comment.gif width=20 height=20>,
-      delete the old comment in the field and click <input type=submit
+	  delete the old comment in the field and click <input type=submit
  value=OK name=submit22>
-      .
-    <hr />
-    <p>You can organise your content through filing. For this:</p>
-    <h4><b>Create a directory</b></h4>
-    <ul>
-      <li>Click on <img src=../img/folder.gif> \'Create a directory\' (top left)</li>
-      <li>Type the name of your new directory in the corresponding field (top
+	  .
+	<hr />
+	<p>You can organise your content through filing. For this:</p>
+	<h4><b>Create a directory</b></h4>
+	<ul>
+	  <li>Click on <img src=../img/folder.gif> \'Create a directory\' (top left)</li>
+	  <li>Type the name of your new directory in the corresponding field (top
  left)</li>
-      <li>Validate by clicking <input type=submit value=OK
+	  <li>Validate by clicking <input type=submit value=OK
  name=submit23>.</li>
-    </ul>
-    <h4>Move a document (or directory)</h4>
-    <ul>
-      <li>Cllick on button <img src=../img/deplacer.gif
+	</ul>
+	<h4>Move a document (or directory)</h4>
+	<ul>
+	  <li>Cllick on button <img src=../img/deplacer.gif
  width=34 height=16>
-        in column \'Move\'</li>
-      <li>Choose the directory into which you want to move the document (or
+		in column \'Move\'</li>
+	  <li>Choose the directory into which you want to move the document (or
  directory) in the
-      corresponding scrolling menu (top left) (note: the word \'root\' means you
+	  corresponding scrolling menu (top left) (note: the word \'root\' means you
  cannot go
-      upper than that level in the document tree of the server).</li>
-      <li>Validate by clicking on <input type=submit value=OK
+	  upper than that level in the document tree of the server).</li>
+	  <li>Validate by clicking on <input type=submit value=OK
  name=submit232>.</li>
-    </ul>
-    <center>
-      <p>';
+	</ul>
+	<center>
+	  <p>';
 $_lang['blockExercisesHelp'] = '<h4>Qual é o tipo de exercício ?</h4>
 Nesta seção você pode criar exercícios compostos de várias questões para solução on-line. As questões podem ser de tipos diferentes. O estudante cadastrado ao realizar os exercícios terá suas notas registradas e apresentadas na estatística do curso.
 

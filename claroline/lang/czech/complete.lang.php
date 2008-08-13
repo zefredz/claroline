@@ -742,6 +742,7 @@ $_lang['Multiple choice (Unique answer)'] = 'Více odpovìdí (Jedna správná odpovì
 $_lang['My calendar'] = 'Vá¹ Kalendáø';
 $_lang['My course list'] = 'Seznam Va¹ich kurzù';
 $_lang['My other courses'] = 'Moje dal¹í kurzy';
+$_lang['My personal course list'] = 'Osobní seznam kurzù';
 $_lang['My results'] = 'Va¹e výsledky';
 $_lang['My user account'] = 'U¾ivatelský úèet';
 $_lang['Mysql Repository'] = 'Mysql úlo¾i¹tì';
@@ -864,6 +865,7 @@ $_lang['Phone'] = 'Telefon';
 $_lang['Platform'] = 'Platforma';
 $_lang['Platform Courses'] = 'Kurzy platformy';
 $_lang['Platform Settings'] = 'Nastavení platformy';
+$_lang['Platform administrator'] = 'Správce platformy';
 $_lang['Platform statistics'] = 'Statistika platformy';
 $_lang['Please check that your campus URL is reachable from the internet.'] = 'Prosím zkontrolujte, zda je Vá¹ kampus pøístupný z Internetu.';
 $_lang['Please choose a good answer'] = 'Vyberte správnou odpovìï';
@@ -1411,6 +1413,25 @@ Email : %course_email
 Kategorie : %course_category
 Jazyk : %course_language
 Adresa : %course_url';
+$_lang['blockCourseDescriptionCourseContent'] = 'Obsah kurzu';
+$_lang['blockCourseDescriptionCourseContentComment1'] = 'Jaká je dùle¾itost rùzného obsahu v rámci osnovy kurzu?  Jaký je stupeò obtí¾nosti tohoto obsahu?  Je strukturován? Jaké bude poøadí obsahu?  K èemu obsah smìøuje?';
+$_lang['blockCourseDescriptionCourseContentComment2'] = 'Prezentace obsahu kurzu, struktura obsahu, postup a kalendáø';
+$_lang['blockCourseDescriptionDescriptionComment1'] = 'Jaké je místo a význam kurzu v programu?  Existují pøedchozí kurzy, na které navazuje?  Jaká je souvzta¾nost s ostatními kurzy?';
+$_lang['blockCourseDescriptionDescriptionComment2'] = 'Informace k identifikaci kurzu (iniciály, název a poèet hodin...), vyuèující (pøíjmení, jméno, kanceláø, telefon, e-mail, k zasti¾ení).  Základní prezentace kurzu v programu.';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment1'] = 'Co èlovìk doká¾e? Co je to pøedstavivost?  Co mù¾ou studenti oèekávat od ¹koly nebo ¹kola od uèitelù?';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment2'] = 'Pøedstavení dal¹ích uèitelù, kteøí se budou úèastnit kurzù (asistenti, výzkumníci, vìdci, pozorovatelé...), dostupnost prostøedkù a lidí.';
+$_lang['blockCourseDescriptionHumanAndPhysicalRessources'] = 'Lidské schopnosti a mo¾nosti';
+$_lang['blockCourseDescriptionMethodsOfEvaluation'] = 'Metody hodnocení';
+$_lang['blockCourseDescriptionMethodsOfEvaluationComment1'] = 'Pøesné podmínky hodnocení (psané zkou¹ky, ústní projev, projekty, domácí úkoly), formální datum vstupního hodnocení, termíny odevzdání prací s kritérii hodnocení, pravdìpodobná váha kriterií a kategorií hodnocení.';
+$_lang['blockCourseDescriptionQualificationsAndGoals'] = 'Kvalifikace a cíle';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment1'] = 'Co je cílem výuky?  Jakou budou mít studenti na konci kurz kvalifikaci, mo¾nosti a znalosti?';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment2'] = 'Prezentace hlavních a vedlej¹ích cílù kurzu, k jaké kvalifikaci tyto cíle povedou.';
+$_lang['blockCourseDescriptionSupports'] = ' Podpora ';
+$_lang['blockCourseDescriptionSupportsComment1'] = 'Existuje podpora kurzu?  Jaký typ podpory je poskytován?  Otevøená?  Uzavøená?';
+$_lang['blockCourseDescriptionSupportsComment2'] = 'Prezentace podpory kurzu.  Prezentace bibliografie, sada dokumentù nebo doplòková bibliografie.';
+$_lang['blockCourseDescriptionTeachingTrainingActivities'] = 'Aktivity Výuka - procvièování';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment1'] = 'Jaké metody a které aktivity podpoøí definované cíle kurzu? Jaký je kalendáø aktivit?';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment2'] = 'Prezentace oèekávaných aktivit (hodnotící recenze, oèekávaná úèast studentù, praktická práce, laboratorní práce, náv¹tìvy, sbìr základních informací...';
 $_lang['blockCourseSettingsTip'] = 'Standardnì je kurz pøístupen ka¾dému.  Nejjednodu¹¹í osnova, jak o¹etøit pøístup ke kurzu je:
  umo¾nit v prùbìhu jednoho týdne registraci, po¾ádat studenty aby se registrovali a uzavøít mo¾nost registrovat se. Pak 
  zkontrolovat potencionální zá¹kodníky v seznamu u¾ivatelù.';

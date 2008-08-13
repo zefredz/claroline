@@ -809,6 +809,7 @@ $_lang['Multiple choice (Unique answer)'] = 'Множествен избор (Един отговор)';
 $_lang['My calendar'] = 'Моя календар';
 $_lang['My course list'] = 'Моите курсове';
 $_lang['My other courses'] = 'Други мои курсове';
+$_lang['My personal course list'] = 'Моя личен списък с курсове';
 $_lang['My results'] = 'Моите резултати';
 $_lang['My user account'] = 'Промени моя профил';
 $_lang['Mysql Repository'] = 'Mysql Склад';
@@ -896,7 +897,7 @@ $_lang['Number of users by faculty'] = 'Брой потребители по преподавател';
 $_lang['Number of users by status'] = 'Брой потребители по статут';
 $_lang['Number proposed exceeds max. that you allowed (you can modify it below). Group composition has not been modified'] = 'Броят на желаещите надхвърля разрешения брой (може да го промениш отдолу).
 
-                Състава на групата не е променен';
+				Състава на групата не е променен';
 $_lang['Numero'] = 'No.';
 $_lang['OVER QUOTA'] = 'НАД ЛИМИТА';
 $_lang['Off'] = 'Изкл.';
@@ -939,6 +940,7 @@ $_lang['Phone : %phone_number'] = 'Телефон : %phone_number';
 $_lang['Platform'] = 'Платформа';
 $_lang['Platform Courses'] = 'Курсове на училището';
 $_lang['Platform Settings'] = 'Настройки на училището';
+$_lang['Platform administrator'] = 'Администратор на платформата';
 $_lang['Platform language'] = 'Език на платформата';
 $_lang['Platform statistics'] = 'Статистики на платформата';
 $_lang['Please check that your campus URL is reachable from the internet.'] = 'Моля проверете дали URL на сайта е достъпен по интернет.';
@@ -1160,7 +1162,6 @@ $_lang['Total time'] = 'Общо време';
 $_lang['Tracking'] = 'Проследяване';
 $_lang['Tracking has been disabled by system administrator.'] = 'Проследяването е изключено от администратора.';
 $_lang['Traffic Details'] = 'Данни за трафика';
-$_lang['Translation'] = 'Превод';
 $_lang['Translation Progression'] = 'Процент преведено';
 $_lang['Translation Tools'] = 'Инструменти по превода';
 $_lang['True'] = 'Вярно';
@@ -1393,6 +1394,12 @@ $_lang['blockConfirmDeleteModule'] = 'Сигурни ли сте за изтриване на целия модул
 
 Потвърдете изтриването на: ';
 $_lang['blockConfirmDeleteScorm'] = 'Тази обучителна пътека е част от вносния пакет по SCORM. Ако я премахнете, всички свързани SCORM модули и файлове ще бъдат премахнати от платформата.  Сигурни ли сте, че искате да изтриете обучителната пътека ';
+$_lang['blockCourseDescriptionCourseContent'] = 'Съдържание на курса';
+$_lang['blockCourseDescriptionHumanAndPhysicalRessources'] = 'Човешки и други ресурси';
+$_lang['blockCourseDescriptionMethodsOfEvaluation'] = 'Методи за оценка';
+$_lang['blockCourseDescriptionQualificationsAndGoals'] = 'Квалификация и цели';
+$_lang['blockCourseDescriptionSupports'] = ' Помощ/подкрепа ';
+$_lang['blockCourseDescriptionTeachingTrainingActivities'] = 'Учебни активности';
 $_lang['blockCourseSettingsTip'] = 'По подразбиране, вашия курс е достъпен само за вас, тъй като ви сте единствения регистриран потребител. Ако желаете поверителност, можете направите регистрацията възможна за една седмица, да помолите студентите да се саморегистрират, и след това да забраните регистрацията. След това можете да изключите всички нежелани, но регистрирали се потребители.';
 $_lang['blockCourseSubscriptionNotification'] = '
 

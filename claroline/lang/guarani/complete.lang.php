@@ -267,7 +267,7 @@ $_lang['Denied'] = 'Oñemboty';
 $_lang['Department'] = 'Mbo\'ehao vore réra';
 $_lang['Department URL'] = 'Mbo\'ehao vore URL';
 $_lang['Department URL is not valid'] = 'Mbo\'ehao vore URL ndovaléi (no&#297; por&atilde;i)';
-$_lang['Description'] = 'Mombe\'uanga';
+$_lang['Description'] = 'Taréa mohesak&atilde;';
 $_lang['Description deleted.'] = 'Mombe\'uanga oñehundíma.';
 $_lang['Description of the Wiki'] = 'Guíki mombe\'uanga';
 $_lang['Description updated'] = 'Mombe\'uanga oñemoambuéma.';
@@ -540,6 +540,7 @@ $_lang['Multiple choice (Unique answer)'] = 'Heta ojeporavo ha&#285;ua (pete&#29
 $_lang['My calendar'] = 'Che ahénda';
 $_lang['My course list'] = 'Che mbo\'esyry kuéra';
 $_lang['My other courses'] = 'Che mbo\'esyry ambue';
+$_lang['My personal course list'] = 'Che mbo\'esysy rysýi';
 $_lang['My results'] = 'Che rembiapógui os&#7869;va';
 $_lang['My user account'] = 'Emoambue che remimba\'ekuaa';
 $_lang['Mysql Repository'] = 'MySQL renda';
@@ -637,6 +638,7 @@ $_lang['PeriodHourShort'] = 'aravo';
 $_lang['PersonalCourseList'] = 'Mbo\'esyrýpe o&#297;va rysýi';
 $_lang['Phone'] = 'Pumbyry';
 $_lang['Platform'] = 'Tendaguasu';
+$_lang['Platform administrator'] = 'Tendaguasu ñangarekohára';
 $_lang['Platform statistics'] = 'Claroline papy\'aporeko';
 $_lang['Please check that your campus URL is reachable from the internet.'] = 'Etanteamína ko ne mbo\'e ñanduti rendápepa ikatu ojeike Internet guive';
 $_lang['Please choose a good answer'] = 'Eiporavo pete&#297; ñembohovair&atilde; o&#297; por&atilde;va';
@@ -1116,6 +1118,53 @@ $_lang['blockConfirmDeleteScorm'] = 'Ko jekekombo\'e rape ojegueru kuri pete&#29
  jokuapýpe. Nde rehundír&otilde; ko jekekombo\'e rape, opaite tekombo\'e vore hesegua o&#297;va
  <i>SCORM</i> ryepýpe oñehundietéta avei.
  Reipotápa añete oñehundiete ko jehekombo\'e rape hérava:';
+$_lang['blockCourseDescriptionCourseContent'] = 'Mbo\'esyry rechaukaha';
+$_lang['blockCourseDescriptionCourseContentComment1'] = 'Emombe\'umi mba\'e mba\'épa ko mbo\'esyry rechaukaha
+ apytépe oñemomba\'e guasuve va\'er&atilde;,
+ mba\'éicha pevépa hypy\'&#361; umi mba\'e o&#297;va ipype,
+ mba\'éichapa oñemohenda hyepýpe o&#297;va,
+ mba\'épa oñekotev&#7869; ojeho por&atilde; ha&#285;ua,
+ mamo mevépa oñe&#285;uah&#7869;se, ha mba\'e';
+$_lang['blockCourseDescriptionCourseContentComment2'] = 'Mba\'éichapa ko mbo\'esyry oñekuave\'&#7869;,
+ mba\'e mba\'épa oreko, mba\'eichaitépa ha mboy árapepa oñemohu\'&atilde; va\'er&atilde;';
+$_lang['blockCourseDescriptionDescriptionComment1'] = 'Emombe\'umive mba\'e tendápepa o&#297; ko mbo\'esyry
+ ijapor&atilde;me, o&#297;pa ambue mbo\'esyry ojejapo ra&#7869;mante va\'er&atilde;,
+ mba\'éichapa ko mbo\'esyry ojoaju ambue mbo\'esyry ndive, ha mba\'e.';
+$_lang['blockCourseDescriptionDescriptionComment2'] = 'Oimera&#7869; mba\'e oñemombe\'usevéva mbo\'esyry rehegua
+ (héra mbyky, mba\'éichapa hi\'aréta, ha mba\'e) ha mbo\'ehára rehegua (héra,
+ ipumbyry papa, ipareha, mba\'e aravópepa ikatúne oñehenói, ha mba\'e).
+ Oñemo&#297;kuaa avei mba\'éichapa ojeraha va\'er&atilde; ko mbo\'esyry.';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment1'] = 'Mba\'e mba\'épa ojeguereko, máva mávapa
+ o&#297; ko\'ápe, mba\'épa ojejapo, mba\'éichapa oñemba\'apo. Mba\'épa temimbo\'e kuéra
+ ikatukuaa oha\'ar&otilde; ko tendágui téra mbo\'ehára kuéragui';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment2'] = 'Ambue mbo\'ehára o&#297;va ko\'ápe, ha ava
+ ojapóva ko tenda (pytyv&otilde;hára, ñangarekohára, terekua, ha mba\'e), mba\'éichapa
+ oñeñe\'&#7869;kuaa hendive kuéra ndive, óga ha ekípo ojerekóva, ha ambue mba\'ekuaar&atilde;
+ oñemo&#297;séva guive.';
+$_lang['blockCourseDescriptionHumanAndPhysicalRessources'] = 'Mba\'épa ojeguereko, mávapa o&#297;';
+$_lang['blockCourseDescriptionMethodsOfEvaluation'] = 'Tembiapopy ra\'&atilde; rapereko';
+$_lang['blockCourseDescriptionMethodsOfEvaluationComment1'] = 'Ehesa\'&#7929;ijo mba\'éichaitépa ojejapóta aranduchauka
+ kuéra (jehai rupi, ñe\'&#7869;hápe, tembiapo rupi, ha mba\'e), mba\'e mba\'e árapepa oikota
+ umi aranduchauka, mba\'e ára pevépa ikatu ojeruka tembiapo kuéra, mba\'éichapa
+ oñembohepyra\'&atilde;ta ha oñembopohýita tembiapo, ha mba\'e.';
+$_lang['blockCourseDescriptionQualificationsAndGoals'] = 'Katupyry ha mba\'epota ru\'&atilde;';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment1'] = 'Mba\'e mba\'épepa oipytyv&otilde; tekombo\'e.
+ Opávove mbo\'esyry, mba\'eichagua katupyry ha arandúpa o&#285;uah&#7869;ta
+ temimbo\'épe, mba\'épepa ha\'e iñaranduvéta';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment2'] = 'Ojehechauka va\'er&atilde; mba\'épa
+ oikuave\'&#7869; ko mbo\'esyry, mba\'e mba\'épa oñeme\'&#7869;se, ha
+ mamo mevépa (arandu ha katupyrýpe) o&#285;uah&#7869;se.';
+$_lang['blockCourseDescriptionSupports'] = ' Pytyv&otilde;r&atilde; ';
+$_lang['blockCourseDescriptionSupportsComment1'] = 'O&#297;tapa pytyv&otilde; mbo\'esyrýpe. Mba\'eichagua pytyv&otilde;pa oñeme\'&#7869;ta,
+ oñembotýva tér&atilde; ojepe\'áva.';
+$_lang['blockCourseDescriptionSupportsComment2'] = 'Ehesa\'&#7929;ijo mba\'éichatapa oñepytyv&otilde;ta mbo\'esyrýpe.
+ Embotysýi mba\'e mba\'e arandukápa ojeporukuaa, tér&atilde; ambue kuatia kuéra.';
+$_lang['blockCourseDescriptionTeachingTrainingActivities'] = 'Tekombo\'e - Ñemoarandu rembiapo';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment1'] = 'Mmba\'eichagua tembiapo kuérapa ojejapóta
+ oñemotenonde ha&#285;ua mbo\'esyry. Mba\'e mba\'e árapepa ojejapóta umi tembiapo';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment2'] = 'Tembiapo kuéra rechaukaha (kuaara\'&atilde; nguéra,
+ mba\'éichapa temimbo\'e omba\'apóta, tembiapo kuéra ógape &#285;uar&atilde;, mamóma oñembyatýta,
+ temiandu kuéra, ha mba\'e).';
 $_lang['blockCourseSettingsTip'] = 'Ñepyryr&atilde;, oimera&#7869;va ikatúta oike ko ne mbo\'esyrýpe, oimera&#7869;va oiporukuaa.
  Nde ndereipotáiramo opaichaguarei ava oike, ikatu reheja tojepe\'a ojekuatiavuka
  ha&#285;ua poruhára oikeséva, pete&#297; arapok&otilde;indy (semána) pukukue jave mba\'e, ha upekuévo

@@ -753,7 +753,6 @@ $_lang['Kernel'] = 'Kernel';
 $_lang['Keys :'] = 'Kulcsok:';
 $_lang['Label of the login url to CAS'] = 'A CAS bejelentkezési cím cimkéje';
 $_lang['Language'] = 'Nyelv';
-$_lang['Language mode'] = 'Nyelvi mód';
 $_lang['Language needed'] = 'Nyelv megadása kötelezõ';
 $_lang['Language packs'] = 'Nyelvi csomagok';
 $_lang['Last 31 days'] = 'Utolsó 31 nap';
@@ -910,6 +909,7 @@ $_lang['Multiple choice (Unique answer)'] = 'Feleletválasztós (Egy helyes válasz
 $_lang['My calendar'] = 'Saját eseménynaptár';
 $_lang['My course list'] = 'Saját tanfolyam lista';
 $_lang['My other courses'] = 'Egyéb tanfolyamaim';
+$_lang['My personal course list'] = 'Saját tanfolyam lista';
 $_lang['My results'] = 'Saját eredmények';
 $_lang['My user account'] = 'Saját beállítások módosítása';
 $_lang['MySQL database settings'] = 'MySQL adatbázis';
@@ -1066,6 +1066,7 @@ $_lang['Phone : %phone_number'] = 'Telefon : %phone_number';
 $_lang['Platform'] = 'Rendszer';
 $_lang['Platform Courses'] = 'Tanfolyamok';
 $_lang['Platform Settings'] = 'Rendszer beállításai';
+$_lang['Platform administrator'] = 'Rendszeradminisztrátor';
 $_lang['Platform language'] = 'Rendszer nyelve';
 $_lang['Platform local path '] = 'Rendszer helyi könyvtára';
 $_lang['Platform logo url'] = 'Rendszer logó címe';
@@ -1110,7 +1111,6 @@ $_lang['Private access (site accessible only to people on the <a href="%url">use
 $_lang['Private access (site accessible only to people on the user list)'] = 'Magánhozzáférés (a honlap csak a <a href="%url">felhasználók listáján</a> szereplõk számára elérhetõ)';
 $_lang['Private course only'] = 'Személyes tanfolyam csupán';
 $_lang['Private feedback'] = 'Személyes visszajelzés';
-$_lang['Production'] = 'Éles üzemmód';
 $_lang['Production language files'] = 'Élesüzemi nyelvi fájlok';
 $_lang['Profile'] = 'Profil';
 $_lang['Profile SQL'] = 'Profil SQL';
@@ -1392,11 +1392,8 @@ $_lang['Tracking'] = 'Nyomonkövetés';
 $_lang['Tracking database name'] = 'Követési adatbázis neve';
 $_lang['Tracking has been disabled by system administrator.'] = 'A nyomonkövetést a rendszer adminisztrátor kikapcsolta';
 $_lang['Traffic Details'] = 'Forgalom Részletek';
-$_lang['Translation'] = 'Fordítás';
 $_lang['Translation Progression'] = 'Fordítás Elõrehaladása';
 $_lang['Translation Tools'] = 'Fordító eszközök';
-$_lang['Translation: use a single language file
-Production: each script use its own language file.'] = 'Fordítás: egyetlen nyelvi fájl használata. Éles üzemmód: minden parancsfájl saját nyelvi fájlt használ';
 $_lang['True'] = 'Igaz';
 $_lang['True/False'] = 'Igaz/Hamis';
 $_lang['Tutors'] = 'Oktatók';
@@ -1744,6 +1741,25 @@ Levélcím : %course_email
 Kategória : %course_category
 Nyelv : %course_language
 Internet cím : %course_url';
+$_lang['blockCourseDescriptionCourseContent'] = 'Tanfolyam tartalma';
+$_lang['blockCourseDescriptionCourseContentComment1'] = 'Mi a jelentõsége a különbözõ tartalmaknak, melyeket a tanfolyam keretén belül adunk le? Mi a tartalom nehézségi szintje? Hogyan épül fel az egység? Mi lesz a tartalom sorrendje? Mit eredményez a tartalom?';
+$_lang['blockCourseDescriptionCourseContentComment2'] = 'A tanfolyam tartalmának megjelenítése, a tartalom struktúrája, az elõrehaladás, illetve a naptár';
+$_lang['blockCourseDescriptionDescriptionComment1'] = 'Mi a program helye és specialitása. Vannak-e elõfeltételként beállított tanfolyamok? Milyen kapcsolódás van más tanfolyamokhoz?';
+$_lang['blockCourseDescriptionDescriptionComment2'] = 'A tanfolyam beazonosítását segítõ információk (kezdõbetûk, cím, órák száma, segédanyagok...), illetve a tanításról szólók (vezetéknév, keresztnév, munkahely, telefon, e-mail, elérhetõségek). A programon belül a tanfolyam általános bemutatása.';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment1'] = 'Milyen humán és fizikai erõforrások állnak rendelkezésre? Mi lesz a keretek jellege? Mit várhatnak el a hallgatók a szervezõ csapattól, vagy az oktató szervezetétõl?';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment2'] = 'Az egyéb olyan oktatók bemutatása, akik a tanfolyamot szervezik (tanársegédek, kutatók, ...), az emberek elérhetõsége, a rendelkezésre álló épületek és a számítógépes vagy egyéb eszközök.';
+$_lang['blockCourseDescriptionHumanAndPhysicalRessources'] = 'Humán és Fizikai erõforrások';
+$_lang['blockCourseDescriptionMethodsOfEvaluation'] = 'Értékelési módszerek';
+$_lang['blockCourseDescriptionMethodsOfEvaluationComment1'] = 'Az értékelés módjáról precíz részletek (írott vizsgák, szóbeli, projektek, beadandó feladatok..), a formális értékelések idõpontja, lejárati dátumok a beadandó feladatokhoz, az értékelési kritériumokkal, a kritériumok súlyival, vagy a kritériumok kategóriáival.';
+$_lang['blockCourseDescriptionQualificationsAndGoals'] = 'Minõsítések és Célok';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment1'] = 'Melyek az oktatás céljai? A tanfolyam végén milyen minõsítést és felhasználható tudást kapnak a hallgatók?';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment2'] = 'A tanfolyam általános és specifikus céljainak a bemutatása, azon minõsítéseké, melyekhez a célok teljesítése vezet.';
+$_lang['blockCourseDescriptionSupports'] = 'Támogat';
+$_lang['blockCourseDescriptionSupportsComment1'] = 'Létezik tanfolyamtámogatás? Milyen támogatást nyújtok? Nyitott? Zárva?';
+$_lang['blockCourseDescriptionSupportsComment2'] = 'A tanfolyam támogatásának megjelenítése. Az irodalom bemutatása, a dokumentukészlet, vagy kiegészítõ irodalom.';
+$_lang['blockCourseDescriptionTeachingTrainingActivities'] = 'Tanítási-képzési tevékenységek';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment1'] = 'Milyen módszerek és tevékenységek támogatják a tanfolyamcéljainak megvalósulását? Mi a tevékenységek eseménynaptára?';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment2'] = 'A tervezett tevékenységek bemutatása (szerzõi áttekintések, a hallgatók elvárt részvétele, gyakorlati munka, laboratóriumi találkozók, látogatások, rendelkezésre álló információk összegyûjtése...)';
 $_lang['blockCourseSettingsTip'] = 'Alap beállításként a tanfolyamra bárki beléphet. Ha bizalmas a tartalom,
  akkor javasoljuk, hogy nyissa meg a regisztrációt az egyik héten, kérje meg
 a hallgatókat, hogy regisztráljanak, majd zárja be a regisztrációt,

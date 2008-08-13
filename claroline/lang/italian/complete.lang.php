@@ -735,6 +735,7 @@ $_lang['Multiple choice (Unique answer)'] = 'Scelta multipla (risposta unica)';
 $_lang['My calendar'] = 'La mia agenda';
 $_lang['My course list'] = 'I miei corsi';
 $_lang['My other courses'] = 'Gli altri miei corsi';
+$_lang['My personal course list'] = 'Elenco dei miei corsi';
 $_lang['My results'] = 'I miei risultati';
 $_lang['My user account'] = 'Modifica il mio profilo';
 $_lang['Mysql Repository'] = 'Cartella MySql';
@@ -855,6 +856,7 @@ $_lang['Phone'] = 'Telefono';
 $_lang['Platform'] = 'Piattaforma';
 $_lang['Platform Courses'] = 'Corsi della piattaforma';
 $_lang['Platform Settings'] = 'Impostazioni della piattaforma';
+$_lang['Platform administrator'] = 'Amministratore della piattaforma';
 $_lang['Platform statistics'] = 'Statistiche della piattaforma';
 $_lang['Please check that your campus URL is reachable from the internet.'] = 'Per favore controlla che il tuo campus è accessibile dal web prima di inviarlo';
 $_lang['Please choose a good answer'] = 'Scegli una risposta corretta';
@@ -1397,6 +1399,41 @@ Email: %course_email
 Categoria: %course_category
 Lingua: %course_language
 URL: %course_url';
+$_lang['blockCourseDescriptionCourseContent'] = 'Contenuto del corso';
+$_lang['blockCourseDescriptionCourseContentComment1'] = 'Qual è l\'importanza dei vari contenuti affrontati nella struttura del corso?
+Qual è il livello di difficoltà di tali contenuti?
+Come strutturare l\'insieme della materia?
+Quale sarà la sequenza dei contenuti?
+Quale sarà la progressione nei contenuti?';
+$_lang['blockCourseDescriptionCourseContentComment2'] = 'Presentazione del sommario del corso, della strutturazione del contenuto,
+della progressione e del calendario delle lezioni';
+$_lang['blockCourseDescriptionDescriptionComment1'] = 'Qual è la collocazione e la specificità del corso all\'interno del piano di studi?
+Esistono corsi propedeutici?
+Quali sono le relazioni con gli altri corsi?';
+$_lang['blockCourseDescriptionDescriptionComment2'] = 'Informazioni che consentano l\'identificazione del corso
+(sigla, titolo, numero di ore...)
+e il suo docente (cognome, nome, ufficio, tel., e-mail, orari di ricevimento).
+<br />
+Presentazione generale del corso nel piano di studi.';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment1'] = 'Quali sono le risorse umane e fisiche disponibili?
+In quale contesto è inserito il corso?
+Cosa si aspettano gli studenti dall\'organizzazione o dal docente?';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment2'] = 'Presentazione degli altri docenti che organizzeranno il corso (assistenti, ricercatori, tutor...), disponibilità del personale docente, i materiali e  gli strumenti di laboratorio disponibili.';
+$_lang['blockCourseDescriptionHumanAndPhysicalRessources'] = 'Risorse umane e fisiche';
+$_lang['blockCourseDescriptionMethodsOfEvaluation'] = 'Metodi di valutazione';
+$_lang['blockCourseDescriptionMethodsOfEvaluationComment1'] = 'Dettagli sulla valutazione finale (esame scritto, orale, progetto, lavori da consegnare...), date di esami intermedi, date di scadenza per la presentazione dei lavori e i loro criteri di valutazione, il peso di tali criteri o le loro categorie.';
+$_lang['blockCourseDescriptionQualificationsAndGoals'] = 'Competenze e obiettivi';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment1'] = 'Presentazione degli obiettivi generali e specifici del corso, a quali competenze conduce il raggiungimento di tali obiettivi.';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment2'] = 'Quali sono gli scopi del corso?
+<br />
+Alla fine del corso quali competenze, capacità e conoscenze saranno disponibili agli studenti?';
+$_lang['blockCourseDescriptionSupports'] = 'Supporti';
+$_lang['blockCourseDescriptionSupportsComment1'] = 'Esiste materiale di supporto per il corso?  Di che tipo?  Aperto?  Chiuso?';
+$_lang['blockCourseDescriptionSupportsComment2'] = 'Presentazione del materiale di supporto al corso.  Presentazione della bibliografia, del portafoglio documenti o di una bibliografia complementare.';
+$_lang['blockCourseDescriptionTeachingTrainingActivities'] = 'Attività didattiche';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment1'] = 'Quali metodi e quali attività saranno utilizzati per il raggiungimento degli scopi del corso?
+Qual è il calendario di tali attività?';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment2'] = 'Presentazione delle attività previste (esercitazioni, partecipazione attesa degli studenti, esercitazioni pratiche, laboratorio, visite, raccolta di informazioni sul campo...).';
 $_lang['blockCourseSettingsTip'] = 'Per default, il vostro corso è accessibile a tutti. Se si desidera una certa riservatezza, il metodo più semplice è quello di aprire le iscrizioni per una settimana, chiedendo ai corsisiti di iscriversi da soli, poi chiudere l\'iscrizione e verificare nell\'elenco degli iscritti che non ci siano intrusi.';
 $_lang['blockCourseSubscriptionNotification'] = '
 

@@ -519,6 +519,7 @@ $_lang['Multiple choice (Unique answer)'] = 'Pilihan berganda (jawaban unik)';
 $_lang['My calendar'] = 'Kalenderku';
 $_lang['My course list'] = 'Daftar Mata kuliah Ku';
 $_lang['My other courses'] = 'Mata kuliahku lainnya';
+$_lang['My personal course list'] = 'Daftar mata kuliah-ku';
 $_lang['My results'] = 'Hasilku';
 $_lang['My user account'] = 'Ubah profil Ku';
 $_lang['Mysql Repository'] = 'Perbendaharaan Mysql';
@@ -613,6 +614,7 @@ $_lang['PeriodHourShort'] = 'j.';
 $_lang['PersonalCourseList'] = 'Daftar mata kuliah pribadi';
 $_lang['Phone'] = 'Telepon';
 $_lang['Platform'] = 'Platform';
+$_lang['Platform administrator'] = 'Administrasi Platform';
 $_lang['Platform statistics'] = 'Statistik situs elearning';
 $_lang['Please check that your campus URL is reachable from the internet.'] = 'Silahkan periksa apakah URL kampus Anda dapat diakses dari Internet.';
 $_lang['Please choose a good answer'] = 'Silahkan pilih sebuah jawaban yang tepat';
@@ -1037,6 +1039,36 @@ Modul akan terhapus seluruhnya dari server dan dari setiap jalur pembelajaran ya
 Modul ini tidak dapat dipergunakan lagi pada jalur pembelajaran manapun.
 Konfirmasi penghapusan : ';
 $_lang['blockConfirmDeleteScorm'] = 'Jalur pembelajaran ini merupakan bagian dari paket penting SCORM. Jika jalur ini dihapus, semua modul SCORM yang terkait dan file-file terkait akan dihapus dari kampus.  Benar-benar akan menghapus jalur pembelajaran bernama : ';
+$_lang['blockCourseDescriptionCourseContent'] = 'Isi mata kuliah';
+$_lang['blockCourseDescriptionCourseContentComment1'] = 'Apa pentngnya berbagai isi yang akan diajarkan dalam rerangka mata kuliah? Seberapakah derajat kesulitan ini mata kuliah ini?  Bagaimana struktur dari setiap unsur?  Bagaimana urut-urutan isi?  Ke mana arah isi mata kuliah?';
+$_lang['blockCourseDescriptionCourseContentComment2'] = 'Penyajian isi mata kuliah, struktur isi, kemajuan dan kalender';
+$_lang['blockCourseDescriptionDescriptionComment1'] = 'Bagaimana posisi mata kuliah ini dalam konteks program studi secara keseluruhan?
+ Apakah ada prasyarat untuk mata kuliah ini?  Bagaimana hubungan dengan mata kuliah ini?';
+$_lang['blockCourseDescriptionDescriptionComment2'] = 'Keterangan yang menggambarkan mata kuliah (singkatan, nama, jumlah jam, hand-out, dll)
+ dan pengajar (nama lengkap, nama depan, kantor, telepon, email, dll).  Gambaran umum mengenai mata kuliah.';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment1'] = 'Sumberdaya manusia dan fisik apa yang tersedia?  Bagaimana kerangkanya?
+Apa yang dapat diharapkan oleh mahasiswa dari tim pengajar?';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment2'] = 'Uraian tentang keterlibatan pengajar lain yang akan mengorganisasi mata kuliah (asisten, peneliti, pemantau mahasiswa...),
+bangunan dan peralatan atau perangkat komputer yang tersedia.';
+$_lang['blockCourseDescriptionHumanAndPhysicalRessources'] = 'Sumberdaya manusia dan fisik';
+$_lang['blockCourseDescriptionMethodsOfEvaluation'] = 'Metode evalusi';
+$_lang['blockCourseDescriptionMethodsOfEvaluationComment1'] = 'Rincian pasti tentang cara evaluasi (ujian tulis, lisan, projek, tugas yang akan diberikan...),
+tanggal ujian formatif, tanggal kadaluarsa pengumpulan tugas, dengan kriteria evaluasi, mungkin pembobotan kriteria
+atau kategori-kategori kriteria.';
+$_lang['blockCourseDescriptionQualificationsAndGoals'] = 'Kualifikasi dan Tujuan';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment1'] = 'Apa sasaran pembelajaran?  Pada akhir perkuliahan, kualifikasi, kemampuan apa dan pengetahuan yang bagaimana
+ yang dapat dikendalikan atau dimobilisasi oleh mahasiswa??';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment2'] = 'Uraiann tentang tujuan umum dan khusus mata kuliah,
+tentang kualifikasi yang pengendaliannya hendak dijadikan sebagai arah dari tujuan ini.';
+$_lang['blockCourseDescriptionSupports'] = ' Dukungan ';
+$_lang['blockCourseDescriptionSupportsComment1'] = 'Apakah ada dukungan untuk mata kuliah?  Dukungan seperti apa yang akan kuberikan?  Terbuka?  Tertutup?';
+$_lang['blockCourseDescriptionSupportsComment2'] = 'Uraian tentang dukungan terhadap mata kuliah.  Uraian tentang bibliografi, sehimpunan dokumen atau
+ bibliografi pelengkap.';
+$_lang['blockCourseDescriptionTeachingTrainingActivities'] = 'Kegiatan pembelajaran-pelatihan';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment1'] = 'Metode dan aktifitas apa yang akan mendukung tujuan yang telah ditetapkan untuk mata kuliah ini?
+Bagaimana kalender kegiatan?';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment2'] = 'Uraian tentang kegiatan yang akan dilaksanakan (telaah otoritatif, partisipasi yang diharapkan
+ dari mahasiswa, tugas praktek, pertemuan laboratorium, kunjungan, kumpulan informasi menurut...).';
 $_lang['blockCourseSettingsTip'] = 'Bawaannya, mata kuliah anda hanya dapat diakses hanya oleh anda sebagai satu-satunya user yang terdaftar.   Jika anda ingin kerahasiaan, cara terpraktis adalah dengan membuka pendaftaran selama seminggu, perintahkan mahamahasiswa untuk mendaftar sendiri, kemudian tutup pendaftaran dan periksa kemungkinan adanya penyusup dalam daftar user.';
 $_lang['blockDefaultLearningPathComment'] = 'Ini uraian pengantar untuk alur pembelajaran ini. Untuk mengubahnya dengan uraian anda, klik di <b>ubah</b> di bawah ini.';
 $_lang['blockDefaultModuleAddedComment'] = 'Ini adalah teks perkenalan tambahan tentang keberadaan modul ini

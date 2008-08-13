@@ -148,7 +148,7 @@ $_lang['Deletion of the user was done sucessfully'] = 'Üye Silme iþlemi baþarýyl
 $_lang['Denied'] = 'Rededildi';
 $_lang['Department'] = 'Bölüm';
 $_lang['Department URL'] = 'Bölüm URL';
-$_lang['Description'] = 'Tanýmlama';
+$_lang['Description'] = 'Belge Açýklamalarý';
 $_lang['Detail'] = 'Ayrýntý';
 $_lang['Devel Tools'] = 'Geliþtirme Araçlarý';
 $_lang['Directory created'] = 'Dizin yaratýldý';
@@ -502,6 +502,12 @@ post a message there.</p>
 <p>The link to Registration (if present) is on the Home Page of the campus
  (top right).</p><b>Login</b><p>On your next visits, type login/password
  and Ok to access your courses. The URL of the site is';
+$_lang['blockCourseDescriptionCourseContent'] = 'Kurs içeriði';
+$_lang['blockCourseDescriptionHumanAndPhysicalRessources'] = 'Ýnsani ve Fiziki Kayanaklar';
+$_lang['blockCourseDescriptionMethodsOfEvaluation'] = 'Deðerlendirme Yöntemleri';
+$_lang['blockCourseDescriptionQualificationsAndGoals'] = 'Nitelik ve amaçlar';
+$_lang['blockCourseDescriptionSupports'] = ' Destek ';
+$_lang['blockCourseDescriptionTeachingTrainingActivities'] = 'Öðretim-öðrenim etkinlikleri';
 $_lang['blockCourseSettingsTip'] = 'Varsayýlan olarak, dersinizin web sitesine sadece kayýtlý kullanýcýlar girebilir.
  Eðer gizlilik istiyorsanýz, öðrencilerin kendiliklerinden kaydolabilecekleri bir süre kayýtlarý 
 açýk tutunuz, sonra kapatarak kullanýcý listesinden istemediklerinizi siliniz.';

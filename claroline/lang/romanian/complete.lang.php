@@ -520,6 +520,7 @@ $_lang['Multiple choice (Unique answer)'] = 'Alegeri multiple (Raspuns unic)';
 $_lang['My calendar'] = 'Calendarul meu';
 $_lang['My course list'] = 'Lista cursurilor mele';
 $_lang['My other courses'] = 'Celelalte cursuri ale mele';
+$_lang['My personal course list'] = 'Lista mea personala de cursuri';
 $_lang['My results'] = 'Rezultatele mele';
 $_lang['My user account'] = 'Modifica profilul meu';
 $_lang['Mysql Repository'] = 'Mysql Repository';
@@ -616,6 +617,7 @@ $_lang['PeriodHourShort'] = 'h.';
 $_lang['PersonalCourseList'] = 'Lista personala de cursuri';
 $_lang['Phone'] = 'Telefonul';
 $_lang['Platform'] = 'Platforma';
+$_lang['Platform administrator'] = 'Administratorul platformei';
 $_lang['Platform statistics'] = 'Statisticile platformei';
 $_lang['Please check that your campus URL is reachable from the internet.'] = 'Verifica accesibilitatea campusului tau de pe internet.';
 $_lang['Please choose a good answer'] = 'Alege un raspuns corect';
@@ -1017,6 +1019,27 @@ Acesta va fi sterg complet de pe server si din orice cale pedagogica.
 Nu il vei mai putea folosi in nici un alt scop pedagogic.
 Confirma stergerea : ';
 $_lang['blockConfirmDeleteScorm'] = 'Aceasta cale pedagogica a rezultat in urma introducerii pachetului SCORM. Daca stergi aceasta cale, toate modulele SCORM precum si fisierele aferente vor fi sterse din platforma. Esti sigur ca vrei sa stergi aceasta cale pedagogica numita';
+$_lang['blockCourseDescriptionCourseContent'] = 'Continutul cursului';
+$_lang['blockCourseDescriptionCourseContentComment1'] = 'Care este importanta diferitelor continuturi care vor fi predate in cadrul cursului?
+Care este nivelul de dificultate al acestui continut? Cum va fi structurata materia? Care va fi succesiunea continutului? Care va fi finalitatea continutului?';
+$_lang['blockCourseDescriptionCourseContentComment2'] = 'Prezentarea continutului cursului, structura continutului, desfasurarea si calendarul';
+$_lang['blockCourseDescriptionDescriptionComment1'] = 'Care este locul si specificul cursului in cadrul programului? Exista cursuri pre-obligatorii? Care este legatura cu celelalte cursuri? ';
+$_lang['blockCourseDescriptionDescriptionComment2'] = 'Informatii care permit identificarea cursului (initiale, titlu, un numar de ore, participare ) si a profesorului (nume de familie, prenume, serviciu, telefon, e-mail, disponibilitati possibile). Prezentarea generala a cursului in cadrul programului.';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment1'] = 'Care sunt resursele umane si fizice disponibile? Care va fi natura incadrarii? La ce se pot astepta cursantii din partea echipei de organizare sau de la organizarea profesorului?';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment2'] = 'Prezentarea celorlalti profesori care vor preda cursul (asistenti, cercetatori, cursanti-monitori...), a disponibilitatii persoanelor, cladirile si echipamentul sau resursele informatice disponibile.';
+$_lang['blockCourseDescriptionHumanAndPhysicalRessources'] = 'Resusele umane si fizice disponibile';
+$_lang['blockCourseDescriptionMethodsOfEvaluation'] = 'Metodele de evaluare';
+$_lang['blockCourseDescriptionMethodsOfEvaluationComment1'] = 'Detalii precise referitor la metodele de evaluare (examene scrise, orale, proiecte, lucrari repartizate..), data evaluarii formative, data de expirare pentru predarea lucrarilor, cu criteriile de evaluare, posibilitatea ponderarii criteriilor saucategoriilor de criterii.';
+$_lang['blockCourseDescriptionQualificationsAndGoals'] = 'Pregatire si scopuri';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment1'] = 'Care sunt scopurile vizate? La sfarsitul cursului de ce pregatire, capacitati si cunostinte vor dispune cursantii?';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment2'] = 'Prezentarea obiectivelor generale si specifice ale cursului precum si a capacitatilor care vor rezulta din atingerea acestora.';
+$_lang['blockCourseDescriptionSupports'] = 'Suport';
+$_lang['blockCourseDescriptionSupportsComment1'] = 'Exista suport de curs? Ce tip de suport trebuie sa dau? Deschis? Inchis?';
+$_lang['blockCourseDescriptionSupportsComment2'] = 'Prezentarea suportului cursului. Prezentarea bibliografiei, a setului de documente sau a bibliografiei complementare. ';
+$_lang['blockCourseDescriptionTeachingTrainingActivities'] = 'Activitati de predare-instruire';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment1'] = 'Ce metode si ce activitati vor sprijini obiectivele definite ale cursului?
+Care este calendarul activitatilor?';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment2'] = 'Prezentarea activitatilor prevazute (Treceri in revista, participari asteptate ale studentilor, lucrari practice, laboratoare, vizite, culegere de informatii pe teren...).';
 $_lang['blockCourseSettingsTip'] = 'Implicit, cursul tau este accesibil tuturor. Pentru un minimum de confidentialitate, cea mai simpla cale este sa deschizi o perioada de inregistrare de o saptamana, sa rogi studentii sa se inregistreze, apoi sa inchizi perioada de inregistrare si sa verifici in lista utilizatorilor posibilii intrusi. ';
 $_lang['blockDefaultLearningPathComment'] = 'Acesta este textul de intoducere al caii de invatare. Pentru a-l inlocui cu propiul tau text , apasa mai jos pe <b>modifica</b>.';
 $_lang['blockDefaultModuleAddedComment'] = 'Acesta este un text introductiv legat de prezenta acestui modul in cadrul parcursului pedagogic. Pentru a-l inlocui cu textul tau, apasa jos pe <b>modica</b>.';

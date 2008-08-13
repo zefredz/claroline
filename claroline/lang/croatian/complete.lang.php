@@ -437,6 +437,7 @@ $_lang['Multiple choice (Multiple answers)'] = 'Višestruki izbor s više isprav
 $_lang['Multiple choice (Unique answer)'] = 'Višestruki izbor s jednim ispravnim odgovorom';
 $_lang['My calendar'] = 'Moj kalendar';
 $_lang['My course list'] = 'Moji predmeti';
+$_lang['My personal course list'] = 'Popis mojih predmeta';
 $_lang['My results'] = 'Moji rezultati';
 $_lang['My user account'] = 'Promijeni moj profil';
 $_lang['Mysql Repository'] = 'Mysql Repozitorij';
@@ -519,6 +520,7 @@ $_lang['Period'] = 'Period';
 $_lang['PersonalCourseList'] = 'Popis predmeta na koje je korisnik prijavljen';
 $_lang['Phone'] = 'Telefon';
 $_lang['Platform'] = 'Sustav';
+$_lang['Platform administrator'] = 'Administrator sustava';
 $_lang['Platform statistics'] = 'Statistike sustava';
 $_lang['Please choose a good answer'] = 'Odaberite ispravni odgovor';
 $_lang['Please confirm your choice'] = 'Molimo Vas da potvrdite odabir';
@@ -856,6 +858,26 @@ Ako označite ovaj redoslijed kao nevidljiv, polaznici će moći pristupati modu
 $_lang['blockConfirmDeleteModule'] = 'Ukoliko izbrišete modul, modul će biti uklonjen iz svih redoslijeda učenja u kojima se koristi.
 Želite li zaista izbrisati ovaj modul?';
 $_lang['blockConfirmDeleteScorm'] = 'Ovaj redoslijed učenja je dio SCORM <i>import</i> paketa. Ako obrišete ovaj redoslijed, svi SCORM moduli i datoteke će biti obrisani.  Želite li zaista izbrisati redoslijed učenja ';
+$_lang['blockCourseDescriptionCourseContent'] = 'Sadržaj predmeta';
+$_lang['blockCourseDescriptionCourseContentComment1'] = 'Koja je važnost gradiva koje se podučava u sklopu predmeta? Koliko je gradivo teško?
+Kako je gradivo ustrojeno? Koji je redoslijed izlaganja gradiva?';
+$_lang['blockCourseDescriptionCourseContentComment2'] = 'Sadržaj predmeta, prikaz gradiva i plan rada.';
+$_lang['blockCourseDescriptionDescriptionComment1'] = 'Koja je uloga predmeta unutar programa? Koja je veza s ostalim predmetima? Postoje li predmeti koje je neophodno odslušati prije prijavljivanja na ovaj predmet?';
+$_lang['blockCourseDescriptionDescriptionComment2'] = 'Informacije o predmetu (ime predmeta, broj predviđenih sati) i o voditelju predmeta (ime i prezime, odjel, broj telefona, email).';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment1'] = 'Tko su predavači i asistenti? Koja je oprema dostupna?';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment2'] = 'Predstavljanje predavača i asistenata koji organiziraju predmet. Koja oprema je dostupna polaznicima?';
+$_lang['blockCourseDescriptionHumanAndPhysicalRessources'] = 'Ljudi i oprema';
+$_lang['blockCourseDescriptionMethodsOfEvaluation'] = 'Kriterij ocjenjivanja';
+$_lang['blockCourseDescriptionMethodsOfEvaluationComment1'] = 'Podaci vezani uz ocjenjivanje (bodovni kriteriji i pragovi za vježbe, zadatke, projekte, pismene i usmene ispite) i podaci o rokovima predaje radova';
+$_lang['blockCourseDescriptionQualificationsAndGoals'] = 'Kvalifikacije i ciljevi';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment1'] = 'Koji su ciljevi predmeta? Koje vještine i znanja bi polaznici trebali imati nakon što odslušaju predmet?';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment2'] = 'Kratki prikaz gradiva predmeta. Koje vještine i znanja bi polaznici trebali imati nakon što odslušaju predmet?';
+$_lang['blockCourseDescriptionSupports'] = 'Podrška';
+$_lang['blockCourseDescriptionSupportsComment1'] = 'Postoji li podrška za predmet? Kakva vrsta podrške?';
+$_lang['blockCourseDescriptionSupportsComment2'] = 'Opis podrške za predmet. Popis literature i relevantnih materijala.';
+$_lang['blockCourseDescriptionTeachingTrainingActivities'] = 'Edukativne aktivnosti';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment1'] = 'Koje edukativne aktivnosti postoje uz nastavu? Koji je raspored aktivnosti?';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment2'] = 'Popis aktivnosti i njihovo predstavljanje (opis aktivnosti, što se očekuje od prijavljenih korisnika i sl.)';
 $_lang['blockCourseSettingsTip'] = 'Po <i>defaultu</i>, na predmet se mogu prijaviti svi registrirani korisnici. Ako želite povjerljivost,
 najjednostavniji način je da omogućite prijavljivanje na predmet tijekom jednog tjedna, obavijestite korisnike da se prijave, te
 zatim onemogućite prijavljivanje i pronađete <i>uljeze</i> u listi prijavljenih korisnika.';

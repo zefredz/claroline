@@ -530,6 +530,7 @@ $_lang['Multiple choice (Unique answer)'] = 'M&uacute;ltiples opci&oacute;ns (un
 $_lang['My calendar'] = 'A mi&ntilde;a axenda';
 $_lang['My course list'] = 'A mi&ntilde;a lista de cursos';
 $_lang['My other courses'] = 'Os meus outros cursos';
+$_lang['My personal course list'] = 'Lista de cursos persoal';
 $_lang['My results'] = 'Os meus resultados';
 $_lang['My user account'] = 'Modifica-lo meu perfil';
 $_lang['Mysql Repository'] = 'Repositorio de MySQL';
@@ -625,6 +626,7 @@ $_lang['PeriodHourShort'] = 'h.';
 $_lang['PersonalCourseList'] = 'Lista persoal de cursos';
 $_lang['Phone'] = 'Tel&eacute;fono';
 $_lang['Platform'] = 'Plataforma';
+$_lang['Platform administrator'] = 'Administrador da Plataforma';
 $_lang['Platform statistics'] = 'Estat&iacute;sticas da plataforma';
 $_lang['Please check that your campus URL is reachable from the internet.'] = 'Por favor, verifique que a URL do seu campus &eacute; accesible desde a internet';
 $_lang['Please choose a good answer'] = 'Por favor, escolla unha resposta correcta';
@@ -1133,6 +1135,40 @@ $_lang['blockConfirmDeleteScorm'] = 'Esta secuencia de aprendizaxe &eacute; clav
 											m&oacute;dulos SCORM e os arquivos relacionados ser&aacute;n eliminados da
 											plataforma. Est&aacute; vostede seguro de que desexa elimina-la secuencia de
 											aprendizaxe denominada ';
+$_lang['blockCourseDescriptionCourseContent'] = 'Contido do curso';
+$_lang['blockCourseDescriptionCourseContentComment1'] = 'Cal &eacute; a importancia dos diversos contidos que ser&aacute;n abordados
+no marco do curso? Cal &eacute; o nivel de dificultades destes contidos? Como est&aacute; estructurada a
+unidade? Cal ser&aacute; a secuencia dos contidos? ';
+$_lang['blockCourseDescriptionCourseContentComment2'] = 'Presentaci&oacute;n do contido do curso, a estructura do contido, a s&uacute;a
+progresi&oacute;n e o seu calendario';
+$_lang['blockCourseDescriptionDescriptionComment1'] = 'Cal &eacute; o lugar e a especificidade do curso no programa?
+Que outros cursos se consideran prerrequisitos para este? Que relaci&oacute;n ten con outros cursos?';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment1'] = 'Que recursos humanos e materiais est&aacute;n dispo&ntilde;ibles? Cal &eacute; a natureza da estructura?
+Que poden agarda-los estudantes do equipo de organizaci&oacute;n ou da organizaci&oacute;n do profesor?';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment2'] = 'Presentaci&oacute;n dos outros profesores que organizar&aacute;n o curso (asistentes,
+investigadores, monitores-estudantes...), da dispo&ntilde;ibilidade do persoal, as aulas e o equipamento (tam&eacute;n o
+inform&aacute;tico) dispo&ntilde;ible.';
+$_lang['blockCourseDescriptionHumanAndPhysicalRessources'] = 'Recursos humanos e materiais';
+$_lang['blockCourseDescriptionMethodsOfEvaluation'] = 'M&eacute;todos de avaliaci&oacute;n';
+$_lang['blockCourseDescriptionMethodsOfEvaluationComment1'] = '&Eacute; precisa informaci&oacute;n como o xeito de avaliaci&oacute;n
+(exame escrito, oral, proxectos, traballos a entregar...), datas das probas formativas, datas de entrega
+dos traballos, cales son os criteiros de avaliaci&oacute;n, o posible peso de cada criterio ou as
+categor&iacute;as dos criterios.';
+$_lang['blockCourseDescriptionQualificationsAndGoals'] = 'Cualificaci&oacute;ns e metas';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment1'] = 'Cales son os prop&oacute;sitos de ensino? &Oacute; remate do curso,
+que capacidades e co&ntilde;ecementos ser&aacute;n capaces de controlar, de movilizar, os estudantes?';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment2'] = 'Presentaci&oacute;n dos obxectivos xerais e espec&iacute;ficos do
+curso, das capacidades a adquirir que se te&ntilde;en como obxectivo.';
+$_lang['blockCourseDescriptionSupports'] = ' Soporte ';
+$_lang['blockCourseDescriptionSupportsComment1'] = 'Existe soporte para o curso? Que tipo de soporte terei? Aberto? Pechado?';
+$_lang['blockCourseDescriptionSupportsComment2'] = 'Presentaci&oacute;n do soporte do curso. Presentaci&oacute;n da bibliograf&iacute;a, a colecci&oacute;n
+de documentos ou a bibliograf&iacute;a complementaria.';
+$_lang['blockCourseDescriptionTeachingTrainingActivities'] = 'Actividades de pr&aacute;ctica/aprendizaxe';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment1'] = 'Que m&eacute;todos e actividades soportar&aacute;n os obxectivos definidos
+para este curso? Cal &eacute; o calendario de actividades?';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment2'] = 'Presentaci&oacute;n das actividades previstas (revistas autorizadas, participaci&oacute;n
+dos estudantes agardada, traballos pr&aacute;cticos, pr&aacute;cticas de laboratorio, visitas, colecci&oacute;ns de informaci&oacute;n
+de campo...).';
 $_lang['blockCourseSettingsTip'] = 'Por defecto, o seu curso &eacute; accesible para todo o mundo. Se vostede desexa algunha confidencialidade,
 							o xeito m&aacute;is simple de conseguila &eacute; permitindo o rexistro de xeito aberto durante unha semana,
 							dic&iacute;ndolle &oacute;s estudantes que se rexistren eles mesmos, e logo pechando o rexistro e mirando na
