@@ -91,7 +91,7 @@ if ($topicSettingList)
         $postLister = new postLister($topic_id, $start, get_conf('posts_per_page'));
         $postList   = $postLister->get_post_list();
         $totalPosts = $postLister->sqlPager->get_total_item_count();
-        $pagerUrl   = $_SERVER['PHP_SELF'] . '?topic=' . $topic_id;
+        $pagerUrl   = htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?topic=' . $topic_id ));
 
         // EMAIL NOTIFICATION COMMANDS
         // Execute notification preference change if the command was called
@@ -122,21 +122,27 @@ if ($topicSettingList)
 
             if ( is_topic_notification_requested($topic_id, claro_get_current_user_id()) )   // display link NOT to be notified
             {
+                $notification_url = Url::Contextualize(
+                    $_SERVER['PHP_SELF']
+                    . '?forum=' . $forum_id . '&amp;topic='
+                    . $topic_id . '&amp;cmd=exdoNotNotify'
+                );
+                
                 $notification_bloc .= '<img src="' . get_icon_url('mail_close') . '" alt="" style="vertical-align: text-bottom" />';
                 $notification_bloc .= get_lang('Notify by email when replies are posted');
-                $notification_bloc .= ' [<a href="' . $_SERVER['PHP_SELF'] ;
-                $notification_bloc .= '?forum=' . $forum_id ;
-                $notification_bloc .= '&amp;topic=' . $topic_id ;
-                $notification_bloc .= '&amp;cmd=exdoNotNotify">';
+                $notification_bloc .= ' [<a href="' .htmlspecialchars($notification_url). '">';
                 $notification_bloc .= get_lang('Disable');
                 $notification_bloc .= '</a>]';
             }
             else   //display link to be notified for this topic
             {
-                $notification_bloc .= '<a href="' . $_SERVER['PHP_SELF'];
-                $notification_bloc .= '?forum=' . $forum_id ;
-                $notification_bloc .= '&amp;topic=' . $topic_id ;
-                $notification_bloc .= '&amp;cmd=exNotify">';
+                $notification_url = Url::Contextualize(
+                    $_SERVER['PHP_SELF']
+                    . '?forum=' . $forum_id . '&amp;topic='
+                    . $topic_id . '&amp;cmd=exNotify'
+                );
+                
+                $notification_bloc .= '<a href="' . htmlspecialchars($notification_url). '">';
                 $notification_bloc .= '<img src="' . get_icon_url('mail_close') . '" alt="" /> ';
                 $notification_bloc .= get_lang('Notify by email when replies are posted');
                 $notification_bloc .= '</a>';
@@ -174,8 +180,7 @@ $htmlHeadXtra[] =
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Forums'), 'index.php' );
 $noPHP_SELF       = true;
 
-$cssLoader = CssLoader::getInstance();
-$cssLoader->load( 'clfrm', 'screen');
+CssLoader::getInstance()->load( 'clfrm', 'screen');
 
 include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
@@ -202,17 +207,21 @@ else
     if ($forum_post_allowed)
     {
         $toolList = disp_forum_toolbar($pagetype, $forum_id, $forum_cat_id, $topic_id);
+        
         if ( count($postList) > 2 ) // if less than 2 las message is visible
         {
             $start_last_message = ( ceil($totalPosts / get_conf('posts_per_page')) -1 ) * get_conf('posts_per_page') ;
 
-            $lastMsgUrl = 'viewtopic.php?forum=' . $forum_id
+            $lastMsgUrl = get_module_url('CLFRM')
+            .             '/viewtopic.php?forum=' . $forum_id
             .             '&amp;topic=' . $topic_id
             .             '&amp;start=' . $start_last_message
-            .             claro_url_relay_context('&amp;')
-            .             '#post' . $lastPostId;
-            $toolList[] = claro_html_cmd_link($lastMsgUrl,get_lang('Last message'));
+            .             '#post' . $lastPostId
+            ;
+            
+            $toolList[] = claro_html_cmd_link(htmlspecialchars(Url::Contextualize($lastMsgUrl)),get_lang('Last message'));
         }
+        
         echo claro_html_menu_horizontal($toolList);
     }
 
@@ -284,11 +293,11 @@ else
         {
             echo '<p>' . "\n"
 
-            . '<a href="editpost.php?post_id=' . $thisPost['post_id'] . '">'
+            . '<a href="'.htmlspecialchars(Url::Contextualize( get_module_url('CLFRM') . '/editpost.php?post_id=' . $thisPost['post_id'] )) . '">'
             . '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Edit') . '" />'
             . '</a>' . "\n"
 
-            . '<a href="editpost.php?post_id=' . $thisPost['post_id'] . '&amp;delete=delete&amp;submit=submit" '
+            . '<a href="'.htmlspecialchars(Url::Contextualize( get_module_url('CLFRM') . '/editpost.php?post_id=' . $thisPost['post_id'] . '&amp;delete=delete&amp;submit=submit')).'" '
             . 'onclick="return confirm_delete();" >'
             . '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />'
             . '</a>' . "\n"
@@ -305,11 +314,14 @@ else
 
     if ($forum_post_allowed)
     {
-        $toolBar[] = claro_html_cmd_link( 'reply.php'
-                                        . '?topic=' . $topic_id
-                                        . '&amp;forum=' . $forum_id
-                                        . claro_url_relay_context('&amp;')
-                                        , '<img src="' . get_icon_url('reply') . '" />'
+        $replyUrl = Url::Contextualize( get_module_url('CLFRM')
+            . '/reply.php'
+            . '?topic=' . $topic_id
+            . '&amp;forum=' . $forum_id
+        );
+            
+        $toolBar[] = claro_html_cmd_link( htmlspecialchars( $replyUrl )
+                                        , '<img src="' . get_icon_url('reply') . '" alt="" />'
                                         . ' '
                                         . get_lang('Reply')
                                         );

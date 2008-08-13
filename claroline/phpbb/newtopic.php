@@ -199,13 +199,14 @@ else
         .    claro_html_menu_horizontal(disp_forum_toolbar($pagetype, $forum_id, 0, 0))
 
 
-        .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
+        .    '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">' . "\n"
         .    '<input type="hidden" name="forum" value="' . $forum_id . '" />' . "\n"
-
+        .    claro_form_relay_context()
         .    '<table border="0" width="100%">' . "\n"
         .    '<tr valign="top">' . "\n"
         .    '<td align="right"><label for="subject">' . get_lang('Subject') . '</label> : </td>'
         .    '<td><input type="text" name="subject" id="subject" size="50" maxlength="100" value="' . htmlspecialchars($subject) . '" /></td>'
+        .    '</tr>'
         .    '<tr  valign="top">' . "\n"
         .    '<td align="right"><br />' . get_lang('Message body') . ' :</td>';
 

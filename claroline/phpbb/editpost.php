@@ -209,7 +209,8 @@ else
         echo disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_id, $subject)
         .    claro_html_menu_horizontal(disp_forum_toolbar($pagetype, $forum_id, $topic_id, 0))
 
-        .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="post" >' . "\n"
+        .    '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post" >' . "\n"
+        .    claro_form_relay_context()
         .    '<input type="hidden" name="post_id" value="' . $post_id . '" />' . "\n"
         .    '<table border="0" width="100%" >' . "\n"
         ;
@@ -254,10 +255,10 @@ else
         .    '</td>' . "\n"
         .    '</tr>' . "\n"
         .    '</table>'. "\n"
-
+        .    '</form>' . "\n"
         .    '<br />' . "\n"
         .    '<center>'
-        .    '<a href="viewtopic.php?topic=' . $topic_id . '" target="_blank">'
+        .    '<a href="'.htmlspecialchars(Url::Contextualize( get_module_url('CLFRM') .'/viewtopic.php?topic=' . $topic_id )) . '" target="_blank">'
         .    get_lang('Topic review')
         .    '</a>'
         .    '</center>'

@@ -58,7 +58,7 @@ else                             $topic_id = 0;
 
 if ( isset($_REQUEST['cancel']) )
 {
-    claro_redirect('viewtopic.php?topic=' . $topic_id . '&forum='.$forum_id);
+    claro_redirect(Url::Contextualize( get_module_url('CLFRM') . '/viewtopic.php?topic=' . $topic_id . '&forum='.$forum_id));
     exit();
 }
 
@@ -188,7 +188,8 @@ else
 
         echo disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_id, $topic_title);
 
-        echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
+        echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">' . "\n"
+            . claro_form_relay_context()
             . '<input type="hidden" name="forum" value="' . $forum_id . '" />' . "\n"
             . '<input type="hidden" name="topic" value="' . $topic_id . '" />' . "\n";
 
@@ -203,11 +204,14 @@ else
             . '<td>'
             . '<input type="submit" name="submit" value="' . get_lang('Ok') . '" />&nbsp; '
             . '<input type="submit" name="cancel" value="' . get_lang('Cancel') . '" />'
+            . '</td>'
             . '</tr>'
             . '</table>'
             . '</form>' ;
 
-        echo '<p align="center"><a href="viewtopic.php?topic=' . $topic_id . '&forum=' . $forum_id . '" target="_blank">' . get_lang('Topic review') . '</a>';
+        echo '<p style="text-align: center;"><a href="'
+            . htmlspecialchars( Url::Contextualize( get_module_url('CLFRM') . '/viewtopic.php?topic=' . $topic_id . '&forum=' . $forum_id ))
+            . '" target="_blank">' . get_lang('Topic review') . '</a></p>';
 
     } // end else if submit
 }

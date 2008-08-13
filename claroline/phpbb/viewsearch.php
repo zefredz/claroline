@@ -41,6 +41,10 @@ elseif ( isset($_REQUEST['searchPattern']) )
 
         $sqlClauseString = implode("\n OR \n", $sqlClauseList);
     }
+    else
+    {
+        $sqlClauseString = null;
+    }
 }
 else
 {
@@ -129,19 +133,24 @@ echo claro_html_menu_horizontal(disp_forum_toolbar($pagetype, null))
             // and choose the image according this state
             $post_time = datetime_to_timestamp($thisPost['post_time']);
 
-            if($post_time < $last_visit) $postImg = 'post';
-            else                         $postImg = 'post_hot';
+            if($post_time < $last_visit) $class = ' class="item"';
+            else                         $class = ' class="item hot"';
 
             echo '<tr>'                                                   . "\n"
 
             .   '<th class="headerX">'                                    . "\n"
+            .   '<span'.$class.'>'
             .   '<img src="' . get_icon_url('topic') . '" alt="" />'
-            .   '<a href="viewtopic.php?topic='.$thisPost['topic_id'].'">'
-            .   $thisPost['topic_title']
+            .   '<a href="' . htmlspecialchars( Url::Contextualize(
+                    get_module_url('CLFRM') . '/viewtopic.php?topic='
+                    .$thisPost['topic_id'] ))
+            .   '">'
+            .   htmlspecialchars( $thisPost['topic_title'] )
             .   '</a><br />'                                              . "\n"
-            .   '<img src="' . get_icon_url( $postImg ) . '" alt="" />'
+            .   '<img src="' . get_icon_url( 'post' ) . '" alt="" />'
             .   get_lang('Author') . ' : <b>' . $thisPost['firstname'] . ' ' . $thisPost['lastname'] . '</b> '
             .   '<small>' . get_lang('Posted') . ' : ' . $thisPost['post_time'] . '</small>' . "\n"
+            .   '</span>'
             .   '</th>'                                                  . "\n"
 
             .   '</tr>'                                                  . "\n"

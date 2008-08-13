@@ -4,9 +4,9 @@
  *
  * Script displays topics list of a forum
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2008 Universite catholique de Louvain (UCL)
  * @copyright (C) 2001 The phpBB Group
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
@@ -227,20 +227,20 @@ else
 
             echo '</td>' . "\n"
                 .'<td align="center"><small>' . $replys . '</small></td>' . "\n"
-                .'<td align="center"><small>' . $thisTopic['prenom'] . ' ' . $thisTopic['nom'] . '<small></td>' . "\n"
-                .'<td align="center"><small>' . $thisTopic['topic_views'] . '<small></td>' . "\n";
+                .'<td align="center"><small>' . $thisTopic['prenom'] . ' ' . $thisTopic['nom'] . '</small></td>' . "\n"
+                .'<td align="center"><small>' . $thisTopic['topic_views'] . '</small></td>' . "\n";
 
             if ( !empty($last_post) )
             {
                 echo  '<td align="center">'
                     . '<small>'
                     . claro_html_localised_date(get_locale('dateTimeFormatShort'), $last_post)
-                    . '<small>'
+                    . '</small>'
                     . '</td>' . "\n";
             }
             else
             {
-                echo '<td align="center"><small>' . get_lang('No post') . '<small></td>' . "\n";
+                echo '<td align="center"><small>' . get_lang('No post') . '</small></td>' . "\n";
             }
 
             echo ' </tr>' . "\n";
