@@ -61,6 +61,7 @@ $_lang['Activated - Click to deactivate'] = 'Activated - Click to deactivate';
 $_lang['Add Text'] = 'Add Text';
 $_lang['Add a "Download all submissions" link in the teacher commands'] = 'Add a "Download all submissions" link in the teacher commands';
 $_lang['Add a comment (optional)'] = 'Add a comment (optional)';
+$_lang['Add additional tools in the SDK section of the platform administration.'] = 'Add additional tools in the SDK section of the platform administration.';
 $_lang['Add an image'] = 'Add an image';
 $_lang['Add external links to your course'] = 'Add external links to your course';
 $_lang['Add forum'] = 'Add forum';
@@ -777,6 +778,7 @@ $_lang['Platform Courses'] = 'Platform Courses';
 $_lang['Platform Settings'] = 'Platform Settings';
 $_lang['Platform activation'] = 'Platform activation';
 $_lang['Platform administration'] = 'Platform administration';
+$_lang['Platform administrator'] = 'Platform administrator';
 $_lang['Platform language'] = 'Platform language';
 $_lang['Platform local path '] = 'Platform local path';
 $_lang['Platform logo url'] = 'Platform logo url';
@@ -1215,6 +1217,7 @@ Email : %course_email
 Category : %course_category
 Language : %course_language
 Url : %course_url';
+$_lang['blockCourseDescriptionDescription'] = 'Description';
 $_lang['blockCourseSubscriptionNotification'] = '
 
 Dear %firstname %lastname,

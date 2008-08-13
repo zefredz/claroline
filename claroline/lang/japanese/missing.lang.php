@@ -82,6 +82,7 @@ $_lang['Add a user'] = 'Add a user';
 $_lang['Add a user list'] = 'Add a user list';
 $_lang['Add a user list in class'] = 'Add a user list in class';
 $_lang['Add a user list in course'] = 'Add a user list in course';
+$_lang['Add additional tools in the SDK section of the platform administration.'] = 'Add additional tools in the SDK section of the platform administration.';
 $_lang['Add an exercise'] = 'Add an exercise';
 $_lang['Add an image'] = 'Add an image';
 $_lang['Add answ.'] = 'Add answ.';
@@ -1058,6 +1059,7 @@ $_lang['Platform Courses'] = 'Platform Courses';
 $_lang['Platform Settings'] = 'Platform Settings';
 $_lang['Platform activation'] = 'Platform activation';
 $_lang['Platform administration'] = 'Platform administration';
+$_lang['Platform administrator'] = 'Platform administrator';
 $_lang['Platform language'] = 'Platform language';
 $_lang['Platform local path '] = 'Platform local path';
 $_lang['Platform logo url'] = 'Platform logo url';
@@ -1717,6 +1719,7 @@ Email : %course_email
 Category : %course_category
 Language : %course_language
 Url : %course_url';
+$_lang['blockCourseDescriptionDescription'] = 'Description';
 $_lang['blockCourseSubscriptionNotification'] = '
 
 Dear %firstname %lastname,
