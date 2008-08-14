@@ -92,6 +92,50 @@ class CLDOC_Resolver implements ModuleResourceResolver
  */
 class CLDOC_Navigator implements ModuleResourceNavigator
 {
+    protected function getPath( $locator )
+    {
+        $path = get_path('coursesRepositorySys') . claro_get_course_path( $locator->getCourseId() );
+        
+        // $groupId = null;
+        
+        // in a group
+        if ( $locator->inGroup() )
+        {
+            $groupData = claro_get_group_data ( array(
+                CLARO_CONTEXT_COURSE => $locator->getCourseId(),
+                CLARO_CONTEXT_GROUP => $locator->getGroupId()
+            ));
+            
+            $path .= '/group/' . $groupData['directory'];
+            // $groupId = $locator->getGroupId();
+        }
+        else
+        {
+            $path .= '/document';
+        }
+        
+        if ( $locator->hasResourceId() )
+        {
+            $path .= '/' . ltrim( $locator->getResourceId(), '/' );
+        }
+        
+        $path = secure_file_path( $path );
+        
+        return $path;
+    }
+    
+    protected function isPathNavigable( $path )
+    {
+        if ( !file_exists($path) || !is_dir( $path ) )
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+    
     public function getResourceId( $params = array() )
     {
         if ( empty( $params ) || !isset($params['path']) )
@@ -108,41 +152,7 @@ class CLDOC_Navigator implements ModuleResourceNavigator
     {
         if (  $locator->hasResourceId() )
         {
-            $path = get_path('coursesRepositorySys') . claro_get_course_path( $locator->getCourseId() );
-        
-            $groupId = null;
-            
-            // in a group
-            if ( $locator->inGroup() )
-            {
-                $groupData = claro_get_group_data ( array(
-                    CLARO_CONTEXT_COURSE => $locator->getCourseId(),
-                    CLARO_CONTEXT_GROUP => $locator->getGroupId()
-                ));
-                
-                $path .= '/group/' . $groupData['directory'];
-                $groupId = $locator->getGroupId();
-            }
-            else
-            {
-                $path .= '/document';
-            }
-            
-            if ( $locator->hasResourceId() )
-            {
-                $path .= '/' . ltrim( $locator->getResourceId(), '/' );
-            }
-            
-            $path = secure_file_path( $path );
-            
-            if ( !file_exists($path) || !is_dir( $path ) )
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            return $this->isPathNavigable( $this->getPath( $locator ) );
         }
         else
         {
@@ -178,13 +188,8 @@ class CLDOC_Navigator implements ModuleResourceNavigator
     
     public function getResourceList( ResourceLocator $locator )
     {
-        // in a course
-        
-        $path = get_path('coursesRepositorySys') . claro_get_course_path( $locator->getCourseId() );
-        
         $groupId = null;
         
-        // in a group
         if ( $locator->inGroup() )
         {
             $groupData = claro_get_group_data ( array(
@@ -192,22 +197,12 @@ class CLDOC_Navigator implements ModuleResourceNavigator
                 CLARO_CONTEXT_GROUP => $locator->getGroupId()
             ));
             
-            $path .= '/group/' . $groupData['directory'];
             $groupId = $locator->getGroupId();
         }
-        else
-        {
-            $path .= '/document';
-        }
         
-        if ( $locator->hasResourceId() )
-        {
-            $path .= '/' . ltrim( $locator->getResourceId(), '/' );
-        }
+        $path = $this->getPath( $locator );
         
-        $path = secure_file_path( $path );
-        
-        if ( !file_exists($path) && ! is_dir( $path ) )
+        if ( ! $this->isPathNavigable( $path ) )
         {
             throw new Exception("{$path} does not exists or is not a directory");
         }
