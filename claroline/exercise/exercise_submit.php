@@ -435,24 +435,17 @@ $out .= '</ul>' .  "\n\n";
 
 if( $showResult )
 {
-    if( $inLP )
-    {
-        // FIXME !
-        // new module CLLP
-        $out .= '<form method="get" action="../learnPath/navigation/backFromExercise.php">' . "\n"
-        .    '<input type="hidden" name="op" value="finish" />';
-    }
-    elseif( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] )
+    if( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] )
     {
         // old learning path tool
         $out .= '<form method="get" action="../learnPath/navigation/backFromExercise.php">' . "\n"
         .    '<input type="hidden" name="op" value="finish" />';
     }
-    else
+    elseif( !$inLP )
     {
         // standard exercise mode
         $out .= '<form method="get" action="exercise.php">';
-    }
+    } // if inLP do not allow to navigate away : user should use LP navigation to go to another module
 
     $out .= "\n" . '<table width="100%" border="0" cellpadding="1" cellspacing="0" class="claroTable">' . "\n\n";
 
@@ -512,12 +505,25 @@ if( $showResult )
     .     '</td>' . "\n"
     .     '</tr>' . "\n\n"
     .     '<tr>' . "\n"
-    .     '<td align="center">'
-    .     '<input type="submit" value="'.get_lang('Finish').'" />'
-    .     '</td>' . "\n"
+    .     '<td align="center">';
+    
+    if( !$inLP )
+    {
+        $out .= '<input type="submit" value="'.get_lang('Finish').'" />';
+    }
+    else
+    {
+        $out .= get_lang('Exercise done, choose a module in the list to continue.');
+    }
+    
+    $out .= '</td>' . "\n"
     .     '</tr>' . "\n\n"
-    .     '</table>' . "\n\n"
-    .     '</form>' . "\n\n";
+    .     '</table>' . "\n\n";
+
+    if( !$inLP )
+    {
+        $out .= '</form>' . "\n\n";
+    }
 
 }
 elseif( $showSubmitForm )
@@ -621,7 +627,7 @@ elseif( $showSubmitForm )
 }
 else // ! $showSubmitForm
 {
-    if( !isset($_SESSION['inPathMode']) || !$_SESSION['inPathMode'] )
+    if( (!isset($_SESSION['inPathMode']) || !$_SESSION['inPathMode']) && !$inLP )
     {
         $dialogBox->info('<a href="./exercise.php">&lt;&lt; '.get_lang('Back').'</a>');
     }
