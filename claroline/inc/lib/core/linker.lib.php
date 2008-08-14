@@ -11,7 +11,7 @@
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
  *              GNU GENERAL PUBLIC LICENSE version 2 or later
- * @package     linker
+ * @package     core.linker
  */
 
 FromKernel::uses('core/url.lib', 'group.lib.inc');
@@ -130,7 +130,7 @@ class ClarolineResourceLocator implements ResourceLocator
             
             if ( !empty($this->resourceId) )
             {
-                $crl.= "/{$this->resourceId}";
+                $crl.= '/'. ltrim($this->resourceId, '/');
             }
         }
         
@@ -265,6 +265,25 @@ class LinkerResource
     {
         return $this->name;
     }
+    
+    public function toArray()
+    {
+        $parent = ResourceLinker::$Navigator->getParent( $this->getLocator() );
+        
+        return array(
+            'name' => $this->getName(),
+            'crl' => $this->getLocator()->__toString(),
+            'parent' => !empty($parent) ? $parent->__toString() : false,
+            'isVisible' => $this->isVisible() ? true : false,
+            'isLinkable' => $this->isLinkable() ? true : false,
+            'isNavigable' => $this->isNavigable() ? true : false
+        );
+    }
+    
+    public function __toString()
+    {
+        return get_class($this).' : '.$this->getName() .' at '.$this->getLocator();
+    }
 }
 
 /**
@@ -277,7 +296,7 @@ class LinkerResourceIterator
 {
     protected $elementList;
     
-    public function __construct(  )
+    public function __construct( )
     {
         $this->elementList = array();
     }
@@ -297,6 +316,18 @@ class LinkerResourceIterator
     {
         $this->seek( count( $this->elementList ) - 1 );
         return $this->current();
+    }
+    
+    public function toArray()
+    {
+        $elementArr = array();
+        
+        foreach ( $this->elementList as $element )
+        {
+            $elementArr[] = $element->toArray();
+        }
+        
+        return $elementArr;
     }
     
     // Countable
@@ -403,7 +434,10 @@ class ResourceLinkerResolver
             }
             else
             {
-                $context[CLARO_CONTEXT_GROUP] = null;
+                if ( isset( $context[CLARO_CONTEXT_GROUP] ) )
+                {
+                    unset($context[CLARO_CONTEXT_GROUP]);
+                }
             }
             
             if ( $locator->inCourse() )
@@ -412,7 +446,10 @@ class ResourceLinkerResolver
             }
             else
             {
-                $context[CLARO_CONTEXT_COURSE] = null;
+                if ( isset( $context[CLARO_CONTEXT_COURSE] ) )
+                {
+                    unset($context[CLARO_CONTEXT_COURSE]);
+                }
             }
             
             $urlObj->relayContext( Claro_Context::getUrlContext( $context ) );
@@ -660,6 +697,56 @@ class ResourceLinkerNavigator
         
         return $locator;
     }
+    
+    public function getParent( ResourceLocator $locator )
+    {
+        if ( $locator instanceof ExternalResourceLocator )
+        {
+            $parent = false;
+        }
+        elseif ( $locator->hasResourceId() )
+        {
+            if ( $navigator = $this->loadModuleNavigator($locator->getModuleLabel() ) )
+            {
+                $resourceId = $navigator->getParentResourceId( $locator );
+            }
+            else
+            {
+                $resourceId = null;
+            }
+            
+            $parent = new ClarolineResourceLocator(
+                $locator->getCourseId(),
+                $locator->getModuleLabel(),
+                $resourceId,
+                $locator->getGroupId()
+            );
+        }
+        elseif ( $locator->inModule() )
+        {
+            $parent = new ClarolineResourceLocator(
+                $locator->getCourseId(),
+                null,
+                null,
+                $locator->getGroupId()
+            );
+        }
+        elseif ( $locator->inGroup() )
+        {
+            $parent = new ClarolineResourceLocator(
+                $locator->getCourseId(),
+                null,
+                null,
+                null
+            );
+        }
+        else
+        {
+            $parent = false;
+        }
+        
+        return $parent;
+    }
 }
 
 /**
@@ -678,6 +765,8 @@ interface ResourceNavigator
 interface ModuleResourceNavigator extends ResourceNavigator
 {
     public function getResourceId( $params = array() );
+    
+    public function getParentResourceId( ResourceLocator $locator );
 }
 
 /**
@@ -699,6 +788,11 @@ class CLHOME_Navigator implements ModuleResourceNavigator
         }
         
         return $params['id'];
+    }
+    
+    public function getParentResourceId( ResourceLocator $locator )
+    {
+        return null;
     }
 }
 
@@ -846,6 +940,8 @@ class ResourceLinker
         $resourceId= null,
         $teamId = null )
     {
+        self::init();
+        
         $locator = new ClarolineResourceLocator(
             $courseId,
             $moduleLabel,
@@ -855,9 +951,10 @@ class ResourceLinker
         return self::$Resolver->resolve( $locator );
     }
     
-    public static function getLocator( $params )
+    public static function getCurrentLocator( $params = array() )
     {
-        return self::$Navigator->getLocator( $params );
+        self::init();
+        return self::$Navigator->getCurrentLocator( $params );
     }
     
     public static function getLocatorIdAndAddIfMissing( $crl )
@@ -970,6 +1067,7 @@ class ResourceLinker
      */
     public static function getResourceList( $crl )
     {
+        self::init();
         return self::$Navigator->getResourceList( ClarolineResourceLocator::parse($crl) );
     }
     
@@ -981,11 +1079,13 @@ class ResourceLinker
      */
     public static function getResourceName( $crl )
     {
+        self::init();
         return self::$Resolver->getResourceName( ClarolineResourceLocator::parse($crl) );
     }
     
     public static function resolve( $crl )
     {
+        self::init();
         return self::$Resolver->resolve( ClarolineResourceLocator::parse($crl) );
     }
 }
