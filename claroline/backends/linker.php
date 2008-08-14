@@ -38,6 +38,7 @@ try
     $resourceArr = array();
     $resourceArr['name'] = ResourceLinker::$Resolver->getResourceName( $locator );
     $resourceArr['crl'] = $locator->__toString();
+    $resourceArr['parent'] = ResourceLinker::$Navigator->getParent( $locator );
     $resourceArr['resources'] = $elementList;
     
     echo claro_utf8_encode( json_encode($resourceArr) );
