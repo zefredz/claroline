@@ -269,15 +269,55 @@ class LinkerResource
     public function toArray()
     {
         $parent = ResourceLinker::$Navigator->getParent( $this->getLocator() );
+        $locator = $this->getLocator();
         
-        return array(
-            'name' => $this->getName(),
-            'crl' => $this->getLocator()->__toString(),
-            'parent' => !empty($parent) ? $parent->__toString() : false,
-            'isVisible' => $this->isVisible() ? true : false,
-            'isLinkable' => $this->isLinkable() ? true : false,
-            'isNavigable' => $this->isNavigable() ? true : false
-        );
+        if ( $locator instanceof ExternalResourceLocator )
+        {
+            $clext_resolver = new CLEXT_Resolver;
+            
+            return array(
+                'name' => $clext_resolver->getResourceName($locator),
+                'icon' => get_icon_url('link'),
+                'crl' => $this->getLocator()->__toString(),
+                'parent' => false,
+                'isVisible' => true,
+                'isLinkable' => $this->isLinkable() ? true : false,
+                'isNavigable' => false
+            );
+        }
+        else
+        {
+            if ( $locator->inModule() )
+            {
+                $moduleIcon = get_module_data( $locator->getModuleLabel(), 'icon' );
+                $iconUrl = get_module_url($locator->getModuleLabel() )
+                    . '/'
+                    . $moduleIcon
+                    ;
+            }
+            elseif ( $locator->inGroup() )
+            {
+                $iconUrl = get_icon_url('group');
+            }
+            elseif ( $locator->inCourse() )
+            {
+                $iconUrl = get_icon_url('course');
+            }
+            else
+            {
+                $iconUrl = get_icon_url('forbidden');
+            }
+            
+            return array(
+                'name' => $this->getName(),
+                'icon' => $iconUrl,
+                'crl' => $this->getLocator()->__toString(),
+                'parent' => !empty($parent) ? $parent->__toString() : false,
+                'isVisible' => $this->isVisible() ? true : false,
+                'isLinkable' => $this->isLinkable() ? true : false,
+                'isNavigable' => $this->isNavigable() ? true : false
+            );
+        }
     }
     
     public function __toString()
@@ -577,19 +617,25 @@ class CLEXT_Resolver implements ModuleResourceResolver
     
     public function getResourceName( ResourceLocator $locator )
     {
-        $externalCourseToolList = claro_get_course_external_link_list( $locator->getCourseId() );
-        
-        $url = $locator->getResourceId();
-        
-        foreach ( $externalCourseToolList as $externalCourseTool )
+        if ( $locator instanceof ExternalResourceLocator )
         {
-            if ( $externalCourseTool['url'] == $url )
-            {
-                return $externalCourseTool['name'];
-            }
+            return $locator->__toString();
         }
-        
-        return $url;
+        else
+        {
+            $url = $locator->getResourceId();
+            $externalCourseToolList = claro_get_course_external_link_list( $locator->getCourseId() );
+            
+            foreach ( $externalCourseToolList as $externalCourseTool )
+            {
+                if ( $externalCourseTool['url'] == $url )
+                {
+                    return $externalCourseTool['name'];
+                }
+            }
+            
+            return $url;
+        }
     }
 }
 
@@ -635,6 +681,45 @@ class ResourceLinkerNavigator
         else
         {
             throw new Exception( "Not supported yet !" );
+        }
+    }
+    
+    public function isNavigable( $locator )
+    {
+        if ( $locator instanceof ExternalResourceLocator )
+        {
+            return false;
+        }
+        
+        if ( $locator->inModule() )
+        {
+            if ( $navigator = self::loadModuleNavigator( $locator->getModuleLabel() ) )
+            {
+                return $navigator->isNavigable( $locator );
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            if ( $locator->inGroup() )
+            {
+                $navigator = new GroupNavigator;
+                
+                return $navigator->isNavigable( $locator );
+            }
+            elseif ( $locator->inCourse() )
+            {
+                $navigator = new CourseNavigator;
+                
+                return $navigator->isNavigable( $locator );
+            }
+            else
+            {
+                return false;
+            }
         }
     }
     
@@ -756,6 +841,8 @@ class ResourceLinkerNavigator
 interface ResourceNavigator
 {
     public function getResourceList( ResourceLocator $rootNodeLocator );
+    
+    public function isNavigable( ResourceLocator $locator );
 }
 
 /**
@@ -793,6 +880,11 @@ class CLHOME_Navigator implements ModuleResourceNavigator
     public function getParentResourceId( ResourceLocator $locator )
     {
         return null;
+    }
+    
+    public function isNavigable( ResourceLocator $locator )
+    {
+        return false;
     }
 }
 
@@ -848,6 +940,12 @@ class CourseNavigator implements ResourceNavigator
         
         return $courseResource;
     }
+    
+    public function isNavigable( ResourceLocator $locator )
+    {
+        // FIXME : a bit more security here !!!!
+        return true;
+    }
 }
 
 /**
@@ -900,6 +998,12 @@ class GroupNavigator implements ResourceNavigator
         }
         
         return $groupResource;
+    }
+    
+    public function isNavigable( ResourceLocator $locator )
+    {
+        // FIXME : a bit more security here !!!!
+        return true;
     }
 }
 

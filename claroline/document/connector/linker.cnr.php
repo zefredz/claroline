@@ -104,6 +104,52 @@ class CLDOC_Navigator implements ModuleResourceNavigator
         }
     }
     
+    public function isNavigable( ResourceLocator $locator )
+    {
+        if (  $locator->hasResourceId() )
+        {
+            $path = get_path('coursesRepositorySys') . claro_get_course_path( $locator->getCourseId() );
+        
+            $groupId = null;
+            
+            // in a group
+            if ( $locator->inGroup() )
+            {
+                $groupData = claro_get_group_data ( array(
+                    CLARO_CONTEXT_COURSE => $locator->getCourseId(),
+                    CLARO_CONTEXT_GROUP => $locator->getGroupId()
+                ));
+                
+                $path .= '/group/' . $groupData['directory'];
+                $groupId = $locator->getGroupId();
+            }
+            else
+            {
+                $path .= '/document';
+            }
+            
+            if ( $locator->hasResourceId() )
+            {
+                $path .= '/' . ltrim( $locator->getResourceId(), '/' );
+            }
+            
+            $path = secure_file_path( $path );
+            
+            if ( !file_exists($path) || !is_dir( $path ) )
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        else
+        {
+            return $locator->inModule() && $locator->getModuleLabel() == 'CLDOC';
+        }
+    }
+    
     public function getParentResourceId( ResourceLocator $locator )
     {
         if ( $locator->hasResourceId() )
