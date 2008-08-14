@@ -26,6 +26,11 @@ try
         : ResourceLinker::$Navigator->getCurrentLocator( array() );
         ;
     
+    if ( !ResourceLinker::$Navigator->isNavigable( $locator ) )
+    {
+        throw new EXception('Resource not navigable');
+    }
+    
     $resourceList = ResourceLinker::$Navigator->getResourceList( $locator );
     
     echo json_encode($resourceList->toArray());
