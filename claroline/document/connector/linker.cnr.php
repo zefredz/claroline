@@ -104,6 +104,32 @@ class CLDOC_Navigator implements ModuleResourceNavigator
         }
     }
     
+    public function getParentResourceId( ResourceLocator $locator )
+    {
+        if ( $locator->hasResourceId() )
+        {
+            $resourceId = '/' . ltrim( $locator->getResourceId(), '/' );
+            $parentResourceId = ltrim( str_replace( '\\', '/', dirname( $resourceId) ), '/' );
+            
+            if ( $parentResourceId == ''
+                || $parentResourceId == '/'
+                || $parentResourceId == '.'
+                || $parentResourceId == '..' )
+            {
+                return false;
+            }
+            else
+            {
+                
+                return $parentResourceId;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
     public function getResourceList( ResourceLocator $locator )
     {
         // in a course
@@ -175,9 +201,9 @@ class CLDOC_Navigator implements ModuleResourceNavigator
                 
                 if ( $locator->hasResourceId() )
                 {
-                    $relativePath = '/'
-                        . ltrim( $locator->getResourceId(), '/' )
-                        . '/' . ltrim( $relativePath, '/' )
+                    $relativePath = '/' . ltrim( 
+                         ltrim( $locator->getResourceId(), '/' )
+                        . '/' . ltrim( $relativePath, '/' ), '/' )
                         ;
                 }
                 
