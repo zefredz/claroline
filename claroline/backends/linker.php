@@ -33,7 +33,14 @@ try
     
     $resourceList = ResourceLinker::$Navigator->getResourceList( $locator );
     
-    echo json_encode($resourceList->toArray());
+    $elementList = $resourceList->toArray();
+    
+    $resourceArr = array();
+    $resourceArr['name'] = ResourceLinker::$Resolver->getResourceName( $locator );
+    $resourceArr['crl'] = $locator->__toString();
+    $resourceArr['resources'] = $elementList;
+    
+    echo json_encode($resourceArr);
     exit;
 }
 catch (Exception $e )
