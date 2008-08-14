@@ -40,7 +40,7 @@ try
     $resourceArr['crl'] = $locator->__toString();
     $resourceArr['resources'] = $elementList;
     
-    echo json_encode($resourceArr);
+    echo claro_utf8_encode( json_encode($resourceArr) );
     exit;
 }
 catch (Exception $e )
