@@ -155,6 +155,12 @@ class ClarolineResourceLocator implements ResourceLocator
             $locator = new self( $matches[2] );
             $locator->setPlatformId( $matches[1] );
         }
+        elseif ( preg_match( '~^crl://claroline\.net/(\w+)/(\w+)/groups$~', $locatorString, $matches ) )
+        {
+            // course and group
+            $locator = new self( $matches[2], 'CLGRP', null, null );
+            $locator->setPlatformId( $matches[1] );
+        }
         elseif ( preg_match( '~^crl://claroline\.net/(\w+)/(\w+)/groups/(\d+)$~', $locatorString, $matches ) )
         {
             // course and group
@@ -639,6 +645,19 @@ class CLEXT_Resolver implements ModuleResourceResolver
     }
 }
 
+/*class CLGRP_Resolver implements ModuleResourceResolver
+{
+    public function resolve( ResourceLocator $locator )
+    {
+        return '';
+    }
+    
+    public function getResourceName()
+    {
+        return get_lang('');
+    }
+}*/
+
 /**
  * Returns the list of available resources from a locator
  *
@@ -857,38 +876,6 @@ interface ModuleResourceNavigator extends ResourceNavigator
 }
 
 /**
- * This navigator is mainly used to link resources from course home page
- *
- */
-class CLHOME_Navigator implements ModuleResourceNavigator
-{
-    public function getResourceList( ResourceLocator $rootNodeLocator )
-    {
-        // should not be called
-    }
-    
-    public function getResourceId( $params = array() )
-    {
-        if ( ! isset($params['id']) )
-        {
-            throw new Exception("Missing parameter");
-        }
-        
-        return $params['id'];
-    }
-    
-    public function getParentResourceId( ResourceLocator $locator )
-    {
-        return null;
-    }
-    
-    public function isNavigable( ResourceLocator $locator )
-    {
-        return false;
-    }
-}
-
-/**
  * This navigator allows navigation through tools of a course
  *
  */
@@ -1004,6 +991,96 @@ class GroupNavigator implements ResourceNavigator
     {
         // FIXME : a bit more security here !!!!
         return true;
+    }
+}
+
+class CLGRP_Navigator implements ModuleResourceNavigator
+{
+    public function getResourceList( ResourceLocator $rootNodeLocator )
+    {
+        $tbl_cdb_names = get_module_course_tbl(array('group_team'), $rootNodeLocator->getCourseId() );
+        $tbl_groups = $tbl_cdb_names['group_team'];
+
+        $sql = 'SELECT `id`,`name` FROM `'.$tbl_groups.'`';
+        
+        $groups = claro_sql_query_fetch_all($sql);
+        $groupProperties = claro_get_main_group_properties($rootNodeLocator->getCourseId());
+        
+        $groupList = new LinkerResourceIterator;
+
+        foreach ( $groups as $group )
+        {
+            $locator = new ClarolineResourceLocator(
+                $rootNodeLocator->getCourseId(),
+                null,
+                null,
+                (int)$group['id']
+            );
+            
+            $resource = new LinkerResource(
+                $group['name'],
+                $locator,
+                true,
+                $groupProperties['private'] ? true : false,
+                true
+            );
+            
+            $groupList->addResource( $resource );
+        }
+        
+        return $groupList;
+    }
+    
+    public function getResourceId( $params = array() )
+    {
+        if ( ! isset($params['gid']) )
+        {
+            throw new Exception("Missing parameter");
+        }
+        
+        return "groups/{$params['gid']}";
+    }
+    
+    public function getParentResourceId( ResourceLocator $locator )
+    {
+        return false;
+    }
+    
+    public function isNavigable( ResourceLocator $locator )
+    {
+        return true;
+    }
+}
+
+/**
+ * This navigator is mainly used to link resources from course home page
+ *
+ */
+class CLHOME_Navigator implements ModuleResourceNavigator
+{
+    public function getResourceList( ResourceLocator $rootNodeLocator )
+    {
+        // should not be called
+    }
+    
+    public function getResourceId( $params = array() )
+    {
+        if ( ! isset($params['id']) )
+        {
+            throw new Exception("Missing parameter");
+        }
+        
+        return $params['id'];
+    }
+    
+    public function getParentResourceId( ResourceLocator $locator )
+    {
+        return null;
+    }
+    
+    public function isNavigable( ResourceLocator $locator )
+    {
+        return false;
     }
 }
 
