@@ -606,8 +606,8 @@ if ($canRunCmd)
     {
         $includePath = $newIncludePath;
         $rootSys = realpath($newIncludePath . '/../../');
-        include('./do_install.inc.php');
         $display = DISP_RUN_INSTALL_COMPLETE;
+        include('./do_install.inc.php');
     }
  }
 
