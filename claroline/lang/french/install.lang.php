@@ -1,7 +1,4 @@
 <?php 
-$_lang['For help ask on %clarolineForumLink'] = 'Besoin d\'aide ? %clarolineForumLink';
-$_lang['Is root folder readable ?'] = 'Le répertoire principal est-il accessible en lecture ?';
-$_lang['Is root folder writable ?'] = 'Le répertoire principal est-il accessible en écriture ?';
 $_lang['%path is missing'] = '%path n\'existe pas';
 $_lang['%requiredMark required field'] = '%requiredMark champ obligatoire';
 $_lang['A database will be created for each course.'] = 'Chaque cours aura sa propre base de données.';
@@ -54,6 +51,7 @@ $_lang['Error'] = 'Erreur';
 $_lang['Error when creating configuration files'] = 'Erreur lors de la création des fichiers de configuration';
 $_lang['Error when creating file <em>%htAccessName</em> in %htAccessLangPath'] = 'Erreur lors de la création du fichier <em>%htAccessName</em> dans %htAccessLangPath';
 $_lang['First name'] = 'Prénom';
+$_lang['For help ask on %clarolineForumLink'] = 'Besoin d\'aide ? %clarolineForumLink';
 $_lang['Go to your brand new campus'] = 'Visitez votre nouveau campus virtuel';
 $_lang['However, you can record tracking data into a separate database or set a specific prefix for tracking tables.'] = 'Cependant, vous pouvez choisir d\'enregistrer les données de tracking dans une autre base de données ou dans la même base avec un préfixe différent.';
 $_lang['I know, I want to use this database as "%fieldname"'] = 'Je sais, mais je veux malgré tout utiliser cette base de données';
@@ -65,6 +63,8 @@ $_lang['Installation language'] = 'Langue d\'installation';
 $_lang['Institution URL'] = 'URL de l\'institution';
 $_lang['Institution name'] = 'Nom de l\'institution';
 $_lang['Invalid name. Only letters, digits and _ are allowed'] = 'Nom invalide, seuls les lettres, chiffres et le caractère \'_\' sont autorisés';
+$_lang['Is root folder readable ?'] = 'Le répertoire principal est-il accessible en lecture ?';
+$_lang['Is root folder writable ?'] = 'Le répertoire principal est-il accessible en écriture ?';
 $_lang['Ko'] = 'KO';
 $_lang['Last check before install'] = 'Vérification avant l\'installation';
 $_lang['Last name'] = 'Nom de famille';
