@@ -172,7 +172,6 @@ $_lang['Match the exact expression'] = 'Match the exact expression';
 $_lang['Max announcement number in portlet'] = 'Max announcement number in portlet';
 $_lang['Merge'] = 'Merge';
 $_lang['Merge user accounts'] = 'Merge user accounts';
-$_lang['Merger user accounts'] = 'Merger user accounts';
 $_lang['Merging user accounts is not a reversible operation so be careful !'] = 'Merging user accounts is not a reversible operation so be careful !';
 $_lang['Merging users will alter the user data and cannot be undone. Are you sure to want to continue ?'] = 'Merging users will alter the user data and cannot be undone. Are you sure to want to continue ?';
 $_lang['Message not found'] = 'Message not found';

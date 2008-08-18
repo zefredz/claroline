@@ -367,7 +367,6 @@ $_lang['Maximum lengh for a nick'] = 'Maximum lengh for a nick';
 $_lang['Maximum lines in the active chat file. For performance, it\'s interesting to not work with too big file.'] = 'Maximum lines in the active chat file. For performance, it\'s interesting to not work with too big file.';
 $_lang['Merge'] = 'Merge';
 $_lang['Merge user accounts'] = 'Merge user accounts';
-$_lang['Merger user accounts'] = 'Merger user accounts';
 $_lang['Merging user accounts is not a reversible operation so be careful !'] = 'Merging user accounts is not a reversible operation so be careful !';
 $_lang['Merging users will alter the user data and cannot be undone. Are you sure to want to continue ?'] = 'Merging users will alter the user data and cannot be undone. Are you sure to want to continue ?';
 $_lang['Message not found'] = 'Message not found';

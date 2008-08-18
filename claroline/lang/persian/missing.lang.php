@@ -573,7 +573,6 @@ $_lang['Maximum size of a document that a user can upload'] = 'Maximum size of a
 $_lang['Memorize them, you will use them the next time you will enter to this site.'] = 'Memorize them, you will use them the next time you will enter to this site.';
 $_lang['Merge'] = 'Merge';
 $_lang['Merge user accounts'] = 'Merge user accounts';
-$_lang['Merger user accounts'] = 'Merger user accounts';
 $_lang['Merging user accounts is not a reversible operation so be careful !'] = 'Merging user accounts is not a reversible operation so be careful !';
 $_lang['Merging users will alter the user data and cannot be undone. Are you sure to want to continue ?'] = 'Merging users will alter the user data and cannot be undone. Are you sure to want to continue ?';
 $_lang['Message'] = 'Message';
