@@ -207,6 +207,7 @@ if (isset($_REQUEST['lang']))
                  (
                     u.varname = t.varname
                     and t.language=\"" . $language . "\"
+                    and t.sourceFile LIKE '%install.lang.php%'
                  )
                  where t.varcontent is null
                    and u.sourceFile LIKE '%/install/%'
@@ -220,6 +221,7 @@ if (isset($_REQUEST['lang']))
                  (
                     u.varname = t2.varname
                     and t2.language=\"" . $language . "\"
+                    and t2.sourceFile LIKE '%install.lang.php%'
                  )
                  where t2.varcontent is null 
                    and t1.language = '" . DEFAULT_LANGUAGE . "' 
