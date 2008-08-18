@@ -1,4 +1,7 @@
 <?php 
+$_lang['For help ask on %clarolineForumLink'] = 'Besoin d\'aide ? %clarolineForumLink';
+$_lang['Is root folder readable ?'] = 'Le répertoire principal est-il accessible en lecture ?';
+$_lang['Is root folder writable ?'] = 'Le répertoire principal est-il accessible en écriture ?';
 $_lang['%path is missing'] = '%path n\'existe pas';
 $_lang['%requiredMark required field'] = '%requiredMark champ obligatoire';
 $_lang['A database will be created for each course.'] = 'Chaque cours aura sa propre base de données.';
