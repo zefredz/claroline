@@ -1,3 +1,16 @@
+/*
+This code will work with html like this
+<div id="lnk_panel">
+ <div id="lnk_ajax_loading">load</div>
+ <div id="lnk_selected_resources"></div>
+ <h4 id="lnk_location"></h4>
+ <div id="lnk_resources"></div>
+ <div id="lnk_hidden_fields"></div>
+</div>
+
+*/
+
+
 $(document).ready(function(){
     
     // load list
@@ -9,9 +22,35 @@ $(document).ready(function(){
     // - on category : min max display || select resource ?
     // - on resources : select resources
     
-    // listen event so that added resources create a hidden field or added in js object that will add hidden field in form submission
+    // listen to browse events
+    $("#lnk_resources a.navigable").livequery( 'click', function(){
+        linkerFrontend.loadList($(this).attr("rel"));
+        return false;
+    });
+    
+    // listen to attach events
+    $("#lnk_resources a.linkable").livequery( 'click', function(){
+        linkerFrontend.select($(this).attr("rel"), $(this).text());
+        return false;
+    });
+    // listen to detach events
+    $("#lnk_selected_resources div a").livequery( 'click', function(){
+        linkerFrontend.unselect($(this).attr("rel"));
+        return false;
+    });
     // listen to close events (min/max display)
-    // listen to remove events
+    
+    
+    // show activity mechanism
+    $("#lnk_ajax_loading").hide();
+    
+    $("#lnk_ajax_loading").ajaxStart(function(){
+        $(this).show();
+    });
+        
+    $("#lnk_ajax_loading").ajaxStop(function(){
+        $(this).hide();
+    });
     
 
 });
@@ -32,12 +71,12 @@ var linkerFrontend = {
             url = url + '?crl=' + escape(crl);
         }
         
-        // get data from php backend throught JSON and store it in this.available
+
         $.getJSON( url,
 	        function(data){
 	          $("#lnk_location")
 	           .text(data.name)
-                      .append("<br />");
+               .append("<br />");
 	           
 	          $("<a />")
                       .text("Remonter")
@@ -63,30 +102,26 @@ var linkerFrontend = {
                    // style for !isVisible to add on a and span
 	               if( currentResource.isNavigable )
 	               {
-    	               $("<a />")
-	                   .text("*"+currentResource.name)
-	                   .attr("title",currentResource.name)
-	                   .attr("onclick", "linkerFrontend.loadList('"+currentResource.crl+"');return false;")
-	                   .appendTo("#lnk_resources")
-	                   ;
-	               
+						$("#lnk_resources")
+						.append('<a class="navigable" rel="'+currentResource.crl+'">'+currentResource.name+'</a>');
 	               }
 	               else
 	               {
 	                   // !isNavigable
-	                   $("<span />")
-	                   .text(currentResource.name)
-	                   .appendTo("#lnk_resources");
+	                   $("#lnk_resources")
+                        .append('<span>'+currentResource.name+'</span>');
 	               }
 	               
 	               if( currentResource.isLinkable )
-	               {
+	               {/*
 	                   $("<a />")
                        .text(' [Attach]')
                        .attr("title",currentResource.name)
                        .attr("onclick", "linkerFrontend.select('"+currentResource.crl+"','"+currentResource.name+"');return false;")
                        .appendTo("#lnk_resources")
-                       ;
+                       ;*/
+                        $("#lnk_resources")
+                        .append('<a class="linkable" rel="'+currentResource.crl+'">'+currentResource.name+'</a>');
 	               }
 	               $("<br />").appendTo("#lnk_resources"); 
 	               
@@ -106,10 +141,12 @@ var linkerFrontend = {
         this.renderSelected();
     },
     
-    unselect : function() {
+    unselect : function(crl) {
         // mark a resource as not selected
         // - remove it from selected array
+        delete this.selected[crl];
         // - repaint list of selected resources
+        this.renderSelected();
     },
     
     unselectAll : function() {
@@ -122,12 +159,18 @@ var linkerFrontend = {
     
     renderSelected : function() {
         $("#lnk_selected_resources").empty();
+        var i=0;
         for ( var x in this.selected ) {
-        // ajouter chemin complet
-             $("<span />")
-             .text(this.selected[x])
-             .attr("id", x)
-             .appendTo("#lnk_selected_resources");
+            // ajouter chemin complet
+             // add element in displayed list
+             $("#lnk_selected_resources")
+             .append('<div id="'+x+'">'+this.selected[x]+'<a href="#" rel="'+x+'">delete</a></div>');
+             
+             // add a form element
+             $("#lnk_hidden_fields")
+             .append('<input name="servAdd['+i+']" value="'+x+'" type="hidden">');
+             
+             i++;
         }
     },
     
