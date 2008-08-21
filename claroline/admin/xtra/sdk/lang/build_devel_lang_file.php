@@ -126,6 +126,7 @@ if (isset($_REQUEST['lang']))
                 WHERE trans.language = '$language'
                   AND used.varName = trans.varName
                   AND used.sourceFile NOT LIKE '%/install/%' 
+                  AND trans.sourceFile NOT LIKE '%/install.lang.php%' 
                 ORDER BY used.varName, trans.varContent";
 
         $result = claro_sql_query($sql) or die ("QUERY FAILED: " .  __LINE__);
@@ -174,6 +175,7 @@ if (isset($_REQUEST['lang']))
                 WHERE trans.language = '$language'
                   AND used.varName = trans.varName
                   AND used.sourceFile LIKE '%/install/%' 
+                  AND trans.sourceFile LIKE '%/install.lang.php%' 
                 ORDER BY used.varName, trans.varContent";
 
         $result = claro_sql_query($sql) or die ("QUERY FAILED: " .  __LINE__);
