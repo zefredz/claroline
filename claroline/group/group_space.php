@@ -383,7 +383,7 @@ if (count($tutorDataList) > 0)
               '../messaging/sendMessage.php?cmd=rqMessageToUser&amp;userId=' . (int)$thisTutor['id'] ))
               . '">'
               // . '<img src="' . get_icon_url('mail_send') . '" alt="" />'
-              . 'Send a message'
+              . get_lang('Send a message')
               . '</a>'
               ;
         }
@@ -425,8 +425,8 @@ if(count($groupMemberList) > 0)
                 . htmlspecialchars(Url::Contextualize(
                     '../messaging/sendMessage.php?cmd=rqMessageToUser&amp;userId=' . (int) $thisGroupMember['id'] ))
                 . '">'
-                . get_lang('Send a message')
                 // . '<img src="' . get_icon_url('mail_send') . '" alt="" />'
+                . get_lang('Send a message')
                 . '</a>'
                 ;
         }
