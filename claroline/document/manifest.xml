@@ -7,7 +7,7 @@
  <type>tool</type>
  <context>course</context>
  <context>group</context>
- <web>http://www.claroline.net/wiki/CLDOC/</web>
+ <web>http://wiki.claroline.net/index.php/CLDOC</web>
  <entry>document.php</entry>
   <description>
      This tool is an original tool of claroline

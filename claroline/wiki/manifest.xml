@@ -7,7 +7,7 @@
   <type>tool</type>
   <context>course</context>
   <context>group</context>
-  <web>http://www.claroline.net/wiki/CLWIKI/</web>
+  <web>http://wiki.claroline.net/index.php/CLWIKI</web>
   <entry>wiki.php</entry>
 
   <description>
