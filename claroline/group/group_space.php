@@ -408,13 +408,17 @@ else
 DISPLAY GROUP MEMBER LIST
 ----------------------------------------------------------------------------*/
 
+$context = Claro_Context::getCurrentContext();
+$context[CLARO_CONTEXT_GROUP] = null;
+$urlContext = Claro_Context::getUrlContext( $context );
+
 if(count($groupMemberList) > 0)
 {
     echo '<br /><br />' . "\n";
     foreach($groupMemberList as $thisGroupMember)
     {
         echo '<a href="'
-        .    htmlspecialchars(Url::Contextualize('../user/userInfo.php?uInfo=' . $thisGroupMember['id']  ))
+        .    htmlspecialchars(Url::Contextualize('../user/userInfo.php?uInfo=' . $thisGroupMember['id'], $urlContext  ))
         .    '" class="item">'
         .    $thisGroupMember['lastName'] . ' ' . $thisGroupMember['firstName']
         .    '</a>';
