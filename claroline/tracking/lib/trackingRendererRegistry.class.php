@@ -23,11 +23,15 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
      */
     class TrackingRendererRegistry
     {
+        const PLATFORM = 'platform';
+        const COURSE = 'course';
+        
         private static $instance = false;
 
         private $courseId;
         private $courseRendererList;
         private $userRendererList;
+        private $userPlatformRendererList;
 
         /**
          * Construtor
@@ -57,11 +61,16 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
          *
          * @param string $className
          */
-        public function registerUser( $className )
+        public function registerUser( $className, $context = self::COURSE )
         {
-            $this->userRendererList[] = $className;
+            if( $context != self::COURSE && $context != self::PLATFORM )
+            {
+                $context = self::COURSE;
+            }
+            
+            $this->userRendererList[$context][] = $className;
         }
-
+        
         /**
          * Load all tracking renderers
          *
@@ -143,11 +152,25 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
          *
          * @return array list of class names
          */
-        public function getUserRendererList()
+        public function getUserRendererList( $context = self::COURSE )
+        {
+            if( $context != self::COURSE && $context != self::PLATFORM )
+            {
+                $context = self::COURSE;
+            }
+            return $this->userRendererList[$context];
+        }
+
+        /**
+         * Returns array of available user tracking renderers
+         *
+         * @return array list of class names
+         */
+        public function getUserPlatformRendererList()
         {
             return $this->userRendererList;
         }
-
+        
         /**
          * singleton method
          *
