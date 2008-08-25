@@ -185,15 +185,20 @@ $trackingRendererRegistry = TrackingRendererRegistry::getInstance(claro_get_curr
 // FIXME do something when courseId is null
 if( ! is_null($courseId) )
 { 
-    // here we need user tracking renderers
-    $userTrackingRendererList = $trackingRendererRegistry->getUserRendererList();
+    // we need user tracking renderers in course context
+    $userTrackingRendererList = $trackingRendererRegistry->getUserRendererList(TrackingRendererRegistry::COURSE);
+}
+else
+{
+    // we need user tracking renderers in platform context
+    $userTrackingRendererList = $trackingRendererRegistry->getUserRendererList(TrackingRendererRegistry::PLATFORM);
+}
     
     foreach( $userTrackingRendererList as $ctr )
     {
         $renderer = new $ctr( $courseId, $userId );
         $html .= $renderer->render();
     }
-}
 
 /*
  * Output rendering
