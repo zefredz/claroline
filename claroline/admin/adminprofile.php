@@ -244,7 +244,7 @@ $cmd_menu[] = '<a class="claroCmd" href="../auth/lostPassword.php'
 $cmd_menu[] = '<a class="claroCmd" href="adminuserdeleted.php'
 .             '?uidToEdit=' . $userId
 .             '&amp;cmd=delete" '
-.             'onclick="return confirmation(\'' . clean_str_for_javascript(get_lang('Are you sure to delete') . ' ' . $user_data['username']) . '\');" >'
+.             'onclick="return confirmation(\'' . $user_data['username'] . '\');" >'
 .             '<img src="' . get_icon_url('deluser') . '" /> '
 .             get_lang('Delete user')
 .             '</a>'
