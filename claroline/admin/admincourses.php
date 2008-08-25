@@ -254,8 +254,8 @@ $imgVisibilityStatus['visible'] = 'visible';
 $imgVisibilityStatus['invisible'] = 'invisible';
 $imgAccessStatus['private'] = 'access_locked';
 $imgAccessStatus['public'] = 'access_open';
-$imgRegistrationStatus['open'] = 'enroll_open';
-$imgRegistrationStatus['close'] = 'enroll_locked';
+$imgRegistrationStatus['open'] = 'success';
+$imgRegistrationStatus['close'] = 'forbidden';
 
 $courseDataList=array();
 // Now read datas and rebuild cell content to set datagrid to display.
@@ -297,13 +297,14 @@ foreach($courseList as $numLine => $courseLine)
     $courseDataList[$numLine]['cmdSetting'] = '<a href="' . get_path('clarolineRepositoryWeb') . 'course/settings.php?adminContext=1'
     .                                         '&amp;cidReq=' . $courseLine['sysCode'] . $addToURL . '&amp;cfrom=clist">'
     .                                         '<img src="' . get_icon_url('settings') . '" alt="' . get_lang('Course settings'). '" />'
-    .                                         '</a>'
-    .                                         '(<a href="' . get_path('clarolineRepositoryWeb') . 'course/settings.php?adminContext=1'
-    .                                         '&amp;cidReq=' . $courseLine['sysCode'] . $addToURL . '&amp;cfrom=clist">'
+    // .                                         '</a>'
+    .                                         ' - '
+    //.                                         '<a href="' . get_path('clarolineRepositoryWeb') . 'course/settings.php?adminContext=1'
+    //.                                         '&amp;cidReq=' . $courseLine['sysCode'] . $addToURL . '&amp;cfrom=clist">'
     .                                         '<img src="' . get_icon_url( $imgVisibilityStatus[$courseLine['visibility']] ) . '" alt="' . get_lang('Course settings'). '" />'
     .                                         '<img src="' . get_icon_url( $imgAccessStatus[$courseLine['access']] ) . '" alt="' . get_lang('Course settings'). '" />'
     .                                         '<img src="' . get_icon_url( $imgRegistrationStatus[$courseLine['registration']] ) . '" alt="' . get_lang('Enrolment'). '" />'
-    .                                         '</a>)'
+    .                                         '</a>'
     ;
 
     // Course Action Delete
