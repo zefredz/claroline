@@ -73,48 +73,48 @@ var linkerFrontend = {
         
 
         $.getJSON( url,
-	        function(data){
-	          $("#lnk_location")
-	           .text(data.name)
+            function(data){
+              $("#lnk_location")
+               .text(data.name)
                .append("<br />");
-	           
-	          $("<a />")
+               
+              $("<a />")
                       .text("Remonter")
-	                  .attr("onclick", "linkerFrontend.loadList('"+data.parent+"');return false;")
+                      .attr("onclick", "linkerFrontend.loadList('"+data.parent+"');return false;")
                       .appendTo("#lnk_location")
                       ;
-	          
-	          $("#lnk_resources").empty();
-	          
-	          var currentResource;
-	          for ( var x in data.resources ) {
-	               currentResource = data.resources[x];
-	               /* 
-	                  "name":"Course description"
-	                  "icon":"\/~fragile\/claroline\/claroline\/course_description\/icon.png"
-	                  "crl":"crl:\/\/claroline.net\/ca801b57eca5b49e077071709f42c924\/EXAMPLE_003\/CLDSC"
-	                  "parent":"crl:\/\/claroline.net\/ca801b57eca5b49e077071709f42c924\/EXAMPLE_003"
-	                  "isVisible":true
-	                  "isLinkable":true
-	                  "isNavigable":false
-	               */
+              
+              $("#lnk_resources").empty();
+              
+              var currentResource;
+              for ( var x in data.resources ) {
+                   currentResource = data.resources[x];
+                   /* 
+                      "name":"Course description"
+                      "icon":"\/~fragile\/claroline\/claroline\/course_description\/icon.png"
+                      "crl":"crl:\/\/claroline.net\/ca801b57eca5b49e077071709f42c924\/EXAMPLE_003\/CLDSC"
+                      "parent":"crl:\/\/claroline.net\/ca801b57eca5b49e077071709f42c924\/EXAMPLE_003"
+                      "isVisible":true
+                      "isLinkable":true
+                      "isNavigable":false
+                   */
 
                    // style for !isVisible to add on a and span
-	               if( currentResource.isNavigable )
-	               {
-						$("#lnk_resources")
-						.append('<a class="navigable" rel="'+currentResource.crl+'">'+currentResource.name+'</a>');
-	               }
-	               else
-	               {
-	                   // !isNavigable
-	                   $("#lnk_resources")
+                   if( currentResource.isNavigable )
+                   {
+                        $("#lnk_resources")
+                        .append('<a class="navigable" rel="'+currentResource.crl+'">'+currentResource.name+'</a>');
+                   }
+                   else
+                   {
+                       // !isNavigable
+                       $("#lnk_resources")
                         .append('<span>'+currentResource.name+'</span>');
-	               }
-	               
-	               if( currentResource.isLinkable )
-	               {/*
-	                   $("<a />")
+                   }
+                   
+                   if( currentResource.isLinkable )
+                   {/*
+                       $("<a />")
                        .text(' [Attach]')
                        .attr("title",currentResource.name)
                        .attr("onclick", "linkerFrontend.select('"+currentResource.crl+"','"+currentResource.name+"');return false;")
@@ -122,11 +122,11 @@ var linkerFrontend = {
                        ;*/
                         $("#lnk_resources")
                         .append('<a class="linkable" rel="'+currentResource.crl+'">'+currentResource.name+'</a>');
-	               }
-	               $("<br />").appendTo("#lnk_resources"); 
-	               
-		        }
-	        });
+                   }
+                   $("<br />").appendTo("#lnk_resources"); 
+                   
+                }
+            });
     },
     
     submit : function() {
