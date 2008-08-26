@@ -46,7 +46,7 @@ array ('label'         => 'Enable IMS-QTI Export'
       );
 
 $conf_def_property_list['exercisesPerPage'] =
-array ( 'label'   => 'Number of exercices per page'
+array ( 'label'   => 'Number of exercises per page'
       , 'default' => '25'
       , 'unit'    => 'exercices'
       , 'type'    => 'integer'
