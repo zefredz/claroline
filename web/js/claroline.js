@@ -1,16 +1,22 @@
+/*
+    $Id$
+    
+    Main Claroline javascript library
+ */
+
 $(document).ready( function (){
-	// this is the core function of Claroline's jQuery implementation
+    // this is the core function of Claroline's jQuery implementation
 
-	// ajax activity shower
-	$("#loading").hide();
+    // ajax activity shower
+    $("#loading").hide();
 
-	$("#loading").ajaxStart(function(){
-		$(this).show();
-	});
+    $("#loading").ajaxStart(function(){
+        $(this).show();
+    });
 
-	$("#loading").ajaxStop(function(){
-		$(this).hide();
-	});
+    $("#loading").ajaxStop(function(){
+        $(this).hide();
+    });
 
 });
 
@@ -36,7 +42,7 @@ function array_indexOf(arr,val)
 
 function isDefined(a)
 {
-	return typeof a != 'undefined';
+    return typeof a != 'undefined';
 }
 
 function isNull(a)
@@ -45,26 +51,26 @@ function isNull(a)
 }
 
 function dump(arr,level) {
-	var dumped_text = "";
-	if(!level) level = 0;
+    var dumped_text = "";
+    if(!level) level = 0;
 
-	//The padding given at the beginning of the line.
-	var level_padding = "";
-	for(var j=0;j<level+1;j++) level_padding += "    ";
+    //The padding given at the beginning of the line.
+    var level_padding = "";
+    for(var j=0;j<level+1;j++) level_padding += "    ";
 
-	if(typeof(arr) == 'object') { //Array/Hashes/Objects
-		for(var item in arr) {
-			var value = arr[item];
+    if(typeof(arr) == 'object') { //Array/Hashes/Objects
+        for(var item in arr) {
+            var value = arr[item];
 
-			if(typeof(value) == 'object') { //If it is an array,
-				dumped_text += level_padding + "'" + item + "' ...\n";
-				dumped_text += dump(value,level+1);
-			} else {
-				dumped_text += level_padding + "'" + item + "' => \"" + value + "\"\n";
-			}
-		}
-	} else { //Stings/Chars/Numbers etc.
-		dumped_text = "===>"+arr+"<===("+typeof(arr)+")";
-	}
-	return dumped_text;
+            if(typeof(value) == 'object') { //If it is an array,
+                dumped_text += level_padding + "'" + item + "' ...\n";
+                dumped_text += dump(value,level+1);
+            } else {
+                dumped_text += level_padding + "'" + item + "' => \"" + value + "\"\n";
+            }
+        }
+    } else { //Stings/Chars/Numbers etc.
+        dumped_text = "===>"+arr+"<===("+typeof(arr)+")";
+    }
+    return dumped_text;
 }
