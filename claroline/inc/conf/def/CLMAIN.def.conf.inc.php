@@ -102,7 +102,7 @@ array ( 'allowSelfReg'
       );
       
 $conf_def['section']['DOWNLOAD_SETTINGS']['label']='Download';
-$conf_def['section']['DOWNLOAD_SETTINGS']['description']='Configure the way file are downloaded from the platform';
+$conf_def['section']['DOWNLOAD_SETTINGS']['description']='Configure the way files are downloaded from the platform';
 $conf_def['section']['DOWNLOAD_SETTINGS']['properties'] =
 array ( 'useSendFile'
       , 'usePrettyUrl'
