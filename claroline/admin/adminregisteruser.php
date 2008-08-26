@@ -352,7 +352,7 @@ foreach($userList as $user)
             .'&amp;cmd=sub&amp;search='.$search
             .'&amp;user_id=' . $user['ID']
             .'&amp;isCourseManager=0' . $addToURL . '">'
-            .'<img src="' . get_url_icon('enroll') . '" alt="' . get_lang('Register user') . '" />' . "\n"
+            .'<img src="' . get_icon_url('enroll') . '" alt="' . get_lang('Register user') . '" />' . "\n"
             .'</a>'
             .'</td>'."\n"
             ;
@@ -377,7 +377,7 @@ foreach($userList as $user)
         .    '&amp;cmd=sub&amp;search='.$search
         .    '&amp;user_id=' . $user['ID']
         .    '&amp;isCourseManager=1' . $addToURL . '">'
-        .    '<img src="' . get_url_icon('enroll') . '" alt="' . get_lang('Register user') . '" />'
+        .    '<img src="' . get_icon_url('enroll') . '" alt="' . get_lang('Register user') . '" />'
         .    '</a>' . "\n"
         .    '</td>' . "\n"
         ;
