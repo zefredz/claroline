@@ -115,7 +115,7 @@ if ($disp_allcrs)
 {
     $diskUsage = sprintf('%01.2f', disk_usage(get_path('coursesRepositorySys'), get_path('mysqlRepositorySys'), 'm')) . ' ' . $byteUnits[2];
     echo '<li>'
-    .    get_lang('Courses : %disk_usage (perhaps with others directory)',
+    .    get_lang('Courses : %disk_usage (perhaps with other directories)',
          array ( '%disk_usage' => $diskUsage ) ) . '</li>' ;
 }
 ?>
