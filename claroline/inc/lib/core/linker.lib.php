@@ -1103,7 +1103,27 @@ class ResourceLinker
             self::$Resolver = new ResourceLinkerResolver;
             
             self::$_initialized = true;
+            
+            // Init Client Side Linker
+            JavascriptLoader::getInstance()->load('claroline.linker');
+            CssLoader::getInstance()->load('linker', 'all');
+            ClaroHeader::getInstance()->addInlineJavascript(
+                "var claro_linkerBackendUrl = '".
+                get_path('clarolineRepositoryWeb')."/backends/linker.php';" );
         }
+    }
+    
+    public static function displayLinkerBlock()
+    {
+        self::init();
+        
+        echo '<div id="lnk_panel">
+<div id="lnk_ajax_loading"><img src="'.get_icon_url('loading').'" alt="" /></div>
+<div id="lnk_selected_resources"></div>
+<h4 id="lnk_location"></h4>
+<div id="lnk_resources"></div>
+<div id="lnk_hidden_fields"></div>
+</div>';
     }
     
     /**
