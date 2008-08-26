@@ -58,7 +58,7 @@ array ( 'ssoEnabled'
 
 $conf_def_property_list['ssoEnabled'] =
 array ('label'         => 'Enable SSO system'
-      ,'description'   => 'If false, other field are optional'
+      ,'description'   => 'If false, other fields are optional'
       ,'default'       => FALSE
       ,'type'          => 'boolean'
       ,'acceptedValue' => array ('TRUE'  => 'Yes'
