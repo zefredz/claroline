@@ -253,7 +253,7 @@ function elementData($parser,$data)
                 {
                     // if we do not find this title
                     //  - the metadata title has been set as package title
-                    //  - if there was nor title for metadata nor for default organization set 'unamed path'
+                    //  - if there was nor title for metadata nor for default organization set 'unnamed path'
                     // If we are here it means we have found the title in organization, this is the best to chose
                     $manifestData['packageTitle'] = $data;
                 }
@@ -441,7 +441,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
     $insertedModule_id = array();
     $insertedAsset_id = array();
 
-    $lpName = get_lang('Unamed path');
+    $lpName = get_lang('Unnamed path');
 
     // we need a new path_id for this learning path so we prepare a line in DB
     // this line will be removed if an error occurs
@@ -827,7 +827,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                 // use found title of module or use default title
                 if ( !isset( $item['title'] ) || $item['title'] == '')
                 {
-                    $moduleName = get_lang('Unamed module');
+                    $moduleName = get_lang('Unnamed module');
                 }
                 else
                 {
