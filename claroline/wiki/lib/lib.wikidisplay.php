@@ -244,7 +244,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
             . '<fieldset style="padding: 10px; margin: 10px;">' . "\n"
             . '<legend>'.get_lang("Wiki description").'</legend>' . "\n"
             . '<!-- wikiId = 0 if creation, != 0 if edition  -->' . "\n"
-            . '<p style="font-style: italic;">' . get_lang('You can choose a title an a description for the wiki :') . '</p>' . "\n"
+            . '<p style="font-style: italic;">' . get_lang('You can choose a title and a description for the wiki :') . '</p>' . "\n"
             . '<input type="hidden" name="wikiId" value="'.$wikiId.'" />' . "\n"
             . '<!-- groupId = 0 if course wiki, != 0 if group_wiki  -->' . "\n"
             . '<input type="hidden" name="groupId" value="'.$groupId.'" />' . "\n"
