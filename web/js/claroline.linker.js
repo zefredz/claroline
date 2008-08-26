@@ -1,3 +1,5 @@
+/* $Id$ */
+
 /*
 This code will work with html like this
 <div id="lnk_panel">
