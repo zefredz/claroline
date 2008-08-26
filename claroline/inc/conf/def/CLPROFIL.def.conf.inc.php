@@ -46,7 +46,7 @@ array ( 'label'         => 'Display an agreement page before the "create user ac
                                  )
       );
 
-$conf_def['section']['required']['label'] = 'Data checkin';
+$conf_def['section']['required']['label'] = 'Data checking';
 $conf_def['section']['required']['description'] = '';
 $conf_def['section']['required']['properties'] =
 array ( 'profile_editable'
