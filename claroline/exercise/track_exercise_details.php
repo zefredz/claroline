@@ -268,7 +268,7 @@ if( claro_is_user_authenticated() )
         else
         {
               // user cannot see its full results if show_answer == 'NEVER'
-            $dialogBox->error( get_lang('Display of detailled answers is not authorized.') );
+            $dialogBox->error( get_lang('Display of detailed answers is not authorized.') );
         }
     }
 }
