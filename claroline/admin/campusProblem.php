@@ -614,7 +614,7 @@ switch ($display)
                 echo '- '
                 .    '&nbsp;&nbsp;'
                 .    '<b>'
-                .    get_lang('User registred in cours with unexisting (deprecated) status')
+                .    get_lang('User registered in a course having an unexisting (deprecated) status')
                 .    '</b>'
                 .    '&nbsp;&nbsp;&nbsp;'
                 .    '<small>'
@@ -665,7 +665,7 @@ switch ($display)
                 echo '+'
                 .    '&nbsp;&nbsp;&nbsp;'
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?view=' . $tempView . '">'
-                .    get_lang('User registred in cours with unexisting (deprecated) status')
+                .    get_lang('User registered in a course having an unexisting (deprecated) status')
                 .    '</a>'
                 ;
             }
