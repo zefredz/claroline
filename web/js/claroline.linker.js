@@ -60,7 +60,7 @@ var linkerFrontend = {
     // vars
     selected : {}, 
 
-    base_url : claro_linkerBackend,
+    base_url : claro_linkerBackendUrl,
     
     // methods
    

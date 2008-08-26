@@ -1106,10 +1106,10 @@ class ResourceLinker
             
             // Init Client Side Linker
             JavascriptLoader::getInstance()->load('claroline.linker');
-            CssLoader::getInstance()->load('linker', 'all');
             ClaroHeader::getInstance()->addInlineJavascript(
                 "var claro_linkerBackendUrl = '".
                 get_path('clarolineRepositoryWeb')."/backends/linker.php';" );
+            CssLoader::getInstance()->load('linker', 'all');
         }
     }
     
