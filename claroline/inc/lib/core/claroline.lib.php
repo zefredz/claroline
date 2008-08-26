@@ -134,6 +134,8 @@ class Claroline
             default:
                 throw new Exception( 'Invalid display type' );
         }
+        
+        JavascriptLoader::getInstance()->load('jquery');
     }
     
     // Singleton instance
