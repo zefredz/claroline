@@ -1075,7 +1075,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
     }
     else
     {
-        echo "\n<br /><center><b>".get_lang('An error occured.  Learning Path import failed.')."</b></center>";
+        echo "\n<br /><center><b>".get_lang('An error occurred.  Learning Path import failed.')."</b></center>";
     }
     echo "\n<br /><a href=\"learningPathList.php\">&lt;&lt; ".get_lang('Back')."</a>";
 
