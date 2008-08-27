@@ -16,7 +16,7 @@
 "An error occured. Learning Path import failed.";"An error occurred. Learning Path import failed."
 "Courses : %disk_usage (perhaps with others directory)";"Courses : %disk_usage (perhaps with other directories)"
 "If false, other field are optional";"If false, other fields are optional"
-"Impossible to promote group tutor a student already register to group":"Impossible to promote as a group tutor a student that is already register in the group"
+"Impossible to promote group tutor a student already register to group";"Impossible to promote as a group tutor a student that is already register in the group"
 "In iCal, an event have a duration, but not in claroline. 3600 = 1 Hour.";"In iCal an event has a duration but not in claroline. 3600 seconds = 1 Hour."
 "Number of exercices per page";"Number of exercises per page"
 "Unamed module";"Unnamed module"
