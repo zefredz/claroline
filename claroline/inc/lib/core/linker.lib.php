@@ -1105,10 +1105,15 @@ class ResourceLinker
             self::$_initialized = true;
             
             // Init Client Side Linker
+            JavascriptLoader::getInstance()->load('jquery.livequery');
             JavascriptLoader::getInstance()->load('claroline.linker');
+            // init linkerFronted
             ClaroHeader::getInstance()->addInlineJavascript(
-                "var claro_linkerBackendUrl = '".
-                get_path('clarolineRepositoryWeb')."/backends/linker.php';" );
+                 'linkerFrontend.base_url = "'.get_path('clarolineRepositoryWeb').'backends/linker.php";' . "\n"
+                .'linkerFrontend.deleteIconUrl = "'.get_icon_url('delete').'";'
+                .'linkerFrontend.lang["Join"] = "'.get_lang('Attach').'";'
+                .'linkerFrontend.lang["Delete"] = "'.get_lang('Delete').'";'
+            );
             CssLoader::getInstance()->load('linker', 'all');
         }
     }
