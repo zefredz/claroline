@@ -14,7 +14,7 @@ This code will work with html like this
 
 
 $(document).ready(function(){
-    
+   
     // load list
     linkerFrontend.loadList();
     
@@ -32,7 +32,7 @@ $(document).ready(function(){
     
     // listen to attach events
     $("#lnk_resources a.linkable").livequery( 'click', function(){
-        linkerFrontend.select($(this).attr("rel"), $(this).text());
+        linkerFrontend.select($(this).attr("id"), $(this).attr("title"));
         return false;
     });
     // listen to detach events
@@ -62,7 +62,9 @@ var linkerFrontend = {
     // vars
     selected : {}, 
 
-    base_url : claro_linkerBackendUrl,
+    base_url : '',
+    deleteIconUrl : '',
+    lang : {},
     
     // methods
    
@@ -123,7 +125,7 @@ var linkerFrontend = {
                        .appendTo("#lnk_resources")
                        ;*/
                         $("#lnk_resources")
-                        .append('<a class="linkable" rel="'+currentResource.crl+'">'+currentResource.name+'</a>');
+                        .append(' <a class="linkable" id="'+currentResource.crl+'" title="'+currentResource.name+'">['+linkerFrontend.lang['Join']+']</a>');
                    }
                    $("<br />").appendTo("#lnk_resources"); 
                    
@@ -166,7 +168,7 @@ var linkerFrontend = {
             // ajouter chemin complet
              // add element in displayed list
              $("#lnk_selected_resources")
-             .append('<div id="'+x+'">'+this.selected[x]+'<a href="#" rel="'+x+'">delete</a></div>');
+             .append('<div id="'+x+'">'+this.selected[x]+'<a href="#" rel="'+x+'"><img src="'+this.deleteIconUrl+'" alt="'+this.lang['Delete']+'" /></a></div>');
              
              // add a form element
              $("#lnk_hidden_fields")
