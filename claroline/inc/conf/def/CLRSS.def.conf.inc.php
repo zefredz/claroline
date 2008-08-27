@@ -55,12 +55,12 @@ array ('label'         => 'Repository for cache files'
 
 $conf_def_property_list['rssUseCache'] =
 array (
-        'label'         => 'Use the cache'
-      , 'description'   => 'File are always created in cache, but if this value is true feed file in cache arent rebuilt on request if exiting in cache.'
+        'label'         => 'Enable cache'
+      , 'description'   => 'Enabling the cache may increase performance'
       , 'default'       => TRUE
       ,'type'           => 'boolean'
       , 'readonly'      => FALSE
-      , 'acceptedValue' => array('TRUE'=>'Use it, and build  on change', 'FALSE' => 'rebuild file on each request')
+      , 'acceptedValue' => array('TRUE'=>'Yes', 'FALSE' => 'No')
       , 'oldName' => 'use_rss_cache'
       );
 

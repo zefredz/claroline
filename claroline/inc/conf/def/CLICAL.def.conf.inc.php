@@ -62,12 +62,12 @@ array ('label'         => 'Repository for cache files'
       );
 
 $conf_def_property_list['iCalUseCache'] =
-array ('label'         => 'Use the cache'
-      , 'description'  => 'File are always created in cache, but if this value is true feed file in cache arent rebuilt on request if exiting in cache.'
+array ('label'         => 'Enable cache'
+      , 'description'  => 'Enabling the cache may increase performance'
       ,'default'       => TRUE
       ,'type'          => 'boolean'
       , 'readonly'      => FALSE
-      , 'acceptedValue' => array('TRUE'=>'Yes, and rebuild the file on change', 'FALSE' => 'No, rebuild the file on each request')
+      , 'acceptedValue' => array('TRUE'=>'Yes', 'FALSE' => 'No')
       );
 
 $conf_def_property_list['iCalGenStandard'] =
@@ -104,7 +104,7 @@ array ('label'         => 'Generate RDF file'
 $conf_def_property_list['defaultEventDuration'] =
 array (
         'label'         => 'Event duration'
-      , 'description'   => 'In iCal, an event have a duration, but not in claroline. 3600 = 1 Hour.'
+      , 'description'   => 'In iCal an event has a duration but not in claroline. 3600 seconds = 1 Hour.'
       , 'default'       => '3600'
       , 'type'           => 'integer'
       , 'unit'           => 'seconds'
@@ -117,7 +117,7 @@ array (
 $conf_def_property_list['iCalCacheLifeTime'] =
 array (
         'label'         => 'Life time of cache'
-      , 'description'   => 'Time before really compute data. 86400 = 1 day.'
+      , 'description'   => 'Time before really compute data. 86400 seconds = 1 day.'
       , 'default'       => '86400'
       , 'type'           => 'integer'
       , 'unit'           => 'seconds'
