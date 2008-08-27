@@ -140,7 +140,7 @@ if ( isset($_REQUEST['exCmd']) && $_REQUEST['exCmd'] == 'ToTranslate' )
         }
 
         echo "<td>". $varName ."</td>\n"
-            . "<td><a href=\"http://cvs.claroline.net/cgi-bin/viewcvs.cgi/claroline/" . $sourceFile . "\">". $sourceFile ."</a></td>\n"
+            . "<td>". $sourceFile ."</td>\n"
             . "</tr>\n";
     }
 
