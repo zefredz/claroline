@@ -91,7 +91,14 @@ abstract class Mysql_PageableSortable implements Claro_Pageable, Claro_Sortable
     
     protected function getLimit()
     {
-        return "LIMIT {$this->length}". (!empty($this->offset) ? ", {$this->offset}" : '' );
+        if ( !empty( $this->offset ) )
+        {
+            return "LIMIT {$this->offset}, {$this->length}\n";
+        }
+        else
+        {
+            return "LIMIT {$this->length}\n";
+        }
     }
     
     protected function getOrder()
