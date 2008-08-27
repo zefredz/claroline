@@ -24,3 +24,4 @@
 "User registred in cours with unexisting (deprecated) status";"User registered in a course having an unexisting (deprecated) status"
 "You can choose a title an a description for the wiki :";"You can choose a title and a description for the wiki :"
 "Configure the way file are downloaded from the platform";"Configure the way files are downloaded from the platform"
+"File are always created in cache, but if this value is true feed file in cache arent rebuilt on request if exiting in cache.";"Enabling the cache may increase performance"
