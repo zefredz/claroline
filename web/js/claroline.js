@@ -18,6 +18,9 @@ Claroline.json = {
     },
     isSuccess: function( response ) {
         return Claroline.json.isResponse(response) && (response.responseType == 'success');
+    },
+    getResponseBody: function( response ) {
+        return response.responseBody;
     }
 };
 
