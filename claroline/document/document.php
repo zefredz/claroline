@@ -412,7 +412,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                 // uncompress
                 $form .= '<p>' . "\n"
 
-                .    '<img src="' . get_icon_url('zip') . '" alt="" />'
+                .    '<img src="' . get_icon_url('mime/package-x-generic') . '" alt="" />'
                 .    '<input type="checkbox" id="uncompress" name="uncompress" value="1" />'
                 .    '<label for="uncompress">'.get_lang('uncompress zipped (.zip) file on the server').'</label>' . "\n"
                 .    '</p>' . "\n";
