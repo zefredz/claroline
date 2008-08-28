@@ -25,8 +25,13 @@ $(document).ready(function(){
     // - on resources : select resources
     
     // listen to browse events
+    $("#lnk_location a.navigable").livequery( 'click', function(){
+        linkerFrontend.loadList($(this).attr("rel"), $(this).attr("title"));
+        return false;
+    });
+    
     $("#lnk_resources a.navigable").livequery( 'click', function(){
-        linkerFrontend.loadList($(this).attr("rel"));
+        linkerFrontend.loadList($(this).attr("rel"), $(this).attr("title"));
         return false;
     });
     
@@ -60,7 +65,31 @@ $(document).ready(function(){
 var linkerFrontend = {
 
     // vars
-    selected : {}, 
+    selected : {},
+    history : [],
+    
+    inHistory: function( crl ){
+        for ( var idx = 0; idx < linkerFrontend.history.length; idx++ ) {
+            if ( linkerFrontend.history[idx].crl == crl ){
+                return true;
+            }
+        }
+        
+        return false;
+    },
+    
+    renderBreadcrumbs: function( name ) {
+        $("#lnk_location").empty();
+        
+        var links = [];
+        
+        for ( var idx = 0; idx < linkerFrontend.history.length; idx++ ) {
+            links.push('<a class="breadcrumb navigable" href="#" rel="'+linkerFrontend.history[idx].crl+'" title="'+linkerFrontend.history[idx].name+'">'+linkerFrontend.history[idx].name+'</a>');
+        }
+        
+        $("#lnk_location")
+            .append(links.join(' &gt; '));
+    },
 
     base_url : '',
     deleteIconUrl : '',
@@ -68,69 +97,112 @@ var linkerFrontend = {
     
     // methods
    
-    loadList : function(crl) {
+    loadList : function(crl, resourceName ) {
         var url = this.base_url;
+        
         if( typeof crl != 'undefined' )
         {
             url = url + '?crl=' + escape(crl);
         }
         
-
         $.getJSON( url,
-            function(data){
-              $("#lnk_location")
-               .text(data.name)
-               .append("<br />");
-               
-              $("<a />")
-                      .text("Remonter")
-                      .attr("onclick", "linkerFrontend.loadList('"+data.parent+"');return false;")
-                      .appendTo("#lnk_location")
-                      ;
-              
-              $("#lnk_resources").empty();
-              
-              var currentResource;
-              for ( var x in data.resources ) {
-                   currentResource = data.resources[x];
-                   /* 
-                      "name":"Course description"
-                      "icon":"\/~fragile\/claroline\/claroline\/course_description\/icon.png"
-                      "crl":"crl:\/\/claroline.net\/ca801b57eca5b49e077071709f42c924\/EXAMPLE_003\/CLDSC"
-                      "parent":"crl:\/\/claroline.net\/ca801b57eca5b49e077071709f42c924\/EXAMPLE_003"
-                      "isVisible":true
-                      "isLinkable":true
-                      "isNavigable":false
-                   */
-
-                   // style for !isVisible to add on a and span
-                   if( currentResource.isNavigable )
-                   {
-                        $("#lnk_resources")
-                        .append('<a class="navigable" rel="'+currentResource.crl+'">'+currentResource.name+'</a>');
-                   }
-                   else
-                   {
-                       // !isNavigable
-                       $("#lnk_resources")
-                        .append('<span>'+currentResource.name+'</span>');
-                   }
-                   
-                   if( currentResource.isLinkable )
-                   {/*
-                       $("<a />")
-                       .text(' [Attach]')
-                       .attr("title",currentResource.name)
-                       .attr("onclick", "linkerFrontend.select('"+currentResource.crl+"','"+currentResource.name+"');return false;")
-                       .appendTo("#lnk_resources")
-                       ;*/
-                        $("#lnk_resources")
-                        .append(' <a class="linkable" id="'+currentResource.crl+'" title="'+currentResource.name+'">['+linkerFrontend.lang['Join']+']</a>');
-                   }
-                   $("<br />").appendTo("#lnk_resources"); 
-                   
+            function(response){
+                var data = Claroline.json.getResponseBody( response );
+                
+                if( typeof resourceName == 'undefined' )
+                {
+                    resourceName = data.name;
                 }
-            });
+                
+                var current;
+                
+                // alert( linkerFrontend.history.toSource() );
+                
+                if ( ! linkerFrontend.inHistory(data.crl) ){
+                    linkerFrontend.history.push({ crl: data.crl, fullname:data.name, name: resourceName });
+                }
+                
+                // alert( linkerFrontend.history.toSource() );
+                
+                if ( crl ) {
+                    while( ( current = linkerFrontend.history.pop() ) ){
+                        // alert( current.crl );
+                        // alert( crl );
+                        if ( current.crl == crl ){
+                            linkerFrontend.history.push( current );
+                            break;
+                        }
+                    }
+                }
+                
+                // alert( linkerFrontend.history.toSource() );
+                
+                linkerFrontend.renderBreadcrumbs( data.name );
+                
+                // 
+                
+                $("#lnk_back_link").empty();
+                
+                if ( linkerFrontend.history.length > 1 )
+                {
+                    // alert( linkerFrontend.history.toSource() );
+                    
+                    $("<a />")
+                        .text("[Remonter]")
+                        .attr("onclick", "linkerFrontend.loadList('"+data.parent+"');linkerFrontend.history.pop();return false;")
+                        .appendTo("#lnk_back_link")
+                        ;
+                }
+                else
+                {
+                    $("<br />")
+                        .appendTo("#lnk_back_link")
+                        ;
+                }
+                
+                $("#lnk_resources").empty();
+                
+                var currentResource;
+                for ( var x in data.resources ) {
+                    currentResource = data.resources[x];
+                    /* 
+                        "name":"Course description"
+                        "icon":"\/~fragile\/claroline\/claroline\/course_description\/icon.png"
+                        "crl":"crl:\/\/claroline.net\/ca801b57eca5b49e077071709f42c924\/EXAMPLE_003\/CLDSC"
+                        "parent":"crl:\/\/claroline.net\/ca801b57eca5b49e077071709f42c924\/EXAMPLE_003"
+                        "isVisible":true
+                        "isLinkable":true
+                        "isNavigable":false
+                    */
+  
+                    // style for !isVisible to add on a and span
+                    if( currentResource.isNavigable )
+                    {
+                        $("#lnk_resources")
+                            .append('<a class="navigable" rel="'+currentResource.crl+'" title="'+currentResource.name+'">'+currentResource.name+'</a>');
+                    }
+                    else
+                    {
+                         // !isNavigable
+                         $("#lnk_resources")
+                          .append('<span>'+currentResource.name+'</span>');
+                    }
+                     
+                    if( currentResource.isLinkable )
+                    {/*
+                         $("<a />")
+                         .text(' [Attach]')
+                         .attr("title",currentResource.name)
+                         .attr("onclick", "linkerFrontend.select('"+currentResource.crl+"','"+currentResource.name+"');return false;")
+                         .appendTo("#lnk_resources")
+                         ;*/
+                          $("#lnk_resources")
+                          .append(' <a class="linkable" id="'+currentResource.crl+'" title="'+currentResource.name+'">['+linkerFrontend.lang['Join']+']</a>');
+                    }
+                    
+                    $("<br />").appendTo("#lnk_resources"); 
+                  }
+              });
     },
     
     submit : function() {
@@ -184,5 +256,5 @@ var linkerFrontend = {
 
     renderRemoveSelectedItem : function() {
         // find dom node and remove it
-    },
+    }
 }
