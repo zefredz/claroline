@@ -14,11 +14,11 @@
  * @package     core.linker
  */
 
-require_once dirname(__FILE__) . '/../inc/claro_init_global.inc.php';
-
 try
 {
-    FromKernel::uses( 'core/linker.lib' );
+    require_once dirname(__FILE__) . '/../inc/claro_init_global.inc.php';
+    
+    FromKernel::uses( 'core/linker.lib', 'utils/ajax.lib' );
     ResourceLinker::init();
 
     $locator = isset( $_REQUEST['crl'] )
@@ -28,7 +28,7 @@ try
     
     if ( !ResourceLinker::$Navigator->isNavigable( $locator ) )
     {
-        throw new EXception('Resource not navigable');
+        throw new Exception('Resource not navigable');
     }
     
     $resourceList = ResourceLinker::$Navigator->getResourceList( $locator );
@@ -44,11 +44,24 @@ try
     $resourceArr['parent'] = (empty($parent) ? false : $parent->__toString());
     $resourceArr['resources'] = $elementList;
     
-    echo claro_utf8_encode( json_encode($resourceArr) );
-    exit;
+    $response = new Json_Response( $resourceArr );
 }
 catch (Exception $e )
 {
-    die( $e );
+    $errorArr = array(
+        'errno' => $e->getCode(),
+        'error' => $e->getMessage()
+    );
+    
+    if ( claro_debug_mode() )
+    {
+        $errorArr['trace'] = $e->getTraceAsString();
+        $errorArr['file'] = $e->getFile();
+        $errorArr['line'] = $e->getLine();
+    }
+    
+    $response = new Json_Error( $errorArr );
 }
-?>
+
+echo $response->toJson();
+exit;
