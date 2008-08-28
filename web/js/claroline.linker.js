@@ -107,6 +107,18 @@ var linkerFrontend = {
         
         $.getJSON( url,
             function(response){
+                
+                if ( !Claroline.json.isResponse(response) ){
+                    alert("Invalid response");
+                    return;
+                }
+                
+                if ( Claroline.json.isError(response) ){
+                    error = Claroline.json.getResponseBody( response );
+                    alert(error.error);
+                    return;
+                }
+                
                 var data = Claroline.json.getResponseBody( response );
                 
                 if( typeof resourceName == 'undefined' )
@@ -149,7 +161,7 @@ var linkerFrontend = {
                     
                     $("<a />")
                         .text("[Remonter]")
-                        .attr("onclick", "linkerFrontend.loadList('"+data.parent+"');linkerFrontend.history.pop();return false;")
+                        .attr("onclick", "linkerFrontend.loadList('"+data.parent+"');return false;")
                         .appendTo("#lnk_back_link")
                         ;
                 }
