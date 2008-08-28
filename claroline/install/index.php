@@ -655,6 +655,8 @@ echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"'
 .    "\t". '"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">' ."\n"
 .    '<html>' . "\n"
 .    '<head>' . "\n"
+.    '<meta http-equiv="Content-Style-Type" content="text/css" />' . "\n"
+.    '<meta http-equiv="Content-Type" content="text/HTML; charset='.get_locale('charset').'"  />' . "\n"
 .    '<title>' . "\n"
 .    get_lang('Claroline %version Installation Wizard', array('%version' => $new_version))
 .    ' - ' . get_lang('Step %step', array('%step' => array_search($display, $panelSequence) + 1) ) . "\n"
@@ -1027,11 +1029,11 @@ elseif ($display == DISP_WELCOME)
     .    '<table class="requirements">' . "\n"
     .    '<tbody>' . "\n"
     .    '<tr>' . "\n"
-    .    '<td>Is root folder ('.realpath('../..').') readable ?</td>'  . "\n"
+    .    '<td>'.get_lang('Is root folder readable ?') . '<br /><em>' . realpath('../..').'</em></td>'  . "\n"
     .    '<td>' . ( is_readable('../..') ? '<span class="ok">'.get_lang('Yes').'</span>':'<span class="ko">'.get_lang('No').'</span>') . '</td>' . "\n"
     .    '</tr>'     . "\n"
     .    '<tr>' . "\n"
-    .    '<td>Is root folder ('.realpath('../..').') writable ?</td>'  . "\n"
+    .    '<td>'.get_lang('Is root folder writable ?') . '<br /><em>' . realpath('../..').'</em></td>'  . "\n"
     .    '<td>' . ( is_writable('../..') ? '<span class="ok">'.get_lang('Yes').'</span>':'<span class="ko">'.get_lang('No').'</span>') . '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '</tbody>' . "\n"
@@ -2093,7 +2095,7 @@ echo $htmlNextPrevButton;
 
 
     <div id="footerRight">
-        For help : <a href="http://forum.claroline.net">http://forum.claroline.net</a>
+    <?php get_lang('For help ask on %clarolineForumLink', array('%clarolineForumLink' => '<a href="http://forum.claroline.net" target="_blank">http://forum.claroline.net</a>')); ?>
     </div>
 
 
