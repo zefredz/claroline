@@ -48,19 +48,7 @@ try
 }
 catch (Exception $e )
 {
-    $errorArr = array(
-        'errno' => $e->getCode(),
-        'error' => $e->getMessage()
-    );
-    
-    if ( claro_debug_mode() )
-    {
-        $errorArr['trace'] = $e->getTraceAsString();
-        $errorArr['file'] = $e->getFile();
-        $errorArr['line'] = $e->getLine();
-    }
-    
-    $response = new Json_Error( $errorArr );
+    $response = new Json_Exception( $e );
 }
 
 echo $response->toJson();

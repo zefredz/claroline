@@ -21,6 +21,29 @@ Claroline.json = {
     },
     getResponseBody: function( response ) {
         return response.responseBody;
+    },
+    handleJsonError: function( response ) {
+        error = Claroline.json.getResponseBody( response );
+        
+        var errStr = '[Error] '+error.error;
+        
+        if ( error.errno ) {
+            errStr += '('+error.errno+')';
+        }
+        
+        if ( error.file ) {
+            errStr += ' in '+error.file;
+            
+            if ( error.line ) {
+                errStr += ' at line '+error.line;
+            }
+        }
+        
+        if ( error.trace ) {
+            errStr += '\n\n'+error.trace;
+        }
+        
+        alert( errStr );
     }
 };
 

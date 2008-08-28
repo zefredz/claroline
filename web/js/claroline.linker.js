@@ -114,8 +114,7 @@ var linkerFrontend = {
                 }
                 
                 if ( Claroline.json.isError(response) ){
-                    error = Claroline.json.getResponseBody( response );
-                    alert(error.error);
+                    Claroline.json.handleJsonError( response );
                     return;
                 }
                 
