@@ -1111,7 +1111,7 @@ class ResourceLinker
             ClaroHeader::getInstance()->addInlineJavascript(
                  'linkerFrontend.base_url = "'.get_path('clarolineRepositoryWeb').'backends/linker.php";' . "\n"
                 .'linkerFrontend.deleteIconUrl = "'.get_icon_url('delete').'";'
-                .'Claroline.lang["Join"] = "'.get_lang('Attach').'";'
+                .'Claroline.lang["Attach"] = "'.get_lang('Attach').'";'
                 .'Claroline.lang["Delete"] = "'.get_lang('Delete').'";'
             );
             CssLoader::getInstance()->load('linker', 'all');
