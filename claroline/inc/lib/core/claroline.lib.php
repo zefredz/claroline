@@ -170,6 +170,11 @@ class Claroline
     // Database link
     protected static $database = false;
     
+    public static function getDisplay()
+    {
+        return self::getInstance()->display;
+    }
+    
     public static function getDatabase()
     {
         if ( ! self::$database )
