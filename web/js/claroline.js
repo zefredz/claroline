@@ -9,6 +9,17 @@ var Claroline = {};
 
 Claroline.version = '1.9 rev. $Revision$';
 
+Claroline.lang = {};
+
+Claroline.getLang = function(langVar) {
+    if ( Claroline.lang[langVar] ){
+        return Claroline.lang[langVar];
+    }
+    else {
+        return langVar;
+    }
+}
+
 Claroline.json = {
     isResponse: function( response ) {
         return (typeof response.responseType != 'undefined') && (typeof response.responseBody != 'undefined');
@@ -25,17 +36,17 @@ Claroline.json = {
     handleJsonError: function( response ) {
         error = Claroline.json.getResponseBody( response );
         
-        var errStr = '[Error] '+error.error;
+        var errStr = Claroline.getLang('[Error] ')+error.error;
         
         if ( error.errno ) {
             errStr += '('+error.errno+')';
         }
         
         if ( error.file ) {
-            errStr += ' in '+error.file;
+            errStr += Claroline.getLang(' in ')+error.file;
             
             if ( error.line ) {
-                errStr += ' at line '+error.line;
+                errStr += Claroline.getLang(' at line ')+error.line;
             }
         }
         

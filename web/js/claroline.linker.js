@@ -208,7 +208,7 @@ var linkerFrontend = {
                          .appendTo("#lnk_resources")
                          ;*/
                           $("#lnk_resources")
-                          .append(' <a class="linkable" id="'+currentResource.crl+'" title="'+currentResource.name+'">['+linkerFrontend.lang['Join']+']</a>');
+                          .append(' <a class="linkable" id="'+currentResource.crl+'" title="'+currentResource.name+'">['+Claroline.getLang('Join')+']</a>');
                     }
                     
                     $("<br />").appendTo("#lnk_resources"); 
