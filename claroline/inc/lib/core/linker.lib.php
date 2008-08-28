@@ -839,7 +839,7 @@ class ResourceLinkerNavigator
         {
             $parent = new ClarolineResourceLocator(
                 $locator->getCourseId(),
-                null,
+                'CLGRP',
                 null,
                 null
             );
