@@ -4,6 +4,23 @@
     Main Claroline javascript library
  */
 
+// Claroline namespace
+var Claroline = {};
+
+Claroline.version = '1.9 rev. $Revision$';
+
+Claroline.json = {
+    isResponse: function( response ) {
+        return (typeof response.responseType != 'undefined') && (typeof response.responseBody != 'undefined');
+    },
+    isError: function( response ) {
+        return Claroline.json.isResponse(response) && (response.responseType == 'error');
+    },
+    isSuccess: function( response ) {
+        return Claroline.json.isResponse(response) && (response.responseType == 'success');
+    }
+};
+
 $(document).ready( function (){
     // this is the core function of Claroline's jQuery implementation
 
