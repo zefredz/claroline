@@ -67,7 +67,7 @@
         {
             if ( false === strpos( $script, '<script' ) )
             {
-                $script = "<script lang=\"javascript\" type=\"text/javascript\">\n{$script}\n</script>";
+                $script = "<script type=\"text/javascript\">\n{$script}\n</script>";
             }
             
             $this->addHtmlHeader( $script );
