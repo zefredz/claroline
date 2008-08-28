@@ -42,7 +42,26 @@ class Json_Error extends Json_Response
 {
     public function __construct( $error )
     {
-        $this->body = $error;
-        $this->type = Json_Response::ERROR;
+        parent::__construct( $error, Json_Response::ERROR );
+    }
+}
+
+class Json_Exception extends Json_Error
+{
+    public function __construct( $e )
+    {
+        $errorArr = array(
+            'errno' => $e->getCode(),
+            'error' => $e->getMessage()
+        );
+        
+        if ( claro_debug_mode() )
+        {
+            $errorArr['trace'] = $e->getTraceAsString();
+            $errorArr['file'] = $e->getFile();
+            $errorArr['line'] = $e->getLine();
+        }
+        
+        parent::__construct( $errorArr );
     }
 }
