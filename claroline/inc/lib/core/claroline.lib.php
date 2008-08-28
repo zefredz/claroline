@@ -136,6 +136,7 @@ class Claroline
         }
         
         JavascriptLoader::getInstance()->load('jquery');
+        JavascriptLoader::getInstance()->load('claroline');
     }
     
     // Singleton instance
