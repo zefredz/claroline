@@ -67,33 +67,9 @@ var linkerFrontend = {
     // vars
     selected : {},
     history : [],
-    
-    inHistory: function( crl ){
-        for ( var idx = 0; idx < linkerFrontend.history.length; idx++ ) {
-            if ( linkerFrontend.history[idx].crl == crl ){
-                return true;
-            }
-        }
-        
-        return false;
-    },
-    
-    renderBreadcrumbs: function( name ) {
-        $("#lnk_location").empty();
-        
-        var links = [];
-        
-        for ( var idx = 0; idx < linkerFrontend.history.length; idx++ ) {
-            links.push('<a class="breadcrumb navigable" href="#" rel="'+linkerFrontend.history[idx].crl+'" title="'+linkerFrontend.history[idx].name+'">'+linkerFrontend.history[idx].name+'</a>');
-        }
-        
-        $("#lnk_location")
-            .append(links.join(' &gt; '));
-    },
-
     base_url : '',
     deleteIconUrl : '',
-    lang : {},
+    currentIdx : 0,
     
     // methods
    
@@ -208,12 +184,35 @@ var linkerFrontend = {
                          .appendTo("#lnk_resources")
                          ;*/
                           $("#lnk_resources")
-                          .append(' <a class="linkable" id="'+currentResource.crl+'" title="'+currentResource.name+'">['+Claroline.getLang('Join')+']</a>');
+                          .append(' <a class="linkable" id="'+currentResource.crl+'" title="'+currentResource.name+'">['+Claroline.getLang('Attach')+']</a>');
                     }
                     
                     $("<br />").appendTo("#lnk_resources"); 
                   }
               });
+    },
+    
+    inHistory: function( crl ){
+        for ( var idx = 0; idx < linkerFrontend.history.length; idx++ ) {
+            if ( linkerFrontend.history[idx].crl == crl ){
+                return true;
+            }
+        }
+        
+        return false;
+    },
+    
+    renderBreadcrumbs: function( name ) {
+        $("#lnk_location").empty();
+        
+        var links = [];
+        
+        for ( var idx = 0; idx < linkerFrontend.history.length; idx++ ) {
+            links.push('<a class="breadcrumb navigable" href="#" rel="'+linkerFrontend.history[idx].crl+'" title="'+linkerFrontend.history[idx].name+'">'+linkerFrontend.history[idx].name+'</a>');
+        }
+        
+        $("#lnk_location")
+            .append(links.join(' &gt; '));
     },
     
     submit : function() {
@@ -225,7 +224,7 @@ var linkerFrontend = {
         // - add it to selected array
         this.selected[crl] = name;
         // - repaint list of selected resources
-        this.renderSelected();
+        this.addSelected(crl, name);
     },
     
     unselect : function(crl) {
@@ -233,7 +232,7 @@ var linkerFrontend = {
         // - remove it from selected array
         delete this.selected[crl];
         // - repaint list of selected resources
-        this.renderSelected();
+        this.removeSelected(crl);
     },
     
     unselectAll : function() {
@@ -245,13 +244,14 @@ var linkerFrontend = {
     // rendering methods
     
     renderSelected : function() {
+		
         $("#lnk_selected_resources").empty();
         var i=0;
         for ( var x in this.selected ) {
             // ajouter chemin complet
              // add element in displayed list
              $("#lnk_selected_resources")
-             .append('<div id="'+x+'">'+this.selected[x]+'<a href="#" rel="'+x+'"><img src="'+this.deleteIconUrl+'" alt="'+this.lang['Delete']+'" /></a></div>');
+             .append('<div id="'+x+'"><a href="#" rel="'+x+'"><img src="'+this.deleteIconUrl+'" alt="'+ Claroline.getLang('Delete') +'" /></a>'+this.selected[x]+'</div>');
              
              // add a form element
              $("#lnk_hidden_fields")
@@ -259,6 +259,45 @@ var linkerFrontend = {
              
              i++;
         }
+    },
+    
+    addSelected : function(crl, name) {
+        var alreadyDisplayed = false;
+        
+        $("#lnk_selected_resources div a").each(function(i){
+            if( $(this).attr('rel') == crl ) {
+                alreadyDisplayed = true;
+            }
+        });
+        
+        if( ! alreadyDisplayed )
+        {
+			$("#lnk_selected_resources")
+			.append('<div id="'+crl+'"><a href="#" rel="'+crl+'"><img src="'+this.deleteIconUrl+'" alt="'+ Claroline.getLang('Delete')+'" /></a>'+name+'</div>');
+
+			// add a form element
+			$("#lnk_hidden_fields")
+			.append('<input name="servAdd['+ this.currentIdx +']" value="'+crl+'" type="hidden">');
+
+            this.currentIdx++;
+	    }
+    },
+    
+    removeSelected : function(crl) {
+        // find the a with crl as rel
+        // remove the div enclosing the a
+        $("#lnk_selected_resources div a").each(function(i){
+          if( $(this).attr('rel') == crl ) {
+              $(this).parent().remove();
+          }
+        });
+        
+        // same for input hidden field
+        $("#lnk_hidden_fields input").each(function(i){
+          if( $(this).attr('value') == crl ) {
+              $(this).remove();
+          }
+        });
     },
     
     renderAddSelectedItem : function() {
