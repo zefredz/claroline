@@ -139,10 +139,10 @@ class ClarolineResourceLocator implements ResourceLocator
     
     public static function parse( $locatorString )
     {
-        if ( ! preg_match( '~^crl\://~', $locatorString )
-            && preg_match( '~^([a-zA-Z0-9]\://|[a-zA-Z0-9]\:)~', $locatorString ) )
+        if ( substr($locatorString,0,6) != 'crl://'
+            && preg_match( '~^([a-zA-Z0-9]+\://|[a-zA-Z0-9]+\:)~', $locatorString ) )
         {
-            return new ExternalResourceLocator( $url );
+            return new ExternalResourceLocator( $locatorString );
         }
         
         $matches = array();
