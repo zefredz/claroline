@@ -1108,8 +1108,13 @@ class ResourceLinker
         }
     }
     
-    public static function renderLinkerBlock()
+    public static function renderLinkerBlock($backendUrl = null)
     {
+        if( empty($backendUrl) )
+        {
+            $backendUrl = get_path('clarolineRepositoryWeb').'backends/linker.php';
+        }
+        
         self::init();
         
         // Init Client Side Linker
@@ -1117,7 +1122,7 @@ class ResourceLinker
         JavascriptLoader::getInstance()->load('claroline.linker');
         // init linkerFronted
         ClaroHeader::getInstance()->addInlineJavascript(
-             'linkerFrontend.base_url = "'.get_path('clarolineRepositoryWeb').'backends/linker.php";' . "\n"
+             'linkerFrontend.base_url = "'.$backendUrl.'";' . "\n"
             .'linkerFrontend.deleteIconUrl = "'.get_icon_url('delete').'";'
             .'Claroline.lang["Attach"] = "'.get_lang('Attach').'";'
             .'Claroline.lang["Delete"] = "'.get_lang('Delete').'";'
