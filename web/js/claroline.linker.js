@@ -277,7 +277,7 @@ var linkerFrontend = {
 
 			// add a form element
 			$("#lnk_hidden_fields")
-			.append('<input name="servAdd['+ this.currentIdx +']" value="'+crl+'" type="hidden">');
+			.append('<input name="ressourceList['+ this.currentIdx +']" value="'+crl+'" type="hidden">');
 
             this.currentIdx++;
 	    }
