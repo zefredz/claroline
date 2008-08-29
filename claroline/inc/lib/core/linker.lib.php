@@ -744,7 +744,7 @@ class ResourceLinkerNavigator
     
     protected function moduleResource( $moduleLabel, ResourceLocator $rootNodeLocator )
     {
-        $resource = new LinkerResource( $moduleLabel, $rootNodeLocator, true, claro_is_tool_visible($moduleLabel) );
+        $resource = new LinkerResource( $moduleLabel, $rootNodeLocator, true, claro_is_tool_visible($moduleLabel), false );
         
         return $resource;
     }
