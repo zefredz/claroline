@@ -111,6 +111,29 @@ function retrieve_lang_var($fileName, $languageName)
     store_lang_var($_lang, $fileName, $languageName);
 }
 
+
+function initialize_lang_var()
+{
+
+    global $problemMessage, $tbl_translation;
+    
+    $sql = "CREATE TABLE IF NOT EXIST ". $tbl_translation ." (
+     id INTEGER NOT NULL auto_increment,
+     language VARCHAR(250) NOT NULL,
+     varName VARCHAR(250) BINARY NOT NULL,
+     varContent VARCHAR(250) NOT NULL,
+     varFullContent TEXT NOT NULL,
+     sourceFile VARCHAR(250) NOT NULL,
+     used tinyint(4) default 0,
+     INDEX index_language (language,varName),
+     INDEX index_content  (language,varContent),
+     PRIMARY KEY(id))";
+    
+    claro_sql_query($sql) or die($problemMessage);
+
+}
+
+
 /**
  * store the lang variables in a centralized repository
  *
@@ -142,6 +165,28 @@ function store_lang_var($languageVarList, $sourceFileName, $languageName)
     }
 
 }
+    
+    
+    function google_translation($from,$to,$string)
+    {
+        $string = urlencode($string);
+        ### recherche la source chez google avec le mot à traduire: $q
+        pushClaroMessage(__LINE__ . '<pre>"http://translate.google.com/translate_t?text=$string&langpair=$from|$to&hl=fr&ie=UTF-8&oe=UTF-8" ='.var_export("http://translate.google.com/translate_t?text=$string&langpair=$from|$to&hl=fr&ie=UTF-8&oe=UTF-8",1).'</pre>','dbg');
+        $source = implode ('', file ("http://translate.google.com/translate_t?text=$string&langpair=$from|$to&hl=fr&ie=UTF-8&oe=UTF-8"));
+        ### decoupage de $source au debut
+        $source = strstr($source, '<div id=result_box dir=ltr>');
+        ### decoupage de $source à la fin
+        $fin_source = strstr($source, '</div>');
+        ### supprimer $fin_source de la chaine $source
+        $proposition = str_replace("$fin_source","", $source);
+        $proposition = str_replace("<div id=result_box dir=ltr>","", $proposition);
+        ### affichage du resultat
+        return $proposition;
+    }
+        
+    
+
+
 
 /**
  * Browse a dirname and returns all files and subdirectories
@@ -745,6 +790,98 @@ function get_lang_vars_from_deffile($file)
         }
     }
     return $deflang;
+}
+
+
+/**
+ * store the lang variables in a centralized repository
+ *
+ * @author - Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param  - array $languageVarList - list of the language variable
+ *           'key' is the variable name, 'content' is the variable content
+ * @param  - string $sourceFileName - file name from where the variables
+ *           are coming
+ * @param  - string $languageName - name of the language translation
+ */
+
+function initialize_lang_info()
+{
+    global $problemMessage, $tbl_tr_lang_list;        
+    $sql = "CREATE TABLE IF NOT EXIST ". $tbl_tr_lang_list ."_ (
+     id INTEGER NOT NULL auto_increment,
+     languageName VARCHAR(250) NOT NULL,
+     languagePath VARCHAR(250) NOT NULL,
+     claroVersion VARCHAR(50) BINARY NOT NULL,
+     sourceFile VARCHAR(250) NOT NULL,
+     scanned tinyint(4) default 0,
+     INDEX index_language (language),
+     PRIMARY KEY(id))";
+    
+    claro_sql_query($sql) or die($problemMessage);
+ 
+}
+
+/**
+ * store the lang variables in a centralized repository
+ *
+ * @author - Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param  - array $languageVarList - list of the language variable
+ *           'key' is the variable name, 'content' is the variable content
+ * @param  - string $sourceFileName - file name from where the variables
+ *           are coming
+ * @param  - string $languageName - name of the language translation
+ */
+
+function store_lang_info($languagePath, $languageName, $clarolineVersion, $scanned)
+{
+    
+    global $problemMessage, $tbl_tr_lang_list;
+
+    
+    
+
+$sql = "INSERT INTO ". $tbl_tr_lang_list ." SET
+ 
+ languageName = \"". addslashes($languageName)."\",
+ languagePath = \"". addslashes($languagePath)."\",
+ claroVersion = \"". addslashes($clarolineVersion)."\",
+ scanned = " . (int) $scanned . "";
+    claro_sql_query($sql) or die($problemMessage);
+ 
+ 
+
+    
+}
+/**
+ * store the lang variables in a centralized repository
+ *
+ * @author - Hugues Peeters <peeters@ipm.ucl.ac.be>
+ * @param  - array $languageVarList - list of the language variable
+ *           'key' is the variable name, 'content' is the variable content
+ * @param  - string $sourceFileName - file name from where the variables
+ *           are coming
+ * @param  - string $languageName - name of the language translation
+ */
+
+function read_lang_info($languageId)
+{
+    
+    global $problemMessage, $tbl_tr_lang_list;
+
+    
+    
+
+$sql = "INSERT INTO ". $tbl_tr_lang_list ." SET
+ 
+ languageName = \"". addslashes($languageName)."\",
+ languagePath = \"". addslashes($languagePath)."\",
+ claroVersion = \"". addslashes($clarolineVersion)."\",
+ scanned = " . (int) $scanned . "";
+    claro_sql_query($sql) or die($problemMessage);
+ 
+ 
+
+    
 }
 
 

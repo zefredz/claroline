@@ -27,6 +27,7 @@ define ('DEFAULT_LANGUAGE','english');
 // database authentification data
 
 define('TABLE_TRANSLATION','translation');
+define('TABLE_TR_LANG_LIST','tr_lang_list');
 define('TABLE_USED_LANG_VAR','used_language');
 
 // message
