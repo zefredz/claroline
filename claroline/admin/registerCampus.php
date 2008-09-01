@@ -277,7 +277,8 @@ $isoCode['ZW'] = "Zimbabwe";
 /*---------------------------------------------------------------------*/
 
 if(file_exists( get_path('rootSys') . 'platform/currentVersion.inc.php')) include (get_path('rootSys') . 'platform/currentVersion.inc.php');
-require_once(get_path('incRepositorySys').'/lib/nusoap.php');
+
+FromKernel::uses('thirdparty/nusoap/nusoap.lib');
 
 // Security check
 if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
@@ -295,7 +296,7 @@ define("COUNTRY_CODE_ERROR", 5);
 /*============================================================================
                         INIT SOAP CLIENT
   ============================================================================*/
-$soapclient = new nuSoapclient('http://www.claroline.net/worldwide/worldwide_soap.php');
+$soapclient = new nusoap_client('http://www.claroline.net/worldwide/worldwide_soap.php');
 
 /*============================================================================
                         COMMANDS
