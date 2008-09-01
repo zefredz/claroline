@@ -75,7 +75,7 @@ function get_path($pathKey)
         
         // user folder
         $pathList['userRepositorySys'] = $pathList['rootSys'].'platform/users/';
-        $pathList['userRepositoryWeb'] = $pathList['rootWeb'].'platform/users/';
+        $pathList['userRepositoryWeb'] = $pathList['url'].'/platform/users/';
     }
 
     if ( array_key_exists( $pathKey, $pathList ) )
