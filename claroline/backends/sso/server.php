@@ -22,12 +22,15 @@
                                 SOAP SERVER INIT
  ******************************************************************************/
 
-// get_lang('File') = 'trad4all'; // this line is mandatory to work in claroline 1.5
-                           // but can be skipped in claroline 1.6
+// PHP 5 Compat :
+$HTTP_RAW_POST_DATA = isset($HTTP_RAW_POST_DATA)
+    ? $HTTP_RAW_POST_DATA
+    : file_get_contents("php://input")
+    ;
 
 require_once dirname(__FILE__).'/../../inc/claro_init_global.inc.php';
 
-require_once get_path('incRepositorySys') . '/lib/nusoap.php';
+FromKernel::uses('thirdparty/nusoap/nusoap.lib');
 
 $server = new soap_server();
 
@@ -37,7 +40,7 @@ $server->register('get_user_info_from_cookie',
                          'cid'    => 'xsd:string',
                          'gid'    => 'xsd:string' ) );
 
-$server->service($HTTP_RAW_POST_DATA);
+$server->service( $HTTP_RAW_POST_DATA );
 
 
 /*----------------------------------------------------------------------------
@@ -303,4 +306,3 @@ function is_allowed_to_receive_user_info($auth)
         return false;
     }
 }
-?>

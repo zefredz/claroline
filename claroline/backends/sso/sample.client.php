@@ -17,13 +17,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 // (http://sourceforge.net/projects/nusoap/). Adapt the path of the line below 
 // to fit the location of your own nuSoap library.
 
-$nuSoapPath = '../../inc/lib/nusoap.php';
+$nuSoapPath = '../../inc/lib/thirdparty/nusoap/nusoap.php';
 
 // CLAROLINE SSO SERVER URL. Complete Address of the SSO server contained in 
 // the Claroline platform you want to request on. Adapt this url to fit your 
 // Claroline location.
 
-$ssoServerUrl = 'http://my.domain.com/mycampus/claroline/auth/sso/server.php';
+$ssoServerUrl = 'http://my.domain.com/mycampus/claroline/backends/sso/server.php';
 
 // COOKIE NAME. The name of the cookie the Claroline platform has set into the 
 // user browser. By default this name is 'clarolineSsoCookie'. But it can be 
@@ -123,4 +123,3 @@ if ( isset($_COOKIE[$cookieName]) )
     }
     
 }
-?>
