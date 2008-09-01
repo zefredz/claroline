@@ -573,6 +573,7 @@ $_lang['Display "Request a Course Creator status"'] = 'Display "Request a Course
 $_lang['Display "Request to be deleted from the platform"'] = 'Display "Request to be deleted from the platform"';
 $_lang['Display Settings'] = 'Display Settings';
 $_lang['Display a link to the lost password form'] = 'Display a link to the lost password form';
+$_lang['Display all feedbacks'] = 'Display all feedbacks';
 $_lang['Display an agreement page before the "create user account" form'] = 'Display an agreement page before the "create user account" form';
 $_lang['Display authentication login form'] = 'Display authentication login form';
 $_lang['Display data'] = 'Display data';
@@ -848,6 +849,8 @@ $_lang['Id of the user to keep'] = 'Id of the user to keep';
 $_lang['Id of the user to remove'] = 'Id of the user to remove';
 $_lang['Identical content<br />no modification saved'] = 'Identical content<br />no modification saved';
 $_lang['If activated course administrator will receive an email every time a submission is made.  Students will receive an email adivising them that their work has been marked.'] = 'If activated course administrator will receive an email every time a submission is made.  Students will receive an email adivising them that their work has been marked.';
+$_lang['If activated, all the feedbacks will be shown to users; if not, only those corresponding to the selected or correct answers will be displayed'] = 'If activated, all the feedbacks will be shown to users; if not, only those corresponding to the selected and correct answers will be displayed.'
+
 $_lang['If after while no message appears confirming the course creation, please click <a href="%url">here</a>'] = 'If after while no message appears confirming the course creation, please click <a href="%url">here</a>';
 $_lang['If false, other field are optional'] = 'If false, other field are optional';
 $_lang['If the name and the firstname are longer than this value, the script reduce it.

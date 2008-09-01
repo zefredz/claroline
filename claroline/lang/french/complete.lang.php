@@ -572,6 +572,7 @@ $_lang['Display "Request a Course Creator status"'] = 'Afficher "Demande du stat
 $_lang['Display "Request to be deleted from the platform"'] = 'Afficher "Demande pour être radié de la plateforme"';
 $_lang['Display Settings'] = 'Paramètres d\'affichage';
 $_lang['Display a link to the lost password form'] = 'Afficher un lien vers le formulaire de récupération du mot de passe';
+$_lang['Display all feedbacks'] = 'Afficher tous les feedbacks';
 $_lang['Display an agreement page before the "create user account" form'] = 'Afficher une page d\'accord avant le formulaire de "création d\'un utilisateur"';
 $_lang['Display authentication login form'] = 'Afficher le formulaire d\'authentification';
 $_lang['Display data'] = 'Afficher les données';
@@ -847,6 +848,7 @@ $_lang['Id of the user to keep'] = 'Identifiant de l\'utilisateur à conserver';
 $_lang['Id of the user to remove'] = 'Identifiant de l\'utilisateur à supprimer';
 $_lang['Identical content<br />no modification saved'] = 'Contenu identique<br />aucune modification enregistrée';
 $_lang['If activated course administrator will receive an email every time a submission is made.  Students will receive an email adivising them that their work has been marked.'] = 'Si l\'option est activée le gestionnaire de cours recevra un email à chaque soumission. Les étudiants recevront un email lors de chaque remarque ajouté au travail.';
+$_lang['If activated, all the feedbacks will be shown to users; if not, only those corresponding to the selected or correct answers will be displayed'] = 'Si l\'option est activée, tous les feedbacks seront montrés à l\'utilisateur; sinon seuls ceux relatifs à la réponse sélectionnée et à la réponse correcte seront affichés.';
 $_lang['If after while no message appears confirming the course creation, please click <a href="%url">here</a>'] = 'Si rien ne se passe après 30 secondes, cliquez <a href="%url">sur ce lien</a> et patientez quelques secondes';
 $_lang['If false, other field are optional'] = '';
 $_lang['If the name and the firstname are longer than this value, the script reduce it.
