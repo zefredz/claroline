@@ -462,7 +462,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
     if (!is_dir($baseWorkDir)) claro_mkdir($baseWorkDir, CLARO_FILE_PERMISSIONS );
 
     // unzip package
-    include_once get_path('incRepositorySys')."/lib/pclzip/pclzip.lib.php";
+    include_once get_path('incRepositorySys')."/lib/thirdparty/pclzip/pclzip.lib.php";
 
     /*
      * Check if the file is valide (not to big and exists)

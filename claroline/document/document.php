@@ -167,7 +167,7 @@ if($is_allowedToEdit) // for teacher only
 
     if (isset($_REQUEST['uncompress']) && $_REQUEST['uncompress'] == 1)
     {
-        require_once get_path('incRepositorySys') . '/lib/pclzip/pclzip.lib.php';
+        require_once get_path('incRepositorySys') . '/lib/thirdparty/pclzip/pclzip.lib.php';
     }
 }
 
@@ -1062,7 +1062,7 @@ if ('exDownload' == $cmd )
      * BUILD THE ZIP ARCHIVE
      */
 
-    require_once get_path('incRepositorySys') . '/lib/pclzip/pclzip.lib.php';
+    require_once get_path('incRepositorySys') . '/lib/thirdparty/pclzip/pclzip.lib.php';
 
     // Build archive in tmp course folder
     $downloadArchivePath = get_path('coursesRepositorySys') . claro_get_course_path() . '/tmp/zip';
@@ -1943,7 +1943,7 @@ echo claro_html_tool_title($titleElement,
             ;
 
         if ( trim($searchPattern) != '') $downloadArgument = 'searchPattern='.rawurlencode($searchPattern);
-        else                             $downloadArgument = 'file='. $cmdCurDirPath;
+        else                             $downloadArgument = 'file='. download_url_encode($curDirPath);
 
         if ( isset($fileList) && count($fileList) > 0 )
         {

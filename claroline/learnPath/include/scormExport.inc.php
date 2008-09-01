@@ -60,7 +60,7 @@ function getIdCounter()
 if ( !class_exists('ScormExport') )
 {
     include_once get_path('incRepositorySys') . "/lib/fileUpload.lib.php";
-    include_once get_path('incRepositorySys') . "/lib/pclzip/pclzip.lib.php";
+    include_once get_path('incRepositorySys') . "/lib/thirdparty/pclzip/pclzip.lib.php";
 
     require_once dirname(__FILE__).'/../../exercise/lib/exercise.class.php';
     require_once dirname(__FILE__).'/../../exercise/export/scorm/scorm_classes.php';

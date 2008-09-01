@@ -174,7 +174,7 @@ if( $is_allowedToEdit && !is_null($cmd) )
 
         if( !empty($filePathList) )
         {
-            require_once get_path('incRepositorySys') . '/lib/pclzip/pclzip.lib.php';
+            require_once get_path('incRepositorySys') . '/lib/thirdparty/pclzip/pclzip.lib.php';
 
             // build and send the zip
             // TODO use $courseDir ?

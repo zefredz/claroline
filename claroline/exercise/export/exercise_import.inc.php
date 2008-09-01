@@ -30,7 +30,8 @@ function get_and_unzip_uploaded_exercise($baseWorkDir, $uploadDir)
     }
 
     //1- Unzip folder in a new repository in claroline/module
-    include_once realpath(dirname(__FILE__) . '/../../inc/lib/pclzip/') . '/pclzip.lib.php';
+    //include_once realpath(dirname(__FILE__) . '/../../inc/lib/pclzip/') . '/pclzip.lib.php';
+    require_once get_path('incRepositorySys') . '/lib/thirdparty/pclzip/pclzip.lib.php';
 
 
     if ( preg_match('/.zip$/i', $_FILES['uploadedExercise']['name'])

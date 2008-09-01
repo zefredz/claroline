@@ -188,8 +188,9 @@ function sendZip($archiveName, $archiveContent, $removedPath)
 
     $downloadPlace = get_path('rootSys') . get_conf('tmpPathSys');
     $downloadArchivePath = $downloadPlace.''.uniqid('').'.zip';
-    $downloadArchiveName = empty($archiveName) ? 'archive.zip' : $archiveName . '.zip';
+    $downloadArchiveName = empty($archiveName) ? 'archive' : $archiveName;
     $downloadArchiveName = str_replace(',', '_', replace_dangerous_char($downloadArchiveName));
+    $downloadArchiveName = $downloadArchiveName . '.zip';
 
     $downloadArchive     = new PclZip($downloadArchivePath);
 

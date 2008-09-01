@@ -233,7 +233,7 @@ function get_and_unzip_uploaded_package()
     {
         $backlog_message[] = get_lang('Upload failed');
     }
-    require_once get_path('incRepositorySys') . '/lib/pclzip/pclzip.lib.php';
+    require_once get_path('incRepositorySys') . '/lib/thirdparty/pclzip/pclzip.lib.php';
 
     if (!function_exists('gzopen'))
     {
@@ -290,7 +290,7 @@ function unzip_package($packageFileName )
     $backlog_message = array();
 
     //1- Unzip folder in a new repository in claroline/module
-    require_once get_path('incRepositorySys') . '/lib/pclzip/pclzip.lib.php';
+    require_once get_path('incRepositorySys') . '/lib/thirdparty/pclzip/pclzip.lib.php';
     if (!function_exists('gzopen'))
     {
         $backlog_message[] = get_lang('Error : no zlib extension found');

@@ -103,7 +103,7 @@ if( $cmd == 'exExport' && get_conf('enableExerciseExportQTI') )
     require_once '../export/qti2/qti2_export.php';
     require_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';
     require_once get_path('incRepositorySys') . '/lib/file.lib.php';
-    require_once get_path('incRepositorySys') . '/lib/pclzip/pclzip.lib.php';
+    require_once get_path('incRepositorySys') . '/lib/thirdparty/pclzip/pclzip.lib.php';
 
     $question = new Qti2Question();
     $question->load($quId);
