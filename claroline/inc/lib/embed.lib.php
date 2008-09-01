@@ -11,6 +11,7 @@ if ( count( get_included_files() ) == 1 )
  * Embed script output into Claroline layout
  *
  * @version     1.9 $Revision$
+ * @deprecated since Claroline 1.9
  * @copyright   2001-2008 Universite catholique de Louvain (UCL)
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -21,6 +22,7 @@ if ( count( get_included_files() ) == 1 )
 
 /**
  * Embed script output into Claroline layout
+ * @deprecated since Claroline 1.9
  * @param   string  $output output to embed
  * @param   bool    $hide_banner hide Claroline banner (opt)
  * @param   bool    $hide_footer hide Claroline banner (opt)
@@ -34,6 +36,8 @@ function claro_embed( $output
     , $hide_body = false
     , $no_body = false )
 {
+    pushClaroMessage( __FUNCTION__ . ' is deprecated please use the new display lib instead' );
+    
     // global variables needed by header and footer...
     // FIXME make global objects with all these craps !!!
     global $includePath, $clarolineRepositoryWeb, $claro_stylesheet, $urlAppend ,
@@ -62,6 +66,7 @@ function claro_embed( $output
  * Claroline script embed class
  *
  * @access  public
+ * @deprecated since Claroline 1.9
  */
 class ClarolineScriptEmbed
 {
@@ -74,6 +79,11 @@ class ClarolineScriptEmbed
     var $content = '';
 
     // claroline diplay options
+    
+    public function ClarolineScriptEmbed()
+    {
+        pushClaroMessage( __CLASS__ . ' is deprecated please use the new display lib instead' );
+    }
 
     /**
      * Hide Claroline banner in display
