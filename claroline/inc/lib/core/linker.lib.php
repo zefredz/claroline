@@ -1140,6 +1140,41 @@ class ResourceLinker
             ;
     }
     
+    public static function renderLinkList( $crl )
+    {
+        self::init();
+        
+        CssLoader::getInstance()->load('linker', 'all');
+        
+        $linkList = self::getLinkList( $crl );
+        $linkList->setFetchMode( Database_ResultSet::FETCH_OBJECT );
+        
+        $htmlLinkList = '<div id="lnk_link_panel">' . "\n";
+        
+        if ( count( $linkList ) )
+        {
+            $htmlLinkList = '<ul class="lnk_link_list">' . "\n";
+            
+            foreach ( $linkList as $link )
+            {
+                $locator = ClarolineResourceLocator::parse($link->crl);
+                
+                $htmlLinkList .= '<li><a href="'
+                    . htmlspecialchars( self::$Resolver->resolve( $locator ) )
+                    . '" class="lnk_link" id="' . htmlspecialchars( $link->crl ) . '">'
+                    . htmlspecialchars( self::$Resolver->getResourceName( $locator ) )
+                    . '</a></li>' . "\n"
+                    ;
+            }
+            
+            $htmlLinkList .= '</ul>' . "\n";
+        }
+        
+        $htmlLinkList .= '</div>' . "\n";
+        
+        return $htmlLinkList;
+    }
+    
     /**
      * Get a resource URL from its parameters
      *
