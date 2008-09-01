@@ -1,6 +1,38 @@
 <?php // $Id$
 
 // vim: expandtab sw=4 ts=4 sts=4:
+/*
+ FIXME upgrade old CRL :
+ 
+ foreach ( $oldResource as $resource )
+ {
+    $sql = "UPDATE {$tbl['lnk_resource']}
+    SET crl = '".convert_crl_from_18_to_19( $resource['crl'] )."'
+    WHERE crl = '{$resource['crl']}'"
+    
+    claro_Sql_query( $sql );
+ }
+ 
+ function convert_crl_from_18_to_19( $crl )
+ {
+    if (preg_match(
+        '!(crl://'.get_conf('platform_id').'/[^/]+/)([^/])(.*)!'),
+        $crl, $matches ) )
+    {
+        return $matches[1] . rtrim( $matches[2], '_' ) . $matches[3];
+    }
+    elseif (preg_match(
+        '!(crl://'.get_conf('platform_id').'/[^/]+/groups/\d+/)([^/])(.*)!'),
+        $crl, $matches ) )
+    {
+        return $matches[1] . rtrim( $matches[2], '_' ) . $matches[3];
+    }
+    else
+    {
+        return $crl;
+    }
+ }
+ */
 
 /**
  * Claroline Resource Linker library
@@ -204,6 +236,22 @@ class ClarolineResourceLocator implements ResourceLocator
         }
         
         return $locator;
+    }
+    
+    public static function crlToId( $crl )
+    {
+        $id = rawurlencode( $crl );
+        $id = str_replace( '%', '::', $id );
+        
+        return $id;
+    }
+    
+    public static function idToCrl( $id )
+    {
+        $crl = str_replace( '::', '%', $id );
+        $crl = rawurldecode( $crl );
+        
+        return $crl;
     }
 }
 
@@ -1153,7 +1201,12 @@ class ResourceLinker
         
         if ( count( $linkList ) )
         {
-            $htmlLinkList = '<ul class="lnk_link_list">' . "\n";
+            $htmlLinkList .= '<h4 class="lnk_link_list">'
+                . get_lang('Attached resources') . '</h4>'
+                . "\n"
+                ;
+                
+            $htmlLinkList .= '<ul class="lnk_link_list" id="'.ClarolineResourceLocator::crlToId( $crl ).'">' . "\n";
             
             foreach ( $linkList as $link )
             {
@@ -1161,7 +1214,7 @@ class ResourceLinker
                 
                 $htmlLinkList .= '<li><a href="'
                     . htmlspecialchars( self::$Resolver->resolve( $locator ) )
-                    . '" class="lnk_link" id="' . htmlspecialchars( $link->crl ) . '">'
+                    . '" class="lnk_link" id="' . ClarolineResourceLocator::crlToId( $link->crl ) . '">'
                     . htmlspecialchars( self::$Resolver->getResourceName( $locator ) )
                     . '</a></li>' . "\n"
                     ;
