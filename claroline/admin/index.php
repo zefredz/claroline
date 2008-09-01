@@ -180,6 +180,7 @@ function get_menu_item_list($type)
         $menu['AdminPlatform'][] = claro_html_tool_link('tool/config_list.php', get_lang('Configuration'));
         $menu['AdminPlatform'][] = claro_html_tool_link('managing/editFile.php',get_lang('Edit text zones'));
         $menu['AdminPlatform'][] = claro_html_tool_link('module/module_list.php', get_lang('Modules'));
+        $menu['AdminPlatform'][] = claro_html_tool_link('adminmailsystem.php', get_lang('Manage administrator email notifications'));
         $menu['AdminPlatform'][] = claro_html_tool_link('../tracking/platformReport.php',        get_lang('Platform statistics'));
         $menu['AdminPlatform'][] = claro_html_tool_link('campusProblem.php',    get_lang('Scan technical fault'));
         if (file_exists(dirname(__FILE__) . '/maintenance/checkmails.php'))
