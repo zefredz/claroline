@@ -72,7 +72,7 @@ if ( isset($_COOKIE[$cookieName]) )
                        'cid'    => $courseId, 
                        'gid'    => $groupId              );
 
-    $client = new nuSoapclient($ssoServerUrl);
+    $client = new nusoap_client($ssoServerUrl);
 
     $result = $client->call('get_user_info_from_cookie', $paramList);
 
