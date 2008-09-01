@@ -2,7 +2,7 @@
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2008 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -32,6 +32,4 @@ define('TABLE_USED_LANG_VAR','used_language');
 
 // message
 
-$problemMessage = "Problem with the Data Base.";
-
-?>
+$problemMessage = "Problem with the database.";
