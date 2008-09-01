@@ -306,7 +306,7 @@ else
         }
 
         echo '</div>' . "\n"
-        .    '<br class="spacer" />' . "\n\n"
+        .    '<div class="spacer"></div>' . "\n\n"
         .    '</div>' . "\n"
         ;
 
