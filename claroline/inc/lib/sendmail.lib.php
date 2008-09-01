@@ -17,7 +17,7 @@ if ( count( get_included_files() ) == 1 )
  *
  */
 
-require_once dirname(__FILE__) . '/phpmailer/class.phpmailer.php' ;
+require_once dirname(__FILE__) . '/thirdparty/phpmailer/class.phpmailer.php' ;
 include_once dirname(__FILE__) . '/user.lib.php' ;
 
 class ClaroPHPMailer extends PHPMailer
