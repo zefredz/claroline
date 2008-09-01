@@ -456,8 +456,9 @@ class answerMultipleChoice
             .    renderTex($answer['answer'])
             .    '</td>' . "\n"
             .    '<td width="45%">'
-            .    ( ($isSelected || $answer['correct']) ? renderTex($answer['comment']) : '&nbsp;' )
-            .    '</td>' . "\n"
+            . ( ( get_conf('showAllFeedbacks') ||  ($isSelected || $answer['correct'])) ? renderTex($answer['comment']) : '&nbsp;' )
+
+             .     '</td>' . "\n"
             .    '</tr>' . "\n\n";
         }
 
