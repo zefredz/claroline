@@ -17,7 +17,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  */
 if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 
-include_once get_path('incRepositorySys') . '/lib/pear/Lite.php';
+include_once get_path('incRepositorySys') . '/lib/thirdparty/pear/Lite.php';
 include_once claro_get_conf_repository() . 'CLKCACHE.conf.php';
 
 // Cache_lite setting & init

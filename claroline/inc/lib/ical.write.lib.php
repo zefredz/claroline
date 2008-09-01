@@ -154,7 +154,7 @@ function ical_get_tool_compatible_list()
         $iCalToolList = array();
         if(get_conf('iCalUseCache',true))
         {
-            include_once dirname(__FILE__) . '/pear/Lite.php';
+            include_once dirname(__FILE__) . '/thirdparty/pear/Lite.php';
 
             // Cache_lite setting & init
             $cache_options = array(

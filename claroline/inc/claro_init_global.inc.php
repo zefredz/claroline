@@ -85,7 +85,7 @@ $imgRepositoryWeb       = get_path('imgRepositoryWeb');
 // administator can redirect to their own PEAR library directory by setting
 // its path to the PEAR_LIB_PATH constant.
 
-define('PEAR_LIB_PATH', get_path('incRepositorySys') . '/lib/pear');
+define('PEAR_LIB_PATH', get_path('incRepositorySys') . '/lib/thirdparty/pear');
 
 // Add the Claroline PEAR path to the php.ini include path
 // This action is mandatory because PEAR inner include() statements

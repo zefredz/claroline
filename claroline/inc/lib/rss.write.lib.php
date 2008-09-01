@@ -38,7 +38,7 @@ function build_rss($context)
 {
     if (is_array($context) && count($context) > 0)
     {
-        include_once dirname(__FILE__) . '/pear/XML/Serializer.php';
+        include_once dirname(__FILE__) . '/thirdparty/pear/XML/Serializer.php';
 
         $rssRepositoryCacheSys = get_path('rootSys') . get_conf('rssRepositoryCache','tmp/cache/rss/');
         if (!file_exists($rssRepositoryCacheSys))
