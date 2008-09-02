@@ -31,6 +31,11 @@ class CLANN_Resolver implements ModuleResourceResolver
 
     public function getResourceName( ResourceLocator $locator)
     {
+        if ( ! $locator->hasResourceId() )
+        {
+            return false;
+        }
+        
         $tbl = get_module_course_tbl( array('announcement'), $locator->getCourseId() );
         
         $sql = "SELECT `title`\n"
