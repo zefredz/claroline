@@ -417,21 +417,20 @@ if ( $displayButtonLine )
 $nameTools = get_lang('Announcements');
 $noQUERY_STRING = true;
 
-// Display header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php' ;
+$output = '';
 
 if ( !empty( $subTitle ) )
 {
-    echo claro_html_tool_title(array('mainTitle' => $nameTools, 'subTitle' => $subTitle));
+    $output .= claro_html_tool_title(array('mainTitle' => $nameTools, 'subTitle' => $subTitle));
 }
 else
 {
-    echo claro_html_tool_title( $nameTools );
+    $output .= claro_html_tool_title( $nameTools );
 }
 
-echo $dialogBox->render();
+$output .= $dialogBox->render();
 
-echo '<p>'
+$output .= '<p>'
 .    claro_html_menu_horizontal($cmdList)
 .    '</p>'
 ;
@@ -445,7 +444,7 @@ if ( $displayForm )
 
     // DISPLAY ADD ANNOUNCEMENT COMMAND
 
-    echo '<form method="post" action="' . htmlspecialchars( $_SERVER['PHP_SELF'] ) . '">'."\n"
+    $output .= '<form method="post" action="' . htmlspecialchars( $_SERVER['PHP_SELF'] ) . '">'."\n"
     .    claro_form_relay_context()
     .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'
     .    '<input type="hidden" name="cmd" value="' . $nextCommand . '" />'
@@ -475,7 +474,7 @@ if ( $displayForm )
     .    '</tr>' . "\n"
     ;
 
-   echo '<tr>'
+   $output .= '<tr>'
     .    '<td>&nbsp;</td>' . "\n"
     .    '<td>'
     .    '<input type="checkbox" value="1" name="emailOption" id="emailOption" />'
@@ -486,7 +485,7 @@ if ( $displayForm )
     .    '</tr>' . "\n"
     ;
 
-    echo '<tr>'
+    $output .= '<tr>'
     .    '<td>&nbsp;</td>' . "\n"
     .    '<td>' . "\n"
 ;
@@ -497,15 +496,15 @@ if ( $displayForm )
     if( claro_is_jpspan_enabled() )
     {
         linker_set_local_crl( isset ($_REQUEST['id']) );
-        echo linker_set_display();
+        $output .= linker_set_display();
     }
     else // popup mode
     {
-        if(isset($_REQUEST['id'])) echo linker_set_display($_REQUEST['id']);
-        else                       echo linker_set_display();
+        if(isset($_REQUEST['id'])) $output .= linker_set_display($_REQUEST['id']);
+        else                       $output .= linker_set_display();
     }
 
-    echo '</td>' . "\n"
+    $output .= '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '<tr>'
     .    '<td>&nbsp;</td>' . "\n"
@@ -514,14 +513,14 @@ if ( $displayForm )
 
     if( claro_is_jpspan_enabled() )
     {
-        echo '<input type="submit" onclick="linker_confirm();" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />'."\n";
+        $output .= '<input type="submit" onclick="linker_confirm();" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />'."\n";
     }
     else
     {
-        echo '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />'."\n";
+        $output .= '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />'."\n";
     }
 
-    echo claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])), 'Cancel')
+    $output .= claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])), 'Cancel')
         . '</td>'
         . '</tr>' . "\n"
         . '</table>'
@@ -541,12 +540,12 @@ if ($displayList)
 
     if ($announcementQty < 1)
     {
-        echo '<br /><blockquote>' . get_lang('No announcement') . '</blockquote>' . "\n";
+        $output .= '<br /><blockquote>' . get_lang('No announcement') . '</blockquote>' . "\n";
     }
 
     else
     {
-        echo '<table class="claroTable" width="100%">';
+        $output .= '<table class="claroTable" width="100%">';
 
         if (claro_is_user_authenticated()) $date = $claro_notifier->get_notification_date(claro_get_current_user_id()); //get notification date
 
@@ -575,7 +574,7 @@ if ($displayList)
                 $content = make_clickable(claro_parse_user_text($thisAnnouncement['content']));
                 $last_post_date = $thisAnnouncement['time']; // post time format date de mysql
 
-                echo '<tr class="headerX">'."\n"
+                $output .= '<tr class="headerX">'."\n"
                 .    '<th>'."\n"
                 .    '<span class="'. $cssItem . $cssInvisible .'">' . "\n"
                 .    '<a href="#" name="ann' . $thisAnnouncement['id'] . '"></a>'. "\n"
@@ -595,11 +594,11 @@ if ($displayList)
                 .    '</div>' . "\n"
                 ;
 
-                echo linker_display_resource();
+                $output .= linker_display_resource();
 
                 if ($is_allowedToEdit)
                 {
-                    echo '<p>'
+                    $output .= '<p>'
                         // EDIT Request LINK
                         . '<a href="'
                         . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
@@ -622,9 +621,9 @@ if ($displayList)
 
                     if( $iterator != 1 )
                     {
-                        // echo    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvUp&amp;id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
+                        // $output .=    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvUp&amp;id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
                         // the anchor dont refreshpage.
-                        echo '<a href="'. htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exMvUp&amp;id=' . $thisAnnouncement['id'] )) . '">'
+                        $output .= '<a href="'. htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exMvUp&amp;id=' . $thisAnnouncement['id'] )) . '">'
                             . '<img src="' . get_icon_url('move_up') . '" alt="' . get_lang('Move up') . '" />'
                             . '</a>' . "\n"
                             ;
@@ -634,9 +633,9 @@ if ($displayList)
 
                     if($iterator < $bottomAnnouncement)
                     {
-                        // echo    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvDown&amp;id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
+                        // $output .=    "<a href=\"".$_SERVER['PHP_SELF']."?cmd=exMvDown&amp;id=",$thisAnnouncement['id'],"#ann",$thisAnnouncement['id'],"\">",
                         // the anchor dont refreshpage.
-                        echo '<a href="'
+                        $output .= '<a href="'
                             . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exMvDown&amp;id=' . $thisAnnouncement['id'] )) . '">'
                             . '<img src="' . get_icon_url('move_down') . '" alt="' . get_lang('Move down') . '" />'
                             . '</a>' . "\n"
@@ -646,19 +645,19 @@ if ($displayList)
                     //  Visibility
                     if ($thisAnnouncement['visibility']=='SHOW')
                     {
-                        echo '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=mkHide&amp;id=' . $thisAnnouncement['id'] )) . '">'
+                        $output .= '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=mkHide&amp;id=' . $thisAnnouncement['id'] )) . '">'
                         .    '<img src="' . get_icon_url('visible') . '" alt="' . get_lang('Visible').'" />'
                         .    '</a>' . "\n"
                         ;
                     }
                     else
                     {
-                        echo '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=mkShow&amp;id=' . $thisAnnouncement['id'] )) . '">'
+                        $output .= '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=mkShow&amp;id=' . $thisAnnouncement['id'] )) . '">'
                         .    '<img src="' . get_icon_url('invisible') . '" alt="' . get_lang('Invisible') . '" />'
                         .    '</a>' . "\n"
                         ;
                     }
-                    echo '</p>'."\n"
+                    $output .= '</p>'."\n"
                     .    '</td>' . "\n"
                     .    '</tr>' . "\n"
                     ;
@@ -669,10 +668,11 @@ if ($displayList)
             $iterator ++;
         }    // end foreach ( $announcementList as $thisAnnouncement)
 
-        echo '</table>';
+        $output .= '</table>';
     }
 
 } // end if displayList
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
-?>
+Claroline::getDisplay()->body->appendContent( $output );
+
+echo Claroline::getDisplay()->render();
