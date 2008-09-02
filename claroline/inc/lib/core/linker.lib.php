@@ -488,7 +488,7 @@ class ResourceLinkerResolver
     {
         if ( $locator instanceof ExternalResourceLocator )
         {
-            return new Url( $locator->__toString() );
+            return $locator->__toString();
         }
         else // ClarolineResourceLocator
         {
