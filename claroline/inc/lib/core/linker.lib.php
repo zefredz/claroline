@@ -1161,7 +1161,7 @@ class ResourceLinker
         }
     }
     
-    protected static function initUserAgent()
+    public static function initUserAgent()
     {
         if ( ! self::$_userAgentInitialized )
         {
