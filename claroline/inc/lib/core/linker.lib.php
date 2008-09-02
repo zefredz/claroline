@@ -1222,10 +1222,41 @@ class ResourceLinker
             
             $htmlLinkList .= '</ul>' . "\n";
         }
+        else
+        {
+            $htmlLinkList .= get_lang('Nothing to display');
+        }
         
         $htmlLinkList .= '</div>' . "\n";
         
         return $htmlLinkList;
+    }
+    
+    public static function updateLinkList( $sourceCrl, $resourceList = array() )
+    {
+        $alreadyLinkedResourceList = self::getLinkList( $sourceCrl );
+        $alreadyLinkedResourceList->setFetchMode( Database_ResultSet::FETCH_COLUMN );
+        
+        $alreadyLinkedResourceList = iterator_to_array($alreadyLinkedResourceList);
+        
+        $deletedResourceList = array();
+        $addedResourceList = array();
+        
+        foreach ( $alreadyLinkedResourceList as $crl )
+        {
+            if ( ! in_array( $crl, $resourceList ) )
+            {
+                self::removeLink( $sourceCrl, $crl );
+            }
+        }
+        
+        foreach ( $resourceList as $crl )
+        {
+            if ( ! in_array( $crl, $alreadyLinkedResourceList ) )
+            {
+                self::addLink( $sourceCrl, $crl );
+            }
+        }
     }
     
     /**
@@ -1348,7 +1379,7 @@ class ResourceLinker
     {
         $tbl = claro_sql_get_course_tbl();
         
-        $sql = "SELECT `dest`.`crl`, `dest`.`title`\n"
+        $sql = "SELECT `dest`.`crl` AS `crl`, `dest`.`title` AS `title`\n"
             . "FROM `{$tbl['links']}` AS `lnk`,\n"
             . "`{$tbl['resources']}` AS `dest`,\n"
             . "`{$tbl['resources']}` AS `src`\n"
