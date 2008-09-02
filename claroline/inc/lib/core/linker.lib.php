@@ -1257,7 +1257,7 @@ class ResourceLinker
         return $htmlLinkList;
     }
     
-    public static function updateLinkList( ResourceLocator $locator, $resourceList = array() )
+    public static function updateLinkList( ResourceLocator $locator, array $resourceList = array() )
     {
         $alreadyLinkedResourceList = self::getLinkList( $locator );
         $alreadyLinkedResourceList->setFetchMode( Database_ResultSet::FETCH_COLUMN );
