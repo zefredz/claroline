@@ -410,9 +410,14 @@ interface Database_ResultSet extends SeekableIterator, Countable
     const FETCH_OBJECT = 'FETCH_OBJECT';
     
     /**
-     * Fetch the value of the first column of the result set
+     * Fetch the value of the first column  of the first row of the result set
      */
     const FETCH_VALUE = 'FETCH_VALUE';
+    
+    /**
+     * Fetch the value of the first column of each row of the result set
+     */
+    const FETCH_COLUMN = 'FETCH_COLUMN';
     
     /**
      * Set fetch mode
@@ -530,7 +535,8 @@ class Mysql_ResultSet implements Database_ResultSet
         {
             return @mysql_fetch_object( $this->resultSet );
         }
-        elseif ( $mode == self::FETCH_VALUE )
+        // FIXME : FETCH_VALUE should not be called twice !
+        elseif ( $mode == self::FETCH_VALUE || $mode == self::FETCH_COLUMN )
         {
             $res = @mysql_fetch_array( $this->resultSet, self::FETCH_NUM );
             
