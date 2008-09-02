@@ -15,6 +15,9 @@ This code will work with html like this
 
 $(document).ready(function(){
    
+    // load link list
+    linkerFrontend.loadLinkList();
+    
     // load list
     linkerFrontend.loadList();
     
@@ -70,8 +73,40 @@ var linkerFrontend = {
     base_url : '',
     deleteIconUrl : '',
     currentIdx : 0,
+    currentCrl: '',
     
     // methods
+    
+    loadLinkList : function(){
+        var url = this.base_url + '?cmd=getLinkList';
+        
+        if( linkerFrontend.currentCrl )
+        {
+            url = url + '&crl=' + escape(linkerFrontend.currentCrl);
+        }
+        
+        $.getJSON( url, function(response){
+            if ( !Claroline.json.isResponse(response) ){
+                alert("Invalid response");
+                return;
+            }
+            
+            if ( Claroline.json.isError(response) ){
+                Claroline.json.handleJsonError( response );
+                return;
+            }
+            
+            var data = Claroline.json.getResponseBody( response );
+            
+            // alert( data.toSource() );
+            
+            if ( data.length ) {
+                for ( var i = 0; i < data.length; i++ ) {
+                    linkerFrontend.addSelected( data[i].crl, data[i].title );
+                }
+            }
+        })
+    },
    
     loadList : function(crl, resourceName ) {
         var url = this.base_url;

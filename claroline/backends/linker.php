@@ -18,33 +18,61 @@ try
 {
     require_once dirname(__FILE__) . '/../inc/claro_init_global.inc.php';
     
-    FromKernel::uses( 'core/linker.lib', 'utils/ajax.lib' );
+    FromKernel::uses( 'core/linker.lib', 'utils/ajax.lib', 'utils/input.lib' );
+    
     ResourceLinker::init();
+    
+    $userInput = Claro_UserInput::getInstance();
 
-    $locator = isset( $_REQUEST['crl'] )
-        ? ClarolineResourceLocator::parse($_REQUEST['crl'])
-        : ResourceLinker::$Navigator->getCurrentLocator( array() );
-        ;
+    $userInput->setValidator( 'cmd', new Claro_Validator_AllowedList(array(
+        'getLinkList', 'getResourceList'
+    )) );
     
-    if ( !ResourceLinker::$Navigator->isNavigable( $locator ) )
+    $cmd = $userInput->get('cmd', 'getResourceList');
+    
+    $locator = isset( $_REQUEST['crl'] ) && ! empty( $_REQUEST['crl'] )
+            ? ClarolineResourceLocator::parse($_REQUEST['crl'])
+            : ResourceLinker::$Navigator->getCurrentLocator( array() );
+            ;
+    
+    if ( 'getLinkList' == $cmd )
     {
-        throw new Exception('Resource not navigable');
+        $linkListIt = ResourceLinker::getLinkList( $locator->__toString() );
+        
+        if ( empty( $linkListIt ) )
+        {
+            $linkList = array();
+        }
+        else
+        {
+            $linkList = iterator_to_array( $linkListIt );
+        }
+        
+        $response = new Json_Response( $linkList );
     }
-    
-    $resourceList = ResourceLinker::$Navigator->getResourceList( $locator );
-    
-    $elementList = $resourceList->toArray();
-    
-    $resourceArr = array();
-    $resourceArr['name'] = ResourceLinker::$Resolver->getResourceName( $locator );
-    $resourceArr['crl'] = $locator->__toString();
-    
-    $parent = ResourceLinker::$Navigator->getParent( $locator );
-    
-    $resourceArr['parent'] = (empty($parent) ? false : $parent->__toString());
-    $resourceArr['resources'] = $elementList;
-    
-    $response = new Json_Response( $resourceArr );
+    else
+    {
+        
+        if ( !ResourceLinker::$Navigator->isNavigable( $locator ) )
+        {
+            throw new Exception('Resource not navigable');
+        }
+        
+        $resourceList = ResourceLinker::$Navigator->getResourceList( $locator );
+        
+        $elementList = $resourceList->toArray();
+        
+        $resourceArr = array();
+        $resourceArr['name'] = ResourceLinker::$Resolver->getResourceName( $locator );
+        $resourceArr['crl'] = $locator->__toString();
+        
+        $parent = ResourceLinker::$Navigator->getParent( $locator );
+        
+        $resourceArr['parent'] = (empty($parent) ? false : $parent->__toString());
+        $resourceArr['resources'] = $elementList;
+        
+        $response = new Json_Response( $resourceArr );
+    }
 }
 catch (Exception $e )
 {
