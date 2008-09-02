@@ -297,13 +297,5 @@ var linkerFrontend = {
               $(this).remove();
           }
         });
-    },
-    
-    renderAddSelectedItem : function() {
-        // create a new dom node and show it
-    },
-
-    renderRemoveSelectedItem : function() {
-        // find dom node and remove it
     }
 }
