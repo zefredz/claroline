@@ -608,7 +608,11 @@ class ResourceLinkerResolver
             if( $locator->inModule() && $locator->hasResourceId() )
             {
                 $resolver = $this->loadModuleResolver( $locator->getModuleLabel() );
-                $nameParts[] = $resolver->getResourceName( $locator );
+                
+                if ( $resolver )
+                {
+                    $nameParts[] = $resolver->getResourceName( $locator );
+                }
             }
             
             return implode(' > ', $nameParts);
@@ -1167,14 +1171,14 @@ class ResourceLinker
         }
     }
     
-    public static function setCurrentCrl( $currentCrl )
+    public static function setCurrentLocator( ResourceLocator $locator )
     {
         // Init Client Side Linker
         self::initUserAgent();
         
         // Set current CRL
         ClaroHeader::getInstance()->addInlineJavascript(
-             'linkerFrontend.currentCrl = "'.$currentCrl.'";' . "\n"
+             'linkerFrontend.currentCrl = "'.$locator->__toString().'";' . "\n"
         );
     }
     
@@ -1209,13 +1213,13 @@ class ResourceLinker
             ;
     }
     
-    public static function renderLinkList( $crl )
+    public static function renderLinkList( ResourceLocator $locator )
     {
         self::init();
         
         CssLoader::getInstance()->load('linker', 'all');
         
-        $linkList = self::getLinkList( $crl );
+        $linkList = self::getLinkList( $locator );
         $linkList->setFetchMode( Database_ResultSet::FETCH_OBJECT );
         
         $htmlLinkList = '<div id="lnk_link_panel">' . "\n";
@@ -1227,7 +1231,7 @@ class ResourceLinker
                 . "\n"
                 ;
                 
-            $htmlLinkList .= '<ul class="lnk_link_list" id="'.ClarolineResourceLocator::crlToId( $crl ).'">' . "\n";
+            $htmlLinkList .= '<ul class="lnk_link_list" id="'.ClarolineResourceLocator::crlToId( $locator->__toString() ).'">' . "\n";
             
             foreach ( $linkList as $link )
             {
@@ -1253,9 +1257,9 @@ class ResourceLinker
         return $htmlLinkList;
     }
     
-    public static function updateLinkList( $sourceCrl, $resourceList = array() )
+    public static function updateLinkList( ResourceLocator $locator, $resourceList = array() )
     {
-        $alreadyLinkedResourceList = self::getLinkList( $sourceCrl );
+        $alreadyLinkedResourceList = self::getLinkList( $locator );
         $alreadyLinkedResourceList->setFetchMode( Database_ResultSet::FETCH_COLUMN );
         
         $alreadyLinkedResourceList = iterator_to_array($alreadyLinkedResourceList);
@@ -1267,7 +1271,7 @@ class ResourceLinker
         {
             if ( ! in_array( $crl, $resourceList ) )
             {
-                self::removeLink( $sourceCrl, $crl );
+                self::removeLink( $locator, ClarolineResourceLocator::parse( $crl ) );
             }
         }
         
@@ -1275,7 +1279,7 @@ class ResourceLinker
         {
             if ( ! in_array( $crl, $alreadyLinkedResourceList ) )
             {
-                self::addLink( $sourceCrl, $crl );
+                self::addLink( $locator, ClarolineResourceLocator::parse( $crl ) );
             }
         }
     }
@@ -1312,12 +1316,12 @@ class ResourceLinker
         return self::$Navigator->getCurrentLocator( $params );
     }
     
-    public static function getLocatorIdAndAddIfMissing( $crl )
+    public static function getLocatorIdAndAddIfMissing( ResourceLocator $locator )
     {
         $tbl = claro_sql_get_course_tbl();
         
         $sql = "SELECT `id` FROM `{$tbl['resources']}`\n"
-            . "WHERE BINARY `crl` = " . Claroline::getDatabase()->quote($crl)
+            . "WHERE BINARY `crl` = " . Claroline::getDatabase()->quote($locator->__toString())
             ;
         
         $res = Claroline::getDatabase()->query( $sql );
@@ -1330,11 +1334,7 @@ class ResourceLinker
         {
             $sql = "INSERT INTO `{$tbl['resources']}`\n"
                 . "SET\n"
-                . "`crl` = " . Claroline::getDatabase()->quote($crl) ."\n"
-                . ",\n"
-                . "`title` = " . Claroline::getDatabase()->quote(
-                    self::getResourceName(
-                        ClarolineResourceLocator::parse( $crl ) ) )
+                . "`crl` = " . Claroline::getDatabase()->quote($locator->__toString()) ."\n"
                 ;
             
             Claroline::getDatabase()->exec ( $sql );
@@ -1343,10 +1343,10 @@ class ResourceLinker
         }
     }
     
-    public static function addLink( $crlFrom, $crlTo )
+    public static function addLink( $locatorFrom, $locatorTo )
     {
-        $crlFromId = self::getLocatorIdAndAddIfMissing( $crlFrom );
-        $crlToId = self::getLocatorIdAndAddIfMissing( $crlTo );
+        $crlFromId = self::getLocatorIdAndAddIfMissing( $locatorFrom );
+        $crlToId = self::getLocatorIdAndAddIfMissing( $locatorTo );
         
         $tbl = claro_sql_get_course_tbl();
         
@@ -1377,10 +1377,10 @@ class ResourceLinker
         }
     }
     
-    public static function removeLink( $crlFrom, $crlTo )
+    public static function removeLink( $locatorFrom, $locatorTo )
     {
-        $crlFromId = self::getLocatorIdAndAddIfMissing( $crlFrom );
-        $crlToId = self::getLocatorIdAndAddIfMissing( $crlTo );
+        $crlFromId = self::getLocatorIdAndAddIfMissing( $locatorFrom );
+        $crlToId = self::getLocatorIdAndAddIfMissing( $locatorTo );
         
         $tbl = claro_sql_get_course_tbl();
         
@@ -1396,7 +1396,7 @@ class ResourceLinker
         return Claroline::getDatabase()->affectedRows();
     }
     
-    public static function getLinkList( $crlFrom )
+    public static function getLinkList( $locator )
     {
         $tbl = claro_sql_get_course_tbl();
         
@@ -1404,7 +1404,7 @@ class ResourceLinker
             . "FROM `{$tbl['links']}` AS `lnk`,\n"
             . "`{$tbl['resources']}` AS `dest`,\n"
             . "`{$tbl['resources']}` AS `src`\n"
-            . "WHERE `src`.`crl` = " . Claroline::getDatabase()->quote( $crlFrom ) . "\n"
+            . "WHERE `src`.`crl` = " . Claroline::getDatabase()->quote( $locator->__toString() ) . "\n"
             . "AND `dest`.`id` = `lnk`.`dest_id`\n"
             . "AND `src`.`id` = `lnk`.`src_id`\n"
             ;
@@ -1412,35 +1412,5 @@ class ResourceLinker
         $res = Claroline::getDatabase()->query( $sql );
         
         return $res;
-    }
-    
-    /**
-     * Get resources available
-     *
-     * @param string $crl
-     * @return LinkerResource list of availble resources
-     */
-    public static function getResourceList( $crl )
-    {
-        self::init();
-        return self::$Navigator->getResourceList( ClarolineResourceLocator::parse($crl) );
-    }
-    
-    /**
-     * Get resources available
-     *
-     * @param string $crl
-     * @return LinkerResource list of availble resources
-     */
-    public static function getResourceName( $crl )
-    {
-        self::init();
-        return self::$Resolver->getResourceName( ClarolineResourceLocator::parse($crl) );
-    }
-    
-    public static function resolve( $crl )
-    {
-        self::init();
-        return self::$Resolver->resolve( ClarolineResourceLocator::parse($crl) );
     }
 }
