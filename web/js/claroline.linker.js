@@ -102,7 +102,7 @@ var linkerFrontend = {
             
             if ( data.length ) {
                 for ( var i = 0; i < data.length; i++ ) {
-                    linkerFrontend.addSelected( data[i].crl, data[i].title );
+                    linkerFrontend.addSelected( data[i].crl, data[i].name );
                 }
             }
         })
