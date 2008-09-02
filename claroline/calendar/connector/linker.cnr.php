@@ -3,7 +3,7 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * Resource Resolver for the Annoucements tool
+ * Resource Resolver for the Calendar tool
  *
  * @version 1.9 $Revision$
  * @copyright (c) 2001-2008 Universite catholique de Louvain (UCL)
