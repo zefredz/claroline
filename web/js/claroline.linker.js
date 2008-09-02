@@ -244,7 +244,6 @@ var linkerFrontend = {
     // rendering methods
     
     renderSelected : function() {
-		
         $("#lnk_selected_resources").empty();
         var i=0;
         for ( var x in this.selected ) {
@@ -272,15 +271,15 @@ var linkerFrontend = {
         
         if( ! alreadyDisplayed )
         {
-			$("#lnk_selected_resources")
-			.append('<div id="'+crl+'"><a href="#" rel="'+crl+'"><img src="'+this.deleteIconUrl+'" alt="'+ Claroline.getLang('Delete')+'" /></a>'+name+'</div>');
+            $("#lnk_selected_resources")
+            .append('<div id="'+crl+'"><a href="#" rel="'+crl+'"><img src="'+this.deleteIconUrl+'" alt="'+ Claroline.getLang('Delete')+'" /></a>'+name+'</div>');
 
-			// add a form element
-			$("#lnk_hidden_fields")
-			.append('<input name="ressourceList['+ this.currentIdx +']" value="'+crl+'" type="hidden">');
+            // add a form element
+            $("#lnk_hidden_fields")
+            .append('<input name="ressourceList['+ this.currentIdx +']" value="'+crl+'" type="hidden">');
 
             this.currentIdx++;
-	    }
+        }
     },
     
     removeSelected : function(crl) {
