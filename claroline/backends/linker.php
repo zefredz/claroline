@@ -37,15 +37,25 @@ try
     
     if ( 'getLinkList' == $cmd )
     {
-        $linkListIt = ResourceLinker::getLinkList( $locator->__toString() );
+        $linkListIt = ResourceLinker::getLinkList( $locator );
         
+        // FIXME : use getResourceName instead of the title recorded in database !
         if ( empty( $linkListIt ) )
         {
             $linkList = array();
         }
         else
         {
-            $linkList = iterator_to_array( $linkListIt );
+            $linkList = array();
+            
+            // $linkList = iterator_to_array( $linkListIt );
+            foreach ( $linkListIt as $link )
+            {
+                $linkList[] = array(
+                    'crl' => $link['crl'],
+                    'name' => ResourceLinker::$Resolver->getResourceName( ClarolineResourceLocator::parse( $link['crl'] ) )
+                );
+            }
         }
         
         $response = new Json_Response( $linkList );
