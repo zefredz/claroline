@@ -1110,7 +1110,7 @@ class CLGRP_Navigator implements ModuleResourceNavigator
  * This navigator is mainly used to link resources from course home page
  *
  */
-class CLHOME_Navigator implements ModuleResourceNavigator
+class CLINTRO_Navigator implements ModuleResourceNavigator
 {
     public function getResourceList( ResourceLocator $rootNodeLocator )
     {
