@@ -19,12 +19,12 @@ class CLQWZ_Resolver implements ModuleResourceResolver
 {
     public function resolve ( ResourceLocator $locator )
     {
-        $baseUrl = $this->_basePath . "/claroline/exercise/";
+        $baseUrl = get_module_url('CLQWZ');
         
         if ( $locator->hasResourceId() )
         {
-            $url = "exercise_submit.php?exId={$elementCRLArray['resource_id']}&cidReq={$elementCRLArray['course_sys_code']}";
-            return $baseUrl . $url;
+            $url = "exercise_submit.php?exId={$locator->getResourceId()}&cidReq={$locator->getCourseId()}";
+            return $baseUrl . '/' . $url;
         }
         else
         {
