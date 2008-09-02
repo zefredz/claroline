@@ -1144,6 +1144,7 @@ class ResourceLinker
     public static $Navigator;
     
     private static $_initialized = false;
+    private static $_userAgentInitialized = false;
     
     public static function init()
     {
@@ -1156,6 +1157,27 @@ class ResourceLinker
         }
     }
     
+    protected static function initUserAgent()
+    {
+        if ( ! self::$_userAgentInitialized )
+        {
+            JavascriptLoader::getInstance()->load('jquery.livequery');
+            JavascriptLoader::getInstance()->load('claroline.linker');
+            CssLoader::getInstance()->load('linker', 'all');
+        }
+    }
+    
+    public static function setCurrentCrl( $currentCrl )
+    {
+        // Init Client Side Linker
+        self::initUserAgent();
+        
+        // Set current CRL
+        ClaroHeader::getInstance()->addInlineJavascript(
+             'linkerFrontend.currentCrl = "'.$currentCrl.'";' . "\n"
+        );
+    }
+    
     public static function renderLinkerBlock($backendUrl = null)
     {
         if( empty($backendUrl) )
@@ -1166,16 +1188,15 @@ class ResourceLinker
         self::init();
         
         // Init Client Side Linker
-        JavascriptLoader::getInstance()->load('jquery.livequery');
-        JavascriptLoader::getInstance()->load('claroline.linker');
+        self::initUserAgent();
+        
         // init linkerFronted
         ClaroHeader::getInstance()->addInlineJavascript(
              'linkerFrontend.base_url = "'.$backendUrl.'";' . "\n"
-            .'linkerFrontend.deleteIconUrl = "'.get_icon_url('delete').'";'
-            .'Claroline.lang["Attach"] = "'.get_lang('Attach').'";'
-            .'Claroline.lang["Delete"] = "'.get_lang('Delete').'";'
+            .'linkerFrontend.deleteIconUrl = "'.get_icon_url('delete').'";'. "\n"
+            .'Claroline.lang["Attach"] = "'.get_lang('Attach').'";'. "\n"
+            .'Claroline.lang["Delete"] = "'.get_lang('Delete').'";'. "\n"
         );
-        CssLoader::getInstance()->load('linker', 'all');
         
         return '<div id="lnk_panel">' . "\n"
             . '<div id="lnk_ajax_loading"><img src="'.get_icon_url('loading').'" alt="" /></div>' . "\n"
