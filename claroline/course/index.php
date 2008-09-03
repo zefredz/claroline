@@ -29,29 +29,10 @@ require '../inc/claro_init_global.inc.php';
 include get_path('incRepositorySys') . '/lib/course_home.lib.php';
 include claro_get_conf_repository() . 'rss.conf.php';
 
-require_once get_path('clarolineRepositorySys') . '/linker/linker.inc.php';
-
 if ( !claro_is_in_a_course()  || !claro_is_course_allowed() ) claro_disp_auth_form(true);
 
 $toolRepository = get_path('clarolineRepositoryWeb');
 claro_set_display_mode_available(TRUE);
-
-/*
- * Load javascript for management of the linker into the main text zone
- * see 'introductionSection.inc.php' file included later in the script
- */
-
-if (      isset( $_REQUEST['introCmd'] )
-     && ( $_REQUEST['introCmd']== 'rqEd' || $_REQUEST['introCmd'] == 'rqAdd') )
-{
-    $GLOBALS['introId'] = isset ($_REQUEST['introId']) ? $_REQUEST['introId'] : null;
-    linker_init_session();
-    if (claro_is_jpspan_enabled())
-    {
-        linker_set_local_crl( isset ($_REQUEST['introId']), 'CLINTRO_' );
-    }
-    linker_html_head_xtra();
-}
 
 /*
  * Language initialisation of the tool names

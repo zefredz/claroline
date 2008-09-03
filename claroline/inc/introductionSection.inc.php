@@ -19,7 +19,6 @@ $output = '';
 
 set_current_module_label('CLINTRO');
 
-// require_once get_path('clarolineRepositorySys') . 'linker/linker.inc.php';
 FromKernel::uses('core/linker.lib');
 ResourceLinker::init();
 
