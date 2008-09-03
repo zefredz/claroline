@@ -41,8 +41,8 @@ class MyMessages extends UserDesktopPortlet
         .    '<thead>' . "\n"
         .      '<tr class="headerX" align="center" valign="top">' . "\n"
         .        '<th>&nbsp;</th>' . "\n"
-        .        '<th>' . get_lang('From') . '</th>' . "\n"
         .        '<th>' . get_lang('Subject') . '</th>' . "\n"
+        .        '<th>' . get_lang('Sender') . '</th>' . "\n"
         .        '<th>' . get_lang('Date') . '</th>' . "\n"
         .      '</tr>' . "\n"
         .    '</thead>' . "\n"
@@ -67,12 +67,12 @@ class MyMessages extends UserDesktopPortlet
                 $output .= "\n"
                 .      '<tr ' . $classMessage . '>' . "\n"
                 .       '<td>' . $iconMessage . '</td>' . "\n"
-                .       '<td>' . htmlspecialchars( $message->getSenderLastName() ) . '&nbsp;' . htmlspecialchars( $message->getSenderFirstName() ) . '</td>' . "\n"
                 .       '<td>'
                 .       '<a href="' . get_path( 'clarolineRepositoryWeb' ) . 'messaging/readmessage.php?messageId=' . $message->getId() . '&amp;type=received">'
                 .       htmlspecialchars( $message->getSubject() )
                 .       '</a>' . "\n"
                 .       '</td>' . "\n"
+                .       '<td>' . htmlspecialchars( $message->getSenderLastName() ) . '&nbsp;' . htmlspecialchars( $message->getSenderFirstName() ) . '</td>' . "\n"
                 .       '<td align="center">' . claro_html_localised_date( get_locale( 'dateFormatLong' ), strtotime( $message->getSendTime() ) ) . '</td>' . "\n"
                 .      '</tr>' . "\n"
                 ;
