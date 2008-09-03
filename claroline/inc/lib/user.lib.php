@@ -1241,7 +1241,7 @@ function user_html_form($data, $form_type='registration')
     }
     elseif ('add_new_user' == $form_type )
     {
-        $html .= form_row( '<label for="applyChange">' . get_lang('Save changes') . ' : </label>'
+        $html .= form_row( '&nbsp;'
                          , '<input type="submit" name="applyChange" id="applyChange" value="' . get_lang('Ok') . '" />&nbsp;'
                          . '<input type="submit" name="applySearch" id="applySearch" value="' . get_lang('Search') . '" />&nbsp;'
                          . claro_html_button(htmlspecialchars(Url::Contextualize( $_SERVER['HTTP_REFERER'] )), get_lang('Cancel'))
@@ -1293,6 +1293,70 @@ function user_html_form($data, $form_type='registration')
     return $html;
 }
 
+/**
+ * Display form to search already registered users to add to course
+ * Used when course managers can only add already registered users to their courses
+ * @author Jean-Roch Meurisse <jmeuriss@fundp.ac.be>
+ * @param $data array to fill the form
+ */
+function user_html_search_form( $data )
+{
+    // init form
+    $html = '<form action="' . htmlspecialchars( $_SERVER['PHP_SELF'] ) . '" method="post" enctype="multipart/form-data" >' . "\n"
+    .       claro_form_relay_context()
+
+    // hidden fields
+    .       form_input_hidden( 'cmd', 'registration' )
+    .       form_input_hidden( 'claroFormId', uniqid( '' ) )
+    ;
+
+    // init table
+    $html .= '<table class="claroRecord" cellpadding="3" cellspacing="0" border="0">' . "\n";
+
+    // display search criteria
+    $html .= form_input_text( 'lastname', '', get_lang( 'Last name' ), false );   
+    $html .= form_input_text( 'firstname', '', get_lang( 'First name' ), false );
+    if ( get_conf( 'ask_for_official_code' ) )
+    {
+        $html .= form_input_text( 'officialCode', '', get_lang( 'Administrative code' ), false );
+    }
+    $html .= form_input_text( 'username', '', get_lang( 'Username' ), false );
+    
+    $html .= form_input_text( 'email', $data['email'], get_lang( 'Email' ), false );
+
+    // Profile settings for user to add (tutor/course manager)
+    $html .= form_row( get_lang( 'Group Tutor' ) . '&nbsp;: ',
+                        '<input type="radio" name="tutor" value="1" id="tutorYes" '
+                        . ( $data['tutor'] ? 'checked="checked"' : '' ) . ' />'
+                        . '<label for="tutorYes">' . get_lang( 'Yes' ) . '</label>'
+                
+                        . '<input type="radio" name="tutor" value="0"  id="tutorNo" '
+                        . ( !$data['tutor'] ? 'checked="checked"' : '' ) . ' />'
+                        . '<label for="tutorNo">' . get_lang( 'No' ) . '</label>' 
+                        );
+   
+    $html .= form_row( get_lang( 'Manager' ) . '&nbsp;: ',
+                        '<input type="radio" name="courseAdmin" value="1" id="courseAdminYes" '
+                        . ( $data['courseAdmin'] ? 'checked="checked"' : '') . ' />'
+                        . '<label for="courseAdminYes">' . get_lang( 'Yes' ) . '</label>'
+                        . '<input type="radio" name="courseAdmin" value="0" id="courseAdminNo" '
+                        . ( $data['courseAdmin'] ? '' : 'checked="checked"' ) . ' />'
+                        . '<label for="courseAdminNo">' . get_lang( 'No' ) . '</label>' 
+                        );
+    
+    // Submit  
+    $html .= form_row( '&nbsp;',
+                         '<input type="submit" name="applySearch" id="applySearch" value="' . get_lang( 'Search' ) . '" />&nbsp;'
+                         . claro_html_button( htmlspecialchars( Url::Contextualize( $_SERVER['HTTP_REFERER'] ) ), get_lang( 'Cancel' ) )
+                         );
+                         
+    // close table and form
+    $html .= '</table>' . "\n"
+    .        '</form>' . "\n"
+    ;
+
+    return $html;
+}
 /**
  * @param array $criterionList -
  *        Allowed keys are 'name', 'firstname', 'email', 'officialCode','username'
