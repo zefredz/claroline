@@ -125,6 +125,10 @@ if ( $is_allowedToEdit )
     else                               $content = '';
 
     $lasting = ( isset($_REQUEST['content']) ? trim($_REQUEST['lasting']) : '');
+    
+    if ( isset($_REQUEST['location']) ) $location = trim($_REQUEST['location']);
+    else                             $location = '';
+    
 
     $autoExportRefresh = FALSE;
     
@@ -133,7 +137,7 @@ if ( $is_allowedToEdit )
         $date_selection = $_REQUEST['fyear'] . '-' . $_REQUEST['fmonth'] . '-' . $_REQUEST['fday'];
         $hour           = $_REQUEST['fhour'] . ':' . $_REQUEST['fminute'] . ':00';
 
-        $entryId = agenda_add_item($title,$content, $date_selection, $hour, $lasting) ;
+        $entryId = agenda_add_item($title,$content, $date_selection, $hour, $lasting, $location) ;
         
         if ( $entryId != false )
         {
@@ -178,7 +182,7 @@ if ( $is_allowedToEdit )
 
         if ( !empty($id) )
         {
-            if ( agenda_update_item($id,$title,$content,$date_selection,$hour,$lasting))
+            if ( agenda_update_item($id,$title,$content,$date_selection,$hour,$lasting,$location))
             {
                 $dialogBox->success( get_lang('Event updated into the agenda') );
                 
@@ -295,6 +299,7 @@ if ( $is_allowedToEdit )
             $editedEvent['content'       ] = '';
             $editedEvent['date'] = time();
             $editedEvent['lastingAncient'] = FALSE;
+            $editedEvent['location'      ] = '';
 
             $nextCommand = 'exAdd';
         }
@@ -384,6 +389,17 @@ if ($display_form)
     .    '<input type="hidden" name="id"  value="' . $editedEvent['id'] . '" />'
     .    '<table>' . "\n"
     .    '<tr valign="top">' . "\n"
+    .    '<td align="right">' . "\n"
+    .    '<label for="title">' . "\n"
+    .    get_lang('Title') . "\n"
+    .    ' : </label>' . "\n"
+    .    '</td>' . "\n"
+    .    '<td>' . "\n"
+    .    '<input size="80" type="text" name="title" id="title" value="'
+    .    htmlspecialchars($editedEvent['title']). '" />' . "\n"
+    .    '</td>' . "\n"
+    .    '</tr>' . "\n"
+    .    '<tr valign="top">' . "\n"
     .    '<td align="right">' . get_lang('Date') . ' : '
     .    '</td>' . "\n"
     .    '<td>'
@@ -400,15 +416,12 @@ if ($display_form)
     .    '<input type="text" name="lasting" id="lasting" size="20" maxlength="20" value="' . htmlspecialchars($editedEvent['lastingAncient']) . '" />'
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
-    .    '<tr valign="top">' . "\n"
-    .    '<td align="right">' . "\n"
-    .    '<label for="title">' . "\n"
-    .    get_lang('Title') . "\n"
-    .    ' : </label>' . "\n"
+    .    '<tr>' . "\n"
+    .    '<td align="right">'
+    .    '<label for="location">' . get_lang('Location') . '</label> : '
     .    '</td>' . "\n"
-    .    '<td>' . "\n"
-    .    '<input size="80" type="text" name="title" id="title" value="'
-    .    htmlspecialchars($editedEvent['title']). '" />' . "\n"
+    .    '<td>'
+    .    '<input type="text" name="location" id="location" size="20" maxlength="20" value="' . htmlspecialchars($editedEvent['location']) . '" />'
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '<tr valign="top">' . "\n"
@@ -581,7 +594,8 @@ foreach ( $eventList as $thisEvent )
         .    '<img src="' . get_icon_url('agenda') . '" alt=" " />&nbsp;'
         .    ucfirst(claro_html_localised_date( get_locale('dateFormatLong'), strtotime($thisEvent['day']))) . ' '
         .    ucfirst( strftime( get_locale('timeNoSecFormat'), strtotime($thisEvent['hour']))) . ' '
-        .    ( empty($thisEvent['lasting']) ? '' : get_lang('Lasting') . ' : ' . $thisEvent['lasting'] )
+        .    ( empty($thisEvent['lasting']) ? '' : get_lang('Lasting') . ' : ' . $thisEvent['lasting'] ) . ' '
+        .    ( empty($thisEvent['location']) ? '' : get_lang('Location') . ' : ' . $thisEvent['location'] )
         .    '</span>';
 
         /*
