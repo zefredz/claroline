@@ -36,7 +36,7 @@ if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
 include_once get_path('incRepositorySys') . '/lib/statsUtils.lib.inc.php';
-include_once get_path('incRepositorySys') . '/lib/pear/Lite.php';
+include_once get_path('incRepositorySys') . '/lib/thirdparty/pear/Lite.php';
 include_once claro_get_conf_repository() . 'CLKCACHE.conf.php';
 
 // right
