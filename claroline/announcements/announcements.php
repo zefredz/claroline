@@ -67,7 +67,10 @@ require_once './lib/announcement.lib.php';
 
 // get some shared lib
 require_once get_path('incRepositorySys') . '/lib/sendmail.lib.php';
-require_once get_path('clarolineRepositorySys') . '/linker/linker.inc.php';
+// require_once get_path('clarolineRepositorySys') . '/linker/linker.inc.php';
+
+FromKernel::uses('core/linker.lib');
+ResourceLinker::init();
 
 // get specific conf file
 require claro_get_conf_repository() . 'ical.conf.php';
@@ -109,27 +112,17 @@ $cmdList=array();
 
 if($is_allowedToEdit) // check teacher status
 {
-    
-    //------------------------
-    //linker
-
-    if ( !isset($_REQUEST['cmd']) )
-    {
-        linker_init_session();
-    }
-
-    if( claro_is_jpspan_enabled() )
-    {
-           linker_set_local_crl( isset ($_REQUEST['id']) );
-    }
-
     if( isset($_REQUEST['cmd'])
           && ($_REQUEST['cmd'] == 'rqCreate' || $_REQUEST['cmd'] == 'rqEdit')  )
     {
-        linker_html_head_xtra();
+        if ( 'rqEdit' == $_REQUEST['cmd'] )
+        {
+            $currentLocator = ResourceLinker::$Navigator->getCurrentLocator(
+                    array( 'id' => (int) $_REQUEST['id'] ) );
+            
+            ResourceLinker::setCurrentLocator( $currentLocator );
+        }
     }
-    //linker
-    //------------------------
 
     $autoExportRefresh = FALSE;
     if ( !empty($cmd) )
@@ -160,7 +153,7 @@ if($is_allowedToEdit) // check teacher status
                 $eventNotifier->notifyCourseEvent('anouncement_deleted', claro_get_current_course_id(), claro_get_current_tool_id(), $id, claro_get_current_group_id(), '0');
                 $autoExportRefresh = TRUE;
 
-                linker_delete_resource();
+                // linker_delete_resource();
             }
             else
             {
@@ -183,7 +176,7 @@ if($is_allowedToEdit) // check teacher status
                 $eventNotifier->notifyCourseEvent('all_anouncement_deleted', claro_get_current_course_id(), claro_get_current_tool_id(), $announcementList , claro_get_current_group_id(), '0');
                 $autoExportRefresh = TRUE;
 
-                linker_delete_all_tool_resources();
+                // linker_delete_all_tool_resources();
             }
             else
             {
@@ -264,9 +257,15 @@ if($is_allowedToEdit) // check teacher status
                 {
                     $dialogBox->success( get_lang('Announcement has been modified') );
 
-                    // update linker and get error log
-                    $linkerUpdateLog = linker_update();
-                    if( !empty($linkerUpdateLog) ) $dialogBox->info( $linkerUpdateLog );
+                    $currentLocator = ResourceLinker::$Navigator->getCurrentLocator(
+                        array( 'id' => (int) $_REQUEST['id'] ) );
+                    
+                    $resourceList =  isset($_REQUEST['resourceList'])
+                        ? $_REQUEST['resourceList']
+                        : array()
+                        ;
+                        
+                    ResourceLinker::updateLinkList( $currentLocator, $resourceList );
 
                     $eventNotifier->notifyCourseEvent('anouncement_modified', claro_get_current_course_id(), claro_get_current_tool_id(), $id, claro_get_current_group_id(), '0');
                     if (CONFVAL_LOG_ANNOUNCEMENT_UPDATE) $claroling->log('ANNOUNCEMENT', array ('UPDATE_ENTRY'=>$_REQUEST['id']));
@@ -285,9 +284,15 @@ if($is_allowedToEdit) // check teacher status
                 {
                     $dialogBox->success( get_lang('Announcement has been added') );
 
-                    // update linker and get error log
-                    $linkerUpdateLog = linker_update();
-                    if( !empty($linkerUpdateLog) ) $dialogBox->info( $linkerUpdateLog );
+                    $currentLocator = ResourceLinker::$Navigator->getCurrentLocator(
+                        array( 'id' => (int) $insert_id ) );
+                    
+                    $resourceList =  isset($_REQUEST['resourceList'])
+                        ? $_REQUEST['resourceList']
+                        : array()
+                        ;
+                        
+                    ResourceLinker::updateLinkList( $currentLocator, $resourceList );
 
                     $eventNotifier->notifyCourseEvent('anouncement_added',claro_get_current_course_id(), claro_get_current_tool_id(), $insert_id, claro_get_current_group_id(), '0');
                     if (CONFVAL_LOG_ANNOUNCEMENT_INSERT) $claroline->log('ANNOUNCEMENT',array ('INSERT_ENTRY'=>$insert_id));
@@ -318,7 +323,7 @@ if($is_allowedToEdit) // check teacher status
                 // attached resource
                 $body = $msgContent . "\n" .
                     "\n" .
-                    linker_display_resource()
+                    ResourceLinker::renderLinkList( $currentLocator );
                 ;
               
                 require_once dirname(__FILE__) . '/../messaging/lib/message/messagetosend.lib.php';
@@ -493,16 +498,14 @@ if ( $displayForm )
     //---------------------
     // linker
 
-    if( claro_is_jpspan_enabled() )
+    if ( 'rqEdit' == $_REQUEST['cmd'] )
     {
-        linker_set_local_crl( isset ($_REQUEST['id']) );
-        $output .= linker_set_display();
+        ResourceLinker::setCurrentLocator(
+            ResourceLinker::$Navigator->getCurrentLocator(
+                array( 'id' => (int) $_REQUEST['id'] ) ) );
     }
-    else // popup mode
-    {
-        if(isset($_REQUEST['id'])) $output .= linker_set_display($_REQUEST['id']);
-        else                       $output .= linker_set_display();
-    }
+    
+    $output .= ResourceLinker::renderLinkerBlock();
 
     $output .= '</td>' . "\n"
     .    '</tr>' . "\n"
@@ -511,14 +514,7 @@ if ( $displayForm )
     .    '<td>' . "\n"
     ;
 
-    if( claro_is_jpspan_enabled() )
-    {
-        $output .= '<input type="submit" onclick="linker_confirm();" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />'."\n";
-    }
-    else
-    {
-        $output .= '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />'."\n";
-    }
+    $output .= '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />'."\n";
 
     $output .= claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])), 'Cancel')
         . '</td>'
@@ -593,8 +589,9 @@ if ($displayList)
                 .    claro_parse_user_text($content) . "\n"
                 .    '</div>' . "\n"
                 ;
-
-                $output .= linker_display_resource();
+                
+                $currentLocator = ResourceLinker::$Navigator->getCurrentLocator( array('id' => $thisAnnouncement['id'] ) );
+                $output .= ResourceLinker::renderLinkList( $currentLocator );
 
                 if ($is_allowedToEdit)
                 {
