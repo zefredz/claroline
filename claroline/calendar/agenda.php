@@ -30,7 +30,9 @@ if (claro_is_in_a_group()) $currentContext = claro_get_current_context(array('co
 else                       $currentContext = claro_get_current_context('course');
 //**/
 
-require_once get_path('clarolineRepositorySys') . '/linker/linker.inc.php';
+FromKernel::uses('core/linker.lib');
+ResourceLinker::init();
+
 require_once './lib/agenda.lib.php';
 require_once get_path('incRepositorySys') . '/lib/form.lib.php';
 
@@ -58,24 +60,19 @@ $cmdList[]=  '<a class="claroCmd" href="'
 
 if ( $is_allowedToEdit )
 {
-    if ( !isset($_REQUEST['cmd']) )
-    {
-        linker_init_session();
-    }
-
-    if( claro_is_jpspan_enabled() )
-    {
-        linker_set_local_crl( isset ($_REQUEST['id']) );
-    }
-
 // 'rqAdd' ,'rqEdit', 'exAdd','exEdit', 'exDelete', 'exDeleteAll', 'mkShow', 'mkHide'
 
-
     if ( isset($_REQUEST['cmd'])
-    && ( 'rqAdd' == $_REQUEST['cmd'] || 'rqEdit' == $_REQUEST['cmd'] )
+        && ( 'rqAdd' == $_REQUEST['cmd'] || 'rqEdit' == $_REQUEST['cmd'] )
     )
     {
-        linker_html_head_xtra();
+        if ( 'rqEdit' == $_REQUEST['cmd'] )
+        {
+            $currentLocator = ResourceLinker::$Navigator->getCurrentLocator(
+                    array( 'id' => (int) $_REQUEST['id'] ) );
+            
+            ResourceLinker::setCurrentLocator( $currentLocator );
+        }
     }
 }
 
@@ -130,19 +127,25 @@ if ( $is_allowedToEdit )
     $lasting = ( isset($_REQUEST['content']) ? trim($_REQUEST['lasting']) : '');
 
     $autoExportRefresh = FALSE;
+    
     if ( 'exAdd' == $cmd )
     {
         $date_selection = $_REQUEST['fyear'] . '-' . $_REQUEST['fmonth'] . '-' . $_REQUEST['fday'];
         $hour           = $_REQUEST['fhour'] . ':' . $_REQUEST['fminute'] . ':00';
 
         $entryId = agenda_add_item($title,$content, $date_selection, $hour, $lasting) ;
+        
         if ( $entryId != false )
         {
             $dialogBox->success( get_lang('Event added to the agenda') );
-
-            // update linker and get error log
-            $linkerUpdateLog = linker_update();
-            if( !empty($linkerUpdateLog) ) $dialogBox->info( $linkerUpdateLog );
+            
+            $currentLocator = ResourceLinker::$Navigator->getCurrentLocator(
+                array( 'id' => (int) $entryId ) );
+            
+            if ( isset($_REQUEST['resourceList']) )
+            {
+                ResourceLinker::updateLinkList( $currentLocator, $_REQUEST['resourceList'] );
+            }
 
             if ( CONFVAL_LOG_CALENDAR_INSERT )
             {
@@ -176,10 +179,14 @@ if ( $is_allowedToEdit )
             if ( agenda_update_item($id,$title,$content,$date_selection,$hour,$lasting))
             {
                 $dialogBox->success( get_lang('Event updated into the agenda') );
-
-                // update linker and get error log
-                $linkerUpdateLog = linker_update();
-                if( !empty($linkerUpdateLog) ) $dialogBox->info( $linkerUpdateLog );
+                
+                $currentLocator = ResourceLinker::$Navigator->getCurrentLocator(
+                    array( 'id' => (int) $id ) );
+                
+                if ( isset($_REQUEST['resourceList']) )
+                {
+                    ResourceLinker::updateLinkList( $currentLocator, $_REQUEST['resourceList'] );
+                }
 
                 $eventNotifier->notifyCourseEvent('agenda_event_modified', claro_get_current_course_id(), claro_get_current_tool_id(), $id, claro_get_current_group_id(), '0'); // notify changes to event manager
                 $autoExportRefresh = TRUE;
@@ -214,7 +221,7 @@ if ( $is_allowedToEdit )
             $dialogBox->error( get_lang('Unable to delete event from the agenda') );
         }
 
-        linker_delete_resource();
+        // linker_delete_resource();
     }
 
     /*----------------------------------------------------------------------------
@@ -237,7 +244,7 @@ if ( $is_allowedToEdit )
             $dialogBox->error( get_lang('Unable to delete all events from the agenda') );
         }
 
-        linker_delete_all_tool_resources();
+        // linker_delete_all_tool_resources();
     }
     /*-------------------------------------------------------------------------
     EDIT EVENT VISIBILITY
@@ -419,30 +426,21 @@ if ($display_form)
 
     //---------------------
     // linker
-
-    if( claro_is_jpspan_enabled() )
+    
+    if ( 'rqEdit' == $_REQUEST['cmd'] )
     {
-        linker_set_local_crl( isset ($_REQUEST['id']) );
-        $htmloutput .= linker_set_display();
+        ResourceLinker::setCurrentLocator(
+            ResourceLinker::$Navigator->getCurrentLocator(
+                array( 'id' => (int) $_REQUEST['id'] ) ) );
     }
-    else // popup mode
-    {
-        if(isset($_REQUEST['id'])) $htmloutput .= linker_set_display($_REQUEST['id']);
-        else                       $htmloutput .= linker_set_display();
-    }
+    
+    $htmloutput .= ResourceLinker::renderLinkerBlock();
 
     $htmloutput .= '</td></tr>' . "\n"
     .    '<tr valign="top"><td>&nbsp;</td><td>' . "\n"
     ;
 
-    if( claro_is_jpspan_enabled() )
-    {
-        $htmloutput .= '<input type="submit" onclick="linker_confirm();"  class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />' . "\n";
-    }
-    else // popup mode
-    {
-        $htmloutput .= '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />' . "\n";
-    }
+    $htmloutput .= '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />' . "\n";
 
     // linker
     //---------------------
@@ -595,8 +593,8 @@ foreach ( $eventList as $thisEvent )
         .    ( empty($thisEvent['content']) ? '' :  claro_parse_user_text($thisEvent['content']) )
         .    '</div>' . "\n"
         ;
-
-        $htmloutput .= linker_display_resource();
+        $currentLocator = ResourceLinker::$Navigator->getCurrentLocator( array('id' => $thisEvent['id'] ) );
+        $htmloutput .= ResourceLinker::renderLinkList( $currentLocator );
     }
 
     if ($is_allowedToEdit)
