@@ -85,7 +85,7 @@ class ClaroCourse
         $this->extLinkUrl = '';
         $this->language     = get_conf('platformLanguage');
         # FIXME FIXME FIXME
-        $this->access       = 'public'; //get_conf('defaultAccessOnCourseCreation');
+        $this->access       = get_conf('defaultAccessOnCourseCreation');
         $this->visibility   = get_conf('defaultVisibilityOnCourseCreation');
         $this->registration = get_conf('defaultRegistrationOnCourseCreation') ;
         $this->registrationKey = '';
@@ -554,7 +554,7 @@ class ClaroCourse
             . '<img src="' . get_icon_url('access_open') . '" alt="' . get_lang('open') . '" />'
             . '<input type="radio" id="access_public" name="course_access" value="public" ' . ($this->access == 'public' ? 'checked="checked"':'') . ' />'
             . '&nbsp;'
-            . '<label for="access_public">' . get_lang('Access allowed to anybody even without login') . '</label>'
+            . '<label for="access_public">' . get_lang('Access allowed to anybody (even without login)') . '</label>'
             . '<br />' . "\n"
             . '<img src="' . get_icon_url('access_open') . '" alt="' . get_lang('open') . '" />'
             . '<input type="radio" id="access_reserved" name="course_access" value="platform" ' . ($this->access == 'platform' ? 'checked="checked"':'') . ' />'

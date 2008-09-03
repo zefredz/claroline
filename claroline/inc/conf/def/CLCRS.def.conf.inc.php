@@ -108,12 +108,13 @@ array ('label'       => 'Default course visibility'
 $conf_def_property_list['defaultAccessOnCourseCreation'] =
 array ('label'       => 'Default course access'
       ,'description' => ''
-      ,'default'     => TRUE
-      ,'type'        => 'boolean'
+      ,'default'     => 'public'
+      ,'type'        => 'enum'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
-      ,'acceptedValue' => array ('TRUE' => 'Public'
-                                ,'FALSE'=> 'Private'
+      ,'acceptedValue' => array ('public' => 'Public'
+                                ,'private'=> 'Reserved to course members'
+                                ,'platform'=> 'Reserved to platform members'
                                 )
       );
 
