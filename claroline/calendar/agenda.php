@@ -142,10 +142,12 @@ if ( $is_allowedToEdit )
             $currentLocator = ResourceLinker::$Navigator->getCurrentLocator(
                 array( 'id' => (int) $entryId ) );
             
-            if ( isset($_REQUEST['resourceList']) )
-            {
-                ResourceLinker::updateLinkList( $currentLocator, $_REQUEST['resourceList'] );
-            }
+            $resourceList =  isset($_REQUEST['resourceList'])
+                ? $_REQUEST['resourceList']
+                : array()
+                ;
+                
+            ResourceLinker::updateLinkList( $currentLocator, $resourceList );
 
             if ( CONFVAL_LOG_CALENDAR_INSERT )
             {
@@ -183,10 +185,12 @@ if ( $is_allowedToEdit )
                 $currentLocator = ResourceLinker::$Navigator->getCurrentLocator(
                     array( 'id' => (int) $id ) );
                 
-                if ( isset($_REQUEST['resourceList']) )
-                {
-                    ResourceLinker::updateLinkList( $currentLocator, $_REQUEST['resourceList'] );
-                }
+                $resourceList =  isset($_REQUEST['resourceList'])
+                    ? $_REQUEST['resourceList']
+                    : array()
+                    ;
+                    
+                ResourceLinker::updateLinkList( $currentLocator, $resourceList );
 
                 $eventNotifier->notifyCourseEvent('agenda_event_modified', claro_get_current_course_id(), claro_get_current_tool_id(), $id, claro_get_current_group_id(), '0'); // notify changes to event manager
                 $autoExportRefresh = TRUE;
@@ -593,6 +597,7 @@ foreach ( $eventList as $thisEvent )
         .    ( empty($thisEvent['content']) ? '' :  claro_parse_user_text($thisEvent['content']) )
         .    '</div>' . "\n"
         ;
+        
         $currentLocator = ResourceLinker::$Navigator->getCurrentLocator( array('id' => $thisEvent['id'] ) );
         $htmloutput .= ResourceLinker::renderLinkList( $currentLocator );
     }
