@@ -442,7 +442,7 @@ switch ( $display )
             .    '<input type="hidden" name="enclosedBy" value="' . htmlspecialchars( $_SESSION['CSV_enclosedBy'] ) . '" />' . "\n"
             .    '<input type="hidden" name="AddType" value="' . htmlspecialchars( $AddType ) . '" />' . "\n"
             .    '<br />' . "\n"
-            .    get_lang('CSV file with the user list : ')
+            .    get_lang('CSV file with the user list :')
             .    '<input type="file" name="CSVfile" />' . "\n"
             .    '<br /><br />' . "\n"
             .    '<input type="submit" name="submitCSV" value="' . get_lang('Add user list') . '" />' . "\n"
