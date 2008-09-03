@@ -64,7 +64,7 @@ $userPerPage = get_conf('nbUsersPerPage',50);
 $is_allowedToEdit = claro_is_allowed_to_edit();
 
 $can_add_single_user = (bool) (claro_is_course_manager()
-                     && get_conf('is_coursemanager_allowed_to_add_single_user') )
+                     && get_conf('is_coursemanager_allowed_to_enroll_single_user') )
                      || claro_is_platform_admin();
 $can_import_user_list = (bool) (claro_is_course_manager()
                      && get_conf('is_coursemanager_allowed_to_import_user_list') )

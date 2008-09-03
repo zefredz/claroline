@@ -72,15 +72,15 @@ array ( 'label'   => 'Number of user per page'
 $conf_def['section']['add_user']['label'] = 'Add user';
 $conf_def['section']['add_user']['description'] = '';
 $conf_def['section']['add_user']['properties'] =
-array ( 'is_coursemanager_allowed_to_add_single_user'
-      , 'allowSearchInAddUser'
+array ( 'is_coursemanager_allowed_to_register_single_user'
+	  ,	'is_coursemanager_allowed_to_enroll_single_user'
       , 'is_coursemanager_allowed_to_import_user_list'
       , 'is_coursemanager_allowed_to_import_user_class'
 
 );
 
-$conf_def_property_list['is_coursemanager_allowed_to_add_single_user'] =
-array('label'         => 'Teacher can add a user in his course'
+$conf_def_property_list['is_coursemanager_allowed_to_register_single_user'] =
+array('label'         => 'Teachers can register new users to the campus'
      ,'default'       => TRUE
      ,'type'          => 'boolean'
      ,'display'       => TRUE
@@ -90,17 +90,16 @@ array('label'         => 'Teacher can add a user in his course'
                               )
      );
 
-$conf_def_property_list['allowSearchInAddUser'] =
-array ('label'         => 'Allow search in the add user option'
-      ,'description'   => 'User search in the user tool is allowed'
-      ,'display'       => TRUE
-      ,'readonly'      => FALSE
-      ,'default'       => TRUE
-      ,'type'          => 'boolean'
-      ,'acceptedValue' => array ('TRUE'  => 'Allowed'
-                                ,'FALSE' => 'Denied'
-                                )
-      );
+$conf_def_property_list['is_coursemanager_allowed_to_enroll_single_user'] =
+array('label'         => 'Teacher can add a user in his course'
+     ,'default'       => TRUE
+     ,'type'          => 'boolean'
+     ,'display'       => TRUE
+     ,'readonly'      => FALSE
+     ,'acceptedValue' => array ('TRUE'=>'Yes'
+                              ,'FALSE'=>'No'
+                              )
+     );
 
 $conf_def_property_list['is_coursemanager_allowed_to_import_user_list'] =
 array('label'         => 'Teacher can import user list in his course'

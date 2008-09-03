@@ -21,8 +21,9 @@ require '../inc/claro_init_global.inc.php';
 
 // Security check
 if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
+
 $can_add_single_user     = (bool) (claro_is_course_manager()
-                     && get_conf('is_coursemanager_allowed_to_add_single_user') )
+                     && get_conf('is_coursemanager_allowed_to_enroll_single_user') )
                      || claro_is_platform_admin();
 if ( ! $can_add_single_user ) claro_die(get_lang('Not allowed'));
 
@@ -208,7 +209,9 @@ if ($cmd == 'applySearch')
             && empty($userData['username'    ])
             && empty($userData['officialCode']) ) )
     {
+
         $userList = user_search( array('lastname'     => $userData['lastname'],
+                                       'firstname'	  => $userData['firstname'],
                                        'email'        => $userData['email'],
                                        'officialCode' => $userData['officialCode'],
                                        'username'       => $userData['username']),
@@ -264,6 +267,9 @@ else
 {
     if ($displayResultTable) //display result of search (if any)
     {
+        $enrollmentLabel = $userData['courseAdmin'] ? get_lang('Enrol as teacher') : get_lang('Enrol as student');
+        $enrollmentLabel .= $userData['tutor'] ? '&nbsp;-&nbsp;' . get_lang('tutor') : '';
+                
         $regUrlAddParam = '';
         if ( $userData['tutor'        ] ) $regUrlAddParam .= '&amp;tutor=1';
         if ( $userData['courseAdmin'  ] ) $regUrlAddParam .= '&amp;courseAdmin=1';
@@ -280,7 +286,7 @@ else
         .    '<th>' . get_lang('Administrative code') . '</th>' . "\n"
         .    '<th>' . get_lang('Username')               . '</th>' . "\n"
         .    '<th>' . get_lang('Email')               . '</th>' . "\n"
-        .    '<th>' . get_lang('Enrol as student')            . '</th>' . "\n"
+        .    '<th>' . $enrollmentLabel            . '</th>' . "\n"
         .    '</tr>' . "\n"
         .    '</thead>' . "\n"
         .    '<tbody>' . "\n"
@@ -298,13 +304,12 @@ else
            ;
 
             // deal with already registered users found in result
-
             if ( empty($thisUser['registered']) )
             {
                 echo '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
                 .    '?cmd=registration'
                 .    '&amp;userId=' . $thisUser['uid'] . $regUrlAddParam )) . '">'
-                .    '<img src="' . get_icon_url('enroll') . '" alt="' . get_lang('Enrol as student') . '" />'
+                .    '<img src="' . get_icon_url('enroll') . '" alt="' . $enrollmentLabel . '" />'
                 .    '</a>'
                 ;
             }
@@ -336,10 +341,20 @@ else
 
     if ($displayForm)
     {
+        if( get_conf( 'is_coursemanager_allowed_to_register_single_user' ) || claro_is_platform_admin() )
+        {
         echo '<p>' . get_lang('Add user manually') . ' :</p>'
         .    '<p>' . get_lang('He or she will receive email confirmation with login and password') . '</p>' . "\n"
         .    user_html_form_add_new_user($userData)
         ;
+        }
+        else
+        {
+            echo '<p>' . get_lang('Search user to add to your course') . ' :</p>'
+            .    '<p>' . get_lang('Fill in one or more search criteria, select user profile parameters for your course and press \'Search\'') . '</p>' . "\n"
+            .    user_html_search_form($userData)
+            ;
+        }
     }
 } // end else of if ( $courseRegSucceed )
 
