@@ -203,7 +203,7 @@ function get_menu_item_list($type)
             $menu['AdminTechnical'][] =  claro_html_tool_link('devTools', get_lang('Devel Tools'));
         }
 
-        $menu['Communication'][] = '<a href="../messaging/admin.php">'.get_lang('Internal messaging system').'</a>';
+        $menu['Communication'][] = '<a href="../messaging/admin.php">'.get_lang('Internal messaging').'</a>';
 
     }
 
