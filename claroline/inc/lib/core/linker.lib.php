@@ -109,7 +109,7 @@ class ClarolineResourceLocator implements ResourceLocator
     
     public function setModuleLabel( $moduleLabel )
     {
-        $this->moduleLabel = $moduleLabel;
+        $this->moduleLabel = rtrim( $moduleLabel, '_' );
     }
     
     public function inModule()
