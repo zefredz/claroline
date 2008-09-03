@@ -1290,7 +1290,14 @@ class ResourceLinker
         $alreadyLinkedResourceList = self::getLinkList( $locator );
         $alreadyLinkedResourceList->setFetchMode( Database_ResultSet::FETCH_COLUMN );
         
-        $alreadyLinkedResourceList = iterator_to_array($alreadyLinkedResourceList);
+        if ( count( $alreadyLinkedResourceList ) )
+        {
+            $alreadyLinkedResourceList = iterator_to_array($alreadyLinkedResourceList);
+        }
+        else
+        {
+            $alreadyLinkedResourceList = array();
+        }
         
         $deletedResourceList = array();
         $addedResourceList = array();
