@@ -15,9 +15,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 global $introId;
 $GLOBALS['moduleId'] = -1;
 
+$output = '';
 
+set_current_module_label('CLINTRO');
 
-require_once get_path('clarolineRepositorySys') . 'linker/linker.inc.php';
+// require_once get_path('clarolineRepositorySys') . 'linker/linker.inc.php';
+FromKernel::uses('core/linker.lib');
+ResourceLinker::init();
 
 $tbl_cdb_names = claro_sql_get_course_tbl();
 $TBL_INTRODUCTION = $tbl_cdb_names['tool_intro'];
@@ -29,11 +33,13 @@ $intro_editAllowed = claro_is_allowed_to_edit();
 if ( isset($_REQUEST['introCmd']) && $intro_editAllowed )
 {
     $introCmd = $_REQUEST['introCmd'];
-    // linker_init_session();
-
-    if ( claro_is_jpspan_enabled() )
+    
+    if ( isset( $_REQUEST['introId'] ) )
     {
-        linker_set_local_crl( isset($_REQUEST['introId']) );
+        $currentLocator = ResourceLinker::$Navigator->getCurrentLocator(
+            array( 'id' => (int) $_REQUEST['introId'] ) );
+        
+        ResourceLinker::setCurrentLocator( $currentLocator );
     }
 }
 else
@@ -70,11 +76,15 @@ if ($intro_editAllowed)
 
            if ( $introId )
            {
-             linker_update('CLINTRO_');
-           }
-           else
-           {
-             // unsucceed
+                $currentLocator = ResourceLinker::$Navigator->getCurrentLocator(
+                    array( 'id' => (int) $introId ) );
+                
+                $resourceList =  isset($_REQUEST['resourceList'])
+                    ? $_REQUEST['resourceList']
+                    : array()
+                    ;
+                    
+                ResourceLinker::updateLinkList( $currentLocator, $resourceList );
            }
     }
 
@@ -91,7 +101,16 @@ if ($intro_editAllowed)
 
            if ( claro_sql_query($sql) != false)
            {
-                linker_update('CLINTRO_');
+                $currentLocator = ResourceLinker::$Navigator->getCurrentLocator(
+                    array( 'id' => (int) $introId ) );
+                
+                $resourceList =  isset($_REQUEST['resourceList'])
+                    ? $_REQUEST['resourceList']
+                    : array()
+                    ;
+                    
+                ResourceLinker::updateLinkList( $currentLocator, $resourceList );
+                
                 // notify that a new introsection has been posted
                 $claroline->notifier->notifyCourseEvent('introsection_modified', claro_get_current_course_id(), claro_get_current_tool_id(), $GLOBALS['moduleId'], claro_get_current_group_id(), '0');
            }
@@ -129,7 +148,7 @@ if ($intro_editAllowed)
 
         if ( claro_sql_query($sql) != false )
         {
-            linker_delete_resource('CLINTRO_');
+            // linker_delete_resource('CLINTRO_');
         }
     }
 
@@ -225,7 +244,7 @@ if ($intro_dispForm)
     $introId      = isset($introSettingList['id']) ? $introSettingList['id'] : false;
     $introEditorCmdValue = $introId ? 'exEd' : 'exAdd';
 
-    echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
+    $output .= '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
     .    '<input type="hidden" name="claroFormId" value="'.uniqid(time()).'" />'
     .    '<input type="hidden" name="introCmd" value="' . $introEditorCmdValue . '" />'
     .    ($introId ? '<input type="hidden" name="introId" value="'.$introId.'" />' : '')
@@ -233,24 +252,18 @@ if ($intro_dispForm)
     .    '<br />'."\n"
     ;
 
-    //---------------------
-    // linker
-
-    if( claro_is_jpspan_enabled() )
+    if ( isset( $_REQUEST['introId'] ) )
     {
-        linker_set_local_crl( isset ($_REQUEST['introId'] ), 'CLINTRO_' );
-        echo linker_set_display();
-        echo '<input type="submit" class="claroButton" name="submitEvent" onclick="linker_confirm();" value="' . get_lang('Ok') . '" />&nbsp;'."\n";
+        ResourceLinker::setCurrentLocator(
+            ResourceLinker::$Navigator->getCurrentLocator(
+                array( 'id' => (int) $_REQUEST['introId'] ) ) );
     }
-    else // popup mode
-    {
-        if(isset($_REQUEST['introId'])) echo linker_set_display($_REQUEST['introId'], 'CLINTRO_', 'introId');
-        else                       echo linker_set_display(false, 'CLINTRO_');
+    
+    $output .= ResourceLinker::renderLinkerBlock();
+    
+    $output .= '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />&nbsp;'."\n";
 
-        echo '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />&nbsp;'."\n";
-    }
-
-    echo claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
+    $output .= claro_html_button($_SERVER['PHP_SELF'], get_lang('Cancel'))
     .    '<br />' . "\n"
     .    '</form>' . "\n\n"
     ;
@@ -270,7 +283,7 @@ if ($intro_dispDefault)
 
     if ( $introListCount == 0 && $intro_editAllowed )
     {
-        echo '<div class="HelpText">' . "\n"
+        $output .= '<div class="HelpText">' . "\n"
         .    get_block('blockIntroCourse') . "\n"
         .    '</div>'                 . "\n";
     }
@@ -297,10 +310,10 @@ if ($intro_dispDefault)
                 {
                     $section .= '<div style="text-align:center;background-color:silver;margin:3px;">' . get_lang('This zone is empty') . '</div>' . "\n";
                 }
-
-                $section .= linker_display_resource('CLINTRO_');
-
-
+                
+                $currentLocator = ResourceLinker::$Navigator->getCurrentLocator( array('id' => $thisTextIntro['id'] ) );
+                $section .= ResourceLinker::renderLinkList( $currentLocator );
+                
                 if ($intro_dispCommand)
                 {
                     $section .= '<div class="toolbar">' . "\n";
@@ -374,7 +387,7 @@ if ($intro_dispDefault)
                     $section .= '</div>' . "\n\n";
                 }
 
-                echo $section;
+                $output .= $section;
             }
         } // end foreach textIntroList
 
@@ -382,7 +395,7 @@ if ($intro_dispDefault)
 
     if ($intro_dispCommand)
     {
-        echo '<p>' . "\n"
+        $output .= '<p>' . "\n"
         .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?introCmd=rqAdd">'
         .    '<img src="' . get_icon_url('textzone') . '" alt="" />'
         .    get_lang('Add Text')
@@ -391,3 +404,7 @@ if ($intro_dispDefault)
         ;
     }
 } // end if intro_dispDefault
+
+clear_current_module_label();
+
+echo $output;
