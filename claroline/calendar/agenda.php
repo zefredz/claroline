@@ -357,18 +357,16 @@ else
         ;
 }
 
+$htmloutput = '';
 
-// Display header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$htmloutput .= claro_html_tool_title(array('mainTitle' => $nameTools, 'subTitle' => $subTitle));
 
-echo claro_html_tool_title(array('mainTitle' => $nameTools, 'subTitle' => $subTitle));
-
-echo $dialogBox->render();
+$htmloutput .= $dialogBox->render();
 
 
 if ($display_form)
 {
-    echo '<form method="post" action="' . htmlspecialchars( $_SERVER['PHP_SELF'] ) . '">'
+    $htmloutput .= '<form method="post" action="' . htmlspecialchars( $_SERVER['PHP_SELF'] ) . '">'
     .    claro_form_relay_context()
     .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'
     .    '<input type="hidden" name="cmd" value="' . $nextCommand . '" />'
@@ -425,30 +423,30 @@ if ($display_form)
     if( claro_is_jpspan_enabled() )
     {
         linker_set_local_crl( isset ($_REQUEST['id']) );
-        echo linker_set_display();
+        $htmloutput .= linker_set_display();
     }
     else // popup mode
     {
-        if(isset($_REQUEST['id'])) echo linker_set_display($_REQUEST['id']);
-        else                       echo linker_set_display();
+        if(isset($_REQUEST['id'])) $htmloutput .= linker_set_display($_REQUEST['id']);
+        else                       $htmloutput .= linker_set_display();
     }
 
-    echo '</td></tr>' . "\n"
+    $htmloutput .= '</td></tr>' . "\n"
     .    '<tr valign="top"><td>&nbsp;</td><td>' . "\n"
     ;
 
     if( claro_is_jpspan_enabled() )
     {
-        echo '<input type="submit" onclick="linker_confirm();"  class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />' . "\n";
+        $htmloutput .= '<input type="submit" onclick="linker_confirm();"  class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />' . "\n";
     }
     else // popup mode
     {
-        echo '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />' . "\n";
+        $htmloutput .= '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />' . "\n";
     }
 
     // linker
     //---------------------
-    echo claro_html_button($_SERVER['PHP_SELF'], 'Cancel') . "\n"
+    $htmloutput .= claro_html_button($_SERVER['PHP_SELF'], 'Cancel') . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '</table>' . "\n"
@@ -456,32 +454,32 @@ if ($display_form)
     ;
 }
 
-if ( $display_command ) echo '<p>' . claro_html_menu_horizontal($cmdList) . '</p>';
+if ( $display_command ) $htmloutput .= '<p>' . claro_html_menu_horizontal($cmdList) . '</p>';
 
 $monthBar     = '';
 
 if ( count($eventList) < 1 )
 {
-    echo "\n" . '<br /><blockquote>' . get_lang('No event in the agenda') . '</blockquote>' . "\n";
+    $htmloutput .= "\n" . '<br /><blockquote>' . get_lang('No event in the agenda') . '</blockquote>' . "\n";
 }
 else
 {
     if ( $orderDirection == 'DESC' )
     {
-        echo '<br /><a href="'
+        $htmloutput .= '<br /><a href="'
             . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?order=asc' ))
             .'" >' . get_lang('Oldest first') . '</a>' . "\n"
             ;
     }
     else
     {
-        echo '<br /><a href="'
+        $htmloutput .= '<br /><a href="'
             . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?order=desc' ))
             . '" >' . get_lang('Newest first') . '</a>' . "\n"
             ;
     }
 
-    echo "\n" . '<table class="claroTable" width="100%">' . "\n";
+    $htmloutput .= "\n" . '<table class="claroTable" width="100%">' . "\n";
 }
 
 $nowBarAlreadyShowed = FALSE;
@@ -522,7 +520,7 @@ foreach ( $eventList as $thisEvent )
             {
                 $monthBar = date('m',time());
 
-                echo '<tr>' . "\n"
+                $htmloutput .= '<tr>' . "\n"
                 .    '<th class="superHeader" colspan="2" valign="top">' . "\n"
                 .    ucfirst(claro_html_localised_date('%B %Y', time()))
                 .    '</th>' . "\n"
@@ -533,7 +531,7 @@ foreach ( $eventList as $thisEvent )
 
             // 'NOW' Bar
 
-            echo '<tr>' . "\n"
+            $htmloutput .= '<tr>' . "\n"
             .    '<td>' . "\n"
             .    '<img src="' . get_icon_url('pixel') . '" width="20" alt=" " />'
             .    '<span class="highlight">'
@@ -562,7 +560,7 @@ foreach ( $eventList as $thisEvent )
         {
             $monthBar = date('m', strtotime($thisEvent['day']));
 
-            echo '<tr>' . "\n"
+            $htmloutput .= '<tr>' . "\n"
             .    '<th class="superHeader" valign="top">'
             .    ucfirst(claro_html_localised_date('%B %Y', strtotime( $thisEvent['day']) ))
             .    '</th>' . "\n"
@@ -574,7 +572,7 @@ foreach ( $eventList as $thisEvent )
         * Display the event date
         */
 
-        echo '<tr class="headerX" valign="top">' . "\n"
+        $htmloutput .= '<tr class="headerX" valign="top">' . "\n"
         .    '<th>' . "\n"
         .    '<span class="'. $cssItem . $cssInvisible .'">' . "\n"
         .    '<a href="#form" name="event' . $thisEvent['id'] . '"></a>' . "\n"
@@ -588,7 +586,7 @@ foreach ( $eventList as $thisEvent )
         * Display the event content
         */
 
-        echo '</th>' . "\n"
+        $htmloutput .= '</th>' . "\n"
         .    '</tr>' . "\n"
         .    '<tr>' . "\n"
         .    '<td>' . "\n"
@@ -598,12 +596,12 @@ foreach ( $eventList as $thisEvent )
         .    '</div>' . "\n"
         ;
 
-        echo linker_display_resource();
+        $htmloutput .= linker_display_resource();
     }
 
     if ($is_allowedToEdit)
     {
-        echo '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;id=' . $thisEvent['id'] )) . '">'
+        $htmloutput .= '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;id=' . $thisEvent['id'] )) . '">'
         .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Modify') . '" />'
         .    '</a> '
         .    '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;id=' . $thisEvent['id'] )) . '" '
@@ -615,26 +613,26 @@ foreach ( $eventList as $thisEvent )
         //  Visibility
         if ('SHOW' == $thisEvent['visibility'])
         {
-            echo '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=mkHide&amp;id=' . $thisEvent['id'] )) . '">'
+            $htmloutput .= '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=mkHide&amp;id=' . $thisEvent['id'] )) . '">'
             .    '<img src="' . get_icon_url('visible') . '" alt="' . get_lang('Invisible') . '" />'
             .    '</a>' . "\n";
         }
         else
         {
-            echo '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=mkShow&amp;id=' . $thisEvent['id'] )) . '">'
+            $htmloutput .= '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=mkShow&amp;id=' . $thisEvent['id'] )) . '">'
             .    '<img src="' . get_icon_url('invisible') . '" alt="' . get_lang('Visible') . '" />'
             .    '</a>' . "\n"
             ;
         }
     }
-    echo '</td>'."\n"
+    $htmloutput .= '</td>'."\n"
     .    '</tr>'."\n"
     ;
 
 }   // end while
 
-if ( count($eventList) > 0 ) echo '</table>';
+if ( count($eventList) > 0 ) $htmloutput .= '</table>';
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+Claroline::getDisplay()->body->appendContent( $htmloutput );
 
-?>
+echo Claroline::getDisplay()->render();
