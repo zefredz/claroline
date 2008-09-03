@@ -323,7 +323,7 @@ if($is_allowedToEdit) // check teacher status
                 // attached resource
                 $body = $msgContent . "\n" .
                     "\n" .
-                    ResourceLinker::renderLinkList( $currentLocator );
+                    ResourceLinker::renderLinkList( $currentLocator, true );
                 ;
               
                 require_once dirname(__FILE__) . '/../messaging/lib/message/messagetosend.lib.php';

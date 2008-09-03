@@ -1232,7 +1232,7 @@ class ResourceLinker
             ;
     }
     
-    public static function renderLinkList( ResourceLocator $locator )
+    public static function renderLinkList( ResourceLocator $locator, $forExternalUse = false )
     {
         self::init();
         
@@ -1256,8 +1256,17 @@ class ResourceLinker
             {
                 $locator = ClarolineResourceLocator::parse($link->crl);
                 
+                $url = self::$Resolver->resolve( $locator );
+                
+                if ( $forExternalUse == true )
+                {
+                    $url = rtrim( str_replace( get_conf('urlAppend'), '', get_path( 'rootWeb' ) ), '/')
+                        . '/' . ltrim( $url, '/' )
+                        ;
+                }
+                
                 $htmlLinkList .= '<li><a href="'
-                    . htmlspecialchars( self::$Resolver->resolve( $locator ) )
+                    . htmlspecialchars( $url )
                     . '" class="lnk_link" id="' . ClarolineResourceLocator::crlToId( $link->crl ) . '">'
                     . htmlspecialchars( self::$Resolver->getResourceName( $locator ) )
                     . '</a></li>' . "\n"
