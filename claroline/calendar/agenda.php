@@ -614,13 +614,13 @@ foreach ( $eventList as $thisEvent )
         if ('SHOW' == $thisEvent['visibility'])
         {
             $htmloutput .= '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=mkHide&amp;id=' . $thisEvent['id'] )) . '">'
-            .    '<img src="' . get_icon_url('visible') . '" alt="' . get_lang('Invisible') . '" />'
+            .    '<img src="' . get_icon_url('visible') . '" alt="" />'
             .    '</a>' . "\n";
         }
         else
         {
             $htmloutput .= '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=mkShow&amp;id=' . $thisEvent['id'] )) . '">'
-            .    '<img src="' . get_icon_url('invisible') . '" alt="' . get_lang('Visible') . '" />'
+            .    '<img src="' . get_icon_url('invisible') . '" alt="" />'
             .    '</a>' . "\n"
             ;
         }
