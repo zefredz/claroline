@@ -113,7 +113,7 @@ if (isset($_REQUEST['search']) && in_array($_REQUEST['search'],$acceptedSearch))
     if ($arguments['search'] == 'fromUser')
     {
         $name = isset($_REQUEST['name']) ? trim(strip_tags($_REQUEST['name'])) : NULL; 
-        $title = get_lang('All messages from a user');
+        $subTitle = get_lang('All messages from a user');
         if (is_null($name) || $name == "")
         {
             $displayTable = FALSE;
@@ -127,7 +127,7 @@ if (isset($_REQUEST['search']) && in_array($_REQUEST['search'],$acceptedSearch))
 
     if ($arguments['search'] == 'olderThan')
     {
-        $title = get_lang('All messages older than');
+        $subTitle = get_lang('All messages older than');
         
         $date = isset($_REQUEST['date']) ? $_REQUEST['date'] : NULL;
         
@@ -160,7 +160,7 @@ if (isset($_REQUEST['search']) && in_array($_REQUEST['search'],$acceptedSearch))
     
     if ($arguments['search'] == 'timeInterval')
     {
-        $title = get_lang('All messages in date interval');
+        $subTitle = get_lang('All messages in date interval');
         
         $date1 = isset($_REQUEST['date1']) ? $_REQUEST['date1'] : NULL;
         
@@ -208,7 +208,7 @@ if (isset($_REQUEST['search']) && in_array($_REQUEST['search'],$acceptedSearch))
 
     if ($arguments['search'] == 'platformMessage')
     {
-        $title = get_lang('All messages older than');
+        $subTitle = get_lang('All platform messages');
         $strategy->setStrategy(AdminBoxStrategy::PLATFORM_MESSAGE);
     }    
 }
@@ -339,8 +339,8 @@ if ($arguments['search'] == 'olderThan')
             });
         </script>';
     $claroline->display->header->addHtmlHeader($javascript);   
-    $disp = '
-        Select a date:<br />'."\n"."\n"
+    $disp = "\n"
+        . get_lang('Select date') . '<br />'."\n"
         . '<form action="'.$_SERVER['PHP_SELF'].'?search=olderThan" method="post">'."\n"
         . '<input type="text" name="date" value="'.$date.'" id="dateinput" />'.get_lang('(jj/mm/aaaa)').'<br />'."\n"
         . '<input type="submit" value="'.get_lang('search').'" />'."\n"
@@ -381,9 +381,9 @@ if ($arguments['search'] == 'timeInterval')
                 } 
             });
         </script>';
-    $claroline->display->header->addHtmlHeader($javascript);    
-    $disp = '
-        Select a interval:<br />'."\n"
+    $claroline->display->header->addHtmlHeader($javascript);
+    $disp = "\n"
+        . get_lang('Select interval') . '<br />'."\n"
         . '<form action="'.$_SERVER['PHP_SELF'].'?search=timeInterval" method="post">'."\n"
         . get_lang('From').' <input type="text" name="date1" value="'.$date1.'" class="daterange" id="dateinput1" /> '."\n"
         . get_lang('to').' <input type="text" name="date2" value="'.$date2.'" class="daterange" id="dateinput2" /> '.get_lang('(jj/mm/aaaa)').'<br />'."\n"
@@ -418,7 +418,7 @@ if ($displayTable)
                return false;
            }
         
-           if (confirm(" Are you sure to delete the selected message ?"))
+           if (confirm("'.clean_str_for_javascript(get_lang('Are you sure to delete selected message(s) ?')).'"))
            {
                $("input[@name=cmd]").val("exDeleteSelection");
                return true;
@@ -542,9 +542,11 @@ if ($displayTable)
 
 // ------------------- render ----------------------------
 $claroline->display->banner->breadcrumbs->append(get_lang('Administration'),get_path('rootAdminWeb'));
-$claroline->display->banner->breadcrumbs->append(get_lang('Messages'),'admin.php');
-$claroline->display->banner->breadcrumbs->append(get_lang('Search messages'),'admin_search.php?search='.$arguments['search']);
+$claroline->display->banner->breadcrumbs->append(get_lang('Internal messaging'),'admin.php');
+$claroline->display->banner->breadcrumbs->append(get_lang('Search'),'admin_search.php?search='.addslashes($arguments['search']));
 
+$title['mainTitle'] = get_lang('Internal messaging') . ' - ' . get_lang('Search');
+$title['subTitle'] = $subTitle;
 $claroline->display->body->appendContent(claro_html_tool_title($title));
 $claroline->display->body->appendContent($content);
 

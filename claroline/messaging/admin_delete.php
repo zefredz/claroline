@@ -70,13 +70,13 @@ if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCommand))
     // -------- delete all
     if ($_REQUEST['cmd'] == "rqDeleteAll")
     {
-        $claroline->display->body->appendContent(claro_html_tool_title(get_lang('Internal messaging')." - ".get_lang('Delete all messages')));
+        $subTitle = get_lang('Delete all messages');
         $displayRemoveAllConfirmation = TRUE;
     }
     
     if ($_REQUEST['cmd'] == "exDeleteAll")
     {
-        $claroline->display->body->appendContent(claro_html_tool_title(get_lang('Internal messaging')." - ".get_lang('Delete all messages')));
+        $subTitle = get_lang('Delete all messages');
         $box = new AdminMessageBox();
         $box->deleteAllMessages();
         $displayRemoveAllValidated = TRUE;
@@ -85,7 +85,7 @@ if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCommand))
     // -----------delete from user
     if ($_REQUEST['cmd'] == 'rqFromUser')
     {
-        $claroline->display->body->appendContent(claro_html_tool_title(get_lang('Internal messaging')." - ".get_lang('Delete all user\'s messages')));
+        $subTitle = get_lang('Delete all user\'s messages');
         $arguments['cmd'] = 'rqFromUser';
         if ( ! is_null($userId) )
         {
@@ -160,7 +160,7 @@ if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCommand))
     
     if ( 'exFromUser' == $_REQUEST['cmd'] && ! is_null($userId))
     {
-        $claroline->display->body->appendContent(claro_html_tool_title(get_lang('Internal messaging')." - ".get_lang('Delete all user\'s messages')));
+        $subTitle = get_lang('Delete all user\'s messages');
         $box = new AdminMessageBox();
         $box->deleteAllMessageFromUser($userId);
         $displayRemoveFromUserValidated = TRUE;
@@ -168,13 +168,13 @@ if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCommand))
     // delete older than
     if ( 'rqOlderThan' == $_REQUEST['cmd'] )
     {
-        $claroline->display->body->appendContent(claro_html_tool_title(get_lang('Internal messaging')." - ".get_lang('Delete messages older than')));
+        $subTitle = get_lang('Delete messages older than');
         $displayRemoveOlderThanConfirmation = TRUE;
     }
     
     if ( 'exOlderThan' == $_REQUEST['cmd'] && isset($_REQUEST['date']))
     {
-        $claroline->display->body->appendContent(claro_html_tool_title(get_lang('Internal messaging')." - ".get_lang('Delete messages older than')));
+        $subTitle = get_lang('Delete messages older than');
         $box = new AdminMessageBox();
         
         list($day,$month,$year) = explode('/',$_REQUEST['date']);
@@ -196,12 +196,12 @@ if (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$acceptedCommand))
     // -------- delete platform message
     if ( 'rqPlatformMessage' == $_REQUEST['cmd'] )
     {
-        $claroline->display->body->appendContent(claro_html_tool_title(get_lang('Internal messaging')." - ".get_lang('Delete platform messages')));
+        $subTitle = get_lang('Delete platform messages');
         $displayRemovePlatformMessageConfirmation = TRUE;
     }  
     elseif ( 'exPlatformMessage' == $_REQUEST['cmd'] )
     {
-        $claroline->display->body->appendContent(claro_html_tool_title(get_lang('Internal messaging')." - ".get_lang('Delete platform messages')));
+        $subTitle = get_lang('Delete platform messages');
         $box = new AdminMessageBox();
         $box->deletePlatformMessage();
         $displayRemovePlatformMessageValidated = TRUE;
@@ -319,7 +319,7 @@ if ($displayResultUserSearch)
        .'<th>' . get_lang('Id') . '</th>' . "\n"
        .'<th><a href="' . $linkSorting . 'name&amp;order='.$nextOrder.'">' . get_lang('Name') . '</a></th>'."\n"
        .'<th><a href="' . $linkSorting . 'username&amp;order='.$nextOrder.'">' . get_lang('Username') . '</a></th>'."\n"
-       .'<th>' . get_lang('Action') . '</th>'."\n"
+       .'<th>' . get_lang('Delete messages') . '</th>'."\n"
        .'</tr>' . "\n\n"
        ;
 
@@ -349,10 +349,10 @@ if ($displayResultUserSearch)
                 . '<td>' . $user['id'] . '</td>' . "\n"
                 . '<td>' . get_lang('%firstName %lastName', array ('%firstName' =>htmlspecialchars($user['firstname']), '%lastName' => htmlspecialchars($user['lastname']))).'</td>'."\n"
                 . '<td>' . $user['username'] . '</td>' . "\n"
-                . '<td>' 
+                . '<td align="center">' 
                 . '<a href="' . $linkDelete . 'cmd=rqFromUser&amp;userId=' . $user['id'] . '" '
                 . ' onclick="return deleteMessageFromUser(\'' . $linkDelete . 'cmd=exFromUser&amp;userId=' . $user['id'] . '\')">'
-                . 'delete messages</a></td>' . "\n"
+                . '<img src="'.get_icon_url('delete').'" alt="'.get_lang('Delete messages').'" /></a></td>' . "\n"
                 . '</tr>' . "\n\n"
                 ; 
         }
@@ -414,7 +414,7 @@ if ($displayRemoveOlderThanConfirmation)
                 .' :<br />'
                 . '<form action="'.$_SERVER['PHP_SELF'].'?cmd=rqOlderThan" method="post">'
                 . '<input type="text" name="date" value="'.date('d/m/Y').'" id="dateinput" /> '.get_lang('(jj/mm/aaaa)').'<br />'
-                . '<input type="submit" value="delete" />'
+                . '<input type="submit" value="'.get_lang('Delete').'" />'
                 . '</form>'
                 ;
         $dialogBox = new DialogBox();
@@ -487,7 +487,12 @@ if ($displayRemovePlatformMessageValidated)
 
 // ------------------- render ----------------------------
 $claroline->display->banner->breadcrumbs->append(get_lang('Administration'),get_path('rootAdminWeb'));
-$claroline->display->banner->breadcrumbs->append(get_lang('Messages'),'admin.php');
+$claroline->display->banner->breadcrumbs->append(get_lang('Internal messaging'),'admin.php');
+$claroline->display->banner->breadcrumbs->append(get_lang('Delete'),'admin_delete.php?cmd='.addslashes($_REQUEST['cmd']));
+
+$title['mainTitle'] = get_lang('Internal messaging') . ' - ' . get_lang('Delete');
+$title['subTitle'] = $subTitle;
+$claroline->display->body->appendContent(claro_html_tool_title($title));
 
 $claroline->display->body->appendContent($content);
 

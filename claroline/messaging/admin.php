@@ -70,7 +70,7 @@ $content .=
         ;
 
 $claroline->display->banner->breadcrumbs->append(get_lang('Administration'),get_path('rootAdminWeb'));
-$claroline->display->banner->breadcrumbs->append(get_lang('Messages'),'admin.php');
+$claroline->display->banner->breadcrumbs->append(get_lang('Internal messaging'),'admin.php');
 
 
 $claroline->display->body->appendContent(claro_html_tool_title(get_lang('Administration')));
