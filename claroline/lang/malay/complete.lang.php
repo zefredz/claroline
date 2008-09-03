@@ -216,7 +216,6 @@ $_lang['Previous week'] = 'Minggu Sebelumnya';
 $_lang['Previous year'] = 'Tahun Sebelumnya';
 $_lang['Private'] = 'Khusus';
 $_lang['Public'] = 'Umum';
-$_lang['Public access from campus home page even without login'] = 'Capaian Umum (Subjek boleh dicapai tanpa proses <i>login</i>)';
 $_lang['Publish'] = 'Terbitkan';
 $_lang['Published on'] = 'Diterbitkan pada';
 $_lang['Question'] = 'Soalan';

@@ -115,7 +115,6 @@ $_lang['Posts'] = 'Publicacions';
 $_lang['Powered by'] = 'Potenciat per ';
 $_lang['Private'] = 'privat';
 $_lang['Public'] = 'públic';
-$_lang['Public access from campus home page even without login'] = 'Accés públic des de la plana principal del campus fins i tot sense iniciar sessió';
 $_lang['Publish'] = 'Publica';
 $_lang['Published on'] = 'Publicat el';
 $_lang['Question'] = 'Pregunta';

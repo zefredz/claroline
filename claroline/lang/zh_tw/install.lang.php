@@ -1,4 +1,4 @@
-<?php
+<?php 
 $_lang['%path is missing'] = '找不到 %path';
 $_lang['%requiredMark required field'] = '%requiredMark 必填欄位';
 $_lang['A database will be created for each course.'] = '每個課程將使用有一個獨立資料庫。';

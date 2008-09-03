@@ -211,7 +211,6 @@ $_lang['Previous week'] = 'Föregående vecka';
 $_lang['Previous year'] = 'Föregående år';
 $_lang['Private'] = 'privat';
 $_lang['Public'] = 'publik';
-$_lang['Public access from campus home page even without login'] = 'Publik åtkomst från campus hemsida även utan inloggning';
 $_lang['Publish'] = 'Publicera';
 $_lang['Published on'] = 'Publicerat den ';
 $_lang['Question'] = 'Fråga';

@@ -222,7 +222,6 @@ $_lang['Previous week'] = 'Предыдущая неделя';
 $_lang['Previous year'] = 'Предыдущий год';
 $_lang['Private'] = 'закрыт';
 $_lang['Public'] = 'открыт всем';
-$_lang['Public access from campus home page even without login'] = 'вободный доступ (со страницы Кампуса баз пароля)';
 $_lang['Publish'] = 'Опубликовать';
 $_lang['Published on'] = 'Опубликовано ';
 $_lang['Question'] = 'Вопрос';

@@ -1,4 +1,4 @@
-?php 
+<?php 
 $_lang['%path is missing'] = '%path is missing';
 $_lang['%requiredMark required field'] = '%requiredMark required field';
 $_lang['A database will be created for each course.'] = 'A database will be created for each course.';

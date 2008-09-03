@@ -63,7 +63,6 @@ $_lang['Allowed'] = 'مجاز است';
 $_lang['Allowed : do not record usernames in tracking, anonymous users can do the exercise.'] = 'مجاز است : نام‌های کاربری در ردیابی ثبت نشود، کاربران ناشناس می‌توانند تمرین را انجام دهند.';
 $_lang['Already browsed'] = 'قبلاً مرور شده است';
 $_lang['Already enroled'] = 'قبلاً ثبت نام شده است';
-$_lang['An error occured.  Learning Path import failed.'] = 'خطایی رخ داد. وارد کردن برنامه‌ی آموزشی شکست خورد.';
 $_lang['An error occurred while contacting Claroline.net'] = 'هنگام تماس با Claroline.net خطایی رخ داد';
 $_lang['Announcement has been added'] = 'اعلان اضافه شده است';
 $_lang['Announcement has been deleted'] = 'اعلان حذف شده است';
@@ -96,8 +95,6 @@ $_lang['Assignment type'] = 'نوع تکلیف';
 $_lang['Assignments help'] = 'راهنمای تکلیف';
 $_lang['Attach'] = 'پیوست شود';
 $_lang['Attach a file'] = 'پیوست کردن پرونده';
-$_lang['Attach an existing resource'] = 'پیوست منبع موجود';
-$_lang['Attached Resources : Add / Delete attachement'] = 'منابع پیوست شده : اضافه کردن / حذف پیوست';
 $_lang['Attached file'] = 'پرونده پیوست شد';
 $_lang['Attached resources'] = 'منابع پیوست شده';
 $_lang['Attempts'] = 'تلاش‌ها';
@@ -158,7 +155,6 @@ $_lang['Classes'] = 'کلاس‌ها';
 $_lang['Clear up event list'] = 'تمیز کردن فهرست رویدادها';
 $_lang['Clear up list of announcements'] = ' پاک کردن فهرست اعلان‌ها';
 $_lang['Close'] = 'بستن';
-$_lang['Close popup'] = 'واشو بسته شود';
 $_lang['Close window'] = 'بستن پنجره';
 $_lang['Comment'] = 'توضیح';
 $_lang['Comment modified'] = 'توضیح تغییر کرد';
@@ -249,8 +245,6 @@ $_lang['Devel Tools'] = 'ابزارهای توسعه';
 $_lang['Differences :'] = 'اختلاف‌ها :';
 $_lang['Directory created'] = 'شاخه ایجاد شد';
 $_lang['Disable'] = 'ازکار انداخته شود';
-$_lang['Display of detailled answers is not authorized.'] = 'اجازه‌ی نمایش جزئیات پاسخ‌ها داده نشده است.';
-$_lang['Do you really want to delete the category'] = 'آیا واقعاً می‌خواهید مقوله را حذف کنید';
 $_lang['Do you want to continue?'] = 'آیا می‌خواهید ادامه دهید؟';
 $_lang['Document'] = 'نوشتار';
 $_lang['Document deleted'] = 'نوشتار حذف شد';
@@ -296,7 +290,6 @@ $_lang['Enrol to course not allowed'] = 'ثبت نام در درس مجاز نی
 $_lang['Enroll a user'] = 'ثبت نام کاربر';
 $_lang['Enrolment'] = 'ثبت نام';
 $_lang['Enter'] = 'وارد کردن';
-$_lang['Enter link url'] = 'نشانی اینترنتی پیوند را وارد کنید';
 $_lang['Enter new password twice to change, leave empty to keep it'] = 'برای تغییر گذرواژه‌ی جدید را دوبار وارد کنید، برای نگه داشتن فعلی خالی بگذارید.';
 $_lang['Enter the description of your wiki here'] = 'شرح ویکی‌تان را اینجا وارد کنید';
 $_lang['Enter your email so we can send you your password.'] = 'پست الکترونیکی‌تان را وارد کنید تا بتوانیم گذرواژه‌تان را برایتان بفرستیم. ';
@@ -394,8 +387,6 @@ $_lang['Insert new name'] = 'وارد کردن نام جدید';
 $_lang['Institution'] = 'مؤسسه';
 $_lang['Institution URL'] = 'نشانی اینترنتی مؤسسه';
 $_lang['Invalid Wiki Id'] = 'شناسه‌ی ویکی نامعتبر';
-$_lang['Invalid email address'] = 'آدرس پست الکترونیکی نامعتبر';
-$_lang['Invalid url'] = 'نشانی اینترنتی نامعتبر';
 $_lang['Invisible'] = 'نامرئی';
 $_lang['Is platform admin'] = 'مدیر سیستم است';
 $_lang['It seems that you already have registered your campus.'] = 'به نظر می‌رسد شما قبلاً دانشگاه‌تان را ثبت کرده‌اید.';
@@ -476,7 +467,6 @@ $_lang['Multiple choice (Multiple answers)'] = 'چند گزینه‌ای (چند
 $_lang['Multiple choice (Unique answer)'] = 'چند گزینه‌ای (یک جوابی)';
 $_lang['My calendar'] = 'تقویم من';
 $_lang['My course list'] = 'فهرست درس‌های من';
-$_lang['My other courses'] = 'درس‌های دیگر من';
 $_lang['My personal course list'] = 'فهرست درس‌های من';
 $_lang['My results'] = 'نتایج من';
 $_lang['My user account'] = 'تغییر مجموعه تنظیمات من';
@@ -590,9 +580,7 @@ $_lang['Progress'] = 'پیشرفت';
 $_lang['Progression of users on all learning paths'] = 'پیشرفت کاربران در تمام برنامه‌های آموزشی';
 $_lang['Properties'] = 'مشخصات';
 $_lang['Public'] = 'عمومی';
-$_lang['Public access from campus home page even without login'] = 'دسترسی عمومی از صفحه‌ی آغازه‌ی دانشگاه حتی بدون ورود به سیستم';
 $_lang['Public course only'] = 'فقط درس عمومی';
-$_lang['Public courses'] = 'درس‌های عمومی';
 $_lang['Publish'] = 'انتشار';
 $_lang['Published on'] = 'منتشر شده در';
 $_lang['Question'] = 'سئوال';
@@ -764,8 +752,6 @@ $_lang['Unable to update category'] = 'به روز رساندن مقوله مم�
 $_lang['Unable to update external tool'] = 'به روز رساندن ابزار خارجی ممکن نیست';
 $_lang['Unable to update forum'] = 'به روز رساندن فوروم ممکن نیست.';
 $_lang['Unable to update the event into the agenda'] = 'به روز رساندن رویداد در دستور کار ممکن نیست.';
-$_lang['Unamed module'] = 'پیمانه بدون نام';
-$_lang['Unamed path'] = 'مسیر بدون نام';
 $_lang['Unassigned students'] = 'دانشجویان تخصیص داده نشده';
 $_lang['Unchanged line'] = 'خط تغییر نیافته';
 $_lang['Unregister'] = 'حذف ثبت نام';
@@ -840,7 +826,6 @@ $_lang['You are not allowed to create pages'] = 'شما مجاز به ایجاد
 $_lang['You are not allowed to edit this page'] = 'شما مجاز به ویرایش این صفحه نیستید';
 $_lang['You are not allowed to read this page'] = 'شما مجاز به خواندن این صفحه نیستید';
 $_lang['You are now a member of this group.'] = 'شما در حال حاضر عضو این گروه هستید.';
-$_lang['You can choose a title an a description for the wiki :'] = 'شما می‌توانید برای ویکی عنوان و شرح انتخاب کنید : ';
 $_lang['You can not change your own settings!'] = 'شما نمی‌توانید تنظیمات خودتان را تغییر دهید!';
 $_lang['You can not remove a group forum. You have to remove the group first'] = 'شما نمی‌توانید فوروم گروه را حذف کنید. اول باید گروه را حذف کنید ';
 $_lang['You can now create your  course'] = 'می‌توانید درس‌تان را ایجاد کنید';

@@ -206,7 +206,6 @@ $_lang['Previous week'] = 'Tuần trước';
 $_lang['Previous year'] = 'Năm trước';
 $_lang['Private'] = 'private';
 $_lang['Public'] = 'public';
-$_lang['Public access from campus home page even without login'] = 'Truy cập không cần login';
 $_lang['Publish'] = 'Xuất bản';
 $_lang['Published on'] = 'Ngày';
 $_lang['Question'] = 'Câu hỏi';

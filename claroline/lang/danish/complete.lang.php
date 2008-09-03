@@ -216,7 +216,6 @@ $_lang['Previous week'] = 'Tidligere uger';
 $_lang['Previous year'] = 'Tidligere år';
 $_lang['Private'] = 'lukket gruppe';
 $_lang['Public'] = 'åben gruppe';
-$_lang['Public access from campus home page even without login'] = 'Offentlig adgang til kurset fra E-learning\'s forside selv uden login.';
 $_lang['Publish'] = 'Udgiv';
 $_lang['Published on'] = 'Lagt ud';
 $_lang['Question'] = 'Spørgsmål';

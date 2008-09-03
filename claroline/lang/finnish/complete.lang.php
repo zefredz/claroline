@@ -77,7 +77,6 @@ $_lang['On'] = 'On';
 $_lang['Posted'] = 'L‰hett‰nyt';
 $_lang['Posts'] = 'L‰hett‰j‰t';
 $_lang['Powered by'] = 'Alusta';
-$_lang['Public access from campus home page even without login'] = 'Avoin p‰‰sy sivuston omalta sivulta ilman sis‰‰nkirjautumista';
 $_lang['Published on'] = 'Julkaistu ';
 $_lang['Question'] = 'Kysymys';
 $_lang['Remove'] = 'poista';

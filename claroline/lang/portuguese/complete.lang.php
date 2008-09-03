@@ -212,7 +212,6 @@ $_lang['Previous week'] = 'Semana anterior';
 $_lang['Previous year'] = 'Ano anterior';
 $_lang['Private'] = 'privado';
 $_lang['Public'] = 'p&uacute;blico';
-$_lang['Public access from campus home page even without login'] = 'Acesso p&uacute;blico (a partir da p&aacute;gina principal do Campus) sem identifica&ccedil;&atilde;o';
 $_lang['Publish'] = 'Publicar';
 $_lang['Published on'] = 'Publicado em';
 $_lang['Question'] = 'Pergunta';
