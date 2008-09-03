@@ -53,7 +53,7 @@ else
     }
     else                         
     {
-        claro_disp_auth_form(true);
+       claro_disp_auth_form(true);
     }
 }
 
@@ -86,11 +86,7 @@ if( is_null($userId) || empty($userData) )
     claro_die(get_lang('User not found'));
 }
 
-if( $userId != claro_get_current_user_id() )
-{
-    claro_die(get_lang('Not allowed'));
-}
-elseif( ! claro_is_course_manager() && ! claro_is_platform_admin() )
+if( ! claro_is_platform_admin() && ! claro_is_course_manager() && $userId != claro_get_current_user_id() )
 {
     claro_die(get_lang('Not allowed'));
 }
@@ -161,10 +157,11 @@ $cssLoader->load( 'tracking', 'screen');
 $claroline->setDisplayType( CL_PAGE );
 
 // FIXME (link + parameters)
-ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users statistics'), 'userReport.php' );
+$nameTools = get_lang('User access to course');
+ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, $_SERVER['PHP_SELF'].'?userId=' . $userId );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users statistics'), Url::Contextualize('userReport.php?userId=' . $userId) );
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users'), 'user.php' );
 
-$nameTools = get_lang('User access to course');
 
 $html = '';
 
