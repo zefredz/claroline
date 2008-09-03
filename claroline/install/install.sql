@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__cours` (
   `extLinkName` VARCHAR(30) DEFAULT NULL,
   `extLinkUrl` VARCHAR(180) DEFAULT NULL,
   `visibility` ENUM ('visible','invisible') DEFAULT 'visible' NOT NULL,
-  `access`     ENUM ('public','private', 'platform') DEFAULT 'public' NOT NULL,
+  `access`     ENUM ('public','private','platform') DEFAULT 'public' NOT NULL,
   `registration` ENUM ('open','close') DEFAULT 'open' NOT NULL,
   `registrationKey` VARCHAR(255) DEFAULT NULL,
   `diskQuota` INT(10) UNSIGNED DEFAULT NULL,
