@@ -492,7 +492,7 @@ if ($displayTable)
             $content .= 
                 '<tr>'."\n"
                 .'<td class="im_list_selection"><input type="checkbox" name="msg[]" value="'.$message->getId().'" /></td>'."\n"
-                .'<td>'.htmlspecialchars($message->getSubject()).'</td>'."\n"
+                .'<td><a href="readmessage.php?messageId='.$message->getId().'&amp;type=received">'.htmlspecialchars($message->getSubject()).'</a></td>'."\n"
                 .'<td><a href="sendmessage.php?cmd=rqMessageToUser&amp;userId='.$message->getSender().'">'
                         .get_lang('%firstName %lastName', array ('%firstName' =>htmlspecialchars($message->getSenderFirstName()), '%lastName' => htmlspecialchars($message->getSenderLastName())))
                 .     '</a>'
