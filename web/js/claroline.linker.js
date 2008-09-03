@@ -289,7 +289,7 @@ var linkerFrontend = {
              
              // add a form element
              $("#lnk_hidden_fields")
-             .append('<input name="ressourceList['+i+']" value="'+x+'" type="hidden">');
+             .append('<input name="resourceList['+i+']" value="'+x+'" type="hidden">');
              
              i++;
         }
@@ -311,7 +311,7 @@ var linkerFrontend = {
 
             // add a form element
             $("#lnk_hidden_fields")
-            .append('<input name="ressourceList['+ this.currentIdx +']" value="'+crl+'" type="hidden">');
+            .append('<input name="resourceList['+ this.currentIdx +']" value="'+crl+'" type="hidden">');
 
             this.currentIdx++;
         }
