@@ -554,12 +554,12 @@ class ClaroCourse
             . '<img src="' . get_icon_url('access_open') . '" alt="' . get_lang('open') . '" />'
             . '<input type="radio" id="access_public" name="course_access" value="public" ' . ($this->access == 'public' ? 'checked="checked"':'') . ' />'
             . '&nbsp;'
-            . '<label for="access_public">' . get_lang('Public access from campus home page even without login') . '</label>'
+            . '<label for="access_public">' . get_lang('Access allowed to anybody even without login') . '</label>'
             . '<br />' . "\n"
             . '<img src="' . get_icon_url('access_open') . '" alt="' . get_lang('open') . '" />'
             . '<input type="radio" id="access_reserved" name="course_access" value="platform" ' . ($this->access == 'platform' ? 'checked="checked"':'') . ' />'
             . '&nbsp;'
-            . '<label for="access_reserved">' . get_lang('Access allowed for any user identified on the platform') . '</label>'
+            . '<label for="access_reserved">' . get_lang('Access allowed only to platform members (user registered to the platform)') . '</label>'
             . '<br />' . "\n"
             . '<img src="' . get_icon_url('access_locked') . '"  alt="' . get_lang('locked') . '" />'
             . '<input type="radio" id="access_private" name="course_access" value="private" ' . ($this->access == 'private' ? 'checked="checked"':'' ) . ' />'
@@ -567,9 +567,9 @@ class ClaroCourse
             . '<label for="access_private">';
 
         if( empty($this->courseId) )
-            $html .= get_lang('Private access (site accessible only to people on the user list)');
+            $html .= get_lang('Access allowed only to course members (people on the user list)');
         else
-            $html .= get_lang('Private access (site accessible only to people on the <a href="%url">user list</a>)' , array('%url'=> '../user/user.php'));
+            $html .= get_lang('Access allowed only to course members (people on the <a href="%url">user list</a>)' , array('%url'=> '../user/user.php'));
 
         $html .= '</label>'
             . '</td>'
@@ -580,16 +580,22 @@ class ClaroCourse
         $html .= '<tr valign="top">' . "\n"
             . '<td align="right">' . get_lang('Enrolment') . '&nbsp;:</td>'
             . '<td>'
-            . '<img src="' . get_icon_url('success') . '"  alt="' . get_lang('open') . '" />'
-            . '<input type="radio" id="registration_true" name="course_registration" value="1" ' . ($this->registration?'checked="checked"':'') . ' />'
+            . '<img src="' . get_icon_url('success') . '"  alt="" />'
+            . '<input type="radio" id="registration_true" name="course_registration" value="1" ' . ($this->registration && empty($this->registrationKey) ?'checked="checked"':'') . ' />'
             . '&nbsp;'
             . '<label for="registration_true">' . get_lang('Allowed') . '</label>'
-            . '<label for="registrationKey">'
-            . ' - ' . get_lang('Enrolment key') . ' <small>(' . get_lang('Optional') . ')</small> : '
-            . '</label>'
+            . '<br />' . "\n"
+            . '<img src="' . get_icon_url('help') . '"  alt="" />'
+            . '<input type="radio" id="registration_key" name="course_registration" value="1" ' . ($this->registration && !empty($this->registrationKey) ?'checked="checked"':'') . ' />'
+            . '&nbsp;'
+            . '<label for="registration_key">' . get_lang('Allowed with enrolment key') . '</label>'
+            . '&nbsp;'
+            //. '<label for="registrationKey">'
+            //. ' - ' . get_lang('Enrolment key') . ' : ' /* . ' <small>(' . get_lang('Optional') . ')</small> : ' */
+            // . '</label>'*/
             . '<input type="text" id="registrationKey" name="course_registrationKey" value="' . htmlspecialchars($this->registrationKey) . '" />'
             . '<br />' . "\n"
-            . '<img src="' . get_icon_url('forbidden') . '"  alt="' . get_lang('locked') . '" />'
+            . '<img src="' . get_icon_url('forbidden') . '"  alt="" />'
             . '<input type="radio" id="registration_false"  name="course_registration" value="0" ' . ( ! $this->registration ?'checked="checked"':'') . ' />'
             . '&nbsp;'
             . '<label for="registration_false">' . get_lang('Denied') . '</label>'
