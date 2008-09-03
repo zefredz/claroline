@@ -497,6 +497,11 @@ class ResourceLinkerResolver
             if ( $locator->inModule() )
             {
                 $resolver = $this->loadModuleResolver( $locator->getModuleLabel() );
+                
+                if ( !$resolver )
+                {
+                    $resolver = new ToolResolver;
+                }
             }
             //  1.2 elseif Group
             elseif ( $locator->inGroup() )
@@ -600,9 +605,10 @@ class ResourceLinkerResolver
                 $nameParts[] = $resolver->getResourceName( $locator );
             }
             
-            if ( $locator->inModule() && get_module_data($locator->getModuleLabel() ) )
+            if ( $locator->inModule() )
             {
-                $nameParts[] = get_module_data($locator->getModuleLabel(), 'moduleName' );
+                $resolver = new ToolResolver;
+                $nameParts[] = $resolver->getResourceName( $locator );
             }
             
             if( $locator->inModule() && $locator->hasResourceId() )
@@ -655,6 +661,19 @@ class GroupResolver
             CLARO_CONTEXT_GROUP => $locator->getGroupId() ) );
         
         return $groupData['name'];
+    }
+}
+
+class ToolResolver
+{
+    public function resolve( ResourceLocator $locator )
+    {
+        return get_module_entry_url($locator->getModuleLabel());
+    }
+    
+    public function getResourceName( ResourceLocator $locator )
+    {
+        return get_module_data($locator->getModuleLabel(), 'moduleName' );
     }
 }
 
@@ -1203,8 +1222,8 @@ class ResourceLinker
         );
         
         return '<div id="lnk_panel">' . "\n"
-            . '<div id="lnk_ajax_loading"><img src="'.get_icon_url('loading').'" alt="" /></div>' . "\n"
             . '<div id="lnk_selected_resources"></div>' . "\n"
+            . '<div id="lnk_ajax_loading"><img src="'.get_icon_url('loading').'" alt="" /></div>' . "\n"
             . '<h4 id="lnk_location"></h4>' . "\n"
             . '<div id="lnk_back_link"></div>'
             . '<div id="lnk_resources"></div>' . "\n"
@@ -1249,7 +1268,7 @@ class ResourceLinker
         }
         else
         {
-            $htmlLinkList .= get_lang('Nothing to display');
+            // $htmlLinkList .= get_lang('Nothing to display');
         }
         
         $htmlLinkList .= '</div>' . "\n";
