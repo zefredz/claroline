@@ -82,7 +82,7 @@ class Claro_Course extends KernelObject
         }
         
         // set bool values
-        $courseDataList['access'] = (bool) ('public' == $courseDataList['access'] );
+        $courseDataList['access'] = $courseDataList['access'];
         $courseDataList['visibility'] = (bool) ('visible' == $courseDataList['visibility'] );
         $courseDataList['registrationAllowed'] = (bool) ('open' == $courseDataList['registration'] );
         

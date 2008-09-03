@@ -133,7 +133,7 @@ function claro_get_course_data($courseId = NULL, $force = false )
 
             if ( ! $courseDataList ) return claro_failure::set_failure('course_not_found');
 
-            $courseDataList['access'             ] = (bool) ('public' == $courseDataList['access']     );
+            $courseDataList['access'             ] = $courseDataList['access'];
             $courseDataList['visibility'         ] = (bool) ('visible' == $courseDataList['visibility'] );
             $courseDataList['registrationAllowed'] = (bool) ('open' == $courseDataList['registration'] );
             $courseDataList['dbNameGlu'          ] = get_conf('courseTablePrefix') . $courseDataList['dbName'] . get_conf('dbGlu'); // use in all queries

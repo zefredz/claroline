@@ -1241,7 +1241,7 @@ class ResourceLinker
         $linkList = self::getLinkList( $locator );
         $linkList->setFetchMode( Database_ResultSet::FETCH_OBJECT );
         
-        $htmlLinkList = '<div id="lnk_link_panel">' . "\n";
+        $htmlLinkList = '<div class="lnk_link_panel">' . "\n";
         
         if ( count( $linkList ) )
         {
@@ -1267,7 +1267,7 @@ class ResourceLinker
                 
                 $htmlLinkList .= '<li><a href="'
                     . htmlspecialchars( $url )
-                    . '" class="lnk_link" id="' . ClarolineResourceLocator::crlToId( $link->crl ) . '">'
+                    . '" class="lnk_link" rel="' . ClarolineResourceLocator::crlToId( $link->crl ) . '">'
                     . htmlspecialchars( self::$Resolver->getResourceName( $locator ) )
                     . '</a></li>' . "\n"
                     ;

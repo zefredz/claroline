@@ -84,7 +84,8 @@ class ClaroCourse
         $this->departmentName = '';
         $this->extLinkUrl = '';
         $this->language     = get_conf('platformLanguage');
-        $this->access       = get_conf('defaultAccessOnCourseCreation');
+        # FIXME FIXME FIXME
+        $this->access       = 'public'; //get_conf('defaultAccessOnCourseCreation');
         $this->visibility   = get_conf('defaultVisibilityOnCourseCreation');
         $this->registration = get_conf('defaultRegistrationOnCourseCreation') ;
         $this->registrationKey = '';
@@ -203,7 +204,7 @@ class ClaroCourse
                         `extLinkUrl`           = '" . claro_sql_escape($this->extLinkUrl) . "',
                         `email`                = '" . claro_sql_escape($this->email) . "',
                         `visibility`           = '" . ($this->visibility ? 'VISIBLE':'INVISIBLE') . "',
-                        `access`               = '" . ($this->access     ? 'PUBLIC':'PRIVATE') . "',
+                        `access`               = '" . claro_sql_escape( $this->access ) . "',
                         `registration`         = '" . ($this->registration ? 'OPEN':'CLOSE') . "',
                         `registrationKey`      = '" . claro_sql_escape($this->registrationKey) . "'
                     WHERE code='" . claro_sql_escape($this->courseId) . "'";
@@ -245,7 +246,7 @@ class ClaroCourse
         if ( isset($_REQUEST['course_extLinkUrl']) ) $this->extLinkUrl = trim(strip_tags($_REQUEST['course_extLinkUrl']));
         if ( isset($_REQUEST['course_language'     ]) ) $this->language = trim(strip_tags($_REQUEST['course_language']));
         if ( isset($_REQUEST['course_visibility'   ]) ) $this->visibility  = (bool) $_REQUEST['course_visibility'];
-        if ( isset($_REQUEST['course_access'       ]) ) $this->access = (bool) $_REQUEST['course_access'];
+        if ( isset($_REQUEST['course_access'       ]) ) $this->access = $_REQUEST['course_access'];
         if ( isset($_REQUEST['course_registration' ]) ) $this->registration = (bool) $_REQUEST['course_registration'];
         if ( isset($_REQUEST['course_registrationKey' ]) ) $this->registrationKey = trim(strip_tags($_REQUEST['course_registrationKey']));
     }
@@ -272,6 +273,13 @@ class ClaroCourse
         $fieldRequiredStateList['language'      ] = true;
         $fieldRequiredStateList['departmentName'] = get_conf('extLinkNameNeeded');
         $fieldRequiredStateList['extLinkUrl' ] = get_conf('extLinkUrlNeeded');
+        
+        // Validate course access
+        if ( empty($this->access) || ! in_array($this->access, array('public','private','platform')) )
+        {
+            $this->backlog->failure(get_lang('Course title needed'));
+            $success = false ;
+        }
 
         // Validate course title
         if ( empty($this->title) && $fieldRequiredStateList['title'] )
@@ -544,14 +552,19 @@ class ClaroCourse
             . '<td align="right" nowrap="nowrap">' . get_lang('Course access') . '&nbsp;:</td>'
             . '<td>'
             . '<img src="' . get_icon_url('access_open') . '" alt="' . get_lang('open') . '" />'
-            . '<input type="radio" id="access_true" name="course_access" value="1" ' . ($this->access ? 'checked="checked"':'') . ' />'
+            . '<input type="radio" id="access_public" name="course_access" value="public" ' . ($this->access == 'public' ? 'checked="checked"':'') . ' />'
             . '&nbsp;'
-            . '<label for="access_true">' . get_lang('Public access from campus home page even without login') . '</label>'
+            . '<label for="access_public">' . get_lang('Public access from campus home page even without login') . '</label>'
+            . '<br />' . "\n"
+            . '<img src="' . get_icon_url('access_open') . '" alt="' . get_lang('open') . '" />'
+            . '<input type="radio" id="access_reserved" name="course_access" value="platform" ' . ($this->access == 'platform' ? 'checked="checked"':'') . ' />'
+            . '&nbsp;'
+            . '<label for="access_reserved">' . get_lang('Access allowed for any user identified on the platform') . '</label>'
             . '<br />' . "\n"
             . '<img src="' . get_icon_url('access_locked') . '"  alt="' . get_lang('locked') . '" />'
-            . '<input type="radio" id="access_false" name="course_access" value="0" ' . ( ! $this->access ? 'checked="checked"':'' ) . ' />'
+            . '<input type="radio" id="access_private" name="course_access" value="private" ' . ($this->access == 'private' ? 'checked="checked"':'' ) . ' />'
             . '&nbsp;'
-            . '<label for="access_false">';
+            . '<label for="access_private">';
 
         if( empty($this->courseId) )
             $html .= get_lang('Private access (site accessible only to people on the user list)');
