@@ -697,5 +697,3 @@ function fill_table_config_with_md5()
     }
     return true;
 }
-
-?>
