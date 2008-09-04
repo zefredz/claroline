@@ -50,56 +50,61 @@ if (false === $htmlCLCALDIGEST = $Cache_LiteCLCALDIGEST->get('CALDIGEST' . claro
         /*
         * ANNOUNCEMENTS : get announcements of this course since last user loggin
         */
-
-        $tableAnn = get_conf('courseTablePrefix') . $thisCourse['db'] . get_conf('dbGlu') . 'announcement';
-
-        $sql = "SELECT '" . claro_sql_escape($thisCourse['sysCode']     ) ."' AS `courseSysCode`,
-                   '" . claro_sql_escape($thisCourse['officialCode']) ."' AS `courseOfficialCode`,
-                   'CLANN'                                          AS `toolLabel`,
-                   CONCAT(`temps`, ' ', '00:00:00')                 AS `date`,
-                   CONCAT(`title`,' - ',`contenu`)                  AS `content`
-
-            FROM `" . $tableAnn . "`
-            WHERE CONCAT(`title`, `contenu`) != ''
-              AND DATE_FORMAT( `temps`, '%Y %m %d') >= '".date('Y m d', claro_get_current_user_data('lastLogin'))."'
-              AND visibility = 'SHOW'
-            ORDER BY `date` DESC
-            LIMIT 1";
-
-        $resultList = claro_sql_query_fetch_all_cols($sql);
-
-        foreach($resultList as $colName => $colValue)
+        if ( is_tool_activated_in_course(
+            get_tool_id_from_module_label('CLANN'), $thisCourse['sysCode'] ) )
         {
-            if (count($colValue) == 0) break;
-            $courseDigestList[$colName] = array_merge($courseDigestList[$colName], $colValue);
+            $tableAnn = get_conf('courseTablePrefix') . $thisCourse['db'] . get_conf('dbGlu') . 'announcement';
+    
+            $sql = "SELECT '" . claro_sql_escape($thisCourse['sysCode']     ) ."' AS `courseSysCode`,
+                       '" . claro_sql_escape($thisCourse['officialCode']) ."' AS `courseOfficialCode`,
+                       'CLANN'                                          AS `toolLabel`,
+                       CONCAT(`temps`, ' ', '00:00:00')                 AS `date`,
+                       CONCAT(`title`,' - ',`contenu`)                  AS `content`
+    
+                FROM `" . $tableAnn . "`
+                WHERE CONCAT(`title`, `contenu`) != ''
+                  AND DATE_FORMAT( `temps`, '%Y %m %d') >= '".date('Y m d', claro_get_current_user_data('lastLogin'))."'
+                  AND visibility = 'SHOW'
+                ORDER BY `date` DESC
+                LIMIT 1";
+    
+            $resultList = claro_sql_query_fetch_all_cols($sql);
+    
+            foreach($resultList as $colName => $colValue)
+            {
+                if (count($colValue) == 0) break;
+                $courseDigestList[$colName] = array_merge($courseDigestList[$colName], $colValue);
+            }
         }
 
         /*
         * AGENDA : get the next agenda entries of this course from now
         */
-
-        $tableCal = get_conf('courseTablePrefix') . $thisCourse['db'] . get_conf('dbGlu') . 'calendar_event';
-
-        $sql = "SELECT '". claro_sql_escape($thisCourse['sysCode']     ) ."' AS `courseSysCode`,
-                   '". claro_sql_escape($thisCourse['officialCode']) ."' AS `courseOfficialCode`,
-                   'CLCAL' AS `toolLabel`,
-            CONCAT(`day`, ' ',`hour`) AS `date`,
-            CONCAT(`titre`,' - ',`contenu`) AS `content`
-            FROM `" . $tableCal . "`
-            WHERE CONCAT(`day`, ' ',`hour`) >= CURDATE()
-              AND CONCAT(`titre`, `contenu`) != ''
-              AND visibility = 'SHOW'
-            ORDER BY `date`
-            LIMIT 1";
-
-        $resultList = claro_sql_query_fetch_all_cols($sql);
-
-        foreach($resultList as $colName => $colValue)
+        if ( is_tool_activated_in_course(
+            get_tool_id_from_module_label('CLCAL'), $thisCourse['sysCode'] ) )
         {
-            if (count($colValue) == 0) break;
-            $courseDigestList[$colName] = array_merge($courseDigestList[$colName], $colValue);
+            $tableCal = get_conf('courseTablePrefix') . $thisCourse['db'] . get_conf('dbGlu') . 'calendar_event';
+    
+            $sql = "SELECT '". claro_sql_escape($thisCourse['sysCode']     ) ."' AS `courseSysCode`,
+                       '". claro_sql_escape($thisCourse['officialCode']) ."' AS `courseOfficialCode`,
+                       'CLCAL' AS `toolLabel`,
+                CONCAT(`day`, ' ',`hour`) AS `date`,
+                CONCAT(`titre`,' - ',`contenu`) AS `content`
+                FROM `" . $tableCal . "`
+                WHERE CONCAT(`day`, ' ',`hour`) >= CURDATE()
+                  AND CONCAT(`titre`, `contenu`) != ''
+                  AND visibility = 'SHOW'
+                ORDER BY `date`
+                LIMIT 1";
+    
+            $resultList = claro_sql_query_fetch_all_cols($sql);
+    
+            foreach($resultList as $colName => $colValue)
+            {
+                if (count($colValue) == 0) break;
+                $courseDigestList[$colName] = array_merge($courseDigestList[$colName], $colValue);
+            }
         }
-
     } // end foreach($personnalCourseList as $thisCourse)
 
 
@@ -152,7 +157,7 @@ if (false === $htmlCLCALDIGEST = $Cache_LiteCLCALDIGEST->get('CALDIGEST' . claro
         $htmlCLCALDIGEST .= '<p>' . "\n"
         .    '<small>'
         .    '<a href="' . $url . '">'
-        .    '<img src="' . get_icon_url( $itemIcon ) . '" alt="" />'
+        .    '<img src="' . get_icon_url( $itemIcon, $courseDigestList['toolLabel'][$i] ) . '" alt="" />'
         .    '</a>' . "\n"
 
         .    claro_html_localised_date( get_locale('dateFormatLong'),
