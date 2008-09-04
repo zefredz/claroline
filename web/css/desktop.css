@@ -15,8 +15,7 @@
 .portletContent
 {
     margin-top: 0.3em;
-	padding: 5px;
-	background: #FFF;
+    padding: 5px;
 }
 
 .porletIcon
@@ -29,7 +28,7 @@
 .portlet dl, .portlet dt, .portlet dd
 {
     margin: 0;
-	padding: 0;
+    padding: 0;
 }
 
 .portlet dt
@@ -46,68 +45,62 @@
 
 /* portlet right menu  */
 
-.portletRightMenu
-{
+.portletRightMenu {
     padding: 2px;
     margin: 10px 0 0 0;
     float:right;
     width:200px;
 }
 
-/* portlet myprofil */
- 
- #portletMyprofil #picture
- {
+/* portlet myprofile */
+
+#portletMyprofile #picture {
     margin: 0;
     padding-top: 0.3em;
     text-align: center;
- }
+}
 
- #portletMyprofil #picture .pic {
+#portletMyprofile #picture .pic {
     border: 1px solid #AAA; 
-    background-color: #DDD; 
+    background-color: #DDD;
     width: 100px; 
     height: 125px; 
     margin: auto;
     font-size: small; 
     color: #AAA;
- }
- 
- #portletMyprofil #details
- {
-  padding-top: 0.5em;
-  clear:both;
- }
+}
 
- #portletMyprofil #details span
- {
-  font-size: small;
-  font-weight: bold;
- }
+#portletMyprofile #details {
+    padding-top: 0.5em;
+    clear:both;
+}
+
+#portletMyprofile #details span {
+    font-size: small;
+    font-weight: bold;
+}
 
 /* portlet mycalendar */
+
+#portletMycalendar .calendar {
+    min-width: 250px;
+    float: left;
+    max-width: 30%;
+    width: 30%;
+    margin: 0;
+    padding: 0.3em 1em 0.3em 1em;
+    text-align: center;
+}
+
+#portletMycalendar .details {
+    min-width: 200px;
+    margin-left: 33%;
+    padding: 0 1em 0.1em 1em;
+    /* border-left: 1px solid #ccc; */
+}
  
- #portletMycalendar .calendar
- {
-  min-width: 250px;
-  float: left;
-  max-width: 30%;
-  margin: 0;
-  padding: 0.3em 1em 0.3em 1em;
-  text-align: center;
- }
- 
- #portletMycalendar .details
- {
-  min-width: 200px;
-  margin-left: 33%;
-  padding: 0 1em 0.1em 1em;
-  /* border-left: 1px solid #ccc; */
- }
- 
- #portletMycalendar .dayWithEvent 
-{
-  background-color:silver;
+#portletMycalendar .dayWithEvent {
+    background-color:silver;
 }
 
 
@@ -124,44 +117,10 @@
     text-align:center;
 }
 
-.hideul { 
- background: transparent url(../../claroline/desktop/img/hide.png) no-repeat top left; 
+.hideul {
+    background: transparent url(../../claroline/desktop/img/hide.png) no-repeat top left; 
 }
 
 .showul {
- background: transparent url(../../claroline/desktop/img/show.png) no-repeat top left; 
+    background: transparent url(../../claroline/desktop/img/show.png) no-repeat top left; 
 }
-
-
-/* portlet stat */
-/*
- .statBlock
- {
- 	width: 100%;
- 	margin-bottom: 1em;
- }
-
- .statBlock .blockHeader
- {
-     text-align: left;
-     border-bottom: 1px #ccc solid;
-     padding: 3px;
-     font-weight: bold;
- }
-
- .statBlock .blockContent
- {
-     padding: 3px;
- }
-
- .statBlock .blockContent table
- {
-     width: 100%;
- }
-
- .statBlock .blockFooter
- {
-     text-align: right;
-     font-size: small;
-     padding: 3px;
- }
