@@ -28,7 +28,12 @@ class MyCourseList extends UserDesktopPortlet
     {
         global $platformLanguage;
 
-        $output = '';
+        $output = '<a class="claroCmd" href="'.get_path('url')
+            . '/index.php#myCourseList">'
+            . '<img src="' . get_icon_url('edit') . '" alt="" /> '
+            . get_lang('Edit')
+            . '</a>'
+            ;
 
         $personnalCourseList = get_user_course_list(claro_get_current_user_id());
 
