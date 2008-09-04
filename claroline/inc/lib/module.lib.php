@@ -736,3 +736,25 @@ function is_tool_activated_in_groups( $courseId, $toolLabel )
     
     return false;
 }
+
+function get_tool_id_from_module_label( $moduleLabel )
+{
+    $tbl = claro_sql_get_main_tbl();
+    
+    $sql = "SELECT id
+              FROM `" . $tbl['tool']."`
+             WHERE claro_label = '".claro_sql_escape($moduleLabel)."'";
+             
+    return claro_sql_query_fetch_single_value($sql);
+}
+
+function get_module_label_from_tool_id( $toolId )
+{
+    $tbl = claro_sql_get_main_tbl();
+    
+    $sql = "SELECT claro_label
+              FROM `" . $tbl['tool']."`
+             WHERE id = ".(int)$toolId;
+             
+    return claro_sql_query_fetch_single_value($sql);
+}

@@ -1703,28 +1703,6 @@ function is_package_file($packagePath)
      return false;
 }
 
-function get_tool_id_from_module_label( $moduleLabel )
-{
-    $tbl = claro_sql_get_main_tbl();
-    
-    $sql = "SELECT id
-              FROM `" . $tbl['tool']."`
-             WHERE claro_label = '".claro_sql_escape($moduleLabel)."'";
-             
-    return claro_sql_query_fetch_single_value($sql);
-}
-
-function get_module_label_from_tool_id( $toolId )
-{
-    $tbl = claro_sql_get_main_tbl();
-    
-    $sql = "SELECT claro_label
-              FROM `" . $tbl['tool']."`
-             WHERE id = ".(int)$toolId;
-             
-    return claro_sql_query_fetch_single_value($sql);
-}
-
 function course_tool_already_installed($toolId,$courseId)
 {
     $tbl_cdb_names = claro_sql_get_course_tbl( claro_get_course_db_name_glued($courseId) );
