@@ -1027,7 +1027,9 @@ function user_html_form($data, $form_type='registration')
         $language_select_box );
     }
     
-    if ( $form_type == 'profile' || $form_type == 'admin_user_profile' )
+    if ( get_conf('allow_profile_picture')
+        && ( $form_type == 'profile' || $form_type == 'admin_user_profile' )
+        && in_array('picture',$profile_editable) )
     {
         // $picture = claro_get_current_user_data('picture');
         $picturePath = user_get_picture_path( $data );
