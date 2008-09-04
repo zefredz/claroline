@@ -169,6 +169,12 @@ function claro_sql_get_main_tbl()
         'right_action'              => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'right_action',
         'user_property'             => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'user_property',
         'property_definition'       => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'property_definition',
+        'im_message'                => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'im_message',
+        'im_message_status'         => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'im_message_status',
+        'im_recipient'              => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'im_recipient',
+        'desktop_portlet'           => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'desktop_portlet',
+        'desktop_portlet_data'      => get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'desktop_portlet_data',
+        
         'tracking_event'            => get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . 'tracking_event',
         'log'                       => get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . 'log'
         );
