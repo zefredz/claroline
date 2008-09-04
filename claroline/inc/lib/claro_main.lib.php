@@ -1668,3 +1668,13 @@ function claro_get_tool_id_from_course_tid( $tid, $courseId = null, $profileId =
     
     return false;
 }
+
+function load_kernel_config( $name )
+{
+    $name = secure_file_path( $name );
+    
+    if ( file_exists( claro_get_conf_repository() . $name . '.conf.php' ) )
+    {
+        include claro_get_conf_repository() . $name . '.conf.php';
+    }
+}
