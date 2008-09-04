@@ -134,6 +134,10 @@ echo claro_html_tool_title($nameTools . ' : ');
    <label for="access_public"><?php echo get_lang('Public') ?></label>
   </td>
   <td>
+      <input type="radio" name="access" value="platform" id="access_platform" <?php if ($access=="platform") echo "checked";?> />
+    <label for="access_platform"><?php echo get_lang('Platform') ?></label>
+  </td>
+  <td>
       <input type="radio" name="access" value="private" id="access_private" <?php if ($access=="private") echo "checked";?> />
     <label for="access_private"><?php echo get_lang('Private') ?></label>
   </td>
@@ -150,6 +154,10 @@ echo claro_html_tool_title($nameTools . ' : ');
   <td>
       <input type="radio" name="subscription" value="allowed" id="subscription_allowed" <?php if ($subscription=="allowed") echo "checked";?> />
       <label for="subscription_allowed"><?php echo get_lang('Allowed') ?></label>
+  </td>
+  <td>
+      <input type="radio" name="subscription" value="key"  id="subscription_key" <?php if ($subscription=="key") echo "checked";?> />
+    <label for="subscription_key"><?php echo get_lang('Allowed with enrolment key') ?></label>
   </td>
   <td>
       <input type="radio" name="subscription" value="denied"  id="subscription_denied" <?php if ($subscription=="denied") echo "checked";?> />

@@ -205,15 +205,19 @@ if ( isset($_REQUEST['access']))
 
     if ($_REQUEST['access'] == 'public' )
     {
-        $isSearched .= '<b>' . get_lang('Public course only') . '</b>';
+        $isSearched .= '<b>' . get_lang('Course access') . ':' . get_lang('Access allowed to anybody (even without login)') . '</b>';
+    }
+    elseif ( $_REQUEST['access'] == 'platform' )
+    {
+        $isSearched .= '<b>' . get_lang('Course access') . ':' . get_lang('Access allowed only to platform members (user registered to the platform)') . '</b>';
     }
     elseif ( $_REQUEST['access'] == 'all' )
     {
-        $isSearched .= '<b>' . get_lang('Both private and Public course') . '</b>';
+        $isSearched .= '<b>' . get_lang('Course access') . ':' . get_lang('Any') . '</b>';
     }
     else
     {
-        $isSearched .= '<b>' . get_lang('Private course only') . '</b>';
+        $isSearched .= '<b>' . get_lang('Course access') . ':' . get_lang('Access allowed only to course members (people on the user list)') . '</b>';
     }
 }
 
@@ -223,15 +227,19 @@ if ( isset($_REQUEST['subscription']) )
 
     if ( $_REQUEST['subscription'] == 'allowed' )
     {
-        $isSearched .= '<b>' . get_lang('Enrolment allowed only') . '</b>';
+        $isSearched .= '<b>' . get_lang('Enrolment') . ':' . get_lang('Allowed') . '</b>';
+    }
+    elseif (  $_REQUEST['subscription'] == 'key' )
+    {
+        $isSearched .= '<b>' . get_lang('Enrolment') . ':' . get_lang('Allowed with enrolment key') . '</b>';
     }
     elseif (  $_REQUEST['subscription'] == 'all' )
     {
-        $isSearched .= '<b>' . get_lang('Enrolment allowed or not') . '</b>';
+        $isSearched .= '<b>' . get_lang('Enrolment') . ':' . get_lang('Any') . '</b>';
     }
     else
     {
-        $isSearched .= '<b>' . get_lang('Enrolment denied only') . ' </b>';
+        $isSearched .= '<b>' . get_lang('Enrolment') . ':' . get_lang('Denied') . ' </b>';
     }
 }
 
@@ -254,8 +262,10 @@ $imgVisibilityStatus['visible'] = 'visible';
 $imgVisibilityStatus['invisible'] = 'invisible';
 $imgAccessStatus['private'] = 'access_locked';
 $imgAccessStatus['public'] = 'access_open';
-$imgRegistrationStatus['open'] = 'success';
-$imgRegistrationStatus['close'] = 'forbidden';
+$imgAccessStatus['platform'] = 'access_platform';
+$imgRegistrationStatus['open'] = 'enroll_allowed';
+$imgRegistrationStatus['key'] = 'enroll_key';
+$imgRegistrationStatus['close'] = 'enroll_forbidden';
 
 $courseDataList=array();
 // Now read datas and rebuild cell content to set datagrid to display.
@@ -292,18 +302,27 @@ foreach($courseList as $numLine => $courseLine)
     .                                     get_lang('%nb student(s)', array ('%nb' => $courseLine['qty_stu']) ) . "\n"
     .                                     '</small></small>' . "\n"
     ;
+    
+    if ( $courseLine['registration'] == 'open' && !empty( $courseLine['registrationKey'] )  )
+    {
+        $regIcon = 'key';
+    }
+    else
+    {
+        $regIcon = $courseLine['registration'];
+    }
 
     // Course Settings
     $courseDataList[$numLine]['cmdSetting'] = '<a href="' . get_path('clarolineRepositoryWeb') . 'course/settings.php?adminContext=1'
     .                                         '&amp;cidReq=' . $courseLine['sysCode'] . $addToURL . '&amp;cfrom=clist">'
-    .                                         '<img src="' . get_icon_url('settings') . '" alt="' . get_lang('Course settings'). '" />'
+    .                                         '<img src="' . get_icon_url('settings') . '" alt="" />'
     // .                                         '</a>'
     .                                         '&nbsp;&nbsp;&nbsp;'
     //.                                         '<a href="' . get_path('clarolineRepositoryWeb') . 'course/settings.php?adminContext=1'
     //.                                         '&amp;cidReq=' . $courseLine['sysCode'] . $addToURL . '&amp;cfrom=clist">'
-    .                                         '<img src="' . get_icon_url( $imgVisibilityStatus[$courseLine['visibility']] ) . '" alt="' . get_lang('Course settings'). '" /> '
-    .                                         '<img src="' . get_icon_url( $imgAccessStatus[$courseLine['access']] ) . '" alt="' . get_lang('Course settings'). '" /> '
-    .                                         '<img src="' . get_icon_url( $imgRegistrationStatus[$courseLine['registration']] ) . '" alt="' . get_lang('Enrolment'). '" />'
+    .                                         '<img src="' . get_icon_url( $imgVisibilityStatus[$courseLine['visibility']] ) . '" alt="" /> '
+    .                                         '<img src="' . get_icon_url( $imgAccessStatus[$courseLine['access']] ) . '" alt="" /> '
+    .                                         '<img src="' . get_icon_url( $imgRegistrationStatus[$regIcon] ) . '" alt="" />'
     .                                         '</a>'
     ;
 
@@ -311,7 +330,7 @@ foreach($courseList as $numLine => $courseLine)
     $courseDataList[$numLine]['cmdDelete'] = '<a href="' . $_SERVER['PHP_SELF']
     .                                        '?cmd=delete&amp;delCode=' . $courseLine['sysCode'] . $addToURL . '" '
     .                                        ' onclick="return confirmation(\'' . clean_str_for_javascript($courseLine['intitule']) . '\');">' . "\n"
-    .                                        '<img src="' . get_icon_url('delete') . '" border="0" alt="' . get_lang('Delete') . '" />' . "\n"
+    .                                        '<img src="' . get_icon_url('delete') . '" border="0" alt="" />' . "\n"
     .                                        '</a>' . "\n"
     ;
 }
@@ -416,14 +435,16 @@ function prepare_get_filtred_course_list()
 
     if (isset($_SESSION['admin_course_access']))
     {
-        if     ($_SESSION['admin_course_access'] == 'public' ) $sqlFilter[]= "C.`access`='PUBLIC'";
-        elseif ($_SESSION['admin_course_access'] == 'private') $sqlFilter[]= "C.`access`='PRIVATE'";
+        if     ($_SESSION['admin_course_access'] == 'public' ) $sqlFilter[]= "C.`access`='public'";
+        elseif ($_SESSION['admin_course_access'] == 'private') $sqlFilter[]= "C.`access`='private'";
+        elseif ($_SESSION['admin_course_access'] == 'platform') $sqlFilter[]= "C.`access`='platform'";
     }
 
     if (isset($_SESSION['admin_course_subscription']))   // type of subscription allowed is used
     {
         if ($_SESSION['admin_course_subscription']     == 'allowed') $sqlFilter[]= "C.`registration`='OPEN'";
         elseif ($_SESSION['admin_course_subscription'] == 'denied' ) $sqlFilter[]= "C.`registration`='CLOSE'";
+        elseif ($_SESSION['admin_course_subscription'] == 'key' ) $sqlFilter[]= "C.`registration`='OPEN' AND CHAR_LENGTH(C.`registrationKey`) != 0";
     }
 
 
@@ -438,6 +459,7 @@ function prepare_get_filtred_course_list()
                     C.`visibility`           AS `visibility`,
                     C.`access`               AS `access`,
                     C.`registration`         AS `registration`,
+                    C.`registrationKey`      AS `registrationKey`,
                     C.`directory`            AS `repository`
                     FROM  `" . $tbl_mdb_names['course'] . "` AS C
            " . $sqlFilter ;
