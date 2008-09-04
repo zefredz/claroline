@@ -12,11 +12,11 @@
         <span id="siteName">
         <?php echo link_to( $this->campus['siteName'], get_path( 'url' ) . '/index.php', array('target' => '_top') ); ?>
         </span>
-        <?php echo include_dock('campusBannerLeft'); ?>
+        <?php include_dock('campusBannerLeft'); ?>
     </div>
     <div id="campusBannerRight">
         <span id="institution"><?php echo $this->campus['institution'] ?></span>
-        <?php echo include_dock('campusBannerRight'); ?>
+        <?php include_dock('campusBannerRight'); ?>
     </div>
     <div class="spacer"></div>
 </div>
@@ -32,10 +32,10 @@
                     , '%lastName' => $this->user['lastName'] ) ) ?> : 
         </span>
         <?php echo $this->userToolList; ?>
-        <?php echo include_dock('userBannerLeft'); ?>
+        <?php include_dock('userBannerLeft'); ?>
     </div>
     <div id="userBannerRight">
-        <?php echo include_dock('userBannerRight'); ?>
+        <?php include_dock('userBannerRight'); ?>
     </div>
 
     <div class="spacer"></div>
@@ -56,11 +56,11 @@
             <?php echo "{$this->course['officialCode']} - {$this->course['titular']}"; ?>
             </span>
         </div>
-        <?php echo include_dock('courseBannerLeft'); ?>
+        <?php include_dock('courseBannerLeft'); ?>
     </div>
     <div id="courseBannerRight">
         <?php echo claro_is_course_allowed() ? $this->courseToolSelector : ''; ?>
-        <?php echo include_dock('courseBannerRight'); ?>
+        <?php include_dock('courseBannerRight'); ?>
     </div>
 
     <div class="spacer"></div>
