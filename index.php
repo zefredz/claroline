@@ -53,7 +53,7 @@ if (isset($_REQUEST['logout']))
 }
 
 // Hide breadcrumbs and view mode on platform home page
-$claroline->display->banner->hideBreadcrumbLine();
+// $claroline->display->banner->hideBreadcrumbLine();
 
 $template = new CoreTemplate('platform_index.tpl.php');
 
