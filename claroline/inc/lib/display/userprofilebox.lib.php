@@ -88,7 +88,7 @@ class UserProfileBox implements Display
         }
         
         $output .= '<p>'
-            . '<a class="claroCmd" href="../../claroline/auth/profile.php">' . "\n"
+            . '<a class="claroCmd" href="'.get_path('clarolineRepositoryWeb').'auth/profile.php">' . "\n"
             . '<img src="' . get_icon_url('edit') . '" alt="" />' . "\n"
             . ' ' . get_lang('Edit')
             . '</a>'
