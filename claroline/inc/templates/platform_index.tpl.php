@@ -61,7 +61,7 @@ if ( claro_is_user_authenticated() ) :
     .                 '</a>'
     ;
 
-    echo '<p>' . claro_html_menu_horizontal($userCommands) . '</p>' . "\n";
+    echo '<a name="myCourseList"></a><p>' . claro_html_menu_horizontal($userCommands) . '</p>' . "\n";
 
     if ( isset($_REQUEST['category']) || (isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'search' ) )
     {
@@ -88,9 +88,14 @@ endif;
 <td width="200" valign="top" class="claroRightMenu">
 
 <?php 
-if ( claro_is_user_authenticated() ) : 
+if ( claro_is_user_authenticated() ) :
+
+    FromKernel::uses('display/userprofilebox.lib');
+    
+    $userProfileBox = new UserProfileBox(true);
+    echo $userProfileBox->render();
     // Display module digest
-    require get_path('incRepositorySys') . '/index_mydigest.inc.php';
+    // require get_path('incRepositorySys') . '/index_mydigest.inc.php';
 
 else :
     // Display preferred language form
