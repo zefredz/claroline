@@ -240,14 +240,11 @@ switch ( $display )
         if ( preg_match('/^1.8/',$currentDbVersion) )
         {
             $function_list = array('upgrade_main_database_course_to_19',
-                                   #'upgrade_main_database_rel_course_user_to_19',
-                                   #'upgrade_main_database_course_category_to_19',
-                                   #'upgrade_main_database_user_to_19',
-                                   #'upgrade_main_database_course_class_to_19',
-                                   #'upgrade_main_database_right_to_19',
-                                   #'upgrade_main_database_module_to_19',
-                                   #'upgrade_main_database_user_property_to_19',
-                                   #'upgrade_main_database_tracking_to_19'
+                                   'upgrade_main_database_user_property_to_19',
+                                   'upgrade_main_database_desktop_to_19',
+                                   'upgrade_main_database_module_to_19',
+                                   'upgrade_main_database_messaging_to_19',
+                                   'upgrade_main_database_tracking_to_19'
                                     );
 
             foreach ( $function_list as $function )
@@ -262,21 +259,21 @@ switch ( $display )
 
             if ( $nbError == 0 )
             {
-                // Upgrade 1.7 to 1.8 Succeed
+                // Upgrade 1.8 to 1.9 Succeed
                 echo '<p class="success">The claroline main tables have been successfully upgraded to 1.8</p>' . "\n";
                 clean_upgrade_status();
 
-                // Database version is 1.8
+                // Database version is 1.9
                 $currentDbVersion = $new_version;
 
                 // Update current version file
                 save_current_version_file($currentClarolineVersion, $currentDbVersion);
             }
-        } // End of upgrade 1.7 to 1.8
+        } // End of upgrade 1.8 to 1.9
 
         if ( $nbError == 0 )
         {
-            if ( preg_match('/^1.8/',$currentDbVersion) )
+            if ( preg_match('/^1.9/',$currentDbVersion) )
             {
                 echo '<div align="right"><p><button onclick="document.location=\'upgrade_courses.php\';">Next ></button></p></div>';
             }
