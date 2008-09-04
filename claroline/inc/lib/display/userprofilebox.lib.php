@@ -94,9 +94,12 @@ class UserProfileBox implements Display
             . '</a>'
             . '</p>'
             ;
+            
+        $dock = new ClaroDock( 'userProfileBox' );
         
         $output .= '</div>' . "\n" // details
             . '</div>' . "\n" // portletContent
+            . ( !$this->condensedMode ? '<div id="userProfileBox">'. $dock->render() .'</div>' : '' )
             . '</div>' . "\n" // portletRightMenu
             ;
 

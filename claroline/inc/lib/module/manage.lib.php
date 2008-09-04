@@ -1525,6 +1525,7 @@ function get_dock_list($moduleType)
             $dockList['campusFooterCenter'] = get_lang('Campus footer - center');
             $dockList['campusFooterLeft'] = get_lang('Campus footer - left');
             $dockList['campusFooterRight'] = get_lang('Campus footer - right');
+            $dockList['userProfileBox'] = get_lang('User profile box');
             break;
         }
         case 'tool' :
