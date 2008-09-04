@@ -85,8 +85,8 @@ class DataValidator
      *        The validator class provides a predefined rules (listed below).
      *        It is possible to call them just by entering the string name.
      *        predefined rules : required, numeric, alphanumeric, lettersonly,
-     *        regex, compare, nonzero, min, max, range, maxlenght, minlenght,
-     *        rangelenght, nopunctuation, email, ip, hostname
+     *        regex, compare, nonzero, min, max, range, maxlength, minlength,
+     *        rangelength, nopunctuation, email, ip, hostname
      * @param array $xtraParamList additional parameters required for the
      *                             function rule
      */
@@ -364,39 +364,39 @@ class DataValidator
     /**
      * Predefined validation rule
      * @param string $data
-     * @param int $lenght maximum number of characters
+     * @param int $length maximum number of characters
      * @return boolean
      */
 
-    function rl_maxlenght($data, $lenght)
+    function rl_maxlength($data, $length)
     {
-        return (strlen(trim($data))) <= (int) $lenght;
+        return (strlen(trim($data))) <= (int) $length;
     }
 
     /**
      * Predefined validation rule
      * @param string $data
-     * @param int $lenght minimum number of characters
+     * @param int $length minimum number of characters
      * @return boolean
      */
 
-    function rl_minlenght($data, $lenght)
+    function rl_minlength($data, $length)
     {
-        return (strlen(trim($data))) >= (int)$lenght;
+        return (strlen(trim($data))) >= (int)$length;
     }
 
     /**
      * Predefined validation rule
      * @param string $data
-     * @param int $minlenght minimum number of characters
-     * @param int $maxlenght maximum number of characters
+     * @param int $minlength minimum number of characters
+     * @param int $maxlength maximum number of characters
      * @return boolean
      */
 
-    function rl_rangelenght($data, $minlenght, $maxlenght)
+    function rl_rangelength($data, $minlength, $maxlength)
     {
-        return   $this->rl_maxlenght($data, $maxlenght)
-              && $this->rl_minlenght($data, $minlenght);
+        return   $this->rl_maxlength($data, $maxlength)
+              && $this->rl_minlength($data, $minlength);
     }
 
     /**

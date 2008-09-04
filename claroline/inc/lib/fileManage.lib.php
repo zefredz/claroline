@@ -362,7 +362,7 @@ function form_dir_list($file, $baseWorkDir)
     }
 
 
-    $bwdLen = strlen($baseWorkDir) ;    // base directories lenght, used under
+    $bwdLen = strlen($baseWorkDir) ;    // base directories length, used under
 
     /* build html form inputs */
 

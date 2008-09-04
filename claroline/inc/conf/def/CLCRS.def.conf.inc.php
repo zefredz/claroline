@@ -207,8 +207,8 @@ array ('label'       => 'Prefix for empty code course'
       );
 
 $conf_def_property_list['nbCharFinalSuffix'] =
-array ('label'       => 'Lenght of course code suffix'
-      ,'technicalInfo'=> 'Lenght of suffix added when key is already exist'
+array ('label'       => 'Length of course code suffix'
+      ,'technicalInfo'=> 'Length of suffix added when key is already exist'
       ,'default'     => 3
       ,'display'     => FALSE
       ,'readonly'    => TRUE
