@@ -137,7 +137,7 @@ function link_to_tool ( $text, $toolLabel = null, $context = null, $attributes =
 function include_dock( $dockName )
 {
     $dock = new ClaroDock( $dockName );
-    return $dock->render();
+    echo $dock->render();
 }
 
 /**
