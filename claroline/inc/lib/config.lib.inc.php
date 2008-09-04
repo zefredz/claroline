@@ -250,5 +250,3 @@ function get_config_code_class_list ( $type = 'all' )
 
     return $configCodeClassList ;
 }
-
-?>
