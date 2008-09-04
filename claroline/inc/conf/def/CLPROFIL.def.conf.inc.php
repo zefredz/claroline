@@ -50,10 +50,12 @@ $conf_def['section']['required']['label'] = 'Data checking';
 $conf_def['section']['required']['description'] = '';
 $conf_def['section']['required']['properties'] =
 array ( 'profile_editable'
+      , 'allow_profile_picture'
       , 'userOfficialCodeCanBeEmpty'
       , 'ask_for_official_code'
       , 'userMailCanBeEmpty'
       , 'SECURE_PASSWORD_REQUIRED'
+      
       );
 
 $conf_def_property_list['userOfficialCodeCanBeEmpty'] =
@@ -88,7 +90,7 @@ array ( 'label'         => 'Ask the official code'
 $conf_def_property_list['profile_editable'] =
 array ( 'label'         => 'Profile form'
       , 'description'   => 'Which parts of the profile can be changed?'
-      , 'default'       => array('name','official_code','login','password','email','phone','language')
+      , 'default'       => array('name','official_code','login','password','email','phone','language','picture')
       , 'type'          => 'multi'
       , 'acceptedValue' => array ('name' => 'Name'
                                  ,'official_code' => 'Official code'
@@ -97,6 +99,17 @@ array ( 'label'         => 'Profile form'
                                  ,'email' => 'Email'
                                  ,'phone' => 'Phone'
                                  ,'language' => 'Language'
+                                 ,'picture' => 'User picture'
+                                 )
+      );
+
+$conf_def_property_list['allow_profile_picture'] =
+array ( 'label'         => 'Allow user to add a picture to their profile'
+      , 'description'   => ''
+      , 'default'       => TRUE
+      , 'type'          => 'boolean'
+      , 'acceptedValue' => array ('TRUE' => 'Yes'
+                                 ,'FALSE'  => 'No'
                                  )
       );
 
@@ -137,6 +150,7 @@ $conf_def['section']['request']['properties'] =
 array ( 'allowSelfRegProf'
       , 'can_request_course_creator_status'
       , 'can_request_revoquation'
+      , ''
       );
 
 $conf_def_property_list['can_request_course_creator_status'] =
