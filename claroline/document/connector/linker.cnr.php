@@ -13,10 +13,22 @@
  *
  */
 
-FromKernel::uses('fileManage.lib', 'file.lib');
+FromKernel::uses('fileManage.lib', 'file.lib', 'fileDisplay.lib');
 
 class CLDOC_Resolver implements ModuleResourceResolver
 {
+    protected function urlDecodePath( $path )
+    {
+        $pathElementList = explode('/', $path);
+    
+        for ($i = 0; $i < sizeof($pathElementList); $i++)
+        {
+            $pathElementList[$i] = rawurldecode($pathElementList[$i]);
+        }
+    
+        return implode('/',$pathElementList);
+    }
+    
     public function resolve ( ResourceLocator $locator )
     {
         if ( $locator->hasResourceId() )
@@ -44,14 +56,16 @@ class CLDOC_Resolver implements ModuleResourceResolver
                 $path .= '/document';
             }
             
-            $path .= '/' . ltrim( $locator->getResourceId(), '/' );
-            $resourcePath = '/' . ltrim( $locator->getResourceId(), '/' );
+            $path .= '/' . $this->urlDecodePath( ltrim( $locator->getResourceId(), '/' ) );
+            $resourcePath = '/' . $this->urlDecodePath( ltrim( $locator->getResourceId(), '/' ) );
             
             $path = secure_file_path( $path );
             
             if ( !file_exists($path) )
             {
-                throw new Exception("Resource not found {$path}");
+                // throw new Exception("Resource not found {$path}");
+            
+                return false;
             }
             elseif ( is_dir( $path ) )
             {
@@ -76,7 +90,7 @@ class CLDOC_Resolver implements ModuleResourceResolver
 
     public function getResourceName( ResourceLocator $locator)
     {
-        $path = $locator->getResourceId();
+        $path = $this->urlDecodePath( $locator->getResourceId() );
         
         return str_replace( '/', ' > ', $path );
     }
@@ -258,7 +272,7 @@ class CLDOC_Navigator implements ModuleResourceNavigator
                 $fileLoc = new ClarolineResourceLocator(
                     $locator->getCourseId(),
                     'CLDOC',
-                    $relativePath,
+                    format_url_path( $relativePath ),
                     $groupId
                 );
                 
