@@ -722,6 +722,22 @@ function is_tool_activated_in_course( $toolId, $courseIdReq )
     return ( false != claro_sql_query_fetch_single_value($sql) );
 }
 
+function is_module_installed_in_course( $toolLabel, $courseId )
+{
+    $toolId = get_tool_id_from_module_label( $toolLabel );
+    
+    $tbl_cdb_names        = claro_sql_get_course_tbl( claro_get_course_db_name_glued($courseId) );
+    $tbl_course_tool_list = $tbl_cdb_names['tool'];
+    
+    $sql = "SELECT count(*) \n"
+        . "FROM `{$tbl_course_tool_list}`\n"
+        . "WHERE tool_id = " . (int) $toolId ."\n"
+        . "AND `installed` = 'true'"
+        ;
+        
+    return ( false != claro_sql_query_fetch_single_value($sql) );
+}
+
 function is_tool_activated_in_groups( $courseId, $toolLabel )
 {
     $activatedGroupToolList = get_activated_group_tool_label_list( $courseId );
