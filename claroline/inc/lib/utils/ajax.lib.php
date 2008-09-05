@@ -34,7 +34,9 @@ class Json_Response
             'responseBody' => $this->body
         );
         
-        return claro_utf8_encode( json_encode( $response ) );
+        claro_utf8_encode_array( $response );
+        
+        return json_encode( $response );
     }
 }
 
