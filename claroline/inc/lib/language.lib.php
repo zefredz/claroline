@@ -671,3 +671,15 @@ function claro_utf8_decode($str, $toCharset = '')
         return html_entity_decode( $converted, ENT_NOQUOTES, $charset );
     }
 }
+
+function claro_utf8_encode_array( &$var )
+{
+    if ( !is_array( $var ) )
+    {
+        $var = claro_utf8_encode( $var );
+    }
+    else
+    {
+        array_walk( $var, 'claro_utf8_encode_array' );
+    }
+}
