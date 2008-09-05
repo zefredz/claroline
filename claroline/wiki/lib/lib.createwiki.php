@@ -28,6 +28,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
     function create_wiki( $gid = false, $wikiName = 'New wiki' )
     {
+        if ( ! is_tool_activated_in_course( get_tool_id_from_module_label('CLWIKI'), claro_get_current_course_id() )
+            || ! is_tool_activated_in_groups( 'CLWIKI', claro_get_current_course_id() ) )
+        {
+            return;
+        }
+        
         $creatorId = claro_get_current_user_id();
 
         $tblList = claro_sql_get_course_tbl();
