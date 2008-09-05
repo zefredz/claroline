@@ -355,6 +355,29 @@ li.lastBreadCrumbsNode {
     color: #111C99;
 }
 
+#leftSidebar {
+    padding: 2px;
+    margin: 0;
+    float: left;
+    width: 200px;
+}
+
+#rightContent {
+    padding: 2px;
+    margin-left: 240px;
+}
+
+#rightSidebar {
+    padding: 2px;
+    margin: 0;
+    float: right;
+    width: 200px;
+}
+
+#leftContent {
+    padding: 2px;
+    margin-right: 240px;
+}
 /******************************************************************************
                               CLAROLINE FOOTER
  ******************************************************************************/
