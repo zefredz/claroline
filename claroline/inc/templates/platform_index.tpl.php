@@ -1,8 +1,32 @@
 <?php if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) ); ?>
 
-<table width="100%" border="0" cellpadding="4">
-<tr>
-<td valign="top">
+<div id="rightSidebar" class="claroR-ightMenu">
+
+<?php 
+if ( claro_is_user_authenticated() ) :
+
+    FromKernel::uses('display/userprofilebox.lib');
+    
+    $userProfileBox = new UserProfileBox(true);
+    echo $userProfileBox->render();
+    // Display module digest
+    // require get_path('incRepositorySys') . '/index_mydigest.inc.php';
+
+else :
+    // Display preferred language form
+    echo claro_display_preferred_language_form();
+    // Display login form
+    include_template('loginzone.tpl.php');
+endif;
+?>
+
+<?php include_dock('campusHomePageRightMenu'); ?>
+
+<?php include_textzone('textzone_right.inc.html'); ?>
+
+</div>
+
+<div id="leftContent">
 
 <?php 
 include_textzone( 'textzone_top.inc.html', '<div style="text-align: center">
@@ -84,31 +108,4 @@ endif;
 
 <?php include_dock('campusHomePageBottom'); ?>
 
-</td>
-<td width="200" valign="top" class="claroRightMenu">
-
-<?php 
-if ( claro_is_user_authenticated() ) :
-
-    FromKernel::uses('display/userprofilebox.lib');
-    
-    $userProfileBox = new UserProfileBox(true);
-    echo $userProfileBox->render();
-    // Display module digest
-    // require get_path('incRepositorySys') . '/index_mydigest.inc.php';
-
-else :
-    // Display preferred language form
-    echo claro_display_preferred_language_form();
-    // Display login form
-    include_template('loginzone.tpl.php');
-endif;
-?>
-
-<?php include_dock('campusHomePageRightMenu'); ?>
-
-<?php include_textzone('textzone_right.inc.html'); ?>
-
-</td>
-</tr>
-</table>
+</div>
