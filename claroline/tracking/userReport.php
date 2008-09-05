@@ -52,31 +52,28 @@ else
 /*
  * Permissions
  */
-$is_allowedToTrack = false;
-$canSwitchCourses = false;
-
-if( !is_null($userId) && claro_is_user_authenticated() )
+if( claro_is_platform_admin() )
 {
-    if(  $userId == claro_get_current_user_id() )
-    {
-        $is_allowedToTrack = true;
-        $canSwitchCourses = true;
-    }
-}
-
-if( claro_is_course_manager() || claro_is_platform_admin() )
-{
+    // if I am platform admin I can always see tracking for all courses of user
     $is_allowedToTrack = true;
-
-    if( claro_is_platform_admin() )
-    {
-        $canSwitchCourses = true;
-    }
+    $canSwitchCourses = true;
 }
-
-if( claro_is_in_a_course() )
+elseif( !is_null($userId) && claro_is_user_authenticated() && $userId == claro_get_current_user_id() )
 {
+    // if these are my tracking I can view tracking of my other courses
+    $is_allowedToTrack = true;
+    $canSwitchCourses = true;
+}
+elseif( claro_is_course_manager() )
+{
+    // if I am course manager I will only be able to see tracking of my course
+    $is_allowedToTrack = true;
     $canSwitchCourses = false;
+}
+else
+{
+    // Mr Nobody can see nothing.  Let's get out of here !
+    claro_die(get_lang('Not allowed'));
 }
 
 /*
@@ -109,9 +106,17 @@ if( !is_array($userData) )
 $cssLoader = CssLoader::getInstance();
 $cssLoader->load( 'tracking', 'screen');
 
-ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users'), '../user/user.php' );
+$nameTools = get_lang('Statistics');
+ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, Url::Contextualize($_SERVER['PHP_SELF'] . '?userId=' . $userId ) );
 
-$nameTools = get_lang('User statistics');
+if( $canSwitchCourses )
+{
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('My user account'), Url::Contextualize('../auth/profile.php') );
+}
+else
+{
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users'), Url::Contextualize('../user/user.php') );
+}
 
 $html = '';
 
@@ -148,7 +153,7 @@ $html .= '</div>' . "\n"
 if( $canSwitchCourses )
 {
     $html .= '<ul id="navlist">' . "\n"
-    .     ' <li><a '.(empty($courseId)?'class="current"':'').' href="userReport.php?userId='.$userId.'">'.get_lang('Platform').'</a></li>' . "\n";
+    .     ' <li><a '.(empty($courseId)?'class="current"':'').' href="userReport.php?userId='.$userId.'&amp;cidReset=true">'.get_lang('Platform').'</a></li>' . "\n";
 
 
     foreach( $userCourseList as $course )
@@ -157,7 +162,9 @@ if( $canSwitchCourses )
         else                                        $class = '';
 
         $html .= ' <li>'
-        .     '<a '.$class.' href=userReport.php?userId='.$userId.'&amp;courseId='.$course['sysCode'].'>'.$course['title'].'</a>'
+        .     '<a '.$class.' href="'
+        .     htmlspecialchars(Url::Contextualize( 'userReport.php?userId='.$userId.'&amp;cidReq='.$course['sysCode'] ))
+        .     '">'.$course['title'].'</a>'
         .     '</li>' . "\n";
     }
 
