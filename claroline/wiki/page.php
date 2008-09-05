@@ -244,7 +244,7 @@
 
     $versionId = ( isset( $_REQUEST['versionId'] ) ) ? (int) $_REQUEST['versionId'] : 0;
 
-    $title = ( isset( $_REQUEST['title'] ) ) ? strip_tags( $_REQUEST['title'] ) : '';
+    $title = ( isset( $_REQUEST['title'] ) ) ? strip_tags( rawurldecode( $_REQUEST['title'] ) ) : '';
 
     if ( 'diff' == $action )
     {
