@@ -134,23 +134,27 @@ $output .= '<div id="rightSidebar">' . $userProfileBox->render() . '</div>';
 $output .= '<div id="leftContent">' . "\n";
 if( $canSwitchCourses )
 {
-    $output .= '<ul id="navlist">' . "\n"
-    .     ' <li><a '.(empty($courseId)?'class="current"':'').' href="userReport.php?userId='.$userId.'&amp;cidReset=true">'.get_lang('Platform').'</a></li>' . "\n";
-
-
+    $displayedCourseList = array();
+    $displayedCourseList[ get_lang('Platform') ] = '';
     foreach( $userCourseList as $course )
     {
-        if( $course['sysCode'] == $courseId )     $class = 'class="current"';
-        else                                        $class = '';
-
-        $output .= ' <li>'
-        .     '<a '.$class.' href="'
-        .     htmlspecialchars(Url::Contextualize( 'userReport.php?userId='.$userId.'&amp;cidReq='.$course['sysCode'] ))
-        .     '">'.$course['title'].'</a>'
-        .     '</li>' . "\n";
+        $displayedCourseList[ $course['title'] ] = $course['sysCode'];
     }
+    
+    $attr['onchange'] = 'filterForm.submit()';
+    
+    $output .= "\n"
+    .     '<form method="get" name="filterForm" action="'.htmlspecialchars(Url::Contextualize( 'userReport.php')).'">' . "\n"
+    .     '<input type="hidden" name="userId" value="'.(int) $userId.'" />' . "\n"
+    .     '<p align="right">' . "\n"
+    .     '<label for="cidReq">'.get_lang('Choose a course').'&nbsp;:&nbsp;</label>' . "\n"
+    .     claro_html_form_select('cidReq', $displayedCourseList, $courseId, $attr) . "\n"
+    .     '<noscript>' . "\n"
+    .     '<input type="submit" value="'.get_lang('Ok').'" />' . "\n"
+    .     '</noscript>' . "\n"
+    .     '</p>' . "\n"
+    .     '</form>' . "\n\n";
 
-    $output .= '</ul>' . "\n\n";
 }
 else
 {
