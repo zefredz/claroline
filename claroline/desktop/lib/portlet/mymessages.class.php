@@ -35,7 +35,12 @@ class MyMessages extends UserDesktopPortlet
 
     public function renderContent()
     {
-        $output = getBarMessageBox( claro_get_current_user_id(), 'inbox' );
+        // $output = getBarMessageBox( claro_get_current_user_id(), 'inbox' );
+        
+        $output = '<div id="myMessagePortletTitle">'
+            . get_lang('Last %numberOfMessages messages', array( '%numberOfMessages' => get_conf('myboxNumberOfMessage',5) ) )
+            . ' : </div>'
+            ;
 
         $output .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
         .    '<thead>' . "\n"
@@ -91,6 +96,14 @@ class MyMessages extends UserDesktopPortlet
         .    '</tbody>' . "\n"
         .    '</table>' . "\n"
         ;
+        
+        $output .= '<p><small><a href="'
+            . get_path('clarolineRepositoryWeb')
+            . 'messaging/index.php' . '">'
+            . get_lang( 'Show all' )
+            . '</a></small>'
+            . '</p>' . "\n"
+            ;
 
         return $output;
     }
