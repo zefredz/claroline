@@ -291,7 +291,8 @@ class Claro_Utils_Clarogrid extends Claro_Utils_Datagrid
      */
     public function fullWidth()
     {
-        $this->attributes['style'] = 'width: 100%';
+        // not 100% due to IE box model !
+        $this->attributes['style'] = 'width: 99%';
     }
     
     protected function renderHeader()

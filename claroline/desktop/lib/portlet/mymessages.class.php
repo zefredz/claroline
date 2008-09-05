@@ -42,7 +42,7 @@ class MyMessages extends UserDesktopPortlet
             . ' : </div>'
             ;
 
-        $output .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
+        $output .= '<table class="claroTable emphaseLine" width="99%" border="0" cellspacing="2">' . "\n"
         .    '<thead>' . "\n"
         .      '<tr class="headerX" align="center" valign="top">' . "\n"
         .        '<th>&nbsp;</th>' . "\n"
