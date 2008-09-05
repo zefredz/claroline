@@ -88,7 +88,20 @@ class UserProfileBox implements Display
                 . '<p><span>' . get_lang('Administrative code') . '</span><br /> '
                 . (!empty($userData['officialCode']) ? htmlspecialchars($userData['officialCode']) : '-' )
                 . '</p>' . "\n"
+                . '<p>'
                 ;
+            
+            if ( get_conf( 'is_trackingEnabled' ) )
+            {
+                $output .= '<a class="claroCmd" href="'.get_path('clarolineRepositoryWeb')
+                    .'tracking/userReport.php?userId='.claro_get_current_user_id()
+                    . claro_url_relay_context('&amp;') . '">' . "\n"
+                    . '<img src="' . get_icon_url('statistics') . '" alt="" />' . "\n"
+                    . ' ' . get_lang('View my statistics')
+                    . '</a>'
+                    . '</p>'
+                    ;
+            }
         }
         
         $output .= '<p>'
