@@ -94,7 +94,7 @@ class UserProfileBox implements Display
         
         $output .= '</div>' . "\n" // details
             . '</div>' . "\n" // portletContent
-            . ( !$this->condensedMode ? '<div id="userProfileBox">'. $dock->render() .'</div>' : '' )
+            . ( !$this->condensedMode ? '<div id="userProfileBoxDock">'. $dock->render() .'</div>' : '' )
             . '</div>' . "\n" // portletRightMenu
             ;
 
