@@ -673,7 +673,7 @@ class ToolResolver
     
     public function getResourceName( ResourceLocator $locator )
     {
-        return get_module_data($locator->getModuleLabel(), 'moduleName' );
+        return get_lang( get_module_data($locator->getModuleLabel(), 'moduleName' ) );
     }
 }
 
