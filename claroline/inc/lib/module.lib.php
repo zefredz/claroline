@@ -409,11 +409,17 @@ function install_module_database_in_course( $moduleLabel, $courseId )
 function install_module_script_in_course( $moduleLabel, $courseId )
 {
     $phpPath = get_module_path( $moduleLabel ) . '/setup/course_install.php';
-    $courseDirectory = claro_get_current_course_data( 'path' );
-    $courseTbl = claro_sql_get_course_tbl();
 
     if ( file_exists( $phpPath ) )
     {
+        $courseDirectory = claro_get_current_course_data( 'path' );
+        $moduleCourseTblList = $courseTbl = claro_sql_get_course_tbl();
+        
+        // include the language file with all language variables
+        language::load_translation( );
+        language::load_locale_settings( );
+        language::load_module_translation( $moduleLabel );
+
         require_once $phpPath;
     }
 }
