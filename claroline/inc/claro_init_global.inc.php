@@ -201,7 +201,8 @@ if ( isset( $tlabelReq ) && !empty( $tlabelReq ) )
     /*----------------------------------------------------------------------
         Install module
     ----------------------------------------------------------------------*/
-    if ( claro_is_in_a_course() )
+    if ( claro_is_in_a_course()
+        && ! is_module_installed_in_course( $tlabelReq, claro_get_current_course_id() ) )
     {
         install_module_database_in_course( $tlabelReq, claro_get_current_course_id() ) ;
     }
