@@ -236,7 +236,7 @@ class ClaroBanner extends CoreTemplate
                 ;
             
             $userToolUrlList[]= '<a href="'.  get_path('url')
-                . '/index.php#myCourseList" target="_top">'
+                . '/index.php" target="_top">'
                 . get_lang('My course list').'</a>'
                 ;
             
