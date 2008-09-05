@@ -26,7 +26,7 @@ if( ! get_conf('is_trackingEnabled') ) claro_die(get_lang('Tracking has been dis
 /*
  * Libraries
  */
-uses( 'user.lib', 'courselist.lib' );
+FromKernel::uses('user.lib', 'courselist.lib','display/userprofilebox.lib');
 
 require_once dirname( __FILE__ ) . '/lib/trackingRenderer.class.php';
 require_once dirname( __FILE__ ) . '/lib/trackingRendererRegistry.class.php';
@@ -40,11 +40,11 @@ else                                                                  $userId = 
 
 if( isset($_REQUEST['courseId']) && !empty($_REQUEST['courseId']) )
 {
-	$courseId = $_REQUEST['courseId'];
+    $courseId = $_REQUEST['courseId'];
 }
 else
 {
-	if( claro_is_in_a_course() ) $courseId = claro_get_current_course_id();
+    if( claro_is_in_a_course() ) $courseId = claro_get_current_course_id();
     else                         $courseId = null;
 }
 
@@ -118,41 +118,23 @@ else
     ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users'), Url::Contextualize('../user/user.php') );
 }
 
-$html = '';
+$output = '';
 
 /*
  * Output of : user information
  */
-         
-            
-$html .= '<div id="userCart">' . "\n"
-.     ' <div id="picture">' . "\n";
+$userProfileBox = new UserProfileBox(true);
+$userProfileBox->setUserId($userId);
 
-if( $pictureUrl = user_get_picture_url( $userData ) )
-{
-    $html .= '<img src="'.$pictureUrl.'" class="userPicture" alt="" />';
-}
-else
-{
-    $html .= '<img src="'.get_icon_url('nopicture').'" class="userPicture" alt="" />';
-}
-
-
-$html .= '</div>' . "\n"
-.     ' <div id="details">'
-.     '  <p><span>' . get_lang('Last name') . '</span><br /> ' . htmlspecialchars($userData['lastname']) . '</p>'
-.     '  <p><span>' . get_lang('First name') . '</span><br /> ' . htmlspecialchars($userData['firstname']) . '</p>'
-.     '  <p><span>' . get_lang('Email') . '</span><br /> ' . htmlspecialchars($userData['email']) . '</p>'
-.     ' </div>' . " \n"
-.     '</div>' . "\n"
-.     '<div class="spacer"></div>' . "\n";
+$output .= '<div id="rightSidebar">' . $userProfileBox->render() . '</div>';
 
 /*
  * Output of : course list if required
  */
+$output .= '<div id="leftContent">' . "\n";
 if( $canSwitchCourses )
 {
-    $html .= '<ul id="navlist">' . "\n"
+    $output .= '<ul id="navlist">' . "\n"
     .     ' <li><a '.(empty($courseId)?'class="current"':'').' href="userReport.php?userId='.$userId.'&amp;cidReset=true">'.get_lang('Platform').'</a></li>' . "\n";
 
 
@@ -161,25 +143,25 @@ if( $canSwitchCourses )
         if( $course['sysCode'] == $courseId )     $class = 'class="current"';
         else                                        $class = '';
 
-        $html .= ' <li>'
+        $output .= ' <li>'
         .     '<a '.$class.' href="'
         .     htmlspecialchars(Url::Contextualize( 'userReport.php?userId='.$userId.'&amp;cidReq='.$course['sysCode'] ))
         .     '">'.$course['title'].'</a>'
         .     '</li>' . "\n";
     }
 
-    $html .= '</ul>' . "\n\n";
+    $output .= '</ul>' . "\n\n";
 }
 else
 {
-    $html .= '<p>'
+    $output .= '<p>'
     .     '<a href="'.get_path('url').'/claroline/user/user.php' . claro_url_relay_context('?') . '"><small>'
     .    '&lt;&lt;&nbsp;'
     .    get_lang('Back to user list')
     .    '</small></a>' . "\n"
     .     '</p>' . "\n";
 }
-            
+
 /*
  * Prepare rendering : 
  * Load and loop through available tracking renderers
@@ -189,7 +171,6 @@ else
 // get all renderers by using registry
 $trackingRendererRegistry = TrackingRendererRegistry::getInstance(claro_get_current_course_id());
 
-// FIXME do something when courseId is null
 if( ! is_null($courseId) )
 { 
     // we need user tracking renderers in course context
@@ -201,16 +182,17 @@ else
     $userTrackingRendererList = $trackingRendererRegistry->getUserRendererList(TrackingRendererRegistry::PLATFORM);
 }
     
-    foreach( $userTrackingRendererList as $ctr )
-    {
-        $renderer = new $ctr( $courseId, $userId );
-        $html .= $renderer->render();
-    }
+foreach( $userTrackingRendererList as $ctr )
+{
+    $renderer = new $ctr( $courseId, $userId );
+    $output .= $renderer->render();
+}
 
+$output .= "\n" . '</div>' . "\n";
 /*
  * Output rendering
  */
-$claroline->display->body->setContent($html);
+$claroline->display->body->setContent($output);
 
 echo $claroline->display->render();
 
