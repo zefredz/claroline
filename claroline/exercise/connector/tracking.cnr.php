@@ -48,7 +48,7 @@ class CLQWZ_CourseTrackingRenderer extends CourseTrackingRenderer
 
         $results = claro_sql_query_fetch_all($sql);
         
-        $html .= '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
+        $html .= '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center" style="width: 99%;">'."\n"
         .   '<tr class="headerX">'."\n"
         .   '<th>&nbsp;'.get_lang('Exercises').'&nbsp;</th>'."\n"
         .   '<th>&nbsp;'.get_lang('User attempts').'&nbsp;</th>'."\n"
@@ -140,7 +140,7 @@ class CLQWZ_UserTrackingRenderer extends UserTrackingRenderer
         .    ' });' 
         .    '</script>'."\n\n";
         
-        $html .= '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center">' . "\n"
+        $html .= '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center" style="width: 99%;">' . "\n"
         .    '<tr class="headerX">' . "\n"
         .    '<th>' . get_lang('Exercises').'</th>' . "\n"
         .    '<th>' . get_lang('Worst score').'</th>' . "\n"
@@ -175,7 +175,7 @@ class CLQWZ_UserTrackingRenderer extends UserTrackingRenderer
                     $html .= '<tr class="exerciseDetails" >'
                     .    '<td>&nbsp;</td>' . "\n"
                     .    '<td colspan="6" class="noHover">' . "\n"
-                    .    '<table class="claroTable emphaseLine" cellspacing="1" cellpadding="2" border="0" width="100%">' . "\n"
+                    .    '<table class="claroTable emphaseLine" cellspacing="1" cellpadding="2" border="0" width="100%" style="width: 99%;">' . "\n"
                     .    '<tr class="headerX">' . "\n"
                     .    '<th><small>' . get_lang('Date').'</small></th>' . "\n"
                     .    '<th><small>' . get_lang('Score').'</small></th>' . "\n"

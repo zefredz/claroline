@@ -44,7 +44,7 @@ class CLDOC_CourseTrackingRenderer extends CourseTrackingRenderer
 
         $results = claro_sql_query_fetch_all($sql);
 
-        $html .= '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
+        $html .= '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center" style="width: 99%;">'."\n"
             .'<tr class="headerX">'."\n"
             .'<th>&nbsp;'.get_lang('Document').'&nbsp;</th>'."\n"
             .'<th>&nbsp;'.get_lang('Users Downloads').'&nbsp;</th>'."\n"
@@ -124,7 +124,7 @@ class CLDOC_UserTrackingRenderer extends UserTrackingRenderer
         
         $html = '';
         
-        $html .= '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center">' . "\n"
+        $html .= '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center" style="width: 99%;">' . "\n"
         .    '<tr class="headerX">' . "\n"
         .    '<th>' . get_lang('Document').'</th>' . "\n"
         .    '<th>' . get_lang('Last download').'</th>' . "\n"

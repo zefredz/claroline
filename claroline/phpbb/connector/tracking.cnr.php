@@ -60,7 +60,7 @@ class CLFRM_CourseTrackingRenderer extends CourseTrackingRenderer
                     LIMIT 10
                     ";
         $results = claro_sql_query_fetch_all($sql);
-        $html .= '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
+        $html .= '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center" style="width: 99%;">'."\n"
         .   '<tr class="headerX">'."\n"
         .   '<th>'.get_lang('More active topics').'</th>'."\n"
         .   '<th>'.get_lang('Replies').'</th>'."\n"
@@ -95,7 +95,7 @@ class CLFRM_CourseTrackingRenderer extends CourseTrackingRenderer
                     ";
         $results = claro_sql_query_fetch_all($sql);
 
-        $html .= '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
+        $html .= '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center" style="width: 99%;">'."\n"
         .   '<tr class="headerX">'."\n"
         .   '<th>'.get_lang('More read topics').'</th>'."\n"
         .   '<th>'.get_lang('Seen').'</th>'."\n"
@@ -132,7 +132,7 @@ class CLFRM_CourseTrackingRenderer extends CourseTrackingRenderer
 
         $results = claro_sql_query_fetch_all($sql);
 
-        $html .= '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
+        $html .= '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center" style="width: 99%;">'."\n"
         .   '<tr class="headerX">'."\n"
         .   '<th>'.get_lang('Most recently active topics').'</th>'."\n"
         .   '<th>'.get_lang('Last message').'</th>'."\n"
@@ -209,7 +209,7 @@ class CLFRM_UserTrackingRenderer extends UserTrackingRenderer
         
         $html = '';
         
-        $html = '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center">' . "\n"
+        $html = '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center" style="width: 99%;">' . "\n"
         .    '<tr class="headerX">' . "\n"
         .    '<th>' . get_lang('Topic').'</th>' . "\n"
         .    '<th>' . get_lang('Last message').'</th>' . "\n"

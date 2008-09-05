@@ -1,9 +1,9 @@
-<?php // $Id$
+<?php // $Id:tracking.cnr.php 10410 2008-06-10 14:16:26Z fragile_be $
 if ( count( get_included_files() ) == 1 ) die( '---' );
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.8 $Revision:10410 $
  *
  * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
@@ -46,7 +46,7 @@ class CLWRK_UserTrackingRenderer extends UserTrackingRenderer
         
         $html = '';
         
-        $html .= '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center">' . "\n"
+        $html .= '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center" style="width: 99%;">' . "\n"
         .    '<tr class="headerX">' . "\n"
         .    '<th>' . get_lang('Assignment').'</th>' . "\n"
         .    '<th>' . get_lang('Work title').'</th>' . "\n"

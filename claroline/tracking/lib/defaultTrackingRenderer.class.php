@@ -170,7 +170,7 @@ class CLTRACK_CourseToolAccess extends CourseTrackingRenderer
         
         $results = claro_sql_query_fetch_all($sql);
         
-        $html .= '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center">'."\n"
+        $html .= '<table class="claroTable" cellpadding="2" cellspacing="1" border="0" align="center" style="width: 99%;">'."\n"
         .   '<tr class="headerX">'."\n"
         .   '<th>&nbsp;'.get_lang('Name of the tool').'&nbsp;</th>'."\n"
         .   '<th>&nbsp;'.get_lang('Users\' Clicks').'&nbsp;</th>'."\n"
@@ -248,7 +248,7 @@ class CLTRACK_userCourseAccess extends UserTrackingRenderer
         
         $html = '';
         
-        $html = '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center">' . "\n"
+        $html = '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center" style="width: 99%;">' . "\n"
         .    '<tr class="headerX">' . "\n"
         .    '<th>' . get_lang('Month') . '</th>' . "\n"
         .    '<th>' . get_lang('Number of access') . '</th>' . "\n"
@@ -355,7 +355,7 @@ class CLTRACK_userPlatformAccess extends UserTrackingRenderer
         
         $html = '';
         
-        $html = '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center">' . "\n"
+        $html = '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center" style="width: 99%;">' . "\n"
         .    '<tr class="headerX">' . "\n"
         .    '<th>' . get_lang('Month') . '</th>' . "\n"
         .    '<th>' . get_lang('Number of access') . '</th>' . "\n"
