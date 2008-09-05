@@ -70,13 +70,24 @@ function buildICal($context, $calType='ics')
 
         foreach ($toolLabelList as $toolLabel)
         {
-            $icalToolLibPath = get_module_path($toolLabel) . '/connector/ical.write.cnr.php';
-            $icalToolFuncName =  $toolLabel . '_write_ical';
-            if ( file_exists($icalToolLibPath)
-            )
+            if ( is_tool_activated_in_course(
+                get_tool_id_from_module_label( $toolLabel ),
+                $context[CLARO_CONTEXT_COURSE]
+            ) )
             {
-                require_once $icalToolLibPath;
-                if (function_exists($icalToolFuncName)) $iCal = call_user_func($icalToolFuncName, $iCal, $context );
+                if ( ! is_module_installed_in_course($toolLabel,$context[CLARO_CONTEXT_COURSE]) )
+                {
+                    install_module_in_course( $toolLabel,$context[CLARO_CONTEXT_COURSE] );
+                }
+                
+                $icalToolLibPath = get_module_path($toolLabel) . '/connector/ical.write.cnr.php';
+                $icalToolFuncName =  $toolLabel . '_write_ical';
+                if ( file_exists($icalToolLibPath)
+                )
+                {
+                    require_once $icalToolLibPath;
+                    if (function_exists($icalToolFuncName)) $iCal = call_user_func($icalToolFuncName, $iCal, $context );
+                }
             }
         }
 

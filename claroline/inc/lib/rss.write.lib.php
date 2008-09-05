@@ -103,16 +103,27 @@ function build_rss($context)
         $toolLabelList = rss_get_tool_compatible_list();
         foreach ($toolLabelList as $toolLabel)
         {
-            $rssToolLibPath = get_module_path($toolLabel) . '/connector/rss.write.cnr.php';
-            $rssToolFuncName =  $toolLabel . '_write_rss';
-            if ( file_exists($rssToolLibPath)
-            )
+            if ( is_tool_activated_in_course(
+                get_tool_id_from_module_label( $toolLabel ),
+                $context[CLARO_CONTEXT_COURSE]
+            ) )
             {
-                include_once $rssToolLibPath;
-                if (function_exists($rssToolFuncName))
+                if ( ! is_module_installed_in_course($toolLabel,$context[CLARO_CONTEXT_COURSE]) )
                 {
-                    $rssItems = call_user_func($rssToolFuncName, $context );
-                    $data['channel'] = array_merge($data['channel'], $rssItems);
+                    install_module_in_course( $toolLabel,$context[CLARO_CONTEXT_COURSE] );
+                }
+                
+                $rssToolLibPath = get_module_path($toolLabel) . '/connector/rss.write.cnr.php';
+                $rssToolFuncName =  $toolLabel . '_write_rss';
+                if ( file_exists($rssToolLibPath)
+                )
+                {
+                    include_once $rssToolLibPath;
+                    if (function_exists($rssToolFuncName))
+                    {
+                        $rssItems = call_user_func($rssToolFuncName, $context );
+                        $data['channel'] = array_merge($data['channel'], $rssItems);
+                    }
                 }
             }
         }
