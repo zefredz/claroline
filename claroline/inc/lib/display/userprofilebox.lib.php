@@ -22,10 +22,17 @@ class UserProfileBox implements Display
 {
 
     protected $condensedMode;
+    protected $userId;
     
     public function __construct( $condensedMode = false )
     {
         $this->condensedMode = $condensedMode;
+        $this->userId = claro_get_current_user_id();
+    }
+    
+    public function setUserId( $userId )
+    {
+        $this->userId = (int) $userId;
     }
 
     // render content
@@ -35,7 +42,7 @@ class UserProfileBox implements Display
         
         load_kernel_config('user_profile');
         
-        $userData = user_get_properties( claro_get_current_user_id() );
+        $userData = user_get_properties( $this->userId );
         
         if ( get_conf('allow_profile_picture') )
         {
@@ -52,7 +59,9 @@ class UserProfileBox implements Display
         }
         $output = '<div id="userProfileBox">' . "\n"
             . '<div class="header" id="userProfileTitle">' . "\n"
-            . ($this->condensedMode ? '<a href="'.get_path('clarolineRepositoryWeb').'desktop/index.php">' : '')
+            . ($this->condensedMode && $this->userId == claro_get_current_user_id()
+                ? '<a href="'.get_path('clarolineRepositoryWeb').'desktop/index.php">'
+                : '')
             . htmlspecialchars($userData['firstname']) . '&nbsp;' . htmlspecialchars($userData['lastname'])
             . ($this->condensedMode ? '</a>' : '')
             . '</div>' . "\n"
