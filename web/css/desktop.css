@@ -52,34 +52,6 @@
     width:200px;
 }
 
-/* portlet myprofile */
-
-#portletMyprofile #picture {
-    margin: 0;
-    padding-top: 0.3em;
-    text-align: center;
-}
-
-#portletMyprofile #picture .pic {
-    border: 1px solid #AAA; 
-    background-color: #DDD;
-    width: 100px; 
-    height: 125px; 
-    margin: auto;
-    font-size: small; 
-    color: #AAA;
-}
-
-#portletMyprofile #details {
-    padding-top: 0.5em;
-    clear:both;
-}
-
-#portletMyprofile #details span {
-    font-size: small;
-    font-weight: bold;
-}
-
 /* portlet mycalendar */
 
 #portletMycalendar .calendar {
