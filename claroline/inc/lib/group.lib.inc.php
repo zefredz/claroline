@@ -93,9 +93,18 @@ function delete_groups($groupIdList = 'ALL')
 
     require_once get_module_path('CLWIKI') . '/lib/lib.createwiki.php';
     require_once get_path('incRepositorySys') . '/lib/forum.lib.php';
-
-    delete_group_wikis( $groupIdList );
-    delete_group_forums( $groupIdList );
+    
+    if ( is_tool_activated_in_course( get_tool_id_from_module_label('CLWIKI'), claro_get_current_course_id() )
+        && is_tool_activated_in_groups( 'CLWIKI', claro_get_current_course_id() ) )
+    {
+        delete_group_wikis( $groupIdList );
+    }
+    
+    if ( is_tool_activated_in_course( get_tool_id_from_module_label('CLFRM'), claro_get_current_course_id() )
+        && is_tool_activated_in_groups( 'CLFRM', claro_get_current_course_id() ) )
+    {
+        delete_group_forums( $groupIdList );
+    }
 
     /**
      * Check the data and notify eventmanager of the deletion
@@ -503,15 +512,23 @@ function create_group($prefixGroupName, $maxMember)
     * Create a forum for the group in the forum table
     */
 
-    create_forum( $groupName. ' - '. strtolower(get_lang('Forum'))
-    , '' // forum description
-    , 2  // means forum post allowed,
-    , (int) GROUP_FORUMS_CATEGORY
-    , $createdGroupId
-    );
-
-    require_once get_module_path('CLWIKI') . '/lib/lib.createwiki.php';
-    create_wiki( $createdGroupId, $groupName. ' - Wiki' );
+    if ( is_tool_activated_in_course( get_tool_id_from_module_label('CLFRM'), claro_get_current_course_id() )
+        && is_tool_activated_in_groups( 'CLFRM', claro_get_current_course_id() ) )
+    {
+        create_forum( $groupName. ' - '. strtolower(get_lang('Forum'))
+        , '' // forum description
+        , 2  // means forum post allowed,
+        , (int) GROUP_FORUMS_CATEGORY
+        , $createdGroupId
+        );
+    }
+    
+    if ( is_tool_activated_in_course( get_tool_id_from_module_label('CLWIKI'), claro_get_current_course_id() )
+        && is_tool_activated_in_groups( 'CLWIKI', claro_get_current_course_id() ) )
+    {
+        require_once get_module_path('CLWIKI') . '/lib/lib.createwiki.php';
+        create_wiki( $createdGroupId, $groupName. ' - Wiki' );
+    }
 
     return $createdGroupId;
 }
