@@ -150,9 +150,9 @@ $output .= $dialogBox->render();
 
 $userProfileBox = new UserProfileBox();
 
-$output .= $userProfileBox->render();
+$output .= '<div id="rightSidebar">' . $userProfileBox->render() . '</div>';
 
-$output .= $outPortlet;
+$output .= '<div id="leftContent">' . $outPortlet . '</div>';
 
 $claroline->display->body->appendContent($output);
 
