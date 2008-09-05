@@ -31,7 +31,7 @@ class UserProfileBox implements Display
     // render content
     public function render()
     {
-        CssLoader::getInstance()->load( 'desktop', 'all' );
+        CssLoader::getInstance()->load( 'profile', 'all' );
         
         load_kernel_config('user_profile');
         
@@ -50,26 +50,21 @@ class UserProfileBox implements Display
                 $pictureUrl = get_icon_url('nopicture');
             }
         }
-        $output = '<div class="portletRightMenu">' . "\n"
-            . '<div class="header portletTitle">' . "\n"
-            . '<span class="porletIcon">' . "\n"
-            . '<a href="'.get_path('clarolineRepositoryWeb').'auth/profile.php">' . "\n"
-            . '<img src="' . get_icon_url('edit') . '" alt="" />' . "\n"
-            . '</a>' . "\n"
-            . '</span>' . "\n"
+        $output = '<div id="userProfileBox">' . "\n"
+            . '<div class="header" id="userProfileTitle">' . "\n"
             . ($this->condensedMode ? '<a href="'.get_path('clarolineRepositoryWeb').'desktop/index.php">' : '')
             . htmlspecialchars($userData['firstname']) . '&nbsp;' . htmlspecialchars($userData['lastname'])
             . ($this->condensedMode ? '</a>' : '')
             . '</div>' . "\n"
-            . '<div class="portletContent" id="portletMyprofile">' . "\n"
+            . '<div id="userProfile">' . "\n"
             ;
         
         if ( get_conf('allow_profile_picture') )
         {
-            $output .= '<div id="picture"><img src="' . $pictureUrl . '" alt="' . get_lang('avatar') . '" /></div>' . "\n";
+            $output .= '<div id="userPicture"><img src="' . $pictureUrl . '" alt="' . get_lang('avatar') . '" /></div>' . "\n";
         }
         
-        $output .='<div id="details">'
+        $output .='<div id="userDetails">'
             . '<p><span>' . get_lang('User') . '</span><br /> ' . htmlspecialchars(get_lang('%firstName %lastName', array('%firstName' => $userData['firstname'], '%lastName' => $userData['lastname']) ) ) . '</p>' . "\n"
             . '<p><span>' . get_lang('Email') . '</span><br /> '
             . (!empty($userData['email']) ? htmlspecialchars($userData['email']) : '-' )
