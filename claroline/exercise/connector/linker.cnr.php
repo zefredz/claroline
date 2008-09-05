@@ -100,17 +100,17 @@ class CLQWZ_Navigator implements ModuleResourceNavigator
               FROM `".$tblExercise."`
               ORDER BY `title` ASC";
         $exerciseList = claro_sql_query_fetch_all_rows($sql);
-            
-        $resourceList = new LinkerResourceIterator;
 
-        foreach( $exerciseList as $exercise )    
+        $resourceList = new LinkerResourceIterator();
+
+        foreach( $exerciseList as $exercise )
         {    
             $fileLoc = new ClarolineResourceLocator(
                 $locator->getCourseId(),
                 'CLQWZ',
                 $exercise['id']
             );
-            
+
             $fileResource = new LinkerResource(
                 $exercise['title'],
                 $fileLoc,
@@ -118,10 +118,10 @@ class CLQWZ_Navigator implements ModuleResourceNavigator
                 ($exercise['visibility'] == 'VISIBLE' ? true : false),
                 false
             );
+
+            $resourceList->addResource( $fileResource );
         }
-                
-        $resourceList->addResource( $fileResource );
-            
+
         return $resourceList;
     }
 }
