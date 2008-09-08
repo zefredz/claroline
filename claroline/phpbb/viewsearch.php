@@ -5,6 +5,7 @@ $tlabelReq = 'CLFRM';
 require '../inc/claro_init_global.inc.php';
 require get_path('incRepositorySys') . '/lib/forum.lib.php';
 require get_path('incRepositorySys') . '/lib/group.lib.inc.php';
+include_once get_path('incRepositorySys') . '/lib/user.lib.php';
 
 $last_visit        = claro_get_current_user_data('lastLogin');
 $is_groupPrivate   = claro_get_current_group_properties_data('private');
@@ -63,6 +64,7 @@ if ( $sqlClauseString )
                        pt.post_text,
                        p.nom         AS lastname,
                        p.prenom      AS firstname,
+                       p.`poster_id`,
                        p.post_time,
                        t.topic_id,
                        t.topic_title,
@@ -93,6 +95,7 @@ else
 $pagetype= 'viewsearch';
 
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Forums'), 'index.php' );
+CssLoader::getInstance()->load( 'clfrm', 'screen');
 $noPHP_SELF       = true;
 
 include get_path('incRepositorySys') . '/claro_init_header.inc.php';
@@ -103,16 +106,11 @@ echo claro_html_tool_title(get_lang('Forums'),
 echo claro_html_menu_horizontal(disp_forum_toolbar($pagetype, null))
 .    disp_forum_breadcrumb($pagetype, null, null, null)
 
-.    '<table class="claroTable" width="100%">'                          . "\n"
-.    '<tr align="left">'                                                . "\n"
-.    '<th class="superHeader">'                                         . "\n"
-.    get_lang('Search result') . ' : ' . (isset($_REQUEST['searchPattern']) ?  htmlspecialchars($_REQUEST['searchPattern']) : '') . "\n"
-.    '</th>'                                                            . "\n"
-.    '</tr>'                                                            . "\n";
+.    '<h4>' . get_lang('Search result') . ' : ' . (isset($_REQUEST['searchPattern']) ?  htmlspecialchars($_REQUEST['searchPattern']) : '') . '</h4>' . "\n";
 
     if (count($searchResultList) < 1 )
     {
-        echo '<tr><td align="center">' . get_lang('No result') . '</td></tr>';
+        echo '<p>' . get_lang('No result') . '</p>';
     }
     else foreach ( $searchResultList as $thisPost )
     {
@@ -129,43 +127,52 @@ echo claro_html_menu_horizontal(disp_forum_toolbar($pagetype, null))
         }
         else
         {
-            // Check if the forum post is after the last login
-            // and choose the image according this state
+            // notify if is new message
             $post_time = datetime_to_timestamp($thisPost['post_time']);
-
+    
             if($post_time < $last_visit) $class = ' class="item"';
             else                         $class = ' class="item hot"';
-
-            echo '<tr>'                                                   . "\n"
-
-            .   '<th class="headerX">'                                    . "\n"
-            .   '<span'.$class.'>'
-            .   '<img src="' . get_icon_url('topic') . '" alt="" />'
-            .   '<a href="' . htmlspecialchars( Url::Contextualize(
-                    get_module_url('CLFRM') . '/viewtopic.php?topic='
-                    .$thisPost['topic_id'] ))
-            .   '">'
-            .   htmlspecialchars( $thisPost['topic_title'] )
-            .   '</a><br />'                                              . "\n"
-            .   '<img src="' . get_icon_url( 'post' ) . '" alt="" />'
-            .   get_lang('Author') . ' : <b>' . $thisPost['firstname'] . ' ' . $thisPost['lastname'] . '</b> '
-            .   '<small>' . get_lang('Posted') . ' : ' . $thisPost['post_time'] . '</small>' . "\n"
-            .   '</span>'
-            .   '</th>'                                                  . "\n"
-
-            .   '</tr>'                                                  . "\n"
-
-            .   '<tr>'                                                   . "\n"
-
-            .   '<td>'                                                   . "\n"
-            .   claro_parse_user_text($thisPost['post_text'])            . "\n"
-            .   '</td>'                                                  . "\n"
-            .   '</tr>'                                                  . "\n";
+            
+            // get user picture
+            $userData = user_get_properties( $thisPost['poster_id'] );
+    
+            $picturePath = user_get_picture_path( $userData );
+    
+            if ( $picturePath && file_exists( $picturePath ) )
+            {
+                $pictureUrl = user_get_picture_url( $userData );
+            }
+            else
+            {
+                $pictureUrl = null;
+            }
+            
+            echo '<div id="post'. $thisPost['post_id'] .'" class="threadPost">'
+            .    '<div class="threadPostInfo">'
+            .    ( !is_null($pictureUrl) ?'<div class="threadPosterPicture"><img src="' . $pictureUrl . '" alt=" " /></div>':'' ) . "\n"
+            .    '<b>' . $thisPost['firstname'] . ' ' . $thisPost['lastname'] . '</b> '
+            .    '<br />'
+            .    '<small>' . claro_html_localised_date(get_locale('dateTimeFormatLong'), $post_time) . '</small>' . "\n"
+            ;
+    
+            
+            echo '  </div>' . "\n"
+    
+            .    '<div class="threadPostContent">' . "\n"
+            .    '<img src="' . get_icon_url('topic') . '" alt="" />'
+            .    '<a href="' . htmlspecialchars( Url::Contextualize(get_module_url('CLFRM') . '/viewtopic.php?topic='.$thisPost['topic_id'] )) . '">'
+            .    htmlspecialchars( $thisPost['topic_title'] )
+            .    '</a>' . "\n"
+            .    '<span class="threadPostIcon '.$class.'"><img src="' . get_icon_url( 'post' ) . '" alt="" /></span><br />' . "\n"
+            .    claro_parse_user_text($thisPost['post_text']) . "\n";
+    
+            echo '</div>' . "\n"
+            .    '<div class="spacer"></div>' . "\n\n"
+            .    '</div>' . "\n"
+            ;
         } // end else if ( ! is_null($thisPost['group_id'])
 
     } // end for each
-
-    echo '</table>' . "\n";
 
 /*-----------------------------------------------------------------
   Display Forum Footer
