@@ -69,6 +69,7 @@ if ( $adminContext && claro_is_platform_admin() )
     // from admin, add param to form
     $course->addHtmlParam('adminContext','1');
 }
+
 if ( claro_is_platform_admin()
     || get_conf('courseCreationAllowed', true) )
 {
