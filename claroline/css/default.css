@@ -356,29 +356,30 @@ li.lastBreadCrumbsNode {
 }
 
 #leftSidebar {
-    padding: 2px;
+    padding: 2px 5px;
     margin: 0;
     float: left;
-    width: 200px;
+    width: 220px;
+    border-right: #ccc solid 1px;
 }
 
 #rightContent {
     padding: 2px 2px 2px 5px;
     margin-left: 240px;
-    border-left: gray solid 1px;
+
 }
 
 #rightSidebar {
-    padding: 2px;
+    padding: 2px 5px;
     margin: 0;
     float: right;
-    width: 200px;
+    width: 220px;
+    border-left: #ccc solid 1px;
 }
 
 #leftContent {
     padding: 2px 5px 2px 2px;
     margin-right: 240px;
-    border-right: gray solid 1px;
 }
 /******************************************************************************
                               CLAROLINE FOOTER
