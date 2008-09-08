@@ -26,7 +26,7 @@ if( ! get_conf('is_trackingEnabled') ) claro_die(get_lang('Tracking has been dis
 /*
  * Libraries
  */
-uses( 'user.lib' );
+FromKernel::uses('user.lib', 'display/userprofilebox.lib');
 
 /*
  * Init request vars
@@ -163,12 +163,22 @@ ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users statistics'), Url::Con
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users'), 'user.php' );
 
 
-$html = '';
+$output = '';
 
-$html .= claro_html_tool_title($nameTools);
+/*
+ * Output of : user information
+ */
+$userProfileBox = new UserProfileBox(true);
+$userProfileBox->setUserId($userId);
+
+$output .= '<div id="rightSidebar">' . $userProfileBox->render() . '</div>';
+
+$output .= '<div id="leftContent">' . "\n";
+
+$output .= claro_html_tool_title($nameTools);
 
 // menu
-$html .= '<small>'."\n"
+$output .= '<small>'."\n"
 .   '[<a href="' . $_SERVER['PHP_SELF'].'?userId=' . $userId . '&amp;period=week&amp;reqdate='.$reqdate.'">'.get_lang('Week').'</a>]'."\n"
 .   '[<a href="' . $_SERVER['PHP_SELF'].'?userId=' . $userId . '&amp;period=month&amp;reqdate='.$reqdate.'">'.get_lang('Month').'</a>]'."\n"
 .   '&nbsp;&nbsp;&nbsp;||&nbsp;&nbsp;&nbsp;'."\n"
@@ -177,20 +187,20 @@ $html .= '<small>'."\n"
 if( $period == 'week' )
 {
     // previous and next date must be evaluated
-    $html .= '[<a href="' . $_SERVER['PHP_SELF'] . '?userId=' . $userId . '&amp;period=week&amp;reqdate=' . $previousReqDate . '">' . get_lang('Previous week') . '</a>]' . "\n"
+    $output .= '[<a href="' . $_SERVER['PHP_SELF'] . '?userId=' . $userId . '&amp;period=week&amp;reqdate=' . $previousReqDate . '">' . get_lang('Previous week') . '</a>]' . "\n"
     .    '[<a href="' . $_SERVER['PHP_SELF'] . '?userId=' . $userId . '&amp;period=week&amp;reqdate=' . $nextReqDate . '">' . get_lang('Next week') . '</a>]' . "\n"
     ;
 }
 else // month
 {
-    $html .= '[<a href="' . $_SERVER['PHP_SELF'] . '?userId=' . $userId . '&amp;period=month&amp;reqdate=' . $previousReqDate . '">' . get_lang('Previous month') . '</a>]' . "\n"
+    $output .= '[<a href="' . $_SERVER['PHP_SELF'] . '?userId=' . $userId . '&amp;period=month&amp;reqdate=' . $previousReqDate . '">' . get_lang('Previous month') . '</a>]' . "\n"
     .    '[<a href="' . $_SERVER['PHP_SELF'] . '?userId=' . $userId . '&amp;period=month&amp;reqdate=' . $nextReqDate . '">' . get_lang('Next month') . '</a>]' . "\n"
     ;
 }
 
-$html .= '</small>' . "\n\n";
+$output .= '</small>' . "\n\n";
 
-$html .= '<table class="claroTable" width="100%" cellpadding="4" cellspacing="1">'
+$output .= '<table class="claroTable" width="100%" cellpadding="4" cellspacing="1">'
 .   '<tr class="headerX"><th>'.$displayedDate.'</th></tr><tbody>';
 
 if( !empty($accessList) && is_array($accessList) )
@@ -198,7 +208,7 @@ if( !empty($accessList) && is_array($accessList) )
     $i = 0;
     while( $i < sizeof($accessList) )
     {
-        $html .= '<tr>' . "\n"
+        $output .= '<tr>' . "\n"
         .    '<td><small>' . claro_html_localised_date( get_locale('dateTimeFormatLong'), strtotime($accessList[$i]['date']) ) . '</small></td>' . "\n"
         .    '</tr>' . "\n"
         ;
@@ -222,20 +232,20 @@ if( !empty($accessList) && is_array($accessList) )
         
         if( !empty($toolAccess) && is_array($toolAccess) )
         {
-            $html .= '<tr>' . "\n"
+            $output .= '<tr>' . "\n"
             .    '<td colspan="2">' . "\n"
             .    '<table width="100%" cellpadding="0" cellspacing="0" border="0">' . "\n"
             ;
             foreach( $toolAccess as $aToolAccess )
             {
-                $html .= '<tr>' . "\n"
+                $output .= '<tr>' . "\n"
                 .    '<td width="70%"><small>' . claro_get_tool_name(claro_get_tool_id_from_course_tid($aToolAccess['tool_id'])) . '</small></td>' . "\n"
                 .    '<td width="30%" align="right"><small>' . $aToolAccess['nbr_access'] . ' ' . get_lang('Visits').'</small></td>' . "\n"
                 .    '</tr>' . "\n"
                 ;
 
             }
-            $html .= '</table>' . "\n"
+            $output .= '</table>' . "\n"
             .    '</td></tr>' . "\n\n"
             ;
         }
@@ -246,21 +256,21 @@ if( !empty($accessList) && is_array($accessList) )
 }
 else
 {
-    $html .= '<tr>' . "\n"
+    $output .= '<tr>' . "\n"
     .    '<td colspan="2">'
     .    '<div align="center">' . get_lang('No result') . '</div>'
     .    '</td>'."\n"
     .    '</tr>' . "\n"
     ;
 }
-$html .= '</tbody></table>' . "\n";
+$output .= '</tbody></table>' . "\n";
 
-
+$output .= "\n" . '</div>' . "\n";
 /*
  * Output rendering
  */
 
-$claroline->display->body->setContent($html);
+$claroline->display->body->setContent($output);
 
 echo $claroline->display->render();
 ?>
