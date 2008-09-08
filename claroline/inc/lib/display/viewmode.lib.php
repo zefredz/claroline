@@ -62,7 +62,7 @@
                 $out .= claro_html_tool_view_option();
             }
 
-            if ( claro_is_platform_admin() && ! claro_is_course_member() )
+            if ( claro_is_in_a_course() && ! claro_is_platform_admin() && ! claro_is_course_member() )
             {
                 $out .= ' | <a href="' . get_path('clarolineRepositoryWeb')
                     . 'auth/courses.php?cmd=exReg&course='
@@ -80,22 +80,19 @@
         
         private function renderRegistrationLink()
         {
-            return '<div id="toolViewOption">'
-                . '<a href="'
+            return '<a href="'
                 . get_path('clarolineRepositoryWeb')
                 . 'auth/courses.php?cmd=exReg&course='.claro_get_current_course_id()
                 . '">'
                 . claro_html_icon( 'enroll' )
                 . '<b>' . get_lang('Enrolment') . '</b>'
-                . '</a>'
-                . '</div>' . "\n"
+                . '</a>'  
                 ;
         }
         
         private function renderLoginLink()
         {
-            return "\n".'<div id="toolViewOption" style="padding-right:10px">'
-                . '<a href="' . get_path('clarolineRepositoryWeb') . 'auth/login.php'
+            return '<a href="' . get_path('clarolineRepositoryWeb') . 'auth/login.php'
                 . '?sourceUrl='
                 . urlencode( base64_encode(
                     ( isset( $_SERVER['HTTPS'])
@@ -106,7 +103,6 @@
                 . '" target="_top">'
                 . get_lang('Login')
                 . '</a>'
-                . '</div>'."\n"
                 ;
         }
 
