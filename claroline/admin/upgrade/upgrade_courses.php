@@ -342,6 +342,44 @@ switch ($display)
                     save_course_current_version($currentCourseCode,$currentCourseVersion);
 
                 }
+                
+                /*---------------------------------------------------------------------
+                  Upgrade 1.8 to 1.9
+                 ---------------------------------------------------------------------*/
+
+                if ( preg_match('/^1.8/',$currentCourseVersion) )
+                {
+                    // Function to upgrade tool to 1.8
+                    $function_list = array( 'tool_list_upgrade_to_19',
+                                            'tracking_upgrade_to_19',
+                                            'calendar_upgrade_to_19',
+                                            'linker_upgrade_to_19');
+
+                    foreach ( $function_list as $function )
+                    {
+                        $step = $function($currentCourseCode);
+                        if ( $step > 0 )
+                        {
+                            echo 'Error : ' . $function . ' at step ' . $step . '<br />';
+                            $error = true;
+                        }
+                    }
+
+                    if ( ! $error )
+                    {
+                        // Upgrade succeeded
+                        clean_upgrade_status($currentCourseCode);
+                        $currentCourseVersion = '1.8';
+                    }
+                    else
+                    {
+                        // Upgrade failed
+                        $currentCourseVersion = 'error-1.7';
+                    }
+                    // Save version
+                    save_course_current_version($currentCourseCode,$currentCourseVersion);
+
+                }
 
             }
 

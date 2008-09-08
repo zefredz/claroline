@@ -221,7 +221,7 @@ function upgrade_main_database_user_property_to_19 ()
 
             // create tables
 
-            $sqlForUpdate[]= "ALTER TABLE `" . $tbl_mdb_names['user_property'] . "` 
+            $sqlForUpdate[]= "ALTER IGNORE TABLE `" . $tbl_mdb_names['user_property'] . "` 
               DROP PRIMARY KEY,
               ADD PRIMARY KEY  (`scope`,`propertyId`,`userId`)
              ";
@@ -235,7 +235,7 @@ function upgrade_main_database_user_property_to_19 ()
 
             // create tables
 
-            $sqlForUpdate[]= "ALTER TABLE `" . $tbl_mdb_names['property_definition'] . "` 
+            $sqlForUpdate[]= "ALTER IGNORE TABLE `" . $tbl_mdb_names['property_definition'] . "` 
               DROP PRIMARY KEY,
               PRIMARY KEY  (`contextScope`,`propertyId`)
               ";
@@ -271,7 +271,7 @@ function upgrade_main_database_tracking_to_19 ()
             // create a new table
             $sqlForUpdate[] = "
                 CREATE 
-                 TABLE `" . $tbl_mdb_names['tracking_event'] . "`  (
+                 TABLE IF NOT EXISTS `" . $tbl_mdb_names['tracking_event'] . "`  (
                          `id` int(11) NOT NULL auto_increment,
                          `course_code` varchar(40) NULL DEFAULT NULL,
                          `tool_id` int(11) NULL DEFAULT NULL,
@@ -292,7 +292,7 @@ function upgrade_main_database_tracking_to_19 ()
             // create a new table
             $sqlForUpdate[] = "
                 CREATE 
-                 TABLE `" . $tbl_mdb_names['log'] . "`  (
+                 TABLE IF NOT EXISTS `" . $tbl_mdb_names['log'] . "`  (
                         `id` INT(11) NOT NULL AUTO_INCREMENT,
                         `course_code` VARCHAR(40) NULL DEFAULT NULL,
                         `tool_id` INT(11) NULL DEFAULT NULL,
@@ -335,7 +335,7 @@ function upgrade_main_database_messaging_to_19 ()
             // create a new table
             $sqlForUpdate[] = "
                 CREATE 
-                 TABLE `" . $tbl_mdb_names['im_message'] . "`  (
+                 TABLE IF NOT EXISTS `" . $tbl_mdb_names['im_message'] . "`  (
                         `message_id` int(10) unsigned NOT NULL auto_increment,
                         `sender` int(11) NOT NULL,
                         `subject` varchar(100) NOT NULL,
@@ -348,7 +348,7 @@ function upgrade_main_database_messaging_to_19 ()
                        ) ENGINE=MyISAM";
             $sqlForUpdate[] = "
                 CREATE 
-                 TABLE `" . $tbl_mdb_names['im_message_status'] . "`  (
+                 TABLE IF NOT EXISTS `" . $tbl_mdb_names['im_message_status'] . "`  (
                         `user_id` int(11) NOT NULL,
                         `message_id` int(11) NOT NULL,
                         `is_read` tinyint(4) NOT NULL default '0',
@@ -357,7 +357,7 @@ function upgrade_main_database_messaging_to_19 ()
                        ) ENGINE=MyISAM";
             $sqlForUpdate[] = "
                 CREATE 
-                 TABLE `" . $tbl_mdb_names['im_recipient'] . "`  (
+                 TABLE IF NOT EXISTS `" . $tbl_mdb_names['im_recipient'] . "`  (
                         `message_id` int(11) NOT NULL,
                         `user_id` int(11) NOT NULL,
                         `sent_to` enum('toUser','toGroup','toCourse','toAll') NOT NULL,
@@ -395,7 +395,7 @@ function upgrade_main_database_desktop_to_19 ()
             // create a new table
             $sqlForUpdate[] = "
                 CREATE 
-                 TABLE `" . $tbl_mdb_names['desktop_portlet'] . "`  (
+                 TABLE IF NOT EXISTS `" . $tbl_mdb_names['desktop_portlet'] . "`  (
                         `label` varchar(255) NOT NULL,
                         `name` varchar(255) NOT NULL,
                         `rank` int(11) NOT NULL,
@@ -405,7 +405,7 @@ function upgrade_main_database_desktop_to_19 ()
                        ) TYPE=MyISAM";
             $sqlForUpdate[] = "
                 CREATE 
-                 TABLE `" . $tbl_mdb_names['desktop_portlet_data'] . "`  (
+                 TABLE IF NOT EXISTS `" . $tbl_mdb_names['desktop_portlet_data'] . "`  (
                         `id` INT(11) NOT NULL AUTO_INCREMENT,
                         `label` varchar(255) NOT NULL,
                         `idUser` int(11) NOT NULL,
