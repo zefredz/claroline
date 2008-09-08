@@ -766,7 +766,7 @@ foreach ( $workList as $thisWrk )
     if( $is_allowedToEditAll )
     {
         echo '<td>'
-        .    ( ( !empty($thisWrk['maxScore']) && $thisWrk['maxScore'] > -1 )? $thisWrk['maxScore'] : get_lang('No score') )
+        .    ( ( !is_null($thisWrk['maxScore']) && $thisWrk['maxScore'] > -1 )? $thisWrk['maxScore'] : get_lang('No score') )
         .    '</td>' . "\n";
     }
 
