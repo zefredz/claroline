@@ -21,7 +21,8 @@ $driverConfig['driver'] = array(
     'enabled' => true,
     'class' => 'PearAuthDriver',
     'authSourceType' => 'DB',
-    'authSourceName' => 'mambo'
+    'authSourceName' => 'mambo',
+    'userRegistrationAllowed' => true
 );
 
 // you can change the driver from this point

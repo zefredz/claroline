@@ -44,7 +44,7 @@ class AuthManager
                     
                     return $driver->getUser();
                 }
-                else
+                elseif ( $driver->userRegistrationAllowed() )
                 {
                     $driver->register();
                     
@@ -137,7 +137,8 @@ class AuthDriverManager
     {
         // todo : get from config
         self::$drivers = array(
-            'claroline' => new ClarolineLocalAuthDriver()
+            'claroline' => new ClarolineLocalAuthDriver(),
+            'disabled' => new UserDisabledAuthDriver()
         );
         
         if ( ! file_exists ( get_path('rootSys') . 'platform/conf/extauth' ) )
@@ -221,6 +222,7 @@ interface AuthDriver
     public function getUser();
     public function getUserId();
     public function getAuthSource();
+    public function userRegistrationAllowed();
 }
 
 abstract class AbstractAuthDriver implements AuthDriver
@@ -314,9 +316,57 @@ abstract class AbstractAuthDriver implements AuthDriver
     }
 }
 
+class UserDisabledAuthDriver extends AbstractAuthDriver
+{
+    public function userRegistrationAllowed()
+    {
+        return false;
+    }
+    
+    public function getAuthSource()
+    {
+        return 'disabled';
+    }
+    
+    public function update( $uid )
+    {
+        return false;
+    }
+    
+    public function register()
+    {
+        return false;
+    }
+    
+    public function getUserId()
+    {
+        return null;
+    }
+    
+    public function getUser()
+    {
+        return null;
+    }
+    
+    public function authenticate()
+    {
+        return false;
+    }
+    
+    public function getUserData()
+    {
+        return null;
+    }
+}
+
 class ClarolineLocalAuthDriver extends AbstractAuthDriver
 {
     protected $alwaysCrypted = false;
+    
+    public function userRegistrationAllowed()
+    {
+        return false;
+    }
     
     public function getAuthSource()
     {
@@ -401,15 +451,29 @@ class ClarolineLocalAuthDriver extends AbstractAuthDriver
 
 class PearAuthDriver extends AbstractAuthDriver
 {
+    protected $driverConfig;
     protected $authType;
     protected $authSourceName;
-    protected $extAuthOptionList; 
+    protected $userRegistrationAllowed;
+    protected $extAuthOptionList;
     protected $extAuthAttribNameList;
     protected $extAuthAttribTreatmentList;
     
     protected $auth;
     
-    public function __construct( 
+    public function __construct( $driverConfig )
+    {
+        $this->driverConfig = $driverConfig;
+        $this->authType = $driverConfig['driver']['authSourceType'];
+        $this->authSourceName = $driverConfig['driver']['authSourceName'];
+        $this->userRegistrationAllowed = $driverConfig['driver']['userRegistrationAllowed'];
+        $this->extAuthOptionList = $driverConfig['extAuthOptionList'];
+        $this->extAuthAttribNameList = $driverConfig['extAuthAttribNameList'];
+        $this->extAuthAttribTreatmentList = $driverConfig['extAuthAttribTreatmentList'];
+        $this->extAuthIgnoreUpdateList = $driverConfig['extAuthAttribToIgnore'];
+    }
+    
+    /* public function __construct( 
         $authType,
         $authSourceName,
         $extAuthOptionList,
@@ -423,6 +487,11 @@ class PearAuthDriver extends AbstractAuthDriver
         $this->extAuthAttribNameList = $extAuthAttribNameList;
         $this->extAuthAttribTreatmentList = $extAuthAttribTreatmentList;
         $this->extAuthIgnoreUpdateList = $extAuthIgnoreUpdateList;
+    }*/
+    
+    public function userRegistrationAllowed()
+    {
+        return $this->userRegistrationAllowed;
     }
     
     public function getAuthSource()
@@ -512,14 +581,16 @@ class PearAuthDriver extends AbstractAuthDriver
     
     public static function fromConfig( $driverConfig )
     {
-        $driver = new self(
+        /* $driver = new self(
             $driverConfig['driver']['authSourceType'],
             $driverConfig['driver']['authSourceName'],
             $driverConfig['extAuthOptionList'],
             $driverConfig['extAuthAttribNameList'],
             $driverConfig['extAuthAttribTreatmentList'],
             $driverConfig['extAuthAttribToIgnore']
-        );
+        );*/
+        
+        $driver = new self( $driverConfig );
         
         return $driver;
     }

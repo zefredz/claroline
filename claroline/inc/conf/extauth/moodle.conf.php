@@ -20,8 +20,9 @@ if ( count( get_included_files() ) == 1 )
 $driverConfig['driver'] = array(
     'enabled' => true,
     'class' => 'PearAuthDriver',
-    'authSourceType' => 'DB',
-    'authSourceName' => 'moodle'
+    'authSourceType' => 'DB', 
+    'authSourceName' => 'moodle',
+    'userRegistrationAllowed' => true
 );
 
 // you can change the driver from this point

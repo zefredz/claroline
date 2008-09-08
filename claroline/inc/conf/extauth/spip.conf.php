@@ -47,7 +47,8 @@ $driverConfig['driver'] = array(
     'enabled' => true,
     'class' => 'PearAuthDriver',
     'authSourceType' => 'DB',
-    'authSourceName' => 'spip'
+    'authSourceName' => 'spip',
+    'userRegistrationAllowed' => true
 );
 
 // you can change the driver from this point

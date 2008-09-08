@@ -30,7 +30,8 @@ $driverConfig['driver'] = array(
     'enabled' => true,
     'class' => 'PearAuthDriver',
     'authSourceType' => 'LDAP',
-    'authSourceName' => 'ldap'
+    'authSourceName' => 'ldap',
+    'userRegistrationAllowed' => true
 );
 
 // you can change the driver from this point

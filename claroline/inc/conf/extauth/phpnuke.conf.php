@@ -21,7 +21,8 @@ $driverConfig['driver'] = array(
     'enabled' => true,
     'class' => 'PearAuthDriver',
     'authSourceType' => 'DB',
-    'authSourceName' => 'phpnuke'
+    'authSourceName' => 'phpnuke',
+    'userRegistrationAllowed' => true
 );
 
 // you can change the driver from this point
