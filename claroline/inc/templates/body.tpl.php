@@ -10,6 +10,7 @@
 <!-- End of Page Content -->
 
 <?php if ( $this->claroBodyEnd ): ?>
+<div class="spacer"></div>
 </div>
 <!-- - - - - - - - - - - End of Claroline Body  - - - - - - - - - - -->
 <?php endif;?>
