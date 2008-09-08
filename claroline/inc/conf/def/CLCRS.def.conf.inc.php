@@ -25,9 +25,9 @@ $conf_def['config_file']='course_main.conf.php';
 $conf_def['old_config_file'][]='add_course.conf.php';
 $conf_def['config_class']='course';
 
-$conf_def['section']['create']['label']='Course main settings';
-$conf_def['section']['create']['description']='';
-$conf_def['section']['create']['properties'] =
+$conf_def['section']['main']['label']='Course main settings';
+$conf_def['section']['main']['description']='';
+$conf_def['section']['main']['properties'] =
 array ( 'fill_course_example'
       , 'prefixAntiNumber'
       , 'prefixAntiEmpty'
@@ -36,9 +36,9 @@ array ( 'fill_course_example'
       , 'forceCodeCase'
       );
 
-$conf_def['section']['create']['label']='Course needed settings';
-$conf_def['section']['create']['description'] = 'Witch value are needed ?';
-$conf_def['section']['create']['properties']  =
+$conf_def['section']['needed']['label']='Course needed settings';
+$conf_def['section']['needed']['description'] = 'Witch value are needed ?';
+$conf_def['section']['needed']['properties']  =
 array ( 'human_code_needed'
       , 'human_label_needed'
       , 'course_email_needed'
