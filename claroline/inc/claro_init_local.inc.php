@@ -383,7 +383,7 @@ if ( !empty($_uid) ) // session data refresh requested && uid is given (log in s
     
             // Extracting the user data
             $is_platformAdmin = $currentUser->isPlatformAdmin;
-            $is_allowedCreateCourse  = $currentUser->isCourseCreator || $is_platformAdmin;
+            $is_allowedCreateCourse  = ( get_conf('courseCreationAllowed', true) && $currentUser->isCourseCreator ) || $is_platformAdmin;
             
             $currentUser->saveToSession();
     

@@ -97,7 +97,8 @@ array ( 'smtp_host'
 
 $conf_def['section']['RIGHT']['label']='Right';
 $conf_def['section']['RIGHT']['properties'] =
-array ( 'allowSelfReg'
+array ( 'courseCreationAllowed',
+       'allowSelfReg'
       , 'allowToSelfEnroll'
       );
       
@@ -597,6 +598,16 @@ array ('label'       => 'Development mode'
       ,'readonly'    => FALSE
       ,'acceptedValue' => array ('TRUE'=>'On'
                                ,'FALSE'=>'Off')
+      );
+
+$conf_def_property_list['courseCreationAllowed'] =
+array ('label'       => 'Course creation is allowed on the platform'
+      ,'description' => ''
+      ,'default'     => TRUE
+      ,'type'        => 'boolean'
+      ,'acceptedValue' => array ('TRUE' => 'Yes'
+                                ,'FALSE'=> 'No'
+                                )
       );
 
 $conf_def_property_list['allowToSelfEnroll']

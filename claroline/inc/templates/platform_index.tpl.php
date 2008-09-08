@@ -65,6 +65,13 @@ if ( claro_is_user_authenticated() ) :
         .    get_lang('Create a course site')
         .    '</a>';
     }
+    elseif ( $GLOBALS['currentUser']->isCourseCreator )
+    {
+        $userCommands[] = '<span class="claroCmdDisabled">'
+        .    '<img src="' . get_icon_url('courseadd') . '" alt="" /> '
+        .    get_lang('Create a course site')
+        .    '</span>';
+    }
 
     if (get_conf('allowToSelfEnroll',true))
     {
