@@ -137,11 +137,11 @@
                         $content .= ' - '.get_lang($md['moduleName']);
                     }
                     
-                    $content .= ']</span>';
+                    $content .= ']</span> ';
                 }
             }
             
-            $content .= '<a href="readmessage.php?messageId='.$message->getId().'&amp;type=sent&amp;userId='.$currentUserId.'">';
+            $content .= ' <a href="readmessage.php?messageId='.$message->getId().'&amp;type=sent&amp;userId='.$currentUserId.'">';
             $content .=  htmlspecialchars($message->getSubject()).'</a></td>'."\n"
                         .'<td>';
                         
