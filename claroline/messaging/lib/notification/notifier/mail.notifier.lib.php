@@ -74,7 +74,7 @@ class MailNotifier implements MessagingNotifier
         $emailSubject .= '] '.$message->getSubject();
 
         //------------------------------subject
-        $altUrl = get_lang('If you can\'t read this message go to: ') . "http://localhost/clarolineSVN/claroline/messaging/readmessage.php?messageId=" . $messageId . "&userId=1&type=received\n\n"
+        $altBody = get_lang('If you can\'t read this message go to: ') . "http://localhost/clarolineSVN/claroline/messaging/readmessage.php?messageId=" . $messageId . "&userId=1&type=received\n\n"
             . "-- "
             . claro_get_current_user_data('lastName') . " " . claro_get_current_user_data('firstName') . "\n"
             . $stringManager
@@ -102,7 +102,7 @@ class MailNotifier implements MessagingNotifier
 
         $userData = claro_get_current_user_data();
         
-        self::emailNotification($userDataList, $emailBody,$emailSubject, $userData['mail'], $userData['lastName']." ".$userData['firstName'],$altUrl);
+        self::emailNotification($userDataList, $emailBody,$emailSubject, $userData['mail'], $userData['lastName']." ".$userData['firstName'],$altBody);
     }
     
     /**
@@ -138,7 +138,7 @@ class MailNotifier implements MessagingNotifier
         
         if (!empty($altBody))
         {
-            $mail->AltBody = get_lang('If you can\'t read this message go to: ').$altBody;
+            $mail->AltBody = $altBody;
         }    
         
         if ($specificFrom != '')     $mail->From = $specificFrom;
