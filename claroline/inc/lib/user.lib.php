@@ -694,7 +694,7 @@ function user_validate_form($formMode, $data, $userId = null)
     $validator->addRule('lastname' , get_lang('You left some required fields empty'), 'required');
     $validator->addRule('firstname', get_lang('You left some required fields empty'), 'required');
     $validator->addRule('username' , get_lang('You left some required fields empty'), 'required');
-    $validator->addRule('username' , get_lang('Username is too long (maximum 20 characters)'), 'maxlenght',20);
+    $validator->addRule('username' , get_lang('Username is too long (maximum 20 characters)'), 'maxlength',20);
 
     if ( ! get_conf('userMailCanBeEmpty') )
     {
