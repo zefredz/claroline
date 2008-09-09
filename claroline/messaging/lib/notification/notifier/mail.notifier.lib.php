@@ -35,7 +35,7 @@ class MailNotifier implements MessagingNotifier
      */
     public function notify ($userDataList,$message,$messageId)
     {
-        if (!get_conf('mailNotfication',TRUE))
+        if (!get_conf('mailNotification',TRUE))
         {
             return;
         }
