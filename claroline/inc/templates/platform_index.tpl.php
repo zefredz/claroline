@@ -1,6 +1,6 @@
 <?php if ( count( get_included_files() ) == 1 ) die( basename(__FILE__) ); ?>
 
-<div id="rightSidebar" class="claroR-ightMenu">
+<div id="rightSidebar">
 
 <?php 
 if ( claro_is_user_authenticated() ) :
@@ -35,6 +35,8 @@ include_textzone( 'textzone_top.inc.html', '<div style="text-align: center">
 </div>' ); 
 ?>
 
+<?php include_dock('campusHomePageTop'); ?>
+
 <?php 
 if( claro_is_user_authenticated() ) : 
     include_textzone( 'textzone_top.authenticated.inc.html' );
@@ -42,8 +44,6 @@ else :
     include_textzone( 'textzone_top.anonymous.inc.html' );
 endif; 
 ?>
-
-<?php include_dock('campusHomePageTop'); ?>
 
 <?php
 if ( claro_is_user_authenticated() ) :
