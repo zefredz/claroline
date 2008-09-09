@@ -861,33 +861,41 @@ if( $is_allowedToSubmit )
                         FROM `".$tbl_rel_cours_user."` AS `CU`,`".$tbl_user."` AS `U`
                         WHERE `CU`.`user_id` = `U`.`user_id`
                         AND `CU`.`code_cours` = '".claro_get_current_course_id()."'
-                        AND `CU`.`isCourseManager` = 1
-                        AND `U`.`email` IS NOT NULL";
+                        AND `CU`.`isCourseManager` = 1";
 
-                $userIdList = claro_sql_query_fetch_all($sql);
-                $userIdList = $userIdList['user_id'];
+                $userIdList = claro_sql_query_fetch_all_rows($sql);
 
-                if( is_array($userIdList) )
+                if( is_array($userIdList) && !empty($userIdList) )
                 {
+                    require_once dirname(__FILE__) . '/../messaging/lib/message/messagetosend.lib.php';
+                    require_once dirname(__FILE__) . '/../messaging/lib/recipient/userlistrecipient.lib.php';
+
+                    // subject
+                    $subject = get_lang('New submission posted in assignment tool.');
+
                     if( $assignment->getAssignmentType() == 'GROUP' && isset($_REQUEST['wrkGroup']) )
                         $authId = $wrkForm['wrkGroup'];
                     else
-                        $authId = $_REQUEST['authId']; ;
-
-                    // email subject
-                    $emailSubject = '[' . get_conf('siteName') . ' - ' . claro_get_current_course_data('officialCode') . '] ' . get_lang('New submission posted in assignment tool.');
+                        $authId = $_REQUEST['authId'];
 
                     $url = get_path('rootWeb') . 'claroline/work/userWork.php?authId=' . $authId . '&assigId=' . $assignmentId
                     .      '&cidReq=' . claro_get_current_course_id();
 
                     // email content
-                    $emailBody = get_lang('New submission posted in assignment tool.') . "\n\n"
+                    $body = get_lang('New submission posted in assignment tool.') . "\n\n"
                     .            $_user['firstName'] . ' ' .$_user['lastName'] . "\n"
                     .             $wrkForm['wrkTitle'] . "\n"
                     .             $url . "\n"
                     ;
 
-                    claro_mail_user($userIdList, $emailBody, $emailSubject);
+                    $message = new MessageToSend(claro_get_current_user_id(),$subject,$body);
+
+                    $message->setCourse(claro_get_current_course_data('officialCode'));
+
+                    $recipient = new UserListRecipient();
+                    $recipient->addUserIdList($userIdList);
+
+                    $recipient->sendMessage($message);
                 }
             }
 
