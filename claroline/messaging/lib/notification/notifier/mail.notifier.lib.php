@@ -150,7 +150,7 @@ class MailNotifier implements MessagingNotifier
     
         if (strlen($subject)> 78)
         {
-            $message = $subject . "\n" . $message;
+            $message = get_lang('Subject') . ' : ' . $subject . "<br />\n\n" . $message;
             $subject = substr($subject,0,73) . '...';
         }
         
@@ -160,9 +160,9 @@ class MailNotifier implements MessagingNotifier
         if (get_conf('CLARO_DEBUG_MODE',false))
         {
             $message = '<p>' . get_lang('Subject') . ' : ' . htmlspecialchars($subject) . '</p>' . "\n"
-                     . '<p>Message : <pre>' . htmlspecialchars($message) . '</pre></p>' . "\n"
-                     . '<p>From : ' . htmlspecialchars($mail->FromName) . ' - ' . htmlspecialchars($mail->From) . '</p>' . "\n"
-                     . '<p>Dest : ' . implode(', ', $emailList) . '</p>' . "\n";
+                     . '<p>' . get_lang('Message') . ' : <pre>' . htmlspecialchars($message) . '</pre></p>' . "\n"
+                     . '<p>' . get_lang('Sender') . ' : ' . htmlspecialchars($mail->FromName) . ' - ' . htmlspecialchars($mail->From) . '</p>' . "\n"
+                     . '<p>' . get_lang('Recipient') . ' : ' . implode(', ', $emailList) . '</p>' . "\n";
             pushClaroMessage($message,'mail');
         }
     
