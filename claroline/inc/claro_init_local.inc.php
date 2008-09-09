@@ -921,6 +921,11 @@ if ( $_cid && $_tid )
     $is_toolAllowed = $is_toolAllowed && claro_is_course_tool_activated( $_cid, $_tid );
 }
 
+if ( $tlabelReq && get_module_data( $tlabelReq, 'type' ) == 'admin' )
+{
+    $is_toolAllowed = $is_toolAllowed && claro_is_platform_admin();
+}
+
 $_SESSION['is_toolAllowed'] = $is_toolAllowed;
 
 /*---------------------------------------------------------------------------
