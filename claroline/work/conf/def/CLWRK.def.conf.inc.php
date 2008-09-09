@@ -70,7 +70,7 @@ array ('label'     => 'Show only author submissions'
 
 $conf_def_property_list['mail_notification'] =
 array ('label'     => 'Mail notification'
-        ,'description' => 'If activated course administrator will receive an email every time a submission is made.  Students will receive an email adivising them that their work has been marked.'
+        ,'description' => 'If activated course administrator will receive an email every time a submission is made.  Students will receive an email advising them that their work has been marked.'
         ,'default'   => FALSE
         ,'type'      => 'boolean'
         ,'display'       => TRUE
