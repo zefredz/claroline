@@ -155,13 +155,13 @@ else
 if ( !isset($config_name) )
 {
     $nameTools = get_lang('Configuration');
+    ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, $_SERVER['PHP_SELF'] );
 }
 else
 {
     // tool name and url to edit config file
-    $nameTools = $config->get_conf_name(); // the name of the configuration page
-    $nameTools = get_lang($nameTools);
-    $_SERVER['QUERY_STRING'] = 'config_code=' . $config_code;
+    $nameTools = get_lang( $config->get_conf_name() );
+    ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, $_SERVER['PHP_SELF'] . '?config_code=' . $config_code );
 }
 
 /*************************************************************************** */
