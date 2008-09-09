@@ -969,26 +969,26 @@ function confirmation (name)
 }
 </script>';
 
-$interbredcrump[]= array ('url' => "../work/work.php", 'name' => get_lang('Assignments'));
-$interbredcrump[]= array ('url' => "../work/workList.php?authId=".$_REQUEST['authId']."&amp;assigId=".$assignmentId, 'name' => get_lang('Assignment'));
 
 if( $dispWrkDet || $dispWrkForm )
 {
-      // bredcrump to return to the list when in a form
-      $interbredcrump[]= array ('url' => "../work/userWork.php?authId=".$_REQUEST['authId']."&amp;assigId=".$assignmentId, "name" => $authName);
-
       // add parameters in query string to prevent the 'refresh' interbredcrump link to display the list of works instead of the form
-      $_SERVER['QUERY_STRING'] = "authId=".$_REQUEST['authId']."&amp;assigId=".$assignmentId;
-      $_SERVER['QUERY_STRING'] .= (isset($_REQUEST['wrkId']))?"&amp;wrkId=".$_REQUEST['wrkId']:"";
-      $_SERVER['QUERY_STRING'] .= "&amp;cmd=".$cmd;
+      $params = "?authId=".$_REQUEST['authId']."&amp;assigId=".$assignmentId
+      . ( isset($_REQUEST['wrkId'])?"&amp;wrkId=".$_REQUEST['wrkId']:"" )
+      . "&amp;cmd=".$cmd;
+      
       $nameTools = get_lang('Submission');
+      ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, Url::Contextualize($_SERVER['PHP_SELF'] . $params ));
+      ClaroBreadCrumbs::getInstance()->prepend( $authName, Url::Contextualize('../work/userWork.php?authId='.$_REQUEST['authId'].'&amp;assigId='.$assignmentId) );
 }
 else
 {
       $nameTools = $authName;
-      // to prevent parameters to be added in the breadcrumb
-      $_SERVER['QUERY_STRING'] = 'authId='.$_REQUEST['authId'].'&amp;assigId='.$assignmentId;
+      ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, Url::Contextualize($_SERVER['PHP_SELF'] . '?authId='.$_REQUEST['authId'].'&amp;assigId='.$assignmentId ) );
 }
+
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Assignment'), Url::Contextualize('../work/workList.php?authId='.$_REQUEST['authId'].'&amp;assigId='.$assignmentId) );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Assignments'), Url::Contextualize('../work/work.php') );
 
 include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 

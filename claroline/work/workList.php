@@ -506,13 +506,10 @@ foreach ( $workList as $workId => $thisWrk )
 /**
  * HEADER
  */
-
-$interbredcrump[]= array ('url' => '../work/work.php', 'name' => get_lang('Assignments'));
 $nameTools = get_lang('Assignment');
 
-// to prevent parameters to be added in the breadcrumb
-$_SERVER['QUERY_STRING'] = 'assigId=' . $req['assignmentId'];
-
+ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, Url::Contextualize($_SERVER['PHP_SELF'] . '?assigId=' . (int) $req['assignmentId'] ) );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Assignments'), Url::Contextualize('../work/work.php') );
 /**
  * TOOL TITLE
  */
@@ -659,7 +656,7 @@ if ( $is_allowedToSubmit && $assignment->getAssignmentType() != 'GROUP' )
 if ( $is_allowedToEditAll )
 {
     // Submission download requested
-    if( $cmd == 'rqDownload' ) // UJM
+    if( $cmd == 'rqDownload' && get_conf('allow_download_all_submissions') ) // UJM
     {
         include($includePath . '/lib/form.lib.php');
 
@@ -684,10 +681,13 @@ if ( $is_allowedToEditAll )
                                     . claro_url_relay_context('&amp;')
                                     , get_lang('Edit automatic feedback')
                                     );
-
-    $cmdMenu[] = claro_html_cmd_link( $_SERVER['PHP_SELF'] . '?cmd=rqDownload&amp;assigId=' . $req['assignmentId'] . claro_url_relay_context('&amp;')
+                                    
+    if( get_conf('allow_download_all_submissions') )
+    {
+        $cmdMenu[] = claro_html_cmd_link( $_SERVER['PHP_SELF'] . '?cmd=rqDownload&amp;assigId=' . $req['assignmentId'] . claro_url_relay_context('&amp;')
                                     , '<img src="' . get_icon_url('save') . '" alt="" />' . get_lang('Download submissions')
                                     );
+    }
 
 }
 
