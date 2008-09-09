@@ -74,13 +74,12 @@ class MailNotifier implements MessagingNotifier
         $emailSubject .= '] '.$message->getSubject();
 
         //------------------------------subject
-        $altBody = get_lang('If you can\'t read this message go to: ') . "http://localhost/clarolineSVN/claroline/messaging/readmessage.php?messageId=" . $messageId . "&userId=1&type=received\n\n"
-            . "-- "
+        $altBody = get_lang('If you can\'t read this message go to: ') . get_path('rootWeb') . '/claroline/messaging/readmessage.php?messageId=' . $messageId . '&userId=1&type=received' . "\n\n"
+            . '-- '
             . claro_get_current_user_data('lastName') . " " . claro_get_current_user_data('firstName') . "\n"
             . $stringManager
-            . "\n\n".get_conf('siteName') ." <" . get_conf('rootWeb') . ">\n"
-            . "   " . get_lang('Administrator') . ": " . get_conf('administrator_name') . " <" . get_conf('administrator_email') . ">\n"
-            . ""
+            . "\n\n" . get_conf('siteName') ." <" . get_conf('rootWeb') . '>' . "\n"
+            . '   ' . get_lang('Administrator') . ' : ' . get_conf('administrator_name') . ' <' . get_conf('administrator_email') . '>' . "\n"
             ;
         
         
@@ -160,7 +159,7 @@ class MailNotifier implements MessagingNotifier
         
         if (get_conf('CLARO_DEBUG_MODE',false))
         {
-            $message = '<p>Subject : ' . htmlspecialchars($subject) . '</p>' . "\n"
+            $message = '<p>' . get_lang('Subject') . ' : ' . htmlspecialchars($subject) . '</p>' . "\n"
                      . '<p>Message : <pre>' . htmlspecialchars($message) . '</pre></p>' . "\n"
                      . '<p>From : ' . htmlspecialchars($mail->FromName) . ' - ' . htmlspecialchars($mail->From) . '</p>' . "\n"
                      . '<p>Dest : ' . implode(', ', $emailList) . '</p>' . "\n";
