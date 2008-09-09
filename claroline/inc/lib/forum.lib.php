@@ -582,13 +582,12 @@ function trig_topic_notification($topicId)
     $url_forum = get_path('rootWeb') . 'claroline/phpbb/index.php?cidReq=' . claro_get_current_course_id();
 
     // send mail to registered user for notification
-    $message = "Vous avez demandé d'être informé des changements d'un forum.<br/>"
-            . "Une reponse vien d'être postée!<br/><br/>"
-            . "Topic:<br/>"
-            . "<a href=" . $url_topic . ">" . $url_topic . "</a><br/><br/>"
-            . "forum:<br>"
-            . "<a href=" . $url_forum . ">" .$url_forum . "<br/>"
-            ;
+    $message = get_lang('You are receiving this notification because you are watching a topic on the forum of one of your courses.') . '<br/>' . "\n"
+    . get_lang('View topic') . '<br/>' . "\n"
+    . '<a href="' . $url_topic . '">' . $url_topic . '</a><br/><br/>' . "\n"
+    . get_lang('View forum') . '<br/>'
+    . '<a href="' . $url_forum . '">' .$url_forum . '</a><br/>' . "\n"
+    ;
     
     require_once dirname(__FILE__) . '/../../messaging/lib/recipient/userlistrecipient.lib.php';
     require_once dirname(__FILE__) . '/../../messaging/lib/message/messagetosend.lib.php';
