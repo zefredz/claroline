@@ -36,6 +36,8 @@ $error = false;
 $messageList = array();
 $display = DISP_REGISTRATION_FORM;
 
+$dialogBox = new DialogBox;
+
 /*=====================================================================
   Main Section
  =====================================================================*/
@@ -72,11 +74,12 @@ if ( $cmd == 'registration' )
         $inserted_uid = user_create($user_data);
         if (false===$inserted_uid)
         {
-            $messageList['error'][] = claro_failure::get_last_failure();
+            $dialogBox->error( claro_failure::get_last_failure() );
         }
         else
         {
-            $msgList['success'][] = get_lang('The new user has been sucessfully created');
+            $dialogBox->success( get_lang('The new user has been sucessfully created') );
+            
             $newUserMenu[]= claro_html_cmd_link( '../auth/courses.php?cmd=rqReg&amp;uidToEdit=' . $inserted_uid . '&amp;category=&amp;fromAdmin=settings'
                                                , get_lang('Register this user to a course'));
             $newUserMenu[]= claro_html_cmd_link( 'adminprofile.php?uidToEdit=' . $inserted_uid . '&amp;category='
@@ -90,11 +93,11 @@ if ( $cmd == 'registration' )
             // send a mail to the user
             if (false !== user_send_registration_mail($inserted_uid,$user_data))
             {
-                $messageList['success'][] = get_lang('Mail sent to user');
+                $dialogBox->success( get_lang('Mail sent to user') );
             }
             else
             {
-                $messageList['error'][] = get_lang('No mail sent to user');
+                $dialogBox->warning( get_lang('No mail sent to user') );
                 // TODO  display in a popup "To Print" with  content to give to user.
             };
 
@@ -111,8 +114,7 @@ if ( $cmd == 'registration' )
   Display Section
  =====================================================================*/
 /* hack to prevent autocompletion from browser */
-$jsloader = JavascriptLoader::getInstance();
-$jsloader->load('jquery');
+JavascriptLoader::getInstance()->load('jquery');
 
 $htmlHeadXtra[] =
 '<script type="text/javascript">
@@ -127,6 +129,11 @@ $htmlHeadXtra[] =
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 $noQUERY_STRING   = TRUE;
 
+if ( $display == DISP_REGISTRATION_FORM )
+{
+    $dialogBox->info( get_lang('New users will receive an e-mail with their user name and password') );
+}
+
 // Display Header
 
 include get_path('incRepositorySys') . '/claro_init_header.inc.php';
@@ -134,7 +141,7 @@ include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 // Display title
 
 echo claro_html_tool_title( array('mainTitle'=>$nameTools ) )
-.    claro_html_msg_list($messageList)
+.    $dialogBox->render()
 ;
 
 if ( $display == DISP_REGISTRATION_SUCCEED )
@@ -146,8 +153,7 @@ else // $display == DISP_REGISTRATION_FORM;
 {
     //  if registration failed display error message
 
-    echo get_lang('New users will receive an e-mail with their user name and password')
-    .    user_html_form_admin_add_new_user($user_data)
+    echo user_html_form_admin_add_new_user($user_data)
     ;
 }
 
