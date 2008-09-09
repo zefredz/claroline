@@ -63,6 +63,7 @@ input, textarea, button, select{
 input[type=submit], input[type=reset], input[type=button], button {
     margin-left: 2px;
     color: #666;
+    margin-top: 5px;
 }
 
 input[type=submit], input[type=reset], input[type=button], button {
