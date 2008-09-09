@@ -106,6 +106,13 @@ if ( $cmd == 'registration' )
     else
     {
         // user validate form return error messages
+        if( is_array($messageList) && !empty($messageList) )
+        {
+            foreach( $messageList as $message )
+            {
+                $dialogBox->error($message);
+            }
+        }
         $error = true;
     }
 }
