@@ -26,3 +26,4 @@
 "Configure the way file are downloaded from the platform";"Configure the way files are downloaded from the platform"
 "File are always created in cache, but if this value is true feed file in cache arent rebuilt on request if exiting in cache.";"Enabling the cache may increase performance"
 "CSV file with the user list : ";"CSV file with the user list :"
+"If activated course administrator will receive an email every time a submission is made.  Students will receive an email adivising them that their work has been marked.";"If activated course administrator will receive an email every time a submission is made.  Students will receive an email advising them that their work has been marked."
