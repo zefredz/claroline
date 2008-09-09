@@ -56,6 +56,8 @@ $menu['AdminClaroline'] = get_menu_item_list('AdminClaroline');
 $menu['AdminPlatform']  = get_menu_item_list('AdminPlatform');
 $menu['AdminTechnical'] = get_menu_item_list('AdminTechnical');
 $menu['Communication']  = get_menu_item_list('Communication');
+$menu['ExtraTools'] = get_menu_item_list('ExtraTools');
+
 
 
 //----------------------------------
@@ -123,6 +125,16 @@ echo '<table cellspacing="5" align="center">' . "\n"
 .    '<td nowrap="nowrap">' . "\n"
 .    claro_html_tool_title('<img src="' . get_icon_url('mail_close') . '" alt="" />&nbsp;'.get_lang('Communication'))
 .    claro_html_menu_vertical($menu['Communication'])
+.    '</td>' . "\n"
+.    '</tr>'
+
+.    '<tr valign="top">' . "\n"
+.    '<td nowrap="nowrap">' . "\n"
+.    claro_html_tool_title('<img src="' . get_icon_url('exe') . '" alt="" />&nbsp;' . get_lang('Administration tools'))
+.    claro_html_menu_vertical($menu['ExtraTools'])
+.    '</td>' . "\n"
+.    '<td nowrap="nowrap">' . "\n"
+.    '&nbsp;'
 .    '</td>' . "\n"
 .    '</tr>'
 ;
@@ -204,6 +216,25 @@ function get_menu_item_list($type)
         }
 
         $menu['Communication'][] = '<a href="../messaging/admin.php">'.get_lang('Internal messaging').'</a>';
+        
+        $tbl = claro_sql_get_main_tbl();
+        
+        $sql = "SELECT `label`, `name`\n"
+            . "FROM `{$tbl['module']}`\n"
+            . "WHERE `type` = 'admin'\n"
+            . "AND `activation` = 'activated'"
+            ;
+        
+        $adminModuleList = claro_sql_query_fetch_all_rows( $sql );
+        
+        if ( $adminModuleList )
+        {
+            foreach ( $adminModuleList as $module )
+            {
+                language::load_module_translation($module['label']);
+                $menu['ExtraTools'][] = '<a href="'.get_module_entry_url($module['label']).'">'.get_lang($module['name']).'</a>';
+            }
+        }
 
     }
 

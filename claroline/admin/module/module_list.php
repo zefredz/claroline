@@ -20,7 +20,7 @@ require '../../inc/claro_init_global.inc.php' ;
 if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
-uses (
+FromKernel::uses (
     'display/dialogBox.lib',
     'pager.lib',
     'sqlxtra.lib',
@@ -108,11 +108,12 @@ $modulePerPage = 1000;
 $typeLabel['']        = get_lang('No name');
 $typeLabel['tool']    = get_lang('Tools');
 $typeLabel['applet']  = get_lang('Applets');
+$typeLabel['admin']  = get_lang('Administration tools');
 $typeLabel['lang']    = get_lang('Language packs');
 $typeLabel['theme']   = get_lang('Themes');
 $typeLabel['extauth'] = get_lang('External authentication drivers');
 
-$moduleTypeList = array( 'tool', 'applet' );
+$moduleTypeList = array( 'tool', 'applet', 'admin' );
 
 
 $cmd          = (isset($_REQUEST['cmd'])          ? $_REQUEST['cmd']          : null);
