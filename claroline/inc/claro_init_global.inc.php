@@ -177,6 +177,11 @@ if ( isset( $tlabelReq ) && !empty( $tlabelReq ) )
         Check tool access right an block unautorised users
     ----------------------------------------------------------------------*/
     
+    if ( get_module_data( $tlabelReq, 'type' ) == 'admin' && ! claro_is_platform_admin() )
+    {
+        claro_die(get_lang('Not allowed'));
+    }
+    
     if ( $tlabelReq !== 'CLGRP' && ! claro_is_module_allowed() )
     {
         if ( ! claro_is_user_authenticated() )
