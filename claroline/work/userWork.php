@@ -670,15 +670,16 @@ if($is_allowedToEditAll)
                     
                     // email content
                     $body = get_lang('New assignment feedback posted') . "\n\n"
-                    .            $currentUserFirstName.' '.$currentUserLastName . "\n"
-                    .             $submission->getTitle() . "\n"
-                    .             $url . "\n"
+                    . $currentUserFirstName.' '.$currentUserLastName . "\n"
+                    . '<a href="'.$url.'">' . $submission->getTitle() .'</a>' . "\n"
                     ;
                     
                     $message = new MessageToSend(claro_get_current_user_id(),$subject,$body);
                     
-                    $message->setCourse(claro_get_current_course_data('officialCode'));
-                    
+                    // TODO use official code everywhere : $message->setCourse(claro_get_current_course_data('officialCode'));
+                    $message->setCourse(claro_get_current_course_id());
+                    $message->setTools('CLWRK');
+
                     $recipient = new UserListRecipient();
                     $recipient->addUserIdList($userIdList);
                     
@@ -883,14 +884,15 @@ if( $is_allowedToSubmit )
 
                     // email content
                     $body = get_lang('New submission posted in assignment tool.') . "\n\n"
-                    .            $_user['firstName'] . ' ' .$_user['lastName'] . "\n"
-                    .             $wrkForm['wrkTitle'] . "\n"
-                    .             $url . "\n"
+                    . $_user['firstName'] . ' ' .$_user['lastName'] . "\n"
+                    . '<a href="'.$url.'">' . $wrkForm['wrkTitle'] .'</a>' . "\n"
                     ;
 
                     $message = new MessageToSend(claro_get_current_user_id(),$subject,$body);
 
-                    $message->setCourse(claro_get_current_course_data('officialCode'));
+                    // TODO use official code everywhere : $message->setCourse(claro_get_current_course_data('officialCode'));
+                    $message->setCourse(claro_get_current_course_id());
+                    $message->setTools('CLWRK');
 
                     $recipient = new UserListRecipient();
                     $recipient->addUserIdList($userIdList);
