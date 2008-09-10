@@ -36,8 +36,8 @@ array ( 'fill_course_example'
       , 'forceCodeCase'
       );
 
-$conf_def['section']['needed']['label']='Course needed settings';
-$conf_def['section']['needed']['description'] = 'Witch value are needed ?';
+$conf_def['section']['needed']['label']='Course information requirements';
+$conf_def['section']['needed']['description'] = 'Which information are needed ?';
 $conf_def['section']['needed']['properties']  =
 array ( 'human_code_needed'
       , 'human_label_needed'
