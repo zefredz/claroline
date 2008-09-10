@@ -86,12 +86,14 @@ class CLWIKI_Resolver implements ModuleResourceResolver
             }
             else
             {
-                return get_lang( get_module_data('CLWIKI', 'moduleName' ) );
+                $moduleName = get_module_data('CLWIKI', 'moduleName' );
+                return get_lang( $moduleName );
             }
         }
         else
         {
-            return get_lang( get_module_data('CLWIKI', 'moduleName' ) );
+            $moduleName = get_module_data('CLWIKI', 'moduleName' );
+            return get_lang( $moduleName );
         }
     }
 }
