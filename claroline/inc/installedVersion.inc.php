@@ -30,7 +30,7 @@ $is_upgrade_available = false;
 
 // var version_db  max. 10 chars
 
-$new_version = '1.9-beta2';
+$new_version = '1.9-rc1';
 $new_version_branch = '1.9';
 
 if (!$is_upgrade_available)
@@ -38,7 +38,7 @@ if (!$is_upgrade_available)
     $new_version = $new_version . '.[unstable:' . date('yzBs') . ']';
 }
 
-$requiredPhpVersion = '5.2';
+$requiredPhpVersion = '5.1.6';
 $requiredMySqlVersion = '4.3';
 
 ?>

@@ -7,11 +7,11 @@
 ------------------------------------------------------------------------------
 
 The Claroline project was initiated in 2000 at the Catholic University of
-Louvain (Belgium - http://www.ucl.ac.be/) by Thomas De Praetere and was
+Louvain (Belgium - http://www.uclouvain.be/) by Thomas De Praetere and was
 financially supported by the Louvain Foundation.
 
-In 2004, the CERDECAM, research center of ECAM (Engineering higher school -
-Belgium) joined the development team.
+In 2004, the CERDECAM (http://www.cerdecam.be), research center of ECAM
+(Engineering higher school - Belgium) joined the development team.
 
 Since 2007, the development of the project is made under the direction of the
 Claroline Consortium involving several institutions over the world
@@ -25,9 +25,8 @@ Claroline Core Team :
 
     Frédéric Minne      (zefredz@claroline.net) aka ZeFredz
     Sebastien Piraux    (seb@claroline.net)
-    Grégory Koch        (gregory.koch@uclouvain.be)
 
-Team from Cerdecam http://www.cerdecam.be :
+Team from Cerdecam :
 
     Philippe Dekimpe    (dkp@ecam.be)
 
@@ -35,18 +34,19 @@ Active contributors :
 
     Christophe Gesché   (moosh@claroline.net) aka Moosh
     Marina Zelwer       (marina.zelwer@univ-st-etienne.fr)
-    Jean-Roch Meurisse
-    Laurence Dumortier
+    Jean-Roch Meurisse  (jean-roch.meurisse@fundp.ac.be)
+    Laurence Dumortier  (laurence.dumortier@fundp.ac.be)
 
 Former members of the Claroline Team :
 
     Anais Hulet         (Communication - CERDECAM)
     Florence Hortmans   (Communication - CERDECAM)
-    Mathieu Laurent     (Core Developer - CERDECAM)
-    Guillaume Lederer   (Core Developer - CERDECAM)
-    Nicolas Leblanc     (Core Developer - CERDECAM)
-    Hugues Peeters      (Core Developer and Project Manager - UCL)
-    Aurelien Van Hamme  (Core Developer - CERDECAM)
+    Grégory Koch        (Developer - UCL)
+    Mathieu Laurent     (Developer - CERDECAM)
+    Guillaume Lederer   (Developer - CERDECAM)
+    Nicolas Leblanc     (Developer - CERDECAM)
+    Hugues Peeters      (Developer and Project Manager - UCL)
+    Aurelien Van Hamme  (Developer - CERDECAM)
 
 ------------------------------------------------------------------------------
                           SPECIFIC CODE CONTRIBUTIONS
@@ -129,6 +129,7 @@ Chinese translation :           Maizeman (Maizeman@21cn.com)
                                 Ping Pingjianban (pingjianban@gmail.com)
 
 Chinese (traditionnal) :        Kiang (kiange@gmail.com) - Taiwan PHP User Group http://twpug.net/
+                                Allen Uhomist universe_plushk@yahoo.com.hk
 
 Croatian translation :          Dragan Misovic
                                 Karolj Skala (skala@irb.hr)
@@ -143,8 +144,11 @@ Dutch translation :             Inès Du Four (inesdufour@hotmail.com)
                                 Michael Van Canneyt (michael.vancanneyt@wisa.be)
                                 Svenn d'hert - wmtown.com
 
+Dutch (Nerderlands) :           de Vries Dominicus (dominiquedevries@tiscali.nl)
+
 French translation:             Jean-Claude Cordier (Jean-Claude.Cordier@univ-rouen.fr)
                                 Paul Muraille (info@tictips.com)
+                                Jean-Roch Meurisse (jean-roch.meurisse@fundp.ac.be)
 
 Finnish translation :           Asmo Koskinen (asmo.koskinen@asmokoskinen.net)
 
@@ -173,6 +177,7 @@ Italian translation :           Maurizio Guercio  (mguercio@libero.it),
                                 Furio Petrossi  (Furio.Petrossi@scuolefvg.org)
                                 Giuseppe Filice (Università della Calabria)
                                 Fausto Barbarito (http://www.nosmet.com)
+                                Stefano Crosatti (krosa@libero.it)
 
 Indonesian translation :        Ery Atmodjo (eryatmodjo@yahoo.com)
 
@@ -227,5 +232,5 @@ The Digital Security Research Group [DSecRG] <http://www.dsec.ru>
 Fernando Munoz on the Claroline.net forum
 
 =========================================================================
-                Europe, Belgium, Louvain-la-Neuve - August 08 2008
+                Europe, Belgium, Louvain-la-Neuve - September 10 2008
 ================================== END ===================================
