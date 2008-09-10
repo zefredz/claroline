@@ -595,8 +595,44 @@ function activate_module($moduleId)
             $success = false;
         }
     }
+    
+    if ( $moduleInfo['type'] == 'tool' && $moduleInfo['activateInCourses'] == 'AUTOMATIC' )
+    {
+        if ( activate_module_in_all_courses( $moduleInfo['label'] ) )
+        {
+            $success = true;
+            $backlog->success( get_lang('Module activation in courses succeeded'));
+        }
+        else
+        {
+            $success = false;
+            $backlog->failure( get_lang('Module activation in courses failed'));
+        }
+    }
 
     return array( $backlog, $success );
+}
+
+function activate_module_in_all_courses( $toolLabel )
+{
+    $toolId = get_tool_id_from_module_label( $toolLabel );
+    $tbl = claro_sql_get_main_tbl();
+    
+    $sql = "SELECT `code` FROM `" . $tbl['course'] . "`";
+
+    $courseList = claro_sql_query_fetch_all( $sql );
+    
+    foreach ( $courseList as $course )
+    {
+        if ( ! update_course_tool_activation_in_course( $toolId,
+            $course['code'],
+            true ) )
+        {
+            return false;
+        }
+    }
+    
+    return true;
 }
 
 /**
@@ -896,7 +932,9 @@ function register_module_in_single_course( $tool_id, $course_code )
         visibility   = '" . ( $default_visibility ? 1 : 0 ) . "',
         script_url   = NULL,
         script_name  = NULL,
-        addedTool    = 'YES'";
+        addedTool    = 'YES',
+        `activated` = 'false',
+        `installed` = 'false'";
 
     if ( false === claro_sql_query($sql) )
     {
