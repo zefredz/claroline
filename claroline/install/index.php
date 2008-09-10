@@ -189,7 +189,7 @@ elseif($_REQUEST['cmdDoInstall'])
 ##### INITIALISE FORM VARIABLES ##################
 
 ###  IF FIRST VISIT ###
-if(!$_REQUEST['alreadyVisited'] || $_REQUEST['resetConfig']) // on first step prupose values
+if(!$_REQUEST['alreadyVisited'] || $_REQUEST['resetConfig']) // on first step purpose values
 {
      include './defaultsetting.inc.php';
      foreach (array_keys($panelTitle) as $step ) $stepStatus[$step] = '?';
@@ -234,6 +234,7 @@ if ($_REQUEST['fromPanel'] == DISP_LANG || $_REQUEST['cmdDoInstall'])
     if( isset($_REQUEST['installLanguage']) && in_array($_REQUEST['installLanguage'], $installLanguageList) )
     {
         $installLanguage = $_REQUEST['installLanguage'];
+        $languageForm = $installLanguage;
     }
 }
 
