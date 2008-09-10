@@ -83,25 +83,82 @@ foreach( $it as $file )
         $languageVarList = get_lang_vars_from_deffile($file->getPathname());
     
         echo '<li>' . count($languageVarList) . ' in DEF file <b>' . $file->getPathname() . '</b></li>' . "\n";
-        
-        // add in main array to compute total number of vars
-        $allLanguageVarList = array_merge($allLanguageVarList, $languageVarList);
-    
-        store_lang_used_in_script($languageVarList,str_replace('\\', '/', realpath($file->getPathname())));
     }
     elseif( $file->isFile() && substr($file->getFilename(), -4) == '.php' )
     {
         $languageVarList = get_lang_vars_from_file($file->getPathname());  
 
         echo '<li>' . count($languageVarList) . ' in <b>' . $file->getPathname() . '</b></li>' . "\n";
+    }
+    elseif( $file->isFile() && $file->getFilename() == 'manifest.xml' )
+    {
+        // find first <name>Exercises</name> using preg_match
+        $manifestContent = file_get_contents($file->getPathName());
+        
+        $languageVarList = array();
+        $matches = array();
+        if( preg_match('!<name>([^<]+)</name>!i', $manifestContent, $matches ) )
+        {
+            if( is_array($matches[1]) )
+            {
+                $languageVarList[] = $matches[1][0];
+            }
+            else
+            {
+                $languageVarList[] = $matches[1];
+            }
+        }
+        echo '<li>' . count($languageVarList) . ' in <b>' . $file->getPathname() . '</b></li>' . "\n";
+    }
+    else
+    {
+        continue;
+    }
+    
+    // add in main array to compute total number of vars
+    $allLanguageVarList = array_merge($allLanguageVarList, $languageVarList);
+
+    // update table
+    store_lang_used_in_script($languageVarList,str_replace('\\', '/', realpath($file->getPathname())));
+}
+
+// get name of some tools (the ones that are in module directory)
+$moduleLabelList = array( 'CLCHAT' );
+
+foreach( $moduleLabelList as $module )
+{
+    $modulePath = get_module_path($module);
+    $manifestFile = $modulePath . '/manifest.xml';
+
+    if( file_exists($manifestFile) )
+    {
+        $manifestContent = file_get_contents($manifestFile);
+        
+        $languageVarList = array();
+        $matches = array();
+        if( preg_match('!<name>([^<]+)</name>!i', $manifestContent, $matches ) )
+        {
+            if( is_array($matches[1]) )
+            {
+                $languageVarList[] = $matches[1][0];
+            }
+            else
+            {
+                $languageVarList[] = $matches[1];
+            }
+        }
+        
+        echo '<li>' . count($languageVarList) . ' in <b>' . $manifestFile . '</b></li>' . "\n";
         
         // add in main array to compute total number of vars
         $allLanguageVarList = array_merge($allLanguageVarList, $languageVarList);
-    
         // update table
         store_lang_used_in_script($languageVarList,str_replace('\\', '/', realpath($file->getPathname())));
     }
+    
 }
+
+
 echo '</ul>' . "\n\n";
 
 $allLanguageVarList = array_unique($allLanguageVarList);
