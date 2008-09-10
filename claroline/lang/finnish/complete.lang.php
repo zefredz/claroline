@@ -74,7 +74,6 @@ $_lang['Now'] = 'Nyt';
 $_lang['Ok'] = 'Ok';
 $_lang['Oldest first'] = 'Invert';
 $_lang['On'] = 'On';
-$_lang['Posted'] = 'Lähettänyt';
 $_lang['Posts'] = 'Lähettäjät';
 $_lang['Powered by'] = 'Alusta';
 $_lang['Published on'] = 'Julkaistu ';

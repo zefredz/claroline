@@ -202,7 +202,6 @@ $_lang['Please fill the two lists below'] = 'Var snäll och fyll i de två listorn
 $_lang['Please give a weighting to each blank'] = 'Please give a weighting to each blank';
 $_lang['Please give the answers to the question'] = 'Ange frågans svar';
 $_lang['Please type the text'] = 'Skriv in texten';
-$_lang['Posted'] = 'Postad';
 $_lang['Posts'] = 'Inlägg';
 $_lang['Powered by'] = 'Med kraft från';
 $_lang['Previous day'] = 'Föregående dag';

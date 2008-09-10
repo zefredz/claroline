@@ -207,7 +207,6 @@ $_lang['Please fill the two lists below'] = 'Udfyld venligst de to lister neders
 $_lang['Please give a weighting to each blank'] = 'Venligst angiv en værdi til hver rubrik';
 $_lang['Please give the answers to the question'] = 'Venligst angiv spørgsmålets svar';
 $_lang['Please type the text'] = 'Venligst skriv det næste';
-$_lang['Posted'] = 'Lagt ud';
 $_lang['Posts'] = 'Indlæg';
 $_lang['Powered by'] = 'Udviklet af';
 $_lang['Previous day'] = 'Tidligere dage';

@@ -608,7 +608,6 @@ $_lang['Please give a weighting to each blank'] = 'حدد درجة الأهمي�
 $_lang['Please give the answers to the question'] = 'الرجاء حدد الإجابات على هذا السؤال';
 $_lang['Please type the text'] = 'قم بكتابة النص من فضلك';
 $_lang['Pool of modules'] = 'مخزن الوحدات';
-$_lang['Posted'] = 'تم الإرسال';
 $_lang['Posts'] = 'عدد المشاركات';
 $_lang['Powered by'] = 'مطورة باستخدام';
 $_lang['Preview'] = 'معاينة';
@@ -619,14 +618,12 @@ $_lang['Previous month'] = 'الشهر الماضي';
 $_lang['Previous week'] = 'الاسبوع الماضي';
 $_lang['Previous year'] = 'السنة الماضية';
 $_lang['Private'] = 'خاص';
-$_lang['Private course only'] = 'مقرر خاص فقط';
 $_lang['Private feedback'] = 'مراجعة خاصة';
 $_lang['Production language files'] = 'إنشاء ملفات اللغة';
 $_lang['Progress'] = 'مستوى التقدم';
 $_lang['Progression of users on all learning paths'] = 'مستوى التقدم لجميع المستخدمين ضمن مسارت التعلم';
 $_lang['Properties'] = 'الخصائص';
 $_lang['Public'] = 'عام';
-$_lang['Public course only'] = 'المقررات العامة فقط';
 $_lang['Publish'] = 'نشر';
 $_lang['Published on'] = 'تم نشره في تاريخ';
 $_lang['Question'] = 'السؤال';

@@ -207,7 +207,6 @@ $_lang['Please fill the two lists below'] = 'Please fill the two lists below';
 $_lang['Please give a weighting to each blank'] = 'Please give a weighting to each blank';
 $_lang['Please give the answers to the question'] = 'Please give the question\'s answers';
 $_lang['Please type the text'] = 'Please type the text';
-$_lang['Posted'] = 'Dihantar';
 $_lang['Posts'] = 'Hantar';
 $_lang['Powered by'] = 'Oleh : ';
 $_lang['Previous day'] = 'Hari Sebelumnya';

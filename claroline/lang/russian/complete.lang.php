@@ -213,7 +213,6 @@ $_lang['Please fill the two lists below'] = 'Заполните два списка ниже';
 $_lang['Please give a weighting to each blank'] = 'Дайте вес каждому вопросу';
 $_lang['Please give the answers to the question'] = 'Дайте ответы на этот вопрос';
 $_lang['Please type the text'] = 'Введите текст';
-$_lang['Posted'] = 'Опубликовано ';
 $_lang['Posts'] = 'Сообщений';
 $_lang['Powered by'] = 'использует оболочку';
 $_lang['Previous day'] = 'Предыдущий день';

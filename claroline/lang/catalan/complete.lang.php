@@ -110,7 +110,6 @@ $_lang['Ok'] = 'D\'acord';
 $_lang['Oldest first'] = 'Més antics primer';
 $_lang['On'] = 'Sobre';
 $_lang['Other'] = 'Altre';
-$_lang['Posted'] = 'Publicat';
 $_lang['Posts'] = 'Publicacions';
 $_lang['Powered by'] = 'Potenciat per ';
 $_lang['Private'] = 'privat';

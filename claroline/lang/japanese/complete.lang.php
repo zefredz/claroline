@@ -234,7 +234,6 @@ $_lang['Password'] = 'パスワード';
 $_lang['PersonalCourseList'] = '受講科目リスト';
 $_lang['Phone'] = '電話番号';
 $_lang['Please confirm your choice'] = '実行してよいですか';
-$_lang['Posted'] = '投稿日時';
 $_lang['Posts'] = '投稿数';
 $_lang['Private feedback'] = '担当者のメモ（受講者には不可視）';
 $_lang['Published on'] = '掲載日';

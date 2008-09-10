@@ -197,7 +197,6 @@ $_lang['Please fill the two lists below'] = 'Hãy điền vào hai danh sách d�
 $_lang['Please give a weighting to each blank'] = 'Xin cho điểm vào mỗi ô trống';
 $_lang['Please give the answers to the question'] = 'Phải nêu trả lời cho câu hỏi';
 $_lang['Please type the text'] = 'Gõ vào';
-$_lang['Posted'] = 'Ngày';
 $_lang['Posts'] = 'Bài g?i';
 $_lang['Powered by'] = 'Powered by';
 $_lang['Previous day'] = 'Ngày trước';
