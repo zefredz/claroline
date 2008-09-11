@@ -11,7 +11,7 @@
  * @see http://www.claroline.net/wiki/index.php/Upgrade_claroline_1.6
  * @package UPGRADE
  * @author Claro Team <cvs@claroline.net>
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe Gesche <moosh@claroline.net>
  * @author Mathieu Laurent <laurent@cerdecam.be>
  *
  */
@@ -151,6 +151,7 @@ switch ($display)
             claro_sql_query(" UPDATE `" . $tbl_course . "` SET `versionClaro` = '1.5' WHERE `versionClaro` = 'error-1.5'");
             claro_sql_query(" UPDATE `" . $tbl_course . "` SET `versionClaro` = '1.6' WHERE `versionClaro` = 'error-1.6'");
             claro_sql_query(" UPDATE `" . $tbl_course . "` SET `versionClaro` = '1.7' WHERE `versionClaro` = 'error-1.7'");
+            claro_sql_query(" UPDATE `" . $tbl_course . "` SET `versionClaro` = '1.8' WHERE `versionClaro` = 'error-1.8'");
         }
 
         $sql_course_to_upgrade = " SELECT c.dbName dbName,
@@ -354,8 +355,8 @@ switch ($display)
                     $function_list = array( 'tool_list_upgrade_to_19',
                                             'tracking_upgrade_to_19',
                                             'calendar_upgrade_to_19',
-                                            'linker_upgrade_to_19'/*,
-                                            'quiz_upgrade_to_19'*/);
+                                            'linker_upgrade_to_19',
+                                            'quiz_upgrade_to_19');
 
                     foreach ( $function_list as $function )
                     {
