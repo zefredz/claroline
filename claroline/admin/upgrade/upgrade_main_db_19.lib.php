@@ -181,6 +181,18 @@ function upgrade_main_database_course_to_19 ()
 
             unset($sqlForUpdate);
         
+        case 7 : 
+    
+            // rename enrollment_key column registrationKey
+            
+            $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "`,
+                               CHANGE `enrollment_key` `registrationKey` VARCHAR (255) DEFAULT NULL";
+            
+            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+            else return $step ;
+
+            unset($sqlForUpdate);
+            
         default :
 
             $step = set_upgrade_status($tool, 0);
