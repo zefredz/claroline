@@ -23,6 +23,7 @@ require 'upgrade_init_global.inc.php';
 include ('upgrade_course_16.lib.php');
 include ('upgrade_course_17.lib.php');
 include ('upgrade_course_18.lib.php');
+include ('upgrade_course_19.lib.php');
 
 // Security Check
 if (!claro_is_platform_admin()) upgrade_disp_auth_form();

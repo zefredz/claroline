@@ -392,9 +392,9 @@ function quiz_upgrade_to_19 ($course_code)
  * Upgrade tracking tool to 1.8
  */
 
-/*function tracking_upgrade_to_19($course_code)
+function tracking_upgrade_to_19($course_code)
 {
-    $versionRequiredToProceed = '/^1.8/';
+    /*$versionRequiredToProceed = '/^1.8/';
     $tool = 'CLSTATS';
     
     global $currentCourseVersion;
@@ -425,8 +425,8 @@ function quiz_upgrade_to_19 ($course_code)
         }
     }
 
-    return false;
-}*/
+    return false;*/
+}
 
 function calendar_upgrade_to_19($course_code)
 {
