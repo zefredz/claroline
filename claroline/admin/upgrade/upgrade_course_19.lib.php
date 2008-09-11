@@ -259,7 +259,7 @@ function tool_list_upgrade_to_19 ($course_code)
  * @return boolean whether true if succeed
  */
 
-/* function quiz_upgrade_to_19 ($course_code)
+function quiz_upgrade_to_19 ($course_code)
 {
     // PRIMARY KEY (`exerciseId`,`questionId`)
     global $currentCourseVersion, $currentcoursePathSys;
@@ -279,31 +279,31 @@ function tool_list_upgrade_to_19 ($course_code)
                   DROP PRIMARY KEY,
                    ADD PRIMARY KEY(`exerciseId`, `questionId`)";
 
-                $sql_step1[] = "CREATE TABLE IF NOT EXISTS `". $currentCourseDbNameGlu . "qwz_tracking` (
-                    `id` int(11) NOT NULL auto_increment,
-                    `user_id` int(10) default NULL,
-                    `date` datetime NOT NULL default '0000-00-00 00:00:00',
-                    `exo_id` int(11) NOT NULL default '0',
-                    `result` float NOT NULL default '0',
-                    `time`    mediumint(8) NOT NULL default '0',
-                    `weighting` float NOT NULL default '0',
-                    PRIMARY KEY  (`id`)
-                ) TYPE=MyISAM  COMMENT='Record informations about exercices';";
-                
-                $sql_step1[] = "CREATE TABLE IF NOT EXISTS `". $currentCourseDbNameGlu . "qwz_tracking_questions` (
-                    `id` int(11) NOT NULL auto_increment,
-                    `exercise_track_id` int(11) NOT NULL default '0',
-                    `question_id` int(11) NOT NULL default '0',
-                    `result` float NOT NULL default '0',
-                    PRIMARY KEY  (`id`)
-                ) TYPE=MyISAM  COMMENT='Record answers of students in exercices';";
-                
-                $sql_step1[] = "CREATE TABLE IF NOT EXISTS `". $currentCourseDbNameGlu . "qwz_tracking_answers` (
-                    `id` int(11) NOT NULL auto_increment,
-                    `details_id` int(11) NOT NULL default '0',
-                    `answer` text NOT NULL,
-                    PRIMARY KEY  (`id`)
-                ) TYPE=MyISAM  COMMENT='';";
+                // qwz_tracking - rename table
+                $sql_step1[] = "ALTER TABLE `". $currentCourseDbNameGlu . "track_e_exercices` 
+                                RENAME TO `". $currentCourseDbNameGlu . "qwz_tracking`";
+                // qwz_tracking - rename fields
+                $sql_step1[] = "ALTER IGNORE TABLE `". $currentCourseDbNameGlu . "qwz_tracking`
+                                CHANGE `exe_id`         `id`        int(11) NOT NULL auto_increment";
+                $sql_step1[] = "ALTER IGNORE TABLE `". $currentCourseDbNameGlu . "qwz_tracking`
+                                CHANGE `exe_user_id`    `user_id`   int(11) default NULL";
+                $sql_step1[] = "ALTER IGNORE TABLE `". $currentCourseDbNameGlu . "qwz_tracking`
+                                CHANGE `exe_date`       `date`      datetime NOT NULL default '0000-00-00 00:00:00";
+                $sql_step1[] = "ALTER IGNORE TABLE `". $currentCourseDbNameGlu . "qwz_tracking`
+                                CHANGE `exe_exo_id`     `exo_id`    int(11) NOT NULL default '0'";
+                $sql_step1[] = "ALTER IGNORE TABLE `". $currentCourseDbNameGlu . "qwz_tracking`
+                                CHANGE `exe_result`     `result`    float NOT NULL default '0'";
+                $sql_step1[] = "ALTER IGNORE TABLE `". $currentCourseDbNameGlu . "qwz_tracking`
+                                CHANGE `exe_time`       `time`      mediumint(8) NOT NULL default '0'";
+                $sql_step1[] = "ALTER IGNORE TABLE `". $currentCourseDbNameGlu . "qwz_tracking`
+                                CHANGE `exe_weighting`  `weighting` float NOT NULL default '0'";
+
+                // qwz_tracking_questions - rename table
+                $sql_step1[] = "ALTER TABLE `". $currentCourseDbNameGlu . "track_e_exe_details` 
+                                RENAME TO `". $currentCourseDbNameGlu . "qwz_tracking_questions`";
+                // qwz_tracking_answers - rename table
+                $sql_step1[] = "ALTER TABLE `". $currentCourseDbNameGlu . "track_e_exe_answers` 
+                                RENAME TO `". $currentCourseDbNameGlu . "qwz_tracking_answers`";
 
                 if ( upgrade_apply_sql($sql_step1) )
                 {
@@ -320,7 +320,7 @@ function tool_list_upgrade_to_19 ($course_code)
     }
 
     return false;
-} */
+}
 
 /**
  * Function to upgrade tool intro 
