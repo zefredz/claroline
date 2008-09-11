@@ -7,7 +7,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2008 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -58,14 +58,14 @@ function upgrade_main_database_module_to_19 ()
             foreach ( $toolList as $tool )
             {
                 $sql = "INSERT INTO `" . $tbl_mdb_names['module_contexts'] . "`
-                    SET module_id = ".(int) $tool['id'].", CONTEXT = 'course'";
+                    SET `module_id` = ".(int) $tool['id'].", `context` = 'course'";
                     
                 $success = upgrade_sql_query( $sql );
                 
-                if ( $success && in_array( $tool['id'], $groupTools ) )
+                if ( $success && in_array( rtrim($tool['label'], '_'), $groupTools ) )
                 {
                     $sql = "INSERT INTO `" . $tbl_mdb_names['module_contexts'] . "`
-                    SET module_id = ".(int) $tool['id'].", CONTEXT = 'group'";
+                    SET `module_id` = ".(int) $tool['id'].", `context` = 'group'";
                     
                     $success = upgrade_sql_query( $sql );
                 }
@@ -105,12 +105,12 @@ function upgrade_main_database_course_to_19 ()
     {
         case 1 :
 
-            // Rename `enrolment_key` column
+            // Add new column
 
             $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "`,
-                               CHANGE `enrollment_key` `registrationKey` VARCHAR (255)  NULL  COLLATE latin1_swedish_ci ";
-            $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "`,
-                               CHANGE `enrolment_key` `registrationKey` VARCHAR (255)  NULL  COLLATE latin1_swedish_ci ";
+                                 ADD COLUMN `visibility` ENUM ('visible','invisible') DEFAULT 'invisible' NOT NULL  AFTER `visible`,
+                                 ADD COLUMN `access`     ENUM ('public','private', 'platform') DEFAULT 'public' NOT NULL  after `visibility`,
+                                 ADD COLUMN `registration` ENUM ('open','close') DEFAULT 'open' NOT NULL  AFTER `access`";
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
 
@@ -119,30 +119,21 @@ function upgrade_main_database_course_to_19 ()
 
             // Add new column
 
-            $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "`,
-                                 ADD COLUMN `visibility` ENUM ('VISIBLE','INVISIBLE') DEFAULT 'INVISIBLE' NOT NULL  AFTER `visible`,
-                                 ADD COLUMN `access`     ENUM ('PUBLIC','PRIVATE') DEFAULT 'PUBLIC' NOT NULL  after `visibility`,
-                                 ADD COLUMN `registration` ENUM ('OPEN','CLOSE') DEFAULT 'OPEN' NOT NULL  AFTER `access`";
-            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
-            else return $step ;
-
-            unset($sqlForUpdate);
-        case 3 :
-
-            // Add new column
-
             // Old value was treated like this
             // $courseDataList['visibility'         ] = (bool) (2 == $courseDataList['visible'] || 3 == $courseDataList['visible'] );
             // $courseDataList['registrationAllowed'] = (bool) (1 == $courseDataList['visible'] || 2 == $courseDataList['visible'] );
 
             $sqlForUpdate[] = "UPDATE TABLE `" . $tbl_mdb_names['course'] . "`
-                                SET `visibility`   = 'VISIBLE',
-                                    `access`       = IF(visible=2 OR visible=3,'PUBLIC','PRIVATE') ,
-                                    `registration` = IF(visible=1 OR visible=2,'OPEN','CLOSE')";
+                                SET `visibility`   = 'visible',
+                                    `access`       = IF(visible=2 OR visible=3,'public','private') ,
+                                    `registration` = IF(visible=1 OR visible=2,'open','close')";
+                                    
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
+            
             unset($sqlForUpdate);
-        case 4 :
+            
+        case 3 :
             // Remove the old column
             $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "`,
                                  REM COLUMN `visible`";
@@ -152,7 +143,7 @@ function upgrade_main_database_course_to_19 ()
 
             unset($sqlForUpdate);
 
-        case 5 :
+        case 4 :
 
             // Rename `fake_code` column
 
@@ -163,7 +154,8 @@ function upgrade_main_database_course_to_19 ()
             else return $step ;
 
             unset($sqlForUpdate);
-        case 6 :
+            
+        case 5 :
 
             // Rename `department` columns
 
@@ -176,7 +168,8 @@ function upgrade_main_database_course_to_19 ()
             else return $step ;
 
             unset($sqlForUpdate);
-        case 7 :
+            
+        case 6 :
 
             // Rename `language` column
 
@@ -187,16 +180,7 @@ function upgrade_main_database_course_to_19 ()
             else return $step ;
 
             unset($sqlForUpdate);
-        case 8:
-            $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "`
-                               ADD `visibility` ENUM ('visible','invisible') DEFAULT 'visible' NOT NULL";
-            $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "`
-                               CHANGE `access` `access` ENUM( 'public', 'private', 'platform' ) NOT NULL DEFAULT 'public'";
-
-            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
-            else return $step ;
-
-            unset($sqlForUpdate);
+        
         default :
 
             $step = set_upgrade_status($tool, 0);
@@ -237,7 +221,7 @@ function upgrade_main_database_user_property_to_19 ()
 
             $sqlForUpdate[]= "ALTER IGNORE TABLE `" . $tbl_mdb_names['property_definition'] . "` 
               DROP PRIMARY KEY,
-              PRIMARY KEY  (`contextScope`,`propertyId`)
+              ADD PRIMARY KEY  (`contextScope`,`propertyId`)
               ";
 
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
@@ -245,7 +229,7 @@ function upgrade_main_database_user_property_to_19 ()
 
             unset($sqlForUpdate);
 
-            default :
+        default :
 
             $step = set_upgrade_status($tool, 0);
             return $step;
@@ -282,6 +266,7 @@ function upgrade_main_database_tracking_to_19 ()
                          PRIMARY KEY  (`id`),
                          KEY `course_id` (`course_code`)
                        ) TYPE=MyISAM";
+                       
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
 
@@ -299,11 +284,12 @@ function upgrade_main_database_tracking_to_19 ()
                         `user_id` INT(11) NULL DEFAULT NULL,
                         `ip` VARCHAR(15) NULL DEFAULT NULL,
                         `date` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-                        `type` VARCHAR(60) NOT NULL DEFAULT ,
-                        `data` text NOT NULL DEFAULT ,
+                        `type` VARCHAR(60) NOT NULL DEFAULT '',
+                        `data` text NOT NULL DEFAULT '',
                         PRIMARY KEY  (`id`),
                         KEY `course_id` (`course_code`)
                        ) TYPE=MyISAM";
+                       
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
 
@@ -346,6 +332,7 @@ function upgrade_main_database_messaging_to_19 ()
                         `tools` char(8) default NULL,
                         PRIMARY KEY  (`message_id`)
                        ) ENGINE=MyISAM";
+                       
             $sqlForUpdate[] = "
                 CREATE 
                  TABLE IF NOT EXISTS `" . $tbl_mdb_names['im_message_status'] . "`  (
@@ -355,6 +342,7 @@ function upgrade_main_database_messaging_to_19 ()
                         `is_deleted` tinyint(4) NOT NULL default '0',
                         PRIMARY KEY  (`user_id`,`message_id`)
                        ) ENGINE=MyISAM";
+                       
             $sqlForUpdate[] = "
                 CREATE 
                  TABLE IF NOT EXISTS `" . $tbl_mdb_names['im_recipient'] . "`  (
@@ -403,6 +391,7 @@ function upgrade_main_database_desktop_to_19 ()
                         `activated` int(11) NOT NULL,
                         PRIMARY KEY  (`label`)
                        ) TYPE=MyISAM";
+                       
             $sqlForUpdate[] = "
                 CREATE 
                  TABLE IF NOT EXISTS `" . $tbl_mdb_names['desktop_portlet_data'] . "`  (
@@ -427,4 +416,3 @@ function upgrade_main_database_desktop_to_19 ()
     return false;
 }
 
-?>
