@@ -253,8 +253,135 @@ function tool_list_upgrade_to_19 ($course_code)
     return false;
 }
 
+function chat_upgrade_to_19 ($course_code)
+{
+    /*
+    global $currentCourseVersion;
+
+    $versionRequiredToProceed = '/^1.8/';
+    $tool = 'TOOLLIST';
+    $currentCourseDbNameGlu = claro_get_course_db_name_glued($course_code);
+
+    if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
+    {
+        $groupExportFile     = $coursePath.'/group/'.claro_get_current_group_data('directory').'/';
+        $courseExportFile     = $coursePath.'/document/';
+        // On init , $step = 1
+        switch( $step = get_upgrade_status($tool,$course_code) )
+        {
+            case 1 :
+                // get file of course chat 
+                // get list of groups in this course
+                // get files of each group chats
+                // copy content of each file to document tool
+                $chatDate = 'chat.'.date('Y-m-j').'_';
+                
+                    // TRY DO DETERMINE A FILE NAME THAT DOESN'T ALREADY EXISTS
+                    // IN THE DIRECTORY WHERE THE CHAT EXPORT WILL BE STORED
+                
+                    $i = 1;
+                    while ( file_exists($exportFile.$chatDate.$i.'.html') ) $i++;
+                
+                    $saveIn = $chatDate.$i.'.html';
+                
+                    // COMPLETE THE ON FLY BUFFER FILE WITH THE LAST LINES DISPLAYED
+                    // BEFORE PROCEED TO COMPLETE FILE STORAGE
+                
+                    buffer( implode('', file($activeChatFile) ).'</body>'."\n\n".'</html>'."\n",
+                    $onflySaveFile);
+                
+                    if (copy($onflySaveFile, $exportFile.$saveIn) )
+                    {
+                        $chat_filename = '<a href="../document/document.php" target="blank">' . $saveIn . '</a>' ;
+                
+                        $cmdMsg = "\n"
+                                . '<blockquote>'
+                                . get_lang('%chat_filename is now in the document tool. (<em>This file is visible</em>)',array('%chat_filename'=>$chat_filename))
+                                . '</blockquote>'."\n";
+                
+                        @unlink($onflySaveFile);
+                    }
+                
+                if ( 1  ) $step = set_upgrade_status($tool, $step+1, $course_code);
+                else return $step ;
+                
+                
+            default :
+                $step = set_upgrade_status($tool, 0, $course_code);
+                return $step;
+        }
+    }
+    return false;
+    */
+}
+
+function course_description_upgrade_to_19 ($course_code)
+{
+    global $currentCourseVersion;
+
+    $versionRequiredToProceed = '/^1.8/';
+    $tool = 'CLDSC';
+    $currentCourseDbNameGlu = claro_get_course_db_name_glued($course_code);
+
+    if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
+    {
+        // On init , $step = 1
+        switch( $step = get_upgrade_status($tool,$course_code) )
+        {
+            case 1 :
+                // id becomes int(11)
+                $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu . "course_description` 
+                              CHANGE `id` `id` int(11) NOT NULL auto_increment";
+                
+                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1, $course_code);
+                else return $step ;
+                
+            case 2 :
+                // add category field
+                $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu . "course_description` 
+                              ADD `category` int(11) NOT NULL DEFAULT '-1'";
+                
+                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1, $course_code);
+                else return $step ;
+            
+            case 3 :
+                // rename update to lastEditDate
+                $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu . "course_description` 
+                              CHANGE `upDate` `lastEditDate` datetime NOT NULL";
+                
+                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1, $course_code);
+                else return $step ;
+
+            case 4 :
+                // change possible values of visibility fields (show/hide -> visible/invisible)
+                // so to do that we: #1 change the possible enum values to have them all
+                //                   #2 change fields with show to visible / fields with hide to invisible
+                //                   #3 change the possible enum values to keep only the good ones
+
+                // #1
+                $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu . "course_description`
+                              CHANGE `visibility` `visibility` enum('SHOW','HIDE','VISIBLE','INVISIBLE') NOT NULL default 'VISIBLE'";
+                //#2
+                $sqlForUpdate[] = "UPDATE `" . $currentCourseDbNameGlu . "course_description`
+                                SET `visibility` = IF(`visibility` = 'SHOW' ,'VISIBLE','INVISIBLE')";
+                
+                //#3
+                $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu . "course_description` 
+                              CHANGE `visibility` `visibility` enum('VISIBLE','INVISIBLE') NOT NULL default 'VISIBLE'";
+                
+                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, 0, $course_code);
+                else return $step ;
+                
+            default :
+                $step = set_upgrade_status($tool, 0, $course_code);
+                return $step;
+        }
+    }
+    return false;
+}
+
 /**
- * Upgrade foo tool to 1.8
+ * Upgrade foo tool to 1.9
  *
  * explanation of task
  *
@@ -341,78 +468,16 @@ function quiz_upgrade_to_19 ($course_code)
 }
 
 /**
- * Function to upgrade tool intro 
- */
-
-/* function tool_intro_upgrade_to_18 ($course_code)
-{    
-    global $currentCourseVersion, $currentcoursePathSys;
-
-    $versionRequiredToProceed = '/^1.7/';
-    $tool = 'CLINTRO';
-    $currentCourseDbNameGlu = claro_get_course_db_name_glued($course_code);
-
-    if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
-    {
-        switch( $step = get_upgrade_status($tool,$course_code) )
-        {
-            case 1 :
-
-                // remove tool intro
-                $sql = "DELETE FROM `".$currentCourseDbNameGlu."tool_intro`
-                        WHERE tool_id > 0" ;
-
-                if ( upgrade_sql_query($sql) ) $step = set_upgrade_status($tool, 0, $course_code);
-                else return $step;
-
-            default :
-                return $step;
-        }
-    }
-
-    return false;
-}*/
-
-/**
- * Upgrade forum tool to 1.8
- */
-
-/* function forum_upgrade_to_18($course_code)
-{
-    $versionRequiredToProceed = '/^1.7/';
-    $tool = 'CLFRM';
-    
-    global $currentCourseVersion;
-    $currentCourseDbNameGlu = claro_get_course_db_name_glued($course_code);
-
-    if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
-    {
-        switch( $step = get_upgrade_status($tool,$course_code) )
-        {
-            case 1 :
-
-                // update type of cat_order (fix bug 740)
-                $sql = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."bb_categories`
-                        CHANGE `cat_order` `cat_order` int(10)" ;
-
-                if ( upgrade_sql_query($sql) ) $step = set_upgrade_status($tool, 0, $course_code);
-                else return $step;
-
-            default :
-                return $step;
-        }
-    }
-
-    return false;
-}*/
-
-/**
  * Upgrade tracking tool to 1.8
  */
 
 function tracking_upgrade_to_19($course_code)
 {
-    /*$versionRequiredToProceed = '/^1.8/';
+    /*
+     * DO NOT get the old tracking data to put it in this table here
+     * as it is a very heavy process it will be done in another script dedicated to that.
+     */
+    $versionRequiredToProceed = '/^1.8/';
     $tool = 'CLSTATS';
     
     global $currentCourseVersion;
@@ -423,17 +488,16 @@ function tracking_upgrade_to_19($course_code)
         switch( $step = get_upgrade_status($tool,$course_code) )
         {
             case 1 :
-
-                $sql = "UPDATE `".$currentCourseDbNameGlu."track_e_access` 
-                        SET access_tlabel = TRIM(TRAILING '_' FROM access_tlabel)";
-                
-                if ( upgrade_sql_query($sql) ) $step = set_upgrade_status($tool, 2, $course_code);
-                else return $step;
-
-            case 2 :
-
-                $sql = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."track_e_exercices` 
-                        CHANGE `exe_exo_id` `exe_exo_id` int(11)";
+                $sql = "CREATE TABLE IF NOT EXISTS `".$currentCourseDbNameGlu."tracking_event` (
+                      `id` int(11) NOT NULL auto_increment,
+                      `tool_id` int(11) DEFAULT NULL,
+                      `user_id` int(11) DEFAULT NULL,
+                      `group_id` int(11) DEFAULT NULL,
+                      `date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+                      `type` varchar(60) NOT NULL DEFAULT '',
+                      `data` text NOT NULL DEFAULT '',
+                      PRIMARY KEY  (`id`)
+                    ) TYPE=MyISAM;";
                 
                 if ( upgrade_sql_query($sql) ) $step = set_upgrade_status($tool, 0, $course_code);
                 else return $step;
@@ -443,7 +507,7 @@ function tracking_upgrade_to_19($course_code)
         }
     }
 
-    return false;*/
+    return false;
 }
 
 function calendar_upgrade_to_19($course_code)
