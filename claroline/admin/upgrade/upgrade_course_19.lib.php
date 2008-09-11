@@ -232,13 +232,14 @@ function tool_list_upgrade_to_19 ($course_code)
         switch( $step = get_upgrade_status($tool,$course_code) )
         {
             case 1 :
-                $sqlForUpdate = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu . "tool_list` 
+                $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu . "tool_list` 
                               ADD `activated` ENUM('true','false') NOT NULL DEFAULT 'true'";
                 
                 if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1, $course_code);
                 else return $step ;
+                
             case 2 :
-                $sqlForUpdate = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu . "tool_list` 
+                $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu . "tool_list` 
                               ADD `installed` ENUM('true','false') NOT NULL DEFAULT 'true'";
                 
                 if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, 0, $course_code);
@@ -287,23 +288,23 @@ function quiz_upgrade_to_19 ($course_code)
                 unset($sqlForUpdate);
                 
             case 2 :
-                // qwz_tracking - rename table and fields
-                $sqlForUpdate[] = "ALTER TABLE `". $currentCourseDbNameGlu . "track_e_exercices` 
+                // qwz_tracking - rename table
+                $sqlForUpdate[] = "ALTER IGNORE TABLE `". $currentCourseDbNameGlu . "track_e_exercices` 
                                 RENAME TO `". $currentCourseDbNameGlu ."qwz_tracking`";
-
+                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1, $course_code);
+                else return $step ;
+                
+                unset($sqlForUpdate);
+                
+            case 3 : 
+                // qwz_tracking - rename fields
                 $sqlForUpdate[] = "ALTER IGNORE TABLE `". $currentCourseDbNameGlu . "qwz_tracking`
-                                CHANGE `exe_id`         `id`        int(11) NOT NULL auto_increment";
-                $sqlForUpdate[] = "ALTER IGNORE TABLE `". $currentCourseDbNameGlu . "qwz_tracking`
-                                CHANGE `exe_user_id`    `user_id`   int(11) default NULL";
-                $sqlForUpdate[] = "ALTER IGNORE TABLE `". $currentCourseDbNameGlu . "qwz_tracking`
-                                CHANGE `exe_date`       `date`      datetime NOT NULL default '0000-00-00 00:00:00";
-                $sqlForUpdate[] = "ALTER IGNORE TABLE `". $currentCourseDbNameGlu . "qwz_tracking`
-                                CHANGE `exe_exo_id`     `exo_id`    int(11) NOT NULL default '0'";
-                $sqlForUpdate[] = "ALTER IGNORE TABLE `". $currentCourseDbNameGlu . "qwz_tracking`
-                                CHANGE `exe_result`     `result`    float NOT NULL default '0'";
-                $sqlForUpdate[] = "ALTER IGNORE TABLE `". $currentCourseDbNameGlu . "qwz_tracking`
-                                CHANGE `exe_time`       `time`      mediumint(8) NOT NULL default '0'";
-                $sqlForUpdate[] = "ALTER IGNORE TABLE `". $currentCourseDbNameGlu . "qwz_tracking`
+                                CHANGE `exe_id`         `id`        int(11) NOT NULL auto_increment,
+                                CHANGE `exe_user_id`    `user_id`   int(11) default NULL,
+                                CHANGE `exe_date`       `date`      datetime NOT NULL default '0000-00-00 00:00:00',
+                                CHANGE `exe_exo_id`     `exo_id`    int(11) NOT NULL default '0',
+                                CHANGE `exe_result`     `result`    float NOT NULL default '0',
+                                CHANGE `exe_time`       `time`      mediumint(8) NOT NULL default '0',
                                 CHANGE `exe_weighting`  `weighting` float NOT NULL default '0'";
 
                 if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1, $course_code);
@@ -311,7 +312,7 @@ function quiz_upgrade_to_19 ($course_code)
                 
                 unset($sqlForUpdate);
 
-            case 3 : 
+            case 4 : 
                  // qwz_tracking_questions - rename table
                 $sqlForUpdate[] = "ALTER TABLE `". $currentCourseDbNameGlu . "track_e_exe_details` 
                                 RENAME TO `". $currentCourseDbNameGlu . "qwz_tracking_questions`";
@@ -321,7 +322,7 @@ function quiz_upgrade_to_19 ($course_code)
                 
                 unset($sqlForUpdate);
                 
-            case 4 : 
+            case 5 : 
                 // qwz_tracking_answers - rename table
                 $sqlForUpdate[] = "ALTER TABLE `". $currentCourseDbNameGlu . "track_e_exe_answers` 
                                 RENAME TO `". $currentCourseDbNameGlu . "qwz_tracking_answers`";
