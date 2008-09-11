@@ -355,6 +355,8 @@ switch ($display)
                     $function_list = array( 'tool_list_upgrade_to_19',
                                             'tracking_upgrade_to_19',
                                             'calendar_upgrade_to_19',
+                                            'chat_upgrade_to_19',
+                                            'course_description_upgrade_to_19',
                                             'linker_upgrade_to_19',
                                             'quiz_upgrade_to_19');
 
