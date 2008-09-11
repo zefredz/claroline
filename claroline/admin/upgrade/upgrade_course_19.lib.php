@@ -232,16 +232,18 @@ function tool_list_upgrade_to_19 ($course_code)
         switch( $step = get_upgrade_status($tool,$course_code) )
         {
             case 1 :
-                $sql_step1 = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu . "tool_list` ADD `activated` ENUM('true','false') NOT NULL DEFAULT 'true'";
+                $sqlForUpdate = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu . "tool_list` 
+                              ADD `activated` ENUM('true','false') NOT NULL DEFAULT 'true'";
                 
-                if ( upgrade_sql_query($sql_step1) )
-                {
-                    $step = set_upgrade_status($tool, 2, $course_code);
-                }
-                else
-                {
-                    return $step;
-                }
+                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1, $course_code);
+                else return $step ;
+            case 2 :
+                $sqlForUpdate = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu . "tool_list` 
+                              ADD `installed` ENUM('true','false') NOT NULL DEFAULT 'true'";
+                
+                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, 0, $course_code);
+                else return $step ;
+                
             default :
                 $step = set_upgrade_status($tool, 0, $course_code);
                 return $step;
