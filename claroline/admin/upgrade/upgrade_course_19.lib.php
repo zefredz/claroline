@@ -277,9 +277,9 @@ function quiz_upgrade_to_19 ($course_code)
                 // qwz_rel_exercise_question - fix key and index
                 $sqlForUpdate[] = "ALTER TABLE `". $currentCourseDbNameGlu ."qwz_rel_exercise_question`
                   DROP PRIMARY KEY,
-                   ADD PRIMARY KEY(`exerciseId`, `questionId`)";
+                  ADD PRIMARY KEY(`exerciseId`, `questionId`)";
                    
-                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, 0, $course_code);
+                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1, $course_code);
                 else return $step ;
                 
                 unset($sqlForUpdate);
@@ -304,7 +304,7 @@ function quiz_upgrade_to_19 ($course_code)
                 $sqlForUpdate[] = "ALTER IGNORE TABLE `". $currentCourseDbNameGlu . "qwz_tracking`
                                 CHANGE `exe_weighting`  `weighting` float NOT NULL default '0'";
 
-                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, 0, $course_code);
+                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1, $course_code);
                 else return $step ;
                 
                 unset($sqlForUpdate);
@@ -314,7 +314,7 @@ function quiz_upgrade_to_19 ($course_code)
                 $sqlForUpdate[] = "ALTER TABLE `". $currentCourseDbNameGlu . "track_e_exe_details` 
                                 RENAME TO `". $currentCourseDbNameGlu . "qwz_tracking_questions`";
 
-                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, 0, $course_code);
+                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1, $course_code);
                 else return $step ;
                 
                 unset($sqlForUpdate);
