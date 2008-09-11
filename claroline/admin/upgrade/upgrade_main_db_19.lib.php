@@ -57,14 +57,14 @@ function upgrade_main_database_module_to_19 ()
             
             foreach ( $toolList as $tool )
             {
-                $sql = "INSERT INTO `" . $tbl_mdb_names['module_contexts'] . "`
+                $sql = "INSERT IGNORE INTO `" . $tbl_mdb_names['module_contexts'] . "`
                     SET `module_id` = ".(int) $tool['id'].", `context` = 'course'";
                     
                 $success = upgrade_sql_query( $sql );
                 
-                if ( $success && in_array( rtrim($tool['label'], '_'), $groupTools ) )
+                if ( in_array( rtrim($tool['label'], '_'), $groupTools ) )
                 {
-                    $sql = "INSERT INTO `" . $tbl_mdb_names['module_contexts'] . "`
+                    $sql = "INSERT IGNORE INTO `" . $tbl_mdb_names['module_contexts'] . "`
                     SET `module_id` = ".(int) $tool['id'].", `context` = 'group'";
                     
                     $success = upgrade_sql_query( $sql );
@@ -123,7 +123,7 @@ function upgrade_main_database_course_to_19 ()
             // $courseDataList['visibility'         ] = (bool) (2 == $courseDataList['visible'] || 3 == $courseDataList['visible'] );
             // $courseDataList['registrationAllowed'] = (bool) (1 == $courseDataList['visible'] || 2 == $courseDataList['visible'] );
 
-            $sqlForUpdate[] = "UPDATE TABLE `" . $tbl_mdb_names['course'] . "`
+            $sqlForUpdate[] = "UPDATE `" . $tbl_mdb_names['course'] . "`
                                 SET `visibility`   = 'visible',
                                     `access`       = IF(visible=2 OR visible=3,'public','private') ,
                                     `registration` = IF(visible=1 OR visible=2,'open','close')";
@@ -136,7 +136,7 @@ function upgrade_main_database_course_to_19 ()
         case 3 :
             // Remove the old column
             $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "`,
-                                 REM COLUMN `visible`";
+                                DROP COLUMN `visible`";
 
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
@@ -174,7 +174,7 @@ function upgrade_main_database_course_to_19 ()
             // Rename `language` column
 
             $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "`,
-                               CHANGE `languageCourse` `language` VARCHAR (15)  'english'";
+                               CHANGE `languageCourse` `language` VARCHAR (15) NOT NULL DEFAULT 'english'";
 
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
