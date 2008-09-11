@@ -259,12 +259,12 @@ function tool_list_upgrade_to_19 ($course_code)
  * @return boolean whether true if succeed
  */
 
-function quiz_upgrade_to_19 ($course_code)
+/* function quiz_upgrade_to_19 ($course_code)
 {
     // PRIMARY KEY (`exerciseId`,`questionId`)
     global $currentCourseVersion, $currentcoursePathSys;
 
-    $versionRequiredToProceed = '/^1.7/';
+    $versionRequiredToProceed = '/^1.8/';
     $tool = 'CLQWZ';
     $currentCourseDbNameGlu = claro_get_course_db_name_glued($course_code);
 
@@ -303,7 +303,7 @@ function quiz_upgrade_to_19 ($course_code)
                     `details_id` int(11) NOT NULL default '0',
                     `answer` text NOT NULL,
                     PRIMARY KEY  (`id`)
-                ) TYPE=MyISAM  COMMENT='';`)";
+                ) TYPE=MyISAM  COMMENT='';";
 
                 if ( upgrade_apply_sql($sql_step1) )
                 {
@@ -320,7 +320,7 @@ function quiz_upgrade_to_19 ($course_code)
     }
 
     return false;
-}
+} */
 
 /**
  * Function to upgrade tool intro 

@@ -354,7 +354,8 @@ switch ($display)
                     $function_list = array( 'tool_list_upgrade_to_19',
                                             'tracking_upgrade_to_19',
                                             'calendar_upgrade_to_19',
-                                            'linker_upgrade_to_19');
+                                            'linker_upgrade_to_19'/*,
+                                            'quiz_upgrade_to_19'*/);
 
                     foreach ( $function_list as $function )
                     {
@@ -370,12 +371,12 @@ switch ($display)
                     {
                         // Upgrade succeeded
                         clean_upgrade_status($currentCourseCode);
-                        $currentCourseVersion = '1.8';
+                        $currentCourseVersion = '1.9';
                     }
                     else
                     {
                         // Upgrade failed
-                        $currentCourseVersion = 'error-1.7';
+                        $currentCourseVersion = 'error-1.8';
                     }
                     // Save version
                     save_course_current_version($currentCourseCode,$currentCourseVersion);
@@ -387,7 +388,7 @@ switch ($display)
 
             if ( ! $error )
             {
-                if ( preg_match('/^1.8/',$currentCourseVersion) )
+                if ( preg_match('/^1.9/',$currentCourseVersion) )
                 {
                     $message .= '<p class="success">Upgrade succeeded</p>';
                     // course upgraded
