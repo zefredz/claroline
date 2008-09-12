@@ -444,22 +444,28 @@ function calendar_upgrade_to_19($course_code)
 
 function convert_crl_from_18_to_19( $crl )
 {
+	$matches =array();
+	
     if (preg_match(
-        '!(crl://claroline\.net/\w+/[^/]+/groups/\d+/)([^/])(.*)!',
+        '!(crl://claroline\.net/\w+/[^/]+/groups/\d+/)([^/]+)(.*)!',
         $crl, $matches ) )
     {
-        return $matches[1] . rtrim( $matches[2], '_' ) . $matches[3];
+        $crl = $matches[1] . rtrim( $matches[2], '_' ) . $matches[3];
     }
     elseif (preg_match(
-        '!(crl://claroline\.net/\w+/[^/]+/)([^/])(.*)!',
+        '!(crl://claroline\.net/\w+/[^/]+/)([^/]+)(.*)!',
         $crl, $matches ) )
     {
-        return $matches[1] . rtrim( $matches[2], '_' ) . $matches[3];
+        $crl = $matches[1] . rtrim( $matches[2], '_' ) . $matches[3];
     }
     else
     {
-        return $crl;
+        $crl = $crl;
     }
+    
+    log_message($crl);
+    
+    return $crl;
 }
 
 
@@ -476,14 +482,16 @@ function linker_upgrade_to_19($course_code)
         switch( $step = get_upgrade_status($tool,$course_code) )
         {
             case 1 :
-                $sql = "SELECT `crl` FROM `".$currentCourseDbNameGlu."lnk_resource`";
+                $sql = "SELECT `crl` FROM `".$currentCourseDbNameGlu."lnk_resources`";
                 
                 $res = claro_sql_query_fetch_all_rows( $sql );
                 $success = ($res !== false);
+                
+                log_message("found " . count($res) . " crls to convert");
 
                 foreach( $res as $resource )
                 {
-                    $sql = "UPDATE `".$currentCourseDbNameGlu."lnk_resource`
+                    $sql = "UPDATE `".$currentCourseDbNameGlu."lnk_resources`
                     SET `crl` = '" . claro_sql_escape( convert_crl_from_18_to_19($resource['crl']) ) ."'
                     WHERE `crl` = '" .claro_sql_escape( $resource['crl'] ) ."'";
                     
