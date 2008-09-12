@@ -61,7 +61,7 @@ $_lang['Accept email as valid (best choice)'] = 'Autoriser l\'email comme valide
 $_lang['Access'] = 'Accès';
 $_lang['Access allowed'] = 'Accès autorisé';
 $_lang['Access allowed only to course members (people on the <a href="%url">user list</a>)'] = 'Accès réservé aux membres du cours (présents dans la <a href=\"%url\">liste des utilisateurs</a> du cours)';
-$_lang['Access allowed only to course members (people on the user list)'] = 'Accès réservé aux membres du cours (présents dans la liste des utilisateurs du cours)';
+$_lang['Access allowed only to course members (people on the course user list)'] = 'Accès réservé aux membres du cours (présents dans la liste des utilisateurs du cours)';
 $_lang['Access allowed only to platform members (user registered to the platform)'] = 'Accès réservé aux utilisateurs authentifiés (inscrits sur la plateforme)';
 $_lang['Access allowed to anybody (even without login)'] = 'Accès libre (pas d\'authentification requise)';
 $_lang['Access control management'] = 'Gestion du contrôle d\'accès';
