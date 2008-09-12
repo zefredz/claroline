@@ -323,7 +323,7 @@ $conf_def_property_list['mysqlRepositorySys'] =
 array ('label'       => 'Mysql Base Path'
       ,'description' => 'This is the physical path to databases storage. This path is  optional, use by the quota and size.'
       ,'default'     => ''
-      ,'type'        => 'syspath'
+      ,'type'        => 'string'
       ,'display'     => FALSE
       ,'readonly'    => FALSE
       );
