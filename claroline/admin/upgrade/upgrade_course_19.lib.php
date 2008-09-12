@@ -24,190 +24,13 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @author Claro Team <cvs@claroline.net>
  * @author Mathieu Laurent   <mla@claroline.net>
- * @author Christophe Gesché <moosh@claroline.net>
+ * @author Christophe GeschÃ© <moosh@claroline.net>
  *
  */
 
 /*===========================================================================
  Upgrade to claroline 1.8
  ===========================================================================*/
-
-/**
- * Upgrade course repository files and script to 1.8
- */
-
-/*function course_repository_upgrade_to_19 ($course_code)
-{
-    global $currentCourseVersion, $currentcoursePathSys;
-
-    $versionRequiredToProceed = '/^1.7/';
-    $tool = 'CLINDEX';
-
-    if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
-    {
-        switch( $step = get_upgrade_status($tool,$course_code) )
-        {
-            case 1 :
-                
-                if ( is_writable($currentcoursePathSys) )
-                {
-                    if ( !is_dir($currentcoursePathSys) ) 
-                        claro_mkdir($currentcoursePathSys);
-                    if ( !is_dir($currentcoursePathSys.'/chat') )
-                        claro_mkdir($currentcoursePathSys.'/chat');
-                    if ( !is_dir($currentcoursePathSys.'/modules') )
-                        claro_mkdir($currentcoursePathSys.'/modules');
-                    if ( !is_dir($currentcoursePathSys.'/scormPackages') )
-                        claro_mkdir($currentcoursePathSys . '/scormPackages');
-            
-                    $step = set_upgrade_status($tool, 2, $course_code);
-                }
-                else
-                {
-                    log_message(sprintf('Repository %s not writable', $currentcoursePathSys));
-                    return $step;
-                }
-
-            case 2 :
-
-                // build index.php of course
-                $fd = fopen($currentcoursePathSys . '/index.php', 'w');
-        
-                if (!$fd) return $step ;
-
-                // build index.php
-                $string = '<?php ' . "\n"
-                    . 'header (\'Location: '. $GLOBALS['urlAppend'] . '/claroline/course/index.php?cid=' . rawurlencode($course_code) . '\') ;' . "\n"
-                    . '?' . '>' . "\n" ;
-
-                if ( ! fwrite($fd, $string) ) return $step;
-                if ( ! fclose($fd) )          return $step;
-                    
-                $step = set_upgrade_status($tool, 0, $course_code);
-
-            default :
-                return $step;
-        }
-    }
-    return false ;
-}*/
-
-/**
- * Upgrade foo tool to 1.8
- *
- * explanation of task
- *
- * @param $course_code string
- * @return boolean whether true if succeed
- */
-
-/*function group_upgrade_to_19($course_code)
-{
-    global $currentCourseVersion;
-
-    $versionRequiredToProceed = '/^1.8/';
-    $tool = 'CLGRP';
-    $currentCourseDbNameGlu = claro_get_course_db_name_glued($course_code);
-
-    if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
-    {
-        // On init , $step = 1
-        switch( $step = get_upgrade_status($tool,$course_code) )
-        {
-            case 1 :
-
-                $sql_step1 = " CREATE TABLE
-                        `".$currentCourseDbNameGlu."course_properties`
-                        (
-                            `id` int(11) NOT NULL auto_increment,
-                            `name` varchar(255) NOT NULL default '',
-                            `value` varchar(255) default NULL,
-                            `category` varchar(255) default NULL,
-                            PRIMARY KEY  (`id`)
-                        ) TYPE=MyISAM ";
-
-                if ( upgrade_sql_query($sql_step1) )
-                {
-                    $step = set_upgrade_status($tool, 2, $course_code);
-                }
-                else
-                {
-                    return $step;
-                }
-
-            case 2 :
-
-                $sql = "SELECT self_registration,
-                               private,
-                               nbGroupPerUser,
-                               forum,
-                               document,
-                               wiki,
-                               chat
-                    FROM `".$currentCourseDbNameGlu."group_property`";
-
-                $groupSettings = claro_sql_query_get_single_row($sql);
-
-                if ( is_array($groupSettings) )
-                {
-                    $sql = "INSERT
-                            INTO `".$currentCourseDbNameGlu."course_properties`
-                                   (`name`, `value`, `category`)
-                            VALUES
-                            ('self_registration', '".$groupSettings['self_registration']."', 'GROUP'),
-                            ('nbGroupPerUser',    '".$groupSettings['nbGroupPerUser'   ]."', 'GROUP'),
-                            ('private',           '".$groupSettings['private'          ]."', 'GROUP'),
-                            ('CLFRM',             '".$groupSettings['forum'            ]."', 'GROUP'),
-                            ('CLDOC',             '".$groupSettings['document'         ]."', 'GROUP'),
-                            ('CLWIKI',            '".$groupSettings['wiki'             ]."', 'GROUP'),
-                            ('CLCHT',             '".$groupSettings['chat'             ]."', 'GROUP')";
-                }
-
-                if ( upgrade_sql_query($sql) )
-                {
-                    $step = set_upgrade_status($tool, 3, $course_code);
-                }
-                else
-                {
-                    return $step;
-                }
-
-            case 3 :
-
-                $sql = "DROP TABLE IF EXISTS`".$currentCourseDbNameGlu."group_property`";
-
-                if ( upgrade_sql_query($sql) )
-                {
-                    $step = set_upgrade_status($tool, 4, $course_code);
-                }
-                else
-                {
-                    return $step;
-                }
-
-            case 4 :
-
-                $sql = "UPDATE `".$currentCourseDbNameGlu."group_team`
-                        SET `maxStudent` = NULL
-                        WHERE `maxStudent` = 0 ";
-
-                if ( upgrade_sql_query($sql) )
-                {
-                    $step = set_upgrade_status($tool, 0, $course_code);
-                }
-                else
-                {
-                    return $step;
-                }
-
-
-            default :
-                return $step;
-        }
-    }
-
-    return false;
-}*/
 
 /**
  * Upgrade foo tool to 1.8
@@ -533,7 +356,7 @@ function quiz_upgrade_to_19 ($course_code)
                 $sqlForUpdate[] = "ALTER TABLE `". $currentCourseDbNameGlu . "track_e_exe_answers` 
                                 RENAME TO `". $currentCourseDbNameGlu . "qwz_tracking_answers`";
 
-                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, 0, $course_code);
+                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1, $course_code);
                 else return $step ;
                 
                 unset($sqlForUpdate);
@@ -578,7 +401,7 @@ function tracking_upgrade_to_19($course_code)
                       PRIMARY KEY  (`id`)
                     ) TYPE=MyISAM;";
                 
-                if ( upgrade_sql_query($sql) ) $step = set_upgrade_status($tool, 0, $course_code);
+                if ( upgrade_sql_query($sql) ) $step = set_upgrade_status($tool, $step+1, $course_code);
                 else return $step;
 
             default :
@@ -605,7 +428,7 @@ function calendar_upgrade_to_19($course_code)
                 $sql = "ALTER IGNORE TABLE `".$currentCourseDbNameGlu."calendar_event` 
                         ADD `location` varchar(50)";
                 
-                if ( upgrade_sql_query($sql) ) $step = set_upgrade_status($tool, 0, $course_code);
+                if ( upgrade_sql_query($sql) ) $step = set_upgrade_status($tool, $step+1, $course_code);
                 else return $step;
 
             default :
@@ -619,13 +442,13 @@ function calendar_upgrade_to_19($course_code)
 function convert_crl_from_18_to_19( $crl )
 {
     if (preg_match(
-        '!(crl://'.get_conf('platform_id').'/[^/]+/groups/\d+/)([^/])(.*)!',
+        '!(crl://claroline\.net/'.get_conf('platform_id').'/[^/]+/groups/\d+/)([^/])(.*)!',
         $crl, $matches ) )
     {
         return $matches[1] . rtrim( $matches[2], '_' ) . $matches[3];
     }
     elseif (preg_match(
-        '!(crl://'.get_conf('platform_id').'/[^/]+/)([^/])(.*)!',
+        '!(crl://claroline\.net/'.get_conf('platform_id').'/[^/]+/)([^/])(.*)!',
         $crl, $matches ) )
     {
         return $matches[1] . rtrim( $matches[2], '_' ) . $matches[3];
@@ -669,7 +492,7 @@ function linker_upgrade_to_19($course_code)
                     }
                 }
                 
-                if ( $success ) $step = set_upgrade_status($tool, 0, $course_code);
+                if ( $success ) $step = set_upgrade_status($tool, $step+1, $course_code);
                 else return $step;
 
             default :
