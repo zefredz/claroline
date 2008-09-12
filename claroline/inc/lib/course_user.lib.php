@@ -301,25 +301,11 @@ function user_delete_course_tracking_data($userId, $courseId)
     $dbNameGlued   = claro_get_course_db_name_glued($courseId);
     $tbl_cdb_names = claro_sql_get_course_tbl($dbNameGlued);
 
-    $tbl_track_access     = $tbl_cdb_names['track_e_access'   ];
-    $tbl_track_downloads  = $tbl_cdb_names['track_e_downloads'];
-    $tbl_track_exercices  = $tbl_cdb_names['track_e_exercices'];
-    $tbl_track_uploads    = $tbl_cdb_names['track_e_uploads'  ];
+    $tbl_tracking_event   = $tbl_cdb_names['tracking_event'];
 
-    $sqlList = array(
-    "DELETE FROM `" . $tbl_track_access     . "` WHERE access_user_id = " . (int) $userId ,
-    "DELETE FROM `" . $tbl_track_downloads  . "` WHERE down_user_id   = " . (int) $userId ,
-    "DELETE FROM `" . $tbl_track_exercices  . "` WHERE exe_user_id    = " . (int) $userId ,
-    "DELETE FROM `" . $tbl_track_uploads    . "` WHERE upload_user_id = " . (int) $userId
-    );
+    $sql = "DELETE FROM `" . $tbl_tracking_event     . "` WHERE user_id = " . (int) $userId ;
 
-    foreach($sqlList as $thisSql)
-    {
-        if ( claro_sql_query($thisSql) == false ) return false;
-        else                                      continue;
-    }
-
-    return true;
+    return claro_sql_query($sql);
 }
 
 /**
