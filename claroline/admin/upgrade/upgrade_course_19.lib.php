@@ -255,56 +255,101 @@ function tool_list_upgrade_to_19 ($course_code)
 
 function chat_upgrade_to_19 ($course_code)
 {
-    /*
+
     global $currentCourseVersion;
 
     $versionRequiredToProceed = '/^1.8/';
-    $tool = 'TOOLLIST';
+    $tool = 'CLCHT';
     $currentCourseDbNameGlu = claro_get_course_db_name_glued($course_code);
 
     if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
     {
-        $groupExportFile     = $coursePath.'/group/'.claro_get_current_group_data('directory').'/';
-        $courseExportFile     = $coursePath.'/document/';
+        $coursePath  = get_path('coursesRepositorySys') . claro_get_course_path($course_code);
+        $courseChatPath  = get_path('coursesRepositorySys') . claro_get_course_path($course_code) . '/chat/';
         // On init , $step = 1
         switch( $step = get_upgrade_status($tool,$course_code) )
         {
-            case 1 :
-                // get file of course chat 
-                // get list of groups in this course
-                // get files of each group chats
-                // copy content of each file to document tool
-                $chatDate = 'chat.'.date('Y-m-j').'_';
+            
+            case 1 : 
+                // get all chat files
+                $it = new DirectoryIterator($courseChatPath);
+                $error = false;
                 
-                    // TRY DO DETERMINE A FILE NAME THAT DOESN'T ALREADY EXISTS
-                    // IN THE DIRECTORY WHERE THE CHAT EXPORT WILL BE STORED
-                
-                    $i = 1;
-                    while ( file_exists($exportFile.$chatDate.$i.'.html') ) $i++;
-                
-                    $saveIn = $chatDate.$i.'.html';
-                
-                    // COMPLETE THE ON FLY BUFFER FILE WITH THE LAST LINES DISPLAYED
-                    // BEFORE PROCEED TO COMPLETE FILE STORAGE
-                
-                    buffer( implode('', file($activeChatFile) ).'</body>'."\n\n".'</html>'."\n",
-                    $onflySaveFile);
-                
-                    if (copy($onflySaveFile, $exportFile.$saveIn) )
+                foreach( $it as $file )
+                {
+                    if( $file->getFilename() == $course_code . '.chat.html' )
                     {
-                        $chat_filename = '<a href="../document/document.php" target="blank">' . $saveIn . '</a>' ;
-                
-                        $cmdMsg = "\n"
-                                . '<blockquote>'
-                                . get_lang('%chat_filename is now in the document tool. (<em>This file is visible</em>)',array('%chat_filename'=>$chat_filename))
-                                . '</blockquote>'."\n";
-                
-                        @unlink($onflySaveFile);
+                        // chat de cours
+                        $exportFileDir = $coursePath.'/document/recovered_chat/';
+                        $groupId = null;
                     }
+                    else
+                    {
+                        // group chat
+                        
+                        // get groupId 
+                        $matches = array();
+                        preg_match('/\w+\.(\d+)\.chat\.html/', $file->getFilename(), $matches);
+                        if( isset($matches[1]) )
+                        {
+                            $groupId = (int) $matches[1];
+                        }
+                        else
+                        {
+                            log_message('Cannot find group id in chat filename : '. $file->getFilename());
+                            break;
+                        }
+                        
+                        if( ! ($groupData = claro_get_group_data(array(CLARO_CONTEXT_COURSE => $course_code, CLARO_CONTEXT_GROUP => $groupId))) )
+                        {
+                            // group cannot be found, save in document 
+                            $exportFileDir = $coursePath.'/document/recovered_chat/';
+                            log_message('Cannot find group so save chat filename in course : '. $file->getFilename());
+                        }
+                        else
+                        {
+                            $exportFileDir = $coursePath.'/group/'.$groupData['directory'].'/recovered_chat/';
+                        }
+                    }
+                    
+                    // create dire
+                    claro_mkdir($exportFileDir, CLARO_FILE_PERMISSIONS, true);
+
+                    // try to find a unique filename
+                    $fileNamePrefix = 'chat.'.date('Y-m-j').'_';
+                    if( !is_null($groupId) )
+                    {
+                        $fileNamePrefix .=  $groupId . '_';
+                    }
+
+                    $i = 1;
+                    while ( file_exists($exportFileDir.$fileNamePrefix.$i.'.html') ) $i++;
+
+                    $savedFileName = $fileNamePrefix.$i.'.html';
+
+                    // prepare output
+                    $out = '<html>'
+                    . '<head>'
+                    . '<title>Discussion - archive</title>'
+                    . '</head>'
+                    . '<body>'
+                    . file_get_contents($file->getPathname())
+                    . '</body>'
+                    . '</html>';
+                    
+                    
+                    // write to file
+                    if( ! file_put_contents($exportFileDir.$savedFileName, $out) )
+                    {
+                        log_message('Cannot save chat : '. $exportFileDir.$savedFileName);
+                        $error = true;
+                    }
+                }
+                // save those with group id in group space
+
                 
-                if ( 1  ) $step = set_upgrade_status($tool, $step+1, $course_code);
+                if ( !$error ) $step = set_upgrade_status($tool, $step+1, $course_code);
                 else return $step ;
-                
                 
             default :
                 $step = set_upgrade_status($tool, 0, $course_code);
@@ -312,7 +357,7 @@ function chat_upgrade_to_19 ($course_code)
         }
     }
     return false;
-    */
+
 }
 
 function course_description_upgrade_to_19 ($course_code)
