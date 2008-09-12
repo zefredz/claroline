@@ -444,8 +444,8 @@ function calendar_upgrade_to_19($course_code)
 
 function convert_crl_from_18_to_19( $crl )
 {
-	$matches =array();
-	
+    $matches =array();
+    
     if (preg_match(
         '!(crl://claroline\.net/\w+/[^/]+/groups/\d+/)([^/]+)(.*)!',
         $crl, $matches ) )
