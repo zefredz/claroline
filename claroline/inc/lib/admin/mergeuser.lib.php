@@ -119,43 +119,27 @@ class MergeUser
         }
         
         // Update tracking
-        $sql = "UPDATE `{$courseTbl['track_e_access']}`
-                SET   access_user_id = ".(int)$uidToKeep."
-                WHERE access_user_id = ".(int)$uidToRemove;
+        $sql = "UPDATE `{$courseTbl['tracking_event']}`
+                SET   user_id = ".(int)$uidToKeep."
+                WHERE user_id = ".(int)$uidToRemove;
 
         if ( ! claro_sql_query($sql) )
         {
-            throw new Exception("Cannot change track_e_access in {$thisCourseCode}");
+            throw new Exception("Cannot change tracking_event in {$thisCourseCode}");
         }
+
         
-
-        $sql = "UPDATE `{$courseTbl['track_e_downloads']}`
-                SET   down_user_id  = ".(int)$uidToKeep."
-                WHERE down_user_id  = ".(int)$uidToRemove;
-
-        if ( ! claro_sql_query($sql) )
-        {
-            throw new Exception("Cannot change track_e_downloads in {$thisCourseCode}");
-        }
-
-        $sql = "UPDATE `{$courseTbl['track_e_exercices']}`
-                SET   exe_user_id  = ".(int)$uidToKeep."
-                WHERE exe_user_id  = ".(int)$uidToRemove;
-
-        if ( ! claro_sql_query($sql) )
-        {
-            throw new Exception("Cannot change track_e_exercices in {$thisCourseCode}");
-        }
-
-        $sql = "UPDATE `{$courseTbl['track_e_uploads']}`
-                SET   upload_user_id = ".(int)$uidToKeep."
-                WHERE upload_user_id = ".(int)$uidToRemove;
-
-        if ( ! claro_sql_query($sql) )
-        {
-            throw new Exception("Cannot change track_e_uploads in {$thisCourseCode}");
-        }
+        $qwz_tbl_names = get_module_course_tbl( array( 'qwz_tracking' ), $courseId );
         
+        $sql = "UPDATE `{$qwz_tbl_names['qwz_tracking']}`
+                SET   user_id  = ".(int)$uidToKeep."
+                WHERE user_id  = ".(int)$uidToRemove;
+
+        if ( ! claro_sql_query($sql) )
+        {
+            throw new Exception("Cannot change qwz_tracking in {$thisCourseCode}");
+        }
+
         // Update user info in course
         $sql = "DELETE FROM `{$courseTbl['userinfo_content']}`
                 WHERE user_id = ".(int)$uidToRemove;
@@ -170,24 +154,15 @@ class MergeUser
     {
         $mainTbl = claro_sql_get_main_tbl();
         
-        $sql = "UPDATE `{$mainTbl['track_e_default']}`
-            SET   default_user_id = ".(int)$uidToKeep."
-            WHERE default_user_id = ".(int)$uidToRemove;
+        $sql = "UPDATE `{$mainTbl['tracking_event']}`
+            SET   user_id = ".(int)$uidToKeep."
+            WHERE user_id = ".(int)$uidToRemove;
 
         if ( ! claro_sql_query($sql) )
         {
-            throw new Exception("Cannot update track_e_default");
+            throw new Exception("Cannot update tracking_event in main DB");
         }
 
-
-        $sql = "UPDATE `{$mainTbl['track_e_login']}`
-                SET   login_user_id = ".(int)$uidToKeep."
-                WHERE login_user_id = ".(int)$uidToRemove;
-
-        if ( ! claro_sql_query($sql) )
-        {
-            throw new Exception("Cannot update track_e_login");
-        }
     }
     
     public static function mergeCourseModuleUsers( $uidToRemove, $uidToKeep, $courseId )
