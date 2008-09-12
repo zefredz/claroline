@@ -445,13 +445,13 @@ function calendar_upgrade_to_19($course_code)
 function convert_crl_from_18_to_19( $crl )
 {
     if (preg_match(
-        '!(crl://claroline\.net/'.get_conf('platform_id').'/[^/]+/groups/\d+/)([^/])(.*)!',
+        '!(crl://claroline\.net/\w+/[^/]+/groups/\d+/)([^/])(.*)!',
         $crl, $matches ) )
     {
         return $matches[1] . rtrim( $matches[2], '_' ) . $matches[3];
     }
     elseif (preg_match(
-        '!(crl://claroline\.net/'.get_conf('platform_id').'/[^/]+/)([^/])(.*)!',
+        '!(crl://claroline\.net/\w+/[^/]+/)([^/])(.*)!',
         $crl, $matches ) )
     {
         return $matches[1] . rtrim( $matches[2], '_' ) . $matches[3];
