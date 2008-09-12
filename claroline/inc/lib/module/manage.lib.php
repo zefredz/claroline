@@ -20,6 +20,7 @@ if ( count( get_included_files() ) == 1 )
 
 require_once dirname(__FILE__) . '/../fileManage.lib.php';
 require_once dirname(__FILE__) . '/../right/profileToolRight.class.php';
+require_once dirname(__FILE__) . '/../right/right_profile.lib.php';
 require_once dirname(__FILE__) . '/../backlog.class.php';
 // Manifest Parser and functions
 require_once dirname(__FILE__) . '/manifest.lib.php';
@@ -558,11 +559,45 @@ function install_module($modulePath, $skipCheckDir = false)
 function activate_module($moduleId)
 {
     $success = true;
-    $backlog = new Backlog;
+    $backlog1 = new Backlog;
     // find module informations
 
     $tbl = claro_sql_get_main_tbl();
     $moduleInfo =  get_module_info($moduleId);
+
+    list( $backlog2, $success ) = activate_module_in_platform($moduleId);
+    
+    if( ! $success )
+    {
+        return array( $backlog2, $success );
+    }
+    
+    $backlog1->append($backlog2);
+    
+    if ( $moduleInfo['type'] == 'tool' && $moduleInfo['activateInCourses'] == 'AUTOMATIC' )
+    {
+        if ( activate_module_in_all_courses( $moduleInfo['label'] ) )
+        {
+            $success = true;
+            $backlog1->success( get_lang('Module activation in courses succeeded'));
+        }
+        else
+        {
+            $success = false;
+            $backlog1->failure( get_lang('Module activation in courses failed'));
+        }
+    }
+
+    return array( $backlog1, $success );
+}
+
+function activate_module_in_platform( $moduleId )
+{
+    $success = true;
+    $backlog = new Backlog;
+    // find module informations
+
+    $tbl = claro_sql_get_main_tbl();
 
     // TODO : 1- call activation script (if any) from the module repository
 
@@ -596,23 +631,8 @@ function activate_module($moduleId)
         }
     }
     
-    if ( $moduleInfo['type'] == 'tool' && $moduleInfo['activateInCourses'] == 'AUTOMATIC' )
-    {
-        if ( activate_module_in_all_courses( $moduleInfo['label'] ) )
-        {
-            $success = true;
-            $backlog->success( get_lang('Module activation in courses succeeded'));
-        }
-        else
-        {
-            $success = false;
-            $backlog->failure( get_lang('Module activation in courses failed'));
-        }
-    }
-
     return array( $backlog, $success );
 }
-
 function activate_module_in_all_courses( $toolLabel )
 {
     $toolId = get_tool_id_from_module_label( $toolLabel );
