@@ -430,6 +430,7 @@ function upgrade_main_database_desktop_to_19 ()
 
 function upgrade_chat_to_19 ()
 {
+    global $includePath;
     // activate new module to replace the old one
     $tool = 'CLCHAT_19';
 
@@ -437,13 +438,13 @@ function upgrade_chat_to_19 ()
     {
         case 1 :
             // install new chat
-            list( $backLog, $moduleId ) = install_module($includePath . '/../../module/CLCHAT/');
+            list( $backLog, $moduleId ) = install_module($includePath . '/../../module/CLCHAT', true);
             
             log_message($backLog->output());
             
             if( $moduleId )
             {
-                list( $backLog, $success ) = activate_module($moduleId);
+                list( $backLog, $success ) = activate_module_in_platform($moduleId);
                 
                 log_message($backLog->output());
             }
