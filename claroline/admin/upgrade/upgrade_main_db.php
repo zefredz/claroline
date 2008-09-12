@@ -30,6 +30,8 @@ require 'upgrade_init_global.inc.php';
 // Security Check
 if ( ! claro_is_platform_admin()) upgrade_disp_auth_form();
 
+require $includePath . '/lib/module/manage.lib.php';
+
 // Define display
 DEFINE('DISPLAY_WELCOME_PANEL', 1);
 DEFINE('DISPLAY_RESULT_PANEL',  2);
@@ -244,7 +246,8 @@ switch ( $display )
                                    'upgrade_main_database_desktop_to_19',
                                    'upgrade_main_database_module_to_19',
                                    'upgrade_main_database_messaging_to_19',
-                                   'upgrade_main_database_tracking_to_19'
+                                   'upgrade_main_database_tracking_to_19',
+                                   'upgrade_chat_to_19'
                                     );
 
             foreach ( $function_list as $function )
