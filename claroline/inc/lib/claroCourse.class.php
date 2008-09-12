@@ -567,9 +567,9 @@ class ClaroCourse
             . '<label for="access_private">';
 
         if( empty($this->courseId) )
-            $html .= get_lang('Access allowed only to course members (people on the user list)');
+            $html .= get_lang('Access allowed only to course members (people on the course user list)');
         else
-            $html .= get_lang('Access allowed only to course members (people on the <a href="%url">user list</a>)' , array('%url'=> '../user/user.php'));
+            $html .= get_lang('Access allowed only to course members (people on the <a href="%url">course user list</a>)' , array('%url'=> '../user/user.php'));
 
         $html .= '</label>'
             . '</td>'
