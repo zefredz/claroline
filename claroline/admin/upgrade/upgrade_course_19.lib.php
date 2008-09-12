@@ -466,7 +466,7 @@ function convert_crl_from_18_to_19( $crl )
 function linker_upgrade_to_19($course_code)
 {
     $versionRequiredToProceed = '/^1.8/';
-    $tool = 'CLCAL';
+    $tool = 'CLLNK';
     
     global $currentCourseVersion;
     $currentCourseDbNameGlu = claro_get_course_db_name_glued($course_code);
