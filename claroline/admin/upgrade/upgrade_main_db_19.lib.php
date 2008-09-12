@@ -428,3 +428,47 @@ function upgrade_main_database_desktop_to_19 ()
     return false;
 }
 
+function upgrade_chat_to_19 ()
+{
+    // activate new module to replace the old one
+    $tool = 'CLCHAT_19';
+
+    switch( $step = get_upgrade_status($tool) )
+    {
+        case 1 :
+            // install new chat
+            list( $backLog, $moduleId ) = install_module($includePath . '/../../module/CLCHAT/');
+            
+            log_message($backLog->output());
+            
+            if( $moduleId )
+            {
+                list( $backLog, $success ) = activate_module($moduleId);
+                
+                log_message($backLog->output());
+            }
+            else
+            {
+                return $step;
+            }
+            
+            if ( $success ) $step = set_upgrade_status($tool, $step+1);
+            else return $step ;
+            
+        case 2 :
+            // remove old chat
+            $moduleId = get_module_data('CLCHT', 'id');
+            
+            list( $backLog, $success ) = uninstall_module( $moduleId );
+            log_message($backLog->output());
+            
+            if ( $success ) $step = set_upgrade_status($tool, $step+1);
+            else return $step ;
+        default :
+
+            $step = set_upgrade_status($tool, 0);
+            return $step;
+    }
+
+    return false;
+}
