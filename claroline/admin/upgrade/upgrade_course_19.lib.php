@@ -362,6 +362,7 @@ function quiz_upgrade_to_19 ($course_code)
                 unset($sqlForUpdate);
                 
             default :
+                $step = set_upgrade_status($tool, 0, $course_code);
                 return $step;
         }
     }
@@ -405,6 +406,7 @@ function tracking_upgrade_to_19($course_code)
                 else return $step;
 
             default :
+                $step = set_upgrade_status($tool, 0, $course_code);
                 return $step;
         }
     }
@@ -432,6 +434,7 @@ function calendar_upgrade_to_19($course_code)
                 else return $step;
 
             default :
+                $step = set_upgrade_status($tool, 0, $course_code);
                 return $step;
         }
     }
@@ -496,6 +499,7 @@ function linker_upgrade_to_19($course_code)
                 else return $step;
 
             default :
+                $step = set_upgrade_status($tool, 0, $course_code);
                 return $step;
         }
     }
