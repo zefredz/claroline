@@ -27,3 +27,5 @@
 "File are always created in cache, but if this value is true feed file in cache arent rebuilt on request if exiting in cache.";"Enabling the cache may increase performance"
 "CSV file with the user list : ";"CSV file with the user list :"
 "If activated course administrator will receive an email every time a submission is made.  Students will receive an email adivising them that their work has been marked.";"If activated course administrator will receive an email every time a submission is made.  Students will receive an email advising them that their work has been marked."
+"Access allowed only to course members (people on the <a href="%url">user list</a>)";"Access allowed only to course members (people on the <a href="%url">course user list</a>)"
+"Access allowed only to course members (people on the user list)";"Access allowed only to course members (people on the course user list)"
