@@ -265,28 +265,32 @@ function chat_upgrade_to_19 ($course_code)
     if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
     {
         $coursePath  = get_path('coursesRepositorySys') . claro_get_course_path($course_code);
-        $courseChatPath  = get_path('coursesRepositorySys') . claro_get_course_path($course_code) . '/chat/';
+        $courseChatPath  = $coursePath . '/chat/';
         // On init , $step = 1
         switch( $step = get_upgrade_status($tool,$course_code) )
         {
             
             case 1 : 
                 // get all chat files
+                log_message("Search in ". $courseChatPath);
                 $it = new DirectoryIterator($courseChatPath);
                 $error = false;
                 
                 foreach( $it as $file )
                 {
+                    if( ! $file->isFile() ) continue;
+
                     if( $file->getFilename() == $course_code . '.chat.html' )
                     {
                         // chat de cours
+                        log_message("Try to export course chat : " . $file->getFilename() );
                         $exportFileDir = $coursePath.'/document/recovered_chat/';
                         $groupId = null;
                     }
                     else
                     {
                         // group chat
-                        
+                        log_message("Try to export group chat : " . $file->getFilename() );
                         // get groupId 
                         $matches = array();
                         preg_match('/\w+\.(\d+)\.chat\.html/', $file->getFilename(), $matches);
@@ -351,6 +355,28 @@ function chat_upgrade_to_19 ($course_code)
                 if ( !$error ) $step = set_upgrade_status($tool, $step+1, $course_code);
                 else return $step ;
                 
+            case 2 : 
+                // activate new chat in each course
+                $currentCourseDbNameGlu = claro_get_course_db_name_glued($course_code);
+                
+                $toolId = get_tool_id_from_module_label( 'CLCHAT' );
+
+                if( ! register_module_in_single_course( $toolId, $course_code ) )
+                {
+                    log_message("register_module_in_single_course( $toolId, $course_code ) failed");
+                    return $step;
+                }
+                
+                $sqlForUpdate[] = "UPDATE `" . $currentCourseDbNameGlu . "tool_list`
+                SET `activated` = 'true',
+                    `installed` = 'false'
+                WHERE tool_id = " . (int) $toolId;
+                
+                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1, $course_code);
+                else return $step ;
+                
+                unset($sqlForUpdate);
+                
             default :
                 $step = set_upgrade_status($tool, 0, $course_code);
                 return $step;
@@ -381,6 +407,8 @@ function course_description_upgrade_to_19 ($course_code)
                 if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1, $course_code);
                 else return $step ;
                 
+                unset($sqlForUpdate);
+                
             case 2 :
                 // add category field
                 $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu . "course_description` 
@@ -388,6 +416,8 @@ function course_description_upgrade_to_19 ($course_code)
                 
                 if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1, $course_code);
                 else return $step ;
+                
+                unset($sqlForUpdate);
             
             case 3 :
                 // rename update to lastEditDate
@@ -396,6 +426,8 @@ function course_description_upgrade_to_19 ($course_code)
                 
                 if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1, $course_code);
                 else return $step ;
+                
+                unset($sqlForUpdate);
 
             case 4 :
                 // change possible values of visibility fields (show/hide -> visible/invisible)
@@ -414,8 +446,10 @@ function course_description_upgrade_to_19 ($course_code)
                 $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $currentCourseDbNameGlu . "course_description` 
                               CHANGE `visibility` `visibility` enum('VISIBLE','INVISIBLE') NOT NULL default 'VISIBLE'";
                 
-                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, 0, $course_code);
+                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1, $course_code);
                 else return $step ;
+                
+                unset($sqlForUpdate);
                 
             default :
                 $step = set_upgrade_status($tool, 0, $course_code);
