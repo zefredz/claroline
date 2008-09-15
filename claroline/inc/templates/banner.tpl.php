@@ -10,12 +10,22 @@
 <div id="platformBanner">
     <div id="campusBannerLeft">
         <span id="siteName">
-        <?php echo link_to( $this->campus['siteName'], get_path( 'url' ) . '/index.php', array('target' => '_top') ); ?>
+        <?php $bannerSiteName =  get_conf('siteLogo') != ''
+                ? '<img src="' . get_conf('siteLogo') . '" alt="'.get_conf('siteName').'" >'
+                : get_conf('siteName');
+        ?>
+        <a href="<?php get_path( 'url' ); ?>/index.php" target="_top"><?php echo $bannerSiteName; ?></a>
         </span>
         <?php include_dock('campusBannerLeft'); ?>
     </div>
     <div id="campusBannerRight">
-        <span id="institution"><?php echo $this->campus['institution'] ?></span>
+        <span id="institution">
+        <?php $bannerInstitutionName =  get_conf('institutionLogo') != ''
+                ? '<img src="' . get_conf('institutionLogo') . '" alt="'.get_conf('institution_name').'" >'
+                : get_conf('institution_name');
+        ?>
+        <a href="<?php get_conf( 'institution_url' ); ?>" target="_top"><?php echo $bannerInstitutionName; ?></a>
+        </span>
         <?php include_dock('campusBannerRight'); ?>
     </div>
     <div class="spacer"></div>
