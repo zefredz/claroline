@@ -24,7 +24,7 @@
                 ? '<img src="' . get_conf('institutionLogo') . '" alt="'.get_conf('institution_name').'" >'
                 : get_conf('institution_name');
         ?>
-        <a href="<?php get_conf( 'institution_url' ); ?>" target="_top"><?php echo $bannerInstitutionName; ?></a>
+        <a href="<?php echo get_conf( 'institution_url' ); ?>" target="_top"><?php echo $bannerInstitutionName; ?></a>
         </span>
         <?php include_dock('campusBannerRight'); ?>
     </div>
