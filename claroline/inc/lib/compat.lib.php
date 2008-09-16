@@ -305,3 +305,18 @@ if ( !function_exists('htmlspecialchars_decode') )
                 get_html_translation_table( HTML_SPECIALCHARS ) ) );
     }
 }
+
+// Future-friendly json_encode
+if( !function_exists('json_encode') ) {
+    require_once driname(__FILE__) . '/thirdparty/JSON.php';
+    
+    function json_encode($data) {
+        $json = new Services_JSON();
+        return( $json->encode($data) );
+    }
+    
+    function json_decode($data) {
+        $json = new Services_JSON();
+        return( $json->decode($data) );
+    }
+}
