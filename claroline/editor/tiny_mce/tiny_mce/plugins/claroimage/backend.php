@@ -111,7 +111,7 @@
             if( $file->isDir() && !$file->isDot() )
             {
                 // get relative path from allowed root (document/img or platform/img) to target
-                $relativePath = str_replace(realpath($pathSys),'',realpath($file->getRealPath()));
+                $relativePath = str_replace(realpath($pathSys),'',realpath($file->getPathname()));
                 
                 $out .= '<li>'  . "\n"
                 .    '<a href="#" class="selectFolder" onclick="setFileList(\''.$relativePath.'\')">'
@@ -125,7 +125,7 @@
         // then the files
         foreach( $it as $file )
         {
-            if( $file->isFile() && !$file->isDot() && is_image($file->getFileName()) )
+            if( $file->isFile() && is_image($file->getFileName()) )
             {
                 $out .= '<li>'  . "\n"
                 .    '<a href="#" onclick="selectImage(\''.$pathWeb . $relPath . $file->getFileName() .'\')">'
