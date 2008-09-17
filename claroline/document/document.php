@@ -182,7 +182,7 @@ else                           $cmd = null;
 if ( isset($_REQUEST['docView']) ) $docView = $_REQUEST['docView'];
 else                               $docView = 'files';
 
-if ( isset($_REQUEST['file']) && is_download_url_encoded($_REQUEST['file']) )
+if ( isset($_REQUEST['file']) /*&& is_download_url_encoded($_REQUEST['file']) */ )
 {
     $_REQUEST['file'] = download_url_decode( $_REQUEST['file'] );
 }
