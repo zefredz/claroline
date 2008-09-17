@@ -346,7 +346,7 @@ function form_dir_list($file, $baseWorkDir)
     ."<form action=\"".$_SERVER['PHP_SELF']."\" method=\"post\">\n"
                  .    claro_form_relay_context()
                  ."<input type=\"hidden\" name=\"cmd\" value=\"exMv\" />\n"
-                 ."<input type=\"hidden\" name=\"file\" value=\"".$file."\" />\n"
+                 ."<input type=\"hidden\" name=\"file\" value=\"".base64_encode($file)."\" />\n"
                  ."<label for=\"destiantion\">"
                  . get_lang('Move <i>%filename</i> to', array('%filename' => basename($file) ))
                  ."</label> \n"
