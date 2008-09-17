@@ -560,7 +560,7 @@ function display_thumbnails($imageList, $fileList, $page
             echo "<a href=\""
                 . htmlspecialchars(
                     Url::Contextualize( $_SERVER['PHP_SELF'] . "?docView=image&file="
-                    . urlencode($fileName)
+                    . download_url_encode($fileName)
                     . "&cwd=". $curDirPath . $searchCmdUrl ))
                 ."\">"
                 ;

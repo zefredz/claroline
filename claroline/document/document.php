@@ -834,7 +834,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
         $form = '<form action="' . htmlspecialchars( $_SERVER['PHP_SELF'] ) . '" method="post">'
         .             claro_form_relay_context()
         .             '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
-        .             '<input type="hidden" name="file" value="' . $_REQUEST['file'] . '" />' . "\n"
+        .             '<input type="hidden" name="file" value="' . base64_encode( $_REQUEST['file'] ) . '" />' . "\n"
         .             '<p>'
         .             '<label for="newName">'
         .             get_lang('Name')
@@ -2188,7 +2188,7 @@ echo claro_html_tool_title($titleElement,
                 {
                     echo '<a class="'.$style.' item'.$classItem.'" href="'
                         . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] .
-                        '?docView=image&amp;file=' . rawurlencode($thisFile['path']) . '&amp;cwd='
+                        '?docView=image&amp;file=' . download_url_encode($thisFile['path']) . '&amp;cwd='
                         . $curDirPath . $searchCmdUrl ))
                         .'">';
                 }
