@@ -124,7 +124,7 @@ class ConfigHtml extends Config
                         }
                         else
                         {
-                            $form .= 'Error in $section, ' . $name . ' doesn\'t exist in property list';
+                            $form .= 'Error in section "'.$thisSection .'", "' . $name . '" doesn\'t exist in property list';
                         }
                     } // foreach $section['properties'] as $name
                 } // is_array($section['properties'])
