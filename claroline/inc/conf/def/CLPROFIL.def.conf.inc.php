@@ -150,7 +150,6 @@ $conf_def['section']['request']['properties'] =
 array ( 'allowSelfRegProf'
       , 'can_request_course_creator_status'
       , 'can_request_revoquation'
-      , ''
       );
 
 $conf_def_property_list['can_request_course_creator_status'] =
