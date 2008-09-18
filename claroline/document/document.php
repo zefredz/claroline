@@ -1073,7 +1073,7 @@ if ('exDownload' == $cmd )
 
     if(!is_dir($downloadArchivePath))
     {
-        mkdir($downloadArchivePath);
+        mkdir($downloadArchivePath, CLARO_FILE_PERMISSIONS, true);
     }
     else
     {
