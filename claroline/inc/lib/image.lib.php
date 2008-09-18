@@ -336,7 +336,7 @@ function display_link_to_previous_image($imageList, $fileList, $current)
             ;
 
         echo "<a href=\"" . $_SERVER['PHP_SELF'] . "?docView=image&file="
-            . urlencode($prevName) . "&cwd=" . $curDirPath
+            . base64_encode($prevName) . "&cwd=" . $curDirPath
             . $searchCmdUrl . "\">", "&lt;&lt;&nbsp;" . basename($prevName) . "</a>\n"
             ;
 
@@ -344,7 +344,7 @@ function display_link_to_previous_image($imageList, $fileList, $current)
 
         // display thumbnail
         echo "<a href=\"" . $_SERVER['PHP_SELF']
-            . "?docView=image&file=" . urlencode($prevName)
+            . "?docView=image&file=" . base64_encode($prevName)
             . "&cwd=" . $curDirPath . $searchCmdUrl . "\">"
             . create_thumbnail($prevName, get_conf('thumbnailWidth'))
             ."</a>\n"
@@ -393,7 +393,7 @@ function display_link_to_next_image($imageList, $fileList, $current)
         echo "<th class=\"". $nextStyle . "\" width=\"30%\">\n";
 
         echo "<a href=\"" . $_SERVER['PHP_SELF']
-            . "?docView=image&file=" . urlencode($nextName)
+            . "?docView=image&file=" . base64_encode($nextName)
             . "&cwd=" . $curDirPath . $searchCmdUrl ."\">". basename($nextName)
             . "&nbsp;&gt;&gt;</a>\n"
             ;
@@ -402,7 +402,7 @@ function display_link_to_next_image($imageList, $fileList, $current)
 
         // display thumbnail
         echo "<a href=\"" . $_SERVER['PHP_SELF']
-            . "?docView=image&file=" . urlencode($nextName)
+            . "?docView=image&file=" . base64_encode($nextName)
             . "&cwd=" . $curDirPath . $searchCmdUrl . "\">"
             . create_thumbnail($nextName, get_conf('thumbnailWidth') )
             . "</a>\n"
