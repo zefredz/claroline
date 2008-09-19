@@ -862,7 +862,7 @@ switch ($display_form)
         .    '<input type="hidden" name="nameCat" value="'.$editedCat_Name.'" />' . "\n"
         .    '<input type="hidden" name="codeCat" value="'.$editedCat_Code.'" />' . "\n"
         .    '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />' . "\n"
-        .    '<label for="fatherCat"> ' .  get_lang('Parent category ') . ' </label >' . "\n"
+        .    '<label for="fatherCat"> ' . get_lang('Parent category') . ' </label >' . "\n"
         .    '<select name="fatherCat">' . "\n"
         .    '<option value="NULL" > &nbsp;&nbsp;&nbsp;' .  get_conf('siteName') . ' </option>' . "\n"
         ;
