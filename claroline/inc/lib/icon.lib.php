@@ -120,7 +120,8 @@ function get_icon_url( $fileName, $moduleLabel = null )
     
     if ( claro_debug_mode() ) pushClaroMessage("Icon $fileName not found",'error');
     
-    return null;
+    // WORKAROUND : avoid double submission if missing image !!!!
+    return 'image_not_found.png';
 }
 
 /**
