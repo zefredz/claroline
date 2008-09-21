@@ -240,7 +240,7 @@ class Mysql_Database_Connection implements Database_Connection
             throw new Database_Connection_Exception( "Error in {$sql} : ".@mysql_error($this->dbLink), @mysql_errno($this->dbLink) );
         }
         
-        $tmp = new Mysql_ResultSet( $res );
+        $tmp = new Mysql_ResultSet( $result );
         
         return $tmp;
     }
