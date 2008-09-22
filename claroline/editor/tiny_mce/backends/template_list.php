@@ -25,8 +25,7 @@ foreach( $it as $file )
 {
     if( !$file->isDir() && !$file->isDot() )
     {
-        $pathDetails = pathinfo($file->getFileName());
-        $name = $pathDetails['filename'];
+        $name = $file->getFileName();
         
         $url = $layoutDirUrl . '/' . $file->getFileName();
         
