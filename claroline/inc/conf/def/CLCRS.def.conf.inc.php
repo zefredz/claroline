@@ -37,7 +37,7 @@ array ( 'fill_course_example'
       );
 
 $conf_def['section']['needed']['label']='Course information requirements';
-$conf_def['section']['needed']['description'] = 'Which information are needed ?';
+$conf_def['section']['needed']['description'] = '';
 $conf_def['section']['needed']['properties']  =
 array ( 'human_code_needed'
       , 'human_label_needed'
