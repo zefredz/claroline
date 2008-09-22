@@ -215,7 +215,7 @@ if ($allowedToEditDef)
             else
             {
                 $userProperties['tutor' ] = 0;
-                $messageList['error'] = get_lang('Impossible to promote as a group tutor a student that is already register in the group');
+                $messageList['error'] = get_lang('Impossible to promote as a group tutor a student who is already registered in the group');
             }
         }
         else
