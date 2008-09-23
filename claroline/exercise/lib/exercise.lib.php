@@ -270,7 +270,7 @@ function track_exercise_details($exerciseTrackId, $questionId, $values, $questio
     $sql = "INSERT INTO `".$tbl_qwz_tracking_questions."`
                SET `exercise_track_id` = ".(int) $exerciseTrackId.",
                    `question_id` = '".(int) $questionId."',
-                   `result` = '".(int) $questionResult."'";
+                   `result` = '".(float) $questionResult."'";
 
     $details_id = claro_sql_query_insert_id($sql);
 
