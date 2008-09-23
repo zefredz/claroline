@@ -109,7 +109,7 @@ else
     }
 
     // use slashes instead of backslashes in file path
-    if (get_conf('CLARO_DEBUG_MODE'))
+    if (claro_debug_mode() )
     {
         pushClaroMessage('<p>File path : ' . $pathInfo . '</p>','pathInfo');
     }

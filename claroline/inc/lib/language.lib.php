@@ -57,7 +57,7 @@ function get_lang ($name,$var_to_replace=null)
 
     if ( !empty($var_to_replace) && is_array($var_to_replace) )
     {
-        if (get_conf('CLARO_DEBUG_MODE',false))
+        if (claro_debug_mode())
         {
             foreach (array_keys($var_to_replace) as $signature)
             {

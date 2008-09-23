@@ -187,7 +187,7 @@ function rss_get_tool_compatible_list()
             'lifeTime' => get_conf('rssCacheLifeTime', get_conf('cache_lifeTime', 10)),
             'automaticCleaningFactor' => 500,
             );
-            if (get_conf('CLARO_DEBUG_MODE',false) )
+            if ( claro_debug_mode() )
             {
                 $cache_options ['pearErrorMode'] = CACHE_LITE_ERROR_DIE;
                 $cache_options ['lifeTime'] = 60;

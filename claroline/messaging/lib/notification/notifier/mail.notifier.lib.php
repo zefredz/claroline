@@ -157,7 +157,7 @@ class MailNotifier implements MessagingNotifier
         $mail->Subject = $subject;
         $mail->Body    = $message;
         
-        if (get_conf('CLARO_DEBUG_MODE',false))
+        if ( claro_debug_mode() )
         {
             $message = '<p>' . get_lang('Subject') . ' : ' . htmlspecialchars($subject) . '</p>' . "\n"
                      . '<p>' . get_lang('Message') . ' : <pre>' . htmlspecialchars($message) . '</pre></p>' . "\n"
@@ -172,7 +172,7 @@ class MailNotifier implements MessagingNotifier
             
             if (! $mail->Send() )
             {
-                if ( get_conf('CLARO_DEBUG_MODE') )
+                if ( claro_debug_mode() )
                 {
                     pushClaroMessage($mail->getError(),'error');
                 }

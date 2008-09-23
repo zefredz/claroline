@@ -26,8 +26,8 @@ $cache_options = array(
 'lifeTime' => get_conf('cache_lifeTime', 10),
 'automaticCleaningFactor' =>get_conf('cache_automaticCleaningFactor', 50),
 );
-if (get_conf('CLARO_DEBUG_MODE',false) ) $cache_options['pearErrorMode'] = CACHE_LITE_ERROR_DIE;
-if (get_conf('CLARO_DEBUG_MODE',false) ) $cache_options['lifeTime'] = 120;
+if ( claro_debug_mode() ) $cache_options['pearErrorMode'] = CACHE_LITE_ERROR_DIE;
+if ( claro_debug_mode() ) $cache_options['lifeTime'] = 120;
 if (! file_exists($cache_options['cacheDir']) )
 {
     include_once get_path('incRepositorySys') . '/lib/fileManage.lib.php';

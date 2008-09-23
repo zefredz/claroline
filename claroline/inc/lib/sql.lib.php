@@ -280,7 +280,7 @@ function claro_sql_get_course_tbl($dbNameGlued = null)
 function claro_sql_query($sqlQuery, $dbHandler = '#' )
 {
 
-    if ( get_conf('CLARO_DEBUG_MODE',false)
+    if ( claro_debug_mode()
       && get_conf('CLARO_PROFILE_SQL',false)
       )
       {
@@ -295,7 +295,7 @@ function claro_sql_query($sqlQuery, $dbHandler = '#' )
         $resultHandler =  @mysql_query($sqlQuery, $dbHandler);
     }
 
-    if ( get_conf('CLARO_DEBUG_MODE',false)
+    if ( claro_debug_mode()
       && get_conf('CLARO_PROFILE_SQL',false)
       )
     {
@@ -311,7 +311,7 @@ function claro_sql_query($sqlQuery, $dbHandler = '#' )
             , (claro_sql_errno()?'error':'sqlinfo'));
 
     }
-    if ( get_conf('CLARO_DEBUG_MODE',false) && claro_sql_errno() )
+    if ( claro_debug_mode() && claro_sql_errno() )
     {
         echo '<hr size="1" noshade>'
         .    claro_sql_errno() . ' : '. claro_sql_error() . '<br>'

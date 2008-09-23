@@ -615,7 +615,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
                 $errorFound = true;
                 array_push ($errorMsgs, get_lang('Error reading <i>manifest</i> file') );
 
-                if ( get_conf('CLARO_DEBUG_MODE') )
+                if ( claro_debug_mode() )
                 {
                     $debugMessage = strtr( 'Debug : %message (error code %code) on line %line and column %column' ,
                                  array( '%message' => xml_error_string($xml_parser) ,

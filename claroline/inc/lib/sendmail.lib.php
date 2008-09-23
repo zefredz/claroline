@@ -151,7 +151,7 @@ function claro_mail_user($userIdList, $message, $subject , $specificFrom='', $sp
     $mail->Body    = $message;
     $emailSentCount = 0;
 
-    if (get_conf('CLARO_DEBUG_MODE',false))
+    if ( claro_debug_mode() )
     {
         $message = '<p>Subject : ' . htmlspecialchars($subject) . '</p>' . "\n"
                  . '<p>Message : <pre>' . htmlspecialchars($message) . '</pre></p>' . "\n"
@@ -169,7 +169,7 @@ function claro_mail_user($userIdList, $message, $subject , $specificFrom='', $sp
         }
         else
         {
-            if ( get_conf('CLARO_DEBUG_MODE') )
+            if ( claro_debug_mode() )
             {
                 pushClaroMessage($mail->getError(),'error');
             }
