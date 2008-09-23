@@ -30,8 +30,8 @@ class CLTRACK_CourseAccessTrackingManager extends TrackingManager
     
     public function deleteAll()
     {
-        $sql = "DELETE `T`
-                FROM `".$this->tbl_course_tracking_event."` AS `T`
+        $sql = "DELETE
+                FROM `".$this->tbl_course_tracking_event."`
                 WHERE `type` = 'course_access'";
         
         if( claro_sql_query($sql) )
@@ -46,10 +46,10 @@ class CLTRACK_CourseAccessTrackingManager extends TrackingManager
     
     public function deleteBefore( $date )
     {
-        $sql = "DELETE `T`
-                FROM `".$this->tbl_course_tracking_event."` AS `T`
+        $sql = "DELETE
+                FROM `".$this->tbl_course_tracking_event."`
                 WHERE `type` = 'course_access'
-                  AND `T`.`date` < FROM_UNIXTIME('" . (int) $date ."')";
+                  AND `date` < FROM_UNIXTIME('" . (int) $date ."')";
         
         if( claro_sql_query($sql) )
         {
@@ -68,10 +68,10 @@ class CLTRACK_CourseAccessTrackingManager extends TrackingManager
             $dateCondition = " AND `T`.`date` < FROM_UNIXTIME('" . (int) $date . "')";            
         }
         
-        $sql = "DELETE `T`
-                FROM `".$this->tbl_course_tracking_event."` AS `T`
+        $sql = "DELETE
+                FROM `".$this->tbl_course_tracking_event."`
                 WHERE `type` = 'course_access'
-                  AND `T`.`user_id` = ".(int) $userId
+                  AND `user_id` = ".(int) $userId
                   . $dateCondition;
         
         if( claro_sql_query($sql) )
@@ -105,8 +105,8 @@ class CLTRACK_ToolAccessTrackingManager extends TrackingManager
     
     public function deleteAll()
     {
-        $sql = "DELETE `T`
-                FROM `".$this->tbl_course_tracking_event."` AS `T`
+        $sql = "DELETE
+                FROM `".$this->tbl_course_tracking_event."`
                 WHERE `type` = 'tool_access'";
         
         if( claro_sql_query($sql) )
@@ -121,10 +121,10 @@ class CLTRACK_ToolAccessTrackingManager extends TrackingManager
     
     public function deleteBefore( $date )
     {
-        $sql = "DELETE `T`
-                FROM `".$this->tbl_course_tracking_event."` AS `T`
+        $sql = "DELETE
+                FROM `".$this->tbl_course_tracking_event."`
                 WHERE `type` = 'tool_access'
-                  AND `T`.`date` < FROM_UNIXTIME('" . (int) $date ."')";
+                  AND `date` < FROM_UNIXTIME('" . (int) $date ."')";
         
         if( claro_sql_query($sql) )
         {
@@ -140,13 +140,13 @@ class CLTRACK_ToolAccessTrackingManager extends TrackingManager
     {
         if( !is_null($date) && !empty($date) )
         {
-            $dateCondition = " AND `T`.`date` < FROM_UNIXTIME('" . (int) $date . "')";            
+            $dateCondition = " AND `date` < FROM_UNIXTIME('" . (int) $date . "')";            
         }
         
-        $sql = "DELETE `T`
-                FROM `".$this->tbl_course_tracking_event."` AS `T`
+        $sql = "DELETE
+                FROM `".$this->tbl_course_tracking_event."`
                 WHERE `type` = 'tool_access'
-                  AND `T`.`user_id` = ".(int) $userId
+                  AND `user_id` = ".(int) $userId
                   . $dateCondition;
         
         if( claro_sql_query($sql) )
