@@ -14,6 +14,9 @@
 <link href="http://www.claroline.net/documentation.htm" rel="Help" />
 <link href="http://www.claroline.net/credits.htm" rel="Author" />
 <link href="http://www.claroline.net" rel="Copyright" />
+<?php if (file_exists(get_path('rootSys').'favicon.ico')): ?>
+<link href="<?php echo rtrim( get_path('clarolineRepositoryWeb'), '/' ).'/../favicon.ico'; ?>" rel="shortcut icon" />
+<?php endif; ?>
 <script type="text/javascript">
     document.cookie="javascriptEnabled=true; path=<?php echo get_path('url');?>";
     <?php echo $this->warnSessionLost;?>
