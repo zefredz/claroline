@@ -1614,7 +1614,8 @@ function php_self()
  */
 function claro_debug_mode()
 {
-    return ( defined ( 'CLARO_DEBUG_MODE' ) && CLARO_DEBUG_MODE );
+    return ( defined ( 'CLARO_DEBUG_MODE' ) && CLARO_DEBUG_MODE )
+        || ( get_conf('triggerDebugMode', false) && isset($_SESSION['claro_debug_mode']) && $_SESSION['claro_debug_mode'] );
 }
 
 function claro_is_course_tool_activated( $courseId, $toolId )

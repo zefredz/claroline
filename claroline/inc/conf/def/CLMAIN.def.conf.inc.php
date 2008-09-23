@@ -117,6 +117,7 @@ array ( 'userPasswordCrypted'
       , 'claro_texRendererUrl'
       , 'platform_id'
       , 'CLARO_DEBUG_MODE'
+      , 'triggerDebugMode'
       , 'CLARO_PROFILE_SQL'
       , 'DEVEL_MODE'
       , 'warnSessionLost'
@@ -598,6 +599,16 @@ array ('label'       => 'Development mode'
       ,'readonly'    => FALSE
       ,'acceptedValue' => array ('TRUE'=>'On'
                                ,'FALSE'=>'Off')
+      );
+
+$conf_def_property_list['triggerDebugMode'] =
+array ('label'       => 'Trigger debug mode in url'
+      ,'description' => ''
+      ,'type'        => 'boolean'
+      ,'default'     => FALSE
+      ,'display'     => TRUE
+      ,'readonly'    => FALSE
+      , 'acceptedValue' => array('TRUE' => 'On', 'FALSE' => 'Off')
       );
 
 $conf_def_property_list['courseCreationAllowed'] =

@@ -56,7 +56,7 @@ if( claro_debug_mode() )
     // Make sure all errors are reported
     error_reporting( E_ALL );
     
-    // Active assertions
+    // Activate assertions
     assert_options(ASSERT_ACTIVE, 1);
     assert_options(ASSERT_WARNING, 0);
     assert_options(ASSERT_QUIET_EVAL, 1);
@@ -121,6 +121,26 @@ if ( !isset($_SERVER['REQUEST_URI']) )
 session_name(get_conf('platform_id','claroline'));
 
 session_start();
+
+if ( get_conf('triggerDebugMode', false) &&  isset($_REQUEST['debug']) )
+{
+    if ( !claro_debug_Mode() &&  $_REQUEST['debug'] == 'on' )
+    {
+        $_SESSION['claro_debug_mode'] = true;
+        
+        error_reporting( E_ALL );
+        
+        // Activate assertions
+        assert_options(ASSERT_ACTIVE, 1);
+        assert_options(ASSERT_WARNING, 0);
+        assert_options(ASSERT_QUIET_EVAL, 1);
+        assert_options(ASSERT_CALLBACK, 'claro_debug_assertion_handler');
+    }
+    elseif ( $_REQUEST['debug'] == 'off' )
+    {
+        $_SESSION['claro_debug_mode'] = false;
+    }
+}
 
 
 /*----------------------------------------------------------------------
