@@ -34,12 +34,11 @@ class CLQWZ_TrackingManager extends TrackingManager
     
     public function deleteAll()
     {
-        $sql = "DELETE `T`, `Q`, `A` 
-                FROM `".$this->tbl_qwz_tracking."` AS `T`,
-                     `".$this->tbl_qwz_tracking_questions."` AS `Q`, 
-                     `".$this->tbl_qwz_tracking_answers."` AS `A`";
+        $sql1 = "TRUNCATE TABLE `".$this->tbl_qwz_tracking."`";
+        $sql2 = "TRUNCATE TABLE `".$this->tbl_qwz_tracking_questions."`";
+        $sql3 = "TRUNCATE TABLE `".$this->tbl_qwz_tracking_answers."`";
         
-        if( claro_sql_query($sql) )
+        if( claro_sql_query($sql1) && claro_sql_query($sql2) && claro_sql_query($sql3) )
         {
             return true;
         }
@@ -51,48 +50,71 @@ class CLQWZ_TrackingManager extends TrackingManager
     
     public function deleteBefore( $date )
     {
-        $sql = "DELETE `T`, `Q`, `A`
-                FROM `".$this->tbl_qwz_tracking."` AS `T`,
-                     `".$this->tbl_qwz_tracking_questions."` AS `Q`, 
-                     `".$this->tbl_qwz_tracking_answers."` AS `A`
-                WHERE `T`.`date` < FROM_UNIXTIME('" . (int) $date ."')
-                  AND `T`.`id` = `Q`.`exercise_track_id`
-                  AND `Q`.`id` = `A`.`details_id`";
+        // get data to delete from exercise tracking table
+        $sql = "SELECT `id` FROM `" . $this->tbl_qwz_tracking . "` WHERE  UNIX_TIMESTAMP(date)  < " . (int) $date;
+        $exeList = claro_sql_query_fetch_all_cols($sql);
         
-        if( claro_sql_query($sql) )
+        if( is_array($exeList['id']) && !empty($exeList['id']) )
         {
-            return true;
+            // delete
+            $sql = "DELETE FROM `" . $this->tbl_qwz_tracking . "` WHERE  UNIX_TIMESTAMP(date)  < " . (int) $date;
+            claro_sql_query($sql);
+            
+            // get data to delete
+            $sql = "SELECT `id` FROM `".$this->tbl_qwz_tracking_questions."` WHERE `exercise_track_id` IN ('" . implode("', '",$exeList['id']) . "')";
+            $detailList = claro_sql_query_fetch_all_cols($sql);
+            
+            if( is_array($detailList['id']) && !empty($detailList['id']) )
+            {
+                $sql = "DELETE FROM `" . $this->tbl_qwz_tracking_questions . "` WHERE `exercise_track_id` IN ('" . implode("', '",$exeList['id']) . "')";
+                claro_sql_query($sql);
+                
+                $sql = "DELETE FROM `" . $this->tbl_qwz_tracking_answers . "` WHERE details_id  IN ('" . implode("', '",$detailList['id']) . "')";
+                claro_sql_query($sql);
+            }
         }
-        else
-        {
-            return false;
-        }
+        
+        return true;
     }
     
     public function deleteForUser( $userId, $date = null )
     {
         if( !is_null($date) && !empty($date) )
         {
-            $dateCondition = " AND `T`.`date` < FROM_UNIXTIME('" . (int) $date . "') ";            
+            $dateCondition = " AND `date` < FROM_UNIXTIME('" . (int) $date . "') ";
+        }
+
+        // get data to delete from exercise tracking table
+        $sql = "SELECT `id` 
+                FROM `" . $this->tbl_qwz_tracking . "` 
+                WHERE  `user_id` = ".(int) $userId
+                . $dateCondition;
+                
+        $exeList = claro_sql_query_fetch_all_cols($sql);
+        
+        if( is_array($exeList['id']) && !empty($exeList['id']) )
+        {
+            // delete
+            $sql = "DELETE FROM `" . $this->tbl_qwz_tracking . "`
+                    WHERE  `user_id` = ".(int) $userId
+                    . $dateCondition;
+            claro_sql_query($sql);
+            
+            // get data to delete
+            $sql = "SELECT `id` FROM `".$this->tbl_qwz_tracking_questions."` WHERE `exercise_track_id` IN ('" . implode("', '",$exeList['id']) . "')";
+            $detailList = claro_sql_query_fetch_all_cols($sql);
+            
+            if( is_array($detailList['id']) && !empty($detailList['id']) )
+            {
+                $sql = "DELETE FROM `" . $this->tbl_qwz_tracking_questions . "` WHERE `exercise_track_id` IN ('" . implode("', '",$exeList['id']) . "')";
+                claro_sql_query($sql);
+                
+                $sql = "DELETE FROM `" . $this->tbl_qwz_tracking_answers . "` WHERE details_id  IN ('" . implode("', '",$detailList['id']) . "')";
+                claro_sql_query($sql);
+            }
         }
         
-        $sql = "DELETE `T`, `Q`, `A`
-                FROM `".$this->tbl_qwz_tracking."` AS `T`,
-                     `".$this->tbl_qwz_tracking_questions."` AS `Q`, 
-                     `".$this->tbl_qwz_tracking_answers."` AS `A`
-                WHERE `T`.`user_id` = ".(int) $userId
-                  . $dateCondition . "   
-                  AND `T`.`id` = `Q`.`exercise_track_id`
-                  AND `Q`.`id` = `A`.`details_id`";
-        
-        if( claro_sql_query($sql) )
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }            
+        return true;
     }
 }
 
