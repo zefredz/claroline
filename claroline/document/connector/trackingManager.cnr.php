@@ -30,8 +30,8 @@ class CLDOC_TrackingManager extends TrackingManager
     
     public function deleteAll()
     {
-        $sql = "DELETE `T`
-                FROM `".$this->tbl_course_tracking_event."` AS `T`
+        $sql = "DELETE 
+                FROM `".$this->tbl_course_tracking_event."`
                 WHERE `type` = 'download'";
         
         if( claro_sql_query($sql) )
@@ -46,10 +46,10 @@ class CLDOC_TrackingManager extends TrackingManager
     
     public function deleteBefore( $date )
     {
-        $sql = "DELETE `T`
-                FROM `".$this->tbl_course_tracking_event."` AS `T`
+        $sql = "DELETE 
+                FROM `".$this->tbl_course_tracking_event."`
                 WHERE `type` = 'download'
-                  AND `T`.`date` < FROM_UNIXTIME('" . (int) $date ."')";
+                  AND `date` < FROM_UNIXTIME('" . (int) $date ."')";
         
         if( claro_sql_query($sql) )
         {
@@ -68,10 +68,10 @@ class CLDOC_TrackingManager extends TrackingManager
             $dateCondition = " AND `T`.`date` < FROM_UNIXTIME('" . (int) $date . "')";            
         }
         
-        $sql = "DELETE `T`
-                FROM `".$this->tbl_course_tracking_event."` AS `T`
+        $sql = "DELETE
+                FROM `".$this->tbl_course_tracking_event."`
                 WHERE `type` = 'download'
-                  AND `T`.`user_id` = ".(int) $userId
+                  AND `user_id` = ".(int) $userId
                   . $dateCondition;
         
         if( claro_sql_query($sql) )
