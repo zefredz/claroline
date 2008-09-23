@@ -70,81 +70,89 @@
         $content .= $dialogbox->render();
     }
     
-    // -------------------- selector form ----------------
-    if (isset($displaySearch) && $displaySearch)
-    {
-        $arg_search = makeArgLink($link_arg,array('SelectorReadStatus','search','searchStrategy'));
-        $linkSearch = $linkPage."?".$arg_search;
-        
-        $searchForm = '<form action="'.$linkSearch.'" method="post">'."\n"
-                    . '<input type="text" name="search" value="'
-                    ;
-        if (isset($link_arg['search']))
-        {
-            $searchForm .= $link_arg['search'];
-        }
-        $searchForm .= '" class="inputSearch" /> '."\n"
-                     . '    <select name="SelectorReadStatus" size="1">'
-                     . '        <option value="all" '
-                     ;
-        if (isset($link_arg['SelectorReadStatus']) && $link_arg['SelectorReadStatus'] == "all")
-        {
-            $searchForm .= "selected";
-        }
-        $searchForm .= '>'.get_lang("All (Read or not)").'</option>'
-                    . '        <option value="read" '
-                    ;
-        if (isset($link_arg['SelectorReadStatus']) && $link_arg['SelectorReadStatus'] == "read")
-        {
-            $searchForm .= "selected";
-        }
-        $searchForm .= '>'.get_lang("Only read").'</option>'
-                    . '        <option value="unread" ';
-        if (isset($link_arg['SelectorReadStatus']) && $link_arg['SelectorReadStatus'] == "unread")
-        {
-            $searchForm .= "selected";
-        }
-        $searchForm .= '>'.get_lang("Only not read").'</option>'    
-                    . '    </select> '
-                    . '<input type="submit" value="'.get_lang("Search").'" /><br />'."\n"
-                    . '</form>'."\n"
-                    . '<input type="checkbox" name="searchStrategy" value="'.get_lang('Match the exact expression').'"'
-                    ;
+    // -------------------- Search form ----------------
+
+    $javascriptSearchBox = '
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $(\'#SelectorReadStatus\').hide();
+                $(\'#searchStrategyBox\').hide();
+                $(\'#toSimpleSearch\').hide();
+                
+                $(\'#toAdvancedSearch\').click(function(){
+                    $(\'#SelectorReadStatus\').show();
+                    $(\'#searchStrategyBox\').show();
                     
-        if (isset($link_arg['searchStrategy']) && $link_arg['searchStrategy'] == 1)
-        {
-            $searchForm .= " CHECKED";
-        }
-        $searchForm .= ' />'.get_lang('Exact expression')."\n";
-        $dialogbox = new DialogBox();
-        $dialogbox->form($searchForm);
+                    $(\'#toAdvancedSearch\').hide();
+                    $(\'#toSimpleSearch\').show();
+                });
+                
+                $(\'#toSimpleSearch\').click(function(){
+                    $(\'#SelectorReadStatus\').hide();
+                    $(\'#searchStrategyBox\').hide();
+                    
+                    $(\'#toSimpleSearch\').hide();
+                    $(\'#toAdvancedSearch\').show();
+                });
+            });
+        </script>';
+    
+    $claroline->display->header->addHtmlHeader($javascriptSearchBox);
         
-        $content .= $dialogbox->render();
-        
-    }
-    else
-    {
-        $arg_search = makeArgLink($link_arg,array('SelectorReadStatus','search','searchStrategy'));
-        $linkSearch = $linkPage."?".$arg_search;
-        
-        $serachForm = '<form action="'.$linkSearch.'" method="post">'."\n"
-                    . '<input type="text" name="search" value="'
-                    ;
-        if (isset($link_arg['search']))
-        {
-            $serachForm .= $link_arg['search'];
-        }
-        $serachForm .= '" class="inputSearch" />'."\n"
-                . '<input type="submit" value="'.get_lang("Search").'" />'."\n"
-                . '[<a href="'.$linkSearch.'&amp;cmd=rqSearch">'.get_lang("Advanced").'</a>]'
-                . '</form>'."\n"
+    $arg_search = makeArgLink($link_arg,array('SelectorReadStatus','search','searchStrategy'));
+    $linkSearch = $linkPage."?".$arg_search;
+    
+    $searchForm = '<form action="'.$linkSearch.'" method="post">'."\n"
+                . '<input type="text" name="search" value="'
                 ;
-        
-        $dialogbox = new DialogBox();
-        $dialogbox->form($serachForm);
-        
-        $content .= $dialogbox->render();
+    if (isset($link_arg['search']))
+    {
+        $searchForm .= $link_arg['search'];
     }
+    $searchForm .= '" class="inputSearch" /> '."\n";
+    // read status
+    $searchForm .= '    <select name="SelectorReadStatus" id="SelectorReadStatus" size="1">'
+                 . '        <option value="all" '
+                 ;
+    if (isset($link_arg['SelectorReadStatus']) && $link_arg['SelectorReadStatus'] == "all")
+    {
+        $searchForm .= 'selected="selected"';
+    }
+    $searchForm .= '>'.get_lang("All (Read or not)").'</option>'
+                . '        <option value="read" '
+                ;
+    if (isset($link_arg['SelectorReadStatus']) && $link_arg['SelectorReadStatus'] == "read")
+    {
+        $searchForm .= 'selected="selected"';
+    }
+    $searchForm .= '>'.get_lang("Only read").'</option>'
+                . '        <option value="unread" ';
+    if (isset($link_arg['SelectorReadStatus']) && $link_arg['SelectorReadStatus'] == "unread")
+    {
+        $searchForm .= 'selected="selected"';
+    }
+    $searchForm .= '>'.get_lang("Only not read").'</option>'    
+                . '    </select> '
+                . '<input type="submit" value="'.get_lang("Search").'" />'."\n"
+                . '<span id="toAdvancedSearch">[<a href="#">'.get_lang('Advanced').'</a>]</span>'
+                . '<span id="toSimpleSearch">[<a href="#">'.get_lang('Simple').'</a>]</span>'
+                . '<br />' . "\n"
+                . '<span id="searchStrategyBox">' . "\n"
+                . '<input type="checkbox" name="searchStrategy" id="searchStrategy" value="'.get_lang('Match the exact expression').'"'
+                ;
+    if (isset($link_arg['searchStrategy']) && $link_arg['searchStrategy'] == 1)
+    {
+        $searchForm .= ' checked="checked"';
+    }
+    $searchForm .= ' /><label for="searchStrategy">'.get_lang('Exact expression').'</label>' . "\n"
+    . '</span>' . "\n"
+    . '</form>'."\n";
+
+    $dialogbox = new DialogBox();
+    $dialogbox->form($searchForm);
+    
+    $content .= $dialogbox->render();
+
     //----------------------end selector form -----------------
 
 

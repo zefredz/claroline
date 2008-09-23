@@ -22,63 +22,65 @@
 
     
     // -------------------- selector form ----------------
-    if (isset($displaySearch) && $displaySearch)
-    {
-        $arg_search = makeArgLink($link_arg,array('SelectorReadStatus','SelectorName','SelectorSubject'));
-        $linkSearch = $linkPage."?".$arg_search;
-        
-        $searchBox = '<form action="'.$linkSearch.'" method="post">'."\n";
-        $searchBox .= '<input type="text" name="search" value="';
-        
-        if (isset($link_arg['search']))
-        {
-            $searchBox .= $link_arg['search'];
-        }
-        
-        $searchBox .= '" class="inputSearch" />'."\n";
-        $searchBox .= '<input type="submit" value="'.get_lang("Search").'" /><br />'."\n";
-        $searchBox .= '<input type="checkbox" name="searchStrategy" value="'.get_lang('Match the exact expression').'"';
-        
-        
-        if (isset($link_arg['searchStrategy']) && $link_arg['searchStrategy'] == 1)
-        {
-            $searchBox .= ' checked="checked"';
-        }
-        
-        $searchBox .= ' />'.get_lang('Exact expression')."\n";
-        
-        $searchBox .= '</form>'."\n";
-        
-        $dialogbox = new DialogBox();
-        $dialogbox->form($searchBox);
-        $content .= $dialogbox->render();        
-    }
-    else
-    {
-        $arg_search = makeArgLink($link_arg,array('SelectorReadStatus','search','searchStrategy'));
-        $linkSearch = $linkPage."?".$arg_search;
-        $linkSearch .= '&amp;cmd=rqSearch';
-        
-        $serachForm = '<form action="'.$linkSearch.'" method="post">'."\n"
-                    . '<input type="text" name="search" value="'
-                    ;
+    $javascriptSearchBox = '
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $(\'#SelectorReadStatus\').hide();
+                $(\'#searchStrategyBox\').hide();
+                $(\'#toSimpleSearch\').hide();
+                
+                $(\'#toAdvancedSearch\').click(function(){
+                    $(\'#SelectorReadStatus\').show();
+                    $(\'#searchStrategyBox\').show();
                     
-        if (isset($link_arg['search']))
-        {
-            $serachForm .= $link_arg['search'];
-        }
-        
-        $serachForm .= '" class="inputSearch" />'."\n"
-                . '<input type="submit" value="'.get_lang("Search").'" />'."\n"
-                . '[<a href="'.$linkSearch.'">'.get_lang("Advanced").'</a>]'
-                . '</form>'."\n"
-                ;
-        
-        $dialogbox = new DialogBox();
-        $dialogbox->form($serachForm);
-        
-        $content .= $dialogbox->render();
+                    $(\'#toAdvancedSearch\').hide();
+                    $(\'#toSimpleSearch\').show();
+                });
+                
+                $(\'#toSimpleSearch\').click(function(){
+                    $(\'#SelectorReadStatus\').hide();
+                    $(\'#searchStrategyBox\').hide();
+                    
+                    $(\'#toSimpleSearch\').hide();
+                    $(\'#toAdvancedSearch\').show();
+                });
+            });
+        </script>';
+    $claroline->display->header->addHtmlHeader($javascriptSearchBox);
+    
+    $arg_search = makeArgLink($link_arg,array('SelectorReadStatus','SelectorName','SelectorSubject'));
+    $linkSearch = $linkPage."?".$arg_search;
+    
+    $searchForm = '<form action="'.$linkSearch.'" method="post">'."\n";
+    $searchForm .= '<input type="text" name="search" value="';
+    
+    if (isset($link_arg['search']))
+    {
+        $searchForm .= $link_arg['search'];
     }
+    
+    $searchForm .= '" class="inputSearch" />'."\n";
+    
+    $searchForm .= '<input type="submit" value="'.get_lang("Search").'" />'."\n"
+                . '<span id="toAdvancedSearch">[<a href="#">'.get_lang('Advanced').'</a>]</span>'
+                . '<span id="toSimpleSearch">[<a href="#">'.get_lang('Simple').'</a>]</span>'
+                . '<br />' . "\n"
+                . '<span id="searchStrategyBox">' . "\n"
+                . '<input type="checkbox" name="searchStrategy" id="searchStrategy" value="'.get_lang('Match the exact expression').'"'
+                ;
+    if (isset($link_arg['searchStrategy']) && $link_arg['searchStrategy'] == 1)
+    {
+        $searchForm .= ' checked="checked"';
+    }
+    $searchForm .= ' /><label for="searchStrategy">'.get_lang('Exact expression').'</label>' . "\n"
+    . '</span>' . "\n"
+    . '</form>'."\n";
+    
+    $dialogbox = new DialogBox();
+    $dialogbox->form($searchForm);
+    $content .= $dialogbox->render();
+    
+    
     //----------------------end selector form -----------------
     
     $arg_sort = makeArgLink($link_arg,array('fieldOrder','order'));
@@ -202,7 +204,6 @@
         // number of page to display in the page before and after thecurrent page
         $nbPageToDisplayBeforeAndAfterCurrentPage = 1;        
         
-        $content .= '<div id="im_paging">';
         $arg_paging = makeArgLink($link_arg,array('page'));
         
         if ($arg_paging == "")
