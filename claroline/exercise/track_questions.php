@@ -55,7 +55,7 @@ $tbl_cdb_names = get_module_course_tbl( array( 'qwz_exercise',
                                                'qwz_answer_multiple_choice',
                                                'qwz_answer_truefalse',
                                                'qwz_answer_fib',
-                                               'qwz_answer_fib',
+                                               'qwz_answer_matching',
                                                'qwz_tracking', 
                                                'qwz_tracking_questions',
                                                'qwz_tracking_answers'
@@ -67,7 +67,7 @@ $tbl_qwz_rel_exercise_question     = $tbl_cdb_names['qwz_rel_exercise_question']
 $tbl_qwz_answer_multiple_choice     = $tbl_cdb_names['qwz_answer_multiple_choice'];
 $tbl_qwz_answer_truefalse             = $tbl_cdb_names['qwz_answer_truefalse'];
 $tbl_qwz_answer_fib                 = $tbl_cdb_names['qwz_answer_fib'];
-$tbl_qwz_answer_matching             = $tbl_cdb_names['qwz_answer_fib'];
+$tbl_qwz_answer_matching             = $tbl_cdb_names['qwz_answer_matching'];
 
 $tbl_qwz_tracking     = $tbl_cdb_names['qwz_tracking'];
 $tbl_qwz_tracking_questions = $tbl_cdb_names['qwz_tracking_questions'];
@@ -271,7 +271,7 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
                 else                    $i++;
             }
 
-            $displayedStatement = $question->getDescription().'<br /><br />'."\n".'<i>'.$answerText.'</i>'."\n";
+            $displayedStatement = $question->getDescription().'<br /><br />'."\n".'<i>'.claro_parse_user_text($question->answer->answerDecode($answerText)).'</i>'."\n";
         }
         elseif( $question->getType() == 'MATCHING' )
         {
