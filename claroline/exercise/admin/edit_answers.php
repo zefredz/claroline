@@ -144,7 +144,7 @@ else
     ClaroBreadCrumbs::getInstance()->prepend( get_lang('Question pool'), './question_pool.php' );
 }
 
-ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), 'exercise.php' );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), get_module_url('CLQWZ').'/exercise.php' );
 
 if( !is_null($quId) )     $_SERVER['QUERY_STRING'] = 'exId='.$exId.'&amp;quId='.$quId;
 else                    $_SERVER['QUERY_STRING'] = '';

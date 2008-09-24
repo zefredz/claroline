@@ -198,7 +198,7 @@ if( is_null($exId) )
 {
     $nameTools = get_lang('New exercise');
     $toolTitle = $nameTools;
-    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), '../exercise.php' );
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), get_module_url('CLQWZ').'/exercise.php' );
     ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, './edit_exercise.php?cmd=rqEdit' );
 }
 elseif( $cmd == 'rqEdit' )
@@ -207,7 +207,7 @@ elseif( $cmd == 'rqEdit' )
     $toolTitle['mainTitle'] = $nameTools;
     $toolTitle['subTitle'] = $exercise->getTitle();
     ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercise'), './edit_exercise.php?exId='.$exId );
-    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), '../exercise.php' );
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), get_module_url('CLQWZ').'/exercise.php' );
     ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, './edit_exercise.php?cmd=rqEdit&amp;exId='.$exId );
 }
 else
@@ -215,7 +215,7 @@ else
     $nameTools = get_lang('Exercise');
     $toolTitle['mainTitle'] = $nameTools;
     $toolTitle['subTitle'] = $exercise->getTitle();
-    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), '../exercise.php' );
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), get_module_url('CLQWZ').'/exercise.php' );
     ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, './edit_exercise.php?exId='.$exId );
 }
 

@@ -208,7 +208,7 @@ else
 {
     ClaroBreadCrumbs::getInstance()->prepend( get_lang('Question pool'), './question_pool.php' );
 }
-ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), '../exercise.php' );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), get_module_url('CLQWZ').'/exercise.php' );
 
 
 

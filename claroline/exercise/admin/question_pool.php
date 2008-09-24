@@ -239,7 +239,7 @@ else
     $pagerUrl = $_SERVER['PHP_SELF'];
 }
 
-ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), '../exercise.php' );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), get_module_url('CLQWZ').'/exercise.php' );
 
 $nameTools = get_lang('Question pool');
 
