@@ -15,7 +15,7 @@ tinyMCE.init({
     relative_urls : false,
     
     //-- advanced theme
-    theme_advanced_buttons1 : "cut,copy,paste,pasteword,bold,italic,underline,separator,strikethrough,justifyleft,justifycenter,justifyright, justifyfull,bullist,numlist,undo,redo,link,unlink",
+    theme_advanced_buttons1 : "cut,copy,paste,pasteword,bold,italic,underline,strikethrough,separator,bullist,numlist,undo,redo,link,unlink",
     theme_advanced_buttons2 : "",
     theme_advanced_buttons3 : "",
     theme_advanced_toolbar_location : "top",
@@ -27,6 +27,7 @@ tinyMCE.init({
     theme_advanced_resizing_use_cookie : false,
     
     //-- cleanup/output
+    forced_root_block : false,
     apply_source_formatting : true,
 	cleanup_on_startup : true,
     entity_encoding : "raw",
