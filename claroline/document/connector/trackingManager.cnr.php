@@ -65,7 +65,7 @@ class CLDOC_TrackingManager extends TrackingManager
     {
         if( !is_null($date) && !empty($date) )
         {
-            $dateCondition = " AND `T`.`date` < FROM_UNIXTIME('" . (int) $date . "')";            
+            $dateCondition = " AND `T`.`date` < FROM_UNIXTIME('" . (int) $date . "')";
         }
         
         $sql = "DELETE
