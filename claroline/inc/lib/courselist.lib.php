@@ -251,8 +251,25 @@ function get_user_course_list($userId, $renew = false)
 
 function get_locked_course_explanation($course_id=null)
 {
-    $explanation = claro_text_zone::get_content('course_subscription_locked', array(CLARO_CONTEXT_COURSE => $course_id));
-    return  (empty($explanation)) ? claro_text_zone::get_content('course_subscription_locked'):$explanation;
+    $courseExplanation = claro_text_zone::get_content('course_subscription_locked', array(CLARO_CONTEXT_COURSE => $course_id));
+    
+    if( ! empty($courseExplanation) )
+    {
+        return $courseExplanation;
+    }
+    else
+    {
+        $globalExplanation = claro_text_zone::get_content('course_subscription_locked');
+        
+        if( ! empty( $globalExplanation ) )
+        {
+            return $globalExplanation;
+        }
+        else
+        {
+            return get_lang('Subscription not allowed');
+        }
+    }
 }
 
 
