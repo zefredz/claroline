@@ -14,7 +14,16 @@ This code will work with html like this
 
 
 $(document).ready(function(){
-   
+    
+    // hide elements that should not be shown directly
+    
+    // resources browser
+    $("#lnk_browser").hide();
+    // hide browser link
+    $("#lnk_hide_browser").hide();
+    // activity  
+    $("#lnk_ajax_loading").hide();
+    
     // load link list
     linkerFrontend.loadLinkList();
     
@@ -27,7 +36,7 @@ $(document).ready(function(){
     // - on category : min max display || select resource ?
     // - on resources : select resources
     
-    // listen to browse events
+    // listen to browse events - binded with livequery as these item are added and removed to DOM
     $("#lnk_location a.navigable").livequery( 'click', function(){
         linkerFrontend.loadList($(this).attr("rel"), $(this).attr("title"));
         return false;
@@ -48,12 +57,24 @@ $(document).ready(function(){
         linkerFrontend.unselect($(this).attr("rel"));
         return false;
     });
+    
     // listen to close events (min/max display)
+    // do not use livequery here as these items always exists in DOM
+    $("#lnk_show_browser").click(function(){
+        $("#lnk_browser").show();
+        // toggle commands
+        $("#lnk_show_browser").hide();
+        $("#lnk_hide_browser").show();
+    });
     
+    $("#lnk_hide_browser").click(function(){
+        $("#lnk_browser").hide();
+        // toggle commands
+        $("#lnk_hide_browser").hide();
+        $("#lnk_show_browser").show();
+    });
     
-    // show activity mechanism
-    $("#lnk_ajax_loading").hide();
-    
+    // ajax activity led
     $("#lnk_ajax_loading").ajaxStart(function(){
         $(this).show();
     });
