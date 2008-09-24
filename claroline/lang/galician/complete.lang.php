@@ -366,10 +366,10 @@ $_lang['File name is missing'] = 'O nome do ficheiro perdeuse';
 $_lang['Filename'] = 'Nome de arquivo';
 $_lang['Fill groups (automatically)'] = 'Encher grupos';
 $_lang['Fill in blanks'] = 'Cubrir con brancos';
-$_lang['Fill text field'] = 'Cubri-los campos de texto';
-$_lang['Fill the area to explain your motivation and submit your request. An e-mail will be sent to platform adminisrator(s).'] = 'Explique na &aacute;rea de texto o motivo da s&uacute;a queixa ou
+$_lang['Fill in the text area to motivate your request and then submit the form to send it to platform administrators'] = 'Explique na &aacute;rea de texto o motivo da s&uacute;a queixa ou
 												suxesti&oacute;n e prema no bot&oacute;n. Seralle enviado un correo
 												electr&oacute;nico &oacute;(&oacute;s) administrador(es) da plataforma.';
+$_lang['Fill text field'] = 'Cubri-los campos de texto';
 $_lang['Fill type'] = 'Cubri-lo tipo';
 $_lang['Filter'] = 'Filtro';
 $_lang['Find doubled variables'] = 'Atopar variables repetidas';

@@ -7,8 +7,7 @@ $_lang['%nb_user not to add'] = '%nb_user not to add';
 $_lang['%newUser users added to the campus'] = '%newUser users added to the campus';
 $_lang['%x rows'] = '%x rows';
 $_lang['(jj/mm/aaaa)'] = '(jj/mm/aaaa)';
-$_lang['Access allowed only to course members (people on the <a href="%url">user list</a>)'] = 'Access allowed only to course members (people on the <a href="%url">user list</a>)';
-$_lang['Access allowed only to course members (people on the user list)'] = 'Access allowed only to course members (people on the user list)';
+$_lang['Access allowed only to course members (people on the course user list)'] = 'Access allowed only to course members (people on the user list)';
 $_lang['Access allowed only to platform members (user registered to the platform)'] = 'Access allowed only to platform members (user registered to the platform)';
 $_lang['Access allowed to anybody (even without login)'] = 'Access allowed to anybody (even without login)';
 $_lang['Access to course'] = 'Access to course';
@@ -182,7 +181,6 @@ $_lang['Image is too big : max size %width%x%height%, %size% bytes'] = 'Image is
 $_lang['Image manager'] = 'Image manager';
 $_lang['Important'] = 'Important';
 $_lang['Imported modules must be compatible with your Claroline version.'] = 'Imported modules must be compatible with your Claroline version.';
-$_lang['Impossible to promote as a group tutor a student that is already register in the group'] = 'Impossible to promote as a group tutor a student that is already register in the group';
 $_lang['In iCal an event has a duration but not in claroline. 3600 seconds = 1 Hour.'] = 'In iCal an event has a duration but not in claroline. 3600 seconds = 1 Hour.';
 $_lang['Inbox'] = 'Inbox';
 $_lang['Install this module'] = 'Install this module';
@@ -353,7 +351,6 @@ $_lang['Warning: When you delete a message keep in mind that it will be deleted 
         <br /><br />You cannot retrieve deleted messages!'] = 'Warning: When you delete a message keep in mind that it will be deleted for every user.
         <br /><br />You cannot retrieve deleted messages!';
 $_lang['Where is your package ?'] = 'Where is your package ?';
-$_lang['Which information are needed ?'] = 'Which information are needed ?';
 $_lang['Works uploaded by the student in the name of \'Authors\''] = 'Works uploaded by the student in the name of \'Authors\'';
 $_lang['You also need to configure your web server to allow SSL connections to the auth/login.php script !'] = 'You also need to configure your web server to allow SSL connections to the auth/login.php script !';
 $_lang['You are not in a course'] = 'You are not in a course';

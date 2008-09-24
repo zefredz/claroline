@@ -7,7 +7,7 @@
 */
 
 $iso639_1_code = "nl";
-$iso639_2_code = "nld";
+$iso639_2_code = "dut";
 
 $charset = 'iso-8859-1';
 $text_dir = 'ltr'; // ('ltr' for left to right, 'rtl' for right to left)
@@ -28,10 +28,10 @@ $langMonthNames['long'] = array('Januari', 'Februari', 'Maart', 'April', 'Mei', 
 // Voir http://www.php.net/manual/en/function.strftime.php pour la variable
 // ci-dessous
 
-$dateFormatShort =  "%b %d, %y";
-$dateFormatLong  = '%A %B %d, %Y';
-$dateTimeFormatLong  = '%B %d, %Y at %I:%M %p';
-$timeNoSecFormat = '%I:%M %p';
+$dateFormatShort =  "%b %d, %y ; %H:%M";
+$dateFormatLong  = '%A %B %d, %Y ; %H:%M';
+$dateTimeFormatLong  = '%B %d, %Y ; %H:%M';
+$timeNoSecFormat = '%H:%M';
 
 $englishLangName = "Dutch";
 $localLangName = "Nederlands";
@@ -77,9 +77,9 @@ $langMonthNames['long'] = array('Januari', 'Februari', 'Maart', 'April', 'Mei', 
 // Zie http://www.php.net/manual/en/function.strftime.php voor de variabele
 // hieronder
 
-$dateFormatShort =  "%a %d %b %y";
-$dateFormatLong  = '%A %d %B %Y';
-$dateTimeFormatLong  = '%A %d %B %Y om %H:%M';
+$dateFormatShort =  "%a %d %b %y ; %H:%M";
+$dateFormatLong  = '%A %d %B %Y ; %H:%M';
+$dateTimeFormatLong  = '%A %d %B %Y ; %H:%M';
 $timeNoSecFormat = '%H:%M';
 
 ?>

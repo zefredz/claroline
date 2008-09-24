@@ -36,8 +36,7 @@ $_lang['A list of keys allowing requests to the Claroline SSO server. The SSO cl
 $_lang['A reply to your topic has been posted'] = 'A reply to your topic has been posted.';
 $_lang['A tutor attached to a group can subscribe himself to another group as a simple user.'] = 'A tutor attached to a group can subscribe himself to another group as a simple user.';
 $_lang['Access allowed'] = 'Access allowed';
-$_lang['Access allowed only to course members (people on the <a href="%url">user list</a>)'] = 'Access allowed only to course members (people on the <a href="%url">user list</a>)';
-$_lang['Access allowed only to course members (people on the user list)'] = 'Access allowed only to course members (people on the user list)';
+$_lang['Access allowed only to course members (people on the course user list)'] = 'Access allowed only to course members (people on the user list)';
 $_lang['Access allowed only to platform members (user registered to the platform)'] = 'Access allowed only to platform members (user registered to the platform)';
 $_lang['Access allowed to anybody (even without login)'] = 'Access allowed to anybody (even without login)';
 $_lang['Access to course'] = 'Access to course';
@@ -294,7 +293,7 @@ $_lang['File url mode'] = 'File url mode';
 $_lang['Files dezipped sucessfully in %path'] = 'Files dezipped sucessfully in %path';
 $_lang['Fill courses tools with material example'] = 'Fill courses tools with material example';
 $_lang['Fill in one or more search criteria, select user profile parameters for your course and press \'Search\''] = 'Précisez un ou plusieurs critères de recherche, cochez les paramètres du profil utilisateur voulu et cliquez sur \'Rechercher\'';
-$_lang['Fill the area to explain your motivation and submit your request. An e-mail will be sent to platform adminisrator(s).'] = 'Fill the area to explain your motivation and submit your request. An e-mail will be sent to platform adminisrator(s).';
+$_lang['Fill in the text area to motivate your request and then submit the form to send it to platform administrators'] = 'Fill the area to explain your motivation and submit your request. An e-mail will be sent to platform adminisrator(s).';
 $_lang['Filling'] = 'Filling';
 $_lang['Find doubled variables'] = 'Find doubled variables';
 $_lang['Find more available modules on <a href="http://www.claroline.net/">Claroline.net</a>.'] = 'Find more available modules on <a href="http://www.claroline.net/">Claroline.net</a>.';
@@ -335,7 +334,6 @@ $_lang['Image is too big : max size %width%x%height%, %size% bytes'] = 'Image is
 $_lang['Image manager'] = 'Image manager';
 $_lang['Important'] = 'Important';
 $_lang['Imported modules must be compatible with your Claroline version.'] = 'Imported modules must be compatible with your Claroline version.';
-$_lang['Impossible to promote as a group tutor a student that is already register in the group'] = 'Impossible to promote as a group tutor a student that is already register in the group';
 $_lang['In iCal an event has a duration but not in claroline. 3600 seconds = 1 Hour.'] = 'In iCal an event has a duration but not in claroline. 3600 seconds = 1 Hour.';
 $_lang['Inbox'] = 'Inbox';
 $_lang['Inline quote'] = 'Inline quote';
@@ -768,7 +766,6 @@ $_lang['When iCal File is regenerated, make the RDF version.'] = 'When iCal File
 $_lang['When iCal File is regenerated, make the ics version.'] = 'When iCal File is regenerated, make the ics version.';
 $_lang['When iCal File is regenerated, make the xml version.'] = 'When iCal File is regenerated, make the xml version.';
 $_lang['Where is your package ?'] = 'Where is your package ?';
-$_lang['Which information are needed ?'] = 'Which information are needed ?';
 $_lang['Works uploaded by the student in the name of \'Authors\''] = 'Works uploaded by the student in the name of \'Authors\'';
 $_lang['Wrong enrolment key'] = 'Wrong enrolment key';
 $_lang['Wrong operation'] = 'Wrong operation';

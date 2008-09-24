@@ -358,9 +358,9 @@ $_lang['File name is missing'] = 'Nama file tidak ada';
 $_lang['Filename'] = 'Nama file';
 $_lang['Fill groups (automatically)'] = 'Isikan kelompok';
 $_lang['Fill in blanks'] = 'Mengisi titik-titik';
-$_lang['Fill text field'] = 'Isi bidang teks';
-$_lang['Fill the area to explain your motivation and submit your request. An e-mail will be sent to platform adminisrator(s).'] = 'Isi bidang ini untuk menjelaskan motivasi Anda dan kirimkan
+$_lang['Fill in the text area to motivate your request and then submit the form to send it to platform administrators'] = 'Isi bidang ini untuk menjelaskan motivasi Anda dan kirimkan
 permintaan Anda. Email akan dikirim ke pengelola situs elearning.';
+$_lang['Fill text field'] = 'Isi bidang teks';
 $_lang['Fill type'] = 'Isi tipe';
 $_lang['Filter'] = 'Filter';
 $_lang['Find doubled variables'] = 'Cari duplikasi variabel-variabel';

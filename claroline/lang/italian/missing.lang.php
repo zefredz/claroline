@@ -13,8 +13,7 @@ $_lang['A list of keys allowing requests to the Claroline SSO server. The SSO cl
 $_lang['A tutor attached to a group can subscribe himself to another group as a simple user.'] = 'A tutor attached to a group can subscribe himself to another group as a simple user.';
 $_lang['Accept email as valid (best choice)'] = 'Accept email as valid (best choice)';
 $_lang['Access allowed'] = 'Access allowed';
-$_lang['Access allowed only to course members (people on the <a href="%url">user list</a>)'] = 'Access allowed only to course members (people on the <a href="%url">user list</a>)';
-$_lang['Access allowed only to course members (people on the user list)'] = 'Access allowed only to course members (people on the user list)';
+$_lang['Access allowed only to course members (people on the course user list)'] = 'Access allowed only to course members (people on the user list)';
 $_lang['Access allowed only to platform members (user registered to the platform)'] = 'Access allowed only to platform members (user registered to the platform)';
 $_lang['Access allowed to anybody (even without login)'] = 'Access allowed to anybody (even without login)';
 $_lang['Access to course'] = 'Access to course';
@@ -301,7 +300,6 @@ $_lang['Import failed'] = 'Import failed';
 $_lang['Important'] = 'Important';
 $_lang['Imported exercises must be an ims-qti zip file.'] = 'Imported exercises must be an ims-qti zip file.';
 $_lang['Imported modules must be compatible with your Claroline version.'] = 'Imported modules must be compatible with your Claroline version.';
-$_lang['Impossible to promote as a group tutor a student that is already register in the group'] = 'Impossible to promote as a group tutor a student that is already register in the group';
 $_lang['In iCal an event has a duration but not in claroline. 3600 seconds = 1 Hour.'] = 'In iCal an event has a duration but not in claroline. 3600 seconds = 1 Hour.';
 $_lang['Inbox'] = 'Inbox';
 $_lang['Information about your platform and your organisation'] = 'Information about your platform and your organisation';
@@ -537,8 +535,8 @@ $_lang['Submissions posted or modified after date :'] = 'Submissions posted or m
 $_lang['System Info'] = 'System Info';
 $_lang['Teacher can add a user in his course'] = 'Teacher can add a user in his course';
 $_lang['Teacher can export user list from his course'] = 'Teacher can export user list from his course';
-$_lang['Teacher can import an existing class course'] = 'Teacher can import an existing class course';
 $_lang['Teacher can import user list in his course'] = 'Teacher can import user list in his course';
+$_lang['Teachers are allowed to register whole classes to their courses'] = 'Teacher can import an existing class course';
 $_lang['Teachers can register new users to the campus'] = 'Teachers can register new users to the campus';
 $_lang['Temporary folder missing'] = 'Temporary folder missing';
 $_lang['Text bottom'] = 'Text bottom';
@@ -657,7 +655,6 @@ $_lang['When iCal File is regenerated, make the xml version.'] = 'When iCal File
 $_lang['When users click on a document, it opens a new window'] = 'When users click on a document, it opens a new window';
 $_lang['When users click on a submitted file, it opens a new window'] = 'When users click on a submitted file, it opens a new window';
 $_lang['Where is your package ?'] = 'Where is your package ?';
-$_lang['Which information are needed ?'] = 'Which information are needed ?';
 $_lang['Which parts of the profile can be changed?'] = 'Which parts of the profile can be changed?';
 $_lang['Works uploaded by the student in the name of \'Authors\''] = 'Works uploaded by the student in the name of \'Authors\'';
 $_lang['Yes, create RDF version'] = 'Yes, create RDF version';

@@ -10,8 +10,7 @@ $_lang['&#91;British people&#93; live in &#91;United Kingdom&#93;.'] = '[British
 $_lang['(jj/mm/aaaa)'] = '(jj/mm/aaaa)';
 $_lang['A list of keys allowing requests to the Claroline SSO server. The SSO client have to provide one of the keys contained into this list to receive any answer from the Claroline SSO server.'] = 'A list of keys allowing requests to the Claroline SSO server. The SSO client have to provide one of the keys contained into this list to receive any answer from the Claroline SSO server.';
 $_lang['A tutor attached to a group can subscribe himself to another group as a simple user.'] = 'A tutor attached to a group can subscribe himself to another group as a simple user.';
-$_lang['Access allowed only to course members (people on the <a href="%url">user list</a>)'] = 'Access allowed only to course members (people on the <a href="%url">user list</a>)';
-$_lang['Access allowed only to course members (people on the user list)'] = 'Access allowed only to course members (people on the user list)';
+$_lang['Access allowed only to course members (people on the course user list)'] = 'Access allowed only to course members (people on the user list)';
 $_lang['Access allowed only to platform members (user registered to the platform)'] = 'Access allowed only to platform members (user registered to the platform)';
 $_lang['Access allowed to anybody (even without login)'] = 'Access allowed to anybody (even without login)';
 $_lang['Access to course'] = 'Access to course';
@@ -220,7 +219,6 @@ $_lang['Important'] = 'Important';
 $_lang['Imported exercises must be an ims-qti zip file.'] = 'Imported exercises must be an ims-qti zip file.';
 $_lang['Imported modules must be compatible with your Claroline version.'] = 'Imported modules must be compatible with your Claroline version.';
 $_lang['Imported modules must consist of a zip file and be compatible with your Claroline version.'] = 'Imported modules must consist of a zip file and be compatible with your Claroline version.';
-$_lang['Impossible to promote as a group tutor a student that is already register in the group'] = 'Impossible to promote as a group tutor a student that is already register in the group';
 $_lang['Impossible to unzip file'] = 'Impossible to unzip file';
 $_lang['In iCal an event has a duration but not in claroline. 3600 seconds = 1 Hour.'] = 'In iCal an event has a duration but not in claroline. 3600 seconds = 1 Hour.';
 $_lang['Inbox'] = 'Inbox';
@@ -475,7 +473,6 @@ $_lang['When iCal File is regenerated, make the RDF version.'] = 'When iCal File
 $_lang['When iCal File is regenerated, make the ics version.'] = 'When iCal File is regenerated, make the ics version.';
 $_lang['When iCal File is regenerated, make the xml version.'] = 'When iCal File is regenerated, make the xml version.';
 $_lang['Where is your package ?'] = 'Where is your package ?';
-$_lang['Which information are needed ?'] = 'Which information are needed ?';
 $_lang['Which parts of the profile can be changed?'] = 'Which parts of the profile can be changed?';
 $_lang['Works uploaded by the student in the name of \'Authors\''] = 'Works uploaded by the student in the name of \'Authors\'';
 $_lang['You also need to configure your web server to allow SSL connections to the auth/login.php script !'] = 'You also need to configure your web server to allow SSL connections to the auth/login.php script !';
