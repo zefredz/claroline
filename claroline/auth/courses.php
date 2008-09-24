@@ -286,7 +286,11 @@ if ( $cmd == 'exReg' )
         $courseData = claro_get_course_data($course);
         $displayMode = DISPLAY_REGISTRATION_DISABLED_FORM;
         
-        $dialogBox->error( get_locked_course_explanation($course) );
+        $explanation = get_locked_course_explanation($course);
+        if( $explanation )
+        {
+            $dialogBox->error( $explanation );
+        }
         $dialogBox->info( get_lang('Please contact the course manager : %email' , array ('%email' => '<a href="mailto:'.$courseData['email'] . '?body=' . $courseData['officialCode'] . '&amp;subject=[' . rawurlencode( get_conf('siteName')) . ']' . '">' . htmlspecialchars($courseData['titular']) . '</a>')) );
     }
 
