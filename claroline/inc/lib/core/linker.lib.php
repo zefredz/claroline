@@ -1223,10 +1223,16 @@ class ResourceLinker
         
         return '<div id="lnk_panel">' . "\n"
             . '<div id="lnk_selected_resources"></div>' . "\n"
+            . '<p id="lnk_toggle">' . "\n"
+            . '<a href="#" id="lnk_show_browser">'.get_lang('Attach an existing resource').'</a>' . "\n"
+            . '<a href="#" id="lnk_hide_browser">'.get_lang('Close').'</a>' . "\n"
+            . '</p>' . "\n"
+            . '<div id="lnk_browser">' . "\n"
             . '<div id="lnk_ajax_loading"><img src="'.get_icon_url('loading').'" alt="" /></div>' . "\n"
             . '<h4 id="lnk_location"></h4>' . "\n"
             . '<div id="lnk_back_link"></div>'
             . '<div id="lnk_resources"></div>' . "\n"
+            . '</div>' . "\n"
             . '<div id="lnk_hidden_fields"></div>' . "\n"
             . '</div>' . "\n\n"
             ;
