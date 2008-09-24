@@ -71,9 +71,11 @@ class Claroline
             
             $this->moduleLabelStack = array();
             
-            if ( claro_is_in_a_tool() )
+            if ( isset($GLOBALS['tlabelReq']) )
             {
                 $this->pushModuleLabel($GLOBALS['tlabelReq']);
+                
+                pushClaroMessage("Set current module to {$GLOBALS['tlabelReq']}", 'debug');
             }
         }
         catch ( Exception $e )
