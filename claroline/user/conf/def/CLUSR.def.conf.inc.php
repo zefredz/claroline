@@ -113,7 +113,7 @@ array('label'         => 'Teacher can import user list in his course'
      );
 
 $conf_def_property_list['is_coursemanager_allowed_to_import_user_class'] =
-array('label'         => 'Teacher can import an existing class course'
+array('label'         => 'Teachers are allowed to register whole classes to their courses'
      ,'default'       => TRUE
      ,'type'          => 'boolean'
      ,'display'       => TRUE
