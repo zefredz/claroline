@@ -410,7 +410,7 @@ switch ( $display )
     case DISP_REQUEST_COURSE_CREATOR_STATUS :
 
 
-        echo '<p>' . get_lang('Fill the area to explain your motivation and submit your request. An e-mail will be sent to platform adminisrator(s).') . '</p>';
+        echo '<p>' . get_lang('Fill in the text area to motivate your request and then submit the form to send it to platform administrators') . '</p>';
 
         // display request course creator form
         echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
