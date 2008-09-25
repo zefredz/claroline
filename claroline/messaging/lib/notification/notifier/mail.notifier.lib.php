@@ -74,7 +74,7 @@ class MailNotifier implements MessagingNotifier
         $emailSubject .= '] '.$message->getSubject();
 
         //------------------------------subject
-        $altBody = get_lang('If you can\'t read this message go to: ') . get_path('rootWeb') . '/claroline/messaging/readmessage.php?messageId=' . $messageId . '&userId=1&type=received' . "\n\n"
+        $altBody = get_lang('If you can\'t read this message go to: ') . rtrim( get_path('rootWeb'), '/' ) . '/claroline/messaging/readmessage.php?messageId=' . $messageId . '&userId=1&type=received' . "\n\n"
             . '-- '
             . claro_get_current_user_data('lastName') . " " . claro_get_current_user_data('firstName') . "\n"
             . $stringManager
