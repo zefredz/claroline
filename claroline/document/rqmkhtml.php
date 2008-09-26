@@ -45,6 +45,11 @@ else                           $cmd = null;
 if( !empty($_REQUEST ['cwd']) ) $cwd = $_REQUEST ['cwd'];
 else                            $cwd = '';
 
+if ( isset($_REQUEST['file']) /*&& is_download_url_encoded($_REQUEST['file']) */ )
+{
+    $_REQUEST['file'] = download_url_decode( $_REQUEST['file'] );
+}
+
 $nameTools = get_lang('Create/edit document');
 include '../inc/claro_init_header.inc.php';
 
@@ -98,7 +103,7 @@ elseif($cmd == "rqEditHtml" && !empty($_REQUEST['file']) )
 
     ?><form action="<?php echo htmlspecialchars(Url::Contextualize(get_module_entry_url('CLDOC')));?>" method="post">
     <input type="hidden" name="cmd" value="exEditHtml" />
-    <input type="hidden" name="file" value="<?php echo htmlspecialchars($_REQUEST['file']); ?>" />
+    <input type="hidden" name="file" value="<?php echo htmlspecialchars(base64_encode($_REQUEST['file'])); ?>" />
     <b><?php echo get_lang('Document name') ?> : </b><br />
     <?php echo $_REQUEST['file']?>
     </p>

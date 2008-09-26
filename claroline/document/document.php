@@ -903,7 +903,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                        array('html', 'htm') ) )
         {
 
-            $form .= '<p><a href="rqmkhtml.php?cmd=rqEditHtml&amp;file='. rawurlencode($_REQUEST['file']) .'">'
+            $form .= '<p><a href="rqmkhtml.php?cmd=rqEditHtml&amp;file='. download_url_encode($_REQUEST['file']) .'">'
                           .get_lang('Edit file content') . '</a></p>';
         }
 
