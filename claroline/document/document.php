@@ -711,8 +711,15 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
     if ('exRm' == $cmd )
     {
         $file = secure_file_path( $_REQUEST['file']);
-
-        if ( claro_delete_file($baseWorkDir.$file))
+        
+        $checkFile = trim($file, '/' );
+        $checkFile = trim( $checkFile );
+        
+        if ( empty( $checkFile ) )
+        {
+            $dialogBox->error(get_lang('Cannot delete : missing file or directory name'));
+        }
+        elseif ( !empty($checkFile) && claro_delete_file($baseWorkDir.$file))
         {
             if ($courseContext)
             {
