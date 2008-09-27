@@ -11,6 +11,13 @@
 
 
 <?php if( get_conf('claro_displayLocalAuthForm') ) : ?>
+<script type="text/javascript">
+<!--
+$(document).ready( function(){
+    $("#login").focus();
+});
+//-->
+</script>
 <?php if( get_conf('claro_secureLogin', false) ) : ?>
  <!-- Authentication Form -->
 <form class="claroLoginForm" action="<?php echo 'https://'.$_SERVER['HTTP_HOST'] . get_path('clarolineRepositoryWeb'); ?>auth/login.php" method="post">
