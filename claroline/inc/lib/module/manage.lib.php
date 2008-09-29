@@ -1775,12 +1775,31 @@ function course_tool_already_installed($toolId,$courseId)
     return claro_sql_query_fetch_single_value($sql) == 'true';
 }
 
+function is_tool_registered_in_course( $toolId, $courseId )
+{
+    $currentCourseDbNameGlu = claro_get_course_db_name_glued($courseId);
+    $course_tbl = claro_sql_get_course_tbl($currentCourseDbNameGlu);
+    $default_visibility = false;
+
+    //find max rank in the tool_list
+
+    $sql = "SELECT count(*) FROM `" . $course_tbl['tool'] . "`
+    WHERE tool_id      = " . $toolId;
+
+    return claro_sql_query_fetch_single_value($sql);
+}
+
 function update_course_tool_activation_in_course( $toolId, $courseId, $activated )
 {
     if ( $activated && !course_tool_already_installed($toolId,$courseId) )
     {
         if ( $tLabel = get_module_label_from_tool_id( $toolId ) )
         {
+            if ( ! is_tool_registered_in_course( $toolId, $courseId ) )
+            {
+                register_module_in_single_course( $toolId, $courseId );
+            }
+            
             install_module_in_course( $tLabel, $courseId );
             update_tool_installation_in_course( $toolId, $courseId );
         }
@@ -1798,7 +1817,7 @@ function update_course_tool_activation_in_course( $toolId, $courseId, $activated
         
     if ( claro_sql_query( $sql ) )
     {
-        return claro_sql_affected_rows() == 1;
+        return claro_sql_affected_rows();
     }
     else
     {

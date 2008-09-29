@@ -559,6 +559,53 @@ elseif ( $currentSection == 'toolList' )
     $inactiveCourseToolList = module_get_course_tool_list(
         claro_get_current_course_id(), true, false );
     
+    $platformCourseToolList = claro_get_main_course_tool_list(true);
+    
+    $completeInactiveToolList = array();
+    
+    foreach ( $inactiveCourseToolList as $inactiveCourseTool )
+    {
+        $completeInactiveToolList[] = array(
+            'tool_id' => $inactiveCourseTool['id'],
+            'label' => $inactiveCourseTool['label'],
+            'icon' => get_module_url($inactiveCourseTool['label']) . '/' . $inactiveCourseTool['icon']
+        );
+    }
+    
+    // var_dump( $platformCourseToolList );
+    
+    foreach ( $platformCourseToolList as $toolId => $platformCourseTool )
+    {
+        $found = false;
+        foreach ( $activeCourseToolList as $activeCourse )
+        {
+            if ( $activeCourse['label'] == $platformCourseTool['label'] )
+            {
+                $found = true;
+                break;
+            }
+        }
+        
+        $alreadyThere = false;
+        foreach ( $inactiveCourseToolList as $inactiveCourseTool )
+        {
+            if ( $inactiveCourseTool['label'] == $platformCourseTool['label'] )
+            {
+                $alreadyThere = true;
+                break;
+            }
+        }
+        
+        if ( $platformCourseTool['activation'] == true && ! $found && ! $alreadyThere )
+        {
+            $completeInactiveToolList[] = array(
+                'tool_id' => $toolId,
+                'label' => $platformCourseTool['label'],
+                'icon' => $platformCourseTool['icon']
+            );
+        }
+    }
+    
     echo '<h3>' . get_lang('Tools currently in your course') . '</h3>' . "\n";
     
     echo '<blockquote>' . "\n"
@@ -624,9 +671,9 @@ elseif ( $currentSection == 'toolList' )
         . '<tbody>'."\n"
         ;
     
-    if ( !empty( $inactiveCourseToolList ) )
+    if ( !empty( $completeInactiveToolList ) )
     {
-        foreach ( $inactiveCourseToolList as $inactiveTool )
+        foreach ( $completeInactiveToolList as $inactiveTool )
         {
             $action_link = '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
                 . '?cmd=exAddTool&amp;toolLabel='
@@ -639,7 +686,7 @@ elseif ( $currentSection == 'toolList' )
                 
             echo '<tr>'
                 . '<td><img src="'
-                . get_module_url($inactiveTool['label']) . '/' . $inactiveTool['icon'] . '" alt="" /> '
+                . $inactiveTool['icon'] . '" alt="" /> '
                 . get_lang(claro_get_tool_name($inactiveTool['tool_id'])).'</td>'
                 . '<td>'.$action_link.'</td>'
                 . '</tr>' . "\n"

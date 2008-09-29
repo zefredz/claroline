@@ -663,7 +663,7 @@ function module_get_course_tool_list( $courseIdReq,
     }
 
     // find module or claroline existing tools
-
+    
     $sql = "SELECT DISTINCT ctl.id            AS id,
                   pct.id                      AS tool_id,
                   pct.claro_label             AS label,
@@ -676,16 +676,19 @@ function module_get_course_tool_list( $courseIdReq,
                   ctl.activated,
                   IFNULL( ctl.script_url ,
                           pct.script_url )    AS url
-           FROM (`" . $tbl_course_tool_list . "` AS ctl,
-                `" . $tbl_module . "`           AS m,
-                `" . $tbl_tool_list . "`        AS pct)\n"
-            . $contextJoin
-           . "WHERE pct.id = ctl.tool_id
-             AND pct.claro_label = m.label
-             ". $sql_platformActive . "
-             ". $sql_courseActive . "
-             ". $contextCondition . "
-           ORDER BY external, pct.def_rank, ctl.rank";
+            FROM `{$tbl_tool_list}` AS pct
+            LEFT JOIN `{$tbl_course_tool_list}` AS ctl
+            ON ctl.tool_id = pct.id
+            LEFT JOIN `{$tbl_module}` AS m
+            ON m.label = pct.claro_label
+            {$contextJoin}
+            WHERE 1
+            {$sql_platformActive}
+            {$sql_courseActive}
+            {$contextCondition}
+            ORDER BY external, pct.def_rank, ctl.rank
+        
+    ";
 
     return claro_sql_query_fetch_all($sql);
 }
