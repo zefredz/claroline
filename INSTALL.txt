@@ -68,7 +68,7 @@ you need the following on your machine :
 
 4. Web Write access to web directory where Claroline has been moved
    or unzipped to. On a Windows machine locally, this
-   is not a problem. Remotely, you need to be allowed to CHMOD
+   is not a problem. Remotely, you need to be allowed to CHMOD 755
    through FTP, telnet or any means.
 
 5. A Mail Transport Agent (MTA). This not absolutely necessary but some
@@ -175,6 +175,7 @@ please ask your hosting provider for advice.
         replace the old directory with a new one with a 'copy'
         command. That way, the new file versions will overwrite the
         old ones and leave the others intact.
+        Configuration files are located in /platform/conf/
 
 4. Open Web Browser and go to
 
