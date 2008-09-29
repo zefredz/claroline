@@ -21,10 +21,15 @@ class AuthManager
 {
     public function authenticate( $username, $password )
     {
-        if ( !empty($username) && $authSource = self::getAuthSource( $username ) )
+        $driverList = array();
+        
+        if ( !empty($username) && $authSources = self::getAuthSource( $username ) )
         {
-            Console::debug("Found authentication source {$authSource}");
-            $driverList = array( AuthDriverManager::getDriver( $authSource ) );
+            foreach( $authSources as $authSource )
+            {
+                Console::debug("Found authentication source {$authSource}");
+                array_push( $driverList, AuthDriverManager::getDriver( $authSource ) );
+            }
         }
         else
         {
@@ -34,18 +39,29 @@ class AuthManager
         
         foreach ( $driverList as $driver )
         {
+            if ( ! $driver instanceof AuthDriver )
+            {
+                continue;
+            }
+            
             $driver->setAuthenticationParams( $username, $password );
             
             if ( $driver->authenticate() )
             {
-                if ( $uid = self::registered( $username, $authSource ) )
+                Console::debug("Authenticated using source {$driver->getAuthSource()}");
+                
+                if ( $uid = self::registered( $username, $driver->getAuthSource() ) )
                 {
+                    Console::debug("Register user from source {$driver->getAuthSource()}");
+                    
                     $driver->update( $uid );
                     
                     return $driver->getUser();
                 }
                 elseif ( $driver->userRegistrationAllowed() )
                 {
+                    Console::debug("Update user from source {$driver->getAuthSource()}");
+                    
                     $driver->register();
                     
                     return $driver->getUser();
@@ -98,7 +114,11 @@ class AuthManager
             . "username = ". Claroline::getDatabase()->quote($username)
             ;
             
-        return Claroline::getDatabase()->query( $sql )->fetch(Database_ResultSet::FETCH_VALUE);
+        $authSources = Claroline::getDatabase()->query( $sql );
+        
+        $authSources->setFetchMode(Database_ResultSet::FETCH_VALUE);
+        
+        return $authSources;
     }
 }
 
