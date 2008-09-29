@@ -135,7 +135,7 @@ $output .= '<div id="leftContent">' . "\n";
 if( $canSwitchCourses )
 {
     $displayedCourseList = array();
-    $displayedCourseList[ get_lang('Platform') ] = '';
+    $displayedCourseList[ '' ] = '';
     foreach( $userCourseList as $course )
     {
         $displayedCourseList[ $course['title'] ] = $course['sysCode'];
@@ -146,7 +146,8 @@ if( $canSwitchCourses )
     $output .= "\n"
     .     '<form method="get" name="filterForm" action="'.htmlspecialchars(Url::Contextualize( 'userReport.php')).'">' . "\n"
     .     '<input type="hidden" name="userId" value="'.(int) $userId.'" />' . "\n"
-    .     '<p align="right">' . "\n"
+    .     '<p>' . "\n"
+    .     '<a class="claroCmd" href="userReport.php?cidReset=true&amp;userId='.(int) $userId.'">'.get_lang('View platform statistics').'</a> &nbsp;|&nbsp; ' . "\n"
     .     '<label for="cidReq">'.get_lang('Choose a course').'&nbsp;:&nbsp;</label>' . "\n"
     .     claro_html_form_select('cidReq', $displayedCourseList, $courseId, $attr) . "\n"
     .     '<noscript>' . "\n"
