@@ -31,11 +31,8 @@ class AuthManager
                 array_push( $driverList, AuthDriverManager::getDriver( $authSource ) );
             }
         }
-        else
-        {
-            $authSource = null;
-            $driverList = AuthDriverManager::getRegisteredDrivers();
-        }
+        
+        $driverList = array_merge( $driverList, AuthDriverManager::getRegisteredDrivers() );
         
         foreach ( $driverList as $driver )
         {
