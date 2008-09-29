@@ -3,7 +3,7 @@
 // vim: expandtab sw=4 ts=4 sts=4:
 
 /**
- * Time library 
+ * Time library
  *
  * @version     1.9 $Revision$
  * @copyright   2001-2008 Universite catholique de Louvain (UCL)
@@ -20,24 +20,24 @@ class Claro_Utils_Time
     public static function timeToIso8601( $time = null )
     {
         if ( is_null( $time ) ) $time = time();
-        
-        return ( date('c') == 'c' 
-            ? date('Y-m-d\TH:i:sO',$time) 
+
+        return ( date('c') == 'c'
+            ? date('Y-m-d\TH:i:sO',$time)
             : date('c', $time ) );
     }
-    
+
     public static function dateToIso8601( $date = null )
     {
         $time = is_null( $date )
             ? time()
             : strtotime( $date )
             ;
-        
-        return ( date('c') == 'c' 
-            ? date('Y-m-d\TH:i:sO',$time) 
+
+        return ( date('c') == 'c'
+            ? date('Y-m-d\TH:i:sO',$time)
             : date('c', $time ) );
     }
-    
+
     public static function timeToDatetime( $time = null )
     {
         if ( $time )
@@ -49,9 +49,14 @@ class Claro_Utils_Time
             return date( "Y-m-d H:i:s" );
         }
     }
-    
-    public static function dateToDatetime( $date )
+
+    public static function dateToDatetime( $date = null)
     {
-        return date( "Y-m-d H:i:s", strtotime( $date ) );
+        $time = is_null( $date )
+            ? time()
+            : strtotime( $date )
+            ;
+
+        return date('Y-m-d H:i:s',$time);
     }
 }
