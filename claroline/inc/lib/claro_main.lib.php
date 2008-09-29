@@ -507,7 +507,7 @@ function claro_get_main_course_tool_list ( $force = false )
 
             if ( !empty($courseTool['icon']) )
             {
-                $courseToolList[$toolId]['icon'] = get_module_url($courseTool['label']) . $courseTool['icon'];
+                $courseToolList[$toolId]['icon'] = get_module_url($courseTool['label']) . '/'. $courseTool['icon'];
             }
             else
             {
