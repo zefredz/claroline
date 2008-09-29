@@ -246,7 +246,7 @@ if( claro_is_user_authenticated() && !$autoFeedbackIsDisplayedForAuthId )
     elseif( $assignment->getAssignmentType() == 'GROUP' )
     {
         // check if user is in the group that owns the work
-        $userCanEdit = ( isset($userGroupList[$submission->getGroupId()]) );
+        $userCanEdit = ( array_key_exists( $submission->getGroupId(), $userGroupList) );
     }
     elseif( $assignment->getAssignmentType() == 'INDIVIDUAL' )
     {
@@ -433,7 +433,7 @@ if( isset($_REQUEST['submitWrk']) )
     if( isset($_REQUEST['wrkGroup']) && $assignment->getAssignmentType() == "GROUP" )
     {
         // check that the group id is one of the student
-        if ( in_array($_REQUEST['wrkGroup'], $userGroupList ) || $is_allowedToEditAll )
+        if ( array_key_exists($_REQUEST['wrkGroup'], $userGroupList ) || $is_allowedToEditAll )
         {
             $wrkForm['wrkGroup'] = $_REQUEST['wrkGroup'];
         }
