@@ -23,8 +23,12 @@
         <?php $bannerInstitutionName =  get_conf('institutionLogo') != ''
                 ? '<img src="' . get_conf('institutionLogo') . '" alt="'.get_conf('institution_name').'" >'
                 : get_conf('institution_name');
+            if ( get_conf( 'institution_url' ) ) :
         ?>
         <a href="<?php echo get_conf( 'institution_url' ); ?>" target="_top"><?php echo $bannerInstitutionName; ?></a>
+        <?php else: ?>
+        <?php echo $bannerInstitutionName; ?>
+        <?php endif; ?>
         </span>
         <?php include_dock('campusBannerRight'); ?>
     </div>
