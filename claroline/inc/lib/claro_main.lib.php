@@ -37,6 +37,13 @@ require_once(dirname(__FILE__) . '/init.lib.php');
 
 require_once(dirname(__FILE__) . '/path.lib.php');
 
+
+/**
+ * SECTION :  File handling functions
+ */
+
+require_once(dirname(__FILE__) . '/file.lib.php');
+
 /**
  * SECTION : PHP COMPAT For PHP backward compatibility
  */

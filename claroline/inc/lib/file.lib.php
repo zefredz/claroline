@@ -286,13 +286,18 @@ function claro_send_file( $path, $name = '', $charset = null )
  */
 function secure_file_path( $path )
 {
-    while ( strpos( $path, '..') || strpos( $path, '://' ) )
+    while ( false !== strpos( $path, '://' )
+        || false !== strpos( $path, '../' )
+        || false !== strpos( $path, '/..' ) )
     {
-        $path = str_replace( '..', '', $path );
+        // protect against remote file inclusion
         $path = str_replace( '://', '', $path );
+        // protect against arbitrary file inclusion
+        $path = str_replace( '../', './', $path );
+        $path = str_replace( '/..', '/.', $path );
     }
-    
-    return $path; 
+
+    return $path;
 }
 
 /**
@@ -421,55 +426,52 @@ function claro_get_file_download_url( $file, $context = null )
     return $urlObj->toUrl();
 }
 
-if ( ! function_exists( 'replace_dangerous_char' ) )
+/**
+ * replaces some dangerous character in a file name
+ *
+ * @param   string $string
+ * @param   string $strict (optional) removes also scores and simple quotes
+ * @return  string : the string cleaned of dangerous character
+ * @todo    TODO use boolean instead as string for the second parameter 
+ *
+ */
+function replace_dangerous_char($string, $strict = 'loose')
 {
-    /**
-     * replaces some dangerous character in a file name
-     *
-     * @param   string $string
-     * @param   string $strict (optional) removes also scores and simple quotes
-     * @return  string : the string cleaned of dangerous character
-     * @todo    TODO use boolean instead as string for the second parameter 
-     *
-     */
-    function replace_dangerous_char($string, $strict = 'loose')
+    $search[] = ' ';  $replace[] = '_';
+    $search[] = '/';  $replace[] = '-';
+    $search[] = '\\'; $replace[] = '-';
+    $search[] = '"';  $replace[] = '-';
+    $search[] = '\'';  $replace[] = '_';
+    $search[] = '?';  $replace[] = '-';
+    $search[] = '*';  $replace[] = '-';
+    $search[] = '>';  $replace[] = '';
+    $search[] = '<';  $replace[] = '-';
+    $search[] = '|';  $replace[] = '-';
+    $search[] = ':';  $replace[] = '-';
+    $search[] = '$';  $replace[] = '-';
+    $search[] = '(';  $replace[] = '-';
+    $search[] = ')';  $replace[] = '-';
+    $search[] = '^';  $replace[] = '-';
+    $search[] = '[';  $replace[] = '-';
+    $search[] = ']';  $replace[] = '-';
+    // $search[] = '..';  $replace[] = '';
+    $search[] = '°';  $replace[] = 'o';
+
+
+    foreach($search as $key=>$char )
     {
-        $search[] = ' ';  $replace[] = '_';
-        $search[] = '/';  $replace[] = '-';
-        $search[] = '\\'; $replace[] = '-';
-        $search[] = '"';  $replace[] = '-';
-        $search[] = '\'';  $replace[] = '_';
-        $search[] = '?';  $replace[] = '-';
-        $search[] = '*';  $replace[] = '-';
-        $search[] = '>';  $replace[] = '';
-        $search[] = '<';  $replace[] = '-';
-        $search[] = '|';  $replace[] = '-';
-        $search[] = ':';  $replace[] = '-';
-        $search[] = '$';  $replace[] = '-';
-        $search[] = '(';  $replace[] = '-';
-        $search[] = ')';  $replace[] = '-';
-        $search[] = '^';  $replace[] = '-';
-        $search[] = '[';  $replace[] = '-';
-        $search[] = ']';  $replace[] = '-';
-        $search[] = '..';  $replace[] = '';
-        $search[] = '°';  $replace[] = 'o';
-    
-    
-        foreach($search as $key=>$char )
-        {
-            $string = str_replace($char, $replace[$key], $string);
-        }
-        
-        // TODO FIXME is this valid in all charsets ???
-        if ($strict == 'strict')
-        {
-            $string = str_replace('-', '_', $string);
-            $string = str_replace("'", '', $string);
-            $string = strtr($string,
-                            'ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ',
-                            'AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn');
-        }
-    
-        return $string;
+        $string = str_replace($char, $replace[$key], $string);
     }
+    
+    // TODO FIXME is this valid in all charsets ???
+    if ($strict == 'strict')
+    {
+        $string = str_replace('-', '_', $string);
+        $string = str_replace("'", '', $string);
+        /*$string = strtr($string,
+                        'ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ',
+                        'AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn');*/
+    }
+
+    return $string;
 }
