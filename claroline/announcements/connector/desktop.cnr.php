@@ -45,7 +45,7 @@ class CLANN_Portlet extends UserDesktopPortlet
 
         if($announcementEventList)
         {
-            $output .= '<dl>';
+            $output .= '<dl id="portletMyAnnouncements">';
             foreach($announcementEventList as $announcementItem)
             {
 

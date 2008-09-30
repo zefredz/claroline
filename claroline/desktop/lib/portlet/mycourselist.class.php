@@ -40,7 +40,7 @@ class MyCourseList extends UserDesktopPortlet
         // get the list of personnal courses marked as contening new events
         if ( count($personnalCourseList) )
         {
-            $output .= '<dl>'."\n";
+            $output .= '<dl id="portletMyCourseList">'."\n";
 
             foreach($personnalCourseList as $thisCourse)
             {

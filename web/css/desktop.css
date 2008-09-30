@@ -94,3 +94,19 @@
 .showul {
     background: transparent url(../../claroline/desktop/img/show.png) no-repeat top left; 
 }
+
+#portletMyCourseList {
+    max-height: 20em;
+    overflow: auto;
+    
+    /* IE hack 
+    _height: expression( Math.min(parseInt(this.offsetHeight), 100) ); */
+}
+
+#portletMyAnnouncements {
+    max-height: 20em;
+    overflow: auto;
+    
+    /* IE hack 
+    _height: expression( Math.min(parseInt(this.offsetHeight), 100) ); */
+}
