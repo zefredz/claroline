@@ -89,6 +89,18 @@ function upgrade_main_database_module_to_19 ()
             else return $step ;
 
             unset($sqlForUpdate);
+        
+        case 4 :
+
+            // module
+            $sqlForUpdate[] = "UPDATE `" . $tbl_mdb_names['module'] . "`
+                SET `name` = 'Announcements'
+                WHERE `name`= 'Announcement'";
+                        
+            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+            else return $step ;
+
+            unset($sqlForUpdate);
 
         default :
 
