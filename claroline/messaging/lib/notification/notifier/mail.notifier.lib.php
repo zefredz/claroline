@@ -54,7 +54,7 @@ class MailNotifier implements MessagingNotifier
                 $courseData = claro_get_course_data();
                 
                 $stringManager = get_block('Course manager of %course%(%courseCode%)',
-                array('%course%' => $courseData['name'], '%courseCode%'=> $courseData['sysCode']));
+                array('%course%' => $courseData['name'], '%courseCode%'=> $courseData['officialCode']));
             }
         }
         
