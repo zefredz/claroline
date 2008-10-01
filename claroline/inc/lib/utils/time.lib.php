@@ -17,6 +17,21 @@
 
 class Claro_Utils_Time
 {
+    public static function isIso8601( $dateStr )
+    {
+        return preg_match( '/\d{4}-\d{2}-\d{2}T\d{2}\:\d{2}\:\d{2}\+\d{2}\:\d{2}/i', $dateStr );
+    }
+    
+    public static function iso8601ToDatetime( $iso8601Str )
+    {
+        if ( ! self::isIso8601( $iso8601Str ) )
+        {
+            return false;
+        }
+        
+        return preg_replace( '/(\d{4}-\d{2}-\d{2})T(\d{2}\:\d{2}\:\d{2})\+\d{2}\:\d{2}/i', "$1 $2", $iso8601Str ) ;
+    }
+    
     public static function timeToIso8601( $time = null )
     {
         if ( is_null( $time ) ) $time = time();
