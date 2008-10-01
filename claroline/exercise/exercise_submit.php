@@ -650,6 +650,40 @@ else // ! $showSubmitForm
     $out .= $dialogBox->render();
 }
 
+/**
+ * Output
+ */
+// add a function used to simulate <label> tag on QCM as using label around answer is not valid since
+// there can be p tags etc in it
+$htmlHeaders = "\n".'
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".labelizer").click(function() {
+            if( $(this).find("input").attr("type") == "checkbox" )
+            {
+                if( $(this).find("input").attr("checked") )
+                {
+                    $(this).find("input").removeAttr("checked");
+                }
+                else
+                {
+                    $(this).find("input").attr("checked","checked");
+                }
+            }
+            else if( $(this).find("input").attr("type") == "radio" )
+            {
+                // uncheck all input of this level
+                $(this).parent("tr").find("input").removeAttr("checked");
+                $(this).find("input").attr("checked","checked");
+            }
+        })
+    });
+
+
+</script>' . "\n\n";
+
+$claroline->display->header->addHtmlHeader($htmlHeaders);
+
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
