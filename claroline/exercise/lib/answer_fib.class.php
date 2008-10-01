@@ -497,27 +497,34 @@ class answerFillInBlanks
         {
             if( $this->isResponseCorrect($this->response[$i],$this->answerDecode($this->answerList[$i])) )
             {
-                $displayedResponse = htmlspecialchars($this->answerDecode($this->response[$i]));
+                // user answer is ok
+                $userAnswer = htmlspecialchars($this->answerDecode($this->response[$i]));
             }
             else
             {
                 if( empty($this->response[$i]) )
                 {
                     // no response for this blank
-                    $displayedResponse = '&nbsp;&nbsp;&nbsp;&nbsp;';
+                    $userAnswer = '&nbsp;&nbsp;&nbsp;&nbsp;';
                 }
                 else
                 {
-                    // response incorrect
-                    $displayedResponse = '<span class="error"><s>'.htmlspecialchars($this->answerDecode($this->response[$i])).'</s></span>';
-
+                    // incorrect response
+                    $userAnswer = '<span class="error"><s>'.htmlspecialchars($this->answerDecode($this->response[$i])).'</s></span>';
                 }
             }
-            $replacementList[] = '[' . $displayedResponse . ' / <span class="correct"><b>'.htmlspecialchars($this->answerDecode($this->answerList[$i])).'</b></span>]' . "\n";
+            
+            // 
+            $correctAnswer = htmlspecialchars($this->answerDecode($this->answerList[$i]));
+            $correctAnswer = htmlspecialchars($correctAnswer);
+            
+            $replacementList[] = str_replace('$', '\$', '[' . $userAnswer . ' / <span class="correct"><b>'.$correctAnswer.'</b></span>]' . "\n");
 
         }
 
         // apply replacement on answer
+        // use preg_replace instead of str_replace because if there is several blanks 
+        // with same correct value using str_replace will replace each occurence by the 1st one he found
         $displayedAnswer = preg_replace( $blankList, $replacementList, claro_parse_user_text($this->answerDecode($this->answerText)), 1 );
 
         $html =
