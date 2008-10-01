@@ -401,7 +401,7 @@ class answerFillInBlanks
                         $selected = ''; // default is the empty element
                     }
 
-                    $replacementList[] = claro_html_form_select('a_'.$this->questionId.'_'.$i, $optionList, $selected);
+                    $replacementList[] = str_replace('$', '\$', claro_html_form_select('a_'.$this->questionId.'_'.$i, $optionList, $selected));
                 }
             }
             else
@@ -411,7 +411,7 @@ class answerFillInBlanks
                     if( isset($this->response[$i]) )     $value = $this->response[$i];
                     else                                $value = '';
 
-                    $replacementList[] = ' <input type="text" name="a_'.$this->questionId.'_'.$i.'" size="10" value="'.$value.'" /> ';
+                    $replacementList[] = str_replace('$', '\$', ' <input type="text" name="a_'.$this->questionId.'_'.$i.'" size="10" value="'.$value.'" /> ');
                 }
             }
 
