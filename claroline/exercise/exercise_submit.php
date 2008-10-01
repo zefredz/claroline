@@ -73,18 +73,28 @@ else                                                            $exId = null;
 if( isset($_REQUEST['step']) && is_numeric($_REQUEST['step']) ) $step = (int) $_REQUEST['step'];
 else                                                            $step = 0;
 
+
+/**
+ * Handle SESSION
+ * - refresh data in session if required
+ * - copy session content locally to use local var in script
+ * - 
+ */
 $resetQuestionList = false;
+
+
 // if exercise is not in session try to load it.
 // if exId has been defined in request force refresh of exercise in session
 if( !isset($_SESSION['serializedExercise']) || !is_null($exId) )
 {
+    // clean previous exercise if any
+    unset($_SESSION['serializedExercise']);
+    
     $exercise = new Exercise();
 
     if( is_null($exId) || !$exercise->load($exId) )
     {
         // exercise is required
-        unset($_SESSION['serializedExercise']);
-
         header("Location: ./exercise.php");
         exit();
     }
@@ -96,9 +106,6 @@ if( !isset($_SESSION['serializedExercise']) || !is_null($exId) )
         && ( ! isset($_SESSION['inPathMode']) || ! $_SESSION['inPathMode'] || ! $inLP )
          )
         {
-            // exercise is required
-            unset($_SESSION['serializedExercise']);
-
             header("Location: ./exercise.php");
             exit();
         }
@@ -111,6 +118,7 @@ if( !isset($_SESSION['serializedExercise']) || !is_null($exId) )
 }
 else
 {
+    // get it back from session
     $exercise = unserialize($_SESSION['serializedExercise']);
     $exId = $exercise->getId();
 }
@@ -155,10 +163,20 @@ else
 $questionCount = count($questionList);
 
 
+$now = time();
+
+if( !isset($_SESSION['exeStartTime']) )
+{
+    $_SESSION['exeStartTime'] = $now;
+    $currentTime = 0;
+}
+else
+{
+    $currentTime = $now - $_SESSION['exeStartTime'];
+}
+
 //-- exercise properties
 $dialogBox = new DialogBox();
-
-$now = time();
 
 if( claro_is_user_authenticated() )
 {
@@ -202,15 +220,11 @@ if( !$is_allowedToEdit )
 }
 
 
-if(!isset($_SESSION['exeStartTime']) )
-{
-    $_SESSION['exeStartTime'] = $now;
-}
 
 // exercise is submitted - GRADE EXERCISE
 if( isset($_REQUEST['cmdOk']) && $_REQUEST['cmdOk'] && $exerciseIsAvailable )
 {
-    $timeToCompleteExe =  $now - $_SESSION['exeStartTime'];
+    $timeToCompleteExe =  $currentTime;
     $recordResults = true;
 
     // the time limit is set and the user take too much time to complete exercice
@@ -235,7 +249,12 @@ if( isset($_REQUEST['cmdOk']) && $_REQUEST['cmdOk'] && $exerciseIsAvailable )
             $showAnswers = false;
         }
     }
-
+    
+    // clean session to avoid receiving same exercise next time
+    unset($_SESSION['serializedExercise']);
+    unset($_SESSION['serializedQuestionList']);
+    unset($_SESSION['exeStartTime']);
+    
     $showResult = true;
     $showSubmitForm = false;
 
@@ -257,7 +276,7 @@ if( isset($_REQUEST['cmdOk']) && $_REQUEST['cmdOk'] && $exerciseIsAvailable )
             $totalResult += $questionResult[$i];
             $totalGrade += $questionGrade[$i];
         }
-
+        
         //-- tracking
         // if anonymous attempts are authorised : record anonymous user stats, record authentified user stats without uid
         if ( $exercise->getAnonymousAttempts() == 'ALLOWED' )
@@ -324,9 +343,6 @@ if( isset($_REQUEST['cmdOk']) && $_REQUEST['cmdOk'] && $exerciseIsAvailable )
             set_learning_path_progression($totalResult,$totalGrade,$timeToCompleteExe,claro_get_current_user_id());
         }
     }
-    
-
-    
 }
 elseif( ! $exerciseIsAvailable )
 {
@@ -395,7 +411,7 @@ if( trim($exercise->getDescription()) != '' )
 $out .= '<ul style="font-size:small">' . "\n";
 if( $exercise->getDisplayType() == 'SEQUENTIAL' )
 {
-    $out .= '<li>' . get_lang('Current time')." : ". claro_html_duration($now - $_SESSION['exeStartTime']) . '</li>' . "\n";
+    $out .= '<li>' . get_lang('Current time')." : ". claro_html_duration($currentTime) . '</li>' . "\n";
 }
 
 if( $exercise->getTimeLimit() > 0 )

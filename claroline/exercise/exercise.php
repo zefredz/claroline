@@ -41,10 +41,6 @@ $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_lp_module = $tbl_cdb_names['lp_module'];
 $tbl_lp_asset = $tbl_cdb_names['lp_asset'];
 
-// session cleaning to prevent sessions clashes
-unset($_SESSION['serializedExercise']);
-unset($_SESSION['serializedQuestionList']);
-unset($_SESSION['exeStartTime']);
 
 $_SESSION['inPathMode'] = false;
 
