@@ -12,16 +12,17 @@
  *
  * @package LANG-EL
  *
- * @author Costas Tsibanis		<costas@noc.uoa.gr>
- * @author Yannis Exidaridis 	<jexi@noc.uoa.gr>
- * @author Christophe Geschι <moosh@claroline.net>
+ * @author Costas Tsibanis      <costas@noc.uoa.gr>
+ * @author Yannis Exidaridis    <jexi@noc.uoa.gr>
+ * @author Christophe GeschΞΉ <moosh@claroline.net>
+ * @author Lefteris Zacharia    <lefteris.zacharia@lzcomputers.com>
  */
 $englishLangName = "greek";
 
 $iso639_1_code = "el";
 $iso639_2_code = "gre";
 
-$charset = 'iso-8859-7';
+$charset = 'utf-8';
 $text_dir = 'ltr'; // ('ltr' for left to right, 'rtl' for right to left)
 $left_font_family = 'verdana, helvetica, arial, geneva, sans-serif';
 $right_font_family = 'helvetica, arial, geneva, sans-serif';
@@ -29,20 +30,20 @@ $number_thousands_separator = ',';
 $number_decimal_separator = '.';
 $byteUnits = array('Bytes', 'KB', 'MB', 'GB');
 
-$langDay_of_weekNames['init'] = array('Κ', 'Δ', 'Τ', 'Τ', 'Π', 'Π', 'Σ');
-$langDay_of_weekNames['short'] = array('Κυρ', 'Δευ', 'Τρι', 'Τετ', 'Πεμ', 'Παρ', 'Σαβ');
-$langDay_of_weekNames['long'] = array('Κυριακή', 'Δευτέρα', 'Τρίτη', 'Τετάρτη', 'Πέμπτη', 'Παρασκευή', 'Σάββατο');
+$langDay_of_weekNames['init'] = array('Ξ', 'Ξ”', 'Ξ¤', 'Ξ¤', 'Ξ ', 'Ξ ', 'Ξ£');
+$langDay_of_weekNames['short'] = array('ΞΟ…Ο', 'Ξ”ΞµΟ…', 'Ξ¤ΟΞΉ', 'Ξ¤ΞµΟ„', 'Ξ ΞµΞΌ', 'Ξ Ξ±Ο', 'Ξ£Ξ±Ξ²');
+$langDay_of_weekNames['long'] = array('ΞΟ…ΟΞΉΞ±ΞΊΞ®', 'Ξ”ΞµΟ…Ο„Ξ­ΟΞ±', 'Ξ¤ΟΞ―Ο„Ξ·', 'Ξ¤ΞµΟ„Ξ¬ΟΟ„Ξ·', 'Ξ Ξ­ΞΌΟ€Ο„Ξ·', 'Ξ Ξ±ΟΞ±ΟƒΞΊΞµΟ…Ξ®', 'Ξ£Ξ¬Ξ²Ξ²Ξ±Ο„ΞΏ');
 
-$langMonthNames['init']  = array('Ι', 'Φ', 'Μ', 'Α', 'Μ', 'Ι', 'Ι', 'Α', 'Σ', 'Ο', 'Ν', 'Δ');
-$langMonthNames['short'] = array('Ιαν', 'Φεβ', 'Μαρ', 'Απρ', 'Μάι', 'Ιουν', 'Ιουλ', 'Αυγ', 'Σεπ', 'Οκτ', 'Νοε', 'Δεκ');
-$langMonthNames['long'] = array('Ιανουάριος', 'Φεβρουάριος', 'Μάρτιος', 'Απρίλιος', 'Μάιος', 'Ιούνιος', 'Ιούλιος', 'Αύγουστος', 'Σεπτέμβριος', 'Οκτώβριος', 'Νοέμβριος', 'Δεκέμβριος');
+$langMonthNames['init']  = array('Ξ™', 'Ξ¦', 'Ξ', 'Ξ‘', 'Ξ', 'Ξ™', 'Ξ™', 'Ξ‘', 'Ξ£', 'Ξ', 'Ξ', 'Ξ”');
+$langMonthNames['short'] = array('Ξ™Ξ±Ξ½', 'Ξ¦ΞµΞ²', 'ΞΞ±Ο', 'Ξ‘Ο€Ο', 'ΞΞ¬ΞΉ', 'Ξ™ΞΏΟ…Ξ½', 'Ξ™ΞΏΟ…Ξ»', 'Ξ‘Ο…Ξ³', 'Ξ£ΞµΟ€', 'ΞΞΊΟ„', 'ΞΞΏΞµ', 'Ξ”ΞµΞΊ');
+$langMonthNames['long'] = array('Ξ™Ξ±Ξ½ΞΏΟ…Ξ¬ΟΞΉΞΏΟ‚', 'Ξ¦ΞµΞ²ΟΞΏΟ…Ξ¬ΟΞΉΞΏΟ‚', 'ΞΞ¬ΟΟ„ΞΉΞΏΟ‚', 'Ξ‘Ο€ΟΞ―Ξ»ΞΉΞΏΟ‚', 'ΞΞ¬ΞΉΞΏΟ‚', 'Ξ™ΞΏΟΞ½ΞΉΞΏΟ‚', 'Ξ™ΞΏΟΞ»ΞΉΞΏΟ‚', 'Ξ‘ΟΞ³ΞΏΟ…ΟƒΟ„ΞΏΟ‚', 'Ξ£ΞµΟ€Ο„Ξ­ΞΌΞ²ΟΞΉΞΏΟ‚', 'ΞΞΊΟ„ΟΞ²ΟΞΉΞΏΟ‚', 'ΞΞΏΞ­ΞΌΞ²ΟΞΉΞΏΟ‚', 'Ξ”ΞµΞΊΞ­ΞΌΞ²ΟΞΉΞΏΟ‚');
 
 // Voir http://www.php.net/manual/en/function.strftime.php pour la variable
 // ci-dessous
 
 $dateFormatShort =  "%b %d, %y";
 $dateFormatLong  = '%A %B %d, %Y';
-$dateTimeFormatLong  = '%d %B %Y, στις %I:%M %p';
+$dateTimeFormatLong  = '%d %B %Y, ΟƒΟ„ΞΉΟ‚ %I:%M %p';
 $timeNoSecFormat = '%I:%M %p';
 
 

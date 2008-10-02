@@ -1,2256 +1,2637 @@
 <?php 
-$_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! μέγεθος πηγής πληροφοριών μαθήματος (συμπεριλαμβάνεται το claroline και άχρηστα σε παλιά συστήματα)';
-$_lang['%1\$s by %2\$s'] = '%1$s απο %2$s';
-$_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s τροποποιήθηκε στις %2$s από %3$s';
-$_lang['%chat_filename is now in the document tool. (<em>This file is visible</em>)'] = '%chat_filename είναι τώρα στο εργαλείο εγγράφου. (<em>Αυτό το αρχείο είναι ορατό</em>)';
-$_lang['%date not valid'] = '%date δεν ισχύει';
-$_lang['%delay ago'] = '%delay πρίν';
-$_lang['%firstname %lastname has been registered to your course'] = '%firstname %lastname έχει εγγραφεί στο μάθημα';
-$_lang['%groupQty group(s) has (have) been added'] = '%groupQty ομάδα(ες) έχει (έχουν) εγγραφεί';
-$_lang['%moduleName has been added as module'] = '%moduleName έχει προστεθεί ως module τους μαθήματος και αυτής της διαδρομής μάθησης';
-$_lang['%moduleName is already used as a module in this learning path'] = '%moduleName χρησιμοποιείται ήδη ως module αυτής της διαδρομής μάθησης';
-$_lang['%name should be an array'] = '%name θα έπρεπε να είναι πίνακας';
-$_lang['%name should be boolean'] = '%name θα έπρεπε να είναι boolean';
-$_lang['%name should be integer'] = '%name θα έπρεπε να είναι integer';
-$_lang['%name should be integer inferior or equal to %value'] = '%name θα έπρεπε να είναι integer inferior ή ίσο με %value';
-$_lang['%name should be integer superior or equal to %value'] = '%name θα έπρεπε να είναι integer superior ή ίσο με %value';
-$_lang['%name should be match %regular_expression'] = '%name θα έπρεπε να ταιριάζει με %regular_expression';
-$_lang['%nb course(s)'] = '%nb μάθημα(τα)';
-$_lang['%nb course(s) manager(s)'] = '%nb μάθημα(τα) διαχειριστής(ες)';
-$_lang['%nb errors found'] = '%nb λάθη βρέθηκαν';
-$_lang['%nb member(s)'] = '%nb μέλος(η)';
-$_lang['%nb message(s)'] = '%nb μήνυμα(τα)';
-$_lang['%nb student(s)'] = '%nb μαθητής(ες)';
-$_lang['%number student(s) unregistered from this course'] = '%number μαθητής(ες) μη εγγεγραμένοι από αυτό το μάθημα';
-$_lang['%value should be in enum list of %name'] = '%value θα έπρεπε να είναι στην απαριθμημένη λίστα του %name';
-$_lang['%value should be in the accepted value list of %name'] = '%value θα έπρεπε να είναι στην αποδεχτή λίστα τιμών του %name';
-$_lang['&#91;British people&#93; live in &#91;United Kingdom&#93;.'] = '[Οι Έλληνες] ζούν στην [Ελλάδα].';
-$_lang['(*) anonymous users, users who are not members of this course...'] = 'ανώνυμοι χρήστες και χρήστες που δεν είναι μέλη αυτού του μαθήματος...';
-$_lang['(d/m/y hh:mm)'] = '(d/m/y hh:mm)= (μέρα/μήνας/έτος ώρες:λεπτά)';
-$_lang['(none)'] = '(κανένας)';
-$_lang['(optional)'] = '(προαιρετικό)';
-$_lang['(version of %1\$s modified by %2\$s)'] = '(έκδοση από %1$s τροποποιημένή απο%2$s)';
-$_lang['- none -'] = '- κανένα -';
-$_lang['<b>From</b> %startDate <b>until</b> %endDate'] = '<b>Από</b> %startDate <b>μέχρι</b> %endDate';
-$_lang['<b>From</b> %start_date <b>until</b> %end_date'] = '<b>Από</b> %start_date <b>μέχρι</b> %end_date';
-$_lang['<b>Security :</b> We recommend to set register_globals to off in php.ini'] = '<b>Ασφάλεια :</b> Προτείνουμε να ορίσετε την τιμή off στο πεδίο register_globals στο αρχείο php.ini';
-$_lang['<b>Warning : </b>'] = '<b>Προειδοποίηση : </b>';
-$_lang['<i>%firstname %lastname</i> has been sucessfully registered to the course'] = '<i>%firstname %lastname</i> έχει εγγραφεί επιτυχώς στο μάθημα';
-$_lang['<i>%firstname %lastname</i> has not been sucessfully registered to the course'] = '<i>%firstname %lastname</i> δεν έχει εγγραφεί επιτυχώς στο μάθημα';
-$_lang['<label1>Yes</label1>, <label2>take</label2> %nb questions among %total'] = '<label1>Ναί</label1>, <label2>διάλεξε</label2> %nb ερωτήσεις από %total';
-$_lang['<span class="required">*</span> denotes required field'] = '<span class="required">*</span> δηλώνει απαιτούμενο πεδίο';
-$_lang['<strong>Approved</strong><p>Your campus registration has been approved by the Claroline.net team.</p>'] = '<strong>Εγκρίθηκε</strong><p>Η εγγραφή σας στο campus έχει γίνει αποδεκτή απο την ομάδα του Claroline.net .<br />Σύνδεση με το campus σου. Φαίνεται στην σελίδα του Claroline.net.</p>';
-$_lang['<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our website) if you think this is an error.</p>'] = '<strong>Διαγραμμένο</strong><p>Η εγγραφή σας στο campus έχει απενεργοποιηθεί, επικοινωνήστε μαζί μας εαν θεωρείτε ότι υπάρχει κάποιο σφάλμα.</p>';
-$_lang['<strong>Removed</strong><p>Your campus has been removed from the worldwide page.</p>'] = '<strong>Αφαιρέθηκε</strong><p>Το campus σου, έχει αφαιρεθεί απο την σελίδα Claroline.net.</p>';
-$_lang['<strong>Submitted</strong><p>Waiting for validation by Claroline.net team.</p>'] = '<strong>Υποβλήθηκε</strong><p>Αναμονή επικύρωσης απο την ομάδα του Claroline.net .</p>';
-$_lang['A file with this name already exists.'] = 'Ένα αρχείο με αυτό το όνομα υπάρχει ήδη.';
-$_lang['A list of keys allowing requests to the Claroline SSO server. The SSO client have to provide one of the keys contained into this list to receive any answer from the Claroline SSO server.'] = 'Μια λίστα κλειδιών που επιτρέπουν αιτήσεις στον Claroline SSO server. Ο πελάτης SSO πρέπει να παρέχει ένα απο τα κλειδιά που εμπεριέχονται σε αυτή τη λίστα για να λάβει οποιαδήποτε απάντηση από τον Claroline SSO server.';
-$_lang['A reply to your topic has been posted'] = 'Στάλθηκε μια απάντηση στο θέμα σας.';
-$_lang['A tutor attached to a group can subscribe himself to another group as a simple user.'] = 'Ένας καθηγητής συνδεδεμένος σε μία ομάδα μπορεί να εγγραφεί σε μία άλλη ομάδα σαν απλός χρήστης.';
-$_lang['A user can be a member of maximum %nb groups'] = 'Ένας χρήστης μπορεί να είναι μέλος το πολύ %nb ομάδων';
-$_lang['About'] = 'Σχετικά';
-$_lang['Accept email as valid (best choice)'] = 'Δέξου το email ως ισχύον (η καλύτερη επιλογή)';
-$_lang['Access'] = 'Πρόσβαση';
-$_lang['Access allowed'] = 'Η πρόσβαση επιτράπηκε';
-$_lang['Access control management'] = ' Διαχείριση ελέγχου πρόσβασης ';
-$_lang['Access count'] = 'Αριθμός προσβάσεων';
-$_lang['Accounts with same <i>Email</i>'] = 'Λογαριασμοί με το ίδιο <i>Email</i>';
-$_lang['Accounts with same <i>User name</i>'] = 'Λογαριασμοί με το ίδιο <i>User name</i>';
-$_lang['Accounts with same <i>User name</i> AND same <i>Password</i>'] = 'Λογαριασμοί με το ίδιο <i>User name</i> ΚΑΙ το ίδιο <i>Password</i>';
-$_lang['Action'] = 'Ενέργεια';
-$_lang['Activated'] = 'Ενεργοποιημένο';
-$_lang['Activated - Click to deactivate'] = 'Ενεργοποιημένο - Click για απενεργοποίηση';
-$_lang['Add'] = 'Πρόσθεσε';
-$_lang['Add Text'] = 'Πρόσθεσε Κείμενο';
-$_lang['Add a category'] = 'Προσθήκη κατηγορίας';
-$_lang['Add a comment'] = 'Προσθήκη / αλλαγή σχολίου στο';
-$_lang['Add a document'] = 'Εισαγωγή εγγράφου σαν ενότητα (module)';
-$_lang['Add a module of this course'] = 'Εισαγωγή της ενότητας';
-$_lang['Add a user'] = 'Προσθέστε ένα χρήστη';
-$_lang['Add a user list'] = 'Πρόσθεσε λίστα χρηστών';
-$_lang['Add a user list in class'] = 'Πρόσθεσε λίστα χρηστών στην τάξη ';
-$_lang['Add a user list in course'] = 'Πρόσθεσε λίστα χρηστών στο μάθημα';
-$_lang['Add an event'] = 'Προσθήκη ενός γεγονότος';
-$_lang['Add an exercise'] = 'Εισαγωγή της άσκησης μου';
-$_lang['Add announcement'] = 'Προσθήκη Ανακοίνωσης';
-$_lang['Add answ.'] = 'Προσθήκη απάντησης';
-$_lang['Add elem.'] = 'Προσθήκη στοιχείων';
-$_lang['Add external link'] = 'Πρόσθεσε εξωτερικό σύνδεσμο';
-$_lang['Add feedback'] = 'Πρόσθεσε απάντηση';
-$_lang['Add forum'] = ' Προσθέστε συζήτηση';
-$_lang['Add me to this group'] = 'Προσθέστε με στην ομάδα';
-$_lang['Add module(s)'] = 'Πρόσθεσε ενότητα -ες (μονάδα -ες προγράμματος)';
-$_lang['Add my campus on Claroline.net website'] = 'Πρόσθεσε το campus στο Claroline.net ';
-$_lang['Add new heading'] = 'Πρόσθεσε νέα επικεφαλίδα';
-$_lang['Add new profile'] = 'Προσθήκη νέου προφίλ';
-$_lang['Add user'] = 'Προσθήκη χρήστη';
-$_lang['Add user list'] = 'Προσθήκη λίστα χρήστη';
-$_lang['Add user manually'] = 'Πρσθήκη χρήστη';
-$_lang['Add wrong answers for drop down lists <small>(Optionnal. One wrong answer by line.)</small>'] = ' Προσθέστε τις λανθασμένες απαντήσεις για τη λίστα καταλόγου <small>(Προαιρετικό. Μια λανθασμένη απάντηση σε κάθε  γραμμή.) </small>';
-$_lang['Added line'] = ' Προστιθέμενη γραμμή ';
-$_lang['Administration'] = 'Διαχείριση';
-$_lang['Administrative code'] = 'Κωδικός διαχείρισης';
-$_lang['Administrator'] = 'Διαχειριστής';
-$_lang['Administrator for %site_name'] = 'Διαχειριστής για το %site_name';
-$_lang['Advanced'] = 'Προχωρημένο';
-$_lang['Advanced course search'] = 'Σύνθετη αναζήτηση μαθήματος';
-$_lang['Advanced settings'] = 'Προχωρημένες ρυθμίσεις';
-$_lang['Advanced user search'] = 'Σύνθετη αναζήτηση χρήστη';
-$_lang['After last allowed attempt'] = 'Μετά την τελευταία επιτρεπόμενη προσπάθεια';
-$_lang['Agenda'] = 'Ατζέντα';
-$_lang['Agenda next events'] = 'Επόμενα γεγονόντα της Ατζέντας';
-$_lang['Agreement text displayed before the "Create user account" page'] = 'Κείμενο αποδοχής εμφανίστηκε πριν από τη σελίδα "Δημιουργία λογαριασμού χρήστη" ';
-$_lang['All'] = 'Όλα';
-$_lang['All exercises'] = 'Όλες τις ασκήσεις';
-$_lang['All groups are now empty'] = 'Όλες οι ομάδες χρηστών είναι άδειες';
-$_lang['All groups have been deleted'] = 'Ολες οι ομάδες χρηστών έχουν διαγραφεί';
-$_lang['All modules of this course are already used in this learning path.'] = 'Όλες οι ενότητες αυτού του μαθήματος ήδη χρησιμοποιήθηκαν σε αυτή τη διαδρομή μάθησης.';
-$_lang['All pages'] = ' Όλες οι σελίδες ';
-$_lang['All platform courses'] = 'Όλα τα μαθήματα της πλατφόρμας';
-$_lang['All profiles'] = 'Όλα τα προφίλ';
-$_lang['All users have been sucessfully unregistered from the class'] = 'Όλοι οι χρήστες έχουν απεγγραφεί επιτυχώς από την τάξη';
-$_lang['All visible submissions'] = 'Όλες οι ορατές υποβολές';
-$_lang['Allow course manager to delete their own courses'] = 'Επιτρέπεται στους διαχειριστές να σβήσουν τα μαθήματα τους';
-$_lang['Allow enrolment/unenrolment to courses by the users'] = 'Επιτρέπεται εγγραφή/διαγραφή σε μαθήματα απο τους χρήστες';
-$_lang['Allow late upload'] = 'Να επιτρέπεται η καθυστερημένη υποβολή';
-$_lang['Allow teachers to subscribe a user in several groups'] = 'Επιτρέπεται στους καθηγητές να εγγράψουν ένα χρήστη σε πολλαπλές ομάδες';
-$_lang['Allow to modify field'] = 'Επιτρέπεται τη μεταβολή του πεδίου';
-$_lang['Allow users to see detailed informations about other users'] = 'Επιτρέπεται οι χρήστες να βλέπουν λεπτομερής πληροφορίες για άλλους χρήστες';
-$_lang['Allowed'] = 'Επιτρέπεται';
-$_lang['Allowed : do not record usernames in tracking, anonymous users can do the exercise.'] = 'Επιτρέπεται: μη καταγραφή των ονομάτων χρηστών στην παρακολούθηση, οι ανώνυμοι χρήστες μπορούν να κάνουν την άσκηση.';
-$_lang['Already browsed'] = 'ήδη αναζητήθηκε';
-$_lang['Already enroled'] = 'ήδη εγγεγραμένος';
-$_lang['An email has been sent to help you remember your user name and password.'] = 'Ένα email έχει σταλεί για να σε βοηθήσει να θυμάσαι το όνομα χρήστη και τον κωδικό πρόσβασης σου.';
-$_lang['An error occurred while contacting Claroline.net'] = 'Προέκυψε σφάλμα κατα την επικοινωνία με το Claroline.net';
-$_lang['Announcement has been added'] = 'Η ανακοίνωση προστέθηκε';
-$_lang['Announcement has been deleted'] = 'η ανακοίνωση διαγράφτηκε';
-$_lang['Announcement has been modified'] = 'η ανακοίνωση άλλαξε';
-$_lang['Announcements'] = 'Ανακοινώσεις';
-$_lang['Announcements list has been cleared up'] = 'Τα περιεχόμενα του καταλόγου ανακοινώσεων διαγράφτηκαν';
-$_lang['Anonymous'] = 'Ανώνυμος';
-$_lang['Anonymous attempts'] = 'Ανώνυμες προσπάθειες';
-$_lang['Anonymous users access count :'] = 'Καταμέτρηση εισόδου ανώνυμων χρηστών: ';
-$_lang['Answer'] = 'Απάντηση';
-$_lang['Answer type'] = 'Πληκτρολογήστε απάντηση';
+$_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! ΞΌΞ­Ξ³ΞµΞΈΞΏΟ‚ Ο€Ξ·Ξ³Ξ®Ο‚ Ο€Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞΉΟΞ½ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ (ΟƒΟ…ΞΌΟ€ΞµΟΞΉΞ»Ξ±ΞΌΞ²Ξ¬Ξ½ΞµΟ„Ξ±ΞΉ Ο„ΞΏ claroline ΞΊΞ±ΞΉ Ξ¬Ο‡ΟΞ·ΟƒΟ„Ξ± ΟƒΞµ Ο€Ξ±Ξ»ΞΉΞ¬ ΟƒΟ…ΟƒΟ„Ξ®ΞΌΞ±Ο„Ξ±)';
+$_lang['%1\$s by %2\$s'] = '%1$s Ξ±Ο€ΞΏ %2$s';
+$_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s Ο„ΟΞΏΟ€ΞΏΟ€ΞΏΞΉΞ®ΞΈΞ·ΞΊΞµ ΟƒΟ„ΞΉΟ‚ %2$s Ξ±Ο€Ο %3$s';
+$_lang['%addUserClass users added to the class'] = '%addUserClass ΞΏΞΉ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ Ξ­Ο‡ΞΏΟ…Ξ½ Ο€ΟΞΏΟƒΞΈΞµΞΈΞµΞ― ΟƒΟ„Ξ·Ξ½ Ο„Ξ¬ΞΎΞ·';
+$_lang['%addUserCourse users added to the course'] = '%addUserCourse ΞΏΞΉ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ Ξ­Ο‡ΞΏΟ…Ξ½ Ο€ΟΞΏΟƒΞΈΞµΞΈΞµΞ― ΟƒΟ„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['%chat_filename is now in the document tool. (<em>This file is visible</em>)'] = '%chat_filename ΞµΞ―Ξ½Ξ±ΞΉ Ο„ΟΟΞ± ΟƒΟ„ΞΏ ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏ ΞµΞ³Ξ³ΟΞ¬Ο†ΞΏΟ…. (<em>Ξ‘Ο…Ο„Ο Ο„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ ΞµΞ―Ξ½Ξ±ΞΉ ΞΏΟΞ±Ο„Ο</em>)';
+$_lang['%date not valid'] = '%date Ξ΄ΞµΞ½ ΞΉΟƒΟ‡ΟΞµΞΉ';
+$_lang['%delay ago'] = '%delay Ο€ΟΞ―Ξ½';
+$_lang['%firstName %lastName'] = '%firstName %lastName';
+$_lang['%firstname %lastname has been registered to your course'] = '%firstname %lastname Ξ­Ο‡ΞµΞΉ ΞµΞ³Ξ³ΟΞ±Ο†ΞµΞ― ΟƒΟ„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['%firstname %lastname has not been added !'] = '%firstname %lastname Ξ΄ΞµΞ½ Ο€ΟΞΏΟƒΞΈΞ­ΞΈΞ·ΞΊΞµ!';
+$_lang['%groupQty group(s) has (have) been added'] = '%groupQty ΞΏΞΌΞ¬Ξ΄Ξ±(ΞµΟ‚) Ξ­Ο‡ΞµΞΉ (Ξ­Ο‡ΞΏΟ…Ξ½) ΞµΞ³Ξ³ΟΞ±Ο†ΞµΞ―';
+$_lang['%moduleName has been added as module'] = '%moduleName Ξ­Ο‡ΞµΞΉ Ο€ΟΞΏΟƒΟ„ΞµΞΈΞµΞ― Ο‰Ο‚ module Ο„ΞΏΟ…Ο‚ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ ΞΊΞ±ΞΉ Ξ±Ο…Ο„Ξ®Ο‚ Ο„Ξ·Ο‚ Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ®Ο‚ ΞΌΞ¬ΞΈΞ·ΟƒΞ·Ο‚';
+$_lang['%moduleName is already used as a module in this learning path'] = '%moduleName Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞµΞ―Ο„Ξ±ΞΉ Ξ®Ξ΄Ξ· Ο‰Ο‚ module Ξ±Ο…Ο„Ξ®Ο‚ Ο„Ξ·Ο‚ Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ®Ο‚ ΞΌΞ¬ΞΈΞ·ΟƒΞ·Ο‚';
+$_lang['%name should be an array'] = '%name ΞΈΞ± Ξ­Ο€ΟΞµΟ€Ξµ Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ Ο€Ξ―Ξ½Ξ±ΞΊΞ±Ο‚';
+$_lang['%name should be boolean'] = '%name ΞΈΞ± Ξ­Ο€ΟΞµΟ€Ξµ Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ boolean';
+$_lang['%name should be integer'] = '%name ΞΈΞ± Ξ­Ο€ΟΞµΟ€Ξµ Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ integer';
+$_lang['%name should be integer inferior or equal to %value'] = '%name ΞΈΞ± Ξ­Ο€ΟΞµΟ€Ξµ Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ integer inferior Ξ® Ξ―ΟƒΞΏ ΞΌΞµ %value';
+$_lang['%name should be integer superior or equal to %value'] = '%name ΞΈΞ± Ξ­Ο€ΟΞµΟ€Ξµ Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ integer superior Ξ® Ξ―ΟƒΞΏ ΞΌΞµ %value';
+$_lang['%name should be match %regular_expression'] = '%name ΞΈΞ± Ξ­Ο€ΟΞµΟ€Ξµ Ξ½Ξ± Ο„Ξ±ΞΉΟΞΉΞ¬Ξ¶ΞµΞΉ ΞΌΞµ %regular_expression';
+$_lang['%nb course(s)'] = '%nb ΞΌΞ¬ΞΈΞ·ΞΌΞ±(Ο„Ξ±)';
+$_lang['%nb course(s) manager(s)'] = '%nb ΞΌΞ¬ΞΈΞ·ΞΌΞ±(Ο„Ξ±) Ξ΄ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ®Ο‚(ΞµΟ‚)';
+$_lang['%nb errors found'] = '%nb Ξ»Ξ¬ΞΈΞ· Ξ²ΟΞ­ΞΈΞ·ΞΊΞ±Ξ½';
+$_lang['%nb member(s)'] = '%nb ΞΌΞ­Ξ»ΞΏΟ‚(Ξ·)';
+$_lang['%nb message(s)'] = '%nb ΞΌΞ®Ξ½Ο…ΞΌΞ±(Ο„Ξ±)';
+$_lang['%nb student(s)'] = '%nb ΞΌΞ±ΞΈΞ·Ο„Ξ®Ο‚(ΞµΟ‚)';
+$_lang['%nb_user not to add'] = '%nb_user Ξ΄ΞµΞ½ ΞΈΞ± Ο€ΟΞΏΟƒΞΈΞµΞΈΞµΞ―';
+$_lang['%newUser users added to the campus'] = '%newUser ΞΏΞΉ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ Ξ­Ο‡ΞΏΟ…Ξ½ Ο€ΟΞΏΟƒΞΈΞµΞΈΞµΞ― ΟƒΟ„ΞΏ Ο€Ξ±Ξ½ΞµΟ€ΞΉΟƒΟ„Ξ®ΞΌΞΉΞΏ';
+$_lang['%number student(s) unregistered from this course'] = '%number ΞΌΞ±ΞΈΞ·Ο„Ξ®Ο‚(ΞµΟ‚) ΞΌΞ· ΞµΞ³Ξ³ΞµΞ³ΟΞ±ΞΌΞ­Ξ½ΞΏΞΉ Ξ±Ο€Ο Ξ±Ο…Ο„Ο Ο„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['%value should be in enum list of %name'] = '%value ΞΈΞ± Ξ­Ο€ΟΞµΟ€Ξµ Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ ΟƒΟ„Ξ·Ξ½ Ξ±Ο€Ξ±ΟΞΉΞΈΞΌΞ·ΞΌΞ­Ξ½Ξ· Ξ»Ξ―ΟƒΟ„Ξ± Ο„ΞΏΟ… %name';
+$_lang['%value should be in the accepted value list of %name'] = '%value ΞΈΞ± Ξ­Ο€ΟΞµΟ€Ξµ Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ ΟƒΟ„Ξ·Ξ½ Ξ±Ο€ΞΏΞ΄ΞµΟ‡Ο„Ξ® Ξ»Ξ―ΟƒΟ„Ξ± Ο„ΞΉΞΌΟΞ½ Ο„ΞΏΟ… %name';
+$_lang['%x rows'] = '%x Ξ³ΟΞ±ΞΌΞΌΞ­Ο‚';
+$_lang['&#91;British people&#93; live in &#91;United Kingdom&#93;.'] = '[ΞΞΉ ΞΞ»Ξ»Ξ·Ξ½ΞµΟ‚] Ξ¶ΞΏΟΞ½ ΟƒΟ„Ξ·Ξ½ [Ξ•Ξ»Ξ»Ξ¬Ξ΄Ξ±].';
+$_lang['(*) anonymous users, users who are not members of this course...'] = 'Ξ±Ξ½ΟΞ½Ο…ΞΌΞΏΞΉ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ ΞΊΞ±ΞΉ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ Ο€ΞΏΟ… Ξ΄ΞµΞ½ ΞµΞ―Ξ½Ξ±ΞΉ ΞΌΞ­Ξ»Ξ· Ξ±Ο…Ο„ΞΏΟ Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚...';
+$_lang['(d/m/y hh:mm)'] = '(d/m/y hh:mm)= (ΞΌΞ­ΟΞ±/ΞΌΞ®Ξ½Ξ±Ο‚/Ξ­Ο„ΞΏΟ‚ ΟΟΞµΟ‚:Ξ»ΞµΟ€Ο„Ξ¬)';
+$_lang['(jj/mm/aaaa)'] = '(ΞΌΞΌ/ΞΌΞΌ/Ο‡Ο‡Ο‡Ο‡)';
+$_lang['(none)'] = '(ΞΊΞ±Ξ½Ξ­Ξ½Ξ±Ο‚)';
+$_lang['(optional)'] = '(Ο€ΟΞΏΞ±ΞΉΟΞµΟ„ΞΉΞΊΟ)';
+$_lang['(version of %1\$s modified by %2\$s)'] = '(Ξ­ΞΊΞ΄ΞΏΟƒΞ· Ξ±Ο€Ο %1$s Ο„ΟΞΏΟ€ΞΏΟ€ΞΏΞΉΞ·ΞΌΞ­Ξ½Ξ® Ξ±Ο€ΞΏ%2$s)';
+$_lang['- none -'] = '- ΞΊΞ±Ξ½Ξ­Ξ½Ξ± -';
+$_lang['<b>From</b> %startDate <b>until</b> %endDate'] = '<b>Ξ‘Ο€Ο</b> %startDate <b>ΞΌΞ­Ο‡ΟΞΉ</b> %endDate';
+$_lang['<b>From</b> %start_date <b>until</b> %end_date'] = '<b>Ξ‘Ο€Ο</b> %start_date <b>ΞΌΞ­Ο‡ΟΞΉ</b> %end_date';
+$_lang['<b>Security :</b> We recommend to set register_globals to off in php.ini'] = '<b>Ξ‘ΟƒΟ†Ξ¬Ξ»ΞµΞΉΞ± :</b> Ξ ΟΞΏΟ„ΞµΞ―Ξ½ΞΏΟ…ΞΌΞµ Ξ½Ξ± ΞΏΟΞ―ΟƒΞµΟ„Ξµ Ο„Ξ·Ξ½ Ο„ΞΉΞΌΞ® off ΟƒΟ„ΞΏ Ο€ΞµΞ΄Ξ―ΞΏ register_globals ΟƒΟ„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ php.ini';
+$_lang['<b>Warning : </b>'] = '<b>Ξ ΟΞΏΞµΞΉΞ΄ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· : </b>';
+$_lang['<i>%firstname %lastname</i> has been sucessfully registered to the course'] = '<i>%firstname %lastname</i> Ξ­Ο‡ΞµΞΉ ΞµΞ³Ξ³ΟΞ±Ο†ΞµΞ― ΞµΟ€ΞΉΟ„Ο…Ο‡ΟΟ‚ ΟƒΟ„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['<i>%firstname %lastname</i> has not been sucessfully registered to the course'] = '<i>%firstname %lastname</i> Ξ΄ΞµΞ½ Ξ­Ο‡ΞµΞΉ ΞµΞ³Ξ³ΟΞ±Ο†ΞµΞ― ΞµΟ€ΞΉΟ„Ο…Ο‡ΟΟ‚ ΟƒΟ„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['<label1>Yes</label1>, <label2>take</label2> %nb questions among %total'] = '<label1>ΞΞ±Ξ―</label1>, <label2>Ξ΄ΞΉΞ¬Ξ»ΞµΞΎΞµ</label2> %nb ΞµΟΟ‰Ο„Ξ®ΟƒΞµΞΉΟ‚ Ξ±Ο€Ο %total';
+$_lang['<span class="required">*</span> denotes required field'] = '<span class="required">*</span> Ξ΄Ξ·Ξ»ΟΞ½ΞµΞΉ Ξ±Ο€Ξ±ΞΉΟ„ΞΏΟΞΌΞµΞ½ΞΏ Ο€ΞµΞ΄Ξ―ΞΏ';
+$_lang['<strong>Approved</strong><p>Your campus registration has been approved by the Claroline.net team.</p>'] = '<strong>Ξ•Ξ³ΞΊΟΞ―ΞΈΞ·ΞΊΞµ</strong><p>Ξ— ΞµΞ³Ξ³ΟΞ±Ο†Ξ® ΟƒΞ±Ο‚ ΟƒΟ„ΞΏ campus Ξ­Ο‡ΞµΞΉ Ξ³Ξ―Ξ½ΞµΞΉ Ξ±Ο€ΞΏΞ΄ΞµΞΊΟ„Ξ® Ξ±Ο€ΞΏ Ο„Ξ·Ξ½ ΞΏΞΌΞ¬Ξ΄Ξ± Ο„ΞΏΟ… Claroline.net .<br />Ξ£ΟΞ½Ξ΄ΞµΟƒΞ· ΞΌΞµ Ο„ΞΏ campus ΟƒΞΏΟ…. Ξ¦Ξ±Ξ―Ξ½ΞµΟ„Ξ±ΞΉ ΟƒΟ„Ξ·Ξ½ ΟƒΞµΞ»Ξ―Ξ΄Ξ± Ο„ΞΏΟ… Claroline.net.</p>';
+$_lang['<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our website) if you think this is an error.</p>'] = '<strong>Ξ”ΞΉΞ±Ξ³ΟΞ±ΞΌΞΌΞ­Ξ½ΞΏ</strong><p>Ξ— ΞµΞ³Ξ³ΟΞ±Ο†Ξ® ΟƒΞ±Ο‚ ΟƒΟ„ΞΏ campus Ξ­Ο‡ΞµΞΉ Ξ±Ο€ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞΉΞ·ΞΈΞµΞ―, ΞµΟ€ΞΉΞΊΞΏΞΉΞ½Ο‰Ξ½Ξ®ΟƒΟ„Ξµ ΞΌΞ±Ξ¶Ξ― ΞΌΞ±Ο‚ ΞµΞ±Ξ½ ΞΈΞµΟ‰ΟΞµΞ―Ο„Ξµ ΟΟ„ΞΉ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ ΞΊΞ¬Ο€ΞΏΞΉΞΏ ΟƒΟ†Ξ¬Ξ»ΞΌΞ±.</p>';
+$_lang['<strong>Removed</strong><p>Your campus has been removed from the worldwide page.</p>'] = '<strong>Ξ‘Ο†Ξ±ΞΉΟΞ­ΞΈΞ·ΞΊΞµ</strong><p>Ξ¤ΞΏ campus ΟƒΞΏΟ…, Ξ­Ο‡ΞµΞΉ Ξ±Ο†Ξ±ΞΉΟΞµΞΈΞµΞ― Ξ±Ο€ΞΏ Ο„Ξ·Ξ½ ΟƒΞµΞ»Ξ―Ξ΄Ξ± Claroline.net.</p>';
+$_lang['<strong>Submitted</strong><p>Waiting for validation by Claroline.net team.</p>'] = '<strong>Ξ¥Ο€ΞΏΞ²Ξ»Ξ®ΞΈΞ·ΞΊΞµ</strong><p>Ξ‘Ξ½Ξ±ΞΌΞΏΞ½Ξ® ΞµΟ€ΞΉΞΊΟΟΟ‰ΟƒΞ·Ο‚ Ξ±Ο€ΞΏ Ο„Ξ·Ξ½ ΞΏΞΌΞ¬Ξ΄Ξ± Ο„ΞΏΟ… Claroline.net .</p>';
+$_lang['A file with this name already exists.'] = 'ΞΞ½Ξ± Ξ±ΟΟ‡ΞµΞ―ΞΏ ΞΌΞµ Ξ±Ο…Ο„Ο Ο„ΞΏ ΟΞ½ΞΏΞΌΞ± Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ Ξ®Ξ΄Ξ·.';
+$_lang['A list of keys allowing requests to the Claroline SSO server. The SSO client have to provide one of the keys contained into this list to receive any answer from the Claroline SSO server.'] = 'ΞΞΉΞ± Ξ»Ξ―ΟƒΟ„Ξ± ΞΊΞ»ΞµΞΉΞ΄ΞΉΟΞ½ Ο€ΞΏΟ… ΞµΟ€ΞΉΟ„ΟΞ­Ο€ΞΏΟ…Ξ½ Ξ±ΞΉΟ„Ξ®ΟƒΞµΞΉΟ‚ ΟƒΟ„ΞΏΞ½ Claroline SSO server. Ξ Ο€ΞµΞ»Ξ¬Ο„Ξ·Ο‚ SSO Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± Ο€Ξ±ΟΞ­Ο‡ΞµΞΉ Ξ­Ξ½Ξ± Ξ±Ο€ΞΏ Ο„Ξ± ΞΊΞ»ΞµΞΉΞ΄ΞΉΞ¬ Ο€ΞΏΟ… ΞµΞΌΟ€ΞµΟΞΉΞ­Ο‡ΞΏΞ½Ο„Ξ±ΞΉ ΟƒΞµ Ξ±Ο…Ο„Ξ® Ο„Ξ· Ξ»Ξ―ΟƒΟ„Ξ± Ξ³ΞΉΞ± Ξ½Ξ± Ξ»Ξ¬Ξ²ΞµΞΉ ΞΏΟ€ΞΏΞΉΞ±Ξ΄Ξ®Ο€ΞΏΟ„Ξµ Ξ±Ο€Ξ¬Ξ½Ο„Ξ·ΟƒΞ· Ξ±Ο€Ο Ο„ΞΏΞ½ Claroline SSO server.';
+$_lang['A reply to your topic has been posted'] = 'Ξ£Ο„Ξ¬Ξ»ΞΈΞ·ΞΊΞµ ΞΌΞΉΞ± Ξ±Ο€Ξ¬Ξ½Ο„Ξ·ΟƒΞ· ΟƒΟ„ΞΏ ΞΈΞ­ΞΌΞ± ΟƒΞ±Ο‚.';
+$_lang['A tutor attached to a group can subscribe himself to another group as a simple user.'] = 'ΞΞ½Ξ±Ο‚ ΞΊΞ±ΞΈΞ·Ξ³Ξ·Ο„Ξ®Ο‚ ΟƒΟ…Ξ½Ξ΄ΞµΞ΄ΞµΞΌΞ­Ξ½ΞΏΟ‚ ΟƒΞµ ΞΌΞ―Ξ± ΞΏΞΌΞ¬Ξ΄Ξ± ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΞµΞ³Ξ³ΟΞ±Ο†ΞµΞ― ΟƒΞµ ΞΌΞ―Ξ± Ξ¬Ξ»Ξ»Ξ· ΞΏΞΌΞ¬Ξ΄Ξ± ΟƒΞ±Ξ½ Ξ±Ο€Ξ»ΟΟ‚ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚.';
+$_lang['A user can be a member of maximum %nb groups'] = 'ΞΞ½Ξ±Ο‚ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ ΞΌΞ­Ξ»ΞΏΟ‚ Ο„ΞΏ Ο€ΞΏΞ»Ο %nb ΞΏΞΌΞ¬Ξ΄Ο‰Ξ½';
+$_lang['About'] = 'Ξ£Ο‡ΞµΟ„ΞΉΞΊΞ¬';
+$_lang['Accept email as valid (best choice)'] = 'Ξ”Ξ­ΞΎΞΏΟ… Ο„ΞΏ email Ο‰Ο‚ ΞΉΟƒΟ‡ΟΞΏΞ½ (Ξ· ΞΊΞ±Ξ»ΟΟ„ΞµΟΞ· ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ®)';
+$_lang['Access'] = 'Ξ ΟΟΟƒΞ²Ξ±ΟƒΞ·';
+$_lang['Access allowed'] = 'Ξ— Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ· ΞµΟ€ΞΉΟ„ΟΞ¬Ο€Ξ·ΞΊΞµ';
+$_lang['Access allowed only to course members (people on the course user list)'] = 'Ξ— Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ· ΞµΟ€ΞΉΟ„ΟΞ­Ο€ΞµΟ„Ξ±ΞΉ ΞΌΟΞ½ΞΏ ΟƒΟ„Ξ± ΞΌΞ­Ξ»Ξ· Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ (Ξ±Ξ½ΞΈΟΟΟ€ΞΏΟ…Ο‚ ΟƒΟ„Ξ·Ξ½ Ξ»Ξ―ΟƒΟ„Ξ± Ο‡ΟΞ·ΟƒΟ„ΟΞ½)';
+$_lang['Access allowed only to platform members (user registered to the platform)'] = 'Ξ— Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ· ΞµΟ€ΞΉΟ„ΟΞ­Ο€ΞµΟ„Ξ±ΞΉ ΞΌΟΞ½ΞΏ ΟƒΟ„Ξ± ΞΌΞ­Ξ»Ξ· Ο„Ξ·Ο‚ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±Ο‚ (ΞµΞ³Ξ³ΞµΞ³ΟΞ±ΞΌΞΌΞ­Ξ½ΞΏΟ…Ο‚ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ ΟƒΟ„Ξ·Ξ½ Ξ»Ξ―ΟƒΟ„Ξ±)';
+$_lang['Access allowed to anybody (even without login)'] = 'Ξ— Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ· ΞµΟ€ΞΉΟ„ΟΞ­Ο€ΞµΟ„Ξ±ΞΉ ΟƒΞµ ΟΞ»ΞΏΟ…Ο‚ (Ο‡ΟΟΞΉΟ‚ ΟΞ½ΞΏΞΌΞ± Ο‡ΟΞ®ΟƒΟ„Ξ· ΞΊΞ±ΞΉ ΞΊΟ‰Ξ΄ΞΉΞΊΟ)';
+$_lang['Access control management'] = ' Ξ”ΞΉΞ±Ο‡ΞµΞ―ΟΞΉΟƒΞ· ΞµΞ»Ξ­Ξ³Ο‡ΞΏΟ… Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ·Ο‚ ';
+$_lang['Access count'] = 'Ξ‘ΟΞΉΞΈΞΌΟΟ‚ Ο€ΟΞΏΟƒΞ²Ξ¬ΟƒΞµΟ‰Ξ½';
+$_lang['Access to course'] = 'Ξ ΟΟΟƒΞ²Ξ±ΟƒΞ· ΟƒΞµ ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['Access to platform'] = 'Ξ ΟΟΟƒΞ²Ξ±ΟƒΞ· ΟƒΟ„Ξ· Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±';
+$_lang['Accounts to merge'] = 'Ξ›ΞΏΞ³Ξ±ΟΞΉΞ±ΟƒΞΌΞΏΞ― Ο‡ΟΞ·ΟƒΟ„ΟΞ½ Ξ³ΞΉΞ± ΟƒΟ…Ξ³Ο‡ΟΞ½ΞµΟ…ΟƒΞ·';
+$_lang['Accounts with same <i>Email</i>'] = 'Ξ›ΞΏΞ³Ξ±ΟΞΉΞ±ΟƒΞΌΞΏΞ― ΞΌΞµ Ο„ΞΏ Ξ―Ξ΄ΞΉΞΏ <i>Email</i>';
+$_lang['Accounts with same <i>User name</i>'] = 'Ξ›ΞΏΞ³Ξ±ΟΞΉΞ±ΟƒΞΌΞΏΞ― ΞΌΞµ Ο„ΞΏ Ξ―Ξ΄ΞΉΞΏ <i>User name</i>';
+$_lang['Accounts with same <i>User name</i> AND same <i>Password</i>'] = 'Ξ›ΞΏΞ³Ξ±ΟΞΉΞ±ΟƒΞΌΞΏΞ― ΞΌΞµ Ο„ΞΏ Ξ―Ξ΄ΞΉΞΏ <i>User name</i> ΞΞ‘Ξ™ Ο„ΞΏ Ξ―Ξ΄ΞΉΞΏ <i>Password</i>';
+$_lang['Action'] = 'Ξ•Ξ½Ξ­ΟΞ³ΞµΞΉΞ±';
+$_lang['Activate module on install'] = 'Ξ•Ξ½ΞµΟΞ³ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· ΞµΞ½ΟΟ„Ξ·Ο„Ξ±Ο‚ ΟƒΟ„Ξ·Ξ½ ΞµΞ³ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ·';
+$_lang['Activate on course creation'] = 'Ξ•Ξ½ΞµΟΞ³ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· ΟƒΟ„Ξ·Ξ½ Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Activated'] = 'Ξ•Ξ½ΞµΟΞ³ΞΏΟ€ΞΏΞΉΞ·ΞΌΞ­Ξ½ΞΏ';
+$_lang['Activated - Click to deactivate'] = 'Ξ•Ξ½ΞµΟΞ³ΞΏΟ€ΞΏΞΉΞ·ΞΌΞ­Ξ½ΞΏ - Click Ξ³ΞΉΞ± Ξ±Ο€ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ·';
+$_lang['Add'] = 'Ξ ΟΟΟƒΞΈΞµΟƒΞµ';
+$_lang['Add Text'] = 'Ξ ΟΟΟƒΞΈΞµΟƒΞµ ΞΞµΞ―ΞΌΞµΞ½ΞΏ';
+$_lang['Add a "Download all submissions" link in the teacher commands'] = 'Ξ ΟΟΟƒΞΈΞµΟƒΞµ Ξ­Ξ½Ξ± ΟƒΟΞ½Ξ΄ΞµΟƒΞΌΞΏ \"ΞΞ±Ο„Ξ­Ξ²Ξ±ΟƒΞµ ΟΞ»ΞµΟ‚ Ο„ΞΉΟ‚ Ο…Ο€ΞΏΞ²ΞΏΞ»Ξ­Ο‚ Ξ±ΞΉΟ„Ξ®ΟƒΞµΟ‰Ξ½\" ΟƒΟ„ΞΉΟ‚ ΞµΞ½Ο„ΞΏΞ»Ξ­Ο‚ Ο„ΞΏΟ… Ξ΄Ξ±ΟƒΞΊΞ¬Ξ»ΞΏΟ…';
+$_lang['Add a category'] = 'Ξ ΟΞΏΟƒΞΈΞ®ΞΊΞ· ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±Ο‚';
+$_lang['Add a comment'] = 'Ξ ΟΞΏΟƒΞΈΞ®ΞΊΞ· / Ξ±Ξ»Ξ»Ξ±Ξ³Ξ® ΟƒΟ‡ΞΏΞ»Ξ―ΞΏΟ… ΟƒΟ„ΞΏ';
+$_lang['Add a comment (optional)'] = 'Ξ ΟΟΟƒΞΈΞµΟƒΞµ Ξ­Ξ½Ξ± ΟƒΟ‡ΟΞ»ΞΉΞΏ (Ο€ΟΞΏΞ±ΞΉΟΞµΟ„ΞΉΞΊΟ)';
+$_lang['Add a document'] = 'Ξ•ΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ® ΞµΞ³Ξ³ΟΞ¬Ο†ΞΏΟ… ΟƒΞ±Ξ½ ΞµΞ½ΟΟ„Ξ·Ο„Ξ± (module)';
+$_lang['Add a module of this course'] = 'Ξ•ΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ® Ο„Ξ·Ο‚ ΞµΞ½ΟΟ„Ξ·Ο„Ξ±Ο‚';
+$_lang['Add a user'] = 'Ξ ΟΞΏΟƒΞΈΞ­ΟƒΟ„Ξµ Ξ­Ξ½Ξ± Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['Add a user list'] = 'Ξ ΟΟΟƒΞΈΞµΟƒΞµ Ξ»Ξ―ΟƒΟ„Ξ± Ο‡ΟΞ·ΟƒΟ„ΟΞ½';
+$_lang['Add a user list in class'] = 'Ξ ΟΟΟƒΞΈΞµΟƒΞµ Ξ»Ξ―ΟƒΟ„Ξ± Ο‡ΟΞ·ΟƒΟ„ΟΞ½ ΟƒΟ„Ξ·Ξ½ Ο„Ξ¬ΞΎΞ· ';
+$_lang['Add a user list in course'] = 'Ξ ΟΟΟƒΞΈΞµΟƒΞµ Ξ»Ξ―ΟƒΟ„Ξ± Ο‡ΟΞ·ΟƒΟ„ΟΞ½ ΟƒΟ„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['Add additional tools in the SDK section of the platform administration.'] = 'Ξ ΟΟΟƒΞΈΞµΟƒΞµ ΞµΟ€ΞΉΟ€ΟΟΟƒΞΈΞµΟ„Ξ± ΞµΟΞ³Ξ±Ξ»ΞµΞ―Ξ± ΟƒΟ„Ξ·Ξ½ ΞµΞ½ΟΟ„Ξ·Ο„Ξ± SDK ΟƒΟ„Ξ·Ξ½ Ξ΄ΞΉΞ±Ο‡ΞµΞ―ΟΞΉΟƒΞ· Ο„Ξ·Ο‚ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±Ο‚';
+$_lang['Add an event'] = 'Ξ ΟΞΏΟƒΞΈΞ®ΞΊΞ· ΞµΞ½ΟΟ‚ Ξ³ΞµΞ³ΞΏΞ½ΟΟ„ΞΏΟ‚';
+$_lang['Add an exercise'] = 'Ξ•ΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ® Ο„Ξ·Ο‚ Ξ¬ΟƒΞΊΞ·ΟƒΞ·Ο‚ ΞΌΞΏΟ…';
+$_lang['Add an image'] = 'Ξ ΟΟΟƒΞΈΞµΟƒΞµ ΞΌΞΉΞ± ΞµΞΉΞΊΟΞ½Ξ±';
+$_lang['Add announcement'] = 'Ξ ΟΞΏΟƒΞΈΞ®ΞΊΞ· Ξ‘Ξ½Ξ±ΞΊΞΏΞ―Ξ½Ο‰ΟƒΞ·Ο‚';
+$_lang['Add answ.'] = 'Ξ ΟΞΏΟƒΞΈΞ®ΞΊΞ· Ξ±Ο€Ξ¬Ξ½Ο„Ξ·ΟƒΞ·Ο‚';
+$_lang['Add elem.'] = 'Ξ ΟΞΏΟƒΞΈΞ®ΞΊΞ· ΟƒΟ„ΞΏΞΉΟ‡ΞµΞ―Ο‰Ξ½';
+$_lang['Add external link'] = 'Ξ ΟΟΟƒΞΈΞµΟƒΞµ ΞµΞΎΟ‰Ο„ΞµΟΞΉΞΊΟ ΟƒΟΞ½Ξ΄ΞµΟƒΞΌΞΏ';
+$_lang['Add external links to your course'] = 'Ξ ΟΟΟƒΞΈΞµΟƒΞµ ΞµΞΎΟ‰Ο„ΞµΟΞΉΞΊΞΏΟΟ‚ ΟƒΟ…Ξ½Ξ΄Ξ­ΟƒΞΌΞΏΟ…Ο‚ ΟƒΟ„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ± ΟƒΞΏΟ…';
+$_lang['Add feedback'] = 'Ξ ΟΟΟƒΞΈΞµΟƒΞµ Ξ±Ο€Ξ¬Ξ½Ο„Ξ·ΟƒΞ·';
+$_lang['Add forum'] = ' Ξ ΟΞΏΟƒΞΈΞ­ΟƒΟ„Ξµ ΟƒΟ…Ξ¶Ξ®Ο„Ξ·ΟƒΞ·';
+$_lang['Add me to this group'] = 'Ξ ΟΞΏΟƒΞΈΞ­ΟƒΟ„Ξµ ΞΌΞµ ΟƒΟ„Ξ·Ξ½ ΞΏΞΌΞ¬Ξ΄Ξ±';
+$_lang['Add module(s)'] = 'Ξ ΟΟΟƒΞΈΞµΟƒΞµ ΞµΞ½ΟΟ„Ξ·Ο„Ξ± -ΞµΟ‚ (ΞΌΞΏΞ½Ξ¬Ξ΄Ξ± -ΞµΟ‚ Ο€ΟΞΏΞ³ΟΞ¬ΞΌΞΌΞ±Ο„ΞΏΟ‚)';
+$_lang['Add my campus on Claroline.net website'] = 'Ξ ΟΟΟƒΞΈΞµΟƒΞµ Ο„ΞΏ campus ΟƒΟ„ΞΏ Claroline.net ';
+$_lang['Add new heading'] = 'Ξ ΟΟΟƒΞΈΞµΟƒΞµ Ξ½Ξ­Ξ± ΞµΟ€ΞΉΞΊΞµΟ†Ξ±Ξ»Ξ―Ξ΄Ξ±';
+$_lang['Add new profile'] = 'Ξ ΟΞΏΟƒΞΈΞ®ΞΊΞ· Ξ½Ξ­ΞΏΟ… Ο€ΟΞΏΟ†Ξ―Ξ»';
+$_lang['Add or remove tools'] = 'Ξ ΟΟΟƒΞΈΞµΟƒΞµ Ξ® Ξ±Ο†Ξ±Ξ―ΟΞµΟƒΞµ ΞµΟΞ³Ξ±Ξ»ΞµΞ―Ξ±';
+$_lang['Add or remove tools from your course'] = 'Ξ ΟΟΟƒΞΈΞµΟƒΞµ Ξ® Ξ±Ο†Ξ±Ξ―ΟΞµΟƒΞµ ΞµΟΞ³Ξ±Ξ»ΞµΞ―Ξ± Ξ±Ο€ΞΏ Ο„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ± ΟƒΞΏΟ…';
+$_lang['Add to course'] = 'Ξ ΟΟΟƒΞΈΞµΟƒΞµ ΟƒΟ„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['Add user'] = 'Ξ ΟΞΏΟƒΞΈΞ®ΞΊΞ· Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['Add user list'] = 'Ξ ΟΞΏΟƒΞΈΞ®ΞΊΞ· Ξ»Ξ―ΟƒΟ„Ξ± Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['Add user manually'] = 'Ξ ΟΟƒΞΈΞ®ΞΊΞ· Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['Add wrong answers for drop down lists <small>(Optionnal. One wrong answer by line.)</small>'] = ' Ξ ΟΞΏΟƒΞΈΞ­ΟƒΟ„Ξµ Ο„ΞΉΟ‚ Ξ»Ξ±Ξ½ΞΈΞ±ΟƒΞΌΞ­Ξ½ΞµΟ‚ Ξ±Ο€Ξ±Ξ½Ο„Ξ®ΟƒΞµΞΉΟ‚ Ξ³ΞΉΞ± Ο„Ξ· Ξ»Ξ―ΟƒΟ„Ξ± ΞΊΞ±Ο„Ξ±Ξ»ΟΞ³ΞΏΟ… <small>(Ξ ΟΞΏΞ±ΞΉΟΞµΟ„ΞΉΞΊΟ. ΞΞΉΞ± Ξ»Ξ±Ξ½ΞΈΞ±ΟƒΞΌΞ­Ξ½Ξ· Ξ±Ο€Ξ¬Ξ½Ο„Ξ·ΟƒΞ· ΟƒΞµ ΞΊΞ¬ΞΈΞµ  Ξ³ΟΞ±ΞΌΞΌΞ®.) </small>';
+$_lang['Added line'] = ' Ξ ΟΞΏΟƒΟ„ΞΉΞΈΞ­ΞΌΞµΞ½Ξ· Ξ³ΟΞ±ΞΌΞΌΞ® ';
+$_lang['Administration'] = 'Ξ”ΞΉΞ±Ο‡ΞµΞ―ΟΞΉΟƒΞ·';
+$_lang['Administrative code'] = 'ΞΟ‰Ξ΄ΞΉΞΊΟΟ‚ Ξ΄ΞΉΞ±Ο‡ΞµΞ―ΟΞΉΟƒΞ·Ο‚';
+$_lang['Administrator'] = 'Ξ”ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ®Ο‚';
+$_lang['Administrator for %site_name'] = 'Ξ”ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ®Ο‚ Ξ³ΞΉΞ± Ο„ΞΏ %site_name';
+$_lang['Advanced'] = 'Ξ ΟΞΏΟ‡Ο‰ΟΞ·ΞΌΞ­Ξ½ΞΏ';
+$_lang['Advanced course search'] = 'Ξ£ΟΞ½ΞΈΞµΟ„Ξ· Ξ±Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ· ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Advanced settings'] = 'Ξ ΟΞΏΟ‡Ο‰ΟΞ·ΞΌΞ­Ξ½ΞµΟ‚ ΟΟ…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚';
+$_lang['Advanced user search'] = 'Ξ£ΟΞ½ΞΈΞµΟ„Ξ· Ξ±Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ· Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['After last allowed attempt'] = 'ΞΞµΟ„Ξ¬ Ο„Ξ·Ξ½ Ο„ΞµΞ»ΞµΟ…Ο„Ξ±Ξ―Ξ± ΞµΟ€ΞΉΟ„ΟΞµΟ€ΟΞΌΞµΞ½Ξ· Ο€ΟΞΏΟƒΟ€Ξ¬ΞΈΞµΞΉΞ±';
+$_lang['Agenda'] = 'Ξ‘Ο„Ξ¶Ξ­Ξ½Ο„Ξ±';
+$_lang['Agenda next events'] = 'Ξ•Ο€ΟΞΌΞµΞ½Ξ± Ξ³ΞµΞ³ΞΏΞ½ΟΞ½Ο„Ξ± Ο„Ξ·Ο‚ Ξ‘Ο„Ξ¶Ξ­Ξ½Ο„Ξ±Ο‚';
+$_lang['Agreement text displayed before the "Create user account" page'] = 'ΞΞµΞ―ΞΌΞµΞ½ΞΏ Ξ±Ο€ΞΏΞ΄ΞΏΟ‡Ξ®Ο‚ ΞµΞΌΟ†Ξ±Ξ½Ξ―ΟƒΟ„Ξ·ΞΊΞµ Ο€ΟΞΉΞ½ Ξ±Ο€Ο Ο„Ξ· ΟƒΞµΞ»Ξ―Ξ΄Ξ± "Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ξ»ΞΏΞ³Ξ±ΟΞΉΞ±ΟƒΞΌΞΏΟ Ο‡ΟΞ®ΟƒΟ„Ξ·" ';
+$_lang['Alignment'] = 'Ξ£Ο„ΞΏΞ―Ο‡ΞΉΟƒΞ·';
+$_lang['All'] = 'ΞΞ»Ξ±';
+$_lang['All (Read or not)'] = 'ΞΞ»Ξ± ( Ξ”ΞΉΞ±Ξ²Ξ±ΟƒΞµ Ξ® ΟΟ‡ΞΉ)';
+$_lang['All events before %date have been successfully deleted'] = 'ΞΞ»Ξ± Ο„Ξ± Ξ³ΞµΞ³ΞΏΞ½ΟΟ„Ξ± Ο€ΟΞΉΞ½ Ξ±Ο€ΞΏ %date Ξ­Ο‡ΞΏΟ…Ξ½ ΞµΟ€ΞΉΟ„Ο…Ο‡Ξ·ΞΌΞ­Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†ΞµΞ― ';
+$_lang['All events deleted from the agenda'] = 'ΞΞ»Ξ± Ο„Ξ± Ξ³ΞµΞ³ΞΏΞ½ΟΟ„Ξ± Ξ­Ο‡ΞΏΟ…Ξ½ Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†ΞµΞ― Ξ·ΞΌΞµΟΞ®ΟƒΞΉΞ± Ξ΄ΞΉΞ¬Ο„Ξ±ΞΎΞ·';
+$_lang['All exercises'] = 'ΞΞ»ΞµΟ‚ Ο„ΞΉΟ‚ Ξ±ΟƒΞΊΞ®ΟƒΞµΞΉΟ‚';
+$_lang['All groups are now empty'] = 'ΞΞ»ΞµΟ‚ ΞΏΞΉ ΞΏΞΌΞ¬Ξ΄ΞµΟ‚ Ο‡ΟΞ·ΟƒΟ„ΟΞ½ ΞµΞ―Ξ½Ξ±ΞΉ Ξ¬Ξ΄ΞµΞΉΞµΟ‚';
+$_lang['All groups have been deleted'] = 'ΞΞ»ΞµΟ‚ ΞΏΞΉ ΞΏΞΌΞ¬Ξ΄ΞµΟ‚ Ο‡ΟΞ·ΟƒΟ„ΟΞ½ Ξ­Ο‡ΞΏΟ…Ξ½ Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†ΞµΞ―';
+$_lang['All messages'] = 'ΞΞ»Ξ± Ο„Ξ± ΞΌΞ·Ξ½ΟΞΌΞ±Ο„Ξ±';
+$_lang['All messages from a user'] = 'ΞΞ»Ξ± Ο„Ξ± ΞΌΞ·Ξ½ΟΞΌΞ±Ο„Ξ± Ξ±Ο€ΞΏ Ξ­Ξ½Ξ± Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['All messages have been deleted'] = 'ΞΞ»Ξ± Ο„Ξ± ΞΌΞ·Ξ½ΟΞΌΞ±Ο„Ξ± Ξ­Ο‡ΞΏΟ…Ξ½ Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†ΞµΞ―';
+$_lang['All messages in date interval'] = 'ΞΞ»Ξ± Ο„Ξ± ΞΌΞ·Ξ½ΟΞΌΞ±Ο„Ξ± ΞµΞ½Ξ΄ΞΉΞ¬ΞΌΞµΟƒΞ± ΞΊΞ¬Ο€ΞΏΞΉΟ‰Ξ½ Ξ·ΞΌΞµΟΞΏΞΌΞ·Ξ½ΞΉΟΞ½';
+$_lang['All messages older than'] = 'ΞΞ»Ξ± Ο„Ξ± ΞΌΞ·Ξ½ΟΞΌΞ±Ο„Ξ± Ο€Ξ±ΞΉΞ»Ξ±ΞΉΟΟ„ΞµΟΞ± Ξ±Ο€ΞΏ';
+$_lang['All messages older than %date% have been deleted'] = 'ΞΞ»Ξ± Ο„Ξ± ΞΌΞ·Ξ½ΟΞΌΞ±Ο„Ξ± Ο€Ξ±Ξ»Ξ±ΞΉΟΟ„ΞµΟΞ± Ξ±Ο€ΞΏ %date% Ξ­Ο‡ΞΏΟ…Ξ½ Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†ΞµΞ―';
+$_lang['All modules of this course are already used in this learning path.'] = 'ΞΞ»ΞµΟ‚ ΞΏΞΉ ΞµΞ½ΟΟ„Ξ·Ο„ΞµΟ‚ Ξ±Ο…Ο„ΞΏΟ Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ Ξ®Ξ΄Ξ· Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞ®ΞΈΞ·ΞΊΞ±Ξ½ ΟƒΞµ Ξ±Ο…Ο„Ξ® Ο„Ξ· Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ® ΞΌΞ¬ΞΈΞ·ΟƒΞ·Ο‚.';
+$_lang['All pages'] = ' ΞΞ»ΞµΟ‚ ΞΏΞΉ ΟƒΞµΞ»Ξ―Ξ΄ΞµΟ‚ ';
+$_lang['All platform courses'] = 'ΞΞ»Ξ± Ο„Ξ± ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„Ξ± Ο„Ξ·Ο‚ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±Ο‚';
+$_lang['All platform messages'] = 'ΞΞ»Ξ± Ο„Ξ± ΞΌΞ·Ξ½ΟΞΌΞ±Ο„Ξ± Ο„Ξ·Ο‚ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±Ο‚';
+$_lang['All platform messages have been deleted'] = 'ΞΞ»Ξ± Ο„Ξ± ΞΌΞ·Ξ½ΟΞΌΞ±Ο„Ξ± Ο„Ξ·Ο‚ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±Ο‚ Ξ­Ο‡ΞΏΟ…Ξ½ Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†ΞµΞ―';
+$_lang['All profiles'] = 'ΞΞ»Ξ± Ο„Ξ± Ο€ΟΞΏΟ†Ξ―Ξ»';
+$_lang['All submissions'] = 'ΞΞ»ΞµΟ‚ ΞΏΞΉ Ο…Ο€ΞΏΞ²ΞΏΞ»Ξ­Ο‚ Ξ±ΞΉΟ„Ξ®ΟƒΞµΟ‰Ξ½';
+$_lang['All user\'s message have been deleted'] = 'Ξ¤ΞΏ ΞΌΞ®Ξ½Ο…ΞΌΞ± Ο„ΞΏΟ… Ο‡ΟΞ®ΟƒΟ„Ξ· Ξ­Ο‡ΞµΞΉ Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†ΞµΞ―';
+$_lang['All users have been sucessfully unregistered from the class'] = 'ΞΞ»ΞΏΞΉ ΞΏΞΉ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ Ξ­Ο‡ΞΏΟ…Ξ½ Ξ±Ο€ΞµΞ³Ξ³ΟΞ±Ο†ΞµΞ― ΞµΟ€ΞΉΟ„Ο…Ο‡ΟΟ‚ Ξ±Ο€Ο Ο„Ξ·Ξ½ Ο„Ξ¬ΞΎΞ·';
+$_lang['All users of the platform'] = 'ΞΞ»ΞΏΞΉ ΞΏΞΉ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ Ο„Ξ·Ο‚ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±Ο‚';
+$_lang['All visible submissions'] = 'ΞΞ»ΞµΟ‚ ΞΏΞΉ ΞΏΟΞ±Ο„Ξ­Ο‚ Ο…Ο€ΞΏΞ²ΞΏΞ»Ξ­Ο‚';
+$_lang['Allow course manager to delete their own courses'] = 'Ξ•Ο€ΞΉΟ„ΟΞ­Ο€ΞµΟ„Ξ±ΞΉ ΟƒΟ„ΞΏΟ…Ο‚ Ξ΄ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ­Ο‚ Ξ½Ξ± ΟƒΞ²Ξ®ΟƒΞΏΟ…Ξ½ Ο„Ξ± ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„Ξ± Ο„ΞΏΟ…Ο‚';
+$_lang['Allow enrolment/unenrolment to courses by the users'] = 'Ξ•Ο€ΞΉΟ„ΟΞ­Ο€ΞµΟ„Ξ±ΞΉ ΞµΞ³Ξ³ΟΞ±Ο†Ξ®/Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® ΟƒΞµ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„Ξ± Ξ±Ο€ΞΏ Ο„ΞΏΟ…Ο‚ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚';
+$_lang['Allow late upload'] = 'ΞΞ± ΞµΟ€ΞΉΟ„ΟΞ­Ο€ΞµΟ„Ξ±ΞΉ Ξ· ΞΊΞ±ΞΈΟ…ΟƒΟ„ΞµΟΞ·ΞΌΞ­Ξ½Ξ· Ο…Ο€ΞΏΞ²ΞΏΞ»Ξ®';
+$_lang['Allow teacher to download all submissions'] = 'Ξ•Ο€Ξ­Ο„ΟΞµΟΞµ ΟƒΟ„ΞΏΞ½ Ξ΄Ξ¬ΟƒΞΊΞ±Ξ»ΞΏ Ξ½Ξ± ΞΊΞ±Ο„ΞµΞ²Ξ¬ΟƒΞµΞΉ ΟΞ»ΞµΟ‚ Ο„ΞΉΟ‚ Ο…Ο€ΞΏΞ²ΞΏΞ»Ξ­Ο‚ Ξ±ΞΉΟ„Ξ®ΟƒΞµΟ‰Ξ½';
+$_lang['Allow teachers to subscribe a user in several groups'] = 'Ξ•Ο€ΞΉΟ„ΟΞ­Ο€ΞµΟ„Ξ±ΞΉ ΟƒΟ„ΞΏΟ…Ο‚ ΞΊΞ±ΞΈΞ·Ξ³Ξ·Ο„Ξ­Ο‚ Ξ½Ξ± ΞµΞ³Ξ³ΟΞ¬ΟΞΏΟ…Ξ½ Ξ­Ξ½Ξ± Ο‡ΟΞ®ΟƒΟ„Ξ· ΟƒΞµ Ο€ΞΏΞ»Ξ»Ξ±Ο€Ξ»Ξ­Ο‚ ΞΏΞΌΞ¬Ξ΄ΞµΟ‚';
+$_lang['Allow to modify field'] = 'Ξ•Ο€ΞΉΟ„ΟΞ­Ο€ΞµΟ„Ξ±ΞΉ Ο„Ξ· ΞΌΞµΟ„Ξ±Ξ²ΞΏΞ»Ξ® Ο„ΞΏΟ… Ο€ΞµΞ΄Ξ―ΞΏΟ…';
+$_lang['Allow user to add a picture to their profile'] = 'Ξ•Ο€Ξ­Ο„ΟΞµΟΞµ ΟƒΟ„ΞΏΞ½ Ο‡ΟΞ®ΟƒΟ„Ξ· Ξ½Ξ± Ο€ΟΞΏΟƒΞΈΞ­ΟƒΞµΞΉ Ο†Ο‰Ο„ΞΏΞ³ΟΞ±Ο†Ξ―Ξ± ΟƒΟ„ΞΏ Ο€ΟΞΏΟ†Ξ―Ξ» Ο„ΞΏΟ…';
+$_lang['Allow users to see detailed informations about other users'] = 'Ξ•Ο€ΞΉΟ„ΟΞ­Ο€ΞµΟ„Ξ±ΞΉ ΞΏΞΉ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ Ξ½Ξ± Ξ²Ξ»Ξ­Ο€ΞΏΟ…Ξ½ Ξ»ΞµΟ€Ο„ΞΏΞΌΞµΟΞ®Ο‚ Ο€Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞ―ΞµΟ‚ Ξ³ΞΉΞ± Ξ¬Ξ»Ξ»ΞΏΟ…Ο‚ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚';
+$_lang['Allowed'] = 'Ξ•Ο€ΞΉΟ„ΟΞ­Ο€ΞµΟ„Ξ±ΞΉ';
+$_lang['Allowed : do not record usernames in tracking, anonymous users can do the exercise.'] = 'Ξ•Ο€ΞΉΟ„ΟΞ­Ο€ΞµΟ„Ξ±ΞΉ: ΞΌΞ· ΞΊΞ±Ο„Ξ±Ξ³ΟΞ±Ο†Ξ® Ο„Ο‰Ξ½ ΞΏΞ½ΞΏΞΌΞ¬Ο„Ο‰Ξ½ Ο‡ΟΞ·ΟƒΟ„ΟΞ½ ΟƒΟ„Ξ·Ξ½ Ο€Ξ±ΟΞ±ΞΊΞΏΞ»ΞΏΟΞΈΞ·ΟƒΞ·, ΞΏΞΉ Ξ±Ξ½ΟΞ½Ο…ΞΌΞΏΞΉ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ ΞΌΟ€ΞΏΟΞΏΟΞ½ Ξ½Ξ± ΞΊΞ¬Ξ½ΞΏΟ…Ξ½ Ο„Ξ·Ξ½ Ξ¬ΟƒΞΊΞ·ΟƒΞ·.';
+$_lang['Allowed with enrolment key'] = 'Ξ•Ο€ΞΉΟ„ΟΞµΟ€ΟΞΌΞµΞ½ΞΏ ΞΌΞµ ΞΊΞ»ΞµΞΉΞ΄Ξ― ΞµΞ³Ξ³ΟΞ±Ο†Ξ®Ο‚';
+$_lang['Already browsed'] = 'Ξ®Ξ΄Ξ· Ξ±Ξ½Ξ±Ξ¶Ξ·Ο„Ξ®ΞΈΞ·ΞΊΞµ';
+$_lang['Already enroled'] = 'Ξ®Ξ΄Ξ· ΞµΞ³Ξ³ΞµΞ³ΟΞ±ΞΌΞ­Ξ½ΞΏΟ‚';
+$_lang['Also delete module main database'] = 'Ξ•Ο€Ξ―ΟƒΞ·Ο‚ Ξ΄ΞΉΞ¬Ξ³ΟΞ±ΟΞµ Ο„Ξ·Ξ½ ΞµΞ½ΟΟ„Ξ·Ο„Ξ± Ο„Ξ·Ο‚ ΞΊΟΟΞΉΞ±Ο‚ Ξ²Ξ¬ΟƒΞ·Ο‚ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½';
+$_lang['An email has been sent to help you remember your user name and password.'] = 'ΞΞ½Ξ± email Ξ­Ο‡ΞµΞΉ ΟƒΟ„Ξ±Ξ»ΞµΞ― Ξ³ΞΉΞ± Ξ½Ξ± ΟƒΞµ Ξ²ΞΏΞ·ΞΈΞ®ΟƒΞµΞΉ Ξ½Ξ± ΞΈΟ…ΞΌΞ¬ΟƒΞ±ΞΉ Ο„ΞΏ ΟΞ½ΞΏΞΌΞ± Ο‡ΟΞ®ΟƒΟ„Ξ· ΞΊΞ±ΞΉ Ο„ΞΏΞ½ ΞΊΟ‰Ξ΄ΞΉΞΊΟ Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ·Ο‚ ΟƒΞΏΟ….';
+$_lang['An error occurred while contacting Claroline.net'] = 'Ξ ΟΞΏΞ­ΞΊΟ…ΟΞµ ΟƒΟ†Ξ¬Ξ»ΞΌΞ± ΞΊΞ±Ο„Ξ± Ο„Ξ·Ξ½ ΞµΟ€ΞΉΞΊΞΏΞΉΞ½Ο‰Ξ½Ξ―Ξ± ΞΌΞµ Ο„ΞΏ Claroline.net';
+$_lang['An error occurred.  Learning Path import failed.'] = 'Ξ•ΞΌΟ†Ξ±Ξ½Ξ―ΟƒΟ„Ξ·ΞΊΞµ ΟƒΟ†Ξ¬Ξ»ΞΌΞ±. Ξ— ΞµΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ® Ο„Ξ·Ο‚ Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ®Ο‚ ΞµΞΊΞΌΞ¬ΞΈΞ·ΟƒΞ·Ο‚ Ξ±Ο€ΟΟ„Ο…Ο‡Ξµ';
+$_lang['An invisible tool will be greyed out on your personal interface.'] = 'ΞΞ½Ξ± Ξ±ΟΟΞ±Ο„ΞΏ ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏ ΞΈΞ± ΞµΞ―Ξ½Ξ±ΞΉ Ο€ΞΉΞΏ Ξ³ΞΊΟΞ―Ξ¶ΞΏ ΟƒΟ„Ξ·Ξ½ Ο€ΟΞΏΟƒΟ‰Ο€ΞΉΞΊΞ® ΟƒΞΏΟ… Ο€ΟΞ»Ξ·';
+$_lang['Announcement has been added'] = 'Ξ— Ξ±Ξ½Ξ±ΞΊΞΏΞ―Ξ½Ο‰ΟƒΞ· Ο€ΟΞΏΟƒΟ„Ξ­ΞΈΞ·ΞΊΞµ';
+$_lang['Announcement has been deleted'] = 'Ξ· Ξ±Ξ½Ξ±ΞΊΞΏΞ―Ξ½Ο‰ΟƒΞ· Ξ΄ΞΉΞ±Ξ³ΟΞ¬Ο†Ο„Ξ·ΞΊΞµ';
+$_lang['Announcement has been modified'] = 'Ξ· Ξ±Ξ½Ξ±ΞΊΞΏΞ―Ξ½Ο‰ΟƒΞ· Ξ¬Ξ»Ξ»Ξ±ΞΎΞµ';
+$_lang['Announcements'] = 'Ξ‘Ξ½Ξ±ΞΊΞΏΞΉΞ½ΟΟƒΞµΞΉΟ‚';
+$_lang['Announcements list has been cleared up'] = 'Ξ¤Ξ± Ο€ΞµΟΞΉΞµΟ‡ΟΞΌΞµΞ½Ξ± Ο„ΞΏΟ… ΞΊΞ±Ο„Ξ±Ξ»ΟΞ³ΞΏΟ… Ξ±Ξ½Ξ±ΞΊΞΏΞΉΞ½ΟΟƒΞµΟ‰Ξ½ Ξ΄ΞΉΞ±Ξ³ΟΞ¬Ο†Ο„Ξ·ΞΊΞ±Ξ½';
+$_lang['Anonymous'] = 'Ξ‘Ξ½ΟΞ½Ο…ΞΌΞΏΟ‚';
+$_lang['Anonymous attempts'] = 'Ξ‘Ξ½ΟΞ½Ο…ΞΌΞµΟ‚ Ο€ΟΞΏΟƒΟ€Ξ¬ΞΈΞµΞΉΞµΟ‚';
+$_lang['Anonymous users access count :'] = 'ΞΞ±Ο„Ξ±ΞΌΞ­Ο„ΟΞ·ΟƒΞ· ΞµΞΉΟƒΟΞ΄ΞΏΟ… Ξ±Ξ½ΟΞ½Ο…ΞΌΟ‰Ξ½ Ο‡ΟΞ·ΟƒΟ„ΟΞ½: ';
+$_lang['Answer'] = 'Ξ‘Ο€Ξ¬Ξ½Ο„Ξ·ΟƒΞ·';
+$_lang['Answer type'] = 'Ξ Ξ»Ξ·ΞΊΟ„ΟΞΏΞ»ΞΏΞ³Ξ®ΟƒΟ„Ξµ Ξ±Ο€Ξ¬Ξ½Ο„Ξ·ΟƒΞ·';
+$_lang['Any'] = 'ΞΞ±ΞΈΞ­Ξ½Ξ±Ο‚';
 $_lang['Applets'] = 'Applets';
-$_lang['Are users allowed to create themselves a Course Creator account ?'] = 'Επιτρέπεται οι χρήστες να δημιουργούν για τους εαυτούς τους ένα λογαριασμό Δημιουργού Μαθημάτων ;';
-$_lang['Are you sure to delete'] = 'Είστε βέβαιος ότι θέλετε να το διαγράψετε';
-$_lang['Are you sure to delete the course "%course_name" ( %course_code ) ?'] = 'Είσαι σίγουρος ότι θέλεις να διαγράψεις το μάθημα "%course_name" ( %course_code ) ;';
-$_lang['Are you sure to delete this group ?'] = ' Είστε βέβαιοι ότι θέλετε να διαγράψετε αυτήν την ομάδα?';
-$_lang['Are you sure you want to completely delete this question ?'] = 'Είσαι σίγουρος ότι επιθυμείς να διαγράψεις εντελώς αυτή την ερώτηση ?';
-$_lang['Are you sure you want to delete all groups ?'] = 'Είσαι σίγουρος ότι επιθυμείς να διαγράψεις όλες τις ομάδες ';
-$_lang['Are you sure you want to delete this exercise ?'] = 'Είστε σίγουρος ότι επιθυμείτε να διαγράψετε αυτή την άσκηση ?';
-$_lang['Are you sure you want to empty all groups ?'] = 'Είσαι σίγουρος ότι επιθυμείς να αδειάσεις/καθαρίσεις όλες τις ομάδες  ?';
-$_lang['Are you sure you want to enrol the whole class on the course ?'] = 'Είσαι σίγουρος ότι επιθυμείς να εγγράψεις όλοκληρη την τάξη (class) στο μάθημα (course) ?';
-$_lang['Are you sure you want to make this module invisible in all courses ?'] = 'Είσαι σίγουρος ότι θέλεις να εξαφανίσεις αυτό το module από όλα τα μαθήματα ;';
-$_lang['Are you sure you want to make this module visible in all courses ?'] = 'Είσαι σίγουρος ότι θέλεις να εμφανίζεται αυτό το module σε όλα τα μαθήματα ;';
-$_lang['Are you sure you want to remove the following module from the learning path :'] = 'Είσαι σίγουρος οτι θέλεις να απομακρύνεις/αφαιρέσεις την παρακάτω ενότητα απο τη διαδρομή μάθησης: ';
-$_lang['Are you sure you want to remove the question from the exercise ?'] = 'Είσαι σίγουρος ότι θέλεις να αφαιρέσεις την ερώτηση από την άσκηση ?';
-$_lang['Are you sure you want to remove this course from your list ?'] = 'Είσαι σίγουρος ότι επιθυμείς να αφαιρέσεις αυτό το μάθημα απο τη λίστα σου ?';
-$_lang['Are you sure you want to unenrol the whole class on the course ?'] = 'Είσαι σίγουρος ότι θέλεις να διαγράψεις ολόκληρη την τάξη από το μάθημα ?';
-$_lang['Are you sure you want to uninstall the module'] = 'Είσαι σίγουρος ότι θέλεις να απεγκαταστήσεις το module ;';
-$_lang['Are you sure you want to unregister'] = 'Είσαι σίγουρος ότι επιθυμείς να διαγραφείς';
-$_lang['Area for this group'] = 'Περιοχή για την ομάδα χρηστών';
-$_lang['Ask the official code'] = 'Ρώτησε τον επίσημο κώδικα';
-$_lang['Asset not found : %asset'] = ' Πόρος δεν βρέθηκε : %asset';
-$_lang['Assignment'] = 'Εργασία';
-$_lang['Assignment deleted'] = 'Η εργασία διαγράφηκε';
-$_lang['Assignment modified'] = 'Η εργασία τροποποιήθηκε';
-$_lang['Assignment property "Default works visibility" acts'] = 'Η ιδιότητα εργασίας "Προκαθορισμένος μηχανισμός κατάστασης εμφάνισης" δρά';
-$_lang['Assignment title'] = 'Τίτλος Εργασίας';
-$_lang['Assignment title already exists'] = 'Ο τίτλος αυτός υπάρχει ήδη';
-$_lang['Assignment title required'] = 'Απαιτείται τίτλος εργασίας';
-$_lang['Assignment type'] = 'Τύπος εργασίας';
-$_lang['Assignments'] = 'Εργασίες';
-$_lang['Assignments help'] = 'Αναθεση (εργασίας) βοηθειας';
-$_lang['Attach'] = ' Επισύνάψτε ';
-$_lang['Attach a file'] = 'Επισύναψη αρχείου';
-$_lang['Attached file'] = 'Το αρχείο έχει επισυναφθεί';
-$_lang['Attached resources'] = 'Επισυναπτόμενες πηγές';
-$_lang['Attempt %attemptCount'] = 'Προσπάθειες %attemptCount';
-$_lang['Attempt %attemptCount on %attempts'] = 'Προσπάθειες %attemptCount on %attempts';
-$_lang['Attempts'] = 'Προσπάθειες';
-$_lang['Attempts allowed'] = 'Επιτρεπτές προσπάθειες';
-$_lang['Authentication'] = 'Ταυτοποίηση χρήστη';
-$_lang['Authentication Required'] = 'Χρειάζεται επικύρωση';
-$_lang['Authentication source'] = 'Πηγή πιστοποίησης';
-$_lang['Author'] = 'Αποστολέας';
-$_lang['Author(s)'] = 'Συγγραφέας -εις';
-$_lang['Automatic cleaning factor'] = 'Αυτόματος παράγοντας καθαρισμού';
-$_lang['Automatically, after each submission'] = 'Αυτόματα, μετά απο κάθε υποβολή ';
-$_lang['Automatically, after end date'] = 'Αυτόματα, μετά απο το τέλος της ημερομηνίας';
-$_lang['Available from %startDate'] = 'Διαθέσιμο απο %startDate';
-$_lang['Average Time'] = 'Μέσο όρο χρόνου (s.)';
-$_lang['Average score'] = 'Μέσος όρος';
-$_lang['Back'] = 'Επιστροφή';
-$_lang['Back to administration page'] = 'Επιστροφή στη σελίδα διαχείρισης';
-$_lang['Back to class list'] = 'Επιστροφή στη λίστα τάξης';
-$_lang['Back to class members'] = 'Επιστροφή στα μέλη της τάξης';
-$_lang['Back to course list'] = 'Επιστροφή στη λίστα των μαθημάτων';
-$_lang['Back to learning path administration'] = 'Επιστροφή στη διαχείριση της πορείας μάθησης';
-$_lang['Back to list'] = 'Επιστροφή στη λίστα';
-$_lang['Back to my personal course list'] = 'Επιστροφή στη προσωπική λίστα μαθημάτων';
-$_lang['Back to page'] = ' Πίσω στη σελίδα ';
-$_lang['Back to parent category'] = 'Επιστοφή στη κύρια κατηγορία';
-$_lang['Back to the class'] = 'Επιστροφή στη τάξη';
-$_lang['Back to the editor'] = 'Επιστροφή στο συντάκτη / επιμελητή';
-$_lang['Back to the exercise list'] = 'Πίσω στη λίστα ασκήσεων';
-$_lang['Back to user list'] = 'Επιστροφή στη λίστα χρηστών';
-$_lang['Back to user settings'] = 'Επιστροφή στις ρυθμίσεις του χρήστη';
-$_lang['Back to user\'s course list'] = 'Πίσω στη λίστα μαθημάτων του χρήστη';
-$_lang['Before'] = 'Πρίν';
-$_lang['Best score'] = 'Mέγιστο';
-$_lang['Blank space'] = 'Κενό διάστημα';
-$_lang['Block'] = 'Φραγή';
-$_lang['Blockquote'] = 'Απόστροφος';
-$_lang['Bold'] = 'Έντονα';
-$_lang['Build language files'] = 'Κατασκευή αρχείων γλώσσας';
-$_lang['By deleting a label you will delete all modules or label it contains.'] = 'Διαγράφοντας μία ετικέτα θα διαγραφούν και όλες οι ενότητες ή οι ετικέτες που περιέχει.';
-$_lang['CSV file with the user list :'] = 'CSV αρχείο με τη λίστα χρήστη : ';
-$_lang['Cache settings'] = 'Ρυθμίσεις cache';
-$_lang['Cache system'] = 'Σύστημα cache';
-$_lang['Campus banner - left'] = 'Campus σύνθημα - αριστερό';
-$_lang['Campus banner - right'] = 'Campus σύνθημα - δεξί';
-$_lang['Campus footer - center'] = 'Campus υποσέλιδο - κεντρικός';
-$_lang['Campus footer - left'] = 'Campus υποσέλιδο - αριστερό';
-$_lang['Campus footer - right'] = 'Campus υποσέλιδο - δεξί';
-$_lang['Campus homepage - bottom'] = 'Campus κεντρική σελίδα - κάτω';
-$_lang['Campus homepage - right menu'] = 'Campus κεντρική σελίδα - δεξί menu';
-$_lang['Campus homepage - top'] = 'Campus κεντρική σελίδα - κορυφή';
-$_lang['Campus name'] = 'Όνομα site';
-$_lang['Can have courses'] = 'Μπορεί να έχει μαθήματα: ';
-$_lang['Cancel'] = 'Ακύρωση';
-$_lang['Cancel the operation'] = 'Ακύρωση τη λειτουργία';
-$_lang['Cannot activate module'] = 'Το module δεν μπορεί να ενεργοποιηθεί';
-$_lang['Cannot change module visibility in %course'] = 'Η κατάσταση εμφάνισης του module δεν μπορεί να αλλάξει στο μάθημα %course';
-$_lang['Cannot copy the file'] = 'Το αρχείο δεν αντιγράφεται.';
-$_lang['Cannot deactivate module'] = 'Το module δεν μπορεί να απενεργοποιηθεί';
-$_lang['Cannot extract files.'] = 'Τα αρχεία δεν μπορούν να εξαχθούν.';
-$_lang['Cannot extract manifest from zip file (corrupted file ? ).'] = 'Δεν μπορεί να εμφανιστεί απόσπασμα απο το αρχείο zip.';
-$_lang['Cannot find <i>manifest</i> file in the package.<br /> File not found : imsmanifest.xml'] = 'Δεν μπορεί να βρεθεί το αρχείο <i>manifest</i> στο πακέτο.<br /> Αρχείο που δε βρέθηκε : imsmanifest.xml';
-$_lang['Cannot find module'] = 'Το module δεν μπορεί να βρεθεί';
-$_lang['Cannot find secondary initialisation file in the package.<br /> File not found :'] = 'Δεν μπορει να βρεθεί δευτερεύον αρχείο έναρξης στο πακέτο.<br /> Αρχείο που δε βρέθηκε  : ';
-$_lang['Cannot open %filename'] = '%filename δεν μπορεί να ανοιχθεί';
-$_lang['Cannot register module %label'] = 'Το module %label δεν μπορεί να καταχωρηθεί';
-$_lang['Cannot register tool %label'] = 'Το εργαλείο %label δεν μπορεί να καταχωρηθεί';
-$_lang['Cannot update course database for %course'] = 'Η βάση δεδομένων του μαθήματος %course δεν μπορεί να ενημερωθεί';
-$_lang['Cannot update database'] = 'Η βάση δεδομένων δεν μπορεί να ενημερωθεί';
-$_lang['Cas settings'] = 'Ρυθμίσεις για το Cas';
-$_lang['Categories'] = 'Κατηγορίες';
-$_lang['Categories structure is right'] = 'Η δομή των κατηγοριών είναι σωστή';
-$_lang['Category'] = 'Κατηγορία';
-$_lang['Category code'] = 'Κωδικός κατηγορίας :';
-$_lang['Category code is required'] = 'Ο κωδικός κατηγορίας απαιτείται';
-$_lang['Category created'] = 'Δημιουργία κατηγορίας';
-$_lang['Category deleted'] = 'Διαγραφή κατηγορίας';
-$_lang['Category moved'] = 'Μετακίνηση κατηγορίας';
-$_lang['Category name'] = 'Όνομα κατηγορίας :';
-$_lang['Category name is required'] = 'Απαιτείται όνομα κατηγορίας';
-$_lang['Category needed'] = 'Η κατηγορία ήταν απαραίτητη';
-$_lang['Category updated'] = 'Η κατηγορία έχει αναβαθμιστεί.';
-$_lang['Central Authentication System'] = 'Κεντρικό Σύστημα Πιστοποίησης';
-$_lang['Centralized Authentication System'] = 'Συγκεντρωτικό Σύστημα Πιστοποιήσης';
-$_lang['Change minimum raw mark to pass this module (percentage) :'] = 'Αλλαξε το ελάχιστο αρχικό σημείο για να περάσει αυτή η ενότητα (ποσοστό): ';
-$_lang['Change parent\'s category of %catCode'] = '¶λλαξε την κατηγορία του πατέρα του %catCode';
-$_lang['Change this setting only if it\'s absolutely required.'] = '¶λλαξε αυτή τη ρύθμιση μόνο άμα είναι απόλυτα απαραίτητο.';
-$_lang['Changes have been applied to the user settings'] = 'Οι αλλαγές έχουν εφαρμοστεί στις ρυθμίσεις του χρήστη';
-$_lang['Changes have been saved'] = 'Οι αλλαγές έχουν αποθηκευτεί';
-$_lang['Changes in the display of the module have been applied'] = 'Εφαρμόστηκαν οι αλλαγές στην εμφάνιση του module';
-$_lang['Chat'] = 'Κουβεντούλα';
-$_lang['Chat reset by'] = ' Αρχικοποίηση chat από';
-$_lang['Check and Repair emails of users'] = 'Ελέγχει και Επιδιορθώνει τα email των χρηστών';
-$_lang['Check if the password is not too easy to find'] = 'Ελέγχει αν είναι πολύ εύκολο να βρεθεί ο κωδικός πρόσβασης';
-$_lang['Check this box to delete the attached file'] = 'Σημειώστε αυτό το κουτί για να διαγραψετε το επισυναπτόμενο αρχείο.';
-$_lang['Choose "No" if you use microsoft active directory (by default this authentication system is case-insensitive)'] = 'Διάλεξε "Όχι" αν χρησιμοποιείς Microsoft Active Directory (προκαθορισμένα το σύστημα πιστοποίσησης διακρίνει μικρά-κεφαλαία)';
-$_lang['Choose a course to access this page.'] = ' Επιλέξτε μια σειρά μαθημάτων για να έχετε πρόσβαση σε αυτήν την σελίδα.';
-$_lang['Choose now a username and a password for the user account'] = ' Επέλεξε τώρα ένα όνομα χρήστη και έναν κωδικό πρόσβασης για το λογαριασμό χρήστη. ';
-$_lang['Choose one'] = 'Διάλεξε ένα';
+$_lang['Are users allowed to create themselves a Course Creator account ?'] = 'Ξ•Ο€ΞΉΟ„ΟΞ­Ο€ΞµΟ„Ξ±ΞΉ ΞΏΞΉ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ Ξ½Ξ± Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³ΞΏΟΞ½ Ξ³ΞΉΞ± Ο„ΞΏΟ…Ο‚ ΞµΞ±Ο…Ο„ΞΏΟΟ‚ Ο„ΞΏΟ…Ο‚ Ξ­Ξ½Ξ± Ξ»ΞΏΞ³Ξ±ΟΞΉΞ±ΟƒΞΌΟ Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³ΞΏΟ ΞΞ±ΞΈΞ·ΞΌΞ¬Ο„Ο‰Ξ½ ;';
+$_lang['Are you sur to delete user\'s message?'] = 'Ξ•Ξ―ΟƒΞ±ΞΉ ΟƒΞ―Ξ³ΞΏΟ…ΟΞΏΟ‚ Ξ³ΞΉΞ± Ο„Ξ·Ξ½ Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ο„ΞΏΟ… ΞΌΞ·Ξ½ΟΞΌΞ±Ο„ΞΏΟ‚ Ο„ΞΏΟ… Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['Are you sure to delete'] = 'Ξ•Ξ―ΟƒΟ„Ξµ Ξ²Ξ­Ξ²Ξ±ΞΉΞΏΟ‚ ΟΟ„ΞΉ ΞΈΞ­Ξ»ΞµΟ„Ξµ Ξ½Ξ± Ο„ΞΏ Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΟ„Ξµ';
+$_lang['Are you sure to delete "%title" ?'] = 'Ξ•Ξ―ΟƒΞ±ΞΉ ΟƒΞ―Ξ³ΞΏΟ…ΟΞΏΟ‚ ΟΟ„ΞΉ ΞΈΞ­Ξ»ΞµΞΉΟ‚ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΞΉΟ‚ Ο„ΞΏ \"%title\";';
+$_lang['Are you sure to delete all messages from this user'] = 'Ξ•Ξ―ΟƒΞ±ΞΉ ΟƒΞ―Ξ³ΞΏΟ…ΟΞΏΟ‚ ΟΟ„ΞΉ ΞΈΞ­Ξ»ΞµΞΉΟ‚ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΞΉΟ‚ ΟΞ»Ξ± Ο„Ξ± ΞΌΞ·Ξ½ΟΞΌΞ±Ο„Ξ± Ξ±Ο€ΞΏ Ξ±Ο…Ο„ΟΞ½ Ο„ΞΏΞ½ Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['Are you sure to delete all messages older than %date?'] = 'Ξ•Ξ―ΟƒΞ±ΞΉ ΟƒΞ―Ξ³ΞΏΟ…ΟΞΏΟ‚ ΟΟ„ΞΉ ΞΈΞ­Ξ»ΞµΞΉΟ‚ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΞΉΟ‚ ΟΞ»Ξ± Ο„Ξ± ΞΌΞ·Ξ½ΟΞΌΞ±Ο„Ξ± Ο€ΞΏΟ… ΞµΞ―Ξ½Ξ±ΞΉ Ο€Ξ±Ξ»Ξ±ΞΉΟΟ„ΞµΟΞ± Ξ±Ο€ΞΏ %date;';
+$_lang['Are you sure to delete all messages?'] = 'Ξ•Ξ―ΟƒΞ±ΞΉ ΟƒΞ―Ξ³ΞΏΟ…ΟΞΏΟ‚ ΟΟ„ΞΉ ΞΈΞ­Ξ»ΞµΞΉΟ‚ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΞΉΟ‚ ΟΞ»Ξ± Ο„Ξ± ΞΌΞ·Ξ½ΟΞΌΞ±Ο„Ξ±;';
+$_lang['Are you sure to delete all platform messages?'] = 'Ξ•Ξ―ΟƒΞ±ΞΉ ΟƒΞ―Ξ³ΞΏΟ…ΟΞΏΟ‚ ΟΟ„ΞΉ ΞΈΞ­Ξ»ΞµΞΉΟ‚ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΞΉΟ‚ ΟΞ»Ξ± Ο„Ξ± ΞΌΞ·Ξ½ΟΞΌΞ±Ο„Ξ± Ο„Ξ·Ο‚ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±Ο‚;';
+$_lang['Are you sure to delete selected message(s) ?'] = 'Ξ•Ξ―ΟƒΞ±ΞΉ ΟƒΞ―Ξ³ΞΏΟ…ΟΞΏΟ‚ ΟΟ„ΞΉ ΞΈΞ­Ξ»ΞµΞΉΟ‚ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΞΉΟ‚ Ο„ΞΏ(Ξ±) ΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½ΞΏ(Ξ±) ΞΌΞ·Ξ½ΟΞΌΞ±(Ο„Ξ±);';
+$_lang['Are you sure to delete selected message?'] = 'Ξ•Ξ―ΟƒΞ±ΞΉ ΟƒΞ―Ξ³ΞΏΟ…ΟΞΏΟ‚ ΟΟ„ΞΉ ΞΈΞ­Ξ»ΞµΞΉΟ‚ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΞΉΟ‚  Ο„ΞΏ ΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½ΞΏ ΞΌΞ·Ξ½ΟΞΌΞ±';
+$_lang['Are you sure to delete the course "%course_name" ( %course_code ) ?'] = 'Ξ•Ξ―ΟƒΞ±ΞΉ ΟƒΞ―Ξ³ΞΏΟ…ΟΞΏΟ‚ ΟΟ„ΞΉ ΞΈΞ­Ξ»ΞµΞΉΟ‚ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΞΉΟ‚ Ο„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ± "%course_name" ( %course_code ) ;';
+$_lang['Are you sure to delete the message?'] = 'Ξ•Ξ―ΟƒΞ±ΞΉ ΟƒΞ―Ξ³ΞΏΟ…ΟΞΏΟ‚ ΟΟ„ΞΉ ΞΈΞ­Ξ»ΞµΞΉΟ‚ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΞΉΟ‚ Ο„ΞΏ ΞΌΞ·Ξ½ΟΞΌΞ±';
+$_lang['Are you sure to delete this group ?'] = ' Ξ•Ξ―ΟƒΟ„Ξµ Ξ²Ξ­Ξ²Ξ±ΞΉΞΏΞΉ ΟΟ„ΞΉ ΞΈΞ­Ξ»ΞµΟ„Ξµ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΟ„Ξµ Ξ±Ο…Ο„Ξ®Ξ½ Ο„Ξ·Ξ½ ΞΏΞΌΞ¬Ξ΄Ξ±?';
+$_lang['Are you sure to empty trashbox ?'] = 'Ξ•Ξ―ΟƒΞ±ΞΉ ΟƒΞ―Ξ³ΞΏΟ…ΟΞΏΟ‚ ΟΟ„ΞΉ ΞΈΞ­Ξ»ΞµΞΉΟ‚ Ξ½Ξ± Ξ±Ξ΄ΞµΞΉΞ¬ΟƒΞµΞΉΟ‚ Ο„ΞΏΞ½ ΞΊΞ¬Ξ»Ξ±ΞΈΞΏ;';
+$_lang['Are you sure you want to completely delete this question ?'] = 'Ξ•Ξ―ΟƒΞ±ΞΉ ΟƒΞ―Ξ³ΞΏΟ…ΟΞΏΟ‚ ΟΟ„ΞΉ ΞµΟ€ΞΉΞΈΟ…ΞΌΞµΞ―Ο‚ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΞΉΟ‚ ΞµΞ½Ο„ΞµΞ»ΟΟ‚ Ξ±Ο…Ο„Ξ® Ο„Ξ·Ξ½ ΞµΟΟΟ„Ξ·ΟƒΞ· ?';
+$_lang['Are you sure you want to delete all groups ?'] = 'Ξ•Ξ―ΟƒΞ±ΞΉ ΟƒΞ―Ξ³ΞΏΟ…ΟΞΏΟ‚ ΟΟ„ΞΉ ΞµΟ€ΞΉΞΈΟ…ΞΌΞµΞ―Ο‚ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΞΉΟ‚ ΟΞ»ΞµΟ‚ Ο„ΞΉΟ‚ ΞΏΞΌΞ¬Ξ΄ΞµΟ‚ ';
+$_lang['Are you sure you want to delete module %module% ?'] = 'Ξ•Ξ―ΟƒΞ±ΞΉ ΟƒΞ―Ξ³ΞΏΟ…ΟΞΏΟ‚ ΟΟ„ΞΉ ΞΈΞ­Ξ»ΞµΞΉΟ‚ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΞΉΟ‚ Ο„Ξ·Ξ½ ΞµΞ½ΟΟ„Ξ·Ο„Ξ±  %module% ;';
+$_lang['Are you sure you want to delete this exercise ?'] = 'Ξ•Ξ―ΟƒΟ„Ξµ ΟƒΞ―Ξ³ΞΏΟ…ΟΞΏΟ‚ ΟΟ„ΞΉ ΞµΟ€ΞΉΞΈΟ…ΞΌΞµΞ―Ο„Ξµ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΟ„Ξµ Ξ±Ο…Ο„Ξ® Ο„Ξ·Ξ½ Ξ¬ΟƒΞΊΞ·ΟƒΞ· ?';
+$_lang['Are you sure you want to empty all groups ?'] = 'Ξ•Ξ―ΟƒΞ±ΞΉ ΟƒΞ―Ξ³ΞΏΟ…ΟΞΏΟ‚ ΟΟ„ΞΉ ΞµΟ€ΞΉΞΈΟ…ΞΌΞµΞ―Ο‚ Ξ½Ξ± Ξ±Ξ΄ΞµΞΉΞ¬ΟƒΞµΞΉΟ‚/ΞΊΞ±ΞΈΞ±ΟΞ―ΟƒΞµΞΉΟ‚ ΟΞ»ΞµΟ‚ Ο„ΞΉΟ‚ ΞΏΞΌΞ¬Ξ΄ΞµΟ‚  ?';
+$_lang['Are you sure you want to enrol the whole class on the course ?'] = 'Ξ•Ξ―ΟƒΞ±ΞΉ ΟƒΞ―Ξ³ΞΏΟ…ΟΞΏΟ‚ ΟΟ„ΞΉ ΞµΟ€ΞΉΞΈΟ…ΞΌΞµΞ―Ο‚ Ξ½Ξ± ΞµΞ³Ξ³ΟΞ¬ΟΞµΞΉΟ‚ ΟΞ»ΞΏΞΊΞ»Ξ·ΟΞ· Ο„Ξ·Ξ½ Ο„Ξ¬ΞΎΞ· (class) ΟƒΟ„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ± (course) ?';
+$_lang['Are you sure you want to make this module invisible in all courses ?'] = 'Ξ•Ξ―ΟƒΞ±ΞΉ ΟƒΞ―Ξ³ΞΏΟ…ΟΞΏΟ‚ ΟΟ„ΞΉ ΞΈΞ­Ξ»ΞµΞΉΟ‚ Ξ½Ξ± ΞµΞΎΞ±Ο†Ξ±Ξ½Ξ―ΟƒΞµΞΉΟ‚ Ξ±Ο…Ο„Ο Ο„ΞΏ module Ξ±Ο€Ο ΟΞ»Ξ± Ο„Ξ± ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„Ξ± ;';
+$_lang['Are you sure you want to make this module visible in all courses ?'] = 'Ξ•Ξ―ΟƒΞ±ΞΉ ΟƒΞ―Ξ³ΞΏΟ…ΟΞΏΟ‚ ΟΟ„ΞΉ ΞΈΞ­Ξ»ΞµΞΉΟ‚ Ξ½Ξ± ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞµΟ„Ξ±ΞΉ Ξ±Ο…Ο„Ο Ο„ΞΏ module ΟƒΞµ ΟΞ»Ξ± Ο„Ξ± ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„Ξ± ;';
+$_lang['Are you sure you want to remove the following module from the learning path :'] = 'Ξ•Ξ―ΟƒΞ±ΞΉ ΟƒΞ―Ξ³ΞΏΟ…ΟΞΏΟ‚ ΞΏΟ„ΞΉ ΞΈΞ­Ξ»ΞµΞΉΟ‚ Ξ½Ξ± Ξ±Ο€ΞΏΞΌΞ±ΞΊΟΟΞ½ΞµΞΉΟ‚/Ξ±Ο†Ξ±ΞΉΟΞ­ΟƒΞµΞΉΟ‚ Ο„Ξ·Ξ½ Ο€Ξ±ΟΞ±ΞΊΞ¬Ο„Ο‰ ΞµΞ½ΟΟ„Ξ·Ο„Ξ± Ξ±Ο€ΞΏ Ο„Ξ· Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ® ΞΌΞ¬ΞΈΞ·ΟƒΞ·Ο‚: ';
+$_lang['Are you sure you want to remove the question from the exercise ?'] = 'Ξ•Ξ―ΟƒΞ±ΞΉ ΟƒΞ―Ξ³ΞΏΟ…ΟΞΏΟ‚ ΟΟ„ΞΉ ΞΈΞ­Ξ»ΞµΞΉΟ‚ Ξ½Ξ± Ξ±Ο†Ξ±ΞΉΟΞ­ΟƒΞµΞΉΟ‚ Ο„Ξ·Ξ½ ΞµΟΟΟ„Ξ·ΟƒΞ· Ξ±Ο€Ο Ο„Ξ·Ξ½ Ξ¬ΟƒΞΊΞ·ΟƒΞ· ?';
+$_lang['Are you sure you want to remove this course from your list ?'] = 'Ξ•Ξ―ΟƒΞ±ΞΉ ΟƒΞ―Ξ³ΞΏΟ…ΟΞΏΟ‚ ΟΟ„ΞΉ ΞµΟ€ΞΉΞΈΟ…ΞΌΞµΞ―Ο‚ Ξ½Ξ± Ξ±Ο†Ξ±ΞΉΟΞ­ΟƒΞµΞΉΟ‚ Ξ±Ο…Ο„Ο Ο„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ± Ξ±Ο€ΞΏ Ο„Ξ· Ξ»Ξ―ΟƒΟ„Ξ± ΟƒΞΏΟ… ?';
+$_lang['Are you sure you want to unenrol the whole class on the course ?'] = 'Ξ•Ξ―ΟƒΞ±ΞΉ ΟƒΞ―Ξ³ΞΏΟ…ΟΞΏΟ‚ ΟΟ„ΞΉ ΞΈΞ­Ξ»ΞµΞΉΟ‚ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΞΉΟ‚ ΞΏΞ»ΟΞΊΞ»Ξ·ΟΞ· Ο„Ξ·Ξ½ Ο„Ξ¬ΞΎΞ· Ξ±Ο€Ο Ο„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ± ?';
+$_lang['Are you sure you want to uninstall the module'] = 'Ξ•Ξ―ΟƒΞ±ΞΉ ΟƒΞ―Ξ³ΞΏΟ…ΟΞΏΟ‚ ΟΟ„ΞΉ ΞΈΞ­Ξ»ΞµΞΉΟ‚ Ξ½Ξ± Ξ±Ο€ΞµΞ³ΞΊΞ±Ο„Ξ±ΟƒΟ„Ξ®ΟƒΞµΞΉΟ‚ Ο„ΞΏ module ;';
+$_lang['Are you sure you want to unregister'] = 'Ξ•Ξ―ΟƒΞ±ΞΉ ΟƒΞ―Ξ³ΞΏΟ…ΟΞΏΟ‚ ΟΟ„ΞΉ ΞµΟ€ΞΉΞΈΟ…ΞΌΞµΞ―Ο‚ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†ΞµΞ―Ο‚';
+$_lang['Area for this group'] = 'Ξ ΞµΟΞΉΞΏΟ‡Ξ® Ξ³ΞΉΞ± Ο„Ξ·Ξ½ ΞΏΞΌΞ¬Ξ΄Ξ± Ο‡ΟΞ·ΟƒΟ„ΟΞ½';
+$_lang['Ask the official code'] = 'Ξ΅ΟΟ„Ξ·ΟƒΞµ Ο„ΞΏΞ½ ΞµΟ€Ξ―ΟƒΞ·ΞΌΞΏ ΞΊΟΞ΄ΞΉΞΊΞ±';
+$_lang['Asset not found : %asset'] = ' Ξ ΟΟΞΏΟ‚ Ξ΄ΞµΞ½ Ξ²ΟΞ­ΞΈΞ·ΞΊΞµ : %asset';
+$_lang['Assignment'] = 'Ξ•ΟΞ³Ξ±ΟƒΞ―Ξ±';
+$_lang['Assignment deleted'] = 'Ξ— ΞµΟΞ³Ξ±ΟƒΞ―Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬Ο†Ξ·ΞΊΞµ';
+$_lang['Assignment modified'] = 'Ξ— ΞµΟΞ³Ξ±ΟƒΞ―Ξ± Ο„ΟΞΏΟ€ΞΏΟ€ΞΏΞΉΞ®ΞΈΞ·ΞΊΞµ';
+$_lang['Assignment property "Default works visibility" acts'] = 'Ξ— ΞΉΞ΄ΞΉΟΟ„Ξ·Ο„Ξ± ΞµΟΞ³Ξ±ΟƒΞ―Ξ±Ο‚ "Ξ ΟΞΏΞΊΞ±ΞΈΞΏΟΞΉΟƒΞΌΞ­Ξ½ΞΏΟ‚ ΞΌΞ·Ο‡Ξ±Ξ½ΞΉΟƒΞΌΟΟ‚ ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ·Ο‚ ΞµΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ·Ο‚" Ξ΄ΟΞ¬';
+$_lang['Assignment title'] = 'Ξ¤Ξ―Ο„Ξ»ΞΏΟ‚ Ξ•ΟΞ³Ξ±ΟƒΞ―Ξ±Ο‚';
+$_lang['Assignment title already exists'] = 'Ξ Ο„Ξ―Ο„Ξ»ΞΏΟ‚ Ξ±Ο…Ο„ΟΟ‚ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ Ξ®Ξ΄Ξ·';
+$_lang['Assignment title required'] = 'Ξ‘Ο€Ξ±ΞΉΟ„ΞµΞ―Ο„Ξ±ΞΉ Ο„Ξ―Ο„Ξ»ΞΏΟ‚ ΞµΟΞ³Ξ±ΟƒΞ―Ξ±Ο‚';
+$_lang['Assignment type'] = 'Ξ¤ΟΟ€ΞΏΟ‚ ΞµΟΞ³Ξ±ΟƒΞ―Ξ±Ο‚';
+$_lang['Assignments'] = 'Ξ•ΟΞ³Ξ±ΟƒΞ―ΞµΟ‚';
+$_lang['Assignments help'] = 'Ξ‘Ξ½Ξ±ΞΈΞµΟƒΞ· (ΞµΟΞ³Ξ±ΟƒΞ―Ξ±Ο‚) Ξ²ΞΏΞ·ΞΈΞµΞΉΞ±Ο‚';
+$_lang['Attach'] = ' Ξ•Ο€ΞΉΟƒΟΞ½Ξ¬ΟΟ„Ξµ ';
+$_lang['Attach a file'] = 'Ξ•Ο€ΞΉΟƒΟΞ½Ξ±ΟΞ· Ξ±ΟΟ‡ΞµΞ―ΞΏΟ…';
+$_lang['Attached file'] = 'Ξ¤ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ Ξ­Ο‡ΞµΞΉ ΞµΟ€ΞΉΟƒΟ…Ξ½Ξ±Ο†ΞΈΞµΞ―';
+$_lang['Attached resources'] = 'Ξ•Ο€ΞΉΟƒΟ…Ξ½Ξ±Ο€Ο„ΟΞΌΞµΞ½ΞµΟ‚ Ο€Ξ·Ξ³Ξ­Ο‚';
+$_lang['Attempt %attemptCount'] = 'Ξ ΟΞΏΟƒΟ€Ξ¬ΞΈΞµΞΉΞµΟ‚ %attemptCount';
+$_lang['Attempt %attemptCount on %attempts'] = 'Ξ ΟΞΏΟƒΟ€Ξ¬ΞΈΞµΞΉΞµΟ‚ %attemptCount on %attempts';
+$_lang['Attempts'] = 'Ξ ΟΞΏΟƒΟ€Ξ¬ΞΈΞµΞΉΞµΟ‚';
+$_lang['Attempts allowed'] = 'Ξ•Ο€ΞΉΟ„ΟΞµΟ€Ο„Ξ­Ο‚ Ο€ΟΞΏΟƒΟ€Ξ¬ΞΈΞµΞΉΞµΟ‚';
+$_lang['Authentication'] = 'Ξ¤Ξ±Ο…Ο„ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['Authentication Required'] = 'Ξ§ΟΞµΞΉΞ¬Ξ¶ΞµΟ„Ξ±ΞΉ ΞµΟ€ΞΉΞΊΟΟΟ‰ΟƒΞ·';
+$_lang['Authentication source'] = 'Ξ Ξ·Ξ³Ξ® Ο€ΞΉΟƒΟ„ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ·Ο‚';
+$_lang['Author'] = 'Ξ‘Ο€ΞΏΟƒΟ„ΞΏΞ»Ξ­Ξ±Ο‚';
+$_lang['Author(s)'] = 'Ξ£Ο…Ξ³Ξ³ΟΞ±Ο†Ξ­Ξ±Ο‚ -ΞµΞΉΟ‚';
+$_lang['Automatic'] = 'Ξ‘Ο…Ο„ΟΞΌΞ±Ο„ΞΏ';
+$_lang['Automatic cleaning factor'] = 'Ξ‘Ο…Ο„ΟΞΌΞ±Ο„ΞΏΟ‚ Ο€Ξ±ΟΞ¬Ξ³ΞΏΞ½Ο„Ξ±Ο‚ ΞΊΞ±ΞΈΞ±ΟΞΉΟƒΞΌΞΏΟ';
+$_lang['Automatically, after each submission'] = 'Ξ‘Ο…Ο„ΟΞΌΞ±Ο„Ξ±, ΞΌΞµΟ„Ξ¬ Ξ±Ο€ΞΏ ΞΊΞ¬ΞΈΞµ Ο…Ο€ΞΏΞ²ΞΏΞ»Ξ® ';
+$_lang['Automatically, after end date'] = 'Ξ‘Ο…Ο„ΟΞΌΞ±Ο„Ξ±, ΞΌΞµΟ„Ξ¬ Ξ±Ο€ΞΏ Ο„ΞΏ Ο„Ξ­Ξ»ΞΏΟ‚ Ο„Ξ·Ο‚ Ξ·ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ±Ο‚';
+$_lang['Available from %startDate'] = 'Ξ”ΞΉΞ±ΞΈΞ­ΟƒΞΉΞΌΞΏ Ξ±Ο€ΞΏ %startDate';
+$_lang['Available images'] = 'Ξ”ΞΉΞ±ΞΈΞ­ΟƒΞΉΞΌΞµΟ‚ ΞµΞΉΞΊΟΞ½ΞµΟ‚';
+$_lang['Available tools to add to your course'] = 'Ξ”ΞΉΞ±ΞΈΞ­ΟƒΞΉΞΌΞ± ΞµΟΞ³Ξ±Ξ»ΞµΞ―Ξ± Ξ³ΞΉΞ± Ξ½Ξ± Ο€ΟΞΏΟƒΞΈΞ­ΟƒΞµΞΉΟ‚ ΟƒΟ„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ± ΟƒΞΏΟ…';
+$_lang['Average Time'] = 'ΞΞ­ΟƒΞΏ ΟΟΞΏ Ο‡ΟΟΞ½ΞΏΟ… (s.)';
+$_lang['Average score'] = 'ΞΞ­ΟƒΞΏΟ‚ ΟΟΞΏΟ‚';
+$_lang['Back'] = 'Ξ•Ο€ΞΉΟƒΟ„ΟΞΏΟ†Ξ®';
+$_lang['Back to administration page'] = 'Ξ•Ο€ΞΉΟƒΟ„ΟΞΏΟ†Ξ® ΟƒΟ„Ξ· ΟƒΞµΞ»Ξ―Ξ΄Ξ± Ξ΄ΞΉΞ±Ο‡ΞµΞ―ΟΞΉΟƒΞ·Ο‚';
+$_lang['Back to class list'] = 'Ξ•Ο€ΞΉΟƒΟ„ΟΞΏΟ†Ξ® ΟƒΟ„Ξ· Ξ»Ξ―ΟƒΟ„Ξ± Ο„Ξ¬ΞΎΞ·Ο‚';
+$_lang['Back to class members'] = 'Ξ•Ο€ΞΉΟƒΟ„ΟΞΏΟ†Ξ® ΟƒΟ„Ξ± ΞΌΞ­Ξ»Ξ· Ο„Ξ·Ο‚ Ο„Ξ¬ΞΎΞ·Ο‚';
+$_lang['Back to course list'] = 'Ξ•Ο€ΞΉΟƒΟ„ΟΞΏΟ†Ξ® ΟƒΟ„Ξ· Ξ»Ξ―ΟƒΟ„Ξ± Ο„Ο‰Ξ½ ΞΌΞ±ΞΈΞ·ΞΌΞ¬Ο„Ο‰Ξ½';
+$_lang['Back to inbox'] = 'Ξ Ξ―ΟƒΟ‰ ΟƒΟ„Ξ± ΞµΞΉΟƒΞµΟΟ‡ΟΞΌΞµΞ½Ξ±';
+$_lang['Back to learning path administration'] = 'Ξ•Ο€ΞΉΟƒΟ„ΟΞΏΟ†Ξ® ΟƒΟ„Ξ· Ξ΄ΞΉΞ±Ο‡ΞµΞ―ΟΞΉΟƒΞ· Ο„Ξ·Ο‚ Ο€ΞΏΟΞµΞ―Ξ±Ο‚ ΞΌΞ¬ΞΈΞ·ΟƒΞ·Ο‚';
+$_lang['Back to list'] = 'Ξ•Ο€ΞΉΟƒΟ„ΟΞΏΟ†Ξ® ΟƒΟ„Ξ· Ξ»Ξ―ΟƒΟ„Ξ±';
+$_lang['Back to my personal course list'] = 'Ξ•Ο€ΞΉΟƒΟ„ΟΞΏΟ†Ξ® ΟƒΟ„Ξ· Ο€ΟΞΏΟƒΟ‰Ο€ΞΉΞΊΞ® Ξ»Ξ―ΟƒΟ„Ξ± ΞΌΞ±ΞΈΞ·ΞΌΞ¬Ο„Ο‰Ξ½';
+$_lang['Back to page'] = ' Ξ Ξ―ΟƒΟ‰ ΟƒΟ„Ξ· ΟƒΞµΞ»Ξ―Ξ΄Ξ± ';
+$_lang['Back to parent category'] = 'Ξ•Ο€ΞΉΟƒΟ„ΞΏΟ†Ξ® ΟƒΟ„Ξ· ΞΊΟΟΞΉΞ± ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±';
+$_lang['Back to the class'] = 'Ξ•Ο€ΞΉΟƒΟ„ΟΞΏΟ†Ξ® ΟƒΟ„Ξ· Ο„Ξ¬ΞΎΞ·';
+$_lang['Back to the editor'] = 'Ξ•Ο€ΞΉΟƒΟ„ΟΞΏΟ†Ξ® ΟƒΟ„ΞΏ ΟƒΟ…Ξ½Ο„Ξ¬ΞΊΟ„Ξ· / ΞµΟ€ΞΉΞΌΞµΞ»Ξ·Ο„Ξ®';
+$_lang['Back to the exercise list'] = 'Ξ Ξ―ΟƒΟ‰ ΟƒΟ„Ξ· Ξ»Ξ―ΟƒΟ„Ξ± Ξ±ΟƒΞΊΞ®ΟƒΞµΟ‰Ξ½';
+$_lang['Back to user list'] = 'Ξ•Ο€ΞΉΟƒΟ„ΟΞΏΟ†Ξ® ΟƒΟ„Ξ· Ξ»Ξ―ΟƒΟ„Ξ± Ο‡ΟΞ·ΟƒΟ„ΟΞ½';
+$_lang['Back to user settings'] = 'Ξ•Ο€ΞΉΟƒΟ„ΟΞΏΟ†Ξ® ΟƒΟ„ΞΉΟ‚ ΟΟ…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ Ο„ΞΏΟ… Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['Back to user\'s course list'] = 'Ξ Ξ―ΟƒΟ‰ ΟƒΟ„Ξ· Ξ»Ξ―ΟƒΟ„Ξ± ΞΌΞ±ΞΈΞ·ΞΌΞ¬Ο„Ο‰Ξ½ Ο„ΞΏΟ… Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['Baseline'] = 'Ξ“ΟΞ±ΞΌΞΌΞ® ΞµΞΊΞΊΞ―Ξ½Ξ·ΟƒΞ·Ο‚';
+$_lang['Before'] = 'Ξ ΟΞ―Ξ½';
+$_lang['Best score'] = 'MΞ­Ξ³ΞΉΟƒΟ„ΞΏ';
+$_lang['Blank space'] = 'ΞΞµΞ½Ο Ξ΄ΞΉΞ¬ΟƒΟ„Ξ·ΞΌΞ±';
+$_lang['Block'] = 'Ξ¦ΟΞ±Ξ³Ξ®';
+$_lang['Blockquote'] = 'Ξ‘Ο€ΟΟƒΟ„ΟΞΏΟ†ΞΏΟ‚';
+$_lang['Bold'] = 'ΞΞ½Ο„ΞΏΞ½Ξ±';
+$_lang['Border'] = 'Ξ ΞµΟΞ―Ξ³ΟΞ±ΞΌΞΌΞ±';
+$_lang['Bottom'] = 'Ξ Ο…ΞΈΞΌΞ­Ξ½Ξ±Ο‚';
+$_lang['Build language files'] = 'ΞΞ±Ο„Ξ±ΟƒΞΊΞµΟ…Ξ® Ξ±ΟΟ‡ΞµΞ―Ο‰Ξ½ Ξ³Ξ»ΟΟƒΟƒΞ±Ο‚';
+$_lang['By deleting a label you will delete all modules or label it contains.'] = 'Ξ”ΞΉΞ±Ξ³ΟΞ¬Ο†ΞΏΞ½Ο„Ξ±Ο‚ ΞΌΞ―Ξ± ΞµΟ„ΞΉΞΊΞ­Ο„Ξ± ΞΈΞ± Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†ΞΏΟΞ½ ΞΊΞ±ΞΉ ΟΞ»ΞµΟ‚ ΞΏΞΉ ΞµΞ½ΟΟ„Ξ·Ο„ΞµΟ‚ Ξ® ΞΏΞΉ ΞµΟ„ΞΉΞΊΞ­Ο„ΞµΟ‚ Ο€ΞΏΟ… Ο€ΞµΟΞΉΞ­Ο‡ΞµΞΉ.';
+$_lang['CSV file with the user list :'] = 'CSV Ξ±ΟΟ‡ΞµΞ―ΞΏ ΞΌΞµ Ο„Ξ· Ξ»Ξ―ΟƒΟ„Ξ± Ο‡ΟΞ®ΟƒΟ„Ξ· : ';
+$_lang['Cache settings'] = 'Ξ΅Ο…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ cache';
+$_lang['Cache system'] = 'Ξ£ΟΟƒΟ„Ξ·ΞΌΞ± cache';
+$_lang['Campus banner - left'] = 'Campus ΟƒΟΞ½ΞΈΞ·ΞΌΞ± - Ξ±ΟΞΉΟƒΟ„ΞµΟΟ';
+$_lang['Campus banner - right'] = 'Campus ΟƒΟΞ½ΞΈΞ·ΞΌΞ± - Ξ΄ΞµΞΎΞ―';
+$_lang['Campus footer - center'] = 'Campus Ο…Ο€ΞΏΟƒΞ­Ξ»ΞΉΞ΄ΞΏ - ΞΊΞµΞ½Ο„ΟΞΉΞΊΟΟ‚';
+$_lang['Campus footer - left'] = 'Campus Ο…Ο€ΞΏΟƒΞ­Ξ»ΞΉΞ΄ΞΏ - Ξ±ΟΞΉΟƒΟ„ΞµΟΟ';
+$_lang['Campus footer - right'] = 'Campus Ο…Ο€ΞΏΟƒΞ­Ξ»ΞΉΞ΄ΞΏ - Ξ΄ΞµΞΎΞ―';
+$_lang['Campus homepage - bottom'] = 'Campus ΞΊΞµΞ½Ο„ΟΞΉΞΊΞ® ΟƒΞµΞ»Ξ―Ξ΄Ξ± - ΞΊΞ¬Ο„Ο‰';
+$_lang['Campus homepage - right menu'] = 'Campus ΞΊΞµΞ½Ο„ΟΞΉΞΊΞ® ΟƒΞµΞ»Ξ―Ξ΄Ξ± - Ξ΄ΞµΞΎΞ― menu';
+$_lang['Campus homepage - top'] = 'Campus ΞΊΞµΞ½Ο„ΟΞΉΞΊΞ® ΟƒΞµΞ»Ξ―Ξ΄Ξ± - ΞΊΞΏΟΟ…Ο†Ξ®';
+$_lang['Campus name'] = 'ΞΞ½ΞΏΞΌΞ± site';
+$_lang['Can have courses'] = 'ΞΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ­Ο‡ΞµΞΉ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„Ξ±: ';
+$_lang['Cancel'] = 'Ξ‘ΞΊΟΟΟ‰ΟƒΞ·';
+$_lang['Cancel the operation'] = 'Ξ‘ΞΊΟΟΟ‰ΟƒΞ· Ο„Ξ· Ξ»ΞµΞΉΟ„ΞΏΟ…ΟΞ³Ξ―Ξ±';
+$_lang['Cannot activate module'] = 'Ξ¤ΞΏ module Ξ΄ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞΉΞ·ΞΈΞµΞ―';
+$_lang['Cannot add tool to course'] = 'Ξ”ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ο€ΟΞΏΟƒΞΈΞ­ΟƒΞµΞΉ Ο„ΞΏ ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏ ΟƒΟ„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['Cannot be changed'] = 'Ξ”ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ±Ξ»Ξ»Ξ±Ο‡Ο„ΞµΞ―';
+$_lang['Cannot change module activation on course creation'] = 'Ξ”ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ±Ξ»Ξ»Ξ¬ΞΎΞµΞΉ Ο„Ξ·Ξ½ ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· Ο„Ξ·Ο‚ ΞµΞ½ΟΟ„Ξ·Ο„Ξ±Ο‚ ΟƒΟ„Ξ·Ξ½ Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Cannot change module visibility in %course'] = 'Ξ— ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ· ΞµΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ·Ο‚ Ο„ΞΏΟ… module Ξ΄ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ±Ξ»Ξ»Ξ¬ΞΎΞµΞΉ ΟƒΟ„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ± %course';
+$_lang['Cannot compute db size of a course in singleDBMode'] = 'Ξ”ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ο…Ο€ΞΏΞ»ΞΏΞ³Ξ―ΟƒΞµΞΉ Ο„ΞΏ ΞΌΞ­Ξ³ΞµΞΈΞΏΟ‚ Ο„Ξ·Ο‚ Ξ²Ξ¬ΟƒΞ·Ο‚ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½ ΟƒΞµ ΞΌΞ¬ΞΈΞ·ΞΌΞ± ΟƒΞµ ΞΊΞ±Ξ½ΞΏΞ½ΞΉΞΊΟ Ο„ΟΟΟ€ΞΏ Ο€ΟΞΏΞ²ΞΏΞ»Ξ®Ο‚';
+$_lang['Cannot copy the file'] = 'Ξ¤ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ Ξ΄ΞµΞ½ Ξ±Ξ½Ο„ΞΉΞ³ΟΞ¬Ο†ΞµΟ„Ξ±ΞΉ.';
+$_lang['Cannot deactivate module'] = 'Ξ¤ΞΏ module Ξ΄ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ±Ο€ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞΉΞ·ΞΈΞµΞ―';
+$_lang['Cannot delete announcement'] = 'Ξ”ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬Ο†ΞµΞΉ Ξ· Ξ±Ξ½Ξ±ΞΊΞΏΞ―Ξ½Ο‰ΟƒΞ·';
+$_lang['Cannot delete announcement list'] = 'Ξ”ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬Ο†ΞµΞΉ Ξ· Ξ»Ξ―ΟƒΟ„Ξ± Ξ±Ξ½Ξ±ΞΊΞΏΞ―Ξ½Ο‰ΟƒΞµΟ‰Ξ½';
+$_lang['Cannot delete user picture'] = 'Ξ”ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬Ο†ΞµΞΉ Ξ· Ο†Ο‰Ο„ΞΏΞ³ΟΞ±Ο†Ξ―Ξ± Ο„ΞΏΟ… Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['Cannot extract files.'] = 'Ξ¤Ξ± Ξ±ΟΟ‡ΞµΞ―Ξ± Ξ΄ΞµΞ½ ΞΌΟ€ΞΏΟΞΏΟΞ½ Ξ½Ξ± ΞµΞΎΞ±Ο‡ΞΈΞΏΟΞ½.';
+$_lang['Cannot extract manifest from zip file (corrupted file ? ).'] = 'Ξ”ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΞµΞΌΟ†Ξ±Ξ½ΞΉΟƒΟ„ΞµΞ― Ξ±Ο€ΟΟƒΟ€Ξ±ΟƒΞΌΞ± Ξ±Ο€ΞΏ Ο„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ zip.';
+$_lang['Cannot find <i>manifest</i> file in the package.<br /> File not found : imsmanifest.xml'] = 'Ξ”ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ²ΟΞµΞΈΞµΞ― Ο„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ <i>manifest</i> ΟƒΟ„ΞΏ Ο€Ξ±ΞΊΞ­Ο„ΞΏ.<br /> Ξ‘ΟΟ‡ΞµΞ―ΞΏ Ο€ΞΏΟ… Ξ΄Ξµ Ξ²ΟΞ­ΞΈΞ·ΞΊΞµ : imsmanifest.xml';
+$_lang['Cannot find module'] = 'Ξ¤ΞΏ module Ξ΄ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ²ΟΞµΞΈΞµΞ―';
+$_lang['Cannot find secondary initialisation file in the package.<br /> File not found :'] = 'Ξ”ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞΉ Ξ½Ξ± Ξ²ΟΞµΞΈΞµΞ― Ξ΄ΞµΟ…Ο„ΞµΟΞµΟΞΏΞ½ Ξ±ΟΟ‡ΞµΞ―ΞΏ Ξ­Ξ½Ξ±ΟΞΎΞ·Ο‚ ΟƒΟ„ΞΏ Ο€Ξ±ΞΊΞ­Ο„ΞΏ.<br /> Ξ‘ΟΟ‡ΞµΞ―ΞΏ Ο€ΞΏΟ… Ξ΄Ξµ Ξ²ΟΞ­ΞΈΞ·ΞΊΞµ  : ';
+$_lang['Cannot find user'] = 'Ξ”ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ²ΟΞµΞΈΞµΞ― ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚';
+$_lang['Cannot load portlets'] = 'Ξ”ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΞΊΞ±Ο„ΞµΞ²Ξ¬ΟƒΞµΞΉ Ο„Ξ± portlets';
+$_lang['Cannot merge one user account with itself'] = 'Ξ”ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΟƒΟ…Ξ³Ο‡Ο‰Ξ½ΞµΟΟƒΞµΞΉ Ξ­Ξ½Ξ± Ξ»ΞΏΞ³Ξ±ΟΞΉΟƒΞΌΟ Ο‡ΟΞ®ΟƒΟ„Ξ· ΞΌΞµ Ο„ΞΏΞ½ ΞµΞ±Ο…Ο„Ο Ο„ΞΏΟ…';
+$_lang['Cannot open %filename'] = '%filename Ξ΄ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ±Ξ½ΞΏΞΉΟ‡ΞΈΞµΞ―';
+$_lang['Cannot open manifest file'] = 'Ξ”ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ±Ξ½ΞΏΞ―ΞΎΞµΞΉ Ο„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ manifest';
+$_lang['Cannot parse module manifest'] = 'Ξ”ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΞΊΟ‰Ξ΄ΞΉΞΊΞΏΟ€ΞΏΞΉΞ®ΟƒΞµΞΉ Ο„Ξ·Ξ½ ΞµΞ½ΟΟ„Ξ·Ο„Ξ± manifest';
+$_lang['Cannot perform the requested action'] = 'Ξ”ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΞµΞΊΟ„ΞµΞ»ΞµΞΈΞµΞ― Ξ· Ξ¶Ξ·Ο„ΞΏΟΞΌΞµΞ½Ξ· ΞµΞ½Ξ­ΟΞ³ΞµΞΉΞ±';
+$_lang['Cannot register module %label'] = 'Ξ¤ΞΏ module %label Ξ΄ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΞΊΞ±Ο„Ξ±Ο‡Ο‰ΟΞ·ΞΈΞµΞ―';
+$_lang['Cannot register tool %label'] = 'Ξ¤ΞΏ ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏ %label Ξ΄ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΞΊΞ±Ο„Ξ±Ο‡Ο‰ΟΞ·ΞΈΞµΞ―';
+$_lang['Cannot remove tool from course'] = 'Ξ”ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ±Ο†Ξ±ΞΉΟΞµΞΈΞµΞ― Ο„ΞΏ ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏ Ξ±Ο€ΞΏ Ο„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['Cannot update course database for %course'] = 'Ξ— Ξ²Ξ¬ΟƒΞ· Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½ Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ %course Ξ΄ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΞµΞ½Ξ·ΞΌΞµΟΟ‰ΞΈΞµΞ―';
+$_lang['Cannot update database'] = 'Ξ— Ξ²Ξ¬ΟƒΞ· Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½ Ξ΄ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΞµΞ½Ξ·ΞΌΞµΟΟ‰ΞΈΞµΞ―';
+$_lang['Cannot upload file'] = 'Ξ”ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ±Ξ½ΞµΞ²ΞµΞ― Ο„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ';
+$_lang['Cas settings'] = 'Ξ΅Ο…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ Ξ³ΞΉΞ± Ο„ΞΏ Cas';
+$_lang['Categories'] = 'ΞΞ±Ο„Ξ·Ξ³ΞΏΟΞ―ΞµΟ‚';
+$_lang['Categories structure is right'] = 'Ξ— Ξ΄ΞΏΞΌΞ® Ο„Ο‰Ξ½ ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞΉΟΞ½ ΞµΞ―Ξ½Ξ±ΞΉ ΟƒΟ‰ΟƒΟ„Ξ®';
+$_lang['Category'] = 'ΞΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±';
+$_lang['Category code'] = 'ΞΟ‰Ξ΄ΞΉΞΊΟΟ‚ ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±Ο‚ :';
+$_lang['Category code is required'] = 'Ξ ΞΊΟ‰Ξ΄ΞΉΞΊΟΟ‚ ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±Ο‚ Ξ±Ο€Ξ±ΞΉΟ„ΞµΞ―Ο„Ξ±ΞΉ';
+$_lang['Category created'] = 'Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±Ο‚';
+$_lang['Category deleted'] = 'Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±Ο‚';
+$_lang['Category moved'] = 'ΞΞµΟ„Ξ±ΞΊΞ―Ξ½Ξ·ΟƒΞ· ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±Ο‚';
+$_lang['Category name'] = 'ΞΞ½ΞΏΞΌΞ± ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±Ο‚ :';
+$_lang['Category name is required'] = 'Ξ‘Ο€Ξ±ΞΉΟ„ΞµΞ―Ο„Ξ±ΞΉ ΟΞ½ΞΏΞΌΞ± ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±Ο‚';
+$_lang['Category needed'] = 'Ξ— ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ± Ξ®Ο„Ξ±Ξ½ Ξ±Ο€Ξ±ΟΞ±Ξ―Ο„Ξ·Ο„Ξ·';
+$_lang['Category updated'] = 'Ξ— ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ± Ξ­Ο‡ΞµΞΉ Ξ±Ξ½Ξ±Ξ²Ξ±ΞΈΞΌΞΉΟƒΟ„ΞµΞ―.';
+$_lang['Central Authentication System'] = 'ΞΞµΞ½Ο„ΟΞΉΞΊΟ Ξ£ΟΟƒΟ„Ξ·ΞΌΞ± Ξ ΞΉΟƒΟ„ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ·Ο‚';
+$_lang['Centralized Authentication System'] = 'Ξ£Ο…Ξ³ΞΊΞµΞ½Ο„ΟΟ‰Ο„ΞΉΞΊΟ Ξ£ΟΟƒΟ„Ξ·ΞΌΞ± Ξ ΞΉΟƒΟ„ΞΏΟ€ΞΏΞΉΞ®ΟƒΞ·Ο‚';
+$_lang['Change minimum raw mark to pass this module (percentage) :'] = 'Ξ‘Ξ»Ξ»Ξ±ΞΎΞµ Ο„ΞΏ ΞµΞ»Ξ¬Ο‡ΞΉΟƒΟ„ΞΏ Ξ±ΟΟ‡ΞΉΞΊΟ ΟƒΞ·ΞΌΞµΞ―ΞΏ Ξ³ΞΉΞ± Ξ½Ξ± Ο€ΞµΟΞ¬ΟƒΞµΞΉ Ξ±Ο…Ο„Ξ® Ξ· ΞµΞ½ΟΟ„Ξ·Ο„Ξ± (Ο€ΞΏΟƒΞΏΟƒΟ„Ο): ';
+$_lang['Change parent\'s category of %catCode'] = 'Ξ†Ξ»Ξ»Ξ±ΞΎΞµ Ο„Ξ·Ξ½ ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ± Ο„ΞΏΟ… Ο€Ξ±Ο„Ξ­ΟΞ± Ο„ΞΏΟ… %catCode';
+$_lang['Change this setting only if it\'s absolutely required.'] = 'Ξ†Ξ»Ξ»Ξ±ΞΎΞµ Ξ±Ο…Ο„Ξ® Ο„Ξ· ΟΟΞΈΞΌΞΉΟƒΞ· ΞΌΟΞ½ΞΏ Ξ¬ΞΌΞ± ΞµΞ―Ξ½Ξ±ΞΉ Ξ±Ο€ΟΞ»Ο…Ο„Ξ± Ξ±Ο€Ξ±ΟΞ±Ξ―Ο„Ξ·Ο„ΞΏ.';
+$_lang['Change visibility in all courses'] = 'Ξ†Ξ»Ξ»Ξ±ΞΎΞµ Ο„Ξ·Ξ½ ΞΏΟΞ±Ο„ΟΟ„Ξ·Ο„Ξ± ΟƒΞµ ΟΞ»Ξ± Ο„Ξ± ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„Ξ±';
+$_lang['Changes have been applied to the user settings'] = 'ΞΞΉ Ξ±Ξ»Ξ»Ξ±Ξ³Ξ­Ο‚ Ξ­Ο‡ΞΏΟ…Ξ½ ΞµΟ†Ξ±ΟΞΌΞΏΟƒΟ„ΞµΞ― ΟƒΟ„ΞΉΟ‚ ΟΟ…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ Ο„ΞΏΟ… Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['Changes have been saved'] = 'ΞΞΉ Ξ±Ξ»Ξ»Ξ±Ξ³Ξ­Ο‚ Ξ­Ο‡ΞΏΟ…Ξ½ Ξ±Ο€ΞΏΞΈΞ·ΞΊΞµΟ…Ο„ΞµΞ―';
+$_lang['Changes have not been applied to the user settings'] = 'ΞΞΉ Ξ±Ξ»Ξ»Ξ±Ξ³Ξ­Ο‚ Ξ΄ΞµΞ½ ΞµΟ†Ξ±ΟΞΌΟΟƒΟ„Ξ·ΞΊΞ±Ξ½ ΟƒΟ„ΞΉΟ‚ ΟΟ…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ Ο„ΞΏΟ… Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['Changes in the display of the module have been applied'] = 'Ξ•Ο†Ξ±ΟΞΌΟΟƒΟ„Ξ·ΞΊΞ±Ξ½ ΞΏΞΉ Ξ±Ξ»Ξ»Ξ±Ξ³Ξ­Ο‚ ΟƒΟ„Ξ·Ξ½ ΞµΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· Ο„ΞΏΟ… module';
+$_lang['Chat'] = 'ΞΞΏΟ…Ξ²ΞµΞ½Ο„ΞΏΟΞ»Ξ±';
+$_lang['Chat reset by'] = ' Ξ‘ΟΟ‡ΞΉΞΊΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· chat Ξ±Ο€Ο';
+$_lang['Check and Repair emails of users'] = 'Ξ•Ξ»Ξ­Ξ³Ο‡ΞµΞΉ ΞΊΞ±ΞΉ Ξ•Ο€ΞΉΞ΄ΞΉΞΏΟΞΈΟΞ½ΞµΞΉ Ο„Ξ± email Ο„Ο‰Ξ½ Ο‡ΟΞ·ΟƒΟ„ΟΞ½';
+$_lang['Check if the password is not too easy to find'] = 'Ξ•Ξ»Ξ­Ξ³Ο‡ΞµΞΉ Ξ±Ξ½ ΞµΞ―Ξ½Ξ±ΞΉ Ο€ΞΏΞ»Ο ΞµΟΞΊΞΏΞ»ΞΏ Ξ½Ξ± Ξ²ΟΞµΞΈΞµΞ― ΞΏ ΞΊΟ‰Ξ΄ΞΉΞΊΟΟ‚ Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ·Ο‚';
+$_lang['Check this box to delete the attached file'] = 'Ξ£Ξ·ΞΌΞµΞΉΟΟƒΟ„Ξµ Ξ±Ο…Ο„Ο Ο„ΞΏ ΞΊΞΏΟ…Ο„Ξ― Ξ³ΞΉΞ± Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ±ΟΞµΟ„Ξµ Ο„ΞΏ ΞµΟ€ΞΉΟƒΟ…Ξ½Ξ±Ο€Ο„ΟΞΌΞµΞ½ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ.';
+$_lang['Choose "No" if you use microsoft active directory (by default this authentication system is case-insensitive)'] = 'Ξ”ΞΉΞ¬Ξ»ΞµΞΎΞµ "ΞΟ‡ΞΉ" Ξ±Ξ½ Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞµΞ―Ο‚ Microsoft Active Directory (Ο€ΟΞΏΞΊΞ±ΞΈΞΏΟΞΉΟƒΞΌΞ­Ξ½Ξ± Ο„ΞΏ ΟƒΟΟƒΟ„Ξ·ΞΌΞ± Ο€ΞΉΟƒΟ„ΞΏΟ€ΞΏΞ―ΟƒΞ·ΟƒΞ·Ο‚ Ξ΄ΞΉΞ±ΞΊΟΞ―Ξ½ΞµΞΉ ΞΌΞΉΞΊΟΞ¬-ΞΊΞµΟ†Ξ±Ξ»Ξ±Ξ―Ξ±)';
+$_lang['Choose a course'] = 'Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ξ­Ξ½Ξ± ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['Choose a course to access this page.'] = ' Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ ΞΌΞΉΞ± ΟƒΞµΞΉΟΞ¬ ΞΌΞ±ΞΈΞ·ΞΌΞ¬Ο„Ο‰Ξ½ Ξ³ΞΉΞ± Ξ½Ξ± Ξ­Ο‡ΞµΟ„Ξµ Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ· ΟƒΞµ Ξ±Ο…Ο„Ξ®Ξ½ Ο„Ξ·Ξ½ ΟƒΞµΞ»Ξ―Ξ΄Ξ±.';
+$_lang['Choose a date'] = 'Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ξ·ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ±';
+$_lang['Choose now a username and a password for the user account'] = ' Ξ•Ο€Ξ­Ξ»ΞµΞΎΞµ Ο„ΟΟΞ± Ξ­Ξ½Ξ± ΟΞ½ΞΏΞΌΞ± Ο‡ΟΞ®ΟƒΟ„Ξ· ΞΊΞ±ΞΉ Ξ­Ξ½Ξ±Ξ½ ΞΊΟ‰Ξ΄ΞΉΞΊΟ Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ·Ο‚ Ξ³ΞΉΞ± Ο„ΞΏ Ξ»ΞΏΞ³Ξ±ΟΞΉΞ±ΟƒΞΌΟ Ο‡ΟΞ®ΟƒΟ„Ξ·. ';
+$_lang['Choose one'] = 'Ξ”ΞΉΞ¬Ξ»ΞµΞΎΞµ Ξ­Ξ½Ξ±';
+$_lang['Choose the mode for URL for file download. Warning : Pretty URL mode don\'t work with IIS.'] = 'Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„ΞΏ Ο„ΟΟΟ€ΞΏ Ξ³ΞΉΞ± ΞΊΞ±Ο„Ξ­Ξ²Ξ±ΟƒΞΌΞ± Ο„ΞΏΟ… Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… Ξ±Ο€ΞΏ Ο„Ξ·Ξ½ Ξ΄ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞ·. Ξ ΟΞΏΞµΞΉΞ΄ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ·: ΞΞΌΞΏΟΟ†ΞΏΞΉ Ο„ΟΟΟ€ΞΏΞΉ Ξ΄ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ·Ο‚ Ξ΄ΞµΞ½ Ξ΄ΞΏΟ…Ξ»ΞµΟΞΏΟ…Ξ½ ΞΌΞµ Ο„ΞΏΞ½ IIS';
+$_lang['Chosen date is in the future'] = 'Ξ— ΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½Ξ· Ξ·ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ± ΞµΞ―Ξ½Ξ±ΞΉ ΟƒΟ„ΞΏ ΞΌΞ­Ξ»Ξ»ΞΏΞ½';
 $_lang['Clarodoc'] = 'Clarodoc';
-$_lang['Claroline help'] = 'Αρχική σελίδα βοήθειας';
-$_lang['Claroline.net news'] = 'Claroline.net νέα';
-$_lang['Class deleted'] = 'Η τάξη διαγράφηκε';
-$_lang['Class has been enroled'] = 'Η τάξη καταχωρήθηκε';
-$_lang['Class has been unenroled'] = 'Η τάξη διαγράφηκε';
-$_lang['Class members'] = 'Μέλη της τάξης';
-$_lang['Class not found'] = 'Η τάξη δεν μπορεί να βρεθεί';
-$_lang['Class registered'] = 'Εγινε εγγραφή τάξης';
-$_lang['Class users'] = 'Χρήστες τάξης';
-$_lang['Classes'] = 'Τάξεις';
-$_lang['Clear up event list'] = 'Καθαρισμός/ ¶δειασμα λίστας γεγονότων';
-$_lang['Clear up list of announcements'] = 'Διαγραφή καταλόγου ανακοινώσεων';
-$_lang['Click <a href="%url">here</a> to return to the forum index'] = 'Πάτησε <a href="%url">εδώ</a> για να επιστρέψεις στην αρχή του forum';
-$_lang['Click <a href="%url">here</a> to return to the forum topic list'] = 'Πάτησε <a href="%url">εδώ</a> για να επιστρέψεις στην λίστα θεμάτων του forum';
-$_lang['Click <a href="%url">here</a> to view your message'] = 'Πάτησε <a href="%url">εδώ</a> για να δείς το μήνυμα σου';
-$_lang['Click on the enrollment command beside the concerned user'] = 'Πάτησε στην εντολή εγγραφής δίπλα στον ενδιαφερόμενο χρήστη';
-$_lang['Click to make invisible'] = 'Πάτησε για να γίνει αόρατο';
-$_lang['Click to make visible'] = 'Πάτησε για να γίνει ορατό';
-$_lang['Close'] = 'Κλείσιμο παραθύρου';
-$_lang['Close window'] = 'Κλείστε το παράθυρο';
-$_lang['Code'] = 'Πηγαίος κώδικας';
-$_lang['Comment'] = 'Σχόλιο';
-$_lang['Comment modified'] = 'Τα σχόλια τροποποιήθηκαν';
-$_lang['Common part of both parameters above.'] = 'Κοινά μέρη των δύο πιο πάνω παραμέτρων.';
-$_lang['Complementary fields'] = 'Αλληλεξαρτημένα πεδία';
-$_lang['Complete language files'] = 'Ολοκλήρωση αρχείων γλώσσας';
-$_lang['Configuration'] = 'Διαμόρφωση';
-$_lang['Confirm Operation'] = 'Επιβεβαίωση Λειτουργίας';
-$_lang['Confirm the creation of a new user'] = 'Επιβεβαίωση της δημιουργίας ενός νέου χρήστη';
-$_lang['Confirm your subscription to the group &quot;<b>%group_name</b>&quot;'] = 'Επιβεβαίωση της εγγραφής σου στην ομάδα &quot;<b>%group_name</b>&quot;';
-$_lang['Confirmation'] = 'επιβεβαίωση';
-$_lang['Contact'] = 'Επικοινωνία';
-$_lang['Contact your administrator.'] = 'Επικοινωνία με τον διαχειριστή.';
-$_lang['Content'] = 'Περιεχόμενο';
-$_lang['Continue'] = ' Συνεχιστείτε ';
-$_lang['Conversion'] = 'Μετατροπή';
-$_lang['Conversion 1.7 to 1.8'] = 'Μετατροπή 1.7 σε 1.8';
-$_lang['Copy any text you are currently writing and paste it outside the browser'] = 'Αντίγραψε οποιοδήποτε κειμένο γράφεις αυτή τη στιγμή και επικόλλησε το έξω από τον browser';
-$_lang['Corresponds to'] = 'Ανταποκρίνεται σε';
-$_lang['Could not load page %page'] = 'Η σελίδα %page δεν μπόρεσε να φορτωθεί';
-$_lang['Country'] = 'Χώρα';
-$_lang['Country code seems to be incorrect.'] = 'Ο κωδικός χώρας φαίνεται οτι είναι λανθασμένος';
-$_lang['Course'] = 'το μάθημα';
-$_lang['Course Administrator'] = 'Διαχειριστής Μαθήματος';
-$_lang['Course Home'] = 'Αρχική σελίδα μαθήματος (course)';
-$_lang['Course Repository'] = 'Πηγή πληροφοριών μαθήματος (course)';
-$_lang['Course Title is'] = 'Ο Τίτλος του Μαθήματος είναι';
-$_lang['Course access'] = 'Είσοδος μαθήματος (course)';
-$_lang['Course administrator only'] = 'Διαχειριστής του μαθήματος (course) μόνο';
-$_lang['Course banner - left'] = 'Μήνυμα μαθήματος - αριστερό';
-$_lang['Course banner - right'] = 'Μήνυμα μαθήματος - δεξί';
-$_lang['Course code'] = 'Κωδικός Μαθήματος';
-$_lang['Course code case'] = 'Περίπτωση κώδικα μαθήματος';
-$_lang['Course code needed'] = 'Το πεδίο κωδικού του μαθήματος (Course) πρέπει να συμπληρωθεί';
-$_lang['Course creator'] = 'Δημιουργός του μαθήματος';
-$_lang['Course description'] = 'Περιγραφή μαθήματος';
-$_lang['Course email is'] = 'Η email διεύθυνση του μαθήματος είναι';
-$_lang['Course list'] = 'Λίστα μαθημάτων';
-$_lang['Course manager'] = 'Διαχειριστής μαθήματος';
-$_lang['Course manager cannot unsubscribe himself'] = 'Ο διαχειριστής μαθημάτων δεν μπορεί να διαγραφεί απο μόνος του';
-$_lang['Course member (the user is actually enrolled in the course)'] = 'Μέλος του μαθήματος (ο χρήστης είναι εγγεγραμένος στο μάθημα)';
-$_lang['Course members'] = ' Μέλη μαθήματος ';
-$_lang['Course not found'] = 'Το μάθημα δεν βρέθηκε';
-$_lang['Course options'] = 'Επιλογές μαθήματος';
-$_lang['Course profile'] = 'Προφίλ μαθήματος';
-$_lang['Course profile list'] = 'Λίστα των προφίλ των μαθημάτων';
-$_lang['Course progression'] = 'Πρόοδος μαθήματος ';
-$_lang['Course settings'] = 'Ρυθμίσεις μαθήματος';
-$_lang['Course title'] = 'Τίτλος μαθήματος';
-$_lang['Course title needed'] = 'Απαιτείτε τίτλος μαθήματος';
-$_lang['Course tools'] = 'Εργαλεία μαθήματος';
-$_lang['Course users list'] = 'Λίστα χρηστών μαθήματος';
-$_lang['Course visitor (the user has an account on the platform, but is not enrolled in the course)'] = 'Επισκέπτης μαθήματος (ο χρήστης έχει ένα λογαριασμό στην πλατφόρμα, αλλά δεν είναι εγγεγραμένος στο μάθημα)';
-$_lang['Course visitor (the user has no account on the platform)'] = 'Επισκέπτης μαθήματος (ο χρήστης δεν έχει λογαριασμός στη πλατφόρμα)';
-$_lang['Courses'] = 'Μαθήματα';
-$_lang['Courses not used'] = 'Μαθήματα που δε χρησιμοποιούνται';
-$_lang['Courses with unexisting users registered'] = 'Μαθήματα με μη υπάρχοντες εγγεγραμένους χρήστες';
-$_lang['Courses without a lecturer'] = 'Μαθήματα χωρίς λέκτορα';
-$_lang['Courses without student'] = 'Μαθήματα χωρίς μαθητές';
-$_lang['Create'] = 'Δημιουργία';
-$_lang['Create Document'] = 'Δημιουργία Εγγράφου';
-$_lang['Create Pages'] = ' Δημιουργήστε σελίδες ';
-$_lang['Create a category'] = 'Δημιουργία κατηγορίας';
-$_lang['Create a course site'] = 'Δημιουργία ενός μαθήματος';
-$_lang['Create a course website'] = 'Δημιουργία ενός μαθήματος';
-$_lang['Create a new Wiki'] = ' Δημιουργήστε έναν νέο Wiki';
-$_lang['Create a new assignment'] = 'Δημιουργία νέας ανάθεσης (εργασίας)';
-$_lang['Create a new class'] = 'Δημιουργία νέας τάξης';
-$_lang['Create a new label / title in this learning path'] = 'Δημιουργία νέου επιπέδου / τίτλος αυτής της διαδρομής μάθησης';
-$_lang['Create a new learning path'] = 'Δημιουργία νέας διαδρομής μάθησης';
-$_lang['Create a new user'] = 'Δημιούργησε νέο χρήστη';
-$_lang['Create another new user'] = 'Δημιουργία άλλου νέου χρήστη';
-$_lang['Create category'] = 'Δημιουργησε κατηγορία';
-$_lang['Create course'] = 'Δημιουργία μαθήματος (course)';
-$_lang['Create directory'] = 'Δημιουργία καταλόγου';
-$_lang['Create first a user account on this platform'] = 'Δημιουργησε ενα λογαριασμό χρήστη πρώτα σε αυτή τη πλατφόρμα ';
-$_lang['Create forum'] = 'Δημιουργησε συζήτηση';
-$_lang['Create hyperlink'] = 'Δημιουργία υπερσύνδεσμου';
-$_lang['Create label'] = 'Δημιουργία ετικέτας';
-$_lang['Create new group(s)'] = 'Δημιουργία καινούριας ομάδας χρηστών';
-$_lang['Create user'] = 'Δημιουργία χρήστη';
-$_lang['Create user account'] = 'Δημιουργία λογαριασμού χρήστη';
-$_lang['Create/edit document'] = 'Δημιουργία/σύνταξη εγγράφου';
-$_lang['Creating course (it may take a while) ...'] = 'Δημιουργία μαθήματος σε εξέλιξη (μπορεί να πάρει λίγο χρόνο) ... ';
-$_lang['Creation of Course Creator account'] = 'Δημιουγία λογαριασμού Δημιουργού Μαθημάτων';
-$_lang['Current attached file'] = 'Τρέχον επισυναπτόμενο αρχείο';
-$_lang['Current feedback file'] = 'Τρέχον αρχείο Επικοινωνίας';
-$_lang['Current file'] = 'Τρέχον αρχείο ';
-$_lang['Current registration status :'] = 'Τρέχουσα κατάστασης εγγραφής : <br /> <br />
+$_lang['Claroline configuration'] = 'Ξ΅Ο…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ ΞΞ»Ξ¬ΟΞΏΞ»Ξ±ΞΉΞ½';
+$_lang['Claroline help'] = 'Ξ‘ΟΟ‡ΞΉΞΊΞ® ΟƒΞµΞ»Ξ―Ξ΄Ξ± Ξ²ΞΏΞ®ΞΈΞµΞΉΞ±Ο‚';
+$_lang['Claroline.net news'] = 'Claroline.net Ξ½Ξ­Ξ±';
+$_lang['Class deleted'] = 'Ξ— Ο„Ξ¬ΞΎΞ· Ξ΄ΞΉΞ±Ξ³ΟΞ¬Ο†Ξ·ΞΊΞµ';
+$_lang['Class has been enroled'] = 'Ξ— Ο„Ξ¬ΞΎΞ· ΞΊΞ±Ο„Ξ±Ο‡Ο‰ΟΞ®ΞΈΞ·ΞΊΞµ';
+$_lang['Class has been unenroled'] = 'Ξ— Ο„Ξ¬ΞΎΞ· Ξ΄ΞΉΞ±Ξ³ΟΞ¬Ο†Ξ·ΞΊΞµ';
+$_lang['Class members'] = 'ΞΞ­Ξ»Ξ· Ο„Ξ·Ο‚ Ο„Ξ¬ΞΎΞ·Ο‚';
+$_lang['Class not found'] = 'Ξ— Ο„Ξ¬ΞΎΞ· Ξ΄ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ²ΟΞµΞΈΞµΞ―';
+$_lang['Class registered'] = 'Ξ•Ξ³ΞΉΞ½Ξµ ΞµΞ³Ξ³ΟΞ±Ο†Ξ® Ο„Ξ¬ΞΎΞ·Ο‚';
+$_lang['Class users'] = 'Ξ§ΟΞ®ΟƒΟ„ΞµΟ‚ Ο„Ξ¬ΞΎΞ·Ο‚';
+$_lang['Classes'] = 'Ξ¤Ξ¬ΞΎΞµΞΉΟ‚';
+$_lang['Clear up event list'] = 'ΞΞ±ΞΈΞ±ΟΞΉΟƒΞΌΟΟ‚/ Ξ†Ξ΄ΞµΞΉΞ±ΟƒΞΌΞ± Ξ»Ξ―ΟƒΟ„Ξ±Ο‚ Ξ³ΞµΞ³ΞΏΞ½ΟΟ„Ο‰Ξ½';
+$_lang['Clear up event list ?'] = 'ΞΞ± ΞΊΞ±ΞΈΞ±ΟΞΉΟƒΟ„ΞµΞ― Ξ· Ξ»Ξ―ΟƒΟ„Ξ± Ξ³ΞµΞ³ΞΏΞ½ΟΟ„Ο‰Ξ½;';
+$_lang['Clear up list of announcements'] = 'Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® ΞΊΞ±Ο„Ξ±Ξ»ΟΞ³ΞΏΟ… Ξ±Ξ½Ξ±ΞΊΞΏΞΉΞ½ΟΟƒΞµΟ‰Ξ½';
+$_lang['Click <a href="%url">here</a> to return to the forum index'] = 'Ξ Ξ¬Ο„Ξ·ΟƒΞµ <a href="%url">ΞµΞ΄Ο</a> Ξ³ΞΉΞ± Ξ½Ξ± ΞµΟ€ΞΉΟƒΟ„ΟΞ­ΟΞµΞΉΟ‚ ΟƒΟ„Ξ·Ξ½ Ξ±ΟΟ‡Ξ® Ο„ΞΏΟ… forum';
+$_lang['Click <a href="%url">here</a> to return to the forum topic list'] = 'Ξ Ξ¬Ο„Ξ·ΟƒΞµ <a href="%url">ΞµΞ΄Ο</a> Ξ³ΞΉΞ± Ξ½Ξ± ΞµΟ€ΞΉΟƒΟ„ΟΞ­ΟΞµΞΉΟ‚ ΟƒΟ„Ξ·Ξ½ Ξ»Ξ―ΟƒΟ„Ξ± ΞΈΞµΞΌΞ¬Ο„Ο‰Ξ½ Ο„ΞΏΟ… forum';
+$_lang['Click <a href="%url">here</a> to view your message'] = 'Ξ Ξ¬Ο„Ξ·ΟƒΞµ <a href="%url">ΞµΞ΄Ο</a> Ξ³ΞΉΞ± Ξ½Ξ± Ξ΄ΞµΞ―Ο‚ Ο„ΞΏ ΞΌΞ®Ξ½Ο…ΞΌΞ± ΟƒΞΏΟ…';
+$_lang['Click on exercise title for more details'] = 'ΞΞ¬Ξ½Ο„Ξµ ΞΊΞ»Ξ―ΞΊ ΟƒΟ„ΞΏ Ο„Ξ―Ο„Ξ»ΞΏ Ο„Ξ·Ο‚ Ξ¬ΟƒΞΊΞ·ΟƒΞ·Ο‚ Ξ³ΞΉΞ± Ο€ΞµΟΞΉΟƒΟƒΟΟ„ΞµΟΞµΟ‚ Ο€Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞ―ΞµΟ‚';
+$_lang['Click on the enrollment command beside the concerned user'] = 'Ξ Ξ¬Ο„Ξ·ΟƒΞµ ΟƒΟ„Ξ·Ξ½ ΞµΞ½Ο„ΞΏΞ»Ξ® ΞµΞ³Ξ³ΟΞ±Ο†Ξ®Ο‚ Ξ΄Ξ―Ο€Ξ»Ξ± ΟƒΟ„ΞΏΞ½ ΞµΞ½Ξ΄ΞΉΞ±Ο†ΞµΟΟΞΌΞµΞ½ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['Click on the month name for tool access details'] = 'ΞΞ¬Ξ½Ο„Ξµ ΞΊΞ»Ξ―ΞΊ ΟƒΟ„ΞΏ ΞΌΞ®Ξ½Ξ± Ξ³ΞΉΞ± Ξ½Ξ± Ξ­Ο‡ΞµΟ„Ξµ Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ· ΟƒΟ„ΞΉΟ‚ Ξ»ΞµΟ€Ο„ΞΏΞΌΞ­ΟΞµΞΉΞµΟ‚ Ο„Ο‰Ξ½ ΞµΟΞ³Ξ±Ξ»ΞµΞ―Ο‰Ξ½.';
+$_lang['Click to make invisible'] = 'Ξ Ξ¬Ο„Ξ·ΟƒΞµ Ξ³ΞΉΞ± Ξ½Ξ± Ξ³Ξ―Ξ½ΞµΞΉ Ξ±ΟΟΞ±Ο„ΞΏ';
+$_lang['Click to make visible'] = 'Ξ Ξ¬Ο„Ξ·ΟƒΞµ Ξ³ΞΉΞ± Ξ½Ξ± Ξ³Ξ―Ξ½ΞµΞΉ ΞΏΟΞ±Ο„Ο';
+$_lang['Close'] = 'ΞΞ»ΞµΞ―ΟƒΞΉΞΌΞΏ Ο€Ξ±ΟΞ±ΞΈΟΟΞΏΟ…';
+$_lang['Close window'] = 'ΞΞ»ΞµΞ―ΟƒΟ„Ξµ Ο„ΞΏ Ο€Ξ±ΟΞ¬ΞΈΟ…ΟΞΏ';
+$_lang['Code'] = 'Ξ Ξ·Ξ³Ξ±Ξ―ΞΏΟ‚ ΞΊΟΞ΄ΞΉΞΊΞ±Ο‚';
+$_lang['Comment'] = 'Ξ£Ο‡ΟΞ»ΞΉΞΏ';
+$_lang['Comment modified'] = 'Ξ¤Ξ± ΟƒΟ‡ΟΞ»ΞΉΞ± Ο„ΟΞΏΟ€ΞΏΟ€ΞΏΞΉΞ®ΞΈΞ·ΞΊΞ±Ξ½';
+$_lang['Common part of both parameters above.'] = 'ΞΞΏΞΉΞ½Ξ¬ ΞΌΞ­ΟΞ· Ο„Ο‰Ξ½ Ξ΄ΟΞΏ Ο€ΞΉΞΏ Ο€Ξ¬Ξ½Ο‰ Ο€Ξ±ΟΞ±ΞΌΞ­Ο„ΟΟ‰Ξ½.';
+$_lang['Communication'] = 'Ξ•Ο€ΞΉΞΊΞΏΞΉΞ½Ο‰Ξ½Ξ―Ξ±';
+$_lang['Compare 1.8 to 1.9'] = 'Ξ£ΟΞ³ΞΊΟΞ―Ξ½Ο‰ Ο„ΞΏ 1.8 ΞΌΞµ Ο„ΞΏ 1.9';
+$_lang['Complementary fields'] = 'Ξ‘Ξ»Ξ»Ξ·Ξ»ΞµΞΎΞ±ΟΟ„Ξ·ΞΌΞ­Ξ½Ξ± Ο€ΞµΞ΄Ξ―Ξ±';
+$_lang['Complete language files'] = 'ΞΞ»ΞΏΞΊΞ»Ξ®ΟΟ‰ΟƒΞ· Ξ±ΟΟ‡ΞµΞ―Ο‰Ξ½ Ξ³Ξ»ΟΟƒΟƒΞ±Ο‚';
+$_lang['Compose a message'] = 'Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± ΞΌΞ·Ξ½ΟΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Compress javascript files. This option should be set to off only for debugging.'] = 'Ξ£Ο…ΞΌΟ€ΞΉΞ­ΟƒΟ„Ξµ Ο„Ξ± Ξ±ΟΟ‡ΞµΞ―Ξ± JavaScript. Ξ‘Ο…Ο„Ξ® Ξ· ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ® Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± Ο„ΞµΞΈΞµΞ― ΟƒΟ„ΞΏ Off ΞΌΟΞ½ΞΏ Ξ³ΞΉΞ± debugging.';
+$_lang['Configuration'] = 'Ξ”ΞΉΞ±ΞΌΟΟΟ†Ο‰ΟƒΞ·';
+$_lang['Configure the way files are downloaded from the platform'] = 'Ξ΅Ο…ΞΈΞΌΞ―ΟƒΟ„Ξµ Ο„ΞΏΞ½ Ο„ΟΟΟ€ΞΏ Ο€ΞΏΟ… Ο„Ξ± Ξ±ΟΟ‡ΞµΞ―Ξ± ΞΊΞ±Ο„Ξ±Ξ²ΞµΞ―Ξ½ΞΏΟ…Ξ½ Ξ±Ο€ΞΏ Ο„Ξ·Ξ½ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±';
+$_lang['Confirm Operation'] = 'Ξ•Ο€ΞΉΞ²ΞµΞ²Ξ±Ξ―Ο‰ΟƒΞ· Ξ›ΞµΞΉΟ„ΞΏΟ…ΟΞ³Ξ―Ξ±Ο‚';
+$_lang['Confirm the creation of a new user'] = 'Ξ•Ο€ΞΉΞ²ΞµΞ²Ξ±Ξ―Ο‰ΟƒΞ· Ο„Ξ·Ο‚ Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ±Ο‚ ΞµΞ½ΟΟ‚ Ξ½Ξ­ΞΏΟ… Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['Confirm your subscription to the group &quot;<b>%group_name</b>&quot;'] = 'Ξ•Ο€ΞΉΞ²ΞµΞ²Ξ±Ξ―Ο‰ΟƒΞ· Ο„Ξ·Ο‚ ΞµΞ³Ξ³ΟΞ±Ο†Ξ®Ο‚ ΟƒΞΏΟ… ΟƒΟ„Ξ·Ξ½ ΞΏΞΌΞ¬Ξ΄Ξ± &quot;<b>%group_name</b>&quot;';
+$_lang['Confirmation'] = 'ΞµΟ€ΞΉΞ²ΞµΞ²Ξ±Ξ―Ο‰ΟƒΞ·';
+$_lang['Constrain proportions'] = 'Ξ‘Ξ½Ξ±Ξ³ΞΊΞ¬ΟƒΟ„ΞΉΞΊΞ­Ο‚ Ξ±Ξ½Ξ±Ξ»ΞΏΞ³Ξ―ΞµΟ‚';
+$_lang['Contact'] = 'Ξ•Ο€ΞΉΞΊΞΏΞΉΞ½Ο‰Ξ½Ξ―Ξ±';
+$_lang['Contact your administrator.'] = 'Ξ•Ο€ΞΉΞΊΞΏΞΉΞ½Ο‰Ξ½Ξ―Ξ± ΞΌΞµ Ο„ΞΏΞ½ Ξ΄ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ®.';
+$_lang['Content'] = 'Ξ ΞµΟΞΉΞµΟ‡ΟΞΌΞµΞ½ΞΏ';
+$_lang['Continue'] = ' Ξ£Ο…Ξ½ΞµΟ‡ΞΉΟƒΟ„ΞµΞ―Ο„Ξµ ';
+$_lang['Conversion'] = 'ΞΞµΟ„Ξ±Ο„ΟΞΏΟ€Ξ®';
+$_lang['Conversion 1.7 to 1.8'] = 'ΞΞµΟ„Ξ±Ο„ΟΞΏΟ€Ξ® 1.7 ΟƒΞµ 1.8';
+$_lang['Conversion 1.8 to 1.9'] = 'ΞΞµΟ„Ξ±Ο„ΟΞΏΟ€Ξ· Ξ±Ο€ΞΏ 1.8 ΟƒΞµ 1.9';
+$_lang['Copy any text you are currently writing and paste it outside the browser'] = 'Ξ‘Ξ½Ο„Ξ―Ξ³ΟΞ±ΟΞµ ΞΏΟ€ΞΏΞΉΞΏΞ΄Ξ®Ο€ΞΏΟ„Ξµ ΞΊΞµΞΉΞΌΞ­Ξ½ΞΏ Ξ³ΟΞ¬Ο†ΞµΞΉΟ‚ Ξ±Ο…Ο„Ξ® Ο„Ξ· ΟƒΟ„ΞΉΞ³ΞΌΞ® ΞΊΞ±ΞΉ ΞµΟ€ΞΉΞΊΟΞ»Ξ»Ξ·ΟƒΞµ Ο„ΞΏ Ξ­ΞΎΟ‰ Ξ±Ο€Ο Ο„ΞΏΞ½ browser';
+$_lang['Corresponds to'] = 'Ξ‘Ξ½Ο„Ξ±Ο€ΞΏΞΊΟΞ―Ξ½ΞµΟ„Ξ±ΞΉ ΟƒΞµ';
+$_lang['Could not load page %page'] = 'Ξ— ΟƒΞµΞ»Ξ―Ξ΄Ξ± %page Ξ΄ΞµΞ½ ΞΌΟ€ΟΟΞµΟƒΞµ Ξ½Ξ± Ο†ΞΏΟΟ„Ο‰ΞΈΞµΞ―';
+$_lang['Country'] = 'Ξ§ΟΟΞ±';
+$_lang['Country code seems to be incorrect.'] = 'Ξ ΞΊΟ‰Ξ΄ΞΉΞΊΟΟ‚ Ο‡ΟΟΞ±Ο‚ Ο†Ξ±Ξ―Ξ½ΞµΟ„Ξ±ΞΉ ΞΏΟ„ΞΉ ΞµΞ―Ξ½Ξ±ΞΉ Ξ»Ξ±Ξ½ΞΈΞ±ΟƒΞΌΞ­Ξ½ΞΏΟ‚';
+$_lang['Course'] = 'Ο„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['Course Administrator'] = 'Ξ”ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ®Ο‚ ΞΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Course Home'] = 'Ξ‘ΟΟ‡ΞΉΞΊΞ® ΟƒΞµΞ»Ξ―Ξ΄Ξ± ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ (course)';
+$_lang['Course Repository'] = 'Ξ Ξ·Ξ³Ξ® Ο€Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞΉΟΞ½ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ (course)';
+$_lang['Course Title is'] = 'Ξ Ξ¤Ξ―Ο„Ξ»ΞΏΟ‚ Ο„ΞΏΟ… ΞΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ ΞµΞ―Ξ½Ξ±ΞΉ';
+$_lang['Course access'] = 'Ξ•Ξ―ΟƒΞΏΞ΄ΞΏΟ‚ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ (course)';
+$_lang['Course administrator only'] = 'Ξ”ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ®Ο‚ Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ (course) ΞΌΟΞ½ΞΏ';
+$_lang['Course banner - left'] = 'ΞΞ®Ξ½Ο…ΞΌΞ± ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ - Ξ±ΟΞΉΟƒΟ„ΞµΟΟ';
+$_lang['Course banner - right'] = 'ΞΞ®Ξ½Ο…ΞΌΞ± ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ - Ξ΄ΞµΞΎΞ―';
+$_lang['Course code'] = 'ΞΟ‰Ξ΄ΞΉΞΊΟΟ‚ ΞΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Course code case'] = 'Ξ ΞµΟΞ―Ο€Ο„Ο‰ΟƒΞ· ΞΊΟΞ΄ΞΉΞΊΞ± ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Course code needed'] = 'Ξ¤ΞΏ Ο€ΞµΞ΄Ξ―ΞΏ ΞΊΟ‰Ξ΄ΞΉΞΊΞΏΟ Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ (Course) Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΟƒΟ…ΞΌΟ€Ξ»Ξ·ΟΟ‰ΞΈΞµΞ―';
+$_lang['Course created : %course_name'] = 'Ξ¤ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ± Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΞΈΞ·ΞΊΞµ : %course_name';
+$_lang['Course creation is allowed on the platform'] = 'Ξ— Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± ΞΌΞ±ΞΈΞ·ΞΌΞ¬Ο„Ο‰Ξ½ ΞµΟ€ΞΉΟ„ΟΞ­Ο€ΞµΟ„Ξ±ΞΉ ΟƒΟ„Ξ·Ξ½ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±';
+$_lang['Course creation is disabled on the platform'] = 'Ξ— Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± ΞΌΞ±ΞΈΞ·ΞΌΞ¬Ο„ΞΏΟ‚ Ξ΄ΞµΞ½ ΞµΟ€ΞΉΟ„ΟΞ­Ο€ΞµΟ„Ξ±ΞΉ ΟƒΟ„Ξ·Ξ½ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±';
+$_lang['Course creator'] = 'Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³ΟΟ‚ Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Course creator status for %firstname %lastname'] = 'ΞΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ· Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³ΞΏΟ Ξ³ΞΉΞ± %firstname %lastname';
+$_lang['Course default settings'] = 'Ξ ΟΞΏΞΊΞ±ΞΈΞΏΟΞΉΟƒΞΌΞ­Ξ½ΞµΟ‚ ΟΟ…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Course description'] = 'Ξ ΞµΟΞΉΞ³ΟΞ±Ο†Ξ® ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Course email is'] = 'Ξ— email Ξ΄ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ· Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ ΞµΞ―Ξ½Ξ±ΞΉ';
+$_lang['Course information requirements'] = 'Ξ ΟΞΏΞ±Ο€Ξ±ΞΉΟ„ΞΏΟΞΌΞµΞ½ΞµΟ‚ Ο€Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞ―ΞµΟ‚ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Course list'] = 'Ξ›Ξ―ΟƒΟ„Ξ± ΞΌΞ±ΞΈΞ·ΞΌΞ¬Ο„Ο‰Ξ½';
+$_lang['Course main settings'] = 'Ξ’Ξ±ΟƒΞΉΞΊΞ­Ο‚ ΟΟ…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Course manager'] = 'Ξ”ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ®Ο‚ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Course manager cannot unsubscribe himself'] = 'Ξ Ξ΄ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ®Ο‚ ΞΌΞ±ΞΈΞ·ΞΌΞ¬Ο„Ο‰Ξ½ Ξ΄ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†ΞµΞ― Ξ±Ο€ΞΏ ΞΌΟΞ½ΞΏΟ‚ Ο„ΞΏΟ…';
+$_lang['Course manager of %course%(%courseCode%)'] = 'Ξ”ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ®Ο‚ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ %course%(%courseCode%)';
+$_lang['Course member (the user is actually enrolled in the course)'] = 'ΞΞ­Ξ»ΞΏΟ‚ Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ (ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ ΞµΞ―Ξ½Ξ±ΞΉ ΞµΞ³Ξ³ΞµΞ³ΟΞ±ΞΌΞ­Ξ½ΞΏΟ‚ ΟƒΟ„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ±)';
+$_lang['Course members'] = ' ΞΞ­Ξ»Ξ· ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ ';
+$_lang['Course not found'] = 'Ξ¤ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ± Ξ΄ΞµΞ½ Ξ²ΟΞ­ΞΈΞ·ΞΊΞµ';
+$_lang['Course options'] = 'Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ­Ο‚ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Course profile'] = 'Ξ ΟΞΏΟ†Ξ―Ξ» ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Course profile list'] = 'Ξ›Ξ―ΟƒΟ„Ξ± Ο„Ο‰Ξ½ Ο€ΟΞΏΟ†Ξ―Ξ» Ο„Ο‰Ξ½ ΞΌΞ±ΞΈΞ·ΞΌΞ¬Ο„Ο‰Ξ½';
+$_lang['Course progression'] = 'Ξ ΟΟΞΏΞ΄ΞΏΟ‚ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ ';
+$_lang['Course settings'] = 'Ξ΅Ο…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Course statistics are now empty'] = 'ΞΞΉ ΟƒΟ„Ξ±Ο„ΞΉΟƒΟ„ΞΉΞΊΞ® Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ ΞµΞ―Ξ½Ξ±ΞΉ Ο„ΟΟΞ± Ξ¬Ξ΄ΞµΞΉΞ±';
+$_lang['Course title'] = 'Ξ¤Ξ―Ο„Ξ»ΞΏΟ‚ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Course title needed'] = 'Ξ‘Ο€Ξ±ΞΉΟ„ΞµΞ―Ο„Ξµ Ο„Ξ―Ο„Ξ»ΞΏΟ‚ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Course tools'] = 'Ξ•ΟΞ³Ξ±Ξ»ΞµΞ―Ξ± ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Course users list'] = 'Ξ›Ξ―ΟƒΟ„Ξ± Ο‡ΟΞ·ΟƒΟ„ΟΞ½ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Course visibility'] = 'ΞΟΞ±Ο„ΟΟ„Ξ·Ο„Ξ± ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Course visitor (the user has an account on the platform, but is not enrolled in the course)'] = 'Ξ•Ο€ΞΉΟƒΞΊΞ­Ο€Ο„Ξ·Ο‚ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ (ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ Ξ­Ο‡ΞµΞΉ Ξ­Ξ½Ξ± Ξ»ΞΏΞ³Ξ±ΟΞΉΞ±ΟƒΞΌΟ ΟƒΟ„Ξ·Ξ½ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±, Ξ±Ξ»Ξ»Ξ¬ Ξ΄ΞµΞ½ ΞµΞ―Ξ½Ξ±ΞΉ ΞµΞ³Ξ³ΞµΞ³ΟΞ±ΞΌΞ­Ξ½ΞΏΟ‚ ΟƒΟ„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ±)';
+$_lang['Course visitor (the user has no account on the platform)'] = 'Ξ•Ο€ΞΉΟƒΞΊΞ­Ο€Ο„Ξ·Ο‚ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ (ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ Ξ΄ΞµΞ½ Ξ­Ο‡ΞµΞΉ Ξ»ΞΏΞ³Ξ±ΟΞΉΞ±ΟƒΞΌΟΟ‚ ΟƒΟ„Ξ· Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±)';
+$_lang['Course:'] = 'ΞΞ¬ΞΈΞ·ΞΌΞ±:';
+$_lang['Courses'] = 'ΞΞ±ΞΈΞ®ΞΌΞ±Ο„Ξ±';
+$_lang['Courses : %disk_usage (perhaps with other directories)'] = 'ΞΞ±ΞΈΞ®ΞΌΞ±Ο„Ξ± : %disk_usage (Ο€ΞΉΞΈΞ±Ξ½ΟΞ½ ΞΌΞµ Ξ¬Ξ»Ξ»ΞΏΟ…Ο‚ ΞΊΞ±Ο„Ξ±Ξ»ΟΞ³ΞΏΟ…Ο‚)';
+$_lang['Courses not used'] = 'ΞΞ±ΞΈΞ®ΞΌΞ±Ο„Ξ± Ο€ΞΏΟ… Ξ΄Ξµ Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞΏΟΞ½Ο„Ξ±ΞΉ';
+$_lang['Courses with unexisting users registered'] = 'ΞΞ±ΞΈΞ®ΞΌΞ±Ο„Ξ± ΞΌΞµ ΞΌΞ· Ο…Ο€Ξ¬ΟΟ‡ΞΏΞ½Ο„ΞµΟ‚ ΞµΞ³Ξ³ΞµΞ³ΟΞ±ΞΌΞ­Ξ½ΞΏΟ…Ο‚ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚';
+$_lang['Courses without a lecturer'] = 'ΞΞ±ΞΈΞ®ΞΌΞ±Ο„Ξ± Ο‡Ο‰ΟΞ―Ο‚ Ξ»Ξ­ΞΊΟ„ΞΏΟΞ±';
+$_lang['Courses without student'] = 'ΞΞ±ΞΈΞ®ΞΌΞ±Ο„Ξ± Ο‡Ο‰ΟΞ―Ο‚ ΞΌΞ±ΞΈΞ·Ο„Ξ­Ο‚';
+$_lang['Create'] = 'Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ±';
+$_lang['Create Document'] = 'Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ξ•Ξ³Ξ³ΟΞ¬Ο†ΞΏΟ…';
+$_lang['Create Pages'] = ' Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΟƒΟ„Ξµ ΟƒΞµΞ»Ξ―Ξ΄ΞµΟ‚ ';
+$_lang['Create a category'] = 'Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±Ο‚';
+$_lang['Create a course site'] = 'Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± ΞµΞ½ΟΟ‚ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Create a course website'] = 'Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± ΞµΞ½ΟΟ‚ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Create a new Wiki'] = ' Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΟƒΟ„Ξµ Ξ­Ξ½Ξ±Ξ½ Ξ½Ξ­ΞΏ Wiki';
+$_lang['Create a new assignment'] = 'Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ξ½Ξ­Ξ±Ο‚ Ξ±Ξ½Ξ¬ΞΈΞµΟƒΞ·Ο‚ (ΞµΟΞ³Ξ±ΟƒΞ―Ξ±Ο‚)';
+$_lang['Create a new class'] = 'Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ξ½Ξ­Ξ±Ο‚ Ο„Ξ¬ΞΎΞ·Ο‚';
+$_lang['Create a new label / title in this learning path'] = 'Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ξ½Ξ­ΞΏΟ… ΞµΟ€ΞΉΟ€Ξ­Ξ΄ΞΏΟ… / Ο„Ξ―Ο„Ξ»ΞΏΟ‚ Ξ±Ο…Ο„Ξ®Ο‚ Ο„Ξ·Ο‚ Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ®Ο‚ ΞΌΞ¬ΞΈΞ·ΟƒΞ·Ο‚';
+$_lang['Create a new learning path'] = 'Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ξ½Ξ­Ξ±Ο‚ Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ®Ο‚ ΞΌΞ¬ΞΈΞ·ΟƒΞ·Ο‚';
+$_lang['Create a new user'] = 'Ξ”Ξ·ΞΌΞΉΞΏΟΟΞ³Ξ·ΟƒΞµ Ξ½Ξ­ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['Create another new user'] = 'Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ξ¬Ξ»Ξ»ΞΏΟ… Ξ½Ξ­ΞΏΟ… Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['Create category'] = 'Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ·ΟƒΞµ ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±';
+$_lang['Create course'] = 'Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ (course)';
+$_lang['Create directory'] = 'Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± ΞΊΞ±Ο„Ξ±Ξ»ΟΞ³ΞΏΟ…';
+$_lang['Create fake categories'] = 'Ξ”Ξ·ΞΌΞΉΞΏΟΟΞ³Ξ·ΟƒΞµ ΟΞµΟΟ„ΞΉΞΊΞµΟ‚ ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―ΞµΟ‚';
+$_lang['Create fake courses'] = 'Ξ”Ξ·ΞΌΞΉΞΏΟΟΞ³Ξ·ΟƒΞµ ΟΞµΟΟ„ΞΉΞΊΞ± ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„Ξ±';
+$_lang['Create fake users'] = 'Ξ”Ξ·ΞΌΞΉΞΏΟΟΞ³Ξ·ΟƒΞµ ΟΞµΟΟ„ΞΉΞΊΞΏΟ…Ο‚ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚';
+$_lang['Create first a user account on this platform'] = 'Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ·ΟƒΞµ ΞµΞ½Ξ± Ξ»ΞΏΞ³Ξ±ΟΞΉΞ±ΟƒΞΌΟ Ο‡ΟΞ®ΟƒΟ„Ξ· Ο€ΟΟΟ„Ξ± ΟƒΞµ Ξ±Ο…Ο„Ξ® Ο„Ξ· Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ± ';
+$_lang['Create forum'] = 'Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ·ΟƒΞµ ΟƒΟ…Ξ¶Ξ®Ο„Ξ·ΟƒΞ·';
+$_lang['Create hyperlink'] = 'Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ο…Ο€ΞµΟΟƒΟΞ½Ξ΄ΞµΟƒΞΌΞΏΟ…';
+$_lang['Create item into courses tools'] = 'Ξ”Ξ·ΞΌΞΉΞΏΟΟΞ³Ξ·ΟƒΞµ Ξ±Ξ½Ο„ΞΉΞΊΞµΞ―ΞΌΞµΞ½ΞΏ ΟƒΟ„Ξ± ΞµΟΞ³Ξ±Ξ»ΞµΞ―Ξ± ΞΌΞ±ΞΈΞ·ΞΌΞ¬Ο„Ο‰Ξ½';
+$_lang['Create label'] = 'Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± ΞµΟ„ΞΉΞΊΞ­Ο„Ξ±Ο‚';
+$_lang['Create new group(s)'] = 'Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± ΞΊΞ±ΞΉΞ½ΞΏΟΟΞΉΞ±Ο‚ ΞΏΞΌΞ¬Ξ΄Ξ±Ο‚ Ο‡ΟΞ·ΟƒΟ„ΟΞ½';
+$_lang['Create user'] = 'Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['Create user account'] = 'Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ξ»ΞΏΞ³Ξ±ΟΞΉΞ±ΟƒΞΌΞΏΟ Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['Create/edit document'] = 'Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ±/ΟƒΟΞ½Ο„Ξ±ΞΎΞ· ΞµΞ³Ξ³ΟΞ¬Ο†ΞΏΟ…';
+$_lang['Creating course (it may take a while) ...'] = 'Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ ΟƒΞµ ΞµΞΎΞ­Ξ»ΞΉΞΎΞ· (ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ο€Ξ¬ΟΞµΞΉ Ξ»Ξ―Ξ³ΞΏ Ο‡ΟΟΞ½ΞΏ) ... ';
+$_lang['Creation of Course Creator account'] = 'Ξ”Ξ·ΞΌΞΉΞΏΟ…Ξ³Ξ―Ξ± Ξ»ΞΏΞ³Ξ±ΟΞΉΞ±ΟƒΞΌΞΏΟ Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³ΞΏΟ ΞΞ±ΞΈΞ·ΞΌΞ¬Ο„Ο‰Ξ½';
+$_lang['Current attached file'] = 'Ξ¤ΟΞ­Ο‡ΞΏΞ½ ΞµΟ€ΞΉΟƒΟ…Ξ½Ξ±Ο€Ο„ΟΞΌΞµΞ½ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ';
+$_lang['Current feedback file'] = 'Ξ¤ΟΞ­Ο‡ΞΏΞ½ Ξ±ΟΟ‡ΞµΞ―ΞΏ Ξ•Ο€ΞΉΞΊΞΏΞΉΞ½Ο‰Ξ½Ξ―Ξ±Ο‚';
+$_lang['Current file'] = 'Ξ¤ΟΞ­Ο‡ΞΏΞ½ Ξ±ΟΟ‡ΞµΞ―ΞΏ ';
+$_lang['Current registration status :'] = 'Ξ¤ΟΞ­Ο‡ΞΏΟ…ΟƒΞ± ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ·Ο‚ ΞµΞ³Ξ³ΟΞ±Ο†Ξ®Ο‚ : <br /> <br />
 ';
-$_lang['Current time'] = 'Τρέχων χρόνος';
-$_lang['Data missing'] = 'Χαμένα δεδομένα';
-$_lang['Database error :'] = 'Λάθος βάσης δεδομένων :';
-$_lang['Database mode'] = 'Λειτουργία βάσης δεδομένων';
-$_lang['Database uninstallation failed'] = 'Απεγκατάσταση βάσης δεδομένων απέτυχε';
-$_lang['Database uninstallation succeeded'] = 'Απεγκατάσταση βάσης δεδομένων πέτυχε';
-$_lang['Database update successful'] = 'Ενημέρωση βάσης δεδομένων επιτυχής';
-$_lang['Date'] = 'Ημερομηνία';
-$_lang['Day'] = 'Ημέρα';
-$_lang['Deactivated'] = 'Απενεργοποιήθηκε';
-$_lang['Deactivated - Click to activate'] = 'Απενεργοποιήθηκε - Πάτησε για να ενεργοποιηθεί';
-$_lang['Dear %firstname %lastname, your personal settings have been registered.'] = 'Αγαπητέ %firstname %lastname, οι προσωπικές ρυθμίσεις έχουν καταχωρηθεί.';
-$_lang['Debug'] = 'Αποσφαλμάτωση';
-$_lang['Debug mode'] = 'Λειτουργία αποσφαλμάτωσης';
-$_lang['Default course access'] = 'Προκαθορισμένη πρόσβαση μαθήματος';
-$_lang['Default works visibility'] = 'Προκαθορισμένη εμφάνιση εργασιών';
-$_lang['Define Headings'] = 'Ορίστε επικεφαλίδες';
-$_lang['Definition file doesn\'t exist'] = 'Αρχείο ορισμών δεν υπάρχει';
-$_lang['Delete'] = 'Διαγραφή';
-$_lang['Delete Wiki'] = 'Διαγραφή Wiki';
-$_lang['Delete all course statistics'] = 'Διαγράψτε όλα τα στατιστικά μαθήματος';
-$_lang['Delete all groups'] = 'Διαγραφή όλων των ομάδων χρηστών';
-$_lang['Delete all messages of'] = ' Διαγράψτε όλα τα μηνύματα ';
-$_lang['Delete attached file'] = 'Διαγραφή επισυναπτόμενου αρχείου';
-$_lang['Delete course allowed'] = 'Διαγραφή μαθήματος επιτράπηκε';
-$_lang['Delete my account'] = 'Διαγραφή του λογαριασμού μου';
-$_lang['Delete scripts of the module'] = 'Διαγραφή των scripts απο το module';
-$_lang['Delete the whole course website'] = 'Διαγραφή ολόκληρου του μαθήματος';
-$_lang['Delete user'] = 'Διαγραφή χρήστη';
-$_lang['Deleted line'] = ' Διαγραμμένη γραμμή ';
-$_lang['Deleting this course will permanently delete all its documents and unenroll all its students.'] = 'Η διαγραφή αυτού του μαθήματος θα σβήσει μόνιμα όλα του τα έγγραφα και θα ακυρώσει την εγγραφή των μαθητών του.';
-$_lang['Deletion of the user was done sucessfully'] = 'Διαγραφή του χρήστη έγινε επιτυχώς';
-$_lang['Denied'] = 'Αρνηση / Απαγόρευση';
-$_lang['Department'] = 'Τμήμα';
-$_lang['Department URL'] = 'Ιστοσελίδα Τμήματος';
-$_lang['Department URL is not valid'] = 'Το URL τμήματος δεν είναι έγκυρο';
-$_lang['Department name'] = 'Όνομα τμήματος';
-$_lang['Department needed'] = 'Το Τμήμα απαιτείται';
-$_lang['Department url needed'] = 'Η διεύθυνση url του Τμήματος απαιτείται';
-$_lang['Department website'] = 'Η ιστοσελίδα του Τμήματος';
-$_lang['Description'] = 'Περιγραφή';
-$_lang['Description deleted.'] = 'Διαγραφή περιγραφής.';
-$_lang['Description of the Wiki'] = 'Περιγραφή του Wiki';
-$_lang['Description updated'] = 'Η περιγραφή ενημερώθηκε.';
-$_lang['Detail'] = 'Λεπτομέρειες';
-$_lang['Details'] = 'Λεπτομέρειες';
-$_lang['Devel Tools'] = 'Εργαλεία Ανάπτυξης';
-$_lang['Development mode'] = 'Λειτουργία ανάπτυξης λογισμικού';
-$_lang['Differences :'] = ' Διαφορές :';
-$_lang['Direct link to image'] = 'Απευθεία σύνδεση σε εικόνα';
-$_lang['Directory created'] = 'Ο κατάλογος δημιουργήθηκε';
-$_lang['Disable'] = 'Αδύνατο';
-$_lang['Disk quota exceeded, please contact the %administrator'] = 'Το όριο εγγραφής στο δίσκο υπερκαλίφθηκε, παρακαλούμε επικοινωνήστε με  %administrator';
-$_lang['Disk space allowed for documents'] = 'Επιτρεπόμενος χώρος δίσκου για έγγραφα';
-$_lang['Disk space allowed for submitted files'] = 'Επιτρεπόμενος χώρος δίσκου για υποβαλόμενα αρχεία';
-$_lang['Disk space allowed to each course'] = 'Επιτρεπόμενος χώρος δίσκου για κάθε μάθημα';
-$_lang['Disk space allowed to each group'] = 'Επιτρεπόμενος χώρος δίσκου μια κάθε ομάδα';
-$_lang['Disk space available'] = 'Διαθέσιμος χώρος δίσκου';
-$_lang['Disk space available : %size'] = 'Διαθέσιμος χώρος δίσκου : %size';
-$_lang['Disk space occupied : %size'] = 'Κατειλημμένος χώρος δίσκου : %size';
-$_lang['Disk usage'] = 'Χρήση δίσκου';
-$_lang['Display'] = 'Εμφάνιση';
-$_lang['Display "Request a Course Creator status"'] = 'Εμφάνισε "Αίτηση για κατάσταση του Δημιουργού Μαθημάτων"';
-$_lang['Display "Request to be deleted from the platform"'] = 'Εμφάνισε "Η αίτηση να διαγραφεί από την πλατφόρμα"';
-$_lang['Display Settings'] = 'Ρυθμίσεις εμφάνισης';
-$_lang['Display an agreement page before the "create user account" form'] = 'Εμφάνιση μίας σελίδας αποδοχής πριν τη φόρμα "Δημιουργία Λογαριασμού χρήστη" ';
-$_lang['Display authentication login form'] = 'Εμφάνιση της φόρμας σύνδεσης - πιστοποίησης';
-$_lang['Display data'] = 'Εμφάνιση δεδομένων';
-$_lang['Display file'] = 'Εμφάνιση αρχείου';
-$_lang['Display link "Create user account" on the platform homepage.'] = 'Εμφάνιση συνδεσμου "Δημιουργία λογαριασμού χρήστη" στην κεντρική σελίδα της πλατφόρμας.';
-$_lang['Display links to enrol/unenrol to course on the homepage of the user'] = 'Εμφάνιση συνδέσμων εγγραφής/διαγραφής σε μαθήματα στην κεντρική σελίδα του χρήστη';
-$_lang['Display options for Image Viewer'] = 'Εμφάνιση επιλογών για Εφαρμογή Προβολής Εικόνων';
-$_lang['Display the field official code in form'] = 'Εμφάνιση του επίσιμου πηγαίου κώδικα του πεδίου στη φόρμα';
-$_lang['Display the logo of the organisation. (http://www.domain.tld/logo.gif)'] = 'Εμφάνιση του logo του ιδρύματος. (http://www.domain.tld/logo.gif)';
-$_lang['Display the logo of the platform. (http://www.domain.tld/logo.gif)'] = 'Εμφάνιση του logo της πλατφόρμας. (http://www.domain.tld/logo.gif)';
-$_lang['Do you want to continue?'] = 'Επιθυμείτε να συνεχίσετε?';
-$_lang['Dock'] = 'Λιμάνι';
-$_lang['Document'] = 'Έγγραφο';
-$_lang['Document content'] = 'Περιεχόμενα εγγράφου';
-$_lang['Document deleted'] = 'Το έγγραφο διαγράφτηκε';
-$_lang['Document in module'] = 'Έγγραφο σε ενότητα';
-$_lang['Document name'] = 'Όνομα εγγράφου : ';
-$_lang['Documents and Links'] = 'Έγγραφα';
-$_lang['Documents help'] = 'Αρχεία Βοήθειας';
-$_lang['Don\'t display email of the users to anonymous (to avoid spam)'] = 'Μη εμφάνιση των email των ανώνυμων χρηστών (για την αποφυγή των spam)';
-$_lang['Download current directory'] = 'Αποθήκευσε τον τρέχοντ κατάλογο';
-$_lang['Download file'] = 'Αποθήκευσε το αρχείο';
+$_lang['Current time'] = 'Ξ¤ΟΞ­Ο‡Ο‰Ξ½ Ο‡ΟΟΞ½ΞΏΟ‚';
+$_lang['Data checking'] = 'ΞΞ»ΞµΞ³Ο‡ΞΏΟ‚ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½';
+$_lang['Data missing'] = 'Ξ§Ξ±ΞΌΞ­Ξ½Ξ± Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ξ±';
+$_lang['Database error :'] = 'Ξ›Ξ¬ΞΈΞΏΟ‚ Ξ²Ξ¬ΟƒΞ·Ο‚ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½ :';
+$_lang['Database mode'] = 'Ξ›ΞµΞΉΟ„ΞΏΟ…ΟΞ³Ξ―Ξ± Ξ²Ξ¬ΟƒΞ·Ο‚ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½';
+$_lang['Database uninstallation failed'] = 'Ξ‘Ο€ΞµΞ³ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ· Ξ²Ξ¬ΟƒΞ·Ο‚ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½ Ξ±Ο€Ξ­Ο„Ο…Ο‡Ξµ';
+$_lang['Database uninstallation skipped'] = 'Ξ‘Ο€ΞµΞ³ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ· Ξ²Ξ¬ΟƒΞ·Ο‚ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½ Ο€Ξ±ΟΞ±Ξ»Ξ®Ο†ΞΈΞ·ΞΊΞµ';
+$_lang['Database uninstallation succeeded'] = 'Ξ‘Ο€ΞµΞ³ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ· Ξ²Ξ¬ΟƒΞ·Ο‚ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½ Ο€Ξ­Ο„Ο…Ο‡Ξµ';
+$_lang['Database update successful'] = 'Ξ•Ξ½Ξ·ΞΌΞ­ΟΟ‰ΟƒΞ· Ξ²Ξ¬ΟƒΞ·Ο‚ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½ ΞµΟ€ΞΉΟ„Ο…Ο‡Ξ®Ο‚';
+$_lang['Date'] = 'Ξ—ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ±';
+$_lang['Day'] = 'Ξ—ΞΌΞ­ΟΞ±';
+$_lang['Deactivated'] = 'Ξ‘Ο€ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞΉΞ®ΞΈΞ·ΞΊΞµ';
+$_lang['Deactivated - Click to activate'] = 'Ξ‘Ο€ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞΉΞ®ΞΈΞ·ΞΊΞµ - Ξ Ξ¬Ο„Ξ·ΟƒΞµ Ξ³ΞΉΞ± Ξ½Ξ± ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞΉΞ·ΞΈΞµΞ―';
+$_lang['Dear %firstname %lastname, your personal settings have been registered.'] = 'Ξ‘Ξ³Ξ±Ο€Ξ·Ο„Ξ­ %firstname %lastname, ΞΏΞΉ Ο€ΟΞΏΟƒΟ‰Ο€ΞΉΞΊΞ­Ο‚ ΟΟ…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ Ξ­Ο‡ΞΏΟ…Ξ½ ΞΊΞ±Ο„Ξ±Ο‡Ο‰ΟΞ·ΞΈΞµΞ―.';
+$_lang['Debug'] = 'Ξ‘Ο€ΞΏΟƒΟ†Ξ±Ξ»ΞΌΞ¬Ο„Ο‰ΟƒΞ·';
+$_lang['Debug mode'] = 'Ξ›ΞµΞΉΟ„ΞΏΟ…ΟΞ³Ξ―Ξ± Ξ±Ο€ΞΏΟƒΟ†Ξ±Ξ»ΞΌΞ¬Ο„Ο‰ΟƒΞ·Ο‚';
+$_lang['Default course access'] = 'Ξ ΟΞΏΞΊΞ±ΞΈΞΏΟΞΉΟƒΞΌΞ­Ξ½Ξ· Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ· ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Default course enrolment'] = 'Ξ ΟΞΏΞΊΞ±ΞΈΞΏΟΞΉΟƒΞΌΞ­Ξ½Ξ· ΞµΞ³Ξ³ΟΞ±Ο†Ξ® ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Default course visibility'] = 'Ξ ΟΞΏΞΊΞ±ΞΈΞΏΟΞΉΟƒΞΌΞ­Ξ½Ξ· ΞΏΟΞ±Ο„ΟΟ„Ξ·Ο„Ξ± ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Default works visibility'] = 'Ξ ΟΞΏΞΊΞ±ΞΈΞΏΟΞΉΟƒΞΌΞ­Ξ½Ξ· ΞµΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· ΞµΟΞ³Ξ±ΟƒΞΉΟΞ½';
+$_lang['Define Headings'] = 'ΞΟΞ―ΟƒΟ„Ξµ ΞµΟ€ΞΉΞΊΞµΟ†Ξ±Ξ»Ξ―Ξ΄ΞµΟ‚';
+$_lang['Definition file doesn\'t exist'] = 'Ξ‘ΟΟ‡ΞµΞ―ΞΏ ΞΏΟΞΉΟƒΞΌΟΞ½ Ξ΄ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ';
+$_lang['Delete'] = 'Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ®';
+$_lang['Delete Wiki'] = 'Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Wiki';
+$_lang['Delete all course statistics'] = 'Ξ”ΞΉΞ±Ξ³ΟΞ¬ΟΟ„Ξµ ΟΞ»Ξ± Ο„Ξ± ΟƒΟ„Ξ±Ο„ΞΉΟƒΟ„ΞΉΞΊΞ¬ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Delete all groups'] = 'Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® ΟΞ»Ο‰Ξ½ Ο„Ο‰Ξ½ ΞΏΞΌΞ¬Ξ΄Ο‰Ξ½ Ο‡ΟΞ·ΟƒΟ„ΟΞ½';
+$_lang['Delete all messages'] = 'Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® ΟΞ»Ο‰Ξ½ Ο„Ο‰Ξ½ ΞΌΞ·Ξ½Ο…ΞΌΞ¬Ο„Ο‰Ξ½';
+$_lang['Delete all messages of'] = ' Ξ”ΞΉΞ±Ξ³ΟΞ¬ΟΟ„Ξµ ΟΞ»Ξ± Ο„Ξ± ΞΌΞ·Ξ½ΟΞΌΞ±Ο„Ξ± ';
+$_lang['Delete all user\'s messages'] = 'Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® ΟΞ»Ο‰Ξ½ Ο„Ο‰Ξ½ ΞΌΞ·Ξ½Ο…ΞΌΞ¬Ο„Ο‰Ξ½ Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['Delete attached file'] = 'Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® ΞµΟ€ΞΉΟƒΟ…Ξ½Ξ±Ο€Ο„ΟΞΌΞµΞ½ΞΏΟ… Ξ±ΟΟ‡ΞµΞ―ΞΏΟ…';
+$_lang['Delete course allowed'] = 'Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ ΞµΟ€ΞΉΟ„ΟΞ¬Ο€Ξ·ΞΊΞµ';
+$_lang['Delete is definitive.  There is no way to get your data back after delete.'] = 'Ξ— Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® ΞµΞ―Ξ½Ξ±ΞΉ ΞΌΞ· Ξ±Ο€ΞΏΟ„ΟΞ­ΟΞΉΞΌΞ·.Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ ΞΊΞ±Ξ½Ξ­Ξ½Ξ±Οƒ Ο„ΟΟΟ€ΞΏΟ‚ Ξ½Ξ± ΞµΟ€Ξ±Ξ½Ξ±ΞΊΟ„Ξ®ΟƒΞµΟ„Ξµ Ο„Ξ± Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ξ± ΟƒΞ±Ο‚ ΞΌΞµΟ„Ξ± Ο„Ξ·Ξ½ Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ®.';
+$_lang['Delete messages'] = 'Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® ΞΌΞ·Ξ½Ο…ΞΌΞ¬Ο„Ο‰Ξ½';
+$_lang['Delete messages older than'] = 'Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® ΞΌΞ·Ξ½Ο…ΞΌΞ¬Ο„Ο‰Ξ½ Ο€Ξ±Ξ»Ξ±ΞΉΟΟ„ΞµΟΞ± Ξ±Ο€ΞΏ';
+$_lang['Delete my account'] = 'Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ο„ΞΏΟ… Ξ»ΞΏΞ³Ξ±ΟΞΉΞ±ΟƒΞΌΞΏΟ ΞΌΞΏΟ…';
+$_lang['Delete picture'] = 'Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ο†Ο‰Ο„ΞΏΞ³ΟΞ±Ο†Ξ―Ξ±Ο‚';
+$_lang['Delete platform messages'] = 'Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® ΞΌΞ·Ξ½Ο…ΞΌΞ¬Ο„Ο‰Ξ½ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±Ο‚';
+$_lang['Delete scripts of the module'] = 'Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ο„Ο‰Ξ½ scripts Ξ±Ο€ΞΏ Ο„ΞΏ module';
+$_lang['Delete selected message(s)'] = 'Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® ΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½ΞΏΟ…(Ο‰Ξ½) ΞΌΞ·Ξ½Ο…ΞΌΞ¬Ο„ΞΏΟ‚(Ο‰Ξ½)';
+$_lang['Delete the whole course website'] = 'Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® ΞΏΞ»ΟΞΊΞ»Ξ·ΟΞΏΟ… Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Delete user'] = 'Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['Deleted line'] = ' Ξ”ΞΉΞ±Ξ³ΟΞ±ΞΌΞΌΞ­Ξ½Ξ· Ξ³ΟΞ±ΞΌΞΌΞ® ';
+$_lang['Deleting this course will permanently delete all its documents and unenroll all its students.'] = 'Ξ— Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ξ±Ο…Ο„ΞΏΟ Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ ΞΈΞ± ΟƒΞ²Ξ®ΟƒΞµΞΉ ΞΌΟΞ½ΞΉΞΌΞ± ΟΞ»Ξ± Ο„ΞΏΟ… Ο„Ξ± Ξ­Ξ³Ξ³ΟΞ±Ο†Ξ± ΞΊΞ±ΞΉ ΞΈΞ± Ξ±ΞΊΟ…ΟΟΟƒΞµΞΉ Ο„Ξ·Ξ½ ΞµΞ³Ξ³ΟΞ±Ο†Ξ® Ο„Ο‰Ξ½ ΞΌΞ±ΞΈΞ·Ο„ΟΞ½ Ο„ΞΏΟ….';
+$_lang['Deletion of the user was done sucessfully'] = 'Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ο„ΞΏΟ… Ο‡ΟΞ®ΟƒΟ„Ξ· Ξ­Ξ³ΞΉΞ½Ξµ ΞµΟ€ΞΉΟ„Ο…Ο‡ΟΟ‚';
+$_lang['Denied'] = 'Ξ‘ΟΞ½Ξ·ΟƒΞ· / Ξ‘Ο€Ξ±Ξ³ΟΟΞµΟ…ΟƒΞ·';
+$_lang['Denotes required fields'] = 'Ξ”Ξ·Ξ»ΟΞ½ΞµΞΉ Ξ±Ο€Ξ±ΞΉΟ„ΞΏΟΞΌΞµΞ½ΞΏ Ο€ΞµΞ΄Ξ―ΞΏ';
+$_lang['Department'] = 'Ξ¤ΞΌΞ®ΞΌΞ±';
+$_lang['Department URL'] = 'Ξ™ΟƒΟ„ΞΏΟƒΞµΞ»Ξ―Ξ΄Ξ± Ξ¤ΞΌΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Department URL is not valid'] = 'Ξ¤ΞΏ URL Ο„ΞΌΞ®ΞΌΞ±Ο„ΞΏΟ‚ Ξ΄ΞµΞ½ ΞµΞ―Ξ½Ξ±ΞΉ Ξ­Ξ³ΞΊΟ…ΟΞΏ';
+$_lang['Department name'] = 'ΞΞ½ΞΏΞΌΞ± Ο„ΞΌΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Department needed'] = 'Ξ¤ΞΏ Ξ¤ΞΌΞ®ΞΌΞ± Ξ±Ο€Ξ±ΞΉΟ„ΞµΞ―Ο„Ξ±ΞΉ';
+$_lang['Department url needed'] = 'Ξ— Ξ΄ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ· url Ο„ΞΏΟ… Ξ¤ΞΌΞ®ΞΌΞ±Ο„ΞΏΟ‚ Ξ±Ο€Ξ±ΞΉΟ„ΞµΞ―Ο„Ξ±ΞΉ';
+$_lang['Department website'] = 'Ξ— ΞΉΟƒΟ„ΞΏΟƒΞµΞ»Ξ―Ξ΄Ξ± Ο„ΞΏΟ… Ξ¤ΞΌΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Description'] = 'Ξ ΞµΟΞΉΞ³ΟΞ±Ο†Ξ®';
+$_lang['Description added'] = 'Ξ— Ο€ΞµΟΞΉΞ³ΟΞ±Ο†Ξ® Ξ­Ο‡ΞµΞΉ Ο€ΟΞΏΟƒΞΈΞµΞΈΞµΞ―';
+$_lang['Description deleted.'] = 'Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ο€ΞµΟΞΉΞ³ΟΞ±Ο†Ξ®Ο‚.';
+$_lang['Description of the Wiki'] = 'Ξ ΞµΟΞΉΞ³ΟΞ±Ο†Ξ® Ο„ΞΏΟ… Wiki';
+$_lang['Description updated'] = 'Ξ— Ο€ΞµΟΞΉΞ³ΟΞ±Ο†Ξ® ΞµΞ½Ξ·ΞΌΞµΟΟΞΈΞ·ΞΊΞµ.';
+$_lang['Detail'] = 'Ξ›ΞµΟ€Ο„ΞΏΞΌΞ­ΟΞµΞΉΞµΟ‚';
+$_lang['Details'] = 'Ξ›ΞµΟ€Ο„ΞΏΞΌΞ­ΟΞµΞΉΞµΟ‚';
+$_lang['Devel Tools'] = 'Ξ•ΟΞ³Ξ±Ξ»ΞµΞ―Ξ± Ξ‘Ξ½Ξ¬Ο€Ο„Ο…ΞΎΞ·Ο‚';
+$_lang['Development mode'] = 'Ξ›ΞµΞΉΟ„ΞΏΟ…ΟΞ³Ξ―Ξ± Ξ±Ξ½Ξ¬Ο€Ο„Ο…ΞΎΞ·Ο‚ Ξ»ΞΏΞ³ΞΉΟƒΞΌΞΉΞΊΞΏΟ';
+$_lang['Differences :'] = ' Ξ”ΞΉΞ±Ο†ΞΏΟΞ­Ο‚ :';
+$_lang['Dimensions'] = 'Ξ”ΞΉΞ±ΟƒΟ„Ξ¬ΟƒΞµΞΉΟ‚';
+$_lang['Direct link to image'] = 'Ξ‘Ο€ΞµΟ…ΞΈΞµΞ―Ξ± ΟƒΟΞ½Ξ΄ΞµΟƒΞ· ΟƒΞµ ΞµΞΉΞΊΟΞ½Ξ±';
+$_lang['Directory created'] = 'Ξ ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏΟ‚ Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΞΈΞ·ΞΊΞµ';
+$_lang['Directory name'] = 'ΞΞ½ΞΏΞΌΞ± ΞΊΞ±Ο„Ξ±Ξ»ΟΞ³ΞΏΟ…';
+$_lang['Disable'] = 'Ξ‘Ξ΄ΟΞ½Ξ±Ο„ΞΏ';
+$_lang['Disable this option if you are not using the local Claroline password to identify a user'] = 'Ξ‘Ο€ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞµ Ξ±Ο…Ο„Ξ® Ο„Ξ·Ξ½ ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ® Ξ±Ξ½ Ξ΄ΞµΞ½ Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞµΞ―Ο‚ Ο„ΞΏ Ο„ΞΏΟ€ΞΉΞΊΟ ΞΊΟ‰Ξ΄ΞΉΞΊΟ Ο„ΞΏΟ… ΞΞ»Ξ¬ΟΞΏΞ»Ξ±ΞΉΞ½ Ξ³ΞΉΞ± Ξ½Ξ± Ξ±Ξ½Ξ±Ξ³Ξ½Ο‰ΟΞ―ΟƒΞµΞΉΟ‚ Ξ­Ξ½Ξ± Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['Disk quota exceeded, please contact the %administrator'] = 'Ξ¤ΞΏ ΟΟΞΉΞΏ ΞµΞ³Ξ³ΟΞ±Ο†Ξ®Ο‚ ΟƒΟ„ΞΏ Ξ΄Ξ―ΟƒΞΊΞΏ Ο…Ο€ΞµΟΞΊΞ±Ξ»Ξ―Ο†ΞΈΞ·ΞΊΞµ, Ο€Ξ±ΟΞ±ΞΊΞ±Ξ»ΞΏΟΞΌΞµ ΞµΟ€ΞΉΞΊΞΏΞΉΞ½Ο‰Ξ½Ξ®ΟƒΟ„Ξµ ΞΌΞµ  %administrator';
+$_lang['Disk space allowed for documents'] = 'Ξ•Ο€ΞΉΟ„ΟΞµΟ€ΟΞΌΞµΞ½ΞΏΟ‚ Ο‡ΟΟΞΏΟ‚ Ξ΄Ξ―ΟƒΞΊΞΏΟ… Ξ³ΞΉΞ± Ξ­Ξ³Ξ³ΟΞ±Ο†Ξ±';
+$_lang['Disk space allowed for submitted files'] = 'Ξ•Ο€ΞΉΟ„ΟΞµΟ€ΟΞΌΞµΞ½ΞΏΟ‚ Ο‡ΟΟΞΏΟ‚ Ξ΄Ξ―ΟƒΞΊΞΏΟ… Ξ³ΞΉΞ± Ο…Ο€ΞΏΞ²Ξ±Ξ»ΟΞΌΞµΞ½Ξ± Ξ±ΟΟ‡ΞµΞ―Ξ±';
+$_lang['Disk space allowed to each course'] = 'Ξ•Ο€ΞΉΟ„ΟΞµΟ€ΟΞΌΞµΞ½ΞΏΟ‚ Ο‡ΟΟΞΏΟ‚ Ξ΄Ξ―ΟƒΞΊΞΏΟ… Ξ³ΞΉΞ± ΞΊΞ¬ΞΈΞµ ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['Disk space allowed to each group'] = 'Ξ•Ο€ΞΉΟ„ΟΞµΟ€ΟΞΌΞµΞ½ΞΏΟ‚ Ο‡ΟΟΞΏΟ‚ Ξ΄Ξ―ΟƒΞΊΞΏΟ… ΞΌΞΉΞ± ΞΊΞ¬ΞΈΞµ ΞΏΞΌΞ¬Ξ΄Ξ±';
+$_lang['Disk space available'] = 'Ξ”ΞΉΞ±ΞΈΞ­ΟƒΞΉΞΌΞΏΟ‚ Ο‡ΟΟΞΏΟ‚ Ξ΄Ξ―ΟƒΞΊΞΏΟ…';
+$_lang['Disk space available : %size'] = 'Ξ”ΞΉΞ±ΞΈΞ­ΟƒΞΉΞΌΞΏΟ‚ Ο‡ΟΟΞΏΟ‚ Ξ΄Ξ―ΟƒΞΊΞΏΟ… : %size';
+$_lang['Disk space occupied : %size'] = 'ΞΞ±Ο„ΞµΞΉΞ»Ξ·ΞΌΞΌΞ­Ξ½ΞΏΟ‚ Ο‡ΟΟΞΏΟ‚ Ξ΄Ξ―ΟƒΞΊΞΏΟ… : %size';
+$_lang['Disk usage'] = 'Ξ§ΟΞ®ΟƒΞ· Ξ΄Ξ―ΟƒΞΊΞΏΟ…';
+$_lang['Display'] = 'Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ·';
+$_lang['Display "Request a Course Creator status"'] = 'Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞµ "Ξ‘Ξ―Ο„Ξ·ΟƒΞ· Ξ³ΞΉΞ± ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ· Ο„ΞΏΟ… Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³ΞΏΟ ΞΞ±ΞΈΞ·ΞΌΞ¬Ο„Ο‰Ξ½"';
+$_lang['Display "Request to be deleted from the platform"'] = 'Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞµ "Ξ— Ξ±Ξ―Ο„Ξ·ΟƒΞ· Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†ΞµΞ― Ξ±Ο€Ο Ο„Ξ·Ξ½ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±"';
+$_lang['Display Settings'] = 'Ξ΅Ο…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ ΞµΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ·Ο‚';
+$_lang['Display a link to the lost password form'] = 'Ξ ΟΟΞ²Ξ±Ξ»Ξµ Ξ­Ξ½Ξ± ΟƒΟΞ½Ξ΄ΞµΟƒΞΌΞΏ Ξ³ΞΉΞ± Ο„Ξ·Ξ½ Ο†ΟΟΞΌΞ± Ο‡Ξ±ΞΌΞ­Ξ½ΞΏΟ… ΞΊΟ‰Ξ΄ΞΉΞΊΞΏΟ';
+$_lang['Display all feedbacks'] = 'Ξ ΟΟΞ²Ξ±Ξ»Ξµ ΟΞ»ΞµΟ‚ Ο„ΞΉΟ‚ Ξ±Ξ½Ξ±Ο„ΟΞΏΟ†ΞΏΞ΄ΞΏΟ„Ξ®ΟƒΞµΞΉΟ‚';
+$_lang['Display an agreement page before the "create user account" form'] = 'Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· ΞΌΞ―Ξ±Ο‚ ΟƒΞµΞ»Ξ―Ξ΄Ξ±Ο‚ Ξ±Ο€ΞΏΞ΄ΞΏΟ‡Ξ®Ο‚ Ο€ΟΞΉΞ½ Ο„Ξ· Ο†ΟΟΞΌΞ± "Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ξ›ΞΏΞ³Ξ±ΟΞΉΞ±ΟƒΞΌΞΏΟ Ο‡ΟΞ®ΟƒΟ„Ξ·" ';
+$_lang['Display authentication login form'] = 'Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· Ο„Ξ·Ο‚ Ο†ΟΟΞΌΞ±Ο‚ ΟƒΟΞ½Ξ΄ΞµΟƒΞ·Ο‚ - Ο€ΞΉΟƒΟ„ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ·Ο‚';
+$_lang['Display data'] = 'Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½';
+$_lang['Display file'] = 'Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· Ξ±ΟΟ‡ΞµΞ―ΞΏΟ…';
+$_lang['Display link "Create user account" on the platform homepage.'] = 'Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· ΟƒΟ…Ξ½Ξ΄ΞµΟƒΞΌΞΏΟ… "Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ξ»ΞΏΞ³Ξ±ΟΞΉΞ±ΟƒΞΌΞΏΟ Ο‡ΟΞ®ΟƒΟ„Ξ·" ΟƒΟ„Ξ·Ξ½ ΞΊΞµΞ½Ο„ΟΞΉΞΊΞ® ΟƒΞµΞ»Ξ―Ξ΄Ξ± Ο„Ξ·Ο‚ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±Ο‚.';
+$_lang['Display links to enrol/unenrol to course on the homepage of the user'] = 'Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· ΟƒΟ…Ξ½Ξ΄Ξ­ΟƒΞΌΟ‰Ξ½ ΞµΞ³Ξ³ΟΞ±Ο†Ξ®Ο‚/Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ®Ο‚ ΟƒΞµ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„Ξ± ΟƒΟ„Ξ·Ξ½ ΞΊΞµΞ½Ο„ΟΞΉΞΊΞ® ΟƒΞµΞ»Ξ―Ξ΄Ξ± Ο„ΞΏΟ… Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['Display of detailed answers is not authorized.'] = 'Ξ— Ο€ΟΞΏΞ²ΞΏΞ»Ξ® Ξ»ΞµΟ€Ο„ΞΏΞΌΞµΟΟΞ½ Ξ±Ο€Ξ±Ξ½Ο„Ξ®ΟƒΞµΟ‰Ξ½ Ξ΄ΞµΞ½ ΞµΞ―Ξ½Ξ±ΞΉ ΞµΞΎΞΏΟ…ΟƒΞΉΞΏΞ΄ΞΏΟ„Ξ·ΞΌΞ­Ξ½Ξ·';
+$_lang['Display options for Image Viewer'] = 'Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· ΞµΟ€ΞΉΞ»ΞΏΞ³ΟΞ½ Ξ³ΞΉΞ± Ξ•Ο†Ξ±ΟΞΌΞΏΞ³Ξ® Ξ ΟΞΏΞ²ΞΏΞ»Ξ®Ο‚ Ξ•ΞΉΞΊΟΞ½Ο‰Ξ½';
+$_lang['Display the field official code in form'] = 'Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· Ο„ΞΏΟ… ΞµΟ€Ξ―ΟƒΞΉΞΌΞΏΟ… Ο€Ξ·Ξ³Ξ±Ξ―ΞΏΟ… ΞΊΟΞ΄ΞΉΞΊΞ± Ο„ΞΏΟ… Ο€ΞµΞ΄Ξ―ΞΏΟ… ΟƒΟ„Ξ· Ο†ΟΟΞΌΞ±';
+$_lang['Display the logo of the organisation. (http://www.domain.tld/logo.gif)'] = 'Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· Ο„ΞΏΟ… logo Ο„ΞΏΟ… ΞΉΞ΄ΟΟΞΌΞ±Ο„ΞΏΟ‚. (http://www.domain.tld/logo.gif)';
+$_lang['Display the logo of the platform. (http://www.domain.tld/logo.gif)'] = 'Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· Ο„ΞΏΟ… logo Ο„Ξ·Ο‚ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±Ο‚. (http://www.domain.tld/logo.gif)';
+$_lang['Do you really want to delete the "%categoryCode%" category ?'] = 'Ξ•Ξ―ΟƒΞµ ΟƒΞ―Ξ³ΞΏΟ…ΟΞΏΟ‚ ΟΟ„ΞΉ ΞΈΞ­Ξ»ΞµΞΉΟ‚ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΞΉΟ‚ Ο„ΞΏ  \"%categoryCode%\" Ξ±Ο€ΞΏ Ο„Ξ·Ξ½ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±;';
+$_lang['Do you want to continue?'] = 'Ξ•Ο€ΞΉΞΈΟ…ΞΌΞµΞ―Ο„Ξµ Ξ½Ξ± ΟƒΟ…Ξ½ΞµΟ‡Ξ―ΟƒΞµΟ„Ξµ?';
+$_lang['Dock'] = 'Ξ›ΞΉΞΌΞ¬Ξ½ΞΉ';
+$_lang['Document'] = 'ΞΞ³Ξ³ΟΞ±Ο†ΞΏ';
+$_lang['Document content'] = 'Ξ ΞµΟΞΉΞµΟ‡ΟΞΌΞµΞ½Ξ± ΞµΞ³Ξ³ΟΞ¬Ο†ΞΏΟ…';
+$_lang['Document deleted'] = 'Ξ¤ΞΏ Ξ­Ξ³Ξ³ΟΞ±Ο†ΞΏ Ξ΄ΞΉΞ±Ξ³ΟΞ¬Ο†Ο„Ξ·ΞΊΞµ';
+$_lang['Document in module'] = 'ΞΞ³Ξ³ΟΞ±Ο†ΞΏ ΟƒΞµ ΞµΞ½ΟΟ„Ξ·Ο„Ξ±';
+$_lang['Document name'] = 'ΞΞ½ΞΏΞΌΞ± ΞµΞ³Ξ³ΟΞ¬Ο†ΞΏΟ… : ';
+$_lang['Documents and Links'] = 'ΞΞ³Ξ³ΟΞ±Ο†Ξ±';
+$_lang['Documents help'] = 'Ξ‘ΟΟ‡ΞµΞ―Ξ± Ξ’ΞΏΞ®ΞΈΞµΞΉΞ±Ο‚';
+$_lang['Don\'t display email of the users to anonymous (to avoid spam)'] = 'ΞΞ· ΞµΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· Ο„Ο‰Ξ½ email Ο„Ο‰Ξ½ Ξ±Ξ½ΟΞ½Ο…ΞΌΟ‰Ξ½ Ο‡ΟΞ·ΟƒΟ„ΟΞ½ (Ξ³ΞΉΞ± Ο„Ξ·Ξ½ Ξ±Ο€ΞΏΟ†Ο…Ξ³Ξ® Ο„Ο‰Ξ½ spam)';
+$_lang['Done'] = 'ΞΞ³ΞΉΞ½Ξµ';
+$_lang['Download'] = 'ΞΞ±Ο„Ξ­Ξ²Ξ±ΟƒΞµ';
+$_lang['Download current directory'] = 'Ξ‘Ο€ΞΏΞΈΞ®ΞΊΞµΟ…ΟƒΞµ Ο„ΞΏΞ½ Ο„ΟΞ­Ο‡ΞΏΞ½Ο„ ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏ';
+$_lang['Download file'] = 'Ξ‘Ο€ΞΏΞΈΞ®ΞΊΞµΟ…ΟƒΞµ Ο„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ';
+$_lang['Download mechanism'] = 'ΞΞ·Ο‡Ξ±Ξ½ΞΉΟƒΞΌΟΟ‚ ΞΊΞ±Ο„ΞµΞ²Ξ¬ΟƒΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Download submissions'] = 'ΞΞ±Ο„Ξ¬Ξ²Ξ±ΟƒΞµ Ο„ΞΉΟ‚ Ο…Ο€ΞΏΞ²ΞΏΞ»Ξ­Ο‚ Ξ±ΞΉΟ„Ξ®ΟƒΞµΟ‰Ξ½';
+$_lang['Downloads'] = 'ΞΞ±Ο„ΞµΞ²Ξ¬ΟƒΞΌΞ±Ο„Ξ±';
 $_lang['E-mail'] = 'E-mail';
-$_lang['ERROR: The format you gave is not compatible with Claroline'] = 'Σφάλμα: Η μορφή του αρχείου που δώσατε δεν είναι συμβατή με το Claroline';
-$_lang['Edit'] = 'Διόρθωση';
-$_lang['Edit Event'] = 'Σύνταξη γεγονότων';
-$_lang['Edit Pages'] = ' Αλλαγη σελίδων';
-$_lang['Edit Tool list'] = 'Σύνταξη/επιμέλεια λίστας εργαλείων';
-$_lang['Edit a category'] = 'Σύνταξη-επιμέλεια κατηγορίας';
-$_lang['Edit answers'] = 'Σύνταξη/επιμέλεια απαντήσεων ';
-$_lang['Edit automatic feedback'] = 'Σύνταξη/επιμέλεια αυτόματης επικοινωνίας';
-$_lang['Edit category'] = 'Αλλαγή κατηγορίας ';
-$_lang['Edit conflict'] = 'Αλλαγή σύγκρουσης';
-$_lang['Edit exercise'] = 'Επεξεργασία άσκησης';
-$_lang['Edit exercise settings'] = 'Σύνταξη/επιμέλεια ρυθμίσεων άσκησης';
-$_lang['Edit file content'] = 'επιμέλεια περιεχομενου αρχείου';
-$_lang['Edit format to use'] = 'Επιμέλεια φόρμας/διάταξης χρήσης';
-$_lang['Edit last version'] = 'Αλλαγη τελευταίας έκδοσης';
-$_lang['Edit post'] = ' Αλλαγή γνωστοποίησης ';
-$_lang['Edit profile'] = 'Επεξεργασία προφίλ';
-$_lang['Edit properties'] = ' Αλλαγη ιδιοτήτων';
-$_lang['Edit question'] = 'Σύνταξη ερώτησης';
-$_lang['Edit settings'] = 'Σύνταξη/ επιμέλεια ρυθμίσεων';
-$_lang['Edit text zone'] = 'Αλλαγή περιοχής κειμένου';
-$_lang['Edit text zones'] = 'Επεργασίαν ζωνών κειμένου';
-$_lang['Edit this group'] = 'Διόρθωση της ομάδας χρηστών';
-$_lang['Edit this page'] = ' Αλλαγη αυτήε της σελίδας';
-$_lang['Edition allowed'] = 'Επεξεργασία επετράπηκε';
-$_lang['Element list'] = 'Λίστα στοιχείων';
-$_lang['Element moved'] = 'Ο κατάλογος μετακινήθηκε';
-$_lang['Element renamed'] = 'Το αντικείμενο μετονομάστηκε';
+$_lang['ERROR: The format you gave is not compatible with Claroline'] = 'Ξ£Ο†Ξ¬Ξ»ΞΌΞ±: Ξ— ΞΌΞΏΟΟ†Ξ® Ο„ΞΏΟ… Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… Ο€ΞΏΟ… Ξ΄ΟΟƒΞ±Ο„Ξµ Ξ΄ΞµΞ½ ΞµΞ―Ξ½Ξ±ΞΉ ΟƒΟ…ΞΌΞ²Ξ±Ο„Ξ® ΞΌΞµ Ο„ΞΏ Claroline';
+$_lang['Edit'] = 'Ξ”ΞΉΟΟΞΈΟ‰ΟƒΞ·';
+$_lang['Edit <i>%filename</i>'] = 'Ξ•Ο€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± <i>%filename</i>';
+$_lang['Edit Event'] = 'Ξ£ΟΞ½Ο„Ξ±ΞΎΞ· Ξ³ΞµΞ³ΞΏΞ½ΟΟ„Ο‰Ξ½';
+$_lang['Edit Pages'] = ' Ξ‘Ξ»Ξ»Ξ±Ξ³Ξ· ΟƒΞµΞ»Ξ―Ξ΄Ο‰Ξ½';
+$_lang['Edit Tool list'] = 'Ξ£ΟΞ½Ο„Ξ±ΞΎΞ·/ΞµΟ€ΞΉΞΌΞ­Ξ»ΞµΞΉΞ± Ξ»Ξ―ΟƒΟ„Ξ±Ο‚ ΞµΟΞ³Ξ±Ξ»ΞµΞ―Ο‰Ξ½';
+$_lang['Edit a category'] = 'Ξ£ΟΞ½Ο„Ξ±ΞΎΞ·-ΞµΟ€ΞΉΞΌΞ­Ξ»ΞµΞΉΞ± ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±Ο‚';
+$_lang['Edit answers'] = 'Ξ£ΟΞ½Ο„Ξ±ΞΎΞ·/ΞµΟ€ΞΉΞΌΞ­Ξ»ΞµΞΉΞ± Ξ±Ο€Ξ±Ξ½Ο„Ξ®ΟƒΞµΟ‰Ξ½ ';
+$_lang['Edit automatic feedback'] = 'Ξ£ΟΞ½Ο„Ξ±ΞΎΞ·/ΞµΟ€ΞΉΞΌΞ­Ξ»ΞµΞΉΞ± Ξ±Ο…Ο„ΟΞΌΞ±Ο„Ξ·Ο‚ ΞµΟ€ΞΉΞΊΞΏΞΉΞ½Ο‰Ξ½Ξ―Ξ±Ο‚';
+$_lang['Edit category'] = 'Ξ‘Ξ»Ξ»Ξ±Ξ³Ξ® ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±Ο‚ ';
+$_lang['Edit conflict'] = 'Ξ‘Ξ»Ξ»Ξ±Ξ³Ξ® ΟƒΟΞ³ΞΊΟΞΏΟ…ΟƒΞ·Ο‚';
+$_lang['Edit exercise'] = 'Ξ•Ο€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± Ξ¬ΟƒΞΊΞ·ΟƒΞ·Ο‚';
+$_lang['Edit exercise settings'] = 'Ξ£ΟΞ½Ο„Ξ±ΞΎΞ·/ΞµΟ€ΞΉΞΌΞ­Ξ»ΞµΞΉΞ± ΟΟ…ΞΈΞΌΞ―ΟƒΞµΟ‰Ξ½ Ξ¬ΟƒΞΊΞ·ΟƒΞ·Ο‚';
+$_lang['Edit file content'] = 'ΞµΟ€ΞΉΞΌΞ­Ξ»ΞµΞΉΞ± Ο€ΞµΟΞΉΞµΟ‡ΞΏΞΌΞµΞ½ΞΏΟ… Ξ±ΟΟ‡ΞµΞ―ΞΏΟ…';
+$_lang['Edit format to use'] = 'Ξ•Ο€ΞΉΞΌΞ­Ξ»ΞµΞΉΞ± Ο†ΟΟΞΌΞ±Ο‚/Ξ΄ΞΉΞ¬Ο„Ξ±ΞΎΞ·Ο‚ Ο‡ΟΞ®ΟƒΞ·Ο‚';
+$_lang['Edit forum'] = 'Ξ•Ο€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± ΟƒΟ…Ξ¶Ξ·Ο„Ξ®ΟƒΞ·Ο‚';
+$_lang['Edit last version'] = 'Ξ‘Ξ»Ξ»Ξ±Ξ³Ξ· Ο„ΞµΞ»ΞµΟ…Ο„Ξ±Ξ―Ξ±Ο‚ Ξ­ΞΊΞ΄ΞΏΟƒΞ·Ο‚';
+$_lang['Edit post'] = ' Ξ‘Ξ»Ξ»Ξ±Ξ³Ξ® Ξ³Ξ½Ο‰ΟƒΟ„ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ·Ο‚ ';
+$_lang['Edit profile'] = 'Ξ•Ο€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± Ο€ΟΞΏΟ†Ξ―Ξ»';
+$_lang['Edit properties'] = ' Ξ‘Ξ»Ξ»Ξ±Ξ³Ξ· ΞΉΞ΄ΞΉΞΏΟ„Ξ®Ο„Ο‰Ξ½';
+$_lang['Edit question'] = 'Ξ£ΟΞ½Ο„Ξ±ΞΎΞ· ΞµΟΟΟ„Ξ·ΟƒΞ·Ο‚';
+$_lang['Edit settings'] = 'Ξ£ΟΞ½Ο„Ξ±ΞΎΞ·/ ΞµΟ€ΞΉΞΌΞ­Ξ»ΞµΞΉΞ± ΟΟ…ΞΈΞΌΞ―ΟƒΞµΟ‰Ξ½';
+$_lang['Edit text zone'] = 'Ξ‘Ξ»Ξ»Ξ±Ξ³Ξ® Ο€ΞµΟΞΉΞΏΟ‡Ξ®Ο‚ ΞΊΞµΞΉΞΌΞ­Ξ½ΞΏΟ…';
+$_lang['Edit text zones'] = 'Ξ•Ο€ΞµΟΞ³Ξ±ΟƒΞ―Ξ±Ξ½ Ξ¶Ο‰Ξ½ΟΞ½ ΞΊΞµΞΉΞΌΞ­Ξ½ΞΏΟ…';
+$_lang['Edit this group'] = 'Ξ”ΞΉΟΟΞΈΟ‰ΟƒΞ· Ο„Ξ·Ο‚ ΞΏΞΌΞ¬Ξ΄Ξ±Ο‚ Ο‡ΟΞ·ΟƒΟ„ΟΞ½';
+$_lang['Edit this page'] = ' Ξ‘Ξ»Ξ»Ξ±Ξ³Ξ· Ξ±Ο…Ο„Ξ®Ξµ Ο„Ξ·Ο‚ ΟƒΞµΞ»Ξ―Ξ΄Ξ±Ο‚';
+$_lang['Edition allowed'] = 'Ξ•Ο€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± ΞµΟ€ΞµΟ„ΟΞ¬Ο€Ξ·ΞΊΞµ';
+$_lang['Element list'] = 'Ξ›Ξ―ΟƒΟ„Ξ± ΟƒΟ„ΞΏΞΉΟ‡ΞµΞ―Ο‰Ξ½';
+$_lang['Element moved'] = 'Ξ ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏΟ‚ ΞΌΞµΟ„Ξ±ΞΊΞΉΞ½Ξ®ΞΈΞ·ΞΊΞµ';
+$_lang['Element renamed'] = 'Ξ¤ΞΏ Ξ±Ξ½Ο„ΞΉΞΊΞµΞ―ΞΌΞµΞ½ΞΏ ΞΌΞµΟ„ΞΏΞ½ΞΏΞΌΞ¬ΟƒΟ„Ξ·ΞΊΞµ';
 $_lang['Email'] = 'Email';
-$_lang['Email is'] = 'Email είναι';
-$_lang['Email needed'] = ' το Email δεν μπορεί να είναι κενό';
-$_lang['Empty'] = 'Αφήσατε μερικά πεδία κενά.<br />Πατήστε το πλήκτρο «Επιστροφή» του browser και ξαναδοκιμάστε.';
-$_lang['Empty all groups'] = 'Εκκαθάριση όλων των ομάδων χρηστών';
-$_lang['Empty language file'] = 'Αδειασμα αρχείου γλώσσας';
-$_lang['Enable CAS system'] = 'Ενεργοποίησε το σύστημα CAS';
-$_lang['Enable IMS-QTI Export'] = 'Ενεργοποίησε την λειτουργία IMS-QTI Export';
-$_lang['Enable RSS in course'] = 'Ενεργοποίησε το RSS στο μάθημα';
-$_lang['Enable SSO system'] = 'Ενεργοποίησε το σύστημα SSO';
-$_lang['Enable iCal in course'] = 'Ενεργοποιησε το iCal στο μάθημα';
-$_lang['End date'] = 'Ημερομηνία τέλους/λήξης ';
-$_lang['Enrol as course manager'] = 'Εγγραφή ως διευθυντής μαθήματος';
-$_lang['Enrol as student'] = 'Εγγραφή ως μαθητής';
-$_lang['Enrol as teacher'] = 'Εγγραφή ως δασκαλος';
-$_lang['Enrol class'] = 'Εγγραφή τάξης';
-$_lang['Enrol on a new course'] = 'Eγγραφή σε νέο μάθημα';
-$_lang['Enrol to a new course'] = 'Eγγραφή σε νέο μάθημα';
-$_lang['Enrol to course'] = 'Εγγραφή σε μάθημα';
-$_lang['Enrol to course not allowed'] = 'Η εγγραφλη στο μάθημα δεν επιτρέπεται';
-$_lang['Enroll a user'] = 'Εγγραφή χρήστη';
-$_lang['Enrolment'] = 'Εγγραφή';
-$_lang['Enrolment key'] = 'Κλειδί εγγραφής';
-$_lang['Enter'] = 'Είσοδος';
-$_lang['Enter new password twice to change, leave empty to keep it'] = 'Βάλτε δυο φορές νεο κωδικό (password) για να γίνει αλλαγή, αφήστε κενό για να κρατήσετε τον ίδιο';
-$_lang['Enter the description of your wiki here'] = ' Εισάγετε την περιγραφή του νέου σας wiki έδω';
-$_lang['Enter your email so we can send you your password.'] = 'Εισάγετε το e-mail σας προκειμένου να σας στείλουμε το κωδικό σας.';
-$_lang['Error : Cannot initialize chat'] = 'Σφαλμα : Το chat δεν μπορεί να ξεκινήσει';
-$_lang['Error : Class has sub-classes'] = 'Σφάλμα : Η τάξη έχει υπο-τάξεις';
-$_lang['Error : Class not found'] = 'Σφάλμα : Η τάξη δεν μπορεί να βρεθεί';
-$_lang['Error : Name already exists in the learning path or in the module pool'] = 'Σφάλμα : Το όνομα υπάρχει ήδη στη διαδρομή μάθησης ή στο σύνολο των ενοτήτων ';
-$_lang['Error : One or more values are doubled'] = 'Σφάλμα : μία ή δυο τιμές είναι διπλές';
-$_lang['Error : no file uploaded'] = 'Σφάλμα : το αρχείο δεν φορτώθηκε';
-$_lang['Error : no zlib extension found'] = 'Σφάλμα : δεν βρέθηκε η επέκταση zlib';
-$_lang['Error copying existing SCORM content'] = 'Σφάλμα αντιγραφής υπάρχων περιεχομένου SCORM';
-$_lang['Error exporting SCORM package'] = 'Σφάλμα κατά τη δημιουργία του πακέτου SCORM';
-$_lang['Error in SQL statement'] = 'Σφάλαμα στη δήλωση SQL';
-$_lang['Error opening question\'s XML file'] = 'Σφάλμα κατά το άνοιγμα του αρχείου ερωτήσεων XML';
-$_lang['Error reading <i>manifest</i> file'] = 'Σφαλμα ανάγνωσης αρχείου <i>manifest</i>';
-$_lang['Error reading XML file'] = 'Σφάλμα κατά την ανάγνωση του XML αρχείου';
-$_lang['Error reading a secondary initialisation file :'] = 'Σφάλμα ανάγνωσης δευτερεύοντος αρχείου ρύθμισης έναρξης: ';
-$_lang['Error reading zip file.'] = 'Σφάλμα ανάγνωσης αρχειου zip.';
-$_lang['Error when copying needed SCORM files'] = ' Σφάλμα κατά την αντιγραφή των αναγκαίων αρχείων SCORM ';
-$_lang['Error while deleting the scripts of the module'] = 'Σφάλμα κατά τη διαγραφή των scripts από το module';
-$_lang['Error while renaming module folder'] = 'Σφάλμα κατά τη μετονομασία του φακέλου του module';
-$_lang['Error!! you cannot unregister a course manager'] = 'Σφάλμα!! δεν μπορείς να καταργήσεις την εγγραφή ενός διαχειριστή μαθήματος';
-$_lang['ErrorInvalidParms'] = 'Σφάλμα : μη έγγυρη παράμετρος (χρησιμοποιήστε μόνο αριθμούς)';
-$_lang['Event added to the agenda'] = 'Το γεγονός προστέθηκε στην Ατζέντα';
-$_lang['Event deleted from the agenda'] = 'Το γεγονός διαγράφτηκε απο την Ατζέντα.';
-$_lang['Event duration'] = 'Διάρκει γεγονότος';
-$_lang['Event updated into the agenda'] = 'Το γεγονός ενημερώθηκε στην Ατζέντα.';
-$_lang['Example : http://www.yourdomain.tld/mycampus/'] = 'Παράδειγμα : http://www.yourdomain.tld/mycampus/';
-$_lang['Exercise'] = '¶σκηση Claroline';
-$_lang['Exercise added'] = '¶σκηση προστέθηκε';
-$_lang['Exercise cancelled, choose a module in the list to continue.'] = 'Ακυρωση άσκησης, επιλέξτε ενότητα σε αυτή τη λίστα για να συνεχίσετε.';
-$_lang['Exercise done, choose a module in the list to continue.'] = 'Ασκηση έτοιμη, διάλεξε ενότητα στη λίστα για να συνεχίσεις.';
-$_lang['Exercise in module'] = 'Ασκηση στην ενότητα';
-$_lang['Exercise modified'] = '¶σκηση τροποποιήθηκε';
-$_lang['Exercise not available'] = 'Η άσκηση δέν είναι διαθέσιμη';
-$_lang['Exercise results'] = 'Αποτελέσματα άσκησης';
-$_lang['Exercise title'] = 'Τίτλος άσκησης';
-$_lang['Exercise type'] = 'Τύπος άσκησης';
-$_lang['Exercises'] = 'Ασκήσεις';
-$_lang['Exercises help'] = 'Βοηθητικές ασκήσεις';
-$_lang['Expected choice'] = 'Αναμενόμενη επιλογή';
-$_lang['Export'] = ' Εξαγωγή ';
-$_lang['External Tool added'] = 'Εξωτερικό εργαλείο/μέσο  προστέθηκε.';
-$_lang['External authentication drivers'] = 'Οδηγοί εξωτερικής πιστοποίησης';
-$_lang['External image'] = 'Εξωτερική εικόνα';
-$_lang['External link'] = ' Εξωτερικός σύνδεσμος ';
-$_lang['External tool deleted'] = 'Το εξωτερικό εργαλείο διαγράφηκε';
-$_lang['External tool updated'] = 'Το εξωτερικό εργαλείο ενημερώθηκε';
-$_lang['Extract language variables'] = 'Ποικιλία αποσπασμάτων γλώσσας';
-$_lang['Fail'] = 'Απέτυχε';
-$_lang['Failed to update module visibility'] = 'Αποτυχία κατά την ενημέρωση της κατάστασης εμφάνισης του module';
-$_lang['Failed to write file to disk'] = 'Αποτυχία κατά την εγγραφή του αρχείου στο δίσκο';
-$_lang['False'] = ' Λανθασμένο ';
+$_lang['Email is'] = 'Email ΞµΞ―Ξ½Ξ±ΞΉ';
+$_lang['Email needed'] = ' Ο„ΞΏ Email Ξ΄ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ ΞΊΞµΞ½Ο';
+$_lang['Empty'] = 'Ξ‘Ο†Ξ®ΟƒΞ±Ο„Ξµ ΞΌΞµΟΞΉΞΊΞ¬ Ο€ΞµΞ΄Ξ―Ξ± ΞΊΞµΞ½Ξ¬.<br />Ξ Ξ±Ο„Ξ®ΟƒΟ„Ξµ Ο„ΞΏ Ο€Ξ»Ξ®ΞΊΟ„ΟΞΏ Β«Ξ•Ο€ΞΉΟƒΟ„ΟΞΏΟ†Ξ®Β» Ο„ΞΏΟ… browser ΞΊΞ±ΞΉ ΞΎΞ±Ξ½Ξ±Ξ΄ΞΏΞΊΞΉΞΌΞ¬ΟƒΟ„Ξµ.';
+$_lang['Empty all groups'] = 'Ξ•ΞΊΞΊΞ±ΞΈΞ¬ΟΞΉΟƒΞ· ΟΞ»Ο‰Ξ½ Ο„Ο‰Ξ½ ΞΏΞΌΞ¬Ξ΄Ο‰Ξ½ Ο‡ΟΞ·ΟƒΟ„ΟΞ½';
+$_lang['Empty language file'] = 'Ξ‘Ξ΄ΞµΞΉΞ±ΟƒΞΌΞ± Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… Ξ³Ξ»ΟΟƒΟƒΞ±Ο‚';
+$_lang['Empty manifest'] = 'Ξ†Ξ΄ΞµΞΉΞ±ΟƒΞµ Ο„ΞΏ manifest';
+$_lang['Empty trashbox'] = 'Ξ†Ξ΄ΞµΞΉΞ±ΟƒΞµ Ο„ΞΏΞ½ ΞΊΞ¬Ξ»Ξ±ΞΈΞΏ';
+$_lang['Empty your trashbox?'] = 'ΞΞ± Ξ±Ξ΄ΞµΞΉΞ¬ΟƒΞµΞΉ ΞΏ ΞΊΞ¬Ξ»Ξ±ΞΈΞΏΟ‚ ΟƒΞΏΟ…;';
+$_lang['Enable CAS system'] = 'Ξ•Ξ½ΞµΟΞ³ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞµ Ο„ΞΏ ΟƒΟΟƒΟ„Ξ·ΞΌΞ± CAS';
+$_lang['Enable Email notification'] = 'Ξ•Ξ½ΞµΟΞ³ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞµ Ο„Ξ·Ξ½ ΞµΞΉΞ΄ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· ΞΌΞ­ΟƒΟ‰ email.';
+$_lang['Enable IMS-QTI Export'] = 'Ξ•Ξ½ΞµΟΞ³ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞµ Ο„Ξ·Ξ½ Ξ»ΞµΞΉΟ„ΞΏΟ…ΟΞ³Ξ―Ξ± IMS-QTI Export';
+$_lang['Enable RSS in course'] = 'Ξ•Ξ½ΞµΟΞ³ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞµ Ο„ΞΏ RSS ΟƒΟ„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['Enable SSO system'] = 'Ξ•Ξ½ΞµΟΞ³ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞµ Ο„ΞΏ ΟƒΟΟƒΟ„Ξ·ΞΌΞ± SSO';
+$_lang['Enable cache'] = 'Ξ•Ξ½ΞµΟΞ³ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· Ο„ΞΏΟ… cache';
+$_lang['Enable iCal in course'] = 'Ξ•Ξ½ΞµΟΞ³ΞΏΟ€ΞΏΞΉΞ·ΟƒΞµ Ο„ΞΏ iCal ΟƒΟ„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['Enabling the cache may increase performance'] = 'Ξ— ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· Ο„ΞΏΟ… cache ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ±Ο…ΞΎΞ®ΟƒΞµΞΉ Ο„Ξ·Ξ½ Ξ±Ο€ΟΞ΄ΞΏΟƒΞ·';
+$_lang['Encrypt exported password using md5 algorithm'] = 'ΞΟ‰Ξ΄ΞΉΞΊΞΏΟ€ΞΏΞ―Ξ·ΟƒΞµ Ο„ΞΏΟ…Ο‚ ΞµΞΎΞ±Ξ³ΟΞΌΞµΞ½ΞΏΟ…Ο‚ ΞΊΟ‰Ξ΄ΞΉΞΊΞΏΟΟ‚ Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΟΞ½Ο„Ξ±Ο‚ Ξ±Ξ»Ξ³ΟΟΞΉΞΈΞΌΞΏ md5';
+$_lang['End date'] = 'Ξ—ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ± Ο„Ξ­Ξ»ΞΏΟ…Ο‚/Ξ»Ξ®ΞΎΞ·Ο‚ ';
+$_lang['Enrol as course manager'] = 'Ξ•Ξ³Ξ³ΟΞ±Ο†Ξ® Ο‰Ο‚ Ξ΄ΞΉΞµΟ…ΞΈΟ…Ξ½Ο„Ξ®Ο‚ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Enrol as student'] = 'Ξ•Ξ³Ξ³ΟΞ±Ο†Ξ® Ο‰Ο‚ ΞΌΞ±ΞΈΞ·Ο„Ξ®Ο‚';
+$_lang['Enrol as teacher'] = 'Ξ•Ξ³Ξ³ΟΞ±Ο†Ξ® Ο‰Ο‚ Ξ΄Ξ±ΟƒΞΊΞ±Ξ»ΞΏΟ‚';
+$_lang['Enrol class'] = 'Ξ•Ξ³Ξ³ΟΞ±Ο†Ξ® Ο„Ξ¬ΞΎΞ·Ο‚';
+$_lang['Enrol on a new course'] = 'EΞ³Ξ³ΟΞ±Ο†Ξ® ΟƒΞµ Ξ½Ξ­ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['Enrol to %course'] = 'Ξ•Ξ³Ξ³ΟΞ±Ο†Ξ® ΟƒΟ„ΞΏ %course';
+$_lang['Enrol to a new course'] = 'EΞ³Ξ³ΟΞ±Ο†Ξ® ΟƒΞµ Ξ½Ξ­ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['Enrol to course'] = 'Ξ•Ξ³Ξ³ΟΞ±Ο†Ξ® ΟƒΞµ ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['Enrol to course not allowed'] = 'Ξ— ΞµΞ³Ξ³ΟΞ±Ο†Ξ»Ξ· ΟƒΟ„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ± Ξ΄ΞµΞ½ ΞµΟ€ΞΉΟ„ΟΞ­Ο€ΞµΟ„Ξ±ΞΉ';
+$_lang['Enroll a user'] = 'Ξ•Ξ³Ξ³ΟΞ±Ο†Ξ® Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['Enrolment'] = 'Ξ•Ξ³Ξ³ΟΞ±Ο†Ξ®';
+$_lang['Enrolment key'] = 'ΞΞ»ΞµΞΉΞ΄Ξ― ΞµΞ³Ξ³ΟΞ±Ο†Ξ®Ο‚';
+$_lang['Enter'] = 'Ξ•Ξ―ΟƒΞΏΞ΄ΞΏΟ‚';
+$_lang['Enter new password twice to change, leave empty to keep it'] = 'Ξ’Ξ¬Ξ»Ο„Ξµ Ξ΄Ο…ΞΏ Ο†ΞΏΟΞ­Ο‚ Ξ½ΞµΞΏ ΞΊΟ‰Ξ΄ΞΉΞΊΟ (password) Ξ³ΞΉΞ± Ξ½Ξ± Ξ³Ξ―Ξ½ΞµΞΉ Ξ±Ξ»Ξ»Ξ±Ξ³Ξ®, Ξ±Ο†Ξ®ΟƒΟ„Ξµ ΞΊΞµΞ½Ο Ξ³ΞΉΞ± Ξ½Ξ± ΞΊΟΞ±Ο„Ξ®ΟƒΞµΟ„Ξµ Ο„ΞΏΞ½ Ξ―Ξ΄ΞΉΞΏ';
+$_lang['Enter the description of your wiki here'] = ' Ξ•ΞΉΟƒΞ¬Ξ³ΞµΟ„Ξµ Ο„Ξ·Ξ½ Ο€ΞµΟΞΉΞ³ΟΞ±Ο†Ξ® Ο„ΞΏΟ… Ξ½Ξ­ΞΏΟ… ΟƒΞ±Ο‚ wiki Ξ­Ξ΄Ο‰';
+$_lang['Enter your email so we can send you your password.'] = 'Ξ•ΞΉΟƒΞ¬Ξ³ΞµΟ„Ξµ Ο„ΞΏ e-mail ΟƒΞ±Ο‚ Ο€ΟΞΏΞΊΞµΞΉΞΌΞ­Ξ½ΞΏΟ… Ξ½Ξ± ΟƒΞ±Ο‚ ΟƒΟ„ΞµΞ―Ξ»ΞΏΟ…ΞΌΞµ Ο„ΞΏ ΞΊΟ‰Ξ΄ΞΉΞΊΟ ΟƒΞ±Ο‚.';
+$_lang['Error : Cannot initialize chat'] = 'Ξ£Ο†Ξ±Ξ»ΞΌΞ± : Ξ¤ΞΏ chat Ξ΄ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΞΎΞµΞΊΞΉΞ½Ξ®ΟƒΞµΞΉ';
+$_lang['Error : Class has sub-classes'] = 'Ξ£Ο†Ξ¬Ξ»ΞΌΞ± : Ξ— Ο„Ξ¬ΞΎΞ· Ξ­Ο‡ΞµΞΉ Ο…Ο€ΞΏ-Ο„Ξ¬ΞΎΞµΞΉΟ‚';
+$_lang['Error : Class not found'] = 'Ξ£Ο†Ξ¬Ξ»ΞΌΞ± : Ξ— Ο„Ξ¬ΞΎΞ· Ξ΄ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ²ΟΞµΞΈΞµΞ―';
+$_lang['Error : Name already exists in the learning path or in the module pool'] = 'Ξ£Ο†Ξ¬Ξ»ΞΌΞ± : Ξ¤ΞΏ ΟΞ½ΞΏΞΌΞ± Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ Ξ®Ξ΄Ξ· ΟƒΟ„Ξ· Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ® ΞΌΞ¬ΞΈΞ·ΟƒΞ·Ο‚ Ξ® ΟƒΟ„ΞΏ ΟƒΟΞ½ΞΏΞ»ΞΏ Ο„Ο‰Ξ½ ΞµΞ½ΞΏΟ„Ξ®Ο„Ο‰Ξ½ ';
+$_lang['Error : One or more values are doubled'] = 'Ξ£Ο†Ξ¬Ξ»ΞΌΞ± : ΞΌΞ―Ξ± Ξ® Ξ΄Ο…ΞΏ Ο„ΞΉΞΌΞ­Ο‚ ΞµΞ―Ξ½Ξ±ΞΉ Ξ΄ΞΉΟ€Ξ»Ξ­Ο‚';
+$_lang['Error : cannot read RSS feed (Check feed url and if php setting "allow_url_fopen" is turned on).'] = 'Ξ£Ο†Ξ¬Ξ»ΞΌΞ± : Ξ΄ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ΄ΞΉΞ±Ξ²Ξ¬ΟƒΞµΞΉ Ο„ΞΏ RSS feed ( ΞΞ»ΞµΞΎΞµ Ο„Ξ·Ξ½ Ξ΄ΞΉΞµΟ…ΞΈΟ…Ξ½ΟƒΞ· Ο„ΞΏΟ… Feed ΞΊΞ±ΞΉ Ξ²ΞµΞ²Ξ±ΞΉΟ‰ΞΈΞµΞ―Ο„Ξµ ΟΟ„ΞΉ Ξ· ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ® \"allow_url_fopen\" ΞµΞΉΞ½Ξ±ΞΉ ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞΉΞ·ΞΌΞ­Ξ½Ξ·)';
+$_lang['Error : no file uploaded'] = 'Ξ£Ο†Ξ¬Ξ»ΞΌΞ± : Ο„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ Ξ΄ΞµΞ½ Ο†ΞΏΟΟ„ΟΞΈΞ·ΞΊΞµ';
+$_lang['Error : no zlib extension found'] = 'Ξ£Ο†Ξ¬Ξ»ΞΌΞ± : Ξ΄ΞµΞ½ Ξ²ΟΞ­ΞΈΞ·ΞΊΞµ Ξ· ΞµΟ€Ξ­ΞΊΟ„Ξ±ΟƒΞ· zlib';
+$_lang['Error copying existing SCORM content'] = 'Ξ£Ο†Ξ¬Ξ»ΞΌΞ± Ξ±Ξ½Ο„ΞΉΞ³ΟΞ±Ο†Ξ®Ο‚ Ο…Ο€Ξ¬ΟΟ‡Ο‰Ξ½ Ο€ΞµΟΞΉΞµΟ‡ΞΏΞΌΞ­Ξ½ΞΏΟ… SCORM';
+$_lang['Error exporting SCORM package'] = 'Ξ£Ο†Ξ¬Ξ»ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ· Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ο„ΞΏΟ… Ο€Ξ±ΞΊΞ­Ο„ΞΏΟ… SCORM';
+$_lang['Error in SQL statement'] = 'Ξ£Ο†Ξ¬Ξ»Ξ±ΞΌΞ± ΟƒΟ„Ξ· Ξ΄Ξ®Ξ»Ο‰ΟƒΞ· SQL';
+$_lang['Error opening question\'s XML file'] = 'Ξ£Ο†Ξ¬Ξ»ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„ΞΏ Ξ¬Ξ½ΞΏΞΉΞ³ΞΌΞ± Ο„ΞΏΟ… Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… ΞµΟΟ‰Ο„Ξ®ΟƒΞµΟ‰Ξ½ XML';
+$_lang['Error reading <i>manifest</i> file'] = 'Ξ£Ο†Ξ±Ξ»ΞΌΞ± Ξ±Ξ½Ξ¬Ξ³Ξ½Ο‰ΟƒΞ·Ο‚ Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… <i>manifest</i>';
+$_lang['Error reading XML file'] = 'Ξ£Ο†Ξ¬Ξ»ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ Ξ±Ξ½Ξ¬Ξ³Ξ½Ο‰ΟƒΞ· Ο„ΞΏΟ… XML Ξ±ΟΟ‡ΞµΞ―ΞΏΟ…';
+$_lang['Error reading a secondary initialisation file :'] = 'Ξ£Ο†Ξ¬Ξ»ΞΌΞ± Ξ±Ξ½Ξ¬Ξ³Ξ½Ο‰ΟƒΞ·Ο‚ Ξ΄ΞµΟ…Ο„ΞµΟΞµΟΞΏΞ½Ο„ΞΏΟ‚ Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… ΟΟΞΈΞΌΞΉΟƒΞ·Ο‚ Ξ­Ξ½Ξ±ΟΞΎΞ·Ο‚: ';
+$_lang['Error reading zip file.'] = 'Ξ£Ο†Ξ¬Ξ»ΞΌΞ± Ξ±Ξ½Ξ¬Ξ³Ξ½Ο‰ΟƒΞ·Ο‚ Ξ±ΟΟ‡ΞµΞΉΞΏΟ… zip.';
+$_lang['Error when copying needed SCORM files'] = ' Ξ£Ο†Ξ¬Ξ»ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ Ξ±Ξ½Ο„ΞΉΞ³ΟΞ±Ο†Ξ® Ο„Ο‰Ξ½ Ξ±Ξ½Ξ±Ξ³ΞΊΞ±Ξ―Ο‰Ξ½ Ξ±ΟΟ‡ΞµΞ―Ο‰Ξ½ SCORM ';
+$_lang['Error while deleting module files'] = 'Ξ£Ο†Ξ¬Ξ»ΞΌΞ± ΞΊΞ±Ο„Ξ± Ο„Ξ·Ξ½ Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ο„Ο‰Ξ½ Ξ±ΟΟ‡ΞµΞ―Ο‰Ξ½ Ο„Ξ·Ο‚ ΞµΞ½ΟΟ„Ξ·Ο„Ξ±Ο‚';
+$_lang['Error while deleting the scripts of the module'] = 'Ξ£Ο†Ξ¬Ξ»ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ· Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ο„Ο‰Ξ½ scripts Ξ±Ο€Ο Ο„ΞΏ module';
+$_lang['Error while parsing manifest'] = 'Ξ£Ο†Ξ¬Ξ»ΞΌΞ± ΞΊΞ±Ο„Ξ± Ο„ΞΏ parsing Ο„ΞΏΟ… manisfest';
+$_lang['Error while renaming module folder'] = 'Ξ£Ο†Ξ¬Ξ»ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ· ΞΌΞµΟ„ΞΏΞ½ΞΏΞΌΞ±ΟƒΞ―Ξ± Ο„ΞΏΟ… Ο†Ξ±ΞΊΞ­Ξ»ΞΏΟ… Ο„ΞΏΟ… module';
+$_lang['Error!! you cannot unregister a course manager'] = 'Ξ£Ο†Ξ¬Ξ»ΞΌΞ±!! Ξ΄ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ―Ο‚ Ξ½Ξ± ΞΊΞ±Ο„Ξ±ΟΞ³Ξ®ΟƒΞµΞΉΟ‚ Ο„Ξ·Ξ½ ΞµΞ³Ξ³ΟΞ±Ο†Ξ® ΞµΞ½ΟΟ‚ Ξ΄ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ® ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['ErrorInvalidParms'] = 'Ξ£Ο†Ξ¬Ξ»ΞΌΞ± : ΞΌΞ· Ξ­Ξ³Ξ³Ο…ΟΞ· Ο€Ξ±ΟΞ¬ΞΌΞµΟ„ΟΞΏΟ‚ (Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞ®ΟƒΟ„Ξµ ΞΌΟΞ½ΞΏ Ξ±ΟΞΉΞΈΞΌΞΏΟΟ‚)';
+$_lang['Event added to the agenda'] = 'Ξ¤ΞΏ Ξ³ΞµΞ³ΞΏΞ½ΟΟ‚ Ο€ΟΞΏΟƒΟ„Ξ­ΞΈΞ·ΞΊΞµ ΟƒΟ„Ξ·Ξ½ Ξ‘Ο„Ξ¶Ξ­Ξ½Ο„Ξ±';
+$_lang['Event deleted from the agenda'] = 'Ξ¤ΞΏ Ξ³ΞµΞ³ΞΏΞ½ΟΟ‚ Ξ΄ΞΉΞ±Ξ³ΟΞ¬Ο†Ο„Ξ·ΞΊΞµ Ξ±Ο€ΞΏ Ο„Ξ·Ξ½ Ξ‘Ο„Ξ¶Ξ­Ξ½Ο„Ξ±.';
+$_lang['Event duration'] = 'Ξ”ΞΉΞ¬ΟΞΊΞµΞΉ Ξ³ΞµΞ³ΞΏΞ½ΟΟ„ΞΏΟ‚';
+$_lang['Event updated into the agenda'] = 'Ξ¤ΞΏ Ξ³ΞµΞ³ΞΏΞ½ΟΟ‚ ΞµΞ½Ξ·ΞΌΞµΟΟΞΈΞ·ΞΊΞµ ΟƒΟ„Ξ·Ξ½ Ξ‘Ο„Ξ¶Ξ­Ξ½Ο„Ξ±.';
+$_lang['Exact expression'] = 'Ξ‘ΞΊΟΞΉΞ²Ξ®Ο‚ Ξ­ΞΊΟ†ΟΞ±ΟƒΞ·';
+$_lang['Example : http://www.yourdomain.tld/mycampus/'] = 'Ξ Ξ±ΟΞ¬Ξ΄ΞµΞΉΞ³ΞΌΞ± : http://www.yourdomain.tld/mycampus/';
+$_lang['Exercise'] = 'Ξ†ΟƒΞΊΞ·ΟƒΞ· Claroline';
+$_lang['Exercise added'] = 'Ξ†ΟƒΞΊΞ·ΟƒΞ· Ο€ΟΞΏΟƒΟ„Ξ­ΞΈΞ·ΞΊΞµ';
+$_lang['Exercise cancelled, choose a module in the list to continue.'] = 'Ξ‘ΞΊΟ…ΟΟ‰ΟƒΞ· Ξ¬ΟƒΞΊΞ·ΟƒΞ·Ο‚, ΞµΟ€ΞΉΞ»Ξ­ΞΎΟ„Ξµ ΞµΞ½ΟΟ„Ξ·Ο„Ξ± ΟƒΞµ Ξ±Ο…Ο„Ξ® Ο„Ξ· Ξ»Ξ―ΟƒΟ„Ξ± Ξ³ΞΉΞ± Ξ½Ξ± ΟƒΟ…Ξ½ΞµΟ‡Ξ―ΟƒΞµΟ„Ξµ.';
+$_lang['Exercise done, choose a module in the list to continue.'] = 'Ξ‘ΟƒΞΊΞ·ΟƒΞ· Ξ­Ο„ΞΏΞΉΞΌΞ·, Ξ΄ΞΉΞ¬Ξ»ΞµΞΎΞµ ΞµΞ½ΟΟ„Ξ·Ο„Ξ± ΟƒΟ„Ξ· Ξ»Ξ―ΟƒΟ„Ξ± Ξ³ΞΉΞ± Ξ½Ξ± ΟƒΟ…Ξ½ΞµΟ‡Ξ―ΟƒΞµΞΉΟ‚.';
+$_lang['Exercise in module'] = 'Ξ‘ΟƒΞΊΞ·ΟƒΞ· ΟƒΟ„Ξ·Ξ½ ΞµΞ½ΟΟ„Ξ·Ο„Ξ±';
+$_lang['Exercise modified'] = 'Ξ†ΟƒΞΊΞ·ΟƒΞ· Ο„ΟΞΏΟ€ΞΏΟ€ΞΏΞΉΞ®ΞΈΞ·ΞΊΞµ';
+$_lang['Exercise not available'] = 'Ξ— Ξ¬ΟƒΞΊΞ·ΟƒΞ· Ξ΄Ξ­Ξ½ ΞµΞ―Ξ½Ξ±ΞΉ Ξ΄ΞΉΞ±ΞΈΞ­ΟƒΞΉΞΌΞ·';
+$_lang['Exercise results'] = 'Ξ‘Ο€ΞΏΟ„ΞµΞ»Ξ­ΟƒΞΌΞ±Ο„Ξ± Ξ¬ΟƒΞΊΞ·ΟƒΞ·Ο‚';
+$_lang['Exercise title'] = 'Ξ¤Ξ―Ο„Ξ»ΞΏΟ‚ Ξ¬ΟƒΞΊΞ·ΟƒΞ·Ο‚';
+$_lang['Exercise type'] = 'Ξ¤ΟΟ€ΞΏΟ‚ Ξ¬ΟƒΞΊΞ·ΟƒΞ·Ο‚';
+$_lang['Exercises'] = 'Ξ‘ΟƒΞΊΞ®ΟƒΞµΞΉΟ‚';
+$_lang['Exercises help'] = 'Ξ’ΞΏΞ·ΞΈΞ·Ο„ΞΉΞΊΞ­Ο‚ Ξ±ΟƒΞΊΞ®ΟƒΞµΞΉΟ‚';
+$_lang['Expected choice'] = 'Ξ‘Ξ½Ξ±ΞΌΞµΞ½ΟΞΌΞµΞ½Ξ· ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ®';
+$_lang['Export'] = ' Ξ•ΞΎΞ±Ξ³Ο‰Ξ³Ξ® ';
+$_lang['Export password'] = 'Ξ•ΞΎΞ±Ξ³Ο‰Ξ³Ξ® ΞΊΟ‰Ξ΄ΞΉΞΊΞΏΟ';
+$_lang['Export user list'] = 'Ξ•ΞΎΞ±Ξ³Ο‰Ξ³Ξ® Ξ»Ξ―ΟƒΟ„Ξ±Ο‚ Ο‡ΟΞ·ΟƒΟ„ΟΞ½';
+$_lang['Export username'] = 'Ξ•ΞΎΞ±Ξ³Ο‰Ξ³Ξ® ΞΏΞ½ΞΏΞΌΞ¬Ο„Ο‰Ξ½ Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['External Tool added'] = 'Ξ•ΞΎΟ‰Ο„ΞµΟΞΉΞΊΟ ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏ/ΞΌΞ­ΟƒΞΏ  Ο€ΟΞΏΟƒΟ„Ξ­ΞΈΞ·ΞΊΞµ.';
+$_lang['External authentication drivers'] = 'ΞΞ΄Ξ·Ξ³ΞΏΞ― ΞµΞΎΟ‰Ο„ΞµΟΞΉΞΊΞ®Ο‚ Ο€ΞΉΟƒΟ„ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ·Ο‚';
+$_lang['External image'] = 'Ξ•ΞΎΟ‰Ο„ΞµΟΞΉΞΊΞ® ΞµΞΉΞΊΟΞ½Ξ±';
+$_lang['External link'] = ' Ξ•ΞΎΟ‰Ο„ΞµΟΞΉΞΊΟΟ‚ ΟƒΟΞ½Ξ΄ΞµΟƒΞΌΞΏΟ‚ ';
+$_lang['External tool deleted'] = 'Ξ¤ΞΏ ΞµΞΎΟ‰Ο„ΞµΟΞΉΞΊΟ ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏ Ξ΄ΞΉΞ±Ξ³ΟΞ¬Ο†Ξ·ΞΊΞµ';
+$_lang['External tool updated'] = 'Ξ¤ΞΏ ΞµΞΎΟ‰Ο„ΞµΟΞΉΞΊΟ ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏ ΞµΞ½Ξ·ΞΌΞµΟΟΞΈΞ·ΞΊΞµ';
+$_lang['Extract language variables'] = 'Ξ ΞΏΞΉΞΊΞΉΞ»Ξ―Ξ± Ξ±Ο€ΞΏΟƒΟ€Ξ±ΟƒΞΌΞ¬Ο„Ο‰Ξ½ Ξ³Ξ»ΟΟƒΟƒΞ±Ο‚';
+$_lang['Fail'] = 'Ξ‘Ο€Ξ­Ο„Ο…Ο‡Ξµ';
+$_lang['Failed to update module visibility'] = 'Ξ‘Ο€ΞΏΟ„Ο…Ο‡Ξ―Ξ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ ΞµΞ½Ξ·ΞΌΞ­ΟΟ‰ΟƒΞ· Ο„Ξ·Ο‚ ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ·Ο‚ ΞµΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ·Ο‚ Ο„ΞΏΟ… module';
+$_lang['Failed to write file to disk'] = 'Ξ‘Ο€ΞΏΟ„Ο…Ο‡Ξ―Ξ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ·Ξ½ ΞµΞ³Ξ³ΟΞ±Ο†Ξ® Ο„ΞΏΟ… Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… ΟƒΟ„ΞΏ Ξ΄Ξ―ΟƒΞΊΞΏ';
+$_lang['False'] = ' Ξ›Ξ±Ξ½ΞΈΞ±ΟƒΞΌΞ­Ξ½ΞΏ ';
 $_lang['Feedback'] = 'Feedback';
-$_lang['Feedback added'] = 'Προστέθηκε feedback ';
-$_lang['Feedback edited'] = 'Αξιολόγηση συντάχθηκε';
-$_lang['Feedback file'] = 'Αρχείο feedback';
-$_lang['Feedback text'] = 'Feedback κείμενο';
+$_lang['Feedback added'] = 'Ξ ΟΞΏΟƒΟ„Ξ­ΞΈΞ·ΞΊΞµ feedback ';
+$_lang['Feedback edited'] = 'Ξ‘ΞΎΞΉΞΏΞ»ΟΞ³Ξ·ΟƒΞ· ΟƒΟ…Ξ½Ο„Ξ¬Ο‡ΞΈΞ·ΞΊΞµ';
+$_lang['Feedback file'] = 'Ξ‘ΟΟ‡ΞµΞ―ΞΏ feedback';
+$_lang['Feedback text'] = 'Feedback ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ';
 $_lang['Feedbacks'] = 'Feedbacks';
-$_lang['Field \'%name\' is required'] = 'Το πεδίο \'%name\' απαιτείται';
-$_lang['Fields enclosed by'] = 'Πεδία που περικλείονται απο';
-$_lang['Fields separator used'] = 'Διαχωριστικά πεδίων σε χρήση';
-$_lang['File (file required, description text optional)'] = 'Aρχείο (Απαιτείται αρχείο, η περιγραφή κειμένου είναι προαιρετική)';
-$_lang['File Name or URL is missing.'] = 'Το ονομα αρχείου ή το URL λείπει.';
-$_lang['File content modified'] = 'Το περιεχόμενο αρχείου επεξεργάζεται';
-$_lang['File created'] = 'Δημιουργία αρχείου ';
-$_lang['File description'] = 'Περιγραφή αρχείου';
-$_lang['File list'] = 'Λίστα αρχείων';
-$_lang['File must be a zip file (.zip)'] = 'Το αρχείο πρέπει να είναι σε μορφή αρχείου zip (.zip)';
-$_lang['File name is missing'] = 'Ελλιπές όνομα αρχείου';
-$_lang['File received : %filename'] = 'Αρχείο λήφθηκε : %filename ';
-$_lang['File size exceeds'] = 'Το μέγεθος του αρχείου είναι παρα πάνω από το όριο';
-$_lang['File system settings'] = 'Ρυθμίσεις συστήματος αρχείων';
-$_lang['File too large. Notice : Max file size %size'] = 'Αρχείο πολύ μεγάλο. Σημείωση : Μέγιστο μέγεθος αρχείου %size';
-$_lang['File upload failed'] = 'Φόρτωση αρχείου απέτυχε';
-$_lang['File upload incomplete'] = 'Η φόρτωση αρχείου δεν ολοκληρώθηκε';
-$_lang['Filename'] = 'Όνομα αρχείου';
-$_lang['Files dezipped sucessfully in %path'] = 'Τα αρχεία αποσυμπιέστηκαν επιτυχώς στο %path';
-$_lang['Fill courses tools with material example'] = 'Συμπλήρωσε τα εργαλεία του μαθήματος με παραδείγματα υλικών';
-$_lang['Fill groups (automatically)'] = 'Συμπλήρωμα των ομάδων χρηστών';
-$_lang['Fill in blanks'] = 'Συμπλήρωσε τα κενά';
-$_lang['Fill in the text area to motivate your request and then submit the form to send it to platform administrators'] = 'Συμπλήρωσε την περιοχή εξηγόντας το κίνητρό σου και υπέβαλε το αίτημά σου. Ένα e-mail θα σταλεί στον -ους διαχειριστή-ές πλατφόρμας(platform).';
-$_lang['Fill text field'] = 'Συμπληρώστε το περιεχόμενο του κειμένου';
-$_lang['Fill type'] = 'Τύπος Συμπλήρωσης';
-$_lang['Filter'] = 'Φίλτρο';
-$_lang['Find doubled variables'] = 'Ανίχνευση διπλών μεταβλητών';
-$_lang['Find more available modules on <a href="http://www.claroline.net/">Claroline.net</a>.'] = 'Βρές περισσότερα διαθέσιμα module στο <a href="http://www.claroline.net/">Claroline.net</a>.';
-$_lang['Finish'] = 'Τέλος';
-$_lang['Finish the test'] = 'Ολοκλήρωση του test';
-$_lang['First name'] = 'Όνομα';
-$_lang['First submission date'] = 'Ημερομηνία&nbsp;πρώτης&nbsp;υποβολής';
-$_lang['Folder %folder is not writable'] = 'Ο κατάλογος %folder δεν είναι ενγράψιμος';
-$_lang['Follow courses'] = 'Παρακολούθηση μαθημάτων';
-$_lang['For assignments list'] = 'Για τη λίστα των εργασιών';
-$_lang['For more information take contact with the platform administrator.'] = 'Για περισσότερες πληροφορίες επικοινωνήστε με τον διαχειριστή της πλατφόρμας.';
-$_lang['For multilingual platform. Allow user to select his language from the list.'] = 'Για πολυγλωσσική υποστήριξη. Επέτρεψε στο χρήστη να επιλέξει τη γλώσσα που επιθυμεί απο τη λίστα.';
-$_lang['For submissions list'] = 'Για λίστα των υποβολών';
-$_lang['Force text preview before saving it'] = 'Ανάγκασε την προεπισκόπηση του κειμένου πριν την αποθήκευση του';
-$_lang['Force to lowercase the course code'] = 'Ανάγκασε στη χρήση μικρών γραμμάτων στον κώδικα του μαθήματος';
-$_lang['Force to uppercase the course code'] = 'Ανάγκασε στη χρήση κεφαλαίων γραμμάτων στον κώδικα του μαθήματος';
-$_lang['Format changed'] = 'Η μορφοποίηση μεταβλήθηκε';
-$_lang['Forum'] = 'Περιοχή συζητήσεων';
-$_lang['Forum created'] = 'Η συζήτηση δημιουργήθηκε.';
-$_lang['Forum deleted'] = ' Η συζήτηση διαγράφηκε.';
-$_lang['Forum emptied'] = ' Η συζήτηση αδείαστηκε.';
-$_lang['Forum updated'] = ' Η συζήτηση αναβαθμίστηκε.';
-$_lang['Forums'] = 'Περιοχή συζητήσεων';
-$_lang['Forums help'] = 'Βοήθεια περιοχής συζητήσεων';
-$_lang['From'] = 'απο';
-$_lang['From language files'] = 'Απο αρχεία γλώσσας';
-$_lang['From script files'] = 'Απο script ';
-$_lang['Fullscreen'] = 'μεγάλη/γεμάτη οθόνη ';
-$_lang['Function list'] = 'Λίστα λειτουργίας';
-$_lang['General'] = 'Γενικά';
-$_lang['General Informations'] = 'Γενικές Πληροφορίες';
-$_lang['General settings'] = 'Γενικές Ρυθμίσεις';
-$_lang['Generate RDF file'] = 'Παραγωγή αρχείου RDF';
-$_lang['Generate Xml file'] = 'Παραγωγή αρχείου XML';
-$_lang['Generate ics file'] = 'Παραγωγή αρχείου ICS';
-$_lang['Get a question from another exercise'] = 'Ερώτηση απο άλλη άσκηση';
-$_lang['Get tracking data in a CSV file'] = ' Κατεβάστε τα στοιχεία σε ένα αρχείο CSV ';
-$_lang['Give a SMTP server name to turn on SMTP mode. (e.g. smtp1.site.com or smtp1.site.com;smtp2.site.com)'] = 'Δώσε το όνομα του SMTP server για να ενεργοποιηθεί η λειτουργία SMTP(π.χ. smtp1.site.com ή smtp1.site.com;smtp2.site.com)';
-$_lang['Give a username and password to turn on SMTP authentication.'] = 'Δώσε ένα όνομα χρήστη και ένα κωδικό για να ενεργοποιηθεί η πιστοποίηση SMTP.';
-$_lang['Global settings'] = 'Γενικές Ρυθμίσεις';
-$_lang['Go back to Wiki list'] = 'Πήγαινε πίσω στη λίστα Wiki';
-$_lang['Go back to the exercise'] = 'Επιστροφή στην άσκηση';
-$_lang['Go to documents tool'] = 'Πήγαινε στο εργαλείο εγγράφων';
-$_lang['Go to the account creation page'] = 'Πηγαίνετε στη σελίδα δημιουργία του λογαρισμού';
-$_lang['Group'] = 'ομάδα χρηστών';
-$_lang['Group Tutor'] = 'Διδάσκοντας';
-$_lang['Group area'] = 'Περιοχή ομάδας χρηστών';
-$_lang['Group deleted'] = 'Η ομάδα χρηστών διαγράφτηκε';
-$_lang['Group forums category can\'t be deleted'] = 'Η κατηγορία ομάδας συζητήσεων δεν μπορεί να διαγραφεί.';
-$_lang['Group management'] = 'Διαχείριση ομάδας χρηστών';
-$_lang['Group members'] = 'Μέλη ομάδας';
-$_lang['Group name'] = 'Όνομα ομάδας χρηστών';
-$_lang['Group settings have been modified'] = 'Αλλάχτηκαν οι ρυθμίσεις της ομάδας χρηστών';
-$_lang['Group settings modified'] = 'Οι ρυθμίσεις της ομάδας χρηστών έχουν αλλάξει';
-$_lang['Groups'] = 'Ομάδες Χρηστών';
-$_lang['Groups (from groups tool, only group members can post)'] = 'Ομάδες (απο εργαλεία ομάδων, μόνο μέλη των ομάδων μπορουν να καταχωρούν)';
-$_lang['Groups have been filled (or completed) by students present in the \'Users\' list.'] = 'Οι ομάδες χρηστών έχουν συμπληρωθεί από φοιτητές που βρίσκονται στον κατάλογο «Χρήστες».';
-$_lang['Groups help'] = 'Ομάδες βοηθείας';
-$_lang['Groups permissions'] = '¶δειες ομάδων';
-$_lang['Groups settings'] = 'Ρυθμίσεις ομάδων χρηστών';
-$_lang['Guest'] = 'Φιλοξενούμενος';
-$_lang['He or she will receive email confirmation with login and password'] = 'Ο χρήστης θα λάβει ειδοποίηση μέσω email με όνομα χρήστη και συνθηματικό';
-$_lang['Heading'] = 'Επικεφαλίδα';
-$_lang['Help'] = 'Βοήθεια';
-$_lang['Here you can modify the content of the text zones displayed on the platform home page.'] = 'Εδώ μπορείς να επεξεργαστείς το περιεχόμενο των ζωνών που εμφανίζονται στην αρχική σελίδα της πλατφόρμας';
-$_lang['Hide course categories to anonymous'] = 'Απόκρυψη κατηγοριών μαθημάτων στους ανώνυμους χρήστες';
-$_lang['Hide email address to anonymous user'] = 'Απόκρυψη των διευθύνσεων email στους ανώνυμους χρήστες';
-$_lang['Hits'] = 'Hits (χτυπήματα/βολές???)';
-$_lang['Home page'] = 'Κεντρική σελίδα';
-$_lang['Home page help'] = 'Αρχική σελίδα βοήθειας';
-$_lang['Host name'] = 'Όνομα ιστοσελίδας';
-$_lang['Host of CAS server'] = 'Ιστοσελίδα του CAS server';
-$_lang['Hour'] = 'Ώρα';
-$_lang['Icon'] = 'Εικονίδιο';
-$_lang['Identical content<br />no modification saved'] = ' Ίδιο περιεχόμενο <br />καμιά αλλαγή δεν αποθηκεύτηκε';
-$_lang['If after while no message appears confirming the course creation, please click <a href="%url">here</a>'] = 'Αν μετά από λίγο κανένα μήνυμα δεν εμφανισθεί για να επιβεβαιώσει τη δημιουργία του μαθήματος, παρακαλώ ακολουθήστε το σύνδεσμο <a href="%url">here</a>';
+$_lang['Fetch and install module'] = 'Ξ ΞΉΞ¬ΟƒΞµ ΞΊΞ±ΞΉ ΞµΞ³ΞΊΞ±ΟƒΟ„Ξ¬ΟƒΟ„Ξ·ΟƒΞµ Ο„Ξ·Ξ½ ΞµΞ½ΟΟ„Ξ·Ο„Ξ±';
+$_lang['Field \'%name\' is required'] = 'Ξ¤ΞΏ Ο€ΞµΞ΄Ξ―ΞΏ \'%name\' Ξ±Ο€Ξ±ΞΉΟ„ΞµΞ―Ο„Ξ±ΞΉ';
+$_lang['Fields enclosed by'] = 'Ξ ΞµΞ΄Ξ―Ξ± Ο€ΞΏΟ… Ο€ΞµΟΞΉΞΊΞ»ΞµΞ―ΞΏΞ½Ο„Ξ±ΞΉ Ξ±Ο€ΞΏ';
+$_lang['Fields separator used'] = 'Ξ”ΞΉΞ±Ο‡Ο‰ΟΞΉΟƒΟ„ΞΉΞΊΞ¬ Ο€ΞµΞ΄Ξ―Ο‰Ξ½ ΟƒΞµ Ο‡ΟΞ®ΟƒΞ·';
+$_lang['File'] = 'Ξ‘ΟΟ‡ΞµΞ―ΞΏ';
+$_lang['File (file required, description text optional)'] = 'AΟΟ‡ΞµΞ―ΞΏ (Ξ‘Ο€Ξ±ΞΉΟ„ΞµΞ―Ο„Ξ±ΞΉ Ξ±ΟΟ‡ΞµΞ―ΞΏ, Ξ· Ο€ΞµΟΞΉΞ³ΟΞ±Ο†Ξ® ΞΊΞµΞΉΞΌΞ­Ξ½ΞΏΟ… ΞµΞ―Ξ½Ξ±ΞΉ Ο€ΟΞΏΞ±ΞΉΟΞµΟ„ΞΉΞΊΞ®)';
+$_lang['File Name or URL is missing.'] = 'Ξ¤ΞΏ ΞΏΞ½ΞΏΞΌΞ± Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… Ξ® Ο„ΞΏ URL Ξ»ΞµΞ―Ο€ΞµΞΉ.';
+$_lang['File cannot be moved there'] = 'Ξ¤ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ Ξ΄ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΞΌΞµΟ„Ξ±ΞΊΞΉΞ½Ξ·ΞΈΞµΞ― ΞµΞ΄Ο';
+$_lang['File content modified'] = 'Ξ¤ΞΏ Ο€ΞµΟΞΉΞµΟ‡ΟΞΌΞµΞ½ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… ΞµΟ€ΞµΞΎΞµΟΞ³Ξ¬Ξ¶ΞµΟ„Ξ±ΞΉ';
+$_lang['File created'] = 'Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… ';
+$_lang['File description'] = 'Ξ ΞµΟΞΉΞ³ΟΞ±Ο†Ξ® Ξ±ΟΟ‡ΞµΞ―ΞΏΟ…';
+$_lang['File download failed : %failureMSg%'] = 'Ξ Ξ±ΟΞΏΟ…ΟƒΞΉΞ¬ΟƒΟ„Ξ·ΞΊΞµ ΟƒΟ†Ξ¬Ξ»ΞΌΞ± ΟƒΟ„ΞΏ ΞΊΞ±Ο„Ξ­Ξ²Ξ±ΟƒΞΌΞ± Ο„ΞΏΟ… Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… : %failureMSg%';
+$_lang['File list'] = 'Ξ›Ξ―ΟƒΟ„Ξ± Ξ±ΟΟ‡ΞµΞ―Ο‰Ξ½';
+$_lang['File must be a zip file (.zip)'] = 'Ξ¤ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ ΟƒΞµ ΞΌΞΏΟΟ†Ξ® Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… zip (.zip)';
+$_lang['File name is missing'] = 'Ξ•Ξ»Ξ»ΞΉΟ€Ξ­Ο‚ ΟΞ½ΞΏΞΌΞ± Ξ±ΟΟ‡ΞµΞ―ΞΏΟ…';
+$_lang['File received : %filename'] = 'Ξ‘ΟΟ‡ΞµΞ―ΞΏ Ξ»Ξ®Ο†ΞΈΞ·ΞΊΞµ : %filename ';
+$_lang['File size exceeds'] = 'Ξ¤ΞΏ ΞΌΞ­Ξ³ΞµΞΈΞΏΟ‚ Ο„ΞΏΟ… Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… ΞµΞ―Ξ½Ξ±ΞΉ Ο€Ξ±ΟΞ± Ο€Ξ¬Ξ½Ο‰ Ξ±Ο€Ο Ο„ΞΏ ΟΟΞΉΞΏ';
+$_lang['File system settings'] = 'Ξ΅Ο…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ ΟƒΟ…ΟƒΟ„Ξ®ΞΌΞ±Ο„ΞΏΟ‚ Ξ±ΟΟ‡ΞµΞ―Ο‰Ξ½';
+$_lang['File too large. Notice : Max file size %size'] = 'Ξ‘ΟΟ‡ΞµΞ―ΞΏ Ο€ΞΏΞ»Ο ΞΌΞµΞ³Ξ¬Ξ»ΞΏ. Ξ£Ξ·ΞΌΞµΞ―Ο‰ΟƒΞ· : ΞΞ­Ξ³ΞΉΟƒΟ„ΞΏ ΞΌΞ­Ξ³ΞµΞΈΞΏΟ‚ Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… %size';
+$_lang['File upload failed'] = 'Ξ¦ΟΟΟ„Ο‰ΟƒΞ· Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… Ξ±Ο€Ξ­Ο„Ο…Ο‡Ξµ';
+$_lang['File upload incomplete'] = 'Ξ— Ο†ΟΟΟ„Ο‰ΟƒΞ· Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… Ξ΄ΞµΞ½ ΞΏΞ»ΞΏΞΊΞ»Ξ·ΟΟΞΈΞ·ΞΊΞµ';
+$_lang['File url mode'] = 'Ξ¤ΟΟΟ€ΞΏΟ‚ ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ®Ο‚ Ξ΄ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ·Ο‚ Ξ±ΟΟ‡ΞµΞ―ΞΏΟ…';
+$_lang['Filename'] = 'ΞΞ½ΞΏΞΌΞ± Ξ±ΟΟ‡ΞµΞ―ΞΏΟ…';
+$_lang['Files dezipped sucessfully in %path'] = 'Ξ¤Ξ± Ξ±ΟΟ‡ΞµΞ―Ξ± Ξ±Ο€ΞΏΟƒΟ…ΞΌΟ€ΞΉΞ­ΟƒΟ„Ξ·ΞΊΞ±Ξ½ ΞµΟ€ΞΉΟ„Ο…Ο‡ΟΟ‚ ΟƒΟ„ΞΏ %path';
+$_lang['Fill courses tools with material example'] = 'Ξ£Ο…ΞΌΟ€Ξ»Ξ®ΟΟ‰ΟƒΞµ Ο„Ξ± ΞµΟΞ³Ξ±Ξ»ΞµΞ―Ξ± Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ ΞΌΞµ Ο€Ξ±ΟΞ±Ξ΄ΞµΞ―Ξ³ΞΌΞ±Ο„Ξ± Ο…Ξ»ΞΉΞΊΟΞ½';
+$_lang['Fill groups (automatically)'] = 'Ξ£Ο…ΞΌΟ€Ξ»Ξ®ΟΟ‰ΞΌΞ± Ο„Ο‰Ξ½ ΞΏΞΌΞ¬Ξ΄Ο‰Ξ½ Ο‡ΟΞ·ΟƒΟ„ΟΞ½';
+$_lang['Fill in blanks'] = 'Ξ£Ο…ΞΌΟ€Ξ»Ξ®ΟΟ‰ΟƒΞµ Ο„Ξ± ΞΊΞµΞ½Ξ¬';
+$_lang['Fill in one or more search criteria, select user profile parameters for your course and press \'Search\''] = 'Ξ•ΞΉΟƒΞ¬Ξ³ΞµΟ„Ξµ Ξ­Ξ½Ξ± Ξ® Ο€ΞµΟΞΉΟƒΟƒΟΟ„ΞµΟΞ± ΞΊΟΞΉΟ„Ξ®ΟΞΉΞ± Ξ­ΟΞµΟ…Ξ½Ξ±Ο‚, ΞµΟ€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο€Ξ±ΟΞ±ΞΌΞ­Ο„ΟΞΏΟ…Ο‚ Ξ³ΞΉΞ± Ο„ΞΏ Ο€ΟΞΏΟ†Ξ―Ξ» Ο‡ΟΞ®ΟƒΟ„Ξ· Ξ³ΞΉΞ± Ο„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ± ΟƒΞ±Ο‚ ΞΊΞ±ΞΉ ΞΊΞ¬Ξ½Ο„Ξµ ΞΊΞ»Ξ―ΞΊ ΟƒΟ„ΞΏ \'ΞΟΞµΟ…Ξ½Ξ±\'';
+$_lang['Fill in the text area to motivate your request and then submit the form to send it to platform administrators'] = 'Ξ£Ο…ΞΌΟ€Ξ»Ξ®ΟΟ‰ΟƒΞµ Ο„Ξ·Ξ½ Ο€ΞµΟΞΉΞΏΟ‡Ξ® ΞµΞΎΞ·Ξ³ΟΞ½Ο„Ξ±Ο‚ Ο„ΞΏ ΞΊΞ―Ξ½Ξ·Ο„ΟΟ ΟƒΞΏΟ… ΞΊΞ±ΞΉ Ο…Ο€Ξ­Ξ²Ξ±Ξ»Ξµ Ο„ΞΏ Ξ±Ξ―Ο„Ξ·ΞΌΞ¬ ΟƒΞΏΟ…. ΞΞ½Ξ± e-mail ΞΈΞ± ΟƒΟ„Ξ±Ξ»ΞµΞ― ΟƒΟ„ΞΏΞ½ -ΞΏΟ…Ο‚ Ξ΄ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ®-Ξ­Ο‚ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±Ο‚(platform).';
+$_lang['Fill text field'] = 'Ξ£Ο…ΞΌΟ€Ξ»Ξ·ΟΟΟƒΟ„Ξµ Ο„ΞΏ Ο€ΞµΟΞΉΞµΟ‡ΟΞΌΞµΞ½ΞΏ Ο„ΞΏΟ… ΞΊΞµΞΉΞΌΞ­Ξ½ΞΏΟ…';
+$_lang['Fill type'] = 'Ξ¤ΟΟ€ΞΏΟ‚ Ξ£Ο…ΞΌΟ€Ξ»Ξ®ΟΟ‰ΟƒΞ·Ο‚';
+$_lang['Filling'] = 'Ξ“Ξ­ΞΌΞΉΟƒΞΌΞ±';
+$_lang['Filter'] = 'Ξ¦Ξ―Ξ»Ο„ΟΞΏ';
+$_lang['Find doubled variables'] = 'Ξ‘Ξ½Ξ―Ο‡Ξ½ΞµΟ…ΟƒΞ· Ξ΄ΞΉΟ€Ξ»ΟΞ½ ΞΌΞµΟ„Ξ±Ξ²Ξ»Ξ·Ο„ΟΞ½';
+$_lang['Find more available modules on <a href="http://www.claroline.net/">Claroline.net</a>.'] = 'Ξ’ΟΞ­Ο‚ Ο€ΞµΟΞΉΟƒΟƒΟΟ„ΞµΟΞ± Ξ΄ΞΉΞ±ΞΈΞ­ΟƒΞΉΞΌΞ± module ΟƒΟ„ΞΏ <a href="http://www.claroline.net/">Claroline.net</a>.';
+$_lang['Finish'] = 'Ξ¤Ξ­Ξ»ΞΏΟ‚';
+$_lang['Finish the test'] = 'ΞΞ»ΞΏΞΊΞ»Ξ®ΟΟ‰ΟƒΞ· Ο„ΞΏΟ… test';
+$_lang['First'] = 'Ξ ΟΟΟ„ΞΏΟ‚';
+$_lang['First name'] = 'ΞΞ½ΞΏΞΌΞ±';
+$_lang['First submission date'] = 'Ξ—ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ±&nbsp;Ο€ΟΟΟ„Ξ·Ο‚&nbsp;Ο…Ο€ΞΏΞ²ΞΏΞ»Ξ®Ο‚';
+$_lang['Folder %folder is not writable'] = 'Ξ ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏΟ‚ %folder Ξ΄ΞµΞ½ ΞµΞ―Ξ½Ξ±ΞΉ ΞµΞ½Ξ³ΟΞ¬ΟΞΉΞΌΞΏΟ‚';
+$_lang['Follow courses'] = 'Ξ Ξ±ΟΞ±ΞΊΞΏΞ»ΞΏΟΞΈΞ·ΟƒΞ· ΞΌΞ±ΞΈΞ·ΞΌΞ¬Ο„Ο‰Ξ½';
+$_lang['For assignments list'] = 'Ξ“ΞΉΞ± Ο„Ξ· Ξ»Ξ―ΟƒΟ„Ξ± Ο„Ο‰Ξ½ ΞµΟΞ³Ξ±ΟƒΞΉΟΞ½';
+$_lang['For more information take contact with the platform administrator.'] = 'Ξ“ΞΉΞ± Ο€ΞµΟΞΉΟƒΟƒΟΟ„ΞµΟΞµΟ‚ Ο€Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞ―ΞµΟ‚ ΞµΟ€ΞΉΞΊΞΏΞΉΞ½Ο‰Ξ½Ξ®ΟƒΟ„Ξµ ΞΌΞµ Ο„ΞΏΞ½ Ξ΄ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ® Ο„Ξ·Ο‚ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±Ο‚.';
+$_lang['For multilingual platform. Allow user to select his language from the list.'] = 'Ξ“ΞΉΞ± Ο€ΞΏΞ»Ο…Ξ³Ξ»Ο‰ΟƒΟƒΞΉΞΊΞ® Ο…Ο€ΞΏΟƒΟ„Ξ®ΟΞΉΞΎΞ·. Ξ•Ο€Ξ­Ο„ΟΞµΟΞµ ΟƒΟ„ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ· Ξ½Ξ± ΞµΟ€ΞΉΞ»Ξ­ΞΎΞµΞΉ Ο„Ξ· Ξ³Ξ»ΟΟƒΟƒΞ± Ο€ΞΏΟ… ΞµΟ€ΞΉΞΈΟ…ΞΌΞµΞ― Ξ±Ο€ΞΏ Ο„Ξ· Ξ»Ξ―ΟƒΟ„Ξ±.';
+$_lang['For submissions list'] = 'Ξ“ΞΉΞ± Ξ»Ξ―ΟƒΟ„Ξ± Ο„Ο‰Ξ½ Ο…Ο€ΞΏΞ²ΞΏΞ»ΟΞ½';
+$_lang['Force text preview before saving it'] = 'Ξ‘Ξ½Ξ¬Ξ³ΞΊΞ±ΟƒΞµ Ο„Ξ·Ξ½ Ο€ΟΞΏΞµΟ€ΞΉΟƒΞΊΟΟ€Ξ·ΟƒΞ· Ο„ΞΏΟ… ΞΊΞµΞΉΞΌΞ­Ξ½ΞΏΟ… Ο€ΟΞΉΞ½ Ο„Ξ·Ξ½ Ξ±Ο€ΞΏΞΈΞ®ΞΊΞµΟ…ΟƒΞ· Ο„ΞΏΟ…';
+$_lang['Force to lowercase the course code'] = 'Ξ‘Ξ½Ξ¬Ξ³ΞΊΞ±ΟƒΞµ ΟƒΟ„Ξ· Ο‡ΟΞ®ΟƒΞ· ΞΌΞΉΞΊΟΟΞ½ Ξ³ΟΞ±ΞΌΞΌΞ¬Ο„Ο‰Ξ½ ΟƒΟ„ΞΏΞ½ ΞΊΟΞ΄ΞΉΞΊΞ± Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Force to uppercase the course code'] = 'Ξ‘Ξ½Ξ¬Ξ³ΞΊΞ±ΟƒΞµ ΟƒΟ„Ξ· Ο‡ΟΞ®ΟƒΞ· ΞΊΞµΟ†Ξ±Ξ»Ξ±Ξ―Ο‰Ξ½ Ξ³ΟΞ±ΞΌΞΌΞ¬Ο„Ο‰Ξ½ ΟƒΟ„ΞΏΞ½ ΞΊΟΞ΄ΞΉΞΊΞ± Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Format changed'] = 'Ξ— ΞΌΞΏΟΟ†ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· ΞΌΞµΟ„Ξ±Ξ²Ξ»Ξ®ΞΈΞ·ΞΊΞµ';
+$_lang['Forum'] = 'Ξ ΞµΟΞΉΞΏΟ‡Ξ® ΟƒΟ…Ξ¶Ξ·Ο„Ξ®ΟƒΞµΟ‰Ξ½';
+$_lang['Forum created'] = 'Ξ— ΟƒΟ…Ξ¶Ξ®Ο„Ξ·ΟƒΞ· Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΞΈΞ·ΞΊΞµ.';
+$_lang['Forum deleted'] = ' Ξ— ΟƒΟ…Ξ¶Ξ®Ο„Ξ·ΟƒΞ· Ξ΄ΞΉΞ±Ξ³ΟΞ¬Ο†Ξ·ΞΊΞµ.';
+$_lang['Forum emptied'] = ' Ξ— ΟƒΟ…Ξ¶Ξ®Ο„Ξ·ΟƒΞ· Ξ±Ξ΄ΞµΞ―Ξ±ΟƒΟ„Ξ·ΞΊΞµ.';
+$_lang['Forum updated'] = ' Ξ— ΟƒΟ…Ξ¶Ξ®Ο„Ξ·ΟƒΞ· Ξ±Ξ½Ξ±Ξ²Ξ±ΞΈΞΌΞ―ΟƒΟ„Ξ·ΞΊΞµ.';
+$_lang['Forums'] = 'Ξ ΞµΟΞΉΞΏΟ‡Ξ® ΟƒΟ…Ξ¶Ξ·Ο„Ξ®ΟƒΞµΟ‰Ξ½';
+$_lang['Forums help'] = 'Ξ’ΞΏΞ®ΞΈΞµΞΉΞ± Ο€ΞµΟΞΉΞΏΟ‡Ξ®Ο‚ ΟƒΟ…Ξ¶Ξ·Ο„Ξ®ΟƒΞµΟ‰Ξ½';
+$_lang['From'] = 'Ξ±Ο€ΞΏ';
+$_lang['From language files'] = 'Ξ‘Ο€ΞΏ Ξ±ΟΟ‡ΞµΞ―Ξ± Ξ³Ξ»ΟΟƒΟƒΞ±Ο‚';
+$_lang['From script files'] = 'Ξ‘Ο€ΞΏ script ';
+$_lang['Fullscreen'] = 'ΞΌΞµΞ³Ξ¬Ξ»Ξ·/Ξ³ΞµΞΌΞ¬Ο„Ξ· ΞΏΞΈΟΞ½Ξ· ';
+$_lang['Function list'] = 'Ξ›Ξ―ΟƒΟ„Ξ± Ξ»ΞµΞΉΟ„ΞΏΟ…ΟΞ³Ξ―Ξ±Ο‚';
+$_lang['General'] = 'Ξ“ΞµΞ½ΞΉΞΊΞ¬';
+$_lang['General Informations'] = 'Ξ“ΞµΞ½ΞΉΞΊΞ­Ο‚ Ξ Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞ―ΞµΟ‚';
+$_lang['General settings'] = 'Ξ“ΞµΞ½ΞΉΞΊΞ­Ο‚ Ξ΅Ο…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚';
+$_lang['Generate RDF file'] = 'Ξ Ξ±ΟΞ±Ξ³Ο‰Ξ³Ξ® Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… RDF';
+$_lang['Generate Xml file'] = 'Ξ Ξ±ΟΞ±Ξ³Ο‰Ξ³Ξ® Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… XML';
+$_lang['Generate ics file'] = 'Ξ Ξ±ΟΞ±Ξ³Ο‰Ξ³Ξ® Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… ICS';
+$_lang['Get a question from another exercise'] = 'Ξ•ΟΟΟ„Ξ·ΟƒΞ· Ξ±Ο€ΞΏ Ξ¬Ξ»Ξ»Ξ· Ξ¬ΟƒΞΊΞ·ΟƒΞ·';
+$_lang['Get tracking data in a CSV file'] = ' ΞΞ±Ο„ΞµΞ²Ξ¬ΟƒΟ„Ξµ Ο„Ξ± ΟƒΟ„ΞΏΞΉΟ‡ΞµΞ―Ξ± ΟƒΞµ Ξ­Ξ½Ξ± Ξ±ΟΟ‡ΞµΞ―ΞΏ CSV ';
+$_lang['Give a SMTP server name to turn on SMTP mode. (e.g. smtp1.site.com or smtp1.site.com;smtp2.site.com)'] = 'Ξ”ΟΟƒΞµ Ο„ΞΏ ΟΞ½ΞΏΞΌΞ± Ο„ΞΏΟ… SMTP server Ξ³ΞΉΞ± Ξ½Ξ± ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞΉΞ·ΞΈΞµΞ― Ξ· Ξ»ΞµΞΉΟ„ΞΏΟ…ΟΞ³Ξ―Ξ± SMTP(Ο€.Ο‡. smtp1.site.com Ξ® smtp1.site.com;smtp2.site.com)';
+$_lang['Give a username and password to turn on SMTP authentication.'] = 'Ξ”ΟΟƒΞµ Ξ­Ξ½Ξ± ΟΞ½ΞΏΞΌΞ± Ο‡ΟΞ®ΟƒΟ„Ξ· ΞΊΞ±ΞΉ Ξ­Ξ½Ξ± ΞΊΟ‰Ξ΄ΞΉΞΊΟ Ξ³ΞΉΞ± Ξ½Ξ± ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞΉΞ·ΞΈΞµΞ― Ξ· Ο€ΞΉΟƒΟ„ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· SMTP.';
+$_lang['Global settings'] = 'Ξ“ΞµΞ½ΞΉΞΊΞ­Ο‚ Ξ΅Ο…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚';
+$_lang['Go back to Wiki list'] = 'Ξ Ξ®Ξ³Ξ±ΞΉΞ½Ξµ Ο€Ξ―ΟƒΟ‰ ΟƒΟ„Ξ· Ξ»Ξ―ΟƒΟ„Ξ± Wiki';
+$_lang['Go back to the exercise'] = 'Ξ•Ο€ΞΉΟƒΟ„ΟΞΏΟ†Ξ® ΟƒΟ„Ξ·Ξ½ Ξ¬ΟƒΞΊΞ·ΟƒΞ·';
+$_lang['Go to config'] = 'Ξ Ξ®Ξ³Ξ±ΞΉΞ½Ξµ ΟƒΟ„ΞΏ Config';
+$_lang['Go to documents tool'] = 'Ξ Ξ®Ξ³Ξ±ΞΉΞ½Ξµ ΟƒΟ„ΞΏ ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏ ΞµΞ³Ξ³ΟΞ¬Ο†Ο‰Ξ½';
+$_lang['Go to the account creation page'] = 'Ξ Ξ·Ξ³Ξ±Ξ―Ξ½ΞµΟ„Ξµ ΟƒΟ„Ξ· ΟƒΞµΞ»Ξ―Ξ΄Ξ± Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ο„ΞΏΟ… Ξ»ΞΏΞ³Ξ±ΟΞΉΟƒΞΌΞΏΟ';
+$_lang['Group'] = 'ΞΏΞΌΞ¬Ξ΄Ξ± Ο‡ΟΞ·ΟƒΟ„ΟΞ½';
+$_lang['Group Tutor'] = 'Ξ”ΞΉΞ΄Ξ¬ΟƒΞΊΞΏΞ½Ο„Ξ±Ο‚';
+$_lang['Group area'] = 'Ξ ΞµΟΞΉΞΏΟ‡Ξ® ΞΏΞΌΞ¬Ξ΄Ξ±Ο‚ Ο‡ΟΞ·ΟƒΟ„ΟΞ½';
+$_lang['Group deleted'] = 'Ξ— ΞΏΞΌΞ¬Ξ΄Ξ± Ο‡ΟΞ·ΟƒΟ„ΟΞ½ Ξ΄ΞΉΞ±Ξ³ΟΞ¬Ο†Ο„Ξ·ΞΊΞµ';
+$_lang['Group forums category can\'t be deleted'] = 'Ξ— ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ± ΞΏΞΌΞ¬Ξ΄Ξ±Ο‚ ΟƒΟ…Ξ¶Ξ·Ο„Ξ®ΟƒΞµΟ‰Ξ½ Ξ΄ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†ΞµΞ―.';
+$_lang['Group management'] = 'Ξ”ΞΉΞ±Ο‡ΞµΞ―ΟΞΉΟƒΞ· ΞΏΞΌΞ¬Ξ΄Ξ±Ο‚ Ο‡ΟΞ·ΟƒΟ„ΟΞ½';
+$_lang['Group members'] = 'ΞΞ­Ξ»Ξ· ΞΏΞΌΞ¬Ξ΄Ξ±Ο‚';
+$_lang['Group name'] = 'ΞΞ½ΞΏΞΌΞ± ΞΏΞΌΞ¬Ξ΄Ξ±Ο‚ Ο‡ΟΞ·ΟƒΟ„ΟΞ½';
+$_lang['Group settings have been modified'] = 'Ξ‘Ξ»Ξ»Ξ¬Ο‡Ο„Ξ·ΞΊΞ±Ξ½ ΞΏΞΉ ΟΟ…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ Ο„Ξ·Ο‚ ΞΏΞΌΞ¬Ξ΄Ξ±Ο‚ Ο‡ΟΞ·ΟƒΟ„ΟΞ½';
+$_lang['Group settings modified'] = 'ΞΞΉ ΟΟ…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ Ο„Ξ·Ο‚ ΞΏΞΌΞ¬Ξ΄Ξ±Ο‚ Ο‡ΟΞ·ΟƒΟ„ΟΞ½ Ξ­Ο‡ΞΏΟ…Ξ½ Ξ±Ξ»Ξ»Ξ¬ΞΎΞµΞΉ';
+$_lang['Groups'] = 'ΞΞΌΞ¬Ξ΄ΞµΟ‚ Ξ§ΟΞ·ΟƒΟ„ΟΞ½';
+$_lang['Groups (from groups tool, only group members can post)'] = 'ΞΞΌΞ¬Ξ΄ΞµΟ‚ (Ξ±Ο€ΞΏ ΞµΟΞ³Ξ±Ξ»ΞµΞ―Ξ± ΞΏΞΌΞ¬Ξ΄Ο‰Ξ½, ΞΌΟΞ½ΞΏ ΞΌΞ­Ξ»Ξ· Ο„Ο‰Ξ½ ΞΏΞΌΞ¬Ξ΄Ο‰Ξ½ ΞΌΟ€ΞΏΟΞΏΟ…Ξ½ Ξ½Ξ± ΞΊΞ±Ο„Ξ±Ο‡Ο‰ΟΞΏΟΞ½)';
+$_lang['Groups have been filled (or completed) by students present in the \'Users\' list.'] = 'ΞΞΉ ΞΏΞΌΞ¬Ξ΄ΞµΟ‚ Ο‡ΟΞ·ΟƒΟ„ΟΞ½ Ξ­Ο‡ΞΏΟ…Ξ½ ΟƒΟ…ΞΌΟ€Ξ»Ξ·ΟΟ‰ΞΈΞµΞ― Ξ±Ο€Ο Ο†ΞΏΞΉΟ„Ξ·Ο„Ξ­Ο‚ Ο€ΞΏΟ… Ξ²ΟΞ―ΟƒΞΊΞΏΞ½Ο„Ξ±ΞΉ ΟƒΟ„ΞΏΞ½ ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏ Β«Ξ§ΟΞ®ΟƒΟ„ΞµΟ‚Β».';
+$_lang['Groups help'] = 'ΞΞΌΞ¬Ξ΄ΞµΟ‚ Ξ²ΞΏΞ·ΞΈΞµΞ―Ξ±Ο‚';
+$_lang['Groups permissions'] = 'Ξ†Ξ΄ΞµΞΉΞµΟ‚ ΞΏΞΌΞ¬Ξ΄Ο‰Ξ½';
+$_lang['Groups settings'] = 'Ξ΅Ο…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ ΞΏΞΌΞ¬Ξ΄Ο‰Ξ½ Ο‡ΟΞ·ΟƒΟ„ΟΞ½';
+$_lang['Guest'] = 'Ξ¦ΞΉΞ»ΞΏΞΎΞµΞ½ΞΏΟΞΌΞµΞ½ΞΏΟ‚';
+$_lang['He or she will receive email confirmation with login and password'] = 'Ξ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ ΞΈΞ± Ξ»Ξ¬Ξ²ΞµΞΉ ΞµΞΉΞ΄ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· ΞΌΞ­ΟƒΟ‰ email ΞΌΞµ ΟΞ½ΞΏΞΌΞ± Ο‡ΟΞ®ΟƒΟ„Ξ· ΞΊΞ±ΞΉ ΟƒΟ…Ξ½ΞΈΞ·ΞΌΞ±Ο„ΞΉΞΊΟ';
+$_lang['Heading'] = 'Ξ•Ο€ΞΉΞΊΞµΟ†Ξ±Ξ»Ξ―Ξ΄Ξ±';
+$_lang['Help'] = 'Ξ’ΞΏΞ®ΞΈΞµΞΉΞ±';
+$_lang['Here you can modify the content of the text zones displayed on the platform home page.'] = 'Ξ•Ξ΄Ο ΞΌΟ€ΞΏΟΞµΞ―Ο‚ Ξ½Ξ± ΞµΟ€ΞµΞΎΞµΟΞ³Ξ±ΟƒΟ„ΞµΞ―Ο‚ Ο„ΞΏ Ο€ΞµΟΞΉΞµΟ‡ΟΞΌΞµΞ½ΞΏ Ο„Ο‰Ξ½ Ξ¶Ο‰Ξ½ΟΞ½ Ο€ΞΏΟ… ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞΏΞ½Ο„Ξ±ΞΉ ΟƒΟ„Ξ·Ξ½ Ξ±ΟΟ‡ΞΉΞΊΞ® ΟƒΞµΞ»Ξ―Ξ΄Ξ± Ο„Ξ·Ο‚ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±Ο‚';
+$_lang['Hidden'] = 'ΞΟΟ…ΞΌΞΌΞ­Ξ½ΞΏ';
+$_lang['Hide course categories to anonymous'] = 'Ξ‘Ο€ΟΞΊΟΟ…ΟΞ· ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞΉΟΞ½ ΞΌΞ±ΞΈΞ·ΞΌΞ¬Ο„Ο‰Ξ½ ΟƒΟ„ΞΏΟ…Ο‚ Ξ±Ξ½ΟΞ½Ο…ΞΌΞΏΟ…Ο‚ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚';
+$_lang['Hide email address to anonymous user'] = 'Ξ‘Ο€ΟΞΊΟΟ…ΟΞ· Ο„Ο‰Ξ½ Ξ΄ΞΉΞµΟ…ΞΈΟΞ½ΟƒΞµΟ‰Ξ½ email ΟƒΟ„ΞΏΟ…Ο‚ Ξ±Ξ½ΟΞ½Ο…ΞΌΞΏΟ…Ο‚ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚';
+$_lang['Hits'] = 'Hits (Ο‡Ο„Ο…Ο€Ξ®ΞΌΞ±Ο„Ξ±/Ξ²ΞΏΞ»Ξ­Ο‚???)';
+$_lang['Home page'] = 'ΞΞµΞ½Ο„ΟΞΉΞΊΞ® ΟƒΞµΞ»Ξ―Ξ΄Ξ±';
+$_lang['Home page help'] = 'Ξ‘ΟΟ‡ΞΉΞΊΞ® ΟƒΞµΞ»Ξ―Ξ΄Ξ± Ξ²ΞΏΞ®ΞΈΞµΞΉΞ±Ο‚';
+$_lang['Horizontal space'] = 'ΞΟΞΉΞ¶ΟΞ½Ο„ΞΉΞΏ Ξ΄ΞΉΞ¬ΟƒΟ„Ξ·ΞΌΞ±';
+$_lang['Host name'] = 'ΞΞ½ΞΏΞΌΞ± ΞΉΟƒΟ„ΞΏΟƒΞµΞ»Ξ―Ξ΄Ξ±Ο‚';
+$_lang['Host of CAS server'] = 'Ξ™ΟƒΟ„ΞΏΟƒΞµΞ»Ξ―Ξ΄Ξ± Ο„ΞΏΟ… CAS server';
+$_lang['Hour'] = 'ΞΟΞ±';
+$_lang['Icon'] = 'Ξ•ΞΉΞΊΞΏΞ½Ξ―Ξ΄ΞΉΞΏ';
+$_lang['Id'] = 'ΞΟ‰Ξ΄ΞΉΞΊΟΟ‚';
+$_lang['Id of the user to keep'] = 'ΞΟ‰Ξ΄ΞΉΞΊΟΟ‚ Ο‡ΟΞ®ΟƒΟ„Ξ· Ξ³ΞΉΞ± Ξ½Ξ± ΞΊΟΞ±Ο„Ξ·ΞΈΞµΞ―';
+$_lang['Id of the user to remove'] = 'ΞΟ‰Ξ΄ΞΉΞΊΟΟ‚ Ο‡ΟΞ®ΟƒΟ„Ξ· Ξ³ΞΉΞ± Ξ½Ξ± Ξ±Ο†Ξ±ΞΉΟΞµΞΈΞµΞ―';
+$_lang['Identical content<br />no modification saved'] = ' ΞΞ΄ΞΉΞΏ Ο€ΞµΟΞΉΞµΟ‡ΟΞΌΞµΞ½ΞΏ <br />ΞΊΞ±ΞΌΞΉΞ¬ Ξ±Ξ»Ξ»Ξ±Ξ³Ξ® Ξ΄ΞµΞ½ Ξ±Ο€ΞΏΞΈΞ·ΞΊΞµΟΟ„Ξ·ΞΊΞµ';
+$_lang['If activated course administrator will receive an email every time a submission is made.  Students will receive an email advising them that their work has been marked.'] = 'Ξ‘Ξ½ ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞΉΞ·ΞΈΞµΞ― ΞΏ Ξ΄ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ®Ο‚ Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ ΞΈΞ± Ξ»Ξ±ΞΌΞ²Ξ¬Ξ½ΞµΞΉ Ξ­Ξ½Ξ± ΞΌΞ®Ξ½Ο…ΞΌΞ± Ξ·Ξ»ΞµΞΊΟ„ΟΞΏΞ½ΞΉΞΊΞΏΟ… Ο„Ξ±Ο‡Ο…Ξ΄ΟΞΏΞΌΞµΞ―ΞΏΟ… ΞΊΞ¬ΞΈΞµ Ο†ΞΏΟΞ¬ Ο€ΞΏΟ… Ξ³Ξ―Ξ½ΞµΟ„Ξµ ΞΌΞΉΞ± Ο…Ο€ΞΏΞ²ΞΏΞ»Ξ® Ξ±Ξ―Ο„Ξ·ΟƒΞ·Ο‚. ΞΞΉ ΞΌΞ±ΞΈΞ·Ο„Ξ­Ο‚ ΞΈΞ± Ξ»Ξ±ΞΌΞ²Ξ¬Ξ½ΞΏΟ…Ξ½ ΞΌΞ®Ξ½Ο…ΞΌΞ± Ξ·Ξ»ΞµΞΊΟ„ΟΞΏΞ½ΞΉΞΊΞΏΟ Ο„Ξ±Ο‡Ο…Ξ΄ΟΞΏΞΌΞµΞ―ΞΏΟ… ΞΊΞ¬ΞΈΞµ Ο†ΞΏΟΞ¬ Ο€ΞΏΟ… Ξ²Ξ±ΞΈΞΌΞΏΞ»ΞΏΞ³ΞµΞ―Ο„Ξµ Ξ· ΞµΟΞ³Ξ±ΟƒΞ―Ξ± Ο„ΞΏΟ…Ο‚.';
+$_lang['If activated, all the feedbacks will be shown to users; if not, only those corresponding to the selected or correct answers will be displayed'] = 'Ξ‘Ξ½ ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞΉΞ·ΞΈΞµΞ―, ΟΞ»ΞµΟ‚ ΞΏΞΉ Ξ±Ξ½Ξ±Ο„ΟΞΏΟ†ΞΏΞ΄ΞΏΟ„Ξ®ΟƒΞµΞΉΟ‚ ΞΈΞ± Ο†Ξ±Ξ―Ξ½ΞΏΞ½Ο„Ξ±ΞΉ ΟƒΟ„ΞΏΟ…Ο‚ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚. Ξ‘Ξ½ ΟΟ‡ΞΉ, ΞΌΟΞ½ΞΏ Ξ±Ο…Ο„Ξ­Ο‚ Ο€ΞΏΟ… Ξ±Ξ½Ο„ΞΏΟ€ΞΏΞΊΟΞ―Ξ½ΞΏΞ½Ο„Ξ±ΞΉ ΟƒΟ„ΞΏ ΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞµΞ½ΞΏ ΞΊΞ±ΞΉ ΞΏΞΉ ΟƒΟ‰ΟƒΟ„Ξ­Ο‚ Ξ±Ο€Ξ±Ξ½Ο„Ξ®ΟƒΞµΞΉΟ‚ ΞΈΞ± ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞΏΞ½Ο„Ξ±ΞΉ.';
+$_lang['If after while no message appears confirming the course creation, please click <a href="%url">here</a>'] = 'Ξ‘Ξ½ ΞΌΞµΟ„Ξ¬ Ξ±Ο€Ο Ξ»Ξ―Ξ³ΞΏ ΞΊΞ±Ξ½Ξ­Ξ½Ξ± ΞΌΞ®Ξ½Ο…ΞΌΞ± Ξ΄ΞµΞ½ ΞµΞΌΟ†Ξ±Ξ½ΞΉΟƒΞΈΞµΞ― Ξ³ΞΉΞ± Ξ½Ξ± ΞµΟ€ΞΉΞ²ΞµΞ²Ξ±ΞΉΟΟƒΞµΞΉ Ο„Ξ· Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚, Ο€Ξ±ΟΞ±ΞΊΞ±Ξ»Ο Ξ±ΞΊΞΏΞ»ΞΏΟ…ΞΈΞ®ΟƒΟ„Ξµ Ο„ΞΏ ΟƒΟΞ½Ξ΄ΞµΟƒΞΌΞΏ <a href="%url">here</a>';
+$_lang['If false, other fields are optional'] = 'Ξ‘Ξ½ Ξ»Ξ±Ξ½ΞΈΞ±ΟƒΞΌΞ­Ξ½ΞΏ, ΟΞ»Ξ± Ο„Ξ± Ξ¬Ξ»Ξ»Ξ± Ο€ΞµΞ΄Ξ―Ξ± ΞµΞ―Ξ½Ξ±ΞΉ Ο€ΟΞΏΞ±ΞΉΟΞµΟ„ΞΉΞΊΞ¬';
 $_lang['If the name and the firstname are longer than this value, the script reduce it.
-For revelance, it\'s interesting to not work with to little value'] = 'Αν το όνομα και το πρώτο όνομα είναι μεγαλύτερα από αυτή την τιμή, το script τα μειώνει. Θα ήταν προτιμότερο να μην εργάζεσθαι με πολύ μικρές τιμές';
-$_lang['If you do not have the key, please contact the course manager'] = 'Αν δεν έχεται το κλειδί, παρακαλώ επικοινωνήστε με τον διευθυντή του μαθήματος';
-$_lang['If you haven\'t a user account yet, use the <a href="%url">the account creation form</a>.'] = 'Αν δεν έχετε ένα λογαριασμό χρήστη ακόμα, ακολουθήστε το σύνδεσμο <a href="%url">φόρμα δημιουργίας λογαριασμού χρήστη</a>.';
-$_lang['If you wish to enrol on this course'] = 'Εάν επιθυμείτε να εγγραφείτε σε αυτό το μάθημα';
-$_lang['Image Viewer'] = 'Εφαρμογή Προβολής Εικόνων';
-$_lang['Import'] = 'εισαγωγή';
-$_lang['Import a learning path'] = 'Εισαγωγή μιας διαδρομής μάθησης';
-$_lang['Import done'] = 'Φόρτωμα ολοκληρώθηκε';
-$_lang['Import exercise'] = 'Φόρτωσε άσκηση';
-$_lang['Import failed'] = 'Φόρτωση απαίτυχε';
-$_lang['Imported exercises must be an ims-qti zip file.'] = 'Οι ασκήσεις που θα φορτωθούν θα πρέπει να είναι zip αρχείο της μορφής ims-qti .';
-$_lang['Imported modules must consist of a zip file and be compatible with your Claroline version.'] = 'Τα modules που θα φορτωθούν θα πρέπει περιέχουν ένα αρχείο zip και να είναι συμβατά με την έκδοση Claroline που χρησιμοποιείτε.';
-$_lang['Imported packages must consist of a zip file and be SCORM 1.2 conformable'] = 'Τα εισαγόμενα πακέτα πρεπει να αποτελούνται απο ένα zip αρχείο και να είναι συμβατά με το SCORM 1.2 ';
-$_lang['Impossible to unzip file'] = 'Αδύνατο να αποσυμπιεθεί το αρχείο';
-$_lang['In frames'] = 'σε πλαίσια';
-$_lang['Individual'] = 'ατομικά';
-$_lang['Information'] = 'πληροφορία';
-$_lang['Information about your platform and your organisation'] = 'Πληροφορίες για την πλατφόρμα σας και τον οργανισμό σας';
-$_lang['Information to give to students'] = 'Πληροφορία για τους φοιτητές';
-$_lang['Inline quote'] = 'Εσωτερικό quote';
-$_lang['Insert new name'] = 'Εισαγωγή νέου ονόματος';
-$_lang['Install module'] = 'Εγκατάσταση module';
-$_lang['Institution'] = 'Οργανισμός (institution)';
-$_lang['Institution URL'] = 'URL Οργανισμού';
-$_lang['Invalid Wiki Id'] = 'Μη έγκυρο Wiki Id';
-$_lang['Invalid answer'] = 'Αδύνατη απάντηση';
-$_lang['Invalid matching choice'] = 'Αδύνατη αντιστοίχιση επιλογής';
-$_lang['Invalid question'] = 'Αδύνατη ερώτηση';
-$_lang['Invisible'] = 'Αόρατο';
-$_lang['Is platform admin'] = 'είναι διαχειριστής της πλατφόρμας ';
-$_lang['It seems that you already have registered your campus.'] = 'Φαίνεται πως έχεις ήδη εγγραφεί στο campus.';
-$_lang['Italic'] = 'Πλαγιαστά';
-$_lang['Item'] = 'Αντικείμενο';
-$_lang['Kernel'] = 'Πυρήνας';
-$_lang['Keys :'] = ' Κλειδιά :';
-$_lang['Label of the login url to CAS'] = 'Ετικέτα της διεύθυνσης url σύνδεσης στο CAS';
-$_lang['Language'] = 'Γλώσσα';
-$_lang['Language needed'] = 'Γλώσσα που απαιτείται';
-$_lang['Language packs'] = 'Πακέτα γλωσσών';
-$_lang['Last 31 days'] = 'Τελευταίες 31 ημέρες';
-$_lang['Last 7 days'] = 'Τελευταίες 7 μέρες';
-$_lang['Last access'] = 'Τελευταία είσοδος';
-$_lang['Last attempt'] = 'Τελευαταίες προσπάθειες';
-$_lang['Last computing'] = 'Τελευταίος υπολογισμός';
-$_lang['Last edit date'] = 'Τελευταία ημέρα επιμέλειας';
-$_lang['Last event length'] = 'Διάρκεια τελευταίου γεγονότος';
-$_lang['Last message'] = 'Τελευταίο μην.';
-$_lang['Last message was on'] = 'Προηγούμενο μήνυμα ήταν ενεργό : ';
-$_lang['Last name'] = 'Όνομα';
-$_lang['Last session time'] = 'Τελευταία χρονική συνεδρίαση (???)';
-$_lang['Last submission'] = 'Τελευταία υποβολή';
-$_lang['Lasting'] = 'Διάρκεια';
-$_lang['Late upload'] = 'Καθυστερημένη καταχώρηση';
-$_lang['Latest announcements'] = 'Τελευταίες ανακοινώσεις';
-$_lang['Layout'] = 'Εμφάνιση';
-$_lang['Learning Path is empty'] = ' Η πορεία εκμάθησης είναι κενή ';
-$_lang['Learning Path not found'] = ' Πορεία εκμάθησης δεν βρέθηκε ';
-$_lang['Learning path'] = 'Διαδρομή μάθησης';
-$_lang['Learning path admin'] = 'Διαχειριση διαδρομής μάθησης';
-$_lang['Learning path content'] = 'Περιεχόμενο διαδρομής μάθησης';
-$_lang['Learning path has been successfully imported.'] = 'Η διαδρομή μάθησης έχει εισαχθεί με επιτυχία.';
-$_lang['Learning path list'] = 'Λίστα διαχείρισης διαδρομής ';
-$_lang['Learning path progression :'] = 'Πρόοδος της πορείας μάθησης : ';
-$_lang['Learning paths tracking'] = 'Παρακολούθηση διαδρομής μάθησης';
-$_lang['Lecturer(s)'] = 'Καθηγητής(ές)';
-$_lang['License'] = '¶δεια χρήσης';
-$_lang['Life time of cache'] = 'Διάρκεια ζωής της cache';
-$_lang['Limit'] = 'όριο';
-$_lang['Line Number'] = 'Αριθμός γραμμής';
-$_lang['Line break'] = 'Αλλαγή γραμής';
-$_lang['Lines'] = 'Γραμμές';
-$_lang['List of Wiki'] = 'Λίστα του Wiki';
-$_lang['Load default format'] = 'Φόρτωση προκαθορισμένης μορφής (format)';
-$_lang['Local settings'] = 'Τοπικές ρυθμίσεις';
-$_lang['Location'] = 'Τοποθεσία';
-$_lang['Lock'] = 'Κλείδωμα';
-$_lang['Locked'] = 'Κελιδωμένο';
-$_lang['Log of user activities  on the whole platform (course access, tool use, ...).'] = 'Αποσύνδεσε δραστηριότητες χρήστη σε ολόκληρη την πλατφόρμα (πρόσβαση σε μαθήματα, χρήση εργαλείων, ...).';
+For revelance, it\'s interesting to not work with to little value'] = 'Ξ‘Ξ½ Ο„ΞΏ ΟΞ½ΞΏΞΌΞ± ΞΊΞ±ΞΉ Ο„ΞΏ Ο€ΟΟΟ„ΞΏ ΟΞ½ΞΏΞΌΞ± ΞµΞ―Ξ½Ξ±ΞΉ ΞΌΞµΞ³Ξ±Ξ»ΟΟ„ΞµΟΞ± Ξ±Ο€Ο Ξ±Ο…Ο„Ξ® Ο„Ξ·Ξ½ Ο„ΞΉΞΌΞ®, Ο„ΞΏ script Ο„Ξ± ΞΌΞµΞΉΟΞ½ΞµΞΉ. ΞΞ± Ξ®Ο„Ξ±Ξ½ Ο€ΟΞΏΟ„ΞΉΞΌΟΟ„ΞµΟΞΏ Ξ½Ξ± ΞΌΞ·Ξ½ ΞµΟΞ³Ξ¬Ξ¶ΞµΟƒΞΈΞ±ΞΉ ΞΌΞµ Ο€ΞΏΞ»Ο ΞΌΞΉΞΊΟΞ­Ο‚ Ο„ΞΉΞΌΞ­Ο‚';
+$_lang['If the user is existing in the platform, he will be added to the class only if his firstname, 
+                                        lastname and username are similar.'] = 'Ξ‘Ξ½ ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ ΞµΞ―Ξ½Ξ±ΞΉ Ο€Ξ±ΟΟΞ½ ΟƒΟ„Ξ·Ξ½ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±, ΞΈΞ± Ο€ΟΞΏΟƒΞΈΞ­Ο„ΞµΟ„Ξµ ΟƒΟ„Ξ·Ξ½ Ο„Ξ¬ΞΎΞ· Ξ±Ξ½ Ο„ΞΏ ΟΞ½ΞΏΞΌΞ± ΞΊΞ±ΞΉ Ο„ΞΏ ΞµΟ€Ξ―ΞΈΞµΟ„ΞΏ ΞΊΞ±ΞΉ Ο„ΞΏ ΟΞ½ΞΏΞΌΞ± Ο‡ΟΞ®ΟƒΟ„Ξ· ΞµΞ―Ξ½Ξ±ΞΉ ΟΞΌΞΏΞΉΞ±.';
+$_lang['If the user is existing in the platform, he will be added to the course only if his firstname, 
+                                        lastname and username are similar.'] = 'Ξ‘Ξ½ ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ ΞµΞ―Ξ½Ξ±ΞΉ Ο€Ξ±ΟΟΞ½ ΟƒΟ„Ξ·Ξ½ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±, ΞΈΞ± Ο€ΟΞΏΟƒΞΈΞ­Ο„ΞµΟ„Ξµ ΟƒΟ„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ± Ξ±Ξ½ Ο„ΞΏ ΟΞ½ΞΏΞΌΞ± ΞΊΞ±ΞΉ Ο„ΞΏ ΞµΟ€Ξ―ΞΈΞµΟ„ΞΏ ΞΊΞ±ΞΉ Ο„ΞΏ ΟΞ½ΞΏΞΌΞ± Ο‡ΟΞ®ΟƒΟ„Ξ· ΞµΞ―Ξ½Ξ±ΞΉ ΟΞΌΞΏΞΉΞ±.';
+$_lang['If you are not using the local Claroline password to identify a user, disable this option so the access authentication form will not be available'] = 'Ξ‘Ξ½ Ξ΄ΞµΞ½ Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞ®Ο„Ξµ Ο„ΞΏ Ο„ΞΏΟ€ΞΉΞΊΞΏ ΞΊΟ‰Ξ΄ΞΉΞΊΟ Ο„ΞΏΟ… ΞΞ»Ξ¬ΟΞΏΞ»Ξ±ΞΉΞ½ Ξ³ΞΉΞ± Ξ½Ξ± Ξ±Ξ½Ξ±Ξ³Ξ½Ο‰ΟΞ―ΟƒΞµΟ„Ξµ Ξ­Ξ½Ξ± Ο‡ΟΞ®ΟƒΟ„Ξ·, Ξ±Ο€ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞΉΞ®ΟƒΟ„Ξµ Ξ±Ο…Ο„Ξ® Ο„Ξ·Ξ½ ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ® Ξ­Ο„ΟƒΞΉ ΟΟƒΟ„Ξµ Ξ· Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ· ΟƒΟ„Ξ·Ξ½ Ο†ΟΟΞΌΞ± ΞµΟ€ΞΉΞΊΟΟΟ‰ΟƒΞ·Ο‚ Ξ½Ξ± ΞΌΞ·Ξ½ ΞµΞ―Ξ½Ξ±ΞΉ Ξ΄ΞΉΞ±ΞΈΞ­ΟƒΞΉΞΌΞ·';
+$_lang['If you can\'t read this message go to:'] = 'Ξ‘Ξ½ Ξ΄ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ―Ο‚ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ²Ξ¬ΟƒΞµΞΉΟ‚ Ξ±Ο…Ο„Ο Ο„ΞΏ ΞΌΞ®Ξ½Ο…ΞΌΞ± Ο€Ξ®Ξ³Ξ±ΞΉΞ½Ξµ ΟƒΟ„ΞΏ:';
+$_lang['If you do not have the key, please contact the course manager'] = 'Ξ‘Ξ½ Ξ΄ΞµΞ½ Ξ­Ο‡ΞµΟ„Ξ±ΞΉ Ο„ΞΏ ΞΊΞ»ΞµΞΉΞ΄Ξ―, Ο€Ξ±ΟΞ±ΞΊΞ±Ξ»Ο ΞµΟ€ΞΉΞΊΞΏΞΉΞ½Ο‰Ξ½Ξ®ΟƒΟ„Ξµ ΞΌΞµ Ο„ΞΏΞ½ Ξ΄ΞΉΞµΟ…ΞΈΟ…Ξ½Ο„Ξ® Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['If you haven\'t a user account yet, use the <a href="%url">the account creation form</a>.'] = 'Ξ‘Ξ½ Ξ΄ΞµΞ½ Ξ­Ο‡ΞµΟ„Ξµ Ξ­Ξ½Ξ± Ξ»ΞΏΞ³Ξ±ΟΞΉΞ±ΟƒΞΌΟ Ο‡ΟΞ®ΟƒΟ„Ξ· Ξ±ΞΊΟΞΌΞ±, Ξ±ΞΊΞΏΞ»ΞΏΟ…ΞΈΞ®ΟƒΟ„Ξµ Ο„ΞΏ ΟƒΟΞ½Ξ΄ΞµΟƒΞΌΞΏ <a href="%url">Ο†ΟΟΞΌΞ± Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ±Ο‚ Ξ»ΞΏΞ³Ξ±ΟΞΉΞ±ΟƒΞΌΞΏΟ Ο‡ΟΞ®ΟƒΟ„Ξ·</a>.';
+$_lang['If you wish to enrol on this course'] = 'Ξ•Ξ¬Ξ½ ΞµΟ€ΞΉΞΈΟ…ΞΌΞµΞ―Ο„Ξµ Ξ½Ξ± ΞµΞ³Ξ³ΟΞ±Ο†ΞµΞ―Ο„Ξµ ΟƒΞµ Ξ±Ο…Ο„Ο Ο„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['Image URL'] = 'Ξ”ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ· ΞµΞΉΞΊΟΞ½Ξ±Ο‚';
+$_lang['Image Viewer'] = 'Ξ•Ο†Ξ±ΟΞΌΞΏΞ³Ξ® Ξ ΟΞΏΞ²ΞΏΞ»Ξ®Ο‚ Ξ•ΞΉΞΊΟΞ½Ο‰Ξ½';
+$_lang['Image description'] = 'Ξ ΞµΟΞΉΞ³ΟΞ±Ο†Ξ® ΞµΞΉΞΊΟΞ½Ξ±Ο‚';
+$_lang['Image is too big : max size %width%x%height%, %size% bytes'] = 'Ξ— ΞµΞΉΞΊΟΞ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ Ο€ΞΏΞ»Ο ΞΌΞµΞ³Ξ¬Ξ»Ξ·: ΞΌΞ­Ξ³ΞΉΟƒΟ„ΞΏ ΞΌΞ­Ξ³ΞµΞΈΞΏΟ‚ %width%x%height%, %size% ΞΌΟ€Ξ¬ΞΉΟ„Ο‚';
+$_lang['Image manager'] = 'Ξ”ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ®Ο‚ Ο†Ο‰Ο„ΞΏΞ³ΟΞ±Ο†Ξ―Ξ±Ο‚';
+$_lang['Import'] = 'ΞµΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ®';
+$_lang['Import a learning path'] = 'Ξ•ΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ® ΞΌΞΉΞ±Ο‚ Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ®Ο‚ ΞΌΞ¬ΞΈΞ·ΟƒΞ·Ο‚';
+$_lang['Import done'] = 'Ξ¦ΟΟΟ„Ο‰ΞΌΞ± ΞΏΞ»ΞΏΞΊΞ»Ξ·ΟΟΞΈΞ·ΞΊΞµ';
+$_lang['Import exercise'] = 'Ξ¦ΟΟΟ„Ο‰ΟƒΞµ Ξ¬ΟƒΞΊΞ·ΟƒΞ·';
+$_lang['Import failed'] = 'Ξ¦ΟΟΟ„Ο‰ΟƒΞ· Ξ±Ο€Ξ±Ξ―Ο„Ο…Ο‡Ξµ';
+$_lang['Important'] = 'Ξ£Ξ·ΞΌΞ±Ξ½Ο„ΞΉΞΊΟ';
+$_lang['Imported exercises must be an ims-qti zip file.'] = 'ΞΞΉ Ξ±ΟƒΞΊΞ®ΟƒΞµΞΉΟ‚ Ο€ΞΏΟ… ΞΈΞ± Ο†ΞΏΟΟ„Ο‰ΞΈΞΏΟΞ½ ΞΈΞ± Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ zip Ξ±ΟΟ‡ΞµΞ―ΞΏ Ο„Ξ·Ο‚ ΞΌΞΏΟΟ†Ξ®Ο‚ ims-qti .';
+$_lang['Imported modules must be compatible with your Claroline version.'] = 'ΞΞΉ ΞµΞΉΟƒΞ±Ξ³ΟΞΌΞµΞ½ΞµΟ‚ ΞµΞ½ΟΟ„Ξ·Ο„ΞµΟ‚ Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ ΟƒΟ…ΞΌΞ²Ξ±Ο„Ξ­Ο‚ ΞΌΞµ Ο„Ξ·Ξ½ Ξ­ΞΊΞ΄ΞΏΟƒΞ· Ο„ΞΏΟ… ΞΞ»Ξ±ΟΞΏΞ»Ξ±ΞΉΞ½ ΟƒΞΏΟ…';
+$_lang['Imported modules must consist of a zip file and be compatible with your Claroline version.'] = 'Ξ¤Ξ± modules Ο€ΞΏΟ… ΞΈΞ± Ο†ΞΏΟΟ„Ο‰ΞΈΞΏΟΞ½ ΞΈΞ± Ο€ΟΞ­Ο€ΞµΞΉ Ο€ΞµΟΞΉΞ­Ο‡ΞΏΟ…Ξ½ Ξ­Ξ½Ξ± Ξ±ΟΟ‡ΞµΞ―ΞΏ zip ΞΊΞ±ΞΉ Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ ΟƒΟ…ΞΌΞ²Ξ±Ο„Ξ¬ ΞΌΞµ Ο„Ξ·Ξ½ Ξ­ΞΊΞ΄ΞΏΟƒΞ· Claroline Ο€ΞΏΟ… Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞµΞ―Ο„Ξµ.';
+$_lang['Imported packages must consist of a zip file and be SCORM 1.2 conformable'] = 'Ξ¤Ξ± ΞµΞΉΟƒΞ±Ξ³ΟΞΌΞµΞ½Ξ± Ο€Ξ±ΞΊΞ­Ο„Ξ± Ο€ΟΞµΟ€ΞµΞΉ Ξ½Ξ± Ξ±Ο€ΞΏΟ„ΞµΞ»ΞΏΟΞ½Ο„Ξ±ΞΉ Ξ±Ο€ΞΏ Ξ­Ξ½Ξ± zip Ξ±ΟΟ‡ΞµΞ―ΞΏ ΞΊΞ±ΞΉ Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ ΟƒΟ…ΞΌΞ²Ξ±Ο„Ξ¬ ΞΌΞµ Ο„ΞΏ SCORM 1.2 ';
+$_lang['Impossible to unzip file'] = 'Ξ‘Ξ΄ΟΞ½Ξ±Ο„ΞΏ Ξ½Ξ± Ξ±Ο€ΞΏΟƒΟ…ΞΌΟ€ΞΉΞµΞΈΞµΞ― Ο„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ';
+$_lang['In frames'] = 'ΟƒΞµ Ο€Ξ»Ξ±Ξ―ΟƒΞΉΞ±';
+$_lang['In iCal an event has a duration but not in claroline. 3600 seconds = 1 Hour.'] = 'Ξ£Ο„ΞΏ iCal Ξ­Ξ½Ξ± Ξ³ΞµΞ³ΞΏΞ½ΟΟ‚ Ξ­Ο‡ΞµΞΉ Ξ΄ΞΉΞ¬ΟΞΊΞµΞΉΞ± Ξ±Ξ»Ξ»Ξ¬ ΟΟ‡ΞΉ ΟƒΟ„ΞΏ ΞΞ»Ξ¬ΟΞΏΞ»Ξ±ΞΉΞ½. 3600 Ξ΄ΞµΟ…Ο„ΞµΟΟΞ»ΞµΟ€Ο„Ξ±s = 1 ΟΟΞ±.';
+$_lang['Inbox'] = 'Ξ•ΞΉΟƒΞµΟΟ‡ΟΞΌΞµΞ½Ξ±';
+$_lang['Individual'] = 'Ξ±Ο„ΞΏΞΌΞΉΞΊΞ¬';
+$_lang['Information'] = 'Ο€Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞ―Ξ±';
+$_lang['Information about your platform and your organisation'] = 'Ξ Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞ―ΞµΟ‚ Ξ³ΞΉΞ± Ο„Ξ·Ξ½ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ± ΟƒΞ±Ο‚ ΞΊΞ±ΞΉ Ο„ΞΏΞ½ ΞΏΟΞ³Ξ±Ξ½ΞΉΟƒΞΌΟ ΟƒΞ±Ο‚';
+$_lang['Information to give to students'] = 'Ξ Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞ―Ξ± Ξ³ΞΉΞ± Ο„ΞΏΟ…Ο‚ Ο†ΞΏΞΉΟ„Ξ·Ο„Ξ­Ο‚';
+$_lang['Inline quote'] = 'Ξ•ΟƒΟ‰Ο„ΞµΟΞΉΞΊΟ quote';
+$_lang['Insert new name'] = 'Ξ•ΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ® Ξ½Ξ­ΞΏΟ… ΞΏΞ½ΟΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Install module'] = 'Ξ•Ξ³ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ· module';
+$_lang['Install this module'] = 'Ξ•Ξ³ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ· Ξ±Ο…Ο„Ξ®Ο‚ Ο„Ξ·Ο‚ ΞµΞ½ΟΟ„Ξ·Ο„Ξ±Ο‚';
+$_lang['Institution'] = 'ΞΟΞ³Ξ±Ξ½ΞΉΟƒΞΌΟΟ‚ (institution)';
+$_lang['Institution URL'] = 'URL ΞΟΞ³Ξ±Ξ½ΞΉΟƒΞΌΞΏΟ';
+$_lang['Internal messaging'] = 'Ξ•ΟƒΟ‰Ο„ΞµΟΞΉΞΊΞ® Ξ±Ξ»Ξ»Ξ·Ξ»ΞΏΞ³ΟΞ±Ο†Ξ―Ξ±';
+$_lang['Internal messaging system'] = 'Ξ£ΟΟƒΟ„Ξ·ΞΌΞ± ΞµΟƒΟ‰Ο„ΞµΟΞΉΞΊΞ®Ο‚ Ξ±Ξ»Ξ»Ξ·Ξ»ΞΏΞ³ΟΞ±Ο†Ξ―Ξ±Ο‚';
+$_lang['Invalid Wiki Id'] = 'ΞΞ· Ξ­Ξ³ΞΊΟ…ΟΞΏ Wiki Id';
+$_lang['Invalid answer'] = 'Ξ‘Ξ΄ΟΞ½Ξ±Ο„Ξ· Ξ±Ο€Ξ¬Ξ½Ο„Ξ·ΟƒΞ·';
+$_lang['Invalid date'] = 'Ξ›Ξ±Ξ½ΞΈΞ±ΟƒΞΌΞ­Ξ½Ξ· Ξ·ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ±';
+$_lang['Invalid file format, use gif, jpg or png'] = 'Ξ›Ξ±Ξ½ΞΈΞ±ΟƒΞΌΞ­Ξ½ΞΏΟ‚ Ο„ΟΟ€ΞΏΟ‚ Ξ±ΟΟ‡ΞµΞ―ΞΏΟ…, Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞ―Ξ·ΟƒΞµ  gif, jpg Ξ® png';
+$_lang['Invalid matching choice'] = 'Ξ‘Ξ΄ΟΞ½Ξ±Ο„Ξ· Ξ±Ξ½Ο„ΞΉΟƒΟ„ΞΏΞ―Ο‡ΞΉΟƒΞ· ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ®Ο‚';
+$_lang['Invalid question'] = 'Ξ‘Ξ΄ΟΞ½Ξ±Ο„Ξ· ΞµΟΟΟ„Ξ·ΟƒΞ·';
+$_lang['Invalid section'] = 'Ξ›Ξ±Ξ½ΞΈΞ±ΟƒΞΌΞ­Ξ½Ξ· ΞµΞ½ΟΟ„Ξ·Ο„Ξ±';
+$_lang['Invisible'] = 'Ξ‘ΟΟΞ±Ο„ΞΏ';
+$_lang['Is platform admin'] = 'ΞµΞ―Ξ½Ξ±ΞΉ Ξ΄ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ®Ο‚ Ο„Ξ·Ο‚ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±Ο‚ ';
+$_lang['It seems that you already have registered your campus.'] = 'Ξ¦Ξ±Ξ―Ξ½ΞµΟ„Ξ±ΞΉ Ο€Ο‰Ο‚ Ξ­Ο‡ΞµΞΉΟ‚ Ξ®Ξ΄Ξ· ΞµΞ³Ξ³ΟΞ±Ο†ΞµΞ― ΟƒΟ„ΞΏ campus.';
+$_lang['Italic'] = 'Ξ Ξ»Ξ±Ξ³ΞΉΞ±ΟƒΟ„Ξ¬';
+$_lang['Item'] = 'Ξ‘Ξ½Ο„ΞΉΞΊΞµΞ―ΞΌΞµΞ½ΞΏ';
+$_lang['Javascript compression'] = 'Ξ£Ο…ΞΌΟ€Ξ―ΞµΟƒΞ· Javascript ';
+$_lang['Kernel'] = 'Ξ Ο…ΟΞ®Ξ½Ξ±Ο‚';
+$_lang['Keys :'] = ' ΞΞ»ΞµΞΉΞ΄ΞΉΞ¬ :';
+$_lang['Label of the login url to CAS'] = 'Ξ•Ο„ΞΉΞΊΞ­Ο„Ξ± Ο„Ξ·Ο‚ Ξ΄ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ·Ο‚ url ΟƒΟΞ½Ξ΄ΞµΟƒΞ·Ο‚ ΟƒΟ„ΞΏ CAS';
+$_lang['Language'] = 'Ξ“Ξ»ΟΟƒΟƒΞ±';
+$_lang['Language needed'] = 'Ξ“Ξ»ΟΟƒΟƒΞ± Ο€ΞΏΟ… Ξ±Ο€Ξ±ΞΉΟ„ΞµΞ―Ο„Ξ±ΞΉ';
+$_lang['Language packs'] = 'Ξ Ξ±ΞΊΞ­Ο„Ξ± Ξ³Ξ»Ο‰ΟƒΟƒΟΞ½';
+$_lang['Last'] = 'Ξ¤ΞµΞ»ΞµΟ…Ο„Ξ±Ξ―ΞΏ';
+$_lang['Last %numberOfMessages messages'] = 'Ξ¤ΞµΞ»ΞµΟ…Ο„Ξ±Ξ―Ξ± %numberOfMessages ΞΌΞ·Ξ½ΟΞΌΞ±Ο„Ξ±';
+$_lang['Last 31 days'] = 'Ξ¤ΞµΞ»ΞµΟ…Ο„Ξ±Ξ―ΞµΟ‚ 31 Ξ·ΞΌΞ­ΟΞµΟ‚';
+$_lang['Last 7 days'] = 'Ξ¤ΞµΞ»ΞµΟ…Ο„Ξ±Ξ―ΞµΟ‚ 7 ΞΌΞ­ΟΞµΟ‚';
+$_lang['Last access'] = 'Ξ¤ΞµΞ»ΞµΟ…Ο„Ξ±Ξ―Ξ± ΞµΞ―ΟƒΞΏΞ΄ΞΏΟ‚';
+$_lang['Last attempt'] = 'Ξ¤ΞµΞ»ΞµΟ…Ξ±Ο„Ξ±Ξ―ΞµΟ‚ Ο€ΟΞΏΟƒΟ€Ξ¬ΞΈΞµΞΉΞµΟ‚';
+$_lang['Last computing'] = 'Ξ¤ΞµΞ»ΞµΟ…Ο„Ξ±Ξ―ΞΏΟ‚ Ο…Ο€ΞΏΞ»ΞΏΞ³ΞΉΟƒΞΌΟΟ‚';
+$_lang['Last download'] = 'Ξ¤ΞµΞ»ΞµΟ…Ο„Ξ±Ξ―ΞΏ ΞΊΞ±Ο„Ξ­Ξ²Ξ±ΟƒΞΌΞ±';
+$_lang['Last edit date'] = 'Ξ¤ΞµΞ»ΞµΟ…Ο„Ξ±Ξ―Ξ± Ξ·ΞΌΞ­ΟΞ± ΞµΟ€ΞΉΞΌΞ­Ξ»ΞµΞΉΞ±Ο‚';
+$_lang['Last event length'] = 'Ξ”ΞΉΞ¬ΟΞΊΞµΞΉΞ± Ο„ΞµΞ»ΞµΟ…Ο„Ξ±Ξ―ΞΏΟ… Ξ³ΞµΞ³ΞΏΞ½ΟΟ„ΞΏΟ‚';
+$_lang['Last message'] = 'Ξ¤ΞµΞ»ΞµΟ…Ο„Ξ±Ξ―ΞΏ ΞΌΞ·Ξ½.';
+$_lang['Last message was on'] = 'Ξ ΟΞΏΞ·Ξ³ΞΏΟΞΌΞµΞ½ΞΏ ΞΌΞ®Ξ½Ο…ΞΌΞ± Ξ®Ο„Ξ±Ξ½ ΞµΞ½ΞµΟΞ³Ο : ';
+$_lang['Last name'] = 'ΞΞ½ΞΏΞΌΞ±';
+$_lang['Last session time'] = 'Ξ¤ΞµΞ»ΞµΟ…Ο„Ξ±Ξ―Ξ± Ο‡ΟΞΏΞ½ΞΉΞΊΞ® ΟƒΟ…Ξ½ΞµΞ΄ΟΞ―Ξ±ΟƒΞ· (???)';
+$_lang['Last submission'] = 'Ξ¤ΞµΞ»ΞµΟ…Ο„Ξ±Ξ―Ξ± Ο…Ο€ΞΏΞ²ΞΏΞ»Ξ®';
+$_lang['Lasting'] = 'Ξ”ΞΉΞ¬ΟΞΊΞµΞΉΞ±';
+$_lang['Late upload'] = 'ΞΞ±ΞΈΟ…ΟƒΟ„ΞµΟΞ·ΞΌΞ­Ξ½Ξ· ΞΊΞ±Ο„Ξ±Ο‡ΟΟΞ·ΟƒΞ·';
+$_lang['Latest announcements'] = 'Ξ¤ΞµΞ»ΞµΟ…Ο„Ξ±Ξ―ΞµΟ‚ Ξ±Ξ½Ξ±ΞΊΞΏΞΉΞ½ΟΟƒΞµΞΉΟ‚';
+$_lang['Layout'] = 'Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ·';
+$_lang['Learning Path is empty'] = ' Ξ— Ο€ΞΏΟΞµΞ―Ξ± ΞµΞΊΞΌΞ¬ΞΈΞ·ΟƒΞ·Ο‚ ΞµΞ―Ξ½Ξ±ΞΉ ΞΊΞµΞ½Ξ® ';
+$_lang['Learning Path not found'] = ' Ξ ΞΏΟΞµΞ―Ξ± ΞµΞΊΞΌΞ¬ΞΈΞ·ΟƒΞ·Ο‚ Ξ΄ΞµΞ½ Ξ²ΟΞ­ΞΈΞ·ΞΊΞµ ';
+$_lang['Learning path'] = 'Ξ”ΞΉΞ±Ξ΄ΟΞΏΞΌΞ® ΞΌΞ¬ΞΈΞ·ΟƒΞ·Ο‚';
+$_lang['Learning path admin'] = 'Ξ”ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΞ· Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ®Ο‚ ΞΌΞ¬ΞΈΞ·ΟƒΞ·Ο‚';
+$_lang['Learning path content'] = 'Ξ ΞµΟΞΉΞµΟ‡ΟΞΌΞµΞ½ΞΏ Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ®Ο‚ ΞΌΞ¬ΞΈΞ·ΟƒΞ·Ο‚';
+$_lang['Learning path has been successfully imported.'] = 'Ξ— Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ® ΞΌΞ¬ΞΈΞ·ΟƒΞ·Ο‚ Ξ­Ο‡ΞµΞΉ ΞµΞΉΟƒΞ±Ο‡ΞΈΞµΞ― ΞΌΞµ ΞµΟ€ΞΉΟ„Ο…Ο‡Ξ―Ξ±.';
+$_lang['Learning path list'] = 'Ξ›Ξ―ΟƒΟ„Ξ± Ξ΄ΞΉΞ±Ο‡ΞµΞ―ΟΞΉΟƒΞ·Ο‚ Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ®Ο‚ ';
+$_lang['Learning path progression :'] = 'Ξ ΟΟΞΏΞ΄ΞΏΟ‚ Ο„Ξ·Ο‚ Ο€ΞΏΟΞµΞ―Ξ±Ο‚ ΞΌΞ¬ΞΈΞ·ΟƒΞ·Ο‚ : ';
+$_lang['Learning paths tracking'] = 'Ξ Ξ±ΟΞ±ΞΊΞΏΞ»ΞΏΟΞΈΞ·ΟƒΞ· Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ®Ο‚ ΞΌΞ¬ΞΈΞ·ΟƒΞ·Ο‚';
+$_lang['Lecturer(s)'] = 'ΞΞ±ΞΈΞ·Ξ³Ξ·Ο„Ξ®Ο‚(Ξ­Ο‚)';
+$_lang['Left'] = 'Ξ‘ΟΞΉΟƒΟ„ΞµΟΞ¬';
+$_lang['License'] = 'Ξ†Ξ΄ΞµΞΉΞ± Ο‡ΟΞ®ΟƒΞ·Ο‚';
+$_lang['Life time of cache'] = 'Ξ”ΞΉΞ¬ΟΞΊΞµΞΉΞ± Ξ¶Ο‰Ξ®Ο‚ Ο„Ξ·Ο‚ cache';
+$_lang['Limit'] = 'ΟΟΞΉΞΏ';
+$_lang['Line Number'] = 'Ξ‘ΟΞΉΞΈΞΌΟΟ‚ Ξ³ΟΞ±ΞΌΞΌΞ®Ο‚';
+$_lang['Line break'] = 'Ξ‘Ξ»Ξ»Ξ±Ξ³Ξ® Ξ³ΟΞ±ΞΌΞ®Ο‚';
+$_lang['Lines'] = 'Ξ“ΟΞ±ΞΌΞΌΞ­Ο‚';
+$_lang['List of Wiki'] = 'Ξ›Ξ―ΟƒΟ„Ξ± Ο„ΞΏΟ… Wiki';
+$_lang['Load default format'] = 'Ξ¦ΟΟΟ„Ο‰ΟƒΞ· Ο€ΟΞΏΞΊΞ±ΞΈΞΏΟΞΉΟƒΞΌΞ­Ξ½Ξ·Ο‚ ΞΌΞΏΟΟ†Ξ®Ο‚ (format)';
+$_lang['Loaded extensions'] = 'ΞΞ±Ο„ΞµΞ²Ξ±ΟƒΞΌΞ­Ξ½ΞµΟ‚ ΞµΟ€ΞµΞΊΟ„Ξ¬ΟƒΞµΞΉΟ‚';
+$_lang['Local settings'] = 'Ξ¤ΞΏΟ€ΞΉΞΊΞ­Ο‚ ΟΟ…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚';
+$_lang['Location'] = 'Ξ¤ΞΏΟ€ΞΏΞΈΞµΟƒΞ―Ξ±';
+$_lang['Lock'] = 'ΞΞ»ΞµΞ―Ξ΄Ο‰ΞΌΞ±';
+$_lang['Locked'] = 'ΞΞµΞ»ΞΉΞ΄Ο‰ΞΌΞ­Ξ½ΞΏ';
+$_lang['Log of user activities  on the whole platform (course access, tool use, ...).'] = 'Ξ‘Ο€ΞΏΟƒΟΞ½Ξ΄ΞµΟƒΞµ Ξ΄ΟΞ±ΟƒΟ„Ξ·ΟΞΉΟΟ„Ξ·Ο„ΞµΟ‚ Ο‡ΟΞ®ΟƒΟ„Ξ· ΟƒΞµ ΞΏΞ»ΟΞΊΞ»Ξ·ΟΞ· Ο„Ξ·Ξ½ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ± (Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ· ΟƒΞµ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„Ξ±, Ο‡ΟΞ®ΟƒΞ· ΞµΟΞ³Ξ±Ξ»ΞµΞ―Ο‰Ξ½, ...).';
 $_lang['Login'] = 'Login';
-$_lang['Login date'] = 'Ημερομηνία εισόδου';
-$_lang['Login failed.'] = 'Είσοδος απέτυχε.';
-$_lang['Login request'] = 'Απαιτείται Login';
+$_lang['Login date'] = 'Ξ—ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ± ΞµΞΉΟƒΟΞ΄ΞΏΟ…';
+$_lang['Login failed.'] = 'Ξ•Ξ―ΟƒΞΏΞ΄ΞΏΟ‚ Ξ±Ο€Ξ­Ο„Ο…Ο‡Ξµ.';
+$_lang['Login request'] = 'Ξ‘Ο€Ξ±ΞΉΟ„ΞµΞ―Ο„Ξ±ΞΉ Login';
 $_lang['Logins'] = 'Logins';
-$_lang['Logins not used'] = 'Logins που δε χρησιμοποιούνται';
-$_lang['Logout'] = 'Έξοδος';
-$_lang['Lost password'] = 'Υπενθύμιση κωδικού';
-$_lang['Mail is already used by another user.'] = 'Το mail χρησιμοποιείται ήδη απο άλλο χρήστη';
-$_lang['Mail notification'] = 'Ειδοποίηση εmail';
-$_lang['Mail sent to user'] = 'Email στάλθηκε στο χρήστη';
-$_lang['Mail server configuration'] = 'Ρύθμιση Mail server';
-$_lang['Mail synthax error.'] = 'Σφάλμα σύνταξης στο mail.';
-$_lang['Main'] = 'Κεντρικό';
-$_lang['Main Group Settings'] = 'Ρυθμίσεις κύριας ομάδας';
-$_lang['Main database name'] = 'Όνομα κεντρικής βάσηςδεδομένων';
-$_lang['Main page'] = 'Κύρια σελίδα';
-$_lang['Main settings'] = 'Κεντρικές ρυθμίσεις';
-$_lang['Make correspond'] = 'Δημιουργία αντιστοίχισης';
-$_lang['Make invisible'] = 'Μετατροπή σε αόρατο';
-$_lang['Make module invisible in all courses'] = 'Απόκρυψη του module από όλα τα μαθήματα';
-$_lang['Make module visible in all courses'] = 'Εμφάνιση module σε όλα τα μαθήματα';
-$_lang['Make new search'] = 'Νέα αναζήτηση : ';
-$_lang['Make search'] = 'Αναζήτηση';
-$_lang['Make visible'] = 'Μετατροπή σε αόρατο';
-$_lang['Manage Right'] = 'Διαχείριση Δεξιού μέρου';
-$_lang['Manage classes'] = 'Διαχείριση τάξεων';
-$_lang['Manage course categories'] = 'Διαχείριση κατηγοριών μαθήματος';
-$_lang['Manager'] = 'Διαχειριστής';
-$_lang['Manager(s) for %course_code'] = 'Διαχειριστής(ες) για %course_code';
-$_lang['Manifest found in zip file :'] = 'Η ανακοίνωση βρέθηκε σε αρχείο zip: ';
-$_lang['Manifest missing : %filename'] = 'Λείπει το Manifest : %filename';
-$_lang['Manifest read.'] = 'H ανακοίνωση διαβάστηκε.';
-$_lang['Matching'] = 'Αντιστοίχιση';
-$_lang['Mathematical renderer URL'] = 'Διεύθυνση URL του μαθηματικού επεξεργαστή';
-$_lang['Max file size'] = 'Μέγιστο μέγεθος αρχείου : ';
-$_lang['Max file size : %size'] = 'Μέγιστο μέγεθος αρχείου : %size';
-$_lang['Max length of the \'last events\' displayed content'] = 'Μέγιστο μέγεθος των περιεχομένων των \'τελευταίων γεγονότων\' ';
-$_lang['Max.'] = 'μέγ.';
-$_lang['Maximum conversation lines'] = 'Μέγιστος αριθμός γραμμών συνομιλίας';
-$_lang['Maximum conversation lines displayed to the user. '] = 'Μέγιστος αριθμός γραμμών συνομιλίας που εμφανίζονται στο χρήστη.';
-$_lang['Maximum conversation lines in chat file'] = 'Μέγιστος αριθμός γραμμών συνομιλίας στο αρχείο';
-$_lang['Maximum disk space : %size'] = 'Μέγιστη χωρητικότητα : %size';
-$_lang['Maximum lengh for a nick'] = 'Μέγιστο μήκος για το ψευδώνυμο';
-$_lang['Maximum lines in the active chat file. For performance, it\'s interesting to not work with too big file.'] = 'Μέγιστος αριθμός γραμμών στο αρχείο της ενεργής συνομιλίας. Για καλύτερη απόδοση, είναι προτιμότερο να μην εργάζεσθαι με πολύ μεγάλα αρχεία.';
-$_lang['Maximum size for an assignment'] = 'Μέγιστο μέγεθος για μία άσκηση';
-$_lang['Maximum size of a document that a user can upload'] = 'Μέγιστο μέγεθος εγγράφου που ο χρήστης μπορεί να φορτώσει';
-$_lang['Memorize them, you will use them the next time you will enter to this site.'] = 'Αποστήθισε τα, θα τα χρειαστείς την επόμενη φορά που θα μπεις σε αυτή τη σελίδα.';
-$_lang['Message'] = 'Μήνυμα';
-$_lang['Message body'] = 'Σώμα μηνύματος';
-$_lang['Message from your lecturer'] = 'Mήνυμα απο τον λέκτορα σου ';
-$_lang['Message sent'] = 'Μήνυμα στάλθηκε';
-$_lang['Messages'] = 'Mηνύματα';
-$_lang['Messages posted'] = 'Καταχώρηση /ενημέρωση μηνυμάτων';
-$_lang['Messages to selected users'] = 'Mηνύματα σε επιλεγμένους χρήστες';
-$_lang['Minimum raw to pass has been changed'] = 'Ο ελάχιστος βαθμός για να προαγωγή έχει αλλαχθεί';
-$_lang['MinuteShort'] = 'min. (ελαχ.)';
-$_lang['Missing'] = 'λείπει';
-$_lang['Missing elements in module Manifest : %MissingElements'] = 'Ελλειπή στοιχεία στο Manifest του module : %MissingElements';
-$_lang['Missing field(s)'] = ' Ελλειπές(ή) πεδίο(α) ';
-$_lang['Missing images detected'] = 'Εντοπίστηκαν ελλιπείς εικόνες-σύμβολα';
-$_lang['Missing language files'] = 'Ελλιπή αρχεία γλώσσας';
-$_lang['Missing module directory'] = 'Λείπει ο κατάλογος του module';
-$_lang['Missing parameters'] = 'Λείπουν παράμετροι';
-$_lang['Missing search keywords'] = 'Λείπουν λέξεις αναζήτησης';
-$_lang['Missing value'] = 'Ελλιπής αξιολόγηση';
-$_lang['Modifies this announcement'] = 'Αλλαγή της ανακοίνωσης';
-$_lang['Modify'] = 'Διόρθωση';
-$_lang['Modify a work'] = 'Επεξεργασία εργασίας';
-$_lang['Modify it in all exercises'] = 'Ενημέρωσε όλες τις ασκήσεις';
-$_lang['Modify it only in this exercise'] = 'Ενημέρωσε μόνο αυτή την άσκηση';
-$_lang['Modify the format'] = 'Επεξεργασία φορμαρίσματος';
-$_lang['Module'] = 'Ενότητα';
-$_lang['Module %module is already installed on your platform'] = 'Το Module %module είναι ήδη εγκατεστημένο στην πλατφόρμα';
-$_lang['Module activation failed'] = 'Η ενεργοποίηση του module απέτυχε';
-$_lang['Module activation succeeded'] = 'Η ενεργοποίηση του module πέτυχε';
-$_lang['Module added :'] = 'Προσθήκη ενότητας : ';
-$_lang['Module cache update failed'] = 'Απέτυχε η ενημέρωση της cache του module';
-$_lang['Module cache update succeeded'] = 'Πέτυχε η ενημέρωση της cache του module';
-$_lang['Module deactivation succeeded'] = 'Η απενεργοποίηση του module πέτυχε';
-$_lang['Module directory not found'] = 'Δεν μπορεί να βρεθεί ο κατάλογος του module';
-$_lang['Module installation failed'] = 'Απέτυχε η εγκατάσταση του module';
-$_lang['Module installation script called'] = 'Κλήθηκε το αρχείο εγκατάστασης του module';
-$_lang['Module installation succeeded'] = 'Πέτυχε η εγκατάσταση του module';
-$_lang['Module installed in all courses'] = 'Το module εγκαταστήθηκε σε όλα τα μαθήματα';
-$_lang['Module list'] = 'Λίστα module';
-$_lang['Module moved'] = 'Μετακίνηση ενότητας';
-$_lang['Module name'] = 'Όνομα module';
-$_lang['Module registration failed'] = 'Η εγγραφή του module απέτυχε';
-$_lang['Module settings'] = 'Ρυθμίσεις module';
-$_lang['Module status'] = 'Κατάσταση ενότητας';
-$_lang['Module type'] = 'Tύπος ενότητας';
-$_lang['Module uninstallation failed'] = 'Η απεγκατάσταση του module απέτυχε';
-$_lang['Module uninstallation script called'] = 'Κλήθηκε το αρχείο απεγκατάστασης του module';
-$_lang['Module uninstallation succeeded'] = 'Η απεγκατάσταση του module πέτυχε';
-$_lang['Module uninstalled in all courses'] = 'Το module απεγκαταστάθηκε από όλα τα μαθήματα';
-$_lang['Module unpackaging failed'] = 'Η αποσυμπίεση του module απέτυχε';
-$_lang['Module upload failed'] = 'Το φόρτωμα του module απέτυχε';
-$_lang['Module visibility updated'] = 'Η κατάσταση εμφάνισης του module ενημερώθηκε';
+$_lang['Logins not used'] = 'Logins Ο€ΞΏΟ… Ξ΄Ξµ Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞΏΟΞ½Ο„Ξ±ΞΉ';
+$_lang['Logout'] = 'ΞΞΎΞΏΞ΄ΞΏΟ‚';
+$_lang['Logout user from CAS server when user logout from Claroline'] = 'Ξ‘Ο€ΞΏΟƒΟΞ½Ξ΄ΞµΟƒΞµ Ο„ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ· Ξ±Ο€ΞΏ Ο„ΞΏΞ½ ΞµΞΎΟ…Ο€Ξ·ΟΞ­Ο„Ξ· CAS  ΟΟ„Ξ±Ξ½ ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ Ξ±Ο€ΞΏΟƒΟ…Ξ½Ξ΄ΞµΞΈΞµΞ― Ξ±Ο€ΞΏ Ο„ΞΏ ΞΞ»Ξ¬ΟΞΏΞ»Ξ±ΞΉΞ½';
+$_lang['Lost password'] = 'Ξ¥Ο€ΞµΞ½ΞΈΟΞΌΞΉΟƒΞ· ΞΊΟ‰Ξ΄ΞΉΞΊΞΏΟ';
+$_lang['Mail is already used by another user.'] = 'Ξ¤ΞΏ mail Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞµΞ―Ο„Ξ±ΞΉ Ξ®Ξ΄Ξ· Ξ±Ο€ΞΏ Ξ¬Ξ»Ξ»ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['Mail notification'] = 'Ξ•ΞΉΞ΄ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· Ξµmail';
+$_lang['Mail sent to user'] = 'Email ΟƒΟ„Ξ¬Ξ»ΞΈΞ·ΞΊΞµ ΟƒΟ„ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['Mail server configuration'] = 'Ξ΅ΟΞΈΞΌΞΉΟƒΞ· Mail server';
+$_lang['Mail synthax error.'] = 'Ξ£Ο†Ξ¬Ξ»ΞΌΞ± ΟƒΟΞ½Ο„Ξ±ΞΎΞ·Ο‚ ΟƒΟ„ΞΏ mail.';
+$_lang['Main'] = 'ΞΞµΞ½Ο„ΟΞΉΞΊΟ';
+$_lang['Main Group Settings'] = 'Ξ΅Ο…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ ΞΊΟΟΞΉΞ±Ο‚ ΞΏΞΌΞ¬Ξ΄Ξ±Ο‚';
+$_lang['Main database name'] = 'ΞΞ½ΞΏΞΌΞ± ΞΊΞµΞ½Ο„ΟΞΉΞΊΞ®Ο‚ Ξ²Ξ¬ΟƒΞ·Ο‚Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½';
+$_lang['Main page'] = 'ΞΟΟΞΉΞ± ΟƒΞµΞ»Ξ―Ξ΄Ξ±';
+$_lang['Main settings'] = 'ΞΞµΞ½Ο„ΟΞΉΞΊΞ­Ο‚ ΟΟ…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚';
+$_lang['Make correspond'] = 'Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ξ±Ξ½Ο„ΞΉΟƒΟ„ΞΏΞ―Ο‡ΞΉΟƒΞ·Ο‚';
+$_lang['Make invisible'] = 'ΞΞµΟ„Ξ±Ο„ΟΞΏΟ€Ξ® ΟƒΞµ Ξ±ΟΟΞ±Ο„ΞΏ';
+$_lang['Make module invisible in all courses'] = 'Ξ‘Ο€ΟΞΊΟΟ…ΟΞ· Ο„ΞΏΟ… module Ξ±Ο€Ο ΟΞ»Ξ± Ο„Ξ± ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„Ξ±';
+$_lang['Make module visible in all courses'] = 'Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· module ΟƒΞµ ΟΞ»Ξ± Ο„Ξ± ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„Ξ±';
+$_lang['Make new search'] = 'ΞΞ­Ξ± Ξ±Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ· : ';
+$_lang['Make search'] = 'Ξ‘Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ·';
+$_lang['Make visible'] = 'ΞΞµΟ„Ξ±Ο„ΟΞΏΟ€Ξ® ΟƒΞµ Ξ±ΟΟΞ±Ο„ΞΏ';
+$_lang['Makes TinyMCE 75% smaller and a lot faster to load.'] = 'ΞΞ¬Ξ½ΞµΞΉ Ο„ΞΏ TinyMCE 75% ΞΌΞΉΞΊΟΟΟ„ΞµΟΞΏ ΞΊΞ±ΞΉ Ο€ΞΏΞ»Ο Ο€ΞΉΞΏ Ξ³ΟΞ®Ξ³ΞΏΟΟΟ„ΞµΟΞΏ ΟƒΟ„ΞΏ ΞΊΞ±Ο„Ξ­Ξ²Ξ±ΟƒΞΌΞ±.';
+$_lang['Manage Right'] = 'Ξ”ΞΉΞ±Ο‡ΞµΞ―ΟΞΉΟƒΞ· Ξ”ΞµΞΎΞΉΞΏΟ ΞΌΞ­ΟΞΏΟ…';
+$_lang['Manage administrator email notifications'] = 'Ξ”ΞΉΞ±Ο‡ΞµΞ―ΟΞΉΟƒΞ· ΞµΞΉΞ΄ΞΏΟ€ΞΏΞΉΞ®ΟƒΞµΟ‰Ξ½ Ξ·Ξ»ΞµΞΊΟ„ΟΞΏΞ½ΞΉΞΊΞΏΟ Ο„Ξ±Ο‡Ο…Ξ΄ΟΞΏΞΌΞµΞ―ΞΏΟ…  Ξ΄ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ®';
+$_lang['Manage classes'] = 'Ξ”ΞΉΞ±Ο‡ΞµΞ―ΟΞΉΟƒΞ· Ο„Ξ¬ΞΎΞµΟ‰Ξ½';
+$_lang['Manage course categories'] = 'Ξ”ΞΉΞ±Ο‡ΞµΞ―ΟΞΉΟƒΞ· ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞΉΟΞ½ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Manage external links'] = 'Ξ”ΞΉΞ±Ο‡ΞµΞ―ΟΞΉΟƒΞ· ΞµΞΎΞµΟ„ΞµΟΞΉΞΊΟΞ½ ΟƒΟ…Ξ½Ξ΄Ξ­ΟƒΞΌΟ‰Ξ½';
+$_lang['Manage tool access rights'] = 'Ξ”ΞΉΞ±Ο‡ΞµΞ―ΟΞΉΟƒΞ· ΞµΞ»Ξ­Ξ³Ο‡ΞΏΟ… Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ·Ο‚ ΞµΟΞ³Ξ±Ξ»ΞµΞΉΟΞ½';
+$_lang['Manage user desktop'] = 'Ξ”ΞΉΞ±Ο‡ΞµΞ―ΟΞΉΟƒΞ· ΞµΟ€ΞΉΟ†Ξ¬Ξ½ΞµΞΉΞ±Ο‚ ΞµΟΞ³Ξ±ΟƒΞ―Ξ±Ο‚ Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['Manager'] = 'Ξ”ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ®Ο‚';
+$_lang['Manager(s) for %course_code'] = 'Ξ”ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ®Ο‚(ΞµΟ‚) Ξ³ΞΉΞ± %course_code';
+$_lang['Manifest found in zip file :'] = 'Ξ— Ξ±Ξ½Ξ±ΞΊΞΏΞ―Ξ½Ο‰ΟƒΞ· Ξ²ΟΞ­ΞΈΞ·ΞΊΞµ ΟƒΞµ Ξ±ΟΟ‡ΞµΞ―ΞΏ zip: ';
+$_lang['Manifest missing : %filename'] = 'Ξ›ΞµΞ―Ο€ΞµΞΉ Ο„ΞΏ Manifest : %filename';
+$_lang['Manifest read.'] = 'H Ξ±Ξ½Ξ±ΞΊΞΏΞ―Ξ½Ο‰ΟƒΞ· Ξ΄ΞΉΞ±Ξ²Ξ¬ΟƒΟ„Ξ·ΞΊΞµ.';
+$_lang['Manual'] = 'Ξ’ΞΉΞ²Ξ»Ξ―ΞΏ ΞΏΞ΄Ξ®Ξ³Ξ·ΟƒΞ·Ο‚';
+$_lang['Match the exact expression'] = 'Ξ¤Ξ±Ο…Ο„ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞµ Ο„Ξ·Ξ½ Ξ±ΞΊΟΞΉΞ²Ξ® Ξ­ΞΊΟ†ΟΞ±ΟƒΞ·';
+$_lang['Matching'] = 'Ξ‘Ξ½Ο„ΞΉΟƒΟ„ΞΏΞ―Ο‡ΞΉΟƒΞ·';
+$_lang['Mathematical renderer URL'] = 'Ξ”ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ· URL Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ·ΞΌΞ±Ο„ΞΉΞΊΞΏΟ ΞµΟ€ΞµΞΎΞµΟΞ³Ξ±ΟƒΟ„Ξ®';
+$_lang['Max announcement number in portlet'] = 'ΞΞ­Ξ³ΞΉΟƒΟ„ΞΏΟ‚ Ξ±ΟΞΉΞΈΞΌΟΟ‚ ΞµΞΉΞ΄ΞΏΟ€ΞΏΞΉΞ®ΟƒΞµΟ‰Ξ½ ΟƒΟ„Ξ·Ξ½ Ο€ΟΞ»Ξ·';
+$_lang['Max file size'] = 'ΞΞ­Ξ³ΞΉΟƒΟ„ΞΏ ΞΌΞ­Ξ³ΞµΞΈΞΏΟ‚ Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… : ';
+$_lang['Max file size : %size'] = 'ΞΞ­Ξ³ΞΉΟƒΟ„ΞΏ ΞΌΞ­Ξ³ΞµΞΈΞΏΟ‚ Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… : %size';
+$_lang['Max length of the \'last events\' displayed content'] = 'ΞΞ­Ξ³ΞΉΟƒΟ„ΞΏ ΞΌΞ­Ξ³ΞµΞΈΞΏΟ‚ Ο„Ο‰Ξ½ Ο€ΞµΟΞΉΞµΟ‡ΞΏΞΌΞ­Ξ½Ο‰Ξ½ Ο„Ο‰Ξ½ \'Ο„ΞµΞ»ΞµΟ…Ο„Ξ±Ξ―Ο‰Ξ½ Ξ³ΞµΞ³ΞΏΞ½ΟΟ„Ο‰Ξ½\' ';
+$_lang['Max.'] = 'ΞΌΞ­Ξ³.';
+$_lang['Maximum conversation lines'] = 'ΞΞ­Ξ³ΞΉΟƒΟ„ΞΏΟ‚ Ξ±ΟΞΉΞΈΞΌΟΟ‚ Ξ³ΟΞ±ΞΌΞΌΟΞ½ ΟƒΟ…Ξ½ΞΏΞΌΞΉΞ»Ξ―Ξ±Ο‚';
+$_lang['Maximum conversation lines displayed to the user. '] = 'ΞΞ­Ξ³ΞΉΟƒΟ„ΞΏΟ‚ Ξ±ΟΞΉΞΈΞΌΟΟ‚ Ξ³ΟΞ±ΞΌΞΌΟΞ½ ΟƒΟ…Ξ½ΞΏΞΌΞΉΞ»Ξ―Ξ±Ο‚ Ο€ΞΏΟ… ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞΏΞ½Ο„Ξ±ΞΉ ΟƒΟ„ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ·.';
+$_lang['Maximum conversation lines in chat file'] = 'ΞΞ­Ξ³ΞΉΟƒΟ„ΞΏΟ‚ Ξ±ΟΞΉΞΈΞΌΟΟ‚ Ξ³ΟΞ±ΞΌΞΌΟΞ½ ΟƒΟ…Ξ½ΞΏΞΌΞΉΞ»Ξ―Ξ±Ο‚ ΟƒΟ„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ';
+$_lang['Maximum disk space : %size'] = 'ΞΞ­Ξ³ΞΉΟƒΟ„Ξ· Ο‡Ο‰ΟΞ·Ο„ΞΉΞΊΟΟ„Ξ·Ο„Ξ± : %size';
+$_lang['Maximum lengh for a nick'] = 'ΞΞ­Ξ³ΞΉΟƒΟ„ΞΏ ΞΌΞ®ΞΊΞΏΟ‚ Ξ³ΞΉΞ± Ο„ΞΏ ΟΞµΟ…Ξ΄ΟΞ½Ο…ΞΌΞΏ';
+$_lang['Maximum lines in the active chat file. For performance, it\'s interesting to not work with too big file.'] = 'ΞΞ­Ξ³ΞΉΟƒΟ„ΞΏΟ‚ Ξ±ΟΞΉΞΈΞΌΟΟ‚ Ξ³ΟΞ±ΞΌΞΌΟΞ½ ΟƒΟ„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ Ο„Ξ·Ο‚ ΞµΞ½ΞµΟΞ³Ξ®Ο‚ ΟƒΟ…Ξ½ΞΏΞΌΞΉΞ»Ξ―Ξ±Ο‚. Ξ“ΞΉΞ± ΞΊΞ±Ξ»ΟΟ„ΞµΟΞ· Ξ±Ο€ΟΞ΄ΞΏΟƒΞ·, ΞµΞ―Ξ½Ξ±ΞΉ Ο€ΟΞΏΟ„ΞΉΞΌΟΟ„ΞµΟΞΏ Ξ½Ξ± ΞΌΞ·Ξ½ ΞµΟΞ³Ξ¬Ξ¶ΞµΟƒΞΈΞ±ΞΉ ΞΌΞµ Ο€ΞΏΞ»Ο ΞΌΞµΞ³Ξ¬Ξ»Ξ± Ξ±ΟΟ‡ΞµΞ―Ξ±.';
+$_lang['Maximum size for an assignment'] = 'ΞΞ­Ξ³ΞΉΟƒΟ„ΞΏ ΞΌΞ­Ξ³ΞµΞΈΞΏΟ‚ Ξ³ΞΉΞ± ΞΌΞ―Ξ± Ξ¬ΟƒΞΊΞ·ΟƒΞ·';
+$_lang['Maximum size of a document that a user can upload'] = 'ΞΞ­Ξ³ΞΉΟƒΟ„ΞΏ ΞΌΞ­Ξ³ΞµΞΈΞΏΟ‚ ΞµΞ³Ξ³ΟΞ¬Ο†ΞΏΟ… Ο€ΞΏΟ… ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ο†ΞΏΟΟ„ΟΟƒΞµΞΉ';
+$_lang['Memorize them, you will use them the next time you will enter to this site.'] = 'Ξ‘Ο€ΞΏΟƒΟ„Ξ®ΞΈΞΉΟƒΞµ Ο„Ξ±, ΞΈΞ± Ο„Ξ± Ο‡ΟΞµΞΉΞ±ΟƒΟ„ΞµΞ―Ο‚ Ο„Ξ·Ξ½ ΞµΟ€ΟΞΌΞµΞ½Ξ· Ο†ΞΏΟΞ¬ Ο€ΞΏΟ… ΞΈΞ± ΞΌΟ€ΞµΞΉΟ‚ ΟƒΞµ Ξ±Ο…Ο„Ξ® Ο„Ξ· ΟƒΞµΞ»Ξ―Ξ΄Ξ±.';
+$_lang['Merge'] = 'Ξ£Ο…Ξ³Ο‡ΟΞ½ΞµΟ…ΟƒΞ·';
+$_lang['Merge user accounts'] = 'Ξ£Ο…Ξ³Ο‡ΟΞ½ΞµΟ…ΟƒΞ· Ξ»ΞΏΞ³Ξ±ΟΞΉΞ±ΟƒΞΌΟΞ½ Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['Merging user accounts is not a reversible operation so be careful !'] = 'Ξ— ΟƒΟ…Ξ³Ο‡ΟΞ½ΞµΟ…ΟƒΞ· Ξ»ΞΏΞ³Ξ±ΟΞΉΟƒΞΌΟΞ½ Ο‡ΟΞ·ΟƒΟ„ΟΞ½ ΞµΞ―Ξ½Ξ±ΞΉ ΞΌΞ· ΞµΟ€ΞΉΟƒΟ„ΟΞ­ΟΞΉΞΌΞ· ΞµΞ½Ξ­ΟΞ³ΞµΞΉΞ±, Ξ³ΞΉ\' Ξ±Ο…Ο„ΞΏ Ξ½Ξ± ΞµΞ―ΟƒΟ„Ξµ Ο€ΟΞΏΟƒΞµΞΊΟ„ΞΉΞΊΞΏΞ―!';
+$_lang['Merging users will alter the user data and cannot be undone. Are you sure to want to continue ?'] = 'Ξ— ΟƒΟ…Ξ³Ο‡ΟΞ½ΞµΟ…ΟƒΞ· ΟΞ»Ο‰Ξ½ Ο„ΞΏ Ο‡ΟΞ·ΟƒΟ„ΟΞ½ ΞΈΞ± Ξ±Ξ»Ξ»Ξ¬ΞΎΞµΞΉ ΟΞ»Ξ± Ο„Ξ± Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ξ± Ο„ΞΏΟ… Ο‡ΟΞ®ΟƒΟ„Ξ· ΞΊΞ±ΞΉ Ξ΄ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΞµΟ€ΞΉΟƒΟ„ΟΞ­ΟΞµΞΉ ΟƒΟ„Ξ·Ξ½ Ξ±ΟΟ‡ΞΉΞΊΞ® ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ·. Ξ•Ξ―ΟƒΞ±ΞΉ ΟƒΞ―Ξ³ΞΏΟ…ΟΞΏΟ‚ ΟΟ„ΞΉ ΞΈΞ­Ξ»ΞµΞΉΟ‚ Ξ½Ξ± ΟƒΟ…Ξ½ΞµΟ‡Ξ―ΟƒΞµΞΉΟ‚;';
+$_lang['Message'] = 'ΞΞ®Ξ½Ο…ΞΌΞ±';
+$_lang['Message body'] = 'Ξ£ΟΞΌΞ± ΞΌΞ·Ξ½ΟΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Message from your lecturer'] = 'MΞ®Ξ½Ο…ΞΌΞ± Ξ±Ο€ΞΏ Ο„ΞΏΞ½ Ξ»Ξ­ΞΊΟ„ΞΏΟΞ± ΟƒΞΏΟ… ';
+$_lang['Message not found'] = 'Ξ¤ΞΏ ΞΌΞ®Ξ½Ο…ΞΌΞ± Ξ΄ΞµΞ½ Ξ²ΟΞ­ΞΈΞ·ΞΊΞµ';
+$_lang['Message sent'] = 'ΞΞ®Ξ½Ο…ΞΌΞ± ΟƒΟ„Ξ¬Ξ»ΞΈΞ·ΞΊΞµ';
+$_lang['Messages'] = 'MΞ·Ξ½ΟΞΌΞ±Ο„Ξ±';
+$_lang['Messages of %firstName %lastName'] = 'ΞΞ·Ξ½ΟΞΌΞ±Ο„Ξ± Ο„ΞΏΟ… %firstName %lastName';
+$_lang['Messages posted'] = 'ΞΞ±Ο„Ξ±Ο‡ΟΟΞ·ΟƒΞ· /ΞµΞ½Ξ·ΞΌΞ­ΟΟ‰ΟƒΞ· ΞΌΞ·Ξ½Ο…ΞΌΞ¬Ο„Ο‰Ξ½';
+$_lang['Messages to selected users'] = 'MΞ·Ξ½ΟΞΌΞ±Ο„Ξ± ΟƒΞµ ΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½ΞΏΟ…Ο‚ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚';
+$_lang['Middle'] = 'ΞΞµΟƒΞ±Ξ―ΞΏ';
+$_lang['Minimum raw to pass has been changed'] = 'Ξ ΞµΞ»Ξ¬Ο‡ΞΉΟƒΟ„ΞΏΟ‚ Ξ²Ξ±ΞΈΞΌΟΟ‚ Ξ³ΞΉΞ± Ξ½Ξ± Ο€ΟΞΏΞ±Ξ³Ο‰Ξ³Ξ® Ξ­Ο‡ΞµΞΉ Ξ±Ξ»Ξ»Ξ±Ο‡ΞΈΞµΞ―';
+$_lang['MinuteShort'] = 'min. (ΞµΞ»Ξ±Ο‡.)';
+$_lang['Missing'] = 'Ξ»ΞµΞ―Ο€ΞµΞΉ';
+$_lang['Missing elements in module Manifest : %MissingElements'] = 'Ξ•Ξ»Ξ»ΞµΞΉΟ€Ξ® ΟƒΟ„ΞΏΞΉΟ‡ΞµΞ―Ξ± ΟƒΟ„ΞΏ Manifest Ο„ΞΏΟ… module : %MissingElements';
+$_lang['Missing field(s)'] = ' Ξ•Ξ»Ξ»ΞµΞΉΟ€Ξ­Ο‚(Ξ®) Ο€ΞµΞ΄Ξ―ΞΏ(Ξ±) ';
+$_lang['Missing images detected'] = 'Ξ•Ξ½Ο„ΞΏΟ€Ξ―ΟƒΟ„Ξ·ΞΊΞ±Ξ½ ΞµΞ»Ξ»ΞΉΟ€ΞµΞ―Ο‚ ΞµΞΉΞΊΟΞ½ΞµΟ‚-ΟƒΟΞΌΞ²ΞΏΞ»Ξ±';
+$_lang['Missing language files'] = 'Ξ•Ξ»Ξ»ΞΉΟ€Ξ® Ξ±ΟΟ‡ΞµΞ―Ξ± Ξ³Ξ»ΟΟƒΟƒΞ±Ο‚';
+$_lang['Missing module directory'] = 'Ξ›ΞµΞ―Ο€ΞµΞΉ ΞΏ ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏΟ‚ Ο„ΞΏΟ… module';
+$_lang['Missing parameter : %param%'] = 'Ξ Ξ±ΟΞ±Ξ»ΞµΞΉΟ€ΟΞΌΞµΞ½Ξ· Ο€Ξ±ΟΞ¬ΞΌΞµΟ„ΟΞΏΟ‚ : %param%';
+$_lang['Missing parameters'] = 'Ξ›ΞµΞ―Ο€ΞΏΟ…Ξ½ Ο€Ξ±ΟΞ¬ΞΌΞµΟ„ΟΞΏΞΉ';
+$_lang['Missing search keywords'] = 'Ξ›ΞµΞ―Ο€ΞΏΟ…Ξ½ Ξ»Ξ­ΞΎΞµΞΉΟ‚ Ξ±Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ·Ο‚';
+$_lang['Missing tool label'] = 'Ξ Ξ±ΟΞ±Ξ»ΞµΞΉΟ€ΟΞΌΞµΞ½Ξ· ΞµΟ„ΞΉΞΊΞ­Ο„Ξ± ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏΟ…';
+$_lang['Missing value'] = 'Ξ•Ξ»Ξ»ΞΉΟ€Ξ®Ο‚ Ξ±ΞΎΞΉΞΏΞ»ΟΞ³Ξ·ΟƒΞ·';
+$_lang['Modifies this announcement'] = 'Ξ‘Ξ»Ξ»Ξ±Ξ³Ξ® Ο„Ξ·Ο‚ Ξ±Ξ½Ξ±ΞΊΞΏΞ―Ξ½Ο‰ΟƒΞ·Ο‚';
+$_lang['Modify'] = 'Ξ”ΞΉΟΟΞΈΟ‰ΟƒΞ·';
+$_lang['Modify a work'] = 'Ξ•Ο€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± ΞµΟΞ³Ξ±ΟƒΞ―Ξ±Ο‚';
+$_lang['Modify it in all exercises'] = 'Ξ•Ξ½Ξ·ΞΌΞ­ΟΟ‰ΟƒΞµ ΟΞ»ΞµΟ‚ Ο„ΞΉΟ‚ Ξ±ΟƒΞΊΞ®ΟƒΞµΞΉΟ‚';
+$_lang['Modify it only in this exercise'] = 'Ξ•Ξ½Ξ·ΞΌΞ­ΟΟ‰ΟƒΞµ ΞΌΟΞ½ΞΏ Ξ±Ο…Ο„Ξ® Ο„Ξ·Ξ½ Ξ¬ΟƒΞΊΞ·ΟƒΞ·';
+$_lang['Modify the format'] = 'Ξ•Ο€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± Ο†ΞΏΟΞΌΞ±ΟΞ―ΟƒΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Module'] = 'Ξ•Ξ½ΟΟ„Ξ·Ο„Ξ±';
+$_lang['Module %claroLabel registered'] = 'Ξ— Ξ•Ξ½ΟΟ„Ξ·Ο„Ξ± %claroLabel Ξ­Ο‡ΞµΞΉ ΞµΞ³Ξ³ΟΞ±Ο†ΞµΞ―';
+$_lang['Module %label added in dock : %dock'] = 'Ξ— ΞµΞ½ΟΟ„Ξ·Ο„Ξ± %label Ξ­Ο‡ΞµΞΉ Ο€ΟΞΏΟƒΞΈΞµΞΈΞµΞ― ΟƒΟ„Ξ·Ξ½ Ο€ΟΞ»Ξ· : %dock';
+$_lang['Module %label registered as tool'] = 'Ξ— ΞµΞ½ΟΟ„Ξ·Ο„Ξ± %label Ξ­Ο‡ΞµΞΉ ΞµΞ³Ξ³ΟΞ±Ο†ΞµΞ― ΟΟ‚ ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏ : %dock';
+$_lang['Module %module is already installed on your platform'] = 'Ξ¤ΞΏ Module %module ΞµΞ―Ξ½Ξ±ΞΉ Ξ®Ξ΄Ξ· ΞµΞ³ΞΊΞ±Ο„ΞµΟƒΟ„Ξ·ΞΌΞ­Ξ½ΞΏ ΟƒΟ„Ξ·Ξ½ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±';
+$_lang['Module activation at course creation set to AUTOMATIC'] = 'Ξ— ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· Ο„Ξ·Ο‚ ΞµΞ½ΟΟ„Ξ·Ο„Ξ±Ο‚ ΟƒΟ„Ξ·Ξ½ Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± ΞΌΞ±ΞΈΞ·ΞΌΞ¬ΞΈΟ‰Ξ½ Ξ­Ο‡ΞµΞΉ Ο„ΞµΞΈΞµΞ― ΟΟ‚ Ξ‘Ξ¥Ξ¤ΞΞΞ‘Ξ¤Ξ—';
+$_lang['Module activation at course creation set to MANUAL'] = 'Ξ— ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· Ο„Ξ·Ο‚ ΞµΞ½ΟΟ„Ξ·Ο„Ξ±Ο‚ ΟƒΟ„Ξ·Ξ½ Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± ΞΌΞ±ΞΈΞ·ΞΌΞ¬ΞΈΟ‰Ξ½ Ξ­Ο‡ΞµΞΉ Ο„ΞµΞΈΞµΞ― ΟΟ‚ Ξ§Ξ•Ξ™Ξ΅ΞΞΞ™ΞΞ—Ξ¤Ξ—';
+$_lang['Module activation failed'] = 'Ξ— ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· Ο„ΞΏΟ… module Ξ±Ο€Ξ­Ο„Ο…Ο‡Ξµ';
+$_lang['Module activation succeeded'] = 'Ξ— ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· Ο„ΞΏΟ… module Ο€Ξ­Ο„Ο…Ο‡Ξµ';
+$_lang['Module added :'] = 'Ξ ΟΞΏΟƒΞΈΞ®ΞΊΞ· ΞµΞ½ΟΟ„Ξ·Ο„Ξ±Ο‚ : ';
+$_lang['Module cache update failed'] = 'Ξ‘Ο€Ξ­Ο„Ο…Ο‡Ξµ Ξ· ΞµΞ½Ξ·ΞΌΞ­ΟΟ‰ΟƒΞ· Ο„Ξ·Ο‚ cache Ο„ΞΏΟ… module';
+$_lang['Module cache update succeeded'] = 'Ξ Ξ­Ο„Ο…Ο‡Ξµ Ξ· ΞµΞ½Ξ·ΞΌΞ­ΟΟ‰ΟƒΞ· Ο„Ξ·Ο‚ cache Ο„ΞΏΟ… module';
+$_lang['Module catching failed. Check your path'] = 'Ξ¤ΞΏ Ο€ΞΉΞ¬ΟƒΞΉΞΌΞΏ Ο„Ξ·Ο‚ ΞµΞ½ΟΟ„Ξ·Ο„Ξ±Ο‚ Ξ±Ο€Ξ­Ο„Ο…Ο‡Ξµ. Ξ Ξ±ΟΞ±ΞΊΞ±Ξ»Ο ΞµΞ»Ξ­ΞΎΟ„Ξµ Ο„Ξ·Ξ½ Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ® ΟƒΞ±Ο‚';
+$_lang['Module deactivation succeeded'] = 'Ξ— Ξ±Ο€ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· Ο„ΞΏΟ… module Ο€Ξ­Ο„Ο…Ο‡Ξµ';
+$_lang['Module desactivation failed'] = 'Ξ— Ξ±Ο€ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· Ο„Ξ·Ο‚ ΞµΞ½ΟΟ„Ξ·Ο„Ξ±Ο‚ Ξ±Ο€Ξ­Ο„Ο…Ο‡Ξµ.';
+$_lang['Module desactivation succeeded'] = 'Ξ— Ξ±Ο€ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· Ο„Ξ·Ο‚ ΞµΞ½ΟΟ„Ξ·Ο„Ξ±Ο‚ Ο€Ξ­Ο„Ο…Ο‡Ξµ';
+$_lang['Module directory not found'] = 'Ξ”ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ²ΟΞµΞΈΞµΞ― ΞΏ ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏΟ‚ Ο„ΞΏΟ… module';
+$_lang['Module files deleted'] = 'Ξ¤Ξ± Ξ±ΟΟ‡ΞµΞ―Ξ± Ο„Ξ·Ο‚ ΞµΞ½ΟΟ„Ξ·Ο„Ξ±Ο‚ Ξ΄ΞΉΞ±Ξ³ΟΞ¬Ο†Ξ·ΞΊΞ±Ξ½
+';
+$_lang['Module installation failed'] = 'Ξ‘Ο€Ξ­Ο„Ο…Ο‡Ξµ Ξ· ΞµΞ³ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ· Ο„ΞΏΟ… module';
+$_lang['Module installation script called'] = 'ΞΞ»Ξ®ΞΈΞ·ΞΊΞµ Ο„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ ΞµΞ³ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ·Ο‚ Ο„ΞΏΟ… module';
+$_lang['Module installation succeeded'] = 'Ξ Ξ­Ο„Ο…Ο‡Ξµ Ξ· ΞµΞ³ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ· Ο„ΞΏΟ… module';
+$_lang['Module installed in all courses'] = 'Ξ¤ΞΏ module ΞµΞ³ΞΊΞ±Ο„Ξ±ΟƒΟ„Ξ®ΞΈΞ·ΞΊΞµ ΟƒΞµ ΟΞ»Ξ± Ο„Ξ± ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„Ξ±';
+$_lang['Module list'] = 'Ξ›Ξ―ΟƒΟ„Ξ± module';
+$_lang['Module moved'] = 'ΞΞµΟ„Ξ±ΞΊΞ―Ξ½Ξ·ΟƒΞ· ΞµΞ½ΟΟ„Ξ·Ο„Ξ±Ο‚';
+$_lang['Module name'] = 'ΞΞ½ΞΏΞΌΞ± module';
+$_lang['Module registration failed'] = 'Ξ— ΞµΞ³Ξ³ΟΞ±Ο†Ξ® Ο„ΞΏΟ… module Ξ±Ο€Ξ­Ο„Ο…Ο‡Ξµ';
+$_lang['Module settings'] = 'Ξ΅Ο…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ module';
+$_lang['Module status'] = 'ΞΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ· ΞµΞ½ΟΟ„Ξ·Ο„Ξ±Ο‚';
+$_lang['Module type'] = 'TΟΟ€ΞΏΟ‚ ΞµΞ½ΟΟ„Ξ·Ο„Ξ±Ο‚';
+$_lang['Module uninstallation failed'] = 'Ξ— Ξ±Ο€ΞµΞ³ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ· Ο„ΞΏΟ… module Ξ±Ο€Ξ­Ο„Ο…Ο‡Ξµ';
+$_lang['Module uninstallation script called'] = 'ΞΞ»Ξ®ΞΈΞ·ΞΊΞµ Ο„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ Ξ±Ο€ΞµΞ³ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ·Ο‚ Ο„ΞΏΟ… module';
+$_lang['Module uninstallation succeeded'] = 'Ξ— Ξ±Ο€ΞµΞ³ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ· Ο„ΞΏΟ… module Ο€Ξ­Ο„Ο…Ο‡Ξµ';
+$_lang['Module uninstalled in all courses'] = 'Ξ¤ΞΏ module Ξ±Ο€ΞµΞ³ΞΊΞ±Ο„Ξ±ΟƒΟ„Ξ¬ΞΈΞ·ΞΊΞµ Ξ±Ο€Ο ΟΞ»Ξ± Ο„Ξ± ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„Ξ±';
+$_lang['Module unpackaging failed'] = 'Ξ— Ξ±Ο€ΞΏΟƒΟ…ΞΌΟ€Ξ―ΞµΟƒΞ· Ο„ΞΏΟ… module Ξ±Ο€Ξ­Ο„Ο…Ο‡Ξµ';
+$_lang['Module upload failed'] = 'Ξ¤ΞΏ Ο†ΟΟΟ„Ο‰ΞΌΞ± Ο„ΞΏΟ… module Ξ±Ο€Ξ­Ο„Ο…Ο‡Ξµ';
+$_lang['Module visibility updated'] = 'Ξ— ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ· ΞµΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ·Ο‚ Ο„ΞΏΟ… module ΞµΞ½Ξ·ΞΌΞµΟΟΞΈΞ·ΞΊΞµ';
 $_lang['Modules'] = 'Modules';
-$_lang['Modules of this path will still be available in the pool of modules'] = 'Οι ενότητες αυτής της διαδρομής θα είναι ακόμα διαθέσιμες στο σύνολο των ενοτήτων';
-$_lang['Month'] = 'Mήνας';
-$_lang['More verbose when error occurs.'] = 'Περισσότερες πληροφορίες όταν προκύπτουν λάθη.';
-$_lang['Move'] = 'Μετακίνηση';
-$_lang['Move down'] = 'Κίνηση προς τα κάτω';
-$_lang['Move up'] = 'Κίνηση προς τα πάνω';
-$_lang['Moved line'] = ' Μετακινημένη γραμμή ';
-$_lang['Multiple'] = 'Πολλαπλά';
-$_lang['Multiple choice (Multiple answers)'] = 'Πόλλαπλές επιλογές (Πολλαπλές απαντήσεις)';
-$_lang['Multiple choice (Unique answer)'] = 'Πόλλαπλές επιλογές (Μοναδική απάντηση)';
-$_lang['My calendar'] = 'Το ημερολόγιό μου';
-$_lang['My course list'] = 'Τα μαθήματά μου';
-$_lang['My personal course list'] = 'Η προσωπική μου λίστα μαθήματος';
-$_lang['My results'] = 'Τα αποτελέσματά μου';
-$_lang['My user account'] = 'Αλλαγή του προφίλ μου';
-$_lang['MySQL database settings'] = 'Ρυθμίσεις της βάσης δεδομένων MySQL';
+$_lang['Modules of this path will still be available in the pool of modules'] = 'ΞΞΉ ΞµΞ½ΟΟ„Ξ·Ο„ΞµΟ‚ Ξ±Ο…Ο„Ξ®Ο‚ Ο„Ξ·Ο‚ Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ®Ο‚ ΞΈΞ± ΞµΞ―Ξ½Ξ±ΞΉ Ξ±ΞΊΟΞΌΞ± Ξ΄ΞΉΞ±ΞΈΞ­ΟƒΞΉΞΌΞµΟ‚ ΟƒΟ„ΞΏ ΟƒΟΞ½ΞΏΞ»ΞΏ Ο„Ο‰Ξ½ ΞµΞ½ΞΏΟ„Ξ®Ο„Ο‰Ξ½';
+$_lang['Month'] = 'MΞ®Ξ½Ξ±Ο‚';
+$_lang['More active topics'] = 'Ξ ΞµΟΞΉΟƒΟƒΟΟ„ΞµΟΞ± ΞµΞ½ΞµΟΞ³Ξ¬ ΞΈΞ­ΞΌΞ±Ο„Ξ±';
+$_lang['More read topics'] = 'Ξ ΞµΟΞΉΟƒΟƒΟΟ„ΞµΟΞ± Ξ΄ΞΉΞ±Ξ²Ξ±ΟƒΞΌΞ­Ξ½Ξ± ΞΈΞ­ΞΌΞ±Ο„Ξ±';
+$_lang['More verbose when error occurs.'] = 'Ξ ΞµΟΞΉΟƒΟƒΟΟ„ΞµΟΞµΟ‚ Ο€Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞ―ΞµΟ‚ ΟΟ„Ξ±Ξ½ Ο€ΟΞΏΞΊΟΟ€Ο„ΞΏΟ…Ξ½ Ξ»Ξ¬ΞΈΞ·.';
+$_lang['Most recently active topics'] = 'Ξ ΞΉΞΏ Ο€ΟΟΟƒΟ†Ξ±Ο„Ξ± ΞµΞ½ΞµΟΞ³Ξ¬ ΞΈΞ­ΞΌΞ±Ο„Ξ±';
+$_lang['Move'] = 'ΞΞµΟ„Ξ±ΞΊΞ―Ξ½Ξ·ΟƒΞ·';
+$_lang['Move <i>%filename</i> to'] = 'ΞΞµΟ„Ξ±ΞΊΞ―Ξ½Ξ·ΟƒΞµ <i>%filename</i> ΟƒΟ„ΞΏ';
+$_lang['Move down'] = 'ΞΞ―Ξ½Ξ·ΟƒΞ· Ο€ΟΞΏΟ‚ Ο„Ξ± ΞΊΞ¬Ο„Ο‰';
+$_lang['Move to trash'] = 'ΞΞµΟ„Ξ±ΞΊΞ―Ξ½Ξ·ΟƒΞµ ΟƒΟ„ΞΏΞ½ ΞΊΞ¬Ξ»Ξ±ΞΈΞΏ';
+$_lang['Move to trashbox?'] = 'ΞΞµΟ„Ξ±ΞΊΞ―Ξ½Ξ·ΟƒΞ· ΟƒΟ„ΞΏΞ½ ΞΊΞ¬Ξ»Ξ±ΞΈΞΏ;';
+$_lang['Move up'] = 'ΞΞ―Ξ½Ξ·ΟƒΞ· Ο€ΟΞΏΟ‚ Ο„Ξ± Ο€Ξ¬Ξ½Ο‰';
+$_lang['Moved line'] = ' ΞΞµΟ„Ξ±ΞΊΞΉΞ½Ξ·ΞΌΞ­Ξ½Ξ· Ξ³ΟΞ±ΞΌΞΌΞ® ';
+$_lang['Multiple'] = 'Ξ ΞΏΞ»Ξ»Ξ±Ο€Ξ»Ξ¬';
+$_lang['Multiple choice (Multiple answers)'] = 'Ξ ΟΞ»Ξ»Ξ±Ο€Ξ»Ξ­Ο‚ ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ­Ο‚ (Ξ ΞΏΞ»Ξ»Ξ±Ο€Ξ»Ξ­Ο‚ Ξ±Ο€Ξ±Ξ½Ο„Ξ®ΟƒΞµΞΉΟ‚)';
+$_lang['Multiple choice (Unique answer)'] = 'Ξ ΟΞ»Ξ»Ξ±Ο€Ξ»Ξ­Ο‚ ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ­Ο‚ (ΞΞΏΞ½Ξ±Ξ΄ΞΉΞΊΞ® Ξ±Ο€Ξ¬Ξ½Ο„Ξ·ΟƒΞ·)';
+$_lang['My calendar'] = 'Ξ¤ΞΏ Ξ·ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΟ ΞΌΞΏΟ…';
+$_lang['My course list'] = 'Ξ¤Ξ± ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„Ξ¬ ΞΌΞΏΟ…';
+$_lang['My desktop'] = 'Ξ— ΞµΟ€ΞΉΟ†Ξ¬Ξ½ΞµΞΉΞ± ΞµΟΞ³Ξ±ΟƒΞ―Ξ±Ο‚ ΞΌΞΏΟ…';
+$_lang['My messages'] = 'Ξ¤Ξ± ΞΌΞ·Ξ½ΟΞΌΞ±Ο„Ξ± ΞΌΞΏΟ…';
+$_lang['My personal course list'] = 'Ξ— Ο€ΟΞΏΟƒΟ‰Ο€ΞΉΞΊΞ® ΞΌΞΏΟ… Ξ»Ξ―ΟƒΟ„Ξ± ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['My results'] = 'Ξ¤Ξ± Ξ±Ο€ΞΏΟ„ΞµΞ»Ξ­ΟƒΞΌΞ±Ο„Ξ¬ ΞΌΞΏΟ…';
+$_lang['My user account'] = 'Ξ‘Ξ»Ξ»Ξ±Ξ³Ξ® Ο„ΞΏΟ… Ο€ΟΞΏΟ†Ξ―Ξ» ΞΌΞΏΟ…';
+$_lang['MySQL database settings'] = 'Ξ΅Ο…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ Ο„Ξ·Ο‚ Ξ²Ξ¬ΟƒΞ·Ο‚ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½ MySQL';
 $_lang['Mysql Repository'] = 'Mysql Repository';
-$_lang['Name'] = 'Όνομα';
-$_lang['Name cannot be empty'] = 'Το όνομα πρέπει να συμπληρωθεί';
-$_lang['Name displayed in the top banner.'] = 'Το όνομα που εμφανίζεται στο πάνω μήνυμα.';
-$_lang['Name is missing'] = 'Το όνομα λείπει';
-$_lang['Name link'] = 'Ονόμασε το σύνδεσμο';
-$_lang['Name of the class has been changed'] = 'Το όνομα τάξης έχει αλλαχθεί';
-$_lang['Name of the tool'] = 'Όνομα εργαλείου';
-$_lang['Never browsed'] = 'Δεν έχει προσβασθεί ποτέ';
-$_lang['Never used'] = 'Δεν έχει χρησιμοποιηθεί ποτέ';
-$_lang['New Class name'] = 'Όνομα νέας τάξης';
-$_lang['New Wiki'] = 'Καινούργιο Wiki';
-$_lang['New assignment created'] = 'Δημιουργήθηκε νέα εργασία';
-$_lang['New assignment feedback posted'] = 'Στάλθηκε νέα αξιολόγηση εργασίας';
-$_lang['New chat'] = 'Νέο chat';
-$_lang['New exercise'] = 'Καινούρια ασκηση';
-$_lang['New question'] = 'Καινούρια ερώτηση';
-$_lang['New submission posted in assignment tool.'] = 'Νέα υποβολή στάλθηκε στο εργαλείο εργασειών.';
-$_lang['New topic'] = 'Νέο θέμα';
-$_lang['New users will receive an e-mail with their user name and password'] = 'Οι νέοι χρήστες θα λάβουν ένα e-mail με το username και το κωδικό τους (password)';
-$_lang['New window for documents'] = 'Νέο παράθυρο για έγγραφα';
-$_lang['New window for submitted files'] = 'Νέο παράθυρο για τα αρχεία που υποβάλλονται';
-$_lang['Newest first'] = 'Αντιστροφή σειράς παρουσίασης';
-$_lang['Next'] = 'Επόμενο';
-$_lang['Next day'] = 'Επόμενη ημέρα';
-$_lang['Next month'] = 'Επόμενος μήνας';
-$_lang['Next question'] = 'Επόμενη ερώτηση';
-$_lang['Next week'] = 'Επόμενη εβδομάδα';
-$_lang['Next year'] = 'Επόμενο έτος';
-$_lang['No'] = 'όχι';
-$_lang['No Content'] = 'Κανένα περιεχόμενο.';
-$_lang['No Wiki'] = 'Κανένα Wiki';
-$_lang['No XML file found in the zip'] = 'Κανένα XML αρχείο δεν βρέθηκε μέσα στο zip';
-$_lang['No access'] = 'Απογερεύεται η πρόσβαση';
-$_lang['No announcement'] = 'Καμία ανακοίνωση.';
-$_lang['No change applied'] = 'Καμία αλλαγή δεν έχει γίνει';
-$_lang['No change applied.'] = 'Δεν εφαρμοστηκε καμια αλλαγη.';
-$_lang['No closing date'] = 'Δεν υπάρχει ημερομηνία κλεισίματος';
-$_lang['No course available fitting this keyword'] = 'Δεν υπάρχει διαθέσιμο μάθημα που να ταιριάζει σε αυτή τη λέξη κλειδί';
-$_lang['No course to display'] = 'Δεν υπάρχει μάθημα προς παρουσίαση';
-$_lang['No description given'] = 'Καμία περιγραφή δε δίνεται';
-$_lang['No dock chosen'] = 'Δεν επιλέχθηκε αποθήκη';
-$_lang['No dock selected'] = 'Δεν επιλέχθηκε αποθήκε';
-$_lang['No error'] = 'Κανένα λάθος';
-$_lang['No error in file found.'] = 'Δεν βρέθηκε σφάλμα στο αρχείο.';
-$_lang['No event in the agenda'] = 'Δεν υπάρχουν γεγονότα στην ημερήσια Ατζέντα';
-$_lang['No file uploaded'] = 'Κανένα αρχείο δε φορτώθηκε';
-$_lang['No forum'] = ' Καμιά συζήτηση ';
-$_lang['No function in this extension'] = 'Καμία λειτουργία σε αυτή την επέκταση';
-$_lang['No group deleted'] = 'Καμιά ομάδα δε διαγράφτηκε';
-$_lang['No icon'] = 'Κανένα εικονίδιο';
-$_lang['No image to display'] = 'Δεν υπάρχει εικόνα προς εμφάνιση';
-$_lang['No language folder'] = 'Κανένας κατάλογος γλώσσας';
-$_lang['No learning path'] = 'Καμία διαδρομή μάθησης';
-$_lang['No mail sent to user'] = 'Κανένα email δε στάλθηκε στο χρήστη';
-$_lang['No module'] = 'Καμία ενότητα';
-$_lang['No module in package'] = 'Κανένα module στο πακέτο';
-$_lang['No module to uninstall'] = 'Κανένα module για απεγκατάσταση';
-$_lang['No name'] = 'Κανένα όνομα';
-$_lang['No new post allowed'] = 'Καμια καινούργια γνωστοποίηση δεν επιτρέπεται';
-$_lang['No post'] = 'Καμία καταχώρηση';
-$_lang['No quota'] = 'Δεν υπάρχουν όρια (quotas)';
-$_lang['No result'] = 'Κανένα αποτέλεσμα';
-$_lang['No score'] = 'Καμία βαθμολογία';
-$_lang['No time limitation'] = 'Κανένας χρονικός περιορισμός';
-$_lang['No tool name'] = 'Κανένα όνομα εργαλείου';
-$_lang['No user found'] = 'Δεν βρέθηκε κανένας χρήστης';
-$_lang['No user to display'] = 'Δεν υπάρχει χρήστης προς εμφάνιση';
-$_lang['No visible submission'] = 'Δεν υπάρχει καμία ορατή υποβολή';
-$_lang['No way'] = 'Δεν υπάρχει δυνατότητα';
-$_lang['No, prevent users submitting work after the end date'] = 'όχι, να εμποδίζεται η υποβολή εργασιών χρηστών μετά το τέλος της χρονικής προθεσμίας';
-$_lang['Node Moved, relaunch repair process to complete'] = 'Κόμβος Μεταφέρθηκε, επανεκκίνησε διαδικασία επιδιόρθωσης για να ολοκληρωθεί η διαδικασία';
-$_lang['None'] = 'κανένας';
-$_lang['Not allowed'] = 'Δεν επιτρέπεται';
-$_lang['Not allowed : record usernames in tracking, anonymous users cannot do the exercise.'] = 'Δεν επιτρέπεται: καταγραφή των ονομάτων χρηστών στην παρακολούθηση, οι ανώνυμοι χρήστες δεν μπορούν να κάνουν την άσκηση.';
-$_lang['Not found'] = 'Δεν βρέθηκε';
-$_lang['Not recently connected students :'] = 'Δεν υπάρχουν πρόσφατα συνδεδεμένοι χρήστες : ';
-$_lang['Not valid course code'] = 'Μη ισχύον πηγαίος κώδικας μαθήματος';
-$_lang['Not valid user id'] = 'Μη ισχύον κωδικός χρήστη';
+$_lang['Name'] = 'ΞΞ½ΞΏΞΌΞ±';
+$_lang['Name cannot be empty'] = 'Ξ¤ΞΏ ΟΞ½ΞΏΞΌΞ± Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΟƒΟ…ΞΌΟ€Ξ»Ξ·ΟΟ‰ΞΈΞµΞ―';
+$_lang['Name displayed in the top banner.'] = 'Ξ¤ΞΏ ΟΞ½ΞΏΞΌΞ± Ο€ΞΏΟ… ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞµΟ„Ξ±ΞΉ ΟƒΟ„ΞΏ Ο€Ξ¬Ξ½Ο‰ ΞΌΞ®Ξ½Ο…ΞΌΞ±.';
+$_lang['Name is missing'] = 'Ξ¤ΞΏ ΟΞ½ΞΏΞΌΞ± Ξ»ΞµΞ―Ο€ΞµΞΉ';
+$_lang['Name link'] = 'ΞΞ½ΟΞΌΞ±ΟƒΞµ Ο„ΞΏ ΟƒΟΞ½Ξ΄ΞµΟƒΞΌΞΏ';
+$_lang['Name of the class has been changed'] = 'Ξ¤ΞΏ ΟΞ½ΞΏΞΌΞ± Ο„Ξ¬ΞΎΞ·Ο‚ Ξ­Ο‡ΞµΞΉ Ξ±Ξ»Ξ»Ξ±Ο‡ΞΈΞµΞ―';
+$_lang['Name of the tool'] = 'ΞΞ½ΞΏΞΌΞ± ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏΟ…';
+$_lang['Never browsed'] = 'Ξ”ΞµΞ½ Ξ­Ο‡ΞµΞΉ Ο€ΟΞΏΟƒΞ²Ξ±ΟƒΞΈΞµΞ― Ο€ΞΏΟ„Ξ­';
+$_lang['Never connected'] = 'Ξ ΞΏΟ„Ξ­ Ξ΄ΞµΞ½ ΟƒΟ…Ξ½Ξ΄Ξ­ΞΈΞ·ΞΊΞµ';
+$_lang['Never used'] = 'Ξ”ΞµΞ½ Ξ­Ο‡ΞµΞΉ Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞ·ΞΈΞµΞ― Ο€ΞΏΟ„Ξ­';
+$_lang['New Class name'] = 'ΞΞ½ΞΏΞΌΞ± Ξ½Ξ­Ξ±Ο‚ Ο„Ξ¬ΞΎΞ·Ο‚';
+$_lang['New Registration allowed'] = 'Ξ•Ο€ΞΉΟ„ΟΞ­Ο€ΞΏΞ½Ο„Ξ±ΞΉ ΞΊΞ±ΞΉΞ½ΞΏΟΟΞ³ΞΉΞµΟ‚ ΞµΞ³Ξ³ΟΞ±Ο†Ξ­Ο‚';
+$_lang['New Wiki'] = 'ΞΞ±ΞΉΞ½ΞΏΟΟΞ³ΞΉΞΏ Wiki';
+$_lang['New assignment created'] = 'Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΞΈΞ·ΞΊΞµ Ξ½Ξ­Ξ± ΞµΟΞ³Ξ±ΟƒΞ―Ξ±';
+$_lang['New assignment feedback posted'] = 'Ξ£Ο„Ξ¬Ξ»ΞΈΞ·ΞΊΞµ Ξ½Ξ­Ξ± Ξ±ΞΎΞΉΞΏΞ»ΟΞ³Ξ·ΟƒΞ· ΞµΟΞ³Ξ±ΟƒΞ―Ξ±Ο‚';
+$_lang['New chat'] = 'ΞΞ­ΞΏ chat';
+$_lang['New exercise'] = 'ΞΞ±ΞΉΞ½ΞΏΟΟΞΉΞ± Ξ±ΟƒΞΊΞ·ΟƒΞ·';
+$_lang['New password'] = 'ΞΞ±ΞΉΞΏΟΟΞ³ΞΉΞΏΟ‚ ΞΊΟ‰Ξ΄ΞΉΞΊΟΟ‚';
+$_lang['New question'] = 'ΞΞ±ΞΉΞ½ΞΏΟΟΞΉΞ± ΞµΟΟΟ„Ξ·ΟƒΞ·';
+$_lang['New registration denied'] = 'Ξ— ΞΊΞ±ΞΉΞ½ΞΏΟΟΞ³ΞΉΞ± ΞµΞ³Ξ³ΟΞ±Ο†Ξ® Ξ΄ΞµΞ½ ΞµΞ³ΞΊΟΞ―Ξ½ΞµΟ„Ξµ';
+$_lang['New submission posted in assignment tool.'] = 'ΞΞ­Ξ± Ο…Ο€ΞΏΞ²ΞΏΞ»Ξ® ΟƒΟ„Ξ¬Ξ»ΞΈΞ·ΞΊΞµ ΟƒΟ„ΞΏ ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏ ΞµΟΞ³Ξ±ΟƒΞµΞΉΟΞ½.';
+$_lang['New topic'] = 'ΞΞ­ΞΏ ΞΈΞ­ΞΌΞ±';
+$_lang['New users will receive an e-mail with their user name and password'] = 'ΞΞΉ Ξ½Ξ­ΞΏΞΉ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ ΞΈΞ± Ξ»Ξ¬Ξ²ΞΏΟ…Ξ½ Ξ­Ξ½Ξ± e-mail ΞΌΞµ Ο„ΞΏ username ΞΊΞ±ΞΉ Ο„ΞΏ ΞΊΟ‰Ξ΄ΞΉΞΊΟ Ο„ΞΏΟ…Ο‚ (password)';
+$_lang['New window for documents'] = 'ΞΞ­ΞΏ Ο€Ξ±ΟΞ¬ΞΈΟ…ΟΞΏ Ξ³ΞΉΞ± Ξ­Ξ³Ξ³ΟΞ±Ο†Ξ±';
+$_lang['New window for submitted files'] = 'ΞΞ­ΞΏ Ο€Ξ±ΟΞ¬ΞΈΟ…ΟΞΏ Ξ³ΞΉΞ± Ο„Ξ± Ξ±ΟΟ‡ΞµΞ―Ξ± Ο€ΞΏΟ… Ο…Ο€ΞΏΞ²Ξ¬Ξ»Ξ»ΞΏΞ½Ο„Ξ±ΞΉ';
+$_lang['Newest first'] = 'Ξ‘Ξ½Ο„ΞΉΟƒΟ„ΟΞΏΟ†Ξ® ΟƒΞµΞΉΟΞ¬Ο‚ Ο€Ξ±ΟΞΏΟ…ΟƒΞ―Ξ±ΟƒΞ·Ο‚';
+$_lang['Next'] = 'Ξ•Ο€ΟΞΌΞµΞ½ΞΏ';
+$_lang['Next day'] = 'Ξ•Ο€ΟΞΌΞµΞ½Ξ· Ξ·ΞΌΞ­ΟΞ±';
+$_lang['Next month'] = 'Ξ•Ο€ΟΞΌΞµΞ½ΞΏΟ‚ ΞΌΞ®Ξ½Ξ±Ο‚';
+$_lang['Next question'] = 'Ξ•Ο€ΟΞΌΞµΞ½Ξ· ΞµΟΟΟ„Ξ·ΟƒΞ·';
+$_lang['Next week'] = 'Ξ•Ο€ΟΞΌΞµΞ½Ξ· ΞµΞ²Ξ΄ΞΏΞΌΞ¬Ξ΄Ξ±';
+$_lang['Next year'] = 'Ξ•Ο€ΟΞΌΞµΞ½ΞΏ Ξ­Ο„ΞΏΟ‚';
+$_lang['No'] = 'ΟΟ‡ΞΉ';
+$_lang['No Content'] = 'ΞΞ±Ξ½Ξ­Ξ½Ξ± Ο€ΞµΟΞΉΞµΟ‡ΟΞΌΞµΞ½ΞΏ.';
+$_lang['No Wiki'] = 'ΞΞ±Ξ½Ξ­Ξ½Ξ± Wiki';
+$_lang['No XML file found in the zip'] = 'ΞΞ±Ξ½Ξ­Ξ½Ξ± XML Ξ±ΟΟ‡ΞµΞ―ΞΏ Ξ΄ΞµΞ½ Ξ²ΟΞ­ΞΈΞ·ΞΊΞµ ΞΌΞ­ΟƒΞ± ΟƒΟ„ΞΏ zip';
+$_lang['No access'] = 'Ξ‘Ο€ΞΏΞ³ΞµΟΞµΟΞµΟ„Ξ±ΞΉ Ξ· Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ·';
+$_lang['No announcement'] = 'ΞΞ±ΞΌΞ―Ξ± Ξ±Ξ½Ξ±ΞΊΞΏΞ―Ξ½Ο‰ΟƒΞ·.';
+$_lang['No change applied'] = 'ΞΞ±ΞΌΞ―Ξ± Ξ±Ξ»Ξ»Ξ±Ξ³Ξ® Ξ΄ΞµΞ½ Ξ­Ο‡ΞµΞΉ Ξ³Ξ―Ξ½ΞµΞΉ';
+$_lang['No change applied.'] = 'Ξ”ΞµΞ½ ΞµΟ†Ξ±ΟΞΌΞΏΟƒΟ„Ξ·ΞΊΞµ ΞΊΞ±ΞΌΞΉΞ± Ξ±Ξ»Ξ»Ξ±Ξ³Ξ·.';
+$_lang['No closing date'] = 'Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ Ξ·ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ± ΞΊΞ»ΞµΞΉΟƒΞ―ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['No course available fitting this keyword'] = 'Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ Ξ΄ΞΉΞ±ΞΈΞ­ΟƒΞΉΞΌΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ± Ο€ΞΏΟ… Ξ½Ξ± Ο„Ξ±ΞΉΟΞΉΞ¬Ξ¶ΞµΞΉ ΟƒΞµ Ξ±Ο…Ο„Ξ® Ο„Ξ· Ξ»Ξ­ΞΎΞ· ΞΊΞ»ΞµΞΉΞ΄Ξ―';
+$_lang['No course to display'] = 'Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ ΞΌΞ¬ΞΈΞ·ΞΌΞ± Ο€ΟΞΏΟ‚ Ο€Ξ±ΟΞΏΟ…ΟƒΞ―Ξ±ΟƒΞ·';
+$_lang['No courses'] = 'Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞΏΟ…Ξ½ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„Ξ±';
+$_lang['No description given'] = 'ΞΞ±ΞΌΞ―Ξ± Ο€ΞµΟΞΉΞ³ΟΞ±Ο†Ξ® Ξ΄Ξµ Ξ΄Ξ―Ξ½ΞµΟ„Ξ±ΞΉ';
+$_lang['No dock chosen'] = 'Ξ”ΞµΞ½ ΞµΟ€ΞΉΞ»Ξ­Ο‡ΞΈΞ·ΞΊΞµ Ξ±Ο€ΞΏΞΈΞ®ΞΊΞ·';
+$_lang['No dock selected'] = 'Ξ”ΞµΞ½ ΞµΟ€ΞΉΞ»Ξ­Ο‡ΞΈΞ·ΞΊΞµ Ξ±Ο€ΞΏΞΈΞ®ΞΊΞµ';
+$_lang['No error'] = 'ΞΞ±Ξ½Ξ­Ξ½Ξ± Ξ»Ξ¬ΞΈΞΏΟ‚';
+$_lang['No error in file found.'] = 'Ξ”ΞµΞ½ Ξ²ΟΞ­ΞΈΞ·ΞΊΞµ ΟƒΟ†Ξ¬Ξ»ΞΌΞ± ΟƒΟ„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ.';
+$_lang['No event in the agenda'] = 'Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞΏΟ…Ξ½ Ξ³ΞµΞ³ΞΏΞ½ΟΟ„Ξ± ΟƒΟ„Ξ·Ξ½ Ξ·ΞΌΞµΟΞ®ΟƒΞΉΞ± Ξ‘Ο„Ξ¶Ξ­Ξ½Ο„Ξ±';
+$_lang['No event to display'] = 'Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞΏΟ…Ξ½ Ξ³ΞµΞ³ΞΏΞ½ΟΟ„Ξ± Ξ³ΞΉΞ± Ο€ΟΞΏΞ²ΞΏΞ»Ξ®';
+$_lang['No file uploaded'] = 'ΞΞ±Ξ½Ξ­Ξ½Ξ± Ξ±ΟΟ‡ΞµΞ―ΞΏ Ξ΄Ξµ Ο†ΞΏΟΟ„ΟΞΈΞ·ΞΊΞµ';
+$_lang['No forum'] = ' ΞΞ±ΞΌΞΉΞ¬ ΟƒΟ…Ξ¶Ξ®Ο„Ξ·ΟƒΞ· ';
+$_lang['No function in this extension'] = 'ΞΞ±ΞΌΞ―Ξ± Ξ»ΞµΞΉΟ„ΞΏΟ…ΟΞ³Ξ―Ξ± ΟƒΞµ Ξ±Ο…Ο„Ξ® Ο„Ξ·Ξ½ ΞµΟ€Ξ­ΞΊΟ„Ξ±ΟƒΞ·';
+$_lang['No group deleted'] = 'ΞΞ±ΞΌΞΉΞ¬ ΞΏΞΌΞ¬Ξ΄Ξ± Ξ΄Ξµ Ξ΄ΞΉΞ±Ξ³ΟΞ¬Ο†Ο„Ξ·ΞΊΞµ';
+$_lang['No icon'] = 'ΞΞ±Ξ½Ξ­Ξ½Ξ± ΞµΞΉΞΊΞΏΞ½Ξ―Ξ΄ΞΉΞΏ';
+$_lang['No image to display'] = 'Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ ΞµΞΉΞΊΟΞ½Ξ± Ο€ΟΞΏΟ‚ ΞµΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ·';
+$_lang['No language folder'] = 'ΞΞ±Ξ½Ξ­Ξ½Ξ±Ο‚ ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏΟ‚ Ξ³Ξ»ΟΟƒΟƒΞ±Ο‚';
+$_lang['No learning path'] = 'ΞΞ±ΞΌΞ―Ξ± Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ® ΞΌΞ¬ΞΈΞ·ΟƒΞ·Ο‚';
+$_lang['No mail sent to user'] = 'ΞΞ±Ξ½Ξ­Ξ½Ξ± email Ξ΄Ξµ ΟƒΟ„Ξ¬Ξ»ΞΈΞ·ΞΊΞµ ΟƒΟ„ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['No message'] = 'Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ ΞΌΞ®Ξ½Ο…ΞΌΞ±';
+$_lang['No module'] = 'ΞΞ±ΞΌΞ―Ξ± ΞµΞ½ΟΟ„Ξ·Ο„Ξ±';
+$_lang['No module in package'] = 'ΞΞ±Ξ½Ξ­Ξ½Ξ± module ΟƒΟ„ΞΏ Ο€Ξ±ΞΊΞ­Ο„ΞΏ';
+$_lang['No module to uninstall'] = 'ΞΞ±Ξ½Ξ­Ξ½Ξ± module Ξ³ΞΉΞ± Ξ±Ο€ΞµΞ³ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ·';
+$_lang['No name'] = 'ΞΞ±Ξ½Ξ­Ξ½Ξ± ΟΞ½ΞΏΞΌΞ±';
+$_lang['No new post allowed'] = 'ΞΞ±ΞΌΞΉΞ± ΞΊΞ±ΞΉΞ½ΞΏΟΟΞ³ΞΉΞ± Ξ³Ξ½Ο‰ΟƒΟ„ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· Ξ΄ΞµΞ½ ΞµΟ€ΞΉΟ„ΟΞ­Ο€ΞµΟ„Ξ±ΞΉ';
+$_lang['No post'] = 'ΞΞ±ΞΌΞ―Ξ± ΞΊΞ±Ο„Ξ±Ο‡ΟΟΞ·ΟƒΞ·';
+$_lang['No quota'] = 'Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞΏΟ…Ξ½ ΟΟΞΉΞ± (quotas)';
+$_lang['No result'] = 'ΞΞ±Ξ½Ξ­Ξ½Ξ± Ξ±Ο€ΞΏΟ„Ξ­Ξ»ΞµΟƒΞΌΞ±';
+$_lang['No score'] = 'ΞΞ±ΞΌΞ―Ξ± Ξ²Ξ±ΞΈΞΌΞΏΞ»ΞΏΞ³Ξ―Ξ±';
+$_lang['No time limitation'] = 'ΞΞ±Ξ½Ξ­Ξ½Ξ±Ο‚ Ο‡ΟΞΏΞ½ΞΉΞΊΟΟ‚ Ο€ΞµΟΞΉΞΏΟΞΉΟƒΞΌΟΟ‚';
+$_lang['No tool name'] = 'ΞΞ±Ξ½Ξ­Ξ½Ξ± ΟΞ½ΞΏΞΌΞ± ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏΟ…';
+$_lang['No user found'] = 'Ξ”ΞµΞ½ Ξ²ΟΞ­ΞΈΞ·ΞΊΞµ ΞΊΞ±Ξ½Ξ­Ξ½Ξ±Ο‚ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚';
+$_lang['No user to display'] = 'Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ Ο€ΟΞΏΟ‚ ΞµΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ·';
+$_lang['No visible submission'] = 'Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ ΞΊΞ±ΞΌΞ―Ξ± ΞΏΟΞ±Ο„Ξ® Ο…Ο€ΞΏΞ²ΞΏΞ»Ξ®';
+$_lang['No way'] = 'Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ Ξ΄Ο…Ξ½Ξ±Ο„ΟΟ„Ξ·Ο„Ξ±';
+$_lang['No, prevent users submitting work after the end date'] = 'ΟΟ‡ΞΉ, Ξ½Ξ± ΞµΞΌΟ€ΞΏΞ΄Ξ―Ξ¶ΞµΟ„Ξ±ΞΉ Ξ· Ο…Ο€ΞΏΞ²ΞΏΞ»Ξ® ΞµΟΞ³Ξ±ΟƒΞΉΟΞ½ Ο‡ΟΞ·ΟƒΟ„ΟΞ½ ΞΌΞµΟ„Ξ¬ Ο„ΞΏ Ο„Ξ­Ξ»ΞΏΟ‚ Ο„Ξ·Ο‚ Ο‡ΟΞΏΞ½ΞΉΞΊΞ®Ο‚ Ο€ΟΞΏΞΈΞµΟƒΞΌΞ―Ξ±Ο‚';
+$_lang['Node Moved, relaunch repair process to complete'] = 'ΞΟΞΌΞ²ΞΏΟ‚ ΞΞµΟ„Ξ±Ο†Ξ­ΟΞΈΞ·ΞΊΞµ, ΞµΟ€Ξ±Ξ½ΞµΞΊΞΊΞ―Ξ½Ξ·ΟƒΞµ Ξ΄ΞΉΞ±Ξ΄ΞΉΞΊΞ±ΟƒΞ―Ξ± ΞµΟ€ΞΉΞ΄ΞΉΟΟΞΈΟ‰ΟƒΞ·Ο‚ Ξ³ΞΉΞ± Ξ½Ξ± ΞΏΞ»ΞΏΞΊΞ»Ξ·ΟΟ‰ΞΈΞµΞ― Ξ· Ξ΄ΞΉΞ±Ξ΄ΞΉΞΊΞ±ΟƒΞ―Ξ±';
+$_lang['None'] = 'ΞΊΞ±Ξ½Ξ­Ξ½Ξ±Ο‚';
+$_lang['Not a valid tool'] = 'ΞΞ· Ξ­Ξ³ΞΊΟ…ΟΞΏ ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏ';
+$_lang['Not allowed'] = 'Ξ”ΞµΞ½ ΞµΟ€ΞΉΟ„ΟΞ­Ο€ΞµΟ„Ξ±ΞΉ';
+$_lang['Not allowed : record usernames in tracking, anonymous users cannot do the exercise.'] = 'Ξ”ΞµΞ½ ΞµΟ€ΞΉΟ„ΟΞ­Ο€ΞµΟ„Ξ±ΞΉ: ΞΊΞ±Ο„Ξ±Ξ³ΟΞ±Ο†Ξ® Ο„Ο‰Ξ½ ΞΏΞ½ΞΏΞΌΞ¬Ο„Ο‰Ξ½ Ο‡ΟΞ·ΟƒΟ„ΟΞ½ ΟƒΟ„Ξ·Ξ½ Ο€Ξ±ΟΞ±ΞΊΞΏΞ»ΞΏΟΞΈΞ·ΟƒΞ·, ΞΏΞΉ Ξ±Ξ½ΟΞ½Ο…ΞΌΞΏΞΉ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ Ξ΄ΞµΞ½ ΞΌΟ€ΞΏΟΞΏΟΞ½ Ξ½Ξ± ΞΊΞ¬Ξ½ΞΏΟ…Ξ½ Ο„Ξ·Ξ½ Ξ¬ΟƒΞΊΞ·ΟƒΞ·.';
+$_lang['Not found'] = 'Ξ”ΞµΞ½ Ξ²ΟΞ­ΞΈΞ·ΞΊΞµ';
+$_lang['Not recently connected students :'] = 'Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞΏΟ…Ξ½ Ο€ΟΟΟƒΟ†Ξ±Ο„Ξ± ΟƒΟ…Ξ½Ξ΄ΞµΞ΄ΞµΞΌΞ­Ξ½ΞΏΞΉ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ : ';
+$_lang['Not valid course code'] = 'ΞΞ· ΞΉΟƒΟ‡ΟΞΏΞ½ Ο€Ξ·Ξ³Ξ±Ξ―ΞΏΟ‚ ΞΊΟΞ΄ΞΉΞΊΞ±Ο‚ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Not valid user id'] = 'ΞΞ· ΞΉΟƒΟ‡ΟΞΏΞ½ ΞΊΟ‰Ξ΄ΞΉΞΊΟΟ‚ Ο‡ΟΞ®ΟƒΟ„Ξ·';
 $_lang['Note :  this repository should be protected with a .htaccess or
-       be placed outside the web. Because there contain data of private courses.'] = 'Σημείωση :  αυτή η αποθήκη θα έπρεπε να είναι προστατευμένη με ένα αρχείο .htaccess ή
-       τοποθετημένη εκτώς δικτύου. Επειδή περιέχει δεδομένα ιδιωτικών μαθημάτων.';
+       be placed outside the web. Because there contain data of private courses.'] = 'Ξ£Ξ·ΞΌΞµΞ―Ο‰ΟƒΞ· :  Ξ±Ο…Ο„Ξ® Ξ· Ξ±Ο€ΞΏΞΈΞ®ΞΊΞ· ΞΈΞ± Ξ­Ο€ΟΞµΟ€Ξµ Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ Ο€ΟΞΏΟƒΟ„Ξ±Ο„ΞµΟ…ΞΌΞ­Ξ½Ξ· ΞΌΞµ Ξ­Ξ½Ξ± Ξ±ΟΟ‡ΞµΞ―ΞΏ .htaccess Ξ®
+       Ο„ΞΏΟ€ΞΏΞΈΞµΟ„Ξ·ΞΌΞ­Ξ½Ξ· ΞµΞΊΟ„ΟΟ‚ Ξ΄ΞΉΞΊΟ„ΟΞΏΟ…. Ξ•Ο€ΞµΞΉΞ΄Ξ® Ο€ΞµΟΞΉΞ­Ο‡ΞµΞΉ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ξ± ΞΉΞ΄ΞΉΟ‰Ο„ΞΉΞΊΟΞ½ ΞΌΞ±ΞΈΞ·ΞΌΞ¬Ο„Ο‰Ξ½.';
 $_lang['Note : this repository should be protected with a .htaccess or
-       be placed outside the web. Because there contain data of private courses. Claroline Would be able to read and write in this dir'] = 'Σημείωση :  αυτή η αποθήκη θα έπρεπε να είναι προστατευμένη με ένα αρχείο .htaccess ή
-       τοποθετημένη εκτώς δικτύου. Επειδή περιέχει δεδομένα ιδιωτικών μαθημάτων. Το Claroline θα πρέπει να είναι δυνατόν να διαβάσει και γράψει σε αυτό τον κατάλογο';
-$_lang['Notice'] = 'Παρατήρηση';
-$_lang['Notify'] = 'Ενημέρωσε';
-$_lang['Notify by email when replies are posted'] = 'Ειδοποίηση μέσω email αν σταλούν απαντήσεις';
-$_lang['Now'] = 'Τώρα';
-$_lang['Number of assignment per page'] = 'Αριθμός εργασιών ανά σελίδα';
-$_lang['Number of columns'] = 'Αριθμός στηλών';
-$_lang['Number of columns displayed per page'] = 'Αριθμός στηλών που εμφανίζεται ανά σελίδα';
-$_lang['Number of courses'] = 'Αριθμός μαθημάτων (courses)';
-$_lang['Number of courses by faculty'] = 'Αριθμός μαθημάτων ανά κλάδο';
-$_lang['Number of courses by language'] = 'Αριθμός μαθημάτων ανά γλώσσα';
-$_lang['Number of courses by visibility'] = 'Αριθμός μαθημάτων ανά εμφάνιση ';
+       be placed outside the web. Because there contain data of private courses. Claroline Would be able to read and write in this dir'] = 'Ξ£Ξ·ΞΌΞµΞ―Ο‰ΟƒΞ· :  Ξ±Ο…Ο„Ξ® Ξ· Ξ±Ο€ΞΏΞΈΞ®ΞΊΞ· ΞΈΞ± Ξ­Ο€ΟΞµΟ€Ξµ Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ Ο€ΟΞΏΟƒΟ„Ξ±Ο„ΞµΟ…ΞΌΞ­Ξ½Ξ· ΞΌΞµ Ξ­Ξ½Ξ± Ξ±ΟΟ‡ΞµΞ―ΞΏ .htaccess Ξ®
+       Ο„ΞΏΟ€ΞΏΞΈΞµΟ„Ξ·ΞΌΞ­Ξ½Ξ· ΞµΞΊΟ„ΟΟ‚ Ξ΄ΞΉΞΊΟ„ΟΞΏΟ…. Ξ•Ο€ΞµΞΉΞ΄Ξ® Ο€ΞµΟΞΉΞ­Ο‡ΞµΞΉ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ξ± ΞΉΞ΄ΞΉΟ‰Ο„ΞΉΞΊΟΞ½ ΞΌΞ±ΞΈΞ·ΞΌΞ¬Ο„Ο‰Ξ½. Ξ¤ΞΏ Claroline ΞΈΞ± Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ Ξ΄Ο…Ξ½Ξ±Ο„ΟΞ½ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ²Ξ¬ΟƒΞµΞΉ ΞΊΞ±ΞΉ Ξ³ΟΞ¬ΟΞµΞΉ ΟƒΞµ Ξ±Ο…Ο„Ο Ο„ΞΏΞ½ ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏ';
+$_lang['Nothing to display'] = 'Ξ¤Ξ―Ο€ΞΏΟ„Ξ± Ξ³ΞΉΞ± Ο€ΟΞΏΞ²ΞΏΞ»Ξ®';
+$_lang['Notice'] = 'Ξ Ξ±ΟΞ±Ο„Ξ®ΟΞ·ΟƒΞ·';
+$_lang['Notify'] = 'Ξ•Ξ½Ξ·ΞΌΞ­ΟΟ‰ΟƒΞµ';
+$_lang['Notify by email when replies are posted'] = 'Ξ•ΞΉΞ΄ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· ΞΌΞ­ΟƒΟ‰ email Ξ±Ξ½ ΟƒΟ„Ξ±Ξ»ΞΏΟΞ½ Ξ±Ο€Ξ±Ξ½Ο„Ξ®ΟƒΞµΞΉΟ‚';
+$_lang['Now'] = 'Ξ¤ΟΟΞ±';
+$_lang['Number of access'] = 'Ξ‘ΟΞΉΞΈΞΌΞΏΞ― Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ·Ο‚';
+$_lang['Number of assignment per page'] = 'Ξ‘ΟΞΉΞΈΞΌΟΟ‚ ΞµΟΞ³Ξ±ΟƒΞΉΟΞ½ Ξ±Ξ½Ξ¬ ΟƒΞµΞ»Ξ―Ξ΄Ξ±';
+$_lang['Number of columns'] = 'Ξ‘ΟΞΉΞΈΞΌΟΟ‚ ΟƒΟ„Ξ·Ξ»ΟΞ½';
+$_lang['Number of columns displayed per page'] = 'Ξ‘ΟΞΉΞΈΞΌΟΟ‚ ΟƒΟ„Ξ·Ξ»ΟΞ½ Ο€ΞΏΟ… ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞµΟ„Ξ±ΞΉ Ξ±Ξ½Ξ¬ ΟƒΞµΞ»Ξ―Ξ΄Ξ±';
+$_lang['Number of courses'] = 'Ξ‘ΟΞΉΞΈΞΌΟΟ‚ ΞΌΞ±ΞΈΞ·ΞΌΞ¬Ο„Ο‰Ξ½ (courses)';
+$_lang['Number of courses by access'] = 'Ξ‘ΟΞΉΞΈΞΌΟΟ‚ ΞΌΞ±ΞΈΞ·ΞΌΞ¬Ο„Ο‰Ξ½ ΞΌΞµ Ξ²Ξ¬ΟƒΞ· Ο„Ξ·Ξ½ Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ·';
+$_lang['Number of courses by enrollment'] = 'Ξ‘ΟΞΉΞΈΞΌΟΟ‚ ΞΌΞ±ΞΈΞ·ΞΌΞ¬Ο„Ο‰Ξ½ ΞΌΞµ Ξ²Ξ¬ΟƒΞ· Ο„Ξ·Ξ½ ΞµΞ³Ξ³ΟΞ±Ο†Ξ®';
+$_lang['Number of courses by faculty'] = 'Ξ‘ΟΞΉΞΈΞΌΟΟ‚ ΞΌΞ±ΞΈΞ·ΞΌΞ¬Ο„Ο‰Ξ½ Ξ±Ξ½Ξ¬ ΞΊΞ»Ξ¬Ξ΄ΞΏ';
+$_lang['Number of courses by language'] = 'Ξ‘ΟΞΉΞΈΞΌΟΟ‚ ΞΌΞ±ΞΈΞ·ΞΌΞ¬Ο„Ο‰Ξ½ Ξ±Ξ½Ξ¬ Ξ³Ξ»ΟΟƒΟƒΞ±';
+$_lang['Number of courses by visibility'] = 'Ξ‘ΟΞΉΞΈΞΌΟΟ‚ ΞΌΞ±ΞΈΞ·ΞΌΞ¬Ο„Ο‰Ξ½ Ξ±Ξ½Ξ¬ ΞµΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· ';
+$_lang['Number of exercises per page'] = 'Ξ‘ΟΞΉΞΈΞΌΟΟ‚ Ξ±ΟƒΞΊΞ®ΟƒΞµΟ‰Ξ½ Ξ±Ξ½Ξ± ΟƒΞµΞ»Ξ―Ξ΄Ξ±';
 $_lang['Number of learning paths using this module :'] = '
-Αριθμός διαδρομών μάθησης που χρησιμοποιούν αυτή την ενότητα : ';
-$_lang['Number of pages'] = 'Αριθμός σελίδων';
-$_lang['Number of posts per page'] = 'Αριθμός αποστολών ανά σελίδα';
-$_lang['Number of rows'] = 'Αριμός σειρών/γραμμών';
-$_lang['Number of rows displayed per page'] = 'Αριθμός γραμμών που εμφανίζονται ανά σελίδα';
-$_lang['Number of seconds before the cookie expires'] = 'Αριθμός δευτερολέπτων πριν τη λήξη του cookie';
-$_lang['Number of topics per page'] = 'Αριθμός θεμάτων ανά σελίδα';
-$_lang['Number of user per page'] = 'Αριθμός χρηστών ανά σελίδα';
-$_lang['Number of users'] = 'Αριθμός χρηστών';
-$_lang['Number of users by course'] = 'Αριθμός χρηστών ανά μάθημα';
-$_lang['Number of users by faculty'] = 'Αριθμός χρηστών ανά κλάδο';
-$_lang['Number of users by status'] = 'Αριθμός χρηστών ανά κατάσταση/υπόσταση (status)';
-$_lang['Number proposed exceeds max. that you allowed (you can modify it below). Group composition has not been modified'] = 'Ο αριθμός που προτάθηκε υπερβαίνει το μέγιστο επιτρεπόμενο (μπορείτε να τον αλλάξετε παρακάτω).
-	Η σύνθεση της ομάδας δεν άλλαξε';
+Ξ‘ΟΞΉΞΈΞΌΟΟ‚ Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΟΞ½ ΞΌΞ¬ΞΈΞ·ΟƒΞ·Ο‚ Ο€ΞΏΟ… Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞΏΟΞ½ Ξ±Ο…Ο„Ξ® Ο„Ξ·Ξ½ ΞµΞ½ΟΟ„Ξ·Ο„Ξ± : ';
+$_lang['Number of message per page'] = 'Ξ‘ΟΞΉΞΈΞΌΟΟ‚ ΞΌΞ·Ξ½Ο…ΞΌΞ¬Ο„Ο‰Ξ½ Ξ±Ξ½Ξ± ΟƒΞµΞ»Ξ―Ξ΄Ξ±';
+$_lang['Number of pages'] = 'Ξ‘ΟΞΉΞΈΞΌΟΟ‚ ΟƒΞµΞ»Ξ―Ξ΄Ο‰Ξ½';
+$_lang['Number of posts per page'] = 'Ξ‘ΟΞΉΞΈΞΌΟΟ‚ Ξ±Ο€ΞΏΟƒΟ„ΞΏΞ»ΟΞ½ Ξ±Ξ½Ξ¬ ΟƒΞµΞ»Ξ―Ξ΄Ξ±';
+$_lang['Number of rows'] = 'Ξ‘ΟΞΉΞΌΟΟ‚ ΟƒΞµΞΉΟΟΞ½/Ξ³ΟΞ±ΞΌΞΌΟΞ½';
+$_lang['Number of rows displayed per page'] = 'Ξ‘ΟΞΉΞΈΞΌΟΟ‚ Ξ³ΟΞ±ΞΌΞΌΟΞ½ Ο€ΞΏΟ… ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞΏΞ½Ο„Ξ±ΞΉ Ξ±Ξ½Ξ¬ ΟƒΞµΞ»Ξ―Ξ΄Ξ±';
+$_lang['Number of seconds before the cookie expires'] = 'Ξ‘ΟΞΉΞΈΞΌΟΟ‚ Ξ΄ΞµΟ…Ο„ΞµΟΞΏΞ»Ξ­Ο€Ο„Ο‰Ξ½ Ο€ΟΞΉΞ½ Ο„Ξ· Ξ»Ξ®ΞΎΞ· Ο„ΞΏΟ… cookie';
+$_lang['Number of topics per page'] = 'Ξ‘ΟΞΉΞΈΞΌΟΟ‚ ΞΈΞµΞΌΞ¬Ο„Ο‰Ξ½ Ξ±Ξ½Ξ¬ ΟƒΞµΞ»Ξ―Ξ΄Ξ±';
+$_lang['Number of user per page'] = 'Ξ‘ΟΞΉΞΈΞΌΟΟ‚ Ο‡ΟΞ·ΟƒΟ„ΟΞ½ Ξ±Ξ½Ξ¬ ΟƒΞµΞ»Ξ―Ξ΄Ξ±';
+$_lang['Number of users'] = 'Ξ‘ΟΞΉΞΈΞΌΟΟ‚ Ο‡ΟΞ·ΟƒΟ„ΟΞ½';
+$_lang['Number of users by course'] = 'Ξ‘ΟΞΉΞΈΞΌΟΟ‚ Ο‡ΟΞ·ΟƒΟ„ΟΞ½ Ξ±Ξ½Ξ¬ ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['Number of users by faculty'] = 'Ξ‘ΟΞΉΞΈΞΌΟΟ‚ Ο‡ΟΞ·ΟƒΟ„ΟΞ½ Ξ±Ξ½Ξ¬ ΞΊΞ»Ξ¬Ξ΄ΞΏ';
+$_lang['Number of users by status'] = 'Ξ‘ΟΞΉΞΈΞΌΟΟ‚ Ο‡ΟΞ·ΟƒΟ„ΟΞ½ Ξ±Ξ½Ξ¬ ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ·/Ο…Ο€ΟΟƒΟ„Ξ±ΟƒΞ· (status)';
+$_lang['Number proposed exceeds max. that you allowed (you can modify it below). Group composition has not been modified'] = 'Ξ Ξ±ΟΞΉΞΈΞΌΟΟ‚ Ο€ΞΏΟ… Ο€ΟΞΏΟ„Ξ¬ΞΈΞ·ΞΊΞµ Ο…Ο€ΞµΟΞ²Ξ±Ξ―Ξ½ΞµΞΉ Ο„ΞΏ ΞΌΞ­Ξ³ΞΉΟƒΟ„ΞΏ ΞµΟ€ΞΉΟ„ΟΞµΟ€ΟΞΌΞµΞ½ΞΏ (ΞΌΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± Ο„ΞΏΞ½ Ξ±Ξ»Ξ»Ξ¬ΞΎΞµΟ„Ξµ Ο€Ξ±ΟΞ±ΞΊΞ¬Ο„Ο‰).
+    Ξ— ΟƒΟΞ½ΞΈΞµΟƒΞ· Ο„Ξ·Ο‚ ΞΏΞΌΞ¬Ξ΄Ξ±Ο‚ Ξ΄ΞµΞ½ Ξ¬Ξ»Ξ»Ξ±ΞΎΞµ';
 $_lang['Numero'] = 'No.';
-$_lang['OVER QUOTA'] = 'ΧΩΡΟΣ ΥΠΕΡΚΑΛΥΦΘΗΚΕ';
-$_lang['Off'] = 'Ανενεργό';
-$_lang['Official code'] = 'Επίσημος κώδικας';
-$_lang['Ok'] = 'Εντάξει';
-$_lang['Oldest first'] = 'Αντιστροφή σειράς παρουσίασης';
+$_lang['OK'] = 'Ξ•Ξ½Ο„Ξ¬ΞΎΞµΞΉ';
+$_lang['OVER QUOTA'] = 'Ξ§Ξ©Ξ΅ΞΞ£ Ξ¥Ξ Ξ•Ξ΅ΞΞ‘Ξ›Ξ¥Ξ¦ΞΞ—ΞΞ•';
+$_lang['Off'] = 'Ξ‘Ξ½ΞµΞ½ΞµΟΞ³Ο';
+$_lang['Official code'] = 'Ξ•Ο€Ξ―ΟƒΞ·ΞΌΞΏΟ‚ ΞΊΟΞ΄ΞΉΞΊΞ±Ο‚';
+$_lang['Official code is'] = 'Ξ ΞµΟ€Ξ―ΟƒΞ·ΞΌΞΏΟ‚ ΞΊΟ‰Ξ΄ΞΉΞΊΟΟ‚ ΞµΞ―Ξ½Ξ±ΞΉ';
+$_lang['Ok'] = 'Ξ•Ξ½Ο„Ξ¬ΞΎΞµΞΉ';
+$_lang['Old password'] = 'Ξ Ξ±Ξ»Ξ±ΞΉΟΟ‚ ΞΊΟ‰Ξ΄ΞΉΞΊΟΟ‚';
+$_lang['Old password is wrong'] = 'Ξ Ο€Ξ±Ξ»Ξ±ΞΉΟΟ‚ ΞΊΟ‰Ξ΄ΞΉΞΊΟΟ‚ ΞµΞ―Ξ½Ξ±ΞΉ Ξ»Ξ±Ξ½ΞΈΞ±ΟƒΞΌΞ­Ξ½ΞΏΟ‚
+';
+$_lang['Oldest first'] = 'Ξ‘Ξ½Ο„ΞΉΟƒΟ„ΟΞΏΟ†Ξ® ΟƒΞµΞΉΟΞ¬Ο‚ Ο€Ξ±ΟΞΏΟ…ΟƒΞ―Ξ±ΟƒΞ·Ο‚';
 $_lang['On'] = 'On';
-$_lang['On an unique page'] = 'Σε μία μοναδική σελίδα';
-$_lang['Once a user logs to the Claroline platform a cookie is sent to the user browser if the authentication process succeeds. The cookie value is also stored in a internal table of the Claroline platform for a certain time. If requested, the Claroline SSO '] = 'Μόλις ένας χρήστης συνδέεται στην πλατφόρμα Claroline ένα cookie στέλνεται στον browser του αν η διαδικασία πιστοποίησης επιτύχη. Η τιμή του cookie αποθηκεύεται επίσης σε ένα εσωτερικό πίνακα της πλατφόρμας Claroline για ένα συγκεκριμένο χρόνο. Στην περίπτωση που απαιτηθεί, το Claroline SSO';
-$_lang['One question per page (sequential)'] = 'Μία ερώτηση ανά σελίδα (συνεχόμενα)';
-$_lang['Only his own submissions'] = 'Μόνο τις δικές του υποβολές';
-$_lang['Only visible for teacher(s) and submitter(s)'] = 'Ορατό μόνο για καθηγητή(ες) και αποστολέα(εις)';
-$_lang['Optional'] = 'Προαιρετικό';
-$_lang['Order'] = 'Εντολή ';
-$_lang['Order course by'] = 'Ταξινόμησε τα μαθήματα κατά';
-$_lang['Ordered list'] = 'Ταξινομημένη λίστα';
-$_lang['Organisation Name'] = 'Όνομα Οργανισμού';
-$_lang['Organisation logo url'] = 'Διεύθυνση url του εικονιδίου του οργανισμού';
-$_lang['Organisation website'] = 'Ιστοσελίδα του οργανισμού';
-$_lang['Orphan questions'] = 'ερωτήσεις που μείναν';
-$_lang['Other'] = '¶λλο';
-$_lang['Others'] = '¶λλα';
-$_lang['Others (*)'] = '¶λλοι χρήστες (*)';
-$_lang['PHP system information'] = 'Πληροφορίες PHP';
-$_lang['Page'] = 'Σελίδα';
-$_lang['Page %title not found'] = 'Σελίδα %title δεν βρέθηκε';
-$_lang['Page history'] = 'Ιστορικό σελίδας';
-$_lang['Page saved'] = 'Η σελίδα αποθηκεύτηκε';
-$_lang['Pairs'] = 'Ζευγάρια';
-$_lang['Parent category'] = 'Μητρική κατηγορία ';
-$_lang['Password'] = 'Κωδικός';
-$_lang['Password given is too simple or too close to the username.'] = 'Ο κωδικός που δόθηκε είναι πολύ απλός ή παρόμοιος με το όνομα χρήστη.';
-$_lang['Password security check'] = 'Έλεγχος ασφάλειας κωδικού';
-$_lang['Passwords of some of your user account(s) are recorded an in external authentication system outside the platform.'] = 'Κωδικοί πρόσβασης μερικών από τους χρήστες σας καταγράφονται σε εξωτερικά συστήματα πιστοποίησης εκτώς της πλατφόρμας.';
-$_lang['Period'] = 'Περίοδος';
-$_lang['PeriodDayShort'] = 'μ.';
-$_lang['PeriodHourShort'] = 'ω.';
-$_lang['Personal language selector'] = 'Προσωπική επιλογή γλώσσας';
-$_lang['PersonalCourseList'] = 'Προσωπική λίστα μαθήματος';
-$_lang['Phone'] = 'Τηλέφωνο';
-$_lang['Phone : %phone_number'] = 'Τηλέφωνο : %phone_number';
-$_lang['Platform'] = 'Πλατφόρμα';
-$_lang['Platform Courses'] = 'Μαθήματα Πλατφόρμας';
-$_lang['Platform Settings'] = 'Ρυθμίσεις Πλατφόρμας';
-$_lang['Platform language'] = 'Γλώσσα Πλατφόρμας';
-$_lang['Platform local path '] = 'Τοπική διαδρομή για την πλατφόρμα';
-$_lang['Platform logo url'] = 'Διεύθυνση url για το εικονίδιο της πλατφόρμας';
-$_lang['Platform name'] = 'Όνομα Πλαφόρμας';
-$_lang['Platform statistics'] = 'Στατιστικά Πλατφόρμας';
-$_lang['Platform web URL'] = 'Διεύθυνση URL πλατφόρμας';
-$_lang['Please check that your campus URL is reachable from the internet.'] = 'Παρακαλώ έλεγξτε ότι η διεύθυνση (Url) της πανεπιστημιούπολης (campus) είναι προσβάσιμη απο το διαδίκτυο.';
-$_lang['Please choose a good answer'] = 'Παρακαλώ διαλέξτε μια καλή απάντηση';
-$_lang['Please confirm your choice'] = 'Παρακαλώ επιβεβαιώστε την επιλογή σας';
-$_lang['Please contact'] = 'Παρακαλώ επικοινωνήστε';
-$_lang['Please contact course titular(s)'] = 'Παρακαλώ επικοινωνήστε με τον καθηγητή(ες) του μαθήματος';
-$_lang['Please contact the course manager : %email'] = 'Παρακαλώ επικοινωνήστε με το διευθυντή του μαθήματος : %email';
-$_lang['Please define at least one blank with brackets %mask'] = 'Παρακαλώ ορίστε τουλάχιστον ένα κενό με παρενθέσεις %mask';
-$_lang['Please define the options'] = 'Παρακαλώ ορίστε τις επιλογές';
-$_lang['Please fill the two lists below'] = 'Παρακαλώ συμπλήρωσε τις δυο παρακάτω λίστες';
-$_lang['Please give a weighting to each blank'] = 'Παρακαλώ δώστε βάρος σε κάθε κενό';
-$_lang['Please give the answers to the question'] = 'Παρακαλώ δώστε τις απαντήσεις στην ερώτηση';
-$_lang['Please try again.'] = 'Παρακαλώ προσπαθήστε ξανά.';
-$_lang['Please type the text'] = 'Παρακαλώ πληκτρολογήστε το κείμενο';
-$_lang['Please type your text below, use brackets %mask to define one or more blanks'] = 'Παρακαλώ γράψτε το κείμενο σας, χρησιμοποιειστε παρενθέσεις %mask για να ορίσετε ένα ή περισσότερα κενά';
-$_lang['Pool of modules'] = 'Σύνολο ενοτήτων';
-$_lang['Port of CAS server'] = 'Πύλη του CAS server';
-$_lang['Posts'] = 'Αποστολές';
-$_lang['Powered by'] = 'Με τη βοήθεια του';
-$_lang['Prefix for course table  / db names'] = 'Πρόθεμα για τα ονόματα των πινάκων των μαθημάτων και της βάσης δεδομένων';
-$_lang['Prefix for main table names'] = 'Πρόθεμα για τα ονόματα των κεντρικών πινάκων';
-$_lang['Prefix for tracking table names'] = 'Πρόθεμα για τα ονόματα των πινάκων παρακολούθησης του συστήματος';
-$_lang['Preformated text'] = 'Μορφοποιημένο κείμενο';
-$_lang['Preview'] = 'Παρουσίαση/προβολή';
-$_lang['Preview :'] = 'Προεπισκόπηση : ';
-$_lang['Preview : %textZone'] = 'Προεπισκόπηση : %textZone';
-$_lang['Previous'] = 'Προηγούμενο';
-$_lang['Previous day'] = 'Προηγούμενη ημέρα';
-$_lang['Previous month'] = 'Προηγούμενος μήνας';
-$_lang['Previous question'] = 'Προηγούμενη ερώτηση';
-$_lang['Previous week'] = 'Προηγούμενη Εβδομάδα';
-$_lang['Previous year'] = 'Προηγούμενο έτος';
-$_lang['Private'] = 'κλειστό';
-$_lang['Private feedback'] = 'Προσωπική επικοινωνία';
-$_lang['Production language files'] = 'Παραγωγή αρχείων γλώσσας';
-$_lang['Profile'] = 'Προφίλ';
-$_lang['Profile SQL'] = 'Προφίλ SQL';
+$_lang['On an unique page'] = 'Ξ£Ξµ ΞΌΞ―Ξ± ΞΌΞΏΞ½Ξ±Ξ΄ΞΉΞΊΞ® ΟƒΞµΞ»Ξ―Ξ΄Ξ±';
+$_lang['Once a user logs to the Claroline platform a cookie is sent to the user browser if the authentication process succeeds. The cookie value is also stored in a internal table of the Claroline platform for a certain time. If requested, the Claroline SSO '] = 'ΞΟΞ»ΞΉΟ‚ Ξ­Ξ½Ξ±Ο‚ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ ΟƒΟ…Ξ½Ξ΄Ξ­ΞµΟ„Ξ±ΞΉ ΟƒΟ„Ξ·Ξ½ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ± Claroline Ξ­Ξ½Ξ± cookie ΟƒΟ„Ξ­Ξ»Ξ½ΞµΟ„Ξ±ΞΉ ΟƒΟ„ΞΏΞ½ browser Ο„ΞΏΟ… Ξ±Ξ½ Ξ· Ξ΄ΞΉΞ±Ξ΄ΞΉΞΊΞ±ΟƒΞ―Ξ± Ο€ΞΉΟƒΟ„ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ·Ο‚ ΞµΟ€ΞΉΟ„ΟΟ‡Ξ·. Ξ— Ο„ΞΉΞΌΞ® Ο„ΞΏΟ… cookie Ξ±Ο€ΞΏΞΈΞ·ΞΊΞµΟΞµΟ„Ξ±ΞΉ ΞµΟ€Ξ―ΟƒΞ·Ο‚ ΟƒΞµ Ξ­Ξ½Ξ± ΞµΟƒΟ‰Ο„ΞµΟΞΉΞΊΟ Ο€Ξ―Ξ½Ξ±ΞΊΞ± Ο„Ξ·Ο‚ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±Ο‚ Claroline Ξ³ΞΉΞ± Ξ­Ξ½Ξ± ΟƒΟ…Ξ³ΞΊΞµΞΊΟΞΉΞΌΞ­Ξ½ΞΏ Ο‡ΟΟΞ½ΞΏ. Ξ£Ο„Ξ·Ξ½ Ο€ΞµΟΞ―Ο€Ο„Ο‰ΟƒΞ· Ο€ΞΏΟ… Ξ±Ο€Ξ±ΞΉΟ„Ξ·ΞΈΞµΞ―, Ο„ΞΏ Claroline SSO';
+$_lang['One question per page (sequential)'] = 'ΞΞ―Ξ± ΞµΟΟΟ„Ξ·ΟƒΞ· Ξ±Ξ½Ξ¬ ΟƒΞµΞ»Ξ―Ξ΄Ξ± (ΟƒΟ…Ξ½ΞµΟ‡ΟΞΌΞµΞ½Ξ±)';
+$_lang['Only his own submissions'] = 'ΞΟΞ½ΞΏ Ο„ΞΉΟ‚ Ξ΄ΞΉΞΊΞ­Ο‚ Ο„ΞΏΟ… Ο…Ο€ΞΏΞ²ΞΏΞ»Ξ­Ο‚';
+$_lang['Only not read'] = 'ΞΟΞ½ΞΏ ΟΟ‡ΞΉ Ξ³ΞΉΞ± Ξ΄ΞΉΞ¬Ξ²Ξ±ΟƒΞΌΞ±';
+$_lang['Only read'] = 'ΞΟΞ½ΞΏ Ξ³ΞΉΞ± Ξ΄ΞΉΞ¬Ξ²Ξ±ΟƒΞΌΞ±
+';
+$_lang['Only visible for teacher(s) and submitter(s)'] = 'ΞΟΞ±Ο„Ο ΞΌΟΞ½ΞΏ Ξ³ΞΉΞ± ΞΊΞ±ΞΈΞ·Ξ³Ξ·Ο„Ξ®(ΞµΟ‚) ΞΊΞ±ΞΉ Ξ±Ο€ΞΏΟƒΟ„ΞΏΞ»Ξ­Ξ±(ΞµΞΉΟ‚)';
+$_lang['Optional'] = 'Ξ ΟΞΏΞ±ΞΉΟΞµΟ„ΞΉΞΊΟ';
+$_lang['Options for announcements portlet'] = 'Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ­Ο‚ Ξ³ΞΉΞ± Ο„Ξ·Ξ½ Ο€ΟΞ»Ξ· ΞµΞΉΞ΄ΞΏΟ€ΞΏΞΉΞ®ΟƒΞµΟ‰Ξ½';
+$_lang['Order'] = 'Ξ•Ξ½Ο„ΞΏΞ»Ξ® ';
+$_lang['Order course by'] = 'Ξ¤Ξ±ΞΎΞΉΞ½ΟΞΌΞ·ΟƒΞµ Ο„Ξ± ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„Ξ± ΞΊΞ±Ο„Ξ¬';
+$_lang['Ordered list'] = 'Ξ¤Ξ±ΞΎΞΉΞ½ΞΏΞΌΞ·ΞΌΞ­Ξ½Ξ· Ξ»Ξ―ΟƒΟ„Ξ±';
+$_lang['Organisation Name'] = 'ΞΞ½ΞΏΞΌΞ± ΞΟΞ³Ξ±Ξ½ΞΉΟƒΞΌΞΏΟ';
+$_lang['Organisation logo url'] = 'Ξ”ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ· url Ο„ΞΏΟ… ΞµΞΉΞΊΞΏΞ½ΞΉΞ΄Ξ―ΞΏΟ… Ο„ΞΏΟ… ΞΏΟΞ³Ξ±Ξ½ΞΉΟƒΞΌΞΏΟ';
+$_lang['Organisation website'] = 'Ξ™ΟƒΟ„ΞΏΟƒΞµΞ»Ξ―Ξ΄Ξ± Ο„ΞΏΟ… ΞΏΟΞ³Ξ±Ξ½ΞΉΟƒΞΌΞΏΟ';
+$_lang['Orphan questions'] = 'ΞµΟΟ‰Ο„Ξ®ΟƒΞµΞΉΟ‚ Ο€ΞΏΟ… ΞΌΞµΞ―Ξ½Ξ±Ξ½';
+$_lang['Other'] = 'Ξ†Ξ»Ξ»ΞΏ';
+$_lang['Others'] = 'Ξ†Ξ»Ξ»Ξ±';
+$_lang['Others (*)'] = 'Ξ†Ξ»Ξ»ΞΏΞΉ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ (*)';
+$_lang['Outbox'] = 'Ξ•ΞΎΞµΟΟ‡ΟΞΌΞµΞ½Ξ±';
+$_lang['PHP configuration'] = 'Ξ΅Ο…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ PHP';
+$_lang['PHP security information'] = 'Ξ Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞ―ΞµΟ‚ Ξ±ΟƒΟ†Ξ±Ξ»ΞµΞ―Ξ±Ο‚ PHP';
+$_lang['PHP system information'] = 'Ξ Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞ―ΞµΟ‚ PHP';
+$_lang['Package on server (zipped or not)'] = 'Ξ Ξ±ΞΊΞ­Ο„ΞΏ ΟƒΟ„ΞΏΞ½ ΞµΞΎΟ…Ο€Ξ·ΟΞ­Ο„Ξ· (ΟƒΟ…ΞΌΟ€ΞΉΞµΟƒΞΌΞ­Ξ½ΞΏ Ξ® ΟΟ‡ΞΉ)';
+$_lang['Package on the net (zip only)'] = 'Ξ Ξ±ΞΊΞ­Ο„ΞΏ ΟƒΟ„ΞΏ Ξ΄ΞΉΞ±Ξ΄Ξ―ΞΊΟ„Ο…ΞΏ (ΟƒΟ…ΞΌΟ€ΞΉΞµΟƒΞΌΞ­Ξ½ΞΏ ΞΌΟΞ½ΞΏ)';
+$_lang['Package on your computer (zip only)'] = 'Ξ Ξ±ΞΊΞ­Ο„ΞΏ ΟƒΟ„ΞΏΞ½ Ο…Ο€ΞΏΞ»ΞΏΞ³ΞΉΟƒΟ„Ξ® ΟƒΞ±Ο‚ (ΟƒΟ…ΞΌΟ€ΞΉΞµΟƒΞΌΞ­Ξ½ΞΏ ΞΌΟΞ½ΞΏ)';
+$_lang['Page'] = 'Ξ£ΞµΞ»Ξ―Ξ΄Ξ±';
+$_lang['Page %title not found'] = 'Ξ£ΞµΞ»Ξ―Ξ΄Ξ± %title Ξ΄ΞµΞ½ Ξ²ΟΞ­ΞΈΞ·ΞΊΞµ';
+$_lang['Page history'] = 'Ξ™ΟƒΟ„ΞΏΟΞΉΞΊΟ ΟƒΞµΞ»Ξ―Ξ΄Ξ±Ο‚';
+$_lang['Page saved'] = 'Ξ— ΟƒΞµΞ»Ξ―Ξ΄Ξ± Ξ±Ο€ΞΏΞΈΞ·ΞΊΞµΟΟ„Ξ·ΞΊΞµ';
+$_lang['Pairs'] = 'Ξ–ΞµΟ…Ξ³Ξ¬ΟΞΉΞ±';
+$_lang['Parent category'] = 'ΞΞ·Ο„ΟΞΉΞΊΞ® ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ± ';
+$_lang['Password'] = 'ΞΟ‰Ξ΄ΞΉΞΊΟΟ‚';
+$_lang['Password given is too simple or too close to the username.'] = 'Ξ ΞΊΟ‰Ξ΄ΞΉΞΊΟΟ‚ Ο€ΞΏΟ… Ξ΄ΟΞΈΞ·ΞΊΞµ ΞµΞ―Ξ½Ξ±ΞΉ Ο€ΞΏΞ»Ο Ξ±Ο€Ξ»ΟΟ‚ Ξ® Ο€Ξ±ΟΟΞΌΞΏΞΉΞΏΟ‚ ΞΌΞµ Ο„ΞΏ ΟΞ½ΞΏΞΌΞ± Ο‡ΟΞ®ΟƒΟ„Ξ·.';
+$_lang['Password security check'] = 'ΞΞ»ΞµΞ³Ο‡ΞΏΟ‚ Ξ±ΟƒΟ†Ξ¬Ξ»ΞµΞΉΞ±Ο‚ ΞΊΟ‰Ξ΄ΞΉΞΊΞΏΟ';
+$_lang['Passwords of some of your user account(s) are recorded an in external authentication system outside the platform.'] = 'ΞΟ‰Ξ΄ΞΉΞΊΞΏΞ― Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ·Ο‚ ΞΌΞµΟΞΉΞΊΟΞ½ Ξ±Ο€Ο Ο„ΞΏΟ…Ο‚ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ ΟƒΞ±Ο‚ ΞΊΞ±Ο„Ξ±Ξ³ΟΞ¬Ο†ΞΏΞ½Ο„Ξ±ΞΉ ΟƒΞµ ΞµΞΎΟ‰Ο„ΞµΟΞΉΞΊΞ¬ ΟƒΟ…ΟƒΟ„Ξ®ΞΌΞ±Ο„Ξ± Ο€ΞΉΟƒΟ„ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ·Ο‚ ΞµΞΊΟ„ΟΟ‚ Ο„Ξ·Ο‚ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±Ο‚.';
+$_lang['Path'] = 'Ξ”ΞΉΞ±Ξ΄ΟΞΏΞΌΞ®';
+$_lang['Path to zip file or package directory on server'] = 'Ξ”ΞΉΞ±Ξ΄ΟΞΏΞΌΞ® ΟƒΟ„ΞΏ ΟƒΟ…ΞΌΟ€ΞΉΞµΟƒΞΌΞ­Ξ½ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ Ξ® ΟƒΟ„ΞΏ Ο€Ξ±ΞΊΞ­Ο„ΞΏ ΟƒΟ„ΞΏΞ½ ΞµΞΎΟ…Ο€Ξ·ΟΞ­Ο„Ξ·';
+$_lang['Period'] = 'Ξ ΞµΟΞ―ΞΏΞ΄ΞΏΟ‚';
+$_lang['PeriodDayShort'] = 'ΞΌ.';
+$_lang['PeriodHourShort'] = 'Ο‰.';
+$_lang['Personal language selector'] = 'Ξ ΟΞΏΟƒΟ‰Ο€ΞΉΞΊΞ® ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ® Ξ³Ξ»ΟΟƒΟƒΞ±Ο‚';
+$_lang['PersonalCourseList'] = 'Ξ ΟΞΏΟƒΟ‰Ο€ΞΉΞΊΞ® Ξ»Ξ―ΟƒΟ„Ξ± ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Phone'] = 'Ξ¤Ξ·Ξ»Ξ­Ο†Ο‰Ξ½ΞΏ';
+$_lang['Phone : %phone_number'] = 'Ξ¤Ξ·Ξ»Ξ­Ο†Ο‰Ξ½ΞΏ : %phone_number';
+$_lang['Platform'] = 'Ξ Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±';
+$_lang['Platform Courses'] = 'ΞΞ±ΞΈΞ®ΞΌΞ±Ο„Ξ± Ξ Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±Ο‚';
+$_lang['Platform Settings'] = 'Ξ΅Ο…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ Ξ Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±Ο‚';
+$_lang['Platform activation'] = 'Ξ•Ξ½ΞµΟΞ³ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±Ο‚';
+$_lang['Platform administration'] = 'Ξ”ΞΉΞ±Ο‡ΞµΞ―ΟΞΉΟƒΞ· Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±Ο‚';
+$_lang['Platform administrator'] = 'Ξ”ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ®Ο‚ Ξ Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±Ο‚';
+$_lang['Platform language'] = 'Ξ“Ξ»ΟΟƒΟƒΞ± Ξ Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±Ο‚';
+$_lang['Platform local path '] = 'Ξ¤ΞΏΟ€ΞΉΞΊΞ® Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ® Ξ³ΞΉΞ± Ο„Ξ·Ξ½ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±';
+$_lang['Platform logo url'] = 'Ξ”ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ· url Ξ³ΞΉΞ± Ο„ΞΏ ΞµΞΉΞΊΞΏΞ½Ξ―Ξ΄ΞΉΞΏ Ο„Ξ·Ο‚ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±Ο‚';
+$_lang['Platform name'] = 'ΞΞ½ΞΏΞΌΞ± Ξ Ξ»Ξ±Ο†ΟΟΞΌΞ±Ο‚';
+$_lang['Platform statistics'] = 'Ξ£Ο„Ξ±Ο„ΞΉΟƒΟ„ΞΉΞΊΞ¬ Ξ Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±Ο‚';
+$_lang['Platform web URL'] = 'Ξ”ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ· URL Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±Ο‚';
+$_lang['Please check that your campus URL is reachable from the internet.'] = 'Ξ Ξ±ΟΞ±ΞΊΞ±Ξ»Ο Ξ­Ξ»ΞµΞ³ΞΎΟ„Ξµ ΟΟ„ΞΉ Ξ· Ξ΄ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ· (Url) Ο„Ξ·Ο‚ Ο€Ξ±Ξ½ΞµΟ€ΞΉΟƒΟ„Ξ·ΞΌΞΉΞΏΟΟ€ΞΏΞ»Ξ·Ο‚ (campus) ΞµΞ―Ξ½Ξ±ΞΉ Ο€ΟΞΏΟƒΞ²Ξ¬ΟƒΞΉΞΌΞ· Ξ±Ο€ΞΏ Ο„ΞΏ Ξ΄ΞΉΞ±Ξ΄Ξ―ΞΊΟ„Ο…ΞΏ.';
+$_lang['Please choose a good answer'] = 'Ξ Ξ±ΟΞ±ΞΊΞ±Ξ»Ο Ξ΄ΞΉΞ±Ξ»Ξ­ΞΎΟ„Ξµ ΞΌΞΉΞ± ΞΊΞ±Ξ»Ξ® Ξ±Ο€Ξ¬Ξ½Ο„Ξ·ΟƒΞ·';
+$_lang['Please confirm your choice'] = 'Ξ Ξ±ΟΞ±ΞΊΞ±Ξ»Ο ΞµΟ€ΞΉΞ²ΞµΞ²Ξ±ΞΉΟΟƒΟ„Ξµ Ο„Ξ·Ξ½ ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ® ΟƒΞ±Ο‚';
+$_lang['Please contact'] = 'Ξ Ξ±ΟΞ±ΞΊΞ±Ξ»Ο ΞµΟ€ΞΉΞΊΞΏΞΉΞ½Ο‰Ξ½Ξ®ΟƒΟ„Ξµ';
+$_lang['Please contact course titular(s)'] = 'Ξ Ξ±ΟΞ±ΞΊΞ±Ξ»Ο ΞµΟ€ΞΉΞΊΞΏΞΉΞ½Ο‰Ξ½Ξ®ΟƒΟ„Ξµ ΞΌΞµ Ο„ΞΏΞ½ ΞΊΞ±ΞΈΞ·Ξ³Ξ·Ο„Ξ®(ΞµΟ‚) Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Please contact the course manager : %email'] = 'Ξ Ξ±ΟΞ±ΞΊΞ±Ξ»Ο ΞµΟ€ΞΉΞΊΞΏΞΉΞ½Ο‰Ξ½Ξ®ΟƒΟ„Ξµ ΞΌΞµ Ο„ΞΏ Ξ΄ΞΉΞµΟ…ΞΈΟ…Ξ½Ο„Ξ® Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ : %email';
+$_lang['Please define at least one blank with brackets %mask'] = 'Ξ Ξ±ΟΞ±ΞΊΞ±Ξ»Ο ΞΏΟΞ―ΟƒΟ„Ξµ Ο„ΞΏΟ…Ξ»Ξ¬Ο‡ΞΉΟƒΟ„ΞΏΞ½ Ξ­Ξ½Ξ± ΞΊΞµΞ½Ο ΞΌΞµ Ο€Ξ±ΟΞµΞ½ΞΈΞ­ΟƒΞµΞΉΟ‚ %mask';
+$_lang['Please define the options'] = 'Ξ Ξ±ΟΞ±ΞΊΞ±Ξ»Ο ΞΏΟΞ―ΟƒΟ„Ξµ Ο„ΞΉΟ‚ ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ­Ο‚';
+$_lang['Please fill the two lists below'] = 'Ξ Ξ±ΟΞ±ΞΊΞ±Ξ»Ο ΟƒΟ…ΞΌΟ€Ξ»Ξ®ΟΟ‰ΟƒΞµ Ο„ΞΉΟ‚ Ξ΄Ο…ΞΏ Ο€Ξ±ΟΞ±ΞΊΞ¬Ο„Ο‰ Ξ»Ξ―ΟƒΟ„ΞµΟ‚';
+$_lang['Please give a weighting to each blank'] = 'Ξ Ξ±ΟΞ±ΞΊΞ±Ξ»Ο Ξ΄ΟΟƒΟ„Ξµ Ξ²Ξ¬ΟΞΏΟ‚ ΟƒΞµ ΞΊΞ¬ΞΈΞµ ΞΊΞµΞ½Ο';
+$_lang['Please give the answers to the question'] = 'Ξ Ξ±ΟΞ±ΞΊΞ±Ξ»Ο Ξ΄ΟΟƒΟ„Ξµ Ο„ΞΉΟ‚ Ξ±Ο€Ξ±Ξ½Ο„Ξ®ΟƒΞµΞΉΟ‚ ΟƒΟ„Ξ·Ξ½ ΞµΟΟΟ„Ξ·ΟƒΞ·';
+$_lang['Please try again.'] = 'Ξ Ξ±ΟΞ±ΞΊΞ±Ξ»Ο Ο€ΟΞΏΟƒΟ€Ξ±ΞΈΞ®ΟƒΟ„Ξµ ΞΎΞ±Ξ½Ξ¬.';
+$_lang['Please type the text'] = 'Ξ Ξ±ΟΞ±ΞΊΞ±Ξ»Ο Ο€Ξ»Ξ·ΞΊΟ„ΟΞΏΞ»ΞΏΞ³Ξ®ΟƒΟ„Ξµ Ο„ΞΏ ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ';
+$_lang['Please type your text below, use brackets %mask to define one or more blanks'] = 'Ξ Ξ±ΟΞ±ΞΊΞ±Ξ»Ο Ξ³ΟΞ¬ΟΟ„Ξµ Ο„ΞΏ ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ ΟƒΞ±Ο‚, Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞµΞΉΟƒΟ„Ξµ Ο€Ξ±ΟΞµΞ½ΞΈΞ­ΟƒΞµΞΉΟ‚ %mask Ξ³ΞΉΞ± Ξ½Ξ± ΞΏΟΞ―ΟƒΞµΟ„Ξµ Ξ­Ξ½Ξ± Ξ® Ο€ΞµΟΞΉΟƒΟƒΟΟ„ΞµΟΞ± ΞΊΞµΞ½Ξ¬';
+$_lang['Pool of modules'] = 'Ξ£ΟΞ½ΞΏΞ»ΞΏ ΞµΞ½ΞΏΟ„Ξ®Ο„Ο‰Ξ½';
+$_lang['Port of CAS server'] = 'Ξ ΟΞ»Ξ· Ο„ΞΏΟ… CAS server';
+$_lang['Portlet'] = 'Ξ ΟΞ»Ξ·';
+$_lang['Posts'] = 'Ξ‘Ο€ΞΏΟƒΟ„ΞΏΞ»Ξ­Ο‚';
+$_lang['Powered by'] = 'ΞΞµ Ο„Ξ· Ξ²ΞΏΞ®ΞΈΞµΞΉΞ± Ο„ΞΏΟ…';
+$_lang['Prefix for course table  / db names'] = 'Ξ ΟΟΞΈΞµΞΌΞ± Ξ³ΞΉΞ± Ο„Ξ± ΞΏΞ½ΟΞΌΞ±Ο„Ξ± Ο„Ο‰Ξ½ Ο€ΞΉΞ½Ξ¬ΞΊΟ‰Ξ½ Ο„Ο‰Ξ½ ΞΌΞ±ΞΈΞ·ΞΌΞ¬Ο„Ο‰Ξ½ ΞΊΞ±ΞΉ Ο„Ξ·Ο‚ Ξ²Ξ¬ΟƒΞ·Ο‚ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½';
+$_lang['Prefix for main table names'] = 'Ξ ΟΟΞΈΞµΞΌΞ± Ξ³ΞΉΞ± Ο„Ξ± ΞΏΞ½ΟΞΌΞ±Ο„Ξ± Ο„Ο‰Ξ½ ΞΊΞµΞ½Ο„ΟΞΉΞΊΟΞ½ Ο€ΞΉΞ½Ξ¬ΞΊΟ‰Ξ½';
+$_lang['Prefix for tracking table names'] = 'Ξ ΟΟΞΈΞµΞΌΞ± Ξ³ΞΉΞ± Ο„Ξ± ΞΏΞ½ΟΞΌΞ±Ο„Ξ± Ο„Ο‰Ξ½ Ο€ΞΉΞ½Ξ¬ΞΊΟ‰Ξ½ Ο€Ξ±ΟΞ±ΞΊΞΏΞ»ΞΏΟΞΈΞ·ΟƒΞ·Ο‚ Ο„ΞΏΟ… ΟƒΟ…ΟƒΟ„Ξ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Preformated text'] = 'ΞΞΏΟΟ†ΞΏΟ€ΞΏΞΉΞ·ΞΌΞ­Ξ½ΞΏ ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ';
+$_lang['Pretty URL using PATH_INFO (download.php/path/to/file.ext)'] = 'ΞΞΌΞΏΟΟ†Ξ· Ξ΄ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ· URL Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞ¬ Ο„ΞΏ PATH_INFO (download.php/path/to/file.ext)';
+$_lang['Preview'] = 'Ξ Ξ±ΟΞΏΟ…ΟƒΞ―Ξ±ΟƒΞ·/Ο€ΟΞΏΞ²ΞΏΞ»Ξ®';
+$_lang['Preview :'] = 'Ξ ΟΞΏΞµΟ€ΞΉΟƒΞΊΟΟ€Ξ·ΟƒΞ· : ';
+$_lang['Preview : %textZone'] = 'Ξ ΟΞΏΞµΟ€ΞΉΟƒΞΊΟΟ€Ξ·ΟƒΞ· : %textZone';
+$_lang['Previous'] = 'Ξ ΟΞΏΞ·Ξ³ΞΏΟΞΌΞµΞ½ΞΏ';
+$_lang['Previous day'] = 'Ξ ΟΞΏΞ·Ξ³ΞΏΟΞΌΞµΞ½Ξ· Ξ·ΞΌΞ­ΟΞ±';
+$_lang['Previous month'] = 'Ξ ΟΞΏΞ·Ξ³ΞΏΟΞΌΞµΞ½ΞΏΟ‚ ΞΌΞ®Ξ½Ξ±Ο‚';
+$_lang['Previous question'] = 'Ξ ΟΞΏΞ·Ξ³ΞΏΟΞΌΞµΞ½Ξ· ΞµΟΟΟ„Ξ·ΟƒΞ·';
+$_lang['Previous week'] = 'Ξ ΟΞΏΞ·Ξ³ΞΏΟΞΌΞµΞ½Ξ· Ξ•Ξ²Ξ΄ΞΏΞΌΞ¬Ξ΄Ξ±';
+$_lang['Previous year'] = 'Ξ ΟΞΏΞ·Ξ³ΞΏΟΞΌΞµΞ½ΞΏ Ξ­Ο„ΞΏΟ‚';
+$_lang['Private'] = 'ΞΊΞ»ΞµΞΉΟƒΟ„Ο';
+$_lang['Private feedback'] = 'Ξ ΟΞΏΟƒΟ‰Ο€ΞΉΞΊΞ® ΞµΟ€ΞΉΞΊΞΏΞΉΞ½Ο‰Ξ½Ξ―Ξ±';
+$_lang['Production language files'] = 'Ξ Ξ±ΟΞ±Ξ³Ο‰Ξ³Ξ® Ξ±ΟΟ‡ΞµΞ―Ο‰Ξ½ Ξ³Ξ»ΟΟƒΟƒΞ±Ο‚';
+$_lang['Profile'] = 'Ξ ΟΞΏΟ†Ξ―Ξ»';
+$_lang['Profile SQL'] = 'Ξ ΟΞΏΟ†Ξ―Ξ» SQL';
 $_lang['Profile SQL in DEBUG MODE.
-Display for each request :duration, counter,  statement '] = 'Προφίλ SQL σε ΚΑΤΑΣΤΑΣΗ ΑΠΟΣΦΑΛΜΑΤΩΣΗΣ.
-Παρουσίασε για κάθε αίτηση : διάρκεια, μετρητή,  δήλωση';
-$_lang['Profile form'] = 'Φόρμα για το Προφίλ';
-$_lang['Profile list'] = 'Λίστα για το Προφίλ';
-$_lang['Profile locked'] = 'Προφίλ κλειδωμένο';
-$_lang['Profile not found'] = 'Προφίλ δεν βρέθηκε';
-$_lang['Progress'] = 'Πρόοδος';
-$_lang['Progression of users on all learning paths'] = 'Πρόοδος χρηστών σε όλες τις διαδρομές μάθησης';
-$_lang['Properties'] = 'Ιδιότητες';
-$_lang['Properties for %config_name, (%config_code) are now effective on server.'] = 'Ιδιότητες για %config_name, (%config_code) δεν επιδρούν στο server.';
-$_lang['Public'] = 'ανοικτό';
-$_lang['Public feedback'] = 'Δημόσια αξιολόγηση';
-$_lang['Publish'] = 'Δημοσίευση';
-$_lang['Published on'] = 'Δημοσιεύτηκε την';
-$_lang['Question'] = 'Ερώτηση';
-$_lang['Question pool'] = 'Σύνολο/πλήθος ερωτήσεων';
-$_lang['Question title'] = 'Τίτλος ερώτησης';
-$_lang['Question to lecturer'] = 'Ερώτηση στον διδάσκοντα';
-$_lang['Quota'] = 'Όριο χωρητικότητας';
-$_lang['Quota for courses'] = 'Όριο χωρητικότητας μαθημάτων';
-$_lang['Quota for groups'] = 'Όριο χωρητικότητας ομάδων';
-$_lang['Random questions'] = 'Ερωτήσεις σε τυχαία σειρά';
-$_lang['Read Pages'] = 'Διάβασε σελίδες';
-$_lang['Recent changes'] = 'Πρόσφατες αλλαγές';
-$_lang['Refresh time'] = 'Χρόνος ανανέωσης';
-$_lang['Register a user for this class'] = 'Εγγραφή χρήστη για την τάξη αυτή';
-$_lang['Register class for course'] = 'Εγγραφή τάξης για μάθημα';
-$_lang['Register my campus'] = 'Εγγραφή του campus μου';
-$_lang['Register this user to a course'] = 'Εγγραφή αυτού του χρήστη σε μάθημα';
-$_lang['Register to the class'] = 'Εγγραφή σε τάξη';
-$_lang['Register user'] = 'Εγγραφή χρήστη';
-$_lang['Register user to class'] = 'Εγγραφή χρήστη σε τάξη';
-$_lang['Registered'] = 'Εγγεγραμμένοι';
-$_lang['Registration'] = 'Εγγραφή';
-$_lang['Registration agreement'] = 'Συμφωνία εγγραφής';
-$_lang['Registration not allowed on the platform'] = ' Η εγγραφή στην πλατφόρμα δεν επιτρέπεται';
-$_lang['Relative to the complete platform url'] = 'Σχετική στην πλήρη διεύθυνση url της πλατφόρμας';
-$_lang['Rem. answ.'] = 'Rem. answ. (απομάκρυνση απαντήσεων)';
-$_lang['Rem. elem.'] = 'Rem. elem.(απομάκρυνση στοιχείων)';
-$_lang['Remove'] = 'διαγραφή';
-$_lang['Remove course enrolment'] = 'Αναίρεση εγγραφής σε μάθημα';
-$_lang['Remove course from your personal course list'] = 'Αφαίρεση του μαθήματος απο την προσωπική λίστα μαθημάτων';
-$_lang['Remove from the dock'] = 'Διέγραψε από την αποθήκη';
-$_lang['Rename'] = 'Μετονομασία';
-$_lang['Repair category structure'] = 'Επιδιόρθωση της δομής κατηγοριών';
-$_lang['Replies'] = 'Απαντήσεις';
-$_lang['Reply'] = 'Απάντηση';
-$_lang['Repository for cache files'] = 'Αποθήκη για τα αρχεία cache';
-$_lang['Repository for cache files and dirs'] = 'Αποθήκη για τα αρχεία και καταλόγους cache';
-$_lang['Repository for temporary files and dirs'] = 'Αποθήκη για τα προσωρινά αρχεία και καταλόγους';
-$_lang['Request'] = 'Αίτηση';
-$_lang['Request course creation status'] = 'Αίτημα για την κατάσταη του Δημιουργού Μαθήματος';
-$_lang['Request to remove this account'] = 'Αίτηση για να διαφραφεί αυτός ο λογαριασμός';
-$_lang['Required'] = 'Απαιτείται';
-$_lang['Reset'] = 'Ρυθμιση εκ νέου';
-$_lang['Restore course repository'] = 'Επαναφορά πηγής πληροφοριών';
-$_lang['Result'] = 'Βαθμολογία';
-$_lang['Retry'] = ' ξαναδοκιμάστε ';
-$_lang['Reuse'] = 'επαναχρησιμοποείται';
-$_lang['Right'] = 'Σωστό';
-$_lang['Right list'] = 'Σωστή Λίστα';
-$_lang['Right menu settings'] = 'Σωστές ιδιότητες menu';
-$_lang['Right profile list'] = 'Σωστή λίστα προφίλ';
-$_lang['Rights'] = 'Δικαιώματα';
-$_lang['Role'] = 'Ρόλος';
-$_lang['Root'] = 'αιτία';
-$_lang['Root folder of CAS (example : \'esup-cas/\')'] = 'Κεντρικός κατάλογος του CAS (παράδειγμα : \'esup-cas/\')';
-$_lang['Root of CAS server'] = 'Η κεντρική διεύθυνση του CAS server';
-$_lang['Rss (read and write) tool'] = 'Rss (ανάγνωση και εγγραφή) εργαλείο';
-$_lang['Rss feed for %course'] = 'Rss feed για %course';
-$_lang['SCORM 1.2 conformable content'] = 'SCORM 1.2 προσαρμοσμένο περιεχόμενο';
-$_lang['SCORM conformant modules are definitively removed from server when deleted in their learning path.'] = 'Ενότητες που είναι σύμφωνες με το SCORM θα αφαιρεθούν οριστικά απο το server, όταν διαγράψετε τη πορεία μάθησης.';
+Display for each request :duration, counter,  statement '] = 'Ξ ΟΞΏΟ†Ξ―Ξ» SQL ΟƒΞµ ΞΞ‘Ξ¤Ξ‘Ξ£Ξ¤Ξ‘Ξ£Ξ— Ξ‘Ξ ΞΞ£Ξ¦Ξ‘Ξ›ΞΞ‘Ξ¤Ξ©Ξ£Ξ—Ξ£.
+Ξ Ξ±ΟΞΏΟ…ΟƒΞ―Ξ±ΟƒΞµ Ξ³ΞΉΞ± ΞΊΞ¬ΞΈΞµ Ξ±Ξ―Ο„Ξ·ΟƒΞ· : Ξ΄ΞΉΞ¬ΟΞΊΞµΞΉΞ±, ΞΌΞµΟ„ΟΞ·Ο„Ξ®,  Ξ΄Ξ®Ξ»Ο‰ΟƒΞ·';
+$_lang['Profile form'] = 'Ξ¦ΟΟΞΌΞ± Ξ³ΞΉΞ± Ο„ΞΏ Ξ ΟΞΏΟ†Ξ―Ξ»';
+$_lang['Profile list'] = 'Ξ›Ξ―ΟƒΟ„Ξ± Ξ³ΞΉΞ± Ο„ΞΏ Ξ ΟΞΏΟ†Ξ―Ξ»';
+$_lang['Profile locked'] = 'Ξ ΟΞΏΟ†Ξ―Ξ» ΞΊΞ»ΞµΞΉΞ΄Ο‰ΞΌΞ­Ξ½ΞΏ';
+$_lang['Profile not found'] = 'Ξ ΟΞΏΟ†Ξ―Ξ» Ξ΄ΞµΞ½ Ξ²ΟΞ­ΞΈΞ·ΞΊΞµ';
+$_lang['Progress'] = 'Ξ ΟΟΞΏΞ΄ΞΏΟ‚';
+$_lang['Progression of users on all learning paths'] = 'Ξ ΟΟΞΏΞ΄ΞΏΟ‚ Ο‡ΟΞ·ΟƒΟ„ΟΞ½ ΟƒΞµ ΟΞ»ΞµΟ‚ Ο„ΞΉΟ‚ Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ­Ο‚ ΞΌΞ¬ΞΈΞ·ΟƒΞ·Ο‚';
+$_lang['Properties'] = 'Ξ™Ξ΄ΞΉΟΟ„Ξ·Ο„ΞµΟ‚';
+$_lang['Properties for %config_name, (%config_code) are now effective on server.'] = 'Ξ™Ξ΄ΞΉΟΟ„Ξ·Ο„ΞµΟ‚ Ξ³ΞΉΞ± %config_name, (%config_code) Ξ΄ΞµΞ½ ΞµΟ€ΞΉΞ΄ΟΞΏΟΞ½ ΟƒΟ„ΞΏ server.';
+$_lang['Public'] = 'Ξ±Ξ½ΞΏΞΉΞΊΟ„Ο';
+$_lang['Public feedback'] = 'Ξ”Ξ·ΞΌΟΟƒΞΉΞ± Ξ±ΞΎΞΉΞΏΞ»ΟΞ³Ξ·ΟƒΞ·';
+$_lang['Publish'] = 'Ξ”Ξ·ΞΌΞΏΟƒΞ―ΞµΟ…ΟƒΞ·';
+$_lang['Published on'] = 'Ξ”Ξ·ΞΌΞΏΟƒΞΉΞµΟΟ„Ξ·ΞΊΞµ Ο„Ξ·Ξ½';
+$_lang['Question'] = 'Ξ•ΟΟΟ„Ξ·ΟƒΞ·';
+$_lang['Question pool'] = 'Ξ£ΟΞ½ΞΏΞ»ΞΏ/Ο€Ξ»Ξ®ΞΈΞΏΟ‚ ΞµΟΟ‰Ο„Ξ®ΟƒΞµΟ‰Ξ½';
+$_lang['Question title'] = 'Ξ¤Ξ―Ο„Ξ»ΞΏΟ‚ ΞµΟΟΟ„Ξ·ΟƒΞ·Ο‚';
+$_lang['Question to lecturer'] = 'Ξ•ΟΟΟ„Ξ·ΟƒΞ· ΟƒΟ„ΞΏΞ½ Ξ΄ΞΉΞ΄Ξ¬ΟƒΞΊΞΏΞ½Ο„Ξ±';
+$_lang['Quota'] = 'ΞΟΞΉΞΏ Ο‡Ο‰ΟΞ·Ο„ΞΉΞΊΟΟ„Ξ·Ο„Ξ±Ο‚';
+$_lang['Quota for courses'] = 'ΞΟΞΉΞΏ Ο‡Ο‰ΟΞ·Ο„ΞΉΞΊΟΟ„Ξ·Ο„Ξ±Ο‚ ΞΌΞ±ΞΈΞ·ΞΌΞ¬Ο„Ο‰Ξ½';
+$_lang['Quota for groups'] = 'ΞΟΞΉΞΏ Ο‡Ο‰ΟΞ·Ο„ΞΉΞΊΟΟ„Ξ·Ο„Ξ±Ο‚ ΞΏΞΌΞ¬Ξ΄Ο‰Ξ½';
+$_lang['RE:'] = 'Ξ‘Ο€Ξ¬Ξ½Ο„Ξ·ΟƒΞ·:';
+$_lang['Random questions'] = 'Ξ•ΟΟ‰Ο„Ξ®ΟƒΞµΞΉΟ‚ ΟƒΞµ Ο„Ο…Ο‡Ξ±Ξ―Ξ± ΟƒΞµΞΉΟΞ¬';
+$_lang['Read'] = 'Ξ”ΞΉΞ¬Ξ²Ξ±ΟƒΞµ';
+$_lang['Read Pages'] = 'Ξ”ΞΉΞ¬Ξ²Ξ±ΟƒΞµ ΟƒΞµΞ»Ξ―Ξ΄ΞµΟ‚';
+$_lang['Recent changes'] = 'Ξ ΟΟΟƒΟ†Ξ±Ο„ΞµΟ‚ Ξ±Ξ»Ξ»Ξ±Ξ³Ξ­Ο‚';
+$_lang['Recipient'] = 'Ξ Ξ±ΟΞ±Ξ»Ξ®Ο€Ο„Ξ·Ο‚';
+$_lang['Redirect to the file'] = 'Ξ•Ο€Ξ±Ξ½Ξ±Ο€ΟΞΏΟƒΞ΄ΞΉΞΏΟΞΉΟƒΞΌΟΟ‚ ΟƒΟ„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ';
+$_lang['Refresh time'] = 'Ξ§ΟΟΞ½ΞΏΟ‚ Ξ±Ξ½Ξ±Ξ½Ξ­Ο‰ΟƒΞ·Ο‚';
+$_lang['Register a user for this class'] = 'Ξ•Ξ³Ξ³ΟΞ±Ο†Ξ® Ο‡ΟΞ®ΟƒΟ„Ξ· Ξ³ΞΉΞ± Ο„Ξ·Ξ½ Ο„Ξ¬ΞΎΞ· Ξ±Ο…Ο„Ξ®';
+$_lang['Register class for course'] = 'Ξ•Ξ³Ξ³ΟΞ±Ο†Ξ® Ο„Ξ¬ΞΎΞ·Ο‚ Ξ³ΞΉΞ± ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['Register my campus'] = 'Ξ•Ξ³Ξ³ΟΞ±Ο†Ξ® Ο„ΞΏΟ… campus ΞΌΞΏΟ…';
+$_lang['Register this user to a course'] = 'Ξ•Ξ³Ξ³ΟΞ±Ο†Ξ® Ξ±Ο…Ο„ΞΏΟ Ο„ΞΏΟ… Ο‡ΟΞ®ΟƒΟ„Ξ· ΟƒΞµ ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['Register to the class'] = 'Ξ•Ξ³Ξ³ΟΞ±Ο†Ξ® ΟƒΞµ Ο„Ξ¬ΞΎΞ·';
+$_lang['Register user'] = 'Ξ•Ξ³Ξ³ΟΞ±Ο†Ξ® Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['Register user to class'] = 'Ξ•Ξ³Ξ³ΟΞ±Ο†Ξ® Ο‡ΟΞ®ΟƒΟ„Ξ· ΟƒΞµ Ο„Ξ¬ΞΎΞ·';
+$_lang['Registered'] = 'Ξ•Ξ³Ξ³ΞµΞ³ΟΞ±ΞΌΞΌΞ­Ξ½ΞΏΞΉ';
+$_lang['Registration'] = 'Ξ•Ξ³Ξ³ΟΞ±Ο†Ξ®';
+$_lang['Registration agreement'] = 'Ξ£Ο…ΞΌΟ†Ο‰Ξ½Ξ―Ξ± ΞµΞ³Ξ³ΟΞ±Ο†Ξ®Ο‚';
+$_lang['Registration not allowed on the platform'] = ' Ξ— ΞµΞ³Ξ³ΟΞ±Ο†Ξ® ΟƒΟ„Ξ·Ξ½ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ± Ξ΄ΞµΞ½ ΞµΟ€ΞΉΟ„ΟΞ­Ο€ΞµΟ„Ξ±ΞΉ';
+$_lang['Relative to the complete platform url'] = 'Ξ£Ο‡ΞµΟ„ΞΉΞΊΞ® ΟƒΟ„Ξ·Ξ½ Ο€Ξ»Ξ®ΟΞ· Ξ΄ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ· url Ο„Ξ·Ο‚ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±Ο‚';
+$_lang['Rem. answ.'] = 'Rem. answ. (Ξ±Ο€ΞΏΞΌΞ¬ΞΊΟΟ…Ξ½ΟƒΞ· Ξ±Ο€Ξ±Ξ½Ο„Ξ®ΟƒΞµΟ‰Ξ½)';
+$_lang['Rem. elem.'] = 'Rem. elem.(Ξ±Ο€ΞΏΞΌΞ¬ΞΊΟΟ…Ξ½ΟƒΞ· ΟƒΟ„ΞΏΞΉΟ‡ΞµΞ―Ο‰Ξ½)';
+$_lang['Remove'] = 'Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ®';
+$_lang['Remove course enrolment'] = 'Ξ‘Ξ½Ξ±Ξ―ΟΞµΟƒΞ· ΞµΞ³Ξ³ΟΞ±Ο†Ξ®Ο‚ ΟƒΞµ ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['Remove course from your personal course list'] = 'Ξ‘Ο†Ξ±Ξ―ΟΞµΟƒΞ· Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ Ξ±Ο€ΞΏ Ο„Ξ·Ξ½ Ο€ΟΞΏΟƒΟ‰Ο€ΞΉΞΊΞ® Ξ»Ξ―ΟƒΟ„Ξ± ΞΌΞ±ΞΈΞ·ΞΌΞ¬Ο„Ο‰Ξ½';
+$_lang['Remove from course'] = 'Ξ‘Ο†Ξ±Ξ―ΟΞµΟƒΞ· Ξ±Ο€ΞΏ Ο„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['Remove from the dock'] = 'Ξ”ΞΉΞ­Ξ³ΟΞ±ΟΞµ Ξ±Ο€Ο Ο„Ξ·Ξ½ Ξ±Ο€ΞΏΞΈΞ®ΞΊΞ·';
+$_lang['Remove this module'] = 'Ξ‘Ο†Ξ±Ξ―ΟΞµΟƒΞ· Ξ±Ο…Ο„Ξ®Ο‚ Ο„Ξ·Ο‚ ΞµΞ½ΟΟ„Ξ·Ο„Ξ±Ο‚
+';
+$_lang['Rename'] = 'ΞΞµΟ„ΞΏΞ½ΞΏΞΌΞ±ΟƒΞ―Ξ±';
+$_lang['Repair category structure'] = 'Ξ•Ο€ΞΉΞ΄ΞΉΟΟΞΈΟ‰ΟƒΞ· Ο„Ξ·Ο‚ Ξ΄ΞΏΞΌΞ®Ο‚ ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞΉΟΞ½';
+$_lang['Replies'] = 'Ξ‘Ο€Ξ±Ξ½Ο„Ξ®ΟƒΞµΞΉΟ‚';
+$_lang['Reply'] = 'Ξ‘Ο€Ξ¬Ξ½Ο„Ξ·ΟƒΞ·';
+$_lang['Repository for cache files'] = 'Ξ‘Ο€ΞΏΞΈΞ®ΞΊΞ· Ξ³ΞΉΞ± Ο„Ξ± Ξ±ΟΟ‡ΞµΞ―Ξ± cache';
+$_lang['Repository for cache files and dirs'] = 'Ξ‘Ο€ΞΏΞΈΞ®ΞΊΞ· Ξ³ΞΉΞ± Ο„Ξ± Ξ±ΟΟ‡ΞµΞ―Ξ± ΞΊΞ±ΞΉ ΞΊΞ±Ο„Ξ±Ξ»ΟΞ³ΞΏΟ…Ο‚ cache';
+$_lang['Repository for temporary files and dirs'] = 'Ξ‘Ο€ΞΏΞΈΞ®ΞΊΞ· Ξ³ΞΉΞ± Ο„Ξ± Ο€ΟΞΏΟƒΟ‰ΟΞΉΞ½Ξ¬ Ξ±ΟΟ‡ΞµΞ―Ξ± ΞΊΞ±ΞΉ ΞΊΞ±Ο„Ξ±Ξ»ΟΞ³ΞΏΟ…Ο‚';
+$_lang['Request'] = 'Ξ‘Ξ―Ο„Ξ·ΟƒΞ·';
+$_lang['Request course creation status'] = 'Ξ‘Ξ―Ο„Ξ·ΞΌΞ± Ξ³ΞΉΞ± Ο„Ξ·Ξ½ ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±Ξ· Ο„ΞΏΟ… Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³ΞΏΟ ΞΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Request to remove this account'] = 'Ξ‘Ξ―Ο„Ξ·ΟƒΞ· Ξ³ΞΉΞ± Ξ½Ξ± Ξ΄ΞΉΞ±Ο†ΟΞ±Ο†ΞµΞ― Ξ±Ο…Ο„ΟΟ‚ ΞΏ Ξ»ΞΏΞ³Ξ±ΟΞΉΞ±ΟƒΞΌΟΟ‚';
+$_lang['Required'] = 'Ξ‘Ο€Ξ±ΞΉΟ„ΞµΞ―Ο„Ξ±ΞΉ';
+$_lang['Reserved to course members'] = 'ΞΟΞ±Ο„Ξ·ΞΌΞ­Ξ½ΞΏ Ξ³ΞΉΞ± Ο„Ξ± ΞΌΞ­Ξ»Ξ· Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Reserved to platform members'] = 'ΞΟΞ±Ο„Ξ·ΞΌΞ­Ξ½ΞΏ ΟƒΟ„Ξ± ΞΌΞ­Ξ»Ξ· Ο„Ξ·Ο‚ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±Ο‚';
+$_lang['Reset'] = 'Ξ΅Ο…ΞΈΞΌΞΉΟƒΞ· ΞµΞΊ Ξ½Ξ­ΞΏΟ…';
+$_lang['Restore'] = 'Ξ•Ο€Ξ±Ξ½Ξ±Ο†ΞΏΟΞ¬';
+$_lang['Restore course repository'] = 'Ξ•Ο€Ξ±Ξ½Ξ±Ο†ΞΏΟΞ¬ Ο€Ξ·Ξ³Ξ®Ο‚ Ο€Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞΉΟΞ½';
+$_lang['Result'] = 'Ξ’Ξ±ΞΈΞΌΞΏΞ»ΞΏΞ³Ξ―Ξ±';
+$_lang['Retry'] = ' ΞΎΞ±Ξ½Ξ±Ξ΄ΞΏΞΊΞΉΞΌΞ¬ΟƒΟ„Ξµ ';
+$_lang['Reuse'] = 'ΞµΟ€Ξ±Ξ½Ξ±Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞµΞ―Ο„Ξ±ΞΉ';
+$_lang['Revocation of %firstname %lastname'] = 'ΞΞ±Ο„Ξ¬ΟΞ³Ξ·ΟƒΞ· Ο„ΞΏΟ…  %firstname %lastname';
+$_lang['Right'] = 'Ξ£Ο‰ΟƒΟ„Ο';
+$_lang['Right list'] = 'Ξ£Ο‰ΟƒΟ„Ξ® Ξ›Ξ―ΟƒΟ„Ξ±';
+$_lang['Right menu settings'] = 'Ξ£Ο‰ΟƒΟ„Ξ­Ο‚ ΞΉΞ΄ΞΉΟΟ„Ξ·Ο„ΞµΟ‚ menu';
+$_lang['Right profile list'] = 'Ξ£Ο‰ΟƒΟ„Ξ® Ξ»Ξ―ΟƒΟ„Ξ± Ο€ΟΞΏΟ†Ξ―Ξ»';
+$_lang['Rights'] = 'Ξ”ΞΉΞΊΞ±ΞΉΟΞΌΞ±Ο„Ξ±';
+$_lang['Role'] = 'Ξ΅ΟΞ»ΞΏΟ‚';
+$_lang['Root'] = 'Ξ±ΞΉΟ„Ξ―Ξ±';
+$_lang['Root folder of CAS (example : \'esup-cas/\')'] = 'ΞΞµΞ½Ο„ΟΞΉΞΊΟΟ‚ ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏΟ‚ Ο„ΞΏΟ… CAS (Ο€Ξ±ΟΞ¬Ξ΄ΞµΞΉΞ³ΞΌΞ± : \'esup-cas/\')';
+$_lang['Root of CAS server'] = 'Ξ— ΞΊΞµΞ½Ο„ΟΞΉΞΊΞ® Ξ΄ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ· Ο„ΞΏΟ… CAS server';
+$_lang['Rss (read and write) tool'] = 'Rss (Ξ±Ξ½Ξ¬Ξ³Ξ½Ο‰ΟƒΞ· ΞΊΞ±ΞΉ ΞµΞ³Ξ³ΟΞ±Ο†Ξ®) ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏ';
+$_lang['Rss feed for %course'] = 'Rss feed Ξ³ΞΉΞ± %course';
+$_lang['SCORM 1.2 conformable content'] = 'SCORM 1.2 Ο€ΟΞΏΟƒΞ±ΟΞΌΞΏΟƒΞΌΞ­Ξ½ΞΏ Ο€ΞµΟΞΉΞµΟ‡ΟΞΌΞµΞ½ΞΏ';
+$_lang['SCORM conformant modules are definitively removed from server when deleted in their learning path.'] = 'Ξ•Ξ½ΟΟ„Ξ·Ο„ΞµΟ‚ Ο€ΞΏΟ… ΞµΞ―Ξ½Ξ±ΞΉ ΟƒΟΞΌΟ†Ο‰Ξ½ΞµΟ‚ ΞΌΞµ Ο„ΞΏ SCORM ΞΈΞ± Ξ±Ο†Ξ±ΞΉΟΞµΞΈΞΏΟΞ½ ΞΏΟΞΉΟƒΟ„ΞΉΞΊΞ¬ Ξ±Ο€ΞΏ Ο„ΞΏ server, ΟΟ„Ξ±Ξ½ Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΟ„Ξµ Ο„Ξ· Ο€ΞΏΟΞµΞ―Ξ± ΞΌΞ¬ΞΈΞ·ΟƒΞ·Ο‚.';
 $_lang['SDK'] = 'SDK';
 $_lang['SMTP'] = 'SMTP';
 $_lang['SMTP server(s)'] = 'SMTP server(s)';
-$_lang['SSO authentication key list'] = 'SSO λίστα πιστοποίησης κλειδιών';
-$_lang['SSO cookie domain'] = 'SSO cookie περιοχή';
-$_lang['SSO cookie name'] = 'SSO cookie όνομα';
-$_lang['SSO cookie path'] = 'SSO cookie διαδρομή';
-$_lang['SSO cookie period validity'] = 'SSO cookie περίοδος ισχύος';
-$_lang['SSO settings'] = 'SSO ρυθμίσεις';
-$_lang['Save'] = 'Αποθήκευση';
-$_lang['Save changes'] = 'Αποθήκευση αλλαγών';
-$_lang['Scan technical fault'] = 'Ανίχνευση τεχνικών σφαλμάτων';
-$_lang['Score'] = 'Βαθμολογία';
+$_lang['SSO authentication key list'] = 'SSO Ξ»Ξ―ΟƒΟ„Ξ± Ο€ΞΉΟƒΟ„ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ·Ο‚ ΞΊΞ»ΞµΞΉΞ΄ΞΉΟΞ½';
+$_lang['SSO cookie domain'] = 'SSO cookie Ο€ΞµΟΞΉΞΏΟ‡Ξ®';
+$_lang['SSO cookie name'] = 'SSO cookie ΟΞ½ΞΏΞΌΞ±';
+$_lang['SSO cookie path'] = 'SSO cookie Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ®';
+$_lang['SSO cookie period validity'] = 'SSO cookie Ο€ΞµΟΞ―ΞΏΞ΄ΞΏΟ‚ ΞΉΟƒΟ‡ΟΞΏΟ‚';
+$_lang['SSO settings'] = 'SSO ΟΟ…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚';
+$_lang['Sample image'] = 'Ξ”ΞµΞ―Ξ³ΞΌΞ± ΞµΞΉΞΊΟΞ½Ξ±Ο‚';
+$_lang['Save'] = 'Ξ‘Ο€ΞΏΞΈΞ®ΞΊΞµΟ…ΟƒΞ·';
+$_lang['Save changes'] = 'Ξ‘Ο€ΞΏΞΈΞ®ΞΊΞµΟ…ΟƒΞ· Ξ±Ξ»Ξ»Ξ±Ξ³ΟΞ½';
+$_lang['Scan technical fault'] = 'Ξ‘Ξ½Ξ―Ο‡Ξ½ΞµΟ…ΟƒΞ· Ο„ΞµΟ‡Ξ½ΞΉΞΊΟΞ½ ΟƒΟ†Ξ±Ξ»ΞΌΞ¬Ο„Ο‰Ξ½';
+$_lang['Score'] = 'Ξ’Ξ±ΞΈΞΌΞΏΞ»ΞΏΞ³Ξ―Ξ±';
 $_lang['Scorm'] = 'Scorm';
-$_lang['Search'] = 'Αναζήτηση';
-$_lang['Search again (advanced)'] = 'έρευνα εκ νεου (σύνθετη)';
-$_lang['Search course'] = 'Αναζήτηση μαθήματος';
-$_lang['Search from keyword'] = 'Αναζήτηση με λέξη κλειδί';
-$_lang['Search in %currentDirectory'] = 'Αναζήτηση στο %currentDirectory';
-$_lang['Search in pages'] = 'Αναζήτηση στις σελίδες';
-$_lang['Search on'] = 'Έναρξη αναζήτησης';
-$_lang['Search result'] = 'Αποτέλεσμα αναζήτησης';
-$_lang['Search user'] = 'Αναζήτηση χρήστη';
+$_lang['Search'] = 'Ξ‘Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ·';
+$_lang['Search again (advanced)'] = 'Ξ­ΟΞµΟ…Ξ½Ξ± ΞµΞΊ Ξ½ΞµΞΏΟ… (ΟƒΟΞ½ΞΈΞµΟ„Ξ·)';
+$_lang['Search course'] = 'Ξ‘Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ· ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Search from keyword'] = 'Ξ‘Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ· ΞΌΞµ Ξ»Ξ­ΞΎΞ· ΞΊΞ»ΞµΞΉΞ΄Ξ―';
+$_lang['Search in %currentDirectory'] = 'Ξ‘Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ· ΟƒΟ„ΞΏ %currentDirectory';
+$_lang['Search in pages'] = 'Ξ‘Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ· ΟƒΟ„ΞΉΟ‚ ΟƒΞµΞ»Ξ―Ξ΄ΞµΟ‚';
+$_lang['Search on'] = 'ΞΞ½Ξ±ΟΞΎΞ· Ξ±Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ·Ο‚';
+$_lang['Search result'] = 'Ξ‘Ο€ΞΏΟ„Ξ­Ξ»ΞµΟƒΞΌΞ± Ξ±Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ·Ο‚';
+$_lang['Search user'] = 'Ξ‘Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ· Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['Search user to add to your course'] = 'ΞΟΞµΟ…Ξ½Ξ± Ο‡ΟΞ®ΟƒΟ„Ξ· Ξ³ΞΉΞ± Ξ½Ξ± Ο€ΟΞΏΟƒΞΈΞµΞΈΞµΞ― ΟƒΟ„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
 $_lang['SecondShort'] = 'sec.';
-$_lang['Secondary manifest found in zip file :'] = 'Δευτερέον αρχείο manifest βρέθηκε στο αρχείο zip :';
-$_lang['See below the files you can edit from this tool.'] = 'Δες κάτω απο τα αρχεία που μπορείς να επεξεργαστείς απο αυτό το εργαλείο-μέσο.';
-$_lang['See user list'] = 'Βλέπε λίστα χρήστη';
-$_lang['Seen'] = 'Παλιά';
-$_lang['Select course in'] = 'Επιλογή μαθήματος στο ';
-$_lang['Select course in search results'] = 'Επιλογή μαθήματος στην έρευνα αποτελεσμάτων';
-$_lang['Select in drop down list'] = 'Επίλεξε στο κατάλολό λίστας πρώτα';
-$_lang['Selected Users'] = 'Επιλεγμένοι χρήστες';
-$_lang['Send account information to user by email'] = 'Αποστολή πληροφοριών λογαριασμού στο χρήστη μέσω email';
-$_lang['Session lost warning'] = 'Προειδοποίηση διακοπής συνεδρίας';
-$_lang['Set the Cascading Style Sheet (CSS) layout.'] = 'Όρισε την Cascading Style Sheet (CSS) εμφάνιση.';
-$_lang['Set the default language of the platform. It doesn\'t prevent course managers to set an other language for each course they create.'] = 'Όρισε την βασική γλώσσα της πλατφόρμας. Δεν εμποδίζει τους διαχειριστές των μαθημάτων να ορίζουν άλλη γλώσσα για κάθε μάθημα που δημιουργούν.';
-$_lang['Sets how the assignment property "default works visibility" acts.  It will change the visibility of all the new submissions or it will change the visibility of all submissions already done in the assignment and the new one. '] = 'Ορίζει πως η ιδιότητα της εργασίας "Ιδιότητα εμφάνισης προκαθορισμένων εργασιών" δρά.  Θα αλλάξει την ιδιότητα εμφάνισης όλων των νέων υποβολών ή και των παλιών της εργασίας.';
-$_lang['Sets if user can see only his own submissions (or those from his groups) or if he can see every visible submission.'] = 'Ορίζει αν ο χρήστης μπορεί να δεί μόνο τις δικές του υποβολές (ή αυτές από τις ομάδες του) ή όλες.';
-$_lang['Settings for tutors of group'] = 'Ιδιότητες για καθηγητές της ομάδας';
-$_lang['Settings for users of group'] = 'Ιδιότητες για χρήστες της ομάδας';
-$_lang['Settings of the right menu elements'] = 'Ιδιότητες για τα στοιχεία του δεξιού menu';
-$_lang['Settings of the tool'] = 'Ιδιότητες του εργαλείου';
-$_lang['Settings of the user course list'] = 'Ιδιότητες για τη λίστα των μαθημάτων του χρήστη';
-$_lang['Show all'] = 'Εμφάνιση όλων';
-$_lang['Show answers'] = 'Εμφάνιση απαντήσεων';
-$_lang['Show differences'] = 'Δείξε τις διαφορές';
-$_lang['Show none'] = 'Να μην εμφανιστεί τιποτα';
-$_lang['Show only author submissions'] = 'Εμφάνισε μόνο υποβολών του συντάκτη';
-$_lang['Show user profile page'] = 'Εμφάνισε το προφίλ του χρήστη';
-$_lang['Show wiki syntax toolbar'] = 'Εμφάνισε τη γραμμή εργαλείων σύνταξης wiki';
-$_lang['Single'] = 'Ατομικό';
-$_lang['Single Sign On'] = 'Ατομική είσοδος';
-$_lang['Size'] = 'Μέγεθος';
-$_lang['Sql installation query failed'] = 'Το ερώτημα εγκατάστασης Sql απέτυχε';
-$_lang['Sql installation query succeeded'] = 'Το ερώτημα εγκατάστασης Sql πέτυχε';
-$_lang['Start Module'] = 'Έναρξη ενότητας';
-$_lang['Start date'] = 'Ημερομηνία έναρξης';
-$_lang['Start date must be before end date ...'] = 'Η ημερομηνία έναρξης πρέπει να είναι πριν την ημερομηνία λήξης ...';
-$_lang['Statistics'] = 'Στατιστικά';
-$_lang['Statistics by question'] = 'Στατιστική ερωτήσεων';
-$_lang['Statistics by user'] = 'Στατιστικά στοιχεία χρηστών';
-$_lang['Statistics of course : %courseCode'] = 'Στατιστικά του μαθήματος : %courseCode';
-$_lang['Statistics of exercise'] = 'Στατιστικά της άσκησης';
-$_lang['Statistics of exercise attempt'] = 'Στατιστικά για τις προσπάθειες της άσκησης ';
-$_lang['Statistics of question'] = 'Στατιστικά για την ερώτηση';
-$_lang['Status'] = 'Κατάσταση';
-$_lang['Store Chat'] = 'Αποθήκευση Chat';
-$_lang['Store failed'] = 'Αποθήκευση απέτυχε';
-$_lang['Strike'] = 'Χτύπημα';
-$_lang['Student'] = 'φοιτητής';
-$_lang['Students are allowed to self-register in groups'] = 'Οι φοιτητές επιτρέπεται να εγγραφούν στις ομάδες χρηστών';
-$_lang['Subject'] = 'Θέμα';
-$_lang['Submission'] = 'Υποβολή';
-$_lang['Submission type'] = 'Τύπος υποβολής';
-$_lang['Submission visibility'] = 'Ιδιότητα εμφάνισης υποβολής';
-$_lang['Submissions'] = 'Υποβολές';
-$_lang['Submit'] = 'Υποβολή';
-$_lang['Submit a work'] = 'Υποβολή εργασίας';
-$_lang['Submit all and finish'] = 'Υποβολή όλων και Τέλος';
-$_lang['Submit feedback'] = 'Υποβολή feedback';
-$_lang['Subscription not allowed'] = 'Εγγραφή δεν επιτρέπεται';
-$_lang['Support forum'] = 'Περιοχή υποστήριξης';
-$_lang['System Info'] = 'Πληροφορίες Συστήματος';
-$_lang['System mail : recipients list'] = 'Mail συστήματος : λίστα παραληπτών';
-$_lang['Take one of these options'] = 'Διάλεξε μία από τις επιλογές';
-$_lang['Teacher can add a user in his course'] = 'Ο καθηγητής μπορεί να προσθέσει ένα χρήστη στο μάθημα του';
-$_lang['Teacher can import user list in his course'] = 'Ο καθηγητής μπορεί να εισάγει μία λίστα χρήστών στο μάθημα του';
-$_lang['Teachers are allowed to register whole classes to their courses'] = 'Ο καθηγητής μπορεί να εισάγει ένα υπάρχον μάθημα τάξης';
-$_lang['Technical Tools'] = 'Τεχνικά Εργαλεία ';
-$_lang['Temporary folder missing'] = 'Προσωρινός κατάλογος δεν βρέθηκε';
-$_lang['Text displayed if a user tries to enrol in a course requiring a key'] = 'Κείμενο εμφανίζεται όταν ο χρήστης προσπαθεί να εγγραφεί σε ένα μάθημα που απαιτεί κλειδί';
-$_lang['Text displayed if a user tries to enrol in a locked course'] = 'Κείμενο εμφανίζεται όταν ο χρήστης προσπαθεί να εγγραφεί σε ένα κλειδωμένο μάθημα';
-$_lang['Text displayed on the "Create user account" page'] = 'Κείμενο εμφανίζεται στη σελίδα "Δημιουργία λογαριασμού χρήστη" ';
-$_lang['Text displayed on the "My user account" page'] = 'Κείμενο εμφανίζεται στη σελίδα "Ο λογαριασμός μου" ';
-$_lang['Text displayed on the right column'] = 'Κείμενο εμφανίζεται στη δεξιά στήλη';
-$_lang['Text only (text required, no file)'] = 'Μόνο κειμενο (απαιτείται κείμενο, όχι αρχείο)';
-$_lang['Text with attached file (text required, file optional)'] = 'Κείμενο με επισυναπτόμενο αρχείο (απαιτείται κείμενο, προαιρετικά αρχείο)';
-$_lang['The changes have been carried out correctly'] = 'Οι αλλαγές έχουν πραγματοποιηθεί σωστά';
-$_lang['The class has been moved'] = 'Η τάξη έχει μεταφερθεί';
-$_lang['The content of this panel is editable in administration '] = 'Τα περιεχόμενα αυτού του πλαισίου είναι επεξεργάσιμα σε κατάσταση διαχείρισης πλατφόρμας';
-$_lang['The course has been successfully deleted'] = 'Το μάθημα έχει διαγραφεί με επιτυχία';
-$_lang['The domain that the cookie is available.  To make the cookie available on all subdomains of example.com, you\'d set it to ".example.com". The . is not required but makes it compatible with more browsers. Setting it to www.example.com  will make the co'] = 'Η περιοχή που το cookie είναι διαθέσιμο. Για να γίνει το cookie διαθέσιμο σε όλες τις υποπεριοχές του example.com, πρέπει να το θέσετε ".example.com". Το . δεν απαιτείται αλλά ειναι συμβατό με περισσότερους browser. Αν το ορίσετε στο www.example.com  θα κάνει το co';
-$_lang['The email address is not valid'] = 'Η διεύθυνση ηλεκτρονικού ταχυδρομείου δεν είναι συμπληρωμένη ή περιέχει άκυρους χαρακτήρες';
-$_lang['The fields <em>%field_list</em> are compulsory'] = 'Τα πεδία <em>%field_list</em> είναι απαραίτητα';
-$_lang['The file to upload is not valid.'] = 'Το αρχείο που θα ενημερωθεί δεν είναι έγκυρο.';
-$_lang['The following errors were found'] = 'Βρέθηκαν τα ακόλουθα λάθη ';
-$_lang['The information have been modified'] = 'Οι πληροφορίες έχουν τροποποιηθεί';
-$_lang['The module has been removed from this dock'] = 'Το module έχει αφαιρεθεί από αυτή την αποθήκη';
-$_lang['The module will still be available in the pool of modules.'] = 'Η ενότητα θα παραμείνει διαθέσιμη στην ομάδα των ενοτήτων.';
-$_lang['The name of the cookie. By default the name is "clarolineSsoCookie"'] = 'Το όνομα του cookie. Προκαθορισμένο όνομα είναι "clarolineSsoCookie"';
-$_lang['The new category has been created.'] = 'Η νέα κατηγορία έχει δημιουργηθεί.';
-$_lang['The new class has been created'] = 'Η νέα τάξη έχει δημιουργηθεί';
-$_lang['The new user has been sucessfully created'] = 'Ο καινούριος χρήστης έχει δημιουργηθεί με επιτυχία';
-$_lang['The path on the server in which the cookie will be available on.  If set to "/", the cookie will be available within the entire domain. If set to "/foo/", the cookie will only be available within the /foo/ directory and all sub-directories such as /f'] = 'Η διαδρομή στο server στην οποία το cookie θα είναι διαθέσιμο.  Αν οριστεί σε "/", το cookie θα είναι διαθέσιμο σε όλη την περιοχή domain. Αν οριστεί σε "/foo/", το cookie θα είναι διαθέσιμο μόνο μέσα στον κατάλογο /foo/ και του υποκαταλόγους όπως /f';
-$_lang['The requested file <strong>%file</strong> was not found on the platform.'] = 'Το αρχείο <strong>%file</strong> που αναζητήθηκε δεν βρέθηκε στην πλατφόρμα.';
-$_lang['The system is unable to send you an e-mail.'] = 'Το σύστημα δεν μπορεί να σας στείλει e-mail.';
-$_lang['The upload has failed. There is not enough space in your directory'] = 'Το ανέβασμα του αρχείου απέτυχε. Δεν υπάρχει αρκετός χώρος στον κατάλογο σας';
-$_lang['The upload is finished'] = 'Ολοκληρώθηκε το ανέβασμα';
-$_lang['The user has been enroled to the course'] = 'Ο χρήστης έχει εγγραφεί στο μάθημα';
-$_lang['The user has been successfully unregistered'] = 'O χρήστης έχει καταργήσει επιτυχώς την εγγραφή του';
-$_lang['The user has been successfully unregistered from course'] = 'O χρήστης έχει καταργήσει επιτυχώς την εγγραφή του στο μάθημα';
-$_lang['The user is already enroled in this course'] = 'Ο χρήστης έχει ήδη εγγραφεί για αυτό το μάθημα';
-$_lang['The username is case sensitive'] = 'Το όνομα χρήστη διακρίνει μικρά και κεφαλαία γράμματα';
-$_lang['The zip file can not contain .PHP files'] = 'Το αρχείο zip δεν πρέπει να περιέχει αρχεία .php';
-$_lang['Theme'] = 'Θέμα';
-$_lang['Themes'] = 'Θέματα';
-$_lang['There are no topics for this forum. You can post one'] = 'Δεν υπάρχουν θέματα σε αυτή την περιοχή. Μπορείτε να ξεκινήσετε ένα νέο.';
-$_lang['There is a folder called <b><i>%module_name</i></b> for which there is no module installed.'] = 'Υπάρχει ένα κατάλογος που ονομάζεται <b><i>%module_name</i></b> και για τον οποίο δεν υπάρχει κάποιο εγκατεστημένο module.';
-$_lang['There is a module installed in DB : <b><i>%module_name</i></b> for which there is no folder on the server.'] = 'Υπάρχει ένα module εγκατεστημένο στη βάση δεδομένων(DB) : <b><i>%module_name</i></b> για το οποίο δεν υπάρχει κατάλογος στο server.';
-$_lang['There is an error in exercise data of imported file.'] = 'Υπάρχει ένα λάθος στα δεδομένα της άσκησης του αρχείου που πρόκυπτει να επισυναφτεί.';
-$_lang['There is no answer for the moment'] = 'Δεν υπάρχει αυτή τη στιγμή καμία απάντηση';
-$_lang['There is no assignment at the moment'] = 'Δεν υπάρχει καμία ανάθεση αυτή τη στιγμή.';
-$_lang['There is no category'] = 'Δεν υπάρχει κατηγορία';
-$_lang['There is no category available !'] = 'Δεν υπάρχει διαθέσιμη κατηγορία !';
-$_lang['There is no course matching such criteria'] = 'Δεν υπάρχει μάθημα που να ταιριάζει με αυτά τα κριτήρια';
-$_lang['There is no exercise for the moment'] = 'Αυτή τη στιγμή δεν υπάρχει άσκηση';
-$_lang['There is no start asset defined for this module.'] = 'Δεν υπάρχει κανένα απόκτημα/στοιχείο έναρξης που να ορίζεται για αυτή την ενότητα.';
-$_lang['There is no user account with this email address.'] = 'Δεν υπάρχει λογαριασμός χρήστη με αυτή την διεύθυνση email.';
-$_lang['These informations are displayed on the footer of the platform'] = 'Αυτές οι πληροφορίες εμφανίζονται στο υποσέλιδο της πλατφόρμας';
-$_lang['This category already exists!'] = 'Αυτή η κατηγορία υπάρχει ήδη!';
-$_lang['This category contains other categories, you must delete them before !'] = 'Αυτή η κατηγορία περιέχει και άλλες κατηγορίες, πρέπει πρώτα να τις διαγράψετε !';
-$_lang['This category contains some courses, you can\'t erase it!'] = 'Αυτή η κατηγορία περιέχει κάποια μαθήματα,δεν μπορείτε να την σβήσετε!';
-$_lang['This category include some courses, you must delete or move them before'] = 'Αυτή η κατηγορία περιλαμβάνει μερικά μαθήματα,  πρέπει να τα διαγράψεις ή να τα μετακινήσεις πρώτα';
-$_lang['This course is currently not described'] = 'Το μάθημα δε διαθέτει περιγραφή';
-$_lang['This course requires a key for enrolment'] = 'Αυτό το μάθημα απαιτεί ένα κλειδί για εγγραφή';
-$_lang['This day'] = 'Αυτή την ημέρα';
-$_lang['This is the faculty, department or school where the course is delivered'] = 'Η σχολή ή το τμήμα που αναφέρεται το μάθημα';
-$_lang['This is the main page of the Wiki %s. Click on \'\'\'Edit\'\'\' to modify the content.'] = 'Αυτη είναι η κύρια σελίδα του Wiki %s. Επέλεξε \'\'\'Edit\'\'\' για να τροποποιήσεις το περιεχόμενο.';
-$_lang['This is the main page of the Wiki %wikiTitle. Click on \'\'\'Edit\'\'\' to modify the content.'] = 'Αυτή είναι η κεντρική σελίδα του Wiki %wikiTitle. Ακολουθήστε το σύνδεσμο \'\'\'Επεξεργασία\'\'\' για να τροποποιήσετε το περιεχόμενο.';
-$_lang['This is where tracking and statistics data are stored. This database can be the same as the main database.'] = 'Εδώ είναι που αποθηκεύονται τα δεδομένα στατιστικών και παρακολούθησης. Αυτή η βάση δεδομένων μπορεί να είναι στην κεντρική βάση δεδομένων.';
-$_lang['This is your account Login-Pass'] = 'Αυτό είναι το Login-Pass του λογαριασμού σας';
-$_lang['This mail appears already in a previous line of the CSV file.'] = 'Αυτό το mail εμφανίζεται ήδη και σε προηγούμενη γραμμή του αρχείου CSV .';
-$_lang['This module cannot be deactivated'] = 'Αυτο το module δεν μπορεί να απενεργοποιηθεί';
-$_lang['This official code already appears in a previous line of the CSV file.'] = 'Αυτός ο επίσημος κώδικας εμφανίζεται ήδη σε προηγούμενη σειρά του αρχείου CSV.';
-$_lang['This official code is already used by another user.'] = 'Αυτός ο επίσημος κωδικός χρησιμοποιείται ήδη από άλλο χρήστη.';
-$_lang['This option insert a command in the user profile form to request a status of course creator. This request is sent by e-mail to platform administrator.'] = 'Αυτή η επιλογή εισάγει μία εντολή στην φόρμα προφίλ του χρήστη για να αιτηθεί την κατάσταση του δημιουργού του μαθήματος. Αυτή η αίτηση στέλνετε με e-mail στο διαχειριστή της πλατφόρμας.';
+$_lang['Secondary manifest found in zip file :'] = 'Ξ”ΞµΟ…Ο„ΞµΟΞ­ΞΏΞ½ Ξ±ΟΟ‡ΞµΞ―ΞΏ manifest Ξ²ΟΞ­ΞΈΞ·ΞΊΞµ ΟƒΟ„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ zip :';
+$_lang['See below the files you can edit from this tool.'] = 'Ξ”ΞµΟ‚ ΞΊΞ¬Ο„Ο‰ Ξ±Ο€ΞΏ Ο„Ξ± Ξ±ΟΟ‡ΞµΞ―Ξ± Ο€ΞΏΟ… ΞΌΟ€ΞΏΟΞµΞ―Ο‚ Ξ½Ξ± ΞµΟ€ΞµΞΎΞµΟΞ³Ξ±ΟƒΟ„ΞµΞ―Ο‚ Ξ±Ο€ΞΏ Ξ±Ο…Ο„Ο Ο„ΞΏ ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏ-ΞΌΞ­ΟƒΞΏ.';
+$_lang['See user list'] = 'Ξ’Ξ»Ξ­Ο€Ξµ Ξ»Ξ―ΟƒΟ„Ξ± Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['Seen'] = 'Ξ Ξ±Ξ»ΞΉΞ¬';
+$_lang['Select course in'] = 'Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ® ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ ΟƒΟ„ΞΏ ';
+$_lang['Select course in search results'] = 'Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ® ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ ΟƒΟ„Ξ·Ξ½ Ξ­ΟΞµΟ…Ξ½Ξ± Ξ±Ο€ΞΏΟ„ΞµΞ»ΞµΟƒΞΌΞ¬Ο„Ο‰Ξ½';
+$_lang['Select date'] = 'Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ® Ξ·ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ±Ο‚';
+$_lang['Select in drop down list'] = 'Ξ•Ο€Ξ―Ξ»ΞµΞΎΞµ ΟƒΟ„ΞΏ ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ»Ο Ξ»Ξ―ΟƒΟ„Ξ±Ο‚ Ο€ΟΟΟ„Ξ±';
+$_lang['Select interval'] = 'Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ξ΄ΞΉΞ¬ΞΊΞµΞ½ΞΏ';
+$_lang['Select the tools you want to make visible for your user.'] = 'Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„Ξ± ΞµΟΞ³Ξ±Ξ»ΞµΞ―Ξ± Ο€ΞΏΟ… ΞΈΞ­Ξ»ΞµΟ„Ξµ Ξ½Ξ± ΞΊΞ¬Ξ½ΞµΟ„Ξµ ΞΏΟΞ±Ο„Ξ¬ ΟƒΟ„ΞΏΞ½ Ο‡ΟΞ®ΟƒΟ„Ξ· ΟƒΞ±Ο‚';
+$_lang['Select the way Claroline send files to a user.'] = 'Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„ΞΏ Ο„ΟΟΟ€ΞΏ Ο€ΞΏΟ… Ο„ΞΏ ΞΞ»Ξ¬ΟΞΏΞ»Ξ±ΞΉΞ½ ΞΈΞ± ΟƒΟ„Ξ­Ξ»Ξ½ΞµΞΉ Ξ±ΟΟ‡ΞµΞ―Ξ± ΟƒΟ„ΞΏΞ½ Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['Selected Users'] = 'Ξ•Ο€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½ΞΏΞΉ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚';
+$_lang['Send'] = 'Ξ‘Ο€ΞΏΟƒΟ„ΞΏΞ»Ξ®';
+$_lang['Send a message'] = 'Ξ‘Ο€ΞΏΟƒΟ„ΞΏΞ»Ξ® ΞΌΞ·Ξ½ΟΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Send a message to all users'] = 'Ξ‘Ο€ΞΏΟƒΟ„ΞΏΞ»Ξ® ΞΌΞ·Ξ½ΟΞΌΞ±Ο„ΞΏΟ‚ ΟƒΞµ ΟΞ»ΞΏΟ…Ο‚ Ο„ΞΏΟ…Ο‚ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚';
+$_lang['Send a message to group'] = 'Ξ‘Ο€ΞΏΟƒΟ„ΞΏΞ»Ξ® ΞΌΞ·Ξ½ΟΞΌΞ±Ο„ΞΏΟ‚ ΟƒΞµ ΞΌΞΉΞ± ΞΏΞΌΞ¬Ξ΄Ξ±';
+$_lang['Send a message to the course'] = 'Ξ‘Ο€ΞΏΟƒΟ„ΞΏΞ»Ξ® ΞΌΞ·Ξ½ΟΞΌΞ±Ο„ΞΏΟ‚ ΟƒΞµ Ξ­Ξ½Ξ± ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['Send a message to the user'] = 'Ξ‘Ο€ΞΏΟƒΟ„ΞΏΞ»Ξ® ΞΌΞ·Ξ½ΟΞΌΞ±Ο„ΞΏΟ‚ ΟƒΞµ Ξ­Ξ½Ξ± Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['Send account information to user by email'] = 'Ξ‘Ο€ΞΏΟƒΟ„ΞΏΞ»Ξ® Ο€Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞΉΟΞ½ Ξ»ΞΏΞ³Ξ±ΟΞΉΞ±ΟƒΞΌΞΏΟ ΟƒΟ„ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ· ΞΌΞ­ΟƒΟ‰ email';
+$_lang['Send file using PHP (mask real file location)'] = 'Ξ‘Ο€ΞΏΟƒΟ„ΞΏΞ»Ξ® Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΟΞ½Ο„Ξ±Ο‚ PHP ';
+$_lang['Send this announcement by internal message to registered students'] = 'Ξ‘Ο€ΟΟƒΟ„ΞµΞΉΞ»Ξµ Ξ±Ο…Ο„Ξ®Ξ½ Ο„Ξ·Ξ½ ΞµΞΉΞ΄ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· ΞΌΞµ ΞµΟƒΟ‰Ο„ΞµΟΞΉΞΊΟ ΞΌΞ®Ξ½Ο…ΞΌΞ± ΟƒΞµ ΟΞ»ΞΏΟ…Ο‚ Ο„ΞΏΟ…Ο‚ ΞµΞ³Ξ³ΞµΞ³ΟΞ±ΞΌΞ­Ξ½ΞΏΟ…Ο‚ ΞΌΞ±ΞΈΞ·Ο„Ξ­Ο‚';
+$_lang['Sender'] = 'Ξ‘Ο€ΞΏΟƒΟ„ΞΏΞ»Ξ­Ξ±Ο‚';
+$_lang['Session lost warning'] = 'Ξ ΟΞΏΞµΞΉΞ΄ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· Ξ΄ΞΉΞ±ΞΊΞΏΟ€Ξ®Ο‚ ΟƒΟ…Ξ½ΞµΞ΄ΟΞ―Ξ±Ο‚';
+$_lang['Set the Cascading Style Sheet (CSS) layout.'] = 'ΞΟΞΉΟƒΞµ Ο„Ξ·Ξ½ Cascading Style Sheet (CSS) ΞµΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ·.';
+$_lang['Set the default language of the platform. It doesn\'t prevent course managers to set an other language for each course they create.'] = 'ΞΟΞΉΟƒΞµ Ο„Ξ·Ξ½ Ξ²Ξ±ΟƒΞΉΞΊΞ® Ξ³Ξ»ΟΟƒΟƒΞ± Ο„Ξ·Ο‚ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±Ο‚. Ξ”ΞµΞ½ ΞµΞΌΟ€ΞΏΞ΄Ξ―Ξ¶ΞµΞΉ Ο„ΞΏΟ…Ο‚ Ξ΄ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ­Ο‚ Ο„Ο‰Ξ½ ΞΌΞ±ΞΈΞ·ΞΌΞ¬Ο„Ο‰Ξ½ Ξ½Ξ± ΞΏΟΞ―Ξ¶ΞΏΟ…Ξ½ Ξ¬Ξ»Ξ»Ξ· Ξ³Ξ»ΟΟƒΟƒΞ± Ξ³ΞΉΞ± ΞΊΞ¬ΞΈΞµ ΞΌΞ¬ΞΈΞ·ΞΌΞ± Ο€ΞΏΟ… Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³ΞΏΟΞ½.';
+$_lang['Sets how the assignment property "default works visibility" acts.  It will change the visibility of all the new submissions or it will change the visibility of all submissions already done in the assignment and the new one. '] = 'ΞΟΞ―Ξ¶ΞµΞΉ Ο€Ο‰Ο‚ Ξ· ΞΉΞ΄ΞΉΟΟ„Ξ·Ο„Ξ± Ο„Ξ·Ο‚ ΞµΟΞ³Ξ±ΟƒΞ―Ξ±Ο‚ "Ξ™Ξ΄ΞΉΟΟ„Ξ·Ο„Ξ± ΞµΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ·Ο‚ Ο€ΟΞΏΞΊΞ±ΞΈΞΏΟΞΉΟƒΞΌΞ­Ξ½Ο‰Ξ½ ΞµΟΞ³Ξ±ΟƒΞΉΟΞ½" Ξ΄ΟΞ¬.  ΞΞ± Ξ±Ξ»Ξ»Ξ¬ΞΎΞµΞΉ Ο„Ξ·Ξ½ ΞΉΞ΄ΞΉΟΟ„Ξ·Ο„Ξ± ΞµΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ·Ο‚ ΟΞ»Ο‰Ξ½ Ο„Ο‰Ξ½ Ξ½Ξ­Ο‰Ξ½ Ο…Ο€ΞΏΞ²ΞΏΞ»ΟΞ½ Ξ® ΞΊΞ±ΞΉ Ο„Ο‰Ξ½ Ο€Ξ±Ξ»ΞΉΟΞ½ Ο„Ξ·Ο‚ ΞµΟΞ³Ξ±ΟƒΞ―Ξ±Ο‚.';
+$_lang['Sets if user can see only his own submissions (or those from his groups) or if he can see every visible submission.'] = 'ΞΟΞ―Ξ¶ΞµΞΉ Ξ±Ξ½ ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ΄ΞµΞ― ΞΌΟΞ½ΞΏ Ο„ΞΉΟ‚ Ξ΄ΞΉΞΊΞ­Ο‚ Ο„ΞΏΟ… Ο…Ο€ΞΏΞ²ΞΏΞ»Ξ­Ο‚ (Ξ® Ξ±Ο…Ο„Ξ­Ο‚ Ξ±Ο€Ο Ο„ΞΉΟ‚ ΞΏΞΌΞ¬Ξ΄ΞµΟ‚ Ο„ΞΏΟ…) Ξ® ΟΞ»ΞµΟ‚.';
+$_lang['Settings for tutors of group'] = 'Ξ™Ξ΄ΞΉΟΟ„Ξ·Ο„ΞµΟ‚ Ξ³ΞΉΞ± ΞΊΞ±ΞΈΞ·Ξ³Ξ·Ο„Ξ­Ο‚ Ο„Ξ·Ο‚ ΞΏΞΌΞ¬Ξ΄Ξ±Ο‚';
+$_lang['Settings for users of group'] = 'Ξ™Ξ΄ΞΉΟΟ„Ξ·Ο„ΞµΟ‚ Ξ³ΞΉΞ± Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ Ο„Ξ·Ο‚ ΞΏΞΌΞ¬Ξ΄Ξ±Ο‚';
+$_lang['Settings of the right menu elements'] = 'Ξ™Ξ΄ΞΉΟΟ„Ξ·Ο„ΞµΟ‚ Ξ³ΞΉΞ± Ο„Ξ± ΟƒΟ„ΞΏΞΉΟ‡ΞµΞ―Ξ± Ο„ΞΏΟ… Ξ΄ΞµΞΎΞΉΞΏΟ menu';
+$_lang['Settings of the tool'] = 'Ξ™Ξ΄ΞΉΟΟ„Ξ·Ο„ΞµΟ‚ Ο„ΞΏΟ… ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏΟ…';
+$_lang['Settings of the user course list'] = 'Ξ™Ξ΄ΞΉΟΟ„Ξ·Ο„ΞµΟ‚ Ξ³ΞΉΞ± Ο„Ξ· Ξ»Ξ―ΟƒΟ„Ξ± Ο„Ο‰Ξ½ ΞΌΞ±ΞΈΞ·ΞΌΞ¬Ο„Ο‰Ξ½ Ο„ΞΏΟ… Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['Show'] = 'Ξ ΟΟΞ²Ξ±Ξ»Ξµ';
+$_lang['Show all'] = 'Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· ΟΞ»Ο‰Ξ½';
+$_lang['Show answers'] = 'Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· Ξ±Ο€Ξ±Ξ½Ο„Ξ®ΟƒΞµΟ‰Ξ½';
+$_lang['Show differences'] = 'Ξ”ΞµΞ―ΞΎΞµ Ο„ΞΉΟ‚ Ξ΄ΞΉΞ±Ο†ΞΏΟΞ­Ο‚';
+$_lang['Show none'] = 'ΞΞ± ΞΌΞ·Ξ½ ΞµΞΌΟ†Ξ±Ξ½ΞΉΟƒΟ„ΞµΞ― Ο„ΞΉΟ€ΞΏΟ„Ξ±';
+$_lang['Show only author submissions'] = 'Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞµ ΞΌΟΞ½ΞΏ Ο…Ο€ΞΏΞ²ΞΏΞ»ΟΞ½ Ο„ΞΏΟ… ΟƒΟ…Ξ½Ο„Ξ¬ΞΊΟ„Ξ·';
+$_lang['Show user profile page'] = 'Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞµ Ο„ΞΏ Ο€ΟΞΏΟ†Ξ―Ξ» Ο„ΞΏΟ… Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['Show wiki syntax toolbar'] = 'Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞµ Ο„Ξ· Ξ³ΟΞ±ΞΌΞΌΞ® ΞµΟΞ³Ξ±Ξ»ΞµΞ―Ο‰Ξ½ ΟƒΟΞ½Ο„Ξ±ΞΎΞ·Ο‚ wiki';
+$_lang['Single'] = 'Ξ‘Ο„ΞΏΞΌΞΉΞΊΟ';
+$_lang['Single Sign On'] = 'Ξ‘Ο„ΞΏΞΌΞΉΞΊΞ® ΞµΞ―ΟƒΞΏΞ΄ΞΏΟ‚';
+$_lang['Size'] = 'ΞΞ­Ξ³ΞµΞΈΞΏΟ‚';
+$_lang['Sql installation query failed'] = 'Ξ¤ΞΏ ΞµΟΟΟ„Ξ·ΞΌΞ± ΞµΞ³ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ·Ο‚ Sql Ξ±Ο€Ξ­Ο„Ο…Ο‡Ξµ';
+$_lang['Sql installation query succeeded'] = 'Ξ¤ΞΏ ΞµΟΟΟ„Ξ·ΞΌΞ± ΞµΞ³ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ·Ο‚ Sql Ο€Ξ­Ο„Ο…Ο‡Ξµ';
+$_lang['Standard URL using QUERY_STRING (download.php?url=/path/to/file.ext)'] = 'Ξ’Ξ±ΟƒΞΉΞΊΞ® Ξ΄ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ· URL Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΟΞ½Ο„Ξ±Ο‚ QUERY_STRING (download.php?url=/path/to/file.ext)';
+$_lang['Start Module'] = 'ΞΞ½Ξ±ΟΞΎΞ· ΞµΞ½ΟΟ„Ξ·Ο„Ξ±Ο‚';
+$_lang['Start date'] = 'Ξ—ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ± Ξ­Ξ½Ξ±ΟΞΎΞ·Ο‚';
+$_lang['Start date must be before end date ...'] = 'Ξ— Ξ·ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ± Ξ­Ξ½Ξ±ΟΞΎΞ·Ο‚ Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ Ο€ΟΞΉΞ½ Ο„Ξ·Ξ½ Ξ·ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ± Ξ»Ξ®ΞΎΞ·Ο‚ ...';
+$_lang['Statistics'] = 'Ξ£Ο„Ξ±Ο„ΞΉΟƒΟ„ΞΉΞΊΞ¬';
+$_lang['Statistics by question'] = 'Ξ£Ο„Ξ±Ο„ΞΉΟƒΟ„ΞΉΞΊΞ® ΞµΟΟ‰Ο„Ξ®ΟƒΞµΟ‰Ξ½';
+$_lang['Statistics by user'] = 'Ξ£Ο„Ξ±Ο„ΞΉΟƒΟ„ΞΉΞΊΞ¬ ΟƒΟ„ΞΏΞΉΟ‡ΞµΞ―Ξ± Ο‡ΟΞ·ΟƒΟ„ΟΞ½';
+$_lang['Statistics of course : %courseCode'] = 'Ξ£Ο„Ξ±Ο„ΞΉΟƒΟ„ΞΉΞΊΞ¬ Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ : %courseCode';
+$_lang['Statistics of exercise'] = 'Ξ£Ο„Ξ±Ο„ΞΉΟƒΟ„ΞΉΞΊΞ¬ Ο„Ξ·Ο‚ Ξ¬ΟƒΞΊΞ·ΟƒΞ·Ο‚';
+$_lang['Statistics of exercise attempt'] = 'Ξ£Ο„Ξ±Ο„ΞΉΟƒΟ„ΞΉΞΊΞ¬ Ξ³ΞΉΞ± Ο„ΞΉΟ‚ Ο€ΟΞΏΟƒΟ€Ξ¬ΞΈΞµΞΉΞµΟ‚ Ο„Ξ·Ο‚ Ξ¬ΟƒΞΊΞ·ΟƒΞ·Ο‚ ';
+$_lang['Statistics of question'] = 'Ξ£Ο„Ξ±Ο„ΞΉΟƒΟ„ΞΉΞΊΞ¬ Ξ³ΞΉΞ± Ο„Ξ·Ξ½ ΞµΟΟΟ„Ξ·ΟƒΞ·';
+$_lang['Status'] = 'ΞΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ·';
+$_lang['Store Chat'] = 'Ξ‘Ο€ΞΏΞΈΞ®ΞΊΞµΟ…ΟƒΞ· Chat';
+$_lang['Store failed'] = 'Ξ‘Ο€ΞΏΞΈΞ®ΞΊΞµΟ…ΟƒΞ· Ξ±Ο€Ξ­Ο„Ο…Ο‡Ξµ';
+$_lang['Strike'] = 'Ξ§Ο„ΟΟ€Ξ·ΞΌΞ±';
+$_lang['Student'] = 'Ο†ΞΏΞΉΟ„Ξ·Ο„Ξ®Ο‚';
+$_lang['Students are allowed to self-register in groups'] = 'ΞΞΉ Ο†ΞΏΞΉΟ„Ξ·Ο„Ξ­Ο‚ ΞµΟ€ΞΉΟ„ΟΞ­Ο€ΞµΟ„Ξ±ΞΉ Ξ½Ξ± ΞµΞ³Ξ³ΟΞ±Ο†ΞΏΟΞ½ ΟƒΟ„ΞΉΟ‚ ΞΏΞΌΞ¬Ξ΄ΞµΟ‚ Ο‡ΟΞ·ΟƒΟ„ΟΞ½';
+$_lang['Style'] = 'Ξ£Ο„ΟΞ»';
+$_lang['Subject'] = 'ΞΞ­ΞΌΞ±';
+$_lang['Subject couldn\'t be empty'] = 'Ξ¤ΞΏ ΞΈΞ­ΞΌΞ± Ξ΄ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ ΞΊΞµΞ½Ο';
+$_lang['Submission'] = 'Ξ¥Ο€ΞΏΞ²ΞΏΞ»Ξ®';
+$_lang['Submission type'] = 'Ξ¤ΟΟ€ΞΏΟ‚ Ο…Ο€ΞΏΞ²ΞΏΞ»Ξ®Ο‚';
+$_lang['Submission visibility'] = 'Ξ™Ξ΄ΞΉΟΟ„Ξ·Ο„Ξ± ΞµΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ·Ο‚ Ο…Ο€ΞΏΞ²ΞΏΞ»Ξ®Ο‚';
+$_lang['Submissions'] = 'Ξ¥Ο€ΞΏΞ²ΞΏΞ»Ξ­Ο‚';
+$_lang['Submissions posted or modified after date :'] = 'Ξ¥Ο€ΞΏΞ²ΞΏΞ»Ξ­Ο‚ Ξ±ΞΉΟ„Ξ®ΟƒΞµΟ‰Ξ½ Ο€ΞΏΟ… Ξ±Ο€ΞΏΟƒΟ„Ξ¬Ξ»Ξ·ΞΊΞ±Ξ½ Ξ® Ξ±Ξ»Ξ»Ξ¬Ο‡ΞΈΞ·ΞΊΞ±Ξ½ ΞΌΞµΟ„Ξ± Ξ±Ο€ΞΏ Ο„Ξ·Ξ½ Ξ·ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ± :';
+$_lang['Submit'] = 'Ξ¥Ο€ΞΏΞ²ΞΏΞ»Ξ®';
+$_lang['Submit a work'] = 'Ξ¥Ο€ΞΏΞ²ΞΏΞ»Ξ® ΞµΟΞ³Ξ±ΟƒΞ―Ξ±Ο‚';
+$_lang['Submit all and finish'] = 'Ξ¥Ο€ΞΏΞ²ΞΏΞ»Ξ® ΟΞ»Ο‰Ξ½ ΞΊΞ±ΞΉ Ξ¤Ξ­Ξ»ΞΏΟ‚';
+$_lang['Submit feedback'] = 'Ξ¥Ο€ΞΏΞ²ΞΏΞ»Ξ® feedback';
+$_lang['Subscription not allowed'] = 'Ξ•Ξ³Ξ³ΟΞ±Ο†Ξ® Ξ΄ΞµΞ½ ΞµΟ€ΞΉΟ„ΟΞ­Ο€ΞµΟ„Ξ±ΞΉ';
+$_lang['Support forum'] = 'Ξ ΞµΟΞΉΞΏΟ‡Ξ® Ο…Ο€ΞΏΟƒΟ„Ξ®ΟΞΉΞΎΞ·Ο‚';
+$_lang['System Info'] = 'Ξ Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞ―ΞµΟ‚ Ξ£Ο…ΟƒΟ„Ξ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['System mail : recipients list'] = 'Mail ΟƒΟ…ΟƒΟ„Ξ®ΞΌΞ±Ο„ΞΏΟ‚ : Ξ»Ξ―ΟƒΟ„Ξ± Ο€Ξ±ΟΞ±Ξ»Ξ·Ο€Ο„ΟΞ½';
+$_lang['Take one of these options'] = 'Ξ”ΞΉΞ¬Ξ»ΞµΞΎΞµ ΞΌΞ―Ξ± Ξ±Ο€Ο Ο„ΞΉΟ‚ ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ­Ο‚';
+$_lang['Teacher can add a user in his course'] = 'Ξ ΞΊΞ±ΞΈΞ·Ξ³Ξ·Ο„Ξ®Ο‚ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ο€ΟΞΏΟƒΞΈΞ­ΟƒΞµΞΉ Ξ­Ξ½Ξ± Ο‡ΟΞ®ΟƒΟ„Ξ· ΟƒΟ„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ± Ο„ΞΏΟ…';
+$_lang['Teacher can export user list from his course'] = 'Ξ Ξ΄Ξ¬ΟƒΞΊΞ±Ξ»ΞΏΟ‚ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΞµΞΎΞ¬Ξ³ΞµΞΉ Ο„Ξ·Ξ½ Ξ»Ξ―ΟƒΟ„Ξ± Ο‡ΟΞ·ΟƒΟ„ΟΞ½ Ξ±Ο€ΞΏ Ο„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ± Ο„ΞΏΟ…';
+$_lang['Teacher can import user list in his course'] = 'Ξ ΞΊΞ±ΞΈΞ·Ξ³Ξ·Ο„Ξ®Ο‚ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΞµΞΉΟƒΞ¬Ξ³ΞµΞΉ ΞΌΞ―Ξ± Ξ»Ξ―ΟƒΟ„Ξ± Ο‡ΟΞ®ΟƒΟ„ΟΞ½ ΟƒΟ„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ± Ο„ΞΏΟ…';
+$_lang['Teachers are allowed to register whole classes to their courses'] = 'Ξ ΞΊΞ±ΞΈΞ·Ξ³Ξ·Ο„Ξ®Ο‚ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΞµΞΉΟƒΞ¬Ξ³ΞµΞΉ Ξ­Ξ½Ξ± Ο…Ο€Ξ¬ΟΟ‡ΞΏΞ½ ΞΌΞ¬ΞΈΞ·ΞΌΞ± Ο„Ξ¬ΞΎΞ·Ο‚';
+$_lang['Teachers can register new users to the campus'] = 'ΞΞΉ Ξ΄Ξ¬ΟƒΞΊΞ±Ξ»ΞΏΞΉ ΞΌΟ€ΞΏΟΞΏΟΞ½ Ξ½Ξ± ΞµΞ³Ξ³ΟΞ¬ΟΞΏΟ…Ξ½ ΞΊΞ±ΞΉΞ½ΞΏΟΟΞ³ΞΉΞΏΟ…Ο‚ ΞΌΞ±ΞΈΞ·Ο„Ξ­Ο‚ ΟƒΟ„ΞΏ Ο€Ξ±Ξ½ΞµΟ€ΞΉΟƒΟ„Ξ®ΞΌΞΉΞΏ';
+$_lang['Technical Tools'] = 'Ξ¤ΞµΟ‡Ξ½ΞΉΞΊΞ¬ Ξ•ΟΞ³Ξ±Ξ»ΞµΞ―Ξ± ';
+$_lang['Temporary folder missing'] = 'Ξ ΟΞΏΟƒΟ‰ΟΞΉΞ½ΟΟ‚ ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏΟ‚ Ξ΄ΞµΞ½ Ξ²ΟΞ­ΞΈΞ·ΞΊΞµ';
+$_lang['Text bottom'] = 'ΞΞµΞ―ΞΌΞµΞ½ΞΏ Ο€Ο…ΞΈΞΌΞ­Ξ½Ξ±';
+$_lang['Text displayed if a user tries to enrol in a course requiring a key'] = 'ΞΞµΞ―ΞΌΞµΞ½ΞΏ ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞµΟ„Ξ±ΞΉ ΟΟ„Ξ±Ξ½ ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ Ο€ΟΞΏΟƒΟ€Ξ±ΞΈΞµΞ― Ξ½Ξ± ΞµΞ³Ξ³ΟΞ±Ο†ΞµΞ― ΟƒΞµ Ξ­Ξ½Ξ± ΞΌΞ¬ΞΈΞ·ΞΌΞ± Ο€ΞΏΟ… Ξ±Ο€Ξ±ΞΉΟ„ΞµΞ― ΞΊΞ»ΞµΞΉΞ΄Ξ―';
+$_lang['Text displayed if a user tries to enrol in a locked course'] = 'ΞΞµΞ―ΞΌΞµΞ½ΞΏ ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞµΟ„Ξ±ΞΉ ΟΟ„Ξ±Ξ½ ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ Ο€ΟΞΏΟƒΟ€Ξ±ΞΈΞµΞ― Ξ½Ξ± ΞµΞ³Ξ³ΟΞ±Ο†ΞµΞ― ΟƒΞµ Ξ­Ξ½Ξ± ΞΊΞ»ΞµΞΉΞ΄Ο‰ΞΌΞ­Ξ½ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['Text displayed on the "Create user account" page'] = 'ΞΞµΞ―ΞΌΞµΞ½ΞΏ ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞµΟ„Ξ±ΞΉ ΟƒΟ„Ξ· ΟƒΞµΞ»Ξ―Ξ΄Ξ± "Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ξ»ΞΏΞ³Ξ±ΟΞΉΞ±ΟƒΞΌΞΏΟ Ο‡ΟΞ®ΟƒΟ„Ξ·" ';
+$_lang['Text displayed on the "My user account" page'] = 'ΞΞµΞ―ΞΌΞµΞ½ΞΏ ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞµΟ„Ξ±ΞΉ ΟƒΟ„Ξ· ΟƒΞµΞ»Ξ―Ξ΄Ξ± "Ξ Ξ»ΞΏΞ³Ξ±ΟΞΉΞ±ΟƒΞΌΟΟ‚ ΞΌΞΏΟ…" ';
+$_lang['Text displayed on the right column'] = 'ΞΞµΞ―ΞΌΞµΞ½ΞΏ ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞµΟ„Ξ±ΞΉ ΟƒΟ„Ξ· Ξ΄ΞµΞΎΞΉΞ¬ ΟƒΟ„Ξ®Ξ»Ξ·';
+$_lang['Text only (text required, no file)'] = 'ΞΟΞ½ΞΏ ΞΊΞµΞΉΞΌΞµΞ½ΞΏ (Ξ±Ο€Ξ±ΞΉΟ„ΞµΞ―Ο„Ξ±ΞΉ ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ, ΟΟ‡ΞΉ Ξ±ΟΟ‡ΞµΞ―ΞΏ)';
+$_lang['Text top'] = 'ΞΞµΞ―ΞΌΞµΞ½ΞΏ ΞΊΞΏΟΟ…Ο†Ξ®Ο‚';
+$_lang['Text with attached file (text required, file optional)'] = 'ΞΞµΞ―ΞΌΞµΞ½ΞΏ ΞΌΞµ ΞµΟ€ΞΉΟƒΟ…Ξ½Ξ±Ο€Ο„ΟΞΌΞµΞ½ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ (Ξ±Ο€Ξ±ΞΉΟ„ΞµΞ―Ο„Ξ±ΞΉ ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ, Ο€ΟΞΏΞ±ΞΉΟΞµΟ„ΞΉΞΊΞ¬ Ξ±ΟΟ‡ΞµΞ―ΞΏ)';
+$_lang['The changes have been carried out correctly'] = 'ΞΞΉ Ξ±Ξ»Ξ»Ξ±Ξ³Ξ­Ο‚ Ξ­Ο‡ΞΏΟ…Ξ½ Ο€ΟΞ±Ξ³ΞΌΞ±Ο„ΞΏΟ€ΞΏΞΉΞ·ΞΈΞµΞ― ΟƒΟ‰ΟƒΟ„Ξ¬';
+$_lang['The class has been moved'] = 'Ξ— Ο„Ξ¬ΞΎΞ· Ξ­Ο‡ΞµΞΉ ΞΌΞµΟ„Ξ±Ο†ΞµΟΞΈΞµΞ―';
+$_lang['The content of this panel is editable in administration '] = 'Ξ¤Ξ± Ο€ΞµΟΞΉΞµΟ‡ΟΞΌΞµΞ½Ξ± Ξ±Ο…Ο„ΞΏΟ Ο„ΞΏΟ… Ο€Ξ»Ξ±ΞΉΟƒΞ―ΞΏΟ… ΞµΞ―Ξ½Ξ±ΞΉ ΞµΟ€ΞµΞΎΞµΟΞ³Ξ¬ΟƒΞΉΞΌΞ± ΟƒΞµ ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ· Ξ΄ΞΉΞ±Ο‡ΞµΞ―ΟΞΉΟƒΞ·Ο‚ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±Ο‚';
+$_lang['The course has been successfully deleted'] = 'Ξ¤ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ± Ξ­Ο‡ΞµΞΉ Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†ΞµΞ― ΞΌΞµ ΞµΟ€ΞΉΟ„Ο…Ο‡Ξ―Ξ±';
+$_lang['The course is shown in the courses listing'] = 'Ξ‘Ο…Ο„Ο Ο„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ± Ο†Ξ±Ξ―Ξ½ΞµΟ„Ξ±ΞΉ ΟƒΟ„Ξ·Ξ½ Ξ»Ξ―ΟƒΟ„Ξ± ΞΌΞ±ΞΈΞ·ΞΌΞ¬Ο„Ο‰Ξ½';
+$_lang['The domain that the cookie is available.  To make the cookie available on all subdomains of example.com, you\'d set it to ".example.com". The . is not required but makes it compatible with more browsers. Setting it to www.example.com  will make the co'] = 'Ξ— Ο€ΞµΟΞΉΞΏΟ‡Ξ® Ο€ΞΏΟ… Ο„ΞΏ cookie ΞµΞ―Ξ½Ξ±ΞΉ Ξ΄ΞΉΞ±ΞΈΞ­ΟƒΞΉΞΌΞΏ. Ξ“ΞΉΞ± Ξ½Ξ± Ξ³Ξ―Ξ½ΞµΞΉ Ο„ΞΏ cookie Ξ΄ΞΉΞ±ΞΈΞ­ΟƒΞΉΞΌΞΏ ΟƒΞµ ΟΞ»ΞµΟ‚ Ο„ΞΉΟ‚ Ο…Ο€ΞΏΟ€ΞµΟΞΉΞΏΟ‡Ξ­Ο‚ Ο„ΞΏΟ… example.com, Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± Ο„ΞΏ ΞΈΞ­ΟƒΞµΟ„Ξµ ".example.com". Ξ¤ΞΏ . Ξ΄ΞµΞ½ Ξ±Ο€Ξ±ΞΉΟ„ΞµΞ―Ο„Ξ±ΞΉ Ξ±Ξ»Ξ»Ξ¬ ΞµΞΉΞ½Ξ±ΞΉ ΟƒΟ…ΞΌΞ²Ξ±Ο„Ο ΞΌΞµ Ο€ΞµΟΞΉΟƒΟƒΟΟ„ΞµΟΞΏΟ…Ο‚ browser. Ξ‘Ξ½ Ο„ΞΏ ΞΏΟΞ―ΟƒΞµΟ„Ξµ ΟƒΟ„ΞΏ www.example.com  ΞΈΞ± ΞΊΞ¬Ξ½ΞµΞΉ Ο„ΞΏ co';
+$_lang['The email address is not valid'] = 'Ξ— Ξ΄ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ· Ξ·Ξ»ΞµΞΊΟ„ΟΞΏΞ½ΞΉΞΊΞΏΟ Ο„Ξ±Ο‡Ο…Ξ΄ΟΞΏΞΌΞµΞ―ΞΏΟ… Ξ΄ΞµΞ½ ΞµΞ―Ξ½Ξ±ΞΉ ΟƒΟ…ΞΌΟ€Ξ»Ξ·ΟΟ‰ΞΌΞ­Ξ½Ξ· Ξ® Ο€ΞµΟΞΉΞ­Ο‡ΞµΞΉ Ξ¬ΞΊΟ…ΟΞΏΟ…Ο‚ Ο‡Ξ±ΟΞ±ΞΊΟ„Ξ®ΟΞµΟ‚';
+$_lang['The fields <em>%field_list</em> are compulsory'] = 'Ξ¤Ξ± Ο€ΞµΞ΄Ξ―Ξ± <em>%field_list</em> ΞµΞ―Ξ½Ξ±ΞΉ Ξ±Ο€Ξ±ΟΞ±Ξ―Ο„Ξ·Ο„Ξ±';
+$_lang['The file to upload is not valid.'] = 'Ξ¤ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ Ο€ΞΏΟ… ΞΈΞ± ΞµΞ½Ξ·ΞΌΞµΟΟ‰ΞΈΞµΞ― Ξ΄ΞµΞ½ ΞµΞ―Ξ½Ξ±ΞΉ Ξ­Ξ³ΞΊΟ…ΟΞΏ.';
+$_lang['The following errors were found'] = 'Ξ’ΟΞ­ΞΈΞ·ΞΊΞ±Ξ½ Ο„Ξ± Ξ±ΞΊΟΞ»ΞΏΟ…ΞΈΞ± Ξ»Ξ¬ΞΈΞ· ';
+$_lang['The information have been modified'] = 'ΞΞΉ Ο€Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞ―ΞµΟ‚ Ξ­Ο‡ΞΏΟ…Ξ½ Ο„ΟΞΏΟ€ΞΏΟ€ΞΏΞΉΞ·ΞΈΞµΞ―';
+$_lang['The message in now in your trashbox'] = 'Ξ‘Ο…Ο„Ο Ο„ΞΏ ΞΌΞ®Ξ½Ο…ΞΌΞ± ΞµΞ―Ξ½Ξ±ΞΉ Ο„ΟΟΞ± ΟƒΟ„ΞΏΞ½ ΞΊΞ¬Ξ»Ξ±ΞΈΞΏ ΟƒΞΏΟ…';
+$_lang['The message sent but the notification by'] = 'Ξ¤ΞΏ ΞΌΞ®Ξ½Ο…ΞΌΞ± ΟƒΟ„Ξ¬Ξ»Ξ·ΞΊΞµ Ξ±Ξ»Ξ»Ξ¬ Ξ· ΞµΞΉΞ΄ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· Ξ±Ο€Ο';
+$_lang['The module has been removed from this dock'] = 'Ξ¤ΞΏ module Ξ­Ο‡ΞµΞΉ Ξ±Ο†Ξ±ΞΉΟΞµΞΈΞµΞ― Ξ±Ο€Ο Ξ±Ο…Ο„Ξ® Ο„Ξ·Ξ½ Ξ±Ο€ΞΏΞΈΞ®ΞΊΞ·';
+$_lang['The module will still be available in the pool of modules.'] = 'Ξ— ΞµΞ½ΟΟ„Ξ·Ο„Ξ± ΞΈΞ± Ο€Ξ±ΟΞ±ΞΌΞµΞ―Ξ½ΞµΞΉ Ξ΄ΞΉΞ±ΞΈΞ­ΟƒΞΉΞΌΞ· ΟƒΟ„Ξ·Ξ½ ΞΏΞΌΞ¬Ξ΄Ξ± Ο„Ο‰Ξ½ ΞµΞ½ΞΏΟ„Ξ®Ο„Ο‰Ξ½.';
+$_lang['The name of the cookie. By default the name is "clarolineSsoCookie"'] = 'Ξ¤ΞΏ ΟΞ½ΞΏΞΌΞ± Ο„ΞΏΟ… cookie. Ξ ΟΞΏΞΊΞ±ΞΈΞΏΟΞΉΟƒΞΌΞ­Ξ½ΞΏ ΟΞ½ΞΏΞΌΞ± ΞµΞ―Ξ½Ξ±ΞΉ "clarolineSsoCookie"';
+$_lang['The new category has been created.'] = 'Ξ— Ξ½Ξ­Ξ± ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ± Ξ­Ο‡ΞµΞΉ Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ·ΞΈΞµΞ―.';
+$_lang['The new class has been created'] = 'Ξ— Ξ½Ξ­Ξ± Ο„Ξ¬ΞΎΞ· Ξ­Ο‡ΞµΞΉ Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ·ΞΈΞµΞ―';
+$_lang['The new user has been sucessfully created'] = 'Ξ ΞΊΞ±ΞΉΞ½ΞΏΟΟΞΉΞΏΟ‚ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ Ξ­Ο‡ΞµΞΉ Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ·ΞΈΞµΞ― ΞΌΞµ ΞµΟ€ΞΉΟ„Ο…Ο‡Ξ―Ξ±';
+$_lang['The path on the server in which the cookie will be available on.  If set to "/", the cookie will be available within the entire domain. If set to "/foo/", the cookie will only be available within the /foo/ directory and all sub-directories such as /f'] = 'Ξ— Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ® ΟƒΟ„ΞΏ server ΟƒΟ„Ξ·Ξ½ ΞΏΟ€ΞΏΞ―Ξ± Ο„ΞΏ cookie ΞΈΞ± ΞµΞ―Ξ½Ξ±ΞΉ Ξ΄ΞΉΞ±ΞΈΞ­ΟƒΞΉΞΌΞΏ.  Ξ‘Ξ½ ΞΏΟΞΉΟƒΟ„ΞµΞ― ΟƒΞµ "/", Ο„ΞΏ cookie ΞΈΞ± ΞµΞ―Ξ½Ξ±ΞΉ Ξ΄ΞΉΞ±ΞΈΞ­ΟƒΞΉΞΌΞΏ ΟƒΞµ ΟΞ»Ξ· Ο„Ξ·Ξ½ Ο€ΞµΟΞΉΞΏΟ‡Ξ® domain. Ξ‘Ξ½ ΞΏΟΞΉΟƒΟ„ΞµΞ― ΟƒΞµ "/foo/", Ο„ΞΏ cookie ΞΈΞ± ΞµΞ―Ξ½Ξ±ΞΉ Ξ΄ΞΉΞ±ΞΈΞ­ΟƒΞΉΞΌΞΏ ΞΌΟΞ½ΞΏ ΞΌΞ­ΟƒΞ± ΟƒΟ„ΞΏΞ½ ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏ /foo/ ΞΊΞ±ΞΉ Ο„ΞΏΟ… Ο…Ο€ΞΏΞΊΞ±Ο„Ξ±Ξ»ΟΞ³ΞΏΟ…Ο‚ ΟΟ€Ο‰Ο‚ /f';
+$_lang['The requested file <strong>%file</strong> was not found on the platform.'] = 'Ξ¤ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ <strong>%file</strong> Ο€ΞΏΟ… Ξ±Ξ½Ξ±Ξ¶Ξ·Ο„Ξ®ΞΈΞ·ΞΊΞµ Ξ΄ΞµΞ½ Ξ²ΟΞ­ΞΈΞ·ΞΊΞµ ΟƒΟ„Ξ·Ξ½ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±.';
+$_lang['The system is unable to send you an e-mail.'] = 'Ξ¤ΞΏ ΟƒΟΟƒΟ„Ξ·ΞΌΞ± Ξ΄ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΟƒΞ±Ο‚ ΟƒΟ„ΞµΞ―Ξ»ΞµΞΉ e-mail.';
+$_lang['The upload has failed. There is not enough space in your directory'] = 'Ξ¤ΞΏ Ξ±Ξ½Ξ­Ξ²Ξ±ΟƒΞΌΞ± Ο„ΞΏΟ… Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… Ξ±Ο€Ξ­Ο„Ο…Ο‡Ξµ. Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ Ξ±ΟΞΊΞµΟ„ΟΟ‚ Ο‡ΟΟΞΏΟ‚ ΟƒΟ„ΞΏΞ½ ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏ ΟƒΞ±Ο‚';
+$_lang['The upload is finished'] = 'ΞΞ»ΞΏΞΊΞ»Ξ·ΟΟΞΈΞ·ΞΊΞµ Ο„ΞΏ Ξ±Ξ½Ξ­Ξ²Ξ±ΟƒΞΌΞ±';
+$_lang['The user has been enroled to the course'] = 'Ξ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ Ξ­Ο‡ΞµΞΉ ΞµΞ³Ξ³ΟΞ±Ο†ΞµΞ― ΟƒΟ„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['The user has been successfully unregistered'] = 'O Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ Ξ­Ο‡ΞµΞΉ ΞΊΞ±Ο„Ξ±ΟΞ³Ξ®ΟƒΞµΞΉ ΞµΟ€ΞΉΟ„Ο…Ο‡ΟΟ‚ Ο„Ξ·Ξ½ ΞµΞ³Ξ³ΟΞ±Ο†Ξ® Ο„ΞΏΟ…';
+$_lang['The user has been successfully unregistered from course'] = 'O Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ Ξ­Ο‡ΞµΞΉ ΞΊΞ±Ο„Ξ±ΟΞ³Ξ®ΟƒΞµΞΉ ΞµΟ€ΞΉΟ„Ο…Ο‡ΟΟ‚ Ο„Ξ·Ξ½ ΞµΞ³Ξ³ΟΞ±Ο†Ξ® Ο„ΞΏΟ… ΟƒΟ„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['The user is already enroled in this course'] = 'Ξ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ Ξ­Ο‡ΞµΞΉ Ξ®Ξ΄Ξ· ΞµΞ³Ξ³ΟΞ±Ο†ΞµΞ― Ξ³ΞΉΞ± Ξ±Ο…Ο„Ο Ο„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['The user will be created only if all informations are correct.'] = 'Ξ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ ΞΈΞ± Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ·ΞΈΞµΞ― Ξ±Ξ½ ΟΞ»ΞµΟ‚ ΞΏΞΉ Ο€Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞ―ΞµΟ‚ ΞµΞ―Ξ½Ξ±ΞΉ ΞΏΟΞΈΞ­Ο‚.';
+$_lang['The username is case sensitive'] = 'Ξ¤ΞΏ ΟΞ½ΞΏΞΌΞ± Ο‡ΟΞ®ΟƒΟ„Ξ· Ξ΄ΞΉΞ±ΞΊΟΞ―Ξ½ΞµΞΉ ΞΌΞΉΞΊΟΞ¬ ΞΊΞ±ΞΉ ΞΊΞµΟ†Ξ±Ξ»Ξ±Ξ―Ξ± Ξ³ΟΞ¬ΞΌΞΌΞ±Ο„Ξ±';
+$_lang['The zip file can not contain .PHP files'] = 'Ξ¤ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ zip Ξ΄ΞµΞ½ Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± Ο€ΞµΟΞΉΞ­Ο‡ΞµΞΉ Ξ±ΟΟ‡ΞµΞ―Ξ± .php';
+$_lang['Theme'] = 'ΞΞ­ΞΌΞ±';
+$_lang['Themes'] = 'ΞΞ­ΞΌΞ±Ο„Ξ±';
+$_lang['There are no topics for this forum. You can post one'] = 'Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞΏΟ…Ξ½ ΞΈΞ­ΞΌΞ±Ο„Ξ± ΟƒΞµ Ξ±Ο…Ο„Ξ® Ο„Ξ·Ξ½ Ο€ΞµΟΞΉΞΏΟ‡Ξ®. ΞΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± ΞΎΞµΞΊΞΉΞ½Ξ®ΟƒΞµΟ„Ξµ Ξ­Ξ½Ξ± Ξ½Ξ­ΞΏ.';
+$_lang['There is a folder called <b><i>%module_name</i></b> for which there is no module installed.'] = 'Ξ¥Ο€Ξ¬ΟΟ‡ΞµΞΉ Ξ­Ξ½Ξ± ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏΟ‚ Ο€ΞΏΟ… ΞΏΞ½ΞΏΞΌΞ¬Ξ¶ΞµΟ„Ξ±ΞΉ <b><i>%module_name</i></b> ΞΊΞ±ΞΉ Ξ³ΞΉΞ± Ο„ΞΏΞ½ ΞΏΟ€ΞΏΞ―ΞΏ Ξ΄ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ ΞΊΞ¬Ο€ΞΏΞΉΞΏ ΞµΞ³ΞΊΞ±Ο„ΞµΟƒΟ„Ξ·ΞΌΞ­Ξ½ΞΏ module.';
+$_lang['There is a module installed in DB : <b><i>%module_name</i></b> for which there is no folder on the server.'] = 'Ξ¥Ο€Ξ¬ΟΟ‡ΞµΞΉ Ξ­Ξ½Ξ± module ΞµΞ³ΞΊΞ±Ο„ΞµΟƒΟ„Ξ·ΞΌΞ­Ξ½ΞΏ ΟƒΟ„Ξ· Ξ²Ξ¬ΟƒΞ· Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½(DB) : <b><i>%module_name</i></b> Ξ³ΞΉΞ± Ο„ΞΏ ΞΏΟ€ΞΏΞ―ΞΏ Ξ΄ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏΟ‚ ΟƒΟ„ΞΏ server.';
+$_lang['There is an error in exercise data of imported file.'] = 'Ξ¥Ο€Ξ¬ΟΟ‡ΞµΞΉ Ξ­Ξ½Ξ± Ξ»Ξ¬ΞΈΞΏΟ‚ ΟƒΟ„Ξ± Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ξ± Ο„Ξ·Ο‚ Ξ¬ΟƒΞΊΞ·ΟƒΞ·Ο‚ Ο„ΞΏΟ… Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… Ο€ΞΏΟ… Ο€ΟΟΞΊΟ…Ο€Ο„ΞµΞΉ Ξ½Ξ± ΞµΟ€ΞΉΟƒΟ…Ξ½Ξ±Ο†Ο„ΞµΞ―.';
+$_lang['There is no answer for the moment'] = 'Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ Ξ±Ο…Ο„Ξ® Ο„Ξ· ΟƒΟ„ΞΉΞ³ΞΌΞ® ΞΊΞ±ΞΌΞ―Ξ± Ξ±Ο€Ξ¬Ξ½Ο„Ξ·ΟƒΞ·';
+$_lang['There is no assignment at the moment'] = 'Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ ΞΊΞ±ΞΌΞ―Ξ± Ξ±Ξ½Ξ¬ΞΈΞµΟƒΞ· Ξ±Ο…Ο„Ξ® Ο„Ξ· ΟƒΟ„ΞΉΞ³ΞΌΞ®.';
+$_lang['There is no category'] = 'Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±';
+$_lang['There is no category available !'] = 'Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ Ξ΄ΞΉΞ±ΞΈΞ­ΟƒΞΉΞΌΞ· ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ± !';
+$_lang['There is no course matching such criteria'] = 'Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ ΞΌΞ¬ΞΈΞ·ΞΌΞ± Ο€ΞΏΟ… Ξ½Ξ± Ο„Ξ±ΞΉΟΞΉΞ¬Ξ¶ΞµΞΉ ΞΌΞµ Ξ±Ο…Ο„Ξ¬ Ο„Ξ± ΞΊΟΞΉΟ„Ξ®ΟΞΉΞ±';
+$_lang['There is no exercise for the moment'] = 'Ξ‘Ο…Ο„Ξ® Ο„Ξ· ΟƒΟ„ΞΉΞ³ΞΌΞ® Ξ΄ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ Ξ¬ΟƒΞΊΞ·ΟƒΞ·';
+$_lang['There is no start asset defined for this module.'] = 'Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ ΞΊΞ±Ξ½Ξ­Ξ½Ξ± Ξ±Ο€ΟΞΊΟ„Ξ·ΞΌΞ±/ΟƒΟ„ΞΏΞΉΟ‡ΞµΞ―ΞΏ Ξ­Ξ½Ξ±ΟΞΎΞ·Ο‚ Ο€ΞΏΟ… Ξ½Ξ± ΞΏΟΞ―Ξ¶ΞµΟ„Ξ±ΞΉ Ξ³ΞΉΞ± Ξ±Ο…Ο„Ξ® Ο„Ξ·Ξ½ ΞµΞ½ΟΟ„Ξ·Ο„Ξ±.';
+$_lang['There is no submission available for download with these settings.'] = 'Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ Ο…Ο€ΞΏΞ²ΞΏΞ»Ξ® Ξ±Ξ―Ο„Ξ·ΟƒΞ·Ο‚ Ξ΄ΞΉΞ±ΞΈΞ­ΟƒΞΉΞΌΞ· Ξ³ΞΉΞ± ΞΊΞ±Ο„Ξ­Ξ²Ξ±ΟƒΞΌΞ± ΞΌΞµ Ξ±Ο…Ο„Ξ­Ο‚ Ο„ΞΉΟ‚ ΟΟ…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚.';
+$_lang['There is no user account with this email address.'] = 'Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ Ξ»ΞΏΞ³Ξ±ΟΞΉΞ±ΟƒΞΌΟΟ‚ Ο‡ΟΞ®ΟƒΟ„Ξ· ΞΌΞµ Ξ±Ο…Ο„Ξ® Ο„Ξ·Ξ½ Ξ΄ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ· email.';
+$_lang['There is no way to restore deleted messages.'] = 'Ξ”ΞµΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ Ο„ΟΟΟ€ΞΏΟ‚ Ξ½Ξ± ΞµΟ€Ξ±Ξ½Ξ±Ο†Ξ­ΟΞµΟ„Ξµ Ξ΄ΞΉΞ±Ξ³ΟΞ±ΞΌΞΌΞ­Ξ½Ξ± Ξ±ΟΟ‡ΞµΞ―Ξ±.';
+$_lang['These informations are displayed on the footer of the platform'] = 'Ξ‘Ο…Ο„Ξ­Ο‚ ΞΏΞΉ Ο€Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞ―ΞµΟ‚ ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞΏΞ½Ο„Ξ±ΞΉ ΟƒΟ„ΞΏ Ο…Ο€ΞΏΟƒΞ­Ξ»ΞΉΞ΄ΞΏ Ο„Ξ·Ο‚ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±Ο‚';
+$_lang['This category already exists!'] = 'Ξ‘Ο…Ο„Ξ® Ξ· ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ± Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ Ξ®Ξ΄Ξ·!';
+$_lang['This category contains other categories, you must delete them before !'] = 'Ξ‘Ο…Ο„Ξ® Ξ· ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ± Ο€ΞµΟΞΉΞ­Ο‡ΞµΞΉ ΞΊΞ±ΞΉ Ξ¬Ξ»Ξ»ΞµΟ‚ ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―ΞµΟ‚, Ο€ΟΞ­Ο€ΞµΞΉ Ο€ΟΟΟ„Ξ± Ξ½Ξ± Ο„ΞΉΟ‚ Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΟ„Ξµ !';
+$_lang['This category contains some courses, you can\'t erase it!'] = 'Ξ‘Ο…Ο„Ξ® Ξ· ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ± Ο€ΞµΟΞΉΞ­Ο‡ΞµΞΉ ΞΊΞ¬Ο€ΞΏΞΉΞ± ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„Ξ±,Ξ΄ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± Ο„Ξ·Ξ½ ΟƒΞ²Ξ®ΟƒΞµΟ„Ξµ!';
+$_lang['This category include some courses, you must delete or move them before'] = 'Ξ‘Ο…Ο„Ξ® Ξ· ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ± Ο€ΞµΟΞΉΞ»Ξ±ΞΌΞ²Ξ¬Ξ½ΞµΞΉ ΞΌΞµΟΞΉΞΊΞ¬ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„Ξ±,  Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± Ο„Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΞΉΟ‚ Ξ® Ξ½Ξ± Ο„Ξ± ΞΌΞµΟ„Ξ±ΞΊΞΉΞ½Ξ®ΟƒΞµΞΉΟ‚ Ο€ΟΟΟ„Ξ±';
+$_lang['This course is currently not described'] = 'Ξ¤ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ± Ξ΄Ξµ Ξ΄ΞΉΞ±ΞΈΞ­Ο„ΞµΞΉ Ο€ΞµΟΞΉΞ³ΟΞ±Ο†Ξ®';
+$_lang['This course requires a key for enrolment'] = 'Ξ‘Ο…Ο„Ο Ο„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ± Ξ±Ο€Ξ±ΞΉΟ„ΞµΞ― Ξ­Ξ½Ξ± ΞΊΞ»ΞµΞΉΞ΄Ξ― Ξ³ΞΉΞ± ΞµΞ³Ξ³ΟΞ±Ο†Ξ®';
+$_lang['This day'] = 'Ξ‘Ο…Ο„Ξ® Ο„Ξ·Ξ½ Ξ·ΞΌΞ­ΟΞ±';
+$_lang['This feature is not ready.'] = 'Ξ‘Ο…Ο„Ξ® Ο„ΞΏ Ο‡Ξ±ΟΞ±ΞΊΟ„Ξ·ΟΞΉΟƒΟ„ΞΉΞΊΟ Ξ΄ΞµΞ½ ΞµΞ―Ξ½Ξ±ΞΉ Ξ΄ΞΉΞ±ΞΈΞ­ΟƒΞΉΞΌΞΏ';
+$_lang['This is probably a bad idea to set as hidden'] = 'Ξ‘Ο…Ο„Ο ΞµΞ―Ξ½Ξ±ΞΉ Ο€ΞΉΞΈΞ±Ξ½ΟΞ½ ΞΌΞΉΞ± Ξ»Ξ¬ΞΈΞΏΟ‚ ΞΉΞ΄Ξ­Ξ± Ξ½Ξ± Ο„ΞΏ ΞΈΞ­ΟƒΞµΟ„Ξµ ΞΊΟΟ…ΞΌΞΌΞ­Ξ½ΞΏ';
+$_lang['This is the faculty, department or school where the course is delivered'] = 'Ξ— ΟƒΟ‡ΞΏΞ»Ξ® Ξ® Ο„ΞΏ Ο„ΞΌΞ®ΞΌΞ± Ο€ΞΏΟ… Ξ±Ξ½Ξ±Ο†Ξ­ΟΞµΟ„Ξ±ΞΉ Ο„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['This is the main page of the Wiki %s. Click on \'\'\'Edit\'\'\' to modify the content.'] = 'Ξ‘Ο…Ο„Ξ· ΞµΞ―Ξ½Ξ±ΞΉ Ξ· ΞΊΟΟΞΉΞ± ΟƒΞµΞ»Ξ―Ξ΄Ξ± Ο„ΞΏΟ… Wiki %s. Ξ•Ο€Ξ­Ξ»ΞµΞΎΞµ \'\'\'Edit\'\'\' Ξ³ΞΉΞ± Ξ½Ξ± Ο„ΟΞΏΟ€ΞΏΟ€ΞΏΞΉΞ®ΟƒΞµΞΉΟ‚ Ο„ΞΏ Ο€ΞµΟΞΉΞµΟ‡ΟΞΌΞµΞ½ΞΏ.';
+$_lang['This is the main page of the Wiki %wikiTitle. Click on \'\'\'Edit\'\'\' to modify the content.'] = 'Ξ‘Ο…Ο„Ξ® ΞµΞ―Ξ½Ξ±ΞΉ Ξ· ΞΊΞµΞ½Ο„ΟΞΉΞΊΞ® ΟƒΞµΞ»Ξ―Ξ΄Ξ± Ο„ΞΏΟ… Wiki %wikiTitle. Ξ‘ΞΊΞΏΞ»ΞΏΟ…ΞΈΞ®ΟƒΟ„Ξµ Ο„ΞΏ ΟƒΟΞ½Ξ΄ΞµΟƒΞΌΞΏ \'\'\'Ξ•Ο€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ±\'\'\' Ξ³ΞΉΞ± Ξ½Ξ± Ο„ΟΞΏΟ€ΞΏΟ€ΞΏΞΉΞ®ΟƒΞµΟ„Ξµ Ο„ΞΏ Ο€ΞµΟΞΉΞµΟ‡ΟΞΌΞµΞ½ΞΏ.';
+$_lang['This is where tracking and statistics data are stored. This database can be the same as the main database.'] = 'Ξ•Ξ΄Ο ΞµΞ―Ξ½Ξ±ΞΉ Ο€ΞΏΟ… Ξ±Ο€ΞΏΞΈΞ·ΞΊΞµΟΞΏΞ½Ο„Ξ±ΞΉ Ο„Ξ± Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ξ± ΟƒΟ„Ξ±Ο„ΞΉΟƒΟ„ΞΉΞΊΟΞ½ ΞΊΞ±ΞΉ Ο€Ξ±ΟΞ±ΞΊΞΏΞ»ΞΏΟΞΈΞ·ΟƒΞ·Ο‚. Ξ‘Ο…Ο„Ξ® Ξ· Ξ²Ξ¬ΟƒΞ· Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ ΟƒΟ„Ξ·Ξ½ ΞΊΞµΞ½Ο„ΟΞΉΞΊΞ® Ξ²Ξ¬ΟƒΞ· Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½.';
+$_lang['This is your account Login-Pass'] = 'Ξ‘Ο…Ο„Ο ΞµΞ―Ξ½Ξ±ΞΉ Ο„ΞΏ Login-Pass Ο„ΞΏΟ… Ξ»ΞΏΞ³Ξ±ΟΞΉΞ±ΟƒΞΌΞΏΟ ΟƒΞ±Ο‚';
+$_lang['This mail appears already in a previous line of the CSV file.'] = 'Ξ‘Ο…Ο„Ο Ο„ΞΏ mail ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞµΟ„Ξ±ΞΉ Ξ®Ξ΄Ξ· ΞΊΞ±ΞΉ ΟƒΞµ Ο€ΟΞΏΞ·Ξ³ΞΏΟΞΌΞµΞ½Ξ· Ξ³ΟΞ±ΞΌΞΌΞ® Ο„ΞΏΟ… Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… CSV .';
+$_lang['This module cannot be deactivated'] = 'Ξ‘Ο…Ο„ΞΏ Ο„ΞΏ module Ξ΄ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ±Ο€ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞΉΞ·ΞΈΞµΞ―';
+$_lang['This official code already appears in a previous line of the CSV file.'] = 'Ξ‘Ο…Ο„ΟΟ‚ ΞΏ ΞµΟ€Ξ―ΟƒΞ·ΞΌΞΏΟ‚ ΞΊΟΞ΄ΞΉΞΊΞ±Ο‚ ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞµΟ„Ξ±ΞΉ Ξ®Ξ΄Ξ· ΟƒΞµ Ο€ΟΞΏΞ·Ξ³ΞΏΟΞΌΞµΞ½Ξ· ΟƒΞµΞΉΟΞ¬ Ο„ΞΏΟ… Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… CSV.';
+$_lang['This official code is already used by another user.'] = 'Ξ‘Ο…Ο„ΟΟ‚ ΞΏ ΞµΟ€Ξ―ΟƒΞ·ΞΌΞΏΟ‚ ΞΊΟ‰Ξ΄ΞΉΞΊΟΟ‚ Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞµΞ―Ο„Ξ±ΞΉ Ξ®Ξ΄Ξ· Ξ±Ο€Ο Ξ¬Ξ»Ξ»ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ·.';
+$_lang['This option insert a command in the user profile form to request a status of course creator. This request is sent by e-mail to platform administrator.'] = 'Ξ‘Ο…Ο„Ξ® Ξ· ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ® ΞµΞΉΟƒΞ¬Ξ³ΞµΞΉ ΞΌΞ―Ξ± ΞµΞ½Ο„ΞΏΞ»Ξ® ΟƒΟ„Ξ·Ξ½ Ο†ΟΟΞΌΞ± Ο€ΟΞΏΟ†Ξ―Ξ» Ο„ΞΏΟ… Ο‡ΟΞ®ΟƒΟ„Ξ· Ξ³ΞΉΞ± Ξ½Ξ± Ξ±ΞΉΟ„Ξ·ΞΈΞµΞ― Ο„Ξ·Ξ½ ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ· Ο„ΞΏΟ… Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³ΞΏΟ Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚. Ξ‘Ο…Ο„Ξ® Ξ· Ξ±Ξ―Ο„Ξ·ΟƒΞ· ΟƒΟ„Ξ­Ξ»Ξ½ΞµΟ„Ξµ ΞΌΞµ e-mail ΟƒΟ„ΞΏ Ξ΄ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ® Ο„Ξ·Ο‚ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±Ο‚.';
 $_lang['This option insert a command in the user profile form to request the removal of the user from the platform.  This request is sent by e-mail to platform administrator.
 This option allow only to request it, and don\'t prework the answer
-'] = 'Αυτή η επιλογή εισάγει μία εντολή στην φόρμα προφίλ του χρήστη για να αιτηθεί την κατάσταση του δημιουργού του μαθήματος. Αυτή η αίτηση στέλνετε με e-mail στο διαχειριστή της πλατφόρμας.
-Αυτή η επιλογή επιτρόπη μόνο την άιτηση, και όχι την απάντηση
+'] = 'Ξ‘Ο…Ο„Ξ® Ξ· ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ® ΞµΞΉΟƒΞ¬Ξ³ΞµΞΉ ΞΌΞ―Ξ± ΞµΞ½Ο„ΞΏΞ»Ξ® ΟƒΟ„Ξ·Ξ½ Ο†ΟΟΞΌΞ± Ο€ΟΞΏΟ†Ξ―Ξ» Ο„ΞΏΟ… Ο‡ΟΞ®ΟƒΟ„Ξ· Ξ³ΞΉΞ± Ξ½Ξ± Ξ±ΞΉΟ„Ξ·ΞΈΞµΞ― Ο„Ξ·Ξ½ ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ· Ο„ΞΏΟ… Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³ΞΏΟ Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚. Ξ‘Ο…Ο„Ξ® Ξ· Ξ±Ξ―Ο„Ξ·ΟƒΞ· ΟƒΟ„Ξ­Ξ»Ξ½ΞµΟ„Ξµ ΞΌΞµ e-mail ΟƒΟ„ΞΏ Ξ΄ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ® Ο„Ξ·Ο‚ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±Ο‚.
+Ξ‘Ο…Ο„Ξ® Ξ· ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ® ΞµΟ€ΞΉΟ„ΟΟΟ€Ξ· ΞΌΟΞ½ΞΏ Ο„Ξ·Ξ½ Ξ¬ΞΉΟ„Ξ·ΟƒΞ·, ΞΊΞ±ΞΉ ΟΟ‡ΞΉ Ο„Ξ·Ξ½ Ξ±Ο€Ξ¬Ξ½Ο„Ξ·ΟƒΞ·
 ';
-$_lang['This page is empty, click on \'Edit this page\' to add a content'] = ' Αυτή η σελίδα είναι κενή, κάνε κλικ στο \'Edit this page\' για να προσθεσεις περιεχομενο';
-$_lang['This page is empty, use the editor to add content.'] = 'Αυτή η σελίδα είναι κενή, χρησιμοποιήστε τον κειμενογράφο για να προσθέσετε περιεχόμενο.';
-$_lang['This prefix could allow to order more easily the tables / DB in the user interface of your server technical back office  '] = 'Αυτό το πρόθεμα μπορεί να επιτρέψει την πιο εύκολη ταξινόμηση των πινάκων / και της βάσης δεδομένων (DB) στο περιβάλλον του χρήστη στο τεχνικό γραφείο του server';
-$_lang['This question is used in several exercises.'] = 'Αυτή η ερώτηση χρησιμοποιείται σε πολλές ασκήσεις.';
-$_lang['This renderer is used for TEX/LaTEX expressions. It is available into the \'claroline/inc/lib/\' directory and has to be copied on a server location where CGI programs are expected.'] = 'Αυτός ο επεξεργαστής χρησιμοποιείται για εκφράσεις TEX/LaTEX. Είναι διαθέσιμος στον κατάλογο \'claroline/inc/lib/\' και πρέπει να αντιγραφεί κάπου στο server που βρίσκονται τα CGI προγράμματα.';
-$_lang['This tool can not be uninstalled.'] = 'Αυτό το εργαλείο δεν μπορεί να απεγκατασταθεί.';
-$_lang['This user name is already taken'] = 'Το όνομα χρήστη ήδη χρησιμοποιείται από κάποιον άλλον';
-$_lang['This will also delete all works submitted in this assignment !'] = 'Αυτό θα διαγράψει επίσης και όλες τις εργασίες που υποβλήθηκαν !';
-$_lang['This zone is empty'] = 'Αυτή η ζώνη είναι κενή';
-$_lang['Thumbnail width'] = 'Μέγεθος Thumbnail';
+$_lang['This page is empty, click on \'Edit this page\' to add a content'] = ' Ξ‘Ο…Ο„Ξ® Ξ· ΟƒΞµΞ»Ξ―Ξ΄Ξ± ΞµΞ―Ξ½Ξ±ΞΉ ΞΊΞµΞ½Ξ®, ΞΊΞ¬Ξ½Ξµ ΞΊΞ»ΞΉΞΊ ΟƒΟ„ΞΏ \'Edit this page\' Ξ³ΞΉΞ± Ξ½Ξ± Ο€ΟΞΏΟƒΞΈΞµΟƒΞµΞΉΟ‚ Ο€ΞµΟΞΉΞµΟ‡ΞΏΞΌΞµΞ½ΞΏ';
+$_lang['This page is empty, use the editor to add content.'] = 'Ξ‘Ο…Ο„Ξ® Ξ· ΟƒΞµΞ»Ξ―Ξ΄Ξ± ΞµΞ―Ξ½Ξ±ΞΉ ΞΊΞµΞ½Ξ®, Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞ®ΟƒΟ„Ξµ Ο„ΞΏΞ½ ΞΊΞµΞΉΞΌΞµΞ½ΞΏΞ³ΟΞ¬Ο†ΞΏ Ξ³ΞΉΞ± Ξ½Ξ± Ο€ΟΞΏΟƒΞΈΞ­ΟƒΞµΟ„Ξµ Ο€ΞµΟΞΉΞµΟ‡ΟΞΌΞµΞ½ΞΏ.';
+$_lang['This password is too simple or too close to the username, first name or last name.<br> Use a password like this <code>%passProposed</code>'] = 'Ξ‘Ο…Ο„ΟΟ‚ ΞΏ ΞΊΟ‰Ξ΄ΞΉΞΊΟΟ‚ ΞµΞ―Ξ½Ξ±ΞΉ Ο€ΞΏΞ»Ο Ξ±Ο€Ξ»ΟΟ‚ Ξ® Ο€ΞΏΞ»Ο ΞΊΞΏΞ½Ο„Ξ¬ ΟƒΟ„ΞΏ ΟΞ½ΞΏΞΌΞ± Ο‡ΟΞ®ΟƒΟ„Ξ·, ΟΞ½ΞΏΞΌΞ± Ξ® ΞµΟ€Ξ―ΞΈΞµΟ„ΞΏ. <br> Ξ§ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞ®ΟƒΟ„Ξµ Ξ­Ξ½Ξ± ΞΊΟ‰Ξ΄ΞΉΞΊΟ ΟƒΞ±Ξ½ ΞΊΞ±ΞΉ Ξ±Ο…Ο„Ο <code>%passProposed</code>';
+$_lang['This prefix could allow to order more easily the tables / DB in the user interface of your server technical back office  '] = 'Ξ‘Ο…Ο„Ο Ο„ΞΏ Ο€ΟΟΞΈΞµΞΌΞ± ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΞµΟ€ΞΉΟ„ΟΞ­ΟΞµΞΉ Ο„Ξ·Ξ½ Ο€ΞΉΞΏ ΞµΟΞΊΞΏΞ»Ξ· Ο„Ξ±ΞΎΞΉΞ½ΟΞΌΞ·ΟƒΞ· Ο„Ο‰Ξ½ Ο€ΞΉΞ½Ξ¬ΞΊΟ‰Ξ½ / ΞΊΞ±ΞΉ Ο„Ξ·Ο‚ Ξ²Ξ¬ΟƒΞ·Ο‚ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½ (DB) ΟƒΟ„ΞΏ Ο€ΞµΟΞΉΞ²Ξ¬Ξ»Ξ»ΞΏΞ½ Ο„ΞΏΟ… Ο‡ΟΞ®ΟƒΟ„Ξ· ΟƒΟ„ΞΏ Ο„ΞµΟ‡Ξ½ΞΉΞΊΟ Ξ³ΟΞ±Ο†ΞµΞ―ΞΏ Ο„ΞΏΟ… server';
+$_lang['This question is used in several exercises.'] = 'Ξ‘Ο…Ο„Ξ® Ξ· ΞµΟΟΟ„Ξ·ΟƒΞ· Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞµΞ―Ο„Ξ±ΞΉ ΟƒΞµ Ο€ΞΏΞ»Ξ»Ξ­Ο‚ Ξ±ΟƒΞΊΞ®ΟƒΞµΞΉΟ‚.';
+$_lang['This renderer is used for TEX/LaTEX expressions. It is available into the \'claroline/inc/lib/\' directory and has to be copied on a server location where CGI programs are expected.'] = 'Ξ‘Ο…Ο„ΟΟ‚ ΞΏ ΞµΟ€ΞµΞΎΞµΟΞ³Ξ±ΟƒΟ„Ξ®Ο‚ Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞµΞ―Ο„Ξ±ΞΉ Ξ³ΞΉΞ± ΞµΞΊΟ†ΟΞ¬ΟƒΞµΞΉΟ‚ TEX/LaTEX. Ξ•Ξ―Ξ½Ξ±ΞΉ Ξ΄ΞΉΞ±ΞΈΞ­ΟƒΞΉΞΌΞΏΟ‚ ΟƒΟ„ΞΏΞ½ ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏ \'claroline/inc/lib/\' ΞΊΞ±ΞΉ Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± Ξ±Ξ½Ο„ΞΉΞ³ΟΞ±Ο†ΞµΞ― ΞΊΞ¬Ο€ΞΏΟ… ΟƒΟ„ΞΏ server Ο€ΞΏΟ… Ξ²ΟΞ―ΟƒΞΊΞΏΞ½Ο„Ξ±ΞΉ Ο„Ξ± CGI Ο€ΟΞΏΞ³ΟΞ¬ΞΌΞΌΞ±Ο„Ξ±.';
+$_lang['This tool can not be uninstalled.'] = 'Ξ‘Ο…Ο„Ο Ο„ΞΏ ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏ Ξ΄ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ±Ο€ΞµΞ³ΞΊΞ±Ο„Ξ±ΟƒΟ„Ξ±ΞΈΞµΞ―.';
+$_lang['This user name is already taken'] = 'Ξ¤ΞΏ ΟΞ½ΞΏΞΌΞ± Ο‡ΟΞ®ΟƒΟ„Ξ· Ξ®Ξ΄Ξ· Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞµΞ―Ο„Ξ±ΞΉ Ξ±Ο€Ο ΞΊΞ¬Ο€ΞΏΞΉΞΏΞ½ Ξ¬Ξ»Ξ»ΞΏΞ½';
+$_lang['This will also delete all works submitted in this assignment !'] = 'Ξ‘Ο…Ο„Ο ΞΈΞ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΞΉ ΞµΟ€Ξ―ΟƒΞ·Ο‚ ΞΊΞ±ΞΉ ΟΞ»ΞµΟ‚ Ο„ΞΉΟ‚ ΞµΟΞ³Ξ±ΟƒΞ―ΞµΟ‚ Ο€ΞΏΟ… Ο…Ο€ΞΏΞ²Ξ»Ξ®ΞΈΞ·ΞΊΞ±Ξ½ !';
+$_lang['This zone is empty'] = 'Ξ‘Ο…Ο„Ξ® Ξ· Ξ¶ΟΞ½Ξ· ΞµΞ―Ξ½Ξ±ΞΉ ΞΊΞµΞ½Ξ®';
+$_lang['Thumbnail width'] = 'ΞΞ­Ξ³ΞµΞΈΞΏΟ‚ Thumbnail';
 $_lang['Thumbnails'] = 'Thumbnails';
-$_lang['Time'] = 'Χρόνος (s.)';
-$_lang['Time before really compute data. 86400 = 1 day.'] = 'Χρόνος πριν από τον υπολογισμό των δεδομένων. 86400 = 1 ημέρα.';
-$_lang['Time in learning path'] = 'Χρόνος στη διαδρομή μάθησης';
-$_lang['Time is over, results not submitted.'] = 'Λήξη χρόνου, αποτελέσματα δεν έχουν καταχωρηθεί.';
-$_lang['Time limit'] = 'Μέγιστος επιτρεπόμενος χρόνος';
+$_lang['Time'] = 'Ξ§ΟΟΞ½ΞΏΟ‚ (s.)';
+$_lang['Time before really compute data. 86400 = 1 day.'] = 'Ξ§ΟΟΞ½ΞΏΟ‚ Ο€ΟΞΉΞ½ Ξ±Ο€Ο Ο„ΞΏΞ½ Ο…Ο€ΞΏΞ»ΞΏΞ³ΞΉΟƒΞΌΟ Ο„Ο‰Ξ½ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½. 86400 = 1 Ξ·ΞΌΞ­ΟΞ±.';
+$_lang['Time before really compute data. 86400 seconds = 1 day.'] = 'ΞΟΞ± Ο€ΟΞ―Ξ½ Ο„ΞΏΞ½ Ο…Ο€ΞΏΞ»ΞΏΞ³ΞΉΟƒΞΌΟ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½. 86400 Ξ΄ΞµΟ…Ο„ΞµΟΟΞ»ΞµΟ€Ο„Ξ± = 1 ΞΌΞ­ΟΞ±.';
+$_lang['Time in learning path'] = 'Ξ§ΟΟΞ½ΞΏΟ‚ ΟƒΟ„Ξ· Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ® ΞΌΞ¬ΞΈΞ·ΟƒΞ·Ο‚';
+$_lang['Time is over, results not submitted.'] = 'Ξ›Ξ®ΞΎΞ· Ο‡ΟΟΞ½ΞΏΟ…, Ξ±Ο€ΞΏΟ„ΞµΞ»Ξ­ΟƒΞΌΞ±Ο„Ξ± Ξ΄ΞµΞ½ Ξ­Ο‡ΞΏΟ…Ξ½ ΞΊΞ±Ο„Ξ±Ο‡Ο‰ΟΞ·ΞΈΞµΞ―.';
+$_lang['Time limit'] = 'ΞΞ­Ξ³ΞΉΟƒΟ„ΞΏΟ‚ ΞµΟ€ΞΉΟ„ΟΞµΟ€ΟΞΌΞµΞ½ΞΏΟ‚ Ο‡ΟΟΞ½ΞΏΟ‚';
 $_lang['Time to automatically refresh the user screen. Each refresh is a request to your server.
 Too low value can be hard for your server. Too high value can be hard for user.
-'] = 'Χρόνος για την αυτόματη ανανέωση της οθόνης του χρήστη. Κάθε ανανέωση είναι μία αίτηση στο server σας.
-Πολύ χαμηλή τιμή μπορεί να είναι επιβαρυντική για το server σας. Πολύ υψηλή τιμή μπορεί να είναι ενοχλητική για το χρήστη.
+'] = 'Ξ§ΟΟΞ½ΞΏΟ‚ Ξ³ΞΉΞ± Ο„Ξ·Ξ½ Ξ±Ο…Ο„ΟΞΌΞ±Ο„Ξ· Ξ±Ξ½Ξ±Ξ½Ξ­Ο‰ΟƒΞ· Ο„Ξ·Ο‚ ΞΏΞΈΟΞ½Ξ·Ο‚ Ο„ΞΏΟ… Ο‡ΟΞ®ΟƒΟ„Ξ·. ΞΞ¬ΞΈΞµ Ξ±Ξ½Ξ±Ξ½Ξ­Ο‰ΟƒΞ· ΞµΞ―Ξ½Ξ±ΞΉ ΞΌΞ―Ξ± Ξ±Ξ―Ο„Ξ·ΟƒΞ· ΟƒΟ„ΞΏ server ΟƒΞ±Ο‚.
+Ξ ΞΏΞ»Ο Ο‡Ξ±ΞΌΞ·Ξ»Ξ® Ο„ΞΉΞΌΞ® ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ ΞµΟ€ΞΉΞ²Ξ±ΟΟ…Ξ½Ο„ΞΉΞΊΞ® Ξ³ΞΉΞ± Ο„ΞΏ server ΟƒΞ±Ο‚. Ξ ΞΏΞ»Ο Ο…ΟΞ·Ξ»Ξ® Ο„ΞΉΞΌΞ® ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ ΞµΞ½ΞΏΟ‡Ξ»Ξ·Ο„ΞΉΞΊΞ® Ξ³ΞΉΞ± Ο„ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ·.
 ';
-$_lang['Time to keep a cache as valid'] = 'Χρόνος για να διατηρηθεί μία cache μνήμη ως ισχύον';
-$_lang['Title'] = 'Tίτλος';
-$_lang['Title added :'] = 'Ο τίτλος προστέθηκε : ';
-$_lang['Title of the wiki'] = 'Τίτλος του wiki';
-$_lang['To'] = 'στο';
-$_lang['To send a message, select groups of users (marked with a * in the front) or single users from the list on the left.'] = 'Για να στείλεις μήνυμα, επέλεξε ομάδες χρηστών (σημειωμένες με ένα * μπροστά)
-ή μεμονομένους χρήστες απο τη λίστα αριστερά.';
-$_lang['Today'] = 'Σήμερα';
-$_lang['Tool'] = 'Εργαλείο';
-$_lang['Tool list'] = 'Λίστα εργαλείων';
-$_lang['Tools'] = 'Εργαλεία';
-$_lang['Topic'] = 'Θέμα';
-$_lang['Topic review'] = 'Ανασκόπηση θέματος';
-$_lang['Topics'] = 'Θέματα';
-$_lang['Topics started'] = 'Θέματα που ξεκίνησαν';
-$_lang['Total'] = 'Σύνολο';
-$_lang['Total Clicks'] = 'Σύνολο κλικ';
-$_lang['Total Downloads'] = 'Σύνολο Downloads';
-$_lang['Total attempts'] = 'Σύνολο προσπαθειών';
-$_lang['Total time'] = 'Σύνολο χρόνου';
-$_lang['Tracking'] = 'Παρακολουθηση';
-$_lang['Tracking database name'] = 'Όνομα βάσης δεδομένων παρακολούθησης';
-$_lang['Tracking has been disabled by system administrator.'] = 'Η παρακολούθηση (Tracking) έχει απενεργοποιηθεί (disabled) απο τον διαχειριστή του συστήματος.';
-$_lang['Traffic Details'] = 'Λεπτομέρειες κίνησης';
-$_lang['Translation Progression'] = 'Πρόοδος μετάφρασης';
-$_lang['Translation Tools'] = 'Εργαλεία μετάφρασης';
-$_lang['True'] = 'Σωστό';
-$_lang['True/False'] = 'Σωστό/Λάθος';
-$_lang['Tutors'] = 'Καθηγητές';
-$_lang['Tutors can subscribe to a group as a simple member'] = 'Οι καθηγητές μπορούν να εγγραφούν σε μία ομάδα ως απλοί χρήστες';
-$_lang['Type'] = 'Τύπος';
+$_lang['Time to keep a cache as valid'] = 'Ξ§ΟΟΞ½ΞΏΟ‚ Ξ³ΞΉΞ± Ξ½Ξ± Ξ΄ΞΉΞ±Ο„Ξ·ΟΞ·ΞΈΞµΞ― ΞΌΞ―Ξ± cache ΞΌΞ½Ξ®ΞΌΞ· Ο‰Ο‚ ΞΉΟƒΟ‡ΟΞΏΞ½';
+$_lang['Title'] = 'TΞ―Ο„Ξ»ΞΏΟ‚';
+$_lang['Title added :'] = 'Ξ Ο„Ξ―Ο„Ξ»ΞΏΟ‚ Ο€ΟΞΏΟƒΟ„Ξ­ΞΈΞ·ΞΊΞµ : ';
+$_lang['Title of the wiki'] = 'Ξ¤Ξ―Ο„Ξ»ΞΏΟ‚ Ο„ΞΏΟ… wiki';
+$_lang['To'] = 'ΟƒΟ„ΞΏ';
+$_lang['To send a message, select groups of users (marked with a * in the front) or single users from the list on the left.'] = 'Ξ“ΞΉΞ± Ξ½Ξ± ΟƒΟ„ΞµΞ―Ξ»ΞµΞΉΟ‚ ΞΌΞ®Ξ½Ο…ΞΌΞ±, ΞµΟ€Ξ­Ξ»ΞµΞΎΞµ ΞΏΞΌΞ¬Ξ΄ΞµΟ‚ Ο‡ΟΞ·ΟƒΟ„ΟΞ½ (ΟƒΞ·ΞΌΞµΞΉΟ‰ΞΌΞ­Ξ½ΞµΟ‚ ΞΌΞµ Ξ­Ξ½Ξ± * ΞΌΟ€ΟΞΏΟƒΟ„Ξ¬)
+Ξ® ΞΌΞµΞΌΞΏΞ½ΞΏΞΌΞ­Ξ½ΞΏΟ…Ο‚ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ Ξ±Ο€ΞΏ Ο„Ξ· Ξ»Ξ―ΟƒΟ„Ξ± Ξ±ΟΞΉΟƒΟ„ΞµΟΞ¬.';
+$_lang['Today'] = 'Ξ£Ξ®ΞΌΞµΟΞ±';
+$_lang['Tool'] = 'Ξ•ΟΞ³Ξ±Ξ»ΞµΞ―ΞΏ';
+$_lang['Tool added to course'] = 'Ξ¤ΞΏ ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏ Ξ­Ο‡ΞµΞΉ Ο€ΟΞΏΟƒΞΈΞµΞΈΞµΞ― ΟƒΟ„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['Tool list'] = 'Ξ›Ξ―ΟƒΟ„Ξ± ΞµΟΞ³Ξ±Ξ»ΞµΞ―Ο‰Ξ½';
+$_lang['Tool removed from course'] = 'Ξ¤ΞΏ ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏ Ξ­Ο‡ΞµΞΉ Ξ±Ο†Ξ±ΞΉΟΞµΞΈΞµΞ― Ξ±Ο€ΞΏ Ο„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['Tools'] = 'Ξ•ΟΞ³Ξ±Ξ»ΞµΞ―Ξ±';
+$_lang['Tools currently in your course'] = 'Ξ•ΟΞ³Ξ±Ξ»ΞµΞ―Ξ± Ο€ΞΏΟ… Ο…Ο€Ξ¬ΟΟ‡ΞΏΟ…Ξ½ Ο€ΟΞΏΟ‚ Ο„ΞΏ Ο€Ξ±ΟΟΞ½ ΟƒΟ„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ± ΟƒΞ±Ο‚';
+$_lang['Top'] = 'ΞΞΏΟΟ…Ο†Ξ®';
+$_lang['Topic'] = 'ΞΞ­ΞΌΞ±';
+$_lang['Topic review'] = 'Ξ‘Ξ½Ξ±ΟƒΞΊΟΟ€Ξ·ΟƒΞ· ΞΈΞ­ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Topics'] = 'ΞΞ­ΞΌΞ±Ο„Ξ±';
+$_lang['Topics started'] = 'ΞΞ­ΞΌΞ±Ο„Ξ± Ο€ΞΏΟ… ΞΎΞµΞΊΞ―Ξ½Ξ·ΟƒΞ±Ξ½';
+$_lang['Total'] = 'Ξ£ΟΞ½ΞΏΞ»ΞΏ';
+$_lang['Total Clicks'] = 'Ξ£ΟΞ½ΞΏΞ»ΞΏ ΞΊΞ»ΞΉΞΊ';
+$_lang['Total Downloads'] = 'Ξ£ΟΞ½ΞΏΞ»ΞΏ Downloads';
+$_lang['Total attempts'] = 'Ξ£ΟΞ½ΞΏΞ»ΞΏ Ο€ΟΞΏΟƒΟ€Ξ±ΞΈΞµΞΉΟΞ½';
+$_lang['Total time'] = 'Ξ£ΟΞ½ΞΏΞ»ΞΏ Ο‡ΟΟΞ½ΞΏΟ…';
+$_lang['Tracking'] = 'Ξ Ξ±ΟΞ±ΞΊΞΏΞ»ΞΏΟ…ΞΈΞ·ΟƒΞ·';
+$_lang['Tracking database name'] = 'ΞΞ½ΞΏΞΌΞ± Ξ²Ξ¬ΟƒΞ·Ο‚ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½ Ο€Ξ±ΟΞ±ΞΊΞΏΞ»ΞΏΟΞΈΞ·ΟƒΞ·Ο‚';
+$_lang['Tracking has been disabled by system administrator.'] = 'Ξ— Ο€Ξ±ΟΞ±ΞΊΞΏΞ»ΞΏΟΞΈΞ·ΟƒΞ· (Tracking) Ξ­Ο‡ΞµΞΉ Ξ±Ο€ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞΉΞ·ΞΈΞµΞ― (disabled) Ξ±Ο€ΞΏ Ο„ΞΏΞ½ Ξ΄ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ® Ο„ΞΏΟ… ΟƒΟ…ΟƒΟ„Ξ®ΞΌΞ±Ο„ΞΏΟ‚.';
+$_lang['Traffic Details'] = 'Ξ›ΞµΟ€Ο„ΞΏΞΌΞ­ΟΞµΞΉΞµΟ‚ ΞΊΞ―Ξ½Ξ·ΟƒΞ·Ο‚';
+$_lang['Translation Progression'] = 'Ξ ΟΟΞΏΞ΄ΞΏΟ‚ ΞΌΞµΟ„Ξ¬Ο†ΟΞ±ΟƒΞ·Ο‚';
+$_lang['Translation Tools'] = 'Ξ•ΟΞ³Ξ±Ξ»ΞµΞ―Ξ± ΞΌΞµΟ„Ξ¬Ο†ΟΞ±ΟƒΞ·Ο‚';
+$_lang['Translations'] = 'ΞΞµΟ„Ξ±Ο†ΟΞ¬ΟƒΞµΞΉΟ‚';
+$_lang['Trashbox'] = 'ΞΞ¬Ξ»Ξ±ΞΈΞΏΟ‚';
+$_lang['True'] = 'Ξ£Ο‰ΟƒΟ„Ο';
+$_lang['True/False'] = 'Ξ£Ο‰ΟƒΟ„Ο/Ξ›Ξ¬ΞΈΞΏΟ‚';
+$_lang['Tutors'] = 'ΞΞ±ΞΈΞ·Ξ³Ξ·Ο„Ξ­Ο‚';
+$_lang['Tutors can subscribe to a group as a simple member'] = 'ΞΞΉ ΞΊΞ±ΞΈΞ·Ξ³Ξ·Ο„Ξ­Ο‚ ΞΌΟ€ΞΏΟΞΏΟΞ½ Ξ½Ξ± ΞµΞ³Ξ³ΟΞ±Ο†ΞΏΟΞ½ ΟƒΞµ ΞΌΞ―Ξ± ΞΏΞΌΞ¬Ξ΄Ξ± Ο‰Ο‚ Ξ±Ο€Ξ»ΞΏΞ― Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚';
+$_lang['Type'] = 'Ξ¤ΟΟ€ΞΏΟ‚';
 $_lang['URL'] = 'URL';
 $_lang['URL link'] = 'URL ';
-$_lang['URL trail'] = 'URL ίχνος';
+$_lang['URL trail'] = 'URL Ξ―Ο‡Ξ½ΞΏΟ‚';
 $_lang['URL?'] = 'URL?';
-$_lang['Unable to add external tool'] = 'Αδυνατη η προστθήκη εξωτερικού εργαλείου';
-$_lang['Unable to add the event to the agenda'] = 'Αδύνατη η προσθήκη του γεγονότος στην Ατζέντα.';
-$_lang['Unable to create category'] = 'Μη δυνατή η δημιουργία κατηγορίας ';
-$_lang['Unable to create course database'] = 'Δεν ήταν δυνατό να δημιουργηθεί η βάση δεδομένων του μαθήματος';
-$_lang['Unable to create directory :'] = ' Μη δυνατή η δημιουργία κατάλογου: ';
-$_lang['Unable to create file %file'] = 'Δεν ήταν δυνατό να δημιουργηθεί το αρχείο %file';
-$_lang['Unable to create file :'] = ' Μη δυνατή η δημιουργία αρχείου: ';
-$_lang['Unable to create folder %folder'] = 'Δεν ήταν δυνατό να δημιουργηθεί ο κατάλογος %folder';
-$_lang['Unable to create forum'] = 'Μη δυνατή η δημιουργία συζήτησης';
-$_lang['Unable to create frame file'] = ' Μη δυνατή η δημιουργια τα πλαίσια του αρχείου ';
-$_lang['Unable to create the SCORM archive'] = ' Μη δυνατή η δημιουργια του καταλόγου αρχείων SCORM ';
-$_lang['Unable to create the SCORM manifest (imsmanifest.xml)'] = ' Μη δυνατή η  δημιουργία της προκήρυξης SCORM (imsmanifest.xml)';
-$_lang['Unable to create zip file'] = 'Δεν ήταν δυνατό να δημιουργηθεί το αρχείο zip';
-$_lang['Unable to delete'] = 'Αδύνατο να διαγραφθεί';
-$_lang['Unable to delete Forum'] = ' Μη δυνατή η διαγραφή της συζήτησης.';
-$_lang['Unable to delete category'] = 'Μη δυνατή η διαγραφή κατηγορίας.';
-$_lang['Unable to delete event from the agenda'] = 'Αδύνατη η διαγραφή του γεγονότος από την Ατζέντα.';
-$_lang['Unable to delete external tool'] = 'Αδύνατη η διαγραφή εξωτερικού εργαλείου';
-$_lang['Unable to empty forum'] = 'Μη δυνατό το άδειασμα της συζήτησης.';
-$_lang['Unable to empty groups'] = 'Μη δυνατό το άδειασμα των ομάδων';
-$_lang['Unable to enrol you to the course'] = 'Μη δυνατή η εγγραφή σου στο μάθημα';
-$_lang['Unable to load exercise\'s question'] = ' Μη δυνατή η φόρτωση της ερώτησης της άσκησης ';
-$_lang['Unable to load the exercise'] = ' Μη δυνατή η φόρτωση της άσκησης ';
-$_lang['Unable to remove your registration to the course'] = 'Μη δυνατή η διαγραφή της εγγραφής σου απο το μάθημα';
-$_lang['Unable to save'] = 'Αδύνατη αποθήκευση.';
-$_lang['Unable to send zip file'] = 'Δεν ήταν δυνατό να σταλεί το αρχείο zip';
-$_lang['Unable to update'] = 'Αδύνατο να ενημερωθεί';
-$_lang['Unable to update category'] = 'Μη δυνατή η αναβάθμιση της κατηγορίας.';
-$_lang['Unable to update external tool'] = 'Αδύνατη η ενημέρωση του εξωτερικού μέσου-εργαλείου';
-$_lang['Unable to update forum'] = ' Μη δυνατή η αναβάθμιση της της συζήτησης.';
-$_lang['Unable to update the event into the agenda'] = 'Μή δυνατή η ενημέρωση του γεγονότος από την Ατζέντα.';
-$_lang['Unassigned students'] = 'Μη εγγεγραμμένοι φοιτητές';
-$_lang['Unblock'] = 'Αποδέσμευση ';
-$_lang['Unchanged line'] = ' Αμετάβλητη γραμμή ';
-$_lang['Underline'] = 'Υπογράμμιση';
-$_lang['Unenrol from course'] = 'Διαγραφή από το μάθημα';
-$_lang['Uninstall'] = 'Απεγκατάσταση';
-$_lang['Unknow error during unsubscribing'] = 'Μη γνωστό σφάλμα κατά τη διάρκεια της διαγραφής';
-$_lang['Unknow faculty'] = '¶γνωστο σώμα καθηγητών';
-$_lang['Unknown error'] = '¶γνωστο σφάλμα';
-$_lang['Unknown error code %errCode%'] = '¶γνωστος κωδικός σφάλματος %errCode%';
-$_lang['Unknown question format in file %file'] = '¶γνωστη μορφή ερώτησης στο αρχείο %file';
-$_lang['Unknown user'] = '¶γνωστος χρήστης';
-$_lang['Unlock'] = 'Ξεκλείδωμα';
-$_lang['Unordered list'] = 'Μη ταξινομημένη λίστα';
-$_lang['Unregister'] = 'Διαγραφή';
-$_lang['Unregister all students'] = ' Διάγραψε όλους τους μαθητές';
-$_lang['Unregister all users'] = 'Διέγραψε όλους τους χρήστες';
-$_lang['Unregister all users ?'] = 'Διαγραφή όλων των χρηστών ;';
-$_lang['Unregister from class'] = 'Κατάργηση εγγραφής απο την τάξη';
-$_lang['Unregister user'] = 'Μη εγγεγραμένος χρήστης';
-$_lang['Unsubscribe'] = 'Κατάργηση της εγγραφής/διαγραφή';
-$_lang['Until'] = 'σε';
-$_lang['Untitled'] = 'Χωρίς τίτλο ';
-$_lang['Up'] = 'Πάνω';
-$_lang['Upgrade'] = 'Αναβάθμιση';
-$_lang['Upload a new file to replace the file'] = 'Ανεβάστε καινούριο αρχείο για να αντικαταστήσετε αυτό';
-$_lang['Upload document'] = 'Ενημέρωση εγγράφου';
-$_lang['Upload failed'] = 'Φόρτωμα απέτυχε';
-$_lang['Upload file'] = 'Ανέβασμα αρχείου στον εξυπηρέτη';
-$_lang['Uploaded file'] = 'Ενημέρωση αρχείου';
-$_lang['Use format defined in first line of file'] = 'Χρησιμοποιείστε το format που έχει ορισθεί στη πρώτη σειρά του αρχείου';
-$_lang['Use negative weighting for incorrect choices to penalize a user that check all answers.'] = 'Χρησιμοποιήστε αρνητικά βάρη για εσφαλμένες επιλογές έτσι ώστε να τιμωρηθεί ο χρήστης που επιλέγει όλες τις απαντήσεις.';
-$_lang['Use the following format'] = 'Χρησιμοποιήστε την ακόλουθη μορφή';
-$_lang['User'] = 'Χρήστες';
-$_lang['User Course list'] = 'Λίστε Μαθημάτων Μαθητών';
-$_lang['User access details'] = 'Λεπτομέρειες πρόσβασης χρήστη';
-$_lang['User account creation allowed'] = 'Η δημιουργία λογαραριασμού χρήστη επιτράπηκε';
-$_lang['User already in class'] = 'Χρήστης ήδη σε τάξη';
-$_lang['User attempts'] = 'Προσπάθειες χρήστη';
-$_lang['User banner - left'] = 'Σημείωμα χρήστη - αριστερό';
-$_lang['User banner - right'] = 'Σημείωμα χρήστη - δεξί';
-$_lang['User can leave course title field empty or not'] = 'Ο χρήστης μπορεί να αφήσει ή όχι κενό το πεδίο του τίτλου του μαθήματος';
-$_lang['User can leave email field empty or not'] = 'Ο χρήστης μπορεί να αφήσει ή όχι κενό το πεδίο του email';
-$_lang['User course settings'] = 'Ρυθμίσεις μαθήματος χρήστη';
-$_lang['User has been sucessfully registered to the class'] = 'Ο χρήστης έχει εγγραφεί με επιτυχία στη τάξη';
-$_lang['User has been sucessfully unregistered from the class'] = 'Η εγγραφή του χρήστη στην τάξη καταργήθηκε επιτυχώς';
-$_lang['User id'] = 'Το id του χρήστη';
-$_lang['User is not valid'] = 'Ο χρήστης δεν είναι έγκυρος';
-$_lang['User is now course manager'] = 'Ο χρήστης είναι τώρα διαχειριστής μαθήματος';
-$_lang['User is now student for this course'] = 'Ο χρήστης είναι τώρα μαθητής του μαθήματος αυτού';
-$_lang['User list'] = 'Λίστα χρηστών';
-$_lang['User not found'] = 'Ο χρήστης δε βρέθηκε';
-$_lang['User not in the class'] = 'Χρήστης όχι σε τάξη';
-$_lang['User profile'] = 'Προφίλ Χρήστη';
-$_lang['User profile options'] = 'Επιλογές προφίλ χρήστη';
-$_lang['User registered to the course'] = 'Ο χρήστης έχει εγγραφεί στο μάθημα';
-$_lang['User request'] = 'Αίτηση χρήστη';
-$_lang['User settings'] = 'Ρυθμίσεις χρήστη';
-$_lang['User unregistered'] = 'Κατάργση εγγραφής χρήστη';
-$_lang['User\'s course'] = 'Μάθημα χρήστη';
-$_lang['User\'s course settings'] = 'Ρυθμίσεις μαθήματος μαθητή';
-$_lang['Username'] = 'Όνομα χρήστη (username)';
-$_lang['Username is too long (maximum 20 characters)'] = 'Το όνομα χρήστη είναι πολύ μεγάλο (το μέγιστο 20 χαρακτήρες)';
-$_lang['UsernameAppearAlready'] = 'Αυτό το όνομα χρήστη (username) εμφανίζεται ήδη σε προηγούμενη σειρά του αρχείου  CSV.';
-$_lang['UsernameUsed'] = 'Αυτό το όνομα χρήστη χρησιμοποείται ήδη απο άλλο χρήστη.';
-$_lang['Users'] = 'Χρήστες';
-$_lang['Users Downloads'] = 'Downloads των χρηστών';
-$_lang['Users can not submit after end date'] = 'Οι χρήστες δεν μπορούν να υποβάλλουν μετά την ημερομηνία λήξης';
-$_lang['Users can submit after end date'] = 'Οι χρήστες μπορούν να υποβάλλουν μετά την ημερομηνία λήξης';
-$_lang['Users help'] = 'Βοήθεια Χρηστών';
-$_lang['Users list'] = 'Λίστα χρηστών';
-$_lang['Users not in this group'] = 'Οι χρήστες δεν ανήκουν σε αυτή την ομάδα';
-$_lang['Users with similar settings exist on the system yet'] = 'Χρήστες με παρόμοιες ρυθμίσεις υπάρχουν ακόμα στο σύστημα';
-$_lang['Users\' Clicks'] = 'τα κλικ των χρηστων ';
-$_lang['UsersMin'] = 'χρήστες';
-$_lang['Values'] = 'Αξιολόγηση';
-$_lang['Variables with same content and different name'] = 'Μεταβλητές με το ίδιο περιεχόμενο και διαφορετική ονομασία';
-$_lang['Version'] = 'Έκδοση';
-$_lang['View'] = 'Εμφάνιση';
-$_lang['View all'] = 'Εμφάνιση όλων';
-$_lang['View all right profile'] = 'Εμφάνιση όλων των προφίλ δικαιωμάτων';
-$_lang['View by'] = 'Προβολή';
-$_lang['View group data'] = 'Εμφάνιση δεδομένων ομάδας';
-$_lang['View list of all tools'] = 'Παρουσίαση λίστας όλων των εργαλείων';
-$_lang['View mode'] = 'Παρουσίαση τρόπου';
-$_lang['View my statistics'] = 'Εμφάνιση των στατιστικών μου';
-$_lang['View user data'] = 'Εμφάνιση δεδομένων χρήστη';
-$_lang['Visibility'] = 'Ορατό / Αόρατο';
-$_lang['Visible'] = 'Ορατό';
-$_lang['Visible for all users'] = 'Ορατό για όλους τους χρήστες';
-$_lang['Visits'] = 'Επισκέψεις';
-$_lang['WARNING ! You have just lost your session on the server.'] = 'ΠΡΟΕΙΔΟΠΟΙΗΣΗ ! Μόλις χάθηκε η συνεδρία με τον server.';
-$_lang['WARNING : you are going to delete this wiki and all its pages. Are you sure to want to continue ?'] = ' ΠΡΟΕΙΔΟΠΟΙΗΣΗ : πρόκειται να διαγράψετε αυτό το wiki και όλες τις σελίδες του. Είστε βέβαιοι ότι θέλετε να συνεχιστείτε;';
-$_lang['WARNING: this page is a preview. Your modifications to the wiki has not been saved yet ! To save them do not forget to click on the \'save\' button at the bottom of the page.'] = ' ΠΡΟΕΙΔΟΠΟΙΗΣΗ: αυτή η σελίδα αποτελεί προεπισκόπηση.  Οι τροποποιήσεις σας στο wiki δεν έχουν αποθηκευτεί ακόμα ! Για να τις αποθηκεύσετε μη ξεχάσετε να κάνεε κλικ στο κουμπί \'save\' στο τέλος της σελίδας.';
-$_lang['Warn users when they loose their session on the platform'] = 'Προειδοποίηση των χρηστών όταν χάνουν τη συνεδρία με την πλατφόρμα';
-$_lang['Warning the system distinguishes uppercase (capital) and lowercase (small) letters'] = 'Προειδοποίηση: Το σύστημα διακρίνει κεφαλαία και μικρά γράμματα';
+$_lang['Unable to add external tool'] = 'Ξ‘Ξ΄Ο…Ξ½Ξ±Ο„Ξ· Ξ· Ο€ΟΞΏΟƒΟ„ΞΈΞ®ΞΊΞ· ΞµΞΎΟ‰Ο„ΞµΟΞΉΞΊΞΏΟ ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏΟ…';
+$_lang['Unable to add the event to the agenda'] = 'Ξ‘Ξ΄ΟΞ½Ξ±Ο„Ξ· Ξ· Ο€ΟΞΏΟƒΞΈΞ®ΞΊΞ· Ο„ΞΏΟ… Ξ³ΞµΞ³ΞΏΞ½ΟΟ„ΞΏΟ‚ ΟƒΟ„Ξ·Ξ½ Ξ‘Ο„Ξ¶Ξ­Ξ½Ο„Ξ±.';
+$_lang['Unable to copy file : %filename'] = 'Ξ‘Ξ΄ΟΞ½Ξ±Ο„ΞΏ Ξ½Ξ± Ξ±Ξ½Ο„ΞΉΞ³ΟΞ¬ΟΞµΞΉ Ο„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ : %filename';
+$_lang['Unable to create category'] = 'ΞΞ· Ξ΄Ο…Ξ½Ξ±Ο„Ξ® Ξ· Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±Ο‚ ';
+$_lang['Unable to create course database'] = 'Ξ”ΞµΞ½ Ξ®Ο„Ξ±Ξ½ Ξ΄Ο…Ξ½Ξ±Ο„Ο Ξ½Ξ± Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ·ΞΈΞµΞ― Ξ· Ξ²Ξ¬ΟƒΞ· Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½ Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['Unable to create database tables for %label%'] = 'Ξ‘Ξ΄ΟΞ½Ξ±Ο„ΞΏ Ξ½Ξ± Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΟƒΞµΞΉ Ο„ΞΏΟ…Ο‚ Ο€Ξ―Ξ½Ξ±ΞΊΞµΟ‚ Ο„Ξ·Ο‚ Ξ²Ξ¬ΟƒΞ·Ο‚ Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½ Ξ³ΞΉΞ± Ο„ΞΏ %label%';
+$_lang['Unable to create directory :'] = ' ΞΞ· Ξ΄Ο…Ξ½Ξ±Ο„Ξ® Ξ· Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏΟ…: ';
+$_lang['Unable to create file %file'] = 'Ξ”ΞµΞ½ Ξ®Ο„Ξ±Ξ½ Ξ΄Ο…Ξ½Ξ±Ο„Ο Ξ½Ξ± Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ·ΞΈΞµΞ― Ο„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ %file';
+$_lang['Unable to create file :'] = ' ΞΞ· Ξ΄Ο…Ξ½Ξ±Ο„Ξ® Ξ· Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ξ±ΟΟ‡ΞµΞ―ΞΏΟ…: ';
+$_lang['Unable to create folder %folder'] = 'Ξ”ΞµΞ½ Ξ®Ο„Ξ±Ξ½ Ξ΄Ο…Ξ½Ξ±Ο„Ο Ξ½Ξ± Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ·ΞΈΞµΞ― ΞΏ ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏΟ‚ %folder';
+$_lang['Unable to create forum'] = 'ΞΞ· Ξ΄Ο…Ξ½Ξ±Ο„Ξ® Ξ· Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± ΟƒΟ…Ξ¶Ξ®Ο„Ξ·ΟƒΞ·Ο‚';
+$_lang['Unable to create frame file'] = ' ΞΞ· Ξ΄Ο…Ξ½Ξ±Ο„Ξ® Ξ· Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³ΞΉΞ± Ο„Ξ± Ο€Ξ»Ξ±Ξ―ΟƒΞΉΞ± Ο„ΞΏΟ… Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… ';
+$_lang['Unable to create the SCORM archive'] = ' ΞΞ· Ξ΄Ο…Ξ½Ξ±Ο„Ξ® Ξ· Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³ΞΉΞ± Ο„ΞΏΟ… ΞΊΞ±Ο„Ξ±Ξ»ΟΞ³ΞΏΟ… Ξ±ΟΟ‡ΞµΞ―Ο‰Ξ½ SCORM ';
+$_lang['Unable to create the SCORM manifest (imsmanifest.xml)'] = ' ΞΞ· Ξ΄Ο…Ξ½Ξ±Ο„Ξ® Ξ·  Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ο„Ξ·Ο‚ Ο€ΟΞΏΞΊΞ®ΟΟ…ΞΎΞ·Ο‚ SCORM (imsmanifest.xml)';
+$_lang['Unable to create zip file'] = 'Ξ”ΞµΞ½ Ξ®Ο„Ξ±Ξ½ Ξ΄Ο…Ξ½Ξ±Ο„Ο Ξ½Ξ± Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ·ΞΈΞµΞ― Ο„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ zip';
+$_lang['Unable to delete'] = 'Ξ‘Ξ΄ΟΞ½Ξ±Ο„ΞΏ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†ΞΈΞµΞ―';
+$_lang['Unable to delete Forum'] = ' ΞΞ· Ξ΄Ο…Ξ½Ξ±Ο„Ξ® Ξ· Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ο„Ξ·Ο‚ ΟƒΟ…Ξ¶Ξ®Ο„Ξ·ΟƒΞ·Ο‚.';
+$_lang['Unable to delete all events from the agenda'] = 'Ξ‘Ξ΄ΟΞ½Ξ±Ο„ΞΏ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΞΉ ΟΞ»Ξ± Ο„Ξ± Ξ³ΞµΞ³ΞΏΞ½ΟΟ„Ξ± Ξ±Ο€ΞΏ Ο„ΞΏ Ξ·ΞΌΞµΟΞΏΞ»ΟΞ³ΞΉΞΏ';
+$_lang['Unable to delete category'] = 'ΞΞ· Ξ΄Ο…Ξ½Ξ±Ο„Ξ® Ξ· Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±Ο‚.';
+$_lang['Unable to delete event from the agenda'] = 'Ξ‘Ξ΄ΟΞ½Ξ±Ο„Ξ· Ξ· Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ο„ΞΏΟ… Ξ³ΞµΞ³ΞΏΞ½ΟΟ„ΞΏΟ‚ Ξ±Ο€Ο Ο„Ξ·Ξ½ Ξ‘Ο„Ξ¶Ξ­Ξ½Ο„Ξ±.';
+$_lang['Unable to delete external tool'] = 'Ξ‘Ξ΄ΟΞ½Ξ±Ο„Ξ· Ξ· Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® ΞµΞΎΟ‰Ο„ΞµΟΞΉΞΊΞΏΟ ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏΟ…';
+$_lang['Unable to empty forum'] = 'ΞΞ· Ξ΄Ο…Ξ½Ξ±Ο„Ο Ο„ΞΏ Ξ¬Ξ΄ΞµΞΉΞ±ΟƒΞΌΞ± Ο„Ξ·Ο‚ ΟƒΟ…Ξ¶Ξ®Ο„Ξ·ΟƒΞ·Ο‚.';
+$_lang['Unable to empty groups'] = 'ΞΞ· Ξ΄Ο…Ξ½Ξ±Ο„Ο Ο„ΞΏ Ξ¬Ξ΄ΞµΞΉΞ±ΟƒΞΌΞ± Ο„Ο‰Ξ½ ΞΏΞΌΞ¬Ξ΄Ο‰Ξ½';
+$_lang['Unable to enrol you to the course'] = 'ΞΞ· Ξ΄Ο…Ξ½Ξ±Ο„Ξ® Ξ· ΞµΞ³Ξ³ΟΞ±Ο†Ξ® ΟƒΞΏΟ… ΟƒΟ„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['Unable to load exercise\'s question'] = ' ΞΞ· Ξ΄Ο…Ξ½Ξ±Ο„Ξ® Ξ· Ο†ΟΟΟ„Ο‰ΟƒΞ· Ο„Ξ·Ο‚ ΞµΟΟΟ„Ξ·ΟƒΞ·Ο‚ Ο„Ξ·Ο‚ Ξ¬ΟƒΞΊΞ·ΟƒΞ·Ο‚ ';
+$_lang['Unable to load the exercise'] = ' ΞΞ· Ξ΄Ο…Ξ½Ξ±Ο„Ξ® Ξ· Ο†ΟΟΟ„Ο‰ΟƒΞ· Ο„Ξ·Ο‚ Ξ¬ΟƒΞΊΞ·ΟƒΞ·Ο‚ ';
+$_lang['Unable to remove your registration to the course'] = 'ΞΞ· Ξ΄Ο…Ξ½Ξ±Ο„Ξ® Ξ· Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ο„Ξ·Ο‚ ΞµΞ³Ξ³ΟΞ±Ο†Ξ®Ο‚ ΟƒΞΏΟ… Ξ±Ο€ΞΏ Ο„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['Unable to save'] = 'Ξ‘Ξ΄ΟΞ½Ξ±Ο„Ξ· Ξ±Ο€ΞΏΞΈΞ®ΞΊΞµΟ…ΟƒΞ·.';
+$_lang['Unable to send zip file'] = 'Ξ”ΞµΞ½ Ξ®Ο„Ξ±Ξ½ Ξ΄Ο…Ξ½Ξ±Ο„Ο Ξ½Ξ± ΟƒΟ„Ξ±Ξ»ΞµΞ― Ο„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ zip';
+$_lang['Unable to update'] = 'Ξ‘Ξ΄ΟΞ½Ξ±Ο„ΞΏ Ξ½Ξ± ΞµΞ½Ξ·ΞΌΞµΟΟ‰ΞΈΞµΞ―';
+$_lang['Unable to update category'] = 'ΞΞ· Ξ΄Ο…Ξ½Ξ±Ο„Ξ® Ξ· Ξ±Ξ½Ξ±Ξ²Ξ¬ΞΈΞΌΞΉΟƒΞ· Ο„Ξ·Ο‚ ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ±Ο‚.';
+$_lang['Unable to update external tool'] = 'Ξ‘Ξ΄ΟΞ½Ξ±Ο„Ξ· Ξ· ΞµΞ½Ξ·ΞΌΞ­ΟΟ‰ΟƒΞ· Ο„ΞΏΟ… ΞµΞΎΟ‰Ο„ΞµΟΞΉΞΊΞΏΟ ΞΌΞ­ΟƒΞΏΟ…-ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏΟ…';
+$_lang['Unable to update forum'] = ' ΞΞ· Ξ΄Ο…Ξ½Ξ±Ο„Ξ® Ξ· Ξ±Ξ½Ξ±Ξ²Ξ¬ΞΈΞΌΞΉΟƒΞ· Ο„Ξ·Ο‚ Ο„Ξ·Ο‚ ΟƒΟ…Ξ¶Ξ®Ο„Ξ·ΟƒΞ·Ο‚.';
+$_lang['Unable to update the event into the agenda'] = 'ΞΞ® Ξ΄Ο…Ξ½Ξ±Ο„Ξ® Ξ· ΞµΞ½Ξ·ΞΌΞ­ΟΟ‰ΟƒΞ· Ο„ΞΏΟ… Ξ³ΞµΞ³ΞΏΞ½ΟΟ„ΞΏΟ‚ Ξ±Ο€Ο Ο„Ξ·Ξ½ Ξ‘Ο„Ξ¶Ξ­Ξ½Ο„Ξ±.';
+$_lang['Unassigned students'] = 'ΞΞ· ΞµΞ³Ξ³ΞµΞ³ΟΞ±ΞΌΞΌΞ­Ξ½ΞΏΞΉ Ο†ΞΏΞΉΟ„Ξ·Ο„Ξ­Ο‚';
+$_lang['Unblock'] = 'Ξ‘Ο€ΞΏΞ΄Ξ­ΟƒΞΌΞµΟ…ΟƒΞ· ';
+$_lang['Unchanged line'] = ' Ξ‘ΞΌΞµΟ„Ξ¬Ξ²Ξ»Ξ·Ο„Ξ· Ξ³ΟΞ±ΞΌΞΌΞ® ';
+$_lang['Underline'] = 'Ξ¥Ο€ΞΏΞ³ΟΞ¬ΞΌΞΌΞΉΟƒΞ·';
+$_lang['Unenrol from course'] = 'Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ξ±Ο€Ο Ο„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['Uninstall'] = 'Ξ‘Ο€ΞµΞ³ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ·';
+$_lang['Unknow error during unsubscribing'] = 'ΞΞ· Ξ³Ξ½Ο‰ΟƒΟ„Ο ΟƒΟ†Ξ¬Ξ»ΞΌΞ± ΞΊΞ±Ο„Ξ¬ Ο„Ξ· Ξ΄ΞΉΞ¬ΟΞΊΞµΞΉΞ± Ο„Ξ·Ο‚ Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ®Ο‚';
+$_lang['Unknow faculty'] = 'Ξ†Ξ³Ξ½Ο‰ΟƒΟ„ΞΏ ΟƒΟΞΌΞ± ΞΊΞ±ΞΈΞ·Ξ³Ξ·Ο„ΟΞ½';
+$_lang['Unknown error'] = 'Ξ†Ξ³Ξ½Ο‰ΟƒΟ„ΞΏ ΟƒΟ†Ξ¬Ξ»ΞΌΞ±';
+$_lang['Unknown error code %errCode%'] = 'Ξ†Ξ³Ξ½Ο‰ΟƒΟ„ΞΏΟ‚ ΞΊΟ‰Ξ΄ΞΉΞΊΟΟ‚ ΟƒΟ†Ξ¬Ξ»ΞΌΞ±Ο„ΞΏΟ‚ %errCode%';
+$_lang['Unknown question format in file %file'] = 'Ξ†Ξ³Ξ½Ο‰ΟƒΟ„Ξ· ΞΌΞΏΟΟ†Ξ® ΞµΟΟΟ„Ξ·ΟƒΞ·Ο‚ ΟƒΟ„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ %file';
+$_lang['Unknown recipient'] = 'Ξ†Ξ³Ξ½Ο‰ΟƒΟ„ΞΏΟ‚ Ο€Ξ±ΟΞ±Ξ»Ξ®Ο€Ο„Ξ·Ο‚';
+$_lang['Unknown user'] = 'Ξ†Ξ³Ξ½Ο‰ΟƒΟ„ΞΏΟ‚ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚';
+$_lang['Unlock'] = 'ΞΞµΞΊΞ»ΞµΞ―Ξ΄Ο‰ΞΌΞ±';
+$_lang['Unnamed module'] = 'Ξ‘Ξ½ΟΞ½Ο…ΞΌΞ· ΞµΞ½ΟΟ„Ξ·Ο„Ξ±';
+$_lang['Unnamed path'] = 'Ξ‘Ξ½ΟΞ½Ο…ΞΌΞ· Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ®';
+$_lang['Unordered list'] = 'ΞΞ· Ο„Ξ±ΞΎΞΉΞ½ΞΏΞΌΞ·ΞΌΞ­Ξ½Ξ· Ξ»Ξ―ΟƒΟ„Ξ±';
+$_lang['Unread'] = 'Ξ‘Ξ΄ΞΉΞ¬Ξ²Ξ±ΟƒΟ„ΞΏ';
+$_lang['Unregister'] = 'Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ®';
+$_lang['Unregister all students'] = ' Ξ”ΞΉΞ¬Ξ³ΟΞ±ΟΞµ ΟΞ»ΞΏΟ…Ο‚ Ο„ΞΏΟ…Ο‚ ΞΌΞ±ΞΈΞ·Ο„Ξ­Ο‚';
+$_lang['Unregister all users'] = 'Ξ”ΞΉΞ­Ξ³ΟΞ±ΟΞµ ΟΞ»ΞΏΟ…Ο‚ Ο„ΞΏΟ…Ο‚ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚';
+$_lang['Unregister all users ?'] = 'Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® ΟΞ»Ο‰Ξ½ Ο„Ο‰Ξ½ Ο‡ΟΞ·ΟƒΟ„ΟΞ½ ;';
+$_lang['Unregister from class'] = 'ΞΞ±Ο„Ξ¬ΟΞ³Ξ·ΟƒΞ· ΞµΞ³Ξ³ΟΞ±Ο†Ξ®Ο‚ Ξ±Ο€ΞΏ Ο„Ξ·Ξ½ Ο„Ξ¬ΞΎΞ·';
+$_lang['Unregister user'] = 'ΞΞ· ΞµΞ³Ξ³ΞµΞ³ΟΞ±ΞΌΞ­Ξ½ΞΏΟ‚ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚';
+$_lang['Unsubscribe'] = 'ΞΞ±Ο„Ξ¬ΟΞ³Ξ·ΟƒΞ· Ο„Ξ·Ο‚ ΞµΞ³Ξ³ΟΞ±Ο†Ξ®Ο‚/Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ®';
+$_lang['Until'] = 'ΟƒΞµ';
+$_lang['Untitled'] = 'Ξ§Ο‰ΟΞ―Ο‚ Ο„Ξ―Ο„Ξ»ΞΏ ';
+$_lang['Up'] = 'Ξ Ξ¬Ξ½Ο‰';
+$_lang['Upgrade'] = 'Ξ‘Ξ½Ξ±Ξ²Ξ¬ΞΈΞΌΞΉΟƒΞ·';
+$_lang['Upload'] = 'Ξ‘Ξ½Ξ­Ξ²Ξ±ΟƒΞµ';
+$_lang['Upload a new file to replace the file'] = 'Ξ‘Ξ½ΞµΞ²Ξ¬ΟƒΟ„Ξµ ΞΊΞ±ΞΉΞ½ΞΏΟΟΞΉΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ Ξ³ΞΉΞ± Ξ½Ξ± Ξ±Ξ½Ο„ΞΉΞΊΞ±Ο„Ξ±ΟƒΟ„Ξ®ΟƒΞµΟ„Ξµ Ξ±Ο…Ο„Ο';
+$_lang['Upload and Install module'] = 'Ξ‘Ξ½Ξ­Ξ²Ξ±ΟƒΞµ ΞΊΞ±ΞΉ ΞµΞ³ΞΊΞ±Ο„Ξ­ΟƒΟ„Ξ·ΟƒΞµ Ο„Ξ·Ξ½ ΞµΞ½ΟΟ„Ξ·Ο„Ξ±';
+$_lang['Upload document'] = 'Ξ•Ξ½Ξ·ΞΌΞ­ΟΟ‰ΟƒΞ· ΞµΞ³Ξ³ΟΞ¬Ο†ΞΏΟ…';
+$_lang['Upload failed'] = 'Ξ¦ΟΟΟ„Ο‰ΞΌΞ± Ξ±Ο€Ξ­Ο„Ο…Ο‡Ξµ';
+$_lang['Upload file'] = 'Ξ‘Ξ½Ξ­Ξ²Ξ±ΟƒΞΌΞ± Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… ΟƒΟ„ΞΏΞ½ ΞµΞΎΟ…Ο€Ξ·ΟΞ­Ο„Ξ·';
+$_lang['Uploaded file'] = 'Ξ•Ξ½Ξ·ΞΌΞ­ΟΟ‰ΟƒΞ· Ξ±ΟΟ‡ΞµΞ―ΞΏΟ…';
+$_lang['Uploaded file should be an image'] = 'Ξ¤ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… Ο€ΞΏΟ… Ξ±Ξ½ΞµΞ²Ξ¬Ξ¶ΞµΟ„Ξµ Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ ΞµΞΉΞΊΟΞ½Ξ±';
+$_lang['Url of package'] = 'Ξ”ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ· Ο€Ξ±ΞΊΞ­Ο„ΞΏΟ…';
+$_lang['Use 0 to display all'] = 'Ξ§ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞ®ΟƒΟ„Ξµ Ο„ΞΏ 0 Ξ³ΞΉΞ± Ξ½Ξ± Ο„Ξ± Ο€ΟΞΏΞ²Ξ¬Ξ»ΞµΟ„Ξµ ΟΞ»Ξ±';
+$_lang['Use SSL secure connection for login'] = 'Ξ§ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞ®ΟƒΟ„Ξµ SSL Ξ±ΟƒΟ†Ξ±Ξ»ΞΉΟƒΞΌΞ­Ξ½Ξ· Ξ­Ξ½Ο‰ΟƒΞ· Ξ³ΞΉΞ± ΟƒΟΞ½Ξ΄ΞµΟƒΞ·';
+$_lang['Use TinyMCE editor compressor'] = 'Ξ§ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞ®ΟƒΟ„Ξµ ΞµΟ€ΞµΞΎΞµΟΞ³Ξ±ΟƒΟ„Ξ® ΟƒΟ…ΞΌΟ€Ξ―ΞµΟƒΞ·Ο‚ TinyMCE';
+$_lang['Use format defined in first line of file'] = 'Ξ§ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞµΞ―ΟƒΟ„Ξµ Ο„ΞΏ format Ο€ΞΏΟ… Ξ­Ο‡ΞµΞΉ ΞΏΟΞΉΟƒΞΈΞµΞ― ΟƒΟ„Ξ· Ο€ΟΟΟ„Ξ· ΟƒΞµΞΉΟΞ¬ Ο„ΞΏΟ… Ξ±ΟΟ‡ΞµΞ―ΞΏΟ…';
+$_lang['Use negative weighting for incorrect choices to penalize a user that check all answers.'] = 'Ξ§ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞ®ΟƒΟ„Ξµ Ξ±ΟΞ½Ξ·Ο„ΞΉΞΊΞ¬ Ξ²Ξ¬ΟΞ· Ξ³ΞΉΞ± ΞµΟƒΟ†Ξ±Ξ»ΞΌΞ­Ξ½ΞµΟ‚ ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ­Ο‚ Ξ­Ο„ΟƒΞΉ ΟΟƒΟ„Ξµ Ξ½Ξ± Ο„ΞΉΞΌΟ‰ΟΞ·ΞΈΞµΞ― ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ Ο€ΞΏΟ… ΞµΟ€ΞΉΞ»Ξ­Ξ³ΞµΞΉ ΟΞ»ΞµΟ‚ Ο„ΞΉΟ‚ Ξ±Ο€Ξ±Ξ½Ο„Ξ®ΟƒΞµΞΉΟ‚.';
+$_lang['Use the following format'] = 'Ξ§ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞ®ΟƒΟ„Ξµ Ο„Ξ·Ξ½ Ξ±ΞΊΟΞ»ΞΏΟ…ΞΈΞ· ΞΌΞΏΟΟ†Ξ®';
+$_lang['User'] = 'Ξ§ΟΞ®ΟƒΟ„ΞµΟ‚';
+$_lang['User Course list'] = 'Ξ›Ξ―ΟƒΟ„Ξµ ΞΞ±ΞΈΞ·ΞΌΞ¬Ο„Ο‰Ξ½ ΞΞ±ΞΈΞ·Ο„ΟΞ½';
+$_lang['User access details'] = 'Ξ›ΞµΟ€Ο„ΞΏΞΌΞ­ΟΞµΞΉΞµΟ‚ Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ·Ο‚ Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['User access to course'] = 'Ξ ΟΟΟƒΞ²Ξ±ΟƒΞ· Ο‡ΟΞ®ΟƒΟ„Ξ· ΟƒΞµ ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['User account creation allowed'] = 'Ξ— Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ξ»ΞΏΞ³Ξ±ΟΞ±ΟΞΉΞ±ΟƒΞΌΞΏΟ Ο‡ΟΞ®ΟƒΟ„Ξ· ΞµΟ€ΞΉΟ„ΟΞ¬Ο€Ξ·ΞΊΞµ';
+$_lang['User accounts merged'] = 'ΞΞΉ Ξ»ΞΏΞ³Ξ±ΟΞΉΞ±ΟƒΞΌΞΏΞΉ Ο„Ο‰Ξ½ Ο‡ΟΞ·ΟƒΟ„ΟΞ½ Ο€ΞΏΟ… ΟƒΟ…Ξ³Ο‡Ο‰Ξ½ΞµΟΟ„Ξ·ΞΊΞ±Ξ½';
+$_lang['User already in class'] = 'Ξ§ΟΞ®ΟƒΟ„Ξ·Ο‚ Ξ®Ξ΄Ξ· ΟƒΞµ Ο„Ξ¬ΞΎΞ·';
+$_lang['User attempts'] = 'Ξ ΟΞΏΟƒΟ€Ξ¬ΞΈΞµΞΉΞµΟ‚ Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['User banner - left'] = 'Ξ£Ξ·ΞΌΞµΞ―Ο‰ΞΌΞ± Ο‡ΟΞ®ΟƒΟ„Ξ· - Ξ±ΟΞΉΟƒΟ„ΞµΟΟ';
+$_lang['User banner - right'] = 'Ξ£Ξ·ΞΌΞµΞ―Ο‰ΞΌΞ± Ο‡ΟΞ®ΟƒΟ„Ξ· - Ξ΄ΞµΞΎΞ―';
+$_lang['User can leave course title field empty or not'] = 'Ξ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ±Ο†Ξ®ΟƒΞµΞΉ Ξ® ΟΟ‡ΞΉ ΞΊΞµΞ½Ο Ο„ΞΏ Ο€ΞµΞ΄Ξ―ΞΏ Ο„ΞΏΟ… Ο„Ξ―Ο„Ξ»ΞΏΟ… Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['User can leave email field empty or not'] = 'Ξ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ±Ο†Ξ®ΟƒΞµΞΉ Ξ® ΟΟ‡ΞΉ ΞΊΞµΞ½Ο Ο„ΞΏ Ο€ΞµΞ΄Ξ―ΞΏ Ο„ΞΏΟ… email';
+$_lang['User course settings'] = 'Ξ΅Ο…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['User has been sucessfully registered to the class'] = 'Ξ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ Ξ­Ο‡ΞµΞΉ ΞµΞ³Ξ³ΟΞ±Ο†ΞµΞ― ΞΌΞµ ΞµΟ€ΞΉΟ„Ο…Ο‡Ξ―Ξ± ΟƒΟ„Ξ· Ο„Ξ¬ΞΎΞ·';
+$_lang['User has been sucessfully unregistered from the class'] = 'Ξ— ΞµΞ³Ξ³ΟΞ±Ο†Ξ® Ο„ΞΏΟ… Ο‡ΟΞ®ΟƒΟ„Ξ· ΟƒΟ„Ξ·Ξ½ Ο„Ξ¬ΞΎΞ· ΞΊΞ±Ο„Ξ±ΟΞ³Ξ®ΞΈΞ·ΞΊΞµ ΞµΟ€ΞΉΟ„Ο…Ο‡ΟΟ‚';
+$_lang['User id'] = 'Ξ¤ΞΏ id Ο„ΞΏΟ… Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['User is not valid'] = 'Ξ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ Ξ΄ΞµΞ½ ΞµΞ―Ξ½Ξ±ΞΉ Ξ­Ξ³ΞΊΟ…ΟΞΏΟ‚';
+$_lang['User is now course manager'] = 'Ξ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ ΞµΞ―Ξ½Ξ±ΞΉ Ο„ΟΟΞ± Ξ΄ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ®Ο‚ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['User is now student for this course'] = 'Ξ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ ΞµΞ―Ξ½Ξ±ΞΉ Ο„ΟΟΞ± ΞΌΞ±ΞΈΞ·Ο„Ξ®Ο‚ Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ Ξ±Ο…Ο„ΞΏΟ';
+$_lang['User list'] = 'Ξ›Ξ―ΟƒΟ„Ξ± Ο‡ΟΞ·ΟƒΟ„ΟΞ½';
+$_lang['User not found'] = 'Ξ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ Ξ΄Ξµ Ξ²ΟΞ­ΞΈΞ·ΞΊΞµ';
+$_lang['User not in the class'] = 'Ξ§ΟΞ®ΟƒΟ„Ξ·Ο‚ ΟΟ‡ΞΉ ΟƒΞµ Ο„Ξ¬ΞΎΞ·';
+$_lang['User picture'] = 'Ξ¦Ο‰Ο„ΞΏΞ³ΟΞ±Ο†Ξ―Ξ± Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['User picture added'] = 'Ξ— Ο†Ο‰Ο„ΞΏΞ³ΟΞ±Ο†Ξ―Ξ± Ο„ΞΏΟ… Ο‡ΟΞ®ΟƒΟ„Ξ· Ξ­Ο‡ΞµΞΉ Ο€ΟΞΏΟƒΞΈΞµΞΈΞµΞ―';
+$_lang['User picture deleted'] = 'Ξ— Ο†Ο‰Ο„ΞΏΞ³ΟΞ±Ο†Ξ―Ξ± Ο„ΞΏΟ… Ο‡ΟΞ®ΟƒΟ„Ξ· Ξ­Ο‡ΞµΞΉ Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†ΞµΞ―';
+$_lang['User profile'] = 'Ξ ΟΞΏΟ†Ξ―Ξ» Ξ§ΟΞ®ΟƒΟ„Ξ·';
+$_lang['User profile box'] = 'Ξ ΟΞΏΟ†Ξ―Ξ» Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['User profile options'] = 'Ξ•Ο€ΞΉΞ»ΞΏΞ³Ξ­Ο‚ Ο€ΟΞΏΟ†Ξ―Ξ» Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['User registered in a course having an unexisting (deprecated) status'] = 'Ξ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ Ο€ΞΏΟ… ΞµΞ³ΟΞ¬Ο†Ξ·ΞΊΞµ ΟƒΟ„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ± Ξ­Ο‡ΞµΞΉ Ξ±ΞΊΞ±Ο„Ξ¬Ξ»Ξ»Ξ·Ξ»Ξ·(Ξ±Ξ½ΟΟ€Ξ±ΟΞΊΟ„Ξ·) ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ·';
+$_lang['User registered to the course'] = 'Ξ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ Ξ­Ο‡ΞµΞΉ ΞµΞ³Ξ³ΟΞ±Ο†ΞµΞ― ΟƒΟ„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['User request'] = 'Ξ‘Ξ―Ο„Ξ·ΟƒΞ· Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['User settings'] = 'Ξ΅Ο…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['User to keep not found'] = 'Ξ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ Ξ³ΞΉΞ± Ξ½Ξ± ΞΊΟΞ±Ο„Ξ·ΞΈΞµΞ― Ξ΄ΞµΞ½ Ξ²ΟΞ­ΞΈΞ·ΞΊΞµ';
+$_lang['User to remove not found'] = 'Ξ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ Ξ³ΞΉΞ± Ξ½Ξ± Ξ±Ο†Ξ±ΞΉΟΞµΞΈΞµΞ― Ξ΄ΞµΞ½ Ξ²ΟΞ­ΞΈΞ·ΞΊΞµ';
+$_lang['User unregistered'] = 'ΞΞ±Ο„Ξ¬ΟΞ³ΟƒΞ· ΞµΞ³Ξ³ΟΞ±Ο†Ξ®Ο‚ Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['User\'s course'] = 'ΞΞ¬ΞΈΞ·ΞΌΞ± Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['User\'s course settings'] = 'Ξ΅Ο…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ ΞΌΞ±ΞΈΞ·Ο„Ξ®';
+$_lang['Username'] = 'ΞΞ½ΞΏΞΌΞ± Ο‡ΟΞ®ΟƒΟ„Ξ· (username)';
+$_lang['Username is too long (maximum 20 characters)'] = 'Ξ¤ΞΏ ΟΞ½ΞΏΞΌΞ± Ο‡ΟΞ®ΟƒΟ„Ξ· ΞµΞ―Ξ½Ξ±ΞΉ Ο€ΞΏΞ»Ο ΞΌΞµΞ³Ξ¬Ξ»ΞΏ (Ο„ΞΏ ΞΌΞ­Ξ³ΞΉΟƒΟ„ΞΏ 20 Ο‡Ξ±ΟΞ±ΞΊΟ„Ξ®ΟΞµΟ‚)';
+$_lang['UsernameAppearAlready'] = 'Ξ‘Ο…Ο„Ο Ο„ΞΏ ΟΞ½ΞΏΞΌΞ± Ο‡ΟΞ®ΟƒΟ„Ξ· (username) ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞµΟ„Ξ±ΞΉ Ξ®Ξ΄Ξ· ΟƒΞµ Ο€ΟΞΏΞ·Ξ³ΞΏΟΞΌΞµΞ½Ξ· ΟƒΞµΞΉΟΞ¬ Ο„ΞΏΟ… Ξ±ΟΟ‡ΞµΞ―ΞΏΟ…  CSV.';
+$_lang['UsernameUsed'] = 'Ξ‘Ο…Ο„Ο Ο„ΞΏ ΟΞ½ΞΏΞΌΞ± Ο‡ΟΞ®ΟƒΟ„Ξ· Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞµΞ―Ο„Ξ±ΞΉ Ξ®Ξ΄Ξ· Ξ±Ο€ΞΏ Ξ¬Ξ»Ξ»ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ·.';
+$_lang['Users'] = 'Ξ§ΟΞ®ΟƒΟ„ΞµΟ‚';
+$_lang['Users Downloads'] = 'Downloads Ο„Ο‰Ξ½ Ο‡ΟΞ·ΟƒΟ„ΟΞ½';
+$_lang['Users access to course'] = 'Ξ ΟΟΟƒΞ²Ξ±ΟƒΞ· Ο‡ΟΞ·ΟƒΟ„ΟΞ½ ΟƒΞµ ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['Users access to tools'] = 'Ξ ΟΟΟƒΞ²Ξ±ΟƒΞ· Ο‡ΟΞ·ΟƒΟ„ΟΞ½ ΟƒΞµ ΞµΟΞ³Ξ±Ξ»ΞµΞ―Ξ±';
+$_lang['Users can not submit after end date'] = 'ΞΞΉ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ Ξ΄ΞµΞ½ ΞΌΟ€ΞΏΟΞΏΟΞ½ Ξ½Ξ± Ο…Ο€ΞΏΞ²Ξ¬Ξ»Ξ»ΞΏΟ…Ξ½ ΞΌΞµΟ„Ξ¬ Ο„Ξ·Ξ½ Ξ·ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ± Ξ»Ξ®ΞΎΞ·Ο‚';
+$_lang['Users can submit after end date'] = 'ΞΞΉ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ ΞΌΟ€ΞΏΟΞΏΟΞ½ Ξ½Ξ± Ο…Ο€ΞΏΞ²Ξ¬Ξ»Ξ»ΞΏΟ…Ξ½ ΞΌΞµΟ„Ξ¬ Ο„Ξ·Ξ½ Ξ·ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ± Ξ»Ξ®ΞΎΞ·Ο‚';
+$_lang['Users help'] = 'Ξ’ΞΏΞ®ΞΈΞµΞΉΞ± Ξ§ΟΞ·ΟƒΟ„ΟΞ½';
+$_lang['Users list'] = 'Ξ›Ξ―ΟƒΟ„Ξ± Ο‡ΟΞ·ΟƒΟ„ΟΞ½';
+$_lang['Users not in this group'] = 'ΞΞΉ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ Ξ΄ΞµΞ½ Ξ±Ξ½Ξ®ΞΊΞΏΟ…Ξ½ ΟƒΞµ Ξ±Ο…Ο„Ξ® Ο„Ξ·Ξ½ ΞΏΞΌΞ¬Ξ΄Ξ±';
+$_lang['Users statistics'] = 'Ξ£Ο„Ξ±Ο„ΞΉΟƒΟ„ΞΉΞΊΞ± Ο‡ΟΞ·ΟƒΟ„ΟΞ½';
+$_lang['Users with similar settings exist on the system yet'] = 'Ξ§ΟΞ®ΟƒΟ„ΞµΟ‚ ΞΌΞµ Ο€Ξ±ΟΟΞΌΞΏΞΉΞµΟ‚ ΟΟ…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ Ο…Ο€Ξ¬ΟΟ‡ΞΏΟ…Ξ½ Ξ±ΞΊΟΞΌΞ± ΟƒΟ„ΞΏ ΟƒΟΟƒΟ„Ξ·ΞΌΞ±';
+$_lang['Users\' Clicks'] = 'Ο„Ξ± ΞΊΞ»ΞΉΞΊ Ο„Ο‰Ξ½ Ο‡ΟΞ·ΟƒΟ„Ο‰Ξ½ ';
+$_lang['UsersMin'] = 'Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚';
+$_lang['Values'] = 'Ξ‘ΞΎΞΉΞΏΞ»ΟΞ³Ξ·ΟƒΞ·';
+$_lang['Variables with same content and different name'] = 'ΞΞµΟ„Ξ±Ξ²Ξ»Ξ·Ο„Ξ­Ο‚ ΞΌΞµ Ο„ΞΏ Ξ―Ξ΄ΞΉΞΏ Ο€ΞµΟΞΉΞµΟ‡ΟΞΌΞµΞ½ΞΏ ΞΊΞ±ΞΉ Ξ΄ΞΉΞ±Ο†ΞΏΟΞµΟ„ΞΉΞΊΞ® ΞΏΞ½ΞΏΞΌΞ±ΟƒΞ―Ξ±';
+$_lang['Version'] = 'ΞΞΊΞ΄ΞΏΟƒΞ·';
+$_lang['Vertical space'] = 'ΞΞ±Ο„Ξ±ΞΊΟΟΟ…Ο†ΞΏ Ξ΄ΞΉΞ¬ΟƒΟ„Ξ·ΞΌΞ±';
+$_lang['View'] = 'Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ·';
+$_lang['View all'] = 'Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· ΟΞ»Ο‰Ξ½';
+$_lang['View all right profile'] = 'Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· ΟΞ»Ο‰Ξ½ Ο„Ο‰Ξ½ Ο€ΟΞΏΟ†Ξ―Ξ» Ξ΄ΞΉΞΊΞ±ΞΉΟ‰ΞΌΞ¬Ο„Ο‰Ξ½';
+$_lang['View all user\'s posts'] = 'Ξ ΟΞΏΞ²ΞΏΞ»Ξ® ΟΞ»Ο‰Ξ½ Ο„Ο‰Ξ½ Ξ±Ο€ΞΏΟƒΟ„ΞΏΞ»ΟΞ½ ΞµΞ½ΟΟ‚ Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['View by'] = 'Ξ ΟΞΏΞ²ΞΏΞ»Ξ®';
+$_lang['View forum'] = 'Ξ ΟΞΏΞ²ΞΏΞ»Ξ® ΟƒΟ…Ξ¶Ξ®Ο„Ξ·ΟƒΞ·Ο‚';
+$_lang['View group data'] = 'Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½ ΞΏΞΌΞ¬Ξ΄Ξ±Ο‚';
+$_lang['View list of all tools'] = 'Ξ Ξ±ΟΞΏΟ…ΟƒΞ―Ξ±ΟƒΞ· Ξ»Ξ―ΟƒΟ„Ξ±Ο‚ ΟΞ»Ο‰Ξ½ Ο„Ο‰Ξ½ ΞµΟΞ³Ξ±Ξ»ΞµΞ―Ο‰Ξ½';
+$_lang['View mode'] = 'Ξ Ξ±ΟΞΏΟ…ΟƒΞ―Ξ±ΟƒΞ· Ο„ΟΟΟ€ΞΏΟ…';
+$_lang['View my statistics'] = 'Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· Ο„Ο‰Ξ½ ΟƒΟ„Ξ±Ο„ΞΉΟƒΟ„ΞΉΞΊΟΞ½ ΞΌΞΏΟ…';
+$_lang['View topic'] = 'Ξ ΟΞΏΞ²ΞΏΞ»Ξ® ΞΈΞ­ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['View user data'] = 'Ξ•ΞΌΟ†Ξ¬Ξ½ΞΉΟƒΞ· Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½ Ο‡ΟΞ®ΟƒΟ„Ξ·';
+$_lang['Visibility'] = 'ΞΟΞ±Ο„Ο / Ξ‘ΟΟΞ±Ο„ΞΏ';
+$_lang['Visible'] = 'ΞΟΞ±Ο„Ο';
+$_lang['Visible for all users'] = 'ΞΟΞ±Ο„Ο Ξ³ΞΉΞ± ΟΞ»ΞΏΟ…Ο‚ Ο„ΞΏΟ…Ο‚ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚';
+$_lang['Visible in all courses on install <small>(course tool only)</small>'] = 'ΞΟΞ±Ο„Ο ΟƒΞµ ΟΞ»Ξ± Ο„Ξ± ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„Ξ± ΟƒΟ„Ξ·Ξ½ ΞµΞ³ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ· <small>(ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ ΞΌΟΞ½ΞΏ)</small>';
+$_lang['Visible on  each course on install <small>(tool only)</small>'] = 'ΞΟΞ±Ο„Ο ΟƒΞµ ΟΞ»Ξ± Ο„Ξ± ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„Ξ± ΟƒΟ„Ξ·Ξ½ ΞµΞ³ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ· <small>(ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏ ΞΌΟΞ½ΞΏ)</small>';
+$_lang['Visible only to people on the user list'] = 'ΞΟΞ±Ο„Ο ΟƒΞµ ΟΞ»ΞΏΟ…Ο‚ Ο„ΞΏΟ…Ο‚ Ξ±Ξ½ΞΈΟΟΟ€ΞΏΟ…Ο‚ Ο€ΞΏΟ… Ξ²ΟΞ―ΟƒΞΊΞΏΞ½Ο„Ξ±ΞΉ ΟƒΟ„Ξ·Ξ½ Ξ»Ξ―ΟƒΟ„Ξ± Ο‡ΟΞ·ΟƒΟ„ΟΞ½';
+$_lang['Visits'] = 'Ξ•Ο€ΞΉΟƒΞΊΞ­ΟΞµΞΉΟ‚';
+$_lang['WARNING ! You have just lost your session on the server.'] = 'Ξ Ξ΅ΞΞ•Ξ™Ξ”ΞΞ ΞΞ™Ξ—Ξ£Ξ— ! ΞΟΞ»ΞΉΟ‚ Ο‡Ξ¬ΞΈΞ·ΞΊΞµ Ξ· ΟƒΟ…Ξ½ΞµΞ΄ΟΞ―Ξ± ΞΌΞµ Ο„ΞΏΞ½ server.';
+$_lang['WARNING : you are going to delete this wiki and all its pages. Are you sure to want to continue ?'] = ' Ξ Ξ΅ΞΞ•Ξ™Ξ”ΞΞ ΞΞ™Ξ—Ξ£Ξ— : Ο€ΟΟΞΊΞµΞΉΟ„Ξ±ΞΉ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΟ„Ξµ Ξ±Ο…Ο„Ο Ο„ΞΏ wiki ΞΊΞ±ΞΉ ΟΞ»ΞµΟ‚ Ο„ΞΉΟ‚ ΟƒΞµΞ»Ξ―Ξ΄ΞµΟ‚ Ο„ΞΏΟ…. Ξ•Ξ―ΟƒΟ„Ξµ Ξ²Ξ­Ξ²Ξ±ΞΉΞΏΞΉ ΟΟ„ΞΉ ΞΈΞ­Ξ»ΞµΟ„Ξµ Ξ½Ξ± ΟƒΟ…Ξ½ΞµΟ‡ΞΉΟƒΟ„ΞµΞ―Ο„Ξµ;';
+$_lang['WARNING: this page is a preview. Your modifications to the wiki has not been saved yet ! To save them do not forget to click on the \'save\' button at the bottom of the page.'] = ' Ξ Ξ΅ΞΞ•Ξ™Ξ”ΞΞ ΞΞ™Ξ—Ξ£Ξ—: Ξ±Ο…Ο„Ξ® Ξ· ΟƒΞµΞ»Ξ―Ξ΄Ξ± Ξ±Ο€ΞΏΟ„ΞµΞ»ΞµΞ― Ο€ΟΞΏΞµΟ€ΞΉΟƒΞΊΟΟ€Ξ·ΟƒΞ·.  ΞΞΉ Ο„ΟΞΏΟ€ΞΏΟ€ΞΏΞΉΞ®ΟƒΞµΞΉΟ‚ ΟƒΞ±Ο‚ ΟƒΟ„ΞΏ wiki Ξ΄ΞµΞ½ Ξ­Ο‡ΞΏΟ…Ξ½ Ξ±Ο€ΞΏΞΈΞ·ΞΊΞµΟ…Ο„ΞµΞ― Ξ±ΞΊΟΞΌΞ± ! Ξ“ΞΉΞ± Ξ½Ξ± Ο„ΞΉΟ‚ Ξ±Ο€ΞΏΞΈΞ·ΞΊΞµΟΟƒΞµΟ„Ξµ ΞΌΞ· ΞΎΞµΟ‡Ξ¬ΟƒΞµΟ„Ξµ Ξ½Ξ± ΞΊΞ¬Ξ½ΞµΞµ ΞΊΞ»ΞΉΞΊ ΟƒΟ„ΞΏ ΞΊΞΏΟ…ΞΌΟ€Ξ― \'save\' ΟƒΟ„ΞΏ Ο„Ξ­Ξ»ΞΏΟ‚ Ο„Ξ·Ο‚ ΟƒΞµΞ»Ξ―Ξ΄Ξ±Ο‚.';
+$_lang['Warn users when they loose their session on the platform'] = 'Ξ ΟΞΏΞµΞΉΞ΄ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· Ο„Ο‰Ξ½ Ο‡ΟΞ·ΟƒΟ„ΟΞ½ ΟΟ„Ξ±Ξ½ Ο‡Ξ¬Ξ½ΞΏΟ…Ξ½ Ο„Ξ· ΟƒΟ…Ξ½ΞµΞ΄ΟΞ―Ξ± ΞΌΞµ Ο„Ξ·Ξ½ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±';
+$_lang['Warning : chosen date is in the future'] = 'Ξ ΟΞΏΞµΞΉΞ΄ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· : Ξ· ΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½Ξ· Ξ·ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ± ΞµΞ―Ξ½Ξ±ΞΉ ΟƒΟ„ΞΏ ΞΌΞ­Ξ»Ξ»ΞΏΞ½';
+$_lang['Warning the system distinguishes uppercase (capital) and lowercase (small) letters'] = 'Ξ ΟΞΏΞµΞΉΞ΄ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ·: Ξ¤ΞΏ ΟƒΟΟƒΟ„Ξ·ΞΌΞ± Ξ΄ΞΉΞ±ΞΊΟΞ―Ξ½ΞµΞΉ ΞΊΞµΟ†Ξ±Ξ»Ξ±Ξ―Ξ± ΞΊΞ±ΞΉ ΞΌΞΉΞΊΟΞ¬ Ξ³ΟΞ¬ΞΌΞΌΞ±Ο„Ξ±';
+$_lang['Warning: When you delete a message keep in mind that it will be deleted for every user.
+        <br /><br />You cannot retrieve deleted messages!'] = 'Ξ ΟΞΏΞµΞΉΞ΄ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· : ΞΟ„Ξ±Ξ½ Ξ΄ΞΉΞ±Ξ³ΟΞ¬Ο†ΞµΞΉΟ‚ Ξ­Ξ½Ξ± ΞΌΞ®Ξ½Ο…ΞΌΞ± Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± Ξ­Ο‡ΞµΟ„Ξµ Ο…Ο€ΟΟΞ· ΟΟ„ΞΉ Ξ΄ΞΉΞ±Ξ³ΟΞ¬Ο†ΞµΟ„Ξµ Ξ³ΞΉΞ± ΞΊΞ¬ΞΈΞµ Ο‡ΟΞ®ΟƒΟ„Ξ·.        <br /><br />Ξ”ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± ΞµΟ€Ξ±Ξ½Ξ±Ο†Ξ­ΟΞµΟ„Ξµ Ξ΄ΞΉΞ±Ξ³ΟΞ±ΞΌΞΌΞ­Ξ½Ξ± Ξ±ΟΟ‡ΞµΞ―Ξ±!';
 $_lang['Website'] = 'Website';
-$_lang['Week'] = 'Εβδομάδα';
-$_lang['Weighting'] = 'Στάθμιση';
-$_lang['Welcome text displayed on the homepage'] = 'Κείμενο καλωσορίσματος εμφανίστηκε στην κεντρική σελίδα';
-$_lang['Welcome text displayed to anonymous users'] = 'Κείμενο καλωσορίσματος εμφανίστηκε στους ανώνυμους χρήστες';
-$_lang['Welcome text displayed to authenticated users'] = 'Κείμενο καλωσορίσματος εμφανίστηκε στους πιστοποιημένους χρήστες';
-$_lang['When iCal File is regenerated, make the RDF version.'] = 'Όταν ένα Αρχείο iCal επαναδομείται, δημιούργησε την RDF έκδοση.';
-$_lang['When iCal File is regenerated, make the ics version.'] = 'Όταν ένα Αρχείο iCal επαναδομείται, δημιούργησε την ICS έκδοση.';
-$_lang['When iCal File is regenerated, make the xml version.'] = 'Όταν ένα Αρχείο iCal επαναδομείται, δημιούργησε την XML έκδοση.';
-$_lang['When users click on a document, it opens a new window'] = 'Όταν οι χρήστες ανοίγουν ένα έγγραφο, ανοίγει ένα καινούριο παράθυρο';
-$_lang['When users click on a submitted file, it opens a new window'] = 'Όταν οι χρήστες ανοίγουν ένα υποβληθέν αρχείο, ανοίγει ένα καινούριο παράθυρο';
-$_lang['Which parts of the profile can be changed?'] = 'Ποια μέρη του προφίλ μπορούν να τροποποιηθούν;';
+$_lang['Week'] = 'Ξ•Ξ²Ξ΄ΞΏΞΌΞ¬Ξ΄Ξ±';
+$_lang['Weighting'] = 'Ξ£Ο„Ξ¬ΞΈΞΌΞΉΟƒΞ·';
+$_lang['Welcome text displayed on the homepage'] = 'ΞΞµΞ―ΞΌΞµΞ½ΞΏ ΞΊΞ±Ξ»Ο‰ΟƒΞΏΟΞ―ΟƒΞΌΞ±Ο„ΞΏΟ‚ ΞµΞΌΟ†Ξ±Ξ½Ξ―ΟƒΟ„Ξ·ΞΊΞµ ΟƒΟ„Ξ·Ξ½ ΞΊΞµΞ½Ο„ΟΞΉΞΊΞ® ΟƒΞµΞ»Ξ―Ξ΄Ξ±';
+$_lang['Welcome text displayed to anonymous users'] = 'ΞΞµΞ―ΞΌΞµΞ½ΞΏ ΞΊΞ±Ξ»Ο‰ΟƒΞΏΟΞ―ΟƒΞΌΞ±Ο„ΞΏΟ‚ ΞµΞΌΟ†Ξ±Ξ½Ξ―ΟƒΟ„Ξ·ΞΊΞµ ΟƒΟ„ΞΏΟ…Ο‚ Ξ±Ξ½ΟΞ½Ο…ΞΌΞΏΟ…Ο‚ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚';
+$_lang['Welcome text displayed to authenticated users'] = 'ΞΞµΞ―ΞΌΞµΞ½ΞΏ ΞΊΞ±Ξ»Ο‰ΟƒΞΏΟΞ―ΟƒΞΌΞ±Ο„ΞΏΟ‚ ΞµΞΌΟ†Ξ±Ξ½Ξ―ΟƒΟ„Ξ·ΞΊΞµ ΟƒΟ„ΞΏΟ…Ο‚ Ο€ΞΉΟƒΟ„ΞΏΟ€ΞΏΞΉΞ·ΞΌΞ­Ξ½ΞΏΟ…Ο‚ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚';
+$_lang['When iCal File is regenerated, make the RDF version.'] = 'ΞΟ„Ξ±Ξ½ Ξ­Ξ½Ξ± Ξ‘ΟΟ‡ΞµΞ―ΞΏ iCal ΞµΟ€Ξ±Ξ½Ξ±Ξ΄ΞΏΞΌΞµΞ―Ο„Ξ±ΞΉ, Ξ΄Ξ·ΞΌΞΉΞΏΟΟΞ³Ξ·ΟƒΞµ Ο„Ξ·Ξ½ RDF Ξ­ΞΊΞ΄ΞΏΟƒΞ·.';
+$_lang['When iCal File is regenerated, make the ics version.'] = 'ΞΟ„Ξ±Ξ½ Ξ­Ξ½Ξ± Ξ‘ΟΟ‡ΞµΞ―ΞΏ iCal ΞµΟ€Ξ±Ξ½Ξ±Ξ΄ΞΏΞΌΞµΞ―Ο„Ξ±ΞΉ, Ξ΄Ξ·ΞΌΞΉΞΏΟΟΞ³Ξ·ΟƒΞµ Ο„Ξ·Ξ½ ICS Ξ­ΞΊΞ΄ΞΏΟƒΞ·.';
+$_lang['When iCal File is regenerated, make the xml version.'] = 'ΞΟ„Ξ±Ξ½ Ξ­Ξ½Ξ± Ξ‘ΟΟ‡ΞµΞ―ΞΏ iCal ΞµΟ€Ξ±Ξ½Ξ±Ξ΄ΞΏΞΌΞµΞ―Ο„Ξ±ΞΉ, Ξ΄Ξ·ΞΌΞΉΞΏΟΟΞ³Ξ·ΟƒΞµ Ο„Ξ·Ξ½ XML Ξ­ΞΊΞ΄ΞΏΟƒΞ·.';
+$_lang['When users click on a document, it opens a new window'] = 'ΞΟ„Ξ±Ξ½ ΞΏΞΉ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ Ξ±Ξ½ΞΏΞ―Ξ³ΞΏΟ…Ξ½ Ξ­Ξ½Ξ± Ξ­Ξ³Ξ³ΟΞ±Ο†ΞΏ, Ξ±Ξ½ΞΏΞ―Ξ³ΞµΞΉ Ξ­Ξ½Ξ± ΞΊΞ±ΞΉΞ½ΞΏΟΟΞΉΞΏ Ο€Ξ±ΟΞ¬ΞΈΟ…ΟΞΏ';
+$_lang['When users click on a submitted file, it opens a new window'] = 'ΞΟ„Ξ±Ξ½ ΞΏΞΉ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ Ξ±Ξ½ΞΏΞ―Ξ³ΞΏΟ…Ξ½ Ξ­Ξ½Ξ± Ο…Ο€ΞΏΞ²Ξ»Ξ·ΞΈΞ­Ξ½ Ξ±ΟΟ‡ΞµΞ―ΞΏ, Ξ±Ξ½ΞΏΞ―Ξ³ΞµΞΉ Ξ­Ξ½Ξ± ΞΊΞ±ΞΉΞ½ΞΏΟΟΞΉΞΏ Ο€Ξ±ΟΞ¬ΞΈΟ…ΟΞΏ';
+$_lang['Where is your package ?'] = 'Ξ ΞΏΟ… ΞµΞ―Ξ½Ξ±ΞΉ Ο„ΞΏ Ο€Ξ±ΞΊΞ­Ο„ΞΏ ΟƒΞΏΟ…;';
+$_lang['Which parts of the profile can be changed?'] = 'Ξ ΞΏΞΉΞ± ΞΌΞ­ΟΞ· Ο„ΞΏΟ… Ο€ΟΞΏΟ†Ξ―Ξ» ΞΌΟ€ΞΏΟΞΏΟΞ½ Ξ½Ξ± Ο„ΟΞΏΟ€ΞΏΟ€ΞΏΞΉΞ·ΞΈΞΏΟΞ½;';
 $_lang['Wiki'] = 'Wiki';
-$_lang['Wiki %TITLE% exported to course documents. (this file is visible)'] = 'Wiki %TITLE% παρήγαγε έγγραφα μαθήματος. (αυτό το αρχείο είναι ορατό)';
+$_lang['Wiki %TITLE% exported to course documents. (this file is visible)'] = 'Wiki %TITLE% Ο€Ξ±ΟΞ®Ξ³Ξ±Ξ³Ξµ Ξ­Ξ³Ξ³ΟΞ±Ο†Ξ± ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚. (Ξ±Ο…Ο„Ο Ο„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ ΞµΞ―Ξ½Ξ±ΞΉ ΞΏΟΞ±Ο„Ο)';
 $_lang['Wiki : %s'] = 'Wiki : %s';
-$_lang['Wiki : Create new Wiki'] = 'Wiki : Δημιούργησε καινούργιο Wiki';
-$_lang['Wiki : Edit properties'] = 'Wiki : Αλλάξετε τις ιδιότητες';
-$_lang['Wiki creation succeed'] = 'Η δημιουργία του Wiki ήταν επιτυχημένη';
-$_lang['Wiki deletion succeed'] = 'Η διαγραφή του Wiki ήταν επιτυχημένη';
-$_lang['Wiki description'] = 'Περιγραφή Wiki';
-$_lang['Wiki edition succeed'] = ' Η εκδοση Wiki είναι επιτυχημένη';
-$_lang['Wiki syntax'] = 'Σύνταξη του Wiki ';
-$_lang['Work added'] = 'Η εργασία προστέθηκε';
-$_lang['Work modified'] = 'Επεξεργασία εργασίας';
-$_lang['Work title'] = 'Τίτλος εργασίας';
-$_lang['Worst score'] = 'Ελάχιστο';
-$_lang['Wrong enrolment key'] = 'Λάθος κλειδί εγγραφής';
-$_lang['Wrong operation'] = 'Λανθασμένη λειτουργία';
-$_lang['Wrong page title'] = 'Λάθος τίτλος σελίδας';
-$_lang['Wrong parameters'] = 'Λάθος παράμετροι';
-$_lang['Year'] = 'Έτος';
-$_lang['Yes'] = 'Ναι';
-$_lang['Yes, allow users to submit works after end date'] = 'Ναι, να επιτρέπεται στους χρήστες να υποβάλουν εργασίες μετά την ημερομηνία λήξης ';
-$_lang['Yes, create RDF version'] = 'Ναι, δημιούργησε την RDF έκδοση';
-$_lang['Yes, create XML version'] = 'Ναι, δημιούργησε την XML έκδοση';
-$_lang['Yes, create ics version'] = 'Ναι, δημιούργησε την ICS έκδοση';
-$_lang['Yesterday'] = 'Χθές';
-$_lang['You are not a member of this group'] = 'Δεν είσαι μέλος αυτής της ομάδας';
-$_lang['You are not allowed to create pages'] = ' Δεν επιτρέπεται να δημιουργήσεις σελίδα';
-$_lang['You are not allowed to edit this page'] = ' Δεν επιτρέπεται να αλλάξεις αυτή τη σελίδα';
-$_lang['You are not allowed to read this page'] = 'Δεν επιτρέπεται να διαβάσεις αυτή τη σελίδα';
-$_lang['You are now a member of this group.'] = 'Είσαι τώρα μέλος της ομάδας';
-$_lang['You can force the case  of course code'] = 'Μπορείτε να πιέσετε την περίπτωση του κώδικα μαθήματος';
-$_lang['You can not change your own settings!'] = 'Δεν μπορείς να αλλάξεις τις προσωπικές σου ρυθμίσεις!';
-$_lang['You can not remove a group forum. You have to remove the group first'] = 'Δεν μπορείτε να αφαιρέσετε μια ομάδα συζήτησης. Πρέπει να αφαιρέσετε την ομάδα πρώτα';
-$_lang['You can now create your  course'] = 'Μπορείς τώρα να δημιουργήσεις το δικό σου μάθημα';
-$_lang['You can now select, in the list, the courses you want to access'] = 'Μπορείτε τώρα να παρακολουθήσετε τα μαθήματα που σας ενδιαφέρουν.';
-$_lang['You can set access rights for users using the following grid :'] = ' Μπορείτε να θέσετε τα δικαιώματα πρόσβασης για τους χρήστες χρησιμοποιώντας το ακόλουθο πλέγμα: ';
-$_lang['You can\'t move %facultyCode in the same category !'] = 'Δεν μπορείτε να μεταφέρετε το %facultyCode στον ίδιο κατάλογο !';
-$_lang['You can\'t remove a group forum. You have to remove the group first'] = 'Δεν μπορείτε να μεταφέρετε μία ομάδα του φόρουμ. Θα πρέπει να την διαγράψετε αρχικά';
-$_lang['You cannot give a blank name to a class'] = 'Δεν μπορείς να δώσεις κενό όνομα σε μια τάξη ';
-$_lang['You cannot post an empty message'] = 'Για να στείλετε ένα μήνυμα πρέπει να γράψετε κάποιο κείμενο. Δεν μπορείτε να στείλετε κενό μήνυμα.';
-$_lang['You cannot unsubscribe the last course manager of the course'] = 'Δεν μπορείτε να διαγραψετε τον τελευταίο διευθυντή σειράς μαθημάτων αυτού του μαθήματος';
-$_lang['You didnt choose any file to send, or it is too big'] = 'Δεν διαλέξατε κάποιο αρχείο για να στείλετε, ή αυτο είναι πολύ μεγάλο';
-$_lang['You have just created the course website'] = 'Μόλις δημιουργήσατε το site του μαθήματος';
-$_lang['You have reached the maximum number of allowed attempts.'] = 'Έχετε φτάσει το μέγιστο αριθμό επιτρεπόμενων προσπαθειών.';
-$_lang['You left some required fields empty'] = 'Αφήσατε μερικά πεδία κενά. Χρησιμοποιήστε το πλήκτρο «Επιστροφή» του browser σας και ξαναδοκιμάστε.';
-$_lang['You must introduce the message text'] = 'Πρέπει να εισάγετε το κείμενο μηνύματος.';
-$_lang['You must reach the maximum number of allowed attempts to view these statistics.'] = 'Πρέπει να φτάσετε το μέγιστο αριθμό προσπαθειών για να δείτε αυτά τα στατιστικά.';
-$_lang['You must select a file'] = 'Πρέπει να επιλέξεις ένα αρχείο';
-$_lang['You must select a text file'] = 'Πρέπει να επιλέξεις ένα αρχείο κειμένου.';
-$_lang['You must select some users'] = 'Πρέπει να επιλέξετε χρήστες.';
-$_lang['You must specify the CSV format used in your file'] = 'Πρέπει να συγκεκριμενοποιήσετε το format του CSV που χρησιμοποείται στο αρχείο σας';
-$_lang['You must upload a zip file'] = 'Πρέπει να φορτώσετε ένα αρχείο zip';
-$_lang['You need to be authenticated with your %sitename account'] = 'Πρέπει να πιστοποιηθείτε με το λογαριασμό χρήστη σας για την ιστοσελίδα %sitename';
-$_lang['You typed two different passwords'] = 'Πληκτρολογείσατε δύο διαφορετικούς κωδικούς';
-$_lang['You\'ve been enroled on the course'] = 'Η εγγραφή στο μάθημα ολοκληρώθηκε';
-$_lang['Your best performance'] = 'Η καλύτερη σου βαθμολογία';
-$_lang['Your browser cannot see frames.'] = 'Ο browser σου δεν αναγνωρίζει frames.';
-$_lang['Your campus has been submitted and is waiting to be validate by Claroline.net team'] = 'Το campus σου, έχει υποβληθεί και βρίσκεται σε αναμονή επικύρωσης απο την ομάδα του Claroline.net';
-$_lang['Your choice'] = 'Η επιλογή σας';
-$_lang['Your daddy is'] = ' Ο πατέρας σου είναι';
-$_lang['Your enrolment on the course has been removed'] = 'Η εγγραφή σου στο μάθημα έχει αφαιρεθεί';
-$_lang['Your message has been deleted'] = 'Το μήνυμά σας διαγράφτηκε.';
-$_lang['Your message has been entered'] = 'Το Μήνυμα αποθηκεύτηκε στη βάση.';
-$_lang['Your mother is'] = 'Η μητέρα σου είναι';
-$_lang['Your password has been emailed to'] = 'Ο κωδικός σας έχει σταλεί με email στο ';
-$_lang['Your password(s) is (are) recorded in an external authentication system outside the platform.'] = 'Ο κωδικός(οι) σας είναι αποθηκευμένοι σε ένα εξωτερικό σύστημα πιστοποίησης εκτώς της πλατφόρμας.';
-$_lang['Your progression in this module'] = 'Η πρόοδος σου σε αυτή την ενότητα';
-$_lang['Your registration'] = 'Η εγγραφή σας';
-$_lang['Your request to become a course creator has been sent to platform administrator(s).'] = 'Το αίτημα σου να γίνεις δημιουργός μαθήματος έχει σταλεί στο διαχειριστή -ες της πλατφόρμας.';
-$_lang['Your request to remove your account has been sent'] = 'Το αίτημα σου για να αφαιρεθεί ο λογαριασμός έχει σταλεί';
-$_lang['Your search did not match any courses'] = 'Η αναζήτηση σας δεν βρήκε μαθήματα';
-$_lang['Your time is %time'] = 'Ο χρόνος σας είναι %time';
-$_lang['Your total score is %score'] = 'Η τελική σας βαθμολογία είναι %score';
-$_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'Το προφίλ χρήστη δεν φαινεται εγγεγραμένο σε αυτό το μάθημα';
-$_lang['Zip file uploaded and uncompressed'] = 'Το αρχείο zip ανέβηκε και αποσυμπιέστηκε';
-$_lang['Zlib php extension is required to use this tool. Please contact your platform administrator.'] = 'Η επέκταση Zlib php απαιτείται για τη χρήση αυτού του εργαλείου.  Παρακαλώ επικοινωνήστε με τον διαχειριστή της πλατφόρμας σας.';
-$_lang['all students'] = 'όλοι οι μαθητές';
-$_lang['archive'] = 'αποθήκευση';
+$_lang['Wiki : Create new Wiki'] = 'Wiki : Ξ”Ξ·ΞΌΞΉΞΏΟΟΞ³Ξ·ΟƒΞµ ΞΊΞ±ΞΉΞ½ΞΏΟΟΞ³ΞΉΞΏ Wiki';
+$_lang['Wiki : Edit properties'] = 'Wiki : Ξ‘Ξ»Ξ»Ξ¬ΞΎΞµΟ„Ξµ Ο„ΞΉΟ‚ ΞΉΞ΄ΞΉΟΟ„Ξ·Ο„ΞµΟ‚';
+$_lang['Wiki creation succeed'] = 'Ξ— Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ο„ΞΏΟ… Wiki Ξ®Ο„Ξ±Ξ½ ΞµΟ€ΞΉΟ„Ο…Ο‡Ξ·ΞΌΞ­Ξ½Ξ·';
+$_lang['Wiki deletion succeed'] = 'Ξ— Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ο„ΞΏΟ… Wiki Ξ®Ο„Ξ±Ξ½ ΞµΟ€ΞΉΟ„Ο…Ο‡Ξ·ΞΌΞ­Ξ½Ξ·';
+$_lang['Wiki description'] = 'Ξ ΞµΟΞΉΞ³ΟΞ±Ο†Ξ® Wiki';
+$_lang['Wiki edition succeed'] = ' Ξ— ΞµΞΊΞ΄ΞΏΟƒΞ· Wiki ΞµΞ―Ξ½Ξ±ΞΉ ΞµΟ€ΞΉΟ„Ο…Ο‡Ξ·ΞΌΞ­Ξ½Ξ·';
+$_lang['Wiki syntax'] = 'Ξ£ΟΞ½Ο„Ξ±ΞΎΞ· Ο„ΞΏΟ… Wiki ';
+$_lang['Work added'] = 'Ξ— ΞµΟΞ³Ξ±ΟƒΞ―Ξ± Ο€ΟΞΏΟƒΟ„Ξ­ΞΈΞ·ΞΊΞµ';
+$_lang['Work modified'] = 'Ξ•Ο€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± ΞµΟΞ³Ξ±ΟƒΞ―Ξ±Ο‚';
+$_lang['Work title'] = 'Ξ¤Ξ―Ο„Ξ»ΞΏΟ‚ ΞµΟΞ³Ξ±ΟƒΞ―Ξ±Ο‚';
+$_lang['Works uploaded by the student in the name of \'Authors\''] = 'ΞΞΉ ΞµΟΞ³Ξ±ΟƒΞ―ΞµΟ‚ Ο€ΞΏΟ… Ξ±Ξ½Ξ­Ξ²Ξ·ΞΊΞ±Ξ½ Ξ±Ο€ΞΏ Ο„ΞΏΞ½ ΞΌΞ±ΞΈΞ·Ο„Ξ® ΟƒΟ„ΞΏ ΟΞ½ΞΏΞΌΞ± Ο„ΞΏΟ…Ο‚ \"Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³ΞΏΞ―\"';
+$_lang['Worst score'] = 'Ξ•Ξ»Ξ¬Ο‡ΞΉΟƒΟ„ΞΏ';
+$_lang['Wrong enrolment key'] = 'Ξ›Ξ¬ΞΈΞΏΟ‚ ΞΊΞ»ΞµΞΉΞ΄Ξ― ΞµΞ³Ξ³ΟΞ±Ο†Ξ®Ο‚';
+$_lang['Wrong operation'] = 'Ξ›Ξ±Ξ½ΞΈΞ±ΟƒΞΌΞ­Ξ½Ξ· Ξ»ΞµΞΉΟ„ΞΏΟ…ΟΞ³Ξ―Ξ±';
+$_lang['Wrong page title'] = 'Ξ›Ξ¬ΞΈΞΏΟ‚ Ο„Ξ―Ο„Ξ»ΞΏΟ‚ ΟƒΞµΞ»Ξ―Ξ΄Ξ±Ο‚';
+$_lang['Wrong parameters'] = 'Ξ›Ξ¬ΞΈΞΏΟ‚ Ο€Ξ±ΟΞ¬ΞΌΞµΟ„ΟΞΏΞΉ';
+$_lang['Year'] = 'ΞΟ„ΞΏΟ‚';
+$_lang['Yes'] = 'ΞΞ±ΞΉ';
+$_lang['Yes, allow users to submit works after end date'] = 'ΞΞ±ΞΉ, Ξ½Ξ± ΞµΟ€ΞΉΟ„ΟΞ­Ο€ΞµΟ„Ξ±ΞΉ ΟƒΟ„ΞΏΟ…Ο‚ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ Ξ½Ξ± Ο…Ο€ΞΏΞ²Ξ¬Ξ»ΞΏΟ…Ξ½ ΞµΟΞ³Ξ±ΟƒΞ―ΞµΟ‚ ΞΌΞµΟ„Ξ¬ Ο„Ξ·Ξ½ Ξ·ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ± Ξ»Ξ®ΞΎΞ·Ο‚ ';
+$_lang['Yes, create RDF version'] = 'ΞΞ±ΞΉ, Ξ΄Ξ·ΞΌΞΉΞΏΟΟΞ³Ξ·ΟƒΞµ Ο„Ξ·Ξ½ RDF Ξ­ΞΊΞ΄ΞΏΟƒΞ·';
+$_lang['Yes, create XML version'] = 'ΞΞ±ΞΉ, Ξ΄Ξ·ΞΌΞΉΞΏΟΟΞ³Ξ·ΟƒΞµ Ο„Ξ·Ξ½ XML Ξ­ΞΊΞ΄ΞΏΟƒΞ·';
+$_lang['Yes, create ics version'] = 'ΞΞ±ΞΉ, Ξ΄Ξ·ΞΌΞΉΞΏΟΟΞ³Ξ·ΟƒΞµ Ο„Ξ·Ξ½ ICS Ξ­ΞΊΞ΄ΞΏΟƒΞ·';
+$_lang['Yesterday'] = 'Ξ§ΞΈΞ­Ο‚';
+$_lang['You also need to configure your web server to allow SSL connections to the auth/login.php script !'] = 'Ξ ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΟΟ…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ Ο„ΞΏΞ½ ΞµΞΎΟ…Ο€Ξ·ΟΞ­Ο„Ξ· ΞΉΟƒΟ„ΞΏΟƒΞµΞ»Ξ―Ξ΄Ο‰Ξ½ Ξ½Ξ± Ξ΄Ξ­Ο‡ΞµΟ„Ξµ ΞµΞ½ΟΟƒΞµΞΉΟ‚ SSL ΟƒΟ„ΞΏ Script auth/login.php!';
+$_lang['You are not a member of this group'] = 'Ξ”ΞµΞ½ ΞµΞ―ΟƒΞ±ΞΉ ΞΌΞ­Ξ»ΞΏΟ‚ Ξ±Ο…Ο„Ξ®Ο‚ Ο„Ξ·Ο‚ ΞΏΞΌΞ¬Ξ΄Ξ±Ο‚';
+$_lang['You are not allowed to create pages'] = ' Ξ”ΞµΞ½ ΞµΟ€ΞΉΟ„ΟΞ­Ο€ΞµΟ„Ξ±ΞΉ Ξ½Ξ± Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΟƒΞµΞΉΟ‚ ΟƒΞµΞ»Ξ―Ξ΄Ξ±';
+$_lang['You are not allowed to edit this page'] = ' Ξ”ΞµΞ½ ΞµΟ€ΞΉΟ„ΟΞ­Ο€ΞµΟ„Ξ±ΞΉ Ξ½Ξ± Ξ±Ξ»Ξ»Ξ¬ΞΎΞµΞΉΟ‚ Ξ±Ο…Ο„Ξ® Ο„Ξ· ΟƒΞµΞ»Ξ―Ξ΄Ξ±';
+$_lang['You are not allowed to read this page'] = 'Ξ”ΞµΞ½ ΞµΟ€ΞΉΟ„ΟΞ­Ο€ΞµΟ„Ξ±ΞΉ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ²Ξ¬ΟƒΞµΞΉΟ‚ Ξ±Ο…Ο„Ξ® Ο„Ξ· ΟƒΞµΞ»Ξ―Ξ΄Ξ±';
+$_lang['You are not in a course'] = 'Ξ”ΞµΞ½ ΞµΞ―ΟƒΞ±ΟƒΟ„Ξµ ΟƒΞµ ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['You are now a member of this group.'] = 'Ξ•Ξ―ΟƒΞ±ΞΉ Ο„ΟΟΞ± ΞΌΞ­Ξ»ΞΏΟ‚ Ο„Ξ·Ο‚ ΞΏΞΌΞ¬Ξ΄Ξ±Ο‚';
+$_lang['You are receiving this notification because you are watching a topic on the forum of one of your courses.'] = 'Ξ›Ξ±Ξ²Ξ¬Ξ½ΞµΞΉΟ‚ Ξ±Ο…Ο„Ξ®Ξ½ Ο„Ξ·Ξ½ ΞµΞΉΞ΄ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· ΞµΟ€ΞµΞΉΞ΄Ξ® Ο€Ξ±ΟΞ±ΞΊΞΏΞ»ΞΏΟ…ΞΈΞµΞ―Ο‚ Ξ­Ξ½Ξ± ΞΈΞ­ΞΌΞ± Ξ±Ο€ΞΏ Ο„Ξ·Ξ½ ΟƒΟ…Ξ¶Ξ®Ο„Ξ·ΟƒΞ· ΞΊΞ¬Ο€ΞΏΞΉΞΏΟ… Ξ±Ο€ΞΏ Ο„Ξ± ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„Ξ± ΟƒΞΏΟ….';
+$_lang['You can also change the access rights for the different user profiles.'] = 'ΞΟ€ΞΏΟΞµΞ―Ο‚ Ξ½Ξ± Ξ±Ξ»Ξ»Ξ¬ΞΎΞµΞΉΟ‚ Ο„ΞΏΞ½ Ξ­Ξ»ΞµΞ³Ο‡ΞΏ Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ·Ο‚ Ξ³ΞΉΞ± Ο„Ξ± Ξ΄ΞΉΞ±Ο†ΞΏΟΞµΟ„ΞΉΞΊΞ¬ Ο€ΟΞΏΟ†Ξ―Ξ» Ο‡ΟΞ·ΟƒΟ„ΟΞ½.';
+$_lang['You can choose a title and a description for the wiki :'] = 'ΞΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ»Ξ­ΞΎΞµΟ„Ξµ Ο„Ξ―Ο„Ξ»ΞΏ ΞΊΞ±ΞΉ Ο€ΞµΟΞΉΞ³ΟΞ±Ο†Ξ® Ξ³ΞΉΞ± Ο„Ξ·Ξ½ ΞµΞ³ΞΊΟ…ΞΊΞ»ΞΏΟ€Ξ±Ξ―Ξ΄ΞµΞΉΞ±.';
+$_lang['You can force the case  of course code'] = 'ΞΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± Ο€ΞΉΞ­ΟƒΞµΟ„Ξµ Ο„Ξ·Ξ½ Ο€ΞµΟΞ―Ο€Ο„Ο‰ΟƒΞ· Ο„ΞΏΟ… ΞΊΟΞ΄ΞΉΞΊΞ± ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['You can not change your own settings!'] = 'Ξ”ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ―Ο‚ Ξ½Ξ± Ξ±Ξ»Ξ»Ξ¬ΞΎΞµΞΉΟ‚ Ο„ΞΉΟ‚ Ο€ΟΞΏΟƒΟ‰Ο€ΞΉΞΊΞ­Ο‚ ΟƒΞΏΟ… ΟΟ…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚!';
+$_lang['You can not remove a group forum. You have to remove the group first'] = 'Ξ”ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± Ξ±Ο†Ξ±ΞΉΟΞ­ΟƒΞµΟ„Ξµ ΞΌΞΉΞ± ΞΏΞΌΞ¬Ξ΄Ξ± ΟƒΟ…Ξ¶Ξ®Ο„Ξ·ΟƒΞ·Ο‚. Ξ ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± Ξ±Ο†Ξ±ΞΉΟΞ­ΟƒΞµΟ„Ξµ Ο„Ξ·Ξ½ ΞΏΞΌΞ¬Ξ΄Ξ± Ο€ΟΟΟ„Ξ±';
+$_lang['You can now create your  course'] = 'ΞΟ€ΞΏΟΞµΞ―Ο‚ Ο„ΟΟΞ± Ξ½Ξ± Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΟƒΞµΞΉΟ‚ Ο„ΞΏ Ξ΄ΞΉΞΊΟ ΟƒΞΏΟ… ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['You can now select, in the list, the courses you want to access'] = 'ΞΟ€ΞΏΟΞµΞ―Ο„Ξµ Ο„ΟΟΞ± Ξ½Ξ± Ο€Ξ±ΟΞ±ΞΊΞΏΞ»ΞΏΟ…ΞΈΞ®ΟƒΞµΟ„Ξµ Ο„Ξ± ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„Ξ± Ο€ΞΏΟ… ΟƒΞ±Ο‚ ΞµΞ½Ξ΄ΞΉΞ±Ο†Ξ­ΟΞΏΟ…Ξ½.';
+$_lang['You can set access rights for users using the following grid :'] = ' ΞΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± ΞΈΞ­ΟƒΞµΟ„Ξµ Ο„Ξ± Ξ΄ΞΉΞΊΞ±ΞΉΟΞΌΞ±Ο„Ξ± Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ·Ο‚ Ξ³ΞΉΞ± Ο„ΞΏΟ…Ο‚ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΟΞ½Ο„Ξ±Ο‚ Ο„ΞΏ Ξ±ΞΊΟΞ»ΞΏΟ…ΞΈΞΏ Ο€Ξ»Ξ­Ξ³ΞΌΞ±: ';
+$_lang['You can\'t move %facultyCode in the same category !'] = 'Ξ”ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± ΞΌΞµΟ„Ξ±Ο†Ξ­ΟΞµΟ„Ξµ Ο„ΞΏ %facultyCode ΟƒΟ„ΞΏΞ½ Ξ―Ξ΄ΞΉΞΏ ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏ !';
+$_lang['You can\'t remove a group forum. You have to remove the group first'] = 'Ξ”ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± ΞΌΞµΟ„Ξ±Ο†Ξ­ΟΞµΟ„Ξµ ΞΌΞ―Ξ± ΞΏΞΌΞ¬Ξ΄Ξ± Ο„ΞΏΟ… Ο†ΟΟΞΏΟ…ΞΌ. ΞΞ± Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± Ο„Ξ·Ξ½ Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΟ„Ξµ Ξ±ΟΟ‡ΞΉΞΊΞ¬';
+$_lang['You cannot add module. Change this in configuration.'] = 'Ξ”ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± Ο€ΟΞΏΟƒΞΈΞ­ΟƒΞµΟ„Ξµ ΞµΞ½ΟΟ„Ξ·Ο„Ξ±. Ξ‘Ξ»Ξ»Ξ¬ΞΎΟ„Ξµ Ξ±Ο…Ο„Ο ΟƒΟ„ΞΉΟ‚ ΟΟ…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚.';
+$_lang['You cannot give a blank name to a class'] = 'Ξ”ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ―Ο‚ Ξ½Ξ± Ξ΄ΟΟƒΞµΞΉΟ‚ ΞΊΞµΞ½Ο ΟΞ½ΞΏΞΌΞ± ΟƒΞµ ΞΌΞΉΞ± Ο„Ξ¬ΞΎΞ· ';
+$_lang['You cannot post an empty message'] = 'Ξ“ΞΉΞ± Ξ½Ξ± ΟƒΟ„ΞµΞ―Ξ»ΞµΟ„Ξµ Ξ­Ξ½Ξ± ΞΌΞ®Ξ½Ο…ΞΌΞ± Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± Ξ³ΟΞ¬ΟΞµΟ„Ξµ ΞΊΞ¬Ο€ΞΏΞΉΞΏ ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ. Ξ”ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± ΟƒΟ„ΞµΞ―Ξ»ΞµΟ„Ξµ ΞΊΞµΞ½Ο ΞΌΞ®Ξ½Ο…ΞΌΞ±.';
+$_lang['You cannot unsubscribe the last course manager of the course'] = 'Ξ”ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ±ΟΞµΟ„Ξµ Ο„ΞΏΞ½ Ο„ΞµΞ»ΞµΟ…Ο„Ξ±Ξ―ΞΏ Ξ΄ΞΉΞµΟ…ΞΈΟ…Ξ½Ο„Ξ® ΟƒΞµΞΉΟΞ¬Ο‚ ΞΌΞ±ΞΈΞ·ΞΌΞ¬Ο„Ο‰Ξ½ Ξ±Ο…Ο„ΞΏΟ Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['You didnt choose any file to send, or file is too big'] = 'Ξ”ΞµΞ½ ΞµΟ€ΞΉΞ»Ξ­ΞΎΞ±Ο„Ξµ Ξ±ΟΟ‡ΞµΞ―ΞΏ Ξ³ΞΉΞ± Ξ½Ξ± ΟƒΟ„ΞµΞ―Ξ»ΞµΟ„Ξµ, Ξ· Ο„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ ΟƒΞ±Ο‚ ΞµΞ―Ξ½Ξ±ΞΉ Ο€ΞΏΞ»Ο ΞΌΞµΞ³Ξ¬Ξ»ΞΏ';
+$_lang['You didnt choose any file to send, or it is too big'] = 'Ξ”ΞµΞ½ Ξ΄ΞΉΞ±Ξ»Ξ­ΞΎΞ±Ο„Ξµ ΞΊΞ¬Ο€ΞΏΞΉΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ Ξ³ΞΉΞ± Ξ½Ξ± ΟƒΟ„ΞµΞ―Ξ»ΞµΟ„Ξµ, Ξ® Ξ±Ο…Ο„ΞΏ ΞµΞ―Ξ½Ξ±ΞΉ Ο€ΞΏΞ»Ο ΞΌΞµΞ³Ξ¬Ξ»ΞΏ';
+$_lang['You have just created the course website'] = 'ΞΟΞ»ΞΉΟ‚ Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΟƒΞ±Ο„Ξµ Ο„ΞΏ site Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['You have reached the maximum number of allowed attempts.'] = 'ΞΟ‡ΞµΟ„Ξµ Ο†Ο„Ξ¬ΟƒΞµΞΉ Ο„ΞΏ ΞΌΞ­Ξ³ΞΉΟƒΟ„ΞΏ Ξ±ΟΞΉΞΈΞΌΟ ΞµΟ€ΞΉΟ„ΟΞµΟ€ΟΞΌΞµΞ½Ο‰Ξ½ Ο€ΟΞΏΟƒΟ€Ξ±ΞΈΞµΞΉΟΞ½.';
+$_lang['You left some required fields empty'] = 'Ξ‘Ο†Ξ®ΟƒΞ±Ο„Ξµ ΞΌΞµΟΞΉΞΊΞ¬ Ο€ΞµΞ΄Ξ―Ξ± ΞΊΞµΞ½Ξ¬. Ξ§ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞ®ΟƒΟ„Ξµ Ο„ΞΏ Ο€Ξ»Ξ®ΞΊΟ„ΟΞΏ Β«Ξ•Ο€ΞΉΟƒΟ„ΟΞΏΟ†Ξ®Β» Ο„ΞΏΟ… browser ΟƒΞ±Ο‚ ΞΊΞ±ΞΉ ΞΎΞ±Ξ½Ξ±Ξ΄ΞΏΞΊΞΉΞΌΞ¬ΟƒΟ„Ξµ.';
+$_lang['You must be in a group to send a message to a group'] = 'Ξ ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΞµΞ―ΟƒΞ±ΟƒΟ„Ξµ ΟƒΞµ ΞΏΞΌΞ¬Ξ΄Ξ± Ξ³ΞΉΞ± Ξ½Ξ± ΟƒΟ„ΞµΞ―Ξ»ΞµΟ„Ξµ ΞΌΞ®Ξ½Ο…ΞΌΞ± ΟƒΞµ ΞΌΞΉΞ± ΞΏΞΌΞ¬Ξ΄Ξ±.';
+$_lang['You must introduce the message text'] = 'Ξ ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΞµΞΉΟƒΞ¬Ξ³ΞµΟ„Ξµ Ο„ΞΏ ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ ΞΌΞ·Ξ½ΟΞΌΞ±Ο„ΞΏΟ‚.';
+$_lang['You must reach the maximum number of allowed attempts to view these statistics.'] = 'Ξ ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± Ο†Ο„Ξ¬ΟƒΞµΟ„Ξµ Ο„ΞΏ ΞΌΞ­Ξ³ΞΉΟƒΟ„ΞΏ Ξ±ΟΞΉΞΈΞΌΟ Ο€ΟΞΏΟƒΟ€Ξ±ΞΈΞµΞΉΟΞ½ Ξ³ΞΉΞ± Ξ½Ξ± Ξ΄ΞµΞ―Ο„Ξµ Ξ±Ο…Ο„Ξ¬ Ο„Ξ± ΟƒΟ„Ξ±Ο„ΞΉΟƒΟ„ΞΉΞΊΞ¬.';
+$_lang['You must select a file'] = 'Ξ ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΞµΟ€ΞΉΞ»Ξ­ΞΎΞµΞΉΟ‚ Ξ­Ξ½Ξ± Ξ±ΟΟ‡ΞµΞ―ΞΏ';
+$_lang['You must select a text file'] = 'Ξ ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΞµΟ€ΞΉΞ»Ξ­ΞΎΞµΞΉΟ‚ Ξ­Ξ½Ξ± Ξ±ΟΟ‡ΞµΞ―ΞΏ ΞΊΞµΞΉΞΌΞ­Ξ½ΞΏΟ….';
+$_lang['You must select some users'] = 'Ξ ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΞµΟ€ΞΉΞ»Ξ­ΞΎΞµΟ„Ξµ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚.';
+$_lang['You must specify the CSV format used in your file'] = 'Ξ ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΟƒΟ…Ξ³ΞΊΞµΞΊΟΞΉΞΌΞµΞ½ΞΏΟ€ΞΏΞΉΞ®ΟƒΞµΟ„Ξµ Ο„ΞΏ format Ο„ΞΏΟ… CSV Ο€ΞΏΟ… Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞµΞ―Ο„Ξ±ΞΉ ΟƒΟ„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ ΟƒΞ±Ο‚';
+$_lang['You must upload a zip file'] = 'Ξ ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± Ο†ΞΏΟΟ„ΟΟƒΞµΟ„Ξµ Ξ­Ξ½Ξ± Ξ±ΟΟ‡ΞµΞ―ΞΏ zip';
+$_lang['You need to be authenticated with your %sitename account'] = 'Ξ ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± Ο€ΞΉΟƒΟ„ΞΏΟ€ΞΏΞΉΞ·ΞΈΞµΞ―Ο„Ξµ ΞΌΞµ Ο„ΞΏ Ξ»ΞΏΞ³Ξ±ΟΞΉΞ±ΟƒΞΌΟ Ο‡ΟΞ®ΟƒΟ„Ξ· ΟƒΞ±Ο‚ Ξ³ΞΉΞ± Ο„Ξ·Ξ½ ΞΉΟƒΟ„ΞΏΟƒΞµΞ»Ξ―Ξ΄Ξ± %sitename';
+$_lang['You typed two different passwords'] = 'Ξ Ξ»Ξ·ΞΊΟ„ΟΞΏΞ»ΞΏΞ³ΞµΞ―ΟƒΞ±Ο„Ξµ Ξ΄ΟΞΏ Ξ΄ΞΉΞ±Ο†ΞΏΟΞµΟ„ΞΉΞΊΞΏΟΟ‚ ΞΊΟ‰Ξ΄ΞΉΞΊΞΏΟΟ‚';
+$_lang['You\'ve been enroled on the course'] = 'Ξ— ΞµΞ³Ξ³ΟΞ±Ο†Ξ® ΟƒΟ„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ± ΞΏΞ»ΞΏΞΊΞ»Ξ·ΟΟΞΈΞ·ΞΊΞµ';
+$_lang['Your best performance'] = 'Ξ— ΞΊΞ±Ξ»ΟΟ„ΞµΟΞ· ΟƒΞΏΟ… Ξ²Ξ±ΞΈΞΌΞΏΞ»ΞΏΞ³Ξ―Ξ±';
+$_lang['Your browser cannot see frames.'] = 'Ξ browser ΟƒΞΏΟ… Ξ΄ΞµΞ½ Ξ±Ξ½Ξ±Ξ³Ξ½Ο‰ΟΞ―Ξ¶ΞµΞΉ frames.';
+$_lang['Your campus has been submitted and is waiting to be validate by Claroline.net team'] = 'Ξ¤ΞΏ campus ΟƒΞΏΟ…, Ξ­Ο‡ΞµΞΉ Ο…Ο€ΞΏΞ²Ξ»Ξ·ΞΈΞµΞ― ΞΊΞ±ΞΉ Ξ²ΟΞ―ΟƒΞΊΞµΟ„Ξ±ΞΉ ΟƒΞµ Ξ±Ξ½Ξ±ΞΌΞΏΞ½Ξ® ΞµΟ€ΞΉΞΊΟΟΟ‰ΟƒΞ·Ο‚ Ξ±Ο€ΞΏ Ο„Ξ·Ξ½ ΞΏΞΌΞ¬Ξ΄Ξ± Ο„ΞΏΟ… Claroline.net';
+$_lang['Your choice'] = 'Ξ— ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ® ΟƒΞ±Ο‚';
+$_lang['Your daddy is'] = ' Ξ Ο€Ξ±Ο„Ξ­ΟΞ±Ο‚ ΟƒΞΏΟ… ΞµΞ―Ξ½Ξ±ΞΉ';
+$_lang['Your enrolment on the course has been removed'] = 'Ξ— ΞµΞ³Ξ³ΟΞ±Ο†Ξ® ΟƒΞΏΟ… ΟƒΟ„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ± Ξ­Ο‡ΞµΞΉ Ξ±Ο†Ξ±ΞΉΟΞµΞΈΞµΞ―';
+$_lang['Your file has been renamed to %filename'] = 'Ξ¤ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ ΟƒΞ±Ο‚ Ξ­Ο‡ΞµΞΉ ΞΌΞµΟ„ΞΏΞ½ΞΏΞΌΞ±ΟƒΞΈΞµΞ― ΟƒΞµ %filename';
+$_lang['Your message has been deleted'] = 'Ξ¤ΞΏ ΞΌΞ®Ξ½Ο…ΞΌΞ¬ ΟƒΞ±Ο‚ Ξ΄ΞΉΞ±Ξ³ΟΞ¬Ο†Ο„Ξ·ΞΊΞµ.';
+$_lang['Your message has been entered'] = 'Ξ¤ΞΏ ΞΞ®Ξ½Ο…ΞΌΞ± Ξ±Ο€ΞΏΞΈΞ·ΞΊΞµΟΟ„Ξ·ΞΊΞµ ΟƒΟ„Ξ· Ξ²Ξ¬ΟƒΞ·.';
+$_lang['Your mother is'] = 'Ξ— ΞΌΞ·Ο„Ξ­ΟΞ± ΟƒΞΏΟ… ΞµΞ―Ξ½Ξ±ΞΉ';
+$_lang['Your password has been emailed to'] = 'Ξ ΞΊΟ‰Ξ΄ΞΉΞΊΟΟ‚ ΟƒΞ±Ο‚ Ξ­Ο‡ΞµΞΉ ΟƒΟ„Ξ±Ξ»ΞµΞ― ΞΌΞµ email ΟƒΟ„ΞΏ ';
+$_lang['Your password(s) is (are) recorded in an external authentication system outside the platform.'] = 'Ξ ΞΊΟ‰Ξ΄ΞΉΞΊΟΟ‚(ΞΏΞΉ) ΟƒΞ±Ο‚ ΞµΞ―Ξ½Ξ±ΞΉ Ξ±Ο€ΞΏΞΈΞ·ΞΊΞµΟ…ΞΌΞ­Ξ½ΞΏΞΉ ΟƒΞµ Ξ­Ξ½Ξ± ΞµΞΎΟ‰Ο„ΞµΟΞΉΞΊΟ ΟƒΟΟƒΟ„Ξ·ΞΌΞ± Ο€ΞΉΟƒΟ„ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ·Ο‚ ΞµΞΊΟ„ΟΟ‚ Ο„Ξ·Ο‚ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±Ο‚.';
+$_lang['Your progression in this module'] = 'Ξ— Ο€ΟΟΞΏΞ΄ΞΏΟ‚ ΟƒΞΏΟ… ΟƒΞµ Ξ±Ο…Ο„Ξ® Ο„Ξ·Ξ½ ΞµΞ½ΟΟ„Ξ·Ο„Ξ±';
+$_lang['Your registration'] = 'Ξ— ΞµΞ³Ξ³ΟΞ±Ο†Ξ® ΟƒΞ±Ο‚';
+$_lang['Your request to become a course creator has been sent to platform administrator(s).'] = 'Ξ¤ΞΏ Ξ±Ξ―Ο„Ξ·ΞΌΞ± ΟƒΞΏΟ… Ξ½Ξ± Ξ³Ξ―Ξ½ΞµΞΉΟ‚ Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³ΟΟ‚ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ Ξ­Ο‡ΞµΞΉ ΟƒΟ„Ξ±Ξ»ΞµΞ― ΟƒΟ„ΞΏ Ξ΄ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ® -ΞµΟ‚ Ο„Ξ·Ο‚ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±Ο‚.';
+$_lang['Your request to remove your account has been sent'] = 'Ξ¤ΞΏ Ξ±Ξ―Ο„Ξ·ΞΌΞ± ΟƒΞΏΟ… Ξ³ΞΉΞ± Ξ½Ξ± Ξ±Ο†Ξ±ΞΉΟΞµΞΈΞµΞ― ΞΏ Ξ»ΞΏΞ³Ξ±ΟΞΉΞ±ΟƒΞΌΟΟ‚ Ξ­Ο‡ΞµΞΉ ΟƒΟ„Ξ±Ξ»ΞµΞ―';
+$_lang['Your search did not match any courses'] = 'Ξ— Ξ±Ξ½Ξ±Ξ¶Ξ®Ο„Ξ·ΟƒΞ· ΟƒΞ±Ο‚ Ξ΄ΞµΞ½ Ξ²ΟΞ®ΞΊΞµ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„Ξ±';
+$_lang['Your time is %time'] = 'Ξ Ο‡ΟΟΞ½ΞΏΟ‚ ΟƒΞ±Ο‚ ΞµΞ―Ξ½Ξ±ΞΉ %time';
+$_lang['Your total score is %score'] = 'Ξ— Ο„ΞµΞ»ΞΉΞΊΞ® ΟƒΞ±Ο‚ Ξ²Ξ±ΞΈΞΌΞΏΞ»ΞΏΞ³Ξ―Ξ± ΞµΞ―Ξ½Ξ±ΞΉ %score';
+$_lang['Your user profile doesn\'t seem to be enrolled on this course'] = 'Ξ¤ΞΏ Ο€ΟΞΏΟ†Ξ―Ξ» Ο‡ΟΞ®ΟƒΟ„Ξ· Ξ΄ΞµΞ½ Ο†Ξ±ΞΉΞ½ΞµΟ„Ξ±ΞΉ ΞµΞ³Ξ³ΞµΞ³ΟΞ±ΞΌΞ­Ξ½ΞΏ ΟƒΞµ Ξ±Ο…Ο„Ο Ο„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ±';
+$_lang['Zip file uploaded and uncompressed'] = 'Ξ¤ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ zip Ξ±Ξ½Ξ­Ξ²Ξ·ΞΊΞµ ΞΊΞ±ΞΉ Ξ±Ο€ΞΏΟƒΟ…ΞΌΟ€ΞΉΞ­ΟƒΟ„Ξ·ΞΊΞµ';
+$_lang['Zlib php extension is required to use this tool. Please contact your platform administrator.'] = 'Ξ— ΞµΟ€Ξ­ΞΊΟ„Ξ±ΟƒΞ· Zlib php Ξ±Ο€Ξ±ΞΉΟ„ΞµΞ―Ο„Ξ±ΞΉ Ξ³ΞΉΞ± Ο„Ξ· Ο‡ΟΞ®ΟƒΞ· Ξ±Ο…Ο„ΞΏΟ Ο„ΞΏΟ… ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏΟ….  Ξ Ξ±ΟΞ±ΞΊΞ±Ξ»Ο ΞµΟ€ΞΉΞΊΞΏΞΉΞ½Ο‰Ξ½Ξ®ΟƒΟ„Ξµ ΞΌΞµ Ο„ΞΏΞ½ Ξ΄ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ® Ο„Ξ·Ο‚ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±Ο‚ ΟƒΞ±Ο‚.';
+$_lang['all students'] = 'ΟΞ»ΞΏΞΉ ΞΏΞΉ ΞΌΞ±ΞΈΞ·Ο„Ξ­Ο‚';
+$_lang['archive'] = 'Ξ±Ο€ΞΏΞΈΞ®ΞΊΞµΟ…ΟƒΞ·';
+$_lang['avatar'] = 'ΟƒΟΞΌΞ²ΞΏΞ»ΞΏ';
 $_lang['blockAccountCreationNotification'] = '
-Αγαπητέ(η) %firstname %lastname,
-Είσαστε εγγεγραμένος(η) στο %siteName
-    Όνομα χρήστη :  %username
-    Κωδικός πρόσβασης  : %password
-    Η διεύθυνση του  %siteName
-    είναι : %rootWeb
+Ξ‘Ξ³Ξ±Ο€Ξ·Ο„Ξ­(Ξ·) %firstname %lastname,
+Ξ•Ξ―ΟƒΞ±ΟƒΟ„Ξµ ΞµΞ³Ξ³ΞµΞ³ΟΞ±ΞΌΞ­Ξ½ΞΏΟ‚(Ξ·) ΟƒΟ„ΞΏ %siteName
+    ΞΞ½ΞΏΞΌΞ± Ο‡ΟΞ®ΟƒΟ„Ξ· :  %username
+    ΞΟ‰Ξ΄ΞΉΞΊΟΟ‚ Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ·Ο‚  : %password
+    Ξ— Ξ΄ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ· Ο„ΞΏΟ…  %siteName
+    ΞµΞ―Ξ½Ξ±ΞΉ : %rootWeb
 
-    Σε περίπτωση προβλημάτων, επικοινωνήστε μαζί μας.
-    Με πολλούς χαιρετισμούς,
+    Ξ£Ξµ Ο€ΞµΟΞ―Ο€Ο„Ο‰ΟƒΞ· Ο€ΟΞΏΞ²Ξ»Ξ·ΞΌΞ¬Ο„Ο‰Ξ½, ΞµΟ€ΞΉΞΊΞΏΞΉΞ½Ο‰Ξ½Ξ®ΟƒΟ„Ξµ ΞΌΞ±Ξ¶Ξ― ΞΌΞ±Ο‚.
+    ΞΞµ Ο€ΞΏΞ»Ξ»ΞΏΟΟ‚ Ο‡Ξ±ΞΉΟΞµΟ„ΞΉΟƒΞΌΞΏΟΟ‚,
     %administratorName
 --
-Διευθυντής %administratorName
-Τηλέφωνο. %administratorPhone
+Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½Ο„Ξ®Ο‚ %administratorName
+Ξ¤Ξ·Ξ»Ξ­Ο†Ο‰Ξ½ΞΏ. %administratorPhone
 Email : %administratorEmail
     ';
 $_lang['blockAssignmentsHelp'] = '<p>
-To εργαλειο ανάθεσης εργασίας είναι μια περιοχή δημοσιευμένη για τους μαθητες. Ό διευθυντής του μαθήματος δημιουργεί μία ή περισσότερες αναθέσεις ( Διαφορετικές περιοχές δημοσίευσης ) όπου οι μαθητές θα μπορούν να δημοσιεύσουν τις εργασίες τους.<br /><br />
+To ΞµΟΞ³Ξ±Ξ»ΞµΞΉΞΏ Ξ±Ξ½Ξ¬ΞΈΞµΟƒΞ·Ο‚ ΞµΟΞ³Ξ±ΟƒΞ―Ξ±Ο‚ ΞµΞ―Ξ½Ξ±ΞΉ ΞΌΞΉΞ± Ο€ΞµΟΞΉΞΏΟ‡Ξ® Ξ΄Ξ·ΞΌΞΏΟƒΞΉΞµΟ…ΞΌΞ­Ξ½Ξ· Ξ³ΞΉΞ± Ο„ΞΏΟ…Ο‚ ΞΌΞ±ΞΈΞ·Ο„ΞµΟ‚. Ξ Ξ΄ΞΉΞµΟ…ΞΈΟ…Ξ½Ο„Ξ®Ο‚ Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³ΞµΞ― ΞΌΞ―Ξ± Ξ® Ο€ΞµΟΞΉΟƒΟƒΟΟ„ΞµΟΞµΟ‚ Ξ±Ξ½Ξ±ΞΈΞ­ΟƒΞµΞΉΟ‚ ( Ξ”ΞΉΞ±Ο†ΞΏΟΞµΟ„ΞΉΞΊΞ­Ο‚ Ο€ΞµΟΞΉΞΏΟ‡Ξ­Ο‚ Ξ΄Ξ·ΞΌΞΏΟƒΞ―ΞµΟ…ΟƒΞ·Ο‚ ) ΟΟ€ΞΏΟ… ΞΏΞΉ ΞΌΞ±ΞΈΞ·Ο„Ξ­Ο‚ ΞΈΞ± ΞΌΟ€ΞΏΟΞΏΟΞ½ Ξ½Ξ± Ξ΄Ξ·ΞΌΞΏΟƒΞΉΞµΟΟƒΞΏΟ…Ξ½ Ο„ΞΉΟ‚ ΞµΟΞ³Ξ±ΟƒΞ―ΞµΟ‚ Ο„ΞΏΟ…Ο‚.<br /><br />
 
-Κάθε ανάθεση μπορεί να έχει διαφορετικά αντικείμενα ή απαιτήσεις : δημοσίευση πρεπει να είναι αρχείο, ή κείμενο ή κείμενο και αρχείο, δημοσίευση μπορεί να γίνει για ομάδα αντί για ένα μόνο χρήστη,...<br /><br />
+ΞΞ¬ΞΈΞµ Ξ±Ξ½Ξ¬ΞΈΞµΟƒΞ· ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ­Ο‡ΞµΞΉ Ξ΄ΞΉΞ±Ο†ΞΏΟΞµΟ„ΞΉΞΊΞ¬ Ξ±Ξ½Ο„ΞΉΞΊΞµΞ―ΞΌΞµΞ½Ξ± Ξ® Ξ±Ο€Ξ±ΞΉΟ„Ξ®ΟƒΞµΞΉΟ‚ : Ξ΄Ξ·ΞΌΞΏΟƒΞ―ΞµΟ…ΟƒΞ· Ο€ΟΞµΟ€ΞµΞΉ Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ Ξ±ΟΟ‡ΞµΞ―ΞΏ, Ξ® ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ Ξ® ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ ΞΊΞ±ΞΉ Ξ±ΟΟ‡ΞµΞ―ΞΏ, Ξ΄Ξ·ΞΌΞΏΟƒΞ―ΞµΟ…ΟƒΞ· ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ³Ξ―Ξ½ΞµΞΉ Ξ³ΞΉΞ± ΞΏΞΌΞ¬Ξ΄Ξ± Ξ±Ξ½Ο„Ξ― Ξ³ΞΉΞ± Ξ­Ξ½Ξ± ΞΌΟΞ½ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ·,...<br /><br />
 
-Οι μαθητές έχουν την δυνατότητα να επεξεργαστουν την εργασία τους μετά την υποβολή και ο διευθυντής μαθήματος μπορεί να τους δώσει feedback σχετικά με τις υποβολές τους.
+ΞΞΉ ΞΌΞ±ΞΈΞ·Ο„Ξ­Ο‚ Ξ­Ο‡ΞΏΟ…Ξ½ Ο„Ξ·Ξ½ Ξ΄Ο…Ξ½Ξ±Ο„ΟΟ„Ξ·Ο„Ξ± Ξ½Ξ± ΞµΟ€ΞµΞΎΞµΟΞ³Ξ±ΟƒΟ„ΞΏΟ…Ξ½ Ο„Ξ·Ξ½ ΞµΟΞ³Ξ±ΟƒΞ―Ξ± Ο„ΞΏΟ…Ο‚ ΞΌΞµΟ„Ξ¬ Ο„Ξ·Ξ½ Ο…Ο€ΞΏΞ²ΞΏΞ»Ξ® ΞΊΞ±ΞΉ ΞΏ Ξ΄ΞΉΞµΟ…ΞΈΟ…Ξ½Ο„Ξ®Ο‚ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ο„ΞΏΟ…Ο‚ Ξ΄ΟΟƒΞµΞΉ feedback ΟƒΟ‡ΞµΟ„ΞΉΞΊΞ¬ ΞΌΞµ Ο„ΞΉΟ‚ Ο…Ο€ΞΏΞ²ΞΏΞ»Ξ­Ο‚ Ο„ΞΏΟ…Ο‚.
 </p>
 <hr />
 
-<h4>Δημιουργία ανάθεσης</h4>
-<p>Για να δημιουργήσετε νέα ανάθεση ο διευθυντής μαθήματος πρέπει να εισάγει το εργαλείο ανάθεσης και να κάνει κλικ στο συνδεσμο "Δημιουργία νέας ανάθεσης".
+<h4>Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ξ±Ξ½Ξ¬ΞΈΞµΟƒΞ·Ο‚</h4>
+<p>Ξ“ΞΉΞ± Ξ½Ξ± Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΟƒΞµΟ„Ξµ Ξ½Ξ­Ξ± Ξ±Ξ½Ξ¬ΞΈΞµΟƒΞ· ΞΏ Ξ΄ΞΉΞµΟ…ΞΈΟ…Ξ½Ο„Ξ®Ο‚ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΞµΞΉΟƒΞ¬Ξ³ΞµΞΉ Ο„ΞΏ ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏ Ξ±Ξ½Ξ¬ΞΈΞµΟƒΞ·Ο‚ ΞΊΞ±ΞΉ Ξ½Ξ± ΞΊΞ¬Ξ½ΞµΞΉ ΞΊΞ»ΞΉΞΊ ΟƒΟ„ΞΏ ΟƒΟ…Ξ½Ξ΄ΞµΟƒΞΌΞΏ "Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ξ½Ξ­Ξ±Ο‚ Ξ±Ξ½Ξ¬ΞΈΞµΟƒΞ·Ο‚".
 </p>
-<p>Η φόρμα που εμφανίζεται ρωτά το διαυθυντή μαθήματος για &nbsp;:
+<p>Ξ— Ο†ΟΟΞΌΞ± Ο€ΞΏΟ… ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞµΟ„Ξ±ΞΉ ΟΟ‰Ο„Ξ¬ Ο„ΞΏ Ξ΄ΞΉΞ±Ο…ΞΈΟ…Ξ½Ο„Ξ® ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ Ξ³ΞΉΞ± &nbsp;:
 </p>
-<ul><li> τίτλο&nbsp;: το όνομα της ανάθεσης
-</li><li> περιγραφή&nbsp;: τη δήλωση της ανάθεσης, τι πρεπει οι μαθητευόμενοι να κάνουν
-</li><li> τρόπο υποβολής&nbsp;:
-<ul><li>αρχείο&nbsp;: κάθε ειδος αρχείου που μπορεί να καταχωρηθεί, εχοντας υπ όψη οτι υπάρχει όριο μεγέυους που εξαρτάται απο τη platform, ένα κείμενο μπορεί να ενωθεί για να περιγράφει το αρχείο
+<ul><li> Ο„Ξ―Ο„Ξ»ΞΏ&nbsp;: Ο„ΞΏ ΟΞ½ΞΏΞΌΞ± Ο„Ξ·Ο‚ Ξ±Ξ½Ξ¬ΞΈΞµΟƒΞ·Ο‚
+</li><li> Ο€ΞµΟΞΉΞ³ΟΞ±Ο†Ξ®&nbsp;: Ο„Ξ· Ξ΄Ξ®Ξ»Ο‰ΟƒΞ· Ο„Ξ·Ο‚ Ξ±Ξ½Ξ¬ΞΈΞµΟƒΞ·Ο‚, Ο„ΞΉ Ο€ΟΞµΟ€ΞµΞΉ ΞΏΞΉ ΞΌΞ±ΞΈΞ·Ο„ΞµΟ…ΟΞΌΞµΞ½ΞΏΞΉ Ξ½Ξ± ΞΊΞ¬Ξ½ΞΏΟ…Ξ½
+</li><li> Ο„ΟΟΟ€ΞΏ Ο…Ο€ΞΏΞ²ΞΏΞ»Ξ®Ο‚&nbsp;:
+<ul><li>Ξ±ΟΟ‡ΞµΞ―ΞΏ&nbsp;: ΞΊΞ¬ΞΈΞµ ΞµΞΉΞ΄ΞΏΟ‚ Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… Ο€ΞΏΟ… ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΞΊΞ±Ο„Ξ±Ο‡Ο‰ΟΞ·ΞΈΞµΞ―, ΞµΟ‡ΞΏΞ½Ο„Ξ±Ο‚ Ο…Ο€ ΟΟΞ· ΞΏΟ„ΞΉ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ ΟΟΞΉΞΏ ΞΌΞµΞ³Ξ­Ο…ΞΏΟ…Ο‚ Ο€ΞΏΟ… ΞµΞΎΞ±ΟΟ„Ξ¬Ο„Ξ±ΞΉ Ξ±Ο€ΞΏ Ο„Ξ· platform, Ξ­Ξ½Ξ± ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΞµΞ½Ο‰ΞΈΞµΞ― Ξ³ΞΉΞ± Ξ½Ξ± Ο€ΞµΟΞΉΞ³ΟΞ¬Ο†ΞµΞΉ Ο„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ
 
-</li><li> μονο κειμενο&nbsp;: ενα κείμενο formatted χρησιμοποιώντας το wysiwyg editor
-</li><li> Κείμενο με επισυναπτόμενο αρχείο&nbsp;: ενα κείμενο formatted χρησιμοποιώντας το wysiwyg editor και ένα αρχείο (δεν απαιτειται αρχείο)
+</li><li> ΞΌΞΏΞ½ΞΏ ΞΊΞµΞΉΞΌΞµΞ½ΞΏ&nbsp;: ΞµΞ½Ξ± ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ formatted Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΟΞ½Ο„Ξ±Ο‚ Ο„ΞΏ wysiwyg editor
+</li><li> ΞΞµΞ―ΞΌΞµΞ½ΞΏ ΞΌΞµ ΞµΟ€ΞΉΟƒΟ…Ξ½Ξ±Ο€Ο„ΟΞΌΞµΞ½ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ&nbsp;: ΞµΞ½Ξ± ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ formatted Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΟΞ½Ο„Ξ±Ο‚ Ο„ΞΏ wysiwyg editor ΞΊΞ±ΞΉ Ξ­Ξ½Ξ± Ξ±ΟΟ‡ΞµΞ―ΞΏ (Ξ΄ΞµΞ½ Ξ±Ο€Ξ±ΞΉΟ„ΞµΞΉΟ„Ξ±ΞΉ Ξ±ΟΟ‡ΞµΞ―ΞΏ)
 </li></ul>
-</li><li> ημερομηνία εναρξης&nbsp;: ημερομηνία που θα μπορουν οι χρήστες να αποστείλουν δημοσιευση της ανάθεσης
-</li><li> ημερομηνία προθεσμίας&nbsp;: ημερομηνία μεχρι την οποία θα μπορούν οι χρήστες να αποστείλουν δημοσιευση της ανάθεσης
-</li><li> the default publications visibility&nbsp;: διάλεξε εαν οι δημοσιεύσεις υα είναι φανερές ή οχι σε άλλους χρήστες
-</li><li> τύπος ανάθεσης&nbsp;:
+</li><li> Ξ·ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ± ΞµΞ½Ξ±ΟΞΎΞ·Ο‚&nbsp;: Ξ·ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ± Ο€ΞΏΟ… ΞΈΞ± ΞΌΟ€ΞΏΟΞΏΟ…Ξ½ ΞΏΞΉ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ Ξ½Ξ± Ξ±Ο€ΞΏΟƒΟ„ΞµΞ―Ξ»ΞΏΟ…Ξ½ Ξ΄Ξ·ΞΌΞΏΟƒΞΉΞµΟ…ΟƒΞ· Ο„Ξ·Ο‚ Ξ±Ξ½Ξ¬ΞΈΞµΟƒΞ·Ο‚
+</li><li> Ξ·ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ± Ο€ΟΞΏΞΈΞµΟƒΞΌΞ―Ξ±Ο‚&nbsp;: Ξ·ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ± ΞΌΞµΟ‡ΟΞΉ Ο„Ξ·Ξ½ ΞΏΟ€ΞΏΞ―Ξ± ΞΈΞ± ΞΌΟ€ΞΏΟΞΏΟΞ½ ΞΏΞΉ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ Ξ½Ξ± Ξ±Ο€ΞΏΟƒΟ„ΞµΞ―Ξ»ΞΏΟ…Ξ½ Ξ΄Ξ·ΞΌΞΏΟƒΞΉΞµΟ…ΟƒΞ· Ο„Ξ·Ο‚ Ξ±Ξ½Ξ¬ΞΈΞµΟƒΞ·Ο‚
+</li><li> the default publications visibility&nbsp;: Ξ΄ΞΉΞ¬Ξ»ΞµΞΎΞµ ΞµΞ±Ξ½ ΞΏΞΉ Ξ΄Ξ·ΞΌΞΏΟƒΞΉΞµΟΟƒΞµΞΉΟ‚ Ο…Ξ± ΞµΞ―Ξ½Ξ±ΞΉ Ο†Ξ±Ξ½ΞµΟΞ­Ο‚ Ξ® ΞΏΟ‡ΞΉ ΟƒΞµ Ξ¬Ξ»Ξ»ΞΏΟ…Ο‚ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚
+</li><li> Ο„ΟΟ€ΞΏΟ‚ Ξ±Ξ½Ξ¬ΞΈΞµΟƒΞ·Ο‚&nbsp;:
 
-<ul><li> ατομικός τρόπος&nbsp;: κάθε αυθεντικός χρήστης μπορεί να καταχωρήσει δημοσίευση
-</li><li> ομαδικος τρόπος&nbsp;: ο χρήστης πρέπει να είναι μέλος τουλάχιστον μιας ομάδας του μαθήματος για να δημοσιευσει εργασία και η εργασία πρεπει να καταχωρηθεί στο όνομα της ομάδας
+<ul><li> Ξ±Ο„ΞΏΞΌΞΉΞΊΟΟ‚ Ο„ΟΟΟ€ΞΏΟ‚&nbsp;: ΞΊΞ¬ΞΈΞµ Ξ±Ο…ΞΈΞµΞ½Ο„ΞΉΞΊΟΟ‚ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΞΊΞ±Ο„Ξ±Ο‡Ο‰ΟΞ®ΟƒΞµΞΉ Ξ΄Ξ·ΞΌΞΏΟƒΞ―ΞµΟ…ΟƒΞ·
+</li><li> ΞΏΞΌΞ±Ξ΄ΞΉΞΊΞΏΟ‚ Ο„ΟΟΟ€ΞΏΟ‚&nbsp;: ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ ΞΌΞ­Ξ»ΞΏΟ‚ Ο„ΞΏΟ…Ξ»Ξ¬Ο‡ΞΉΟƒΟ„ΞΏΞ½ ΞΌΞΉΞ±Ο‚ ΞΏΞΌΞ¬Ξ΄Ξ±Ο‚ Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ Ξ³ΞΉΞ± Ξ½Ξ± Ξ΄Ξ·ΞΌΞΏΟƒΞΉΞµΟ…ΟƒΞµΞΉ ΞµΟΞ³Ξ±ΟƒΞ―Ξ± ΞΊΞ±ΞΉ Ξ· ΞµΟΞ³Ξ±ΟƒΞ―Ξ± Ο€ΟΞµΟ€ΞµΞΉ Ξ½Ξ± ΞΊΞ±Ο„Ξ±Ο‡Ο‰ΟΞ·ΞΈΞµΞ― ΟƒΟ„ΞΏ ΟΞ½ΞΏΞΌΞ± Ο„Ξ·Ο‚ ΞΏΞΌΞ¬Ξ΄Ξ±Ο‚
 </li></ul>
-</li><li> άδεια να καταχωρήσει μετα το τέλος προθεσμίας
+</li><li> Ξ¬Ξ΄ΞµΞΉΞ± Ξ½Ξ± ΞΊΞ±Ο„Ξ±Ο‡Ο‰ΟΞ®ΟƒΞµΞΉ ΞΌΞµΟ„Ξ± Ο„ΞΏ Ο„Ξ­Ξ»ΞΏΟ‚ Ο€ΟΞΏΞΈΞµΟƒΞΌΞ―Ξ±Ο‚
 </li></ul>
 <p><br />
-<strong>Προσθήκη αυτόματου feedback</strong>
+<strong>Ξ ΟΞΏΟƒΞΈΞ®ΞΊΞ· Ξ±Ο…Ο„ΟΞΌΞ±Ο„ΞΏΟ… feedback</strong>
 </p>
-<p>Ένα feedback είναι σωστός τρόπος για την ανάθεση εργασίας.  Για να προσθέσεις αυτόματο feedback σε μια εργασία εισήγαγε την εργασια και κανε κλικ στο "Edit automatic feedback" link.  </p>
-<p>Μπορεί να είναι κείμενο ή αρχείο ή και τα δυο.  Ο διευθυντής μαθήματος μπορεί να επιλέξει πότε αυτό το αυτόματο feedback θα εμφανίζεται στους χρήστες ( μετά το τέλος προθεσμίας ανάθεσης εργασίας ή μετά τη πρώτη υποβολή του χρηστη αυτής της ανάθεσης )
+<p>ΞΞ½Ξ± feedback ΞµΞ―Ξ½Ξ±ΞΉ ΟƒΟ‰ΟƒΟ„ΟΟ‚ Ο„ΟΟΟ€ΞΏΟ‚ Ξ³ΞΉΞ± Ο„Ξ·Ξ½ Ξ±Ξ½Ξ¬ΞΈΞµΟƒΞ· ΞµΟΞ³Ξ±ΟƒΞ―Ξ±Ο‚.  Ξ“ΞΉΞ± Ξ½Ξ± Ο€ΟΞΏΟƒΞΈΞ­ΟƒΞµΞΉΟ‚ Ξ±Ο…Ο„ΟΞΌΞ±Ο„ΞΏ feedback ΟƒΞµ ΞΌΞΉΞ± ΞµΟΞ³Ξ±ΟƒΞ―Ξ± ΞµΞΉΟƒΞ®Ξ³Ξ±Ξ³Ξµ Ο„Ξ·Ξ½ ΞµΟΞ³Ξ±ΟƒΞΉΞ± ΞΊΞ±ΞΉ ΞΊΞ±Ξ½Ξµ ΞΊΞ»ΞΉΞΊ ΟƒΟ„ΞΏ "Edit automatic feedback" link.  </p>
+<p>ΞΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ Ξ® Ξ±ΟΟ‡ΞµΞ―ΞΏ Ξ® ΞΊΞ±ΞΉ Ο„Ξ± Ξ΄Ο…ΞΏ.  Ξ Ξ΄ΞΉΞµΟ…ΞΈΟ…Ξ½Ο„Ξ®Ο‚ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΞµΟ€ΞΉΞ»Ξ­ΞΎΞµΞΉ Ο€ΟΟ„Ξµ Ξ±Ο…Ο„Ο Ο„ΞΏ Ξ±Ο…Ο„ΟΞΌΞ±Ο„ΞΏ feedback ΞΈΞ± ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞµΟ„Ξ±ΞΉ ΟƒΟ„ΞΏΟ…Ο‚ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ ( ΞΌΞµΟ„Ξ¬ Ο„ΞΏ Ο„Ξ­Ξ»ΞΏΟ‚ Ο€ΟΞΏΞΈΞµΟƒΞΌΞ―Ξ±Ο‚ Ξ±Ξ½Ξ¬ΞΈΞµΟƒΞ·Ο‚ ΞµΟΞ³Ξ±ΟƒΞ―Ξ±Ο‚ Ξ® ΞΌΞµΟ„Ξ¬ Ο„Ξ· Ο€ΟΟΟ„Ξ· Ο…Ο€ΞΏΞ²ΞΏΞ»Ξ® Ο„ΞΏΟ… Ο‡ΟΞ·ΟƒΟ„Ξ· Ξ±Ο…Ο„Ξ®Ο‚ Ο„Ξ·Ο‚ Ξ±Ξ½Ξ¬ΞΈΞµΟƒΞ·Ο‚ )
 </p>
 
 <hr />
-<h4>Εργασίες</h4>
-<p>Οι εργασίες είναι οι δημοσιευμένες καταχωρήεις των χρηστων.</p>
-<p>Για κάθε ανάθεση το μεσο-εργαλειο δειχνει μια λίστα όλων των χρηστων εγγεγραμενων στο μάθημα και για κάθε χρήστη ο τίτλος της πρώτης εργασίας που δημοσίευσε, τον αριθμό υποβολών και των αριθμό των feedbacks.
-Η λίστα δημοσιευμάτων σχετιζόμενων με το χρήστη και την ανάθεση μπορεί να εμφανιστεί με το να κανεις κλικ στο όνομα του χρήστη.</p>
-<p><strong>Υποβολή εργασίας</strong></p>
-<p>Εαν ο χρήστης έχει το δικαιώμα να υποβάλλει εργασία θα εμφανίζεται σε ένα σύνδεσμο υποβολής αίτησης .</p>
-<p><strong>Λίστα εργασιών</strong></p>
-<p>Σαν διευθυντής μαθήματος έχετε το δικαίωμα να επιμεληθείτε, διαγράψετε, κανετε ορατη/μη ορατη  όποια εργασια θελετε.  Μπορείς επίσης να προσθέσεις feedback για καθε εργασία.
+<h4>Ξ•ΟΞ³Ξ±ΟƒΞ―ΞµΟ‚</h4>
+<p>ΞΞΉ ΞµΟΞ³Ξ±ΟƒΞ―ΞµΟ‚ ΞµΞ―Ξ½Ξ±ΞΉ ΞΏΞΉ Ξ΄Ξ·ΞΌΞΏΟƒΞΉΞµΟ…ΞΌΞ­Ξ½ΞµΟ‚ ΞΊΞ±Ο„Ξ±Ο‡Ο‰ΟΞ®ΞµΞΉΟ‚ Ο„Ο‰Ξ½ Ο‡ΟΞ·ΟƒΟ„Ο‰Ξ½.</p>
+<p>Ξ“ΞΉΞ± ΞΊΞ¬ΞΈΞµ Ξ±Ξ½Ξ¬ΞΈΞµΟƒΞ· Ο„ΞΏ ΞΌΞµΟƒΞΏ-ΞµΟΞ³Ξ±Ξ»ΞµΞΉΞΏ Ξ΄ΞµΞΉΟ‡Ξ½ΞµΞΉ ΞΌΞΉΞ± Ξ»Ξ―ΟƒΟ„Ξ± ΟΞ»Ο‰Ξ½ Ο„Ο‰Ξ½ Ο‡ΟΞ·ΟƒΟ„Ο‰Ξ½ ΞµΞ³Ξ³ΞµΞ³ΟΞ±ΞΌΞµΞ½Ο‰Ξ½ ΟƒΟ„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ± ΞΊΞ±ΞΉ Ξ³ΞΉΞ± ΞΊΞ¬ΞΈΞµ Ο‡ΟΞ®ΟƒΟ„Ξ· ΞΏ Ο„Ξ―Ο„Ξ»ΞΏΟ‚ Ο„Ξ·Ο‚ Ο€ΟΟΟ„Ξ·Ο‚ ΞµΟΞ³Ξ±ΟƒΞ―Ξ±Ο‚ Ο€ΞΏΟ… Ξ΄Ξ·ΞΌΞΏΟƒΞ―ΞµΟ…ΟƒΞµ, Ο„ΞΏΞ½ Ξ±ΟΞΉΞΈΞΌΟ Ο…Ο€ΞΏΞ²ΞΏΞ»ΟΞ½ ΞΊΞ±ΞΉ Ο„Ο‰Ξ½ Ξ±ΟΞΉΞΈΞΌΟ Ο„Ο‰Ξ½ feedbacks.
+Ξ— Ξ»Ξ―ΟƒΟ„Ξ± Ξ΄Ξ·ΞΌΞΏΟƒΞΉΞµΟ…ΞΌΞ¬Ο„Ο‰Ξ½ ΟƒΟ‡ΞµΟ„ΞΉΞ¶ΟΞΌΞµΞ½Ο‰Ξ½ ΞΌΞµ Ο„ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ· ΞΊΞ±ΞΉ Ο„Ξ·Ξ½ Ξ±Ξ½Ξ¬ΞΈΞµΟƒΞ· ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΞµΞΌΟ†Ξ±Ξ½ΞΉΟƒΟ„ΞµΞ― ΞΌΞµ Ο„ΞΏ Ξ½Ξ± ΞΊΞ±Ξ½ΞµΞΉΟ‚ ΞΊΞ»ΞΉΞΊ ΟƒΟ„ΞΏ ΟΞ½ΞΏΞΌΞ± Ο„ΞΏΟ… Ο‡ΟΞ®ΟƒΟ„Ξ·.</p>
+<p><strong>Ξ¥Ο€ΞΏΞ²ΞΏΞ»Ξ® ΞµΟΞ³Ξ±ΟƒΞ―Ξ±Ο‚</strong></p>
+<p>Ξ•Ξ±Ξ½ ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ Ξ­Ο‡ΞµΞΉ Ο„ΞΏ Ξ΄ΞΉΞΊΞ±ΞΉΟΞΌΞ± Ξ½Ξ± Ο…Ο€ΞΏΞ²Ξ¬Ξ»Ξ»ΞµΞΉ ΞµΟΞ³Ξ±ΟƒΞ―Ξ± ΞΈΞ± ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞµΟ„Ξ±ΞΉ ΟƒΞµ Ξ­Ξ½Ξ± ΟƒΟΞ½Ξ΄ΞµΟƒΞΌΞΏ Ο…Ο€ΞΏΞ²ΞΏΞ»Ξ®Ο‚ Ξ±Ξ―Ο„Ξ·ΟƒΞ·Ο‚ .</p>
+<p><strong>Ξ›Ξ―ΟƒΟ„Ξ± ΞµΟΞ³Ξ±ΟƒΞΉΟΞ½</strong></p>
+<p>Ξ£Ξ±Ξ½ Ξ΄ΞΉΞµΟ…ΞΈΟ…Ξ½Ο„Ξ®Ο‚ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ Ξ­Ο‡ΞµΟ„Ξµ Ο„ΞΏ Ξ΄ΞΉΞΊΞ±Ξ―Ο‰ΞΌΞ± Ξ½Ξ± ΞµΟ€ΞΉΞΌΞµΞ»Ξ·ΞΈΞµΞ―Ο„Ξµ, Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΟ„Ξµ, ΞΊΞ±Ξ½ΞµΟ„Ξµ ΞΏΟΞ±Ο„Ξ·/ΞΌΞ· ΞΏΟΞ±Ο„Ξ·  ΟΟ€ΞΏΞΉΞ± ΞµΟΞ³Ξ±ΟƒΞΉΞ± ΞΈΞµΞ»ΞµΟ„Ξµ.  ΞΟ€ΞΏΟΞµΞ―Ο‚ ΞµΟ€Ξ―ΟƒΞ·Ο‚ Ξ½Ξ± Ο€ΟΞΏΟƒΞΈΞ­ΟƒΞµΞΉΟ‚ feedback Ξ³ΞΉΞ± ΞΊΞ±ΞΈΞµ ΞµΟΞ³Ξ±ΟƒΞ―Ξ±.
 </p>
 <ul>
-<li> <strong>Modify</strong>&nbsp;: Εαν παρουσιαστεί αθτό το σύμβολο σημαίνει ότι ο χρήστης μπορεί να επεγεργαστεί το περιεχόμενο της εργασίας, εμφανίζεται όταν ο χρήστης είναι διευθυντής μαθήματος, όταν ο χρήστης κοιτάζει τις εργασίες του ή της ομαδας του.
+<li> <strong>Modify</strong>&nbsp;: Ξ•Ξ±Ξ½ Ο€Ξ±ΟΞΏΟ…ΟƒΞΉΞ±ΟƒΟ„ΞµΞ― Ξ±ΞΈΟ„Ο Ο„ΞΏ ΟƒΟΞΌΞ²ΞΏΞ»ΞΏ ΟƒΞ·ΞΌΞ±Ξ―Ξ½ΞµΞΉ ΟΟ„ΞΉ ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΞµΟ€ΞµΞ³ΞµΟΞ³Ξ±ΟƒΟ„ΞµΞ― Ο„ΞΏ Ο€ΞµΟΞΉΞµΟ‡ΟΞΌΞµΞ½ΞΏ Ο„Ξ·Ο‚ ΞµΟΞ³Ξ±ΟƒΞ―Ξ±Ο‚, ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞµΟ„Ξ±ΞΉ ΟΟ„Ξ±Ξ½ ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ ΞµΞ―Ξ½Ξ±ΞΉ Ξ΄ΞΉΞµΟ…ΞΈΟ…Ξ½Ο„Ξ®Ο‚ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚, ΟΟ„Ξ±Ξ½ ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ ΞΊΞΏΞΉΟ„Ξ¬Ξ¶ΞµΞΉ Ο„ΞΉΟ‚ ΞµΟΞ³Ξ±ΟƒΞ―ΞµΟ‚ Ο„ΞΏΟ… Ξ® Ο„Ξ·Ο‚ ΞΏΞΌΞ±Ξ΄Ξ±Ο‚ Ο„ΞΏΟ….
 
 </li>
-<li> <strong>Delete</strong>&nbsp;: Αυτή η εντολή επιτρέπει στο διευθυντή μαθήματος να διαγράψει εργασία.
+<li> <strong>Delete</strong>&nbsp;: Ξ‘Ο…Ο„Ξ® Ξ· ΞµΞ½Ο„ΞΏΞ»Ξ® ΞµΟ€ΞΉΟ„ΟΞ­Ο€ΞµΞΉ ΟƒΟ„ΞΏ Ξ΄ΞΉΞµΟ…ΞΈΟ…Ξ½Ο„Ξ® ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΞΉ ΞµΟΞ³Ξ±ΟƒΞ―Ξ±.
 </li>
-<li> <strong>Visible</strong>&nbsp;: Εαν εμφανιστεί αυτο το συμβολο για καποια εργασία, σημαινει οτι η εργασία ειναι ορατή  στους μαθητες. Αυτό είναι όπως  στο εργαλειο εγγράφου του Claroline. Μπορείς να αλλάξεις τη ρύθμιση με το να κανεις κλικ στο συμβολο-εικόνα.
+<li> <strong>Visible</strong>&nbsp;: Ξ•Ξ±Ξ½ ΞµΞΌΟ†Ξ±Ξ½ΞΉΟƒΟ„ΞµΞ― Ξ±Ο…Ο„ΞΏ Ο„ΞΏ ΟƒΟ…ΞΌΞ²ΞΏΞ»ΞΏ Ξ³ΞΉΞ± ΞΊΞ±Ο€ΞΏΞΉΞ± ΞµΟΞ³Ξ±ΟƒΞ―Ξ±, ΟƒΞ·ΞΌΞ±ΞΉΞ½ΞµΞΉ ΞΏΟ„ΞΉ Ξ· ΞµΟΞ³Ξ±ΟƒΞ―Ξ± ΞµΞΉΞ½Ξ±ΞΉ ΞΏΟΞ±Ο„Ξ®  ΟƒΟ„ΞΏΟ…Ο‚ ΞΌΞ±ΞΈΞ·Ο„ΞµΟ‚. Ξ‘Ο…Ο„Ο ΞµΞ―Ξ½Ξ±ΞΉ ΟΟ€Ο‰Ο‚  ΟƒΟ„ΞΏ ΞµΟΞ³Ξ±Ξ»ΞµΞΉΞΏ ΞµΞ³Ξ³ΟΞ¬Ο†ΞΏΟ… Ο„ΞΏΟ… Claroline. ΞΟ€ΞΏΟΞµΞ―Ο‚ Ξ½Ξ± Ξ±Ξ»Ξ»Ξ¬ΞΎΞµΞΉΟ‚ Ο„Ξ· ΟΟΞΈΞΌΞΉΟƒΞ· ΞΌΞµ Ο„ΞΏ Ξ½Ξ± ΞΊΞ±Ξ½ΞµΞΉΟ‚ ΞΊΞ»ΞΉΞΊ ΟƒΟ„ΞΏ ΟƒΟ…ΞΌΞ²ΞΏΞ»ΞΏ-ΞµΞΉΞΊΟΞ½Ξ±.
 </li>
-<li> <strong>Invisible</strong>&nbsp;: Εαν εμφανιστεί αυτο το συμβολο για καποια εργασία, σημαινει οτι η εργασία δεν ειναι ορατή  στους μαθητες. Αυτό είναι όπως  στο εργαλειο εγγράφου του Claroline. Μπορείς να αλλάξεις τη ρύθμιση με το να κανεις κλικ στο συμβολο-εικόνα.
+<li> <strong>Invisible</strong>&nbsp;: Ξ•Ξ±Ξ½ ΞµΞΌΟ†Ξ±Ξ½ΞΉΟƒΟ„ΞµΞ― Ξ±Ο…Ο„ΞΏ Ο„ΞΏ ΟƒΟ…ΞΌΞ²ΞΏΞ»ΞΏ Ξ³ΞΉΞ± ΞΊΞ±Ο€ΞΏΞΉΞ± ΞµΟΞ³Ξ±ΟƒΞ―Ξ±, ΟƒΞ·ΞΌΞ±ΞΉΞ½ΞµΞΉ ΞΏΟ„ΞΉ Ξ· ΞµΟΞ³Ξ±ΟƒΞ―Ξ± Ξ΄ΞµΞ½ ΞµΞΉΞ½Ξ±ΞΉ ΞΏΟΞ±Ο„Ξ®  ΟƒΟ„ΞΏΟ…Ο‚ ΞΌΞ±ΞΈΞ·Ο„ΞµΟ‚. Ξ‘Ο…Ο„Ο ΞµΞ―Ξ½Ξ±ΞΉ ΟΟ€Ο‰Ο‚  ΟƒΟ„ΞΏ ΞµΟΞ³Ξ±Ξ»ΞµΞΉΞΏ ΞµΞ³Ξ³ΟΞ¬Ο†ΞΏΟ… Ο„ΞΏΟ… Claroline. ΞΟ€ΞΏΟΞµΞ―Ο‚ Ξ½Ξ± Ξ±Ξ»Ξ»Ξ¬ΞΎΞµΞΉΟ‚ Ο„Ξ· ΟΟΞΈΞΌΞΉΟƒΞ· ΞΌΞµ Ο„ΞΏ Ξ½Ξ± ΞΊΞ±Ξ½ΞµΞΉΟ‚ ΞΊΞ»ΞΉΞΊ ΟƒΟ„ΞΏ ΟƒΟ…ΞΌΞ²ΞΏΞ»ΞΏ-ΞµΞΉΞΊΟΞ½Ξ±.
 
 </li>
-<li> <strong>Προσθήκη feedback</strong>&nbsp;: επιτρέπει στο διευθυντή μαθήματος να δημοσιεύσει  ένα feedback σχετικά με την εργασία του χρήστη.  Το feedback μπορεί να είναι αρχείο ή κείμενο ή και τα δυο με προσωπικό μήνυμα που μονο διευθυντης-ες μαθήματος θα μπορουν να δουν και να βαθμολογήσουν σε ποσοστό.
+<li> <strong>Ξ ΟΞΏΟƒΞΈΞ®ΞΊΞ· feedback</strong>&nbsp;: ΞµΟ€ΞΉΟ„ΟΞ­Ο€ΞµΞΉ ΟƒΟ„ΞΏ Ξ΄ΞΉΞµΟ…ΞΈΟ…Ξ½Ο„Ξ® ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ Ξ½Ξ± Ξ΄Ξ·ΞΌΞΏΟƒΞΉΞµΟΟƒΞµΞΉ  Ξ­Ξ½Ξ± feedback ΟƒΟ‡ΞµΟ„ΞΉΞΊΞ¬ ΞΌΞµ Ο„Ξ·Ξ½ ΞµΟΞ³Ξ±ΟƒΞ―Ξ± Ο„ΞΏΟ… Ο‡ΟΞ®ΟƒΟ„Ξ·.  Ξ¤ΞΏ feedback ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ Ξ±ΟΟ‡ΞµΞ―ΞΏ Ξ® ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ Ξ® ΞΊΞ±ΞΉ Ο„Ξ± Ξ΄Ο…ΞΏ ΞΌΞµ Ο€ΟΞΏΟƒΟ‰Ο€ΞΉΞΊΟ ΞΌΞ®Ξ½Ο…ΞΌΞ± Ο€ΞΏΟ… ΞΌΞΏΞ½ΞΏ Ξ΄ΞΉΞµΟ…ΞΈΟ…Ξ½Ο„Ξ·Ο‚-ΞµΟ‚ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ ΞΈΞ± ΞΌΟ€ΞΏΟΞΏΟ…Ξ½ Ξ½Ξ± Ξ΄ΞΏΟ…Ξ½ ΞΊΞ±ΞΉ Ξ½Ξ± Ξ²Ξ±ΞΈΞΌΞΏΞ»ΞΏΞ³Ξ®ΟƒΞΏΟ…Ξ½ ΟƒΞµ Ο€ΞΏΟƒΞΏΟƒΟ„Ο.
 </li>
 </ul>
 
 
 
 ';
-$_lang['blockClaroMainHelp'] = 'Εδώ, καθηγητές και βοηθοί δημιουργούν και διαχειρίζονται
- τους δικτυακούς τόπους των μαθημάτων τους. Οι φοιτητές μπορούν να διαβάσουν
- τα έγγραφα,  τα προγράμματα, την ατζέντα, κλπ., να κάνουν ασκήσεις, να
- δημοσιεύσουν εργασίες, να συμμετάσχουν σε συζητήσεις, κ.α.</p>
- <p><b>Εγγραφή</b></p><p>Αν είστε φοιτητής, θα πρέπει να εγγραφείτε
- επιλέγοντας «Παρακολούθηση μαθημάτων», και μετά να επιλέξετε τα μαθήματα που
- επιθυμείτε να παρακολουθήσετε.</p><p>Αν είστε καθηγητής ή βοηθός, θα πρέπει
- και πάλι να εγγραφείτε, επιλέγοντας όμως «Δημιουργία μαθημάτων». Στη συνέχεια,
- θα συμπληρώσετε μια φόρμα με τα στοιχεία του μαθήματός σας: τίτλο και
- κωδικό μαθήματος και σχολή/τμήμα που ανήκει. Μόλις επικυρώσετε τα στοιχεία
- αυτά, θα μεταφερθείτε στη σελίδα που μόλις θα έχει δημιουργηθεί για το μάθημα,
- και θα μπορείτε να αλλάξετε τα περιεχόμενά και την οργάνωσή της ανάλογα με
- τις ανάγκες σας.</p><p>Αν η σελίδα αυτή δεν ανταποκρίνεται στις ανάγκες σας,
- παρακαλούμε ενημερώστε μας μέσω της λίστας «Να γίνουν», που εμφανίζεται στην
- αρχική σελίδα της τάξης
+$_lang['blockClaroMainHelp'] = 'Ξ•Ξ΄Ο, ΞΊΞ±ΞΈΞ·Ξ³Ξ·Ο„Ξ­Ο‚ ΞΊΞ±ΞΉ Ξ²ΞΏΞ·ΞΈΞΏΞ― Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³ΞΏΟΞ½ ΞΊΞ±ΞΉ Ξ΄ΞΉΞ±Ο‡ΞµΞΉΟΞ―Ξ¶ΞΏΞ½Ο„Ξ±ΞΉ
+ Ο„ΞΏΟ…Ο‚ Ξ΄ΞΉΞΊΟ„Ο…Ξ±ΞΊΞΏΟΟ‚ Ο„ΟΟ€ΞΏΟ…Ο‚ Ο„Ο‰Ξ½ ΞΌΞ±ΞΈΞ·ΞΌΞ¬Ο„Ο‰Ξ½ Ο„ΞΏΟ…Ο‚. ΞΞΉ Ο†ΞΏΞΉΟ„Ξ·Ο„Ξ­Ο‚ ΞΌΟ€ΞΏΟΞΏΟΞ½ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ²Ξ¬ΟƒΞΏΟ…Ξ½
+ Ο„Ξ± Ξ­Ξ³Ξ³ΟΞ±Ο†Ξ±,  Ο„Ξ± Ο€ΟΞΏΞ³ΟΞ¬ΞΌΞΌΞ±Ο„Ξ±, Ο„Ξ·Ξ½ Ξ±Ο„Ξ¶Ξ­Ξ½Ο„Ξ±, ΞΊΞ»Ο€., Ξ½Ξ± ΞΊΞ¬Ξ½ΞΏΟ…Ξ½ Ξ±ΟƒΞΊΞ®ΟƒΞµΞΉΟ‚, Ξ½Ξ±
+ Ξ΄Ξ·ΞΌΞΏΟƒΞΉΞµΟΟƒΞΏΟ…Ξ½ ΞµΟΞ³Ξ±ΟƒΞ―ΞµΟ‚, Ξ½Ξ± ΟƒΟ…ΞΌΞΌΞµΟ„Ξ¬ΟƒΟ‡ΞΏΟ…Ξ½ ΟƒΞµ ΟƒΟ…Ξ¶Ξ·Ο„Ξ®ΟƒΞµΞΉΟ‚, ΞΊ.Ξ±.</p>
+ <p><b>Ξ•Ξ³Ξ³ΟΞ±Ο†Ξ®</b></p><p>Ξ‘Ξ½ ΞµΞ―ΟƒΟ„Ξµ Ο†ΞΏΞΉΟ„Ξ·Ο„Ξ®Ο‚, ΞΈΞ± Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΞµΞ³Ξ³ΟΞ±Ο†ΞµΞ―Ο„Ξµ
+ ΞµΟ€ΞΉΞ»Ξ­Ξ³ΞΏΞ½Ο„Ξ±Ο‚ Β«Ξ Ξ±ΟΞ±ΞΊΞΏΞ»ΞΏΟΞΈΞ·ΟƒΞ· ΞΌΞ±ΞΈΞ·ΞΌΞ¬Ο„Ο‰Ξ½Β», ΞΊΞ±ΞΉ ΞΌΞµΟ„Ξ¬ Ξ½Ξ± ΞµΟ€ΞΉΞ»Ξ­ΞΎΞµΟ„Ξµ Ο„Ξ± ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„Ξ± Ο€ΞΏΟ…
+ ΞµΟ€ΞΉΞΈΟ…ΞΌΞµΞ―Ο„Ξµ Ξ½Ξ± Ο€Ξ±ΟΞ±ΞΊΞΏΞ»ΞΏΟ…ΞΈΞ®ΟƒΞµΟ„Ξµ.</p><p>Ξ‘Ξ½ ΞµΞ―ΟƒΟ„Ξµ ΞΊΞ±ΞΈΞ·Ξ³Ξ·Ο„Ξ®Ο‚ Ξ® Ξ²ΞΏΞ·ΞΈΟΟ‚, ΞΈΞ± Ο€ΟΞ­Ο€ΞµΞΉ
+ ΞΊΞ±ΞΉ Ο€Ξ¬Ξ»ΞΉ Ξ½Ξ± ΞµΞ³Ξ³ΟΞ±Ο†ΞµΞ―Ο„Ξµ, ΞµΟ€ΞΉΞ»Ξ­Ξ³ΞΏΞ½Ο„Ξ±Ο‚ ΟΞΌΟ‰Ο‚ Β«Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± ΞΌΞ±ΞΈΞ·ΞΌΞ¬Ο„Ο‰Ξ½Β». Ξ£Ο„Ξ· ΟƒΟ…Ξ½Ξ­Ο‡ΞµΞΉΞ±,
+ ΞΈΞ± ΟƒΟ…ΞΌΟ€Ξ»Ξ·ΟΟΟƒΞµΟ„Ξµ ΞΌΞΉΞ± Ο†ΟΟΞΌΞ± ΞΌΞµ Ο„Ξ± ΟƒΟ„ΞΏΞΉΟ‡ΞµΞ―Ξ± Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΟΟ‚ ΟƒΞ±Ο‚: Ο„Ξ―Ο„Ξ»ΞΏ ΞΊΞ±ΞΉ
+ ΞΊΟ‰Ξ΄ΞΉΞΊΟ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ ΞΊΞ±ΞΉ ΟƒΟ‡ΞΏΞ»Ξ®/Ο„ΞΌΞ®ΞΌΞ± Ο€ΞΏΟ… Ξ±Ξ½Ξ®ΞΊΞµΞΉ. ΞΟΞ»ΞΉΟ‚ ΞµΟ€ΞΉΞΊΟ…ΟΟΟƒΞµΟ„Ξµ Ο„Ξ± ΟƒΟ„ΞΏΞΉΟ‡ΞµΞ―Ξ±
+ Ξ±Ο…Ο„Ξ¬, ΞΈΞ± ΞΌΞµΟ„Ξ±Ο†ΞµΟΞΈΞµΞ―Ο„Ξµ ΟƒΟ„Ξ· ΟƒΞµΞ»Ξ―Ξ΄Ξ± Ο€ΞΏΟ… ΞΌΟΞ»ΞΉΟ‚ ΞΈΞ± Ξ­Ο‡ΞµΞΉ Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ·ΞΈΞµΞ― Ξ³ΞΉΞ± Ο„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ±,
+ ΞΊΞ±ΞΉ ΞΈΞ± ΞΌΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± Ξ±Ξ»Ξ»Ξ¬ΞΎΞµΟ„Ξµ Ο„Ξ± Ο€ΞµΟΞΉΞµΟ‡ΟΞΌΞµΞ½Ξ¬ ΞΊΞ±ΞΉ Ο„Ξ·Ξ½ ΞΏΟΞ³Ξ¬Ξ½Ο‰ΟƒΞ® Ο„Ξ·Ο‚ Ξ±Ξ½Ξ¬Ξ»ΞΏΞ³Ξ± ΞΌΞµ
+ Ο„ΞΉΟ‚ Ξ±Ξ½Ξ¬Ξ³ΞΊΞµΟ‚ ΟƒΞ±Ο‚.</p><p>Ξ‘Ξ½ Ξ· ΟƒΞµΞ»Ξ―Ξ΄Ξ± Ξ±Ο…Ο„Ξ® Ξ΄ΞµΞ½ Ξ±Ξ½Ο„Ξ±Ο€ΞΏΞΊΟΞ―Ξ½ΞµΟ„Ξ±ΞΉ ΟƒΟ„ΞΉΟ‚ Ξ±Ξ½Ξ¬Ξ³ΞΊΞµΟ‚ ΟƒΞ±Ο‚,
+ Ο€Ξ±ΟΞ±ΞΊΞ±Ξ»ΞΏΟΞΌΞµ ΞµΞ½Ξ·ΞΌΞµΟΟΟƒΟ„Ξµ ΞΌΞ±Ο‚ ΞΌΞ­ΟƒΟ‰ Ο„Ξ·Ο‚ Ξ»Ξ―ΟƒΟ„Ξ±Ο‚ Β«ΞΞ± Ξ³Ξ―Ξ½ΞΏΟ…Ξ½Β», Ο€ΞΏΟ… ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞµΟ„Ξ±ΞΉ ΟƒΟ„Ξ·Ξ½
+ Ξ±ΟΟ‡ΞΉΞΊΞ® ΟƒΞµΞ»Ξ―Ξ΄Ξ± Ο„Ξ·Ο‚ Ο„Ξ¬ΞΎΞ·Ο‚
  ';
-$_lang['blockConfirmBlockingModuleMadeInvisible'] = 'Αυτή η ενότητα είναι φραγμένη.
-Κάνοντας τη αόρατη, θα επιτραπεί στους μαθητές η είσοδος
-στην επόμενη ενότητα χωρίς να χρειάζεται να ολοκληρώσουν την παρούσα.
+$_lang['blockConfirmBlockingModuleMadeInvisible'] = 'Ξ‘Ο…Ο„Ξ® Ξ· ΞµΞ½ΟΟ„Ξ·Ο„Ξ± ΞµΞ―Ξ½Ξ±ΞΉ Ο†ΟΞ±Ξ³ΞΌΞ­Ξ½Ξ·.
+ΞΞ¬Ξ½ΞΏΞ½Ο„Ξ±Ο‚ Ο„Ξ· Ξ±ΟΟΞ±Ο„Ξ·, ΞΈΞ± ΞµΟ€ΞΉΟ„ΟΞ±Ο€ΞµΞ― ΟƒΟ„ΞΏΟ…Ο‚ ΞΌΞ±ΞΈΞ·Ο„Ξ­Ο‚ Ξ· ΞµΞ―ΟƒΞΏΞ΄ΞΏΟ‚
+ΟƒΟ„Ξ·Ξ½ ΞµΟ€ΟΞΌΞµΞ½Ξ· ΞµΞ½ΟΟ„Ξ·Ο„Ξ± Ο‡Ο‰ΟΞ―Ο‚ Ξ½Ξ± Ο‡ΟΞµΞΉΞ¬Ξ¶ΞµΟ„Ξ±ΞΉ Ξ½Ξ± ΞΏΞ»ΞΏΞΊΞ»Ξ·ΟΟΟƒΞΏΟ…Ξ½ Ο„Ξ·Ξ½ Ο€Ξ±ΟΞΏΟΟƒΞ±.
 
 Confirm ?';
-$_lang['blockConfirmBlockingPathMadeInvisible'] = 'Αυτή η διαδρομή ειναι φραγμένη.
-Κάνοντας την μη ορατή θα επιτραπεί στους μαθητές η είσοδος
-στην επόμενη πορεία/διαδρομή χωρίς να χρειάζεται να ολοκληρώσουν την παρούσα.
+$_lang['blockConfirmBlockingPathMadeInvisible'] = 'Ξ‘Ο…Ο„Ξ® Ξ· Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ® ΞµΞΉΞ½Ξ±ΞΉ Ο†ΟΞ±Ξ³ΞΌΞ­Ξ½Ξ·.
+ΞΞ¬Ξ½ΞΏΞ½Ο„Ξ±Ο‚ Ο„Ξ·Ξ½ ΞΌΞ· ΞΏΟΞ±Ο„Ξ® ΞΈΞ± ΞµΟ€ΞΉΟ„ΟΞ±Ο€ΞµΞ― ΟƒΟ„ΞΏΟ…Ο‚ ΞΌΞ±ΞΈΞ·Ο„Ξ­Ο‚ Ξ· ΞµΞ―ΟƒΞΏΞ΄ΞΏΟ‚
+ΟƒΟ„Ξ·Ξ½ ΞµΟ€ΟΞΌΞµΞ½Ξ· Ο€ΞΏΟΞµΞ―Ξ±/Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ® Ο‡Ο‰ΟΞ―Ο‚ Ξ½Ξ± Ο‡ΟΞµΞΉΞ¬Ξ¶ΞµΟ„Ξ±ΞΉ Ξ½Ξ± ΞΏΞ»ΞΏΞΊΞ»Ξ·ΟΟΟƒΞΏΟ…Ξ½ Ο„Ξ·Ξ½ Ο€Ξ±ΟΞΏΟΟƒΞ±.
 
 Confirm ?';
-$_lang['blockConfirmDeleteModule'] = ' Είστε βέβαιοι για την συνολική διαγραφή της ενότητας;
-Θα διαγραφεί εντελώς από τον κεντρικό υπολογιστή και από κάθε διαδρομή. Δεν θα είστε σε θέση να τη χρησιμοποιήσετε.
-Επιβεβαιώστε τη διαγραφή:  ';
-$_lang['blockConfirmDeleteScorm'] = 'H διαδρομή μάθησης αποτελεί μέρος ενός πακέτου SCORM. Αν διαγράψεις αυτή τη διαδρομή, όλες οι ενότητες που συμβαδίζουν με το SCORM και όλα τα σχετικά αρχεία θα διαγραφούν απο την πλατφόρμα. Είσαι σίγουρος θέλεις να διαγράψεις τη διαδρομή μάθησης';
+$_lang['blockConfirmDeleteModule'] = ' Ξ•Ξ―ΟƒΟ„Ξµ Ξ²Ξ­Ξ²Ξ±ΞΉΞΏΞΉ Ξ³ΞΉΞ± Ο„Ξ·Ξ½ ΟƒΟ…Ξ½ΞΏΞ»ΞΉΞΊΞ® Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ο„Ξ·Ο‚ ΞµΞ½ΟΟ„Ξ·Ο„Ξ±Ο‚;
+ΞΞ± Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†ΞµΞ― ΞµΞ½Ο„ΞµΞ»ΟΟ‚ Ξ±Ο€Ο Ο„ΞΏΞ½ ΞΊΞµΞ½Ο„ΟΞΉΞΊΟ Ο…Ο€ΞΏΞ»ΞΏΞ³ΞΉΟƒΟ„Ξ® ΞΊΞ±ΞΉ Ξ±Ο€Ο ΞΊΞ¬ΞΈΞµ Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ®. Ξ”ΞµΞ½ ΞΈΞ± ΞµΞ―ΟƒΟ„Ξµ ΟƒΞµ ΞΈΞ­ΟƒΞ· Ξ½Ξ± Ο„Ξ· Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞ®ΟƒΞµΟ„Ξµ.
+Ξ•Ο€ΞΉΞ²ΞµΞ²Ξ±ΞΉΟΟƒΟ„Ξµ Ο„Ξ· Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ®:  ';
+$_lang['blockConfirmDeleteScorm'] = 'H Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ® ΞΌΞ¬ΞΈΞ·ΟƒΞ·Ο‚ Ξ±Ο€ΞΏΟ„ΞµΞ»ΞµΞ― ΞΌΞ­ΟΞΏΟ‚ ΞµΞ½ΟΟ‚ Ο€Ξ±ΞΊΞ­Ο„ΞΏΟ… SCORM. Ξ‘Ξ½ Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΞΉΟ‚ Ξ±Ο…Ο„Ξ® Ο„Ξ· Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ®, ΟΞ»ΞµΟ‚ ΞΏΞΉ ΞµΞ½ΟΟ„Ξ·Ο„ΞµΟ‚ Ο€ΞΏΟ… ΟƒΟ…ΞΌΞ²Ξ±Ξ΄Ξ―Ξ¶ΞΏΟ…Ξ½ ΞΌΞµ Ο„ΞΏ SCORM ΞΊΞ±ΞΉ ΟΞ»Ξ± Ο„Ξ± ΟƒΟ‡ΞµΟ„ΞΉΞΊΞ¬ Ξ±ΟΟ‡ΞµΞ―Ξ± ΞΈΞ± Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†ΞΏΟΞ½ Ξ±Ο€ΞΏ Ο„Ξ·Ξ½ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±. Ξ•Ξ―ΟƒΞ±ΞΉ ΟƒΞ―Ξ³ΞΏΟ…ΟΞΏΟ‚ ΞΈΞ­Ξ»ΞµΞΉΟ‚ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΞΉΟ‚ Ο„Ξ· Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ® ΞΌΞ¬ΞΈΞ·ΟƒΞ·Ο‚';
 $_lang['blockCourseCreationEmailMessage'] = '%date
 
-Δημιουργία μαθήματος στο %sitename από το χρήστη %user_firstname %user_lastname ( %user_email )
+Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ ΟƒΟ„ΞΏ %sitename Ξ±Ο€Ο Ο„ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ· %user_firstname %user_lastname ( %user_email )
 
-Κωδικός μαθήματος : %course_code
-Τίτλος μαθήματος : %course_title
-Καθηγητής(ες) : %course_lecturers
+ΞΟ‰Ξ΄ΞΉΞΊΟΟ‚ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ : %course_code
+Ξ¤Ξ―Ο„Ξ»ΞΏΟ‚ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ : %course_title
+ΞΞ±ΞΈΞ·Ξ³Ξ·Ο„Ξ®Ο‚(ΞµΟ‚) : %course_lecturers
 Email : %course_email
-Κατηγορία : %course_category
-Γλώσσα : %course_language
+ΞΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ± : %course_category
+Ξ“Ξ»ΟΟƒΟƒΞ± : %course_language
 Url : %course_url';
-$_lang['blockCourseDescriptionCourseContent'] = 'Περιεχόμενο/αντικείμενο μαθήματος (course)';
-$_lang['blockCourseDescriptionCourseContentComment1'] = 'Ποιά η σπουδαιότητα του ποικίλου περιεχόμενου να διαδαχτεί μέσα στα πλαίσια του μαθήματος?  Ποιό το επίπεδο δυσκολίας του περιεχομένου/αντικειμένου αυτού?  Πως είναι δομημένη η ενότητα?  Ποια θα είναι η συνέχεια του περιεχομένου?  Που οδηγεί το περιεχόμενο';
-$_lang['blockCourseDescriptionCourseContentComment2'] = 'Παρουσίαση του αντικειμένου του μαθήματος, της δομής του αντικειμένου, της προόδου και της χρονολογικής τάξης ';
-$_lang['blockCourseDescriptionDescriptionComment1'] = 'Ποιό είναι το μέρος και ποια η ιδιαιτερότητα του μαθήματος στο πρόγραμμα?  Υπάρχουν προ-απαιτούμενα μαθήματα?  Ποιές σχέσεις έχει με τα άλλα μαθήματα?';
-$_lang['blockCourseDescriptionDescriptionComment2'] = 'Πληροφορίες που επιτρέπουν στο μάθημα να αναγνωρισθεί (ρυθμίσεις έναρξης, τίτλος, αριθμός ωρών, παραδόσεις...) και η διδασκαλία του (επώνυμο, μικρό όνομα, γραφείο, τηλ., e-mail, πιθανές διαθεσιμότητες).  Γενική παρουσίαση του μαθήματος στο πρόγραμμα.';
-$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment1'] = 'Ποιοι είναι οι διαθέσιμοι ανθρώπινοι και φυσικού πόροι?  Ποία είναι η φύση πλαισιου(???????)?  Τι μπορούν να περιμένουν οι μαθητές απο τον οργανισμό ομάδας ή τον οργανισμό δασκάλων?';
-$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment2'] = 'Παρουσίαση άλλων δασκάλων που θα οργανώσουν το μάθημα (βοηθοί, ερευνητές, μαθητές -οθόνες...), της διαθεσιμότητας των ατόμων, τα κτίρια και τον εξοπλισμό ή εξοπλισμό computer διαθέσιμα.';
-$_lang['blockCourseDescriptionHumanAndPhysicalRessources'] = 'Ανθρώπινοι και φυσικοί πόροι';
-$_lang['blockCourseDescriptionMethodsOfEvaluation'] = 'Mέθοδοι αξιολόγησης';
-$_lang['blockCourseDescriptionMethodsOfEvaluationComment1'] = 'Ακριβείς λεπτομέρειες όπως είναι τα μέσα αξιολόγησης (γραπτές εξετάσεις, προφορικές, εργασίες (projects), ανάθεση εργασίας...), ημερομηνία προβολής αξιολόγησης  , ημερομηνίες προσθεσμίας για τις παραδόσεις εργασιών, με το κριτήριο της αξιολόγησης, πιθανό ζύγισμα κριτηρίων ή κατηγορίες κριτηρίων.';
-$_lang['blockCourseDescriptionQualificationsAndGoals'] = 'Προϋποθέσεις και στόχοι';
-$_lang['blockCourseDescriptionQualificationsAndGoalsComment1'] = 'Ποιοί ελιναι οι στόχοι διδασκαλίας?  Στο τέλος του μαθήματος, ποιά απαιτούμενα προσόντα,ποιές ικανότητες και γνώσεις θα μπορούν οι μαθητές να έχουν και να κινητοποιήσουν?';
-$_lang['blockCourseDescriptionQualificationsAndGoalsComment2'] = 'Παρουσίαση των γενικών και ειδικών αντικειμένων του μαθήματος, προσόντα στα οποία θα οδηγήσει ο έλεγχος αυτών των αντικειμένων.';
-$_lang['blockCourseDescriptionSupports'] = ' Υποστήριξη ';
-$_lang['blockCourseDescriptionSupportsComment1'] = 'Υπάρχει η υποστήριξη μαθήματος?  Τί είδος υποστήριξη πρέπει να δώσω?  Ανοιχτή?  Κλειστή?';
-$_lang['blockCourseDescriptionSupportsComment2'] = 'Παρουσίαση της υποστήριξης του μαθήματος.  Παρουσίαση της βιβλιογραφίας, πακέτα εγγράφων ή συμπληρωματικής βιβλιογραφίας.';
-$_lang['blockCourseDescriptionTeachingTrainingActivities'] = 'Δραστηριότητες διδασκαλίας - εκπαίδευσης';
-$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment1'] = 'Ποιές μεθόδους και ποιές δραστηριότητες θα υποστηρίξουν τα  αντικείμενα που έχουν οριστεί για το μάθημα?  Ποιές είναι οι δραστηριότητες του ημερολογίου?';
-$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment2'] = 'Παρουσίαση των εξεταζόμενων δραστηριοτήτων (έγγυρες κριτικές, αναμενόμενη συμμετοχή μαθητών, πρακτική άσκηση, εργαστηριακές συναντήσεις, επισκέψεις, συλλογή πληροφοριών...).';
-$_lang['blockCourseSettingsTip'] = 'Εξ\' ορισμού, το μάθημα είναι προσπελάσιμο μόνο από εσάς. Αν θέλετε ελεγχόμενη πρόσβαση, μπορείτε να επιλέξετε \'Ελεγχόμενη Προσβαση με ανοιχτή
-εγγραφή\' και να ζητήσετε από τους χρήστες να γραφτούν. Μόλις τελειώσει η εγγραφή μπορείτε να επιλέξετε \'Ελεγχομενη προσβαση\'.';
+$_lang['blockCourseDescriptionCourseContent'] = 'Ξ ΞµΟΞΉΞµΟ‡ΟΞΌΞµΞ½ΞΏ/Ξ±Ξ½Ο„ΞΉΞΊΞµΞ―ΞΌΞµΞ½ΞΏ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ (course)';
+$_lang['blockCourseDescriptionCourseContentComment1'] = 'Ξ ΞΏΞΉΞ¬ Ξ· ΟƒΟ€ΞΏΟ…Ξ΄Ξ±ΞΉΟΟ„Ξ·Ο„Ξ± Ο„ΞΏΟ… Ο€ΞΏΞΉΞΊΞ―Ξ»ΞΏΟ… Ο€ΞµΟΞΉΞµΟ‡ΟΞΌΞµΞ½ΞΏΟ… Ξ½Ξ± Ξ΄ΞΉΞ±Ξ΄Ξ±Ο‡Ο„ΞµΞ― ΞΌΞ­ΟƒΞ± ΟƒΟ„Ξ± Ο€Ξ»Ξ±Ξ―ΟƒΞΉΞ± Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚?  Ξ ΞΏΞΉΟ Ο„ΞΏ ΞµΟ€Ξ―Ο€ΞµΞ΄ΞΏ Ξ΄Ο…ΟƒΞΊΞΏΞ»Ξ―Ξ±Ο‚ Ο„ΞΏΟ… Ο€ΞµΟΞΉΞµΟ‡ΞΏΞΌΞ­Ξ½ΞΏΟ…/Ξ±Ξ½Ο„ΞΉΞΊΞµΞΉΞΌΞ­Ξ½ΞΏΟ… Ξ±Ο…Ο„ΞΏΟ?  Ξ Ο‰Ο‚ ΞµΞ―Ξ½Ξ±ΞΉ Ξ΄ΞΏΞΌΞ·ΞΌΞ­Ξ½Ξ· Ξ· ΞµΞ½ΟΟ„Ξ·Ο„Ξ±?  Ξ ΞΏΞΉΞ± ΞΈΞ± ΞµΞ―Ξ½Ξ±ΞΉ Ξ· ΟƒΟ…Ξ½Ξ­Ο‡ΞµΞΉΞ± Ο„ΞΏΟ… Ο€ΞµΟΞΉΞµΟ‡ΞΏΞΌΞ­Ξ½ΞΏΟ…?  Ξ ΞΏΟ… ΞΏΞ΄Ξ·Ξ³ΞµΞ― Ο„ΞΏ Ο€ΞµΟΞΉΞµΟ‡ΟΞΌΞµΞ½ΞΏ';
+$_lang['blockCourseDescriptionCourseContentComment2'] = 'Ξ Ξ±ΟΞΏΟ…ΟƒΞ―Ξ±ΟƒΞ· Ο„ΞΏΟ… Ξ±Ξ½Ο„ΞΉΞΊΞµΞΉΞΌΞ­Ξ½ΞΏΟ… Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚, Ο„Ξ·Ο‚ Ξ΄ΞΏΞΌΞ®Ο‚ Ο„ΞΏΟ… Ξ±Ξ½Ο„ΞΉΞΊΞµΞΉΞΌΞ­Ξ½ΞΏΟ…, Ο„Ξ·Ο‚ Ο€ΟΞΏΟΞ΄ΞΏΟ… ΞΊΞ±ΞΉ Ο„Ξ·Ο‚ Ο‡ΟΞΏΞ½ΞΏΞ»ΞΏΞ³ΞΉΞΊΞ®Ο‚ Ο„Ξ¬ΞΎΞ·Ο‚ ';
+$_lang['blockCourseDescriptionDescription'] = 'Ξ ΞµΟΞΉΞ³ΟΞ±Ο†Ξ®';
+$_lang['blockCourseDescriptionDescriptionComment1'] = 'Ξ ΞΏΞΉΟ ΞµΞ―Ξ½Ξ±ΞΉ Ο„ΞΏ ΞΌΞ­ΟΞΏΟ‚ ΞΊΞ±ΞΉ Ο€ΞΏΞΉΞ± Ξ· ΞΉΞ΄ΞΉΞ±ΞΉΟ„ΞµΟΟΟ„Ξ·Ο„Ξ± Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ ΟƒΟ„ΞΏ Ο€ΟΟΞ³ΟΞ±ΞΌΞΌΞ±?  Ξ¥Ο€Ξ¬ΟΟ‡ΞΏΟ…Ξ½ Ο€ΟΞΏ-Ξ±Ο€Ξ±ΞΉΟ„ΞΏΟΞΌΞµΞ½Ξ± ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„Ξ±?  Ξ ΞΏΞΉΞ­Ο‚ ΟƒΟ‡Ξ­ΟƒΞµΞΉΟ‚ Ξ­Ο‡ΞµΞΉ ΞΌΞµ Ο„Ξ± Ξ¬Ξ»Ξ»Ξ± ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„Ξ±?';
+$_lang['blockCourseDescriptionDescriptionComment2'] = 'Ξ Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞ―ΞµΟ‚ Ο€ΞΏΟ… ΞµΟ€ΞΉΟ„ΟΞ­Ο€ΞΏΟ…Ξ½ ΟƒΟ„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ± Ξ½Ξ± Ξ±Ξ½Ξ±Ξ³Ξ½Ο‰ΟΞΉΟƒΞΈΞµΞ― (ΟΟ…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ Ξ­Ξ½Ξ±ΟΞΎΞ·Ο‚, Ο„Ξ―Ο„Ξ»ΞΏΟ‚, Ξ±ΟΞΉΞΈΞΌΟΟ‚ Ο‰ΟΟΞ½, Ο€Ξ±ΟΞ±Ξ΄ΟΟƒΞµΞΉΟ‚...) ΞΊΞ±ΞΉ Ξ· Ξ΄ΞΉΞ΄Ξ±ΟƒΞΊΞ±Ξ»Ξ―Ξ± Ο„ΞΏΟ… (ΞµΟ€ΟΞ½Ο…ΞΌΞΏ, ΞΌΞΉΞΊΟΟ ΟΞ½ΞΏΞΌΞ±, Ξ³ΟΞ±Ο†ΞµΞ―ΞΏ, Ο„Ξ·Ξ»., e-mail, Ο€ΞΉΞΈΞ±Ξ½Ξ­Ο‚ Ξ΄ΞΉΞ±ΞΈΞµΟƒΞΉΞΌΟΟ„Ξ·Ο„ΞµΟ‚).  Ξ“ΞµΞ½ΞΉΞΊΞ® Ο€Ξ±ΟΞΏΟ…ΟƒΞ―Ξ±ΟƒΞ· Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ ΟƒΟ„ΞΏ Ο€ΟΟΞ³ΟΞ±ΞΌΞΌΞ±.';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment1'] = 'Ξ ΞΏΞΉΞΏΞΉ ΞµΞ―Ξ½Ξ±ΞΉ ΞΏΞΉ Ξ΄ΞΉΞ±ΞΈΞ­ΟƒΞΉΞΌΞΏΞΉ Ξ±Ξ½ΞΈΟΟΟ€ΞΉΞ½ΞΏΞΉ ΞΊΞ±ΞΉ Ο†Ο…ΟƒΞΉΞΊΞΏΟ Ο€ΟΟΞΏΞΉ?  Ξ ΞΏΞ―Ξ± ΞµΞ―Ξ½Ξ±ΞΉ Ξ· Ο†ΟΟƒΞ· Ο€Ξ»Ξ±ΞΉΟƒΞΉΞΏΟ…(???????)?  Ξ¤ΞΉ ΞΌΟ€ΞΏΟΞΏΟΞ½ Ξ½Ξ± Ο€ΞµΟΞΉΞΌΞ­Ξ½ΞΏΟ…Ξ½ ΞΏΞΉ ΞΌΞ±ΞΈΞ·Ο„Ξ­Ο‚ Ξ±Ο€ΞΏ Ο„ΞΏΞ½ ΞΏΟΞ³Ξ±Ξ½ΞΉΟƒΞΌΟ ΞΏΞΌΞ¬Ξ΄Ξ±Ο‚ Ξ® Ο„ΞΏΞ½ ΞΏΟΞ³Ξ±Ξ½ΞΉΟƒΞΌΟ Ξ΄Ξ±ΟƒΞΊΞ¬Ξ»Ο‰Ξ½?';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment2'] = 'Ξ Ξ±ΟΞΏΟ…ΟƒΞ―Ξ±ΟƒΞ· Ξ¬Ξ»Ξ»Ο‰Ξ½ Ξ΄Ξ±ΟƒΞΊΞ¬Ξ»Ο‰Ξ½ Ο€ΞΏΟ… ΞΈΞ± ΞΏΟΞ³Ξ±Ξ½ΟΟƒΞΏΟ…Ξ½ Ο„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ± (Ξ²ΞΏΞ·ΞΈΞΏΞ―, ΞµΟΞµΟ…Ξ½Ξ·Ο„Ξ­Ο‚, ΞΌΞ±ΞΈΞ·Ο„Ξ­Ο‚ -ΞΏΞΈΟΞ½ΞµΟ‚...), Ο„Ξ·Ο‚ Ξ΄ΞΉΞ±ΞΈΞµΟƒΞΉΞΌΟΟ„Ξ·Ο„Ξ±Ο‚ Ο„Ο‰Ξ½ Ξ±Ο„ΟΞΌΟ‰Ξ½, Ο„Ξ± ΞΊΟ„Ξ―ΟΞΉΞ± ΞΊΞ±ΞΉ Ο„ΞΏΞ½ ΞµΞΎΞΏΟ€Ξ»ΞΉΟƒΞΌΟ Ξ® ΞµΞΎΞΏΟ€Ξ»ΞΉΟƒΞΌΟ computer Ξ΄ΞΉΞ±ΞΈΞ­ΟƒΞΉΞΌΞ±.';
+$_lang['blockCourseDescriptionHumanAndPhysicalRessources'] = 'Ξ‘Ξ½ΞΈΟΟΟ€ΞΉΞ½ΞΏΞΉ ΞΊΞ±ΞΉ Ο†Ο…ΟƒΞΉΞΊΞΏΞ― Ο€ΟΟΞΏΞΉ';
+$_lang['blockCourseDescriptionMethodsOfEvaluation'] = 'MΞ­ΞΈΞΏΞ΄ΞΏΞΉ Ξ±ΞΎΞΉΞΏΞ»ΟΞ³Ξ·ΟƒΞ·Ο‚';
+$_lang['blockCourseDescriptionMethodsOfEvaluationComment1'] = 'Ξ‘ΞΊΟΞΉΞ²ΞµΞ―Ο‚ Ξ»ΞµΟ€Ο„ΞΏΞΌΞ­ΟΞµΞΉΞµΟ‚ ΟΟ€Ο‰Ο‚ ΞµΞ―Ξ½Ξ±ΞΉ Ο„Ξ± ΞΌΞ­ΟƒΞ± Ξ±ΞΎΞΉΞΏΞ»ΟΞ³Ξ·ΟƒΞ·Ο‚ (Ξ³ΟΞ±Ο€Ο„Ξ­Ο‚ ΞµΞΎΞµΟ„Ξ¬ΟƒΞµΞΉΟ‚, Ο€ΟΞΏΟ†ΞΏΟΞΉΞΊΞ­Ο‚, ΞµΟΞ³Ξ±ΟƒΞ―ΞµΟ‚ (projects), Ξ±Ξ½Ξ¬ΞΈΞµΟƒΞ· ΞµΟΞ³Ξ±ΟƒΞ―Ξ±Ο‚...), Ξ·ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ± Ο€ΟΞΏΞ²ΞΏΞ»Ξ®Ο‚ Ξ±ΞΎΞΉΞΏΞ»ΟΞ³Ξ·ΟƒΞ·Ο‚  , Ξ·ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―ΞµΟ‚ Ο€ΟΞΏΟƒΞΈΞµΟƒΞΌΞ―Ξ±Ο‚ Ξ³ΞΉΞ± Ο„ΞΉΟ‚ Ο€Ξ±ΟΞ±Ξ΄ΟΟƒΞµΞΉΟ‚ ΞµΟΞ³Ξ±ΟƒΞΉΟΞ½, ΞΌΞµ Ο„ΞΏ ΞΊΟΞΉΟ„Ξ®ΟΞΉΞΏ Ο„Ξ·Ο‚ Ξ±ΞΎΞΉΞΏΞ»ΟΞ³Ξ·ΟƒΞ·Ο‚, Ο€ΞΉΞΈΞ±Ξ½Ο Ξ¶ΟΞ³ΞΉΟƒΞΌΞ± ΞΊΟΞΉΟ„Ξ·ΟΞ―Ο‰Ξ½ Ξ® ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―ΞµΟ‚ ΞΊΟΞΉΟ„Ξ·ΟΞ―Ο‰Ξ½.';
+$_lang['blockCourseDescriptionQualificationsAndGoals'] = 'Ξ ΟΞΏΟ‹Ο€ΞΏΞΈΞ­ΟƒΞµΞΉΟ‚ ΞΊΞ±ΞΉ ΟƒΟ„ΟΟ‡ΞΏΞΉ';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment1'] = 'Ξ ΞΏΞΉΞΏΞ― ΞµΞ»ΞΉΞ½Ξ±ΞΉ ΞΏΞΉ ΟƒΟ„ΟΟ‡ΞΏΞΉ Ξ΄ΞΉΞ΄Ξ±ΟƒΞΊΞ±Ξ»Ξ―Ξ±Ο‚?  Ξ£Ο„ΞΏ Ο„Ξ­Ξ»ΞΏΟ‚ Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚, Ο€ΞΏΞΉΞ¬ Ξ±Ο€Ξ±ΞΉΟ„ΞΏΟΞΌΞµΞ½Ξ± Ο€ΟΞΏΟƒΟΞ½Ο„Ξ±,Ο€ΞΏΞΉΞ­Ο‚ ΞΉΞΊΞ±Ξ½ΟΟ„Ξ·Ο„ΞµΟ‚ ΞΊΞ±ΞΉ Ξ³Ξ½ΟΟƒΞµΞΉΟ‚ ΞΈΞ± ΞΌΟ€ΞΏΟΞΏΟΞ½ ΞΏΞΉ ΞΌΞ±ΞΈΞ·Ο„Ξ­Ο‚ Ξ½Ξ± Ξ­Ο‡ΞΏΟ…Ξ½ ΞΊΞ±ΞΉ Ξ½Ξ± ΞΊΞΉΞ½Ξ·Ο„ΞΏΟ€ΞΏΞΉΞ®ΟƒΞΏΟ…Ξ½?';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment2'] = 'Ξ Ξ±ΟΞΏΟ…ΟƒΞ―Ξ±ΟƒΞ· Ο„Ο‰Ξ½ Ξ³ΞµΞ½ΞΉΞΊΟΞ½ ΞΊΞ±ΞΉ ΞµΞΉΞ΄ΞΉΞΊΟΞ½ Ξ±Ξ½Ο„ΞΉΞΊΞµΞΉΞΌΞ­Ξ½Ο‰Ξ½ Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚, Ο€ΟΞΏΟƒΟΞ½Ο„Ξ± ΟƒΟ„Ξ± ΞΏΟ€ΞΏΞ―Ξ± ΞΈΞ± ΞΏΞ΄Ξ·Ξ³Ξ®ΟƒΞµΞΉ ΞΏ Ξ­Ξ»ΞµΞ³Ο‡ΞΏΟ‚ Ξ±Ο…Ο„ΟΞ½ Ο„Ο‰Ξ½ Ξ±Ξ½Ο„ΞΉΞΊΞµΞΉΞΌΞ­Ξ½Ο‰Ξ½.';
+$_lang['blockCourseDescriptionSupports'] = ' Ξ¥Ο€ΞΏΟƒΟ„Ξ®ΟΞΉΞΎΞ· ';
+$_lang['blockCourseDescriptionSupportsComment1'] = 'Ξ¥Ο€Ξ¬ΟΟ‡ΞµΞΉ Ξ· Ο…Ο€ΞΏΟƒΟ„Ξ®ΟΞΉΞΎΞ· ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚?  Ξ¤Ξ― ΞµΞ―Ξ΄ΞΏΟ‚ Ο…Ο€ΞΏΟƒΟ„Ξ®ΟΞΉΞΎΞ· Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± Ξ΄ΟΟƒΟ‰?  Ξ‘Ξ½ΞΏΞΉΟ‡Ο„Ξ®?  ΞΞ»ΞµΞΉΟƒΟ„Ξ®?';
+$_lang['blockCourseDescriptionSupportsComment2'] = 'Ξ Ξ±ΟΞΏΟ…ΟƒΞ―Ξ±ΟƒΞ· Ο„Ξ·Ο‚ Ο…Ο€ΞΏΟƒΟ„Ξ®ΟΞΉΞΎΞ·Ο‚ Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚.  Ξ Ξ±ΟΞΏΟ…ΟƒΞ―Ξ±ΟƒΞ· Ο„Ξ·Ο‚ Ξ²ΞΉΞ²Ξ»ΞΉΞΏΞ³ΟΞ±Ο†Ξ―Ξ±Ο‚, Ο€Ξ±ΞΊΞ­Ο„Ξ± ΞµΞ³Ξ³ΟΞ¬Ο†Ο‰Ξ½ Ξ® ΟƒΟ…ΞΌΟ€Ξ»Ξ·ΟΟ‰ΞΌΞ±Ο„ΞΉΞΊΞ®Ο‚ Ξ²ΞΉΞ²Ξ»ΞΉΞΏΞ³ΟΞ±Ο†Ξ―Ξ±Ο‚.';
+$_lang['blockCourseDescriptionTeachingTrainingActivities'] = 'Ξ”ΟΞ±ΟƒΟ„Ξ·ΟΞΉΟΟ„Ξ·Ο„ΞµΟ‚ Ξ΄ΞΉΞ΄Ξ±ΟƒΞΊΞ±Ξ»Ξ―Ξ±Ο‚ - ΞµΞΊΟ€Ξ±Ξ―Ξ΄ΞµΟ…ΟƒΞ·Ο‚';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment1'] = 'Ξ ΞΏΞΉΞ­Ο‚ ΞΌΞµΞΈΟΞ΄ΞΏΟ…Ο‚ ΞΊΞ±ΞΉ Ο€ΞΏΞΉΞ­Ο‚ Ξ΄ΟΞ±ΟƒΟ„Ξ·ΟΞΉΟΟ„Ξ·Ο„ΞµΟ‚ ΞΈΞ± Ο…Ο€ΞΏΟƒΟ„Ξ·ΟΞ―ΞΎΞΏΟ…Ξ½ Ο„Ξ±  Ξ±Ξ½Ο„ΞΉΞΊΞµΞ―ΞΌΞµΞ½Ξ± Ο€ΞΏΟ… Ξ­Ο‡ΞΏΟ…Ξ½ ΞΏΟΞΉΟƒΟ„ΞµΞ― Ξ³ΞΉΞ± Ο„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ±?  Ξ ΞΏΞΉΞ­Ο‚ ΞµΞ―Ξ½Ξ±ΞΉ ΞΏΞΉ Ξ΄ΟΞ±ΟƒΟ„Ξ·ΟΞΉΟΟ„Ξ·Ο„ΞµΟ‚ Ο„ΞΏΟ… Ξ·ΞΌΞµΟΞΏΞ»ΞΏΞ³Ξ―ΞΏΟ…?';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment2'] = 'Ξ Ξ±ΟΞΏΟ…ΟƒΞ―Ξ±ΟƒΞ· Ο„Ο‰Ξ½ ΞµΞΎΞµΟ„Ξ±Ξ¶ΟΞΌΞµΞ½Ο‰Ξ½ Ξ΄ΟΞ±ΟƒΟ„Ξ·ΟΞΉΞΏΟ„Ξ®Ο„Ο‰Ξ½ (Ξ­Ξ³Ξ³Ο…ΟΞµΟ‚ ΞΊΟΞΉΟ„ΞΉΞΊΞ­Ο‚, Ξ±Ξ½Ξ±ΞΌΞµΞ½ΟΞΌΞµΞ½Ξ· ΟƒΟ…ΞΌΞΌΞµΟ„ΞΏΟ‡Ξ® ΞΌΞ±ΞΈΞ·Ο„ΟΞ½, Ο€ΟΞ±ΞΊΟ„ΞΉΞΊΞ® Ξ¬ΟƒΞΊΞ·ΟƒΞ·, ΞµΟΞ³Ξ±ΟƒΟ„Ξ·ΟΞΉΞ±ΞΊΞ­Ο‚ ΟƒΟ…Ξ½Ξ±Ξ½Ο„Ξ®ΟƒΞµΞΉΟ‚, ΞµΟ€ΞΉΟƒΞΊΞ­ΟΞµΞΉΟ‚, ΟƒΟ…Ξ»Ξ»ΞΏΞ³Ξ® Ο€Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞΉΟΞ½...).';
+$_lang['blockCourseSettingsTip'] = 'Ξ•ΞΎ\' ΞΏΟΞΉΟƒΞΌΞΏΟ, Ο„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ± ΞµΞ―Ξ½Ξ±ΞΉ Ο€ΟΞΏΟƒΟ€ΞµΞ»Ξ¬ΟƒΞΉΞΌΞΏ ΞΌΟΞ½ΞΏ Ξ±Ο€Ο ΞµΟƒΞ¬Ο‚. Ξ‘Ξ½ ΞΈΞ­Ξ»ΞµΟ„Ξµ ΞµΞ»ΞµΞ³Ο‡ΟΞΌΞµΞ½Ξ· Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ·, ΞΌΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± ΞµΟ€ΞΉΞ»Ξ­ΞΎΞµΟ„Ξµ \'Ξ•Ξ»ΞµΞ³Ο‡ΟΞΌΞµΞ½Ξ· Ξ ΟΞΏΟƒΞ²Ξ±ΟƒΞ· ΞΌΞµ Ξ±Ξ½ΞΏΞΉΟ‡Ο„Ξ®
+ΞµΞ³Ξ³ΟΞ±Ο†Ξ®\' ΞΊΞ±ΞΉ Ξ½Ξ± Ξ¶Ξ·Ο„Ξ®ΟƒΞµΟ„Ξµ Ξ±Ο€Ο Ο„ΞΏΟ…Ο‚ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ Ξ½Ξ± Ξ³ΟΞ±Ο†Ο„ΞΏΟΞ½. ΞΟΞ»ΞΉΟ‚ Ο„ΞµΞ»ΞµΞΉΟΟƒΞµΞΉ Ξ· ΞµΞ³Ξ³ΟΞ±Ο†Ξ® ΞΌΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± ΞµΟ€ΞΉΞ»Ξ­ΞΎΞµΟ„Ξµ \'Ξ•Ξ»ΞµΞ³Ο‡ΞΏΞΌΞµΞ½Ξ· Ο€ΟΞΏΟƒΞ²Ξ±ΟƒΞ·\'.';
 $_lang['blockCourseSubscriptionNotification'] = '
 
-Αγαπητέ(η) %firstname %lastname,
+Ξ‘Ξ³Ξ±Ο€Ξ·Ο„Ξ­(Ξ·) %firstname %lastname,
 
-Ένας από τους διαχειριστές του μαθήματος "%courseName" σας έχει ενγράψει σ\' αυτό το μάθημα.
+ΞΞ½Ξ±Ο‚ Ξ±Ο€Ο Ο„ΞΏΟ…Ο‚ Ξ΄ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ­Ο‚ Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ "%courseName" ΟƒΞ±Ο‚ Ξ­Ο‡ΞµΞΉ ΞµΞ½Ξ³ΟΞ¬ΟΞµΞΉ Οƒ\' Ξ±Ο…Ο„Ο Ο„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ±.
 
-Η διεύθυνση του μαθήματος είναι :
+Ξ— Ξ΄ΞΉΞµΟΞΈΟ…Ξ½ΟƒΞ· Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ ΞµΞ―Ξ½Ξ±ΞΉ :
 
 %coursePath
 
-Σε περίπτωση προβλημάτων, επικοινωνήστε μαζί μας.
-Με πολλούς χαιρετισμούς,
+Ξ£Ξµ Ο€ΞµΟΞ―Ο€Ο„Ο‰ΟƒΞ· Ο€ΟΞΏΞ²Ξ»Ξ·ΞΌΞ¬Ο„Ο‰Ξ½, ΞµΟ€ΞΉΞΊΞΏΞΉΞ½Ο‰Ξ½Ξ®ΟƒΟ„Ξµ ΞΌΞ±Ξ¶Ξ― ΞΌΞ±Ο‚.
+ΞΞµ Ο€ΞΏΞ»Ξ»ΞΏΟΟ‚ Ο‡Ξ±ΞΉΟΞµΟ„ΞΉΟƒΞΌΞΏΟΟ‚,
 %administratorName
 --
-Διευθυντής : %administratorName
-Τηλέφωνο : %administratorPhone
+Ξ”ΞΉΞµΟ…ΞΈΟ…Ξ½Ο„Ξ®Ο‚ : %administratorName
+Ξ¤Ξ·Ξ»Ξ­Ο†Ο‰Ξ½ΞΏ : %administratorPhone
 Email : %administratorEmail
 ';
-$_lang['blockDefaultLearningPathComment'] = 'Αυτό είναι το εισαγωγικό κείμενο αυτής της διαδρομής μάθησης. Για να το αντικαταστήσετε με δικό σας κείμενο, καντε κλικ παρακάτω στη <b>μετατροπή</b>.';
-$_lang['blockDefaultModuleAddedComment'] = 'Αυτό είναι πρόσθετο εισαγωγικό κείμενο σχετικά με την παρουσία αυτής της ενότητας ειδικά σε αυτή τη διαδρομή μάθησης. Για να το αντικαταστήσετε με δικό σας κείμενο, κάντε κλικ παρακάτω στο <b>μετατροπή</b>.';
-$_lang['blockDefaultModuleComment'] = 'Αυτό είναι το εισαγωγικό κείμενο αυτής της ενότητας, θα εμφανίζεται σε κάθε διαδρομή μάθησης που θα περιέχει αυτή την ενότητα. Για να το αντικαταστήσετε με δικό σας κείμενο, κάντε κλικ παρακάτω στο <b>μετατροπή</b>.';
-$_lang['blockDocumentsHelp'] = '<p>Το εργαλείο αρχείων είναι όμοιο σε λειτουργία με τον Διαχειριστή Αρχείων
- του προσωπικού σας υπολογιστή.</p><p>Μπορείτε να ανεβάσετε αρχεία οποιουδήποτε τύπου (HTML, Word,
- Powerpoint, Excel, Acrobat, Flash, Quicktime, κ.λπ.). Ο μόνος σας περιορισμός είναι
- ότι οι φοιτητές πρέπει να έχουν εγκατεστημένη στον υπολογιστή τους την αντίστοιχη εφαρμογή για να τα διαβάσουν.
- Μερικοί τύποι αρχείων μπορεί να περιέχουν ιούς, έτσι είναι δικιά σας ευθύνη να μην ανεβάζετε
- μολισμάν αρχεία. Συνίσταται να ελέγχεται τα έγγραφα σας με ένα αντιβιοτικό πρόγραμμα
- πριν τα ανεβάσετε.</p>
-<p>Τα έγγραφα παρουσιάζονται με αλφαβητική σειρά.<br /><b>Συμβουλή : </b>Αν θέλετε να τα
- παρουσιάσετε με διαφορετική σειρά, αριθμήστε τα: 01, 02,
+$_lang['blockDefaultLearningPathComment'] = 'Ξ‘Ο…Ο„Ο ΞµΞ―Ξ½Ξ±ΞΉ Ο„ΞΏ ΞµΞΉΟƒΞ±Ξ³Ο‰Ξ³ΞΉΞΊΟ ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ Ξ±Ο…Ο„Ξ®Ο‚ Ο„Ξ·Ο‚ Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ®Ο‚ ΞΌΞ¬ΞΈΞ·ΟƒΞ·Ο‚. Ξ“ΞΉΞ± Ξ½Ξ± Ο„ΞΏ Ξ±Ξ½Ο„ΞΉΞΊΞ±Ο„Ξ±ΟƒΟ„Ξ®ΟƒΞµΟ„Ξµ ΞΌΞµ Ξ΄ΞΉΞΊΟ ΟƒΞ±Ο‚ ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ, ΞΊΞ±Ξ½Ο„Ξµ ΞΊΞ»ΞΉΞΊ Ο€Ξ±ΟΞ±ΞΊΞ¬Ο„Ο‰ ΟƒΟ„Ξ· <b>ΞΌΞµΟ„Ξ±Ο„ΟΞΏΟ€Ξ®</b>.';
+$_lang['blockDefaultModuleAddedComment'] = 'Ξ‘Ο…Ο„Ο ΞµΞ―Ξ½Ξ±ΞΉ Ο€ΟΟΟƒΞΈΞµΟ„ΞΏ ΞµΞΉΟƒΞ±Ξ³Ο‰Ξ³ΞΉΞΊΟ ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ ΟƒΟ‡ΞµΟ„ΞΉΞΊΞ¬ ΞΌΞµ Ο„Ξ·Ξ½ Ο€Ξ±ΟΞΏΟ…ΟƒΞ―Ξ± Ξ±Ο…Ο„Ξ®Ο‚ Ο„Ξ·Ο‚ ΞµΞ½ΟΟ„Ξ·Ο„Ξ±Ο‚ ΞµΞΉΞ΄ΞΉΞΊΞ¬ ΟƒΞµ Ξ±Ο…Ο„Ξ® Ο„Ξ· Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ® ΞΌΞ¬ΞΈΞ·ΟƒΞ·Ο‚. Ξ“ΞΉΞ± Ξ½Ξ± Ο„ΞΏ Ξ±Ξ½Ο„ΞΉΞΊΞ±Ο„Ξ±ΟƒΟ„Ξ®ΟƒΞµΟ„Ξµ ΞΌΞµ Ξ΄ΞΉΞΊΟ ΟƒΞ±Ο‚ ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ, ΞΊΞ¬Ξ½Ο„Ξµ ΞΊΞ»ΞΉΞΊ Ο€Ξ±ΟΞ±ΞΊΞ¬Ο„Ο‰ ΟƒΟ„ΞΏ <b>ΞΌΞµΟ„Ξ±Ο„ΟΞΏΟ€Ξ®</b>.';
+$_lang['blockDefaultModuleComment'] = 'Ξ‘Ο…Ο„Ο ΞµΞ―Ξ½Ξ±ΞΉ Ο„ΞΏ ΞµΞΉΟƒΞ±Ξ³Ο‰Ξ³ΞΉΞΊΟ ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ Ξ±Ο…Ο„Ξ®Ο‚ Ο„Ξ·Ο‚ ΞµΞ½ΟΟ„Ξ·Ο„Ξ±Ο‚, ΞΈΞ± ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞµΟ„Ξ±ΞΉ ΟƒΞµ ΞΊΞ¬ΞΈΞµ Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ® ΞΌΞ¬ΞΈΞ·ΟƒΞ·Ο‚ Ο€ΞΏΟ… ΞΈΞ± Ο€ΞµΟΞΉΞ­Ο‡ΞµΞΉ Ξ±Ο…Ο„Ξ® Ο„Ξ·Ξ½ ΞµΞ½ΟΟ„Ξ·Ο„Ξ±. Ξ“ΞΉΞ± Ξ½Ξ± Ο„ΞΏ Ξ±Ξ½Ο„ΞΉΞΊΞ±Ο„Ξ±ΟƒΟ„Ξ®ΟƒΞµΟ„Ξµ ΞΌΞµ Ξ΄ΞΉΞΊΟ ΟƒΞ±Ο‚ ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ, ΞΊΞ¬Ξ½Ο„Ξµ ΞΊΞ»ΞΉΞΊ Ο€Ξ±ΟΞ±ΞΊΞ¬Ο„Ο‰ ΟƒΟ„ΞΏ <b>ΞΌΞµΟ„Ξ±Ο„ΟΞΏΟ€Ξ®</b>.';
+$_lang['blockDocumentsHelp'] = '<p>Ξ¤ΞΏ ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏ Ξ±ΟΟ‡ΞµΞ―Ο‰Ξ½ ΞµΞ―Ξ½Ξ±ΞΉ ΟΞΌΞΏΞΉΞΏ ΟƒΞµ Ξ»ΞµΞΉΟ„ΞΏΟ…ΟΞ³Ξ―Ξ± ΞΌΞµ Ο„ΞΏΞ½ Ξ”ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ® Ξ‘ΟΟ‡ΞµΞ―Ο‰Ξ½
+ Ο„ΞΏΟ… Ο€ΟΞΏΟƒΟ‰Ο€ΞΉΞΊΞΏΟ ΟƒΞ±Ο‚ Ο…Ο€ΞΏΞ»ΞΏΞ³ΞΉΟƒΟ„Ξ®.</p><p>ΞΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± Ξ±Ξ½ΞµΞ²Ξ¬ΟƒΞµΟ„Ξµ Ξ±ΟΟ‡ΞµΞ―Ξ± ΞΏΟ€ΞΏΞΉΞΏΟ…Ξ΄Ξ®Ο€ΞΏΟ„Ξµ Ο„ΟΟ€ΞΏΟ… (HTML, Word,
+ Powerpoint, Excel, Acrobat, Flash, Quicktime, ΞΊ.Ξ»Ο€.). Ξ ΞΌΟΞ½ΞΏΟ‚ ΟƒΞ±Ο‚ Ο€ΞµΟΞΉΞΏΟΞΉΟƒΞΌΟΟ‚ ΞµΞ―Ξ½Ξ±ΞΉ
+ ΟΟ„ΞΉ ΞΏΞΉ Ο†ΞΏΞΉΟ„Ξ·Ο„Ξ­Ο‚ Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± Ξ­Ο‡ΞΏΟ…Ξ½ ΞµΞ³ΞΊΞ±Ο„ΞµΟƒΟ„Ξ·ΞΌΞ­Ξ½Ξ· ΟƒΟ„ΞΏΞ½ Ο…Ο€ΞΏΞ»ΞΏΞ³ΞΉΟƒΟ„Ξ® Ο„ΞΏΟ…Ο‚ Ο„Ξ·Ξ½ Ξ±Ξ½Ο„Ξ―ΟƒΟ„ΞΏΞΉΟ‡Ξ· ΞµΟ†Ξ±ΟΞΌΞΏΞ³Ξ® Ξ³ΞΉΞ± Ξ½Ξ± Ο„Ξ± Ξ΄ΞΉΞ±Ξ²Ξ¬ΟƒΞΏΟ…Ξ½.
+ ΞΞµΟΞΉΞΊΞΏΞ― Ο„ΟΟ€ΞΏΞΉ Ξ±ΟΟ‡ΞµΞ―Ο‰Ξ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ο€ΞµΟΞΉΞ­Ο‡ΞΏΟ…Ξ½ ΞΉΞΏΟΟ‚, Ξ­Ο„ΟƒΞΉ ΞµΞ―Ξ½Ξ±ΞΉ Ξ΄ΞΉΞΊΞΉΞ¬ ΟƒΞ±Ο‚ ΞµΟ…ΞΈΟΞ½Ξ· Ξ½Ξ± ΞΌΞ·Ξ½ Ξ±Ξ½ΞµΞ²Ξ¬Ξ¶ΞµΟ„Ξµ
+ ΞΌΞΏΞ»ΞΉΟƒΞΌΞ¬Ξ½ Ξ±ΟΟ‡ΞµΞ―Ξ±. Ξ£Ο…Ξ½Ξ―ΟƒΟ„Ξ±Ο„Ξ±ΞΉ Ξ½Ξ± ΞµΞ»Ξ­Ξ³Ο‡ΞµΟ„Ξ±ΞΉ Ο„Ξ± Ξ­Ξ³Ξ³ΟΞ±Ο†Ξ± ΟƒΞ±Ο‚ ΞΌΞµ Ξ­Ξ½Ξ± Ξ±Ξ½Ο„ΞΉΞ²ΞΉΞΏΟ„ΞΉΞΊΟ Ο€ΟΟΞ³ΟΞ±ΞΌΞΌΞ±
+ Ο€ΟΞΉΞ½ Ο„Ξ± Ξ±Ξ½ΞµΞ²Ξ¬ΟƒΞµΟ„Ξµ.</p>
+<p>Ξ¤Ξ± Ξ­Ξ³Ξ³ΟΞ±Ο†Ξ± Ο€Ξ±ΟΞΏΟ…ΟƒΞΉΞ¬Ξ¶ΞΏΞ½Ο„Ξ±ΞΉ ΞΌΞµ Ξ±Ξ»Ο†Ξ±Ξ²Ξ·Ο„ΞΉΞΊΞ® ΟƒΞµΞΉΟΞ¬.<br /><b>Ξ£Ο…ΞΌΞ²ΞΏΟ…Ξ»Ξ® : </b>Ξ‘Ξ½ ΞΈΞ­Ξ»ΞµΟ„Ξµ Ξ½Ξ± Ο„Ξ±
+ Ο€Ξ±ΟΞΏΟ…ΟƒΞΉΞ¬ΟƒΞµΟ„Ξµ ΞΌΞµ Ξ΄ΞΉΞ±Ο†ΞΏΟΞµΟ„ΞΉΞΊΞ® ΟƒΞµΞΉΟΞ¬, Ξ±ΟΞΉΞΈΞΌΞ®ΟƒΟ„Ξµ Ο„Ξ±: 01, 02,
  03...</p>
-<p>Μπορείτε :</p>
-<h4>Να ανεβάσετε ένα αρχείο</h4>
+<p>ΞΟ€ΞΏΟΞµΞ―Ο„Ξµ :</p>
+<h4>ΞΞ± Ξ±Ξ½ΞµΞ²Ξ¬ΟƒΞµΟ„Ξµ Ξ­Ξ½Ξ± Ξ±ΟΟ‡ΞµΞ―ΞΏ</h4>
 <ul>
-  <li>Επιλέξτε το αρχείο στον υπολογιστή σας χρησιμοποιώντας το πλήκτρο Browse <input
+  <li>Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ ΟƒΟ„ΞΏΞ½ Ο…Ο€ΞΏΞ»ΞΏΞ³ΞΉΟƒΟ„Ξ® ΟƒΞ±Ο‚ Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΟΞ½Ο„Ξ±Ο‚ Ο„ΞΏ Ο€Ξ»Ξ®ΞΊΟ„ΟΞΏ Browse <input
  type=submit value=Browse name=submit2>
-	στο δεξί μέρος της οθόνης σας.</li>
-  <li>Ξεκινήστε το ανέβασμα με το πλήκτρο Upload <input type=submit
+    ΟƒΟ„ΞΏ Ξ΄ΞµΞΎΞ― ΞΌΞ­ΟΞΏΟ‚ Ο„Ξ·Ο‚ ΞΏΞΈΟΞ½Ξ·Ο‚ ΟƒΞ±Ο‚.</li>
+  <li>ΞΞµΞΊΞΉΞ½Ξ®ΟƒΟ„Ξµ Ο„ΞΏ Ξ±Ξ½Ξ­Ξ²Ξ±ΟƒΞΌΞ± ΞΌΞµ Ο„ΞΏ Ο€Ξ»Ξ®ΞΊΟ„ΟΞΏ Upload <input type=submit
  value=Upload name=submit2>
-	.</li>
+    .</li>
 </ul>
-<h4>Μετονομάστε ένα έγγραφο (ένα κατάλογο)</h4>
+<h4>ΞΞµΟ„ΞΏΞ½ΞΏΞΌΞ¬ΟƒΟ„Ξµ Ξ­Ξ½Ξ± Ξ­Ξ³Ξ³ΟΞ±Ο†ΞΏ (Ξ­Ξ½Ξ± ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏ)</h4>
 <ul>
-  <li>κάντε κλίκ στο <img src=../document/img/edit.gif width=20 height=20
- align=baseline> πλήκτρο στη
-  στήλη Μετονομασία</li>
-  <li>Πληκτρολογήστε το καινούριο όνομα στο πεδίο (πάνω αριστερά)</li>
-  <li>Επιβεβαιώστε το κάνοντας κλίκ στο <input type=submit value=Ok name=submit24>.
+  <li>ΞΊΞ¬Ξ½Ο„Ξµ ΞΊΞ»Ξ―ΞΊ ΟƒΟ„ΞΏ <img src=../document/img/edit.gif width=20 height=20
+ align=baseline> Ο€Ξ»Ξ®ΞΊΟ„ΟΞΏ ΟƒΟ„Ξ·
+  ΟƒΟ„Ξ®Ξ»Ξ· ΞΞµΟ„ΞΏΞ½ΞΏΞΌΞ±ΟƒΞ―Ξ±</li>
+  <li>Ξ Ξ»Ξ·ΞΊΟ„ΟΞΏΞ»ΞΏΞ³Ξ®ΟƒΟ„Ξµ Ο„ΞΏ ΞΊΞ±ΞΉΞ½ΞΏΟΟΞΉΞΏ ΟΞ½ΞΏΞΌΞ± ΟƒΟ„ΞΏ Ο€ΞµΞ΄Ξ―ΞΏ (Ο€Ξ¬Ξ½Ο‰ Ξ±ΟΞΉΟƒΟ„ΞµΟΞ¬)</li>
+  <li>Ξ•Ο€ΞΉΞ²ΞµΞ²Ξ±ΞΉΟΟƒΟ„Ξµ Ο„ΞΏ ΞΊΞ¬Ξ½ΞΏΞ½Ο„Ξ±Ο‚ ΞΊΞ»Ξ―ΞΊ ΟƒΟ„ΞΏ <input type=submit value=Ok name=submit24>.
 </ul>
-	<h4>Διαγραφή ενός αρχείου (ή ενος καταλόγου)</h4>
-	<ul>
+    <h4>Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® ΞµΞ½ΟΟ‚ Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… (Ξ® ΞµΞ½ΞΏΟ‚ ΞΊΞ±Ο„Ξ±Ξ»ΟΞ³ΞΏΟ…)</h4>
+    <ul>
 
-  <li>Κάντε κλίκ <img src=../document/img/delete.gif width=20 height=20>
-	στη στήλη \'Διαγραφή\'.</li>
-	</ul>
-	<h4>Μετατροπή ενός αρχείου (ή καταλόγου) σε αόρατο για τους φοιτητές</h4>
-	<ul>
+  <li>ΞΞ¬Ξ½Ο„Ξµ ΞΊΞ»Ξ―ΞΊ <img src=../document/img/delete.gif width=20 height=20>
+    ΟƒΟ„Ξ· ΟƒΟ„Ξ®Ξ»Ξ· \'Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ®\'.</li>
+    </ul>
+    <h4>ΞΞµΟ„Ξ±Ο„ΟΞΏΟ€Ξ® ΞµΞ½ΟΟ‚ Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… (Ξ® ΞΊΞ±Ο„Ξ±Ξ»ΟΞ³ΞΏΟ…) ΟƒΞµ Ξ±ΟΟΞ±Ο„ΞΏ Ξ³ΞΉΞ± Ο„ΞΏΟ…Ο‚ Ο†ΞΏΞΉΟ„Ξ·Ο„Ξ­Ο‚</h4>
+    <ul>
 
-  <li>Κάντ κλίκ <img src=../document/img/visible.gif width=20 height=20>in
- στη στήλη \'Ορατό/Αόρατο\'.</li>
-	  <li>Το αρχείου (ή κατάλογο) υπάρχει αλλά δεν είναι ορατό από τους φοιτητές πλέον.</li>
-  <li>Γα να το κάνετε αόρατο ξανά, κάντε κλίκ στη <img
+  <li>ΞΞ¬Ξ½Ο„ ΞΊΞ»Ξ―ΞΊ <img src=../document/img/visible.gif width=20 height=20>in
+ ΟƒΟ„Ξ· ΟƒΟ„Ξ®Ξ»Ξ· \'ΞΟΞ±Ο„Ο/Ξ‘ΟΟΞ±Ο„ΞΏ\'.</li>
+      <li>Ξ¤ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… (Ξ® ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏ) Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ Ξ±Ξ»Ξ»Ξ¬ Ξ΄ΞµΞ½ ΞµΞ―Ξ½Ξ±ΞΉ ΞΏΟΞ±Ο„Ο Ξ±Ο€Ο Ο„ΞΏΟ…Ο‚ Ο†ΞΏΞΉΟ„Ξ·Ο„Ξ­Ο‚ Ο€Ξ»Ξ­ΞΏΞ½.</li>
+  <li>Ξ“Ξ± Ξ½Ξ± Ο„ΞΏ ΞΊΞ¬Ξ½ΞµΟ„Ξµ Ξ±ΟΟΞ±Ο„ΞΏ ΞΎΞ±Ξ½Ξ¬, ΞΊΞ¬Ξ½Ο„Ξµ ΞΊΞ»Ξ―ΞΊ ΟƒΟ„Ξ· <img
  src=../img/invisible.gif width=24 height=20>
-	στήλη \'Ορατό/αόρατο\'</li>
-	</ul>
-	<h4>Προσθήκη ή τροποποίηση σχολίου σε ένα αρχείο (ή ενός καταλόγου)</h4>
-	<ul>
-  <li>Κάντε κλίκ <img src=../img/comment.gif width=20
+    ΟƒΟ„Ξ®Ξ»Ξ· \'ΞΟΞ±Ο„Ο/Ξ±ΟΟΞ±Ο„ΞΏ\'</li>
+    </ul>
+    <h4>Ξ ΟΞΏΟƒΞΈΞ®ΞΊΞ· Ξ® Ο„ΟΞΏΟ€ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· ΟƒΟ‡ΞΏΞ»Ξ―ΞΏΟ… ΟƒΞµ Ξ­Ξ½Ξ± Ξ±ΟΟ‡ΞµΞ―ΞΏ (Ξ® ΞµΞ½ΟΟ‚ ΞΊΞ±Ο„Ξ±Ξ»ΟΞ³ΞΏΟ…)</h4>
+    <ul>
+  <li>ΞΞ¬Ξ½Ο„Ξµ ΞΊΞ»Ξ―ΞΊ <img src=../img/comment.gif width=20
  height=20>
-	στη στήλη \'Σχόλιο\'</li>
-	  <li>Πληκτρολογήστε καινούριο σχόλιο στο αντίστοιχο πεδίο (πάνω δεξιά).</li>
-	  <li>Επιβεβαιώστε το κάντε κλίκ στο <input type=submit value=OK name=submit2>
-		.</li>
-	</ul>
-	<p>Για να διαγράψετε ένα σχόλιο, κάντε κλίκ στο <img
+    ΟƒΟ„Ξ· ΟƒΟ„Ξ®Ξ»Ξ· \'Ξ£Ο‡ΟΞ»ΞΉΞΏ\'</li>
+      <li>Ξ Ξ»Ξ·ΞΊΟ„ΟΞΏΞ»ΞΏΞ³Ξ®ΟƒΟ„Ξµ ΞΊΞ±ΞΉΞ½ΞΏΟΟΞΉΞΏ ΟƒΟ‡ΟΞ»ΞΉΞΏ ΟƒΟ„ΞΏ Ξ±Ξ½Ο„Ξ―ΟƒΟ„ΞΏΞΉΟ‡ΞΏ Ο€ΞµΞ΄Ξ―ΞΏ (Ο€Ξ¬Ξ½Ο‰ Ξ΄ΞµΞΎΞΉΞ¬).</li>
+      <li>Ξ•Ο€ΞΉΞ²ΞµΞ²Ξ±ΞΉΟΟƒΟ„Ξµ Ο„ΞΏ ΞΊΞ¬Ξ½Ο„Ξµ ΞΊΞ»Ξ―ΞΊ ΟƒΟ„ΞΏ <input type=submit value=OK name=submit2>
+        .</li>
+    </ul>
+    <p>Ξ“ΞΉΞ± Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΟ„Ξµ Ξ­Ξ½Ξ± ΟƒΟ‡ΟΞ»ΞΉΞΏ, ΞΊΞ¬Ξ½Ο„Ξµ ΞΊΞ»Ξ―ΞΊ ΟƒΟ„ΞΏ <img
  src=../img/comment.gif width=20 height=20>,
-	 για να διαγράψετε το παλιό σχόλιο στο πεδίο κα κάντε κλίκ <input type=submit
+     Ξ³ΞΉΞ± Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΟ„Ξµ Ο„ΞΏ Ο€Ξ±Ξ»ΞΉΟ ΟƒΟ‡ΟΞ»ΞΉΞΏ ΟƒΟ„ΞΏ Ο€ΞµΞ΄Ξ―ΞΏ ΞΊΞ± ΞΊΞ¬Ξ½Ο„Ξµ ΞΊΞ»Ξ―ΞΊ <input type=submit
  value=OK name=submit22>
-	  .
-	<hr />
-	<p>Μπορείτε να οργανώσετε το περιεχόμενό σας μέσο αρχειοθέτησης. Για το σκοπό αυτό:</p>
-	<h4><b>Δημιουργήστε ένα κατάλογο</b></h4>
-	<ul>
-	  <li>Κάντε κλίκ στο <img src=../img/folder.gif> \'Δημιουργία ενός καταλόγου\' (top left)</li>
-	  <li>Πληκτρολογήστε το όνομα του καινούριου σας καταλόγου στο αντίστοιχο πεδίο (πάνω αριστερά)</li>
-	  <li>Επιβεβαιώστε το κάνοντας κλίκ στο<input type=submit value=OK
+      .
+    <hr />
+    <p>ΞΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± ΞΏΟΞ³Ξ±Ξ½ΟΟƒΞµΟ„Ξµ Ο„ΞΏ Ο€ΞµΟΞΉΞµΟ‡ΟΞΌΞµΞ½Ο ΟƒΞ±Ο‚ ΞΌΞ­ΟƒΞΏ Ξ±ΟΟ‡ΞµΞΉΞΏΞΈΞ­Ο„Ξ·ΟƒΞ·Ο‚. Ξ“ΞΉΞ± Ο„ΞΏ ΟƒΞΊΞΏΟ€Ο Ξ±Ο…Ο„Ο:</p>
+    <h4><b>Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΟƒΟ„Ξµ Ξ­Ξ½Ξ± ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏ</b></h4>
+    <ul>
+      <li>ΞΞ¬Ξ½Ο„Ξµ ΞΊΞ»Ξ―ΞΊ ΟƒΟ„ΞΏ <img src=../img/folder.gif> \'Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± ΞµΞ½ΟΟ‚ ΞΊΞ±Ο„Ξ±Ξ»ΟΞ³ΞΏΟ…\' (top left)</li>
+      <li>Ξ Ξ»Ξ·ΞΊΟ„ΟΞΏΞ»ΞΏΞ³Ξ®ΟƒΟ„Ξµ Ο„ΞΏ ΟΞ½ΞΏΞΌΞ± Ο„ΞΏΟ… ΞΊΞ±ΞΉΞ½ΞΏΟΟΞΉΞΏΟ… ΟƒΞ±Ο‚ ΞΊΞ±Ο„Ξ±Ξ»ΟΞ³ΞΏΟ… ΟƒΟ„ΞΏ Ξ±Ξ½Ο„Ξ―ΟƒΟ„ΞΏΞΉΟ‡ΞΏ Ο€ΞµΞ΄Ξ―ΞΏ (Ο€Ξ¬Ξ½Ο‰ Ξ±ΟΞΉΟƒΟ„ΞµΟΞ¬)</li>
+      <li>Ξ•Ο€ΞΉΞ²ΞµΞ²Ξ±ΞΉΟΟƒΟ„Ξµ Ο„ΞΏ ΞΊΞ¬Ξ½ΞΏΞ½Ο„Ξ±Ο‚ ΞΊΞ»Ξ―ΞΊ ΟƒΟ„ΞΏ<input type=submit value=OK
  name=submit23>.</li>
-	</ul>
-	<h4>Μετακίνηση ενός αρχείου (ή καταλόγου)</h4>
-	<ul>
-	  <li>Κάντε κλικ στο πλήκτρο <img src=../img/deplacer.gif
+    </ul>
+    <h4>ΞΞµΟ„Ξ±ΞΊΞ―Ξ½Ξ·ΟƒΞ· ΞµΞ½ΟΟ‚ Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… (Ξ® ΞΊΞ±Ο„Ξ±Ξ»ΟΞ³ΞΏΟ…)</h4>
+    <ul>
+      <li>ΞΞ¬Ξ½Ο„Ξµ ΞΊΞ»ΞΉΞΊ ΟƒΟ„ΞΏ Ο€Ξ»Ξ®ΞΊΟ„ΟΞΏ <img src=../img/deplacer.gif
  width=34 height=16>
-		στη στήλη \'Μετακίνηση\'</li>
-	  <li>Επιλέξτε τον κατάλογο μέσα στον οποίο θέλετε να μετακινήσετε το έγγραφο (ή το κατάλογο) στο
-	 αντίστοιχο κυλιόμενο μενού (πανω αριστερά) (σημείωση: η λέξη \'αρχικό\' σημαίνει ότι
- 	δεν μπορείτε να πάτε πάνω από αυτό το επίπεδο στο δέντρο αρχείων του εξυπηρέτη).</li>
-	  <li>Επιβεβαιώστε το κάνοντας κλίκ στο <input type=submit value=OK
+        ΟƒΟ„Ξ· ΟƒΟ„Ξ®Ξ»Ξ· \'ΞΞµΟ„Ξ±ΞΊΞ―Ξ½Ξ·ΟƒΞ·\'</li>
+      <li>Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο„ΞΏΞ½ ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏ ΞΌΞ­ΟƒΞ± ΟƒΟ„ΞΏΞ½ ΞΏΟ€ΞΏΞ―ΞΏ ΞΈΞ­Ξ»ΞµΟ„Ξµ Ξ½Ξ± ΞΌΞµΟ„Ξ±ΞΊΞΉΞ½Ξ®ΟƒΞµΟ„Ξµ Ο„ΞΏ Ξ­Ξ³Ξ³ΟΞ±Ο†ΞΏ (Ξ® Ο„ΞΏ ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏ) ΟƒΟ„ΞΏ
+     Ξ±Ξ½Ο„Ξ―ΟƒΟ„ΞΏΞΉΟ‡ΞΏ ΞΊΟ…Ξ»ΞΉΟΞΌΞµΞ½ΞΏ ΞΌΞµΞ½ΞΏΟ (Ο€Ξ±Ξ½Ο‰ Ξ±ΟΞΉΟƒΟ„ΞµΟΞ¬) (ΟƒΞ·ΞΌΞµΞ―Ο‰ΟƒΞ·: Ξ· Ξ»Ξ­ΞΎΞ· \'Ξ±ΟΟ‡ΞΉΞΊΟ\' ΟƒΞ·ΞΌΞ±Ξ―Ξ½ΞµΞΉ ΟΟ„ΞΉ
+    Ξ΄ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± Ο€Ξ¬Ο„Ξµ Ο€Ξ¬Ξ½Ο‰ Ξ±Ο€Ο Ξ±Ο…Ο„Ο Ο„ΞΏ ΞµΟ€Ξ―Ο€ΞµΞ΄ΞΏ ΟƒΟ„ΞΏ Ξ΄Ξ­Ξ½Ο„ΟΞΏ Ξ±ΟΟ‡ΞµΞ―Ο‰Ξ½ Ο„ΞΏΟ… ΞµΞΎΟ…Ο€Ξ·ΟΞ­Ο„Ξ·).</li>
+      <li>Ξ•Ο€ΞΉΞ²ΞµΞ²Ξ±ΞΉΟΟƒΟ„Ξµ Ο„ΞΏ ΞΊΞ¬Ξ½ΞΏΞ½Ο„Ξ±Ο‚ ΞΊΞ»Ξ―ΞΊ ΟƒΟ„ΞΏ <input type=submit value=OK
  name=submit232>.</li>
-	</ul>
-	<center>
-	  <p>';
-$_lang['blockExercisesHelp'] = '<h4>Ποιό είναι το εργαλείο-μέσο ασκησης ?</h4>
-Αυτό το εργαλείο επιτρέπει το να δημιουργήσεις ασκήσεις online που αποτελούνται απο μια λίστα ερωτήσεων. Οι ερωτήσεις μπορούν να είναι διαφορετικών τύπων, οι μαθητές μπορούν να συμπληρώνουν τις ασκήσεις και αν είναι εγγεγραμένοι στο μάθημα σας, οι βαθμολογίες τους θα αποθηκευτούν και θα φαινονται στα στατιστικά του μαθήματος.
+    </ul>
+    <center>
+      <p>';
+$_lang['blockExercisesHelp'] = '<h4>Ξ ΞΏΞΉΟ ΞµΞ―Ξ½Ξ±ΞΉ Ο„ΞΏ ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏ-ΞΌΞ­ΟƒΞΏ Ξ±ΟƒΞΊΞ·ΟƒΞ·Ο‚ ?</h4>
+Ξ‘Ο…Ο„Ο Ο„ΞΏ ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏ ΞµΟ€ΞΉΟ„ΟΞ­Ο€ΞµΞΉ Ο„ΞΏ Ξ½Ξ± Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΟƒΞµΞΉΟ‚ Ξ±ΟƒΞΊΞ®ΟƒΞµΞΉΟ‚ online Ο€ΞΏΟ… Ξ±Ο€ΞΏΟ„ΞµΞ»ΞΏΟΞ½Ο„Ξ±ΞΉ Ξ±Ο€ΞΏ ΞΌΞΉΞ± Ξ»Ξ―ΟƒΟ„Ξ± ΞµΟΟ‰Ο„Ξ®ΟƒΞµΟ‰Ξ½. ΞΞΉ ΞµΟΟ‰Ο„Ξ®ΟƒΞµΞΉΟ‚ ΞΌΟ€ΞΏΟΞΏΟΞ½ Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ Ξ΄ΞΉΞ±Ο†ΞΏΟΞµΟ„ΞΉΞΊΟΞ½ Ο„ΟΟ€Ο‰Ξ½, ΞΏΞΉ ΞΌΞ±ΞΈΞ·Ο„Ξ­Ο‚ ΞΌΟ€ΞΏΟΞΏΟΞ½ Ξ½Ξ± ΟƒΟ…ΞΌΟ€Ξ»Ξ·ΟΟΞ½ΞΏΟ…Ξ½ Ο„ΞΉΟ‚ Ξ±ΟƒΞΊΞ®ΟƒΞµΞΉΟ‚ ΞΊΞ±ΞΉ Ξ±Ξ½ ΞµΞ―Ξ½Ξ±ΞΉ ΞµΞ³Ξ³ΞµΞ³ΟΞ±ΞΌΞ­Ξ½ΞΏΞΉ ΟƒΟ„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ± ΟƒΞ±Ο‚, ΞΏΞΉ Ξ²Ξ±ΞΈΞΌΞΏΞ»ΞΏΞ³Ξ―ΞµΟ‚ Ο„ΞΏΟ…Ο‚ ΞΈΞ± Ξ±Ο€ΞΏΞΈΞ·ΞΊΞµΟ…Ο„ΞΏΟΞ½ ΞΊΞ±ΞΉ ΞΈΞ± Ο†Ξ±ΞΉΞ½ΞΏΞ½Ο„Ξ±ΞΉ ΟƒΟ„Ξ± ΟƒΟ„Ξ±Ο„ΞΉΟƒΟ„ΞΉΞΊΞ¬ Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚.
 
 <hr />
 
-<h4>Διαχείριση των ασκήσεων</h4>
-<p>Για να δημιουργήσεις μια άσκηση</p>
+<h4>Ξ”ΞΉΞ±Ο‡ΞµΞ―ΟΞΉΟƒΞ· Ο„Ο‰Ξ½ Ξ±ΟƒΞΊΞ®ΟƒΞµΟ‰Ξ½</h4>
+<p>Ξ“ΞΉΞ± Ξ½Ξ± Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΟƒΞµΞΉΟ‚ ΞΌΞΉΞ± Ξ¬ΟƒΞΊΞ·ΟƒΞ·</p>
 <ul>
-<li> κάνε κλικ "Nέα άσκηση", στην αρχική σελίδα εργαλείου (βεβαιωθείτε ότι έχετε εισέρθει σαν δάσκαλος του μαθήματος ή σαν διαχειριστής)</li>
-<li> Eισαγωγή ονόματος για την άσκηση στο κουτί</li>
-<li> Eισαγωγή περιγραφής</li>
-<li> Διάλεξε αν ο χρήστης θα δεί όλες τις ερωτήσεις σε μία μονο σελίδα ή μία σελίδα για κάθε ερώτηση</li>
-<li> Μπορείτε να επεξεργαστείτε και τις προχωρημένες ρυθμίσεις(δεν απαιτείται)
+<li> ΞΊΞ¬Ξ½Ξµ ΞΊΞ»ΞΉΞΊ "NΞ­Ξ± Ξ¬ΟƒΞΊΞ·ΟƒΞ·", ΟƒΟ„Ξ·Ξ½ Ξ±ΟΟ‡ΞΉΞΊΞ® ΟƒΞµΞ»Ξ―Ξ΄Ξ± ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏΟ… (Ξ²ΞµΞ²Ξ±ΞΉΟ‰ΞΈΞµΞ―Ο„Ξµ ΟΟ„ΞΉ Ξ­Ο‡ΞµΟ„Ξµ ΞµΞΉΟƒΞ­ΟΞΈΞµΞΉ ΟƒΞ±Ξ½ Ξ΄Ξ¬ΟƒΞΊΞ±Ξ»ΞΏΟ‚ Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ Ξ® ΟƒΞ±Ξ½ Ξ΄ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ®Ο‚)</li>
+<li> EΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ® ΞΏΞ½ΟΞΌΞ±Ο„ΞΏΟ‚ Ξ³ΞΉΞ± Ο„Ξ·Ξ½ Ξ¬ΟƒΞΊΞ·ΟƒΞ· ΟƒΟ„ΞΏ ΞΊΞΏΟ…Ο„Ξ―</li>
+<li> EΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ® Ο€ΞµΟΞΉΞ³ΟΞ±Ο†Ξ®Ο‚</li>
+<li> Ξ”ΞΉΞ¬Ξ»ΞµΞΎΞµ Ξ±Ξ½ ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ ΞΈΞ± Ξ΄ΞµΞ― ΟΞ»ΞµΟ‚ Ο„ΞΉΟ‚ ΞµΟΟ‰Ο„Ξ®ΟƒΞµΞΉΟ‚ ΟƒΞµ ΞΌΞ―Ξ± ΞΌΞΏΞ½ΞΏ ΟƒΞµΞ»Ξ―Ξ΄Ξ± Ξ® ΞΌΞ―Ξ± ΟƒΞµΞ»Ξ―Ξ΄Ξ± Ξ³ΞΉΞ± ΞΊΞ¬ΞΈΞµ ΞµΟΟΟ„Ξ·ΟƒΞ·</li>
+<li> ΞΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± ΞµΟ€ΞµΞΎΞµΟΞ³Ξ±ΟƒΟ„ΞµΞ―Ο„Ξµ ΞΊΞ±ΞΉ Ο„ΞΉΟ‚ Ο€ΟΞΏΟ‡Ο‰ΟΞ·ΞΌΞ­Ξ½ΞµΟ‚ ΟΟ…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚(Ξ΄ΞµΞ½ Ξ±Ο€Ξ±ΞΉΟ„ΞµΞ―Ο„Ξ±ΞΉ)
 <ul>
-<li> Επιλέξτε ημερομηνία έναρξης</li>
-<li> Επιλέξτε ημερομηνία τέλους</li>
-<li> ορίστε χρονικό περιθώριο</li>
-<li> Επιλέξτε αριμό επιτρεπόμενων προσπαθειών</li>
-<li> Επιλέξτε αν οι ανώνυμες προσπάθειες επιτρέπονται (αν οχι, δεν θα υπάρχει παρακολούθηση)</li>
-<li> Επιλέξτε πότε θα πρέπει να εμφανίζεται η επικοινωνία</li>
+<li> Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ξ·ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ± Ξ­Ξ½Ξ±ΟΞΎΞ·Ο‚</li>
+<li> Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ξ·ΞΌΞµΟΞΏΞΌΞ·Ξ½Ξ―Ξ± Ο„Ξ­Ξ»ΞΏΟ…Ο‚</li>
+<li> ΞΏΟΞ―ΟƒΟ„Ξµ Ο‡ΟΞΏΞ½ΞΉΞΊΟ Ο€ΞµΟΞΉΞΈΟΟΞΉΞΏ</li>
+<li> Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ξ±ΟΞΉΞΌΟ ΞµΟ€ΞΉΟ„ΟΞµΟ€ΟΞΌΞµΞ½Ο‰Ξ½ Ο€ΟΞΏΟƒΟ€Ξ±ΞΈΞµΞΉΟΞ½</li>
+<li> Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ξ±Ξ½ ΞΏΞΉ Ξ±Ξ½ΟΞ½Ο…ΞΌΞµΟ‚ Ο€ΟΞΏΟƒΟ€Ξ¬ΞΈΞµΞΉΞµΟ‚ ΞµΟ€ΞΉΟ„ΟΞ­Ο€ΞΏΞ½Ο„Ξ±ΞΉ (Ξ±Ξ½ ΞΏΟ‡ΞΉ, Ξ΄ΞµΞ½ ΞΈΞ± Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ Ο€Ξ±ΟΞ±ΞΊΞΏΞ»ΞΏΟΞΈΞ·ΟƒΞ·)</li>
+<li> Ξ•Ο€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ο€ΟΟ„Ξµ ΞΈΞ± Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞµΟ„Ξ±ΞΉ Ξ· ΞµΟ€ΞΉΞΊΞΏΞΉΞ½Ο‰Ξ½Ξ―Ξ±</li>
 </ul>
 </li>
-<li> κανε κλικ στο Ok</li>
+<li> ΞΊΞ±Ξ½Ξµ ΞΊΞ»ΞΉΞΊ ΟƒΟ„ΞΏ Ok</li>
 </ul>
-<p>τώρα μπορείς να συμπληρώσεις τις νεες ασκήσεις με νέες ερωτήσεις ή ερωτήσεις απο το σύνολο/πλήθος.</p>
+<p>Ο„ΟΟΞ± ΞΌΟ€ΞΏΟΞµΞ―Ο‚ Ξ½Ξ± ΟƒΟ…ΞΌΟ€Ξ»Ξ·ΟΟΟƒΞµΞΉΟ‚ Ο„ΞΉΟ‚ Ξ½ΞµΞµΟ‚ Ξ±ΟƒΞΊΞ®ΟƒΞµΞΉΟ‚ ΞΌΞµ Ξ½Ξ­ΞµΟ‚ ΞµΟΟ‰Ο„Ξ®ΟƒΞµΞΉΟ‚ Ξ® ΞµΟΟ‰Ο„Ξ®ΟƒΞµΞΉΟ‚ Ξ±Ο€ΞΏ Ο„ΞΏ ΟƒΟΞ½ΞΏΞ»ΞΏ/Ο€Ξ»Ξ®ΞΈΞΏΟ‚.</p>
 
 <hr />
-<h4>Ερωτήσεις</h4>
-<h4>Ερωτήσεις πολλαπλών επιλογων </h4>
-<p>Υπάρχουν δυο είδη ερωτησεων πολλαπλών επιλογων&nbsp;:
+<h4>Ξ•ΟΟ‰Ο„Ξ®ΟƒΞµΞΉΟ‚</h4>
+<h4>Ξ•ΟΟ‰Ο„Ξ®ΟƒΞµΞΉΟ‚ Ο€ΞΏΞ»Ξ»Ξ±Ο€Ξ»ΟΞ½ ΞµΟ€ΞΉΞ»ΞΏΞ³Ο‰Ξ½ </h4>
+<p>Ξ¥Ο€Ξ¬ΟΟ‡ΞΏΟ…Ξ½ Ξ΄Ο…ΞΏ ΞµΞ―Ξ΄Ξ· ΞµΟΟ‰Ο„Ξ·ΟƒΞµΟ‰Ξ½ Ο€ΞΏΞ»Ξ»Ξ±Ο€Ξ»ΟΞ½ ΞµΟ€ΞΉΞ»ΞΏΞ³Ο‰Ξ½&nbsp;:
 </p>
 <ul>
-<li> Ερωτήσεις με μοναδική απάντηση</li>
-<li> Ερωτήσεις με πολλαπλές απαντήσεις</li>
+<li> Ξ•ΟΟ‰Ο„Ξ®ΟƒΞµΞΉΟ‚ ΞΌΞµ ΞΌΞΏΞ½Ξ±Ξ΄ΞΉΞΊΞ® Ξ±Ο€Ξ¬Ξ½Ο„Ξ·ΟƒΞ·</li>
+<li> Ξ•ΟΟ‰Ο„Ξ®ΟƒΞµΞΉΟ‚ ΞΌΞµ Ο€ΞΏΞ»Ξ»Ξ±Ο€Ξ»Ξ­Ο‚ Ξ±Ο€Ξ±Ξ½Ο„Ξ®ΟƒΞµΞΉΟ‚</li>
 </ul>
-<p>Και στις δυο περιπτώσεις, όταν αρχίζεις τη δημιουργία νέας ερώτησης, υπάρχουν μόνο δυο δυνατές εμφανιζόμενες απαντήσεις. Εαν επιθυμείτε να έχετε περισσότερες πιθανές απαντήσεις τοτε</p>
+<p>ΞΞ±ΞΉ ΟƒΟ„ΞΉΟ‚ Ξ΄Ο…ΞΏ Ο€ΞµΟΞΉΟ€Ο„ΟΟƒΞµΞΉΟ‚, ΟΟ„Ξ±Ξ½ Ξ±ΟΟ‡Ξ―Ξ¶ΞµΞΉΟ‚ Ο„Ξ· Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ξ½Ξ­Ξ±Ο‚ ΞµΟΟΟ„Ξ·ΟƒΞ·Ο‚, Ο…Ο€Ξ¬ΟΟ‡ΞΏΟ…Ξ½ ΞΌΟΞ½ΞΏ Ξ΄Ο…ΞΏ Ξ΄Ο…Ξ½Ξ±Ο„Ξ­Ο‚ ΞµΞΌΟ†Ξ±Ξ½ΞΉΞ¶ΟΞΌΞµΞ½ΞµΟ‚ Ξ±Ο€Ξ±Ξ½Ο„Ξ®ΟƒΞµΞΉΟ‚. Ξ•Ξ±Ξ½ ΞµΟ€ΞΉΞΈΟ…ΞΌΞµΞ―Ο„Ξµ Ξ½Ξ± Ξ­Ο‡ΞµΟ„Ξµ Ο€ΞµΟΞΉΟƒΟƒΟΟ„ΞµΟΞµΟ‚ Ο€ΞΉΞΈΞ±Ξ½Ξ­Ο‚ Ξ±Ο€Ξ±Ξ½Ο„Ξ®ΟƒΞµΞΉΟ‚ Ο„ΞΏΟ„Ξµ</p>
 <ul>
-<li> πατήστε +Answ για κάθε πρόσθετη απάντηση που απαιτείται</li>
+<li> Ο€Ξ±Ο„Ξ®ΟƒΟ„Ξµ +Answ Ξ³ΞΉΞ± ΞΊΞ¬ΞΈΞµ Ο€ΟΟΟƒΞΈΞµΟ„Ξ· Ξ±Ο€Ξ¬Ξ½Ο„Ξ·ΟƒΞ· Ο€ΞΏΟ… Ξ±Ο€Ξ±ΞΉΟ„ΞµΞ―Ο„Ξ±ΞΉ</li>
 </ul>
-<p>Εαν επιθυμείτε να μειώσετε τον αριθμό των πιθανών απαντήσεων τοτε </p>
+<p>Ξ•Ξ±Ξ½ ΞµΟ€ΞΉΞΈΟ…ΞΌΞµΞ―Ο„Ξµ Ξ½Ξ± ΞΌΞµΞΉΟΟƒΞµΟ„Ξµ Ο„ΞΏΞ½ Ξ±ΟΞΉΞΈΞΌΟ Ο„Ο‰Ξ½ Ο€ΞΉΞΈΞ±Ξ½ΟΞ½ Ξ±Ο€Ξ±Ξ½Ο„Ξ®ΟƒΞµΟ‰Ξ½ Ο„ΞΏΟ„Ξµ </p>
 <ul>
-<li> πατήστε -Answ για κάθε απάντηση που αφαιρείται</li>
+<li> Ο€Ξ±Ο„Ξ®ΟƒΟ„Ξµ -Answ Ξ³ΞΉΞ± ΞΊΞ¬ΞΈΞµ Ξ±Ο€Ξ¬Ξ½Ο„Ξ·ΟƒΞ· Ο€ΞΏΟ… Ξ±Ο†Ξ±ΞΉΟΞµΞ―Ο„Ξ±ΞΉ</li>
 </ul>
-<p>μετα για ακάθε απάντηση&nbsp;:</p>
+<p>ΞΌΞµΟ„Ξ± Ξ³ΞΉΞ± Ξ±ΞΊΞ¬ΞΈΞµ Ξ±Ο€Ξ¬Ξ½Ο„Ξ·ΟƒΞ·&nbsp;:</p>
 <ul>
-<li> Βάλτε ένα τικ (ν) στο κουτί της σωστής απάντησης.</li>
-<li> Στη στήλη απαντήσεων εισάγετε το κείμενο των πιθανών απαντήσεων των ερωτήσεων</li>
-<li> Στη στήλη σχολίων εισάγετε το  feedback που έχει δοθεί εφόσον ο μαθητής επιλέξει την απάντηση αυτή.</li>
-<li> Προσαρμόστε σταθμιση αξιολόγησης. Η αρχή αυτού του πίνακα βαθμολογίας έιναι για να ορίσει σωστή αναλογία, αριθμο καλών απαντήσεων με την ερώτηση. Για παράδειγμα, εαν έχετε μια ερώτηση με 4 απαντήσεις (πιθανότατα περισσότερες απο μια σωστές) και ο μαθητής έχει δυο λάθη και δυο σωστά, μπορείς να του δώσεις τους μισούς πόντους/βαθμούς, αλλά μπορείς και να αποφασίσεις οτι αυτό δεν είναι ικανοποιητικό και να δώσεις, για π.χ., μέγιστους βαθμούς (20) αν όλα είναι σωστά και μηδεν βαθμούς σε άλλο συνδυασμό.
+<li> Ξ’Ξ¬Ξ»Ο„Ξµ Ξ­Ξ½Ξ± Ο„ΞΉΞΊ (Ξ½) ΟƒΟ„ΞΏ ΞΊΞΏΟ…Ο„Ξ― Ο„Ξ·Ο‚ ΟƒΟ‰ΟƒΟ„Ξ®Ο‚ Ξ±Ο€Ξ¬Ξ½Ο„Ξ·ΟƒΞ·Ο‚.</li>
+<li> Ξ£Ο„Ξ· ΟƒΟ„Ξ®Ξ»Ξ· Ξ±Ο€Ξ±Ξ½Ο„Ξ®ΟƒΞµΟ‰Ξ½ ΞµΞΉΟƒΞ¬Ξ³ΞµΟ„Ξµ Ο„ΞΏ ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ Ο„Ο‰Ξ½ Ο€ΞΉΞΈΞ±Ξ½ΟΞ½ Ξ±Ο€Ξ±Ξ½Ο„Ξ®ΟƒΞµΟ‰Ξ½ Ο„Ο‰Ξ½ ΞµΟΟ‰Ο„Ξ®ΟƒΞµΟ‰Ξ½</li>
+<li> Ξ£Ο„Ξ· ΟƒΟ„Ξ®Ξ»Ξ· ΟƒΟ‡ΞΏΞ»Ξ―Ο‰Ξ½ ΞµΞΉΟƒΞ¬Ξ³ΞµΟ„Ξµ Ο„ΞΏ  feedback Ο€ΞΏΟ… Ξ­Ο‡ΞµΞΉ Ξ΄ΞΏΞΈΞµΞ― ΞµΟ†ΟΟƒΞΏΞ½ ΞΏ ΞΌΞ±ΞΈΞ·Ο„Ξ®Ο‚ ΞµΟ€ΞΉΞ»Ξ­ΞΎΞµΞΉ Ο„Ξ·Ξ½ Ξ±Ο€Ξ¬Ξ½Ο„Ξ·ΟƒΞ· Ξ±Ο…Ο„Ξ®.</li>
+<li> Ξ ΟΞΏΟƒΞ±ΟΞΌΟΟƒΟ„Ξµ ΟƒΟ„Ξ±ΞΈΞΌΞΉΟƒΞ· Ξ±ΞΎΞΉΞΏΞ»ΟΞ³Ξ·ΟƒΞ·Ο‚. Ξ— Ξ±ΟΟ‡Ξ® Ξ±Ο…Ο„ΞΏΟ Ο„ΞΏΟ… Ο€Ξ―Ξ½Ξ±ΞΊΞ± Ξ²Ξ±ΞΈΞΌΞΏΞ»ΞΏΞ³Ξ―Ξ±Ο‚ Ξ­ΞΉΞ½Ξ±ΞΉ Ξ³ΞΉΞ± Ξ½Ξ± ΞΏΟΞ―ΟƒΞµΞΉ ΟƒΟ‰ΟƒΟ„Ξ® Ξ±Ξ½Ξ±Ξ»ΞΏΞ³Ξ―Ξ±, Ξ±ΟΞΉΞΈΞΌΞΏ ΞΊΞ±Ξ»ΟΞ½ Ξ±Ο€Ξ±Ξ½Ο„Ξ®ΟƒΞµΟ‰Ξ½ ΞΌΞµ Ο„Ξ·Ξ½ ΞµΟΟΟ„Ξ·ΟƒΞ·. Ξ“ΞΉΞ± Ο€Ξ±ΟΞ¬Ξ΄ΞµΞΉΞ³ΞΌΞ±, ΞµΞ±Ξ½ Ξ­Ο‡ΞµΟ„Ξµ ΞΌΞΉΞ± ΞµΟΟΟ„Ξ·ΟƒΞ· ΞΌΞµ 4 Ξ±Ο€Ξ±Ξ½Ο„Ξ®ΟƒΞµΞΉΟ‚ (Ο€ΞΉΞΈΞ±Ξ½ΟΟ„Ξ±Ο„Ξ± Ο€ΞµΟΞΉΟƒΟƒΟΟ„ΞµΟΞµΟ‚ Ξ±Ο€ΞΏ ΞΌΞΉΞ± ΟƒΟ‰ΟƒΟ„Ξ­Ο‚) ΞΊΞ±ΞΉ ΞΏ ΞΌΞ±ΞΈΞ·Ο„Ξ®Ο‚ Ξ­Ο‡ΞµΞΉ Ξ΄Ο…ΞΏ Ξ»Ξ¬ΞΈΞ· ΞΊΞ±ΞΉ Ξ΄Ο…ΞΏ ΟƒΟ‰ΟƒΟ„Ξ¬, ΞΌΟ€ΞΏΟΞµΞ―Ο‚ Ξ½Ξ± Ο„ΞΏΟ… Ξ΄ΟΟƒΞµΞΉΟ‚ Ο„ΞΏΟ…Ο‚ ΞΌΞΉΟƒΞΏΟΟ‚ Ο€ΟΞ½Ο„ΞΏΟ…Ο‚/Ξ²Ξ±ΞΈΞΌΞΏΟΟ‚, Ξ±Ξ»Ξ»Ξ¬ ΞΌΟ€ΞΏΟΞµΞ―Ο‚ ΞΊΞ±ΞΉ Ξ½Ξ± Ξ±Ο€ΞΏΟ†Ξ±ΟƒΞ―ΟƒΞµΞΉΟ‚ ΞΏΟ„ΞΉ Ξ±Ο…Ο„Ο Ξ΄ΞµΞ½ ΞµΞ―Ξ½Ξ±ΞΉ ΞΉΞΊΞ±Ξ½ΞΏΟ€ΞΏΞΉΞ·Ο„ΞΉΞΊΟ ΞΊΞ±ΞΉ Ξ½Ξ± Ξ΄ΟΟƒΞµΞΉΟ‚, Ξ³ΞΉΞ± Ο€.Ο‡., ΞΌΞ­Ξ³ΞΉΟƒΟ„ΞΏΟ…Ο‚ Ξ²Ξ±ΞΈΞΌΞΏΟΟ‚ (20) Ξ±Ξ½ ΟΞ»Ξ± ΞµΞ―Ξ½Ξ±ΞΉ ΟƒΟ‰ΟƒΟ„Ξ¬ ΞΊΞ±ΞΉ ΞΌΞ·Ξ΄ΞµΞ½ Ξ²Ξ±ΞΈΞΌΞΏΟΟ‚ ΟƒΞµ Ξ¬Ξ»Ξ»ΞΏ ΟƒΟ…Ξ½Ξ΄Ο…Ξ±ΟƒΞΌΟ.
 </li>
 </ul>
 
-<h4>Ερωτήσεις ταιριάσματος</h4>
-<p>Σε τετοιου τύπου ερωτησης, ο μαθητής πρέπει να βρεί την συσχέτιση ανάμεσα σε στοιχεία δυο απο δυο ξεχωριστές λίστες.</p>
-<p>Όταν αρχίσεις δημιουργία νέας ερώτησης τετοιου είδους, υπάρχουν 2 μόνο στοιχεία στις δυο εμφανιζόμενες λίστες. Εαν επιθυμείτε να έχετε περισσότερα πιθανά στοιχεία για αντιστοίχιση τότε</p>
+<h4>Ξ•ΟΟ‰Ο„Ξ®ΟƒΞµΞΉΟ‚ Ο„Ξ±ΞΉΟΞΉΞ¬ΟƒΞΌΞ±Ο„ΞΏΟ‚</h4>
+<p>Ξ£Ξµ Ο„ΞµΟ„ΞΏΞΉΞΏΟ… Ο„ΟΟ€ΞΏΟ… ΞµΟΟ‰Ο„Ξ·ΟƒΞ·Ο‚, ΞΏ ΞΌΞ±ΞΈΞ·Ο„Ξ®Ο‚ Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± Ξ²ΟΞµΞ― Ο„Ξ·Ξ½ ΟƒΟ…ΟƒΟ‡Ξ­Ο„ΞΉΟƒΞ· Ξ±Ξ½Ξ¬ΞΌΞµΟƒΞ± ΟƒΞµ ΟƒΟ„ΞΏΞΉΟ‡ΞµΞ―Ξ± Ξ΄Ο…ΞΏ Ξ±Ο€ΞΏ Ξ΄Ο…ΞΏ ΞΎΞµΟ‡Ο‰ΟΞΉΟƒΟ„Ξ­Ο‚ Ξ»Ξ―ΟƒΟ„ΞµΟ‚.</p>
+<p>ΞΟ„Ξ±Ξ½ Ξ±ΟΟ‡Ξ―ΟƒΞµΞΉΟ‚ Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ξ½Ξ­Ξ±Ο‚ ΞµΟΟΟ„Ξ·ΟƒΞ·Ο‚ Ο„ΞµΟ„ΞΏΞΉΞΏΟ… ΞµΞ―Ξ΄ΞΏΟ…Ο‚, Ο…Ο€Ξ¬ΟΟ‡ΞΏΟ…Ξ½ 2 ΞΌΟΞ½ΞΏ ΟƒΟ„ΞΏΞΉΟ‡ΞµΞ―Ξ± ΟƒΟ„ΞΉΟ‚ Ξ΄Ο…ΞΏ ΞµΞΌΟ†Ξ±Ξ½ΞΉΞ¶ΟΞΌΞµΞ½ΞµΟ‚ Ξ»Ξ―ΟƒΟ„ΞµΟ‚. Ξ•Ξ±Ξ½ ΞµΟ€ΞΉΞΈΟ…ΞΌΞµΞ―Ο„Ξµ Ξ½Ξ± Ξ­Ο‡ΞµΟ„Ξµ Ο€ΞµΟΞΉΟƒΟƒΟΟ„ΞµΟΞ± Ο€ΞΉΞΈΞ±Ξ½Ξ¬ ΟƒΟ„ΞΏΞΉΟ‡ΞµΞ―Ξ± Ξ³ΞΉΞ± Ξ±Ξ½Ο„ΞΉΟƒΟ„ΞΏΞ―Ο‡ΞΉΟƒΞ· Ο„ΟΟ„Ξµ</p>
 <ul>
-<li> Πατήστε +elem για καθε πρόσθετη απάντηση απαιτείται</li>
+<li> Ξ Ξ±Ο„Ξ®ΟƒΟ„Ξµ +elem Ξ³ΞΉΞ± ΞΊΞ±ΞΈΞµ Ο€ΟΟΟƒΞΈΞµΟ„Ξ· Ξ±Ο€Ξ¬Ξ½Ο„Ξ·ΟƒΞ· Ξ±Ο€Ξ±ΞΉΟ„ΞµΞ―Ο„Ξ±ΞΉ</li>
 </ul>
-<p>Εαν επιθυμείτε να μειώσετε το αριθμό στοιχείων τότε </p>
+<p>Ξ•Ξ±Ξ½ ΞµΟ€ΞΉΞΈΟ…ΞΌΞµΞ―Ο„Ξµ Ξ½Ξ± ΞΌΞµΞΉΟΟƒΞµΟ„Ξµ Ο„ΞΏ Ξ±ΟΞΉΞΈΞΌΟ ΟƒΟ„ΞΏΞΉΟ‡ΞµΞ―Ο‰Ξ½ Ο„ΟΟ„Ξµ </p>
 <ul>
-<li> Πατήστε  -elem για κάθε απάντηση που αφαιρείται</li>
+<li> Ξ Ξ±Ο„Ξ®ΟƒΟ„Ξµ  -elem Ξ³ΞΉΞ± ΞΊΞ¬ΞΈΞµ Ξ±Ο€Ξ¬Ξ½Ο„Ξ·ΟƒΞ· Ο€ΞΏΟ… Ξ±Ο†Ξ±ΞΉΟΞµΞ―Ο„Ξ±ΞΉ</li>
 </ul>
 
-<p>Μπορείτε και να ορίσετε το βάρος κάθε απάντησης, δεν μπορεί να είναι αρνητικό. Μη ξεχάσετε να κάνετε κλικ σε "ok" για να πιστοποιήσετε τη νεα σας ερώτηση.</p>
+<p>ΞΟ€ΞΏΟΞµΞ―Ο„Ξµ ΞΊΞ±ΞΉ Ξ½Ξ± ΞΏΟΞ―ΟƒΞµΟ„Ξµ Ο„ΞΏ Ξ²Ξ¬ΟΞΏΟ‚ ΞΊΞ¬ΞΈΞµ Ξ±Ο€Ξ¬Ξ½Ο„Ξ·ΟƒΞ·Ο‚, Ξ΄ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ Ξ±ΟΞ½Ξ·Ο„ΞΉΞΊΟ. ΞΞ· ΞΎΞµΟ‡Ξ¬ΟƒΞµΟ„Ξµ Ξ½Ξ± ΞΊΞ¬Ξ½ΞµΟ„Ξµ ΞΊΞ»ΞΉΞΊ ΟƒΞµ "ok" Ξ³ΞΉΞ± Ξ½Ξ± Ο€ΞΉΟƒΟ„ΞΏΟ€ΞΏΞΉΞ®ΟƒΞµΟ„Ξµ Ο„Ξ· Ξ½ΞµΞ± ΟƒΞ±Ο‚ ΞµΟΟΟ„Ξ·ΟƒΞ·.</p>
 
-<h4>\'Συμπλήρωσε τα κενά ερωτήσεων</h4>
-<p>Αυτός ο τύπος ερωτήσεων είναι ένα κείμενο με καποιες λέξεις να λείπουν τις οποίες πρέπει να συμπληρώσει ο μαθητής.
-Όταν δημιουργείς μια τετοια ερώτηση&nbsp;:
+<h4>\'Ξ£Ο…ΞΌΟ€Ξ»Ξ®ΟΟ‰ΟƒΞµ Ο„Ξ± ΞΊΞµΞ½Ξ¬ ΞµΟΟ‰Ο„Ξ®ΟƒΞµΟ‰Ξ½</h4>
+<p>Ξ‘Ο…Ο„ΟΟ‚ ΞΏ Ο„ΟΟ€ΞΏΟ‚ ΞµΟΟ‰Ο„Ξ®ΟƒΞµΟ‰Ξ½ ΞµΞ―Ξ½Ξ±ΞΉ Ξ­Ξ½Ξ± ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ ΞΌΞµ ΞΊΞ±Ο€ΞΏΞΉΞµΟ‚ Ξ»Ξ­ΞΎΞµΞΉΟ‚ Ξ½Ξ± Ξ»ΞµΞ―Ο€ΞΏΟ…Ξ½ Ο„ΞΉΟ‚ ΞΏΟ€ΞΏΞ―ΞµΟ‚ Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΟƒΟ…ΞΌΟ€Ξ»Ξ·ΟΟΟƒΞµΞΉ ΞΏ ΞΌΞ±ΞΈΞ·Ο„Ξ®Ο‚.
+ΞΟ„Ξ±Ξ½ Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³ΞµΞ―Ο‚ ΞΌΞΉΞ± Ο„ΞµΟ„ΞΏΞΉΞ± ΞµΟΟΟ„Ξ·ΟƒΞ·&nbsp;:
 </p>
 <ul>
-<li> Εισείγαγε πρώτα το κείμενο για την ερώτηση.</li>
-<li> Χρησιμοποήσε αγκύλες [...] για να ορίσεις ένα ή περισσότερα κενά στο κείμενο, βάλτε τις σωστές απαντήσεις μεταξύ των αγκυλών.
+<li> Ξ•ΞΉΟƒΞµΞ―Ξ³Ξ±Ξ³Ξµ Ο€ΟΟΟ„Ξ± Ο„ΞΏ ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ Ξ³ΞΉΞ± Ο„Ξ·Ξ½ ΞµΟΟΟ„Ξ·ΟƒΞ·.</li>
+<li> Ξ§ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞ®ΟƒΞµ Ξ±Ξ³ΞΊΟΞ»ΞµΟ‚ [...] Ξ³ΞΉΞ± Ξ½Ξ± ΞΏΟΞ―ΟƒΞµΞΉΟ‚ Ξ­Ξ½Ξ± Ξ® Ο€ΞµΟΞΉΟƒΟƒΟΟ„ΞµΟΞ± ΞΊΞµΞ½Ξ¬ ΟƒΟ„ΞΏ ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ, Ξ²Ξ¬Ξ»Ο„Ξµ Ο„ΞΉΟ‚ ΟƒΟ‰ΟƒΟ„Ξ­Ο‚ Ξ±Ο€Ξ±Ξ½Ο„Ξ®ΟƒΞµΞΉΟ‚ ΞΌΞµΟ„Ξ±ΞΎΟ Ο„Ο‰Ξ½ Ξ±Ξ³ΞΊΟ…Ξ»ΟΞ½.
 <ul>
-<li> <em>παράδειγμα:</em> [Αγγλοι] μένουν σε [Ηνωμένο Βασίλειο].</li>
+<li> <em>Ο€Ξ±ΟΞ¬Ξ΄ΞµΞΉΞ³ΞΌΞ±:</em> [Ξ‘Ξ³Ξ³Ξ»ΞΏΞΉ] ΞΌΞ­Ξ½ΞΏΟ…Ξ½ ΟƒΞµ [Ξ—Ξ½Ο‰ΞΌΞ­Ξ½ΞΏ Ξ’Ξ±ΟƒΞ―Ξ»ΞµΞΉΞΏ].</li>
 </ul>
 </li>
-<li> Καντε κλικ στο "επόμενο" όταν τελειώσετε</li>
-<li> Ορίστε το βάρος της κάθε ερώτησης</li>
-<li> Κάντε κλικ στο "Ok" για να πιστοποιήσετε τη νεα σας ερώτηση</li>
+<li> ΞΞ±Ξ½Ο„Ξµ ΞΊΞ»ΞΉΞΊ ΟƒΟ„ΞΏ "ΞµΟ€ΟΞΌΞµΞ½ΞΏ" ΟΟ„Ξ±Ξ½ Ο„ΞµΞ»ΞµΞΉΟΟƒΞµΟ„Ξµ</li>
+<li> ΞΟΞ―ΟƒΟ„Ξµ Ο„ΞΏ Ξ²Ξ¬ΟΞΏΟ‚ Ο„Ξ·Ο‚ ΞΊΞ¬ΞΈΞµ ΞµΟΟΟ„Ξ·ΟƒΞ·Ο‚</li>
+<li> ΞΞ¬Ξ½Ο„Ξµ ΞΊΞ»ΞΉΞΊ ΟƒΟ„ΞΏ "Ok" Ξ³ΞΉΞ± Ξ½Ξ± Ο€ΞΉΟƒΟ„ΞΏΟ€ΞΏΞΉΞ®ΟƒΞµΟ„Ξµ Ο„Ξ· Ξ½ΞµΞ± ΟƒΞ±Ο‚ ΞµΟΟΟ„Ξ·ΟƒΞ·</li>
 </ul>
 
 <hr />
 
-<h4>Tο πλήθος/σύνολο ερωτήσεων </h4>
-<p>Tο πλήθος-σύνολο ερωτήσεων κρατάει λίστα  όλων των ερωτήσεων που δημιουργήθηκαν στο μάθημα.  Οι λίστες ομαδοποιούν τις ήδη χρησιμοποιούμενες ερωτήσεις(σε μια ή περισσότερες ασκήσεις) και απομονομένες ερωτήσεις (που δεν έχουν χρησιμοποιηθεί σε καμια άσκηση).</p>
-<p>Όταν διαγράψετε μια άσκηση, οι ερωτήσεις της δεν αφαιρούνται απο τη βάση δεδομένων, και μπορούν να χρησιμοποιηθούν ξανά σε νέα άσκηση, μέσω του πλήθους ερωτήσεων.</p>
-<p>Το πλήθος ερωτήσεων επιτρέπει να ξαναχρησιμοποιήσεις την ίδια ερώτηση σε πολλές ασκήσεις.</p>
-<p>Εξ ορισμού, όλες οι ερωτήσεις του μαθήματος εμφανίζονται. Μπορείς να εμφανίσεις τις ερωτήσεις σχετιζόμενες με κάποια άσκηση, επιλέγοντας τες στο drop-down μενού "Filter".</p>
+<h4>TΞΏ Ο€Ξ»Ξ®ΞΈΞΏΟ‚/ΟƒΟΞ½ΞΏΞ»ΞΏ ΞµΟΟ‰Ο„Ξ®ΟƒΞµΟ‰Ξ½ </h4>
+<p>TΞΏ Ο€Ξ»Ξ®ΞΈΞΏΟ‚-ΟƒΟΞ½ΞΏΞ»ΞΏ ΞµΟΟ‰Ο„Ξ®ΟƒΞµΟ‰Ξ½ ΞΊΟΞ±Ο„Ξ¬ΞµΞΉ Ξ»Ξ―ΟƒΟ„Ξ±  ΟΞ»Ο‰Ξ½ Ο„Ο‰Ξ½ ΞµΟΟ‰Ο„Ξ®ΟƒΞµΟ‰Ξ½ Ο€ΞΏΟ… Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΞΈΞ·ΞΊΞ±Ξ½ ΟƒΟ„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ±.  ΞΞΉ Ξ»Ξ―ΟƒΟ„ΞµΟ‚ ΞΏΞΌΞ±Ξ΄ΞΏΟ€ΞΏΞΉΞΏΟΞ½ Ο„ΞΉΟ‚ Ξ®Ξ΄Ξ· Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞΏΟΞΌΞµΞ½ΞµΟ‚ ΞµΟΟ‰Ο„Ξ®ΟƒΞµΞΉΟ‚(ΟƒΞµ ΞΌΞΉΞ± Ξ® Ο€ΞµΟΞΉΟƒΟƒΟΟ„ΞµΟΞµΟ‚ Ξ±ΟƒΞΊΞ®ΟƒΞµΞΉΟ‚) ΞΊΞ±ΞΉ Ξ±Ο€ΞΏΞΌΞΏΞ½ΞΏΞΌΞ­Ξ½ΞµΟ‚ ΞµΟΟ‰Ο„Ξ®ΟƒΞµΞΉΟ‚ (Ο€ΞΏΟ… Ξ΄ΞµΞ½ Ξ­Ο‡ΞΏΟ…Ξ½ Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞ·ΞΈΞµΞ― ΟƒΞµ ΞΊΞ±ΞΌΞΉΞ± Ξ¬ΟƒΞΊΞ·ΟƒΞ·).</p>
+<p>ΞΟ„Ξ±Ξ½ Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΟ„Ξµ ΞΌΞΉΞ± Ξ¬ΟƒΞΊΞ·ΟƒΞ·, ΞΏΞΉ ΞµΟΟ‰Ο„Ξ®ΟƒΞµΞΉΟ‚ Ο„Ξ·Ο‚ Ξ΄ΞµΞ½ Ξ±Ο†Ξ±ΞΉΟΞΏΟΞ½Ο„Ξ±ΞΉ Ξ±Ο€ΞΏ Ο„Ξ· Ξ²Ξ¬ΟƒΞ· Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½Ο‰Ξ½, ΞΊΞ±ΞΉ ΞΌΟ€ΞΏΟΞΏΟΞ½ Ξ½Ξ± Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞ·ΞΈΞΏΟΞ½ ΞΎΞ±Ξ½Ξ¬ ΟƒΞµ Ξ½Ξ­Ξ± Ξ¬ΟƒΞΊΞ·ΟƒΞ·, ΞΌΞ­ΟƒΟ‰ Ο„ΞΏΟ… Ο€Ξ»Ξ®ΞΈΞΏΟ…Ο‚ ΞµΟΟ‰Ο„Ξ®ΟƒΞµΟ‰Ξ½.</p>
+<p>Ξ¤ΞΏ Ο€Ξ»Ξ®ΞΈΞΏΟ‚ ΞµΟΟ‰Ο„Ξ®ΟƒΞµΟ‰Ξ½ ΞµΟ€ΞΉΟ„ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± ΞΎΞ±Ξ½Ξ±Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞ®ΟƒΞµΞΉΟ‚ Ο„Ξ·Ξ½ Ξ―Ξ΄ΞΉΞ± ΞµΟΟΟ„Ξ·ΟƒΞ· ΟƒΞµ Ο€ΞΏΞ»Ξ»Ξ­Ο‚ Ξ±ΟƒΞΊΞ®ΟƒΞµΞΉΟ‚.</p>
+<p>Ξ•ΞΎ ΞΏΟΞΉΟƒΞΌΞΏΟ, ΟΞ»ΞµΟ‚ ΞΏΞΉ ΞµΟΟ‰Ο„Ξ®ΟƒΞµΞΉΟ‚ Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞΏΞ½Ο„Ξ±ΞΉ. ΞΟ€ΞΏΟΞµΞ―Ο‚ Ξ½Ξ± ΞµΞΌΟ†Ξ±Ξ½Ξ―ΟƒΞµΞΉΟ‚ Ο„ΞΉΟ‚ ΞµΟΟ‰Ο„Ξ®ΟƒΞµΞΉΟ‚ ΟƒΟ‡ΞµΟ„ΞΉΞ¶ΟΞΌΞµΞ½ΞµΟ‚ ΞΌΞµ ΞΊΞ¬Ο€ΞΏΞΉΞ± Ξ¬ΟƒΞΊΞ·ΟƒΞ·, ΞµΟ€ΞΉΞ»Ξ­Ξ³ΞΏΞ½Ο„Ξ±Ο‚ Ο„ΞµΟ‚ ΟƒΟ„ΞΏ drop-down ΞΌΞµΞ½ΞΏΟ "Filter".</p>
 
 <hr />
 
-<h4>Πώς να δώ τις προηγούμενες βαθμολογίες μου ?</h4>
-<p>Κάθε χρήστης μπορεί να δεί τη δική του βαθμολογία κάτω απο τη λίστα ασκήσεων.  Ως διευθυντής μαθήματος μπορείς να κανεις κλικ στο σύνδεσμο παρακολούθησης διαθέσιμο για καθε άσκηση στη λίστα ασκήσεων ώστε να υπάρχει πρόσβαση στη λεπτομερεις βαθμολογίες του κάθε μαθητή του μαθήματος.</p>';
-$_lang['blockFeedbackHelp'] = 'Το Feedback είναι προαιρετικό. Είναι ο σωστός τρόπος αυτής της ανάθεσης (εργασίας). Αν δεν αδειάσει θα φαινέται στους χρήστες σύμφωνα με την διάταξη \'υποβολής του feedback\'.';
-$_lang['blockForumsHelp'] = 'Οι περιοχές συζητήσεων είναι ένα εργαλείο για ασύγχρονη
- γραπτή επικοινωνία. Ενώ το ηλεκτρονικό ταχυδρομείο επιτρέπει το διάλογο
- ανάμεσα σε δύο μόνο άτομα, οι περιοχές συζητήσεων επιτρέπουν δημόσιες ή
- ημιδημόσιες συζητήσεις. Από τεχνική άποψη, για τη χρήση μιας περιοχής
- συζητήσεων απαιτείται μόνο ένα πρόγραμμα browser.</p><p>Για την οργάνωση
- των περιοχών συζητήσεων, πιέστε το «admin». Οι συζητήσεις είναι
- οργανωμένες σε σύνολα και υποσύνολα ως εξής:</p><p><b>Κατηγορία >
- Περιοχή > Θέμα > Απαντήσεις</b></p>Για να έχετε τακτοποιημένες τις
- συζητήσεις των φοιτητών σας, είναι απαραίτητο να οργανώσετε κατηγορίες
- και περιοχές από πριν, και να αφήσετε τη δημιουργία των θεμάτων και των
- απαντήσεων σε αυτούς. Οι περιοχές συζητήσεων του Claroline έχουν
- προκαθορισμένη μόνο την κατηγορία «Δημόσια», και μια περιοχή
- συζήτησης και ένα θέμα ως δείγματα.</p><p>Το πρώτο πράγμα που πρέπει να
- κάνετε είναι να διαγράψετε το δοκιμαστικό θέμα και να μετονομάσετε την
- περιοχή συζήτησης. Στη συνέχεια, μπορείτε να δημιουργήσετε στην
- κατηγορία «Δημόσια» και άλλες περιοχές, κατά ομάδες ή κατά θέματα, που
- να ταιριάζουν στις εκπαιδευτικές σας ανάγκες.</p><p>Μην ανακατεύετε τις
- κατηγορίες και τις περιοχές συζητήσεων, και μην ξεχνάτε ότι μια κενή
- κατηγορία (χωρίς περιοχές) δεν εμφανίζεται στις σελίδες που βλέπουν οι
- φοιτητές.</p><p>Η περιγραφή κάποιας περιοχής μπορεί να περιλαμβάνει τον
- κατάλογο των μελών της, το σκοπό της, κάποιο έργο ή θέμα, κλπ.';
-$_lang['blockGroupsHelp'] = '<p><b>Εισαγωγή</b></p>
+<h4>Ξ ΟΟ‚ Ξ½Ξ± Ξ΄Ο Ο„ΞΉΟ‚ Ο€ΟΞΏΞ·Ξ³ΞΏΟΞΌΞµΞ½ΞµΟ‚ Ξ²Ξ±ΞΈΞΌΞΏΞ»ΞΏΞ³Ξ―ΞµΟ‚ ΞΌΞΏΟ… ?</h4>
+<p>ΞΞ¬ΞΈΞµ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ΄ΞµΞ― Ο„Ξ· Ξ΄ΞΉΞΊΞ® Ο„ΞΏΟ… Ξ²Ξ±ΞΈΞΌΞΏΞ»ΞΏΞ³Ξ―Ξ± ΞΊΞ¬Ο„Ο‰ Ξ±Ο€ΞΏ Ο„Ξ· Ξ»Ξ―ΟƒΟ„Ξ± Ξ±ΟƒΞΊΞ®ΟƒΞµΟ‰Ξ½.  Ξ©Ο‚ Ξ΄ΞΉΞµΟ…ΞΈΟ…Ξ½Ο„Ξ®Ο‚ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ ΞΌΟ€ΞΏΟΞµΞ―Ο‚ Ξ½Ξ± ΞΊΞ±Ξ½ΞµΞΉΟ‚ ΞΊΞ»ΞΉΞΊ ΟƒΟ„ΞΏ ΟƒΟΞ½Ξ΄ΞµΟƒΞΌΞΏ Ο€Ξ±ΟΞ±ΞΊΞΏΞ»ΞΏΟΞΈΞ·ΟƒΞ·Ο‚ Ξ΄ΞΉΞ±ΞΈΞ­ΟƒΞΉΞΌΞΏ Ξ³ΞΉΞ± ΞΊΞ±ΞΈΞµ Ξ¬ΟƒΞΊΞ·ΟƒΞ· ΟƒΟ„Ξ· Ξ»Ξ―ΟƒΟ„Ξ± Ξ±ΟƒΞΊΞ®ΟƒΞµΟ‰Ξ½ ΟΟƒΟ„Ξµ Ξ½Ξ± Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ· ΟƒΟ„Ξ· Ξ»ΞµΟ€Ο„ΞΏΞΌΞµΟΞµΞΉΟ‚ Ξ²Ξ±ΞΈΞΌΞΏΞ»ΞΏΞ³Ξ―ΞµΟ‚ Ο„ΞΏΟ… ΞΊΞ¬ΞΈΞµ ΞΌΞ±ΞΈΞ·Ο„Ξ® Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚.</p>';
+$_lang['blockFeedbackHelp'] = 'Ξ¤ΞΏ Feedback ΞµΞ―Ξ½Ξ±ΞΉ Ο€ΟΞΏΞ±ΞΉΟΞµΟ„ΞΉΞΊΟ. Ξ•Ξ―Ξ½Ξ±ΞΉ ΞΏ ΟƒΟ‰ΟƒΟ„ΟΟ‚ Ο„ΟΟΟ€ΞΏΟ‚ Ξ±Ο…Ο„Ξ®Ο‚ Ο„Ξ·Ο‚ Ξ±Ξ½Ξ¬ΞΈΞµΟƒΞ·Ο‚ (ΞµΟΞ³Ξ±ΟƒΞ―Ξ±Ο‚). Ξ‘Ξ½ Ξ΄ΞµΞ½ Ξ±Ξ΄ΞµΞΉΞ¬ΟƒΞµΞΉ ΞΈΞ± Ο†Ξ±ΞΉΞ½Ξ­Ο„Ξ±ΞΉ ΟƒΟ„ΞΏΟ…Ο‚ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ ΟƒΟΞΌΟ†Ο‰Ξ½Ξ± ΞΌΞµ Ο„Ξ·Ξ½ Ξ΄ΞΉΞ¬Ο„Ξ±ΞΎΞ· \'Ο…Ο€ΞΏΞ²ΞΏΞ»Ξ®Ο‚ Ο„ΞΏΟ… feedback\'.';
+$_lang['blockForumsHelp'] = 'ΞΞΉ Ο€ΞµΟΞΉΞΏΟ‡Ξ­Ο‚ ΟƒΟ…Ξ¶Ξ·Ο„Ξ®ΟƒΞµΟ‰Ξ½ ΞµΞ―Ξ½Ξ±ΞΉ Ξ­Ξ½Ξ± ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏ Ξ³ΞΉΞ± Ξ±ΟƒΟΞ³Ο‡ΟΞΏΞ½Ξ·
+ Ξ³ΟΞ±Ο€Ο„Ξ® ΞµΟ€ΞΉΞΊΞΏΞΉΞ½Ο‰Ξ½Ξ―Ξ±. Ξ•Ξ½Ο Ο„ΞΏ Ξ·Ξ»ΞµΞΊΟ„ΟΞΏΞ½ΞΉΞΊΟ Ο„Ξ±Ο‡Ο…Ξ΄ΟΞΏΞΌΞµΞ―ΞΏ ΞµΟ€ΞΉΟ„ΟΞ­Ο€ΞµΞΉ Ο„ΞΏ Ξ΄ΞΉΞ¬Ξ»ΞΏΞ³ΞΏ
+ Ξ±Ξ½Ξ¬ΞΌΞµΟƒΞ± ΟƒΞµ Ξ΄ΟΞΏ ΞΌΟΞ½ΞΏ Ξ¬Ο„ΞΏΞΌΞ±, ΞΏΞΉ Ο€ΞµΟΞΉΞΏΟ‡Ξ­Ο‚ ΟƒΟ…Ξ¶Ξ·Ο„Ξ®ΟƒΞµΟ‰Ξ½ ΞµΟ€ΞΉΟ„ΟΞ­Ο€ΞΏΟ…Ξ½ Ξ΄Ξ·ΞΌΟΟƒΞΉΞµΟ‚ Ξ®
+ Ξ·ΞΌΞΉΞ΄Ξ·ΞΌΟΟƒΞΉΞµΟ‚ ΟƒΟ…Ξ¶Ξ·Ο„Ξ®ΟƒΞµΞΉΟ‚. Ξ‘Ο€Ο Ο„ΞµΟ‡Ξ½ΞΉΞΊΞ® Ξ¬Ο€ΞΏΟΞ·, Ξ³ΞΉΞ± Ο„Ξ· Ο‡ΟΞ®ΟƒΞ· ΞΌΞΉΞ±Ο‚ Ο€ΞµΟΞΉΞΏΟ‡Ξ®Ο‚
+ ΟƒΟ…Ξ¶Ξ·Ο„Ξ®ΟƒΞµΟ‰Ξ½ Ξ±Ο€Ξ±ΞΉΟ„ΞµΞ―Ο„Ξ±ΞΉ ΞΌΟΞ½ΞΏ Ξ­Ξ½Ξ± Ο€ΟΟΞ³ΟΞ±ΞΌΞΌΞ± browser.</p><p>Ξ“ΞΉΞ± Ο„Ξ·Ξ½ ΞΏΟΞ³Ξ¬Ξ½Ο‰ΟƒΞ·
+ Ο„Ο‰Ξ½ Ο€ΞµΟΞΉΞΏΟ‡ΟΞ½ ΟƒΟ…Ξ¶Ξ·Ο„Ξ®ΟƒΞµΟ‰Ξ½, Ο€ΞΉΞ­ΟƒΟ„Ξµ Ο„ΞΏ Β«adminΒ». ΞΞΉ ΟƒΟ…Ξ¶Ξ·Ο„Ξ®ΟƒΞµΞΉΟ‚ ΞµΞ―Ξ½Ξ±ΞΉ
+ ΞΏΟΞ³Ξ±Ξ½Ο‰ΞΌΞ­Ξ½ΞµΟ‚ ΟƒΞµ ΟƒΟΞ½ΞΏΞ»Ξ± ΞΊΞ±ΞΉ Ο…Ο€ΞΏΟƒΟΞ½ΞΏΞ»Ξ± Ο‰Ο‚ ΞµΞΎΞ®Ο‚:</p><p><b>ΞΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ± >
+ Ξ ΞµΟΞΉΞΏΟ‡Ξ® > ΞΞ­ΞΌΞ± > Ξ‘Ο€Ξ±Ξ½Ο„Ξ®ΟƒΞµΞΉΟ‚</b></p>Ξ“ΞΉΞ± Ξ½Ξ± Ξ­Ο‡ΞµΟ„Ξµ Ο„Ξ±ΞΊΟ„ΞΏΟ€ΞΏΞΉΞ·ΞΌΞ­Ξ½ΞµΟ‚ Ο„ΞΉΟ‚
+ ΟƒΟ…Ξ¶Ξ·Ο„Ξ®ΟƒΞµΞΉΟ‚ Ο„Ο‰Ξ½ Ο†ΞΏΞΉΟ„Ξ·Ο„ΟΞ½ ΟƒΞ±Ο‚, ΞµΞ―Ξ½Ξ±ΞΉ Ξ±Ο€Ξ±ΟΞ±Ξ―Ο„Ξ·Ο„ΞΏ Ξ½Ξ± ΞΏΟΞ³Ξ±Ξ½ΟΟƒΞµΟ„Ξµ ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―ΞµΟ‚
+ ΞΊΞ±ΞΉ Ο€ΞµΟΞΉΞΏΟ‡Ξ­Ο‚ Ξ±Ο€Ο Ο€ΟΞΉΞ½, ΞΊΞ±ΞΉ Ξ½Ξ± Ξ±Ο†Ξ®ΟƒΞµΟ„Ξµ Ο„Ξ· Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ο„Ο‰Ξ½ ΞΈΞµΞΌΞ¬Ο„Ο‰Ξ½ ΞΊΞ±ΞΉ Ο„Ο‰Ξ½
+ Ξ±Ο€Ξ±Ξ½Ο„Ξ®ΟƒΞµΟ‰Ξ½ ΟƒΞµ Ξ±Ο…Ο„ΞΏΟΟ‚. ΞΞΉ Ο€ΞµΟΞΉΞΏΟ‡Ξ­Ο‚ ΟƒΟ…Ξ¶Ξ·Ο„Ξ®ΟƒΞµΟ‰Ξ½ Ο„ΞΏΟ… Claroline Ξ­Ο‡ΞΏΟ…Ξ½
+ Ο€ΟΞΏΞΊΞ±ΞΈΞΏΟΞΉΟƒΞΌΞ­Ξ½Ξ· ΞΌΟΞ½ΞΏ Ο„Ξ·Ξ½ ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ± Β«Ξ”Ξ·ΞΌΟΟƒΞΉΞ±Β», ΞΊΞ±ΞΉ ΞΌΞΉΞ± Ο€ΞµΟΞΉΞΏΟ‡Ξ®
+ ΟƒΟ…Ξ¶Ξ®Ο„Ξ·ΟƒΞ·Ο‚ ΞΊΞ±ΞΉ Ξ­Ξ½Ξ± ΞΈΞ­ΞΌΞ± Ο‰Ο‚ Ξ΄ΞµΞ―Ξ³ΞΌΞ±Ο„Ξ±.</p><p>Ξ¤ΞΏ Ο€ΟΟΟ„ΞΏ Ο€ΟΞ¬Ξ³ΞΌΞ± Ο€ΞΏΟ… Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ±
+ ΞΊΞ¬Ξ½ΞµΟ„Ξµ ΞµΞ―Ξ½Ξ±ΞΉ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΟ„Ξµ Ο„ΞΏ Ξ΄ΞΏΞΊΞΉΞΌΞ±ΟƒΟ„ΞΉΞΊΟ ΞΈΞ­ΞΌΞ± ΞΊΞ±ΞΉ Ξ½Ξ± ΞΌΞµΟ„ΞΏΞ½ΞΏΞΌΞ¬ΟƒΞµΟ„Ξµ Ο„Ξ·Ξ½
+ Ο€ΞµΟΞΉΞΏΟ‡Ξ® ΟƒΟ…Ξ¶Ξ®Ο„Ξ·ΟƒΞ·Ο‚. Ξ£Ο„Ξ· ΟƒΟ…Ξ½Ξ­Ο‡ΞµΞΉΞ±, ΞΌΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΟƒΞµΟ„Ξµ ΟƒΟ„Ξ·Ξ½
+ ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ± Β«Ξ”Ξ·ΞΌΟΟƒΞΉΞ±Β» ΞΊΞ±ΞΉ Ξ¬Ξ»Ξ»ΞµΟ‚ Ο€ΞµΟΞΉΞΏΟ‡Ξ­Ο‚, ΞΊΞ±Ο„Ξ¬ ΞΏΞΌΞ¬Ξ΄ΞµΟ‚ Ξ® ΞΊΞ±Ο„Ξ¬ ΞΈΞ­ΞΌΞ±Ο„Ξ±, Ο€ΞΏΟ…
+ Ξ½Ξ± Ο„Ξ±ΞΉΟΞΉΞ¬Ξ¶ΞΏΟ…Ξ½ ΟƒΟ„ΞΉΟ‚ ΞµΞΊΟ€Ξ±ΞΉΞ΄ΞµΟ…Ο„ΞΉΞΊΞ­Ο‚ ΟƒΞ±Ο‚ Ξ±Ξ½Ξ¬Ξ³ΞΊΞµΟ‚.</p><p>ΞΞ·Ξ½ Ξ±Ξ½Ξ±ΞΊΞ±Ο„ΞµΟΞµΟ„Ξµ Ο„ΞΉΟ‚
+ ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―ΞµΟ‚ ΞΊΞ±ΞΉ Ο„ΞΉΟ‚ Ο€ΞµΟΞΉΞΏΟ‡Ξ­Ο‚ ΟƒΟ…Ξ¶Ξ·Ο„Ξ®ΟƒΞµΟ‰Ξ½, ΞΊΞ±ΞΉ ΞΌΞ·Ξ½ ΞΎΞµΟ‡Ξ½Ξ¬Ο„Ξµ ΟΟ„ΞΉ ΞΌΞΉΞ± ΞΊΞµΞ½Ξ®
+ ΞΊΞ±Ο„Ξ·Ξ³ΞΏΟΞ―Ξ± (Ο‡Ο‰ΟΞ―Ο‚ Ο€ΞµΟΞΉΞΏΟ‡Ξ­Ο‚) Ξ΄ΞµΞ½ ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞµΟ„Ξ±ΞΉ ΟƒΟ„ΞΉΟ‚ ΟƒΞµΞ»Ξ―Ξ΄ΞµΟ‚ Ο€ΞΏΟ… Ξ²Ξ»Ξ­Ο€ΞΏΟ…Ξ½ ΞΏΞΉ
+ Ο†ΞΏΞΉΟ„Ξ·Ο„Ξ­Ο‚.</p><p>Ξ— Ο€ΞµΟΞΉΞ³ΟΞ±Ο†Ξ® ΞΊΞ¬Ο€ΞΏΞΉΞ±Ο‚ Ο€ΞµΟΞΉΞΏΟ‡Ξ®Ο‚ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ο€ΞµΟΞΉΞ»Ξ±ΞΌΞ²Ξ¬Ξ½ΞµΞΉ Ο„ΞΏΞ½
+ ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏ Ο„Ο‰Ξ½ ΞΌΞµΞ»ΟΞ½ Ο„Ξ·Ο‚, Ο„ΞΏ ΟƒΞΊΞΏΟ€Ο Ο„Ξ·Ο‚, ΞΊΞ¬Ο€ΞΏΞΉΞΏ Ξ­ΟΞ³ΞΏ Ξ® ΞΈΞ­ΞΌΞ±, ΞΊΞ»Ο€.';
+$_lang['blockGroupsHelp'] = '<p><b>Ξ•ΞΉΟƒΞ±Ξ³Ο‰Ξ³Ξ®</b></p>
 
-<p>Αυτό το εργαλείο επιτρέπει τη δημιουργία και διαχείριση ομάδων εργασίας.
+<p>Ξ‘Ο…Ο„Ο Ο„ΞΏ ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏ ΞµΟ€ΞΉΟ„ΟΞ­Ο€ΞµΞΉ Ο„Ξ· Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± ΞΊΞ±ΞΉ Ξ΄ΞΉΞ±Ο‡ΞµΞ―ΟΞΉΟƒΞ· ΞΏΞΌΞ¬Ξ΄Ο‰Ξ½ ΞµΟΞ³Ξ±ΟƒΞ―Ξ±Ο‚.
 
-Κατα τη δημιουργία(Create groups), οι ομάδες είναι άδειες. Υπάρχουν
+ΞΞ±Ο„Ξ± Ο„Ξ· Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ±(Create groups), ΞΏΞΉ ΞΏΞΌΞ¬Ξ΄ΞµΟ‚ ΞµΞ―Ξ½Ξ±ΞΉ Ξ¬Ξ΄ΞµΞΉΞµΟ‚. Ξ¥Ο€Ξ¬ΟΟ‡ΞΏΟ…Ξ½
 
-πολλοί τρόποι  να τις συμπληρώσουμε:
+Ο€ΞΏΞ»Ξ»ΞΏΞ― Ο„ΟΟΟ€ΞΏΞΉ  Ξ½Ξ± Ο„ΞΉΟ‚ ΟƒΟ…ΞΌΟ€Ξ»Ξ·ΟΟΟƒΞΏΟ…ΞΌΞµ:
 
-<ul><li>αυτόματα (\'Fill groups\'),</li>
+<ul><li>Ξ±Ο…Ο„ΟΞΌΞ±Ο„Ξ± (\'Fill groups\'),</li>
 
-<li>περιοδικά (\'Edit\'),</li>
+<li>Ο€ΞµΟΞΉΞΏΞ΄ΞΉΞΊΞ¬ (\'Edit\'),</li>
 
-<li>προσωπική εγγραφή απο τους μαθητές(Ρυθμίσεις ομάδων: \'Προσωπική εγγραφή επιτρέπεται...\').</li>
+<li>Ο€ΟΞΏΟƒΟ‰Ο€ΞΉΞΊΞ® ΞµΞ³Ξ³ΟΞ±Ο†Ξ® Ξ±Ο€ΞΏ Ο„ΞΏΟ…Ο‚ ΞΌΞ±ΞΈΞ·Ο„Ξ­Ο‚(Ξ΅Ο…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ ΞΏΞΌΞ¬Ξ΄Ο‰Ξ½: \'Ξ ΟΞΏΟƒΟ‰Ο€ΞΉΞΊΞ® ΞµΞ³Ξ³ΟΞ±Ο†Ξ® ΞµΟ€ΞΉΟ„ΟΞ­Ο€ΞµΟ„Ξ±ΞΉ...\').</li>
 
 </ul>
 
-Αυτοι οι τρεις τρόποι μπορούν να συνδιαστούν. Μπορείς, για π.χ., να ρωτήσεις τους μαθητές εγγραφούν προσωπικά πρώτα.
+Ξ‘Ο…Ο„ΞΏΞΉ ΞΏΞΉ Ο„ΟΞµΞΉΟ‚ Ο„ΟΟΟ€ΞΏΞΉ ΞΌΟ€ΞΏΟΞΏΟΞ½ Ξ½Ξ± ΟƒΟ…Ξ½Ξ΄ΞΉΞ±ΟƒΟ„ΞΏΟΞ½. ΞΟ€ΞΏΟΞµΞ―Ο‚, Ξ³ΞΉΞ± Ο€.Ο‡., Ξ½Ξ± ΟΟ‰Ο„Ξ®ΟƒΞµΞΉΟ‚ Ο„ΞΏΟ…Ο‚ ΞΌΞ±ΞΈΞ·Ο„Ξ­Ο‚ ΞµΞ³Ξ³ΟΞ±Ο†ΞΏΟΞ½ Ο€ΟΞΏΟƒΟ‰Ο€ΞΉΞΊΞ¬ Ο€ΟΟΟ„Ξ±.
 
-Μετά να ανακαλύψεις οτι καποιοι δεν το καναν και να αποφασίσεις να συμπληρώσεις τις ομάδες αυτόματα με
+ΞΞµΟ„Ξ¬ Ξ½Ξ± Ξ±Ξ½Ξ±ΞΊΞ±Ξ»ΟΟΞµΞΉΟ‚ ΞΏΟ„ΞΉ ΞΊΞ±Ο€ΞΏΞΉΞΏΞΉ Ξ΄ΞµΞ½ Ο„ΞΏ ΞΊΞ±Ξ½Ξ±Ξ½ ΞΊΞ±ΞΉ Ξ½Ξ± Ξ±Ο€ΞΏΟ†Ξ±ΟƒΞ―ΟƒΞµΞΉΟ‚ Ξ½Ξ± ΟƒΟ…ΞΌΟ€Ξ»Ξ·ΟΟΟƒΞµΞΉΟ‚ Ο„ΞΉΟ‚ ΞΏΞΌΞ¬Ξ΄ΞµΟ‚ Ξ±Ο…Ο„ΟΞΌΞ±Ο„Ξ± ΞΌΞµ
 
-σκοπό να τα ολοκληρώσεις. Μπορείς επίσης να επιμεληθεις κάθε ομάδας να να συμπληρώνει εγγραφή ενας μαθητής
+ΟƒΞΊΞΏΟ€Ο Ξ½Ξ± Ο„Ξ± ΞΏΞ»ΞΏΞΊΞ»Ξ·ΟΟΟƒΞµΞΉΟ‚. ΞΟ€ΞΏΟΞµΞ―Ο‚ ΞµΟ€Ξ―ΟƒΞ·Ο‚ Ξ½Ξ± ΞµΟ€ΞΉΞΌΞµΞ»Ξ·ΞΈΞµΞΉΟ‚ ΞΊΞ¬ΞΈΞµ ΞΏΞΌΞ¬Ξ΄Ξ±Ο‚ Ξ½Ξ± Ξ½Ξ± ΟƒΟ…ΞΌΟ€Ξ»Ξ·ΟΟΞ½ΞµΞΉ ΞµΞ³Ξ³ΟΞ±Ο†Ξ® ΞµΞ½Ξ±Ο‚ ΞΌΞ±ΞΈΞ·Ο„Ξ®Ο‚
 
-τη φορά μετά ή πρίν την προσωπική εγγραφή και /ή  αυτόματη συμπλήρωση.</p>
+Ο„Ξ· Ο†ΞΏΟΞ¬ ΞΌΞµΟ„Ξ¬ Ξ® Ο€ΟΞ―Ξ½ Ο„Ξ·Ξ½ Ο€ΟΞΏΟƒΟ‰Ο€ΞΉΞΊΞ® ΞµΞ³Ξ³ΟΞ±Ο†Ξ® ΞΊΞ±ΞΉ /Ξ®  Ξ±Ο…Ο„ΟΞΌΞ±Ο„Ξ· ΟƒΟ…ΞΌΟ€Ξ»Ξ®ΟΟ‰ΟƒΞ·.</p>
 
-<p>Συμπλήρωση ομάδων, είτε αυτόματα είτε περιοδικά, λειτουργεί μονο εφόσον υπάρχουν ήδη μαθητές
+<p>Ξ£Ο…ΞΌΟ€Ξ»Ξ®ΟΟ‰ΟƒΞ· ΞΏΞΌΞ¬Ξ΄Ο‰Ξ½, ΞµΞ―Ο„Ξµ Ξ±Ο…Ο„ΟΞΌΞ±Ο„Ξ± ΞµΞ―Ο„Ξµ Ο€ΞµΟΞΉΞΏΞ΄ΞΉΞΊΞ¬, Ξ»ΞµΞΉΟ„ΞΏΟ…ΟΞ³ΞµΞ― ΞΌΞΏΞ½ΞΏ ΞµΟ†ΟΟƒΞΏΞ½ Ο…Ο€Ξ¬ΟΟ‡ΞΏΟ…Ξ½ Ξ®Ξ΄Ξ· ΞΌΞ±ΞΈΞ·Ο„Ξ­Ο‚
 
-εγγεγραμένοι στην ομάδα (μην μπερδευεται την εγγραφή  στο μάθημα με την εγγραφή στις ομάδες).
+ΞµΞ³Ξ³ΞµΞ³ΟΞ±ΞΌΞ­Ξ½ΞΏΞΉ ΟƒΟ„Ξ·Ξ½ ΞΏΞΌΞ¬Ξ΄Ξ± (ΞΌΞ·Ξ½ ΞΌΟ€ΞµΟΞ΄ΞµΟ…ΞµΟ„Ξ±ΞΉ Ο„Ξ·Ξ½ ΞµΞ³Ξ³ΟΞ±Ο†Ξ®  ΟƒΟ„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ± ΞΌΞµ Ο„Ξ·Ξ½ ΞµΞ³Ξ³ΟΞ±Ο†Ξ® ΟƒΟ„ΞΉΟ‚ ΞΏΞΌΞ¬Ξ΄ΞµΟ‚).
 
-Η λίστα μαθητών είναι ορατή στο εργαλείο <b>Users</b> . </p><hr noshade size=1>
+Ξ— Ξ»Ξ―ΟƒΟ„Ξ± ΞΌΞ±ΞΈΞ·Ο„ΟΞ½ ΞµΞ―Ξ½Ξ±ΞΉ ΞΏΟΞ±Ο„Ξ® ΟƒΟ„ΞΏ ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏ <b>Users</b> . </p><hr noshade size=1>
 
-<p><b>Δημιουργία ομάδων</b></p>
+<p><b>Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± ΞΏΞΌΞ¬Ξ΄Ο‰Ξ½</b></p>
 
-<p>Για τη δημιουργία νέων ομάδων, κάντε κλικ στο \'Δημιουργία νεών ομάδων\' και ορίστε αριθμό ομάδων για
+<p>Ξ“ΞΉΞ± Ο„Ξ· Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ξ½Ξ­Ο‰Ξ½ ΞΏΞΌΞ¬Ξ΄Ο‰Ξ½, ΞΊΞ¬Ξ½Ο„Ξµ ΞΊΞ»ΞΉΞΊ ΟƒΟ„ΞΏ \'Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ξ½ΞµΟΞ½ ΞΏΞΌΞ¬Ξ΄Ο‰Ξ½\' ΞΊΞ±ΞΉ ΞΏΟΞ―ΟƒΟ„Ξµ Ξ±ΟΞΉΞΈΞΌΟ ΞΏΞΌΞ¬Ξ΄Ο‰Ξ½ Ξ³ΞΉΞ±
 
-δημιουργία. Ο μέγιστος αριθμός μελών είναι προαιρετικός αλλά προτείνουμε να επιλέξετε κάποιο.  Εαν αφήσετε το πεδίο μεγιστου αριθμού
+Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ±. Ξ ΞΌΞ­Ξ³ΞΉΟƒΟ„ΞΏΟ‚ Ξ±ΟΞΉΞΈΞΌΟΟ‚ ΞΌΞµΞ»ΟΞ½ ΞµΞ―Ξ½Ξ±ΞΉ Ο€ΟΞΏΞ±ΞΉΟΞµΟ„ΞΉΞΊΟΟ‚ Ξ±Ξ»Ξ»Ξ¬ Ο€ΟΞΏΟ„ΞµΞ―Ξ½ΞΏΟ…ΞΌΞµ Ξ½Ξ± ΞµΟ€ΞΉΞ»Ξ­ΞΎΞµΟ„Ξµ ΞΊΞ¬Ο€ΞΏΞΉΞΏ.  Ξ•Ξ±Ξ½ Ξ±Ο†Ξ®ΟƒΞµΟ„Ξµ Ο„ΞΏ Ο€ΞµΞ΄Ξ―ΞΏ ΞΌΞµΞ³ΞΉΟƒΟ„ΞΏΟ… Ξ±ΟΞΉΞΈΞΌΞΏΟ
 
-χωρίς αλλαγή, το μεγιστο μέγεθος των ομάδων θα είναι αόριστο.</p><hr noshade size=1>
+Ο‡Ο‰ΟΞ―Ο‚ Ξ±Ξ»Ξ»Ξ±Ξ³Ξ®, Ο„ΞΏ ΞΌΞµΞ³ΞΉΟƒΟ„ΞΏ ΞΌΞ­Ξ³ΞµΞΈΞΏΟ‚ Ο„Ο‰Ξ½ ΞΏΞΌΞ¬Ξ΄Ο‰Ξ½ ΞΈΞ± ΞµΞ―Ξ½Ξ±ΞΉ Ξ±ΟΟΞΉΟƒΟ„ΞΏ.</p><hr noshade size=1>
 
-<p><b>Ρυθμίσεις ομάδας</b></p>
+<p><b>Ξ΅Ο…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ ΞΏΞΌΞ¬Ξ΄Ξ±Ο‚</b></p>
 
-<p>Μπορείτε να ορίσετε ρυθμίσεις ομάδας σφαιρικά (για όλες τις ομάδες).
+<p>ΞΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± ΞΏΟΞ―ΟƒΞµΟ„Ξµ ΟΟ…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ ΞΏΞΌΞ¬Ξ΄Ξ±Ο‚ ΟƒΟ†Ξ±ΞΉΟΞΉΞΊΞ¬ (Ξ³ΞΉΞ± ΟΞ»ΞµΟ‚ Ο„ΞΉΟ‚ ΞΏΞΌΞ¬Ξ΄ΞµΟ‚).
 
-<b>Οι μαθητές επιτρέπεται να εγγραφούν προσωπικά στις ομάδες</b>:
+<b>ΞΞΉ ΞΌΞ±ΞΈΞ·Ο„Ξ­Ο‚ ΞµΟ€ΞΉΟ„ΟΞ­Ο€ΞµΟ„Ξ±ΞΉ Ξ½Ξ± ΞµΞ³Ξ³ΟΞ±Ο†ΞΏΟΞ½ Ο€ΟΞΏΟƒΟ‰Ο€ΞΉΞΊΞ¬ ΟƒΟ„ΞΉΟ‚ ΞΏΞΌΞ¬Ξ΄ΞµΟ‚</b>:
 
-<p>Δημιουργείτε κενές ομάδες, οι μαθητές εγγράφονται προσωπικά.
+<p>Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³ΞµΞ―Ο„Ξµ ΞΊΞµΞ½Ξ­Ο‚ ΞΏΞΌΞ¬Ξ΄ΞµΟ‚, ΞΏΞΉ ΞΌΞ±ΞΈΞ·Ο„Ξ­Ο‚ ΞµΞ³Ξ³ΟΞ¬Ο†ΞΏΞ½Ο„Ξ±ΞΉ Ο€ΟΞΏΟƒΟ‰Ο€ΞΉΞΊΞ¬.
 
-Εαν ορίσετε μεγιστο αριθμό, οι συμπληρωμένες ομάδες δε δέχονται νέα μέλη.
+Ξ•Ξ±Ξ½ ΞΏΟΞ―ΟƒΞµΟ„Ξµ ΞΌΞµΞ³ΞΉΟƒΟ„ΞΏ Ξ±ΟΞΉΞΈΞΌΟ, ΞΏΞΉ ΟƒΟ…ΞΌΟ€Ξ»Ξ·ΟΟ‰ΞΌΞ­Ξ½ΞµΟ‚ ΞΏΞΌΞ¬Ξ΄ΞµΟ‚ Ξ΄Ξµ Ξ΄Ξ­Ο‡ΞΏΞ½Ο„Ξ±ΞΉ Ξ½Ξ­Ξ± ΞΌΞ­Ξ»Ξ·.
 
-Αυτή η μέθοδος είναι καλή για δασκαλους που δεν γνωρίζουν τη λίστα των μαθητών όταν
+Ξ‘Ο…Ο„Ξ® Ξ· ΞΌΞ­ΞΈΞΏΞ΄ΞΏΟ‚ ΞµΞ―Ξ½Ξ±ΞΉ ΞΊΞ±Ξ»Ξ® Ξ³ΞΉΞ± Ξ΄Ξ±ΟƒΞΊΞ±Ξ»ΞΏΟ…Ο‚ Ο€ΞΏΟ… Ξ΄ΞµΞ½ Ξ³Ξ½Ο‰ΟΞ―Ξ¶ΞΏΟ…Ξ½ Ο„Ξ· Ξ»Ξ―ΟƒΟ„Ξ± Ο„Ο‰Ξ½ ΞΌΞ±ΞΈΞ·Ο„ΟΞ½ ΟΟ„Ξ±Ξ½
 
-δημιουργούν ομάδες.</p>
+Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³ΞΏΟΞ½ ΞΏΞΌΞ¬Ξ΄ΞµΟ‚.</p>
 
-<b>Εργαλεία</b>:</p>
+<b>Ξ•ΟΞ³Ξ±Ξ»ΞµΞ―Ξ±</b>:</p>
 
-<p>Κάθε ομάδα κατέχει είτε ένα forum (ιδιωτικό ή δημόσιο) ή μια περιοχή εγγραφων
+<p>ΞΞ¬ΞΈΞµ ΞΏΞΌΞ¬Ξ΄Ξ± ΞΊΞ±Ο„Ξ­Ο‡ΞµΞΉ ΞµΞ―Ο„Ξµ Ξ­Ξ½Ξ± forum (ΞΉΞ΄ΞΉΟ‰Ο„ΞΉΞΊΟ Ξ® Ξ΄Ξ·ΞΌΟΟƒΞΉΞΏ) Ξ® ΞΌΞΉΞ± Ο€ΞµΟΞΉΞΏΟ‡Ξ® ΞµΞ³Ξ³ΟΞ±Ο†Ο‰Ξ½
 
-(ενα κοινό αρχείο διαχείρισης) ή  (πιο συχνά) και τα δυο.</p>
+(ΞµΞ½Ξ± ΞΊΞΏΞΉΞ½Ο Ξ±ΟΟ‡ΞµΞ―ΞΏ Ξ΄ΞΉΞ±Ο‡ΞµΞ―ΟΞΉΟƒΞ·Ο‚) Ξ®  (Ο€ΞΉΞΏ ΟƒΟ…Ο‡Ξ½Ξ¬) ΞΊΞ±ΞΉ Ο„Ξ± Ξ΄Ο…ΞΏ.</p>
 
 <hr noshade size=1>
 
-<p><b>Περιδική συνταξη-επιμέλεια</b></p>
+<p><b>Ξ ΞµΟΞΉΞ΄ΞΉΞΊΞ® ΟƒΟ…Ξ½Ο„Ξ±ΞΎΞ·-ΞµΟ€ΞΉΞΌΞ­Ξ»ΞµΞΉΞ±</b></p>
 
-<p>Αφού δημιουγηθούν οι ομάδες (Create groups), βλέπετε στο τελος της σελίδας, μια λίστα ομάδων
+<p>Ξ‘Ο†ΞΏΟ Ξ΄Ξ·ΞΌΞΉΞΏΟ…Ξ³Ξ·ΞΈΞΏΟΞ½ ΞΏΞΉ ΞΏΞΌΞ¬Ξ΄ΞµΟ‚ (Create groups), Ξ²Ξ»Ξ­Ο€ΞµΟ„Ξµ ΟƒΟ„ΞΏ Ο„ΞµΞ»ΞΏΟ‚ Ο„Ξ·Ο‚ ΟƒΞµΞ»Ξ―Ξ΄Ξ±Ο‚, ΞΌΞΉΞ± Ξ»Ξ―ΟƒΟ„Ξ± ΞΏΞΌΞ¬Ξ΄Ο‰Ξ½
 
-με μια σειρα πληροφοριών και λειτουργίες
+ΞΌΞµ ΞΌΞΉΞ± ΟƒΞµΞΉΟΞ± Ο€Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞΉΟΞ½ ΞΊΞ±ΞΉ Ξ»ΞµΞΉΟ„ΞΏΟ…ΟΞ³Ξ―ΞµΟ‚
 
-<ul><li><b>Edit</b> για περιοδική επεξεργασία ονόματος ομάδας, περιγραφή , εκπαιδευτή,
+<ul><li><b>Edit</b> Ξ³ΞΉΞ± Ο€ΞµΟΞΉΞΏΞ΄ΞΉΞΊΞ® ΞµΟ€ΞµΞΎΞµΟΞ³Ξ±ΟƒΞ―Ξ± ΞΏΞ½ΟΞΌΞ±Ο„ΞΏΟ‚ ΞΏΞΌΞ¬Ξ΄Ξ±Ο‚, Ο€ΞµΟΞΉΞ³ΟΞ±Ο†Ξ® , ΞµΞΊΟ€Ξ±ΞΉΞ΄ΞµΟ…Ο„Ξ®,
 
-λίστα μελών.</li>
+Ξ»Ξ―ΟƒΟ„Ξ± ΞΌΞµΞ»ΟΞ½.</li>
 
-<li><b>Διαγραφή</b> διαγράφει ομάδα.</li></ul>
+<li><b>Ξ”ΞΉΞ±Ξ³ΟΞ±Ο†Ξ®</b> Ξ΄ΞΉΞ±Ξ³ΟΞ¬Ο†ΞµΞΉ ΞΏΞΌΞ¬Ξ΄Ξ±.</li></ul>
 
 <hr noshade size=1>';
-$_lang['blockHomepageHelp'] = 'Για περισσότερη ευκολία, τα εργαλεία του Claroline δε
-δημιουργούνται κενά. Σε κάθε εργαλείο υπάρχει ένα μικρό παράδειγμα για
-να σας βοηθείσει να κατανοήσετε ευκολότερα τον τρόπο λειτουργίας του.
-Μπορείτε να επιλέξετε να σβήσετε αυτό το παράδειγμα ή να το αλλάξετε.</p>
-<p>Για παράδειγμα, στην αρχική σελίδα του μαθήματός σας, υπάρχει ένα μικρό
-κείμενο που λέει «Εισαγωγικό κείμενο του μαθήματος. Αντικαταστήτε το με το
-δικό σας, κάνοντας κλίκ στην Αλλαγή». Πιέστε το «Αλλαγή», διορθώστε το
-κείμενο και πιέστε «Επικύρωση». Κάθε εργαλείο έχει την ίδια απλή λογική:
-προσθέτετε, διαγράφετε, αλλάζετε - οι σελίδες του μαθήματος είναι
-δυναμικές.</p><p>Όταν πρωτοδημιουργείτε τις σελίδες του μαθήματός σας,
-τα περισσότερα εργαλεία είναι ενεργοποιημένα. Κι εδώ, είναι δική σας
-επιλογή να απενεργοποιήσετε αυτά που δε χρειάζεστε. Απλώς πιέζετε το
-«Απενεργοποίηση». Τότε, μεταφέρεται στο γκρίζο μέρος της σελίδας. Δεν
-είναι πια ορατό από τους φοιτητές σας, αλλά μπορείτε να το
-ξαναενεργοποιήσετε όποτε θέλετε.</p><p>Μπορείτε να προσθέσετε τις δικές
-σας σελίδες στην αρχική σελίδα του μαθήματος. Αυτές οι σελίδες πρέπει να
-είναι σε μορφή HTML, και που μπορεί να δημιουργηθεί με κάποιον επεξεργαστή
-κειμένου ή πρόγραμμα δημιουργίας ιστοσελίδων. Χρησιμοποιείστε την
-επιλογή «Ανέβασμα σελίδας και δημιουργία συνδέσμου στην Αρχική Σελίδα»
-για να στείλετε τη σελίδα σας στον εξυπηρετητή. Η επικεφαλίδα του
-δικτυακού τόπου θα ενσωματωθεί αυτόματα στις σελίδες σας, οπότε
-χρειάζεται μόνο να σκεφτείτε για το περιεχόμενο των σελίδων. Αν θέλετε
-να προσθέσετε συνδέσμους από την αρχική σελίδα του μαθήματος προς
-υπάρχουσες ιστοσελίδες που υπάρχουν ήδη κάπου αλλού στο δίκτυο (ή ακόμα
-κάπου αλλού στον δικό σας δικτυακό τόπο), χρησιμοποιήστε την «Προσθήκη
-συνδέσμου στην αρχική σελίδα». Οι σελίδες που προσθέτετε εσείς στην
-αρχική σελίδα μπορούν να απενεργοποιηθούν και να διαγραφούν, ενώ τα
-ενσωματωμένα εργαλεία μπορούν να απενεργοποιηθούν μόνο, αλλά όχι να
-διαγραφούν.</p><p>Όταν η σελίδα του μαθήματός σας είναι έτοιμη, μπορείτε
-να επιλέξετε το πόσο ανοιχτή είναι για τους χρήστες του συστήματος, από
-την επιλογή «Αλλαγή πληροφορίας για το μάθημα». Στην αρχή, είναι κρυμμένη
-(γιατί δουλεύετε ακόμη σε αυτήν).</p>';
-$_lang['blockIntroCourse'] = 'Βρίσκεστε στην αρχική σελίδα μαθήματος.<br /><br />Σε αυτή τη σελίδα, μπορείτε :
+$_lang['blockHomepageHelp'] = 'Ξ“ΞΉΞ± Ο€ΞµΟΞΉΟƒΟƒΟΟ„ΞµΟΞ· ΞµΟ…ΞΊΞΏΞ»Ξ―Ξ±, Ο„Ξ± ΞµΟΞ³Ξ±Ξ»ΞµΞ―Ξ± Ο„ΞΏΟ… Claroline Ξ΄Ξµ
+Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³ΞΏΟΞ½Ο„Ξ±ΞΉ ΞΊΞµΞ½Ξ¬. Ξ£Ξµ ΞΊΞ¬ΞΈΞµ ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ Ξ­Ξ½Ξ± ΞΌΞΉΞΊΟΟ Ο€Ξ±ΟΞ¬Ξ΄ΞµΞΉΞ³ΞΌΞ± Ξ³ΞΉΞ±
+Ξ½Ξ± ΟƒΞ±Ο‚ Ξ²ΞΏΞ·ΞΈΞµΞ―ΟƒΞµΞΉ Ξ½Ξ± ΞΊΞ±Ο„Ξ±Ξ½ΞΏΞ®ΟƒΞµΟ„Ξµ ΞµΟ…ΞΊΞΏΞ»ΟΟ„ΞµΟΞ± Ο„ΞΏΞ½ Ο„ΟΟΟ€ΞΏ Ξ»ΞµΞΉΟ„ΞΏΟ…ΟΞ³Ξ―Ξ±Ο‚ Ο„ΞΏΟ….
+ΞΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± ΞµΟ€ΞΉΞ»Ξ­ΞΎΞµΟ„Ξµ Ξ½Ξ± ΟƒΞ²Ξ®ΟƒΞµΟ„Ξµ Ξ±Ο…Ο„Ο Ο„ΞΏ Ο€Ξ±ΟΞ¬Ξ΄ΞµΞΉΞ³ΞΌΞ± Ξ® Ξ½Ξ± Ο„ΞΏ Ξ±Ξ»Ξ»Ξ¬ΞΎΞµΟ„Ξµ.</p>
+<p>Ξ“ΞΉΞ± Ο€Ξ±ΟΞ¬Ξ΄ΞµΞΉΞ³ΞΌΞ±, ΟƒΟ„Ξ·Ξ½ Ξ±ΟΟ‡ΞΉΞΊΞ® ΟƒΞµΞ»Ξ―Ξ΄Ξ± Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΟΟ‚ ΟƒΞ±Ο‚, Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ Ξ­Ξ½Ξ± ΞΌΞΉΞΊΟΟ
+ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ Ο€ΞΏΟ… Ξ»Ξ­ΞµΞΉ Β«Ξ•ΞΉΟƒΞ±Ξ³Ο‰Ξ³ΞΉΞΊΟ ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚. Ξ‘Ξ½Ο„ΞΉΞΊΞ±Ο„Ξ±ΟƒΟ„Ξ®Ο„Ξµ Ο„ΞΏ ΞΌΞµ Ο„ΞΏ
+Ξ΄ΞΉΞΊΟ ΟƒΞ±Ο‚, ΞΊΞ¬Ξ½ΞΏΞ½Ο„Ξ±Ο‚ ΞΊΞ»Ξ―ΞΊ ΟƒΟ„Ξ·Ξ½ Ξ‘Ξ»Ξ»Ξ±Ξ³Ξ®Β». Ξ ΞΉΞ­ΟƒΟ„Ξµ Ο„ΞΏ Β«Ξ‘Ξ»Ξ»Ξ±Ξ³Ξ®Β», Ξ΄ΞΉΞΏΟΞΈΟΟƒΟ„Ξµ Ο„ΞΏ
+ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ ΞΊΞ±ΞΉ Ο€ΞΉΞ­ΟƒΟ„Ξµ Β«Ξ•Ο€ΞΉΞΊΟΟΟ‰ΟƒΞ·Β». ΞΞ¬ΞΈΞµ ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏ Ξ­Ο‡ΞµΞΉ Ο„Ξ·Ξ½ Ξ―Ξ΄ΞΉΞ± Ξ±Ο€Ξ»Ξ® Ξ»ΞΏΞ³ΞΉΞΊΞ®:
+Ο€ΟΞΏΟƒΞΈΞ­Ο„ΞµΟ„Ξµ, Ξ΄ΞΉΞ±Ξ³ΟΞ¬Ο†ΞµΟ„Ξµ, Ξ±Ξ»Ξ»Ξ¬Ξ¶ΞµΟ„Ξµ - ΞΏΞΉ ΟƒΞµΞ»Ξ―Ξ΄ΞµΟ‚ Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ ΞµΞ―Ξ½Ξ±ΞΉ
+Ξ΄Ο…Ξ½Ξ±ΞΌΞΉΞΊΞ­Ο‚.</p><p>ΞΟ„Ξ±Ξ½ Ο€ΟΟ‰Ο„ΞΏΞ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³ΞµΞ―Ο„Ξµ Ο„ΞΉΟ‚ ΟƒΞµΞ»Ξ―Ξ΄ΞµΟ‚ Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΟΟ‚ ΟƒΞ±Ο‚,
+Ο„Ξ± Ο€ΞµΟΞΉΟƒΟƒΟΟ„ΞµΟΞ± ΞµΟΞ³Ξ±Ξ»ΞµΞ―Ξ± ΞµΞ―Ξ½Ξ±ΞΉ ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞΉΞ·ΞΌΞ­Ξ½Ξ±. ΞΞΉ ΞµΞ΄Ο, ΞµΞ―Ξ½Ξ±ΞΉ Ξ΄ΞΉΞΊΞ® ΟƒΞ±Ο‚
+ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ® Ξ½Ξ± Ξ±Ο€ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞΉΞ®ΟƒΞµΟ„Ξµ Ξ±Ο…Ο„Ξ¬ Ο€ΞΏΟ… Ξ΄Ξµ Ο‡ΟΞµΞΉΞ¬Ξ¶ΞµΟƒΟ„Ξµ. Ξ‘Ο€Ξ»ΟΟ‚ Ο€ΞΉΞ­Ξ¶ΞµΟ„Ξµ Ο„ΞΏ
+Β«Ξ‘Ο€ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ·Β». Ξ¤ΟΟ„Ξµ, ΞΌΞµΟ„Ξ±Ο†Ξ­ΟΞµΟ„Ξ±ΞΉ ΟƒΟ„ΞΏ Ξ³ΞΊΟΞ―Ξ¶ΞΏ ΞΌΞ­ΟΞΏΟ‚ Ο„Ξ·Ο‚ ΟƒΞµΞ»Ξ―Ξ΄Ξ±Ο‚. Ξ”ΞµΞ½
+ΞµΞ―Ξ½Ξ±ΞΉ Ο€ΞΉΞ± ΞΏΟΞ±Ο„Ο Ξ±Ο€Ο Ο„ΞΏΟ…Ο‚ Ο†ΞΏΞΉΟ„Ξ·Ο„Ξ­Ο‚ ΟƒΞ±Ο‚, Ξ±Ξ»Ξ»Ξ¬ ΞΌΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± Ο„ΞΏ
+ΞΎΞ±Ξ½Ξ±ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞΉΞ®ΟƒΞµΟ„Ξµ ΟΟ€ΞΏΟ„Ξµ ΞΈΞ­Ξ»ΞµΟ„Ξµ.</p><p>ΞΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± Ο€ΟΞΏΟƒΞΈΞ­ΟƒΞµΟ„Ξµ Ο„ΞΉΟ‚ Ξ΄ΞΉΞΊΞ­Ο‚
+ΟƒΞ±Ο‚ ΟƒΞµΞ»Ξ―Ξ΄ΞµΟ‚ ΟƒΟ„Ξ·Ξ½ Ξ±ΟΟ‡ΞΉΞΊΞ® ΟƒΞµΞ»Ξ―Ξ΄Ξ± Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚. Ξ‘Ο…Ο„Ξ­Ο‚ ΞΏΞΉ ΟƒΞµΞ»Ξ―Ξ΄ΞµΟ‚ Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ±
+ΞµΞ―Ξ½Ξ±ΞΉ ΟƒΞµ ΞΌΞΏΟΟ†Ξ® HTML, ΞΊΞ±ΞΉ Ο€ΞΏΟ… ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ·ΞΈΞµΞ― ΞΌΞµ ΞΊΞ¬Ο€ΞΏΞΉΞΏΞ½ ΞµΟ€ΞµΞΎΞµΟΞ³Ξ±ΟƒΟ„Ξ®
+ΞΊΞµΞΉΞΌΞ­Ξ½ΞΏΟ… Ξ® Ο€ΟΟΞ³ΟΞ±ΞΌΞΌΞ± Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ±Ο‚ ΞΉΟƒΟ„ΞΏΟƒΞµΞ»Ξ―Ξ΄Ο‰Ξ½. Ξ§ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞµΞ―ΟƒΟ„Ξµ Ο„Ξ·Ξ½
+ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ® Β«Ξ‘Ξ½Ξ­Ξ²Ξ±ΟƒΞΌΞ± ΟƒΞµΞ»Ξ―Ξ΄Ξ±Ο‚ ΞΊΞ±ΞΉ Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± ΟƒΟ…Ξ½Ξ΄Ξ­ΟƒΞΌΞΏΟ… ΟƒΟ„Ξ·Ξ½ Ξ‘ΟΟ‡ΞΉΞΊΞ® Ξ£ΞµΞ»Ξ―Ξ΄Ξ±Β»
+Ξ³ΞΉΞ± Ξ½Ξ± ΟƒΟ„ΞµΞ―Ξ»ΞµΟ„Ξµ Ο„Ξ· ΟƒΞµΞ»Ξ―Ξ΄Ξ± ΟƒΞ±Ο‚ ΟƒΟ„ΞΏΞ½ ΞµΞΎΟ…Ο€Ξ·ΟΞµΟ„Ξ·Ο„Ξ®. Ξ— ΞµΟ€ΞΉΞΊΞµΟ†Ξ±Ξ»Ξ―Ξ΄Ξ± Ο„ΞΏΟ…
+Ξ΄ΞΉΞΊΟ„Ο…Ξ±ΞΊΞΏΟ Ο„ΟΟ€ΞΏΟ… ΞΈΞ± ΞµΞ½ΟƒΟ‰ΞΌΞ±Ο„Ο‰ΞΈΞµΞ― Ξ±Ο…Ο„ΟΞΌΞ±Ο„Ξ± ΟƒΟ„ΞΉΟ‚ ΟƒΞµΞ»Ξ―Ξ΄ΞµΟ‚ ΟƒΞ±Ο‚, ΞΏΟ€ΟΟ„Ξµ
+Ο‡ΟΞµΞΉΞ¬Ξ¶ΞµΟ„Ξ±ΞΉ ΞΌΟΞ½ΞΏ Ξ½Ξ± ΟƒΞΊΞµΟ†Ο„ΞµΞ―Ο„Ξµ Ξ³ΞΉΞ± Ο„ΞΏ Ο€ΞµΟΞΉΞµΟ‡ΟΞΌΞµΞ½ΞΏ Ο„Ο‰Ξ½ ΟƒΞµΞ»Ξ―Ξ΄Ο‰Ξ½. Ξ‘Ξ½ ΞΈΞ­Ξ»ΞµΟ„Ξµ
+Ξ½Ξ± Ο€ΟΞΏΟƒΞΈΞ­ΟƒΞµΟ„Ξµ ΟƒΟ…Ξ½Ξ΄Ξ­ΟƒΞΌΞΏΟ…Ο‚ Ξ±Ο€Ο Ο„Ξ·Ξ½ Ξ±ΟΟ‡ΞΉΞΊΞ® ΟƒΞµΞ»Ξ―Ξ΄Ξ± Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ Ο€ΟΞΏΟ‚
+Ο…Ο€Ξ¬ΟΟ‡ΞΏΟ…ΟƒΞµΟ‚ ΞΉΟƒΟ„ΞΏΟƒΞµΞ»Ξ―Ξ΄ΞµΟ‚ Ο€ΞΏΟ… Ο…Ο€Ξ¬ΟΟ‡ΞΏΟ…Ξ½ Ξ®Ξ΄Ξ· ΞΊΞ¬Ο€ΞΏΟ… Ξ±Ξ»Ξ»ΞΏΟ ΟƒΟ„ΞΏ Ξ΄Ξ―ΞΊΟ„Ο…ΞΏ (Ξ® Ξ±ΞΊΟΞΌΞ±
+ΞΊΞ¬Ο€ΞΏΟ… Ξ±Ξ»Ξ»ΞΏΟ ΟƒΟ„ΞΏΞ½ Ξ΄ΞΉΞΊΟ ΟƒΞ±Ο‚ Ξ΄ΞΉΞΊΟ„Ο…Ξ±ΞΊΟ Ο„ΟΟ€ΞΏ), Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞ®ΟƒΟ„Ξµ Ο„Ξ·Ξ½ Β«Ξ ΟΞΏΟƒΞΈΞ®ΞΊΞ·
+ΟƒΟ…Ξ½Ξ΄Ξ­ΟƒΞΌΞΏΟ… ΟƒΟ„Ξ·Ξ½ Ξ±ΟΟ‡ΞΉΞΊΞ® ΟƒΞµΞ»Ξ―Ξ΄Ξ±Β». ΞΞΉ ΟƒΞµΞ»Ξ―Ξ΄ΞµΟ‚ Ο€ΞΏΟ… Ο€ΟΞΏΟƒΞΈΞ­Ο„ΞµΟ„Ξµ ΞµΟƒΞµΞ―Ο‚ ΟƒΟ„Ξ·Ξ½
+Ξ±ΟΟ‡ΞΉΞΊΞ® ΟƒΞµΞ»Ξ―Ξ΄Ξ± ΞΌΟ€ΞΏΟΞΏΟΞ½ Ξ½Ξ± Ξ±Ο€ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞΉΞ·ΞΈΞΏΟΞ½ ΞΊΞ±ΞΉ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†ΞΏΟΞ½, ΞµΞ½Ο Ο„Ξ±
+ΞµΞ½ΟƒΟ‰ΞΌΞ±Ο„Ο‰ΞΌΞ­Ξ½Ξ± ΞµΟΞ³Ξ±Ξ»ΞµΞ―Ξ± ΞΌΟ€ΞΏΟΞΏΟΞ½ Ξ½Ξ± Ξ±Ο€ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞΉΞ·ΞΈΞΏΟΞ½ ΞΌΟΞ½ΞΏ, Ξ±Ξ»Ξ»Ξ¬ ΟΟ‡ΞΉ Ξ½Ξ±
+Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†ΞΏΟΞ½.</p><p>ΞΟ„Ξ±Ξ½ Ξ· ΟƒΞµΞ»Ξ―Ξ΄Ξ± Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΟΟ‚ ΟƒΞ±Ο‚ ΞµΞ―Ξ½Ξ±ΞΉ Ξ­Ο„ΞΏΞΉΞΌΞ·, ΞΌΟ€ΞΏΟΞµΞ―Ο„Ξµ
+Ξ½Ξ± ΞµΟ€ΞΉΞ»Ξ­ΞΎΞµΟ„Ξµ Ο„ΞΏ Ο€ΟΟƒΞΏ Ξ±Ξ½ΞΏΞΉΟ‡Ο„Ξ® ΞµΞ―Ξ½Ξ±ΞΉ Ξ³ΞΉΞ± Ο„ΞΏΟ…Ο‚ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ Ο„ΞΏΟ… ΟƒΟ…ΟƒΟ„Ξ®ΞΌΞ±Ο„ΞΏΟ‚, Ξ±Ο€Ο
+Ο„Ξ·Ξ½ ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ® Β«Ξ‘Ξ»Ξ»Ξ±Ξ³Ξ® Ο€Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞ―Ξ±Ο‚ Ξ³ΞΉΞ± Ο„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ±Β». Ξ£Ο„Ξ·Ξ½ Ξ±ΟΟ‡Ξ®, ΞµΞ―Ξ½Ξ±ΞΉ ΞΊΟΟ…ΞΌΞΌΞ­Ξ½Ξ·
+(Ξ³ΞΉΞ±Ο„Ξ― Ξ΄ΞΏΟ…Ξ»ΞµΟΞµΟ„Ξµ Ξ±ΞΊΟΞΌΞ· ΟƒΞµ Ξ±Ο…Ο„Ξ®Ξ½).</p>';
+$_lang['blockIntroCourse'] = 'Ξ’ΟΞ―ΟƒΞΊΞµΟƒΟ„Ξµ ΟƒΟ„Ξ·Ξ½ Ξ±ΟΟ‡ΞΉΞΊΞ® ΟƒΞµΞ»Ξ―Ξ΄Ξ± ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚.<br /><br />Ξ£Ξµ Ξ±Ο…Ο„Ξ® Ο„Ξ· ΟƒΞµΞ»Ξ―Ξ΄Ξ±, ΞΌΟ€ΞΏΟΞµΞ―Ο„Ξµ :
 
 <ul>
 
-<li>να ενεργοποιήσετε ή απενεργοποιήσετε εργαλεία (κάντε κλικ στο \'Edit Tool list\'(επιμέλεια λίστας εργαλείων) κάτω αριστερά).</li>
+<li>Ξ½Ξ± ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞΉΞ®ΟƒΞµΟ„Ξµ Ξ® Ξ±Ο€ΞµΞ½ΞµΟΞ³ΞΏΟ€ΞΏΞΉΞ®ΟƒΞµΟ„Ξµ ΞµΟΞ³Ξ±Ξ»ΞµΞ―Ξ± (ΞΊΞ¬Ξ½Ο„Ξµ ΞΊΞ»ΞΉΞΊ ΟƒΟ„ΞΏ \'Edit Tool list\'(ΞµΟ€ΞΉΞΌΞ­Ξ»ΞµΞΉΞ± Ξ»Ξ―ΟƒΟ„Ξ±Ο‚ ΞµΟΞ³Ξ±Ξ»ΞµΞ―Ο‰Ξ½) ΞΊΞ¬Ο„Ο‰ Ξ±ΟΞΉΟƒΟ„ΞµΟΞ¬).</li>
 
-<li>να αλλάξετε τις ρυθμίσεις ή να δείτε τα στατιστικά (κάντε κλικ στις αντίστοιχες συνδέσεις δεξιά).</li>
+<li>Ξ½Ξ± Ξ±Ξ»Ξ»Ξ¬ΞΎΞµΟ„Ξµ Ο„ΞΉΟ‚ ΟΟ…ΞΈΞΌΞ―ΟƒΞµΞΉΟ‚ Ξ® Ξ½Ξ± Ξ΄ΞµΞ―Ο„Ξµ Ο„Ξ± ΟƒΟ„Ξ±Ο„ΞΉΟƒΟ„ΞΉΞΊΞ¬ (ΞΊΞ¬Ξ½Ο„Ξµ ΞΊΞ»ΞΉΞΊ ΟƒΟ„ΞΉΟ‚ Ξ±Ξ½Ο„Ξ―ΟƒΟ„ΞΏΞΉΟ‡ΞµΟ‚ ΟƒΟ…Ξ½Ξ΄Ξ­ΟƒΞµΞΉΟ‚ Ξ΄ΞµΞΎΞΉΞ¬).</li>
 
 </ul>
 
-Τώρα, για να προσθέσετε ένα εισαγωγικό κείμενο παρουσιάζοντας το μάθημα στους μαθητές , κάντε κλικ παρακάτω ';
-$_lang['blockIntroLearningPath'] = 'Χρησιμοποήστε αυτό το εργαλείο για να παρέχετε στους μαθητές σας μια διαδρομή μεταξύ εγγράφων, ασκήσεων,σελίδες HTML, συνδέσεις,...<br /><br />Εάν επιθυμείτε να παρουσιάσετε στους μαθητές την πορεία μάθησης σας, κάντε κλικ παρακάτω.<br />';
-$_lang['blockModulePoolHelp'] = 'Αυτή η σελίδα επιτρέπει να δείς όλες τις διαθέσιμες ενότητες σε αυτό το μάθημα. <br />
+Ξ¤ΟΟΞ±, Ξ³ΞΉΞ± Ξ½Ξ± Ο€ΟΞΏΟƒΞΈΞ­ΟƒΞµΟ„Ξµ Ξ­Ξ½Ξ± ΞµΞΉΟƒΞ±Ξ³Ο‰Ξ³ΞΉΞΊΟ ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ Ο€Ξ±ΟΞΏΟ…ΟƒΞΉΞ¬Ξ¶ΞΏΞ½Ο„Ξ±Ο‚ Ο„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ± ΟƒΟ„ΞΏΟ…Ο‚ ΞΌΞ±ΞΈΞ·Ο„Ξ­Ο‚ , ΞΊΞ¬Ξ½Ο„Ξµ ΞΊΞ»ΞΉΞΊ Ο€Ξ±ΟΞ±ΞΊΞ¬Ο„Ο‰ ';
+$_lang['blockIntroLearningPath'] = 'Ξ§ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞ®ΟƒΟ„Ξµ Ξ±Ο…Ο„Ο Ο„ΞΏ ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏ Ξ³ΞΉΞ± Ξ½Ξ± Ο€Ξ±ΟΞ­Ο‡ΞµΟ„Ξµ ΟƒΟ„ΞΏΟ…Ο‚ ΞΌΞ±ΞΈΞ·Ο„Ξ­Ο‚ ΟƒΞ±Ο‚ ΞΌΞΉΞ± Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ® ΞΌΞµΟ„Ξ±ΞΎΟ ΞµΞ³Ξ³ΟΞ¬Ο†Ο‰Ξ½, Ξ±ΟƒΞΊΞ®ΟƒΞµΟ‰Ξ½,ΟƒΞµΞ»Ξ―Ξ΄ΞµΟ‚ HTML, ΟƒΟ…Ξ½Ξ΄Ξ­ΟƒΞµΞΉΟ‚,...<br /><br />Ξ•Ξ¬Ξ½ ΞµΟ€ΞΉΞΈΟ…ΞΌΞµΞ―Ο„Ξµ Ξ½Ξ± Ο€Ξ±ΟΞΏΟ…ΟƒΞΉΞ¬ΟƒΞµΟ„Ξµ ΟƒΟ„ΞΏΟ…Ο‚ ΞΌΞ±ΞΈΞ·Ο„Ξ­Ο‚ Ο„Ξ·Ξ½ Ο€ΞΏΟΞµΞ―Ξ± ΞΌΞ¬ΞΈΞ·ΟƒΞ·Ο‚ ΟƒΞ±Ο‚, ΞΊΞ¬Ξ½Ο„Ξµ ΞΊΞ»ΞΉΞΊ Ο€Ξ±ΟΞ±ΞΊΞ¬Ο„Ο‰.<br />';
+$_lang['blockModulePoolHelp'] = 'Ξ‘Ο…Ο„Ξ® Ξ· ΟƒΞµΞ»Ξ―Ξ΄Ξ± ΞµΟ€ΞΉΟ„ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± Ξ΄ΞµΞ―Ο‚ ΟΞ»ΞµΟ‚ Ο„ΞΉΟ‚ Ξ΄ΞΉΞ±ΞΈΞ­ΟƒΞΉΞΌΞµΟ‚ ΞµΞ½ΟΟ„Ξ·Ο„ΞµΟ‚ ΟƒΞµ Ξ±Ο…Ο„Ο Ο„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ±. <br />
 
-                     Όποια άσκηση ή έγγραφο έχει προστεθεί στη διαδρομή μάθησης θα εμφανίζεται σε αυτή τη λίστα.';
-$_lang['blockRegisterLocalUrl'] = 'Το campus url φαινεται να είναι τοπικό τοπικό url.
-Απαιτείται προσβάσιμο web url για να εγγραψετε στο site σας στο Claroline.net.<br /><br />
-Ελέξτε την τιμή του  \'Web base\' στην διαμόρφωση για το Claroline .';
+                     ΞΟ€ΞΏΞΉΞ± Ξ¬ΟƒΞΊΞ·ΟƒΞ· Ξ® Ξ­Ξ³Ξ³ΟΞ±Ο†ΞΏ Ξ­Ο‡ΞµΞΉ Ο€ΟΞΏΟƒΟ„ΞµΞΈΞµΞ― ΟƒΟ„Ξ· Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ® ΞΌΞ¬ΞΈΞ·ΟƒΞ·Ο‚ ΞΈΞ± ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞµΟ„Ξ±ΞΉ ΟƒΞµ Ξ±Ο…Ο„Ξ® Ο„Ξ· Ξ»Ξ―ΟƒΟ„Ξ±.';
+$_lang['blockRegisterLocalUrl'] = 'Ξ¤ΞΏ campus url Ο†Ξ±ΞΉΞ½ΞµΟ„Ξ±ΞΉ Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ Ο„ΞΏΟ€ΞΉΞΊΟ Ο„ΞΏΟ€ΞΉΞΊΟ url.
+Ξ‘Ο€Ξ±ΞΉΟ„ΞµΞ―Ο„Ξ±ΞΉ Ο€ΟΞΏΟƒΞ²Ξ¬ΟƒΞΉΞΌΞΏ web url Ξ³ΞΉΞ± Ξ½Ξ± ΞµΞ³Ξ³ΟΞ±ΟΞµΟ„Ξµ ΟƒΟ„ΞΏ site ΟƒΞ±Ο‚ ΟƒΟ„ΞΏ Claroline.net.<br /><br />
+Ξ•Ξ»Ξ­ΞΎΟ„Ξµ Ο„Ξ·Ξ½ Ο„ΞΉΞΌΞ® Ο„ΞΏΟ…  \'Web base\' ΟƒΟ„Ξ·Ξ½ Ξ΄ΞΉΞ±ΞΌΟΟΟ†Ο‰ΟƒΞ· Ξ³ΞΉΞ± Ο„ΞΏ Claroline .';
 $_lang['blockRequestCourseManagerStatusMail'] = '%time
-Κατάσταση του δημιουργού του μαθήματος του %firstname %lastname
-Χρήστης : %user_id
-Όνομα : %firstname %lastname
+ΞΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ· Ο„ΞΏΟ… Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³ΞΏΟ Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ Ο„ΞΏΟ… %firstname %lastname
+Ξ§ΟΞ®ΟƒΟ„Ξ·Ο‚ : %user_id
+ΞΞ½ΞΏΞΌΞ± : %firstname %lastname
 Email : %email
-Σχόλιο : %comment
-Σύνδεσμος : %url';
+Ξ£Ο‡ΟΞ»ΞΉΞΏ : %comment
+Ξ£ΟΞ½Ξ΄ΞµΟƒΞΌΞΏΟ‚ : %url';
 $_lang['blockRequestUserRevoquationMail'] = '%time
-Ενημέρωση του %firstname %lastname
-Χρήστης : %user_id
-Όνομα : %firstname %lastname
+Ξ•Ξ½Ξ·ΞΌΞ­ΟΟ‰ΟƒΞ· Ο„ΞΏΟ… %firstname %lastname
+Ξ§ΟΞ®ΟƒΟ„Ξ·Ο‚ : %user_id
+ΞΞ½ΞΏΞΌΞ± : %firstname %lastname
 Email : %email
-Όνομα χρήστη : %login
-Κωδικός : %password
-Σχόλιο : %comment
-Σύνδεσμος : %url';
-$_lang['blockTextZoneHelp'] = 'Αυτή η ζώνη κειμένου εμφανίζεται σε κάθε χρήστη. Ο διαχειριστής της πλατφόρμας μπορεί να τροποποιήσει τα περιεχόμενα της ή να τη διαγράψει επεξεργάζοντας το αρχείο <b>%textZoneFile</b> .';
-$_lang['blockUsedInSeveralPath'] = 'Αυτή η άσκηση χρησιμοποιείται σε μια ή περισσότερες διαδρομές μάθησης. Εάν τη διαγράψετε δεν θα είναι πλέον διαθέσιμη στη διαδρομή μάθησης.';
-$_lang['blockUsersHelp'] = '<b>Ρόλοι</b><p>Οι ρόλοι δεν σχετίζονται καθόλου με τον υπολογιστή.
- Δεν δίνουν δικαιώματα πάνω στο λειτουργικό σύστημα. Συνήθως δείχνουν στους ανθρώπους,
- ποιος είναι ποιος. Μπορείτε να τους τροποποιήσετε κάνοντας κλίκ στη \'τροποποίηση\' κάτω από
- το \'ρόλο\', ύστερα πληκτρολογώντας οτιδήποτε θέλετε: καθηγητή, βοηθό, φοιτητή,
- επισκέπτη, ...</P><hr />
-<b>Δικαιώματα Διαχειριστή</b>
-<p>Τα δικαιώματα διαχειριστή, από την άλλη, ανταποκρίνονται στην τεχνική
- εξουσιοδότηση να αλλάξετε τα περιεχόμενα και τον οργάνωση του μαθήματος.
- Προς το παρόν, μπορείτε μόνο να διαλέξετε μεταξύ όλων των δικαιώμάτων διαχειριστή
- ή κανένα από αυτά.</P>
-<p>Για να επιτρέψετε σε ένα βοηθόa, για παράδειγμα, να συν-διαχειριστεί το μάθημα, αρκεί να
- τον εγγράψετε στο μάθημα ή να βεβαιωθείτε ότι είναι ήδη γραμμένος, ύστερα κάντε κλίκ
- στην \'Αλλαγή\'  κάτω από τα \'Δικαιώματα Διαχειριστή\', ύστερα κάντε κλίκ στο \'Ολα\', ύστερα στο \'Εντάξει\'.</P><hr />
-<b>Συνδιδάσκοντας</b>
-<p>Για να αναφέρεται στην επικεφαλίδα του μαθήματος το όνομα ενός συνδιδάσκοντα,
- χρησιμοποιήστε το εργαλείο \'Αλλαγή πληροφορίας για το Μάθημα\' .
- Αυτή η αλλαγή δεν κάνει τον συνδιδάσκοντά σας ένα χρήστη ενός μαθήματος.
- Το πεδίο \'Καθηγητές\' είναι εντελώς ανεξάρτητο από τη λίστα των χρηστών.</p><hr />
-<b>Προσθήκη ενός χρήστη</b>
-<p>Για να προσθέσετε ένα χρήστη στο μάθημά σας, συμπληρώστε τα πεδία και επιβεβαιώστε το. Ο χρήστης
-θα λάβει ένα e-mail που θα τον/την ενημερώνει ότι τον/την έχετε εγγράψει και απλά πείτε του/της
-ή θυμήστε του/της το όνομα χρήστη και το συνθηματικό.</p>';
-$_lang['blockWarningRemoveInstallDirectory'] = '<b>Σημείωση :</b> Ο κατάλογος που περιέχει την διαδικασία εγκατάστασης της πλατφόρμας Claroline (<code>claroline/install/</code>) είναι ακόμα προσβάσιμος από το δίκτυο. Αυτό σημαίνει ότι ο καθένας μπορεί να επαναγκαταστήσει το Claroline με αποτέλεσμα να καταστρέψει την προηγούμενη σας εγκατάσταση. Εντόνως προτείνουμε να προστατέψετε αυτό τον κατάλογο ή να τον διαγράψετε απο το server σας.';
-$_lang['blockWikiConflictHowTo'] = '<p><strong>Αλλάξτε τη σύγκρουση</strong> : Η σελίδα που πρσπαθελις φαίνετε ότι έχει αλλάξεια απο το καιρό που την άλλαξες.<br /><br />
-Τι θές να κάνεις τώρα;<ul>
-<li>Μπορείς να αντιγράψεις/επικολλήσεις τις αλλαγές σου σε ένα κειμενογράφο (όπως το notepad) και κάνε κλίκ στο  \'edit last version\' για να προσπαθήσεις να προσθέσεις τις αλλαγές σου στην καινούργια έκδοση της σελίδας.</li>
-<li>Μπορείς επίσης να πατήσεις στο άκυρο για να ακυρώσεις τις αλλαγές σου.</li>
+ΞΞ½ΞΏΞΌΞ± Ο‡ΟΞ®ΟƒΟ„Ξ· : %login
+ΞΟ‰Ξ΄ΞΉΞΊΟΟ‚ : %password
+Ξ£Ο‡ΟΞ»ΞΉΞΏ : %comment
+Ξ£ΟΞ½Ξ΄ΞµΟƒΞΌΞΏΟ‚ : %url';
+$_lang['blockTextZoneHelp'] = 'Ξ‘Ο…Ο„Ξ® Ξ· Ξ¶ΟΞ½Ξ· ΞΊΞµΞΉΞΌΞ­Ξ½ΞΏΟ… ΞµΞΌΟ†Ξ±Ξ½Ξ―Ξ¶ΞµΟ„Ξ±ΞΉ ΟƒΞµ ΞΊΞ¬ΞΈΞµ Ο‡ΟΞ®ΟƒΟ„Ξ·. Ξ Ξ΄ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ®Ο‚ Ο„Ξ·Ο‚ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±Ο‚ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ο„ΟΞΏΟ€ΞΏΟ€ΞΏΞΉΞ®ΟƒΞµΞΉ Ο„Ξ± Ο€ΞµΟΞΉΞµΟ‡ΟΞΌΞµΞ½Ξ± Ο„Ξ·Ο‚ Ξ® Ξ½Ξ± Ο„Ξ· Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΞΉ ΞµΟ€ΞµΞΎΞµΟΞ³Ξ¬Ξ¶ΞΏΞ½Ο„Ξ±Ο‚ Ο„ΞΏ Ξ±ΟΟ‡ΞµΞ―ΞΏ <b>%textZoneFile</b> .';
+$_lang['blockUsedInSeveralPath'] = 'Ξ‘Ο…Ο„Ξ® Ξ· Ξ¬ΟƒΞΊΞ·ΟƒΞ· Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞµΞ―Ο„Ξ±ΞΉ ΟƒΞµ ΞΌΞΉΞ± Ξ® Ο€ΞµΟΞΉΟƒΟƒΟΟ„ΞµΟΞµΟ‚ Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ­Ο‚ ΞΌΞ¬ΞΈΞ·ΟƒΞ·Ο‚. Ξ•Ξ¬Ξ½ Ο„Ξ· Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΟ„Ξµ Ξ΄ΞµΞ½ ΞΈΞ± ΞµΞ―Ξ½Ξ±ΞΉ Ο€Ξ»Ξ­ΞΏΞ½ Ξ΄ΞΉΞ±ΞΈΞ­ΟƒΞΉΞΌΞ· ΟƒΟ„Ξ· Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ® ΞΌΞ¬ΞΈΞ·ΟƒΞ·Ο‚.';
+$_lang['blockUsersHelp'] = '<b>Ξ΅ΟΞ»ΞΏΞΉ</b><p>ΞΞΉ ΟΟΞ»ΞΏΞΉ Ξ΄ΞµΞ½ ΟƒΟ‡ΞµΟ„Ξ―Ξ¶ΞΏΞ½Ο„Ξ±ΞΉ ΞΊΞ±ΞΈΟΞ»ΞΏΟ… ΞΌΞµ Ο„ΞΏΞ½ Ο…Ο€ΞΏΞ»ΞΏΞ³ΞΉΟƒΟ„Ξ®.
+ Ξ”ΞµΞ½ Ξ΄Ξ―Ξ½ΞΏΟ…Ξ½ Ξ΄ΞΉΞΊΞ±ΞΉΟΞΌΞ±Ο„Ξ± Ο€Ξ¬Ξ½Ο‰ ΟƒΟ„ΞΏ Ξ»ΞµΞΉΟ„ΞΏΟ…ΟΞ³ΞΉΞΊΟ ΟƒΟΟƒΟ„Ξ·ΞΌΞ±. Ξ£Ο…Ξ½Ξ®ΞΈΟ‰Ο‚ Ξ΄ΞµΞ―Ο‡Ξ½ΞΏΟ…Ξ½ ΟƒΟ„ΞΏΟ…Ο‚ Ξ±Ξ½ΞΈΟΟΟ€ΞΏΟ…Ο‚,
+ Ο€ΞΏΞΉΞΏΟ‚ ΞµΞ―Ξ½Ξ±ΞΉ Ο€ΞΏΞΉΞΏΟ‚. ΞΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± Ο„ΞΏΟ…Ο‚ Ο„ΟΞΏΟ€ΞΏΟ€ΞΏΞΉΞ®ΟƒΞµΟ„Ξµ ΞΊΞ¬Ξ½ΞΏΞ½Ο„Ξ±Ο‚ ΞΊΞ»Ξ―ΞΊ ΟƒΟ„Ξ· \'Ο„ΟΞΏΟ€ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ·\' ΞΊΞ¬Ο„Ο‰ Ξ±Ο€Ο
+ Ο„ΞΏ \'ΟΟΞ»ΞΏ\', ΟΟƒΟ„ΞµΟΞ± Ο€Ξ»Ξ·ΞΊΟ„ΟΞΏΞ»ΞΏΞ³ΟΞ½Ο„Ξ±Ο‚ ΞΏΟ„ΞΉΞ΄Ξ®Ο€ΞΏΟ„Ξµ ΞΈΞ­Ξ»ΞµΟ„Ξµ: ΞΊΞ±ΞΈΞ·Ξ³Ξ·Ο„Ξ®, Ξ²ΞΏΞ·ΞΈΟ, Ο†ΞΏΞΉΟ„Ξ·Ο„Ξ®,
+ ΞµΟ€ΞΉΟƒΞΊΞ­Ο€Ο„Ξ·, ...</P><hr />
+<b>Ξ”ΞΉΞΊΞ±ΞΉΟΞΌΞ±Ο„Ξ± Ξ”ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ®</b>
+<p>Ξ¤Ξ± Ξ΄ΞΉΞΊΞ±ΞΉΟΞΌΞ±Ο„Ξ± Ξ΄ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ®, Ξ±Ο€Ο Ο„Ξ·Ξ½ Ξ¬Ξ»Ξ»Ξ·, Ξ±Ξ½Ο„Ξ±Ο€ΞΏΞΊΟΞ―Ξ½ΞΏΞ½Ο„Ξ±ΞΉ ΟƒΟ„Ξ·Ξ½ Ο„ΞµΟ‡Ξ½ΞΉΞΊΞ®
+ ΞµΞΎΞΏΟ…ΟƒΞΉΞΏΞ΄ΟΟ„Ξ·ΟƒΞ· Ξ½Ξ± Ξ±Ξ»Ξ»Ξ¬ΞΎΞµΟ„Ξµ Ο„Ξ± Ο€ΞµΟΞΉΞµΟ‡ΟΞΌΞµΞ½Ξ± ΞΊΞ±ΞΉ Ο„ΞΏΞ½ ΞΏΟΞ³Ξ¬Ξ½Ο‰ΟƒΞ· Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚.
+ Ξ ΟΞΏΟ‚ Ο„ΞΏ Ο€Ξ±ΟΟΞ½, ΞΌΟ€ΞΏΟΞµΞ―Ο„Ξµ ΞΌΟΞ½ΞΏ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ»Ξ­ΞΎΞµΟ„Ξµ ΞΌΞµΟ„Ξ±ΞΎΟ ΟΞ»Ο‰Ξ½ Ο„Ο‰Ξ½ Ξ΄ΞΉΞΊΞ±ΞΉΟΞΌΞ¬Ο„Ο‰Ξ½ Ξ΄ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ®
+ Ξ® ΞΊΞ±Ξ½Ξ­Ξ½Ξ± Ξ±Ο€Ο Ξ±Ο…Ο„Ξ¬.</P>
+<p>Ξ“ΞΉΞ± Ξ½Ξ± ΞµΟ€ΞΉΟ„ΟΞ­ΟΞµΟ„Ξµ ΟƒΞµ Ξ­Ξ½Ξ± Ξ²ΞΏΞ·ΞΈΟa, Ξ³ΞΉΞ± Ο€Ξ±ΟΞ¬Ξ΄ΞµΞΉΞ³ΞΌΞ±, Ξ½Ξ± ΟƒΟ…Ξ½-Ξ΄ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„ΞµΞ― Ο„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ±, Ξ±ΟΞΊΞµΞ― Ξ½Ξ±
+ Ο„ΞΏΞ½ ΞµΞ³Ξ³ΟΞ¬ΟΞµΟ„Ξµ ΟƒΟ„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ± Ξ® Ξ½Ξ± Ξ²ΞµΞ²Ξ±ΞΉΟ‰ΞΈΞµΞ―Ο„Ξµ ΟΟ„ΞΉ ΞµΞ―Ξ½Ξ±ΞΉ Ξ®Ξ΄Ξ· Ξ³ΟΞ±ΞΌΞΌΞ­Ξ½ΞΏΟ‚, ΟΟƒΟ„ΞµΟΞ± ΞΊΞ¬Ξ½Ο„Ξµ ΞΊΞ»Ξ―ΞΊ
+ ΟƒΟ„Ξ·Ξ½ \'Ξ‘Ξ»Ξ»Ξ±Ξ³Ξ®\'  ΞΊΞ¬Ο„Ο‰ Ξ±Ο€Ο Ο„Ξ± \'Ξ”ΞΉΞΊΞ±ΞΉΟΞΌΞ±Ο„Ξ± Ξ”ΞΉΞ±Ο‡ΞµΞΉΟΞΉΟƒΟ„Ξ®\', ΟΟƒΟ„ΞµΟΞ± ΞΊΞ¬Ξ½Ο„Ξµ ΞΊΞ»Ξ―ΞΊ ΟƒΟ„ΞΏ \'ΞΞ»Ξ±\', ΟΟƒΟ„ΞµΟΞ± ΟƒΟ„ΞΏ \'Ξ•Ξ½Ο„Ξ¬ΞΎΞµΞΉ\'.</P><hr />
+<b>Ξ£Ο…Ξ½Ξ΄ΞΉΞ΄Ξ¬ΟƒΞΊΞΏΞ½Ο„Ξ±Ο‚</b>
+<p>Ξ“ΞΉΞ± Ξ½Ξ± Ξ±Ξ½Ξ±Ο†Ξ­ΟΞµΟ„Ξ±ΞΉ ΟƒΟ„Ξ·Ξ½ ΞµΟ€ΞΉΞΊΞµΟ†Ξ±Ξ»Ξ―Ξ΄Ξ± Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚ Ο„ΞΏ ΟΞ½ΞΏΞΌΞ± ΞµΞ½ΟΟ‚ ΟƒΟ…Ξ½Ξ΄ΞΉΞ΄Ξ¬ΟƒΞΊΞΏΞ½Ο„Ξ±,
+ Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞ®ΟƒΟ„Ξµ Ο„ΞΏ ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏ \'Ξ‘Ξ»Ξ»Ξ±Ξ³Ξ® Ο€Ξ»Ξ·ΟΞΏΟ†ΞΏΟΞ―Ξ±Ο‚ Ξ³ΞΉΞ± Ο„ΞΏ ΞΞ¬ΞΈΞ·ΞΌΞ±\' .
+ Ξ‘Ο…Ο„Ξ® Ξ· Ξ±Ξ»Ξ»Ξ±Ξ³Ξ® Ξ΄ΞµΞ½ ΞΊΞ¬Ξ½ΞµΞΉ Ο„ΞΏΞ½ ΟƒΟ…Ξ½Ξ΄ΞΉΞ΄Ξ¬ΟƒΞΊΞΏΞ½Ο„Ξ¬ ΟƒΞ±Ο‚ Ξ­Ξ½Ξ± Ο‡ΟΞ®ΟƒΟ„Ξ· ΞµΞ½ΟΟ‚ ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚.
+ Ξ¤ΞΏ Ο€ΞµΞ΄Ξ―ΞΏ \'ΞΞ±ΞΈΞ·Ξ³Ξ·Ο„Ξ­Ο‚\' ΞµΞ―Ξ½Ξ±ΞΉ ΞµΞ½Ο„ΞµΞ»ΟΟ‚ Ξ±Ξ½ΞµΞΎΞ¬ΟΟ„Ξ·Ο„ΞΏ Ξ±Ο€Ο Ο„Ξ· Ξ»Ξ―ΟƒΟ„Ξ± Ο„Ο‰Ξ½ Ο‡ΟΞ·ΟƒΟ„ΟΞ½.</p><hr />
+<b>Ξ ΟΞΏΟƒΞΈΞ®ΞΊΞ· ΞµΞ½ΟΟ‚ Ο‡ΟΞ®ΟƒΟ„Ξ·</b>
+<p>Ξ“ΞΉΞ± Ξ½Ξ± Ο€ΟΞΏΟƒΞΈΞ­ΟƒΞµΟ„Ξµ Ξ­Ξ½Ξ± Ο‡ΟΞ®ΟƒΟ„Ξ· ΟƒΟ„ΞΏ ΞΌΞ¬ΞΈΞ·ΞΌΞ¬ ΟƒΞ±Ο‚, ΟƒΟ…ΞΌΟ€Ξ»Ξ·ΟΟΟƒΟ„Ξµ Ο„Ξ± Ο€ΞµΞ΄Ξ―Ξ± ΞΊΞ±ΞΉ ΞµΟ€ΞΉΞ²ΞµΞ²Ξ±ΞΉΟΟƒΟ„Ξµ Ο„ΞΏ. Ξ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚
+ΞΈΞ± Ξ»Ξ¬Ξ²ΞµΞΉ Ξ­Ξ½Ξ± e-mail Ο€ΞΏΟ… ΞΈΞ± Ο„ΞΏΞ½/Ο„Ξ·Ξ½ ΞµΞ½Ξ·ΞΌΞµΟΟΞ½ΞµΞΉ ΟΟ„ΞΉ Ο„ΞΏΞ½/Ο„Ξ·Ξ½ Ξ­Ο‡ΞµΟ„Ξµ ΞµΞ³Ξ³ΟΞ¬ΟΞµΞΉ ΞΊΞ±ΞΉ Ξ±Ο€Ξ»Ξ¬ Ο€ΞµΞ―Ο„Ξµ Ο„ΞΏΟ…/Ο„Ξ·Ο‚
+Ξ® ΞΈΟ…ΞΌΞ®ΟƒΟ„Ξµ Ο„ΞΏΟ…/Ο„Ξ·Ο‚ Ο„ΞΏ ΟΞ½ΞΏΞΌΞ± Ο‡ΟΞ®ΟƒΟ„Ξ· ΞΊΞ±ΞΉ Ο„ΞΏ ΟƒΟ…Ξ½ΞΈΞ·ΞΌΞ±Ο„ΞΉΞΊΟ.</p>';
+$_lang['blockWarningRemoveInstallDirectory'] = '<b>Ξ£Ξ·ΞΌΞµΞ―Ο‰ΟƒΞ· :</b> Ξ ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏΟ‚ Ο€ΞΏΟ… Ο€ΞµΟΞΉΞ­Ο‡ΞµΞΉ Ο„Ξ·Ξ½ Ξ΄ΞΉΞ±Ξ΄ΞΉΞΊΞ±ΟƒΞ―Ξ± ΞµΞ³ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ·Ο‚ Ο„Ξ·Ο‚ Ο€Ξ»Ξ±Ο„Ο†ΟΟΞΌΞ±Ο‚ Claroline (<code>claroline/install/</code>) ΞµΞ―Ξ½Ξ±ΞΉ Ξ±ΞΊΟΞΌΞ± Ο€ΟΞΏΟƒΞ²Ξ¬ΟƒΞΉΞΌΞΏΟ‚ Ξ±Ο€Ο Ο„ΞΏ Ξ΄Ξ―ΞΊΟ„Ο…ΞΏ. Ξ‘Ο…Ο„Ο ΟƒΞ·ΞΌΞ±Ξ―Ξ½ΞµΞΉ ΟΟ„ΞΉ ΞΏ ΞΊΞ±ΞΈΞ­Ξ½Ξ±Ο‚ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΞµΟ€Ξ±Ξ½Ξ±Ξ³ΞΊΞ±Ο„Ξ±ΟƒΟ„Ξ®ΟƒΞµΞΉ Ο„ΞΏ Claroline ΞΌΞµ Ξ±Ο€ΞΏΟ„Ξ­Ξ»ΞµΟƒΞΌΞ± Ξ½Ξ± ΞΊΞ±Ο„Ξ±ΟƒΟ„ΟΞ­ΟΞµΞΉ Ο„Ξ·Ξ½ Ο€ΟΞΏΞ·Ξ³ΞΏΟΞΌΞµΞ½Ξ· ΟƒΞ±Ο‚ ΞµΞ³ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ·. Ξ•Ξ½Ο„ΟΞ½Ο‰Ο‚ Ο€ΟΞΏΟ„ΞµΞ―Ξ½ΞΏΟ…ΞΌΞµ Ξ½Ξ± Ο€ΟΞΏΟƒΟ„Ξ±Ο„Ξ­ΟΞµΟ„Ξµ Ξ±Ο…Ο„Ο Ο„ΞΏΞ½ ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏ Ξ® Ξ½Ξ± Ο„ΞΏΞ½ Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΟ„Ξµ Ξ±Ο€ΞΏ Ο„ΞΏ server ΟƒΞ±Ο‚.';
+$_lang['blockWikiConflictHowTo'] = '<p><strong>Ξ‘Ξ»Ξ»Ξ¬ΞΎΟ„Ξµ Ο„Ξ· ΟƒΟΞ³ΞΊΟΞΏΟ…ΟƒΞ·</strong> : Ξ— ΟƒΞµΞ»Ξ―Ξ΄Ξ± Ο€ΞΏΟ… Ο€ΟΟƒΟ€Ξ±ΞΈΞµΞ»ΞΉΟ‚ Ο†Ξ±Ξ―Ξ½ΞµΟ„Ξµ ΟΟ„ΞΉ Ξ­Ο‡ΞµΞΉ Ξ±Ξ»Ξ»Ξ¬ΞΎΞµΞΉΞ± Ξ±Ο€ΞΏ Ο„ΞΏ ΞΊΞ±ΞΉΟΟ Ο€ΞΏΟ… Ο„Ξ·Ξ½ Ξ¬Ξ»Ξ»Ξ±ΞΎΞµΟ‚.<br /><br />
+Ξ¤ΞΉ ΞΈΞ­Ο‚ Ξ½Ξ± ΞΊΞ¬Ξ½ΞµΞΉΟ‚ Ο„ΟΟΞ±;<ul>
+<li>ΞΟ€ΞΏΟΞµΞ―Ο‚ Ξ½Ξ± Ξ±Ξ½Ο„ΞΉΞ³ΟΞ¬ΟΞµΞΉΟ‚/ΞµΟ€ΞΉΞΊΞΏΞ»Ξ»Ξ®ΟƒΞµΞΉΟ‚ Ο„ΞΉΟ‚ Ξ±Ξ»Ξ»Ξ±Ξ³Ξ­Ο‚ ΟƒΞΏΟ… ΟƒΞµ Ξ­Ξ½Ξ± ΞΊΞµΞΉΞΌΞµΞ½ΞΏΞ³ΟΞ¬Ο†ΞΏ (ΟΟ€Ο‰Ο‚ Ο„ΞΏ notepad) ΞΊΞ±ΞΉ ΞΊΞ¬Ξ½Ξµ ΞΊΞ»Ξ―ΞΊ ΟƒΟ„ΞΏ  \'edit last version\' Ξ³ΞΉΞ± Ξ½Ξ± Ο€ΟΞΏΟƒΟ€Ξ±ΞΈΞ®ΟƒΞµΞΉΟ‚ Ξ½Ξ± Ο€ΟΞΏΟƒΞΈΞ­ΟƒΞµΞΉΟ‚ Ο„ΞΉΟ‚ Ξ±Ξ»Ξ»Ξ±Ξ³Ξ­Ο‚ ΟƒΞΏΟ… ΟƒΟ„Ξ·Ξ½ ΞΊΞ±ΞΉΞ½ΞΏΟΟΞ³ΞΉΞ± Ξ­ΞΊΞ΄ΞΏΟƒΞ· Ο„Ξ·Ο‚ ΟƒΞµΞ»Ξ―Ξ΄Ξ±Ο‚.</li>
+<li>ΞΟ€ΞΏΟΞµΞ―Ο‚ ΞµΟ€Ξ―ΟƒΞ·Ο‚ Ξ½Ξ± Ο€Ξ±Ο„Ξ®ΟƒΞµΞΉΟ‚ ΟƒΟ„ΞΏ Ξ¬ΞΊΟ…ΟΞΏ Ξ³ΞΉΞ± Ξ½Ξ± Ξ±ΞΊΟ…ΟΟΟƒΞµΞΉΟ‚ Ο„ΞΉΟ‚ Ξ±Ξ»Ξ»Ξ±Ξ³Ξ­Ο‚ ΟƒΞΏΟ….</li>
 </ul></p>';
-$_lang['blockWikiHelpAdminContent'] = '<h3>Βοήθεια διαχείρισης Wiki</h3>
-<dl class="Βοήθεια wiki">
-<dt> Πώς να δημιουργήσετε έναν νέο Wiki ?</dt>
-<dd> Κάντε κλίκ στη σύνδεση \'Create a new Wiki\'. Μετά εισαγετε τις ιδιότητες του Wiki :
+$_lang['blockWikiHelpAdminContent'] = '<h3>Ξ’ΞΏΞ®ΞΈΞµΞΉΞ± Ξ΄ΞΉΞ±Ο‡ΞµΞ―ΟΞΉΟƒΞ·Ο‚ Wiki</h3>
+<dl class="Ξ’ΞΏΞ®ΞΈΞµΞΉΞ± wiki">
+<dt> Ξ ΟΟ‚ Ξ½Ξ± Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΟƒΞµΟ„Ξµ Ξ­Ξ½Ξ±Ξ½ Ξ½Ξ­ΞΏ Wiki ?</dt>
+<dd> ΞΞ¬Ξ½Ο„Ξµ ΞΊΞ»Ξ―ΞΊ ΟƒΟ„Ξ· ΟƒΟΞ½Ξ΄ΞµΟƒΞ· \'Create a new Wiki\'. ΞΞµΟ„Ξ¬ ΞµΞΉΟƒΞ±Ξ³ΞµΟ„Ξµ Ο„ΞΉΟ‚ ΞΉΞ΄ΞΉΟΟ„Ξ·Ο„ΞµΟ‚ Ο„ΞΏΟ… Wiki :
 <ul>
-<li><b> Τίτλος του Wiki</b> : επιλέξτε έναν τίτλο για το Wiki</li>
-<li><b> Περιγραφή του  Wiki</b> : επιλέξτε μια περιγραφή για το Wiki</li>
-<li><b> Διαχείριση ελέγχου πρόσβασης </b> : θέστε τον έλεγχο πρόσβασης για τον Wiki επιλέγοντας/αποεπιλέγοντας το κουτί (δείτε πιο κάτω)</li>
+<li><b> Ξ¤Ξ―Ο„Ξ»ΞΏΟ‚ Ο„ΞΏΟ… Wiki</b> : ΞµΟ€ΞΉΞ»Ξ­ΞΎΟ„Ξµ Ξ­Ξ½Ξ±Ξ½ Ο„Ξ―Ο„Ξ»ΞΏ Ξ³ΞΉΞ± Ο„ΞΏ Wiki</li>
+<li><b> Ξ ΞµΟΞΉΞ³ΟΞ±Ο†Ξ® Ο„ΞΏΟ…  Wiki</b> : ΞµΟ€ΞΉΞ»Ξ­ΞΎΟ„Ξµ ΞΌΞΉΞ± Ο€ΞµΟΞΉΞ³ΟΞ±Ο†Ξ® Ξ³ΞΉΞ± Ο„ΞΏ Wiki</li>
+<li><b> Ξ”ΞΉΞ±Ο‡ΞµΞ―ΟΞΉΟƒΞ· ΞµΞ»Ξ­Ξ³Ο‡ΞΏΟ… Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ·Ο‚ </b> : ΞΈΞ­ΟƒΟ„Ξµ Ο„ΞΏΞ½ Ξ­Ξ»ΞµΞ³Ο‡ΞΏ Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ·Ο‚ Ξ³ΞΉΞ± Ο„ΞΏΞ½ Wiki ΞµΟ€ΞΉΞ»Ξ­Ξ³ΞΏΞ½Ο„Ξ±Ο‚/Ξ±Ο€ΞΏΞµΟ€ΞΉΞ»Ξ­Ξ³ΞΏΞ½Ο„Ξ±Ο‚ Ο„ΞΏ ΞΊΞΏΟ…Ο„Ξ― (Ξ΄ΞµΞ―Ο„Ξµ Ο€ΞΉΞΏ ΞΊΞ¬Ο„Ο‰)</li>
 </ul>
 </dd>
-<dt> Πώς να εισαγάγετε το Wiki ?</dt>
-<dd> Κάντε κλικ στον τίτλο του Wiki στον κατάλογο.</dd>
-<dt> Πώς να αλλάξετε τις ιδιότητες του Wiki ?</dt>
-<dd>Κάντε κλικ στο εικονίδιο \'Properties\' στην λίστα του Wiki και πήγαινε στη φόρμα ιδιοτήτων του Wiki.</dd>
-<dt> Πώς να χρησιμοποιήσει τις διοικητικές επιλογές ελέγχου πρόσβασης;</dt>
-<dd> Μπορείτε να θέσετε τα δικαιώματα πρόσβασης για τους χρήστες με τον επιλογή/αποεπιλογή του κουτιού στο "διοικητικό" τμήμα ελέγχου πρόσβασης των ιδιοτήτων Wiki.
- Μπορείτε να χορηγήσετε/μη χορηγήσετε πρόσβαση σε τρεις τύπους χρηστών:<ul>
-<li><b> Μέλη μαθημάτων </b> : οι χρήστες εγγράφονται στη σειρά μαθημάτων (εκτός από τους διευθυντές μαθημάτων)</li>
-<li><b> Μέλη ομάδας </b> (μόνο διαθέσιμο μεσα σε  μια ομάδα) : χρήστες που είναι μέλη της ομάδας (αναμείνετε τους δασκάλους ομάδας s)</li>
-<li><b>Αλλοι χρήστες </b> : ανώνυμοι χρήστες ή χρήστες που δεν είναι μέλη σειράς μαθημάτων </li></ul>
-Για κάθε τύπο χρηστών, μπορείτε να χορηγήσετε τον τύπο τρίων προνομίων για το Wiki(*) :<ul>
-<li><b> Διαβάστε τις σελίδες </b> : ο χρήστης του δεδομένου τύπου μπορεί να διαβάσει τις σελίδες του Wiki</li>
-<li><b>Αλλαγή σελίδων</b> : ο χρήστης του δεδομένου τύπου μπορεί να τροποποιήσει το περιεχόμενο των σελίδων του Wiki</li>
-<li><b> Δημιουργήστε τις σελίδες </b> : ο χρήστης του δεδομένου τύπου μπορεί να δημιουργήσει νέες σελίδες του Wiki</li>
-</ul><small><em>(*) Σημειώστε ότι εάν ένας χρήστης δεν μπορεί να διαβάσει τις σελίδες του  Wiki, δεν μπορεί να τις αλλάξει ή να τις τροποποιήσει. Σημειώστε ότι εάν ένας χρήστης δεν μπορεί να αλλαξει τις σελίδες του Wiki, δεν μπορεί να δημιουργήσει νέες σελίδες.</em></small></dd>
-<dt> Πώς να διαγράψει το Wiki ?</dt>
-<dd>Κάντε κλικ στο εικονίδιο \'Delete\' στη στήλη για να σβήσετε το Wiki και όλες του τις σελίδες.</dd>
-<dt> Πώς να πάρετε τον κατάλογο των σελίδων σε ένα Wiki ;</dt>
-<dd>Κάντε κλικ στον αριθμό των σελίδως σε αυτό το Wiki στην λίστα των Wiki.</dd>
-<dt> Πώς να πάρετε τον κατάλογο των  τελευταίων τροποποιημένων σελίδων σε ένα Wiki;</dt>
-<dd>Κάντε κλικ στο εικονίδιο \'Recent changes\' στη στήλη του καταλόγου του Wiki.</dd>
+<dt> Ξ ΟΟ‚ Ξ½Ξ± ΞµΞΉΟƒΞ±Ξ³Ξ¬Ξ³ΞµΟ„Ξµ Ο„ΞΏ Wiki ?</dt>
+<dd> ΞΞ¬Ξ½Ο„Ξµ ΞΊΞ»ΞΉΞΊ ΟƒΟ„ΞΏΞ½ Ο„Ξ―Ο„Ξ»ΞΏ Ο„ΞΏΟ… Wiki ΟƒΟ„ΞΏΞ½ ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏ.</dd>
+<dt> Ξ ΟΟ‚ Ξ½Ξ± Ξ±Ξ»Ξ»Ξ¬ΞΎΞµΟ„Ξµ Ο„ΞΉΟ‚ ΞΉΞ΄ΞΉΟΟ„Ξ·Ο„ΞµΟ‚ Ο„ΞΏΟ… Wiki ?</dt>
+<dd>ΞΞ¬Ξ½Ο„Ξµ ΞΊΞ»ΞΉΞΊ ΟƒΟ„ΞΏ ΞµΞΉΞΊΞΏΞ½Ξ―Ξ΄ΞΉΞΏ \'Properties\' ΟƒΟ„Ξ·Ξ½ Ξ»Ξ―ΟƒΟ„Ξ± Ο„ΞΏΟ… Wiki ΞΊΞ±ΞΉ Ο€Ξ®Ξ³Ξ±ΞΉΞ½Ξµ ΟƒΟ„Ξ· Ο†ΟΟΞΌΞ± ΞΉΞ΄ΞΉΞΏΟ„Ξ®Ο„Ο‰Ξ½ Ο„ΞΏΟ… Wiki.</dd>
+<dt> Ξ ΟΟ‚ Ξ½Ξ± Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞ®ΟƒΞµΞΉ Ο„ΞΉΟ‚ Ξ΄ΞΉΞΏΞΉΞΊΞ·Ο„ΞΉΞΊΞ­Ο‚ ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ­Ο‚ ΞµΞ»Ξ­Ξ³Ο‡ΞΏΟ… Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ·Ο‚;</dt>
+<dd> ΞΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± ΞΈΞ­ΟƒΞµΟ„Ξµ Ο„Ξ± Ξ΄ΞΉΞΊΞ±ΞΉΟΞΌΞ±Ο„Ξ± Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ·Ο‚ Ξ³ΞΉΞ± Ο„ΞΏΟ…Ο‚ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ ΞΌΞµ Ο„ΞΏΞ½ ΞµΟ€ΞΉΞ»ΞΏΞ³Ξ®/Ξ±Ο€ΞΏΞµΟ€ΞΉΞ»ΞΏΞ³Ξ® Ο„ΞΏΟ… ΞΊΞΏΟ…Ο„ΞΉΞΏΟ ΟƒΟ„ΞΏ "Ξ΄ΞΉΞΏΞΉΞΊΞ·Ο„ΞΉΞΊΟ" Ο„ΞΌΞ®ΞΌΞ± ΞµΞ»Ξ­Ξ³Ο‡ΞΏΟ… Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ·Ο‚ Ο„Ο‰Ξ½ ΞΉΞ΄ΞΉΞΏΟ„Ξ®Ο„Ο‰Ξ½ Wiki.
+ ΞΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± Ο‡ΞΏΟΞ·Ξ³Ξ®ΟƒΞµΟ„Ξµ/ΞΌΞ· Ο‡ΞΏΟΞ·Ξ³Ξ®ΟƒΞµΟ„Ξµ Ο€ΟΟΟƒΞ²Ξ±ΟƒΞ· ΟƒΞµ Ο„ΟΞµΞΉΟ‚ Ο„ΟΟ€ΞΏΟ…Ο‚ Ο‡ΟΞ·ΟƒΟ„ΟΞ½:<ul>
+<li><b> ΞΞ­Ξ»Ξ· ΞΌΞ±ΞΈΞ·ΞΌΞ¬Ο„Ο‰Ξ½ </b> : ΞΏΞΉ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ ΞµΞ³Ξ³ΟΞ¬Ο†ΞΏΞ½Ο„Ξ±ΞΉ ΟƒΟ„Ξ· ΟƒΞµΞΉΟΞ¬ ΞΌΞ±ΞΈΞ·ΞΌΞ¬Ο„Ο‰Ξ½ (ΞµΞΊΟ„ΟΟ‚ Ξ±Ο€Ο Ο„ΞΏΟ…Ο‚ Ξ΄ΞΉΞµΟ…ΞΈΟ…Ξ½Ο„Ξ­Ο‚ ΞΌΞ±ΞΈΞ·ΞΌΞ¬Ο„Ο‰Ξ½)</li>
+<li><b> ΞΞ­Ξ»Ξ· ΞΏΞΌΞ¬Ξ΄Ξ±Ο‚ </b> (ΞΌΟΞ½ΞΏ Ξ΄ΞΉΞ±ΞΈΞ­ΟƒΞΉΞΌΞΏ ΞΌΞµΟƒΞ± ΟƒΞµ  ΞΌΞΉΞ± ΞΏΞΌΞ¬Ξ΄Ξ±) : Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ Ο€ΞΏΟ… ΞµΞ―Ξ½Ξ±ΞΉ ΞΌΞ­Ξ»Ξ· Ο„Ξ·Ο‚ ΞΏΞΌΞ¬Ξ΄Ξ±Ο‚ (Ξ±Ξ½Ξ±ΞΌΞµΞ―Ξ½ΞµΟ„Ξµ Ο„ΞΏΟ…Ο‚ Ξ΄Ξ±ΟƒΞΊΞ¬Ξ»ΞΏΟ…Ο‚ ΞΏΞΌΞ¬Ξ΄Ξ±Ο‚ s)</li>
+<li><b>Ξ‘Ξ»Ξ»ΞΏΞΉ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ </b> : Ξ±Ξ½ΟΞ½Ο…ΞΌΞΏΞΉ Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ Ξ® Ο‡ΟΞ®ΟƒΟ„ΞµΟ‚ Ο€ΞΏΟ… Ξ΄ΞµΞ½ ΞµΞ―Ξ½Ξ±ΞΉ ΞΌΞ­Ξ»Ξ· ΟƒΞµΞΉΟΞ¬Ο‚ ΞΌΞ±ΞΈΞ·ΞΌΞ¬Ο„Ο‰Ξ½ </li></ul>
+Ξ“ΞΉΞ± ΞΊΞ¬ΞΈΞµ Ο„ΟΟ€ΞΏ Ο‡ΟΞ·ΟƒΟ„ΟΞ½, ΞΌΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± Ο‡ΞΏΟΞ·Ξ³Ξ®ΟƒΞµΟ„Ξµ Ο„ΞΏΞ½ Ο„ΟΟ€ΞΏ Ο„ΟΞ―Ο‰Ξ½ Ο€ΟΞΏΞ½ΞΏΞΌΞ―Ο‰Ξ½ Ξ³ΞΉΞ± Ο„ΞΏ Wiki(*) :<ul>
+<li><b> Ξ”ΞΉΞ±Ξ²Ξ¬ΟƒΟ„Ξµ Ο„ΞΉΟ‚ ΟƒΞµΞ»Ξ―Ξ΄ΞµΟ‚ </b> : ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ Ο„ΞΏΟ… Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½ΞΏΟ… Ο„ΟΟ€ΞΏΟ… ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ΄ΞΉΞ±Ξ²Ξ¬ΟƒΞµΞΉ Ο„ΞΉΟ‚ ΟƒΞµΞ»Ξ―Ξ΄ΞµΟ‚ Ο„ΞΏΟ… Wiki</li>
+<li><b>Ξ‘Ξ»Ξ»Ξ±Ξ³Ξ® ΟƒΞµΞ»Ξ―Ξ΄Ο‰Ξ½</b> : ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ Ο„ΞΏΟ… Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½ΞΏΟ… Ο„ΟΟ€ΞΏΟ… ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ο„ΟΞΏΟ€ΞΏΟ€ΞΏΞΉΞ®ΟƒΞµΞΉ Ο„ΞΏ Ο€ΞµΟΞΉΞµΟ‡ΟΞΌΞµΞ½ΞΏ Ο„Ο‰Ξ½ ΟƒΞµΞ»Ξ―Ξ΄Ο‰Ξ½ Ο„ΞΏΟ… Wiki</li>
+<li><b> Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΟƒΟ„Ξµ Ο„ΞΉΟ‚ ΟƒΞµΞ»Ξ―Ξ΄ΞµΟ‚ </b> : ΞΏ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ Ο„ΞΏΟ… Ξ΄ΞµΞ΄ΞΏΞΌΞ­Ξ½ΞΏΟ… Ο„ΟΟ€ΞΏΟ… ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΟƒΞµΞΉ Ξ½Ξ­ΞµΟ‚ ΟƒΞµΞ»Ξ―Ξ΄ΞµΟ‚ Ο„ΞΏΟ… Wiki</li>
+</ul><small><em>(*) Ξ£Ξ·ΞΌΞµΞΉΟΟƒΟ„Ξµ ΟΟ„ΞΉ ΞµΞ¬Ξ½ Ξ­Ξ½Ξ±Ο‚ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ Ξ΄ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ΄ΞΉΞ±Ξ²Ξ¬ΟƒΞµΞΉ Ο„ΞΉΟ‚ ΟƒΞµΞ»Ξ―Ξ΄ΞµΟ‚ Ο„ΞΏΟ…  Wiki, Ξ΄ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ο„ΞΉΟ‚ Ξ±Ξ»Ξ»Ξ¬ΞΎΞµΞΉ Ξ® Ξ½Ξ± Ο„ΞΉΟ‚ Ο„ΟΞΏΟ€ΞΏΟ€ΞΏΞΉΞ®ΟƒΞµΞΉ. Ξ£Ξ·ΞΌΞµΞΉΟΟƒΟ„Ξµ ΟΟ„ΞΉ ΞµΞ¬Ξ½ Ξ­Ξ½Ξ±Ο‚ Ο‡ΟΞ®ΟƒΟ„Ξ·Ο‚ Ξ΄ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ±Ξ»Ξ»Ξ±ΞΎΞµΞΉ Ο„ΞΉΟ‚ ΟƒΞµΞ»Ξ―Ξ΄ΞµΟ‚ Ο„ΞΏΟ… Wiki, Ξ΄ΞµΞ½ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΟƒΞµΞΉ Ξ½Ξ­ΞµΟ‚ ΟƒΞµΞ»Ξ―Ξ΄ΞµΟ‚.</em></small></dd>
+<dt> Ξ ΟΟ‚ Ξ½Ξ± Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΞΉ Ο„ΞΏ Wiki ?</dt>
+<dd>ΞΞ¬Ξ½Ο„Ξµ ΞΊΞ»ΞΉΞΊ ΟƒΟ„ΞΏ ΞµΞΉΞΊΞΏΞ½Ξ―Ξ΄ΞΉΞΏ \'Delete\' ΟƒΟ„Ξ· ΟƒΟ„Ξ®Ξ»Ξ· Ξ³ΞΉΞ± Ξ½Ξ± ΟƒΞ²Ξ®ΟƒΞµΟ„Ξµ Ο„ΞΏ Wiki ΞΊΞ±ΞΉ ΟΞ»ΞµΟ‚ Ο„ΞΏΟ… Ο„ΞΉΟ‚ ΟƒΞµΞ»Ξ―Ξ΄ΞµΟ‚.</dd>
+<dt> Ξ ΟΟ‚ Ξ½Ξ± Ο€Ξ¬ΟΞµΟ„Ξµ Ο„ΞΏΞ½ ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏ Ο„Ο‰Ξ½ ΟƒΞµΞ»Ξ―Ξ΄Ο‰Ξ½ ΟƒΞµ Ξ­Ξ½Ξ± Wiki ;</dt>
+<dd>ΞΞ¬Ξ½Ο„Ξµ ΞΊΞ»ΞΉΞΊ ΟƒΟ„ΞΏΞ½ Ξ±ΟΞΉΞΈΞΌΟ Ο„Ο‰Ξ½ ΟƒΞµΞ»Ξ―Ξ΄Ο‰Ο‚ ΟƒΞµ Ξ±Ο…Ο„Ο Ο„ΞΏ Wiki ΟƒΟ„Ξ·Ξ½ Ξ»Ξ―ΟƒΟ„Ξ± Ο„Ο‰Ξ½ Wiki.</dd>
+<dt> Ξ ΟΟ‚ Ξ½Ξ± Ο€Ξ¬ΟΞµΟ„Ξµ Ο„ΞΏΞ½ ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏ Ο„Ο‰Ξ½  Ο„ΞµΞ»ΞµΟ…Ο„Ξ±Ξ―Ο‰Ξ½ Ο„ΟΞΏΟ€ΞΏΟ€ΞΏΞΉΞ·ΞΌΞ­Ξ½Ο‰Ξ½ ΟƒΞµΞ»Ξ―Ξ΄Ο‰Ξ½ ΟƒΞµ Ξ­Ξ½Ξ± Wiki;</dt>
+<dd>ΞΞ¬Ξ½Ο„Ξµ ΞΊΞ»ΞΉΞΊ ΟƒΟ„ΞΏ ΞµΞΉΞΊΞΏΞ½Ξ―Ξ΄ΞΉΞΏ \'Recent changes\' ΟƒΟ„Ξ· ΟƒΟ„Ξ®Ξ»Ξ· Ο„ΞΏΟ… ΞΊΞ±Ο„Ξ±Ξ»ΟΞ³ΞΏΟ… Ο„ΞΏΟ… Wiki.</dd>
 </dl>';
-$_lang['blockWikiHelpSyntaxContent'] = '<h1>Σύνταξη Wiki </h1>
-<h2>1. Βασική σύνταξη </h2>
-<dl class="Βοήθεια wiki">
-<dt> Δημιουργία των σελίδων και των συνδέσεων wiki μεταξύ τους </dt>
-<dd><strong>Λέξεις Wiki </strong> : Οι λέξεις Wiki είναι λέξεις που γράφονται όπως <em>Λέξη Wiki</em>. Τα Wiki2xhtml τους αναγνωρίζουν ατόματα ως συνδέσεις σελίδων Wiki. Για να δημιουργήσετε μια σελίδα wiki ή για να δημιουργήσετε μια σύνδεση με μια σελίδα wiki, τροποποιήστε μια ήδη υπάρχουσα και προσθέστε το τίτλο στην σύνταξη του wiki, για παράδειγμα <em>Η σελίδα μου</em>, και μετά φύλαξε τη σελίδα. Wiki2xhtml θα αντικαταστήσει αυτόματα την λέξη<em>Η σελίδα μου</em> με μια σύνδεση με τη σελίδα Wiki <em>Η σελίδα μου</em>&nbsp;;</dd>
-<dd><strong> συνδέσεις  Wiki </strong> : Οι συνδέσεις Wiki είναι όπως τους συνδέσμους υπερ-κειμένου (βλ. κατωτέρω) αναμένουν ότι δεν περιέχουν οποιοδήποτε σχέδιο πρωτοκόλλου (όπως <em>http://</em> ή <em>ftp://</em>) και ότι αυτόματα αναγνωρίζουν συνδέσμους σε σελίδες  Wiki. Για να δημιουργήσετε μια νέα σελίδα ή να δημιουργήσετε μια σύνδεση με μια υπάρχουσα που χρησιμοποιεί τις συνδέσεις Wiki, αλλαξτε μια σελίδα και προσθέστε <code>[page title]</code> η <code>[name of link|title of page]</code> στα περιεχόμενα του. Μπορείτε επίσης να χρησιμοποιήσετε αυτήν την σύνταξη για να αλλάξετε το κείμενο μιας σύνδεσης WikiWord: <code>[όνομα συνδέσμου|WikiWord]</code>.</dd>
-<dt> Σύνδεσμοι υπερ-κειμένου </dt>
+$_lang['blockWikiHelpSyntaxContent'] = '<h1>Ξ£ΟΞ½Ο„Ξ±ΞΎΞ· Wiki </h1>
+<h2>1. Ξ’Ξ±ΟƒΞΉΞΊΞ® ΟƒΟΞ½Ο„Ξ±ΞΎΞ· </h2>
+<dl class="Ξ’ΞΏΞ®ΞΈΞµΞΉΞ± wiki">
+<dt> Ξ”Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ―Ξ± Ο„Ο‰Ξ½ ΟƒΞµΞ»Ξ―Ξ΄Ο‰Ξ½ ΞΊΞ±ΞΉ Ο„Ο‰Ξ½ ΟƒΟ…Ξ½Ξ΄Ξ­ΟƒΞµΟ‰Ξ½ wiki ΞΌΞµΟ„Ξ±ΞΎΟ Ο„ΞΏΟ…Ο‚ </dt>
+<dd><strong>Ξ›Ξ­ΞΎΞµΞΉΟ‚ Wiki </strong> : ΞΞΉ Ξ»Ξ­ΞΎΞµΞΉΟ‚ Wiki ΞµΞ―Ξ½Ξ±ΞΉ Ξ»Ξ­ΞΎΞµΞΉΟ‚ Ο€ΞΏΟ… Ξ³ΟΞ¬Ο†ΞΏΞ½Ο„Ξ±ΞΉ ΟΟ€Ο‰Ο‚ <em>Ξ›Ξ­ΞΎΞ· Wiki</em>. Ξ¤Ξ± Wiki2xhtml Ο„ΞΏΟ…Ο‚ Ξ±Ξ½Ξ±Ξ³Ξ½Ο‰ΟΞ―Ξ¶ΞΏΟ…Ξ½ Ξ±Ο„ΟΞΌΞ±Ο„Ξ± Ο‰Ο‚ ΟƒΟ…Ξ½Ξ΄Ξ­ΟƒΞµΞΉΟ‚ ΟƒΞµΞ»Ξ―Ξ΄Ο‰Ξ½ Wiki. Ξ“ΞΉΞ± Ξ½Ξ± Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΟƒΞµΟ„Ξµ ΞΌΞΉΞ± ΟƒΞµΞ»Ξ―Ξ΄Ξ± wiki Ξ® Ξ³ΞΉΞ± Ξ½Ξ± Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΟƒΞµΟ„Ξµ ΞΌΞΉΞ± ΟƒΟΞ½Ξ΄ΞµΟƒΞ· ΞΌΞµ ΞΌΞΉΞ± ΟƒΞµΞ»Ξ―Ξ΄Ξ± wiki, Ο„ΟΞΏΟ€ΞΏΟ€ΞΏΞΉΞ®ΟƒΟ„Ξµ ΞΌΞΉΞ± Ξ®Ξ΄Ξ· Ο…Ο€Ξ¬ΟΟ‡ΞΏΟ…ΟƒΞ± ΞΊΞ±ΞΉ Ο€ΟΞΏΟƒΞΈΞ­ΟƒΟ„Ξµ Ο„ΞΏ Ο„Ξ―Ο„Ξ»ΞΏ ΟƒΟ„Ξ·Ξ½ ΟƒΟΞ½Ο„Ξ±ΞΎΞ· Ο„ΞΏΟ… wiki, Ξ³ΞΉΞ± Ο€Ξ±ΟΞ¬Ξ΄ΞµΞΉΞ³ΞΌΞ± <em>Ξ— ΟƒΞµΞ»Ξ―Ξ΄Ξ± ΞΌΞΏΟ…</em>, ΞΊΞ±ΞΉ ΞΌΞµΟ„Ξ¬ Ο†ΟΞ»Ξ±ΞΎΞµ Ο„Ξ· ΟƒΞµΞ»Ξ―Ξ΄Ξ±. Wiki2xhtml ΞΈΞ± Ξ±Ξ½Ο„ΞΉΞΊΞ±Ο„Ξ±ΟƒΟ„Ξ®ΟƒΞµΞΉ Ξ±Ο…Ο„ΟΞΌΞ±Ο„Ξ± Ο„Ξ·Ξ½ Ξ»Ξ­ΞΎΞ·<em>Ξ— ΟƒΞµΞ»Ξ―Ξ΄Ξ± ΞΌΞΏΟ…</em> ΞΌΞµ ΞΌΞΉΞ± ΟƒΟΞ½Ξ΄ΞµΟƒΞ· ΞΌΞµ Ο„Ξ· ΟƒΞµΞ»Ξ―Ξ΄Ξ± Wiki <em>Ξ— ΟƒΞµΞ»Ξ―Ξ΄Ξ± ΞΌΞΏΟ…</em>&nbsp;;</dd>
+<dd><strong> ΟƒΟ…Ξ½Ξ΄Ξ­ΟƒΞµΞΉΟ‚  Wiki </strong> : ΞΞΉ ΟƒΟ…Ξ½Ξ΄Ξ­ΟƒΞµΞΉΟ‚ Wiki ΞµΞ―Ξ½Ξ±ΞΉ ΟΟ€Ο‰Ο‚ Ο„ΞΏΟ…Ο‚ ΟƒΟ…Ξ½Ξ΄Ξ­ΟƒΞΌΞΏΟ…Ο‚ Ο…Ο€ΞµΟ-ΞΊΞµΞΉΞΌΞ­Ξ½ΞΏΟ… (Ξ²Ξ». ΞΊΞ±Ο„Ο‰Ο„Ξ­ΟΟ‰) Ξ±Ξ½Ξ±ΞΌΞ­Ξ½ΞΏΟ…Ξ½ ΟΟ„ΞΉ Ξ΄ΞµΞ½ Ο€ΞµΟΞΉΞ­Ο‡ΞΏΟ…Ξ½ ΞΏΟ€ΞΏΞΉΞΏΞ΄Ξ®Ο€ΞΏΟ„Ξµ ΟƒΟ‡Ξ­Ξ΄ΞΉΞΏ Ο€ΟΟ‰Ο„ΞΏΞΊΟΞ»Ξ»ΞΏΟ… (ΟΟ€Ο‰Ο‚ <em>http://</em> Ξ® <em>ftp://</em>) ΞΊΞ±ΞΉ ΟΟ„ΞΉ Ξ±Ο…Ο„ΟΞΌΞ±Ο„Ξ± Ξ±Ξ½Ξ±Ξ³Ξ½Ο‰ΟΞ―Ξ¶ΞΏΟ…Ξ½ ΟƒΟ…Ξ½Ξ΄Ξ­ΟƒΞΌΞΏΟ…Ο‚ ΟƒΞµ ΟƒΞµΞ»Ξ―Ξ΄ΞµΟ‚  Wiki. Ξ“ΞΉΞ± Ξ½Ξ± Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΟƒΞµΟ„Ξµ ΞΌΞΉΞ± Ξ½Ξ­Ξ± ΟƒΞµΞ»Ξ―Ξ΄Ξ± Ξ® Ξ½Ξ± Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΟƒΞµΟ„Ξµ ΞΌΞΉΞ± ΟƒΟΞ½Ξ΄ΞµΟƒΞ· ΞΌΞµ ΞΌΞΉΞ± Ο…Ο€Ξ¬ΟΟ‡ΞΏΟ…ΟƒΞ± Ο€ΞΏΟ… Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞµΞ― Ο„ΞΉΟ‚ ΟƒΟ…Ξ½Ξ΄Ξ­ΟƒΞµΞΉΟ‚ Wiki, Ξ±Ξ»Ξ»Ξ±ΞΎΟ„Ξµ ΞΌΞΉΞ± ΟƒΞµΞ»Ξ―Ξ΄Ξ± ΞΊΞ±ΞΉ Ο€ΟΞΏΟƒΞΈΞ­ΟƒΟ„Ξµ <code>[page title]</code> Ξ· <code>[name of link|title of page]</code> ΟƒΟ„Ξ± Ο€ΞµΟΞΉΞµΟ‡ΟΞΌΞµΞ½Ξ± Ο„ΞΏΟ…. ΞΟ€ΞΏΟΞµΞ―Ο„Ξµ ΞµΟ€Ξ―ΟƒΞ·Ο‚ Ξ½Ξ± Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞ®ΟƒΞµΟ„Ξµ Ξ±Ο…Ο„Ξ®Ξ½ Ο„Ξ·Ξ½ ΟƒΟΞ½Ο„Ξ±ΞΎΞ· Ξ³ΞΉΞ± Ξ½Ξ± Ξ±Ξ»Ξ»Ξ¬ΞΎΞµΟ„Ξµ Ο„ΞΏ ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ ΞΌΞΉΞ±Ο‚ ΟƒΟΞ½Ξ΄ΞµΟƒΞ·Ο‚ WikiWord: <code>[ΟΞ½ΞΏΞΌΞ± ΟƒΟ…Ξ½Ξ΄Ξ­ΟƒΞΌΞΏΟ…|WikiWord]</code>.</dd>
+<dt> Ξ£ΟΞ½Ξ΄ΞµΟƒΞΌΞΏΞΉ Ο…Ο€ΞµΟ-ΞΊΞµΞΉΞΌΞ­Ξ½ΞΏΟ… </dt>
 <dd><code>[url]</code>, <code>[name|url]</code>, <code>[name|url|language]</code> or <code>[name|url|language|title]</code>.&nbsp;;</dd>
-<dt> Συνυπολογισμός εικόνας </dt>
-<dd><code>((url|alternate text))</code>, <code>((url| εναλλάσσομενο κείμενο |position))</code> ou <code>((url|alternate text|position|long description))</code>. <br /> Το επιχείρημα θέσης μπορεί να πάρει τις ακόλουθες τιμές : L (αριστερά), R (δεξιά) or C (κεντρικά).&nbsp;;</dd>
-<dd> Μπορείτε να χρησιμοποιήσετε τη σύνταξη ως συνδέσμους υπερ-κειμένου. Παραδείγματος χάριν <code>[τίτλος|image.gif]</code>. Αυτή η σύνταξη είναι αποδοκιμασμένη, σκεφτήτε να χρησιμποιήσετε την προηγούμενη&nbsp;;</dd>
-<dt> Σύνδεση με μια εικόνα </dt>
-<dd> όπως τους συνδέσμους υπερ-κειμένου αλλά τεθειμένο 0 στο τέταρτο επιχείρημα για να αποφευχθεί η αναγνώριση εικόνας και να φταθεί ένας σύνδεσμος υπερ-κειμένου σε μια εικόνα. Παραδείγματος χάριν <code>[image|image.gif||0]</code> θα επιδείξει μια σύνδεση με την image.gif iαντι για επίδειξη της ίδιας της φωτογραφίας</dd>
-<dt> Σχεδιάγραμμα </dt>
-<dd><strong> Κυρτός </strong> : περιβάλτε το κείμενό σας με δύο ενιαία αποσπάσματα <code>\'\' κείμενο \'\'</code>&nbsp;;</dd>
-<dd><strong>Εντονα</strong> : περιβάλτε το κείμενό σας με τρία ενιαία αποσπάσματα υπογραμμίζει <code>\'\'\' κείμενο \'\'\'</code>&nbsp;;</dd>
-<dd><strong>Υπογράμμιση</strong> : περιβάλτε το κείμενό σας με δύο υπογραμμίζει <code>__ κείμενο __</code>&nbsp;;</dd>
-<dd><strong> Γραμμή</strong> : περιβάλτε το κείμενό σας με δύο αρνητικά σύμβολα <code>-- κείμενο --</code>&nbsp;;</dd>
-<dd><strong> Τίτλος </strong> : <code>!!!</code>, <code>!!</code>, <code>!</code> αντίστοιχα για τους τίτλους, τους υποτίτλους και τους υπο-υπο-τίτλους &nbsp;;</dd>
-<dt> Κατάλογος </dt>
-<dd> γραμμή αρχίζοντας από <code>*</code> (άδιάτακτος κατάλογος) ή <code>#</code> (διαταγμένος κατάλογος). Μπορείτε να αναμίξετε τους καταλόγους (<code>*#*</code>) για να δημιουργήθούν πολυ - κατάλογοι επιπέδων.&nbsp;;</dd>
-<dt> Παράγραφος </dt>
-<dd> Χωριστές παράγραφοι με μια ή περισσότερες νέες γραμμές &nbsp;;</dd>
+<dt> Ξ£Ο…Ξ½Ο…Ο€ΞΏΞ»ΞΏΞ³ΞΉΟƒΞΌΟΟ‚ ΞµΞΉΞΊΟΞ½Ξ±Ο‚ </dt>
+<dd><code>((url|alternate text))</code>, <code>((url| ΞµΞ½Ξ±Ξ»Ξ»Ξ¬ΟƒΟƒΞΏΞΌΞµΞ½ΞΏ ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ |position))</code> ou <code>((url|alternate text|position|long description))</code>. <br /> Ξ¤ΞΏ ΞµΟ€ΞΉΟ‡ΞµΞ―ΟΞ·ΞΌΞ± ΞΈΞ­ΟƒΞ·Ο‚ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ο€Ξ¬ΟΞµΞΉ Ο„ΞΉΟ‚ Ξ±ΞΊΟΞ»ΞΏΟ…ΞΈΞµΟ‚ Ο„ΞΉΞΌΞ­Ο‚ : L (Ξ±ΟΞΉΟƒΟ„ΞµΟΞ¬), R (Ξ΄ΞµΞΎΞΉΞ¬) or C (ΞΊΞµΞ½Ο„ΟΞΉΞΊΞ¬).&nbsp;;</dd>
+<dd> ΞΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞ®ΟƒΞµΟ„Ξµ Ο„Ξ· ΟƒΟΞ½Ο„Ξ±ΞΎΞ· Ο‰Ο‚ ΟƒΟ…Ξ½Ξ΄Ξ­ΟƒΞΌΞΏΟ…Ο‚ Ο…Ο€ΞµΟ-ΞΊΞµΞΉΞΌΞ­Ξ½ΞΏΟ…. Ξ Ξ±ΟΞ±Ξ΄ΞµΞ―Ξ³ΞΌΞ±Ο„ΞΏΟ‚ Ο‡Ξ¬ΟΞΉΞ½ <code>[Ο„Ξ―Ο„Ξ»ΞΏΟ‚|image.gif]</code>. Ξ‘Ο…Ο„Ξ® Ξ· ΟƒΟΞ½Ο„Ξ±ΞΎΞ· ΞµΞ―Ξ½Ξ±ΞΉ Ξ±Ο€ΞΏΞ΄ΞΏΞΊΞΉΞΌΞ±ΟƒΞΌΞ­Ξ½Ξ·, ΟƒΞΊΞµΟ†Ο„Ξ®Ο„Ξµ Ξ½Ξ± Ο‡ΟΞ·ΟƒΞΉΞΌΟ€ΞΏΞΉΞ®ΟƒΞµΟ„Ξµ Ο„Ξ·Ξ½ Ο€ΟΞΏΞ·Ξ³ΞΏΟΞΌΞµΞ½Ξ·&nbsp;;</dd>
+<dt> Ξ£ΟΞ½Ξ΄ΞµΟƒΞ· ΞΌΞµ ΞΌΞΉΞ± ΞµΞΉΞΊΟΞ½Ξ± </dt>
+<dd> ΟΟ€Ο‰Ο‚ Ο„ΞΏΟ…Ο‚ ΟƒΟ…Ξ½Ξ΄Ξ­ΟƒΞΌΞΏΟ…Ο‚ Ο…Ο€ΞµΟ-ΞΊΞµΞΉΞΌΞ­Ξ½ΞΏΟ… Ξ±Ξ»Ξ»Ξ¬ Ο„ΞµΞΈΞµΞΉΞΌΞ­Ξ½ΞΏ 0 ΟƒΟ„ΞΏ Ο„Ξ­Ο„Ξ±ΟΟ„ΞΏ ΞµΟ€ΞΉΟ‡ΞµΞ―ΟΞ·ΞΌΞ± Ξ³ΞΉΞ± Ξ½Ξ± Ξ±Ο€ΞΏΟ†ΞµΟ…Ο‡ΞΈΞµΞ― Ξ· Ξ±Ξ½Ξ±Ξ³Ξ½ΟΟΞΉΟƒΞ· ΞµΞΉΞΊΟΞ½Ξ±Ο‚ ΞΊΞ±ΞΉ Ξ½Ξ± Ο†Ο„Ξ±ΞΈΞµΞ― Ξ­Ξ½Ξ±Ο‚ ΟƒΟΞ½Ξ΄ΞµΟƒΞΌΞΏΟ‚ Ο…Ο€ΞµΟ-ΞΊΞµΞΉΞΌΞ­Ξ½ΞΏΟ… ΟƒΞµ ΞΌΞΉΞ± ΞµΞΉΞΊΟΞ½Ξ±. Ξ Ξ±ΟΞ±Ξ΄ΞµΞ―Ξ³ΞΌΞ±Ο„ΞΏΟ‚ Ο‡Ξ¬ΟΞΉΞ½ <code>[image|image.gif||0]</code> ΞΈΞ± ΞµΟ€ΞΉΞ΄ΞµΞ―ΞΎΞµΞΉ ΞΌΞΉΞ± ΟƒΟΞ½Ξ΄ΞµΟƒΞ· ΞΌΞµ Ο„Ξ·Ξ½ image.gif iΞ±Ξ½Ο„ΞΉ Ξ³ΞΉΞ± ΞµΟ€Ξ―Ξ΄ΞµΞΉΞΎΞ· Ο„Ξ·Ο‚ Ξ―Ξ΄ΞΉΞ±Ο‚ Ο„Ξ·Ο‚ Ο†Ο‰Ο„ΞΏΞ³ΟΞ±Ο†Ξ―Ξ±Ο‚</dd>
+<dt> Ξ£Ο‡ΞµΞ΄ΞΉΞ¬Ξ³ΟΞ±ΞΌΞΌΞ± </dt>
+<dd><strong> ΞΟ…ΟΟ„ΟΟ‚ </strong> : Ο€ΞµΟΞΉΞ²Ξ¬Ξ»Ο„Ξµ Ο„ΞΏ ΞΊΞµΞ―ΞΌΞµΞ½Ο ΟƒΞ±Ο‚ ΞΌΞµ Ξ΄ΟΞΏ ΞµΞ½ΞΉΞ±Ξ―Ξ± Ξ±Ο€ΞΏΟƒΟ€Ξ¬ΟƒΞΌΞ±Ο„Ξ± <code>\'\' ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ \'\'</code>&nbsp;;</dd>
+<dd><strong>Ξ•Ξ½Ο„ΞΏΞ½Ξ±</strong> : Ο€ΞµΟΞΉΞ²Ξ¬Ξ»Ο„Ξµ Ο„ΞΏ ΞΊΞµΞ―ΞΌΞµΞ½Ο ΟƒΞ±Ο‚ ΞΌΞµ Ο„ΟΞ―Ξ± ΞµΞ½ΞΉΞ±Ξ―Ξ± Ξ±Ο€ΞΏΟƒΟ€Ξ¬ΟƒΞΌΞ±Ο„Ξ± Ο…Ο€ΞΏΞ³ΟΞ±ΞΌΞΌΞ―Ξ¶ΞµΞΉ <code>\'\'\' ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ \'\'\'</code>&nbsp;;</dd>
+<dd><strong>Ξ¥Ο€ΞΏΞ³ΟΞ¬ΞΌΞΌΞΉΟƒΞ·</strong> : Ο€ΞµΟΞΉΞ²Ξ¬Ξ»Ο„Ξµ Ο„ΞΏ ΞΊΞµΞ―ΞΌΞµΞ½Ο ΟƒΞ±Ο‚ ΞΌΞµ Ξ΄ΟΞΏ Ο…Ο€ΞΏΞ³ΟΞ±ΞΌΞΌΞ―Ξ¶ΞµΞΉ <code>__ ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ __</code>&nbsp;;</dd>
+<dd><strong> Ξ“ΟΞ±ΞΌΞΌΞ®</strong> : Ο€ΞµΟΞΉΞ²Ξ¬Ξ»Ο„Ξµ Ο„ΞΏ ΞΊΞµΞ―ΞΌΞµΞ½Ο ΟƒΞ±Ο‚ ΞΌΞµ Ξ΄ΟΞΏ Ξ±ΟΞ½Ξ·Ο„ΞΉΞΊΞ¬ ΟƒΟΞΌΞ²ΞΏΞ»Ξ± <code>-- ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ --</code>&nbsp;;</dd>
+<dd><strong> Ξ¤Ξ―Ο„Ξ»ΞΏΟ‚ </strong> : <code>!!!</code>, <code>!!</code>, <code>!</code> Ξ±Ξ½Ο„Ξ―ΟƒΟ„ΞΏΞΉΟ‡Ξ± Ξ³ΞΉΞ± Ο„ΞΏΟ…Ο‚ Ο„Ξ―Ο„Ξ»ΞΏΟ…Ο‚, Ο„ΞΏΟ…Ο‚ Ο…Ο€ΞΏΟ„Ξ―Ο„Ξ»ΞΏΟ…Ο‚ ΞΊΞ±ΞΉ Ο„ΞΏΟ…Ο‚ Ο…Ο€ΞΏ-Ο…Ο€ΞΏ-Ο„Ξ―Ο„Ξ»ΞΏΟ…Ο‚ &nbsp;;</dd>
+<dt> ΞΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏΟ‚ </dt>
+<dd> Ξ³ΟΞ±ΞΌΞΌΞ® Ξ±ΟΟ‡Ξ―Ξ¶ΞΏΞ½Ο„Ξ±Ο‚ Ξ±Ο€Ο <code>*</code> (Ξ¬Ξ΄ΞΉΞ¬Ο„Ξ±ΞΊΟ„ΞΏΟ‚ ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏΟ‚) Ξ® <code>#</code> (Ξ΄ΞΉΞ±Ο„Ξ±Ξ³ΞΌΞ­Ξ½ΞΏΟ‚ ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏΟ‚). ΞΟ€ΞΏΟΞµΞ―Ο„Ξµ Ξ½Ξ± Ξ±Ξ½Ξ±ΞΌΞ―ΞΎΞµΟ„Ξµ Ο„ΞΏΟ…Ο‚ ΞΊΞ±Ο„Ξ±Ξ»ΟΞ³ΞΏΟ…Ο‚ (<code>*#*</code>) Ξ³ΞΉΞ± Ξ½Ξ± Ξ΄Ξ·ΞΌΞΉΞΏΟ…ΟΞ³Ξ®ΞΈΞΏΟΞ½ Ο€ΞΏΞ»Ο… - ΞΊΞ±Ο„Ξ¬Ξ»ΞΏΞ³ΞΏΞΉ ΞµΟ€ΞΉΟ€Ξ­Ξ΄Ο‰Ξ½.&nbsp;;</dd>
+<dt> Ξ Ξ±ΟΞ¬Ξ³ΟΞ±Ο†ΞΏΟ‚ </dt>
+<dd> Ξ§Ο‰ΟΞΉΟƒΟ„Ξ­Ο‚ Ο€Ξ±ΟΞ¬Ξ³ΟΞ±Ο†ΞΏΞΉ ΞΌΞµ ΞΌΞΉΞ± Ξ® Ο€ΞµΟΞΉΟƒΟƒΟΟ„ΞµΟΞµΟ‚ Ξ½Ξ­ΞµΟ‚ Ξ³ΟΞ±ΞΌΞΌΞ­Ο‚ &nbsp;;</dd>
 </dl>
-<h2>2. Προχωρημένη σύνταξη </h2>
-<dl class="Βοήθεια wiki">
-<dt> Υποσημείωση </dt>
-<dd><code>$$ κείμενο υποσημειώσεων $$</code>&nbsp;;</dd>
-<dt>προκαθοριμένο κείμενο </dt>
-<dd> αρχίστε κάθε γραμμή του κείμενο με ένα κενό διάστημα &nbsp;;</dd>
-<dt> Αναφέρετε φραγμού </dt>
-<dd><code>&gt;</code> ή <code>;:</code> πριν από κάθε γραμμή &nbsp;;</dd>
-<dt> Οριζόντια γραμμή </dt>
+<h2>2. Ξ ΟΞΏΟ‡Ο‰ΟΞ·ΞΌΞ­Ξ½Ξ· ΟƒΟΞ½Ο„Ξ±ΞΎΞ· </h2>
+<dl class="Ξ’ΞΏΞ®ΞΈΞµΞΉΞ± wiki">
+<dt> Ξ¥Ο€ΞΏΟƒΞ·ΞΌΞµΞ―Ο‰ΟƒΞ· </dt>
+<dd><code>$$ ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ Ο…Ο€ΞΏΟƒΞ·ΞΌΞµΞΉΟΟƒΞµΟ‰Ξ½ $$</code>&nbsp;;</dd>
+<dt>Ο€ΟΞΏΞΊΞ±ΞΈΞΏΟΞΉΞΌΞ­Ξ½ΞΏ ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ </dt>
+<dd> Ξ±ΟΟ‡Ξ―ΟƒΟ„Ξµ ΞΊΞ¬ΞΈΞµ Ξ³ΟΞ±ΞΌΞΌΞ® Ο„ΞΏΟ… ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ ΞΌΞµ Ξ­Ξ½Ξ± ΞΊΞµΞ½Ο Ξ΄ΞΉΞ¬ΟƒΟ„Ξ·ΞΌΞ± &nbsp;;</dd>
+<dt> Ξ‘Ξ½Ξ±Ο†Ξ­ΟΞµΟ„Ξµ Ο†ΟΞ±Ξ³ΞΌΞΏΟ </dt>
+<dd><code>&gt;</code> Ξ® <code>;:</code> Ο€ΟΞΉΞ½ Ξ±Ο€Ο ΞΊΞ¬ΞΈΞµ Ξ³ΟΞ±ΞΌΞΌΞ® &nbsp;;</dd>
+<dt> ΞΟΞΉΞ¶ΟΞ½Ο„ΞΉΞ± Ξ³ΟΞ±ΞΌΞΌΞ® </dt>
 <dd><code>----</code>&nbsp;;</dd>
-<dt> Αναγκασμένο σπάσιμο γραμμών </dt>
+<dt> Ξ‘Ξ½Ξ±Ξ³ΞΊΞ±ΟƒΞΌΞ­Ξ½ΞΏ ΟƒΟ€Ξ¬ΟƒΞΉΞΌΞΏ Ξ³ΟΞ±ΞΌΞΌΟΞ½ </dt>
 <dd><code>%%%</code>&nbsp;;</dd>
-<dt>ακρώνυμο</dt>
-<dd><code>??ακρώνυμο??</code> or <code>??ακρώνυμο|ορισμός??</code>&nbsp;;</dd>
-<dt>Ευθυγραμμισμένη αναφορά </dt>
-<dd><code>{{αναφορα}}</code>, <code>{{αναφορά|γλώσσα}}</code> or <code>{{αναφορά|γλώσσα|url}}</code>&nbsp;;</dd>
-<dt>Κώδικας</dt>
-<dd><code>@@Ο κωδικας σου εδώ@@</code>&nbsp;;</dd>
-<dt>Ονομα στηρίγματος</dt>
-<dd><code>~στήριγμα~</code>&nbsp;;</dd>
+<dt>Ξ±ΞΊΟΟΞ½Ο…ΞΌΞΏ</dt>
+<dd><code>??Ξ±ΞΊΟΟΞ½Ο…ΞΌΞΏ??</code> or <code>??Ξ±ΞΊΟΟΞ½Ο…ΞΌΞΏ|ΞΏΟΞΉΟƒΞΌΟΟ‚??</code>&nbsp;;</dd>
+<dt>Ξ•Ο…ΞΈΟ…Ξ³ΟΞ±ΞΌΞΌΞΉΟƒΞΌΞ­Ξ½Ξ· Ξ±Ξ½Ξ±Ο†ΞΏΟΞ¬ </dt>
+<dd><code>{{Ξ±Ξ½Ξ±Ο†ΞΏΟΞ±}}</code>, <code>{{Ξ±Ξ½Ξ±Ο†ΞΏΟΞ¬|Ξ³Ξ»ΟΟƒΟƒΞ±}}</code> or <code>{{Ξ±Ξ½Ξ±Ο†ΞΏΟΞ¬|Ξ³Ξ»ΟΟƒΟƒΞ±|url}}</code>&nbsp;;</dd>
+<dt>ΞΟΞ΄ΞΉΞΊΞ±Ο‚</dt>
+<dd><code>@@Ξ ΞΊΟ‰Ξ΄ΞΉΞΊΞ±Ο‚ ΟƒΞΏΟ… ΞµΞ΄Ο@@</code>&nbsp;;</dd>
+<dt>ΞΞ½ΞΏΞΌΞ± ΟƒΟ„Ξ·ΟΞ―Ξ³ΞΌΞ±Ο„ΞΏΟ‚</dt>
+<dd><code>~ΟƒΟ„Ξ®ΟΞΉΞ³ΞΌΞ±~</code>&nbsp;;</dd>
 </dl>';
-$_lang['boolean'] = 'Ναι/\'Οχι';
-$_lang['click to zoom in'] = ' καντε κλικ για μεγένθυνση ';
-$_lang['click to zoom out'] = 'κάντε κλίκ για σμίκρυνση';
-$_lang['count'] = 'μετρητής';
-$_lang['denotes new items'] = ' δείχνει τα νέα στοιχεία ';
-$_lang['details'] = 'λεπτομέρειες';
-$_lang['differences between version of %1\$s modified by %2\$s and version of %3\$s modified by %4\$s'] = ' διαφορές μεταξύ της έκδοσης %1$s τροποποιημένης από %2$s και της έκδοσης %3$s τροποποιημένης απο %4$s';
-$_lang['dont change case'] = 'μην αλλάζετε περίπτωση';
-$_lang['e.g. <em>History of Literature</em>'] = 'π.χ. <i>Ιστορία της Τέχνης</i>';
+$_lang['boolean'] = 'ΞΞ±ΞΉ/\'ΞΟ‡ΞΉ';
+$_lang['click to zoom in'] = ' ΞΊΞ±Ξ½Ο„Ξµ ΞΊΞ»ΞΉΞΊ Ξ³ΞΉΞ± ΞΌΞµΞ³Ξ­Ξ½ΞΈΟ…Ξ½ΟƒΞ· ';
+$_lang['click to zoom out'] = 'ΞΊΞ¬Ξ½Ο„Ξµ ΞΊΞ»Ξ―ΞΊ Ξ³ΞΉΞ± ΟƒΞΌΞ―ΞΊΟΟ…Ξ½ΟƒΞ·';
+$_lang['count'] = 'ΞΌΞµΟ„ΟΞ·Ο„Ξ®Ο‚';
+$_lang['delete failed for module %module'] = 'Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® Ξ±Ο€ΞΏΟ„Ο…Ο‡Ξ·ΞΌΞ­Ξ½Ξ· Ξ³ΞΉΞ± Ο„Ξ·Ξ½ ΞµΞ½ΟΟ„Ξ·Ο„Ξ± %module';
+$_lang['delete succeeded for module %module'] = 'Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ξ® ΞµΟ€ΞΉΟ„Ο…Ο‡Ξ·ΞΌΞ­Ξ½Ξ· Ξ³ΞΉΞ± Ο„Ξ·Ξ½ ΞµΞ½ΟΟ„Ξ·Ο„Ξ± %module';
+$_lang['denotes new items'] = ' Ξ΄ΞµΞ―Ο‡Ξ½ΞµΞΉ Ο„Ξ± Ξ½Ξ­Ξ± ΟƒΟ„ΞΏΞΉΟ‡ΞµΞ―Ξ± ';
+$_lang['details'] = 'Ξ»ΞµΟ€Ο„ΞΏΞΌΞ­ΟΞµΞΉΞµΟ‚';
+$_lang['differences between version of %1\$s modified by %2\$s and version of %3\$s modified by %4\$s'] = ' Ξ΄ΞΉΞ±Ο†ΞΏΟΞ­Ο‚ ΞΌΞµΟ„Ξ±ΞΎΟ Ο„Ξ·Ο‚ Ξ­ΞΊΞ΄ΞΏΟƒΞ·Ο‚ %1$s Ο„ΟΞΏΟ€ΞΏΟ€ΞΏΞΉΞ·ΞΌΞ­Ξ½Ξ·Ο‚ Ξ±Ο€Ο %2$s ΞΊΞ±ΞΉ Ο„Ξ·Ο‚ Ξ­ΞΊΞ΄ΞΏΟƒΞ·Ο‚ %3$s Ο„ΟΞΏΟ€ΞΏΟ€ΞΏΞΉΞ·ΞΌΞ­Ξ½Ξ·Ο‚ Ξ±Ο€ΞΏ %4$s';
+$_lang['dont change case'] = 'ΞΌΞ·Ξ½ Ξ±Ξ»Ξ»Ξ¬Ξ¶ΞµΟ„Ξµ Ο€ΞµΟΞ―Ο€Ο„Ο‰ΟƒΞ·';
+$_lang['e.g. <em>History of Literature</em>'] = 'Ο€.Ο‡. <i>Ξ™ΟƒΟ„ΞΏΟΞ―Ξ± Ο„Ξ·Ο‚ Ξ¤Ξ­Ο‡Ξ½Ξ·Ο‚</i>';
 $_lang['email'] = 'email';
-$_lang['enum'] = 'απαριθμητικό';
-$_lang['for current and new works'] = 'για τρέχοντες και νέες εργασίες';
-$_lang['good looking'] = ' όμορφος ';
-$_lang['high resources'] = 'πολλές πηγές';
-$_lang['iCal feed for %course'] = 'iCal feed για το %course';
-$_lang['iCal generator'] = 'iCal γεννήτρια';
-$_lang['integer'] = 'ακέραιος';
-$_lang['line'] = 'γραμμή';
-$_lang['line(s)'] = 'γραμμή(ες)';
-$_lang['lines'] = 'γραμμες';
-$_lang['max. 12 characters, e.g. <em>ROM2121</em>'] = 'με λατινικά γράμματα μέχρι 12 χαρακτήρες, π.χ. <i>FYS1234</i>';
-$_lang['min.'] = 'λεπ.';
-$_lang['multi'] = 'πολλαπλά';
-$_lang['my group'] = 'η ομάδα μου';
-$_lang['my supervision'] = 'ο επιβλέπων μου';
-$_lang['new group(s)'] = 'ομάδα(ες) χρηστών';
-$_lang['number'] = 'αριθμός';
-$_lang['only for new works'] = 'μόνο για νέες εργασίες';
-$_lang['previous level'] = 'Προηγούμενο επίπεδο';
-$_lang['register'] = 'εγγραφή';
-$_lang['relpath'] = 'σχετική διαδρομή';
-$_lang['rich'] = ' πλούσιος ';
-$_lang['sampleForumDescription'] = 'Διαγράψτε την μέσω του εργαλείου διαχείρισης της περιοχής';
-$_lang['sampleForumGroupCategory'] = 'Συζήτησεις Ομάδων χρηστών';
-$_lang['sampleForumMainCategory'] = 'Αρχή';
-$_lang['sampleForumMessage'] = 'Εάν διαγράψετε τη δοκιμαστική περιοχή συζητήσεων, θα διαγραφτεί και το παρόν μήνυμα.';
-$_lang['sampleForumTitle'] = 'Δοκιμαστική περιοχή συζητήσεων';
-$_lang['sampleForumTopicTitle'] = 'Παράδειγμα Μηνύματος';
-$_lang['sampleLearnPathDescription'] = 'Αυτό είναι παράδειγμα της διαδρομής μάθησης, χρησιμοποιεί τα παραδείγματα άσκηση; και εγγράφου απο τα εργαλεία ασκήσης και εργαλεία εγγράφου . Κάνε κλικ σε
+$_lang['enum'] = 'Ξ±Ο€Ξ±ΟΞΉΞΈΞΌΞ·Ο„ΞΉΞΊΟ';
+$_lang['for current and new works'] = 'Ξ³ΞΉΞ± Ο„ΟΞ­Ο‡ΞΏΞ½Ο„ΞµΟ‚ ΞΊΞ±ΞΉ Ξ½Ξ­ΞµΟ‚ ΞµΟΞ³Ξ±ΟƒΞ―ΞµΟ‚';
+$_lang['good looking'] = ' ΟΞΌΞΏΟΟ†ΞΏΟ‚ ';
+$_lang['high resources'] = 'Ο€ΞΏΞ»Ξ»Ξ­Ο‚ Ο€Ξ·Ξ³Ξ­Ο‚';
+$_lang['iCal feed for %course'] = 'iCal feed Ξ³ΞΉΞ± Ο„ΞΏ %course';
+$_lang['iCal generator'] = 'iCal Ξ³ΞµΞ½Ξ½Ξ®Ο„ΟΞΉΞ±';
+$_lang['integer'] = 'Ξ±ΞΊΞ­ΟΞ±ΞΉΞΏΟ‚';
+$_lang['line'] = 'Ξ³ΟΞ±ΞΌΞΌΞ®';
+$_lang['line(s)'] = 'Ξ³ΟΞ±ΞΌΞΌΞ®(ΞµΟ‚)';
+$_lang['lines'] = 'Ξ³ΟΞ±ΞΌΞΌΞµΟ‚';
+$_lang['locked'] = 'ΞΊΞ»ΞµΞΉΞ΄Ο‰ΞΌΞ­Ξ½ΞΏ';
+$_lang['max size %width%x%height%, %size% bytes'] = 'ΞΌΞ­Ξ³ΞΉΟƒΟ„ΞΏ ΞΌΞ­Ξ³ΞµΞΈΞΏΟ‚  %width%x%height%, %size% ΞΌΟ€Ξ¬ΞΉΟ„Ο‚';
+$_lang['max. 12 characters, e.g. <em>ROM2121</em>'] = 'ΞΌΞµ Ξ»Ξ±Ο„ΞΉΞ½ΞΉΞΊΞ¬ Ξ³ΟΞ¬ΞΌΞΌΞ±Ο„Ξ± ΞΌΞ­Ο‡ΟΞΉ 12 Ο‡Ξ±ΟΞ±ΞΊΟ„Ξ®ΟΞµΟ‚, Ο€.Ο‡. <i>FYS1234</i>';
+$_lang['message id'] = 'Ξ±ΟΞΉΞΈΞΌΟΟ‚ ΞΌΞ·Ξ½ΟΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['min.'] = 'Ξ»ΞµΟ€.';
+$_lang['multi'] = 'Ο€ΞΏΞ»Ξ»Ξ±Ο€Ξ»Ξ¬';
+$_lang['my group'] = 'Ξ· ΞΏΞΌΞ¬Ξ΄Ξ± ΞΌΞΏΟ…';
+$_lang['my supervision'] = 'ΞΏ ΞµΟ€ΞΉΞ²Ξ»Ξ­Ο€Ο‰Ξ½ ΞΌΞΏΟ…';
+$_lang['new group(s)'] = 'ΞΏΞΌΞ¬Ξ΄Ξ±(ΞµΟ‚) Ο‡ΟΞ·ΟƒΟ„ΟΞ½';
+$_lang['number'] = 'Ξ±ΟΞΉΞΈΞΌΟΟ‚';
+$_lang['only for new works'] = 'ΞΌΟΞ½ΞΏ Ξ³ΞΉΞ± Ξ½Ξ­ΞµΟ‚ ΞµΟΞ³Ξ±ΟƒΞ―ΞµΟ‚';
+$_lang['open'] = 'Ξ¬Ξ½ΞΏΞΉΞΎΞµ';
+$_lang['previous level'] = 'Ξ ΟΞΏΞ·Ξ³ΞΏΟΞΌΞµΞ½ΞΏ ΞµΟ€Ξ―Ο€ΞµΞ΄ΞΏ';
+$_lang['register'] = 'ΞµΞ³Ξ³ΟΞ±Ο†Ξ®';
+$_lang['relpath'] = 'ΟƒΟ‡ΞµΟ„ΞΉΞΊΞ® Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ®';
+$_lang['rich'] = ' Ο€Ξ»ΞΏΟΟƒΞΉΞΏΟ‚ ';
+$_lang['sampleForumDescription'] = 'Ξ”ΞΉΞ±Ξ³ΟΞ¬ΟΟ„Ξµ Ο„Ξ·Ξ½ ΞΌΞ­ΟƒΟ‰ Ο„ΞΏΟ… ΞµΟΞ³Ξ±Ξ»ΞµΞ―ΞΏΟ… Ξ΄ΞΉΞ±Ο‡ΞµΞ―ΟΞΉΟƒΞ·Ο‚ Ο„Ξ·Ο‚ Ο€ΞµΟΞΉΞΏΟ‡Ξ®Ο‚';
+$_lang['sampleForumGroupCategory'] = 'Ξ£Ο…Ξ¶Ξ®Ο„Ξ·ΟƒΞµΞΉΟ‚ ΞΞΌΞ¬Ξ΄Ο‰Ξ½ Ο‡ΟΞ·ΟƒΟ„ΟΞ½';
+$_lang['sampleForumMainCategory'] = 'Ξ‘ΟΟ‡Ξ®';
+$_lang['sampleForumMessage'] = 'Ξ•Ξ¬Ξ½ Ξ΄ΞΉΞ±Ξ³ΟΞ¬ΟΞµΟ„Ξµ Ο„Ξ· Ξ΄ΞΏΞΊΞΉΞΌΞ±ΟƒΟ„ΞΉΞΊΞ® Ο€ΞµΟΞΉΞΏΟ‡Ξ® ΟƒΟ…Ξ¶Ξ·Ο„Ξ®ΟƒΞµΟ‰Ξ½, ΞΈΞ± Ξ΄ΞΉΞ±Ξ³ΟΞ±Ο†Ο„ΞµΞ― ΞΊΞ±ΞΉ Ο„ΞΏ Ο€Ξ±ΟΟΞ½ ΞΌΞ®Ξ½Ο…ΞΌΞ±.';
+$_lang['sampleForumTitle'] = 'Ξ”ΞΏΞΊΞΉΞΌΞ±ΟƒΟ„ΞΉΞΊΞ® Ο€ΞµΟΞΉΞΏΟ‡Ξ® ΟƒΟ…Ξ¶Ξ·Ο„Ξ®ΟƒΞµΟ‰Ξ½';
+$_lang['sampleForumTopicTitle'] = 'Ξ Ξ±ΟΞ¬Ξ΄ΞµΞΉΞ³ΞΌΞ± ΞΞ·Ξ½ΟΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['sampleLearnPathDescription'] = 'Ξ‘Ο…Ο„Ο ΞµΞ―Ξ½Ξ±ΞΉ Ο€Ξ±ΟΞ¬Ξ΄ΞµΞΉΞ³ΞΌΞ± Ο„Ξ·Ο‚ Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ®Ο‚ ΞΌΞ¬ΞΈΞ·ΟƒΞ·Ο‚, Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞµΞ― Ο„Ξ± Ο€Ξ±ΟΞ±Ξ΄ΞµΞ―Ξ³ΞΌΞ±Ο„Ξ± Ξ¬ΟƒΞΊΞ·ΟƒΞ·; ΞΊΞ±ΞΉ ΞµΞ³Ξ³ΟΞ¬Ο†ΞΏΟ… Ξ±Ο€ΞΏ Ο„Ξ± ΞµΟΞ³Ξ±Ξ»ΞµΞ―Ξ± Ξ±ΟƒΞΊΞ®ΟƒΞ·Ο‚ ΞΊΞ±ΞΉ ΞµΟΞ³Ξ±Ξ»ΞµΞ―Ξ± ΞµΞ³Ξ³ΟΞ¬Ο†ΞΏΟ… . ΞΞ¬Ξ½Ξµ ΞΊΞ»ΞΉΞΊ ΟƒΞµ
 
-                            <b>Τροποποίηση</b> για να αλλάξεις αυτό το κείμενο.';
-$_lang['sampleLearnPathDocumentDescription'] = 'Μπορείς να χρησιμοποιήσεις οποιοδήποτε έγγραφο υπάρχει στα εργαλεία εγγράφων αυτού του μαθήματος.';
-$_lang['sampleLearnPathDocumentTitle'] = 'παράδειγμα_εγγράφου';
-$_lang['sampleLearnPathQuizDescription'] = 'Μπορείς να χρησιμοποήσεις οποιαδήποτε άσκηση απο τα εργαλεία άσκησης αυτού του μαθήματος.';
-$_lang['sampleLearnPathTitle'] = 'Παράδειγμα διαδρομής μάθησης';
-$_lang['sampleQuizAnswer1'] = 'Γελοιοποίηση του συνομιλητή σας προκειμένου να παραδεχτεί ότι κάνει λάθος.';
-$_lang['sampleQuizAnswer1Comment'] = 'Όχι, η Σωκρατική ειρωνεία δεν είναι θέμα ψυχολογίας, αλλά σχετίζεται με την επιχειρηματολογία.';
-$_lang['sampleQuizAnswer2'] = 'Παραδεχτείτε τα δικά σας σφάλματα ώστε να ενθαρρύνετε το συνομιλητή σας να κάνει το ίδιο.';
-$_lang['sampleQuizAnswer2Comment'] = 'Όχι, η Σωκρατική ειρωνεία δεν είναι μέθοδος αποπλάνησης, ούτε βασίζεται στο παράδειγμα.';
-$_lang['sampleQuizAnswer3'] = 'Εξώθηση του συνομιλητή σας, με μια σειρά ερωτήσεων και υποερωτήσεων, να παραδεχτεί ότι δεν ξέρει ό,τι ισχυρίζεται πως ξέρει.';
-$_lang['sampleQuizAnswer3Comment'] = 'Πράγματι, η Σωκρατική ειρωνεία είναι μια μέθοδος ερωτημάτων.';
-$_lang['sampleQuizAnswer4'] = 'Χρήση της αρχής της αποφυγής αντιφάσεων προκειμένου να οδηγήσετε τον συνομιλητή σας σε αδιέξοδο.';
-$_lang['sampleQuizAnswer4Comment'] = 'Η απάντηση δεν είναι εσφαλμένη. Είναι αλήθεια ότι η αποκάλυψη της άγνοιας του συνομιλητή σας επιδεικνύει τα αντιφατικά συμπεράσματα που προκύπτουν από τις αρχικές παραδοχές του.';
-$_lang['sampleQuizDescription'] = 'Ιστορία της αρχαίας φιλοσοφίας';
-$_lang['sampleQuizQuestionText'] = '(περισσότερες από μία απαντήσεις μπορεί να είναι σωστές)';
-$_lang['sampleQuizQuestionTitle'] = 'Η Σωκρατική ειρωνεία είναι...';
-$_lang['sampleQuizTitle'] = 'Υπόδειγμα Ασκησης';
-$_lang['seats (optional)'] = 'συμμετέχοντες (προαιρετικό)';
-$_lang['seats by groups (optional)'] = 'συμμετέχοντες στην ομάδα χρηστών (προαιρετικό)';
-$_lang['sec.'] = 'δευτ.';
-$_lang['size of claroline scripts'] = 'μέγεθος των αρχείων script του claroline';
-$_lang['size of selected courses'] = 'μέγεθος των επιλεγμένων μαθημάτων';
-$_lang['string'] = 'αλφαρηθμιτικό';
-$_lang['syspath'] = 'διαδρομή συστήματος';
-$_lang['to'] = 'σε';
-$_lang['uncompress zipped (.zip) file on the server'] = 'αποσυμπίεση του αρχείου (.zip) στον εξυπηρέτη';
-$_lang['unlimited'] = 'άπειρος';
-$_lang['urlpath'] = 'διαδρομή url';
-$_lang['warning : Installation cannot find the description of the learning path and has set a default comment.  You should change it'] = 'προειδοποίηση : Η εγκατάσταση δε μπορεί να βρεί τη περιγραφή της διαδρομής μάθησης και έχει χρησιμοποιήσει ένα προκαθορισμένο σχόλιο.  Θα πρέπει να το αλλάξεις';
-$_lang['warning : Installation cannot find the name of the learning path and has set a default name.  You should change it.'] = 'προειδοποίηση : Η εγκατάσταση δε μπορεί να βρεί το όνομα της διαδρομής μάθησης και έχει ορίσει καποιο προκαθορισμένο όνομα .  Θα πρέπει να το αλλάξεις.';
-$_lang['write n-1 times without check if (others) cached files are or not deprecated'] = 'εγγραφή n-1 φορών χωρίς να ελεγχθεί αν άλλα αρχεία cache έχουν ή όχι εγκαταληφθεί';
+                            <b>Ξ¤ΟΞΏΟ€ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ·</b> Ξ³ΞΉΞ± Ξ½Ξ± Ξ±Ξ»Ξ»Ξ¬ΞΎΞµΞΉΟ‚ Ξ±Ο…Ο„Ο Ο„ΞΏ ΞΊΞµΞ―ΞΌΞµΞ½ΞΏ.';
+$_lang['sampleLearnPathDocumentDescription'] = 'ΞΟ€ΞΏΟΞµΞ―Ο‚ Ξ½Ξ± Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞ®ΟƒΞµΞΉΟ‚ ΞΏΟ€ΞΏΞΉΞΏΞ΄Ξ®Ο€ΞΏΟ„Ξµ Ξ­Ξ³Ξ³ΟΞ±Ο†ΞΏ Ο…Ο€Ξ¬ΟΟ‡ΞµΞΉ ΟƒΟ„Ξ± ΞµΟΞ³Ξ±Ξ»ΞµΞ―Ξ± ΞµΞ³Ξ³ΟΞ¬Ο†Ο‰Ξ½ Ξ±Ο…Ο„ΞΏΟ Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚.';
+$_lang['sampleLearnPathDocumentTitle'] = 'Ο€Ξ±ΟΞ¬Ξ΄ΞµΞΉΞ³ΞΌΞ±_ΞµΞ³Ξ³ΟΞ¬Ο†ΞΏΟ…';
+$_lang['sampleLearnPathQuizDescription'] = 'ΞΟ€ΞΏΟΞµΞ―Ο‚ Ξ½Ξ± Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞ®ΟƒΞµΞΉΟ‚ ΞΏΟ€ΞΏΞΉΞ±Ξ΄Ξ®Ο€ΞΏΟ„Ξµ Ξ¬ΟƒΞΊΞ·ΟƒΞ· Ξ±Ο€ΞΏ Ο„Ξ± ΞµΟΞ³Ξ±Ξ»ΞµΞ―Ξ± Ξ¬ΟƒΞΊΞ·ΟƒΞ·Ο‚ Ξ±Ο…Ο„ΞΏΟ Ο„ΞΏΟ… ΞΌΞ±ΞΈΞ®ΞΌΞ±Ο„ΞΏΟ‚.';
+$_lang['sampleLearnPathTitle'] = 'Ξ Ξ±ΟΞ¬Ξ΄ΞµΞΉΞ³ΞΌΞ± Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ®Ο‚ ΞΌΞ¬ΞΈΞ·ΟƒΞ·Ο‚';
+$_lang['sampleQuizAnswer1'] = 'Ξ“ΞµΞ»ΞΏΞΉΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· Ο„ΞΏΟ… ΟƒΟ…Ξ½ΞΏΞΌΞΉΞ»Ξ·Ο„Ξ® ΟƒΞ±Ο‚ Ο€ΟΞΏΞΊΞµΞΉΞΌΞ­Ξ½ΞΏΟ… Ξ½Ξ± Ο€Ξ±ΟΞ±Ξ΄ΞµΟ‡Ο„ΞµΞ― ΟΟ„ΞΉ ΞΊΞ¬Ξ½ΞµΞΉ Ξ»Ξ¬ΞΈΞΏΟ‚.';
+$_lang['sampleQuizAnswer1Comment'] = 'ΞΟ‡ΞΉ, Ξ· Ξ£Ο‰ΞΊΟΞ±Ο„ΞΉΞΊΞ® ΞµΞΉΟΟ‰Ξ½ΞµΞ―Ξ± Ξ΄ΞµΞ½ ΞµΞ―Ξ½Ξ±ΞΉ ΞΈΞ­ΞΌΞ± ΟΟ…Ο‡ΞΏΞ»ΞΏΞ³Ξ―Ξ±Ο‚, Ξ±Ξ»Ξ»Ξ¬ ΟƒΟ‡ΞµΟ„Ξ―Ξ¶ΞµΟ„Ξ±ΞΉ ΞΌΞµ Ο„Ξ·Ξ½ ΞµΟ€ΞΉΟ‡ΞµΞΉΟΞ·ΞΌΞ±Ο„ΞΏΞ»ΞΏΞ³Ξ―Ξ±.';
+$_lang['sampleQuizAnswer2'] = 'Ξ Ξ±ΟΞ±Ξ΄ΞµΟ‡Ο„ΞµΞ―Ο„Ξµ Ο„Ξ± Ξ΄ΞΉΞΊΞ¬ ΟƒΞ±Ο‚ ΟƒΟ†Ξ¬Ξ»ΞΌΞ±Ο„Ξ± ΟΟƒΟ„Ξµ Ξ½Ξ± ΞµΞ½ΞΈΞ±ΟΟΟΞ½ΞµΟ„Ξµ Ο„ΞΏ ΟƒΟ…Ξ½ΞΏΞΌΞΉΞ»Ξ·Ο„Ξ® ΟƒΞ±Ο‚ Ξ½Ξ± ΞΊΞ¬Ξ½ΞµΞΉ Ο„ΞΏ Ξ―Ξ΄ΞΉΞΏ.';
+$_lang['sampleQuizAnswer2Comment'] = 'ΞΟ‡ΞΉ, Ξ· Ξ£Ο‰ΞΊΟΞ±Ο„ΞΉΞΊΞ® ΞµΞΉΟΟ‰Ξ½ΞµΞ―Ξ± Ξ΄ΞµΞ½ ΞµΞ―Ξ½Ξ±ΞΉ ΞΌΞ­ΞΈΞΏΞ΄ΞΏΟ‚ Ξ±Ο€ΞΏΟ€Ξ»Ξ¬Ξ½Ξ·ΟƒΞ·Ο‚, ΞΏΟΟ„Ξµ Ξ²Ξ±ΟƒΞ―Ξ¶ΞµΟ„Ξ±ΞΉ ΟƒΟ„ΞΏ Ο€Ξ±ΟΞ¬Ξ΄ΞµΞΉΞ³ΞΌΞ±.';
+$_lang['sampleQuizAnswer3'] = 'Ξ•ΞΎΟΞΈΞ·ΟƒΞ· Ο„ΞΏΟ… ΟƒΟ…Ξ½ΞΏΞΌΞΉΞ»Ξ·Ο„Ξ® ΟƒΞ±Ο‚, ΞΌΞµ ΞΌΞΉΞ± ΟƒΞµΞΉΟΞ¬ ΞµΟΟ‰Ο„Ξ®ΟƒΞµΟ‰Ξ½ ΞΊΞ±ΞΉ Ο…Ο€ΞΏΞµΟΟ‰Ο„Ξ®ΟƒΞµΟ‰Ξ½, Ξ½Ξ± Ο€Ξ±ΟΞ±Ξ΄ΞµΟ‡Ο„ΞµΞ― ΟΟ„ΞΉ Ξ΄ΞµΞ½ ΞΎΞ­ΟΞµΞΉ Ο,Ο„ΞΉ ΞΉΟƒΟ‡Ο…ΟΞ―Ξ¶ΞµΟ„Ξ±ΞΉ Ο€Ο‰Ο‚ ΞΎΞ­ΟΞµΞΉ.';
+$_lang['sampleQuizAnswer3Comment'] = 'Ξ ΟΞ¬Ξ³ΞΌΞ±Ο„ΞΉ, Ξ· Ξ£Ο‰ΞΊΟΞ±Ο„ΞΉΞΊΞ® ΞµΞΉΟΟ‰Ξ½ΞµΞ―Ξ± ΞµΞ―Ξ½Ξ±ΞΉ ΞΌΞΉΞ± ΞΌΞ­ΞΈΞΏΞ΄ΞΏΟ‚ ΞµΟΟ‰Ο„Ξ·ΞΌΞ¬Ο„Ο‰Ξ½.';
+$_lang['sampleQuizAnswer4'] = 'Ξ§ΟΞ®ΟƒΞ· Ο„Ξ·Ο‚ Ξ±ΟΟ‡Ξ®Ο‚ Ο„Ξ·Ο‚ Ξ±Ο€ΞΏΟ†Ο…Ξ³Ξ®Ο‚ Ξ±Ξ½Ο„ΞΉΟ†Ξ¬ΟƒΞµΟ‰Ξ½ Ο€ΟΞΏΞΊΞµΞΉΞΌΞ­Ξ½ΞΏΟ… Ξ½Ξ± ΞΏΞ΄Ξ·Ξ³Ξ®ΟƒΞµΟ„Ξµ Ο„ΞΏΞ½ ΟƒΟ…Ξ½ΞΏΞΌΞΉΞ»Ξ·Ο„Ξ® ΟƒΞ±Ο‚ ΟƒΞµ Ξ±Ξ΄ΞΉΞ­ΞΎΞΏΞ΄ΞΏ.';
+$_lang['sampleQuizAnswer4Comment'] = 'Ξ— Ξ±Ο€Ξ¬Ξ½Ο„Ξ·ΟƒΞ· Ξ΄ΞµΞ½ ΞµΞ―Ξ½Ξ±ΞΉ ΞµΟƒΟ†Ξ±Ξ»ΞΌΞ­Ξ½Ξ·. Ξ•Ξ―Ξ½Ξ±ΞΉ Ξ±Ξ»Ξ®ΞΈΞµΞΉΞ± ΟΟ„ΞΉ Ξ· Ξ±Ο€ΞΏΞΊΞ¬Ξ»Ο…ΟΞ· Ο„Ξ·Ο‚ Ξ¬Ξ³Ξ½ΞΏΞΉΞ±Ο‚ Ο„ΞΏΟ… ΟƒΟ…Ξ½ΞΏΞΌΞΉΞ»Ξ·Ο„Ξ® ΟƒΞ±Ο‚ ΞµΟ€ΞΉΞ΄ΞµΞΉΞΊΞ½ΟΞµΞΉ Ο„Ξ± Ξ±Ξ½Ο„ΞΉΟ†Ξ±Ο„ΞΉΞΊΞ¬ ΟƒΟ…ΞΌΟ€ΞµΟΞ¬ΟƒΞΌΞ±Ο„Ξ± Ο€ΞΏΟ… Ο€ΟΞΏΞΊΟΟ€Ο„ΞΏΟ…Ξ½ Ξ±Ο€Ο Ο„ΞΉΟ‚ Ξ±ΟΟ‡ΞΉΞΊΞ­Ο‚ Ο€Ξ±ΟΞ±Ξ΄ΞΏΟ‡Ξ­Ο‚ Ο„ΞΏΟ….';
+$_lang['sampleQuizDescription'] = 'Ξ™ΟƒΟ„ΞΏΟΞ―Ξ± Ο„Ξ·Ο‚ Ξ±ΟΟ‡Ξ±Ξ―Ξ±Ο‚ Ο†ΞΉΞ»ΞΏΟƒΞΏΟ†Ξ―Ξ±Ο‚';
+$_lang['sampleQuizQuestionText'] = '(Ο€ΞµΟΞΉΟƒΟƒΟΟ„ΞµΟΞµΟ‚ Ξ±Ο€Ο ΞΌΞ―Ξ± Ξ±Ο€Ξ±Ξ½Ο„Ξ®ΟƒΞµΞΉΟ‚ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± ΞµΞ―Ξ½Ξ±ΞΉ ΟƒΟ‰ΟƒΟ„Ξ­Ο‚)';
+$_lang['sampleQuizQuestionTitle'] = 'Ξ— Ξ£Ο‰ΞΊΟΞ±Ο„ΞΉΞΊΞ® ΞµΞΉΟΟ‰Ξ½ΞµΞ―Ξ± ΞµΞ―Ξ½Ξ±ΞΉ...';
+$_lang['sampleQuizTitle'] = 'Ξ¥Ο€ΟΞ΄ΞµΞΉΞ³ΞΌΞ± Ξ‘ΟƒΞΊΞ·ΟƒΞ·Ο‚';
+$_lang['search'] = 'Ξ­ΟΞµΟ…Ξ½Ξ±';
+$_lang['seats (optional)'] = 'ΟƒΟ…ΞΌΞΌΞµΟ„Ξ­Ο‡ΞΏΞ½Ο„ΞµΟ‚ (Ο€ΟΞΏΞ±ΞΉΟΞµΟ„ΞΉΞΊΟ)';
+$_lang['seats by groups (optional)'] = 'ΟƒΟ…ΞΌΞΌΞµΟ„Ξ­Ο‡ΞΏΞ½Ο„ΞµΟ‚ ΟƒΟ„Ξ·Ξ½ ΞΏΞΌΞ¬Ξ΄Ξ± Ο‡ΟΞ·ΟƒΟ„ΟΞ½ (Ο€ΟΞΏΞ±ΞΉΟΞµΟ„ΞΉΞΊΟ)';
+$_lang['sec.'] = 'Ξ΄ΞµΟ…Ο„.';
+$_lang['size of claroline scripts'] = 'ΞΌΞ­Ξ³ΞµΞΈΞΏΟ‚ Ο„Ο‰Ξ½ Ξ±ΟΟ‡ΞµΞ―Ο‰Ξ½ script Ο„ΞΏΟ… claroline';
+$_lang['size of selected courses'] = 'ΞΌΞ­Ξ³ΞµΞΈΞΏΟ‚ Ο„Ο‰Ξ½ ΞµΟ€ΞΉΞ»ΞµΞ³ΞΌΞ­Ξ½Ο‰Ξ½ ΞΌΞ±ΞΈΞ·ΞΌΞ¬Ο„Ο‰Ξ½';
+$_lang['string'] = 'Ξ±Ξ»Ο†Ξ±ΟΞ·ΞΈΞΌΞΉΟ„ΞΉΞΊΟ';
+$_lang['syspath'] = 'Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ® ΟƒΟ…ΟƒΟ„Ξ®ΞΌΞ±Ο„ΞΏΟ‚';
+$_lang['to'] = 'ΟƒΞµ';
+$_lang['tutor'] = 'ΞΊΞ±ΞΈΞ·Ξ³Ξ·Ο„Ξ®Ο‚';
+$_lang['uncompress zipped (.zip) file on the server'] = 'Ξ±Ο€ΞΏΟƒΟ…ΞΌΟ€Ξ―ΞµΟƒΞ· Ο„ΞΏΟ… Ξ±ΟΟ‡ΞµΞ―ΞΏΟ… (.zip) ΟƒΟ„ΞΏΞ½ ΞµΞΎΟ…Ο€Ξ·ΟΞ­Ο„Ξ·';
+$_lang['unknow recipient type'] = 'Ξ¬Ξ³Ξ½Ο‰ΟƒΟ„ΞΏΟ‚ Ο„ΟΟ€ΞΏΟ‚ Ο€Ξ±ΟΞ±Ξ»Ξ®Ο€Ο„Ξ·';
+$_lang['unknown'] = 'Ξ¬Ξ³Ξ½Ο‰ΟƒΟ„ΞΏΟ‚';
+$_lang['unlimited'] = 'Ξ¬Ο€ΞµΞΉΟΞΏΟ‚';
+$_lang['urlpath'] = 'Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ® url';
+$_lang['warning : Installation cannot find the description of the learning path and has set a default comment.  You should change it'] = 'Ο€ΟΞΏΞµΞΉΞ΄ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· : Ξ— ΞµΞ³ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ· Ξ΄Ξµ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ²ΟΞµΞ― Ο„Ξ· Ο€ΞµΟΞΉΞ³ΟΞ±Ο†Ξ® Ο„Ξ·Ο‚ Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ®Ο‚ ΞΌΞ¬ΞΈΞ·ΟƒΞ·Ο‚ ΞΊΞ±ΞΉ Ξ­Ο‡ΞµΞΉ Ο‡ΟΞ·ΟƒΞΉΞΌΞΏΟ€ΞΏΞΉΞ®ΟƒΞµΞΉ Ξ­Ξ½Ξ± Ο€ΟΞΏΞΊΞ±ΞΈΞΏΟΞΉΟƒΞΌΞ­Ξ½ΞΏ ΟƒΟ‡ΟΞ»ΞΉΞΏ.  ΞΞ± Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± Ο„ΞΏ Ξ±Ξ»Ξ»Ξ¬ΞΎΞµΞΉΟ‚';
+$_lang['warning : Installation cannot find the name of the learning path and has set a default name.  You should change it.'] = 'Ο€ΟΞΏΞµΞΉΞ΄ΞΏΟ€ΞΏΞ―Ξ·ΟƒΞ· : Ξ— ΞµΞ³ΞΊΞ±Ο„Ξ¬ΟƒΟ„Ξ±ΟƒΞ· Ξ΄Ξµ ΞΌΟ€ΞΏΟΞµΞ― Ξ½Ξ± Ξ²ΟΞµΞ― Ο„ΞΏ ΟΞ½ΞΏΞΌΞ± Ο„Ξ·Ο‚ Ξ΄ΞΉΞ±Ξ΄ΟΞΏΞΌΞ®Ο‚ ΞΌΞ¬ΞΈΞ·ΟƒΞ·Ο‚ ΞΊΞ±ΞΉ Ξ­Ο‡ΞµΞΉ ΞΏΟΞ―ΟƒΞµΞΉ ΞΊΞ±Ο€ΞΏΞΉΞΏ Ο€ΟΞΏΞΊΞ±ΞΈΞΏΟΞΉΟƒΞΌΞ­Ξ½ΞΏ ΟΞ½ΞΏΞΌΞ± .  ΞΞ± Ο€ΟΞ­Ο€ΞµΞΉ Ξ½Ξ± Ο„ΞΏ Ξ±Ξ»Ξ»Ξ¬ΞΎΞµΞΉΟ‚.';
+$_lang['write n-1 times without check if (others) cached files are or not deprecated'] = 'ΞµΞ³Ξ³ΟΞ±Ο†Ξ® n-1 Ο†ΞΏΟΟΞ½ Ο‡Ο‰ΟΞ―Ο‚ Ξ½Ξ± ΞµΞ»ΞµΞ³Ο‡ΞΈΞµΞ― Ξ±Ξ½ Ξ¬Ξ»Ξ»Ξ± Ξ±ΟΟ‡ΞµΞ―Ξ± cache Ξ­Ο‡ΞΏΟ…Ξ½ Ξ® ΟΟ‡ΞΉ ΞµΞ³ΞΊΞ±Ο„Ξ±Ξ»Ξ·Ο†ΞΈΞµΞ―';
+$_lang['wrote'] = 'Ξ­Ξ³Ξ³ΟΞ±ΟΞµ';
 ?>
