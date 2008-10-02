@@ -127,8 +127,12 @@
         {
             if( $file->isFile() && is_image($file->getFileName()) )
             {
+                $path = '/' . $relPath . $file->getFileName();
+                
+                $url = claro_get_file_download_url( $path );
+                
                 $out .= '<li>'  . "\n"
-                .    '<a href="#" onclick="selectImage(\''.$pathWeb . $relPath . $file->getFileName() .'\')">'
+                .    '<a href="#" onclick="selectImage(\''.$url.'\')">'
                 .    '<img src="'.get_icon_url( choose_image($file->getFileName()) ).'" />' 
                 .    htmlspecialchars($file->getFileName())
                 .    '</a>'
@@ -138,6 +142,6 @@
         
         $out .= '</ul>' . "\n";
         
-        echo $out;
+        echo claro_utf8_encode($out);
     }
 ?>
