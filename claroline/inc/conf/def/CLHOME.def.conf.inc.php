@@ -46,7 +46,7 @@ $conf_def_property_list['course_order_by']
         ,'type'      => 'enum'
         ,'display'       => TRUE
         ,'readonly'      => FALSE
-        ,'acceptedValue' => array ( 'official_code'=> 'Official code',
+        ,'acceptedValue' => array ( 'official_code'=> 'Course code',
                                     'course_title' => 'Course title' )
         );
 
