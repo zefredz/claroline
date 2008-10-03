@@ -103,11 +103,14 @@ class category_browser
                        titulaires           AS titular,
                        code                 AS sysCode,
                        administrativeNumber AS officialCode,
+                                              `language`,
                                                directory,
                                                visibility,
                                                access,
                                                registration,
                                                email,
+                       "
+              . ( $this->userId ? 'isCourseManager, ' : '')."
                        "
               . ( $this->userId ? "cu.user_id" : "NULL") . " AS enroled "
 
@@ -301,4 +304,188 @@ function get_locked_course_by_key_explanation($course_id=null)
             return get_lang('Subscription not allowed');
         }
     }
+}
+
+/*
+ * 
+ */
+function build_category_trail($categoryList, $requiredCode)
+{
+    $trail = array();
+    if( is_array($categoryList) && !empty($categoryList) )
+    {
+        foreach( $categoryList as $category )
+        {
+            if( $category['code'] == $requiredCode )
+            {
+                if( !empty($category['parentCode']) && !is_null($category['parentCode']) )
+                {
+                    $trail[] = build_category_trail($categoryList, $category['parentCode']);
+                    $trail[] = $category['name'];
+                }
+                else
+                {
+                    
+                    return $category['name'];
+                }
+            }
+        }
+    }
+    
+    return implode(' &gt; ', $trail);
+}
+
+function render_course_dt_in_dd_list($course, $hot = false)
+{
+    if( $hot ) $classItem = ' hot';
+    else       $classItem = '';
+    
+    $langNameOfLang = get_locale('langNameOfLang');
+    $out = '';
+    
+    if ($course['isCourseManager'] == 1)
+    {
+        $userStatusImg = '&nbsp;&nbsp;<img src="' . get_icon_url('manager') . '" alt="'.get_lang('Course manager').'" />';
+    }
+    else
+    {
+        $userStatusImg = '';
+    }
+
+    // show course language if not the same of the platform
+    if ( get_conf('platformLanguage') != $course['language'] )
+    {
+        if ( !empty($langNameOfLang[$course['language']]) )
+        {
+            $course_language_txt = ' - ' . ucfirst($langNameOfLang[$course['language']]);
+        }
+        else
+        {
+            $course_language_txt = ' - ' . ucfirst($course['language']);
+        }
+    }
+    else
+    {
+        $course_language_txt = '';
+    }
+
+    if ( get_conf('course_order_by') == 'official_code' )
+    {
+        $courseTitle = $course['officialCode'] . ' - ' . $course['title'];
+    }
+    else
+    {
+        $courseTitle = $course['title'] . ' (' . $course['officialCode'] . ')';
+    }
+
+    $url = get_path('url') . '/claroline/course/index.php?cid='
+    .    htmlspecialchars($course['sysCode'])
+    ;
+
+    $out .= '<dt>' . "\n"
+    .    '<img class="iconDefinitionList" src="' . get_icon_url('course') . '" alt="" />'
+    .    '<a href="' . htmlspecialchars( $url ) . '">'
+    .    htmlspecialchars($courseTitle)
+    .    $userStatusImg
+    .    '</a>' . "\n"
+    .    '</dt>' . "\n"
+    .    '<dd>'
+    .    '<small>' . "\n"
+    .    htmlspecialchars( $course['titular'] . $course_language_txt )
+    .    '</small>' . "\n"
+    .    '</dd>' . "\n"
+    ;
+    return $out;
+}
+
+function render_user_course_list()
+{
+    // get the list of personnal courses marked as contening new events
+    $date            = Claroline::getInstance()->notification->get_notification_date(claro_get_current_user_id());
+    $modified_course = Claroline::getInstance()->notification->get_notified_courses($date,claro_get_current_user_id());
+
+    $out = '';
+    
+    if( get_conf('userCourseListGroupByCategories', false) )
+    {
+        // get category list
+        $tbl_mdb_names   = claro_sql_get_main_tbl();
+        $tbl_category    = $tbl_mdb_names['category'];
+        
+        $sql = "SELECT `code`,
+                       `name`,
+                       `code_P` as `parentCode`,
+                       `nb_childs` as `nbChildren`
+                FROM `" . $tbl_category . "`";
+        $categoryList = claro_sql_query_fetch_all_rows($sql);
+    
+        // get courseList
+        $userCourseList = get_user_course_list(claro_get_current_user_id());
+        // group courses by category code for better perf in main loop
+        if( is_array($userCourseList) && !empty($userCourseList) )
+        {
+            foreach($userCourseList as $userCourse)
+            {
+                $sortedUserCourseList[$userCourse['categoryCode']][] = $userCourse;
+            }
+        }
+        else
+        {
+            $sortedUserCourseList = array();
+        }
+        
+        $out .= '<div id="courseListByCat">' . "\n";
+        // traverse category list, on each node check if some course the user is subscribed in is of this category
+        foreach($categoryList as $category)
+        {
+            if( array_key_exists($category['code'], $sortedUserCourseList) && !empty($sortedUserCourseList[$category['code']]) )
+            {
+                // display category header
+                $out .= '<h4>' 
+                    . '<strong>'
+                    . '<a name="'.$category['code'].'"></a>'
+                    . build_category_trail($categoryList,$category['code'])
+                    . '</strong>'
+                    . '</h4>';
+    
+                $out .= '<dl class="userCourseList">'."\n";
+                // display category courses
+                foreach( $sortedUserCourseList[$category['code']] as $thisCourse )
+                {
+                    // If the course contains new things to see since last user login,
+                    // The course name will be displayed with the 'hot' class style in the list.
+                    // Otherwise it will name normally be displayed
+                    $hot = (bool) in_array ($thisCourse['sysCode'], $modified_course);
+                
+                    $out .= render_course_dt_in_dd_list($thisCourse, $hot);
+                }
+                $out .= '</dl>' . "\n";
+            }
+        }
+        $out .= '</div>' . "\n";
+    }
+    else
+    {
+        $personnalCourseList = get_user_course_list(claro_get_current_user_id());
+        
+        //display list
+        if (count($personnalCourseList))
+        {
+            $out .= '<dl class="userCourseList">'."\n";
+            
+            foreach($personnalCourseList as $thisCourse)
+            {
+                // If the course contains new things to see since last user login,
+                // The course name will be displayed with the 'hot' class style in the list.
+                // Otherwise it will name normally be displayed
+                $hot = (bool) in_array ($thisCourse['sysCode'], $modified_course);
+            
+                $out .= render_course_dt_in_dd_list($thisCourse, $hot);
+            }
+        
+            $out .= '</dl>' . "\n";
+        }
+    }
+    
+    return $out;
 }
