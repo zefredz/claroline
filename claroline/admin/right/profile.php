@@ -93,7 +93,7 @@ if ( empty($display_profile_list) )
 //=================================
 
 // define bredcrumb
-ClaroBreadCrumbs::getInstance()->prepend( get_lang('Right'), get_path('rootAdminWeb').'right/profile.php?display_profile=' . $display_profile_url_param );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Rights'), get_path('rootAdminWeb').'right/profile.php?display_profile=' . $display_profile_url_param );
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Course profile list'), get_path('rootAdminWeb').'right/profile_list.php' );
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
