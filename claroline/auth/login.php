@@ -31,6 +31,12 @@ elseif ( isset($_SERVER ['HTTP_REFERER'])
 {
      $sourceUrl = base64_encode($_SERVER ['HTTP_REFERER']);
 }
+elseif ( isset( $_SERVER ['HTTP_REFERER'] )
+    && basename($_SERVER ['HTTP_REFERER']) != basename($_SERVER['PHP_SELF'])
+    && strstr($_SERVER ['HTTP_REFERER'], 'logout=true') )
+{
+    $sourceUrl = base64_encode( get_path( 'rootWeb' ) );
+}
 else
 {
     $sourceUrl = null;
