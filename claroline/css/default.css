@@ -548,6 +548,24 @@ a.item:visited{
     
 }
 
+
+dl.userCourseList
+{
+    padding-left: 30px;
+}
+
+.userCourseList dt
+{
+    margin: 0;
+    padding: 0;
+}
+
+.userCourseList dd
+{
+    margin: 0;
+    padding: 0 0 0 15px;
+}
+
 /******************************************************************************
                              CLAROLINE TABLE
  ******************************************************************************/
