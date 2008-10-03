@@ -29,7 +29,8 @@ $conf_def['section']['courselist']['label']='Course list';
 $conf_def['section']['courselist']['description']='Settings of the user course list';
 $conf_def['section']['courselist']['properties'] =
 array ( 'course_order_by',
-        'course_categories_hidden_to_anonymous' );
+        'course_categories_hidden_to_anonymous',
+        'userCourseListGroupByCategories' );
 
 $conf_def['section']['rightmenu']['label']='Right menu settings';
 $conf_def['section']['rightmenu']['description']='Settings of the right menu elements';
@@ -61,7 +62,18 @@ $conf_def_property_list['course_categories_hidden_to_anonymous']
                                     'FALSE' => 'No' )
         );
 
-$conf_def_property_list['max_char_from_content']
+$conf_def_property_list['userCourseListGroupByCategories']
+= array ('label'     => 'Group user courses by categories'
+        ,'description' => ''
+        ,'default'   => false
+        ,'type'      => 'boolean'
+        ,'display'       => TRUE
+        ,'readonly'      => FALSE
+        ,'acceptedValue' => array ( 'TRUE'=> 'Yes',
+                                    'FALSE' => 'No' )
+        );
+
+        $conf_def_property_list['max_char_from_content']
 = array ('label'     => 'Last event length'
         ,'description' => 'Max length of the \'last events\' displayed content'
         ,'default'   => '80'
@@ -71,6 +83,4 @@ $conf_def_property_list['max_char_from_content']
         ,'readonly'      => FALSE
         ,'acceptedValue' => array ( 'min'=> '0' )
         );
-
-                
 ?>
