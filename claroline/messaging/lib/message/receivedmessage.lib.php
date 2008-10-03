@@ -272,6 +272,15 @@ class ReceivedMessage extends StoredMessage
         {
             $userId = claro_get_current_user_id();
         }
+        
+        if ( ! claro_is_platform_admin() )
+        {
+            $userSql = " AND R.user_id = " . (int) $userId ."\n";
+        }
+        else
+        {
+            $userSql = "";
+        }
          
         $tableName = get_module_main_tbl(array('im_message','im_message_status','user'));
          
@@ -281,8 +290,8 @@ class ReceivedMessage extends StoredMessage
                 .    "FROM `" . $tableName['im_message'] . "` as M \n"
                 .    " LEFT JOIN `".$tableName['im_message_status']."` AS R ON M.message_id = R.message_id\n"
                 .    " LEFT JOIN `".$tableName['user']."` AS U ON M.sender = U.user_id\n"
-                .    " WHERE R.user_id = " . (int) $userId ."\n"
-                .        " AND M.message_id = " . (int) $messageId."\n"
+                .    " WHERE M.message_id = " . (int) $messageId."\n"
+                . $userSql
                 ;
 
         $resultMessage = claro_sql_query_fetch_single_row($messageSQL);

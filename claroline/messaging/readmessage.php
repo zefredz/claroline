@@ -36,7 +36,6 @@
     
     
     
-    $userId = claro_get_current_user_id();
     $displayConfirmation = FALSE;
     $currentSection = 'inbox';
 
@@ -44,6 +43,11 @@
     {
         $userId = (int)$_REQUEST['userId'];
     }
+    else
+    {
+        $userId = claro_get_current_user_id();
+    }
+    
     if ($userId != claro_get_current_user_id() && !claro_is_platform_admin())
     {
         claro_die(get_lang("Not allowed"));
