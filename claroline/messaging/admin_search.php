@@ -343,7 +343,7 @@ if ($arguments['search'] == 'olderThan')
         . get_lang('Select date') . '<br />'."\n"
         . '<form action="'.$_SERVER['PHP_SELF'].'?search=olderThan" method="post">'."\n"
         . '<input type="text" name="date" value="'.$date.'" id="dateinput" />'.get_lang('(jj/mm/aaaa)').'<br />'."\n"
-        . '<input type="submit" value="'.get_lang('search').'" />'."\n"
+        . '<input type="submit" value="'.get_lang('Search').'" />'."\n"
         . '</form>'."\n\n"
         ;
     $dialogbox = new DialogBox();
@@ -387,7 +387,7 @@ if ($arguments['search'] == 'timeInterval')
         . '<form action="'.$_SERVER['PHP_SELF'].'?search=timeInterval" method="post">'."\n"
         . get_lang('From').' <input type="text" name="date1" value="'.$date1.'" class="daterange" id="dateinput1" /> '."\n"
         . get_lang('to').' <input type="text" name="date2" value="'.$date2.'" class="daterange" id="dateinput2" /> '.get_lang('(jj/mm/aaaa)').'<br />'."\n"
-        . '<input type="submit" value="'.get_lang('search').'" />'."\n"
+        . '<input type="submit" value="'.get_lang('Search').'" />'."\n"
         . '</form>'."\n\n"
         ;
     $dialogbox = new DialogBox();
