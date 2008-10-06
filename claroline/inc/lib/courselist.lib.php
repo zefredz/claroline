@@ -419,6 +419,22 @@ function render_user_course_list()
                 FROM `" . $tbl_category . "`";
         $categoryList = claro_sql_query_fetch_all_rows($sql);
     
+        // categories have to be ordered alphabetically using full trail so handle it here
+        if( is_array($categoryList) && !empty($categoryList) )
+        {
+            foreach( $categoryList as $category )
+            {
+                $trail = build_category_trail($categoryList,$category['code']);
+                $sortedCategoryList[$category['code']] = $trail;
+            }
+            // order by trail and keep key-value associated
+            asort($sortedCategoryList);
+        }
+        else
+        {
+            $sortedCategoryList = array();
+        }
+        
         // get courseList
         $userCourseList = get_user_course_list(claro_get_current_user_id());
         // group courses by category code for better perf in main loop
@@ -434,23 +450,24 @@ function render_user_course_list()
             $sortedUserCourseList = array();
         }
         
+        // so now we have ordered course list and ordered category list we can use them to display the user course list
         $out .= '<div id="courseListByCat">' . "\n";
         // traverse category list, on each node check if some course the user is subscribed in is of this category
-        foreach($categoryList as $category)
+        foreach($sortedCategoryList as $categoryCode => $trail )
         {
-            if( array_key_exists($category['code'], $sortedUserCourseList) && !empty($sortedUserCourseList[$category['code']]) )
+            if( array_key_exists($categoryCode, $sortedUserCourseList) && !empty($sortedUserCourseList[$categoryCode]) )
             {
                 // display category header
                 $out .= '<h4>' 
                     . '<strong>'
-                    . '<a name="'.$category['code'].'"></a>'
-                    . build_category_trail($categoryList,$category['code'])
+                    . '<a name="'.$categoryCode.'"></a>'
+                    . $trail
                     . '</strong>'
                     . '</h4>';
     
                 $out .= '<dl class="userCourseList">'."\n";
                 // display category courses
-                foreach( $sortedUserCourseList[$category['code']] as $thisCourse )
+                foreach( $sortedUserCourseList[$categoryCode] as $thisCourse )
                 {
                     // If the course contains new things to see since last user login,
                     // The course name will be displayed with the 'hot' class style in the list.
