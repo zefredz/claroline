@@ -178,7 +178,7 @@ if( $is_allowedToEdit && $cmd == 'exDownload' && get_conf('allow_download_all_su
         $downloadRequestDate = date('Y-m-d G:i:s', $unixRequestDate);
 
         $wanted = '_' . replace_dangerous_char(get_lang('From')) . '_' . date('Y_m_d', $unixRequestDate) . '_'
-        . replace_dangerous_char(get_lang('To')) . '_' . date('Y_m_d')
+        . replace_dangerous_char(get_lang('to')) . '_' . date('Y_m_d')
         ;
         $sqlDateCondition = " AND `last_edit_date` >= '" . $downloadRequestDate . "' ";
     }
