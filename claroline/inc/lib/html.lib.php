@@ -1077,9 +1077,15 @@ class claro_datagrid
 
 function claro_disp_auth_form($cidRequired = false)
 {
-
     // TODO check if it does not break the CAS mechanism
-    $sourceUrl = base64_encode($_SERVER['REQUEST_URI']);
+    if( get_conf('claro_secureLogin', false) )
+    {
+        $sourceUrl = base64_encode( rtrim( get_path( 'rootWeb' ), '/' ) . $_SERVER['REQUEST_URI'] );
+    }
+    else
+    {
+        $sourceUrl = base64_encode($_SERVER['REQUEST_URI']);
+    }
 
     if ( ! headers_sent () )
     {
