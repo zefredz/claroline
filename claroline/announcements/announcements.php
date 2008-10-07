@@ -555,7 +555,7 @@ if ($displayList)
 	            }
 	            else
 	            {
-	                $cssItem = 'item hot';
+	                $cssItem = 'item';
 	            }
 	            
                 $cssInvisible = '';
