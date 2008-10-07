@@ -373,16 +373,16 @@ else
         ;
 }
 
-$htmloutput = '';
+$output = '';
 
-$htmloutput .= claro_html_tool_title(array('mainTitle' => $nameTools, 'subTitle' => $subTitle));
+$output .= claro_html_tool_title(array('mainTitle' => $nameTools, 'subTitle' => $subTitle));
 
-$htmloutput .= $dialogBox->render();
+$output .= $dialogBox->render();
 
 
 if ($display_form)
 {
-    $htmloutput .= '<form method="post" action="' . htmlspecialchars( $_SERVER['PHP_SELF'] ) . '">'
+    $output .= '<form method="post" action="' . htmlspecialchars( $_SERVER['PHP_SELF'] ) . '">'
     .    claro_form_relay_context()
     .    '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'
     .    '<input type="hidden" name="cmd" value="' . $nextCommand . '" />'
@@ -451,17 +451,17 @@ if ($display_form)
                 array( 'id' => (int) $_REQUEST['id'] ) ) );
     }
     
-    $htmloutput .= ResourceLinker::renderLinkerBlock();
+    $output .= ResourceLinker::renderLinkerBlock();
 
-    $htmloutput .= '</td></tr>' . "\n"
+    $output .= '</td></tr>' . "\n"
     .    '<tr valign="top"><td>&nbsp;</td><td>' . "\n"
     ;
 
-    $htmloutput .= '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />' . "\n";
+    $output .= '<input type="submit" class="claroButton" name="submitEvent" value="' . get_lang('Ok') . '" />' . "\n";
 
     // linker
     //---------------------
-    $htmloutput .= claro_html_button($_SERVER['PHP_SELF'], 'Cancel') . "\n"
+    $output .= claro_html_button($_SERVER['PHP_SELF'], 'Cancel') . "\n"
     .    '</td>' . "\n"
     .    '</tr>' . "\n"
     .    '</table>' . "\n"
@@ -469,32 +469,30 @@ if ($display_form)
     ;
 }
 
-if ( $display_command ) $htmloutput .= '<p>' . claro_html_menu_horizontal($cmdList) . '</p>';
+if ( $display_command ) $output .= '<p>' . claro_html_menu_horizontal($cmdList) . '</p>';
 
 $monthBar     = '';
 
 if ( count($eventList) < 1 )
 {
-    $htmloutput .= "\n" . '<br /><blockquote>' . get_lang('No event in the agenda') . '</blockquote>' . "\n";
+    $output .= "\n" . '<br /><blockquote>' . get_lang('No event in the agenda') . '</blockquote>' . "\n";
 }
 else
 {
     if ( $orderDirection == 'DESC' )
     {
-        $htmloutput .= '<br /><a href="'
+        $output .= '<br /><a href="'
             . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?order=asc' ))
             .'" >' . get_lang('Oldest first') . '</a>' . "\n"
             ;
     }
     else
     {
-        $htmloutput .= '<br /><a href="'
+        $output .= '<br /><a href="'
             . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?order=desc' ))
             . '" >' . get_lang('Newest first') . '</a>' . "\n"
             ;
     }
-
-    $htmloutput .= "\n" . '<table class="claroTable" width="100%">' . "\n";
 }
 
 $nowBarAlreadyShowed = FALSE;
@@ -535,21 +533,17 @@ foreach ( $eventList as $thisEvent )
             {
                 $monthBar = date('m',time());
 
-                $htmloutput .= '<tr>' . "\n"
-                .    '<th class="superHeader" colspan="2" valign="top">' . "\n"
+                $output .= '<div class="claroBlockSuperHeader">' . "\n"
                 .    ucfirst(claro_html_localised_date('%B %Y', time()))
-                .    '</th>' . "\n"
-                .    '</tr>' . "\n"
+                .    '</div>' . "\n"
                 ;
             }
 
 
             // 'NOW' Bar
 
-            $htmloutput .= '<tr>' . "\n"
-            .    '<td>' . "\n"
+            $output .= '<div class="highlight">'
             .    '<img src="' . get_icon_url('pixel') . '" width="20" alt=" " />'
-            .    '<span class="highlight">'
             .    '<a name="today">'
             .    '<i>'
             .    ucfirst(claro_html_localised_date( get_locale('dateFormatLong'))) . ' '
@@ -558,9 +552,7 @@ foreach ( $eventList as $thisEvent )
             .    get_lang('Now')
             .    '</i>'
             .    '</a>'
-            .    '</span>' . "\n"
-            .    '</td>' . "\n"
-            .    '</tr>' . "\n"
+            .    '</div>' . "\n"
             ;
 
             $nowBarAlreadyShowed = true;
@@ -575,50 +567,47 @@ foreach ( $eventList as $thisEvent )
         {
             $monthBar = date('m', strtotime($thisEvent['day']));
 
-            $htmloutput .= '<tr>' . "\n"
-            .    '<th class="superHeader" valign="top">'
+            $output .= '<div class="claroBlockSuperHeader">'
             .    ucfirst(claro_html_localised_date('%B %Y', strtotime( $thisEvent['day']) ))
-            .    '</th>' . "\n"
-            .    '</tr>' . "\n"
+            .    '</div>' . "\n"
             ;
         }
 
         /*
-        * Display the event date
-        */
-
-        $htmloutput .= '<tr class="headerX" valign="top">' . "\n"
-        .    '<th>' . "\n"
-        .    '<span class="'. $cssItem . $cssInvisible .'">' . "\n"
-        .    '<a href="#form" name="event' . $thisEvent['id'] . '"></a>' . "\n"
-        .    '<img src="' . get_icon_url('agenda') . '" alt=" " />&nbsp;'
+         * Display the event date
+         */
+        $output .= '<div class="claroBlock">' . "\n"
+        .   '<h4 class="claroBlockHeader">'
+        .   '<span class="'. $cssItem . $cssInvisible .'">' . "\n"
+        .   '<img src="' . get_icon_url('agenda') . '" alt="" /> '
         .    ucfirst(claro_html_localised_date( get_locale('dateFormatLong'), strtotime($thisEvent['day']))) . ' '
         .    ucfirst( strftime( get_locale('timeNoSecFormat'), strtotime($thisEvent['hour']))) . ' '
         .    ( empty($thisEvent['lasting']) ? '' : get_lang('Lasting') . ' : ' . $thisEvent['lasting'] ) . ' '
         .    ( empty($thisEvent['location']) ? '' : get_lang('Location') . ' : ' . $thisEvent['location'] )
-        .    '</span>';
-
+        .   '</span>' . "\n"
+        .   '</h4>' . "\n"
+        
         /*
-        * Display the event content
-        */
+         * Display the event content
+         */
+        .   '<div class="claroBlockContent">' . "\n"
+        .   '<a href="#" name="event' . $thisEvent['id'] . '"></a>'. "\n"
 
-        $htmloutput .= '</th>' . "\n"
-        .    '</tr>' . "\n"
-        .    '<tr>' . "\n"
-        .    '<td>' . "\n"
-        .    '<div class="content ' . $cssInvisible . '">' . "\n"
+        .   '<div class="' . $cssInvisible . '">' . "\n"
         .    ( empty($thisEvent['title']  ) ? '' : '<p><strong>' . htmlspecialchars($thisEvent['title']) . '</strong></p>' . "\n" )
         .    ( empty($thisEvent['content']) ? '' :  claro_parse_user_text($thisEvent['content']) )
-        .    '</div>' . "\n"
-        ;
+        .   '</div>' . "\n"
         
+        ;
+
         $currentLocator = ResourceLinker::$Navigator->getCurrentLocator( array('id' => $thisEvent['id'] ) );
-        $htmloutput .= ResourceLinker::renderLinkList( $currentLocator );
+        $output .= ResourceLinker::renderLinkList( $currentLocator );
     }
 
     if ($is_allowedToEdit)
     {
-        $htmloutput .= '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;id=' . $thisEvent['id'] )) . '">'
+        $output .= '<div class="claroBlockCmd">'
+        .    '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;id=' . $thisEvent['id'] )) . '">'
         .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Modify') . '" />'
         .    '</a> '
         .    '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exDelete&amp;id=' . $thisEvent['id'] )) . '" '
@@ -630,26 +619,24 @@ foreach ( $eventList as $thisEvent )
         //  Visibility
         if ('SHOW' == $thisEvent['visibility'])
         {
-            $htmloutput .= '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=mkHide&amp;id=' . $thisEvent['id'] )) . '">'
+            $output .= '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=mkHide&amp;id=' . $thisEvent['id'] )) . '">'
             .    '<img src="' . get_icon_url('visible') . '" alt="" />'
             .    '</a>' . "\n";
         }
         else
         {
-            $htmloutput .= '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=mkShow&amp;id=' . $thisEvent['id'] )) . '">'
+            $output .= '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=mkShow&amp;id=' . $thisEvent['id'] )) . '">'
             .    '<img src="' . get_icon_url('invisible') . '" alt="" />'
             .    '</a>' . "\n"
             ;
         }
+        
+        $output .= '</div>' . "\n"; // claroBlockCmd
     }
-    $htmloutput .= '</td>'."\n"
-    .    '</tr>'."\n"
-    ;
-
+    $output .= '</div>' . "\n" // claroBlockContent
+    .    '</div>' . "\n\n"; // claroBlock
 }   // end while
 
-if ( count($eventList) > 0 ) $htmloutput .= '</table>';
-
-Claroline::getDisplay()->body->appendContent( $htmloutput );
+Claroline::getDisplay()->body->appendContent( $output );
 
 echo Claroline::getDisplay()->render();
