@@ -522,7 +522,7 @@ th .claroCmdDisabled {
  */
 
 .item {
-    padding-left: 16px ;
+    padding-left: 16px;
 }
 
 .hot {
@@ -547,6 +547,41 @@ a.item:visited{
     margin: 3px 0px;    
 }
 
+.claroBlock 
+{
+    width: 99%;
+    margin: 5px auto;
+}
+
+.claroBlockHeader
+{
+    color: #693;
+    font-weight: bold;
+    padding: 2px 5px 2px 5px;
+    margin: 0;
+    background-color: #EDF1E3;
+    border-bottom: 1px #96BB7A solid;
+}
+
+.claroBlockSuperHeader
+{
+    color: #693;
+    background-color: #DEEECE;
+    border-bottom: 2px #87B665 solid;
+    padding: 2px 5px 2px 5px;
+    font-weight: bold;
+}
+
+.claroBlockHeader img
+{
+    vertical-align: text-bottom;
+}
+
+.claroBlockContent
+{
+    border-bottom: 1px solid #eee;
+    padding: 5px;
+}
 
 dl.userCourseList
 {
