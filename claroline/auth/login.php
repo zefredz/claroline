@@ -21,9 +21,16 @@ require '../inc/claro_init_global.inc.php';
  * if the authentication succeeds
  */
 
-if ( isset($_REQUEST['sourceUrl']) )
+if ( isset( $_REQUEST['sourceUrl'] ) )
 {
-    $sourceUrl = $_REQUEST['sourceUrl'];
+    if ( strstr( base64_decode( $_REQUEST['sourceUrl'] ), 'logout=true' ) )
+    {
+        $sourceUrl = base64_encode( get_path( 'rootWeb' ) );
+    }
+    else
+    {
+        $sourceUrl = $_REQUEST['sourceUrl'];
+    }
 }
 elseif ( isset($_SERVER ['HTTP_REFERER'])
          &&   basename($_SERVER ['HTTP_REFERER']) != basename($_SERVER['PHP_SELF'])
@@ -113,8 +120,17 @@ if ( ! claro_is_user_authenticated() && $uidRequired )
 
         }
 
-        echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' ."\n"
-        .    '<fieldset>'                                                 ."\n"
+        if( get_conf('claro_secureLogin', false) )
+        {
+            $target = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
+            
+        }
+        else
+        {
+            $target = $_SERVER['PHP_SELF'];
+        }
+        echo '<form class="claroLoginForm" action ="' . $target . '" method="post">' . "\n"
+        .    '<fieldset style="padding: 7px;">'                                                 ."\n"
         .    $sourceUrlFormField                                          ."\n"
         .    $cidRequiredFormField
         .    $sourceCidFormField                                          ."\n"
@@ -122,10 +138,10 @@ if ( ! claro_is_user_authenticated() && $uidRequired )
         .    '<legend>' . get_lang('Authentication') . '</legend>'               ."\n"
 
         .    '<label for="username">'.get_lang('Username').' : </label><br />'   ."\n"
-        .    '<input type="text" name="login" id="username" /><br />'       ."\n"
+        .    '<input type="text" name="login" id="login" size="15" tabindex="1" /><br />'       ."\n"
 
         .    '<label for="password">'.get_lang('Password').' : </label><br />'   ."\n"
-        .    '<input type="password" name="password" id="password" /><br />'."\n"
+        .    '<input type="password" name="password" id="password" size="15" tabindex="2" /><br />'."\n"
         .    '<br />'
         .    '<input type="submit" value="'.get_lang('Ok').'" />&nbsp; '                 ."\n"
         .    claro_html_button(get_path('clarolineRepositoryWeb'), get_lang('Cancel'))
