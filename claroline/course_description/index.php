@@ -395,51 +395,53 @@ if ( count($descList) )
 {
     if (claro_is_user_authenticated()) $date = $claro_notifier->get_notification_date(claro_get_current_user_id());
 
-    $out .= '<table class="claroTable" width="100%">' . "\n";
-
     foreach ( $descList as $thisDesc )
     {
-        //modify style if the file is recently added since last login
-        if (claro_is_user_authenticated() && $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $thisDesc['id']))
-        {
-            $cssItem = 'item hot';
-        }
-        else
-        {
-            $cssItem = 'item';
-        }
-
         if (($thisDesc['visibility'] == 'INVISIBLE' && $is_allowedToEdit) || $thisDesc['visibility'] == 'VISIBLE')
         {
+            //modify style if the file is recently added since last login
+	        if (claro_is_user_authenticated() && $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $thisDesc['id']))
+	        {
+	            $cssItem = 'item hot';
+	        }
+	        else
+	        {
+	            $cssItem = 'item';
+	        }
+	        
             $cssInvisible = '';
             if ($thisDesc['visibility'] == 'INVISIBLE')
             {
                 $cssInvisible = ' invisible';
             }
 
-            $out .= '<tr class="headerX">'
-            .    '<th>'
-            .    '<span class="'. $cssItem . $cssInvisible .'">';
+            $out .= '<div class="claroBlock">' . "\n"
+            .   '<h4 class="claroBlockHeader">'
+            .   '<span class="'. $cssItem . $cssInvisible .'">' . "\n"
+            ;
 
             if ( trim($thisDesc['title']) == '' )
                 $out .= '&nbsp;';
             else
                 $out .= htmlspecialchars($thisDesc['title']);
+                
+            $out .= '</span>' . "\n"
+            .   '</h4>' . "\n"
+            
+            .   '<div class="claroBlockContent">' . "\n"
+            .   '<a href="#" name="ann' . $thisDesc['id'] . '"></a>'. "\n"
 
-            $out .= '</span>'
-            .    '</th>'
-            .    '</tr>' . "\n"
-            .    '<tr>'
-            .    '<td>'
-            .    '<div '. ( !empty($cssInvisible) ? 'class="'.$cssInvisible.'"' : '' ) .'>' . "\n"
-            .    claro_parse_user_text($thisDesc['content'])
-            .    '</div>';
+            .   '<div class="' . $cssInvisible . '">' . "\n"
+            .   claro_parse_user_text($thisDesc['content']) . "\n"
+            .   '</div>' . "\n"
+            
+            ;
 
             $hasDisplayedItems = true;
 
             if ( $is_allowedToEdit )
             {
-                $out .= '<p>' . "\n"
+                $out .= '<div class="claroBlockCmd">' . "\n"
                 // edit
                 .    '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=rqEdit&amp;descId=' . (int) $thisDesc['id'] )) . '">'
                 .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Modify') . '" />'
@@ -464,15 +466,14 @@ if ( count($descList) )
                     .    '</a>' . "\n";
                 }
 
-                $out .= '</p>' . "\n";
+                $out .= '</div>' . "\n"; // claroBlockCmd
             }
 
-            $out .= '</td>'
-            .    '</tr>' . "\n" . "\n";
+            $out .= '</div>' . "\n" // claroBlockContent
+            .    '</div>' . "\n\n"; // claroBlock
         }
 
     }
-    $out .= '</table>'."\n\n";
 }
 
 if ( !$hasDisplayedItems )
