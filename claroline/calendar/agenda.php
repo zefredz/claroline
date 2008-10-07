@@ -529,9 +529,11 @@ foreach ( $eventList as $thisEvent )
         ( ( strtotime($thisEvent['day'] . ' ' . $thisEvent['hour'] ) < time() ) &&  'DESC' == $orderDirection )
         )
         {
-            if ($monthBar != date('m',time()))
+            // add monthbar is now bar is the first (or only one) item for this month
+            // current time month monthBar display
+            if ($monthBar != date('mY',time()))
             {
-                $monthBar = date('m',time());
+                $monthBar = date('mY',time());
 
                 $output .= '<div class="claroBlockSuperHeader">' . "\n"
                 .    ucfirst(claro_html_localised_date('%B %Y', time()))
@@ -541,7 +543,6 @@ foreach ( $eventList as $thisEvent )
 
 
             // 'NOW' Bar
-
             $output .= '<div class="highlight">'
             .    '<img src="' . get_icon_url('pixel') . '" width="20" alt=" " />'
             .    '<a name="today">'
@@ -559,13 +560,13 @@ foreach ( $eventList as $thisEvent )
         }
 
         /*
-        * Display the month bar when the current month
-        * is different from the current month bar
-        */
+         * Display the month bar when the current month
+         * is different from the current month bar
+         */
 
-        if ( $monthBar != date( 'm', strtotime($thisEvent['day']) ) )
+        if ( $monthBar != date( 'mY', strtotime($thisEvent['day']) ) )
         {
-            $monthBar = date('m', strtotime($thisEvent['day']));
+            $monthBar = date('mY', strtotime($thisEvent['day']));
 
             $output .= '<div class="claroBlockSuperHeader">'
             .    ucfirst(claro_html_localised_date('%B %Y', strtotime( $thisEvent['day']) ))
