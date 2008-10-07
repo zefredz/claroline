@@ -103,7 +103,7 @@ input[type=text].inputSearch
     color: #fff;
     font-weight: bold;
     background: url('default/bg_header.gif') repeat-x top left #c5d4e2;
-    border-top: 3px solid #010065;
+    /*border-top: 3px solid #010065;*/
 }
 
 #platformBanner a,
@@ -157,12 +157,13 @@ input[type=text].inputSearch
  ----------------------------------------------------------------------------*/
 
 #userBanner {
-    color: #369;
+    color: #999;
     font-weight: bold;
     font-size: 0.8em;
     padding: 1px 5px;
-    background: url('default/bg_userbanner.png') repeat-x top left #fdf4de;
-    /*border-top: 1px #999 solid;*/
+    background: url('default/bg_userbanner.png') repeat-x bottom left #fdf4de;
+    border-top: 1px #999 solid;
+    border-bottom: 1px #999 solid;
 }
 
 #userBanner #userName {
@@ -204,7 +205,6 @@ input[type=text].inputSearch
     color: #369;
     font-size: 0.8em;
     font-weight: bold;
-    border-top: 1px #999 solid;
 }
 
 #courseBanner #course {
@@ -543,9 +543,8 @@ a.item:visited{
     font-weight: bold;
     padding: 2px 5px 2px 5px;
     background-color: #EDF1E3;
-    border: 1px #96BB7A solid;
-    margin: 3px 0px;
-    
+    border-bottom: 1px #96BB7A solid;
+    margin: 3px 0px;    
 }
 
 
@@ -641,14 +640,14 @@ dl.userCourseList
 .claroTable th {
     vertical-align: middle;
     padding: 2px 5px 2px 5px;
-    border: 1px solid #EDEDED;
+    border-bottom: 1px solid #EDEDED;
 }
 
 .claroTable .superHeader th,
 .claroTable th.superHeader {
     color: #693;
     background-color: #DEEECE;
-    border: 1px #87B665 solid;
+    border-bottom: 2px #87B665 solid;
     padding: 2px 5px 2px 5px;
     font-weight: bold;
 }
@@ -663,7 +662,7 @@ dl.userCourseList
     font-weight: bold;
     padding: 2px 5px 2px 5px;
     background-color: #EDF1E3;
-    border: 1px #96BB7A solid;
+    border-bottom: 1px #96BB7A solid;
 }
 
 .claroTable .headerX th a
@@ -760,38 +759,38 @@ dl.userCourseList
     margin-bottom: 10px; 
     padding: 5px 5px 5px 20px; 
     border: 1px solid #ccc;
-    background: #eee;
+    background: #F9F7ED;
     float: left;
     border-left: 2px solid #ccc;
 }
 
 .boxInfo {    
     border-left: 2px solid #ccc;
-    background: #eee url('default/bg_boxinfo.png') bottom right no-repeat;
+    background: #F9F7ED url('default/bg_boxinfo.png') bottom right no-repeat;
     padding-right: 83px;
 }
 
 .boxSuccess {    
     border-left: 2px solid #090;
-    background: #eee url('default/bg_boxsuccess.png') bottom right no-repeat;
+    background: #F9F7ED url('default/bg_boxsuccess.png') bottom right no-repeat;
     padding-right: 83px;
 }
 
 .boxWarning {    
     border-left: 2px solid #900;
-    background: #eee url('default/bg_boxwarning.png') bottom right no-repeat;
+    background: #F9F7ED url('default/bg_boxwarning.png') bottom right no-repeat;
     padding-right: 83px;
 }
 
 .boxError {    
     border-left: 2px solid #900;
-    background: #eee url('default/bg_boxerror.png') bottom right no-repeat;
+    background: #F9F7ED url('default/bg_boxerror.png') bottom right no-repeat;
     padding-right: 83px;
 }
 
 .boxQuestion {    
     border-left: 2px solid #369;
-    background: #eee url('default/bg_boxquestion.png') bottom right no-repeat;
+    background: #F9F7ED url('default/bg_boxquestion.png') bottom right no-repeat;
     padding-right: 83px;
 }
 
