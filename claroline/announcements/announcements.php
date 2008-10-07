@@ -541,24 +541,23 @@ if ($displayList)
 
     else
     {
-        $output .= '<table class="claroTable" width="100%">';
-
         if (claro_is_user_authenticated()) $date = $claro_notifier->get_notification_date(claro_get_current_user_id()); //get notification date
 
         foreach ( $announcementList as $thisAnnouncement)
         {
-            //modify style if the event is recently added since last login
-            if (claro_is_user_authenticated() && $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $thisAnnouncement['id']))
-            {
-                $cssItem = 'item hot';
-            }
-            else
-            {
-                $cssItem = 'item';
-            }
 
             if (($thisAnnouncement['visibility']=='HIDE' && $is_allowedToEdit) || $thisAnnouncement['visibility'] == 'SHOW')
             {
+                //modify style if the event is recently added since last login
+                if (claro_is_user_authenticated() && $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $thisAnnouncement['id']))
+                {
+                    $cssItem = 'item hot';
+	            }
+	            else
+	            {
+	                $cssItem = 'item hot';
+	            }
+	            
                 $cssInvisible = '';
                 if ($thisAnnouncement['visibility'] == 'HIDE')
                 {
@@ -570,24 +569,25 @@ if ($displayList)
                 $content = make_clickable(claro_parse_user_text($thisAnnouncement['content']));
                 $last_post_date = $thisAnnouncement['time']; // post time format date de mysql
 
-                $output .= '<tr class="headerX">'."\n"
-                .    '<th>'."\n"
-                .    '<span class="'. $cssItem . $cssInvisible .'">' . "\n"
-                .    '<a href="#" name="ann' . $thisAnnouncement['id'] . '"></a>'. "\n"
-                .    '<img src="' . get_icon_url('announcement') . '" alt="" />' . "\n"
-                .    get_lang('Published on')
-                .    ' : ' . claro_html_localised_date( get_locale('dateFormatLong'), strtotime($last_post_date))
-                .    '</span>'
-                .    '</th>' . "\n"
-                .    '</tr>' . "\n"
-                .    '<tr>' . "\n"
-                .    '<td>' . "\n"
-                .    '<div class="content ' . $cssInvisible . '">' . "\n"
-                .    ($title ? '<p><strong>' . htmlspecialchars($title) . '</strong></p>' . "\n"
-                     : ''
-                     )
-                .    claro_parse_user_text($content) . "\n"
-                .    '</div>' . "\n"
+                $output .= '<div class="claroBlock">' . "\n"
+                .   '<h4 class="claroBlockHeader">'
+                .   '<span class="'. $cssItem . $cssInvisible .'">' . "\n"
+                .   '<img src="' . get_icon_url('announcement') . '" alt="" /> '
+                .   get_lang('Published on')
+                .   ' : ' . claro_html_localised_date( get_locale('dateFormatLong'), strtotime($last_post_date))
+                .   '</span>' . "\n"
+                .   '</h4>' . "\n"
+                
+                .   '<div class="claroBlockContent">' . "\n"
+                .   '<a href="#" name="ann' . $thisAnnouncement['id'] . '"></a>'. "\n"
+
+                .   '<div class="' . $cssInvisible . '">' . "\n"
+                .   ($title ? '<p><strong>' . htmlspecialchars($title) . '</strong></p>' . "\n"
+                    : ''
+                    )
+                .   claro_parse_user_text($content) . "\n"
+                .   '</div>' . "\n"
+                
                 ;
                 
                 $currentLocator = ResourceLinker::$Navigator->getCurrentLocator( array('id' => $thisAnnouncement['id'] ) );
@@ -595,7 +595,7 @@ if ($displayList)
 
                 if ($is_allowedToEdit)
                 {
-                    $output .= '<p>'
+                    $output .= '<div class="claroBlockCmd">'
                         // EDIT Request LINK
                         . '<a href="'
                         . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
@@ -654,18 +654,17 @@ if ($displayList)
                         .    '</a>' . "\n"
                         ;
                     }
-                    $output .= '</p>'."\n"
-                    .    '</td>' . "\n"
-                    .    '</tr>' . "\n"
-                    ;
+                    
+                    $output .= '</div>' . "\n"; // claroBlockCmd
 
                 } // end if is_AllowedToEdit
+                
+                $output .= '</div>' . "\n" // claroBlockContent
+                .    '</div>' . "\n\n"; // claroBlock
             }
 
             $iterator ++;
         }    // end foreach ( $announcementList as $thisAnnouncement)
-
-        $output .= '</table>';
     }
 
 } // end if displayList
