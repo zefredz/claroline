@@ -291,7 +291,7 @@ if ( $is_allowedToEdit )
         else
         {
             $out .= htmlspecialchars($tipPresetTitle) . "\n"
-            .    '<input type="hidden" name="descTitle" value="'. htmlspecialchars($tipPresetTitle) .'" />' . "\n";
+            .    '<input type="hidden" name="descTitle" id="descTitle" value="'. htmlspecialchars($tipPresetTitle) .'" />' . "\n";
         }
 
         $out .= '</p>' . "\n\n"
