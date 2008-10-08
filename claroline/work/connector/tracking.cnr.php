@@ -99,7 +99,7 @@ class CLWRK_UserTrackingRenderer extends UserTrackingRenderer
                 .    '<td>'.$work['s_title'].'</td>' . "\n"
                 .    '<td>'.$authors.'</td>' . "\n"
                 .    '<td>'.$displayedScore.'</td>' . "\n"
-                .    '<td><small>'.$beautifulDate.'</small></td>' . "\n"
+                .    '<td>'.$beautifulDate.'</td>' . "\n"
                 .    '</tr>' . "\n";
             }
             $html .= '</tbody>' . "\n";
