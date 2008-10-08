@@ -151,7 +151,7 @@ if ( $isDownloadable )
         $document_url = str_replace($rootSys,$urlAppend.'/',$pathInfo);
 
         // redirect to document
-        claro_redirect($document_url);
+        claro_redirect( str_ireplace( '%2F', '/', urlencode( $document_url ) ) );
 
         die();
     }
