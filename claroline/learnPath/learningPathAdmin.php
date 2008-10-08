@@ -52,7 +52,7 @@ $htmlHeadXtra[] =
             }
             </script>";
 
-$interbredcrump[]= array ("url"=> get_module_url('CLLNP') . '/learningPathList.php', "name"=> get_lang('Learning path list'));
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Learning path list'), Url::Contextualize(get_module_url('CLLNP') . '/learningPathList.php') );
 
 $nameTools = get_lang('Learning path');
 $_SERVER['QUERY_STRING'] =''; // used forthe breadcrumb

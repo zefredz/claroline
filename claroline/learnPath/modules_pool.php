@@ -44,7 +44,7 @@ $htmlHeadXtra[] =
         }
         </script>';
 
-$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Learning path list'), Url::Contextualize(get_module_url('CLLNP') . '/learningPathList.php') );
 $nameTools = get_lang('Pool of modules');
 
 // tables names
