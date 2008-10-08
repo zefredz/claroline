@@ -74,13 +74,13 @@ class MailNotifier implements MessagingNotifier
         $emailSubject .= '] '.$message->getSubject();
 
         //------------------------------subject
-        $altBody = get_lang('If you can\'t read this message go to: ') . rtrim( get_path('rootWeb'), '/' ) . '/claroline/messaging/readmessage.php?messageId=' . $messageId . '&type=received' . "\n\n"
+        /* $altBody = get_lang('If you can\'t read this message go to: ') . rtrim( get_path('rootWeb'), '/' ) . '/claroline/messaging/readmessage.php?messageId=' . $messageId . '&type=received' . "\n\n"
             . '-- '
             . claro_get_current_user_data('lastName') . " " . claro_get_current_user_data('firstName') . "\n"
             . $stringManager
             . "\n\n" . get_conf('siteName') ." <" . get_conf('rootWeb') . '>' . "\n"
             . '   ' . get_lang('Administrator') . ' : ' . get_conf('administrator_name') . ' <' . get_conf('administrator_email') . '>' . "\n"
-            ;
+            ; */
         
         
         //-------------------------BODY
@@ -101,7 +101,7 @@ class MailNotifier implements MessagingNotifier
 
         $userData = claro_get_current_user_data();
         
-        self::emailNotification($userDataList, $emailBody,$emailSubject, $userData['mail'], $userData['lastName']." ".$userData['firstName'],$altBody);
+        self::emailNotification($userDataList, $emailBody,$emailSubject, $userData['mail'], $userData['lastName']." ".$userData['firstName']);
     }
     
     /**
