@@ -31,11 +31,11 @@ abstract class UserDesktopPortlet
     // render all
     public function render()
     {
-        return '<div class="portlet">' . "\n"
-        .   '<div class="header">' . "\n"
+        return '<div class="claroBlock portlet">' . "\n"
+        .   '<div class="claroBlockHeader">' . "\n"
         .   $this->renderTitle() . "\n"
         .   '</div>' . "\n"
-        .   '<div class="portletContent">' . "\n"
+        .   '<div class="claroBlockContent">' . "\n"
         .   $this->renderContent()
         .   '</div>' . "\n" 
         .   '</div>' . "\n\n";
