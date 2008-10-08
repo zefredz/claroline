@@ -70,8 +70,10 @@ $acceptedCmdList = array( 'rqDownload', 'exDownload', 'exChVis', 'exRmAssig', 'e
 if( isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'], $acceptedCmdList) )   $cmd = $_REQUEST['cmd'];
 else                                                                            $cmd = null;
 
+if( isset($_REQUEST['assigId']) ) $assigId = (int) $_REQUEST['assigId'];
+else                              $assigId = null;
 
-if( isset($_REQUEST['downloadMode']) )    $downloadMode = $_REQUEST['downloadMode'];
+if( isset($_REQUEST['downloadMode']) )  $downloadMode = $_REQUEST['downloadMode'];
 else                                    $downloadMode = 'all';
 
 /*============================================================================
@@ -82,15 +84,15 @@ if( !is_null($cmd) )
     // instanciate assignment object
     $assignment = new Assignment();
 
-    if( isset($_REQUEST['assigId']) )
+    if( !is_null($assigId) )
     {
         // we handle a particular assignment, no form has been posted (delete, change visibility , ask for edition)
         // read assignment
-        if( ! $assignment->load($_REQUEST['assigId']) )
+        if( ! $assignment->load($assigId) )
         {
             // could not read assignment
             $cmd = null;
-            $_REQUEST['assigId'] = NULL;
+            $assigId = null;
         }
     }
 
@@ -98,7 +100,10 @@ if( !is_null($cmd) )
     if( isset($_REQUEST['submitAssignment']) && !is_null($cmd) )
     {
         // form submitted
-        if ( isset($_REQUEST['title']) )                        $assignment->setTitle(strip_tags(trim($_REQUEST['title'])));
+        if ( isset($_REQUEST['title']) )
+        {
+            $assignment->setTitle(strip_tags(trim($_REQUEST['title'])));
+        }
 
         if( !isset($_REQUEST['description']) || trim( strip_tags($_REQUEST['description'], $allowedTags ) ) == '' )
         {
@@ -310,17 +315,17 @@ if ($is_allowedToEdit)
         {
             $_REQUEST['vis'] == 'v' ? $visibility = 'VISIBLE' : $visibility = 'INVISIBLE';
 
-            Assignment::updateAssignmentVisibility($_REQUEST['assigId'], $visibility);
+            Assignment::updateAssignmentVisibility($assigId, $visibility);
 
             // notify eventmanager
 
             if ( $_REQUEST['vis'] == 'v')
             {
-                $eventNotifier->notifyCourseEvent('work_visible', claro_get_current_course_id(), claro_get_current_tool_id(), $_REQUEST['assigId'], claro_get_current_group_id(), '0');
+                $eventNotifier->notifyCourseEvent('work_visible', claro_get_current_course_id(), claro_get_current_tool_id(), $assigId, claro_get_current_group_id(), '0');
             }
             else
             {
-                $eventNotifier->notifyCourseEvent('work_invisible', claro_get_current_course_id(), claro_get_current_tool_id(), $_REQUEST['assigId'], claro_get_current_group_id(), '0');
+                $eventNotifier->notifyCourseEvent('work_invisible', claro_get_current_course_id(), claro_get_current_tool_id(), $assigId, claro_get_current_group_id(), '0');
             }
         }
     }
@@ -335,7 +340,7 @@ if ($is_allowedToEdit)
         $assignment->delete();
 
         //notify eventmanager
-        $eventNotifier->notifyCourseEvent('work_deleted', claro_get_current_course_id(), claro_get_current_tool_id(), $_REQUEST['assigId'], claro_get_current_group_id(), '0');
+        $eventNotifier->notifyCourseEvent('work_deleted', claro_get_current_course_id(), claro_get_current_tool_id(), $assigId, claro_get_current_group_id(), '0');
 
         $dialogBox->success( get_lang('Assignment deleted') );
     }
@@ -351,7 +356,7 @@ if ($is_allowedToEdit)
     if ( $cmd == 'exEditAssig' )
     {
         // check validity of the data
-        if ( isset($_REQUEST['assigId']) && $assignment->validate() )
+        if ( !is_null($assigId) && $assignment->validate() )
         {
             $assignment->save();
 
@@ -452,9 +457,10 @@ function confirmation (name)
 
 if ( ( isset($displayAssigForm) && $displayAssigForm ) )
 {
-    // bredcrump to return to the list when in a form
-    $interbredcrump[]= array ('url' => '../work/work.php', 'name' => get_lang('Assignments'));
+    // if there is a form add a breadcrumb to go back to list
     $nameTools = get_lang('Assignment');
+    ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, Url::Contextualize($_SERVER['PHP_SELF'] . '?cmd='.$cmd.'&amp;assigId='.$assigId ) );
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Assignments'), Url::Contextualize('../work/work.php') );
 }
 else
 {
@@ -541,10 +547,10 @@ if ($is_allowedToEdit)
     <input type="hidden" name="claroFormId" value="<?php echo uniqid(''); ?>" />
     <input type="hidden" name="cmd" value="<?php echo $cmdToSend; ?>" />
 <?php
-    if( isset($_REQUEST['assigId']) )
+    if( !is_null($assigId) )
     {
 ?>
-    <input type="hidden" name="assigId" value="<?php echo $_REQUEST['assigId']; ?>" />
+    <input type="hidden" name="assigId" value="<?php echo $assigId; ?>" />
 <?php
     }
 ?>
