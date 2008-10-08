@@ -687,6 +687,11 @@ dl.userCourseList
     font-weight: bold;
 }
 
+.claroTable img
+{
+    vertical-align: text-bottom;
+}
+
 .claroTable .superHeader a {
     color: #693;
 }
@@ -698,6 +703,7 @@ dl.userCourseList
     padding: 2px 5px 2px 5px;
     background-color: #EDF1E3;
     border-bottom: 1px #96BB7A solid;
+    text-align: center;
 }
 
 .claroTable .headerX th a
