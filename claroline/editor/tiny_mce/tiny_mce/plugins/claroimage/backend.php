@@ -114,7 +114,7 @@
                 $relativePath = str_replace(realpath($pathSys),'',realpath($file->getPathname()));
                 
                 $out .= '<li>'  . "\n"
-                .    '<a href="#" class="selectFolder" onclick="setFileList(\''.$relativePath.'\')">'
+                .    '<a href="#" class="selectFolder" onclick="setFileList(\''.str_replace( '\\', '/', $relativePath ).'\')">'
                 .    '<img src="'.get_icon_url('folder').'" />'
                 .    htmlspecialchars($file->getFileName()) 
                 .    '</a>'
