@@ -50,7 +50,7 @@ class AuthManager
             
             if ( $driver->authenticate() )
             {
-                if ( $uid = self::registered( $username, $authSource ) )
+                if ( $uid = self::registered( $username, $driver->getAuthSource() ) )
                 {
                     $driver->update( $uid );
                     
@@ -88,7 +88,8 @@ class AuthManager
             . ( get_conf('claro_authUsernameCaseSensitive',true) ? 'BINARY ' : '')
             . "username = ". Claroline::getDatabase()->quote($username) . "\n"
             . "AND\n"
-            . "authSource = " . Claroline::getDatabase()->quote($authSourceName)
+            . "authSource = " . Claroline::getDatabase()->quote($authSourceName) . "\n"
+            . "ORDER BY user_id DESC LIMIT 1"
             ;
             
         $res = Claroline::getDatabase()->query( $sql );
@@ -111,7 +112,8 @@ class AuthManager
             . "FROM `{$tbl['user']}`\n"
             . "WHERE "
             . ( get_conf('claro_authUsernameCaseSensitive',true) ? "BINARY " : "" )
-            . "username = ". Claroline::getDatabase()->quote($username)
+            . "username = ". Claroline::getDatabase()->quote($username) . "\n"
+            . "ORDER BY user_id DESC LIMIT 1"
             ;
             
         return  Claroline::getDatabase()->query( $sql )->fetch(Database_ResultSet::FETCH_VALUE);
@@ -437,7 +439,8 @@ class ClarolineLocalAuthDriver extends AbstractAuthDriver
             . "WHERE "
             . ( get_conf('claro_authUsernameCaseSensitive',true) ? 'BINARY ' : '')
             . "username = ". Claroline::getDatabase()->quote($this->username) . "\n"
-            . "AND authSource = 'claroline'"
+            . "AND authSource = 'claroline'" . "\n"
+            . "ORDER BY user_id DESC LIMIT 1"
             ;
             
         $userDataList = Claroline::getDatabase()->query( $sql );
