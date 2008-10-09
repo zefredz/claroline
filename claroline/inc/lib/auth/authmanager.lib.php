@@ -348,6 +348,9 @@ class UserDisabledAuthDriver extends AbstractAuthDriver
 {
     public function getFailureMessage()
     {
+        // we use get_lang here to force the language file builder to add this
+        // variable, but since this code is executed before the language files are loaded
+        // we have to call get_lang a second time when the message is displayed...
         return get_lang('This account has been disabled, please contact the platform administrator');
     }
     

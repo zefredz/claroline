@@ -108,7 +108,8 @@ if ( ! claro_is_user_authenticated() && $uidRequired )
             
             if ( AuthManager::getFailureMessage() )
             {
-                $dialogBox->error( AuthManager::getFailureMessage()  );
+                // need to use get_lang two times...
+                $dialogBox->error( get_lang( AuthManager::getFailureMessage() ) );
             }
             else
             {
