@@ -104,19 +104,29 @@ if ( ! claro_is_user_authenticated() && $uidRequired )
 
         if ( $claro_loginRequested && ! $claro_loginSucceeded ) // var comming from claro_init_local.inc.php
         {
-            $message = get_lang('Login failed.') . ' ' . get_lang('Please try again.') . '<br />' . "\n" ;
+            $dialogBox = new DialogBox;
+            
+            if ( AuthManager::getFailureMessage() )
+            {
+                $dialogBox->error( AuthManager::getFailureMessage()  );
+            }
+            else
+            {
+                $dialogBox->error( get_lang('Login failed.') . ' ' . get_lang('Please try again.') );
+            }
 
             if ( get_conf('allowSelfReg',false))
             {
-                $message .= get_lang('If you haven\'t a user account yet, use the <a href="%url">the account creation form</a>.',array('%url'=> get_path('url') . '/claroline/auth/inscription.php')) . '<br / ><br />' . "\n";
+                $dialogBox->warning( get_lang('If you haven\'t a user account yet, use the <a href="%url">the account creation form</a>.',array('%url'=> get_path('url') . '/claroline/auth/inscription.php')) );
             }
             else
             {
                 $message .= get_lang('Contact your administrator.');
             }
-            $message .= '<small>' . get_lang('Warning the system distinguishes uppercase (capital) and lowercase (small) letters') . '</small>' . "\n" ;
+            
+            $dialogBox->warning( '<small>' . get_lang('Warning the system distinguishes uppercase (capital) and lowercase (small) letters') . '</small>' );
 
-            echo claro_html_message_box($message);
+            echo $dialogBox->render();
 
         }
 

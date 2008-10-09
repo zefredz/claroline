@@ -19,6 +19,18 @@ FromKernel::uses('core/claroline.lib','database/database.lib','kernel/user.lib')
 
 class AuthManager
 {
+    protected static $extraMessage = null;
+    
+    public static function getFailureMessage()
+    {
+        return self::$extraMessage;
+    }
+    
+    protected static function setFailureMessage( $message )
+    {
+        self::$extraMessage = $message;
+    }
+    
     public function authenticate( $username, $password )
     {
         if ( !empty($username) && $authSource = self::getAuthSource( $username ) )
@@ -50,6 +62,10 @@ class AuthManager
                     
                     return $driver->getUser();
                 }
+            }
+            elseif ( $authSource )
+            {
+                self::setFailureMessage( $driver->getFailureMessage() );
             }
         }
         
@@ -223,6 +239,7 @@ interface AuthDriver
     public function getUserId();
     public function getAuthSource();
     public function userRegistrationAllowed();
+    public function getFailureMessage();
 }
 
 abstract class AbstractAuthDriver implements AuthDriver
@@ -230,8 +247,19 @@ abstract class AbstractAuthDriver implements AuthDriver
     protected $userId = null;
     protected $extAuthIgnoreUpdateList = array();
     protected $username = null, $password = null;
+    protected $extraMessage = null;
     
     // abstract public function getUserData();
+    
+    protected function setFailureMessage( $message )
+    {
+        $this->extraMessage = $message;
+    }
+    
+    public function getFailureMessage()
+    {
+        return $this->extraMessage;
+    }
     
     public function setAuthenticationParams( $username, $password )
     {
@@ -318,6 +346,11 @@ abstract class AbstractAuthDriver implements AuthDriver
 
 class UserDisabledAuthDriver extends AbstractAuthDriver
 {
+    public function getFailureMessage()
+    {
+        return get_lang('This account has been disabled, please contact the platform administrator');
+    }
+    
     public function userRegistrationAllowed()
     {
         return false;
