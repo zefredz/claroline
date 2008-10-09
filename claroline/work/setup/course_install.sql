@@ -17,6 +17,8 @@
         PRIMARY KEY  (`id`)
     ) TYPE=MyISAM;
     
+    CREATE INDEX `assigid` ON `__CL_COURSE__wrk_submission` ( `assignment_id` );
+    
     CREATE TABLE IF NOT EXISTS `__CL_COURSE__wrk_assignment` (
         `id` int(11) NOT NULL auto_increment,
         `title` varchar(200) NOT NULL default '',
