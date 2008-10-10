@@ -566,6 +566,7 @@ elseif ( $currentSection == 'toolList' )
     foreach ( $inactiveCourseToolList as $inactiveCourseTool )
     {
         $completeInactiveToolList[] = array(
+            'id' => $inactiveCourseTool['id '],
             'tool_id' => $inactiveCourseTool['tool_id '],
             'label' => $inactiveCourseTool['label'],
             'icon' => get_module_url($inactiveCourseTool['label']) . '/' . $inactiveCourseTool['icon']
