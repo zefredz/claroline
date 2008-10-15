@@ -488,9 +488,16 @@ else
                 FROM `" . $tbl_wrk_assignment . "`
                 WHERE `assignment_type` = 'GROUP'";
 
-            if ( isset($_GET['sort']) ) $sortKeyList[$_GET['sort']] = isset($_GET['dir']) ? $_GET['dir'] : SORT_ASC;
-
-            $sortKeyList['end_date']    = SORT_ASC;
+            if ( isset($_GET['sort']) )
+            {
+                $sortKeyList[$_GET['sort']] = isset($_GET['dir']) ? $_GET['dir'] : SORT_ASC;
+            }
+            else
+            {
+                $sortKeyList['end_date']    = SORT_ASC;
+                $sortKeyList['title']    = SORT_ASC;
+            }
+            
     }
     else
     {
@@ -503,9 +510,16 @@ else
                         unix_timestamp(`end_date`) as `end_date_unix`
                 FROM `" . $tbl_wrk_assignment . "`";
 
-        if ( isset($_GET['sort']) ) $sortKeyList[$_GET['sort']] = isset($_GET['dir']) ? $_GET['dir'] : SORT_ASC;
-
-        $sortKeyList['end_date']    = SORT_ASC;
+            if ( isset($_GET['sort']) )
+            {
+                $sortKeyList[$_GET['sort']] = isset($_GET['dir']) ? $_GET['dir'] : SORT_ASC;
+            }
+            else
+            {
+                $sortKeyList['end_date']    = SORT_ASC;
+                $sortKeyList['title']    = SORT_ASC;
+            }
+            
     }
 
     $offset = (isset($_REQUEST['offset']) && !empty($_REQUEST['offset']) ) ? $_REQUEST['offset'] : 0;
