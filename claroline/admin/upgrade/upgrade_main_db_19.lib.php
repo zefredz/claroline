@@ -84,6 +84,9 @@ function upgrade_main_database_module_to_19 ()
             
             $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['module'] . "` 
                 CHANGE `type` `type` VARCHAR( 10 ) NOT NULL DEFAULT 'applet'";
+            $sqlForUpdate[] = "UPDATE `" . $tbl_mdb_names['module'] . "`
+                SET `name` = 'Announcements'
+                WHERE `name`= 'Announcement'";
                         
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
@@ -91,11 +94,9 @@ function upgrade_main_database_module_to_19 ()
             unset($sqlForUpdate);
         
         case 4 :
-
-            // module
-            $sqlForUpdate[] = "UPDATE `" . $tbl_mdb_names['module'] . "`
-                SET `name` = 'Announcements'
-                WHERE `name`= 'Announcement'";
+            $sqlForUpdate[] = "UPDATE `" . $tbl_mdb_names['course_tool'] . "`
+                SET `icon` = 'icon.png'
+                WHERE 1";
                         
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
