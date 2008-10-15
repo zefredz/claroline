@@ -82,7 +82,7 @@ function upgrade_main_database_module_to_19 ()
             unset($sqlForUpdate);
         case 3:
             
-            $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['module'] . "` (
+            $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['module'] . "` 
                 CHANGE `type` `type` VARCHAR( 10 ) NOT NULL DEFAULT 'applet'";
                         
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
