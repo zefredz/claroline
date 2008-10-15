@@ -307,14 +307,21 @@ function quiz_upgrade_to_19 ($course_code)
         {
             case 1 :
                 // qwz_rel_exercise_question - fix key and index
-                $sqlForUpdate[] = "ALTER TABLE `". $currentCourseDbNameGlu ."qwz_rel_exercise_question`
+                $sql = "ALTER TABLE `". $currentCourseDbNameGlu ."qwz_rel_exercise_question`
                   DROP PRIMARY KEY,
                   ADD PRIMARY KEY(`exerciseId`, `questionId`)";
-                   
-                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1, $course_code);
-                else return $step ;
+                  
+                $success = upgrade_sql_query( $sql );
                 
-                unset($sqlForUpdate);
+                if ( ! $success )
+                {
+                    $sql = "ALTER TABLE `". $currentCourseDbNameGlu ."qwz_rel_exercise_question`
+                        ADD PRIMARY KEY(`exerciseId`, `questionId`)";
+                        
+                    $success = upgrade_sql_query( $sql );
+                }
+                if ( $success ) $step = set_upgrade_status($tool, $step+1, $course_code);
+                else return $step ;
                 
             case 2 :
                 // qwz_tracking - rename table
