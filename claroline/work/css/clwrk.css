@@ -1,35 +1,30 @@
 .feedback
 {
-	padding-left: 50px;
+    padding-left: 50px;
+    padding-top: 10px;
 }
-
-.feedback h4
-{
-	border-bottom: 1px solid #ccc;
-}
-
 
 .workInfo .workInfoTitle
 {
-	display: block;
-	width: 250px;
-	float: left;
+    display: block;
+    width: 250px;
+    float: left;
 }
 
 .workInfo .workInfoValue
 {
-	margin-left: 250px;
+    margin-left: 250px;
 }
 
 .workInfo blockquote
 {
-	margin-left: 0;
-	padding-left: 0;	
+    margin-left: 0;
+    padding-left: 0;    
 }
 
 .workCmdList
 {
-	padding-top: 10px; 
-	margin-left: 250px;
+    padding-top: 10px; 
+    margin-left: 250px;
 }
 
