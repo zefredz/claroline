@@ -94,7 +94,7 @@ function upgrade_main_database_module_to_19 ()
             unset($sqlForUpdate);
         
         case 4 :
-            $sqlForUpdate[] = "UPDATE `" . $tbl_mdb_names['course_tool'] . "`
+            $sqlForUpdate[] = "UPDATE `" . $tbl_mdb_names['tool'] . "`
                 SET `icon` = 'icon.png'
                 WHERE 1";
                         
