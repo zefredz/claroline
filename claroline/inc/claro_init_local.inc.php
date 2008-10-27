@@ -293,7 +293,7 @@ $claro_loginRequested = false;
 $claro_loginSucceeded = false;
 $currentUser = false;
 
-if ($logout && !empty($_SESSION['_uid']))
+if ( $logout && !empty($_SESSION['_uid']) )
 {
     // needed to notify that a user has just loggued out
     $logout_uid = $_SESSION['_uid'];
@@ -316,8 +316,19 @@ if ( ! empty($_SESSION['_uid']) && ! ($login || $logout) )
 }
 else
 {
-    $_uid     = null;   // uid not in session ? prevent any hacking
+    // $_uid     = null;   // uid not in session ? prevent any hacking
     $uidReset = false;
+    
+    // Unset current user authentication :
+    if ( isset( $GLOBALS['_uid'] ) )
+    {
+        unset( $GLOBALS['_uid'] );
+    }
+    
+    if ( isset( $_SESSION['_uid'] ) )
+    {
+        unset( $_SESSION['_uid'] );
+    }
 
     if ( get_conf('claro_CasEnabled', false) ) // CAS is a special case of external authentication
     {
