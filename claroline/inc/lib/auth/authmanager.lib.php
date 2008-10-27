@@ -369,7 +369,7 @@ abstract class AbstractAuthDriver implements AuthDriver
     {
         if ( $this->getUSerId() )
         {
-            return Claro_CurrentUser::getInstance($this->getUserId());
+            return Claro_CurrentUser::getInstance( $this->getUserId(), true );
         }
         else
         {

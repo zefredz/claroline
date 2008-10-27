@@ -181,13 +181,13 @@ class Claro_CurrentUser extends Claro_User
     
     protected static $instance = false;
     
-    public static function getInstance( $uid = null )
+    public static function getInstance( $uid = null, $forceReload = false )
     {
-        if ( ! self::$instance )
+        if ( $forceReload || ! self::$instance )
         {
             self::$instance = new self( $uid );
             
-            if ( claro_is_user_authenticated() )
+            if ( !$forceReload && claro_is_user_authenticated() )
             {
                 self::$instance->loadFromSession();
             }
