@@ -1322,7 +1322,7 @@ function make_clickable($text)
     // xxxx can only be alpha characters.
     // yyyy is anything up to the first space, newline, or comma.
 
-    $ret = preg_replace("#([\n ])([a-z]+?)://([^, \n\r]+)#i",
+    $ret = preg_replace("#([\n ])([a-z]+?)://([^, \n\r<]+)#i",
     "\\1<a href=\"\\2://\\3\" >\\2://\\3</a>",
     $ret);
 
@@ -1333,7 +1333,7 @@ function make_clickable($text)
     // This is slightly restrictive - it's not going to match stuff like "forums.foo.com"
     // This is to keep it from getting annoying and matching stuff that's not meant to be a link.
 
-    $ret = preg_replace("#([\n ])www\.([a-z0-9\-]+)\.([a-z0-9\-.\~]+)((?:/[^, \n\r]*)?)#i",
+    $ret = preg_replace("#([\n ])www\.([a-z0-9\-]+)\.([a-z0-9\-.\~]+)((?:/[^, \n\r<]*)?)#i",
     "\\1<a href=\"http://www.\\2.\\3\\4\" >www.\\2.\\3\\4</a>",
     $ret);
 
@@ -1341,7 +1341,7 @@ function make_clickable($text)
     // Note: before the @ sign, the only valid characters are the alphanums and "-", "_", or ".".
     // After the @ sign, we accept anything up to the first space, linebreak, or comma.
 
-    $ret = preg_replace("#([\n ])([a-z0-9\-_.]+?)@([^, \n\r]+)#i",
+    $ret = preg_replace("#([\n ])([a-z0-9\-_.]+?)@([^, \n\r<]+)#i",
     "\\1<a href=\"mailto:\\2@\\3\">\\2@\\3</a>",
     $ret);
 
