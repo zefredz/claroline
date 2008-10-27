@@ -40,6 +40,14 @@ class AuthManager
         }
         else
         {
+            // avoid issues with session collision when many users connect from
+            // the same computer at the same time with the same browser session !
+            if ( self::userExists( $username ) ) 
+            {   
+                self::setFailureMessage( get_lang( "There is already an account with this username." ) );
+                return false;
+            }
+            
             $authSource = null;
             $driverList = AuthDriverManager::getRegisteredDrivers();
         }
@@ -73,13 +81,31 @@ class AuthManager
         return false;
     }
     
-    public static function registered( $username, $authSourceName = null )
+    public static function userExists( $username )
     {
-        if ( empty( $authSourceName ) )
+        $tbl = claro_sql_get_main_tbl();
+
+        $sql = "SELECT user_id, authSource\n"
+            . "FROM `{$tbl['user']}`\n"
+            . "WHERE "
+            . ( get_conf('claro_authUsernameCaseSensitive',true) ? 'BINARY ' : '')
+            . "username = ". Claroline::getDatabase()->quote($username) . "\n"
+            ;
+
+        $res = Claroline::getDatabase()->query( $sql );
+
+        if ( $res->numRows() )
+        {
+            return true;
+        }
+        else
         {
             return false;
         }
-        
+    }
+    
+    public static function registered( $username, $authSourceName )
+    {
         $tbl = claro_sql_get_main_tbl();
         
         $sql = "SELECT user_id\n"
@@ -271,6 +297,19 @@ abstract class AbstractAuthDriver implements AuthDriver
     
     protected function registerUser( $userAttrList, $uid = null )
     {
+        // bug !!!!
+        if ( ! is_null( $uid ) )
+        {
+            if ( $this->username != $userAttrList['loginName'] )
+            {
+                Console::error( "EXTAUTH ERROR : try to overwrite an existing user {$this->username} with another one" . var_export($userAttrList, true) );
+            }
+
+            $this->userId = $uid;
+            return $uid;
+        }
+        
+        
         $preparedList = array();
         
         // Map database fields
@@ -283,7 +322,15 @@ abstract class AbstractAuthDriver implements AuthDriver
             'phoneNumber' => 'phoneNumber',
             'isCourseCreator' => 'isCourseCreator',
             'authSource' => 'authSource');
-            
+        
+        // Do not overwrite username and authsource for an existing user !!!
+        if ( ! is_null( $uid ) )
+        {
+            unset( $dbFieldToClaroMap['username'] );
+            unset( $dbFieldToClaroMap['authSource'] );
+        }
+
+        
         foreach ( $dbFieldToClaroMap as $dbFieldName => $claroAttribName )
         {
             if ( ! is_null($userAttrList[$claroAttribName])
@@ -512,22 +559,6 @@ class PearAuthDriver extends AbstractAuthDriver
         $this->extAuthIgnoreUpdateList = $driverConfig['extAuthAttribToIgnore'];
     }
     
-    /* public function __construct( 
-        $authType,
-        $authSourceName,
-        $extAuthOptionList,
-        $extAuthAttribNameList,
-        $extAuthAttribTreatmentList,
-        $extAuthIgnoreUpdateList = array() )
-    {
-        $this->authType = $authType;
-        $this->authSourceName = $authSourceName;
-        $this->extAuthOptionList = $extAuthOptionList;
-        $this->extAuthAttribNameList = $extAuthAttribNameList;
-        $this->extAuthAttribTreatmentList = $extAuthAttribTreatmentList;
-        $this->extAuthIgnoreUpdateList = $extAuthIgnoreUpdateList;
-    }*/
-    
     public function userRegistrationAllowed()
     {
         return $this->userRegistrationAllowed;
@@ -620,15 +651,6 @@ class PearAuthDriver extends AbstractAuthDriver
     
     public static function fromConfig( $driverConfig )
     {
-        /* $driver = new self(
-            $driverConfig['driver']['authSourceType'],
-            $driverConfig['driver']['authSourceName'],
-            $driverConfig['extAuthOptionList'],
-            $driverConfig['extAuthAttribNameList'],
-            $driverConfig['extAuthAttribTreatmentList'],
-            $driverConfig['extAuthAttribToIgnore']
-        );*/
-        
         $driver = new self( $driverConfig );
         
         return $driver;
