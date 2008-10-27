@@ -224,4 +224,25 @@ class Claro_CurrentCourse extends Claro_Course
     {
         $_SESSION['_course'] = $this->_rawData;
     }
+    
+    protected static $instance = false;
+    
+    public static function getInstance( $courseId = null, $forceReload = false )
+    {
+        if ( $forceReload || ! self::$instance )
+        {
+            self::$instance = new self( $courseId );
+            
+            if ( !$forceReload && claro_is_in_a_course() )
+            {
+                self::$instance->loadFromSession();
+            }
+            else
+            {
+                self::$instance->loadFromDatabase();
+            }
+        }
+        
+        return self::$instance;
+    }
 }
