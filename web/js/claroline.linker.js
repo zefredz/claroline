@@ -191,7 +191,7 @@ var linkerFrontend = {
                     // alert( linkerFrontend.history.toSource() );
                     
                     $("<a />")
-                        .text("[Remonter]")
+                        .text('['+Claroline.getLang('Up')+']')
                         .attr("onclick", "linkerFrontend.loadList('"+data.parent+"');return false;")
                         .appendTo("#lnk_back_link")
                         ;
