@@ -329,11 +329,23 @@ else
     {
         unset( $_SESSION['_uid'] );
     }
+    
+    if ( isset( $GLOBALS['_user'] ) )
+    {
+        unset( $GLOBALS['_user'] );
+    }
+    
+    if ( isset( $_SESSION['_user'] ) )
+    {
+        unset( $_SESSION['_user'] );
+    }
+    
+    // CAS (BROKEN !!!! )
 
-    if ( get_conf('claro_CasEnabled', false) ) // CAS is a special case of external authentication
+    /* if ( get_conf('claro_CasEnabled', false) ) // CAS is a special case of external authentication
     {
         require(get_path('rootSys').'/claroline/auth/extauth/casProcess.inc.php');
-    }
+    }*/
 
     if ( $login && $password ) // $login && $password are given to log in
     {
