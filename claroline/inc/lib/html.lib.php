@@ -1233,6 +1233,7 @@ function claro_parse_user_text($userText)
 {
     $userText = renderTex($userText);
     $userText = make_clickable($userText);
+    $userText = make_spoiler($userText);
 
     if( !preg_match('/<!-- content:[^(\-\->)]*-->/', $userText) && !preg_match('/<br ?\/?>/i', $userText))
     {
@@ -1243,6 +1244,35 @@ function claro_parse_user_text($userText)
 
     return $userText;
 }
+
+function make_spoiler($text)
+{
+    srand((double) microtime()*100000);
+
+    return preg_replace_callback(
+        "%\[spoiler.*(?:/([^'/]*)/)?\s*\](.*)\[/spoiler\]%isU",
+        "add_spoiler",
+        $text
+    );
+
+    
+}
+
+function add_spoiler($match)
+{
+    // show and hide text
+    $spoiler_show_text = (!empty($match[1]) ? $match[1] : get_lang('Show') );
+    
+    return '<div>'
+    .   '<a href="#" class="reveal showSpoiler">'
+    .   $spoiler_show_text
+    .   '</a>' . "\n"
+    .   '<div class="spoiler">' . "\n"
+    .   $match[2] 
+    .   '</div>' . "\n"
+    .   '</div>' . "\n";
+}
+
 
 /**
  * Parse the user text to transform bb code style tex tags to
