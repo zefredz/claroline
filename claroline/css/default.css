@@ -773,6 +773,9 @@ dl.userCourseList
                              VARIOUS CLAROLINE CSS CLASS
  ******************************************************************************/
 
+.spoiler {
+    display: none;
+}
 /*
  * 'claroMessageBox' is used to display all messages from the platform like
  * action confirmation, parameter request, warning mesage...
@@ -801,7 +804,6 @@ dl.userCourseList
     padding: 5px 5px 5px 20px; 
     border: 1px solid #ccc;
     background: #F9F7ED;
-    float: left;
     border-left: 2px solid #ccc;
 }
 
