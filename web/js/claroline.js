@@ -58,6 +58,15 @@ Claroline.json = {
     }
 };
 
+Claroline.spoil = function(item) {
+    $(item).parents("div").children("div.spoiler").toggle();
+    // change link display
+    $(item).parents("div").children("a.reveal").toggleClass("showSpoiler");
+    $(item).parents("div").children("a.reveal").toggleClass("hideSpoiler");
+
+    return false;
+};
+
 $(document).ready( function (){
     // this is the core function of Claroline's jQuery implementation
 
@@ -72,19 +81,6 @@ $(document).ready( function (){
         $(this).hide();
     });
     
-    // added for spoiler in parsed user text zone
-    $("div.spoiler").hide();
-    
-    $("a.reveal").click(function() {
-        // show or hide content
-        $(this).parents("div").children("div.spoiler").toggle();
-        // change link display
-        $(this).parents("div").children("a.reveal").toggleClass("showSpoiler");
-        $(this).parents("div").children("a.reveal").toggleClass("hideSpoiler");
-
-        return false;
-    });
-
 });
 
 // here should also come :
