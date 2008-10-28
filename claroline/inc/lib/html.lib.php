@@ -1276,7 +1276,7 @@ function add_spoiler($match)
     $spoiler_show_text = (!empty($match[1]) ? $match[1] : get_lang('Show') );
     
     return '<div>'
-    .   '<a href="#" class="reveal showSpoiler">'
+    .   '<a href="#" class="reveal showSpoiler" onclick="javascript:Claroline.spoil($(this)); return false;">'
     .   $spoiler_show_text
     .   '</a>' . "\n"
     .   '<div class="spoiler">' . "\n"
