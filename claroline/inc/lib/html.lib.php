@@ -1245,6 +1245,12 @@ function claro_parse_user_text($userText)
     return $userText;
 }
 
+/**
+ * Find all spoiler tags in text and replace them by html
+ *
+ * @param string $text text in which replace spoiler tags
+ * @return string text with spoiler tags replaced by html
+ */
 function make_spoiler($text)
 {
     srand((double) microtime()*100000);
@@ -1258,6 +1264,12 @@ function make_spoiler($text)
     
 }
 
+/**
+ * Callback function used by make_spoiler function
+ *
+ * @param array $match
+ * @return string replacement for matched spoiler tags
+ */
 function add_spoiler($match)
 {
     // show and hide text
@@ -1268,7 +1280,7 @@ function add_spoiler($match)
     .   $spoiler_show_text
     .   '</a>' . "\n"
     .   '<div class="spoiler">' . "\n"
-    .   $match[2] 
+    .   ( !empty($match[2]) ? $match[2] : '') 
     .   '</div>' . "\n"
     .   '</div>' . "\n";
 }
