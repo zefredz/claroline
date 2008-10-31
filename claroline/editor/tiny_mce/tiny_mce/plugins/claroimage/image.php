@@ -44,8 +44,8 @@
     {
         // platform context
         $is_allowedToEdit = claro_is_platform_admin();
-        $pathSys = get_path('rootSys') . 'platform/img/';
-        $pathWeb = get_path('rootWeb') . 'platform/img/';
+        $pathSys = get_path('rootSys') . 'platform/document/';
+        $pathWeb = get_path('rootWeb') . 'platform/document/';
     }
     
     if( !$is_allowedToEdit )

@@ -105,8 +105,7 @@ else
     }
     else
     {
-        // FIXME : rename platform/img to platform/document
-        $intermediatePath = rtrim( str_replace( '\\', '/', get_path('rootSys') ), '/' ) . '/platform/img';
+        $intermediatePath = rtrim( str_replace( '\\', '/', get_path('rootSys') ), '/' ) . '/platform/document';
     }
 
     if ( get_conf('secureDocumentDownload') && $GLOBALS['is_Apache'] )
