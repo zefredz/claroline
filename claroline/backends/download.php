@@ -25,10 +25,7 @@ $noPHP_SELF=true;
 
 $isDownloadable = true ;
 
-if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
-
-$_course = claro_get_current_course_data();
-$_group  = claro_get_current_group_data();
+if ( claro_is_in_a_course() && ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 
 $claroline->notification->addListener( 'download', 'trackInCourse' );
 
@@ -46,6 +43,12 @@ if ( is_download_url_encoded($requestUrl) )
     $requestUrl = download_url_decode( $requestUrl );
 }
 
+/*if ( ! claro_is_in_a_course() && file_exists( rtrim( get_path('rootSys'), '/' ) . '/platform/img' . $requestUrl ) )
+{
+    var_dump($requestUrl);
+    exit();
+}*/
+
 if ( empty($requestUrl) )
 {
     $isDownloadable = false ;
@@ -53,57 +56,68 @@ if ( empty($requestUrl) )
 }
 else
 {
-    if (claro_is_in_a_group())
+    if ( claro_is_in_a_course() )
     {
-        $groupContext  = true;
-        $courseContext = false;
-        $is_allowedToEdit = claro_is_group_member() ||  claro_is_group_tutor() || claro_is_course_manager();
-    }
-    else
-    {
-        $groupContext  = false;
-        $courseContext = true;
-        $is_allowedToEdit = claro_is_course_manager();
-    }
-
-    if ($courseContext)
-    {
-        $courseTblList = claro_sql_get_course_tbl();
-        $tbl_document =  $courseTblList['document'];
-
-        $sql = 'SELECT visibility
-                FROM `'.$tbl_document.'`
-                WHERE path = "'.claro_sql_escape($requestUrl).'"';
-
-        $docVisibilityStatus = claro_sql_query_get_single_value($sql);
-
-        if (    ( ! is_null($docVisibilityStatus) ) // hidden document can only be viewed by course manager
-             && $docVisibilityStatus == 'i'
-             && ( ! $is_allowedToEdit ) )
+        $_course = claro_get_current_course_data();
+        $_group  = claro_get_current_group_data();
+    
+        if (claro_is_in_a_group())
         {
-            $isDownloadable = false ;
-            $dialogBox->error( get_lang('Not allowed') );
+            $groupContext  = true;
+            $courseContext = false;
+            $is_allowedToEdit = claro_is_group_member() ||  claro_is_group_tutor() || claro_is_course_manager();
+        }
+        else
+        {
+            $groupContext  = false;
+            $courseContext = true;
+            $is_allowedToEdit = claro_is_course_manager();
+        }
+    
+        if ($courseContext)
+        {
+            $courseTblList = claro_sql_get_course_tbl();
+            $tbl_document =  $courseTblList['document'];
+    
+            $sql = 'SELECT visibility
+                    FROM `'.$tbl_document.'`
+                    WHERE path = "'.claro_sql_escape($requestUrl).'"';
+    
+            $docVisibilityStatus = claro_sql_query_get_single_value($sql);
+    
+            if (    ( ! is_null($docVisibilityStatus) ) // hidden document can only be viewed by course manager
+                 && $docVisibilityStatus == 'i'
+                 && ( ! $is_allowedToEdit ) )
+            {
+                $isDownloadable = false ;
+                $dialogBox->error( get_lang('Not allowed') );
+            }
+        }
+    
+        if (claro_is_in_a_group() && claro_is_group_allowed())
+        {
+            $intermediatePath = get_path('coursesRepositorySys') . claro_get_course_path(). '/group/'.claro_get_current_group_data('directory');
+        }
+        else
+        {
+            $intermediatePath = get_path('coursesRepositorySys') . claro_get_course_path(). '/document';
         }
     }
-
-    if (claro_is_in_a_group() && claro_is_group_allowed())
-    {
-        $intermediatePath = claro_get_course_path(). '/group/'.claro_get_current_group_data('directory');
-    }
     else
     {
-        $intermediatePath = claro_get_course_path(). '/document';
+        // FIXME : rename platform/img to platform/document
+        $intermediatePath = rtrim( str_replace( '\\', '/', get_path('rootSys') ), '/' ) . '/platform/img';
     }
 
     if ( get_conf('secureDocumentDownload') && $GLOBALS['is_Apache'] )
     {
         // pretty url
-        $pathInfo = realpath(get_path('coursesRepositorySys') . $intermediatePath . '/' . $requestUrl);
+        $pathInfo = realpath( $intermediatePath . '/' . $requestUrl);
     }
     else
     {
         // TODO check if we can remove rawurldecode
-        $pathInfo = get_path('coursesRepositorySys'). $intermediatePath
+        $pathInfo = $intermediatePath
                     . implode ( '/',
                             array_map('rawurldecode', explode('/',$requestUrl)));
     }
