@@ -56,8 +56,8 @@
     {
         // platform context
         $is_allowedToEdit = claro_is_platform_admin();
-        $pathSys = get_path('rootSys') . 'platform/img/';
-        $pathWeb = get_path('rootWeb') . 'platform/img/';
+        $pathSys = get_path('rootSys') . 'platform/document/';
+        $pathWeb = get_path('rootWeb') . 'platform/document/';
     }
     
     if( claro_is_user_authenticated() && !$is_allowedToEdit )
@@ -110,7 +110,7 @@
         {
             if( $file->isDir() && !$file->isDot() )
             {
-                // get relative path from allowed root (document/img or platform/img) to target
+                // get relative path from allowed root (document/img or platform/document) to target
                 $relativePath = str_replace(realpath($pathSys),'',realpath($file->getPathname()));
                 
                 $out .= '<li>'  . "\n"
