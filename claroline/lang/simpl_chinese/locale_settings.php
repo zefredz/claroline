@@ -2,7 +2,7 @@
 /**
  * CLAROLINE
  * Simplified Chinese Translation
- * @version 1.8 $Revision$
+ * @version 1.8.8 $Revision$
  *
  * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
@@ -10,28 +10,43 @@
  *
  * @package LANG-ZH
  *
- * @author Claro team <cvs@claroline.net>
+ * @author Derek Zhou <zhous1998@gmail.com> (www.claroline.net.cn)
  */
 $englishLangName = "Chinese";
-$localLangName = "zho";
 
 $iso639_1_code = "zh";
 $iso639_2_code = "zho";
 
-$langNameOfLang['brazilian']="brazilian";
-$langNameOfLang['english']="english";
-$langNameOfLang['finnish']="finnish";
-$langNameOfLang['french']="french";
-$langNameOfLang['german']="german";
-$langNameOfLang['italian']="italian";
-$langNameOfLang['japanese']="japanese";
-$langNameOfLang['polish']="polish";
-$langNameOfLang['simpl_chinese']="simplified chinese";
-$langNameOfLang['spanish']="spanish";
-$langNameOfLang['swedish']="swedish";
-$langNameOfLang['thai']="thai";
+$langNameOfLang['arabic']        = "arabian";
+$langNameOfLang['brazilian']     = "brazilian";
+$langNameOfLang['bulgarian']     = "bulgarian";
+$langNameOfLang['catalan']       = "catalan";
+$langNameOfLang['croatian']      = "croatian";
+$langNameOfLang['danish']        = "danish";
+$langNameOfLang['dutch']         = "dutch";
+$langNameOfLang['english']       = "english";
+$langNameOfLang['finnish']       = "finnish";
+$langNameOfLang['french']        = "french";
+$langNameOfLang['galician']      = "galician";
+$langNameOfLang['german']        = "german";
+$langNameOfLang['greek']         = "greek";
+$langNameOfLang['italian']       = "italian";
+$langNameOfLang['indonesian']    = "indonesian";
+$langNameOfLang['japanese']      = "japanese";
+$langNameOfLang['malay']         = "malay";
+$langNameOfLang['polish']        = "polish";
+$langNameOfLang['portuguese']    = "portuguese";
+$langNameOfLang['russian']       = "russian";
+$langNameOfLang['simpl_chinese'] = "简体中文";
+$langNameOfLang['slovenian']     = "slovenian";
+$langNameOfLang['spanish']       = "spanish";
+$langNameOfLang['swedish']       = "swedish";
+$langNameOfLang['thai']          = "thai";
+$langNameOfLang['turkish']       = "turkish";
+$langNameOfLang['vietnamese']    = "vietnamese";
+$langNameOfLang['zh_tw']         = "繁体中文";
 
-$charset = 'gb2312';
+$charset = 'GB2312';
 $text_dir = 'ltr'; // ('ltr' for left to right, 'rtl' for right to left)
 $left_font_family = 'simsun, 宋体';
 $right_font_family = 'simsun';
@@ -39,20 +54,21 @@ $number_thousands_separator = ',';
 $number_decimal_separator = '.';
 $byteUnits = array('字节', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB');
 
-$langDay_of_weekNames['init'] = array('S', 'M', 'T', 'W', 'T', 'F', 'S');
-$langDay_of_weekNames['short'] = array('Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat');
+$langDay_of_weekNames['init'] = array('日', '一', '二', '三', '四', '五', '六');
+$langDay_of_weekNames['short'] = array('日', '一', '二', '三', '四', '五', '六');
 $langDay_of_weekNames['long'] = array('周日', '周一', '周二', '周三', '周四', '周五', '周六');
 
-$langMonthNames['init']  = array('J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D');
-$langMonthNames['short'] = array('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec');
-$langMonthNames['long'] = array('一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月');
+$langMonthNames['init']  = array('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12');
+$langMonthNames['short'] = array('1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12');
+$langMonthNames['long'] = array('1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月');
 
 // Voir http://www.php.net/manual/en/function.strftime.php pour la variable
 // ci-dessous
 
-$dateFormatShort =  "%b %d, %y";
-$dateFormatLong  = '%A %B %d, %Y';
-$dateTimeFormatLong  = '%B %d, %Y at %I:%M %p';
+$dateFormatShort =  "%y %b %d";
+$dateFormatLong  = '%Y %B %d, %A';
+$dateTimeFormatLong  = '%Y %B %d, %I:%M %p';
+$dateTimeFormatShort = "%y %b %d, %I:%M %p";
 $timeNoSecFormat = '%I:%M %p';
 
 ?>
