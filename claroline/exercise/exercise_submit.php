@@ -659,22 +659,23 @@ $htmlHeaders = "\n".'
 <script type="text/javascript">
     $(document).ready(function() {
         $(".labelizer").click(function() {
-            if( $(this).find("input").attr("type") == "checkbox" )
+            if( $(this).parent("tr").find("input").attr("type") == "checkbox" )
             {
-                if( $(this).find("input").attr("checked") )
+                if( $(this).parent("tr").find("input").attr("checked") )
                 {
-                    $(this).find("input").removeAttr("checked");
+                    $(this).parent("tr").find("input").removeAttr("checked");
                 }
                 else
                 {
-                    $(this).find("input").attr("checked","checked");
+                    $(this).parent("tr").find("input").attr("checked","checked");
                 }
             }
-            else if( $(this).find("input").attr("type") == "radio" )
+            else if( $(this).parent("tr").find("input").attr("type") == "radio" )
             {
-                // uncheck all input of this level
-                $(this).parent("tr").find("input").removeAttr("checked");
-                $(this).find("input").attr("checked","checked");
+                // uncheck all input on the same level
+                $(this).parent().parent().children().find("input").removeAttr("checked");
+                // check the corresponding one
+                $(this).parent().find("input").attr("checked","checked");
             }
         })
     });

@@ -341,7 +341,7 @@ class answerMultipleChoice
                 $isSelected = array_key_exists($answer['id'], $this->response);
 
                 $html .=
-                    '<tr class="labelizer">' . "\n"
+                    '<tr>' . "\n"
                 .     '<td align="center" width="5%">' . "\n";
 
                 if( $this->multipleAnswer )
@@ -361,7 +361,7 @@ class answerMultipleChoice
 
                 $html .=
                     '</td>' . "\n"
-                .    '<td width="95%">' . "\n"
+                .    '<td width="95%" class="labelizer">' . "\n"
                 //.    '<label for="a_'.$this->questionId.'_'.$answer['id'].'">' . claro_parse_user_text($answer['answer']) . '</label>' . "\n"
                 .    '<div>'
                 .    claro_parse_user_text($answer['answer'])
