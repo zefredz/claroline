@@ -1650,7 +1650,7 @@ function claro_html_tab_bar( $section_list,
         : '?'
         ;
 
-    if ( !empty($section_list) && count($section_list)>2)
+    if ( !empty($section_list) )
     {
         $extra_url_params = '';
         
