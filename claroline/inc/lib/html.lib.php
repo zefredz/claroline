@@ -1638,20 +1638,21 @@ function claro_html_tab_bar( $section_list,
                              $section_request_var_name = 'section',
                              $baseUrl = null )
 {
-    $baseUrl = empty( $baseUrl )
-        ? $_SERVER['PHP_SELF']
-        : $baseUrl
-        ;
-        
     $menu = '';
-    
-    $baseUrl .= ( false !== strpos($baseUrl, '?' ) )
-        ? '&amp;'
-        : '?'
-        ;
 
     if ( !empty($section_list) )
     {
+        $baseUrl = empty( $baseUrl )
+            ? $_SERVER['PHP_SELF']
+            : $baseUrl
+            ;
+            
+        $baseUrl .= ( false !== strpos($baseUrl, '?' ) )
+            ? '&amp;'
+            : '?'
+            ;
+        
+        
         $extra_url_params = '';
         
         if ( ! empty ( $url_params ) )
