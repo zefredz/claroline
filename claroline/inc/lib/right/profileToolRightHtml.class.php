@@ -156,21 +156,38 @@ class RightProfileToolRightHtml
                         $param_append .= '&amp;' . $name . '=' . $value;
                     }
                 }
-
-                if ( $action_right == 'none' )
+                
+                if ( claro_get_profile_label($profile_id) != ANONYMOUS_PROFILE
+                    && claro_get_profile_label($profile_id) != GUEST_PROFILE )
                 {
-                    $action_param_value = 'user';
-                    $html_right = '<img src="' . get_icon_url('forbidden') . '" alt="' . get_lang('None') . '" />' . "\n" ;
-                }
-                elseif ( $action_right == 'user' )
-                {
-                    $action_param_value = 'manager';
-                    $html_right = '<img src="' . get_icon_url('user') . '" alt="' . get_lang('User') . '" />' . "\n" ;
+                    if ( $action_right == 'none' )
+                    {
+                        $action_param_value = 'user';
+                        $html_right = '<img src="' . get_icon_url('forbidden') . '" alt="' . get_lang('None') . '" />' . "\n" ;
+                    }
+                    elseif ( $action_right == 'user' )
+                    {
+                        $action_param_value = 'manager';
+                        $html_right = '<img src="' . get_icon_url('user') . '" alt="' . get_lang('User') . '" />' . "\n" ;
+                    }
+                    else
+                    {
+                        $action_param_value = 'none';
+                        $html_right = '<img src="' . get_icon_url('manager') . '" alt="' . get_lang('Manager') . '" />' . "\n" ;
+                    }
                 }
                 else
                 {
-                    $action_param_value = 'none';
-                    $html_right = '<img src="' . get_icon_url('manager') . '" alt="' . get_lang('Manager') . '" />' . "\n" ;
+                    if ( $action_right == 'none' )
+                    {
+                        $action_param_value = 'user';
+                        $html_right = '<img src="' . get_icon_url('forbidden') . '" alt="' . get_lang('None') . '" />' . "\n" ;
+                    }
+                    else
+                    {
+                        $action_param_value = 'none';
+                        $html_right = '<img src="' . get_icon_url('user') . '" alt="' . get_lang('User') . '" />' . "\n" ;
+                    }
                 }
 
                 if ( $displayMode == 'edit' )

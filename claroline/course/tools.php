@@ -88,28 +88,39 @@ $externalLinkUrl = isset($_REQUEST['toolUrl'])?$_REQUEST['toolUrl']:null;
 
 if ( !empty($profile_id) )
 {
-    // load profile
-    $profile = new RightProfile();
-
-    if ( $profile->load($profile_id) )
+    if ( $right_value == 'manager'
+        && ( claro_get_profile_label( $profile_id ) == ANONYMOUS_PROFILE
+            || claro_get_profile_label( $profile_id ) == GUEST_PROFILE ) )
     {
-        // load profile tool right
-        $courseProfileRight = new RightCourseProfileToolRight();
-        $courseProfileRight->setCourseId(claro_get_current_course_id());
-        $courseProfileRight->load($profile);
-
-        if ( ! $profile->isLocked() )
-        {
-            if ( $cmd == 'set_right' && !empty($tool_id) )
-            {
-                $courseProfileRight->setToolRight($tool_id,$right_value);
-                $courseProfileRight->save();
-            }
-        }
+        $dialogBox->error( get_lang('Cannot give manager rights to guest or anonymous users.') );
+        
+        $profile_id = null;
     }
     else
     {
-        $profile_id = null;
+        // load profile
+        $profile = new RightProfile();
+    
+        if ( $profile->load($profile_id) )
+        {
+            // load profile tool right
+            $courseProfileRight = new RightCourseProfileToolRight();
+            $courseProfileRight->setCourseId(claro_get_current_course_id());
+            $courseProfileRight->load($profile);
+    
+            if ( ! $profile->isLocked() )
+            {
+                if ( $cmd == 'set_right' && !empty($tool_id) )
+                {
+                    $courseProfileRight->setToolRight($tool_id,$right_value);
+                    $courseProfileRight->save();
+                }
+            }
+        }
+        else
+        {
+            $profile_id = null;
+        }
     }
 }
 
