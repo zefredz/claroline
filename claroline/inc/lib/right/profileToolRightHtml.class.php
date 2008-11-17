@@ -130,7 +130,7 @@ class RightProfileToolRightHtml
 
             if ( $isLocked && $className == strtolower('RightCourseProfileToolRight') )
             {
-                $displayMode = 'read';
+                $displayMode = claro_is_platform_admin() ? $this->displayMode : 'read';
                 $html_table_header_list[$profile_id] .= '&nbsp;<img src="' . get_icon_url('locked') . '" alt="' . get_lang('Profile locked') . '" />';
             }
             else

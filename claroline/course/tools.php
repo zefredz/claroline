@@ -108,7 +108,7 @@ if ( !empty($profile_id) )
             $courseProfileRight->setCourseId(claro_get_current_course_id());
             $courseProfileRight->load($profile);
     
-            if ( ! $profile->isLocked() )
+            if ( ! $profile->isLocked() || claro_is_platform_admin() )
             {
                 if ( $cmd == 'set_right' && !empty($tool_id) )
                 {
