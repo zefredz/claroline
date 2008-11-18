@@ -163,17 +163,17 @@ class RightProfileToolRightHtml
                     if ( $action_right == 'none' )
                     {
                         $action_param_value = 'user';
-                        $html_right = '<img src="' . get_icon_url('forbidden') . '" alt="' . get_lang('None') . '" />' . "\n" ;
+                        $html_right = '<img src="' . get_icon_url('forbidden') . '" alt="' . get_lang('None') . '" />&nbsp;<small>' . get_lang('No access') . "</small>\n" ;
                     }
                     elseif ( $action_right == 'user' )
                     {
                         $action_param_value = 'manager';
-                        $html_right = '<img src="' . get_icon_url('user') . '" alt="' . get_lang('User') . '" />' . "\n" ;
+                        $html_right = '<img src="' . get_icon_url('user') . '" alt="' . get_lang('User') . '" />&nbsp;<small>' . get_lang('Access allowed') . "</small>\n" ;
                     }
                     else
                     {
                         $action_param_value = 'none';
-                        $html_right = '<img src="' . get_icon_url('manager') . '" alt="' . get_lang('Manager') . '" />' . "\n" ;
+                        $html_right = '<img src="' . get_icon_url('manager') . '" alt="' . get_lang('Manager') . '" />&nbsp;<small>' . get_lang('Edition allowed') . "</small>\n" ;
                     }
                 }
                 else
@@ -181,12 +181,12 @@ class RightProfileToolRightHtml
                     if ( $action_right == 'none' )
                     {
                         $action_param_value = 'user';
-                        $html_right = '<img src="' . get_icon_url('forbidden') . '" alt="' . get_lang('None') . '" />' . "\n" ;
+                        $html_right = '<img src="' . get_icon_url('forbidden') . '" alt="' . get_lang('None') . '" />&nbsp;<small>'. get_lang('No access') . "</small>\n" ;
                     }
                     else
                     {
                         $action_param_value = 'none';
-                        $html_right = '<img src="' . get_icon_url('user') . '" alt="' . get_lang('User') . '" />' . "\n" ;
+                        $html_right = '<img src="' . get_icon_url('user') . '" alt="' . get_lang('User') . '" />&nbsp;<small>' . get_lang('Access allowed') . "</small>\n" ;
                     }
                 }
 

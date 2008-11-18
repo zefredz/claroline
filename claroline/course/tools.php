@@ -458,7 +458,7 @@ if ( $currentSection == 'toolRights' )
         }
     }
     
-    echo '<p><small><span style="text-decoration: underline">' . get_lang('Right list') . '</span> : '
+    /*echo '<p><small><span style="text-decoration: underline">' . get_lang('Right list') . '</span> : '
         . '<img src="' . get_icon_url('forbidden') . '" alt="' . get_lang('None') . '" /> '
         . get_lang('No access') . ' - '
         . '<img src="' . get_icon_url('user') . '" alt="' . get_lang('User') . '" />'
@@ -466,7 +466,7 @@ if ( $currentSection == 'toolRights' )
         . '<img src="' . get_icon_url('manager') . '" alt="' . get_lang('Manager') . '" /> '
         . get_lang('Edition allowed')
         . '.</small></p>'
-        ;
+        ;*/
     
     echo '<p><small><span style="text-decoration: underline">' . get_lang('Profile list')
         . '</span> : ' . implode($profileLegend,' - ') . '.</small></p>'
