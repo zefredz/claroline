@@ -74,7 +74,7 @@ else                                                                            
 
 
 if( isset($_REQUEST['downloadMode']) )	$downloadMode = $_REQUEST['downloadMode'];
-else									$downloadMode = 'all';
+else								    $downloadMode = 'all';
 
 /*============================================================================
                 HANDLING FORM DATA : CREATE/EDIT ASSIGNMENT
@@ -96,7 +96,7 @@ if( !is_null($cmd) )
         }
     }
 
-	// we have to recheck if $cmd is null as it could have been ressetted
+    // we have to recheck if $cmd is null as it could have been ressetted
     if( isset($_REQUEST['submitAssignment']) && !is_null($cmd) )
     {
         // form submitted
@@ -152,135 +152,135 @@ if( !is_null($cmd) )
   =============================================================================*/
 if( $cmd == 'exDownload' && $is_allowedToEdit && get_conf('allow_download_all_submissions') ) // UJM
 {
-	require_once('lib/zip.lib.php');
+    require_once('lib/zip.lib.php');
 
-	$zipfile = new zipfile();
+    $zipfile = new zipfile();
 
-	if( $downloadMode == 'from')
-	{
-		if( isset($_REQUEST['hour']) && is_numeric($_REQUEST['hour']) )   	$hour = (int) $_REQUEST['hour'];
-		else                                                              	$hour = 0;
-		if( isset($_REQUEST['minute']) && is_numeric($_REQUEST['minute']) ) $minute = (int) $_REQUEST['minute'];
-		else                                                              	$minute = 0;
+    if( $downloadMode == 'from')
+    {
+        if( isset($_REQUEST['hour']) && is_numeric($_REQUEST['hour']) )       $hour = (int) $_REQUEST['hour'];
+        else                                                                  $hour = 0;
+        if( isset($_REQUEST['minute']) && is_numeric($_REQUEST['minute']) ) $minute = (int) $_REQUEST['minute'];
+        else                                                                  $minute = 0;
 
-		if( isset($_REQUEST['month']) && is_numeric($_REQUEST['month']) )   $month = (int) $_REQUEST['month'];
-		else                                                              	$month = 0;
-		if( isset($_REQUEST['day']) && is_numeric($_REQUEST['day']) )   	$day = (int) $_REQUEST['day'];
-		else                                                              	$day = 0;
-		if( isset($_REQUEST['year']) && is_numeric($_REQUEST['year']) )   	$year = (int) $_REQUEST['year'];
-		else                                                              	$year = 0;
+        if( isset($_REQUEST['month']) && is_numeric($_REQUEST['month']) )   $month = (int) $_REQUEST['month'];
+        else                                                                  $month = 0;
+        if( isset($_REQUEST['day']) && is_numeric($_REQUEST['day']) )       $day = (int) $_REQUEST['day'];
+        else                                                                  $day = 0;
+        if( isset($_REQUEST['year']) && is_numeric($_REQUEST['year']) )       $year = (int) $_REQUEST['year'];
+        else                                                                  $year = 0;
 
-		$unixRequestDate = mktime( $hour, $minute, '00', $month, $day, $year );
+        $unixRequestDate = mktime( $hour, $minute, '00', $month, $day, $year );
 
-		if( $unixRequestDate >= time() )
-		{
-			$dialogBox .= get_lang('Warning : chosen date is in the future') . '<br />';
-		}
+        if( $unixRequestDate >= time() )
+        {
+            $dialogBox .= get_lang('Warning : chosen date is in the future') . '<br />';
+        }
 
-		$downloadRequestDate = date('Y-m-d G:i:s', $unixRequestDate);
+        $downloadRequestDate = date('Y-m-d G:i:s', $unixRequestDate);
 
-		$wanted = '_' . replace_dangerous_char(get_lang('From')) . '_' . date('Y_m_d', $unixRequestDate) . '_'
-		. replace_dangerous_char(get_lang('To')) . '_' . date('Y_m_d')
-		;
-		$sqlDateCondition = " AND `last_edit_date` >= '" . $downloadRequestDate . "' ";
-	}
-	else // download all
-	{
-		$wanted = '';
+        $wanted = '_' . replace_dangerous_char(get_lang('From')) . '_' . date('Y_m_d', $unixRequestDate) . '_'
+        . replace_dangerous_char(get_lang('To')) . '_' . date('Y_m_d')
+        ;
+        $sqlDateCondition = " AND `last_edit_date` >= '" . $downloadRequestDate . "' ";
+    }
+    else // download all
+    {
+        $wanted = '';
 
-		$sqlDateCondition = '';
-	}
+        $sqlDateCondition = '';
+    }
 
     $sql = "SELECT `id`,
-    		`assignment_id`,
-	 		`authors`,
-	 		`submitted_text`,
-	 		`submitted_doc_path`,
-	 		`title`,
-	 		`creation_date`,
-	 		`last_edit_date`
-	        FROM  `" . $tbl_wrk_submission . "`
+            `assignment_id`,
+             `authors`,
+             `submitted_text`,
+             `submitted_doc_path`,
+             `title`,
+             `creation_date`,
+             `last_edit_date`
+            FROM  `" . $tbl_wrk_submission . "`
             WHERE `parent_id` IS NULL
             " . $sqlDateCondition . "
             ORDER BY `creation_date`";
 
-	$results = claro_sql_query_fetch_all($sql);
+    $results = claro_sql_query_fetch_all($sql);
 
-	if( is_array($results) && !empty($results) )
-	{
-		$previousAuthors = '';
-		$i = 1;
+    if( is_array($results) && !empty($results) )
+    {
+        $previousAuthors = '';
+        $i = 1;
 
-		$assignmentDir = replace_dangerous_char($_cid) . '_' . replace_dangerous_char(get_lang('Assignments')) . $wanted . '/';
+        $assignmentDir = replace_dangerous_char($_cid) . '_' . replace_dangerous_char(get_lang('Assignments')) . $wanted . '/';
 
 
-		foreach($results as $row => $result)
-		{
-			//  count author's submissions for the name of directory
-			if( $result['authors'] != $previousAuthors )
-			{
-				$i = 1;
-				$previousAuthors = $result['authors'];
-			}
-			else
-			{
-				$i++;
-			}
+        foreach($results as $row => $result)
+        {
+            //  count author's submissions for the name of directory
+            if( $result['authors'] != $previousAuthors )
+            {
+                $i = 1;
+                $previousAuthors = $result['authors'];
+            }
+            else
+            {
+                $i++;
+            }
 
-			$path = $coursesRepositorySys . $_course['path'] . '/work/assig_' . (int) $result['assignment_id'] . '/';
+            $path = $coursesRepositorySys . $_course['path'] . '/work/assig_' . (int) $result['assignment_id'] . '/';
 
-			$workDir = $assignmentDir
-			. replace_dangerous_char(get_lang('Assignment')) . '_' . (int) $result['assignment_id'] . '/'
-			;
+            $workDir = $assignmentDir
+            . replace_dangerous_char(get_lang('Assignment')) . '_' . (int) $result['assignment_id'] . '/'
+            ;
 
-			$authorsDir = replace_dangerous_char($result['authors'], 'strict') . '/';
+            $authorsDir = replace_dangerous_char($result['authors'], 'strict') . '/';
 
-			$submissionPrefix = $authorsDir . replace_dangerous_char(get_lang('Submission')) . '_' . $i . '_';
+            $submissionPrefix = $authorsDir . replace_dangerous_char(get_lang('Submission')) . '_' . $i . '_';
 
-			// attached file
-			if(!empty($result['submitted_doc_path']))
-			{
-				if(file_exists($path . $result['submitted_doc_path']))
-				{
-					$zipfile->addFile(file_get_contents($path . $result['submitted_doc_path']),
-									$workDir . $submissionPrefix . replace_dangerous_char($result['submitted_doc_path']));
-				}
-			}
+            // attached file
+            if(!empty($result['submitted_doc_path']))
+            {
+                if(file_exists($path . $result['submitted_doc_path']))
+                {
+                    $zipfile->addFile(file_get_contents($path . $result['submitted_doc_path']),
+                                    $workDir . $submissionPrefix . replace_dangerous_char($result['submitted_doc_path']));
+                }
+            }
 
-			// description file
-			$txtFileName = replace_dangerous_char(get_lang('Description')) . '.html';
+            // description file
+            $txtFileName = replace_dangerous_char(get_lang('Description')) . '.html';
 
-			$htmlContent = '<html><head></head><body>' . "\n"
-			.	 get_lang('Title') . ' : ' . $result['title'] . '<br />' . "\n"
-			.	 get_lang('First submission date') . ' : ' . $result['creation_date']. '<br />' . "\n"
-			.	 get_lang('Last edit date') . ' : ' . $result['last_edit_date'] . '<br />' . "\n"
-			;
+            $htmlContent = '<html><head></head><body>' . "\n"
+            .     get_lang('Title') . ' : ' . $result['title'] . '<br />' . "\n"
+            .     get_lang('First submission date') . ' : ' . $result['creation_date']. '<br />' . "\n"
+            .     get_lang('Last edit date') . ' : ' . $result['last_edit_date'] . '<br />' . "\n"
+            ;
 
-			if( !empty($result['submitted_doc_path']) )
-			{
-				$htmlContent .= get_lang('Attached file') . ' : ' . $submissionPrefix . $result['submitted_doc_path']. '<br />' . "\n";
-			}
+            if( !empty($result['submitted_doc_path']) )
+            {
+                $htmlContent .= get_lang('Attached file') . ' : ' . $submissionPrefix . $result['submitted_doc_path']. '<br />' . "\n";
+            }
 
-			$htmlContent .= '<div>' . "\n"
-			.	 '<h3>' . get_lang('Description') . '</h3>' . "\n"
-			.	 $result['submitted_text']
-			.	 '</div>' . "\n"
-			.	 '</body></html>';
+            $htmlContent .= '<div>' . "\n"
+            .     '<h3>' . get_lang('Description') . '</h3>' . "\n"
+            .     $result['submitted_text']
+            .     '</div>' . "\n"
+            .     '</body></html>';
 
-			$zipfile->addFile($htmlContent,
-							$workDir . $submissionPrefix . replace_dangerous_char($txtFileName));
-		}
+            $zipfile->addFile($htmlContent,
+                            $workDir . $submissionPrefix . replace_dangerous_char($txtFileName));
+        }
 
-		header('Content-Type: application/x-zip') ;
-		header('Content-Disposition: inline; filename=' . $assignmentDir . '.zip') ;
-		echo $zipfile->file();
+        header('Content-Type: application/x-zip') ;
+        header('Content-Disposition: inline; filename=' . $assignmentDir . '.zip') ;
+        echo $zipfile->file();
 
-		exit();
-	}
-	else
-	{
-		$dialogBox .= get_lang('There is no submission available for download with these settings.');
-	}
+        exit();
+    }
+    else
+    {
+        $dialogBox .= get_lang('There is no submission available for download with these settings.');
+    }
 }
 
 if ($is_allowedToEdit)
@@ -467,10 +467,15 @@ else
                         unix_timestamp(`end_date`) as `end_date_unix`
                 FROM `" . $tbl_wrk_assignment . "`
                 WHERE `assignment_type` = 'GROUP'";
-
-            if ( isset($_GET['sort']) ) $sortKeyList[$_GET['sort']] = isset($_GET['dir']) ? $_GET['dir'] : SORT_ASC;
-
-            $sortKeyList['end_date']    = SORT_ASC;
+            
+        if( !claro_is_allowed_to_edit() )
+        {
+            $sql .= " AND `visibility` = 'VISIBLE' ";
+        }
+        
+        if ( isset($_GET['sort']) ) $sortKeyList[$_GET['sort']] = isset($_GET['dir']) ? $_GET['dir'] : SORT_ASC;
+        
+        $sortKeyList['end_date']    = SORT_ASC;
     }
     else
     {
@@ -482,7 +487,12 @@ else
                         unix_timestamp(`start_date`) as `start_date_unix`,
                         unix_timestamp(`end_date`) as `end_date_unix`
                 FROM `" . $tbl_wrk_assignment . "`";
-
+        
+        if( !claro_is_allowed_to_edit() )
+        {
+            $sql .= " WHERE `visibility` = 'VISIBLE' ";
+        }
+        
         if ( isset($_GET['sort']) ) $sortKeyList[$_GET['sort']] = isset($_GET['dir']) ? $_GET['dir'] : SORT_ASC;
 
         $sortKeyList['end_date']    = SORT_ASC;
@@ -648,26 +658,26 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
     $cmdMenu = array();
     if( $is_allowedToEdit )
     {
-		// Submission download requested
-		if( $cmd == 'rqDownload' && get_conf('allow_download_all_submissions') )
-		{
-			include($includePath . '/lib/form.lib.php');
+        // Submission download requested
+        if( $cmd == 'rqDownload' && get_conf('allow_download_all_submissions') )
+        {
+            include($includePath . '/lib/form.lib.php');
 
-			$downloadForm = '<strong>' . get_lang('Download').'</strong>' . "\n"
-			.	 '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
-			.    claro_form_relay_context()
-			.    '<input type="hidden" name="cmd" value="exDownload" />' . "\n"
-			.	 '<input type="radio" name="downloadMode" id="downloadMode_from" value="from" checked /><label for="downloadMode_from">' . get_lang('Submissions posted or modified after date :') . '</label><br />' . "\n"
-			.	 claro_html_date_form('day', 'month', 'year', time(), 'long') . ' '
-			.	 claro_html_time_form('hour', 'minute', time() - fmod(time(), 86400) - 3600) . '<small>' . get_lang('(d/m/y hh:mm)') . '</small>' . '<br /><br />' . "\n"
-			.	 '<input type="radio" name="downloadMode" id="downloadMode_all" value="all" /><label for="downloadMode_all">' . get_lang('All submissions') . '</label><br /><br />' . "\n"
-			.	 '<input type="submit" value="'.get_lang('OK').'" />&nbsp;' . "\n"
-			.    claro_html_button('work.php', get_lang('Cancel'))
-			.	 '</form>'."\n"
-			;
+            $downloadForm = '<strong>' . get_lang('Download').'</strong>' . "\n"
+            .     '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
+            .    claro_form_relay_context()
+            .    '<input type="hidden" name="cmd" value="exDownload" />' . "\n"
+            .     '<input type="radio" name="downloadMode" id="downloadMode_from" value="from" checked /><label for="downloadMode_from">' . get_lang('Submissions posted or modified after date :') . '</label><br />' . "\n"
+            .     claro_html_date_form('day', 'month', 'year', time(), 'long') . ' '
+            .     claro_html_time_form('hour', 'minute', time() - fmod(time(), 86400) - 3600) . '<small>' . get_lang('(d/m/y hh:mm)') . '</small>' . '<br /><br />' . "\n"
+            .     '<input type="radio" name="downloadMode" id="downloadMode_all" value="all" /><label for="downloadMode_all">' . get_lang('All submissions') . '</label><br /><br />' . "\n"
+            .     '<input type="submit" value="'.get_lang('OK').'" />&nbsp;' . "\n"
+            .    claro_html_button('work.php', get_lang('Cancel'))
+            .     '</form>'."\n"
+            ;
 
-			echo claro_html_message_box($downloadForm);
-		}
+            echo claro_html_message_box($downloadForm);
+        }
 
         // link to create a new assignment
         $cmdMenu[] =  claro_html_cmd_link( $_SERVER['PHP_SELF']
@@ -676,14 +686,14 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
                                          , '<img src="' . get_path('imgRepositoryWeb') . 'assignment.gif" alt="" />'
                                          . get_lang('Create a new assignment')
                                          );
-		if( get_conf('allow_download_all_submissions') )
-		{
-	        $cmdMenu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
-		    . 	 '?cmd=rqDownload">'
-			.	 '<img src="' . $imgRepositoryWeb . 'save.gif" />'.get_lang('Download submissions').'</a>'
-			.	 "\n"
-			;
-		}
+        if( get_conf('allow_download_all_submissions') )
+        {
+            $cmdMenu[] = '<a class="claroCmd" href="' . $_SERVER['PHP_SELF']
+            .      '?cmd=rqDownload">'
+            .     '<img src="' . $imgRepositoryWeb . 'save.gif" />'.get_lang('Download submissions').'</a>'
+            .     "\n"
+            ;
+        }
     }
 
     if( !empty($cmdMenu) ) echo '<p>' . claro_html_menu_horizontal($cmdMenu) . '</p>' . "\n";
