@@ -297,7 +297,7 @@ function get_agenda_items_compact_mode($userCourseList, $month, $year)
             }
         }
     }
-
+    ksort($courseDigestList);
     return $courseDigestList;
     
 }
