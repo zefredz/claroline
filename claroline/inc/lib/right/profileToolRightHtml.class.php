@@ -163,17 +163,29 @@ class RightProfileToolRightHtml
                     if ( $action_right == 'none' )
                     {
                         $action_param_value = 'user';
-                        $html_right = '<img src="' . get_icon_url('forbidden') . '" alt="' . get_lang('None') . '" />&nbsp;<small>' . get_lang('No access') . "</small>\n" ;
+                        $html_right = '<img src="' . get_icon_url('forbidden')
+                            . '" alt="' . get_lang('No access')
+                            . '" />&nbsp;<span style="font-size: smaller;">'
+                            . get_lang('No access') . "</span>\n"
+                            ;
                     }
                     elseif ( $action_right == 'user' )
                     {
                         $action_param_value = 'manager';
-                        $html_right = '<img src="' . get_icon_url('user') . '" alt="' . get_lang('User') . '" />&nbsp;<small>' . get_lang('Access allowed') . "</small>\n" ;
+                        $html_right = '<img src="' . get_icon_url('user')
+                            . '" alt="' . get_lang('Access allowed')
+                            . '" />&nbsp;<span style="font-size: smaller;">'
+                            . get_lang('Access allowed') . "</span>\n"
+                            ;
                     }
                     else
                     {
                         $action_param_value = 'none';
-                        $html_right = '<img src="' . get_icon_url('manager') . '" alt="' . get_lang('Manager') . '" />&nbsp;<small>' . get_lang('Edition allowed') . "</small>\n" ;
+                        $html_right = '<img src="' . get_icon_url('manager')
+                            . '" alt="' . get_lang('Edition allowed')
+                            . '" />&nbsp;<span style="font-size: smaller;">'
+                            . get_lang('Edition allowed') . "</span>\n"
+                            ;
                     }
                 }
                 else
@@ -181,18 +193,31 @@ class RightProfileToolRightHtml
                     if ( $action_right == 'none' )
                     {
                         $action_param_value = 'user';
-                        $html_right = '<img src="' . get_icon_url('forbidden') . '" alt="' . get_lang('None') . '" />&nbsp;<small>'. get_lang('No access') . "</small>\n" ;
+                        $html_right = '<img src="' . get_icon_url('forbidden')
+                            . '" alt="' . get_lang('No access')
+                            . '" />&nbsp;<span style="font-size: smaller;">'
+                            . get_lang('No access') . "</span>\n"
+                            ;
                     }
                     else
                     {
                         $action_param_value = 'none';
-                        $html_right = '<img src="' . get_icon_url('user') . '" alt="' . get_lang('User') . '" />&nbsp;<small>' . get_lang('Access allowed') . "</small>\n" ;
+                        $html_right = '<img src="' . get_icon_url('user')
+                            . '" alt="' . get_lang('Access allowed')
+                            . '" />&nbsp;<span style="font-size: smaller;">'
+                            . get_lang('Access allowed')
+                            . "</span>\n"
+                            ;
                     }
                 }
 
                 if ( $displayMode == 'edit' )
                 {
-                    $html_right = '<a href="' .$_SERVER['PHP_SELF'] . $param_append . '&amp;right_value=' . $action_param_value . '">' . $html_right . '</a>';
+                    $html_right = '<a href="' .$_SERVER['PHP_SELF']
+                        . $param_append . '&amp;right_value='
+                        . $action_param_value . '">' . $html_right
+                        . '</a>'
+                        ;
                 }
 
                 $html_table_row_list[$tool_id][$profile_id] = $html_right;
