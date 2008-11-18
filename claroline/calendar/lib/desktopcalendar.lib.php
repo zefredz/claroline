@@ -18,6 +18,8 @@
 
 FromKernel::uses('user.lib');
 From::Module('CLCAL')->uses('agenda.lib');
+uses('courselist.lib');
+include claro_get_conf_repository() . 'CLHOME.conf.php'; // conf file
 
 class UserDesktopCalendar
 {
@@ -230,7 +232,7 @@ var UserDesktopCalendar = {
     
     public function render()
     {
-        $userCourseList = claro_get_user_course_list();
+        $userCourseList = get_user_course_list( claro_get_current_user_id() );
         $agendaItemList = get_agenda_items_compact_mode($userCourseList, $this->month, $this->year);
 
         $output = '';
