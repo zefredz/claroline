@@ -488,15 +488,20 @@ else
                 FROM `" . $tbl_wrk_assignment . "`
                 WHERE `assignment_type` = 'GROUP'";
 
-            if ( isset($_GET['sort']) )
-            {
-                $sortKeyList[$_GET['sort']] = isset($_GET['dir']) ? $_GET['dir'] : SORT_ASC;
-            }
-            else
-            {
-                $sortKeyList['end_date']    = SORT_ASC;
-                $sortKeyList['title']    = SORT_ASC;
-            }
+        if( !claro_is_allowed_to_edit() )
+        {
+            $sql .= " AND `visibility` = 'VISIBLE' ";
+        }
+        
+        if ( isset($_GET['sort']) )
+        {
+            $sortKeyList[$_GET['sort']] = isset($_GET['dir']) ? $_GET['dir'] : SORT_ASC;
+        }
+        else
+        {
+            $sortKeyList['end_date']    = SORT_ASC;
+            $sortKeyList['title']    = SORT_ASC;
+        }
             
     }
     else
@@ -510,15 +515,20 @@ else
                         unix_timestamp(`end_date`) as `end_date_unix`
                 FROM `" . $tbl_wrk_assignment . "`";
 
-            if ( isset($_GET['sort']) )
-            {
-                $sortKeyList[$_GET['sort']] = isset($_GET['dir']) ? $_GET['dir'] : SORT_ASC;
-            }
-            else
-            {
-                $sortKeyList['end_date']    = SORT_ASC;
-                $sortKeyList['title']    = SORT_ASC;
-            }
+        if( !claro_is_allowed_to_edit() )
+        {
+            $sql .= " WHERE `visibility` = 'VISIBLE' ";
+        }
+
+        if ( isset($_GET['sort']) )
+        {
+            $sortKeyList[$_GET['sort']] = isset($_GET['dir']) ? $_GET['dir'] : SORT_ASC;
+        }
+        else
+        {
+            $sortKeyList['end_date']    = SORT_ASC;
+            $sortKeyList['title']    = SORT_ASC;
+        }
             
     }
 
