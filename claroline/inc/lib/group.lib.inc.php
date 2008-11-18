@@ -744,3 +744,59 @@ function get_group_list_user_id_list($gidList,$courseId = NULL)
     
     return $userIdList;
 }
+
+function get_current_course_group_properties()
+{
+    $tbl = claro_sql_get_course_tbl();
+    
+    $sql_getGroupProperties = "SELECT name, value\n"
+        . "FROM `{$tbl['course_properties']}`\n"
+        . "WHERE category = 'GROUP'"
+        ;
+
+    $db_groupProperties = claro_sql_query_fetch_all( $sql_getGroupProperties );
+    
+    if ( ! $db_groupProperties )
+    {
+        throw new Exception("Cannot load group properties for {$courseId}");
+    }
+    
+    $groupProperties = array();
+    
+    foreach($db_groupProperties as $currentProperty)
+    {
+        $groupProperties[$currentProperty['name']] = (int) $currentProperty['value'];
+    }
+    
+    $groupProperties ['registrationAllowed'] =  (bool) ($groupProperties['self_registration'] == 1);
+    unset ( $groupProperties['self_registration'] );
+    $groupProperties ['private'] =  (bool) ($groupProperties['private'] == 1);
+
+    $groupProperties['tools'] = array();
+    
+    $groupToolList = get_group_tool_label_list();
+    
+    foreach ( $groupToolList as $thisGroupTool )
+    {
+        $groupTLabel = $thisGroupTool['label'];
+        
+        if ( array_key_exists( $groupTLabel, $groupProperties ) )
+        {
+            $groupProperties ['tools'] [$groupTLabel] = (bool) ($groupProperties[$groupTLabel] == 1);
+            unset ( $groupProperties[$groupTLabel] );
+        }
+        else
+        {
+            $groupProperties ['tools'] [$groupTLabel] = false;
+        }
+    }
+    
+    return $groupProperties;
+}
+
+function is_tool_available_in_current_course_groups( $moduleLabel )
+{
+    $gp = get_current_course_group_properties();
+    
+    return isset( $gp['tools'][$moduleLabel] ) && $gp['tools'][$moduleLabel];
+}

@@ -124,9 +124,16 @@ $colspan = $is_allowedToEdit ? 9 : 4;
 
 $categoryIterator = 0;
 
+$forumAvailableInGroups = is_tool_available_in_current_course_groups( 'CLFRM' );
+
 foreach ( $categories as $this_category )
 {
     ++$categoryIterator;
+    
+    if ( !$forumAvailableInGroups && $this_category['cat_id'] == GROUP_FORUMS_CATEGORY )
+    {
+        continue;
+    }
 
     // Pass category for sumple user if no forum inside
     if ($this_category['forum_count'] == 0 && ! $is_allowedToEdit) continue;
@@ -238,8 +245,7 @@ foreach ( $categories as $this_category )
             $total_topics = (int) $this_forum['forum_topics'];
             $total_posts  = (int) $this_forum['forum_posts' ];
             $forum_id     = (int) $this_forum['forum_id'    ];
-            $group_id     = is_null($this_forum['group_id']) ?
-            null : (int) $this_forum['group_id'];
+            $group_id     = is_null($this_forum['group_id']) ? null : (int) $this_forum['group_id'];
 
             $forum_post_allowed = ($this_forum['forum_access'] != 0) ? true : false;
 
