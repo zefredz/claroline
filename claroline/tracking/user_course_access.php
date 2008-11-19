@@ -160,7 +160,7 @@ $claroline->setDisplayType( CL_PAGE );
 $nameTools = get_lang('User access to course');
 ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, $_SERVER['PHP_SELF'].'?userId=' . $userId );
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users statistics'), Url::Contextualize('userReport.php?userId=' . $userId) );
-ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users'), 'user.php' );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users'), get_module_url('CLUSR').'/user.php' );
 
 
 $output = '';
