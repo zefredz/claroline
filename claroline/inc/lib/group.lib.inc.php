@@ -745,6 +745,10 @@ function get_group_list_user_id_list($gidList,$courseId = NULL)
     return $userIdList;
 }
 
+/**
+ *  TODO : merge with claro_main.lib.php#claro_get_main_group_properties
+ *  TODO : merge both with kernel/course.lib.php#Claro_Course
+ */
 function get_current_course_group_properties()
 {
     $tbl = claro_sql_get_course_tbl();
@@ -758,7 +762,12 @@ function get_current_course_group_properties()
     
     if ( ! $db_groupProperties )
     {
-        throw new Exception("Cannot load group properties for {$courseId}");
+        // throw new Exception("Cannot load group properties for {$courseId}");
+        // Workaround for upgrade from Claroline 1.5 to Claroline 1.6 : missing group properties !!!!
+        $db_groupProperties = array(
+            'self_registration' => 0,
+            'private' => 1
+        );  
     }
     
     $groupProperties = array();
@@ -794,6 +803,9 @@ function get_current_course_group_properties()
     return $groupProperties;
 }
 
+/**
+ * TODO : use is_tool_activated_in_groups() to check if the tool is globaly available
+ */
 function is_tool_available_in_current_course_groups( $moduleLabel )
 {
     $gp = get_current_course_group_properties();
