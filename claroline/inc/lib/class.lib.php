@@ -55,8 +55,19 @@ function class_create ( $className, $parentId )
     $className = trim($className);
     $parentId = (int) $parentId;
 
+     if ($parentId != 0)
+    {
+        $parent_class_properties = class_get_properties ( $parentId );
+        $class_level = $parent_class_properties['level']++;
+    }
+    else
+    {
+        $class_level= 1;
+    }
+
     $sql = "INSERT INTO `" . $tbl['class'] . "`
-            SET `name`='". claro_sql_escape($className) ."'";
+            SET `name`='". claro_sql_escape($className) ."',
+                `class_level`='".(int)$class_level."'";
 
     if ( $parentId != 0 )
     {
@@ -1129,4 +1140,60 @@ function get_class_list_by_course($courseId)
               AND CC.`courseId` = '" . claro_sql_escape($courseId) . "'
         ORDER BY C.`name`";
     return claro_sql_query_fetch_all($sql);
+}
+
+/**
+ * return list of class subscribed to a given course.
+ * similar to get_class_list_by_course($courseId) except that
+ * this function return only the enrolled class to the course
+ *
+ * @param string $courseId
+ * @since 1.9.1
+ * @return array(`id`,`name`,`class_parent_id`)
+ */
+function get_class_list_of_course($courseId)
+{
+    $tbl = claro_sql_get_main_tbl();
+
+    $sql = "
+        SELECT C.id              AS `id`,
+               C.name            AS `name`,
+               C.class_parent_id AS `class_parent_id`
+        FROM `" . $tbl['class'] . "` C
+        LEFT JOIN `" . $tbl['rel_course_class'] . "` CC
+               ON CC.`classId` = C.`id`
+        WHERE CC.`courseId` = '" . claro_sql_escape($courseId) . "'
+        ORDER BY C.`name`";
+    return claro_sql_query_fetch_all($sql);
+}
+
+/**
+ * return list of user_id of the users enrolled in a class.
+ *
+ * @param string $classId
+ * @since 1.9.1
+ */
+
+function get_class_list_user_id_list($classId)
+{
+    $classIdList = implode(', ',$classId);
+    
+    $tbl = claro_sql_get_main_tbl();
+    
+
+     $sql = "
+        SELECT DISTINCT user_id                  
+        FROM `" .  $tbl['rel_class_user'] . "` 
+        WHERE `class_id`
+            in (" . $classIdList . ")";
+     
+    $classMemberListUserId = claro_sql_query_fetch_all($sql);
+    
+    $userIdList = array();
+    foreach ($classMemberListUserId as $UserId)
+    {
+        $userIdList[] = $UserId['user_id'];
+    }
+    
+    return $userIdList;
 }

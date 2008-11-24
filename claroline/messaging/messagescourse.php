@@ -21,6 +21,7 @@
     require_once dirname(__FILE__) . '/lib/message/messagetosend.lib.php';
     require_once dirname(__FILE__) . '/lib/recipient/userlistrecipient.lib.php';
     require_once get_path('incRepositorySys') . '/lib/group.lib.inc.php';
+    require_once get_path('incRepositorySys') . '/lib/class.lib.php';
     require_once get_path('incRepositorySys') . '/lib/course_user.lib.php';
            
     claro_set_display_mode_available(true);
@@ -56,12 +57,17 @@
              */
             $userIdList = array();
             $groupIdList = array();
+            $classIdList = array();
             foreach($_REQUEST['incorreo'] as $thisIncorreo)
             {
                 list($type, $elmtId) = explode(':', $thisIncorreo);
     
                 switch($type)
                 {
+                    case 'CLASS':
+                    $classIdList[] = $elmtId;
+                    break;
+                    
                     case 'GROUP':
                     $groupIdList[] = $elmtId;
                     break;
@@ -76,11 +82,16 @@
             /*
             * Select the students of the different groups
             */
+            if ( !empty($classIdList) )
+            {
+                $userIdList = array_merge($userIdList,get_class_list_user_id_list($classIdList));
+            }
             
             if ( !empty($groupIdList) )
             {
                 $userIdList = array_merge($userIdList,get_group_list_user_id_list($groupIdList));
             }
+            
             
             // subject
             $subject = $_REQUEST['subject'];
@@ -154,6 +165,12 @@
                 $groupList[] = $groupData;
             }
         }
+        
+        /*
+         * Get class user list of this course
+         */
+        
+        $classList = get_class_list_of_course(claro_get_current_course_id());
         $displayForm = TRUE;
     }
     
@@ -271,6 +288,16 @@
             {
                 $content .= '<option value="GROUP:' . $thisGroup['id'] . '">'
                 .    '* ' . $thisGroup['name'] . ' (' . $thisGroup['userNb'] . ' ' . get_lang('Users') . ')'
+                .    '</option>' . "\n";
+            }
+        }
+        
+        if ( $classList )
+        {
+            foreach( $classList as $thisClass )
+            {
+                $content .= '<option value="CLASS:' . $thisClass['id'] . '">'
+                .    '* ' . $thisClass['name'] . ' ('. get_class_user_number($thisClass['id']) . ' ' . get_lang('Users')  . ')'
                 .    '</option>' . "\n";
             }
         }
