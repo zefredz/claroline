@@ -55,19 +55,8 @@ function class_create ( $className, $parentId )
     $className = trim($className);
     $parentId = (int) $parentId;
 
-     if ($parentId != 0)
-    {
-        $parent_class_properties = class_get_properties ( $parentId );
-        $class_level = $parent_class_properties['level']++;
-    }
-    else
-    {
-        $class_level= 1;
-    }
-
     $sql = "INSERT INTO `" . $tbl['class'] . "`
-            SET `name`='". claro_sql_escape($className) ."',
-                `class_level`='".(int)$class_level."'";
+            SET `name`='". claro_sql_escape($className) ."'";
 
     if ( $parentId != 0 )
     {
