@@ -36,9 +36,7 @@ class Claro_Utils_Time
     {
         if ( is_null( $time ) ) $time = time();
 
-        return ( date('c') == 'c'
-            ? date('Y-m-d\TH:i:sO',$time)
-            : date('c', $time ) );
+        return (date('c') == 'c') ? date('Y-m-d\TH:i:sO',$time) : date('c', $time );
     }
 
     public static function dateToIso8601( $date = null )
@@ -47,10 +45,8 @@ class Claro_Utils_Time
             ? time()
             : strtotime( $date )
             ;
-
-        return ( date('c') == 'c'
-            ? date('Y-m-d\TH:i:sO',$time)
-            : date('c', $time ) );
+        
+        return self::timeToIso8601( $time );
     }
 
     public static function timeToDatetime( $time = null )
