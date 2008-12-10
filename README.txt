@@ -2,6 +2,7 @@
         CLAROLINE 1.9 - README
 ******************************************
 
+
 TABLE OF CONTENT :
 
   1. DESCRIPTION
