@@ -77,6 +77,15 @@ $is_backup_confirmed = isset($_SESSION['confirm_backup'])
                       ? (bool) $_SESSION['confirm_backup']
                       : false;
 
+$req_upgrade_tracking_data = isset($_REQUEST['upgrade_tracking_data'])
+                      ? (bool) $_REQUEST['upgrade_tracking_data']
+                      : false;
+                      
+if( $req_upgrade_tracking_data )
+{
+    $_SESSION['upgrade_tracking_data'] = $req_upgrade_tracking_data;
+}
+
 if ( $reset_confirm_backup || !$is_backup_confirmed )
 {
     // reset confirm backup
@@ -176,11 +185,22 @@ switch ($display)
               <label for="confirm_backup_yes">Yes</label><br />
               <input type="radio" id="confirm_backup_no" name="confirm_backup" value="" checked="checked" />
               <label for="confirm_backup_no">No</label><br />
+              <p>The <em>Claroline Upgrade Tool</em> is not able to start if you do not confirm that the data has been done.</p>
+              </td>
+              </tr>
+              <tr valign="top">
+              <td>Upgrade tracking data</td>
+              <td>
+              <input type="radio" id="upgrade_tracking_data_yes" name="upgrade_tracking_data" value="1" '.((isset($_SESSION['upgrade_tracking_data']) && $_SESSION['upgrade_tracking_data'])? ' checked="checked"' : '' ).'/>
+              <label for="upgrade_tracking_data_yes">Yes, keep previous tracking information</label><br />
+              <input type="radio" id="upgrade_tracking_data_no" name="upgrade_tracking_data" value="" '.((!isset($_SESSION['upgrade_tracking_data']) || !$_SESSION['upgrade_tracking_data'])? ' checked="checked"' : '' ).' />
+              <label for="upgrade_tracking_data_no">No, forget all previously stored tracking data</label><br />
+              <p>This may require a lot of time dependiing on amount of tracking data collected on your campus</p>
               </td>
               </tr>
               </tbody>
               </table>
-              <p>The <em>Claroline Upgrade Tool</em> is not able to start if you do not confirm that the data has been done.</p>
+              
               <div align="right"><input type="submit" value="Next > " /></div>
               </form>' . "\n" ;
 

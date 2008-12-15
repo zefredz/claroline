@@ -249,7 +249,12 @@ switch ( $display )
                                    'upgrade_main_database_tracking_to_19',
                                    'upgrade_chat_to_19'
                                     );
-
+                                    
+            if( isset($_SESSION['upgrade_tracking_data']) && $_SESSION['upgrade_tracking_data'])
+            {
+                $function_list[] = 'upgrade_main_database_tracking_data_to_19';
+            }
+            
             foreach ( $function_list as $function )
             {
                 $step = $function();

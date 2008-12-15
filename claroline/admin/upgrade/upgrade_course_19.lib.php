@@ -377,50 +377,6 @@ function quiz_upgrade_to_19 ($course_code)
     return false;
 }
 
-/**
- * Upgrade tracking tool to 1.8
- */
-
-function tracking_upgrade_to_19($course_code)
-{
-    /*
-     * DO NOT get the old tracking data to put it in this table here
-     * as it is a very heavy process it will be done in another script dedicated to that.
-     */
-    $versionRequiredToProceed = '/^1.8/';
-    $tool = 'CLSTATS';
-    
-    global $currentCourseVersion;
-    $currentCourseDbNameGlu = claro_get_course_db_name_glued($course_code);
-
-    if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
-    {
-        switch( $step = get_upgrade_status($tool,$course_code) )
-        {
-            case 1 :
-                $sql = "CREATE TABLE IF NOT EXISTS `".$currentCourseDbNameGlu."tracking_event` (
-                      `id` int(11) NOT NULL auto_increment,
-                      `tool_id` int(11) DEFAULT NULL,
-                      `user_id` int(11) DEFAULT NULL,
-                      `group_id` int(11) DEFAULT NULL,
-                      `date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-                      `type` varchar(60) NOT NULL DEFAULT '',
-                      `data` text NOT NULL DEFAULT '',
-                      PRIMARY KEY  (`id`)
-                    ) TYPE=MyISAM;";
-                
-                if ( upgrade_sql_query($sql) ) $step = set_upgrade_status($tool, $step+1, $course_code);
-                else return $step;
-
-            default :
-                $step = set_upgrade_status($tool, 0, $course_code);
-                return $step;
-        }
-    }
-
-    return false;
-}
-
 function calendar_upgrade_to_19($course_code)
 {
     $versionRequiredToProceed = '/^1.8/';
@@ -521,3 +477,190 @@ function linker_upgrade_to_19($course_code)
 
     return false;
 }
+
+/**
+ * Upgrade tracking tool to 1.9 - this function do not take care of old data  !
+ */
+
+function tracking_upgrade_to_19($course_code)
+{
+    /*
+     * DO NOT get the old tracking data to put it in this table here
+     * as it is a very heavy process it will be done in another script dedicated to that.
+     */
+    $versionRequiredToProceed = '/^1.8/';
+    $tool = 'CLSTATS';
+    
+    global $currentCourseVersion;
+    $currentCourseDbNameGlu = claro_get_course_db_name_glued($course_code);
+
+    if ( preg_match($versionRequiredToProceed,$currentCourseVersion) )
+    {
+        switch( $step = get_upgrade_status($tool,$course_code) )
+        {
+            case 1 :
+                $sql = "CREATE TABLE IF NOT EXISTS `".$currentCourseDbNameGlu."tracking_event` (
+                      `id` int(11) NOT NULL auto_increment,
+                      `tool_id` int(11) DEFAULT NULL,
+                      `user_id` int(11) DEFAULT NULL,
+                      `group_id` int(11) DEFAULT NULL,
+                      `date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+                      `type` varchar(60) NOT NULL DEFAULT '',
+                      `data` text NOT NULL DEFAULT '',
+                      PRIMARY KEY  (`id`)
+                    ) TYPE=MyISAM;";
+                
+                if ( upgrade_sql_query($sql) ) $step = set_upgrade_status($tool, $step+1, $course_code);
+                else return $step;
+
+            default :
+                $step = set_upgrade_status($tool, 0, $course_code);
+                return $step;
+        }
+    }
+
+    return false;
+}
+
+/**
+ * Move tracking data from old tables to new ones.  
+ * Note that exercise tracking update is made in quiz_upgrade_to_19 function
+ * and that tmp table is mostly created to insert in date order data from different old tables
+ * to the new one 
+ *
+ * @param integer $course_code
+ * @return upgrade status
+ */
+function tracking_data_upgrade_to_19( $course_code )
+{
+    $versionRequiredToProceed = '/^1.8/';
+    $tool = 'CLSTATS_DATA';
+    
+    global $currentCourseVersion;
+    $currentCourseDbNameGlu = claro_get_course_db_name_glued( $course_code );
+
+    if ( preg_match( $versionRequiredToProceed, $currentCourseVersion ) )
+    {
+        switch( $step = get_upgrade_status($tool,$course_code) )
+        {
+            case 1 :
+                //create temporary table to gather all current tracking data
+                $sqlForUpdate = "CREATE TABLE `" . $currentCourseDbNameGlu  . "tracking_tmp` (
+                          `id` int(11) NOT NULL auto_increment,
+                          `tool_id` int(11) default NULL,
+                          `user_id` int(11) default NULL,
+                          `group_id` int(11) default NULL,
+                          `date` datetime NOT NULL default '0000-00-00 00:00:00',
+                          `type` varchar(60) NOT NULL default '',
+                          `data` text NOT NULL,
+                          PRIMARY KEY  (`id`)
+                        ) ENGINE=MyISAM DEFAULT CHARSET=latin1;";
+                
+                if ( upgrade_sql_query( $sqlForUpdate ) ) $step = set_upgrade_status( $tool, $step+1 );
+                else return $step ;
+    
+                unset( $sqlForUpdate );
+                
+            case 2 : 
+                //gather data from deprecated track_e_access table
+                $query = "SELECT `access_id`, `access_user_id`, `access_date`, `access_tid`
+                            FROM `". $currentCourseDbNameGlu . "track_e_access` 
+                        ORDER BY `access_date`, `access_id`";
+               
+                $access_event_list = claro_sql_query_fetch_all_rows( $query );
+                $sqlForUpdate = array();
+                foreach( $access_event_list as $access )
+                {
+                    $user_id = !is_null( $access['access_user_id'] ) ? $access['access_user_id'] : "null";
+                    $tool_id = !is_null( $access['access_tid'] ) ? $access['access_tid'] : "null";
+                    $date = $access['access_date'];
+                    $type = !is_null( $access['access_tid'] ) ? 'tool_access' : 'course_access';
+                    $data = '';
+                    
+                    $sqlForUpdate[] = "INSERT INTO `" . $currentCourseDbNameGlu . "tracking_tmp` 
+                                      SET `user_id` = " . $user_id . ", 
+                                          `tool_id` = " . $tool_id . ", 
+                                          `date` = '" . claro_sql_escape( $date ) . "',
+                                          `type` = '" . claro_sql_escape( $type ) . "', 
+                                          `data` = '" . claro_sql_escape( $data ) . "'"; 
+                }
+                
+                if ( upgrade_apply_sql( $sqlForUpdate ) ) $step = set_upgrade_status( $tool, $step+1 );
+                else return $step ;
+                unset( $sqlForUpdate );
+                unset( $access_event_list );
+    
+            case 3 :
+                //gather data from deprecated track_e_downloads table 
+                $query = "SELECT `down_id`, `down_user_id`, `down_date`, `down_doc_path`
+                            FROM `". $currentCourseDbNameGlu . "track_e_downloads` 
+                        ORDER BY `down_date`, `down_id`";
+                
+                $download_list = claro_sql_query_fetch_all_rows( $query );
+                $sqlForUpdate = array();
+                foreach( $download_list as $download )
+                {
+                    $user_id = !is_null( $download['down_user_id'] ) ? $download['down_user_id'] : "null";
+                    $date = $download['down_date'];
+                    $type = 'download';
+                    $data = serialize( array( 'url' => $download['down_doc_path'] ) );
+                    
+                    $sqlForUpdate[] = "INSERT INTO `" . $currentCourseDbNameGlu . "tracking_tmp` 
+                                      SET `user_id` = " . $user_id . ", 
+                                          `date` = '" . claro_sql_escape( $date ) . "',
+                                          `type` = '" . claro_sql_escape( $type ) . "', 
+                                          `data` = '" . claro_sql_escape( $data ) . "'"; 
+                }
+                
+                if ( upgrade_apply_sql( $sqlForUpdate ) ) $step = set_upgrade_status( $tool, $step+1 );
+                else return $step ;
+                unset( $sqlForUpdate );
+                unset( $download_list );
+                
+            case 4 :
+                //transfer date-sorted data from tmp table to tracking_event table 
+                $query = "SELECT `tool_id`, `user_id`, `date`, `type`, `data`
+                            FROM `" . $currentCourseDbNameGlu . "tracking_tmp` 
+                        ORDER BY `date`, `id`";
+                
+                $event_list = claro_sql_query_fetch_all_rows( $query );
+                $sqlForUpdate = array();
+                foreach( $event_list as $event )
+                {
+                    $tool_id = !is_null( $event['tool_id'] ) ? $event['tool_id'] : "null";
+                    $user_id = !is_null( $event['user_id'] ) ? $event['user_id'] : "null";
+                    $date = $event['date'];
+                    $type = $event['type'];
+                    $data = $event['data'];
+                    
+                    $sqlForUpdate[] = "INSERT INTO `" . $currentCourseDbNameGlu . "tracking_event` 
+                                      SET `tool_id` = " . $tool_id .",
+                                          `user_id` = " . $user_id .",
+                                          `date` = '" . claro_sql_escape( $date ) . "', 
+                                          `type` = '" . claro_sql_escape( $type ) . "', 
+                                          `data` = '" . claro_sql_escape( $data ) . "'"; 
+                }
+                if ( upgrade_apply_sql( $sqlForUpdate ) ) $step = set_upgrade_status( $tool, $step+1 );
+                else return $step ;
+                unset( $sqlForUpdate );
+                unset( $event_list );
+                
+            case 5 : 
+                //drop deprecated tracking tables and temporary table
+                $sqlForUpdate[] = "DROP TABLE IF EXISTS `" . $currentCourseDbNameGlu . "track_e_uploads`";
+                $sqlForUpdate[] = "DROP TABLE IF EXISTS `" . $currentCourseDbNameGlu . "track_e_access`";
+                $sqlForUpdate[] = "DROP TABLE IF EXISTS `" . $currentCourseDbNameGlu . "track_e_downloads`";
+                $sqlForUpdate[] = "DROP TABLE IF EXISTS `" . $currentCourseDbNameGlu . "tracking_tmp`";
+                
+                if ( upgrade_apply_sql( $sqlForUpdate ) ) $step = set_upgrade_status( $tool, $step+1 );
+                else return $step ;
+                unset( $sqlForUpdate );
+            
+            default :
+                $step = set_upgrade_status( $tool, 0 );
+                return $step;
+        }
+    }
+    return false;
+}
+

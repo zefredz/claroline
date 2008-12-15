@@ -121,6 +121,8 @@ function upgrade_main_database_module_to_19 ()
 function upgrade_main_database_course_to_19 ()
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
+    
+    
     $tool = 'COURSE_19' ;
 
     switch( $step = get_upgrade_status($tool) )
@@ -270,72 +272,6 @@ function upgrade_main_database_user_property_to_19 ()
     }
 
  
-}
-
-/**
- * Upgrade tracking to 1.9
- * @return step value, 0 if succeed
- */
-
-function upgrade_main_database_tracking_to_19 ()
-{
-    $tbl_mdb_names = claro_sql_get_main_tbl();
-    $tool = 'TRACKING_19';
-
-    switch( $step = get_upgrade_status($tool) )
-    {
-        case 1 :
-
-            // create a new table
-            $sqlForUpdate[] = "
-                CREATE 
-                 TABLE IF NOT EXISTS `" . $tbl_mdb_names['tracking_event'] . "`  (
-                         `id` int(11) NOT NULL auto_increment,
-                         `course_code` varchar(40) NULL DEFAULT NULL,
-                         `tool_id` int(11) NULL DEFAULT NULL,
-                         `user_id` int(11) NULL DEFAULT NULL,
-                         `date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-                         `type` varchar(60) NOT NULL DEFAULT '',
-                         `data` text NOT NULL DEFAULT '',
-                         PRIMARY KEY  (`id`),
-                         KEY `course_id` (`course_code`)
-                       ) TYPE=MyISAM";
-                       
-            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
-            else return $step ;
-
-            unset($sqlForUpdate);
-        
-        case 2 :
-
-            // create a new table
-            $sqlForUpdate[] = "
-                CREATE 
-                 TABLE IF NOT EXISTS `" . $tbl_mdb_names['log'] . "`  (
-                        `id` INT(11) NOT NULL AUTO_INCREMENT,
-                        `course_code` VARCHAR(40) NULL DEFAULT NULL,
-                        `tool_id` INT(11) NULL DEFAULT NULL,
-                        `user_id` INT(11) NULL DEFAULT NULL,
-                        `ip` VARCHAR(15) NULL DEFAULT NULL,
-                        `date` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-                        `type` VARCHAR(60) NOT NULL DEFAULT '',
-                        `data` text NOT NULL DEFAULT '',
-                        PRIMARY KEY  (`id`),
-                        KEY `course_id` (`course_code`)
-                       ) TYPE=MyISAM";
-                       
-            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
-            else return $step ;
-
-            unset($sqlForUpdate);
-            
-        default :
-
-            $step = set_upgrade_status($tool, 0);
-            return $step;
-    }
-
-    return false;
 }
 
 /**
@@ -493,5 +429,208 @@ function upgrade_chat_to_19 ()
             return $step;
     }
 
+    return false;
+}
+
+
+/**
+ * Upgrade tracking to 1.9 - this function do not take care of old data  !
+ * @return step value, 0 if succeed
+ */
+
+function upgrade_main_database_tracking_to_19 ()
+{
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tool = 'TRACKING_19';
+
+    switch( $step = get_upgrade_status($tool) )
+    {
+        case 1 :
+
+            // create a new table
+            $sqlForUpdate[] = "
+                CREATE 
+                 TABLE IF NOT EXISTS `" . $tbl_mdb_names['tracking_event'] . "`  (
+                         `id` int(11) NOT NULL auto_increment,
+                         `course_code` varchar(40) NULL DEFAULT NULL,
+                         `tool_id` int(11) NULL DEFAULT NULL,
+                         `user_id` int(11) NULL DEFAULT NULL,
+                         `date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+                         `type` varchar(60) NOT NULL DEFAULT '',
+                         `data` text NOT NULL DEFAULT '',
+                         PRIMARY KEY  (`id`),
+                         KEY `course_id` (`course_code`)
+                       ) TYPE=MyISAM";
+                       
+            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+            else return $step ;
+
+            unset($sqlForUpdate);
+        
+        case 2 :
+
+            // create a new table
+            $sqlForUpdate[] = "
+                CREATE 
+                 TABLE IF NOT EXISTS `" . $tbl_mdb_names['log'] . "`  (
+                        `id` INT(11) NOT NULL AUTO_INCREMENT,
+                        `course_code` VARCHAR(40) NULL DEFAULT NULL,
+                        `tool_id` INT(11) NULL DEFAULT NULL,
+                        `user_id` INT(11) NULL DEFAULT NULL,
+                        `ip` VARCHAR(15) NULL DEFAULT NULL,
+                        `date` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+                        `type` VARCHAR(60) NOT NULL DEFAULT '',
+                        `data` text NOT NULL DEFAULT '',
+                        PRIMARY KEY  (`id`),
+                        KEY `course_id` (`course_code`)
+                       ) TYPE=MyISAM";
+                       
+            if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
+            else return $step ;
+
+            unset($sqlForUpdate);
+            
+        default :
+
+            $step = set_upgrade_status($tool, 0);
+            return $step;
+    }
+
+    return false;
+}
+
+/**
+ * Move tracking data from old tables to new ones.  
+ * Note that tmp table is mostly created to insert in date order data from different old tables
+ * to the new one 
+ *
+ * @return upgrade status
+ */
+function upgrade_main_database_tracking_data_to_19()
+{
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    // add some tables that do not exist or do not exist anymore
+    $tbl_mdb_names['tracking_tmp'] = get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'tracking_tmp' ;
+    $tbl_mdb_names['track_e_login'] = get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'track_e_login' ;
+    $tbl_mdb_names['track_e_open'] = get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'track_e_open' ;
+    
+    $tool = 'TRACKING_DATA_19';
+
+    switch( $step = get_upgrade_status($tool) )
+    {
+        case 1 : 
+            //create temporary table to gather all current tracking data (except logs)
+            $sqlForUpdate = "CREATE TABLE IF NOT EXISTS `".$tbl_mdb_names['tracking_tmp']."`  (
+                        `id` int(11) NOT NULL auto_increment,
+                        `course_code` varchar(40) NULL DEFAULT NULL,
+                        `tool_id` int(11) NULL DEFAULT NULL,
+                        `user_id` int(11) NULL DEFAULT NULL,
+                        `date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+                        `type` varchar(60) NOT NULL DEFAULT '',
+                        `data` text NOT NULL DEFAULT '',
+                        PRIMARY KEY  (`id`),
+                        KEY `course_id` (`course_code`)
+                        ) TYPE=MyISAM";
+            
+            if ( upgrade_sql_query( $sqlForUpdate ) ) $step = set_upgrade_status( $tool, $step+1 );
+            else return $step ;
+
+            unset( $sqlForUpdate );
+            
+        case 2 : 
+            //gather data from deprecated track_e_login table
+            $query = "SELECT `login_id`, `login_user_id`, `login_date`, `login_ip`
+                        FROM `".$tbl_mdb_names['track_e_login']."` 
+                    ORDER BY `login_date`, `login_id`";
+            
+            $login_event_list = claro_sql_query_fetch_all_rows( $query );
+            $sqlForUpdate = array();
+            //inject former data into new table structure
+            foreach( $login_event_list as $login )
+            {
+                $user_id = $login['login_user_id'];
+                $date = $login['login_date'];
+                $type = 'user_login';
+                $data = serialize(array('ip' => $login['login_ip']));
+                
+                $sqlForUpdate[] = "INSERT INTO `".$tbl_mdb_names['tracking_tmp']."` 
+                                           SET `user_id` = " . (int)$user_id . ", 
+                                               `date` = '" . claro_sql_escape( $date ) . "', 
+                                               `type` = '" . claro_sql_escape( $type ) . "', 
+                                               `data` = '" . claro_sql_escape( $data ) . "'"; 
+            }
+            
+            if ( upgrade_apply_sql( $sqlForUpdate ) ) $step = set_upgrade_status( $tool, $step+1 );
+            else return $step ;
+            unset( $sqlForUpdate );
+            unset( $login_event_list );
+
+        case 3 :
+            //gather data from deprecated track_e_open table 
+            $query = "SELECT `open_id`, `open_date`
+                        FROM `".$tbl_mdb_names['track_e_open']."` 
+                    ORDER BY `open_date`, `open_id`";
+            
+            $open_event_list = claro_sql_query_fetch_all_rows( $query );
+            $sqlForUpdate = array();
+            foreach( $open_event_list as $open )
+            {
+                $date = $open['open_date'];
+                $type = 'platform_access';
+                   
+                $sqlForUpdate[] = "INSERT INTO `".$tbl_mdb_names['tracking_tmp']."` 
+                                  SET `date` = '" . claro_sql_escape( $date ) . "', 
+                                      `type` = '" . claro_sql_escape( $type ) . "', 
+                                      `data` = ''"; 
+            }
+            
+            if ( upgrade_apply_sql( $sqlForUpdate ) ) $step = set_upgrade_status( $tool, $step+1 );
+            else return $step ;
+            unset( $sqlForUpdate );
+            unset( $open_event_list );
+            
+        case 4 :
+            //transfer date-sorted data from tmp table to tracking_event table 
+            $query = "SELECT `user_id`, `date`, `type`, `data`
+                        FROM `".$tbl_mdb_names['tracking_tmp']."` 
+                    ORDER BY `date`, `id`";
+            
+            $event_list = claro_sql_query_fetch_all_rows( $query );
+            $sqlForUpdate = array();
+            foreach( $event_list as $event )
+            {
+                $date = $event['date'];
+                $type = $event['type'];
+                $data = $event['data'];
+                $user_id = !is_null( $event['user_id'] ) ? $event['user_id'] : "null";
+                
+                $sqlForUpdate[] = "INSERT INTO `".$tbl_mdb_names['tracking_event']."` 
+                                  SET `user_id` = " . $user_id .",
+                                      `date` = '" . claro_sql_escape( $date ) . "', 
+                                      `type` = '" . claro_sql_escape( $type ) . "', 
+                                      `data` = '" . claro_sql_escape( $data ) . "'";
+            }
+            if ( upgrade_apply_sql( $sqlForUpdate ) ) $step = set_upgrade_status( $tool, $step+1 );
+            else return $step ;
+            unset( $sqlForUpdate );
+            unset( $event_list );
+            
+        case 5 : 
+            //drop deprecated tracking tables and temporary table
+            $sqlForUpdate[] = "DROP TABLE IF EXISTS `".$tbl_mdb_names['track_e_open']."`";
+            $sqlForUpdate[] = "DROP TABLE IF EXISTS `".$tbl_mdb_names['track_e_login']."`";
+            // we should probably keep this table as it may be usefull for history purpose.  By the way it is not used in
+            // any tracking interface.
+            //$sqlForUpdate[] = "DROP TABLE IF EXISTS `" . get_conf( 'mainTblPrefix' ) . "track_e_default`";
+            $sqlForUpdate[] = "DROP TABLE IF EXISTS `".$tbl_mdb_names['tracking_tmp']."`";
+            if ( upgrade_apply_sql( $sqlForUpdate ) ) $step = set_upgrade_status( $tool, $step+1 );
+            else return $step ;
+            unset( $sqlForUpdate );
+        
+        default :
+
+            $step = set_upgrade_status( $tool, 0 );
+            return $step;
+    }
     return false;
 }
