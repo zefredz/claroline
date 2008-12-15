@@ -1,5 +1,5 @@
 *****************************************************
-     CLAROLINE 1.9 RC1
+     CLAROLINE 1.9 RC2
 *****************************************************
 
 Thank you for downloading Claroline 1.9. This text will guide you
@@ -137,15 +137,6 @@ NEW CLAROLINE INSTALLATION
 UPDGRADE FROM PREVIOUS CLAROLINE VERSION
 ----------------------------------------
 
-!!!!!
-
-WARNING :
-
-NO UPGRADE AVAILABLE FOR Claroline 1.9-beta2 :  will be
-available in the Claroline 1.9 stable releases
-
-!!!!!
-
 The upgrade works only from Claroline 1.5.x, 1.6.x, 1.7.x. and 1.8.x.
 
 Older Claroline versions should upgrade first to Claroline 1.5.x before
@@ -181,7 +172,7 @@ please ask your hosting provider for advice.
 
    http://www.mydomain.org/mysite/mydir/claroline/admin/upgrade/upgrade.php
 
-   Windows with easyPhp locally, open:
+   Windows with easyPhp or WampServer locally, open:
 
    http://localhost/mydir/claroline/admin/upgrade/upgrade.php
 
@@ -207,5 +198,5 @@ To access the Claroline administration section, open browser
 and go to http://www.mydomain.org/mysite/claroline/admin/
 
 ==========================================================================
-            Europe, Belgium, Louvain-la-Neuve - September 10 2008
+            Europe, Belgium, Louvain-la-Neuve - December 15 2008
 ================================== END ===================================
