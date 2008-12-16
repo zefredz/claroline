@@ -1,7 +1,7 @@
 
 /******************************************************************************
                               MAIN HTML TAGS STYLE
- $Id$
+ $Id: default.css 11434 2008-10-28 10:48:51 +0000 (mar., 28 oct. 2008) fragile_be $
  ******************************************************************************/
 
 html {
@@ -102,7 +102,7 @@ input[type=text].inputSearch
     padding: 10px 15px 10px 15px;
     color: #fff;
     font-weight: bold;
-    background: url('default/bg_header.gif') repeat-x top left #c5d4e2;
+    background: url('img/bg_header.gif') repeat-x top left #c5d4e2;
     /*border-top: 3px solid #010065;*/
 }
 
@@ -161,7 +161,7 @@ input[type=text].inputSearch
     font-weight: bold;
     font-size: 0.8em;
     padding: 1px 5px;
-    background: url('default/bg_userbanner.png') repeat-x bottom left #fdf4de;
+    background: url('img/bg_userbanner.png') repeat-x bottom left #fdf4de;
     border-top: 1px #999 solid;
     border-bottom: 1px #999 solid;
 }
@@ -225,7 +225,7 @@ input[type=text].inputSearch
     padding: 0;
     margin: 0;
     text-indent: 12px;
-    background-image: url(default/arrow_blue.gif);
+    background-image: url(img/arrow_blue.gif);
     background-position: left;
     background-repeat: no-repeat;
 }
@@ -267,15 +267,15 @@ input[type=text].inputSearch
 
 #courseBannerRight #redirector select
 {
-	padding: 0;
-	margin: 0;
+    padding: 0;
+    margin: 0;
 }
 
 #courseBannerRight #redirector option
 {
-	margin: 2px 1px;
-	padding: 1px 0 1px 0;
-	padding-left: 20px;
+    margin: 2px 1px;
+    padding: 1px 0 1px 0;
+    padding-left: 20px;
 }
 
  /*----------------------------------------------------------------------------
@@ -343,7 +343,7 @@ li.lastBreadCrumbsNode {
 #claroBody {
     padding:15px;
     font-size: 0.8em;
-    background: url('default/bg_body.jpg') repeat-x top left #fff;
+    background: url('img/bg_body.jpg') repeat-x top left #fff;
 }
 
 #claroBody a:hover,
@@ -392,7 +392,7 @@ li.lastBreadCrumbsNode {
     padding: 5px 15px;
     font-size: 0.7em;
     color: #666;
-    background: url('default/bg_footer.jpg') repeat-x top left #fff;
+    background: url('img/bg_footer.jpg') repeat-x top left #fff;
 }
 
 #campusFooter a:link,
@@ -809,31 +809,31 @@ dl.userCourseList
 
 .boxInfo {    
     border-left: 2px solid #ccc;
-    background: #F9F7ED url('default/bg_boxinfo.png') bottom right no-repeat;
+    background: #F9F7ED url('img/bg_boxinfo.png') bottom right no-repeat;
     padding-right: 83px;
 }
 
 .boxSuccess {    
     border-left: 2px solid #090;
-    background: #F9F7ED url('default/bg_boxsuccess.png') bottom right no-repeat;
+    background: #F9F7ED url('img/bg_boxsuccess.png') bottom right no-repeat;
     padding-right: 83px;
 }
 
 .boxWarning {    
     border-left: 2px solid #900;
-    background: #F9F7ED url('default/bg_boxwarning.png') bottom right no-repeat;
+    background: #F9F7ED url('img/bg_boxwarning.png') bottom right no-repeat;
     padding-right: 83px;
 }
 
 .boxError {    
     border-left: 2px solid #900;
-    background: #F9F7ED url('default/bg_boxerror.png') bottom right no-repeat;
+    background: #F9F7ED url('img/bg_boxerror.png') bottom right no-repeat;
     padding-right: 83px;
 }
 
 .boxQuestion {    
     border-left: 2px solid #369;
-    background: #F9F7ED url('default/bg_boxquestion.png') bottom right no-repeat;
+    background: #F9F7ED url('img/bg_boxquestion.png') bottom right no-repeat;
     padding-right: 83px;
 }
 
@@ -952,7 +952,7 @@ a:visited.invisible {
     padding: 0 0 0 15px;
     font-weight: bold;
     border-bottom: 1px solid #DEDEDE;
-    background-image: url(./default/arrow_green.gif);
+    background-image: url(img/arrow_green.gif);
     background-position: 0px 5px;
     background-repeat: no-repeat;
 }
