@@ -418,33 +418,25 @@ if( $exercise->getTimeLimit() > 0 )
 {
     $out .= '<li>' . get_lang('Time limit')." : ".claro_html_duration($exercise->getTimeLimit()) . '</li>' . "\n";
 }
-else
-{
-    $out .= '<li>' . get_lang('No time limitation') . '</li>' . "\n";
-}
 
 if( claro_is_user_authenticated() && isset($userAttemptCount) )
 {
-    $out .= '<li>';
     if ( $exercise->getAttempts() > 0 )
     {
-        $out .= get_lang('Attempt %attemptCount on %attempts', array('%attemptCount'=> $userAttemptCount, '%attempts' =>$exercise->getAttempts())) ;
-    }
-    else
-    {
-        $out .= get_lang('Attempt %attemptCount', array('%attemptCount'=> $userAttemptCount)) ;
-    }
-    $out .= '</li>' . "\n";
+        $out .= '<li>' . get_lang('Attempt %attemptCount on %attempts', array('%attemptCount'=> $userAttemptCount, '%attempts' =>$exercise->getAttempts())) . '</li>' . "\n" ;
+    }        
 }
-
-$out .= '<li>'
-.    get_lang('Available from %startDate', array('%startDate' => claro_html_localised_date(get_locale('dateTimeFormatLong'), $exercise->getStartDate())));
 
 if( !is_null($exercise->getEndDate()) )
 {
-    $out .= ' ' . get_lang('Until') . ' ' . claro_html_localised_date(get_locale('dateTimeFormatLong'),$exercise->getEndDate());
+    $out .= '<li>' . get_lang('Available from %startDate until %endDate', 
+                                array(
+                                    '%startDate' => claro_html_localised_date(get_locale('dateTimeFormatLong'), $exercise->getStartDate()), 
+                                    '%endDate' => claro_html_localised_date(get_locale('dateTimeFormatLong'), $exercise->getEndDate())
+                                )
+                             ) 
+    . '</li>' . "\n";
 }
-$out .= '</li>' . "\n";
 
 $out .= '</ul>' .  "\n\n";
 
