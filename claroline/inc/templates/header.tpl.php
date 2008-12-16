@@ -8,8 +8,13 @@
 <meta http-equiv="Content-Script-Type" content="text/javascript" />
 <meta http-equiv="Content-Style-Type" content="text/css" />
 <meta http-equiv="Content-Type" content="text/HTML; charset=<?php echo get_locale('charset');?>"  />
-<?php echo link_to_css( get_conf('claro_stylesheet'), 'screen, projection, tv' );?>
-<?php echo link_to_css( 'print.css', 'print' );?>
+<?php echo link_to_css( get_conf('claro_stylesheet') . '/main.css', 'screen, projection, tv' );?> 
+<?php 
+if ( get_locale('text_dir') == 'rtl' ): 
+    echo link_to_css( get_conf('claro_stylesheet') . '/rtl.css', 'screen, projection, tv' );
+endif; 
+?> 
+<?php echo link_to_css( 'print.css', 'print' );?> 
 <link rel="top" href="<?php get_path('url'); ?>/index.php" title="" />
 <link href="http://www.claroline.net/documentation.htm" rel="Help" />
 <link href="http://www.claroline.net/credits.htm" rel="Author" />
