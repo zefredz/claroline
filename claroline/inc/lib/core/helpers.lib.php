@@ -237,6 +237,13 @@ function link_to_css( $css, $media = 'all' )
             . '" media="'.$media.'" />'
             ;
     }
+    elseif( file_exists(get_path('clarolineRepositorySys') . '../platform/css/' . $css) )
+    {
+        return '<link rel="stylesheet" type="text/css" href="' 
+            . get_path('clarolineRepositoryWeb') . '../platform/css/' . $css
+            . '" media="'.$media.'" />'
+            ;
+    }
     
     return '';
 }
