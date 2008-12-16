@@ -214,7 +214,10 @@ if( !$is_allowedToEdit )
     }
     elseif( $exercise->getAttempts() > 0 && $userAttemptCount > $exercise->getAttempts() ) // attempt #
     {
-        $dialogBox->error( get_lang('You have reached the maximum number of allowed attempts.') );
+        $dialogBox->error( get_lang('You have reached the maximum of %allowedAttempts allowed attempts.', 
+                                    array( '%allowedAttempts' => $exercise->getAttempts() ) 
+                                   ) 
+                          );
         $exerciseIsAvailable = false;
     }
 }
@@ -391,35 +394,24 @@ $out = '';
 
 $nameTools = $exercise->getTitle();
 
-
-//-- title
-if( $showResult )
-{
-    $out .= claro_html_tool_title(get_lang('Exercise results') . ' : ' . $nameTools);
-}
-else
-{
-    $out .= claro_html_tool_title(get_lang('Exercise') . ' : ' . $nameTools);
-}
-
 //-- display properties
-if( trim($exercise->getDescription()) != '' )
+if( trim($exercise->getDescription()) != '' && !( $showResult && !$recordResults) )
 {
     $out .= '<blockquote>' . "\n" . claro_parse_user_text($exercise->getDescription()) . "\n" . '</blockquote>' . "\n";
 }
 
 $out .= '<ul style="font-size:small">' . "\n";
-if( $exercise->getDisplayType() == 'SEQUENTIAL' )
+if( $exercise->getDisplayType() == 'SEQUENTIAL'  && $exercise->getTimeLimit() > 0 && ( !$exercise->getAttempts() || $userAttemptCount <= $exercise->getAttempts() ) && !( $showResult && !$recordResults) )
 {
     $out .= '<li>' . get_lang('Current time')." : ". claro_html_duration($currentTime) . '</li>' . "\n";
 }
 
-if( $exercise->getTimeLimit() > 0 )
+if( $exercise->getTimeLimit() > 0 && ( !$exercise->getAttempts() || $userAttemptCount <= $exercise->getAttempts() ) && !( $showResult && !$recordResults) )
 {
     $out .= '<li>' . get_lang('Time limit')." : ".claro_html_duration($exercise->getTimeLimit()) . '</li>' . "\n";
 }
 
-if( claro_is_user_authenticated() && isset($userAttemptCount) )
+if( claro_is_user_authenticated() && isset($userAttemptCount) && ( !$exercise->getAttempts() || $userAttemptCount <= $exercise->getAttempts() ) && !( $showResult && !$recordResults) )
 {
     if ( $exercise->getAttempts() > 0 )
     {
@@ -427,7 +419,7 @@ if( claro_is_user_authenticated() && isset($userAttemptCount) )
     }        
 }
 
-if( !is_null($exercise->getEndDate()) )
+if( !is_null($exercise->getEndDate()) && !( $showResult && !$recordResults) )
 {
     $out .= '<li>' . get_lang('Available from %startDate until %endDate', 
                                 array(
@@ -454,9 +446,41 @@ if( $showResult )
         // standard exercise mode
         $out .= '<form method="get" action="exercise.php">';
     } // if inLP do not allow to navigate away : user should use LP navigation to go to another module
+    
+    //  Display results    
+    
+    
+       
+    
+    
 
+    if( $recordResults )
+    {
+       $out .= '<div class="centerContent">' . "\n";
+       if( $exercise->getTimeLimit() > 0 )
+       {
+            $out .= get_lang('Your time is %time', array('%time' => claro_html_duration($timeToCompleteExe)) )
+            .     '<br />' . "\n";            
+       }
+       $out .= '<strong>' . get_lang('Your total score is %score', array('%score' => $totalResult."/".$totalGrade ) ) . '</strong>';
+       $out .= '</div>' . "\n";
+    }
+    else
+    {
+        $contentDialogBox = '';
+        if( $exercise->getTimeLimit() > 0 )
+        {
+            $contentDialogBox .= get_lang('Your time is %time', array('%time' => claro_html_duration($timeToCompleteExe)) )
+            .                   '<br />' . "\n";
+        }
+        $contentDialogBox .= get_lang( 'Time is over, results not submitted.' );
+        $dialogBox->error( $contentDialogBox );
+        $dialogBox->info('<a href="./exercise.php">&lt;&lt; '.get_lang('Back').'</a>');
+        
+    }
+        
     $out .= "\n" . '<table width="100%" border="0" cellpadding="1" cellspacing="0" class="claroTable">' . "\n\n";
-
+    
     //-- question(s)
     if( !empty($questionList) )
     {
@@ -493,40 +517,45 @@ if( $showResult )
         }
     }
 
-    // table footer, form footer
-    $out .= '<tr>' . "\n"
-    .     '<td align="center">'
-    .     get_lang('Your time is %time', array('%time' => claro_html_duration($timeToCompleteExe)) )
-    .     '<br />' . "\n"
-    .     '<strong>';
-
+    
+    $out .= '</table>' . "\n\n";    
+    
+    //  Display results    
     if( $recordResults )
     {
-        $out .= get_lang('Your total score is %score', array('%score' => $totalResult."/".$totalGrade ) );
-    }
-    else
-    {
-        $out .= get_lang('Time is over, results not submitted.');
-    }
-
-    $out .= '</strong>'
-    .     '</td>' . "\n"
-    .     '</tr>' . "\n\n"
-    .     '<tr>' . "\n"
-    .     '<td align="center">';
+        $out .= '<div class="centerContent">' . "\n";    
     
-    if( !$inLP )
+        if( $exercise->getTimeLimit() > 0 )
+        {
+            $out .= get_lang('Your time is %time', array('%time' => claro_html_duration($timeToCompleteExe)) )
+            .     '<br />' . "\n";
+        }   
+        
+        $out .= '<strong>';
+
+        $out .= get_lang('Your total score is %score', array('%score' => $totalResult."/".$totalGrade ) );        
+
+        $out .= '</strong>';
+        
+        $out .= '</div>' . "\n";
+    }
+    // Display Finish/Continue
+    $out .= '<div class="centerContent">'. "\n";
+    
+    if( !$inLP)
     {
-        $out .= '<input type="submit" value="'.get_lang('Finish').'" />';
+        if( $recordResults )
+        {
+            $out .= '<input type="submit" value="'.get_lang('Finish').'" />';
+        }
     }
     else
     {
         $out .= get_lang('Exercise done, choose a module in the list to continue.');
     }
     
-    $out .= '</td>' . "\n"
-    .     '</tr>' . "\n\n"
-    .     '</table>' . "\n\n";
+    $out .= '</div>' . "\n";
+    
 
     if( !$inLP )
     {
@@ -604,9 +633,10 @@ elseif( $showSubmitForm )
 
         }
         // table footer, form footer
-        $out .= '<tr>' . "\n"
-        .     '<td align="center">';
-
+        $out .= '</table>' . "\n\n";
+        
+        $out .= '<div class="centerContent">' . "\n";
+        
         if( $exercise->getDisplayType() == 'SEQUENTIAL' )
         {
             if( $step > 1 )
@@ -625,10 +655,8 @@ elseif( $showSubmitForm )
         {
             $out .= '<input type="submit" name="cmdOk" value="'.get_lang('Finish the test').'" />' . "\n";
         }
-
-        $out .= '</td>' . "\n"
-        .     '</tr>' . "\n\n"
-        .     '</table>' . "\n\n"
+        
+        $out .= '</div>' . "\n" 
         .     '</form>' . "\n\n";
 
     }
@@ -638,8 +666,7 @@ else // ! $showSubmitForm
     if( (!isset($_SESSION['inPathMode']) || !$_SESSION['inPathMode']) && !$inLP )
     {
         $dialogBox->info('<a href="./exercise.php">&lt;&lt; '.get_lang('Back').'</a>');
-    }
-    $out .= $dialogBox->render();
+    }    
 }
 
 /**
@@ -677,7 +704,23 @@ $htmlHeaders = "\n".'
 
 $claroline->display->header->addHtmlHeader($htmlHeaders);
 
-$claroline->display->body->appendContent($out);
+//-- title
+$content = '';
+
+if( $showResult )
+{
+    $content .= claro_html_tool_title(get_lang('Exercise results') . ' : ' . $nameTools);
+}
+else
+{
+    $content .= claro_html_tool_title(get_lang('Exercise') . ' : ' . $nameTools);
+}
+
+$content .= $dialogBox->render();
+
+$content .= $out;
+
+$claroline->display->body->appendContent($content);
 
 echo $claroline->display->render();
 
