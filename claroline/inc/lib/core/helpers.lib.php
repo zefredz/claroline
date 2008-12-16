@@ -230,8 +230,13 @@ function include_textzone( $textzone, $defaultContent = null )
  */
 function link_to_css( $css, $media = 'all' )
 {
-    return '<link rel="stylesheet" type="text/css" href="' 
-        . get_path('clarolineRepositoryWeb') . 'css/' . $css
-        . '" media="'.$media.'" />'
-        ;
+    if( file_exists(get_path('clarolineRepositorySys') . 'css/' . $css) )
+    {
+        return '<link rel="stylesheet" type="text/css" href="' 
+            . get_path('clarolineRepositoryWeb') . 'css/' . $css
+            . '" media="'.$media.'" />'
+            ;
+    }
+    
+    return '';
 }
