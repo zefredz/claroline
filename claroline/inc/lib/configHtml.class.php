@@ -261,10 +261,16 @@ class ConfigHtml extends Config
 
                 if ( isset($property_def['acceptedValueType']) )
                 {
+                    if ( !isset( $property_def['acceptedValue'] ) || !is_array( $property_def['acceptedValue'] ) )
+                    {
+                        $property_def['acceptedValue'] = array();
+                    }
+                    
                     switch ( $property_def['acceptedValueType'] )
                     {
                         case 'css' :
-                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder(get_path('rootSys') . 'claroline/css','file','.css',array('print.css','rss.css','compatible.css','install.css'));
+                            $property_def['acceptedValue'] =  array_merge( $property_def['acceptedValue'], $this->retrieve_accepted_values_from_folder(get_path('rootSys') . 'claroline/css','file','.css',array('print.css','rss.css','compatible.css','install.css')) );
+                            $property_def['acceptedValue'] =  array_merge( $property_def['acceptedValue'], $this->retrieve_accepted_values_from_folder(get_path('rootSys') . 'platform/css','file','.css' ) );
                             break;
                         case 'lang' :
                             $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder(get_path('rootSys') . 'claroline/lang','folder');
@@ -276,6 +282,8 @@ class ConfigHtml extends Config
                             $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder(get_path('rootSys') . 'claroline/editor','folder');
                             break;
                     }
+                    
+                    ksort( $property_def['acceptedValue'] );
                 }
 
                 // display property form element

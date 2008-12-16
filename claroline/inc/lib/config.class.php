@@ -368,23 +368,24 @@ class Config
 
         // init property accepted value
         if ( ! empty($property_def['acceptedValue']) ) $acceptedValue = $property_def['acceptedValue'];
-        else                                           $acceptedValue = null;
+        else                                           $acceptedValue = array();
 
         if ( isset($property_def['acceptedValueType']) )
         {
             switch ( $property_def['acceptedValueType'] )
             {
                 case 'css':
-                    $acceptedValue = $this->retrieve_accepted_values_from_folder(get_path('rootSys').'claroline/css','file','.css',array('print.css','rss.css','compatible.css','install.css'));
+                    $acceptedValue = array_merge( $acceptedValue, $this->retrieve_accepted_values_from_folder(get_path('rootSys').'claroline/css','file','.css',array('print.css','rss.css','compatible.css','install.css')) );
+                    $acceptedValue = array_merge( $acceptedValue, $this->retrieve_accepted_values_from_folder(get_path('rootSys').'platform/css','file','.css') );
                     break;
                 case 'lang':
-                    $acceptedValue = $this->retrieve_accepted_values_from_folder(get_path('rootSys').'claroline/lang','folder');
+                    $acceptedValue = array_merge( $acceptedValue, $this->retrieve_accepted_values_from_folder(get_path('rootSys').'claroline/lang','folder') );
                     break;
                 case 'auth':
-                    $acceptedValue = $this->retrieve_accepted_values_from_folder(get_path('rootSys').'claroline/auth/extauth/drivers','file','.php');
+                    $acceptedValue = array_merge( $acceptedValue, $this->retrieve_accepted_values_from_folder(get_path('rootSys').'claroline/auth/extauth/drivers','file','.php') );
                     break;
                 case 'editor':
-                    $acceptedValue = $this->retrieve_accepted_values_from_folder(get_path('rootSys').'claroline/editor','folder');
+                    $acceptedValue = array_merge( $acceptedValue, $this->retrieve_accepted_values_from_folder(get_path('rootSys').'claroline/editor','folder') );
                     break;
             }
         }
@@ -791,7 +792,7 @@ class Config
         else
         {
             $this->backlog->failure('');
-            return false;
+            return array();
         }
 
     }
