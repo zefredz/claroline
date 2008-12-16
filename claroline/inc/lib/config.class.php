@@ -375,7 +375,7 @@ class Config
             switch ( $property_def['acceptedValueType'] )
             {
                 case 'css':
-                    $acceptedValue = $this->retrieve_accepted_values_from_folder(get_path('rootSys').'claroline/css','file','.css',array('print.css','rss.css','compatible.css'));
+                    $acceptedValue = $this->retrieve_accepted_values_from_folder(get_path('rootSys').'claroline/css','file','.css',array('print.css','rss.css','compatible.css','install.css'));
                     break;
                 case 'lang':
                     $acceptedValue = $this->retrieve_accepted_values_from_folder(get_path('rootSys').'claroline/lang','folder');

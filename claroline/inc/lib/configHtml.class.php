@@ -264,7 +264,7 @@ class ConfigHtml extends Config
                     switch ( $property_def['acceptedValueType'] )
                     {
                         case 'css' :
-                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder(get_path('rootSys') . 'claroline/css','file','.css',array('print.css','rss.css','compatible.css'));
+                            $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder(get_path('rootSys') . 'claroline/css','file','.css',array('print.css','rss.css','compatible.css','install.css'));
                             break;
                         case 'lang' :
                             $property_def['acceptedValue'] = $this->retrieve_accepted_values_from_folder(get_path('rootSys') . 'claroline/lang','folder');
