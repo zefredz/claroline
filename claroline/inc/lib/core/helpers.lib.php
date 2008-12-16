@@ -230,17 +230,17 @@ function include_textzone( $textzone, $defaultContent = null )
  */
 function link_to_css( $css, $media = 'all' )
 {
-    if( file_exists(get_path('clarolineRepositorySys') . 'css/' . $css) )
-    {
-        return '<link rel="stylesheet" type="text/css" href="' 
-            . get_path('clarolineRepositoryWeb') . 'css/' . $css
-            . '" media="'.$media.'" />'
-            ;
-    }
-    elseif( file_exists(get_path('clarolineRepositorySys') . '../platform/css/' . $css) )
+    if( file_exists(get_path('clarolineRepositorySys') . '../platform/css/' . $css) )
     {
         return '<link rel="stylesheet" type="text/css" href="' 
             . get_path('clarolineRepositoryWeb') . '../platform/css/' . $css
+            . '" media="'.$media.'" />'
+            ;
+    }
+    elseif( file_exists(get_path('clarolineRepositorySys') . 'css/' . $css) )
+    {
+        return '<link rel="stylesheet" type="text/css" href="' 
+            . get_path('clarolineRepositoryWeb') . 'css/' . $css
             . '" media="'.$media.'" />'
             ;
     }
