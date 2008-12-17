@@ -175,8 +175,8 @@ class CssLoader
         $this->css = array();
         $this->pathList = array(
             get_module_path( get_current_module_label() ) . '/css' => get_module_url( get_current_module_label() ) . '/css',
-            get_path( 'rootSys' ) . 'claroline/css' => get_path('url') . '/claroline/css',
             get_path( 'rootSys' ) . 'web/css' => get_path('url') . '/web/css',
+            get_path( 'rootSys' ) . 'claroline/css' => get_path('url') . '/claroline/css', // this stay there for legacy but should be removed.
             './css' => './css'
         );
     }
