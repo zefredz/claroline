@@ -14,7 +14,7 @@
                 ? '<img src="' . get_conf('siteLogo') . '" alt="'.get_conf('siteName').'" >'
                 : get_conf('siteName');
         ?>
-        <a href="<?php get_path( 'url' ); ?>/index.php" target="_top"><?php echo $bannerSiteName; ?></a>
+        <a href="<?php echo get_path( 'url' ); ?>/index.php" target="_top"><?php echo $bannerSiteName; ?></a>
         </span>
         <?php include_dock('campusBannerLeft'); ?>
     </div>
