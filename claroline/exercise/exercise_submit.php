@@ -172,8 +172,10 @@ if( !isset($_SESSION['exeStartTime']) )
 }
 else
 {
-    $currentTime = $now - $_SESSION['exeStartTime'];
+    $currentTime = $now - $_SESSION['exeStartTime'];    
 }
+
+$exeStartTime = $_SESSION['exeStartTime'];
 
 //-- exercise properties
 $dialogBox = new DialogBox();
@@ -361,11 +363,6 @@ else
 if( isset($_REQUEST['cmdBack']) )     $step--;
 else                                $step++;
 
-
-
-
-
-
 /*
  * Output
  */
@@ -395,23 +392,23 @@ $out = '';
 $nameTools = $exercise->getTitle();
 
 //-- display properties
-if( trim($exercise->getDescription()) != '' && !( $showResult && !$recordResults) )
+if( trim($exercise->getDescription()) != '' && !( $showResult && !$recordResults)  && ($exercise->getTimeLimit() > $currentTime) )
 {
     $out .= '<blockquote>' . "\n" . claro_parse_user_text($exercise->getDescription()) . "\n" . '</blockquote>' . "\n";
 }
 
 $out .= '<ul style="font-size:small">' . "\n";
-if( $exercise->getDisplayType() == 'SEQUENTIAL'  && $exercise->getTimeLimit() > 0 && ( !$exercise->getAttempts() || $userAttemptCount <= $exercise->getAttempts() ) && !( $showResult && !$recordResults) )
+if( $exercise->getDisplayType() == 'SEQUENTIAL'  && $exercise->getTimeLimit() > 0 && ( !$exercise->getAttempts() || $userAttemptCount <= $exercise->getAttempts() ) && !( $showResult && !$recordResults) && ($exercise->getTimeLimit() > $currentTime) )
 {
-    $out .= '<li>' . get_lang('Current time')." : ". claro_html_duration($currentTime) . '</li>' . "\n";
+    $out .= '<li>' . get_lang('Current time').' : <span id="currentTime">'. claro_html_duration($currentTime) . '</span></li>' . "\n";
 }
 
-if( $exercise->getTimeLimit() > 0 && ( !$exercise->getAttempts() || $userAttemptCount <= $exercise->getAttempts() ) && !( $showResult && !$recordResults) )
+if( $exercise->getTimeLimit() > 0 && ( !$exercise->getAttempts() || $userAttemptCount <= $exercise->getAttempts() ) && !( $showResult && !$recordResults) && ($exercise->getTimeLimit() > $currentTime) )
 {
     $out .= '<li>' . get_lang('Time limit')." : ".claro_html_duration($exercise->getTimeLimit()) . '</li>' . "\n";
 }
 
-if( claro_is_user_authenticated() && isset($userAttemptCount) && ( !$exercise->getAttempts() || $userAttemptCount <= $exercise->getAttempts() ) && !( $showResult && !$recordResults) )
+if( claro_is_user_authenticated() && isset($userAttemptCount) && ( !$exercise->getAttempts() || $userAttemptCount <= $exercise->getAttempts() ) && !( $showResult && !$recordResults) && ($exercise->getTimeLimit() > $currentTime) )
 {
     if ( $exercise->getAttempts() > 0 )
     {
@@ -419,7 +416,7 @@ if( claro_is_user_authenticated() && isset($userAttemptCount) && ( !$exercise->g
     }        
 }
 
-if( !is_null($exercise->getEndDate()) && !( $showResult && !$recordResults) )
+if( !is_null($exercise->getEndDate()) && !( $showResult && !$recordResults) && ($exercise->getTimeLimit() > $currentTime) )
 {
     $out .= '<li>' . get_lang('Available from %startDate until %endDate', 
                                 array(
@@ -565,11 +562,33 @@ if( $showResult )
 }
 elseif( $showSubmitForm )
 {
+    // check if cmdBack or cmdNext can be performed  (time limit)
+    $displayForm = true;
+    if( isset($_REQUEST['cmdBack']) || isset($_REQUEST['cmdNext']) ){
+        $timeToCompleteExe =  $currentTime;
+    
+        // the time limit is set and the user take too much time to complete exercice
+        if ( $exercise->getTimeLimit() > 0 && $exercise->getTimeLimit() < $timeToCompleteExe )
+        {
+            $displayForm = false;
+            
+            unset($_SESSION['exeStartTime']);
+            
+            $contentDialogBox = '';
+            $contentDialogBox .= get_lang('Your time is %time', array('%time' => claro_html_duration($timeToCompleteExe)) )
+            .                   '<br />' . "\n";            
+            $contentDialogBox .= get_lang( 'Time is over, results not submitted.' );
+            $dialogBox->error( $contentDialogBox );
+            $dialogBox->info('<a href="./exercise.php">&lt;&lt; '.get_lang('Back').'</a>');
+            
+        }
+    }
+
     //-- question(s)
-    if( !empty($questionList) )
+    if( !empty($questionList) && $displayForm )
     {
         // form header, table header
-        $out .= '<form method="post" action="./exercise_submit.php">' . "\n"
+        $out .= '<form id="formExercise" method="post" action="./exercise_submit.php">' . "\n"
         .   claro_form_relay_context() . "\n";
 
         if( $exercise->getDisplayType() == 'SEQUENTIAL' )
@@ -698,8 +717,57 @@ $htmlHeaders = "\n".'
             }
         })
     });
-
-
+    
+    clockStart = new Date('.date('Y',$exeStartTime).','
+                         .(date('n',$exeStartTime)-1).','
+                         .date('j',$exeStartTime).','
+                         .date('G',$exeStartTime).','
+                         .date('i',$exeStartTime).','
+                         .date('s',$exeStartTime).').getTime();
+    timeLimit = '.$exercise->getTimeLimit().';
+    langMinShort = "'. get_lang('MinuteShort') .'";
+    langSecShort = "'. get_lang('SecondShort') .'";
+    langTimeWarning = "'. get_lang('Time exceeded') .'";
+    submitForm = true;
+    
+    $(document).ready(function() {
+        if($("#currentTime").length > 0 && $("#formExercise").length > 0){
+           getSecs( clockStart, timeLimit, submitForm, langMinShort, langSecShort, langTimeWarning, "currentTime", "formExercise");           
+        }
+    });
+    
+    function initStopwatch(clockStart){ 
+         var myTime = new Date(); 
+         var timeNow = myTime.getTime();  
+         var timeDiff = timeNow - clockStart; 
+         return(timeDiff/1000); 
+    }
+    
+    function getSecs( clockStart, timeLimit, submitForm, langMinShort, langSecShort, langTimeWarning, spanID, formID )
+    {
+        var mySecs = initStopwatch(clockStart);
+        if(submitForm && mySecs > timeLimit)
+        {
+            $("#"+spanID).text(langTimeWarning);
+            alert(langTimeWarning);
+            //$("#"+formID).append("<input type=\"hidden\" name=\"cmdOk\" value=\"1\" />");               
+            //$("#"+formID).submit();   
+        }else
+        {
+           var mySecs = ""+mySecs; 
+           mySecs1= mySecs.substring(0,mySecs.indexOf("."));
+           myMin = Math.floor(mySecs / 60);
+           mySecs = Math.round(mySecs % 60);
+           myTime = "";
+           if(myMin > 0)
+           {
+               myTime = myTime + myMin + " " + langMinShort + " ";
+           }
+           myTime = myTime + mySecs + " " + langSecShort + " ";
+           $("#"+spanID).text(myTime);
+           window.setTimeout("getSecs( clockStart, timeLimit, " +  submitForm + ", langMinShort, langSecShort, langTimeWarning, \'" + spanID + "\', \'" + formID + "\' )", 1000);
+        }
+    }    
 </script>' . "\n\n";
 
 $claroline->display->header->addHtmlHeader($htmlHeaders);
