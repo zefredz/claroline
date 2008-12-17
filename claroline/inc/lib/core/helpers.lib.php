@@ -237,10 +237,10 @@ function link_to_css( $css, $media = 'all' )
             . '" media="'.$media.'" />'
             ;
     }
-    elseif( file_exists(get_path('clarolineRepositorySys') . 'css/' . $css) )
+    elseif( file_exists(get_path('rootSys') . 'web/css/' . $css) )
     {
         return '<link rel="stylesheet" type="text/css" href="' 
-            . get_path('clarolineRepositoryWeb') . 'css/' . $css
+            . get_path( 'url' ) . '/web/css/' . $css
             . '" media="'.$media.'" />'
             ;
     }
