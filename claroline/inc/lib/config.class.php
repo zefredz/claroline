@@ -740,9 +740,17 @@ class Config
         // init accepted_values list
         $accepted_values = array();
 
-        $dirname = realpath($path) . '/' ;
-        if ( is_dir($dirname) )
+        $dirname = realpath($path);
+        
+        if ( !$dirname || ! is_dir($dirname) )
         {
+            $this->backlog->failure('');
+            return array();
+        }
+        else
+        {
+            $dirname .= '/';
+            
             $handle = opendir($dirname);
             while ( false !== ($elt = readdir($handle) ) )
             {
@@ -788,11 +796,6 @@ class Config
             }
             ksort($accepted_values);
             return $accepted_values;
-        }
-        else
-        {
-            $this->backlog->failure('');
-            return array();
         }
 
     }
