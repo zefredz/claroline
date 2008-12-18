@@ -744,7 +744,7 @@ class Config
         
         if ( !$dirname || ! is_dir($dirname) )
         {
-            $this->backlog->failure('');
+            $this->backlog->failure('Directory not found or not a directory');
             return array();
         }
         else
