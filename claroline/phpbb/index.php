@@ -125,15 +125,22 @@ $colspan = $is_allowedToEdit ? 9 : 4;
 $categoryIterator = 0;
 
 $forumAvailableInGroups = is_tool_available_in_current_course_groups( 'CLFRM' );
+if( !$forumAvailableInGroups ) 
+{
+    // we have to keep in mind that if group forums are disabled the group forum category will not
+    // be displayed, so we have to remove it from the total of categories to avoid having up and down cmd
+    // shown when not needed
+    $total_categories--;
+}
 
 foreach ( $categories as $this_category )
 {
-    ++$categoryIterator;
-    
     if ( !$forumAvailableInGroups && $this_category['cat_id'] == GROUP_FORUMS_CATEGORY )
     {
         continue;
     }
+
+    $categoryIterator++;
 
     // Pass category for sumple user if no forum inside
     if ($this_category['forum_count'] == 0 && ! $is_allowedToEdit) continue;
