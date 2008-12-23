@@ -53,7 +53,7 @@ class CLQWZ_Resolver implements ModuleResourceResolver
         $tblExercise = $tbl_cdb_names['qwz_exercise'];
 
         $sql = 'SELECT `title`
-                FROM '.$tblExercise.'
+                FROM `'.$tblExercise.'`
                 WHERE `id`='. (int) $qwzId;
         $title = claro_sql_query_get_single_value($sql);
 
