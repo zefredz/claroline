@@ -7,12 +7,44 @@ $(document).ready(function() {
     // start timer for session_time
     var d = new Date();
     var startTime = d.getTime(); 
-
-	doSetValue("cmi.score.min","0");
-	doSetValue("cmi.score.max","100");
-	doSetValue("cmi.session_time","PT0H0S");
-
-    doSetValue("cmi.score.raw","0");
+    
+    var score_raw = doGetValue("cmi.score.raw");
+    if(score_raw)
+    {
+	doSetValue("cmi.score.raw", score_raw);
+	$("#progressForm").find("input").removeAttr("checked");
+	if(score_raw >= 0 && score_raw < 12.5)
+	{
+	    $("#none").attr("checked","checked");
+	}
+	else if(score_raw >= 12.5 && score_raw < 37.5)
+	{
+	    
+	    $("#low").attr("checked","checked");
+	}
+	else if(score_raw >= 37.5 && score_raw < 62.5)
+	{
+	    $("#medium").attr("checked","checked");
+	}
+	else if(score_raw >= 62.5 && score_raw < 87.5)
+	{
+	    $("#high").attr("checked","checked");
+	}
+	else if(score_raw >= 87.5 && score_raw <= 100)
+	{
+	    $("#full").attr("checked","checked");
+	}
+    }
+    else
+    {
+	$("#none").attr("checked","checked");
+	doSetValue("cmi.score.raw","0");
+    }
+    
+    doSetValue("cmi.score.min","0");
+    doSetValue("cmi.score.max","100");
+    doSetValue("cmi.session_time","PT0H0S");
+    
     doSetValue("cmi.completion_status","incomplete");
 
     $(".progressRadio").click( function() {
