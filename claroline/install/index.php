@@ -663,7 +663,7 @@ echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"'
 .    ' - ' . get_lang('Step %step', array('%step' => array_search($display, $panelSequence) + 1) ) . "\n"
 .    '</title>' . "\n\n"
 
-.    '<link rel="stylesheet" href="../css/install.css" type="text/css" />' . "\n"
+.    '<link rel="stylesheet" href="../../web/css/install.css" type="text/css" />' . "\n"
 .    '<style media="print" type="text/css" >' . "\n"
 .    '    .progressPanel{ visibility: hidden;width:0px; }' . "\n"
 .    '</style>' . "\n"
