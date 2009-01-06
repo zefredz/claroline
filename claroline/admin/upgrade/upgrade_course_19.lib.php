@@ -506,7 +506,7 @@ function tracking_upgrade_to_19($course_code)
                       `group_id` int(11) DEFAULT NULL,
                       `date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
                       `type` varchar(60) NOT NULL DEFAULT '',
-                      `data` text NOT NULL DEFAULT '',
+                      `data` text NOT NULL,
                       PRIMARY KEY  (`id`)
                     ) TYPE=MyISAM;";
                 

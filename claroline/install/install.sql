@@ -303,7 +303,7 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__tracking_event` (
   `user_id` INT(11) NULL DEFAULT NULL,
   `date` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
   `type` VARCHAR(60) NOT NULL DEFAULT '',
-  `data` TEXT NOT NULL DEFAULT '',
+  `data` TEXT NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `course_id` (`course_code`)
 ) TYPE=MyISAM;
@@ -317,7 +317,7 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__log` (
   `ip` VARCHAR(15) NULL DEFAULT NULL,
   `date` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
   `type` VARCHAR(60) NOT NULL DEFAULT '',
-  `data` text NOT NULL DEFAULT '',
+  `data` text NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `course_id` (`course_code`)
 ) TYPE=MyISAM;

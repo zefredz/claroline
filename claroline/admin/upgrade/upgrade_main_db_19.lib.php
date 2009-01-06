@@ -457,7 +457,7 @@ function upgrade_main_database_tracking_to_19 ()
                          `user_id` int(11) NULL DEFAULT NULL,
                          `date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
                          `type` varchar(60) NOT NULL DEFAULT '',
-                         `data` text NOT NULL DEFAULT '',
+                         `data` text NOT NULL,
                          PRIMARY KEY  (`id`),
                          KEY `course_id` (`course_code`)
                        ) TYPE=MyISAM";
@@ -480,7 +480,7 @@ function upgrade_main_database_tracking_to_19 ()
                         `ip` VARCHAR(15) NULL DEFAULT NULL,
                         `date` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
                         `type` VARCHAR(60) NOT NULL DEFAULT '',
-                        `data` text NOT NULL DEFAULT '',
+                        `data` text NOT NULL,
                         PRIMARY KEY  (`id`),
                         KEY `course_id` (`course_code`)
                        ) TYPE=MyISAM";
@@ -527,7 +527,7 @@ function upgrade_main_database_tracking_data_to_19()
                         `user_id` int(11) NULL DEFAULT NULL,
                         `date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
                         `type` varchar(60) NOT NULL DEFAULT '',
-                        `data` text NOT NULL DEFAULT '',
+                        `data` text NOT NULL,
                         PRIMARY KEY  (`id`),
                         KEY `course_id` (`course_code`)
                         ) TYPE=MyISAM";
