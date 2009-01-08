@@ -279,7 +279,7 @@ while ($list = mysql_fetch_array($result))
     $contentType_alt = selectAlt($list['contentType']);
     echo '<tr>' . "\n"
     .     '<td align="left">' . "\n"
-    .     '<img src="' . get_icon_url( $contentType_img ) . '" alt="'.$contentType_alt.'" />'.$list['name'] . "\n"
+    .     '<img src="' . $contentType_img . '" alt="'.$contentType_alt.'" /> '.$list['name'] . "\n"
     .     '</td>' . "\n"
     .     '<td align="center">' . "\n"
     .     '<a href="'.$_SERVER['PHP_SELF'].'?cmd=eraseModule&amp;cmdid='.$list['module_id'].'"'
