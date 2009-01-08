@@ -19,9 +19,10 @@ require '../inc/claro_init_global.inc.php';
 if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
 if ( ! claro_is_course_manager() ) claro_die(get_lang('Not allowed'));
 
-$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
-
 $nameTools = get_lang('Learning paths tracking');
+
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Learning path list'), Url::Contextualize(get_module_url('CLLNP') . '/learningPathList.php') );
+
 
 $tbl_cdb_names               = claro_sql_get_course_tbl();
 $tbl_mdb_names               = claro_sql_get_main_tbl();

@@ -26,9 +26,10 @@ if( empty($_REQUEST['path_id']) )
     exit();
 }
 
-$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
-
 $nameTools = get_lang('Learning paths tracking');
+
+ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, Url::Contextualize('learnPath_details.php?path_id='.$_REQUEST['path_id']) );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Learning path list'), Url::Contextualize(get_module_url('CLLNP') . '/learningPathList.php') );
 
 // regroup table names for maintenance purpose
 /*
