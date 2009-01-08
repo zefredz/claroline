@@ -531,7 +531,7 @@ function display_path_content()
 
             $contentType_alt = selectAlt($module['contentType']);
 
-            echo '<img src="' . get_icon_url($moduleImg) . '" alt="' .$contentType_alt.'" />'
+            echo '<img src="' . get_icon_url($moduleImg) . '" alt="' .$contentType_alt.'" /> '
             .    $module['name']
             ;
         }
@@ -682,7 +682,7 @@ function display_my_exercises($dialogBox)
             .    '</td>'."\n"
             .    '<td align="left">'
             .    '<label for="check_'.$exercise['id'].'" >'
-            .    '<img src="' . get_icon_url('quiz') . '" alt="' . get_lang('Exercises') . '" />'
+            .    '<img src="' . get_icon_url('quiz', 'CLQWZ') . '" alt="" /> '
             .    $exercise['title']
             .    '</label>'
             .    '</td>'."\n"
@@ -791,7 +791,7 @@ function display_my_documents($dialogBox)
     and we can't go to a parent dir */
     {
         echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exChDir&amp;file=' . $cmdParentDir . '">' . "\n"
-        .    '<img src="' . get_icon_url('parent') . '" hspace="5" alt="" />'."\n"
+        .    '<img src="' . get_icon_url('parent') . '" hspace="5" alt="" /> '."\n"
         .    '<small>' . get_lang('Up') . '</small>' . "\n"
         .    '</a>' . "\n"
         ;
@@ -804,7 +804,7 @@ function display_my_documents($dialogBox)
         echo '<!-- current dir name -->' . "\n"
         .    '<tr>' . "\n"
         .    '<th class="superHeader" colspan="' . $colspan . '" align="left">'. "\n"
-        .    '<img src="' . get_icon_url('opendir') . '" vspace=2 hspace=5 alt="" />' . "\n"
+        .    '<img src="' . get_icon_url('opendir') . '" vspace=2 hspace=5 alt="" /> ' . "\n"
         .    $dspCurDirName . "\n"
         .    '</td>' . "\n"
         .    '</tr>' . "\n"
@@ -872,7 +872,7 @@ function display_my_documents($dialogBox)
             }
             elseif ($fileList['type'][$fileKey] == A_DIRECTORY)
             {
-                $image       = 'folder.gif';
+                $image       = 'folder';
                 $size        = '&nbsp;';
                 $date        = '&nbsp;';
                 $urlFileName = $_SERVER['PHP_SELF'] . '?openDir=' . $cmdFileName;
@@ -895,7 +895,7 @@ function display_my_documents($dialogBox)
             }
             echo '<td align="left">'
             .    '<a href="' . $urlFileName . '" ' . $style . '>'
-            .    '<img src="' . get_icon_url( $image ) . '" hspace="5" alt="" />' . $dspFileName . '</a>'
+            .    '<img src="' . get_icon_url( $image ) . '" hspace="5" alt="" /> ' . $dspFileName . '</a>'
             .    '</td>'."\n"
             .    '<td><small>' . $size . '</small></td>' . "\n"
             .    '<td><small>' . $date . '</small></td>' . "\n"
