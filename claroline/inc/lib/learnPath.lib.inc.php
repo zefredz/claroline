@@ -340,19 +340,21 @@ function nameBox($type, $mode)
   */
  function selectImage($contentType)
  {
-
-      $imgList[CTDOCUMENT_] = "document.gif";
-      $imgList[CTCLARODOC_] = "clarodoc.gif";
-      $imgList[CTEXERCISE_] = "quiz.gif";
-      $imgList[CTSCORM_] = "scorm.gif";
-
-      if (array_key_exists( $contentType , $imgList ))
-      {
-          return $imgList[$contentType];
-      }
-
-      return "default.gif";
-
+    switch($contentType)
+    {
+        case CTDOCUMENT_ : 
+            return get_icon_url('document', 'CLDOC');
+            break;
+        case CTEXERCISE_ : 
+            return get_icon_url('quiz', 'CLQWZ');
+            break;
+        case CTSCORM_ : 
+            return get_icon_url('scorm');
+            break;
+        default : 
+            return get_icon_url('default');
+            break;
+    }
  }
  /**
   * This function is used to display the correct alt texte for image in the modules lists.
