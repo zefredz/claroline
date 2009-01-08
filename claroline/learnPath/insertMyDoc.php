@@ -29,8 +29,8 @@ $is_allowedToEdit = claro_is_course_manager();
 
 if ( ! $is_allowedToEdit ) claro_die(get_lang('Not allowed'));
 
-$interbredcrump[]= array ("url"=>get_module_url('CLLNP') . '/learningPathList.php', "name"=> get_lang('Learning path list'));
-$interbredcrump[]= array ("url"=>get_module_url('CLLNP') . '/learningPathAdmin.php', "name"=> get_lang('Learning path admin'));
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Learning path'), Url::Contextualize(get_module_url('CLLNP') . '/learningPathAdmin.php') );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Learning path list'), Url::Contextualize(get_module_url('CLLNP') . '/learningPathList.php') );
 
 $nameTools = get_lang('Add a document');
 

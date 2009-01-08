@@ -40,16 +40,18 @@ if ( isset($_GET['module_id']) && $_GET['module_id'] != '')
 claro_set_display_mode_available(true);
 
 $is_allowedToEdit = claro_is_allowed_to_edit();    // as teacher
-//-- interbredcrump
-$interbredcrump[]= array ("url"=>"../learnPath/learningPathList.php", "name"=> get_lang('Learning path list'));
+//-- breadcrumbs
+
 if ( $is_allowedToEdit )
 {
-    $interbredcrump[]= array ("url"=>"../learnPath/learningPathAdmin.php", "name"=> get_lang('Learning path'));
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Learning path'), Url::Contextualize(get_module_url('CLLNP') . '/learningPathAdmin.php') );
 }
 else
 {
-    $interbredcrump[]= array ("url"=>"../learnPath/learningPath.php", "name"=> get_lang('Learning path'));
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Learning path'), Url::Contextualize(get_module_url('CLLNP') . '/learningPath.php') );
 }
+
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Learning path list'), Url::Contextualize(get_module_url('CLLNP') . '/learningPathList.php') );
 
 $nameTools = get_lang('Module');
 
