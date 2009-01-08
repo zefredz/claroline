@@ -127,6 +127,7 @@ Catalan translation :           Xavier de Pedro (xavidp@confluencia.net)
 Chinese translation :           Maizeman (Maizeman@21cn.com)
                                 Barry (barry@synu.edu.cn)
                                 Ping Pingjianban (pingjianban@gmail.com)
+                                Derek "zhous" <zhous1998@gmail.com>
 
 Chinese (traditionnal) :        Kiang (kiange@gmail.com) - Taiwan PHP User Group http://twpug.net/
                                 Allen Uhomist universe_plushk@yahoo.com.hk
@@ -208,6 +209,7 @@ Spanish_Latin :                 Carlos Brys (brys@fce.unam.edu.ar)
                                 Mario Augusto Mendez Secaira <mendezsecaira@galileo.edu>
 
 Thaï translation :              Sutas Jitchuen (dtsjc@mucc.mahidol.ac.th)
+                                Prachid Tinnabutr (prachid@prachid.com, prachid007@gmail.com)
 
 Turkish translation :           Cuneyt Birkok (cbirkok@insanbilimleri.com)
 
