@@ -234,7 +234,6 @@ if ($_REQUEST['fromPanel'] == DISP_LANG || $_REQUEST['cmdDoInstall'])
     if( isset($_REQUEST['installLanguage']) && in_array($_REQUEST['installLanguage'], $installLanguageList) )
     {
         $installLanguage = $_REQUEST['installLanguage'];
-        $languageForm = $installLanguage;
     }
 }
 
@@ -608,7 +607,7 @@ if ($canRunCmd)
         $includePath = $newIncludePath;
         $rootSys = realpath($newIncludePath . '/../../');
         $display = DISP_RUN_INSTALL_COMPLETE;
-        include('./do_install.inc.php');
+        //include('./do_install.inc.php');
     }
  }
 
