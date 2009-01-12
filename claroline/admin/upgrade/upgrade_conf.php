@@ -128,7 +128,11 @@ if ( $cmd == 'run' )
             $current_property_list['defaultAccessOnCourseCreation']    = (bool) ( $current_property_list['defaultVisibilityForANewCourse'] == 2 or $current_property_list['defaultVisibilityForANewCourse'] == 3 );
             $current_property_list['defaultRegistrationOnCourseCreation'] = (bool) ( $current_property_list['defaultVisibilityForANewCourse'] == 1 or $current_property_list['defaultVisibilityForANewCourse'] == 2 );
         }
-
+        
+        // UPDATE for 1.9
+        // css should point to a theme not to a stylesheet
+        $current_property_list['claro_stylesheet'] = 'classic';
+        
         // Browse definition file and build them
 
         reset( $config_code_list );
