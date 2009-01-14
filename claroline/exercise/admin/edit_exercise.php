@@ -93,7 +93,7 @@ if( $cmd == 'exEdit' )
     {
         $exercise->setShuffle(0);
     }
-
+    
     $exercise->setShowAnswers($_REQUEST['showAnswers']);
 
     $exercise->setStartDate( mktime($_REQUEST['startHour'],$_REQUEST['startMinute'],0,$_REQUEST['startMonth'],$_REQUEST['startDay'],$_REQUEST['startYear']) );
@@ -118,6 +118,8 @@ if( $cmd == 'exEdit' )
 
     $exercise->setAttempts($_REQUEST['attempts']);
     $exercise->setAnonymousAttempts($_REQUEST['anonymousAttempts']);
+    
+    $exercise->setQuizEndMessage($_REQUEST['quizEndMessage']);
 
     if( $exercise->validate() )
     {
@@ -183,6 +185,8 @@ if( $cmd == 'rqEdit' )
 
     $form['attempts']             = $exercise->getAttempts();
     $form['anonymousAttempts']     = $exercise->getAnonymousAttempts();
+    
+    $form['quizEndMessage'] = $exercise->getQuizEndMessage();
 
     $displayForm = true;
 }
@@ -219,6 +223,9 @@ else
     ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, './edit_exercise.php?exId='.$exId );
 }
 
+$cssLoader = CssLoader::getInstance();
+$cssLoader->load( 'exercise', 'screen');
+
 include($includePath.'/claro_init_header.inc.php');
 
 echo claro_html_tool_title($toolTitle);
@@ -233,36 +240,36 @@ if( $displayForm )
     .    claro_form_relay_context()
     .     '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
     .     '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />' . "\n";
-
-    echo '<table border="0" cellpadding="5">' . "\n";
-
-    //--
-    // title
-    echo '<tr>' . "\n"
-    .     '<td valign="top"><label for="title">'.get_lang('Title').'&nbsp;<span class="required">*</span>&nbsp;:</label></td>' . "\n"
-    .     '<td><input type="text" name="title" id="title" size="60" maxlength="200" value="'.$form['title'].'" /></td>' . "\n"
-    .     '</tr>' . "\n\n";
-
-    // description
-    echo '<tr>' . "\n"
-    .     '<td valign="top"><label for="description">'.get_lang('Description').'&nbsp;:</label></td>' . "\n"
-    .     '<td>'.claro_html_textarea_editor('description', $form['description']).'</td>' . "\n"
-    .     '</tr>' . "\n\n";
-
+    
+    echo '<fieldset>' . "\n"
+    .   '<legend>' . get_lang('Basic information') . '</legend>' . "\n"
+    .   '<dl>' . "\n";
+    
+    //title
+    echo '<dt>' . get_lang('Title') . '&nbsp;<span class="required">*</span>&nbsp;:' . '</dt>' . "\n"
+    .   '<dd>'
+    .   '<input type="text" name="title" id="title" size="60" maxlength="200" value="'.$form['title'].'" />'
+    .   '</dd>' . "\n";
+    
+    //description
+    echo '<dt>' . get_lang('Description') . '&nbsp;:</dt>' . "\n"
+    .   '<dd>'
+    .   '<div style="width: 700px;">' . claro_html_textarea_editor('description', $form['description']) . '</div>'
+    .   '</dd>' . "\n";
+    
     // exercise type
-    echo '<tr>' . "\n"
-    .     '<td valign="top">'.get_lang('Exercise type').'&nbsp;:</td>' . "\n"
-    .     '<td>'
-    .     '<input type="radio" name="displayType" id="displayTypeOne" value="ONEPAGE"'
-    .     ( $form['displayType'] == 'ONEPAGE'?' checked="checked"':' ') . '>'
-    .     ' <label for="displayTypeOne">'.get_lang('On an unique page').'</label>'
-    .     '<br />'
-    .     '<input type="radio" name="displayType" id="displayTypeSeq" value="SEQUENTIAL"'
-    .     ( $form['displayType'] == 'SEQUENTIAL'?' checked="checked"':' ') . '>'
-    .     ' <label for="displayTypeSeq">'.get_lang('One question per page (sequential)').'</label>'
-    .     '</td>' . "\n"
-    .     '</tr>' . "\n\n";
-
+    echo '<dt>' . get_lang('Exercise type') . '&nbsp;:</dt>' . "\n"
+    .   '<dd>' . "\n"
+    .   '<input type="radio" name="displayType" id="displayTypeOne" value="ONEPAGE" class="radio" '
+    .   ( $form['displayType'] == 'ONEPAGE'?' checked="checked"':' ') . ' />&nbsp;'
+    .   '<label for="displayTypeOne">' . get_lang('On an unique page') . '</label>' . "\n"
+    .   '<br />' . "\n"    
+    .   '<input type="radio" name="displayType" id="displayTypeSeq" value="SEQUENTIAL" class="radio" '
+    .   ( $form['displayType'] == 'SEQUENTIAL'?' checked="checked"':' ') . ' />&nbsp;'    
+    .   '<label for="displayTypeSeq">' . get_lang('One question per page (sequential)') . '</label>' . "\n"
+    .   '</dd>' . "\n";
+    
+    // random question
     $questionCount = count($exercise->getQuestionList());
 
     if( !is_null($exId) && $questionCount > 0 )
@@ -272,13 +279,12 @@ if( $displayForm )
         {
             $questionDrawnOptions[$i] = $i;
         }
-
-        echo '<tr>' . "\n"
-        .     '<td valign="top">'.get_lang('Random questions').'&nbsp;:</td>' . "\n"
-        .     '<td>' . "\n"
-        .     '<input type="checkbox" name="randomize" id="randomize" '
-        .     ( $form['randomize']?' checked="checked"':' ') . '/> '
-        . get_lang('<label1>Yes</label1>, <label2>take</label2> %nb questions among %total',
+        
+        echo '<dt>' . get_lang('Random questions').'&nbsp;:</dt>' . "\n"
+        .   '<dd>'
+        .   '<input type="checkbox" name="randomize" id="randomize" class="checkbox" '
+        .     ( $form['randomize']?' checked="checked"':' ') . '/>&nbsp;'
+        .   get_lang('<label1>Yes</label1>, <label2>take</label2> %nb questions among %total',
                     array ( '<label1>' => '<label for="randomize">',
                             '</label1>' => '</label>',
                             '<label2>' => '<label for="questionDrawn">',
@@ -287,117 +293,111 @@ if( $displayForm )
                                                             $questionDrawnOptions,
                                                             $form['questionDrawn'],
                                                             array('id' => 'questionDrawn') ) ,
-                            '%total' =>  $questionCount ) )
-        .     '</td>' . "\n"
-        .     '</tr>' . "\n\n";
-
+                            '%total' =>  $questionCount ) )        
+        .   '</dd>' . "\n";        
+        
     }
-
-    //-- advanced part
-    echo '<tr>' . "\n"
-    .     '<td colspan="2">'
-    .     '<hr />'
-    .     '<strong>'.get_lang('Advanced').'</strong> <small>('.get_lang('Optional').')</small>'
-    .     '</td>' . "\n"
-    .     '</tr>' . "\n\n";
-
+    
+    echo '</dl>' . "\n"
+    .   '</fieldset>' . "\n";
+    
+    // Advanced Information
+    
+    echo '<button type="button" onclick="$(\'#advancedInformation\').slideToggle(\'slow\');">' . get_lang( 'Display advanced information' ) . '</button>';
+    
+    echo '<fieldset id="advancedInformation">' . "\n"
+    .   '<legend>' . '<strong>'.get_lang('Advanced').'</strong> <small>('.get_lang('Optional').')</small>' . '</legend>' . "\n"
+    .   '<dl>' . "\n";
+    
     // start date
-    echo '<tr>' . "\n"
-    .     '<td valign="top">'.get_lang('Start date').'&nbsp;:</td>' . "\n"
-    .     '<td>'
-    .     claro_html_date_form('startDay', 'startMonth', 'startYear', $form['startDate'], 'long')." - ".claro_html_time_form("startHour", "startMinute", $form['startDate'])
+    echo '<dt>' . get_lang('Start date') . '&nbsp;:</dt>' . "\n"
+    .   '<dd>'
+    .   claro_html_date_form('startDay', 'startMonth', 'startYear', $form['startDate'], 'long')." - ".claro_html_time_form("startHour", "startMinute", $form['startDate'])
     .     '<small>' . get_lang('(d/m/y hh:mm)') . '</small>'
-    .     '</td>' . "\n"
-    .     '</tr>' . "\n\n";
-
-    // end date
-    echo '<tr>' . "\n"
-    .     '<td valign="top">'.get_lang('End date').'&nbsp;:</td>' . "\n"
-    .     '<td>'
-    .     '<input type="checkbox" name="useEndDate" id="useEndDate" '
-    .     ( $form['useEndDate']?' checked="checked"':' ') . '/>'
-    .     ' <label for="useEndDate">'.get_lang('Yes').'</label>,' . "\n"
-    .     claro_html_date_form('endDay', 'endMonth', 'endYear', $form['endDate'], 'long')." - ".claro_html_time_form("endHour", "endMinute", $form['endDate'])
-    .     '<small>' . get_lang('(d/m/y hh:mm)') . '</small>'
-    .     '</td>' . "\n"
-    .     '</tr>' . "\n\n";
-
+    .   '</dd>' . "\n";
+    
+    // stop date
+    echo '<dt>' . get_lang('End date') . '&nbsp;:</dt>' . "\n"
+    .   '<dd>'
+    .   '<input type="checkbox" name="useEndDate" id="useEndDate" '
+    .   ( $form['useEndDate']?' checked="checked"':' ') . '/>'
+    .   ' <label for="useEndDate">'.get_lang('Yes').'</label>,' . "\n"
+    .   claro_html_date_form('endDay', 'endMonth', 'endYear', $form['endDate'], 'long')." - ".claro_html_time_form("endHour", "endMinute", $form['endDate'])
+    .   '<small>' . get_lang('(d/m/y hh:mm)') . '</small>'
+    .   '</dd>' . "\n";
+    
     // time limit
-    echo '<tr>' . "\n"
-    .     '<td valign="top">'.get_lang('Time limit').'&nbsp;:</td>' . "\n"
-    .     '<td>'
-    .     '<input type="checkbox" name="useTimeLimit" id="useTimeLimit" '
-    .     ( $form['useTimeLimit']?' checked="checked"':' ') . '/>'
-    .     ' <label for="useTimeLimit">'.get_lang('Yes').'</label>,' . "\n"
-    .     ' <input type="text" name="timeLimitMin" id="timeLimitMin" size="3" maxlength="3"  value="'.$form['timeLimitMin'].'" /> '.get_lang('min.')
-    .     ' <input type="text" name="timeLimitSec" id="timeLimitSec" size="2" maxlength="2"  value="'.$form['timeLimitSec'].'" /> '.get_lang('sec.')
-    .     '</td>' . "\n"
-    .     '</tr>' . "\n\n";
-
+    echo '<dt>' . get_lang('End date') . '&nbsp;:</dt>' . "\n"
+    .   '<dd>'
+    .   '<input type="checkbox" name="useTimeLimit" id="useTimeLimit" '
+    .   ( $form['useTimeLimit']?' checked="checked"':' ') . '/>'
+    .   ' <label for="useTimeLimit">'.get_lang('Yes').'</label>,' . "\n"
+    .   ' <input type="text" name="timeLimitMin" id="timeLimitMin" size="3" maxlength="3"  value="'.$form['timeLimitMin'].'" /> '.get_lang('min.')
+    .   ' <input type="text" name="timeLimitSec" id="timeLimitSec" size="2" maxlength="2"  value="'.$form['timeLimitSec'].'" /> '.get_lang('sec.')
+    .   '</dd>' . "\n";
+    
     // attempts allowed
-    echo '<tr>' . "\n"
-    .     '<td valign="top"><label for="attempts">'.get_lang('Attempts allowed').'&nbsp;:</label></td>' . "\n"
-    .     '<td>'
-    .     '<select name="attempts" id="attempts">' . "\n"
-    .     '<option value="0"' . ( $form['attempts'] < 1?' selected="selected"':' ') . '>' . get_lang('unlimited') . '</option>' . "\n"
-    .     '<option value="1"' . ( $form['attempts'] == 1?' selected="selected"':' ') . '>1</option>' ."\n"
-    .     '<option value="2"' . ( $form['attempts'] == 2?' selected="selected"':' ') . '>2</option>' ."\n"
-    .     '<option value="3"' . ( $form['attempts'] == 3?' selected="selected"':' ') . '>3</option>' ."\n"
-    .     '<option value="4"' . ( $form['attempts'] == 4?' selected="selected"':' ') . '>4</option>' ."\n"
-    .     '<option value="5"' . ( $form['attempts'] >= 5?' selected="selected"':' ') . '>5</option>' ."\n"
-    .     '</select>' . "\n"
-    .     '</td>' . "\n"
-    .     '</tr>' . "\n\n";
-
-    // anonymous attempts
-    echo '<tr>' . "\n"
-    .     '<td valign="top">'.get_lang('Anonymous attempts').'&nbsp;:</td>' . "\n"
-    .     '<td>'
-    .     '<input type="radio" name="anonymousAttempts" id="anonymousAttemptsAllowed" value="ALLOWED"'
-    .     ( $form['anonymousAttempts'] == 'ALLOWED'?' checked="checked"':' ') . ' />'
-    .     ' <label for="anonymousAttemptsAllowed">'.get_lang('Allowed : do not record usernames in tracking, anonymous users can do the exercise.').'</label>'
-    .     '<br />'
-    .     '<input type="radio" name="anonymousAttempts" id="anonymousAttemptsNotAllowed" value="NOTALLOWED"'
-    .     ( $form['anonymousAttempts'] == 'NOTALLOWED'?' checked="checked"':' ') . ' />'
-    .     ' <label for="anonymousAttemptsNotAllowed">'.get_lang('Not allowed : record usernames in tracking, anonymous users cannot do the exercise.').'</label>'
-    .     '</td>' . "\n"
-    .     '</tr>' . "\n\n";
-
+    echo '<dt><label for="attempts">' . get_lang('Attempts allowed') . '&nbsp;:</label></dt>' . "\n"
+    .   '<dd>'
+    .   '<select name="attempts" id="attempts">' . "\n"
+    .   '<option value="0"' . ( $form['attempts'] < 1?' selected="selected"':' ') . '>' . get_lang('unlimited') . '</option>' . "\n"
+    .  '<option value="1"' . ( $form['attempts'] == 1?' selected="selected"':' ') . '>1</option>' ."\n"
+    .  '<option value="2"' . ( $form['attempts'] == 2?' selected="selected"':' ') . '>2</option>' ."\n"
+    .  '<option value="3"' . ( $form['attempts'] == 3?' selected="selected"':' ') . '>3</option>' ."\n"
+    .  '<option value="4"' . ( $form['attempts'] == 4?' selected="selected"':' ') . '>4</option>' ."\n"
+    .  '<option value="5"' . ( $form['attempts'] >= 5?' selected="selected"':' ') . '>5</option>' ."\n"
+    .  '</select>' . "\n"
+    .   '</dd>' . "\n";
+    
+    //anonymous attempts
+    echo '<dt>' . get_lang('Anonymous attempts') . '&nbsp;:</dt>' . "\n"
+    .   '<dd>'
+    .   '<input type="radio" name="anonymousAttempts" id="anonymousAttemptsAllowed" value="ALLOWED"'
+    .  ( $form['anonymousAttempts'] == 'ALLOWED'?' checked="checked"':' ') . ' />'
+    .  ' <label for="anonymousAttemptsAllowed">'.get_lang('Allowed : do not record usernames in tracking, anonymous users can do the exercise.').'</label>'
+    .  '<br />'
+    .  '<input type="radio" name="anonymousAttempts" id="anonymousAttemptsNotAllowed" value="NOTALLOWED"'
+    .  ( $form['anonymousAttempts'] == 'NOTALLOWED'?' checked="checked"':' ') . ' />'
+    .  ' <label for="anonymousAttemptsNotAllowed">'.get_lang('Not allowed : record usernames in tracking, anonymous users cannot do the exercise.').'</label>'    
+    .   '</dd>';
+    
     // show answers
-    echo '<tr>' . "\n"
-    .     '<td valign="top">'.get_lang('Show answers').'&nbsp;:</td>' . "\n"
-    .     '<td>'
-    .     '<input type="radio" name="showAnswers" id="showAnswerAlways" value="ALWAYS"'
-    .     ( $form['showAnswers'] == 'ALWAYS'?' checked="checked"':' ') . ' />'
-    .     ' <label for="showAnswerAlways">'.get_lang('Yes').'</label>'
-    .     '<br />'
-    .     '<input type="radio" name="showAnswers" id="showAnswerLastTry" value="LASTTRY"'
-    .     ( $form['showAnswers'] == 'LASTTRY'?' checked="checked"':' ') . ' />'
-    .     ' <label for="showAnswerLastTry">'.get_lang('After last allowed attempt').'</label>'
-    .     '<br />'
-    .     '<input type="radio" name="showAnswers" id="showAnswerNever" value="NEVER"'
-    .     ( $form['showAnswers'] == 'NEVER'?' checked="checked"':' ') . ' />'
-    .     ' <label for="showAnswerNever">'.get_lang('No').'</label>'
-    .     '</td>' . "\n"
-    .     '</tr>' . "\n\n";
-
-    //--
-    echo '<tr>' . "\n"
-    .     '<td>&nbsp;</td>' . "\n"
-    .     '<td><small>' . get_lang('<span class="required">*</span> denotes required field') . '</small></td>' . "\n"
-    .     '</tr>' . "\n\n";
-
+    echo '<dt>' . get_lang('Show answers') . '&nbsp;:</dt>' . "\n"
+    .   '<dd>'
+    .   '<input type="radio" name="showAnswers" id="showAnswerAlways" value="ALWAYS"'
+    .   ( $form['showAnswers'] == 'ALWAYS'?' checked="checked"':' ') . ' />'
+    .   ' <label for="showAnswerAlways">'.get_lang('Yes').'</label>'
+    .   '<br />'
+    .   '<input type="radio" name="showAnswers" id="showAnswerLastTry" value="LASTTRY"'
+    .   ( $form['showAnswers'] == 'LASTTRY'?' checked="checked"':' ') . ' />'
+    .   ' <label for="showAnswerLastTry">'.get_lang('After last allowed attempt').'</label>'
+    .   '<br />'
+    .   '<input type="radio" name="showAnswers" id="showAnswerNever" value="NEVER"'
+    .   ( $form['showAnswers'] == 'NEVER'?' checked="checked"':' ') . ' />'
+    .   ' <label for="showAnswerNever">'.get_lang('No').'</label>'
+    .   '</dd>';
+    
+    // end form information
+    echo '<dt>' . get_lang('Quiz end message') . '&nbsp;:</dt>' . "\n"
+    .   '<dd>'
+    .   '<div style="width: 700px;">' . claro_html_textarea_editor('quizEndMessage', $form['quizEndMessage']) . '</div>'
+    .   '</dd>';
+    
+    echo '</dl>' . "\n"
+    .   '</fieldset>' . "\n";
+    
+    echo '<div style="padding-top: 5px;">'
+    .   '<small>' . get_lang('<span class="required">*</span> denotes required field') . '</small>'
+    .   '</div>'
     //-- buttons
-    echo '<tr>' . "\n"
-    .     '<td>&nbsp;</td>' . "\n"
-    .     '<td>'
+    .   '<div style="text-align: center;">'
     .     '<input type="submit" name="" id="" value="'.get_lang('Ok').'" />&nbsp;&nbsp;'
     .     claro_html_button('../exercise.php', get_lang("Cancel") )
-    .     '</td>' . "\n"
-    .     '</tr>' . "\n\n";
-
-    echo '</table>' . "\n\n"
-    .     '</form>' . "\n\n";
+    .   '</div>';   
+    
+    echo '</form>' . "\n\n";
+    
+    echo '<script type="text/javascript">$(document).ready(function() { $("#advancedInformation").hide(); });</script>';
 }
 else
 {
@@ -406,16 +406,21 @@ else
     echo '<blockquote>'.claro_parse_user_text($exercise->getDescription()).'</blockquote>' . "\n"
     .     '<ul style="font-size:small;">' . "\n";
 
-      echo '<li>'
-      .     get_lang('Exercise type').'&nbsp;: '
-      .     ( $exercise->getDisplayType() == 'SEQUENTIAL'?get_lang('One question per page (sequential)'):get_lang('On an unique page') )
-      .     '</li>' . "\n";
+    echo '<li>'
+    .     get_lang('Exercise type').'&nbsp;: '
+    .     ( $exercise->getDisplayType() == 'SEQUENTIAL'?get_lang('One question per page (sequential)'):get_lang('On an unique page') )
+    .     '</li>' . "\n";
 
-      echo '<li>'
-      .     get_lang('Random questions').'&nbsp;: '
-      .     ( $exercise->getShuffle() > 0?get_lang('Yes'):get_lang('No') )
-      .     '</li>' . "\n";
-
+    echo '<li>'
+    .     get_lang('Random questions').'&nbsp;: '
+    .     ( $exercise->getShuffle() > 0?get_lang('Yes'):get_lang('No') )
+    .     '</li>' . "\n";
+    
+    echo '</ul>' . "\n";
+    
+    echo '<div><a href="#" onclick="$(\'#moreInformation\').slideToggle(\'slow\');">'. get_lang('More information') . '</a></div>' . "\n";
+    echo '<ul id="moreInformation" style="display: none;">' . "\n";
+    
     echo '<li>'
       .     get_lang('Start date').'&nbsp;: '
       .     claro_html_localised_date($dateTimeFormatLong, $exercise->getStartDate())
@@ -460,9 +465,14 @@ else
       case 'NEVER'  : echo get_lang('No'); break;
     }
     echo '</li>' . "\n";
-
+    
+    echo '<li>'
+    .   get_lang('Quiz end message') . '&nbsp;: '
+    .   '<blockquote>'.claro_parse_user_text($exercise->getQuizEndMessage()).'</blockquote>' . "\n"
+    .   '</li>' . "\n";
+    
     echo '</ul>' . "\n\n";
-
+    echo '<br />' . "\n";
 
     //-- claroCmd
     $cmd_menu = array();

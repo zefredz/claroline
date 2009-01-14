@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__qwz_exercise` (
     `timeLimit` smallint(6) NOT NULL default '0',
     `attempts` tinyint(4) NOT NULL default '0',
     `anonymousAttempts` enum('ALLOWED','NOTALLOWED') NOT NULL default 'NOTALLOWED',
+    `quizEndMessage` text NOT NULL,
     PRIMARY KEY  (`id`)
 ) TYPE=MyISAM;
 

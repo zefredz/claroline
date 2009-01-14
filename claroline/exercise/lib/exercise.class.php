@@ -74,6 +74,11 @@ class Exercise
      * @var $anonymousAttempts file of automatic feedback
      */
     var $anonymousAttempts;
+    
+    /**
+     * @var $quizEndMessage statement of the exercise
+     */
+    var $quizEndMessage;
 
     /**
      * @var $tblExercise
@@ -104,6 +109,7 @@ class Exercise
         $this->timeLimit = 0;
         $this->attempts = 0;
         $this->anonymousAttempts = 'NOTALLOWED';
+        $this->quizEndMessage = '';
 
         $tbl_cdb_names = get_module_course_tbl( array( 'qwz_exercise', 'qwz_question', 'qwz_rel_exercise_question' ), $course_id );
         $this->tblExercise = $tbl_cdb_names['qwz_exercise'];
@@ -132,7 +138,8 @@ class Exercise
                     UNIX_TIMESTAMP(`endDate`) AS `unix_end_date`,
                     `timeLimit`,
                     `attempts`,
-                    `anonymousAttempts`
+                    `anonymousAttempts`,
+                    `quizEndMessage`
             FROM `".$this->tblExercise."`
             WHERE `id` = ".(int) $id;
 
@@ -159,6 +166,7 @@ class Exercise
             $this->timeLimit = $data['timeLimit'];
             $this->attempts = $data['attempts'];
             $this->anonymousAttempts = $data['anonymousAttempts'];
+            $this->quizEndMessage = $data['quizEndMessage'];
 
             return true;
         }
@@ -191,7 +199,8 @@ class Exercise
                         `endDate` = ".(is_null($this->endDate)?"'0000-00-00 00:00:00'":"FROM_UNIXTIME(".claro_sql_escape($this->endDate).")").",
                         `timeLimit` = ".(int) $this->timeLimit.",
                         `attempts` = ".(int) $this->attempts.",
-                        `anonymousAttempts` = '".claro_sql_escape($this->anonymousAttempts)."'";
+                        `anonymousAttempts` = '".claro_sql_escape($this->anonymousAttempts)."',
+                        `quizEndMessage` = '".claro_sql_escape($this->quizEndMessage)."'";
 
             // execute the creation query and get id of inserted assignment
             $insertedId = claro_sql_query_insert_id($sql);
@@ -221,7 +230,8 @@ class Exercise
                         `endDate` = ".(is_null($this->endDate)?"'0000-00-00 00:00:00'":"FROM_UNIXTIME(".claro_sql_escape($this->endDate).")").",
                         `timeLimit` = ".(int) $this->timeLimit.",
                         `attempts` = ".(int) $this->attempts.",
-                        `anonymousAttempts` = '".claro_sql_escape($this->anonymousAttempts)."'
+                        `anonymousAttempts` = '".claro_sql_escape($this->anonymousAttempts)."',
+                        `quizEndMessage` = '".claro_sql_escape($this->quizEndMessage)."'
                     WHERE `id` = '".$this->id."'";
 
             // execute and return main query
@@ -617,6 +627,27 @@ class Exercise
     {
         $this->description = trim($value);
     }
+    
+    /**
+     * get quiz end message
+     *
+     * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
+     * @return string
+     */
+     function getQuizEndMessage()
+     {
+        return $this->quizEndMessage;
+     }
+     /**
+      * set end form information
+      *
+      * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
+      * @param string $value
+      */
+     function setQuizEndMessage($value)
+     {
+        $this->quizEndMessage = trim($value);
+     }
 
     /**
      * get visibility ('VISIBLE', 'INVISIBLE')

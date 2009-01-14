@@ -39,10 +39,10 @@
             ('".$questionId."','".claro_sql_escape(get_lang('sampleQuizAnswer4'))."','1','5','".claro_sql_escape(get_lang('sampleQuizAnswer4Comment'))."')");
 
         // create exercise
-        $exerciseId = claro_sql_query_insert_id("INSERT INTO `".$TABLEQWZEXERCISE."` (`title`, `description`, `visibility`, `startDate`, `endDate`)
+        $exerciseId = claro_sql_query_insert_id("INSERT INTO `".$TABLEQWZEXERCISE."` (`title`, `description`, `visibility`, `startDate`, `endDate`, `quizEndMessage`)
             VALUES
-            ('".claro_sql_escape(get_lang('sampleQuizTitle'))."', '".claro_sql_escape(get_lang('sampleQuizDescription'))."', 'INVISIBLE', NOW(), DATE_ADD(NOW(), INTERVAL 1 YEAR) )");
-            
+            ('".claro_sql_escape(get_lang('sampleQuizTitle'))."', '".claro_sql_escape(get_lang('sampleQuizDescription'))."', 'INVISIBLE', NOW(), DATE_ADD(NOW(), INTERVAL 1 YEAR), '' )");
+        
         // put question in exercise
         claro_sql_query("INSERT INTO `".$TABLEQWZRELEXERCISEQUESTION."` VALUES ($exerciseId, $questionId, 1)");
     }

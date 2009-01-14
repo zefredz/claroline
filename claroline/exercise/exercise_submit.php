@@ -535,6 +535,11 @@ if( $showResult )
         $out .= '</strong>';
         
         $out .= '</div>' . "\n";
+        
+        if( !is_null($exercise->getQuizEndMessage()) )
+        {
+            $out .= '<blockquote>' . "\n" . claro_parse_user_text($exercise->getQuizEndMessage()) . "\n" . '</blockquote>' . "\n";
+        }
     }
     // Display Finish/Continue
     $out .= '<div class="centerContent">'. "\n";
