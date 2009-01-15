@@ -607,11 +607,11 @@ if ($canRunCmd)
         $includePath = $newIncludePath;
         $rootSys = realpath($newIncludePath . '/../../');
         $display = DISP_RUN_INSTALL_COMPLETE;
-        //include('./do_install.inc.php');
+        include('./do_install.inc.php');
     }
  }
 
-//PREPARE DISPLAY
+//PREPARE DISPLAY	
 
 
 if( DISP_DB_NAMES_SETTING == $display )
