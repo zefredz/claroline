@@ -251,7 +251,7 @@ if ($runfillMainDb && $runfillStatsDb)
         $form_value_list['userPasswordCrypted'] = (bool) $encryptPassForm;
         $form_value_list['allowSelfReg']     = (bool) $allowSelfReg;
         $form_value_list['platformLanguage'] = $languageForm ;
-        $form_value_list['claro_stylesheet'] = 'default.css';
+        $form_value_list['claro_stylesheet'] = 'classic';
 
         ######### DEALING WITH FILES #########################################
 
