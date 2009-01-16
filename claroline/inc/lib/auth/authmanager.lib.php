@@ -6,7 +6,7 @@
  * Authentication Manager
  *
  * @version     1.9 $Revision$
- * @copyright   2001-2008 Universite catholique de Louvain (UCL)
+ * @copyright   2001-2009 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Frederic Minne <zefredz@claroline.net>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -15,7 +15,7 @@
  */
 
 // Get required libraries
-FromKernel::uses('core/claroline.lib','database/database.lib','kernel/user.lib');
+FromKernel::uses('core/claroline.lib','database/database.lib','kernel/user.lib', 'auth/authdrivers.lib');
 
 class AuthManager
 {
@@ -33,7 +33,7 @@ class AuthManager
     
     public function authenticate( $username, $password )
     {
-        if ( !empty($username) && $authSource = self::getAuthSource( $username ) )
+        if ( !empty($username) && $authSource = AuthUserTable::getAuthSource( $username ) )
         {
             Console::debug("Found authentication source {$authSource}");
             $driverList = array( AuthDriverManager::getDriver( $authSource ) );
@@ -42,7 +42,7 @@ class AuthManager
         {
             // avoid issues with session collision when many users connect from
             // the same computer at the same time with the same browser session !
-            if ( self::userExists( $username ) ) 
+            if ( AuthUserTable::userExists( $username ) ) 
             {   
                 self::setFailureMessage( get_lang( "There is already an account with this username." ) );
                 return false;
@@ -58,17 +58,31 @@ class AuthManager
             
             if ( $driver->authenticate() )
             {
-                if ( $uid = self::registered( $username, $driver->getAuthSource() ) )
+                if ( $uid = AuthUserTable::registered( $username, $driver->getAuthSource() ) )
                 {
-                    $driver->update( $uid );
+                    if ( $driver->userUpdateAllowed() )
+                    {
+                        $userAttrList =  $driver->getFilteredUserData();
+                        
+                        // avoid session collisions !
+                        if ( isset( $userAttrList['loginName'] )
+                            && $username != $userAttrList['loginName'] )
+                        {
+                            Console::error( "EXTAUTH ERROR : try to overwrite an existing user {$this->username} with another one" . var_export($userAttrList, true) );
+                        }
+                        else
+                        {
+                            AuthUserTable::updateUser( $uid, $userAttrList );
+                        }
+                    }
                     
-                    return $driver->getUser();
+                    return Claro_CurrentUser::getInstance( $uid, true );
                 }
                 elseif ( $driver->userRegistrationAllowed() )
                 {
-                    $driver->register();
+                    $uid = AuthUserTable::createUser( $driver->getUserData() );
                     
-                    return $driver->getUser();
+                    return Claro_CurrentUser::getInstance( $uid, true );
                 }
             }
             elseif ( $authSource )
@@ -80,7 +94,10 @@ class AuthManager
         // authentication failed
         return false;
     }
-    
+}
+
+class AuthUserTable
+{
     public static function userExists( $username )
     {
         $tbl = claro_sql_get_main_tbl();
@@ -144,6 +161,74 @@ class AuthManager
             
         return  Claroline::getDatabase()->query( $sql )->fetch(Database_ResultSet::FETCH_VALUE);
     }
+    
+    public static function createUser( $userAttrList )
+    {
+        return self::registerUser( $userAttrList, null );
+    }
+    
+    public static function updateUser( $uid, $userAttrList )
+    {
+        return self::registerUser( $userAttrList, $uid );
+    }
+    
+    protected static function registerUser( $userAttrList, $uid = null )
+    {
+        $preparedList = array();
+        
+        // Map database fields
+        $dbFieldToClaroMap = array(
+            'nom' => 'lastname',
+            'prenom' => 'firstname',
+            'username' => 'loginName',
+            'email' => 'email',
+            'officialCode' => 'officialCode',
+            'phoneNumber' => 'phoneNumber',
+            'isCourseCreator' => 'isCourseCreator',
+            'authSource' => 'authSource');
+        
+        // Do not overwrite username and authsource for an existing user !!!
+        if ( ! is_null( $uid ) )
+        {
+            unset( $dbFieldToClaroMap['username'] );
+            unset( $dbFieldToClaroMap['authSource'] );
+        }
+
+        
+        foreach ( $dbFieldToClaroMap as $dbFieldName => $claroAttribName )
+        {
+            if ( isset($userAttrList[$claroAttribName])
+                && ! is_null($userAttrList[$claroAttribName]) )
+            {
+                $preparedList[] = $dbFieldName
+                    . ' = '
+                    . Claroline::getDatabase()->quote($userAttrList[$claroAttribName])
+                    ;
+            }
+        }
+        
+        if ( empty( $preparedList ) )
+        {
+            return false;
+        }
+        
+        $tbl = claro_sql_get_main_tbl();
+        
+        $sql = ( $uid ? 'UPDATE' : 'INSERT INTO' ) 
+            . " `{$tbl['user']}`\n"
+            . "SET " . implode(",\n", $preparedList ) . "\n"
+            . ( $uid ? "WHERE  user_id = " . (int) $uid : '' )
+            ;
+        
+        Claroline::getDatabase()->exec($sql);
+        
+        if ( ! $uid )
+        {
+            $uid = Claroline::getDatabase()->insertId();
+        }
+        
+        return $uid;
+    }
 }
 
 class AuthDriverManager
@@ -180,11 +265,15 @@ class AuthDriverManager
     protected static function initDriverList()
     {
         // todo : get from config
+        
+        // load static drivers
         self::$drivers = array(
             'claroline' => new ClarolineLocalAuthDriver(),
-            'disabled' => new UserDisabledAuthDriver()
+            'disabled' => new UserDisabledAuthDriver(),
+            'temp' => new TemporaryAccountAuthDriver()
         );
         
+        // load dynamic drivers
         if ( ! file_exists ( get_path('rootSys') . 'platform/conf/extauth' ) )
         {
             FromKernel::uses('fileManage.lib');
@@ -203,39 +292,23 @@ class AuthDriverManager
                 
                 if ( $driverConfig['driver']['enabled'] == true )
                 {
-                    if ( $driverConfig['driver']['class'] == 'PearAuthDriver' )
+                    $driverClass = $driverConfig['driver']['class'];
+                        
+                    if ( class_exists( $driverClass ) )
                     {
-                        self::$drivers[$driverConfig['driver']['authSourceName']] = PearAuthDriver::fromConfig( $driverConfig );
+                        self::$drivers[$driverConfig['driver']['authSourceName']] = new $driverClass( $driverConfig );
                     }
                     else
                     {
-                        $driverClass = $driverConfig['driver']['class'];
+                        $driverPath = dirname(__FILE__). '/drivers/' . strtolower($driverClass).'.lib.php';
                         
-                        if ( class_exists( $driverClass ) )
+                        if ( file_exists($driverPath) )
                         {
-                            self::$drivers[$driverConfig['driver']['authSourceName']] = new $driverClass( $driverConfig );
-                        }
-                        else
-                        {
-                            $driverPath = dirname(__FILE__). '/drivers/' . strtolower($driverClass).'.lib.php';
+                            require_once $driverPath;
                             
-                            if ( file_exists($driverPath) )
+                            if ( class_exists( $driverClass ) )
                             {
-                                require_once $driverPath;
-                                
-                                if ( class_exists( $driverClass ) )
-                                {
-                                    self::$drivers[$driverConfig['driver']['authSourceName']] = new $driverClass( $driverConfig );
-                                }
-                                else
-                                {
-                                    if ( claro_debug_mode() )
-                                    {
-                                        throw new Exception("Driver class {$driverClass} not found");
-                                    }
-                                    
-                                    Console::error( "Driver class {$driverClass} not found" );
-                                }
+                                self::$drivers[$driverConfig['driver']['authSourceName']] = new $driverClass( $driverConfig );
                             }
                             else
                             {
@@ -247,412 +320,20 @@ class AuthDriverManager
                                 Console::error( "Driver class {$driverClass} not found" );
                             }
                         }
+                        else
+                        {
+                            if ( claro_debug_mode() )
+                            {
+                                throw new Exception("Driver class {$driverClass} not found");
+                            }
+                            
+                            Console::error( "Driver class {$driverClass} not found" );
+                        }
                     }
                 }
             }
             
             $driverConfig = array();
         }
-    }
-}
-
-interface AuthDriver
-{
-    public function setAuthenticationParams( $username, $password );
-    public function authenticate();
-    public function update( $uid );
-    public function register();
-    public function getUSerData();
-    public function getUser();
-    public function getUserId();
-    public function getAuthSource();
-    public function userRegistrationAllowed();
-    public function getFailureMessage();
-}
-
-abstract class AbstractAuthDriver implements AuthDriver
-{
-    protected $userId = null;
-    protected $extAuthIgnoreUpdateList = array();
-    protected $username = null, $password = null;
-    protected $extraMessage = null;
-    
-    // abstract public function getUserData();
-    
-    protected function setFailureMessage( $message )
-    {
-        $this->extraMessage = $message;
-    }
-    
-    public function getFailureMessage()
-    {
-        return $this->extraMessage;
-    }
-    
-    public function setAuthenticationParams( $username, $password )
-    {
-        $this->username = $username;
-        $this->password = $password;
-    }
-    
-    protected function registerUser( $userAttrList, $uid = null )
-    {
-        // bug !!!!
-        if ( ! is_null( $uid ) )
-        {
-            if ( $this->username != $userAttrList['loginName'] )
-            {
-                Console::error( "EXTAUTH ERROR : try to overwrite an existing user {$this->username} with another one" . var_export($userAttrList, true) );
-            }
-
-            $this->userId = $uid;
-            return $uid;
-        }
-        
-        
-        $preparedList = array();
-        
-        // Map database fields
-        $dbFieldToClaroMap = array(
-            'nom' => 'lastname',
-            'prenom' => 'firstname',
-            'username' => 'loginName',
-            'email' => 'email',
-            'officialCode' => 'officialCode',
-            'phoneNumber' => 'phoneNumber',
-            'isCourseCreator' => 'isCourseCreator',
-            'authSource' => 'authSource');
-        
-        // Do not overwrite username and authsource for an existing user !!!
-        if ( ! is_null( $uid ) )
-        {
-            unset( $dbFieldToClaroMap['username'] );
-            unset( $dbFieldToClaroMap['authSource'] );
-        }
-
-        
-        foreach ( $dbFieldToClaroMap as $dbFieldName => $claroAttribName )
-        {
-            if ( ! is_null($userAttrList[$claroAttribName])
-                && ( !$uid || !in_array($claroAttribName, $this->extAuthIgnoreUpdateList ) ) )
-            {
-                $preparedList[] = $dbFieldName
-                    . ' = '
-                    . Claroline::getDatabase()->quote($userAttrList[$claroAttribName])
-                    ;
-            }
-        }
-        
-        $tbl = claro_sql_get_main_tbl();
-        
-        $sql = ( $uid ? 'UPDATE' : 'INSERT INTO' ) 
-            . " `{$tbl['user']}`\n"
-            . "SET " . implode(",\n", $preparedList ) . "\n"
-            . ( $uid ? "WHERE  user_id = " . (int) $uid : '' )
-            ;
-        
-        try
-        {
-            Claroline::getDatabase()->exec($sql);
-            
-            $this->userId = $uid ? $uid : Claroline::getDatabase()->insertId();
-            
-            return $this->userId;
-        }
-        catch( Exception $e )
-        {
-            throw new Exception("Fail to insert or update user in database !!!!");
-        }
-    }
-    
-    public function getUser()
-    {
-        if ( $this->getUSerId() )
-        {
-            return Claro_CurrentUser::getInstance( $this->getUserId(), true );
-        }
-        else
-        {
-            return null;
-        }
-    }
-    
-    public function update( $uid )
-    {
-        $this->userId = $this->registerUser( $this->getUserData(), $uid );
-    }
-    
-    public function register()
-    {
-        $this->userId = $this->registerUser( $this->getUserData() );
-    }
-    
-    public function getUserId()
-    {
-        return $this->userId;
-    }
-}
-
-class UserDisabledAuthDriver extends AbstractAuthDriver
-{
-    public function getFailureMessage()
-    {
-        // we use get_lang here to force the language file builder to add this
-        // variable, but since this code is executed before the language files are loaded
-        // we have to call get_lang a second time when the message is displayed...
-        return get_lang('This account has been disabled, please contact the platform administrator');
-    }
-    
-    public function userRegistrationAllowed()
-    {
-        return false;
-    }
-    
-    public function getAuthSource()
-    {
-        return 'disabled';
-    }
-    
-    public function update( $uid )
-    {
-        return false;
-    }
-    
-    public function register()
-    {
-        return false;
-    }
-    
-    public function getUserId()
-    {
-        return null;
-    }
-    
-    public function getUser()
-    {
-        return null;
-    }
-    
-    public function authenticate()
-    {
-        return false;
-    }
-    
-    public function getUserData()
-    {
-        return null;
-    }
-}
-
-class ClarolineLocalAuthDriver extends AbstractAuthDriver
-{
-    protected $alwaysCrypted = false;
-    
-    public function userRegistrationAllowed()
-    {
-        return false;
-    }
-    
-    public function getAuthSource()
-    {
-        return 'claroline';
-    }
-    
-    public function setAuthenticationParams( $username, $password )
-    {
-        $this->username = $username;
-        
-        if ( get_conf('userPasswordCrypted',false) )
-        {
-            $this->password = md5($password);
-        }
-        else
-        {
-            $this->password = $password;
-        }
-    }
-    
-    public function authenticate()
-    {
-        if ( empty( $this->username ) || empty( $this->password ) )
-        {
-            return false;
-        }
-        
-        $tbl = claro_sql_get_main_tbl();
-        
-        $sql = "SELECT user_id, username, password, authSource\n"
-            . "FROM `{$tbl['user']}`\n"
-            . "WHERE "
-            . ( get_conf('claro_authUsernameCaseSensitive',true) ? 'BINARY ' : '')
-            . "username = ". Claroline::getDatabase()->quote($this->username) . "\n"
-            . "AND authSource = 'claroline'" . "\n"
-            . "ORDER BY user_id DESC LIMIT 1"
-            ;
-            
-        $userDataList = Claroline::getDatabase()->query( $sql );
-        
-        if ( $userDataList->numRows() > 0 )
-        {
-            foreach ( $userDataList as $userData )
-            {
-                if ( $this->password === $userData['password'] )
-                {
-                    $this->userId = $userData['user_id'];
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
-        else
-        {
-            return false;
-        }
-    }
-    
-    public function getUserData()
-    {
-        return $this->getUser()->getRawData();
-    }
-    
-    public function registered()
-    {
-        $userId = $this->getUserId();
-        return !empty($userId);
-    }
-    
-    public function update( $uid )
-    {
-        return $this->getUserId();
-    }
-    
-    public function register()
-    {
-        return $this->getUserId();
-    }
-}
-
-class PearAuthDriver extends AbstractAuthDriver
-{
-    protected $driverConfig;
-    protected $authType;
-    protected $authSourceName;
-    protected $userRegistrationAllowed;
-    protected $extAuthOptionList;
-    protected $extAuthAttribNameList;
-    protected $extAuthAttribTreatmentList;
-    
-    protected $auth;
-    
-    public function __construct( $driverConfig )
-    {
-        $this->driverConfig = $driverConfig;
-        $this->authType = $driverConfig['driver']['authSourceType'];
-        $this->authSourceName = $driverConfig['driver']['authSourceName'];
-        $this->userRegistrationAllowed = $driverConfig['driver']['userRegistrationAllowed'];
-        $this->extAuthOptionList = $driverConfig['extAuthOptionList'];
-        $this->extAuthAttribNameList = $driverConfig['extAuthAttribNameList'];
-        $this->extAuthAttribTreatmentList = $driverConfig['extAuthAttribTreatmentList'];
-        $this->extAuthIgnoreUpdateList = $driverConfig['extAuthAttribToIgnore'];
-    }
-    
-    public function userRegistrationAllowed()
-    {
-        return $this->userRegistrationAllowed;
-    }
-    
-    public function getAuthSource()
-    {
-        return $this->authSourceName;
-    }
-    
-    public function authenticate()
-    {
-        if ( empty( $this->username ) || empty( $this->password ) )
-        {
-            return false;
-        }
-        
-        $_POST['username'] = $this->username;
-        $_POST['password'] = $this->password;
-        
-        if ( $this->authType === 'LDAP')
-        {
-            // CASUAL PATCH (Nov 21 2005) : due to a sort of bug in the
-            // PEAR AUTH LDAP container, we add a specific option wich forces
-            // to return attributes to a format compatible with the attribute
-            // format of the other AUTH containers
-
-            $this->extAuthOptionList ['attrformat'] = 'AUTH';
-        }
-        
-        require_once 'Auth/Auth.php';
-
-        $this->auth = new Auth( $this->authType, $this->extAuthOptionList, '', false);
-
-        $this->auth->start();
-        
-        return $this->auth->getAuth();
-    }
-    
-    public function getUserData()
-    {
-        $userAttrList = array('lastname'     => NULL,
-                          'firstname'    => NULL,
-                          'loginName'    => NULL,
-                          'email'        => NULL,
-                          'officialCode' => NULL,
-                          'phoneNumber'  => NULL,
-                          'isCourseCreator' => NULL,
-                          'authSource'   => NULL);
-
-        foreach($this->extAuthAttribNameList as $claroAttribName => $extAuthAttribName)
-        {
-            if ( ! is_null($extAuthAttribName) )
-            {
-                $userAttrList[$claroAttribName] = $this->auth->getAuthData($extAuthAttribName);
-            }
-        }
-        
-        foreach($userAttrList as $claroAttribName => $claroAttribValue)
-        {
-            if ( array_key_exists($claroAttribName, $this->extAuthAttribTreatmentList ) )
-            {
-                $treatmentCallback = $this->extAuthAttribTreatmentList[$claroAttribName];
-
-                if ( is_callable( $treatmentCallback ) )
-                {
-                    $claroAttribValue = $treatmentCallback($claroAttribValue);
-                }
-                else
-                {
-                    $claroAttribValue = $treatmentCallback;
-                }
-            }
-
-            $userAttrList[$claroAttribName] = $claroAttribValue;
-        } // end foreach
-
-        /* Two fields retrieving info from another source ... */
-
-        $userAttrList['loginName' ] = $this->auth->getUsername();
-        $userAttrList['authSource'] = $this->authSourceName;
-        
-        if ( isset($userAttrList['status']) )
-        {
-            $userAttrList['isCourseCreator'] = ($userAttrList['status'] == 1) ? 1 : 0;
-        }
-        
-        return $userAttrList;
-    }
-    
-    public static function fromConfig( $driverConfig )
-    {
-        $driver = new self( $driverConfig );
-        
-        return $driver;
     }
 }
