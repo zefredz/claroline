@@ -43,7 +43,8 @@ $driverConfig['driver'] = array(
     'class' => 'PearAuthDriver',
     'authSourceType' => 'DB',
     'authSourceName' => 'ganesha',
-    'userRegistrationAllowed' => true
+    'userRegistrationAllowed' => true,
+    'userUpdateAllowed' => true
 );
 
 // you can change the driver from this point

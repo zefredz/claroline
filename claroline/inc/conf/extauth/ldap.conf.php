@@ -25,13 +25,17 @@ if ( ! function_exists( 'ldap_to_claroline' ) )
     }
 }
 
-// do not change the following section
 $driverConfig['driver'] = array(
-    'enabled' => true,
+    'enabled' => true, // set to false to disable the driver
+    // do not change this section
     'class' => 'PearAuthDriver',
     'authSourceType' => 'LDAP',
     'authSourceName' => 'ldap',
-    'userRegistrationAllowed' => true
+    // end of section
+    // allow driver to create a user in Claroline with data from auth source
+    'userRegistrationAllowed' => true,
+    // allow driver to update a user in Claroline with data from auth source
+    'userUpdateAllowed' => false
 );
 
 // you can change the driver from this point

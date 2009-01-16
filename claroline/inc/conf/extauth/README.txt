@@ -1,10 +1,11 @@
 
-                    CLAROLINE EXTERNAL AUTHENTICATION SYSTEM
+                    CLAROLINE AUTHENTICATION SYSTEM
                     Claroline 1.9
 
-Preliminary Note. This document doens't treat external authentication with CAS.
+Preliminary Note : This document doens't treat single-sign on authentication
+using CAS, Shibboleth or any other SSO system.
 
-This system allows Claroline to rely on external system concerning 
+This system allows Claroline to rely on external or local systems concerning 
 authentication and user profile management. It is based on a collection of 
 authentication drivers stored inside the platform/conf/extauth folder.
 directory.
@@ -50,6 +51,16 @@ Each Claroline driver sets 5 parameters.
 - 'enabled' : tell the kernel to use this driver or not
 
     example : 'enabled' => true
+    
+- 'userRegistrationAllowed' : tell the kernel if the driver is allowed to create
+a new user in Claroline
+
+    example : 'userRegistrationAllowed' => true
+
+- 'userUpdateAllowed' : tell the kernel if the driver is allowed to update an
+existing user in Claroline
+
+    example : 'userUpdateAllowed' => true
 
 - 'class' : the PHP class used for the driver. If you are only modifying the
 parameters of an existing driver, do not edit this one
@@ -120,6 +131,9 @@ parameters of an existing driver, do not edit this one
     example : $driverConfig['extAuthAttribToIgnore'] = array(
                 'isCourseCreator'
             );
+
+In addiction, each driver can define a specific driver PHP class or one or more
+specific functions to process the data retreived from the authentication source.
 
 For more information : http://forum.claroline.net
 
