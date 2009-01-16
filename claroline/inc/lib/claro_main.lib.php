@@ -1235,11 +1235,18 @@ function claro_get_language_list()
 
     while ( ($entries = readdir($handle) ) )
     {
-        if ($entries == '.' || $entries == '..' || $entries == 'CVS')
-        continue;
+        if ($entries == '.' || $entries == '..' || $entries == 'CVS' || $entries == '.svn')
+        {
+            continue;
+        }
+        
         if (is_dir($dirname . $entries))
         {
-            if (isset($langNameOfLang[$entries])) $language_list[$entries]['langNameCurrentLang'] = $langNameOfLang[$entries];
+            if (isset($langNameOfLang[$entries]))
+            {
+                $language_list[$entries]['langNameCurrentLang'] = $langNameOfLang[$entries];
+            }
+            
             $language_list[$entries]['langNameLocaleLang']  = $entries;
         }
     }
