@@ -54,7 +54,7 @@ function get_path($pathKey)
         $pathList['rootWeb'] =  get_conf('rootWeb') ;
 
         // append path
-        $pathList['imgRepositoryAppend'] =  'claroline/img/'; // <-this line would be editable in claroline 1.7
+        $pathList['imgRepositoryAppend'] =  'web/img/';
         $pathList['coursesRepositoryAppend'] =  get_conf('coursesRepositoryAppend','courses/');
 
         // root path + append path
