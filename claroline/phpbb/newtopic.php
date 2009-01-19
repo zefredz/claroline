@@ -148,6 +148,35 @@ elseif ( $forumSettingList )
                 // notify eventmanager that a new message has been posted
 
                 $eventNotifier->notifyCourseEvent('forum_new_topic',claro_get_current_course_id(), claro_get_current_tool_id(), $forum_id."-".$topic_id, claro_get_current_group_id(), 0);
+                
+                // notify by mail that a new topic has been created
+                if( get_conf('clfrm_notification_enabled', true) )
+                {
+                    $courseSender = claro_get_current_user_data('firstName') . ' ' . claro_get_current_user_data('lastName');
+                    $courseOfficialCode = claro_get_current_course_data('officialCode');
+                    $title = get_lang('New topic on the forum %forum', array('%forum' => $forum_name));
+                    $msgContent = get_lang('A new topic called %topic has been created on the forum %forum', array('%topic' => $subject, '%forum' => $forum_name));
+                    
+                    // attached resource
+                    $body = $msgContent . "\n"
+                    .   "\n"
+                    ;
+    
+                    require_once dirname(__FILE__) . '/../messaging/lib/message/messagetosend.lib.php';
+                    require_once dirname(__FILE__) . '/../messaging/lib/recipient/userlistrecipient.lib.php';
+                    require_once dirname(__FILE__) . '/../inc/lib/course.lib.inc.php';
+                    
+                    $courseManagers = claro_get_course_manager_id( claro_get_current_course_id() );
+                    $userListRecipient = new UserListRecipient;
+                    $userListRecipient->addUserIdList( $courseManagers );
+                    
+                    $message = new MessageToSend(claro_get_current_user_id(),$title,$body);
+                    $message->setCourse(claro_get_current_course_id());
+                    $message->setTools('CLFRM');
+                    
+                    $messageId = $userListRecipient->sendMessage($message);                    
+                }
+                
 
             }
 
