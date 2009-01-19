@@ -817,7 +817,7 @@ function uninstall_module($moduleId, $deleteModuleData = true)
             else
             {
                 $backlog->failure( get_lang('Error while deleting the scripts of the module') );
-                // $success = false;
+                $success = false;
             }
         }
 
