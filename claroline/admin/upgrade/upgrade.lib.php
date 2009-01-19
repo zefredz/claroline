@@ -625,9 +625,16 @@ function open_upgrade_log()
 {
     global $new_version, $currentClarolineVersion, $currentDbVersion;
     global $fp_upgrade_log;
+    
+    if ( ! file_exists( '../../../platform' ) )
+    {
+        claro_mkdir( '../../../platform', CLARO_FILE_PERMISSIONS, true );
+    }
+    
+    $upgradeLogPath = '../../../platform/upgrade_log.txt';
 
     // open file in write mode
-    if ( $fp_upgrade_log = fopen('upgrade_log.txt','a+') )
+    if ( $fp_upgrade_log = fopen($upgradeLogPath,'a+') )
     {
         $upgradeHeader = '========================================================' . "\n"
                        . ' * Upgrade to ' . $new_version . "\n"
