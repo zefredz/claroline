@@ -223,6 +223,9 @@ else
     ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, './edit_exercise.php?exId='.$exId );
 }
 
+$jsLoader = JavascriptLoader::getInstance();
+$jsLoader->load( 'claroline.ui');
+
 $cssLoader = CssLoader::getInstance();
 $cssLoader->load( 'exercise', 'screen');
 
@@ -303,10 +306,9 @@ if( $displayForm )
     
     // Advanced Information
     
-    echo '<button type="button" onclick="$(\'#advancedInformation\').slideToggle(\'slow\');">' . get_lang( 'Display advanced information' ) . '</button>';
-    
-    echo '<fieldset id="advancedInformation">' . "\n"
-    .   '<legend>' . '<strong>'.get_lang('Advanced').'</strong> <small>('.get_lang('Optional').')</small>' . '</legend>' . "\n"
+    echo '<fieldset id="advancedInformation" class="collapsible collapsed">' . "\n"
+    .   '<legend><a href="#">' . get_lang('Advanced').' ('.get_lang('Optional').')' . '</a></legend>' . "\n"
+    .   '<div class="fieldset-wrapper">' . "\n"
     .   '<dl>' . "\n";
     
     // start date
@@ -384,6 +386,7 @@ if( $displayForm )
     .   '</dd>';
     
     echo '</dl>' . "\n"
+    .   '</div>' . "\n" // fieldset-wrapper
     .   '</fieldset>' . "\n";
     
     echo '<div style="padding-top: 5px;">'
@@ -396,8 +399,6 @@ if( $displayForm )
     .   '</div>';   
     
     echo '</form>' . "\n\n";
-    
-    echo '<script type="text/javascript">$(document).ready(function() { $("#advancedInformation").hide(); });</script>';
 }
 else
 {
