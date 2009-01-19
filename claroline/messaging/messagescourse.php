@@ -116,6 +116,11 @@
             
             $dialogBox = new DialogBox();
             $dialogBox->success( get_lang('Message sent') );
+            
+            if ( $failure = claro_failure::get_last_failure() )
+            {
+                $dialogBox->warning( $failure );
+            }
     
             $dialogBox->info('<a href="' . $_SERVER['PHP_SELF'] . '">&lt;&lt;&nbsp;' . get_lang('Back') . '</a>');
             $content .= $dialogBox->render();

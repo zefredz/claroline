@@ -6,7 +6,7 @@
  * mailnofifier class
  *
  * @version     1.9 $Revision$
- * @copyright   2001-2008 Universite catholique de Louvain (UCL)
+ * @copyright   2001-2009 Universite catholique de Louvain (UCL)
  * @author      Claroline Team <info@claroline.net>
  * @author      Christophe Mertens <thetotof@gmail.com>
  * @license     http://www.gnu.org/copyleft/gpl.html
@@ -46,8 +46,9 @@ class MailNotifier implements MessagingNotifier
         //************************************ IS MANAGER
         $stringManager = false;
         $courseManagers =  claro_get_course_manager_id($message->getCourseCode());
+        $nbrOfManagers = count($courseManagers);
         
-        for ($countManager = 0; $countManager<count($courseManagers); $countManager++)
+        for ($countManager = 0; $countManager < $nbrOfManagers; $countManager++)
         {
             if ($message->getSender() == $courseManagers[$countManager])
             {
@@ -100,6 +101,13 @@ class MailNotifier implements MessagingNotifier
         //******************************************
 
         $userData = claro_get_current_user_data();
+        
+        if ( empty( $userData['mail'] ) || ! is_well_formed_email_address( $userData['mail'] ) )
+        {
+            // do not send email for a user with no mail address
+            pushClaroMessage('Mail Notification Failed : User has no email or an invalid one : '.var_export($userData, true).'!');
+            return claro_failure::set_failure( get_lang("Mail Notification Failed : You don't have any email address defined in your user profile or the defined email address is not valid." ) );
+        }
         
         self::emailNotification($userDataList, $emailBody,$emailSubject, $userData['mail'], $userData['lastName']." ".$userData['firstName']);
     }

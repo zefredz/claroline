@@ -267,6 +267,12 @@
                     
                     $dialogbox = new DialogBox();
                     $dialogbox->info($informationString);
+                    
+                    if ( $failure = claro_failure::get_last_failure() )
+                    {
+                        $dialogbox->warning( $failure );
+                    }
+            
                     $content .= $dialogbox->render();
                 }
             }

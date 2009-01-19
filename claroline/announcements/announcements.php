@@ -337,6 +337,11 @@ if($is_allowedToEdit) // check teacher status
                 
                 $messageId = $courseRecipient->sendMessage($message);
                 
+                if ( $failure = claro_failure::get_last_failure() )
+                {
+                    $dialogBox->warning( $failure );
+                }
+                
             }   // end if $emailOption==1
         }   // end if $submit Announcement
 
