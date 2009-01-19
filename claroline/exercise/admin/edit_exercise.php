@@ -246,13 +246,13 @@ if( $displayForm )
     .   '<dl>' . "\n";
     
     //title
-    echo '<dt>' . get_lang('Title') . '&nbsp;<span class="required">*</span>&nbsp;:' . '</dt>' . "\n"
+    echo '<dt><label for="title">' . get_lang('Title') . '&nbsp;<span class="required">*</span>&nbsp;:' . '</label></dt>' . "\n"
     .   '<dd>'
     .   '<input type="text" name="title" id="title" size="60" maxlength="200" value="'.$form['title'].'" />'
     .   '</dd>' . "\n";
     
     //description
-    echo '<dt>' . get_lang('Description') . '&nbsp;:</dt>' . "\n"
+    echo '<dt><label for="description">' . get_lang('Description') . '&nbsp;:</label></dt>' . "\n"
     .   '<dd>'
     .   '<div style="width: 700px;">' . claro_html_textarea_editor('description', $form['description']) . '</div>'
     .   '</dd>' . "\n";
@@ -280,7 +280,7 @@ if( $displayForm )
             $questionDrawnOptions[$i] = $i;
         }
         
-        echo '<dt>' . get_lang('Random questions').'&nbsp;:</dt>' . "\n"
+        echo '<dt><label for="randomize">' . get_lang('Random questions').'&nbsp;:</label></dt>' . "\n"
         .   '<dd>'
         .   '<input type="checkbox" name="randomize" id="randomize" class="checkbox" '
         .     ( $form['randomize']?' checked="checked"':' ') . '/>&nbsp;'
@@ -317,7 +317,7 @@ if( $displayForm )
     .   '</dd>' . "\n";
     
     // stop date
-    echo '<dt>' . get_lang('End date') . '&nbsp;:</dt>' . "\n"
+    echo '<dt><label for="useEndDate">' . get_lang('End date') . '&nbsp;:</label></dt>' . "\n"
     .   '<dd>'
     .   '<input type="checkbox" name="useEndDate" id="useEndDate" '
     .   ( $form['useEndDate']?' checked="checked"':' ') . '/>'
@@ -327,7 +327,7 @@ if( $displayForm )
     .   '</dd>' . "\n";
     
     // time limit
-    echo '<dt>' . get_lang('End date') . '&nbsp;:</dt>' . "\n"
+    echo '<dt><label for="useTimeLimit">' . get_lang('Time limit') . '&nbsp;:</label></dt>' . "\n"
     .   '<dd>'
     .   '<input type="checkbox" name="useTimeLimit" id="useTimeLimit" '
     .   ( $form['useTimeLimit']?' checked="checked"':' ') . '/>'
