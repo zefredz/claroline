@@ -2100,7 +2100,7 @@ echo $htmlNextPrevButton;
 
 
     <div id="footerCenter">
-    <?php echo get_lang('Powered by %clarolineLink', array('%clarolineLink' => '<a href="http://www.claroline.net" target="_blank">Claroline</a>')); ?> &copy; 2001 - 2008
+    <?php echo get_lang('Powered by %clarolineLink', array('%clarolineLink' => '<a href="http://www.claroline.net" target="_blank">Claroline</a>')); ?> &copy; 2001 - 2009
     </div>
 
     </div>
