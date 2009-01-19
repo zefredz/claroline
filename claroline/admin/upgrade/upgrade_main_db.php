@@ -102,7 +102,7 @@ switch ( $display )
 
        // Display welcome message
 
-        echo  '<h2>Step 2 of 3: main platform tables upgrade</h2>
+        echo  '<h2>Step 2 of 4: main platform tables upgrade</h2>
               <p>Now, the <em>Claroline Upgrade Tool</em> is going to prepare the data stored
               into the <b>main Claroline tables</b> (users, course categories, tools list, ...)
               and set them to be compatible with the new Claroline version.</p>
@@ -121,7 +121,7 @@ switch ( $display )
 
         // Display upgrade result
 
-        echo '<h2>Step 2 of 3: main platform tables upgrade</h2>
+        echo '<h2>Step 2 of 4: main platform tables upgrade</h2>
               <h3>Upgrading main Claroline database (<em>' . $mainDbName . '</em>)</h3>' . "\n" ;
 
         if ( ! preg_match('/^1.8/',$currentDbVersion) )

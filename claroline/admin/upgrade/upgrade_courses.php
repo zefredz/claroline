@@ -105,7 +105,7 @@ switch ($display)
 {
     case DISPLAY_WELCOME_PANEL :
 
-        echo '<h2>Step 3 of 3: courses upgrade</h2>
+        echo '<h2>Step 3 of 4: courses upgrade</h2>
              <p>Now the <em>Claroline Upgrade Tool</em> is going to prepare <b>course</b> data
             (directories and database tables) one by one and set it to be compatible with the new
             Claroline version.<p class="help">Note. Depending of the speed of your server or the amount
@@ -119,7 +119,7 @@ switch ($display)
 
     case DISPLAY_RESULT_PANEL :
 
-        echo '<h2>Step 3 of 3: courses upgrade</h2>
+        echo '<h2>Step 3 of 4: courses upgrade</h2>
               <p>The <em>Claroline Upgrade Tool</em> proceeds to the courses data upgrade</p>';
 
         // display course upgraded

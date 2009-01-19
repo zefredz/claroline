@@ -213,12 +213,13 @@ switch ($display)
            <h3>Done: </h3>
            <ul>
            <li>Backup confirm (<a href="' . $_SERVER['PHP_SELF'] . '?reset_confirm_backup=1">Cancel</a>)</li>
-           <li>Step 1 of 3: platform main settings (<a href="upgrade_conf.php">Start again</a>)</li>
+           <li>Step 1 of 4: platform main settings (<a href="upgrade_conf.php">Start again</a>)</li>
            </ul>
            <h3>To do:</h3>
            <ul>
-           <li><a href="upgrade_main_db.php">Step 2 of 3: main platform tables upgrade</a></li>
-           <li>Step 3 of 3: courses upgrade</li>
+           <li><a href="upgrade_main_db.php">Step 2 of 4: main platform tables upgrade</a></li>
+           <li>Step 3 of 4: courses upgrade</li>
+           <li>Step 4 of 4: disable incompatible modules</li>
            </ul>';
 
         break;
@@ -229,12 +230,13 @@ switch ($display)
             <h3>Done :</h3>
             <ul>
             <li>Backup confirm (<a href="' . $_SERVER['PHP_SELF'] . '?reset_confirm_backup=1">Cancel</a>)</li>
-            <li>Step 1 of 3: platform main settings (<a href="upgrade_conf.php">Start again</a>)</li>
-            <li>Step 2 of 3: main platform tables upgrade (<a href="upgrade_main_db.php">%s</a>)</li>
+            <li>Step 1 of 4: platform main settings (<a href="upgrade_conf.php">Start again</a>)</li>
+            <li>Step 2 of 4: main platform tables upgrade (<a href="upgrade_main_db.php">%s</a>)</li>
             </ul>
             <h3>To do:</h3>
             <ul>
-            <li><a href="upgrade_courses.php">Step 3 of 3: courses upgrade</a> - ' . $count_course_to_upgrade . 'course(s) to upgrade.</li>
+            <li><a href="upgrade_courses.php">Step 3 of 4: courses upgrade</a> - ' . $count_course_to_upgrade . 'course(s) to upgrade.</li>
+            <li>Step 4 of 4: disable incompatible modules</li>
             </ul>';
 
         break;
