@@ -31,6 +31,7 @@ $conf_def['section']['forum']['properties'] =
 array ( 'allow_html'
       , 'posts_per_page'
       , 'topics_per_page'
+      , 'clfrm_notification_enabled'
       );
 
 //PROPERTIES
@@ -66,4 +67,14 @@ $conf_def_property_list['topics_per_page']
         ,'type'      => 'integer'
         ,'container' => 'VAR'
         );
-?>
+
+$conf_def_property_list['clfrm_notification_enabled']
+= array ('label'     => 'Enable notification of new items'
+        ,'description' => ''
+        ,'display'       => false
+        ,'default'   => TRUE
+        ,'type'        => 'boolean'
+        ,'display'     => TRUE
+        ,'readonly'    => FALSE
+        ,'acceptedValue' => array ('TRUE'=>'On', 'FALSE' => 'Off')
+        );
