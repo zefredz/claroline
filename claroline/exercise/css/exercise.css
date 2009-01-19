@@ -8,6 +8,7 @@ fieldset dl dd {
     float: left;
     padding: 1px;
     width: 70%;
+    margin: 0;
 }
 
 fieldset dt label {
