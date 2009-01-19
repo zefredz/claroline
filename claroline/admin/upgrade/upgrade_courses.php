@@ -484,7 +484,7 @@ switch ($display)
         {
             // display next step
             echo '<p class="success">The Claroline upgrade process completed</p>' . "\n";
-            echo '<div align="right"><p><button onclick="document.location=\'upgrade.php\';">Next ></button></p></div>';
+            echo '<div align="right"><p><button onclick="document.location=\'upgrade_modules.php\';">Next ></button></p></div>';
         }
 
         /*
