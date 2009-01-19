@@ -418,8 +418,15 @@ function upgrade_chat_to_19 ()
             // remove old chat
             $moduleId = get_module_data('CLCHT', 'id');
             
-            list( $backLog, $success ) = uninstall_module( $moduleId );
-            log_message($backLog->output());
+            if ( $moduleId )
+            {
+                list( $backLog, $success ) = uninstall_module( $moduleId );
+                log_message($backLog->output());
+            }
+            else
+            {
+                $success = true;
+            }
             
             if ( $success ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
