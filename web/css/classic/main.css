@@ -78,9 +78,59 @@ input[type=submit]:hover, button:hover, input[type=button]:hover {
 
 input[type=text].inputSearch
 {
-    background: url('../img/search.png') no-repeat top left #fff;
+    background: url('../../img/search.png') no-repeat top left #fff;
     padding-left: 18px;
 }
+
+fieldset {
+    border: 0;
+    margin: 2px;
+    padding: 5px;
+    border-top: 1px solid #eee;
+}
+
+fieldset legend {
+    font-weight: bold;
+    color: #444;
+}
+
+fieldset.collapsible legend a {
+    background: transparent url(img/menu-expanded.gif) no-repeat scroll 0 50%;
+    padding-left: 1.5em;
+}
+
+fieldset.collapsed legend a {
+    background: transparent url(img/menu-collapsed.gif) no-repeat scroll 0 50%;
+}
+
+fieldset dl dt {
+    clear: both;
+    float: left;
+    width: 20%;
+    padding: 1px;
+}
+
+fieldset dl dd {
+    float: left;
+    padding: 1px;
+    width: 70%;
+    margin: 0;
+}
+
+fieldset dt label {
+    margin: 0;
+    padding: 0;
+}
+
+input.radio,
+input.checkbox {
+    cursor: pointer;
+    height: 1em;
+    margin: 0;
+    vertical-align: middle;
+    width: 1em;
+}
+
 
 /******************************************************************************
                              CLAROLINE PAGE
@@ -526,7 +576,7 @@ th .claroCmdDisabled {
 }
 
 .hot {
-    background: url(../img/hot.png) no-repeat center left;
+    background: url('../../img/hot.png') no-repeat center left;
 }
 
 a.item:visited{
@@ -839,10 +889,10 @@ dl.userCourseList
 
 .claroDialogMsg { padding: 2px 5px 1px 20px; }
 .claroDialogBox .msgInfo { } /* I _really_ don't think there is a need for an icon here */
-.claroDialogBox .msgSuccess { background: url('../img/success.png') top left no-repeat; }
-.claroDialogBox .msgWarning { background: url('../img/warning.png') top left no-repeat; }
-.claroDialogBox .msgError { background: url('../img/error.png') top left no-repeat; }
-.claroDialogBox .msgQuestion { background: url('../img/question.png') top left no-repeat; }
+.claroDialogBox .msgSuccess { background: url('../../img/success.png') top left no-repeat; }
+.claroDialogBox .msgWarning { background: url('../../img/warning.png') top left no-repeat; }
+.claroDialogBox .msgError { background: url('../../img/error.png') top left no-repeat; }
+.claroDialogBox .msgQuestion { background: url('../../img/question.png') top left no-repeat; }
 .claroDialogBox .msgForm { padding: 3px 20px; }
 .claroDialogBox .msgTitle { font-weight: bold; }
 
@@ -948,7 +998,7 @@ a:visited.invisible {
 }
 
 .claroToolTitle {
-    margin: 10px 0 5px 5px;
+    margin: 10px 0 5px 0;
     padding: 0 0 0 15px;
     font-weight: bold;
     border-bottom: 1px solid #DEDEDE;
