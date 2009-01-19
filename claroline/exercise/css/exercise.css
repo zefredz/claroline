@@ -10,40 +10,16 @@ fieldset dl dd {
     width: 70%;
 }
 
-fieldset dl dd dl.options dt {    
-    float: left;
-    width: auto;
-}
-
-fieldset dl dd dl.options dd {
-    float: none;
-    width: auto;
-}
-
-fieldset input.radio{
-    float: left;
-}
-
-fieldset input.checkbox{
-    float: left;
-}
-
 fieldset dt label {
-    margin: 1px;
-	left: -0.5em;
-	padding: 0 1em 1px 0;
-	position: relative;
-	width: 200px;
+    margin: 0;
+    padding: 0;
 }
 
 input.radio,
 input.checkbox {
-	cursor: pointer;
-	height: 1em;
-	margin: 0;
-	vertical-align: middle;
-	width: 1em;
+    cursor: pointer;
+    height: 1em;
+    margin: 0;
+    vertical-align: middle;
+    width: 1em;
 }
-
-
-
