@@ -368,6 +368,15 @@ function quiz_upgrade_to_19 ($course_code)
                 
                 unset($sqlForUpdate);
                 
+            case 6 :
+                //qwz_exercise - add field quizEndMessage
+                $sqlForUpdate[] = "ALTER TABLE `" . $currentCourseDbNameGlu . "qwz_exercise`
+                                    ADD `quizEndMessage` TEXT NOT NULL";
+                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1, $course_code);
+                else return $step;
+                
+                unset($sqlForUpdate);
+                
             default :
                 $step = set_upgrade_status($tool, 0, $course_code);
                 return $step;
