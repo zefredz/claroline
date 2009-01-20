@@ -135,7 +135,12 @@ $output .= '<div id="leftContent">' . "\n";
 if( $canSwitchCourses )
 {
     $displayedCourseList = array();
-    $displayedCourseList[ '' ] = '';
+    if( is_null($courseId) )
+    {
+        // add an empty value in list if no course is selected
+        $displayedCourseList[ '' ] = '';
+    }
+    
     foreach( $userCourseList as $course )
     {
         $displayedCourseList[ $course['title'] ] = $course['sysCode'];
