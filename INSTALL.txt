@@ -1,5 +1,5 @@
 *****************************************************
-     CLAROLINE 1.9 RC2
+     CLAROLINE 1.9 RC3
 *****************************************************
 
 Thank you for downloading Claroline 1.9. This text will guide you
@@ -18,22 +18,26 @@ TABLE OF CONTENT :
 REQUIREMENTS
 ============
 
-To install Claroline 1.9 on a computer, whether locally or remotely,
-you need the following on your machine :
-
-1. One of the following Operating systems :
+Claroline should work on the following Operating systems :
 
         Linux / BSD / Unix (*)
         Windows (9x, Me, NT4, 2000, XP)
         MacOs X.
 
-  (*) We thoroughly test Claroline on Red Hat, Debian and Ubuntu distributions,
-      but other Linux distributions should work too. We've received
-      positive feedbacks from users working on Mandriva and Suse.
+  (*) Claroline have been tested on Red Hat, Debian and Ubuntu GNU/Linux
+      distributions, but other UNIXes and Linux distributions should work too.
+      We've received positive feedbacks from users working on Mandriva and Suse.
+      
+      We also heard of user managing to run Claroline on a Solaris box.
+      
       Don't hesitate to notify us of any problem encountered on other
-      Linux distributions.
+      Linux distributions or UNIX systems.
 
-1. A web server (We recommend Apache, but others should work too),
+To install Claroline 1.9 on a computer, whether locally or remotely,
+you need the following on your machine :
+
+1. A web server. We recommend the use Apache, but Claroline is known to work
+with IIS too and should work on any PHP-compatible web server.
 
 2. PHP scripting language (version 5.1 or later), configured with the
    following modules : mysql, zlib, preg. Most of the PHP5 compiled
@@ -86,20 +90,20 @@ INSTALLATION PROCEDURE
 NEW CLAROLINE INSTALLATION
 --------------------------
 
-1. Download 'claroline19x.tar.gz'
-
-   Windows : download 'claroline19x.zip
-
+1. Download 'claroline19x.tar.gz' (UNIX, Linux) or 'claroline19x.zip' (Windows)
 
 2. Open a shell, go to download directory and type
 
     tar -zxvf claroline19x.tar.gz
 
-   Windows : unzip 'claroline19x.zip'.
+   Windows : unzip 'claroline19x.zip' with your favorite application.
 
 3. FTP or move by any means 'index.php' file and 'claroline' directory
    to your website on web server (whether web root or subdirectory).
    'index.php' should remain where it is, outside 'claroline' directory.
+   
+   UNIX and Linux : copy the claroline19x directory to the document root of your
+   web server (typically /var/www/).
    
    Windows with wampserver : drag and drop the claroline19x
    directory to the wampserver ducument root folder, typically
@@ -111,8 +115,14 @@ NEW CLAROLINE INSTALLATION
 4. The following folders need to be readable, writeable and executable
    for everyone:
    
+    - claroline19x/
+    - claroline19x/platform
+    - claroline19x/module and all its subfolders
+   
+   You can change the access rights from the command line under UNIX or Linux :
     chmod ugo+w claroline19x/
     chmod ugo+w claroline19x/platform
+    chmod -R ugo+w claroline19x/module
 
 4. Open Web Browser and go to
 
@@ -183,7 +193,7 @@ TROUBLESHOOTING
 
 In case web install doesn't work
 
-1. Go, if needed, to 'http://www.claroline.net'
+1. You can find some help and documentation on 'http://www.claroline.net'
 
 2. Check if there is an solution to your issue in the documentation or on the
 forums
@@ -198,5 +208,5 @@ To access the Claroline administration section, open browser
 and go to http://www.mydomain.org/mysite/claroline/admin/
 
 ==========================================================================
-            Europe, Belgium, Louvain-la-Neuve - December 15 2008
+            Europe, Belgium, Louvain-la-Neuve - February 20 2009
 ================================== END ===================================

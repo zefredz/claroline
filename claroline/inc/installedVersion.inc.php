@@ -14,7 +14,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2008 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2009 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -30,7 +30,7 @@ $is_upgrade_available = false;
 
 // var version_db  max. 10 chars
 
-$new_version = '1.9-rc2';
+$new_version = '1.9-rc3';
 $new_version_branch = '1.9';
 
 if (!$is_upgrade_available)

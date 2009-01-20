@@ -25,6 +25,7 @@ Claroline Core Team :
 
     Frédéric Minne      (zefredz@claroline.net) aka ZeFredz
     Sebastien Piraux    (seb@claroline.net)
+    Dimitri Rambout     (dimitri.rambout@uclouvain.be)
 
 Team from Cerdecam :
 
@@ -51,6 +52,8 @@ Former members of the Claroline Team :
 ------------------------------------------------------------------------------
                           SPECIFIC CODE CONTRIBUTIONS
 ------------------------------------------------------------------------------
+
+Pages authoring tool :          Benjamin Sokay
 
 Internal Messaging :            Christophe Mertens (thetotof@gmail.com)
 
@@ -111,6 +114,10 @@ iCal support :                  based on Michael Wimmer <flaimo@gmx.net> iCal
                                 PHP Classes
 
 RSS reader :                    based on LastRSS by http://lastrss.oslab.net/
+
+PEAR Modules :                  http://pear.php.net
+
+PHP email transport :           based on PHP Mailer class by Brent R. Matzelle
 
 ------------------------------------------------------------------------------
                                   TRANSLATIONS
@@ -234,5 +241,5 @@ The Digital Security Research Group [DSecRG] <http://www.dsec.ru>
 Fernando Munoz on the Claroline.net forum
 
 =========================================================================
-                Europe, Belgium, Louvain-la-Neuve - December 15 2008
+                Europe, Belgium, Louvain-la-Neuve - January 20 2009
 ================================== END ===================================
