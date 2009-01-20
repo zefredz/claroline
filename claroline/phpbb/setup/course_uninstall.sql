@@ -15,3 +15,5 @@ DROP TABLE IF EXISTS `__CL_COURSE__bb_users`;
 DROP TABLE IF EXISTS `__CL_COURSE__bb_whosonline`;
 
 DROP TABLE IF EXISTS `__CL_COURSE__bb_rel_topic_userstonotify`;
+
+DROP TABLE IF EXISTS `__CL_COURSE__bb_rel_forum_userstonotify`;

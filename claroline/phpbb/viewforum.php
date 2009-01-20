@@ -56,6 +56,9 @@ $dialogBox = new DialogBox();
 if ( isset($_REQUEST['forum']) ) $forum_id = (int) $_REQUEST['forum'];
 else                             $forum_id = 0;
 
+if ( isset($_REQUEST['cmd']) )   $cmd = $_REQUEST['cmd'];
+else                             $cmd = '';
+
 if ( !empty($_REQUEST['start']) ) $start = (int) $_REQUEST['start'];
 else                              $start = 0;
 
@@ -123,6 +126,55 @@ if ( ! $forumAllowed )
 }
 else
 {
+    if ( $cmd && claro_is_user_authenticated() && claro_is_course_manager() )
+    {
+        switch ($cmd)
+        {
+            case 'exNotify' :
+                request_forum_notification($forum_id, claro_get_current_user_id());
+                break;
+
+            case 'exdoNotNotify' :
+                cancel_forum_notification($forum_id, claro_get_current_user_id());
+                break;
+        }
+    }
+    
+    // Allow user to be have notification for this topic or disable it
+
+    if ( claro_is_user_authenticated() && claro_is_course_manager() )  //anonymous user do not have this function
+    {
+        $notification_bloc = '<span style="float: right;" class="claroCmd">';
+
+        if ( is_forum_notification_requested($forum_id, claro_get_current_user_id()) )   // display link NOT to be notified
+        {
+            $notification_url = Url::Contextualize(
+                $_SERVER['PHP_SELF']
+                . '?forum=' . $forum_id . '&amp;cmd=exdoNotNotify'
+            );
+            
+            $notification_bloc .= '<img src="' . get_icon_url('mail_close') . '" alt="" style="vertical-align: text-bottom" />';
+            $notification_bloc .= get_lang('Notify by email when topics are created');
+            $notification_bloc .= ' [<a href="' .htmlspecialchars($notification_url). '">';
+            $notification_bloc .= get_lang('Disable');
+            $notification_bloc .= '</a>]';
+        }
+        else   //display link to be notified for this topic
+        {
+            $notification_url = Url::Contextualize(
+                $_SERVER['PHP_SELF']
+                . '?forum=' . $forum_id . '&amp;cmd=exNotify'
+            );
+            
+            $notification_bloc .= '<a href="' . htmlspecialchars($notification_url). '">';
+            $notification_bloc .= '<img src="' . get_icon_url('mail_close') . '" alt="" /> ';
+            $notification_bloc .= get_lang('Notify by email when topics are created');
+            $notification_bloc .= '</a>';
+        }
+
+        $notification_bloc .= '</span>' . "\n";
+    } //end not anonymous user
+    
     /*-----------------------------------------------------------------
       Display Forum Header
     -----------------------------------------------------------------*/
@@ -158,7 +210,10 @@ else
     echo '<table class="claroTable emphaseLine" width="100%">' . "\n"
 
         .' <tr class="superHeader">'                  . "\n"
-        .'  <th colspan="6">' . $forum_name . '</th>' . "\n"
+        .'  <th colspan="6">'
+        . ( !empty($notification_bloc) ? $notification_bloc . "\n" : '' )
+        . $forum_name
+        . '</th>' . "\n"
         .' </tr>'                                     . "\n"
 
         .' <tr class="headerX" align="left">'                            . "\n"

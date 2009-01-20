@@ -121,3 +121,11 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__bb_rel_topic_userstonotify` (
     PRIMARY KEY  (`notify_id`),
     KEY `SECONDARY` (`user_id`,`topic_id`)
 ) TYPE=MyISAM;
+
+CREATE TABLE IF NOT EXISTS `__CL_COURSE__bb_rel_forum_userstonotify` (
+    `notify_id` int(10) NOT NULL auto_increment,
+    `user_id` int(10) NOT NULL default '0',
+    `forum_id` int(10) NOT NULL default '0',
+    PRIMARY KEY  (`notify_id`),
+    KEY `SECONDARY` (`user_id`,`forum_id`)
+) TYPE=MyISAM;

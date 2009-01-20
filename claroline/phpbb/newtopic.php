@@ -150,7 +150,8 @@ elseif ( $forumSettingList )
                 $eventNotifier->notifyCourseEvent('forum_new_topic',claro_get_current_course_id(), claro_get_current_tool_id(), $forum_id."-".$topic_id, claro_get_current_group_id(), 0);
                 
                 // notify by mail that a new topic has been created
-                if( get_conf('clfrm_notification_enabled', true) )
+                trig_forum_notification($forum_id);
+                /*if( get_conf('clfrm_notification_enabled', true) )
                 {
                     $courseSender = claro_get_current_user_data('firstName') . ' ' . claro_get_current_user_data('lastName');
                     $courseOfficialCode = claro_get_current_course_data('officialCode');
@@ -175,7 +176,7 @@ elseif ( $forumSettingList )
                     $message->setTools('CLFRM');
                     
                     $messageId = $userListRecipient->sendMessage($message);                    
-                }
+                }*/
                 
 
             }
