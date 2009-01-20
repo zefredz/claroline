@@ -206,7 +206,6 @@ function get_menu_item_list($type)
         $menu['AdminClaroline'][] = claro_html_tool_link('http://forum.claroline.net/', get_lang('Support forum'));
         $menu['AdminClaroline'][] = claro_html_tool_link('clarolinenews.php',              get_lang('Claroline.net news'));
 
-        $menu['AdminTechnical'][] = claro_html_tool_link('technical/diskUsage.php',  get_lang('Disk usage'));
         $menu['AdminTechnical'][] = claro_html_tool_link('technical/phpInfo.php',    get_lang('System Info'));
 
         if ( get_conf('DEVEL_MODE', false) == TRUE )
