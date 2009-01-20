@@ -56,8 +56,6 @@ echo claro_html_tool_title($nameTools);
 
 if (false !== $rs = $rss->get($urlNewsClaroline))
 {
-    echo '<table class="claroTable" width="100%">'."\n\n";
-
     foreach ($rs['items'] as $item)
     {
         $href = $item['link'];
@@ -65,20 +63,17 @@ if (false !== $rs = $rss->get($urlNewsClaroline))
         $summary = $rss->unhtmlentities($item['description']);
         $date = strtotime($item['pubDate']);
 
-        echo '<tr>'."\n"
-            .'<th class="headerX">'."\n"
+        echo '<div class="claroBlock">'."\n"
+            .'<h4 class="claroBlockHeader">'."\n"
             .'<a href="'.$href.'">'.$title.'</a>'."\n"
             .'<small> - '.claro_html_localised_date(get_locale('dateFormatLong'),$date).'</small>'."\n"
-            .'</th>'."\n"
-            .'</tr>'."\n"
-            .'<tr>'."\n"
-            .'<td>'."\n"
+            .'</h4>'."\n"
+            .'<div class="claroBlockContent">' . "\n"
             .$summary."\n"
-            .'</td>'."\n"
-            .'</tr>'."\n\n";
+            .'</div>'."\n"
+            .'</div>'."\n\n";
     }
 
-    echo '</table>'."\n\n";
 }
 else
 {
