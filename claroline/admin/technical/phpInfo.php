@@ -38,15 +38,9 @@ if( ! claro_is_platform_admin() ) claro_disp_auth_form();
 if( ! isset($clarolineVersion) )  $clarolineVersion= 'X';
 
 
-$nameTools = get_lang('PHP system information');
+$nameTools = get_lang('System Info');
 
-if( array_key_exists( 'to', $_REQUEST) )
-{
-    $nameTools = htmlspecialchars($_REQUEST['to']);
-    ClaroBreadCrumbs::getInstance()->prepend( get_lang('PHP system information'), basename($_SERVER['PHP_SELF']) );
-}
-
-ClaroBreadCrumbs::getInstance()->prepend( get_lang('Technical Tools'), get_path('rootAdminWeb').'technical' );
+//ClaroBreadCrumbs::getInstance()->prepend( get_lang('Technical Tools'), get_path('rootAdminWeb').'technical' );
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
 $is_allowedToAdmin = claro_is_platform_admin();
@@ -104,7 +98,7 @@ if ($is_allowedToAdmin)
 
         foreach($extensions as $extension)
         {
-            echo $extension.' &nbsp; <a href="'.$_SERVER['PHP_SELF'].'?cmd=ext&amp;ext='.$extension.'" >'.get_lang('Function list').'</a><br />'."\n";
+            echo $extension.' &nbsp; <a href="'.$_SERVER['PHP_SELF'].'?cmd=extensions&amp;ext='.$extension.'" >'.get_lang('Function list').'</a><br />'."\n";
             if( $extension == $ext )
             {
                 $functions = @get_extension_funcs($ext);
