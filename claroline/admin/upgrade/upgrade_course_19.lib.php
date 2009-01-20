@@ -673,3 +673,38 @@ function tracking_data_upgrade_to_19( $course_code )
     return false;
 }
 
+function forum_upgrade_to_19( $course_code )
+{
+    $versionRequiredToProcedd = '/^1.8/';
+    $tool = 'CLFRM';
+    
+    global $currentCourseVersion;
+    $currentCourseDbNameGlu = claro_get_course_db_name_glued($course_code);
+    
+    if( preg_match($versionRequiredToProcedd,$currentCourseVersion) )
+    {
+        switch( $step = get_upgrade_status($tool, $course_code) )
+        {
+            case 1 :
+                $sql = "CREATE TABLE IF NOT EXISTS `__CL_COURSE__bb_rel_forum_userstonotify` (
+                        `notify_id` int(10) NOT NULL auto_increment,
+                        `user_id` int(10) NOT NULL default '0',
+                        `forum_id` int(10) NOT NULL default '0',
+                        PRIMARY KEY  (`notify_id`),
+                        KEY `SECONDARY` (`user_id`,`forum_id`)
+                    ) TYPE=MyISAM;";
+                
+                if( upgrade_sql_query($sql) ) $step = set_upgrade_status($tool, $step+1, $course_code);
+                else return $step;
+                break;
+            
+            default :
+                $step = set_upgrade_status($tool, 0, $course_code);
+                return $step;
+                
+        }
+    }
+    
+    return false;
+}
+

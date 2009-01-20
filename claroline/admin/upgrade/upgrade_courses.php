@@ -360,7 +360,8 @@ switch ($display)
                                             'chat_upgrade_to_19',
                                             'course_description_upgrade_to_19',
                                             'linker_upgrade_to_19',
-                                            'quiz_upgrade_to_19'
+                                            'quiz_upgrade_to_19',
+                                            'forum_upgrade_to_19'
                                     );
                     
                     if( isset($_SESSION['upgrade_tracking_data']) && $_SESSION['upgrade_tracking_data'])
