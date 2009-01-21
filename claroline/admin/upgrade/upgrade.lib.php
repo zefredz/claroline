@@ -736,7 +736,10 @@ class UpgradeTrackingOffset
     
     public static function reset()
     {
-        unlink(dirname(__FILE__) . self::$path);
+        if( file_exists(dirname(__FILE__) . self::$path) )
+        {
+            unlink(dirname(__FILE__) . self::$path);
+        }
     }
     
 }
