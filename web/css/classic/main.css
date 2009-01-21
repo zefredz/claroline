@@ -94,12 +94,12 @@ fieldset legend {
     color: #444;
 }
 
-fieldset.collapsible legend a {
+.collapsible a.doCollapse{
     background: transparent url(img/menu-expanded.gif) no-repeat scroll 0 50%;
     padding-left: 1.5em;
 }
 
-fieldset.collapsed legend a {
+.collapsed a.doCollapse {
     background: transparent url(img/menu-collapsed.gif) no-repeat scroll 0 50%;
 }
 
@@ -108,18 +108,20 @@ fieldset dl dt {
     float: left;
     width: 20%;
     padding: 1px;
+    margin: 2px 0;
 }
 
 fieldset dl dd {
     float: left;
     padding: 1px;
     width: 70%;
-    margin: 0;
+    margin: 2px 0;
 }
 
 fieldset dt label {
     margin: 0;
     padding: 0;
+    cursor: pointer;
 }
 
 input.radio,

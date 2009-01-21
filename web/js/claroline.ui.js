@@ -1,12 +1,22 @@
 $(document).ready(function(){
-    $(".collapsed .fieldset-wrapper").hide();
+    registerCollapseBehavior();
+});
+
+
+/*
+ * Markup should be something like 
+ * <div ... class="collapsible"><a ... class="doCollapse" /><div ... class="collapsible-wrapped" /></div> 
+ */
+registerCollapseBehavior = function() {
+    $(".collapsed .collapsible-wrapper").hide();
     
-    $(".collapsible legend a").click(function(){
-        var fieldset = $(this).parent().parent();
-        if ($(fieldset).is('.collapsed')) {
-            $(fieldset).removeClass('collapsed');
+    $(".collapsible a.doCollapse").click(function(){
+        var collapsible = $(this).parents('.collapsible:first')[0];
+
+        if ($(collapsible).is('.collapsed')) {
+            $(collapsible).removeClass('collapsed');
             
-            $(".fieldset-wrapper",fieldset).slideDown({
+            $(".collapsible-wrapper",collapsible).slideDown({
                   duration: 'fast',
                   easing: 'linear',
                   complete: function() {
@@ -19,15 +29,13 @@ $(document).ready(function(){
                   }
                 });
         } else {
-            $(fieldset).addClass('collapsed');
-            $(".fieldset-wrapper",fieldset).slideUp("fast");
+            $(collapsible).addClass('collapsed');
+            $(".collapsible-wrapper",collapsible).slideUp("fast");
         }
         
         return false;
     });
-
-});
-
+};
 /**
  * Scroll a given fieldset into view as much as possible.
  * This function is part of the Drupal js library
