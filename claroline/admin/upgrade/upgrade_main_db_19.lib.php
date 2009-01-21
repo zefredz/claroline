@@ -516,128 +516,134 @@ function upgrade_main_database_tracking_to_19 ()
 
 /**
  * Move tracking data from old tables to new ones.  
- * Note that tmp table is mostly created to insert in date order data from different old tables
- * to the new one 
  *
  * @return upgrade status
  */
 function upgrade_main_database_tracking_data_to_19()
 {
     $tbl_mdb_names = claro_sql_get_main_tbl();
-    // add some tables that do not exist or do not exist anymore
-    $tbl_mdb_names['tracking_tmp'] = get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'tracking_tmp' ;
-    $tbl_mdb_names['track_e_login'] = get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'track_e_login' ;
-    $tbl_mdb_names['track_e_open'] = get_conf('mainDbName') . '`.`' . get_conf('mainTblPrefix') . 'track_e_open' ;
+    $tool = 'MAIN_TRACKING_DATA_19';
     
-    $tool = 'TRACKING_DATA_19';
 
     switch( $step = get_upgrade_status($tool) )
     {
         case 1 : 
-            //create temporary table to gather all current tracking data (except logs)
-            $sqlForUpdate = "CREATE TABLE IF NOT EXISTS `".$tbl_mdb_names['tracking_tmp']."`  (
-                        `id` int(11) NOT NULL auto_increment,
-                        `course_code` varchar(40) NULL DEFAULT NULL,
-                        `tool_id` int(11) NULL DEFAULT NULL,
-                        `user_id` int(11) NULL DEFAULT NULL,
-                        `date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-                        `type` varchar(60) NOT NULL DEFAULT '',
-                        `data` text NOT NULL,
-                        PRIMARY KEY  (`id`),
-                        KEY `course_id` (`course_code`)
-                        ) TYPE=MyISAM";
+            // drop id to be able to recreate it with correct autoincrement values at last step
+            $sql = "ALTER TABLE `" . get_conf( 'mainTblPrefix' ) . "tracking_event` DROP `id`";
             
-            if ( upgrade_sql_query( $sqlForUpdate ) ) $step = set_upgrade_status( $tool, $step+1 );
+            if ( upgrade_sql_query( $sql ) ) $step = set_upgrade_status( $tool, $step+1 );
             else return $step ;
 
-            unset( $sqlForUpdate );
+            unset( $sql );
             
         case 2 : 
-            //gather data from deprecated track_e_login table
-            $query = "SELECT `login_id`, `login_user_id`, `login_date`, `login_ip`
-                        FROM `".$tbl_mdb_names['track_e_login']."` 
-                    ORDER BY `login_date`, `login_id`";
             
-            $login_event_list = claro_sql_query_fetch_all_rows( $query );
-            $sqlForUpdate = array();
-            //inject former data into new table structure
-            foreach( $login_event_list as $login )
+            // get total number of rows in track_e_login
+            $sql = "SELECT COUNT(*)
+                        FROM `". get_conf( 'mainTblPrefix' ) . "track_e_login`";
+            $tableRows = (int) claro_sql_query_fetch_single_value($sql);
+            
+            $recoveredOffset = UpgradeTrackingOffset::retrieve();
+            // get a subgroup of 250 rows and insert group by group in tracking_event table
+            for( $offset = $recoveredOffset; $offset < $tableRows; $offset += 250 )
             {
-                $user_id = $login['login_user_id'];
-                $date = $login['login_date'];
-                $type = 'user_login';
-                $data = serialize(array('ip' => $login['login_ip']));
+                // we have to store offset to start again from it if something failed
+                UpgradeTrackingOffset::store($offset);
                 
-                $sqlForUpdate[] = "INSERT INTO `".$tbl_mdb_names['tracking_tmp']."` 
-                                           SET `user_id` = " . (int)$user_id . ", 
-                                               `date` = '" . claro_sql_escape( $date ) . "', 
-                                               `type` = '" . claro_sql_escape( $type ) . "', 
-                                               `data` = '" . claro_sql_escape( $data ) . "'"; 
+                $query = "SELECT `login_id`, `login_user_id`, `login_date`, `login_ip`
+                            FROM `". get_conf( 'mainTblPrefix' ) . "track_e_login` 
+                        ORDER BY `login_date`, `login_id`
+                           LIMIT ".$offset.", 250";
+                // then copy these 250 rows to tracking_event
+                $eventList = claro_sql_query_fetch_all_rows( $query );
+
+                // build query to insert all 250 rows
+                $sql = "INSERT INTO `" . get_conf( 'mainTblPrefix' ) . "tracking_event` 
+                        ( `user_id`, `date`, `type`, `data` ) 
+                        VALUES 
+                        "; 
+                //inject former data into new table structure
+                foreach( $eventList as $event )
+                {
+                    $sql .= "(" . (int)$event['login_user_id'] . ",'" . claro_sql_escape( $event['login_date'] ) . "','user_login','" . claro_sql_escape( serialize(array('ip' => $event['login_ip'])) ) . "'),\n"; 
+                }
+                unset( $eventList );
+                
+                if ( upgrade_sql_query( rtrim($sql,",\n") ) )
+                {
+                    unset($sql);
+                    //continue;
+                }
+                else
+                {
+                    return $step ;
+                }
             }
-            
-            if ( upgrade_apply_sql( $sqlForUpdate ) ) $step = set_upgrade_status( $tool, $step+1 );
-            else return $step ;
-            unset( $sqlForUpdate );
-            unset( $login_event_list );
+
+            UpgradeTrackingOffset::reset();
+            $step = set_upgrade_status( $tool, $step+1 );
 
         case 3 :
-            //gather data from deprecated track_e_open table 
-            $query = "SELECT `open_id`, `open_date`
-                        FROM `".$tbl_mdb_names['track_e_open']."` 
-                    ORDER BY `open_date`, `open_id`";
+            // get total number of rows in track_e_login
+            $sql = "SELECT COUNT(*)
+                        FROM `". get_conf( 'mainTblPrefix' ) . "track_e_open`";
+            $tableRows = (int) claro_sql_query_fetch_single_value($sql);
             
-            $open_event_list = claro_sql_query_fetch_all_rows( $query );
-            $sqlForUpdate = array();
-            foreach( $open_event_list as $open )
+            $recoveredOffset = UpgradeTrackingOffset::retrieve();
+            // get a subgroup of 250 rows and insert group by group in tracking_event table
+            for( $offset = $recoveredOffset; $offset < $tableRows; $offset += 250 )
             {
-                $date = $open['open_date'];
-                $type = 'platform_access';
-                   
-                $sqlForUpdate[] = "INSERT INTO `".$tbl_mdb_names['tracking_tmp']."` 
-                                  SET `date` = '" . claro_sql_escape( $date ) . "', 
-                                      `type` = '" . claro_sql_escape( $type ) . "', 
-                                      `data` = ''"; 
+                // we have to store offset to start again from it if something failed
+                UpgradeTrackingOffset::store($offset);
+                
+                $query = "SELECT `open_id`, `open_date`
+                            FROM `". get_conf( 'mainTblPrefix' ) . "track_e_open` 
+                        ORDER BY `open_date`, `open_id`
+                           LIMIT ".$offset.", 250";
+                // then copy these 250 rows to tracking_event
+                $eventList = claro_sql_query_fetch_all_rows( $query );
+
+                // build query to insert all 250 rows
+                $sql = "INSERT INTO `" . get_conf( 'mainTblPrefix' ) . "tracking_event` 
+                        ( `user_id`, `date`, `type`, `data` ) 
+                        VALUES 
+                        "; 
+                //inject former data into new table structure
+                foreach( $eventList as $event )
+                {
+                    $sql .= "(NULL,'" . claro_sql_escape( $event['open_date'] ) . "','platform_access',''),\n"; 
+                }
+                unset( $eventList );
+                
+                if ( upgrade_sql_query( rtrim($sql,",\n") ) )
+                {
+                    unset($sql);
+                    //continue;
+                }
+                else
+                {
+                    return $step ;
+                }
             }
-            
-            if ( upgrade_apply_sql( $sqlForUpdate ) ) $step = set_upgrade_status( $tool, $step+1 );
-            else return $step ;
-            unset( $sqlForUpdate );
-            unset( $open_event_list );
+
+            UpgradeTrackingOffset::reset();
+            $step = set_upgrade_status( $tool, $step+1 );
             
         case 4 :
-            //transfer date-sorted data from tmp table to tracking_event table 
-            $query = "SELECT `user_id`, `date`, `type`, `data`
-                        FROM `".$tbl_mdb_names['tracking_tmp']."` 
-                    ORDER BY `date`, `id`";
+            // order table using dates then recreate primary key with correct autoincrement value
+            $sqlForUpdate[] = "ALTER TABLE `" . get_conf('mainTblPrefix') . "tracking_event`  ORDER BY `date`";
+            $sqlForUpdate[] = "ALTER TABLE `" . get_conf('mainTblPrefix') . "tracking_event` ADD `id` INT( 11 ) NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST";
             
-            $event_list = claro_sql_query_fetch_all_rows( $query );
-            $sqlForUpdate = array();
-            foreach( $event_list as $event )
-            {
-                $date = $event['date'];
-                $type = $event['type'];
-                $data = $event['data'];
-                $user_id = !is_null( $event['user_id'] ) ? $event['user_id'] : "null";
-                
-                $sqlForUpdate[] = "INSERT INTO `".$tbl_mdb_names['tracking_event']."` 
-                                  SET `user_id` = " . $user_id .",
-                                      `date` = '" . claro_sql_escape( $date ) . "', 
-                                      `type` = '" . claro_sql_escape( $type ) . "', 
-                                      `data` = '" . claro_sql_escape( $data ) . "'";
-            }
             if ( upgrade_apply_sql( $sqlForUpdate ) ) $step = set_upgrade_status( $tool, $step+1 );
             else return $step ;
-            unset( $sqlForUpdate );
-            unset( $event_list );
             
         case 5 : 
-            //drop deprecated tracking tables and temporary table
-            $sqlForUpdate[] = "DROP TABLE IF EXISTS `".$tbl_mdb_names['track_e_open']."`";
-            $sqlForUpdate[] = "DROP TABLE IF EXISTS `".$tbl_mdb_names['track_e_login']."`";
+            //drop deprecated tracking tables
+            $sqlForUpdate[] = "DROP TABLE IF EXISTS `" . get_conf( 'mainTblPrefix' ) . "track_e_open`";
+            $sqlForUpdate[] = "DROP TABLE IF EXISTS `" . get_conf( 'mainTblPrefix' ) . "track_e_login`";
             // we should probably keep this table as it may be usefull for history purpose.  By the way it is not used in
             // any tracking interface.
             //$sqlForUpdate[] = "DROP TABLE IF EXISTS `" . get_conf( 'mainTblPrefix' ) . "track_e_default`";
-            $sqlForUpdate[] = "DROP TABLE IF EXISTS `".$tbl_mdb_names['tracking_tmp']."`";
             if ( upgrade_apply_sql( $sqlForUpdate ) ) $step = set_upgrade_status( $tool, $step+1 );
             else return $step ;
             unset( $sqlForUpdate );
@@ -648,4 +654,39 @@ function upgrade_main_database_tracking_data_to_19()
             return $step;
     }
     return false;
+}
+
+class UpgradeTrackingOffset
+{
+    private static $path = '/../../../platform/upgrade_tracking_status.txt';
+    
+    public static function store($offset)
+    {
+        if ( ! file_exists( dirname(__FILE__) . '/../../../platform' ) )
+        {
+            claro_mkdir( dirname(__FILE__) . '/../../../platform', CLARO_FILE_PERMISSIONS, true );
+        }
+        
+        file_put_contents(dirname(__FILE__) . self::$path, (int) $offset);
+    }
+    
+    public static function retrieve()
+    {
+        if( file_exists(dirname(__FILE__) . self::$path) )
+        {
+            $recoveredOffset = (int) trim(file_get_contents(dirname(__FILE__) . self::$path));
+        }
+        else
+        {
+            $recoveredOffset = 0;
+        }
+        
+        return $recoveredOffset;
+    }
+    
+    public static function reset()
+    {
+        unlink(dirname(__FILE__) . self::$path);
+    }
+    
 }
