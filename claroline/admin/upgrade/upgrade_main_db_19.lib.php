@@ -400,7 +400,8 @@ function upgrade_chat_to_19 ()
             {
                 log_message('New Chat module not found : keep the old one !');
                 
-                $step = set_upgrade_status($tool, $step+2);
+                $step = set_upgrade_status($tool, 0);
+                return $step;
             }
             
             list( $backLog, $moduleId ) = install_module($includePath . '/../../module/CLCHAT', true);
