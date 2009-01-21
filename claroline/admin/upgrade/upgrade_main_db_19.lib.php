@@ -656,37 +656,3 @@ function upgrade_main_database_tracking_data_to_19()
     return false;
 }
 
-class UpgradeTrackingOffset
-{
-    private static $path = '/../../../platform/upgrade_tracking_status.txt';
-    
-    public static function store($offset)
-    {
-        if ( ! file_exists( dirname(__FILE__) . '/../../../platform' ) )
-        {
-            claro_mkdir( dirname(__FILE__) . '/../../../platform', CLARO_FILE_PERMISSIONS, true );
-        }
-        
-        file_put_contents(dirname(__FILE__) . self::$path, (int) $offset);
-    }
-    
-    public static function retrieve()
-    {
-        if( file_exists(dirname(__FILE__) . self::$path) )
-        {
-            $recoveredOffset = (int) trim(file_get_contents(dirname(__FILE__) . self::$path));
-        }
-        else
-        {
-            $recoveredOffset = 0;
-        }
-        
-        return $recoveredOffset;
-    }
-    
-    public static function reset()
-    {
-        unlink(dirname(__FILE__) . self::$path);
-    }
-    
-}
