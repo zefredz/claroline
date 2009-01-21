@@ -205,19 +205,19 @@ if ( isset($_REQUEST['access']))
 
     if ($_REQUEST['access'] == 'public' )
     {
-        $isSearched .= '<b>' . get_lang('Course access') . ':' . get_lang('Access allowed to anybody (even without login)') . '</b>';
+        $isSearched .= '<b>' . get_lang('Course access') . ' : ' . get_lang('Access allowed to anybody (even without login)') . '</b>';
     }
     elseif ( $_REQUEST['access'] == 'platform' )
     {
-        $isSearched .= '<b>' . get_lang('Course access') . ':' . get_lang('Access allowed only to platform members (user registered to the platform)') . '</b>';
+        $isSearched .= '<b>' . get_lang('Course access') . ' : ' . get_lang('Access allowed only to platform members (user registered to the platform)') . '</b>';
     }
     elseif ( $_REQUEST['access'] == 'all' )
     {
-        $isSearched .= '<b>' . get_lang('Course access') . ':' . get_lang('Any') . '</b>';
+        $isSearched .= '<b>' . get_lang('Course access') . ' : ' . get_lang('All') . '</b>';
     }
     else
     {
-        $isSearched .= '<b>' . get_lang('Course access') . ':' . get_lang('Access allowed only to course members (people on the user list)') . '</b>';
+        $isSearched .= '<b>' . get_lang('Course access') . ' : ' . get_lang('Access allowed only to course members (people on the user list)') . '</b>';
     }
 }
 
@@ -227,19 +227,19 @@ if ( isset($_REQUEST['subscription']) )
 
     if ( $_REQUEST['subscription'] == 'allowed' )
     {
-        $isSearched .= '<b>' . get_lang('Enrolment') . ':' . get_lang('Allowed') . '</b>';
+        $isSearched .= '<b>' . get_lang('Enrolment') . ' : ' . get_lang('Allowed') . '</b>';
     }
     elseif (  $_REQUEST['subscription'] == 'key' )
     {
-        $isSearched .= '<b>' . get_lang('Enrolment') . ':' . get_lang('Allowed with enrolment key') . '</b>';
+        $isSearched .= '<b>' . get_lang('Enrolment') . ' : ' . get_lang('Allowed with enrolment key') . '</b>';
     }
     elseif (  $_REQUEST['subscription'] == 'all' )
     {
-        $isSearched .= '<b>' . get_lang('Enrolment') . ':' . get_lang('Any') . '</b>';
+        $isSearched .= '<b>' . get_lang('Enrolment') . ' : ' . get_lang('All') . '</b>';
     }
     else
     {
-        $isSearched .= '<b>' . get_lang('Enrolment') . ':' . get_lang('Denied') . ' </b>';
+        $isSearched .= '<b>' . get_lang('Enrolment') . ' : ' . get_lang('Denied') . ' </b>';
     }
 }
 
