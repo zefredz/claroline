@@ -307,8 +307,8 @@ if( $displayForm )
     // Advanced Information
     
     echo '<fieldset id="advancedInformation" class="collapsible collapsed">' . "\n"
-    .   '<legend><a href="#">' . get_lang('Advanced').' ('.get_lang('Optional').')' . '</a></legend>' . "\n"
-    .   '<div class="fieldset-wrapper">' . "\n"
+    .   '<legend><a href="#" class="doCollapse">' . get_lang('Advanced').' ('.get_lang('Optional').')' . '</a></legend>' . "\n"
+    .   '<div class="collapsible-wrapper">' . "\n"
     .   '<dl>' . "\n";
     
     // start date
@@ -419,8 +419,9 @@ else
     
     echo '</ul>' . "\n";
     
-    echo '<div><a href="#" onclick="$(\'#moreInformation\').slideToggle(\'slow\');">'. get_lang('More information') . '</a></div>' . "\n";
-    echo '<ul id="moreInformation" style="display: none;">' . "\n";
+    echo '<div class="collapsible collapsed"><a href="#" class="doCollapse">'. get_lang('More information') . '</a>' . "\n"
+    . '<div class="collapsible-wrapper">' . "\n"
+    . '<ul id="moreInformation">' . "\n";
     
     echo '<li>'
       .     get_lang('Start date').'&nbsp;: '
@@ -472,8 +473,10 @@ else
     .   '<blockquote>'.claro_parse_user_text($exercise->getQuizEndMessage()).'</blockquote>' . "\n"
     .   '</li>' . "\n";
     
-    echo '</ul>' . "\n\n";
-    echo '<br />' . "\n";
+    echo '</ul>' . "\n\n"
+    . '</div>' . "\n" // collapsible-wrapper
+    . '</div>' . "\n" // collaspible
+    . '<br />' . "\n";
 
     //-- claroCmd
     $cmd_menu = array();
