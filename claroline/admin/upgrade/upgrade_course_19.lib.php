@@ -89,6 +89,17 @@ function chat_upgrade_to_19 ($course_code)
     {
         $coursePath  = get_path('coursesRepositorySys') . claro_get_course_path($course_code);
         $courseChatPath  = $coursePath . '/chat/';
+        
+        $toolId = get_tool_id_from_module_label( 'CLCHAT' );
+        
+        if( !$toolId )
+        {
+            // get out of here if new chat module is missing
+            log_message('New Chat module not found : keep the old one !');
+            $step = set_upgrade_status($tool, 0, $course_code);
+            return $step;
+        }
+                
         // On init , $step = 1
         switch( $step = get_upgrade_status($tool,$course_code) )
         {
@@ -181,8 +192,6 @@ function chat_upgrade_to_19 ($course_code)
             case 2 : 
                 // activate new chat in each course
                 $currentCourseDbNameGlu = claro_get_course_db_name_glued($course_code);
-                
-                $toolId = get_tool_id_from_module_label( 'CLCHAT' );
 
                 if( ! register_module_in_single_course( $toolId, $course_code ) )
                 {
