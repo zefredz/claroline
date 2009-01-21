@@ -396,6 +396,13 @@ function upgrade_chat_to_19 ()
     {
         case 1 :
             // install new chat
+            if ( ! file_exists( $includePath . '/../../module/CLCHAT' ) )
+            {
+                log_message('New Chat module not found : keep the old one !');
+                
+                $step = set_upgrade_status($tool, $step+2);
+            }
+            
             list( $backLog, $moduleId ) = install_module($includePath . '/../../module/CLCHAT', true);
             
             log_message($backLog->output());
