@@ -733,8 +733,6 @@ function forum_upgrade_to_19( $course_code )
                 
                 if( upgrade_sql_query($sql) ) $step = set_upgrade_status($tool, $step+1, $course_code);
                 else return $step;
-                break;
-            
             default :
                 $step = set_upgrade_status($tool, 0, $course_code);
                 return $step;
