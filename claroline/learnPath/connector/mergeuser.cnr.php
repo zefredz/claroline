@@ -11,7 +11,7 @@ class CLLNP_MergeUser implements Module_MergeUser
         $tblList[] = 'lp_user_module_progress';
         
         $moduleCourseTbl = get_module_course_tbl( $tblList, $courseId );
-        print_r($moduleCourseTbl);
+        
         // Update lp_user_module_progress
         $sql = "UPDATE `{$moduleCourseTbl['lp_user_module_progress']}`
                 SET   user_id = ".(int)$uidToKeep."
@@ -19,7 +19,7 @@ class CLLNP_MergeUser implements Module_MergeUser
 
         if ( ! claro_sql_query($sql) )
         {
-            throw new Exception("Cannot update lp_user_module_progress in {$thisCourseCode}");
+            throw new Exception("Cannot update lp_user_module_progress in {$courseId}");
         }
         
     }
