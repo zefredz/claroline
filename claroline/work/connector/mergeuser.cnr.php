@@ -12,7 +12,7 @@ class CLWRK_MergeUser implements Module_MergeUser
 
         if ( ! claro_sql_query($sql) )
         {
-            throw new Exception("Cannot update wrk_submission in {$thisCourseCode}");
+            throw new Exception("Cannot update wrk_submission in {$courseId}");
         }
     }
     
