@@ -29,6 +29,13 @@ if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_f
 
 claro_set_display_mode_available(true);
 
+/**
+ *
+ * Try to create table (update script error for forum notifications)*
+ *
+ */
+install_module_database_in_course( 'CLFRM', claro_get_current_course_id() );
+
 /*-----------------------------------------------------------------
   Library
  -----------------------------------------------------------------*/
