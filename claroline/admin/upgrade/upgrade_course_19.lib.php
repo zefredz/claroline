@@ -723,7 +723,7 @@ function forum_upgrade_to_19( $course_code )
         switch( $step = get_upgrade_status($tool, $course_code) )
         {
             case 1 :
-                $sql = "CREATE TABLE IF NOT EXISTS `__CL_COURSE__bb_rel_forum_userstonotify` (
+                $sql = "CREATE TABLE IF NOT EXISTS `" . $currentCourseDbNameGlu . "bb_rel_forum_userstonotify` (
                         `notify_id` int(10) NOT NULL auto_increment,
                         `user_id` int(10) NOT NULL default '0',
                         `forum_id` int(10) NOT NULL default '0',
