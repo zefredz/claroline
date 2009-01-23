@@ -31,6 +31,13 @@ $currentContext = ( claro_is_in_a_group() ) ? CLARO_CONTEXT_GROUP : CLARO_CONTEX
 
 claro_set_display_mode_available(true);
 
+/**
+ *
+ * Try to create table (update script error for forum notifications)*
+ *
+ */
+install_module_database_in_course( 'CLFRM', claro_get_current_course_id() );
+
 /*-----------------------------------------------------------------
   Library
  -----------------------------------------------------------------*/
