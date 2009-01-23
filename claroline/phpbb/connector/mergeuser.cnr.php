@@ -10,25 +10,27 @@ class CLFRM_MergeUser implements Module_MergeUser
         
         $sql = "UPDATE `{$moduleCourseTbl['bb_posts']}`
                 SET     poster_id = ".(int)$uidToKeep.",
-                        nom = '". htmlspecialchars( $userToKeepProp['lastname'] ) . "'
+                        nom = '". htmlspecialchars( $userToKeepProp['lastname'] ) . "',
                         prenom = '". htmlspecialchars( $userToKeepProp['firstname'] ) . "'
                 WHERE poster_id = ".(int)$uidToRemove;
 
         if ( ! claro_sql_query($sql) )
         {
-            throw new Exception("Cannot update bb_posts in {$thisCourseCode}");
+            throw new Exception("Cannot update bb_posts in {$courseId}");
         }
         
         // Update topic poster, lastname & firstname
         $sql = "UPDATE `{$moduleCourseTbl['bb_topics']}`
                 SET topic_poster = " . (int)$uidToKeep . ",
-                nom = '".htmlspecialchars( $userToKeepProp['lastname']) . "'
+                nom = '".htmlspecialchars( $userToKeepProp['lastname']) . "',
                 prenom = '".htmlspecialchars( $userToKeepProp['firstname']) . "'
                 WHERE topic_poster = ".(int)$uidToRemove;
         
         if( ! claro_sql_query($sql) )
         {
-            throw new Exception("Cannot update bb_topics in {$thisCourseCode}");
+            echo mysql_error();
+            
+            throw new Exception("Cannot update bb_topics in {$courseId}");
         }
         
         // Update private messages (from)
@@ -38,7 +40,7 @@ class CLFRM_MergeUser implements Module_MergeUser
         
         if( ! claro_sql_query($sql) )
         {
-            throw new Exception("Cannot update bb_priv_msgs in {$thisCourseCode}");
+            throw new Exception("Cannot update bb_priv_msgs in {$courseId}");
         }
         
         // Update private messages (to)
@@ -48,7 +50,7 @@ class CLFRM_MergeUser implements Module_MergeUser
         
         if( ! claro_sql_query($sql) )
         {
-            throw new Exception("Cannot update bb_priv_msgs in {$thisCourseCode}");
+            throw new Exception("Cannot update bb_priv_msgs in {$courseId}");
         }
         
         
@@ -57,20 +59,21 @@ class CLFRM_MergeUser implements Module_MergeUser
                 FROM `{$moduleCourseTbl['bb_rel_topic_userstonotify']}`
                 WHERE `user_id` = " . (int)$uidToRemove;        
         
-        $topicIds = claro_sql_query_fetch_all($query);        
+        $topicIds = claro_sql_query_fetch_all($sql);        
         
-        if( !empty( $topicIds['topic_id']) )
+        if( !empty( $topicIds) )
         {
-            foreach( $topicIds['topic_id'] as $topicId)
+            foreach( $topicIds as $_topicId)
             {
+                $topicId = $_topicId['topic_id'];
                 $sql = "SELECT `notify_id`
                         FROM `{$moduleCourseTbl['bb_rel_topic_userstonotify']}`
-                        WHERE `user_id` = ".(int)$uidToKeep." AND `topic_id` = ".(int)$topicId . "
+                        WHERE `user_id` = ".(int)$uidToRemove." AND `topic_id` = ".(int)$topicId . "
                         LIMIT 1";
                 
                 $notify = claro_sql_query_get_single_row($sql);
                 
-                if( empty($notify) )
+                if( !empty($notify) )
                 {
                     // Update notification for userToRemove to userToKeep
                     $sql = "UPDATE `{$moduleCourseTbl['bb_rel_topic_userstonotify']}`
@@ -79,7 +82,7 @@ class CLFRM_MergeUser implements Module_MergeUser
                 
                     if( ! claro_sql_query($sql) )
                     {
-                        throw new Exception("Cannot update bb_rel_topic_userstonotify in {$thisCourseCode}");
+                        throw new Exception("Cannot update bb_rel_topic_userstonotify in {$courseId}");
                     }
                 }
                 // Delete the notification for userToRemove
@@ -87,9 +90,8 @@ class CLFRM_MergeUser implements Module_MergeUser
                 
                 if( ! claro_sql_query($sql) )
                 {
-                    throw new Exception("Cannot delete bb_rel_topic_userstonotify in {$thisCourseCode}");
-                }
-                
+                    throw new Exception("Cannot delete bb_rel_topic_userstonotify in {$courseId}");
+                }                
             }
         }
         
@@ -98,20 +100,21 @@ class CLFRM_MergeUser implements Module_MergeUser
                 FROM `{$moduleCourseTbl['bb_rel_forum_userstonotify']}`
                 WHERE `user_id` = " . (int)$uidToRemove;
         
-        $forumIds = claro_sql_query_fetch_all($query);
+        $forumIds = claro_sql_query_fetch_all($sql);
         
-        if( !empty( $forumIds['forum_id']) )
+        if( !empty( $forumIds) )
         {
-            foreach( $forumIds['forum_id'] as $forumId)
+            foreach( $forumIds as $_forumId)
             {
+                $forumId = $_forumId['forum_id'];
                 $sql = "SELECT `notify_id`
                         FROM `{$moduleCourseTbl['bb_rel_forum_userstonotify']}`
-                        WHERE `user_id` = ".(int)$uidToKeep." AND `topic_id` = ".(int)$topicId . "
+                        WHERE `user_id` = ".(int)$uidToRemove." AND `forum_id` = ".(int)$forumId . "
                         LIMIT 1";
                 
                 $notify = claro_sql_query_get_single_row($sql);
                 
-                if( empty($notify) )
+                if( !empty($notify) )
                 {
                     // Update notification for userToRemove to userToKeep
                     $sql = "UPDATE `{$moduleCourseTbl['bb_rel_forum_userstonotify']}`
@@ -120,7 +123,7 @@ class CLFRM_MergeUser implements Module_MergeUser
                 
                     if( ! claro_sql_query($sql) )
                     {
-                        throw new Exception("Cannot update bb_rel_forum_userstonotify in {$thisCourseCode}");
+                        throw new Exception("Cannot update bb_rel_forum_userstonotify in {$courseId}");
                     }
                 }
                 // Delete the notification for userToRemove
@@ -128,7 +131,7 @@ class CLFRM_MergeUser implements Module_MergeUser
                 
                 if( ! claro_sql_query($sql) )
                 {
-                    throw new Exception("Cannot delete bb_rel_forum_userstonotify in {$thisCourseCode}");
+                    throw new Exception("Cannot delete bb_rel_forum_userstonotify in {$courseId}");
                 }
                 
             }
