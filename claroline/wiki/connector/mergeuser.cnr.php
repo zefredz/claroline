@@ -13,7 +13,7 @@ class CLWIKI_MergeUser implements Module_MergeUser
 
         if ( ! claro_sql_query($sql) )
         {
-            throw new Exception("Cannot update wiki_pages in {$thisCourseCode}");
+            throw new Exception("Cannot update wiki_pages in {$courseId}");
         }
         
         // Update wiki_pages_content
@@ -23,7 +23,7 @@ class CLWIKI_MergeUser implements Module_MergeUser
 
         if ( ! claro_sql_query($sql) )
         {
-            throw new Exception("Cannot update wiki_pages_content in {$thisCourseCode}");
+            throw new Exception("Cannot update wiki_pages_content in {$courseId}");
         }
         
     }
