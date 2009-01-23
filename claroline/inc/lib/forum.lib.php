@@ -290,6 +290,137 @@ function get_topic_settings($topicId)
 }
 
 /**
+ *
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
+ * @param int $userId
+ * @param int $forumId
+ * @return void
+ */
+
+function request_forum_notification($forumId, $userId)
+{
+    if( claro_is_course_manager() )
+    {
+        $tbl_cdb_names = claro_sql_get_course_tbl();
+        $tbl_user_notify = $tbl_cdb_names['bb_rel_forum_userstonotify'];
+    
+        // check first if user is not regisitered for forum notification yet
+        if (! is_forum_notification_requested($forumId, $userId) )
+        {
+            $sql = "INSERT INTO `" . $tbl_user_notify . "`
+                    SET `user_id`  = '" . (int) $userId . "',
+                        `forum_id` = '" . (int) $forumId . "'";
+    
+            claro_sql_query($sql);
+        }
+    }
+
+}
+
+/**
+ *
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
+ * @param int $userId
+ * @param int $forumId (optionnal)
+ * @return void
+ */
+
+function cancel_forum_notification($forumId = null, $userId = null)
+{
+    if( claro_is_course_manager() )
+    {
+        $tbl_cdb_names   = claro_sql_get_course_tbl();
+        $tbl_user_notify = $tbl_cdb_names['bb_rel_forum_userstonotify'];
+    
+        $conditionList = array();
+        if ($userId ) $conditionList[]  = " `user_id`  = " . (int) $userId;
+        if ($forumId) $conditionList[]  = " `forum_id` = " . (int) $forumId;
+    
+        $sql = "DELETE FROM `" . $tbl_user_notify . "`"
+        .      ( ( count($conditionList) > 0) ? " WHERE " . implode(" AND ", $conditionList) : "" );
+    
+        if (claro_sql_query($sql) == false) return false;
+        else                                return true;   
+    }
+}
+
+
+/**
+ *
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
+ * @param int $userId
+ * @param int $forumId
+ * @return bool
+ */
+
+function is_forum_notification_requested($forumId, $userId)
+{
+    $tbl_cdb_names = claro_sql_get_course_tbl();
+    $tbl_user_notify = $tbl_cdb_names['bb_rel_forum_userstonotify'];
+
+    $sql = "SELECT COUNT(*) notification_qty
+            FROM `" . $tbl_user_notify . "`
+            WHERE `user_id`  = " . (int) $userId . "
+              AND `forum_id` = " . (int) $forumId ;
+
+    if (claro_sql_query_get_single_value($sql) > 0) return true;
+    else                                            return false;
+}
+
+
+function trig_forum_notification($forumId)
+{
+    $tbl_cdb_names = claro_sql_get_course_tbl();
+    $tbl_user_notify = $tbl_cdb_names['bb_rel_forum_userstonotify'];
+
+    global $_course;
+
+    $sql = "SELECT notif.user_id
+            FROM `" . $tbl_user_notify . "` AS notif
+            WHERE notif.forum_id = " . (int) $forumId ;
+    
+    $notifyResult = claro_sql_query($sql);
+    
+    $courseOfficialCode = claro_get_current_course_data('officialCode');
+    $subject      = get_lang('A new topic has been created on your forum');
+
+    $url_forum = get_path('rootWeb') . 'claroline/phpbb/viewforum.php?forum=' .  $forumId . '&cidReq=' . $_course['sysCode'];
+    $url_forum_global = get_path('rootWeb') . 'claroline/phpbb/index.php?cidReq=' . claro_get_current_course_id();
+
+    // send mail to registered user for notification
+    $message = get_lang('You are receiving this notification because you are watching for new topics on the forum of one of your courses.') . '<br/>' . "\n"
+    . get_lang('View forum') . '<br/>' . "\n"
+    . '<a href="' . $url_forum . '">' . $url_forum . '</a><br/><br/>' . "\n"
+    . get_lang('View general forum') . '<br/>'
+    . '<a href="' . $url_forum_global . '">' .$url_forum_global . '</a><br/>' . "\n"
+    ;
+    
+    require_once dirname(__FILE__) . '/../../messaging/lib/recipient/userlistrecipient.lib.php';
+    require_once dirname(__FILE__) . '/../../messaging/lib/message/messagetosend.lib.php';
+    
+    $recipient = new UserListRecipient();
+    
+    while ( ( $list = mysql_fetch_array($notifyResult) ) )
+    {
+        $recipient->addUserId($list['user_id']);
+    }
+    
+    
+    $message = new MessageToSend(claro_get_current_user_id(),$subject,$message);
+    $message->setCourse(claro_get_current_course_id());
+    $message->setTools('CLFRM');
+    
+    if(claro_is_in_a_group())
+    {
+        $message->setGroup(claro_get_current_group_id());
+    }
+    
+    //$message->sendTo($recipient);
+    $recipient->sendMessage($message);
+    
+}
+
+/**
  * create a new topic
  *
  * @author Hugues Peeters <peeters@ipm.ucl.ac.be>
