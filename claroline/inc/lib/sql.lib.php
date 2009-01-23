@@ -223,6 +223,8 @@ function claro_sql_get_course_tbl($dbNameGlued = null)
               'bb_priv_msgs'           => $courseDbInCache . 'bb_priv_msgs',
               'bb_rel_topic_userstonotify'
                             => $courseDbInCache . 'bb_rel_topic_userstonotify',
+              'bb_rel_forum_userstonotify'
+                            => $courseDbInCache . 'bb_rel_forum_userstonotify',
               'bb_topics'              => $courseDbInCache . 'bb_topics',
               'bb_users'               => $courseDbInCache . 'bb_users',
               'bb_whosonline'          => $courseDbInCache . 'bb_whosonline',
