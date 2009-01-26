@@ -127,17 +127,22 @@ echo '<table cellspacing="5" align="center">' . "\n"
 .    claro_html_menu_vertical($menu['Communication'])
 .    '</td>' . "\n"
 .    '</tr>'
-
-.    '<tr valign="top">' . "\n"
-.    '<td nowrap="nowrap">' . "\n"
-.    claro_html_tool_title('<img src="' . get_icon_url('exe') . '" alt="" />&nbsp;' . get_lang('Administration tools'))
-.    claro_html_menu_vertical($menu['ExtraTools'])
-.    '</td>' . "\n"
-.    '<td nowrap="nowrap">' . "\n"
-.    '&nbsp;'
-.    '</td>' . "\n"
-.    '</tr>'
 ;
+
+
+if( !empty($menu['ExtraTools']) )
+{
+    echo '<tr valign="top">' . "\n"
+    .    '<td nowrap="nowrap">' . "\n"
+    .    claro_html_tool_title('<img src="' . get_icon_url('exe') . '" alt="" />&nbsp;' . get_lang('Administration tools'))
+    .    claro_html_menu_vertical($menu['ExtraTools'])
+    .    '</td>' . "\n"
+    .    '<td nowrap="nowrap">' . "\n"
+    .    '&nbsp;'
+    .    '</td>' . "\n"
+    .    '</tr>'
+    ;
+}
 
 ?>
 </table>
