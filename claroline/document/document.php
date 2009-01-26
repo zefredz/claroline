@@ -1590,8 +1590,7 @@ echo claro_html_tool_title($titleElement,
         }
         elseif ($curDirName)
         {
-               $curDirLine = '<img src="' . get_icon_url('opendir') . '" '
-               .             'align="absbottom" vspace="2" hspace="5" alt="" />' . "\n"
+               $curDirLine = '<img src="' . get_icon_url('opendir') . '" alt="" />' . "\n"
                .             $dspCurDirName . "\n"
                ;
         }
@@ -1776,8 +1775,8 @@ echo claro_html_tool_title($titleElement,
         }
         elseif ($curDirName)
         {
-            $curDirLine = '<img src="' . get_icon_url('opendir') . '" align="absbottom" vspace="2" hspace="5" alt="" />' . "\n"
-                .$dspCurDirName."\n";
+            $curDirLine = '<img src="' . get_icon_url('opendir') . '" alt="" />' . "\n"
+            . $dspCurDirName."\n";
         }
         else
         {
@@ -2024,7 +2023,7 @@ echo claro_html_tool_title($titleElement,
         }
         elseif ($curDirName)
         {
-            $curDirLine = '<img src="' . get_icon_url('opendir') . '" vspace="2" hspace="5" alt="" />' . "\n"
+            $curDirLine = '<img src="' . get_icon_url('opendir') . '" alt="" />' . "\n"
                 .$dspCurDirName."\n";
         }
         else
