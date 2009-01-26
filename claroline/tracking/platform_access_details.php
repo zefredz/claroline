@@ -70,7 +70,7 @@ else
 /*
  * Output
  */
-ClaroBreadCrumbs::getInstance()->prepend( get_lang('Platform statistics'), get_path('rootAdminWeb').'platformReport.php' );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Platform statistics'),'platformReport.php' );
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
 $nameTools = get_lang('Traffic Details');
