@@ -370,7 +370,15 @@ function upgrade_main_database_desktop_to_19 ()
                         `idUser` int(11) NOT NULL,
                         `data` text NOT NULL,
                         PRIMARY KEY  (`id`)
-                       ) TYPE=MyISAM";
+                       ) TYPE=MyISAM;";
+                       
+            $sqlForUpdate[] = "           
+				INSERT INTO `" . $tbl_mdb_names['desktop_portlet_data'] . "` 
+					(`label`, `name`, `rank`, `visibility`, `activated`) VALUES
+					('mycourselist', 'My course list', 1, 'visible', 0),
+					('mymessages', 'My messages', 2, 'visible', 0),
+					('CLCAL_Portlet', 'My calendar', 3, 'visible', 0),
+					('CLANN_Portlet', 'Latest announcements', 4, 'visible', 0);";
             
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
