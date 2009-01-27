@@ -373,7 +373,7 @@ function upgrade_main_database_desktop_to_19 ()
                        ) TYPE=MyISAM;";
                        
             $sqlForUpdate[] = "           
-				INSERT INTO `" . $tbl_mdb_names['desktop_portlet_data'] . "` 
+				INSERT INTO `" . $tbl_mdb_names['desktop_portlet'] . "` 
 					(`label`, `name`, `rank`, `visibility`, `activated`) VALUES
 					('mycourselist', 'My course list', 1, 'visible', 0),
 					('mymessages', 'My messages', 2, 'visible', 0),
