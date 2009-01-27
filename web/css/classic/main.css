@@ -596,7 +596,8 @@ a.item:visited{
     padding: 2px 5px 2px 5px;
     background-color: #EDF1E3;
     border-bottom: 1px #96BB7A solid;
-    margin: 3px 0px;    
+    margin: 3px 0px;
+    font-size: 100%;
 }
 
 .claroBlock 
