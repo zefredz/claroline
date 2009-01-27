@@ -1,4 +1,10 @@
 <?php
+
+/**
+ * Claroline hacks to get the tmp directory
+ */
+require '../../../inc/claro_init_global.inc.php';
+$claroCachePath = get_path('rootSys') . get_conf('cacheRepository', 'tmp/cache/');
 /**
  * $Id$
  *
@@ -22,7 +28,10 @@
 	$compress = getParam("compress", "true") == "true";
 	$core = getParam("core", "true") == "true";
 	$suffix = getParam("suffix", "_src") == "_src" ? "_src" : "";
-	$cachePath = realpath("."); // Cache path, this is where the .gz files will be stored
+	/**
+	 * Claroline hack
+	 */
+	$cachePath = $claroCachePath;//realpath("."); // Cache path, this is where the .gz files will be stored
 	$expiresOffset = 3600 * 24 * 10; // Cache for 10 days in browser cache
 	$content = "";
 	$encodings = array();
