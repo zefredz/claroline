@@ -782,9 +782,11 @@ else
     }
     else
     {
+        $colspan = ( $isGroupRegAllowed ? '4' : '3' );
+        
         echo "\n"
         . '<tr>'
-        . '<td colspan="3" class="centerContent">'
+        . '<td colspan="'.$colspan.'" class="centerContent">'
         . get_lang('Empty')
         . '</td>'
         . '</tr>'
