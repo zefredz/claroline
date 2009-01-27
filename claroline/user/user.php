@@ -497,6 +497,10 @@ foreach ( $userList as $thisUser )
             .    '</a>'
             ;
         }
+        else
+        {
+            echo '&nbsp;';
+        }
 
         echo '</td>' . "\n";
 
