@@ -177,29 +177,28 @@ class claro_pager
         else                               $url .= '&amp;'.$this->pagerParamName.'=';
 
 
-        $output =                                                                                        "\n\n"
-                . '<table class="claroPager" border="0" width="100%" cellspacing="0" cellpadding="0">' . "\n"
-                . '<tr valign="top">'                                                                  . "\n"
-                . '<td align="left" width="20%">'                                                      . "\n"
-                ;
+        $output = "\n\n"
+        . '<div class="claroPager">' . "\n"
+        . '<span class="pagerBefore">' . "\n"
+        ;
 
         if ($previousPage !== false)
         {
             $output .= '<b>'
-                    . '<a href="' . $url . $startPage    . '">'.claro_html_icon('pager_first').'</a>&nbsp;'
-                    . '<a href="' . $url . $previousPage . '">'.claro_html_icon('pager_previous').'</a>'
-                    . '</b>'
-                    ;
+            . '<a href="' . $url . $startPage . '">'.claro_html_icon('pager_first').'</a>&nbsp;'
+            . '<a href="' . $url . $previousPage . '">'.claro_html_icon('pager_previous').'</a>'
+            . '</b>'
+            ;
         }
         else
         {
             $output .= '&nbsp;';
         }
 
-        $output .=                                     "\n"
-                .  '</td>'                           . "\n"
-                .  '<td align="center" width="60%">' . "\n"
-                ;
+        $output .= "\n"
+        . '</span>' . "\n"
+        . '<span class="pagerPages">' . "\n"
+        ;
 
         // current page
         $currentPage = (int) $this->offset / $this->step ;
@@ -247,29 +246,28 @@ class claro_pager
             $output .= '&nbsp;<a href="'. $url . $pageList[$pageCount-1] . '">'.($pageCount).'</a>';
         }
 
-        $output .=                                   "\n"
-                .  '</td>'.                          "\n"
-                .  '<td align="right" width="20%">'. "\n"
-                ;
+        $output .= "\n"
+        . '</span>'. "\n"
+        . '<span class="pagerAfter">'. "\n"
+        ;
 
         if ($nextPage !== false)
         {
             $output .= '<b>'
-                    .  '<a href="' . $url . $nextPage . '">'.claro_html_icon('pager_next').'</a>&nbsp;'
-                    .  '<a href="' . $url . $endPage  . '">'.claro_html_icon('pager_last').'</a>'
-                    .  '</b>'
-                    ;
+            . '<a href="' . $url . $nextPage . '">'.claro_html_icon('pager_next').'</a>&nbsp;'
+            . '<a href="' . $url . $endPage  . '">'.claro_html_icon('pager_last').'</a>'
+            . '</b>'
+            ;
         }
         else
         {
             $output .= '&nbsp;';
         }
 
-        $output .=             "\n"
-                .  '</td>'    ."\n"
-                .  '</tr>'    ."\n"
-                .  '</table>' ."\n\n"
-                ;
+        $output .= "\n"
+        . '</span>' ."\n"
+        . '</div>' ."\n\n"
+        ;
 
         return $output;
     }

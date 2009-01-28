@@ -822,6 +822,31 @@ dl.userCourseList
     background-color: #EDEDED;
 }
 
+/**
+ * Pager
+ */
+.claroPager {
+    text-align: center;
+}
+
+.claroPager img {
+    vertical-align: text-bottom;
+}
+
+.claroPager .pagerBefore {
+    text-align: right;
+}
+
+.claroPager .pagerAfter {
+    text-align: left;
+}
+
+.claroPager .pagerPages {
+    text-align: center;
+    margin: 0 auto;
+    padding: 1px 10px;
+    
+}
 /******************************************************************************
                              VARIOUS CLAROLINE CSS CLASS
  ******************************************************************************/
