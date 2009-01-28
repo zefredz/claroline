@@ -527,13 +527,13 @@ function display_path_content()
         else // module
         {
             if(CTEXERCISE_ == $module['contentType'] )
-                $moduleImg = 'quiz.gif';
+                $moduleImg = get_icon_url('quiz', 'CLQWZ');
             else
-                $moduleImg = choose_image(basename($module['path']));
+                $moduleImg = get_icon_url(choose_image(basename($module['path'])));
 
             $contentType_alt = selectAlt($module['contentType']);
 
-            echo '<img src="' . get_icon_url($moduleImg) . '" alt="' .$contentType_alt.'" /> '
+            echo '<img src="' . $moduleImg . '" alt="' .$contentType_alt.'" /> '
             .    $module['name']
             ;
         }
