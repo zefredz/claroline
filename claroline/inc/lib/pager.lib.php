@@ -186,8 +186,8 @@ class claro_pager
         if ($previousPage !== false)
         {
             $output .= '<b>'
-                    . '<a href="' . $url . $startPage    . '">|&lt;&lt;</a>&nbsp;&nbsp;'
-                    . '<a href="' . $url . $previousPage . '">&lt; </a>'
+                    . '<a href="' . $url . $startPage    . '">'.claro_html_icon('pager_first').'</a>&nbsp;'
+                    . '<a href="' . $url . $previousPage . '">'.claro_html_icon('pager_previous').'</a>'
                     . '</b>'
                     ;
         }
@@ -255,8 +255,8 @@ class claro_pager
         if ($nextPage !== false)
         {
             $output .= '<b>'
-                    .  '<a href="' . $url . $nextPage . '"> &gt;</a>&nbsp;&nbsp;'
-                    .  '<a href="' . $url . $endPage  . '"> &gt;&gt;|</a>'
+                    .  '<a href="' . $url . $nextPage . '">'.claro_html_icon('pager_next').'</a>&nbsp;'
+                    .  '<a href="' . $url . $endPage  . '">'.claro_html_icon('pager_last').'</a>'
                     .  '</b>'
                     ;
         }
