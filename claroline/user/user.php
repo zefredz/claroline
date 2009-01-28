@@ -520,13 +520,7 @@ echo '</tbody>' . "\n"
 .    '</table>' . "\n"
 ;
 
-/*
-if ( count($userGrid) > 0 ) echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
-
-echo $userDataGrid->render();
-
-if ( count($userGrid) > 0 ) echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
-*/
+echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 
 include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
