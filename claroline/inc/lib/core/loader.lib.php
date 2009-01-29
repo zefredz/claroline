@@ -34,7 +34,7 @@ class JavascriptLoader
     {
         $this->libraries = array();
         $this->pathList = array(
-            get_module_path( get_current_module_label() ) . '/js' => get_module_url( get_current_module_label() ) . '/js',
+            get_module_path( get_module_path(get_current_module_label()) ) . '/js' => get_module_url( get_current_module_label() ) . '/js',
             get_path( 'rootSys' ) . 'web/js' => get_path('url') . '/web/js',
             './js' => './js'
         );
