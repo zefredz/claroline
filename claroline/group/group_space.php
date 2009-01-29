@@ -380,7 +380,7 @@ if (count($tutorDataList) > 0)
         if(current_user_is_allowed_to_send_message_to_user($thisTutor['id']))
         {
             echo ' - <a href="'.htmlspecialchars(Url::Contextualize(
-              '../messaging/sendMessage.php?cmd=rqMessageToUser&amp;userId=' . (int)$thisTutor['id'] ))
+              '../messaging/sendmessage.php?cmd=rqMessageToUser&amp;userId=' . (int)$thisTutor['id'] ))
               . '">'
               // . '<img src="' . get_icon_url('mail_send') . '" alt="" />'
               . get_lang('Send a message')
