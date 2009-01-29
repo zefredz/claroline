@@ -427,7 +427,7 @@ if(count($groupMemberList) > 0)
         {        
             echo ' - <a href="'
                 . htmlspecialchars(Url::Contextualize(
-                    '../messaging/sendMessage.php?cmd=rqMessageToUser&amp;userId=' . (int) $thisGroupMember['id'] ))
+                    '../messaging/sendmessage.php?cmd=rqMessageToUser&amp;userId=' . (int) $thisGroupMember['id'] ))
                 . '">'
                 // . '<img src="' . get_icon_url('mail_send') . '" alt="" />'
                 . get_lang('Send a message')
