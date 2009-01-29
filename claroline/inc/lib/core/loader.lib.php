@@ -75,13 +75,13 @@ class JavascriptLoader
                 }
                 
                 if ( get_conf('javascriptCompression', true)
-                    && file_exists( $tryUrl . '/' . $lib . '.min.js' )  )
+                    && file_exists( $tryPath . '/min/' . $lib . '.js' )  )
                 {    
-                    $this->libraries[$tryPath . '/' . $lib . '.js'] = $tryUrl . '/' . $lib . '.min.js';
+                    $this->libraries[$tryPath . '/' . $lib . '.js'] = $tryUrl . '/min/' . $lib . '.js';
                     
                     if ( claro_debug_mode() )
                     {
-                        pushClaroMessage(__Class__."::Use ".$tryPath.'/' .$lib.'.min.js', 'debug');
+                        pushClaroMessage(__Class__."::Use ".$tryPath.'/min/' .$lib.'.js', 'debug');
                     }
                 }
                 else
