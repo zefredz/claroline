@@ -32,12 +32,6 @@ array ( 'course_order_by',
         'course_categories_hidden_to_anonymous',
         'userCourseListGroupByCategories' );
 
-$conf_def['section']['rightmenu']['label']='Right menu settings';
-$conf_def['section']['rightmenu']['description']='Settings of the right menu elements';
-$conf_def['section']['rightmenu']['properties'] =
-array ( 'max_char_from_content'
-      );
-
 //PROPERTIES
 
 $conf_def_property_list['course_order_by']
@@ -71,16 +65,5 @@ $conf_def_property_list['userCourseListGroupByCategories']
         ,'readonly'      => FALSE
         ,'acceptedValue' => array ( 'TRUE'=> 'Yes',
                                     'FALSE' => 'No' )
-        );
-
-        $conf_def_property_list['max_char_from_content']
-= array ('label'     => 'Last event length'
-        ,'description' => 'Max length of the \'last events\' displayed content'
-        ,'default'   => '80'
-        ,'unit'     => 'characters'
-        ,'type'      => 'integer'
-        ,'display'       => TRUE
-        ,'readonly'      => FALSE
-        ,'acceptedValue' => array ( 'min'=> '0' )
         );
 ?>
