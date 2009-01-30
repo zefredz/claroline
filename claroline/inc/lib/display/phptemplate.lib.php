@@ -62,7 +62,7 @@ class PhpTemplate implements Display
         }
         else
         {
-            throw new Exception("Template file not found {$this->templatePath}");
+            throw new Exception("Template file not found {$this->_templatePath}");
         }
     }
     
