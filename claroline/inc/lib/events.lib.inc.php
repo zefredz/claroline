@@ -379,11 +379,11 @@ function event_default($type_event,$values)
         $user_id = "NULL";
     }
 
-    if(claro_is_user_authenticated())
+    if(claro_is_in_a_course())
     {
         $cours_id = "'".addslashes(claro_get_current_course_id())."'";
     }
-    else // anonymous
+    else // not in a course
     {
         $cours_id = "NULL";
     }
