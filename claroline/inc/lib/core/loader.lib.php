@@ -34,7 +34,7 @@ class JavascriptLoader
     {
         $this->libraries = array();
         $this->pathList = array(
-            get_module_path( get_module_path(get_current_module_label()) ) . '/js' => get_module_url( get_current_module_label() ) . '/js',
+            get_module_path( get_current_module_label() ) . '/js' => get_module_url( get_current_module_label() ) . '/js',
             get_path( 'rootSys' ) . 'web/js' => get_path('url') . '/web/js',
             './js' => './js'
         );
@@ -66,7 +66,8 @@ class JavascriptLoader
             {
                 pushClaroMessage(__Class__."::Try to find {$lib} in {$tryPath}", 'debug');
             }
-
+            
+            
             if ( file_exists ( $tryPath . '/' . $lib . '.js' ) )
             {
                 if ( array_key_exists( $tryPath . '/' . $lib . '.js', $this->libraries ) )
