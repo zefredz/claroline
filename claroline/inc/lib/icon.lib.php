@@ -113,7 +113,7 @@ function get_icon_url( $fileName, $moduleLabel = null )
             {
                 if ( claro_debug_mode() ) pushClaroMessage("Using ".$tryPath.$tryImg, 'debug');
                 
-                return $tryUrl.$tryImg;
+                return $tryUrl.$tryImg.'?'.filemtime($tryPath.$tryImg);
             }
         }
     }
