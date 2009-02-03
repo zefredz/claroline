@@ -75,10 +75,14 @@ class JavascriptLoader
                     return false;
                 }
                 
+                $mtime = '';
+                
                 if ( get_conf('javascriptCompression', true)
                     && file_exists( $tryPath . '/min/' . $lib . '.js' )  )
                 {    
                     $this->libraries[$tryPath . '/' . $lib . '.js'] = $tryUrl . '/min/' . $lib . '.js';
+                    
+                    $mtime = filemtime($tryPath . '/min/' . $lib . '.js');
                     
                     if ( claro_debug_mode() )
                     {
@@ -89,6 +93,8 @@ class JavascriptLoader
                 {
                     $this->libraries[$tryPath . '/' . $lib . '.js'] = $tryUrl . '/' . $lib . '.js';
                     
+                    $mtime = filemtime($tryPath . '/' . $lib . '.js');
+                    
                     if ( claro_debug_mode() )
                     {
                         pushClaroMessage(__Class__."::Use ".$tryPath.'/' .$lib.'.js', 'debug');
@@ -96,7 +102,7 @@ class JavascriptLoader
                 }
                 
                 ClaroHeader::getInstance()->addHtmlHeader(
-                    '<script src="'.$this->libraries[$tryPath . '/' . $lib . '.js'].'" type="text/javascript"></script>'
+                    '<script src="'.$this->libraries[$tryPath . '/' . $lib . '.js'].'?'.$mtime.'" type="text/javascript"></script>'
                 );
                 
                 return true;
@@ -138,7 +144,7 @@ class JavascriptLoader
             }
             
             ClaroHeader::getInstance()->addHtmlHeader(
-                '<script src="'.$url.'" type="text/javascript"></script>'
+                '<script src="'.$url.'?'.filemtime($path).'" type="text/javascript"></script>'
             );
             
             return true;
@@ -222,7 +228,7 @@ class CssLoader
                 }
 
                 $this->css[$tryPath . '/' . $css . '.css'] = array(
-                    'url' => $tryUrl . '/' . $css . '.css',
+                    'url' => $tryUrl . '/' . $css . '.css' . '?' . filemtime($tryPath . '/' . $css . '.css'),
                     'media' => $media
                 );
                 
@@ -265,7 +271,7 @@ class CssLoader
             }
             
             $this->css[$path] = array(
-                'url' => $url,
+                'url' => $url . '?' . filemtime($path),
                 'media' => $media
             );
             
