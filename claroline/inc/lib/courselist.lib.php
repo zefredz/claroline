@@ -382,7 +382,7 @@ function render_course_dt_in_dd_list($course, $hot = false)
     .    htmlspecialchars($course['sysCode'])
     ;
 
-    $out .= '<dt>' . "\n"
+    $out .= '<dt class="' . $classItem . '" >' . "\n"
     .    '<img class="iconDefinitionList" src="' . get_icon_url('course') . '" alt="" />'
     .    '<a href="' . htmlspecialchars( $url ) . '">'
     .    htmlspecialchars($courseTitle)
