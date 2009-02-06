@@ -1376,6 +1376,7 @@ class ResourceLinker
             $sql = "INSERT INTO `{$tbl['resources']}`\n"
                 . "SET\n"
                 . "`crl` = " . Claroline::getDatabase()->quote($locator->__toString()) ."\n"
+                . ",`title` = ''"
                 ;
             
             Claroline::getDatabase()->exec ( $sql );
