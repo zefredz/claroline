@@ -1305,7 +1305,7 @@ function renderTex($text)
         $text);
 
         $text = str_replace('[/tex]',
-        '" border="0" align="absmiddle" />',
+        '" border="0" align="absmiddle" class="latexFormula" />',
         $text);
     }
     else
