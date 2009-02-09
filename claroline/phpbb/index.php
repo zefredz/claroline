@@ -228,7 +228,7 @@ foreach ( $categories as $this_category )
         if ($is_allowedToEdit)
         {
             echo '<th>'.get_lang('Edit').'</th>'
-            .    '<th>'.get_lang('Empty').'</th>'
+            .    '<th>'.get_lang('Empty it').'</th>'
             .    '<th>'.get_lang('Delete').'</th>'
             .    '<th colspan="2">'.get_lang('Move').'</th>'
             ;
