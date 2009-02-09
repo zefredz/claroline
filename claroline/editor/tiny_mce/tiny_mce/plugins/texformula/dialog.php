@@ -23,7 +23,7 @@ if( $cmd == 'rqTex' )
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title><?php echo get_lang('Tex Formula Editor'); ?></title>
+	<title><?php echo get_lang('LaTeX Equation Editor'); ?></title>
 	<script type="text/javascript" src="../../tiny_mce_popup.js"></script>
 	<script type="text/javascript" src="js/dialog.js"></script>
 	<script type="text/javascript" src="<?php echo get_path( 'rootWeb' ); ?>web/js/jquery.js"></script>
@@ -36,12 +36,12 @@ if( $cmd == 'rqTex' )
 <form onsubmit="TexFormulaDialog.insert();return false;" action="#">
 	<div>
 		<fieldset>
-			<legend><?php echo get_lang('Formula'); ?></legend>
+			<legend><?php echo get_lang('Equation'); ?></legend>
 			<div style="float: left;">
 				<textarea id="formula" name="formula" style="width: 400px; height: 50px;"></textarea>			
 			</div>
 			<div style="float: right;">
-				<input type="button" id="generatePreview" value="<?php get_lang('Preview'); ?>" onclick="TexFormulaDialog.preview();" />
+				<input type="button" id="generatePreview" value="<?php echo get_lang('Preview'); ?>" onclick="TexFormulaDialog.preview();" />
 			</div>
 		</field>
 	</div>

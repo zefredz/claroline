@@ -5,13 +5,6 @@
  * @copyright Copyright © 2004-2008, Moxiecode Systems AB, All rights reserved.
  */
 
-function texformulaCallback(editor_id, body, doc) {
-	var regExp = "";
-	var code = '<img src="/cgi-bin/mimetex.cgi?' + $1 + '" />';
-	body.innerHTML.replace(regExp, code);
-}
-
-
 (function() {
 	// Load plugin specific language pack
 	tinymce.PluginManager.requireLangPack('texformula');
@@ -42,7 +35,7 @@ function texformulaCallback(editor_id, body, doc) {
 			ed.addButton('texformula', {
 				title : 'texformula.desc',
 				cmd : 'mceTexFormula',
-				image : url + '/img/example.gif'
+				image : url + '/img/latex.png'
 			});
 
 			// Add a node change handler, selects the button in the UI when a image is selected
@@ -73,7 +66,7 @@ function texformulaCallback(editor_id, body, doc) {
 		 */
 		getInfo : function() {
 			return {
-				longname : 'LaTex Formula Editor plugin',
+				longname : 'LaTeT Equation Editor plugin',
 				author : 'Dimitri Rambout',
 				authorurl : 'http://www.claroline.net',
 				infourl : 'http://wiki.claroline.net',
