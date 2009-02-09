@@ -642,6 +642,7 @@ $_lang['Email'] = 'Email';
 $_lang['Email is'] = 'Email is';
 $_lang['Email needed'] = 'Email can not be empty';
 $_lang['Empty'] = 'Empty';
+$_lang['Empty it'] = 'Empty';
 $_lang['Empty all groups'] = 'Empty all groups';
 $_lang['Empty language file'] = 'Empty language file';
 $_lang['Empty manifest'] = 'Empty manifest';
