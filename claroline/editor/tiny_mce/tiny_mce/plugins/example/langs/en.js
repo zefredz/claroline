@@ -1,3 +1,3 @@
-tinyMCE.addI18n('en.texformula',{
-	desc : 'LaTex Editor'
+tinyMCE.addI18n('en.example',{
+	desc : 'This is just a template button'
 });

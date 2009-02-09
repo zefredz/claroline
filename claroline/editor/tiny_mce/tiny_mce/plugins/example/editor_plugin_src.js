@@ -7,9 +7,9 @@
 
 (function() {
 	// Load plugin specific language pack
-	tinymce.PluginManager.requireLangPack('texformula');
+	tinymce.PluginManager.requireLangPack('example');
 
-	tinymce.create('tinymce.plugins.TexFormulaPlugin', {
+	tinymce.create('tinymce.plugins.ExamplePlugin', {
 		/**
 		 * Initializes the plugin, this will be executed after the plugin has been created.
 		 * This call is done before the editor instance has finished it's initialization so use the onInit event
@@ -77,5 +77,5 @@
 	});
 
 	// Register plugin
-	tinymce.PluginManager.add('texformula', tinymce.plugins.TexFormulaPlugin);
+	tinymce.PluginManager.add('example', tinymce.plugins.ExamplePlugin);
 })();
