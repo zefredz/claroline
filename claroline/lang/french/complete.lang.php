@@ -640,6 +640,7 @@ $_lang['Email'] = 'E-mail';
 $_lang['Email is'] = 'E-mail';
 $_lang['Email needed'] = 'Le champ "E-mail" doit être rempli';
 $_lang['Empty'] = 'Vide';
+$_lang['Empty it'] = 'Vider';
 $_lang['Empty all groups'] = 'Vider tous les groupes';
 $_lang['Empty language file'] = 'Fichiers de traduction vierges';
 $_lang['Empty manifest'] = 'Le manifeste est vide';
