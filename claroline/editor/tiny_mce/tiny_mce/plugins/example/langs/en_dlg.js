@@ -1,3 +1,5 @@
-tinyMCE.addI18n('en.example_dlg',{
-	title : 'This is just a example title'
+tinyMCE.addI18n('en.texformula_dlg',{
+	title : "LaTex Formula Editor",
+	label : "Formula",
+	preview: "Preview"
 });
