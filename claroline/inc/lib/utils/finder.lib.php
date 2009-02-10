@@ -115,7 +115,7 @@ class Claro_FileFinder_Extension extends Claro_FileFinder
     public function accept()
     {
         return $this->current()->isFile() &&
-            ( substr( $this->current(), - ( strlen($this->getSearchString()) ) ) == 
-                $this->getSearchString() );
+            ( strtolower( substr( $this->current(), - ( strlen($this->getSearchString()) ) ) ) == 
+                strtolower( $this->getSearchString() ) );
     }
 }
