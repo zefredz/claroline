@@ -37,10 +37,10 @@ if( $cmd == 'rqTex' )
 	<div>
 		<fieldset>
 			<legend><?php echo get_lang('Equation'); ?></legend>
-			<div style="float: left;">
-				<textarea id="formula" name="formula" style="width: 400px; height: 50px;"></textarea>			
+			<div>
+				<textarea id="formula" name="formula" style="width: 100%; height: 50px;"></textarea>			
 			</div>
-			<div style="float: right;">
+			<div>
 				<input type="button" id="generatePreview" value="<?php echo get_lang('Preview'); ?>" onclick="TexFormulaDialog.preview();" />
 			</div>
 		</field>
