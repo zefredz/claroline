@@ -17,3 +17,5 @@ DROP TABLE IF EXISTS `__CL_COURSE__qwz_tracking`;
 DROP TABLE IF EXISTS `__CL_COURSE__qwz_tracking_questions`;
 
 DROP TABLE IF EXISTS `__CL_COURSE__qwz_tracking_answers`;
+
+DROP TABLE IF EXISTS `__CL_COURSE__qwz_users_random_questions`;

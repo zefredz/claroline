@@ -44,6 +44,11 @@ class Exercise
      * @var $shuffle expected submission type (text, text and file, file)
      */
     var $shuffle;
+    
+    /**
+     * @var $useSameShuffle use the same Question when random is selected
+     */
+    var $useSameShuffle;
 
     /**
      * @var $allowLateUpload is upload allowed after assignment end date
@@ -79,7 +84,7 @@ class Exercise
      * @var $quizEndMessage statement of the exercise
      */
     var $quizEndMessage;
-
+    
     /**
      * @var $tblExercise
      */
@@ -94,6 +99,11 @@ class Exercise
      * @var $tblQuestion
      */
     var $tblQuestion;
+    
+    /**
+     * @ var $tblRandomQuestions
+     */
+    var $tblRandomQuestions;
 
     function Exercise($course_id = null)
     {
@@ -103,6 +113,7 @@ class Exercise
         $this->visibility = 'INVISIBLE';
         $this->displayType = 'ONEPAGE';
         $this->shuffle = 0;
+        $this->useSameShuffle = 0;
         $this->showAnswers = 'ALWAYS';
         $this->startDate = time(); // now as unix timestamp
         $this->endDate = null; // means that endDate is not used
@@ -111,10 +122,11 @@ class Exercise
         $this->anonymousAttempts = 'NOTALLOWED';
         $this->quizEndMessage = '';
 
-        $tbl_cdb_names = get_module_course_tbl( array( 'qwz_exercise', 'qwz_question', 'qwz_rel_exercise_question' ), $course_id );
+        $tbl_cdb_names = get_module_course_tbl( array( 'qwz_exercise', 'qwz_question', 'qwz_rel_exercise_question', 'qwz_users_random_questions' ), $course_id );
         $this->tblExercise = $tbl_cdb_names['qwz_exercise'];
         $this->tblQuestion = $tbl_cdb_names['qwz_question'];
         $this->tblRelExerciseQuestion = $tbl_cdb_names['qwz_rel_exercise_question'];
+        $this->tblRandomQuestions = $tbl_cdb_names['qwz_users_random_questions'];
     }
 
     /**
@@ -133,6 +145,7 @@ class Exercise
                     `visibility`,
                     `displayType`,
                     `shuffle`,
+                    `useSameShuffle`,
                     `showAnswers`,
                     UNIX_TIMESTAMP(`startDate`) AS `unix_start_date`,
                     UNIX_TIMESTAMP(`endDate`) AS `unix_end_date`,
@@ -154,6 +167,7 @@ class Exercise
             $this->visibility = $data['visibility'];
             $this->displayType = $data['displayType'];
             $this->shuffle = $data['shuffle'];
+            $this->useSameShuffle = $data['useSameShuffle'];
             $this->showAnswers = $data['showAnswers'];
             $this->startDate = $data['unix_start_date'];
 
@@ -194,6 +208,7 @@ class Exercise
                         `visibility` = '".claro_sql_escape($this->visibility)."',
                         `displayType` = '".claro_sql_escape($this->displayType)."',
                         `shuffle` = ".(int) $this->shuffle.",
+                        `useSameShuffle` = '".(int) $this->useSameShuffle."',
                         `showAnswers` = '".claro_sql_escape($this->showAnswers)."',
                         `startDate` = FROM_UNIXTIME(".claro_sql_escape($this->startDate)."),
                         `endDate` = ".(is_null($this->endDate)?"'0000-00-00 00:00:00'":"FROM_UNIXTIME(".claro_sql_escape($this->endDate).")").",
@@ -225,6 +240,7 @@ class Exercise
                         `visibility` = '".claro_sql_escape($this->visibility)."',
                         `displayType` = '".claro_sql_escape($this->displayType)."',
                         `shuffle` = ".(int) $this->shuffle.",
+                        `useSameShuffle` = '".(int) $this->useSameShuffle."',
                         `showAnswers` = '".claro_sql_escape($this->showAnswers)."',
                         `startDate` = FROM_UNIXTIME('".claro_sql_escape($this->startDate)."'),
                         `endDate` = ".(is_null($this->endDate)?"'0000-00-00 00:00:00'":"FROM_UNIXTIME(".claro_sql_escape($this->endDate).")").",
@@ -387,6 +403,108 @@ class Exercise
         }
 
         return $randomQuestionList;
+    }
+    
+    /**
+     * get last random question list
+     * @author Dimitri Rambout <dimitri.rambout@gmail.com>
+     * @return array list of id of question used in this exercise or false in error
+     */    
+    function getLastRandomQuestionList($userId, $exerciseId)
+    {
+       $questions =  $this->loadLastRandomQuestionList( $userId, $exerciseId );
+       
+       if( is_array( $questions ) && count( $questions ) )
+       {
+            return $questions;
+       }
+       else
+       {
+            return false;
+       }
+    }
+    
+    function loadRandomQuestionLists( $userId, $exerciseId )
+    {
+        $sql = "SELECT `id`, `questions`
+                FROM `" . $this->tblRandomQuestions . "`
+                WHERE `user_id` = " . (int) $userId . " AND `exercise_id` = " . (int) $exerciseId
+        .       " ORDER BY `id` ASC";
+        
+        $questions = claro_sql_query_fetch_all( $sql );
+        
+        return $questions;
+    }
+    
+    function loadRandomQuestionList( $listId, $userId, $exerciseId )
+    {
+        $sql = "SELECT `questions`
+                FROM `" . $this->tblRandomQuestions . "`
+                WHERE `user_id` = " . (int) $userId . " AND `exercise_id` = " . (int) $exerciseId . " AND `id` = " . (int) $listId;
+        
+        return claro_sql_query_fetch_single_value( $sql );
+    }
+    
+    /**
+     * load last random question list
+     * 
+     * @author Dimitri Rambout <dimitri.rambout@gmail.com>
+     * @param $userId id of the user
+     * @param $exerciseId id of the exercise
+     * @return array of id
+     */    
+    function loadLastRandomQuestionList($userId, $exerciseId)
+    {
+        $sql = "SELECT `questions`
+                FROM `" . $this->tblRandomQuestions . "`
+                WHERE `user_id` = " . (int) $userId . " AND `exercise_id` = " . (int) $exerciseId
+        .       " ORDER BY `id` DESC LIMIT 1";
+        $questions = @unserialize( stripslashes( claro_sql_query_fetch_single_value( $sql ) ) );
+        
+        if( is_array( $questions ) )
+        {
+            return $questions;
+        }
+        else
+        {
+            return array();
+        }
+    }
+    
+    /**
+     * save random question list
+     *
+     * @author Dimitri Rambout <dimitri.rambout@gmail.com>
+     * @param $userId id of the user
+     * @param $exerciseId id of the exercise
+     * @param $questions array of question ids
+     */    
+    function saveRandomQuestionList( $userId, $exerciseId, $questions)
+    {
+        
+        $sql = "INSERT INTO `" . $this->tblRandomQuestions . "` SET "
+        .   " `user_id` = " . (int) $userId . ","
+        .   " `exercise_id` = " . (int) $exerciseId . ","
+        .   " `questions` = '" . addslashes( serialize( $questions ) ) . "'";
+        
+        return claro_sql_query( $sql );
+    }
+    
+    /**
+     * delete random question list
+     *
+     * @author Dimitri Rambout
+     * @param $listId id of the list
+     * @param $userId id of the user
+     * @param $exerciseId id of exercise
+     * @return boolean
+     */
+    function deleteRandomQuestionList( $listId, $userId, $exerciseId )
+    {
+        $sql = "DELETE FROM `" . $this->tblRandomQuestions . "` "
+        .   " WHERE `user_id` = " . (int) $userId . " AND `exercise_id` = " . (int) $exerciseId . " AND `id` = " . (int) $listId;
+        
+        return claro_sql_query( $sql );
     }
 
     /**
@@ -727,6 +845,28 @@ class Exercise
     function setShuffle($value)
     {
         $this->shuffle = (int) $value;
+    }
+    
+    /**
+     * get use same shuffle
+     *
+     * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
+     * @return int
+     */
+    function getUseSameShuffle()
+    {
+        return (int) $this->useSameShuffle;
+    }
+    
+    /**
+     * set use same shuffle
+     *
+     * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
+     * @param int $value
+     */
+    function setUseSameShuffle($value)
+    {
+        $this->useSameShuffle = (int) $value;
     }
 
     /**

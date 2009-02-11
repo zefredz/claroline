@@ -94,6 +94,15 @@ if( $cmd == 'exEdit' )
         $exercise->setShuffle(0);
     }
     
+    if( isset( $_REQUEST['useSameShuffle'] ) && $_REQUEST['useSameShuffle'] )
+    {
+        $exercise->setUseSameShuffle( $_REQUEST['useSameShuffle'] );
+    }
+    else
+    {
+        $exercise->setUseSameShuffle(0);
+    }
+    
     $exercise->setShowAnswers($_REQUEST['showAnswers']);
 
     $exercise->setStartDate( mktime($_REQUEST['startHour'],$_REQUEST['startMinute'],0,$_REQUEST['startMonth'],$_REQUEST['startDay'],$_REQUEST['startYear']) );
@@ -164,6 +173,7 @@ if( $cmd == 'rqEdit' )
     $form['displayType']         = $exercise->getDisplayType();
     $form['randomize']             = (boolean) $exercise->getShuffle() > 0;
     $form['questionDrawn']        = $exercise->getShuffle();
+    $form['useSameShuffle']      = (boolean) $exercise->getUseSameShuffle(); 
     $form['showAnswers']         = $exercise->getShowAnswers();
 
     $form['startDate']             = $exercise->getStartDate(); // unix
@@ -285,6 +295,7 @@ if( $displayForm )
         
         echo '<dt><label for="randomize">' . get_lang('Random questions').'&nbsp;:</label></dt>' . "\n"
         .   '<dd>'
+        .   '<div>'
         .   '<input type="checkbox" name="randomize" id="randomize" class="checkbox" '
         .     ( $form['randomize']?' checked="checked"':' ') . '/>&nbsp;'
         .   get_lang('<label1>Yes</label1>, <label2>take</label2> %nb questions among %total',
@@ -296,7 +307,12 @@ if( $displayForm )
                                                             $questionDrawnOptions,
                                                             $form['questionDrawn'],
                                                             array('id' => 'questionDrawn') ) ,
-                            '%total' =>  $questionCount ) )        
+                            '%total' =>  $questionCount ) )
+        .   '</div><div>'
+        .   '<input type="checkbox" name="useSameShuffle" value="1" class="checkbox" '
+        .   ($form['useSameShuffle'] ? ' checked="checked"' : ' ') . '/>&nbsp;'
+        .   get_lang('Reuse the same shuffle ')        
+        .   '</div>'
         .   '</dd>' . "\n";        
         
     }
@@ -416,6 +432,14 @@ else
     .     get_lang('Random questions').'&nbsp;: '
     .     ( $exercise->getShuffle() > 0?get_lang('Yes'):get_lang('No') )
     .     '</li>' . "\n";
+    
+    if( $exercise->getShuffle() > 0)
+    {
+        echo '<li>'
+        .   get_lang('Reuse same shuffle').'&nbsp;: '
+        .   ( $exercise->getUseSameShuffle() ? get_lang('Yes') : get_lang('No') )
+        .   '</li>' . "\n";
+    }    
     
     echo '</ul>' . "\n";
     

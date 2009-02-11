@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__qwz_exercise` (
     `visibility` enum('VISIBLE','INVISIBLE') NOT NULL default 'INVISIBLE',
     `displayType` enum('SEQUENTIAL','ONEPAGE') NOT NULL default 'ONEPAGE',
     `shuffle` smallint(6) NOT NULL default '0',
+    `useSameShuffle` enum('0','1') NOT NULL default '0',
     `showAnswers` enum('ALWAYS','NEVER','LASTTRY') NOT NULL default 'ALWAYS',
     `startDate` datetime NOT NULL,
     `endDate` datetime NOT NULL,
@@ -97,3 +98,11 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__qwz_tracking_answers` (
     `answer` text NOT NULL,
     PRIMARY KEY  (`id`)
 ) TYPE=MyISAM  COMMENT='';
+
+CREATE TABLE IF NOT EXISTS `__CL_COURSE__qwz_users_random_questions` (
+  `id` int(11) NOT NULL auto_increment,
+  `user_id` int(11) NOT NULL,
+  `exercise_id` int(11) NOT NULL,
+  `questions` text NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM;

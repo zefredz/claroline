@@ -214,6 +214,39 @@ if( $is_allowedToEdit && !is_null($cmd) )
     }
 }
 
+// Save question list
+if( $cmd == 'exSaveQwz' )
+{
+    if( is_null( $exId) )
+    {
+        $dialogBox->error( get_lang('Error : unable to save the questions list') );
+    }
+    else
+    {
+        $exercise = new Exercise();
+        if( ! $exercise->load( $exId ) )
+        {
+            $dialogBox->error( get_lang('Error: unable to load exercise') );
+        }
+        elseif( isset( $_SESSION['lastRandomQuestionList'] ) )
+        {
+            
+            if ( !$exercise->saveRandomQuestionList( $_SESSION['_user']['userId'], $exercise->getId(), @unserialize($_SESSION['lastRandomQuestionList'])))
+            {
+                $dialogBox->error( get_lang('Error: unable to save this questions list') );
+            }
+            else
+            {
+                $dialogBox->success( get_lang('Questions list save successfully') );
+            }
+            unset( $_SESSION['lastRandomQuestionList'] );
+        }
+        else
+        {
+            $dialogBox->error( get_lang('Error: no questions list in memory') );
+        }
+    }
+}
 /*
  * Get list
  */

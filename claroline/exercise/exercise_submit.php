@@ -73,6 +73,7 @@ else                                                            $exId = null;
 if( isset($_REQUEST['step']) && is_numeric($_REQUEST['step']) ) $step = (int) $_REQUEST['step'];
 else                                                            $step = 0;
 
+$dialogBox = new DialogBox();
 
 /**
  * Handle SESSION
@@ -81,7 +82,6 @@ else                                                            $step = 0;
  * - 
  */
 $resetQuestionList = false;
-
 
 // if exercise is not in session try to load it.
 // if exId has been defined in request force refresh of exercise in session
@@ -123,6 +123,74 @@ else
     $exId = $exercise->getId();
 }
 
+// delete Random Question List
+if( isset( $_REQUEST['cmd'] )  && $_REQUEST['cmd'] == 'deleteRandomQuestionList' )
+{
+    if( isset( $_REQUEST['listId'] ) && is_numeric( $_REQUEST['listId'] ) )
+    {
+        $listId = (int) $_REQUEST['listId'];
+    }
+    else
+    {
+        $listId = null;
+    }
+    
+    if( !is_null( $listId ) )
+    {
+        if( !$exercise->deleteRandomQuestionList( $listId, $_SESSION['_user']['userId'], $exercise->getId() ) )
+        {
+            $dialogBox->error( get_lang( 'Error: unable to delete this list.' ) );
+        }
+        else
+        {
+            $dialogBox->success( get_lang ( 'List deleted successfully.' ) );            
+        }
+    }
+    else
+    {
+        $dialogBox->error( get_lang( 'Error: unable to delete this list.' ) );
+    }
+}
+
+// load Random Question List
+if( isset( $_REQUEST['cmd'] ) && $_REQUEST['cmd'] == 'loadRandomQuestionList' )
+{
+    if( isset( $_REQUEST['listId'] ) && is_numeric( $_REQUEST['listId'] ) )
+    {
+        $listId = (int) $_REQUEST['listId'];
+    }
+    else
+    {
+        $listId = null;
+    }
+    
+    if( !is_null($listId) )
+    {
+        $loadRandomQuestionsList = @unserialize( $exercise->loadRandomQuestionList( $listId, $_SESSION['_user']['userId'], $exercise->getId() ) );
+        if( $loadRandomQuestionsList )
+        {
+            $resetQuestionList = false;
+        }
+        else
+        {
+            $loadRandomQuestionsList = $exercise->getRandomQuestionList();
+            // save random question list for the user
+            $_SESSION['lastRandomQuestionList'] = serialize( $loadRandomQuestionsList );
+            $resetQuestionList = false;
+        }
+        
+    }
+    else
+    {
+        // load new list
+        $loadRandomQuestionsList = $exercise->getRandomQuestionList();
+        // save random question list for the user
+        $_SESSION['lastRandomQuestionList'] = serialize( $loadRandomQuestionsList );
+        $resetQuestionList = false;
+    }
+}
+
+$startExercise = true;
 //-- get question list
 if( $resetQuestionList || !isset($_SESSION['serializedQuestionList']) || !is_array($_SESSION['serializedQuestionList']) )
 {
@@ -132,7 +200,33 @@ if( $resetQuestionList || !isset($_SESSION['serializedQuestionList']) || !is_arr
     }
     else
     {
-        $qList = $exercise->getRandomQuestionList();
+        if( $exercise->getUseSameShuffle() )
+        {
+            // load last Random question list for the user
+            //$qList = $exercise->getLastRandomQuestionList( $_SESSION['_user']['userId'], $exercise->getId() );
+            // load Rand Questions Lists for the user
+            $qLists = $exercise->loadRandomQuestionLists( $_SESSION['_user']['userId'], $exercise->getId() );            
+            // if question list is empty, load a new Random question list
+            if( !$qLists )
+            {
+                $qList = $exercise->getRandomQuestionList();
+                // save random question list for the user
+                $_SESSION['lastRandomQuestionList'] = serialize( $qList );
+            
+            }
+            elseif( count($qLists) )
+            {
+                $qList = array();
+                $startExercise = false;
+            }            
+            // $exercise->saveRandomQuestionList( $_SESSION['_user']['userId'], $exercise->getId(), $qList );
+            
+        }
+        else
+        {
+            $qList = $exercise->getRandomQuestionList();   
+        }        
+        
     }
 
     $questionList = array();
@@ -151,6 +245,22 @@ if( $resetQuestionList || !isset($_SESSION['serializedQuestionList']) || !is_arr
         unset($questionObj);
     }
 }
+elseif( isset( $loadRandomQuestionsList ) && is_array( $loadRandomQuestionsList) )
+{
+    $questionList = array();
+    foreach( $loadRandomQuestionsList as $question )
+    {
+        $questionObj = new Question();
+        $questionObj->setExerciseId( $exId );
+        
+        if( $questionObj->load( $question['id'] ) )
+        {
+            $_SESSION['serializedQuestionList'][] = serialize($questionObj);
+            $questionList[] = $questionObj;
+        }
+        
+    }
+}
 else
 {
     $questionList = array();
@@ -167,7 +277,10 @@ $now = time();
 
 if( !isset($_SESSION['exeStartTime']) )
 {
-    $_SESSION['exeStartTime'] = $now;
+    if( $startExercise )
+    {
+        $_SESSION['exeStartTime'] = $now;        
+    }
     $currentTime = 0;
 }
 else
@@ -175,10 +288,16 @@ else
     $currentTime = $now - $_SESSION['exeStartTime'];    
 }
 
-$exeStartTime = $_SESSION['exeStartTime'];
+if( $startExercise)
+{
+    $exeStartTime = $_SESSION['exeStartTime'];
+}
+else
+{
+    $exeStartTime = 0;
+}
 
 //-- exercise properties
-$dialogBox = new DialogBox();
 
 if( claro_is_user_authenticated() )
 {
@@ -387,6 +506,9 @@ if( $inLP )
 
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), 'exercise.php' );
 
+$jsLoader = JavascriptLoader::getInstance();
+$jsLoader->load( 'claroline.ui');
+
 $out = '';
 
 $nameTools = $exercise->getTitle();
@@ -398,7 +520,7 @@ if( trim($exercise->getDescription()) != '' && !( $showResult && !$recordResults
 }
 
 $out .= '<ul style="font-size:small">' . "\n";
-if( $exercise->getDisplayType() == 'SEQUENTIAL'  && $exercise->getTimeLimit() > 0 && ( !$exercise->getAttempts() || $userAttemptCount <= $exercise->getAttempts() ) && !( $showResult && !$recordResults) && ($exercise->getTimeLimit() > $currentTime) )
+if( $exercise->getDisplayType() == 'SEQUENTIAL'  && $exercise->getTimeLimit() > 0 && ( !$exercise->getAttempts() || $userAttemptCount <= $exercise->getAttempts() ) && !( $showResult && !$recordResults) && ($exercise->getTimeLimit() > $currentTime) && $startExercise )
 {
     $out .= '<li>' . get_lang('Current time').' : <span id="currentTime">'. claro_html_duration($currentTime) . '</span></li>' . "\n";
 }
@@ -429,7 +551,6 @@ if( !is_null($exercise->getEndDate()) && !( $showResult && !$recordResults) && (
 
 $out .= '</ul>' .  "\n\n";
 
-
 if( $showResult )
 {
     if( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] )
@@ -446,11 +567,13 @@ if( $showResult )
     
     //  Display results    
     
-    
-       
-    
-    
-
+    if( $exercise->getShuffle() && $exercise->getUseSameShuffle() && isset( $_SESSION['lastRandomQuestionList'] ) )
+    {
+        $out .= '<div style="font-weight: bold;">' . "\n"
+        .   '<a href="exercise.php?exId=' . $exercise->getId() .'&cmd=exSaveQwz">' . get_lang('Save this questions list') . '</a>'
+        .   '</div>'
+        ;
+    }
     if( $recordResults )
     {
        $out .= '<div class="centerContent">' . "\n";
@@ -540,6 +663,14 @@ if( $showResult )
         {
             $out .= '<blockquote>' . "\n" . claro_parse_user_text($exercise->getQuizEndMessage()) . "\n" . '</blockquote>' . "\n";
         }
+    }
+    
+    if( $exercise->getShuffle() && $exercise->getUseSameShuffle() && isset( $_SESSION['lastRandomQuestionList'] ) )
+    {
+        $out .= '<div style="font-weight: bold;">' . "\n"
+        .   '<a href="exercise.php?exId=' . $exercise->getId() .'&cmd=exSaveQwz">' . get_lang('Save this questions list') . '</a>'
+        .   '</div>'
+        ;
     }
     // Display Finish/Continue
     $out .= '<div class="centerContent">'. "\n";
@@ -684,9 +815,49 @@ elseif( $showSubmitForm )
         .     '</form>' . "\n\n";
 
     }
+    elseif( isset( $qLists ) && count( $qLists ) )
+    {
+        $out .= '<div>' . get_lang( 'Some questions lists are saved in memory. Do you want to load one of them ?' ) . '</div>' . "\n";
+        
+        foreach( $qLists as $i => $qList )
+        {
+            $questionsList = @unserialize( $qList['questions'] );
+            $out .= '<div id="questionsList' . $i++ . '" class="collapsible collapsed" style="padding: 3px 0 3px 0;">' . "\n"            
+            .   '<a href="#" class="doCollapse" style="font-weight: bold;">' . get_lang( 'Question list %id', array( '%id' => $i) ) . '</a>' . "\n"            
+            .   '<div class="collapsible-wrapper">' . "\n";
+            if( is_array( $questionsList) && count( $questionsList) )
+            {
+                $out .= '<a href="exercise_submit.php?exId=' . $exId . '&cmd=loadRandomQuestionList&listId=' . $qList['id'] . '">' . get_lang( 'Load this list' ) . '</a>' . "\n"
+                .   ' - '
+                .   '<a href="exercise_submit.php?exId=' . $exId . '&cmd=deleteRandomQuestionList&listId=' . $qList['id'] . '">' . get_lang( 'Delete') . '</a>'
+                .   '<ol>';
+                foreach( $questionsList as $question)
+                {
+                    $out .= '<li>'
+                    .   $question['title']
+                    .   '</li>';
+                }
+                $out .= '</ol>';
+            }
+            else            
+            {
+                $out .= get_lang( 'List is empty' ); 
+            }
+            $out .=   '</div>'
+            .   '</div>'
+            ;
+        }
+        
+        $out .= '<div> <br />'
+        .   '<a href="exercise_submit.php?exId=' . $exId . '&cmd=loadRandomQuestionList" style="font-weight: bold;">' . get_lang( 'Load a new list' ) . '</a>'
+        .   '</div>'
+        ;
+        
+    }
 }
 else // ! $showSubmitForm
 {
+        
     if( (!isset($_SESSION['inPathMode']) || !$_SESSION['inPathMode']) && !$inLP )
     {
         $dialogBox->info('<a href="./exercise.php">&lt;&lt; '.get_lang('Back').'</a>');

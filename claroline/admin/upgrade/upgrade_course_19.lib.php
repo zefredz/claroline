@@ -385,7 +385,30 @@ function quiz_upgrade_to_19 ($course_code)
                 else return $step;
                 
                 unset($sqlForUpdate);
+            
+            case 7 :
+                // qwz_users_random_questions add random questions list table
+                $sqlForUpdate[] = "CREATE TABLE IF NOT EXISTS `" . $currentCourseDbNameGlu . "qwz_users_random_questions` (
+                                    `id` int(11) NOT NULL auto_increment,
+                                    `user_id` int(11) NOT NULL,
+                                    `exercise_id` int(11) NOT NULL,
+                                    `questions` text NOT NULL,
+                                    PRIMARY KEY  (`id`)
+                                  ) ENGINE=MyISAM;";
+                if( upgrade_apply_sql( $sqlForUpdate ) ) $step = set_upgrade_status( $tool, $step+1, $course_code);
+                else return $step;
                 
+                unset($sqlForUpdate);
+            
+            case 8 :
+                // qwz_exercise - add field useSameShuffle
+                $sqlForUpdate[] = "ALTER TABLE `". $currentCourseDbNameGlu ."qwz_exercise`
+                                    ADD `useSameShuffle` ENUM( '0', '1' ) NOT NULL DEFAULT '0' AFTER `shuffle` ;";
+                if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1, $course_code);
+                else return $step;
+                
+                unset($sqlForUpdate);
+            
             default :
                 $step = set_upgrade_status($tool, 0, $course_code);
                 return $step;
