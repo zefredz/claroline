@@ -196,7 +196,7 @@ function commentBox($type, $mode)
         else
         {
             // display comment
-            echo "<p>".$currentComment."</p>";
+            echo "<p>".claro_parse_user_text($currentComment)."</p>";
             // display edit and delete links if user as the right to see it
             if ( $is_allowedToEdit )
             {
