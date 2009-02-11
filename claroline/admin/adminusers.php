@@ -367,27 +367,27 @@ function get_sql_filtered_user_list()
 
     //deal with ADVANCED SEARCH parameters call
 
-    if (isset($_SESSION['admin_user_firstName']))
+    if ( isset($_SESSION['admin_user_firstName']) && !empty($_SESSION['admin_user_firstname']) )
     {
         $sql .= " AND (U.prenom LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_user_firstName'])) ."%') ";
     }
 
-    if (isset($_SESSION['admin_user_lastName']))
+    if ( isset($_SESSION['admin_user_lastName']) && !empty($_SESSION['admin_user_lastName']) )
     {
         $sql .= " AND (U.nom LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_user_lastName']))."%') ";
     }
 
-    if (isset($_SESSION['admin_user_userName']))
+    if ( isset($_SESSION['admin_user_userName']) && !empty($_SESSION['admin_user_userName']) )
     {
         $sql.= " AND (U.username LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_user_userName'])) ."%') ";
     }
     
-    if (isset($_SESSION['admin_user_officialCode']))
+    if ( isset($_SESSION['admin_user_officialCode'])  && !empty($_SESSION['admin_user_officialCode']) )
     {
-        $sql.= " AND (U.officialCode = '". claro_sql_escape(pr_star_replace($_SESSION['admin_user_officialCode'])) ."') ";
+        $sql.= " AND (U.officialCode LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_user_officialCode'])) ."%') ";
     }
 
-    if (isset($_SESSION['admin_user_mail']))
+    if ( isset($_SESSION['admin_user_mail']) && !empty($_SESSION['admin_user_mail']) )
     {
         $sql.= " AND (U.email LIKE '%". claro_sql_escape(pr_star_replace($_SESSION['admin_user_mail'])) ."%') ";
     }
