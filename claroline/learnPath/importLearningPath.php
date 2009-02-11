@@ -228,7 +228,7 @@ function elementData($parser,$data)
     global $pathToManifest;
 
     $data = trim(claro_utf8_decode($data));
-
+    
     if (!isset($data)) $data="";
 
     switch ( $elementsPile[count($elementsPile)-1] )
@@ -259,7 +259,15 @@ function elementData($parser,$data)
                 }
             }
             break;
-
+        case "DESCRIPTION" :
+            if( $data != '' )
+            {
+                if( $elementsPile[sizeof($elementsPile)-2] == "ORGANIZATION" && $flagTag['type'] == "organization" && $flagTag['value'] == $manifestData['defaultOrganization'])
+                {
+                   $manifestData['packageDesc'] = $data;
+                }
+            }
+            break;
         case "ITEM" :
             break;
 
@@ -303,7 +311,6 @@ function elementData($parser,$data)
             break;
 
         case "LANGSTRING" :
-
             switch ( $flagTag['type'] )
             {
                 case "item" :
@@ -379,7 +386,6 @@ function elementData($parser,$data)
                         if (compareArrays($posPackageTitle,$elementsPile))
                         {
                             $manifestData['packageTitle'] = $data;
-                            //echo $data;
                         }
                     }
                     break;
@@ -644,6 +650,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
     if ( !$errorFound )
     {
         array_push ($okMsgs, get_lang('Manifest read.') );
+
         if ( sizeof($manifestData['items']) > 0 )
         {
             // if there is items in manifest we look for sco type resources referenced in idientifierref

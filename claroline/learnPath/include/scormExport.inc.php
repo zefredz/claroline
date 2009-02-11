@@ -445,10 +445,10 @@ if ( !class_exists('ScormExport') )
                 $this->error[] = get_lang('Unable to create directory : ') . $this->destDir;
                 return false;
             }
-
+            
             // Copy usual files (.css, .js, .xsd, etc)
             if (
-                   !claro_copy_file(get_path('clarolineRepositorySys') . 'css/' . $claro_stylesheet, $this->destDir)
+                   !claro_copy_file(get_path('clarolineRepositorySys') . '../web/css/' . $claro_stylesheet, $this->destDir)
                 || !claro_copy_file('export/APIWrapper.js', $this->destDir)
                 || !claro_copy_file('export/scores.js', $this->destDir)
                 || !claro_copy_file('export/ims_xml.xsd', $this->destDir)
@@ -577,7 +577,7 @@ if ( !class_exists('ScormExport') )
             {
             $out .= '
             <imsmd:title>
-                <imsmd:langstring>' . htmlspecialchars($title) . '</imsmd:langstring>
+                <imsmd:langstring><![CDATA[' . htmlspecialchars($title) . ']]></imsmd:langstring>
             </imsmd:title>';
             }
 
@@ -585,7 +585,7 @@ if ( !class_exists('ScormExport') )
             {
             $out .= '
             <imsmd:description>
-                <imsmd:langstring>' . htmlspecialchars($description) . '</imsmd:langstring>
+                <imsmd:langstring><![CDATA[' . htmlspecialchars($description) . ']]></imsmd:langstring>
             </imsmd:description>';
             }
 
@@ -659,12 +659,14 @@ if ( !class_exists('ScormExport') )
 
             // First the items...
             $manifest_itemTree = '<organizations default="A1"><organization identifier="A1">' . "\n"
-                . '<title>' . $this->name . '</title>' . "\n"
+                . '<title><![CDATA[' . htmlspecialchars($this->name) . ']]></title>' . "\n"
+                . '<description><![CDATA[' . htmlspecialchars($this->comment) . ']]></description>' . "\n"
                 . $this->createItemList($this->itemTree)
                 . '</organization></organizations>' . "\n";
-
+            $manifest_itemTree = str_replace("\r\n","\n", $manifest_itemTree);
+            $manifest_itemTree = str_replace("\r","\n", $manifest_itemTree);
             // ...Then the resources
-
+            
             $manifest_resources = "<resources>\n";
             foreach ( $this->resourceMap as $module )
             {
@@ -716,6 +718,8 @@ if ( !class_exists('ScormExport') )
 
             }
             $manifest_resources .= '</resources>' . "\n";
+            $manifest_resources = str_replace("\r\n","\n", $manifest_resources);
+            $manifest_resources = str_replace("\r","\n", $manifest_resources);
 
             $manifestPath = $this->destDir . '/imsmanifest.xml';
             if ( ! $f = fopen($manifestPath, 'w') )
@@ -726,7 +730,8 @@ if ( !class_exists('ScormExport') )
 
             // Prepare Metadata
             $metadata = $this->makeMetaData($this->name, $this->comment);
-
+            $metadata = str_replace("\r\n","\n", $metadata);
+            $metadata = str_replace("\r","\n", $metadata);
             // Write header
             fwrite($f, '<?xml version="1.0" encoding="' . get_locale('charset') . '" ?>
     <manifest identifier="SingleCourseManifest" version="1.1"
