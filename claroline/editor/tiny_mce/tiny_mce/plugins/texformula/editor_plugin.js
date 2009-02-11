@@ -66,7 +66,7 @@
 		 */
 		getInfo : function() {
 			return {
-				longname : 'LaTeT Equation Editor plugin',
+				longname : 'LaTeX Equation Editor plugin',
 				author : 'Dimitri Rambout',
 				authorurl : 'http://www.claroline.net',
 				infourl : 'http://wiki.claroline.net',

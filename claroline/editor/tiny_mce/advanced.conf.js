@@ -35,6 +35,15 @@ tinyMCE.init({
     extended_valid_elements : "a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]",
     
     //-- Other functionnalities
-    template_external_list_url : baseURI + "../../backends/template_list.php"
-
+    template_external_list_url : baseURI + "../../backends/template_list.php",
+    
+    // setup
+    setup : function(ed) {
+        ed.onBeforeSetContent.add(function(ed, o) {
+            o.content = o.content.replace(/\[tex\](.+?)\[\/tex\]/gi, '<img src="http://localhost/cgi-bin/mimetex.cgi?$1" border="0" align="absmiddle" class="latexFormula" />');
+        });      
+        ed.onGetContent.add(function(ed, o) {
+            o.content = o.content.replace(/<img.*src="(.+?)\?(.+?)"(.+?)>/gi, '[tex]$2[/tex]');            
+        });
+    }
 });
