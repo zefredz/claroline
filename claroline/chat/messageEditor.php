@@ -19,7 +19,7 @@
  */
 
 require '../inc/claro_init_global.inc.php';
-$is_allowedToManage = claro_is_course_manager() || (claro_is_in_a_group() &&  claro_is_group_tutor()) ;
+$is_allowedToManage = claro_is_allowed_to_edit() || (claro_is_in_a_group() &&  claro_is_group_tutor()) ;
 
 // header
 
