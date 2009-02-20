@@ -155,7 +155,7 @@ if ( !class_exists('ScormExport') )
             /* Build various directories' names */
 
             // Replace ',' too, because pclzip doesn't support it.
-            $this->destDir = claro_get_course_path() . '/temp/'
+            $this->destDir = get_path('coursesRepositorySys') . claro_get_course_path() . '/temp/'
                 . str_replace(',', '_', replace_dangerous_char($this->name));
             $this->srcDirDocument = get_path('coursesRepositorySys') . claro_get_course_path() . '/document';
             $this->srcDirExercise  = get_path('coursesRepositorySys') . claro_get_course_path() . '/exercise';
@@ -446,15 +446,17 @@ if ( !class_exists('ScormExport') )
                 return false;
             }
             
+            // var_dump( get_path('clarolineRepositorySys') . '../web/css/' . $claro_stylesheet );
+            
             // Copy usual files (.css, .js, .xsd, etc)
             if (
                    !claro_copy_file(get_path('clarolineRepositorySys') . '../web/css/' . $claro_stylesheet, $this->destDir)
-                || !claro_copy_file('export/APIWrapper.js', $this->destDir)
-                || !claro_copy_file('export/scores.js', $this->destDir)
-                || !claro_copy_file('export/ims_xml.xsd', $this->destDir)
-                || !claro_copy_file('export/imscp_rootv1p1p2.xsd', $this->destDir)
-                || !claro_copy_file('export/imsmd_rootv1p2p1.xsd', $this->destDir)
-                || !claro_copy_file('export/adlcp_rootv1p2.xsd', $this->destDir)  )
+                || !claro_copy_file(dirname(__FILE__).'/../export/APIWrapper.js', $this->destDir)
+                || !claro_copy_file(dirname(__FILE__).'/../export/scores.js', $this->destDir)
+                || !claro_copy_file(dirname(__FILE__).'/../export/ims_xml.xsd', $this->destDir)
+                || !claro_copy_file(dirname(__FILE__).'/../export/imscp_rootv1p1p2.xsd', $this->destDir)
+                || !claro_copy_file(dirname(__FILE__).'/../export/imsmd_rootv1p2p1.xsd', $this->destDir)
+                || !claro_copy_file(dirname(__FILE__).'/../export/adlcp_rootv1p2.xsd', $this->destDir)  )
             {
                 $this->error[] = get_lang('Error when copying needed SCORM files');
                 return false;
