@@ -13,7 +13,7 @@
  * @package CLUSR
  *
  * @author Claro Team <cvs@claroline.net>
- * @author Guillaume Lederer <guim@claroline.net>
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
  *
  */
 
@@ -25,144 +25,201 @@ require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
 require_once get_path('incRepositorySys') . '/lib/user.lib.php';
 require_once get_path('incRepositorySys') . '/lib/class.lib.php';
 require_once get_path('incRepositorySys') . '/lib/course_user.lib.php' ;
-require_once get_path('incRepositorySys') . '/lib/import_csv.lib.php';
+require_once get_path('incRepositorySys') . '/lib/group.lib.inc.php' ;
+//require_once get_path('incRepositorySys') . '/lib/import_csv.lib.php';
+
+require_once './csv.class.php';
 
 include claro_get_conf_repository() . 'user_profile.conf.php';
 
+if ( !$_cid || !$is_courseAllowed ) claro_disp_auth_form(true);
 
-/*
-* See in which context of user we are and check WHO is using the tool,there are 3 possibilities :
-* - adding CSV users by the admin tool                                                     (AddType=adminTool)
-* - adding CSV users by the admin, but with the class tool                                  (AddType=adminClassTool)
-* - adding CSV users by the user tool in a course (in this case, available to teacher too) (AddType=userTool)
-*/
+$is_allowedToEdit = claro_is_allowed_to_edit();
 
-$can_import_user_list     = (claro_is_course_manager()
-                    && get_conf('is_coursemanager_allowed_to_import_user_list') )
-                    || claro_is_platform_admin();
-
-
-if ( isset($_REQUEST['AddType']) ) $AddType = $_REQUEST['AddType'];
-else                               $AddType = 'userTool'; // default access is the user tool
-
-switch ($AddType)
+// courseadmin reserved page
+if( !($is_allowedToEdit || $is_platformAdmin) )
 {
-    case 'adminTool' :
-    case 'adminClassTool' :
-        if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
-        if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
-        break;
-
-    case 'userTool' :
-    default :
-        if ( ! claro_is_in_a_course() || ! claro_is_course_allowed() ) claro_disp_auth_form(true);
-
-        if ( ! $can_import_user_list ) claro_die(get_lang('Not allowed'));
-        $AddType = 'userTool' ;
-        break;
+    header("Location: ../user.php");
+    exit();
 }
 
-if ( isset($_REQUEST['class_id']) )
-{
-    $_SESSION['admin_user_class_id'] = $_REQUEST['class_id'];
-}
+$acceptedCmdList = array( 'rqCSV', 'rqChangeFormat', 'exChangeFormat', 'rqLoadDefautFormat', 'exLoadDefaultFormat');
 
-/*
-* DB tables definition
-*/
+if( isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'], $acceptedCmdList) )   $cmd = $_REQUEST['cmd'];
+else                                                                            $cmd = null;
 
-$tbl_mdb_names  = claro_sql_get_main_tbl();
-$tbl_user       = $tbl_mdb_names['user'];
-$tbl_class      = $tbl_mdb_names['user_category'];
-$tbl_class_user = $tbl_mdb_names['user_rel_profile_category'];
+if( isset($_REQUEST['step']) )   $step = (int) $_REQUEST['step'];
+else                             $step = 0;
 
-//declare temporary upload directory
+$nameTools        = get_lang('Add a user list in course');
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users'), get_module_url('CLUSR').'/user.php' );
 
-$uploadTempDir = 'tmp/';
+$dialogBox = new DialogBox();
 
-//deal with session variables to know in which step we are really and avoid doing changes twice
-
-if (isset($_REQUEST['cmd']) && (($_REQUEST['cmd'] == 'exImpSec'  || $_REQUEST['cmd'] == 'exImp') && $_SESSION['claro_CSV_done']) || empty($_REQUEST['cmd'])) // this is to avoid a redo because of a page reload in browser
-{
-    $cmd = '';
-    $display = 'default';
-    $_SESSION['claro_CSV_done'] = FALSE;
-}
-
-//Set format, fields separator and enclosion used for CSV files
-
-$defaultFormat = 'firstname;lastname;email;phone;username;password;officialCode';
+$defaultFormat = 'userId,lastname,firstname,username,email,officialCode,groupId,groupName';
+$AddType = 'userTool';
 
 if ( empty($_SESSION['claro_usedFormat']) )
 {
     $_SESSION['claro_usedFormat'] = $defaultFormat;
 }
 
-if (isset($_REQUEST['loadDefault']) && ($_REQUEST['loadDefault'] =='yes'))
+if( empty( $_SESSION['CSV_fieldSeparator'] ) )
 {
-    $usedFormat                     = $defaultFormat;
-    $_SESSION['claro_usedFormat']   = $defaultFormat;
-    $_SESSION['CSV_fieldSeparator'] = ';';
-    $_SESSION['CSV_enclosedBy']     = '';
-    $dialogBox = get_lang('Format changed');
+    $_SESSION['CSV_fieldSeparator'] = ',';
 }
 
-elseif (isset($_REQUEST['usedFormat']))
+if( empty ( $_SESSION['CSV_enclosedBy'] ) )
 {
-    //check if posted new format is OK
+    $_SESSION['CSV_enclosedBy'] = '"';
+}
 
-    $field_correct = claro_CSV_format_ok($_REQUEST['usedFormat'], $_REQUEST['fieldSeparator'], $_REQUEST['enclosedBy']);
-
-    if (!$field_correct)
+$usedFormat = $_SESSION['claro_usedFormat'];
+switch( $cmd )
+{
+    case 'rqChangeFormat' :
     {
-        $dialogBox = get_lang('ERROR: The format you gave is not compatible with Claroline');
+        if (!empty($_SESSION['CSV_enclosedBy']) && $_SESSION['CSV_enclosedBy']=='dbquote') $dbquote_selected = 'selected="selected"'; else $dbquote_selected = '';
+        if (!empty($_SESSION['CSV_enclosedBy']) && $_SESSION['CSV_enclosedBy']=='')   $blank_selected   = 'selected="selected"'; else $blank_selected   = '';
+        if (!empty($_SESSION['CSV_enclosedBy']) && $_SESSION['CSV_enclosedBy']==',')  $coma_selected    = 'selected="selected"'; else $coma_selected    = '';
+        if (!empty($_SESSION['CSV_enclosedBy']) && $_SESSION['CSV_enclosedBy']=='.')  $dot_selected     = 'selected="selected"'; else $dot_selected     = '';
+    
+        if (!empty($_SESSION['CSV_fieldSeparator']) && $_SESSION['CSV_fieldSeparator']==';')  $dot_coma_selected_sep = 'selected="selected"'; else $dot_coma_selected_sep = '';
+        if (!empty($_SESSION['CSV_fieldSeparator']) && $_SESSION['CSV_fieldSeparator']==',')  $coma_selected_sep     = 'selected="selected"'; else $coma_selected_sep = '';
+        if (!empty($_SESSION['CSV_fieldSeparator']) && $_SESSION['CSV_fieldSeparator']=='')   $blank_selected_sep    = 'selected="selected"'; else $blank_selected_sep = '';
+        
+        $compulsory_list = array('firstname','lastname','username');
+
+        $chFormatForm = get_lang('Modify the format') .' : ' . '<br /><br />' . "\n"
+        .   get_lang('The fields <em>%field_list</em> are compulsory', array ('%field_list' => implode(', ',$compulsory_list)) ) . '<br /><br />' . "\n"
+        .   '<form name="chFormat" method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '?&cmd=exChangeFormat" >' . "\n"
+        .   '<input type="text" name="usedFormat" value="' . htmlspecialchars($usedFormat) . '" size="55" />' . "\n"
+        .   '<br /><br />' . "\n"
+        .   '<label for="fieldSeparator">' .  get_lang('Fields separator used') . ' </label> : '
+        .   '<select name="fieldSeparator" id="fieldSeparator">' . "\n"
+        .   ' <option value="," '.$coma_selected_sep.' >,</option>' . "\n"
+        .   ' <option value=";" '.$dot_coma_selected_sep.' >;</option>' . "\n"
+        .   ' <option value=" " '.$blank_selected_sep.'>(' . get_lang('Blank space') . ') </option>' . "\n"
+        .   '</select>' . "\n"
+        .   ' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+        .   '<label for="enclosedBy">'
+        .   get_lang('Fields enclosed by') .' : '
+        .   '</label>' . "\n"
+        .   '<select name="enclosedBy" id="enclosedBy">'
+        .   ' <option value="dbquote" '.$dbquote_selected.' >"</option>' . "\n"
+        .   ' <option value="," '.$coma_selected.' >,</option>' . "\n"
+        .   ' <option value="." '.$dot_selected.' >.</option>' . "\n"
+        .   ' <option value="" '.$blank_selected.' >' . get_lang('None') . ' </option>' . "\n"
+        .   '</select><br />' . "\n"
+        .   '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
+        .   '</form>'; 
+        
+        $dialogBox->form( $chFormatForm );
     }
-    else
+    break;
+    
+    case 'exChangeFormat' :
     {
-        $dialogBox = get_lang('Format changed');
+        if( !( isset($_REQUEST['usedFormat']) && isset($_REQUEST['fieldSeparator']) && isset($_REQUEST['enclosedBy']) ) )
+        {
+            $dialogBox->error( get_lang( 'Unable to load the selected format' ) );
+            break;
+        }
+        
+        $csv = new csv();
+        
+        if( ! $csv->format_ok($_REQUEST['usedFormat'], $_REQUEST['fieldSeparator'], $_REQUEST['enclosedBy']) )
+        {
+            $dialogBox->error( get_lang('ERROR: The format you gave is not compatible with Claroline') );
+            break;
+        }
+        
+        $dialogBox->success( get_lang('Format changed') );
         $_SESSION['claro_usedFormat']   = $_REQUEST['usedFormat'];
         $_SESSION['CSV_fieldSeparator'] = $_REQUEST['fieldSeparator'];
         $_SESSION['CSV_enclosedBy']     = $_REQUEST['enclosedBy'];
+        
     }
+    break;
 }
-
-if (!isset($_SESSION['CSV_fieldSeparator'])) $_SESSION['CSV_fieldSeparator'] = ";";
-if (!isset($_SESSION['CSV_enclosedBy']))     $_SESSION['CSV_enclosedBy'] = "\"";
-
 $usedFormat = $_SESSION['claro_usedFormat'];
+// Content
+$content = '';
+$out = '';
 
-/**
- *    Execute command section
- */
+$backButtonUrl = Url::Contextualize( get_path('clarolineRepositoryWeb') . 'user/' );
 
-$cmd = isset($_REQUEST['cmd']) ? $_REQUEST['cmd'] : null ;
+$content_default = get_lang('You must specify the CSV format used in your file') . ':' . "\n"
+.   '<br /><br />' . "\n"
+.   '<form method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" enctype="multipart/form-data"  >' . "\n"
+.   '<input type="hidden" name="step" value="1" />' . "\n"
+.   '<input type="radio" name="firstLineFormat" value="YES" id="firstLineFormat_YES" /> '
+.   '<label for="firstLineFormat_YES">' . get_lang('Use format defined in first line of file') . '</label>' . "\n"
+.   '<br /><br />' . "\n"
+.   '<input type="radio" name="firstLineFormat" value="NO" checked="checked" id="firstLineFormat_NO" />' . "\n"
+.   '<label for="firstLineFormat_NO">' . get_lang('Use the following format') . ' : ' . '</label>' . "\n"
+.   '<br /><br />' . "\n"
+.   '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+.   '<span style="font-weight: bold;">' . $usedFormat . '</span><br /><br />' . "\n"
+.   '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . "\n"
+.   claro_html_cmd_link( htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF']
+                        . '?display=default'
+                        . '&amp;cmd=rqLoadDefaultFormat'
+                        . '&amp;AddType=' . $AddType ))
+                        , get_lang('Load default format')
+                        ) . "\n"
+.   ' | '
+.   claro_html_cmd_link( htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF']
+                        . '?display=default'
+                        . '&amp;cmd=rqChangeFormat'
+                        . '&amp;AddType=' . $AddType ))
+                        , get_lang('Edit format to use')
+                        ) . "\n"
+.   '<br /><br />' . "\n"
+.   get_lang('CSV file with the user list :') . "\n"
+.   '<input type="file" name="CSVfile" />' . "\n"
+.   '<br /><br />' . "\n" . "\n"
+.   '<input type="submit" name="submitCSV" value="' . get_lang('Add user list') . '" />' . "\n"
+.   claro_html_button(htmlspecialchars( $backButtonUrl ),get_lang('Cancel'))  . "\n"
+.   '</form>' . "\n";
 
-switch ($cmd)
+switch( $step )
 {
-
-    //STEP ONE : FILE UPLOADED, CHECK FOR POTENTIAL ERRORS
-
-    case 'exImp' :
-
-        //see if format is defined in session or in file
-
-        if ($_REQUEST['firstLineFormat']=='YES')
+    case 2 : // Import users in course
+    {
+        $csvImport = new csvImport( $_SESSION['CSV_fieldSeparator'], $_SESSION['CSV_enclosedBy'] = '"');
+            
+        if( !( isset($_SESSION['_csvImport']) && isset($_SESSION['_csvUsableArray'] ) ) )
         {
-            $useFirstLine = true;
+            $dialogBox->error('Unable to read the content of the CSV');
+            $content .= $content_default;
         }
         else
         {
-            $fieldSeparator  = $_REQUEST['fieldSeparator'];
-            $enclosedBy      = $_REQUEST['enclosedBy'];
-            if ($_REQUEST['enclosedBy']=='dbquote')
+            $csvContent = $_SESSION['_csvImport'];
+            $csvImport->setCSVContent( $csvContent );
+            
+            $errors = $csvImport->importUsersInCourse( $_cid );
+            
+            if( !empty($errors) )
             {
-                $enclosedBy = '"';
+                $_errors = "";
+                foreach($errors as $error)
+                {
+                    $_errors .= $error . '<br />' . "\n";
+                }
+                $dialogBox->error($_errors . get_lang('Unable to import selected users'));
             }
-            $useFirstLine = false;
+            else
+            {
+                $dialogBox->success( 'Users imported successfully');
+            }
+            
         }
-
-        //check if a file was actually posted and that the mimetype is good
-
+    }
+    break;
+    case 1 : // check csv data & display the selection
+    {
         $mimetypes = array(); //array used with supported mimetype for CSV files
         $mimetypes[] = 'text/comma-separated-values';
         $mimetypes[] = 'text/csv';
@@ -172,412 +229,166 @@ switch ($cmd)
         $mimetypes[] = 'application/vnd.ms-excel';
         $mimetypes[] = 'application/vnd.msexcel';
         $mimetypes[] = 'text/anytext';
-
-        if ( $_FILES['CSVfile']['size'] == 0 )
+        
+        if( !isset( $_FILES['CSVfile'] ) || empty($_FILES['CSVfile']['name']) || $_FILES['CSVfile']['size'] == 0 )
         {
-            $display   = 'default';
-            $dialogBox = get_lang('You must select a file');
+            $dialogBox->error(get_lang('You must select a file'));
+            
+            $content .= $content_default;
         }
-        elseif (!in_array($_FILES['CSVfile']['type'],$mimetypes) && (strpos($_FILES['CSVfile']['type'],'text')===FALSE) )
+        elseif( !in_array( $_FILES['CSVfile']['type'], $mimetypes) )
         {
-            $display   = 'default';
-            $dialogBox = get_lang('You must select a text file');
+            $dialogBox->error(get_lang('CSV file is in the bad format'));
+            
+            $content .= $content_default;
         }
         else
         {
-            //check file content to see potentiel problems to add the users in this campus (errors are saved in session)
-
-            claro_check_campus_CSV_File($uploadTempDir, $useFirstLine, $usedFormat, $_REQUEST['fieldSeparator'], $_REQUEST['enclosedBy']);
-            $display = 'stepone';
-
-        }
-
-        break;
-
-        //STEP TWO : ADD CONFIRMED, USERS ARE ADDED
-
-    case 'exImpSec' :
-
-        //build 2D array with users who will be add, avoiding those with error(s).
-
-        $usersNotToAdd = array();
-        $newUser = 0;
-        $addUserClass = 0;
-        $addUserCourse = 0;
-
-        for ($i=0, $size=sizeof($_SESSION['claro_csv_userlist']); $i<$size; $i++)
-        {
-            $user = $_SESSION['claro_csv_userlist'][$i];
-            
-            if ( ! ( isset($_SESSION['claro_mail_synthax_error'][$i]) 
-                     || isset($_SESSION['claro_officialcode_used_error'][$i])
-                     || isset($_SESSION['claro_password_error'][$i])
-                     || isset($_SESSION['claro_mail_duplicate_error'][$i])
-                     || isset($_SESSION['claro_username_duplicate_error'][$i])
-                     || isset($_SESSION['claro_officialcode_duplicate_error'][$i]) 
-                    )
-               )
-               {     
-                    if (! (isset($_SESSION['claro_username_used_error'][$i])
-                         || isset($_SESSION['claro_mail_used_error'][$i])))
+            $csvImport = new csvImport( $_SESSION['CSV_fieldSeparator'], $_SESSION['CSV_enclosedBy'] = '"');
+            if( ! $csvImport->load( $_FILES['CSVfile']['tmp_name'] ) )
+            {
+                $dialogBox->error(get_lang('Unable to read the content of the CSV'));
+            }
+            else
+            {
+                $csvContent = $csvImport->getCSVContent();
+                $_SESSION['_csvImport'] = $csvContent;
+                
+                $firstLineFormat = true;
+                if( isset( $_REQUEST['firstLineFormat']) )
+                {
+                    switch( $_REQUEST['firstLineFormat'] )
                     {
-                        // user must be added only if we encountered exactly no error
-                        //set empty fields if needed
-                        if (empty($user['phone']))        $user['phone'] = '';
-                        if (empty($user['email']))        $user['email'] = '';
-                        if (empty($user['officialCode'])) $user['officialCode'] = '';
-                        $user_id = user_create($user);
-                        if   ($user_id != 0) $newUser++;      
-                    }    
-                    else
-                    {    
-                        $criterionList = array('username' => $user['username']);
-                        $resultSearch =  user_search($criterionList,null,true,true);
-                        $user_id  = $resultSearch[0]['uid'];
+                        case 'NO' : $firstLineFormat = false; break;
+                    }
+                }
+                
+                if( !$firstLineFormat )
+                {
+                    $keys = split( $_SESSION['CSV_fieldSeparator'], $usedFormat);
+                    $firstLine = $usedFormat;
+                }
+                else
+                {
+                    $keys = null;
+                    $firstLine = $csvImport->getFirstLine();
+                }
+                
+                $csvUseableArray = $csvImport->createUsableArray( $csvImport->getCSVContent(), $firstLineFormat, $keys) ;
+                $_SESSION['_csvUsableArray'] = $csvUseableArray;
+                
+                $errors = $csvImport->checkFieldsErrors( $csvUseableArray );
+                
+                if( is_null($keys) && $firstLineFormat )
+                {
+                    $keys = $csvContent[0];
+                    unset($csvContent[0]);
+                }
+                
+                if( ! $csvImport->format_ok( $firstLine, $_SESSION['CSV_fieldSeparator'], $_SESSION['CSV_enclosedBy']) )
+                {
+                    $dialogBox->error( get_lang('ERROR: The format you gave is not compatible with Claroline') );
+                    break;
+                }
+                
+                if( !count($csvContent) )
+                {
+                    $dialogBox->error(get_lang('No data to import'));
+                }
+                else
+                {
+                    if( count($errors) )
+                    {
+                        $errorsDisplayed = '';
+                        foreach( $errors as $error )
+                        {
+                            $errorsDisplayed .= $error;
+                        }
+                        $dialogBox->error($errorsDisplayed);
                     }
                     
-                        // for each use case alos perform thze other needed action :
-                    if (isset($user_id) && ($user_id != 0))
+                    $content .= '<br />' . get_lang('Select users you want to import in the course') . '<br />'
+                    .   (count($errors) ? get_lang('Errors can be ignored to force the import') : '') . "\n" . '<br />' . "\n";
+                    
+                    $content .= '<form method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" >' . "\n"                    
+                    .   '<input type="hidden" name="step" value="2" />' . "\n"                    
+                    // options
+                    // TODO: check if user can create users
+                    //.   get_lang('Create new users') . '<input type="checkbox" value="1" name="newUsers" />'
+                    // Data
+                    .   '<table class="claroTable emphaseLine" width="100%" cellpadding="2" cellspacing="1"  border="0">' . "\n"
+                    .   '<thead>' . "\n"
+                    .   '<tr class="headerX">' . "\n"
+                    .   '<th><input type="checkbox" name="checkAll" id="checkAll" onchange="changeAllCheckbox();" checked="checked" /></th>' . "\n"
+                    ;
+                    foreach($keys as $key => $value)
                     {
-                        switch ($AddType)
+                        $content .= '<th>' . $value . '</th>' . "\n";
+                    }
+                    //$content .= '<th>Errors</th>' . "\n";
+                    $content .= '</tr>' . "\n"
+                    .   '</thead>' . "\n";
+                    
+                    foreach( $csvContent as $key => $data)
+                    {
+                        $content .= '<tr>' . "\n"
+                        .   '<td style="text-align: center;"><input type="checkbox" name="users[]" value="'. $key .'" class="checkAll" checked="checked"  /></td>' . "\n";
+                        ;                        
+                        foreach( $data as $d )
                         {
-                            case 'adminTool':
-                                //its all done in this case
-                                break;
-            
-                            case 'adminClassTool':
-                                user_add_to_class($user_id, $_SESSION['admin_user_class_id']);
-                                $addUserClass++;
-                                break;
-            
-                            case 'userTool':
-                                user_add_to_course($user_id, claro_get_current_course_id(), false, false, false);
-                                $addUserCourse++;
-                                break;
-                          }
+                            $content .= '<td>' . (!empty($d) ? $d : '&nbsp;') . '</td>' . "\n";
+                        }
+                        //$content .= '<td></td>' . "\n";
+                        $content .= '</tr>' . "\n";                        
                     }
-                      else $usersNotToAdd[] = $user;
-                      
-               } else $usersNotToAdd[] = $user;
-
-        }
-        // notify in session that action was done (to prevent double action if user uses back button of browser
-
-        $_SESSION['claro_CSV_done'] = TRUE;
-
-        // select display type
-
-        $display = 'steptwo';
-
-        break;
-
-}
-
-/**
- * Display section
- *
- * PREPARE DISPLAY
- *
- * Deal with interbredcrumps and title variable this depends
- * on the use case of the CSV import(see addType)
- *
- */
-
-switch ($AddType)
-{
-    case 'adminTool':
-        {
-            $noQUERY_STRING   = true;
-            $nameTools        = get_lang('Add a user list');
-            ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') . claro_url_relay_context('?') );
-        }   break;
-
-    case 'adminClassTool' :
-        {
-            $noQUERY_STRING      = true;
-            $nameTools           = get_lang('Add a user list in class');
-            ClaroBreadCrumbs::getInstance()->prepend( get_lang('Class members'), get_path('rootAdminWeb') . 'admin_class_user.php?class_id='. $_SESSION['admin_user_class_id'] . claro_url_relay_context('&amp;') );
-            ClaroBreadCrumbs::getInstance()->prepend( get_lang('Classes'), get_path('rootAdminWeb').'admin_class.php' . claro_url_relay_context('?') );
-            ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') . claro_url_relay_context('?') );
-        }   break;
-
-    case 'userTool':
-        {
-            $noQUERY_STRING   = true;
-            $nameTools        = get_lang('Add a user list in course');
-            ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users'), 'user.php'.claro_url_relay_context('?') );
-        }   break;
-}
-
-
-//modify dialogbox if user asked form to change used format
-
-if (isset($_REQUEST['chformat']) && $_REQUEST['chformat']=='yes')
-{
-    if (!empty($_SESSION['CSV_enclosedBy']) && $_SESSION['CSV_enclosedBy']=='dbquote') $dbquote_selected = 'selected="selected"'; else $dbquote_selected = '';
-    if (!empty($_SESSION['CSV_enclosedBy']) && $_SESSION['CSV_enclosedBy']=='')   $blank_selected   = 'selected="selected"'; else $blank_selected   = '';
-    if (!empty($_SESSION['CSV_enclosedBy']) && $_SESSION['CSV_enclosedBy']==',')  $coma_selected    = 'selected="selected"'; else $coma_selected    = '';
-    if (!empty($_SESSION['CSV_enclosedBy']) && $_SESSION['CSV_enclosedBy']=='.')  $dot_selected     = 'selected="selected"'; else $dot_selected     = '';
-
-    if (!empty($_SESSION['CSV_fieldSeparator']) && $_SESSION['CSV_fieldSeparator']==';')  $dot_coma_selected_sep = 'selected="selected"'; else $dot_coma_selected_sep = '';
-    if (!empty($_SESSION['CSV_fieldSeparator']) && $_SESSION['CSV_fieldSeparator']==',')  $coma_selected_sep     = 'selected="selected"'; else $coma_selected_sep = '';
-    if (!empty($_SESSION['CSV_fieldSeparator']) && $_SESSION['CSV_fieldSeparator']=='')   $blank_selected_sep    = 'selected="selected"'; else $blank_selected_sep = '';
-
-    $compulsory_list = array('firstname','lastname','username','password');
-
-    $dialogBox = get_lang('Modify the format') .' : ' . "\n"
-    .            '<br /><br />' . "\n"
-    .            get_lang('The fields <em>%field_list</em> are compulsory', array ('%field_list' => implode(', ',$compulsory_list)) )
-    .            '<br /><br />'
-    .            '<form method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '">'
-    .            claro_form_relay_context()
-    .            '<input type="hidden" name="AddType" value="' . $AddType . '" />' . "\n"
-    .            '<input type="text" name="usedFormat" value="' . htmlspecialchars($usedFormat) . '" size="55" />' . "\n"
-    .            '<br /><br />' . "\n"
-    .            '<label for="fieldSeparator">' .  get_lang('Fields separator used') . ' </label>:'
-    .            '<select name="fieldSeparator" id="fieldSeparator">'
-    .            '<option value=";" ' . $dot_coma_selected_sep . '>;</option>' . "\n"
-    .            '<option value="," ' . $coma_selected_sep . '    >,</option>' . "\n"
-    .            '<option value=" " ' . $blank_selected_sep . '   >(' . get_lang('Blank space') . ') </option>' . "\n"
-    .            '</select>'
-    .' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
-    .            '<label for="enclosedBy">'
-    .            get_lang('Fields enclosed by') .' :'
-    .            '</label>'
-
-    .            '<select name="enclosedBy" id="enclosedBy">'
-    .            ' <option value=""        '.$blank_selected.'>' . get_lang('None') . ' </option>'
-    .            ' <option value="dbquote" '.$dbquote_selected.'>"</option>'
-    .            ' <option value=","       '.$coma_selected.'>,</option>'
-    .            ' <option value="."       '.$dot_selected.'>.</option>'
-    .            '</select><br />'
-    .            '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
-    .          '</form>'
-    ;
-
-}
-
-
-
-/**
- * DISPLAY
- */
-
-include get_path('incRepositorySys').'/claro_init_header.inc.php';
-echo claro_html_tool_title($nameTools);
-if( isset( $dialogBox ) ) echo claro_html_message_box($dialogBox) . '<br />';
-
-switch ( $display )
-{
-
-    //DEFAULT DISPLAY : display form to upload
-
-    case 'default' :
-        {
-            $backButtonUrl = '';
-            unset($_SESSION['claro_csv_userlist']);
-            if (claro_is_in_a_course())
-            {
-                $backButtonUrl = Url::Contextualize( get_module_entry_url('CLUSR') );
-            }
-            elseif (isset($addType) && $addType =='adminClassTool') //tricky fix, the use of addtype should be avoided
-            {
-                $backButtonUrl = Url::Contextualize( get_path('clarolineRepositoryWeb').'admin/admin_class_user.php?class_id='.$_SESSION['admin_user_class_id'] );
-            }
-            elseif (claro_is_platform_admin())
-            {
-                $backButtonUrl = Url::Contextualize( get_path('clarolineRepositoryWeb') . 'admin/' );
-            }
-
-            $_SESSION['claro_CSV_done'] = FALSE;
-
-            echo get_lang('You must specify the CSV format used in your file') . "\n"
-            .    ':' . "\n"
-            .    '<br /><br />' . "\n"
-            .    '<form enctype="multipart/form-data"  method="post" action="' . htmlspecialchars( $_SERVER['PHP_SELF'] ) . '">' . "\n"
-            .    claro_form_relay_context()
-            .    '<input type="radio" name="firstLineFormat" value="YES" id="firstLineFormat_YES" />' . "\n"
-            .    ' ' . "\n"
-            .    '<label for="firstLineFormat_YES">' . "\n"
-            .    get_lang('Use format defined in first line of file') . '</label>' . "\n"
-            .    '<br /><br />' . "\n"
-            .    '<input type="radio" name="firstLineFormat" value="NO" checked="checked" id="firstLineFormat_NO" />' . "\n"
-            .    '<label for="firstLineFormat_NO">' . "\n"
-            .    get_lang('Use the following format') . ' : ' . "\n"
-            .    '</label>' . "\n"
-            .    '<br /><br />' . "\n"
-            .    '<b>' . "\n"
-            .    '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
-            .    $usedFormat . "\n"
-            .    '</b>' . "\n"
-            .    '<br /><br />' . "\n"
-            .    '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . "\n"
-            .    claro_html_cmd_link( htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF']
-                                    . '?display=default'
-                                    . '&amp;loadDefault=yes'
-                                    . '&amp;AddType=' . $AddType ))
-                                    , get_lang('Load default format')
-                                    ) . "\n"
-            .    ' | '
-            .    claro_html_cmd_link( htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF']
-                                    . '?display=default'
-                                    . '&amp;chformat=yes'
-                                    . '&amp;AddType=' . $AddType ))
-                                    , get_lang('Edit format to use')
-                                    ) . "\n"
-            .    '<br /><br />' . "\n"
-            .    '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . "\n"
-            ;
-            echo '<input type="hidden" name="fieldSeparator" value="';
-            if (!empty($_SESSION['CSV_fieldSeparator'])) echo htmlspecialchars( $_SESSION['CSV_fieldSeparator'] );
-            else                                         echo ';';
-            echo '" />' . "\n"
-            .    '<input type="hidden" name="enclosedBy" value="' . htmlspecialchars( $_SESSION['CSV_enclosedBy'] ) . '" />' . "\n"
-            .    '<input type="hidden" name="AddType" value="' . htmlspecialchars( $AddType ) . '" />' . "\n"
-            .    '<br />' . "\n"
-            .    get_lang('CSV file with the user list :')
-            .    '<input type="file" name="CSVfile" />' . "\n"
-            .    '<br /><br />' . "\n"
-            .    '<input type="submit" name="submitCSV" value="' . get_lang('Add user list') . '" />' . "\n"
-            .    claro_html_button(htmlspecialchars( $backButtonUrl ),get_lang('Cancel'))  . "\n"
-            .    '<input type="hidden" name="cmd" value="exImp" />' . "\n"
-            .    '</form>' . "\n"
-            ;
-
-        }    break;
-
-        // STEP ONE DISPLAY : display the possible error with uploaded file and ask for continue or cancel
-
-    case 'stepone' :
-        {
-
-            if ((!empty($_SESSION['claro_invalid_format_error']) && $_SESSION['claro_invalid_format_error']==true) ||
-            !(count($_SESSION['claro_mail_synthax_error'])==0)       ||
-            !(count($_SESSION['claro_mail_used_error'])==0)          ||
-            !(count($_SESSION['claro_username_used_error'])==0)      ||
-            !(count($_SESSION['claro_officialcode_used_error'])==0)  ||
-            !(count($_SESSION['claro_password_error'])==0)           ||
-            !(count($_SESSION['claro_mail_duplicate_error'])==0)     ||
-            !(count($_SESSION['claro_username_duplicate_error'])==0) ||
-            !(count($_SESSION['claro_officialcode_duplicate_error'])==0))
-            {
-                echo '<b>' . get_lang('The following errors were found ') . ' :</b><br /><br />' . "\n";
-
-                //display errors encountered while trying to add users
-
-                claro_disp_CSV_error_backlog();
-
-                $noerror = FALSE;
-            }
-            else
-            {
-                echo get_lang('No error in file found.')."<br />";
-
-                $noerror = TRUE;
-            }
-
-
-            if (!(isset($_SESSION['claro_invalid_format_error'])) || ($_SESSION['claro_invalid_format_error'] == false))
-            {
-                echo '<br />'
-                .    get_lang('Do you want to continue?')
-                .    '<br />'
-                ;
-                if (!$noerror)
-                {
-                    echo get_lang('The user will be created only if all informations are correct.') . '<br />';
-                    switch ($AddType)
-                    {
-                        case 'adminClassTool': 
-                            echo  get_lang('If the user is existing in the platform, he will be added to the class only if his firstname, 
-                                        lastname and username are similar.') . '<br />';
-                            break;
-                        case 'userTool': 
-                            echo get_lang('If the user is existing in the platform, he will be added to the course only if his firstname, 
-                                        lastname and username are similar.') . '<br />';
-                            break;
-                    }
-                        
+                    
+                    $content .=   '</table>' . "\n"
+                    .    '<input type="submit" name="submitCSV" value="' . get_lang('Add selected users') . '" />' . "\n"
+                    .    claro_html_button(htmlspecialchars( $backButtonUrl ),get_lang('Cancel'))  . "\n"
+                    .   '</form>' . "\n"
+                    ;
                 }
-                echo '<br />'
-                .    '<form method="post" action="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exImpSec' )) . '">' . "\n"
-                .    '<input type="hidden" name="AddType" value="' . $AddType . '" />'
-                .    '<input type="submit" value="' . get_lang('Continue') .'" />' . "\n"
-                .    claro_html_button( htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'] . '?AddType=' . $AddType )), get_lang('Cancel'))
-                .   '</form>' . "\n";
-
-            }
-            else
-            {
-                echo '<br />' . claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])), get_lang('Cancel')) . '<br />';
-            }
-        } break;
-
-        // STEP TWO DISPLAY : display what happened, confirm users added (LOG)
-
-    case 'steptwo' :
-
-        echo '<b>' . get_lang('%nb_user not to add',array( '%nb_user' => sizeof($usersNotToAdd) ) ) . '</b> <br /><br />';
-
-
-
-        //display messages concerning actions done to new users...
-
-        switch ($AddType)
+                
+            }            
+        }
+    }
+    break;
+    default :
+    {   
+        if( isset($_SESSION['_csvImport']) )
         {
-            case 'adminTool':
-                echo get_lang('%newUser users added to the campus',array('%newUser'=>$newUser)). "<br />\n";
-                break;
-
-            case 'adminClassTool':
-                echo get_lang('%newUser users added to the campus',array('%newUser'=>$newUser)). "<br />\n";
-                echo get_lang('%addUserClass users added to the class',array('%addUserClass'=>$addUserClass)). "<br />\n";
-                break;
-
-            case 'userTool':
-                echo get_lang('%newUser users added to the campus',array('%newUser'=>$newUser)). "<br />\n";
-                echo get_lang('%addUserCourse users added to the course',array('%addUserCourse'=>$addUserCourse)). "<br />\n";
-                break;
+            unset($_SESSION['_csvImport']);
         }
         
-        foreach ($usersNotToAdd as $user)
+        if( isset($_SESSION['_csvUsableArray']) )
         {
-                echo get_lang('%firstname %lastname has not been added !', array('%firstname'=>$user['firstname'],
-                    '%lastname'=>$user['lastname']) ). "<br />\n";
-        }        
-
-        // display back link at the end of the log
-
-        switch ($AddType)
-        {
-            case 'adminTool' :
-                {
-                    echo '<br />'
-                    .    '<a href="'. htmlspecialchars( Url::Contextualize( get_path('clarolineRepositoryWeb') . 'admin/adminusers.php' )) . '">&gt;&gt; '
-                    .    get_lang('See user list')
-                    .    '</a>'
-                    ;
-                }   break;
-
-            case 'adminClassTool' :
-                {
-                    echo '<br />'
-                    .    '<a href="'.htmlspecialchars( Url::Contextualize( get_path('clarolineRepositoryWeb') . 'admin/admin_class.php' )) . '">&gt;&gt; '
-                    .    get_lang('Back to class list')
-                    .    '</a>'
-                    ;
-                }   break;
-
-            case 'userTool' :
-                {
-                    echo '<br />'
-                    .    '<a href="'.htmlspecialchars( Url::Contextualize( get_module_entry_url('CLUSR') )) . '">&lt;&lt; ' . get_lang('Back to user list') . '</a>'
-                    ;
-                }   break;
+            unset($_SESSION['_csvUsableArray']);
         }
-        break;
+        $content .= $content_default; 
+    }
 }
 
-//footer
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$out .= claro_html_tool_title($nameTools);
+$out .= $dialogBox->render();
+$out .= $content;
+
+$out .= '<script type="text/javascript">'
+.   'function changeAllCheckbox()
+    {
+        if( $("#checkAll").attr("checked") )
+        {
+            $(".checkAll").attr("checked", true);
+        }
+        else
+        {
+            $(".checkAll").attr("checked", false);
+        }
+    }
+    '
+.   '</script>';
+
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
+
 ?>

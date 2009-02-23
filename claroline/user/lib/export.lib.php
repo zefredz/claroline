@@ -41,19 +41,8 @@ class csvUserList extends csv
         $sql = "SELECT `U`.`user_id`      AS `userId`,
                        `U`.`nom`          AS `lastname`,
                        `U`.`prenom`       AS `firstname`,
-                       `U`.`email`        AS `email`,";
-                       
-        if( get_conf('export_user_username') ) 
-        {               
-             $sql .= " `U`.`username`     AS `username`, ";
-        }
-        
-        if( get_conf('export_user_password') ) 
-        {               
-             $sql .= " `U`.`password`     AS `password`, ";
-        }
-        
-        $sql .=  " 
+                       `U`.`username`     AS `username`,
+                       `U`.`email`        AS `email`, 
                        `U`.`officialCode`     AS `officialCode`,
                        GROUP_CONCAT(`G`.`id`) AS `groupId`,
                        GROUP_CONCAT(`G`.`name`) AS `groupName`

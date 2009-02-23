@@ -488,14 +488,14 @@ function create_group($prefixGroupName, $maxMember)
      */
 
     //  Create a Unique ID path preventing other enter
-
+    $globalPath = $GLOBALS['coursesRepositorySys'] . $GLOBALS['currentCourseRepository'] . '/group/';
     do
     {
         $groupRepository = str_replace(' ', '_', substr(uniqid(substr($groupName,0,19) . ' ',''),0,30) );
     }
-    while ( check_name_exist( $GLOBALS['coursesRepositorySys'] . $GLOBALS['currentCourseRepository'] . '/group/' . $groupRepository) );
+    while ( check_name_exist(  $globalPath . $groupRepository) );
 
-    claro_mkdir($GLOBALS['coursesRepositorySys'] . $GLOBALS['currentCourseRepository'] . '/group/' . $groupRepository, CLARO_FILE_PERMISSIONS);
+    claro_mkdir($globalPath . $groupRepository, CLARO_FILE_PERMISSIONS);
 
     /*
      * Insert a new group in the course group table and keep its ID
