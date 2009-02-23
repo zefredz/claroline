@@ -112,24 +112,31 @@ $outPortlet = '';
 
 $portletList = $portletList->loadAll( true );
 
-foreach ( $portletList as $portlet )
+if ( is_array( $portletList ) )
 {
-    // load portlet
-    if( ! class_exists( $portlet['label'] ) )
+    foreach ( $portletList as $portlet )
     {
-        pushClaroMessage("User desktop : class {$portlet['label']} not found !");
-        continue;
-    }
+        // load portlet
+        if( ! class_exists( $portlet['label'] ) )
+        {
+            pushClaroMessage("User desktop : class {$portlet['label']} not found !");
+            continue;
+        }
+        
+        $portlet = new $portlet['label']();
     
-    $portlet = new $portlet['label']();
-
-    if( ! $portlet instanceof UserDesktopPortlet )
-    {
-        pushClaroMessage("{$portlet['label']} is not a valid user desktop portlet !");
-        continue;
+        if( ! $portlet instanceof UserDesktopPortlet )
+        {
+            pushClaroMessage("{$portlet['label']} is not a valid user desktop portlet !");
+            continue;
+        }
+        
+        $outPortlet .= $portlet->render();
     }
-    
-    $outPortlet .= $portlet->render();
+}
+else
+{
+    $dialogBox->error(get_lang('Cannot load portlet list'));
 }
 
 // Generate Script Output

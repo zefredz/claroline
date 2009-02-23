@@ -89,7 +89,7 @@ class PortletList
                     `rank`,
                     `visibility`
                 FROM `".$this->tblDesktopPortlet."`
-                WHERE TRUE "
+                WHERE 1 "
                 . ( $visibility == true ? "AND visibility = 'visible'" : '' ) .
                 "ORDER BY `rank` ASC";
 
