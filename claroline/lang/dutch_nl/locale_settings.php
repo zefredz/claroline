@@ -77,8 +77,11 @@ $langMonthNames['long'] = array('Januari', 'Februari', 'Maart', 'April', 'Mei', 
 // Zie http://www.php.net/manual/en/function.strftime.php voor de variabele
 // hieronder
 
-$dateFormatShort =  "%a %d %b %y ; %H:%M";
-$dateFormatLong  = '%A %d %B %Y ; %H:%M';
+$dateFormatCompact = "%B %Y";
+$dateFormatShort =  "%a %d %b %y";
+$dateFormatLong  = '%A %d %B %Y';
+$dateFormatNumeric =  "%m/%d/%Y";
+$dateTimeFormatShort = "%d/%m/%y %H:%M";
 $dateTimeFormatLong  = '%A %d %B %Y ; %H:%M';
 $timeNoSecFormat = '%H:%M';
 
