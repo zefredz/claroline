@@ -115,7 +115,7 @@ elseif($cmd == "rqEditHtml" && !empty($_REQUEST['file']) )
     </p>
     <p>
     <input type="submit" value="<?php echo get_lang('Ok'); ?>" />&nbsp;
-    <?php echo claro_html_button(htmlspecialchars(Url::Contextualize('./document.php?cmd=rqEdit&file='.$_REQUEST['file'])), get_lang('Cancel')); ?>
+    <?php echo claro_html_button(htmlspecialchars(Url::Contextualize('./document.php?cmd=rqEdit&file='.base64_encode($_REQUEST['file']))), get_lang('Cancel')); ?>
     </p>
     </form>
     <?php
