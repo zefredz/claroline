@@ -246,7 +246,7 @@ $out = '';
 $out .= claro_html_tool_title($toolTitle);
 
 // dialog box if required
-echo $dialogBox->render();
+$out .= $dialogBox->render();
 
 
 if( $displayForm )
