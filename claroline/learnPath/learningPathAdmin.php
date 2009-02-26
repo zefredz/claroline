@@ -367,11 +367,12 @@ $LPDetails = mysql_fetch_array($query);
                       DISPLAY
   ================================================================*/
 
+$out = '';
 //header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+//include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 // display title
-echo claro_html_tool_title($nameTools);
+$out .= claro_html_tool_title($nameTools);
 
 //####################################################################################\\
 //############################ LEARNING PATH NAME BOX ################################\\
@@ -379,11 +380,11 @@ echo claro_html_tool_title($nameTools);
 
 if ( $cmd == "updateName" )
 {
-    nameBox(LEARNINGPATH_, UPDATE_);
+    $out .= nameBox(LEARNINGPATH_, UPDATE_);
 }
 else
 {
-    nameBox(LEARNINGPATH_, DISPLAY_);
+    $out .= nameBox(LEARNINGPATH_, DISPLAY_);
 }
 
 //####################################################################################\\
@@ -392,15 +393,15 @@ else
 
 if ( $cmd == "updatecomment" )
 {
-    commentBox(LEARNINGPATH_, UPDATE_);
+    $out .= commentBox(LEARNINGPATH_, UPDATE_);
 }
 elseif ($cmd == "delcomment" )
 {
-    commentBox(LEARNINGPATH_, DELETE_);
+    $out .= commentBox(LEARNINGPATH_, DELETE_);
 }
 else
 {
-    commentBox(LEARNINGPATH_, DISPLAY_);
+    $out .= commentBox(LEARNINGPATH_, DISPLAY_);
 }
 
 //####################################################################################\\
@@ -445,7 +446,7 @@ if (isset($displayChangePosForm) && $displayChangePosForm)
 
 if (isset($dialogBox) && $dialogBox!="")
 {
-    echo claro_html_message_box($dialogBox);
+    $out .= claro_html_message_box($dialogBox);
 }
 
 //####################################################################################\\
@@ -457,7 +458,7 @@ $cmdMenu[] = claro_html_cmd_link('insertMyExercise.php'. claro_url_relay_context
 $cmdMenu[] = claro_html_cmd_link('insertMyModule.php' . claro_url_relay_context('?'), get_lang('Add a module of this course'));
 $cmdMenu[] = claro_html_cmd_link($_SERVER['PHP_SELF'] . '?cmd=createLabel'. claro_url_relay_context('&amp;'), get_lang('Create label'));
 
-echo '<p>'
+$out .= '<p>'
 .    claro_html_menu_horizontal($cmdMenu)
 .    '</p>'
 ;
@@ -505,21 +506,20 @@ for ($i=0 ; $i < sizeof($flatElementList) ; $i++)
 //######################### LEARNING PATH LIST HEADER ################################\\
 //####################################################################################\\
 
-?>
-  <table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">
-       <thead>
-         <tr class="headerX" align="center" valign="top">
-           <th colspan="<?php echo $maxDeep+1 ?>"><?php echo get_lang('Module'); ?></th>
-           <th><?php echo get_lang('Modify'); ?></th>
-           <th><?php echo get_lang('Remove'); ?></th>
-           <th><?php echo get_lang('Block'); ?></th>
-           <th><?php echo get_lang('Visibility'); ?></th>
-           <th><?php echo get_lang('Move'); ?></th>
-           <th colspan="2"><?php echo get_lang('Order'); ?></th>
-          </tr>
-     </thead>
-     <tbody>
-<?php
+$out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
+.     '<thead>' . "\n"
+.     '<tr class="headerX" align="center" valign="top">' . "\n"
+.     '<th colspan="' . ($maxDeep+1) . '">'. get_lang('Module') .'</th>' . "\n"
+.     '<th>'. get_lang('Modify') .'</th>' . "\n"
+.     '<th>'. get_lang('Remove') .'</th>' . "\n"
+.     '<th>'. get_lang('Block') .'</th>' . "\n"
+.     '<th>'. get_lang('Visibility') .'</th>' . "\n"
+.     '<th>'. get_lang('Move') .'</th>' . "\n"
+.     '<th colspan="2">'. get_lang('Order') .'</th>' . "\n"
+.     '</tr>' . "\n"
+.     '</thead>' . "\n"
+.     '<tbody>' . "\n"
+;
 
 //####################################################################################\\
 //######################### LEARNING PATH LIST DISPLAY ###############################\\
@@ -551,11 +551,11 @@ foreach ($flatElementList as $module)
 
     $colspan = $maxDeep - $module['children']+1;
 
-    echo "<tr align=\"center\"".$style.">\n".$spacingString."<td colspan=\"".$colspan."\" align=\"left\">";
+    $out .= '<tr align="center"'.$style.'>' . "\n" .$spacingString. '<td colspan="'.$colspan.'" align="left">' . "\n";
 
     if ($module['contentType'] == CTLABEL_) // chapter head
     {
-        echo "<b>".htmlspecialchars($module['name'])."</b>\n";
+        $out .= "<b>".htmlspecialchars($module['name'])."</b>\n";
     }
     else // module
     {
@@ -565,15 +565,15 @@ foreach ($flatElementList as $module)
             $moduleImg = get_icon_url( choose_image(basename($module['path'])) );
 
         $contentType_alt = selectAlt($module['contentType']);
-        echo "<a href=\"module.php?module_id=".$module['module_id']."\">"
+        $out .= "<a href=\"module.php?module_id=".$module['module_id']."\">"
             . "<img src=\"" . $moduleImg . "\" alt=\"".$contentType_alt."\" >"
             . htmlspecialchars($module['name'])
             . "</a>";
     }
-    echo "</td>"; // end of td of module name
+    $out .= "</td>"; // end of td of module name
 
     // Modify command / go to other page
-    echo "<td>
+    $out .= "<td>
           <a href=\"module.php?module_id=".$module['module_id']."\">".
          "<img src=\"" . get_icon_url('edit') . "\" alt=\"".get_lang('Modify')."\" />".
          "</a>
@@ -582,48 +582,48 @@ foreach ($flatElementList as $module)
     // DELETE ROW
 
    //in case of SCORM module, the pop-up window to confirm must be different as the action will be different on the server
-    echo "<td>
+    $out .= "<td>
           <a href=\"".$_SERVER['PHP_SELF']."?cmd=delModule&cmdid=".$module['learnPath_module_id']."\" ".
          "onclick=\"return confirmation('".clean_str_for_javascript(get_lang('Are you sure you want to remove the following module from the learning path : ')." ".$module['name'])." ? ";
 
     if ($module['contentType'] == CTSCORM_)
-        echo clean_str_for_javascript(get_lang('SCORM conformant modules are definitively removed from server when deleted in their learning path.')) ;
+        $out .= clean_str_for_javascript(get_lang('SCORM conformant modules are definitively removed from server when deleted in their learning path.')) ;
     elseif ( $module['contentType'] == CTLABEL_ )
-        echo clean_str_for_javascript(get_lang('By deleting a label you will delete all modules or label it contains.'));
+        $out.= clean_str_for_javascript(get_lang('By deleting a label you will delete all modules or label it contains.'));
     else
-        echo clean_str_for_javascript(get_lang('The module will still be available in the pool of modules.'));
+        $out .= clean_str_for_javascript(get_lang('The module will still be available in the pool of modules.'));
 
-    echo   "');\"
+    $out .=   "');\"
     ><img src=\"" . get_icon_url('delete') . "\" alt=\"".get_lang('Remove')."\" /></a>
        </td>";
 
     // LOCK
-    echo    '<td>';
+    $out .=    '<td>';
 
     if ( $module['contentType'] == CTLABEL_)
     {
-        echo "&nbsp;";
+        $out .= "&nbsp;";
     }
     elseif ( $module['lock'] == 'OPEN')
     {
-        echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkBlock&cmdid=".$module['learnPath_module_id']."\">".
+        $out .= "<a href=\"".$_SERVER['PHP_SELF']."?cmd=mkBlock&cmdid=".$module['learnPath_module_id']."\">".
              "<img src=\"" . get_icon_url('unblock') . "\" alt=\"" . get_lang('Block') . "\" />".
              "</a>";
     }
     elseif( $module['lock'] == 'CLOSE')
     {
-        echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkUnblock&cmdid=".$module['learnPath_module_id']."\">".
+        $out .= "<a href=\"".$_SERVER['PHP_SELF']."?cmd=mkUnblock&cmdid=".$module['learnPath_module_id']."\">".
              "<img src=\"" . get_icon_url('block') . "\" alt=\"" . get_lang('Unblock') . "\" />".
              "</a>";
     }
-    echo "</td>";
+    $out .= "</td>";
 
     // VISIBILITY
-    echo "<td>";
+    $out .= "<td>";
 
     if ( $module['visibility'] == 'HIDE')
     {
-        echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkVisibl&cmdid=".$module['module_id']."\">".
+        $out .= "<a href=\"".$_SERVER['PHP_SELF']."?cmd=mkVisibl&cmdid=".$module['module_id']."\">".
              "<img src=\"" . get_icon_url('invisible') . "\" alt=\"" . get_lang('Make visible') . "\" />".
              "</a>";
     }
@@ -637,17 +637,17 @@ foreach ($flatElementList as $module)
         {
             $onclick = "";
         }
-        echo "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=mkInvisibl&cmdid=".$module['module_id']."\" ",$onclick, " >".
+        $out .= "<a href=\"".$_SERVER['PHP_SELF']."?cmd=mkInvisibl&cmdid=".$module['module_id']."\" ".$onclick. " >".
              "<img src=\"" . get_icon_url('visible') . "\" alt=\"" . get_lang('Make invisible') . "\" />".
              "</a>";
     }
 
-    echo "</td>";
+    $out .= "</td>";
 
     // ORDER COMMANDS
     // DISPLAY CATEGORY MOVE COMMAND
-    echo "<td>".
-         "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=changePos&cmdid=".$module['learnPath_module_id']."\">".
+    $out .= "<td>".
+         "<a href=\"".$_SERVER['PHP_SELF']."?cmd=changePos&cmdid=".$module['learnPath_module_id']."\">".
          "<img src=\"" . get_icon_url('move') . "\" alt=\"" . get_lang('Move'). "\" />".
          "</a>".
          "</td>";
@@ -655,50 +655,55 @@ foreach ($flatElementList as $module)
     // DISPLAY MOVE UP COMMAND only if it is not the top learning path
     if ($module['up'])
     {
-        echo "<td>".
-             "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=moveUp&cmdid=".$module['learnPath_module_id']."\">".
+        $out .= "<td>".
+             "<a href=\"".$_SERVER['PHP_SELF']."?cmd=moveUp&cmdid=".$module['learnPath_module_id']."\">".
              "<img src=\"" . get_icon_url('move_up') . "\" alt=\"" . get_lang('Move up') . "\" />".
              "</a>".
              "</td>";
     }
     else
     {
-        echo "<td>&nbsp;</td>";
+        $out .= "<td>&nbsp;</td>";
     }
 
     // DISPLAY MOVE DOWN COMMAND only if it is not the bottom learning path
     if ($module['down'])
     {
-        echo "<td>".
-             "<a href=\"",$_SERVER['PHP_SELF'],"?cmd=moveDown&cmdid=".$module['learnPath_module_id']."\">".
+        $out .= "<td>".
+             "<a href=\"".$_SERVER['PHP_SELF']."?cmd=moveDown&cmdid=".$module['learnPath_module_id']."\">".
              "<img src=\"" . get_icon_url('move_down') . "\" alt=\"" . get_lang('Move down') . "\" />".
              "</a>".
              "</td>";
     }
     else
     {
-        echo "<td>&nbsp;</td>";
+        $out .= "<td>&nbsp;</td>";
     }
 
-    echo "\n</tr>\n";
+    $out .= "\n</tr>\n";
     $iterator++;
     $atleastOne = true;
 }
 
-echo "</tbody>";
+$out .= "</tbody>";
 
-echo "<tfoot>";
+$out .= "<tfoot>";
 
 if ($atleastOne == false)
 {
-    echo "<tr><td align=\"center\" colspan=\"7\">".get_lang('No module')."</td></tr>";
+    $out .= "<tr><td align=\"center\" colspan=\"7\">".get_lang('No module')."</td></tr>";
 }
 
-echo "</tfoot>";
+$out .= "</tfoot>";
 
 //display table footer
-echo "</table>";
+$out .= "</table>";
 
 // footer
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+//include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
+
 ?>

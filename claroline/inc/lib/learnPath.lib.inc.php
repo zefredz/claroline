@@ -83,6 +83,8 @@ function commentBox($type, $mode)
     $tbl_lp_learnPath            = $tbl_cdb_names['lp_learnPath'];
     $tbl_lp_rel_learnPath_module = $tbl_cdb_names['lp_rel_learnPath_module'];
     $tbl_lp_module               = $tbl_cdb_names['lp_module'];
+    
+    $out = '';
     // globals
     global $is_allowedToEdit;
     // will be set 'true' if the comment has to be displayed
@@ -146,7 +148,7 @@ function commentBox($type, $mode)
                       WHERE " . $where_cond;
             $oldComment = claro_sql_query_get_single_value($sql);
 
-            echo '<form method="post" action="'.$_SERVER['PHP_SELF'].'">' . "\n"
+            $out .= '<form method="post" action="'.$_SERVER['PHP_SELF'].'">' . "\n"
                 .claro_html_textarea_editor('insertCommentBox', $oldComment, 15, 55).'<br />' . "\n"
                 .'<input type="hidden" name="cmd" value="update' . $col_name . '" />'
                 .'<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
@@ -184,7 +186,7 @@ function commentBox($type, $mode)
             // if no comment and user is admin : display link to add a comment
             if ( $is_allowedToEdit )
             {
-                echo '<p>' . "\n"
+                $out .= '<p>' . "\n"
                 .    claro_html_cmd_link( $_SERVER['PHP_SELF']
                                         . '?cmd=update' . $col_name . claro_url_relay_context('&amp;')
                                         ,  get_lang('Add a comment')
@@ -196,12 +198,12 @@ function commentBox($type, $mode)
         else
         {
             // display comment
-            echo "<p>".claro_parse_user_text($currentComment)."</p>";
+            $out .= "<p>".claro_parse_user_text($currentComment)."</p>";
             // display edit and delete links if user as the right to see it
             if ( $is_allowedToEdit )
             {
 
-                echo '<p>' . "\n"
+                $out .= '<p>' . "\n"
                 .    '<small>' . "\n"
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=update' . $col_name . '">' . "\n"
                 .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Modify') . '" />' . "\n"
@@ -217,7 +219,7 @@ function commentBox($type, $mode)
         }
     }
 
-    return 0;
+    return $out;
 }
 
 /**
@@ -234,7 +236,9 @@ function nameBox($type, $mode)
     $tbl_topics                  = $tbl_cdb_names['bb_topics'];
     $tbl_lp_learnPath            = $tbl_cdb_names['lp_learnPath'];
     $tbl_lp_module               = $tbl_cdb_names['lp_module'];
-
+    
+    $out = '';
+    
     // globals
     global $is_allowedToEdit;
     global $urlAppend;
@@ -282,7 +286,7 @@ function nameBox($type, $mode)
             }
             else
             {
-                echo get_lang('Error : Name already exists in the learning path or in the module pool') . '<br />';
+                $out .= get_lang('Error : Name already exists in the learning path or in the module pool') . '<br />';
                 $dsp = TRUE;
             }
         }
@@ -294,7 +298,7 @@ function nameBox($type, $mode)
 
             $oldName = claro_sql_query_get_single_value($sql);
 
-            echo '<form method="post" action="' . $_SERVER['PHP_SELF'].'">' . "\n"
+            $out .= '<form method="post" action="' . $_SERVER['PHP_SELF'].'">' . "\n"
             .    '<input type="text" name="newName" size="50" maxlength="255" value="'.htmlspecialchars($oldName).'" />'
             .    '<br />' . "\n"
             .    '<input type="hidden" name="cmd" value="updateName" />' ."\n"
@@ -315,17 +319,17 @@ function nameBox($type, $mode)
 
         $currentName = claro_sql_query_get_single_value($sql);
 
-        echo '<h4>'
+        $out .= '<h4>'
         .    $currentName;
 
         if ( $is_allowedToEdit )
-            echo '<br /><a href="' . $_SERVER['PHP_SELF'] . '?cmd=updateName">'
+            $out .= '<br /><a href="' . $_SERVER['PHP_SELF'] . '?cmd=updateName">'
             .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Modify') . '" />'
             .    '</a>' . "\n";
-        echo '</h4>'."\n\n";
+        $out .= '</h4>'."\n\n";
     }
 
-    return 0;
+    return $out;
 }
 
 /**

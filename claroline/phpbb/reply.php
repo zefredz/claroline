@@ -155,19 +155,20 @@ else
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Forums'), 'index.php' );
 $noPHP_SELF       = true;
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
+//include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 $pagetype  = 'reply';
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
 
-echo claro_html_tool_title(get_lang('Forums'),
+$out .= claro_html_tool_title(get_lang('Forums'),
                       $is_allowedToEdit ? 'help_forum.php' : false);
 
 if ( !$allowed )
 {
     // not allowed
-    echo $dialogBox->render();
+    $out .= $dialogBox->render();
 }
 else
 {
@@ -175,25 +176,25 @@ else
     if ( isset($_REQUEST['submit']) && !$error )
     {
         // DISPLAY SUCCES MESSAGE
-        disp_confirmation_message (get_lang('Your message has been entered'), $forum_id, $topic_id);
+        $out .= disp_confirmation_message (get_lang('Your message has been entered'), $forum_id, $topic_id);
     }
     else
     {
         if ( $error )
         {
-            echo $dialogBox->render();
+            $out .= $dialogBox->render();
         }
 
-        echo claro_html_menu_horizontal(disp_forum_toolbar($pagetype, $forum_id, 0, $topic_id));
+        $out .= claro_html_menu_horizontal(disp_forum_toolbar($pagetype, $forum_id, 0, $topic_id));
 
-        echo disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_id, $topic_title);
+        $out .= disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_id, $topic_title);
 
-        echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">' . "\n"
+        $out .= '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">' . "\n"
             . claro_form_relay_context()
             . '<input type="hidden" name="forum" value="' . $forum_id . '" />' . "\n"
             . '<input type="hidden" name="topic" value="' . $topic_id . '" />' . "\n";
 
-        echo '<table border="0" width="100%">' . "\n"
+        $out .= '<table border="0" width="100%">' . "\n"
             . '<tr valign="top">' . "\n"
             . '<td align="right"><br />' . get_lang('Message body') . '&nbsp;:</td>'
             . '<td>'
@@ -209,7 +210,7 @@ else
             . '</table>'
             . '</form>' ;
 
-        echo '<p style="text-align: center;"><a href="'
+        $out .= '<p style="text-align: center;"><a href="'
             . htmlspecialchars( Url::Contextualize( get_module_url('CLFRM') . '/viewtopic.php?topic=' . $topic_id . '&forum=' . $forum_id ))
             . '" target="_blank">' . get_lang('Topic review') . '</a></p>';
 
@@ -218,5 +219,9 @@ else
 
 // Display Forum Footer
 
-include(get_path('incRepositorySys').'/claro_init_footer.inc.php');
+//include(get_path('incRepositorySys').'/claro_init_footer.inc.php');
+
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
 ?>

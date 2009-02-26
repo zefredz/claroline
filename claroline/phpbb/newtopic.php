@@ -205,14 +205,15 @@ else
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Forums'), 'index.php' );
 $noPHP_SELF       = true;
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
+//include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 // display tool title
-echo claro_html_tool_title(get_lang('Forums'), $is_allowedToEdit ? 'help_forum.php' : false);
+$out .= claro_html_tool_title(get_lang('Forums'), $is_allowedToEdit ? 'help_forum.php' : false);
 
 if ( ! $allowed )
 {
-    echo $dialogBox->render();
+    $out .= $dialogBox->render();
 }
 else
 {
@@ -221,7 +222,7 @@ else
     if ( isset($_REQUEST['submit']) && !$error)
     {
         // Display success message
-        disp_confirmation_message (get_lang('Your message has been entered'), $forum_id, $topic_id);
+        $out .= disp_confirmation_message (get_lang('Your message has been entered'), $forum_id, $topic_id);
 
     }
     else
@@ -229,10 +230,10 @@ else
         if ( $error )
         {
             // display error message
-            echo $dialogBox->render();
+            $out .= $dialogBox->render();
         }
 
-        echo disp_forum_breadcrumb($pagetype, $forum_id, $forum_name)
+        $out .= disp_forum_breadcrumb($pagetype, $forum_id, $forum_name)
         .    claro_html_menu_horizontal(disp_forum_toolbar($pagetype, $forum_id, 0, 0))
 
 
@@ -250,7 +251,7 @@ else
         if ( !empty($message) ) $content = $message;
         else                    $content = '';
 
-        echo '<td>'
+        $out .= '<td>'
             .claro_html_textarea_editor('message',$content)
             .'</td>'
             . '</tr>'
@@ -267,5 +268,8 @@ else
   Display Forum Footer
  -----------------------------------------------------------------*/
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+//include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
 ?>

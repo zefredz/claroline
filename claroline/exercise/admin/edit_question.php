@@ -115,7 +115,7 @@ if( $cmd == 'exEdit' )
 
     $question->setTitle($_REQUEST['title']);
     $question->setDescription($_REQUEST['description']);
-
+    
     if( is_null($quId) ) $question->setType($_REQUEST['type']);
 
     // delete previous file if required
@@ -211,28 +211,28 @@ else
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), get_module_url('CLQWZ').'/exercise.php' );
 
 
+$out = '';
+//include(get_path('incRepositorySys').'/claro_init_header.inc.php');
 
-include(get_path('incRepositorySys').'/claro_init_header.inc.php');
-
-echo claro_html_tool_title($nameTools);
+$out .= claro_html_tool_title($nameTools);
 
 // dialog box if required
-echo $dialogBox->render();
+$out .= $dialogBox->render();
 
 
 $localizedQuestionType = get_localized_question_type();
 
 if( $displayForm )
 {
-    echo '<form method="post" action="./edit_question.php?quId='.$quId.'&amp;exId='.$exId.'" enctype="multipart/form-data">' . "\n\n"
+    $out .= '<form method="post" action="./edit_question.php?quId='.$quId.'&amp;exId='.$exId.'" enctype="multipart/form-data">' . "\n\n"
     .     '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
     .     '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />' . "\n";
 
-    echo '<table border="0" cellpadding="5">' . "\n";
+    $out .= '<table border="0" cellpadding="5">' . "\n";
 
     if( $askDuplicate )
     {
-        echo '<tr>' . "\n"
+        $out .= '<tr>' . "\n"
         .     '<td>&nbsp;</td>' . "\n"
         .    '<td valign="top">'
         .    html_ask_duplicate()
@@ -241,13 +241,13 @@ if( $displayForm )
     }
     //--
     // title
-    echo '<tr>' . "\n"
+    $out .= '<tr>' . "\n"
     .     '<td valign="top"><label for="title">'.get_lang('Title').'&nbsp;<span class="required">*</span>&nbsp;:</label></td>' . "\n"
     .     '<td><input type="text" name="title" id="title" size="60" maxlength="200" value="'.$form['title'].'" /></td>' . "\n"
     .     '</tr>' . "\n\n";
 
     // description
-    echo '<tr>' . "\n"
+    $out .= '<tr>' . "\n"
     .     '<td valign="top"><label for="description">'.get_lang('Description').'&nbsp;:</label></td>' . "\n"
     .     '<td>'.claro_html_textarea_editor('description', $form['description']).'</td>' . "\n"
     .     '</tr>' . "\n\n";
@@ -255,7 +255,7 @@ if( $displayForm )
     // attached file
     if( !empty($form['attachment']) )
     {
-        echo '<tr>' . "\n"
+        $out .= '<tr>' . "\n"
         .     '<td valign="top">'.get_lang('Current file').'&nbsp;:</td>' . "\n"
         .     '<td>'
         .     '<a href="'.$question->getQuestionDirWeb().$form['attachment'].'" target="_blank">'.$form['attachment'].'</a><br />'
@@ -264,7 +264,7 @@ if( $displayForm )
         .     '</tr>' . "\n\n";
     }
 
-    echo '<tr>' . "\n"
+    $out .= '<tr>' . "\n"
     .     '<td valign="top"><label for="description">'.get_lang('Attached file').'&nbsp;:</label></td>' . "\n"
     .     '<td><input type="file" name="attachment" id="attachment" size="30" /></td>' . "\n"
     .     '</tr>' . "\n\n";
@@ -272,7 +272,7 @@ if( $displayForm )
     // answer type, only if new question
     if( is_null($quId) )
     {
-        echo '<tr>' . "\n"
+        $out .= '<tr>' . "\n"
         .     '<td valign="top">'.get_lang('Answer type').'&nbsp;:</td>' . "\n"
         .     '<td>' . "\n"
         .     '<input type="radio" name="type" id="MCUA" value="MCUA"'
@@ -301,33 +301,33 @@ if( $displayForm )
     }
     else
     {
-        echo '<tr>' . "\n"
+        $out .= '<tr>' . "\n"
         .     '<td valign="top">'.get_lang('Answer type').'&nbsp;:</td>' . "\n"
         .     '<td>';
 
-        if( isset($localizedQuestionType[$form['type']]) ) echo $localizedQuestionType[$form['type']];
+        if( isset($localizedQuestionType[$form['type']]) ) $out .= $localizedQuestionType[$form['type']];
 
-        echo '</td>' . "\n"
+        $out .= '</td>' . "\n"
         .     '</tr>' . "\n\n";
     }
 
     //--
-    echo '<tr>' . "\n"
+    $out .= '<tr>' . "\n"
     .     '<td>&nbsp;</td>' . "\n"
     .     '<td><small>' . get_lang('<span class="required">*</span> denotes required field') . '</small></td>' . "\n"
     .     '</tr>' . "\n\n";
 
     //-- buttons
-    echo '<tr>' . "\n"
+    $out .= '<tr>' . "\n"
     .     '<td>&nbsp;</td>' . "\n"
     .     '<td>'
     .     '<input type="submit" name="" id="" value="'.get_lang('Ok').'" />&nbsp;&nbsp;';
-    if( !is_null($exId) )    echo claro_html_button('./edit_exercise.php?exId='.$exId, get_lang("Cancel") );
-    else                    echo claro_html_button('./question_pool.php', get_lang("Cancel") );
-    echo '</td>' . "\n"
+    if( !is_null($exId) )    $out .= claro_html_button('./edit_exercise.php?exId='.$exId, get_lang("Cancel") );
+    else                    $out .= claro_html_button('./question_pool.php', get_lang("Cancel") );
+    $out .= '</td>' . "\n"
     .     '</tr>' . "\n\n";
 
-    echo '</table>' . "\n\n"
+    $out .= '</table>' . "\n\n"
     .     '</form>' . "\n\n";
 }
 else
@@ -342,13 +342,17 @@ else
                 . get_lang('Edit answers')
                 . '</a>';
 
-    echo claro_html_menu_horizontal($cmd_menu);
+    $out .= claro_html_menu_horizontal($cmd_menu);
 
-    echo $question->getQuestionAnswerHtml();
+    $out .= $question->getQuestionAnswerHtml();
 
 
 }
 
-include(get_path('incRepositorySys').'/claro_init_footer.inc.php');
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
+
+//include(get_path('incRepositorySys').'/claro_init_footer.inc.php');
 
 ?>

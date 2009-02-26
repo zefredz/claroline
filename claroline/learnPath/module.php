@@ -178,11 +178,11 @@ $cmd = ( isset($_REQUEST['cmd']) )? $_REQUEST['cmd'] : '';
 
 if ( $cmd == "updateName" )
 {
-    nameBox(MODULE_, UPDATE_);
+    echo nameBox(MODULE_, UPDATE_);
 }
 else
 {
-    nameBox(MODULE_, DISPLAY_);
+    echo nameBox(MODULE_, DISPLAY_);
 }
 
 if($module['contentType'] != CTLABEL_ )
@@ -195,30 +195,30 @@ if($module['contentType'] != CTLABEL_ )
     // this the comment of the module in ALL learning paths
     if ( $cmd == "updatecomment" )
     {
-        commentBox(MODULE_, UPDATE_);
+        echo commentBox(MODULE_, UPDATE_);
     }
     elseif ($cmd == "delcomment" )
     {
-        commentBox(MODULE_, DELETE_);
+        echo commentBox(MODULE_, DELETE_);
     }
     else
     {
-        commentBox(MODULE_, DISPLAY_);
+        echo commentBox(MODULE_, DISPLAY_);
     }
 
     //#### ADDED COMMENT #### courseAdmin can always modify this ####\\
     // this is a comment for THIS module in THIS learning path
     if ( $cmd == "updatespecificComment" )
     {
-        commentBox(LEARNINGPATHMODULE_, UPDATE_);
+        echo commentBox(LEARNINGPATHMODULE_, UPDATE_);
     }
     elseif ($cmd == "delspecificComment" )
     {
-        commentBox(LEARNINGPATHMODULE_, DELETE_);
+        echo commentBox(LEARNINGPATHMODULE_, DELETE_);
     }
     else
     {
-        commentBox(LEARNINGPATHMODULE_, DISPLAY_);
+        echo commentBox(LEARNINGPATHMODULE_, DISPLAY_);
     }
 } //  if($module['contentType'] != CTLABEL_ )
 

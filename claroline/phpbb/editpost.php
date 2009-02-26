@@ -173,15 +173,16 @@ else
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Forums'), 'index.php' );
 $noPHP_SELF       = true;
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
+//include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 // Forum Title
 
-echo claro_html_tool_title(get_lang('Forums'), $is_allowedToEdit ? 'help_forum.php' : false);
+$out .= claro_html_tool_title(get_lang('Forums'), $is_allowedToEdit ? 'help_forum.php' : false);
 
 if ( !$allowed || !$is_allowedToEdit )
 {
-      echo $dialogBox->render();
+      $out .= $dialogBox->render();
 }
 else
 {
@@ -190,11 +191,11 @@ else
     {
         if ( ! isset($_REQUEST['delete']) )
         {
-            disp_confirmation_message (get_lang('Your message has been entered'), $forum_id, $topic_id);
+            $out .= disp_confirmation_message (get_lang('Your message has been entered'), $forum_id, $topic_id);
         }
         else
         {
-            disp_confirmation_message (get_lang('Your message has been deleted'), $forum_id);
+            $out .= disp_confirmation_message (get_lang('Your message has been deleted'), $forum_id);
         }
     }
     else
@@ -203,10 +204,10 @@ else
 
         if ( $error )
         {
-            echo $dialogBox->render();
+            $out .= $dialogBox->render();
         }
 
-        echo disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_id, $subject)
+        $out .= disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, $topic_id, $subject)
         .    claro_html_menu_horizontal(disp_forum_toolbar($pagetype, $forum_id, $topic_id, 0))
 
         .    '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post" >' . "\n"
@@ -217,7 +218,7 @@ else
 
         if ( $first_post )
         {
-            echo '<tr valign="top">' . "\n"
+            $out .= '<tr valign="top">' . "\n"
             .    '<td align="right">' . "\n"
             .    '<label for="subject">' . get_lang('Subject') . '</label> : '
             .    '</td>' . "\n"
@@ -228,7 +229,7 @@ else
             ;
         }
 
-        echo '<tr valign="top">' . "\n"
+        $out .= '<tr valign="top">' . "\n"
         .    '<td align="right">' . "\n"
         .    '<br />' . get_lang('Message body') . ' : ' . "\n"
         .    '</td>' . "\n"
@@ -272,6 +273,10 @@ else
 /*-----------------------------------------------------------------
   Display Forum Footer
  -----------------------------------------------------------------*/
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+//include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
 
 ?>

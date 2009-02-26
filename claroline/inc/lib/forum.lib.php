@@ -757,8 +757,8 @@ function trig_topic_notification($topicId)
 
 function disp_confirmation_message ($message, $forumId = false, $topicId = false)
 {
-
-    echo '<table border="0" align="center" >' . "\n"
+    $out = '';
+    $out .= '<table border="0" align="center" >' . "\n"
        . '<tr>' . "\n"
        . '<td>' . "\n"
        . '<center>' . "\n"
@@ -767,22 +767,24 @@ function disp_confirmation_message ($message, $forumId = false, $topicId = false
     if ($forumId && $topicId)
     {
         $url = Url::Contextualize( get_module_url('CLFRM') . '/viewtopic.php?topic=' . $topicId . '&amp;forum=' . $forumId );
-        echo '<p>' . get_lang('Click <a href="%url">here</a> to view your message', array( '%url' => htmlspecialchars($url) ) ). '</p>' . "\n" ;
+        $out .= '<p>' . get_lang('Click <a href="%url">here</a> to view your message', array( '%url' => htmlspecialchars($url) ) ). '</p>' . "\n" ;
     }
 
     if ($forumId)
     {
         $url = Url::Contextualize( get_module_url('CLFRM') . '/viewforum.php?forum=' . $forumId );
-        echo '<p>' . get_lang('Click <a href="%url">here</a> to return to the forum topic list', array( '%url' => htmlspecialchars($url) ) ). '</p>' . "\n" ;
+        $out .= '<p>' . get_lang('Click <a href="%url">here</a> to return to the forum topic list', array( '%url' => htmlspecialchars($url) ) ). '</p>' . "\n" ;
     }
 
     $url = Url::Contextualize( get_module_entry_url('CLFRM') );
-    echo '<p>' . get_lang('Click <a href="%url">here</a> to return to the forum index', array( '%url' => htmlspecialchars( $url ) ) ). '</p>' . "\n" ;
+    $out .= '<p>' . get_lang('Click <a href="%url">here</a> to return to the forum index', array( '%url' => htmlspecialchars( $url ) ) ). '</p>' . "\n" ;
 
-    echo '</center>' . "\n"
+    $out .= '</center>' . "\n"
         . '</td>' . "\n"
         . '</tr>' . "\n"
         . '</table>' . "\n";
+        
+    return $out;
 }
 
 /**

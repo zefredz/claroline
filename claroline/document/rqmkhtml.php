@@ -51,9 +51,11 @@ if ( isset($_REQUEST['file']) /*&& is_download_url_encoded($_REQUEST['file']) */
 }
 
 $nameTools = get_lang('Create/edit document');
-include '../inc/claro_init_header.inc.php';
 
-echo claro_html_tool_title(array('mainTitle' => get_lang('Documents and Links'), 'subTitle' => get_lang('Create/edit document')));
+$out = '';
+//include '../inc/claro_init_header.inc.php';
+
+$out .= claro_html_tool_title(array('mainTitle' => get_lang('Documents and Links'), 'subTitle' => get_lang('Create/edit document')));
 
 /*========================================================================
 CREATE DOCUMENT
@@ -61,31 +63,30 @@ CREATE DOCUMENT
 
 if ($cmd ==  'rqMkHtml' )
 {
-    ?><form action="<?php echo htmlspecialchars(Url::Contextualize(get_module_entry_url('CLDOC')));?>" method="post">
-    <input type="hidden" name="cmd" value="exMkHtml" />
-    <input type="hidden" name="cwd" value="<?php echo htmlspecialchars(strip_tags($cwd)); ?>" />
-    <p>
-    <b><?php echo get_lang('Document name') ?>&nbsp;: </b><br />
-    <input type="text" name="fileName" size="80" />
-    </p>
-    <p>
-    <b><?php echo get_lang('Document content') ?>&nbsp;: </b>
-    <?php
+    $out .= '<form action="' . htmlspecialchars(Url::Contextualize(get_module_entry_url('CLDOC'))) .'" method="post">' . "\n"
+    .   '<input type="hidden" name="cmd" value="exMkHtml" />' . "\n"
+    .   '<input type="hidden" name="cwd" value="' . htmlspecialchars(strip_tags($cwd)) . '" />' . "\n"
+    .   '<p>' . "\n"
+    .   '<b>' . get_lang('Document name') . '&nbsp;: </b><br />' . "\n"
+    .   '<input type="text" name="fileName" size="80" />' . "\n"
+    .   '</p>' . "\n"
+    .   '<p>' . "\n"
+    .   '<b>' . get_lang('Document content') . '&nbsp;: </b>' . "\n"
+    ;
     if (!empty($_REQUEST['htmlContent'])) $content = $_REQUEST['htmlContent']; else $content = "";
 
-    echo claro_html_textarea_editor('htmlContent',$content);
+    $out .= claro_html_textarea_editor('htmlContent',$content);
 
     // the second argument _REQUEST['htmlContent'] for the case when we have to
     // get to the editor because of an error at creation
     // (eg forgot to give a file name)
-    ?>
-    </p>
-    <p>
-    <input type="submit" value="<?php echo get_lang('Ok'); ?>" />&nbsp;
-    <?php echo claro_html_button(htmlspecialchars(Url::Contextualize('./document.php?cmd=exChDir&amp;file='.strip_tags($cwd))), get_lang('Cancel')); ?>
-    </p>
-    </form>
-    <?php
+    $out .= '</p>'  . "\n"
+    .   '<p>' . "\n"
+    .   '<input type="submit" value="'. get_lang('Ok') .'" />&nbsp;'
+    .   claro_html_button(htmlspecialchars(Url::Contextualize('./document.php?cmd=exChDir&amp;file='.strip_tags($cwd))), get_lang('Cancel'))
+    .   '</p>' . "\n"
+    .   '</form>' . "\n"
+    ;    
 }
 elseif($cmd == "rqEditHtml" && !empty($_REQUEST['file']) )
 {
@@ -99,31 +100,35 @@ elseif($cmd == "rqEditHtml" && !empty($_REQUEST['file']) )
     }
 
 
-    $fileContent = get_html_body_content($fileContent)
+    $fileContent = get_html_body_content($fileContent);
 
-    ?><form action="<?php echo htmlspecialchars(Url::Contextualize(get_module_entry_url('CLDOC')));?>" method="post">
-    <input type="hidden" name="cmd" value="exEditHtml" />
-    <input type="hidden" name="file" value="<?php echo htmlspecialchars(base64_encode($_REQUEST['file'])); ?>" />
-    <b><?php echo get_lang('Document name') ?> : </b><br />
-    <?php echo $_REQUEST['file']?>
-    </p>
-    <p>
-    <b><?php echo get_lang('Document content') ?> : </b>
-    <?php
-    echo claro_html_textarea_editor('htmlContent', $fileContent );
-    ?>
-    </p>
-    <p>
-    <input type="submit" value="<?php echo get_lang('Ok'); ?>" />&nbsp;
-    <?php echo claro_html_button(htmlspecialchars(Url::Contextualize('./document.php?cmd=rqEdit&file='.base64_encode($_REQUEST['file']))), get_lang('Cancel')); ?>
-    </p>
-    </form>
-    <?php
+    $out .= '<form action="' . htmlspecialchars(Url::Contextualize(get_module_entry_url('CLDOC'))) .'" method="post">' . "\n"
+    .   '<input type="hidden" name="cmd" value="exEditHtml" />' . "\n"
+    .   '<input type="hidden" name="file" value="' . htmlspecialchars(base64_encode($_REQUEST['file'])) .'" />' . "\n"
+    .   '<b>'. get_lang('Document name') .' : </b><br />' . "\n"
+    . $_REQUEST['file'] . "\n"
+    .   '</p>' . "\n"
+    .   '<p>' . "\n"
+    .   '<b>'. get_lang('Document content') .' : </b>' . "\n"
+    .   claro_html_textarea_editor('htmlContent', $fileContent ) . "\n"
+    .   '</p>'
+    .   '<p>'
+    .   '<input type="submit" value="' . get_lang('Ok') .'" />&nbsp;' . "\n"
+    .   claro_html_button(htmlspecialchars(Url::Contextualize('./document.php?cmd=rqEdit&file='.base64_encode($_REQUEST['file']))), get_lang('Cancel')) . "\n"
+    .   '</p>' . "\n"
+    .   '</form>' . "\n"
+    ;
+    
 }
-?>
-<br />
-<br />
 
-<?php
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$out .= '<br />' . "\n"
+.   '<br />' . "\n"
+;
+
+//include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
+
 ?>

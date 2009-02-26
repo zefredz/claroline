@@ -20,6 +20,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  */
 
+/**
+ * Add javascript var for mimetex URL
+ */
+Claroline::getInstance()->display->header->addInlineJavascript('var mimeTexURL = "' . get_conf('claro_texRendererUrl') .'"');
+
+
 require dirname(__FILE__) . '/../GenericEditor.class.php';
 /**
  * Class to manage htmlarea overring simple textarea html
