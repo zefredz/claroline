@@ -59,7 +59,7 @@ Claroline.json = {
 };
 
 Claroline.spoil = function(item) {
-    $(item).parents("div").children("div.spoiler").toggle();
+    $(item).parents("div").children("div.spoilerContent").toggle();
     // change link display
     $(item).parents("div").children("a.reveal").toggleClass("showSpoiler");
     $(item).parents("div").children("a.reveal").toggleClass("hideSpoiler");

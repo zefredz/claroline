@@ -1,3 +1,18 @@
+function getElementsByClass( searchClass, domNode, tagName) {
+    if (domNode == null) domNode = document;
+    if (tagName == null) tagName = '*';
+    var el = new Array();
+    var tags = domNode.getElementsByTagName(tagName);
+    var tcl = " "+searchClass+" ";
+    for(i=0,j=0; i<tags.length; i++) {
+        var test = " " + tags[i].className + " ";
+        if (test.indexOf(tcl) != -1)
+            el[j++] = tags[i];
+    }
+    return el;
+}
+
+
 var baseURI = tinyMCE.baseURI.path;
 
 tinyMCE.init({
@@ -6,7 +21,7 @@ tinyMCE.init({
     mode : "textareas",
     editor_selector : "advancedMCE",
     // plugins must be the same as in tinyMCE_GZ.init
-    plugins : "template,media,paste,table,safari,claroimage,dailytube,texformula",
+    plugins : "template,media,paste,table,safari,claroimage,dailytube,texformula,spoiler",
     theme : "advanced",
     browsers : "safari,msie,gecko,opera",
 	directionality : text_dir,
@@ -18,7 +33,7 @@ tinyMCE.init({
     
     //-- advanced theme
     theme_advanced_buttons1 : "fontselect,fontsizeselect,formatselect,bold,italic,underline,strikethrough,separator,sub,sup,separator,undo,redo",
-    theme_advanced_buttons2 : "cut,copy,paste,pasteword,separator,justifyleft,justifycenter,justifyright,justifyfull,separator,bullist,numlist,separator,outdent,indent,separator,forecolor,backcolor,separator,hr,link,unlink,claroimage,media,dailytube,template,code,texformula",
+    theme_advanced_buttons2 : "cut,copy,paste,pasteword,separator,justifyleft,justifycenter,justifyright,justifyfull,separator,bullist,numlist,separator,outdent,indent,separator,forecolor,backcolor,separator,hr,link,unlink,claroimage,media,dailytube,template,code,texformula,spoiler",
     theme_advanced_buttons3 : "tablecontrols,separator,help",
     theme_advanced_toolbar_location : "top",
     theme_advanced_toolbar_align : "left",
@@ -41,11 +56,24 @@ tinyMCE.init({
     setup : function(ed) {
         // Change Tex code to Tex img
         ed.onBeforeSetContent.add(function(ed, o) {
-            o.content = o.content.replace(/\[tex\](.+?)\[\/tex\]/gi, '<img src="'+ mimeTexURL +'?$1" border="0" align="absmiddle" class="latexFormula" />');
+            o.content = o.content.replace(/\[tex\](.+?)\[\/tex\]/gi, '<img src="http://localhost/cgi-bin/mimetex.cgi?$1" border="0" align="absmiddle" class="latexFormula" />');
         });
         // Change Tex img to Tex code
         ed.onGetContent.add(function(ed, o) {
-            o.content = o.content.replace(/<img.*src="(.+?)\?(.+?)"(.+?)>/gi, '[tex]$2[/tex]');
+            o.content = o.content.replace(/<img.*src="(.+?)\?(.+?)"(.+?)>/gi, '[tex]$2[/tex]');            
+        });
+        // Change Spoiler class to Spoiler code
+        ed.onGetContent.add(function(ed, o) {
+            var content = ed.dom.getRoot();
+            var spoilers = $(content).find('div.spoiler');
+            $.each(spoilers, function() {
+                var title = $(this).find('a').text();
+                var spoilerContent = $(this).find('div.spoilerContent').html();
+                var spoilerTags = '<p>[spoiler /' + title + '/]</p>' + spoilerContent + '<p>[/spoiler]</p>';
+                $(this).replaceWith(spoilerTags);
+            });
+            $(content).find('div.spoiler').replaceWith(spoilers);
+            
         });
     }
 });

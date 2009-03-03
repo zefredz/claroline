@@ -1234,7 +1234,7 @@ function claro_parse_user_text($userText)
     $userText = renderTex($userText);
     $userText = make_clickable($userText);
     $userText = make_spoiler($userText);
-
+    
     if( !preg_match('/<!-- content:[^(\-\->)]*-->/', $userText) && !preg_match('/<br ?\/?>/i', $userText))
     {
         // only if the content isn't HTML change new line to <br>
@@ -1253,15 +1253,45 @@ function claro_parse_user_text($userText)
  */
 function make_spoiler($text)
 {
-    srand((double) microtime()*100000);
-
-    return preg_replace_callback(
-        "%\[spoiler.*(?:/([^'/]*)/)?\s*\](.*)\[/spoiler\]%isU",
-        "add_spoiler",
-        $text
-    );
-
+    $reg0a = "%(<p>\s*\[spoiler.*(?:/([^'/]*)/)?\s*\]([^'/]+)\s*</p>|<p>\s*\[spoiler.*(?:/([^'/]*)/)?\s*\]\s*</p>)%isU";
     
+    $text = preg_replace_callback( $reg0a, 'clean_spoilerStart', $text);
+    
+    $reg0b = "%(<p>\s*\[/spoiler\]\s*</p>|\[/spoiler\]\s*</p>)%isU";
+    
+    $text = preg_replace_callback( $reg0b, 'clean_spoilerEnd', $text);
+    
+    $reg1 = "%(<p>\[spoiler.*(?:/([^'/]*)/)?\s*\]|\[spoiler.*(?:/([^'/]*)/)?\s*\])%isU";
+    
+    $reg2 = "%(\[/spoiler\]\s*</p>|\[/spoiler\])%isU";
+    $replace2 = '</div>' . "\n"
+    .   '</div>' . "\n"
+    ;
+    
+    
+    
+    $out = preg_replace_callback ($reg1, 'add_spoiler', $text);
+    $out = preg_replace($reg2, $replace2, $out);
+    
+    return $out;
+}
+
+function clean_spoilerStart($match)
+{
+    if(isset($match[4]))
+    {
+        return '[spoiler /'.$match[4].'/]';    
+    }
+    else
+    {
+        return false;
+    }
+    
+}
+
+function clean_spoilerEnd($match)
+{
+    return '[/spoiler]';
 }
 
 /**
@@ -1273,16 +1303,15 @@ function make_spoiler($text)
 function add_spoiler($match)
 {
     // show and hide text
-    $spoiler_show_text = (!empty($match[1]) ? $match[1] : get_lang('Show') );
-    
-    return '<div>'
+    $spoiler_show_text = (!empty($match[3]) ? $match[3] : get_lang('Show') );
+    $out = '<div class="spoiler">'
     .   '<a href="#" class="reveal showSpoiler" onclick="javascript:Claroline.spoil($(this)); return false;">'
     .   $spoiler_show_text
     .   '</a>' . "\n"
-    .   '<div class="spoiler">' . "\n"
-    .   ( !empty($match[2]) ? $match[2] : '') 
-    .   '</div>' . "\n"
-    .   '</div>' . "\n";
+    .   '<div class="spoilerContent">' . "\n"
+    ;
+    
+    return $out;
 }
 
 
