@@ -294,6 +294,13 @@ class ClaroCourse
             $this->backlog->failure(get_lang('Course code needed'));
             $success = false ;
         }
+        
+        // Check course length
+        if( strlen($this->officialCode) > 12 )
+        {
+            $this->backlog->failure(get_lang('Course code too long'));
+            $success = false;
+        }
 
         // Validate email
         if ( empty($this->email) && $fieldRequiredStateList['email'])
@@ -467,7 +474,7 @@ class ClaroCourse
             . '<label for="course_officialCode">'
             . (get_conf('human_code_needed') ? '<span class="required">*</span> ' :'') . get_lang('Course code')
             . '</label>&nbsp;:</td>'
-            . '<td><input type="text" id="course_officialCode" name="course_officialCode" value="' . htmlspecialchars($this->officialCode) . '" size="20" />'
+            . '<td><input type="text" id="course_officialCode" name="course_officialCode" value="' . htmlspecialchars($this->officialCode) . '" size="20" maxlength="12" />'
             . (empty($this->courseId) ? '<br /><small>'.get_lang('max. 12 characters, e.g. <em>ROM2121</em>').'</small>':'')
             . '</td></tr>' . "\n" ;
 
