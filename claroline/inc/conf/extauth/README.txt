@@ -132,7 +132,7 @@ parameters of an existing driver, do not edit this one
                 'isCourseCreator'
             );
 
-In addiction, each driver can define a specific driver PHP class or one or more
+In addition, each driver can define a specific driver PHP class or one or more
 specific functions to process the data retreived from the authentication source.
 
 For more information : http://forum.claroline.net
