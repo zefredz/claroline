@@ -446,7 +446,7 @@ class ClaroCourse
 
         $html = '';
 
-        $html .= '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
+        $html .= '<form method="post" id="courseSettings" action="' . $_SERVER['PHP_SELF'] . '" >' . "\n"
         .    claro_form_relay_context()
             . '<input type="hidden" name="cmd" value="'.(empty($this->courseId)?'rqProgress':'exEdit').'" />' . "\n"
             . '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n"
@@ -651,6 +651,14 @@ class ClaroCourse
 
         $html .= '</table>' . "\n"
             .'</form>' . "\n" ;
+            
+        $html .= '<script type="text/javascript">' . "\n"
+        .   '$("#courseSettings").submit(function(){
+                if($("#registration_true").attr("checked")){
+                    $("#registrationKey").val("");
+                }
+            });' . "\n"
+        .   '</script>' . "\n";
 
         return $html;
 
