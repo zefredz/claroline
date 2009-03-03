@@ -47,7 +47,11 @@ else                            $cwd = '';
 
 if ( isset($_REQUEST['file']) /*&& is_download_url_encoded($_REQUEST['file']) */ )
 {
-    $_REQUEST['file'] = download_url_decode( $_REQUEST['file'] );
+    $file = download_url_decode( $_REQUEST['file'] );
+}
+else
+{
+    $file = '';
 }
 
 $nameTools = get_lang('Create/edit document');
@@ -88,11 +92,11 @@ if ($cmd ==  'rqMkHtml' )
     .   '</form>' . "\n"
     ;    
 }
-elseif($cmd == "rqEditHtml" && !empty($_REQUEST['file']) )
+elseif($cmd == "rqEditHtml" && !empty($file) )
 {
-    if ( is_parent_path($baseWorkDir, $_REQUEST['file'] ) )
+    if ( is_parent_path($baseWorkDir, $file ) )
     {
-        $fileContent = implode("\n",file($baseWorkDir.$_REQUEST['file']));
+        $fileContent = implode("\n",file($baseWorkDir.$file));
     }
     else
     {
@@ -101,12 +105,11 @@ elseif($cmd == "rqEditHtml" && !empty($_REQUEST['file']) )
 
 
     $fileContent = get_html_body_content($fileContent);
-
     $out .= '<form action="' . htmlspecialchars(Url::Contextualize(get_module_entry_url('CLDOC'))) .'" method="post">' . "\n"
     .   '<input type="hidden" name="cmd" value="exEditHtml" />' . "\n"
-    .   '<input type="hidden" name="file" value="' . htmlspecialchars(base64_encode($_REQUEST['file'])) .'" />' . "\n"
+    .   '<input type="hidden" name="file" value="' . htmlspecialchars(base64_encode($file)) .'" />' . "\n"
     .   '<b>'. get_lang('Document name') .' : </b><br />' . "\n"
-    . $_REQUEST['file'] . "\n"
+    . $file . "\n"
     .   '</p>' . "\n"
     .   '<p>' . "\n"
     .   '<b>'. get_lang('Document content') .' : </b>' . "\n"

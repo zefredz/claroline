@@ -486,14 +486,6 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
                             CREATE DOCUMENT : STEP 2
       ------------------------------------------------------------------------*/
 
-    $htmlContentHeader = '<html>' . "\n"
-        . '<head>' . "\n"
-        . '<meta http-equiv="Content-Type" content="text/HTML; charset=' . get_locale('charset') . '"  />' . "\n"
-        . '</head>' . "\n"
-        . '<body>' . "\n";
-
-    $htmlContentFooter = '</body></html>';
-
     if ('exMkHtml' == $cmd)
     {
         $fileName = replace_dangerous_char(trim($_REQUEST['fileName']));
@@ -504,18 +496,21 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
             if ( ! in_array( strtolower (get_file_extension($_REQUEST['fileName']) ),
                            array('html', 'htm') ) )
             {
-                $fileName = $fileName.'.htm';
+                $fileName = $fileName.'.html';
             }
 
             $cwd = secure_file_path( $cwd);
 
             $htmlContent = claro_parse_user_text( $_REQUEST['htmlContent'] );
 
-            $htmlContent =  $htmlContentHeader . $htmlContent . $htmlContentFooter;
-
+            $template = new PhpTemplate( get_path('incRepositorySys') . '/templates/document_create.tpl.php' );
+            $template->assign('content', $htmlContent);
+            
+            $htmlContent = $template->render();
+            
             create_file($baseWorkDir.$cwd.'/'.$fileName,
                         $htmlContent);
-
+            
             $eventNotifier->notifyCourseEvent('document_htmlfile_created',claro_get_current_course_id(), claro_get_current_tool_id(), $cwd.'/'.$fileName, claro_get_current_group_id(), "0");
             $dialogBox->success( get_lang('File created') );
         }
@@ -551,8 +546,11 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
         if ($fp)
         {
             $htmlContent = claro_parse_user_text( $_REQUEST['htmlContent'] );
-
-            $htmlContent =  $htmlContentHeader . $htmlContent . $htmlContentFooter;
+            
+            $template = new PhpTemplate(get_path('incRepositorySys') . '/templates/document_create.tpl.php' );
+            $template->assign('content', $htmlContent);
+            
+            $htmlContent = $template->render();
 
             if ( fwrite($fp, $htmlContent) )
             {
