@@ -17,7 +17,7 @@
  *
  */
 
-$tlabelReq = 'CLUSR';
+//$tlabelReq = 'CLUSR';
 require '../inc/claro_init_global.inc.php';
 
 //used libraries
@@ -32,7 +32,7 @@ require_once './csv.class.php';
 
 include claro_get_conf_repository() . 'user_profile.conf.php';
 
-if ( !$_cid || !$is_courseAllowed ) claro_disp_auth_form(true);
+if ( !$is_courseAllowed ) claro_disp_auth_form(true);
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
 
@@ -199,7 +199,18 @@ switch( $step )
             $csvContent = $_SESSION['_csvImport'];
             $csvImport->setCSVContent( $csvContent );
             
-            $errors = $csvImport->importUsersInCourse( $_cid );
+            if(is_null($_cid))
+            {
+                if(!claro_is_platform_admin() )
+                {
+                  claro_die(get_lang('Not allowed'));
+                }
+                $errors = $csvImport->importUsers();
+            }
+            else
+            {
+                $errors = $csvImport->importUsersInCourse( $_cid );   
+            }            
             
             if( !empty($errors) )
             {

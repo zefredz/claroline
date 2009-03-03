@@ -384,6 +384,77 @@ class csvImport extends csv
         
         return null;
     }
+    
+    public function importUsers()
+    {
+        $csvContent = $this->getCSVContent();
+        if( empty( $csvContent ) )
+        {
+            return false;
+        }
+        
+        if( !(isset($_REQUEST['users']) && count($_REQUEST['users']) ) )
+        {
+            return false;
+        }
+        
+        $csvUseableArray = $this->createUsableArray( $csvContent );
+        
+        $fields = $csvContent[0];
+        unset( $csvContent[0] );       
+        
+        $logs = array();
+        
+        $tbl_mdb_names  = claro_sql_get_main_tbl();
+        $tbl_user       = $tbl_mdb_names['user'];
+        $tbl_course_user = $tbl_mdb_names['rel_course_user'];
+        
+        $tbl_cdb_names = claro_sql_get_course_tbl();
+        $tbl_group_rel_team_user     = $tbl_cdb_names['group_rel_team_user'];
+        
+        $groupsImported = array();
+            
+        foreach( $_REQUEST['users'] as $user_id )
+        {
+            if(!isset($csvUseableArray['username'][$user_id]))
+            {
+                $logs[] = get_lang('Unable to find the user in the csv');
+            }
+            else
+            {
+                $userInfo['username'] = $csvUseableArray['username'][$user_id];
+                $userInfo['firstname'] = $csvUseableArray['firstname'][$user_id];
+                $userInfo['lastname'] = $csvUseableArray['lastname'][$user_id];
+                $userInfo['email'] = $csvUseableArray['email'][$user_id];
+                $userInfo['password'] = '';
+                $userInfo['officialCode'] = $csvUseableArray['officialCode'][$user_id];
+                $groupNames = $csvUseableArray['groupName'][$user_id];
+                
+                //check user existe if not create is asked                
+                $resultSearch = user_search( array( 'username' => $userInfo['username'] ), null, true, true );
+                
+                if( empty($resultSearch))
+                {
+                    
+                    $userId = user_create( $userInfo );
+                    if( $userId != 0 )
+                    {
+                        //$logs[] = get_lang( 'User %username created successfully', array( '%username' => $userInfo['username'] ) );
+                    }
+                    else
+                    {
+                        $logs[] = get_lang( 'Unable to create user %username', array('%username' => $userInfo['username'] ) );
+                    }
+                }
+                else
+                {
+                    $userId = $resultSearch[0]['uid'];
+                }
+            }
+        }
+        
+        return $logs;
+    }
     /**
      * import users in course
      *
