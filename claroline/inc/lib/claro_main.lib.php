@@ -15,7 +15,8 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @package KERNEL
  *
  */
- 
+
+require_once(dirname(__FILE__) . '/language.lib.php');
 require_once(dirname(__FILE__) . '/core/core.lib.php');
 require_once(dirname(__FILE__) . '/core/context.lib.php');
 
@@ -66,6 +67,7 @@ require_once(dirname(__FILE__) . '/textzone.lib.php');
  * SECTION :  Modules functions
  */
 require_once(dirname(__FILE__) . '/module.lib.php');
+require_once(dirname(__FILE__) . '/module/manage.lib.php');
 
 /**
  * SECTION :  Icon functions

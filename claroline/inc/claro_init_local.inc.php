@@ -600,6 +600,76 @@ else // else of if ($uidReset || $cidReset) - continue with the previous values
         ;
 }
 
+// Installed module in course if available in platform and not in course
+if ( $_cid )
+{
+    // 1. get tool list from main db
+    
+    $mainCourseToolList = claro_get_main_course_tool_list(); 
+    
+    // 2. get tool list from course
+    
+    $tbl_mdb_names = claro_sql_get_main_tbl();
+    $tbl_tool            = $tbl_mdb_names['tool'           ];
+
+    $sql = " SELECT pct.id                    AS toolId       ,
+                  pct.claro_label           AS label
+
+            FROM `".$_course['dbNameGlu']."tool_list` AS ctl
+            INNER JOIN `".$tbl_tool."` AS pct
+            ON `ctl`.`tool_id` = `pct`.`id`
+            WHERE 1";
+    
+    $courseToolList = claro_sql_query_fetch_all_rows($sql);
+    
+    // var_dump( $courseToolList );
+    
+    $tmp = array();
+    
+    foreach ( $courseToolList as $thisCourseTool )
+    {
+        $tmp[$thisCourseTool['label']] = $thisCourseTool['toolId'];
+    }
+    
+    // 3. compare the two lists and register and install/activate missing tool if necessary
+    
+    $listOfToolsToAdd = array();
+    
+    foreach ( $mainCourseToolList as $thisToolId => $thisMainCourseTool )
+    {
+        if ( ! array_key_exists( $thisMainCourseTool['label'], $tmp ) )
+        {
+            $listOfToolsToAdd[$thisMainCourseTool['label']] = $thisToolId;
+        }
+    }
+    
+    foreach ( $listOfToolsToAdd as $toolLabel => $toolId )
+    {
+        if ( ! is_module_registered_in_course( $toolId, $_cid ) )
+        {
+            register_module_in_single_course( $toolId, $_cid );
+        }
+        
+        if ( !is_module_installed_in_course( $toolLabel, $_cid )
+            && 'AUTOMATIC' == get_module_data( $toolLabel, 'add_in_course' ) )
+        {
+            install_module_in_course( $tlabelReq, $_cid );
+        }
+        
+        if ( 'AUTOMATIC' == get_module_data( $toolLabel, 'add_in_course' ) )
+        {
+            if ( 'activated' == get_module_data( $toolLabel, 'activation' ) )
+            {
+                update_course_tool_activation_in_course( $toolId,
+                    $_cid,
+                    true );
+                
+                set_module_visibility_in_course( $toolId, $_cid, true );
+            }
+        }
+    }
+}
+
 /*---------------------------------------------------------------------------
   Course / tool relation initialisation
  ---------------------------------------------------------------------------*/

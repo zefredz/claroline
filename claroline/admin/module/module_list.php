@@ -364,7 +364,7 @@ switch ( $cmd )
                     if ($activateOnInstall)
                     {
 
-                        list ( $backlogActivation, $successActivation ) = activate_module ( $module_id ) ;
+                        list ( $backlogActivation, $successActivation ) = activate_module ( $module_id, false ) ;
                         $detailsActivation = $backlogActivation->output () ;
 
                         if ($successActivation)

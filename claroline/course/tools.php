@@ -353,11 +353,18 @@ if ( 'exAddTool' == $cmd )
         
         if ( $toolId )
         {
+            if ( ! is_module_registered_in_course( $toolId, claro_get_current_course_id()) )
+            {
+                register_module_in_single_course( $toolId, claro_get_current_course_id() );
+            }
+            
             // update course_tool.activated
             if ( update_course_tool_activation_in_course( $toolId,
                                                          claro_get_current_course_id(),
                                                          true ) )
             {
+                set_module_visibility_in_course( $toolId, $_cid, true );
+                
                 $dialogBox->success( get_lang('Tool added to course') );
                 $cidReset = TRUE;
                 $cidReq   = claro_get_current_course_id();

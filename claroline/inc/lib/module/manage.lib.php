@@ -404,7 +404,7 @@ function generate_module_cache()
  *      int moduleId if the install process suceeded, false otherwise
  */
 
-function install_module($modulePath, $skipCheckDir = false)
+function install_module($modulePath, $skipCheckDir = false, $registerModuleInCourses = false )
 {
     $backlog = new Backlog;
     $moduleId = false;
@@ -503,7 +503,7 @@ function install_module($modulePath, $skipCheckDir = false)
 
                     $moduleInfo =  get_module_info($moduleId);
 
-                    if (($moduleInfo['type'] =='tool') && $moduleId)
+                    if (($registerModuleInCourses && $moduleInfo['type'] =='tool') && $moduleId)
                     {
                         list ( $backlog2, $success2 ) = register_module_in_courses( $moduleId );
 
@@ -556,7 +556,7 @@ function install_module($modulePath, $skipCheckDir = false)
  *      boolean true if the activation process suceeded, false otherwise
  */
 
-function activate_module($moduleId)
+function activate_module($moduleId, $activateInAllCourses = false)
 {
     $success = true;
     $backlog1 = new Backlog;
@@ -574,8 +574,9 @@ function activate_module($moduleId)
     
     $backlog1->append($backlog2);
     
-    if ( $moduleInfo['type'] == 'tool' && $moduleInfo['activateInCourses'] == 'AUTOMATIC' )
+    if ( $activateInAllCourses && $moduleInfo['type'] == 'tool' /*&& $moduleInfo['activateInCourses'] == 'AUTOMATIC'*/ )
     {
+        // FIXME : ONLY WHEN INSTALLING A MODULE !
         if ( activate_module_in_all_courses( $moduleInfo['label'] ) )
         {
             $success = true;
@@ -633,6 +634,7 @@ function activate_module_in_platform( $moduleId )
     
     return array( $backlog, $success );
 }
+
 function activate_module_in_all_courses( $toolLabel )
 {
     $toolId = get_tool_id_from_module_label( $toolLabel );
@@ -931,7 +933,7 @@ function register_module_in_courses( $moduleId )
 /**
  * Register module in a course
  * @param int $tool_id
- * @param int $course_id
+ * @param string $course_id
  * @return boolean true if suceeded, false otherwise
  */
 function register_module_in_single_course( $tool_id, $course_code )
@@ -1843,4 +1845,17 @@ function update_tool_installation_in_course( $toolId, $courseId )
     {
         false;
     }
+}
+
+function is_module_registered_in_course( $toolId, $courseId )
+{
+    $tbl_cdb_names = claro_sql_get_course_tbl( claro_get_course_db_name_glued($courseId) );
+    $tblCourseToolList = $tbl_cdb_names['tool'];
+    
+    $sql = "SELECT COUNT(*) FROM `{$tblCourseToolList}`\n"
+        . "WHERE tool_id = " . (int) $toolId;
+    
+    $res = claro_sql_query_fetch_single_value( $sql );
+    
+    return $res;
 }
