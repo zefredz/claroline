@@ -248,14 +248,25 @@ class From
         }
     }
     
+    private static $cache = array();
+    
     /**
      * Get the loader for a given module
      * @param   string $moduleLabel
      * @return  Loader instance
      */
-    public static function module( $moduleLabel )
+    public static function module( $moduleLabel = null )
     {
-        $module = new self($moduleLabel);
-        return $module;
+        if ( empty($moduleLabel) )
+        {
+            $moduleLabel = get_current_module_label();
+        }
+        
+        if ( !array_key_exists( $moduleLabel, self::$cache ) )
+        {
+            self::$cache[$moduleLabel] = new self($moduleLabel);
+        }
+        
+        return self::$cache[$moduleLabel];
     }
 }
