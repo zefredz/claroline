@@ -179,48 +179,62 @@ class ClaroPage implements Display
      */
     public function render()
     {
-        $this->header->sendHttpHeaders();
-
-        $output = '';
-
-        $output .= $this->header->render();
-        
-        if ( true === get_conf( 'warnSessionLost', true ) && claro_get_current_user_id() )
+        try
         {
-            $this->jsBodyOnload[] = 'claro_session_loss_countdown(' . ini_get('session.gc_maxlifetime') . ');';
-        }
-        
-        $this->_globalVarsCompat();
-
-        $output .= '<body dir="' . get_locale('text_dir') . '"'
-            .    ( !empty( $this->jsBodyOnload ) ? ' onload="' . implode('', $this->jsBodyOnload ) . '" ':'')
-            .    '>' . "\n"
-            ;
+            $this->header->sendHttpHeaders();
+    
+            $output = '';
+    
+            $output .= $this->header->render();
             
-        if ( ! $this->bannerAtEnd )
-        {
-            $output .= $this->banner->render() . "\n";
+            if ( true === get_conf( 'warnSessionLost', true ) && claro_get_current_user_id() )
+            {
+                $this->jsBodyOnload[] = 'claro_session_loss_countdown(' . ini_get('session.gc_maxlifetime') . ');';
+            }
+            
+            $this->_globalVarsCompat();
+    
+            $output .= '<body dir="' . get_locale('text_dir') . '"'
+                .    ( !empty( $this->jsBodyOnload ) ? ' onload="' . implode('', $this->jsBodyOnload ) . '" ':'')
+                .    '>' . "\n"
+                ;
+                
+            if ( ! $this->bannerAtEnd )
+            {
+                $output .= $this->banner->render() . "\n";
+            }
+    
+            $output .= $this->body->render();
+            
+            if ( $this->bannerAtEnd )
+            {
+                $output .= $this->banner->render() . "\n";
+            }
+    
+            $output .= $this->footer->render() . "\n";
+    
+            if ( claro_debug_mode() )
+            {
+                $output .= claro_disp_debug_banner();
+            }
+    
+            $output .= '</body>' . "\n";
+    
+            $output .= '</html>' . "\n";
+    
+            return $output;
         }
-
-        $output .= $this->body->render();
-        
-        if ( $this->bannerAtEnd )
+        catch( Exception $e )
         {
-            $output .= $this->banner->render() . "\n";
+            if ( claro_debug_mode() )
+            {
+                claro_die( $e->__toString() );
+            }
+            else
+            {
+                claro_die( $e->getMessage() );
+            }
         }
-
-        $output .= $this->footer->render() . "\n";
-
-        if ( claro_debug_mode() )
-        {
-            $output .= claro_disp_debug_banner();
-        }
-
-        $output .= '</body>' . "\n";
-
-        $output .= '</html>' . "\n";
-
-        return $output;
     }
 }
 

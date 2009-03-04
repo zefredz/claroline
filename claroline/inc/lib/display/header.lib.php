@@ -132,6 +132,11 @@
             {
                 $this->_httpXtraHeaders = array_merge($this->_httpXtraHeaders, $GLOBALS['httpHeadXtra'] );
             }
+            
+            if ( isset( $GLOBALS['nameTools'] ) && !empty($GLOBALS['nameTools']) )
+            {
+                $this->_nameTools = $GLOBALS['nameTools'];
+            }
         }
         
         
@@ -145,9 +150,9 @@
             
             $titlePage = '';
 
-            if(!empty($nameTools))
+            if(!empty($this->_nameTools))
             {
-                $titlePage .= $nameTools . ' - ';
+                $titlePage .= $_nameTools . ' - ';
             }
 
             if(claro_is_in_a_course() && claro_get_current_course_data('officialCode') != '')
