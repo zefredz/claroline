@@ -490,11 +490,11 @@ if ( !class_exists('ScormExport') )
                     $documentName = basename($module['path']);
                     if ( dirname($module['path']) != '/' )
                     {
-                        $destinationDir = $this->destDir . '/Documents' . dirname($module['path']) . '/';
+                        $destinationDir = $this->destDir . '/Documents' . dirname($module['path']) ;
                     }
                     else
                     {
-                        $destinationDir = $this->destDir . '/Documents/';
+                        $destinationDir = $this->destDir . '/Documents';
                     }
                     if ( ! is_dir($destinationDir) )
                     {
