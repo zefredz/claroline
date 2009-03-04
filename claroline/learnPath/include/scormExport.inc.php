@@ -498,7 +498,7 @@ if ( !class_exists('ScormExport') )
                     }
                     if ( ! is_dir($destinationDir) )
                     {
-                        claro_mkdir($destinationDir);
+                        claro_mkdir($destinationDir, CLARO_FILE_PERMISSIONS, true);
                     }
                     
                     claro_copy_file($this->srcDirDocument . $module['path'], $destinationDir);
