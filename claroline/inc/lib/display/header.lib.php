@@ -152,7 +152,7 @@
 
             if(!empty($this->_nameTools))
             {
-                $titlePage .= $_nameTools . ' - ';
+                $titlePage .= $this->_nameTools . ' - ';
             }
 
             if(claro_is_in_a_course() && claro_get_current_course_data('officialCode') != '')
