@@ -501,7 +501,7 @@ if ( !class_exists('ScormExport') )
                         claro_mkdir($destinationDir);
                     }
                     
-                    claro_copy_file($this->srcDirDocument . $module['path'], $destinationDir . $documentName);
+                    claro_copy_file($this->srcDirDocument . $module['path'], $destinationDir);
 
                     // TODO : If it's an html document, parse it and add the embed object (img, ...)
                 }
