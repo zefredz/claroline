@@ -434,6 +434,8 @@ else
             }
     
         // Edit a category (don't move the category)
+        $_REQUEST['nameCat'] = trim($_REQUEST['nameCat']);
+        $_REQUEST['codeCat'] = trim($_REQUEST['codeCat']);
         if( !empty($_REQUEST['nameCat']) && !empty($_REQUEST['codeCat']) )
         {
             if(!isset($_REQUEST['fatherCat']) && $doChange)
@@ -475,24 +477,44 @@ else
                     }
                     else
                     {
-                        $sql_ChangeInfoFaculty= " UPDATE `" . $tbl_course_node . "`
-                                                  SET name='". claro_sql_escape($_REQUEST["nameCat"]) ."',
-                                                      code='". claro_sql_escape($_REQUEST["codeCat"]) ."',
-                                                      canHaveCoursesChild='".$canHaveCoursesChild."'
-                                                      WHERE id='". (int)$_REQUEST["id"]."'";
-                        claro_sql_query($sql_ChangeInfoFaculty);
-    
-                        // Change code_P for his childeren
-                        if($_REQUEST['codeCat'] != $facultyEdit['code'])
+                        $sql_ChangeInfoFaculty= "SELECT id
+                                                FROM `" . $tbl_course_node . "`
+                                                WHERE code = '". claro_sql_escape($_REQUEST["codeCat"]) ."'
+                                                AND id != '". (int)$_REQUEST["id"] ."'"
+                                                ;
+                        $_id = claro_sql_query_fetch_single_value( $sql_ChangeInfoFaculty );
+                        if($_id )
                         {
-                            $sql_ChangeCodeParent= " UPDATE `" . $tbl_course_node . "`
-                                                     SET code_P='" . claro_sql_escape($_REQUEST['codeCat']) . "'
-                                                     WHERE code_P='" . claro_sql_escape($facultyEdit['code']) . "'";
-                            claro_sql_query($sql_ChangeCodeParent);
+                            $dialogBox->error( get_lang('Code already exists for an other category') );
                         }
-    
-                        // Confirm edition
-                        $dialogBox->success( get_lang('Changes have been saved') );
+                        else
+                        {
+                            $sql_ChangeInfoFaculty= " UPDATE `" . $tbl_course_node . "`
+                                                      SET name='". claro_sql_escape($_REQUEST["nameCat"]) ."',
+                                                          code='". claro_sql_escape($_REQUEST["codeCat"]) ."',
+                                                          canHaveCoursesChild='".$canHaveCoursesChild."'
+                                                          WHERE id='". (int)$_REQUEST["id"]."'";
+                            $result = claro_sql_query($sql_ChangeInfoFaculty);
+                            if( !$result )
+                            {
+                                $dialogBox->error( get_lang('Code already exists for an other category') );
+                            }
+                            else
+                            {
+                                // Change code_P for his childeren
+                                if($_REQUEST['codeCat'] != $facultyEdit['code'])
+                                {
+                                    $sql_ChangeCodeParent= " UPDATE `" . $tbl_course_node . "`
+                                                             SET code_P='" . claro_sql_escape($_REQUEST['codeCat']) . "'
+                                                             WHERE code_P='" . claro_sql_escape($facultyEdit['code']) . "'";
+                                    claro_sql_query($sql_ChangeCodeParent);
+                                }
+            
+                                // Confirm edition
+                                $dialogBox->success( get_lang('Changes have been saved') );
+                            }
+                        }    
+                        
                     }
     
                     //Change the code of the faculte in the table cours
