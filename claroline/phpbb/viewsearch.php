@@ -3,9 +3,9 @@
 $tlabelReq = 'CLFRM';
 
 require '../inc/claro_init_global.inc.php';
-require get_path('incRepositorySys') . '/lib/forum.lib.php';
-require get_path('incRepositorySys') . '/lib/group.lib.inc.php';
-include_once get_path('incRepositorySys') . '/lib/user.lib.php';
+require_once get_path('incRepositorySys') . '/lib/forum.lib.php';
+require_once get_path('incRepositorySys') . '/lib/group.lib.inc.php';
+require_once get_path('incRepositorySys') . '/lib/user.lib.php';
 
 $last_visit        = claro_get_current_user_data('lastLogin');
 $is_groupPrivate   = claro_get_current_group_properties_data('private');

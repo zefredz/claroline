@@ -16,8 +16,9 @@
     // load Claroline kernel
     require_once dirname(__FILE__) . '/../../../../../inc/claro_init_global.inc.php';
     
-    require get_path('incRepositorySys') . '/lib/fileDisplay.lib.php';
-    require get_path('incRepositorySys') . '/lib/image.lib.php';
+    require_once get_path('incRepositorySys') . '/lib/fileDisplay.lib.php';
+    require_once get_path('incRepositorySys') . '/lib/image.lib.php';
+    
     /*
      * init request vars
      */

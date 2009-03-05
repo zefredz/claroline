@@ -65,7 +65,7 @@ if ( isset($_COOKIE[$cookieName]) )
                                 SOAP CLIENT INIT
       ------------------------------------------------------------------------*/
 
-    require $nuSoapPath;
+    require_once $nuSoapPath;
 
     $paramList = array('auth'   => $serverAuthenticationKey, 
                        'cookie' => $_COOKIE[$cookieName],  

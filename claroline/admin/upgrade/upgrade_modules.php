@@ -26,7 +26,7 @@ DEFINE ('DISPLAY_RESULT_ERROR_PANEL', __LINE__);
 DEFINE ('DISPLAY_RESULT_SUCCESS_PANEL', __LINE__);
 $display = DISPLAY_WELCOME_PANEL;
 
-require $includePath . '/lib/module/manage.lib.php';
+require_once $includePath . '/lib/module/manage.lib.php';
 
 // Security Check
 if (!claro_is_platform_admin()) upgrade_disp_auth_form();

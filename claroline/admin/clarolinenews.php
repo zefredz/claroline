@@ -26,7 +26,7 @@ if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
 require_once get_path('incRepositorySys') . '/lib/admin.lib.inc.php';
 // rss reader library
-require get_path('incRepositorySys') . '/lib/thirdparty/lastRSS/lastRSS.lib.php';
+require_once get_path('incRepositorySys') . '/lib/thirdparty/lastRSS/lastRSS.lib.php';
 
 
 $nameTools = get_lang('Claroline.net news');

@@ -18,7 +18,7 @@
 
 require '../inc/claro_init_global.inc.php';
 
-require get_path('incRepositorySys').'/lib/courselist.lib.php';
+require_once get_path('incRepositorySys').'/lib/courselist.lib.php';
 
 $nameTools  = get_lang('User\'s course');
 $noPHP_SELF = TRUE;
@@ -35,9 +35,9 @@ $can_see_hidden_course = claro_is_platform_admin();
 Include Files and initialize variables
 ---------------------------------------------------------------------*/
 
-require get_path('incRepositorySys') . '/lib/user.lib.php';
-require get_path('incRepositorySys') . '/lib/course_user.lib.php';
-require get_path('incRepositorySys') . '/lib/class.lib.php';
+require_once get_path('incRepositorySys') . '/lib/user.lib.php';
+require_once get_path('incRepositorySys') . '/lib/course_user.lib.php';
+require_once get_path('incRepositorySys') . '/lib/class.lib.php';
 include claro_get_conf_repository() . 'user_profile.conf.php';
 
 $parentCategoryCode = '';

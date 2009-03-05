@@ -20,8 +20,8 @@ require_once dirname( __FILE__ ) . '../../inc/claro_init_global.inc.php';
  * Libraries
  */
 require_once get_path('incRepositorySys') . '/lib/form.lib.php';
-require dirname(__FILE__) . '/lib/trackingManager.class.php';
-require dirname(__FILE__) . '/lib/trackingManagerRegistry.class.php';
+require_once dirname(__FILE__) . '/lib/trackingManager.class.php';
+require_once dirname(__FILE__) . '/lib/trackingManagerRegistry.class.php';
 
 /*
  * Init request vars
