@@ -25,12 +25,12 @@
  =====================================================================*/
 
 // Initialise Upgrade
-require 'upgrade_init_global.inc.php';
+require_once 'upgrade_init_global.inc.php';
 
 // Security Check
 if ( ! claro_is_platform_admin()) upgrade_disp_auth_form();
 
-require $includePath . '/lib/module/manage.lib.php';
+require_once $includePath . '/lib/module/manage.lib.php';
 
 // Define display
 DEFINE('DISPLAY_WELCOME_PANEL', 1);
@@ -80,10 +80,10 @@ if ($cmd == 'run')
 {
     // include sql to upgrade the main Database
 
-    include('./upgrade_main_db_16.lib.php');
-    include('./upgrade_main_db_17.lib.php');
-    include('./upgrade_main_db_18.lib.php');
-    include('./upgrade_main_db_19.lib.php');
+    require_once('./upgrade_main_db_16.lib.php');
+    require_once('./upgrade_main_db_17.lib.php');
+    require_once('./upgrade_main_db_18.lib.php');
+    require_once('./upgrade_main_db_19.lib.php');
 
     $display = DISPLAY_RESULT_PANEL;
 

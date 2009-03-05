@@ -81,8 +81,8 @@ session_start();
   Include main library
   ----------------------------------------------------------------------*/
 
-require $includePath . '/lib/claro_main.lib.php';
-require $includePath . '/lib/fileManage.lib.php';
+require_once $includePath . '/lib/claro_main.lib.php';
+require_once $includePath . '/lib/fileManage.lib.php';
 
 // conf variables
 
@@ -94,9 +94,9 @@ $clarolineRepositorySys = get_conf('rootSys') . $clarolineRepositoryAppend;
   Include upgrade library
   ----------------------------------------------------------------------*/
 
-require $includePath . '/lib/config.lib.inc.php';
-require dirname(__FILE__) . '/configUpgrade.class.php';
-require 'upgrade.lib.php';
+require_once $includePath . '/lib/config.lib.inc.php';
+require_once dirname(__FILE__) . '/configUpgrade.class.php';
+require_once 'upgrade.lib.php';
 
 /**
  * List of accepted error - See MySQL error codes :
