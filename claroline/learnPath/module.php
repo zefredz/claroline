@@ -70,11 +70,11 @@ $tbl_quiz_exercise = $tbl_cdb_names['qwz_exercise'];
 $dbTable = $TABLEASSET; // for old functions of document tool
 
 //lib of this tool
-include(get_path('incRepositorySys')."/lib/learnPath.lib.inc.php");
+require_once(get_path('incRepositorySys')."/lib/learnPath.lib.inc.php");
 
-include(get_path('incRepositorySys')."/lib/fileDisplay.lib.php");
-include(get_path('incRepositorySys')."/lib/fileManage.lib.php");
-include(get_path('incRepositorySys')."/lib/fileUpload.lib.php");
+require_once(get_path('incRepositorySys')."/lib/fileDisplay.lib.php");
+require_once(get_path('incRepositorySys')."/lib/fileManage.lib.php");
+require_once(get_path('incRepositorySys')."/lib/fileUpload.lib.php");
 
 // clean exercise session vars
 unset($_SESSION['serializedExercise']);
@@ -166,7 +166,7 @@ if( !$is_allowedToEdit
 }
 
 //header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+require_once get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 //####################################################################################\\
 //################################## MODULE NAME BOX #################################\\
@@ -371,13 +371,13 @@ if( $is_allowedToEdit ) // for teacher only
     switch ($module['contentType'])
     {
         case CTDOCUMENT_ :
-            include("./include/document.inc.php");
+            require("./include/document.inc.php");
             break;
         case CTEXERCISE_ :
-            include("./include/exercise.inc.php");
+            require("./include/exercise.inc.php");
             break;
         case CTSCORM_ :
-            include("./include/scorm.inc.php");
+            require("./include/scorm.inc.php");
             break;
         case CTCLARODOC_ :
             break;
@@ -387,5 +387,5 @@ if( $is_allowedToEdit ) // for teacher only
 } // if ($is_allowedToEdit)
 
 // footer
-include(get_path('incRepositorySys').'/claro_init_footer.inc.php');
+require_once(get_path('incRepositorySys').'/claro_init_footer.inc.php');
 ?>
