@@ -131,7 +131,7 @@ function upgrade_main_database_course_to_19 ()
 
             // Add new column
 
-            $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "`,
+            $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "`
                                  ADD COLUMN `visibility` ENUM ('visible','invisible') DEFAULT 'invisible' NOT NULL  AFTER `visible`,
                                  ADD COLUMN `access`     ENUM ('public','private', 'platform') DEFAULT 'public' NOT NULL  after `visibility`,
                                  ADD COLUMN `registration` ENUM ('open','close') DEFAULT 'open' NOT NULL  AFTER `access`";
@@ -159,7 +159,7 @@ function upgrade_main_database_course_to_19 ()
             
         case 3 :
             // Remove the old column
-            $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "`,
+            $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "`
                                 DROP COLUMN `visible`";
 
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
@@ -171,7 +171,7 @@ function upgrade_main_database_course_to_19 ()
 
             // Rename `fake_code` column
 
-            $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "`,
+            $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "`
                                CHANGE `fake_code` `administrativeNumber` VARCHAR (255)  NULL";
 
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
@@ -183,9 +183,9 @@ function upgrade_main_database_course_to_19 ()
 
             // Rename `department` columns
 
-            $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "`,
+            $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "`
                               CHANGE `departmentUrlName` `extLinkName` VARCHAR (180)  NULL";
-            $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "`,
+            $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "`
                               CHANGE `departmentUrl` `extLinkUrl` VARCHAR (30)  NULL";
 
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
@@ -197,7 +197,7 @@ function upgrade_main_database_course_to_19 ()
 
             // Rename `language` column
 
-            $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "`,
+            $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "`
                                CHANGE `languageCourse` `language` VARCHAR (15) NOT NULL DEFAULT 'english'";
 
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
@@ -209,7 +209,7 @@ function upgrade_main_database_course_to_19 ()
     
             // rename enrollment_key column registrationKey
             
-            $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "`,
+            $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "`
                                CHANGE `enrollment_key` `registrationKey` VARCHAR (255) DEFAULT NULL";
             
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
