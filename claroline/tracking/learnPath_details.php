@@ -55,8 +55,8 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 $TABLECOURSUSER            = $tbl_rel_course_user;
 $TABLEUSER              = $tbl_user;
 
-include(get_path('incRepositorySys').'/lib/statsUtils.lib.inc.php');
-include(get_path('incRepositorySys').'/lib/learnPath.lib.inc.php');
+require_once(get_path('incRepositorySys').'/lib/statsUtils.lib.inc.php');
+require_once(get_path('incRepositorySys').'/lib/learnPath.lib.inc.php');
 
 include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 

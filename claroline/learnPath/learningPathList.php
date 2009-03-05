@@ -94,7 +94,7 @@ $cmd = ( isset($_REQUEST['cmd']) )? $_REQUEST['cmd'] : '';
 
 if ( $cmd == 'export' )
 {
-    include ('include/scormExport.inc.php');
+    require_once ('include/scormExport.inc.php');
     $scorm = new ScormExport($_REQUEST['path_id']);
     if ( !$scorm->export() )
     {

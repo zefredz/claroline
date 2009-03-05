@@ -11,7 +11,7 @@
  *
  */
 
-include get_path('incRepositorySys') . '/lib/csv.class.php';
+require_once get_path('incRepositorySys') . '/lib/csv.class.php';
 
 
 class csvUserList extends csv

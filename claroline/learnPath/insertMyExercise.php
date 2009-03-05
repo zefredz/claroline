@@ -34,7 +34,7 @@ $nameTools = get_lang('Add an exercise');
 
 //header
 include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-include get_path('incRepositorySys') . '/lib/fileDisplay.lib.php';
+require_once get_path('incRepositorySys') . '/lib/fileDisplay.lib.php';
 
 // tables names
 $tbl_cdb_names = claro_sql_get_course_tbl();
@@ -51,7 +51,7 @@ $tbl_quiz_exercise = $tbl_cdb_names['qwz_exercise'];
 if (!isset($dialogBox)) $dialogBox = "";
 
 //lib of this tool
-include(get_path('incRepositorySys')."/lib/learnPath.lib.inc.php");
+require_once(get_path('incRepositorySys')."/lib/learnPath.lib.inc.php");
 
 // $_SESSION
 if ( !isset($_SESSION['path_id']) )

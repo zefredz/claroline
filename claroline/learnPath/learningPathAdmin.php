@@ -65,7 +65,7 @@ claro_set_display_mode_available(true);
 $is_allowedToEdit = claro_is_allowed_to_edit();
 
 //lib of document tool
-include get_path('incRepositorySys') . '/lib/fileDisplay.lib.php';
+require_once get_path('incRepositorySys') . '/lib/fileDisplay.lib.php';
 
 // tables names
 
@@ -79,7 +79,7 @@ $TABLEUSERMODULEPROGRESS= claro_get_current_course_data('dbNameGlu') . "lp_user_
 if (!isset($dialogBox)) $dialogBox = "";
 
 //lib of this tool
-include get_path('incRepositorySys') . '/lib/learnPath.lib.inc.php';
+require_once get_path('incRepositorySys') . '/lib/learnPath.lib.inc.php';
 
 // $_SESSION
 

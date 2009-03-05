@@ -33,7 +33,7 @@ if (! $is_platformAdmin)
 // include configuration and library file
 
 include ('language.conf.php') ;
-include ('language.lib.php') ;
+require_once ('language.lib.php') ;
 
 // get start time
 $starttime = get_time () ;

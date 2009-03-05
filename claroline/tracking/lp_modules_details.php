@@ -64,12 +64,12 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 $TABLECOURSUSER            = $tbl_rel_course_user;
 $TABLEUSER              = $tbl_user;
 
-include(get_path('incRepositorySys')."/lib/statsUtils.lib.inc.php");
+require_once(get_path('incRepositorySys')."/lib/statsUtils.lib.inc.php");
 
 // lib of learning path tool
-include(get_path('incRepositorySys')."/lib/learnPath.lib.inc.php");
+require_once(get_path('incRepositorySys')."/lib/learnPath.lib.inc.php");
 //lib of document tool
-include(get_path('incRepositorySys')."/lib/fileDisplay.lib.php");
+require_once(get_path('incRepositorySys')."/lib/fileDisplay.lib.php");
 
 // only the course administrator or the student himself can view the tracking
 $is_allowedToTrack = claro_is_course_manager();

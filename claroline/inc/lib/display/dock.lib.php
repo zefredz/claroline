@@ -182,7 +182,7 @@
                     load_module_config();
                     Language::load_module_translation();
                 
-                    include $applet['path'];
+                    include_once $applet['path'];
                 }
                 else
                 {

@@ -18,7 +18,7 @@
 
 require '../../inc/claro_init_global.inc.php'; 
 
-include get_path('incRepositorySys') . '/lib/learnPath.lib.inc.php';
+require_once get_path('incRepositorySys') . '/lib/learnPath.lib.inc.php';
 
 /**
  * DB tables definition

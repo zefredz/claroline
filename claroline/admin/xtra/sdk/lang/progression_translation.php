@@ -23,8 +23,8 @@ if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
 // include configuration and library file
 include ('language.conf.php');
-include ('language.lib.php');
-include(get_path('incRepositorySys')."/lib/pager.lib.php");
+require_once ('language.lib.php');
+require_once(get_path('incRepositorySys')."/lib/pager.lib.php");
 
 // table
 

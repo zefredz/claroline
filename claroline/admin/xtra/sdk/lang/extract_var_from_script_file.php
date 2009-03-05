@@ -26,7 +26,7 @@ set_time_limit (0);
 // include configuration and library file
 
 include ('language.conf.php');
-include ('language.lib.php');
+require_once ('language.lib.php');
 
 require_once get_path('incRepositorySys') . '/lib/config.lib.inc.php';
 

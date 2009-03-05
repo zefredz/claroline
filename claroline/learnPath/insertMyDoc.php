@@ -63,10 +63,10 @@ $baseWorkDir = get_path('coursesRepositorySys').$courseDir;
 $moduleWorkDir = get_path('coursesRepositorySys').$moduleDir;
 
 //lib of this tool
-include(get_path('incRepositorySys') . "/lib/learnPath.lib.inc.php");
+require_once(get_path('incRepositorySys') . "/lib/learnPath.lib.inc.php");
 
-include(get_path('incRepositorySys') . "/lib/fileDisplay.lib.php");
-include(get_path('incRepositorySys') . "/lib/fileManage.lib.php");
+require_once(get_path('incRepositorySys') . "/lib/fileDisplay.lib.php");
+require_once(get_path('incRepositorySys') . "/lib/fileManage.lib.php");
 
 // $_SESSION
 if ( !isset($_SESSION['path_id']) )

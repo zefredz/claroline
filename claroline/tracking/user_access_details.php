@@ -22,7 +22,7 @@ $tbl_cdb_names = claro_sql_get_course_tbl(claro_get_course_db_name_glued(claro_g
 $tbl_course_tracking_event = $tbl_cdb_names['tracking_event'];
 
 
-include get_path('incRepositorySys') . '/lib/statsUtils.lib.inc.php';
+require_once get_path('incRepositorySys') . '/lib/statsUtils.lib.inc.php';
 
 $toolTitle['mainTitle'] = $nameTools;
 

@@ -24,7 +24,7 @@ if ( ! $is_platformAdmin ) claro_die(get_lang('Not allowed'));
 // include configuration and library file
 
 include ('language.conf.php');
-include ('language.lib.php');
+require_once ('language.lib.php');
 
 // table
 

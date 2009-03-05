@@ -46,7 +46,7 @@ $TABLEASSET             = $tbl_lp_asset;
 $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 
 // lib of this tool
-include(get_path('incRepositorySys')."/lib/learnPath.lib.inc.php");
+require_once(get_path('incRepositorySys')."/lib/learnPath.lib.inc.php");
 
 if(isset ($_GET['viewModule_id']) && $_GET['viewModule_id'] != '')
     $_SESSION['module_id'] = $_GET['viewModule_id'];

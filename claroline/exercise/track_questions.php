@@ -38,7 +38,7 @@ else
 }
 
 
-include('../exercise/lib/question.class.php');
+require_once('../exercise/lib/question.class.php');
 
 /**
  * DB tables definition

@@ -148,13 +148,8 @@ else
     echo claro_html_tool_title(get_lang('Course list') . ' : ' . $classinfo['name']);
 
     // TOOL LINKS
-    // TODO claro_html_menu
-    echo '<p><a class="claroCmd" href="' . get_path('clarolineRepositoryWeb').'auth/courses.php'
-    .    '?cmd=rqReg&amp;fromAdmin=class&amp;class_id='.$class_id.'">'
-    .    '<img src="' . get_icon_url('enroll') . '" /> '
-    .    get_lang('Register class for course')
-    .    '</a>'
-    .    '</p>';
+    $cmd_menu[] = '<a class="claroCmd" href="' . get_path('clarolineRepositoryWeb').'auth/courses.php?cmd=rqReg&amp;fromAdmin=class&amp;class_id='.$class_id.'"><img src="' . get_icon_url('enroll') . '" /> ' . get_lang('Register class for course') . '</a>';
+    echo '<p>' . claro_html_menu_horizontal( $cmd_menu ) . '</p>';
 
     // Pager
 

@@ -286,7 +286,7 @@ if( $is_allowedToEdit && $cmd == 'exDownload' && get_conf('allow_download_all_su
 // Submission download requested
 if( $is_allowedToEdit && $cmd == 'rqDownload' && get_conf('allow_download_all_submissions') )
 {
-    include($includePath . '/lib/form.lib.php');
+    require_once($includePath . '/lib/form.lib.php');
     
     $dialogBox->title( get_lang('Download') );
     $dialogBox->form( '<form action="' . $_SERVER['PHP_SELF'] . '" method="POST">' . "\n"
@@ -380,7 +380,7 @@ if ($is_allowedToEdit)
     // edit assignment / display the form
     if( $cmd == 'rqEditAssig' )
     {
-        include(get_path('incRepositorySys') . '/lib/form.lib.php');
+        require_once(get_path('incRepositorySys') . '/lib/form.lib.php');
         // modify the command 'cmd' sent by the form
         $cmdToSend = 'exEditAssig';
         // ask the display of the form
@@ -429,7 +429,7 @@ if ($is_allowedToEdit)
     //--- create an assignment / display form
     if( $cmd == 'rqMkAssig' )
     {
-        include(get_path('incRepositorySys') . '/lib/form.lib.php');
+        require_once(get_path('incRepositorySys') . '/lib/form.lib.php');
         // modify the command 'cmd' sent by the form
         $cmdToSend = 'exMkAssig';
         // ask the display of the form

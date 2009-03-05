@@ -68,7 +68,7 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 
 
 //lib of this tool
-include(get_path('incRepositorySys')."/lib/learnPath.lib.inc.php");
+require_once(get_path('incRepositorySys')."/lib/learnPath.lib.inc.php");
 
 /*======================================
        CLAROLINE MAIN
@@ -91,7 +91,7 @@ switch( $cmd )
     // MODULE DELETE
     case "eraseModule" :
         // used to physically delete the module  from server
-        include(get_path('incRepositorySys')."/lib/fileManage.lib.php");
+        require_once(get_path('incRepositorySys')."/lib/fileManage.lib.php");
 
         $moduleDir   = claro_get_course_path() . '/modules';
         $moduleWorkDir = get_path('coursesRepositorySys').$moduleDir;

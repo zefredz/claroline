@@ -15,7 +15,7 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  *
  */
 
-include dirname(__FILE__) . '/qti_classes.php';
+require_once dirname(__FILE__) . '/qti_classes.php';
 /*--------------------------------------------------------
       Classes
   --------------------------------------------------------*/

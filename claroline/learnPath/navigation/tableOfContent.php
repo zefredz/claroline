@@ -37,10 +37,10 @@ $TABLEASSET             = $tbl_lp_asset;
 $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 
 // lib of this tool
-include(get_path('incRepositorySys').'/lib/learnPath.lib.inc.php');
+require_once(get_path('incRepositorySys').'/lib/learnPath.lib.inc.php');
 
 //lib of document tool
-include(get_path('incRepositorySys').'/lib/fileDisplay.lib.php');
+require_once(get_path('incRepositorySys').'/lib/fileDisplay.lib.php');
 
 $lpUid =  claro_get_current_user_id();
 

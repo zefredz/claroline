@@ -202,7 +202,7 @@ if($is_allowedToEdit)
     // edit assignment / display the form
     if( $cmd == 'rqEditFeedback' )
     {
-        include(get_path('incRepositorySys') . '/lib/form.lib.php');
+        require_once(get_path('incRepositorySys') . '/lib/form.lib.php');
 
         // check if it was already sent
         if( !$isFeedbackSubmitted )

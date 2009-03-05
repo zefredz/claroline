@@ -42,10 +42,10 @@ $TABLEASSET             = claro_get_current_course_data('dbNameGlu') . "lp_asset
 $TABLEUSERMODULEPROGRESS= claro_get_current_course_data('dbNameGlu') . "lp_user_module_progress";
 
 //lib of this tool
-include(get_path('incRepositorySys')."/lib/learnPath.lib.inc.php");
+require_once(get_path('incRepositorySys')."/lib/learnPath.lib.inc.php");
 
 //lib of document tool
-include(get_path('incRepositorySys')."/lib/fileDisplay.lib.php");
+require_once(get_path('incRepositorySys')."/lib/fileDisplay.lib.php");
 
 // $_SESSION
 if ( !isset($_SESSION['path_id']) )

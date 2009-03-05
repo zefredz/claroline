@@ -26,7 +26,7 @@ if ( isset($_REQUEST['cid']) ) $cidReq = $_REQUEST['cid'];
 
 require '../inc/claro_init_global.inc.php';
 
-include get_path('incRepositorySys') . '/lib/course_home.lib.php';
+require_once get_path('incRepositorySys') . '/lib/course_home.lib.php';
 include claro_get_conf_repository() . 'rss.conf.php';
 
 if ( !claro_is_in_a_course()  || !claro_is_course_allowed() ) claro_disp_auth_form(true);

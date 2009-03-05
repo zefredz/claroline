@@ -169,7 +169,7 @@ if ( $is_allowedToEdit )
 
     if( $cmd == 'export' && $can_export_user_list )
     {
-        include( dirname(__FILE__) . '/lib/export.lib.php');
+        require_once( dirname(__FILE__) . '/lib/export.lib.php');
 
         // contruction of XML flow
         $csv = export_user_list(claro_get_current_course_id());

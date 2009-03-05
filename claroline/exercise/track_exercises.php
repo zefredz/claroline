@@ -76,7 +76,7 @@ ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, './track_exercises.php?
 // get the tracking of a question as a csv file
 if( get_conf('is_trackingEnabled') && isset($_REQUEST['exportCsv']) )
 {
-    include( dirname(__FILE__) . '/lib/export_tracking.class.php');
+    require_once( dirname(__FILE__) . '/lib/export_tracking.class.php');
 
     // contruction of XML flow
     $csv = export_exercise_tracking($exId);

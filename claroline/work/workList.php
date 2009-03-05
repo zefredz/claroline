@@ -658,7 +658,7 @@ if ( $is_allowedToEditAll )
     // Submission download requested
     if( $cmd == 'rqDownload' && get_conf('allow_download_all_submissions') ) // UJM
     {
-        include($includePath . '/lib/form.lib.php');
+        require_once($includePath . '/lib/form.lib.php');
 
          $downloadForm = '<strong>' . get_lang('Download').'</strong>' . "\n"
          .        '<form action="' . $_SERVER['PHP_SELF'] . '?assigId=' . $req['assignmentId'] . '" method="POST">' . "\n"

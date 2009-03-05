@@ -76,7 +76,7 @@
         session_write_close();
 
         // OK TO SEND FEED
-        include get_path('incRepositorySys') . '/lib/rss.write.lib.php';
+        require_once get_path('incRepositorySys') . '/lib/rss.write.lib.php';
 
         claro_send_file (
             build_rss( array('course' => claro_get_current_course_id() ) ),
