@@ -447,7 +447,7 @@ else
     
     $out .= '<div class="collapsible collapsed"><a href="#" class="doCollapse">'. get_lang('More information') . '</a>' . "\n"
     . '<div class="collapsible-wrapper">' . "\n"
-    . '<ul id="moreInformation">' . "\n";
+    . '<ul id="moreInformation" style="font-size:small;">' . "\n";
     
     $out .= '<li>'
       .     get_lang('Start date').'&nbsp;: '
