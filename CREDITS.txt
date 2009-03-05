@@ -24,8 +24,8 @@ Claroline Consortium involving several institutions over the world
 Claroline Core Team :
 
     Frédéric Minne      (zefredz@claroline.net) aka ZeFredz
-    Sebastien Piraux    (seb@claroline.net)
-    Dimitri Rambout     (dimitri.rambout@uclouvain.be)
+    Dimitri Rambout     (dim@claroline.net) aka Dim
+    Frédéric Fervaille  (ffervaille@claroline.net)
 
 Team from Cerdecam :
 
@@ -33,13 +33,13 @@ Team from Cerdecam :
 
 Active contributors :
 
-    Christophe Gesché   (moosh@claroline.net) aka Moosh
-    Marina Zelwer       (marina.zelwer@univ-st-etienne.fr)
-    Jean-Roch Meurisse  (jean-roch.meurisse@fundp.ac.be)
     Laurence Dumortier  (laurence.dumortier@fundp.ac.be)
+    Jean-Roch Meurisse  (jean-roch.meurisse@fundp.ac.be)
 
 Former members of the Claroline Team :
 
+    Sebastien Piraux    (seb@claroline.net) aka Fragile
+    Christophe Gesché   (moosh@claroline.net) aka Moosh
     Anais Hulet         (Communication - CERDECAM)
     Florence Hortmans   (Communication - CERDECAM)
     Grégory Koch        (Developer - UCL)
@@ -48,6 +48,10 @@ Former members of the Claroline Team :
     Nicolas Leblanc     (Developer - CERDECAM)
     Hugues Peeters      (Developer and Project Manager - UCL)
     Aurelien Van Hamme  (Developer - CERDECAM)
+
+Former contributors :
+
+    Marina Zelwer       (marina.zelwer@univ-st-etienne.fr)
 
 ------------------------------------------------------------------------------
                           SPECIFIC CODE CONTRIBUTIONS
@@ -241,5 +245,5 @@ The Digital Security Research Group [DSecRG] <http://www.dsec.ru>
 Fernando Munoz on the Claroline.net forum
 
 =========================================================================
-                Europe, Belgium, Louvain-la-Neuve - January 20 2009
+                Europe, Belgium, Louvain-la-Neuve - March 5 2009
 ================================== END ===================================
