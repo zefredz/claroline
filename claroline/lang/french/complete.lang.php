@@ -3,7 +3,7 @@ $_lang['!!!! size of course repository (include claroline and garbage in old sys
 $_lang['%1\$s by %2\$s'] = '%1$s par %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s modifié le %2$s par %3$s';
 $_lang['%addUserClass users added to the class'] = '%addUserClass utilisateurs ajoutés à la classe';
-$_lang['%addUserCourse users added to the course'] = '%addUserClass utilisateurs ajoutés au cours';
+$_lang['%addUserCourse users added to the course'] = '%addUserCourse utilisateurs ajoutés au cours';
 $_lang['%chat_filename is now in the document tool. (<em>This file is visible</em>)'] = '%chat_filename a été enregistré dans l\'outil \'Documents et liens\'. (<em>Ce fichier est visible</em>)';
 $_lang['%date not valid'] = '%date non valide';
 $_lang['%delay ago'] = 'il y a %delay';
