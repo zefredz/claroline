@@ -32,6 +32,8 @@ class category_browser
         $tbl_mdb_names         = claro_sql_get_main_tbl();
         $tbl_courses           = $tbl_mdb_names['course'  ];
         $tbl_courses_nodes     = $tbl_mdb_names['category'];
+        
+        $curdate = date('Y-m-d H:i:s', time());
 
         $sql = "SELECT `faculte`.`code`  , `faculte`.`name`,
                        `faculte`.`code_P`, `faculte`.`nb_childs`,
@@ -58,8 +60,12 @@ class category_browser
                         OR `faculte`.`code_P` IS NULL \n";
         }
 
-        $sql .= "GROUP  BY `faculte`.`code`
-                 ORDER BY  `faculte`.`treePos`";
+         $sql .= "AND (`cours`.`status`='enable' OR `cours`.`status` IS NULL)
+                  AND `cours`.`creationDate` < '". $curdate ."' 
+                  AND ('". $curdate ."'<`cours`.`expirationDate`  OR `cours`.`expirationDate` IS NULL)
+ 				  GROUP  BY `faculte`.`code`
+        		  ORDER BY  `faculte`.`treePos`";
+        	
 
         $this->categoryList = claro_sql_query_fetch_all($sql);
     }
@@ -98,6 +104,8 @@ class category_browser
         $tbl_mdb_names = claro_sql_get_main_tbl();
         $tbl_courses   = $tbl_mdb_names['course'];
         $tbl_rel_course_user = $tbl_mdb_names['rel_course_user'];
+        
+        $curdate = date('Y-m-d H:i:s', time());
 
         $sql = "SELECT intitule             AS title,
                        titulaires           AS titular,
@@ -109,6 +117,7 @@ class category_browser
                                                access,
                                                registration,
                                                email,
+                                               status,
                        "
               . ( $this->userId ? 'isCourseManager, ' : '')."
                        "
@@ -122,9 +131,10 @@ class category_browser
                           AND `cu`.`user_id` = " . (int) $this->userId . "
                    "
                  : " ")
-
-              . "WHERE c.`faculte` = '" . claro_sql_escape($this->categoryCode) . "'
-                 AND (visibility = 'VISIBLE' "
+                 
+              . "WHERE c.`faculte` = '" . addslashes($this->categoryCode) . "'
+                 AND ((visibility = 'VISIBLE' AND (`status`='enable' OR `status` IS NULL)
+                 	AND `creationDate` < '". $curdate ."' AND ('". $curdate ."'<`expirationDate`  OR `expirationDate` IS NULL))"
                  . ($this->userId ? "OR NOT (cu.user_id IS NULL)" :"") .
                  ")
                  ORDER BY UPPER(c.administrativeNumber)";
@@ -146,7 +156,7 @@ class category_browser
 
 function search_course($keyword, $userId = null)
 {
-    $tbl_mdb_names        = claro_sql_get_main_tbl();
+   $tbl_mdb_names        = claro_sql_get_main_tbl();
     $tbl_course           = $tbl_mdb_names['course'         ];
     $tbl_rel_course_user  = $tbl_mdb_names['rel_course_user'];
 
@@ -154,7 +164,9 @@ function search_course($keyword, $userId = null)
 
     if (empty($keyword) ) return array();
 
-    $upperKeyword = claro_sql_escape(strtoupper($keyword));
+    $upperKeyword = addslashes(strtoupper($keyword));
+    
+    $curdate = date('Y-m-d H:i:s', time());
 
     $sql = "SELECT c.intitule             AS title,
                    c.titulaires           AS titular,
@@ -165,7 +177,10 @@ function search_course($keyword, $userId = null)
                    c.email                AS email,
                    c.visibility,
                    c.access,
-                   c.registration"
+                   c.registration,
+                   c.status,
+                   c.creationDate,
+                   c.expirationDate"
 
          .  ($userId ? ", cu.user_id AS enroled" : "")
          . " \n "
@@ -176,8 +191,10 @@ function search_course($keyword, $userId = null)
                         AND cu.user_id = " . (int) $userId
                      :  "")
          . " \n "
-         . "WHERE (  visibility = 'VISIBLE'
-                  OR ".(claro_is_platform_admin()?"1":"0") ." "
+         . "WHERE (  (visibility = 'VISIBLE' AND (`status`='enable' OR `status` IS NULL)
+         	AND `creationDate` < '". $curdate ."' 
+         	AND ('". $curdate ."'<`expirationDate` OR `expirationDate` IS NULL))
+            OR ".(claro_is_platform_admin()?"1":"0") ." "
          .  ($userId ? "OR cu.user_id" : "") . "
 
                   )
@@ -214,6 +231,8 @@ function get_user_course_list($userId, $renew = false)
         $tbl_courses           = $tbl_mdb_names['course'         ];
         $tbl_link_user_courses = $tbl_mdb_names['rel_course_user'];
 
+        $curdate = date('Y-m-d H:i:s', time());
+        
         $sql = "SELECT course.code                 AS `sysCode`,
                        course.directory            AS `directory`,
                        course.administrativeNumber AS `officialCode`,
@@ -222,13 +241,19 @@ function get_user_course_list($userId, $renew = false)
                        course.titulaires           AS `titular`,
                        course.language             AS `language`,
                        course.faculte              AS `categoryCode`,
-                       course_user.isCourseManager
+                       course_user.isCourseManager,
+                       course.status,
+                       course.expirationDate,
+                       course.creationDate
 
                        FROM `" . $tbl_courses . "`           AS course,
                             `" . $tbl_link_user_courses . "` AS course_user
 
                        WHERE course.code         = course_user.code_cours
-                         AND course_user.user_id = " . (int) $userId . " \n " ;
+                         AND course_user.user_id = " . (int) $userId . " 
+                         AND ((course.`status`='enable' OR course.`status` IS NULL)
+        				 AND course.`creationDate` < '". $curdate ."' 
+        				 AND ('". $curdate ."' < course.`expirationDate` OR course.`expirationDate` IS NULL)) \n " ;
 
         if ( get_conf('course_order_by') == 'official_code' )
         {
@@ -243,6 +268,66 @@ function get_user_course_list($userId, $renew = false)
     }
 
     return $userCourseList;
+}
+
+/**
+ * Return the list of disabled or unpublished course of a user.
+ *
+ * @param int $userId valid id of a user
+ * @param boolean $renew whether true, force to read databaseingoring an existing cache.
+ * @return array (list of course) of array (course settings) of the given user.
+ * @todo search and merge other instance of this functionality
+ */
+
+function get_user_course_list_desactivated($userId, $renew = false)
+{
+    static $cached_uid = null, $userCourseList = null;
+    
+    $curdate = date('Y-m-d H:i:s', time());
+
+    if ($cached_uid != $userId || is_null($userCourseList) || $renew)
+    {
+        $cached_uid = $userId;
+
+        $tbl_mdb_names         = claro_sql_get_main_tbl();
+        $tbl_courses           = $tbl_mdb_names['course'         ];
+        $tbl_link_user_courses = $tbl_mdb_names['rel_course_user'];
+
+        $sql = "SELECT course.code                 AS `sysCode`,
+                       course.directory            AS `directory`,
+                       course.administrativeNumber AS `officialCode`,
+                       course.dbName               AS `db`,
+                       course.intitule             AS `title`,
+                       course.titulaires           AS `titular`,
+                       course.language             AS `language`,
+                       course.faculte              AS `categoryCode`,
+                       course_user.isCourseManager,
+                       course.status,
+                       course.expirationDate,
+                       course.creationDate
+
+                       FROM `" . $tbl_courses . "`           AS course,
+                            `" . $tbl_link_user_courses . "` AS course_user
+
+                       WHERE course.code         = course_user.code_cours
+                         AND course_user.user_id = " . (int) $userId . " 
+                         AND (course.`status` != 'enable'
+        				 	OR course.`creationDate` > '". $curdate ."' 
+        				 	OR '". $curdate ."'>course.`expirationDate`) \n " ;
+
+        if ( get_conf('course_order_by') == 'official_code' )
+        {
+            $sql .= " ORDER BY UPPER(`administrativeNumber`), `title`";
+        }
+        else
+        {
+            $sql .= " ORDER BY `title`, UPPER(`administrativeNumber`)";
+        }
+
+        $userCourseListDesactivated = claro_sql_query_fetch_all($sql);
+    }
+
+    return $userCourseListDesactivated;
 }
 
 /**
@@ -396,6 +481,84 @@ function render_course_dt_in_dd_list($course, $hot = false)
     .    '</dd>' . "\n"
     ;
     return $out;
+}
+
+function render_user_course_list_desactivated()
+{
+		$personnalCourseList = get_user_course_list_desactivated(claro_get_current_user_id());
+	    $out='';    
+	     //display list
+	     if (count($personnalCourseList))
+	     {
+	         $out .= '<dl class="userCourseList">'."\n";
+	         
+	         foreach($personnalCourseList as $course)
+	         {
+	         	if ($course['isCourseManager'] == 1 AND $course['status']!= 'trash')
+				{       
+
+		          if ( get_conf('course_order_by') == 'official_code' )
+				  {
+				      $courseTitle = $course['officialCode'] . ' - ' . $course['title'];
+				  }
+				  else
+				  {
+				      $courseTitle = $course['title'] . ' (' . $course['officialCode'] . ')';
+				  }
+				
+				  $url = get_path('url') . '/claroline/course/index.php?cid='
+				  .    htmlspecialchars($course['sysCode'])
+				  ;
+				
+				  $out .= '<dt>' . "\n"
+				  .    '<img class="iconDefinitionList" src="' . get_icon_url('course') . '" alt="" />';
+				   
+					if ($course['status']=='pending')
+				    {
+				        $out.=  '<a href="' . htmlspecialchars( $url ) . '">'
+						    .    htmlspecialchars($courseTitle)
+						    .    '</a>' . "\n"
+						    . 	'<a href="">'.get_lang('Reactivate it ').'</a>';
+				    }
+				    
+					if ($course['status']=='disable')
+				    {
+				        $out.=  htmlspecialchars($courseTitle)
+				        		.' '.get_lang('Contact your adminsitrator to reactivate it. ');
+				    }
+					
+				    if ($course['creationDate'] > date('Y-m-d H:i:s', time()))
+				    {
+				        $out.=  '<a href="' . htmlspecialchars( $url ) . '">'
+						    .    htmlspecialchars($courseTitle)
+						    .    '</a>' . "\n"
+						    . 	' '.get_lang('Will be published on ').$course['creationDate'];
+				    }
+				    
+					if (isset($course['expirationDate']) AND ($course['expirationDate']< date('Y-m-d H:i:s', time())))
+				    {
+				        $out.=  '<a href="' . htmlspecialchars( $url ) . '">'
+						    .    htmlspecialchars($courseTitle)
+						    .    '</a>' . "\n"
+						    . 	' '.get_lang('Expirated since ').$course['expirationDate'] ;
+				    }
+				    $out .= '</dd>' . "\n";
+				    
+				    $out .=     '<dd>'
+						  .    '<small>' . "\n"
+						  .    htmlspecialchars( $course['titular'] )
+						  .    '</small>' . "\n"
+						  .    '</dd>' . "\n" ;
+				    
+				   $out .=  '</small></dd>' . "\n";
+				 }
+	         }
+				        
+			    
+			        $out .= '</dl>' . "\n";
+		}
+	     return $out;
+
 }
 
 function render_user_course_list()

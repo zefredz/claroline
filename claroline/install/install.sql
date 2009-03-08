@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__cours` (
   `creationDate` DATETIME DEFAULT NULL,
   `expirationDate` DATETIME DEFAULT NULL,
   `defaultProfileId` INT(11) NOT NULL,
+  `status` enum('enable','pending','disable','trash') NULL,
   PRIMARY KEY  (`cours_id`),
   KEY `administrativeNumber` (`administrativeNumber`),
   KEY `faculte` (`faculte`)

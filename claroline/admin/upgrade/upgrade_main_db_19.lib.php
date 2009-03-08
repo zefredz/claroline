@@ -134,7 +134,8 @@ function upgrade_main_database_course_to_19 ()
             $sqlForUpdate[] = "ALTER IGNORE TABLE `" . $tbl_mdb_names['course'] . "`
                                  ADD COLUMN `visibility` ENUM ('visible','invisible') DEFAULT 'invisible' NOT NULL  AFTER `visible`,
                                  ADD COLUMN `access`     ENUM ('public','private', 'platform') DEFAULT 'public' NOT NULL  after `visibility`,
-                                 ADD COLUMN `registration` ENUM ('open','close') DEFAULT 'open' NOT NULL  AFTER `access`";
+                                 ADD COLUMN `registration` ENUM ('open','close') DEFAULT 'open' NOT NULL  AFTER `access`,
+                                 ADD COLUMN  `status` enum('enable','pending','disable','trash')  NULL  AFTER `defaultProfileId`";
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
 
@@ -150,7 +151,8 @@ function upgrade_main_database_course_to_19 ()
             $sqlForUpdate[] = "UPDATE `" . $tbl_mdb_names['course'] . "`
                                 SET `visibility`   = 'visible',
                                     `access`       = IF(visible=2 OR visible=3,'public','private') ,
-                                    `registration` = IF(visible=1 OR visible=2,'open','close')";
+                                    `registration` = IF(visible=1 OR visible=2,'open','close'),
+                                    `status`	   = 'enable' ";
                                     
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
