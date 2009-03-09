@@ -178,19 +178,20 @@ class csv
      */    
     protected function checkUserIdField( $data )
     {
+        $errors = array();
         foreach( $data as $key => $value )
         {
             if( !(is_numeric( $value ) && $value >= 0) )
             {
-               return get_lang('User ID must be a number'); 
+              $errors[] =  get_lang('User ID must be a number at line %key', array( '%key' => $key )); 
             }
             elseif( array_search( $value, $data) != $key )
             {
-                return get_lang('User ID seems to be duplicate');
+              $errors[] = get_lang('User ID seems to be duplicate at line %key', array( '%key' => $key ));
             }
         }
         
-        return null;
+        return $errors;
     }
     
     /**
@@ -202,22 +203,23 @@ class csv
      **/    
     protected function checkEmailField( $data )
     {
+        $errors = array();
         foreach( $data as $key => $value )
         {
             if( !empty( $value ) )
             {
                if( !is_well_formed_email_address( $value ) )
                {
-                    return get_lang('Invalid email address');
+                    $errors[] = get_lang('Invalid email address at line %key', array( '%key' => $key ));
                }
                elseif( array_search( $value, $data) != $key )
                {
-                    return get_lang('Email address seems to be duplicate');
+                    $errors[] = get_lang('Email address seems to be duplicate at line %key', array( '%key' => $key ));
                }
             }
         }
         
-        return null;
+        return $errors;
     }
     
     /**
@@ -314,7 +316,7 @@ class csvImport extends csv
             case 'email' :
             {
                 $error = $this->checkEmailField( $values );
-                if( !is_null( $error ) )
+                if( !empty( $error ) )
                 {
                     $errors[$key] = $error;    
                 }                
@@ -339,7 +341,6 @@ class csvImport extends csv
             }
         }
       }
-      
       return $errors;
     }
     
@@ -347,35 +348,35 @@ class csvImport extends csv
     
     private function checkUserNameField( $data )
     {
-        $tbl_mdb_names = claro_sql_get_main_tbl();
-        $tbl_user      = $tbl_mdb_names['user'];
-        
-        $sql = "SELECT `user_id` FROM `". $tbl_user ."` WHERE 1=0 ";
-        
-        foreach( $data as $key => $value )
+      $errors = array();
+      
+      $tbl_mdb_names = claro_sql_get_main_tbl();
+      $tbl_user      = $tbl_mdb_names['user'];
+      
+      foreach( $data as $key => $value )
+      {
+        if( empty( $value) )
         {
-            if( empty( $value) )
-            {
-                return get_lang('Username is empty');
-            }
-            elseif( array_search( $value, $data) != $key )
-            {
-                return get_lang('Username seems to be duplcate');
-            }
-            else
-            {
-                $sql .= " OR `username` like '" . claro_sql_escape( $value ) . "'";
-            }
+          $errors[] = get_lang('Username is empty at line %key', array( '%key' => $key ));
         }
-        
-        $userIds = claro_sql_query_fetch_all( $sql );
-        
-        if( !(is_array( $userIds ) && count( $userIds )) )
+        elseif( array_search( $value, $data) != $key )
         {
-            return get_lang('Username not found in the database');
+          $errors[] = get_lang('Username seems to be duplcate at line %key', array( '%key' => $key ));
         }
-        
-        return null;
+        else
+        {
+          $sql = "SELECT `user_id` FROM `". $tbl_user ."` WHERE 1=0 ";
+          $sql .= " OR `username` like '" . claro_sql_escape( $value ) . "'";
+          $userId = claro_sql_query_fetch_single_value( $sql );
+          if( $userId && !is_null( $userId ) )
+          {
+            $errors[] = get_lang('Username already exists in the database at line %key', array( '%key' => $key));
+          }
+        }
+      }
+      
+      
+      return $errors;
     }
     
     
@@ -401,7 +402,7 @@ class csvImport extends csv
         $csvUseableArray = $this->createUsableArray( $csvContent );
         
         $fields = $csvContent[0];
-        unset( $csvContent[0] );       
+        unset( $csvContent[0] );
         
         $logs = array();
         
@@ -418,7 +419,7 @@ class csvImport extends csv
         {
             if(!isset($csvUseableArray['username'][$user_id]))
             {
-                $logs[] = get_lang('Unable to find the user in the csv');
+                $logs['errors'][] = get_lang('Unable to find the user in the csv');
             }
             else
             {
@@ -428,27 +429,26 @@ class csvImport extends csv
                 $userInfo['email'] = $csvUseableArray['email'][$user_id];
                 $userInfo['password'] = '';
                 $userInfo['officialCode'] = $csvUseableArray['officialCode'][$user_id];
-                $groupNames = $csvUseableArray['groupName'][$user_id];
                 
                 //check user existe if not create is asked                
                 $resultSearch = user_search( array( 'username' => $userInfo['username'] ), null, true, true );
-                
-                if( empty($resultSearch))
+                if( !empty($resultSearch))
+                {
+                  $userId = $resultSearch[0]['uid'];
+                  $logs['errors'][] = get_lang( 'User %username not created because it already exists in the database', array( '%username' => $userInfo['username'] ) );
+                }
+                else
                 {
                     
                     $userId = user_create( $userInfo );
                     if( $userId != 0 )
                     {
-                        //$logs[] = get_lang( 'User %username created successfully', array( '%username' => $userInfo['username'] ) );
+                        $logs['success'][] = get_lang( 'User %username created successfully', array( '%username' => $userInfo['username'] ) );
                     }
                     else
                     {
-                        $logs[] = get_lang( 'Unable to create user %username', array('%username' => $userInfo['username'] ) );
+                        $logs['errors'][] = get_lang( 'Unable to create user %username', array('%username' => $userInfo['username'] ) );
                     }
-                }
-                else
-                {
-                    $userId = $resultSearch[0]['uid'];
                 }
             }
         }
@@ -497,7 +497,7 @@ class csvImport extends csv
         {
             if(!isset($csvUseableArray['username'][$user_id]))
             {
-                $logs[] = get_lang('Unable to find the user in the csv');
+                $logs['errors'][] = get_lang('Unable to find the user in the csv');
             }
             else
             {
@@ -507,56 +507,66 @@ class csvImport extends csv
                 $userInfo['email'] = $csvUseableArray['email'][$user_id];
                 $userInfo['password'] = '';
                 $userInfo['officialCode'] = $csvUseableArray['officialCode'][$user_id];
-                $groupNames = $csvUseableArray['groupName'][$user_id];
+                if( isset( $csvUseableArray['groupName'][$user_id] ) )
+                {
+                  $groupNames = $csvUseableArray['groupName'][$user_id];
+                }
+                else
+                {
+                  $groupNames = null;
+                }
+                
                 
                 //check user existe if not create is asked                
                 $resultSearch = user_search( array( 'username' => $userInfo['username'] ), null, true, true );
                 
-                if( empty($resultSearch))
+                if( !empty($resultSearch))
+                {
+                  $userId = $resultSearch[0]['uid'];
+                  $logs['errors'][] = get_lang( 'User %username not created because it already exists in the database', array( '%username' => $userInfo['username'] ) );
+                }
+                else
                 {
                     
                     $userId = user_create( $userInfo );
                     if( $userId != 0 )
                     {
-                        //$logs[] = get_lang( 'User %username created successfully', array( '%username' => $userInfo['username'] ) );
+                        $logs['success'][] = get_lang( 'User %username created successfully', array( '%username' => $userInfo['username'] ) );
                     }
                     else
                     {
-                        $logs[] = get_lang( 'Unable to create user %username', array('%username' => $userInfo['username'] ) );
+                        $logs['errors'][] = get_lang( 'Unable to create user %username', array('%username' => $userInfo['username'] ) );
                     }
-                }
-                else
-                {
-                    $userId = $resultSearch[0]['uid'];
                 }
                 
                 if( $userId == 0)
                 {
-                    $logs[] = get_lang( 'Unable to add user %username in this course', array('%username' => $userInfo['username'] ) );
+                    $logs['errors'][] = get_lang( 'Unable to add user %username in this course', array('%username' => $userInfo['username'] ) );
                 }
                 else
                 {
-                    if( !user_add_to_course( $userId, $courseId, false, false, false) )
+                  if( !user_add_to_course( $userId, $courseId, false, false, false) )
+                  {
+                    $logs['errors'][] = get_lang( 'Unable to add user %username in this course', array('%username' => $userInfo['username'] ) );
+                  }
+                  else
+                  {
+                    $logs['success'][] = get_lang( 'User %username added in course %courseId', array('%username' => $userInfo['username'], '%courseId' => $courseId ));
+                    //join group
+                    $groups = split(',', $groupNames);
+                    if( is_array( $groups ) )
                     {
-                        $logs[] = get_lang( 'Unable to add user %username in this course', array('%username' => $userInfo['username'] ) );
-                    }
-                    else
-                    {
-                        //join group
-                        $groups = split(',', $groupNames);
-                        if( is_array( $groups ) )
+                      foreach( $groups as $group)
+                      {
+                        $group = trim($group);
+                        if( !empty($group) )
                         {
-                            foreach( $groups as $group)
-                            {
-                                $group = trim($group);
-                                if( !empty($group) )
-                                {
-                                    $groupsImported[$group][] = $userId;
-                                }
-                                
-                            }   
-                        }                        
+                          $groupsImported[$group][] = $userId;
+                        }
+                        
+                      }
                     }
+                  }
                 }
             }
         }
@@ -567,7 +577,7 @@ class csvImport extends csv
             $groupId = create_group($group, null);
             if( $groupId == 0 )
             {
-                $logs[] = get_lang( 'Unable to create group %groupname', array( 'groupname' => $group) );
+                $logs['errors'][] = get_lang( 'Unable to create group %groupname', array( '%groupname' => $group) );
                 
             }
             else
@@ -580,8 +590,8 @@ class csvImport extends csv
                                 team = " . (int) $groupId ;
                     if( !claro_sql_query( $sql ) )
                     {
-                        $logs[] = get_lang( 'Unable to add user in group %groupname', array('%groupname' => $group) );
-                    }                    
+                        $logs['errors'][] = get_lang( 'Unable to add user in group %groupname', array('%groupname' => $group) );
+                    }
                 }
             }
         }

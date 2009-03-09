@@ -52,7 +52,7 @@ if( isset($_REQUEST['step']) )   $step = (int) $_REQUEST['step'];
 else                             $step = 0;
 
 $nameTools        = get_lang('Add a user list in course');
-ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users'), get_module_url('CLUSR').'/user.php' );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users'), get_module_url('CLUSR').'/user.php'.(!is_null($_cid) ? '?cid='.$_cid : '') );
 
 $dialogBox = new DialogBox();
 
@@ -147,7 +147,7 @@ $usedFormat = $_SESSION['claro_usedFormat'];
 $content = '';
 $out = '';
 
-$backButtonUrl = Url::Contextualize( get_path('clarolineRepositoryWeb') . 'user/' );
+$backButtonUrl = $_SERVER['PHP_SELF'];
 
 $content_default = get_lang('You must specify the CSV format used in your file') . ':' . "\n"
 .   '<br /><br />' . "\n"
@@ -205,21 +205,40 @@ switch( $step )
                 {
                   claro_die(get_lang('Not allowed'));
                 }
-                $errors = $csvImport->importUsers();
+                $logs = $csvImport->importUsers();
             }
             else
             {
-                $errors = $csvImport->importUsersInCourse( $_cid );   
-            }            
+                $logs = $csvImport->importUsersInCourse( $_cid );   
+            }
             
-            if( !empty($errors) )
+            if( !empty($logs) )
             {
-                $_errors = "";
-                foreach($errors as $error)
+                if( isset( $logs['errors'] ) )
                 {
-                    $_errors .= $error . '<br />' . "\n";
+                  $_errors = "";
+                  foreach( $logs['errors'] as $error )
+                  {
+                    $_errors .= '<div>' . $error . '</div>' . "\n";
+                  }
+                  if( !empty($_errors) )
+                  {
+                    $dialogBox->error( $_errors );
+                  }
                 }
-                $dialogBox->error($_errors . get_lang('Unable to import selected users'));
+                
+                if( isset( $logs['success'] ) )
+                {
+                  $_success = "";
+                  foreach( $logs['success'] as $s )
+                  {
+                    $_success .= '<div>' . $s . '</div>' . "\n";
+                  }
+                  if( !empty( $_success ) )
+                  {
+                    $dialogBox->success( $_success );
+                  }
+                }
             }
             else
             {
@@ -313,9 +332,18 @@ switch( $step )
                         $errorsDisplayed = '';
                         foreach( $errors as $error )
                         {
-                            $errorsDisplayed .= $error;
+                          if( !empty($error) )
+                          {
+                            foreach($error as $e)
+                            {
+                              $errorsDisplayed .= '<div>' . $e . '</div>';
+                            }
+                          }                          
                         }
-                        $dialogBox->error($errorsDisplayed);
+                        if(!empty($errorsDisplayed))
+                        {
+                          $dialogBox->error($errorsDisplayed); 
+                        }                        
                     }
                     
                     $content .= '<br />' . get_lang('Select users you want to import in the course') . '<br />'
