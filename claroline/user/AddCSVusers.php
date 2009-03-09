@@ -43,6 +43,8 @@ if( !($is_allowedToEdit || $is_platformAdmin) )
     exit();
 }
 
+$courseId = claro_get_current_course_id();
+
 $acceptedCmdList = array( 'rqCSV', 'rqChangeFormat', 'exChangeFormat', 'rqLoadDefautFormat', 'exLoadDefaultFormat');
 
 if( isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'], $acceptedCmdList) )   $cmd = $_REQUEST['cmd'];
@@ -52,7 +54,7 @@ if( isset($_REQUEST['step']) )   $step = (int) $_REQUEST['step'];
 else                             $step = 0;
 
 $nameTools        = get_lang('Add a user list in course');
-ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users'), get_module_url('CLUSR').'/user.php'.(!is_null($_cid) ? '?cid='.$_cid : '') );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users'), get_module_url('CLUSR').'/user.php'.(!is_null($courseId) ? '?cid='.$courseId : '') );
 
 $dialogBox = new DialogBox();
 
@@ -199,7 +201,7 @@ switch( $step )
             $csvContent = $_SESSION['_csvImport'];
             $csvImport->setCSVContent( $csvContent );
             
-            if(is_null($_cid))
+            if(is_null($courseId))
             {
                 if(!claro_is_platform_admin() )
                 {
@@ -209,7 +211,7 @@ switch( $step )
             }
             else
             {
-                $logs = $csvImport->importUsersInCourse( $_cid );   
+                $logs = $csvImport->importUsersInCourse( $courseId );   
             }
             
             if( !empty($logs) )
