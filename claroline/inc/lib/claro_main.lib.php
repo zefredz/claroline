@@ -1283,7 +1283,7 @@ function claro_get_conf_repository($context=array())
     }
 
 
-    pushClaroMessage('Unknown context passed to claro_get_conf_repository : ' . var_export($context,1));
+    pushClaroMessage('Unknown context passed to claro_get_conf_repository : ' . var_export($context,1), 'warning');
     return null;
 
 }
@@ -1309,7 +1309,7 @@ function get_conf($param, $default = null)
             if (!in_array($param,$paramList))
             {
                 $paramList[]=$param;
-                pushClaroMessage($param . ' use but not set. use default :' . var_export($default,1),'warning');
+                pushClaroMessage( __FUNCTION__ .  ' : ' . htmlspecialchars($param) . ' use but not set. use default :' . var_export($default,1),'warning');
             }
         }
     }
