@@ -896,7 +896,7 @@ if ( $is_allowedToEdit ) // Document edition are reserved to certain people
          * Add the possibility to edit on line the content of file
          * if it is an html file
          */
-
+            
         if ( in_array( strtolower (get_file_extension($_REQUEST['file']) ),
                        array('html', 'htm') ) )
         {
