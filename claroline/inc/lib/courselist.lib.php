@@ -63,9 +63,9 @@ class category_browser
          $sql .= "AND (`cours`.`status`='enable' OR `cours`.`status` IS NULL)
                   AND `cours`.`creationDate` < '". $curdate ."' 
                   AND ('". $curdate ."'<`cours`.`expirationDate`  OR `cours`.`expirationDate` IS NULL)
- 				  GROUP  BY `faculte`.`code`
-        		  ORDER BY  `faculte`.`treePos`";
-        	
+                   GROUP  BY `faculte`.`code`
+                  ORDER BY  `faculte`.`treePos`";
+            
 
         $this->categoryList = claro_sql_query_fetch_all($sql);
     }
@@ -134,7 +134,7 @@ class category_browser
                  
               . "WHERE c.`faculte` = '" . addslashes($this->categoryCode) . "'
                  AND ((visibility = 'VISIBLE' AND (`status`='enable' OR `status` IS NULL)
-                 	AND `creationDate` < '". $curdate ."' AND ('". $curdate ."'<`expirationDate`  OR `expirationDate` IS NULL))"
+                     AND `creationDate` < '". $curdate ."' AND ('". $curdate ."'<`expirationDate`  OR `expirationDate` IS NULL))"
                  . ($this->userId ? "OR NOT (cu.user_id IS NULL)" :"") .
                  ")
                  ORDER BY UPPER(c.administrativeNumber)";
@@ -192,8 +192,8 @@ function search_course($keyword, $userId = null)
                      :  "")
          . " \n "
          . "WHERE (  (visibility = 'VISIBLE' AND (`status`='enable' OR `status` IS NULL)
-         	AND `creationDate` < '". $curdate ."' 
-         	AND ('". $curdate ."'<`expirationDate` OR `expirationDate` IS NULL))
+             AND `creationDate` < '". $curdate ."' 
+             AND ('". $curdate ."'<`expirationDate` OR `expirationDate` IS NULL))
             OR ".(claro_is_platform_admin()?"1":"0") ." "
          .  ($userId ? "OR cu.user_id" : "") . "
 
@@ -252,8 +252,8 @@ function get_user_course_list($userId, $renew = false)
                        WHERE course.code         = course_user.code_cours
                          AND course_user.user_id = " . (int) $userId . " 
                          AND ((course.`status`='enable' OR course.`status` IS NULL)
-        				 AND course.`creationDate` < '". $curdate ."' 
-        				 AND ('". $curdate ."' < course.`expirationDate` OR course.`expirationDate` IS NULL)) \n " ;
+                         AND course.`creationDate` < '". $curdate ."' 
+                         AND ('". $curdate ."' < course.`expirationDate` OR course.`expirationDate` IS NULL)) \n " ;
 
         if ( get_conf('course_order_by') == 'official_code' )
         {
@@ -312,8 +312,8 @@ function get_user_course_list_desactivated($userId, $renew = false)
                        WHERE course.code         = course_user.code_cours
                          AND course_user.user_id = " . (int) $userId . " 
                          AND (course.`status` != 'enable'
-        				 	OR course.`creationDate` > '". $curdate ."' 
-        				 	OR '". $curdate ."'>course.`expirationDate`) \n " ;
+                             OR course.`creationDate` > '". $curdate ."' 
+                             OR '". $curdate ."'>course.`expirationDate`) \n " ;
 
         if ( get_conf('course_order_by') == 'official_code' )
         {
@@ -485,79 +485,80 @@ function render_course_dt_in_dd_list($course, $hot = false)
 
 function render_user_course_list_desactivated()
 {
-		$personnalCourseList = get_user_course_list_desactivated(claro_get_current_user_id());
-	    $out='';    
-	     //display list
-	     if (count($personnalCourseList))
-	     {
-	         $out .= '<dl class="userCourseList">'."\n";
-	         
-	         foreach($personnalCourseList as $course)
-	         {
-	         	if ($course['isCourseManager'] == 1 AND $course['status']!= 'trash')
-				{       
+        $personnalCourseList = get_user_course_list_desactivated(claro_get_current_user_id());
+        
+        $out='';    
+         //display list
+         if (!empty($personnalCourseList) && is_array($personnalCourseList))
+         {
+             $out .= '<dl class="userCourseList">'."\n";
+             
+             foreach($personnalCourseList as $course)
+             {
+                 if ($course['isCourseManager'] == 1 AND $course['status']!= 'trash')
+                {       
 
-		          if ( get_conf('course_order_by') == 'official_code' )
-				  {
-				      $courseTitle = $course['officialCode'] . ' - ' . $course['title'];
-				  }
-				  else
-				  {
-				      $courseTitle = $course['title'] . ' (' . $course['officialCode'] . ')';
-				  }
-				
-				  $url = get_path('url') . '/claroline/course/index.php?cid='
-				  .    htmlspecialchars($course['sysCode'])
-				  ;
-				
-				  $out .= '<dt>' . "\n"
-				  .    '<img class="iconDefinitionList" src="' . get_icon_url('course') . '" alt="" />';
-				   
-					if ($course['status']=='pending')
-				    {
-				        $out.=  '<a href="' . htmlspecialchars( $url ) . '">'
-						    .    htmlspecialchars($courseTitle)
-						    .    '</a>' . "\n"
-						    . 	'<a href="">'.get_lang('Reactivate it ').'</a>';
-				    }
-				    
-					if ($course['status']=='disable')
-				    {
-				        $out.=  htmlspecialchars($courseTitle)
-				        		.' '.get_lang('Contact your adminsitrator to reactivate it. ');
-				    }
-					
-				    if ($course['creationDate'] > date('Y-m-d H:i:s', time()))
-				    {
-				        $out.=  '<a href="' . htmlspecialchars( $url ) . '">'
-						    .    htmlspecialchars($courseTitle)
-						    .    '</a>' . "\n"
-						    . 	' '.get_lang('Will be published on ').$course['creationDate'];
-				    }
-				    
-					if (isset($course['expirationDate']) AND ($course['expirationDate']< date('Y-m-d H:i:s', time())))
-				    {
-				        $out.=  '<a href="' . htmlspecialchars( $url ) . '">'
-						    .    htmlspecialchars($courseTitle)
-						    .    '</a>' . "\n"
-						    . 	' '.get_lang('Expirated since ').$course['expirationDate'] ;
-				    }
-				    $out .= '</dd>' . "\n";
-				    
-				    $out .=     '<dd>'
-						  .    '<small>' . "\n"
-						  .    htmlspecialchars( $course['titular'] )
-						  .    '</small>' . "\n"
-						  .    '</dd>' . "\n" ;
-				    
-				   $out .=  '</small></dd>' . "\n";
-				 }
-	         }
-				        
-			    
-			        $out .= '</dl>' . "\n";
-		}
-	     return $out;
+                  if ( get_conf('course_order_by') == 'official_code' )
+                  {
+                      $courseTitle = $course['officialCode'] . ' - ' . $course['title'];
+                  }
+                  else
+                  {
+                      $courseTitle = $course['title'] . ' (' . $course['officialCode'] . ')';
+                  }
+                
+                  $url = get_path('url') . '/claroline/course/index.php?cid='
+                  .    htmlspecialchars($course['sysCode'])
+                  ;
+                
+                  $out .= '<dt>' . "\n"
+                  .    '<img class="iconDefinitionList" src="' . get_icon_url('course') . '" alt="" />';
+                   
+                    if ($course['status']=='pending')
+                    {
+                        $out.=  '<a href="' . htmlspecialchars( $url ) . '">'
+                            .    htmlspecialchars($courseTitle)
+                            .    '</a>' . "\n"
+                            .     '<a href="">'.get_lang('Reactivate it ').'</a>';
+                    }
+                    
+                    if ($course['status']=='disable')
+                    {
+                        $out.=  htmlspecialchars($courseTitle)
+                                .' '.get_lang('Contact your adminsitrator to reactivate it. ');
+                    }
+                    
+                    if ($course['creationDate'] > date('Y-m-d H:i:s', time()))
+                    {
+                        $out.=  '<a href="' . htmlspecialchars( $url ) . '">'
+                            .    htmlspecialchars($courseTitle)
+                            .    '</a>' . "\n"
+                            .     ' '.get_lang('Will be published on ').$course['creationDate'];
+                    }
+                    
+                    if (isset($course['expirationDate']) AND ($course['expirationDate']< date('Y-m-d H:i:s', time())))
+                    {
+                        $out.=  '<a href="' . htmlspecialchars( $url ) . '">'
+                            .    htmlspecialchars($courseTitle)
+                            .    '</a>' . "\n"
+                            .     ' '.get_lang('Expirated since ').$course['expirationDate'] ;
+                    }
+                    $out .= '</dd>' . "\n";
+                    
+                    $out .=     '<dd>'
+                          .    '<small>' . "\n"
+                          .    htmlspecialchars( $course['titular'] )
+                          .    '</small>' . "\n"
+                          .    '</dd>' . "\n" ;
+                    
+                   $out .=  '</small></dd>' . "\n";
+                 }
+             }
+                        
+                
+                    $out .= '</dl>' . "\n";
+        }
+         return $out;
 
 }
 
