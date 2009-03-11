@@ -80,6 +80,13 @@ class AuthManager
                 }
                 elseif ( $driver->userRegistrationAllowed() )
                 {
+                    // duplicate code here to avoid issue with multiple requests on a busy server !
+                    if ( AuthUserTable::userExists( $username ) ) 
+                    {   
+                        self::setFailureMessage( get_lang( "There is already an account with this username." ) );
+                        return false;
+                    }
+                    
                     $uid = AuthUserTable::createUser( $driver->getUserData() );
                     
                     return Claro_CurrentUser::getInstance( $uid, true );
