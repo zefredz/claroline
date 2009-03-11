@@ -92,7 +92,7 @@ $conf_def_property_list['numberOfRows']
         ,'unit'      => 'rows'
         ,'type'      => 'integer'
         ,'container' => 'VAR'
-        ,'acceptedValue' => array('min' => '1')
+        ,'acceptedValue' => array('min' => '3')
         );
 
 $conf_def_property_list['numberOfCols']
