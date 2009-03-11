@@ -33,7 +33,10 @@
             
             if ( !claro_is_user_authenticated() )
             {
-                $out .= $this->renderLoginLink();
+                if( get_conf('claro_displayLocalAuthForm',true) == true )
+                {
+                    $out .= $this->renderLoginLink();   
+                }                
             }
             elseif ( ( !claro_is_platform_admin() )
                 && ( claro_is_in_a_course() && !claro_is_course_member() )
