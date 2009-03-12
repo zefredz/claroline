@@ -490,6 +490,7 @@ if ( !class_exists('ScormExport') )
                     $documentName = basename($module['path']);
                     if ( dirname($module['path']) != '/' )
                     {
+                        
                         $destinationDir = $this->destDir . '/Documents' . dirname($module['path']) ;
                     }
                     else
@@ -549,7 +550,7 @@ if ( !class_exists('ScormExport') )
     <title>Default Title</title>
     </head>
     <frameset border="0" rows="100%,*" onload="immediateComplete()">
-    <frame src="' . $targetPath . '" scrolling="auto">
+    <frame src="' . urlencode($targetPath) . '" scrolling="auto">
     <frame src="SCOFunctions.js">
     </frameset>
     </html>');
@@ -686,8 +687,8 @@ if ( !class_exists('ScormExport') )
                         // Add the resource to the manifest
                         $manifest_resources .= '<resource identifier="R_' . $module['ID'] . '" type="webcontent"  adlcp:scormType="sco" '
                             . ' href="' . basename($framefile) . '">' . "\n"
-                            . '  <file href="' . basename($framefile) . '" />' . "\n"
-                            . '  <file href="' . $targetfile . '" />' . "\n"
+                            . '  <file href="' . urlencode(basename($framefile)) . '" />' . "\n"
+                            . '  <file href="' . urlencode($targetfile) . '" />' . "\n"
                             . $this->makeMetaData($module['name'], $module['resourceComment'])
                             . "</resource>\n";
                         break;
