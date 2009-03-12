@@ -52,7 +52,7 @@ class MailNotifier implements MessagingNotifier
         {
             if ($message->getSender() == $courseManagers[$countManager])
             {
-                $courseData = claro_get_course_data();
+                $courseData = claro_get_course_data($message->getCourseCode());
                 
                 $stringManager = get_block('Course manager of %course%(%courseCode%)',
                 array('%course%' => $courseData['name'], '%courseCode%'=> $courseData['officialCode']));
