@@ -106,7 +106,7 @@ function claro_rename_file($oldFilePath, $newFilePath)
     /* CHECK IF THE NEW NAME HAS AN EXTENSION */
     $ext_new = get_file_extension( $newFilePath );
     $ext_old = get_file_extension( $oldFilePath );
-    if( empty($ext_new) )
+    if( empty($ext_new) && !empty($ext_old) )
     {
         $newFilePath .= '.' . $ext_old;
     }
@@ -128,9 +128,16 @@ function claro_rename_file($oldFilePath, $newFilePath)
     }
     else
     {
-        if ( rename($oldFilePath, $newFilePath) )
+        if(check_name_exist( $oldFilePath) )
         {
-            return $newFilePath;
+            if ( rename($oldFilePath, $newFilePath) )
+            {
+                return $newFilePath;
+            }
+            else
+            {
+                return false;
+            }   
         }
         else
         {
