@@ -405,7 +405,7 @@ function  claro_is_course_manager()
 
 function claro_is_course_allowed()
 {
-    return get_init('is_courseAllowed');
+    return get_init('is_courseAllowed') && claro_is_course_enable();
 }
 
 /**
@@ -666,4 +666,34 @@ function claro_get_current_user_profile_id_in_course( $courseId = null )
 function claro_called_from()
 {
     return get_init('calledFrom');
+}
+
+/**
+ * Return if course status is enable
+ */
+function claro_is_course_enable()
+{
+    $tbl_mdb_names       = claro_sql_get_main_tbl();
+    $tbl_course          = $tbl_mdb_names['course'];
+    $courseId = claro_get_current_course_id();
+    $curdate = date('Y-m-d H:i:s', time());
+    
+    if (Claro_CurrentUser::getInstance()->isCourseCreator)
+    $sql=" SELECT 	c.`code`
+    	   FROM `".$tbl_course."` c
+		   WHERE  (c.`status` != 'trash') 
+		   	   AND c.`code` = '".$courseId."';";
+    else
+    $sql=" SELECT 	c.`code`
+    	   FROM `".$tbl_course."` c
+		   WHERE  (c.`status` = 'enable' AND c.`creationDate` < '". $curdate ."' 
+                    AND ('". $curdate ."' < c.`expirationDate` OR c.`expirationDate` IS NULL)) 
+		   	AND c.`code` = '".$courseId."';";
+
+	$result = claro_sql_query_get_single_value($sql);
+	
+	if (isset($result) OR claro_is_platform_admin()) $return = true; 
+	else $return = false;
+	
+	return $return;
 }
