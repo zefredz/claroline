@@ -104,7 +104,7 @@ if ( claro_is_user_authenticated() ) :
         // DISPLAY USER OWN COURSE LIST
         require get_path('incRepositorySys') . '/index_mycourses.inc.php';
         
-        // DISPLAY DESACTIVATED COURSES
+        // DISPLAY DEACTIVATED COURSES
         if (Claro_CurrentUser::getInstance()->isCourseCreator)
         {
             
@@ -112,7 +112,7 @@ if ( claro_is_user_authenticated() ) :
             
             if ( !empty( $renderedList ) )
             {
-                echo claro_html_tool_title(get_lang('Desactivated course list'));
+                echo claro_html_tool_title(get_lang('Deactivated course list'));
                 echo $renderedList;
             }
         }
