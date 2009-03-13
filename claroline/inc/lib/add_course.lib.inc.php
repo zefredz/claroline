@@ -386,7 +386,7 @@ function register_course( $courseSysCode, $courseScreenCode,
                           $titular, $email, $faculte, $intitule, $languageCourse='',
                           $uidCreator,
                           $access, $registrationAllowed, $registrationKey='', $visibility=true,
-                          $expirationDate='', $extLinkName='', $extLinkUrl='')
+                          $extLinkName='', $extLinkUrl='',$publicationDate, $expirationDate, $status)
 {
     global $versionDb, $clarolineVersion;
 
@@ -402,8 +402,6 @@ function register_course( $courseSysCode, $courseScreenCode,
 
     // optionnal parameters
     if ($languageCourse == '') $languageCourse = 'english';
-    if ($expirationDate == '') $expirationDate = 'NULL';
-    else                       $expirationDate = 'FROM_UNIXTIME('.$expirationDate.')';
 
     $currentVersionFilePath = get_conf('rootSys') . 'platform/currentVersion.inc.php';
     file_exists($currentVersionFilePath) && require $currentVersionFilePath;
@@ -422,9 +420,9 @@ function register_course( $courseSysCode, $courseScreenCode,
             registration         = '".  ($registrationAllowed?'OPEN':'CLOSE')    . "',
             registrationKey      = '".  claro_sql_escape($registrationKey)    . "',
             diskQuota            = NULL,
-            creationDate         = NOW(),
-            expirationDate       = " . claro_sql_escape($expirationDate)   . ",
-            status				 = 'enable',
+            creationDate         = FROM_UNIXTIME(" . claro_sql_escape($publicationDate)   . "),
+            expirationDate       = FROM_UNIXTIME(" . claro_sql_escape($expirationDate)   . "),
+            status				 = '" . claro_sql_escape($status)   . "',
             versionDb            = '" . claro_sql_escape($versionDb)        . "',
             versionClaro         = '" . claro_sql_escape($clarolineVersion) . "',
             lastEdit             = NOW(),

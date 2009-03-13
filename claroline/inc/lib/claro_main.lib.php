@@ -131,8 +131,11 @@ function claro_get_course_data($courseId = NULL, $force = false )
                     c.registrationKey      AS registrationKey ,
                     cat.code               AS categoryCode,
                     cat.name               AS categoryName,
-                    c.diskQuota            AS diskQuota
-
+                    c.diskQuota            AS diskQuota,
+                    UNIX_TIMESTAMP(c.creationDate)         AS publicationDate,
+                    UNIX_TIMESTAMP(c.expirationDate)       AS expirationDate,
+                    c.status               AS status
+                    
                     FROM      `" . $tbl['cours'] . "`   AS c
                     LEFT JOIN `" . $tbl['faculte'] . "` AS cat
                             ON c.faculte =  cat.code

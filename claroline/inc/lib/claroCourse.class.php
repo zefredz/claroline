@@ -22,6 +22,9 @@ require_once dirname(__FILE__) . '/admin.lib.inc.php'; // for delete course func
 require_once dirname(__FILE__) . '/../../messaging/lib/message/messagetosend.lib.php';
 require_once dirname(__FILE__) . '/../../messaging/lib/recipient/userlistrecipient.lib.php';
 
+$jsLoader = JavascriptLoader::getInstance();
+$jsLoader->load( 'claroline.ui');
+
 class ClaroCourse
 {
     // Identifier
@@ -62,6 +65,18 @@ class ClaroCourse
 
     // registration key
     var $registrationKey;
+    
+    // publicationDate
+    var $publicationDate;
+    
+    // expirationDate
+    var $expirationDate;
+    
+    // useExpiratioDate;
+    var $useExpirationDate;
+    
+    // status
+    var $status;
 
     // Backlog object
     var $backlog;
@@ -89,6 +104,10 @@ class ClaroCourse
         $this->visibility   = get_conf('defaultVisibilityOnCourseCreation');
         $this->registration = get_conf('defaultRegistrationOnCourseCreation') ;
         $this->registrationKey = '';
+        $this->publicationDate =  time();
+        $this->expirationDate = 0;
+        $this->useExpirationDate = false;
+        $this->status = 'enable';
 
         $this->backlog = new Backlog();
     }
@@ -104,19 +123,25 @@ class ClaroCourse
     {
         if ( ( $course_data = claro_get_course_data($courseId) ) !== false )
         {
-            $this->courseId = $courseId;
-            $this->title = $course_data['name'];
-            $this->officialCode = $course_data['officialCode'];
-            $this->titular = $course_data['titular'];
-            $this->email = $course_data['email'];
-            $this->category = $course_data['categoryCode'];
-            $this->departmentName = $course_data['extLinkName'];
-            $this->extLinkUrl = $course_data['extLinkUrl'];
-            $this->language = $course_data['language'];
-            $this->access = $course_data['access'];
-            $this->visibility = $course_data['visibility'];
-            $this->registration = $course_data['registrationAllowed'];
-            $this->registrationKey = $course_data['registrationKey'];
+            $this->courseId           = $courseId;
+            $this->title              = $course_data['name'];
+            $this->officialCode       = $course_data['officialCode'];
+            $this->titular            = $course_data['titular'];
+            $this->email              = $course_data['email'];
+            $this->category           = $course_data['categoryCode'];
+            $this->departmentName     = $course_data['extLinkName'];
+            $this->extLinkUrl         = $course_data['extLinkUrl'];
+            $this->language           = $course_data['language'];
+            $this->access             = $course_data['access'];
+            $this->visibility         = $course_data['visibility'];
+            $this->registration       = $course_data['registrationAllowed'];
+            $this->registrationKey    = $course_data['registrationKey'];
+            $this->publicationDate    = $course_data['publicationDate'];
+            $this->expirationDate     = $course_data['expirationDate'];
+            $this->status             = $course_data['status'];
+            if (isset($this->expirationDate))  
+                $this->useExpirationDate = true; 
+            else $this->useExpirationDate = false;
             return true;
         }
         else
@@ -141,7 +166,7 @@ class ClaroCourse
             $courseSysCode      = $keys['currentCourseId'];
             $courseDbName       = $keys['currentCourseDbName'];
             $courseDirectory    = $keys['currentCourseRepository'];
-            $courseExpirationDate = '';
+            if ( ! $this->useExpirationDate) $this->expirationDate = 'NULL';
 
             if (   prepare_course_repository($courseDirectory, $courseSysCode)
                 && register_course($courseSysCode
@@ -158,9 +183,11 @@ class ClaroCourse
                    ,               $this->registration
                    ,               $this->registrationKey
                    ,               $this->visibility
-                   ,               $courseExpirationDate
                    ,               $this->departmentName
-                   ,               $this->extLinkUrl)
+                   ,               $this->extLinkUrl
+                   ,               $this->publicationDate 
+                   ,               $this->expirationDate
+                   ,               $this->status )
                 && install_course_database( $courseDbName )
                 && install_course_tools( $courseDbName, $this->language, $courseDirectory )
                 )
@@ -193,6 +220,8 @@ class ClaroCourse
             $tbl_course = $tbl_mdb_names['course'];
             $tbl_cdb_names = claro_sql_get_course_tbl();
             $tbl_course_properties = $tbl_cdb_names['course_properties'];
+            
+            if ( ! $this->useExpirationDate) $this->expirationDate = 'NULL';
 
             $sql = "UPDATE `" . $tbl_course . "`
                     SET `intitule`             = '" . claro_sql_escape($this->title) . "',
@@ -206,7 +235,11 @@ class ClaroCourse
                         `visibility`           = '" . ($this->visibility ? 'VISIBLE':'INVISIBLE') . "',
                         `access`               = '" . claro_sql_escape( $this->access ) . "',
                         `registration`         = '" . ($this->registration ? 'OPEN':'CLOSE') . "',
-                        `registrationKey`      = '" . claro_sql_escape($this->registrationKey) . "'
+                        `registrationKey`      = '" . claro_sql_escape($this->registrationKey) . "',
+                        `lastEdit`			   = NOW(),
+                        `creationDate`         = FROM_UNIXTIME(" . claro_sql_escape($this->publicationDate)   . "),
+            			`expirationDate`       = FROM_UNIXTIME(" . claro_sql_escape($this->expirationDate)   . "),
+            			`status`	      	   = '" . claro_sql_escape($this->status)   . "'
                     WHERE code='" . claro_sql_escape($this->courseId) . "'";
 
             return claro_sql_query($sql);
@@ -249,6 +282,14 @@ class ClaroCourse
         if ( isset($_REQUEST['course_access'       ]) ) $this->access = $_REQUEST['course_access'];
         if ( isset($_REQUEST['course_registration' ]) ) $this->registration = (bool) $_REQUEST['course_registration'];
         if ( isset($_REQUEST['course_registrationKey' ]) ) $this->registrationKey = trim(strip_tags($_REQUEST['course_registrationKey']));
+        if ( isset($_REQUEST['course_publicationDate' ]) ) $this->publicationDate = trim(strip_tags($_REQUEST['course_publicationDate']));
+        if (isset($_REQUEST['course_publicationYear']) && isset($_REQUEST['course_publicationMonth']) && isset($_REQUEST['course_publicationDay']))
+            $this->publicationDate = mktime(0,0,0,$_REQUEST['course_publicationMonth'],$_REQUEST['course_publicationDay'],$_REQUEST['course_publicationYear']); 
+        if ( isset($_REQUEST['course_expirationDate' ]) ) $this->expirationDate = trim(strip_tags($_REQUEST['course_expirationDate']));
+        if (isset($_REQUEST['course_expirationYear']) && isset($_REQUEST['course_expirationMonth']) && isset($_REQUEST['course_expirationDay']) )
+            $this->expirationDate = mktime(0,0,0,$_REQUEST['course_expirationMonth'],$_REQUEST['course_expirationDay'],$_REQUEST['course_expirationYear']);
+        if ( isset($_REQUEST['useExpirationDate'   ]) && $_REQUEST['useExpirationDate'   ]) $this->useExpirationDate = true; else $this->useExpirationDate = false;
+        if ( isset($_REQUEST['course_status'       ]) ) $this->status = $_REQUEST['course_status'];
     }
 
     /**
@@ -272,7 +313,9 @@ class ClaroCourse
         $fieldRequiredStateList['category'      ] = true;
         $fieldRequiredStateList['language'      ] = true;
         $fieldRequiredStateList['departmentName'] = get_conf('extLinkNameNeeded');
-        $fieldRequiredStateList['extLinkUrl' ] = get_conf('extLinkUrlNeeded');
+        $fieldRequiredStateList['extLinkUrl'    ] = get_conf('extLinkUrlNeeded');
+        $fieldRequiredStateList['publicationDate']= false;
+        $fieldRequiredStateList['expirationDate'] = false;        
         
         // Validate course access
         if ( empty($this->access) || ! in_array($this->access, array('public','private','platform')) )
@@ -351,6 +394,15 @@ class ClaroCourse
             $this->backlog->failure(get_lang('Department URL is not valid'));
             $success = false ;
         }
+        
+            // Validate course extLinkUrl
+        if ( empty($this->publicationDate) && $fieldRequiredStateList['publicationDate'])
+        {
+            $this->backlog->failure(get_lang('Publication date needed'));
+            $success = false ;
+        }
+        
+        //TODO check expirationDate valid or NULL
 
         return $success;
     }
@@ -451,113 +503,112 @@ class ClaroCourse
             . '<input type="hidden" name="cmd" value="'.(empty($this->courseId)?'rqProgress':'exEdit').'" />' . "\n"
             . '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />' . "\n"
 
-            . $this->getHtmlParamList('POST')
+            . $this->getHtmlParamList('POST');
 
-            . '<table cellpadding="3" border="0">' . "\n" ;
+        $html .= '<fieldset>' . "\n"
+        .   '<dl>' . "\n";
 
         // Course title
 
-        $html .= '<tr valign="top">' . "\n"
-            . '<td align="right">'
+        $html .= '<dt>'
             . '<label for="course_title">'
-            . (get_conf('human_label_needed') ? '<span class="required">*</span> ':'') . get_lang('Course title')
-            .'</label>&nbsp;:</td>'
-            . '<td>'
+            . get_lang('Course title')
+            . (get_conf('human_label_needed') ? '<span class="required">*</span> ':'') 
+            .'</label>&nbsp;:</dt>'
+            . '<dd>'
             . '<input type="text" name="course_title" id="course_title" value="' . htmlspecialchars($this->title) . '" size="60" />'
             . (empty($this->courseId) ? '<br /><small>'.get_lang('e.g. <em>History of Literature</em>').'</small>':'')
-            . '</td></tr>' . "\n" ;
+            . '</dd>' . "\n" ;
 
         // Course code
 
-        $html .= '<tr valign="top">' . "\n"
-            . '<td align="right">'
+        $html .= '<dt>'
             . '<label for="course_officialCode">'
-            . (get_conf('human_code_needed') ? '<span class="required">*</span> ' :'') . get_lang('Course code')
-            . '</label>&nbsp;:</td>'
-            . '<td><input type="text" id="course_officialCode" name="course_officialCode" value="' . htmlspecialchars($this->officialCode) . '" size="20" maxlength="12" />'
+            . get_lang('Course code')
+            . '<span class="required">*</span> '
+            . '</label>&nbsp;:</dt>'
+            . '<dd><input type="text" id="course_officialCode" name="course_officialCode" value="' . htmlspecialchars($this->officialCode) . '" size="20" maxlength="12" />'
             . (empty($this->courseId) ? '<br /><small>'.get_lang('max. 12 characters, e.g. <em>ROM2121</em>').'</small>':'')
-            . '</td></tr>' . "\n" ;
+            . '</dd>' . "\n" ;
 
         // Course titular
 
-        $html .= '<tr>' . "\n"
-            . '<td align="right">'
-            . '<label for="course_titular">' . get_lang('Lecturer(s)') . '</label>&nbsp;:</td>'
-            . '<td><input type="text"  id="course_titular" name="course_titular" value="' . htmlspecialchars($this->titular) . '" size="60" /></td>'
-            . '</tr>' . "\n" ;
+        $html .= '<dt>'
+            . '<label for="course_titular">' . get_lang('Lecturer(s)') 
+            . '</label>&nbsp;:</dt>'
+            . '<dd><input type="text"  id="course_titular" name="course_titular" value="' . htmlspecialchars($this->titular) . '" size="60" />'
+            . '</dd>' . "\n" ;
 
         // Course email
 
-        $html .= '<tr>' . "\n"
-            . '<td align="right">'
+        $html .= '<dt>'
             . '<label for="course_email">'
-            . (get_conf('course_email_needed')?'<span class="required">*</span> ':'') . get_lang('Email')
+            . get_lang('Email')
+            . (get_conf('course_email_needed')?'<span class="required">*</span> ':'') 
             . '</label>'
             . '&nbsp;:'
-            . '</td>'
-            . '<td>'
+            . '</dt>'
+            . '<dd>'
             . '<input type="text" id="course_email" name="course_email" value="' . htmlspecialchars($this->email) . '" size="60" maxlength="255" />'
-            . '</td>'
-            . '</tr>' . "\n";
+            . '</dd>'
+            . "\n";
 
         // Course category select box
 
-        $html .= '<tr valign="top">' . "\n"
-            . '<td align="right">'
+        $html .= '<dt>'
             . '<label for="course_category">'
-            . '<span class="required">*</span> ' . get_lang('Category') . '</label>'
+            . get_lang('Category') 
+            . '<span class="required">*</span> '
+            . '</label>'
             . ' :'
-            . '</td>'
-            . '<td>'
+            . '</dt>'
+            . '<dd'
             . claro_html_form_select( 'course_category', $categoryList, $this->category, array('id'=>'course_category') )
             . (empty($this->courseId) ? '<br />'
             . '<small>'.get_lang('This is the faculty, department or school where the course is delivered').'</small>':'')
-            . '</td>'
-            . '</tr>' . "\n" ;
+            . '</dd>'
+            . "\n" ;
 
         // Course department name
 
-        $html .= '<tr valign="top">' . "\n"
-            . '<td align="right">'
+        $html .= '<dt>'
             . '<label for="course_departmentName">'
             . (get_conf('extLinkNameNeeded')?'<span class="required">*</span> ':'')
-            . get_lang('Department') . '</label>&nbsp;: </td>'
-            . '<td>'
+            . get_lang('Department') . '</label>&nbsp;: </dt>'
+            . '<dd>'
             . '<input type="text" name="course_departmentName" id="course_departmentName" value="' . htmlspecialchars($this->departmentName) . '" size="20" maxlength="30" />'
-            . '</td>'
-            . '</tr>' . "\n" ;
+            . '</dd>'
+            . "\n" ;
 
         // Course department url
 
-        $html .= '<tr valign="top" >' . "\n"
-            . '<td align="right" nowrap="nowrap">'
+        $html .= '<dt>'
+            . '<label for="course_extLinkUrl" >' . get_lang('Department URL') 
             . (get_conf('extLinkUrlNeeded')?'<span class="required">*</span> ':'')
-            . '<label for="course_extLinkUrl" >' . get_lang('Department URL') . '</label>'
+            . '</label>'
             . '&nbsp;:'
-            . '</td>'
-            . '<td>'
+            . '</dt>'
+            . '<dd>'
             . '<input type="text" name="course_extLinkUrl" id="course_extLinkUrl" value="' . htmlspecialchars($this->extLinkUrl) . '" size="60" maxlength="180" />'
-            . '</td>'
-            . '</tr>' . "\n" ;
+            . '</dd>'
+            .  "\n" ;
 
         // Course language select box
 
-        $html .= '<tr valign="top" >' . "\n"
-            . '<td align="right">'
+        $html .= '<dt>'
             . '<label for="course_language">'
-            . '<span class="required">*</span> ' . get_lang('Language') . '</label>'
-            . '&nbsp;:'
-            . '</td>'
-            . '<td>'
+            . get_lang('Language') . '</label>'
+            . '&nbsp;<span class="required">*</span>&nbsp;:' 
+            . '</dt>'
+            . '<dd>'
             . claro_html_form_select('course_language', $languageList, $this->language, array('id'=>'course_language'))
-            . '</td>'
-            . '</tr>' . "\n" ;
+            . '</dd>'
+            .  "\n" ;
 
         // Course access
 
-        $html .= '<tr valign="top" >' . "\n"
-            . '<td align="right" nowrap="nowrap">' . get_lang('Course access') . '&nbsp;:</td>'
-            . '<td>'
+        $html .= '<dt>' . get_lang('Course access') . '&nbsp;:</dt>'
+            . '<dd>'
             . '<img src="' . get_icon_url('access_open') . '" alt="' . get_lang('open') . '" />'
             . '<input type="radio" id="access_public" name="course_access" value="public" ' . ($this->access == 'public' ? 'checked="checked"':'') . ' />'
             . '&nbsp;'
@@ -579,14 +630,13 @@ class ClaroCourse
             $html .= get_lang('Access allowed only to course members (people on the <a href="%url">course user list</a>)' , array('%url'=> '../user/user.php'));
 
         $html .= '</label>'
-            . '</td>'
-            . '</tr>' . "\n" ;
+            . '</dd>'
+            . "\n" ;
 
         // Course registration + registration key
 
-        $html .= '<tr valign="top">' . "\n"
-            . '<td align="right">' . get_lang('Enrolment') . '&nbsp;:</td>'
-            . '<td>'
+        $html .='<dt align="right">' . get_lang('Enrolment') . '&nbsp;:</dt>'
+            . '<dd>'
             . '<img src="' . get_icon_url('enroll_allowed') . '"  alt="" />'
             . '<input type="radio" id="registration_true" name="course_registration" value="1" ' . ($this->registration && empty($this->registrationKey) ?'checked="checked"':'') . ' />'
             . '&nbsp;'
@@ -597,60 +647,107 @@ class ClaroCourse
             . '&nbsp;'
             . '<label for="registration_key">' . get_lang('Allowed with enrolment key') . '</label>'
             . '&nbsp;'
-            //. '<label for="registrationKey">'
-            //. ' - ' . get_lang('Enrolment key') . ' : ' /* . ' <small>(' . get_lang('Optional') . ')</small> : ' */
-            // . '</label>'*/
             . '<input type="text" id="registrationKey" name="course_registrationKey" value="' . htmlspecialchars($this->registrationKey) . '" />'
             . '<br />' . "\n"
             . '<img src="' . get_icon_url('enroll_forbidden') . '"  alt="" />'
             . '<input type="radio" id="registration_false"  name="course_registration" value="0" ' . ( ! $this->registration ?'checked="checked"':'') . ' />'
             . '&nbsp;'
             . '<label for="registration_false">' . get_lang('Denied') . '</label>'
-            . '</td>'
-            . '</tr>' . "\n" ;
+            . '</dd>'
+            . "\n" ;
 
         // Block course settings tip
 
-        $html .= '<tr>' . "\n"
-            . '<td>&nbsp;</td>'
-            . '<td><small><font color="gray">' . get_block('blockCourseSettingsTip') . '</font></small></td>'
-            . '</tr>' . "\n" ;
-
-
+        $html .= '<dt>&nbsp;</dt>'
+            . '<dd><small><font color="gray">' . get_block('blockCourseSettingsTip') . '</font></small></dd>'
+            . "\n" ;
+            
+        $html .= '</dl>' . "\n"
+		    .   '</fieldset>' . "\n";
+    
         // Course visibility
         if (claro_is_platform_admin())
-        $html .= '<tr valign="top">' . "\n"
-        .        '<td align="right">' . get_lang('Course visibility') . '&nbsp;:</td>'
-            . '<td>'
-            . '<img src="' . get_icon_url('visible') . '" alt="" />'
-            . '<input type="radio" id="visibility_show" name="course_visibility" value="1" ' . ($this->visibility ? 'checked="checked"':'') . ' />&nbsp;'
-            . '<label for="visibility_show">' . get_lang('The course is shown in the courses listing') . '</label>'
-            . '<br />' . "\n"
-            . '<img src="' . get_icon_url('invisible') . '" alt="" />'
-            . '<input type="radio" id="visibility_hidden" name="course_visibility" value="0" ' . ( ! $this->visibility ? 'checked="checked"':'' ) . ' />&nbsp;'
-            . '<label for="visibility_hidden">'
-            . get_lang('Visible only to people on the user list')
-            . '</label>'
-            . '</td>'
-            . '</tr>' . "\n"
-            ;        // Required legend
+        {
 
-        $html .= '<tr>' . "\n"
-            . '<td>&nbsp;</td>'
-            . '<td>' . get_lang('<span class="required">*</span> denotes required field') . '</td>'
-            . '</tr>' . "\n" ;
+            
+          // Advanced Information
+        
+            $html .= '<fieldset id="advancedInformation" class="collapsible collapsed">' . "\n"
+                    .   '<legend><a href="#" class="doCollapse">' . get_lang('Advanced').' ('.get_lang('Optional').')' . '</a></legend>' . "\n"
+                    .   '<div class="collapsible-wrapper">' . "\n"
+                    .   '<dl>' . "\n";
+            
+            // Visibility in category list
+            $html .= 
+                 '<dt align="right">' . get_lang('Course visibility') . '&nbsp;:</dt>'
+                . '<dd>'
+                . '<img src="' . get_icon_url('visible') . '" alt="" />'
+                . '<input type="radio" id="visibility_show" name="course_visibility" value="1" ' . ($this->visibility ? 'checked="checked"':'') . ' />&nbsp;'
+                . '<label for="visibility_show">' . get_lang('The course is shown in the courses listing') . '</label>'
+                . '<br />' . "\n"
+                . '<img src="' . get_icon_url('invisible') . '" alt="" />'
+                . '<input type="radio" id="visibility_hidden" name="course_visibility" value="0" ' . ( ! $this->visibility ? 'checked="checked"':'' ) . ' />&nbsp;'
+                . '<label for="visibility_hidden">'
+                . get_lang('Visible only to people on the user list')
+                . '</label>'
+                . '</dd>'
+                .  "\n"
+                ;        // Required legend
+            
+            // publication date
+            $html .=  "\n"
+                 .   '<dt>' . get_lang('Publication date') . '&nbsp;:</dt>'
+                . '<dd>'
+                . claro_html_date_form('course_publicationDay', 'course_publicationMonth', 'course_publicationYear', $this->publicationDate, 'numeric')
+                . '&nbsp;<small>' . get_lang('(d/m/y)') . '</small>'
+                . '</dd>'
+                . "\n";
+            
+            // expiration date
+            $html .="\n"
+            .        '<dt>' . get_lang('Expiration date') . '&nbsp;:</dt>'
+                . '<dd>'
+                .   '<input type="checkbox" name="useExpirationDate" value=true '
+                .   ( $this->useExpirationDate ?' checked="checked"':' ') . '/>'
+                .   ' <label for="useEndDate">'.get_lang('Yes').'</label>,' . "\n"
+                . claro_html_date_form('course_expirationDay', 'course_expirationMonth', 'course_expirationYear', $this->expirationDate, 'numeric')
+                . '&nbsp;<small>' . get_lang('(d/m/y)') . '</small>'
+                . '<dd>'
+                . "\n";
+            
+            // status : enable, pending, disable, trash
+            $html .=  "\n"
+                . '<dt>' . get_lang('Status') . '&nbsp;:</dt>'
+                . '<dd>'
+                . '<input type="radio" id="status_enable" name="course_status" value="enable" ' . ($this->status == 'enable' ? 'checked="checked"':'') . ' />&nbsp;'
+                . '<label for="status_enable">' . get_lang('The course, displayed in course list,  is enable') . '</label>'
+                . '<br />' . "\n"
+                . '<input type="radio" id="status_pending" name="course_status" value="pending" ' . ( $this->status == 'pending' ? 'checked="checked"':'' ) . ' />&nbsp;'
+                . '<label for="status_pending">'. get_lang('The course, displayed in deactivate course list, is disable and waiting for reactivation by course manager') . '</label>'
+                . '<br />' . "\n"
+                . '<input type="radio" id="status_disable" name="course_status" value="disable" ' . ($this->status == 'disable' ? 'checked="checked"':'') . ' />&nbsp;'
+                . '<label for="status_disable">' . get_lang('The course, displayed in deactivate course list,  is disable and can be reactivate only by adminstrator') . '</label>'
+                . '<br />' . "\n"
+                . '<input type="radio" id="status_trash" name="course_status" value="trash" ' . ( $this->status == 'trash' ? 'checked="checked"':'' ) . ' />&nbsp;'
+                . '<label for="status_trash">'. get_lang('The course is disable and not visible in any course list'). '</label>'
+                . '</dd>'
+                . "\n";
+                
+              $html .= '</dl>' . "\n"
+                .   '</div>' . "\n" // fieldset-wrapper
+                .   '</fieldset>' . "\n";
+        
+        }    
+        $html .= '<dt>' . get_lang('<span class="required">*</span> denotes required field') 
+            . '</dt>' . "\n" ;
 
-        $html .= '<tr>' . "\n"
-            . '<td>&nbsp;</td>'
-            . '<td>'
+        $html .= '<dt>'
             . '<input type="submit" name="changeProperties" value="' . get_lang('Ok') . '" />'
             . '&nbsp;'
             . claro_html_button($cancelUrl, get_lang('Cancel'))
-            . '</td>' . "\n"
-            . '</tr>' . "\n" ;
+            . '</dt>' . "\n" ;
 
-        $html .= '</table>' . "\n"
-            .'</form>' . "\n" ;
+        $html .= '</form>' . "\n" ;
             
         $html .= '<script type="text/javascript">' . "\n"
         .   '$("#courseSettings").submit(function(){
@@ -859,6 +956,10 @@ class ClaroCourse
         $paramList['course_access'] = $this->access;
         $paramList['course_registration'] = $this->registration;
         $paramList['course_registrationKey'] = $this->registrationKey;
+        $paramList['course_publicationDate'] = $this->publicationDate;
+        $paramList['course_expirationDate'] = $this->expirationDate;
+        $paramList['useExpirationDate']    = $this->useExpirationDate;
+        $paramList['course_status'] = $this->status;        
 
         $paramList = array_merge($paramList, $this->htmlParamList);
 
