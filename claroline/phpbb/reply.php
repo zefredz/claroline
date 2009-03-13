@@ -110,7 +110,7 @@ elseif ( $topicSettingList )
             // forum and the group of the concerned forum isn't the same as the session
             // one, something weird is happening, indeed ...
             $allowed = FALSE;
-            $dialogBox->error( get_lang('Not allowed') );
+            claro_die( get_lang('Not allowed') );
         }
 
         if ( isset($_REQUEST['submit']) )
