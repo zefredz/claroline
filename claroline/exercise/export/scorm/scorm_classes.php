@@ -69,7 +69,7 @@ class ScormQuestion extends Question
 
         if( is_object($this->answer) )
         {
-            $out .= $this->answer->export();
+            $out .= claro_parse_user_text($this->answer->export());
         }
 
         return $out;
@@ -254,9 +254,9 @@ class ScormAnswerFillInBlanks extends answerFillInBlanks
             }
         }
 
-
+        
         // apply replacement on answer
-        $displayedAnswer = str_replace( $blankList, $replacementList, claro_parse_user_text($this->answerText) );
+        $displayedAnswer = str_replace( $blankList, $replacementList, claro_parse_user_text(htmlspecialchars_decode($this->answerText)) );
 
         // some javascript must be added for that kind of questions
         $out =

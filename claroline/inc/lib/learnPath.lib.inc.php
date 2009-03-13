@@ -702,7 +702,7 @@ function display_my_exercises($dialogBox)
                 echo '<tr>'."\n"
                 .    '<td>&nbsp;</td>'."\n"
                 .    '<td>'
-                .    '<small>' . $exercise['description'] . '</small>'
+                .    '<small>' . claro_parse_user_text($exercise['description']) . '</small>'
                 .    '</td>'."\n"
                 .    '</tr>'."\n\n"
                 ;

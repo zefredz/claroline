@@ -257,7 +257,10 @@ if ( !class_exists('ScormExport') )
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Content-Type" content="text/HTML; charset='.get_locale('charset').'"  />
 
-    <link rel="stylesheet" type="text/css" href="' . $claro_stylesheet . '" media="screen, projection, tv" />
+    <link rel="stylesheet" type="text/css" href="' . get_conf('claro_stylesheet') . '/main.css" media="screen, projection, tv" />
+    <script language="javascript" type="text/javascript" src="jquery.js"></script>
+    <script language="javascript" type="text/javascript" src="claroline.js"></script>
+    <script language="javascript" type="text/javascript" src="claroline.ui.js"></script>
 
     <script language="javascript" type="text/javascript" src="APIWrapper.js"></script>
     <script language="javascript" type="text/javascript" src="scores.js"></script>
@@ -456,7 +459,11 @@ if ( !class_exists('ScormExport') )
                 || !claro_copy_file(dirname(__FILE__).'/../export/ims_xml.xsd', $this->destDir)
                 || !claro_copy_file(dirname(__FILE__).'/../export/imscp_rootv1p1p2.xsd', $this->destDir)
                 || !claro_copy_file(dirname(__FILE__).'/../export/imsmd_rootv1p2p1.xsd', $this->destDir)
-                || !claro_copy_file(dirname(__FILE__).'/../export/adlcp_rootv1p2.xsd', $this->destDir)  )
+                || !claro_copy_file(dirname(__FILE__).'/../export/adlcp_rootv1p2.xsd', $this->destDir)
+                || !claro_copy_file(get_path('clarolineRepositorySys') . '../web/js/jquery.js', $this->destDir)
+                || !claro_copy_file(get_path('clarolineRepositorySys') . '../web/js/claroline.js', $this->destDir)
+                || !claro_copy_file(get_path('clarolineRepositorySys') . '../web/js/claroline.ui.js', $this->destDir)
+               )
             {
                 $this->error[] = get_lang('Error when copying needed SCORM files');
                 return false;

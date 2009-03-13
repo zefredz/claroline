@@ -133,7 +133,11 @@ echo claro_html_tool_title($nameTools);
 //####################################################################################\\
 echo nameBox(LEARNINGPATH_, DISPLAY_);
 // and comment !
-echo commentBox(LEARNINGPATH_, DISPLAY_);
+$out = commentBox(LEARNINGPATH_, DISPLAY_);
+if( !empty($out) )
+{
+    echo $out;
+}
 
 //####################################################################################\\
 //############################## MODULE TABLE HEADER #################################\\
