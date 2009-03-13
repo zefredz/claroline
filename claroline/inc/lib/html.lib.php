@@ -1268,8 +1268,6 @@ function make_spoiler($text)
     .   '</div>' . "\n"
     ;
     
-    
-    
     $out = preg_replace_callback ($reg1, 'add_spoiler', $text);
     $out = preg_replace($reg2, $replace2, $out);
     
@@ -1329,13 +1327,10 @@ function renderTex($text)
 
     if ( !empty($claro_texRendererUrl) )
     {
-        $text = str_replace('[tex]',
-        '<img src="'.$claro_texRendererUrl.'?',
-        $text);
-
-        $text = str_replace('[/tex]',
-        '" border="0" align="absmiddle" class="latexFormula" />',
-        $text);
+        $text = preg_replace_callback(  '/\[tex\](.+?)\[\/tex\]/i',
+                                        'renderTexCallback',
+                                        $text
+                            );        
     }
     else
     {
@@ -1349,6 +1344,21 @@ function renderTex($text)
     }
 
     return $text;
+}
+
+function renderTexCallback( $matches )
+{
+    if(isset($matches[1]))
+    {
+        $claro_texRendererUrl = get_conf('claro_texRendererUrl');
+
+        $text = '<img src="'.$claro_texRendererUrl.'?'.rawurlencode($matches[1]).'" border="0" align="absmiddle" class="latexFormula" alt="'.htmlspecialchars($matches[1]).'" />';
+        return $text;
+    }
+    else
+    {
+        return false;
+    }    
 }
 /**
  * Completes url contained in the text with "<a href ...".
