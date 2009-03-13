@@ -31,5 +31,30 @@ tinyMCE.init({
     apply_source_formatting : true,
 	cleanup_on_startup : true,
     entity_encoding : "raw",
-    extended_valid_elements : "a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]"
+    extended_valid_elements : "a[name|href|target|title|onclick],img[class|src|border=0|alt|title|hspace|vspace|width|height|align|onmouseover|onmouseout|name],hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]",
+    
+    // setup
+    setup : function(ed) {
+        // Change Tex code to Tex img
+        ed.onBeforeSetContent.add(function(ed, o) {
+            o.content = o.content.replace(/\[tex\](.+?)\[\/tex\]/gi, '<img src="http://localhost/cgi-bin/mimetex.cgi?$1" border="0" align="absmiddle" class="latexFormula" alt="$1" />');
+        });
+        // Change Tex img to Tex code
+        ed.onGetContent.add(function(ed, o) {
+            o.content = o.content.replace(/<img.*src="(.+?)\?(.+?)"(.+?)>/gi, '[tex]$2[/tex]');
+        });
+        // Change Spoiler class to Spoiler code
+        ed.onGetContent.add(function(ed, o) {
+            var content = ed.dom.getRoot();
+            var spoilers = $(content).find('div.spoiler');
+            $.each(spoilers, function() {
+                var title = $(this).find('a').text();
+                var spoilerContent = $(this).find('div.spoilerContent').html();
+                var spoilerTags = '<p>[spoiler /' + title + '/]</p>' + spoilerContent + '<p>[/spoiler]</p>';
+                $(this).replaceWith(spoilerTags);
+            });
+            $(content).find('div.spoiler').replaceWith(spoilers);
+            
+        });
+    }
 });

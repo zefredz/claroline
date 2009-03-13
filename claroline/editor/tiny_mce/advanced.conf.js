@@ -56,7 +56,7 @@ tinyMCE.init({
     setup : function(ed) {
         // Change Tex code to Tex img
         ed.onBeforeSetContent.add(function(ed, o) {
-            o.content = o.content.replace(/\[tex\](.+?)\[\/tex\]/gi, '<img src="http://localhost/cgi-bin/mimetex.cgi?$1" border="0" align="absmiddle" class="latexFormula" />');
+            o.content = o.content.replace(/\[tex\](.+?)\[\/tex\]/gi, '<img src="http://localhost/cgi-bin/mimetex.cgi?$1" border="0" align="absmiddle" class="latexFormula" alt="$1" />');
         });
         // Change Tex img to Tex code
         ed.onGetContent.add(function(ed, o) {
