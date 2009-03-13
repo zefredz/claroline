@@ -136,7 +136,11 @@ switch ($module['contentType'])
         // real scorm content method
         $startAssetPage = $assetPath;
         $modulePath     = 'path_' . $_SESSION['path_id'];
-        $moduleStartAssetPage = get_path('coursesRepositoryWeb') . claro_get_course_path() . '/scormPackages/' . $modulePath . $startAssetPage;
+        $moduleStartAssetPage = get_path('coursesRepositoryWeb')
+        .   claro_get_course_path()
+        .   '/scormPackages/'
+        .   $modulePath
+        .   $startAssetPage;
         break;
     case CTCLARODOC_ :
         break;

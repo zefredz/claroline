@@ -557,7 +557,7 @@ if ( !class_exists('ScormExport') )
     <title>Default Title</title>
     </head>
     <frameset border="0" rows="100%,*" onload="immediateComplete()">
-    <frame src="' . urlencode($targetPath) . '" scrolling="auto">
+    <frame src="' . str_ireplace('%2F','/',rawurlencode($targetPath)) . '" scrolling="auto">
     <frame src="SCOFunctions.js">
     </frameset>
     </html>');
@@ -695,7 +695,7 @@ if ( !class_exists('ScormExport') )
                         $manifest_resources .= '<resource identifier="R_' . $module['ID'] . '" type="webcontent"  adlcp:scormType="sco" '
                             . ' href="' . basename($framefile) . '">' . "\n"
                             . '  <file href="' . urlencode(basename($framefile)) . '" />' . "\n"
-                            . '  <file href="' . urlencode($targetfile) . '" />' . "\n"
+                            . '  <file href="' . str_ireplace('%2F','/', rawurlencode($targetfile)) . '" />' . "\n"
                             . $this->makeMetaData($module['name'], $module['resourceComment'])
                             . "</resource>\n";
                         break;
