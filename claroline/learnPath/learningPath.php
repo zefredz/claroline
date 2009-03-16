@@ -68,6 +68,11 @@ if ( claro_is_allowed_to_edit() )
 //############################## MODULE TABLE LIST PREPARATION #######################\\
 //####################################################################################\\
 
+if(is_learnpath_accessible( (int) $_SESSION['path_id'] ) && !claro_is_allowed_to_edit() )
+{
+    claro_die( get_lang('Not allowed'));
+}
+
 if(claro_is_user_authenticated())
 {
     $uidCheckString = "AND UMP.`user_id` = " . (int) claro_get_current_user_id();
@@ -101,7 +106,6 @@ $sql = "SELECT LPM.`learnPath_module_id`,
        ORDER BY LPM.`rank`";
 
 $extendedList = claro_sql_query_fetch_all($sql);
-
 // build the array of modules
 // build_element_list return a multi-level array, where children is an array with all nested modules
 // build_display_element_list return an 1-level array where children is the deep of the module

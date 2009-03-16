@@ -1390,4 +1390,103 @@ function delete_exercise_asset($exerciseId)
 
         return true;
 }
+
+/**
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be
+ *
+ * @param $pathId integer id of a learnPath
+ * @return boolean true if learnpath is blocked, false instead
+ * 
+ **/ 
+
+function is_learnpath_accessible( $pathId )
+{
+    $blocked = false;
+    
+    $tbl_cdb_names = claro_sql_get_course_tbl();
+    $tbl_lp_learnPath            = $tbl_cdb_names['lp_learnPath'           ];
+    $tbl_lp_rel_learnPath_module = $tbl_cdb_names['lp_rel_learnPath_module'];
+    $tbl_lp_user_module_progress = $tbl_cdb_names['lp_user_module_progress'];
+    $tbl_lp_module               = $tbl_cdb_names['lp_module'              ];
+    $tbl_lp_asset                = $tbl_cdb_names['lp_asset'               ];
+    
+    // select all the LP upper than this one
+    $sql = "SELECT `rank`, `visibility` FROM `".$tbl_lp_learnPath."` WHERE `learnPath_id` = ".(int) $pathId." LIMIT 1";
+    $path = claro_sql_query_fetch_single_row( $sql );
+    if( $path['visibility'] == 'HIDE' )
+    {
+        $blocked = true;
+    }
+    else
+    {
+        $sql = "SELECT `learnPath_id`, `lock`, `visibility` FROM `".$tbl_lp_learnPath."` WHERE `rank` < ".(int) $path['rank'];
+        $upperPaths = claro_sql_query_fetch_all_rows( $sql );
+        
+        // get the first blocked LP
+        $upperBlockId = 0;
+        $upperLock = 'OPEN';
+        foreach( $upperPaths as $upperPath )
+        {
+            if(strtolower($upperPath['lock']) == 'close')
+            {
+                $upperBlockId = $upperPath['learnPath_id'];
+                $upperLock = $upperPath['lock'];
+                break;
+            }
+        }
+        
+        if( !empty( $upperBlockId ) )
+        {
+            
+            // step 1. find last visible module of the current learning path in DB
+ 
+             $blocksql = "SELECT `learnPath_module_id`
+                          FROM `".$tbl_lp_rel_learnPath_module."`
+                          WHERE `learnPath_id`=". (int) $upperBlockId."
+                          AND `visibility` = \"SHOW\"
+                          ORDER BY `rank` DESC
+                          LIMIT 1
+                         ";
+     
+             $listblock = claro_sql_query_fetch_single_row($blocksql);
+             
+             // step 2. see if there is a user progression in db concerning this module of the current learning path
+             if( $listblock && is_array($listblock) && count($listblock) )
+             {
+                 
+                 $blocksql2 = "SELECT `credit`
+                           FROM `".$tbl_lp_user_module_progress."`
+                           WHERE `learnPath_module_id`=". (int)$listblock['learnPath_module_id']."
+                           AND `user_id`='". (int) claro_get_current_user_id()."'
+                          ";
+                 
+                 $resultblock2 = claro_sql_query($blocksql2);
+                 $moduleNumber = mysql_num_rows($resultblock2);
+             }
+             else
+             {
+                 $moduleNumber = 0;
+             }
+             
+             if ($moduleNumber!=0)
+             {
+                 $listblock2 = mysql_fetch_array($resultblock2);
+     
+                 if (($listblock2['credit']=="NO-CREDIT") && ($upperLock == 'CLOSE'))
+                 {
+                     $blocked = true;
+                 }
+             }
+             elseif( $moduleNumber == 0 && $upperLock == 'CLOSE' )
+             {
+                 $blocked = true;
+             } 
+            
+        }
+    }
+    
+    
+    return $blocked;
+}
+
 ?>
