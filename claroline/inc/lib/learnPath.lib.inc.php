@@ -1419,7 +1419,7 @@ function is_learnpath_accessible( $pathId )
     }
     else
     {
-        $sql = "SELECT `learnPath_id`, `lock`, `visibility` FROM `".$tbl_lp_learnPath."` WHERE `rank` < ".(int) $path['rank'];
+        $sql = "SELECT `learnPath_id`, `lock`, `visibility` FROM `".$tbl_lp_learnPath."` WHERE `rank` < ".(int) $path['rank']." ORDER BY `rank` DESC";
         $upperPaths = claro_sql_query_fetch_all_rows( $sql );
         
         // get the first blocked LP
