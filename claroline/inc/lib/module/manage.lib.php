@@ -161,6 +161,10 @@ function get_module_repositories()
                 {
                     continue ;
                 }
+                elseif( is_dir($file) && $file[0] == '.' )
+                {
+                    continue;
+                }
                 else
                 {
                     $folder_array[] = $file;
