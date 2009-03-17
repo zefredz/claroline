@@ -705,27 +705,7 @@ else
     echo '<div id="endPanel">' . "\n\n";
 }
 
-
-// navigation buttons
-$htmlNextPrevButton = '<div id="navigation">'  . "\n"
-.    '<div id="navToNext">'  . "\n"
-;
-
-if( !is_null($stepPos) && $stepPos !== false && ($stepPos+1 < count($panelSequence)) ) 
-{
-    $htmlNextPrevButton .= '<input type="submit" name="' . $cmdName[$panelSequence[$stepPos+1]] . '" value="'.get_lang('Next') .' &gt; " />'. "\n"; 
-}
-elseif( DISP_LAST_CHECK_BEFORE_INSTALL == $display )
-{
-    $htmlNextPrevButton .= '<input type="submit" name="cmdDoInstall" value="'.get_lang('Install Claroline') .'" />'. "\n";
-}
-
-$htmlNextPrevButton .= '</div>' . "\n"
-.    '<div id="navToPrev">'  . "\n"
-.    (!is_null($stepPos) && $stepPos !== false && ( $stepPos > 0 ) ? '<input type="submit" name="' . $cmdName[$panelSequence[$stepPos-1]] . '" value="&lt; '.get_lang('Back') .'" />' :'')
-.    '</div>' . "\n"
-.    '</div>' . "\n"
-;
+$nextStepDisable = false;
 
 foreach (array_keys($panelTitle) as $step )
 {
@@ -772,11 +752,11 @@ echo '<input type="hidden" name="alreadyVisited" value="1" />'                  
 .    '<input type="hidden" name="confirmUseExistingStatsDb"    value="'.$confirmUseExistingStatsDb.'" />';
 
 
- ##### PANNELS  ######
- #
- # INSTALL IS a big form
- # Too big to show  in one time.
- # PANEL show some  field to edit, all other are in HIDDEN FIELDS
+##### PANNELS  ######
+#
+# INSTALL IS a big form
+# Too big to show  in one time.
+# PANEL show some  field to edit, all other are in HIDDEN FIELDS
 ###################################################################
 ############### STEP 0 LANG #######################################
 ###################################################################
@@ -1023,22 +1003,234 @@ elseif ($display == DISP_WELCOME)
     ;
 
     echo '</fieldset>' . "\n\n"
-    
     .    '<fieldset>' . "\n"
-    .    '<legend>'.get_lang('Directory and file permissions').'</legend>' . "\n"
+    .    '<legend>'.get_lang('Directories and files permissions').'</legend>' . "\n"
     .    '<table class="requirements">' . "\n"
-    .    '<tbody>' . "\n"
-    .    '<tr>' . "\n"
-    .    '<td>'.get_lang('Is root folder readable ?') . '<br /><em>' . realpath('../..').'</em></td>'  . "\n"
-    .    '<td>' . ( is_readable('../..') ? '<span class="ok">'.get_lang('Yes').'</span>':'<span class="ko">'.get_lang('No').'</span>') . '</td>' . "\n"
-    .    '</tr>'     . "\n"
-    .    '<tr>' . "\n"
-    .    '<td>'.get_lang('Is root folder writable ?') . '<br /><em>' . realpath('../..').'</em></td>'  . "\n"
-    .    '<td>' . ( is_writable('../..') ? '<span class="ok">'.get_lang('Yes').'</span>':'<span class="ko">'.get_lang('No').'</span>') . '</td>' . "\n"
-    .    '</tr>' . "\n"
-    .    '</tbody>' . "\n"
-    .    '</table>' . "\n"
-    .     '</fieldset>' . "\n\n"
+    .    '<tbody>' . "\n";
+    
+    $pathRoot = ('../..');
+    $rootReadable = true;
+    $rootWritable = true;
+    
+    if(!is_readable($pathRoot))
+    {
+        $rootReadable = false;
+    }
+    if(!is_writable($pathRoot))
+    {
+        $rootWritable = false;
+    }
+    
+    $pathPlatform = '../../platform';
+    $platformReadable = true;
+    $platformWritable = true;
+    if( is_dir($pathPlatform))
+    {
+        if(is_readable($pathPlatform))
+        {
+            if($h = opendir($pathPlatform))
+            {
+                while(($file = readdir($h)) !== false)
+                {
+                    if(is_dir($pathPlatform . $file))
+                    {
+                        if(!(is_readable($pathPlatform . $file)))
+                        {
+                            $platformReadable = false;                        
+                        }
+                        if(!(is_writable($pathPlatform . $file)))
+                        {
+                            $platformWritable = false;
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            $platformReadable = false;
+        }    
+        if(!is_writable($pathPlatform))
+        {
+            $platformWritable = false;
+        }
+    }
+    
+    $pathModule = '../../module';
+    $moduleReadable = true;
+    $moduleWritable = true;
+    if(is_dir($pathModule))
+    {
+       if(is_readable($pathModule))
+        {
+            if($h = opendir($pathModule))
+            {
+                while(($file = readdir($h)) !== false)
+                {
+                    if(is_dir($pathModule . $file))
+                    {
+                        if(!(is_readable($pathModule . $file)))
+                        {
+                            $moduleReadable = false;                        
+                        }
+                        if(!(is_writable($pathModule . $file)))
+                        {
+                            $moduleWritable = false;
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            $moduleReadable = false;
+        }    
+        if(!is_writable($pathModule))
+        {
+            $moduleWritable = false;
+        }
+    }
+    
+    $pathTmp = '../../tmp';
+    $tmpReadable = true;
+    $tmpWritable = true;
+    if(is_dir($pathTmp))
+    {
+        if(is_readable($pathTmp))
+        {
+            if($h = opendir($pathTmp))
+            {
+                while(($file = readdir($h)) !== false)
+                {
+                    if(is_dir($pathTmp . $file))
+                    {
+                        if(!(is_readable($pathTmp . $file)))
+                        {
+                            $tmpReadable = false;                        
+                        }
+                        if(!(is_writable($pathTmp . $file)))
+                        {
+                            $tmpWritable = false;
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            $tmpReadable = false;
+        }    
+        if(!is_writable($pathTmp))
+        {
+            $tmpWritable = false;
+        }
+    }
+    
+    //Directories readable
+    echo '<tr>' . "\n"
+    .    '<td>'.get_lang('Are directories readable ?') . '</td>'  . "\n"
+    .    '<td>';
+    if( $rootReadable && $platformReadable && $moduleReadable && $tmpReadable )
+    {
+        echo '<span class="ok">'.get_lang('Yes').'</span>' . "\n";
+    }
+    else
+    {
+        //echo '<span class="ko">'.get_lang('No').'</span>' . "\n";
+        $nextStepDisable = true;
+    }
+    echo '</tr>' . "\n";
+    if( !$rootReadable )
+    {
+        echo '<tr>' . "\n"
+        .    '<td><em>'. realpath($pathRoot) . '</em></td>'  . "\n"
+        .    '<td>'
+        .    '<span class="ko">'. get_lang('No') .'</span>'
+        .    '</td>' . "\n"
+        .    '</tr>';
+    }
+    if( !$platformReadable )
+    {
+        echo '<tr>' . "\n"
+        .    '<td><em>'. realpath($pathPlatform) . '</em></td>'  . "\n"
+        .    '<td>'
+        .    '<span class="ko">'. get_lang('No') .'</span>'
+        .    '</td>' . "\n"
+        .    '</tr>';
+    }
+    if( !$moduleReadable )
+    {
+        echo '<tr>' . "\n"
+        .    '<td><em>'. realpath($pathModule) . '</em></td>'  . "\n"
+        .    '<td>'
+        .    '<span class="ko">'. get_lang('No') .'</span>'
+        .    '</td>' . "\n"
+        .    '</tr>';
+    }
+    if( !$tmpReadable )
+    {
+        echo '<tr>' . "\n"
+        .    '<td><em>'. realpath($pathTmp) . '</em></td>'  . "\n"
+        .    '<td>'
+        .    '<span class="ko">'. get_lang('No') .'</span>'
+        .    '</td>' . "\n"
+        .    '</tr>';
+    }
+    
+    //Directories writable
+    echo '<tr>' . "\n"
+    .    '<td>'.get_lang('Are directories writable ?') . '</td>'  . "\n"
+    .    '<td>';
+    if( $rootWritable && $platformWritable && $moduleWritable && $tmpWritable )
+    {
+        echo '<span class="ok">'.get_lang('Yes').'</span>' . "\n";
+    }
+    else
+    {
+        //echo '<span class="ko">'.get_lang('No').'</span>' . "\n";
+        $nextStepDisable = true;
+    }
+    echo '</tr>' . "\n";
+    if( !$rootWritable )
+    {
+        echo '<tr>' . "\n"
+        .    '<td><em>'. realpath($pathRoot) . '</em></td>'  . "\n"
+        .    '<td>'
+        .    '<span class="ko">'. get_lang('No') .'</span>'
+        .    '</td>' . "\n"
+        .    '</tr>';
+    }
+    if( !$platformWritable )
+    {
+        echo '<tr>' . "\n"
+        .    '<td><em>'. realpath($pathPlatform) . '</em></td>'  . "\n"
+        .    '<td>'
+        .    '<span class="ko">'. get_lang('No') .'</span>'
+        .    '</td>' . "\n"
+        .    '</tr>';
+    }
+    if( !$moduleWritable )
+    {
+        echo '<tr>' . "\n"
+        .    '<td><em>'. realpath($pathModule) . '</em></td>'  . "\n"
+        .    '<td>'
+        .    '<span class="ko">'. get_lang('No') .'</span>'
+        .    '</td>' . "\n"
+        .    '</tr>';
+    }
+    if( !$tmpWritable )
+    {
+        echo '<tr>' . "\n"
+        .    '<td><em>'. realpath($pathTmp) . '</em></td>'  . "\n"
+        .    '<td>'
+        .    '<span class="ko">'. get_lang('No') .'</span>'
+        .    '</td>' . "\n"
+        .    '</tr>';
+    }
+    
+    echo '</tbody>' . "\n"
+    .   '</table>' . "\n"
+    .   '</fieldset>' . "\n\n"
     ;
 
 }
@@ -2080,6 +2272,27 @@ else
             array('%forumUrl' => 'http://forum.claroline.net') )
     ;
 }
+
+// navigation buttons
+$htmlNextPrevButton = '<div id="navigation">'  . "\n"
+.    '<div id="navToNext">'  . "\n"
+;
+
+if( !is_null($stepPos) && $stepPos !== false && ($stepPos+1 < count($panelSequence)) ) 
+{
+    $htmlNextPrevButton .= '<input type="submit" name="' . $cmdName[$panelSequence[$stepPos+1]] . '" value="'.get_lang('Next') .' &gt; " '. ( $nextStepDisable ? 'disabled="disabled"' : '' ) .' />'. "\n"; 
+}
+elseif( DISP_LAST_CHECK_BEFORE_INSTALL == $display )
+{
+    $htmlNextPrevButton .= '<input type="submit" name="cmdDoInstall" value="'.get_lang('Install Claroline') .'" />'. "\n";
+}
+
+$htmlNextPrevButton .= '</div>' . "\n"
+.    '<div id="navToPrev">'  . "\n"
+.    (!is_null($stepPos) && $stepPos !== false && ( $stepPos > 0 ) ? '<input type="submit" name="' . $cmdName[$panelSequence[$stepPos-1]] . '" value="&lt; '.get_lang('Back') .'" />' :'')
+.    '</div>' . "\n"
+.    '</div>' . "\n"
+;
 
 echo $htmlNextPrevButton;
 ?>
