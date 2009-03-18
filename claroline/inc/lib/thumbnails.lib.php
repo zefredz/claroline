@@ -114,12 +114,19 @@ class Thumbnailer
         $thumbPath = $this->thumbnailDirectory . '/' . $thumbName;
         
         
-        if ( file_exists( $thumbPath ) )
+        if ( file_exists( $thumbPath )
+            && filectime($this->documentRootDir . '/' . $imgPath) < filectime($thumbPath)
+            && filemtime($this->documentRootDir . '/' . $imgPath) < filemtime($thumbPath) )
         {
             return $thumbPath;
         }
         else
         {
+            if ( claro_debug_mode() )
+            {
+                Console::debug("Regenerating thumbnail for {$imgPath}");
+            }
+            
             return $this->createThumbnail( $imgPath, $newHeight, $newWidth );
         }
     }
