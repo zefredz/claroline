@@ -685,6 +685,15 @@ function get_link_file_url($file)
 function update_db_info($action, $filePath, $newParamList = array())
 {
     global $dbTable; // table 'document'
+    
+    if (strtoupper(substr(PHP_OS, 0, 3)) == "WIN")
+    {
+        $modifier = '';
+    }
+    else
+    {
+        $modifier = 'BINARY ';
+    }
 
     $newComment    = (isset($newParamList['comment'   ]) ? trim($newParamList['comment'   ]) : null);
     $newVisibility = (isset($newParamList['visibility']) ? trim($newParamList['visibility']) : null);
@@ -704,7 +713,7 @@ function update_db_info($action, $filePath, $newParamList = array())
 
         $sql = "SELECT path, comment, visibility
                 FROM `".$dbTable."`
-                WHERE path=\"".claro_sql_escape($filePath)."\"";
+                WHERE {$modifier} path=\"".claro_sql_escape($filePath)."\"";
 
         $result = claro_sql_query_fetch_all($sql);
         if ( count($result) > 0 ) list($oldAttributeList) = $result;
@@ -733,14 +742,14 @@ function update_db_info($action, $filePath, $newParamList = array())
             {
                 // NO RELEVANT PARAMETERS ANYMORE => DELETE THE RECORD
                 $theQuery = "DELETE FROM `".$dbTable."`
-                             WHERE path=\"".$filePath."\"";
+                             WHERE {$modifier} path=\"".$filePath."\"";
             }
             else
             {
                 $theQuery = "UPDATE `" . $dbTable . "`
                              SET   comment    = '" . claro_sql_escape($newComment) . "',
                                    visibility = '" . claro_sql_escape($newVisibility) . "'
-                             WHERE path     = '" . claro_sql_escape($filePath) . "'";
+                             WHERE {$modifier} path     = '" . claro_sql_escape($filePath) . "'";
             }
         } // end else if ! $oldAttributeList
 
@@ -751,8 +760,8 @@ function update_db_info($action, $filePath, $newParamList = array())
             $theQuery = "UPDATE `" . $dbTable . "`
                         SET path = CONCAT('" . claro_sql_escape($newPath) . "',
                                    SUBSTRING(path, LENGTH('" . claro_sql_escape($filePath) . "')+1) )
-                        WHERE path = '" . claro_sql_escape($filePath) . "'
-                        OR path LIKE '" . claro_sql_escape($filePath) . "/%'";
+                        WHERE {$modifier} path = '" . claro_sql_escape($filePath) . "'
+                        OR {$modifier} path LIKE '" . claro_sql_escape($filePath) . "/%'";
 
             claro_sql_query($theQuery);
         }
