@@ -78,10 +78,19 @@ else
         {
             $courseTblList = claro_sql_get_course_tbl();
             $tbl_document =  $courseTblList['document'];
+            
+            if (strtoupper(substr(PHP_OS, 0, 3)) == "WIN")
+            {
+                $modifier = '';
+            }
+            else
+            {
+                $modifier = 'BINARY ';
+            }
     
-            $sql = 'SELECT visibility
-                    FROM `'.$tbl_document.'`
-                    WHERE path = "'.claro_sql_escape($requestUrl).'"';
+            $sql = "SELECT visibility
+                    FROM `{$tbl_document}`
+                    WHERE {$modifier} path = '".claro_sql_escape($requestUrl)."'";
     
             $docVisibilityStatus = claro_sql_query_get_single_value($sql);
     
@@ -155,7 +164,7 @@ if ( $isDownloadable )
     {
         $claroline->notifier->event('download', array( 'data' => array('url' => $requestUrl) ) );
 
-        if (substr(PHP_OS, 0, 3) == "WIN")
+        if (strtoupper(substr(PHP_OS, 0, 3)) == "WIN")
         {
             $rootSys =  str_replace( '//', '/', strtolower( str_replace('\\', '/', $rootSys) ) );
             $pathInfo = strtolower( str_replace('\\', '/', $pathInfo) );
@@ -186,7 +195,7 @@ if ( $isDownloadable )
         }
         else
         {
-            if (substr(PHP_OS, 0, 3) == "WIN")
+            if (strtoupper(substr(PHP_OS, 0, 3)) == "WIN")
             {
                 $rootSys =  str_replace( '//', '/', strtolower( str_replace('\\', '/', $rootSys) ) );
                 $pathInfo = strtolower( str_replace('\\', '/', $pathInfo) );
