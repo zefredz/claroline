@@ -773,103 +773,112 @@ function update_db_info($action, $filePath, $newParamList = array())
 
 function update_Doc_Path_in_Assets($type, $oldPath, $newPath)
 {
-        global $TABLEASSET, $TABLELEARNPATHMODULE,
-               $TABLEUSERMODULEPROGRESS, $TABLEMODULE;
+    global $TABLEASSET, $TABLELEARNPATHMODULE,
+           $TABLEUSERMODULEPROGRESS, $TABLEMODULE;
+           
+    if (strtoupper(substr(PHP_OS, 0, 3)) == "WIN")
+    {
+        $modifier = '';
+    }
+    else
+    {
+        $modifier = 'BINARY ';
+    }
 
-        switch ($type)
-        {
-            case 'update' :
+    switch ($type)
+    {
+        case 'update' :
 
-                  // Find and update assets that are concerned by this move
+            // Find and update assets that are concerned by this move
 
-                  $sql = "UPDATE `" . $TABLEASSET . "`
-                          SET `path` = CONCAT('" . claro_sql_escape($newPath) . "',
-                                              SUBSTRING(`path`, LENGTH('" . claro_sql_escape($oldPath) . "')+1) )
-                          WHERE `path` LIKE '" . claro_sql_escape($oldPath) . "%'";
+            $sql = "UPDATE `" . $TABLEASSET . "`
+                    SET `path` = CONCAT('" . claro_sql_escape($newPath) . "',
+                                        SUBSTRING(`path`, LENGTH('" . claro_sql_escape($oldPath) . "')+1) )
+                    WHERE {$modifier} `path` LIKE '" . claro_sql_escape($oldPath) . "%'";
+
+            claro_sql_query($sql);
+
+            break;
+
+        case 'delete' :
+
+            // delete assets, modules, learning path modules, and userprogress that are based on this document
+
+            // find all assets concerned by this deletion
+
+            $sql ="SELECT *
+                   FROM `" . $TABLEASSET . "`
+                   WHERE {$modifier} `path` LIKE '" . claro_sql_escape($oldPath) . "%'
+                   ";
+
+            $result = claro_sql_query($sql);
+
+            $num = mysql_num_rows($result);
+            if ($num != 0)
+            {
+                  //find all learning path module concerned by the deletion
+
+                  $sqllpm ="SELECT *
+                            FROM `" . $TABLELEARNPATHMODULE . "`
+                            WHERE 0=1
+                            ";
+
+                  while ($list=mysql_fetch_array($result))
+                  {
+                     $sqllpm.= " OR `module_id` = '" . (int)$list['module_id'] . "' ";
+                  }
+
+                  $result2 = claro_sql_query($sqllpm);
+
+                  //delete the learning path module(s)
+
+                  $sql1 ="DELETE
+                          FROM `" . $TABLELEARNPATHMODULE . "`
+                          WHERE 0=1
+                          ";
+
+                  // delete the module(s) concerned
+                  $sql2 ="DELETE
+                          FROM `" . $TABLEMODULE . "`
+                          WHERE 0=1
+                         ";
+
+                  $result = mysql_query($sqllpm);//:to reset result resused
+
+                  while ($list=mysql_fetch_array($result))
+                  {
+                     $sql1.= " OR `module_id` = '" . (int)$list['module_id'] . "' ";
+                     $sql2.= " OR `module_id` = '" . (int)$list['module_id'] . "' ";
+                  }
+
+                  claro_sql_query($sql1);
+                  claro_sql_query($sql2);
+
+                  //delete the user module progress concerned
+
+                  $sql ="DELETE
+                         FROM `" . $TABLEUSERMODULEPROGRESS . "`
+                         WHERE 0=1
+                         ";
+                  while ($list=mysql_fetch_array($result2))
+                  {
+                     $sql.= " OR `learnPath_module_id` = '" . (int)$list['learnPath_module_id'] . "' ";
+                  }
 
                   claro_sql_query($sql);
 
-                  break;
+                  // delete the assets
 
-            case 'delete' :
-
-                  // delete assets, modules, learning path modules, and userprogress that are based on this document
-
-                  // find all assets concerned by this deletion
-
-                  $sql ="SELECT *
+                  $sql ="DELETE
                          FROM `" . $TABLEASSET . "`
-                         WHERE `path` LIKE '" . claro_sql_escape($oldPath) . "%'
+                         WHERE
+                         {$modifier} `path` LIKE '" . claro_sql_escape($oldPath) . "%'
                          ";
 
-                  $result = claro_sql_query($sql);
-
-                  $num = mysql_num_rows($result);
-                  if ($num != 0)
-                  {
-                        //find all learning path module concerned by the deletion
-
-                        $sqllpm ="SELECT *
-                                  FROM `" . $TABLELEARNPATHMODULE . "`
-                                  WHERE 0=1
-                                  ";
-
-                        while ($list=mysql_fetch_array($result))
-                        {
-                           $sqllpm.= " OR `module_id` = '" . (int)$list['module_id'] . "' ";
-                        }
-
-                        $result2 = claro_sql_query($sqllpm);
-
-                        //delete the learning path module(s)
-
-                        $sql1 ="DELETE
-                                FROM `" . $TABLELEARNPATHMODULE . "`
-                                WHERE 0=1
-                                ";
-
-                        // delete the module(s) concerned
-                        $sql2 ="DELETE
-                                FROM `" . $TABLEMODULE . "`
-                                WHERE 0=1
-                               ";
-
-                        $result = mysql_query($sqllpm);//:to reset result resused
-
-                        while ($list=mysql_fetch_array($result))
-                        {
-                           $sql1.= " OR `module_id` = '" . (int)$list['module_id'] . "' ";
-                           $sql2.= " OR `module_id` = '" . (int)$list['module_id'] . "' ";
-                        }
-
-                        claro_sql_query($sql1);
-                        claro_sql_query($sql2);
-
-                        //delete the user module progress concerned
-
-                        $sql ="DELETE
-                               FROM `" . $TABLEUSERMODULEPROGRESS . "`
-                               WHERE 0=1
-                               ";
-                        while ($list=mysql_fetch_array($result2))
-                        {
-                           $sql.= " OR `learnPath_module_id` = '" . (int)$list['learnPath_module_id'] . "' ";
-                        }
-
-                        claro_sql_query($sql);
-
-                        // delete the assets
-
-                        $sql ="DELETE
-                               FROM `" . $TABLEASSET . "`
-                               WHERE
-                               `path` LIKE '" . claro_sql_escape($oldPath) . "%'
-                               ";
-
-                        claro_sql_query($sql);
-                  } //end if($num !=0)
-                  break;
-         }
+                  claro_sql_query($sql);
+            } //end if($num !=0)
+            break;
+     }
 
 }
 
