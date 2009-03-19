@@ -850,9 +850,16 @@ dl.userCourseList
 /******************************************************************************
                              VARIOUS CLAROLINE CSS CLASS
  ******************************************************************************/
+.spoiler a{
+    padding-left: 17px;
+    background: url('../../img/spoiler.png') bottom left no-repeat;
+}
 
 .spoilerContent {
     display: none;
+    background-color: #EFEFEF;
+    padding: 2px;
+    margin: 3px 0;
 }
 /*
  * 'claroMessageBox' is used to display all messages from the platform like
