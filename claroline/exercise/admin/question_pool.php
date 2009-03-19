@@ -279,6 +279,7 @@ echo $myPager->disp_pager_tool_bar($pagerUrl);
 echo '<table class="claroTable emphaseLine" border="0" align="center" cellpadding="2" cellspacing="2" width="100%">' . "\n\n"
 .     '<thead>' . "\n"
 .     '<tr class="headerX">' . "\n"
+.   '<th>' . get_lang('Id') . '</th>' . "\n"
 .     '<th>' . get_lang('Question') . '</th>' . "\n"
 .     '<th>' . get_lang('Answer type') . '</th>' . "\n";
 $colspan = 2;
@@ -315,7 +316,9 @@ if( !empty($questionList) )
     foreach( $questionList as $question )
     {
         echo '<tr>'
-        .     '<td>'.$question['title'].'</td>' . "\n";
+        .   '<td align="center">' . $question['id'] . '</td>' . "\n"
+        .     '<td>'.$question['title'].'</td>' . "\n"
+        ;
 
         // answer type
         echo '<td><small>'.$questionTypeLang[$question['type']].'</small></td>' . "\n";
