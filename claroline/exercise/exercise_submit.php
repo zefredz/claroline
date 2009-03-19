@@ -576,14 +576,16 @@ if( $showResult )
     }
     if( $recordResults )
     {
-       $out .= '<div class="centerContent">' . "\n";
+       $dialogBoxResults = new DialogBox();
+       $outDialogbox = '';
        if( $exercise->getTimeLimit() > 0 )
        {
-            $out .= get_lang('Your time is %time', array('%time' => claro_html_duration($timeToCompleteExe)) )
+            $outDialogbox .= get_lang('Your time is %time', array('%time' => claro_html_duration($timeToCompleteExe)) )
             .     '<br />' . "\n";            
        }
-       $out .= '<strong>' . get_lang('Your total score is %score', array('%score' => $totalResult."/".$totalGrade ) ) . '</strong>';
-       $out .= '</div>' . "\n";
+       $outDialogbox .= '<strong>' . get_lang('Your total score is %score', array('%score' => $totalResult."/".$totalGrade ) ) . '</strong>';
+       $dialogBoxResults->info( $outDialogbox );
+       $out .= $dialogBoxResults->render();
     }
     else
     {
@@ -643,21 +645,7 @@ if( $showResult )
     //  Display results    
     if( $recordResults )
     {
-        $out .= '<div class="centerContent">' . "\n";    
-    
-        if( $exercise->getTimeLimit() > 0 )
-        {
-            $out .= get_lang('Your time is %time', array('%time' => claro_html_duration($timeToCompleteExe)) )
-            .     '<br />' . "\n";
-        }   
-        
-        $out .= '<strong>';
-
-        $out .= get_lang('Your total score is %score', array('%score' => $totalResult."/".$totalGrade ) );        
-
-        $out .= '</strong>';
-        
-        $out .= '</div>' . "\n";
+        $out .= $dialogBoxResults->render();
         
         if( !is_null($exercise->getQuizEndMessage()) )
         {
