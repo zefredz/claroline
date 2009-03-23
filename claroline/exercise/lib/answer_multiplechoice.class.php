@@ -347,7 +347,7 @@ class answerMultipleChoice
                 if( $this->multipleAnswer )
                 {
                     $html .=
-                        '<input name="a_'.$this->questionId.'_'.$answer['id'].'" id="a_'.$this->questionId.'_'.$answer['id'].'" value="true" type="checkbox" '
+                        '<input name="a_'.$this->questionId.'_'.$answer['id'].'" id="a_'.$this->questionId.'_'.$answer['id'].'" value="true" type="checkbox" class="checkbox" '
                     .    ( $isSelected ? 'checked="checked"':'' )
                     .    '/>' . "\n";
                 }

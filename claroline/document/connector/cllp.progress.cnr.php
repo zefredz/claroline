@@ -53,7 +53,7 @@ $claroline->setDisplayType( CL_FRAME );
 $out = '';
 
 $out .= '<div>' . "\n"
-.    '<form method="get" target="#" id="progressForm">' . "\n"
+.    '<form method="get" action="#" id="progressForm">' . "\n"
 .    get_lang('Progress') . ' : ' . "\n"
 .    '<input type="radio" name="progress" id="none" class="progressRadio" value="0" checked="checked" />' . "\n"
 .    '<label for="none">0%</label>' . "\n"
