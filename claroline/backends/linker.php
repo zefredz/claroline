@@ -25,7 +25,7 @@ try
     $userInput = Claro_UserInput::getInstance();
 
     $userInput->setValidator( 'cmd', new Claro_Validator_AllowedList(array(
-        'getLinkList', 'getResourceList'
+        'getLinkList', 'getResourceList', 'resolveLocator'
     )) );
     
     $cmd = $userInput->get('cmd', 'getResourceList');
@@ -59,6 +59,13 @@ try
         }
         
         $response = new Json_Response( $linkList );
+    }
+    elseif( 'resolveLocator' == $cmd )
+    {
+        $resourceLinkerResolver = new ResourceLinkerResolver;
+        $url = $resourceLinkerResolver->resolve( $locator );
+        $url = get_conf( 'rootWeb' ) . '..' . $url;
+        $response = new Json_Response( array( 'url' => $url ) );
     }
     else
     {

@@ -102,14 +102,23 @@ class editor extends GenericEditor
         
         $html = '';
         
+        if(claro_is_allowed_to_edit())
+        {
+            $configFile = 'advanced';
+        }
+        else
+        {
+            $configFile = 'advanced_users';
+        }
+        
         if( !isset($_isAdvancedJsLoaded) )
         {
             if( get_conf('useTinyMCECompressor') )
             {
-                $html .= '<script language="javascript" type="text/javascript" src="'.$this->webPath.'/advanced_gzip.conf.js"></script>'."\n";
+                $html .= '<script language="javascript" type="text/javascript" src="'.$this->webPath.'/'.$configFile.'_gzip.conf.js"></script>'."\n";
             }
             
-            $html .= '<script language="javascript" type="text/javascript" src="'.$this->webPath.'/advanced.conf.js"></script>'."\n";
+            $html .= '<script language="javascript" type="text/javascript" src="'.$this->webPath.'/'.$configFile.'.conf.js"></script>'."\n";
 
             $_isAdvancedJsLoaded = true;
         }

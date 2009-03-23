@@ -3,6 +3,11 @@
 // load Claroline kernel
 require_once dirname(__FILE__) . '/../../../../../inc/claro_init_global.inc.php';
 
+if( ! claro_is_allowed_to_edit() )
+{
+				claro_die( get_lang('Not allowed') );
+}
+
 $acceptedCmdList = array(   'rqSpoiler'
 			 );
 
