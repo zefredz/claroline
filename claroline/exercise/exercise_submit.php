@@ -428,6 +428,7 @@ if( isset($_REQUEST['cmdOk']) && $_REQUEST['cmdOk'] && $exerciseIsAvailable )
         {
             // include some utils functions
             include_once get_module_path('CLLP') . '/lib/utils.lib.php';
+            require_once get_module_path('CLLP') . '/lib/item.class.php';
             if( $totalGrade > 0 )
             {
                 $scoreRaw = $totalResult / $totalGrade * 100;
@@ -439,14 +440,19 @@ if( isset($_REQUEST['cmdOk']) && $_REQUEST['cmdOk'] && $exerciseIsAvailable )
                 $scoreRaw = $scoreMin = $scoreMax = 0;
                 $completionStatus = 'incomplete';
             }
-
-            if( $scoreRaw > 50 )
+            
+            $completionStatus = 'incomplete';
+            if(isset($_SESSION['thisItemId']))
             {
-                $completionStatus = 'completed';
-            }
-            else
-            {
-                $completionStatus = 'incomplete';
+                $itemId = (int) $_SESSION['thisItemId'];
+                $item = new item();
+                if( $item->load( $itemId) )
+                {
+                    if( $scoreRaw >= (int) $item->getCompletionThreshold() )
+                    {
+                        $completionStatus = 'completed';
+                    }
+                }
             }
             
             $sessionTime = unixToScormTime($timeToCompleteExe);
@@ -458,8 +464,9 @@ if( isset($_REQUEST['cmdOk']) && $_REQUEST['cmdOk'] && $exerciseIsAvailable )
             .   'doSetValue("cmi.session_time","'.$sessionTime.'");' . "\n"
             .   'doSetValue("cmi.completion_status","'.$completionStatus.'");' . "\n"
             
-            .   'doCommit();' . "\n"
-            .   'doTerminate();' . "\n";
+            //.   'doCommit();' . "\n"
+            .   'doTerminate();' . "\n"
+            ;
         }
         // old learning path tool
         if( isset($_SESSION['inPathMode']) && $_SESSION['inPathMode'] )
