@@ -50,18 +50,30 @@ $(document).ready(function() {
         if( isTerminated ) return false;
         // score
         var currentProgress = $(this).val();
-        
         doSetValue("cmi.score.raw",currentProgress);
-        
         // completion_status
-        if( currentProgress >= completionThreshold )
-        {    
-          doSetValue("cmi.completion_status","completed");
-      }
-      else
-      {
-         doSetValue("cmi.completion_status","incomplete");
-      }
+        if( completionThreshold > 0)
+        {
+            if( currentProgress >= completionThreshold )
+            {    
+              doSetValue("cmi.completion_status","completed");
+            }
+            else
+            {
+               doSetValue("cmi.completion_status","incomplete");
+            }
+        }
+        else
+        {
+            if( currentProgress > 50)
+            {
+                doSetValue("cmi.completion_status","completed");
+            }
+            else
+            {
+                doSetValue("cmi.completion_status","incomplete");
+            }
+        }
       
       // session_time
         var d = new Date();
