@@ -81,6 +81,8 @@
     require_once "lib/lib.wikisql.php";
     require_once "lib/lib.wikidisplay.php";
     require_once "lib/lib.javascript.php";
+    
+    $dialogBox = new DialogBox();
 
 
     // security fix : disable access to other groups wiki
@@ -333,7 +335,8 @@
             }
             else
             {
-                $message = '<p>'.get_lang("Missing search keywords").'</p>';
+                $message = get_lang("Missing search keywords");
+                $dialogBox->error( $message );
                 $action = 'rqSearch';
             }
             break;
@@ -500,6 +503,7 @@
                 if ( $content == '' )
                 {
                     $message = get_lang("This page is empty, use the editor to add content.");
+                    $dialogBox->info( $message );
                 }
             }
             break;
@@ -527,6 +531,7 @@
             else
             {
                 $message = get_lang('Page %title not found', array('%title'=>$title) );
+                $dialogBox->error( $message );
             }
             break;
         }
@@ -546,7 +551,7 @@
                         unset( $_SESSION['wikiLastVersion'] );
 
                         $message = get_lang("Identical content<br />no modification saved");
-
+                        $dialogBox->info( $message );
                         $action = 'show';
                     }
                     else
@@ -565,10 +570,12 @@
                             if ( $wikiPage->hasError() )
                             {
                                 $message = get_lang( "Database error : " ) . $wikiPage->getError();
+                                $dialogBox->error( $message );
                             }
                             else
                             {
                                 $message = get_lang("Page saved");
+                                $dialogBox->success( $message );
                             }
 
                             $action = 'show';
@@ -591,10 +598,12 @@
                     if ( $wikiPage->hasError() )
                     {
                         $message = get_lang( "Database error : " ) . $wikiPage->getError();
+                        $dialogBox->error( $message );
                     }
                     else
                     {
                         $message = get_lang("Page saved");
+                        $dialogBox->success( $message );
                     }
 
                     $action = 'show';
@@ -762,7 +771,8 @@
 
     if ( !empty($message) )
     {
-        echo claro_html_message_box($message) . "\n";
+        echo $dialogBox->render( $message ) . "\n";
+        //echo claro_html_message_box($message) . "\n";
     }
 
     // Check javascript
@@ -854,7 +864,7 @@
     {
             $cmdActions[] =
                   '<span class="claroCmdDisabled">'
-                . '<img src="' . get_icon_url('back').'" alt="back" />'
+                . '<img src="' . get_icon_url('go_left').'" alt="back" />'
                 . '&nbsp;'
                 . get_lang("Back to page")
                 . '</span>'
@@ -917,7 +927,7 @@
     {
         // inactive
             $cmdActions[] = '<span class="claroCmdDisabled">'
-            .    '<img src="'.get_icon_url('version').'" alt="history" />&nbsp;'
+            .    '<img src="'.get_icon_url('versions').'" alt="history" />&nbsp;'
             .    get_lang("Page history")
             .    '</span>'
             ;

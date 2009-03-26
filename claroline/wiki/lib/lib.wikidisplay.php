@@ -129,12 +129,12 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
         $out .= $title;
 
         $out .= '</div>' . "\n";
-
-        $out .= claro_html_message_box( '<small>'
+        $dialogBox = new DialogBox();
+        $dialogBox->warning( '<small>'
             . get_lang("WARNING: this page is a preview. Your modifications to the wiki has not been saved yet ! To save them do not forget to click on the 'save' button at the bottom of the page.")
-            . '</small>' )
-            . "\n";
-
+            . '</small>' );
+        $out .= $dialogBox->render(). "\n";
+        
         $out .= '<div class="wiki2xhtml">' . "\n";
 
         if ( $content != '' )

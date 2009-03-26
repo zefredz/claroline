@@ -75,7 +75,10 @@
     require_once "lib/lib.wikisql.php";
     require_once "lib/lib.javascript.php";
     require_once "lib/lib.wikidisplay.php";
-
+    
+    
+    $dialogBox = new DialogBox();
+    
     // filter request variables
 
     // filter allowed actions using user status
@@ -192,6 +195,7 @@
             {
                 // die( get_lang("Invalid Wiki Id") );
                 $message = get_lang("Invalid Wiki Id");
+                $dialogBox->error( $message );
                 $action = 'error';
             }
             else
@@ -244,6 +248,7 @@
                 if ( $searchEngine->hasError() )
                 {
                     $message = $searchEngine->getError();
+                    $dialogBox->error( $message );
                     $action = 'error';
                     break;
                 }
@@ -260,14 +265,15 @@
             else
             {
                 $message = '<p>'.get_lang("Missing search keywords").'</p>';
+                $dialogBox->error( $message );
             }
         }
         // search wiki
         case 'rqSearch':
         {
-            if ( !isset( $message ) ) $message = '';
+            //if ( !isset( $message ) ) $message = '';
 
-            $message .= '<form method="post" action="'.$_SERVER['PHP_SELF'].'">'."\n"
+            $message = '<form method="post" action="'.$_SERVER['PHP_SELF'].'">'."\n"
                 . '<input type="hidden" name="action" value="exSearch" />'."\n"
                 . claro_form_relay_context() . "\n"
                 . '<label for="searchPattern">'
@@ -278,7 +284,9 @@
                 . claro_html_button($_SERVER['PHP_SELF'], get_lang("Cancel"))
                 . '</form>'."\n"
                 ;
-
+            
+            $dialogBox->form( $message );
+            
             $action = 'list';
             break;
         }
@@ -289,6 +297,7 @@
             {
                 // die( get_lang("Invalid Wiki Id") );
                 $message = get_lang("Invalid Wiki Id");
+                $dialogBox->error( $message );
                 $action = 'error';
             }
             else
@@ -296,6 +305,7 @@
                 $wiki = $wikiStore->loadWiki( $wikiId );
                 $wikiTitle = $wiki->getTitle();
                 $message = get_lang("WARNING : you are going to delete this wiki and all its pages. Are you sure to want to continue ?");
+                $dialogBox->question( $message );
             }
 
             break;
@@ -306,24 +316,35 @@
             if ( $wikiStore->wikiIdExists( $wikiId ) )
             {
                 $wiki = $wikiStore->deleteWiki( $wikiId );
+                
+                if( $wiki )
+                {
+                    $message = get_lang("Wiki deletion succeed");
+
+                    //notify that the wiki was deleted
+        
+                    $eventNotifier->notifyCourseEvent('wiki_deleted'
+                                                 , claro_get_current_course_id()
+                                                 , claro_get_current_tool_id()
+                                                 , $wikiId
+                                                 , $groupId
+                                                 , '0');
+
+                    $dialogBox->success( $message );
+                }
+                else
+                {
+                    $message = get_lang("Wiki deletion failed");
+                    $dialogBox->error( $message );
+                }
             }
             else
             {
                 $message = get_lang("Invalid Wiki Id");
+                $dialogBox->error( $message );
                 $action = 'error';
             }
-
-            $message = get_lang("Wiki deletion succeed");
-
-            //notify that the wiki was deleted
-
-            $eventNotifier->notifyCourseEvent('wiki_deleted'
-                                         , claro_get_current_course_id()
-                                         , claro_get_current_tool_id()
-                                         , $wikiId
-                                         , $groupId
-                                         , '0');
-
+            
             $action = 'list';
 
             break;
@@ -380,10 +401,19 @@
                     ;
 
                 $wikiPage = new WikiPage( $con, $config, $wikiId );
-                $wikiPage->create( $creatorId, '__MainPage__'
-                    , $mainPageContent, date("Y-m-d H:i:s"), true );
+                if ( $wikiPage->create( $creatorId, '__MainPage__'
+                    , $mainPageContent, date("Y-m-d H:i:s"), true ) )
+                {
+                    $message = get_lang("Wiki creation succeed");
+                    $dialogBox->success( $message );
+                }
+                else
+                {
+                    $message = get_lang("Wiki creation failed");
+                    $dialogBox->error( $message );
+                }
 
-                $message = get_lang("Wiki creation succeed");
+                
             }
             elseif ( $wikiStore->wikiIdExists( $wikiId ) )
             {
@@ -402,12 +432,22 @@
                                          , $wikiId
                                          , claro_get_current_group_id()
                                          , '0');
-
-                $message = get_lang("Wiki edition succeed");
+                if( $wikiId )
+                {
+                    $message = get_lang("Wiki edition succeed");
+                    $dialogBox->success( $message );
+                }
+                else
+                {
+                    $message = get_lang("Wiki edition failed");
+                    $dialogBox->error( $message );
+                }
+                
             }
             else
             {
                 $message = get_lang("Invalid Wiki Id");
+                $dialogBox->error( $message );
                 $action = 'error';
             }
 
@@ -521,7 +561,8 @@
 
     if ( ! empty( $message ) )
     {
-        echo claro_html_message_box( $message ) . "\n";
+        echo $dialogBox->render();
+        //echo claro_html_message_box( $message ) . "\n";
     }
 
     switch( $action )
