@@ -73,6 +73,7 @@ if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 /* ************************************************************************** */
 
 require_once get_path('incRepositorySys') . '/lib/configHtml.class.php';
+require_once get_path('incRepositorySys') . '/lib/user.lib.php';
 
 /* ************************************************************************** */
 /* Process

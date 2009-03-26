@@ -357,7 +357,6 @@ class Config
         $valid = true;
 
         $property_def = $this->conf_def_property_list[$name];
-
         // init property type
         if ( isset($property_def['type']) ) $type = $property_def['type'];
         else                                $type = null;
@@ -473,7 +472,16 @@ class Config
                     $valid = false;
                 }
                 break;
-
+            case 'email' :
+                if( ! empty( $value ) )
+                {
+                    if( ! is_well_formed_email_address( $value ) )
+                    {
+                        $this->backlog->failure( get_lang(' %email is not a valid e-mail address.', array('%email' => $value)));
+                        $valid = false;
+                    }
+                }
+                break;
             case 'string' :
             case 'text' :
             default :

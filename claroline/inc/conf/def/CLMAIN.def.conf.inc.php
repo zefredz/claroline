@@ -450,7 +450,7 @@ array ('label'       => 'Name'
 $conf_def_property_list['administrator_email'] =
 array ('label'       => 'E-mail'
       ,'description' => ''
-      ,'type'        => 'string'
+      ,'type'        => 'email'
       ,'display'     => TRUE
       ,'readonly'    => FALSE
       );
