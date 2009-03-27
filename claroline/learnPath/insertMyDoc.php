@@ -143,6 +143,15 @@ $iterator = 0;
 
 if (!isset($_REQUEST['maxDocForm'])) $_REQUEST['maxDocForm'] = 0;
 
+if (strtoupper(substr(PHP_OS, 0, 3)) == "WIN")
+{
+    $modifier = '';
+}
+else
+{
+    $modifier = 'BINARY ';
+}
+
 while ($iterator <= $_REQUEST['maxDocForm'])
 {
     $iterator++;
@@ -159,7 +168,7 @@ while ($iterator <= $_REQUEST['maxDocForm'])
             $sql = "SELECT *
                     FROM `".$TABLEMODULE."` AS M, `".$TABLEASSET."` AS A
                     WHERE A.`module_id` = M.`module_id`
-                      AND A.`path` LIKE \"". claro_sql_escape($insertDocument)."\"
+                      AND {$modifier} A.`path` LIKE \"". claro_sql_escape($insertDocument)."\"
                       AND M.`contentType` = \"".CTDOCUMENT_."\"";
             $query = claro_sql_query($sql);
             $num = mysql_num_rows($query);
@@ -213,7 +222,7 @@ while ($iterator <= $_REQUEST['maxDocForm'])
                              `".$TABLEASSET."` AS A
                         WHERE M.`module_id` =  LPM.`module_id`
                           AND M.`startAsset_id` = A.`asset_id`
-                          AND A.`path` = '". claro_sql_escape($insertDocument)."'
+                          AND {$modifier} A.`path` = '". claro_sql_escape($insertDocument)."'
                           AND LPM.`learnPath_id` = ". (int)$_SESSION['path_id'];
                 $query2 = claro_sql_query($sql);
                 $num = mysql_num_rows($query2);
@@ -291,8 +300,8 @@ if ($parentDir == "/" || $parentDir == "\\")
 
 $sql = "SELECT *
         FROM `".$TABLEDOCUMENT."`
-        WHERE `path` LIKE '". claro_sql_escape($curDirPath) ."/%'
-        AND `path` NOT LIKE '". claro_sql_escape($curDirPath) ."/%/%'";
+        WHERE {$modifier} `path` LIKE '". claro_sql_escape($curDirPath) ."/%'
+        AND {$modifier} `path` NOT LIKE '". claro_sql_escape($curDirPath) ."/%/%'";
 $result = claro_sql_query($sql);
 $attribute = array();
 
@@ -414,7 +423,8 @@ if (isset($attribute))
 
         for ($i=0; $i < $nbrRecToDel ;$i++)
         {
-            $queryClause .= "path LIKE \"". claro_sql_escape($recToDel[$i]) ."%\"";
+            $queryClause .= "{$modifier} path LIKE \"". claro_sql_escape($recToDel[$i]) ."%\"";
+            
             if ($i < $nbrRecToDel-1)
             {
                 $queryClause .=" OR ";
