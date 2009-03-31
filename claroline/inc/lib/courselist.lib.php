@@ -60,10 +60,11 @@ class category_browser
                         OR `faculte`.`code_P` IS NULL \n";
         }
 
-         $sql .= "AND (`cours`.`status`='enable' OR `cours`.`status` IS NULL)
-                  AND `cours`.`creationDate` < '". $curdate ."' 
-                  AND ('". $curdate ."'<`cours`.`expirationDate`  OR `cours`.`expirationDate` IS NULL)
-                   GROUP  BY `faculte`.`code`
+         $sql .= "AND (`cours`.`status` = 'enable'
+         		  	OR (`cours`.`status` = 'date'
+                  		AND (`cours`.`creationDate` < '". $curdate ."' OR `cours`.`creationDate` IS NULL OR UNIX_TIMESTAMP(`cours`.`creationDate`)=0)
+                  		AND ('". $curdate ."'<`cours`.`expirationDate`  OR `cours`.`expirationDate` IS NULL)))
+                  GROUP  BY `faculte`.`code`
                   ORDER BY  `faculte`.`treePos`";
             
 
@@ -133,11 +134,13 @@ class category_browser
                  : " ")
                  
               . "WHERE c.`faculte` = '" . addslashes($this->categoryCode) . "'
-                 AND ((visibility = 'VISIBLE' AND (`status`='enable' OR `status` IS NULL)
-                     AND `creationDate` < '". $curdate ."' AND ('". $curdate ."'<`expirationDate`  OR `expirationDate` IS NULL))"
+                 AND visibility = 'VISIBLE' 
+                 AND (`status` = 'enable' 
+                 	OR (`status` = 'date'
+                 		AND (`creationDate` < '". $curdate ."' OR `creationDate` IS NULL OR UNIX_TIMESTAMP(`creationDate`)=0)
+                 		AND ('". $curdate ."'<`expirationDate`  OR `expirationDate` IS NULL)))"
                  . ($this->userId ? "OR NOT (cu.user_id IS NULL)" :"") .
-                 ")
-                 ORDER BY UPPER(c.administrativeNumber)";
+                 " ORDER BY UPPER(c.administrativeNumber)";
 
         return claro_sql_query_fetch_all($sql);
     }
@@ -191,7 +194,7 @@ function search_course($keyword, $userId = null)
                         AND cu.user_id = " . (int) $userId
                      :  "")
          . " \n "
-         . "WHERE (  (visibility = 'VISIBLE' AND (`status`='enable' OR `status` IS NULL)
+         . "WHERE (  (visibility = 'VISIBLE' AND (`status`='enable' OR `status` = 'date')
              AND `creationDate` < '". $curdate ."' 
              AND ('". $curdate ."'<`expirationDate` OR `expirationDate` IS NULL))
             OR ".(claro_is_platform_admin()?"1":"0") ." "
@@ -251,9 +254,10 @@ function get_user_course_list($userId, $renew = false)
 
                        WHERE course.code         = course_user.code_cours
                          AND course_user.user_id = " . (int) $userId . " 
-                         AND ((course.`status`='enable' OR course.`status` IS NULL)
-                         AND UNIX_TIMESTAMP(`creationDate`) < '". $curdate ."' 
-                         AND ('". $curdate ."' < UNIX_TIMESTAMP(`expirationDate`) OR `expirationDate` IS NULL)) \n " ;
+                         AND (course.`status`='enable'
+                         	OR (course.`status` = 'date'
+                         	AND (UNIX_TIMESTAMP(`creationDate`) < '". $curdate ."' OR `creationDate` IS NULL OR UNIX_TIMESTAMP(`creationDate`)=0)
+                        	AND ('". $curdate ."' < UNIX_TIMESTAMP(`expirationDate`) OR `expirationDate` IS NULL))) \n " ;
 
         if ( get_conf('course_order_by') == 'official_code' )
         {
@@ -312,9 +316,10 @@ function get_user_course_list_desactivated($userId, $renew = false)
                        WHERE course.code         = course_user.code_cours
                          AND course_user.user_id = " . (int) $userId . " 
                          AND (course.`status` = 'disable' 
-                         	 OR course.`status` = 'pending' 
-                             OR UNIX_TIMESTAMP(`creationDate`) > '". $curdate ."' 
-                             OR '". $curdate ."'> UNIX_TIMESTAMP(`expirationDate`)) 
+                         	 OR course.`status` = 'pending'
+                             OR (course.`status` = 'date' AND (
+                             	UNIX_TIMESTAMP(`creationDate`) > '". $curdate ."' 
+                             	OR '". $curdate ."'> UNIX_TIMESTAMP(`expirationDate`)))) 
                          AND course_user.isCourseManager = 1 " ;
 
         if ( get_conf('course_order_by') == 'official_code' )
@@ -527,24 +532,29 @@ function render_user_course_list_desactivated()
                     if ($course['status']=='disable')
                     {
                         $out.=  htmlspecialchars($courseTitle)
-                                .' '.get_lang('Contact your adminsitrator to reactivate it. ');
+                                .' '.get_lang('Contact your administrator to reactivate it. ');
                     }
                     
-                    if ($course['creationDate'] > claro_mktime())
+                    if ($course['status']=='date')
                     {
-                        $out.=  '<a href="' . htmlspecialchars( $url ) . '">'
-                            .    htmlspecialchars($courseTitle)
-                            .    '</a>' . "\n"
-                            .     ' '.get_lang('Will be published on ').date('d-m-Y',$course['creationDate']);
+                        if ($course['creationDate'] > claro_mktime())
+                        {
+                            $out.=  '<a href="' . htmlspecialchars( $url ) . '">'
+                                .    htmlspecialchars($courseTitle)
+                                .    '</a>' . "\n"
+                                .     ' '.get_lang('Will be published on ').date('d-m-Y',$course['creationDate']);
+                        }
+                        
+                        if (isset($course['expirationDate']) AND ($course['expirationDate'] < claro_mktime()))
+                        {
+                            $out.=  '<a href="' . htmlspecialchars( $url ) . '">'
+                                .    htmlspecialchars($courseTitle)
+                                .    '</a>' . "\n"
+                                .     ' '.get_lang('Expired since ').date('d-m-Y',$course['expirationDate']) ;
+                        }
+                    
                     }
                     
-                    if (isset($course['expirationDate']) AND ($course['expirationDate'] < claro_mktime()))
-                    {
-                        $out.=  '<a href="' . htmlspecialchars( $url ) . '">'
-                            .    htmlspecialchars($courseTitle)
-                            .    '</a>' . "\n"
-                            .     ' '.get_lang('Expirated since ').date('d-m-Y',$course['expirationDate']) ;
-                    }
                     $out .= '</dd>' . "\n";
                     
                     $out .=     '<dd>'

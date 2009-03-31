@@ -676,7 +676,7 @@ function claro_is_course_enable()
     $tbl_mdb_names       = claro_sql_get_main_tbl();
     $tbl_course          = $tbl_mdb_names['course'];
     $courseId = claro_get_current_course_id();
-    $curdate = date('Y-m-d H:i:s', time());
+    $curdate = claro_mktime();
     
     if (Claro_CurrentUser::getInstance()->isCourseCreator)
     $sql=" SELECT 	c.`code`
@@ -686,9 +686,11 @@ function claro_is_course_enable()
     else
     $sql=" SELECT 	c.`code`
     	   FROM `".$tbl_course."` c
-		   WHERE  (c.`status` = 'enable' AND c.`creationDate` < '". $curdate ."' 
-                    AND ('". $curdate ."' < c.`expirationDate` OR c.`expirationDate` IS NULL)) 
-		   	AND c.`code` = '".$courseId."';";
+		   WHERE  (c.`status` = 'enable' 
+		   			OR (c.`status` = 'date' 
+                         	AND (UNIX_TIMESTAMP(`creationDate`) < '". $curdate ."' OR `creationDate` IS NULL OR UNIX_TIMESTAMP(`creationDate`)=0)
+                        	AND ('". $curdate ."' < UNIX_TIMESTAMP(`expirationDate`) OR `expirationDate` IS NULL)))
+		   			AND c.`code` = '".$courseId."';";
 
 	$result = claro_sql_query_get_single_value($sql);
 	

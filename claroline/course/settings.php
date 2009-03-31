@@ -223,7 +223,6 @@ echo '<p>' . claro_html_menu_horizontal($links) . '</p>' . "\n\n" ;
 if( $display == DISP_COURSE_EDIT_FORM )
 {
     // Display form
-    // var_dump( $course );
     echo $course->displayForm($backUrl);
 }
 elseif( $display == DISP_COURSE_RQ_DELETE )

@@ -22,67 +22,67 @@ require_once dirname(__FILE__) . '/admin.lib.inc.php'; // for delete course func
 require_once dirname(__FILE__) . '/../../messaging/lib/message/messagetosend.lib.php';
 require_once dirname(__FILE__) . '/../../messaging/lib/recipient/userlistrecipient.lib.php';
 
-$jsLoader = JavascriptLoader::getInstance();
-$jsLoader->load( 'claroline.ui');
+//$jsLoader = JavascriptLoader::getInstance();
+//$jsLoader->load( 'claroline.ui');
 
 class ClaroCourse
 {
     // Identifier
-    var $courseId;
+    public $courseId;
 
     // Name
-    var $title;
+    public $title;
 
     // Official code
-    var $officialCode;
+    public $officialCode;
 
     // Titular
-    var $titular;
+    public $titular;
 
     // Email
-    var $email;
+    public $email;
 
     // Course category code
-    var $category;
+    public $category;
 
     // Depatment Name
-    var $departmentName;
+    public $departmentName;
 
     // Department Url
-    var $extLinkUrl;
+    public $extLinkUrl;
 
     // Language of the course
-    var $language;
+    public $language;
 
     // Course access (true = public, false = private)
-    var $access;
+    public $access;
 
     // Course visibility (true = shown, false = hidden)
-    var $visibility;
+    public $visibility;
 
     // registration (true = open, false = close)
-    var $registration;
+    public $registration;
 
     // registration key
-    var $registrationKey;
+    public $registrationKey;
     
     // publicationDate
-    var $publicationDate;
+    public $publicationDate;
     
     // expirationDate
-    var $expirationDate;
+    public $expirationDate;
     
     // useExpiratioDate;
-    var $useExpirationDate;
+    public $useExpirationDate;
     
     // status
-    var $status;
+    public $status;
 
     // Backlog object
-    var $backlog;
+    public $backlog;
 
     // List of GET or POST parameters
-    var $htmlParamList = array();
+    public $htmlParamList = array();
 
     /**
      * Constructor
@@ -287,7 +287,7 @@ class ClaroCourse
             $this->publicationDate = mktime(0,0,0,$_REQUEST['course_publicationMonth'],$_REQUEST['course_publicationDay'],$_REQUEST['course_publicationYear']); 
         if ( isset($_REQUEST['course_expirationDate' ]) ) $this->expirationDate = trim(strip_tags($_REQUEST['course_expirationDate']));
         if (isset($_REQUEST['course_expirationYear']) && isset($_REQUEST['course_expirationMonth']) && isset($_REQUEST['course_expirationDay']) )
-            $this->expirationDate = mktime(0,0,0,$_REQUEST['course_expirationMonth'],$_REQUEST['course_expirationDay'],$_REQUEST['course_expirationYear']);
+            $this->expirationDate = mktime(23,59,59,$_REQUEST['course_expirationMonth'],$_REQUEST['course_expirationDay'],$_REQUEST['course_expirationYear']);
         if ( isset($_REQUEST['useExpirationDate'   ]) && $_REQUEST['useExpirationDate'   ]) $this->useExpirationDate = true; else $this->useExpirationDate = false;
         if ( isset($_REQUEST['course_status'       ]) ) $this->status = $_REQUEST['course_status'];
     }
@@ -668,12 +668,11 @@ class ClaroCourse
         // Course visibility
         if (claro_is_platform_admin())
         {
-
             
-          // Advanced Information
+          // Administration Information
         
             $html .= '<fieldset id="advancedInformation" class="collapsible collapsed">' . "\n"
-                    .   '<legend><a href="#" class="doCollapse">' . get_lang('Advanced').' ('.get_lang('Optional').')' . '</a></legend>' . "\n"
+                    .   '<legend><a href="#" class="doCollapse">' . get_lang('Advanced settings for administrator') . '</a></legend>' . "\n"
                     .   '<div class="collapsible-wrapper">' . "\n"
                     .   '<dl>' . "\n";
             
@@ -694,43 +693,47 @@ class ClaroCourse
                 .  "\n"
                 ;        // Required legend
             
-            // publication date
-            $html .=  "\n"
-                 .   '<dt>' . get_lang('Publication date') . '&nbsp;:</dt>'
-                . '<dd>'
-                . claro_html_date_form('course_publicationDay', 'course_publicationMonth', 'course_publicationYear', $this->publicationDate, 'numeric')
-                . '&nbsp;<small>' . get_lang('(d/m/y)') . '</small>'
-                . '</dd>'
-                . "\n";
-            
-            // expiration date
-            $html .="\n"
-            .        '<dt>' . get_lang('Expiration date') . '&nbsp;:</dt>'
-                . '<dd>'
-                .   '<input type="checkbox" name="useExpirationDate" value=true '
-                .   ( $this->useExpirationDate ?' checked="checked"':' ') . '/>'
-                .   ' <label for="useEndDate">'.get_lang('Yes').'</label>,' . "\n"
-                . claro_html_date_form('course_expirationDay', 'course_expirationMonth', 'course_expirationYear', $this->expirationDate, 'numeric')
-                . '&nbsp;<small>' . get_lang('(d/m/y)') . '</small>'
-                . '<dd>'
-                . "\n";
-            
             // status : enable, pending, disable, trash
             $html .=  "\n"
                 . '<dt>' . get_lang('Status') . '&nbsp;:</dt>'
                 . '<dd>'
                 . '<input type="radio" id="status_enable" name="course_status" value="enable" ' . ($this->status == 'enable' ? 'checked="checked"':'') . ' />&nbsp;'
-                . '<label for="status_enable">' . get_lang('The course, displayed in course list,  is enable') . '</label>'
-                . '<br />' . "\n"
+                . '<label for="status_enable">' . get_lang('Enable') . '</label>'
+                . '<br /><br />' . "\n"
+                . '<input type="radio" id="status_date" name="course_status" value="date" ' . ($this->status == 'date' ? 'checked="checked"':'') . ' />&nbsp;'
+                . '<label for="status_date">' . get_lang('Enable') . '</label>'
+                . '<br />' . "\n";
+                
+                        // publication date
+			            $html .=  "\n"
+			                 .   '<blockquote>' . get_lang('From ') . '&nbsp;: '
+			                . claro_html_date_form('course_publicationDay', 'course_publicationMonth', 'course_publicationYear', $this->publicationDate, 'numeric')
+			                . '&nbsp;<small>' . get_lang('(d/m/y)') . '</small>'
+			                . '</blockquote>'
+			                . "\n";
+			            
+			            // expiration date
+			            $html .="\n"
+			                .  '<blockquote>' . get_lang('To ') . '&nbsp;: '
+			                .   '<input type="checkbox" name="useExpirationDate" value=true '
+			                .   ( $this->useExpirationDate ?' checked="checked"':' ') . '/>'
+			                .   ' <label for="useEndDate">'.get_lang('Yes').'</label>,' . "\n"
+			                . claro_html_date_form('course_expirationDay', 'course_expirationMonth', 'course_expirationYear', $this->expirationDate, 'numeric')
+			                . '&nbsp;<small>' . get_lang('(d/m/y)') . '</small>'
+			                . '</blockquote>'
+			                . "\n";    
+                
+            $html .=  "\n"           
+                . '<input type="radio" id="status_trash" name="course_status" value="trash" ' . ( $this->status == 'pending' OR $this->status == 'disable' ? 'checked="checked"':'' ) 
+                . ' "/>&nbsp;'
+                . '<label for="status_pending">'. get_lang('Disable') . '</label>'
+                . '<blockquote>'
                 . '<input type="radio" id="status_pending" name="course_status" value="pending" ' . ( $this->status == 'pending' ? 'checked="checked"':'' ) . ' />&nbsp;'
-                . '<label for="status_pending">'. get_lang('The course, displayed in deactivate course list, is disable and waiting for reactivation by course manager') . '</label>'
+                . '<label for="status_pending">'. get_lang('Reactivable by course manager') . '</label>'
                 . '<br />' . "\n"
                 . '<input type="radio" id="status_disable" name="course_status" value="disable" ' . ($this->status == 'disable' ? 'checked="checked"':'') . ' />&nbsp;'
-                . '<label for="status_disable">' . get_lang('The course, displayed in deactivate course list,  is disable and can be reactivate only by adminstrator') . '</label>'
-                . '<br />' . "\n"
-                . '<input type="radio" id="status_trash" name="course_status" value="trash" ' . ( $this->status == 'trash' ? 'checked="checked"':'' ) . ' />&nbsp;'
-                . '<label for="status_trash">'. get_lang('The course is disable and not visible in any course list'). '</label>'
-                . '</dd>'
+                . '<label for="status_disable">' . get_lang('Reactivable by administrator') . '</label>'
+                . '</blockquote>'
                 . "\n";
                 
               $html .= '</dl>' . "\n"
