@@ -531,8 +531,21 @@ function render_user_course_list_desactivated()
                     
                     if ($course['status']=='disable')
                     {
-                        $out.=  htmlspecialchars($courseTitle)
-                                .' '.get_lang('Contact your administrator to reactivate it. ');
+                        if (claro_is_platform_admin())
+                        {
+                            $out.=  '<a href="' . htmlspecialchars( $url ) . '">'
+                            .   htmlspecialchars($courseTitle)
+                            .   '</a> ' 
+                            . 	'<img src="'.get_icon('platformadmin.png').'"> '
+                            .   '<a href="'.$urlSettings.'">'.get_lang('Reactivate it ').'</a>'
+                            .	"\n";
+                        }
+                        else 
+                        {
+                            $out.=  htmlspecialchars($courseTitle)
+                             .' '.get_lang('Contact your administrator to reactivate it. ');
+                        }
+                                
                     }
                     
                     if ($course['status']=='date')
