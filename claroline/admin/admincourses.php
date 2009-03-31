@@ -282,7 +282,14 @@ foreach($courseList as $numLine => $courseLine)
     }
 
     // Official Code
-    $courseDataList[$numLine]['officialCode'] = $courseLine['officialCode'];
+    if ($courseLine['status'] == 'enable')
+    {
+        $courseDataList[$numLine]['officialCode'] = $courseLine['officialCode'];
+    }
+    else
+    {
+        $courseDataList[$numLine]['officialCode'] = '<span class="invisible" >'.$courseLine['officialCode'].'</span>';
+    }
 
     // Label
     $courseDataList[$numLine]['intitule'] =  '<a href="' . get_path('clarolineRepositoryWeb') . 'course/index.php?cid=' . htmlspecialchars($courseLine['sysCode']) . '">'
@@ -460,7 +467,8 @@ function prepare_get_filtred_course_list()
                     C.`access`               AS `access`,
                     C.`registration`         AS `registration`,
                     C.`registrationKey`      AS `registrationKey`,
-                    C.`directory`            AS `repository`
+                    C.`directory`            AS `repository`,
+                    C.`status`				 AS `status`
                     FROM  `" . $tbl_mdb_names['course'] . "` AS C
            " . $sqlFilter ;
 
