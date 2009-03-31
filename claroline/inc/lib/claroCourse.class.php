@@ -22,8 +22,8 @@ require_once dirname(__FILE__) . '/admin.lib.inc.php'; // for delete course func
 require_once dirname(__FILE__) . '/../../messaging/lib/message/messagetosend.lib.php';
 require_once dirname(__FILE__) . '/../../messaging/lib/recipient/userlistrecipient.lib.php';
 
-//$jsLoader = JavascriptLoader::getInstance();
-//$jsLoader->load( 'claroline.ui');
+$jsLoader = JavascriptLoader::getInstance();
+$jsLoader->load( 'claroline.ui');
 
 class ClaroCourse
 {
