@@ -678,7 +678,7 @@ function claro_is_course_enable()
     $courseId = claro_get_current_course_id();
     $curdate = claro_mktime();
     
-    if (Claro_CurrentUser::getInstance()->isCourseCreator)
+    if (claro_is_course_manager())
     $sql=" SELECT 	c.`code`
     	   FROM `".$tbl_course."` c
 		   WHERE  (c.`status` != 'trash') 
