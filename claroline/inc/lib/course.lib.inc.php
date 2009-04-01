@@ -18,25 +18,6 @@ if ( count( get_included_files() ) == 1 )
  */
 
 /**
- * Set course enable
- * 
- * @return boolean : success
- */
-function claro_set_course_enable($courseId)
-{
-    $tbl_mdb_names       = claro_sql_get_main_tbl();
-    $tbl_course          = $tbl_mdb_names['course'];
-    
-    $sql="
-		UPDATE 	`". $tbl_course ."` 
-		   SET 	`status` = 'enable',
-		   		`lastEdit` = NOW()
-		 WHERE 	`".$tbl_course."`.`code` ='".$courseId."'";
-	$result = claro_sql_query($sql);
-	return $result;
-}
-
-/**
   * Delete a directory
   * @param string $dir    the directory deleting
   *

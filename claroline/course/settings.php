@@ -94,6 +94,51 @@ else
 
 if ( $course->load($current_cid) )
 {
+    if ( $cmd == 'exEnable' )
+    {
+        if ( !(claro_is_in_a_course() && claro_is_course_manager()) || ! claro_is_platform_admin() )
+        {
+            claro_die( get_lang("Not allowed") );
+            exit();
+        }
+        
+        if ( ($course->status == 'disable' || $course->status == 'trash' ) && ! claro_is_platform_admin() )
+        {
+            claro_die( get_lang("Not allowed") );
+            exit();
+        }
+        elseif ( ( $course->status == 'disable' || $course->status == 'trash' ) && claro_is_platform_admin() )
+        {
+            $course->status = 'enable';
+            
+            if ($course->save())
+            {
+                $dialogBox->success(get_lang('Course enabled'));
+            }
+            else 
+            {
+                $dialogBox->error(get_lang('Unable to enable course'));
+            }
+        }
+        elseif ( ($course->status == 'pending') && claro_is_in_a_course() && claro_is_course_manager() )
+        {
+            $course->status = 'enable';
+            
+            if ($course->save())
+            {
+                $dialogBox->success(get_lang('Course enabled'));
+            }
+            else 
+            {
+                $dialogBox->error(get_lang('Unable to enable course'));
+            }
+        }
+        else
+        {
+            $dialogBox->error(get_lang('This course is already enabled'));
+        }
+    }
+    
     if ( $cmd == 'exEdit' )
     {
         $course->handleForm();
