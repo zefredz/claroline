@@ -135,7 +135,7 @@ function upgrade_main_database_course_to_19 ()
                                  ADD COLUMN `visibility` ENUM ('visible','invisible') DEFAULT 'invisible' NOT NULL  AFTER `visible`,
                                  ADD COLUMN `access`     ENUM ('public','private', 'platform') DEFAULT 'public' NOT NULL  after `visibility`,
                                  ADD COLUMN `registration` ENUM ('open','close') DEFAULT 'open' NOT NULL  AFTER `access`,
-                                 ADD COLUMN  `status` enum('enable','pending','disable','trash','date')  NULL  AFTER `defaultProfileId`";
+                                 ADD COLUMN  `status` enum('enable','pending','disable','trash','date') NOT NULL DEFAULT 'enable' AFTER `defaultProfileId`";
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
 
@@ -143,6 +143,9 @@ function upgrade_main_database_course_to_19 ()
         case 2 :
 
             // Add new column
+            
+            $sqlForUpdate[] = "UPDATE `" . $tbl_mdb_names['course'] . "`
+                                SET `status`   = 'enable'";
 
             // Old value was treated like this
             // $courseDataList['visibility'         ] = (bool) (2 == $courseDataList['visible'] || 3 == $courseDataList['visible'] );
