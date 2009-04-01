@@ -643,6 +643,7 @@ $_lang['Email'] = 'E-mail';
 $_lang['Email is'] = 'Email is';
 $_lang['Email needed'] = 'E-mail mag niet leeg zijn';
 $_lang['Empty'] = 'Leegmaken';
+$_lang['Empty it'] = 'Leegmaken';
 $_lang['Empty all groups'] = 'Alle groepen leegmaken';
 $_lang['Empty language file'] = 'Leeg taalbestand';
 $_lang['Empty manifest'] = 'Maak de lijst leeg';
