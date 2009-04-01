@@ -757,13 +757,13 @@ class ClaroCourse
         $html .= '<p><small>' . get_lang('<span class="required">*</span> denotes required field') 
             . '</small></p>' . "\n" ;
             
-        $html .= '<script type="text/javascript">' . "\n"
-        .   '$("#courseSettings").submit(function(){
-                if($("#registration_true").attr("checked")){
-                    $("#registrationKey").val("");
-                }
-            });' . "\n"
-        .   '</script>' . "\n";
+        $html .= '<script type="text/javascript">
+    $("#courseSettings").submit(function(){
+        if($("#registration_true").attr("checked")){
+            $("#registrationKey").val("");
+        }
+    });
+</script>' . "\n";
 
         return $html;
 
