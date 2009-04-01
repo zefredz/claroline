@@ -711,15 +711,15 @@ class ClaroCourse
                 . '<input type="radio" id="course_status_enable" name="course_status_selection" value="enable" ' . ($this->status == 'enable' ? 'checked="checked"':'') . ' />&nbsp;'
                 . '<label for="course_status_enable">' . get_lang('Enable') . '</label>'
                 . '<br /><br />' . "\n"
-                . '<input type="radio" id="couse_status_date" name="course_status_selection" value="date" ' . ($this->status == 'date' ? 'checked="checked"':'') . ' />&nbsp;'
+                . '<input type="radio" id="course_status_date" name="course_status_selection" value="date" ' . ($this->status == 'date' ? 'checked="checked"':'') . ' />&nbsp;'
                 . '<label for="couse_status_date">' . get_lang('Enable') . '&nbsp;'. get_lang('from ') . '</label>'
                 . claro_html_date_form('course_publicationDay', 'course_publicationMonth', 'course_publicationYear', $this->publicationDate, 'numeric')
                 . '&nbsp;<small>' . get_lang('(d/m/y)') . '</small>'
                 . "\n"
                 .  '<blockquote>'
-                .   '<input type="checkbox" id="use_expiration_date" name="useExpirationDate" value="true" '
+                .   '<input type="checkbox" id="useExpirationDate" name="useExpirationDate" value="true" '
                 .   ( $this->useExpirationDate ?' checked="checked"':' ') . '/>'
-                .   ' <label for="use_expiration_date">' . get_lang('To ') . '&nbsp;</label>' . "\n"
+                .   ' <label for="useExpirationDate">' . get_lang('To ') . '&nbsp;</label>' . "\n"
                 . claro_html_date_form('course_expirationDay', 'course_expirationMonth', 'course_expirationYear', $this->expirationDate, 'numeric')
                 . '&nbsp;<small>' . get_lang('(d/m/y)') . '</small>'
                 . '</blockquote>'
@@ -737,7 +737,7 @@ class ClaroCourse
                 . '<label for="status_disable">' . get_lang('Reactivable by administrator') . '</label>'
                 . '<br />' . "\n"
                 . '<input type="radio" id="status_trash" name="course_status" value="trash" ' . ($this->status == 'trash' ? 'checked="checked"':'') . ' />&nbsp;'
-                . '<label for="status_disable">' . get_lang('Move to trash') . '</label>'
+                . '<label for="status_trash">' . get_lang('Move to trash') . '</label>'
                 . '</blockquote>'
                 . "\n";
                 
@@ -758,6 +758,85 @@ class ClaroCourse
             . '</small></p>' . "\n" ;
             
         $html .= '<script type="text/javascript">
+    var courseStatusEnabled = function(){
+        $("#status_pending").attr("disabled", true);
+        $("#status_disable").attr("disabled", true);
+        $("#status_trash").attr("disabled", true);
+        
+        $("#course_expirationDay").attr("disabled", true);
+        $("#course_expirationMonth").attr("disabled", true);
+        $("#course_expirationYear").attr("disabled", true);
+        
+        $("#course_publicationDay").attr("disabled", true);
+        $("#course_publicationMonth").attr("disabled", true);
+        $("#course_publicationYear").attr("disabled", true);
+        
+        $("#useExpirationDate").attr("disabled", true);
+    };
+    
+    var courseStatusDate = function(){
+        $("#status_trash").attr("disabled", true);
+        $("#status_pending").attr("disabled", true);
+        $("#status_disable").attr("disabled", true);
+        
+        $("#course_publicationDay").removeAttr("disabled");
+        $("#course_publicationMonth").removeAttr("disabled");
+        $("#course_publicationYear").removeAttr("disabled");
+        
+        $("#useExpirationDate").removeAttr("disabled");
+        
+        if ( $("#useExpirationDate").attr("checked") ) {
+            $("#course_expirationDay").removeAttr("disabled");
+            $("#course_expirationMonth").removeAttr("disabled");
+            $("#course_expirationYear").removeAttr("disabled");
+        }
+    };
+    
+    var courseStatusDisabled = function(){
+        $("#status_trash").removeAttr("disabled");
+        $("#status_pending").removeAttr("disabled");
+        $("#status_disable").removeAttr("disabled");
+        
+        $("#course_expirationDay").attr("disabled", true);
+        $("#course_expirationMonth").attr("disabled", true);
+        $("#course_expirationYear").attr("disabled", true);
+        
+        $("#course_publicationDay").attr("disabled", true);
+        $("#course_publicationMonth").attr("disabled", true);
+        $("#course_publicationYear").attr("disabled", true);
+        
+        $("#useExpirationDate").attr("disabled", true);
+    };
+    
+    $("#course_status_enable").click(courseStatusEnabled);
+    
+    $("#course_status_date").click(courseStatusDate);
+    
+    $("#course_status_disabled").click(courseStatusDisabled);
+    
+    $("#useExpirationDate").click(function(){
+        if ( $("#useExpirationDate").attr("checked") ) {
+            $("#course_expirationDay").removeAttr("disabled");
+            $("#course_expirationMonth").removeAttr("disabled");
+            $("#course_expirationYear").removeAttr("disabled");
+        }
+        else {
+            $("#course_expirationDay").attr("disabled", true);
+            $("#course_expirationMonth").attr("disabled", true);
+            $("#course_expirationYear").attr("disabled", true);
+        }
+    });
+    
+    if ( $("#course_status_enable").attr("checked") ) {
+        courseStatusEnabled();
+    }
+    else if ( $("#course_status_date").attr("checked") ) {
+        courseStatusDate();
+    }
+    else {
+        courseStatusDisabled();
+    }
+    
     $("#courseSettings").submit(function(){
         if($("#registration_true").attr("checked")){
             $("#registrationKey").val("");
