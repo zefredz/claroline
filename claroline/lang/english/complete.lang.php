@@ -1904,6 +1904,7 @@ $_lang['You are not a member of this group'] = 'You are not a member of this gro
 $_lang['You are not allowed to create pages'] = 'You are not allowed to create pages';
 $_lang['You are not allowed to edit this page'] = 'You are not allowed to edit this page';
 $_lang['You are not allowed to read this page'] = 'You are not allowed to read this page';
+$_lang['You are not enrolled at any course on this plateform'] = 'You are not enrolled at any course on this plateform';
 $_lang['You are not in a course'] = 'You are not in a course';
 $_lang['You are now a member of this group.'] = 'You are now a member of this group.';
 $_lang['You are receiving this notification because you are watching a topic on the forum of one of your courses.'] = 'You are receiving this notification because you are watching a topic on the forum of one of your courses.';
