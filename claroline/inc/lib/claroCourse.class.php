@@ -139,9 +139,9 @@ class ClaroCourse
             $this->publicationDate    = $course_data['publicationDate'];
             $this->expirationDate     = $course_data['expirationDate'];
             $this->status             = $course_data['status'];
-            if (isset($this->expirationDate))  
-                $this->useExpirationDate = true; 
-            else $this->useExpirationDate = false;
+            
+            $this->useExpirationDate = isset($this->expirationDate);
+            
             return true;
         }
         else
@@ -282,21 +282,66 @@ class ClaroCourse
         if ( isset($_REQUEST['course_access'       ]) ) $this->access = $_REQUEST['course_access'];
         if ( isset($_REQUEST['course_registration' ]) ) $this->registration = (bool) $_REQUEST['course_registration'];
         if ( isset($_REQUEST['course_registrationKey' ]) ) $this->registrationKey = trim(strip_tags($_REQUEST['course_registrationKey']));
-        if ( isset($_REQUEST['course_publicationDate' ]) ) $this->publicationDate = trim(strip_tags($_REQUEST['course_publicationDate']));
-        if (isset($_REQUEST['course_publicationYear']) && isset($_REQUEST['course_publicationMonth']) && isset($_REQUEST['course_publicationDay']))
-            $this->publicationDate = mktime(0,0,0,$_REQUEST['course_publicationMonth'],$_REQUEST['course_publicationDay'],$_REQUEST['course_publicationYear']); 
-        if ( isset($_REQUEST['course_expirationDate' ]) ) $this->expirationDate = trim(strip_tags($_REQUEST['course_expirationDate']));
-        if (isset($_REQUEST['course_expirationYear']) && isset($_REQUEST['course_expirationMonth']) && isset($_REQUEST['course_expirationDay']) )
-            $this->expirationDate = mktime(23,59,59,$_REQUEST['course_expirationMonth'],$_REQUEST['course_expirationDay'],$_REQUEST['course_expirationYear']);
-        if ( isset($_REQUEST['useExpirationDate'   ]) && $_REQUEST['useExpirationDate'   ]) $this->useExpirationDate = true; else $this->useExpirationDate = false;
-        if ( isset($_REQUEST['course_status'       ]) ) $this->status = $_REQUEST['course_status'];
+        
+        // if ( isset($_REQUEST['course_status'       ]) ) $this->status = $_REQUEST['course_status'];
+        
         if ( isset($_REQUEST['course_status_selection']))
         {
-            if ($_REQUEST['course_status_selection'] == 'date')
+            if ($_REQUEST['course_status_selection'] == 'disable')
+            {
+                $this->status = isset($_REQUEST['course_status'])
+                    ? trim($_REQUEST['course_status'])
+                    : null
+                    ;
+            }
+            elseif ($_REQUEST['course_status_selection'] == 'date' )
             {
                 $this->status = 'date';
+                    
+                if ( isset($_REQUEST['course_publicationDate' ]) )
+                {
+                    $this->publicationDate = trim(strip_tags($_REQUEST['course_publicationDate']));
+                }
+                elseif (isset($_REQUEST['course_publicationYear'])
+                    && isset($_REQUEST['course_publicationMonth'])
+                    && isset($_REQUEST['course_publicationDay']))
+                {
+                    $this->publicationDate = mktime(
+                        0,0,0,
+                        $_REQUEST['course_publicationMonth'],
+                        $_REQUEST['course_publicationDay'],
+                        $_REQUEST['course_publicationYear'] );
+                }
+                else
+                {
+                    $this->publicationDate = mktime(23,59,59);
+                }
+                
+                $this->useExpirationDate = (bool) (isset($_REQUEST['useExpirationDate'   ]) && $_REQUEST['useExpirationDate']);
+                
+                if ( $this->useExpirationDate )
+                {                
+                    if ( isset($_REQUEST['course_expirationDate' ]) )
+                    {
+                        $this->expirationDate = trim(strip_tags($_REQUEST['course_expirationDate']));
+                    }
+                    elseif ( isset($_REQUEST['course_expirationYear'])
+                        && isset($_REQUEST['course_expirationMonth'])
+                        && isset($_REQUEST['course_expirationDay']) )
+                    {
+                        $this->expirationDate = mktime(
+                            23,59,59,
+                            $_REQUEST['course_expirationMonth'],
+                            $_REQUEST['course_expirationDay'],
+                            $_REQUEST['course_expirationYear'] );
+                    }
+                    else
+                    {
+                        $this->expirationDate = mktime(0,0,0);
+                    }
+                }
             }
-            elseif ($_REQUEST['course_status_selection'] == 'enable')
+            else
             {
                 $this->status = 'enable';
             }
@@ -325,8 +370,8 @@ class ClaroCourse
         $fieldRequiredStateList['language'      ] = true;
         $fieldRequiredStateList['departmentName'] = get_conf('extLinkNameNeeded');
         $fieldRequiredStateList['extLinkUrl'    ] = get_conf('extLinkUrlNeeded');
-        $fieldRequiredStateList['publicationDate']= false;
-        $fieldRequiredStateList['expirationDate'] = false;        
+        $fieldRequiredStateList['publicationDate'] = $this->status == 'date';
+        $fieldRequiredStateList['expirationDate'] = $this->status == 'date' && $this->useExpirationDate;
         
         // Validate course access
         if ( empty($this->access) || ! in_array($this->access, array('public','private','platform')) )
@@ -406,14 +451,19 @@ class ClaroCourse
             $success = false ;
         }
         
-            // Validate course extLinkUrl
+        // Validate course publication date
         if ( empty($this->publicationDate) && $fieldRequiredStateList['publicationDate'])
         {
             $this->backlog->failure(get_lang('Publication date needed'));
             $success = false ;
         }
         
-        //TODO check expirationDate valid or NULL
+        //TODO check expirationDate
+        if ( empty($this->expirationDate) && $fieldRequiredStateList['expirationDate'])
+        {
+            $this->backlog->failure(get_lang('Expiration date needed'));
+            $success = false ;
+        }
 
         return $success;
     }
@@ -708,35 +758,44 @@ class ClaroCourse
             $html .=  "\n"
                 . '<dt>' . get_lang('Status') . '&nbsp;:</dt>'
                 . '<dd>'
-                . '<input type="radio" id="course_status_enable" name="course_status_selection" value="enable" ' . ($this->status == 'enable' ? 'checked="checked"':'') . ' />&nbsp;'
-                . '<label for="course_status_enable">' . get_lang('Enable') . '</label>'
+                . '<input type="radio" id="course_status_enable" name="course_status_selection" value="enable" '
+                . ($this->status == 'enable' ? 'checked="checked"':'') . ' />&nbsp;'
+                . '<label for="course_status_enable">' . get_lang('Available') . '</label>'
                 . '<br /><br />' . "\n"
-                . '<input type="radio" id="course_status_date" name="course_status_selection" value="date" ' . ($this->status == 'date' ? 'checked="checked"':'') . ' />&nbsp;'
-                . '<label for="couse_status_date">' . get_lang('Enable') . '&nbsp;'. get_lang('from ') . '</label>'
+                . '<input type="radio" id="course_status_date" name="course_status_selection" value="date" '
+                . ($this->status == 'date' ? 'checked="checked"':'') . ' />&nbsp;'
+                . '<label for="couse_status_date">' . get_lang('Available') . '&nbsp;'. get_lang('from ') . '</label>'
                 . claro_html_date_form('course_publicationDay', 'course_publicationMonth', 'course_publicationYear', $this->publicationDate, 'numeric')
                 . '&nbsp;<small>' . get_lang('(d/m/y)') . '</small>'
                 . "\n"
                 .  '<blockquote>'
                 .   '<input type="checkbox" id="useExpirationDate" name="useExpirationDate" value="true" '
                 .   ( $this->useExpirationDate ?' checked="checked"':' ') . '/>'
-                .   ' <label for="useExpirationDate">' . get_lang('To ') . '&nbsp;</label>' . "\n"
+                .   ' <label for="useExpirationDate">' . get_lang('to') . '&nbsp;</label>' . "\n"
                 . claro_html_date_form('course_expirationDay', 'course_expirationMonth', 'course_expirationYear', $this->expirationDate, 'numeric')
                 . '&nbsp;<small>' . get_lang('(d/m/y)') . '</small>'
                 . '</blockquote>'
                 . "\n";    
                 
             $html .=  "\n"           
-                . '<input type="radio" id="course_status_disabled" name="course_status_selection" value="disabled" ' . ( $this->status == 'pending' || $this->status == 'disable' || $this->status == 'trash' ? 'checked="checked"':'' ) 
+                . '<input type="radio" id="course_status_disabled" name="course_status_selection" value="disable" '
+                . ( $this->status == 'pending' || $this->status == 'disable' || $this->status == 'trash' ? 'checked="checked"':'' ) 
                 . ' />&nbsp;'
-                . '<label for="course_status_disabled">'. get_lang('Disable') . '</label>'
+                . '<label for="course_status_disabled">'. get_lang('Not available') . '</label>'
                 . '<blockquote>'
-                . '<input type="radio" id="status_pending" name="course_status" value="pending" ' . ( $this->status == 'pending' ? 'checked="checked"':'' ) . ' />&nbsp;'
+                . '<input type="radio" id="status_pending" name="course_status" value="pending" '
+                . ( $this->status == 'pending' || $this->status == 'enable' || $this->status == 'date'
+                    ? 'checked="checked"'
+                    :'' )
+                . ' />&nbsp;'
                 . '<label for="status_pending">'. get_lang('Reactivable by course manager') . '</label>'
                 . '<br />' . "\n"
-                . '<input type="radio" id="status_disable" name="course_status" value="disable" ' . ($this->status == 'disable' ? 'checked="checked"':'') . ' />&nbsp;'
+                . '<input type="radio" id="status_disable" name="course_status" value="disable" '
+                . ($this->status == 'disable' ? 'checked="checked"':'') . ' />&nbsp;'
                 . '<label for="status_disable">' . get_lang('Reactivable by administrator') . '</label>'
                 . '<br />' . "\n"
-                . '<input type="radio" id="status_trash" name="course_status" value="trash" ' . ($this->status == 'trash' ? 'checked="checked"':'') . ' />&nbsp;'
+                . '<input type="radio" id="status_trash" name="course_status" value="trash" '
+                . ($this->status == 'trash' ? 'checked="checked"':'') . ' />&nbsp;'
                 . '<label for="status_trash">' . get_lang('Move to trash') . '</label>'
                 . '</blockquote>'
                 . "\n";
@@ -789,6 +848,11 @@ class ClaroCourse
             $("#course_expirationDay").removeAttr("disabled");
             $("#course_expirationMonth").removeAttr("disabled");
             $("#course_expirationYear").removeAttr("disabled");
+        }
+        else {
+            $("#course_expirationDay").attr("disabled", true);
+            $("#course_expirationMonth").attr("disabled", true);
+            $("#course_expirationYear").attr("disabled", true);
         }
     };
     
