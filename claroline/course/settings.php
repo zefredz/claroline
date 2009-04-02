@@ -113,11 +113,11 @@ if ( $course->load($current_cid) )
             
             if ($course->save())
             {
-                $dialogBox->success(get_lang('Course enabled'));
+                $dialogBox->success(get_lang('This course has been activated and is now available on this platform'));
             }
             else 
             {
-                $dialogBox->error(get_lang('Unable to enable course'));
+                $dialogBox->error(get_lang('Unable to reactivate this course'));
             }
         }
         elseif ( ($course->status == 'pending') && claro_is_in_a_course() && claro_is_course_manager() )
@@ -126,16 +126,16 @@ if ( $course->load($current_cid) )
             
             if ($course->save())
             {
-                $dialogBox->success(get_lang('Course enabled'));
+                $dialogBox->success(get_lang('This course has been activated and is now available on this platform'));
             }
             else 
             {
-                $dialogBox->error(get_lang('Unable to enable course'));
+                $dialogBox->error(get_lang('Unable to reactivate this course'));
             }
         }
         else
         {
-            $dialogBox->error(get_lang('This course is already enabled'));
+            $dialogBox->error(get_lang('This course is already activated'));
         }
     }
     

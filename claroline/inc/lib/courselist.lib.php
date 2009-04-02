@@ -524,9 +524,10 @@ function render_user_course_list_desactivated()
                     if ($course['status']=='pending')
                     {
                         $out.=  '<a href="' . htmlspecialchars( $url ) . '">'
-                            .    htmlspecialchars($courseTitle)
-                            .    '</a>' . "\n"
-                            .     '<a href="'.$urlSettings.'">'.get_lang('Reactivate it ').'</a>';
+                            .   htmlspecialchars($courseTitle)
+                            .   '</a>' . "\n"
+                            .   '<a href="'.$urlSettings.'">'
+                            .   '<img src="'.get_icon_url('manager').'" alt="" /> '.get_lang('Reactivate it ').'</a>';
                     }
                     
                     if ($course['status']=='disable')
@@ -536,9 +537,9 @@ function render_user_course_list_desactivated()
                             $out.=  '<a href="' . htmlspecialchars( $url ) . '">'
                             .   htmlspecialchars($courseTitle)
                             .   '</a> ' 
-                            . 	'<img src="'.get_icon('platformadmin.png').'"> '
+                            .   '<img src="'.get_icon_url('platformadmin').'" alt="" /> '
                             .   '<a href="'.$urlSettings.'">'.get_lang('Reactivate it ').'</a>'
-                            .	"\n";
+                            .   "\n";
                         }
                         else 
                         {
