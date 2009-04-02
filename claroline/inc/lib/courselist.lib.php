@@ -569,15 +569,13 @@ function render_user_course_list_desactivated()
                     
                     }
                     
-                    $out .= '</dd>' . "\n";
+                    $out .= '</dt>' . "\n";
                     
                     $out .=     '<dd>'
                           .    '<small>' . "\n"
                           .    htmlspecialchars( $course['titular'] )
                           .    '</small>' . "\n"
                           .    '</dd>' . "\n" ;
-                    
-                   $out .=  '</small></dd>' . "\n";
                  
              }
                         
