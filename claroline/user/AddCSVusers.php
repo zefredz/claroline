@@ -4,7 +4,7 @@
  *
  * tool for bulk subscribe.
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
  * @copyright 2001-2007 Universite catholique de Louvain (UCL)
  *
