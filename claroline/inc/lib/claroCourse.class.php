@@ -464,6 +464,15 @@ class ClaroCourse
             $this->backlog->failure(get_lang('Expiration date needed'));
             $success = false ;
         }
+        
+        if ( !empty($this->expirationDate) && $fieldRequiredStateList['expirationDate'] )
+        {
+            if ( $this->publicationDate > $this->expirationDate )
+            {
+                $this->backlog->failure(get_lang('Publication date must precede expiration date'));
+                $success = false ;
+            }
+        }
 
         return $success;
     }
