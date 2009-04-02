@@ -16,7 +16,15 @@ if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 
 echo claro_html_tool_title(get_lang('My course list'));
 // display list
-echo render_user_course_list();
+$userCourseList = render_user_course_list();
+if( !empty( $userCourseList ) )
+{
+    echo $userCourseList;
+}
+else
+{
+    echo get_lang('You are not enrolled at any course on this plateform');
+}
 //display legend if required
 if( !empty($modified_course) )
 {
