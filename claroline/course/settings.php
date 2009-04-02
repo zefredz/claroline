@@ -96,7 +96,7 @@ if ( $course->load($current_cid) )
 {
     if ( $cmd == 'exEnable' )
     {
-        if ( !(claro_is_in_a_course() && claro_is_course_manager()) || ! claro_is_platform_admin() )
+        if ( ! claro_is_course_manager() && ! claro_is_platform_admin() )
         {
             claro_die( get_lang("Not allowed") );
             exit();
