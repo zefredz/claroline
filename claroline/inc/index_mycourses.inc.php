@@ -14,16 +14,23 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
 
 if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 
-echo claro_html_tool_title(get_lang('My course list'));
-// display list
+//List
 $userCourseList = render_user_course_list();
+$userCourseListDesactivated =  render_user_course_list_desactivated();
+
+echo claro_html_tool_title(get_lang('My course list'));
+// display activated list
 if( !empty( $userCourseList ) )
 {
     echo $userCourseList;
 }
+elseif( empty( $userCourseListDesactivated ) )
+{
+    echo get_lang('You are not enrolled to any course on this platform or all your courses are deactivated');
+}
 else
 {
-    echo get_lang('You are not enrolled at any course on this plateform');
+    echo get_lang( 'All your courses are deactivated (see list below)' );
 }
 //display legend if required
 if( !empty($modified_course) )
@@ -31,4 +38,12 @@ if( !empty($modified_course) )
     echo '<br />'
     .    '<small><span class="item hot"> '.get_lang('denotes new items').'</span></small>'
     .     '</td>' . "\n";
+}
+
+// DISPLAY DEACTIVATED COURSES          
+
+if ( !empty( $userCourseListDesactivated ) )
+{
+    echo claro_html_tool_title(get_lang('Deactivated course list'));
+    echo $userCourseListDesactivated;
 }
