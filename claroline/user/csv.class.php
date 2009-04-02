@@ -386,7 +386,7 @@ class csvImport extends csv
         return null;
     }
     
-    public function importUsers()
+    public function importUsers( $class_id )
     {
         $csvContent = $this->getCSVContent();
         if( empty( $csvContent ) )
@@ -443,12 +443,28 @@ class csvImport extends csv
                     $userId = user_create( $userInfo );
                     if( $userId != 0 )
                     {
-                        $logs['success'][] = get_lang( 'User %username created successfully', array( '%username' => $userInfo['username'] ) );
+                        $logs['success'][] = get_lang( 'User %username created successfully', array( '%username' => $userInfo['username'] ) );                        
                     }
                     else
                     {
                         $logs['errors'][] = get_lang( 'Unable to create user %username', array('%username' => $userInfo['username'] ) );
                     }
+                }
+                
+                if( $userId )
+                {
+                  //join class if needed
+                  if( $class_id )
+                  {
+                    if( ! $return = user_add_to_class( $userId, $class_id ) )
+                    {
+                      $logs['errors'][] = get_lang( 'Unable to add %username in the selected class', array( '%username' => $userInfo['username'] ) );
+                    }
+                    else
+                    {
+                      $logs['success'][] = get_lang( 'User %username added in the selected class', array( '%username' => $userInfo['username'] ) );
+                    }
+                  }
                 }
             }
         }
@@ -464,7 +480,7 @@ class csvImport extends csv
      * @return boolean
      *
      */
-    public function importUsersInCourse( $courseId )
+    public function importUsersInCourse( $courseId, $canCreateUser = true, $enrollUserInCourse = true, $class_id = 0 )
     {
         $csvContent = $this->getCSVContent();
         if( empty( $csvContent ) )
@@ -520,14 +536,15 @@ class csvImport extends csv
                 //check user existe if not create is asked                
                 $resultSearch = user_search( array( 'username' => $userInfo['username'] ), null, true, true );
                 
-                if( !empty($resultSearch))
+                if( empty($resultSearch))
                 {
-                  $userId = $resultSearch[0]['uid'];
-                  $logs['errors'][] = get_lang( 'User %username not created because it already exists in the database', array( '%username' => $userInfo['username'] ) );
-                }
-                else
-                {
-                    
+                  if( !$canCreateUser )
+                  {
+                    $userId = 0;
+                    $logs['errors'][] = get_lang( 'Unable to create user %username, option is disable in configuration', array('%username' => $userInfo['username'] ) );
+                  }
+                  else
+                  {
                     $userId = user_create( $userInfo );
                     if( $userId != 0 )
                     {
@@ -536,8 +553,14 @@ class csvImport extends csv
                     else
                     {
                         $logs['errors'][] = get_lang( 'Unable to create user %username', array('%username' => $userInfo['username'] ) );
-                    }
+                    } 
+                  }
                 }
+                else
+                {
+                  $userId = $resultSearch[0]['uid'];
+                  $logs['errors'][] = get_lang( 'User %username not created because it already exists in the database', array( '%username' => $userInfo['username'] ) );
+                }                
                 
                 if( $userId == 0)
                 {
@@ -545,28 +568,48 @@ class csvImport extends csv
                 }
                 else
                 {
-                  if( !user_add_to_course( $userId, $courseId, false, false, false) )
+                  if( !$enrollUserInCourse )
                   {
-                    $logs['errors'][] = get_lang( 'Unable to add user %username in this course', array('%username' => $userInfo['username'] ) );
+                    $logs['errors'][] = get_lang( 'Unable to add user %username in this course, option is disable in configuration', array('%username' => $userInfo['username'] ) );
                   }
                   else
                   {
-                    $logs['success'][] = get_lang( 'User %username added in course %courseId', array('%username' => $userInfo['username'], '%courseId' => $courseId ));
-                    //join group
-                    $groups = split(',', $groupNames);
-                    if( is_array( $groups ) )
+                    if( !user_add_to_course( $userId, $courseId, false, false, false) )
                     {
-                      foreach( $groups as $group)
+                      $logs['errors'][] = get_lang( 'Unable to add user %username in this course', array('%username' => $userInfo['username'] ) );
+                    }
+                    else
+                    {
+                      $logs['success'][] = get_lang( 'User %username added in course %courseId', array('%username' => $userInfo['username'], '%courseId' => $courseId ));
+                      //join class if needed
+                      if( $class_id )
                       {
-                        $group = trim($group);
-                        if( !empty($group) )
+                        if( ! $return = user_add_to_class( $userId, $class_id ) )
                         {
-                          $groupsImported[$group][] = $userId;
+                          $logs['errors'][] = get_lang( 'Unable to add %username in the selected class', array( '%username' => $userInfo['username'] ) );
                         }
-                        
+                        else
+                        {
+                          $logs['success'][] = get_lang( 'User %username added in the selected class', array( '%username' => $userInfo['username'] ) );
+                        }
+                      }
+                      //join group
+                      $groups = split(',', $groupNames);
+                      if( is_array( $groups ) )
+                      {
+                        foreach( $groups as $group)
+                        {
+                          $group = trim($group);
+                          if( !empty($group) )
+                          {
+                            $groupsImported[$group][] = $userId;
+                          }
+                          
+                        }
                       }
                     }
                   }
+                  
                 }
             }
         }

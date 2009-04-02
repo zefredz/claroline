@@ -18,6 +18,7 @@
  */
 
 //$tlabelReq = 'CLUSR';
+
 require '../inc/claro_init_global.inc.php';
 
 //used libraries
@@ -32,9 +33,21 @@ require_once './csv.class.php';
 
 include claro_get_conf_repository() . 'user_profile.conf.php';
 
+load_module_config( 'CLUSR' );
+
 if ( !$is_courseAllowed ) claro_disp_auth_form(true);
 
 $is_allowedToEdit = claro_is_allowed_to_edit();
+$is_courseManager = claro_is_course_manager();
+$is_allowedToEnroll = get_conf('is_coursemanager_allowed_to_enroll_single_user');
+$is_allowedToImport = get_conf('is_coursemanager_allowed_to_import_user_list');
+$is_allowedToCreate = get_conf('is_coursemanager_allowed_to_register_single_user');
+$is_platformAdmin = claro_is_platform_admin();
+
+if( !(( $is_courseManager && $is_allowedToImport ) || $is_platformAdmin ) )
+{
+  claro_die(get_lang('Not allowed'));
+}
 
 // courseadmin reserved page
 if( !($is_allowedToEdit || $is_platformAdmin) )
@@ -52,6 +65,9 @@ else                                                                            
 
 if( isset($_REQUEST['step']) )   $step = (int) $_REQUEST['step'];
 else                             $step = 0;
+
+if( isset( $_REQUEST['class_id']) ) $class_id = (int) $_REQUEST['class_id'];
+else                                $class_id = 0;
 
 $nameTools        = get_lang('Add a user list in course');
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users'), get_module_url('CLUSR').'/user.php'.(!is_null($courseId) ? '?cid='.$courseId : '') );
@@ -155,6 +171,7 @@ $content_default = get_lang('You must specify the CSV format used in your file')
 .   '<br /><br />' . "\n"
 .   '<form method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" enctype="multipart/form-data"  >' . "\n"
 .   '<input type="hidden" name="step" value="1" />' . "\n"
+.   '<input type="hidden" name="class_id" value="' . $class_id . '" />' . "\n"
 .   '<input type="radio" name="firstLineFormat" value="YES" id="firstLineFormat_YES" /> '
 .   '<label for="firstLineFormat_YES">' . get_lang('Use format defined in first line of file') . '</label>' . "\n"
 .   '<br /><br />' . "\n"
@@ -207,11 +224,11 @@ switch( $step )
                 {
                   claro_die(get_lang('Not allowed'));
                 }
-                $logs = $csvImport->importUsers();
+                $logs = $csvImport->importUsers( $class_id );
             }
             else
             {
-                $logs = $csvImport->importUsersInCourse( $courseId );   
+                $logs = $csvImport->importUsersInCourse( $courseId, $is_allowedToCreate, $is_allowedToEnroll, $class_id );   
             }
             
             if( !empty($logs) )
@@ -352,7 +369,8 @@ switch( $step )
                     .   (count($errors) ? get_lang('Errors can be ignored to force the import') : '') . "\n" . '<br />' . "\n";
                     
                     $content .= '<form method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" >' . "\n"                    
-                    .   '<input type="hidden" name="step" value="2" />' . "\n"                    
+                    .   '<input type="hidden" name="step" value="2" />' . "\n"
+                    .   '<input type="hidden" name="class_id" value="' . $class_id .'" />' . "\n"
                     // options
                     // TODO: check if user can create users
                     //.   get_lang('Create new users') . '<input type="checkbox" value="1" name="newUsers" />'
