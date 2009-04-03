@@ -2817,4 +2817,12 @@ $_lang['Wiki deletion failed'] = 'La suppression du Wiki a échoué';
 $_lang['Wiki edition failed'] = 'La modification du Wiki a échoué';
 $_lang['Will be published on'] = 'Sera publié le ';
 $_lang['You are receiving this notification because you are watching for new topics on the forum of one of your courses.'] = 'Vous recevez cette annonce car vous avez demandé a être averti en cas de création de nouveaux topics sur sur le forum d\'un de vos cours.';
+$_lang['(d/m/y)'] = '(j/m/a)';
+$_lang['Cannot load portlet list'] = 'Impossible de charger la liste des portlets';
+$_lang['Documents Linker'] = 'Outil de liens vers des resources';
+$_lang['Question list %id'] = 'Liste de questions %id';
+$_lang['Reactivate it'] = 'Réactiver';
+$_lang['Spoiler'] = 'Texte déroulant';
+$_lang['Spoiler Editor'] = 'Editeur de texte déroulant';
+$_lang['from'] = 'depuis';
 ?>
