@@ -23,6 +23,7 @@ if ( count( get_included_files() ) == 1 )
 require_once dirname(__FILE__) . '/config.lib.inc.php';
 require_once dirname(__FILE__) . '/backlog.class.php';
 require_once dirname(__FILE__) . '/language.lib.php';
+require_once dirname(__FILE__) . '/user.lib.php';
 
 /**
  * To use this class.
