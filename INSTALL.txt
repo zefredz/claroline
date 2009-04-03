@@ -1,5 +1,5 @@
 *****************************************************
-        CLAROLINE 1.9 RC4
+        CLAROLINE 1.9 RC5
 *****************************************************
 
 Thank you for downloading Claroline 1.9. This text will guide you
@@ -208,5 +208,5 @@ To access the Claroline administration section, open browser
 and go to http://www.mydomain.org/mysite/claroline/admin/
 
 ==========================================================================
-            Europe, Belgium, Louvain-la-Neuve - March 5 2009
+        Europe, Belgium, Louvain-la-Neuve - $Date$
 ================================== END ===================================

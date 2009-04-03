@@ -245,5 +245,5 @@ The Digital Security Research Group [DSecRG] <http://www.dsec.ru>
 Fernando Munoz on the Claroline.net forum
 
 =========================================================================
-                Europe, Belgium, Louvain-la-Neuve - March 5 2009
+        Europe, Belgium, Louvain-la-Neuve - $Date$
 ================================== END ===================================
