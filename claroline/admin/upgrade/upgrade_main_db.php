@@ -268,7 +268,7 @@ switch ( $display )
             if ( $nbError == 0 )
             {
                 // Upgrade 1.8 to 1.9 Succeed
-                echo '<p class="success">The claroline main tables have been successfully upgraded to 1.8</p>' . "\n";
+                echo '<p class="success">The claroline main tables have been successfully upgraded to version 1.9</p>' . "\n";
                 clean_upgrade_status();
 
                 // Database version is 1.9
