@@ -1,7 +1,7 @@
 <?php 
 $_lang['%email is not a valid e-mail address.'] = '%email is not a valid e-mail address.';
 $_lang['(d/m/y)'] = '(d/m/y)';
-$_lang['A list of keys allowing requests to the Claroline SSO server. The SSO client have to provide one of the keys contained into this list to receive any answer from the Claroline SSO server.'] = 'A list of keys allowing requests to the Claroline SSO server. The SSO client have to provide one of the keys contained into this list to receive any answer from the Claroline SSO server.';
+$_lang['A list of keys allowing requests to the Claroline SSO server. The SSO client has to provide one of the keys contained into this list to receive any answer from the Claroline SSO server.'] = 'A list of keys allowing requests to the Claroline SSO server. The SSO client has to provide one of the keys contained into this list to receive any answer from the Claroline SSO server.';
 $_lang['A new topic has been created on your forum'] = 'A new topic has been created on your forum';
 $_lang['Add selected users'] = 'Add selected users';
 $_lang['Advanced settings for administrator'] = 'Advanced settings for administrator';
@@ -34,6 +34,12 @@ $_lang['If activated, all the feedbacks will be shown to users; if not, only tho
 $_lang['If the name and the firstname are longer than this value, the script reduce it.
 For revelance, it\'s interesting to not work with to little value'] = 'If the name and the firstname are longer than this value, the script reduce it.
 For revelance, it\'s interesting to not work with to little value';
+$_lang['If the user is existing in the platform, he will be added to the class only if his firstname, 
+                                        lastname and username are similar.'] = 'If the user is existing in the platform, he will be added to the class only if his firstname, 
+                                        lastname and username are similar.';
+$_lang['If the user is existing in the platform, he will be added to the course only if his firstname, 
+                                        lastname and username are similar.'] = 'If the user is existing in the platform, he will be added to the course only if his firstname, 
+                                        lastname and username are similar.';
 $_lang['If you are not using the local Claroline password to identify a user, disable this option so the access authentication form will not be available'] = 'If you are not using the local Claroline password to identify a user, disable this option so the access authentication form will not be available';
 $_lang['Imported modules must be compatible with your Claroline version.'] = 'Imported modules must be compatible with your Claroline version.';
 $_lang['In iCal an event has a duration but not in claroline. 3600 seconds = 1 Hour.'] = 'In iCal an event has a duration but not in claroline. 3600 seconds = 1 Hour.';
@@ -59,7 +65,6 @@ Display for each request :duration, counter,  statement';
 $_lang['Publication date must precede expiration date'] = 'Publication date must precede expiration date';
 $_lang['Publication date needed'] = 'Publication date needed';
 $_lang['Question list %id'] = 'Question list %id';
-$_lang['Questions list save successfully'] = 'Questions list save successfully';
 $_lang['Reactivable by administrator'] = 'Reactivable by administrator';
 $_lang['Reactivable by course manager'] = 'Reactivable by course manager';
 $_lang['Reactivate it'] = 'Reactivate it';
@@ -74,19 +79,20 @@ $_lang['Spoiler'] = 'Spoiler';
 $_lang['Spoiler Editor'] = 'Spoiler Editor';
 $_lang['Standard URL using QUERY_STRING (download.php?url=/path/to/file.ext)'] = 'Standard URL using QUERY_STRING (download.php?url=/path/to/file.ext)';
 $_lang['The file %file doesn\'t exist'] = 'The file %file doesn\'t exist';
+$_lang['The list of questions has been saved'] = 'The list of questions has been saved';
 $_lang['This course has been activated and is now available on this platform'] = 'This course has been activated and is now available on this platform';
 $_lang['This course is already activated'] = 'This course is already activated';
 $_lang['This is where tracking and statistics data are stored. This database can be the same as the main database.'] = 'This is where tracking and statistics data are stored. This database can be the same as the main database.';
 $_lang['Trigger debug mode in url'] = 'Trigger debug mode in url';
 $_lang['Unable to add %username in the selected class'] = 'Unable to add %username in the selected class';
 $_lang['Unable to add user %username in this course'] = 'Unable to add user %username in this course';
-$_lang['Unable to add user %username in this course, option is disable in configuration'] = 'Unable to add user %username in this course, option is disable in configuration';
+$_lang['Unable to add user %username in this course, option is disabled in configuration'] = 'Unable to add user %username in this course, option is disabled in configuration';
 $_lang['Unable to add user in group %groupname'] = 'Unable to add user in group %groupname';
 $_lang['Unable to copy file %file in temporary directory'] = 'Unable to copy file %file in temporary directory';
 $_lang['Unable to create frame for document %file.'] = 'Unable to create frame for document %file.';
 $_lang['Unable to create group %groupname'] = 'Unable to create group %groupname';
 $_lang['Unable to create user %username'] = 'Unable to create user %username';
-$_lang['Unable to create user %username, option is disable in configuration'] = 'Unable to create user %username, option is disable in configuration';
+$_lang['Unable to create user %username, option is disabled in configuration'] = 'Unable to create user %username, option is disabled in configuration';
 $_lang['Unable to find the user in the csv'] = 'Unable to find the user in the csv';
 $_lang['Unable to load the selected format'] = 'Unable to load the selected format';
 $_lang['Unable to reactivate this course'] = 'Unable to reactivate this course';
@@ -99,7 +105,7 @@ $_lang['User ID must be a number at line %key'] = 'User ID must be a number at l
 $_lang['User ID seems to be duplicate at line %key'] = 'User ID seems to be duplicate at line %key';
 $_lang['Username already exists in the database at line %key'] = 'Username already exists in the database at line %key';
 $_lang['Username is empty at line %key'] = 'Username is empty at line %key';
-$_lang['Username seems to be duplcate at line %key'] = 'Username seems to be duplcate at line %key';
+$_lang['Username seems to be duplicate at line %key'] = 'Username seems to be duplicate at line %key';
 $_lang['View general forum'] = 'View general forum';
 $_lang['Wiki creation failed'] = 'Wiki creation failed';
 $_lang['Wiki deletion failed'] = 'Wiki deletion failed';

@@ -52,7 +52,7 @@ $_lang['<strong>Deleted</strong><p>Your campus registration has been desactivate
 $_lang['<strong>Removed</strong><p>Your campus has been removed from the worldwide page.</p>'] = '<strong>已删除</strong><p>你的网校已被Claroline官方删除。</p>';
 $_lang['<strong>Submitted</strong><p>Waiting for validation by Claroline.net team.</p>'] = '<strong>已提交</strong><p>等待Claroline官方的批准。</p>';
 $_lang['A file with this name already exists.'] = '已有一个文件使用该名称。';
-$_lang['A list of keys allowing requests to the Claroline SSO server. The SSO client have to provide one of the keys contained into this list to receive any answer from the Claroline SSO server.'] = '允许向Claroline SSO服务器发送请求的一系列密码。SSO客户端必须有提供这些密码中的一个密码才能获得Claroline SSO服务器的回复。';
+$_lang['A list of keys allowing requests to the Claroline SSO server. The SSO client has to provide one of the keys contained into this list to receive any answer from the Claroline SSO server.'] = '允许向Claroline SSO服务器发送请求的一系列密码。SSO客户端必须有提供这些密码中的一个密码才能获得Claroline SSO服务器的回复。';
 $_lang['A reply to your topic has been posted'] = '有人回复了你的帖子。';
 $_lang['A tutor attached to a group can subscribe himself to another group as a simple user.'] = '一个学习小组的辅导员（助教）可以在另一个学习小组里申请注册为一般成员。';
 $_lang['A user can be a member of maximum %nb groups'] = '一个用户最多可以成为%nb个学习小组里面的成员。';

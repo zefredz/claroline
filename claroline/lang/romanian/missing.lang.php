@@ -1,10 +1,13 @@
 <?php 
+$_lang['%addUserClass users added to the class'] = '%addUserClass users added to the class';
+$_lang['%addUserCourse users added to the course'] = '%addUserCourse users added to the course';
 $_lang['%chat_filename is now in the document tool. (<em>This file is visible</em>)'] = '%chat_filename is now in the document tool. (<em>This file is visible</em>)';
 $_lang['%date not valid'] = '%date not valid';
 $_lang['%delay ago'] = '%delay ago';
 $_lang['%email is not a valid e-mail address.'] = '%email is not a valid e-mail address.';
 $_lang['%firstName %lastName'] = '%firstName %lastName';
 $_lang['%firstname %lastname has been registered to your course'] = '%firstname %lastname has been registered to your course';
+$_lang['%firstname %lastname has not been added !'] = '%firstname %lastname has not been added !';
 $_lang['%groupQty group(s) has (have) been added'] = '%groupQty group(s) has (have) been added';
 $_lang['%moduleName has been added as module'] = '%moduleName has been added as a module of the course and of this learning path';
 $_lang['%moduleName is already used as a module in this learning path'] = '%moduleName is already used as a module in this learning path';
@@ -20,6 +23,8 @@ $_lang['%nb errors found'] = '%nb errors found';
 $_lang['%nb member(s)'] = '%nb member(s)';
 $_lang['%nb message(s)'] = '%nb message(s)';
 $_lang['%nb student(s)'] = '%nb student(s)';
+$_lang['%nb_user not to add'] = '%nb_user not to add';
+$_lang['%newUser users added to the campus'] = '%newUser users added to the campus';
 $_lang['%number student(s) unregistered from this course'] = '%number student(s) unregistered from this course';
 $_lang['%value should be in enum list of %name'] = '%value should be in enum list of %name';
 $_lang['%value should be in the accepted value list of %name'] = '%value should be in the accepted value list of %name';
@@ -36,7 +41,7 @@ $_lang['<i>%firstname %lastname</i> has not been sucessfully registered to the c
 $_lang['<label1>Yes</label1>, <label2>take</label2> %nb questions among %total'] = '<label1>Yes</label1>, <label2>take</label2> %nb questions among %total';
 $_lang['<span class="required">*</span> denotes required field'] = '<span class="required">*</span> denotes required field';
 $_lang['A file with this name already exists.'] = 'A file with this name already exists.';
-$_lang['A list of keys allowing requests to the Claroline SSO server. The SSO client have to provide one of the keys contained into this list to receive any answer from the Claroline SSO server.'] = 'A list of keys allowing requests to the Claroline SSO server. The SSO client have to provide one of the keys contained into this list to receive any answer from the Claroline SSO server.';
+$_lang['A list of keys allowing requests to the Claroline SSO server. The SSO client has to provide one of the keys contained into this list to receive any answer from the Claroline SSO server.'] = 'A list of keys allowing requests to the Claroline SSO server. The SSO client has to provide one of the keys contained into this list to receive any answer from the Claroline SSO server.';
 $_lang['A new topic has been created on your forum'] = 'A new topic has been created on your forum';
 $_lang['A tutor attached to a group can subscribe himself to another group as a simple user.'] = 'A tutor attached to a group can subscribe himself to another group as a simple user.';
 $_lang['A user can be a member of maximum %nb groups'] = 'A user can be a member of maximum %nb groups';
@@ -477,6 +482,12 @@ $_lang['If false, other fields are optional'] = 'If false, other fields are opti
 $_lang['If the name and the firstname are longer than this value, the script reduce it.
 For revelance, it\'s interesting to not work with to little value'] = 'If the name and the firstname are longer than this value, the script reduce it.
 For revelance, it\'s interesting to not work with to little value';
+$_lang['If the user is existing in the platform, he will be added to the class only if his firstname, 
+                                        lastname and username are similar.'] = 'If the user is existing in the platform, he will be added to the class only if his firstname, 
+                                        lastname and username are similar.';
+$_lang['If the user is existing in the platform, he will be added to the course only if his firstname, 
+                                        lastname and username are similar.'] = 'If the user is existing in the platform, he will be added to the course only if his firstname, 
+                                        lastname and username are similar.';
 $_lang['If you are not using the local Claroline password to identify a user, disable this option so the access authentication form will not be available'] = 'If you are not using the local Claroline password to identify a user, disable this option so the access authentication form will not be available';
 $_lang['If you do not have the key, please contact the course manager'] = 'If you do not have the key, please contact the course manager';
 $_lang['If you haven\'t a user account yet, use the <a href="%url">the account creation form</a>.'] = 'If you haven\'t a user account yet, use the <a href="%url">the account creation form</a>.';
@@ -762,7 +773,6 @@ $_lang['Public feedback'] = 'Public feedback';
 $_lang['Publication date must precede expiration date'] = 'Publication date must precede expiration date';
 $_lang['Publication date needed'] = 'Publication date needed';
 $_lang['Question list %id'] = 'Question list %id';
-$_lang['Questions list save successfully'] = 'Questions list save successfully';
 $_lang['Quiz end message'] = 'Quiz end message';
 $_lang['Quota'] = 'Quota';
 $_lang['Quota for courses'] = 'Quota for courses';
@@ -883,6 +893,7 @@ $_lang['The domain that the cookie is available.  To make the cookie available o
 $_lang['The fields <em>%field_list</em> are compulsory'] = 'The fields <em>%field_list</em> are compulsory';
 $_lang['The file %file doesn\'t exist'] = 'The file %file doesn\'t exist';
 $_lang['The information have been modified'] = 'The information have been modified';
+$_lang['The list of questions has been saved'] = 'The list of questions has been saved';
 $_lang['The message in now in your trashbox'] = 'The message in now in your trashbox';
 $_lang['The message sent but the notification by'] = 'The message sent but the notification by';
 $_lang['The module has been removed from this dock'] = 'The module has been removed from this dock';
@@ -890,6 +901,7 @@ $_lang['The name of the cookie. By default the name is "clarolineSsoCookie"'] = 
 $_lang['The path on the server in which the cookie will be available on.  If set to "/", the cookie will be available within the entire domain. If set to "/foo/", the cookie will only be available within the /foo/ directory and all sub-directories such as /f'] = 'The path on the server in which the cookie will be available on.  If set to "/", the cookie will be available within the entire domain. If set to "/foo/", the cookie will only be available within the /foo/ directory and all sub-directories such as /foo/bar/ of domain. The default value is the current directory that the cookie is being set in.';
 $_lang['The requested file <strong>%file</strong> was not found on the platform.'] = 'The requested file <strong>%file</strong> was not found on the platform.';
 $_lang['The system is unable to send you an e-mail.'] = 'The system is unable to send you an e-mail.';
+$_lang['The user will be created only if all informations are correct.'] = 'The user will be created only if all informations are correct.';
 $_lang['The username is case sensitive'] = 'The username is case sensitive';
 $_lang['Theme'] = 'Theme';
 $_lang['Themes'] = 'Themes';
@@ -951,7 +963,7 @@ $_lang['URL trail'] = 'URL trail';
 $_lang['URL?'] = 'URL?';
 $_lang['Unable to add %username in the selected class'] = 'Unable to add %username in the selected class';
 $_lang['Unable to add user %username in this course'] = 'Unable to add user %username in this course';
-$_lang['Unable to add user %username in this course, option is disable in configuration'] = 'Unable to add user %username in this course, option is disable in configuration';
+$_lang['Unable to add user %username in this course, option is disabled in configuration'] = 'Unable to add user %username in this course, option is disabled in configuration';
 $_lang['Unable to add user in group %groupname'] = 'Unable to add user in group %groupname';
 $_lang['Unable to copy file %file in temporary directory'] = 'Unable to copy file %file in temporary directory';
 $_lang['Unable to copy file : %filename'] = 'Unable to copy file : %filename';
@@ -962,7 +974,7 @@ $_lang['Unable to create folder %folder'] = 'Unable to create folder %folder';
 $_lang['Unable to create frame for document %file.'] = 'Unable to create frame for document %file.';
 $_lang['Unable to create group %groupname'] = 'Unable to create group %groupname';
 $_lang['Unable to create user %username'] = 'Unable to create user %username';
-$_lang['Unable to create user %username, option is disable in configuration'] = 'Unable to create user %username, option is disable in configuration';
+$_lang['Unable to create user %username, option is disabled in configuration'] = 'Unable to create user %username, option is disabled in configuration';
 $_lang['Unable to create zip file'] = 'Unable to create zip file';
 $_lang['Unable to delete all events from the agenda'] = 'Unable to delete all events from the agenda';
 $_lang['Unable to empty groups'] = 'Unable to empty groups';
@@ -1030,7 +1042,7 @@ $_lang['User\'s course settings'] = 'User\'s course settings';
 $_lang['Username already exists in the database at line %key'] = 'Username already exists in the database at line %key';
 $_lang['Username is empty at line %key'] = 'Username is empty at line %key';
 $_lang['Username is too long (maximum 20 characters)'] = 'Username is too long (maximum 20 characters)';
-$_lang['Username seems to be duplcate at line %key'] = 'Username seems to be duplcate at line %key';
+$_lang['Username seems to be duplicate at line %key'] = 'Username seems to be duplicate at line %key';
 $_lang['Users access to course'] = 'Users access to course';
 $_lang['Users access to tools'] = 'Users access to tools';
 $_lang['Users can not submit after end date'] = 'Users can not submit after end date';

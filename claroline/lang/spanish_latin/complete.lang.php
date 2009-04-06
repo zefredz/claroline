@@ -59,7 +59,7 @@ $_lang['<strong>Removed</strong><p>Your campus has been removed from the worldwi
 $_lang['<strong>Submitted</strong><p>Waiting for validation by Claroline.net team.</p>'] = '<strong>Enviado</strong><p>Esperado a ser validado por el equipo Claroline.net.</p>';
 $_lang['A file is required'] = 'Se requiere un archivo';
 $_lang['A file with this name already exists.'] = 'Ya existe un archivo con ese nombre.';
-$_lang['A list of keys allowing requests to the Claroline SSO server. The SSO client have to provide one of the keys contained into this list to receive any answer from the Claroline SSO server.'] = 'Una lista de claves que permiten peticiones al servidor Claroline SSO. El cliente SSO tiene que proporcionar una de las claves contenidas en esta lista para recibir cualquier respuesta del servidor Claroline SSO.';
+$_lang['A list of keys allowing requests to the Claroline SSO server. The SSO client has to provide one of the keys contained into this list to receive any answer from the Claroline SSO server.'] = 'Una lista de claves que permiten peticiones al servidor Claroline SSO. El cliente SSO tiene que proporcionar una de las claves contenidas en esta lista para recibir cualquier respuesta del servidor Claroline SSO.';
 $_lang['A reply to your topic has been posted'] = 'Se ha enviado un mensaje de respuesta sobre su tema.';
 $_lang['A tutor attached to a group can subscribe himself to another group as a simple user.'] = 'Un tutor adjunto a un grupo puede suscribirse a otro grupo como un simple usuario.';
 $_lang['A user can be a member of maximum %nb groups'] = 'Un usuario puede ser miembro de un máximo de  %nb grupos';

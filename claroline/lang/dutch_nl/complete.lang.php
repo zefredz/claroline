@@ -52,7 +52,7 @@ $_lang['<strong>Deleted</strong><p>Your campus registration has been desactivate
 $_lang['<strong>Removed</strong><p>Your campus has been removed from the worldwide page.</p>'] = '<strong>Verwijderd</strong><p>Uw campus is verwijderd van de Worldwide pagina.</p>';
 $_lang['<strong>Submitted</strong><p>Waiting for validation by Claroline.net team.</p>'] = '<strong>Voorgelegd</strong><p>Wacht op goedkeuring door het Claroline.net team.</p>';
 $_lang['A file with this name already exists.'] = 'Er bestaat al een bestand met deze naam.';
-$_lang['A list of keys allowing requests to the Claroline SSO server. The SSO client have to provide one of the keys contained into this list to receive any answer from the Claroline SSO server.'] = 'Een lijst met sleutels die aanvragen naar de Claroline SSO server toestaan.De SSO cliënts moeten één van de sleutels in deze lijst voorleggen om een antwoord van de Claroline SS0 server te ontvangen.';
+$_lang['A list of keys allowing requests to the Claroline SSO server. The SSO client has to provide one of the keys contained into this list to receive any answer from the Claroline SSO server.'] = 'Een lijst met sleutels die aanvragen naar de Claroline SSO server toestaan.De SSO cliënts moeten één van de sleutels in deze lijst voorleggen om een antwoord van de Claroline SS0 server te ontvangen.';
 $_lang['A reply to your topic has been posted'] = 'Er is een antwoord op jouw onderwerp geplaatst.';
 $_lang['A tutor attached to a group can subscribe himself to another group as a simple user.'] = 'Een docent, gekoppeld aan een groep, kan zichzelf in een andere groep als gewone gebruiker inschrijven.';
 $_lang['A user can be a member of maximum %nb groups'] = 'Een gebruiker kan maximum van %nb groep(en) lid zijn';

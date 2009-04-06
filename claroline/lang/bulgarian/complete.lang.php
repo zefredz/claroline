@@ -52,7 +52,7 @@ $_lang['<strong>Deleted</strong><p>Your campus registration has been desactivate
 $_lang['<strong>Removed</strong><p>Your campus has been removed from the worldwide page.</p>'] = '<strong>Изтрито</strong><p>Вашето училище е премахнато от световната страница.</p>';
 $_lang['<strong>Submitted</strong><p>Waiting for validation by Claroline.net team.</p>'] = '<strong>Подадено</strong><p>Очаква валидация от Claroline.net team.</p>';
 $_lang['A file with this name already exists.'] = 'Файл с това име вече съществува.';
-$_lang['A list of keys allowing requests to the Claroline SSO server. The SSO client have to provide one of the keys contained into this list to receive any answer from the Claroline SSO server.'] = '';
+$_lang['A list of keys allowing requests to the Claroline SSO server. The SSO client has to provide one of the keys contained into this list to receive any answer from the Claroline SSO server.'] = '';
 $_lang['A reply to your topic has been posted'] = 'Изпратен е отговор на Вашият топик.';
 $_lang['A tutor attached to a group can subscribe himself to another group as a simple user.'] = 'Преподавател прикрепен към определена група, може да е присъедини към друга като потребител.';
 $_lang['A user can be a member of maximum %nb groups'] = 'Потребител може да е член на максимум %nb групи';

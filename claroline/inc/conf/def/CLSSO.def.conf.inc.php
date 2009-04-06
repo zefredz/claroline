@@ -99,7 +99,7 @@ array ( 'label'         => 'SSO cookie path'
 
 $conf_def_property_list['ssoAuthenticationKeyList'] =
 array ( 'label'         => 'SSO authentication key list'
-      , 'description'   => 'A list of keys allowing requests to the Claroline SSO server. The SSO client have to provide one of the keys contained into this list to receive any answer from the Claroline SSO server.'
+      , 'description'   => 'A list of keys allowing requests to the Claroline SSO server. The SSO client has to provide one of the keys contained into this list to receive any answer from the Claroline SSO server.'
       , 'default'       => 'array()'
       , 'type'          => 'string'
       );

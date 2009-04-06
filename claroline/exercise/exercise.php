@@ -237,7 +237,7 @@ if( $cmd == 'exSaveQwz' )
             }
             else
             {
-                $dialogBox->success( get_lang('Questions list save successfully') );
+                $dialogBox->success( get_lang('The list of questions has been saved') );
             }
             unset( $_SESSION['lastRandomQuestionList'] );
         }

@@ -361,7 +361,7 @@ class csvImport extends csv
         }
         elseif( array_search( $value, $data) != $key )
         {
-          $errors[] = get_lang('Username seems to be duplcate at line %key', array( '%key' => $key ));
+          $errors[] = get_lang('Username seems to be duplicate at line %key', array( '%key' => $key ));
         }
         else
         {
@@ -541,7 +541,7 @@ class csvImport extends csv
                   if( !$canCreateUser )
                   {
                     $userId = 0;
-                    $logs['errors'][] = get_lang( 'Unable to create user %username, option is disable in configuration', array('%username' => $userInfo['username'] ) );
+                    $logs['errors'][] = get_lang( 'Unable to create user %username, option is disabled in configuration', array('%username' => $userInfo['username'] ) );
                   }
                   else
                   {
@@ -570,7 +570,7 @@ class csvImport extends csv
                 {
                   if( !$enrollUserInCourse )
                   {
-                    $logs['errors'][] = get_lang( 'Unable to add user %username in this course, option is disable in configuration', array('%username' => $userInfo['username'] ) );
+                    $logs['errors'][] = get_lang( 'Unable to add user %username in this course, option is disabled in configuration', array('%username' => $userInfo['username'] ) );
                   }
                   else
                   {

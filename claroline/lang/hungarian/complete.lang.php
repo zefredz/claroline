@@ -44,7 +44,7 @@ $_lang['<strong>Deleted</strong><p>Your campus registration has been desactivate
 $_lang['<strong>Removed</strong><p>Your campus has been removed from the worldwide page.</p>'] = '<strong>Törölve</strong><p>Az Ön Campus-át töröltük a Claroline.net Worldwide oldaláról.</p>';
 $_lang['<strong>Submitted</strong><p>Waiting for validation by Claroline.net team.</p>'] = '<strong>Elküldve</strong><p>Várakozás Claroline.net csapat általi érvényesítésre.</p>';
 $_lang['A file with this name already exists.'] = 'Már létezik ilyen nevû fájl.';
-$_lang['A list of keys allowing requests to the Claroline SSO server. The SSO client have to provide one of the keys contained into this list to receive any answer from the Claroline SSO server.'] = 'Kulcsok listája amelyekkel kapcsolatba lehet lépni a Claroline SSO szerverrel. Az SSO kliensnek a listán szereplõ valamelyik kulcsot kell használnia, hogy bármilyen választ kapjon a Claroline SSO szervertõl.';
+$_lang['A list of keys allowing requests to the Claroline SSO server. The SSO client has to provide one of the keys contained into this list to receive any answer from the Claroline SSO server.'] = 'Kulcsok listája amelyekkel kapcsolatba lehet lépni a Claroline SSO szerverrel. Az SSO kliensnek a listán szereplõ valamelyik kulcsot kell használnia, hogy bármilyen választ kapjon a Claroline SSO szervertõl.';
 $_lang['A reply to your topic has been posted'] = 'Az Ön témájában válasz érkezett.';
 $_lang['A tutor attached to a group can subscribe himself to another group as a simple user.'] = 'Egy csoporthoz rendelt oktató feliratkozhat egy másik csoportba egyszerû felhasználóként';
 $_lang['A user can be a member of maximum %nb groups'] = 'Egy felhasználó maximum %nb csoportnak lehet a tagja.';

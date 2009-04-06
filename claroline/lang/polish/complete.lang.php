@@ -44,7 +44,7 @@ $_lang['<strong>Deleted</strong><p>Your campus registration has been desactivate
 $_lang['<strong>Removed</strong><p>Your campus has been removed from the worldwide page.</p>'] = '<strong>Usuniêty</strong><p>Twój kampus zosta³ usuniêty ze ¶wiatowej strony.</p>';
 $_lang['<strong>Submitted</strong><p>Waiting for validation by Claroline.net team.</p>'] = '<strong>Przed³o¿ony</strong><p>Oczekiwanie na sprawdzenie przez grupê Claroline.net.</p>';
 $_lang['A file with this name already exists.'] = 'Plik o takiej nazwie ju¿ istnieje.';
-$_lang['A list of keys allowing requests to the Claroline SSO server. The SSO client have to provide one of the keys contained into this list to receive any answer from the Claroline SSO server.'] = 'Lista kluczy pozwalaj±cych na dostêp do serwera SSO Claroline. Klient SSO musi u¿yæ jednego z kluczy dostêpnych na tej li¶cie by otrzymywaæ odpowiedzi z serwera SSO Claroline.';
+$_lang['A list of keys allowing requests to the Claroline SSO server. The SSO client has to provide one of the keys contained into this list to receive any answer from the Claroline SSO server.'] = 'Lista kluczy pozwalaj±cych na dostêp do serwera SSO Claroline. Klient SSO musi u¿yæ jednego z kluczy dostêpnych na tej li¶cie by otrzymywaæ odpowiedzi z serwera SSO Claroline.';
 $_lang['A reply to your topic has been posted'] = 'Wys³ano odpowied¼ na zadany przez Ciebie temat';
 $_lang['A tutor attached to a group can subscribe himself to another group as a simple user.'] = 'Wyk³adowca zwi±zany z dan± grup± mo¿e zapisaæ siê do innej grupy jako zwyk³y u¿ytkownik.';
 $_lang['A user can be a member of maximum %nb groups'] = 'U¿ytkownik mo¿e byæ cz³onkiem maksymalnie %nb grup(y).';

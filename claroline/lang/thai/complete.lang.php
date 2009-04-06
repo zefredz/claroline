@@ -44,7 +44,7 @@ $_lang['<strong>Deleted</strong><p>Your campus registration has been desactivate
 $_lang['<strong>Removed</strong><p>Your campus has been removed from the worldwide page.</p>'] = '<strong>เอาออกแล้ว</strong><p>ชื่อเว็ปไซท์ระบบที่คุณลงทะเบียนกับเราไว้ ได้ถูกลบออกไปจากหน้า worldwide page.แล้ว</p>';
 $_lang['<strong>Submitted</strong><p>Waiting for validation by Claroline.net team.</p>'] = '<strong>ส่งแล้ว</strong><p>ต้องรอการตรวจสอบจากทีมงานของ Claroline.net</p>';
 $_lang['A file with this name already exists.'] = 'มีไฟล์ชื่อเดียวกันนี้อยู่ก่อนแล้ว.';
-$_lang['A list of keys allowing requests to the Claroline SSO server. The SSO client have to provide one of the keys contained into this list to receive any answer from the Claroline SSO server.'] = 'บัญชีรายการรหัสอนุญาตให้เข้าใช้งานใน Claroline SSO server. ลูกข่ายของ SSO จะต้องให้รหัสเข้าไว้ในรายการ เพื่อรับคำตอบจากแม่ข่าย Claroline SSO server.';
+$_lang['A list of keys allowing requests to the Claroline SSO server. The SSO client has to provide one of the keys contained into this list to receive any answer from the Claroline SSO server.'] = 'บัญชีรายการรหัสอนุญาตให้เข้าใช้งานใน Claroline SSO server. ลูกข่ายของ SSO จะต้องให้รหัสเข้าไว้ในรายการ เพื่อรับคำตอบจากแม่ข่าย Claroline SSO server.';
 $_lang['A reply to your topic has been posted'] = 'ได้ส่งคำตอบของคุณเข้าในหัวข้อแล้ว';
 $_lang['A tutor attached to a group can subscribe himself to another group as a simple user.'] = 'ผู้ช่วยสอนที่ถูกจัดเข้ากลุ่มแล้ว สามารถสมัครเข้าในกลุ่มอื่นๆได้อีก เหมือนสมาชิกทั่วไป.';
 $_lang['A user can be a member of maximum %nb groups'] = 'ผู้เรียนสามารถสมัครเข้าเป็นสมาชิกกลุ่มหรือชั้นเรียนได้ %nb กลุ่ม';
