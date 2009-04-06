@@ -165,7 +165,24 @@ $usedFormat = $_SESSION['claro_usedFormat'];
 $content = '';
 $out = '';
 
-$backButtonUrl = $_SERVER['PHP_SELF'];
+if(isset( $_REQUEST['AddType'] ) )
+{
+  switch( $_REQUEST['AddType'] )
+  {
+    case 'userTool' : $_SESSION['CSV_CancelButton'] = 'user.php'; break;
+    case 'adminTool' : $_SESSION['CSV_CancelButton'] = '../admin/'; break;
+    case 'adminClassTool' : $_SESSION['CSV_CancelButton'] = '../admin/admin_class_user.php?class_id=' . $class_id; break;
+    default : $_SESSION['CSV_CancelButton'] = '../index.php';
+  }
+}
+else
+{
+  if( empty($_SESSION['CSV_CancelButton']) )
+  {
+    $_SESSION['CSV_CancelButton'] = '../index.php'; 
+  }  
+}
+$backButtonUrl = $_SESSION['CSV_CancelButton'];
 
 $content_default = get_lang('You must specify the CSV format used in your file') . ':' . "\n"
 .   '<br /><br />' . "\n"
