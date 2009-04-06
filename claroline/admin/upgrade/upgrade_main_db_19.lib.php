@@ -363,7 +363,7 @@ function upgrade_main_database_desktop_to_19 ()
                         `name` varchar(255) NOT NULL,
                         `rank` int(11) NOT NULL,
                         `visibility` ENUM ('visible','invisible') DEFAULT 'visible' NOT NULL,
-                        `activated` int(11) NOT NULL,
+                        `activated` int(11) NOT NULL DEFAULT 1,
                         PRIMARY KEY  (`label`)
                        ) TYPE=MyISAM";
                        
