@@ -221,12 +221,12 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
         else
         {
             if($module['contentType'] == CTEXERCISE_ )
-            $moduleImg = "quiz";
+            $moduleImgUrl = get_icon_url( 'quiz', 'CLQWZ' );
             else
-            $moduleImg = choose_image(basename($module['path']));
+            $moduleImgUrl = get_icon_url( choose_image(basename($module['path'])) );
 
             $contentType_alt = selectAlt($module['contentType']);
-            echo '<img src="' . get_icon_url( $moduleImg ) . '" alt="'.$contentType_alt.'" />'.$module['name'];
+            echo '<img src="' .  $moduleImgUrl . '" alt="'.$contentType_alt.'" />'.$module['name'];
 
         }
           
