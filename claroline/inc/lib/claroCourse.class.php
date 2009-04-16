@@ -773,14 +773,14 @@ class ClaroCourse
                 . '<br /><br />' . "\n"
                 . '<input type="radio" id="course_status_date" name="course_status_selection" value="date" '
                 . ($this->status == 'date' ? 'checked="checked"':'') . ' />&nbsp;'
-                . '<label for="couse_status_date">' . get_lang('Available') . '&nbsp;'. get_lang('from ') . '</label>'
+                . '<label for="couse_status_date">' . get_lang('Available') . '&nbsp;'. get_lang('from') . '</label> '
                 . claro_html_date_form('course_publicationDay', 'course_publicationMonth', 'course_publicationYear', $this->publicationDate, 'numeric')
                 . '&nbsp;<small>' . get_lang('(d/m/y)') . '</small>'
                 . "\n"
                 .  '<blockquote>'
                 .   '<input type="checkbox" id="useExpirationDate" name="useExpirationDate" value="true" '
                 .   ( $this->useExpirationDate ?' checked="checked"':' ') . '/>'
-                .   ' <label for="useExpirationDate">' . get_lang('to') . '&nbsp;</label>' . "\n"
+                .   ' <label for="useExpirationDate">' . get_lang('to') . '</label> ' . "\n"
                 . claro_html_date_form('course_expirationDay', 'course_expirationMonth', 'course_expirationYear', $this->expirationDate, 'numeric')
                 . '&nbsp;<small>' . get_lang('(d/m/y)') . '</small>'
                 . '</blockquote>'
