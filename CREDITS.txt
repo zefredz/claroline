@@ -138,7 +138,7 @@ Catalan translation :           Xavier de Pedro (xavidp@confluencia.net)
 Chinese translation :           Maizeman (Maizeman@21cn.com)
                                 Barry (barry@synu.edu.cn)
                                 Ping Pingjianban (pingjianban@gmail.com)
-                                Derek "zhous" <zhous1998@gmail.com>
+                                Derek Zhou (zhous1998@gmail.com) http://www.claroline.net.cn/
 
 Chinese (traditionnal) :        Kiang (kiange@gmail.com) - Taiwan PHP User Group http://twpug.net/
                                 Allen Uhomist universe_plushk@yahoo.com.hk
