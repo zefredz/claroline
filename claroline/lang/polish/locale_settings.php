@@ -6,7 +6,6 @@
  *
  * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
- * @author: S³awomir Gurda³a <guslaw@uni.lodz.pl>                    |
  * @author: claro team <cvs@claroline.net>
  *
  * @package LANG-PL
@@ -80,7 +79,7 @@ $langMonthNames['long'] = array('Styczeñ', 'Luty', 'Marzec', 'Kwiecieñ', 'Maj', 
 // Voir http://www.php.net/manual/en/function.strftime.php pour la variable
 // ci-dessous
 
-$dateFormatShort =  "%d %b %y";
+$dateFormatShort =  "%d %B %Y";
 $dateFormatLong  = '%A, %d %B %Y';
 $dateTimeFormatLong  = '%d %B %Y, %H:%M';
 $timeNoSecFormat = '%H:%M';

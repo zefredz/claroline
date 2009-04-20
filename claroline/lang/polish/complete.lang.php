@@ -1,11 +1,11 @@
-<?php 
+<?php
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = 'rozmiar katalogu kursu (zawiera Claroline i kosz w starych systemach)';
-$_lang['%1\$s by %2\$s'] = '%1\$s przez %2\$s';
-$_lang['%1\$s modified on %2\$s by %3\$s'] = '%1\$s zmodyfikowane %2\$s przez %3\$s';
+$_lang['%1$s by %2$s'] = '%1$s przez %2$s';
+$_lang['%1$s modified on %2$s by %3$s'] = '%1$s zmodyfikowana %2$s przez %3$s';
 $_lang['%chat_filename is now in the document tool. (<em>This file is visible</em>)'] = 'Plik %chat_filename znajduje siê teraz w Dokumentach. (<em>Plik jest widoczny</em>)';
 $_lang['%date not valid'] = '%date niew³a¶ciwy format';
 $_lang['%delay ago'] = '%delay temu';
-$_lang['%firstname %lastname has been registered to your course'] = 'Zapisano %firstname %lastname na twój kurs';
+$_lang['%firstname %lastname has been registered to your course'] = '%firstname %lastname zosta³(a) zapisany/-a na twój kurs';
 $_lang['%groupQty group(s) has (have) been added'] = 'Dodano %groupQty';
 $_lang['%moduleName has been added as module'] = '%moduleName zosta³ dodany jako modu³ kursu i tej ¶cie¿ki nauczania';
 $_lang['%moduleName is already used as a module in this learning path'] = '%moduleName jest ju¿ u¿ywany jako modu³ w tej ¶cie¿ce uczenia siê';
@@ -18,10 +18,10 @@ $_lang['%name should be match %regular_expression'] = '%name powinna pasowaæ do 
 $_lang['%nb course(s)'] = '%nb kurs(ów)';
 $_lang['%nb course(s) manager(s)'] = '%nb zarz±dca/-ów kursu';
 $_lang['%nb errors found'] = 'znaleziono %nb b³êdów';
-$_lang['%nb member(s)'] = '%nb cz³onek/-ów';
+$_lang['%nb member(s)'] = '%nb u¿ytkownik(ów)';
 $_lang['%nb message(s)'] = '%nb wiadomo¶æ/-ci';
 $_lang['%nb student(s)'] = '%nb student(ów)';
-$_lang['%number student(s) unregistered from this course'] = '%number uczniów wypisanych z tego kursu';
+$_lang['%number student(s) unregistered from this course'] = '%number studentów wypisanych z tego kursu';
 $_lang['%value should be in enum list of %name'] = '%value powinno znajdowaæ siê na li¶cie %name';
 $_lang['%value should be in the accepted value list of %name'] = '%value powinno znajdowaæ siê na li¶cie warto¶ci akceptowanych %name';
 $_lang['&#91;British people&#93; live in &#91;United Kingdom&#93;.'] = '[Brytyjczycy] zamieszkuj± [Zjednoczone Królewstwo].';
@@ -33,33 +33,33 @@ $_lang['(version of %1\$s modified by %2\$s)'] = '(wersja %1$s zmodyfikowana prz
 $_lang['- none -'] = '- ¿aden -';
 $_lang['<b>From</b> %startDate <b>until</b> %endDate'] = '<b>Od</b> %startDate <b>do</b> %endDate';
 $_lang['<b>From</b> %start_date <b>until</b> %end_date'] = '<b>Od</b> %start_date <b>do</b> %end_date';
-$_lang['<b>Security :</b> We recommend to set register_globals to off in php.ini'] = '<b>Ochrona:</b> Zaklecamy ustawiæ register_globals jako wy³±czone (OFF) w pliku  php.ini';
+$_lang['<b>Security :</b> We recommend to set register_globals to off in php.ini'] = '<b>Ochrona:</b> Zalecamy ustawiæ register_globals jako wy³±czone (OFF) w pliku  php.ini';
 $_lang['<b>Warning : </b>'] = '<b>Ostrze¿enie:</b>';
 $_lang['<i>%firstname %lastname</i> has been sucessfully registered to the course'] = 'Zapisano <i>%firstname %lastname</i> na kurs';
 $_lang['<i>%firstname %lastname</i> has not been sucessfully registered to the course'] = 'B³±d przy zapisywaniu <i>%firstname %lastname</i> na kurs';
 $_lang['<label1>Yes</label1>, <label2>take</label2> %nb questions among %total'] = '<label1>Tak</label1>, <label2>wybierz</label2> %nb pytañ z %total';
 $_lang['<span class="required">*</span> denotes required field'] = '<span class="required">*</span> oznacza pola wymagane';
 $_lang['<strong>Approved</strong><p>Your campus registration has been approved by the Claroline.net team.</p>'] = '<strong>Zaaprobowany</strong><p>Twoja rejestracja kampusu zosta³a zaaprobowana przez grupê Claroline.net.<br />Odno¶nik do Twojego kampusu jest widoczny na ¶wiatowej stronie Claroline.net.</p>';
-$_lang['<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our website) if you think this is an error.</p>'] = '<strong>Skasowany</strong><p>Deaktywowano rejestracjê Twojego kampusu, skontaktuj siê z nami (patrz nasza strona) je¶li uwa¿asz, ¿e to b³±d.</p>';
+$_lang['<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our website) if you think this is an error.</p>'] = '<strong>Skasowany</strong><p>Anulowano rejestracjê Twojego kampusu, skontaktuj siê z nami (patrz nasza strona) je¶li uwa¿asz, ¿e to b³±d.</p>';
 $_lang['<strong>Removed</strong><p>Your campus has been removed from the worldwide page.</p>'] = '<strong>Usuniêty</strong><p>Twój kampus zosta³ usuniêty ze ¶wiatowej strony.</p>';
 $_lang['<strong>Submitted</strong><p>Waiting for validation by Claroline.net team.</p>'] = '<strong>Przed³o¿ony</strong><p>Oczekiwanie na sprawdzenie przez grupê Claroline.net.</p>';
 $_lang['A file with this name already exists.'] = 'Plik o takiej nazwie ju¿ istnieje.';
 $_lang['A list of keys allowing requests to the Claroline SSO server. The SSO client has to provide one of the keys contained into this list to receive any answer from the Claroline SSO server.'] = 'Lista kluczy pozwalaj±cych na dostêp do serwera SSO Claroline. Klient SSO musi u¿yæ jednego z kluczy dostêpnych na tej li¶cie by otrzymywaæ odpowiedzi z serwera SSO Claroline.';
-$_lang['A reply to your topic has been posted'] = 'Wys³ano odpowied¼ na zadany przez Ciebie temat';
+$_lang['A reply to your topic has been posted'] = 'Dodano odpowied¼ na obserwowany przez Ciebie temat';
 $_lang['A tutor attached to a group can subscribe himself to another group as a simple user.'] = 'Wyk³adowca zwi±zany z dan± grup± mo¿e zapisaæ siê do innej grupy jako zwyk³y u¿ytkownik.';
 $_lang['A user can be a member of maximum %nb groups'] = 'U¿ytkownik mo¿e byæ cz³onkiem maksymalnie %nb grup(y).';
 $_lang['About'] = 'Informacje';
-$_lang['Accept email as valid (best choice)'] = 'Zaakceptuj adres e-mail jako prawid³owy (najlepszy wybór)';
+$_lang['Accept email as valid (best choice)'] = 'Opcja sprawia, ¿e adres e-mail zostanie zaakceptowany jako prawid³owy';
 $_lang['Access'] = 'Dostêp';
 $_lang['Access allowed'] = 'Dostêp dozwolony';
 $_lang['Access control management'] = 'Zarz±dzanie kontrol± dostêpu';
-$_lang['Access count'] = 'Licznik dostêpu';
+$_lang['Access count'] = 'Liczba wej¶æ';
 $_lang['Accounts with same <i>Email</i>'] = 'Konta z tym samym adresem <i>E-mail</i>';
 $_lang['Accounts with same <i>User name</i>'] = 'Konta z t± sam± <i>Nazw± U¿ytkownika</i>';
 $_lang['Accounts with same <i>User name</i> AND same <i>Password</i>'] = 'Konta z t± sam± <i>Nazw± U¿ytkownika</i> ORAZ tym samym <i>has³em</i>';
 $_lang['Action'] = 'Funkcja';
-$_lang['Activated'] = 'Aktywne';
-$_lang['Activated - Click to deactivate'] = 'Aktywne, kliknij, ¿eby deaktywowaæ';
+$_lang['Activated'] = 'W³±czone';
+$_lang['Activated - Click to deactivate'] = 'W³±czone, kliknij, ¿eby wy³±czyæ';
 $_lang['Add'] = 'Dodaj';
 $_lang['Add Text'] = 'Dodaj tekst';
 $_lang['Add a "Download all submissions" link in the teacher commands'] = 'Dodaje odno¶nik "Pobierz przes³ane pliki" w menu wyk³adowcy';
@@ -74,8 +74,8 @@ $_lang['Add a user list in course'] = 'Dodaj listê u¿ytkowników kursu';
 $_lang['Add an event'] = 'Dodaj termin';
 $_lang['Add an exercise'] = 'Wstaw moje æwiczenie';
 $_lang['Add announcement'] = 'Dodaj og³oszenie';
-$_lang['Add answ.'] = '+odp';
-$_lang['Add elem.'] = '+elem';
+$_lang['Add answ.'] = '+ odp.';
+$_lang['Add elem.'] = '+ elem.';
 $_lang['Add external link'] = 'Dodaj odno¶nik zewnêtrzny';
 $_lang['Add feedback'] = 'Dodaj informacjê zwrotn±';
 $_lang['Add forum'] = 'Dodaj forum';
@@ -84,11 +84,11 @@ $_lang['Add module(s)'] = 'Dodaj modu³/modu³y';
 $_lang['Add my campus on Claroline.net website'] = 'Dodaj mój kampus do strony Claroline.net';
 $_lang['Add new heading'] = 'Dodaj now± rubrykê';
 $_lang['Add new profile'] = 'Dodaj nowy profil';
-$_lang['Add user'] = 'Dodaj u¿ytkownika';
+$_lang['Add user'] = 'Dodawanie u¿ytkowników';
 $_lang['Add user list'] = 'Dodaj listê u¿ytkowników';
 $_lang['Add user manually'] = 'Rêczne dodawanie u¿ytkownika';
 $_lang['Add wrong answers for drop down lists <small>(Optionnal. One wrong answer by line.)</small>'] = 'Dodaj z³e odpowiedzi do list rozwijanych <small>(Niewymagane. Jedna z³a odpowied¼ w linii.)</small>';
-$_lang['Added line'] = 'Dodano liniê';
+$_lang['Added line'] = 'Linia dodana';
 $_lang['Administration'] = 'Administracja';
 $_lang['Administrative code'] = 'Kod administracyjny';
 $_lang['Administrator'] = 'Administrator';
@@ -99,8 +99,8 @@ $_lang['Advanced settings'] = 'Zaawansowane';
 $_lang['Advanced user search'] = 'Zaawansowane wyszukiwanie u¿ytkownika';
 $_lang['After last allowed attempt'] = 'Po ostatniej dozwolonej próbie';
 $_lang['Agenda'] = 'Terminarz';
-$_lang['Agenda next events'] = 'Nastêpne wydarzenia w terminarzu';
-$_lang['Agreement text displayed before the "Create user account" page'] = 'O¶wiadczenie wy¶wietlane przy tworzeniu konta u¿ytkownika';
+$_lang['Agenda next events'] = 'Najbli¿sze wydarzenia w terminarzu';
+$_lang['Agreement text displayed before the "Create user account" page'] = 'O¶wiadczenie wy¶wietlane przy tworzeniu nowego konta';
 $_lang['All'] = 'Wszystko';
 $_lang['All exercises'] = 'Wszystkie æwiczenia';
 $_lang['All groups are now empty'] = 'Wszystkie grupy sa puste';
@@ -110,17 +110,17 @@ $_lang['All pages'] = 'Wszystkie strony';
 $_lang['All platform courses'] = 'Wszystkie dostêpne kursy';
 $_lang['All profiles'] = 'Wszystkie profile';
 $_lang['All users have been sucessfully unregistered from the class'] = 'Wszyscy u¿ytkownicy zostali wypisani z klasy';
-$_lang['All visible submissions'] = 'Wszystkie widocznie przes³ane dane';
-$_lang['Allow course manager to delete their own courses'] = 'Pozwól managerowi kursu usun±æ swój w³asny kurs';
-$_lang['Allow enrolment/unenrolment to courses by the users'] = 'Zezwól na zapisywanie i wypisywanie siê z kursów przez u¿ytkowników';
-$_lang['Allow late upload'] = 'Przesy³anie po dacie koñcowej';
+$_lang['All visible submissions'] = 'Wszystkie widocznie przes³ane pliki';
+$_lang['Allow course manager to delete their own courses'] = 'Pozwól prowadz±cemu kurs usun±æ swój w³asny kurs';
+$_lang['Allow enrolment/unenrolment to courses by the users'] = 'W³±cz samodzielne zapisywanie i wypisywanie siê u¿ytkowników z kursów';
+$_lang['Allow late upload'] = 'Przesy³anie po dacie zakoñczenia';
 $_lang['Allow teacher to download all submissions'] = 'Pozwól wyk³adowcom pobieraæ wszystkie przes³ane pliki';
-$_lang['Allow teachers to subscribe a user in several groups'] = 'Pozwól wyk³adowcy zapisaæ ucznia do kilku grup';
+$_lang['Allow teachers to subscribe a user in several groups'] = 'Pozwól wyk³adowcy zapisaæ studenta do kilku grup';
 $_lang['Allow to modify field'] = 'Pozwól zmodyfikowaæ pole';
 $_lang['Allow users to see detailed informations about other users'] = 'Pozwól u¿ytkownikom ogl±daæ szczegó³owe informacje o innych u¿ytkownikach';
 $_lang['Allowed'] = 'Dozwolone';
 $_lang['Allowed : do not record usernames in tracking, anonymous users can do the exercise.'] = 'dozwolone - nie rejestruj nazw u¿ytkowników, niezalogowani mog± wykonywaæ æwiczenia.';
-$_lang['Already browsed'] = 'Ju¿ przegl±dniête';
+$_lang['Already browsed'] = 'Ju¿ przegl±dniêty';
 $_lang['Already enroled'] = 'ju¿ zapisany';
 $_lang['An email has been sent to help you remember your user name and password.'] = 'E-mail z twoim loginem i has³em zosta³ wys³any.';
 $_lang['An error occurred while contacting Claroline.net'] = 'Przy kontakcie z Claroline.net wyst±pi³ b³±d';
@@ -131,12 +131,12 @@ $_lang['Announcements'] = 'Og³oszenia';
 $_lang['Announcements list has been cleared up'] = 'Lista og³oszeñ zosta³a wyczyszczona';
 $_lang['Anonymous'] = 'Anonimowy';
 $_lang['Anonymous attempts'] = 'Anonimowe przyst±pienie';
-$_lang['Anonymous users access count :'] = 'Liczba udostêpnieñ anonimowym u¿ytkownikom: ';
+$_lang['Anonymous users access count :'] = 'Liczba wej¶æ anonimowych u¿ytkowników:';
 $_lang['Answer'] = 'Odpowied¼';
 $_lang['Answer type'] = 'Typ odpowiedzi';
 $_lang['Applets'] = 'Aplety';
 $_lang['Are users allowed to create themselves a Course Creator account ?'] = 'U¿ytkownicy mog± mieæ mo¿liwo¶æ samodzielnego za³o¿enia konta twórcy kursu';
-$_lang['Are you sure to delete'] = 'Usun±æ? Jeste¶ pewien?';
+$_lang['Are you sure to delete'] = 'Czy na pewno przenie¶æ wiadomo¶æ do kosza?';
 $_lang['Are you sure to delete the course "%course_name" ( %course_code ) ?'] = 'Czy na pewno chcesz usun±æ "%course_name" ( %course_code )?';
 $_lang['Are you sure to delete this group ?'] = 'Czy jeste¶ pewien, ¿e chcesz skasowaæ tê grupê?';
 $_lang['Are you sure you want to completely delete this question ?'] = 'Czy jeste¶ pewien, ¿e chcesz ca³kowicie usun±æ to pytanie?';
@@ -152,13 +152,13 @@ $_lang['Are you sure you want to remove this course from your list ?'] = 'Czy je
 $_lang['Are you sure you want to unenrol the whole class on the course ?'] = 'Czy jeste¶ pewien, ¿e chcesz wypisaæ ca³± klasê z kursu?';
 $_lang['Are you sure you want to uninstall the module'] = 'Czy na pewno chcesz odinstalowaæ ten modu³?';
 $_lang['Are you sure you want to unregister'] = 'Czy jeste¶ pewien, ¿e chcesz wypisaæ';
-$_lang['Area for this group'] = 'Obszar dla tej grupy';
-$_lang['Ask the official code'] = 'Zapytaj o oficjalny kod';
+$_lang['Area for this group'] = 'Obszar tej grupy';
+$_lang['Ask the official code'] = 'Zapytaj o kod administracyjny';
 $_lang['Asset not found : %asset'] = 'Nie znaleziono: %asset';
 $_lang['Assignment'] = 'Zadanie';
 $_lang['Assignment deleted'] = 'Skasowano zadanie';
 $_lang['Assignment modified'] = 'Zmodyfikowano zadanie';
-$_lang['Assignment property "Default works visibility" acts'] = 'W³a¶ciwo¶ci zadania "Domy¶lna widoczno¶æ prac" dzia³a';
+$_lang['Assignment property "Default works visibility" acts'] = 'W³a¶ciwo¶æ zadania "Domy¶lna widoczno¶æ prac" dzia³a';
 $_lang['Assignment title'] = 'Tytu³ zadania';
 $_lang['Assignment title already exists'] = 'Tytu³ zadania ju¿ istnieje';
 $_lang['Assignment title required'] = 'Wymagany tytu³ zadania';
@@ -167,20 +167,20 @@ $_lang['Assignments'] = 'Zadania';
 $_lang['Assignments help'] = 'Pomoc do zadañ';
 $_lang['Attach'] = 'Do³±cz';
 $_lang['Attach a file'] = 'Za³±cznik';
-$_lang['Attached file'] = 'Plik do³±czony';
-$_lang['Attached resources'] = 'Do³±czone zasoby';
+$_lang['Attached file'] = 'Za³±cznik';
+$_lang['Attached resources'] = 'Za³±czniki:';
 $_lang['Attempt %attemptCount'] = 'Próba %attemptCount';
-$_lang['Attempt %attemptCount on %attempts'] = 'Próba %attemptCount W³±czone %attempts';
+$_lang['Attempt %attemptCount on %attempts'] = 'Próba %attemptCount z %attempts';
 $_lang['Attempts'] = 'Próby';
 $_lang['Attempts allowed'] = 'Dozwolone próby';
 $_lang['Authentication'] = 'Logowanie';
 $_lang['Authentication Required'] = 'Wymagane logowanie';
 $_lang['Authentication source'] = '¬ród³o uwierzytelniania';
-$_lang['Author'] = 'Wys³a³';
+$_lang['Author'] = 'Autor';
 $_lang['Author(s)'] = 'Autor / Autorzy';
-$_lang['Automatic cleaning factor'] = 'Automatyczny czynnik czyszcz±cy';
+$_lang['Automatic cleaning factor'] = 'Automatyczne czyszczenie';
 $_lang['Automatically, after each submission'] = 'Automatycznie po ka¿dym przes³aniu';
-$_lang['Automatically, after end date'] = 'Automatycznie, po dacie koñcowej';
+$_lang['Automatically, after end date'] = 'Automatycznie po dacie koñcowej';
 $_lang['Available from %startDate'] = 'Dostêpny od %startDate';
 $_lang['Average Time'] = '¦redni czas';
 $_lang['Average score'] = '¦redni wynik';
@@ -192,13 +192,13 @@ $_lang['Back to course list'] = 'Powrót do listy kursów';
 $_lang['Back to learning path administration'] = 'Powrót do zarz±dzania ¶cie¿kami uczenia siê';
 $_lang['Back to list'] = 'Powrót do listy';
 $_lang['Back to my personal course list'] = 'Powrót do listy Moje kursy';
-$_lang['Back to page'] = 'Powrót do strony';
+$_lang['Back to page'] = 'Powrót';
 $_lang['Back to parent category'] = 'Powrót do kategorii nadrzêdnej';
 $_lang['Back to the class'] = 'Powrót do klasy';
 $_lang['Back to the editor'] = 'Powrót do edytora';
 $_lang['Back to the exercise list'] = 'Powrót do listy æwiczeñ';
 $_lang['Back to user list'] = 'Powrót do listy u¿ytkowników';
-$_lang['Back to user settings'] = 'ZPowrót do ustawieñ u¿ytkownika';
+$_lang['Back to user settings'] = 'Powrót do ustawieñ u¿ytkownika';
 $_lang['Back to user\'s course list'] = 'Powrót do listy kursów u¿ytkownika';
 $_lang['Before'] = 'Przed';
 $_lang['Best score'] = 'Najlepszy wynik';
@@ -208,7 +208,7 @@ $_lang['Blockquote'] = 'Cytat';
 $_lang['Bold'] = 'Pogrubienie';
 $_lang['Build language files'] = 'Zbuduj pliki jêzykowe';
 $_lang['By deleting a label you will delete all modules or label it contains.'] = 'Poprzez usuniêcie etykiety skasujesz wszystkie modu³y i etykiety jakie ona zawiera.';
-$_lang['CSV file with the user list :'] = 'Plik CSV z list± u¿ytkowników:';
+$_lang['CSV file with the user list :'] = 'Plik CSV z list± u¿ytkowników: ';
 $_lang['Cache settings'] = 'Ustawienia pamiêci podrêcznej';
 $_lang['Cache system'] = 'Pamiêæ podrêczna';
 $_lang['Campus banner - left'] = 'Banner kampusu - z lewej';
@@ -223,16 +223,16 @@ $_lang['Campus name'] = 'Nazwa kampusu';
 $_lang['Can have courses'] = 'Mo¿e zawieraæ kursy';
 $_lang['Cancel'] = 'Anuluj';
 $_lang['Cancel the operation'] = 'Anuluj operacjê';
-$_lang['Cannot activate module'] = 'Nie mo¿na aktywowaæ modu³u';
+$_lang['Cannot activate module'] = 'Nie mo¿na w³±czyæ modu³u';
 $_lang['Cannot change module visibility in %course'] = 'Nie mo¿na zmieniæ widoczno¶ci w %course';
 $_lang['Cannot compute db size of a course in singleDBMode'] = 'Nie mo¿na obliczyæ rozmiaru bazy kursu w trybie pojednynczej bazy danych';
 $_lang['Cannot copy the file'] = 'Nie mo¿na skasowaæ pliku.';
-$_lang['Cannot deactivate module'] = 'Nie mo¿na zdezaktywowaæ modu³u';
+$_lang['Cannot deactivate module'] = 'Nie mo¿na wy³±czyæ modu³u';
 $_lang['Cannot extract files.'] = 'Nie mo¿na rozpakowaæ plików.';
 $_lang['Cannot extract manifest from zip file (corrupted file ? ).'] = 'Nie mo¿na odpakowaæ manifestu z pliku ZIP (uszkodzony plik ?).';
 $_lang['Cannot find <i>manifest</i> file in the package.<br /> File not found : imsmanifest.xml'] = 'Nie mo¿na znale¼æ pliku <i>manifestu</i> w pakiecie.<br /> Plik nie znaleziony: imsmanifest.xml';
 $_lang['Cannot find module'] = 'Nie mo¿na odnale¼æ modu³u';
-$_lang['Cannot find secondary initialisation file in the package.<br /> File not found :'] = 'Nie mo¿na znale¼æ w pakiecie wtórnego pliku inicjuj±cego.<br /> Plik nie znaleziony: ';
+$_lang['Cannot find secondary initialisation file in the package.<br /> File not found :'] = 'Nie mo¿na znale¼æ w pakiecie wtórnego pliku inicjuj±cego.<br /> Plik nie znaleziony:';
 $_lang['Cannot open %filename'] = 'Nie mo¿na otworzyæ %filename';
 $_lang['Cannot register module %label'] = 'Nie mo¿na zarejestrowaæ modu³u %label';
 $_lang['Cannot register tool %label'] = 'Nie mo¿na zarejestrowaæ narzêdzia %label';
@@ -253,7 +253,7 @@ $_lang['Category needed'] = 'Wymagana kategoria';
 $_lang['Category updated'] = 'Kategoriê uaktualniono.';
 $_lang['Central Authentication System'] = 'Centralny system uwierzytelniania (CAS)';
 $_lang['Centralized Authentication System'] = 'Centralny system uwierzytelniania (CAS)';
-$_lang['Change minimum raw mark to pass this module (percentage) :'] = 'Zmieñ minimaln± ocenê celem zdania tego modu³u (procent): ';
+$_lang['Change minimum raw mark to pass this module (percentage) :'] = 'Zmieñ minimaln± ocenê wymagan± do zdania tego modu³u (procent): ';
 $_lang['Change parent\'s category of %catCode'] = 'Zmieñ kategoriê rodzica %catCode';
 $_lang['Change this setting only if it\'s absolutely required.'] = 'Edytuj te ustawienia tylko je¶li jest to absolutnie konieczne.';
 $_lang['Changes have been applied to the user settings'] = 'Zastosowano zmiany do ustawieñ u¿ytkownika';
@@ -262,10 +262,10 @@ $_lang['Changes in the display of the module have been applied'] = 'Zmiany w wy¶
 $_lang['Chat'] = 'Czat';
 $_lang['Chat reset by'] = 'Czat zresetowany przez';
 $_lang['Check and Repair emails of users'] = 'Sprawd¼ i napraw adresy e-mail u¿ytkowników';
-$_lang['Check if the password is not too easy to find'] = 'Sprawd¼, czy has³o nie jest zbyt ³atwe do odgadniêcia';
+$_lang['Check if the password is not too easy to find'] = 'Sprawdza, czy has³o nie jest zbyt ³atwe do odgadniêcia';
 $_lang['Check this box to delete the attached file'] = 'Zaznacz kwadracik aby skasowaæ do³±czony plik.';
 $_lang['Choose "No" if you use microsoft active directory (by default this authentication system is case-insensitive)'] = 'Wybierz Nie je¶li u¿ywasz Microsoft Active Directory (domy¶lnie system uwierzytelniania traktuje wielkie i ma³e litery jednakowo)';
-$_lang['Choose a course to access this page.'] = 'Wybierz kurs celem dostêpu do tej strony.';
+$_lang['Choose a course to access this page.'] = 'Wybierz kurs ¿eby przej¶æ do wybranej strony.';
 $_lang['Choose now a username and a password for the user account'] = 'Wybierz teraz nazwê u¿ytkownika i has³o dla konta u¿ytkownika.';
 $_lang['Choose one'] = 'Wybierz';
 $_lang['Clarodoc'] = 'Clarodoc';
@@ -276,7 +276,7 @@ $_lang['Class has been enroled'] = 'Klasa zosta³a zapisana';
 $_lang['Class has been unenroled'] = 'Klasa zosta³a wypisana';
 $_lang['Class members'] = 'Cz³onkowie klasy';
 $_lang['Class not found'] = 'Nie znaleziono klasy';
-$_lang['Class registered'] = 'Klasê zapisano';
+$_lang['Class registered'] = 'Zapisano klasê';
 $_lang['Class users'] = 'Lista cz³onków klasy';
 $_lang['Classes'] = 'Klasy';
 $_lang['Clear up event list'] = 'Wyczy¶æ listê zdarzeñ';
@@ -284,20 +284,20 @@ $_lang['Clear up list of announcements'] = 'Wyczy¶æ listê og³oszeñ';
 $_lang['Click <a href="%url">here</a> to return to the forum index'] = 'Kliknij <a href="%url">tutaj</a> ¿eby wróciæ do strony g³ównej forum';
 $_lang['Click <a href="%url">here</a> to return to the forum topic list'] = 'Kliknij <a href="%url">tutaj</a> ¿eby wróciæ do listy tematów forum';
 $_lang['Click <a href="%url">here</a> to view your message'] = 'Kliknij <a href="%url">tutaj</a> ¿eby zobaczyæ swoj± wiadomo¶æ';
-$_lang['Click on the enrollment command beside the concerned user'] = 'Kliknij Zapisz na kurs obok danego u¿ytkownika';
+$_lang['Click on the enrollment command beside the concerned user'] = 'Kliknij "Zapisz na kurs" obok danego u¿ytkownika';
 $_lang['Click to make invisible'] = 'Kliknij, ¿eby ukryæ';
 $_lang['Click to make visible'] = 'Kliknij, ¿eby pokazaæ';
 $_lang['Close'] = 'Zamknij okno';
 $_lang['Close window'] = 'Zamknij okno';
 $_lang['Code'] = 'Kod';
-$_lang['Comment'] = 'Komentarze';
+$_lang['Comment'] = 'Komentarz';
 $_lang['Comment modified'] = 'Komentarz zmodyfikowany';
 $_lang['Common part of both parameters above.'] = 'Dwa powy¿sze parametry razem';
 $_lang['Complementary fields'] = 'Uzupe³nianie luk';
 $_lang['Complete language files'] = 'Uzupe³nij plik jêzykowy';
 $_lang['Configuration'] = 'Konfiguracja';
 $_lang['Confirm Operation'] = 'Potwierd¼ operacjê';
-$_lang['Confirm the creation of a new user'] = 'Potwierd¼ tworzenie nowego u¿ytkownika';
+$_lang['Confirm the creation of a new user'] = 'Potwierd¼ dodawanie nowego u¿ytkownika';
 $_lang['Confirm your subscription to the group &quot;<b>%group_name</b>&quot;'] = 'Potwierd¼ zapis do grupy &quot;<b>%group_name</b>&quot;';
 $_lang['Confirmation'] = 'Potwierdzenie';
 $_lang['Contact'] = 'Kontakt';
@@ -311,9 +311,9 @@ $_lang['Corresponds to'] = 'Dotyczy';
 $_lang['Could not load page %page'] = 'Nie mo¿na za³adowaæ strony %page';
 $_lang['Country'] = 'Kraj';
 $_lang['Country code seems to be incorrect.'] = 'Prawdopodobnie kod kraju jest nieprawid³owy.';
-$_lang['Course'] = 'Strona WWW ';
+$_lang['Course'] = 'Kurs';
 $_lang['Course Administrator'] = 'Administrator kursu';
-$_lang['Course Home'] = 'Strona domowa kursu';
+$_lang['Course Home'] = 'Strona g³ówna kursu';
 $_lang['Course Repository'] = 'Katalog kursu';
 $_lang['Course Title is'] = 'Tytu³ kursu to';
 $_lang['Course access'] = 'Dostêp do tego kursu';
@@ -327,13 +327,13 @@ $_lang['Course creator'] = 'Twórca kursu';
 $_lang['Course description'] = 'Opis kursu';
 $_lang['Course email is'] = 'Adres e-mail kursu to';
 $_lang['Course list'] = 'Lista kursów';
-$_lang['Course manager'] = 'Zarz±dca kursu';
-$_lang['Course manager cannot unsubscribe himself'] = 'Zarz±dca kursu nie mo¿e usun±æ swojej subskrypcji';
-$_lang['Course member (the user is actually enrolled in the course)'] = 'Cz³onek kursu (u¿ytkownik zapisany na kurs)';
-$_lang['Course members'] = 'Cz³onkowie kursu';
+$_lang['Course manager'] = 'Prowadz±cy kurs';
+$_lang['Course manager cannot unsubscribe himself'] = 'Prowadz±cy kurs nie mo¿e usun±æ swojej subskrypcji';
+$_lang['Course member (the user is actually enrolled in the course)'] = 'Uczestnik kursu (u¿ytkownik zapisany na kurs)';
+$_lang['Course members'] = 'Uczestnicy kursu';
 $_lang['Course not found'] = 'Nie znaleziono kursu';
-$_lang['Course options'] = 'Opcje kursu';
-$_lang['Course profile'] = 'Profil kursu';
+$_lang['Course options'] = 'Opcje kursów';
+$_lang['Course profile'] = 'Profile kursu';
 $_lang['Course profile list'] = 'Lista profili kursu';
 $_lang['Course progression'] = 'Postêp kursu ';
 $_lang['Course settings'] = 'Ustawienia kursu';
@@ -350,7 +350,7 @@ $_lang['Courses without a lecturer'] = 'Kursy bez prowadz±cego';
 $_lang['Courses without student'] = 'Kursy bez studentów';
 $_lang['Create'] = 'Utwórz';
 $_lang['Create Document'] = 'Utwórz dokument';
-$_lang['Create Pages'] = 'Utwórz strony';
+$_lang['Create Pages'] = 'Tworzenie';
 $_lang['Create a category'] = 'Utwórz kategoriê';
 $_lang['Create a course site'] = 'Utwórz nowy kurs';
 $_lang['Create a course website'] = 'Tworzenie kursu';
@@ -359,37 +359,36 @@ $_lang['Create a new assignment'] = 'Utwórz nowe zadanie';
 $_lang['Create a new class'] = 'Utwórz now± klasê';
 $_lang['Create a new label / title in this learning path'] = 'Utwórz now± etykietê / tytu³ w tej ¶cie¿ce uczenia siê';
 $_lang['Create a new learning path'] = 'Utwórz now± ¶cie¿kê uczenia siê';
-$_lang['Create a new user'] = 'Stwórz nowego u¿ytkownika';
+$_lang['Create a new user'] = 'Dodawanie nowego u¿ytkownika';
 $_lang['Create another new user'] = 'Utwórz innego nowego u¿ytkownika';
 $_lang['Create category'] = 'Utwórz kategoriê';
-$_lang['Create course'] = 'Utwórz kurs';
+$_lang['Create course'] = 'Tworzenie kursu';
 $_lang['Create directory'] = 'Utwórz folder';
 $_lang['Create first a user account on this platform'] = 'Utwórz najpierw konto u¿ytkownika na tej platformie';
 $_lang['Create forum'] = 'Utwórz forum';
 $_lang['Create hyperlink'] = 'Utwórz odno¶nik';
 $_lang['Create label'] = 'Utwórz etykietê';
 $_lang['Create new group(s)'] = 'Utwórz now± grupê(y)';
-$_lang['Create user'] = 'Utwórz u¿ytkownika';
+$_lang['Create user'] = 'Dodaj u¿ytkownika';
 $_lang['Create user account'] = 'Utwórz nowe konto';
 $_lang['Create/edit document'] = 'Utwórz/edytuj dokument';
-$_lang['Creating course (it may take a while) ...'] = 'Tworzenie kursu (mo¿e to zabraæ chwilkê ... )';
+$_lang['Creating course (it may take a while) ...'] = 'Tworzenie kursu (mo¿e chwilê potrwaæ ... )';
 $_lang['Creation of Course Creator account'] = 'Tworzenie konta Twórcy kursu';
 $_lang['Current attached file'] = 'Bie¿±cy do³±czony plik';
 $_lang['Current feedback file'] = 'Bie¿±cy plik informacji zwrotnej';
 $_lang['Current file'] = 'Bie¿±cy plik';
-$_lang['Current registration status :'] = 'Bie¿±cy status rejestracji: <br /> <br />
-';
+$_lang['Current registration status :'] = 'Bie¿±cy status rejestracji:';
 $_lang['Current time'] = 'Bie¿±cy czas';
 $_lang['Data missing'] = 'Brak daty';
 $_lang['Database error :'] = 'B³±d bazy danych:';
 $_lang['Database mode'] = 'Tryb bazy danych';
 $_lang['Database uninstallation failed'] = 'Odinstalowywanie bazy danych nie powiod³o siê';
-$_lang['Database uninstallation succeeded'] = 'Zakoñczono odinstalowywanie bazy danych';
-$_lang['Database update successful'] = 'Zakoñczono uaktualnianie bazy danych';
+$_lang['Database uninstallation succeeded'] = 'Odinstalowano bazê danych';
+$_lang['Database update successful'] = 'Uaktualniono bazê danych';
 $_lang['Date'] = 'Data';
 $_lang['Day'] = 'Dzieñ';
-$_lang['Deactivated'] = 'Nieaktywne';
-$_lang['Deactivated - Click to activate'] = 'Nieaktywne - kliknij, ¿eby aktywowaæ';
+$_lang['Deactivated'] = 'Wy³aczone';
+$_lang['Deactivated - Click to activate'] = 'Wy³aczone - kliknij, ¿eby w³±czyæ';
 $_lang['Dear %firstname %lastname, your personal settings have been registered.'] = 'Witaj, %firstname %lastname, twoje dane zosta³y zarejestrowane.';
 $_lang['Debug'] = 'Debugowanie';
 $_lang['Debug mode'] = 'Tryb debugowania';
@@ -404,12 +403,12 @@ $_lang['Delete all groups'] = 'Usuñ wszystkie grupy';
 $_lang['Delete all messages of'] = 'Skasuj wszystkie wiadomo¶ci z ';
 $_lang['Delete attached file'] = 'Usuñ do³±czony plik';
 $_lang['Delete course allowed'] = 'Usuwanie kursu dozwolone';
-$_lang['Delete my account'] = 'Usuñ moje konto';
-$_lang['Delete scripts of the module'] = 'Usuñ skrypty w module';
+$_lang['Delete my account'] = 'Pro¶ba o usuniêcie mojego konta';
+$_lang['Delete scripts of the module'] = 'Usuñ skrypty modu³u';
 $_lang['Delete the whole course website'] = 'Usuñ ca³y serwis kursu';
 $_lang['Delete user'] = 'Usuñ u¿ytkownika';
-$_lang['Deleted line'] = 'Skasowano liniê';
-$_lang['Deleting this course will permanently delete all its documents and unenroll all its students.'] = 'Usuniêcie kursu spowoduje usuniêcie z niego wszystkich dokumentów oraz wypisanie wszystkich uczniów.';
+$_lang['Deleted line'] = 'Linia usuniêta';
+$_lang['Deleting this course will permanently delete all its documents and unenroll all its students.'] = 'Usuniêcie kursu spowoduje usuniêcie z niego wszystkich dokumentów oraz wypisanie wszystkich studentów.';
 $_lang['Deletion of the user was done sucessfully'] = 'Skasowano u¿ytkownika';
 $_lang['Denied'] = 'Zabronione';
 $_lang['Department'] = 'Wydzia³';
@@ -429,13 +428,13 @@ $_lang['Devel Tools'] = 'Narzêdzia rozwoju';
 $_lang['Development mode'] = 'Tryb rozwoju aplikacji';
 $_lang['Differences :'] = 'Ró¿nice:';
 $_lang['Direct link to image'] = 'Bezpo¶redni odno¶nik do obrazu';
-$_lang['Directory created'] = 'Katalog utworzony';
-$_lang['Disable'] = 'Zablokuj';
+$_lang['Directory created'] = 'Utworzono katalog';
+$_lang['Disable'] = 'Wy³±cz';
 $_lang['Disk quota exceeded, please contact the %administrator'] = 'Przekroczony przydzia³ na dysku, skontaktuj siê z %administrator';
-$_lang['Disk space allowed for documents'] = 'Dopuszczalna przestrzeñ dla dokumentów';
-$_lang['Disk space allowed for submitted files'] = 'Dopuszczalna przestrzeñ dla wys³anych plików';
-$_lang['Disk space allowed to each course'] = 'Dopuszczalna przestrzeñ dla ka¿dego kursu. 1MB = 1048576 bajtów.';
-$_lang['Disk space allowed to each group'] = 'Dopuszczalna przestrzeñ dla ka¿dej grupy. 1MB = 1048576 bajtów.';
+$_lang['Disk space allowed for documents'] = 'Dopuszczalny przydzia³ dla dokumentów';
+$_lang['Disk space allowed for submitted files'] = 'Dopuszczalny przydzia³ dla wys³anych plików';
+$_lang['Disk space allowed to each course'] = 'Dopuszczalny przydzia³ dla ka¿dego kursu. 1MB = 1048576 bajtów.';
+$_lang['Disk space allowed to each group'] = 'Dopuszczalny przydzia³ dla ka¿dej grupy. 1MB = 1048576 bajtów.';
 $_lang['Disk space available'] = 'Przestrzeñ dostêpna na dysku';
 $_lang['Disk space available : %size'] = 'Wolna przestrzeñ na dysku: %size';
 $_lang['Disk space occupied : %size'] = 'Zajêta przestrzeñ na dysku: %size';
@@ -448,10 +447,10 @@ $_lang['Display an agreement page before the "create user account" form'] = 'Wy¶
 $_lang['Display authentication login form'] = 'Wy¶wietl panel logowania ';
 $_lang['Display data'] = 'Wy¶wietl dane';
 $_lang['Display file'] = 'Wy¶wietl plik';
-$_lang['Display link "Create user account" on the platform homepage.'] = 'Wy¶wietl odno¶nik "Utwórz nowe konto" na stronie g³ównej platformy.';
-$_lang['Display links to enrol/unenrol to course on the homepage of the user'] = 'Wy¶wietl odno¶niki zapisania/wypisania siê z kursu na g³ównej stronie u¿ytkownika';
+$_lang['Display link "Create user account" on the platform homepage.'] = 'Wy¶wietla odno¶nik "Utwórz nowe konto" na stronie g³ównej platformy.';
+$_lang['Display links to enrol/unenrol to course on the homepage of the user'] = 'Wy¶wietla odno¶niki "zapisz/wypisz siê z kursu" na g³ównej stronie u¿ytkownika';
 $_lang['Display options for Image Viewer'] = 'Opcje wy¶wietlania dla przegl±darki obrazów';
-$_lang['Display the field official code in form'] = 'Wy¶wietl pole oficjalnego kodu w formularzu';
+$_lang['Display the field official code in form'] = 'Wy¶wietla pole kodu administracyjnego w formularzu (umownie - PESEL, numer indeksu lub legitymacji studenckiej, numer w dzienniku, itp.)';
 $_lang['Display the logo of the organisation. (http://www.domain.tld/logo.gif)'] = 'Wy¶wietl logo organizacji. (http://www.twojaorganizacja.pl/logo.gif)';
 $_lang['Display the logo of the platform. (http://www.domain.tld/logo.gif)'] = 'Wy¶wietl logo platformy. (http://www.twojaplatforma.pl/logo.gif)';
 $_lang['Do you want to continue?'] = 'Czy chcesz kontynuowaæ?';
@@ -471,7 +470,7 @@ $_lang['E-mail'] = 'E-mail';
 $_lang['ERROR: The format you gave is not compatible with Claroline'] = 'B³±d: Format, który nada³e¶ nie jest zgodny z Claroline';
 $_lang['Edit'] = 'Edytuj';
 $_lang['Edit Event'] = 'Edytuj Zdarzenie';
-$_lang['Edit Pages'] = 'Edytuj strony';
+$_lang['Edit Pages'] = 'Modyfikacja';
 $_lang['Edit Tool list'] = 'Edytuj listê narzêdzi';
 $_lang['Edit a category'] = 'Edytuj kategoriê';
 $_lang['Edit answers'] = 'Edytuj odpowiedzi';
@@ -499,19 +498,19 @@ $_lang['Element renamed'] = 'Zmieniono nazwê elementu';
 $_lang['Email'] = 'E-mail';
 $_lang['Email is'] = 'E-mail to';
 $_lang['Email needed'] = 'E-mail nie mo¿e byæ pusty';
-$_lang['Empty'] = 'Wyczy¶æ';
+$_lang['Empty'] = 'Brak';
 $_lang['Empty all groups'] = 'Wyzeruj wszystkie grupy';
-$_lang['Empty language file'] = 'Opró¿nij plik jêzykowy';
-$_lang['Enable CAS system'] = 'Uaktywnij system CAS';
-$_lang['Enable IMS-QTI Export'] = 'Uaktywnij eksport IMS-QTI';
-$_lang['Enable RSS in course'] = 'Uaktywnij kana³y RSS kursu';
-$_lang['Enable SSO system'] = 'Uaktywnij system SSO';
-$_lang['Enable iCal in course'] = 'Uaktywnij iCal w kursie';
-$_lang['Encrypt exported password using md5 algorithm'] = 'Szyfruj eksportowane has³a u¿ywaj±c algorytmu md5';
+$_lang['Empty language file'] = 'Pusty plik jêzykowy';
+$_lang['Enable CAS system'] = 'W³±cz system CAS';
+$_lang['Enable IMS-QTI Export'] = 'W³±cz eksport IMS-QTI';
+$_lang['Enable RSS in course'] = 'W³±cz kana³y RSS kursu';
+$_lang['Enable SSO system'] = 'W³±cz system SSO';
+$_lang['Enable iCal in course'] = 'W³±cz iCal w kursie';
+$_lang['Encrypt exported password using md5 algorithm'] = 'Szyfruj eksportowane has³a algorytmem md5';
 $_lang['End date'] = 'Data zakoñczenia';
-$_lang['Enrol as course manager'] = 'Zapisz jako menad¿er kursu';
-$_lang['Enrol as student'] = 'Zapisz jako student';
-$_lang['Enrol as teacher'] = 'Zapisz jako wyk³adowca';
+$_lang['Enrol as course manager'] = 'Zapisz jako zarz±dcê kursu';
+$_lang['Enrol as student'] = 'Zapisz jako studenta';
+$_lang['Enrol as teacher'] = 'Zapisz jako wyk³adowcê';
 $_lang['Enrol class'] = 'Zapisz klasê';
 $_lang['Enrol on a new course'] = 'Zapisz na kurs';
 $_lang['Enrol to a new course'] = 'Zapisz na kurs';
@@ -520,8 +519,8 @@ $_lang['Enrol to course not allowed'] = 'Zapisy na kurs niedozwolone';
 $_lang['Enroll a user'] = 'Zapisz u¿ytkownika';
 $_lang['Enrolment'] = 'Zapisy';
 $_lang['Enrolment key'] = 'Klucz dostêpu';
-$_lang['Enter'] = 'Wej¶cie';
-$_lang['Enter new password twice to change, leave empty to keep it'] = 'Wprowad¼ dwukrotnie nowe has³o celem jego zmiany, pozostaw puste celem pozostawienia poprzedniego';
+$_lang['Enter'] = 'Zaloguj';
+$_lang['Enter new password twice to change, leave empty to keep it'] = 'Je¶li chcesz zmieniæ has³o wprowad¼ nowe has³o dwukrotnie, zostaw pole puste ¿eby nie zmieniaæ poprzedniego';
 $_lang['Enter the description of your wiki here'] = 'Wprowad¼ tutaj opis swojego Wiki';
 $_lang['Enter your email so we can send you your password.'] = 'Wprowad¼ swój e-mail by mo¿na by³o wys³aæ Ci has³o.';
 $_lang['Error : Cannot initialize chat'] = 'B³±d: nie mo¿na uruchomiæ czatu ';
@@ -542,11 +541,11 @@ $_lang['Error reading zip file.'] = 'B³±d odczytu pliku ZIP.';
 $_lang['Error when copying needed SCORM files'] = 'B³±d przy kopiowaniu potrzebnych plików SCORM';
 $_lang['Error while deleting the scripts of the module'] = 'B³±d przy usuwaniu skryptów modu³y';
 $_lang['Error while renaming module folder'] = 'B³±d przy zmianie nazwy folderu modu³u';
-$_lang['Error!! you cannot unregister a course manager'] = 'B³±d!! Nie mo¿na wyrejestrowaæ zarz±dcy kursu';
+$_lang['Error!! you cannot unregister a course manager'] = 'B³±d!! Nie mo¿na wyrejestrowaæ prowadz±cego kurs';
 $_lang['ErrorInvalidParms'] = 'B³±d : Niew³a¶ciwy parametr (u¿yj tylko cyfr)';
 $_lang['Event added to the agenda'] = 'Dodano zdarzenie do terminarza.';
 $_lang['Event deleted from the agenda'] = 'Usuniêto zdarzenie z terminarza.';
-$_lang['Event duration'] = 'Czas trwania wydarzenia';
+$_lang['Event duration'] = 'Czas trwania zdarzenia';
 $_lang['Event updated into the agenda'] = 'Uaktualniono zdarzenie w terminarzu.';
 $_lang['Example : http://www.yourdomain.tld/mycampus/'] = 'Na przyk³ad: http://www.twojadomena.pl/mojaplatforma/';
 $_lang['Exercise'] = 'Æwiczenie';
@@ -563,9 +562,9 @@ $_lang['Exercises'] = 'Æwiczenia';
 $_lang['Exercises help'] = 'Æwiczenia - Pomoc';
 $_lang['Expected choice'] = 'Spodziewany wybór';
 $_lang['Export'] = 'Eksport';
-$_lang['Export password'] = 'Has³o eksportu';
+$_lang['Export password'] = 'Eksportuj has³a';
 $_lang['Export user list'] = 'Eksportuj listê u¿ytkowników';
-$_lang['Export username'] = 'Eksportu nazwy u¿ytkowników';
+$_lang['Export username'] = 'Eksportuj nazwy u¿ytkowników';
 $_lang['External Tool added'] = 'Dodano zewnêtrzne narzêdzie.';
 $_lang['External authentication drivers'] = 'Zewnêtrzne sterowniki uwierzytelniania';
 $_lang['External image'] = 'Zewnêtrzny obraz';
@@ -579,14 +578,14 @@ $_lang['Failed to write file to disk'] = 'Nie uda³o siê zapisaæ pliku na dysku';
 $_lang['False'] = 'Fa³sz';
 $_lang['Feedback'] = 'Informacja zwrotna';
 $_lang['Feedback added'] = 'Dodano informacjê zwrotn±';
-$_lang['Feedback edited'] = 'Edycja informacji zwrotnej';
+$_lang['Feedback edited'] = 'Zmieniono informacjê zwrotn±';
 $_lang['Feedback file'] = 'Plik informacji zwrotnej';
 $_lang['Feedback text'] = 'Tekst informacji zwrotnej';
 $_lang['Feedbacks'] = 'Informacje zwrotne';
 $_lang['Field \'%name\' is required'] = 'Pole \'%name\' jest wymagane';
 $_lang['Fields enclosed by'] = 'Pola zawarte poprzez ';
 $_lang['Fields separator used'] = 'U¿yto separatora pola';
-$_lang['File (file required, description text optional)'] = 'Plik (plik wymagany, tekst opisu opcjonalny)';
+$_lang['File (file required, description text optional)'] = 'Plik (plik wymagany, tekst opisu niewymagany)';
 $_lang['File Name or URL is missing.'] = 'Utracona nazwa pliku lub URL.';
 $_lang['File content modified'] = 'Zmodyfikowano zawarto¶æ pliku';
 $_lang['File created'] = 'Utworzono plik';
@@ -603,9 +602,9 @@ $_lang['File upload incomplete'] = 'Przesy³anie pliku niekompletne';
 $_lang['Filename'] = 'Nazwa pliku';
 $_lang['Files dezipped sucessfully in %path'] = 'Pliki zosta³y rozpakowane do %path';
 $_lang['Fill courses tools with material example'] = 'Uzupe³nij narzêdzia kursu materia³ami przyk³adowymi';
-$_lang['Fill groups (automatically)'] = 'Zapisywanie do grup';
+$_lang['Fill groups (automatically)'] = 'Przydziel automatyczne u¿ytkowników do grup';
 $_lang['Fill in blanks'] = 'Wype³nij pole';
-$_lang['Fill in the text area to motivate your request and then submit the form to send it to platform administrators'] = 'Wype³nij obszar aby wyja¶niæ swoje motywy i przedstawiæ swoje ¿±dania. E-mail zostanie wys³any do administratora.';
+$_lang['Fill in the text area to motivate your request and then submit the form to send it to platform administrators'] = 'Tutaj wyja¶nij swoje motywy i przedstaw ¿±dania. E-mail zostanie wys³any do administratora.';
 $_lang['Fill text field'] = 'Wype³nij pole tekstowe';
 $_lang['Fill type'] = 'Wype³nij typ';
 $_lang['Filter'] = 'Filtr';
@@ -615,8 +614,8 @@ $_lang['Finish'] = 'Zakoñcz';
 $_lang['Finish the test'] = 'Zakoñcz test';
 $_lang['First name'] = 'Imiê';
 $_lang['First submission date'] = 'Data pierwszego przes³ania danych';
-$_lang['Folder %folder is not writable'] = 'Folder %folder nie jest dostêpny do zapisywania';
-$_lang['Follow courses'] = 'Uczestnictwo w kursie';
+$_lang['Folder %folder is not writable'] = 'Folder %folder nie jest zapisywalny';
+$_lang['Follow courses'] = 'Uczestnik kursu(ów)';
 $_lang['For assignments list'] = 'Do listy zadañ';
 $_lang['For more information take contact with the platform administrator.'] = 'Po wiêcej informacji zg³o¶ siê do administratora platformy.';
 $_lang['For multilingual platform. Allow user to select his language from the list.'] = 'Uczyñ platformê wielojêzyczn±. Pozwól u¿ytkownikom samodzielnie wybraæ jêzyk z listy.';
@@ -625,7 +624,7 @@ $_lang['Force text preview before saving it'] = 'Wymuszaj podgl±d tekstu przed z
 $_lang['Force to lowercase the course code'] = 'zapisz kod kursu tylko ma³ymi literami';
 $_lang['Force to uppercase the course code'] = 'zapisz kod kursu tylko WIELKIMI literami';
 $_lang['Format changed'] = 'Zmieniono format';
-$_lang['Forum'] = 'Fora grup';
+$_lang['Forum'] = 'Forum';
 $_lang['Forum created'] = 'Utworzono forum.';
 $_lang['Forum deleted'] = 'Skasowano forum.';
 $_lang['Forum emptied'] = 'Wyczyszczono forum.';
@@ -663,7 +662,7 @@ $_lang['Group name'] = 'Nazwa grupy';
 $_lang['Group settings have been modified'] = 'Ustawienia grup zosta³y zmodyfikowane';
 $_lang['Group settings modified'] = 'Ustawienia grup zosta³y zmodyfikowane';
 $_lang['Groups'] = 'Grupy';
-$_lang['Groups (from groups tool, only group members can post)'] = 'Grupy (z narzêdzi grup tylko ich cz³onkowie mog± wysy³aæ posty)';
+$_lang['Groups (from groups tool, only group members can post)'] = 'Grupowe (z narzêdzi grup tylko ich cz³onkowie mog± przesy³aæ prace)';
 $_lang['Groups have been filled (or completed) by students present in the \'Users\' list.'] = 'Grupy zosta³y wype³nione (skompletowane) przez studentów z listy \'U¿ytkowników\'.';
 $_lang['Groups help'] = 'Pomoc - grupy studentów';
 $_lang['Groups permissions'] = 'Prawa grup';
@@ -673,16 +672,16 @@ $_lang['He or she will receive email confirmation with login and password'] = 'U
 $_lang['Heading'] = 'Tytu³';
 $_lang['Help'] = 'Pomoc';
 $_lang['Here you can modify the content of the text zones displayed on the platform home page.'] = 'Tutaj mo¿na modyfikowaæ zawarto¶æ strefy tekstowej wy¶wietlanej na stronie domowej platformy.';
-$_lang['Hide course categories to anonymous'] = 'Ukryj kategorie kursów dla anonimowych';
+$_lang['Hide course categories to anonymous'] = 'Ukryj kategorie kursów dla anonimowych u¿ytkowników';
 $_lang['Hide email address to anonymous user'] = 'Ukryj adres e-mail dla anonimowych u¿ytkowników';
-$_lang['Hits'] = 'odwiedzin';
+$_lang['Hits'] = 'Wej¶æ';
 $_lang['Home page'] = 'Strona g³ówna';
 $_lang['Home page help'] = 'Pomoc - Strona g³ówna';
 $_lang['Host name'] = 'Nazwa hosta';
 $_lang['Host of CAS server'] = 'Adres serwera CAS';
 $_lang['Hour'] = 'Godzina';
 $_lang['Icon'] = 'Ikona';
-$_lang['Identical content<br />no modification saved'] = 'Identyczna zawarto¶æ <br /> nie nagrano modyfikacji';
+$_lang['Identical content<br />no modification saved'] = 'Zawarto¶æ nie zmieni³a siê<br />zmian nie zapisano';
 $_lang['If after while no message appears confirming the course creation, please click <a href="%url">here</a>'] = 'Je¶li po chwili nie pojawi siê potwierdzenie utworzenia kursu, kliknij <a href="%url">tutaj</a>.';
 $_lang['If the name and the firstname are longer than this value, the script reduce it.
 For revelance, it\'s interesting to not work with to little value'] = 'Je¶li nazwa i imiê s± d³u¿sze ni¿ ta warto¶æ, skrypt zredukuje je.
@@ -701,11 +700,11 @@ $_lang['Imported modules must consist of a zip file and be compatible with your 
 $_lang['Imported packages must consist of a zip file and be SCORM 1.2 conformable'] = 'Importowane pakiety musz± sk³adaæ siê z pliku ZIP i byæ zgodne ze SCORM 1.2';
 $_lang['Impossible to unzip file'] = 'Nie mo¿na rozpakowaæ archiwum ZIP';
 $_lang['In frames'] = 'W ramach';
-$_lang['Individual'] = 'Indywidualnie';
+$_lang['Individual'] = 'Indywidualne';
 $_lang['Information'] = 'Informacja';
 $_lang['Information about your platform and your organisation'] = 'Informacja o twojej platformie i twojej organizacji';
 $_lang['Information to give to students'] = 'Informacje dla studentów';
-$_lang['Inline quote'] = 'Cytat wewnêtrzny';
+$_lang['Inline quote'] = 'Cudzys³ów';
 $_lang['Insert new name'] = 'Wstaw now± nazwê';
 $_lang['Install module'] = 'Zainstaluj modu³';
 $_lang['Institution'] = 'Instytucja';
@@ -714,22 +713,22 @@ $_lang['Invalid Wiki Id'] = 'Niew³a¶ciwy identyfikator Wiki';
 $_lang['Invalid answer'] = 'Nieprawid³owa opdowied¼';
 $_lang['Invalid matching choice'] = 'Nieprawid³owe po³±czenie';
 $_lang['Invalid question'] = 'Nieprawid³owe pytanie';
-$_lang['Invisible'] = 'Ukryty';
-$_lang['Is platform admin'] = 'jest administratorem platformy';
+$_lang['Invisible'] = 'Ukryj';
+$_lang['Is platform admin'] = 'Administrator platformy';
 $_lang['It seems that you already have registered your campus.'] = 'Prawdopodobnie ju¿ zarejestrowa³e¶ swój kampus.';
 $_lang['Italic'] = 'Kursywa';
-$_lang['Item'] = 'Rzecz';
-$_lang['Kernel'] = 'J±dro systemu';
-$_lang['Keys :'] = 'Klucze:';
+$_lang['Item'] = 'Element';
+$_lang['Kernel'] = 'System';
+$_lang['Keys :'] = 'Legenda:';
 $_lang['Label of the login url to CAS'] = 'Etykieta loginu URL do CAS';
 $_lang['Language'] = 'Jêzyk';
 $_lang['Language needed'] = 'Wymagany jêzyk';
 $_lang['Language packs'] = 'Pakiet t³umaczenia';
 $_lang['Last 31 days'] = 'W ostatnich 31 dniach';
 $_lang['Last 7 days'] = 'W ostatnich 7 dniach';
-$_lang['Last access'] = 'Ostatni dostêp';
+$_lang['Last access'] = 'Ostatnie wej¶cie';
 $_lang['Last attempt'] = 'Ostatnia próba';
-$_lang['Last computing'] = 'Ostatnie przeliczanie';
+$_lang['Last computing'] = 'Sprawdzono';
 $_lang['Last edit date'] = 'Ostatnia data edycji';
 $_lang['Last event length'] = 'D³ugo¶æ ostatniego zdarzenia';
 $_lang['Last message'] = 'Ostatnia wiadomo¶æ';
@@ -744,13 +743,13 @@ $_lang['Layout'] = 'Wygl±d';
 $_lang['Learning Path is empty'] = '¦cie¿ka uczenia siê jest pusta';
 $_lang['Learning Path not found'] = '¦cie¿ka uczenia siê nie znaleziona';
 $_lang['Learning path'] = '¦cie¿ka uczenia siê';
-$_lang['Learning path admin'] = 'Administrator ¶cie¿ki uczenia siê';
+$_lang['Learning path admin'] = 'Zarz±dzanie ¶cie¿k± uczenia siê';
 $_lang['Learning path content'] = 'Zawarto¶æ ¶cie¿ki uczenia siê';
 $_lang['Learning path has been successfully imported.'] = 'Zaimportowano ¶cie¿kê uczenia siê.';
 $_lang['Learning path list'] = 'Lista ¶cie¿ek uczenia siê';
 $_lang['Learning path progression :'] = 'Postêp ¶cie¿ki uczenia siê: ';
 $_lang['Learning paths tracking'] = 'Raportowanie ¶cie¿ki uczenia siê';
-$_lang['Lecturer(s)'] = 'Wyk³adowca';
+$_lang['Lecturer(s)'] = 'Prowadz±cy kurs';
 $_lang['License'] = 'Licencja';
 $_lang['Life time of cache'] = 'Okres wa¿no¶ci pamiêci podrêcznej';
 $_lang['Limit'] = 'Limit';
@@ -764,7 +763,7 @@ $_lang['Location'] = 'Lokalizacja';
 $_lang['Lock'] = 'Zablokuj';
 $_lang['Locked'] = 'Zablokowany';
 $_lang['Log of user activities  on the whole platform (course access, tool use, ...).'] = 'Rejestr aktywno¶ci u¿ytkownika na ca³ej platformie (dostêp do kursów, u¿ycie narzêdzi, itp.).';
-$_lang['Login'] = 'Logowanie';
+$_lang['Login'] = 'Zaloguj siê';
 $_lang['Login date'] = 'Data logowania';
 $_lang['Login failed.'] = 'Logowanie nie powiod³o siê.';
 $_lang['Login request'] = 'Zapytanie o nazwê u¿ytkownika';
@@ -778,10 +777,10 @@ $_lang['Mail notification'] = 'Przypomnienia e-mail';
 $_lang['Mail sent to user'] = 'Wys³ano e-mail do u¿ytkownika';
 $_lang['Mail server configuration'] = 'Konfiguracja serwera poczty wychodz±cej';
 $_lang['Mail synthax error.'] = 'B³±d sk³adni maila.';
-$_lang['Main'] = 'G³ówna';
+$_lang['Main'] = 'G³ówne';
 $_lang['Main Group Settings'] = 'Ustawienia grup';
 $_lang['Main database name'] = 'Nazwa g³ównej bazy danych';
-$_lang['Main page'] = 'G³ówna strona';
+$_lang['Main page'] = 'Strona G³ówna';
 $_lang['Main settings'] = 'Ustawienia g³ówne';
 $_lang['Make correspond'] = 'Powi±¿';
 $_lang['Make invisible'] = 'Ukryj';
@@ -793,9 +792,9 @@ $_lang['Make visible'] = 'Poka¿';
 $_lang['Manage Right'] = 'Zarz±dzaj prawami';
 $_lang['Manage classes'] = 'Zarz±dzaj klasami';
 $_lang['Manage course categories'] = 'Zarz±dzaj kategoriami kursu';
-$_lang['Manager'] = 'Zarz±dca';
-$_lang['Manager(s) for %course_code'] = 'Zarz±dca kursu %course_code';
-$_lang['Manifest found in zip file :'] = 'Znaleziono manifest w pliku ZIP: ';
+$_lang['Manager'] = 'Prowadz±cy kurs';
+$_lang['Manager(s) for %course_code'] = 'Prowadz±cy kurs %course_code';
+$_lang['Manifest found in zip file :'] = 'Znaleziono manifest w pliku ZIP:';
 $_lang['Manifest missing : %filename'] = 'Brak manifestu: %filename';
 $_lang['Manifest read.'] = 'Przeczytano manifest.';
 $_lang['Matching'] = 'Dopasuj';
@@ -803,7 +802,7 @@ $_lang['Mathematical renderer URL'] = 'URL generatora wyra¿eñ matematycznych';
 $_lang['Max file size'] = 'Maksymalna wielko¶æ pliku';
 $_lang['Max file size : %size'] = 'Maksymalny rozmiar pliku: %size';
 $_lang['Max length of the \'last events\' displayed content'] = 'Maksymalna d³ugo¶æ wy¶wietlania listy ostatnich zdarzeñ';
-$_lang['Max.'] = 'Max.';
+$_lang['Max.'] = 'Maks.';
 $_lang['Maximum conversation lines'] = 'Maksymalna ilo¶æ linii rozmowy';
 $_lang['Maximum conversation lines displayed to the user. '] = 'Maksymalna ilo¶æ linii rozmowy wy¶wietlana dla u¿ytkownika';
 $_lang['Maximum conversation lines in chat file'] = 'Maksymalna ilo¶æ linii rozmowy w pliku czatu';
@@ -818,7 +817,7 @@ $_lang['Message body'] = 'Wpisz wiadomo¶æ';
 $_lang['Message from your lecturer'] = 'Wiadomo¶æ od Twojego wyk³adowcy';
 $_lang['Message sent'] = 'Wiadomo¶æ wys³ano';
 $_lang['Messages'] = 'Wiadomo¶ci';
-$_lang['Messages posted'] = 'Wiadomo¶ci wys³anych';
+$_lang['Messages posted'] = 'Wys³anych wiadomo¶ci';
 $_lang['Messages to selected users'] = 'Wiadomo¶æ do wybranych u¿ytkowników';
 $_lang['Minimum raw to pass has been changed'] = 'Minimalne wymagania zosta³y zmienione';
 $_lang['MinuteShort'] = 'min.';
@@ -839,16 +838,16 @@ $_lang['Modify it only in this exercise'] = 'Zmodyfikuj to tylko w tym æwiczeniu
 $_lang['Modify the format'] = 'Zmodyfikuj format';
 $_lang['Module'] = 'Modu³';
 $_lang['Module %module is already installed on your platform'] = 'Modu³ %module jest ju¿ zainstalowany na twojej platformie';
-$_lang['Module activation failed'] = 'Aktywowanie modu³u zakoñczone niepowodzeniem';
-$_lang['Module activation succeeded'] = 'Aktywowanie modu³u powiod³o siê';
-$_lang['Module added :'] = 'Dodano modu³: ';
+$_lang['Module activation failed'] = 'W³±czenie modu³u nie powiod³o siê';
+$_lang['Module activation succeeded'] = 'W³±czono modu³';
+$_lang['Module added :'] = 'Dodano modu³:';
 $_lang['Module cache update failed'] = 'Aktualizacja pamiêci podrêcznej modu³u nie powiod³a siê';
-$_lang['Module cache update succeeded'] = 'Aktualizacja pamiêci podrêcznej modu³u zakoñczona powodzeniem';
-$_lang['Module deactivation succeeded'] = 'Zakoñczono deaktywacjê modu³u';
+$_lang['Module cache update succeeded'] = 'Zaktualizowano pamiêæ podrêczn± modu³u';
+$_lang['Module deactivation succeeded'] = 'Wy³±czono modu³';
 $_lang['Module directory not found'] = 'Nie znaleziono folderu modu³u';
 $_lang['Module installation failed'] = 'Instalacja modu³u nie powiod³a siê';
 $_lang['Module installation script called'] = 'Wywo³ano skrypt instalacji modu³u';
-$_lang['Module installation succeeded'] = 'Zakoñczono instalacjê modu³u';
+$_lang['Module installation succeeded'] = 'Zainstalowano modu³';
 $_lang['Module installed in all courses'] = 'Zainstalowano modu³ we wszystkich kursach';
 $_lang['Module list'] = 'Lista modu³ów';
 $_lang['Module moved'] = 'Modu³ przesuniêto';
@@ -859,7 +858,7 @@ $_lang['Module status'] = 'Status modu³u';
 $_lang['Module type'] = 'Typ modu³u';
 $_lang['Module uninstallation failed'] = 'Odinstalowanie modu³u nie powiod³o siê';
 $_lang['Module uninstallation script called'] = 'Wywo³ano skrypt odinstalowania modu³u';
-$_lang['Module uninstallation succeeded'] = 'Zakoñczono odinstalowywanie modu³u';
+$_lang['Module uninstallation succeeded'] = 'Odinstalowano modu³';
 $_lang['Module uninstalled in all courses'] = 'Modu³ odinstalowany we wszystkich kursach';
 $_lang['Module unpackaging failed'] = 'Rozpakowanie modu³u nie powiod³o siê';
 $_lang['Module upload failed'] = 'Przesy³anie modu³u nie powiod³o siê';
@@ -867,23 +866,23 @@ $_lang['Module visibility updated'] = 'Widoczno¶æ modu³u zaktualizowana';
 $_lang['Modules'] = 'Modu³y';
 $_lang['Modules of this path will still be available in the pool of modules'] = 'Modu³y tej ¶cie¿ki bêd± ci±gle dostêpne w puli modu³ów';
 $_lang['Month'] = 'Miesi±c';
-$_lang['More verbose when error occurs.'] = 'Bardziej u¿yteczne w przypadku pojawienia siê b³êdów.';
+$_lang['More verbose when error occurs.'] = 'U¿yteczne w przypadku pojawienia siê b³êdów.';
 $_lang['Move'] = 'Przenie¶';
 $_lang['Move down'] = 'Przesuñ na dó³';
 $_lang['Move up'] = 'Przesuñ ni¿ej';
-$_lang['Moved line'] = 'Przesuniêto liniê';
-$_lang['Multiple'] = 'Wielokrotny';
+$_lang['Moved line'] = 'Linia przesuniêta';
+$_lang['Multiple'] = 'Multi';
 $_lang['Multiple choice (Multiple answers)'] = 'Wielokrotny wybór (wiele odpowiedzi poprawnych)';
 $_lang['Multiple choice (Unique answer)'] = 'Wybór jeden z wielu (jedna odpowied¼ poprawna)';
 $_lang['My calendar'] = 'Mój terminarz';
-$_lang['My course list'] = 'Lista moich kursów';
+$_lang['My course list'] = 'Moje kursy';
 $_lang['My personal course list'] = 'Lista moich kursów';
 $_lang['My results'] = 'Moje rezultaty';
-$_lang['My user account'] = 'Modyfikuj mój profil';
+$_lang['My user account'] = 'Mój profil';
 $_lang['MySQL database settings'] = 'Baza MySQL';
 $_lang['Mysql Repository'] = 'Katalog MySQL';
 $_lang['Name'] = 'Nazwa';
-$_lang['Name cannot be empty'] = 'Nazwa musi byæ pe³na';
+$_lang['Name cannot be empty'] = 'Nazwa jest wymagana';
 $_lang['Name displayed in the top banner.'] = 'Nazwa wy¶wietlana na górnym banerze.';
 $_lang['Name is missing'] = 'Brak nazwy';
 $_lang['Name link'] = 'Nazwa odno¶nika';
@@ -904,7 +903,7 @@ $_lang['New topic'] = 'Nowy Temat';
 $_lang['New users will receive an e-mail with their user name and password'] = 'Nowi u¿ytkownicy otrzymaj± e-mail z nazw± u¿ytkownika i has³em';
 $_lang['New window for documents'] = 'Nowe okno dla dokumentów';
 $_lang['New window for submitted files'] = 'Nowe okno dla przes³anych plików';
-$_lang['Newest first'] = 'Zmieñ kolejno¶æ';
+$_lang['Newest first'] = 'Od najnowszych';
 $_lang['Next'] = 'Dalej';
 $_lang['Next day'] = 'Nastêpny dzieñ';
 $_lang['Next month'] = 'Nastêpny miesi±c';
@@ -943,14 +942,14 @@ $_lang['No module to uninstall'] = 'Brak modu³ów do odinstalowania';
 $_lang['No name'] = 'Brak nazwy';
 $_lang['No new post allowed'] = 'Brak zezwolenia na nowe posty';
 $_lang['No post'] = 'Brak postów';
-$_lang['No quota'] = 'Brak quoty';
+$_lang['No quota'] = 'Brak przydzia³u';
 $_lang['No result'] = 'Brak rezultatów';
 $_lang['No score'] = 'Brak wyników';
 $_lang['No time limitation'] = 'Brak ograniczeñ czasowych';
 $_lang['No tool name'] = 'Brak nazwy narzêdzia';
 $_lang['No user found'] = 'Nie znaleziono u¿ytkowników';
 $_lang['No user to display'] = 'Brak u¿ytkowników do wy¶wietlenia';
-$_lang['No visible submission'] = 'Brak widocznych przes³anych plików';
+$_lang['No visible submission'] = 'Brak widocznych przes³anych prac';
 $_lang['No way'] = 'W ¿adnym wypadku';
 $_lang['No, prevent users submitting work after the end date'] = 'Nie, u¿ytkownicy nie mog± dostarczaæ prac po terminie';
 $_lang['Node Moved, relaunch repair process to complete'] = 'Wêze³ przeniesiony, uruchom proces naprawy jeszcze raz';
@@ -963,11 +962,10 @@ $_lang['Not valid course code'] = 'Niew³a¶ciwy kod kursu';
 $_lang['Not valid user id'] = 'Niew³a¶ciwy kod u¿ytkownika';
 $_lang['Note :  this repository should be protected with a .htaccess or
        be placed outside the web. Because there contain data of private courses.'] = 'Uwaga: ten folder powinien byæ chroniony plikiem .htaccess lub umieszczony poza sieci± ze wzglêdu na prywatne dane.  ';
-$_lang['Note : this repository should be protected with a .htaccess or
-       be placed outside the web. Because there contain data of private courses. Claroline Would be able to read and write in this dir'] = 'Uwaga: ten folder powinien byæ chroniony plikiem .htaccess lub umieszczony poza sieci± ze wzglêdu na prywatne dane.  Claroline musi mieæ mo¿liwo¶æ odczytu i zapisu plików w tym folderze. ';
-$_lang['Notice'] = 'Przypomnienie';
-$_lang['Notify'] = 'Przypominaj';
-$_lang['Notify by email when replies are posted'] = 'Powiadom przez e-mail kiedy zostan± wys³ane odpowiedzi';
+$_lang['Note : this repository should be protected with a .htaccess or be placed outside the web. Because there contain data of private courses. Claroline Would be able to read and write in this dir'] = 'Uwaga: ten folder powinien byæ chroniony plikiem .htaccess lub umieszczony poza sieci± ze wzglêdu na prywatne dane. Claroline musi mieæ mo¿liwo¶æ odczytu i zapisu plików w tym folderze.';
+$_lang['Notice'] = 'Informacja';
+$_lang['Notify'] = 'Przypomnienia';
+$_lang['Notify by email when replies are posted'] = 'Powiadom o odpowiedzi przez e-mail';
 $_lang['Now'] = 'Teraz';
 $_lang['Number of assignment per page'] = 'Liczba zadañ przypadaj±cych na stronê';
 $_lang['Number of columns'] = 'Liczba kolumn';
@@ -992,17 +990,17 @@ $_lang['Number proposed exceeds max. that you allowed (you can modify it below).
 $_lang['Numero'] = 'Nr ID';
 $_lang['OVER QUOTA'] = 'Przekroczono przydzia³';
 $_lang['Off'] = 'Wy³±czone';
-$_lang['Official code'] = 'Oficjalny kod ';
+$_lang['Official code'] = 'Kod administracyjny';
 $_lang['Ok'] = 'Ok';
-$_lang['Oldest first'] = 'Zmieñ kolejno¶æ';
+$_lang['Oldest first'] = 'Od najstarszych';
 $_lang['On'] = 'W³±czone';
 $_lang['On an unique page'] = 'Na pojedynczej stronie';
-$_lang['Once a user logs to the Claroline platform a cookie is sent to the user browser if the authentication process succeeds. The cookie value is also stored in a internal table of the Claroline platform for a certain time. If requested, the Claroline SSO '] = 'Kiedy u¿ytkownik zaloguje siê na platformie Claroline ciasteczko jest wysy³ane do przegl±darki w przypadku prawid³owego uwierzytelnienia. Warto¶æ ciasteczka jest przechowywana w Claroline przez okre¶lony czas. Na ¿±danie serwer SSO Claroline mo¿e otrzymaæ parametry u¿ytkownika z innego serwera na podstawie warto¶ci ciasteczka.';
+$_lang['Once a user logs to the Claroline platform a cookie is sent to the user browser if the authentication process succeeds. The cookie value is also stored in a internal table of the Claroline platform for a certain time. If requested, the Claroline SSO server provides a way to retrieve the user parameters from another server on the internet on the base of this cookie value.'] = 'Kiedy u¿ytkownik zaloguje siê na platformie Claroline ciasteczko jest wysy³ane do przegl±darki w przypadku prawid³owego uwierzytelnienia. Warto¶æ ciasteczka jest przechowywana w Claroline przez okre¶lony czas. Na ¿±danie serwer SSO Claroline mo¿e otrzymaæ parametry u¿ytkownika z innego serwera na podstawie warto¶ci ciasteczka.';
 $_lang['One question per page (sequential)'] = 'Jedno pytanie na stronie (kolejno)';
 $_lang['Only his own submissions'] = 'Tylko w³asne przes³ane pliki ';
 $_lang['Only visible for teacher(s) and submitter(s)'] = 'Widoczne tylko dla wyk³adowcy lub przesy³aj±cego';
 $_lang['Optional'] = 'Opcja';
-$_lang['Order'] = 'Porz±dek';
+$_lang['Order'] = 'Kolejno¶æ';
 $_lang['Order course by'] = 'Uporz±dkuj kursy wed³ug';
 $_lang['Ordered list'] = 'Lista uporz±dkowana';
 $_lang['Organisation Name'] = 'Nazwa organizacji';
@@ -1016,13 +1014,13 @@ $_lang['PHP system information'] = 'Informacja o systemie PHP';
 $_lang['Page'] = 'Strona';
 $_lang['Page %title not found'] = 'Strona %title nie odnaleziona';
 $_lang['Page history'] = 'Historia strony';
-$_lang['Page saved'] = 'Stronê zachowano';
+$_lang['Page saved'] = 'Zapisano zmiany';
 $_lang['Pairs'] = 'Pary';
 $_lang['Parent category'] = 'Kategoria nadrzêdna ';
 $_lang['Password'] = 'Has³o';
 $_lang['Password given is too simple or too close to the username.'] = 'Nadane has³o jest zbyt proste lub zbyt zbli¿one do nazwy u¿ytkownika.';
-$_lang['Password security check'] = 'Powtórzenie has³a';
-$_lang['Passwords of some of your user account(s) are recorded an in external authentication system outside the platform.'] = 'Has³a kont niektórych u¿ytkowników s± przechowywane zewnêtrznym systemie uwierzytelniania poza platform±.';
+$_lang['Password security check'] = 'Sprawdzanie has³a';
+$_lang['Passwords of some of your user account(s) are recorded an in external authentication system outside the platform.'] = 'Has³a kont niektórych u¿ytkowników s± przechowywane w zewnêtrznym systemie uwierzytelniania poza platform±.';
 $_lang['Period'] = 'Okres';
 $_lang['PeriodDayShort'] = 'd.';
 $_lang['PeriodHourShort'] = 'h.';
@@ -1055,11 +1053,11 @@ $_lang['Please type the text'] = 'Wpisz tekst';
 $_lang['Please type your text below, use brackets %mask to define one or more blanks'] = 'Wpisz tekst poni¿ej, u¿ywaj±c nawiasów %mask, aby zdefiniowaæ puste pola';
 $_lang['Pool of modules'] = 'Pula modu³ów';
 $_lang['Port of CAS server'] = 'Port serwera CAS';
-$_lang['Posts'] = 'Listy';
+$_lang['Posts'] = 'Wiadomo¶ci';
 $_lang['Powered by'] = ' ';
 $_lang['Prefix for course table  / db names'] = 'Przedrostek tabel kursu / nazw baz danych';
 $_lang['Prefix for main table names'] = 'Przedrostek nazw g³ównych tabel';
-$_lang['Prefix for tracking table names'] = 'Przedrostek potrzebny do odszukania nazw tabel';
+$_lang['Prefix for tracking table names'] = 'Przedrostek tabel raportowania';
 $_lang['Preformated text'] = 'Tekst wstêpnie sformatowany';
 $_lang['Preview'] = 'Podgl±d';
 $_lang['Preview :'] = 'Podgl±d:';
@@ -1075,9 +1073,9 @@ $_lang['Private feedback'] = 'Indywidualna informacja zwrotna';
 $_lang['Production language files'] = 'Pliki jêzykowe produkcji';
 $_lang['Profile'] = 'Profil';
 $_lang['Profile SQL'] = 'Profil SQL';
-$_lang['Profile SQL in DEBUG MODE.
-Display for each request :duration, counter,  statement '] = 'Profil SQL w trybie naprawiania b³êdów.
-Wy¶wietl dla ka¿dego ¿±dania: czas, licznik, stan';
+$_lang['Profile SQL in DEBUG MODE.'] = 'Profil SQL w trybie naprawiania b³êdów.';
+$_lang['Display for each request :duration, counter,  statement '] = 'Wy¶wietl dla ka¿dego ¿±dania: czas, licznik, stan';
+$_lang['Display for each request :duration, counter,  statement'] = 'Wy¶wietl dla ka¿dego ¿±dania: czas, licznik, stan';
 $_lang['Profile form'] = 'Formularz profilu';
 $_lang['Profile list'] = 'Lista profili';
 $_lang['Profile locked'] = 'Profil zablokowany';
@@ -1098,7 +1096,7 @@ $_lang['Quota'] = 'Przydzia³';
 $_lang['Quota for courses'] = 'Przydzia³ dla kursów';
 $_lang['Quota for groups'] = 'Przydzia³ dla grup';
 $_lang['Random questions'] = 'Pytania losowe';
-$_lang['Read Pages'] = 'Przeczytane strony';
+$_lang['Read Pages'] = 'Odczyt';
 $_lang['Recent changes'] = 'Ostatnie zmiany';
 $_lang['Refresh time'] = 'Czas od¶wie¿ania';
 $_lang['Register a user for this class'] = 'Zapisz u¿ytkownika do tej klasy';
@@ -1113,8 +1111,8 @@ $_lang['Registration'] = 'Rejestracja';
 $_lang['Registration agreement'] = 'O¶wiadczenie wy¶wietlane przy rejestracji';
 $_lang['Registration not allowed on the platform'] = 'Rejestracja zablokowana na platformie';
 $_lang['Relative to the complete platform url'] = 'Adres wzglêdny do ¶cie¿ki platformy';
-$_lang['Rem. answ.'] = 'Poz.odp.';
-$_lang['Rem. elem.'] = 'Poz.elem.';
+$_lang['Rem. answ.'] = '- odp.';
+$_lang['Rem. elem.'] = '- elem.';
 $_lang['Remove'] = 'Usuñ';
 $_lang['Remove course enrolment'] = 'Usuñ zapis na kurs';
 $_lang['Remove course from your personal course list'] = 'Usuñ z listy osobistych kursów';
@@ -1126,7 +1124,7 @@ $_lang['Reply'] = 'Odpowiedz';
 $_lang['Repository for cache files'] = 'Folder plików pamiêci podrêcznej';
 $_lang['Repository for cache files and dirs'] = 'Folder plików pamiêci podrêcznej i scie¿ek';
 $_lang['Repository for temporary files and dirs'] = 'Folder plików tymczasowych';
-$_lang['Request'] = 'Pro¶ba';
+$_lang['Request'] = 'Pro¶by';
 $_lang['Request course creation status'] = 'Pro¶ba o status twórcy kursu';
 $_lang['Request to remove this account'] = 'Pro¶ba o usuniêcie konta';
 $_lang['Required'] = 'Wymagane';
@@ -1138,7 +1136,7 @@ $_lang['Reuse'] = 'U¿yj ponownie';
 $_lang['Right'] = 'Prawa';
 $_lang['Right list'] = 'Lista praw';
 $_lang['Right menu settings'] = 'Ustawienia prawego menu';
-$_lang['Right profile list'] = 'Lista praw profili';
+$_lang['Right profile list'] = 'Zarz±dzaj profilami i ich prawami';
 $_lang['Rights'] = 'Prawa';
 $_lang['Role'] = 'Funkcja';
 $_lang['Root'] = 'katalog g³ówny';
@@ -1159,7 +1157,7 @@ $_lang['SSO cookie period validity'] = 'Okres wa¿no¶ci ciasteczka SSO';
 $_lang['SSO settings'] = 'Ustawienia SSO';
 $_lang['Save'] = 'Zapisz';
 $_lang['Save changes'] = 'Zapisz zmiany';
-$_lang['Scan technical fault'] = 'Sprawd¼ b³êdy techniczne';
+$_lang['Scan technical fault'] = 'B³êdy techniczne';
 $_lang['Score'] = 'Wynik';
 $_lang['Scorm'] = 'SCORM';
 $_lang['Search'] = 'Wyszukaj';
@@ -1173,9 +1171,9 @@ $_lang['Search result'] = 'Wyniki wyszukiwania';
 $_lang['Search user'] = 'Wyszukiwanie u¿ytkownika';
 $_lang['SecondShort'] = 'sek.';
 $_lang['Secondary manifest found in zip file :'] = 'Drugi manifest znaleziony w archiwum ZIP:';
-$_lang['See below the files you can edit from this tool.'] = 'Pliki poni¿ej mo¿esz edytowaæ za pomoc± tego narzêdzia.';
+$_lang['See below the files you can edit from this tool.'] = 'Za pomoc± tego narzêdzia mo¿esz edytowaæ nastêpuj±ce pliki.';
 $_lang['See user list'] = 'Zobacz listê u¿ytkowników';
-$_lang['Seen'] = 'Obejrzane';
+$_lang['Seen'] = 'Wej¶æ';
 $_lang['Select course in'] = 'Wybierz kurs z ';
 $_lang['Select course in search results'] = 'Wybierz kurs spo¶ród wyszukanych';
 $_lang['Select in drop down list'] = 'Wybierz z listy ';
@@ -1183,9 +1181,9 @@ $_lang['Selected Users'] = 'Wybrani u¿ytkownicy';
 $_lang['Send account information to user by email'] = 'Wy¶lij e-mail do u¿ytkownika z informacj± o koncie ';
 $_lang['Session lost warning'] = 'Ostrze¿enie o wygas³ej sesji';
 $_lang['Set the Cascading Style Sheet (CSS) layout.'] = 'Wybierz wygl±d na podstawie arkusza stylów (CSS)';
-$_lang['Set the default language of the platform. It doesn\'t prevent course managers to set an other language for each course they create.'] = 'Wybierz domy¶lny jêzyk platformy. Zarz±dca kursu mo¿e wybraæ inny jêzyk dla ka¿dego tworzonego kursu.';
+$_lang['Set the default language of the platform. It doesn\'t prevent course managers to set an other language for each course they create.'] = 'Wybierz domy¶lny jêzyk platformy. Prowadz±cy kurs mo¿e wybraæ inny jêzyk dla ka¿dego tworzonego kursu.';
 $_lang['Sets how the assignment property "default works visibility" acts.  It will change the visibility of all the new submissions or it will change the visibility of all submissions already done in the assignment and the new one. '] = 'Decyduje o tym w jaki sposób dzia³a ustawienie "Domy¶lna widoczno¶æ prac". Tutaj mo¿na ustawiæ, czy zmiana ma dotyczyæ tylko nowych przes³anych prac, czy nowych i ju¿ obecnych w zadaniu.';
-$_lang['Sets if user can see only his own submissions (or those from his groups) or if he can see every visible submission.'] = 'Ustawia, czy u¿ytkownik ma widzieæ tylko swoje przes³ane prace (lub osób z jego grupy) czy mo¿e mieæ dostêp do wszystkich widocznych prac.';
+$_lang['Sets if user can see only his own submissions (or those from his groups) or if he can see every visible submission.'] = 'U¿ytkownik mo¿e widzieæ tylko swoje przes³ane prace (lub osób z jego grupy) lub mo¿e mieæ dostêp do wszystkich widocznych prac.';
 $_lang['Settings for tutors of group'] = 'Ustawienia wyk³adowców grup';
 $_lang['Settings for users of group'] = 'Ustawienia u¿ytkowników grup';
 $_lang['Settings of the right menu elements'] = 'Ustawienia elementów prawego menu';
@@ -1198,25 +1196,25 @@ $_lang['Show none'] = 'Ukryj';
 $_lang['Show only author submissions'] = 'Poka¿ tylko autorskie prace';
 $_lang['Show user profile page'] = 'Poka¿ stronê profilu u¿ytkownika';
 $_lang['Show wiki syntax toolbar'] = 'Poka¿ pasek narzêdzi Sk³adnia Wiki ';
-$_lang['Single'] = 'Pojedyncze';
+$_lang['Single'] = 'Pojedyncza';
 $_lang['Single Sign On'] = 'Jednokrotne logowanie (SSO)';
 $_lang['Size'] = 'Rozmiar';
 $_lang['Sql installation query failed'] = 'Instalacja kolejki SQL nie powiod³a siê';
-$_lang['Sql installation query succeeded'] = 'Instalacja kolejki SQL ukoñczona';
+$_lang['Sql installation query succeeded'] = 'Zainstalowano kolejkê SQL';
 $_lang['Start Module'] = 'Start modu³u';
 $_lang['Start date'] = 'Data rozpoczêcia';
 $_lang['Start date must be before end date ...'] = 'Data startu musi byæ przed dat± zakoñczenia ...';
 $_lang['Statistics'] = 'Statystyki';
-$_lang['Statistics by question'] = 'Statystyki wzglêdem pytañ';
-$_lang['Statistics by user'] = 'Statystyki wzglêdem u¿ytkowników';
+$_lang['Statistics by question'] = 'Statystyki wed³ug pytañ';
+$_lang['Statistics by user'] = 'Statystyki wed³ug u¿ytkowników';
 $_lang['Statistics of course : %courseCode'] = 'Statystyki kursu: %courseCode';
-$_lang['Statistics of exercise'] = 'Statystyki wzglêdem æwiczeñ';
-$_lang['Statistics of exercise attempt'] = 'Statystyki wzglêdem prób przyst±pienia do æwiczeñ';
-$_lang['Statistics of question'] = 'Statystyki pytañ';
+$_lang['Statistics of exercise'] = 'Statystyki æwiczenia';
+$_lang['Statistics of exercise attempt'] = 'Statystyki prób przyst±pienia do æwiczeñ';
+$_lang['Statistics of question'] = 'Statystyki pytania';
 $_lang['Status'] = 'Status';
 $_lang['Store Chat'] = 'Zapisz czat';
 $_lang['Store failed'] = 'Zapisywanie nie powiod³o siê';
-$_lang['Strike'] = 'Strike';
+$_lang['Strike'] = 'Przekre¶lenie';
 $_lang['Student'] = 'Student';
 $_lang['Students are allowed to self-register in groups'] = 'Studenci mog± samodzielne zapisywaæ siê do grup';
 $_lang['Subject'] = 'Temat';
@@ -1236,7 +1234,7 @@ $_lang['Take one of these options'] = 'Wybierz jedn± z dostêpnych opcji';
 $_lang['Teacher can add a user in his course'] = 'Wyk³adowca mo¿e dodaæ u¿ytkownika do swojego kursu';
 $_lang['Teacher can export user list from his course'] = 'Wyk³adowca mo¿e eksportowaæ listê u¿ytkowników ze swojego kursu';
 $_lang['Teacher can import user list in his course'] = 'Wyk³adowca mo¿e importowaæ listê u¿ytkowników do swojego kursu';
-$_lang['Teachers are allowed to register whole classes to their courses'] = 'Wyk³adowca mo¿e importowaæ istniej±c± klasê kursu';
+$_lang['Teachers are allowed to register whole classes to their courses'] = 'Wyk³adowca mo¿e importowaæ istniej±c± klasê do swojego kursu';
 $_lang['Technical Tools'] = 'Narzêdzia techniczne';
 $_lang['Temporary folder missing'] = 'Brak folderu tymczasowego';
 $_lang['Text displayed if a user tries to enrol in a course requiring a key'] = 'Zapis na kurs chroniony kluczem dostêpu';
@@ -1245,15 +1243,15 @@ $_lang['Text displayed on the "Create user account" page'] = 'Tekst wy¶wietlany 
 $_lang['Text displayed on the "My user account" page'] = 'Tekst wy¶wietlany w profilu u¿ytkownika';
 $_lang['Text displayed on the right column'] = 'Tekst wy¶wietlany w prawej kolumnie';
 $_lang['Text only (text required, no file)'] = 'Tylko tekst (tekst wymagany, brak pliku)';
-$_lang['Text with attached file (text required, file optional)'] = 'Tekst z do³±czonym plikiem (tekst wymagany, plik opcjonalny)';
+$_lang['Text with attached file (text required, file optional)'] = 'Tekst z do³±czonym plikiem (tekst wymagany, plik niewymagany)';
 $_lang['The changes have been carried out correctly'] = 'Zmiany zosta³y przeprowadzone prawid³owo';
 $_lang['The class has been moved'] = 'Klasa zosta³a przeniesiona';
-$_lang['The content of this panel is editable in administration '] = 'Zawarto¶æ tego panelu mo¿e byæ edytowana w Administracji platformy  ';
+$_lang['The content of this panel is editable in administration '] = 'Zawarto¶æ tego panelu mo¿e byæ edytowana w Administracji platformy';
 $_lang['The course has been successfully deleted'] = 'Kurs zosta³ usuniêty';
-$_lang['The domain that the cookie is available.  To make the cookie available on all subdomains of example.com, you\'d set it to ".example.com". The . is not required but makes it compatible with more browsers. Setting it to www.example.com  will make the co'] = 'Domena dla której ciasteczko jest dostêpne. ¯eby ciasteczko by³o dostêpne dla wszystkich subdomen np. domena.pl, powiniene¶ wpisaæ ".domena.pl" Kropka na pocz±tku nie jest wymagana ale kompatybilna z wiêksz± ilo¶ci± przegl±darek. Wpisanie "www.domena.pl" sprawi, ¿e ciasteczko bêdzie dostêpne tylko dla subdomeny www.';
+$_lang['The domain that the cookie is available.  To make the cookie available on all subdomains of example.com, you\'d set it to ".example.com". The . is not required but makes it compatible with more browsers. Setting it to www.example.com  will make the cookie only available in the www  subdomain.'] = 'Domena dla której ciasteczko jest dostêpne. ¯eby ciasteczko by³o dostêpne dla wszystkich subdomen np. domena.pl, powiniene¶ wpisaæ ".domena.pl" Kropka na pocz±tku nie jest wymagana ale kompatybilna z wiêksz± ilo¶ci± przegl±darek. Wpisanie "www.domena.pl" sprawi, ¿e ciasteczko bêdzie dostêpne tylko dla subdomeny www.';
 $_lang['The email address is not valid'] = 'Adres e-mail jest niekompletny lub zawiera niedozwolone znaki';
 $_lang['The fields <em>%field_list</em> are compulsory'] = 'Pola <em>%field_list</em> s± obowi±zkowe';
-$_lang['The file to upload is not valid.'] = 'Plik do za³adowania jest nieprawid³owy.';
+$_lang['The file to upload is not valid.'] = 'Plik do przes³ania jest nieprawid³owy.';
 $_lang['The following errors were found'] = 'Znaleziono nastêpuj±ce b³êdy';
 $_lang['The information have been modified'] = 'Informacja zosta³a zmodyfikowana';
 $_lang['The module has been removed from this dock'] = 'Modu³ zosta³ przeniesiony z tego doku.';
@@ -1262,25 +1260,25 @@ $_lang['The name of the cookie. By default the name is "clarolineSsoCookie"'] = 
 $_lang['The new category has been created.'] = 'Utworzono now± kategoriê';
 $_lang['The new class has been created'] = 'Stworzono now± klasê';
 $_lang['The new user has been sucessfully created'] = 'Utworzono nowego u¿ytkownika';
-$_lang['The path on the server in which the cookie will be available on.  If set to "/", the cookie will be available within the entire domain. If set to "/foo/", the cookie will only be available within the /foo/ directory and all sub-directories such as /f'] = '¦cie¿ka do serwera na którym ciasteczko bêdzie dostêpne. Je¶li ustawione na "/", ciasteczko bêdzie dostêpne w ramach ca³ej domeny. Je¶li ustawione na "/Claro/", ciasteczko bêdzie dostêpne tylko wewn±trz folderu /Claro/ i wszystkich podfolderów takich jak Claro/line domeny. Domy¶ln± warto¶ci± jest bie¿±cy folder w którym ciasteczko jest ustawione.';
+$_lang['The path on the server in which the cookie will be available on.  If set to "/", the cookie will be available within the entire domain. If set to "/foo/", the cookie will only be available within the /foo/ directory and all sub-directories such as /foo/bar/ of domain. The default value is the current directory that the cookie is being set in.'] = '¦cie¿ka do serwera na którym ciasteczko bêdzie dostêpne. Je¶li ustawione na "/", ciasteczko bêdzie dostêpne w ramach ca³ej domeny. Je¶li ustawione na "/Claro/", ciasteczko bêdzie dostêpne tylko wewn±trz folderu /Claro/ i wszystkich podfolderów takich jak Claro/line domeny. Domy¶ln± warto¶ci± jest bie¿±cy folder w którym ciasteczko jest ustawione.';
 $_lang['The requested file <strong>%file</strong> was not found on the platform.'] = 'Plik <strong>%file</strong> nie zosta³ znaleziony na platformie.';
 $_lang['The system is unable to send you an e-mail.'] = 'System nie mo¿e wys³aæ wiadomo¶ci e-mail.';
 $_lang['The upload has failed. There is not enough space in your directory'] = '£adowanie pliku nie powiod³o siê. Nie ma wystarczaj±cej przestrzeni w Twoim katalogu';
-$_lang['The upload is finished'] = '£adowanie pliku zakoñczone';
+$_lang['The upload is finished'] = 'Za³adowano plik';
 $_lang['The user has been enroled to the course'] = 'U¿ytkownik zosta³ zapisany na kurs';
 $_lang['The user has been successfully unregistered'] = 'Wypisano u¿ytkownika';
 $_lang['The user has been successfully unregistered from course'] = 'Wypisano u¿ytkownika z kursu';
 $_lang['The user is already enroled in this course'] = 'U¿ytkownik jest ju¿ zapisany na ten kurs';
 $_lang['The username is case sensitive'] = 'Rozró¿nianie wielkich i ma³ych liter w nazwie u¿ytkownika';
 $_lang['The zip file can not contain .PHP files'] = 'Plik ZIP nie mo¿e zawieraæ plików .PHP';
-$_lang['Theme'] = 'Temat';
+$_lang['Theme'] = 'Motyw';
 $_lang['Themes'] = 'Tematy';
 $_lang['There are no topics for this forum. You can post one'] = 'Nie ma ¿adnych tematów w tym Forum. Mo¿esz napisaæ now± wiadomo¶æ.';
-$_lang['There is a folder called <b><i>%module_name</i></b> for which there is no module installed.'] = 'Do folderu <b><i>%module_name</i></b> nie zainstalowano ¿adnego modu³u w bazie danych.';
+$_lang['There is a folder called <b><i>%module_name</i></b> for which there is no module installed.'] = 'W katalogu <i>module</i> znajduje siê folder <b><i>%module_name</i></b> dla którego nie zainstalowano ¿adnego modu³u w bazie danych.';
 $_lang['There is a module installed in DB : <b><i>%module_name</i></b> for which there is no folder on the server.'] = 'W bazie danych zainstalowano modu³ <b><i>%module_name</i></b> któremu nie odpowiada ¿aden folder na serwerze.';
 $_lang['There is an error in exercise data of imported file.'] = 'Znaleziono b³±d w danych importowanego æwiczenia.';
 $_lang['There is no answer for the moment'] = 'Nie ma jeszcze ¿adnych odpowiedzi';
-$_lang['There is no assignment at the moment'] = 'Nie ma zadañ w tej chwili.';
+$_lang['There is no assignment at the moment'] = 'Brak zadañ';
 $_lang['There is no category'] = 'Brak kategorii';
 $_lang['There is no category available !'] = 'Brak dostêpnej kategorii!';
 $_lang['There is no course matching such criteria'] = 'Nie ma kursu spe³niaj±cego takie kryteria';
@@ -1296,18 +1294,16 @@ $_lang['This course is currently not described'] = 'Ten kurs nie ma opisu';
 $_lang['This course requires a key for enrolment'] = 'Ten kurs wymaga klucza dostêpu';
 $_lang['This day'] = 'Dzisiaj';
 $_lang['This is the faculty, department or school where the course is delivered'] = 'Wydzia³, Instytut lub Szko³a, w której kurs jest prowadzony';
-$_lang['This is the main page of the Wiki %s. Click on \'\'\'Edit\'\'\' to modify the content.'] = 'To jest g³ówna strona Wiki %s. Kliknij Edycja celem modyfikacji zawarto¶ci';
-$_lang['This is the main page of the Wiki %wikiTitle. Click on \'\'\'Edit\'\'\' to modify the content.'] = 'To jest g³ówna strona Wiki %wikiTitle. Kliknij \"Edytuj\" ¿eby zmodyfikowaæ jej zawarto¶æ.';
+$_lang['This is the main page of the Wiki %s. Click on \'\'\'Edit\'\'\' to modify the content.'] = 'To jest g³ówna strona Wiki \'\'%s\'\'. Kliknij \'\'\'Edytuj tê stronê\'\'\' aby zmodyfikowaæ zawarto¶æ.';
 $_lang['This is where tracking and statistics data are stored. This database can be the same as the main database.'] = 'W tej bazie przechowywane s± informacje dotycz±ce raportowania i statystyk. Raporty i statystyki mog± byæ równie¿ przechowywane w bazie g³ównej.';
 $_lang['This is your account Login-Pass'] = 'Parametry konta (nazwa u¿ytkownika i has³o)';
 $_lang['This mail appears already in a previous line of the CSV file.'] = 'Ten mail ju¿ siê pojawi³ w poprzedniej linii pliku CSV.';
-$_lang['This module cannot be deactivated'] = 'Nie mo¿na aktywowaæ tego modu³u.';
-$_lang['This official code already appears in a previous line of the CSV file.'] = 'Ten oficjalny kod ju¿ pojawi³ siê w poprzedniej linii pliku CSV.';
-$_lang['This official code is already used by another user.'] = 'Ten oficjalny kod jest ju¿ u¿ywany przez innego u¿ytkownika.';
+$_lang['This module cannot be deactivated'] = 'Nie mo¿na w³±czyæ tego modu³u.';
+$_lang['This official code already appears in a previous line of the CSV file.'] = 'Ten kod administracyjny ju¿ pojawi³ siê w poprzedniej linii pliku CSV.';
+$_lang['This official code is already used by another user.'] = 'Ten kod administracyjny jest ju¿ u¿ywany przez innego u¿ytkownika.';
 $_lang['This option insert a command in the user profile form to request a status of course creator. This request is sent by e-mail to platform administrator.'] = 'Ta opcja dodaje w panelu u¿ytkownika ¿±danie statusu twórcy kursu. Pro¶ba jest wysy³ana przez e-mail do administratora platformy. ';
-$_lang['This option insert a command in the user profile form to request the removal of the user from the platform.  This request is sent by e-mail to platform administrator.
-This option allow only to request it, and don\'t prework the answer
-'] = 'Ta opcja dodaje w panelu u¿ytkownika ¿±danie usuniêcia konta z platformy. Pro¶ba jest wysy³ana przez e-mail do administratora platformy. Opcja pozwala jedynie na wys³anie pro¶by, o faktycznym usuniêciu konta decyduje administrator.';
+$_lang['This option insert a command in the user profile form to request the removal of the user from the platform.  This request is sent by e-mail to platform administrator.'] = 'Ta opcja dodaje w panelu u¿ytkownika ¿±danie usuniêcia konta z platformy. Pro¶ba jest wysy³ana przez e-mail do administratora platformy. ';
+$_lang['This option allow only to request it, and don\'t prework the answer'] = 'Opcja pozwala jedynie na wys³anie pro¶by, o faktycznym usuniêciu konta decyduje administrator.';
 $_lang['This page is empty, click on \'Edit this page\' to add a content'] = ' aby dodaæ komentarz';
 $_lang['This page is empty, use the editor to add content.'] = 'Ta strona jest pusta. U¿yj edytora by dodaæ do niej tre¶æ.';
 $_lang['This password is too simple or too close to the username, first name or last name.<br> Use a password like this <code>%passProposed</code>'] = 'Twoje has³o jest zbyt proste lub zbyt podobne do loginu, imienia albo nazwiska. U¿yj has³a tego typu: <code>%passProposed</code>';
@@ -1315,7 +1311,7 @@ $_lang['This prefix could allow to order more easily the tables / DB in the user
 $_lang['This question is used in several exercises.'] = 'To pytanie jest u¿ywane w kilku æwiczeniach.';
 $_lang['This renderer is used for TEX/LaTEX expressions. It is available into the \'claroline/inc/lib/\' directory and has to be copied on a server location where CGI programs are expected.'] = 'Ten generator jest u¿ywany do tworzenia wyra¿eñ matematycznych TEX/LaTEX. Jest dostêpny w katalogu \'claroline/inc/lib/\' i musi zostaæ skopiowany do folderu skryptów CGI serwera.';
 $_lang['This tool can not be uninstalled.'] = 'To narzêdzie nie mo¿e zostaæ odinstalowane.';
-$_lang['This user name is already taken'] = 'Ta nazwa u¿ytkownika jest ju¿ u¿ywana';
+$_lang['This user name is already taken'] = 'Ten login jest ju¿ u¿ywany';
 $_lang['This will also delete all works submitted in this assignment !'] = 'Spowoduje to tak¿e usuniêcie wszystkich prac dostarczonych w tym zadaniu!';
 $_lang['This zone is empty'] = 'Ta strefa jest pusta';
 $_lang['Thumbnail width'] = 'Szeroko¶æ miniatury';
@@ -1325,13 +1321,11 @@ $_lang['Time before really compute data. 86400 = 1 day.'] = 'Czas przed faktyczn
 $_lang['Time in learning path'] = 'Czas na ¶cie¿ce uczenia siê';
 $_lang['Time is over, results not submitted.'] = 'Czas min±³, nie przes³ano wyników.';
 $_lang['Time limit'] = 'Maksymalny dopuszczalny czas';
-$_lang['Time to automatically refresh the user screen. Each refresh is a request to your server.
-Too low value can be hard for your server. Too high value can be hard for user.
-'] = 'Czas do automatycznego od¶wie¿ania strony u¿ytkownika. Ka¿de od¶wie¿enie jest zapytaniem do serwera.
-Zbyt niska warto¶æ mo¿e byæ nieodpowiednia dla serwera, zbyt wysoka dla u¿ytkownika.';
+$_lang['Time to automatically refresh the user screen. Each refresh is a request to your server.'] = 'Czas do automatycznego od¶wie¿ania strony u¿ytkownika. Ka¿de od¶wie¿enie jest zapytaniem do serwera.';
+$_lang['Too low value can be hard for your server. Too high value can be hard for user.'] = 'Zbyt niska warto¶æ mo¿e byæ nieodpowiednia dla serwera, zbyt wysoka dla u¿ytkownika.';
 $_lang['Time to keep a cache as valid'] = 'Czas utrzymywania wa¿no¶ci pamiêci podrêcznej';
 $_lang['Title'] = 'Tytu³';
-$_lang['Title added :'] = 'Dodany tytu³:';
+$_lang['Title added :'] = 'Dodano tytu³:';
 $_lang['Title of the wiki'] = 'Tytu³ Wiki';
 $_lang['To'] = 'Do';
 $_lang['To send a message, select groups of users (marked with a * in the front) or single users from the list on the left.'] = 'Aby wys³aæ wiadomo¶æ wybierz grupy u¿ytkowników (zaznaczonych * z przodu) lub pojedynczych u¿ytkowników z listy po lewej.';
@@ -1357,12 +1351,12 @@ $_lang['Translation Tools'] = 'Narzêdzia t³umaczenia';
 $_lang['True'] = 'Prawda';
 $_lang['True/False'] = 'Prawda/Fa³sz';
 $_lang['Tutors'] = 'Wyk³adowcy';
-$_lang['Tutors can subscribe to a group as a simple member'] = 'Wyk³adowcy mog± zapisywaæ siê do grup jako zwykli cz³onkowie';
+$_lang['Tutors can subscribe to a group as a simple member'] = 'Wyk³adowcy mog± zapisywaæ siê do grup jako zwykli u¿ytkownicy';
 $_lang['Type'] = 'Typ';
 $_lang['URL'] = 'URL';
 $_lang['URL link'] = 'Adres URL';
 $_lang['URL trail'] = '¦cie¿ka URL';
-$_lang['URL?'] = 'URL?';
+$_lang['URL?'] = 'Wpisz adres URL:';
 $_lang['Unable to add external tool'] = 'Brak mo¿liwo¶ci dodania zewnêtrznego narzêdzia';
 $_lang['Unable to add the event to the agenda'] = 'Brak mo¿liwo¶ci dodania zdarzenia do terminarza.';
 $_lang['Unable to copy file : %filename'] = 'Nie mo¿na skopiowaæ pliku: %filename';
@@ -1397,7 +1391,7 @@ $_lang['Unable to update forum'] = 'Brak mo¿liwo¶ci uaktualnienia forum.';
 $_lang['Unable to update the event into the agenda'] = 'Brak mo¿liwo¶ci uaktualnienia zdarzenia z terminarza.';
 $_lang['Unassigned students'] = 'Studenci nie zapisani';
 $_lang['Unblock'] = 'Odblokuj';
-$_lang['Unchanged line'] = 'Nie zmieniona linia';
+$_lang['Unchanged line'] = 'Linia bez zmian';
 $_lang['Underline'] = 'Podkre¶lenie';
 $_lang['Unenrol from course'] = 'Wypisz z kursu';
 $_lang['Uninstall'] = 'Odinstaluj';
@@ -1420,7 +1414,7 @@ $_lang['Until'] = 'do';
 $_lang['Untitled'] = 'Brak tytu³u';
 $_lang['Up'] = 'Do góry';
 $_lang['Upgrade'] = 'Aktualizacja';
-$_lang['Upload a new file to replace the file'] = 'Za³aduj nowy plik celem zast±pienia starego.';
+$_lang['Upload a new file to replace the file'] = 'Za³aduj nowy plik ¿eby zast±piæ stary.';
 $_lang['Upload document'] = 'Prze¶lij dokument';
 $_lang['Upload failed'] = 'Przesy³anie nie powiod³o siê';
 $_lang['Upload file'] = 'Prze¶lij plik na serwer';
@@ -1430,10 +1424,10 @@ $_lang['Use negative weighting for incorrect choices to penalize a user that che
 $_lang['Use the following format'] = 'U¿yj nastêpuj±cego formatu';
 $_lang['User'] = 'U¿ytkownik';
 $_lang['User Course list'] = 'Lista kursów u¿ytkownika';
-$_lang['User access details'] = 'Szczegó³y dostêpu u¿ytkownika';
-$_lang['User account creation allowed'] = 'Tworzenie kont u¿ytkowników dozwolone';
+$_lang['User access details'] = 'Szczegó³y wej¶æ u¿ytkownika';
+$_lang['User account creation allowed'] = 'W³±cz tworzenie nowych kont u¿ytkowników';
 $_lang['User already in class'] = 'U¿ytkownik jest ju¿ w klasie';
-$_lang['User attempts'] = 'Liczba przystêpuj±cych u¿ytkowników';
+$_lang['User attempts'] = 'Liczba prób unikalnych u¿ytkowników';
 $_lang['User banner - left'] = 'Baner u¿ytkownika - lewo';
 $_lang['User banner - right'] = 'Baner u¿ytkownika - prawo';
 $_lang['User can leave course title field empty or not'] = 'U¿ytkownik mo¿e pozostawiæ pole tytu³u kursu puste.';
@@ -1449,9 +1443,9 @@ $_lang['User list'] = 'Lista u¿ytkowników';
 $_lang['User not found'] = 'Nie znaleziono u¿ytkownika';
 $_lang['User not in the class'] = 'U¿ytkownik nie jest cz³onkiem klasy';
 $_lang['User profile'] = 'Profil u¿ytkownika';
-$_lang['User profile options'] = 'Opcje profilu u¿ytkownika';
+$_lang['User profile options'] = 'Opcje profili u¿ytkowników';
 $_lang['User registered to the course'] = 'U¿ytkownik zapisany na kurs';
-$_lang['User request'] = 'Pro¶ba u¿ytkownika';
+$_lang['User request'] = 'Pro¶by u¿ytkowników';
 $_lang['User settings'] = 'Ustawienia u¿ytkownika';
 $_lang['User unregistered'] = 'U¿ytkownik wypisany';
 $_lang['User\'s course'] = 'Kursy u¿ytkownika';
@@ -1461,14 +1455,14 @@ $_lang['Username is too long (maximum 20 characters)'] = 'Nazwa u¿ytkownika zbyt
 $_lang['UsernameAppearAlready'] = 'Ta nazwa u¿ytkownika pojawi³a siê ju¿ w poprzedniej linii pliku CSV';
 $_lang['UsernameUsed'] = 'Ta nazwa  jest ju¿ u¿ywana przez innego u¿ytkownika';
 $_lang['Users'] = 'U¿ytkownicy';
-$_lang['Users Downloads'] = 'Dokumenty pobrane przez u¿ytkowników';
+$_lang['Users Downloads'] = 'Liczba pobrañ unikalnych u¿ytkowników';
 $_lang['Users can not submit after end date'] = 'U¿ytkownicy nie mog± przesy³aæ plików po dacie zakoñczenia';
 $_lang['Users can submit after end date'] = 'U¿ytkownicy mog± przesy³aæ pliki po dacie zakoñczenia';
 $_lang['Users help'] = 'U¿ytkownicy - Pomoc';
 $_lang['Users list'] = 'Lista u¿ytkowników';
 $_lang['Users not in this group'] = 'U¿ytkownicy nie z tej grupy';
-$_lang['Users with similar settings exist on the system yet'] = 'U¿ytkownicy z podobnymi w³a¶ciwo¶ciami nadal istniej± w systemie';
-$_lang['Users\' Clicks'] = 'Wej¶cia u¿ytkowników';
+$_lang['Users with similar settings exist on the system yet'] = 'U¿ytkownicy z podobnymi w³a¶ciwo¶ciami istniej± ju¿ w systemie.';
+$_lang['Users\' Clicks'] = 'Liczba wej¶æ unikalnych u¿ytkowników';
 $_lang['UsersMin'] = 'u¿ytkownik(ów)';
 $_lang['Values'] = 'Warto¶ci';
 $_lang['Variables with same content and different name'] = 'Zmienne z t± sam± zawarto¶ci± i ró¿nymi nazwami';
@@ -1485,12 +1479,11 @@ $_lang['View user data'] = 'Przegl±daj dane u¿ytkownika';
 $_lang['Visibility'] = 'Widoczno¶æ';
 $_lang['Visible'] = 'Widoczny';
 $_lang['Visible for all users'] = 'Widoczne dla wszystkich u¿ytkowników';
-$_lang['Visits'] = 'wizyt';
-$_lang['WARNING ! You have just lost your session on the server.'] = 'UWAGA! Twoja sesja na serwerze wygas³a.';
-$_lang['WARNING : you are going to delete this wiki and all its pages. Are you sure to want to continue ?'] = 'OSTRZE¯ENIE:
-Zamierzasz skasowaæ t± Wiki i wszystkie jej strony. Czy na pewno chcesz kontynuowaæ?';
-$_lang['WARNING: this page is a preview. Your modifications to the wiki has not been saved yet ! To save them do not forget to click on the \'save\' button at the bottom of the page.'] = ' na dole strony.';
-$_lang['Warn users when they loose their session on the platform'] = 'Ostrzegaj o wyga¶niêciu sesji na platformie';
+$_lang['Visits'] = 'wizyt(a/y)';
+$_lang['WARNING ! You have just lost your session on the server.'] = 'UWAGA! Zosta³e¶ wylogowany z powodu braku aktywno¶ci na serwerze!';
+$_lang['WARNING : you are going to delete this wiki and all its pages. Are you sure to want to continue ?'] = 'OSTRZE¯ENIE: Zamierzasz skasowaæ t± Wiki i wszystkie jej strony. Czy na pewno chcesz kontynuowaæ?';
+$_lang['WARNING: this page is a preview. Your modifications to the wiki has not been saved yet ! To save them do not forget to click on the \'save\' button at the bottom of the page.'] = 'UWAGA! To tylko podgl±d. Twoje zmiany nie zosta³y jeszcze zapisane! Aby je zapisaæ nie zapomnij klikn±æ przycisku \'Zapisz\' na dole strony.';
+$_lang['Warn users when they loose their session on the platform'] = 'Wy¶wietl komunikat: "UWAGA! Twoja sesja na serwerze wygas³a." po d³u¿szym braku aktywno¶ci';
 $_lang['Warning the system distinguishes uppercase (capital) and lowercase (small) letters'] = 'Uwaga: system rozró¿nia ma³e i wielkie litery.';
 $_lang['Website'] = 'Strona www';
 $_lang['Week'] = 'Tydzieñ';
@@ -1509,8 +1502,8 @@ $_lang['Wiki %TITLE% exported to course documents. (this file is visible)'] = 'W
 $_lang['Wiki : %s'] = 'Wiki: %s';
 $_lang['Wiki : Create new Wiki'] = 'Wiki: Utwórz nowe Wiki';
 $_lang['Wiki : Edit properties'] = 'Wiki: Edycja w³a¶ciwo¶ci';
-$_lang['Wiki creation succeed'] = 'Tworzenie Wiki powiod³o siê';
-$_lang['Wiki deletion succeed'] = 'Zakoñczono usuwanie Wiki';
+$_lang['Wiki creation succeed'] = 'Utworzono nowe Wiki';
+$_lang['Wiki deletion succeed'] = 'Usuniêto Wiki';
 $_lang['Wiki description'] = 'Opis Wiki';
 $_lang['Wiki edition succeed'] = 'Edycja Wiki powiod³a siê';
 $_lang['Wiki syntax'] = 'Sk³adnia Wiki';
@@ -1544,7 +1537,7 @@ $_lang['You can\'t move %facultyCode in the same category !'] = 'Nie mo¿esz prze
 $_lang['You can\'t remove a group forum. You have to remove the group first'] = 'Nie mo¿esz usun±æ forum grupy. Najpierw nale¿y usun±æ ca³a grupê.';
 $_lang['You cannot give a blank name to a class'] = 'Klasa musi mieæ swoj± nazwê';
 $_lang['You cannot post an empty message'] = 'Musisz napisaæ wiadomo¶æ. Nie mo¿na wys³aæ pustej wiadomo¶ci.';
-$_lang['You cannot unsubscribe the last course manager of the course'] = 'Nie mo¿esz wypisaæ ostatniego zarz±dcy kursu';
+$_lang['You cannot unsubscribe the last course manager of the course'] = 'Nie mo¿esz wypisaæ ostatniego prowadz±cego kurs';
 $_lang['You didnt choose any file to send, or it is too big'] = 'Nie wybra³e¶ pliku lub plik jest za du¿y.';
 $_lang['You have just created the course website'] = 'Utworzono w³a¶nie stronê kursu';
 $_lang['You have reached the maximum number of allowed attempts.'] = 'Osi±gn±³e¶ maksymaln± liczbê dozwolonych prób.';
@@ -1569,7 +1562,7 @@ $_lang['Your message has been deleted'] = 'Twoja wiadomo¶æ zosta³a skasowana.';
 $_lang['Your message has been entered'] = 'Twoja wiadomo¶æ zosta³a zapisana w bazie danych.';
 $_lang['Your mother is'] = 'Twoja mama jest';
 $_lang['Your password has been emailed to'] = 'Twoje has³o zosta³o wys³ane na adres';
-$_lang['Your password(s) is (are) recorded in an external authentication system outside the platform.'] = 'Twoje has³o(-a) jest przechowywane w zewnêtrznym systemie  uwierzytelniania poza platform±.';
+$_lang['Your password(s) is (are) recorded in an external authentication system outside the platform.'] = 'Twoje has³o(-a) jest przechowywane w zewnêtrznym systemie uwierzytelniania poza platform±.';
 $_lang['Your progression in this module'] = 'Twój postêp w tym module';
 $_lang['Your registration'] = 'Twoja rejestracja';
 $_lang['Your request to become a course creator has been sent to platform administrator(s).'] = 'Twoje ¿±danie statusu Twórcy kursu zosta³o wys³ane do administratora platformy';
@@ -1584,33 +1577,32 @@ $_lang['all students'] = 'wszyscy studenci';
 $_lang['archive'] = 'archiwizowane';
 $_lang['blockAccountCreationNotification'] = 'Witaj, %firstname %lastname,
 
-Zosta³e¶ zarejestrowany na stronie %siteName
+Zosta³e¶/-a¶ zarejestrowany/-a na stronie %siteName
     Twój login:  %username
     Twoje has³o: %password
-    Adres  strony %siteName to: %rootWeb
+    Adres  strony to: %rootWeb
 
 W przypadku problemów, prosimy o kontakt.
-    
 Z powa¿aniem,
-    %administratorName
+
 --
-Manager %administratorName
+%administratorName
+Administrator strony
 Tel. %administratorPhone
-E-mail: %administratorEmail
-    ';
+E-mail: %administratorEmail';
 $_lang['blockAssignmentsHelp'] = '<p>
-Narzêdzie zadania jest publicznym obszarem dla studentów. Zarz±dca kursu tworzy jedno lub kilka zadañ (ró¿ne obszary publikacji), gdzie studenci bêd± mogli publikowaæ swoje prace.<br /><br />
+Narzêdzie zadania jest publicznym obszarem dla studentów. Prowadz±cy kurs tworzy jedno lub kilka zadañ (ró¿ne obszary publikacji), gdzie studenci bêd± mogli publikowaæ swoje prace.<br /><br />
 Ka¿de zadanie mo¿e mieæ odmienne cele i wymagania: publikacja musi byæ plikiem, tekstem lub tekstem i plikiem; publikacja mo¿e byæ wykonana przez grupê zamiast przez pojedynczego u¿ytkownika, ...<br /><br />
-Studenci maj± mo¿liwo¶æ modyfikacji swojej pracy po prezentacji a zarz±dca kursu mo¿e przekazaæ im informacje zwrotne na temat ich prezentacji.
+Studenci maj± mo¿liwo¶æ modyfikacji swojej pracy po prezentacji a Prowadz±cy kurs mo¿e przekazaæ im informacje zwrotne na temat ich prezentacji.
 </p>
 <hr />
 <h4>Utwórz zadanie</h4>
-<p>Celem utworzenia nowego zadania zarz±dca kursu musi wej¶æ do narzêdzi zadañ i klikn±æ odno¶nik "Utwórz nowe zadanie".
+<p>Aby utworzyæ nowe zadania prowadz±cy kurs musi wej¶æ do narzêdzi zadañ i klikn±æ odno¶nik "Utwórz nowe zadanie".
 </p>
 <p>Uka¿e siê formularz pytaj±cy zarz±dcê o:
 </p>
 <ul><li> tytu³: nazwê zadania
-</li><li> opis: przedstawienie zadania co maj± uczniowie do zrobienia
+</li><li> opis: przedstawienie zadania co maj± zrobiæ studenci
 </li><li> typ prezentacji:
 <ul><li> Plik: ka¿dy typ pliku, który mo¿e byæ za³adowany, miej ¶wiadomo¶æ, ¿e istnieje ograniczenie rozmiaru pliku zale¿ne od platformy; mo¿na do³±czyæ tekst opisuj±cy plik
 </li><li> Tylko tekst: tekst sformatowany przy u¿yciu edytora WYSIWYG
@@ -1622,13 +1614,13 @@ Studenci maj± mo¿liwo¶æ modyfikacji swojej pracy po prezentacji a zarz±dca kursu
 </li><li> typ zadania:
 <ul><li> tryb indywidualny: ka¿dy zalogowany u¿ytkownik mo¿e wys³aæ publikacjê
 </li><li> tryb grupowy: u¿ytkownik musi byæ cz³onkiem przynajmniej jednej z kursu by publikowaæ prace, a prace bêd± wysy³ane w imieniu grupy</li></ul>
-</li><li> zezwolenie na za³adowanie po dacie koñcowej
+</li><li> zezwolenie na przesy³anie po dacie koñcowej
 </li></ul>
 <p><br />
 <strong>Dodaj automatyczn± informacjê zwrotn±</strong>
 </p>
-<p>Informacja zwrotna jest w³a¶ciw± wersj± zadania. Celem dodania automatycznej informacji zwrotnej do zadania wejd¼ do zadania i kliknij odno¶nik "Edytuj automatyczn± informacjê zwrotn±"</p>
-<p>Mo¿e to byæ tekst, plik lub tekst i plik. Zarz±dca kursu mo¿e wybraæ kiedy automatyczna informacja zwrotna bêdzie widoczna dla u¿ytkowników (po dacie zakoñczenia zadania lub po pierwszej prezentacji u¿ytkownika tego zadania)
+<p>Informacja zwrotna jest w³a¶ciw± wersj± zadania. Aby dodaæ automatyczn± informacjê zwrotn± do zadania wejd¼ do zadania i kliknij odno¶nik "Edytuj automatyczn± informacjê zwrotn±"</p>
+<p>Mo¿e to byæ tekst, plik lub tekst i plik. Prowadz±cy kurs mo¿e wybraæ kiedy automatyczna informacja zwrotna bêdzie widoczna dla u¿ytkowników (po dacie zakoñczenia zadania lub po pierwszej prezentacji u¿ytkownika tego zadania)
 </p>
 <hr />
 <h4>Prace</h4>
@@ -1638,32 +1630,30 @@ Mo¿na ogl±dn±æ listê publikacji zwi±zanych z u¿ytkownikiem i zadaniem poprzez kl
 <p><strong>Przedstaw pracê</strong></p>
 <p>Je¶li u¿ytkownik ma prawo przedstawiæ pracê to bêdzie mu wy¶wietlony odno¶nik do formularza podawczego.</p>
 <p><strong>Lista prac</strong></p>
-<p>Jako zarz±dca kursu masz prawo edytowaæ, kasowaæ, ukrywaæ / pokazywaæ ka¿d± z prac. Mo¿esz równie¿ dodaæ informacjê zwrotn± dla ka¿dej pracy..
+<p>Jako prowadz±cy kurs masz prawo edytowaæ, kasowaæ, ukrywaæ / pokazywaæ ka¿d± z prac. Mo¿esz równie¿ dodaæ informacjê zwrotn± dla ka¿dej pracy..
 </p>
 <ul>
 <li> <strong>Modyfikuj</strong>: Je¶li pojawia siê ta ikona znaczy to, ¿e u¿ytkownik mo¿e modyfikowaæ zawarto¶æ pracy; pojawi± siê to w przypadku, gdy u¿ytkownik jest zarz±dc± kursu lub kiedy u¿ytkownik zagl±da do swoich prac lub prac swojej grupy.
 </li>
-<li> <strong>Usuñ</strong>: Ta komenda pozwala zarz±dcy kursu skasowaæ pracê.
+<li> <strong>Usuñ</strong>: Ta komenda pozwala prowadz±cemu kurs skasowaæ pracê.
 </li>
-<li> <strong>Widoczny</strong>: Je¶li pojawia siê ta ikona dla pracy znaczy to, ¿e praca jest widoczna dla uczniów. Jest dok³adnie tak jak w narzêdziu Claroline dokumenty. Mo¿na zmieniæ to ustawienie klikaj±c ikonê.
+<li> <strong>Widoczny</strong>: Je¶li pojawia siê ta ikona dla pracy znaczy to, ¿e praca jest widoczna dla studentów. Jest dok³adnie tak jak w narzêdziu Claroline dokumenty. Mo¿na zmieniæ to ustawienie klikaj±c ikonê.
 </li>
-<li> <strong>Niewidoczny</strong>: Je¶li pojawia siê dla pracy ta ikona znaczy to, ¿e praca jest niewidoczna dla uczniów. Jest dok³adnie tak jak w narzêdziu Claroline dokumenty. Mo¿na zmieniæ to ustawienie klikaj±c ikonê.
+<li> <strong>Niewidoczny</strong>: Je¶li pojawia siê dla pracy ta ikona znaczy to, ¿e praca jest niewidoczna dla studentów. Jest dok³adnie tak jak w narzêdziu Claroline dokumenty. Mo¿na zmieniæ to ustawienie klikaj±c ikonê.
 </li>
-<li> <strong>Dodaj informacjê zwrotn±</strong>: zezwala zarz±dcy kursu publikowaæ informacjê zwrotn± o pracy u¿ytkownika. Informacja zwrotna mo¿e byæ plikiem, tekstem lub oboma z prywatnym komentarzem który bêdzie widoczny tylko dla zarz±dcy kursu i wynikiem w procentach.
+<li> <strong>Dodaj informacjê zwrotn±</strong>: zezwala prowadz±cemu kurs publikowaæ informacjê zwrotn± o pracy u¿ytkownika. Informacja zwrotna mo¿e byæ plikiem, tekstem lub oboma z prywatnym komentarzem który bêdzie widoczny tylko dla prowadz±cego kurs i wynikiem w procentach.
 </li>
 </ul>';
 $_lang['blockClaroMainHelp'] = 'Tutaj prowadz±cy zajêcia tworz± i administruj± stronami kursów. Studenci czytaj± (dokumenty, og³oszenia, terminy) i czasem wykonuj± æwiczenia, publikuj± swoje prace, uczestnicz± w dyskusji w Forum dyskusyjnym...</p><b>Rejestracja</b><p>Poni¿sze instrukcje dotycz± serwera Claroline, w którym dopuszcza siê samodzieln± rejestracjê. <br>Je¶li jeste¶ studentem powiniene¶ zarejestrowaæ sie wybieraj±c opcjê \'Uczestnictwo w kursie\', a nastêpnie wybraæ kurs, do którego chcesz siê zapisaæ.</p><p>Je¶li prowadzisz swoje zajêcia za po¶rednictwem serwera Claroline powiniene¶ zarejestrowaæ siê wybieraj±c opcjê \'Tworzenie kursu\'. Powiniene¶ nastêpnie wype³niæ formularz z tytu³em i kodem kursu. Po jego zatwierdzeniu, utworzone zostan± strony WWW nowego kursu, którego zawarto¶æ mo¿na modyfikowaæ zale¿nie od potrzeb. </p><p>Odno¶nik \'Wolne wnioski\' umo¿liwia przekazywanie administratorom systemu swoich uwag, sugestii i postulatów. Strona \'Wolne wnioski\' jest po³aczona odno¶nikiem ze stron± g³ówn± campusu (po zalogowaniu siê).</p>
 <p>\'Forum u¿ytkowników Claroline\' ³±czy osoby korzystaj±ce z oprogramowania Claroline na ca³ym ¶wiecie. Je¶li nie mo¿esz uzyskaæ odpowiedzi na swoje pytanie wewn±trz swojego campusu, wy¶lij tam swoj± wiadomo¶æ.</p>
-<p>Odno¶nik \'Rejestracja\' (je¶li istnieje) znajduje siê na stronie g³ównej campusu (u góry, po prawej).</p><b>Logowanie</b><p>Podczas nastêpnych wizyt, wpisuj swoj± nazwê u¿ytkownika i has³o, a nastêpnie \'Wej¶cie\', ¿eby uzyskaæ dostêp Twoich kursów. Adres strony: ';
+<p>Odno¶nik \'Rejestracja\' (je¶li istnieje) znajduje siê na stronie g³ównej campusu (u góry, po prawej).</p><b>Logowanie</b><p>Podczas nastêpnych wizyt, wpisuj swoj± nazwê u¿ytkownika i has³o, a nastêpnie \'Zaloguj\', ¿eby uzyskaæ dostêp Twoich kursów. Adres strony: ';
 $_lang['blockConfirmBlockingModuleMadeInvisible'] = 'Ten modu³ jest zablokowany.
 Ukrycie go pozwoli studentom na dostêp do 
 nastêpnego modu³u bez przymusu ukoñczenia obecnego.
-
 Potwierdzasz?';
 $_lang['blockConfirmBlockingPathMadeInvisible'] = 'Ta ¶cie¿ka jest zablokowana.
 Ukrycie jej pozwoli studentom na dostêp do 
 nastêpnej ¶cie¿ki bez przymusu ukoñczenia obecnej.
-
 Potwierdzasz?';
 $_lang['blockConfirmDeleteModule'] = 'Czy na pewno chcesz ca³kowicie usun±æ ten modu³? 
  
@@ -1673,52 +1663,41 @@ Nie bêdziesz móg³ u¿ywaæ go w ¿adnej ¶cie¿ce nauczania.
 Potwierd¼ usuniêcie:';
 $_lang['blockConfirmDeleteScorm'] = 'Ta ¶cie¿ka uczenia siê jest czê¶ci± pakietu importu SCORM. Je¶li skasujesz tê ¶cie¿kê, wszystkie odpowiednie modu³y SCORM i pochodne pliki bêd± usuniête z platformy. Czy chcesz usun±æ ¶cie¿kê nauczania o nazwie ';
 $_lang['blockCourseCreationEmailMessage'] = '%date
-
-Utworzenie kursu na %sitename przez %user_firstname %user_lastname ( %user_email )
-
+%user_firstname %user_lastname (%user_email) utworzy³(a) kurs na platformie %sitename
 Kod kursu: %course_code
-Tytu³ kursu: %course_title
+Nazwa kursu: %course_title
 Wyk³adowca: %course_lecturers
 E-mail: %course_email
 Kategoria: %course_category
 Jêzyk: %course_language
 URL: %course_url';
 $_lang['blockCourseDescriptionCourseContent'] = 'Zawarto¶æ kursu';
-$_lang['blockCourseDescriptionCourseContentComment1'] = 'Jakie jest znaczenie ró¿nej tre¶ci nauczanej w ramach tego kursu?  Jaki jest poziom trudno¶ci tej tre¶ci?  Jaka jest struktura jednostki?  Jaka bêdzie sekwencja tre¶ci?  Do czego tre¶æ bêdzie prowadziæ?';
-$_lang['blockCourseDescriptionCourseContentComment2'] = 'Prezentacja tre¶ci kursu, struktura tre¶ci, postêpy i harmonogram';
-$_lang['blockCourseDescriptionDescriptionComment1'] = 'Co jest w miejscu i jaka jest specyfika kursu w programie?  Czy wymaga siê wstêpnie ukoñczenia innych kursów?  Jakie s± zwi±zki z innymi kursami?';
-$_lang['blockCourseDescriptionDescriptionComment2'] = 'Informacje pozwalaj±ce identyfikowaæ kurs (inicja³y, tytu³, liczba godzin, praktyki...) i nauczaj±cych  (nazwisko, imiê, biuro, telefon, e-mail, mo¿liwy kontakt). Ogólna prezentacja kursu w programie.';
-$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment1'] = 'Jakie s± dostêpne zasoby fizyczne i ludzkie?  Jaka bêdzie natura szkieletu konstrukcji? Czego mog± oczekiwaæ studenci od grupy lub wyk³adowców?';
-$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment2'] = 'Prezentacja innych wyk³adowców organizuj±cych kurs (asystenci, badacze, ¶ledz±cy postêpy studentów ...), dostêpno¶æ ludzi, budynki i wyposa¿enie lub dostêpne wyposa¿enie komputerowe.';
+$_lang['blockCourseDescriptionCourseContentComment1'] = 'Jakie jest znaczenie ro¿nych tre¶ci nauczanych w ramach tego kursu?  Jaki jest poziom trudno¶ci?  Jaka jest struktura kursu?  Jak wygl±da kolejno¶æ omawiania poszczególnych tre¶ci?  Do czego zdobyta wiedza bêdzie prowadziæ?';
+$_lang['blockCourseDescriptionCourseContentComment2'] = 'Prezentacja tre¶ci kursu, struktura zawarto¶ci, postêpy i harmonogram';
+$_lang['blockCourseDescriptionDescriptionComment1'] = 'Jaka jest dziedzina i specyfika kursu?  Czy ¿eby przyst±piæ do tego kursu wymagane jest ukoñczenie innych kursów?  Jakie s± zwi±zki z innymi kursami?';
+$_lang['blockCourseDescriptionDescriptionComment2'] = 'Informacje pozwalaj±ce identyfikowaæ kurs (inicja³y, tytu³, liczba godzin, praktyki...) i nauczaj±cych  (nazwisko, imiê, biuro, telefon, e-mail, mo¿liwy kontakt). Ogólna prezentacja programu kursu.';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment1'] = 'Jakie s± dostêpne zasoby fizyczne i ludzkie?  Jak wygl±da wyposa¿enie w potrzebne materia³y?  Czego mog± oczekiwaæ studenci od grupy lub od wyk³adowców?';
+$_lang['blockCourseDescriptionHumanAndPhysicalResourcesComment2'] = 'Prezentacja innych wyk³adowców organizuj±cych kurs (asystenci, badacze, ¶ledz±cy postêpy studentów ...), dostêpno¶æ ludzi, budynki i wyposa¿enie oraz dostêpny sprzêt komputerowy.';
 $_lang['blockCourseDescriptionHumanAndPhysicalRessources'] = 'Zasoby fizyczne i ludzkie';
 $_lang['blockCourseDescriptionMethodsOfEvaluation'] = 'Metody oceny';
-$_lang['blockCourseDescriptionMethodsOfEvaluationComment1'] = 'Sprecyzuj szczegó³y odnosz±ce siê do oceniania (pisemne lub ustne egzaminowanie, projekty, prace do wykonania ...), formaln± datê wstêpnej oceny, terminy up³ywu dostarczenia prac z kryteriami oceny, kryteriami wagowymi lub kategoriami kryteriów.';
+$_lang['blockCourseDescriptionMethodsOfEvaluationComment1'] = 'Szczegó³y oceniania (pisemne lub ustne egzaminowanie, projekty, prace do wykonania ...), formaln± datê wstêpnej oceny, terminy dostarczenia prac wraz z kryteriami oceny, wag± kryterów lub ich kategoriami.';
 $_lang['blockCourseDescriptionQualificationsAndGoals'] = 'Kwalifikacje i cele';
-$_lang['blockCourseDescriptionQualificationsAndGoalsComment1'] = 'Jakie s± pomoce naukowe?  Jakie kwalifikacje, mo¿liwo¶ci i wiedza bêd± mogli studenci kontrolowaæ celem mobilizacji na koniec kursu?';
+$_lang['blockCourseDescriptionQualificationsAndGoalsComment1'] = 'Jakie s± cele naukowe? Jakie kwalifikacje, mo¿liwo¶ci i wiedzê bêd± posiadaæ studenci? ';
 $_lang['blockCourseDescriptionQualificationsAndGoalsComment2'] = 'Prezentacja ogólnych i szczególnych celów kursu, do jakich kwalifikacji takie cele bêd± prowadziæ.';
 $_lang['blockCourseDescriptionSupports'] = 'Wsparcie';
 $_lang['blockCourseDescriptionSupportsComment1'] = 'Czy istnieje wsparcie kursu? Jaki typ wsparcia mo¿na otrzymaæ? Otwarty? Zamkniêty?';
-$_lang['blockCourseDescriptionSupportsComment2'] = 'Prezentacja wsparcia kursu. Prezentacja literatury, zbiór dokumentów lub lub literatury uzupe³niaj±cej.';
+$_lang['blockCourseDescriptionSupportsComment2'] = 'Prezentacja wsparcia kursu. Prezentacja literatury, zbiór dokumentów lub literatury uzupe³niaj±cej.';
 $_lang['blockCourseDescriptionTeachingTrainingActivities'] = 'Æwiczenia teoretyczno-praktyczne';
-$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment1'] = 'Jakie metody i jakie dzia³ania bêd± wspieraæ cele zdefiniowane dla kursu? Jaki jest harmonogram dzia³añ?';
-$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment2'] = 'Prezentacja przewidywanych dzia³añ (miarodajne recenzje, oczekiwane uczestnictwo studentów, prace praktyczne, spotkania laboratoryjne, wizyty, zbieranie informacji od podstaw ...)';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment1'] = 'Jakie metody i jakie æwiczenia bêd± wspieraæ cele zdefiniowane dla kursu? Jaki jest harmonogram dzia³añ?';
+$_lang['blockCourseDescriptionTeachingTrainingActivitiesComment2'] = 'Prezentacja przewidywanych dzia³añ (miarodajne recenzje, oczekiwane uczestnictwo studentów, prace praktyczne, spotkania laboratoryjne, wizyty, zbieranie informacji na dany temat ...)';
 $_lang['blockCourseSettingsTip'] = 'Domy¶lnie kurs powinien byæ dostêpny tylko dla zarejestrowanych u¿ytkowników. ¯eby upro¶ciæ rejestracjê nowych u¿ytkowników, mo¿esz otworzyæ kurs tak, ¿eby studenci rejestrowali siê sami, a nastêpnie zamkn±æ kurs, ¿eby unikn±æ wpisywania siê intruzów na listê studentów.';
-$_lang['blockCourseSubscriptionNotification'] = 'Witaj %firstname %lastname,
+$_lang['blockCourseSubscriptionNotification'] = 'Witaj, %firstname %lastname,
 
-Zosta³e¶ zapisany na kurs \'%courseName\'.
-
+Zosta³e¶/-a¶ zapisany/-a na kurs \'%courseName\'.
 Adres kursu to: %coursePath
 
 W przypadku problemów, prosimy o kontakt.
-
-Z powa¿aniem,
-%administratorName
-
---
-Manager: %administratorName
-Tel.: %administratorPhone
-E-mail: %administratorEmail
-';
+Z powa¿aniem,';
 $_lang['blockDefaultLearningPathComment'] = 'To jest tekst wprowadzaj±cy tej ¶cie¿ki nauczania. Aby zmieniæ ten tekst na w³asny, kliknij <b>zmodyfikuj</b> komentarz.';
 $_lang['blockDefaultModuleAddedComment'] = 'To jest dodatkowy tekst wstêpny dotycz±cy modu³u w ¶cie¿ce uczenia siê. ¯eby zast±piæ go swoim w³asnym tekstem, kliknij poni¿ej na <b>modyfikuj</b>.';
 $_lang['blockDefaultModuleComment'] = 'To jest wprowadzaj±cy tekst tego modu³u; pojawi siê w ka¿dej ¶cie¿ce nauczania, która zawiera ten modu³. Celem zmiany na w³asny tekst kliknij poni¿ej na <b>zmodyfikuj</b>.';
@@ -1741,13 +1720,11 @@ $_lang['blockDocumentsHelp'] = '<p>Narzêdzie Dokumenty jest podobne do Menad¿era
 </ul>
 	<h4>Usuwanie dokumentu (lub katalogu)</h4>
 	<ul>
-
   <li>Kliknij <img src=../document/img/delete.gif width=20 height=20>
 	w kolumnie \'Usuñ\'.</li>
 	</ul>
 	<h4>Spowodowaæ, ¿eby dokument (katalog) by³ niewidzialny dla studentów</h4>
 	<ul>
-
   <li>Kliknij <img src=../document/img/visible.gif width=20 height=20>w kolumnie \'Poka¿/ukryj\'.</li>
 	  <li>Dokument (lub katalog) ca³y czas istnieje ale jest niewidoczny dla studentów.</li>
   <li>¯eby przywróciæ jego dostêpno¶æ, kliknij ponownie <img
@@ -1856,7 +1833,7 @@ If you have got a big number of questions, you can also choose to randomly draw 
 The question pool also allows to reuse a same questions into several exercises.<br><br>
 By default, all questions of your course are shown. You can show the questions related to an exercise, by chosing this one in the drop-down menu &quot;Filter&quot;.<br><br>
 Orphan questions are questions that don\'t belong to any exercise.</p>';
-$_lang['blockFeedbackHelp'] = 'Informacja zwrotna jest opcjonalna. To jest w³a¶ciwa wersja zadania. Je¶li nie jest pusta to bêdzie widoczna dla u¿ytkowników zgodnie z konfiguracj± "Przedstaw informacjê zwrotn±".';
+$_lang['blockFeedbackHelp'] = 'Informacja zwrotna jest niewymagana. To jest w³a¶ciwa wersja zadania. Je¶li nie jest pusta to bêdzie widoczna dla u¿ytkowników zgodnie z konfiguracj± "Przedstaw informacjê zwrotn±".';
 $_lang['blockForumsHelp'] = 'Forum dyskusyjne jest asynchronicznym narzêdziem do prowadzenia dyskusji. Podczas gdy e-mail pozwala na jednoznaczny dialog \'jeden do jednego\', Forum umo¿liwia publiczn± dyskusjê. </p>
 <p>Od technicznej strony, studenci potrzebuj± tylko przegl±darki z Claroline Forum. </P>
 <p>Do zarz±dzania Forum nale¿y wybraæ \'Admin\'. Wszystkie wiadomo¶ci w Forach dyskusyjnych s± uporz±dkowane w zestawy i podzbiory nastêpuj±co: </p>
@@ -1876,7 +1853,7 @@ $_lang['blockGroupsHelp'] = '<p><b>Wprowadzenie</b></p>
 	<p>Wype³nianie grup studentami czy to automatyczne, czy rêczne jest mo¿liwe tylko wtedy, gdy studenci s± 	zarejestrowani w kursie (nie nale¿y równocze¶nie rejestrowaæ studentów do kursu i do grup).
 	Lista zarejestrowanych studentów jest dostêpna w \'U¿ytkownicy\'.</p><hr noshade size=1>
 	<p><b>Tworzenie grup</b></p>
-	<p>¯eby utworzyæ now± grupê, kliknij \'Tworzenie nowej grupy (grup)\' i zdecyduj ile grup ma zostaæ utworzonych. 	Maksymalna liczba cz³onków grupy jest opcjonalna, jednak sugerujemy podanie jakiej¶ liczby. Je¶li pole max 	zostanie niewype³nione wielko¶æ grupy zostanie okre¶lona jako nieskoñczona.</p><hr noshade size=1>
+	<p>¯eby utworzyæ now± grupê, kliknij \'Tworzenie nowej grupy (grup)\' i zdecyduj ile grup ma zostaæ utworzonych. 	Maksymalna liczba cz³onków grupy nie jest wymagana, jednak sugerujemy podanie jakiej¶ liczby. Je¶li pole Maks. 	zostanie niewype³nione wielko¶æ grupy zostanie okre¶lona jako nieskoñczona.</p><hr noshade size=1>
 	<p><b>Ustawienia grup</b></p>
 	<p>Mo¿esz ustaliæ ustawienia grup globalnie (dla wszystkich grup).
 	<p><b>Je¶li studenci maj± uprawnienia do samodzielnej rejestracji w grupach:</b></p>
@@ -1891,31 +1868,27 @@ $_lang['blockGroupsHelp'] = '<p><b>Wprowadzenie</b></p>
 	<li><b>Usuñ</b> do usuniêcia grupy.</li></ul>
 	<hr noshade size=1>';
 $_lang['blockHomepageHelp'] = 'Dla wiêkszej wygody, narzêdzia Claroline ju¿ na pocz±tku nie s± puste. Ka¿de narzêdzie zawiera ma³y przyk³ad, który powinien pomóc zrozumieæ, jak to dzia³a. Mo¿na te przyk³ady modyfikowaæ lub usuwaæ.</p><p>Na przyk³ad, na Stronie g³ównej Twojego kursu, jest tekst wprowadzaj±cy w tematykê kursu. Mo¿esz zast±piæ ten tekst swoim tekstem klikaj±c przycisk \'modyfikuj\' a nastêpnie \'Zatwierd¼\'. Wszystkie czynno¶ci s± bardzo proste. We wszystkich narzêdziach obowi±zuje taka sama logika: \'dodawaj\', \'usuwaj\', \'modyfikuj\'. </p>
-<p>Kiedy przystêpujesz do tworzenia serwisu kursu, wiêkszo¶æ narzêdzi jest aktywna. Mo¿na aktywowaæ i dezaktywowaæ poszczególne narzêdzia tak, ¿eby korzystaæ tylko z tych, które s± potrzebne. Deaktywacja powoduje przeniesienie narzêdzia na dó³ Strony g³ównej i powoduje, ¿e jest ona niewidoczna dla studentów. </p><p>Mo¿esz dodawaæ Twoje w³asne strony do Strony g³ównej. Te strony musz± byæ dokumentami HTML (które mog± byæ tworzone w dowolnym edytorze tekstu lub programie do tworzenia stron WWW). U¿yj ³±cza \'Za³aduj stronê i przy³±cz do Strony g³ównej\', ¿eby wys³aæ stronê do serwera. Standardowy nag³ówek Twojego serwisu automatycznie bêdzie po³±czony z nowym dokumentem , tak ¿eby koncentrowaæ siê na zawarto¶ci. Gdyby¶ chcia³ ³±czyæ siê ze Strony domowej z istniej±c± stron± sieci Web (nawet wewn±trz serwera), u¿ywaj \'Dodaj odno¶nik do Strony g³ównej\'. Dodana strona mo¿e byæ aktywowana lub dezaktywowana ale nie usuwana. </p><p>Zanim kurs bêdzie gotowy, przejd¼ do \'Modyfikuj ustawienia kursu\' i zdecyduj o poziomie dostêpu do kursów, który chcesz zastosowaæ. Domy¶lnie Twój kurs powinien byæ ukryty (poniewa¿ w³a¶nie nad nim pracujesz). </p>';
+<p>Kiedy przystêpujesz do tworzenia serwisu kursu, wiêkszo¶æ narzêdzi jest w³±czona. Mo¿na w³±czyæ i wy³±czyæ poszczególne narzêdzia tak, ¿eby korzystaæ tylko z tych, które s± potrzebne. Wy³±czenie powoduje przeniesienie danego narzêdzia na dó³ Strony g³ównej i powoduje, ¿e jest ono niewidoczne dla studentów. </p><p>Mo¿esz dodawaæ Twoje w³asne strony do Strony g³ównej. Te strony musz± byæ dokumentami HTML (które mog± byæ tworzone w dowolnym edytorze tekstu lub programie do tworzenia stron WWW). U¿yj ³±cza \'Za³aduj stronê i przy³±cz do Strony g³ównej\', ¿eby wys³aæ stronê do serwera. Standardowy nag³ówek Twojego serwisu automatycznie bêdzie po³±czony z nowym dokumentem , tak ¿eby koncentrowaæ siê na zawarto¶ci. Gdyby¶ chcia³ ³±czyæ siê ze Strony domowej z istniej±c± stron± sieci Web (nawet wewn±trz serwera), u¿ywaj \'Dodaj odno¶nik do Strony g³ównej\'. Dodana strona mo¿e byæ w³±czona lub wy³±czona ale nie usuwana. </p><p>Zanim kurs bêdzie gotowy, przejd¼ do \'Modyfikuj ustawienia kursu\' i zdecyduj o poziomie dostêpu do kursów, który chcesz zastosowaæ. Domy¶lnie Twój kurs powinien byæ ukryty (poniewa¿ w³a¶nie nad nim pracujesz). </p>';
 $_lang['blockIntroCourse'] = 'Jeste¶ na stronie domowej kursu.<br /><br />Na tej stronie mo¿na:
 <ul>
-<li>aktywowaæ lub deaktywowaæ narzêdzia (kliknij przycisk \'Edytuj listê narzêdzi\' w dole po lewej).</li>
+<li>w³±czyæ lub wy³±czyæ narzêdzia (kliknij przycisk \'Edytuj listê narzêdzi\' w dole po lewej).</li>
 <li>zmieniæ ustawienia lub zobaczyæ statystyki (kliknij odpowiednie odno¶niki na dole).</li>
 </ul>
 Teraz, aby dodaæ tekst wprowadzenia prezentuj±cy Twój kurs studentom kliknij ten przycisk';
 $_lang['blockIntroLearningPath'] = 'U¿yj tego narzêdzia celem dostarczenia Twoim studentom sekwencyjnej ¶cie¿ki pomiêdzy dokumentami, æwiczeniami, stronami HTML, odno¶nikami, ... <br /> <br />. Je¶li chcesz zaprezentowaæ Twoj± ¶cie¿kê nauczania studentom kliknij przycisk poni¿ej <br />';
-$_lang['blockModulePoolHelp'] = 'Ta strona umo¿liwia Ci widok wszystkich modu³ów dostêpnych w tym kursie <br />
+$_lang['blockModulePoolHelp'] = 'Ta strona umo¿liwia Ci przegl±d wszystkich modu³ów dostêpnych w tym kursie <br />
 Ka¿de æwiczenie lub dokument dodane do ¶cie¿ki nauczania pojawi siê równie¿ na tej li¶cie.';
 $_lang['blockRegisterLocalUrl'] = 'URL Twojego kampusu wydaje siê byæ URL lokalnym. Do rejestracji Twojego kampusu na stronie Claroline .net wymagany jest URL dostêpny z sieci<br /><br />
 Sprawd¼ warto¶æ \'adres www\' w konfiguracji swojej Claroline.';
 $_lang['blockRequestCourseManagerStatusMail'] = '%time
-
 ¯±danie statusu twórcy kursu od %firstname %lastname
-
 U¿ytkownik: %user_id
 Nazwisko: %firstname %lastname
 E-mail: %email
 Komentarz: %comment
 URL: %url';
 $_lang['blockRequestUserRevoquationMail'] = '%time
-
 ¯±danie usuniêcia konta od %firstname %lastname
-
 U¿ytkownik: %user_id
 Nazwisko: %firstname %lastname
 E-mail: %email
@@ -1924,7 +1897,7 @@ Has³o: %password
 Komentarz: %comment
 URL: %url';
 $_lang['blockTextZoneHelp'] = 'Ta strefa tekstu jest wy¶wietlana dla ka¿dego u¿ytkownika. Administrator platformy mo¿e zmieniæ jej zawarto¶æ lub j± usun±æ edytuj±c plik <b>%textZoneFile</b>.';
-$_lang['blockUsedInSeveralPath'] = 'To æwiczenie jest u¿ywane w przynajmniej jednej ¶cie¿ce nauczania. Je¶li go skasujesz nie bêdzie d³u¿ej dostêpne w ¶cie¿ce nauczania.';
+$_lang['blockUsedInSeveralPath'] = 'To æwiczenie jest u¿ywane w przynajmniej jednej ¶cie¿ce nauczania. Je¶li je skasujesz nie bêdzie d³u¿ej dostêpne w ¶cie¿ce nauczania.';
 $_lang['blockUsersHelp'] = '<b>Funkcje</b><p>Funkcje w niniejszym rozumieniu nie maj± nic wspólnego z funkcjami uprawnieñ w systemie operacyjnym. Dotycz± odró¿niania poszczególnych osób bior±cych udzia³ w kursie. Mo¿esz modyfikowaæ uprawnienia poszczególnych osób przez klikniêcie \'modyfikuj\' w kolumnie \'Funkcje\' i wpisanie odpowiednio: wyk³adowca, asystent, student, go¶æ, ekspert...</P><hr>
 <b>Uprawnienia administratora</b>
 <p>Uprawnienia administratora odpowiadaj± technicznej autoryzacji w celu modyfikowania zawarto¶ci i organizacji stron kursu. W chwili obecnej mo¿esz wybraæ jedynie miêdzy przyznaniem wszelkich praw administracyjnych i nie przyznaniem ¿adnych.</P>
@@ -1933,7 +1906,7 @@ $_lang['blockUsersHelp'] = '<b>Funkcje</b><p>Funkcje w niniejszym rozumieniu nie
 <p>W nag³ówku stron kursu znajduje siê nazwisko osoby odpowiedzialnej za kurs. Mo¿na to zmieniæ u¿ywaj±c \'Modyfikuj ustawienia kursu\'. Ta modyfikacja nie zmienia danych o u¿ytkownikach kursu. Pole \'Wyk³adowca\' jest zupe³nie niezale¿ne od listy u¿ytkowników.</p><hr>
 <b>Dodawanie u¿ytkownika</b>
 <p>¯eby dodaæ u¿ytkownika do kursu, wype³nij odpowiednie pola i zatwierd¼. Do osób, które zarejestujesz zostan± wys³ne listy e-mail z informacj± o ich Nazwie u¿ytkownika i ha¶le.</p>';
-$_lang['blockWarningRemoveInstallDirectory'] = '<b>Uwaga:</b> Folder zawieraj±cy pliki instalacyjne Claroline (<code>claroline/install/</code>) jest nadal dostêpny z poziomu przegl±darki. Oznacza to, ¿e kto¶ móg³by przeinstalowaæ Claroline i zniszczyæ twoj± poprzedni± instalacjê. Zdecydowanie zalecamy w³±czenie ochrony folderu lub usuniêcie go z serwera.';
+$_lang['blockWarningRemoveInstallDirectory'] = '<b>Uwaga:</b> Folder zawieraj±cy pliki instalacyjne Claroline (<code>claroline/install/</code>) jest nadal dostêpny z poziomu przegl±darki. Oznacza to, ¿e kto¶ móg³by przeinstalowaæ Claroline i zniszczyæ twoj± instalacjê. Zdecydowanie zalecamy w³±czenie ochrony folderu lub usuniêcie go z serwera.';
 $_lang['blockWikiConflictHowTo'] = '<p><strong>Konflikt edycji</strong> : Strona, któr± próbujesz zachowaæ wydaje siê byæ zmieniona od czasu, kiedy j± zmodyfikowa³e¶.<br /><br />
 Co mo¿na zrobiæ?<ul>
 <li>Mo¿na skopiowaæ Twoj± modyfikacjê do edytora tekstu (jak Notatnik), klikn±æ na \'Edytuj ostatni± wersjê\' i spróbowaæ dodaæ Twoje poprawki do nowej wersji strony.</li>
@@ -1956,7 +1929,7 @@ $_lang['blockWikiHelpAdminContent'] = '<h3>Pomoc adminstratora Wiki </h3>
 <dt>Jak u¿ywaæ opcji zarz±dzania kontrol± dostêpu?</dt>
 <dd>Mo¿na ustawiæ prawa dostêpu dla u¿ytkowników poprzez zaznaczenie/odznaczenie kwadracika w sekcji \'Zarz±dzanie kontrol± dostêpu\' w³a¶ciwo¶ci Wiki.
  Mo¿na przyznaæ / zablokowaæ dostêp trzem typom u¿ytkowników:<ul>
-<li><b>Cz³onkom kursu</b> : u¿ytkownikom zapisanym na kurs (z wyj±tkiem zarz±dcy kursu)</li>
+<li><b>Uczestnikom kursu</b> : u¿ytkownikom zapisanym na kurs (z wyj±tkiem prowadz±cego kurs)</li>
 <li><b>Cz³onkom grup</b> (tylko dostêpne wewn±trz grupy) : u¿ytkownikom którzy s± cz³onkami grup (poza korepetytorami)</li>
 <li><b>Innym u¿ytkownikom</b> : anonimowi u¿ytkownicy lub u¿ytkownicy nie bêd±cy cz³onkami kursu</li></ul>
 Dla ka¿dego typu u¿ytkownika mo¿na przyznaæ trzy typy przywilejów Wiki(*) :<ul>
@@ -2021,10 +1994,10 @@ $_lang['click to zoom in'] = 'kliknij by powiêkszyæ';
 $_lang['click to zoom out'] = 'kliknij by pomniejszyæ';
 $_lang['count'] = 'Liczba';
 $_lang['delete failed for module %module'] = 'Usuwanie modu³u %module nie powiod³o siê';
-$_lang['delete succeeded for module %module'] = 'Zakoñczono usuwanie modu³u %module';
+$_lang['delete succeeded for module %module'] = 'Usuniêto modu³ %module';
 $_lang['denotes new items'] = ' oznacza nowe pozycje';
 $_lang['details'] = 'szczegó³y';
-$_lang['differences between version of %1\$s modified by %2\$s and version of %3\$s modified by %4\$s'] = 'ró¿nice pomiêdzy wersj±  %1$s zmodyfikowan± przez %2$s i wersj± of %3$s zmodyfikowan± przez  %4$s';
+$_lang['differences between version of %1$s modified by %2$s and version of %3$s modified by %4$s'] = 'ró¿nice pomiêdzy wersj± %1$s zmodyfikowan± przez %2$s i wersj± %3$s zmodyfikowan± przez %4$s';
 $_lang['dont change case'] = 'nie zmieniaj wIeLkO¶Ci liter';
 $_lang['e.g. <em>History of Literature</em>'] = 'np. <i>Historia Literatury</i>';
 $_lang['email'] = 'e-mail';
@@ -2050,9 +2023,9 @@ $_lang['previous level'] = 'poprzedni poziom';
 $_lang['register'] = 'zarejestruj';
 $_lang['relpath'] = 'adr.wzgl.';
 $_lang['rich'] = 'bogaty';
-$_lang['sampleForumDescription'] = 'Wypróbuj, jak dzia³a Forum';
+$_lang['sampleForumDescription'] = 'Sprawd¼ jak dzia³a Forum';
 $_lang['sampleForumGroupCategory'] = 'Fora grup';
-$_lang['sampleForumMainCategory'] = 'G³ówna';
+$_lang['sampleForumMainCategory'] = 'G³ówne forum';
 $_lang['sampleForumMessage'] = 'Je¶li usuniesz Forum przyk³adowe, skasujesz tak¿e bie¿±c± wiadomo¶æ.';
 $_lang['sampleForumTitle'] = 'Forum przyk³adowe';
 $_lang['sampleForumTopicTitle'] = 'Wiadomo¶æ w Forum';
@@ -2082,9 +2055,528 @@ $_lang['string'] = 'ci±g';
 $_lang['syspath'] = 'adr.sys.';
 $_lang['to'] = 'do';
 $_lang['uncompress zipped (.zip) file on the server'] = 'rozpakuj plik archiwum (.ZIP) na serwerze';
-$_lang['unlimited'] = 'nieograniczony';
+$_lang['unlimited'] = 'bez ograniczeñ';
 $_lang['urlpath'] = 'adr.url';
 $_lang['warning : Installation cannot find the description of the learning path and has set a default comment.  You should change it'] = 'OSTRZE¯ENIE: Instalacja nie potrafi znale¼æ opisu ¶cie¿ki uczenia siê i wstawi³a domy¶lny komentarz. Powiniene¶ to zmieniæ';
 $_lang['warning : Installation cannot find the name of the learning path and has set a default name.  You should change it.'] = 'OSTRZE¯ENIE: Instalacja nie potrafi znale¼æ nazwy ¶cie¿ki uczenia siê i wstawi³a nazwê domy¶ln±.Powiniene¶ to zmieniæ.';
 $_lang['write n-1 times without check if (others) cached files are or not deprecated'] = 'Zapisz n-1 razy bez sprawdzania, czy (inne) pliki pamiêci podrêcznej nie s± przestarza³e';
+$_lang['%addUserClass users added to the class'] = 'liczba u¿ytkowników dodanych do klasy: %addUserClass';
+$_lang['%addUserCourse users added to the course'] = 'liczba u¿ytkowników dodanych do kursu: %addUserCourse';
+$_lang['%firstName %lastName'] = '%firstName %lastName';
+$_lang['%firstname %lastname has not been added !'] = '%firstname %lastname nie zosta³(a) dodany(/a)!';
+$_lang['%nb_user not to add'] = 'nie dodano %nb_user u¿ytkowników';
+$_lang['%newUser users added to the campus'] = 'liczba u¿ytkowników dodanych do kampusu: %newUser';
+$_lang['%x rows'] = 'razem: %x';
+$_lang['(jj/mm/aaaa)'] = '(dd/mm/rrrr)';
+$_lang['Access allowed only to course members (people on the <a href="%url">course user list</a>)'] = 'Dostêp tylko dla cz³onków kursu (osób z <a href=\"%url\">listy u¿ytkowników kursu</a>)';
+$_lang['Access allowed only to course members (people on the course user list)'] = 'Dostêp tylko dla cz³onków kursu (osób z listy u¿ytkowników kursu)';
+$_lang['Access allowed only to course members (people on the user list)'] = 'Dostêp tylko dla cz³onków kursu (osób z listy u¿ytkowników)';
+$_lang['Access allowed only to platform members (user registered to the platform)'] = 'Dostêp tylko dla u¿ytkowników platformy (osób zarejestrowanych na platformie)';
+$_lang['Access allowed to anybody (even without login)'] = 'Dostêp dla wszystkich (nawet bez loginu)';
+$_lang['Access to course'] = 'Dostêp do kursu';
+$_lang['Access to platform'] = 'Dostêp do platformy';
+$_lang['Accounts to merge'] = 'Konta do po³±czenia';
+$_lang['Activate module on install'] = 'W³±cz modu³ przy instalacji';
+$_lang['Activate on course creation'] = 'W³±cz przy tworzeniu kursu';
+$_lang['Add a comment (optional)'] = 'Dodaj komentarz (niewymagane)';
+$_lang['Add additional tools in the SDK section of the platform administration.'] = 'Dodaj dodatkowe narzêdzia do administracji platformy w sekcji SDK.';
+$_lang['Add an image'] = 'Dodaj obraz';
+$_lang['Add external links to your course'] = 'Dodaj odno¶niki zewnêtrzne do swojego kursu';
+$_lang['Add or remove tools'] = 'Dodaj/usuñ narzêdzia';
+$_lang['Add or remove tools from your course'] = 'Dodaj/usuñ narzêdzia w swoim kursie';
+$_lang['Add to course'] = 'Dodaj do kursu';
+$_lang['Administration tools'] = 'Narzêdzia administracyjne';
+$_lang['Alignment'] = 'Wyrównanie';
+$_lang['All (Read or not)'] = 'Wszystkie (przeczytane lub nie)';
+$_lang['All events before %date have been successfully deleted'] = 'Wszystkie wydarzenia przed %date zosta³y usuniête';
+$_lang['All events deleted from the agenda'] = 'Usuniêto wszystkie wydarzenia z terminarza';
+$_lang['All messages'] = 'Wszystkie wiadomo¶ci';
+$_lang['All messages from a user'] = 'Wszystkie wiadomo¶ci (od) wybranego u¿ytkownika';
+$_lang['All messages have been deleted'] = 'Usuniêto wszystkie wiadomo¶ci';
+$_lang['All messages in date interval'] = 'Wszystkie wiadomo¶ci z przedzia³u czasowego';
+$_lang['All messages older than'] = 'Wszystkie wiadomo¶ci starsze ni¿';
+$_lang['All messages older than %date% have been deleted'] = 'Wszystkie wiadomo¶ci starsze od %date% zosta³y usuniête';
+$_lang['All platform messages'] = 'Wszystkie wiadomo¶ci z platformy';
+$_lang['All platform messages have been deleted'] = 'Wszystkie wiadomo¶ci z platformy zosta³y usuniête';
+$_lang['All submissions'] = 'Wszystkie przes³ane pliki';
+$_lang['All user\'s message have been deleted'] = 'Wszystkie wiadomo¶ci u¿ytkownika zosta³y usuniête';
+$_lang['All users of the platform'] = 'Wszyscy u¿ytkownicy platformy';
+$_lang['Allow user to add a picture to their profile'] = 'Pozwól u¿ytkownikom dodawaæ avatary do swoich profili';
+$_lang['Allowed with enrolment key'] = 'Dostêp tylko z kluczem dostêpu';
+$_lang['Also delete module main database'] = 'Usuñ równie¿ g³ówn± bazê modu³u';
+$_lang['An error occurred.  Learning Path import failed.'] = 'Wyst±pi³ b³±d. ¦cie¿ka uczenia siê nie zosta³a zaimporotwana';
+$_lang['An invisible tool will be greyed out on your personal interface.'] = 'Ukryte dla studentów narzêdzia zostan± pokazane na szaro w twoim profilu.';
+$_lang['Are you sur to delete user\'s message?'] = 'Czy na pewno chcesz usun±æ wiadomo¶ci u¿ytkownika?';
+$_lang['Are you sure to delete "%title" ?'] = 'Czy na pewno chcesz usun±æ "%title"?';
+$_lang['Are you sure to delete all messages from this user'] = 'Czy na pewno chcesz usun±æ wszystkie wiadomo¶ci od tego u¿ytkownika?';
+$_lang['Are you sure to delete all messages older than %date?'] = 'Czy na pewno chcesz usun±æ wszystkie wiadomo¶ci starsze ni¿ %date?';
+$_lang['Are you sure to delete all messages?'] = 'Czy na pewno chcesz usun±æ wszystkie wiadomo¶ci?';
+$_lang['Are you sure to delete all platform messages?'] = 'Czy na pewno chcesz usun±æ wszystkie wiadomo¶ci z platformy?';
+$_lang['Are you sure to delete selected message(s) ?'] = 'Czy na pewno usun±æ wybrane wiadomo¶ci?';
+$_lang['Are you sure to delete selected message?'] = 'Czy na pewno chcesz usun±æ wybrane wiadomo¶ci?';
+$_lang['Are you sure to delete the message?'] = 'Czy na pewno chcesz usun±æ wybran± wiadomo¶æ?';
+$_lang['Are you sure to empty trashbox ?'] = 'Czy na pewno opró¿niæ kosz?';
+$_lang['Are you sure you want to delete module %module% ?'] = 'Czy na pewno chcesz usun±æ modu³ %module% ?';
+$_lang['Attach an existing resource'] = 'Dodaj odno¶nik';
+$_lang['Automatic'] = 'Automatyczne';
+$_lang['Available from %startDate until %endDate'] = 'Dostêpne od %startDate do %endDate';
+$_lang['Available images'] = 'Dostêpne obrazki';
+$_lang['Available tools to add to your course'] = 'Narzêdzia dostêpne dla twojego kursu';
+$_lang['Back to inbox'] = 'Powrót do Skrzynki odbiorczej';
+$_lang['Baseline'] = 'Linia bazowa';
+$_lang['Basic information'] = 'Podstawowe informacje';
+$_lang['Border'] = 'Obramowanie';
+$_lang['Bottom'] = 'Dó³';
+$_lang['Cannot add tool to course'] = 'Nie mo¿na dodaæ narzêdzia do kursu';
+$_lang['Cannot be changed'] = 'Nie mo¿na dokonaæ zmian';
+$_lang['Cannot change module activation on course creation'] = 'Nie mo¿na w³±czyæ modu³u podczas tworzenia kursu';
+$_lang['Cannot delete : missing file or directory name'] = 'Nie mo¿na usun±æ: brak folderu lub ¶cie¿ki';
+$_lang['Cannot delete announcement'] = 'Nie mo¿na usun±æ og³oszenia';
+$_lang['Cannot delete announcement list'] = 'Nie mo¿na usun±æ listy og³oszeñ';
+$_lang['Cannot delete user picture'] = 'Nie mo¿na usun±æ avatara';
+$_lang['Cannot find user'] = 'Nie mo¿na znale¼æ u¿ytkownika';
+$_lang['Cannot give manager rights to guest or anonymous users.'] = 'Nie mo¿na przyznaæ praw prowadz±cego kurs go¶ciom lub u¿ytkownikom anonimowym';
+$_lang['Cannot load portlets'] = 'Nie mo¿na za³adowaæ kart portletów';
+$_lang['Cannot merge one user account with itself'] = 'Nie mo¿na po³±czyæ tego samego konta';
+$_lang['Cannot open manifest file'] = 'Nie mo¿na otworzyæ pliku manifestu';
+$_lang['Cannot parse module manifest'] = 'Nie mo¿na zanalizowaæ manifestu modu³u';
+$_lang['Cannot perform the requested action'] = 'Nie mo¿na przeprowadziæ ¿±danej akcji';
+$_lang['Cannot remove tool from course'] = 'Nie mo¿na usun±æ narzêdzia z kursu';
+$_lang['Cannot upload file'] = 'Nie mo¿na za³adowaæ pliku';
+$_lang['Change visibility in all courses'] = 'Zmieñ widoczno¶æ we wszystkich kursach';
+$_lang['Changes have not been applied to the user settings'] = 'Zmiany nie zosta³y zastosowane do ustawieñ u¿ytkownika';
+$_lang['Choose a course'] = 'Wybierz kurs';
+$_lang['Choose a date'] = 'Wybierz datê';
+$_lang['Choose the mode for URL for file download. Warning : Pretty URL mode don\'t work with IIS.'] = 'Wybierz sposób wy¶wietlania adresów URL do ¶ci±gania plików. Uwaga. Proste URL mog± nie dzia³aæ z IIS.';
+$_lang['Chosen date is in the future'] = 'Wybrana data jest w przysz³o¶ci';
+$_lang['Claroline configuration'] = 'Konfiguracja Claroline';
+$_lang['Clear up event list ?'] = 'Czy na pewno wyczy¶ciæ listê wydarzeñ?';
+$_lang['Click on exercise title for more details'] = 'Kliknij tytu³ æwiczenia aby przej¶æ do szczegó³ów';
+$_lang['Click on the month name for tool access details'] = 'Kliknij nazwê miesi±ca aby dotrzeæ do szczegó³ów narzêdzia ';
+$_lang['Communication'] = 'Komunikacja';
+$_lang['Compare 1.8 to 1.9'] = 'Porównaj 1.8 z 1.9';
+$_lang['Compose a message'] = 'Utwórz wiadomo¶æ';
+$_lang['Compress javascript files. This option should be set to off only for debugging.'] = 'Skompresuj pliki javascript. Ta opcja powinna byæ wy³±czona tylko w trybie debugowania.';
+$_lang['Configure the way files are downloaded from the platform'] = 'Wybierz sposób pobierania plików z platformy';
+$_lang['Constrain proportions'] = 'Proporcje ograniczeñ';
+$_lang['Conversion 1.8 to 1.9'] = 'Konwersja 1.8 do 1.9';
+$_lang['Course created : %course_name'] = 'Utworzono kurs: %course_name';
+$_lang['Course creation is allowed on the platform'] = 'W³±cz tworzenie nowych kursów';
+$_lang['Course creation is disabled on the platform'] = 'Tworzenie kursów jest wy³±czone na platformie';
+$_lang['Course creator status for %firstname %lastname'] = 'Status twórcy kursu dla %firstname %lastname';
+$_lang['Course default settings'] = 'Domy¶lne ustawienia kursu';
+$_lang['Course information requirements'] = 'Obowi±zkowe pola kursu';
+$_lang['Course main settings'] = 'G³ówne ustawienia kursu';
+$_lang['Course manager of %course%(%courseCode%)'] = 'Prowadz±cy kurs %course% (%courseCode%)';
+$_lang['Course statistics are now empty'] = 'Statystyki kursu zosta³y wyczyszczone';
+$_lang['Course visibility'] = 'Widoczno¶æ kursu';
+$_lang['Course:'] = 'Kurs:';
+$_lang['Courses : %disk_usage (perhaps with other directories)'] = 'Kursy: %disk_usage (prawdopodobnie z innymi folderami)';
+$_lang['Create fake categories'] = 'Stwórz przyk³adowe kategorie';
+$_lang['Create fake courses'] = 'Stwórz przyk³adowe kursy';
+$_lang['Create fake users'] = 'Stwórz przyk³adowych u¿ytkowników';
+$_lang['Create item into courses tools'] = 'Dodaj element do narzêdzi kursu';
+$_lang['Data checking'] = 'Sprawdzanie danych';
+$_lang['Database uninstallation skipped'] = 'Pominiêto odinstalowywanie bazy danych';
+$_lang['Default course enrolment'] = 'Domy¶lne zapisywanie na kurs';
+$_lang['Default course visibility'] = 'Domy¶lna widoczno¶æ kursu';
+$_lang['Delete all messages'] = 'Usuñ wszystkie wiadomo¶ci';
+$_lang['Delete all user\'s messages'] = 'Usuñ wszystkie wiadomo¶ci u¿ytkowników';
+$_lang['Delete is definitive.  There is no way to get your data back after delete.'] = 'Usuniêcie jest ostatecznie. Nie ma mo¿liwo¶ci odzyskania danych po usuniêciu.';
+$_lang['Delete messages'] = 'Usuñ wiadomo¶ci';
+$_lang['Delete messages older than'] = 'Usuñ wiadomo¶ci starsze ni¿';
+$_lang['Delete picture'] = 'Usuñ avatar';
+$_lang['Delete platform messages'] = 'Usuñ wiadomo¶ci z platformy';
+$_lang['Delete selected message(s)'] = 'Usuñ wybrane wiadomo¶ci';
+$_lang['Denotes required fields'] = 'Pola wymagane';
+$_lang['Description added'] = 'Dodano opis';
+$_lang['Dimensions'] = 'Wymiary';
+$_lang['Directory name'] = 'Nazwa folderu';
+$_lang['Disable this option if you are not using the local Claroline password to identify a user'] = 'Wy³±cz tê opcjê je¶li nie u¿ywasz lokalnego has³a do identyfikacji u¿ytkownika';
+$_lang['Display a link to the lost password form'] = 'Wy¶wietl odno¶nik do formularza zagubionego has³a';
+$_lang['Display all feedbacks'] = 'Wy¶wietl wszystkie informacje zwrotne';
+$_lang['Display of detailed answers is not authorized.'] = 'Wy¶wietlanie szczegó³owych odpowiedzi jest zablokowane.';
+$_lang['Do you really want to delete the "%categoryCode%" category ?'] = 'Czy na pewno chcesz usun±æ kategoriê \"%categoryCode%\"?';
+$_lang['Done'] = 'Wykonano';
+$_lang['Download'] = 'Pobieranie';
+$_lang['Download mechanism'] = 'Mechanizm pobierania';
+$_lang['Downloads'] = 'Pobrania';
+$_lang['Edit <i>%filename</i>'] = 'Edycja <i>%filename</i>';
+$_lang['Edit forum'] = 'Edytuj forum';
+$_lang['Empty manifest'] = 'Opró¿nij manifest';
+$_lang['Empty trashbox'] = 'Opró¿nij kosz';
+$_lang['Empty your trashbox?'] = 'Czy na pewno opró¿niæ kosz?';
+$_lang['Enable Email notification'] = 'W³±cz przypomnienia e-mail';
+$_lang['Enable cache'] = 'W³±cz pamiêæ podrêczn±';
+$_lang['Enable notification of new items'] = 'W³±cz powiadamianie o nowo¶ciach';
+$_lang['Enabling the cache may increase performance'] = 'W³±czenie pamiêci podrêcznej mo¿e polepszyæ wydajno¶æ';
+$_lang['Enrol to %course'] = 'Zapisz na %course';
+$_lang['Error : cannot read RSS feed (Check feed url and if php setting "allow_url_fopen" is turned on).'] = 'B³±d: nie mo¿na odczytaæ kana³u RSS (Sprawd¼ adres URL kana³u i czy ustawienie php "allow_url_fopen" jest w³aczone)';
+$_lang['Error while deleting module files'] = 'B³±d przy usuwaniu plików modu³u';
+$_lang['Error while parsing manifest'] = 'B³±d przy analizowaniu mainfestu';
+$_lang['Exact expression'] = 'Dok³adne wyra¿enie';
+$_lang['Fetch and install module'] = 'Pobierz i zainstaluj modu³';
+$_lang['File'] = 'Plik';
+$_lang['File cannot be moved there'] = 'Nie mo¿na przenie¶æ pliku w to miejsce';
+$_lang['File download failed : %failureMSg%'] = 'Pobieranie pliku nie powiod³o siê: %failureMSg%';
+$_lang['File url mode'] = 'Tryb URL pliku';
+$_lang['Fill in one or more search criteria, select user profile parameters for your course and press \'Search\''] = 'Uzupe³nij jedno lub wiêcej kryteriów wyszukiwania, wybierz parametry profilu u¿ytkownika do swojego kursu naci¶nij \"Wyszukaj\"';
+$_lang['Filling'] = 'Wype³nianie';
+$_lang['First'] = 'Pierwsza';
+$_lang['Go to config'] = 'Przejd¼ do konfiguracji';
+$_lang['Group user courses by categories'] = 'Grupuj u¿ytkowników kursu wg kategorii';
+$_lang['Hidden'] = 'Ukryty';
+$_lang['Horizontal space'] = 'Odstêp poziomy';
+$_lang['Id'] = 'ID';
+$_lang['Id of the user to keep'] = 'ID u¿ytkownika do pozostawienia';
+$_lang['Id of the user to remove'] = 'ID u¿ytkownika do usuniêcia';
+$_lang['If activated course administrator will receive an email every time a submission is made.  Students will receive an email advising them that their work has been marked.'] = 'Je¶li w³±czone, administrator kursu otrzyma list e-mail przy ka¿dym przes³aniu pliku na serwer. Studenci otrzymaj± list e-mail informuj±cy, ¿e ich praca zosta³a oceniona.';
+$_lang['If activated, all the feedbacks will be shown to users; if not, only those corresponding to the selected or correct answers will be displayed'] = 'Je¶li w³±czone, wszystkie informacje zwrotne bêd± pokazywane u¿ytkownikom; je¶li nie, zostan± przekazane tylko te, odnosz±ce siê do wybranych lub poprawnych odpowiedzi.';
+$_lang['If false, other fields are optional'] = 'Je¶li nie w³±czone, pozosta³e pola s± niewymagane';
+$_lang['If the user is existing in the platform, he will be added to the class only if his firstname, 
+                                        lastname and username are similar.'] = 'Je¶li u¿ytkownik ju¿ istnieje, bêdzie dodany do klasy tylko wtedy, gdy jego imiê, 
+                                        nazwisko i login bêd± identyczne.';
+$_lang['If the user is existing in the platform, he will be added to the course only if his firstname, 
+                                        lastname and username are similar.'] = 'Je¶li u¿ytkownik ju¿ istnieje, bêdzie dodany do kursu tylko wtedy, gdy jego imiê, 
+                                        nazwisko i login bêd± identyczne.';
+$_lang['If you are not using the local Claroline password to identify a user, disable this option so the access authentication form will not be available'] = 'Je¶li nie u¿ywasz lokalnego has³a do identyfikacji u¿ytkownika, wy³±cz tê opcjê, ¿eby ukryæ formularz logowania';
+$_lang['Image URL'] = 'URL obrazka';
+$_lang['Image description'] = 'Opis obrazka';
+$_lang['Image is too big : max size %width%x%height%, %size% bytes'] = 'Obrazek jest za du¿y: maks. wymiary to: %width%x%height%, %size% bajtów';
+$_lang['Image manager'] = 'Manager obrazków';
+$_lang['Important'] = 'Wa¿ne';
+$_lang['Imported modules must be compatible with your Claroline version.'] = 'Importowane modu³y musz± byæ kompatybilne z twoj± wersj± Claroline.';
+$_lang['Impossible to promote as a group tutor a student who is already registered in the group'] = 'Nie mo¿na promowaæ studenta do rangi wyk³adowcy grupy, bo jest on ju¿ cz³onkiem grupy.';
+$_lang['In iCal an event has a duration but not in claroline. 3600 seconds = 1 Hour.'] = 'W iCal ka¿de zdarzenie ma okre¶lony czas, inaczej ni¿ w Claroline. 3600 sekund = 1 godzina.';
+$_lang['Inbox'] = 'Skrzynka odbiorcza';
+$_lang['Install this module'] = 'Zainstaluj modu³';
+$_lang['Internal messaging'] = 'Wiadomo¶ci wewnêtrzne';
+$_lang['Internal messaging system'] = 'System wiadomo¶ci wewnêtrznych';
+$_lang['Invalid date'] = 'Nieprawid³owa data';
+$_lang['Invalid file format, use gif, jpg or png'] = 'Nieprawid³owy format pliku, u¿yj .gif, .jpg lub .png';
+$_lang['Invalid section'] = 'Nieprawid³owy wybór';
+$_lang['Javascript compression'] = 'Kompresja javascript';
+$_lang['Last'] = 'Ostatnia';
+$_lang['Last %numberOfMessages messages'] = 'Ostatnie %numberOfMessages wiadomo¶ci';
+$_lang['Last download'] = 'Ostatnie pobranie';
+$_lang['Left'] = 'Lewy';
+$_lang['Loaded extensions'] = 'Za³adowane rozszerzenia';
+$_lang['Mail Notification Failed : You don\'t have any email address defined in your user profile or the defined email address is not valid.'] = 'Nie uda³o siê wys³aæ powiadomienia e-mail: nie masz zdefiniowanego adresu e-mail w swoim profilu, lub adres jest nieprawid³owy.';
+$_lang['Makes TinyMCE 75% smaller and a lot faster to load.'] = 'Sprawia, ¿e TinyMCE bêdzie 75% mniejszy i znacznie szybszy przy ³adowaniu. ';
+$_lang['Manage administrator email notifications'] = 'Powiadomienia e-mail administratora';
+$_lang['Manage external links'] = 'Zarz±dzaj odno¶nikami zewnêtrznymi';
+$_lang['Manage tool access rights'] = 'Zarz±dzaj prawami dostêpu do narzedzi';
+$_lang['Manage user desktop'] = 'Zarz±dzaj pulpitem u¿ytkownika';
+$_lang['Manual'] = 'Rêczne';
+$_lang['Match the exact expression'] = 'Przypasuj do dok³adnego wyra¿enia';
+$_lang['Max announcement number in portlet'] = 'Maksymalna liczba og³oszeñ w portlecie "Ostatnie komunikaty"';
+$_lang['Merge'] = 'Po³±cz';
+$_lang['Merge user accounts'] = '£±czenie kont u¿ytkowników';
+$_lang['Merging user accounts is not a reversible operation so be careful !'] = '£±czenie kont jest operacj± nieodwracaln±. B±d¼ ostro¿ny!';
+$_lang['Merging users will alter the user data and cannot be undone. Are you sure to want to continue ?'] = '£±cznie kont spowoduje zmianê danych u¿ytkownika. Operacji nie mo¿na cofn±æ. Czy na pewno chcesz kontynuowaæ?';
+$_lang['Message not found'] = 'Nie znaleziono wiadomo¶ci';
+$_lang['Messages of %firstName %lastName'] = 'Wiadomo¶ci od %firstName %lastName';
+$_lang['Middle'] = '¦rodek';
+$_lang['Missing parameter : %param%'] = 'Brak parametru: %param%';
+$_lang['Missing tool label'] = 'Brak etykiety narzêdza';
+$_lang['Module %claroLabel registered'] = 'Zarejestrowano modu³ %claroLabel';
+$_lang['Module %label added in dock : %dock'] = 'Dodano modu³ %label do doku: %dock';
+$_lang['Module %label registered as tool'] = 'Modu³ %label zarejestrowany jako narzêdzie';
+$_lang['Module activation at course creation set to AUTOMATIC'] = 'Ustawione Automatyczne w³±czanie modu³u przy tworzeniu kursu';
+$_lang['Module activation at course creation set to MANUAL'] = 'Ustawione Rêczne w³±czanie modu³u przy tworzeniu kursu';
+$_lang['Module activation in courses failed'] = 'W³±czenie modu³u w kursach nie powid³o siê';
+$_lang['Module activation in courses succeeded'] = 'W³±czono modu³ w kursach';
+$_lang['Module catching failed. Check your path'] = 'Przetwarzanie modu³u w pamiêci podrêcznej nie powiod³o siê. Sprawd¼ swoj± ¶cie¿kê';
+$_lang['Module desactivation failed'] = 'W³±czenie modu³u nie powiod³o siê';
+$_lang['Module desactivation succeeded'] = 'Wy³±czono modu³';
+$_lang['Module files deleted'] = 'Usuniêto pliki modu³u';
+$_lang['More active topics'] = 'Najbardziej aktywne tematy';
+$_lang['More information'] = 'Wiêcej informacji';
+$_lang['More read topics'] = 'Najczê¶ciej czytane tematy';
+$_lang['Most recently active topics'] = 'Ostatnio aktywne tematy';
+$_lang['Move <i>%filename</i> to'] = 'Przenie¶ <i>%filename</i> do';
+$_lang['Move to trash'] = 'Usuñ';
+$_lang['Move to trashbox?'] = 'Czy na pewno usun±æ?';
+$_lang['My desktop'] = 'Mój pulpit';
+$_lang['My messages'] = 'Moje wiadomo¶ci';
+$_lang['Never connected'] = 'Nigdy nie pod³±czony/-a';
+$_lang['New Registration allowed'] = 'Rejestracja dozwolona';
+$_lang['New registration denied'] = 'Rejestracja zablokowana';
+$_lang['No event to display'] = 'Brak wydarzeñ';
+$_lang['No message'] = 'Brak wiadomo¶ci';
+$_lang['Not a valid tool'] = 'Narzêdzie niew³a¶ciwe';
+$_lang['Nothing to display'] = 'Brak elementów do wy¶wietlenia';
+$_lang['Notify by email when topics are created'] = 'Powiadamiaj na e-mail o zmianach';
+$_lang['Number of access'] = 'Liczba wej¶æ';
+$_lang['Number of courses by access'] = 'Liczba kursów wg dostêpno¶ci';
+$_lang['Number of courses by enrollment'] = 'Liczba kursów wg zapisów';
+$_lang['Number of exercises per page'] = 'Liczba æwiczeñ na stronie';
+$_lang['Number of message per page'] = 'Liczba wiadomo¶ci na stronie';
+$_lang['OK'] = 'OK';
+$_lang['Official code is'] = 'Kod administracyjny to';
+$_lang['Old password'] = 'Stare has³o';
+$_lang['Old password is wrong'] = 'Stare has³o jest niew³a¶ciwe';
+$_lang['Only not read'] = 'Tylko nieprzeczytane';
+$_lang['Only read'] = 'Tylko przeczytane';
+$_lang['Options for announcements portlet'] = 'Opcje portletu "Ostatnie komunikaty"';
+$_lang['Outbox'] = 'Wys³ane';
+$_lang['PHP configuration'] = 'Konfiguracja PHP';
+$_lang['PHP security information'] = 'Informacje o zabezpieczeniach PHP';
+$_lang['Package on server (zipped or not)'] = 'Pakiet z serwera (spakowany lub nie)';
+$_lang['Package on the net (zip only)'] = 'Pakiet z sieci (tylko spakowany)';
+$_lang['Package on your computer (zip only)'] = 'Pakiet z twojego komputera (tylko spakowany)';
+$_lang['Path'] = '¦cie¿ka';
+$_lang['Path to zip file or package directory on server'] = '¦cie¿ka do pliku ZIP lub folder pakietu na serwerze';
+$_lang['Platform activation'] = 'W³±czenie platformy';
+$_lang['Platform administration'] = 'Administracja platformy';
+$_lang['Platform administrator'] = 'Administrator platformy';
+$_lang['Portlet'] = 'Portlet';
+$_lang['Pretty URL using PATH_INFO (download.php/path/to/file.ext)'] = 'Proste URL za pomoc± PATH_INFO (download.php/sciezka/do/pliku.pdf)';
+$_lang['Quiz end message'] = 'Koñcowa wiadomo¶æ æwiczenia';
+$_lang['RE:'] = 'RE:';
+$_lang['Read'] = 'Przeczytane';
+$_lang['Recipient'] = 'Odbiorca';
+$_lang['Redirect to the file'] = 'Przekieruj do pliku';
+$_lang['Remove from course'] = 'Usuñ z kursu';
+$_lang['Remove this module'] = 'Usuñ modu³';
+$_lang['Reserved to course members'] = 'Zarezerwowany dla cz³onków kursu';
+$_lang['Reserved to platform members'] = 'Zarezerwowany dla u¿ytkowników platformy';
+$_lang['Restore'] = 'Przywróæ';
+$_lang['Revocation of %firstname %lastname'] = 'Usuniêcie %firstname %lastname';
+$_lang['Sample image'] = 'Przyk³adowy obrazek';
+$_lang['Search user to add to your course'] = 'Wyszukaj u¿ytkownika do dodania do twojego kursu';
+$_lang['Select date'] = 'Wybierz datê';
+$_lang['Select interval'] = 'Wybierz przedzia³';
+$_lang['Select the tools you want to make visible for your user.'] = 'Wybierz narzêdzia które maj± byæ widoczne dla u¿ytkowników.';
+$_lang['Select the way Claroline send files to a user.'] = 'Wybierz sposób wysy³ania plików do u¿ytkowników.';
+$_lang['Send'] = 'Wy¶lij';
+$_lang['Send a message'] = 'Wy¶lij wiadomo¶æ';
+$_lang['Send a message to all users'] = 'Prze¶lij wiadomo¶æ do wszystkich u¿ytkowników';
+$_lang['Send a message to group'] = 'Prze¶lij wiadomo¶æ do grupy';
+$_lang['Send a message to the course'] = 'Prze¶lij wiadomo¶æ do uczestników kursu';
+$_lang['Send a message to the user'] = 'Prze¶lij wiadomo¶æ do u¿ytkownika';
+$_lang['Send file using PHP (mask real file location)'] = 'Prze¶lij plik u¿ywaj±c PHP (ukrywanie po³o¿enia pliku)';
+$_lang['Send this announcement by internal message to registered students'] = 'Prze¶lij to og³oszenie jako wiadomo¶æ wewnêtrzn± do zarejestrowanych studentów';
+$_lang['Sender'] = 'Nadawca';
+$_lang['Show'] = 'Poka¿';
+$_lang['Simple'] = 'Proste';
+$_lang['Standard URL using QUERY_STRING (download.php?url=/path/to/file.ext)'] = 'Zwyk³y URL za pomoc± QUERY_STRING (download.php?url=/sciezka/do/pliku.pdf)';
+$_lang['Style'] = 'Styl';
+$_lang['Subject couldn\'t be empty'] = 'Temat nie mo¿e byæ pusty';
+$_lang['Submissions posted or modified after date :'] = 'Pliki przes³ane lub zmodyfikowane po:';
+$_lang['Teachers can register new users to the campus'] = 'Wyk³adowcy mog± zapisywaæ nowych u¿ytkowników kampusu';
+$_lang['Text bottom'] = 'Dó³ tekstu';
+$_lang['Text top'] = 'Góra tekstu';
+$_lang['The course is shown in the courses listing'] = 'Kurs jest widoczny w spisie';
+$_lang['The message in now in your trashbox'] = 'Wiadomo¶æ przeniesiona do kosza';
+$_lang['The message sent but the notification by '] = 'Wiadomo¶æ wys³ano, ale przypomnienie ';
+$_lang[' failed'] = ' nie zosta³o wys³ane';
+$_lang['The user will be created only if all informations are correct.'] = 'U¿ytkownik zostanie stworzony tylko je¶li wszystkie informacje bêd± poprawne.';
+$_lang['There is already an account with this username.'] = 'Istnieje ju¿ konto z tak± nazw± u¿ytkownika';
+$_lang['There is no submission available for download with these settings.'] = 'Brak dostêpnych plików do pobrania zgodnych z wybranymi ustawieniami.';
+$_lang['There is no way to restore deleted messages.'] = 'Nie ma mo¿liwo¶ci odzyskania usuniêtych wiadomo¶ci.';
+$_lang['This account has been disabled, please contact the platform administrator'] = 'Twoje konto zosta³o zablokowane. Skontaktuj siê z administratorem.';
+$_lang['This feature is not ready.'] = 'Ta opcja nie jest jeszcze gotowa.';
+$_lang['This is probably a bad idea to set as hidden'] = 'Lepiej nie ukrywaæ';
+$_lang['Time before really compute data. 86400 seconds = 1 day.'] = 'Czas przed faktycznym obliczeniem danych. 86400 = 1 dzieñ';
+$_lang['Time exceeded'] = 'Przekroczono czas';
+$_lang['Tool added to course'] = 'Narzêdzia dodane do kursu';
+$_lang['Tool removed from course'] = 'Narzêdzie usuniête z kursu';
+$_lang['Tools currently in your course'] = 'Narzêdzia widoczne w twoim kursie';
+$_lang['Top'] = 'Góra';
+$_lang['Translations'] = 'T³umaczenia';
+$_lang['Trashbox'] = 'Kosz';
+$_lang['Trigger debug mode in url'] = 'Uruchom tryb debugowania w URL';
+$_lang['Unable to create database tables for %label%'] = 'Nie mo¿na utworzyæ tabel bazy danych dla %label%';
+$_lang['Unable to delete all events from the agenda'] = 'Nie mo¿na usun±æ wszystkich wydarzeñ z terminarza';
+$_lang['Unknown recipient'] = 'Nieznany odbiorca';
+$_lang['Unnamed module'] = 'Modu³ bez nazwy';
+$_lang['Unnamed path'] = '¦cie¿ka bez nazwy';
+$_lang['Unread'] = 'Nieprzeczytane';
+$_lang['Upload'] = 'Za³aduj';
+$_lang['Upload and Install module'] = 'Za³aduj i zainstaluj modu³';
+$_lang['Uploaded file should be an image'] = 'Przesy³any plik powinien byæ obrazkiem';
+$_lang['Url of package'] = 'Adres URL pakietu';
+$_lang['Use 0 to display all'] = 'Wpisz 0, ¿eby wy¶wietliæ wszystkie';
+$_lang['Use SSL secure connection for login'] = 'U¿yj bezpiecznego po³±czenia SSL do logowania';
+$_lang['Use TinyMCE editor compressor'] = 'Kompresuj edytor TinyMCE';
+$_lang['User access to course'] = 'Dostêp u¿ytkownika do kursu';
+$_lang['User accounts merged'] = 'Po³±czone konta u¿ytkownika';
+$_lang['User picture'] = 'Avatar';
+$_lang['User picture added'] = 'Dodano avatar';
+$_lang['User picture deleted'] = 'Usuniêto avatar';
+$_lang['User profile box'] = 'Pole profilu u¿ytkownika';
+$_lang['User registered in a course having an unexisting (deprecated) status'] = 'U¿ytkownicy zarejestrowani na kurs posiadaj±cy nieistniej±cy (nieaktualny) status';
+$_lang['User to keep not found'] = 'Nie znaleziono u¿ytkownika do pozostawienia';
+$_lang['User to remove not found'] = 'Nie znaleziono u¿ytkownika do usuniêcia';
+$_lang['Users access to course'] = 'Dostêp u¿ytkowników do kursu';
+$_lang['Users access to tools'] = 'Dostêp u¿ytkowników do narzêdzi ';
+$_lang['Users statistics'] = 'Statystyki u¿ytkowników';
+$_lang['Vertical space'] = 'Odstêp pionowy';
+$_lang['View all user\'s posts'] = 'Przegl±daj wszystkie wiadomo¶ci u¿ytkownika';
+$_lang['View forum'] = 'Przegl±daj forum';
+$_lang['View platform statistics'] = 'Przegl±daj statystyki platformy';
+$_lang['View topic'] = 'Przegl±daj w±tek';
+$_lang['Visible in all courses on install <small>(course tool only)</small>'] = 'Widoczne we wszystkich kursach przy instalacji <small>(tylko narzedzia kursu)</small>';
+$_lang['Visible on  each course on install <small>(tool only)</small>'] = 'Widoczne w ka¿dym kursie przy instalacji <small>(tylko narzedzia)</small>';
+$_lang['Visible only to people on the user list'] = 'Kurs jest widoczny tylko dla osób z listy u¿ytkowników';
+$_lang['Warning : chosen date is in the future'] = 'Uwaga: wybrana data znajduje siê w przysz³o¶ci';
+$_lang['Warning: When you delete a message keep in mind that it will be deleted for every user.
+        <br /><br />You cannot retrieve deleted messages!'] = 'Uwaga: Je¶li usuwasz wiadomo¶æ, zostanie ona tak¿e usuniêta u ka¿dego u¿ytkownika.
+        <br /><br />Usuniêtych wiadomo¶ci nie mo¿na odzyskaæ!';
+$_lang['Where is your package ?'] = 'Wska¿ pakiet';
+$_lang['Works uploaded by the student in the name of \'Authors\''] = 'Prace przes³ane przez u¿ytkownika w imieniu autorów';
+$_lang['You also need to configure your web server to allow SSL connections to the auth/login.php script !'] = 'Nale¿y równie¿ skonfigurowaæ serwer aby umo¿liwiæ po³±czenie SSL do skryptu auth/login.php!';
+$_lang['You are not in a course'] = 'Nie jeste¶ zapisany na ten kurs';
+$_lang['You are receiving this notification because you are watching a topic on the forum of one of your courses.'] = 'Otrzyma³e¶/-a¶ t± wiadomo¶æ poniewa¿ obserwujesz w±tek forum na jednym z twoich kursów. ';
+$_lang['You can also change the access rights for the different user profiles.'] = 'Mo¿esz tak¿e zmieniæ prawa dostêpu dla ró¿nych profili.';
+$_lang['You can choose a title and a description for the wiki :'] = 'Mo¿esz wybraæ tytu³ i opis Wiki:';
+$_lang['You cannot add module. Change this in configuration.'] = 'Nie mo¿esz dodaæ modu³u. Mo¿esz to zmieniæ w konfiguracji';
+$_lang['You didnt choose any file to send, or file is too big'] = 'Nie wybrano ¿adnego pliku do przes³ania lub plik jest zbyt du¿y';
+$_lang['You have reached the maximum of %allowedAttempts allowed attempts.'] = 'Osi±gn±³e¶ maksymaln± liczbê dozwolonych prób.';
+$_lang['You must be in a group to send a message to a group'] = 'Musisz nale¿eæ do danej grupy ¿eby wys³aæ wiadomo¶æ do jej cz³onków';
+$_lang['Your account has expired, please contact the platform adminitrator.'] = 'Twoje konto zosta³o zablokowane. Skontaktuj siê z administratorem.';
+$_lang['Your file has been renamed to %filename'] = 'Zmieniono nazwê pliku na %filename';
+$_lang['avatar'] = 'avatar';
+$_lang['blockCourseDescriptionDescription'] = 'Opis';
+$_lang['locked'] = 'zablokowany';
+$_lang['max size %width%x%height%, %size% bytes'] = 'maks. rozmiar %width%x%height%, %size% bajtów';
+$_lang['message id'] = 'ID wiadomo¶ci';
+$_lang['public'] = 'Dostêpnych dla wszystkich (nawet bez loginu)';
+$_lang['platform'] = 'Dostêpnych tylko dla cz³onków platformy (osób zarejestrowanych na platformie)';
+$_lang['private'] = 'Dostêpnych tylko dla cz³onków kursu (osób z listy u¿ytkowników kursu)';
+$_lang['open'] = 'Dozwolone';
+$_lang['close'] = 'Zabronione';
+$_lang['visible'] = 'Kursów widocznych w spisie';
+$_lang['invisible'] = 'Kursów widocznych tylko dla osób z listy u¿ytkowników';
+$_lang['0'] = 'Studentów';
+$_lang['1'] = 'Twórców kursów';
+$_lang['tutor'] = 'wyk³adowca';
+$_lang['unknow recipient type'] = 'nieznany typ odbiorcy';
+$_lang['unknown'] = 'nieznany';
+$_lang['wrote'] = 'napisa³(a)';
+$_lang['characters'] = 'znaków';
+$_lang['users'] = 'u¿ytkowników';
+$_lang['assignments'] = 'zadañ';
+$_lang['pixels'] = 'pikseli';
+$_lang['rows'] = 'rzêdów';
+$_lang['columns'] = 'kolumn';
+$_lang['exercices'] = 'æwiczeñ';
+$_lang['posts'] = 'wiadomo¶ci';
+$_lang['topics'] = 'tematów';
+$_lang['second'] = 'sekund';
+$_lang['seconds'] = 'sekund';
+$_lang['times'] = 'razy';
+$_lang['bytes'] = 'bajtów';
+$_lang['bits'] = 'bitów';
+$_lang['messages'] = 'wiadomo¶ci';
+$_lang['Message list refresh time'] = 'Czas od¶wie¿ania listy rozmowy';
+$_lang['User list refresh time'] = 'Czas od¶wie¿ania listy u¿ytkowników';
+$_lang['Select a date'] = 'Wybierz datê';
+$_lang['Forum Index'] = 'Spis for';
+$_lang['Time to automatically refresh the list of messages in user\'s view. Each refresh is a request to your server.'] = 'Czas do automatycznego od¶wie¿ania listy wiadomo¶ci w widoku u¿ytkownika. Ka¿de od¶wie¿enie jest zapytaniem do serwera.';
+$_lang['Too low value can be hard for your server. Too high value can be hard for user.'] = 'Zbyt niska warto¶æ mo¿e byæ nieodpowiednia dla serwera, zbyt wysoka dla u¿ytkownika.';
+$_lang['Time to automatically refresh the users list in user\'s view. Each refresh is a request to your server.'] = 'Czas do automatycznego od¶wie¿ania list u¿ytkowników w widoku u¿ytkownika. Ka¿de od¶wie¿enie jest zapytaniem do serwera.';
+$_lang['If the name and the firstname are longer than this value, the script reduce it.'] = 'Je¶li nazwa i imiê s± d³u¿sze ni¿ ta warto¶æ, skrypt je skróci.';
+$_lang['For revelance, it\'s interesting to not work with to little value'] = 'Lepiej nie ustawiaæ tutaj zbyt ma³ej warto¶ci.';
+$_lang['Integrity problems'] = 'Problemy ze spójno¶ci±';
+$_lang['missing command'] = 'brak parametrów';
+$_lang['Show/hide logs'] = 'Poka¿/ukryj logi';
+$_lang['Start of this chat session (%connectTime)'] = 'Pocz±tek sesji (%connectTime)';
+$_lang['A new topic has been created on your forum'] = 'Utworzono nowy temat w twoim forum';
+$_lang['%email is not a valid e-mail address.'] = '%email is not a valid e-mail address.nie jest prawid³owym adresem e-mail';
+$_lang['(d/m/y)'] = '(d/m/r)';
+$_lang['Add selected users'] = 'Dodaj wybranych u¿ytkowników';
+$_lang['Advanced settings for administrator'] = 'Zaawansowane ustawienia dla administratora';
+$_lang['All your courses are deactivated (see list below)'] = 'Wszystkie twoje kursy s± nieaktywne (lista poni¿ej)';
+$_lang['Available'] = 'Dostêpny';
+$_lang['CSV file is in the bad format'] = 'Plik CSV ma niew³a¶ciwy format';
+$_lang['Cannot load portlet list'] = 'Nie mo¿na za³adowaæ listy portletów';
+$_lang['Code already exists for an other category'] = 'Ten kod jest ju¿ u¿ywany dla innej kategorii';
+$_lang['Contact your administrator to reactivate it.'] = 'Skontaktuj siê z administratorem, ¿eby go uaktywniæ.';
+$_lang['Course code too long'] = 'Kod kursu jest zbyt d³ugi';
+$_lang['Deactivated course list'] = 'Lista nieaktywnych kursów';
+$_lang['Documents Linker'] = 'Do³±czanie dokumentów';
+$_lang['Email address seems to be duplicate at line %key'] = 'Adresy e-mail dubluj± siê w linii %key';
+$_lang['Empty it'] = 'Opró¿nij';
+$_lang['Equation'] = 'Równanie';
+$_lang['Error : unable to save the questions list'] = 'B³±d: nie mo¿na zapisaæ listy pytañ';
+$_lang['Error: no questions list in memory'] = 'B³±d: brak listy pytañ w pamiêci';
+$_lang['Error: unable to delete this list.'] = 'B³±d: nie mo¿na usunaæ tej listy.';
+$_lang['Error: unable to load exercise'] = 'B³±d: nie mo¿na za³adowaæ æwiczenia';
+$_lang['Error: unable to save this questions list'] = 'B³±d: nie mo¿na zapisaæ tej listy pytañ';
+$_lang['Errors can be ignored to force the import'] = 'B³êdy mog± zostaæ zignorowane by wymusiæ import';
+$_lang['Expiration date needed'] = 'Wymagana data zakoñczenia';
+$_lang['Expired since'] = 'Nieaktywny od';
+$_lang['Invalid email address at line %key'] = 'Niew³a¶ciwy adres e-mail w %key linii';
+$_lang['LaTeX Equation Editor'] = 'Edytor równañ LaTeX';
+$_lang['LaTeX equation  editor'] = 'Edytor równañ LaTeX';
+$_lang['List deleted successfully.'] = 'Usuniêto listê';
+$_lang['List is empty'] = 'Lista jest pusta';
+$_lang['Load a new list'] = 'Za³aduj now± listê';
+$_lang['Load this list'] = 'Za³aduj tê listê';
+$_lang['No data to import'] = 'Brak danych do importu';
+$_lang['Not available'] = 'Niedostêpny';
+$_lang['Publication date must precede expiration date'] = 'Data publikacji musi poprzedzaæ datê zakoñczenia';
+$_lang['Publication date needed'] = 'Wymagana data zakoñczenia';
+$_lang['Question list %id'] = 'Lista pytañ %id';
+$_lang['Questions list saved successfully'] = 'Zapisano listê pytañ';
+$_lang['Reactivable by administrator'] = 'Administrator mo¿e aktywowaæ kurs';
+$_lang['Reactivable by course manager'] = 'Prowadz±cy kurs mo¿e go aktywowaæ';
+$_lang['Reactivate it'] = 'Nieaktywny - aktywuj';
+$_lang['Resources'] = 'Zasoby';
+$_lang['Reuse same shuffle'] = 'U¿yj ponownie tych samych pytañ';
+$_lang['Reuse the same shuffle'] = 'U¿yj ponownie tych samych pytañ';
+$_lang['Save this questions list'] = 'Zapisz tê listê pytañ';
+$_lang['Select users you want to import in the course'] = 'Wybierz u¿ytkoników których chcesz zaimportowaæ do kursu';
+$_lang['Some questions lists are saved in memory. Do you want to load one of them ?'] = 'Niektóre listy pytañ s± zapisane w pamiêci. Czy chcesz za³adowaæ jedn± z nich?';
+$_lang['Spoiler'] = 'Spoiler';
+$_lang['Spoiler Editor'] = 'Edytor spoilerów';
+$_lang['The file %file doesn\'t exist'] = 'Plik %file nie istnieje';
+$_lang['This course has been activated and is now available on this platform'] = 'Kurs zosta³ aktywowany i jest teraz dostêpny';
+$_lang['This course is already activated'] = 'Ten kurs jest ju¿ aktywny';
+$_lang['Unable to add %username in the selected class'] = 'Nie mo¿na dodaæ u¿ytkownika %username do wybranej klasy';
+$_lang['Unable to add user %username in this course'] = 'Nie mo¿na dodaæ u¿ytkownika %username do kursu';
+$_lang['Unable to add user %username in this course, option is disabled in configuration'] = 'Nie mo¿na dodaæ u¿ytkownika %username do kursu, opcja jest wy³±czona w konfiguracji';
+$_lang['Unable to add user in group %groupname'] = 'Nie mo¿na dodaæ u¿ytkownika do grupy %groupname';
+$_lang['Unable to copy file %file in temporary directory'] = 'Nie mo¿na skopiowaæ pliku %file do folderu tymczasowego';
+$_lang['Unable to create frame for document %file.'] = 'Nie mo¿na utworzyæ ramy dla dokumentu %file.';
+$_lang['Unable to create group %groupname'] = 'Nie mo¿na utworzyæ grupy %groupname';
+$_lang['Unable to create user %username'] = 'Nie mo¿na utworzyæ u¿ytkownika %username';
+$_lang['Unable to create user %username, option is disabled in configuration'] = 'Nie mo¿na utworzyæ u¿ytkownika %username, opcja jest wy³±czona w konfiguracji';
+$_lang['Unable to find the user in the csv'] = 'Nie mo¿na odnale¼æ u¿ytkownika w pliku CSV';
+$_lang['Unable to load the selected format'] = 'Nie mo¿na za³adowaæ wybranego formatu';
+$_lang['Unable to reactivate this course'] = 'Nie mo¿na ponownie aktywowaæ kursu';
+$_lang['Unable to read the content of the CSV'] = 'Nie mo¿na odczytaæ zawarto¶ci pliku CSV';
+$_lang['User %username added in course %courseId'] = 'U¿ytkownik %username dodany/-a do kursu %courseId';
+$_lang['User %username added in the selected class'] = 'U¿ytkownik %username dodany/-a do wybranej klasy';
+$_lang['User %username created successfully'] = 'Utworzono u¿ytkownika %username';
+$_lang['User %username not created because it already exists in the database'] = 'Nie dodano u¿ytkownika %username, gdy¿ istnieje ju¿ w bazie';
+$_lang['User ID must be a number at line %key'] = 'ID u¿ytkownika musi byæ cyfr± - linia %key';
+$_lang['User ID seems to be duplicate at line %key'] = 'ID u¿ytkownika dubluj± siê - linia %key';
+$_lang['Username already exists in the database at line %key'] = 'Nazwa u¿ytkownika istnieje ju¿ w bazie - linia %key';
+$_lang['Username is empty at line %key'] = 'Nazwa u¿ytkownika pusta - linia %key';
+$_lang['Username seems to be duplicate at line %key'] = 'Zdublowana nazwa u¿ytkownika w linii %key';
+$_lang['View general forum'] = 'Przegl±daj ogólne forum';
+$_lang['Wiki creation failed'] = 'Nie mo¿na utworzyæ Wiki';
+$_lang['Wiki deletion failed'] = 'Nie mo¿na usun±æ Wiki';
+$_lang['Wiki edition failed'] = 'Nie mo¿na zedytowaæ Wiki';
+$_lang['Will be published on'] = 'Bêdzie dostêpny od';
+$_lang['You are not enrolled to any course on this platform or all your courses are deactivated'] = 'Nie jeste¶ zapisany/-a na ¿aden kurs na tej platformie, lub wszystkie twoje kursy s± nieaktywne.';
+$_lang['You are receiving this notification because you are watching for new topics on the forum of one of your courses.'] = 'Otrzyma³e¶/-a¶ to powaidomienie, poniewa¿ obserwujesz nowe tematy w forum jednego z twoich kursów.';
+$_lang['from'] = 'od';
+$_lang['This is a sample wiki'] = 'To jest przyk³adowe Wiki';
+$_lang['Are you sure to delete all logs ?'] = 'Czy na pewno usun±æ wszystkie logi?';
+$_lang['Loading...'] = '£adowanie...';
+$_lang['NOT ATTEMPTED'] = 'BEZ PRÓBY';
+$_lang['not attempted'] = 'bez próby';
+$_lang['passed'] = 'zaliczone';
+$_lang['failed'] = 'niezaliczone';
+$_lang['completed'] = 'ukoñczone';
+$_lang['browsed'] = 'przegl±dniête';
+$_lang['incomplete'] = 'niepe³ne';
+$_lang['unknown'] = 'nieznane';
+$_lang['(EXPERIMENTAL !!!)'] = '(TESTOWANIE !!!)';
+$_lang['already used'] = 'u¿yto wcze¶niej';
+$_lang['If you can\'t read this message go to: '] = 'Je¶li nie mo¿esz odczytaæ tej wiadomo¶ci, przejd¼ do: '; 
 ?>
