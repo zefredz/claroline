@@ -47,7 +47,7 @@ $docFrame->allowScrolling(true);
 $docFrame->noFrameBorder();
 
 $progressFrame = new ClaroFrame('progress', Url::Contextualize('./cllp.progress.cnr.php'));
-$progressFrame->allowScrolling(true);
+$progressFrame->disableResize(true);
 $progressFrame->noFrameBorder();
 
 

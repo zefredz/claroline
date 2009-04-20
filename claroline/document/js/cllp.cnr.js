@@ -7,8 +7,9 @@ $(document).ready(function() {
     // start timer for session_time
     var d = new Date();
     var startTime = d.getTime(); 
-    var completionThreshold = doGetValue("cmi.completion_threshold");
-    var score_raw = doGetValue("cmi.score.raw");
+    var completionThreshold = parseFloat(doGetValue("cmi.completion_threshold"));
+    var score_raw = parseFloat(doGetValue("cmi.score.raw"));
+    
     if(score_raw)
     {
         doSetValue("cmi.score.raw", score_raw);
@@ -97,7 +98,7 @@ $(document).ready(function() {
         
         // save
         doCommit();
-        doTerminate();
+        //doTerminate();
         
         isTerminated = true;
         
