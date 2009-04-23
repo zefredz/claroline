@@ -468,11 +468,18 @@ class Mysql_ResultSet implements Database_ResultSet
      */
     public function __construct( $result, $mode = self::FETCH_ASSOC )
     {
-        $this->resultSet = $result;
-        $this->mode = $mode;
-        // set to 0 if false;
-        $this->numrows = (int) @mysql_num_rows( $this->resultSet );
-        $this->idx = 0;
+        if ( $result )
+        {
+            $this->resultSet = $result;
+            $this->mode = $mode;
+            // set to 0 if false;
+            $this->numrows = (int) @mysql_num_rows( $this->resultSet );
+            $this->idx = 0;
+        }
+        else
+        {
+            throw new Database_Connection_Exception("Invalid SQL result passed to " . __CLASS__);
+        }
     }
     
     public function __destruct()
@@ -607,7 +614,15 @@ class Mysql_ResultSet implements Database_ResultSet
     public function rewind()
     {
         $this->idx = 0;
-        $this->valid = @mysql_data_seek( $this->resultSet, 0 );
+        
+        if ( $this->numRows() )
+        {
+            $this->valid = @mysql_data_seek( $this->resultSet, 0 );
+        }
+        else
+        {
+            $this->valid = false;
+        }
     }
     
     /**
