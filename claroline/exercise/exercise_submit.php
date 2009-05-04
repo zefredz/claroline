@@ -521,7 +521,7 @@ $out = '';
 $nameTools = $exercise->getTitle();
 
 //-- display properties
-if( trim($exercise->getDescription()) != '' && !( $showResult && !$recordResults)  && ($exercise->getTimeLimit() > $currentTime) )
+if( trim($exercise->getDescription()) != '' || ( !( $showResult && !$recordResults)  && ($exercise->getTimeLimit() > $currentTime) ) )
 {
     $out .= '<blockquote>' . "\n" . claro_parse_user_text($exercise->getDescription()) . "\n" . '</blockquote>' . "\n";
 }

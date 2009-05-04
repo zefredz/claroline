@@ -254,7 +254,8 @@ if( $displayForm )
     $out .= '<form method="post" action="./edit_exercise.php?exId='.$exId.'" >' . "\n\n"
     .    claro_form_relay_context()
     .     '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
-    .     '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />' . "\n";
+    .     '<input type="hidden" name="claroFormId" value="'.uniqid('').'" />' . "\n"
+    ;
     
     $out .= '<fieldset>' . "\n"
     .   '<legend>' . get_lang('Basic information') . '</legend>' . "\n"

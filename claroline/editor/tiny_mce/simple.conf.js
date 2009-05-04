@@ -37,11 +37,19 @@ tinyMCE.init({
     setup : function(ed) {
         // Change Tex code to Tex img
         ed.onBeforeSetContent.add(function(ed, o) {
-            o.content = o.content.replace(/\[tex\](.+?)\[\/tex\]/gi, '<img src="http://localhost/cgi-bin/mimetex.cgi?$1" border="0" align="absmiddle" class="latexFormula" alt="$1" />');
+            o.content = o.content.replace(/\[tex\](.+?)\[\/tex\]/gi, '<img src="'+ mimeTexURL +'?$1" border="0" align="absmiddle" class="latexFormula" alt="$1" />');
         });
         // Change Tex img to Tex code
         ed.onGetContent.add(function(ed, o) {
-            o.content = o.content.replace(/<img.*src="(.+?)\?(.+?)"(.+?)>/gi, '[tex]$2[/tex]');
+            var content = ed.dom.getRoot();
+            var texFormula = $(content).find('img.latexFormula');
+            $.each(texFormula, function() {
+                var src = $(texFormula).attr('src');
+                var src = src.replace(/(.+?)\?(.+?)/gi, '$2');
+                var latexTag = '[tex]' + src + '[/tex]';
+                $(this).replaceWith(latexTag);
+            });
+            $(content).find('img.latexFormula').replaceWith(texFormula);
         });
         // Change Spoiler class to Spoiler code
         ed.onGetContent.add(function(ed, o) {
