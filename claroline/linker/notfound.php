@@ -27,7 +27,7 @@ $toolName = 'File not found';
 require_once get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 echo '<p style="text-align: center;padding-top:1em; padding-left: 1em;">'
-.    '<strong>File ' . striptags($requestedFile) . ' not found !</strong>'
+.    '<strong>File ' . strip_tags($requestedFile) . ' not found !</strong>'
 .    '</p>'
 ;
 
