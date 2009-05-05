@@ -27,7 +27,7 @@ $toolName = 'File not found';
 require_once get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 echo '<p style="text-align: center;padding-top:1em; padding-left: 1em;">'
-.    '<strong>File ' . $requestedFile . ' not found !</strong>'
+.    '<strong>File ' . striptags($requestedFile) . ' not found !</strong>'
 .    '</p>'
 ;
 
@@ -42,7 +42,7 @@ echo '<p style="padding-left: 2em;">'
 .    '<ul>'
 .    '<li>'
 .    '<a href="' . get_module_url('CLDOC') . '/document.php">' . get_lang("Documents and Links") . '</a></li>'
-.    ( (! empty($referer)) ? '<li><a href="' . $referer . '">' .  get_lang('Previous page') . '</a></li>' : '' )
+.    ( (! empty($referer)) ? '<li><a href="' . htmlspecialchars(strip_tags($referer)) . '">' .  get_lang('Previous page') . '</a></li>' : '' )
 .    '</ul>'
 .    '</p>'
 ;
