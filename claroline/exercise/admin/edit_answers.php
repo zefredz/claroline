@@ -2,7 +2,7 @@
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
  * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
@@ -146,24 +146,24 @@ else
 
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), get_module_url('CLQWZ').'/exercise.php' );
 
+$out = '';
 if( !is_null($quId) )     $_SERVER['QUERY_STRING'] = 'exId='.$exId.'&amp;quId='.$quId;
 else                    $_SERVER['QUERY_STRING'] = '';
 
 $nameTools = get_lang('Edit answers');
 
-include(get_path('incRepositorySys').'/claro_init_header.inc.php');
+//include(get_path('incRepositorySys').'/claro_init_header.inc.php');
 
-echo claro_html_tool_title($nameTools);
-
-echo $question->getQuestionHtml();
-
+$out .= claro_html_tool_title($nameTools);
 // dialog box if required
-echo $dialogBox->render();
+$out .= $dialogBox->render();
+$out .= $question->getQuestionHtml();
+$out .= $question->answer->getFormHtml($exId,$askDuplicate);
 
-echo $question->answer->getFormHtml($exId,$askDuplicate);
+$claroline->display->body->appendContent($out);
 
+echo $claroline->display->render();
 
-
-include(get_path('incRepositorySys').'/claro_init_footer.inc.php');
+//include(get_path('incRepositorySys').'/claro_init_footer.inc.php');
 
 ?>
