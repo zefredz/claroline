@@ -215,6 +215,7 @@ Spanish translation :           Xavier Casassas (xcc@mail.ics.co.at)
                                 Oda Begares (begaeres@arch.ucl.ac.be)
                                 Rodrigo Alejandro Parra Soto
                                 Gerardo Albela Gonzalez (galbela@uvigo.es)
+                                Daniel Marimon (danielmf@gmail.com)
 
 Spanish_Latin :                 Carlos Brys (brys@fce.unam.edu.ar)
                                 Mario Augusto Mendez Secaira <mendezsecaira@galileo.edu>
