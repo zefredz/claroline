@@ -255,7 +255,8 @@ function elementData($parser,$data)
                     //  - the metadata title has been set as package title
                     //  - if there was nor title for metadata nor for default organization set 'unnamed path'
                     // If we are here it means we have found the title in organization, this is the best to chose
-                    $manifestData['packageTitle'] = $data;
+                    if (!isset($manifestData['packageTitle'])) $manifestData['packageTitle'] = "";
+                    $manifestData['packageTitle'] .= $data;
                 }
             }
             break;
