@@ -179,7 +179,7 @@ function commentBox($type, $mode)
         $currentComment = claro_sql_query_get_single_value($sql);
 
         // display nothing if this is default comment and not an admin
-        if ( ($currentComment == $defaultTxt) && !$is_allowedToEdit ) return 0;
+        if ( ($currentComment == $defaultTxt) && !$is_allowedToEdit ) return '';
 
         if ( empty($currentComment) )
         {
