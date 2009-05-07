@@ -2,15 +2,12 @@
 $_lang['!!!! size of course repository (include claroline and garbage in old systems)'] = '!!!! size of course repository (include claroline and garbage in old systems)';
 $_lang['%1\$s by %2\$s'] = '%1$s by %2$s';
 $_lang['%1\$s modified on %2\$s by %3\$s'] = '%1$s modified on %2$s by %3$s';
-$_lang['%addUserClass users added to the class'] = '%addUserClass users added to the class';
-$_lang['%addUserCourse users added to the course'] = '%addUserCourse users added to the course';
 $_lang['%chat_filename is now in the document tool. (<em>This file is visible</em>)'] = '%chat_filename is now in the document tool. (<em>This file is visible</em>)';
 $_lang['%date not valid'] = '%date not valid';
 $_lang['%delay ago'] = '%delay ago';
 $_lang['%email is not a valid e-mail address.'] = '%email is not a valid e-mail address.';
 $_lang['%firstName %lastName'] = '%firstName %lastName';
 $_lang['%firstname %lastname has been registered to your course'] = '%firstname %lastname has been registered to your course';
-$_lang['%firstname %lastname has not been added !'] = '%firstname %lastname has not been added !';
 $_lang['%groupQty group(s) has (have) been added'] = '%groupQty group(s) has (have) been added';
 $_lang['%moduleName has been added as module'] = '%moduleName has been added as a module of the course and of this learning path';
 $_lang['%moduleName is already used as a module in this learning path'] = '%moduleName is already used as a module in this learning path';
@@ -26,8 +23,6 @@ $_lang['%nb errors found'] = '%nb errors found';
 $_lang['%nb member(s)'] = '%nb member(s)';
 $_lang['%nb message(s)'] = '%nb message(s)';
 $_lang['%nb student(s)'] = '%nb student(s)';
-$_lang['%nb_user not to add'] = '%nb_user not to add';
-$_lang['%newUser users added to the campus'] = '%newUser users added to the campus';
 $_lang['%number student(s) unregistered from this course'] = '%number student(s) unregistered from this course';
 $_lang['%value should be in enum list of %name'] = '%value should be in enum list of %name';
 $_lang['%value should be in the accepted value list of %name'] = '%value should be in the accepted value list of %name';
@@ -242,7 +237,6 @@ $_lang['Available tools to add to your course'] = 'Available tools to add to you
 $_lang['Average Time'] = 'Average Time';
 $_lang['Average score'] = 'Average score';
 $_lang['Back to administration page'] = 'Back to admin page';
-$_lang['Back to class list'] = 'Back to class list';
 $_lang['Back to class members'] = 'Back to class members';
 $_lang['Back to course list'] = 'Back to course list';
 $_lang['Back to inbox'] = 'Back to inbox';
@@ -578,7 +572,6 @@ $_lang['Display the field official code in form'] = 'Display the field official 
 $_lang['Display the logo of the organisation. (http://www.domain.tld/logo.gif)'] = 'Display the logo of the organisation. (http://www.domain.tld/logo.gif)';
 $_lang['Display the logo of the platform. (http://www.domain.tld/logo.gif)'] = 'Display the logo of the platform. (http://www.domain.tld/logo.gif)';
 $_lang['Do you really want to delete the "%categoryCode%" category ?'] = 'Do you really want to delete the "%categoryCode%" category ?';
-$_lang['Do you want to continue?'] = 'Do you want to continue?';
 $_lang['Dock'] = 'Dock';
 $_lang['Document'] = 'Document';
 $_lang['Document content'] = 'Document content';
@@ -845,12 +838,6 @@ $_lang['If false, other fields are optional'] = 'If false, other fields are opti
 $_lang['If the name and the firstname are longer than this value, the script reduce it.
 For revelance, it\'s interesting to not work with to little value'] = 'If the name and the firstname are longer than this value, the script reduce it.
 For revelance, it\'s interesting to not work with to little value';
-$_lang['If the user is existing in the platform, he will be added to the class only if his firstname, 
-                                        lastname and username are similar.'] = 'If the user is existing in the platform, he will be added to the class only if his firstname, 
-                                        lastname and username are similar.';
-$_lang['If the user is existing in the platform, he will be added to the course only if his firstname, 
-                                        lastname and username are similar.'] = 'If the user is existing in the platform, he will be added to the course only if his firstname, 
-                                        lastname and username are similar.';
 $_lang['If you are not using the local Claroline password to identify a user, disable this option so the access authentication form will not be available'] = 'If you are not using the local Claroline password to identify a user, disable this option so the access authentication form will not be available';
 $_lang['If you do not have the key, please contact the course manager'] = 'If you do not have the key, please contact the course manager';
 $_lang['If you haven\'t a user account yet, use the <a href="%url">the account creation form</a>.'] = 'If you haven\'t a user account yet, use the <a href="%url">the account creation form</a>.';
@@ -1146,7 +1133,6 @@ $_lang['No description given'] = 'No description given';
 $_lang['No dock chosen'] = 'No dock chosen';
 $_lang['No dock selected'] = 'No dock selected';
 $_lang['No error'] = 'No error';
-$_lang['No error in file found.'] = 'No error in file found.';
 $_lang['No event in the agenda'] = 'No event in the agenda';
 $_lang['No event to display'] = 'No event to display';
 $_lang['No file uploaded'] = 'No file uploaded';
@@ -1439,7 +1425,6 @@ $_lang['Search user to add to your course'] = 'Rechercher un utilisateur pour l\
 $_lang['SecondShort'] = 'sec.';
 $_lang['Secondary manifest found in zip file :'] = 'Secondary manifest found in zip file :';
 $_lang['See below the files you can edit from this tool.'] = 'See below the files you can edit from this tool.';
-$_lang['See user list'] = 'See user list';
 $_lang['Select course in'] = 'Select course in ';
 $_lang['Select course in search results'] = 'Select course in search results';
 $_lang['Select date'] = 'Select date';
@@ -1540,7 +1525,6 @@ $_lang['The domain that the cookie is available.  To make the cookie available o
 $_lang['The fields <em>%field_list</em> are compulsory'] = 'The fields <em>%field_list</em> are compulsory';
 $_lang['The file %file doesn\'t exist'] = 'The file %file doesn\'t exist';
 $_lang['The file to upload is not valid.'] = 'The file to upload is not valid.';
-$_lang['The following errors were found'] = 'The following errors were found ';
 $_lang['The information have been modified'] = 'The information have been modified';
 $_lang['The list of questions has been saved'] = 'The list of questions has been saved';
 $_lang['The message in now in your trashbox'] = 'The message in now in your trashbox';
@@ -1560,7 +1544,6 @@ $_lang['The user has been enroled to the course'] = 'The user has been enrolled 
 $_lang['The user has been successfully unregistered'] = 'The user has been successfully unregistered';
 $_lang['The user has been successfully unregistered from course'] = 'The user has been successfully unregistered from course';
 $_lang['The user is already enroled in this course'] = 'The user is already enrolled in this course';
-$_lang['The user will be created only if all informations are correct.'] = 'The user will be created only if all informations are correct.';
 $_lang['The username is case sensitive'] = 'The username is case sensitive';
 $_lang['The zip file can not contain .PHP files'] = 'The zip file can not contain .PHP files';
 $_lang['Theme'] = 'Theme';
@@ -1920,7 +1903,6 @@ $_lang['You must be in a group to send a message to a group'] = 'You must be in 
 $_lang['You must introduce the message text'] = 'You must introduce the message text.';
 $_lang['You must reach the maximum number of allowed attempts to view these statistics.'] = 'You must reach the maximum number of allowed attempts to view these statistics.';
 $_lang['You must select a file'] = 'You must select a file';
-$_lang['You must select a text file'] = 'You must select a text file';
 $_lang['You must select some users'] = 'You must select some users.';
 $_lang['You must specify the CSV format used in your file'] = 'You must specify the CSV format used in your file';
 $_lang['You must upload a zip file'] = 'You must upload a zip file';

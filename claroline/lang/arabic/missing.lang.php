@@ -1,13 +1,10 @@
 <?php 
-$_lang['%addUserClass users added to the class'] = '%addUserClass users added to the class';
-$_lang['%addUserCourse users added to the course'] = '%addUserCourse users added to the course';
 $_lang['%chat_filename is now in the document tool. (<em>This file is visible</em>)'] = '%chat_filename is now in the document tool. (<em>This file is visible</em>)';
 $_lang['%date not valid'] = '%date not valid';
 $_lang['%delay ago'] = '%delay ago';
 $_lang['%email is not a valid e-mail address.'] = '%email is not a valid e-mail address.';
 $_lang['%firstName %lastName'] = '%firstName %lastName';
 $_lang['%firstname %lastname has been registered to your course'] = '%firstname %lastname has been registered to your course';
-$_lang['%firstname %lastname has not been added !'] = '%firstname %lastname has not been added !';
 $_lang['%groupQty group(s) has (have) been added'] = '%groupQty group(s) has (have) been added';
 $_lang['%moduleName has been added as module'] = '%moduleName has been added as a module of the course and of this learning path';
 $_lang['%moduleName is already used as a module in this learning path'] = '%moduleName is already used as a module in this learning path';
@@ -23,8 +20,6 @@ $_lang['%nb errors found'] = '%nb errors found';
 $_lang['%nb member(s)'] = '%nb member(s)';
 $_lang['%nb message(s)'] = '%nb message(s)';
 $_lang['%nb student(s)'] = '%nb student(s)';
-$_lang['%nb_user not to add'] = '%nb_user not to add';
-$_lang['%newUser users added to the campus'] = '%newUser users added to the campus';
 $_lang['%number student(s) unregistered from this course'] = '%number student(s) unregistered from this course';
 $_lang['%value should be in enum list of %name'] = '%value should be in enum list of %name';
 $_lang['%value should be in the accepted value list of %name'] = '%value should be in the accepted value list of %name';
@@ -479,12 +474,6 @@ $_lang['If false, other fields are optional'] = 'If false, other fields are opti
 $_lang['If the name and the firstname are longer than this value, the script reduce it.
 For revelance, it\'s interesting to not work with to little value'] = 'If the name and the firstname are longer than this value, the script reduce it.
 For revelance, it\'s interesting to not work with to little value';
-$_lang['If the user is existing in the platform, he will be added to the class only if his firstname, 
-                                        lastname and username are similar.'] = 'If the user is existing in the platform, he will be added to the class only if his firstname, 
-                                        lastname and username are similar.';
-$_lang['If the user is existing in the platform, he will be added to the course only if his firstname, 
-                                        lastname and username are similar.'] = 'If the user is existing in the platform, he will be added to the course only if his firstname, 
-                                        lastname and username are similar.';
 $_lang['If you are not using the local Claroline password to identify a user, disable this option so the access authentication form will not be available'] = 'If you are not using the local Claroline password to identify a user, disable this option so the access authentication form will not be available';
 $_lang['If you do not have the key, please contact the course manager'] = 'If you do not have the key, please contact the course manager';
 $_lang['If you haven\'t a user account yet, use the <a href="%url">the account creation form</a>.'] = 'If you haven\'t a user account yet, use the <a href="%url">the account creation form</a>.';
@@ -896,7 +885,6 @@ $_lang['The name of the cookie. By default the name is "clarolineSsoCookie"'] = 
 $_lang['The path on the server in which the cookie will be available on.  If set to "/", the cookie will be available within the entire domain. If set to "/foo/", the cookie will only be available within the /foo/ directory and all sub-directories such as /f'] = 'The path on the server in which the cookie will be available on.  If set to "/", the cookie will be available within the entire domain. If set to "/foo/", the cookie will only be available within the /foo/ directory and all sub-directories such as /foo/bar/ of domain. The default value is the current directory that the cookie is being set in.';
 $_lang['The requested file <strong>%file</strong> was not found on the platform.'] = 'The requested file <strong>%file</strong> was not found on the platform.';
 $_lang['The system is unable to send you an e-mail.'] = 'The system is unable to send you an e-mail.';
-$_lang['The user will be created only if all informations are correct.'] = 'The user will be created only if all informations are correct.';
 $_lang['The username is case sensitive'] = 'The username is case sensitive';
 $_lang['Theme'] = 'Theme';
 $_lang['Themes'] = 'Themes';

@@ -1,11 +1,6 @@
 <?php 
-$_lang['%addUserClass users added to the class'] = '%addUserClass users added to the class';
-$_lang['%addUserCourse users added to the course'] = '%addUserCourse users added to the course';
 $_lang['%email is not a valid e-mail address.'] = '%email is not a valid e-mail address.';
 $_lang['%firstName %lastName'] = '%firstName %lastName';
-$_lang['%firstname %lastname has not been added !'] = '%firstname %lastname has not been added !';
-$_lang['%nb_user not to add'] = '%nb_user not to add';
-$_lang['%newUser users added to the campus'] = '%newUser users added to the campus';
 $_lang['%x rows'] = '%x rows';
 $_lang['&#91;British people&#93; live in &#91;United Kingdom&#93;.'] = '[British people] live in [United Kingdom].';
 $_lang['(d/m/y)'] = '(d/m/y)';
@@ -235,12 +230,6 @@ $_lang['If false, other fields are optional'] = 'If false, other fields are opti
 $_lang['If the name and the firstname are longer than this value, the script reduce it.
 For revelance, it\'s interesting to not work with to little value'] = 'If the name and the firstname are longer than this value, the script reduce it.
 For revelance, it\'s interesting to not work with to little value';
-$_lang['If the user is existing in the platform, he will be added to the class only if his firstname, 
-                                        lastname and username are similar.'] = 'If the user is existing in the platform, he will be added to the class only if his firstname, 
-                                        lastname and username are similar.';
-$_lang['If the user is existing in the platform, he will be added to the course only if his firstname, 
-                                        lastname and username are similar.'] = 'If the user is existing in the platform, he will be added to the course only if his firstname, 
-                                        lastname and username are similar.';
 $_lang['If you are not using the local Claroline password to identify a user, disable this option so the access authentication form will not be available'] = 'If you are not using the local Claroline password to identify a user, disable this option so the access authentication form will not be available';
 $_lang['If you do not have the key, please contact the course manager'] = 'If you do not have the key, please contact the course manager';
 $_lang['If you haven\'t a user account yet, use the <a href="%url">the account creation form</a>.'] = 'If you haven\'t a user account yet, use the <a href="%url">the account creation form</a>.';
@@ -455,7 +444,6 @@ $_lang['The message in now in your trashbox'] = 'The message in now in your tras
 $_lang['The message sent but the notification by'] = 'The message sent but the notification by';
 $_lang['The module has been removed from this dock'] = 'The module has been removed from this dock';
 $_lang['The path on the server in which the cookie will be available on.  If set to "/", the cookie will be available within the entire domain. If set to "/foo/", the cookie will only be available within the /foo/ directory and all sub-directories such as /f'] = 'The path on the server in which the cookie will be available on.  If set to "/", the cookie will be available within the entire domain. If set to "/foo/", the cookie will only be available within the /foo/ directory and all sub-directories such as /foo/bar/ of domain. The default value is the current directory that the cookie is being set in.';
-$_lang['The user will be created only if all informations are correct.'] = 'The user will be created only if all informations are correct.';
 $_lang['The username is case sensitive'] = 'The username is case sensitive';
 $_lang['There is already an account with this username.'] = 'There is already an account with this username.';
 $_lang['There is no submission available for download with these settings.'] = 'There is no submission available for download with these settings.';

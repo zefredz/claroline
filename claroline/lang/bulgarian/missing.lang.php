@@ -34,12 +34,6 @@ $_lang['If activated, all the feedbacks will be shown to users; if not, only tho
 $_lang['If the name and the firstname are longer than this value, the script reduce it.
 For revelance, it\'s interesting to not work with to little value'] = 'If the name and the firstname are longer than this value, the script reduce it.
 For revelance, it\'s interesting to not work with to little value';
-$_lang['If the user is existing in the platform, he will be added to the class only if his firstname, 
-                                        lastname and username are similar.'] = 'If the user is existing in the platform, he will be added to the class only if his firstname, 
-                                        lastname and username are similar.';
-$_lang['If the user is existing in the platform, he will be added to the course only if his firstname, 
-                                        lastname and username are similar.'] = 'If the user is existing in the platform, he will be added to the course only if his firstname, 
-                                        lastname and username are similar.';
 $_lang['If you are not using the local Claroline password to identify a user, disable this option so the access authentication form will not be available'] = 'If you are not using the local Claroline password to identify a user, disable this option so the access authentication form will not be available';
 $_lang['Imported modules must be compatible with your Claroline version.'] = 'Imported modules must be compatible with your Claroline version.';
 $_lang['In iCal an event has a duration but not in claroline. 3600 seconds = 1 Hour.'] = 'In iCal an event has a duration but not in claroline. 3600 seconds = 1 Hour.';

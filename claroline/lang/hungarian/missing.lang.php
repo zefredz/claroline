@@ -1,11 +1,6 @@
 <?php 
-$_lang['%addUserClass users added to the class'] = '%addUserClass users added to the class';
-$_lang['%addUserCourse users added to the course'] = '%addUserCourse users added to the course';
 $_lang['%email is not a valid e-mail address.'] = '%email is not a valid e-mail address.';
 $_lang['%firstName %lastName'] = '%firstName %lastName';
-$_lang['%firstname %lastname has not been added !'] = '%firstname %lastname has not been added !';
-$_lang['%nb_user not to add'] = '%nb_user not to add';
-$_lang['%newUser users added to the campus'] = '%newUser users added to the campus';
 $_lang['%x rows'] = '%x rows';
 $_lang['(d/m/y)'] = '(d/m/y)';
 $_lang['(jj/mm/aaaa)'] = '(jj/mm/aaaa)';
@@ -199,12 +194,6 @@ $_lang['Id of the user to remove'] = 'Id of the user to remove';
 $_lang['If activated course administrator will receive an email every time a submission is made.  Students will receive an email advising them that their work has been marked.'] = 'If activated course administrator will receive an email every time a submission is made.  Students will receive an email advising them that their work has been marked.';
 $_lang['If activated, all the feedbacks will be shown to users; if not, only those corresponding to the selected or correct answers will be displayed'] = 'If activated, all the feedbacks will be shown to users; if not, only those corresponding to the selected and correct answers will be displayed.';
 $_lang['If false, other fields are optional'] = 'If false, other fields are optional';
-$_lang['If the user is existing in the platform, he will be added to the class only if his firstname, 
-                                        lastname and username are similar.'] = 'If the user is existing in the platform, he will be added to the class only if his firstname, 
-                                        lastname and username are similar.';
-$_lang['If the user is existing in the platform, he will be added to the course only if his firstname, 
-                                        lastname and username are similar.'] = 'If the user is existing in the platform, he will be added to the course only if his firstname, 
-                                        lastname and username are similar.';
 $_lang['If you are not using the local Claroline password to identify a user, disable this option so the access authentication form will not be available'] = 'If you are not using the local Claroline password to identify a user, disable this option so the access authentication form will not be available';
 $_lang['Image URL'] = 'Image URL';
 $_lang['Image description'] = 'Image description';
@@ -361,7 +350,6 @@ $_lang['The file %file doesn\'t exist'] = 'The file %file doesn\'t exist';
 $_lang['The list of questions has been saved'] = 'The list of questions has been saved';
 $_lang['The message in now in your trashbox'] = 'The message in now in your trashbox';
 $_lang['The message sent but the notification by'] = 'The message sent but the notification by';
-$_lang['The user will be created only if all informations are correct.'] = 'The user will be created only if all informations are correct.';
 $_lang['There is already an account with this username.'] = 'There is already an account with this username.';
 $_lang['There is no submission available for download with these settings.'] = 'There is no submission available for download with these settings.';
 $_lang['There is no way to restore deleted messages.'] = 'There is no way to restore deleted messages.';
