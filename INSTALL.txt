@@ -1,5 +1,5 @@
 *****************************************************
-        CLAROLINE 1.9 RC5
+                CLAROLINE 1.9
 *****************************************************
 
 Thank you for downloading Claroline 1.9. This text will guide you
@@ -168,7 +168,8 @@ please ask your hosting provider for advice.
    Windows : unzip 'claroline19x.zip'
 
 
-3. Replace your previous Claroline directory and index.php by the new one.
+3. Replace your previous claroline directory and index.php by the new one. Copy
+the web directory to your old Claroline.
 
         WARNING ! Don't delete the previous directory before
         installing the new one. You will loose your previous
@@ -176,6 +177,7 @@ please ask your hosting provider for advice.
         replace the old directory with a new one with a 'copy'
         command. That way, the new file versions will overwrite the
         old ones and leave the others intact.
+        
         Configuration files are located in /platform/conf/
 
 4. Open Web Browser and go to
