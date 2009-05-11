@@ -121,7 +121,7 @@ NEW CLAROLINE INSTALLATION
    
    You can change the access rights from the command line under UNIX or Linux :
     chmod ugo+w claroline19x/
-    chmod ugo+w claroline19x/platform
+    chmod -R ugo+w claroline19x/platform
     chmod -R ugo+w claroline19x/module
 
 4. Open Web Browser and go to
@@ -152,7 +152,7 @@ The upgrade works only from Claroline 1.5.x, 1.6.x, 1.7.x. and 1.8.x.
 Older Claroline versions should upgrade first to Claroline 1.5.x before
 upgrade to Claroline 1.9.x
 
-Before upgrading we heavily recommend you do a full backup of the previous
+Before upgrading we heavily recommend you do A FULL BACKUP of the previous
 Claroline directories and databases. If you are unsure how to achieve this
 please ask your hosting provider for advice.
 
@@ -168,11 +168,15 @@ please ask your hosting provider for advice.
    Windows : unzip 'claroline19x.zip'
 
 
-3. Replace your previous claroline directory and index.php by the new one. Copy
-the web directory to your old Claroline.
+3. Replace your previous claroline directory and index.php by the new ones.
+Copy the web directory to your old Claroline.
 
-        WARNING ! Don't delete the previous directory before
-        installing the new one. You will loose your previous
+If you do not have a module directory in your old Claroline, you can copy the
+one provided in the archive. If you already have a module directory, you can
+copy the new CLCHAT module to this directory.
+
+        WARNING ! Don't delete the previous directories and files before
+        installing the new ones. You will loose your previous
         configuration files (eg 'claro_main.conf.php'). Simply
         replace the old directory with a new one with a 'copy'
         command. That way, the new file versions will overwrite the
@@ -210,5 +214,6 @@ To access the Claroline administration section, open browser
 and go to http://www.mydomain.org/mysite/claroline/admin/
 
 ==========================================================================
-        Europe, Belgium, Louvain-la-Neuve - $Date$
+        Europe, Belgium, Louvain-la-Neuve
+        $Date$
 ================================== END ===================================
