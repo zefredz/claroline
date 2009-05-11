@@ -245,6 +245,8 @@ The Digital Security Research Group [DSecRG] <http://www.dsec.ru>
 
 Fernando Munoz on the Claroline.net forum
 
+Gerendi Sandor Attila <http://gsasec.blogspot.com/>
+
 =========================================================================
         Europe, Belgium, Louvain-la-Neuve - $Date$
 ================================== END ===================================
