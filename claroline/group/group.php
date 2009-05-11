@@ -454,8 +454,8 @@ if (DISP_GROUP_LIST == $display )
     $offset       = isset($_REQUEST['offset']) ? $_REQUEST['offset'] : 0 ;
     $groupPager = new claro_sql_pager($sql, $offset,20);
 
-    $sortKey = isset($_GET['sort']) ? $_GET['sort'] : 'name';
-    $sortDir = isset($_GET['dir' ]) ? $_GET['dir' ] : SORT_ASC;
+    $sortKey = isset($_GET['sort']) && in_array($_GET['sort'],array('nbMember','name','maxStudent')) ? $_GET['sort'] : 'name';
+    $sortDir = isset($_GET['dir' ]) && $_GET['dir'] == SORT_DESC ? SORT_DESC : SORT_ASC;
 
     $groupPager->add_sort_key($sortKey, $sortDir);
 
