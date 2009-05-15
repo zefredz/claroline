@@ -253,26 +253,26 @@ $interbredcrump[]= array ('url' => './work.php', 'name' => get_lang('Assignments
 $interbredcrump[]= array ('url' => './workList.php?assigId=' . $assignmentId, 'name' => get_lang('Assignment'));
 $nameTools = get_lang('Feedback');
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+//include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
+$out .= claro_html_tool_title($nameTools);
 
-echo claro_html_tool_title($nameTools);
-
-echo $dialogBox->render();
+$out .= $dialogBox->render();
 
 /**
  * FEEDBACK FORM
  */
 if( isset($displayFeedbackForm) && $displayFeedbackForm )
 {
-    echo '<form method="post" action="' . $_SERVER['PHP_SELF'] . '" enctype="multipart/form-data">' . "\n"
+    $out .= '<form method="post" action="' . $_SERVER['PHP_SELF'] . '" enctype="multipart/form-data">' . "\n"
     .    '<input type="hidden" name="cmd" value="exEditFeedback" />' . "\n"
     ;
 
     if( isset($assignmentId) )
     {
-        echo '<input type="hidden" name="assigId" value="' . $assignmentId . '" />' . "\n";
+        $out .= '<input type="hidden" name="assigId" value="' . $assignmentId . '" />' . "\n";
     }
-    echo '<table cellpadding="5" width="100%">' . "\n\n"
+    $out .= '<table cellpadding="5" width="100%">' . "\n\n"
     .    '<tr>' . "\n"
     .    '<td valign="top" colspan="2">' . "\n"
     .    '<p>' . "\n"
@@ -299,7 +299,7 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
         $target = ( get_conf('open_submitted_file_in_new_window') ? 'target="_blank"' : '');
         $completeFileUrl = $assignment->getAssigDirWeb() . $form['autoFeedbackFilename'];
 
-        echo '<tr>' . "\n"
+        $out .= '<tr>' . "\n"
         .    '<td valign="top">'
         .    get_lang('Current feedback file')
 
@@ -319,7 +319,7 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
         ;
     }
 
-    echo '<tr>' . "\n"
+    $out .= '<tr>' . "\n"
     .    '<td valign="top">' . "\n"
     .    '<label for="autoFeedbackFilename">' . "\n"
     .    get_lang('Feedback file')
@@ -365,5 +365,10 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
 }
 
 // FOOTER
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+//include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
+
 ?>

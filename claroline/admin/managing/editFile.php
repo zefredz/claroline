@@ -128,20 +128,20 @@ $nameTools = get_lang('Edit text zones');
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 $noQUERY_STRING = true;
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-
+//include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 //display titles
 
 $titles = array('mainTitle'=>$nameTools);
 if (isset($subtitle)) $titles['subTitle'] = $subtitle;
 
-echo claro_html_tool_title($titles)
+$out .= claro_html_tool_title($titles)
 .    claro_html_msg_list($controlMsg,1)
 ;
 
 if ( $display == DISP_EDIT_FILE )
 {
-    echo '<h4>' . basename($textZoneList[$fileId]['filename']) . '</h4>'
+    $out .= '<h4>' . basename($textZoneList[$fileId]['filename']) . '</h4>'
     .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
     .    '<input type="hidden" name="file" value="' . htmlspecialchars($fileId) . '" />' . "\n"
     .    '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
@@ -154,7 +154,7 @@ if ( $display == DISP_EDIT_FILE )
 }
 elseif( $display == DISP_VIEW_FILE )
 {
-    echo '<br />'
+    $out .= '<br />'
     .    '<h4>' . basename($textZoneList[$fileId]['filename']) . '</h4>'
     .    $textContent
     .    '<br />'
@@ -164,7 +164,7 @@ elseif( $display == DISP_VIEW_FILE )
 
 if( $display == DISP_FILE_LIST || $display == DISP_EDIT_FILE || $display == DISP_VIEW_FILE )
 {
-   echo '<p>'
+   $out .= '<p>'
    .    get_lang('Here you can modify the content of the text zones displayed on the platform home page.')
    .    '<br />'
    .    get_lang('See below the files you can edit from this tool.')
@@ -179,7 +179,7 @@ if( $display == DISP_FILE_LIST || $display == DISP_EDIT_FILE || $display == DISP
 
     foreach ( $textZoneList as $idFile => $textZone )
     {
-        echo '<tr>' . "\n"
+        $out .= '<tr>' . "\n"
         .    '<td >' . ( array_key_exists('desc', $textZone)
                        ? $textZone['desc'] : ''). '</td>' . "\n"
         .    '<td align="center">' . "\n"
@@ -196,11 +196,15 @@ if( $display == DISP_FILE_LIST || $display == DISP_EDIT_FILE || $display == DISP
         ;
     }
 
-    echo '</table>' . "\n"
+    $out .= '</table>' . "\n"
     .    '<br />' . "\n"
     ;
 
 }
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
+
+//include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>

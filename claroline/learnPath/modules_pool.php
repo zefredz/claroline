@@ -75,13 +75,13 @@ require_once(get_path('incRepositorySys')."/lib/learnPath.lib.inc.php");
   ======================================*/
 
 //header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-
+//include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 // display title
-echo claro_html_tool_title($nameTools);
+$out .= claro_html_tool_title($nameTools);
 
 // display use explication text
-echo get_block('blockModulePoolHelp')."<br /><br />";
+$out .= get_block('blockModulePoolHelp')."<br /><br />";
 
 // HANDLE COMMANDS:
 $cmd = ( isset($_REQUEST['cmd']) )? $_REQUEST['cmd'] : '';
@@ -151,7 +151,7 @@ switch( $cmd )
                  WHERE `module_id` = '". (int)$_REQUEST['module_id']."'";
         $result = claro_sql_query($query);
         $list = mysql_fetch_array($result);
-        echo "\n"
+        $out .= "\n"
         .     '<form method="post" name="rename" action="'.$_SERVER['PHP_SELF'].'">' . "\n"
         .    claro_form_relay_context()
         .     '<label for="newName">'.get_lang('Insert new name').'</label> :' . "\n"
@@ -186,14 +186,14 @@ switch( $cmd )
             }
             else
             {
-                echo claro_html_message_box(get_lang('Error : Name already exists in the learning path or in the module pool'));
-                echo "<br />";
+                $out .= claro_html_message_box(get_lang('Error : Name already exists in the learning path or in the module pool'));
+                $out .= "<br />";
             }
         }
         else
         {
-            echo claro_html_message_box(get_lang('Name cannot be empty'));
-            echo "<br />";
+            $out .= claro_html_message_box(get_lang('Name cannot be empty'));
+            $out .= "<br />";
         }
         break;
 
@@ -210,7 +210,7 @@ switch( $cmd )
 
             if( isset($comment['comment']) )
             {
-                echo '<form method="get" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
+                $out .= '<form method="get" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
                 .    claro_form_relay_context()
                 .    claro_html_textarea_editor('comment', $comment['comment'], 15, 55) . "\n"
                 .    '<br />' . "\n"
@@ -249,7 +249,7 @@ $result = claro_sql_query($sql);
 $atleastOne = false;
 
 
-echo '<table class="claroTable" width="100%" border="0" cellspacing="2">'
+$out .= '<table class="claroTable" width="100%" border="0" cellspacing="2">'
 .    '<thead>' . "\n"
 .    '<tr class="headerX" align="center" valign="top">' . "\n"
 .    '<th>' . "\n"
@@ -277,7 +277,7 @@ while ($list = mysql_fetch_array($result))
 
     $contentType_img = selectImage($list['contentType']);
     $contentType_alt = selectAlt($list['contentType']);
-    echo '<tr>' . "\n"
+    $out .= '<tr>' . "\n"
     .     '<td align="left">' . "\n"
     .     '<img src="' . $contentType_img . '" alt="'.$contentType_alt.'" /> '.$list['name'] . "\n"
     .     '</td>' . "\n"
@@ -301,7 +301,7 @@ while ($list = mysql_fetch_array($result))
 
     if ( isset($list['comment']) )
     {
-        echo '<tr>'
+        $out .= '<tr>'
         .    '<td colspan="5">'
         .    '<small>' . $list['comment'] . '</small>'
         .    '</td>'
@@ -315,16 +315,21 @@ while ($list = mysql_fetch_array($result))
 
 if ($atleastOne == false)
 {
-    echo '<tr><td align="center" colspan="5">'.get_lang('No module').'</td></tr>' . "\n";
+    $out .= '<tr><td align="center" colspan="5">'.get_lang('No module').'</td></tr>' . "\n";
 }
 
 // Display button to add selected modules
 
-echo '</tbody>' . "\n"
+$out .= '</tbody>' . "\n"
 .    '</table>'
 ;
 
 // footer
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+//include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
+
 ?>
