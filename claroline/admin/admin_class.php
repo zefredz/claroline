@@ -4,7 +4,7 @@
  *
  * this tool manage the
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
  * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
@@ -257,28 +257,25 @@ $class_list = claro_sql_query_fetch_all($sql);
 // Display section
 //-------------------------------------------------------
 
-// Display Header
-
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-
+$out = '';
 // Display title
 
-echo claro_html_tool_title($nameTools);
+$out .= claro_html_tool_title($nameTools);
 
 // display dialog Box (or any forms)
 
-if ( isset($dialogBox) ) echo claro_html_message_box($dialogBox);
+if ( isset($dialogBox) ) $out .= claro_html_message_box($dialogBox);
 
 //display tool links
 
-echo '<p>'
+$out .= '<p>'
 .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd">'
 .    '<img src="' . get_icon_url('class') . '" />' . get_lang('Create a new class')
 .    '</a>'
 .    '</p>' . "\n";
 
 //display cols headers
-echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
+$out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
 .    '<thead>' . "\n"
 .    '<tr class="headerX">'
 .    '<th>' . get_lang('Classes') . '</th>'
@@ -294,21 +291,22 @@ echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing=
 //display Class list
 if(display_tree_class_in_admin($class_list))
 {
-    echo display_tree_class_in_admin($class_list);
+    $out .= display_tree_class_in_admin($class_list);
 }
 else
 {
-    echo "\n"
+    $out .= "\n"
     .    '<tr class="headerX">'
     .    '<td colspan="6" class="centerContent">' . get_lang('Empty') . '</td>'
     .    '</tr>' . "\n"
     ;
 }
 
-echo '</tbody>' . "\n"
+$out .= '</tbody>' . "\n"
 .    '</table>' ;
 
-// Display footer
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
 
 ?>

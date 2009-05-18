@@ -3,12 +3,13 @@
  * CLAROLINE
  * This tool run some check to detect abnormal situation
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  * @copyright 2001-2007 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @see http://www.claroline.net/wiki/index.php/ADMIN
  * @author Sébastien Piraux <pir@claroline.net>
  * @author Christophe Gesché <moosh@claroline.net>
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
  *
  *
  */
@@ -90,15 +91,15 @@ TD {border-bottom: thin dashed Gray;}
 $display = ( $is_allowedToCheckProblems) ? DISP_RESULT : DISP_NOT_ALLOWED;
 
 ////////////// OUTPUT ///////////////
+$out = '';
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-echo claro_html_tool_title( $nameTools );
+$out .= claro_html_tool_title( $nameTools );
 
 switch ($display)
 {
     case DISP_NOT_ALLOWED :
         {
-            echo claro_html_message_box(get_lang('Not allowed'));
+            $out .= claro_html_message_box(get_lang('Not allowed'));
         } break;
 
     case DISP_RESULT :
@@ -108,7 +109,7 @@ switch ($display)
             $dg->set_colAttributeList( array( 'qty' =>array('width'=>'15%' , 'align' => 'center')));
             // in $view, a 1 in X posof the $view string means that the 'category' number X
             // will be show, 0 means don't show
-            echo '<small>'
+            $out .= '<small>'
             .    '[<a href="' . $_SERVER['PHP_SELF'] . '?view=111111111">' . get_lang('Show all') . '</a>]'
             .    '&nbsp;'
             .    '[<a href="' . $_SERVER['PHP_SELF'] . '?view=000000000">' . get_lang('Show none') . '</a>]'
@@ -125,7 +126,7 @@ switch ($display)
             ***************************************************************************/
             $tempView = $view;
             $levelView++;
-            echo '<p>' . "\n";
+            $out .= '<p>' . "\n";
             if('1' == $view[$levelView])
             {
                 $tempView[$levelView] = '0';
@@ -145,7 +146,7 @@ switch ($display)
                     $datagrid[$levelView] .= $dg->render();
                     $Cache_Lite->save($datagrid[$levelView],$levelView);
                 }
-                echo '-'
+                $out .= '-'
                 .    ' &nbsp;&nbsp;'
                 .    '<b>'
                 .    get_lang('Accounts with same <i>User name</i>')
@@ -171,25 +172,25 @@ switch ($display)
             else
             {
                 $tempView[$levelView] = '1';
-                echo '+'
+                $out .= '+'
                 .    '&nbsp;&nbsp;&nbsp;'
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?view=' . $tempView . '">'
                 .    get_lang('Accounts with same <i>User name</i>')
                 .    '</a>' . "\n"
                 ;
             }
-            echo '</p>' . "\n\n";
+            $out .= '</p>' . "\n\n";
 
             /***************************************************************************
             *        Platform access and logins
             ***************************************************************************/
             $tempView = $view;
             $levelView++;
-            echo '<p>' . "\n";
+            $out .= '<p>' . "\n";
             if('1' == $view[$levelView])
             {
                 $tempView[$levelView] = '0';
-                echo '- '
+                $out .= '- '
                 .    '&nbsp;&nbsp;'
                 .    '<b>'
                 .    get_lang('Accounts with same <i>Email</i>')
@@ -221,7 +222,7 @@ switch ($display)
                     $Cache_Lite->save($datagrid[$levelView], $levelView);
                 }
 
-                echo $datagrid[$levelView]
+                $out .= $datagrid[$levelView]
                 .    '<small>'
                 .    get_lang('Last computing')
                 .    ' '
@@ -235,24 +236,24 @@ switch ($display)
             else
             {
                 $tempView[$levelView] = '1';
-                echo '+'
+                $out .= '+'
                 .    '&nbsp;&nbsp;&nbsp;'
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?view=' . $tempView . '">'
                 .    get_lang('Accounts with same <i>Email</i>')
                 .    '</a>'
                 ;
             }
-            echo '</p>' . "\n";
+            $out .= '</p>' . "\n";
 
 
             $tempView = $view;
             $levelView++;
-            echo "<p>\n";
+            $out .= "<p>\n";
             if('1' == $view[$levelView])
             {
                 $tempView[$levelView] = '0';
                 //--  courses without professor
-                echo '- '
+                $out .= '- '
                 .    '&nbsp;&nbsp;'
                 .    '<b>'
                 .    get_lang('Courses without a lecturer')
@@ -289,7 +290,7 @@ switch ($display)
                     $Cache_Lite->save($datagrid[$levelView],$levelView);
                 }
 
-                echo $datagrid[$levelView]
+                $out .= $datagrid[$levelView]
                 .    '<small>'
                 .    get_lang('Last computing')
                 .    ' '
@@ -303,23 +304,23 @@ switch ($display)
             else
             {
                 $tempView[$levelView] = '1';
-                echo '+'
+                $out .= '+'
                 .    '&nbsp;&nbsp;&nbsp;'
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?view=' . $tempView . '">'
                 .    get_lang('Courses without a lecturer')
                 .    '</a>'
                 ;
             }
-            echo '</p>' . "\n\n";
+            $out .= '</p>' . "\n\n";
 
             $tempView = $view;
             $levelView++;
-            echo '<p>' . "\n";
+            $out .= '<p>' . "\n";
             if('1' == $view[$levelView])
             {
                 $tempView[$levelView] = '0';
                 //-- courses without students
-                echo '- '
+                $out .= '- '
                 .    '&nbsp;&nbsp;'
                 .    '<b>'
                 .    get_lang('Courses without student')
@@ -355,7 +356,7 @@ switch ($display)
                     $Cache_Lite->save($datagrid[$levelView],$levelView);
                 }
 
-                echo $datagrid[$levelView]
+                $out .= $datagrid[$levelView]
                 .    '<small>'
                 .    get_lang('Last computing')
                 .    ' '
@@ -369,24 +370,24 @@ switch ($display)
             else
             {
                 $tempView[$levelView] = '1';
-                echo '+'
+                $out .= '+'
                 .    '&nbsp;&nbsp;&nbsp;'
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?view=' . $tempView . '">'
                 .    get_lang('Courses without student')
                 .    '</a>'
                 ;
             }
-            echo '</p>' . "\n\n";
+            $out .= '</p>' . "\n\n";
 
 
             $tempView = $view;
             $levelView++;
-            echo '<p>' . "\n";
+            $out .= '<p>' . "\n";
             if('1' == $view[$levelView])
             {
                 $tempView[$levelView] = '0';
                 //-- logins not used for $limitBeforeUnused
-                echo '- '
+                $out .= '- '
                 .    '&nbsp;&nbsp;'
                 .    '<b>'
                 .    get_lang('Logins not used')
@@ -430,7 +431,7 @@ switch ($display)
                     $Cache_Lite->save($datagrid[$levelView], $levelView);
                 }
 
-                echo $datagrid[$levelView]
+                $out .= $datagrid[$levelView]
                 .    '<small>'
                 .    get_lang('Last computing')
                 .    ' '
@@ -445,22 +446,22 @@ switch ($display)
             else
             {
                 $tempView[$levelView] = '1';
-                echo '+&nbsp;&nbsp;&nbsp;'
+                $out .= '+&nbsp;&nbsp;&nbsp;'
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?view=' . $tempView . '">'
                 .    get_lang('Logins not used')
                 .    '</a>'
                 ;
             }
-            echo '</p>' . "\n\n";
+            $out .= '</p>' . "\n\n";
 
             $tempView = $view;
             $levelView++;
-            echo '<p>' . "\n";
+            $out .= '<p>' . "\n";
             if('1' == $view[$levelView])
             {
                 $tempView[$levelView] = '0';
                 //--  multiple account with same username AND same password (for compatibility with previous versions)
-                echo '- &nbsp;&nbsp;'
+                $out .= '- &nbsp;&nbsp;'
                 .    '<b>'
                 .    get_lang('Accounts with same <i>User name</i> AND same <i>Password</i>')
                 .    '</b>'
@@ -491,7 +492,7 @@ switch ($display)
                     $Cache_Lite->save($datagrid[$levelView],$levelView);
                 }
 
-                echo $datagrid[$levelView]
+                $out .= $datagrid[$levelView]
                 .    '<small>'
                 .    get_lang('Last computing')
                 .    ' '
@@ -506,18 +507,18 @@ switch ($display)
             else
             {
                 $tempView[$levelView] = '1';
-                echo '+'
+                $out .= '+'
                 .    '&nbsp;&nbsp;&nbsp;'
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?view=' . $tempView . '">'
                 .    get_lang('Accounts with same <i>User name</i> AND same <i>Password</i>')
                 .    '</a>'
                 ;
             }
-            echo '</p>' . "\n\n";
+            $out .= '</p>' . "\n\n";
 
             $tempView = $view;
             $levelView++;
-            echo '<p>' . "\n";
+            $out .= '<p>' . "\n";
             if('1' == $view[$levelView])
             {
                 $tempView[$levelView] = '0';
@@ -574,7 +575,7 @@ switch ($display)
                     $Cache_Lite->save($datagrid[$levelView],$levelView);
                 }
 
-                echo $datagrid[$levelView]
+                $out .= $datagrid[$levelView]
                 .    '<small>'
                 .    get_lang('Last computing')
                 .    ' '
@@ -591,14 +592,14 @@ switch ($display)
             else
             {
                 $tempView[$levelView] = '1';
-                echo '+'
+                $out .= '+'
                 .    '&nbsp;&nbsp;&nbsp;'
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?view=' . $tempView . '">'
                 .    get_lang('Courses not used')
                 .    '</a>'
                 ;
             }
-            echo '</p>' . "\n\n"
+            $out .= '</p>' . "\n\n"
             .    claro_html_tool_title('Integrity problems') ;
 
 
@@ -606,12 +607,12 @@ switch ($display)
 
             $tempView = $view;
             $levelView++;
-            echo '<p>' . "\n";
+            $out .= '<p>' . "\n";
             if('1' == $view[$levelView])
             {
                 $tempView[$levelView] = '0';
                 //-- Courses with unexisting users registered : courses that have users not registered on the platform
-                echo '- '
+                $out .= '- '
                 .    '&nbsp;&nbsp;'
                 .    '<b>'
                 .    get_lang('User registered in a course having an unexisting (deprecated) status')
@@ -648,7 +649,7 @@ switch ($display)
                     $Cache_Lite->save($datagrid[$levelView],$levelView);
                 }
 
-                echo $datagrid[$levelView]
+                $out .= $datagrid[$levelView]
                 .    '<small>'
                 .    get_lang('Last computing')
                 .    ' '
@@ -662,29 +663,23 @@ switch ($display)
             else
             {
                 $tempView[$levelView] = '1';
-                echo '+'
+                $out .= '+'
                 .    '&nbsp;&nbsp;&nbsp;'
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?view=' . $tempView . '">'
                 .    get_lang('User registered in a course having an unexisting (deprecated) status')
                 .    '</a>'
                 ;
             }
-            echo '</p>' . "\n\n";
-
-
-
-
-
-
+            $out .= '</p>' . "\n\n";
 
             $tempView = $view;
             $levelView++;
-            echo '<p>' . "\n";
+            $out .= '<p>' . "\n";
             if('1' == $view[$levelView])
             {
                 $tempView[$levelView] = '0';
                 //-- Courses with unexisting users registered : courses that have users not registered on the platform
-                echo '- '
+                $out .= '- '
                 .    '&nbsp;&nbsp;'
                 .    '<b>'
                 .    get_lang('Courses with unexisting users registered')
@@ -721,7 +716,7 @@ switch ($display)
                     $Cache_Lite->save($datagrid[$levelView],$levelView);
                 }
 
-                echo $datagrid[$levelView]
+                $out .= $datagrid[$levelView]
                 .    '<small>'
                 .    get_lang('Last computing')
                 .    ' '
@@ -735,19 +730,21 @@ switch ($display)
             else
             {
                 $tempView[$levelView] = '1';
-                echo '+'
+                $out .= '+'
                 .    '&nbsp;&nbsp;&nbsp;'
                 .    '<a href="' . $_SERVER['PHP_SELF'] . '?view=' . $tempView . '">'
                 .    get_lang('Courses with unexisting users registered')
                 .    '</a>'
                 ;
             }
-            echo '</p>' . "\n\n";
+            $out .= '</p>' . "\n\n";
         }
         break;
     default:trigger_error('display (' . $display . ') unknown', E_USER_NOTICE);
 }
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
 
 ?>

@@ -4,7 +4,7 @@
  *
  * This tool can edit category tree
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
@@ -912,18 +912,17 @@ switch ($display_form)
  * Output
  */
 
-// display claroline header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
-echo claro_html_tool_title($nameTools);
+$out .= claro_html_tool_title($nameTools);
 
-echo $dialogBox->render();
+$out .= $dialogBox->render();
 
 /** 
  * Command and list
  */
 
-echo '<p>' . "\n"
+$out .= '<p>' . "\n"
 .    '<a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqCreate">'
 .    get_lang('Create a category')
 .    '</a>' . "\n"
@@ -943,12 +942,14 @@ echo '<p>' . "\n"
 .    '<tbody>' . "\n"
 ;
 
-claro_disp_tree($categories, NULL, '');
+$out .= claro_disp_tree($categories, NULL, '');
 
-echo '</tbody>' . "\n"
+$out .= '</tbody>' . "\n"
 .    '</table>' . "\n"
 ;
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render(); 
 
 ?>

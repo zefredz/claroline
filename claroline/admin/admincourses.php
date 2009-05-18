@@ -369,21 +369,20 @@ $courseDataGrid->set_noRowMessage( get_lang('There is no course matching such cr
  * DISPLAY
  */
 
-/** DISPLAY : Common Header */
+$out = '';
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-echo claro_html_tool_title($nameTools);
-if (isset($dialogBox)) echo claro_html_message_box($dialogBox);
+$out .= claro_html_tool_title($nameTools);
+if (isset($dialogBox)) $out .= claro_html_message_box($dialogBox);
 
 if ( !empty($isSearched) )
 {
-    echo claro_html_message_box ( '<b>' . get_lang('Search on') . '</b> : <small>' .$isSearched . '</small>' );
+    $out .= claro_html_message_box ( '<b>' . get_lang('Search on') . '</b> : <small>' .$isSearched . '</small>' );
 }
 
 /**
  * DISPLAY : Search/filter panel
  */
-echo '<table width="100%">' . "\n\n"
+$out .= '<table width="100%">' . "\n\n"
 .    '<tr>' . "\n"
 .    '<td align="left" valign="top">' . "\n"
 .    '<a class="claroCmd" href="../course/create.php?adminContext=1">'
@@ -408,13 +407,14 @@ echo '<table width="100%">' . "\n\n"
 
 /** DISPLAY : LIST of data */
 
-echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'])
+$out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'])
 .    $courseDataGrid->render()
 .    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 ;
 
-/** DISPLAY : Common footer */
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
 
 
 function prepare_get_filtred_course_list()

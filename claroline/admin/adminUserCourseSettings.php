@@ -181,12 +181,10 @@ elseif ( $displayBackToUC )//coming from usercourse list
 //------------------------------------
 // DISPLAY
 //------------------------------------
-
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-
+$out = '';
 // Display tool title
 
-echo claro_html_tool_title( array( 'mainTitle' =>$nameTools
+$out .= claro_html_tool_title( array( 'mainTitle' =>$nameTools
                                  , 'subTitle' => get_lang('Course') . ' : '
                                               .  htmlspecialchars($courseUserProperties['courseName'])
                                               .  '<br />'
@@ -201,7 +199,7 @@ echo claro_html_tool_title( array( 'mainTitle' =>$nameTools
 
 if ( isset($dialogBox) )
 {
-    echo claro_html_message_box($dialogBox);
+    $out .= claro_html_message_box($dialogBox);
 }
 
 $hidden_param = array( 'uidToEdit' => $uidToEdit,
@@ -209,11 +207,14 @@ $hidden_param = array( 'uidToEdit' => $uidToEdit,
                        'cfrom' => $cfrom,
                        'ccfrom' => $ccfrom);
 
-echo course_user_html_form ( $courseUserProperties, $cidToEdit, $uidToEdit, $hidden_param )
+$out .= course_user_html_form ( $courseUserProperties, $cidToEdit, $uidToEdit, $hidden_param )
 .    '<p>'
 .    claro_html_menu_horizontal($cmd_menu)
 .    '</p>'
 ;
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
+
 ?>

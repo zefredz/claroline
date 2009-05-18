@@ -4,7 +4,7 @@
  *
  * this tool manage the new users
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
  * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
@@ -141,31 +141,29 @@ if ( $display == DISP_REGISTRATION_FORM )
     $dialogBox->info( get_lang('New users will receive an e-mail with their user name and password') );
 }
 
-// Display Header
-
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
 // Display title
 
-echo claro_html_tool_title( array('mainTitle'=>$nameTools ) )
+$out .= claro_html_tool_title( array('mainTitle'=>$nameTools ) )
 .    $dialogBox->render()
 ;
 
 if ( $display == DISP_REGISTRATION_SUCCEED )
 {
-    echo claro_html_menu_vertical($newUserMenu);
+    $out .= claro_html_menu_vertical($newUserMenu);
 }
 else // $display == DISP_REGISTRATION_FORM;
 
 {
     //  if registration failed display error message
 
-    echo user_html_form_admin_add_new_user($user_data)
+    $out .= user_html_form_admin_add_new_user($user_data)
     ;
 }
 
-// Display footer
+$claroline->display->body->appendContent($out);
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+echo $claroline->display->render();
 
 ?>

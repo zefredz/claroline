@@ -25,14 +25,14 @@ if ( count( get_included_files() ) == 1 )
      * @param   - elem             array     : the array of each category
      * @param   - father        string     : the father of the category
      *
-     * @return  - void
+     * @return  - $out
      *
      * display the bom whith option to edit or delete the categories
      */
 
 function claro_disp_tree($elem,$father,$space)
 {
-
+    $out = '';
     if($elem)
     {
         $space.="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
@@ -44,14 +44,14 @@ function claro_disp_tree($elem,$father,$space)
             {
                 $num++;
 
-                echo '<tr><td>';
+                $out .= '<tr><td>';
 
-                    echo $space;
+                    $out .= $space;
 
                     if($one_faculty['nb_childs']>0)
                     {
 
-                        echo '<a href="' . $_SERVER['PHP_SELF']
+                        $out .= '<a href="' . $_SERVER['PHP_SELF']
                         .    '?id=' . $one_faculty['id'] . '"> '
                         .    ( $one_faculty['visible']
                              ?    '<img src="' . get_icon_url('collapse') . '" alt="-"  />'
@@ -62,9 +62,9 @@ function claro_disp_tree($elem,$father,$space)
                         ;
                     }
                     else
-                    echo '&nbsp;° &nbsp;&nbsp;&nbsp;';
+                    $out .= '&nbsp;° &nbsp;&nbsp;&nbsp;';
 
-                    echo $one_faculty['name'] . ' (' . $one_faculty['code'] . ') &nbsp;&nbsp;&nbsp;';
+                    $out .= $one_faculty['name'] . ' (' . $one_faculty['code'] . ') &nbsp;&nbsp;&nbsp;';
 
                     //Number of faculty in this parent
                     $nb=0;
@@ -76,13 +76,13 @@ function claro_disp_tree($elem,$father,$space)
 
 
                     //Display the picture to edit and delete a category
-                    echo '</td>'
+                    $out .= '</td>'
                     .    '<td  align="center">'
                     .    '<a href="./admincourses.php?category=' . urlencode($one_faculty['code']) . '">'
                     .    get_node_children_count_course( $one_faculty['code'] )
                     .    '</a>' ;
 
-                    echo '</td>'
+                    $out .= '</td>'
                         . '<td  align="center">'
                         . '<a href="' . $_SERVER['PHP_SELF'] . '?id=' . $one_faculty['id'] . '&amp;cmd=rqEdit" >'
                         . '<img src="' . get_icon_url('edit') . '"alt="' . get_lang('Edit') . '" /></a>'
@@ -109,55 +109,56 @@ function claro_disp_tree($elem,$father,$space)
                     //If the number of child is >0, display the arrow up and down
                     if($nb > 1)
                     {
-                        echo '<td align="center">' . "\n";
+                        $out .= '<td align="center">' . "\n";
 
                         //If isn't the first child, you can up
                         if ($num>1)
                         {
-                            echo '<a href="' . $_SERVER['PHP_SELF'] . '?id='.$one_faculty['id'].'&amp;cmd=exUp">'
+                            $out .= '<a href="' . $_SERVER['PHP_SELF'] . '?id='.$one_faculty['id'].'&amp;cmd=exUp">'
                             . '<img src="' . get_icon_url('move_up') . '" alt="' . get_lang('Move up') .'" /></a>';
                         }
                         else
                         {
-                            echo '&nbsp;';
+                            $out .= '&nbsp;';
                         }
 
-                        echo '</td>' . "\n" ;
+                        $out .= '</td>' . "\n" ;
 
-                        echo '<td align="center">' . "\n" ;
+                        $out .= '<td align="center">' . "\n" ;
 
                         // If isn't the last child, you can down
                         if ($num<$nbChild)
                         {
-                            echo '<a href="' . $_SERVER['PHP_SELF'] . '?id=' . $one_faculty['id'] . '&amp;cmd=exDown">'
+                            $out .= '<a href="' . $_SERVER['PHP_SELF'] . '?id=' . $one_faculty['id'] . '&amp;cmd=exDown">'
                             . '<img src="' . get_icon_url('move_down') . '" alt="' . get_lang('Move down') . '"  /> </a>';
                         }
                         else
                         {
-                            echo '&nbsp;';
+                            $out .= '&nbsp;';
                         }
 
-                        echo '</td>' . "\n" ;
+                        $out .= '</td>' . "\n" ;
 
                     }
                     else
                     {
-                        echo '<td>&nbsp;</td>' . "\n"
+                        $out .= '<td>&nbsp;</td>' . "\n"
                         .    '<td>&nbsp;</td>' . "\n"
                         ;
                     }
 
-                    echo '</tr>' . "\n";
+                    $out .= '</tr>' . "\n";
 
                     //display the bom of this category
 
                     if($one_faculty['visible'])
                     {
-                        claro_disp_tree($elem, $one_faculty['code'], $space);
+                        $out .= claro_disp_tree($elem, $one_faculty['code'], $space);
                     }
             }
         }
     }
+    return $out;
 }
 
 /**

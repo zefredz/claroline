@@ -222,18 +222,22 @@ if ($cfrom=='clist')
  * DISPLAY
  */
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-echo claro_html_tool_title($nameTools);
-if ( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
+$out = '';
+
+$out .= claro_html_tool_title($nameTools);
+if ( !empty($dialogBox) ) $out .= claro_html_message_box($dialogBox);
 
 $userDataGrid = new claro_datagrid($userDataList);
 $userDataGrid->set_option_list($dg_opt_list);
 
-echo '<p>' . claro_html_menu_horizontal($command_list) . '</p>'
+$out .= '<p>' . claro_html_menu_horizontal($command_list) . '</p>'
 .    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit)
 .    $userDataGrid->render()
 .    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit)
 ;
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
+
 ?>

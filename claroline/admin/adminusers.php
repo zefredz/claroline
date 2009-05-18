@@ -240,18 +240,14 @@ $htmlHeadXtra[] =
         }'
 ."\n".'</script>'."\n";
 
-
-
-
-//Header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
 // Display tool title
-echo claro_html_tool_title($nameTools) . "\n\n";
+$out .= claro_html_tool_title($nameTools) . "\n\n";
 
 //Display Forms or dialog box(if needed)
 
-if( isset($dialogBox) ) echo claro_html_message_box($dialogBox);
+if( isset($dialogBox) ) $out .= claro_html_message_box($dialogBox);
 
 //Display selectbox and advanced search link
 
@@ -261,10 +257,10 @@ if( isset($dialogBox) ) echo claro_html_message_box($dialogBox);
 
 if ( !empty($isSearchedHTML) )
 {
-    echo claro_html_message_box ('<b>' . get_lang('Search on') . '</b> : <small>' . $isSearchedHTML . '</small>') ;
+    $out .= claro_html_message_box ('<b>' . get_lang('Search on') . '</b> : <small>' . $isSearchedHTML . '</small>') ;
 }
 
-echo '<table width="100%">' . "\n"
+$out .= '<table width="100%">' . "\n"
 .    '<tr>' . "\n"
 .    '<td>' . '<a class="claroCmd" href="adminaddnewuser.php">'
 .    '<img src="' . get_icon_url('user') . '" alt="" />'
@@ -285,13 +281,15 @@ echo '<table width="100%">' . "\n"
 .    '</table>' . "\n\n"
 ;
 
-if ( count($userGrid) > 0 ) echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+if ( count($userGrid) > 0 ) $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
-echo $userDataGrid->render();
+$out .= $userDataGrid->render();
 
-if ( count($userGrid) > 0 ) echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+if ( count($userGrid) > 0 ) $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
 
 /**
  *

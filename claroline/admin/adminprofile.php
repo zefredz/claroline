@@ -266,11 +266,10 @@ if (isset($_REQUEST['cfrom']) && $_REQUEST['cfrom'] == 'ulist' ) // if we come f
  * DISPLAY
  */
 
-// Disdplay header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
 // Display tool title
-echo claro_html_tool_title($nameTools)
+$out .= claro_html_tool_title($nameTools)
 //.    claro_html_msg_list($messageList)
 .   $dialogBox->render()
 // Display "form and info" about the user
@@ -279,8 +278,10 @@ echo claro_html_tool_title($nameTools)
 .    '</p>'
 .    user_html_form_admin_user_profile($user_data)
 ;
-if (!is_null($dgExtra)) echo $dgExtra->render();
+if (!is_null($dgExtra)) $out .= $dgExtra->render();
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
 
 ?>

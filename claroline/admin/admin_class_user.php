@@ -215,23 +215,22 @@ else
 // Display section
 //------------------------------------
 
-// Dispay Header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
 if ( !empty($class_id) )
 {
-    echo claro_html_tool_title($nameTools . ' : ' . $classinfo['name']);
+    $out .= claro_html_tool_title($nameTools . ' : ' . $classinfo['name']);
 
-    if (isset($dialogBox))  echo claro_html_message_box($dialogBox). '<br />';
+    if (isset($dialogBox))  $out .= claro_html_message_box($dialogBox). '<br />';
 
     // Display menu
-    echo '<p>' . claro_html_menu_horizontal($cmdList) . '</p>' ;
+    $out .= '<p>' . claro_html_menu_horizontal($cmdList) . '</p>' ;
 
     // Display pager
-    echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?class_id='.$class_id);
+    $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?class_id='.$class_id);
 
     //Display search form
-    echo '<div style="text-align:right"><form action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
+    $out .= '<div style="text-align:right"><form action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
     .    '<label for="search">' . get_lang('Make new search') . '  </label>' . "\n"
     .    '<input type="text" value="' . htmlspecialchars($search).'" name="search" id="search" />' . "\n"
     .    '<input type="submit" value=" ' . get_lang('Ok') . ' " />' . "\n"
@@ -242,7 +241,7 @@ if ( !empty($class_id) )
     // Display list of users
 
     // start table...
-    echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
+    $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
     .    '<thead>'
     .    '<tr class="headerX" align="center" valign="top">'
     .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;order_crit=user_id&amp;chdir=yes">' . get_lang('User id') . '</a></th>'
@@ -262,7 +261,7 @@ if ( !empty($class_id) )
     {
          $list['officialCode'] = (isset($list['officialCode']) ? $list['officialCode'] :' - ');
 
-         echo '<tr>'
+         $out .= '<tr>'
          .    '<td align="center" >' . $list['user_id']      . '</td>'
          .    '<td align="left" >'   . $list['nom']          . '</td>'
          .    '<td align="left" >'   . $list['prenom']       . '</td>'
@@ -282,7 +281,7 @@ if ( !empty($class_id) )
 
     if ( empty($resultList) )
     {
-        echo '<tr>'
+        $out .= '<tr>'
         .    '<td colspan="6" align="center">'
         .    get_lang('No user to display')
         .    '<br />'
@@ -294,19 +293,21 @@ if ( !empty($class_id) )
         ;
     }
 
-    echo '</tbody>'."\n"
+    $out .= '</tbody>'."\n"
     .    '</table>'."\n"
     ;
 
     //Pager
 
-    echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?class_id='.$class_id);
+    $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?class_id='.$class_id);
 }
 else
 {
-    echo claro_html_message_box(get_lang('Class not found'));
+    $out .= claro_html_message_box(get_lang('Class not found'));
 }
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
 
 ?>

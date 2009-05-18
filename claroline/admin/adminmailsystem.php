@@ -1,7 +1,7 @@
 <?php // $Id$
 /**
  * CLAROLINE
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
  * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
@@ -102,11 +102,10 @@ $adminDataGrid->set_colAttributeList( array (  'request_switch' => array ('align
  * DISPLAY
  */
 
-// Disdplay header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
 // Display tool title
-echo claro_html_tool_title($nameTools)
+$out .= claro_html_tool_title($nameTools)
 .    claro_html_msg_list($messageList)
 .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
 .    '<input type="hidden" name="cmd" value="setRecipient" />' . "\n"
@@ -116,6 +115,8 @@ echo claro_html_tool_title($nameTools)
 .    '</form>' . "\n"
 ;
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
 
 ?>

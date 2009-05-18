@@ -2,7 +2,7 @@
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
@@ -75,23 +75,24 @@ $cmdList[] = '<a class="claroCmd" href="adminusercourses.php?uidToEdit=' . $user
  * DISPLAY
  */
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
-echo claro_html_tool_title(get_lang('User unregistered'));
+$out .= claro_html_tool_title(get_lang('User unregistered'));
 
 // Display Forms or dialog box(if needed)
 
 if ( !empty($dialogBox) )
 {
-    echo claro_html_message_box($dialogBox);
+    $out .= claro_html_message_box($dialogBox);
 }
 
-echo '<p>'
+$out .= '<p>'
 .    claro_html_menu_horizontal($cmdList)
 .    '</p>'
 ;
-// Display footer
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
 
 ?>

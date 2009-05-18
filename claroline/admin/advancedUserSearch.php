@@ -2,9 +2,9 @@
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2009 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -13,6 +13,7 @@
  * @author claro team <cvs@claroline.net>
  * @author Guillaume Lederer <lederer@claroline.net>
  * @author Christophe Gesché <moosh@claroline.net>
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
  */
 
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
@@ -60,102 +61,32 @@ if (isset($_REQUEST['userName']))  $userName  = $_REQUEST['userName'];  else $us
 if (isset($_REQUEST['officialCode']))  $userName  = $_REQUEST['officialCode'];  else $officialCode = '';
 if (isset($_REQUEST['mail']))      $mail      = $_REQUEST['mail'];      else $mail = '';
 
-//header and bredcrump display
-
-
-
-
-
-
-
-
-
-/////////////
-// OUTPUT
-
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-echo claro_html_tool_title($nameTools . ' : ');
-?>
-<form action="adminusers.php" method="get" >
-<table border="0">
-    <tr>
-        <td align="right">
-            <label for="lastName"><?php echo get_lang('Last name')?></label>
-            : <br />
-        </td>
-        <td>
-            <input type="text" name="lastName" id="lastName" value="<?php echo htmlspecialchars($lastName); ?>" />
-        </td>
-    </tr>
-
-    <tr>
-        <td align="right">
-            <label for="firstName"><?php echo get_lang('First name')?></label>
-            : <br />
-        </td>
-        <td>
-            <input type="text" name="firstName" id="firstName" value="<?php echo htmlspecialchars($firstName) ?>"/>
-        </td>
-    </tr>
-
-    <tr>
-        <td align="right">
-            <label for="userName"><?php echo get_lang('Username') ?></label>
-            :  <br />
-        </td>
-        <td>
-            <input type="text" name="userName" id="userName" value="<?php echo htmlspecialchars($userName); ?>"/>
-        </td>
-    </tr>
-    
-    <tr>
-        <td align="right">
-            <label for="officialCode"><?php echo get_lang('Official code') ?></label>
-            :  <br />
-        </td>
-        <td>
-            <input type="text" name="officialCode" id="officialCode" value="<?php echo htmlspecialchars($officialCode); ?>"/>
-        </td>
-    </tr>
-
-    <tr>
-        <td align="right">
-            <label for="mail"><?php echo get_lang('Email') ?></label>
-            : <br />
-        </td>
-        <td>
-            <input type="text" name="mail" id="mail" value="<?php echo htmlspecialchars($mail); ?>"/>
-        </td>
-    </tr>
-
-<tr>
-  <td align="right">
-   <label for="action"><?php echo get_lang('Action') ?></label> : <br />
-  </td>
-  <td>
-<?php
-
 $action_list[get_lang('All')] = 'all';
 $action_list[get_lang('Student')] = 'followcourse';
 $action_list[get_lang('Course creator')] = 'createcourse';
 $action_list[get_lang('Platform administrator')] = 'plateformadmin';
 
-echo claro_html_form_select( 'action'
-                            , $action_list
-                            , $action
-                            , array('id'=>'action'))
-                                     ; ?>
-    </td>
-</tr>
-<tr>
-    <td>
-    </td>
-    <td>
-        <input type="submit" class="claroButton" value="<?php echo get_lang('Search user')?>"  />
-    </td>
-</tr>
-</table>
-</form>
-<?php
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+//header and bredcrump display
+
+/////////////
+// OUTPUT
+
+$out = '';
+$out .= claro_html_tool_title($nameTools . ' : ');
+
+$tpl = new PhpTemplate( dirname(__FILE__) . '/templates/advancedUserSearch.tpl.php' );
+$tpl->assign('lastName', $lastName);
+$tpl->assign('firstName', $firstName);
+$tpl->assign('userName', $userName);
+$tpl->assign('officialCode', $officialCode);
+$tpl->assign('mail', $mail);
+$tpl->assign('action', $action);
+$tpl->assign('action_list', $action_list);
+
+$out .= $tpl->render();
+
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
+
 ?>

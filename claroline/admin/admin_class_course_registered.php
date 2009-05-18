@@ -4,7 +4,7 @@
  *
  * this tool manage the
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
  * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
@@ -79,17 +79,19 @@ $cmdList[] =  '<a class="claroCmd" href="' . get_path('clarolineRepositoryWeb') 
 /**
  * DISPLAY
  */
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
-echo claro_html_tool_title(get_lang('Class registered') . ' : ' . $classinfo['name']);
+$out .= claro_html_tool_title(get_lang('Class registered') . ' : ' . $classinfo['name']);
 
-if ( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
+if ( !empty($dialogBox) ) $out .= claro_html_message_box($dialogBox);
 
-echo '<p>'
+$out .=  '<p>'
 .    claro_html_menu_horizontal($cmdList)
 .    '</p>'
 ;
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
 
 ?>

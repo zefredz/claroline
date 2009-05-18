@@ -4,7 +4,7 @@
  *
  * this tool manage the
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
  * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
@@ -146,38 +146,37 @@ ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('
 
 $nameTools = get_lang('Register user to class');
 
-// Header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
 if ( empty($class_id) )
 {
-    echo claro_html_message_box(get_lang('Class not found'));
+    $out .= claro_html_message_box(get_lang('Class not found'));
 }
 else
 {
     // Display tool title
 
-    echo claro_html_tool_title($nameTools . ' : ' . $classinfo['name']);
+    $out .= claro_html_tool_title($nameTools . ' : ' . $classinfo['name']);
     
     // Display Forms or dialog box(if needed)
     
-    if (isset($dialogBox)) echo claro_html_message_box($dialogBox);
+    if (isset($dialogBox)) $out .= claro_html_message_box($dialogBox);
     
     // Display tool link
 
-    echo '<p><a class="claroCmd" href="' . get_path('clarolineRepositoryWeb').'admin/admin_class_user.php?class_id='.$class_id.'">'. 
+    $out .= '<p><a class="claroCmd" href="' . get_path('clarolineRepositoryWeb').'admin/admin_class_user.php?class_id='.$class_id.'">'. 
          get_lang('Class members').'</a></p>'."\n";
 
-    if (isset($_REQUEST['cfrom']) && ($_REQUEST['cfrom']=='clist')) echo claro_html_button('admincourses.php', get_lang('Back to course list'));
+    if (isset($_REQUEST['cfrom']) && ($_REQUEST['cfrom']=='clist')) $out .= claro_html_button('admincourses.php', get_lang('Back to course list'));
 
     // Display pager
 
-    echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?class_id='.$class_id);
+    $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?class_id='.$class_id);
 
     // Display list of users
     // start table...
 
-    echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
+    $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">' . "\n"
     .    '<thead>' . "\n"
     .    '<tr class="headerX" align="center" valign="top">'
     .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;order_crit=user_id&amp;chdir=yes">' . get_lang('User id') . '</a></th>' . "\n"
@@ -194,7 +193,7 @@ else
 
     foreach ( $resultList as $list )
     {
-         echo '<tr>'
+         $out .= '<tr>'
          .    '<td align="center">'
          .    '<a name="u' . $list['user_id'] . '"></a>' // no label in the a it's a target.
          .    $list['user_id'] . '</td>' . "\n"
@@ -205,7 +204,7 @@ else
 
          if ($list['id']==null)
          {
-             echo '<td align="center">' . "\n"
+             $out .= '<td align="center">' . "\n"
              .    '<a href="' . $_SERVER['PHP_SELF'] . '?class_id=' . $class_id . '&amp;cmd=subscribe&user_id=' . $list['user_id'].'&amp;offset=' . $offset . '#u' . $list['user_id'] . '">' . "\n"
              .    '<img src="' . get_icon_url('enroll') . '" alt="' . get_lang('Register to the class') . '" />' . "\n"
              .    '</a>' . "\n"
@@ -214,7 +213,7 @@ else
          }
          else
          {
-             echo '<td align="center">' . "\n"
+             $out .= '<td align="center">' . "\n"
              .    '<small>' . get_lang('User already in class') . '</small>' . "\n"
              .    '</td>' . "\n"
              ;
@@ -224,7 +223,7 @@ else
 
          if ($list['id']!=null)
          {
-             echo '<td align="center">' . "\n"
+             $out .= '<td align="center">' . "\n"
              .    '<a href="'.$_SERVER['PHP_SELF'].'?class_id='.$class_id.'&amp;cmd=unsubscribe&user_id='.$list['user_id'].'&amp;offset='.$offset.'#u'.$list['user_id'].'">' . "\n"
              .    '<img src="' . get_icon_url('unenroll') . '" alt="' . get_lang('Unregister from class').'" />' . "\n"
              .    '</a>' . "\n"
@@ -233,25 +232,28 @@ else
          }
          else
          {
-             echo '<td align="center">' . "\n"
+             $out .= '<td align="center">' . "\n"
              .    '<small>' . get_lang('User not in the class') . '</small>' . "\n"
              .    '</td>' . "\n"
              ;
          }
-         echo '</tr>' . "\n";
+         $out .= '</tr>' . "\n";
     }
 
     // end display users table
 
-    echo '</tbody>' . "\n"
+    $out .= '</tbody>' . "\n"
     .    '</table>' . "\n"
     ;
 
     //Pager
 
-    echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?class_id='.$class_id);
+    $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?class_id='.$class_id);
 
 }
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
+
 ?>

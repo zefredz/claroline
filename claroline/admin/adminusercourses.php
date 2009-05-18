@@ -203,21 +203,24 @@ if ( 'ulist' == $cfrom )  //if we come from user list, we must display go back t
 // DISPLAY VIEWS
 //----------------------------------
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-echo claro_html_tool_title($nameTools);
+$out = '';
+
+$out .= claro_html_tool_title($nameTools);
 
 // display forms and dialogBox, alphabetic choice,...
 
-if( isset($dialogBox) && !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
+if( isset($dialogBox) && !empty($dialogBox) ) $out .= claro_html_message_box($dialogBox);
 
-echo '<p>'
+$out .= '<p>'
 .    claro_html_menu_horizontal($cmdList)
 .    '</p>'
 .    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?uidToEdit=' . $uidToEdit)
 .    $userCourseDataGrid->render()
 .    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?uidToEdit=' . $uidToEdit) ;
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
 
 /**
  * prepare sql to get a list of course of a given user

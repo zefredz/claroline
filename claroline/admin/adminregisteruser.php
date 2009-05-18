@@ -4,7 +4,7 @@
  *
  * This script list member of campus and  propose to subscribe it to the given course
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
  * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
@@ -225,17 +225,16 @@ if (isset($_REQUEST['order_crit']))
 
 // Display tool title
 
-//Header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
-echo claro_html_tool_title( $nameTools );
+$out .= claro_html_tool_title( $nameTools );
 
 // Display Forms or dialog box(if needed)
 
-if( isset($dialogBox) ) echo claro_html_message_box($dialogBox);
+if( isset($dialogBox) ) $out .= claro_html_message_box($dialogBox);
 
 
-echo '<table width="100%" class="claroTableForm" >'
+$out .= '<table width="100%" class="claroTableForm" >'
 .    '<tr>'
 .    '<td align="left">' . "\n"
 .    '<b>' . $title . '</b>' . "\n"
@@ -317,7 +316,7 @@ foreach($userList as $user)
         $user['prenom'] = eregi_replace("^(".$_REQUEST['search'].")","<b>\\1</b>", $user['prenom']);
     }
 
-    echo '<tr>' . "\n"
+    $out .= '<tr>' . "\n"
     //  Id
     .   '<td align="center">'
     .   $user['ID']
@@ -335,7 +334,7 @@ foreach($userList as $user)
     if ( !is_null($user['isCourseManager']) && $user['isCourseManager'] == 0 )  // user is already enrolled but as student
     {
         // already enrolled as student
-        echo '<td align="center" >' . "\n"
+        $out .= '<td align="center" >' . "\n"
         .    '<small>'
         .    get_lang('Already enroled')
         .    '</small>'
@@ -346,7 +345,7 @@ foreach($userList as $user)
     else
     {
         // Register as user
-        echo '<td align="center">' . "\n"
+        $out .= '<td align="center">' . "\n"
             .'<a href="' . $_SERVER['PHP_SELF']
             .'?cidToEdit=' . $cidToEdit
             .'&amp;cmd=sub&amp;search='.$search
@@ -361,7 +360,7 @@ foreach($userList as $user)
     if ( !is_null($user['isCourseManager']) && $user['isCourseManager'] == 1 )  // user is not enrolled
     {
         // already enrolled as teacher
-        echo '<td align="center" >'."\n"
+        $out .= '<td align="center" >'."\n"
         .    '<small>'
         .    get_lang('Already enroled')
         .    '</small>'
@@ -371,7 +370,7 @@ foreach($userList as $user)
     else
     {
         //register as teacher
-        echo '<td align="center">' . "\n"
+        $out .= '<td align="center">' . "\n"
         .    '<a href="' . $_SERVER['PHP_SELF']
         .    '?cidToEdit=' . $cidToEdit
         .    '&amp;cmd=sub&amp;search='.$search
@@ -382,11 +381,14 @@ foreach($userList as $user)
         .    '</td>' . "\n"
         ;
     }
-    echo '</tr>';
+    $out .= '</tr>';
 }
 // end display users table
-echo '</tbody></table>'
+$out .= '</tbody></table>'
 .    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'] . '?cidToEdit=' . $cidToEdit . $addToURL);
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
+
 ?>

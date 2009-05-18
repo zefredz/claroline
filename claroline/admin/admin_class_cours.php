@@ -4,7 +4,7 @@
  *
  * this tool manage the
  *
- * @version 1.0
+ * @version 1.9
  *
  * @copyright (c) 2001-2005 Universite catholique de Louvain (UCL)
  *
@@ -134,22 +134,21 @@ ClaroBreadCrumbs::getInstance()->prepend( get_lang('Classes'), get_path('rootAdm
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 $nameTools = get_lang('Class members');
 
-//Header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
 if ( empty($class_id) )
 {
-    echo claro_html_message_box(get_lang('Class not found'));
+    $out .= claro_html_message_box(get_lang('Class not found'));
 }
 else
 {
     // Display tool title
 
-    echo claro_html_tool_title(get_lang('Course list') . ' : ' . $classinfo['name']);
+    $out .= claro_html_tool_title(get_lang('Course list') . ' : ' . $classinfo['name']);
 
     // TOOL LINKS
     $cmd_menu[] = '<a class="claroCmd" href="' . get_path('clarolineRepositoryWeb').'auth/courses.php?cmd=rqReg&amp;fromAdmin=class&amp;class_id='.$class_id.'"><img src="' . get_icon_url('enroll') . '" /> ' . get_lang('Register class for course') . '</a>';
-    echo '<p>' . claro_html_menu_horizontal( $cmd_menu ) . '</p>';
+    $out .= '<p>' . claro_html_menu_horizontal( $cmd_menu ) . '</p>';
 
     // Pager
 
@@ -159,7 +158,7 @@ else
 
     // start table...
     // TODO datagrid
-    echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
+    $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
     .    '<thead>'
     .    '<tr class="headerX" align="center" valign="top">'
     .    '<th><a href="' . $_SERVER['PHP_SELF'] . '?class_id='.$class_id.'&amp;order_crit=code&amp;chdir=yes">' . get_lang('Course code') . '</a></th>'
@@ -178,7 +177,7 @@ else
     {
         $list['officialCode'] = (isset($list['officialCode']) ? $list['officialCode'] :' - ');
 
-        echo '<tr>'
+        $out .= '<tr>'
         .    '<td align="center" >' . $list['code']      . '</td>'
         .    '<td align="left" >'   . $list['intitule']          . '</td>'
         .    '<td align="left" >'   . $list['faculte']       . '</td>'
@@ -202,7 +201,7 @@ else
     // end display users table
     if ( empty($resultList) )
     {
-        echo '<tr>'
+        $out .= '<tr>'
         .    '<td colspan="5" align="center">'
         .    get_lang('No course to display')
         .    '<br />'
@@ -213,7 +212,7 @@ else
         .    '</tr>'
         ;
     }
-    echo '</tbody>' . "\n"
+    $out .= '</tbody>' . "\n"
     .    '</table>' . "\n"
     ;
 
@@ -223,8 +222,8 @@ else
 
 }
 
-// Display footer
+$claroline->display->body->appendContent($out);
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+echo $claroline->display->render();
 
 ?>

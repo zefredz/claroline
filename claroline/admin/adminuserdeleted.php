@@ -6,7 +6,7 @@
  * tool from the page to visualize the user profile (adminprofile.php)
  * and display a confirmation message to the admin.
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
@@ -48,38 +48,43 @@ $req['uidToEdit'] = (isset($_REQUEST['uidToEdit']) && ctype_digit($_REQUEST['uid
 $cmdList[] = '<a class="claroCmd" href="index.php" >' . get_lang('Back to administration page') . '</a>';
 $cmdList[] = '<a class="claroCmd" href="adminusers.php" >' . get_lang('Back to user list') . '</a>';
 
+$dialogBox = new DialogBox();
+
 if ( $cmd == 'delete' && $req['uidToEdit'] )
 {
     $claroline->log( 'DELETE_USER' , array ('USER' => $req['uidToEdit']) );
     if(false !== $deletionResult = user_delete($req['uidToEdit']))
-    $dialogBox =   get_lang('Deletion of the user was done sucessfully');
+    $dialogBox->success( get_lang('Deletion of the user was done sucessfully') );
     else
     {
         switch (claro_failure::get_last_failure())
         {
             case 'user_cannot_remove_himself'  :
             {
-                $dialogBox = get_lang('You can not change your own settings!');
+                $dialogBox->error( get_lang('You can not change your own settings!') );
             } break;
-            default :  $dialogBox = get_lang('Unable to delete');
+            default :  $dialogBox->error( get_lang('Unable to delete') );
         }
     }
 }
-else $dialogBox = get_lang('Unable to delete');
+else $dialogBox->error( get_lang('Unable to delete') );
 //------------------------------------
 // DISPLAY
 //------------------------------------
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
-echo claro_html_tool_title(get_lang('Delete user'));
+$out .= claro_html_tool_title(get_lang('Delete user'));
 
-if ( isset($dialogBox) ) echo claro_html_message_box($dialogBox);
+if ( isset($dialogBox) ) $out .= $dialogBox->render();
 
-echo '<p>'
+$out .= '<p>'
 .    claro_html_menu_horizontal($cmdList)
 .    '</p>'
 ;
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
+
 ?>
