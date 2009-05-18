@@ -4,13 +4,14 @@
  *
  * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2009 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @package ADMIN
  *
  * @author claro team <cvs@claroline.net>
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
  * @since 1.8
  */
 
@@ -220,7 +221,7 @@ foreach($module_dock as $thedock)
 // DISPLAY
 //----------------------------------
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
 // find module icon, if any
 
@@ -243,18 +244,18 @@ else
 
 //display title
 
-echo claro_html_tool_title($nameTools . ' : ' . get_lang($module['module_name']));
+$out .= claro_html_tool_title($nameTools . ' : ' . get_lang($module['module_name']));
 
 //Display Forms or dialog box(if needed)
 
 if ( isset($dialogBox) )
 {
-    echo claro_html_message_box($dialogBox);
+    $out .= claro_html_message_box($dialogBox);
 }
 
 //display tabbed navbar
 
-echo  '<div>'
+$out .=  '<div>'
     . '<ul id="navlist">'
     . "\n"
     ;
@@ -263,7 +264,7 @@ echo  '<div>'
 
 if ($item == 'GLOBAL')
 {
-    echo '<li><a href="module.php?module_id='.$moduleId
+    $out .= '<li><a href="module.php?module_id='.$moduleId
         . '&amp;item=GLOBAL" class="current">'
         . get_lang('Global settings').'</a></li>'
         . "\n"
@@ -271,7 +272,7 @@ if ($item == 'GLOBAL')
 }
 else
 {
-    echo '<li>'
+    $out .= '<li>'
     .    '<a href="module.php?module_id='.$moduleId.'&amp;item=GLOBAL">'
     .    get_lang('Global settings').'</a>'
     .    '</li>' . "\n"
@@ -289,7 +290,7 @@ if ( $config->load() )
 {
     if ($item == 'LOCAL')
     {
-        echo '<li><a href="module.php?module_id='.$moduleId
+        $out .= '<li><a href="module.php?module_id='.$moduleId
             . '&amp;item=LOCAL" class="current">'
             . get_lang('Local settings').'</a></li>'
             . "\n"
@@ -297,7 +298,7 @@ if ( $config->load() )
     }
     else
     {
-        echo '<li><a href="module.php?module_id='.$moduleId.'&amp;item=LOCAL">'
+        $out .= '<li><a href="module.php?module_id='.$moduleId.'&amp;item=LOCAL">'
             . get_lang('Local settings').'</a></li>'
             . "\n"
             ;
@@ -306,7 +307,7 @@ if ( $config->load() )
 
 if ($item == 'About' || is_null($item))
 {
-    echo '<li><a href="module.php?module_id='.$moduleId
+    $out .= '<li><a href="module.php?module_id='.$moduleId
         . '&amp;item=About" class="current">'
         . get_lang('About').'</a></li>'
         . "\n"
@@ -314,13 +315,13 @@ if ($item == 'About' || is_null($item))
 }
 else
 {
-    echo '<li><a href="module.php?module_id='.$moduleId.'&amp;item=About">'
+    $out .= '<li><a href="module.php?module_id='.$moduleId.'&amp;item=About">'
         . get_lang('About').'</a></li>'
         . "\n"
         ;
 }
 
-echo '</ul>'. "\n"
+$out .= '</ul>'. "\n"
     . '</div>'. "\n"
     ;
 
@@ -329,11 +330,11 @@ switch ($item)
 {
     case 'GLOBAL':
     {
-        echo claro_html_tool_title(array('subTitle' => get_lang('Platform Settings')));
+        $out .= claro_html_tool_title(array('subTitle' => get_lang('Platform Settings')));
 
-        echo '<form action="' . $_SERVER['PHP_SELF'] . '?module_id=' . $module['module_id'] . '&amp;item='.$item.'" method="post">';
+        $out .= '<form action="' . $_SERVER['PHP_SELF'] . '?module_id=' . $module['module_id'] . '&amp;item='.$item.'" method="post">';
 
-        echo '<table>' . "\n";
+        $out .= '<table>' . "\n";
 
         //Activation form
         if (in_array($module['label'],$undeactivable_tool_array))
@@ -365,7 +366,7 @@ switch ($item)
                 ;
         }
 
-        echo '<td align="right" valign="top">'
+        $out .= '<td align="right" valign="top">'
           .    get_lang('Platform activation')
           .    ' : ' . "\n"
           .    '</td>' . "\n"
@@ -411,7 +412,7 @@ switch ($item)
                     ;
             }
                 
-            echo '<td align="right" valign="top">'
+            $out .= '<td align="right" valign="top">'
             .    get_lang('Activate on course creation')
             .    ' : ' . "\n"
             .    '</td>' . "\n"
@@ -424,7 +425,7 @@ switch ($item)
             .    '</tr>' . "\n"
             ;
             
-            echo '<tr><td align="right" valign="top">'
+            $out .= '<tr><td align="right" valign="top">'
                 . get_lang( 'Change visibility in all courses' )
                 . ' : '
                 .    '</td>' . "\n"
@@ -454,7 +455,7 @@ switch ($item)
             //choose the dock radio button list display
             if ( is_array($dockList) && $module['type']!='tool')
             {
-                echo '<tr>' ."\n"
+                $out .= '<tr>' ."\n"
                 .    '<td syle="align:right" colspan="2">' . get_lang('Display'). '&nbsp;:</td>' ."\n"
                 .    '</tr>' ."\n"
                     ;
@@ -466,7 +467,7 @@ switch ($item)
                 {
                     if (in_array($dockId,$dock_checked)) $is_checked = 'checked="checked"'; else $is_checked = "";
 
-                    echo '<tr>' ."\n"
+                    $out .= '<tr>' ."\n"
                     .    '<td>&nbsp;</td>' ."\n"
                     .    '<td>' ."\n"
                     .    '<input type="checkbox" name="displayDockList[]" value="' . $dockId . '" id="displayDock_' . $i . '" ' . $is_checked . ' />'
@@ -480,7 +481,7 @@ switch ($item)
             }
 
             // display submit button
-            echo '<tr><td colspan="2">&nbsp;</td></tr>' . "\n"
+            $out .= '<tr><td colspan="2">&nbsp;</td></tr>' . "\n"
             .    '<tr>' ."\n"
             .    '<td style="text-align:right">' . get_lang('Save') . '&nbsp;:</td>' . "\n"
             .    '<td >'
@@ -496,7 +497,7 @@ switch ($item)
             // nothing to do at the moment
         }
 
-        echo '</table>' . "\n"
+        $out .= '</table>' . "\n"
         .    '</td>' . "\n"
         .    '</tr>' . "\n"
         .    '</table>' . "\n"
@@ -532,14 +533,14 @@ switch ($item)
             $form .= $config->display_form(null,$section_selected,$url_params);
         }
 
-        echo '<div style=padding-left:1em;padding-right:1em;>';
+        $out .= '<div style=padding-left:1em;padding-right:1em;>';
 
         if ( ! empty($message) )
         {
-            echo claro_html_message_box($message);
+            $out .= claro_html_message_box($message);
         }
 
-        echo $form . '</div>';
+        $out .= $form . '</div>';
 
         break;
     }
@@ -552,13 +553,13 @@ switch ($item)
             : $moduleDescription
             ;
 
-        echo claro_html_tool_title(array('subTitle' => get_lang('Description')))
+        $out .= claro_html_tool_title(array('subTitle' => get_lang('Description')))
         .    '<p>'
         .    htmlspecialchars( $moduleDescription )
         .    '</p>' . "\n"
         ;
 
-        echo claro_html_tool_title(array('subTitle' => get_lang('General Informations'))) . "\n"
+        $out .= claro_html_tool_title(array('subTitle' => get_lang('General Informations'))) . "\n"
         .    '<table>' . "\n"
         .    '<tr>' . "\n"
         .    '<td colspan="2">' . "\n"
@@ -608,12 +609,14 @@ switch ($item)
     }
 }
 
-echo '</table>' . "\n"
+$out .= '</table>' . "\n"
 .    '</td>' . "\n"
 .    '</tr>' . "\n"
 .    '</table>' . "\n"
 ;
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
 
 ?>

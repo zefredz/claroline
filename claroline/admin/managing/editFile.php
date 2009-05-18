@@ -128,7 +128,6 @@ $nameTools = get_lang('Edit text zones');
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 $noQUERY_STRING = true;
 
-//include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 $out = '';
 //display titles
 
@@ -206,5 +205,4 @@ $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
 
-//include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>

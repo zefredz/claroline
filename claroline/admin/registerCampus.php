@@ -4,7 +4,7 @@
  *
  * prupose to admin to register  his claroline on claroline.net worldwild list
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
  * @copyright 2001-2006 Universite catholique de Louvain (UCL)
  *
@@ -14,6 +14,7 @@
  *
  * @author Claro Team <cvs@claroline.net>
  * @author Sébastien Piraux <pir@claroline.net>
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
  *
  */
 
@@ -377,17 +378,17 @@ else
 $nameTools = get_lang('Register my campus');
 // bread crumb à ajouter
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
 $title['mainTitle'] = $nameTools;
 $title['subTitle'] = get_lang('Add my campus on Claroline.net website');
-echo claro_html_tool_title($title);
+$out .= claro_html_tool_title($title);
 
-if( isset($dialogBox) && $dialogBox != '' ) echo claro_html_message_box($dialogBox);
+if( isset($dialogBox) && $dialogBox != '' ) $out .= claro_html_message_box($dialogBox);
 
 if( !isset($_REQUEST['register']) && ! ( isset($alreadyRegistered) && $alreadyRegistered ) )
 {
-    echo '<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
+    $out .= '<form action="'.$_SERVER['PHP_SELF'].'" method="post">'."\n"
         .'<ul>'."\n"
         .'<li>'.get_lang('Campus name').' : '.stripslashes( get_conf('siteName')) . '</li>'."\n"
         .'<li>'.get_lang('URL').' : <a href="' . get_path('rootWeb') . '">' . get_path('rootWeb') . '</a></li>'."\n"
@@ -404,7 +405,7 @@ if( !isset($_REQUEST['register']) && ! ( isset($alreadyRegistered) && $alreadyRe
         $optionString .= '<option value="'.$code.'">'.$country.'</option>'."\n";
     }
 
-    echo $optionString
+    $out .= $optionString
         .'</select>'."\n"
         .'</li>'."\n"
         .'</ul>'."\n"
@@ -417,5 +418,8 @@ if( !isset($_REQUEST['register']) && ! ( isset($alreadyRegistered) && $alreadyRe
         ;
 }
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
+
 ?>

@@ -1,7 +1,7 @@
 <?php // $Id$
 /**
  * CLAROLINE
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
  * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
@@ -10,6 +10,7 @@
  * @package ADMIN
  *
  * @author claro team <cvs@claroline.net>
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
  */
 $cidReset=true;
 $gidReset=true;
@@ -87,13 +88,15 @@ if ( ! empty($register_globals_value) && strtolower($register_globals_value) != 
     $dialogBox->warning( get_lang('<b>Security :</b> We recommend to set register_globals to off in php.ini') );
 }
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-echo claro_html_tool_title($nameTools)
+
+$out = '';
+
+$out .= claro_html_tool_title($nameTools)
 .    $dialogBox->render()
 .    "\n\n"
 ;
 
-echo '<table cellspacing="5" align="center">' . "\n"
+$out .= '<table cellspacing="5" align="center">' . "\n"
 
 .    '<tr valign="top">' . "\n"
 .    '<td nowrap="nowrap">' . "\n"
@@ -132,7 +135,7 @@ echo '<table cellspacing="5" align="center">' . "\n"
 
 if( !empty($menu['ExtraTools']) )
 {
-    echo '<tr valign="top">' . "\n"
+    $out .= '<tr valign="top">' . "\n"
     .    '<td nowrap="nowrap">' . "\n"
     .    claro_html_tool_title('<img src="' . get_icon_url('exe') . '" alt="" />&nbsp;' . get_lang('Administration tools'))
     .    claro_html_menu_vertical($menu['ExtraTools'])
@@ -144,10 +147,11 @@ if( !empty($menu['ExtraTools']) )
     ;
 }
 
-?>
-</table>
-<?php
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$out .= '</table>';
+
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
 
 function get_menu_item_list($type)
 {

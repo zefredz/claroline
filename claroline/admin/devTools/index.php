@@ -4,9 +4,9 @@
  *
  * This is the index page of sdk tools
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2009 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -14,6 +14,7 @@
  *
  * @author Claro Team <cvs@claroline.net>
  * @author Christophe Gesché <moosh@claroline.net>
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
  *
  */
 
@@ -37,22 +38,26 @@ $nameTools = get_lang('Devel Tools');
 
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
-echo claro_html_tool_title($nameTools);
+$out .= claro_html_tool_title($nameTools);
 
 // TODO use claro_disp_title
-?>
-<h4><?php echo get_lang('Translations') ?></h4>
-<ul>
-    <li><a href="../xtra/sdk/translation_index.php"><?php echo get_lang('Translations') ?></a></li>
-</ul>
-<?php
+$out .= '<h4>' . get_lang('Translations') . '</h4>
+    <ul>
+        <li><a href="../xtra/sdk/translation_index.php">' . get_lang('Translations') . '</a></li>
+    </ul>'
+    ;
+
 if ( 0 < count($devtoolsList))
 {
-    echo  claro_html_tool_title(get_lang('Filling'))
+    $out .=  claro_html_tool_title(get_lang('Filling'))
     .     claro_html_menu_vertical($devtoolsList)
     ;
 }
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
+
 ?>

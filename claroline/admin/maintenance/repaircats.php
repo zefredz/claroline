@@ -4,8 +4,8 @@
  *
  * This tool try to repair a broken category tree
  *
- * @version 1.8 $Revision$
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @version 1.9 $Revision$
+ * @copyright 2001-2009 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @see http://www.claroline.net/wiki/index.php/CLTREE
@@ -13,6 +13,7 @@
  * @package CLTREE
  *
  * @author Claro Team <cvs@claroline.net>
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
  *
  */
 define ('DISP_ANALYSE', __LINE__);
@@ -120,8 +121,7 @@ switch($cmd)
 /**
  * Display
  */
-// display claroline header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
 /**
 * Information edit for create or edit a category
@@ -130,7 +130,7 @@ include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 switch ($view)
 {
     case DISP_ANALYSE :
-        echo claro_html_tool_title(array('mainTitle' => 'ANALYSE RESULT', 'subTitle' => 'Tree Structure '))
+        $out .= claro_html_tool_title(array('mainTitle' => 'ANALYSE RESULT', 'subTitle' => 'Tree Structure '))
         .    claro_html_msg_list($analyseTreeResultMsg, 1)
         .    $dgDataAnalyseResult->render()
         .    ($errorCounter?claro_html_button($_SERVER['PHP_SELF'] . '?cmd=repairTree','Repair','Run repair task on the tree ? ') : '' )
@@ -139,17 +139,19 @@ switch ($view)
         ;
         break;
     case  DISP_REPAIR_RESULT :
-        echo claro_html_tool_title(array('mainTitle' => 'REPAIR RESULT', 'subTitle' => 'Tree Structure '))
+        $out .= claro_html_tool_title(array('mainTitle' => 'REPAIR RESULT', 'subTitle' => 'Tree Structure '))
         .    claro_html_msg_list($repairResultMsg, 1)
         .    claro_html_button($_SERVER['PHP_SELF'] . '?cmd=','Analyse')
         ;
 
         break;
     default :
-        echo '<div>' . __LINE__ . ': $view = <pre>'. var_export($view,1).'</PRE></div>';
+        $out .= '<div>' . __LINE__ . ': $view = <pre>'. var_export($view,1).'</PRE></div>';
 }
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
 
 /**
  * Return course list which have an unexisting category as parent
