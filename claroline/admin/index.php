@@ -179,7 +179,8 @@ function get_menu_item_list($type)
         $menu['AdminUser'][] = claro_html_tool_link('admin_class.php',      get_lang('Manage classes'));
         $menu['AdminUser'][] = claro_html_tool_link('right/profile_list.php', get_lang('Right profile list'));
         $menu['AdminUser'][] = claro_html_tool_link('../desktop/config.php', get_lang('Manage user desktop'));
-        $menu['AdminUser'][] = claro_html_tool_link('adminmergeuser.php', get_lang('Merge user accounts ') . ' (EXPERIMENTAL !!!)');
+        // TODO test and publish in 1.9.1
+        // $menu['AdminUser'][] = claro_html_tool_link('adminmergeuser.php', get_lang('Merge user accounts ') . ' (EXPERIMENTAL !!!)');
 
         $menu['AdminCourse'][] = '<form name="searchCourse" action="admincourses.php" method="get" >' . "\n"
         .                    '<label for="search_course">' . get_lang('Course') . '</label> :' . "\n"
