@@ -112,26 +112,26 @@ if ( !empty($dock))
 // DISPLAY
 //----------------------------------
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
 //display title
 
-echo claro_html_tool_title($nameTools);
+$out .= claro_html_tool_title($nameTools);
 
 //Display Forms or dialog box(if needed)
 
-if ( isset($dialogBox) ) echo claro_html_message_box($dialogBox);
+if ( isset($dialogBox) ) $out .= claro_html_message_box($dialogBox);
 
 if ( !empty($dock) )
 {
 
     //Display TOP Pager list
 
-    echo $myPager->disp_pager_tool_bar('module_dock.php?dock='.$dock);
+    $out .= $myPager->disp_pager_tool_bar('module_dock.php?dock='.$dock);
 
     // start table...
 
-    echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
+    $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'
     .    '<thead>'
     .    '<tr class="headerX" align="center" valign="top">'
     .    '<th>' . get_lang('Icon')               . '</th>'
@@ -164,57 +164,57 @@ if ( !empty($dock) )
 
         //module_id and icon column
 
-        echo '<tr>'
+        $out .= '<tr>'
         .    '<td align="center">' . $icon . '</td>' . "\n";
 
         //name column
 
         if (file_exists(get_module_path($module['label']) . '/admin.php'))
         {
-            echo '<td align="left" class="' . $class_css . '" ><a href="'. get_module_url($module['label']) . '/admin.php" >' . $module['name'] . '</a></td>' . "\n";
+            $out .= '<td align="left" class="' . $class_css . '" ><a href="'. get_module_url($module['label']) . '/admin.php" >' . $module['name'] . '</a></td>' . "\n";
         }
         else
         {
-            echo '<td align="left" class="' . $class_css . '" >' . $module['name'] . '</td>' . "\n";
+            $out .= '<td align="left" class="' . $class_css . '" >' . $module['name'] . '</td>' . "\n";
         }
 
         //reorder column
 
         //up
 
-        echo '<td align="center">' . "\n";
+        $out .= '<td align="center">' . "\n";
         if (!($iteration==1))
         {
-            echo '<a href="module_dock.php?cmd=up&amp;module_id=' . $module['id'] . '&amp;dock='.urlencode($dock).'">'
+            $out .= '<a href="module_dock.php?cmd=up&amp;module_id=' . $module['id'] . '&amp;dock='.urlencode($dock).'">'
             .    '<img src="' . get_icon_url('move_up') . '" alt="' . get_lang('Move up') . '" />'
             .    '</a>' . "\n"
             ;
         }
         else
         {
-            echo '&nbsp;';
+            $out .= '&nbsp;';
         }
-        echo '</td>' . "\n";
+        $out .= '</td>' . "\n";
 
         //down
 
-        echo '<td align="center">' . "\n";
+        $out .= '<td align="center">' . "\n";
         if ($iteration != $enditeration)
         {
-            echo '<a href="module_dock.php?cmd=down&amp;module_id=' . $module['id'] . '&amp;dock=' . urlencode($dock) . '">'
+            $out .= '<a href="module_dock.php?cmd=down&amp;module_id=' . $module['id'] . '&amp;dock=' . urlencode($dock) . '">'
             .    '<img src="' . get_icon_url('move_down') . '" alt="' . get_lang('Move down') . '" />'
             .    '</a>'
             ;
         }        
         else
         {
-            echo '&nbsp;';
+            $out .= '&nbsp;';
         }
-        echo '</td>' . "\n";
+        $out .= '</td>' . "\n";
 
         //remove links
 
-        echo '<td align="center">' . "\n"
+        $out .= '<td align="center">' . "\n"
         .    '<a href="module_dock.php?cmd=remove&amp;module_id=' . $module['id'] . '&amp;dock=' . urlencode($dock) . '">'
         .    '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />'
         .    '</a>'
@@ -225,15 +225,18 @@ if ( !empty($dock) )
 
     //end table...
 
-    echo '</tbody>'
+    $out .= '</tbody>'
     .    '</table>';
 
 
     //Display BOTTOM Pager list
 
-    echo $myPager->disp_pager_tool_bar('module_dock.php?dock='.$dock);
+    $out .= $myPager->disp_pager_tool_bar('module_dock.php?dock='.$dock);
 
 }
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
+
 ?>

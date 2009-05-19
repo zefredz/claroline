@@ -121,8 +121,7 @@ ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('
 $nameTools          = get_lang('Course profile list');
 $noQUERY_STRING     = TRUE;
 
-// Display header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
 switch ( $display )
 {
@@ -132,34 +131,34 @@ switch ( $display )
 
         if ( !empty($profile->id) )
         {
-            echo claro_html_tool_title(get_lang('Add new profile'));
+            $out .= claro_html_tool_title(get_lang('Add new profile'));
         }
         else
         {
-            echo claro_html_tool_title(get_lang('Edit profile'));
+            $out .= claro_html_tool_title(get_lang('Edit profile'));
         }
 
         if ( ! empty($form) )
         {
-            echo claro_html_message_box($form);
+            $out .= claro_html_message_box($form);
         }
 
     case DISPLAY_LIST :
 
         // List of course profile
 
-        echo claro_html_tool_title(get_lang('Course profile list'));
+        $out .= claro_html_tool_title(get_lang('Course profile list'));
 
-        echo '<p><a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd">'
+        $out .= '<p><a class="claroCmd" href="' . $_SERVER['PHP_SELF'] . '?cmd=rqAdd">'
              . get_lang('Add new profile')
              . '</a></p>' . "\n" ;
 
         // Pager display
-        echo $profilePager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+        $out .= $profilePager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
         // Display table header
 
-        echo '<table class="claroTable emphaseLine" width="100%" >' . "\n"
+        $out .= '<table class="claroTable emphaseLine" width="100%" >' . "\n"
             . '<thead>' . "\n"
             . '<tr class="headerX">' . "\n"
             . '<th>' . get_lang('Name') . '</th>' . "\n"
@@ -174,7 +173,7 @@ switch ( $display )
 
         foreach ( $profileList as $thisProfile )
         {
-            echo '<tr align="center">' . "\n"
+            $out .= '<tr align="center">' . "\n"
                 . '<td align="left">' . get_lang($thisProfile['name']) . '</td>' . "\n"
                 . '<td align="left">' . get_lang($thisProfile['description']) . '</td>' . "\n"
                 . '<td><a href="' . $_SERVER['PHP_SELF'] . '?cmd=rqEdit&profile_id='. $thisProfile['id'].'"><img src="' . get_icon_url('edit') . '" alt="' . get_lang('Edit') . '" /></td>' . "\n"
@@ -182,31 +181,32 @@ switch ( $display )
 
             if ( $thisProfile['required'] == '0' )
             {
-                echo '<td><a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&profile_id='. $thisProfile['id'].'&amp;offset='.$offset.'"><img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" /></td>' . "\n";
+                $out .= '<td><a href="' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&profile_id='. $thisProfile['id'].'&amp;offset='.$offset.'"><img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" /></td>' . "\n";
             }
             else
             {
-                echo '<td>' . '-' . '</td>' . "\n";
+                $out .= '<td>' . '-' . '</td>' . "\n";
             }
 
             if ( $thisProfile['locked'] == '0' )
             {
-                echo '<td><a href="' . $_SERVER['PHP_SELF'] . '?cmd=exLock&profile_id='. $thisProfile['id'].'&amp;offset='.$offset.'"><img src="' . get_icon_url('unlock') . '" alt="' . get_lang('Lock') . '" /></td>' . "\n";
+                $out .= '<td><a href="' . $_SERVER['PHP_SELF'] . '?cmd=exLock&profile_id='. $thisProfile['id'].'&amp;offset='.$offset.'"><img src="' . get_icon_url('unlock') . '" alt="' . get_lang('Lock') . '" /></td>' . "\n";
             }
             else
             {
-                echo '<td><a href="' . $_SERVER['PHP_SELF'] . '?cmd=exUnlock&profile_id='. $thisProfile['id'].'&amp;offset='.$offset.'"><img src="' . get_icon_url('locked') . '" alt="' . get_lang('Unlock') . '" /></td>' . "\n";
+                $out .= '<td><a href="' . $_SERVER['PHP_SELF'] . '?cmd=exUnlock&profile_id='. $thisProfile['id'].'&amp;offset='.$offset.'"><img src="' . get_icon_url('locked') . '" alt="' . get_lang('Unlock') . '" /></td>' . "\n";
             }
-            echo '</tr>' . "\n\n";
+            $out .= '</tr>' . "\n\n";
         }
 
-        echo '</tbody></table>';
+        $out .= '</tbody></table>';
 
         break;
 
 } // end switch display
 
-// Display footer
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
 
 ?>

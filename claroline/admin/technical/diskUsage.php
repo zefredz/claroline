@@ -94,61 +94,62 @@ $msg['info'][] = get_lang('Mysql Repository') . ' : ' . (get_conf('mysqlReposito
 
 
 //OUTPUT
-include get_path('incRepositorySys') . '/claro_init_header.inc.php' ;
+$out = '';
 
-echo claro_html_tool_title($nameTools)
+$out .= claro_html_tool_title($nameTools)
 .    claro_html_msg_list($msg)
 ;
 
 
 if ($disp_form)
 {
-    echo '<ul>';
-if ($disp_claro )
-    echo '<li>'
-    .    'Claroline : '
-    .    sprintf('%01.2f', disk_usage(get_path('clarolineRepositorySys'),'','m')) . ' ' . $byteUnits[2]
-    .    '</li>'
+    $out .= '<ul>';
+    if ($disp_claro )
+        $out .= '<li>'
+        .    'Claroline : '
+        .    sprintf('%01.2f', disk_usage(get_path('clarolineRepositorySys'),'','m')) . ' ' . $byteUnits[2]
+        .    '</li>'
+        ;
+
+    if ($disp_allcrs)
+    {
+        $diskUsage = sprintf('%01.2f', disk_usage(get_path('coursesRepositorySys'), get_path('mysqlRepositorySys'), 'm')) . ' ' . $byteUnits[2];
+        $out .= '<li>'
+        .    get_lang('Courses : %disk_usage (perhaps with other directories)',
+             array ( '%disk_usage' => $diskUsage ) ) . '</li>' ;
+    }
+
+    $out .= '</ul>
+    <hr />
+    <form  method="post" action="' . $_SERVER['PHP_SELF'] .'">
+    <input type="checkbox" id="disp_claro" name="disp_claro" value="true"  />
+    <label for="disp_claro"> ' . get_lang('size of claroline scripts') . ' </label>
+    <br />
+    <input type="checkbox" id="disp_allcrs" name="disp_allcrs" value="true"  />
+    <label for="disp_allcrs">' . get_lang('!!!! size of course repository (include claroline and garbage in old systems)') . '</label>
+    <br />
+    
+    <input type="checkbox" name="disp_selCrs" id="disp_selCrs" value="true"  />
+    <label for="disp_selCrs">' . get_lang('size of selected courses') . '</label><br />'
+    ;
+    
+    $out .= claro_html_form_select( 'coursesToCheck[]'
+                               , $coursesToCheck_list
+                               , ''
+                               , array( 'multiple'=>'multiple'
+                                      , 'size'=>'' ))
+                               ;
+    $out .= '<input type="submit" />
+    </form>
+    <hr />'
     ;
 
-if ($disp_allcrs)
-{
-    $diskUsage = sprintf('%01.2f', disk_usage(get_path('coursesRepositorySys'), get_path('mysqlRepositorySys'), 'm')) . ' ' . $byteUnits[2];
-    echo '<li>'
-    .    get_lang('Courses : %disk_usage (perhaps with other directories)',
-         array ( '%disk_usage' => $diskUsage ) ) . '</li>' ;
-}
-?>
-</ul>
-<hr />
-<form  method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-<input type="checkbox" id="disp_claro" name="disp_claro" value="true"  />
-<label for="disp_claro"><?php echo ' ' . get_lang('size of claroline scripts') ?></label>
-<br />
-<input type="checkbox" id="disp_allcrs" name="disp_allcrs" value="true"  />
-<label for="disp_allcrs"><?php echo get_lang('!!!! size of course repository (include claroline and garbage in old systems)') ?></label>
-<br />
-
-<input type="checkbox" name="disp_selCrs" id="disp_selCrs" value="true"  />
-<label for="disp_selCrs"><?php echo get_lang('size of selected courses') ?></label><br />
-
-<?php
-echo claro_html_form_select( 'coursesToCheck[]'
-                           , $coursesToCheck_list
-                           , ''
-                           , array( 'multiple'=>'multiple'
-                                  , 'size'=>'' ))
-                           ; ?>
-<input type="submit" />
-</form>
-<hr />
-<?php
 }
 
 
 if ($disp_selCrs && $coursesToCheck)
 {
-    echo '<ol>';
+    $out .= '<ol>';
     $sqlListCourses = "
                        SELECT administrativeNumber AS code,
                               directory            AS dir,
@@ -171,7 +172,7 @@ if ($disp_selCrs && $coursesToCheck)
             else                                      $duBase  = get_db_size($course['db'],'k');
 
             $duTotal = disk_usage(get_path('coursesRepositorySys') . $course['dir'] . '/', get_path('coursesRepositorySys') . $course['db'] . '/' , 'm');
-            echo '<p>' . get_path('coursesRepositorySys') . $course['dir'] . '/'
+            $out .= '<p>' . get_path('coursesRepositorySys') . $course['dir'] . '/'
             .    ' = '
             .    '<pre>'
             .    var_export( get_path('coursesRepositorySys') . $course['dir'] . '/',1)
@@ -179,7 +180,7 @@ if ($disp_selCrs && $coursesToCheck)
             ;
 
             $quota   = $course['diskQuota'] * 1;
-            echo '<li>'
+            $out .= '<li>'
             .    $course['code'] . ' : '
             .    (is_null($course['diskQuota']) ? ' ' . get_lang('No quota') . ' '
                                                 : get_lang('Quota') . ' : ' . $course['diskQuota']
@@ -198,11 +199,13 @@ if ($disp_selCrs && $coursesToCheck)
         }
     }
 
-    echo '</ol>';
+    $out .= '</ol>';
     
 }
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
 
 
 function fetchtCourseList()

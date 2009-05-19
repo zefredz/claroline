@@ -4,9 +4,9 @@
  *
  * This script display list of configuration file
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2009 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -17,6 +17,7 @@
  * @author Claro Team <cvs@claroline.net>
  * @author Mathieu Laurent   <mla@claroline.net>
  * @author Christophe Gesché <moosh@claroline.net>
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
  *
  */
 
@@ -88,11 +89,11 @@ foreach (array_keys($def_class_list) as $def_class )
  * Display
  */
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
 // display tool title
 
-echo claro_html_tool_title($nameTools);
+$out .= claro_html_tool_title($nameTools);
 
 if ( is_array($def_class_list) )
 {
@@ -102,26 +103,27 @@ if ( is_array($def_class_list) )
         {
             $sectionName = $class_def_list['name'];
 
-            echo '<h4>' . $sectionName . '</h4>' . "\n";
+            $out .= '<h4>' . $sectionName . '</h4>' . "\n";
 
             asort($class_def_list['conf']);
 
-            echo '<ul>' . "\n";
+            $out .= '<ul>' . "\n";
             foreach ($class_def_list['conf'] as $code => $name)
             {
-                echo '<li>'
+                $out .= '<li>'
                 .    '<a href="' . $urlEditConf . '?config_code=' . $code .'">'
                 .    get_lang($name)
                 .    '</a>'
                 .    '</li>' . "\n"
                 ;
             }
-            echo '</ul>' . "\n";
+            $out .= '</ul>' . "\n";
         }
     }
 }
 
-// Display footer
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
 
 ?>

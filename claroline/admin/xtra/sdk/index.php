@@ -28,13 +28,14 @@ if (!claro_is_platform_admin()) claro_disp_auth_form();
 // Deal with interbredcrumps  and title variable
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
-echo claro_html_tool_title($nameTools);
-?>
+$out .= claro_html_tool_title($nameTools);
 
-<p><img src="<?php echo 'lang/language.png'?>" style="vertical-align: middle;" alt="" /> <a href="translation_index.php"><?php echo get_lang('Translation Tools')?></a></p>
+$out .= '<p><img src="lang/language.png" style="vertical-align: middle;" alt="" /> <a href="translation_index.php">' . get_lang('Translation Tools') . '</a></p>';
 
-<?php
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
+
 ?>

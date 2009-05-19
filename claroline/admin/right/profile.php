@@ -97,9 +97,7 @@ ClaroBreadCrumbs::getInstance()->prepend( get_lang('Rights'), get_path('rootAdmi
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Course profile list'), get_path('rootAdminWeb').'right/profile_list.php' );
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
-// Display header
-
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
 // Set display right
 
@@ -122,27 +120,27 @@ foreach ( $display_profile_list as $profileId )
 
 if ( $profileFoundCount == 0 )
 {
-    echo claro_html_message_box(get_lang('Profile not found'));
+    $out .= claro_html_message_box(get_lang('Profile not found'));
 }
 else
 {
     if ( $profileFoundCount == 1 )
     {
         // display tool title
-        echo claro_html_tool_title(array('mainTitle'=>get_lang('Manage Right'),'subTitle'=>$profile->getName()));
-        echo '<p>' . $profile->getDescription() . '</p>';
-        echo '<p><a href="' . $_SERVER['PHP_SELF'] . '?display_profile=all">' . get_lang('View all right profile') . '</a></p>';
+        $out .= claro_html_tool_title(array('mainTitle'=>get_lang('Manage Right'),'subTitle'=>$profile->getName()));
+        $out .= '<p>' . $profile->getDescription() . '</p>';
+        $out .= '<p><a href="' . $_SERVER['PHP_SELF'] . '?display_profile=all">' . get_lang('View all right profile') . '</a></p>';
     }
     else
     {
         // display tool title
-        echo claro_html_tool_title(array('mainTitle'=>get_lang('Manage Right'),'subTitle'=> get_lang('All profiles') ));
+        $out .= claro_html_tool_title(array('mainTitle'=>get_lang('Manage Right'),'subTitle'=> get_lang('All profiles') ));
     }
-    echo $profileRightHtml->displayProfileToolRightList();
+    $out .= $profileRightHtml->displayProfileToolRightList();
 }
 
-// Display footer
+$claroline->display->body->appendContent($out);
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+echo $claroline->display->render();
 
 ?>

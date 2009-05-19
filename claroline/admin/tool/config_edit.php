@@ -39,9 +39,9 @@
  *   This script would be continue
  *   to generate a def conf file.
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-209 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -52,6 +52,7 @@
  * @author Claro Team <cvs@claroline.net>
  * @author Mathieu Laurent   <mla@claroline.net>
  * @author Christophe Gesché <moosh@claroline.net>
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
  *
  */
 
@@ -173,22 +174,22 @@ else
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Configuration'), get_path('rootAdminWeb').'tool/config_list.php' );
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
-// display claroline header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
 // display tool title
-echo claro_html_tool_title(array('mainTitle'=>get_lang('Configuration'),'subTitle'=>$nameTools)) ;
+$out .= claro_html_tool_title(array('mainTitle'=>get_lang('Configuration'),'subTitle'=>$nameTools)) ;
 
 // display error message
-echo $dialogBox->render();
+$out .= $dialogBox->render();
 
 // display edition form
 if ( !empty($form) )
 {
-    echo $form ;
+    $out .= $form ;
 }
 
-// display footer
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
 
 ?>

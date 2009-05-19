@@ -2,7 +2,7 @@
 //----------------------------------------------------------------------
 // CLAROLINE
 //----------------------------------------------------------------------
-// Copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+// Copyright (c) 2001-2009 Universite catholique de Louvain (UCL)
 //----------------------------------------------------------------------
 // This program is under the terms of the GENERAL PUBLIC LICENSE (GPL)
 // as published by the FREE SOFTWARE FOUNDATION. The GPL is available
@@ -46,9 +46,9 @@ ClaroBreadCrumbs::getInstance()->prepend( get_lang('Translation Tools'), $urlTra
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('SDK'), $urlSDK );
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
-include($includePath."/claro_init_header.inc.php");
+$out = '';
 
-echo claro_html_tool_title($nameTools);
+$out .= claro_html_tool_title($nameTools);
 
 // go to lang folder
 
@@ -63,28 +63,28 @@ $languagePathList = get_lang_path_list($path_lang);
 
 if ( sizeof($languagePathList) > 0)
 {
-    echo "<form action=\"" . $_SERVER['PHP_SELF'] . "\" method=\"GET\">";
-    echo "<select name=\"lang\">";
-    echo '<option value="all" selected="selected">' . get_lang('All') . '</option>'. "\n";
+    $out .= "<form action=\"" . $_SERVER['PHP_SELF'] . "\" method=\"GET\">";
+    $out .= "<select name=\"lang\">";
+    $out .= '<option value="all" selected="selected">' . get_lang('All') . '</option>'. "\n";
     foreach($languagePathList as $key => $languagePath)
     {
 
         if (isset($_REQUEST['lang']) && $key == $_REQUEST['lang'] )
         {
-            echo "<option value=\"" . $key . "\" selected=\"selected\">" . $key . "</option>";
+            $out .= "<option value=\"" . $key . "\" selected=\"selected\">" . $key . "</option>";
         }
         else
         {
-            echo "<option value=\"" . $key ."\">" . $key . "</option>";
+            $out .= "<option value=\"" . $key ."\">" . $key . "</option>";
         }
     }
-    echo "</select>";
-    echo "<p><input type=\"submit\" value=\"OK\" /></p>";
-    echo "</form>";
+    $out .= "</select>";
+    $out .= "<p><input type=\"submit\" value=\"OK\" /></p>";
+    $out .= "</form>";
 }
 else
 {
-    echo "No language folder";
+    $out .= "No language folder";
 }
 
 // if select language and laguage exists
@@ -106,7 +106,7 @@ if (isset($_REQUEST['lang']))
         $languageToBuild[] = $_REQUEST['lang'];
     }
 
-    echo "<ol>\n";
+    $out .= "<ol>\n";
 
     foreach( $languageToBuild as $language )
     {
@@ -115,7 +115,7 @@ if (isset($_REQUEST['lang']))
 
         // get language name and display it
 
-        echo '<li><strong>' . $language . '</strong>' . "\n"
+        $out .= '<li><strong>' . $language . '</strong>' . "\n"
         .    '<ul>' . "\n";
 
         //--- BUILD COMPLETE
@@ -146,7 +146,7 @@ if (isset($_REQUEST['lang']))
 
         chdir ($languagePath);
 
-        echo '<li>Create file: ' . $languagePath . '/' . LANG_COMPLETE_FILENAME . '</li>';
+        $out .= '<li>Create file: ' . $languagePath . '/' . LANG_COMPLETE_FILENAME . '</li>';
 
         $fileHandle = fopen(LANG_COMPLETE_FILENAME, 'w') or die("FILE OPEN FAILED FOR ".$languagePath." AT LINE ". __LINE__);
 
@@ -195,7 +195,7 @@ if (isset($_REQUEST['lang']))
 
         chdir ($languagePath);
 
-        echo '<li>Create file: ' . $languagePath . '/' . LANG_INSTALL_FILENAME . '</li>';
+        $out .= '<li>Create file: ' . $languagePath . '/' . LANG_INSTALL_FILENAME . '</li>';
 
         $fileHandle = fopen(LANG_INSTALL_FILENAME, 'w') or die("FILE OPEN FAILED FOR ".$languagePath." AT LINE ". __LINE__);
 
@@ -216,10 +216,10 @@ if (isset($_REQUEST['lang']))
 
         fclose($fileHandle) or die ("FILE CLOSE FAILED FOR ".$languagePath." AT LINE ". __LINE__);
         
-        echo '</ul>' . "\n" . '</li>' . "\n";
+        $out .= '</ul>' . "\n" . '</li>' . "\n";
 
     }
-    echo "</ol>\n";
+    $out .= "</ol>\n";
 
 } // end sizeof($languagePathList) > 0
 
@@ -227,11 +227,11 @@ if (isset($_REQUEST['lang']))
 $endtime = get_time();
 $totaltime = ($endtime - $starttime);
 
-echo "<p><em>Execution time: $totaltime</em></p>\n"
+$out .= "<p><em>Execution time: $totaltime</em></p>\n"
 .    '<a href="'.$urlTranslation.'">&lt;&lt; Back</a>' . "\n";
 
-// display footer
+$claroline->display->body->appendContent($out);
 
-include($includePath."/claro_init_footer.inc.php");
+echo $claroline->display->render();
 
 ?>

@@ -4,9 +4,9 @@
  *
  * This is the index page of sdk tools
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2009 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -14,6 +14,7 @@
  *
  * @author Claro Team <cvs@claroline.net>
  * @author Christophe Gesché <moosh@claroline.net>
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
  *
  */
 
@@ -27,9 +28,9 @@ $nameTools = get_lang('Technical Tools');
 
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
-echo claro_html_tool_title(
+$out .= claro_html_tool_title(
     array(
     'mainTitle'=>$nameTools
     )
@@ -37,12 +38,14 @@ echo claro_html_tool_title(
 
 
 // TODO : cuse claro disp menu v
-?>
-<ul>
- <li><a href="./diskUsage.php"><?php echo get_lang('Disk usage') ?></a></li>
- <li><a href="./phpInfo.php"><?php echo get_lang('PHP system information') ?></a></li>
-</ul>
+$out .= '<ul>
+  <li><a href="./diskUsage.php">' . get_lang('Disk usage') . '</a></li>
+  <li><a href="./phpInfo.php">' . get_lang('PHP system information') . '</a></li>
+ </ul>'
+ ;
 
-<?php
-include (get_path('incRepositorySys') . '/claro_init_footer.inc.php');
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
+
 ?>
