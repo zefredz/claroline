@@ -2,13 +2,14 @@
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2009 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @author Claro Team <cvs@claroline.net>
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
  *
  */
 
@@ -243,16 +244,16 @@ ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), get_module_url(
 
 $nameTools = get_lang('Question pool');
 
-include(get_path('incRepositorySys').'/claro_init_header.inc.php');
+$out = '';
 
-echo claro_html_tool_title($nameTools);
+$out .= claro_html_tool_title($nameTools);
 
-echo $dialogBox->render();
+$out .= $dialogBox->render();
 
 //-- filter listbox
 $attr['onchange'] = 'filterForm.submit()';
 
-echo "\n"
+$out .= "\n"
 .     '<form method="get" name="filterForm" action="question_pool.php">' . "\n"
 .     '<input type="hidden" name="exId" value="'.$exId.'" />' . "\n"
 .     '<p align="right">' . "\n"
@@ -270,38 +271,38 @@ if( !is_null($exId) )
 }
 $cmd_menu[] = '<a class="claroCmd" href="./edit_question.php?cmd=rqEdit">'.get_lang('New question').'</a>';
 
-echo claro_html_menu_horizontal($cmd_menu);
+$out .= claro_html_menu_horizontal($cmd_menu);
 
 //-- pager
-echo $myPager->disp_pager_tool_bar($pagerUrl);
+$out .= $myPager->disp_pager_tool_bar($pagerUrl);
 
 //-- list
-echo '<table class="claroTable emphaseLine" border="0" align="center" cellpadding="2" cellspacing="2" width="100%">' . "\n\n"
+$out .= '<table class="claroTable emphaseLine" border="0" align="center" cellpadding="2" cellspacing="2" width="100%">' . "\n\n"
 .     '<thead>' . "\n"
 .     '<tr class="headerX">' . "\n"
-.   '<th>' . get_lang('Id') . '</th>' . "\n"
+.     '<th>' . get_lang('Id') . '</th>' . "\n"
 .     '<th>' . get_lang('Question') . '</th>' . "\n"
 .     '<th>' . get_lang('Answer type') . '</th>' . "\n";
 $colspan = 2;
 if( !is_null($exId) )
 {
-    echo '<th>' . get_lang('Reuse') . '</th>' . "\n";
+    $out .= '<th>' . get_lang('Reuse') . '</th>' . "\n";
     $colspan++;
 }
 else
 {
-    echo '<th>' . get_lang('Modify') . '</th>' . "\n"
+    $out .= '<th>' . get_lang('Modify') . '</th>' . "\n"
     .     '<th>' . get_lang('Delete') . '</th>' . "\n";
     $colspan += 2;
 
     if( get_conf('enableExerciseExportQTI') )
     {
-        echo '<th colspan="2">' . get_lang('Export') . '</th>' . "\n";
+        $out .= '<th colspan="2">' . get_lang('Export') . '</th>' . "\n";
         $colspan++;
     }
 }
 
-echo '</tr>' . "\n"
+$out .= '</tr>' . "\n"
 .     '</thead>' . "\n\n"
 .     '<tbody>' . "\n";
 
@@ -315,18 +316,18 @@ if( !empty($questionList) )
 
     foreach( $questionList as $question )
     {
-        echo '<tr>'
+        $out .= '<tr>'
         .   '<td align="center">' . $question['id'] . '</td>' . "\n"
         .     '<td>'.$question['title'].'</td>' . "\n"
         ;
 
         // answer type
-        echo '<td><small>'.$questionTypeLang[$question['type']].'</small></td>' . "\n";
+        $out .= '<td><small>'.$questionTypeLang[$question['type']].'</small></td>' . "\n";
 
         if( !is_null($exId) )
         {
             // re-use
-            echo '<td align="center">'
+            $out .= '<td align="center">'
             .     '<a href="question_pool.php?exId='.$exId.'&amp;cmd=rqUse&amp;quId='.$question['id'].'">'
             .     '<img src="' . get_icon_url('select') . '" alt="'.get_lang('Modify').'" />'
             .     '</a>'
@@ -335,7 +336,7 @@ if( !empty($questionList) )
         else
         {
             // edit
-            echo '<td align="center">'
+            $out .= '<td align="center">'
             .     '<a href="edit_question.php?quId='.$question['id'].'">'
             .     '<img src="' . get_icon_url('edit') . '" alt="'.get_lang('Modify').'" />'
             .     '</a>'
@@ -344,7 +345,7 @@ if( !empty($questionList) )
             // delete question from database
             $confirmString = get_lang('Are you sure you want to completely delete this question ?');
 
-            echo '<td align="center">'
+            $out .= '<td align="center">'
             .     '<a href="question_pool.php?exId='.$exId.'&amp;cmd=delQu&amp;quId='.$question['id'].'" onclick="javascript:if(!confirm(\''.clean_str_for_javascript($confirmString).'\')) return false;">'
             .     '<img src="' . get_icon_url('delete') . '" alt="'.get_lang('Delete').'" />'
             .     '</a>'
@@ -353,29 +354,32 @@ if( !empty($questionList) )
             if( get_conf('enableExerciseExportQTI') )
             {
                 // export
-                echo '<td align="center">'
+                $out .= '<td align="center">'
                 .     '<a href="question_pool.php?exId='.$exId.'&amp;cmd=exExport&amp;quId='.$question['id'].'">'
                 .     '<img src="' . get_icon_url('export') . '" alt="'.get_lang('Export').'" />'
                 .     '</a>'
                 .     '</td>' . "\n";
             }
         }
-        echo '</tr>';
+        $out .= '</tr>';
 
     }
 
 }
 else
 {
-    echo '<tr>' . "\n"
+    $out .= '<tr>' . "\n"
     .     '<td colspan="'.$colspan.'">' . get_lang('Empty') . '</td>' . "\n"
     .     '</tr>' . "\n\n";
 }
-echo '</tbody>' . "\n\n"
+$out .= '</tbody>' . "\n\n"
 .     '</table>' . "\n\n";
 
 //-- pager
-echo $myPager->disp_pager_tool_bar($pagerUrl);
+$out .= $myPager->disp_pager_tool_bar($pagerUrl);
 
-include(get_path('incRepositorySys').'/claro_init_footer.inc.php');
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
+
 ?>

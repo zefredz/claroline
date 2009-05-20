@@ -2,7 +2,7 @@
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
  * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
@@ -89,10 +89,13 @@ if ( $cmd == 'download' )
 
 header('HTTP/1.1 404 Not Found');
 
-include get_path('incRepositorySys')  . '/claro_init_header.inc.php';
+$out = '';
 
-echo $dialogBox->render();
+$out .= $dialogBox->render();
 
-include get_path('incRepositorySys')  . '/claro_init_footer.inc.php';
+
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
 
 ?>

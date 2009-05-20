@@ -4,11 +4,12 @@
  *
  * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2009 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @author Claro Team <cvs@claroline.net>
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
  *
  */
 
@@ -152,8 +153,6 @@ else                    $_SERVER['QUERY_STRING'] = '';
 
 $nameTools = get_lang('Edit answers');
 
-//include(get_path('incRepositorySys').'/claro_init_header.inc.php');
-
 $out .= claro_html_tool_title($nameTools);
 // dialog box if required
 $out .= $dialogBox->render();
@@ -163,7 +162,5 @@ $out .= $question->answer->getFormHtml($exId,$askDuplicate);
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-//include(get_path('incRepositorySys').'/claro_init_footer.inc.php');
 
 ?>

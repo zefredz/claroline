@@ -2,13 +2,14 @@
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2009 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @author Claro Team <cvs@claroline.net>
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
  *
  */
 
@@ -299,12 +300,12 @@ $exerciseList = $myPager->get_result_list();
 $nameTools = get_lang('Exercises');
 
 $noQUERY_STRING = true;
-include(get_path('incRepositorySys').'/claro_init_header.inc.php');
+$out = '';
 
-echo claro_html_tool_title($nameTools, $is_allowedToEdit ? 'help_exercise.php' : false);
+$out .= claro_html_tool_title($nameTools, $is_allowedToEdit ? 'help_exercise.php' : false);
 
 //-- dialogBox
-echo $dialogBox->render();
+$out .= $dialogBox->render();
 
 //-- claroCmd
 $cmd_menu = array();
@@ -320,14 +321,14 @@ if($is_allowedToEdit)
     $cmd_menu[] = '<a class="claroCmd" href="exercise.php?cmd=rqImport"><img src="' . get_icon_url('import') . '" alt="" />'.get_lang('Import exercise').'</a>';
 }
 
-echo '<p>' . claro_html_menu_horizontal($cmd_menu) . '</p>' . "\n";
+$out .= '<p>' . claro_html_menu_horizontal($cmd_menu) . '</p>' . "\n";
 
 //-- pager
-echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+$out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 //-- list
 
-echo '<table class="claroTable emphaseLine" border="0" align="center" cellpadding="2" cellspacing="2" width="100%">' . "\n\n"
+$out .= '<table class="claroTable emphaseLine" border="0" align="center" cellpadding="2" cellspacing="2" width="100%">' . "\n\n"
 .     '<thead>' . "\n"
 .     '<tr class="headerX">' . "\n"
 .     '<th>' . get_lang('Exercise title') . '</th>' . "\n";
@@ -336,25 +337,25 @@ $colspan = 1;
 
 if( $is_allowedToEdit )
 {
-    echo '<th>' . get_lang('Modify') . '</th>' . "\n"
+    $out .= '<th>' . get_lang('Modify') . '</th>' . "\n"
     .     '<th>' . get_lang('Delete') . '</th>' . "\n"
     .     '<th>' . get_lang('Visibility') . '</th>' . "\n";
     $colspan = 4;
 
     if( get_conf('enableExerciseExportQTI') )
     {
-        echo '<th>' . get_lang('Export') . '</th>' . "\n";
+        $out .= '<th>' . get_lang('Export') . '</th>' . "\n";
         $colspan++;
     }
 
     if( $is_allowedToTrack )
     {
-        echo '<th>' . get_lang('Statistics') . '</th>' . "\n";
+        $out .= '<th>' . get_lang('Statistics') . '</th>' . "\n";
         $colspan++;
     }
 }
 
-echo '</tr>' . "\n"
+$out .= '</tr>' . "\n"
 .     '</thead>' . "\n\n"
 .     '<tbody>' . "\n\n";
 
@@ -383,7 +384,7 @@ if( !empty($exerciseList) )
             $appendToStyle = '';
         }
 
-        echo '<tr'.$invisibleClass.'>' . "\n"
+        $out .= '<tr'.$invisibleClass.'>' . "\n"
         .     '<td>'
         .     '<a href="exercise_submit.php?exId='.$anExercise['id'].'" class="item'.$appendToStyle.'">'
         .     '<img src="' . get_icon_url('quiz') . '" alt="" />'
@@ -393,7 +394,7 @@ if( !empty($exerciseList) )
 
         if( $is_allowedToEdit )
         {
-            echo '<td align="center">'
+            $out .= '<td align="center">'
             .     '<a href="admin/edit_exercise.php?exId='.$anExercise['id'].'">'
             .     '<img src="' . get_icon_url('edit') . '" alt="'.get_lang('Modify').'" />'
             .     '</a>'
@@ -406,7 +407,7 @@ if( !empty($exerciseList) )
             }
             $confirmString .= get_lang('Are you sure you want to delete this exercise ?');
 
-            echo '<td align="center">'
+            $out .= '<td align="center">'
             .     '<a href="exercise.php?exId='.$anExercise['id'].'&amp;cmd=exDel" onclick="javascript:if(!confirm(\''.clean_str_for_javascript($confirmString).'\')) return false;">'
             .     '<img src="' . get_icon_url('delete') . '" alt="'.get_lang('Delete').'" />'
             .     '</a>'
@@ -414,7 +415,7 @@ if( !empty($exerciseList) )
 
             if( $anExercise['visibility'] == 'VISIBLE' )
             {
-                echo '<td align="center">'
+                $out .= '<td align="center">'
                 .     '<a href="exercise.php?exId='.$anExercise['id'].'&amp;cmd=exMkInvis">'
                 .     '<img src="' . get_icon_url('visible') . '" alt="'.get_lang('Make invisible').'" />'
                 .     '</a>'
@@ -422,7 +423,7 @@ if( !empty($exerciseList) )
             }
             else
             {
-                echo '<td align="center">'
+                $out .= '<td align="center">'
                 .     '<a href="exercise.php?exId='.$anExercise['id'].'&amp;cmd=exMkVis">'
                 .     '<img src="' . get_icon_url('invisible') . '" alt="'.get_lang('Make visible').'" />'
                 .     '</a>'
@@ -431,7 +432,7 @@ if( !empty($exerciseList) )
 
             if( get_conf('enableExerciseExportQTI') )
             {
-                echo '<td align="center">'
+                $out .= '<td align="center">'
                 .     '<a href="exercise.php?exId='.$anExercise['id'].'&amp;cmd=exExport">'
                 .     '<img src="' . get_icon_url('export') . '" alt="'.get_lang('Export').'" />'
                 .     '</a>'
@@ -440,7 +441,7 @@ if( !empty($exerciseList) )
 
             if( $is_allowedToTrack )
             {
-                echo '<td align="center">'
+                $out .= '<td align="center">'
                 .     '<a href="track_exercises.php?exId='.$anExercise['id'].'&amp;src=ex">'
                 .     '<img src="' . get_icon_url('statistics') . '" alt="'.get_lang('Statistics').'" />'
                 .     '</a>'
@@ -448,22 +449,24 @@ if( !empty($exerciseList) )
             }
         }
 
-        echo '</tr>' . "\n\n";
+        $out .= '</tr>' . "\n\n";
     }
 }
 else
 {
-    echo '<tr>' . "\n"
+    $out .= '<tr>' . "\n"
     .     '<td colspan="'.$colspan.'">' . get_lang('Empty') . '</td>' . "\n"
     .     '</tr>' . "\n\n";
 }
 
-echo '</tbody>' . "\n\n"
+$out .= '</tbody>' . "\n\n"
 .     '</table>' . "\n\n";
 
 //-- pager
-echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+$out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
+$claroline->display->body->appendContent($out);
 
-include(get_path('incRepositorySys').'/claro_init_footer.inc.php');
+echo $claroline->display->render();
+
 ?>

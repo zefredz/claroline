@@ -2,13 +2,14 @@
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2009 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @author Claro Team <cvs@claroline.net>
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
  *
  */
 
@@ -240,8 +241,6 @@ $cssLoader = CssLoader::getInstance();
 $cssLoader->load( 'exercise', 'screen');
 
 $out = '';
-
-//include($includePath.'/claro_init_header.inc.php');
 
 $out .= claro_html_tool_title($toolTitle);
 
@@ -613,7 +612,5 @@ else
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-//include($includePath.'/claro_init_footer.inc.php');
 
 ?>
