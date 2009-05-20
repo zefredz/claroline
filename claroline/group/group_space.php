@@ -4,9 +4,9 @@
  *
  * This tool is "groupe_home" + "group_user"
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2009 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -277,18 +277,17 @@ foreach($toolList as $thisTool)
  * DISPLAY SECTION
  ******************/
 
-// CLAROLINE HEADER AND BANNER
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
-echo claro_html_tool_title( array('supraTitle'=> get_lang("Groups"),
+$out .= claro_html_tool_title( array('supraTitle'=> get_lang("Groups"),
                                   'mainTitle' => claro_get_current_group_data('name') . ' <img src="' . get_icon_url('group') . '" alt="" />'));
 
-echo $dialogBox->render();
+$out .= $dialogBox->render();
 
 
 if($is_allowedToSelfRegInGroup && !array_key_exists('registration',$_REQUEST))
 {
-    echo '<p>' . "\n"
+    $out .= '<p>' . "\n"
     .    claro_html_cmd_link( htmlspecialchars(Url::Contextualize(
                             $_SERVER['PHP_SELF'] . '?registration=1' ))
                             , '<img src="' . get_icon_url('enroll') . '"'
@@ -299,7 +298,7 @@ if($is_allowedToSelfRegInGroup && !array_key_exists('registration',$_REQUEST))
     ;
 }
 
-echo '<table cellpadding="5" cellspacing="0" border="0">'  . "\n"
+$out .= '<table cellpadding="5" cellspacing="0" border="0">'  . "\n"
 .    '<tr>'  . "\n"
 .    '<td style="border-right: 1px solid gray;" valign="top" width="220">'  . "\n"
 
@@ -318,7 +317,7 @@ echo '<table cellpadding="5" cellspacing="0" border="0">'  . "\n"
 
 if ($is_allowedToManage)
 {
-    echo claro_html_cmd_link( htmlspecialchars(Url::Contextualize('group_edit.php'))
+    $out .= claro_html_cmd_link( htmlspecialchars(Url::Contextualize('group_edit.php'))
                             , '<img src="' . get_icon_url('edit') . '"'
                             .     ' alt="' . get_lang("Edit this group") . '" />'
                             .    get_lang("Edit this group")
@@ -327,13 +326,13 @@ if ($is_allowedToManage)
 
 if (current_user_is_allowed_to_send_message_to_current_group())
 {
-    echo '<br />'.claro_html_cmd_link( htmlspecialchars(Url::Contextualize(
+    $out .= '<br />'.claro_html_cmd_link( htmlspecialchars(Url::Contextualize(
                             '../messaging/sendmessage.php?cmd=rqMessageToGroup&amp;' ))
                             , '<img src="' . get_icon_url('mail_send') . '" alt="" />' . get_lang("Send a message to group")
                             );
 }
 
-echo '</td>' . "\n"
+$out .= '</td>' . "\n"
 .    '<td width="20">' . "\n"
 .    '&nbsp;' . "\n"
 .    '</td>' . "\n"
@@ -349,16 +348,16 @@ DISPLAY GROUP DESCRIPTION
 
 if( strlen(claro_get_current_group_data('description')) > 0)
 {
-    echo '<br /><br />' . "\n"
+    $out .= '<br /><br />' . "\n"
     .    claro_get_current_group_data('description')
     ;
 }
 else // Show 'none' if no description
 {
-    echo get_lang("(none)");
+    $out .= get_lang("(none)");
 }
 
-echo '<br /><br />'
+$out .= '<br /><br />'
 .    '<b>'
 .    get_lang("Group Tutor")
 .    '</b> :'
@@ -370,16 +369,16 @@ DISPLAY GROUP TUTOR INFORMATION
 
 if (count($tutorDataList) > 0)
 {
-    echo '<br /><br />' . "\n";
+    $out .= '<br /><br />' . "\n";
     foreach($tutorDataList as $thisTutor)
     {
-        echo '<span class="item">'
+        $out .= '<span class="item">'
         .    htmlspecialchars( $thisTutor['lastName'] . ' ' . $thisTutor['firstName'] )
         ;
         
         if(current_user_is_allowed_to_send_message_to_user($thisTutor['id']))
         {
-            echo ' - <a href="'.htmlspecialchars(Url::Contextualize(
+            $out .= ' - <a href="'.htmlspecialchars(Url::Contextualize(
               '../messaging/sendmessage.php?cmd=rqMessageToUser&amp;userId=' . (int)$thisTutor['id'] ))
               . '">'
               // . '<img src="' . get_icon_url('mail_send') . '" alt="" />'
@@ -388,20 +387,20 @@ if (count($tutorDataList) > 0)
               ;
         }
           
-        echo '</span>'
+        $out .= '</span>'
         .    '<br />'
         ;
     }
 }
 else
 {
-    echo get_lang("(none)");
+    $out .= get_lang("(none)");
 }
-?>
-<br /><br />
 
-<b><?php echo get_lang("Group members") ?></b> :
-<?php
+$out .= '<br /><br />
+
+<b>' . get_lang("Group members") . '</b> : '
+;
 
 
 /*----------------------------------------------------------------------------
@@ -414,10 +413,10 @@ $urlContext = Claro_Context::getUrlContext( $context );
 
 if(count($groupMemberList) > 0)
 {
-    echo '<br /><br />' . "\n";
+    $out .= '<br /><br />' . "\n";
     foreach($groupMemberList as $thisGroupMember)
     {
-        echo '<a href="'
+        $out .= '<a href="'
         .    htmlspecialchars(Url::Contextualize('../user/userInfo.php?uInfo=' . $thisGroupMember['id'], $urlContext  ))
         .    '" class="item">'
         .    $thisGroupMember['lastName'] . ' ' . $thisGroupMember['firstName']
@@ -425,7 +424,7 @@ if(count($groupMemberList) > 0)
         
         if(current_user_is_allowed_to_send_message_to_user($thisGroupMember['id']))
         {        
-            echo ' - <a href="'
+            $out .= ' - <a href="'
                 . htmlspecialchars(Url::Contextualize(
                     '../messaging/sendmessage.php?cmd=rqMessageToUser&amp;userId=' . (int) $thisGroupMember['id'] ))
                 . '">'
@@ -435,21 +434,22 @@ if(count($groupMemberList) > 0)
                 ;
         }
         
-        echo '<br />' . "\n";
+        $out .= '<br />' . "\n";
     }
 }
 else
 {
-    echo get_lang('(none)');
+    $out .= get_lang('(none)');
 }
 
 
-echo '</td>' . "\n"
+$out .= '</td>' . "\n"
 .    '</tr>' . "\n"
 .    '</table>' . "\n"
 ;
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
 
+echo $claroline->display->render();
 
 ?>
