@@ -92,7 +92,9 @@ CREATE TABLE IF NOT EXISTS `__CL_COURSE__tracking_event` (
   `date` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `type` varchar(60) NOT NULL DEFAULT '',
   `data` text NOT NULL,
-  PRIMARY KEY  (`id`)
+  PRIMARY KEY  (`id`),
+  KEY `tool` (`tool_id`),
+  KEY `user` (`user_id`)
 ) TYPE=MyISAM;
 
 CREATE TABLE IF NOT EXISTS `__CL_COURSE__document` (
