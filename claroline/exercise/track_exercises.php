@@ -2,14 +2,15 @@
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @version 1.9 $Revision$
+ * @copyright 2001-2009 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @package CLTRACK
  *
  * @author Claro Team <cvs@claroline.net>
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
  *
  */
 $tlabelReq = 'CLQWZ';
@@ -90,13 +91,13 @@ if( get_conf('is_trackingEnabled') && isset($_REQUEST['exportCsv']) )
     }
 }
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
 // display title
 $titleTab['mainTitle'] = $nameTools;
 $titleTab['subTitle'] = $exercise->getTitle();
 
-echo claro_html_tool_title($titleTab);
+$out .= claro_html_tool_title($titleTab);
 
 if ( get_conf('is_trackingEnabled') )
 {
@@ -131,7 +132,7 @@ if ( get_conf('is_trackingEnabled') )
     else
         $displayedWeighting = '';
 
-      echo '<ul>'."\n"
+    $out .= '<ul>'."\n"
     .'<li>'.get_lang('Worst score').' : '.$exo_scores_details['minimum'].$displayedWeighting.'</li>'."\n"
     .'<li>'.get_lang('Best score').' : '.$exo_scores_details['maximum'].$displayedWeighting.'</li>'."\n"
     .'<li>'.get_lang('Average score').' : '.$exo_scores_details['average'].$displayedWeighting.'</li>'."\n"
@@ -142,7 +143,7 @@ if ( get_conf('is_trackingEnabled') )
     .'<li>'.get_lang('Total attempts').' : '.$exo_scores_details['tusers'].'</li>'."\n"
     .'</ul>'."\n\n";
 
-    echo '<ul>'."\n"
+    $out .= '<ul>'."\n"
     .'<li><a href="'.$_SERVER['PHP_SELF'].'?exportCsv=1&exId='.$exId.'">'.get_lang('Get tracking data in a CSV file').'</a></li>'."\n"
     .'</ul>'."\n\n";
 
@@ -170,9 +171,9 @@ if ( get_conf('is_trackingEnabled') )
 
     $exo_users_details = claro_sql_query_fetch_all($sql);
 
-    echo '<p><b>'.get_lang('Statistics by user').'</b></p>'."\n";
+    $out .= '<p><b>'.get_lang('Statistics by user').'</b></p>'."\n";
     // display tab header
-    echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'."\n\n"
+    $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'."\n\n"
         .'<tr class="headerX" align="center" valign="top">'."\n"
         .'<th>'.get_lang('Student').'</th>'."\n"
         .'<th>'.get_lang('Worst score').'</th>'."\n"
@@ -198,7 +199,7 @@ if ( get_conf('is_trackingEnabled') )
             $displayedAverage = round($exo_users_detail['average']*100)/100;
             $displayedAvgTime = claro_html_duration(floor($exo_users_detail['avgTime']));
         }
-        echo      '<tr>'."\n"
+        $out .=      '<tr>'."\n"
                   .'<td><a href="../tracking/userReport.php?userId='.$exo_users_detail['user_id'].'&amp;exId='.$exercise->getId().'">'."\n"
                 .$exo_users_detail['nom'].' '.$exo_users_detail['prenom'].'</a></td>'."\n"
                   .'<td>'.$exo_users_detail['minimum'].'</td>'."\n"
@@ -209,7 +210,7 @@ if ( get_conf('is_trackingEnabled') )
                 .'</tr>'."\n\n";
     }
     // foot of table
-    echo '</tbody>'."\n".'</table>'."\n\n";
+    $out .= '</tbody>'."\n".'</table>'."\n\n";
 
     // display details : QUESTIONS VIEW
     $sql = "SELECT `Q`.`id`, `Q`.`title`, `Q`.`type`, `Q`.`grade`,
@@ -229,9 +230,9 @@ if ( get_conf('is_trackingEnabled') )
 
     $exo_questions_details = claro_sql_query_fetch_all($sql);
 
-    echo '<p><b>'.get_lang('Statistics by question').'</b></p>'."\n";
+    $out .= '<p><b>'.get_lang('Statistics by question').'</b></p>'."\n";
     // display tab header
-    echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'."\n"
+    $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'."\n"
         .'<tr class="headerX" align="center" valign="top">'."\n"
         .'<th>'.get_lang('Question title').'</th>'."\n"
         .'<th>'.get_lang('Worst score').'</th>'."\n"
@@ -247,7 +248,7 @@ if ( get_conf('is_trackingEnabled') )
             $exo_questions_detail['minimum'] = 0;
             $exo_questions_detail['maximum'] = 0;
         }
-        echo      '<tr>'."\n"
+        $out .=      '<tr>'."\n"
                   .'<td><a href="track_questions.php?question_id='.$exo_questions_detail['id'].'&exId='.$exId.$src.'">'.$exo_questions_detail['title'].'</a></td>'."\n"
                   .'<td>'.$exo_questions_detail['minimum'].'/'.$exo_questions_detail['grade'].'</td>'."\n"
                   .'<td>'.$exo_questions_detail['maximum'].'/'.$exo_questions_detail['grade'].'</td>'."\n"
@@ -255,12 +256,15 @@ if ( get_conf('is_trackingEnabled') )
                 .'</tr>'."\n\n";
     }
     // foot of table
-    echo '</tbody>'."\n\n".'</table>'."\n\n";
+    $out .= '</tbody>'."\n\n".'</table>'."\n\n";
 }
 else
 {
-    echo get_lang('Tracking has been disabled by system administrator.');
+    $out .= get_lang('Tracking has been disabled by system administrator.');
 }
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
+
 ?>

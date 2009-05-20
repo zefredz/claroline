@@ -4,11 +4,12 @@
  *
  * This page display global information about
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2009 Universite catholique de Louvain (UCL)
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  * @author claro team <info@claroline.net>
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
  *
  */
 require '../inc/claro_init_global.inc.php';
@@ -280,13 +281,13 @@ $backLink = '<p><small><a href="../tracking/userReport.php?userId='.$thisAttempt
 
 $nameTools = get_lang('Statistics of exercise attempt');
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 // display title
 $titleTab['mainTitle'] = $nameTools;
 
-echo claro_html_tool_title($titleTab);
+$out .= claro_html_tool_title($titleTab);
 
-echo $backLink;
+$out .= $backLink;
 
 if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
 {
@@ -330,7 +331,7 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
     // display
 
     // display infos about the details ...
-    echo '<ul>' . "\n"
+    $out .= '<ul>' . "\n"
     .    '<li>' . get_lang('Last name') . ' : '.$thisAttemptDetails['lastname'] . '</li>' . "\n"
     .    '<li>' . get_lang('First name') . ' : '.$thisAttemptDetails['firstname'] . '</li>' . "\n"
     .    '<li>' . get_lang('Date') . ' : ' . claro_html_localised_date(get_locale('dateTimeFormatLong'),$thisAttemptDetails['unix_exe_date']) . '</li>' . "\n"
@@ -339,7 +340,7 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
     .    '</ul>' . "\n\n"
     ;
 
-    echo "\n" . '<table width="100%" border="0" cellpadding="1" cellspacing="0" class="claroTable">' . "\n\n";
+    $out .= "\n" . '<table width="100%" border="0" cellpadding="1" cellspacing="0" class="claroTable">' . "\n\n";
 
     if( !empty($questionList) )
     {
@@ -349,18 +350,18 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
 
         foreach( $questionList as $question )
         {
-            echo '<tr class="headerX">' . "\n"
+            $out .= '<tr class="headerX">' . "\n"
             .     '<th>'
             .     get_lang('Question') . ' ' . $questionIterator
             .     '</th>' . "\n"
             .     '</tr>' . "\n\n";
 
-            echo '<tr>'
+            $out .= '<tr>'
             .     '<td>' . "\n";
 
-            echo $question->getQuestionFeedbackHtml();
+            $out .= $question->getQuestionFeedbackHtml();
 
-            echo '</td>' . "\n"
+            $out .= '</td>' . "\n"
             .     '</tr>' . "\n\n"
 
             .     '<tr>'
@@ -374,7 +375,7 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
         }
     }
 
-    echo '</table>' . "\n\n";
+    $out .= '</table>' . "\n\n";
 
 }
 // not allowed
@@ -384,8 +385,11 @@ else
     {
         $dialogBox->error( get_lang('Tracking has been disabled by system administrator.') );
     }
-    echo $dialogBox->render();
+    $out .= $dialogBox->render();
 }
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
+
 ?>

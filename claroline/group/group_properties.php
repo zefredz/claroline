@@ -2,9 +2,9 @@
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2009 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -60,10 +60,11 @@ if ( get_conf('multiGroupAllowed') )
 
 $groupToolList = get_group_tool_list();
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-echo claro_html_tool_title( array('supraTitle' => get_lang("Groups"), 'mainTitle' => $nameTools));
+$out = '';
 
-echo '<form method="post" action="group.php">' . "\n"
+$out .= claro_html_tool_title( array('supraTitle' => get_lang("Groups"), 'mainTitle' => $nameTools));
+
+$out .= '<form method="post" action="group.php">' . "\n"
 .    claro_form_relay_context()
 .    '<table border="0" width="100%" cellspacing="0" cellpadding="4">' . "\n"
 .    '<tr>' . "\n"
@@ -108,7 +109,7 @@ if ( get_conf('multiGroupAllowed') )
     . '>ALL</option>'
     . '</select>' ;
 
-    echo '<tr>' . "\n"
+    $out .= '<tr>' . "\n"
     .    '<td valign="top">' . "\n"
     .    '<b>' . get_lang("Limit") . '</b>' . "\n"
     .    '</td>' . "\n"
@@ -123,7 +124,7 @@ if ( get_conf('multiGroupAllowed') )
     ;
 
 }
-echo '<tr>' . "\n"
+$out .= '<tr>' . "\n"
 .    '<td>' . "\n"
 .    '<b>' . "\n"
 .    get_lang("Access") . "\n"
@@ -134,20 +135,20 @@ echo '<tr>' . "\n"
 .    '<span class="item">' . "\n"
 .    '<input type="radio" name="private" id="private_1" value="1" '
 ;
-if($groupPrivate) echo "checked=\"checked\"";
-echo '  />' . "\n"
+if($groupPrivate) $out .= "checked=\"checked\"";
+$out .= '  />' . "\n"
 .    '<label for="private_1">' . get_lang("Private") . '</label>' . "\n"
 .    '<input type="radio" name="private" id="private_0" value="0" '
 ;
-if(!$groupPrivate) echo 'checked="checked"';
-echo '  />' . "\n"
+if(!$groupPrivate) $out .= 'checked="checked"';
+$out .= '  />' . "\n"
 .    '<label for="private_0">' . get_lang("Public") . '</label>' . "\n"
 .    '</span>' . "\n"
 .    '</td>' . "\n"
 .    '</tr>' . "\n"
 ;
 
-echo '<tr>' . "\n"
+$out .= '<tr>' . "\n"
 .    '<td valign="top">' . "\n"
 .    '<b>' . get_lang("Tools") . '</b>' . "\n"
 .    '</td>' . "\n"
@@ -165,15 +166,15 @@ foreach ($groupToolList as $groupTool)
     $toolName = claro_get_module_name ( $groupTool['label']);
 
 
-    echo '<tr>' . "\n"
+    $out .= '<tr>' . "\n"
     .    '<td valign="top">' . "\n"
     .    '<span class="item">' . "\n"
     .    '<input type="checkbox" name="' . $groupTool['label'] . '" id="' . $groupTool['label'] . '" value="1" '
     ;
 
     if( isset( $_groupProperties['tools'] [$groupTool['label']] )
-       && $_groupProperties['tools'] [$groupTool['label']]) echo "checked=\"checked\"";
-    echo '  />' . "\n"
+       && $_groupProperties['tools'] [$groupTool['label']]) $out .= "checked=\"checked\"";
+    $out .= '  />' . "\n"
     .    '<label for="' . $groupTool['label'] . '">' . get_lang($toolName)  . '</label>' . "\n"
     .    '</span>' . "\n"
     .    '</td>' . "\n"
@@ -182,7 +183,7 @@ foreach ($groupToolList as $groupTool)
 
 }
 
-echo '<tr>' . "\n"
+$out .= '<tr>' . "\n"
 .    '<td valign="top">' . "\n"
 .    '<input type="submit" name="properties" value="' . get_lang("Ok") . '" />' . "\n"
 .    claro_html_button(htmlspecialchars( $_SERVER['HTTP_REFERER'] ), get_lang("Cancel")) . '' . "\n"
@@ -192,5 +193,8 @@ echo '<tr>' . "\n"
 .    '</form>' . "\n"
 ;
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
+
 ?>

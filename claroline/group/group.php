@@ -18,9 +18,9 @@
  *  - remove (all) groups
  * complete listing of  groups member is not aivailable. the  unsorted info is in user tool
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2009 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -528,20 +528,20 @@ $htmlHeadXtra[] =
 -->
 </style>'."\n";
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
-echo claro_html_tool_title($nameTools);
+$out .= claro_html_tool_title($nameTools);
 
 /*-------------
   MESSAGE BOX
  -------------*/
 
-echo $dialogBox->render();
+$out .= $dialogBox->render();
 
 /*==========================
 COURSE ADMIN ONLY
 ==========================*/
-if ( $display_groupadmin_manager ) echo '<p>' . claro_html_menu_horizontal($groupadmin_manager_menu) . '</p>';
+if ( $display_groupadmin_manager ) $out .= '<p>' . claro_html_menu_horizontal($groupadmin_manager_menu) . '</p>';
 
 /**
   VIEW COMMON TO STUDENT & TEACHERS
@@ -574,9 +574,9 @@ if ( is_integer($nbGroupPerUser) )
     if ( $countTeamUser >= $nbGroupPerUser ) $isGroupRegAllowed = FALSE;
 }
 
-echo $groupPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+$out .= $groupPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
-echo                                                         "\n"
+$out .=                                                         "\n"
 .    '<table class="claroTable emphaseLine" width="100%">' . "\n"
 .    '<thead>'. "\n";
 
@@ -586,7 +586,7 @@ echo                                                         "\n"
 
 $sortUrlList = $groupPager->get_sort_url_list($_SERVER['PHP_SELF']);
 
-echo '<tr class="headerX" align="center">' . "\n"
+$out .= '<tr class="headerX" align="center">' . "\n"
 .    '<th align="left">'
 .    '&nbsp;<a href="'.htmlspecialchars(Url::Contextualize( $sortUrlList['name'] )).'">'.get_lang("Groups") . '</a>'
 .    '</th>'                               . "\n"
@@ -594,21 +594,21 @@ echo '<tr class="headerX" align="center">' . "\n"
 
 if($isGroupRegAllowed && ! $is_allowedToManage) // If self-registration allowed
 {
-    echo '<th align="left">' . get_lang("Registration") . '</th>' . "\n"  ;
+    $out .= '<th align="left">' . get_lang("Registration") . '</th>' . "\n"  ;
 }
 
-echo '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['nbMember'])).'">' . get_lang("Registered") . '</a></th>' . "\n"
+$out .= '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['nbMember'])).'">' . get_lang("Registered") . '</a></th>' . "\n"
 .    '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['maxStudent'])).'">' . get_lang("Max.") . '</a></th>' . "\n"
 ;
 
 if ( $is_allowedToManage ) // only for course administrator
 {
-    echo '<th>' . get_lang("Edit") . '</th>' . "\n"
+    $out .= '<th>' . get_lang("Edit") . '</th>' . "\n"
     .    '<th>' . get_lang("Delete") . '</th>' . "\n"
     ;
 }
 
-echo '</tr>' . "\n"
+$out .= '</tr>' . "\n"
 .    '</thead>'
 .    '<tbody>' . "\n"
 ;
@@ -636,7 +636,7 @@ if( $groupList )
     {
         // COLUMN 1 - NAME OF GROUP + If open LINK.
 
-        echo '<tr align="center">' . "\n"
+        $out .= '<tr align="center">' . "\n"
         .    '<td align="left">'
         ;
         /**
@@ -661,7 +661,7 @@ if( $groupList )
                 $classItem = '<div class="item">';
             }
 
-            echo $classItem . '<img src="' . get_icon_url('group') . '" alt="" /> '
+            $out .= $classItem . '<img src="' . get_icon_url('group') . '" alt="" /> '
             .    '<a href="'
             .    htmlspecialchars(Url::Contextualize(
                     'group_space.php?gidReq=' . $thisGroup['id'] ))
@@ -671,20 +671,23 @@ if( $groupList )
             .    '</div>'
             ;
 
-            if     (claro_is_user_authenticated() && (claro_get_current_user_id() == $thisGroup['id_tutor'] )) echo ' (' . get_lang("my supervision") . ')';
+            if     (claro_is_user_authenticated() && (claro_get_current_user_id() == $thisGroup['id_tutor'] ))
+            {
+                $out.= ' (' . get_lang("my supervision") . ')';
+            }
             elseif ($thisGroup['is_member'])
             {
-                echo ' (' . get_lang("my group") . ')';
+                $out .= ' (' . get_lang("my group") . ')';
             }
         }
         else
         {
-            echo '<img src="' . get_icon_url('group') . '" alt="" /> '
+            $out .= '<img src="' . get_icon_url('group') . '" alt="" /> '
             .    $thisGroup['name']
             ;
         }
 
-        echo '</td>' . "\n";
+        $out .= '</td>' . "\n";
 
         /*----------------------------
         COLUMN 2 - SELF REGISTRATION
@@ -694,7 +697,7 @@ if( $groupList )
         {
             if($isGroupRegAllowed)
             {
-                echo '<td align="center">';
+                $out .= '<td align="center">';
 
                 if( (! claro_is_user_authenticated())
                 OR ( $thisGroup['is_member'])
@@ -703,11 +706,11 @@ if( $groupList )
                 AND ($thisGroup['nbMember'] >= $thisGroup['maxStudent']) // still free place
                 ))
                 {
-                    echo '&nbsp;-';
+                    $out .= '&nbsp;-';
                 }
                 else
                 {
-                    echo '&nbsp;'
+                    $out .= '&nbsp;'
                     .    '<a href="'
                     .    htmlspecialchars( Url::Contextualize(
                             'group_space.php?registration=1&amp;selfReg=1&amp;gidReq=' . (int) $thisGroup['id'] )) . '">'
@@ -715,7 +718,7 @@ if( $groupList )
                     .    '</a>'
                     ;
                 }
-                echo '</td>' . "\n";
+                $out .= '</td>' . "\n";
             }    // end If $isGroupRegAllowed
         }
 
@@ -723,18 +726,18 @@ if( $groupList )
         MEMBER NUMBER
         ------------------*/
 
-        echo    '<td>' . $thisGroup['nbMember'] . '</td>' . "\n";
+        $out .=    '<td>' . $thisGroup['nbMember'] . '</td>' . "\n";
 
         /*------------------
         MAX MEMBER NUMBER
         ------------------*/
 
-        if (is_null($thisGroup['maxStudent'])) echo '<td> - </td>' . "\n";
-        else                                   echo '<td>' . $thisGroup['maxStudent'] . '</td>' . "\n";
+        if (is_null($thisGroup['maxStudent'])) $out .= '<td> - </td>' . "\n";
+        else                                   $out .= '<td>' . $thisGroup['maxStudent'] . '</td>' . "\n";
 
         if ($is_allowedToManage)
         {
-            echo '<td>'
+            $out .= '<td>'
             .    '<a href="'.htmlspecialchars( Url::Contextualize('group_edit.php?gidReq=' . $thisGroup['id'])) . '">'
             .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang("Edit") . '" />'
             .    '</a>'
@@ -748,12 +751,12 @@ if( $groupList )
             ;
         }
 
-        echo '</tr>' . "\n\n";
+        $out .= '</tr>' . "\n\n";
 
         if (   ! is_null($thisGroup['description'])
         && trim($thisGroup['description']) != '' )
         {
-            echo '<tr>' . "\n"
+            $out .= '<tr>' . "\n"
             .    '<td colspan="5">' . "\n"
             .    '<div class="comment">'
             .    $thisGroup['description']
@@ -772,7 +775,7 @@ else
 {
     if ( $is_allowedToManage )
     {
-        echo "\n"
+        $out .= "\n"
         . '<tr>'
         . '<td colspan="5" class="centerContent">'
         . get_lang('Empty')
@@ -784,7 +787,7 @@ else
     {
         $colspan = ( $isGroupRegAllowed ? '4' : '3' );
         
-        echo "\n"
+        $out .= "\n"
         . '<tr>'
         . '<td colspan="'.$colspan.'" class="centerContent">'
         . get_lang('Empty')
@@ -794,10 +797,12 @@ else
     }
 }
 
-echo '</tbody>' . "\n"
+$out .= '</tbody>' . "\n"
 .     '</table>' . "\n"
 ;
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
 
 ?>

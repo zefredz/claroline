@@ -4,9 +4,9 @@
  *
  * This script edit userlist of a group and group propreties
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2009 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -255,13 +255,13 @@ foreach ($result AS $myNotMember )
 }
 $thisGroupMaxMember = ( is_null($myStudentGroup['maxMember']) ? '-' : $myStudentGroup['maxMember']);
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
-echo claro_html_tool_title(array('supraTitle' => get_lang("Groups"), 'mainTitle' => $nameTools));
+$out .= claro_html_tool_title(array('supraTitle' => get_lang("Groups"), 'mainTitle' => $nameTools));
 
-echo $dialogBox->render();
+$out .= $dialogBox->render();
 
-echo '<form name="groupedit" method="post" action="'
+$out .= '<form name="groupedit" method="post" action="'
 .    htmlspecialchars(
         $_SERVER['PHP_SELF'] . '?edit=yes&amp;gidReq=' . claro_get_current_group_id() )
 .    '">' . "\n"
@@ -343,10 +343,10 @@ echo '<form name="groupedit" method="post" action="'
 .    '<br />' . "\n"
 ;
 
-if ( get_conf('multiGroupAllowed') ) echo get_lang("Users not in this group");
-else                                 echo get_lang("Unassigned students");
+if ( get_conf('multiGroupAllowed') ) $out .= get_lang("Users not in this group");
+else                                 $out .= get_lang("Unassigned students");
 
-echo '</td>'
+$out .= '</td>'
 .    '</tr>'
 .    '<tr valign="top">'
 .    '<td colspan="4">&nbsp;</td>'
@@ -355,7 +355,9 @@ echo '</td>'
 .    '</form>'
 ;
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
 
 
 /**
