@@ -9,9 +9,9 @@
  * - Wait
  * - Done
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2009 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -22,6 +22,7 @@
  * old version : http://cvs.claroline.net/cgi-bin/viewcvs.cgi/claroline/claroline/create_course/add_course.php
  *
  * @author Claro Team <cvs@claroline.net>
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
  *
  */
 
@@ -158,11 +159,11 @@ if ( ! get_conf('courseCreationAllowed', true) )
 // Display section
 //=================================
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
-echo claro_html_tool_title(get_lang('Create a course website'));
+$out .= claro_html_tool_title(get_lang('Create a course website'));
 
-echo $dialogBox->render();
+$out .= $dialogBox->render();
 
 if ( claro_is_platform_admin()
     || get_conf('courseCreationAllowed', true) )
@@ -170,7 +171,7 @@ if ( claro_is_platform_admin()
     if( $display == DISP_COURSE_CREATION_FORM || $display == DISP_COURSE_CREATION_FAILED )
     {
         // display form
-        echo $course->displayForm($backUrl);
+        $out .= $course->displayForm($backUrl);
     }
     elseif ( $display == DISP_COURSE_CREATION_PROGRESS )
     {
@@ -179,13 +180,15 @@ if ( claro_is_platform_admin()
     elseif ( $display == DISP_COURSE_CREATION_SUCCEED )
     {
         // display back link
-        echo '<p>'
+        $out .= '<p>'
         .    claro_html_cmd_link( htmlspecialchars( $backUrl ), get_lang('Continue') )
         .     '</p>' . "\n"
         ;
     }
 }
 
+$claroline->display->body->appendContent($out);
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+echo $claroline->display->render();
+
 ?>

@@ -4,12 +4,13 @@
  *
  * This tool manage properties of an exiting course
  *
- * @version 1.8 $Revision$
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @version 1.9 $Revision$
+ * @copyright (c) 2001-2009 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @author claroline Team <cvs@claroline.net>
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
  *
  * old version : http://cvs.claroline.net/cgi-bin/viewcvs.cgi/claroline/claroline/course_info/infocours.php
  *
@@ -257,26 +258,27 @@ if ( $adminContext && claro_is_platform_admin() )
 // Display section
 //=================================
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
-echo claro_html_tool_title($nameTools);
+$out .= claro_html_tool_title($nameTools);
 
-echo $dialogBox->render();
+$out .= $dialogBox->render();
 
-echo '<p>' . claro_html_menu_horizontal($links) . '</p>' . "\n\n" ;
+$out .= '<p>' . claro_html_menu_horizontal($links) . '</p>' . "\n\n" ;
 
 if( $display == DISP_COURSE_EDIT_FORM )
 {
     // Display form
-    echo $course->displayForm($backUrl);
+    $out .= $course->displayForm($backUrl);
 }
 elseif( $display == DISP_COURSE_RQ_DELETE )
 {
     // display delete confirmation request
-    echo $course->displayDeleteConfirmation();
+    $out .= $course->displayDeleteConfirmation();
 }
 
+$claroline->display->body->appendContent($out);
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php' ;
+echo $claroline->display->render();
 
 ?>

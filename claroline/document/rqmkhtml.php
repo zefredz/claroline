@@ -57,7 +57,6 @@ else
 $nameTools = get_lang('Create/edit document');
 
 $out = '';
-//include '../inc/claro_init_header.inc.php';
 
 $out .= claro_html_tool_title(array('mainTitle' => get_lang('Documents and Links'), 'subTitle' => get_lang('Create/edit document')));
 
@@ -127,8 +126,6 @@ elseif($cmd == "rqEditHtml" && !empty($file) )
 $out .= '<br />' . "\n"
 .   '<br />' . "\n"
 ;
-
-//include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
 $claroline->display->body->appendContent($out);
 

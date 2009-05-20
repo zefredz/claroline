@@ -72,19 +72,16 @@ $langDay_of_weekNames = get_locale('langDay_of_weekNames');
 $monthName = $langMonthNames['long'][$month-1];
 
 // Display
+$out = '';
 
-
-
-
-// Header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-echo claro_html_tool_title($nameTools)
+$out .= claro_html_tool_title($nameTools)
 
 // Display Calendar
 .    claro_html_monthly_calendar($agendaItemList, $month, $year, $langDay_of_weekNames['long'], $monthName)
 ;
 
-// Footer
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
 
 ?>

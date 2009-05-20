@@ -2,9 +2,9 @@
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2009 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -417,20 +417,19 @@ $courseExtLinkList = claro_get_course_external_link_list();
     DISPLAY
  ============================================================================*/
 
-// Display header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
-echo claro_html_tool_title(get_lang('Edit Tool list'));
+$out .= claro_html_tool_title(get_lang('Edit Tool list'));
 
 
-echo claro_html_tab_bar($sectionList,$currentSection);
+$out .= claro_html_tab_bar($sectionList,$currentSection);
 
-echo $dialogBox->render();
+$out .= $dialogBox->render();
 
 if ( $currentSection == 'toolRights' )
 {
-    // echo claro_html_tool_title(get_lang('Manage tool access rights'));
-    echo '<p>'
+    // $out .= claro_html_tool_title(get_lang('Manage tool access rights'));
+    $out .= '<p>'
         . get_lang('Select the tools you want to make visible for your user.')
         . get_lang('An invisible tool will be greyed out on your personal interface.')
         . '<br />'
@@ -465,7 +464,7 @@ if ( $currentSection == 'toolRights' )
         }
     }
     
-    /*echo '<p><small><span style="text-decoration: underline">' . get_lang('Right list') . '</span> : '
+    /*$out .= '<p><small><span style="text-decoration: underline">' . get_lang('Right list') . '</span> : '
         . '<img src="' . get_icon_url('forbidden') . '" alt="' . get_lang('None') . '" /> '
         . get_lang('No access') . ' - '
         . '<img src="' . get_icon_url('user') . '" alt="' . get_lang('User') . '" />'
@@ -475,11 +474,11 @@ if ( $currentSection == 'toolRights' )
         . '.</small></p>'
         ;*/
     
-    echo '<p><small><span style="text-decoration: underline">' . get_lang('Profile list')
+    $out .= '<p><small><span style="text-decoration: underline">' . get_lang('Profile list')
         . '</span> : ' . implode($profileLegend,' - ') . '.</small></p>'
         ;
     
-    echo '<blockquote>' . "\n"
+    $out .= '<blockquote>' . "\n"
         . $profileRightHtml->displayProfileToolRightList()
         . '</blockquote>' . "\n"
         ;
@@ -488,10 +487,10 @@ elseif ( $currentSection == 'extLinks' )
 {
     // Display external link list
     
-    // echo claro_html_tool_title(get_lang('Manage external links'));
-    echo '<p>'.get_lang('Add external links to your course').'</p>'."\n" ;
+    // $out .= claro_html_tool_title(get_lang('Manage external links'));
+    $out .= '<p>'.get_lang('Add external links to your course').'</p>'."\n" ;
     
-    echo '<blockquote>' . "\n"
+    $out .= '<blockquote>' . "\n"
     .    '<p>' . "\n"
     .    '<a class="claroCmd" href="'
     .    htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
@@ -517,50 +516,50 @@ elseif ( $currentSection == 'extLinks' )
     {
         foreach ( $courseExtLinkList as $linkId => $link )
         {
-            echo '<tr>'."\n";
+            $out .= '<tr>'."\n";
         
-            echo '<td ' . ($link['visibility']?'':'class="invisible"') . '>'
+            $out .= '<td ' . ($link['visibility']?'':'class="invisible"') . '>'
             . '<img src="' . get_icon_url( 'link' ) . '" alt="" />' .$link['name']
             . '</td>';
         
-            echo '<td align="center">' ;
+            $out .= '<td align="center">' ;
         
             if ( $link['visibility'] == true )
             {
-                echo '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exInvisible&amp;tool_id=' . $linkId . '&amp;section='.htmlspecialchars($currentSection) )).'" >'
+                $out .= '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exInvisible&amp;tool_id=' . $linkId . '&amp;section='.htmlspecialchars($currentSection) )).'" >'
                 . '<img src="' . get_icon_url('visible') . '" alt="' . get_lang('Visible') . '" />'
                 . '</a>';
             }
             else
             {
-                echo '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exVisible&amp;tool_id=' . $linkId .'&amp;section='.htmlspecialchars($currentSection) )).'" >'
+                $out .= '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] . '?cmd=exVisible&amp;tool_id=' . $linkId .'&amp;section='.htmlspecialchars($currentSection) )).'" >'
                 . '<img src="' . get_icon_url('invisible') . '" alt="' . get_lang('Invisible') . '" />'
                 . '</a>';
         
             }
         
-            echo '</td>'."\n";
+            $out .= '</td>'."\n";
         
-            echo '<td align="center">'
+            $out .= '<td align="center">'
             . '<a href="'.htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;externalToolId='.$linkId.'&amp;section='.htmlspecialchars($currentSection) )).'">'
             . '<img src="' . get_icon_url('edit') . '" alt="'.get_lang('Modify').'" />'
             . '</a></td>' . "\n" ;
         
-            echo '<td align="center">'
+            $out .= '<td align="center">'
             .'<a href="'.htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?cmd=exDelete&amp;externalToolId='.$linkId.'&amp;section='.htmlspecialchars($currentSection) )).'"'
             .' onclick="return confirmation(\''.clean_str_for_javascript($link['name']).'\');">'
             .'<img src="' . get_icon_url('delete') . '" alt="'.get_lang('Delete').'" />'
             .'</a></td>'."\n";
         
-            echo '</tr>'."\n";
+            $out .= '</tr>'."\n";
         }
     }
     else
     {
-        echo '<tr><td colspan="4">'.get_lang('Empty').'</td></tr>' . "\n";
+        $out .= '<tr><td colspan="4">'.get_lang('Empty').'</td></tr>' . "\n";
     }
     
-    echo '</tbody>' . "\n"
+    $out .= '</tbody>' . "\n"
         . '</table>'."\n\n"
         . '</blockquote>'
         . "\n"
@@ -568,8 +567,8 @@ elseif ( $currentSection == 'extLinks' )
 }
 elseif ( $currentSection == 'toolList' )
 {
-    // echo claro_html_tool_title(get_lang('Add or remove tools'));
-    echo '<p>'.get_lang('Add or remove tools from your course').'</p>'."\n" ;
+    // $out .= claro_html_tool_title(get_lang('Add or remove tools'));
+    $out .= '<p>'.get_lang('Add or remove tools from your course').'</p>'."\n" ;
     
     $activeCourseToolList = module_get_course_tool_list(
         claro_get_current_course_id(), true, true );
@@ -592,8 +591,6 @@ elseif ( $currentSection == 'toolList' )
             'icon' => get_module_url($inactiveCourseTool['label']) . '/' . $inactiveCourseTool['icon']
         );
     }
-    
-    // var_dump( $platformCourseToolList );
     
     foreach ( $platformCourseToolList as $toolId => $platformCourseTool )
     {
@@ -627,9 +624,9 @@ elseif ( $currentSection == 'toolList' )
         }
     }
     
-    echo '<h3>' . get_lang('Tools currently in your course') . '</h3>' . "\n";
+    $out .= '<h3>' . get_lang('Tools currently in your course') . '</h3>' . "\n";
     
-    echo '<blockquote>' . "\n"
+    $out .= '<blockquote>' . "\n"
         . '<table class="claroTable emphaseLine" style="width: 100%" >'."\n\n"
         . '<thead>'."\n"
         . '<tr class="headerX">'."\n"
@@ -659,7 +656,7 @@ elseif ( $currentSection == 'toolList' )
             {
                 $action_link = '-';
             }
-            echo '<tr>'
+            $out .= '<tr>'
                 . '<td><img src="'
                 . get_module_url($activeTool['label']) . '/' . $activeTool['icon'] . '" alt="" /> '
                 . get_lang(claro_get_tool_name($activeTool['tool_id'])).'</td>'
@@ -670,18 +667,18 @@ elseif ( $currentSection == 'toolList' )
     }
     else
     {
-        echo '<tr><td colspan="2">'.get_lang('Empty').'</td></tr>' . "\n";
+        $out .= '<tr><td colspan="2">'.get_lang('Empty').'</td></tr>' . "\n";
     }
     
-    echo '</tbody>' . "\n"
+    $out .= '</tbody>' . "\n"
         . '</table>'."\n\n"
         . '</blockquote>'
         . "\n"
         ;
         
-    echo '<h3>' . get_lang('Available tools to add to your course') . '</h3>' . "\n";
+    $out .= '<h3>' . get_lang('Available tools to add to your course') . '</h3>' . "\n";
         
-    echo '<blockquote>' . "\n"
+    $out .= '<blockquote>' . "\n"
         . '<table class="claroTable emphaseLine" style="width: 100%" >'."\n\n"
         . '<thead>'."\n"
         . '<tr class="headerX">'."\n"
@@ -705,7 +702,7 @@ elseif ( $currentSection == 'toolList' )
                 . '</a>'
                 ;
                 
-            echo '<tr>'
+            $out .= '<tr>'
                 . '<td><img src="'
                 . $inactiveTool['icon'] . '" alt="" /> '
                 . get_lang(claro_get_tool_name($inactiveTool['tool_id'])).'</td>'
@@ -716,10 +713,10 @@ elseif ( $currentSection == 'toolList' )
     }
     else
     {
-        echo '<tr><td colspan="2">'.get_lang('Empty').'</td></tr>' . "\n";
+        $out .= '<tr><td colspan="2">'.get_lang('Empty').'</td></tr>' . "\n";
     }
     
-    echo '</tbody>' . "\n"
+    $out .= '</tbody>' . "\n"
         . '</table>'."\n\n"
         . '</blockquote>'
         . "\n"
@@ -728,12 +725,12 @@ elseif ( $currentSection == 'toolList' )
 else
 {
     // should never happen
-    echo get_lang('Invalid section');
+    $out .= get_lang('Invalid section');
 }
 
 
-// Display footer
+$claroline->display->body->appendContent($out);
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+echo $claroline->display->render();
 
 ?>

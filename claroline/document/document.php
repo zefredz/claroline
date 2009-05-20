@@ -2,9 +2,9 @@
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2009 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
@@ -1498,7 +1498,7 @@ $nameTools = get_lang("Documents and Links");
 $_SERVER['QUERY_STRING'] = ''; // used for the breadcrumb
                               // when one need to add a parameter after the filename
 
-include(get_path('incRepositorySys').'/claro_init_header.inc.php');
+$out = '';
 
 $dspCurDirName = htmlspecialchars($curDirName);
 $dspCurDirPath = htmlspecialchars($curDirPath);
@@ -1514,7 +1514,7 @@ if ( claro_is_in_a_group() && claro_is_group_allowed())
     $titleElement['supraTitle'] = claro_get_current_group_data('name');
 }
 
-echo claro_html_tool_title($titleElement,
+$out .= claro_html_tool_title($titleElement,
                       $is_allowedToEdit ? 'help_document.php' : false);
 
     /*= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -1534,7 +1534,7 @@ echo claro_html_tool_title($titleElement,
                            DIALOG BOX SECTION
       --------------------------------------------------------------------*/
 
-    echo $dialogBox->render();
+    $out .= $dialogBox->render();
 
     $is_allowedToEdit ? $colspan = 7 : $colspan = 3;
 
@@ -1578,7 +1578,7 @@ echo claro_html_tool_title($titleElement,
         $doc_url = claro_get_file_download_url( $file );
 
         // Image description table
-        echo '<table class="claroTable" width="100%">' . "\n" ;
+        $out .= '<table class="claroTable" width="100%">' . "\n" ;
 
         // View Mode Bar
 
@@ -1633,7 +1633,7 @@ echo claro_html_tool_title($titleElement,
                  . get_lang('Thumbnails').'</a>';
         }
 
-        echo '<!-- current dir name line -->' . "\n"
+        $out .= '<!-- current dir name line -->' . "\n"
                 .'<tr>' . "\n"
                 .'<th class="superHeader" colspan="' . $colspan . '" align="left">' . "\n"
                 .'<div style="float: right;">'. claro_html_menu_horizontal($docViewToolbar) . '</div>'
@@ -1655,7 +1655,7 @@ echo claro_html_tool_title($titleElement,
             $titleStyle = 'title invisible';
         } // if invisible
 
-        echo '<tr class="toolbar" valign="top">' . "\n";
+        $out .= '<tr class="toolbar" valign="top">' . "\n";
 
         // --------------------- display link to previous image ------------------
 
@@ -1663,7 +1663,7 @@ echo claro_html_tool_title($titleElement,
 
         // --------------------- display title of current image ------------------
 
-        echo '<th class="' . $titleStyle . '">' ."\n"
+        $out .= '<th class="' . $titleStyle . '">' ."\n"
         .    $imgTitle
         .    '</th>' . "\n"
         ;
@@ -1672,7 +1672,7 @@ echo claro_html_tool_title($titleElement,
 
         display_link_to_next_image($imageList, $fileList, $current);
 
-        echo '</tr>' . "\n"
+        $out .= '</tr>' . "\n"
         .    '</table>' . "\n"
         ;
 
@@ -1680,13 +1680,13 @@ echo claro_html_tool_title($titleElement,
 
         if ( isset ( $fileList['comment'] ) && $fileList['comment'][$imgKey])
         {
-            echo '<hr />' . "\n"
+            $out .= '<hr />' . "\n"
             .    '<blockquote>' . $fileList['comment'][$imgKey] . '</blockquote>' . "\n"
             ;
         }
         else
         {
-            echo '<!-- empty -->' . "\n";
+            $out .= '<!-- empty -->' . "\n";
         }// end if comment
 
 
@@ -1706,31 +1706,31 @@ echo claro_html_tool_title($titleElement,
         $depth = get_image_color_depth( $imgPath );
 
         // display image
-        echo '<p style="text-align: center;"><a href="#"><img id="mainImage" src="' . htmlspecialchars($doc_url) . '" alt="' . $fileName . '" /></a></p>' . "\n" ;
+        $out .= '<p style="text-align: center;"><a href="#"><img id="mainImage" src="' . htmlspecialchars($doc_url) . '" alt="' . $fileName . '" /></a></p>' . "\n" ;
 
-        echo '<p style="text-align: center;">'
+        $out .= '<p style="text-align: center;">'
             . '<a href="' . htmlspecialchars($doc_url) . '">' . get_lang('Direct link to image') . '</a>'
             . '</p>' . "\n"
             ;
 
         // display image info
         // -> title and size
-        echo '<br /><small>[ Info : ' . $imgTitle . ' - ' . $width
+        $out .= '<br /><small>[ Info : ' . $imgTitle . ' - ' . $width
             . 'x' . $height
             . ' - ' .format_file_size($fileList[$imgKey]['size'])
             ;
 
         // -> color depth
-        echo ' - ' . $depth . 'bits';
+        $out .= ' - ' . $depth . 'bits';
 
         // -> mime type
         if( version_compare(phpversion(), '4.3.0', '>') )
         {
             $mime_type = image_type_to_mime_type($type);
-            echo " - " . $mime_type ;
+            $out .= " - " . $mime_type ;
         }
 
-        echo ' ]</small>' . "\n";
+        $out .= ' ]</small>' . "\n";
     }
 
     /*-----------------------------------------------------------------------
@@ -1763,7 +1763,7 @@ echo claro_html_tool_title($titleElement,
          $colWidth = round(100 / get_conf('numberOfCols', 3));
 
         // display table
-        echo "\n" . '<table class="claroTable" width="100%">' . "\n";
+        $out .= "\n" . '<table class="claroTable" width="100%">' . "\n";
 
         // View Mode Bar
 
@@ -1818,7 +1818,7 @@ echo claro_html_tool_title($titleElement,
 
         $colspan = get_conf( 'numberOfCols', 3 );
 
-        echo '<!-- current dir name line -->' . "\n"
+        $out .= '<!-- current dir name line -->' . "\n"
                 .'<tr>' . "\n"
                 .'<th class="superHeader" colspan="' . $colspan . '" align="left">' . "\n"
                 .'<div style="float: right;">'. claro_html_menu_horizontal($docViewToolbar) . '</div>'
@@ -1828,13 +1828,13 @@ echo claro_html_tool_title($titleElement,
 
         // toolbar
 
-        echo '<tr class="toolbar">' . "\n";
-        echo '<th class="prev" colspan="1" style="width: ' . $colWidth . '%;">' . "\n";
+        $out .= '<tr class="toolbar">' . "\n";
+        $out .= '<th class="prev" colspan="1" style="width: ' . $colWidth . '%;">' . "\n";
         if( !isset($imageList) || count($imageList) == 0)
         {
             $colspan = get_conf( 'numberOfCols', 3 );
 
-            echo '<!-- current dir name line -->' . "\n"
+            $out .= '<!-- current dir name line -->' . "\n"
                 .'<tr>' . "\n"
                 .'<td colspan="' . $colspan . '" align="left">' . "\n"
                 . get_lang('No image to display')
@@ -1846,7 +1846,7 @@ echo claro_html_tool_title($titleElement,
             if(has_previous_page($imageList, $page))
             {
                 // link to previous page
-                  echo '<a href="'
+                  $out .= '<a href="'
                     . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
                         . '?docView=thumbnails&amp;cwd=' . rawurlencode($curDirPath)
                         . '&amp;page=' . ($page - 1) . $searchCmdUrl ))
@@ -1856,23 +1856,23 @@ echo claro_html_tool_title($titleElement,
             }
             else
             {
-                echo '<!-- empty -->';
+                $out .= '<!-- empty -->';
             }
 
-            echo '</th>' . "\n";
+            $out .= '</th>' . "\n";
 
-            echo '<th class="title" colspan="' . (get_conf( 'numberOfCols', 3) - 2) . '">' . "\n"
+            $out .= '<th class="title" colspan="' . (get_conf( 'numberOfCols', 3) - 2) . '">' . "\n"
                 . '<p align="center">' . get_lang('Page') . '&nbsp;' . $page . '</p>'
                 . '</th>' . "\n"
                 ;
 
-            echo '<th class="next" colspan="1" style="width: ' . $colWidth . '%;">' . "\n"
+            $out .= '<th class="next" colspan="1" style="width: ' . $colWidth . '%;">' . "\n"
                 ;
 
             if(has_next_page($imageList, $page))
             {
                 // link to next page
-                echo '<a href="'
+                $out .= '<a href="'
                     . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
                         . '?docView=thumbnails&amp;cwd=' . rawurlencode($curDirPath)
                         . '&amp;page=' . ($page + 1) . $searchCmdUrl ))
@@ -1882,11 +1882,11 @@ echo claro_html_tool_title($titleElement,
             }
             else
             {
-                echo '<!-- empty -->';
+                $out .= '<!-- empty -->';
             }
 
-            echo '</th>' . "\n";
-            echo '</tr>' . "\n";
+            $out .= '</th>' . "\n";
+            $out .= '</tr>' . "\n";
 
             display_thumbnails($imageList, $fileList, $page
                 , get_conf('thumbnailWidth'), $colWidth
@@ -1894,7 +1894,7 @@ echo claro_html_tool_title($titleElement,
 
         }
 
-        echo '</table>' . "\n";
+        $out .= '</table>' . "\n";
 
     }
     else // current directory line
@@ -2005,11 +2005,11 @@ echo claro_html_tool_title($titleElement,
                 .'</a>';
         }
 
-        echo '<p>' . claro_html_menu_horizontal($links) . '</p>' . "\n";
+        $out .= '<p>' . claro_html_menu_horizontal($links) . '</p>' . "\n";
 
-        echo claro_html_document_breadcrumb($curDirPath);
+        $out .= claro_html_document_breadcrumb($curDirPath);
 
-        echo '<table class="claroTable emphaseLine" width="100%">'
+        $out .= '<table class="claroTable emphaseLine" width="100%">'
             . '<thead>'
             . "\n";
 
@@ -2061,7 +2061,7 @@ echo claro_html_tool_title($titleElement,
                  . get_lang('Thumbnails').'</a>';
         }
 
-        echo '<!-- current dir name line -->' . "\n"
+        $out .= '<!-- current dir name line -->' . "\n"
             .'<tr>' . "\n"
             .'<th class="superHeader" colspan="' . $colspan . '" align="left">' . "\n"
             .'<div style="float: right;">'. claro_html_menu_horizontal($docViewToolbar).'</div>'
@@ -2069,20 +2069,20 @@ echo claro_html_tool_title($titleElement,
             .'</th>' . "\n"
             .'</tr>' . "\n";
 
-        echo '<tr class="headerX" align="center" valign="top">' . "\n";
+        $out .= '<tr class="headerX" align="center" valign="top">' . "\n";
 
         # Patch to avoid E_NOTICE when no files in directory empty
         # FIXME find a more elegant way to solve the problem
         if ( count( $sortUrlList ) > 0 )
         {
-            echo '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['path'])).'">'.get_lang('Name').'</a></th>' . "\n"
+            $out .= '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['path'])).'">'.get_lang('Name').'</a></th>' . "\n"
             .    '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['size'])).'">'.get_lang('Size').'</a></th>' . "\n"
             .    '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['date'])).'">'.get_lang('Date').'</a></th>' . "\n"
             ;
         }
         else
         {
-            echo '<th>'.get_lang('Name').'</th>' . "\n"
+            $out .= '<th>'.get_lang('Name').'</th>' . "\n"
             .    '<th>'.get_lang('Size').'</th>' . "\n"
             .    '<th>'.get_lang('Date').'</th>' . "\n"
             ;
@@ -2090,21 +2090,21 @@ echo claro_html_tool_title($titleElement,
 
         if ($is_allowedToEdit)
         {
-            echo  '<th>'.get_lang('Modify').'</th>' . "\n"
+            $out .=  '<th>'.get_lang('Modify').'</th>' . "\n"
                 . '<th>'.get_lang('Delete').'</th>' . "\n"
                 . '<th>'.get_lang('Move').'</th>' . "\n";
 
             if ($courseContext)
             {
-                echo '<th>'.get_lang('Visibility').'</th>' . "\n";
+                $out .= '<th>'.get_lang('Visibility').'</th>' . "\n";
             }
             elseif ($groupContext)
             {
-                echo '<th>'.get_lang('Publish').'</th>' . "\n";
+                $out .= '<th>'.get_lang('Publish').'</th>' . "\n";
             }
         }
 
-        echo '</tr>' . "\n"
+        $out .= '</tr>' . "\n"
             . '</thead>'
             .'<tbody>';
 
@@ -2185,12 +2185,12 @@ echo claro_html_tool_title($titleElement,
                     $target = '';
                 }
 
-                echo '<tr align="center">' . "\n"
+                $out .= '<tr align="center">' . "\n"
                     .'<td align="left">';
 
                 if( is_image( $thisFile['path'] ) )
                 {
-                    echo '<a class="'.$style.' item'.$classItem.'" href="'
+                    $out .= '<a class="'.$style.' item'.$classItem.'" href="'
                         . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'] .
                         '?docView=image&amp;file=' . download_url_encode($thisFile['path']) . '&amp;cwd='
                         . $curDirPath . $searchCmdUrl ))
@@ -2198,12 +2198,12 @@ echo claro_html_tool_title($titleElement,
                 }
                 else
                 {
-                        echo '<a class="'.$style.' item'.$classItem.'" href="'.$urlFileName.'" '.$target.' >';
+                        $out .= '<a class="'.$style.' item'.$classItem.'" href="'.$urlFileName.'" '.$target.' >';
                 } // end if is_image
 
-                echo '<img src="' . get_icon_url($image) . '" alt="" /> '.$dspFileName.'</a>';
+                $out .= '<img src="' . get_icon_url($image) . '" alt="" /> '.$dspFileName.'</a>';
 
-                echo '</td>' . "\n"
+                $out .= '</td>' . "\n"
 
                     .'<td><small>'.$size.'</small></td>' . "\n"
                     .'<td><small>'.$date.'</small></td>' . "\n";
@@ -2216,7 +2216,7 @@ echo claro_html_tool_title($titleElement,
                 {
                     /* EDIT COMMAND */
 
-                    echo '<td>'
+                    $out .= '<td>'
                         .'<a href="'.htmlspecialchars(Url::Contextualize(
                             $_SERVER['PHP_SELF'].'?cmd=rqEdit&amp;file='.$cmdFileName ))
                         .'">'
@@ -2226,7 +2226,7 @@ echo claro_html_tool_title($titleElement,
 
                     /* DELETE COMMAND */
 
-                    echo '<td>'
+                    $out .= '<td>'
                         .'<a href="' . htmlspecialchars(Url::Contextualize(
                             $_SERVER['PHP_SELF'] . '?cmd=exRm&amp;file=' . $cmdFileName ))
                         . '" '
@@ -2236,7 +2236,7 @@ echo claro_html_tool_title($titleElement,
                         .'</td>' . "\n";
 
                     /* MOVE COMMAND */
-                    echo '<td>'
+                    $out .= '<td>'
                         .'<a href="' . htmlspecialchars(Url::Contextualize(
                             $_SERVER['PHP_SELF'] . '?cmd=rqMv&amp;file=' . $cmdFileName ))
                         . '">'
@@ -2245,7 +2245,7 @@ echo claro_html_tool_title($titleElement,
                         .'</td>' . "\n";
 
 
-                    echo '<td>';
+                    $out .= '<td>';
 
                     if ($groupContext)
                     {
@@ -2253,7 +2253,7 @@ echo claro_html_tool_title($titleElement,
 
                         if ($thisFile['type'] == A_FILE)
                         {
-                            echo '<a href="'
+                            $out .= '<a href="'
                                 .htmlspecialchars(Url::Contextualize( '../work/work.php?'
                                 .'submitGroupWorkUrl='.$cmdFileName ))
                                 . '">'
@@ -2268,7 +2268,7 @@ echo claro_html_tool_title($titleElement,
 
                         if ($thisFile['visibility'] == "i")
                         {
-                            echo '<a href="'
+                            $out .= '<a href="'
                                 . htmlspecialchars(Url::Contextualize(
                                     $_SERVER['PHP_SELF'] . '?cmd=exChVis&amp;file=' . $cmdFileName . '&amp;vis=v'))
                                 .'">'
@@ -2277,7 +2277,7 @@ echo claro_html_tool_title($titleElement,
                         }
                         else
                         {
-                            echo '<a href="'
+                            $out .= '<a href="'
                                 . htmlspecialchars(Url::Contextualize(
                                     $_SERVER['PHP_SELF'] . '?cmd=exChVis&amp;file=' . $cmdFileName . '&amp;vis=i'))
                                 .'">'
@@ -2286,10 +2286,10 @@ echo claro_html_tool_title($titleElement,
                         }
                     }
 
-                    echo '</td>' . "\n";
+                    $out .= '</td>' . "\n";
                 } // end if($is_allowedToEdit)
 
-                echo '</tr>' . "\n";
+                $out .= '</tr>' . "\n";
 
                 /* COMMENTS */
 
@@ -2298,7 +2298,7 @@ echo claro_html_tool_title($titleElement,
                     $thisFile['comment'] = htmlspecialchars($thisFile['comment']);
                     $thisFile['comment'] = claro_parse_user_text($thisFile['comment']);
 
-                    echo '<tr align="left">' . "\n"
+                    $out .= '<tr align="left">' . "\n"
                         .'<td colspan="' . $colspan . '">'
                         .'<div class="comment">'
                         .$thisFile['comment']
@@ -2311,7 +2311,7 @@ echo claro_html_tool_title($titleElement,
         }                   // end if ( $fileList)
         else
         {
-            echo '<tr align="left">' . "\n"
+            $out .= '<tr align="left">' . "\n"
                 .'<td colspan="' . $colspan . '">'
                 .'<div class="comment">'
                 .get_lang('Nothing to display')
@@ -2321,11 +2321,13 @@ echo claro_html_tool_title($titleElement,
                 ;
         }
 
-        echo    '</tbody>' . "\n"
+        $out .=    '</tbody>' . "\n"
                 . '</table>' . "\n";
 
     } // END ELSE VIEW IMAGE
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
 
 ?>
