@@ -13,6 +13,7 @@
  * @package CLAUTH
  *
  * @author Claro Team <cvs@claroline.net>
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
  */
 
 require '../inc/claro_init_global.inc.php';
@@ -91,13 +92,12 @@ $uidRequired = true; // todo : possibility to continue in anonymous
 
 if ( ! claro_is_user_authenticated() && $uidRequired )
 {
-    // Display header
-    require get_path('incRepositorySys') . '/claro_init_header.inc.php';
+    $out = '';
 
     if( get_conf('claro_displayLocalAuthForm',true) == true )
     {
         // Display login form
-        echo '<table align="center">'                                     ."\n"
+        $out .= '<table align="center">'                                     ."\n"
         .    '<tr>'                                                       ."\n"
         .    '<td>'                                                       ."\n"
         .    claro_html_tool_title(get_lang('Authentication Required'));
@@ -127,7 +127,7 @@ if ( ! claro_is_user_authenticated() && $uidRequired )
             
             $dialogBox->warning( '<small>' . get_lang('Warning the system distinguishes uppercase (capital) and lowercase (small) letters') . '</small>' );
 
-            echo $dialogBox->render();
+            $out .= $dialogBox->render();
 
         }
 
@@ -140,7 +140,7 @@ if ( ! claro_is_user_authenticated() && $uidRequired )
         {
             $target = $_SERVER['PHP_SELF'];
         }
-        echo '<form class="claroLoginForm" action ="' . $target . '" method="post">' . "\n"
+        $out .= '<form class="claroLoginForm" action ="' . $target . '" method="post">' . "\n"
         .    '<fieldset style="padding: 7px;">'                                                 ."\n"
         .    $sourceUrlFormField                                          ."\n"
         .    $cidRequiredFormField
@@ -160,7 +160,7 @@ if ( ! claro_is_user_authenticated() && $uidRequired )
         .    '</form>'                                                    ."\n"
         ;
 
-        echo '</td>'                                                    ."\n"
+        $out .= '</td>'                                                    ."\n"
         .    '</tr>'                                                    ."\n"
         .    '</table>'                                                 ."\n"
         ;
@@ -168,15 +168,16 @@ if ( ! claro_is_user_authenticated() && $uidRequired )
 
     if (get_conf('claro_CasEnabled',false))
     {
-        echo '<div align="center">'
+        $out .= '<div align="center">'
         .    '<a href="login.php?'. ($sourceUrl ? 'sourceUrl='.urlencode($sourceUrl) : '').'&authModeReq=CAS">'
         .    ( '' != trim(get_conf('claro_CasLoginString','')) ? get_conf('claro_CasLoginString') : get_lang('Login'))
         .    '</a>'
         .    '</div>';
     } // end if claro_CASEnabled
 
-    // Display footer
-    require get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+    $claroline->display->body->appendContent($out);
+
+    echo $claroline->display->render();
 }
 elseif ( ! claro_is_in_a_course() && $cidRequired )
 {
@@ -197,13 +198,12 @@ elseif ( ! claro_is_in_a_course() && $cidRequired )
 
     $courseList = claro_sql_query_fetch_all($sql);
 
-    // Display header
-    require get_path('incRepositorySys') . '/claro_init_header.inc.php';
+    $out = '';
 
     if ( $courseList !== false && count($courseList) > 0 )
     {
         // Display select course form
-        echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' ."\n"
+        $out .= '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' ."\n"
         .    '<table align="center">'                                ."\n"
         .    '<tr>'                                                  ."\n"
         .    '<td colspan="2">'                                      ."\n"
@@ -239,15 +239,16 @@ elseif ( ! claro_is_in_a_course() && $cidRequired )
     else
     {
         // Display link to student to enrol to this course
-        echo '<p align="center">'           ."\n"
+        $out .= '<p align="center">'           ."\n"
         .    get_lang('If you wish to enrol on this course') . ' : '
         .    ' <a href="' . get_path('clarolineRepositoryWeb') . 'auth/courses.php?cmd=rqReg">'
         .    get_lang('Enrolment').'</a>' ."\n"
         .    '</p>'          ."\n";
     }
 
-    // Display footer
-    require get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+    $claroline->display->body->appendContent($out);
+
+    echo $claroline->display->render();
 }
 else // LOGIN SUCCEEDED
 {
@@ -258,15 +259,14 @@ else // LOGIN SUCCEEDED
 
     if ( claro_is_in_a_course() && ! claro_is_course_allowed() )
     {
-        // Display header
-        require get_path('incRepositorySys') . '/claro_init_header.inc.php';
+        $out = '';
 
         if ( $_course['registrationAllowed'] )
         {
             if ( claro_is_user_authenticated() )
             {
                 // Display link to student to enrol to this course
-                echo '<p align="center">'           ."\n"
+                $out .= '<p align="center">'           ."\n"
                 .    get_lang('Your user profile doesn\'t seem to be enrolled on this course').'<br />'
                 .    get_lang('If you wish to enrol on this course') . ' : '
                 .    ' <a href="' . get_path('clarolineRepositoryWeb') . 'auth/courses.php?cmd=rqReg&amp;keyword=' . urlencode($_course['officialCode']) . '">'
@@ -277,7 +277,7 @@ else // LOGIN SUCCEEDED
             elseif ( get_conf('allowSelfReg') )
             {
                 // Display a link to anonymous to register on the platform
-                echo '<p align="center">' . "\n"
+                $out .= '<p align="center">' . "\n"
                 .    get_lang('Create first a user account on this platform') . ' : '
                 .    '<a href="' . get_path('clarolineRepositoryWeb') . 'auth/inscription.php">'
                 .    get_lang('Go to the account creation page')
@@ -288,7 +288,7 @@ else // LOGIN SUCCEEDED
             else
             {
                 // Anonymous cannot register on the platform
-                echo '<p align="center">'                           ."\n"
+                $out .= '<p align="center">'                           ."\n"
                 . get_lang('Registration not allowed on the platform')
                 .    '</p>'                                         ."\n";
             }
@@ -296,20 +296,21 @@ else // LOGIN SUCCEEDED
         else
         {
         // Enrolment is not allowed for this course
-            echo '<p align="center">'                           ."\n"
+            $out .= '<p align="center">'                           ."\n"
                 . get_lang('Enrol to course not allowed');
             if ($_course['email'] && $_course['titular'])
             {
-                echo '<br />' . get_lang('Please contact course titular(s)') . ' : ' . $_course['titular']
+                $out .= '<br />' . get_lang('Please contact course titular(s)') . ' : ' . $_course['titular']
                 .    '<br /><small>' . get_lang('Email') . ' : <a href="mailto:' . $_course['email'] .'">' . $_course['email']. '</a>';
 
             }
 
-            echo '</p>' . "\n";
+            $out .= '</p>' . "\n";
         }
 
-        // Display footer
-        require get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+        $claroline->display->body->appendContent($out);
+
+        echo $claroline->display->render();
 
     }
     elseif($userLoggedOnCas && isset($_SESSION['casCallBackUrl']))

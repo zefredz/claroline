@@ -74,7 +74,7 @@ $action_list[get_lang('Platform administrator')] = 'plateformadmin';
 $out = '';
 $out .= claro_html_tool_title($nameTools . ' : ');
 
-$tpl = new PhpTemplate( dirname(__FILE__) . '/templates/advancedUserSearch.tpl.php' );
+$tpl = new PhpTemplate( get_path( 'incRepositorySys' ) . '/templates/advancedUserSearch.tpl.php' );
 $tpl->assign('lastName', $lastName);
 $tpl->assign('firstName', $firstName);
 $tpl->assign('userName', $userName);

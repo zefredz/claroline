@@ -9,7 +9,7 @@
  * Special case : If the password are encrypted in the database, we have
  * to generate a new one.
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
  * @copyright (c) 2001-2006 Universite catholique de Louvain (UCL)
  *
@@ -18,6 +18,7 @@
  * @package CLAUTH
  *
  * @author Claro Team <cvs@claroline.net>
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
  */
 
 require '../inc/claro_init_global.inc.php';
@@ -166,11 +167,11 @@ if ( isset($_REQUEST['searchPassword']) && !empty($emailTo) )
 ////////////////////////////////////////////////////
 // display section
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
 // display title
 
-echo claro_html_tool_title($nameTools);
+$out .= claro_html_tool_title($nameTools);
 
 // display message box
 
@@ -190,10 +191,12 @@ if ( ! $passwordFound )
     );
 }
 
-echo $dialogBox->render();
+$out .= $dialogBox->render();
 
 // display form
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
 
 ?>

@@ -2,7 +2,7 @@
 /**
  * CLAROLINE
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
  * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
  *
@@ -11,6 +11,7 @@
  * @package CLAUTH
  *
  * @author Claro Team <cvs@claroline.net>
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
  */
 
 define('DISP_REGISTRATION_FORM',__LINE__);
@@ -168,30 +169,28 @@ Display Section
 
 ClaroBreadCrumbs::getInstance()->append( get_lang('Create user account'), 'inscription.php' );
 
-// Display Header
-
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
 // Display Title
 
-echo claro_html_tool_title(get_lang('Create user account'));
+$out .= claro_html_tool_title(get_lang('Create user account'));
 
 if ( DISP_REGISTRATION_SUCCEED == $display )
 {
     // registration succeeded
 
 
-    echo '<p>'  . "\n"
+    $out .= '<p>'  . "\n"
     .    get_lang('Dear %firstname %lastname, your personal settings have been registered.', array('%firstname'=>$user_data['firstname'],'%lastname'=>$user_data['lastname']))  . "\n"
     ;
 
-    if ( $mailSent ) echo '<br />' . "\n" . get_lang('An email has been sent to help you remember your user name and password.');
-    echo '</p>' . "\n";
+    if ( $mailSent ) $out .= '<br />' . "\n" . get_lang('An email has been sent to help you remember your user name and password.');
+    $out .= '</p>' . "\n";
 
-    if ( claro_is_allowed_to_create_course() ) echo '<p>' . get_lang('You can now create your  course') . '</p>' . "\n";
-    else                                       echo '<p>' . get_lang('You can now select, in the list, the courses you want to access') . '</p>' . "\n";
+    if ( claro_is_allowed_to_create_course() ) $out .= '<p>' . get_lang('You can now create your  course') . '</p>' . "\n";
+    else                                       $out .= '<p>' . get_lang('You can now select, in the list, the courses you want to access') . '</p>' . "\n";
 
-    echo '<form action="../../index.php?cidReset=1" >'
+    $out .= '<form action="../../index.php?cidReset=1" >'
     .    '<input type="submit" name="next" value="' . get_lang('Next') . '" />' . "\n"
     .    '</form>' . "\n"
     ;
@@ -202,13 +201,13 @@ elseif ( DISP_REGISTRATION_AGREEMENT == $display )
 
     if ( trim ($agreementText) != '')
     {
-        echo '<div class="info">'
+        $out .= '<div class="info">'
         .    $agreementText
         .    '</div>'
         ;
     }
 
-    echo '<br />'
+    $out .= '<br />'
     .    '<form action="' . $_SERVER['PHP_SELF'] . '" >'
     .    '<input type="hidden" name="cmd" value="agree" />' . "\n"
     .    '<input type="submit" name="next" value="' . get_lang('Ok') . '" />&nbsp;' . "\n"
@@ -219,9 +218,9 @@ elseif ( DISP_REGISTRATION_AGREEMENT == $display )
 elseif (  DISP_REGISTRATION_NOT_ALLOWED == $display )
 {
 
-    echo claro_html_msg_list(array(array('info'=>    get_lang('Subscription not allowed'))));
+    $out .= claro_html_msg_list(array(array('info'=>    get_lang('Subscription not allowed'))));
 
-    echo '<br />'
+    $out .= '<br />'
     .    '<form action="' . get_conf('rootWeb','/') . '" >'
     .    '<input type="submit" name="next" value="' . get_lang('Ok') . '" />' . "\n"
     .    '</form>' . "\n"
@@ -233,26 +232,26 @@ elseif ( DISP_REGISTRATION_FORM == $display  )
 
     if ( count($messageList) > 0 )
     {
-        echo claro_html_message_box( implode('<br />', $messageList) );
+        $out .= claro_html_message_box( implode('<br />', $messageList) );
     }
 
     if ( trim ($subscriptionText) != '')
     {
-        echo '<div class="info subscribe">'
+        $out .= '<div class="info subscribe">'
         .    $subscriptionText
         .    '</div>'
         ;
     }
 
-    echo user_html_form_registration($user_data);
+    $out .= user_html_form_registration($user_data);
 }
 else
 {
     // DISPLAY ERROR
 }
 
-// Display Footer
+$claroline->display->body->appendContent($out);
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+echo $claroline->display->render();
 
 ?>

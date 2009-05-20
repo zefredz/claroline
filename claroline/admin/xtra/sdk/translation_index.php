@@ -46,7 +46,7 @@ if ( mysql_errno() == 1146 ) $table_exists = FALSE;
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('SDK'), $urlSDK );
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
-$tpl = new PhpTemplate( dirname(__FILE__) . '/../../templates/translation_index.tpl.php' );
+$tpl = new PhpTemplate( get_path( 'incRepositorySys' ) . '/templates/translation_index.tpl.php' );
 
 $tpl->assign('table_exists', $table_exists);
 

@@ -4,15 +4,16 @@
  *
  * This script prupose to user to edit his own profile
  *
- * @version 1.8 $Revision$
+ * @version 1.9 $Revision$
  *
- * @copyright 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright 2001-2009 Universite catholique de Louvain (UCL)
  *
  * @license http://www.gnu.org/copyleft/gpl.html (GPL) GENERAL PUBLIC LICENSE
  *
  * @see http://www.claroline.net/wiki/Auth/
  *
  * @author Claro Team <cvs@claroline.net>
+ * @author Dimitri Rambout <dimitri.rambout@uclouvain.be>
  *
  * @package Auth
  *
@@ -346,12 +347,11 @@ $htmlHeadXtra[] =
     );
 </script>';
 
-// display header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
-echo claro_html_tool_title($nameTools);
+$out .= claro_html_tool_title($nameTools);
 
-echo $dialogBox->render();
+$out .= $dialogBox->render();
 
 switch ( $display )
 {
@@ -360,13 +360,13 @@ switch ( $display )
         // display form profile
         if ( trim ($profileText) != '')
         {
-            echo '<div class="info profileEdit">'
+            $out .= '<div class="info profileEdit">'
             .    $profileText
             .    '</div>'
             ;
         }
 
-        echo '<p>'
+        $out .= '<p>'
         .    claro_html_menu_horizontal($profileMenu)
         .    '</p>'
         .    user_html_form_profile($user_data)
@@ -377,7 +377,7 @@ switch ( $display )
     case DISP_MOREINFO_FORM :
 
         // display request course creator form
-        echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
+        $out .= '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
         .    '<input type="hidden" name="cmd" value="exMoreInfo" />' . "\n"
         .    '<table>' . "\n"
         ;
@@ -390,11 +390,11 @@ switch ( $display )
             $requirement = (bool) (TRUE == $extraInfoDef['required']);
 
             $labelExtraInfoDef = $extraInfoDef['label'];
-            echo form_input_text('extraInfoList['.htmlentities($extraInfoDef['propertyId']).']',$currentValue,get_lang($labelExtraInfoDef),$requirement);
+            $out .= form_input_text('extraInfoList['.htmlentities($extraInfoDef['propertyId']).']',$currentValue,get_lang($labelExtraInfoDef),$requirement);
 
         }
 
-        echo '<tr valign="top">' . "\n"
+        $out .= '<tr valign="top">' . "\n"
         .    '<td>' . get_lang('Submit') . ': </td>' . "\n"
         .    '<td>'
         .    '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp; ' . "\n"
@@ -410,10 +410,10 @@ switch ( $display )
     case DISP_REQUEST_COURSE_CREATOR_STATUS :
 
 
-        echo '<p>' . get_lang('Fill in the text area to motivate your request and then submit the form to send it to platform administrators') . '</p>';
+        $out .= '<p>' . get_lang('Fill in the text area to motivate your request and then submit the form to send it to platform administrators') . '</p>';
 
         // display request course creator form
-        echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
+        $out .= '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
         .    '<input type="hidden" name="cmd" value="exCCstatus" />' . "\n"
         .    '<table>' . "\n"
         .    form_input_textarea('explanation','',get_lang('Comment'),true,6)
@@ -432,7 +432,7 @@ switch ( $display )
         if ( get_conf('can_request_revoquation') )
         {
 
-            echo '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
+            $out .= '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
             .    '<input type="hidden" name="cmd" value="exRevoquation" />' . "\n"
             .    '<table>' . "\n"
             .    form_input_text('loginToDelete','',get_lang('Username'),true)
@@ -452,8 +452,8 @@ switch ( $display )
 
 } // end switch display
 
-// display footer
+$claroline->display->body->appendContent($out);
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+echo $claroline->display->render();
 
 ?>
