@@ -155,7 +155,7 @@ function upgrade_main_database_course_to_19 ()
                                 SET `visibility`   = 'visible',
                                     `access`       = IF(visible=2 OR visible=3,'public','private') ,
                                     `registration` = IF(visible=1 OR visible=2,'open','close'),
-                                    `status`	   = 'enable' ";
+                                    `status`       = 'enable' ";
                                     
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
@@ -378,12 +378,12 @@ function upgrade_main_database_desktop_to_19 ()
                        ) TYPE=MyISAM;";
                        
             $sqlForUpdate[] = "           
-				INSERT INTO `" . $tbl_mdb_names['desktop_portlet'] . "` 
-					(`label`, `name`, `rank`, `visibility`, `activated`) VALUES
-					('mycourselist', 'My course list', 1, 'visible', 0),
-					('mymessages', 'My messages', 2, 'visible', 0),
-					('CLCAL_Portlet', 'My calendar', 3, 'visible', 0),
-					('CLANN_Portlet', 'Latest announcements', 4, 'visible', 0);";
+                INSERT INTO `" . $tbl_mdb_names['desktop_portlet'] . "` 
+                    (`label`, `name`, `rank`, `visibility`, `activated`) VALUES
+                    ('mycourselist', 'My course list', 1, 'visible', 0),
+                    ('mymessages', 'My messages', 2, 'visible', 0),
+                    ('CLCAL_Portlet', 'My calendar', 3, 'visible', 0),
+                    ('CLANN_Portlet', 'Latest announcements', 4, 'visible', 0);";
             
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
             else return $step ;
@@ -487,7 +487,8 @@ function upgrade_main_database_tracking_to_19 ()
                          `type` varchar(60) NOT NULL DEFAULT '',
                          `data` text NOT NULL,
                          PRIMARY KEY  (`id`),
-                         KEY `course_id` (`course_code`)
+                         KEY `course_id` (`course_code`),
+                         KEY `user_tracking` (`user_id`)
                        ) TYPE=MyISAM";
                        
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);
@@ -510,7 +511,8 @@ function upgrade_main_database_tracking_to_19 ()
                         `type` VARCHAR(60) NOT NULL DEFAULT '',
                         `data` text NOT NULL,
                         PRIMARY KEY  (`id`),
-                        KEY `course_id` (`course_code`)
+                        KEY `course_id` (`course_code`),
+                        KEY `user_log` (`user_id`)
                        ) TYPE=MyISAM";
                        
             if ( upgrade_apply_sql($sqlForUpdate) ) $step = set_upgrade_status($tool, $step+1);

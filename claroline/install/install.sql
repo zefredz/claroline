@@ -306,7 +306,8 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__tracking_event` (
   `type` VARCHAR(60) NOT NULL DEFAULT '',
   `data` TEXT NOT NULL,
   PRIMARY KEY  (`id`),
-  KEY `course_id` (`course_code`)
+  KEY `course_id` (`course_code`),
+  KEY `user_tracking` (`user_id`)
 ) TYPE=MyISAM;
 
 # LOG TABLE
@@ -320,7 +321,8 @@ CREATE TABLE IF NOT EXISTS `__CL_MAIN__log` (
   `type` VARCHAR(60) NOT NULL DEFAULT '',
   `data` text NOT NULL,
   PRIMARY KEY  (`id`),
-  KEY `course_id` (`course_code`)
+  KEY `course_id` (`course_code`),
+  KEY `user_log` (`user_id`)
 ) TYPE=MyISAM;
 
 # INSERT COMMANDS
