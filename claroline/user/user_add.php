@@ -252,16 +252,16 @@ $htmlHeadXtra[] =
     );
 </script>';
 /* end of hack */
-// display header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
-echo claro_html_tool_title(array('mainTitle' =>$nameTools, 'supraTitle' => get_lang('Users')),
+$out = '';
+
+$out .= claro_html_tool_title(array('mainTitle' =>$nameTools, 'supraTitle' => get_lang('Users')),
                 'help_user.php');
-echo $dialogBox->render();
+$out .= $dialogBox->render();
 
 if ( $courseRegSucceed )
 {
-    echo '<p><a href="' . htmlspecialchars(Url::Contextualize( get_module_entry_url('CLUSR') ) ) . '">&lt;&lt; ' . get_lang('Back to user list') . '</a></p>' . "\n";
+    $out .= '<p><a href="' . htmlspecialchars(Url::Contextualize( get_module_entry_url('CLUSR') ) ) . '">&lt;&lt; ' . get_lang('Back to user list') . '</a></p>' . "\n";
 }
 else
 {
@@ -274,7 +274,7 @@ else
         if ( $userData['tutor'        ] ) $regUrlAddParam .= '&amp;tutor=1';
         if ( $userData['courseAdmin'  ] ) $regUrlAddParam .= '&amp;courseAdmin=1';
 
-        echo '<a name="resultTable"></a>'
+        $out .= '<a name="resultTable"></a>'
         .    '<table id="resultTable" class="claroTable emphaseLine" border="0" cellspacing="2">' . "\n"
         .    '<thead>' . "\n"
         .    '<tr class="superHeader">'
@@ -294,7 +294,7 @@ else
 
         foreach ($userList as $thisUser)
         {
-           echo '<tr valign="top">' . "\n"
+           $out .= '<tr valign="top">' . "\n"
            .    '<td>' . htmlspecialchars($thisUser['lastname'    ]) . '</td>' . "\n"
            .    '<td>' . htmlspecialchars($thisUser['firstname'   ]) . '</td>' . "\n"
            .    '<td>' . htmlspecialchars($thisUser['officialCode']) . '</td>' . "\n"
@@ -306,7 +306,7 @@ else
             // deal with already registered users found in result
             if ( empty($thisUser['registered']) )
             {
-                echo '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
+                $out .= '<a href="' . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF']
                 .    '?cmd=registration'
                 .    '&amp;userId=' . $thisUser['uid'] . $regUrlAddParam )) . '">'
                 .    '<img src="' . get_icon_url('enroll') . '" alt="' . $enrollmentLabel . '" />'
@@ -315,23 +315,23 @@ else
             }
             else
             {
-                echo '<span class="highlight">'
+                $out .= '<span class="highlight">'
                 .    get_lang('Already enroled')
                 .    '</span>'
                 ;
             }
 
-            echo '</td>' . "\n"
+            $out .= '</td>' . "\n"
             .    '</tr>' . "\n"
             ;
         }
 
         if ( sizeof($userList) == 0 )
         {
-            echo '<td align="center" colspan="5">' . get_lang('No user found') . '</td>';
+            $out .= '<td align="center" colspan="5">' . get_lang('No user found') . '</td>';
         }
 
-        echo '</tbody>'
+        $out .= '</tbody>'
         .    '</table>'
         .    '<hr />'
         ;
@@ -343,14 +343,14 @@ else
     {
         if( get_conf( 'is_coursemanager_allowed_to_register_single_user' ) || claro_is_platform_admin() )
         {
-        echo '<p>' . get_lang('Add user manually') . ' :</p>'
-        .    '<p>' . get_lang('He or she will receive email confirmation with login and password') . '</p>' . "\n"
-        .    user_html_form_add_new_user($userData)
-        ;
+            $out .= '<p>' . get_lang('Add user manually') . ' :</p>'
+            .    '<p>' . get_lang('He or she will receive email confirmation with login and password') . '</p>' . "\n"
+            .    user_html_form_add_new_user($userData)
+            ;
         }
         else
         {
-            echo '<p>' . get_lang('Search user to add to your course') . ' :</p>'
+            $out .= '<p>' . get_lang('Search user to add to your course') . ' :</p>'
             .    '<p>' . get_lang('Fill in one or more search criteria, select user profile parameters for your course and press \'Search\'') . '</p>' . "\n"
             .    user_html_search_form($userData)
             ;
@@ -358,7 +358,8 @@ else
     }
 } // end else of if ( $courseRegSucceed )
 
-// display footer
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
 
 ?>

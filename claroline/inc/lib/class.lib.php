@@ -995,7 +995,7 @@ function display_tree_class_in_user($class_list, $course_code, $parent_class = n
                 .    '</a>' . "\n";
             }
 
-            echo '</td>' . "\n"
+            $html_form .= '</td>' . "\n"
             .    '</tr>' . "\n"
             ;
             // RECURSIVE CALL TO DISPLAY CHILDREN

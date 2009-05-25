@@ -118,13 +118,11 @@ $htmlHeadXtra[] =
 </script>';
 
 
-// display top banner
-
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
 // Display tool title
 
-echo claro_html_tool_title(get_lang('Enrol class'))
+$out .= claro_html_tool_title(get_lang('Enrol class'))
 
 // Display Forms or dialog box (if needed)
 
@@ -152,8 +150,8 @@ echo claro_html_tool_title(get_lang('Enrol class'))
 .    '</table>' . "\n"
 ;
 
-// display footer banner
+$claroline->display->body->appendContent($out);
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+echo $claroline->display->render();
 
 ?>
