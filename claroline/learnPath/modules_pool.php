@@ -74,8 +74,6 @@ require_once(get_path('incRepositorySys')."/lib/learnPath.lib.inc.php");
        CLAROLINE MAIN
   ======================================*/
 
-//header
-//include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 $out = '';
 // display title
 $out .= claro_html_tool_title($nameTools);
@@ -323,10 +321,6 @@ if ($atleastOne == false)
 $out .= '</tbody>' . "\n"
 .    '</table>'
 ;
-
-// footer
-
-//include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
 $claroline->display->body->appendContent($out);
 

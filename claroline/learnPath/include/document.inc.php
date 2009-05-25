@@ -15,25 +15,28 @@ if ( count( get_included_files() ) == 1 ) die( '---' );
  * @package CLLNP
  *
  */
-// document browser vars
 
-// Update infos about asset
-$sql = "SELECT `path`
-         FROM `".$TABLEASSET."`
-        WHERE `module_id` = ". (int)$_SESSION['module_id'];
-$assetPath = claro_sql_query_get_single_value($sql);
+function lp_display_document($TABLEASSET)
+{
+  // document browser vars
 
-$courseDir = claro_get_course_path() . '/document';
-$baseWorkDir = get_path('coursesRepositorySys').$courseDir;
-$file = $baseWorkDir.$assetPath;
-$fileSize = format_file_size(filesize($file));
-$fileDate = format_date(filectime($file));
-
-
-//####################################################################################\\
-//######################## DISPLAY DETAILS ABOUT THE DOCUMENT ########################\\
-//####################################################################################\\
-echo "\n\n".'<hr noshade="noshade" size="1" />'."\n\n"
+  // Update infos about asset
+  $sql = "SELECT `path`
+           FROM `".$TABLEASSET."`
+          WHERE `module_id` = ". (int)$_SESSION['module_id'];
+  $assetPath = claro_sql_query_get_single_value($sql);
+  
+  $courseDir = claro_get_course_path() . '/document';
+  $baseWorkDir = get_path('coursesRepositorySys').$courseDir;
+  $file = $baseWorkDir.$assetPath;
+  $fileSize = format_file_size(filesize($file));
+  $fileDate = format_date(filectime($file));
+  
+  //####################################################################################\\
+  //######################## DISPLAY DETAILS ABOUT THE DOCUMENT ########################\\
+  //####################################################################################\\
+  $out = '';
+  $out .= "\n\n".'<hr noshade="noshade" size="1" />'."\n\n"
     .'<h4>'.get_lang('Document in module').'</h4>'."\n\n"
     .'<table class="claroTable" width="100%" border="0" cellspacing="2">'."\n"
     .'<thead>'."\n"
@@ -50,5 +53,10 @@ echo "\n\n".'<hr noshade="noshade" size="1" />'."\n\n"
     .'<td>'.$fileDate.'</td>'."\n"
     .'</tr>'."\n"
     .'</tbody>'."\n"
-    .'</table>'."\n";
+    .'</table>'."\n"
+    ;
+    
+    return $out;
+}
+
 ?>

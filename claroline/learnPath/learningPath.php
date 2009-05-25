@@ -126,28 +126,23 @@ for( $i = 0 ; $i < sizeof($flatElementList) ; $i++ )
                       OUTPUT STARTS HERE
  ================================================================*/
 
-//header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
 // display title
-echo claro_html_tool_title($nameTools);
+$out .= claro_html_tool_title($nameTools);
 
 //####################################################################################\\
 //##################################### TITLE ########################################\\
 //####################################################################################\\
-echo nameBox(LEARNINGPATH_, DISPLAY_);
+$out .= nameBox(LEARNINGPATH_, DISPLAY_);
 // and comment !
-$out = commentBox(LEARNINGPATH_, DISPLAY_);
-if( !empty($out) )
-{
-    echo $out;
-}
+$out .= commentBox(LEARNINGPATH_, DISPLAY_);
 
 //####################################################################################\\
 //############################## MODULE TABLE HEADER #################################\\
 //####################################################################################\\
 
-echo '<br />' . "\n"
+$out .= '<br />' . "\n"
 .    '<table class="claroTable" width="100%" border="0" cellspacing="2">'."\n"
 .    '<tr class="headerX" align="center" valign="top">'."\n"
 .    '<th colspan="'.($maxDeep+1).'">' . get_lang('Module') . '</th>'."\n"
@@ -157,10 +152,10 @@ echo '<br />' . "\n"
 if ( claro_is_user_authenticated() )
 {
     // show only progress column for authenticated users
-    echo '<th colspan="2">'.get_lang('Progress').'</th>'."\n";
+    $out .= '<th colspan="2">'.get_lang('Progress').'</th>'."\n";
 }
 
-echo '</tr>'."\n\n"
+$out .= '</tr>'."\n\n"
     .'<tbody>'."\n\n";
 
 
@@ -215,14 +210,14 @@ foreach ($flatElementList as $module)
 
     $colspan = $maxDeep - $module['children']+1;
 
-    echo '<tr align="center">'."\n"
+    $out .= '<tr align="center">'."\n"
         .$spacingString
         .'<td colspan="'.$colspan.'" align="left">'."\n";
 
     //-- if chapter head
     if ( $module['contentType'] == CTLABEL_ )
     {
-        echo '<b>'.htmlspecialchars($module['name']).'</b>'."\n";
+        $out .= '<b>'.htmlspecialchars($module['name']).'</b>'."\n";
     }
     //-- if user can access module
     elseif ( !$is_blocked )
@@ -233,7 +228,7 @@ foreach ($flatElementList as $module)
             $moduleImg = get_icon_url( choose_image(basename($module['path'])) );
 
         $contentType_alt = selectAlt($module['contentType']);
-        echo '<a href="module.php?module_id='.$module['module_id'].'">'
+        $out .= '<a href="module.php?module_id='.$module['module_id'].'">'
             .'<img src="' . $moduleImg . '" alt="'.$contentType_alt.'" border="0" />'
             .htmlspecialchars($module['name']).'</a>'."\n";
         // a module ALLOW access to the following modules if
@@ -265,15 +260,15 @@ foreach ($flatElementList as $module)
         else
             $moduleImg = get_icon_url( choose_image(basename($module['path'])) );
 
-        echo '<img src="' . $moduleImg . '" alt="'.$contentType_alt.'" border="0" />'."\n"
+        $out .= '<img src="' . $moduleImg . '" alt="'.$contentType_alt.'" border="0" />'."\n"
              .htmlspecialchars($module['name']);
     }
-    echo '</td>'."\n";
+    $out .= '</td>'."\n";
 
     if( claro_is_user_authenticated() && ($module['contentType'] != CTLABEL_) )
     {
         // display the progress value for current module
-        echo '<td align="right">'.claro_html_progress_bar ($progress, 1).'</td>'."\n"
+        $out .= '<td align="right">'.claro_html_progress_bar ($progress, 1).'</td>'."\n"
         .    '<td align="left">'
         .    '<small>&nbsp;' . $progress . '%</small>'
         .    '</td>' . "\n"
@@ -281,7 +276,7 @@ foreach ($flatElementList as $module)
     }
     elseif( claro_is_user_authenticated() && $module['contentType'] == CTLABEL_ )
     {
-        echo '<td colspan="2">&nbsp;</td>'."\n";
+        $out .= '<td colspan="2">&nbsp;</td>'."\n";
     }
 
     if ($progress > 0)
@@ -292,15 +287,15 @@ foreach ($flatElementList as $module)
     if($module['contentType'] != CTLABEL_)
         $moduleNb++; // increment number of modules used to compute global progression except if the module is a title
 
-    echo '</tr>' . "\n\n";
+    $out .= '</tr>' . "\n\n";
     $atleastOne = true;
 }
 
-echo '</tbody>' . "\n\n";
+$out .= '</tbody>' . "\n\n";
 
 if ($atleastOne == false)
 {
-    echo '<tfoot>'."\n\n"
+    $out .= '<tfoot>'."\n\n"
     .    '<tr>'."\n"
     .    '<td align="center" colspan="3">'.get_lang('No module').'</td>'."\n"
     .    '</tr>'."\n\n"
@@ -310,7 +305,7 @@ if ($atleastOne == false)
 elseif(claro_is_user_authenticated() && $moduleNb > 0)
 {
     // add a blank line between module progression and global progression
-    echo '<tfoot>'."\n\n"
+    $out .= '<tfoot>'."\n\n"
         .'<tr>'."\n"
         .'<td colspan="'.($maxDeep+3).'">&nbsp;</td>'."\n"
         .'</tr>'."\n\n"
@@ -326,11 +321,10 @@ elseif(claro_is_user_authenticated() && $moduleNb > 0)
         .'</tr>'."\n\n"
         .'</tfoot>'."\n\n";
 }
-echo '</table>'."\n\n";
+$out .= '</table>'."\n\n";
 
-//####################################################################################\\
-//################################### FOOTER #########################################\\
-//####################################################################################\\
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
 
 ?>

@@ -32,8 +32,8 @@ ClaroBreadCrumbs::getInstance()->prepend( get_lang('Learning path list'), Url::C
 
 $nameTools = get_lang('Add an exercise');
 
-//header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
+
 require_once get_path('incRepositorySys') . '/lib/fileDisplay.lib.php';
 
 // tables names
@@ -64,7 +64,7 @@ if ( !isset($_SESSION['path_id']) )
   ======================================*/
 
 // display title
-echo claro_html_tool_title($nameTools);
+$out .= claro_html_tool_title($nameTools);
 
 // see checked exercises to add
 
@@ -170,16 +170,18 @@ foreach( $exerciseList as $exercise )
 } //end while
 
 //STEP ONE : display form to add an exercise
-echo claro_html_msg_list($msgList);
-display_my_exercises($dialogBox);
+$out .= claro_html_msg_list($msgList);
+$out .= display_my_exercises($dialogBox);
 
 //STEP TWO : display learning path content
-echo claro_html_tool_title(get_lang('Learning path content'));
-echo '<a href="learningPathAdmin.php">&lt;&lt;&nbsp;'.get_lang('Back to learning path administration').'</a>';
+$out .= claro_html_tool_title(get_lang('Learning path content'));
+$out .= '<a href="learningPathAdmin.php">&lt;&lt;&nbsp;'.get_lang('Back to learning path administration').'</a>';
 
 // display list of modules used by this learning path
-display_path_content();
+$out .= display_path_content();
 
-// footer
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
+
 ?>

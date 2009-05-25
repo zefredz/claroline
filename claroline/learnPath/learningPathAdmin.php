@@ -368,8 +368,6 @@ $LPDetails = mysql_fetch_array($query);
   ================================================================*/
 
 $out = '';
-//header
-//include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 // display title
 $out .= claro_html_tool_title($nameTools);
@@ -698,9 +696,6 @@ $out .= "</tfoot>";
 
 //display table footer
 $out .= "</table>";
-
-// footer
-//include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
 $claroline->display->body->appendContent($out);
 

@@ -34,7 +34,7 @@ ClaroBreadCrumbs::getInstance()->prepend( get_lang('Learning path list'), Url::C
 
 $nameTools = get_lang('Add a document');
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
 // tables names
 
@@ -127,7 +127,7 @@ function buildRequestModules()
 
 // display title
 
-echo claro_html_tool_title($nameTools);
+$out .= claro_html_tool_title($nameTools);
 
 // FORM SENT
 /*
@@ -453,18 +453,20 @@ unset($attribute);
 
 // display list of available documents
 
-display_my_documents($dialogBox) ;
+$out .= display_my_documents($dialogBox) ;
 
 //####################################################################################\\
 //################################## MODULES LIST ####################################\\
 //####################################################################################\\
 
-echo claro_html_tool_title(get_lang('Learning path content'));
-echo '<a href="learningPathAdmin.php">&lt;&lt;&nbsp;'.get_lang('Back to learning path administration').'</a>';
+$out .= claro_html_tool_title(get_lang('Learning path content'));
+$out .= '<a href="learningPathAdmin.php">&lt;&lt;&nbsp;'.get_lang('Back to learning path administration').'</a>';
 
 // display list of modules used by this learning path
-display_path_content();
+$out .= display_path_content();
 
-// footer
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
+
 ?>

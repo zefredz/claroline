@@ -30,8 +30,7 @@ ClaroBreadCrumbs::getInstance()->prepend( get_lang('Learning path list'), Url::C
 
 $nameTools = get_lang('Add a module of this course');
 
-//header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
 // tables names
 
@@ -107,7 +106,7 @@ function buildRequestModules()
 
 // display title
 
-echo claro_html_tool_title($nameTools);
+$out .= claro_html_tool_title($nameTools);
 
 //COMMAND ADD SELECTED MODULE(S):
 
@@ -158,7 +157,7 @@ if (isset($_REQUEST['cmdglobal']) && ($_REQUEST['cmdglobal'] == 'add'))
 
 $result = claro_sql_query(buildRequestModules());
 
-echo '<table class="claroTable" width="100%">'."\n"
+$out .= '<table class="claroTable" width="100%">'."\n"
        .'<thead>'."\n"
        .'<tr class="headerX">'."\n"
        .'<th width="10%">'
@@ -172,7 +171,7 @@ echo '<table class="claroTable" width="100%">'."\n"
        .'<tbody>'."\n\n";
 
 // Display available modules
-echo '<form name="addmodule" action="'.$_SERVER['PHP_SELF'].'?cmdglobal=add">'."\n"
+$out .= '<form name="addmodule" action="'.$_SERVER['PHP_SELF'].'?cmdglobal=add">'."\n"
 .    claro_form_relay_context()
 ;
 
@@ -188,7 +187,7 @@ while ($list=mysql_fetch_array($result))
 
     $contentType_alt = selectAlt($list['contentType']);
 
-    echo '<tr>'."\n"
+    $out .= '<tr>'."\n"
         .'<td align="center">'."\n"
         .'<input type="checkbox" name="check_'.$list['module_id'].'" id="check_'.$list['module_id'].'" />'."\n"
         .'</td>'."\n"
@@ -204,7 +203,7 @@ while ($list=mysql_fetch_array($result))
 
     if ($list['comment'] != null)
     {
-        echo '<tr>'."\n"
+        $out .= '<tr>'."\n"
             .'<td>&nbsp;</td>'."\n"
             .'<td>'."\n"
             .'<small>'.$list['comment'].'</small>'."\n"
@@ -215,17 +214,17 @@ while ($list=mysql_fetch_array($result))
 
 }//end while another module to display
 
-echo "\n".'</tbody>'."\n\n".'<tfoot>'."\n\n";
+$out .= "\n".'</tbody>'."\n\n".'<tfoot>'."\n\n";
 
 if ( !$atleastOne )
 {
-    echo '<tr>'."\n"
+    $out .= '<tr>'."\n"
         .'<td colspan="2" align="center">'
         .get_lang('All modules of this course are already used in this learning path.')
         .'</td>'."\n"
         .'</tr>'."\n";
 }
-echo '<tr>'
+$out .= '<tr>'
     .'<td colspan="6"><hr noshade size="1"></td>'
     .'</tr>'."\n"
     ;
@@ -233,7 +232,7 @@ echo '<tr>'
 
 if ( $atleastOne )
 {
-    echo '<tr>'."\n"
+    $out .= '<tr>'."\n"
         .'<td colspan="2">'."\n"
         .'<input type="submit" value="'.get_lang('Add module(s)').'" />'."\n"
         .'<input type="hidden" name="cmdglobal" value="add" />'."\n"
@@ -241,7 +240,7 @@ if ( $atleastOne )
         .'</tr>'."\n";
 }
 
-echo "\n" . '</tfoot>' . "\n\n"
+$out .= "\n" . '</tfoot>' . "\n\n"
 .    '</form>' . "\n"
 .    '</table>'
 ;
@@ -251,15 +250,16 @@ echo "\n" . '</tfoot>' . "\n\n"
 //####################################################################################\\
 
 // display subtitle
-echo claro_html_tool_title(get_lang('Learning path content'));
+$out .= claro_html_tool_title(get_lang('Learning path content'));
 
 // display back link to return to the LP administration
-echo '<a href="learningPathAdmin.php">&lt;&lt;&nbsp;' . get_lang('Back to learning path administration') . '</a>';
+$out .= '<a href="learningPathAdmin.php">&lt;&lt;&nbsp;' . get_lang('Back to learning path administration') . '</a>';
 
 // display list of modules used by this learning path
-display_path_content();
+$out .= display_path_content();
 
-// footer
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
 
 ?>

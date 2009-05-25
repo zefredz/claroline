@@ -504,8 +504,10 @@ function display_path_content()
     {
         if ($flatElementList[$i]['children'] > $maxDeep) $maxDeep = $flatElementList[$i]['children'] ;
     }
-
-    echo "\n".'<table class="claroTable" width="100%"  border="0" cellspacing="2">'."\n\n"
+    
+    $out = '';
+    
+    $out .= "\n".'<table class="claroTable" width="100%"  border="0" cellspacing="2">'."\n\n"
     .    '<tr class="headerX" align="center" valign="top">'."\n"
     .    '<th colspan="' . ($maxDeep+1).'">' . get_lang('Module') . '</th>'."\n"
     .    '</tr>'."\n\n"
@@ -519,14 +521,14 @@ function display_path_content()
             $spacingString .= '<td width="5" >&nbsp;</td>' . "\n";
         $colspan = $maxDeep - $module['children'] + 1;
 
-        echo '<tr align="center" ' . $style . '>' . "\n"
+        $out .= '<tr align="center" ' . $style . '>' . "\n"
         .    $spacingString
         .    '<td colspan="' . $colspan . '" align="left">'
         ;
 
         if (CTLABEL_ == $module['contentType']) // chapter head
         {
-            echo '<b>' . $module['name'] . '</b>';
+            $out .= '<b>' . $module['name'] . '</b>';
         }
         else // module
         {
@@ -537,17 +539,19 @@ function display_path_content()
 
             $contentType_alt = selectAlt($module['contentType']);
 
-            echo '<img src="' . $moduleImg . '" alt="' .$contentType_alt.'" /> '
+            $out .= '<img src="' . $moduleImg . '" alt="' .$contentType_alt.'" /> '
             .    $module['name']
             ;
         }
-        echo '</td>' . "\n"
+        $out .= '</td>' . "\n"
         .     '</tr>' . "\n\n"
         ;
     }
-    echo '</tbody>' . "\n\n"
+    $out .= '</tbody>' . "\n\n"
     .     '</table>' . "\n\n"
     ;
+    
+    return $out;
 }
 
 /**
@@ -647,17 +651,18 @@ function display_my_exercises($dialogBox)
     $tbl_cdb_names = claro_sql_get_course_tbl();
     $tbl_quiz_exercise = $tbl_cdb_names['qwz_exercise'];
 
-
-    echo '<!-- display_my_exercises output -->' . "\n";
+    $out = '';
+    
+    $out .= '<!-- display_my_exercises output -->' . "\n";
     /*--------------------------------------
     DIALOG BOX SECTION
     --------------------------------------*/
     $colspan = 4;
     if( !empty($dialogBox) )
     {
-        echo claro_html_message_box($dialogBox).'<br />'."\n";
+        $out .= claro_html_message_box($dialogBox).'<br />'."\n";
     }
-    echo '<table class="claroTable" width="100%" border="0" cellspacing="">'."\n\n"
+    $out .= '<table class="claroTable" width="100%" border="0" cellspacing="">'."\n\n"
     .    '<tr class="headerX" align="center" valign="top">'."\n"
     .    '<th width="10%">'
     .    get_lang('Add module(s)')
@@ -669,7 +674,7 @@ function display_my_exercises($dialogBox)
     ;
 
     // Display available modules
-    echo '<form method="post" name="addmodule" action="' . $_SERVER['PHP_SELF'] . '?cmdglobal=add">'."\n";
+    $out .= '<form method="post" name="addmodule" action="' . $_SERVER['PHP_SELF'] . '?cmdglobal=add">'."\n";
     $atleastOne = FALSE;
     $sql = "SELECT `id`, `title`, `description`
             FROM `" . $tbl_quiz_exercise . "`
@@ -678,11 +683,11 @@ function display_my_exercises($dialogBox)
 
     if( is_array($exercises) && !empty($exercises) )
     {
-        echo '<tbody>' . "\n\n";
+        $out .= '<tbody>' . "\n\n";
 
         foreach ( $exercises as $exercise )
         {
-            echo '<tr>'."\n"
+            $out .= '<tr>'."\n"
             .    '<td align="center">'
             .    '<input type="checkbox" name="check_' . $exercise['id'] . '" id="check_' . $exercise['id'] . '" value="' . $exercise['id'] . '" />'
             .    '</td>'."\n"
@@ -699,7 +704,7 @@ function display_my_exercises($dialogBox)
 
             if( !empty($exercise['description']) )
             {
-                echo '<tr>'."\n"
+                $out .= '<tr>'."\n"
                 .    '<td>&nbsp;</td>'."\n"
                 .    '<td>'
                 .    '<small>' . claro_parse_user_text($exercise['description']) . '</small>'
@@ -709,14 +714,14 @@ function display_my_exercises($dialogBox)
             }
             $atleastOne = true;
         }//end while another module to display
-        echo '</tbody>'."\n\n";
+        $out .= '</tbody>'."\n\n";
     }
 
-    echo '<tfoot>'."\n\n";
+    $out .= '<tfoot>'."\n\n";
 
     if( !$atleastOne )
     {
-        echo '<tr>'."\n"
+        $out .= '<tr>'."\n"
         .     '<td colspan="2" align="center">'
         .    get_lang('There is no exercise for the moment')
         .    '</td>'."\n"
@@ -726,7 +731,7 @@ function display_my_exercises($dialogBox)
 
     // Display button to add selected modules
 
-    echo '<tr>'."\n"
+    $out .= '<tr>'."\n"
     .    '<td colspan="2">'
     .    '<hr noshade size="1">'
     .    '</td>'."\n"
@@ -734,18 +739,20 @@ function display_my_exercises($dialogBox)
     ;
     if( $atleastOne )
     {
-        echo '<tr>'."\n"
+        $out .= '<tr>'."\n"
         .     '<td colspan="2">'
         .    '<input type="submit" name="insertExercise" value="'.get_lang('Add module(s)').'" />'
         .    '</td>'."\n"
         .     '</tr>'."\n\n"
         ;
     }
-    echo '</form>'."\n\n"
+    $out .= '</form>'."\n\n"
     .    '</tfoot>'."\n\n"
     .    '</table>'."\n\n"
     .    '<!-- end of display_my_exercises output -->' . "\n"
     ;
+    
+    return $out;
 }
 
 /**
@@ -767,17 +774,20 @@ function display_my_documents($dialogBox)
     global $parentDir;
 
     global $fileList;
-
+    
     /**
      * DISPLAY
      */
-    echo '<!-- display_my_documents output -->' . "\n";
+    
+    $out = '';
+    
+    $out .= '<!-- display_my_documents output -->' . "\n";
 
     $dspCurDirName = htmlspecialchars($curDirName);
     $cmdCurDirPath = rawurlencode($curDirPath);
     $cmdParentDir  = rawurlencode($parentDir);
 
-    echo '<br />'
+    $out .= '<br />'
     .    '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">';
 
     /*--------------------------------------
@@ -786,7 +796,7 @@ function display_my_documents($dialogBox)
     $colspan = 4;
     if( !empty($dialogBox) )
     {
-        echo claro_html_message_box($dialogBox);
+        $out .= claro_html_message_box($dialogBox);
     }
     /*--------------------------------------
     CURRENT DIRECTORY LINE
@@ -796,18 +806,18 @@ function display_my_documents($dialogBox)
     if ($curDirName) /* if the $curDirName is empty, we're in the root point
     and we can't go to a parent dir */
     {
-        echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exChDir&amp;file=' . $cmdParentDir . '">' . "\n"
+        $out .= '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=exChDir&amp;file=' . $cmdParentDir . '">' . "\n"
         .    '<img src="' . get_icon_url('parent') . '" hspace="5" alt="" /> '."\n"
         .    '<small>' . get_lang('Up') . '</small>' . "\n"
         .    '</a>' . "\n"
         ;
     }
     /* CURRENT DIRECTORY */
-    echo '<table class="claroTable" width="100%" border="0" cellspacing="2">';
+    $out .= '<table class="claroTable" width="100%" border="0" cellspacing="2">';
     if ( $curDirName ) /* if the $curDirName is empty, we're in the root point
     and there is'nt a dir name to display */
     {
-        echo '<!-- current dir name -->' . "\n"
+        $out .= '<!-- current dir name -->' . "\n"
         .    '<tr>' . "\n"
         .    '<th class="superHeader" colspan="' . $colspan . '" align="left">'. "\n"
         .    '<img src="' . get_icon_url('opendir') . '" vspace=2 hspace=5 alt="" /> ' . "\n"
@@ -817,7 +827,7 @@ function display_my_documents($dialogBox)
         ;
     }
 
-    echo '<tr class="headerX" align="center" valign="top">'
+    $out .= '<tr class="headerX" align="center" valign="top">'
     .    '<th>' . get_lang('Add module(s)') . '</th>' . "\n"
     .    '<th>' . get_lang('Name') . '</th>' . "\n"
     .    '<th>' . get_lang('Size') . '</th>' . "\n"
@@ -884,12 +894,12 @@ function display_my_documents($dialogBox)
                 $urlFileName = $_SERVER['PHP_SELF'] . '?openDir=' . $cmdFileName;
             }
 
-            echo '<tr align="center" ' . $style . '>'."\n";
+            $out .= '<tr align="center" ' . $style . '>'."\n";
 
             if ($fileList['type'][$fileKey] == A_FILE)
             {
                 $iterator++;
-                echo '<td>'
+                $out .= '<td>'
                 .    '<input type="checkbox" name="insertDocument_' . $iterator . '" id="insertDocument_' . $iterator . '" value="' . $curDirPath . "/" . $fileName . '" />'
                 .    '</td>' . "\n"
                 ;
@@ -897,9 +907,9 @@ function display_my_documents($dialogBox)
             }
             else
             {
-                echo '<td>&nbsp;</td>';
+                $out .= '<td>&nbsp;</td>';
             }
-            echo '<td align="left">'
+            $out .= '<td align="left">'
             .    '<a href="' . $urlFileName . '" ' . $style . '>'
             .    '<img src="' . get_icon_url( $image ) . '" hspace="5" alt="" /> ' . $dspFileName . '</a>'
             .    '</td>'."\n"
@@ -912,7 +922,7 @@ function display_my_documents($dialogBox)
             */
 
 
-            echo '</tr>' . "\n";
+            $out .= '</tr>' . "\n";
 
             /* COMMENTS */
 
@@ -921,7 +931,7 @@ function display_my_documents($dialogBox)
                 $fileList['comment'][$fileKey] = htmlspecialchars($fileList['comment'][$fileKey]);
                 $fileList['comment'][$fileKey] = claro_parse_user_text($fileList['comment'][$fileKey]);
 
-                echo '<tr align="left">'."\n"
+                $out .= '<tr align="left">'."\n"
                     .'<td>&nbsp;</td>'."\n"
                     .'<td colspan="'.$colspan.'">'."\n"
                     .'<div class="comment">'
@@ -932,10 +942,10 @@ function display_my_documents($dialogBox)
             }
         }  // end each ($fileList)
         // form button
-        echo '</tbody><tfoot>'
+        $out .= '</tbody><tfoot>'
             .'<tr><td colspan="4"><hr noshade size="1"></td></tr>'."\n";
 
-        echo '<tr>'."\n"
+        $out .= '<tr>'."\n"
             .'<td colspan="'.$colspan.'" align="left">'."\n"
             .'<input type="hidden" name="openDir" value="'.$curDirPath.'" />'."\n"
             .'<input type="hidden" name="maxDocForm" value ="'.$iterator.'" />'."\n"
@@ -945,12 +955,14 @@ function display_my_documents($dialogBox)
     } // end if ( $fileList)
     else
     {
-        echo '<tr><td colspan="4"><hr noshade size="1"></td></tr>'."\n";
+        $out .= '<tr><td colspan="4"><hr noshade size="1"></td></tr>'."\n";
     }
 
-    echo '</tfoot></table>'."\n"
+    $out .= '</tfoot></table>'."\n"
         .'</form>'."\n"
         .'<!-- end of display_my_documents output -->'."\n";
+    
+    return $out;
 
 }
 

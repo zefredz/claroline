@@ -165,24 +165,23 @@ if( !$is_allowedToEdit
     exit();
 }
 
-//header
-require_once get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
 //####################################################################################\\
 //################################## MODULE NAME BOX #################################\\
 //####################################################################################\\
 
-echo '<br />'."\n";
+$out .= '<br />'."\n";
 
 $cmd = ( isset($_REQUEST['cmd']) )? $_REQUEST['cmd'] : '';
 
 if ( $cmd == "updateName" )
 {
-    echo nameBox(MODULE_, UPDATE_);
+    $out .= nameBox(MODULE_, UPDATE_);
 }
 else
 {
-    echo nameBox(MODULE_, DISPLAY_);
+    $out .= nameBox(MODULE_, DISPLAY_);
 }
 
 if($module['contentType'] != CTLABEL_ )
@@ -195,30 +194,30 @@ if($module['contentType'] != CTLABEL_ )
     // this the comment of the module in ALL learning paths
     if ( $cmd == "updatecomment" )
     {
-        echo commentBox(MODULE_, UPDATE_);
+        $out .= commentBox(MODULE_, UPDATE_);
     }
     elseif ($cmd == "delcomment" )
     {
-        echo commentBox(MODULE_, DELETE_);
+        $out .= commentBox(MODULE_, DELETE_);
     }
     else
     {
-        echo commentBox(MODULE_, DISPLAY_);
+        $out .= commentBox(MODULE_, DISPLAY_);
     }
 
     //#### ADDED COMMENT #### courseAdmin can always modify this ####\\
     // this is a comment for THIS module in THIS learning path
     if ( $cmd == "updatespecificComment" )
     {
-        echo commentBox(LEARNINGPATHMODULE_, UPDATE_);
+        $out .= commentBox(LEARNINGPATHMODULE_, UPDATE_);
     }
     elseif ($cmd == "delspecificComment" )
     {
-        echo commentBox(LEARNINGPATHMODULE_, DELETE_);
+        $out .= commentBox(LEARNINGPATHMODULE_, DELETE_);
     }
     else
     {
-        echo commentBox(LEARNINGPATHMODULE_, DISPLAY_);
+        $out .= commentBox(LEARNINGPATHMODULE_, DISPLAY_);
     }
 } //  if($module['contentType'] != CTLABEL_ )
 
@@ -232,7 +231,7 @@ else
     $pathBack = "./learningPath.php";
 }
 
-echo '<small><a href="'.$pathBack.'"><< '.get_lang('Back to list').'</a></small><br /><br />'."\n\n";
+$out .= '<small><a href="'.$pathBack.'"><< '.get_lang('Back to list').'</a></small><br /><br />'."\n\n";
 
 //####################################################################################\\
 //############################ PROGRESS  AND  START LINK #############################\\
@@ -251,7 +250,7 @@ if($module['contentType'] != CTLABEL_) //
         if ($resultBrowsed['contentType']== CTEXERCISE_ ) { $contentDescType = get_lang('Exercises'); }
         if ($resultBrowsed['contentType']== CTDOCUMENT_ ) { $contentDescType = get_lang('Document'); }
 
-        echo '<b>'.get_lang('Your progression in this module').'</b><br /><br />'."\n\n"
+        $out .= '<b>'.get_lang('Your progression in this module').'</b><br /><br />'."\n\n"
             .'<table align="center" class="claroTable" border="0" cellspacing="2">'."\n"
             .'<thead>'."\n"
             .'<tr class="headerX">'."\n"
@@ -262,19 +261,19 @@ if($module['contentType'] != CTLABEL_) //
             .'<tbody>'."\n\n";
 
         //display type of the module
-        echo '<tr>'."\n"
+        $out .= '<tr>'."\n"
             .'<td>'.get_lang('Module type').'</td>'."\n"
             .'<td><img src="' . $contentType_img . '" alt="'.$contentType_alt.'" /> '.$contentDescType.'</td>'."\n"
             .'</tr>'."\n\n";
 
         //display total time already spent in the module
-        echo '<tr>'."\n"
+        $out .= '<tr>'."\n"
             .'<td>'.get_lang('Total time').'</td>'."\n"
             .'<td>'.$resultBrowsed['total_time'].'</td>'."\n"
             .'</tr>'."\n\n";
 
         //display time passed in last session
-        echo '<tr>'."\n"
+        $out .= '<tr>'."\n"
             .'<td>'.get_lang('Last session time').'</td>'."\n"
             .'<td>'.$resultBrowsed['session_time'].'</td>'."\n"
             .'</tr>'."\n\n";
@@ -300,7 +299,7 @@ if($module['contentType'] != CTLABEL_) //
         // no sens to display a score in case of a document module
         if (($resultBrowsed['contentType'] != CTDOCUMENT_))
         {
-            echo '<tr>'."\n"
+            $out .= '<tr>'."\n"
                 .'<td>'.get_lang('Your best performance').'</td>'."\n"
                 .'<td>'.claro_html_progress_bar($raw, 1).' '.$raw.'%</td>'."\n"
                 .'</tr>'."\n\n";
@@ -325,7 +324,7 @@ if($module['contentType'] != CTLABEL_) //
         {
             $statusToDisplay = $resultBrowsed['lesson_status'];
         }
-        echo '<tr>'."\n"
+        $out .= '<tr>'."\n"
             .'<td>'.get_lang('Module status').'</td>'."\n"
             .'<td>'.$statusToDisplay.'</td>'."\n"
             .'</tr>'."\n\n"
@@ -347,7 +346,7 @@ if($module['contentType'] != CTLABEL_) //
     if( $module['startAsset_id'] != "" && $asset['asset_id'] == $module['startAsset_id'] )
     {
 
-        echo '<center>'."\n"
+        $out .= '<center>'."\n"
         .    '<form action="./navigation/viewer.php" method="post">' . "\n"
             . claro_form_relay_context()
         .    '<input type="submit" value="' . get_lang('Start Module') . '" />'."\n"
@@ -357,7 +356,7 @@ if($module['contentType'] != CTLABEL_) //
     }
     else
     {
-        echo '<p><center>'.get_lang('There is no start asset defined for this module.').'</center></p>'."\n";
+        $out .= '<p><center>'.get_lang('There is no start asset defined for this module.').'</center></p>'."\n";
     }
 }// end if($module['contentType'] != CTLABEL_)
 // if module is a label, only allow to change its name.
@@ -372,12 +371,15 @@ if( $is_allowedToEdit ) // for teacher only
     {
         case CTDOCUMENT_ :
             require("./include/document.inc.php");
+            $out .= lp_display_document($TABLEASSET);
             break;
         case CTEXERCISE_ :
             require("./include/exercise.inc.php");
+            $out .= lp_display_exercise( $cmd, $TABLELEARNPATHMODULE, $TABLEMODULE, $TABLEASSET, $tbl_quiz_exercise);
             break;
         case CTSCORM_ :
             require("./include/scorm.inc.php");
+            $out .= lp_display_scorm( $TABLELEARNPATHMODULE );
             break;
         case CTCLARODOC_ :
             break;
@@ -386,6 +388,8 @@ if( $is_allowedToEdit ) // for teacher only
     }
 } // if ($is_allowedToEdit)
 
-// footer
-require_once(get_path('incRepositorySys').'/claro_init_footer.inc.php');
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
+
 ?>

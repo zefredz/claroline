@@ -48,7 +48,7 @@ $lpUid =  claro_get_current_user_id();
 $hide_banner = true;
 $warnSessionLost = false ; // Turn off session lost
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
 if($lpUid)
 {
@@ -110,7 +110,7 @@ $sql = "SELECT `name`
 
 $lpName = claro_sql_query_get_single_value($sql);
 
-echo '<p><b>'.wordwrap($lpName,$moduleNameLength,' ',1).'</b></p>'."\n"
+$out .= '<p><b>'.wordwrap($lpName,$moduleNameLength,' ',1).'</b></p>'."\n"
     . '<p>'."\n"
     . '<small>'
     . get_lang('View').' : '
@@ -166,7 +166,7 @@ foreach ($flatElementList as $module)
         }
     }
 
-    echo '<tr>'."\n";
+    $out .= '<tr>'."\n";
     // display the current module name (and link if allowed)
     $spacingString = '';
 
@@ -176,12 +176,12 @@ foreach ($flatElementList as $module)
 
 
     // spacing col
-    echo $spacingString.'<td colspan="'.$colspan.'"><small>';
+    $out .= $spacingString.'<td colspan="'.$colspan.'"><small>';
     if ( !$is_blocked )
     {
         if($module['contentType'] == CTLABEL_) // chapter head
         {
-            echo '<b>'.$module['name'].'</b>';
+            $out .= '<b>'.$module['name'].'</b>';
         }
         else
         {
@@ -201,7 +201,7 @@ foreach ($flatElementList as $module)
             {
                 $nextModule = $module['module_id'];
             }
-            echo '<a href="startModule.php?viewModule_id='.$module['module_id'].'" target="mainFrame" title="'.htmlspecialchars($module['name']).'">'
+            $out .= '<a href="startModule.php?viewModule_id='.$module['module_id'].'" target="mainFrame" title="'.htmlspecialchars($module['name']).'">'
                 .'<img src="' . $moduleImg . '" alt="'.$contentType_alt.' " border="0" />'.$displayedName.'</a>';
         }
         // a module ALLOW access to the following modules if
@@ -227,7 +227,7 @@ foreach ($flatElementList as $module)
     {
         if($module['contentType'] == CTLABEL_) // chapter head
         {
-            echo '<b>'.$module['name'].'</b>';
+            $out .= '<b>'.$module['name'].'</b>';
         }
         else
         {
@@ -247,7 +247,7 @@ foreach ($flatElementList as $module)
         $globalProg =  $globalProg+$progress;
     }
 
-    echo '</small></td>'."\n".'<td>';
+    $out .= '</small></td>'."\n".'<td>';
 
     if($module['contentType'] != CTLABEL_ )
     {
@@ -255,20 +255,20 @@ foreach ($flatElementList as $module)
 
         if($module['credit'] == 'CREDIT' || $module['lesson_status'] == 'COMPLETED' || $module['lesson_status'] == 'PASSED')
         {
-            echo '<img src="' . get_icon_url('select') . '" alt="'.$module['lesson_status'].'" />';
+            $out .= '<img src="' . get_icon_url('select') . '" alt="'.$module['lesson_status'].'" />';
         }
         else
         {
-            echo '&nbsp;';
+            $out .= '&nbsp;';
         }
     }
     else
     {
-        echo '&nbsp;';
+        $out .= '&nbsp;';
     }
 
     $atleastOne = true;
-    echo '</td>'."\n"
+    $out .= '</td>'."\n"
         .'</tr>'."\n\n";
     // used in the foreach the remember the id of the previous module_id
     // don't remember if label...
@@ -278,7 +278,7 @@ foreach ($flatElementList as $module)
 
 } // end of foreach ($flatElementList as $module)
 
-echo '</table>'."\n\n";
+$out .= '</table>'."\n\n";
 
 
 
@@ -288,7 +288,7 @@ if ( claro_is_course_manager() && (!isset($_SESSION['asStudent']) || $_SESSION['
 else
     $returl = '../learningPath.php';
 
-echo '<br />'."\n\n".'<center>'."\n";
+$out .= '<br />'."\n\n".'<center>'."\n";
 
 // display previous and next links only if there is more than one module
 if ( $moduleNb > 1 )
@@ -315,7 +315,7 @@ if ( $moduleNb > 1 )
     }
     $prevNextString .=  '</small><br /><br />'."\n";
 
-    echo $prevNextString;
+    $out .= $prevNextString;
 }
 
 //  set redirection link
@@ -323,15 +323,19 @@ if ( claro_is_course_manager() && (!isset($_SESSION['asStudent']) || $_SESSION['
     $returl = '../learningPathAdmin.php';
 else
     $returl = '../learningPath.php';
-?>
-<form action="<?php echo $returl; ?>" method="post" target="_top">
-<input type="submit" value="<?php echo get_lang('Back to list'); ?>" />
+
+$out .= '<form action="'. $returl .'" method="post" target="_top">
+<input type="submit" value="' . get_lang('Back to list') .'" />
 </form>
 
-</center>
-
-<?php
+</center>'
+;
 // footer
 $hide_footer = TRUE;
-include(get_path('incRepositorySys').'/claro_init_footer.inc.php');
+
+$claroline->setDisplayType(Claroline::FRAME);
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
+
 ?>

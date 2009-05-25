@@ -430,18 +430,19 @@ $cmdMenu[] = claro_html_cmd_link('importLearningPath.php' . claro_url_relay_cont
 $cmdMenu[] = claro_html_cmd_link('modules_pool.php' . claro_url_relay_context('?'),      get_lang('Pool of modules'));
 $cmdMenu[] = claro_html_cmd_link( get_path('clarolineRepositoryWeb') . 'tracking/learnPath_detailsAllPath.php'. claro_url_relay_context('?'),get_lang('Learning paths tracking'));
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-echo claro_html_tool_title($nameTools);
+$out = '';
+
+$out .= claro_html_tool_title($nameTools);
 
 if (isset($dialogBox))
 {
-    echo claro_html_message_box($dialogBox);
+    $out .= claro_html_message_box($dialogBox);
 }
 
 if($is_allowedToEdit)
 {
     // Display links to create and import a learning path
-    echo '<p>'
+    $out .= '<p>'
     .    claro_html_menu_horizontal($cmdMenu)
     .    '</p>'
     ;
@@ -477,7 +478,7 @@ $resultB = claro_sql_query($sql);
 
 if (claro_is_user_authenticated()) $date = $claro_notifier->get_notification_date(claro_get_current_user_id()); // get date for notified "as new" paths
 
-echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">
+$out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">
  <thead>
  <tr class="headerX" align="center" valign="top">
   <th>' . get_lang('Learning path') . '</th>';
@@ -485,22 +486,22 @@ echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing=
 if($is_allowedToEdit)
 {
     // Titles for teachers
-    echo "<th>".get_lang('Modify')."</th>"
+    $out .= "<th>".get_lang('Modify')."</th>"
     ."<th>".get_lang('Delete')."</th>"
     ."<th>".get_lang('Block')."</th>"
     ."<th>".get_lang('Visibility')."</th>"
     ."<th colspan=\"2\">".get_lang('Order')."</th>"
     ."<th>".get_lang('Export')."</th>";
 
-    if( get_conf('is_trackingEnabled') ) echo "<th>".get_lang('Tracking')."</th>";
+    if( get_conf('is_trackingEnabled') ) $out .= "<th>".get_lang('Tracking')."</th>";
 }
 elseif($lpUid)
 {
     // display progression only if user is not teacher && not anonymous
-    echo "<th colspan=\"2\">".get_lang('Progress')."</th>";
+    $out .= "<th colspan=\"2\">".get_lang('Progress')."</th>";
 }
 // close title line
-echo "</tr>\n</thead>\n<tbody>";
+$out .= "</tr>\n</thead>\n<tbody>";
 
 // display invisible learning paths only if user is courseAdmin
 if ($is_allowedToEdit)
@@ -571,13 +572,13 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         $style="";
     }
 
-    echo "<tr align=\"center\"".$style.">";
+    $out .= "<tr align=\"center\"".$style.">";
 
     //Display current learning path name
 
     if ( !$is_blocked )
     {
-        echo "<td align=\"left\"><a class=\"item".$classItem."\" href=\"learningPath.php?path_id="
+        $out .= "<td align=\"left\"><a class=\"item".$classItem."\" href=\"learningPath.php?path_id="
         .$list['learnPath_id']."\"><img src=\"" . get_icon_url('learnpath') . "\" alt=\"\"
              />  ".htmlspecialchars($list['name'])."</a></td>";
 
@@ -734,7 +735,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
     }
     else   //else of !$is_blocked condition , we have already been blocked before, so we continue beeing blocked : we don't display any links to next paths any longer
     {
-        echo '<td align="left">'
+        $out .= '<td align="left">'
         .    '<img src="' . get_icon_url('learnpath') . '" alt="" />'
         .    $list['name']
         .    $list['minRaw']
@@ -749,7 +750,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         // 5 administration columns
 
         // Modify command / go to other page
-        echo '<td>' . "\n"
+        $out .= '<td>' . "\n"
         .    '<a href="learningPathAdmin.php?path_id=' . $list['learnPath_id'] . '">' . "\n"
         .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Modify') . '" />' . "\n"
         .    '</a>'
@@ -763,7 +764,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
 
         if (is_dir($real))
         {
-            echo '<td>' . "\n"
+            $out .= '<td>' . "\n"
             .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=delete&amp;del_path_id=' . $list['learnPath_id'] . '" '
             .    ' onclick="return scormConfirmation(\'' . clean_str_for_javascript($list['name']) . '\');">' . "\n"
             .    '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />' . "\n"
@@ -774,7 +775,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         }
         else
         {
-            echo '<td>' . "\n"
+            $out .= '<td>' . "\n"
             .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=delete&amp;del_path_id=' . $list['learnPath_id'] . '" '
             .    'onclick="return confirmation(\'' . clean_str_for_javascript($list['name']) . '\');">' . "\n"
             .    '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />' . "\n"
@@ -785,12 +786,12 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
 
         // LOCK link
 
-        echo "<td>";
+        $out .= "<td>";
 
         if ( $list['lock'] == 'OPEN')
         {
 
-            echo '<a href="' . $_SERVER['PHP_SELF']
+            $out .= '<a href="' . $_SERVER['PHP_SELF']
             .    '?cmd=mkBlock'
             .    '&amp;cmdid=' . $list['learnPath_id'] . '">' . "\n"
             .    '<img src="' . get_icon_url('unblock') . '" '
@@ -800,13 +801,13 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         }
         else
         {
-            echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkUnblock&amp;cmdid=' . $list['learnPath_id'] . '">' . "\n"
+            $out .= '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkUnblock&amp;cmdid=' . $list['learnPath_id'] . '">' . "\n"
             .    '<img src="' . get_icon_url('block') . '" alt="' . get_lang('Unblock') . '" />' . "\n"
             .    '</a>' . "\n"
             ;
         }
 
-        echo '</td>' . "\n"
+        $out .= '</td>' . "\n"
         // VISIBILITY link
         .    '<td>' .  "\n"
         ;
@@ -814,7 +815,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         if ( $list['visibility'] == 'HIDE')
         {
 
-            echo '<a href="' . $_SERVER['PHP_SELF'] .  '?cmd=mkVisibl&amp;visibility_path_id=' . $list['learnPath_id'] . '">' . "\n"
+            $out .= '<a href="' . $_SERVER['PHP_SELF'] .  '?cmd=mkVisibl&amp;visibility_path_id=' . $list['learnPath_id'] . '">' . "\n"
             .    '<img src="' . get_icon_url('invisible') . '" alt="' . get_lang('Make visible') . '" />' . "\n"
             .    '</a>' . "\n"
             ;
@@ -830,19 +831,19 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
                 $onclick = "";
             }
 
-            echo '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkInvisibl&amp;visibility_path_id=' . $list['learnPath_id'] . '" ' . $onclick . ' >' . "\n"
+            $out .= '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=mkInvisibl&amp;visibility_path_id=' . $list['learnPath_id'] . '" ' . $onclick . ' >' . "\n"
             .    '<img src="' . get_icon_url('visible') . '" alt="' . get_lang('Make invisible') . '" />' . "\n"
             .    '</a>' . "\n"
             ;
         }
-        echo  "</td>\n";
+        $out .=  "</td>\n";
 
         // ORDER links
 
         // DISPLAY MOVE UP COMMAND only if it is not the top learning path
         if ($iterator != 1)
         {
-            echo '<td>' . "\n"
+            $out .= '<td>' . "\n"
             .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=moveUp&amp;move_path_id=' . $list['learnPath_id'] . '">' . "\n"
             .    '<img src="' . get_icon_url('move_up') . '" alt="' . get_lang('Move up') . '" />' . "\n"
             .    '</a>' . "\n"
@@ -851,13 +852,13 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         }
         else
         {
-            echo '<td>&nbsp;</td>' . "\n";
+            $out .= '<td>&nbsp;</td>' . "\n";
         }
 
         // DISPLAY MOVE DOWN COMMAND only if it is not the bottom learning path
         if($iterator < $LPNumber)
         {
-            echo '<td>' . "\n"
+            $out .= '<td>' . "\n"
             .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=moveDown&amp;move_path_id=' . $list['learnPath_id'] . '">' . "\n"
             .    '<img src="' . get_icon_url('move_down') . '" alt="' . get_lang('Move down') . '" />' . "\n"
             .    '</a>' . "\n"
@@ -866,11 +867,11 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         }
         else
         {
-            echo '<td>&nbsp;</td>' . "\n";
+            $out .= '<td>&nbsp;</td>' . "\n";
         }
 
         // EXPORT links
-        echo '<td>' . "\n"
+        $out .= '<td>' . "\n"
         .    '<a href="' . $_SERVER['PHP_SELF'] . '?cmd=export&amp;path_id=' . $list['learnPath_id'] . '" >'
         .    '<img src="' . get_icon_url('export') . '" alt="' . get_lang('Export') . '" />'
         .    '</a>' . "\n"
@@ -880,7 +881,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         if( get_conf('is_trackingEnabled') )
         {
             // statistics links
-            echo '<td>' . "\n"
+            $out .= '<td>' . "\n"
             .    '<a href="' . get_path('clarolineRepositoryWeb') . 'tracking/learnPath_details.php?path_id=' . $list['learnPath_id'] . '">' . "\n"
             .    '<img src="' . get_icon_url('statistics') . '" alt="' . get_lang('Tracking') . '" />'
             .    '</a>' . "\n"
@@ -897,7 +898,7 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         {
             $globalprog += $prog;
         }
-        echo '<td align="right">'
+        $out .= '<td align="right">'
         .    claro_html_progress_bar($prog, 1)
         .    '</td>' . "\n"
         .    '<td align="left">'
@@ -905,18 +906,18 @@ while ( $list = mysql_fetch_array($result) ) // while ... learning path list
         .    '</td>'
         ;
     }
-    echo '</tr>' . "\n";
+    $out .= '</tr>' . "\n";
     $iterator++;
 
 } // end while
 
-echo '</tbody>' . "\n"
+$out .= '</tbody>' . "\n"
 .    '<tfoot>'
 ;
 
 if( $iterator == 1 )
 {
-    echo '<tr>' . "\n"
+    $out .= '<tr>' . "\n"
     .    '<td align="center" colspan="8">' . "\n"
     .    get_lang('No learning path')
     .    '</td>' . "\n"
@@ -927,7 +928,7 @@ elseif (!claro_is_course_manager() && $iterator != 1 && $lpUid)
 {
     // add a blank line between module progression and global progression
     $total = round($globalprog/($iterator-1));
-    echo '<tr>' . "\n"
+    $out .= '<tr>' . "\n"
     .    '<td colspan="3">' . "\n"
     .    '&nbsp;' . "\n"
     .    '</td>' . "\n"
@@ -948,11 +949,12 @@ elseif (!claro_is_course_manager() && $iterator != 1 && $lpUid)
     .    '</tr>' . "\n"
     ;
 }
-echo '</tfoot>' . "\n"
+$out .= '</tfoot>' . "\n"
 .    '</table>' . "\n"
 ;
 
-// footer
+$claroline->display->body->appendContent($out);
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+echo $claroline->display->render();
+
 ?>

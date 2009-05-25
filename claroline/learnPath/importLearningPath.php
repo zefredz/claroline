@@ -27,8 +27,7 @@ if (! $is_allowedToEdit ) claro_die(get_lang('Not allowed'));
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Learning path list'), Url::Contextualize(get_module_url('CLLNP') . '/learningPathList.php') );
 $nameTools = get_lang('Import a learning path');
 
-//header
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
 /*
 * DB tables definition
@@ -427,7 +426,7 @@ function compareArrays($array1, $array2)
 
 // main page
 
-echo claro_html_tool_title(get_lang('Import a learning path'));
+$out .= claro_html_tool_title(get_lang('Import a learning path'));
 
 // init msg arays
 $okMsgs   = array();
@@ -1067,25 +1066,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !is_null($_POST) )
 
     foreach ( $okMsgs as $msg)
     {
-        echo "\n<span class=\"correct\">v</span>&nbsp;&nbsp;&nbsp;".$msg."<br />";
+        $out .= "\n<span class=\"correct\">v</span>&nbsp;&nbsp;&nbsp;".$msg."<br />";
     }
 
     foreach ( $errorMsgs as $msg)
     {
-        echo "\n<span class=\"error\">x</span>&nbsp;&nbsp;&nbsp;".$msg."<br />";
+        $out .= "\n<span class=\"error\">x</span>&nbsp;&nbsp;&nbsp;".$msg."<br />";
     }
 
     // installation completed or not message
     if ( !$errorFound )
     {
-        echo "\n<br /><center><b>".get_lang('Learning path has been successfully imported.')."</b></center>";
-        echo "\n<br /><br ><center><a href=\"learningPathAdmin.php?path_id=".$tempPathId."\">".$lpName."</a></center>";
+        $out .= "\n<br /><center><b>".get_lang('Learning path has been successfully imported.')."</b></center>";
+        $out .= "\n<br /><br ><center><a href=\"learningPathAdmin.php?path_id=".$tempPathId."\">".$lpName."</a></center>";
     }
     else
     {
-        echo "\n<br /><center><b>".get_lang('An error occurred.  Learning Path import failed.')."</b></center>";
+        $out .= "\n<br /><center><b>".get_lang('An error occurred.  Learning Path import failed.')."</b></center>";
     }
-    echo "\n<br /><a href=\"learningPathList.php\">&lt;&lt; ".get_lang('Back')."</a>";
+    $out .= "\n<br /><a href=\"learningPathList.php\">&lt;&lt; ".get_lang('Back')."</a>";
 
 }
 else // if method == 'post'
@@ -1095,26 +1094,27 @@ else // if method == 'post'
     /*--------------------------------------
       UPLOAD FORM
      --------------------------------------*/
-    echo "\n\n".get_lang('Imported packages must consist of a zip file and be SCORM 1.2 conformable');
-    ?>
-<br /><br />
+    $out .= "\n\n".get_lang('Imported packages must consist of a zip file and be SCORM 1.2 conformable');
+    
+    $out .= '<br /><br />
 
-<form enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post">
-<input type="hidden" name="claroFormId" value="<?php echo uniqid(''); ?>" />
+            <form enctype="multipart/form-data" action="'. $_SERVER['PHP_SELF'] .'" method="post">
+            <input type="hidden" name="claroFormId" value="'. uniqid('') .'" />
 
-<input type="file" name="uploadedPackage" /><br />
-<small><?php echo get_lang('Max file size : %size', array('%size' => format_file_size( get_max_upload_size($maxFilledSpace,$baseWorkDir) ) ) ); ?></small>
+            <input type="file" name="uploadedPackage" /><br />
+            <small>'. get_lang('Max file size : %size', array('%size' => format_file_size( get_max_upload_size($maxFilledSpace,$baseWorkDir) ) ) ) .'</small>
 
-<p>
-<input type="submit" value="<?php echo get_lang('Import') ?>" />&nbsp;
-<?php
-echo claro_html_button( './learningPathList.php', get_lang('Cancel')) . "\n"
-.    '</p>'
-.    '</form>'
-;
+            <p>
+            <input type="submit" value="'. get_lang('Import') .'" />&nbsp;
+            '. claro_html_button( './learningPathList.php', get_lang('Cancel')) . "\n"
+            .    '</p>'
+            .    '</form>'
+        ;
 
 } // else if method == 'post'
-// footer
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
+
 ?>
