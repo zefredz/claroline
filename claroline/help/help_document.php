@@ -6,36 +6,15 @@ $nameTools = get_lang('Documents help');
 $hide_banner = true;
 $hide_footer = true;
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
-?>
-<table width="100%" border="0" cellpadding="1" cellspacing="1">
-<tr>
-  <td align="left" valign="top">
+$tpl = new PhpTemplate( get_path( 'incRepositorySys' ) . '/templates/help_document.tpl.php' );
 
-    <?php echo '<h4>'.get_lang('Documents help').'</h4>'; ?>
+$out .= $tpl->render();
 
-  </td>
-  <td align="right" valign="top">
-    <a href="javascript:window.close();"><?php echo get_lang('Close window'); ?></a>
-  </td>
-</tr>
-<tr>
-  <td colspan="2">
+$claroline->setDisplayType(Claroline::POPUP);
+$claroline->display->body->appendContent($out);
 
-    <?php echo get_block('blockDocumentsHelp'); ?>
-
-  </td>
-</tr>
-<tr>
-  <td colspan="2">
-    <br />
-    <center><a href="javascript:window.close();"><?php echo get_lang('Close window'); ?></a></center>
-  </td>
-</tr>
-</table>
-<?php
-
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+echo $claroline->display->render();
 
 ?>
