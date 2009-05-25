@@ -724,9 +724,7 @@
         }
     }
 
-    // Claroline Header and Banner
-
-    require_once get_path('incRepositorySys') . '/claro_init_header.inc.php';
+    $out = '';
 
     // tool title
 
@@ -767,11 +765,11 @@
         }
     }
 
-    echo claro_html_tool_title( $toolTitle, false );
+    $out .= claro_html_tool_title( $toolTitle, false );
 
     if ( !empty($message) )
     {
-        echo $dialogBox->render( $message ) . "\n";
+        $out .= $dialogBox->render( $message ) . "\n";
         //echo claro_html_message_box($message) . "\n";
     }
 
@@ -840,57 +838,65 @@
                 . get_lang("Search")
         );
 
-    echo '<p>' . claro_html_menu_horizontal($cmdWikiNavigationBar). '</p>';
+    $out .= '<p>' . claro_html_menu_horizontal($cmdWikiNavigationBar). '</p>';
 
     if ( 'recent' != $action && 'all' != $action
         && 'rqSearch' != $action && 'exSearch' != $action )
     {
 
-    if ( 'show' == $action || 'edit' == $action || 'history' == $action )
-    {
-        $cmdActions[] =
-            claro_html_cmd_link(
-                htmlspecialchars(Url::Contextualize(
-                    $_SERVER['PHP_SELF']
-                    . '?wikiId=' . $wiki->getWikiId()
-                    . '&amp;action=show'
-                    . '&amp;title=' . rawurlencode($title) ))
-                    // . claro_url_relay_context('&amp;')
-                , '<img src="' . get_icon_url('go_left').'" alt="back" />&nbsp;'
-                    . get_lang("Back to page")
-            );
-    }
-    else
-    {
-            $cmdActions[] =
-                  '<span class="claroCmdDisabled">'
-                . '<img src="' . get_icon_url('go_left').'" alt="back" />'
-                . '&nbsp;'
-                . get_lang("Back to page")
-                . '</span>'
-            ;
-    }
-
-
-
-    if ( $is_allowedToEdit || $is_allowedToCreate )
-    {
-        // Show context
-        if ( 'show' == $action || 'edit' == $action || 'diff' == $action )
+        if ( 'show' == $action || 'edit' == $action || 'history' == $action )
         {
-                $cmdActions[] = claro_html_cmd_link(
+            $cmdActions[] =
+                claro_html_cmd_link(
                     htmlspecialchars(Url::Contextualize(
                         $_SERVER['PHP_SELF']
                         . '?wikiId=' . $wiki->getWikiId()
-                        . '&amp;action=edit'
-                        . '&amp;title=' . rawurlencode( $title )
+                        . '&amp;action=show'
+                        . '&amp;title=' . rawurlencode($title) ))
                         // . claro_url_relay_context('&amp;')
-                        . '&amp;versionId=' . $versionId ))
-                , '<img src="'.get_icon_url('edit').'" alt="edit" />&nbsp;'
-                . get_lang("Edit this page")
+                    , '<img src="' . get_icon_url('go_left').'" alt="back" />&nbsp;'
+                        . get_lang("Back to page")
                 );
         }
-        // Other contexts
+        else
+        {
+                $cmdActions[] =
+                      '<span class="claroCmdDisabled">'
+                    . '<img src="' . get_icon_url('go_left').'" alt="back" />'
+                    . '&nbsp;'
+                    . get_lang("Back to page")
+                    . '</span>'
+                ;
+        }
+
+
+
+        if ( $is_allowedToEdit || $is_allowedToCreate )
+        {
+            // Show context
+            if ( 'show' == $action || 'edit' == $action || 'diff' == $action )
+            {
+                    $cmdActions[] = claro_html_cmd_link(
+                        htmlspecialchars(Url::Contextualize(
+                            $_SERVER['PHP_SELF']
+                            . '?wikiId=' . $wiki->getWikiId()
+                            . '&amp;action=edit'
+                            . '&amp;title=' . rawurlencode( $title )
+                            // . claro_url_relay_context('&amp;')
+                            . '&amp;versionId=' . $versionId ))
+                    , '<img src="'.get_icon_url('edit').'" alt="edit" />&nbsp;'
+                    . get_lang("Edit this page")
+                    );
+            }
+            // Other contexts
+            else
+            {
+                    $cmdActions[] = '<span class="claroCmdDisabled">'
+                        . '<img src="'.get_icon_url('edit').'" alt="edit" />&nbsp;'
+                    . get_lang("Edit this page") . '</span>'
+                    ;
+            }
+        }
         else
         {
                 $cmdActions[] = '<span class="claroCmdDisabled">'
@@ -898,53 +904,45 @@
                 . get_lang("Edit this page") . '</span>'
                 ;
         }
-    }
-    else
-    {
-            $cmdActions[] = '<span class="claroCmdDisabled">'
-                . '<img src="'.get_icon_url('edit').'" alt="edit" />&nbsp;'
-            . get_lang("Edit this page") . '</span>'
-            ;
-    }
 
-    if ( 'show' == $action || 'edit' == $action
-        || 'history' == $action || 'diff' == $action )
-    {
-        // active
-            $cmdActions[] =
-                claro_html_cmd_link(
-                    htmlspecialchars(Url::Contextualize(
-                        $_SERVER['PHP_SELF']
-                        . '?wikiId=' . $wiki->getWikiId()
-                        . '&amp;action=history'
-                        . '&amp;title=' . rawurlencode( $title ) ))
-                    // . claro_url_relay_context('&amp;')
-                    , '<img src="' . get_icon_url('versions').'" alt="history" />&nbsp;'
-                        . get_lang("Page history")
-                );
-    }
-    else
-    {
-        // inactive
-            $cmdActions[] = '<span class="claroCmdDisabled">'
-            .    '<img src="'.get_icon_url('versions').'" alt="history" />&nbsp;'
-            .    get_lang("Page history")
-            .    '</span>'
-            ;
-    }
+        if ( 'show' == $action || 'edit' == $action
+            || 'history' == $action || 'diff' == $action )
+        {
+            // active
+                $cmdActions[] =
+                    claro_html_cmd_link(
+                        htmlspecialchars(Url::Contextualize(
+                            $_SERVER['PHP_SELF']
+                            . '?wikiId=' . $wiki->getWikiId()
+                            . '&amp;action=history'
+                            . '&amp;title=' . rawurlencode( $title ) ))
+                        // . claro_url_relay_context('&amp;')
+                        , '<img src="' . get_icon_url('versions').'" alt="history" />&nbsp;'
+                            . get_lang("Page history")
+                    );
+        }
+        else
+        {
+            // inactive
+                $cmdActions[] = '<span class="claroCmdDisabled">'
+                .    '<img src="'.get_icon_url('versions').'" alt="history" />&nbsp;'
+                .    get_lang("Page history")
+                .    '</span>'
+                ;
+        }
 
-    if ( 'edit' == $action || 'diff' == $action )
-    {
-            $cmdActions[] = '<a class="claroCmd" href="#" onclick="MyWindow=window.open(\''
-                . htmlspecialchars(Url::Contextualize('help_wiki.php?help=syntax' )) // . claro_url_relay_context('&amp;')
-            . '\',\'MyWindow\',\'toolbar=no,location=no,directories=no,status=yes,menubar=no'
-            . ',scrollbars=yes,resizable=yes,width=350,height=450,left=300,top=10\'); return false;">'
-            . '<img src="' . get_icon_url('help').'" alt="help" />&nbsp;'
-            . get_lang("Wiki syntax") . '</a>'
-            ;
-    }
+        if ( 'edit' == $action || 'diff' == $action )
+        {
+                $cmdActions[] = '<a class="claroCmd" href="#" onclick="MyWindow=window.open(\''
+                    . htmlspecialchars(Url::Contextualize('help_wiki.php?help=syntax' )) // . claro_url_relay_context('&amp;')
+                . '\',\'MyWindow\',\'toolbar=no,location=no,directories=no,status=yes,menubar=no'
+                . ',scrollbars=yes,resizable=yes,width=350,height=450,left=300,top=10\'); return false;">'
+                . '<img src="' . get_icon_url('help').'" alt="help" />&nbsp;'
+                . get_lang("Wiki syntax") . '</a>'
+                ;
+        }
 
-        echo '<p>' . claro_html_menu_horizontal($cmdActions) .'</p>' . "\n";
+        $out .= '<p>' . claro_html_menu_horizontal($cmdActions) .'</p>' . "\n";
 
     }
 
@@ -961,40 +959,40 @@
                 $displaytitle = $title;
             }
 
-            echo '<div class="wikiTitle">' . "\n";
-            echo '<h1>'.$displaytitle
+            $out .= '<div class="wikiTitle">' . "\n";
+            $out .= '<h1>'.$displaytitle
                 . ' : ' . get_lang("Edit conflict")
                 . '</h1>'
                 . "\n"
                 ;
-            echo '</div>' . "\n";
+            $out .= '</div>' . "\n";
 
             $message = get_block('blockWikiConflictHowTo');
 
-            echo claro_html_message_box ( $message ) . '<br />' . "\n";
+            $out .= claro_html_message_box ( $message ) . '<br />' . "\n";
 
-            echo '<form id="editConflict" action="'
+            $out .= '<form id="editConflict" action="'
                 . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']))
                 . '" method="post">'
                 ;
-            echo '<textarea name="conflictContent" id="content"'
+            $out .= '<textarea name="conflictContent" id="content"'
                  . ' cols="80" rows="15" >'
                  ;
-            echo $content;
-            echo '</textarea><br /><br />' . "\n";
-            echo '<div>' . "\n";
-            echo '<input type="hidden" name="wikiId" value="'.(int)$wikiId.'" />' . "\n";
-            echo '<input type="hidden" name="title" value="'.htmlspecialchars($title).'" />' . "\n";
-            echo '<input type="submit" name="action[edit]" value="'.get_lang("Edit last version").'" />' . "\n";
+            $out .= $content;
+            $out .= '</textarea><br /><br />' . "\n";
+            $out .= '<div>' . "\n";
+            $out .= '<input type="hidden" name="wikiId" value="'.(int)$wikiId.'" />' . "\n";
+            $out .= '<input type="hidden" name="title" value="'.htmlspecialchars($title).'" />' . "\n";
+            $out .= '<input type="submit" name="action[edit]" value="'.get_lang("Edit last version").'" />' . "\n";
             $url = htmlspecialchars(Url::Contextualize(
                 $_SERVER['PHP_SELF']
                 . '?wikiId=' . $wikiId
                 . '&amp;title=' . $title
                 . '&amp;action=show' ))
                 ;
-            echo claro_html_button( $url, get_lang("Cancel") ) . "\n";
-            echo '</div>' . "\n";
-            echo '</form>';
+            $out .= claro_html_button( $url, get_lang("Cancel") ) . "\n";
+            $out .= '</div>' . "\n";
+            $out .= '</form>';
             break;
         }
         case 'diff':
@@ -1033,28 +1031,28 @@
                         . $versionInfo . '</span>'
                         ;
 
-            echo '<div class="wikiTitle">' . "\n";
-            echo '<h1>'.$displaytitle
+            $out .= '<div class="wikiTitle">' . "\n";
+            $out .= '<h1>'.$displaytitle
                 . $versionInfo
                 . '</h1>'
                 . "\n"
                 ;
-            echo '</div>' . "\n";
+            $out .= '</div>' . "\n";
 
-            echo '<strong>'.get_lang("Keys :").'</strong>';
+            $out .= '<strong>'.get_lang("Keys :").'</strong>';
 
-            echo '<div class="diff">' . "\n";
-            echo '= <span class="diffEqual" >'.get_lang("Unchanged line").'</span><br />';
-            echo '+ <span class="diffAdded" >'.get_lang("Added line").'</span><br />';
-            echo '- <span class="diffDeleted" >'.get_lang("Deleted line").'</span><br />';
-            echo 'M <span class="diffMoved" >'.get_lang("Moved line").'</span><br />';
-            echo '</div>' . "\n";
+            $out .= '<div class="diff">' . "\n";
+            $out .= '= <span class="diffEqual" >'.get_lang("Unchanged line").'</span><br />';
+            $out .= '+ <span class="diffAdded" >'.get_lang("Added line").'</span><br />';
+            $out .= '- <span class="diffDeleted" >'.get_lang("Deleted line").'</span><br />';
+            $out .= 'M <span class="diffMoved" >'.get_lang("Moved line").'</span><br />';
+            $out .= '</div>' . "\n";
 
-            echo '<strong>'.get_lang("Differences :").'</strong>';
+            $out .= '<strong>'.get_lang("Differences :").'</strong>';
 
-            echo '<div class="diff">' . "\n";
-            echo $diff;
-            echo '</div>' . "\n";
+            $out .= '<div class="diff">' . "\n";
+            $out .= $diff;
+            $out .= '</div>' . "\n";
 
             break;
         }
@@ -1066,7 +1064,7 @@
                 . '&amp;action=recent' ))
                 ;
 
-            echo '<p>'
+            $out .= '<p>'
                 . '<a href="'.$script.'&amp;offset='
                 . $first .'&amp;step=' . (int) $step .'">&lt;&lt; '.get_lang('First').'</a>'
                 . ( $previous !== false
@@ -1085,7 +1083,7 @@
 
             if ( is_array( $recentChanges ) )
             {
-                echo '<ul>' . "\n";
+                $out .= '<ul>' . "\n";
 
                 foreach ( $recentChanges as $recentChange )
                 {
@@ -1141,7 +1139,7 @@
                         ;
                 }
 
-                echo '</ul>' . "\n";
+                $out .= '</ul>' . "\n";
             }
             break;
         }
@@ -1149,7 +1147,7 @@
         {
             // handle main page
 
-            echo '<ul><li><a href="'
+            $out .= '<ul><li><a href="'
                 . htmlspecialchars(Url::Contextualize(
                     $_SERVER['PHP_SELF']
                     . '?wikiId=' . (int)$wikiId
@@ -1164,7 +1162,7 @@
 
             if ( is_array( $allPages ) )
             {
-                echo '<ul>' . "\n";
+                $out .= '<ul>' . "\n";
 
                 foreach ( $allPages as $page )
                 {
@@ -1184,9 +1182,9 @@
                         . '">' . $page['title'] . '</a>'
                         ;
 
-                    echo '<li>' . $link. '</li>' . "\n";
+                    $out .= '<li>' . $link. '</li>' . "\n";
                 }
-                echo '</ul>' . "\n";
+                $out .= '</ul>' . "\n";
             }
             break;
         }
@@ -1195,17 +1193,17 @@
         {
             if ( ! $wiki->pageExists( $title ) && ! $is_allowedToCreate )
             {
-                echo get_lang("You are not allowed to create pages");
+                $out .= get_lang("You are not allowed to create pages");
             }
             elseif ( $wiki->pageExists( $title ) && ! $is_allowedToEdit )
             {
-                echo get_lang("You are not allowed to edit this page");
+                $out .= get_lang("You are not allowed to edit this page");
             }
             else
             {
                 $script = htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']));
 
-                echo claro_disp_wiki_editor( $wikiId, $title, $versionId, $content, $script
+                $out .= claro_disp_wiki_editor( $wikiId, $title, $versionId, $content, $script
                     , get_conf('showWikiEditorToolbar'), get_conf('forcePreviewBeforeSaving') )
                     ;
             }
@@ -1220,9 +1218,9 @@
                 $content = '';
             }
 
-            echo claro_disp_wiki_preview( $wikiRenderer, $title, $content );
+            $out .= claro_disp_wiki_preview( $wikiRenderer, $title, $content );
 
-            echo claro_disp_wiki_preview_buttons( $wikiId, $title, $content );
+            $out .= claro_disp_wiki_preview_buttons( $wikiId, $title, $content );
 
             break;
         }
@@ -1231,7 +1229,7 @@
         {
             if( $wikiPage->hasError() )
             {
-                echo $wikiPage->getError();
+                $out .= $wikiPage->getError();
             }
             else
             {
@@ -1282,16 +1280,16 @@
                     $versionInfo = '';
                 }
                 
-                echo '<div id="mainContent" class="wiki2xhtml">' . "\n";
-                echo '<h1>'.$displaytitle
+                $out .= '<div id="mainContent" class="wiki2xhtml">' . "\n";
+                $out .= '<h1>'.$displaytitle
                     . $versionInfo
                     . '</h1>'
                     . "\n"
                     ;
-                echo $wikiRenderer->render( $content );
-                echo '</div>' . "\n";
+                $out .= $wikiRenderer->render( $content );
+                $out .= '</div>' . "\n";
 
-                echo '<div style="clear:both;"><!-- spacer --></div>' . "\n";
+                $out .= '<div style="clear:both;"><!-- spacer --></div>' . "\n";
             }
 
             break;
@@ -1307,9 +1305,9 @@
                 $displaytitle = $title;
             }
 
-            echo '<div class="wikiTitle">' . "\n";
-            echo '<h1>'.$displaytitle.'</h1>' . "\n";
-            echo '</div>' . "\n";
+            $out .= '<div class="wikiTitle">' . "\n";
+            $out .= '<h1>'.$displaytitle.'</h1>' . "\n";
+            $out .= '</div>' . "\n";
 
             $script = htmlspecialchars(Url::Contextualize(
                 $_SERVER['PHP_SELF']
@@ -1317,7 +1315,7 @@
                 . '&amp;title=' . rawurlencode( $title )
                 . '&amp;action=history'));
 
-            echo '<p>'
+            $out .= '<p>'
                 . '<a href="'.$script.'&amp;offset='
                 . $first .'&amp;step=' . (int) $step .'">&lt;&lt; First</a>'
                 . ( $previous !== false
@@ -1334,13 +1332,13 @@
                 . '</p>'
                 ;
 
-            echo '<form id="differences" method="get" action="'
+            $out .= '<form id="differences" method="get" action="'
                 . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']))
                 . '">'
                 . "\n"
                 ;
 
-            echo '<div>' . "\n"
+            $out .= '<div>' . "\n"
                 . '<input type="hidden" name="wikiId" value="'.(int)$wikiId.'" />' . "\n"
                 . '<input type="hidden" name="title" value="'.htmlspecialchars($title).'" />' . "\n"
                 . '<input type="submit" name="action[diff]" value="'
@@ -1349,7 +1347,7 @@
                 . '</div>' . "\n"
                 ;
 
-            echo '<table style="border: 0px;">' . "\n";
+            $out .= '<table style="border: 0px;">' . "\n";
 
             if ( is_array( $history ) )
             {
@@ -1360,7 +1358,7 @@
                 {
                     $passes++;
 
-                    echo '<tr>' . "\n";
+                    $out .= '<tr>' . "\n";
 
                     // diff between last and previous versions
                     // if available
@@ -1385,13 +1383,13 @@
                         $checked2 = '';
                     }
 
-                    echo '<td>'
+                    $out .= '<td>'
                         . '<input type="radio" name="old" value="'.$version['id'].'"'.$checked1.' />' . "\n"
                         . '</td>'
                         . "\n"
                         ;
 
-                    echo '<td>'
+                    $out .= '<td>'
                         . '<input type="radio" name="new" value="'.$version['id'].'"'.$checked2.' />' . "\n"
                         . '</td>'
                         . "\n"
@@ -1438,27 +1436,27 @@
                         . '</a>'
                         ;
 
-                    echo '<td>'
+                    $out .= '<td>'
                         . sprintf( get_lang("%1\$s by %2\$s"), $versionUrl, $userUrl )
                         . '</td>'
                         . "\n"
                         ;
 
-                    echo '</tr>' . "\n";
+                    $out .= '</tr>' . "\n";
                 }
             }
 
-            echo '</table>' . "\n";
+            $out .= '</table>' . "\n";
 
-            echo '</form>';
+            $out .= '</form>';
 
             break;
         }
         case 'exSearch':
         {
-            echo '<h3>'.get_lang("Search result").'</h3>' . "\n";
+            $out .= '<h3>'.get_lang("Search result").'</h3>' . "\n";
 
-            echo '<ul>' . "\n";
+            $out .= '<ul>' . "\n";
 
             foreach ( $searchResult as $page )
             {
@@ -1481,9 +1479,9 @@
                     . '">' . $title . '</a>'
                     ;
 
-                echo '<li>' . $link. '</li>' . "\n";
+                $out .= '<li>' . $link. '</li>' . "\n";
             }
-            echo '</ul>' . "\n";
+            $out .= '</ul>' . "\n";
             break;
         }
         case 'rqSearch':
@@ -1504,7 +1502,7 @@
                     get_lang("Cancel"))
                 . '</form>'."\n"
                 ;
-            echo claro_html_message_box($searchForm) . "\n";
+            $out .= claro_html_message_box($searchForm) . "\n";
             break;
         }
         default:
@@ -1516,8 +1514,9 @@
     }
 
     // ------------ End of wiki script ---------------
+    
+    $claroline->display->body->appendContent($out);
 
-    // Claroline footer
-
-    require_once get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+    echo $claroline->display->render();
+    
 ?>

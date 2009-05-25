@@ -509,9 +509,7 @@
         }
     }
 
-    // Claro header and banner
-
-    require_once get_path('incRepositorySys') . "/claro_init_header.inc.php";
+    $out = '';
 
     // --------- Start of display ----------------
 
@@ -557,12 +555,11 @@
         }
     }
 
-    echo claro_html_tool_title( $toolTitle, htmlspecialchars(Url::Contextualize("../wiki/help_wiki.php?help=admin")) ) . "\n";
+    $out .= claro_html_tool_title( $toolTitle, htmlspecialchars(Url::Contextualize("../wiki/help_wiki.php?help=admin")) ) . "\n";
 
     if ( ! empty( $message ) )
     {
-        echo $dialogBox->render();
-        //echo claro_html_message_box( $message ) . "\n";
+        $out .= $dialogBox->render();        
     }
 
     switch( $action )
@@ -574,7 +571,7 @@
         }
         case 'exExport':
         {
-            echo '<blockquote>'
+            $out .= '<blockquote>'
                 . get_lang( "Wiki %TITLE% exported to course documents. (this file is visible)"
                     , array( '%TITLE%' => $wikiTitle ) )
                 . '</blockquote>'
@@ -596,7 +593,7 @@
         // edit form
         case 'rqEdit':
         {
-            echo claro_disp_wiki_properties_form( $wikiId, $wikiTitle
+            $out .= claro_disp_wiki_properties_form( $wikiId, $wikiTitle
                 , $wikiDesc, $groupId, $wikiACL );
 
             break;
@@ -604,20 +601,20 @@
         // delete form
         case 'rqDelete':
         {
-            echo '<form method="post" action="'
+            $out .= '<form method="post" action="'
                 . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']))
                 . '" id="rqDelete">'
                 . "\n"
                 ;
 
-            echo '<div style="padding: 5px">'
+            $out .= '<div style="padding: 5px">'
                 . '<input type="hidden" name="wikiId" value="' . $wikiId . '" />' . "\n"
                 . '<input type="submit" name="action[exDelete]" value="' . get_lang("Continue") . '" />' . "\n"
                 . claro_html_button (htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])), get_lang("Cancel") )
                 . '</div>'
                 ;
 
-            echo '</form>' . "\n";
+            $out .= '</form>' . "\n";
 
             break;
         }
@@ -638,11 +635,11 @@
             }
 
             // if admin, display add new wiki link
-            echo '<p>';
+            $out .= '<p>';
 
             if ( ( $groupId && claro_is_group_member() ) || $is_allowedToAdmin )
             {
-                echo claro_html_cmd_link(
+                $out .= claro_html_cmd_link(
                     htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?action=rqEdit' ) )
                     // . claro_url_relay_context('&amp;')
                     , '<img src="' . get_icon_url('wiki_new').'" '
@@ -653,7 +650,7 @@
                     ;
             }
 
-            echo claro_html_cmd_link(
+            $out .= claro_html_cmd_link(
                 htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . '?action=rqSearch' ) )
                 // . claro_url_relay_context('&amp;')
                 , '<img src="' . get_icon_url('search').'" '
@@ -666,12 +663,12 @@
 
             // display list in a table
 
-            echo '<table class="claroTable emphaseLine" style="width: 100%">' . "\n";
+            $out .= '<table class="claroTable emphaseLine" style="width: 100%">' . "\n";
 
             // if admin, display title, edit and delete
             if ( ( $groupId && claro_is_group_member() ) || $is_allowedToAdmin )
             {
-                echo '<thead>' . "\n"
+                $out .= '<thead>' . "\n"
                     . '<tr class="headerX" style="text-align: center;">' . "\n"
                     . '<th>'.get_lang("Title").'</th>' . "\n"
                     . '<th>'.get_lang("Number of pages").'</th>' . "\n"
@@ -686,7 +683,7 @@
             // else display title only
             else
             {
-                echo '<thead>' . "\n"
+                $out .= '<thead>' . "\n"
                     . '<tr class="headerX" style="text-align: center;">' . "\n"
                     . '<th>'.get_lang("Title").'</th>' . "\n"
                     . '<th>'.get_lang("Number of pages").'</th>' . "\n"
@@ -696,14 +693,14 @@
                     ;
             }
 
-            echo '<tbody>' . "\n";
+            $out .= '<tbody>' . "\n";
 
             // wiki list not empty
             if ( is_array( $wikiList ) && count( $wikiList ) > 0 )
             {
                 foreach ( $wikiList as $entry )
                 {
-                    echo '<tr>' . "\n";
+                    $out .= '<tr>' . "\n";
 
                     // display title for all users
 
@@ -719,11 +716,11 @@
                     }
 
 
-                    echo '<td style="text-align: left;">';
+                    $out .= '<td style="text-align: left;">';
 
                     // display direct link to main page
 
-                    echo '<a class="item'.$classItem.'" href="'
+                    $out .= '<a class="item'.$classItem.'" href="'
                         . htmlspecialchars(Url::Contextualize('page.php?wikiId='
                             . (int)$entry['id'].'&amp;action=show' ) )
                         . '">'
@@ -732,27 +729,27 @@
                         ;
                         ;
 
-                    echo '</td>' . "\n";
+                    $out .= '</td>' . "\n";
 
-                    echo '<td style="text-align: center;">';
+                    $out .= '<td style="text-align: center;">';
 
-                    echo '<a href="'
+                    $out .= '<a href="'
                         .htmlspecialchars(Url::Contextualize(
                             'page.php?wikiId=' . (int) $entry['id'] . '&amp;action=all' ) )
                         .'">'
                         ;
 
-                    echo $wikiStore->getNumberOfPagesInWiki( $entry['id'] );
+                    $out .= $wikiStore->getNumberOfPagesInWiki( $entry['id'] );
 
-                    echo '</a>';
+                    $out .= '</a>';
 
-                    echo '</td>' . "\n";
+                    $out .= '</td>' . "\n";
 
-                    echo '<td style="text-align: center;">';
+                    $out .= '<td style="text-align: center;">';
 
                     // display direct link to main page
 
-                    echo '<a href="'
+                    $out .= '<a href="'
                         . htmlspecialchars(Url::Contextualize('page.php?wikiId='
                             . (int) $entry['id'].'&amp;action=recent' ) )
                         . '">'
@@ -761,7 +758,7 @@
                         ;
                         ;
 
-                    echo '</td>' . "\n";
+                    $out .= '</td>' . "\n";
 
                     // if admin, display edit and delete links
 
@@ -769,8 +766,8 @@
                     {
                         // edit link
 
-                        echo '<td style="text-align:center;">';
-                        echo '<a href="'
+                        $out .= '<td style="text-align:center;">';
+                        $out .= '<a href="'
                             . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?wikiId='
                                 . (int) $entry['id'].'&amp;action=rqEdit' ) )
                             . '">'
@@ -778,39 +775,39 @@
                             . get_lang("Edit properties").'" />'
                             . '</a>'
                             ;
-                        echo '</td>' . "\n";
+                        $out .= '</td>' . "\n";
 
                         // delete link
 
-                        echo '<td style="text-align:center;">';
-                        echo '<a href="'
+                        $out .= '<td style="text-align:center;">';
+                        $out .= '<a href="'
                             . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?wikiId='
                                 . (int) $entry['id'].'&amp;action=rqDelete' ))
                             . '">'
                             . '<img src="' . get_icon_url('delete').'" alt="'.get_lang("Delete").'" />'
                             . '</a>'
                             ;
-                        echo '</td>' . "\n";
+                        $out .= '</td>' . "\n";
 
                         if ( true === $is_allowedToAdmin )
                         {
-                            echo '<td style="text-align:center;">';
-                            echo '<a href="'
+                            $out .= '<td style="text-align:center;">';
+                            $out .= '<a href="'
                                 . htmlspecialchars(Url::Contextualize( $_SERVER['PHP_SELF'].'?wikiId='
                                     . (int)$entry['id'].'&amp;action=exExport' ))
                                 . '">'
                                 . '<img src="' . get_icon_url('export').'" alt="'.get_lang("Export").'" />'
                                 . '</a>'
                                 ;
-                            echo '</td>' . "\n";
+                            $out .= '</td>' . "\n";
                         }
                     }
 
-                    echo '</tr>' . "\n";
+                    $out .= '</tr>' . "\n";
 
                     if ( ! empty( $entry['description'] ) )
                     {
-                        echo '<tr>' . "\n";
+                        $out .= '<tr>' . "\n";
 
                         if ( $groupId && claro_is_group_member() )
                         {
@@ -825,13 +822,13 @@
                             $colspan = 3;
                         }
 
-                        echo '<td colspan="'
+                        $out .= '<td colspan="'
                             . $colspan.'"><div class="comment">'
                             . $entry['description'].'</div></td>'
                             . "\n"
                             ;
 
-                        echo '</tr>' . "\n";
+                        $out .= '</tr>' . "\n";
                     }
                 }
             }
@@ -851,14 +848,14 @@
                     $colspan = 3;
                 }
 
-                echo '<tr><td colspan="'.$colspan.'" style="text-align: center;">'
+                $out .= '<tr><td colspan="'.$colspan.'" style="text-align: center;">'
                  . get_lang("No Wiki")
                  . '</td></tr>' . "\n"
                  ;
             }
 
-            echo '</tbody>' . "\n";
-            echo '</table>' . "\n" . "\n";
+            $out .= '</tbody>' . "\n";
+            $out .= '</table>' . "\n" . "\n";
 
             break;
         }
@@ -871,6 +868,9 @@
     }
 
 // ------------ End of display ---------------
-// Claroline footer
-require_once get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
+
 ?>

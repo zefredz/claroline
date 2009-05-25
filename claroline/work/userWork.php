@@ -336,9 +336,13 @@ if ( $cmd == 'exDownload' )
     header('HTTP/1.1 404 Not Found');
     $interbredcrump[]= array ('url' => "../work/work.php", 'name' => get_lang('Assignments'));
     $interbredcrump[]= array ('url' => "../work/workList.php?authId=".$_REQUEST['authId']."&amp;assigId=".$assignmentId, 'name' => get_lang('Assignment'));
-    include get_path('incRepositorySys')  . '/claro_init_header.inc.php';
-    echo $dialogBox->render();
-    include get_path('incRepositorySys')  . '/claro_init_footer.inc.php';
+    
+    $out = $dialogBox->render();
+    
+    $claroline->display->body->appendContent($out);
+
+    echo $claroline->display->render();
+    
     die();
 }
 
@@ -992,7 +996,6 @@ else
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Assignment'), Url::Contextualize('../work/workList.php?authId='.$_REQUEST['authId'].'&amp;assigId='.$assignmentId) );
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Assignments'), Url::Contextualize('../work/work.php') );
 
-//include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 $out = '';
 
 /*--------------------------------------------------------------------
@@ -1207,7 +1210,7 @@ if( $is_allowedToSubmit )
                     // if the file is required and the text is only a description of the file
                     $out .= get_lang('Upload document').'&nbsp;*';
                 }
-                echo '&nbsp;:</label></td>'."\n";
+                $out .= '&nbsp;:</label></td>'."\n";
                 if( !empty($submitGroupWorkUrl) )
                 {
                     // Secure download
@@ -1678,8 +1681,7 @@ if( $dispWrkLst )
         $out .= $dialogBox->render();
     }
 }
-// FOOTER
-//include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();

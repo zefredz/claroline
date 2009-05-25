@@ -542,8 +542,6 @@ else
 
     $assignmentList = $assignmentPager->get_result_list();
 
-
-//include get_path('incRepositorySys') . '/claro_init_header.inc.php' ;
 $out = '';
 /*--------------------------------------------------------------------
                     TOOL TITLE
@@ -884,8 +882,6 @@ if ( (!isset($displayAssigForm) || !$displayAssigForm) )
 
 
 }
-// FOOTER
-//include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
 $claroline->display->body->appendContent($out);
 

@@ -45,7 +45,8 @@ $TABLEUSERMODULEPROGRESS= $tbl_lp_user_module_progress;
 $TABLECOURSUSER            = $tbl_rel_course_user;
 $TABLEUSER              = $tbl_user;
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
+
 require_once get_path('incRepositorySys') . '/lib/statsUtils.lib.inc.php';
 
 
@@ -55,7 +56,7 @@ require_once get_path('incRepositorySys')."/lib/learnPath.lib.inc.php";
 $titleTab['mainTitle'] = $nameTools;
 $titleTab['subTitle'] = get_lang('Progression of users on all learning paths');
 
-echo claro_html_tool_title($titleTab);
+$out .= claro_html_tool_title($titleTab);
 
 if ( get_conf('is_trackingEnabled') ) 
 {
@@ -68,7 +69,7 @@ if ( get_conf('is_trackingEnabled') )
     $usersList = claro_sql_query_fetch_all($sql);
     
     // display tab header
-    echo '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'."\n\n"
+    $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'."\n\n"
         .'<tr class="headerX" align="center" valign="top">'."\n"
         .'<th>'.get_lang('Student').'</th>'."\n"
         .'<th colspan="2">'.get_lang('Progress').'</th>'."\n"
@@ -103,12 +104,12 @@ if ( get_conf('is_trackingEnabled') )
 
         if( $iterator == 1 )
         {
-            echo '<tr><td align="center" colspan="8">'.get_lang('No learning path').'</td></tr>'."\n\n";
+            $out .= '<tr><td align="center" colspan="8">'.get_lang('No learning path').'</td></tr>'."\n\n";
         }
         else
         {
             $total = round($globalprog/($iterator-1));
-            echo '<tr>'."\n"
+            $out .= '<tr>'."\n"
                 .'<td><a href="'.get_path('clarolineRepositoryWeb').'tracking/userReport.php?userId='.$user['user_id'].'">'.$user['nom'].' '.$user['prenom'].'</a></td>'."\n"
                 .'<td align="right">'
                 .claro_html_progress_bar($total, 1)
@@ -120,15 +121,16 @@ if ( get_conf('is_trackingEnabled') )
     }
     
     // foot of table
-    echo '</tbody>'."\n\n".'</table>'."\n\n";
+    $out .= '</tbody>'."\n\n".'</table>'."\n\n";
     
 }
 else
 {
-    echo get_lang('Tracking has been disabled by system administrator.');
+    $out .= get_lang('Tracking has been disabled by system administrator.');
 }
 
+$claroline->display->body->appendContent($out);
 
+echo $claroline->display->render();
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 ?>

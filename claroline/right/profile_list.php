@@ -52,15 +52,13 @@ $offset = (isset($_REQUEST['offset']) && !empty($_REQUEST['offset']) ) ? $_REQUE
 $profilePager = new claro_sql_pager($sql,$offset, $itemPerPage);
 $profileList = $profilePager->get_result_list();
 
-// Display section
+$out = '';
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-
-echo claro_html_tool_title($nameTools);
+$out .= claro_html_tool_title($nameTools);
 
 // Display table header
 
-echo '<table class="claroTable emphaseLine" >' . "\n"
+$out .= '<table class="claroTable emphaseLine" >' . "\n"
     . '<thead>' . "\n"
     . '<tr class="headerX">' . "\n"
     . '<th>' . get_lang('Name') . '</th>' . "\n"
@@ -71,15 +69,15 @@ echo '<table class="claroTable emphaseLine" >' . "\n"
 
 foreach ( $profileList as $thisProfile )
 {
-    echo '<tr align="center">' . "\n"
+    $out .= '<tr align="center">' . "\n"
         . '<td align="left">' . get_lang($thisProfile['name']) ;
 
     if ( $thisProfile['locked'] == '1' )
     {
-        echo '&nbsp;<img src="' . get_icon_url('locked') . '" alt="' . get_lang('Lock') . '" />';
+        $out .= '&nbsp;<img src="' . get_icon_url('locked') . '" alt="' . get_lang('Lock') . '" />';
     }
 
-    echo '<br />' . "\n"
+    $out .= '<br />' . "\n"
     .    '<em>' . get_lang($thisProfile['description']) . '</em>' . "\n"
     .    '<td>' . "\n"
     .    '<a href="profile.php?cmd=rqEdit&display_profile='. $thisProfile['id'].'">' 
@@ -90,9 +88,10 @@ foreach ( $profileList as $thisProfile )
     ;
 }
 
-echo '</tbody></table>';
+$out .= '</tbody></table>';
 
+$claroline->display->body->appendContent($out);
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+echo $claroline->display->render();
 
 ?>

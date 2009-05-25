@@ -98,11 +98,12 @@ $nameTools = get_lang('Modules');
 
 $_SERVER['QUERY_STRING'] = 'uInfo='.$_REQUEST['uInfo']."&path_id=".$_REQUEST['path_id'];
 
-include get_path('incRepositorySys')."/claro_init_header.inc.php";
+$out = '';
+
 // display title
 $titleTab['mainTitle'] = $nameTools;
 $titleTab['subTitle'] = $lpDetails['name'];
-echo claro_html_tool_title($titleTab);
+$out .= claro_html_tool_title($titleTab);
 
 
 if($is_allowedToTrack && get_conf('is_trackingEnabled')) 
@@ -160,7 +161,7 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
     }
   
     //### SOME USER DETAILS ###########################################
-    echo get_lang('User') .' : <br />'."\n"
+    $out .= get_lang('User') .' : <br />'."\n"
         .'<ul>'."\n"
         .'<li>'.get_lang('Last name').' : '.$uDetails['lastname'].'</li>'."\n"
         .'<li>'.get_lang('First name').' : '.$uDetails['firstname'].'</li>'."\n"
@@ -168,7 +169,7 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
         .'</ul>'."\n\n";
 
     //### TABLE HEADER ################################################
-    echo '<br />'."\n"
+    $out .= '<br />'."\n"
         .'<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'."\n"
         .'<tr class="headerX" align="center" valign="top">'."\n"
         .'<th colspan="'.($maxDeep+1).'">'.get_lang('Module').'</th>'."\n"
@@ -211,11 +212,11 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
         $spacingString .= '<td width="5">&nbsp;</td>';
         $colspan = $maxDeep - $module['children']+1;
 
-        echo '<tr align="center">'."\n".$spacingString.'<td colspan="'.$colspan.'" align="left">';
+        $out .= '<tr align="center">'."\n".$spacingString.'<td colspan="'.$colspan.'" align="left">';
         //-- if chapter head
         if ( $module['contentType'] == CTLABEL_ )
         {
-            echo '<b>'.$module['name'].'</b>';
+            $out .= '<b>'.$module['name'].'</b>';
         }
         //-- if user can access module
         else
@@ -226,11 +227,11 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
             $moduleImgUrl = get_icon_url( choose_image(basename($module['path'])) );
 
             $contentType_alt = selectAlt($module['contentType']);
-            echo '<img src="' .  $moduleImgUrl . '" alt="'.$contentType_alt.'" />'.$module['name'];
+            $out .= '<img src="' .  $moduleImgUrl . '" alt="'.$contentType_alt.'" />'.$module['name'];
 
         }
           
-          echo '</td>'."\n";
+          $out .= '</td>'."\n";
           
           if ($module['contentType'] == CTSCORM_)
           {          
@@ -259,27 +260,27 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
               }
           }
           //-- session_time
-          echo '<td>'.$session_time.'</td>'."\n";
+          $out .= '<td>'.$session_time.'</td>'."\n";
           //-- total_time
-          echo '<td>'.$total_time.'</td>'."\n";
+          $out .= '<td>'.$total_time.'</td>'."\n";
           //-- status
-          echo '<td>';
+          $out .= '<td>';
           if($module['contentType'] == CTEXERCISE_ && $module['lesson_status'] != "" ) 
-            echo ' <a href="userReport.php?uInfo='.$_REQUEST['uInfo'].'&amp;view=0100000&amp;exoDet='.$module['path'].'">'.strtolower($module['lesson_status']).'</a>';
+            $out .= ' <a href="userReport.php?uInfo='.$_REQUEST['uInfo'].'&amp;view=0100000&amp;exoDet='.$module['path'].'">'.strtolower($module['lesson_status']).'</a>';
           else
-            echo strtolower($module['lesson_status']);
-          echo '</td>'."\n";
+            $out .= strtolower($module['lesson_status']);
+          $out .= '</td>'."\n";
           //-- progression
           if($module['contentType'] != CTLABEL_ )
           {
                 // display the progress value for current module
                 
-                echo '<td align="right">'.claro_html_progress_bar($progress, 1).'</td>'."\n";
-                echo '<td align="left"><small>&nbsp;'.$progress.'%</small></td>'."\n";
+                $out .= '<td align="right">'.claro_html_progress_bar($progress, 1).'</td>'."\n";
+                $out .= '<td align="left"><small>&nbsp;'.$progress.'%</small></td>'."\n";
           }
           else // label
           {
-            echo '<td colspan="2">&nbsp;</td>'."\n";
+            $out .= '<td colspan="2">&nbsp;</td>'."\n";
           }
           
           if ($progress > 0)
@@ -290,20 +291,20 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
           if($module['contentType'] != CTLABEL_) 
               $moduleNb++; // increment number of modules used to compute global progression except if the module is a title
            
-          echo '</tr>'."\n\n";
+          $out .= '</tr>'."\n\n";
   }
-  echo '</tbody>'."\n".'<tfoot>'."\n";
+  $out .= '</tbody>'."\n".'<tfoot>'."\n";
   
   if ($moduleNb == 0)
   {
-          echo '<tr><td align="center" colspan="6">'.get_lang('No module').'</td></tr>';
+          $out .= '<tr><td align="center" colspan="6">'.get_lang('No module').'</td></tr>';
   }
   elseif($moduleNb > 0)
   {
             // add a blank line between module progression and global progression
-            echo '<tr><td colspan="'.($maxDeep+6).'">&nbsp;</td></tr>'."\n";
+            $out .= '<tr><td colspan="'.($maxDeep+6).'">&nbsp;</td></tr>'."\n";
             // display global stats
-            echo '<tr>'."\n".'<small>'."\n"
+            $out .= '<tr>'."\n".'<small>'."\n"
                 .'<td colspan="'.($maxDeep+1).'">&nbsp;</td>'."\n"
                 .'<td align="right">'.(($global_time != "0000:00:00")? get_lang('Time in learning path') : '&nbsp;').'</td>'."\n"
                 .'<td align="center">'.(($global_time != "0000:00:00")? preg_replace("/\.[0-9]{0,2}/", "", $global_time) : '&nbsp;').'</td>'."\n"
@@ -314,20 +315,22 @@ if($is_allowedToTrack && get_conf('is_trackingEnabled'))
                 .'<td align="left"><small>&nbsp;'.round($globalProg / ($moduleNb) ) .'%</small></td>'."\n"
                 .'</tr>';
   }
-  echo "\n".'</tfoot>'."\n".'</table>'."\n";
+  $out .= "\n".'</tfoot>'."\n".'</table>'."\n";
 }
 // not allowed
 else
 {
     if(!get_conf('is_trackingEnabled'))
     {
-        echo get_lang('Tracking has been disabled by system administrator.');
+        $out .= get_lang('Tracking has been disabled by system administrator.');
     }
     else
     {
-        echo get_lang('Not allowed');
+        $out .= get_lang('Not allowed');
     }
 }
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
 ?>

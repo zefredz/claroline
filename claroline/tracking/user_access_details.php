@@ -28,7 +28,7 @@ $toolTitle['mainTitle'] = $nameTools;
 
 $is_allowedToTrack = claro_is_course_manager();
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
 if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
 {
@@ -71,13 +71,13 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
         $dialogBox = get_lang('Wrong operation');
     }
 
-    echo claro_html_tool_title($toolTitle);
+    $out .= claro_html_tool_title($toolTitle);
 
-    if( isset($dialogBox) ) echo claro_html_message_box($dialogBox);
+    if( isset($dialogBox) ) $out .= claro_html_message_box($dialogBox);
 
 
     // TODO  use datagrid
-    echo '<br />' . "\n\n"
+    $out .= '<br />' . "\n\n"
     .    '<table class="claroTable" border="0" cellpadding="5" cellspacing="1">' . "\n"
     .    '<tr class="headerX">'."\n"
     .    '<th>' . get_lang('Username') . '</th>' . "\n"
@@ -102,7 +102,7 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
                 continue;
             }
             $i++;
-            echo '<tr>' . "\n"
+            $out .= '<tr>' . "\n"
             .    '<td>' . $userName . '</td>' . "\n"
             .    '<td>' . claro_html_localised_date(get_locale('dateTimeFormatLong'), $userAccess['data']) . '</td>' . "\n"
             .    '<td>' . $userAccess['nbr'] . '</td>' . "\n"
@@ -113,19 +113,19 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
     // in case of error or no results to display
     if( $i == 0 || !isset($sql) )
     {
-        echo '<td colspan="3">' . "\n"
+        $out .= '<td colspan="3">' . "\n"
         .    '<center>' . get_lang('No result') . '</center>' . "\n"
         .    '</td>' . "\n\n"
         ;
     }
 
-    echo '</tbody>' . "\n\n"
+    $out .= '</tbody>' . "\n\n"
     .    '</table>' . "\n\n"
     ;
 
     if( $anonymousCount != 0 )
     {
-        echo '<p>'.get_lang('Anonymous users access count : ').' '.$anonymousCount.'</p>'."\n";
+        $out .= '<p>'.get_lang('Anonymous users access count : ').' '.$anonymousCount.'</p>'."\n";
     }
 
 }
@@ -134,14 +134,16 @@ else
 {
     if(!get_conf('is_trackingEnabled'))
     {
-        echo get_lang('Tracking has been disabled by system administrator.');
+        $out .= get_lang('Tracking has been disabled by system administrator.');
     }
     else
     {
-        echo get_lang('Not allowed');
+        $out .= get_lang('Not allowed');
     }
 }
 
-// footer
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
+
 ?>

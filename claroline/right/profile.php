@@ -102,9 +102,7 @@ if ( empty($display_profile_list) )
 // define bredcrumb
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Course profile list'), 'profile_list.php' );
 
-// Display header
-
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
 // Set display right
 
@@ -129,25 +127,26 @@ foreach ( $display_profile_list as $profileId )
 if ( $profileFoundCount == 0 )
 {
     $dialogBox->error( get_lang('Profile not found') );
-    echo $dialogBox->render();
+    $out .= $dialogBox->render();
 }
 else
 {
     if ( $profileFoundCount == 1 )
     {
         // display tool title
-        echo claro_html_tool_title(array('mainTitle'=>get_lang('Manage Right'),'subTitle'=>$profile->getName()));
-        echo '<p>' . $profile->getDescription() . '</p>';
+        $out .= claro_html_tool_title(array('mainTitle'=>get_lang('Manage Right'),'subTitle'=>$profile->getName()));
+        $out .= '<p>' . $profile->getDescription() . '</p>';
     }
     else
     {
         // display tool title
-        echo claro_html_tool_title(array('mainTitle'=>get_lang('Manage Right'),'subTitle'=> get_lang('All profiles') ));
+        $out .= claro_html_tool_title(array('mainTitle'=>get_lang('Manage Right'),'subTitle'=> get_lang('All profiles') ));
     }
-    echo $profileRightHtml->displayProfileToolRightList();
+    $out .= $profileRightHtml->displayProfileToolRightList();
 }
 
-// Display footer
+$claroline->display->body->appendContent($out);
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+echo $claroline->display->render();
+
 ?>

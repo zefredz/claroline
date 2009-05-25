@@ -25,33 +25,37 @@
             dt{font-weight:bold;margin-top:5px;}
         </style>';
     
-    require_once get_path('incRepositorySys')."/claro_init_header.inc.php";
+    $out = '';
     
     $help = ( isset( $_REQUEST['help'] ) ) ? $_REQUEST['help'] : 'syntax';
     
-    echo '<center><a href="#" onclick="window.close()">'.get_lang("Close window").'</a></center>' . "\n";
+    //$out .= '<center><a href="#" onclick="window.close()">'.get_lang("Close window").'</a></center>' . "\n";
     
     switch( $help )
     {
         case 'syntax':
         {
-            echo get_block('blockWikiHelpSyntaxContent');
+            $out .= get_block('blockWikiHelpSyntaxContent');
             break;
         }
         case 'admin':
         {
-            echo get_block('blockWikiHelpAdminContent');
+            $out .= get_block('blockWikiHelpAdminContent');
             break;
         }
         default:
         {
-            echo '<center><h1>'.get_lang('Wrong parameters').'</h1></center>';
+            $out .= '<center><h1>'.get_lang('Wrong parameters').'</h1></center>';
         }
     }
     
-    echo '<center><a href="#" onclick="window.close()">'.get_lang("Close window").'</a></center>' . "\n";
+    //$out .= '<center><a href="#" onclick="window.close()">'.get_lang("Close window").'</a></center>' . "\n";
     
     $hide_footer = true;
-    require_once get_path('incRepositorySys')."/claro_init_footer.inc.php";
+    
+    $claroline->setDisplayType(Claroline::POPUP);
+    $claroline->display->body->appendContent($out);
+
+    echo $claroline->display->render();
     
 ?>

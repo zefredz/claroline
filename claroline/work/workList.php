@@ -558,14 +558,15 @@ $showAfterPost = (bool)
   *
   */
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-echo claro_html_tool_title($pageTitle);
+$out = '';
+
+$out .= claro_html_tool_title($pageTitle);
 
 /**
  * ASSIGNMENT INFOS
  */
 
-echo '<p>' . "\n" . '<small>' . "\n"
+$out .= '<p>' . "\n" . '<small>' . "\n"
 .    '<b>' . get_lang('Title') . '</b> : ' . "\n"
 .    $assignment->getTitle() . '<br />'  . "\n"
 .    get_lang('<b>From</b> %startDate <b>until</b> %endDate', array('%startDate' => claro_html_localised_date(get_locale('dateTimeFormatLong'), $assignment->getStartDate()), '%endDate' => claro_html_localised_date(get_locale('dateTimeFormatLong'), $assignment->getEndDate()) ) )
@@ -575,14 +576,14 @@ echo '<p>' . "\n" . '<small>' . "\n"
 .    '<b>' . get_lang('Submission type') . '</b> : ' . "\n";
 
 if( $assignment->getSubmissionType() == 'TEXT'  )
-    echo get_lang('Text only (text required, no file)');
+    $out .= get_lang('Text only (text required, no file)');
 elseif( $assignment->getSubmissionType() == 'TEXTFILE' )
-    echo get_lang('Text with attached file (text required, file optional)');
+    $out .= get_lang('Text with attached file (text required, file optional)');
 else
-    echo get_lang('File (file required, description text optional)');
+    $out .= get_lang('File (file required, description text optional)');
 
 
-echo '<br />'  .  "\n"
+$out .= '<br />'  .  "\n"
 
 .    '<b>' . get_lang('Submission visibility') . '</b> : ' . "\n"
 .    ($assignment->getDefaultSubmissionVisibility() == 'VISIBLE' ? get_lang('Visible for all users') : get_lang('Only visible for teacher(s) and submitter(s)'))
@@ -602,7 +603,7 @@ echo '<br />'  .  "\n"
 // description of assignment
 if( $assignment->getDescription() != '' )
 {
-    echo '<b><small>' . get_lang('Description') . '</small></b>' . "\n"
+    $out .= '<b><small>' . get_lang('Description') . '</small></b>' . "\n"
     .    '<blockquote>' . "\n" . '<small>' . "\n"
     .    claro_parse_user_text($assignment->getDescription())
     .    '</small>' . "\n" . '</blockquote>' . "\n"
@@ -614,7 +615,7 @@ if( $assignment->getDescription() != '' )
 
 if( $textOrFilePresent &&  ( $showAfterEndDate || $showAfterPost ) )
 {
-    echo '<fieldset>' . "\n"
+    $out .= '<fieldset>' . "\n"
     .    '<legend>'
     .    '<b>' . get_lang('Feedback') . '</b>'
     .    '</legend>'
@@ -622,19 +623,19 @@ if( $textOrFilePresent &&  ( $showAfterEndDate || $showAfterPost ) )
 
     if( $assignment->getAutoFeedbackText() != '' )
     {
-        echo claro_parse_user_text($assignment->getAutoFeedbackText());
+        $out .= claro_parse_user_text($assignment->getAutoFeedbackText());
     }
 
     if( $assignment->getAutoFeedbackFilename() != '' )
     {
         $target = ( get_conf('open_submitted_file_in_new_window') ? 'target="_blank"' : '');
-        echo  '<p><a href="' . $assignment->getAssigDirWeb() . $assignment->getAutoFeedbackFilename() . claro_url_relay_context('&amp;') . '" ' . $target . '>'
+        $out .=  '<p><a href="' . $assignment->getAssigDirWeb() . $assignment->getAutoFeedbackFilename() . claro_url_relay_context('&amp;') . '" ' . $target . '>'
         .     $assignment->getAutoFeedbackFilename()
         .     '</a></p>'
         ;
     }
 
-    echo '</fieldset>'
+    $out .= '</fieldset>'
     .    '<br />' . "\n"
     ;
 }
@@ -673,7 +674,7 @@ if ( $is_allowedToEditAll )
          .        '</form>'."\n"
         ;
 
-        echo $dialogBox->form($downloadForm);
+        $out .= $dialogBox->form($downloadForm);
     }
 
     $cmdMenu[] = claro_html_cmd_link( 'feedback.php?cmd=rqEditFeedback'
@@ -695,9 +696,9 @@ if ( $is_allowedToEditAll )
                         DIALOG BOX SECTION
   --------------------------------------------------------------------*/
 
-echo $dialogBox->render();
+$out .= $dialogBox->render();
 
-if( !empty($cmdMenu) ) echo '<p>' . claro_html_menu_horizontal($cmdMenu) . '</p>' . "\n";
+if( !empty($cmdMenu) ) $out .= '<p>' . claro_html_menu_horizontal($cmdMenu) . '</p>' . "\n";
 
 
 /**
@@ -705,7 +706,7 @@ if( !empty($cmdMenu) ) echo '<p>' . claro_html_menu_horizontal($cmdMenu) . '</p>
  */
 $headerUrl = $workPager->get_sort_url_list($_SERVER['PHP_SELF'] . '?assigId=' . $req['assignmentId'] );
 
-echo $workPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?assigId=".$req['assignmentId'])
+$out .= $workPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?assigId=".$req['assignmentId'])
 
 .    '<table class="claroTable emphaseLine" width="100%">' . "\n"
 .    '<thead>' . "\n"
@@ -733,14 +734,14 @@ echo $workPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?assigId=".$req['assi
 
 if( $is_allowedToEditAll )
 {
-    echo '<th>'
+    $out .= '<th>'
     .    '<a href="' . $headerUrl['maxScore'] . '">'
     .    get_lang('Best score')
     .    '</a>'
     .    '</th>' . "\n";
 }
 
-echo '</tr>' . "\n"
+$out .= '</tr>' . "\n"
 .    '</thead>' . "\n"
 .    '<tbody>'
 ;
@@ -749,7 +750,7 @@ echo '</tr>' . "\n"
 foreach ( $workList as $thisWrk )
 {
 
-    echo '<tr align="center">' . "\n"
+    $out .= '<tr align="center">' . "\n"
     .    '<td align="left">'
     .     $thisWrk['name']
     .    '</td>' . "\n"
@@ -765,20 +766,22 @@ foreach ( $workList as $thisWrk )
 
     if( $is_allowedToEditAll )
     {
-        echo '<td>'
+        $out .= '<td>'
         .    ( ( !is_null($thisWrk['maxScore']) && $thisWrk['maxScore'] > -1 )? $thisWrk['maxScore'] : get_lang('No score') )
         .    '</td>' . "\n";
     }
 
-    echo '</tr>' . "\n\n"
+    $out .= '</tr>' . "\n\n"
     ;
 }
 
-echo '</tbody>' . "\n"
+$out .= '</tbody>' . "\n"
 .    '</table>' . "\n\n"
 
 .    $workPager->disp_pager_tool_bar($_SERVER['PHP_SELF']."?assigId=".$req['assignmentId']);
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
 
 ?>

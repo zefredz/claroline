@@ -244,16 +244,11 @@ if($is_allowedToEdit)
  * DISPLAY
  */
 
-/**
- * HEADER
- */
-
 // bredcrump to return to the list when in a form
 $interbredcrump[]= array ('url' => './work.php', 'name' => get_lang('Assignments'));
 $interbredcrump[]= array ('url' => './workList.php?assigId=' . $assignmentId, 'name' => get_lang('Assignment'));
 $nameTools = get_lang('Feedback');
 
-//include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 $out = '';
 $out .= claro_html_tool_title($nameTools);
 
@@ -363,9 +358,6 @@ if( isset($displayFeedbackForm) && $displayFeedbackForm )
     ;
 
 }
-
-// FOOTER
-//include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
 $claroline->display->body->appendContent($out);
 

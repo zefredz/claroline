@@ -330,25 +330,23 @@ $userMenu[] = claro_html_cmd_link( htmlspecialchars(Url::Contextualize($_SERVER[
 Display section
   =====================================================================*/
 
-// Display header
+$out = '';
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
-
-echo claro_html_tool_title($nameTools . ' (' . get_lang('number') . ' : ' . $userTotalNb . ')',
+$out .= claro_html_tool_title($nameTools . ' (' . get_lang('number') . ' : ' . $userTotalNb . ')',
             $is_allowedToEdit ? 'help_user.php' : FALSE);
 
 // Display Forms or dialog box(if needed)
 
-if ( !empty($dialogBox) ) echo claro_html_message_box($dialogBox);
+if ( !empty($dialogBox) ) $out .= claro_html_message_box($dialogBox);
 
 // Display tool links
-if ( $disp_tool_link ) echo claro_html_menu_horizontal($userMenu);
+if ( $disp_tool_link ) $out .= claro_html_menu_horizontal($userMenu);
 
 /*----------------------------------------------------------------------
    Display pager
   ----------------------------------------------------------------------*/
 
-echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+$out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 $sortUrlList = $myPager->get_sort_url_list($_SERVER['PHP_SELF']);
 
@@ -356,10 +354,10 @@ $sortUrlList = $myPager->get_sort_url_list($_SERVER['PHP_SELF']);
    Display table header
   ----------------------------------------------------------------------*/
 
-echo '<table class="claroTable emphaseLine" width="100%" cellpadding="2" cellspacing="1" '
+$out .= '<table class="claroTable emphaseLine" width="100%" cellpadding="2" cellspacing="1" '
 .    ' border="0" summary="' . get_lang('Course users list') . '">' . "\n";
 
-echo '<thead>' . "\n"
+$out .= '<thead>' . "\n"
 .    '<tr class="headerX" align="center" valign="top">'."\n"
 .    '<th><a href="' . htmlspecialchars(Url::Contextualize($sortUrlList['nom'])) . '">' . get_lang('Last name') . '</a></th>' . "\n"
 .    '<th><a href="' . htmlspecialchars(Url::Contextualize($sortUrlList['prenom'])) . '">' . get_lang('First name') . '</a></th>'."\n"
@@ -369,13 +367,13 @@ echo '<thead>' . "\n"
 
 if ( $is_allowedToEdit ) // EDIT COMMANDS
 {
-    echo '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['tutor'])).'">'.get_lang('Group Tutor').'</a></th>'."\n"
+    $out .= '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['tutor'])).'">'.get_lang('Group Tutor').'</a></th>'."\n"
        . '<th><a href="'.htmlspecialchars(Url::Contextualize($sortUrlList['isCourseManager'])).'">'.get_lang('Course manager').'</a></th>'."\n"
        . '<th>'.get_lang('Edit').'</th>'."\n"
        . '<th>'.get_lang('Unregister').'</th>'."\n" ;
 }
 
-echo '</tr>'."\n"
+$out .= '</tr>'."\n"
    . '</thead>'."\n"
    . '<tbody>'."\n" ;
 
@@ -392,7 +390,7 @@ foreach ( $userList as $thisUser )
 {
     // User name column
     $i++;
-    echo '<tr align="center" valign="top">'."\n"
+    $out .= '<tr align="center" valign="top">'."\n"
        . '<td align="left">'
        . '<img src="' . get_icon_url('user') . '" alt="" />'."\n"
        . '<small>' . $i . '</small>'."\n"
@@ -400,17 +398,17 @@ foreach ( $userList as $thisUser )
 
     if ( $is_allowedToEdit || get_conf('linkToUserInfo') )
     {
-        echo '<a href="'.htmlspecialchars(Url::Contextualize( get_module_url('CLUSR') . '/userInfo.php?uInfo=' . (int) $thisUser['user_id'] )) . '">'
+        $out .= '<a href="'.htmlspecialchars(Url::Contextualize( get_module_url('CLUSR') . '/userInfo.php?uInfo=' . (int) $thisUser['user_id'] )) . '">'
         .    htmlspecialchars( ucfirst(strtolower($thisUser['nom'])) )
         .    '</a>'
         ;
     }
     else
     {
-        echo htmlspecialchars( ucfirst(strtolower($thisUser['nom']) ) );
+        $out .= htmlspecialchars( ucfirst(strtolower($thisUser['nom']) ) );
     }
 
-    echo '</td>'
+    $out .= '</td>'
     .    '<td align="left">' . htmlspecialchars( $thisUser['prenom'] ) . '</td>'
 
 
@@ -423,61 +421,61 @@ foreach ( $userList as $thisUser )
     // User role column
     if ( empty($thisUser['role']) )    // NULL and not '0' because team can be inexistent
     {
-        echo '<td> - </td>'."\n";
+        $out .= '<td> - </td>'."\n";
     }
     else
     {
-        echo '<td>'.htmlspecialchars( $thisUser['role'] ).'</td>'."\n";
+        $out .= '<td>'.htmlspecialchars( $thisUser['role'] ).'</td>'."\n";
     }
 
     // User group column
     if ( !isset ($usersGroup[$thisUser['user_id']]) )    // NULL and not '0' because team can be inexistent
     {
-        echo '<td> - </td>'."\n";
+        $out .= '<td> - </td>'."\n";
     }
     else
     {
         $userGroups = $usersGroup[$thisUser['user_id']];
-        echo '<td>'."\n";
+        $out .= '<td>'."\n";
         reset($userGroups);
         while (list($thisGroupsNo,$thisGroupsName)=each($userGroups))
         {
-            echo '<div>'
+            $out .= '<div>'
                . htmlspecialchars( $thisGroupsName["nameTeam"] )
                . ' <small>('.htmlspecialchars( $thisGroupsNo ).')</small>'
                . '</div>';
         }
-        echo '</td>'."\n";
+        $out .= '</td>'."\n";
     }
 
     if ($previousUser == $thisUser['user_id'])
     {
-        echo '<td>&nbsp;</td>'."\n";
+        $out .= '<td>&nbsp;</td>'."\n";
     }
     elseif ( $is_allowedToEdit )
     {
         // Tutor column
         if($thisUser['tutor'] == '0')
         {
-            echo '<td> - </td>' . "\n";
+            $out .= '<td> - </td>' . "\n";
         }
         else
         {
-            echo '<td>' . get_lang('Group Tutor') . '</td>' . "\n";
+            $out .= '<td>' . get_lang('Group Tutor') . '</td>' . "\n";
         }
 
         // course manager column
         if($thisUser['isCourseManager'] == '1')
         {
-            echo '<td>' . get_lang('Course manager') . '</td>' . "\n";
+            $out .= '<td>' . get_lang('Course manager') . '</td>' . "\n";
         }
         else
         {
-            echo '<td> - </td>' . "\n";
+            $out .= '<td> - </td>' . "\n";
         }
 
         // Edit user column
-        echo '<td>'
+        $out .= '<td>'
         .    '<a href="' . htmlspecialchars(Url::Contextualize( get_module_url('CLUSR') . '/userInfo.php?editMainUserInfo='.$thisUser['user_id']))
         . '">'
         .    '<img alt="'.get_lang('Edit').'" src="' . get_icon_url('edit') . '" />'
@@ -490,7 +488,7 @@ foreach ( $userList as $thisUser )
 
         if ($thisUser['user_id'] != claro_get_current_user_id())
         {
-            echo '<a href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+            $out .= '<a href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
             .    '?cmd=unregister&amp;user_id=' . $thisUser['user_id'] )) . '" '
             .    'onclick="return confirmation(\''.clean_str_for_javascript(get_lang('Unregister') .' '.$thisUser['nom'].' '.$thisUser['prenom']).'\');">'
             .    '<img alt="' . get_lang('Unregister') . '" src="' . get_icon_url('unenroll') . '" />'
@@ -499,14 +497,14 @@ foreach ( $userList as $thisUser )
         }
         else
         {
-            echo '&nbsp;';
+            $out .= '&nbsp;';
         }
 
-        echo '</td>' . "\n";
+        $out .= '</td>' . "\n";
 
     }  // END - is_allowedToEdit
 
-    echo '</tr>'."\n";
+    $out .= '</tr>'."\n";
 
     $previousUser = $thisUser['user_id'];
 
@@ -516,12 +514,15 @@ foreach ( $userList as $thisUser )
    Display table footer
   ----------------------------------------------------------------------*/
 
-echo '</tbody>' . "\n"
+$out .= '</tbody>' . "\n"
 .    '</table>' . "\n"
 ;
 
-echo $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+$out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
+
 ?>
