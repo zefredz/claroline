@@ -4,7 +4,7 @@
  *
  * @version 1.9 $Revision$
  *
- * @copyright (c) 2001-2007 Universite catholique de Louvain (UCL)
+ * @copyright (c) 2001-2009 Universite catholique de Louvain (UCL)
  *
  * @author Sebastien Piraux <seb@claroline.net>
  *
@@ -14,7 +14,7 @@
 /*
  * Kernel
  */
-require_once dirname( __FILE__ ) . '/../../inc/claro_init_global.inc.php';
+require_once dirname( __FILE__ ) . '/../../claroline/inc/claro_init_global.inc.php';
 
 
 
