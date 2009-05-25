@@ -174,7 +174,6 @@ ClaroBreadCrumbs::getInstance()->prepend( get_lang('Forums'), 'index.php' );
 $noPHP_SELF       = true;
 
 $out = '';
-//include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 // Forum Title
 
@@ -269,11 +268,6 @@ else
     } // end // else if ! isset submit
 
 }
-
-/*-----------------------------------------------------------------
-  Display Forum Footer
- -----------------------------------------------------------------*/
-//include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 
 $claroline->display->body->appendContent($out);
 

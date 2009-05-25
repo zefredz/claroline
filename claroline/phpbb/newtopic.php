@@ -206,7 +206,6 @@ ClaroBreadCrumbs::getInstance()->prepend( get_lang('Forums'), 'index.php' );
 $noPHP_SELF       = true;
 
 $out = '';
-//include get_path('incRepositorySys') . '/claro_init_header.inc.php';
 
 // display tool title
 $out .= claro_html_tool_title(get_lang('Forums'), $is_allowedToEdit ? 'help_forum.php' : false);
@@ -264,11 +263,6 @@ else
     }
 } // end allowed
 
-/*-----------------------------------------------------------------
-  Display Forum Footer
- -----------------------------------------------------------------*/
-
-//include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();

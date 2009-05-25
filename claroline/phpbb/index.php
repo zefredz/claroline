@@ -86,9 +86,7 @@ else
 Display Section
 =================================================================*/
 
-// Claroline Header
-
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
 $pagetype  = 'index';
 
@@ -103,22 +101,22 @@ $is_forumAdmin    = claro_is_allowed_to_edit();
 
 $is_groupPrivate   = claro_get_current_group_properties_data('private');
 
-echo claro_html_tool_title(get_lang('Forums'),
+$out .= claro_html_tool_title(get_lang('Forums'),
 $is_allowedToEdit ? 'help_forum.php' : false);
 
-echo disp_search_box();
+$out .= disp_search_box();
 
-echo $dialogBox->render();
+$out .= $dialogBox->render();
 
 // Forum toolbar
 
-echo claro_html_menu_horizontal(disp_forum_toolbar($pagetype, 0, 0, 0));
+$out .= claro_html_menu_horizontal(disp_forum_toolbar($pagetype, 0, 0, 0));
 
 /*-----------------------------------------------------------------
 Display Forum Index Page
 ------------------------------------------------------------------*/
 
-echo '<table width="100%" class="claroTable emphaseLine">' . "\n";
+$out .= '<table width="100%" class="claroTable emphaseLine">' . "\n";
 
 $colspan = $is_allowedToEdit ? 9 : 4;
 
@@ -148,14 +146,14 @@ foreach ( $categories as $this_category )
     if ($this_category['forum_count'] > 0) $thCssClass = '';
     else                                   $thCssClass = ' class="invisible" ';
 
-    echo '<tr class="superHeader" align="left" valign="top">' . "\n"
+    $out .= '<tr class="superHeader" align="left" valign="top">' . "\n"
 
     .    '<th colspan="'.$colspan.'" '.$thCssClass.'>'
     ;
 
     if($is_allowedToEdit)
     {
-        echo '<div style="float:right">'
+        $out .= '<div style="float:right">'
         .    '<a href="' . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
         .    '?cmd=rqEdCat&amp;catId=' . $this_category['cat_id'])) . '">'
         .    '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Edit') . '" />'
@@ -165,7 +163,7 @@ foreach ( $categories as $this_category )
 
         if ( $this_category['cat_id'] != GROUP_FORUMS_CATEGORY )
         {
-            echo '<a href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=exDelCat&amp;catId='.$this_category['cat_id'])).'" '
+            $out .= '<a href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=exDelCat&amp;catId='.$this_category['cat_id'])).'" '
             .    'onclick="return confirm_delete(\''. clean_str_for_javascript($this_category['cat_title']).'\');" >'
             .    '<img src="' . get_icon_url('delete') . '" alt="'.get_lang('Delete').'" />'
             .    '</a>'
@@ -175,7 +173,7 @@ foreach ( $categories as $this_category )
 
         if ( $categoryIterator > 1)
         {
-            echo '<a href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=exMvUpCat&amp;catId='.$this_category['cat_id'])).'">'
+            $out .= '<a href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=exMvUpCat&amp;catId='.$this_category['cat_id'])).'">'
             .    '<img src="' . get_icon_url('move_up') . '" alt="'.get_lang('Move up').'" />'
             .    '</a>'
             ;
@@ -183,7 +181,7 @@ foreach ( $categories as $this_category )
 
         if ( $categoryIterator < $total_categories)
         {
-            echo '<a href="' . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
+            $out .= '<a href="' . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']
             .    '?cmd=exMvDownCat'
             .    '&amp;catId=' . $this_category['cat_id'])) . '">'
             .    '<img src="' . get_icon_url('move_down') . '" alt="' . get_lang('Move down') . '" />'
@@ -191,34 +189,34 @@ foreach ( $categories as $this_category )
             ;
         }
 
-        echo '</div>'
+        $out .= '</div>'
         ;
     }
 
-    echo htmlspecialchars($this_category['cat_title']);
+    $out .= htmlspecialchars($this_category['cat_title']);
 
     if ( $this_category['cat_id'] == GROUP_FORUMS_CATEGORY)
     {
-        echo '&nbsp;'
+        $out .= '&nbsp;'
         .    '<a href="' . htmlspecialchars(Url::Contextualize(get_module_url('CLGRP') . '/group.php')).'">'
         .    '<img src="' . get_icon_url('group') . '" alt="' . get_lang('Groups') . '" />'
         .    '</a>'
         ;
     }
 
-    echo '</th>' . "\n"
+    $out .= '</th>' . "\n"
     .    '</tr>' . "\n"
     ;
 
     if ($this_category['forum_count'] == 0)
     {
-        echo '<tr>' . "\n"
+        $out .= '<tr>' . "\n"
         .     '<td  colspan="' . $colspan . '" align="center">' . get_lang('No forum') . '</td>' . "\n"
         .     '</tr>' . "\n";
     }
     else
     {
-        echo ' <tr class="headerX" align="center">' . "\n"
+        $out .= ' <tr class="headerX" align="center">' . "\n"
         .    ' <th align="left">' . get_lang('Forum') . '</th>' . "\n"
         .    ' <th>' . get_lang('Topics') . '</th>' . "\n"
         .    ' <th>' . get_lang('Posts')  . '</th>' . "\n"
@@ -227,13 +225,13 @@ foreach ( $categories as $this_category )
 
         if ($is_allowedToEdit)
         {
-            echo '<th>'.get_lang('Edit').'</th>'
+            $out .= '<th>'.get_lang('Edit').'</th>'
             .    '<th>'.get_lang('Empty it').'</th>'
             .    '<th>'.get_lang('Delete').'</th>'
             .    '<th colspan="2">'.get_lang('Move').'</th>'
             ;
         }
-        echo '</tr>' . "\n";
+        $out .= '</tr>' . "\n";
     }
 
     $forumIterator = 0;
@@ -256,7 +254,7 @@ foreach ( $categories as $this_category )
 
             $forum_post_allowed = ($this_forum['forum_access'] != 0) ? true : false;
 
-            echo '<tr align="left" valign="top">' . "\n";
+            $out .= '<tr align="left" valign="top">' . "\n";
 
             if ( claro_is_user_authenticated()
                 && $claro_notifier->is_a_notified_forum(claro_get_current_course_id(), $date, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $this_forum['forum_id']))
@@ -277,7 +275,7 @@ foreach ( $categories as $this_category )
                 $locked_string = ' <img src="' . get_icon_url('locked') . '" alt="'.get_lang('Locked').'" title="'.get_lang('Locked').'" /> <small>('.get_lang('No new post allowed').')</small>';
             }
 
-            echo '<td>'                                               . "\n"
+            $out .= '<td>'                                               . "\n"
             .    '<span class="'.$class.'">'
             .    '<img src="' . get_icon_url( 'forum', 'CLFRM' ) . '" alt="" />' . "\n"
             .    '&nbsp;'                                             . "\n"
@@ -294,7 +292,7 @@ foreach ( $categories as $this_category )
                 || ! $is_groupPrivate || $is_forumAdmin
                 )
                 {
-                    echo '<a href="'. htmlspecialchars(Url::Contextualize(get_module_url('CLFRM').'/viewforum.php?gidReq=' . $group_id
+                    $out .= '<a href="'. htmlspecialchars(Url::Contextualize(get_module_url('CLFRM').'/viewforum.php?gidReq=' . $group_id
                     .    '&amp;forum=' . $forum_id  )). '">'
                     .    $forum_name
                     .    '</a>' . "\n"
@@ -308,31 +306,31 @@ foreach ( $categories as $this_category )
 
                     if ( is_array($tutorGroupList) && in_array($group_id, $tutorGroupList) )
                     {
-                        echo '&nbsp;<small>(' . get_lang('my supervision') . ')</small>';
+                        $out .= '&nbsp;<small>(' . get_lang('my supervision') . ')</small>';
                     }
 
                     if ( is_array($userGroupList) && in_array($group_id, $userGroupList) )
                     {
-                        echo '&nbsp;<small>(' . get_lang('my group') . ')</small>';
+                        $out .= '&nbsp;<small>(' . get_lang('my group') . ')</small>';
                     }
                 }
                 else
                 {
-                    echo $forum_name;
+                    $out .= $forum_name;
                 }
             }
             else
             {
-                echo '<a href="'.htmlspecialchars(Url::Contextualize(get_module_url('CLFRM') . '/viewforum.php?forum=' . $forum_id )) . '">'
+                $out .= '<a href="'.htmlspecialchars(Url::Contextualize(get_module_url('CLFRM') . '/viewforum.php?forum=' . $forum_id )) . '">'
                 .    $forum_name
                 .    '</a> ';
             }
 
-            echo $locked_string;
+            $out .= $locked_string;
             
-            echo '</span>';
+            $out .= '</span>';
 
-            echo '<br /><div class="comment">' . $forum_desc . '</div>' . "\n"
+            $out .= '<br /><div class="comment">' . $forum_desc . '</div>' . "\n"
             .    '</td>' . "\n"
 
             .    '<td align="center">' . "\n"
@@ -356,21 +354,21 @@ foreach ( $categories as $this_category )
 
             if( $is_allowedToEdit)
             {
-                echo '<td align="center">';
+                $out .= '<td align="center">';
 
                 if ( is_null($group_id ) )
                 {
-                    echo '<a href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=rqEdForum&amp;forumId='.$forum_id)).'">'
+                    $out .= '<a href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=rqEdForum&amp;forumId='.$forum_id)).'">'
                     .    '<img src="' . get_icon_url('edit') . '" alt="'.get_lang('Edit').'" />'
                     .    '</a>'
                     ;
                 }
                 else
                 {
-                    echo '&nbsp;';
+                    $out .= '&nbsp;';
                 }
 
-                echo '</td>'
+                $out .= '</td>'
 
                 .    '<td align="center">'
                 .    '<a href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=exEmptyForum&amp;forumId='.$forum_id)).'" '
@@ -383,49 +381,49 @@ foreach ( $categories as $this_category )
 
                 if ( is_null($group_id ) )
                 {
-                    echo '<a href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=exDelForum&amp;forumId='.$forum_id)).'" '
+                    $out .= '<a href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=exDelForum&amp;forumId='.$forum_id)).'" '
                     .    'onclick="return confirm_delete(\''. clean_str_for_javascript($forum_name).'\');" >'
                     .    '<img src="' . get_icon_url('delete') . '" alt="'.get_lang('Delete').'" />'
                     .    '</a>';
                 }
-                else echo '&nbsp;';
+                else $out .= '&nbsp;';
 
-                echo '</td>'
+                $out .= '</td>'
 
                 .    '<td align="center">';
 
                 if ($forumIterator > 1)
                 {
-                    echo '<a href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=exMvUpForum&amp;forumId='.$forum_id)).'">'
+                    $out .= '<a href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=exMvUpForum&amp;forumId='.$forum_id)).'">'
                     .    '<img src="' . get_icon_url('move_up') . '" alt="'.get_lang('Move up').'" />'
                     .    '</a>';
                 }
-                else echo '&nbsp;';
+                else $out .= '&nbsp;';
 
-                echo '</td>'
+                $out .= '</td>'
                 .    '<td align="center">'
                 ;
 
                 if ( $forumIterator < $this_category['forum_count'] )
                 {
-                    echo '<a href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=exMvDownForum&amp;forumId='.$forum_id)).'">'
+                    $out .= '<a href="'.htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'].'?cmd=exMvDownForum&amp;forumId='.$forum_id)).'">'
                     .    '<img src="' . get_icon_url('move_down') . '" alt="'.get_lang('Move down').'" />'
                     .    '</a>';
                 }
-                else echo '&nbsp;';
+                else $out .= '&nbsp;';
 
-                echo   '</td>';
+                $out .=   '</td>';
             }
 
-            echo '</tr>' . "\n";
+            $out .= '</tr>' . "\n";
         }
     }
 }
 
-echo '</table>' . "\n";
+$out .= '</table>' . "\n";
 
-// Display Forum Footer
+$claroline->display->body->appendContent($out);
 
-include get_path('incRepositorySys') . '/claro_init_footer.inc.php';
+echo $claroline->display->render();
 
 ?>

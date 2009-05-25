@@ -807,6 +807,8 @@ function disp_mini_pager($url, $offsetParam, $total, $step, $pageMax = 3)
     $pageList  = array();
     $pageNum   = 1;
     $skip      = false;
+    
+    $out = '';
 
     if ( $total == 0 || $total < $step      ) return; // no need to go further
     if ( ! strpos($url, '?') ) $glue = '?';
@@ -835,12 +837,14 @@ function disp_mini_pager($url, $offsetParam, $total, $step, $pageMax = 3)
     // no need to display it with only a page
     if (count($pageList) > 1) 
     {
-        echo '<small>(' . implode(', ', $pageList) . ')</small>';
+        $out .= '<small>(' . implode(', ', $pageList) . ')</small>';
     }
     else
     {
-        echo '';
+        $out .= '';
     }
+    
+    return $out;
 }
 
 /**
@@ -908,7 +912,7 @@ class topicLister
 
     function disp_pager_tool_bar($pagerUrl)
     {
-        echo $this->sqlPager->disp_pager_tool_bar($pagerUrl);
+        return $this->sqlPager->disp_pager_tool_bar($pagerUrl);
     }
 }
 
@@ -983,7 +987,7 @@ class postLister
 
     function disp_pager_tool_bar($pagerUrl)
     {
-        echo $this->sqlPager->disp_pager_tool_bar($pagerUrl);
+        return $this->sqlPager->disp_pager_tool_bar($pagerUrl);
     }
 
         /**

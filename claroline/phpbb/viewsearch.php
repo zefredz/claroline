@@ -98,86 +98,84 @@ ClaroBreadCrumbs::getInstance()->prepend( get_lang('Forums'), 'index.php' );
 CssLoader::getInstance()->load( 'clfrm', 'screen');
 $noPHP_SELF       = true;
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
-echo claro_html_tool_title(get_lang('Forums'),
+$out .= claro_html_tool_title(get_lang('Forums'),
                            $is_allowedToEdit ? 'help_forum.php' : false);
 
-echo claro_html_menu_horizontal(disp_forum_toolbar($pagetype, null))
+$out .= claro_html_menu_horizontal(disp_forum_toolbar($pagetype, null))
 .    disp_forum_breadcrumb($pagetype, null, null, null)
 
 .    '<h4>' . get_lang('Search result') . ' : ' . (isset($_REQUEST['searchPattern']) ?  htmlspecialchars($_REQUEST['searchPattern']) : '') . '</h4>' . "\n";
 
-    if (count($searchResultList) < 1 )
+if (count($searchResultList) < 1 )
+{
+    $out .= '<p>' . get_lang('No result') . '</p>';
+}
+else foreach ( $searchResultList as $thisPost )
+{
+    // PREVENT USER TO CONSULT POST FROM A GROUP THEY ARE NOT ALLOWED
+    if (    ! is_null($thisPost['group_id'])
+        &&  $is_groupPrivate
+        && ! (    in_array($thisPost['group_id'], $userGroupList )
+               || in_array($thisPost['group_id'], $tutorGroupList)
+               || claro_is_course_manager()
+             )
+       )
     {
-        echo '<p>' . get_lang('No result') . '</p>';
+       continue;
     }
-    else foreach ( $searchResultList as $thisPost )
+    else
     {
-        // PREVENT USER TO CONSULT POST FROM A GROUP THEY ARE NOT ALLOWED
-        if (    ! is_null($thisPost['group_id'])
-            &&  $is_groupPrivate
-            && ! (    in_array($thisPost['group_id'], $userGroupList )
-                   || in_array($thisPost['group_id'], $tutorGroupList)
-                   || claro_is_course_manager()
-                 )
-           )
+        // notify if is new message
+        $post_time = datetime_to_timestamp($thisPost['post_time']);
+
+        if($post_time < $last_visit) $class = ' class="item"';
+        else                         $class = ' class="item hot"';
+        
+        // get user picture
+        $userData = user_get_properties( $thisPost['poster_id'] );
+
+        $picturePath = user_get_picture_path( $userData );
+
+        if ( $picturePath && file_exists( $picturePath ) )
         {
-           continue;
+            $pictureUrl = user_get_picture_url( $userData );
         }
         else
         {
-            // notify if is new message
-            $post_time = datetime_to_timestamp($thisPost['post_time']);
-    
-            if($post_time < $last_visit) $class = ' class="item"';
-            else                         $class = ' class="item hot"';
-            
-            // get user picture
-            $userData = user_get_properties( $thisPost['poster_id'] );
-    
-            $picturePath = user_get_picture_path( $userData );
-    
-            if ( $picturePath && file_exists( $picturePath ) )
-            {
-                $pictureUrl = user_get_picture_url( $userData );
-            }
-            else
-            {
-                $pictureUrl = null;
-            }
-            
-            echo '<div id="post'. $thisPost['post_id'] .'" class="threadPost">'
-            .    '<div class="threadPostInfo">'
-            .    ( !is_null($pictureUrl) ?'<div class="threadPosterPicture"><img src="' . $pictureUrl . '" alt=" " /></div>':'' ) . "\n"
-            .    '<b>' . $thisPost['firstname'] . ' ' . $thisPost['lastname'] . '</b> '
-            .    '<br />'
-            .    '<small>' . claro_html_localised_date(get_locale('dateTimeFormatLong'), $post_time) . '</small>' . "\n"
-            ;
-    
-            
-            echo '  </div>' . "\n"
-    
-            .    '<div class="threadPostContent">' . "\n"
-            .    '<img src="' . get_icon_url('topic') . '" alt="" />'
-            .    '<a href="' . htmlspecialchars( Url::Contextualize(get_module_url('CLFRM') . '/viewtopic.php?topic='.$thisPost['topic_id'] )) . '">'
-            .    htmlspecialchars( $thisPost['topic_title'] )
-            .    '</a>' . "\n"
-            .    '<span class="threadPostIcon '.$class.'"><img src="' . get_icon_url( 'post' ) . '" alt="" /></span><br />' . "\n"
-            .    claro_parse_user_text($thisPost['post_text']) . "\n";
-    
-            echo '</div>' . "\n"
-            .    '<div class="spacer"></div>' . "\n\n"
-            .    '</div>' . "\n"
-            ;
-        } // end else if ( ! is_null($thisPost['group_id'])
+            $pictureUrl = null;
+        }
+        
+        $out .= '<div id="post'. $thisPost['post_id'] .'" class="threadPost">'
+        .    '<div class="threadPostInfo">'
+        .    ( !is_null($pictureUrl) ?'<div class="threadPosterPicture"><img src="' . $pictureUrl . '" alt=" " /></div>':'' ) . "\n"
+        .    '<b>' . $thisPost['firstname'] . ' ' . $thisPost['lastname'] . '</b> '
+        .    '<br />'
+        .    '<small>' . claro_html_localised_date(get_locale('dateTimeFormatLong'), $post_time) . '</small>' . "\n"
+        ;
 
-    } // end for each
+        
+        $out .= '  </div>' . "\n"
 
-/*-----------------------------------------------------------------
-  Display Forum Footer
- -----------------------------------------------------------------*/
+        .    '<div class="threadPostContent">' . "\n"
+        .    '<img src="' . get_icon_url('topic') . '" alt="" />'
+        .    '<a href="' . htmlspecialchars( Url::Contextualize(get_module_url('CLFRM') . '/viewtopic.php?topic='.$thisPost['topic_id'] )) . '">'
+        .    htmlspecialchars( $thisPost['topic_title'] )
+        .    '</a>' . "\n"
+        .    '<span class="threadPostIcon '.$class.'"><img src="' . get_icon_url( 'post' ) . '" alt="" /></span><br />' . "\n"
+        .    claro_parse_user_text($thisPost['post_text']) . "\n";
 
-include get_path('incRepositorySys').'/claro_init_footer.inc.php';
+        $out .= '</div>' . "\n"
+        .    '<div class="spacer"></div>' . "\n\n"
+        .    '</div>' . "\n"
+        ;
+    } // end else if ( ! is_null($thisPost['group_id'])
+
+} // end for each
+
+$claroline->display->body->appendContent($out);
+
+echo $claroline->display->render();
 
 ?>

@@ -182,11 +182,11 @@ $noPHP_SELF       = true;
 
 CssLoader::getInstance()->load( 'clfrm', 'screen');
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
 if ( ! $allowed )
 {
-    echo $dialogBox->render();
+    $out .= $dialogBox->render();
 }
 else
 {
@@ -199,10 +199,10 @@ else
     $is_allowedToEdit = claro_is_allowed_to_edit()
     || ( claro_is_group_tutor() && !claro_is_course_manager());
 
-    echo claro_html_tool_title(get_lang('Forums'),
+    $out .= claro_html_tool_title(get_lang('Forums'),
     $is_allowedToEdit ? 'help_forum.php' : false);
 
-    echo disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, 0, $topic_subject);
+    $out .= disp_forum_breadcrumb($pagetype, $forum_id, $forum_name, 0, $topic_subject);
 
     if ($forum_post_allowed)
     {
@@ -222,21 +222,21 @@ else
             $toolList[] = claro_html_cmd_link(htmlspecialchars(Url::Contextualize($lastMsgUrl)),get_lang('Last message'));
         }
         
-        echo claro_html_menu_horizontal($toolList);
+        $out .= claro_html_menu_horizontal($toolList);
     }
 
-    $postLister->disp_pager_tool_bar($pagerUrl);
+    $out .= $postLister->disp_pager_tool_bar($pagerUrl);
 
-    echo '<h4 class="header">' . "\n";
+    $out .= '<h4 class="header">' . "\n";
 
     // display notification link
 
     if ( !empty($notification_bloc) )
     {
-        echo $notification_bloc . "\n";
+        $out .= $notification_bloc . "\n";
     }
 
-    echo $topic_subject . "\n"
+    $out .= $topic_subject . "\n"
     .    '</h4>' . "\n"
     ;
 
@@ -274,7 +274,7 @@ else
             $pictureUrl = null;
         }
         
-        echo '<div id="post'. $thisPost['post_id'] .'" class="threadPost">'
+        $out .= '<div id="post'. $thisPost['post_id'] .'" class="threadPost">'
         .    '<div class="threadPostInfo">'
         .    ( !is_null($pictureUrl) ?'<div class="threadPosterPicture"><img src="' . $pictureUrl . '" alt=" " /></div>':'' ) . "\n"
         .    '<b>' . $thisPost['firstname'] . ' ' . $thisPost['lastname'] . '</b> '
@@ -283,7 +283,7 @@ else
         ;
 
         
-        echo '  </div>' . "\n"
+        $out .= '  </div>' . "\n"
 
         .    '<div class="threadPostContent">' . "\n"
         .    '<span class="threadPostIcon '.$class.'"><img src="' . get_icon_url( 'post' ) . '" alt="" /></span><br />' . "\n"
@@ -291,7 +291,7 @@ else
 
         if ( $is_allowedToEdit )
         {
-            echo '<p>' . "\n"
+            $out .= '<p>' . "\n"
 
             . '<a href="'.htmlspecialchars(Url::Contextualize( get_module_url('CLFRM') . '/editpost.php?post_id=' . $thisPost['post_id'] )) . '">'
             . '<img src="' . get_icon_url('edit') . '" alt="' . get_lang('Edit') . '" />'
@@ -305,7 +305,7 @@ else
             . '</p>' . "\n";
         }
 
-        echo '</div>' . "\n"
+        $out .= '</div>' . "\n"
         .    '<div class="spacer"></div>' . "\n\n"
         .    '</div>' . "\n"
         ;
@@ -325,18 +325,16 @@ else
                                         . ' '
                                         . get_lang('Reply')
                                         );
-        echo claro_html_menu_horizontal($toolBar);
+        $out .= claro_html_menu_horizontal($toolBar);
     }
 
 
-    $postLister->disp_pager_tool_bar($pagerUrl);
+    $out .= $postLister->disp_pager_tool_bar($pagerUrl);
 
 }
 
-/*-----------------------------------------------------------------
-Display Forum Footer
------------------------------------------------------------------*/
+$claroline->display->body->appendContent($out);
 
-include(get_path('incRepositorySys').'/claro_init_footer.inc.php');
+echo $claroline->display->render();
 
 ?>

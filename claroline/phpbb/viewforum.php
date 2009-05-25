@@ -125,11 +125,11 @@ $noPHP_SELF       = true;
         $groupToolList = forum_group_tool_list(claro_get_current_group_id());
     }
 
-include get_path('incRepositorySys') . '/claro_init_header.inc.php';
+$out = '';
 
 if ( ! $forumAllowed )
 {
-    echo $dialogBox->render();
+    $out .= $dialogBox->render();
 }
 else
 {
@@ -195,26 +195,26 @@ else
                         // && !claro_is_course_manager())
                         // is added  to let course admin, tutor of current group, use student mode
 
-    echo claro_html_tool_title(get_lang('Forums'),
+    $out .= claro_html_tool_title(get_lang('Forums'),
                           $is_allowedToEdit ? 'help_forum.php' : false);
 
-    echo disp_forum_breadcrumb($pagetype, $forum_id, $forum_name);
+    $out .= disp_forum_breadcrumb($pagetype, $forum_id, $forum_name);
 
 
     if ( isset($groupToolList) )
     {
-        echo '<p>' . claro_html_menu_horizontal($groupToolList) .'</p>';
+        $out .= '<p>' . claro_html_menu_horizontal($groupToolList) .'</p>';
 
     }
 
     if ($forum_post_allowed)
     {
-        echo '<p>' . claro_html_menu_horizontal(disp_forum_toolbar($pagetype, $forum_id, $forum_cat_id, 0)) . '</p>';
+        $out .= '<p>' . claro_html_menu_horizontal(disp_forum_toolbar($pagetype, $forum_id, $forum_cat_id, 0)) . '</p>';
     }
 
-    $topicLister->disp_pager_tool_bar($pagerUrl);
+    $out .= $topicLister->disp_pager_tool_bar($pagerUrl);
 
-    echo '<table class="claroTable emphaseLine" width="100%">' . "\n"
+    $out .= '<table class="claroTable emphaseLine" width="100%">' . "\n"
 
         .' <tr class="superHeader">'                  . "\n"
         .'  <th colspan="6">'
@@ -235,7 +235,7 @@ else
 
     if ( count($topicList) == 0 )
     {
-        echo '<tr>' . "\n"
+        $out .= '<tr>' . "\n"
         .    '<td colspan="5" align="center">'
         .    get_lang('There are no topics for this forum. You can post one')
         .    '</td>'. "\n"
@@ -248,7 +248,7 @@ else
 
         foreach ( $topicList as $thisTopic )
         {
-            echo ' <tr>' . "\n";
+            $out .= ' <tr>' . "\n";
 
             $replys         = $thisTopic['topic_replies'];
             $topic_time     = $thisTopic['topic_time'   ];
@@ -269,7 +269,7 @@ else
                 $class = 'item';
             }
 
-            echo '<td>'
+            $out .= '<td>'
             .    '<span class="'.$class.'">'
             .    '<img src="' . get_icon_url('topic') . '" alt="" />'
             ;
@@ -279,22 +279,22 @@ else
                         .  (is_null($forumSettingList['idGroup']) ?
                            '' : '&amp;gidReq ='.$forumSettingList['idGroup']) ));
 
-            echo '&nbsp;'
+            $out .= '&nbsp;'
             .    '<a href="' . $topic_link . '">' . $topic_title . '</a>'
             .    '</span>'
             .    '&nbsp;&nbsp;'
             ;
 
-            disp_mini_pager($topic_link, 'start', $replys, get_conf('posts_per_page') );
+            $out .= disp_mini_pager($topic_link, 'start', $replys, get_conf('posts_per_page') );
 
-            echo '</td>' . "\n"
+            $out .= '</td>' . "\n"
                 .'<td align="center"><small>' . $replys . '</small></td>' . "\n"
                 .'<td align="center"><small>' . $thisTopic['prenom'] . ' ' . $thisTopic['nom'] . '</small></td>' . "\n"
                 .'<td align="center"><small>' . $thisTopic['topic_views'] . '</small></td>' . "\n";
 
             if ( !empty($last_post) )
             {
-                echo  '<td align="center">'
+                $out .=  '<td align="center">'
                     . '<small>'
                     . claro_html_localised_date(get_locale('dateTimeFormatShort'), $last_post)
                     . '</small>'
@@ -302,21 +302,20 @@ else
             }
             else
             {
-                echo '<td align="center"><small>' . get_lang('No post') . '</small></td>' . "\n";
+                $out .= '<td align="center"><small>' . get_lang('No post') . '</small></td>' . "\n";
             }
 
-            echo ' </tr>' . "\n";
+            $out .= ' </tr>' . "\n";
         }
     }
 
-    echo '</table>' . "\n";
+    $out .= '</table>' . "\n";
 
-    $topicLister->disp_pager_tool_bar($pagerUrl);
+    $out .= $topicLister->disp_pager_tool_bar($pagerUrl);
 }
 
-/*-----------------------------------------------------------------
-  Display Forum Footer
- -----------------------------------------------------------------*/
+$claroline->display->body->appendContent($out);
 
-include(get_path('incRepositorySys').'/claro_init_footer.inc.php');
+echo $claroline->display->render();
+
 ?>
