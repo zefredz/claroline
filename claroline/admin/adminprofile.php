@@ -270,7 +270,6 @@ $out = '';
 
 // Display tool title
 $out .= claro_html_tool_title($nameTools)
-//.    claro_html_msg_list($messageList)
 .   $dialogBox->render()
 // Display "form and info" about the user
 .    '<p>'

@@ -509,9 +509,13 @@ function claro_html_msg_list($msgArrBody, $return=true)
             }
         }
     }
-
-    if ($return) return claro_html_message_box($msgBox);
-    else         echo   claro_html_message_box($msgBox);
+    $dialogBox = new DialogBox();
+    if( $msgBox )
+    {
+        $dialogBox->form( $msgBox );
+    }
+    if ($return) return $dialogBox->render();
+    else         echo   $dialogBox->render();
     return true;
 }
 
