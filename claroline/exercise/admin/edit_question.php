@@ -212,7 +212,6 @@ ClaroBreadCrumbs::getInstance()->prepend( get_lang('Exercises'), get_module_url(
 
 
 $out = '';
-//include(get_path('incRepositorySys').'/claro_init_header.inc.php');
 
 $out .= claro_html_tool_title($nameTools);
 
@@ -352,7 +351,5 @@ else
 $claroline->display->body->appendContent($out);
 
 echo $claroline->display->render();
-
-//include(get_path('incRepositorySys').'/claro_init_footer.inc.php');
 
 ?>

@@ -68,13 +68,10 @@ if( $is_allowedToTrack && get_conf('is_trackingEnabled') )
     }
     else
     {
-        $dialogBox = get_lang('Wrong operation');
+        claro_die( get_lang('Wrong operation') );
     }
 
     $out .= claro_html_tool_title($toolTitle);
-
-    if( isset($dialogBox) ) $out .= claro_html_message_box($dialogBox);
-
 
     // TODO  use datagrid
     $out .= '<br />' . "\n\n"

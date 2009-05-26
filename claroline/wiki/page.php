@@ -770,7 +770,6 @@
     if ( !empty($message) )
     {
         $out .= $dialogBox->render( $message ) . "\n";
-        //echo claro_html_message_box($message) . "\n";
     }
 
     // Check javascript
@@ -968,8 +967,8 @@
             $out .= '</div>' . "\n";
 
             $message = get_block('blockWikiConflictHowTo');
-
-            $out .= claro_html_message_box ( $message ) . '<br />' . "\n";
+            $dialogBox->info( $message );
+            $out .= $dialogBox->render();
 
             $out .= '<form id="editConflict" action="'
                 . htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF']))
@@ -1502,7 +1501,8 @@
                     get_lang("Cancel"))
                 . '</form>'."\n"
                 ;
-            $out .= claro_html_message_box($searchForm) . "\n";
+            $dialogBox->form( $searchForm );
+            $out .= $dialogBox->render();
             break;
         }
         default:

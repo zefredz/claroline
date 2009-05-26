@@ -78,7 +78,7 @@ $can_import_user_class = (bool) (claro_is_course_manager()
                      || claro_is_platform_admin();
 $can_send_message_to_course = current_user_is_allowed_to_send_message_to_current_course();
 
-$dialogBox = '';
+$dialogBox = new DialogBox();
 
 /*----------------------------------------------------------------------
   DB tables definition
@@ -123,7 +123,7 @@ if ( $is_allowedToEdit )
         $done = user_add_to_course($req['user_id'], claro_get_current_course_id(), false, false, false);
         if ($done)
         {
-            $dialogBox = get_lang('User registered to the course');
+            $dialogBox->success( get_lang('User registered to the course') );
         }
     }
 
@@ -141,27 +141,27 @@ if ( $is_allowedToEdit )
 
             $unregisterdUserCount = claro_sql_query_affected_rows($sql);
 
-            $dialogBox .= get_lang('%number student(s) unregistered from this course', array ( '%number' => $unregisterdUserCount) );
+            $dialogBox->success( get_lang('%number student(s) unregistered from this course', array ( '%number' => $unregisterdUserCount) ) );
         }
         elseif ( 0 < (int)  $req['user_id'] )
         {
             // delete user from course user list
             if ( user_remove_from_course(  $req['user_id'], claro_get_current_course_id(), false, false, false) )
             {
-               $dialogBox .= get_lang('The user has been successfully unregistered from course');
+               $dialogBox->success( get_lang('The user has been successfully unregistered from course') );
             }
             else
             {
                 switch ( claro_failure::get_last_failure() )
                 {
                     case 'cannot_unsubscribe_the_last_course_manager' :
-                        $dialogBox .= get_lang('You cannot unsubscribe the last course manager of the course');
+                        $dialogBox->error( get_lang('You cannot unsubscribe the last course manager of the course') );
                         break;
                     case 'course_manager_cannot_unsubscribe_himself' :
-                        $dialogBox .= get_lang('Course manager cannot unsubscribe himself');
+                        $dialogBox->error( get_lang('Course manager cannot unsubscribe himself') );
                         break;
                     default :
-                        $dialogBox .= get_lang('Error!! you cannot unregister a course manager');
+                        $dialogBox->error( get_lang('Error!! you cannot unregister a course manager') );
                 }
             }
         }
@@ -337,7 +337,7 @@ $out .= claro_html_tool_title($nameTools . ' (' . get_lang('number') . ' : ' . $
 
 // Display Forms or dialog box(if needed)
 
-if ( !empty($dialogBox) ) $out .= claro_html_message_box($dialogBox);
+$out .= $dialogBox->render();
 
 // Display tool links
 if ( $disp_tool_link ) $out .= claro_html_menu_horizontal($userMenu);
