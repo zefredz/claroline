@@ -1095,7 +1095,8 @@ function disp_search_box()
 {
     if (isset($_REQUEST['cmd']) && $_REQUEST['cmd'] == 'rqSearch' )
     {
-        return claro_html_message_box(
+        $dialogBox = new DialogBox();
+        $dialogBox->form(
             '<form action="'.htmlspecialchars(get_module_url('CLFRM') . '/viewsearch.php').'" method="post">'
             . claro_form_relay_context()
             . get_lang('Search') . ' : <br />'
@@ -1104,6 +1105,7 @@ function disp_search_box()
             . claro_html_button(htmlspecialchars(Url::Contextualize($_SERVER['PHP_SELF'])), get_lang('Cancel'))
             . '</form>'
         );
+        return $dialogBox->render();
     }
     else
     {

@@ -76,7 +76,7 @@ $TABLELEARNPATHMODULE   = claro_get_current_course_data('dbNameGlu') . "lp_rel_l
 $TABLEASSET             = claro_get_current_course_data('dbNameGlu') . "lp_asset";
 $TABLEUSERMODULEPROGRESS= claro_get_current_course_data('dbNameGlu') . "lp_user_module_progress";
 
-if (!isset($dialogBox)) $dialogBox = "";
+$dialogBox = new DialogBox();
 
 //lib of this tool
 require_once get_path('incRepositorySys') . '/lib/learnPath.lib.inc.php';
@@ -188,7 +188,7 @@ switch($cmd)
             // if origin and target are the same ... cancel operation
             if ($movedModule['learnPath_module_id'] == $_POST['newPos'])
             {
-                $dialogBox .= get_lang('Wrong operation');
+                $dialogBox->error( get_lang('Wrong operation') );
             }
             else
             {
@@ -210,7 +210,7 @@ switch($cmd)
                             `rank` = " . (int)$order . "
                         WHERE `learnPath_module_id` = ". (int)$_REQUEST['cmdid'];
                 $query = claro_sql_query($sql);
-                $dialogBox .= get_lang('Module moved');
+                $dialogBox->success( get_lang('Module moved') );
             }
 
         }
@@ -408,7 +408,7 @@ else
 
 if (isset($displayCreateLabelForm) && $displayCreateLabelForm)
 {
-    $dialogBox = '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">'
+    $dialogBox->form( '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">'
     .            claro_form_relay_context()
     .            '<h4>'
     .            '<label for="newLabel">'
@@ -419,33 +419,32 @@ if (isset($displayCreateLabelForm) && $displayCreateLabelForm)
     .            '<input type="hidden" name="cmd" value="createLabel" />' . "\n"
     .            '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
     .            '</form>'
+    )
     ;
 }
 
 if (isset($displayChangePosForm) && $displayChangePosForm)
 {
-    $dialogBox = '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">'
+    $dialogBoxContent = '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">'
     .            claro_form_relay_context()
     .            '<h4>'
     .            get_lang('Move') . " ' " . $moduleInfos['name']." ' ".get_lang('To') . '</h4>'
     ;
     // build select input - $elementList has been declared in the previous big cmd case
-    $dialogBox .= claro_build_nested_select_menu("newPos",$elementList)
+    $dialogBoxContent .= claro_build_nested_select_menu("newPos",$elementList)
     .             '<input type="hidden" name="cmd" value="changePos" />' . "\n"
     .             '<input type="hidden" name="cmdid" value="' . $_REQUEST['cmdid'] . '" />' . "\n"
     .             '<input type="submit" value="' . get_lang('Ok') . '" />' . "\n"
     .             '</form>'
     ;
+    $dialogBox->form( $dialogBoxContent );
 }
 
 //####################################################################################\\
 //############################### DIALOG BOX SECTION #################################\\
 //####################################################################################\\
 
-if (isset($dialogBox) && $dialogBox!="")
-{
-    $out .= claro_html_message_box($dialogBox);
-}
+$out .= $dialogBox->render();
 
 //####################################################################################\\
 //######################### LEARNING PATH COURSEADMIN LINKS ##########################\\

@@ -30,7 +30,7 @@ function lp_display_exercise($cmd, $TABLELEARNPATHMODULE, $TABLEMODULE, $TABLEAS
                     AND `learnPath_id` = ". (int)$_SESSION['path_id'];
             claro_sql_query($sql);
     
-            $dialogBox = get_lang('Minimum raw to pass has been changed');
+            $dialogBoxContent = get_lang('Minimum raw to pass has been changed');
         }
     }
     
@@ -40,9 +40,11 @@ function lp_display_exercise($cmd, $TABLELEARNPATHMODULE, $TABLEMODULE, $TABLEAS
     //####################################################################################\\
     //############################### DIALOG BOX SECTION #################################\\
     //####################################################################################\\
-    if( !empty($dialogBox) )
+    if( !empty($dialogBoxContent) )
     {
-        $out .= claro_html_message_box($dialogBox);
+        $dialogBox = new DialogBox();
+        $dialogBox->success( $dialogBoxContent );
+        $out .= $dialogBox->render();
     }
     
     // form to change raw needed to pass the exercise

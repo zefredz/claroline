@@ -63,6 +63,8 @@ include_once (get_path('incRepositorySys') . '/lib/learnPath.lib.inc.php');
 //lib needed to delete packages
 include_once (get_path('incRepositorySys') . '/lib/fileManage.lib.php');
 
+$dialogBox = new DialogBox();
+
 $htmlHeadXtra[] =
           '<script type="text/javascript">
           function confirmation (name)
@@ -98,12 +100,11 @@ if ( $cmd == 'export' )
     $scorm = new ScormExport($_REQUEST['path_id']);
     if ( !$scorm->export() )
     {
-        $dialogBox = '<b>'.get_lang('Error exporting SCORM package').'</b><br />'."\n".'<ul>'."\n";
+        $dialogBox->title( get_lang('Error exporting SCORM package') );        
         foreach( $scorm->getError() as $error)
         {
-            $dialogBox .= '<li>' . $error . '</li>'."\n";
-        }
-        $dialogBox .= '<ul>'."\n";
+            $dialogBox->error( $error );
+        }        
     }
 } // endif $cmd == export
 
@@ -346,12 +347,12 @@ switch ( $cmd )
             else
             {
                 // display error message
-                $dialogBox = get_lang('Error : Name already exists in the learning path or in the module pool');
+                $dialogBox->error( get_lang('Error : Name already exists in the learning path or in the module pool') );
             }
         }
         else  // create form requested
         {
-            $dialogBox = "\n\n"
+            $dialogBox->form( "\n\n"
             . '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">' . "\n"
             . claro_form_relay_context()
             . '<h4>' . get_lang('Create a new learning path') . '</h4>' . "\n"
@@ -369,6 +370,7 @@ switch ( $cmd )
             . '<input type="submit" value="' . get_lang('Ok') . '" />&nbsp;' . "\n"
             . claro_html_button('learningPathList.php', get_lang('Cancel'))
             . '</form>' . "\n"
+            )
             ;
         }
         break;
@@ -423,7 +425,6 @@ if (isset($sortDirection) && $sortDirection)
         }
     }
 }
-
 // DISPLAY
 $cmdMenu[] = claro_html_cmd_link($_SERVER['PHP_SELF'] .'?cmd=create'. claro_url_relay_context('&amp;'),get_lang('Create a new learning path'));
 $cmdMenu[] = claro_html_cmd_link('importLearningPath.php' . claro_url_relay_context('?'),get_lang('Import a learning path'));
@@ -434,10 +435,7 @@ $out = '';
 
 $out .= claro_html_tool_title($nameTools);
 
-if (isset($dialogBox))
-{
-    $out .= claro_html_message_box($dialogBox);
-}
+$out .= $dialogBox->render();
 
 if($is_allowedToEdit)
 {

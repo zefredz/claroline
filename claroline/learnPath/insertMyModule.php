@@ -142,13 +142,7 @@ if (isset($_REQUEST['cmdglobal']) && ($_REQUEST['cmdglobal'] == 'add'))
             $atleastOne = TRUE;
             $nb++;
         }
-    }
-     /*
-     if ( !$atleastOne )
-     {
-         echo claro_html_message_box("No module selected !!");
-     }
-     */
+    }     
 } //end if ADD command
 
 //STEP ONE : display form to add module of the course that are not in this path yet

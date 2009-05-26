@@ -27,16 +27,19 @@ function lp_display_scorm( $TABLELEARNPATHMODULE )
                 AND `learnPath_id` = " . (int) $_SESSION['path_id'];
         claro_sql_query($sql);
     
-        $dialogBox = get_lang('Minimum raw to pass has been changed');
+        $dialogBoxContent = get_lang('Minimum raw to pass has been changed');
     }
     
+    $out .= '<hr noshade="noshade" size="1" />';
     
     //####################################################################################\\
     //############################### DIALOG BOX SECTION #################################\\
     //####################################################################################\\
-    if( !empty($dialogBox) )
+    if( !empty($dialogBoxContent) )
     {
-        $out .= claro_html_message_box($dialogBox);
+        $dialogBox = new DialogBox();
+        $dialogBox->success( $dialogBoxContent );
+        $out .= $dialogBox->render();
     }
     
     // form to change raw needed to pass the exercise
@@ -51,7 +54,7 @@ function lp_display_scorm( $TABLELEARNPATHMODULE )
         && $learningPath_module[0]['lock'] == 'CLOSE'
         && isset($learningPath_module[0]['raw_to_pass']) ) // this module blocks the user if he doesn't complete
     {
-        $out .= "\n\n" . '<hr noshade="noshade" size="1" />' . "\n"
+        $out .= "\n\n" 
         .    '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">' . "\n"
         .    '<label for="newRaw">' . get_lang('Change minimum raw mark to pass this module (percentage) : ') . '</label>'."\n"
         .    '<input type="text" value="' . htmlspecialchars($learningPath_module[0]['raw_to_pass']) . '" name="newRaw" id="newRaw" size="3" maxlength="3" /> % ' . "\n"

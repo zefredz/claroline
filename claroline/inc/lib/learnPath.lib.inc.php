@@ -660,7 +660,9 @@ function display_my_exercises($dialogBox)
     $colspan = 4;
     if( !empty($dialogBox) )
     {
-        $out .= claro_html_message_box($dialogBox).'<br />'."\n";
+        $_dialogBox = new DialogBox();
+        $_dialogBox->form( $dialogBox );
+        $out .= $_dialogBox->render();
     }
     $out .= '<table class="claroTable" width="100%" border="0" cellspacing="">'."\n\n"
     .    '<tr class="headerX" align="center" valign="top">'."\n"
@@ -796,7 +798,9 @@ function display_my_documents($dialogBox)
     $colspan = 4;
     if( !empty($dialogBox) )
     {
-        $out .= claro_html_message_box($dialogBox);
+        $_dialogBox = new DialogBox();
+        $_dialogBox->form( $dialogBox );
+        $out .= $_dialogBox->render();
     }
     /*--------------------------------------
     CURRENT DIRECTORY LINE

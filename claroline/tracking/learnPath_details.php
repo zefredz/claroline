@@ -118,7 +118,9 @@ if ( get_conf('is_trackingEnabled') )
 // not allowed
 else
 {
-    $out .= claro_html_message_box(get_lang('Tracking has been disabled by system administrator.'));
+    $dialogBox = new DialogBox();
+    $dialogBox->success( get_lang('Tracking has been disabled by system administrator.') );
+    $out .= $dialogBox->render();
 }
 
 $claroline->display->body->appendContent($out);

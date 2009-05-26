@@ -184,14 +184,16 @@ switch( $cmd )
             }
             else
             {
-                $out .= claro_html_message_box(get_lang('Error : Name already exists in the learning path or in the module pool'));
-                $out .= "<br />";
+                $dialogBox = new DialogBox();
+                $dialogBox->error( get_lang('Error : Name already exists in the learning path or in the module pool') );                
+                $out .= $dialogBox->render();
             }
         }
         else
         {
-            $out .= claro_html_message_box(get_lang('Name cannot be empty'));
-            $out .= "<br />";
+            $dialogBox = new DialogBox();
+            $dialogBox->error(get_lang('Name cannot be empty'));            
+            $out .= $dialogBox->render();
         }
         break;
 
