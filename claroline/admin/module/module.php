@@ -84,6 +84,8 @@ ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('
 $nameTools = get_lang('Module settings');
 $noPHP_SELF=true;
 
+$dialogBox = new dialogBox();
+
 //----------------------------------
 // EXECUTE COMMAND
 //----------------------------------
@@ -102,12 +104,12 @@ switch ( $cmd )
         
         if (claro_sql_query($sql))
         {
-            $dialogBox = get_lang('Module activation at course creation set to AUTOMATIC');
+            $dialogBox->success( get_lang('Module activation at course creation set to AUTOMATIC') );
             $module['activateInCourses']  = 'AUTOMATIC';
         }
         else
         {
-            $dialogBox = get_lang('Cannot change module activation on course creation');
+            $dialogBox->error( get_lang('Cannot change module activation on course creation') );
         }
         break;
     }
@@ -123,12 +125,12 @@ switch ( $cmd )
         
         if (claro_sql_query($sql))
         {
-            $dialogBox = get_lang('Module activation at course creation set to MANUAL');
+            $dialogBox->success( get_lang('Module activation at course creation set to MANUAL') );
             $module['activateInCourses']  = 'MANUAL';
         }
         else
         {
-            $dialogBox = get_lang('Cannot change module activation on course creation');
+            $dialogBox->error( get_lang('Cannot change module activation on course creation') );
         }
         break;
     }
@@ -136,12 +138,12 @@ switch ( $cmd )
     {
         if (activate_module($moduleId))
         {
-            $dialogBox = get_lang('Module activation succeeded');
+            $dialogBox->success( get_lang('Module activation succeeded') );
             $module['activation']  = 'activated';
         }
         else
         {
-            $dialogBox = get_lang('Cannot activate module');
+            $dialogBox->error( get_lang('Cannot activate module') );
         }
         break;
     }
@@ -149,12 +151,12 @@ switch ( $cmd )
     {
         if (deactivate_module($moduleId))
         {
-            $dialogBox = get_lang('Module deactivation succeeded');
+            $dialogBox->success( get_lang('Module deactivation succeeded') );
             $module['activation']  = 'deactivated';
         }
         else
         {
-            $dialogBox = get_lang('Cannot deactivate module');
+            $dialogBox->error( get_lang('Cannot deactivate module') );
             $module['activation']  = 'activated';
         }
         break;
@@ -178,7 +180,7 @@ switch ( $cmd )
                     }
                 }
             }
-            $dialogBox = get_lang('Changes in the display of the module have been applied');
+            $dialogBox->success( get_lang('Changes in the display of the module have been applied') );
         }
         break;
     }
@@ -191,11 +193,11 @@ switch ( $cmd )
 
         if ( $success )
         {
-            $dialogBox = get_lang('Module visibility updated');
+            $dialogBox->success( get_lang('Module visibility updated') );
         }
         else
         {
-            $dialogBox = get_lang('Failed to update module visibility');
+            $dialogBox->error( get_lang('Failed to update module visibility') );
         }
 
         break;
@@ -248,10 +250,7 @@ $out .= claro_html_tool_title($nameTools . ' : ' . get_lang($module['module_name
 
 //Display Forms or dialog box(if needed)
 
-if ( isset($dialogBox) )
-{
-    $out .= claro_html_message_box($dialogBox);
-}
+$out .= $dialogBox->render();
 
 //display tabbed navbar
 
@@ -324,7 +323,6 @@ else
 $out .= '</ul>'. "\n"
     . '</div>'. "\n"
     ;
-
 
 switch ($item)
 {
@@ -537,7 +535,9 @@ switch ($item)
 
         if ( ! empty($message) )
         {
-            $out .= claro_html_message_box($message);
+            $dialogBox = new DialogBox();
+            $dialogBox->success ( $message );
+            $out .= $dialogBox->render();
         }
 
         $out .= $form . '</div>';

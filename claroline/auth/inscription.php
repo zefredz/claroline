@@ -232,7 +232,9 @@ elseif ( DISP_REGISTRATION_FORM == $display  )
 
     if ( count($messageList) > 0 )
     {
-        $out .= claro_html_message_box( implode('<br />', $messageList) );
+        $dialogBox = new DialogBox();
+        $dialogBox->error( implode('<br />', $messageList) );
+        $out .= $dialogBox->render();
     }
 
     if ( trim ($subscriptionText) != '')

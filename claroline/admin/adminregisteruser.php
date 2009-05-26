@@ -33,7 +33,7 @@ if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 if ((isset($_REQUEST['cidToEdit']) && $_REQUEST['cidToEdit']=='') || !isset($_REQUEST['cidToEdit']))
 {
     unset($_REQUEST['cidToEdit']);
-    $dialogBox = 'ERROR : NO COURSE SET!!!';
+    claro_die( 'ERROR : NO COURSE SET!!!' );
 
 }
 else
@@ -46,7 +46,12 @@ $userPerPage = 20; // numbers of user to display on the same page
 
 $user_id = isset( $_REQUEST['user_id'] ) ? $_REQUEST['user_id'] : null ;
 
-if ($cidToEdit=='') { $dialogBox ='ERROR : NO USER SET!!!'; }
+if ($cidToEdit=='')
+{
+    claro_die( 'ERROR : NO USER SET!!!' );
+}
+
+$dialogBox = new DialogBox();
 
 // Deal with interbredcrumps
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
@@ -94,7 +99,7 @@ switch ( $cmd )
 
         if ( $done )
         {
-           $dialogBox = get_lang('The user has been enroled to the course');
+           $dialogBox->success( get_lang('The user has been enroled to the course') );
         }
         break;
 
@@ -231,7 +236,7 @@ $out .= claro_html_tool_title( $nameTools );
 
 // Display Forms or dialog box(if needed)
 
-if( isset($dialogBox) ) $out .= claro_html_message_box($dialogBox);
+$out .= $dialogBox->render();
 
 
 $out .= '<table width="100%" class="claroTableForm" >'

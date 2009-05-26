@@ -18,7 +18,6 @@
  *
  */
 
-$dialogBox = '';
 $cidReset = TRUE;$gidReset = TRUE;$tidReset = TRUE;
 
 require '../inc/claro_init_global.inc.php';
@@ -26,6 +25,8 @@ include_once get_path('incRepositorySys') . '/lib/user.lib.php';
 include_once get_path('incRepositorySys') . '/lib/course_user.lib.php';
 include_once get_path('incRepositorySys') . '/lib/pager.lib.php';
 include claro_get_conf_repository() . 'user_profile.conf.php';
+
+$dialogBox = new DialogBox();
 
 // Security check
 if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
@@ -58,11 +59,11 @@ $pagerSortDir = isset($_REQUEST['dir' ]) ? $_REQUEST['dir' ] : SORT_ASC;
  */
 $userData = user_get_properties($uidToEdit);
 
-if ((false === $userData) || $uidToEdit != $userData['user_id']) $dialogBox .= get_lang('Not valid user id');
+if ((false === $userData) || $uidToEdit != $userData['user_id']) $dialogBox->error( get_lang('Not valid user id') );
 
 if ('unsubscribe' == $cmd)
 {
-    if (is_null($courseId)) $dialogBox .= get_lang('Not valid course code');
+    if (is_null($courseId)) $dialogBox->error( get_lang('Not valid course code') );
     else                    $do = 'rem_user';
 }
 
@@ -74,7 +75,7 @@ if ('rem_user' == $do )
 {
     if ( user_remove_from_course($uidToEdit,$courseId,true,false) )
     {
-        $dialogBox .= get_lang('The user has been successfully unregistered');
+        $dialogBox->success( get_lang('The user has been successfully unregistered') );
     }
     else
     {
@@ -82,14 +83,14 @@ if ('rem_user' == $do )
         {
             case 'cannot_unsubscribe_the_last_course_manager' :
 
-                $dialogBox .= get_lang('You cannot unsubscribe the last course manager of the course');
+                $dialogBox->error( get_lang('You cannot unsubscribe the last course manager of the course') );
                 break;
             case 'course_manager_cannot_unsubscribe_himself' :
 
-                $dialogBox .= get_lang('Course manager cannot unsubscribe himself');
+                $dialogBox->error( get_lang('Course manager cannot unsubscribe himself') );
                 break;
             default :
-                $dialogBox .= get_lang('Unknow error during unsubscribing');
+                $dialogBox->error( get_lang('Unknow error during unsubscribing') );
         }
     }
 }
@@ -209,7 +210,7 @@ $out .= claro_html_tool_title($nameTools);
 
 // display forms and dialogBox, alphabetic choice,...
 
-if( isset($dialogBox) && !empty($dialogBox) ) $out .= claro_html_message_box($dialogBox);
+$out .= $dialogBox->render();
 
 $out .= '<p>'
 .    claro_html_menu_horizontal($cmdList)

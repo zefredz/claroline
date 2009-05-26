@@ -38,7 +38,8 @@ if ( !isset($_SESSION['admin_visible_class']))
 {
     $_SESSION['admin_visible_class'] = array();
 }
-
+// Dialogbox
+$dialogBox = new DialogBox();
 // Deal with interbredcrumps  and title variable
 
 $nameTools = get_lang('Classes');
@@ -74,18 +75,18 @@ switch ( $cmd )
 
         if ( delete_class($form_data['class_id']) )
         {
-            $dialogBox = get_lang('Class deleted');
+            $dialogBox->success( get_lang('Class deleted') );
         }
         else
         {
             switch ( claro_failure::get_last_failure() )
             {
                 case 'class_not_found' :
-                    $dialogBox = get_lang('Error : Class not found');
+                    $dialogBox->error( get_lang('Error : Class not found') );
                     break;
                 
                 case 'class_has_sub_classes' :
-                    $dialogBox = get_lang('Error : Class has sub-classes');
+                    $dialogBox->error( get_lang('Error : Class has sub-classes') );
                     break;
             }
         }
@@ -95,7 +96,7 @@ switch ( $cmd )
     // Display form to create a new class
     case 'rqAdd' :
 
-        $dialogBox = '<form action="'.$_SERVER['PHP_SELF'].'" method="post" >' . "\n"
+        $dialogBox->form( '<form action="'.$_SERVER['PHP_SELF'].'" method="post" >' . "\n"
         .            '<input type="hidden" name="cmd" value="exAdd" />' . "\n"
         .            '<input type="hidden" name="claroFormId" value="' . uniqid('') . '" />'
         .            '<table>' . "\n"
@@ -114,7 +115,7 @@ switch ( $cmd )
         .            '</tr>' . "\n"
         .            '</table>' . "\n"
         .            '</form>'."\n "
-        ;
+        );
 
         break;
 
@@ -123,14 +124,14 @@ switch ( $cmd )
         
         if ( empty($form_data['class_name']) )
         {
-            $dialogBox = get_lang('You cannot give a blank name to a class');
+            $dialogBox->warning( get_lang('You cannot give a blank name to a class') );
         }
         else
         {
             
             if ( class_create($form_data['class_name'],$form_data['class_parent_id']) )
             {
-                $dialogBox = get_lang('The new class has been created');
+                $dialogBox->success( get_lang('The new class has been created') );
             }
 
         }
@@ -142,13 +143,13 @@ switch ( $cmd )
 
         if ( empty($form_data['class_name']) )
         {
-            $dialogBox = get_lang('You cannot give a blank name to a class');
+            $dialogBox->warning( get_lang('You cannot give a blank name to a class') );
         }
         else
         {
             if ( class_set_properties($form_data['class_id'],$form_data['class_name']) ) 
             {
-                $dialogBox = get_lang('Name of the class has been changed');
+                $dialogBox->success( get_lang('Name of the class has been changed') );
             }
         }
 
@@ -159,7 +160,7 @@ switch ( $cmd )
 
         if ( false !== ($thisClass = class_get_properties($form_data['class_id']) ))
         {
-            $dialogBox= '<form action="'.$_SERVER['PHP_SELF'].'" method="post" >' . "\n"
+            $dialogBox->form( '<form action="'.$_SERVER['PHP_SELF'].'" method="post" >' . "\n"
             .           '<input type="hidden" name="cmd" value="exEdit" />' . "\n"
             .           '<input type="hidden" name="class_id" value="' . $thisClass['id'] . '" />' . "\n"
             .           '<table>' . "\n"
@@ -174,7 +175,7 @@ switch ( $cmd )
             .           '</tr>' . "\n"
             .           '</table>' . "\n"
             .           '</form>'."\n "
-            ;
+            );
         }
         else
         {
@@ -182,7 +183,7 @@ switch ( $cmd )
             {
                 case 'class_not_found' :
                 default :
-                    $dialogBox = get_lang('Error : Class not found');
+                    $dialogBox->error( get_lang('Error : Class not found') );
                     break;
             }
         }
@@ -206,14 +207,14 @@ switch ( $cmd )
 
         if ( move_class($form_data['class_id'],$form_data['class_parent_id']) )
         {
-            $dialogBox = get_lang('The class has been moved');
+            $dialogBox->success( get_lang('The class has been moved') );
         }
         else
         {
             switch ( claro_failure::get_last_failure() )
             {
                 case 'class_not_found' :
-                    $dialogBox = get_lang('Error : Class not found');
+                    $dialogBox->error( get_lang('Error : Class not found') );
                     break;
                 case 'move_same_class' :
                     // nothing to do
@@ -224,7 +225,7 @@ switch ( $cmd )
     // Move a class in the tree (display form)
     case "rqMove" :
 
-        $dialogBox = '<form action="'.$_SERVER['PHP_SELF'].'">'
+        $dialogBox->form( '<form action="'.$_SERVER['PHP_SELF'].'">'
         .            '<table>'
         .            '<tr>' . "\n"
         .            '<td>' . "\n"
@@ -238,7 +239,8 @@ switch ( $cmd )
         .            '</td>' . "\n"
         .            '</tr>' . "\n"
         .            '</table>'
-        .            '</form>' ;
+        .            '</form>'
+        );
         break;
 
 }
@@ -263,8 +265,7 @@ $out = '';
 $out .= claro_html_tool_title($nameTools);
 
 // display dialog Box (or any forms)
-
-if ( isset($dialogBox) ) $out .= claro_html_message_box($dialogBox);
+$out .= $dialogBox->render();
 
 //display tool links
 

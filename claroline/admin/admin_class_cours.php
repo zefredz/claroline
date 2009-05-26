@@ -129,6 +129,8 @@ if ( !empty($class_id) )
 // DISPLAY
 //------------------------------------
 
+$dialogBox = new DialogBox();
+
 // Deal with interbredcrumps
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Classes'), get_path('rootAdminWeb'). 'admin_class.php' );
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
@@ -138,7 +140,8 @@ $out = '';
 
 if ( empty($class_id) )
 {
-    $out .= claro_html_message_box(get_lang('Class not found'));
+    $dialogBox->error( get_lang('Class not found') );
+    $out .= $dialogBox->render();
 }
 else
 {

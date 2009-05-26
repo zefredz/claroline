@@ -303,6 +303,8 @@ $soapclient = new nusoap_client('http://www.claroline.net/worldwide/worldwide_so
                         COMMANDS
   ============================================================================*/
 
+$dialogBox = new DialogBox();
+
 // -- register campus
 if( isset($_REQUEST['register']) )
 {
@@ -320,24 +322,24 @@ if( isset($_REQUEST['register']) )
 
     if( $soapResponse == CAMPUS_ADDED )
     {
-        $dialogBox = get_lang('Your campus has been submitted and is waiting to be validate by Claroline.net team');
+        $dialogBox->success( get_lang('Your campus has been submitted and is waiting to be validate by Claroline.net team') );
     }
     elseif( $soapResponse == LOCAL_URL_ERROR )
     {
-        $dialogBox = get_block('blockRegisterLocalUrl');
+        $dialogBox->error( get_block('blockRegisterLocalUrl') );
     }
     elseif( $soapResponse == CAMPUS_ALREADY_IN_LIST )
     {
-        $dialogBox = get_lang('It seems that you already have registered your campus.');
+        $dialogBox->warning( get_lang('It seems that you already have registered your campus.') );
     }
     elseif( $soapResponse == COUNTRY_CODE_ERROR )
     {
-        $dialogBox = get_lang('Country code seems to be incorrect.');
+        $dialogBox->error( get_lang('Country code seems to be incorrect.') );
     }
     else
     {
            // unknown soap error
-        $dialogBox = get_lang('An error occurred while contacting Claroline.net');
+        $dialogBox->error( get_lang('An error occurred while contacting Claroline.net') );
     }
 }
 else
@@ -347,26 +349,28 @@ else
 
     if( $soapResponse )
     {
-        $dialogBox = get_lang('Current registration status : ').'<br /><br />'."\n";
+        $dialogBoxContent = get_lang('Current registration status : ').'<br /><br />'."\n";
 
         switch($soapResponse)
         {
             case 'SUBMITTED' :
-                $dialogBox .= get_lang('<strong>Submitted</strong><p>Waiting for validation by Claroline.net team.</p>');
+                $dialogBoxContent .= get_lang('<strong>Submitted</strong><p>Waiting for validation by Claroline.net team.</p>');
                 break;
             case 'REGISTERED' :
-                $dialogBox .= get_lang('<strong>Approved</strong><p>Your campus registration has been approved by the Claroline.net team.</p>');
+                $dialogBoxContent .= get_lang('<strong>Approved</strong><p>Your campus registration has been approved by the Claroline.net team.</p>');
                 break;
             case 'UNREGISTERED' :
-                $dialogBox .= get_lang('<strong>Removed</strong><p>Your campus has been removed from the worldwide page.</p>');
+                $dialogBoxContent .= get_lang('<strong>Removed</strong><p>Your campus has been removed from the worldwide page.</p>');
                 break;
             case 'HIDDEN' :
-                $dialogBox .= get_lang('<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our website) if you think this is an error.</p>');
+                $dialogBoxContent .= get_lang('<strong>Deleted</strong><p>Your campus registration has been desactivated, contact us (see our website) if you think this is an error.</p>');
                 break;
             default :
                 // unknown status ?
                 break;
         }
+        
+        $dialogBox->success( $dialogBoxContent );
         $alreadyRegistered = TRUE;
     }
     // else : there is no current status or an error occurred so don't show current status
@@ -384,7 +388,7 @@ $title['mainTitle'] = $nameTools;
 $title['subTitle'] = get_lang('Add my campus on Claroline.net website');
 $out .= claro_html_tool_title($title);
 
-if( isset($dialogBox) && $dialogBox != '' ) $out .= claro_html_message_box($dialogBox);
+$out .= $dialogBox->render();
 
 if( !isset($_REQUEST['register']) && ! ( isset($alreadyRegistered) && $alreadyRegistered ) )
 {

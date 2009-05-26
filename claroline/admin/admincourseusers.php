@@ -32,7 +32,7 @@ if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 /*  Initialise variables and include libraries
 /* ************************************************************************** */
 
-$dialogBox = '';
+$dialogBox = new DialogBox();
 // initialisation of global variables and used libraries
 require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
 require_once get_path('incRepositorySys') . '/lib/course_user.lib.php';
@@ -48,7 +48,7 @@ $tbl_mdb_names   = claro_sql_get_main_tbl();
 if ((isset($_REQUEST['cidToEdit']) && $_REQUEST['cidToEdit'] == '') || !isset($_REQUEST['cidToEdit']))
 {
     unset($_REQUEST['cidToEdit']);
-    $dialogBox .= 'ERROR : NO COURSE SET!!!';
+    claro_die( 'ERROR : NO COURSE SET!!!' );
 }
 else $cidToEdit = $_REQUEST['cidToEdit'];
 // See SESSION variables used for reorder criteria :
@@ -75,7 +75,7 @@ if ( $do == 'unsub' )
 {
     if ( user_remove_from_course($_REQUEST['user_id'], $_REQUEST['cidToEdit'], true, true, false) )
     {
-        $dialogBox .= get_lang('The user has been successfully unregistered');
+        $dialogBox->success( get_lang('The user has been successfully unregistered') );
     }
     else
     {
@@ -83,11 +83,11 @@ if ( $do == 'unsub' )
         {
             case 'cannot_unsubscribe_the_last_course_manager' :
             {
-                $dialogBox .= get_lang('You cannot unsubscribe the last course manager of the course');
+                $dialogBox->error( get_lang('You cannot unsubscribe the last course manager of the course') );
             }   break;
             case 'course_manager_cannot_unsubscribe_himself' :
             {
-                $dialogBox .= get_lang('Course manager cannot unsubscribe himself');
+                $dialogBox->error( get_lang('Course manager cannot unsubscribe himself') );
             }   break;
             default :
         }
@@ -225,7 +225,8 @@ if ($cfrom=='clist')
 $out = '';
 
 $out .= claro_html_tool_title($nameTools);
-if ( !empty($dialogBox) ) $out .= claro_html_message_box($dialogBox);
+
+$out .= $dialogBox->render();
 
 $userDataGrid = new claro_datagrid($userDataList);
 $userDataGrid->set_option_list($dg_opt_list);

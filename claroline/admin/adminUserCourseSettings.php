@@ -53,10 +53,11 @@ else
     claro_die('Missing parameters');
 }
 
+$dialogBox = new DialogBox();
+
 //------------------------------------
 // Execute COMMAND section
 //------------------------------------
-
 
 //Display "form and info" about the user
 
@@ -71,16 +72,7 @@ switch ($cmd)
 
         if ( isset($_REQUEST['profileId']) )
         {
-            $properties['profileId'] = $_REQUEST['profileId'];
-
-            if ( claro_get_profile_label($properties['profileId']) == 'manager' )
-            {
-                $dialogBox = get_lang('User is now course manager');
-            }
-            else
-            {
-                $dialogBox = get_lang('User is now student for this course');
-            }
+            $properties['profileId'] = $_REQUEST['profileId'];            
         }
 
         if ( isset($_REQUEST['isTutor']) )
@@ -101,7 +93,18 @@ switch ($cmd)
 
         if ( ! $done )
         {
-            $dialogBox = get_lang('No change applied');
+            $dialogBox->warning( get_lang('No change applied') );
+        }
+        elseif( !empty( $properties['profileId'] ) )
+        {
+            if ( claro_get_profile_label($properties['profileId']) == 'manager' )
+            {
+                $dialogBox->success( get_lang('User is now course manager') );
+            }
+            else
+            {
+                $dialogBox->success( get_lang('User is now student for this course') );
+            }
         }
 
     break;
@@ -196,11 +199,7 @@ $out .= claro_html_tool_title( array( 'mainTitle' =>$nameTools
                           );
 
 // Display Forms or dialog box(if needed)
-
-if ( isset($dialogBox) )
-{
-    $out .= claro_html_message_box($dialogBox);
-}
+$out .= $dialogBox->render();
 
 $hidden_param = array( 'uidToEdit' => $uidToEdit,
                        'cidToEdit' => $cidToEdit,

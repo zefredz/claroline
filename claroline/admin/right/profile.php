@@ -97,6 +97,8 @@ ClaroBreadCrumbs::getInstance()->prepend( get_lang('Rights'), get_path('rootAdmi
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Course profile list'), get_path('rootAdminWeb').'right/profile_list.php' );
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 
+$dialogBox = new DialogBox();
+
 $out = '';
 
 // Set display right
@@ -120,7 +122,8 @@ foreach ( $display_profile_list as $profileId )
 
 if ( $profileFoundCount == 0 )
 {
-    $out .= claro_html_message_box(get_lang('Profile not found'));
+    $dialogBox->error( get_lang('Profile not found') );
+    $out .= $dialogBox->render();
 }
 else
 {

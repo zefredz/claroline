@@ -80,7 +80,9 @@ if (false !== $rs = $rss->get($urlNewsClaroline))
 }
 else
 {
-    $out .= claro_html_message_box(get_lang('Error : cannot read RSS feed (Check feed url and if php setting "allow_url_fopen" is turned on).'));
+    $dialogBox = new dialogBox();
+    $dialogBox->error( get_lang('Error : cannot read RSS feed (Check feed url and if php setting "allow_url_fopen" is turned on).') );
+    $out .= $dialogBox->render();
 }
 
 $claroline->display->body->appendContent($out);

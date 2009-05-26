@@ -29,7 +29,7 @@ if ( ! claro_is_user_authenticated() ) claro_disp_auth_form();
 if ( ! claro_is_platform_admin() ) claro_die(get_lang('Not allowed'));
 
 $nameTools = get_lang('User settings');
-$dialogBox = '';
+$dialogBox = new DialogBox();
 
 // BC
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
@@ -46,17 +46,17 @@ if ( isset($_REQUEST['cmd'] ) && claro_is_platform_admin() )
     {
         if ( user_remove_from_course($user_id, $_REQUEST['cidToEdit'],true, false) )
         {
-            $dialogBox .= get_lang('The user has been successfully unregistered');
+            $dialogBox->success( get_lang('The user has been successfully unregistered') );
         }
         else
         {
             switch ( claro_failure::get_last_failure() )
             {
                 case 'cannot_unsubscribe_the_last_course_manager' :
-                    $dialogBox .= get_lang('You cannot unsubscribe the last course manager of the course');
+                    $dialogBox->error( get_lang('You cannot unsubscribe the last course manager of the course') );
                     break;
                 case 'course_manager_cannot_unsubscribe_himself' :
-                    $dialogBox .= get_lang('Course manager cannot unsubscribe himself');
+                    $dialogBox ->error( get_lang('Course manager cannot unsubscribe himself') );
                     break;
                 default :
             }
@@ -81,10 +81,7 @@ $out .= claro_html_tool_title(get_lang('User unregistered'));
 
 // Display Forms or dialog box(if needed)
 
-if ( !empty($dialogBox) )
-{
-    $out .= claro_html_message_box($dialogBox);
-}
+$out .= $dialogBox->render();
 
 $out .= '<p>'
 .    claro_html_menu_horizontal($cmdList)

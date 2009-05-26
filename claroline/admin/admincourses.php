@@ -93,6 +93,8 @@ if (isset($_REQUEST['subscription'])) $_SESSION['admin_course_subscription'] = t
 
 if ('clist' != $cfrom) $addToURL .= '&amp;offsetC=' . $offsetC;
 
+$dialogBox = new DialogBox();
+
 /**
  * PARSE COMMAND
  */
@@ -106,9 +108,9 @@ if ('delete' == $cmd)
         switch(claro_failure::get_last_failure())
         {
             case 'course_not_found':
-                $dialogBox = get_lang('Course not found');
+                $dialogBox->error( get_lang('Course not found') );
                 break;
-            default  : $dialogBox = get_lang('Course not found');
+            default  : $dialogBox->error( get_lang('Course not found') );
         }
     }
 }
@@ -118,7 +120,7 @@ if ('delete' == $do)
 {
     if (delete_course($delCode))
     {
-        $dialogBox = get_lang('The course has been successfully deleted');
+        $dialogBox->success( get_lang('The course has been successfully deleted') );
         $noQUERY_STRING = true;
     }
 }
@@ -372,12 +374,13 @@ $courseDataGrid->set_noRowMessage( get_lang('There is no course matching such cr
 $out = '';
 
 $out .= claro_html_tool_title($nameTools);
-if (isset($dialogBox)) $out .= claro_html_message_box($dialogBox);
 
 if ( !empty($isSearched) )
 {
-    $out .= claro_html_message_box ( '<b>' . get_lang('Search on') . '</b> : <small>' .$isSearched . '</small>' );
+    $dialogBox->info( '<b>' . get_lang('Search on') . '</b> : <small>' .$isSearched . '</small>' );
 }
+
+$out .= $dialogBox->render();
 
 /**
  * DISPLAY : Search/filter panel

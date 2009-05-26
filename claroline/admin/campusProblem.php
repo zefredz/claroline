@@ -99,7 +99,9 @@ switch ($display)
 {
     case DISP_NOT_ALLOWED :
         {
-            $out .= claro_html_message_box(get_lang('Not allowed'));
+            $dialogBox = new DialogBox();
+            $dialogBox->error( get_lang('Not allowed') );
+            $out .= $dialogBox->render();
         } break;
 
     case DISP_RESULT :

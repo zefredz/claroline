@@ -35,6 +35,8 @@ $cmd = isset($_REQUEST['cmd'])?$_REQUEST['cmd']:null;
 $class_id = isset($_REQUEST['class_id'])?$_REQUEST['class_id']:0;
 $course_id = isset($_REQUEST['course_id'])?$_REQUEST['course_id']:null;
 
+$dialogBox = new DialogBox();
+
 //------------------------------------
 // Execute COMMAND section
 //------------------------------------
@@ -44,13 +46,12 @@ if (isset($cmd) && claro_is_platform_admin())
     if ($cmd == 'exReg')
     {
         $resultLog = register_class_to_course($class_id,$course_id);
-        $outputResultLog = '';
-
+        
         if ( isset($resultLog['OK']) && is_array($resultLog['OK']) )
         {
             foreach($resultLog['OK'] as $thisUser)
             {
-                $outputResultLog .= '[<font color="green">OK</font>] ' . get_lang('<i>%firstname %lastname</i> has been sucessfully registered to the course',array('%firstname'=>$thisUser['firstname'], '%lastname'=>$thisUser['lastname'])) . '<br />';
+                $dialogBox->success( get_lang('<i>%firstname %lastname</i> has been sucessfully registered to the course',array('%firstname'=>$thisUser['firstname'], '%lastname'=>$thisUser['lastname'])) . '<br />' );
             }
         }
 
@@ -58,7 +59,7 @@ if (isset($cmd) && claro_is_platform_admin())
         {
             foreach($resultLog['KO'] as $thisUser)
             {
-                $outputResultLog .= '[<font color="red">KO</font>] ' . get_lang('<i>%firstname %lastname</i> has not been sucessfully registered to the course',array('%firstname'=>$thisUser['firstname'], '%lastname'=>$thisUser['lastname'])) . '<br />';
+                $dialogBox->error( get_lang('<i>%firstname %lastname</i> has not been sucessfully registered to the course',array('%firstname'=>$thisUser['firstname'], '%lastname'=>$thisUser['lastname'])) . '<br />' );
             }
         }
     }
@@ -71,7 +72,6 @@ if (isset($cmd) && claro_is_platform_admin())
 
 $classinfo = class_get_properties($class_id);
 
-if ( !empty($outputResultLog) ) $dialogBox = $outputResultLog;
 $cmdList[] =  '<a class="claroCmd" href="index.php">' . get_lang('Back to administration page') . '</a>';
 $cmdList[] =  '<a class="claroCmd" href="' . 'admin_class_user.php?class_id=' . $classinfo['id'] . '">' . get_lang('Back to class members') . '</a>';
 $cmdList[] =  '<a class="claroCmd" href="' . get_path('clarolineRepositoryWeb') . 'auth/courses.php?cmd=rqReg&amp;fromAdmin=class' . '">' . get_lang('Register class for course') . '</a>';
@@ -83,7 +83,7 @@ $out = '';
 
 $out .= claro_html_tool_title(get_lang('Class registered') . ' : ' . $classinfo['name']);
 
-if ( !empty($dialogBox) ) $out .= claro_html_message_box($dialogBox);
+$out .= $dialogBox->render();
 
 $out .=  '<p>'
 .    claro_html_menu_horizontal($cmdList)

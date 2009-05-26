@@ -38,6 +38,8 @@ $display = DISPLAY_LIST;
 $cmd = isset($_REQUEST['cmd'])?$_REQUEST['cmd']:null;
 $profile_id = isset($_REQUEST['profile_id'])?(int)$_REQUEST['profile_id']:null;
 
+$dialogBox = new DialogBox();
+
 if ( $cmd )
 {
     $profile = new RightProfile();
@@ -140,7 +142,8 @@ switch ( $display )
 
         if ( ! empty($form) )
         {
-            $out .= claro_html_message_box($form);
+            $dialogBox->form( $form );
+            $out .= $dialogBox->render();
         }
 
     case DISPLAY_LIST :

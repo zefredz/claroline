@@ -62,6 +62,7 @@ if (isset($_REQUEST['order_crit'])) $_SESSION['admin_user_order_crit'] = trim($_
 if (isset($_REQUEST['dir'       ])) $_SESSION['admin_user_dir'       ] = ($_REQUEST['dir'] == 'DESC' ? 'DESC' : 'ASC' );
 $addToURL = ( isset($_REQUEST['addToURL']) ? $_REQUEST['addToURL'] : '');
 
+$dialogBox = new DialogBox();
 
 //TABLES
 //declare needed tables
@@ -80,7 +81,14 @@ switch ( $cmd )
 {
     case 'delete' :
     {
-        $dialogBox = ( user_delete($userIdReq) ? get_lang('Deletion of the user was done sucessfully') : get_lang('You can not change your own settings!'));
+        if( user_delete($userIdReq) )
+        {
+           $dialogBox->success( get_lang('Deletion of the user was done sucessfully') ); 
+        }
+        else
+        {
+            $dialogBox->error( get_lang('You can not change your own settings!') );   
+        }
     }   break;
 }
 $searchInfo = prepare_search();
@@ -245,10 +253,6 @@ $out = '';
 // Display tool title
 $out .= claro_html_tool_title($nameTools) . "\n\n";
 
-//Display Forms or dialog box(if needed)
-
-if( isset($dialogBox) ) $out .= claro_html_message_box($dialogBox);
-
 //Display selectbox and advanced search link
 
 //TOOL LINKS
@@ -257,8 +261,12 @@ if( isset($dialogBox) ) $out .= claro_html_message_box($dialogBox);
 
 if ( !empty($isSearchedHTML) )
 {
-    $out .= claro_html_message_box ('<b>' . get_lang('Search on') . '</b> : <small>' . $isSearchedHTML . '</small>') ;
+    $dialogBox->info( ('<b>' . get_lang('Search on') . '</b> : <small>' . $isSearchedHTML . '</small>') );
 }
+
+//Display Forms or dialog box(if needed)
+
+$out .= $dialogBox->render();
 
 $out .= '<table width="100%">' . "\n"
 .    '<tr>' . "\n"

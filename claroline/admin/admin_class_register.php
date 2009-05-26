@@ -50,6 +50,8 @@ if ( ($classinfo = class_get_properties ($class_id)) === false )
     $class_id = 0;
 }
 
+$dialogBox = new DialogBox();
+
 if ( !empty($class_id) )
 {
     switch ( $cmd )
@@ -57,14 +59,14 @@ if ( !empty($class_id) )
         case 'subscribe' :
             if ( user_add_to_class($user_id,$class_id) )
             {
-                $dialogBox = get_lang('User has been sucessfully registered to the class');
+                $dialogBox->success( get_lang('User has been sucessfully registered to the class') );
             }
             break;
 
         case 'unsubscribe' :
             if ( user_remove_to_class($user_id,$class_id) )
             {
-                $dialogBox = get_lang('User has been sucessfully unregistered from the class');
+                $dialogBox->success( get_lang('User has been sucessfully unregistered from the class') );
             }
             break;
     }
@@ -150,7 +152,8 @@ $out = '';
 
 if ( empty($class_id) )
 {
-    $out .= claro_html_message_box(get_lang('Class not found'));
+    $dialogBox->error( get_lang('Class not found') );
+    $out .= $dialogBox->render();
 }
 else
 {
@@ -159,8 +162,7 @@ else
     $out .= claro_html_tool_title($nameTools . ' : ' . $classinfo['name']);
     
     // Display Forms or dialog box(if needed)
-    
-    if (isset($dialogBox)) $out .= claro_html_message_box($dialogBox);
+    $out .= $dialogBox->render();    
     
     // Display tool link
 

@@ -31,6 +31,8 @@ $tbl_module      = $tbl_name['module'];
 $tbl_module_info = $tbl_name['module_info'];
 $tbl_dock        = $tbl_name['dock'];
 
+$dialogBox = new DialogBox();
+
 if ( isset($_REQUEST['dock']) )
 {
     $dockList = get_dock_list('applet');
@@ -41,7 +43,7 @@ if ( isset($_REQUEST['dock']) )
 else
 {
     $dock = null;
-    $dialogBox = get_lang('No dock selected');
+    $dialogBox->error( get_lang('No dock selected') );
     $nameTools = get_lang('Dock');
 }
 
@@ -78,7 +80,7 @@ if ( !empty($dock))
         case 'remove' :
         {
             remove_module_dock($module_id,$dock);
-            $dialogBox = get_lang('The module has been removed from this dock');
+            $dialogBox->success( get_lang('The module has been removed from this dock') );
         }
         break;
     }
@@ -120,7 +122,7 @@ $out .= claro_html_tool_title($nameTools);
 
 //Display Forms or dialog box(if needed)
 
-if ( isset($dialogBox) ) $out .= claro_html_message_box($dialogBox);
+$out .= $dialogBox->render();
 
 if ( !empty($dock) )
 {

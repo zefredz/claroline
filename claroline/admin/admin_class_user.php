@@ -61,6 +61,8 @@ if ( ($classinfo = class_get_properties ($class_id)) === false )
     $class_id = 0;
 }
 
+$dialogBox = new DialogBox();
+
 if ( !empty($class_id) )
 {
 
@@ -70,7 +72,7 @@ if ( !empty($class_id) )
 
             if ( user_remove_to_class($user_id,$class_id) )
             {
-                $dialogBox = get_lang('User has been sucessfully unregistered from the class');
+                $dialogBox->success( get_lang('User has been sucessfully unregistered from the class') );
             }
             break;
 
@@ -78,7 +80,7 @@ if ( !empty($class_id) )
 
             if ( class_remove_all_users($class_id) )
             {
-                $dialogBox = get_lang('All users have been sucessfully unregistered from the class');
+                $dialogBox->success( get_lang('All users have been sucessfully unregistered from the class') );
             }
             break;        
 
@@ -220,8 +222,8 @@ $out = '';
 if ( !empty($class_id) )
 {
     $out .= claro_html_tool_title($nameTools . ' : ' . $classinfo['name']);
-
-    if (isset($dialogBox))  $out .= claro_html_message_box($dialogBox). '<br />';
+    
+    $out .= $dialogBox->render();    
 
     // Display menu
     $out .= '<p>' . claro_html_menu_horizontal($cmdList) . '</p>' ;
@@ -303,7 +305,8 @@ if ( !empty($class_id) )
 }
 else
 {
-    $out .= claro_html_message_box(get_lang('Class not found'));
+    $dialogBox->error( get_lang('Class not found') );
+    $out .= $dialogBox->render();
 }
 
 $claroline->display->body->appendContent($out);
