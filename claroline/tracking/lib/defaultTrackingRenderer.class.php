@@ -76,7 +76,49 @@ class CLTRACK_CourseAccess extends CourseTrackingRenderer
                  WHERE `type` = 'course_access'
                    AND `date` > CURDATE()";
         $count = claro_sql_query_get_single_value($sql);
-        $html .= '<li>' . get_lang('Today').' : '.$count.'</li>'."\n";
+        $html .= '<li>' . get_lang('Today').' : '.$count . '</li>'."\n";
+        //-- students connected today
+        $sql = "SELECT U.`user_id`, U.`nom` AS `lastname`, U.`prenom` AS `firstname`, MAX(CTE.`date`) AS `last_access_date`
+            FROM `".$this->tbl_user."` AS U, `".$this->tbl_rel_course_user."` AS CU
+            LEFT JOIN `".$this->tbl_course_tracking_event."` AS `CTE`
+            ON `CTE`.`user_id` = CU.`user_id`
+            WHERE U.`user_id` = CU.`user_id`
+            AND CU.`code_cours` = '" . claro_sql_escape(claro_get_current_course_id()) . "'
+            GROUP BY U.`user_id`
+            HAVING  `last_access_date` > CURDATE()
+            ";
+        $html .= '<li>' . get_lang('Students connected today:');
+        
+        $results = claro_sql_query_fetch_all($sql);
+        if( !empty($results) && is_array($results) )
+        {
+            $html .= '<ul>'."\n";
+            foreach( $results as $result )
+            {
+                $html .= '<li>'
+                .   '<a href="../user/userInfo.php?uInfo='.$result['user_id'].'">'
+                .   $result['firstname'].' '.$result['lastname']
+                .   '</a> ';
+                
+                if( is_null($result['last_access_date']) )
+                {
+                    $html .= '( <b>'.get_lang('Never connected').'</b> )';
+                }
+                else
+                {
+                    $html .= '( '.get_lang('Last access').' : '.$result['last_access_date'].' )';
+                }
+                
+                $html .= '</li>'."\n";
+            }
+            $html .= '</ul>' . "\n";
+        }
+        else
+        {
+            $html .= ' <small>'.get_lang('No result').'</small><br />'."\n";
+        }
+        
+        $html .= '</li>'."\n";
         
         //-- students not connected for more than 1 month
         $sql = "SELECT  U.`user_id`, U.`nom` AS `lastname`, U.`prenom` AS `firstname`, MAX(CTE.`date`) AS `last_access_date`
