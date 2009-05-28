@@ -122,7 +122,7 @@ if ( ! claro_is_user_authenticated() && $uidRequired )
             }
             else
             {
-                $message .= get_lang('Contact your administrator.');
+                $dialogBox->error( get_lang('Contact your administrator.') );
             }
             
             $dialogBox->warning( '<small>' . get_lang('Warning the system distinguishes uppercase (capital) and lowercase (small) letters') . '</small>' );
