@@ -35,7 +35,7 @@ require_once get_path('incRepositorySys') . '/lib/pager.lib.php';
  * Check incoming data
  */
 $offsetC = isset($_REQUEST['offsetC']) ? $_REQUEST['offsetC'] : '0';
-$validCmdList = array('delete',);
+$validCmdList = array('exDelete', 'rqDelete');
 $cmd = (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$validCmdList)? $_REQUEST['cmd'] : null);
 $delCode = isset($_REQUEST['delCode']) ? $_REQUEST['delCode'] : null;
 $resetFilter = (bool) (isset($_REQUEST['newsearch']) && 'yes' == $_REQUEST['newsearch']);
@@ -98,10 +98,10 @@ $dialogBox = new DialogBox();
 /**
  * PARSE COMMAND
  */
-
-if ('delete' == $cmd)
+$courseToDelete = claro_get_course_data($delCode);
+if ('exDelete' == $cmd)
 {
-    $courseToDelete = claro_get_course_data($delCode);
+    
     if ($courseToDelete) $do = 'delete';
     else
     {
@@ -112,6 +112,20 @@ if ('delete' == $cmd)
                 break;
             default  : $dialogBox->error( get_lang('Course not found') );
         }
+    }
+}
+elseif( 'rqDelete' == $cmd )
+{
+    if( $courseToDelete )
+    {
+        $dialogBox->question( get_lang('Are you sure to delete course %name', array('%name' => $courseToDelete['name'])).'<br/><br/>'."\n"
+        .    '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;delCode='.$delCode.'&amp;offsetC='.$offsetC. $addToURL .'">'.get_lang('Yes').'</a>'
+        .    ' | '
+        .    '<a href="'.$_SERVER['PHP_SELF'].'">'.get_lang('No').'</a>'."\n");
+    }
+    else
+    {
+        $dialogBox->error( get_lang('Course not found') );
     }
 }
 
@@ -337,8 +351,9 @@ foreach($courseList as $numLine => $courseLine)
 
     // Course Action Delete
     $courseDataList[$numLine]['cmdDelete'] = '<a href="' . $_SERVER['PHP_SELF']
-    .                                        '?cmd=delete&amp;delCode=' . $courseLine['sysCode'] . $addToURL . '" '
-    .                                        ' onclick="return confirmation(\'' . clean_str_for_javascript($courseLine['intitule']) . '\');">' . "\n"
+    .                                        '?cmd=rqDelete&amp;delCode=' . $courseLine['sysCode'] . $addToURL . '" '
+    //.                                        ' onclick="return confirmation(\'' . clean_str_for_javascript($courseLine['intitule']) . '\');"'
+    .                                        ' class="delete" id="'.$courseLine['intitule'].'_'.$courseLine['sysCode'].'">' . "\n"
     .                                        '<img src="' . get_icon_url('delete') . '" border="0" alt="" />' . "\n"
     .                                        '</a>' . "\n"
     ;
@@ -414,6 +429,22 @@ $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'])
 .    $courseDataGrid->render()
 .    $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 ;
+
+$out .=
+'<script type="text/javascript">
+    $(document).ready(function(){
+        $(".delete").each(function( i ){
+            var _id = $(this).attr("id");
+            var id = _id.substr(_id.lastIndexOf("_") + 1 );
+            var course = _id.substr(0,_id.indexOf("_"));
+            
+            $(this).click(function(){
+               return confirmation(" " + course ); 
+            });
+            $(this).attr("href","' . $_SERVER['PHP_SELF'] . '?cmd=exDelete&delCode=" + id + "'.$addToURL.'");
+        });
+    });
+</script>';
 
 $claroline->display->body->appendContent($out);
 

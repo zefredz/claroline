@@ -48,6 +48,11 @@ else                                 $userId = $_REQUEST['uidToEdit'];
 
 $user_data = user_get_properties($userId);
 
+if ( empty($user_data) )
+{
+    claro_die(get_lang('Unable to load user information'));
+}
+
 $user_extra_data = user_get_extra_data($userId);
 
 if (count($user_extra_data))
@@ -243,8 +248,9 @@ $cmd_menu[] = '<a class="claroCmd" href="../auth/lostPassword.php'
 
 $cmd_menu[] = '<a class="claroCmd" href="adminuserdeleted.php'
 .             '?uidToEdit=' . $userId
-.             '&amp;cmd=delete" '
-.             'onclick="return confirmation(\'' . $user_data['username'] . '\');" >'
+.             '&amp;cmd=rqDelete" '
+//.             'onclick="return confirmation(\'' . $user_data['username'] . '\');"
+.             ' id="delete" >'
 .             '<img src="' . get_icon_url('deluser') . '" /> '
 .             get_lang('Delete user')
 .             '</a>'
@@ -278,6 +284,15 @@ $out .= claro_html_tool_title($nameTools)
 .    user_html_form_admin_user_profile($user_data)
 ;
 if (!is_null($dgExtra)) $out .= $dgExtra->render();
+
+$out .=
+'<script type="text/javascript">
+    $(document).ready(function(){
+        $("#delete").click(function(){
+            return confirmation("' . $user_data['firstname'] . " " . $user_data['lastname'] .'");
+        }).attr("href","adminuserdeleted.php?uidToEdit=' . $userId . '&cmd=exDelete");
+    });
+</script>';
 
 $claroline->display->body->appendContent($out);
 

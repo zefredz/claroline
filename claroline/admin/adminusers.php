@@ -28,7 +28,7 @@ require_once get_path('incRepositorySys') . '/lib/user.lib.php';
 // CHECK INCOMING DATAS
 if ((isset($_REQUEST['cidToEdit'])) && ($_REQUEST['cidToEdit']=='')) {unset($_REQUEST['cidToEdit']);}
 
-$validCmdList = array('delete');
+$validCmdList = array('rqDelete', 'exDelete');
 $cmd = (isset($_REQUEST['cmd']) && in_array($_REQUEST['cmd'],$validCmdList)? $_REQUEST['cmd'] : null);
 $userIdReq = (int) (isset($_REQUEST['user_id']) ? $_REQUEST['user_id']: null);
 // USED SESSION VARIABLES
@@ -72,6 +72,8 @@ $dialogBox = new DialogBox();
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
 $nameTools = get_lang('User list');
 
+
+$offset       = isset($_REQUEST['offset']) ? $_REQUEST['offset'] : 0 ;
 //TABLES
 
 //------------------------------------
@@ -79,7 +81,7 @@ $nameTools = get_lang('User list');
 //------------------------------------
 switch ( $cmd )
 {
-    case 'delete' :
+    case 'exDelete' :
     {
         if( user_delete($userIdReq) )
         {
@@ -89,7 +91,27 @@ switch ( $cmd )
         {
             $dialogBox->error( get_lang('You can not change your own settings!') );   
         }
-    }   break;
+    }
+    break;
+    case 'rqDelete' :
+    {
+        if( empty( $userIdReq ) )
+        {
+            $dialogBox->error( get_lang('User id missing') );   
+        }
+        else
+        {
+            $user_properties = user_get_properties( $userIdReq );
+            if( is_array( $user_properties) )
+            {
+                $dialogBox->question( get_lang('Are you sure to delete user %firstname %lastname', array('%firstname' => $user_properties['firstname'], '%lastname' => $user_properties['lastname'])).'<br/><br/>'."\n"
+                .    '<a href="'.$_SERVER['PHP_SELF'].'?cmd=exDelete&amp;user_id='.$userIdReq.'&amp;offset='.$offset. $addToURL .'">'.get_lang('Yes').'</a>'
+                .    ' | '
+                .    '<a href="'.$_SERVER['PHP_SELF'].'">'.get_lang('No').'</a>'."\n");
+            }
+            
+        }        
+    }
 }
 $searchInfo = prepare_search();
 
@@ -111,7 +133,6 @@ $search  = (isset($_REQUEST['search']) ? $_REQUEST['search'] : '');
 
 $sql = get_sql_filtered_user_list();
 
-$offset       = isset($_REQUEST['offset']) ? $_REQUEST['offset'] : 0 ;
 $myPager      = new claro_sql_pager($sql, $offset, $userPerPage);
 
 if ( array_key_exists( 'sort', $_GET ) )
@@ -191,9 +212,10 @@ foreach ($userList as $userKey => $user)
     ;
 
     $userGrid[$userKey]['delete'] = '<a href="' . $_SERVER['PHP_SELF']
-    .                               '?cmd=delete&amp;user_id=' . $user['user_id']
+    .                               '?cmd=rqDelete&amp;user_id=' . $user['user_id']
     .                               '&amp;offset=' . $offset . $addToURL . '" '
-    .                               ' onclick="return confirmation(\'' . clean_str_for_javascript(' ' . $user['firstname'] . ' ' . $user['name']).'\');">' . "\n"
+    //.                               ' onclick="return confirmation(\'' . clean_str_for_javascript(' ' . $user['firstname'] . ' ' . $user['name']).'\');" '
+    .                               ' class="delete" id="'.$user['firstname'].'_' . $user['name'] .'_' . $user['user_id'] .'">' . "\n"
     .                               '<img src="' . get_icon_url('deluser') . '" alt="' . get_lang('Delete') . '" />' . "\n"
     .                               '</a> '."\n"
     ;
@@ -294,6 +316,26 @@ if ( count($userGrid) > 0 ) $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_
 $out .= $userDataGrid->render();
 
 if ( count($userGrid) > 0 ) $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+
+$out .=
+'<script type="text/javascript">
+    $(document).ready(function(){
+    $(".delete").each(function( i )
+        {
+            var _id = $(this).attr("id");
+            var id = _id.substr(_id.lastIndexOf("_") + 1 );
+            var firstname = _id.substr(0,_id.indexOf("_"));
+            var lastname = _id.substr(_id.indexOf("_") + 1 );
+            lastname = lastname.substr(0, lastname.lastIndexOf("_"));
+            
+            $(this).click(function()
+            {
+                return confirmation(" " + firstname + " " + lastname);
+            });
+            $(this).attr("href","'. $_SERVER['PHP_SELF'] .'?cmd=exDelete&user_id=" + id + "&offset=' . $offset . $addToURL . '");
+        });
+    });
+</script>';
 
 $claroline->display->body->appendContent($out);
 

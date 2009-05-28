@@ -50,7 +50,7 @@ $cmdList[] = '<a class="claroCmd" href="adminusers.php" >' . get_lang('Back to u
 
 $dialogBox = new DialogBox();
 
-if ( $cmd == 'delete' && $req['uidToEdit'] )
+if ( $cmd == 'exDelete' && $req['uidToEdit'] )
 {
     $claroline->log( 'DELETE_USER' , array ('USER' => $req['uidToEdit']) );
     if(false !== $deletionResult = user_delete($req['uidToEdit']))
@@ -65,6 +65,17 @@ if ( $cmd == 'delete' && $req['uidToEdit'] )
             } break;
             default :  $dialogBox->error( get_lang('Unable to delete') );
         }
+    }
+}
+elseif( $cmd == 'rqDelete' && $req['uidToEdit'] )
+{
+    $user_properties = user_get_properties( $req['uidToEdit'] );
+    if( is_array( $user_properties) )
+    {
+        $dialogBox->question( get_lang('Are you sure to delete user %firstname %lastname', array('%firstname' => $user_properties['firstname'], '%lastname' => $user_properties['lastname'])).'<br/><br/>'."\n"
+        .    '<a href="adminuserdeleted.php?cmd=exDelete&amp;uidToEdit='.$req['uidToEdit'].'">'.get_lang('Yes').'</a>'
+        .    ' | '
+        .    '<a href="adminprofile.php?uidToEdit='.$req['uidToEdit'].'">'.get_lang('No').'</a>'."\n");
     }
 }
 else $dialogBox->error( get_lang('Unable to delete') );
