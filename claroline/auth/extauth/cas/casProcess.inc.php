@@ -32,48 +32,64 @@ previously in the Claroline 'user' table.
 
  */
 
-
 if ((bool) stristr($_SERVER['PHP_SELF'], basename(__FILE__))) die();
+
+// include path library    
+include_once get_path('incRepositorySys')  . '/lib/thirdparty/cas/CAS.php';
 
 if (   ! isset($_SESSION['init_CasCheckinDone'] )
     || $logout
     || ( basename($_SERVER['SCRIPT_NAME']) == 'login.php' && isset($_REQUEST['authModeReq']) && $_REQUEST['authModeReq'] == 'CAS' )
     || isset($_REQUEST['fromCasServer']) )
 {
-    include_once dirname(__FILE__) . '/../../inc/lib/cas/CAS.php';
     phpCAS::client(CAS_VERSION_2_0, get_conf('claro_CasServerHostUrl'), get_conf('claro_CasServerHostPort',443) , get_conf('claro_CasServerRoot','') );
 
-    if ($logout)
+    if ( $logout )
     {
         $userLoggedOnCas = false;
+
+        $logout_url = (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS']=='on'||$_SERVER['HTTPS']==1) ? 'https://' : 'http://')
+                            . $_SERVER['HTTP_HOST'].get_conf('urlAppend').'/index.php';
+
+        if ( get_conf('claro_CasGlobalLogout') )
+        {
+            if ( phpCAS::checkAuthentication() )
+            {
+            	phpCAS::logout($logout_url);
+            }
+        }
+        else
+        {
+            claro_redirect($logout_url);
+            die();
+        }
     }
     elseif( basename($_SERVER['SCRIPT_NAME']) == 'login.php' )
     {
         // set the call back url
-        if     (   isset($_REQUEST['sourceUrl'])     ) $casCallBackUrl = base64_decode($_REQUEST['sourceUrl']);
-        elseif ( ! is_null($_SERVER['HTTP_REFERER']) ) $casCallBackUrl = $_SERVER['HTTP_REFERER'];
+        if ( isset($_REQUEST['sourceUrl']) )
+        {
+            $casCallBackUrl = base64_decode($_REQUEST['sourceUrl']);
+        }
         else
         {
             $casCallBackUrl = (isset( $_SERVER['HTTPS']) && ($_SERVER['HTTPS']=='on'||$_SERVER['HTTPS']==1) ? 'https://' : 'http://')
                     . $_SERVER['HTTP_HOST'] . get_conf('urlAppend').'/';
         } 
-        
-        $casCallBackUrl .= ( strstr( $casCallBackUrl, '?' ) ? '&' : '?')
-                        .  'fromCasServer=true';
+
+        $casCallBackUrl .= ( strstr( $casCallBackUrl, '?' ) ? '&' : '?') . 'fromCasServer=true';
 
         if ( $_SESSION['_cid'] )
         {
-            $casCallBackUrl .= ( strstr( $casCallBackUrl, '?' ) ? '&' : '?')
-                            .  'cidReq='.urlencode($_SESSION['_cid']);
+            $casCallBackUrl .= ( strstr( $casCallBackUrl, '?' ) ? '&' : '?') . 'cidReq=' . urlencode($_SESSION['_cid']);
         }
 
         if ( $_SESSION['_gid'] )
         {
-            $casCallBackUrl .= ( strstr( $casCallBackUrl, '?' ) ? '&' : '?')
-                         .  'gidReq='.urlencode($_SESSION['_gid']);
+            $casCallBackUrl .= ( strstr( $casCallBackUrl, '?' ) ? '&' : '?') .  'gidReq='.urlencode($_SESSION['_gid']);
         }
 
-        $_SESSION['casCallBackUrl'] = base64_encode($casCallBackUrl); // we record callback url in session
+        $_SESSION['casCallBackUrl'] = $casCallBackUrl; // we record callback url in session
         phpCAS::forceAuthentication();
 
         $userLoggedOnCas                  = true;
@@ -92,7 +108,7 @@ if (   ! isset($_SESSION['init_CasCheckinDone'] )
     {
             $sql = "SELECT user_id  AS userId
                 FROM `" . $tbl_user . "`
-                WHERE username = '" . claro_sql_escape(phpCAS::getUser()) . "'
+                WHERE username = '" . addslashes(phpCAS::getUser()) . "'
                 AND   authSource = 'CAS'";
 
         $uData = claro_sql_query_fetch_all($sql);
@@ -114,7 +130,4 @@ if (   ! isset($_SESSION['init_CasCheckinDone'] )
         }
     } // end if userLoggedOnCas
 
-
 } // end if init_CasCheckinDone' || logout _SERVER['SCRIPT_NAME']) == 'login.php'
-
-?>
