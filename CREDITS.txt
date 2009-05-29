@@ -9,19 +9,38 @@ financially supported by the Louvain Foundation.
 Since 2004, the main code of Claroline is co-developed with CERDECAM, research
 center of ECAM (Engineering higher school - Belgium).
 
-Claroline Core Team :           Hugues Peeters     (peeters@ipm.ucl.ac.be)
-                                Christophe Gesché  (gesche@ipm.ucl.ac.be) aka Moosh
-                                Frédéric Minne     (minne@ipm.ucl.ac.be) aka ZeFredz
+Claroline Core Team :
 
-Team from Cerdecam :            Philippe Dekimpe (dkp@ecam.be)
-http://www.cerdecam.be          Mathieu Laurent (laurent@cerdecam.be)
-                                Nicolas Leblanc (leblanc@cerdecam.be)
-                                Guillaume Lederer (lederer@cerdecam.be)
-                                Sebastien Piraux (piraux@cerdecam.be)
-                                Aurelien Van Hamme (vanhamme@cerdecam.be)
+    Frédéric Minne      (zefredz@claroline.net) aka ZeFredz
+    Dimitri Rambout     (dim@claroline.net) aka Dim
+    Frédéric Fervaille  (ffervaille@claroline.net)
 
+Team from Cerdecam :
 
+    Philippe Dekimpe    (dkp@ecam.be)
 
+Active contributors :
+
+    Laurence Dumortier  (laurence.dumortier@fundp.ac.be)
+    Jean-Roch Meurisse  (jean-roch.meurisse@fundp.ac.be)
+
+Former members of the Claroline Team :
+
+    Sebastien Piraux    (seb@claroline.net) aka Fragile
+    Christophe Gesché   (moosh@claroline.net) aka Moosh
+    Anais Hulet         (Communication - CERDECAM)
+    Florence Hortmans   (Communication - CERDECAM)
+    Grégory Koch        (Developer - UCL)
+    Mathieu Laurent     (Developer - CERDECAM)
+    Guillaume Lederer   (Developer - CERDECAM)
+    Nicolas Leblanc     (Developer - CERDECAM)
+    Hugues Peeters      (Developer and Project Manager - UCL)
+    Aurelien Van Hamme  (Developer - CERDECAM)
+
+Former contributors :
+
+    Marina Zelwer       (marina.zelwer@univ-st-etienne.fr)
+    
 ------------------------------------------------------------------------------
                           SPECIFIC CODE CONTRIBUTIONS
 ------------------------------------------------------------------------------
@@ -68,8 +87,6 @@ Zip / unzipping option  :       PclZip library - Vincent Blavet
 
 CAS system :                    based on phpCas library from ESUP-Portail project
                                 (http://esup-phpcas.sourceforge.net/)
-
-
 
 
 ------------------------------------------------------------------------------
@@ -187,6 +204,12 @@ Zone-H Team :                   Deepfear
                                 Netcraft
                                 Siegfried
 
+The Digital Security Research Group [DSecRG] <http://www.dsec.ru>
+
+Fernando Munoz on the Claroline.net forum
+
+Gerendi Sandor Attila <http://gsasec.blogspot.com/>
+
 =========================================================================
-                Europe, Belgium, Louvain-la-Neuve - August 28 2006
+                Europe, Belgium, Louvain-la-Neuve - May 05 2009
 ================================== END ===================================

@@ -84,16 +84,16 @@ INSTALLATION PROCEDURE
 NEW CLAROLINE INSTALLATION
 --------------------------
 
-1. Download 'claroline1811.tar.gz'
+1. Download 'claroline1812.tar.gz'
 
-   Windows : download 'claroline1811.zip
+   Windows : download 'claroline1812.zip
 
 
 2. Open a shell, go to download directory and type
 
-    tar -zxvf claroline1811.tar.gz
+    tar -zxvf claroline1812.tar.gz
 
-   Windows : unzip 'claroline1811.zip'.
+   Windows : unzip 'claroline1812.zip'.
 
 3. FTP or move by any means 'index.php' file and 'claroline' directory
    to your website on web server (whether web root or subdirectory).
@@ -106,7 +106,7 @@ NEW CLAROLINE INSTALLATION
 4. The following directory need to be readable, writeable and executable
    for everyone: 
 
-    chmod ugo+w claroline1811/
+    chmod ugo+w claroline1812/
 
 4. Open Web Browser and go to
 
@@ -131,16 +131,16 @@ Before upgrading we heavily recommend you do a full backup of the previous
 Claroline directories and databases. If you are unsure how to achieve this
 please ask your hosting provider for advice.
 
-1. Download 'claroline1811.tar.gz'
+1. Download 'claroline1812.tar.gz'
 
-   Windows : download 'claroline1811.zip'
+   Windows : download 'claroline1812.zip'
 
 
 2. Open a shell, go to download directory and type
 
-    tar -zxvf claroline1811.tar.gz
+    tar -zxvf claroline1812.tar.gz
 
-   Windows : unzip 'claroline1811.zip'
+   Windows : unzip 'claroline1812.zip'
 
 
 3. Replace your previous Claroline directory and index.php by the new one.
@@ -179,5 +179,5 @@ To access the Claroline administration section, open browser
 and go to http://www.mydomain.org/mysite/claroline/admin/
 
 ==========================================================================
-            Europe, Belgium, Brussels - July 23 2008
+            Europe, Belgium, Brussels - May 29 2009
 ================================== END ===================================
