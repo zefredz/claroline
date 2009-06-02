@@ -72,7 +72,7 @@ if ($is_allowedToAdmin)
     <li>
         <a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=secinfo" <?php echo ($cmd == 'secinfo')? 'class="current"': ''; ?>>
         <?php echo get_lang('PHP security information'); ?>
-        </a>`
+        </a>
     </li>
     <li>
         <a href="<?php echo $_SERVER['PHP_SELF'] ?>?cmd=extensions" <?php echo ($cmd == 'extensions')? 'class="current"': ''; ?>>
