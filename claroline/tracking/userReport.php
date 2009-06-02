@@ -132,7 +132,7 @@ $output .= '<div id="rightSidebar">' . $userProfileBox->render() . '</div>';
  * Output of : course list if required
  */
 $output .= '<div id="leftContent">' . "\n";
-if( $canSwitchCourses )
+if( $canSwitchCourses && count($userCourseList) )
 {
     $displayedCourseList = array();
     if( is_null($courseId) )
