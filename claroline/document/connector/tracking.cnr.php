@@ -126,11 +126,14 @@ class CLDOC_UserTrackingRenderer extends UserTrackingRenderer
         $html = '';
         
         $html .= '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center" style="width: 99%;">' . "\n"
+        .    '<thead>' . "\n"
         .    '<tr class="headerX">' . "\n"
         .    '<th>' . get_lang('Document').'</th>' . "\n"
         .    '<th>' . get_lang('Last download').'</th>' . "\n"
         .    '<th>' . get_lang('Downloads').'</th>' . "\n"
-        .    '</tr>';
+        .    '</tr>' . "\n"
+        .    '</thead>' . "\n"
+        ;
     
         if( !empty($documentDownloads) && is_array($documentDownloads) )
         {
@@ -153,11 +156,11 @@ class CLDOC_UserTrackingRenderer extends UserTrackingRenderer
         }
         else
         {
-            $html .= '<tfoot>' . "\n"
+            $html .= '<tbody>' . "\n"
             .    '<tr>' . "\n"
             .    '<td colspan="3" align="center">' . get_lang('No result').'</td>' . "\n"
             .    '</tr>' . "\n"
-            .    '</tfoot>' . "\n";
+            .    '</tbody>' . "\n";
         }
         $html .= '</table>' . "\n\n";
         

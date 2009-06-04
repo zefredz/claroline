@@ -107,15 +107,15 @@ $cssLoader = CssLoader::getInstance();
 $cssLoader->load( 'tracking', 'screen');
 
 $nameTools = get_lang('Statistics');
-ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, Url::Contextualize($_SERVER['PHP_SELF'] . '?userId=' . $userId ) );
+ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, htmlspecialchars( Url::Contextualize($_SERVER['PHP_SELF'] . '?userId=' . $userId ) ) );
 
 if( $canSwitchCourses )
 {
-    ClaroBreadCrumbs::getInstance()->prepend( get_lang('My user account'), Url::Contextualize('../auth/profile.php') );
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('My user account'), htmlspecialchars( Url::Contextualize('../auth/profile.php') ) );
 }
 else
 {
-    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users'), Url::Contextualize('../user/user.php') );
+    ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users'), htmlspecialchars( Url::Contextualize('../user/user.php') ) );
 }
 
 $output = '';
@@ -147,6 +147,7 @@ if( $canSwitchCourses && count($userCourseList) )
     }
     
     $attr['onchange'] = 'filterForm.submit()';
+    $attr['id'] = 'cidReq';
     
     $output .= "\n"
     .     '<form method="get" name="filterForm" action="'.htmlspecialchars(Url::Contextualize( 'userReport.php')).'">' . "\n"
@@ -155,11 +156,10 @@ if( $canSwitchCourses && count($userCourseList) )
     .     '<a class="claroCmd" href="userReport.php?cidReset=true&amp;userId='.(int) $userId.'">'.get_lang('View platform statistics').'</a> &nbsp;|&nbsp; ' . "\n"
     .     '<label for="cidReq">'.get_lang('Choose a course').'&nbsp;:&nbsp;</label>' . "\n"
     .     claro_html_form_select('cidReq', $displayedCourseList, $courseId, $attr) . "\n"
-    .     '<noscript>' . "\n"
-    .     '<input type="submit" value="'.get_lang('Ok').'" />' . "\n"
-    .     '</noscript>' . "\n"
-    .     '</p>' . "\n"
-    .     '</form>' . "\n\n";
+    .     '<input type="submit" id="buttonOK" value="'.get_lang('Ok').'" />' . "\n"
+    .     '</p>' . "\n"    
+    .     '</form>' . "\n"
+    ;
 
 }
 else
@@ -199,6 +199,12 @@ foreach( $userTrackingRendererList as $ctr )
 }
 
 $output .= "\n" . '</div>' . "\n";
+
+$output .= "\n"
+.   '<script type="text/javascript">
+$("#buttonOK").hide();
+</script>' . "\n"
+;
 /*
  * Output rendering
  */

@@ -291,20 +291,22 @@ class CLTRACK_userCourseAccess extends UserTrackingRenderer
         $html = '';
         
         $html = '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center" style="width: 99%;">' . "\n"
+        .    '<thead>' . "\n"
         .    '<tr class="headerX">' . "\n"
         .    '<th>' . get_lang('Month') . '</th>' . "\n"
         .    '<th>' . get_lang('Number of access') . '</th>' . "\n"
         .    '</tr>' . "\n"
-        .    '<tbody>' . "\n"
+        .    '</thead>' . "\n"
         ;
     
         $total = 0;
         if( !empty($courseAccess) && is_array($courseAccess) )
         {
             $langLongMonthNames = get_lang_month_name_list('long');
+            $_html = "";
             foreach( $courseAccess as $access )
             {
-                $html .= '<tr>' . "\n"
+                $_html .= '<tr>' . "\n"
                 .    '<td>' . "\n"
                 .    '<a href="'
                 .    htmlspecialchars(Url::Contextualize('user_course_access.php?userId='.$this->userId . '&amp;reqdate='.$access['unix_date'] ))
@@ -317,8 +319,8 @@ class CLTRACK_userCourseAccess extends UserTrackingRenderer
     
                 $total += (int) $access['nbr_access'];
             }
-            $html .= '</tbody>' . "\n"
-            .    '<tfoot>' . "\n"
+            
+            $html .= '<tfoot>' . "\n"
             .    '<tr>' . "\n"
             .    '<td>'
             .    get_lang('Total')
@@ -327,11 +329,15 @@ class CLTRACK_userCourseAccess extends UserTrackingRenderer
             .    $total
             .    '</td>' . "\n"
             .    '</tr>' . "\n"
-            .    '</tfoot>' . "\n";
+            .    '</tfoot>' . "\n"
+            .    '<tbody>' . "\n"
+            .    $_html
+            .    '</tbody>' . "\n"
+            ;
         }
         else
         {
-            $html .= '<tfoot>' . "\n"
+            $html .= '<tbody>' . "\n"
             .    '<tr>' . "\n"
             .    '<td colspan="2">' . "\n"
             .    '<center>'
@@ -339,7 +345,7 @@ class CLTRACK_userCourseAccess extends UserTrackingRenderer
             .    '</center>' . "\n"
             .    '</td>' . "\n"
             .    '</tr>' . "\n"
-            .    '</tfoot>' . "\n";
+            .    '</tbody>' . "\n";
         }
         $html .= '</table>' . "\n";
         
@@ -398,20 +404,22 @@ class CLTRACK_userPlatformAccess extends UserTrackingRenderer
         $html = '';
         
         $html = '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center" style="width: 99%;">' . "\n"
+        .    '<thead>' . "\n"
         .    '<tr class="headerX">' . "\n"
         .    '<th>' . get_lang('Month') . '</th>' . "\n"
         .    '<th>' . get_lang('Number of access') . '</th>' . "\n"
         .    '</tr>' . "\n"
-        .    '<tbody>' . "\n"
+        .    '</thead>' . "\n"
         ;
     
         $total = 0;
         if( !empty($courseAccess) && is_array($courseAccess) )
         {
             $langLongMonthNames = get_lang_month_name_list('long');
+            $_html = "";
             foreach( $courseAccess as $access )
             {
-                $html .= '<tr>' . "\n"
+                $_html .= '<tr>' . "\n"
                 .    '<td>' . "\n"
                 .    $langLongMonthNames[date('n', $access['unix_date'])-1].' '.date('Y', $access['unix_date']) . "\n"
                 .    '</td>' . "\n"
@@ -422,8 +430,8 @@ class CLTRACK_userPlatformAccess extends UserTrackingRenderer
     
                 $total += (int) $access['nbr_access'];
             }
-            $html .= '</tbody>' . "\n"
-            .    '<tfoot>' . "\n"
+            
+            $html .= '<tfoot>' . "\n"
             .    '<tr>' . "\n"
             .    '<td>'
             .    get_lang('Total')
@@ -432,7 +440,11 @@ class CLTRACK_userPlatformAccess extends UserTrackingRenderer
             .    $total
             .    '</td>' . "\n"
             .    '</tr>' . "\n"
-            .    '</tfoot>' . "\n";
+            .    '</tfoot>' . "\n"
+            .    '<tbody>' . "\n"
+            .    $_html
+            .    '</tbody>' . "\n"
+            ;
         }
         else
         {

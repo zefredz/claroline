@@ -210,10 +210,13 @@ class CLFRM_UserTrackingRenderer extends UserTrackingRenderer
         $html = '';
         
         $html = '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center" style="width: 99%;">' . "\n"
+        .    '<thead>' . "\n"
         .    '<tr class="headerX">' . "\n"
         .    '<th>' . get_lang('Topic').'</th>' . "\n"
         .    '<th>' . get_lang('Last message').'</th>' . "\n"
-        .    '</tr>' . "\n";
+        .    '</tr>' . "\n"
+        .    '</thead>' . "\n"
+        ;
     
         if( !empty($lastUserPosts) && is_array($lastUserPosts) )
         {
@@ -230,11 +233,11 @@ class CLFRM_UserTrackingRenderer extends UserTrackingRenderer
         }
         else
         {
-            $html .= '<tfoot>' . "\n"
+            $html .= '<tbody>' . "\n"
             .    '<tr>' . "\n"
             .    '<td align="center" colspan="2">' . get_lang('No result').'</td>' . "\n"
             .    '</tr>' . "\n"
-            .    '</tfoot>' . "\n";
+            .    '</tbody>' . "\n";
         }
         $html .= '</table>' . "\n";
 
@@ -246,7 +249,7 @@ class CLFRM_UserTrackingRenderer extends UserTrackingRenderer
     {
         return get_lang('Messages posted') . ' : ' . $this->getUserTotalForumPost() . '<br />' . "\n"
         .    get_lang('Topics started') . ' : ' . $this->getUserTotalForumTopics() . '<br />' . "\n"
-        .    '<a href="' . get_module_url('CLFRM') . '/viewsearch.php?searchUser='.$this->userId . claro_url_relay_context('&amp;') . '" >'
+        .    '<a href="' . htmlspecialchars( Url::Contextualize( get_module_url('CLFRM') . '/viewsearch.php?searchUser='.$this->userId ) ) . '">'
         .    get_lang('View all user\'s posts')
         .     '</a>' . "\n"
         ;

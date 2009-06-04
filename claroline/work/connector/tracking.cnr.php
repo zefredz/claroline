@@ -47,13 +47,16 @@ class CLWRK_UserTrackingRenderer extends UserTrackingRenderer
         $html = '';
         
         $html .= '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center" style="width: 99%;">' . "\n"
+        .    '<thead>' . "\n"
         .    '<tr class="headerX">' . "\n"
         .    '<th>' . get_lang('Assignment').'</th>' . "\n"
         .    '<th>' . get_lang('Work title').'</th>' . "\n"
         .    '<th>' . get_lang('Author(s)').'</th>' . "\n"
         .    '<th>' . get_lang('Score').'</th>' . "\n"
         .    '<th>' . get_lang('Date').'</th>' . "\n"
-        .    '</tr>' . "\n";
+        .    '</tr>' . "\n"
+        .    '</thead>' . "\n"
+        ;
     
         if( !empty($submittedWorks) && is_array($submittedWorks) )
         {
@@ -107,9 +110,9 @@ class CLWRK_UserTrackingRenderer extends UserTrackingRenderer
         }
         else
         {
-            $html .= '<tfoot><tr>' . "\n"
+            $html .= '<tbody><tr>' . "\n"
             .    '<td colspan="5" align="center">' . get_lang('No result').'</td>' . "\n"
-            .    '</tr></tfoot>' . "\n";
+            .    '</tr></tbody>' . "\n";
         }
         $html .= '</table>' . "\n";
         

@@ -159,7 +159,7 @@ $claroline->setDisplayType( CL_PAGE );
 // FIXME (link + parameters)
 $nameTools = get_lang('User access to course');
 ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, $_SERVER['PHP_SELF'].'?userId=' . $userId );
-ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users statistics'), Url::Contextualize('userReport.php?userId=' . $userId) );
+ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users statistics'), htmlspecialchars( Url::Contextualize('userReport.php?userId=' . $userId) ) );
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Users'), get_module_url('CLUSR').'/user.php' );
 
 
@@ -200,8 +200,11 @@ else // month
 
 $output .= '</small>' . "\n\n";
 
-$output .= '<table class="claroTable" width="100%" cellpadding="4" cellspacing="1">'
-.   '<tr class="headerX"><th>'.$displayedDate.'</th></tr><tbody>';
+$output .= '<table class="claroTable" width="100%" cellpadding="4" cellspacing="1">' ."\n"
+.   '<thead>'
+.   '<tr class="headerX"><th>'.$displayedDate.'</th></tr>' . "\n"
+.   '</thead>' . "\n"
+.   '<tbody>';
 
 if( !empty($accessList) && is_array($accessList) )
 {

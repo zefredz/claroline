@@ -141,6 +141,7 @@ class CLQWZ_UserTrackingRenderer extends UserTrackingRenderer
         .    '</script>'."\n\n";
         
         $html .= '<table class="claroTable emphaseLine" cellpadding="2" cellspacing="1" border="0" align="center" style="width: 99%;">' . "\n"
+        .    '<thead>' . "\n"
         .    '<tr class="headerX">' . "\n"
         .    '<th>' . get_lang('Exercises').'</th>' . "\n"
         .    '<th>' . get_lang('Worst score').'</th>' . "\n"
@@ -149,7 +150,8 @@ class CLQWZ_UserTrackingRenderer extends UserTrackingRenderer
         .    '<th>' . get_lang('Average Time').'</th>' . "\n"
         .    '<th>' . get_lang('Attempts').'</th>' . "\n"
         .    '<th>' . get_lang('Last attempt').'</th>' . "\n"
-        .    '</tr>'
+        .    '</tr>' . "\n"
+        .    '</thead>' . "\n"
         ;
     
         if( !empty($exerciseResults) && is_array($exerciseResults) )
@@ -176,11 +178,13 @@ class CLQWZ_UserTrackingRenderer extends UserTrackingRenderer
                     .    '<td>&nbsp;</td>' . "\n"
                     .    '<td colspan="6" class="noHover">' . "\n"
                     .    '<table class="claroTable emphaseLine" cellspacing="1" cellpadding="2" border="0" width="100%" style="width: 99%;">' . "\n"
+                    .    '<thead>' . "\n"
                     .    '<tr class="headerX">' . "\n"
                     .    '<th><small>' . get_lang('Date').'</small></th>' . "\n"
                     .    '<th><small>' . get_lang('Score').'</small></th>' . "\n"
                     .    '<th><small>' . get_lang('Time').'</small></th>' . "\n"
                     .    '</tr>' . "\n"
+                    .    '</thead>' . "\n"
                     .    '<tbody>' . "\n";
     
                     foreach ( $exerciseDetails as $details )
@@ -202,11 +206,12 @@ class CLQWZ_UserTrackingRenderer extends UserTrackingRenderer
         }
         else
         {
-            $html .= '<tfoot>' . "\n"
+            $html .= '<tbody>' . "\n"
             .    '<tr>' . "\n"
             .    '<td colspan="7" align="center">' . get_lang('No result').'</td>' . "\n"
             .    '</tr>' . "\n"
-            .    '</tfoot>' . "\n";
+            .    '</tbody>' . "\n"
+            ;
         }
         $html .= '</table>' . "\n\n";
         
