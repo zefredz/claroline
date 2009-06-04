@@ -44,7 +44,7 @@ tinyMCE.init({
             var content = ed.dom.getRoot();
             var texFormula = $(content).find('img.latexFormula');
             $.each(texFormula, function() {
-                var src = $(texFormula).attr('src');
+                var src = $(this).attr('src');
                 var src = src.replace(/(.+?)\?(.+?)/gi, '$2');
                 var latexTag = '[tex]' + unescape(src) + '[/tex]';
                 $(this).replaceWith(latexTag);
