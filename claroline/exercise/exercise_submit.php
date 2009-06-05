@@ -677,7 +677,7 @@ if( $showResult )
             $out .= '<input type="submit" value="'.get_lang('Finish').'" />';
         }
     }
-    else
+    elseif( !( $exercise->getQuizEndMessage() ) )
     {
         $out .= get_lang('Exercise done, choose a module in the list to continue.');
     }

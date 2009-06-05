@@ -43,8 +43,15 @@ else                                                                            
 	<div>
 		<fieldset>
 			<legend><?php echo get_lang('Resources'); ?></legend>
-      <?php echo Documents_ResourceLinker::renderLinkerBlock(get_path( 'rootWeb' ).'/claroline/editor/tiny_mce/tiny_mce/plugins/documents/backends/linker.php'); ?>
+      <?php echo Documents_ResourceLinker::renderLinkerBlock(get_path( 'rootWeb' ).'/claroline/backends/linker.php'); ?>
       </fieldset>
+		<fieldset>
+			<legend><?php echo get_lang('Target'); ?></legend>
+			<select name="target" id="target">
+				<option value="_self">Open in the same window</option>
+				<option value="_blank">Open in a new window</option>
+			</select>
+		</fieldset>
 	</div>
 	<div class="mceActionPanel">		
 		<div style="float: right">

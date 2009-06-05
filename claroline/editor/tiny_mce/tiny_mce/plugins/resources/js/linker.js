@@ -341,7 +341,8 @@ var linkerFrontend = {
             {
                 text = name;
             }
-            tinyMCEPopup.editor.execCommand('mceReplaceContent', false, '<span class="resource"><a href="' + data.url + '">'+ text +'</a></span>');
+            target = $("#target").val();
+            tinyMCEPopup.editor.execCommand('mceReplaceContent', false, '<span class="resource"><a href="' + data.url + '" target="' + target +'">'+ text +'</a></span>');
             tinyMCEPopup.close();
             
         });

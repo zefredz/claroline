@@ -313,7 +313,7 @@ if( $displayForm )
         .   '</div><div>'
         .   '<input type="checkbox" name="useSameShuffle" value="1" class="checkbox" '
         .   ($form['useSameShuffle'] ? ' checked="checked"' : ' ') . '/>&nbsp;'
-        .   get_lang('Reuse the same shuffle ')        
+        .   get_lang('Reuse the same shuffle')        
         .   '</div>'
         .   '</dd>' . "\n";        
         
