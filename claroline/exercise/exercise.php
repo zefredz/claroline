@@ -42,6 +42,9 @@ $tbl_cdb_names = claro_sql_get_course_tbl();
 $tbl_lp_module = $tbl_cdb_names['lp_module'];
 $tbl_lp_asset = $tbl_cdb_names['lp_asset'];
 
+// learning path 
+// new module CLLP
+$inLP = (claro_called_from() == 'CLLP')? true : false;
 
 $_SESSION['inPathMode'] = false;
 
@@ -307,161 +310,163 @@ $out .= claro_html_tool_title($nameTools, $is_allowedToEdit ? 'help_exercise.php
 //-- dialogBox
 $out .= $dialogBox->render();
 
-//-- claroCmd
-$cmd_menu = array();
-if(get_conf('is_trackingEnabled') && claro_is_user_authenticated())
+if( !$inLP )
 {
-    $cmd_menu[] = '<a class="claroCmd" href="../tracking/userReport.php?userId='.claro_get_current_user_id().'"><img src="' . get_icon_url('statistics') . '" alt="" />'.get_lang('My results').'</a>';
-}
-
-if($is_allowedToEdit)
-{
-    $cmd_menu[] = '<a class="claroCmd" href="admin/edit_exercise.php?cmd=rqEdit"><img src="' . get_icon_url('quiz_new') . '" alt="" />' . get_lang('New exercise').'</a>';
-    $cmd_menu[] = '<a class="claroCmd" href="admin/question_pool.php"><img src="' . get_icon_url('question_pool') . '" alt="" />'.get_lang('Question pool').'</a>';
-    $cmd_menu[] = '<a class="claroCmd" href="exercise.php?cmd=rqImport"><img src="' . get_icon_url('import') . '" alt="" />'.get_lang('Import exercise').'</a>';
-}
-
-$out .= '<p>' . claro_html_menu_horizontal($cmd_menu) . '</p>' . "\n";
-
-//-- pager
-$out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
-
-//-- list
-
-$out .= '<table class="claroTable emphaseLine" border="0" align="center" cellpadding="2" cellspacing="2" width="100%">' . "\n\n"
-.     '<thead>' . "\n"
-.     '<tr class="headerX">' . "\n"
-.     '<th>' . get_lang('Exercise title') . '</th>' . "\n";
-
-$colspan = 1;
-
-if( $is_allowedToEdit )
-{
-    $out .= '<th>' . get_lang('Modify') . '</th>' . "\n"
-    .     '<th>' . get_lang('Delete') . '</th>' . "\n"
-    .     '<th>' . get_lang('Visibility') . '</th>' . "\n";
-    $colspan = 4;
-
-    if( get_conf('enableExerciseExportQTI') )
+    //-- claroCmd
+    $cmd_menu = array();
+    if(get_conf('is_trackingEnabled') && claro_is_user_authenticated())
     {
-        $out .= '<th>' . get_lang('Export') . '</th>' . "\n";
-        $colspan++;
+        $cmd_menu[] = '<a class="claroCmd" href="../tracking/userReport.php?userId='.claro_get_current_user_id().'"><img src="' . get_icon_url('statistics') . '" alt="" />'.get_lang('My results').'</a>';
     }
-
-    if( $is_allowedToTrack )
+    
+    if($is_allowedToEdit)
     {
-        $out .= '<th>' . get_lang('Statistics') . '</th>' . "\n";
-        $colspan++;
+        $cmd_menu[] = '<a class="claroCmd" href="admin/edit_exercise.php?cmd=rqEdit"><img src="' . get_icon_url('quiz_new') . '" alt="" />' . get_lang('New exercise').'</a>';
+        $cmd_menu[] = '<a class="claroCmd" href="admin/question_pool.php"><img src="' . get_icon_url('question_pool') . '" alt="" />'.get_lang('Question pool').'</a>';
+        $cmd_menu[] = '<a class="claroCmd" href="exercise.php?cmd=rqImport"><img src="' . get_icon_url('import') . '" alt="" />'.get_lang('Import exercise').'</a>';
     }
-}
-
-$out .= '</tr>' . "\n"
-.     '</thead>' . "\n\n"
-.     '<tbody>' . "\n\n";
-
-if( claro_is_user_authenticated() ) $notificationDate = $claro_notifier->get_notification_date(claro_get_current_user_id());
-
-if( !empty($exerciseList) )
-{
-    foreach( $exerciseList as $anExercise )
+    
+    $out .= '<p>' . claro_html_menu_horizontal($cmd_menu) . '</p>' . "\n";
+    
+    //-- pager
+    $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
+    
+    //-- list
+    
+    $out .= '<table class="claroTable emphaseLine" border="0" align="center" cellpadding="2" cellspacing="2" width="100%">' . "\n\n"
+    .     '<thead>' . "\n"
+    .     '<tr class="headerX">' . "\n"
+    .     '<th>' . get_lang('Exercise title') . '</th>' . "\n";
+    
+    $colspan = 1;
+    
+    if( $is_allowedToEdit )
     {
-        if( $is_allowedToEdit && $anExercise['visibility'] == 'INVISIBLE' )
+        $out .= '<th>' . get_lang('Modify') . '</th>' . "\n"
+        .     '<th>' . get_lang('Delete') . '</th>' . "\n"
+        .     '<th>' . get_lang('Visibility') . '</th>' . "\n";
+        $colspan = 4;
+    
+        if( get_conf('enableExerciseExportQTI') )
         {
-            $invisibleClass = ' class="invisible"';
+            $out .= '<th>' . get_lang('Export') . '</th>' . "\n";
+            $colspan++;
         }
-        else
+    
+        if( $is_allowedToTrack )
         {
-            $invisibleClass = '';
+            $out .= '<th>' . get_lang('Statistics') . '</th>' . "\n";
+            $colspan++;
         }
-
-        //modify style if the file is recently added since last login
-        if( claro_is_user_authenticated() && $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $notificationDate, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $anExercise['id']) )
+    }
+    
+    $out .= '</tr>' . "\n"
+    .     '</thead>' . "\n\n"
+    .     '<tbody>' . "\n\n";
+    
+    if( claro_is_user_authenticated() ) $notificationDate = $claro_notifier->get_notification_date(claro_get_current_user_id());
+    
+    if( !empty($exerciseList) )
+    {
+        foreach( $exerciseList as $anExercise )
         {
-            $appendToStyle = ' hot';
-        }
-        else
-        {
-            $appendToStyle = '';
-        }
-
-        $out .= '<tr'.$invisibleClass.'>' . "\n"
-        .     '<td>'
-        .     '<a href="exercise_submit.php?exId='.$anExercise['id'].'" class="item'.$appendToStyle.'">'
-        .     '<img src="' . get_icon_url('quiz') . '" alt="" />'
-        .     $anExercise['title']
-        .     '</a>'
-        .     '</td>' . "\n";
-
-        if( $is_allowedToEdit )
-        {
-            $out .= '<td align="center">'
-            .     '<a href="admin/edit_exercise.php?exId='.$anExercise['id'].'">'
-            .     '<img src="' . get_icon_url('edit') . '" alt="'.get_lang('Modify').'" />'
-            .     '</a>'
-            .     '</td>' . "\n";
-
-            $confirmString = '';
-            if( !is_null($anExercise['module_id']) )
+            if( $is_allowedToEdit && $anExercise['visibility'] == 'INVISIBLE' )
             {
-                $confirmString .= get_block('blockUsedInSeveralPath') . " ";
-            }
-            $confirmString .= get_lang('Are you sure you want to delete this exercise ?');
-
-            $out .= '<td align="center">'
-            .     '<a href="exercise.php?exId='.$anExercise['id'].'&amp;cmd=exDel" onclick="javascript:if(!confirm(\''.clean_str_for_javascript($confirmString).'\')) return false;">'
-            .     '<img src="' . get_icon_url('delete') . '" alt="'.get_lang('Delete').'" />'
-            .     '</a>'
-            .     '</td>' . "\n";
-
-            if( $anExercise['visibility'] == 'VISIBLE' )
-            {
-                $out .= '<td align="center">'
-                .     '<a href="exercise.php?exId='.$anExercise['id'].'&amp;cmd=exMkInvis">'
-                .     '<img src="' . get_icon_url('visible') . '" alt="'.get_lang('Make invisible').'" />'
-                .     '</a>'
-                .     '</td>' . "\n";
+                $invisibleClass = ' class="invisible"';
             }
             else
             {
-                $out .= '<td align="center">'
-                .     '<a href="exercise.php?exId='.$anExercise['id'].'&amp;cmd=exMkVis">'
-                .     '<img src="' . get_icon_url('invisible') . '" alt="'.get_lang('Make visible').'" />'
-                .     '</a>'
-                .     '</td>' . "\n";
+                $invisibleClass = '';
             }
-
-            if( get_conf('enableExerciseExportQTI') )
+    
+            //modify style if the file is recently added since last login
+            if( claro_is_user_authenticated() && $claro_notifier->is_a_notified_ressource(claro_get_current_course_id(), $notificationDate, claro_get_current_user_id(), claro_get_current_group_id(), claro_get_current_tool_id(), $anExercise['id']) )
+            {
+                $appendToStyle = ' hot';
+            }
+            else
+            {
+                $appendToStyle = '';
+            }
+    
+            $out .= '<tr'.$invisibleClass.'>' . "\n"
+            .     '<td>'
+            .     '<a href="exercise_submit.php?exId='.$anExercise['id'].'" class="item'.$appendToStyle.'">'
+            .     '<img src="' . get_icon_url('quiz') . '" alt="" />'
+            .     $anExercise['title']
+            .     '</a>'
+            .     '</td>' . "\n";
+    
+            if( $is_allowedToEdit )
             {
                 $out .= '<td align="center">'
-                .     '<a href="exercise.php?exId='.$anExercise['id'].'&amp;cmd=exExport">'
-                .     '<img src="' . get_icon_url('export') . '" alt="'.get_lang('Export').'" />'
+                .     '<a href="admin/edit_exercise.php?exId='.$anExercise['id'].'">'
+                .     '<img src="' . get_icon_url('edit') . '" alt="'.get_lang('Modify').'" />'
                 .     '</a>'
                 .     '</td>' . "\n";
-            }
-
-            if( $is_allowedToTrack )
-            {
+    
+                $confirmString = '';
+                if( !is_null($anExercise['module_id']) )
+                {
+                    $confirmString .= get_block('blockUsedInSeveralPath') . " ";
+                }
+                $confirmString .= get_lang('Are you sure you want to delete this exercise ?');
+    
                 $out .= '<td align="center">'
-                .     '<a href="track_exercises.php?exId='.$anExercise['id'].'&amp;src=ex">'
-                .     '<img src="' . get_icon_url('statistics') . '" alt="'.get_lang('Statistics').'" />'
+                .     '<a href="exercise.php?exId='.$anExercise['id'].'&amp;cmd=exDel" onclick="javascript:if(!confirm(\''.clean_str_for_javascript($confirmString).'\')) return false;">'
+                .     '<img src="' . get_icon_url('delete') . '" alt="'.get_lang('Delete').'" />'
                 .     '</a>'
                 .     '</td>' . "\n";
+    
+                if( $anExercise['visibility'] == 'VISIBLE' )
+                {
+                    $out .= '<td align="center">'
+                    .     '<a href="exercise.php?exId='.$anExercise['id'].'&amp;cmd=exMkInvis">'
+                    .     '<img src="' . get_icon_url('visible') . '" alt="'.get_lang('Make invisible').'" />'
+                    .     '</a>'
+                    .     '</td>' . "\n";
+                }
+                else
+                {
+                    $out .= '<td align="center">'
+                    .     '<a href="exercise.php?exId='.$anExercise['id'].'&amp;cmd=exMkVis">'
+                    .     '<img src="' . get_icon_url('invisible') . '" alt="'.get_lang('Make visible').'" />'
+                    .     '</a>'
+                    .     '</td>' . "\n";
+                }
+    
+                if( get_conf('enableExerciseExportQTI') )
+                {
+                    $out .= '<td align="center">'
+                    .     '<a href="exercise.php?exId='.$anExercise['id'].'&amp;cmd=exExport">'
+                    .     '<img src="' . get_icon_url('export') . '" alt="'.get_lang('Export').'" />'
+                    .     '</a>'
+                    .     '</td>' . "\n";
+                }
+    
+                if( $is_allowedToTrack )
+                {
+                    $out .= '<td align="center">'
+                    .     '<a href="track_exercises.php?exId='.$anExercise['id'].'&amp;src=ex">'
+                    .     '<img src="' . get_icon_url('statistics') . '" alt="'.get_lang('Statistics').'" />'
+                    .     '</a>'
+                    .     '</td>' . "\n";
+                }
             }
+    
+            $out .= '</tr>' . "\n\n";
         }
-
-        $out .= '</tr>' . "\n\n";
     }
+    else
+    {
+        $out .= '<tr>' . "\n"
+        .     '<td colspan="'.$colspan.'">' . get_lang('Empty') . '</td>' . "\n"
+        .     '</tr>' . "\n\n";
+    }
+    
+    $out .= '</tbody>' . "\n\n"
+    .     '</table>' . "\n\n";
 }
-else
-{
-    $out .= '<tr>' . "\n"
-    .     '<td colspan="'.$colspan.'">' . get_lang('Empty') . '</td>' . "\n"
-    .     '</tr>' . "\n\n";
-}
-
-$out .= '</tbody>' . "\n\n"
-.     '</table>' . "\n\n";
-
 //-- pager
 $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF']);
 

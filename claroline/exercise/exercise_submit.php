@@ -577,7 +577,7 @@ if( $showResult )
     if( $exercise->getShuffle() && $exercise->getUseSameShuffle() && isset( $_SESSION['lastRandomQuestionList'] ) )
     {
         $out .= '<div style="font-weight: bold;">' . "\n"
-        .   '<a href="exercise.php?exId=' . $exercise->getId() .'&cmd=exSaveQwz">' . get_lang('Save this questions list') . '</a>'
+        .   '<a href="exercise.php?exId=' . $exercise->getId() .'&cmd=exSaveQwz'.( $inLP ? '&calledFrom=CLLP&embedded=true' : '' ).'">' . get_lang('Save this questions list') . '</a>'
         .   '</div>'
         ;
     }
@@ -663,7 +663,7 @@ if( $showResult )
     if( $exercise->getShuffle() && $exercise->getUseSameShuffle() && isset( $_SESSION['lastRandomQuestionList'] ) )
     {
         $out .= '<div style="font-weight: bold;">' . "\n"
-        .   '<a href="exercise.php?exId=' . $exercise->getId() .'&cmd=exSaveQwz">' . get_lang('Save this questions list') . '</a>'
+        .   '<a href="exercise.php?exId=' . $exercise->getId() .'&cmd=exSaveQwz'.( $inLP ? '&calledFrom=CLLP&embedded=true' : '' ).'">' . get_lang('Save this questions list') . '</a>'
         .   '</div>'
         ;
     }
@@ -719,7 +719,7 @@ elseif( $showSubmitForm )
     if( !empty($questionList) && $displayForm )
     {
         // form header, table header
-        $out .= '<form id="formExercise" method="post" action="./exercise_submit.php">' . "\n"
+        $out .= '<form id="formExercise" method="post" action="./exercise_submit.php'.( $inLP ? '?calledFrom=CLLP&embedded=true' : '' ).'">' . "\n"
         .   claro_form_relay_context() . "\n";
 
         if( $exercise->getDisplayType() == 'SEQUENTIAL' )
@@ -822,9 +822,9 @@ elseif( $showSubmitForm )
             .   '<div class="collapsible-wrapper">' . "\n";
             if( is_array( $questionsList) && count( $questionsList) )
             {
-                $out .= '<a href="exercise_submit.php?exId=' . $exId . '&cmd=loadRandomQuestionList&listId=' . $qList['id'] . '">' . get_lang( 'Load this list' ) . '</a>' . "\n"
+                $out .= '<a href="exercise_submit.php?exId=' . $exId . '&cmd=loadRandomQuestionList'.( $inLP ? '&calledFrom=CLLP&embedded=true' : '' ).'&listId=' . $qList['id'] . '">' . get_lang( 'Load this list' ) . '</a>' . "\n"
                 .   ' - '
-                .   '<a href="exercise_submit.php?exId=' . $exId . '&cmd=deleteRandomQuestionList&listId=' . $qList['id'] . '">' . get_lang( 'Delete') . '</a>'
+                .   '<a href="exercise_submit.php?exId=' . $exId . '&cmd=deleteRandomQuestionList'.( $inLP ? '&calledFrom=CLLP&embedded=true' : '' ).'&listId=' . $qList['id'] . '">' . get_lang( 'Delete') . '</a>'
                 .   '<ol>';
                 foreach( $questionsList as $question)
                 {
@@ -844,7 +844,7 @@ elseif( $showSubmitForm )
         }
         
         $out .= '<div> <br />'
-        .   '<a href="exercise_submit.php?exId=' . $exId . '&cmd=loadRandomQuestionList" style="font-weight: bold;">' . get_lang( 'Load a new list' ) . '</a>'
+        .   '<a href="exercise_submit.php?exId=' . $exId . '&cmd=loadRandomQuestionList'.( $inLP ? '&calledFrom=CLLP&embedded=true' : '' ).'" style="font-weight: bold;">' . get_lang( 'Load a new list' ) . '</a>'
         .   '</div>'
         ;
         
