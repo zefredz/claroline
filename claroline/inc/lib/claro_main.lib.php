@@ -752,7 +752,10 @@ function claro_get_module_name ( $identifier )
             }
         }
         // get tool label of the tool
-        $toolLabel = $cachedModuleIdList[$identifier];
+        $toolLabel = isset( $cachedModuleIdList[$identifier] )
+            ? $cachedModuleIdList[$identifier]
+            : false
+            ;
     }
     else
     {
