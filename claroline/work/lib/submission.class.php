@@ -598,4 +598,3 @@ class Submission
         $this->score = (int) $value;
     }
 }
-?>

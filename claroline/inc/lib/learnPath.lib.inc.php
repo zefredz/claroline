@@ -1504,5 +1504,3 @@ function is_learnpath_accessible( $pathId )
     
     return $blocked;
 }
-
-?>

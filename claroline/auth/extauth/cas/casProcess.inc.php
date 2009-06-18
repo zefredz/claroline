@@ -55,7 +55,7 @@ if (   ! isset($_SESSION['init_CasCheckinDone'] )
         {
             if ( phpCAS::checkAuthentication() )
             {
-            	phpCAS::logout($logout_url);
+                phpCAS::logout($logout_url);
             }
         }
         else
