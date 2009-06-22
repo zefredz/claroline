@@ -102,7 +102,7 @@
                         && ($_SERVER['HTTPS']=='on'||$_SERVER['HTTPS']==1)
                         ? 'https://'
                         : 'http://' )
-                    . $_SERVER['HTTP_HOST'] . htmlspecialchars( strip_tags( $_SERVER['REQUEST_URI'] ) ) ) )
+                    . $_SERVER['HTTP_HOST'] . strip_tags( $_SERVER['REQUEST_URI'] ) ) )
                 . '" target="_top">'
                 . get_lang('Login')
                 . '</a>'
