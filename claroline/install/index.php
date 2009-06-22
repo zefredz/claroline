@@ -2245,7 +2245,7 @@ elseif(DISP_RUN_INSTALL_COMPLETE == $display)
     .    '</p>'
     .    '</div>' . "\n"
     .    '<fieldset>' . "\n"
-    .    '<legend>'.get_lang('Do not forget to ').'</legend>'
+    .    '<legend>'.get_lang('Do not forget to').'</legend>'
     .    '<ul>'
     .    '<li>'
     .    get_lang('Tune your platform configuration in %administration | %configuration', array('%administration' => get_lang('Administration'),'%configuration' => get_lang('Configuration'))) . "\n"
