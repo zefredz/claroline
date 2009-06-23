@@ -408,7 +408,7 @@ function download_url_decode( $str )
     if ( $GLOBALS['is_Apache'] && get_conf('usePrettyUrl', false) )
     {
         $str = ltrim($str, '/');
-        return '/' . base64_decode( $str );
+        return '/' . ltrim( base64_decode( $str ), '/' );
     }
     else
     {
