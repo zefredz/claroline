@@ -399,7 +399,14 @@ class csvImport extends csv
             return false;
         }
         
-        $csvUseableArray = $this->createUsableArray( $csvContent );
+        if( !( isset( $_SESSION['_csvUsableArray'] ) && is_array( $_SESSION['_csvUsableArray'] ) ) )
+        {
+            claro_die( get_lang('Not allowed') );
+        }
+        else
+        {
+            $csvUseableArray = $_SESSION['_csvUsableArray'];
+        }
         
         $fields = $csvContent[0];
         unset( $csvContent[0] );
@@ -426,9 +433,9 @@ class csvImport extends csv
                 $userInfo['username'] = $csvUseableArray['username'][$user_id];
                 $userInfo['firstname'] = $csvUseableArray['firstname'][$user_id];
                 $userInfo['lastname'] = $csvUseableArray['lastname'][$user_id];
-                $userInfo['email'] = $csvUseableArray['email'][$user_id];
-                $userInfo['password'] = '';
-                $userInfo['officialCode'] = $csvUseableArray['officialCode'][$user_id];
+                $userInfo['email'] = isset( $csvUseableArray['email'][$user_id] ) ? $csvUseableArray['email'][$user_id] : '';
+                $userInfo['password'] = isset( $csvUseableArray['password'][$user_id] ) ? $csvUseableArray['password'][$user_id] : '';
+                $userInfo['officialCode'] = isset( $csvUseableArray['officialCode'][$user_id] ) ? $csvUseableArray['officialCode'][$user_id] : '';
                 
                 //check user existe if not create is asked                
                 $resultSearch = user_search( array( 'username' => $userInfo['username'] ), null, true, true );
@@ -493,10 +500,17 @@ class csvImport extends csv
             return false;
         }
         
-        $csvUseableArray = $this->createUsableArray( $csvContent );
+        if( !( isset( $_SESSION['_csvUsableArray'] ) && is_array( $_SESSION['_csvUsableArray'] ) ) )
+        {
+            claro_die( get_lang('Not allowed') );
+        }
+        else
+        {
+            $csvUseableArray = $_SESSION['_csvUseableArray'];
+        }
         
         $fields = $csvContent[0];
-        unset( $csvContent[0] );       
+        unset( $csvContent[0] );
         
         $logs = array();
         
@@ -508,7 +522,6 @@ class csvImport extends csv
         $tbl_group_rel_team_user     = $tbl_cdb_names['group_rel_team_user'];
         
         $groupsImported = array();
-            
         foreach( $_REQUEST['users'] as $user_id )
         {
             if(!isset($csvUseableArray['username'][$user_id]))
@@ -520,9 +533,9 @@ class csvImport extends csv
                 $userInfo['username'] = $csvUseableArray['username'][$user_id];
                 $userInfo['firstname'] = $csvUseableArray['firstname'][$user_id];
                 $userInfo['lastname'] = $csvUseableArray['lastname'][$user_id];
-                $userInfo['email'] = $csvUseableArray['email'][$user_id];
-                $userInfo['password'] = '';
-                $userInfo['officialCode'] = $csvUseableArray['officialCode'][$user_id];
+                $userInfo['email'] = isset( $csvUseableArray['email'][$user_id] ) ? $csvUseableArray['email'][$user_id] : '';
+                $userInfo['password'] = isset( $csvUseableArray['password'][$user_id] ) ? $csvUseableArray['password'][$user_id] : '';
+                $userInfo['officialCode'] = isset( $csvUseableArray['officialCode'][$user_id] ) ? $csvUseableArray['officialCode'][$user_id] : '';
                 if( isset( $csvUseableArray['groupName'][$user_id] ) )
                 {
                   $groupNames = $csvUseableArray['groupName'][$user_id];
@@ -533,7 +546,7 @@ class csvImport extends csv
                 }
                 
                 
-                //check user existe if not create is asked                
+                //check user existe if not create is asked
                 $resultSearch = user_search( array( 'username' => $userInfo['username'] ), null, true, true );
                 
                 if( empty($resultSearch))

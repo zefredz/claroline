@@ -233,8 +233,7 @@ switch( $step )
         else
         {
             $csvContent = $_SESSION['_csvImport'];
-            $csvImport->setCSVContent( $csvContent );
-            
+            $csvImport->setCSVContent( $csvContent );            
             if(is_null($courseId))
             {
                 if(!claro_is_platform_admin() )
@@ -245,7 +244,7 @@ switch( $step )
             }
             else
             {
-                $logs = $csvImport->importUsersInCourse( $courseId, $is_allowedToCreate, $is_allowedToEnroll, $class_id );   
+                $logs = $csvImport->importUsersInCourse( $courseId, $is_allowedToCreate, $is_allowedToEnroll, $class_id );
             }
             
             if( !empty($logs) )
@@ -342,7 +341,6 @@ switch( $step )
                 
                 $csvUseableArray = $csvImport->createUsableArray( $csvImport->getCSVContent(), $firstLineFormat, $keys) ;
                 $_SESSION['_csvUsableArray'] = $csvUseableArray;
-                
                 $errors = $csvImport->checkFieldsErrors( $csvUseableArray );
                 
                 if( is_null($keys) && $firstLineFormat )
@@ -350,7 +348,7 @@ switch( $step )
                     $keys = $csvContent[0];
                     unset($csvContent[0]);
                 }
-                
+                $_SESSION['_csvKeys'] = $keys;
                 if( ! $csvImport->format_ok( $firstLine, $_SESSION['CSV_fieldSeparator'], $_SESSION['CSV_enclosedBy']) )
                 {
                     $dialogBox->error( get_lang('ERROR: The format you gave is not compatible with Claroline') );
@@ -439,6 +437,11 @@ switch( $step )
         if( isset($_SESSION['_csvUsableArray']) )
         {
             unset($_SESSION['_csvUsableArray']);
+        }
+        
+        if( isset($_SESSION['_csvKeys']) )
+        {
+            unset( $_SESSION['_csvKeys'] );
         }
         $content .= $content_default; 
     }
