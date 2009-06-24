@@ -1619,6 +1619,10 @@ function claro_disp_debug_banner()
     return $html;
 }
 
+/**
+ * Protect $_SERVER[PHP_SELF] against HTTP response splitting and XSS
+ * @return string
+ */
 function php_self()
 {
     // remove html tags
@@ -1626,9 +1630,23 @@ function php_self()
     // protect against XSS
     $url = preg_replace( '~(\r\n|\r|\n|%0a|%0d|%0D|%0A)~', '', $url );
     // entify remaining special chars
-    $url = htmlentities( $url );
+    $url = htmlspecialchars( strip_tags( $url ) );
 
     return $url;
+}
+
+/**
+ * Get the URI of the current page : PHP_SELF + QUERY_STRING, protected against
+ * HTTP Response Splitting and XSS
+ * @param   boolean $html if set to true (default) the returned URI is passed
+ *              through htmlspecialchars before being returned
+ * @return  string
+ */
+function page_uri( $html = true )
+{
+    $uri = Url::Contextualize( php_self() . "?" . strip_tags($_SERVER['QUERY_STRING']) );
+    
+    return $html ? htmlspecialchars( $uri ) : $uri;
 }
 
 /**
