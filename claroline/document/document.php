@@ -1920,7 +1920,7 @@ $out .= claro_html_tool_title($titleElement,
         {
             $links[] = '<a class="claroCmd" href="'
                      . htmlspecialchars(Url::Contextualize(
-                        $_SERVER['PHP_SELF'].'?cmd=exChDir&amp;file='.base64_encode($parentDir)))
+                        $_SERVER['PHP_SELF'].'?cmd=exChDir&amp;file='.download_url_encode($parentDir)))
                      .'">' . "\n"
                      . '<img src="'. get_icon_url('parent') . '" alt="" />&nbsp;'
                      . get_lang('Up')
