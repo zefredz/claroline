@@ -78,13 +78,12 @@ $dockList = get_dock_list($module['type']);
 
 $nameTools = get_lang('Module settings');
 $noPHP_SELF=true;
-$GLOBALS['noPHP_SELF'] = true;
 
 // FIXME : BAD use of get_lang !!!!!
 ClaroBreadCrumbs::getInstance()->prepend( get_lang($module['module_name']) );
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Module list'), get_path('rootAdminWeb').'module/module_list.php?typeReq=' . $module['type'] );
 ClaroBreadCrumbs::getInstance()->prepend( get_lang('Administration'), get_path('rootAdminWeb') );
-// ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools );
+ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools );
 
 $dialogBox = new dialogBox();
 
