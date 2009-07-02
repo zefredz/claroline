@@ -1659,7 +1659,7 @@ $out .= claro_html_tool_title($titleElement,
 
         // --------------------- display link to previous image ------------------
 
-        display_link_to_previous_image($imageList, $fileList, $current);
+        $out .= display_link_to_previous_image($imageList, $fileList, $current);
 
         // --------------------- display title of current image ------------------
 
@@ -1670,7 +1670,7 @@ $out .= claro_html_tool_title($titleElement,
 
         // --------------------- display link to previous image ------------------
 
-        display_link_to_next_image($imageList, $fileList, $current);
+        $out .= display_link_to_next_image($imageList, $fileList, $current);
 
         $out .= '</tr>' . "\n"
         .    '</table>' . "\n"
@@ -1888,7 +1888,7 @@ $out .= claro_html_tool_title($titleElement,
             $out .= '</th>' . "\n";
             $out .= '</tr>' . "\n";
 
-            display_thumbnails($imageList, $fileList, $page
+            $out .= display_thumbnails($imageList, $fileList, $page
                 , get_conf('thumbnailWidth'), $colWidth
                 , get_conf('numberOfCols'), get_conf('numberOfRows') );
 
