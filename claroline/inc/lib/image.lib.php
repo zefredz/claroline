@@ -331,31 +331,34 @@ function display_link_to_previous_image($imageList, $fileList, $current)
             $prevStyle = 'prev invisible';
         }
 
-        echo "<th class=\"". $prevStyle
+        $html = "<th class=\"". $prevStyle
             . "\" width=\"30%\">\n"
             ;
 
-        echo "<a href=\"" . $_SERVER['PHP_SELF'] . "?docView=image&file="
-            . base64_encode($prevName) . "&cwd=" . $curDirPath
-            . $searchCmdUrl . "\">", "&lt;&lt;&nbsp;" . basename($prevName) . "</a>\n"
+        $html .= "<a href=\"" . htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF'] . "?docView=image&file="
+            . download_url_encode($prevName) . "&cwd=" . $curDirPath
+            . $searchCmdUrl ) ) . "\">" . "&lt;&lt;&nbsp;" . basename($prevName) . "</a>\n"
             ;
 
-        echo "<br /><br />\n";
+        $html .= "<br /><br />\n";
 
         // display thumbnail
-        echo "<a href=\"" . $_SERVER['PHP_SELF']
-            . "?docView=image&file=" . base64_encode($prevName)
-            . "&cwd=" . $curDirPath . $searchCmdUrl . "\">"
+        $html .= "<a href=\"" . htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF']
+            . "?docView=image&file=" . download_url_encode($prevName)
+            . "&cwd=" . $curDirPath . $searchCmdUrl )) . "\">"
             . create_thumbnail($prevName, get_conf('thumbnailWidth'))
             ."</a>\n"
             ;
 
-        echo "</th>\n";
+        $html .= "</th>\n";
+        
+        return $html;
     }
     else
     {
-        echo "<th class=\"". $prevStyle . "\" width=\"30%\">\n"
-            . "<!-- empty -->\n" . "</th>\n"
+        return "<th class=\"". $prevStyle . "\" width=\"30%\">\n"
+            . "<!-- empty -->\n"
+            . "</th>\n"
             ;
     } // end if has previous image
 }
@@ -390,31 +393,34 @@ function display_link_to_next_image($imageList, $fileList, $current)
             $nextStyle = 'next invisible';
         }
 
-        echo "<th class=\"". $nextStyle . "\" width=\"30%\">\n";
+        $html = "<th class=\"". $nextStyle . "\" width=\"30%\">\n";
 
-        echo "<a href=\"" . $_SERVER['PHP_SELF']
-            . "?docView=image&file=" . base64_encode($nextName)
-            . "&cwd=" . $curDirPath . $searchCmdUrl ."\">". basename($nextName)
+        $html .= "<a href=\"" . htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF']
+            . "?docView=image&file=" . download_url_encode($nextName)
+            . "&cwd=" . $curDirPath . $searchCmdUrl )) ."\">". basename($nextName)
             . "&nbsp;&gt;&gt;</a>\n"
             ;
 
-        echo "<br /><br />\n";
+        $html .= "<br /><br />\n";
 
         // display thumbnail
-        echo "<a href=\"" . $_SERVER['PHP_SELF']
-            . "?docView=image&file=" . base64_encode($nextName)
-            . "&cwd=" . $curDirPath . $searchCmdUrl . "\">"
+        $html .= "<a href=\"" . htmlspecialchars( Url::Contextualize( $_SERVER['PHP_SELF']
+            . "?docView=image&file=" . download_url_encode($nextName)
+            . "&cwd=" . $curDirPath . $searchCmdUrl )). "\">"
             . create_thumbnail($nextName, get_conf('thumbnailWidth') )
             . "</a>\n"
             ;
 
-        echo "</th>\n";
+        $html .= "</th>\n";
+        
+        return $html;
     }
     else
     {
-        echo "<th class=\"". $nextStyle . "\" width=\"30%\">";
-        echo "<!-- empty -->\n";
-        echo "</th>\n";
+        return "<th class=\"". $nextStyle . "\" width=\"30%\">"
+            . "<!-- empty -->\n"
+            . "</th>\n"
+            ;
     } // enf if previous image
 
 }
@@ -522,11 +528,13 @@ function display_thumbnails($imageList, $fileList, $page
 
     // get index of first thumbnail on the page
     $displayed = get_offset($page);
+    
+    $html = '';
 
     // loop on rows
     for($rows = 0; $rows < $numberOfRows; $rows++)
     {
-        echo "<tr>\n";
+        $html .= "<tr>\n";
 
         // loop on columns
         for($cols = 0; $cols < $numberOfCols; $cols++)
@@ -554,10 +562,10 @@ function display_thumbnails($imageList, $fileList, $page
             
             // omit colwidth since already in th
                 
-            echo "<td style=\"text-align: center;\">\n"
+            $html .= "<td style=\"text-align: center;\">\n"
                 ;
 
-            echo "<a href=\""
+            $html .= "<a href=\""
                 . htmlspecialchars(
                     Url::Contextualize( $_SERVER['PHP_SELF'] . "?docView=image&file="
                     . download_url_encode($fileName)
@@ -575,12 +583,12 @@ function display_thumbnails($imageList, $fileList, $page
                 $title = "title=\"" . $text . "\"";
             }
 
-            echo create_thumbnail($fileName, $thumbnailWidth, $title);
+            $html .= create_thumbnail($fileName, $thumbnailWidth, $title);
 
             // unset title for the next pass in the loop
             unset($title );
 
-            echo "</a>\n";
+            $html .= "</a>\n";
 
             // display image name
             $imgName = ( strlen( basename( $fileList[$num]['path'] ) ) > 25 )
@@ -588,9 +596,9 @@ function display_thumbnails($imageList, $fileList, $page
                 : basename( $fileList[$num]['path'] )
                 ;
 
-            echo "<p " . $style . ">" . $imgName  . "</p>";
+            $html .= "<p " . $style . ">" . $imgName  . "</p>";
 
-            echo "</td>\n";
+            $html .= "</td>\n";
 
             // update image number
             $displayed++;
@@ -598,12 +606,14 @@ function display_thumbnails($imageList, $fileList, $page
             // finished ?
             if ($displayed >= count($imageList))
             {
-                echo "</tr>\n";
-                return;
+                $html .= "</tr>\n";
+                return $html;
             }
         } // end loop on columns
 
-        echo "</tr>\n";
+        $html .= "</tr>\n";
 
     } // end loop on rows
+    
+    return $html;
 }
