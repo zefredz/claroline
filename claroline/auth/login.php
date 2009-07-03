@@ -148,7 +148,7 @@ if ( ! claro_is_user_authenticated() && $uidRequired )
         .    $sourceGidFormField                                          ."\n"
         .    '<legend>' . get_lang('Authentication') . '</legend>'               ."\n"
 
-        .    '<label for="username">'.get_lang('Username').' : </label><br />'   ."\n"
+        .    '<label for="login">'.get_lang('Username').' : </label><br />'   ."\n"
         .    '<input type="text" name="login" id="login" size="15" tabindex="1" /><br />'       ."\n"
 
         .    '<label for="password">'.get_lang('Password').' : </label><br />'   ."\n"
@@ -340,7 +340,14 @@ else // LOGIN SUCCEEDED
     }
     else
     {
-        claro_redirect(get_path('clarolineRepositoryWeb'));
+        if ( get_conf('claro_secureLogin', false) )
+        {
+            claro_redirect( 'http://' . $_SERVER['HTTP_HOST'] . get_path('clarolineRepositoryWeb'));
+        }
+        else
+        {
+            claro_redirect(get_path('clarolineRepositoryWeb'));
+        }
     }
 }
 ?>
