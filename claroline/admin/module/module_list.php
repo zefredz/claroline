@@ -816,8 +816,7 @@ $out .= '</ul>' . "\n"
 //Display list
 
 //Display Pager list
-
-$out .= $myPager->disp_pager_tool_bar('module_list.php?typeReq=' . $typeReq);
+if ( $myPager->get_next_offset() ) $out .= $myPager->disp_pager_tool_bar('module_list.php?typeReq=' . $typeReq);
 
 // start table...
 
@@ -952,7 +951,7 @@ foreach($moduleList as $module)
         $out .= '<td align="center">'
         // .    '<a href="module_list.php?module_id=' . $module['id'] . '&amp;typeReq='.$typeReq.'&amp;cmd=exUninstall"'
         // .    ' onclick="return confirmation(\'' . $module['name'].'\');">'
-        .    '<a href="module_list.php?module_id=' . $module['id'] . '&amp;typeReq='.$typeReq.'&amp;cmd=rqUninstall" />'
+        .    '<a href="module_list.php?module_id=' . $module['id'] . '&amp;typeReq='.$typeReq.'&amp;cmd=rqUninstall" >'
         .    '<img src="' . get_icon_url('delete') . '" alt="' . get_lang('Delete') . '" />'
         .    '</a>'
         .    '</td>' . "\n";
@@ -1007,7 +1006,7 @@ $out .= '</tbody>' . "\n"
 
 //Display BOTTOM Pager list
 
-$out .= $myPager->disp_pager_tool_bar ( 'module_list.php?typeReq=' . $typeReq ) ;
+if ( $myPager->get_previous_offset() ) $out .= $myPager->disp_pager_tool_bar ( 'module_list.php?typeReq=' . $typeReq ) ;
 
 $claroline->display->body->appendContent($out);
 
