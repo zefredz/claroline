@@ -340,7 +340,14 @@ else // LOGIN SUCCEEDED
     }
     else
     {
-        claro_redirect(get_path('clarolineRepositoryWeb'));
+        if ( get_conf('claro_secureLogin', false) )
+        {
+            claro_redirect( 'http://' . $_SERVER['HTTP_HOST'] . get_path('clarolineRepositoryWeb'));
+        }
+        else
+        {
+            claro_redirect(get_path('clarolineRepositoryWeb'));
+        }
     }
 }
 ?>
