@@ -88,8 +88,11 @@ if ( !empty($class_id) )
     if (isset($_REQUEST['dir'])) $_SESSION['admin_class_reg_user_order_crit'] = ($_REQUEST['dir']=='DESC'?'DESC':'ASC');
     else                         $_REQUEST['dir'] = 'ASC';
 
-    if (isset($_REQUEST['order_crit']))
+    $acceptedCritValues = array( 'user_id', 'nom', 'prenom' );
+
+    if (isset($_REQUEST['order_crit']) && in_array( $_REQUEST['order_crit'], $acceptedCritValues ) )
     {
+        $order_crit = $_REQUEST['order_crit'];
         $_SESSION['admin_class_reg_user_order_crit'] = $_REQUEST['order_crit'];
         if ($_REQUEST['order_crit']=="user_id")
         {
@@ -98,6 +101,7 @@ if ( !empty($class_id) )
     }
     else
     {
+       $order_crit = 'nom';
        $_SESSION['admin_class_reg_user_order_crit'] = 'nom';
        $_SESSION['admin_class_reg_user_dir'] = 'ASC';
     }
@@ -173,7 +177,7 @@ else
 
     // Display pager
 
-    $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?class_id='.$class_id);
+    $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?class_id='.$class_id . ('&order_crit=' . $order_crit ) . ( isset( $_REQUEST['dir'] ) ? '&dir=' . $_REQUEST['dir'] : '' ) );
 
     // Display list of users
     // start table...
@@ -250,7 +254,7 @@ else
 
     //Pager
 
-    $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?class_id='.$class_id);
+    $out .= $myPager->disp_pager_tool_bar($_SERVER['PHP_SELF'].'?class_id='.$class_id . ('&order_crit=' . $order_crit ) . ( isset( $_REQUEST['dir'] ) ? '&dir=' . $_REQUEST['dir'] : '' ) );
 
 }
 
