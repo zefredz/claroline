@@ -190,6 +190,238 @@ if( $is_allowedToEdit && !is_null($cmd) )
         }
     }
 
+    //-- export pdf
+    if( $cmd == 'exExportPDF' && $exId )
+    {
+        require_once( './lib/question.class.php' );
+        
+        $exercise= new Exercise();
+        $exercise->load($exId);
+        $questionList = $exercise->getQuestionList();
+        
+        foreach( $questionList as $_id => $question )
+        {
+          $questionObj = new Question();
+          $questionObj->setExerciseId($exId);
+          
+          if( $questionObj->load($question['id']) )
+          {
+            $questionList[ $_id ]['description'] = $questionObj->getDescription();
+            
+            switch( $questionObj->getType() )
+            {
+              case 'MCUA' :
+              case 'MCMA' :
+              {
+                $questionList[ $_id ]['answers'] = $questionObj->answer->answerList;
+              }
+              break;
+              case 'TF' :
+              {
+                $questionList[ $_id ]['answers'][0]['answer'] = get_lang('True');
+                $questionList[ $_id ]['answers'][0]['feedback'] = $questionObj->answer->trueFeedback;
+                $questionList[ $_id ]['answers'][1]['answer'] = get_lang('False');
+                $questionList[ $_id ]['answers'][0]['feedback'] = $questionObj->answer->falseFeedback;
+              }
+              break;
+              case 'FIB' :
+              {
+                $questionList[ $_id ]['answerText'] = $questionObj->answer->answerDecode( $questionObj->answer->answerText );
+                $questionList[ $_id ]['answerList'] = $questionObj->answer->answerList;
+                
+                foreach( $questionList[ $_id ]['answerList'] as $i => $answer )
+                {
+                  $questionList[ $_id ]['answerList'][ $i ] = $questionObj->answer->answerDecode($questionObj->answer->addslashesEncodedBrackets($answer));
+                }
+                $questionList[ $_id ]['answerType'] = $questionObj->answer->type;
+              }
+              break;
+              case 'MATCHING' :
+              {
+                $questionList[ $_id ]['leftList'] = $questionObj->answer->leftList;
+                $questionList[ $_id ]['rightList'] = $questionObj->answer->rightList;
+              }
+              break;
+            }
+            
+            $questionList[ $_id ]['type'] = $questionObj->getType();
+          }
+        }
+        
+        require_once( get_path('incRepositorySys') . '/lib/thirdparty/tcpdf/tcpdf.php' );
+        
+        // create new PDF document
+        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        
+        $pdf->SetTitle( $exercise->getTitle() );
+        $pdf->SetSubject( $exercise->getTitle() );
+        
+        //set margins
+        $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+        $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+        
+        //set auto page breaks
+        $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        
+        //set image scale factor
+        $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+        
+        $pdf->setPrintHeader(false);
+        
+        // add a page
+        $pdf->AddPage();
+        
+        $htmlcontent = '<div style="font-size: xx-large; font-weight: bold;">' . htmlspecialchars( $exercise->getTitle() ) . '<div>' . "\n";
+        $pdf->writeHTML( $htmlcontent, true, 0, true, 0);
+        
+        $htmlcontent = '<div style="font-size: normal; font-weight: normal;">'. htmlspecialchars( strip_tags( $exercise->getDescription() ) ) .'</div><br /><br />' . "\n"
+        ;
+        $pdf->writeHTML( $htmlcontent, true, 0, true, 0);
+        
+        $i = 1;
+        foreach( $questionList as $question )
+        {
+          $htmlcontent = '<p><table cellspacing="4">' . "\n"
+          .   '<tbody>' . "\n"
+          .   '<tr>' . "\n"
+          .   '<th colspan="2" style="text-align: center; font-weight: bold; color: #693; background-color: #DEEECE;">' . get_lang('Question') . ' ' . $i . '</th>' . "\n"
+          .   '</tr>' . "\n"
+          // Question title
+          .   '<tr>' . "\n"
+          .   '<td colspan="2">' . htmlspecialchars( strip_tags( claro_utf8_encode( $question['title'], get_conf('charset') ) ) ) . '</td>' . "\n"
+          .   '</tr>' . "\n"
+          ;
+          // Question description
+          if( trim( htmlspecialchars( strip_tags( claro_utf8_encode( $question['description'], get_conf('charset') ) ) ) ) )
+          {
+            $htmlcontent .= '<tr>' . "\n"
+            .   '<td colspan="2" style="font-size: x-small; font-style: italic;">' . htmlspecialchars( strip_tags( claro_utf8_encode( $question['description'], get_conf('charset') ) ) ) .'</td>' . "\n"
+            .   '</tr>' . "\n"
+            ;
+          }
+          
+          
+          switch( $question['type'] )
+          {
+            case 'MCMA' :
+            {
+              foreach( $question['answers'] as $answer )
+              {
+                
+                $htmlcontent .= '<tr>' . "\n"
+                .   '<td style="background-color: #EEE; text-align: center; width: 30px;">[   ]</td>' . "\n"
+                .   '<td style="background-color: #EEE; width: 475px;">' . htmlspecialchars( strip_tags( claro_utf8_encode( $answer['answer'], get_conf('charset') ) ) ) . '</td>' . "\n"
+                .   '</tr>'
+                ;
+                
+              }
+            }
+            break;
+            case 'MCUA' :
+            case 'TF' :
+            {
+              foreach( $question['answers'] as $answer )
+              {
+                
+                $htmlcontent .= '<tr>' . "\n"
+                .   '<td style="background-color: #EEE; text-align: center; width: 30px;">O</td>' . "\n"
+                .   '<td style="background-color: #EEE; width: 475px;">' . htmlspecialchars( strip_tags( claro_utf8_encode( $answer['answer'], get_conf('charset') ) ) ) . '</td>' . "\n"
+                .   '</tr>'
+                ;
+                
+              }
+            }
+            break;
+            case 'FIB' :
+            {
+              $answerCount = count( $question['answerList'] );
+              $replacementList = array();
+              switch( $question['answerType'] )
+              {
+                case 1 :
+                {
+                  for( $j = 0; $j < $answerCount; $j++ )
+                  {
+                      $replacementList[] = str_replace('$', '\$', ' [                  ] ');
+                  }
+                }
+                break;
+                default :
+                {
+                  $answers = '';
+                  
+                  foreach( $question['answerList'] as $answer )
+                  {
+                    if( $answers )
+                    {
+                      $answers .= "/";
+                    }
+                    $answers .= $answer;
+                  }
+                  
+                  for( $j = 0; $j < $answerCount; $j++ )
+                  {
+                    $replacementList[] = str_replace('$', '\$', ' [ '. $answers .' ] ');
+                  }
+                }
+              }
+              
+              
+              $blankList = array();
+              foreach( $question['answerList'] as $answer )
+              {
+                  // filter slashes as they are modifiers in preg expressions
+                  $blankList[] = '/\['.preg_quote($answer,'/').'\]/';
+              }
+              
+              $displayedAnswer = preg_replace( $blankList, $replacementList, claro_parse_user_text( $question['answerText'] ), 1 );
+              
+              $htmlcontent .= '<tr>' . "\n"
+              .   '<td colspan="2" style="background-color: #EEE;">' . $displayedAnswer . '</td>' . "\n"
+              .   '</tr>' . "\n"
+              ;
+            }
+            break;
+            case 'MATCHING' :
+            {
+              foreach( $question['leftList'] as $ql )
+              {
+                $ql['answer'] .= ' [';
+                $_qr = '';
+                foreach( $question['rightList'] as $qr)
+                {
+                  if( $_qr )
+                  {
+                    $_qr .= ' , ';
+                  }
+                  $_qr .= $qr['answer'];
+                }
+                $ql['answer'] .= $_qr;
+                $ql['answer'] .= '] ';
+                $htmlcontent .= '<tr>' . "\n"
+                .   '<td colspan="2" style="background-color: #EEE;">' . htmlspecialchars( strip_tags( claro_utf8_encode( $ql['answer'], get_conf('charset') ) ) ) . '</td>' . "\n"
+                .   '</tr>' . "\n"
+                ;
+              }
+            }
+            break;
+          }
+          
+          $htmlcontent .= '</tbody>' . "\n"
+          .   '</table></p>' . "\n"
+          ;
+          
+          $pdf->writeHTML( $htmlcontent, true, 0, true, 0);
+          
+          $i++;
+        }
+        
+        //Close and output PDF document
+        $pdf->Output( 'exercise' . $exercise->getId() . '.pdf', 'D');
+        
+        exit();
+    }
     //-- delete
     if( $cmd == 'exDel' && $exId )
     {
@@ -360,6 +592,8 @@ if( !$inLP )
         }
     }
     
+    $out .= '<th>' . get_lang( 'Export to PDF' ) . '</th>' . "\n";
+    
     $out .= '</tr>' . "\n"
     .     '</thead>' . "\n\n"
     .     '<tbody>' . "\n\n";
@@ -453,6 +687,13 @@ if( !$inLP )
                     .     '</td>' . "\n";
                 }
             }
+            
+            $out .= '<td align="center">'
+            .   '<a href="'. htmlspecialchars( Url::Contextualize( 'exercise.php?cmd=exExportPDF&exId=' . $anExercise['id'] ) ).'">'
+            .   '<img src="' . get_icon_url( 'pdf_export' ) . '" alt="' . get_lang( 'Export to PDF' ) . '" />'
+            .   '</a>'
+            .   '</td>' . "\n"
+            ;
     
             $out .= '</tr>' . "\n\n";
         }
