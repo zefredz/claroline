@@ -403,17 +403,17 @@ if ( !class_exists('ScormExport') )
                 if(showScore) alert(\''.clean_str_for_javascript(html_entity_decode(get_lang('Score'))).' :\n\' + rawScore + \'/\' + weighting );
             }
         }
-
+    
     </script>
     ';
-
+    
             // Construct the HTML file and save it.
             $filename = "quiz_" . $quizId . ".html";
-
+            
             $pageContent = $pageHeader
                          . $pageBody
                          . $pageEnd;
-
+            
             if (! $f = fopen($this->destDir . '/' . $filename, 'w') )
             {
                 $this->error[] = get_lang('Unable to create file : ') . $filename;
@@ -421,12 +421,11 @@ if ( !class_exists('ScormExport') )
             }
             fwrite($f, $pageContent);
             fclose($f);
-
+            
             // Went well.
             return True;
         }
-
-
+        
         /**
          * Prepare the temporary destination directory that'll be zipped and exported.
          * Existing SCORM, documents, as well as required or helper javascript files and XML schemas
@@ -440,7 +439,7 @@ if ( !class_exists('ScormExport') )
         function prepare()
         {
             global $claro_stylesheet;
-
+            
             // (re)create fresh directory
             claro_delete_file($this->destDir);
             if ( !claro_mkdir($this->destDir, CLARO_FILE_PERMISSIONS , true))
@@ -468,8 +467,8 @@ if ( !class_exists('ScormExport') )
                 $this->error[] = get_lang('Error when copying needed SCORM files');
                 return false;
             }
-
-
+            
+            
             // Copy SCORM package, if needed
             if ($this->fromScorm)
             {
@@ -482,22 +481,20 @@ if ( !class_exists('ScormExport') )
                     return false;
                 }
             }
-
+            
             // Create destination directory for "pure" documents
             claro_mkdir($this->destDir.'/Documents');
-
+            
             // And for exercises
             claro_mkdir($this->destDir.'/Exercises');
-
+            
             // Copy documents into the created directory
             foreach($this->resourceMap as $module)
             {
                 if ( $module['contentType'] == 'DOCUMENT' )
                 {
-                    $documentName = basename($module['path']);
                     if ( dirname($module['path']) != '/' )
                     {
-                        
                         $destinationDir = $this->destDir . '/Documents' . dirname($module['path']) ;
                     }
                     else
@@ -509,8 +506,8 @@ if ( !class_exists('ScormExport') )
                         claro_mkdir($destinationDir, CLARO_FILE_PERMISSIONS, true);
                     }
                     
-                    claro_copy_file($this->srcDirDocument . $module['path'], $destinationDir);
-
+                    if ( !empty( $module['path'] ) ) claro_copy_file($this->srcDirDocument . $module['path'], $destinationDir);
+                    
                     // TODO : If it's an html document, parse it and add the embed object (img, ...)
                 }
                 elseif ( $module['contentType'] == 'EXERCISE' )
@@ -518,14 +515,14 @@ if ( !class_exists('ScormExport') )
                     if ( !$this->prepareQuiz($module['path'], $module['raw_to_pass']))    return false;
                 }
             }
-
+            
             // Did we find an mp3 ?
             if ( $this->mp3Found)
             {
                 if ( !claro_copy_file(get_module_path('CLQWZ') .'/claroPlayer.swf', $this->destDir) )
                 {
                     $this->error[] = get_lang('Unable to copy file : %filename', array ( '%filename' => get_module_path('CLQWZ') . '/claroPlayer.swf') );
-
+                    
                     // This is *NOT* a fatal error.
                     // Do *NOT* return false.
                 }
