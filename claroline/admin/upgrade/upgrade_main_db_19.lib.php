@@ -544,7 +544,7 @@ function upgrade_main_database_tracking_data_to_19()
     {
         case 1 : 
             // drop id to be able to recreate it with correct autoincrement values at last step
-            $sql = "ALTER TABLE `" . get_conf( 'mainTblPrefix' ) . "tracking_event` DROP `id`";
+            $sql = "ALTER TABLE `" . $tbl_mdb_names['tracking_event'] . "` DROP `id`";
             
             if ( upgrade_sql_query( $sql ) ) $step = set_upgrade_status( $tool, $step+1 );
             else return $step ;
@@ -555,7 +555,7 @@ function upgrade_main_database_tracking_data_to_19()
             
             // get total number of rows in track_e_login
             $sql = "SELECT COUNT(*)
-                        FROM `". get_conf( 'mainTblPrefix' ) . "track_e_login`";
+                        FROM `". get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . "track_e_login`";
             $tableRows = (int) claro_sql_query_fetch_single_value($sql);
             
             $recoveredOffset = UpgradeTrackingOffset::retrieve();
@@ -566,14 +566,14 @@ function upgrade_main_database_tracking_data_to_19()
                 UpgradeTrackingOffset::store($offset);
                 
                 $query = "SELECT `login_id`, `login_user_id`, `login_date`, `login_ip`
-                            FROM `". get_conf( 'mainTblPrefix' ) . "track_e_login` 
+                            FROM `". get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . "track_e_login` 
                         ORDER BY `login_date`, `login_id`
                            LIMIT ".$offset.", 250";
                 // then copy these 250 rows to tracking_event
                 $eventList = claro_sql_query_fetch_all_rows( $query );
 
                 // build query to insert all 250 rows
-                $sql = "INSERT INTO `" . get_conf( 'mainTblPrefix' ) . "tracking_event` 
+                $sql = "INSERT INTO `" . get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . "tracking_event` 
                         ( `user_id`, `date`, `type`, `data` ) 
                         VALUES 
                         "; 
@@ -601,7 +601,7 @@ function upgrade_main_database_tracking_data_to_19()
         case 3 :
             // get total number of rows in track_e_login
             $sql = "SELECT COUNT(*)
-                        FROM `". get_conf( 'mainTblPrefix' ) . "track_e_open`";
+                        FROM `". get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . "track_e_open`";
             $tableRows = (int) claro_sql_query_fetch_single_value($sql);
             
             $recoveredOffset = UpgradeTrackingOffset::retrieve();
@@ -612,14 +612,14 @@ function upgrade_main_database_tracking_data_to_19()
                 UpgradeTrackingOffset::store($offset);
                 
                 $query = "SELECT `open_id`, `open_date`
-                            FROM `". get_conf( 'mainTblPrefix' ) . "track_e_open` 
+                            FROM `". get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . "track_e_open` 
                         ORDER BY `open_date`, `open_id`
                            LIMIT ".$offset.", 250";
                 // then copy these 250 rows to tracking_event
                 $eventList = claro_sql_query_fetch_all_rows( $query );
 
                 // build query to insert all 250 rows
-                $sql = "INSERT INTO `" . get_conf( 'mainTblPrefix' ) . "tracking_event` 
+                $sql = "INSERT INTO `" . get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . "tracking_event` 
                         ( `user_id`, `date`, `type`, `data` ) 
                         VALUES 
                         "; 
@@ -646,16 +646,16 @@ function upgrade_main_database_tracking_data_to_19()
             
         case 4 :
             // order table using dates then recreate primary key with correct autoincrement value
-            $sqlForUpdate[] = "ALTER TABLE `" . get_conf('mainTblPrefix') . "tracking_event`  ORDER BY `date`";
-            $sqlForUpdate[] = "ALTER TABLE `" . get_conf('mainTblPrefix') . "tracking_event` ADD `id` INT( 11 ) NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST";
+            $sqlForUpdate[] = "ALTER TABLE `" . $tbl_mdb_names['tracking_event'] . "`  ORDER BY `date`";
+            $sqlForUpdate[] = "ALTER TABLE `" . $tbl_mdb_names['tracking_event'] . "` ADD `id` INT( 11 ) NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST";
             
             if ( upgrade_apply_sql( $sqlForUpdate ) ) $step = set_upgrade_status( $tool, $step+1 );
             else return $step ;
             
         case 5 : 
             //drop deprecated tracking tables
-            $sqlForUpdate[] = "DROP TABLE IF EXISTS `" . get_conf( 'mainTblPrefix' ) . "track_e_open`";
-            $sqlForUpdate[] = "DROP TABLE IF EXISTS `" . get_conf( 'mainTblPrefix' ) . "track_e_login`";
+            $sqlForUpdate[] = "DROP TABLE IF EXISTS `" . get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . "track_e_open`";
+            $sqlForUpdate[] = "DROP TABLE IF EXISTS `" . get_conf('statsDbName') . '`.`' . get_conf('statsTblPrefix') . "track_e_login`";
             // we should probably keep this table as it may be usefull for history purpose.  By the way it is not used in
             // any tracking interface.
             //$sqlForUpdate[] = "DROP TABLE IF EXISTS `" . get_conf( 'mainTblPrefix' ) . "track_e_default`";

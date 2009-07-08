@@ -336,13 +336,21 @@ else // LOGIN SUCCEEDED
     }
     elseif ( claro_is_in_a_course() )
     {
-        claro_redirect(get_path('coursesRepositoryWeb') . '/' . claro_get_course_path());
+        // claro_redirect(get_path('coursesRepositoryWeb') . '/' . claro_get_course_path());
+        if ( get_conf('claro_secureLogin', false) )
+        {
+            claro_redirect('http://'.$_SERVER['HTTP_HOST'].get_path('clarolineRepositoryWeb').'claroline/course?cid='.claro_get_current_course_id());
+        }
+        else
+        {
+            claro_redirect(get_path('clarolineRepositoryWeb').'claroline/course?cid='.claro_get_current_course_id());
+        }
     }
     else
     {
         if ( get_conf('claro_secureLogin', false) )
         {
-            claro_redirect( 'http://' . $_SERVER['HTTP_HOST'] . get_path('clarolineRepositoryWeb'));
+            claro_redirect('http://'.$_SERVER['HTTP_HOST'].get_path('clarolineRepositoryWeb'));
         }
         else
         {
