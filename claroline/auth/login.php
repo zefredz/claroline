@@ -22,7 +22,11 @@ require '../inc/claro_init_global.inc.php';
  * if the authentication succeeds
  */
 
-if ( isset( $_REQUEST['sourceUrl'] ) )
+if ( isset($_REQUEST['fromPortal']) && $_REQUEST['fromPortal'] == 'true' && !isset($_REQUEST['sourceUrl']) )
+{
+    $sourceUrl = null;
+}
+elseif ( isset( $_REQUEST['sourceUrl'] ) )
 {
     if ( strstr( base64_decode( $_REQUEST['sourceUrl'] ), 'logout=true' ) )
     {
@@ -320,6 +324,7 @@ else // LOGIN SUCCEEDED
     elseif( isset($sourceUrl) ) // send back the user to the script authentication trigger
     {
         $sourceUrl = base64_decode($sourceUrl);
+        
         if (isset($_REQUEST['sourceCid']) )
         {
             $sourceUrl .= ( strstr( $sourceUrl, '?' ) ? '&' : '?')
@@ -330,6 +335,11 @@ else // LOGIN SUCCEEDED
         {
             $sourceUrl .= ( strstr( $sourceUrl, '?' ) ? '&' : '?')
                        .  'gidReq=' . $_REQUEST['sourceGid'];
+        }
+        
+        if ( !preg_match('/^http/', $sourceUrl) && get_conf('claro_secureLogin', false) )
+        {
+            $sourceUrl = 'http://'.$_SERVER['HTTP_HOST'].$sourceUrl;
         }
 
         claro_redirect($sourceUrl);
