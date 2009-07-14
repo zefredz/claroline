@@ -78,14 +78,35 @@ ClaroBreadCrumbs::getInstance()->setCurrent( $nameTools, './track_exercises.php?
 if( get_conf('is_trackingEnabled') && isset($_REQUEST['exportCsv']) )
 {
     require_once( dirname(__FILE__) . '/lib/export_tracking.class.php');
-
+    
     // contruction of XML flow
-    $csv = export_exercise_tracking($exId);
-
+    switch ( $_REQUEST[ 'exportCsv' ] )
+    {
+        case 1 :
+            $csv = export_exercise_tracking( $exId );
+            $csvFileName = 'exercise_'. $exId;
+            break;
+        
+        case 2 :
+            $exoExport = new ExoExportByUser( $exId );
+            $csv = $exoExport->buildCsv();
+            $csvFileName = 'exercise_'. $exId.'_results_by_user';
+            break;
+        
+        case 3 :
+            $exoExport = new ExoExportByQuestion( $exId );
+            $csv = $exoExport->buildCsv();
+            $csvFileName = 'exercise_'. $exId.'_results_by_question';
+            break;
+        
+        default :
+            throw new Exception( 'Invalid parameter' );
+    }
+    
     if( isset($csv) )
     {
         header("Content-type: application/csv");
-        header('Content-Disposition: attachment; filename="exercise_'. $exId . '.csv"');
+        header('Content-Disposition: attachment; filename="'. $csvFileName . '.csv"');
         echo $csv;
         exit;
     }
@@ -123,7 +144,7 @@ if ( get_conf('is_trackingEnabled') )
     }
     else
     {
-        // round average number for a beautifuler display
+        // round average number for a better display
         $exo_scores_details['average'] = (round($exo_scores_details['average']*100)/100);
     }
 
@@ -143,9 +164,13 @@ if ( get_conf('is_trackingEnabled') )
     .'<li>'.get_lang('Total attempts').' : '.$exo_scores_details['tusers'].'</li>'."\n"
     .'</ul>'."\n\n";
 
-    $out .= '<ul>'."\n"
-    .'<li><a href="'.$_SERVER['PHP_SELF'].'?exportCsv=1&exId='.$exId.'">'.get_lang('Get tracking data in a CSV file').'</a></li>'."\n"
-    .'</ul>'."\n\n";
+    if ( claro_is_platform_admin() )
+    {
+        $out .= '<ul>'."\n"
+                .'<li><a href="'.$_SERVER['PHP_SELF'].htmlspecialchars('?exportCsv=1&exId=').$exId.'">'.get_lang('Get tracking data in a CSV file').'</a></li>'."\n"
+                .'</ul>'."\n\n";
+    }
+    
 
     //-- display details : USERS VIEW
     $sql = "SELECT `U`.`nom`, `U`.`prenom`, `U`.`user_id`,
@@ -171,9 +196,10 @@ if ( get_conf('is_trackingEnabled') )
 
     $exo_users_details = claro_sql_query_fetch_all($sql);
 
-    $out .= '<p><b>'.get_lang('Statistics by user').'</b></p>'."\n";
+    $out .= '<p><b>'.get_lang('Statistics by user').'</b>&nbsp;'.
+            '<a href="'.$_SERVER['PHP_SELF'].htmlspecialchars('?exportCsv=2&exId=').$exId.'">['.get_lang('Export').']</a></p>'."\n";
     // display tab header
-    $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'."\n\n"
+    $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'."\n\n".'<thead>'."\n"
         .'<tr class="headerX" align="center" valign="top">'."\n"
         .'<th>'.get_lang('Student').'</th>'."\n"
         .'<th>'.get_lang('Worst score').'</th>'."\n"
@@ -181,7 +207,7 @@ if ( get_conf('is_trackingEnabled') )
         .'<th>'.get_lang('Average score').'</th>'."\n"
         .'<th>'.get_lang('Attempts').'</th>'."\n"
         .'<th>'.get_lang('Average Time').'</th>'."\n"
-          .'</tr>'."\n\n"
+          .'</tr>'."\n".'</thead>'."\n\n"
           .'<tbody>'."\n\n";
 
     // display tab content
@@ -230,15 +256,16 @@ if ( get_conf('is_trackingEnabled') )
 
     $exo_questions_details = claro_sql_query_fetch_all($sql);
 
-    $out .= '<p><b>'.get_lang('Statistics by question').'</b></p>'."\n";
+    $out .= '<p><b>'.get_lang('Statistics by question').'</b>&nbsp;'."\n".
+            '<a href="'.$_SERVER['PHP_SELF'].htmlspecialchars('?exportCsv=3&exId=').$exId.'">['.get_lang('Export').']</a></p>'."\n";
     // display tab header
-    $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'."\n"
+    $out .= '<table class="claroTable emphaseLine" width="100%" border="0" cellspacing="2">'."\n".'<thead>'."\n"
         .'<tr class="headerX" align="center" valign="top">'."\n"
         .'<th>'.get_lang('Question title').'</th>'."\n"
         .'<th>'.get_lang('Worst score').'</th>'."\n"
         .'<th>'.get_lang('Best score').'</th>'."\n"
         .'<th>'.get_lang('Average score').'</th>'."\n"
-          .'</tr>'."\n\n"
+          .'</tr>'."\n".'</thead>'."\n\n"
           .'<tbody>'."\n\n";
     // display tab content
     foreach ( $exo_questions_details as $exo_questions_detail )
@@ -249,7 +276,7 @@ if ( get_conf('is_trackingEnabled') )
             $exo_questions_detail['maximum'] = 0;
         }
         $out .=      '<tr>'."\n"
-                  .'<td><a href="track_questions.php?question_id='.$exo_questions_detail['id'].'&exId='.$exId.$src.'">'.$exo_questions_detail['title'].'</a></td>'."\n"
+                  .'<td><a href="track_questions.php?question_id='.$exo_questions_detail['id'].htmlspecialchars('&exId=').$exId.$src.'">'.$exo_questions_detail['title'].'</a></td>'."\n"
                   .'<td>'.$exo_questions_detail['minimum'].'/'.$exo_questions_detail['grade'].'</td>'."\n"
                   .'<td>'.$exo_questions_detail['maximum'].'/'.$exo_questions_detail['grade'].'</td>'."\n"
                   .'<td>'.(round($exo_questions_detail['average']*100)/100).'/'.$exo_questions_detail['grade'].'</td>'."\n"
